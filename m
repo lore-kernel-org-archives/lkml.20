@@ -1,52 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.2
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793431492;
-	b=VzaSVC7cyhZk4P7X0ood8C+99d1uor3sqdPuzavIGh/Af4GR7r7uaBwz0FMBUDCiwH+y
-	 bA6mcP7Z+po1dSDEPakSEztcYWV19HUPHfBdumQoCBl3g0dLGm00BNbbktYqgEo4j/eYN
-	 e6OfKYNLA+9kkbCJS05OQGMIRWbM3EvvhhWlQIdi1VzkoktpeyCMZW6pllPw08E9Ix1Xh
-	 TtCr2zsdKAbWG/Ua6Xqzw2Q78yzMeHqwjaHAdMlYOMZW61DhYRsXX8C3XnO+sf6+P3m0S
-	 Y4YK1uaZeNf+YZDQUX/jPvu9RwLtB0XMPeYUw3OT9Jvldx9GzWaIuiHE0am481qixJA==
+	t=1793431498;
+	b=F89eU9R1XmJkIDwQL+obh0GmpFYGvkB0wipNRH2XkLaxYOzxA0PH6QBtsXRlegg3146X
+	 zYW5OgK4VEmsG3KeyYI3afc9PScwLOeNBWgtj5jINJ/eKhYB+HqhE8rQ+R+vQpFdTTI60
+	 g4DlIi3LSd78hR3U7IM25VQ+fHPxZEEntSOtEI/NUTkahIgPUJMcrPRq+Zg1AjhMX0lQL
+	 iTw8yqDFJIlgPki2zTktLAYIuwL14G6urhvaehlKoizBqmSCwiSVRkwCWzYjZIAGnBv86
+	 bokGAq8rxocALGWjUFmfoDr2bqOtEQkV2iuEJSmcP9B0WRPCknqtyfwCkOtsG9g1iEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793431492;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793431498;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=pDYqqEopyt8zcxeBTCH6ZfPoZpWfEJKYIF2XXnrJihM=;
-	b=drSYQ8bEfIZvwlORlBpkTUrCawc1Oh3R4hsDAjUjG+XwDIHeDwbYbIILIOZT1YzqA2+a
-	 Cqqsqzhus09JBM5Ix4/g0uJTimsC+Ge+lEzlM7Nq35Lqv7+Hmbi5k8KW5MEHOOiAm++60
-	 NUSWSsKH7qARnwvoXOYKuvRNioFstr+UThcj5vr3QsCNYV3vhw7gkoaATY9UDrmT2qMfa
-	 gsVtBekCM5xM5co58YvxzKtm31e76YLtXY4b73/ILcecU2YtdSgBR4khmTyrN/G4xa3WU
-	 3tZyy7vAG4ST3+9iEbWKifkPyuk2b+V37pRrZ0qSnMk0VmbBa+SafOnGNd6G655tyIA==
+	bh=Am0XCqJdknwv+Tg0Bg5zcmie7KYc5tRx+M/gUdathM4=;
+	b=W2qYMyQAa5jxsqP50cINyQtHoOlh0v9Agw+EJiNPDFgTe9YWHviukA/QkN6JfZoimtYO
+	 FlsWSSsgCfJ1ct/sFWQj8ciW+EQar4fUT1JqoeT0PgvYbf+sB4IGw0AewZzou04CEesOs
+	 AHDiBBywPey3XPgDU6fDMepKzuEjNuLrYCw9KQA2wR2MhHHbtHlxixYNMs7RfRrag31aD
+	 ltQxMqWoNjorcQVt2ZZgTQnMDlAqvycx+5/Q8qJsbPZ8O/zgIjuaWVEp3ZhKBAbkiBVNE
+	 1JCCVEPPdCIJxh+095/WlvOniL4h7qEGNg9KY8pGEBlBJ0Bk6YY74e6WgrCr9waPi+g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=163.com;
 	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PGzsnuOv;
-	arc=none smtp.remote-ip=117.135.210.2
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kqGgkzax;
+	arc=none smtp.remote-ip=117.135.210.3
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.3])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52ECD606A31F;
-	Sat, 31 Oct 2026 07:24:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52ECD606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE38D606A33A;
+	Sat, 31 Oct 2026 07:24:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE38D606A33A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=PGzsnuOv
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kqGgkzax
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version:
-	Content-Type:To; bh=pDYqqEopyt8zcxeBTCH6ZfPoZpWfEJKYIF2XXnrJihM=;
-	b=PGzsnuOvsGFmg/fxlZyS4gDZJs6fYY9k8vX/nmC0slHpdF3ri28lIX0MYEmVoS
-	TlgYuw38O3MsZZKmkgbI8iY1OEiGMiSj/icaJwgVsm1MB/YlKjJJRGv7atHo7/qK
-	Tj261xwrpRqhdeCf11G4nsiz5EEedLlbaAElzegxtP43w=
+	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
+	Message-Id:To; bh=Am0XCqJdknwv+Tg0Bg5zcmie7KYc5tRx+M/gUdathM4=;
+	b=kqGgkzax5VHLw7skDo/ZE2FUCQBN91ZnRnm9J4arskjIFVAlsT+0daLoRqx08R
+	BRX2saYQnwrmT0gB6whCXzFwaY3R7/JpDMja+moBDNOz4mTkA0+gyinJl9nbPCbF
+	BM9MBdJ7AnOpPvwdNPbDUo7TE3UAJBDd6p8fVgZy2gb9U=
 Received: from 4F-GAME.localdomain (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgAHuqGjl+Vq5JN6DA--.11355S2;
-	Sat, 31 Oct 2026 15:24:20 +0800 (CST)
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgAHuqGjl+Vq5JN6DA--.11355S4;
+	Sat, 31 Oct 2026 15:24:21 +0800 (CST)
 From: Bob Hui <bg9oxa@163.com>
-Subject: [PATCH v2 0/2] ASoC: es8328: enable capture on the ES8388
-Date: Sat, 31 Oct 2026 15:24:13 +0800
-Message-Id: <20261031-es8328-vol-init-v2-0-d15b04c22f4f@163.com>
+Date: Sat, 31 Oct 2026 15:24:15 +0800
+Subject: [PATCH v2 2/2] ASoC: es8328: set SLRCK for the ES8388
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,84 +57,85 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJ2X5WoC/3WNyw6CMBBFf4XM2jF0wPJY+R+GBbSDjFFqWmw0h
- H8XcO3yJOeeO0NgLxygTmbwHCWIG1egQwJmaMcro9iVgVLSKqUcOZQZlRjdHWWUCXV7IqOKsiq
- MhXX19NzLey9emh+HV3djM22ZzRgkTM5/9suoNu9/PSpMkfvOUm650ll1Vjo7GveAZlmWL5XnA
- /C+AAAA
-X-Change-ID: 20261024-es8328-vol-init-6a52c17897cd
+Message-Id: <20261031-es8328-vol-init-v2-2-d15b04c22f4f@163.com>
+References: <20261031-es8328-vol-init-v2-0-d15b04c22f4f@163.com>
+In-Reply-To: <20261031-es8328-vol-init-v2-0-d15b04c22f4f@163.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
  Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
 Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Bob Hui <bg9oxa@163.com>
 X-Mailer: b4 0.15.2
-X-CM-TRANSID:QCgvCgAHuqGjl+Vq5JN6DA--.11355S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxur48AF45Wr1Duw18KF4fGrg_yoW5Ww4rpF
-	ZYgFy5KF1kX3y7ArsxAr4jvF9Yk3yfXr43Zryxt34jvw45W34rtFW7KFZ8XF4j9ryFg342
-	9r12q34UuFWDZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_JPErUUUUU=
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3gQjkGrll6QbWgAA3U
+X-CM-TRANSID:QCgvCgAHuqGjl+Vq5JN6DA--.11355S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7urW8AF1UZryUArW5ur13CFg_yoW8KF1kpF
+	s5JFZ8t3WxJayfArs5AayFqFZIkrW7ZFW7Ca17K39xJr1UJw1kZ3ZxAa4YvF9YvryS9a9x
+	GF17t348WF1rGrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pKYLyiUUUUU=
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3gUjkGrll6UbYAAA3u
 
-This series fixes capture on boards built around the ES8388.  That part
-shares the driver with the ES8328, and the two differ in eleven power-on
-register values and in the meaning of bit 7 of DAC Control 21, so the
-driver has to know which part it is talking to before it can set either
-of them up.
+The ES8388 has a single LRCK pin, so the DAC and the ADC have to take
+their frame clock from that one pin.  With SLRCK clear, which is the
+power-on default, the capture path never gets a frame clock and records
+digital silence while playback keeps working, so boards look like they
+have a dead microphone.
 
-Changes in v2, from the review of v1:
+Bit 7 of DAC Control 21 is SLRCK on the ES8388 but LD2MO, left DAC to the
+mono mixer, on the ES8328, so only set it for the ES8388, using the
+variant looked up from the match data.
 
-- Reset the codec at probe time through SCP_RESET, so that the register
-  cache describes a state the hardware is actually in.  SCP_RESET is not
-  self-clearing, so the reference and the VMID settings are written back
-  afterwards.
-- Provide one set of power-on defaults per supported part, taken from the
-  ES8328 datasheet Revision 1.0 and the ES8388 datasheet Revision 5.0,
-  sections 6.1.1 to 6.3.30 in both cases.
-- Look the variant up from the match data in the I2C and SPI glue instead
-  of testing the compatible string, so the lookup also works on ACPI
-  systems.  Both i2c_get_match_data() and spi_get_device_match_data()
-  fall back to the legacy id table, and the I2C id table carries the
-  variant as well.  The driver still has no ACPI HID table, as it never
-  had one.
-- Use a define for the SLRCK bit, and drop the of.h include which is no
-  longer needed.
-- Keep the regmap configuration indentation consistent.
-
-The variant plumbing lives in patch 1 because the defaults have to be
-chosen when the regmap is created, which happens in the bus glue before
-the component is probed; patch 2 uses the same variant to decide whether
-SLRCK applies.  Boards with an ES8328 keep the same register values as
-before; the only change for them is the reset at probe time.
-
-One observation from bringing this up: this silicon is not fully
-readable.  Registers 0x28 and 0x29 read back as their power-on value
-regardless of what is written, and bit 7 of register 0x01 is not
-implemented, so writing 0xc0 reads back as 0x40.  That is one more reason
-to treat the register cache as the record of what the driver programmed
-rather than reading the state back.
-
-Testing: on a QuarkPi-CA2 (RK3588S, ES8388) running v7.3, playback works
-and capture goes from digital silence to working audio.  A register the
-driver never writes was modified before a warm reboot and comes back at
-its reset value once the driver probes, which shows that the reset and not
-a power cycle restores the state.
+Tested on a QuarkPi-CA2 (RK3588S, ES8388): capture goes from digital
+silence to working audio.
 
 Assisted-by: Hermes:deepseek-v4-flash
 Signed-off-by: Bob Hui <bg9oxa@163.com>
 ---
-Bob Hui (2):
-      ASoC: es8328: reset the codec at probe time
-      ASoC: es8328: set SLRCK for the ES8388
+ sound/soc/codecs/es8328.c | 17 +++++++++++++++++
+ sound/soc/codecs/es8328.h |  2 ++
+ 2 files changed, 19 insertions(+)
 
- sound/soc/codecs/es8328-i2c.c |  18 ++--
- sound/soc/codecs/es8328-spi.c |  11 ++-
- sound/soc/codecs/es8328.c     | 192 ++++++++++++++++++++++++++++++++++++++++--
- sound/soc/codecs/es8328.h     |  11 ++-
- 4 files changed, 215 insertions(+), 17 deletions(-)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261024-es8328-vol-init-6a52c17897cd
+diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
+index f04e310262e7..3d9a1fe1b9a0 100644
+--- a/sound/soc/codecs/es8328.c
++++ b/sound/soc/codecs/es8328.c
+@@ -861,8 +861,25 @@ static int es8328_component_probe(struct snd_soc_component *component)
+ 		goto clk_fail;
+ 	}
+ 
++	/*
++	 * The ES8388 has a single LRCK pin, so the DAC and the ADC must
++	 * share it: without SLRCK the capture path never gets a frame
++	 * clock and records digital silence while playback still works.
++	 * Bit 7 of DAC Control 21 is SLRCK on the ES8388 and LD2MO (left
++	 * DAC to the mono mixer) on the ES8328.
++	 */
++	if (es8328->type == ES8328_TYPE_ES8388) {
++		ret = snd_soc_component_write(component, ES8328_DACCONTROL21,
++					      ES8328_DACCONTROL21_SLRCK);
++		if (ret)
++			goto err_slrck;
++	}
++
+ 	return 0;
+ 
++err_slrck:
++	clk_disable_unprepare(es8328->clk);
++
+ clk_fail:
+ 	regulator_bulk_disable(ARRAY_SIZE(es8328->supplies),
+ 			       es8328->supplies);
+diff --git a/sound/soc/codecs/es8328.h b/sound/soc/codecs/es8328.h
+index e98328b29aef..4ac49825c355 100644
+--- a/sound/soc/codecs/es8328.h
++++ b/sound/soc/codecs/es8328.h
+@@ -232,6 +232,8 @@ int es8328_probe(struct device *dev, struct regmap *regmap,
+ #define ES8328_DACCONTROL21_LI2MOVOL (7 << 3)
+ #define ES8328_DACCONTROL21_LI2MO (1 << 6)
+ #define ES8328_DACCONTROL21_LD2MO (1 << 7)
++/* Bit 7 is SLRCK on the ES8388 and LD2MO on the ES8328 */
++#define ES8328_DACCONTROL21_SLRCK (1 << 7)
+ 
+ #define ES8328_DACCONTROL22	0x2c
+ #define ES8328_DACCONTROL22_RI2MOVOL (7 << 3)
 
-Best regards,
---  
-Bob Hui <bg9oxa@163.com>
+-- 
+2.34.1
 
