@@ -1,101 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793464679;
-	b=NzEPAXWlLIAK/dUoOM8BElF0kzeM53EUgzkTdkr2OMIRhFZw0Cyo8j0/DQcDoogde1HJ
-	 Vl1LAo6REPAfMf1IFim17gGCBVkwIKgh63nu6sLe5GrWWTYCcYnOlIJPywbCVXb3qzP8v
-	 stwlV8sqjBOUgdVZc6Z1PQ8lw8pqA5Wm8XZuL5RselhTwNPGoXBRfsO4SIIAabT7bjPmN
-	 Cmj4yos/UQQ6z7XinzyxFiWU58mBaiI6YZE8qA+jeaz/K31Lndjok57HAfpWdGsAeXxPW
-	 6ATxfbyD+ZIycqYnW2YWnLh0DYOdk3GHqXoUKayJGCMNF42xB1APyom/2tzP+XONukw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793464679;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
-	b=2/8SGoZxalhqP0vMsrSs+Me7/0e5S2odBgJlRhX801r2n2Jx0ekiIKiqEpZISEH0MOB0
-	 N+oWPWM1xUiKtQUwlUQR6PnjrhfABi9twwuIISSJlCAf7G9vFAvywub/FhldaiFIKG8qB
-	 WM3yCC30ETFiIChjFJYKpeqGifawIM8j5a+/d0r5ABpDbanfFa24u7U/5e1Dmzrzi98B6
-	 3f5alpnX78GzAakjCc+EnA9VmzG5b3hRsZQvY6xeo+BNmdZj9UKcNHCicym8Y5QCUP7GD
-	 0oqJXyhzlBhQ/KU6PogKNTGPfWfGeob3G+80PzXKlZHHfEsFSFX1nAl8u7IuNHUFflQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aQ66LJVH;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793464975;
+	b=oK9kIuO4981mtHo/mh9UUi7nkivjhPuBp5WRsGdd6I46+GkhhY3tk1iqT9SLjom5IVoO
+	 fG/l3CJ4lMdNhyTtG4bnBhFoSFVFI/XGmevIknQR06pSJ1O/eixuw9wqcWW0b6pL5xxKi
+	 +bQy1C/3YxnAkxsEQmaWmbw1D/se5/IivJ6bwe1+0tbJrRmoLgAQJ28LO0JQFSG1iy/DG
+	 TvUTnTMbfRsMtIAr56qlPkJPGiPvwU0tLf5LW6QIEaCc48MtnOdR7huDm+/kdh2NXmVST
+	 IqYxDjncEyh4Ljnub095yTv1WinLXFyl40AvxiyQwGJR3yuSFnup1VCD0PvhxiBUNTw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793464975;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=J41Y1S2rh3yGXRCAhNBommWpMFq+IhDlxy5NAe+nz38=;
+	b=45QzEYvzWE+svrWIRKiXPcuiesS3+JdGeOQZgify49fD80V4gIzxd6rD5QL+ioS7ZHaK
+	 v7zmZtRp2yc8yL+EthuRoxORhSITJTPXpHL42J7UF5evDOK0ca6enBQxfCs/j08aY6UxV
+	 KWAyru4/oaK5Y2Ehblp0d4PYjC2IiY5rtttG0t6Y/5gv/YMv5Td1tXUrzAwiJ1fB9tgfZ
+	 IkgCFRY/PuIp0wvbPmIt7a97p3tUVjoqIbZAaYLASL0L2yz3EpHIuQNkDA43r7vfGiStN
+	 8cVacpEaQJcgyLWOabntSAM49DxPPNizEfQ+IAPlDcPtWvxgorVg9EnMoC/4ymhSdqg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=maf51kOi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44215606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:37:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44215606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD55606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:42:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aQ66LJVH
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso16652895e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:37:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793464678; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JDSZjZ/VeWpV35FCAZgovLy/BObmKLaYCudFTS9wT1L0Z+0MkB4o1J26oFbD3EShKX
-         7l831A8DrpYt3jhK7xC3+8RnqOFlEp5p+DBMWtnxJZUpGTC+rFlhT8cKjHniT5D7bMOQ
-         vqxg8KPfQa3O26CXZ1b9w2YmmgLU918HVS0pHydSmfXgcaOhGxihWCTCIlyj2CVBkIUO
-         iMSafqKJ1C8+h3ZyMEWPTM/ScB5HhFsNQ7LQ7RlA028S3xHnKUrlACRh3mAIiNuzEUrN
-         cR7i6ZOIUjrDgPi6wJE7QNpqT/TB7VN4OeSWHvBd5J6bW0DBjrQSoxZ/LZCaOwcyz6Vy
-         iOnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
-        fh=9qF4qsn4QC+G7eGNKoCt5sSm8p50ejVwNSuRsp6WsJs=;
-        b=qB+yvLCEcirYh9EhVixc52ZzHbQoT4OEyu7/SvlgD8Kj3lqOJ4Kl4uGcOgHTO4NhEG
-         tz4lJb5XuoMOicWQ+XmACrrf3kiUP1h0eG2SsH4R0RN3qD3QXMd00LykKMTEQlO1U7XS
-         FB/pLZG1q3mRGMu2CSoF624/bv1hPemOdpf+foWkO567T3Y0QZEuWviYyp5fQ2eBSNKu
-         UMUoydFHbM8Y1UjN/+9s85SPo8OCANGuUdCshL0MwT9I8MgQi8MIJiZ60ZukAbvaL9jh
-         YDTAIeitT0nO1jxoVEGpr9sjIf8LmgyVVEV6bld5MHxvYaAmUGxBCZ/vW7uonENd9S2m
-         OnwQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=maf51kOi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6831F000C1;
+	Sat, 31 Oct 2026 16:42:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793464678; x=1794069478; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
-        b=aQ66LJVHa45dKPfND15WpLhtZXSP12gQFKUFRmdpv04UfYxD5t4mm6VdojacX3Hdsc
-         K3xS/9zxTc4kVjl/GEH6AxRamuHawPi2K0lLvuI7n8G6DXqMVteNa87oDeqgfU/I+qli
-         BSRrus5eNIJgPMK1Jqp6aqBICcoeVNg080NS7sQw5I1tdob/d0ZU8SXalXfzYTJgHb7j
-         x1hRdVLyWIQdHWJuWnUbGiksokchNqXDXb2DsK8+HIKAZJ4WqG/n72U7joGmKwfhBGxy
-         vOexyE/+Ueb5ayaK/D+P2oG5vWGh+4ixhsoKvNpSbJaNiu39wWsaWfxaqzvbpJUb/845
-         L27A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793464678; x=1794069478;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
-        b=prgEFfJql3AXMD4I7isBHIPvPOo9VBfFogCTnhy13m5CmkUlYiaqzX0Y2jcBQ//Wzl
-         aIKuM7FUnkAsS6DB/EJysyq0tDxYigDQn45Igbj9RV1i+hT0HfcYdneHVY1jyw5300xj
-         ds/ZpSDhn6gHWBLAaJQYNZIGTH3QLNJyu80NCejqwmjG0ToNm5AgusC++rx5m/jHJNjR
-         juOicsuwvWT7oVo3h++0NAsBuJ1nktNvsUpukYBH8WF9XkunYRsfF8iAix0wqPFrrPDn
-         rdmVl89RO8wxSAkHmYeXlt3NsP+asi7A9UTDJOF1rl/5XkJHkjpKE/hb6vd+Njk1RuPu
-         6m+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxMDuSOoKO31PXWYYFywuTWTalIN7+BSSooDNAzKtRiR24EofgbInN0Rl9jKDsr6sVXcAf+3N/A6TfgmN4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIy6ZwWjxxc4UXLk2270Vnbz21ZufMq9WYBsemgh8YRD7cVLpaj
-	ZCgSV2BaL0+RZ0GDNzF0BzFJpCyNKcwxUNhsCMxjHIBfODnqCHd8uleD7djVfTln799fpRWXPnn
-	KA5QQ6Tl+e9ymeb/DRsq8c7hASUEcSOjOa4DGUOzb
-X-Gm-Gg: AYBFou3uNTiasJwz7kEHwV6R3iQRCZrO9MeX05nqC/vp6BxQyEwsvrJRbNhJyjAsKTA
-	zOUTghlfaAdvio1mIDy+lRqNYB9+lth1oM2ruAuJ96XE3q3v6cInIS23L2fwvqmsjVgEJVFxtZB
-	zUairWdav4NkI+AHoq+WPiu4mhK4Psawtsr/6BOND/VlF8AbtFgMEfXgyyW3t23amMKkBt6E+CT
-	+Rj134yQpLBwrn542E5+bs3Lk/JxN6wwjrc9BwC3ce0/OD4H9KqKNd/g5zCq3KZVX7/LZgJZANB
-	TkzaZCXEr38ZZDrlCadOolw747Lg9tMz+L1XHrwNPh7jWEaXDN9tpUWIt+RVX30gisUjk2GxE5U
-	MIkB8C84RSxVbmc+FnQXO9eC61xZDdKV/siXvv9wQ+wBXNaAcA4Wvyr0gZXkLL33yVBB9cVGzWa
-	DAqtmMjq2+gweE7vi04A==
-X-Received: by 2002:a05:600c:4e90:b0:4a2:526b:d410 with SMTP id
- 5b1f17b1804b1-4ac17565fafmr135441625e9.13.1793464677281; Sat, 31 Oct 2026
- 09:37:57 -0700 (PDT)
+	d=linux-foundation.org; s=korg; t=1793464974;
+	bh=J41Y1S2rh3yGXRCAhNBommWpMFq+IhDlxy5NAe+nz38=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=maf51kOi2GfeExT2mteFp7wbRm1Pbs4NPJ8LE3EJWN7TJAxJ+lFNA8GrTaJtq2Ssf
+	 BOvgg2MqoNiY2Lxsx0H23hLjEqLlDS6PB328E6JD3yfPOJYCuZISy3EUG6x1BN4b11
+	 alPh9jtkf+21MD4RjaM/0HgJ4mZ1YCQxzeKaFHCo=
+Date: Sat, 31 Oct 2026 09:42:53 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Qi Xi <xiqi5703@163.com>, linux-mm@kvack.org, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
+ <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
+ Popple <apopple@nvidia.com>, Qiliang Yuan <odys.yuan@gmail.com>,
+ linux-kernel@vger.kernel.org, wangkefeng.wang@huawei.com,
+ sunnanyong@huawei.com, xiqi2@huawei.com
+Subject: Re: [PATCH] mm/migrate: fix softlockup in do_pages_stat() with huge
+ page arrays
+Message-Id: <20261031094253.d28f484e7e27de469cfa76d2@linux-foundation.org>
+In-Reply-To: <76579248-64db-47bf-b8d0-4eb3ca556f5a@kernel.org>
+References: <20261031033330.3416326-1-xiqi5703@163.com>
+	<76579248-64db-47bf-b8d0-4eb3ca556f5a@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,57 +62,66 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <27b58e47-723b-4d67-a1f0-ccb8b0ae66a9@kernel.dk>
- <20261031152846.746656-1-sashal@kernel.org> <CAH5fLgiSOae48jr65rv6ynLWUhT7xVCjjCEK=9oKXvSxKpdq6g@mail.gmail.com>
- <20261031162931.792607-1-sashal@kernel.org>
-In-Reply-To: <20261031162931.792607-1-sashal@kernel.org>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Sat, 31 Oct 2026 17:37:44 +0100
-X-Gm-Features: AclHuK9n1IaeEszr_jQNYJo2v2No4a1cdwGVbESZzGLJe-RbL495VHIWXOSenUA
-Message-ID: <CAH5fLgjpB1-hCkUhsFK7bEVYwz-N-obsoPoaCYA-BWMQ5MPTnQ@mail.gmail.com>
-Subject: Re: [PATCH] rust: bindings: derive Zeroable for bindgen's opaque
- array wrappers
-To: Sasha Levin <sashal@kernel.org>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
-	Linus Torvalds <torvalds@linux-foundation.org>, Josef Bacik <josef@toxicpanda.com>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, rust-for-linux@vger.kernel.org, 
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 31, 2026 at 5:29=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
-te:
->
-> On Sat, Oct 31, 2026 at 05:17:46PM +0100, Alice Ryhl wrote:
-> >Is it possible to instead fix this by adding the impl of Zeroable in
-> >rust/bindings/lib.rs, similar to this piece of code that we already
-> >have:
-> >
-> >unsafe impl<Storage> Zeroable for __BindgenBitfieldUnit<Storage> where
-> >Storage: Zeroable {}
->
-> I looked at doing it that way, but the wrapper types don't always exist,
-> so a fixed impl in lib.rs won't build everywhere:
->
->  - bindgen 0.71 and 0.72 (we still support 0.71.1) don't generate them
->    at all, the blob is a plain array there.
->
->  - 0.73 only emits the alignments a config actually needs. On x86_64,
->    allmodconfig gets __BindgenOpaqueArray, __BindgenOpaqueArray8,
->    __BindgenOpaqueArray64 and __BindgenOpaqueArray4096, but defconfig
->    with Rust enabled has no __BindgenOpaqueArray4096, so an impl for it
->    would break the build there.
->
-> __BindgenBitfieldUnit works because it's always generated. We could do it
-> in lib.rs with a Kconfig symbol for the bindgen version plus some way to
-> know which alignments a config ends up with, but tagging the wrappers
-> right after bindgen runs seemed simpler.
+On Sat, 31 Oct 2026 11:52:30 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
 
-Fair enough!
+> On 10/31/26 04:33, Qi Xi wrote:
+> > From: Qi Xi <xiqi2@huawei.com>
+> > 
+> > do_pages_stat() walks the user page array in 16-page chunks but never
+> > reschedules, so a huge nr_pages can hold a CPU past the watchdog
+> > threshold on non-preemptible kernels. Add cond_resched() to the loop so
+> > long move_pages() node-query calls yield periodically.
+> > 
+> > With KASAN and function tracing enabled, a move_pages() node query
+> > (nodes == NULL) over 10 million page entries (~40GB) can trigger the
+> > softlockup on a PREEMPT_NONE kernel.
+> > 
+> > Fixes: 80bba1290ab5 ("mm: no get_user/put_user while holding mmap_sem in do_pages_stat?")
+> > Signed-off-by: Qi Xi <xiqi2@huawei.com>
+> > ---
+> >  mm/migrate.c | 1 +
+> >  1 file changed, 1 insertion(+)
+> > 
+> > diff --git a/mm/migrate.c b/mm/migrate.c
+> > index 7bdcdb57652f..6c2371020cc5 100644
+> > --- a/mm/migrate.c
+> > +++ b/mm/migrate.c
+> > @@ -2545,6 +2545,7 @@ static int do_pages_stat(struct mm_struct *mm, unsigned long nr_pages,
+> >  
+> >  		chunk_offset += chunk_nr;
+> >  		nr_pages -= chunk_nr;
+> > +		cond_resched();
+> >  	}
+> >  	return nr_pages ? -EFAULT : 0;
+> >  }
+> 
+> I though we wanted to stop throwing in cond_resched() at this point?
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+It's almost unneeded in current mainline kernels.  PREEMPT_NONE can
+still be selected by
+
+	All supported Alpha configurations
+
+	All supported Hexagon configurations
+
+	Non-ColdFire configurations (classic m68k)
+
+However 99% of the world are on 5.x and 6.x kernels and many of those
+machines use PREEMPT_NONE.
+
+
+IOW, cond_resched() is not really needed in mainline, needed in
+-stable.
+
+
+I think simply merging the thing with cc:stable is the simplest and
+most reliable way of getting those older kernels fixed up.  mm/ already
+has >200 cond_resched/need_resched so a few more won't matter.
+
+Presumably the day will come when we remove all those scheduling
+points, after which people will have to work directly with the -stable
+maintainers to get these things fixed up.
