@@ -1,79 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.9
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793457705;
-	b=Eigc4pGxSYX6binmvrLhOc56Rrv4hxOWmNDHgsTfsPc+7rKf95WIcbar7dJZXvS4o29w
-	 YEw2Bylk1wAlgWCw71ezR6vL4tphg46JutwNkt1wInXjuSKfrE816ksbvjN/i689qccd8
-	 8UeFvkvHtWRMeg3uXgXk/MlyHnsJavhKtE9QuWEpcTb/8pMIYyq4EZ6qiqhgzwEw8tj0g
-	 IY40/RADsls5vMReznngjaM07to8VDBHffao2VOtTnwDRqx+qa99QpO666aOwTRl3Vofs
-	 bYMJDDInDjHU8LQPxYNVpVF7wWnyD9/peltlvWun7f0/8vv01VoxifoEprLjzJ1y28Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793457705;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:Organization;
-	bh=qMiezCVPRvfmEAcVXWIKedu9PC/DGE1ePhNgy9uq5x0=;
-	b=BDfWvfn46R6TI7EiafU1uSktD0bPhcj+ftjD76YYop1+sr2KL3D6g9FVzoBQvuChZ44s
-	 yGVzgZ9UYp6+wWBvqNIkigGII+9xONk7w/JlNsvbyqPjexmaYoE8FMKP+cpXASxf8oJ2d
-	 U0yOnrVgDZ7W13RQXmVYukIYTlJHbj9wIssXsC0qcyvnaIsK93rgfwYgxLp30SnnJI28I
-	 QgPJBN3QA9ccrvKwFQhykaXn4kvHD28VprBonFNtHftWD7Oy59YVsyNqLGm4AfHh3DBjK
-	 d7phBPBT8QMsotqQtLyQs/ALVHK8XI2W6eAfmIXkvSKu3y6lSXOipnTrRquOsv1gIRQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nJS4ZTDL;
-	arc=none smtp.remote-ip=198.175.65.9
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793457715;
+	b=Y8haRWfozB3nBrpvkZwBsyKFwfyfn3bCGcrUTDmhpscEi8NajC6s3Kw37OcqtgwxiyOa
+	 qdQ4eRSgPoU6NyI6XnehmmcVvri8Z03zQbugNWQapebmhzemG166kY00Bw0dMzO/VBoR8
+	 ubnRNfpJi+m7Vx4eEvx7tOOfyU7gJbY+eehuCVoBT0novjnz/9MYlyCeCfLfXmSDostU8
+	 JX3I8L8w3wNxtfhUtx+z6o2H85mZKVQSDpzxC0GOCZc6Y2CxNQ1mpbMOBTiF0pHoHgERQ
+	 Xo9R6CgC07b/z8TR6ithRbvMzwxHyUWmv5K8taQMG40DgJAnUdS16thU/8aBRTzo2VQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793457715;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=L/O79hPA2Yqud37jW9/SvFoY0OMTqyhVxweA9lUGqFk=;
+	b=optJWvzAtAUIDufDPhv/5pK29TU8CQREXd8teGIQ9fzSJmnvqydJnVlhs//gvl81MXrG
+	 ZLR3LOFZC0Ug9bdwlTXU6EzcnmF4yiP+DVTgZagUuBzBZ+0Ydm7anHoYLYs8A2m86mNqN
+	 nr/XXHC304BbFl5uWuQeWBzhQJ7QZ4fvcvzFNsY1sH/HkgMzRXrncNRfGIZ3ZCpGmYRyY
+	 ph7VjKNTNf53w+3r+yyY/uFSnVO779pHX0ZWtQ5i5LAb6tklRNW+VX9Gt06dKpe/0Ln3w
+	 kumSqcJvjfmwniHYRXxrVz59p14/8aq59E6wyIE55ZQ9zNgq5EAOZZk3GP2L/8NE1EQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="V67GgXN/";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.52
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010052.outbound.protection.outlook.com [52.101.85.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D58F606A31C;
-	Sat, 31 Oct 2026 14:41:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D58F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44173606A31D;
+	Sat, 31 Oct 2026 14:41:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44173606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nJS4ZTDL
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793457704; x=1824993704;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xFSfPWA9RT3drrfXpaWPsgnK3xaYD29USKn5rSBjZpc=;
-  b=nJS4ZTDLIKFnRH9fi8UVN7WYrwgCEQSE3DxEx342bSOO4EX3UhT3tl3u
-   NjQgTAphNU2go838hXagp8VFvWU7RS76s7cAw0o1UaDBAkNW3B3pLoiwt
-   8YUE2F2Npx+VQmnrjAfAk90rdmKCbgWvYBGMmGaLEK/eITutJ56wHeAF1
-   fSSrfrp15odArEFwitKbU3ALS6kCLQIvK7HdKzcxoKvXTk1j9abj+NNTd
-   vOZJe5BSA1LTylPPPL88ccgvWR30ByTggNzz5kDvKPmPwYi4/J0mBHp9o
-   5SqdzXH5ikf5dCEZfCWVBFQhHdveNnSeXE25I3F0W6/GkihBowBr4uL4e
-   w==;
-X-CSE-ConnectionGUID: LH/WTP9FSNazEzA4xLy/oQ==
-X-CSE-MsgGUID: ++fdntvSQEGauVDCfixI3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2093748"
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="2093748"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 07:41:43 -0700
-X-CSE-ConnectionGUID: OTKt/FKUT2q7bd+ZmrxpQw==
-X-CSE-MsgGUID: 7bxzTIlcSPmVUBRBmPd5gw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="7478984"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 07:41:41 -0700
-Date: Sat, 31 Oct 2026 16:41:38 +0200
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Marius Cristea <marius.cristea@microchip.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tristan Madani <tristan@talencesecurity.com>
-Subject: Re: [PATCH v5] iio: adc: pac1934: validate ACPI _DSM return type and
- bounds
-Message-ID: <auX-InQPSh_vTNoH@ashevche-desk.local>
-References: <20261030123528.606107-1-tristmd@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=V67GgXN/
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cwwzkpwcd4TjkzEKem/4Y/45tSrBJ6mdq8w2wnK3loR4XesYQgDbLbCI/YUHAL2vDf9suDglvn+sgVQtH+a9c3hK5wg9SVI9ZmMFxBHhVoWWHobeTFgGgMLg/PJp3SLbkHjT+glvmScvtAlyuUG1Of1zKYDRmJXvg9Yb7f3v1IDf3FOriRiq6J9XizDPhBaspi0IwzBzvKWVZyviKSv2fYrELUJ1ZkkUAtZDjC+S6waPSaCW9sobs6vtwvSr5XvkGz7N0q/I4QfHYit0aGc14JH2i2MiZjYlmhbrRJKAvBmpgHspx5NfyXab0Ef31DuxJ0GPPiwbkDUMemd9Sntq6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=L/O79hPA2Yqud37jW9/SvFoY0OMTqyhVxweA9lUGqFk=;
+ b=y8zlpJq3DUbZ/xV3B7E/P7x0ICrA26vLYCqN/7FqgoU4aKz07ydcU2aBblnDDlZD8CLycjYXw+q3Jmo3UbLLMlpeiV+vRvfEEweDeFWsTOkWD87JpuBEEl4DCD2nXs26DMSntnSghoFBFbcFu3drZIbEQ/0ZcMn5HnIlJ2NeH6AEd22VlhzgK1CAiw6kAvEUgBz1pQjaHzK7zjCk2xbcFwBxVQQOebaGJMSpggDxiD9M1Kbx6COdldb8vkQqnaxfr48Vs1qYkigHBAMBBTpg79jOsSJmmqGeN7jQO+RwyArkQC5T07tTuBk99KVJPp+8be8oaIwRIvlsTXgr1ViIfA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=L/O79hPA2Yqud37jW9/SvFoY0OMTqyhVxweA9lUGqFk=;
+ b=V67GgXN/JAJhMKQPLrHuGktoTXol8FdWyXOkXfs9pn36eF4caaYyWzx5DfqirMHk/T9Q3F8dT8bptT4lo0PCbMPQ78UvkzPe5naJRPilZ7/VRbNqmp+V+ZwmmIxdYxQa9BP4rxqbCTiXVQOXTSiEfuJQO7yF4DlpJ3T8jypyZNiiP4aak6Nc+8595rDBtr108y/61uh2js0JFil5Y657IvICdDkLvcL557xMBHS3oLaDYPpckMe4akAsKwurHbTkWctVEWFWzWnIItUOC/5W1Bc113jatjeO32E/nn5wutZC13r3jhpVXsCcKIvXUde0KSP2tRfLF4gmxs6O1yMUMw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
+ by BL4PR12MB9477.namprd12.prod.outlook.com (2603:10b6:208:58d::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sat, 31 Oct
+ 2026 14:41:50 +0000
+Received: from PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
+ ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0569.009; Sat, 31 Oct 2026
+ 14:41:50 +0000
+Message-ID: <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
+Date: Sat, 31 Oct 2026 14:41:43 +0000
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
+From: Jon Hunter <jonathanh@nvidia.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com, linux-tegra@vger.kernel.org, stable@vger.kernel.org
+References: <20261029073135.159947193@linuxfoundation.org>
+ <b85e0697-d669-4b14-859f-52ee295264e4@rnnvmail201.nvidia.com>
+ <80816b31-948c-45a8-9f98-4cc55f5bd530@nvidia.com>
+Content-Language: en-US
+In-Reply-To: <80816b31-948c-45a8-9f98-4cc55f5bd530@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: AM8P189CA0029.EURP189.PROD.OUTLOOK.COM
+ (2603:10a6:20b:218::34) To PH8PR12MB7110.namprd12.prod.outlook.com
+ (2603:10b6:510:22e::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,51 +105,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030123528.606107-1-tristmd@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|BL4PR12MB9477:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6049095f-495b-45bf-1162-08df375d18dc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|10070799003|4143699003|11063799006|56012099006|261009223027099003|261028144727099003|261026140227099003|261022105027099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	YqbJk+RNhCYSFHqI+si9gYXrBWvPtUFcQ5umS7gKFyrDPZ6pk9QlUT2y+j8PYuDGtj4iKBLqLMcSt6tZBj/OAIvau21aKT4X3Ii89xNZt7ngAJYIuoHhkkchT1C7H2DvDaj5hSNPYFKhYc9KiPxtrkUXMKEz+qsXdOGr60V0hJi3+d6ti5DULOQFr1XMCCpd9nDyGWF/o6fSBO0GnFl2/aXmjr98x9KMxw23r4sjSpbADXSLkCC+Y/julLYmnZT/qB3OsWsvi9V96rIR0qKQHfp0pbDVFTU91x9rtASupeaLCvHlRpsRWgONMkf/PcppXKBKBVoE6xX6jMD4Js+wRUrYtwUeojN/NAZXkqJ6uAiZVjvQOLpxW5pxZnRCc6LsIU+BTF8mY5AhJOvGDzswPuJladprY/WuIV0KmwU+dN2V5Vlsv4ScJHn/VtN00ykRSBjTFysbY/pwy5hDR0h62ufw0/se6N3yQ3NhwI89iy4CRC5pd08coatcIey8pt2g+GetqRr5ZFq+Q52W45d+VoUDN087rXhJcOqmqRvHkSpOM1IAx7IU0ZBUbigPMMRncKPlhmvTPS7Wl3PZaw9DWKpHgSduqfXzbkrOH2rEfZ5/5pCw0EJiVFptboDVF0lsabxsqh0xYQbKoJ10JPUiER6xxUdnhZbpGZTys26gxww=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(10070799003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261026140227099003)(261022105027099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ZDF6Mml5YmxuWHd4RFM2Zk9ZZ2pPUnExdFY3djZ1Z0Nhd1hOeHNZOXVlS0Nq?=
+ =?utf-8?B?anU4a0FaK05YcGRtU05qSkVpblFHdnMyVG0vTkVtbGdiMlJZRVpFZjRxYTdC?=
+ =?utf-8?B?Z2FBZ2VOTk9SbllTSWd0SHozWWcza0drY0p1YldWOFpWV0lLVWM1VXRPV2Ur?=
+ =?utf-8?B?MjVsbWsrMllCZ21oNVp4QTZtU1llUkNsa3g3dkEzYnNYbk5KcFhvUE5vVWdh?=
+ =?utf-8?B?RmFGSEdtUGVXb0pIZUxSZVoyV21vTDVNWjBHLzhYOHZYVWFTQkV2SWdKaG1z?=
+ =?utf-8?B?NVpaYXdWUzFXTGdDRUdSUnV2SVZJZ1Z1R0JNNzVYSVNtUWQwUTVHOG5oZ2hV?=
+ =?utf-8?B?TTBUaUdSeUV3QjJyQjk5VE4xRzRqMm1FQUhSYWdKejZDUVlJM1dqbHVHR2Nw?=
+ =?utf-8?B?aEhQbHN3bHMrcEphdTRiUm1UcWhvZ3oxcS9TQkpsZXV1ZmpiaW5wL3IvTDJ6?=
+ =?utf-8?B?aERweERPNjMwZm16Lzk4SldFL0VpTnpFcm45clJrcUJ1U1JsLzdCWElvYlBJ?=
+ =?utf-8?B?RjN0aTlxbTA4eHZYMVNIenZBVGYvbWw2d29qUUxEakFrRXMvYWw1V09vaXJl?=
+ =?utf-8?B?Y2NMUTNaekZqK2RvYkVxNEU0L3d4bG1ieWpwbE9tOCswUk1xYXQzMjM2L2h4?=
+ =?utf-8?B?Qkg4dFlDV29vbmJvM1JyVDBnV2R2V0tLRGpBWmlDUm5FTVdyK0gzZjdZWkJ0?=
+ =?utf-8?B?SVBMRFhKaWZSelM4ZWZMUHBSMTZ2MnluSFo2ZUY4YXZNQTV6OXRQWTQwa1ZH?=
+ =?utf-8?B?YWxaMlozNy9KOVV4MjJnWTRIREdvR1NVTmsvRWRDTG55V2UvWSs5VkZpV2FF?=
+ =?utf-8?B?b2VCOThUTVNWdUdnamRkVVFBUTFPcVplempVR2IyVnA0S3RLakdLL0ZKUFA5?=
+ =?utf-8?B?OWwzaE45UmhNNDRyZ3FBOUZ0dEVLZ1NxalZYYlNBY0xudFNOOEQ1NmlNMlNB?=
+ =?utf-8?B?TUh2dEZ6Nkp2STBYa2NLbVJnMndMeDdWYUdvUnhBMVd3V2taaWhSczlGYUIw?=
+ =?utf-8?B?dllzcjhJUGNiQjUrcEp2TTJ4ZGROVC9QdFVmNWg1MjJaVWpRVWRzTnpmdUpC?=
+ =?utf-8?B?QzJyUTcwTUJXL3JFSzN2dUZpWnlDSENmVkRjODU3UW1rQ2t1RnRqRyt4QzFj?=
+ =?utf-8?B?ZDJEWTUrT1VPYWdXUTZXTlBCQVhRcGlJZS9JTkt3dkVUZ3YxZzY1dGNzOEJt?=
+ =?utf-8?B?RENQaktzNnliOGRQNmtpdExWN29CWkV0UDd3SmVHdHRhTHVmNW5tbThkL251?=
+ =?utf-8?B?NnNRWTJUN09XQUs5bUU3bU5SWmpJcmxDM0VYM1Fnb3V4S3BkaDJETE9ZVjJE?=
+ =?utf-8?B?aU9qeFhxLzJvditSK0ZhVUxMVVovWHNSTWVveTEwUHUweExGaTJUMDRybUY3?=
+ =?utf-8?B?VUpZR2JXMWYrTDhDRkhPaXZBUXVXVVZiSnlOTDdwSm5Ma0VJNkVEMEh4ZWEw?=
+ =?utf-8?B?MzREeHZqVnV0Ri9PVm9yZ0kzQ05sNklIR2QxdndDK0ZBRXFRR09hakl3bWRT?=
+ =?utf-8?B?YklXZFRVM3lBa0hIdFlmTVdTaElkMFVzeFZyUWF1azB0TDM2TG1wSWVORUZs?=
+ =?utf-8?B?ZzFSSDA2bE1BdE1TcEtQa05sbEgya3ZxQWpNRXY3ZVFjM0xWaXNkR2JKUXJP?=
+ =?utf-8?B?aWFOSHpVUWlNbDlWSEszcmppVjBEdVhsbDJyZGhjaFgvVllNR0FycFpscjh0?=
+ =?utf-8?B?Zmo4TmdRWTBFalhYSWt0MCtRQ1ZrRVVPdnJBR0RSTFl0TFFFaldXS2lsMUx1?=
+ =?utf-8?B?VUt2dXNZSkovR08zNGJJQ2hONk1BL2ZRNkpWTXVhY1Q5YjdoU3JTQk05S2x3?=
+ =?utf-8?B?L0hFeDkwUVlqa0FsbFVWS2JIM2RwN0NKSm44Nm14ZDBNRGJBNFk3Wm9rcnpM?=
+ =?utf-8?B?b1M3bFRHUVBKRVVWa08vQUNDa1BWTVF2NWxJajkxeXNCR3NlL2E3ZHpiSm9T?=
+ =?utf-8?B?SG9XTmdRRjlkNjQ0V3lSTlB0UUYvbkwvUmdDTFJRSmRvZzV2UGNtOTB1WU42?=
+ =?utf-8?B?RDBYbVVzNGl5UGxCVVhpQUlDMERHa0NYOVhoaU1nRTMvbDJSTldJMjlDSzBO?=
+ =?utf-8?B?TEZTV0JaQ0N6SnZqbU5iMmFnTmRkK0ZlZ3M2MWxoaFU5QW44eDFreGk1cEx6?=
+ =?utf-8?B?dFhLaml1M3BwWnlPR3Zqa1Y2aWRqYnZQTUt0K2lMRGJMcGFTSlFseGtSTG5p?=
+ =?utf-8?B?TEJMS0U1czRreXZOZzRiN2tuV3FYMW1VWHZpd2FuTGtLUlpFUC9yUzJmTkY3?=
+ =?utf-8?B?MlpkTjRNUkhIZEQyblJyZHNaU21CUjhtN0RJRUtQaVR1c1NGeUl5Zjg4YWE2?=
+ =?utf-8?B?U2tkVmhCY0ZEbFF6ei83SlRRWEpkMTI2bVVBK3UwT0YrbnJmcjQ2bXVJNVNE?=
+ =?utf-8?Q?cM+Y7gU5msng+pxldAu5KNXJWwZQVu8r7pqjex/Vp2U5G?=
+X-MS-Exchange-AntiSpam-MessageData-1: h05pYdq4Ne+mrg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6049095f-495b-45bf-1162-08df375d18dc
+X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 14:41:50.4478
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: I8IJ7nNU/NtPZxwKQ+vwgeAqZgtJURfPtAeLQZoC9Jrtm9iX8JvZCCcBCN95U2Vv9Vj3+OW5zoX5ru/h3zkd0g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9477
 
-On Fri, Oct 30, 2026 at 12:35:28PM +0000, Tristan Madani wrote:
+Hi Greg,
 
-> pac1934_acpi_parse_channel_config() calls acpi_evaluate_dsm() four
-> times to read channel configuration but does not validate the returned
-> object type or array bounds:
-> 
->   1. No check that the returned object is ACPI_TYPE_PACKAGE.  If
->      firmware returns a different type, accessing rez->package.count
->      and rez->package.elements on a non-package object produces
->      unpredictable values.
-> 
->   2. The loop bounds use rez->package.count directly without capping
->      to PAC1934_MAX_NUM_CHANNELS (4).  A package with more elements
->      than expected causes writes past the fixed-size labels[],
->      shunts[], and active_channels[] arrays.
-> 
->   3. The bipolar and sample rate DSM calls access elements[0] without
->      verifying package.count >= 1.
-> 
-> Use acpi_evaluate_dsm_typed() with ACPI_TYPE_PACKAGE to validate the
-> return type at evaluation time.  Cap loop iterations to
-> PAC1934_MAX_NUM_CHANNELS, and verify package count >= 1 before
-> accessing elements[0].
+On 31/10/2026 09:26, Jon Hunter wrote:
 
 ...
 
-> +	count = min_t(unsigned int, rez->package.count,
-> +		      PAC1934_MAX_NUM_CHANNELS * 2);
+> On 31/10/2026 09:24, Jon Hunter wrote:
+>> On Thu, 29 Oct 2026 08:33:04 +0100, Greg Kroah-Hartman wrote:
+>>> This is the start of the stable review cycle for the 6.1.191 release.
+>>> There are 1879 patches in this series, all will be posted as a response
+>>> to this one.  If anyone has any issues with these being applied, please
+>>> let me know.
+>>>
+>>> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
+>>> Anything received after that time might be too late.
+>>>
+>>> The whole patch series can be found in one patch at:
+>>> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
+>>> or in the git tree and branch at:
+>>> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
+>>> and the diffstat can be found below.
+>>>
+>>> thanks,
+>>>
+>>> greg k-h
+>>
+>> Failures detected for Tegra ...
+>>
+>> Test results for stable-v6.1:
+>>     builds:	9 pass, 0 fail
+>>     boots:	28 pass, 4 fail
+>>     tests:	83 pass, 7 fail
+>>
+>> Linux version:	6.1.191-rc2-g3b00df762ebc
+>> Boards tested:	tegra20-ventana
+>>                 tegra30-cardhu-a04
+>>                 tegra124-jetson-tk1
+>>                 tegra210-p2371-2180
+>>                 tegra210-p3450-0000
+>>                 tegra186-p2771-0000
+>>                 tegra186-p3509-0000+p3636-0001
+>>                 tegra194-p2972-0000
+>>                 tegra194-p3509-0000+p3668-0000
+>>
+>> Boot failures:	tegra186-p2771-0000, tegra186-p3509-0000+p3636-0001,
+>>                 tegra194-p2972-0000, tegra194-p3509-0000+p3668-0000
+>>
+>> Test failures:	tegra124-jetson-tk1: pm-system-suspend.sh
+>>                 tegra20-ventana: pm-system-suspend.sh
+>>                 tegra30-cardhu-a04: pm-system-suspend.sh
+> I am looking into the above boot and suspend issues and will let you
+> know what I find.
 
-We have already discussed that, that min_t() has not to be in use.
-Ditto for the rest of the similar cases.
+Bisecting is pointing to the below commit and reverting it fixes
+the above issues ...
 
-I would recommend you to slow down, drop AI assistance and check
-the code (variable types, available macros and their usages) first.
-Don't send a new version until you understand what AI is trying to
-do and what we want to have at the end.
+# first bad commit: [26c5e136ba4e94ad708333c9bd34039a1de397b0] net: stmmac: protect updates of 64-bit statistics counters
+
+Jon
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+nvpublic
 
