@@ -1,115 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434649;
-	b=BedL6sTJs2Bhb70n5c3dAiuDiM/ORYHaO6zzrt0AYRJPbYgXfcIG+deetIeqmxgWSV1V
-	 MjfzcxGuMowYONcROIAQyxidf5IfeVY1Cx6UGd9+jEeE3GJzTwzABQb0azTWlRjhfZoL8
-	 VXRgCT22KLAfMDuZ6PBY6UipqVXIFORCI+Z15EKZa+XdYICoXqcu8on5Yw5NrR2nBuHMV
-	 PUPnlEXzGT5HanloPnq6I0X6PBbJ83bk5nbrLoUe4YOO77m79hT5o38DySXuCWDCGmbga
-	 0qlljyw33FUxy8Hok7wN6eWWefJ3CZip18sj6/sEda6jCwyHYbgdWzwBznolb+AWiLg==
+	t=1793434655;
+	b=l9CTIvEsZihan6W3nu5StmZ8nei2xM+4duR3+6KsOnOC77auMJGMRMWtCNCx8DeooSbU
+	 hL/6uSDgHoG2Ux1Rmlc7ixFGWRIcDULer71fVdHW/dKDeKjgFxaeeT1RAOzj51h2MOY4A
+	 emx1lRfw2qIvXkSRByR9jMjK64BZYpPbjoeRKGBu7Fzs5/UB+T81rrftL7hRzBJRXGKql
+	 fxrOZoRLl0kPQkL/FD5sNK+0XDy7Xvi6n0Z8bNkpUB8/L3p2LEvYYzvnGVrxSipZo53bs
+	 iv73c/UFrqJozu1/DxYkjgWlMI+gnEQtPKgv4/NOPIjuBZvwIN2Emx15qBsSZNBIR/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434649;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=;
-	b=t+v+21ZX0U7E8YH9ZvGCnzV4+vQI7wvv44GQzIAI/4SvzkTAgYw/CrbyymjEA7SMTUIa
-	 tivd4lkoRmE7tASKPw33mNwWRkUCM0i3diLOKG0jfWqCFh7lDEt30nRdMix17Mxcc2RBR
-	 BYgrspcB9BtzwacO0rmhtaGfue/DtE73yxzjzOjk9nfgcTPa8UPsWgYPAi6KvcQX0NxZT
-	 efHZWQ3osKJY4ed0Ic0nc4qHGZrjdIEZCHKfSWiumJnXYT9NqrccteBsHlK8n3kcozk7E
-	 0hrgPddqkqKvT4sQhYdcnda8MTrVbPfkV7aenTcwD2lRfBsjXNFow2NSdI3c9acIS/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434655;
+	h=Received:DKIM-Signature:Message-ID:From:Subject:Reply-To:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date;
+	bh=zlB2Ne42ndQ0FL9gkgblkMSA18ikPceLQS/DuNnQLKE=;
+	b=CADOQQAya+ELPFmvh/lEaXsCg1gD0rzWGMf8myhx4B3KqG2WGHIIugcKsWH1MqZ6v99h
+	 Q9RKRjohT8JFfDq0Kn2Aw9xpZmga3cAxEVoIwdsVfmrPLNao1Fyie+/TskP4RD1WHdwwn
+	 gzusnBTlJq45T7q67+DTKlh2e922Keucnj6eqTm4eJeMsG36EaJzm/SRPAXS32MA1vIJ2
+	 rxmAxEpi+dLY7xUxetEGfe+zd5RgnzSyXlgio6za0d8ZRAiWY6lhCS73CjGQbS8oPiOuQ
+	 sgPoq8PysWT7jQab4c19r28LnD14XZPutujlroQ673jVhMAt6UdToW6w3dolA19Pi0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=pobox.com;
-	spf=pass smtp.mailfrom=pobox.com;
-	dkim=pass header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=fC1Xdnrm;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AUtpj+K3;
-	arc=none smtp.remote-ip=103.168.172.151
-Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gc7Gz9WO;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A078D606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A078D606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDE1B606A31D;
+	Sat, 31 Oct 2026 08:17:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=pobox.com header.i=@pobox.com header.a=rsa-sha256 header.s=fm1 header.b=fC1Xdnrm;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=AUtpj+K3
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id E37C0EC01FE
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:17:27 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-04.internal (MEProxy); Sat, 31 Oct 2026 04:17:27 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793434647;
-	 x=1793521047; bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=; b=
-	fC1XdnrmdpGbz5gPs6TMNyPflsV1D6yfF/blWE2t4DONYl2dqg31kR8VaX+Y/8ur
-	9z4U6l4/CeSBx7ybEjXxnv99dlqkoQEuP9FiG1ghzJekW3V6C8sh8yBfezngJUt5
-	MRPxJTjI+z56m2IwAABBjIhe4EMTSXhktjN5lbo1Q9u0E0ysfgzeePmNU3gctBpz
-	R9V6Wodgkh32LtiB3Gee9+PuPnFqht0ZmhilqlQa40BYd4ZFUWDLddcLUCd/lYnn
-	68ayN+P7nvZTSkmPr5OtINiKcavaqCMygevmQDsK9V73my+WLWPNDu6LmjPfP0Pm
-	0Lhq1NcnwBfejkNRJWSmGw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793434647; x=
-	1793521047; bh=rnfQUx+LEPhCPsSJ4IAiIVaSnN3kADpQoNyJc7Gibio=; b=A
-	Utpj+K3ODS+KpSYo+MzzYuHHnDYqwQFO6zHnQ5dL5/cUDS6CO0sr2+DCp3Bzfnd9
-	mp4nSnaYxDPY8osSeWEz+7VvFn/wM3HQbw4adWrY8WWWfLRtsUkJw89Xel1r9eYT
-	A56mrZOQCeOOCxyxtjhhX4CMeQmNipPhkYWkwMswtTbJAcxr3hRmhp1faVpJdX8Z
-	9AbPvuBXVz9m6yhEyZI2ilWdOAjXPPcwnRqzuR9JFVXOUxkuMHIsgS5O4YMuSLFC
-	JgCFeCQqfWjK547fP09bMdNCAp0p2g1ofHdsIzCQIZoXSXAQEbGF6lkoM7NOAs8T
-	Nug68R8Ebx0H8sDrB6F1A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=pobox.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793434647; d=pobox.com;
-	mf=PGJhcnJ5bkBwb2JveC5jb20+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:pDs2Foi4Mr2ocCUZ/Rc0gSGj59CpN+jgvxQWJkw0crGGKDJ
-	owxSuZBmTCpm8GKOficSeQCv/2BXgY8hmcgxkvSNGwsOHCISVKOifqdccK9VJ2zJ
-	0TynfxUj/KqoWHeldNGfvsI5mIEoyH9/w5BsFojLQtrfO29SCgHuRLcdeQIPi38q
-	VnCN+rL2CorN9U/tIsc47LyN6YtpibfREqaN+GUfPrg3r9jb3pcp31EUcMCefHqc
-	jHgLnodxfc/8LemqJF0MNpeC9Ese9/jwwT7ShGqY0cr+iNfpKYkxNgvby6j1VPa1
-	QUBDW1xS4vm+X5kKzU/+yBUvKlkKflXjrnipneg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=14;
-	hn=cc,content-language,content-transfer-encoding,content-type,
-	date,feedback-id,from,in-reply-to,message-id,mime-version,
-	references,subject,to,user-agent;
-Message-Instance: m=1; h=sha256:NgRDu01O8AU+upvey9fhsFMNhDK+YFrnyvatWUp2FAI=:qA0pD7FKCwuP3nSZJSt+RalrmtELdTli0/GLgZVMqbw=;
-X-ME-Sender: <xms:FqTlarTAXyfJzZTvnKYHsJKhw4oexrrK06Wr0ifXUPQt_vqMY61Feg>
-    <xme:FqTlaooT2mSozW3vIUcf1LDMhpPRydB9_L7UW9STan3911-gBf2dxIhTRddDce12_
-    BTDNnOXvqpKlje0cQl60pGiuuRhhbZnysSP8rlw1jRmBeJs3IAOdDvC>
-X-ME-Received: <xmr:FqTlasU0tJbTmw-Cvuy73cUnd91nAkifnl9SBF13IRmLn-j7ft-cf7q8pSxPZKlyNXIdrlnJmNwaMYftXr95eU5p1Xd7SYsm>
-X-ME-Proxy-Cause: dmFkZTEEH/UJEPA9dFtELWv8H2w/4/6VOoy/nZUvDdlDrm2SZTJQktOY1SfcSO38GcYdzt
-    ZyJVUA5jlXpSokW5ISylG5172c+vkMtf+nEAi2KlNubVue14ToIMna38mONKrORJ27Vg9I
-    BI3IwgY62OaXndpah7x8z2qzlc92s3hte7KYWks3NHycZjregzSbmtLQOHfBMtZx2jAAVb
-    wY7phBpo2F/JQGqm8uYR8xdbDxlwSpWhP76vOVOV96948hLFqJUdp9A+iBx8bW6l8gTKFG
-    KRF6bZtVBh7ld597JyyaBVFIk/2CN7vFz9Eg0SijT3GQmN8xnULwnANcI9hVPWhSkj9hN+
-    lPsclQjJFqARg/Ov28Pzl2nx1n0C/yA2lBJ7aOtcdbntM2jtvDbBlvJcsU6d+U72myzbuG
-    Gh9HP0Cu6be2E0BYezSwd4Xl4lr6DDWfL/PYMVx5whrUnmy9NBfYOxpHi+2pelvBSuN/JQ
-    EelLtSVqEqQPYW/I8wzClQck5y9PbxYWD1wtuMfkaUXPlKL/od2IOLyVrd9gTJAWI+Nzpi
-    X/rvZ+DFB2I/KKwCiopzMA9w8+w9ZiXWx6FCMsukWh8G29ldYYurCRrVuZPbI/7NHWCUmF
-    WHsrKDqXD5O7upJAtoSKC3EYjyLHXYeQFzN5IOrwXtOuiwEeX3G1lJBaYQCw
-X-ME-Proxy: <xmx:FqTlau9fMuF0uW5x39SC0caJCwpoeI7cR_y4ewSjI7zwS49vcd66Lw>
-    <xmx:FqTlasZLY1J3INq9MDp9pbgW6ZATK42k8gjhX8cl3wl9hZWQ3YlDnw>
-    <xmx:FqTlaue9PpkdGY8eaLeuSxmSfugrVT0RFibeKA47RdFg2ADFNBMT7g>
-    <xmx:FqTlauqGEgsJr55ngQlBn5PPGgip4ZD0QbMFP1gPm9iSv15LDR2e4g>
-    <xmx:F6TlamkqZ53OFkNEMU9Yu5eLZQh_vUIeL9E8O5J4cm6wSUwkLct6LR4Y>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 31 Oct 2026 04:17:24 -0400 (EDT)
-Message-ID: <922c7eca-79d5-497f-8739-91973702b969@pobox.com>
-Date: Sat, 31 Oct 2026 01:17:23 -0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gc7Gz9WO
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8021F00919;
+	Sat, 31 Oct 2026 08:17:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793434654;
+	bh=zlB2Ne42ndQ0FL9gkgblkMSA18ikPceLQS/DuNnQLKE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=gc7Gz9WOZ3h4bcDUmAusCDBgODUj2PxxkBVzl/x3aGapAW7F999wEGq09QNOtEFcO
+	 p/KVqv6A49oojmWfuf1aHJ4amOzRg718pLS+Hyc22k3ht3K0yTlJCNL9Rhz5FOJadS
+	 QK5YBzLDbIS+q0daPGodDDQaAl0wzeuqTEHS7mvgT50N3DoGZp8i+3KA+RvDX/aV+9
+	 X4im1pNwPjFdZkCoBcatD6tK61R154QGlP3NVsofNq6Y7jWyWD0T6G+MGB2yVDymNC
+	 roVo8sMAyt3OsD39Ze8CiorkJLiv0hEOhVgueUsXCzwJyHNV0hy81jmo29EV2LHgjB
+	 mKx254578kTgA==
+Message-ID: <sashiko-outbox-191824@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC net v2 2/2] af_packet: retire TPACKET_V3 blocks without
+ waiting for copiers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jingxuan Xie" <jingxuanxie@deeproute.ai>
+Cc: linux-rt-devel@lists.linux.dev, linux-kernel@vger.kernel.org
+In-Reply-To: <20261030081704.251652-3-jingxuanxie@deeproute.ai>
+References: <20261030081704.251652-1-jingxuanxie@deeproute.ai>
+ <20261030081704.251652-3-jingxuanxie@deeproute.ai>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 31 Oct 2026 08:17:33 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,47 +60,145 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 00/10] 7.2.15-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20261030121255.257615100@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20261030121255.257615100@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/30/26 5:15 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.15 release.
-> There are 10 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sun, 01 Nov 2026 12:12:50 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.15-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] af_packet: prb_retire_current_block() trusts user-mapped BLOCK_NUM=
+_PKTS
+- [Medium] af_packet: tpacket_rcv() bypasses ROOM_NONE drop when in_flight =
+is non-zero
+--
 
-Tested on 3 amd64 systems and an arm64 virtual machine. Working well,
-no regressions observed.
+commit 9f9d78a929f32b0ce1f7614bea46eb96c69e1ab8
+Author: jingxuanxie <jingxuanxie@deeproute.ai>
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+af_packet: retire TPACKET_V3 blocks without waiting for copiers
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+This commit replaces the TPACKET_V3 ring-wide read/write lock with per-block
+in-flight copy accounting in struct pgv so that full or expired blocks can
+be sealed and advanced without waiting for active copiers to complete.
+Sealed blocks are subsequently published in order under the receive queue
+lock once their in_flight count reaches zero.
+
+> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+> index 7b3e1e27f7771..5bc486326be93 100644
+> --- a/net/packet/af_packet.c
+> +++ b/net/packet/af_packet.c
+[ ... ]
+> @@ -950,31 +949,24 @@ static void prb_retire_current_block(struct tpacket=
+_kbdq_core *pkc,
+>  		struct packet_sock *po, unsigned int status)
+>  {
+>  	struct tpacket_block_desc *pbd =3D GET_CURR_PBLOCK_DESC_FROM_CORE(pkc);
+> +	struct pgv *block =3D &pkc->pkbdq[pkc->kactive_blk_num];
+> =20
+> -	/* retire/close the current block */
+> -	if (likely(TP_STATUS_KERNEL =3D=3D BLOCK_STATUS(pbd))) {
+> -		/*
+> -		 * Plug the case where copy_bits() is in progress on
+> -		 * cpu-0 and tpacket_rcv() got invoked on cpu-1, didn't
+> -		 * have space to copy the pkt in the current block and
+> -		 * called prb_retire_current_block()
+> -		 *
+> -		 * We don't need to worry about the TMO case because
+> -		 * the timer-handler already handled this case.
+> -		 */
+> -		if (!(status & TP_STATUS_BLK_TMO)) {
+> -			/* Waiting for skb_copy_bits to finish... */
+> -			write_lock(&pkc->blk_fill_in_prog_lock);
+> -			write_unlock(&pkc->blk_fill_in_prog_lock);
+> -		}
+> -		prb_close_block(pkc, pbd, po, status);
+> +	if (!BLOCK_NUM_PKTS(pbd))
+>  		return;
+> -	}
+> +	block->retire_status =3D status;
+> +	WRITE_ONCE(block->last_pkt, (struct tpacket3_hdr *)pkc->prev);
+> +	pkc->pending_blocks++;
+> +	pkc->kactive_blk_num =3D GET_NEXT_PRB_BLK_NUM(pkc);
+> +	prb_publish_blocks(pkc, po);
+>  }
+
+[Severity: High]
+Can a user process with the RX ring mapped read-write corrupt the kernel's
+block tracking state by writing 0 to pbd->hdr.bh1.num_pkts
+(BLOCK_NUM_PKTS(pbd)) while packets are in flight on the current block?
+
+Because struct tpacket_block_desc lives in the shared packet_mmap() buffer,
+user space can zero BLOCK_NUM_PKTS(pbd) while tpacket_rcv() copiers are
+active on the block (or between the check in
+prb_retire_rx_blk_timer_expired() and the check in
+prb_retire_current_block()). When that happens, prb_retire_current_block()
+returns early without setting block->last_pkt, incrementing
+pkc->pending_blocks, or advancing pkc->kactive_blk_num.
+
+Both callers (__packet_lookup_frame_in_block() and
+prb_retire_rx_blk_timer_expired()) immediately call
+prb_dispatch_next_block(pkc, po) on the next line:
+
+	prb_retire_current_block(pkc, po, 0);
+
+	/* Now, try to dispatch the next block */
+	curr =3D (char *)prb_dispatch_next_block(pkc, po);
+
+Since pkc->kactive_blk_num was not advanced and block->last_pkt is still
+NULL, prb_dispatch_next_block() sees prb_curr_blk_in_use(pkc) =3D=3D 0 on t=
+he
+same active block and calls prb_open_block(pkc, pbd), which resets
+pkc->nxt_offset to the start of the block and runs:
+
+	atomic_set(&block->in_flight, 0);
+
+while the earlier tpacket_rcv() copiers are still writing into that block.
+When those earlier copiers finish and call
+atomic_dec_return_release(&copy_block->in_flight), block->in_flight can hit
+0 prematurely while a newly dispatched copier is still running, or underflow
+to -1 and permanently wedge prb_publish_blocks().
+
+[ ... ]
+> @@ -2306,8 +2295,10 @@ static int tpacket_rcv(struct sk_buff *skb, struct=
+ net_device *dev,
+>  	if (!res)
+>  		goto drop_n_restore;
+> =20
+> -	/* If we are flooded, just give up */
+> -	if (__packet_rcv_has_room(po, skb) =3D=3D ROOM_NONE) {
+> +	/* V3 allocation must get a chance to publish completed pending blocks.=
+ */
+> +	if (__packet_rcv_has_room(po, skb) =3D=3D ROOM_NONE &&
+> +	    (po->tp_version !=3D TPACKET_V3 ||
+> +	     !READ_ONCE(po->rx_ring.prb_bdqc.pending_blocks))) {
+>  		atomic_inc(&po->tp_drops);
+>  		goto drop_n_restore;
+>  	}
+
+[Severity: Medium]
+When the ring is full and a copier on the oldest pending block (at
+publish_blk_num) is preempted or still in flight, does this check bypass the
+lockless ROOM_NONE drop path on every arriving packet even though
+prb_publish_blocks() cannot publish anything?
+
+In prb_publish_blocks(), publication stops as soon as the block at
+publish_blk_num has a non-zero in_flight count:
+
+	while (pending--) {
+		struct pgv *block =3D &pkc->pkbdq[pkc->publish_blk_num];
+		struct tpacket_block_desc *pbd =3D (void *)block->buffer;
+
+		/* Pairs with the release decrement after every completed copy. */
+		if (atomic_read_acquire(&block->in_flight))
+			break;
+
+If a copier on publish_blk_num is preempted and subsequent traffic seals the
+remaining blocks in the ring, __packet_rcv_has_room() returns ROOM_NONE
+while pending_blocks > 0. Because tpacket_rcv() only checks
+!READ_ONCE(po->rx_ring.prb_bdqc.pending_blocks) without checking whether the
+head pending block's in_flight count has reached 0, every arriving packet
+will take sk->sk_receive_queue.lock, call prb_publish_blocks() which
+immediately breaks out of the loop, fail packet_current_rx_frame(), and jump
+to drop_n_account where it triggers sk->sk_data_ready(sk) on every dropped
+packet.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261030081704.2516=
+52-1-jingxuanxie@deeproute.ai?part=3D2
