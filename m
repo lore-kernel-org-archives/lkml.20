@@ -1,101 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793412317;
-	b=FfcpHMrgTGIG/tGcVwR8ZILRNN60rh70spOFJAUXX7NJUfKGKMFJy2uZp5a6Ofqh+JgP
-	 aqzjLIgson0DjzVSLdWRCukD+AgYGLTzYYOGHvX6AXosLyhEIzs8+vI0ivdU9fskRfiMx
-	 5g4N5sZb9IPZ60vsf2Bo9PmZS/TtzQ8T1DCp1BrIHghjFibakzdIHAznr4JYZU1Hd9tfk
-	 cKWhOMfZPTrDDGZ9Wki69DuNSwWE05tkYl8oQmqhbEVToMxxWfLUvnrysMLySo/bL44m9
-	 MW7DYn4kdSdYVEpfVTR9LMBMIRqmPuu/3mbAZ4nmDrNHS3lbhx+CjFvlicN0WtRVbFQ==
+	t=1793412544;
+	b=mamkhKYcYiUdJN0no1kG35kHfN+1pU1DaW+JwPFyyNda9X6ZGhXuCfZ3EFnCdZCjiWs4
+	 cv/MJFRRF7j2VLTvBSAknxTv6w3122eemfo5BIdl2MfNbcYajpOEZza+3mE/KA9ejI+Qi
+	 GbyAhYAgpHAjKXwq7TCZ1yCo7VPJ7r8JOi3wk6u2KOfo1PsMs63+2gHvun4McoEx8rCYK
+	 5zezn5ANa1qh1XC1gC+KaYPgqOgSoBQk+iqoz+pH6pI/Qx7QTyvXeVd8syyHYRN/geX7x
+	 JVwZgNIfRzBt3dE1crcI//R153lb5Xl17LUrx1h+BnFa3TxdsGC2wXgd8JwJlJ7AuWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793412317;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=UlBttvbTfPH6bD8qwAPRvEvBrmgF2s7FgvULNFDejzM=;
-	b=4iYPw+KkNGRqZSl4rXtRVhYqPnfx3RZQMjuVJE3QKGyHXfoNrn6pH/iTF52O6te/CncO
-	 +e8+P2Le2jJg8vKK/AcxgmTeFC7Lj+ZMjaJVbhkS7ucVNbgpeNy6LrcKPPug97UxrByW+
-	 MPKA31N3l6j89vKdcNBCP6BUSeDrD7nc5ymUpuH9SGM7DFkTBMzj0lijje5G7xnChKId2
-	 4swlocQxUbPwWogciGFkfAgSQmrmepDFy9TqIbifxA57zIY516gTjue3GCYhm278SiHCm
-	 2Bnii9Al3zbVL0n8Dlg9AMdMo4kEo/MFLi/dcFzk0s467cRkJxem23nRs6Y8VThQCaQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793412544;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=tOERZEIQ6bWpFjXc/IYsfYbCQo0wq413M2Hd4FsT6W0=;
+	b=lSxC4Fhu3k8JAhDiQMEBDSQridkR4ozqNEsJtoh8ptonAFWUZ9JBi1g71WSM/wqCqJOo
+	 j7jAaFCnBiDfqW3T6uSr8UeiynKCzr6aSsR9dq+3dpFqCz1Xo0tajkeGsE5AcoGNnSLmD
+	 zrpQkZdsveYhyVvUYrLGrQpobS7Gwb+9As0YA6+hZY/sIvuCk6CnYkWqOW0awdmjvKJYH
+	 MtdsAQRgHcaYtXFw6nt5Wgnr2V3+4hGISTEnH21C1cjFEupBCTVYD80RWj+jb4J5N3O82
+	 EOtcZXDWrUxPMfuD4od8WZq2U4sa1ea3/4XwIbh8m769cENRZzRTGkrD4NTO7D+Y+dg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr;
-	arc=none smtp.remote-ip=198.175.65.19
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uc2ZJn81;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BE7606A31A;
-	Sat, 31 Oct 2026 02:05:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BE7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D6E4606A326
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:09:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D6E4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793412316; x=1824948316;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rFP0baAiFvMl7x0GJSmUU/DikfJl7LDgkFNhT+TL2Hc=;
-  b=KLrg8JRrl1SoMwcNx0OCYgG/I9AsztINAe6gsGfONLQZ52qcnfpKiTUr
-   vRNrHkjCGdVSEzceaNHV206KcnJYSyM/pnQIJoGa2nGyQh+wOw+mjBQQI
-   rtszkb6lWU+g6jIWAP3wK4hYSWyPyfW9kPIDt8uLqUciXawZR6t658342
-   p04M35eGFcvbNXuWYHyllsBiVP3M7Nk8TW4Cr69hsyL8NMDMYiPVHE0L0
-   c2Z8fNlP20qK5VVu42n1pXD0oNq2UXjkwiSnL7v1v1IDpEQjOFr4tqQD7
-   s3xAIIenj6fub6yYr8ltJkzdL2WnwCwUJFRKpxOkbn9V/jUY05NqiJ64O
-   Q==;
-X-CSE-ConnectionGUID: ErglIwMfTsKL87TGYQRFoA==
-X-CSE-MsgGUID: KXwrt7huRLqxxvi9eRsnVQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2210058"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2210058"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:05:16 -0700
-X-CSE-ConnectionGUID: rpu8b9TrR9KayjHTgqdWLw==
-X-CSE-MsgGUID: gFTzgCr4SSm7mo8/J3eY3A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5540397"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa004.jf.intel.com with ESMTP; 30 Oct 2026 19:05:10 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMySw-00000000cRg-0s3X;
-	Sat, 31 Oct 2026 02:05:06 +0000
-Date: Sat, 31 Oct 2026 10:04:26 +0800
-From: kernel test robot <lkp@intel.com>
-To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sandy Huang <hjc@rock-chips.com>,
-	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
-	Andy Yan <andyshrk@163.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>,
-	Han Gao <gaohan@iscas.ac.cn>,
-	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: Re: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host
- controller
-Message-ID: <202610311004.6oZFiXBi-lkp@intel.com>
-References: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Uc2ZJn81
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535a54bed9so2011991eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:09:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793412543; x=1794017343; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tOERZEIQ6bWpFjXc/IYsfYbCQo0wq413M2Hd4FsT6W0=;
+        b=Uc2ZJn812SiqhnAC5EPY3/hZex2gjPxTL32N5cMnYTmqo0vnC6k72HM1rKvGMx2tBL
+         MHPXCmwEREhL9w9kdWVWnhvPYkxFzkiJBOVvjWXtHDxkDVUWBrgwQVYd/H7BzNFptjk4
+         nFAwWvGueYase697O8Mp5UteUTPBqhNzb8F8oggKSJ8sCALKDJ1F7E7OKbG6UmABrX6t
+         erL6G4zxx1HIeBl3GmR+22uEASLsW/R/tLt7yqoO7mSw3vkvmoUdY8kok4t6S/oyahnT
+         /nuTx4Q7AlJvQ334NwLxglkxOEMWEkyDW24RASRIHrz6XE0rfAxRoagLaPAw3iNmGX7l
+         mrfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793412543; x=1794017343;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tOERZEIQ6bWpFjXc/IYsfYbCQo0wq413M2Hd4FsT6W0=;
+        b=nWNoRRlQeuwlSlJ83YmLRzT6xFwHVFSA/SGva12TKRuxWMVXihhuDp3y77wv80XRo1
+         SDD275vLTGlizcrr12WH0OS+4fTtGiOyAf9Ye0/8RWBG/zhr3/1VzKwj6Rrnf5eZZDoh
+         9x3es+h4ClxwZA85zQid0TJeDAarrjklJPAJK2bQcrhghjVWJHEOz9Mb4AYXIt/3Its/
+         HzvmHEzyIFp1fZ9ICY9zYhAS/puqAJhMp8hQ6n7yJXIfMIfMYfypwHcF99Xs4e+EdTSm
+         NuWFDa+puFw83Gj7DcNg3T42eiAe/C6PDhXjkJgdHjrHdgd3Uxm7l5T8JVR//g04qLVV
+         qtAw==
+X-Forwarded-Encrypted: i=1; AKwUvBzdmYlLdd7ZDO94SFxFKQfOhJaoZ8tHUR2GjICuIgLruPTiRIFXQxAP5yH8VIKaO+KgsPgUdCftpXr3QwY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQ6j4WjOXTTZRq5ulpeGvG5j/6PCwmx28uCbI894Esb1wcB9N8
+	vRuWRI3bicWvDFnpbHxPPSXVWhedixdmXxt7v+qXtBwvXZlv+Gec76r6
+X-Gm-Gg: AYBFou2GMLutVC2lO1g/l9bgmDnFtNfpPK5iHPZElJZax5wgK6hg0eMK7vGKmVtmToj
+	8rW37Lj0zNIzu22lm0M8d5l9m69KFICesOuRKHQ3/vF7qSemDMNOOhAnvP8HsQyqYUfX+UQDBxk
+	1KEYDwE5T5aEkQEJR6Fw6ydLjbZzLL4grDrZFXufbUdJU42h4/cwD8JWQAMUquEM4U66yoVV73T
+	MxLAGj06muqmi9ptO3l0wLbRAcruv5z17cgFzEEsHH7lEdXIk4iuA/1vgi9858g9XM7/pL9/ydF
+	LAw+kWCtM3qpdo7gxN4wDm+IrHDOsJ9QTa9kX89uK6cI4De8QKAipFwHrouAauuh+3sU8Ja/cKl
+	0hqxtndFGeDdH+Y8N3fBGSYr0nlgKR7fvkQyPqHvXdtasxjlOLSe622+qYcqU6SpSqhlUk2AQiL
+	cpihI/U4y/ggCOKpyUP9/gb/McfQSXDkWest0crKmOYxKfl2nQhn+RP8KV3a37ZHDiCbSXcA9C3
+	99JI2Y5xi4eaAf9gHPQjIEyo1p97WGbnlUWm+BhcVkxdTt+K+qMGn9WJQI31/mVmtJqWKwQlkDy
+	kN00GqWTVeFCbgy12oE/H8W0HM8pyAlZBVthv5He8/TAhXJkrdkg6PLQuo6a2D9O9leAFG9WqEv
+	2RMitWXwbgDGG6RLH4Vqee79FvF0zyE58w0SzyVm8RbG80ks=
+X-Received: by 2002:a05:7300:ce08:b0:343:ff9f:26f3 with SMTP id 5a478bee46e88-36a42401de6mr5091501eec.9.1793412543022;
+        Fri, 30 Oct 2026 19:09:03 -0700 (PDT)
+Received: from localhost.localdomain ([180.182.24.11])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm13214096eec.26.2026.10.30.19.09.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Fri, 30 Oct 2026 19:09:02 -0700 (PDT)
+From: Joonho Lee <mynameisjune111@gmail.com>
+To: linux-sound@vger.kernel.org
+Cc: tiwai@suse.de,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org,
+	Joonho Lee <mynameisjune111@gmail.com>
+Subject: [PATCH v11 01/14] ALSA: virtio: Propagate PCM send failures through ACK
+Date: Sat, 31 Oct 2026 11:08:42 +0900
+Message-ID: <20261031020855.2402-2-mynameisjune111@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261031020855.2402-1-mynameisjune111@gmail.com>
+References: <20261031020855.2402-1-mynameisjune111@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,128 +107,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-Hi Icenowy,
+virtsnd_pcm_msg_send() can fail while queueing a transfer. Restore the
+failed message's length and notify the device about earlier messages
+queued by the same call, so they do not remain stranded.
 
-kernel test robot noticed the following build warnings:
+Propagate that failure through the indirect PCM transfer callback instead
+of discarding it. Commit the updated indirect state only after successful
+submission and stop further transfers when a send fails. Return an XRUN
+error to ALSA so the stream can recover.
 
-[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
+Keep the polling feature path unchanged.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Icenowy-Zheng/dt-bindings-display-bridge-document-TH1520-MIPI-DSI-controller/20261030-154749
-base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
-patch link:    https://lore.kernel.org/r/20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f%40iscas.ac.cn
-patch subject: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host controller
-config: arm64-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c2ea4440d4b64c148de4fdfca1fc2c437a0701e4)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/reproduce)
+Fixes: fe981e67568c ("ALSA: virtio: use ack callback")
+Assisted-by: LLM
+Signed-off-by: Joonho Lee <mynameisjune111@gmail.com>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311004.6oZFiXBi-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:445:22: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
-     445 |                 dev_err_probe(dev, ret, "Unable to get DSI registers\n");
-         |                                    ^~~
-   drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:428:12: note: initialize the variable 'ret' to silence this warning
-     428 |         int i, ret;
-         |                   ^
-         |                    = 0
-   1 warning generated.
-
-
-vim +/ret +445 drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
-
-   420	
-   421	static int th1520_dw_mipi_dsi_probe(struct platform_device *pdev)
-   422	{
-   423		const struct dsi_chip_data *cdata;
-   424		struct device *dev = &pdev->dev;
-   425		struct th1520_dw_mipi_dsi *dsi;
-   426		struct resource *res;
-   427		void __iomem *base;
-   428		int i, ret;
-   429	
-   430		dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
-   431		if (!dsi)
-   432			return -ENOMEM;
-   433	
-   434		dsi->dev = dev;
-   435	
-   436		dsi->syscon = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
-   437		if (IS_ERR(dsi->syscon)) {
-   438			ret = PTR_ERR(dsi->syscon);
-   439			dev_err_probe(dev, ret, "Unable to get system controller regmap\n");
-   440			return ret;
-   441		}
-   442	
-   443		base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
-   444		if (IS_ERR(base)) {
- > 445			dev_err_probe(dev, ret, "Unable to get DSI registers\n");
-   446			return PTR_ERR(base);
-   447		}
-   448	
-   449		cdata = of_device_get_match_data(dev);
-   450		i = 0;
-   451		while (cdata[i].reg) {
-   452			if (cdata[i].reg == res->start) {
-   453				dsi->cdata = &cdata[i];
-   454				break;
-   455			}
-   456	
-   457			i++;
-   458		}
-   459	
-   460		if (!dsi->cdata) {
-   461			dev_err(dev, "Failed to find chip data for this controller\n");
-   462			return -EINVAL;
-   463		}
-   464	
-   465		dsi->clk_ref = devm_clk_get_enabled(dev, "ref");
-   466		if (IS_ERR(dsi->clk_ref)) {
-   467			ret = PTR_ERR(dsi->clk_ref);
-   468			dev_err_probe(dev, ret, "Unable to get PHY reference clock\n");
-   469			return ret;
-   470		}
-   471	
-   472		dsi->clk_cfg = devm_clk_get_enabled(dev, "phy_cfg");
-   473		if (IS_ERR(dsi->clk_cfg)) {
-   474			ret = PTR_ERR(dsi->clk_cfg);
-   475			dev_err_probe(dev, ret, "Unable to get PHY configuration clock\n");
-   476			return ret;
-   477		}
-   478	
-   479		dsi->clk_pix = devm_clk_get(dev, "pixel");
-   480		if (IS_ERR(dsi->clk_pix)) {
-   481			ret = PTR_ERR(dsi->clk_pix);
-   482			dev_err_probe(dev, ret, "Unable to get PHY pixel clock\n");
-   483			return ret;
-   484		}
-   485	
-   486		dsi->pdata.base = base;
-   487		dsi->pdata.priv_data = dsi;
-   488		dsi->pdata.max_data_lanes = 4;
-   489		dsi->pdata.phy_ops = &th1520_dw_mipi_dsi_phy_ops;
-   490		dsi->pdata.mode_valid = dsi_mode_valid;
-   491	
-   492		platform_set_drvdata(pdev, dsi);
-   493	
-   494		dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
-   495		if (IS_ERR(dsi->dmd)) {
-   496			ret = PTR_ERR(dsi->dmd);
-   497			dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
-   498			return ret;
-   499		}
-   500	
-   501		return 0;
-   502	}
-   503	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+---
+diff --git a/sound/virtio/virtio_pcm_msg.c b/sound/virtio/virtio_pcm_msg.c
+--- a/sound/virtio/virtio_pcm_msg.c
++++ b/sound/virtio/virtio_pcm_msg.c
+@@ -260,6 +260,18 @@
+ 				dev_err(&vdev->dev,
+ 					"SID %u: failed to send I/O message\n",
+ 					vss->sid);
++				msg->length -= n;
++
++				/*
++				 * Do not leave earlier messages queued without notifying
++				 * the device when a later message could not be added.
++				 */
++				if (msg_count != vss->msg_count &&
++				    !(vss->features &
++				      (1U << VIRTIO_SND_PCM_F_MSG_POLLING)) &&
++				    virtqueue_kick_prepare(vqueue))
++					virtqueue_notify(vqueue);
++
+ 				return rc;
+ 			}
+ 
+diff --git a/sound/virtio/virtio_pcm_ops.c b/sound/virtio/virtio_pcm_ops.c
+--- a/sound/virtio/virtio_pcm_ops.c
++++ b/sound/virtio/virtio_pcm_ops.c
+@@ -466,36 +466,100 @@
+ 		vss->hw_ptr);
+ }
+ 
++struct virtsnd_pcm_transfer {
++	struct snd_pcm_indirect indirect;
++	int error;
++};
++
+ static void virtsnd_pcm_trans_copy(struct snd_pcm_substream *substream,
+ 				   struct snd_pcm_indirect *rec, size_t bytes)
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+-
+-	virtsnd_pcm_msg_send(vss, rec->sw_data, bytes);
++	struct virtsnd_pcm_transfer *transfer =
++		container_of(rec, struct virtsnd_pcm_transfer, indirect);
++
++	if (transfer->error)
++		return;
++
++	transfer->error = virtsnd_pcm_msg_send(vss, rec->sw_data, bytes);
++}
++
++/* Caller holds vss->lock. */
++static void virtsnd_pcm_transfer_failed(struct virtio_pcm_substream *vss)
++{
++	vss->xfer_enabled = false;
++	vss->stopped = true;
++	vss->substream->runtime->stop_operating = true;
+ }
+ 
+ static int virtsnd_pcm_pb_ack(struct snd_pcm_substream *substream)
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
+-
+-	guard(spinlock_irqsave)(&queue->lock);
+-	guard(spinlock)(&vss->lock);
+-
+-	return snd_pcm_indirect_playback_transfer(substream, &vss->pcm_indirect,
+-						  virtsnd_pcm_trans_copy);
++	struct virtsnd_pcm_transfer transfer = {};
++	int rc;
++
++	scoped_guard(spinlock_irqsave, &queue->lock) {
++		guard(spinlock)(&vss->lock);
++		transfer.indirect = vss->pcm_indirect;
++		if (vss->stopped) {
++			rc = -EPIPE;
++		} else {
++			rc = snd_pcm_indirect_playback_transfer(substream,
++								&transfer.indirect,
++								virtsnd_pcm_trans_copy);
++		}
++		if (!rc)
++			rc = transfer.error;
++		if (rc)
++			virtsnd_pcm_transfer_failed(vss);
++		else
++			vss->pcm_indirect = transfer.indirect;
++	}
++	if (rc) {
++		dev_err(&vss->snd->vdev->dev,
++			"SID %u: playback ACK transfer failed: %d\n",
++			vss->sid, rc);
++		/* ALSA treats -EPIPE as an XRUN in ACK and pointer paths. */
++		return -EPIPE;
++	}
++
++	return 0;
+ }
+ 
+ static int virtsnd_pcm_cp_ack(struct snd_pcm_substream *substream)
+ {
+ 	struct virtio_pcm_substream *vss = snd_pcm_substream_chip(substream);
+ 	struct virtio_snd_queue *queue = virtsnd_pcm_queue(vss);
+-
+-	guard(spinlock_irqsave)(&queue->lock);
+-	guard(spinlock)(&vss->lock);
+-
+-	return snd_pcm_indirect_capture_transfer(substream, &vss->pcm_indirect,
+-						 virtsnd_pcm_trans_copy);
++	struct virtsnd_pcm_transfer transfer = {};
++	int rc;
++
++	scoped_guard(spinlock_irqsave, &queue->lock) {
++		guard(spinlock)(&vss->lock);
++		transfer.indirect = vss->pcm_indirect;
++		if (vss->stopped) {
++			rc = -EPIPE;
++		} else {
++			rc = snd_pcm_indirect_capture_transfer(substream,
++							       &transfer.indirect,
++							       virtsnd_pcm_trans_copy);
++		}
++		if (!rc)
++			rc = transfer.error;
++		if (rc)
++			virtsnd_pcm_transfer_failed(vss);
++		else
++			vss->pcm_indirect = transfer.indirect;
++	}
++	if (rc) {
++		dev_err(&vss->snd->vdev->dev,
++			"SID %u: capture ACK transfer failed: %d\n",
++			vss->sid, rc);
++		/* ALSA treats -EPIPE as an XRUN in ACK and pointer paths. */
++		return -EPIPE;
++	}
++
++	return 0;
+ }
+ 
+ /* PCM substream operators map. */
