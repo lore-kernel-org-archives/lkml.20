@@ -1,111 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468762;
-	b=rIYaGYCMMCQ/g5XC0F1VqHIgqnm5w88oU5CTmS/qhFHi/QWPwQuga7GQePzVpX4yfTAL
-	 WUrSIpP1yKgOHQj3wYwOCqsl1umzjBiudJvFgNMIPcNQWgem0MnD/Q5dzWKg8Wr9yZM/S
-	 ECQQi2JmUBCO3uz1K7/O/cW7SZjDrpF/B7ISRRJulse6PsQ+Cy0Bd6sOSRCBDgW2O709N
-	 IcWoE3iXj+QoK3jAV6n6DHVn4N/k1mAovc0CaMrsHTjhXxLjFa1ZKSXuZermh9bqQwU8k
-	 25Vp/mGIkomM5PqkkhbcKgkFbUtGX66P5e+DblGMgMSHDotnwuvTKfGEVVN5a8ULMRA==
+	t=1793468754;
+	b=p2ws1EuOls8tTa4KJtUMlHU0hb6QhxE0gD94y72afbkihPBH4FlKvnh6NPGAUnKsJisw
+	 8AXDK4M275vxfiwwkMHr2u46iFOP70RiMxFPv01dBxUuzn8MkfPlU2r8SWbxJvzHxQYwz
+	 9GIOp79RRWrwkX6mCLfvLdXS2kqdT0caoGSuEE+f5zTj5C+3+DYUAsGd2qO7FXn4fIHXZ
+	 ylgdHuki98olYFcdM/ZCd1e3cgPGz8Sr14cxiYqq1w1nQxRdsXIST4rHAZsaQvkyH47iY
+	 ZVGkagOvDl8ECBTB3V88UlTyf90Mjm+OAuqQ/7BdNK7OHQo9TmInWTLhrk0gTT8GXGw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468762;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=aJekqtZd8q/3ArsU+9b6lj5+AIzwCIpS5G7gHNxiD/k=;
-	b=y9Osqtu7DUb15mfpFjNRAGottOeWKo8VrILCD/yxQrEH9iH0j9kCTEhprjepF35R7lyd
-	 KUkk3/HS0vmqKjVa3Ra6g+DOqxLU5nTzxPeZ2LV6JY5w4oaoqVM1mQyDISMPikZ6QsPWt
-	 1KdxeeTBvEFJ0afXYG9m+fQIsztXsgzxWv7j7ykAG3EZex9dpXY4QDaA3TTRHeIW0Dk3p
-	 KDxthFFPkdLFv01aif7QUoqhM8DSrWgl5b5GsRNvProB4ObdMJ5CVDtfeSOo6ArURtMjs
-	 oId9JaJIJm9Mtd/3BJYuTkOqabO7aifMsdQgi5xSfFFkJN8K8TkNAPgOWiCT3K0yAeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793468754;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
+	bh=FW3M40bAUPpiu6dtg9ihV+GCZPA7IqkpRgmTwP06LZs=;
+	b=bCvrXu6TaTUfB5UMW/n/212oxE56q+E2Jh3VyORVFoMc9Arv7QN0P7LTrnKq2btJ5vWK
+	 heQgDCWxR269PT1uXyVX9jHwOQgGdeRYzh1lowqrOv5j1mDjKlZNPU/E5bjOWs8SreexN
+	 1N9uGUNdyHjf4kCvJPBMIWrx4T94NX0tkQkfWWspHU+SLNOD90gQ3J3HgnvfscDgY0rFa
+	 +YdH+iQEvD5lixpjNPV6RyOwtMkyzsoaeDESwkoKwPYQfaCzVCCLxq4Bb2Ic0JHxvzgtc
+	 Zt/GaPvK1tZ1UVVWyqGJvxnHkE3n7fSJG915kukZAaM7I6YdpOAzQOu7js7HlFYHDsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=WqfoXEgz;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=xcuXSKgX;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	dmarc=none header.from=netfilter.org;
+	spf=pass smtp.mailfrom=netfilter.org;
+	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=osNMDLr3;
+	arc=none smtp.remote-ip=217.70.190.124
+Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B2F560A2611
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B2F560A2611
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 172DC606A31E;
+	Sat, 31 Oct 2026 17:45:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 172DC606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=WqfoXEgz;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=xcuXSKgX
-Received: from pps.filterd (m0167070.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VDmSlJ061821
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:46:01 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=aJek
-	qtZd8q/3ArsU+9b6lj5+AIzwCIpS5G7gHNxiD/k=; b=WqfoXEgzdHJJs2k8MvcL
-	/g26eZf704RKz7uoJY5+9rJDc6ve6LKz6U10MPfAgHvLPvKnmXk0qCaoj8FZA6MX
-	bZZgi5GV2eEAGbTBxjT2nltAnNbNlKQdLU6h/m1muqfSEEaBGcdkEnryPVi+8NlD
-	ujzT124VPz7gZm5cBAL6kOzSmqzuqsEtIUDdaEnmklCwbroLzcA8l1FLwG2HM1gr
-	t1VP7RbxQeDen2IVg9AsOIMMN1tnYeQHmMz4y+o0JtUM5G+M7hXxMkJGcYXtAunP
-	93Sl0hc1/Om0ITQ1mNCbnQarY2Pbf04sTH2EqcpBwfGsh7aXypj6Bm75lOCVCChA
-	VQ==
-Received: from mail-vk1-f199.google.com (mail-vk1-f199.google.com [209.85.221.199])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hnccxthh3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:46:00 -0400 (EDT)
-Received: by mail-vk1-f199.google.com with SMTP id 71dfb90a1353d-5eb510afc00so381703e0c.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:46:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793468759; x=1794073559; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aJekqtZd8q/3ArsU+9b6lj5+AIzwCIpS5G7gHNxiD/k=;
-        b=xcuXSKgX6gTElDK+bujY9YbrHFARyL5smwKml7TSGaZx5cKkVf+o36wIXohcFFdtWm
-         6Hd+hs0clol5+UbuQJcHE1jOW/MVkwtvEu0GlFclH9hlA3vXsKKzZS3SDSOxre7IV49p
-         wSUxJRKb5ZhlDkPGQaYXRsUwaR8OXwywo9Iet9uSQvMbCJa33lJ7QnMtr45cNEbGZprV
-         9M5P9iy0AfpWLOhqrlzdp8FgqcuFUt09HdHXUjaY12cgb4i+B0byL/p9MgZBeA8LVRT4
-         pOWi4Hs4atwX2DFICqJTMg/RjX1Q1/m6qkzPompez17RiNyOkLx3IzQ4TFxuL7WWb9np
-         5YnQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793468759; x=1794073559;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aJekqtZd8q/3ArsU+9b6lj5+AIzwCIpS5G7gHNxiD/k=;
-        b=hzT2iAfYMEDXyqRwK8wLgYsbL7eZGpPtQwn3CEbtROlxeuh7huErwgyg5GTa4+j2eV
-         TmEVrbJPBdtY5ZeecqRiAei2UJv8iTVWOcNmbhIoccQPU387JPbR24zjPX5XDibz8Q0w
-         4pPtueESz1TfZTzTjHGY+P2Ze112553bRKVy+l5mJsPNpGU1Us3ec5tQ92hEkIr1alt3
-         FO1menC0exq0g8KCzRCsP9GTf5wLBl3LEKR6I/o8tBMkhLHq0gmFvXMnk30ALk+ip62h
-         fSC56PtFDF0lVQuMg5pQDZl4YbOvKDh3VSKXczbrt1lxUGxJxg7cX3nRBXtoPRD01L7k
-         zfPw==
-X-Forwarded-Encrypted: i=1; AKwUvByu30rI3utKrrb+4ti1g8ZmG/h2RU7jxzJCS74fsQ2N3ds+qO74s8M7j3OPrUqvQXBWv4m/NJotm1+CHRo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIvU2AAQKJLj7rGKUNBWr48g7sUtYiq8XZfw96nTds5wjO6eQe3
-	n5rOXVdX5z/h87ShxkKfzHCzCHHhWdIw52Du+EeVM68llbo5Z6W/nrEc+PYO87gkUI8qFHugX5Z
-	tF0IIxCEb6fr9sY11KKwhfjWQcTaz78W80ng0OJuzNka9fBkRzhxIwmBRjycjNA==
-X-Gm-Gg: AYBFou12aA+5IjwOLRksyKunkGskbZhFZ/g60sn9Q82aTpRxGmeToXaAl1RJPlo5cDS
-	AS13GlWplAXnw9gF8XdPJoQM7U4xYxQMwLS6/oRb6OOcMA/lpBxGP+C2zXKle4qVzkr2352yxDB
-	aGqtKlGmE77mfgV22yUreFfkkELkaOv1QaE/2WpOci0iAa6RWgXAHDzPImPlN0+JKDI2NmYY2gb
-	+BWWeQuzGYHH4nhYdnAlEVz6OQOLgUMaAOT3OFsNK/TrCvAsuA0Q5Ydahet5JX+HuM7YqfL0SkJ
-	9jjCL+RJaRl1VvQJph7EG2WagXQ8CfTwYYnZYgeq8U8BoMuKW00XJ6w9YXYEhb74W057dYfjh6Z
-	9CSbhkaV4KGxKC0pScWtYmSoW1ukW3ExuFY40vA3NRUr50Xm8JNDW0eueeg==
-X-Received: by 2002:a05:6102:148c:b0:7c3:9464:efaa with SMTP id ada2fe7eead31-7d07223f482mr2959696137.2.1793468759701;
-        Sat, 31 Oct 2026 10:45:59 -0700 (PDT)
-X-Received: by 2002:a05:6102:148c:b0:7c3:9464:efaa with SMTP id ada2fe7eead31-7d07223f482mr2959682137.2.1793468759156;
-        Sat, 31 Oct 2026 10:45:59 -0700 (PDT)
-Received: from [127.0.1.1] ([37.142.159.89])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b79059sm10220667f8f.30.2026.10.31.10.45.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 10:45:57 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Sat, 31 Oct 2026 13:45:35 -0400
-Subject: [PATCH 2/2] vhost-vdpa: unpin mappings by range
+	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=osNMDLr3
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
+	s=2025; t=1793468750;
+	bh=FW3M40bAUPpiu6dtg9ihV+GCZPA7IqkpRgmTwP06LZs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=osNMDLr3OcmDU9BVzLikVYLYpyvo22MJjhzKJgoLClYYXq7oVJ9ZJipE7un6Ya7Yk
+	 LM1+vUlI3gwLOD2XiGnBBM30U2AQYMY4exFuV1H3glNt9Ns+EHoAY+x+i+86Tkbfxb
+	 5Uhse7dHzyVbbJk8osxmTogGw+TdwU8RM2yGYYYSPwnJ0G4zN/GBa6FwXqW6256VuL
+	 c7y+TPrnTN/R0QHddx6/b1ma2yNAfEtBpAz8k/FwCcFVj0YBWFrio1HN9kHmF3skRc
+	 ZFjmJn1nY0TERlaKBy2fwrA9WEePqOxvqcvts5UJQqYh4yJye0J5tFMkv2PPwV6rjV
+	 gW6AmLoT77aTQ==
+Received: from netfilter.org (mail-agni [217.70.190.124])
+	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 8784B6005C;
+	Sat, 31 Oct 2026 18:45:50 +0100 (CET)
+Date: Sat, 31 Oct 2026 18:45:47 +0100
+From: Pablo Neira Ayuso <pablo@netfilter.org>
+To: syzbot <syzbot+e1a88d8b7e4cf6b51d85@syzkaller.appspotmail.com>
+Cc: coreteam@netfilter.org, davem@davemloft.net, edumazet@kernel.org,
+	fw@strlen.de, horms@kernel.org, kuba@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	netfilter-devel@vger.kernel.org, pabeni@redhat.com, phil@nwl.cc,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [syzbot] [netfilter?] WARNING in nf_flow_offload_gc_step
+Message-ID: <auYpS96ihQOAR_UP@chamomile>
+References: <6ae61c88.6552420f.2a0efc.0003.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,113 +66,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-vhost-vdpa-unpin-v1-2-94ffc9683256@columbia.edu>
-References: <20261031-vhost-vdpa-unpin-v1-0-94ffc9683256@columbia.edu>
-In-Reply-To: <20261031-vhost-vdpa-unpin-v1-0-94ffc9683256@columbia.edu>
-To: "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
-        =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
-        Si-Wei Liu <si-wei.liu@oracle.com>
-Cc: kvm@vger.kernel.org, virtualization@lists.linux.dev,
-        netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793468749; l=2247;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=Gl1rZ25wXNyNmee5e2PpkIojdGVNpwtOFO12QJgbtq0=;
- b=Yc35BLvALhKx8rPBAzm50hZFs+VIj2767yCsM7DHjbdqhj8KQJZguVerhRuWtRGIifzqbDrPY
- e4bjGwmJAZ8CIDTEbQW+/UaLJKu9KMENbgB2/aAZ6r4/z+CrdnaxFg2
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA3MCBTYWx0ZWRfXwiLxV/I0E6hZ
- nFjS8awM8NXOdiVy2zPScrJTetAbs4RAF/FDPHBuz2yPRrzgC+O6aKw4QQJcxNNYBTQuJCxg9UL
- GJwkP8Dz71F/xuTdZYQrGZ598TKY8rd2gQkS9NQaIr0ljDkl7crVs2O8uaENaN1n6cAopyfHEtz
- HxwYIrRM/VF3GwkP/zWQ30nxz+/wgN+QEMfRlcOriClT4SqNKTiXUP1UjKnSpOZgfMPTqwvEYZh
- R1lRB8X5JmGIs4D4wnwMJs2xuKJEfr43+uO7LQZeHlkDdamkjyVuh9A9kGk3Lm41o+eS3MIS7qt
- k6aM22i0ClrF9Ah3a7PDfZvw7LfFlMCe38aCAiglVtgzLtloG0jy1Wfw90gYzpVpsS2pOuD3PhF
- bnq0vU/QCdvttCYvtKFVwcZ45i4jbTrjuNv+AV0lkm6tASVWVYCa2dxXOMlctyRftySETFQmU1u
- uzi6dEU3SNip4hsLB2g==
-X-Authority-Analysis: v=2.4 cv=XKSl2ghE c=1 sm=1 tr=0 ts=6ae62958 cx=c_pps
- a=+D9SDfe9YZWTjADjLiQY5g==:117 a=P+xgYyhW+KadpqoI50EQPQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=svvvyxlR1OQQkelhaPoB:22
- a=RvicXfEJGDZI3HCdRHsA:9 a=QEXdDO2ut3YA:10 a=vmgOmaN-Xu0dpDh8OwbV:22
-X-Proofpoint-ORIG-GUID: zqCeAU7Y3iqS2ANlMe3c1cy1EG39kriA
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA3MCBTYWx0ZWRfX9FD8vUSPPHze
- objq8DxeGA1E0nrBH+c6mKQuwDrG+EIAaKOCjxT54R3lCvKsAujAKhXtM68hHfO6//sIVtV86Bl
- ELiXapDRYywOVAkhPpvGmCO1LmgmaurI9lv1Ott478vrE2Wi3V3c
-X-Proofpoint-GUID: zqCeAU7Y3iqS2ANlMe3c1cy1EG39kriA
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11952
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=10 malwarescore=0 lowpriorityscore=10
- clxscore=1015 bulkscore=10 suspectscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2610310070
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <6ae61c88.6552420f.2a0efc.0003.GAE@google.com>
 
-vhost_vdpa_pa_unmap() unpins each mapping a page at a time, dirtying
-each page first if the mapping is writable. Each mapping is physically
-contiguous, so use unpin_user_page_range_dirty_lock() instead, which
-marks every folio dirty once and drops its pins in one go. Do the same
-for the pages left pinned in the vhost_vdpa_pa_map() error path.
+On Sat, Oct 31, 2026 at 09:51:20AM -0700, syzbot wrote:
+> Hello,
+> 
+> syzbot found the following issue on:
+> 
+> HEAD commit:    d135ab453a74 Merge tag 'backlight-next-7.4' of git://git.k..
+> git tree:       upstream
+> console output: https://syzkaller.appspot.com/x/log.txt?x=13a51259580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=6f2905533069b0f5
+> dashboard link: https://syzkaller.appspot.com/bug?extid=e1a88d8b7e4cf6b51d85
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14020995580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=100c4f0d580000
+> 
+> Downloadable assets:
+> disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-d135ab45.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/6c39e8158fba/vmlinux-d135ab45.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/7fb9f97c1f88/bzImage-d135ab45.xz
+> 
+> AI-generated root cause summary:
+> In the Netfilter flowtable subsystem, nf_flow_table_extend_ct_timeout() only
+> accounts for IPPROTO_UDP and IPPROTO_TCP when refreshing conntrack timeouts
+> during garbage collection. However, both tc act_ct and nftables flow offload
+> support offloading IPPROTO_GRE connections to the flowtable. When the garbage
+> collector checks an offloaded GRE connection whose timeout has dropped below
+> min_timeout, the missing case in nf_flow_table_extend_ct_timeout() triggers the
+> default: WARN_ON_ONCE(1) branch. In a production kernel without panic_on_warn,
+> the warning does not crash the system and no memory corruption occurs.
+> 
+> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=e1a88d8b7e4cf6b51d85
 
-This removes the last use of set_page_dirty_lock() in vhost.
+There is a patch already for this, it will come in the next nf.git PR.
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- drivers/vhost/vdpa.c | 20 ++++++--------------
- 1 file changed, 6 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
-index d9af728942b3..cd5da522fdc0 100644
---- a/drivers/vhost/vdpa.c
-+++ b/drivers/vhost/vdpa.c
-@@ -972,18 +972,11 @@ static void vhost_vdpa_pa_unmap(struct vhost_vdpa *v, struct vhost_iotlb *iotlb,
- {
- 	struct vhost_dev *dev = &v->vdev;
- 	struct vhost_iotlb_map *map;
--	struct page *page;
--	unsigned long pfn, pinned;
- 
- 	while ((map = vhost_iotlb_itree_first(iotlb, start, last)) != NULL) {
--		pinned = PFN_DOWN(map->size);
--		for (pfn = PFN_DOWN(map->addr);
--		     pinned > 0; pfn++, pinned--) {
--			page = pfn_to_page(pfn);
--			if (map->perm & VHOST_ACCESS_WO)
--				set_page_dirty_lock(page);
--			unpin_user_page(page);
--		}
-+		unpin_user_page_range_dirty_lock(pfn_to_page(PFN_DOWN(map->addr)),
-+						 PFN_DOWN(map->size),
-+						 map->perm & VHOST_ACCESS_WO);
- 		atomic64_sub(PFN_DOWN(map->size), &dev->mm->pinned_vm);
- 		vhost_vdpa_general_unmap(v, map, asid);
- 		vhost_iotlb_map_free(iotlb, map);
-@@ -1246,8 +1239,6 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- out:
- 	if (ret) {
- 		if (last_pfn) {
--			unsigned long pfn;
--
- 			/*
- 			 * Unpin the outstanding pages which are yet to be
- 			 * mapped but haven't due to vdpa_map() or
-@@ -1257,8 +1248,9 @@ static int vhost_vdpa_pa_map(struct vhost_vdpa *v,
- 			 * the corresponding unpinning will be handled by
- 			 * vdpa_unmap().
- 			 */
--			for (pfn = map_pfn; pfn <= last_pfn; pfn++)
--				unpin_user_page(pfn_to_page(pfn));
-+			unpin_user_page_range_dirty_lock(pfn_to_page(map_pfn),
-+							 last_pfn - map_pfn + 1,
-+							 false);
- 		}
- 		vhost_vdpa_unmap(v, iotlb, start, size);
- 	}
-
--- 
-2.39.5
-
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+e1a88d8b7e4cf6b51d85@syzkaller.appspotmail.com
+> 
+> ------------[ cut here ]------------
+> 1
+> WARNING: net/netfilter/nf_flow_table_core.c:553 at nf_flow_table_extend_ct_timeout net/netfilter/nf_flow_table_core.c:553 [inline], CPU#2: kworker/2:2/1358
+> WARNING: net/netfilter/nf_flow_table_core.c:553 at nf_flow_offload_gc_step+0xd84/0xf60 net/netfilter/nf_flow_table_core.c:593, CPU#2: kworker/2:2/1358
+> Modules linked in:
+> CPU: 2 UID: 0 PID: 1358 Comm: kworker/2:2 Not tainted syzkaller #0 PREEMPT(full) 
+> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> Workqueue: events_power_efficient nf_flow_offload_work_gc
+> RIP: 0010:nf_flow_table_extend_ct_timeout net/netfilter/nf_flow_table_core.c:553 [inline]
+> RIP: 0010:nf_flow_offload_gc_step+0xd84/0xf60 net/netfilter/nf_flow_table_core.c:593
+> Code: f8 e9 82 fd ff ff 4c 89 f7 e8 28 e1 6a f8 e9 12 fc ff ff 48 c7 c7 80 f2 c0 8f e8 17 e1 6a f8 e9 ae fc ff ff e8 1d cb f1 f7 90 <0f> 0b 90 41 be 01 00 00 00 e9 7d fc ff ff e8 09 cb f1 f7 48 8b 04
+> RSP: 0018:ffffc9000618fa88 EFLAGS: 00010293
+> RAX: 0000000000000000 RBX: ffff88803e161380 RCX: 0000000000000000
+> RDX: ffff88802c392580 RSI: ffffffff8a1c51f3 RDI: ffff88802c392580
+> RBP: ffff88803e161488 R08: 0000000000000001 R09: 0000000000000011
+> R10: 000000000000002f R11: 0000000000000000 R12: 1ffff92000c31f56
+> R13: ffff88803818f868 R14: 000000000000002f R15: ffffffff8fc0f280
+> FS:  0000000000000000(0000) GS:ffff8880d469c000(0000) knlGS:0000000000000000
+> CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+> CR2: 0000200000012000 CR3: 000000002f277000 CR4: 0000000000352ef0
+> Call Trace:
+>  <TASK>
+>  nf_flow_table_iterate net/netfilter/nf_flow_table_core.c:459 [inline]
+>  nf_flow_table_gc_run net/netfilter/nf_flow_table_core.c:616 [inline]
+>  nf_flow_offload_work_gc+0x11e/0x1e0 net/netfilter/nf_flow_table_core.c:624
+>  process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+>  process_scheduled_works kernel/workqueue.c:3578 [inline]
+>  worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+>  kthread+0x373/0x450 kernel/kthread.c:436
+>  ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+>  ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+>  </TASK>
+> 
+> 
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+> 
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> 
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+> 
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
+> 
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+> 
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+> 
+> If you want to undo deduplication, reply with:
+> #syz undup
+> 
