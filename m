@@ -1,47 +1,76 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.210
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793588756;
-	b=VD5f3FGBvrr+nrdl7ua4Q0WDqG9l+AlqiLlirVaBoBwsi9Yd9A/G3nyPZTjB/FoTcVSY
-	 hOQ50Jud9ZsZ/pEXav6hZkS96smqVk7VuZtEmhACHPhDPmyMMbSMEd/H7CDHC1mj3J4TZ
-	 ezQr1svUrgPVyQ3RWCvoz+tDDOsDpTnfeaVSWIgK21JcxEREviMTOBDSqznwCPOSZOiDs
-	 p7hzaaoVcQ7aa2+xG0hM+kp++KhF5sacUydHTLBkIv7tqcaXM8nmVDZOR4BDRWe5FvY3q
-	 rSeMf87A0/091sjDPLpIlJNdI6PjPzHmYtaT/AfE4fOJyB1zW9gVjsyQgyFLgAWYQKQ==
+	t=1793589018;
+	b=3gaUk+/GdfWdR5TQO25fVKAcqb1kAutOKNKp4mF+RrD+riITq7I1Rg1xw6ojmIAR4Coo
+	 HomkTNpvZ4X2PKnEqRxy6YrpZy/o/RBg/xCZbq2lrGCXNc3Ky39SHqz9jTIZyHBzvpZzk
+	 0uJRe9+7+5Jnr0xGtBy8eHjgk1tIiVzzNRO9u9VIRw+Q68kgEvVtyMvUhSbQxfc7Q1rp5
+	 E4vGMkCxEJKCPS0lucDnAc4Zbx8k7IEdMMv/WeTsYwg15cFon9/dP3jRm59s2XTQEZse5
+	 nsNKZZSfEVBRDkqhKzEelYfIBlOt9r93R9+Jt6/OBismlSeixv2wLm54OKR72AZbOCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793588756;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=A/6+kBlzwlsk4cBSFQS9p/QrJg3Xfn4u3eXyo65yo88=;
-	b=3qo8HCMp7dUZRTdFo0ycIbSctBXgYJXGVwbwQZIf24WZ9LV1yaCBMRpMLNRohKJt/+2M
-	 5b2t5Qbo9qdyDnYpnpq2ueGvoX4BP/HYCMm7arqm4I3jktM6SxFA4K0FfGYGGwiiqyQX8
-	 Xa6pDHkp84CGy48WdHMLRK/+7WcxS/QTY1b4ZrhdUnXnWzmuXL1C7aSvhdFb0Lks9ZoNN
-	 sv7qmcPplHis4VdjU8q+sb1Ywwwnz2eDGn0W7cOREf9IalMG6i/LTV0tZUL0wb1jWxMeO
-	 GUVKPmWiMXl3FLD3+8WyZbEoc89VGd0pkb/inROegA7KrMLaUOKsf7HxIy0EgL62RrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589018;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=iWb5wYhyScfSR++sA8B4O1T/vltG9PXR7zYJa2P/nhU=;
+	b=A2YNWxmS6Kla/wO2Xn/qguivTANFoGLY0+szibAWBPKXn5vL6Z6mRV+wTk3rlF3xBILC
+	 fiJg6N/FHh1h2wBk7lx9REQmOtN1IcpPwcP/uHyohSQV9thuJCZBqQGuz4tvHLGKSP9tI
+	 uGbvrhWrHkw5POLFYGPJyqy7iGIk2UPm8RRRDaURWJBUFZMXo08ERVpQWE1yuF6rEe2fk
+	 y9il0b1+4QRWfeht34dBq8KUzv75zhhTjgxUt2rjBK+xObxc0o/biJseVIbYDYY14xX7Y
+	 RSm0iKMj2Ng0nD4Ff3iS/kSND8SEHzvsXVnND9M1t/bc+5Sog4YlBE+7smt3s2hTLbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1cQ0jYL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lsp0wptZ;
+	arc=none smtp.remote-ip=162.62.57.210
+Received: from out162-62-57-210.mail.qq.com (out162-62-57-210.mail.qq.com [162.62.57.210])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B87D606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:05:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71103606A324;
+	Mon,  2 Nov 2026 03:10:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71103606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f1cQ0jYL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82C8B1F000C1;
-	Mon,  2 Nov 2026 03:05:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793588756;
-	bh=A/6+kBlzwlsk4cBSFQS9p/QrJg3Xfn4u3eXyo65yo88=;
-	h=Date:Cc:Subject:To:References:From:In-Reply-To;
-	b=f1cQ0jYLxgvvEoDciMRRhDMuwurH6cNVfo+3zRDujWLmtMTfKd1TyH4SDkP7YZdth
-	 /SoTpOxmAPxtH6/p0+WK23cH/2/GLseCKUvlqDjsv4aMAwOQJ4pSAAgLOd/BVL+cLu
-	 30XbMM9spPAaNkVtgh/ZxhsthhZYCWlYY4O3c4dRMn8eSg5Lnn/Xb6CWEF+e62zp3H
-	 1Q/7PItcpwYizNCvRMLH3TB1bFtN3LObFsgSN80XAP8WrC4/pDtHDLGJBWabMiyGwP
-	 YuhRmudJq4I2m+4nn6f9Nm8pWsXfvyydYh4Yj5N53UG4AitZ8HDgIgH0Mdy5pzeIkt
-	 rl9jKhKC+m1mA==
-Message-ID: <6b95dd7b-4e49-4c7d-a3d2-70341e183289@kernel.org>
-Date: Mon, 2 Nov 2026 11:05:52 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=lsp0wptZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793589004; bh=iWb5wYhyScfSR++sA8B4O1T/vltG9PXR7zYJa2P/nhU=;
+	h=From:To:Cc:Subject:Date;
+	b=lsp0wptZ2mVVWPIEjumk7K9SbYCoTJU4RKkKm0ZUbRfYup5Rd/LslwADvMuLCZkO+
+	 JeL+SsiHSC452NhxAFQPb/iByGOnpM589FHgmcTjGK+sv/lLygGoGA4JosE9I7f/pC
+	 1iRMmd0gcDjh9vwdHwjJYsS6omTBecQdLxwsiaAA=
+Received: from [172.18.4.77] ([111.31.227.58])
+	by newxmesmtplogicsvrszb43-0.qq.com (NewEsmtp) with SMTP
+	id 28316E88; Mon, 02 Nov 2026 11:10:03 +0800
+X-QQ-mid: xmsmtpt1793589003toc4k5i77
+Message-ID: <tencent_EAB5D4A0EF9A112F271AD38CA80E1FA5A807@qq.com>
+X-QQ-XMAILINFO: MRMtjO3A6C9X+HFIBTraNruENJyTFijhQnt6tSKm/E84ZvfrCwILH3QcOioBCD
+	 odLOfrsUtZLUHMzO7kDBKK8TAuyAMwINiVHrv2eHIhbnVNWDo2jUXfpQwR1tRU95bzXJW2N6o/VS
+	 IQELJqJVIXQ15Q2Vf3mhKURq68NVAv2jU6QmLNyC+KqbLOJPGnVat+7Z9olL9Fm/bQ/7fCMsCF7x
+	 ZYFKhG99LSSN5lXeLroGbVosjwW+Ib1FmCrJDIBXwYRqiLcgJGcrpcV6V0eSMWf2U24fiZms0kNY
+	 lK/7Z3t2PaqbadUqL1CZVvnYm3wM7NtpZjsJneohkLlQyAUVgo7cX1Sj5XyOnGZX+PrMW0mf1uOU
+	 am0j0F36B6k1bLMiC0O3CYFu4LipMOXuNZEA7CkX4POTImMukdVTIsBq9ywlqaUa2YbqlZp3YTtS
+	 7TZHuuf8cxFBRGH3wBcrkzR0kcsOf6s7EwcEkuU3TzfHvSdXTBO7CZZoWpigOA0+RpMEHHdOgKJz
+	 iov77dFskM7k8yVmsEPAV8sF2+AUYsHl++A2Ck3tkHkvlo3CXidr0iEPjIIlrmvHWPG+KYX7Hkxh
+	 kbq8EHfPsJ+olOsPv9nCLi9LlMebXQVKPNnQWQ1fWW4JVaLwIdzsrhV4mWZA6NzpcvnH/Qy+6kv1
+	 dI8NNlGpk4VzGwJm+qUyNEpI9qOBwasVCgtJKCUFDMWCBvS3hRV4zfssiB4tsJRTIdGKK2s7CR23
+	 UIV3hatwDzezGMKPmwRC/8MvoYzwDtVCj8A4zv0aTFjMbFvdCjsxLHSsstvkOld4yqEMx0liQpfG
+	 LtgScHQBm6PtkCwoGzj5Jyq3CI8tFwhWs3mMY3eBzs/5cZwDM6byw13fEglfEIY82wf2pDeoGRyk
+	 RuPE1kBjNiE4mJ7k5ktAnAd92SsSFYFCEfd9Ax8T0H+s2brrs0X3YVbeBSAZIjZXZi3uy2kysIUR
+	 BIoePKqN8yy5NT+kZK+/M8LSrVJOtLTikTnatZLQQ2OOgpNwFXrTCK1Dd0YZNCXK55BO4pfuooeI
+	 iv0flwJE+YYah7TMkxQE56DERNR3VTeJypX2es1wC+7qKqDayChL34LBXMHInHtr88uM9sBTWXfi
+	 pEBRQJ5/7eHcT1CZE=
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+From: Guikun Yang <yangguikun19@qq.com>
+To: linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
+ Jan Kara <jack@suse.cz>
+Subject: [Bug report] ufs: fs_cgsize from the superblock indexes struct
+ ufs_buffer_head.bh[8] unchecked - UBSAN out-of-bounds on the first allocation
+ after remount-rw
+X-OQ-MSGID: <c5-ufs-cgsize-ubsan-20261031@qq.com>
+Date: Sat, 31 Oct 2026 20:30:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,122 +80,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: chao@kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-kernel@vger.kernel.org, lvc-project@linuxtesting.org,
- syzbot+8b85865808c8908a0d8c@syzkaller.appspotmail.com
-Subject: Re: [PATCH] f2fs: reject mount when block_count exceeds device
- capacity
-To: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>,
- Jaegeuk Kim <jaegeuk@kernel.org>
-References: <20261030111112.20953-1-Dmitry.Chumachenko@cyberprotect.ru>
-Content-Language: en-US
-From: Chao Yu <chao@kernel.org>
-In-Reply-To: <20261030111112.20953-1-Dmitry.Chumachenko@cyberprotect.ru>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/30/26 19:11, Dmitriy Chumachenko wrote:
-> During fuzz testing, the following issue was discovered.
-> 
-> INFO: task kworker/u9:2:981 blocked for more than 122 seconds.
->        Not tainted 7.1.0-rc4-00103-ge94869f14310 #59
-> "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-> task:kworker/u9:2    state:D stack:25800 pid:981   tgid:981   ppid:2      task_flags:0x4208060 flags:0x00080000
-> Workqueue: writeback wb_workfn (flush-7:0)
-> Call Trace:
->   <TASK>
->   __schedule+0x122f/0x6530
->   rt_mutex_schedule+0x96/0xe0
->   __rt_mutex_slowlock_locked.constprop.0+0x13bd/0x3280
->   rwbase_write_lock+0x5df/0x720
->   f2fs_down_write_trace+0xc8/0x320
->   f2fs_balance_fs+0x6ee/0xa50
->   f2fs_write_inode+0x5e4/0x15a0
->   __writeback_single_inode+0xcda/0x1360
->   writeback_sb_inodes+0x767/0x1d90
->   __writeback_inodes_wb+0xf8/0x2d0
->   wb_writeback+0x723/0xb90
->   wb_workfn+0x8e6/0xc10
->   process_one_work+0xa0e/0x1980
->   worker_thread+0x5ef/0xe50
->   kthread+0x370/0x450
->   ret_from_fork+0x72b/0xd50
->   ret_from_fork_asm+0x1a/0x30
->   </TASK>
-> 
-> The superblock declares a block_count larger than the backing device, but
-> sanity_check_raw_super() validates block_count only against segment_count
-> and never against the device size, so the oversized filesystem mounts and
-> its main area extends past the end of the device.
-> 
-> On the first fallocate(), f2fs_balance_fs() runs foreground GC, which
-> selects a victim segment located beyond the device. The blocks are valid
-> per on-disk metadata, so is_alive() accepts them and do_garbage_collect()
-> keeps issuing reads past the end of the device without making progress,
-> while holding sbi->gc_lock. Writeback and sync then block on gc_lock
-> indefinitely, producing the hung task above.
-> 
-> This only affects single-device setups: on a multi-device volume
-> block_count is the whole-filesystem total and legitimately exceeds the
-> primary device, so the check is restricted to single-device images and
-> compares block_count against the backing device capacity.
-> 
-> Fixes: aff063e266cb ("f2fs: add super block operations")
-> Reported-by: syzbot+8b85865808c8908a0d8c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=8b85865808c8908a0d8c
-> Signed-off-by: Dmitriy Chumachenko <Dmitry.Chumachenko@cyberprotect.ru>
-> ---
->   fs/f2fs/super.c | 7 +++++++
->   1 file changed, 7 insertions(+)
-> 
-> diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-> index fabcafafabf1..ba484a32f292 100644
-> --- a/fs/f2fs/super.c
-> +++ b/fs/f2fs/super.c
-> @@ -3445,6 +3445,13 @@ static int sanity_check_raw_super(struct f2fs_sb_info *sbi,
->   			  segment_count, le64_to_cpu(raw_super->block_count));
->   		return -EFSCORRUPTED;
->   	}
-> +	if (!RDEV(0).path[0] &&
+To: linux-fsdevel@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org, Christian Brauner, Jan Kara
+Subject: [Bug report] ufs: fs_cgsize from the superblock indexes
+ struct ufs_buffer_head.bh[8] unchecked - UBSAN out-of-bounds on the first
+ allocation after remount-rw
 
-It needs to cover multiple device case as well? can you please do that?
+Hi,
 
-> +	    le64_to_cpu(raw_super->block_count) > sb_bdev_nr_blocks(sbi->sb)) {
+While testing on-disk field corruption in the UFS driver, we found that
+the superblock's fs_cgsize field is copied into uspi->s_cgsize without any
+range check, and is then used as a block count that indexes the fixed-size
+bh[UFS_MAXFRAG] array. A crafted value writes up to 120 pointers past the
+end of that array (UBSAN array-index-out-of-bounds), panicking the kernel
+on the first allocation after a read-write remount.
 
-static inline u64 sb_bdev_nr_blocks(struct super_block *sb)
-{
-	return bdev_nr_sectors(sb->s_bdev) >>
-		(sb->s_blocksize_bits - SECTOR_SHIFT);
-}
+The code, fs/ufs/super.c:
 
-- f2fs_fill_super
-  - read_raw_super_block
-   - sanity_check_raw_super
-    - sb_bdev_nr_blocks
-    : access s_blocksize_bits
-  - sb_set_blocksize
-  : update s_blocksize_bits
+    uspi->s_cgsize = fs32_to_cpu(sb, usb1->fs_cgsize);   /* no validation */
 
-So, update like this?
+fs/ufs/cylinder.c:
 
-	u64 dev_blocks = bdev_nr_bytes(sbi->sb->s_bdev) >>
-			le32_to_cpu(raw_super->log_blocksize);
+    UCPI_UBH(ucpi)->count = uspi->s_cgsize >> sb->s_blocksize_bits;
+    ...
+    UCPI_UBH(ucpi)->bh[0] = sbi->s_ucg[cgno];
+    for (i = 1; i < UCPI_UBH(ucpi)->count; i++)
+        UCPI_UBH(ucpi)->bh[i] = sb_bread(sb, UCPI_UBH(ucpi)->fragment + i);
 
-	if (le64_to_cpu(raw_super->block_count) > dev_blocks) {
-		f2fs_info(sbi, "block_count (%llu) exceeds device size (%llu blocks)",
-		le64_to_cpu(raw_super->block_count), dev_blocks);
-		return -EFSCORRUPTED;
-	}
+struct ufs_buffer_head.bh has UFS_MAXFRAG = UFS_BSIZE / UFS_FSIZE = 8
+entries. With ufstype=44bsd the fragment size is 512 and the block size
+set by sb_set_blocksize() is also 512, so a normal s_cgsize of 2048 gives
+count = 4. A crafted s_cgsize of 0x10000 gives count = 128, i.e. 120
+stores past bh[7], overwriting the fields that follow the array in struct
+ufs_cg_private_info.
+
+Trigger: a hand-built UFS1 image (44BSD layout; there is no mkfs.ufs on
+Linux) with fs_cgsize changed from 2048 to 0x10000, and cylinder group
+blocks whose cs_nbfree/cs_nifree are zeroed so the allocator reaches
+cg_found:
+
+    mount -o ro -t ufs -o ufstype=44bsd /dev/vda /mnt   (succeeds)
+    mount -o remount,rw /mnt
+    mkdir /mnt/d1                                      (first allocation)
+
+    UBSAN: array-index-out-of-bounds in fs/ufs/cylinder.c:50:21
+    index 8 is out of range for type 'buffer_head *[8]'
+    Call Trace:
+     __ubsan_handle_out_of_bounds
+     ufs_read_cylinder
+     ufs_load_cylinder
+     ufs_new_inode
+     ufs_mkdir
+    Kernel panic - not syncing: UBSAN: panic_on_warn set ...
+
+Reproduced 3/3 on a self-built 7.3.0 kernel (CONFIG_UFS_FS=y,
+CONFIG_UFS_FS_WRITE=y, CONFIG_UBSAN=y, CONFIG_UBSAN_BOUNDS=y) under
+QEMU/KVM. A control image with fs_cgsize = 2048 runs the same sequence
+without an out-of-bounds access (the mkdir then fails normally with
+ENOSPC). The field and the missing bound are unchanged in current
+mainline.
+
+A natural fix is to validate s_cgsize when the superblock is read:
+reject s_cgsize < s_fsize or (s_cgsize >> s_blocksize_bits) > UFS_MAXFRAG,
+which also covers the zero case. Happy to test a patch.
+
+We report this as a crafted-image robustness issue: the crash is a plain
+UBSAN out-of-bounds violation reachable from a normal ro-mount,
+remount-rw and a single mkdir.
+
+The reproducer (image with the flipped field, a clean control image,
+the run script, a guest init that mounts ro, remounts rw and mkdirs, and
+the image builder with the field offsets) is available on request.
+
+Kernel: self-built 7.3.0, CONFIG_UFS_FS=y, CONFIG_UFS_FS_WRITE=y,
+CONFIG_UBSAN=y; QEMU/KVM x86_64, 1 vCPU.
 
 Thanks,
-
-> +		f2fs_info(sbi, "block_count(%llu) exceeds device capacity(%llu blocks)",
-> +			  le64_to_cpu(raw_super->block_count),
-> +			  (unsigned long long)sb_bdev_nr_blocks(sbi->sb));
-> +		return -EFSCORRUPTED;
-> +	}
->   
->   	if (RDEV(0).path[0]) {
->   		block_t dev_seg_count = le32_to_cpu(RDEV(0).total_segments);
+Guikun Yang
 
