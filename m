@@ -1,99 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.176
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793464629;
-	b=l6ffPVMEPb1aqh5G7ztrMCEz5Z3c/N07v8LCKxQVh5KqVZ8ZKUZMGC1HwvfO2SOu053l
-	 WXFdlkGmmcDRQlrhy4GC6M0TZ+2G2JI+aMse3jWU4/nZuZzIEM/QbBtwaFhPwbv85Q9Hh
-	 HmUknAobggKrr1J6sdOVYIDhh05wtIBFi0Teeq8YPXImlgC44PTUDxHScjMrjeQMHQVgD
-	 Ge2ttkUrVcNbiU0MnTQYftbZDtB2aNCENT81C+E/gpY9hpI+MDiVEhYDw3iNIe1ptlTMQ
-	 zox3/A7/duDZbCWLX0fo8E366uaK0+CwT9ozla4MiaLTBadhYr3Duhlr44ya0zCMC1w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793464629;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793464679;
+	b=NzEPAXWlLIAK/dUoOM8BElF0kzeM53EUgzkTdkr2OMIRhFZw0Cyo8j0/DQcDoogde1HJ
+	 Vl1LAo6REPAfMf1IFim17gGCBVkwIKgh63nu6sLe5GrWWTYCcYnOlIJPywbCVXb3qzP8v
+	 stwlV8sqjBOUgdVZc6Z1PQ8lw8pqA5Wm8XZuL5RselhTwNPGoXBRfsO4SIIAabT7bjPmN
+	 Cmj4yos/UQQ6z7XinzyxFiWU58mBaiI6YZE8qA+jeaz/K31Lndjok57HAfpWdGsAeXxPW
+	 6ATxfbyD+ZIycqYnW2YWnLh0DYOdk3GHqXoUKayJGCMNF42xB1APyom/2tzP+XONukw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793464679;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=hog/LSraSSmnGVZ4/pHBjOKsX6XesCbb7trG3Vy1+fM=;
-	b=mFcJC5oslkMG4AsboT/Qs6eDMFqjyptdgbZynsdQYQKyKOzOa7xaGU+9qdcMg2jRuEY9
-	 bdG7EIuznYWida7LR1VFd9t/0zKPtHm/wDgL/p6w1O/bBbcL6gSRoINv9ECZyPXNqKL9a
-	 ecMlt2RooZ6dDwCmdYG6NO6k0z/gOmVZR3z/Nhsl3abKgUB+gK5PDgq/BjCGHwEtNsyAS
-	 0SwWgnnGlvQHPW2Lvtl2YW0hXLxMz4Vb5fjsw0/ZT62+O36EZbtRsYvVnraHhIRRb5lmm
-	 BePEL020j5XHjxPCwHy63GTi7ZoTm44VFbjX8EK9CU3s7r+pW4RzN8ioSCzjbSICH/w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ryQtlJXu;
-	arc=none smtp.remote-ip=209.85.221.176
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
+	b=2/8SGoZxalhqP0vMsrSs+Me7/0e5S2odBgJlRhX801r2n2Jx0ekiIKiqEpZISEH0MOB0
+	 N+oWPWM1xUiKtQUwlUQR6PnjrhfABi9twwuIISSJlCAf7G9vFAvywub/FhldaiFIKG8qB
+	 WM3yCC30ETFiIChjFJYKpeqGifawIM8j5a+/d0r5ABpDbanfFa24u7U/5e1Dmzrzi98B6
+	 3f5alpnX78GzAakjCc+EnA9VmzG5b3hRsZQvY6xeo+BNmdZj9UKcNHCicym8Y5QCUP7GD
+	 0oqJXyhzlBhQ/KU6PogKNTGPfWfGeob3G+80PzXKlZHHfEsFSFX1nAl8u7IuNHUFflQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aQ66LJVH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06F92606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:37:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06F92606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44215606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:37:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44215606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ryQtlJXu
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5eac6e4a735so92489e0c.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:37:08 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=aQ66LJVH
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso16652895e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:37:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793464678; cv=none;
+        d=google.com; s=arc-20260327;
+        b=JDSZjZ/VeWpV35FCAZgovLy/BObmKLaYCudFTS9wT1L0Z+0MkB4o1J26oFbD3EShKX
+         7l831A8DrpYt3jhK7xC3+8RnqOFlEp5p+DBMWtnxJZUpGTC+rFlhT8cKjHniT5D7bMOQ
+         vqxg8KPfQa3O26CXZ1b9w2YmmgLU918HVS0pHydSmfXgcaOhGxihWCTCIlyj2CVBkIUO
+         iMSafqKJ1C8+h3ZyMEWPTM/ScB5HhFsNQ7LQ7RlA028S3xHnKUrlACRh3mAIiNuzEUrN
+         cR7i6ZOIUjrDgPi6wJE7QNpqT/TB7VN4OeSWHvBd5J6bW0DBjrQSoxZ/LZCaOwcyz6Vy
+         iOnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
+        fh=9qF4qsn4QC+G7eGNKoCt5sSm8p50ejVwNSuRsp6WsJs=;
+        b=qB+yvLCEcirYh9EhVixc52ZzHbQoT4OEyu7/SvlgD8Kj3lqOJ4Kl4uGcOgHTO4NhEG
+         tz4lJb5XuoMOicWQ+XmACrrf3kiUP1h0eG2SsH4R0RN3qD3QXMd00LykKMTEQlO1U7XS
+         FB/pLZG1q3mRGMu2CSoF624/bv1hPemOdpf+foWkO567T3Y0QZEuWviYyp5fQ2eBSNKu
+         UMUoydFHbM8Y1UjN/+9s85SPo8OCANGuUdCshL0MwT9I8MgQi8MIJiZ60ZukAbvaL9jh
+         YDTAIeitT0nO1jxoVEGpr9sjIf8LmgyVVEV6bld5MHxvYaAmUGxBCZ/vW7uonENd9S2m
+         OnwQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793464628; x=1794069428; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=google.com; s=20260707; t=1793464678; x=1794069478; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=hog/LSraSSmnGVZ4/pHBjOKsX6XesCbb7trG3Vy1+fM=;
-        b=ryQtlJXuGOLY277F7JKl/5lVPrcSb4rXBnbEpO3itGx+1xjXisTz3mTMXT9bkdFlkv
-         hLI9uz8ndz8i3smEGsFroNxgiT+XanUm0Ph1IlH67k5Ue1KuQRwS7EXQgAbJJa+np22k
-         q0rrP9zbSxB29xD8T/+chHxZuU8uTRjYnEiQVjPLACCI38+RoawfwzpfVuQwad2+Cksk
-         fi3I4k3ipvbnxAS0FehI70nvEIjGfWMatOQQieM+oioIcQYcrkwkX9JmyE7xij6W6G0N
-         RB2OSw8PZzskWvAgY2IngyouO75X26t6vU4Gv6ggyPMQeY6wVgllKZD8Def5hxf3eLIR
-         jq6Q==
+        bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
+        b=aQ66LJVHa45dKPfND15WpLhtZXSP12gQFKUFRmdpv04UfYxD5t4mm6VdojacX3Hdsc
+         K3xS/9zxTc4kVjl/GEH6AxRamuHawPi2K0lLvuI7n8G6DXqMVteNa87oDeqgfU/I+qli
+         BSRrus5eNIJgPMK1Jqp6aqBICcoeVNg080NS7sQw5I1tdob/d0ZU8SXalXfzYTJgHb7j
+         x1hRdVLyWIQdHWJuWnUbGiksokchNqXDXb2DsK8+HIKAZJ4WqG/n72U7joGmKwfhBGxy
+         vOexyE/+Ueb5ayaK/D+P2oG5vWGh+4ixhsoKvNpSbJaNiu39wWsaWfxaqzvbpJUb/845
+         L27A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793464628; x=1794069428;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793464678; x=1794069478;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hog/LSraSSmnGVZ4/pHBjOKsX6XesCbb7trG3Vy1+fM=;
-        b=n1hOceNv6xtej1Z8mo4RGkCnM9ynDNGvTP47lmQ0hdgwe8xWcE1dB+dvI/wyOrrjs+
-         VcpxfT3EQjJQu8JvKJm3tV+BAoDwGJ2sZ+foPTmi7bjc8FZteSaP58iTZO5dsgpmVH2Z
-         YCfZxY64LEhobz9h9GIHTL3fs5MfnFxqxUNIsMMlxP7lN+J1AgW8hui7uu4yXgixZYwM
-         EExsMGNIMdZwDLbaIfxK20KwE9tSd+B83drpUGrXbfVpr2oIVdBjz4pCnFOj9A8giv4a
-         c2sMexxulpUAC3+4hm7NJe/MYN+3HlBKmqOy8H2L0MFEDcU6QlRljx5qQtut/UEC2NQL
-         z5zg==
-X-Forwarded-Encrypted: i=1; AKwUvBzSgY/sJP6zoQfgsFU/TuZz828ZUUS+Zs/0kFbIVJOWM5udSazccFZLnYwQDRjAUZR6F4Lh1Itq678klGs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSdR1wUtei7XVqXBkRaMMyZscr7ceboGfh4Qr1NFXw3JATUrxy
-	bEByEe43b8volWDRDsyE0rcAP4BfQKnDorAnsbSGOPSpp9iJtQgGz6iB
-X-Gm-Gg: AYBFou2JByYhrs2kkwKD+sLNSEPz0FuYb9v1yFQGDnA1krzLiJx/K9VA6nN+HWN8MFk
-	bABpmeXdjuqg9jy3zKgSYE68yeHkRkQ+u4OorZEZpLGH6hbQvtBCdqhML2bJayXiXyfpzmdTWD/
-	83Hqs6y52uzfxThxhLiCvSu+FzCg2QjhYaCou5ZX/JGhYcc84yRjYbsJSQmieBkSw61F7h74e2s
-	7Lf9s2m40/g7cFWuk3v0hWHlUULTf042aGMdHItcU4aQaX7IqyhvhuuIJVYH1+K4aqDrUl1KfQO
-	rpibjhdkF4DC56/sD8aEVWRzVf2O6LG7kok4p1vAoBYFGWu2UC84vOxZt+65EssPgzoT/hPnTYA
-	FJ91/41XHcvgKLxEqH2cYcucOkRRmBbjGp6I+n6e1qkn+uR65oofr5g7EP+CaCuwiTff5TpXL1f
-	8IJ/23q3BuXYjKVkcmFupndtOOmwOOOeGw5bSynxABkPFlOl0OtFLfbDIKMRBZDarUJCt5NxcLj
-	U6c7k9dk8+wSRogln7RSBsJ81qud/9LXke/R5m5bh4keNssFeMY6lW035uCMObTyL/TYqubTPIS
-	R8E56TB84RNoaDIka107wkCHPJ9+ChO1tHWvdpl3kCZUEA5efupm29ATDinqTEhlI/g/fA==
-X-Received: by 2002:a05:6122:2b16:b0:5e0:2ba:5a06 with SMTP id 71dfb90a1353d-5ec6896981emr2989151e0c.4.1793464627977;
-        Sat, 31 Oct 2026 09:37:07 -0700 (PDT)
-Received: from JSANTO12-L01.ad.analog.com ([177.112.152.97])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5ec69bf220esm5989015e0c.7.2026.10.31.09.37.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 09:37:06 -0700 (PDT)
-Date: Sat, 31 Oct 2026 03:28:06 -0300
-From: Jonathan Santos <jonath4nns@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Jonathan Santos <Jonathan.Santos@analog.com>, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux@analog.com, broonie@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	Michael.Hennerich@analog.com, nuno.sa@analog.com,
-	dlechner@baylibre.com, andriy.shevchenko@intel.com
-Subject: Re: [PATCH v4 2/9] dt-bindings: iio: adc: ad7768-1: Document
- multidevice support
-Message-ID: <auWKdiIzL1Gykxkk@JSANTO12-L01.ad.analog.com>
-References: <cover.1792435248.git.Jonathan.Santos@analog.com>
- <6e2176d5547c59c39bb692e9768d7ac079b40f71.1792435248.git.Jonathan.Santos@analog.com>
- <20261026020500.6c13c0e6@jic23-hlaptop>
+        bh=vq4vRllAgK6PadituL46LOg4X2pEj6tW413DrF/8Lj4=;
+        b=prgEFfJql3AXMD4I7isBHIPvPOo9VBfFogCTnhy13m5CmkUlYiaqzX0Y2jcBQ//Wzl
+         aIKuM7FUnkAsS6DB/EJysyq0tDxYigDQn45Igbj9RV1i+hT0HfcYdneHVY1jyw5300xj
+         ds/ZpSDhn6gHWBLAaJQYNZIGTH3QLNJyu80NCejqwmjG0ToNm5AgusC++rx5m/jHJNjR
+         juOicsuwvWT7oVo3h++0NAsBuJ1nktNvsUpukYBH8WF9XkunYRsfF8iAix0wqPFrrPDn
+         rdmVl89RO8wxSAkHmYeXlt3NsP+asi7A9UTDJOF1rl/5XkJHkjpKE/hb6vd+Njk1RuPu
+         6m+A==
+X-Forwarded-Encrypted: i=1; AKwUvBxMDuSOoKO31PXWYYFywuTWTalIN7+BSSooDNAzKtRiR24EofgbInN0Rl9jKDsr6sVXcAf+3N/A6TfgmN4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIy6ZwWjxxc4UXLk2270Vnbz21ZufMq9WYBsemgh8YRD7cVLpaj
+	ZCgSV2BaL0+RZ0GDNzF0BzFJpCyNKcwxUNhsCMxjHIBfODnqCHd8uleD7djVfTln799fpRWXPnn
+	KA5QQ6Tl+e9ymeb/DRsq8c7hASUEcSOjOa4DGUOzb
+X-Gm-Gg: AYBFou3uNTiasJwz7kEHwV6R3iQRCZrO9MeX05nqC/vp6BxQyEwsvrJRbNhJyjAsKTA
+	zOUTghlfaAdvio1mIDy+lRqNYB9+lth1oM2ruAuJ96XE3q3v6cInIS23L2fwvqmsjVgEJVFxtZB
+	zUairWdav4NkI+AHoq+WPiu4mhK4Psawtsr/6BOND/VlF8AbtFgMEfXgyyW3t23amMKkBt6E+CT
+	+Rj134yQpLBwrn542E5+bs3Lk/JxN6wwjrc9BwC3ce0/OD4H9KqKNd/g5zCq3KZVX7/LZgJZANB
+	TkzaZCXEr38ZZDrlCadOolw747Lg9tMz+L1XHrwNPh7jWEaXDN9tpUWIt+RVX30gisUjk2GxE5U
+	MIkB8C84RSxVbmc+FnQXO9eC61xZDdKV/siXvv9wQ+wBXNaAcA4Wvyr0gZXkLL33yVBB9cVGzWa
+	DAqtmMjq2+gweE7vi04A==
+X-Received: by 2002:a05:600c:4e90:b0:4a2:526b:d410 with SMTP id
+ 5b1f17b1804b1-4ac17565fafmr135441625e9.13.1793464677281; Sat, 31 Oct 2026
+ 09:37:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,164 +105,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026020500.6c13c0e6@jic23-hlaptop>
+References: <27b58e47-723b-4d67-a1f0-ccb8b0ae66a9@kernel.dk>
+ <20261031152846.746656-1-sashal@kernel.org> <CAH5fLgiSOae48jr65rv6ynLWUhT7xVCjjCEK=9oKXvSxKpdq6g@mail.gmail.com>
+ <20261031162931.792607-1-sashal@kernel.org>
+In-Reply-To: <20261031162931.792607-1-sashal@kernel.org>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Sat, 31 Oct 2026 17:37:44 +0100
+X-Gm-Features: AclHuK9n1IaeEszr_jQNYJo2v2No4a1cdwGVbESZzGLJe-RbL495VHIWXOSenUA
+Message-ID: <CAH5fLgjpB1-hCkUhsFK7bEVYwz-N-obsoPoaCYA-BWMQ5MPTnQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: bindings: derive Zeroable for bindgen's opaque
+ array wrappers
+To: Sasha Levin <sashal@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Jens Axboe <axboe@kernel.dk>, 
+	Linus Torvalds <torvalds@linux-foundation.org>, Josef Bacik <josef@toxicpanda.com>, 
+	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
+	Nathan Chancellor <nathan@kernel.org>, rust-for-linux@vger.kernel.org, 
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/26, Jonathan Cameron wrote:
-> On Tue, 20 Oct 2026 22:56:56 -0300
-> Jonathan Santos <Jonathan.Santos@analog.com> wrote:
-> 
-> > The AD7768-1 family supports aggregating up to four devices on a single
-> > SPI controller, with each device occupying a dedicated CS line and a
-> > single data lane.
-> > 
-> > Extend the `reg` property to accept up to 4 entries (one per device).
-> > 
-> > Add `spi-rx-bus-width` property to declare the per-device lane count.
-> > Since each lane is bound to one CS, the number of entries must match
-> > `reg`. Make it required when `reg` has more than one entry, along with
-> > `spi-cs-composite` property.
-> > 
-> > Add an example for a four ADAQ7768-1 aggregation, with shared DRDY and
-> > SYNC_IN pin.
-> > 
-> > Signed-off-by: Jonathan Santos <Jonathan.Santos@analog.com>
-> > ---
-> 
-> I'd suggest some asci art might make it more obvious what you mean here.
-> 
+On Sat, Oct 31, 2026 at 5:29=E2=80=AFPM Sasha Levin <sashal@kernel.org> wro=
+te:
+>
+> On Sat, Oct 31, 2026 at 05:17:46PM +0100, Alice Ryhl wrote:
+> >Is it possible to instead fix this by adding the impl of Zeroable in
+> >rust/bindings/lib.rs, similar to this piece of code that we already
+> >have:
+> >
+> >unsafe impl<Storage> Zeroable for __BindgenBitfieldUnit<Storage> where
+> >Storage: Zeroable {}
+>
+> I looked at doing it that way, but the wrapper types don't always exist,
+> so a fixed impl in lib.rs won't build everywhere:
+>
+>  - bindgen 0.71 and 0.72 (we still support 0.71.1) don't generate them
+>    at all, the blob is a plain array there.
+>
+>  - 0.73 only emits the alignments a config actually needs. On x86_64,
+>    allmodconfig gets __BindgenOpaqueArray, __BindgenOpaqueArray8,
+>    __BindgenOpaqueArray64 and __BindgenOpaqueArray4096, but defconfig
+>    with Rust enabled has no __BindgenOpaqueArray4096, so an impl for it
+>    would break the build there.
+>
+> __BindgenBitfieldUnit works because it's always generated. We could do it
+> in lib.rs with a Kconfig symbol for the bindgen version plus some way to
+> know which alignments a config ends up with, but tagging the wrappers
+> right after bindgen runs seemed simpler.
 
-Ok! in the commit message, right?
+Fair enough!
 
-> > Changes in v4:
-> > * Include spi-cs-composite property to the bindings. The reason for going
-> >   this route is stated in the cover letter.
-> > * We decided to keep the spi-rx-bus-width property because assuming 1-lane
-> >   per CS would break controllers that don't support multiple lanes.
-> > 
-> > Changes in v3:
-> > * New patch.
-> > ---
-> >  .../bindings/iio/adc/adi,ad7768-1.yaml        | 80 ++++++++++++++++++-
-> >  1 file changed, 79 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7768-1.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7768-1.yaml
-> > index 7b72d14e104c..64c1cbeaa576 100644
-> > --- a/Documentation/devicetree/bindings/iio/adc/adi,ad7768-1.yaml
-> > +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7768-1.yaml
-> > @@ -26,7 +26,10 @@ properties:
-> >        - adi,adaq7769-1
-> >  
-> >    reg:
-> > -    maxItems: 1
-> > +    minItems: 1
-> > +    maxItems: 4
-> > +    description:
-> > +      Chip select number. For multi-device setups, one entry per device.
-> >  
-> >    clocks:
-> >      maxItems: 1
-> > @@ -109,6 +112,12 @@ properties:
-> >    reset-gpios:
-> >      maxItems: 1
-> >  
-> > +  spi-rx-bus-width:
-> > +    description:
-> > +      Bus width per CS. For multi-device setups (multiple reg entries), one
-> > +      entry per device must be provided. Required when reg has more than
-> > +      one entry.
-> > +
-> >    spi-cpol: true
-> >  
-> >    spi-cpha: true
-> > @@ -203,6 +212,16 @@ allOf:
-> >        properties:
-> >          pga-gpios: false
-> >  
-> > +  # Required properties for multi-device setups
-> > +  - if:
-> > +      properties:
-> > +        reg:
-> > +          minItems: 2
-> > +    then:
-> > +      required:
-> > +        - spi-rx-bus-width
-> > +        - spi-cs-composite
-> > +
-> >  unevaluatedProperties: false
-> >  
-> >  examples:
-> > @@ -244,4 +263,63 @@ examples:
-> >              };
-> >          };
-> >      };
-> > +  - |
-> > +    #include <dt-bindings/interrupt-controller/irq.h>
-> > +    #include <dt-bindings/gpio/gpio.h>
-> > +    #include <dt-bindings/iio/adc/adi,ad7768-1.h>
-> > +    /*
-> > +     * Four ADAQ7768-1 devices aggregated on a single SPI controller.
-> > +     * Each device occupies one CS and one data lane; DRDY and SYNC_IN
-> > +     * pins are wired together across all four devices.
-> 
-> For DRDY, wired together how?   I assume that only gets set when
-> they are all ready?
-> 
-
-They are combined through an AND gate, so yes, it only gets set when
-they are all ready. We make sure by using the SYNC_IN to synchronize
-them.
-
-> > +     */
-> > +    spi {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
-> > +        adc@0 {
-> > +            compatible = "adi,adaq7768-1";
-> > +            reg = <0>, <1>, <2>, <3>;
-> > +            spi-rx-bus-width = <1>, <1>, <1>, <1>;
-> > +            spi-cs-composite;
-> > +            spi-max-frequency = <2000000>;
-> > +            spi-cpol;
-> > +            spi-cpha;
-> > +            vref-supply = <&adc_vref>;
-> > +            pga-gpios = <&gpio 10 GPIO_ACTIVE_HIGH>,
-> > +                        <&gpio 11 GPIO_ACTIVE_HIGH>,
-> > +                        <&gpio 12 GPIO_ACTIVE_HIGH>;
-> > +            interrupts = <25 IRQ_TYPE_EDGE_RISING>;
-> > +            interrupt-parent = <&gpio>;
-> > +            #trigger-source-cells = <1>;
-> > +            adi,sync-in-gpios = <&gpio 22 GPIO_ACTIVE_LOW>;
-> > +            reset-gpios = <&gpio 27 GPIO_ACTIVE_LOW>;
-> > +            clocks = <&ad7768_mclk>;
-> > +            clock-names = "mclk";
-> > +            gpio-controller;
-> > +            #gpio-cells = <2>;
-> > +            #io-channel-cells = <1>;
-> > +            #address-cells = <1>;
-> > +            #size-cells = <0>;
-> > +
-> > +            channel@0 {
-> > +                reg = <0>;
-> > +                label = "channel_0";
-> > +            };
-> > +
-> > +            channel@1 {
-> > +                reg = <1>;
-> > +                label = "channel_1";
-> > +            };
-> > +
-> > +            channel@2 {
-> > +                reg = <2>;
-> > +                label = "channel_2";
-> > +            };
-> > +
-> > +            channel@3 {
-> > +                reg = <3>;
-> > +                label = "channel_3";
-> > +            };
-> > +        };
-> > +    };
-> >  ...
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
