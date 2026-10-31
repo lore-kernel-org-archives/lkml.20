@@ -1,52 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=57.103.78.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.92.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793442958;
-	b=FpRLDUU5oRISKHL7tJNd0nKJS7Fo8p3jtNHvg3EgMhKJwrgJZyLOhKbwGfYOZrCSrMa+
-	 nRQ24MuvPDuSondRopA0L22FIzKSavGH0BoIAFvpmxhxfaeUS4txPyKHQbAnf9MmRneB7
-	 oEUpjS5HE4T+Za0D4Z9nlptF7UZpdeN6cRoresyNS+66cY9ylo7lYhOnK7RHDM7NwcHaD
-	 NyUhHT2Kp4FEbno1ffO7Wlhoc4Agm9loBAishBbq5GCLN5sKgg/nrOR8S+mZECi5l7BX3
-	 u6rEn6HYbqFh9JLhv6ybTqHxsw4UpEu+Llq4rUHuIzWGhNNdHej4sOXVwVsp4xFeb8w==
+	t=1793443373;
+	b=mL/dgyHfNXzPztFOn8AqUxHVtNO4rfPPomsRHSn10hCGNSEiJLzJOJJi2mS9Aet7/fsu
+	 dgRR1duEEVyP6jOJrd109/gGwlsjOQabv/VndeXuYdU2cwE4uRAUd95qV5/1PJawp5d/V
+	 Y7WzUjGBjyyTFnOkZNJHwGFd1AVglQ2AbJSurgWI989hNxn125UCCkQ40QUopLXQgAFqP
+	 6VdXaVV+xaIbN+BVWMgsmKl5Joc27ZVjsKxaBJbutF8QisGjD+2rtRlgCiO0BRfZCepzQ
+	 lrQ4IKW8plYswru2dZ5wh4ZGa3w57oGTUI1oYQWX1F1nWxQ1DkPRaX1kq6enGwDQsnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793442958;
-	h=DMARC-Filter:Received:X-ICL-RepId:X-ICL-Out-Info:Dkim-Signature:
-	 Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Authority-Info-Out:X-JNJ;
-	bh=3KiLbCqh3KbXG4ivr0NTs62tHMSh1wth3efulb21WI4=;
-	b=vv4SuvFuWwrWFU3jJtp6CkLrUvEtdydA2bRMQBZt4676Q7/+Fhu9B8VaT/nnDUxSMaKM
-	 EjygN941+FAfd5AXLraneqVRyV3wGHfc7tj1JMwGeeIMapeZwdC6+MEVmCfSBtKX0dARP
-	 G/jiAmIk22VFSisXonyj2718TAdAB19/dgDPTsVORccTgYcG4y2KJ+gtdNcb7gs7Ymh/S
-	 RRs7guyMPL3R5j3plBkXo+npStLkZIgwWTHPufk6SyLjcycjtPB2FwJIMVZwuVR1isKco
-	 X5laqG69Eoc6w7C+KMi4585mumT1Y6a+QXUlyHl9++pnT6il+tcCZ71e5aXmUdzk6WA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793443373;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=orKhTfTJ1loFLWK1gC5AQvr+zdn3IizBZw/adtSa0io=;
+	b=V4iDr8mgtAKix129qDuMhpTRLS2C4BplwNxghoOvIlQHG3dXkZV+5MdHBrK8LijexVA+
+	 I5ukh5Hyc4BYZ46K4MjvB1r6nfibS3QRnlPYq/g8WX2BA2iat/ajO8D9CvP3RFFOdnAHV
+	 p3bDwjDtRAp7KeozhGHV2uBAUusTMU5XkE8PDOo4v3XNWSCLKTmEr309XDA5lH1SAa1vQ
+	 7mhO2HA1tjCTg7qEIYT7OuPKsbqmhHN+MOdsimUvH/t3Z9ZQiDCeCtEP2B3Iy4aafJwdt
+	 c4IgNihN7bHf4M1veZ4OiNxPxcMSz+vls+XEiJuDyXb8pzWJ9L2+Urd20yE6j2TUW/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=icloud.com;
-	spf=pass smtp.mailfrom=icloud.com;
-	dkim=pass header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=goKA296C;
-	arc=none smtp.remote-ip=57.103.78.175
-Received: from outbound.st.icloud.com (st-2004k-snip4-4.eps.apple.com [57.103.78.175])
+	dmarc=none header.from=rojer.me;
+	spf=pass smtp.mailfrom=rojer.me;
+	arc=none smtp.remote-ip=88.99.92.76
+Received: from mail1.rojer.cloud (mail1.rojer.cloud [88.99.92.76])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD380606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:35:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD380606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=icloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icloud.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=icloud.com header.i=@icloud.com header.a=rsa-sha256 header.s=1a1hai header.b=goKA296C
-Received: from outbound.st.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPS id D1E4D18002AD;
-	Sat, 31 Oct 2026 10:35:51 +0000 (UTC)
-X-ICL-RepId: 01a19187-b226-72d1-834e-d22ae37e9ad0
-X-ICL-Out-Info: HUtFAUMEWwJACUgBTUQeDx5WFlZNRAJCTQtJCkMGXwFeCEADQwZbC1BcHA4XXhtCFUsVXANcDkswUBtfAkIPHBNWFRMLU1ZbE1UXRgkZCF0dGQpQUAZcEhhcFFxQWB5GElYNXQkZGEZeUBtfAkIPHBNWFRMdQxkPKwhKBEMHRQJeCyUTCVNWWxNVF0YJGQhdHRkVWgkKVwBAC04CXQRaHxJYDFAFGh9eEhQeXxhEAx8GD1UGQAZSAkUKQQteDg5XE3kMVgNUDlwEFxtcAAlLRglJHQ4EVAddBV0=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=icloud.com; s=1a1hai; t=1793442956; x=1824978956; bh=3KiLbCqh3KbXG4ivr0NTs62tHMSh1wth3efulb21WI4=; h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:x-icloud-hme; b=goKA296CZN4xa9ZT6VYN887j+QL5AyD2TZjC5YGhTRvB7DuWcP3F1dbk3kVbAP3nMPZJ/qDR1AegPIFcvg686uyvPynKoJyX8aikMmQNOvvmt5xVpGa5Q1TIqQKWShRxygJ+F5BC/EsrfYtRJ8W50LyvBzsCMRvhcGTr3vLARwSnLMOUZJ+cWjvUFKHPr0Pu14L2pxA9PAmcyLqezog4MwD4GlzInWEuRBehoIfy8Vsk96zPxi00PnorHKEYGntyfYoI5ZqBC0picUjdZbnv4VMFwUtrPqnxG6xqdIOAKMEtsgWVQ4QWvkuxLwFu3S/aaI7mwArc6zrPfMG0gXp3LA==
-Received: from [192.168.5.15] (unknown [17.156.216.30])
-	by p00-icloudmta-asmtp-us-east-1a-60-percent-7 (Postfix) with ESMTPSA id 62E7F18002BD;
-	Sat, 31 Oct 2026 10:35:46 +0000 (UTC)
-From: Zhang Peng <zippermonkey@icloud.com>
-Date: Sat, 31 Oct 2026 18:35:12 +0800
-Subject: [PATCH v6 5/5] mm/vmscan: batch dirty TLB flushes before pageout
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78B74606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:42:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78B74606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
+	t=1793443360; bh=orKhTfTJ1loFLWK1gC5AQvr+zdn3IizBZw/adtSa0io=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
+	b=HM19M2tj6EbXZb/bdYPKBiqS1WZGxaaXlQL8iTRTsCdIbzH+/igpWkRqByXAFXdwt
+	 L9j/QGwr2lAarRbet1+MEYShhpZnK3jcJVqE1TrKuGH1kRfrnNNEj9ERR9uGlvs323
+	 /0CT9Y21opwFnlevgLZnGPtbdlgb+qlVvE5J+R2UhHdi7bhUf5W+yYlJFiVfTWpGob
+	 acYe+FJr+WeCnIGAzzt2vgnmbZ//uhsX5y5Jp+R/OIRuTWpif6SvBsvNlQbFxVYRZC
+	 skvPMKrmOxZ63PdrJw4xEWGI1qcnFkiZIj4PoYaB0LtVj9xmkHlUs0vhSWAGNmEc0z
+	 2ak7ritWRnHaw==
+Received: from mail-oa1-f52.google.com (mail-oa1-f52.google.com [209.85.160.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by mail1.rojer.cloud (Postfix) with ESMTPSA id 706A12169C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:42:40 +0000 (UTC)
+Received: by mail-oa1-f52.google.com with SMTP id 586e51a60fabf-49429181ce9so978970fac.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:42:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzhBYBNXhH5gNsTMuGL14jkj7HEDPZk2fHlXQePIuol7p5/PC1V2+3IYoo/zQiH7TQVItf6N8lY6npBEqY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdMYddfb4VBJy86Q2NqYckL8+DLK8ng8GWir+z1zMRYzU23s+p
+	lgwNy2jF6nrpANyfer+Fh6LPmKg2vJ7f4DOSr/T1UxIxBWNVU9x1IIKb7MicHYp5tdmbbW6hEZB
+	gAuoYQoWI+Ds/D7uQxRzbqTpZQVu1wg==
+X-Received: by 2002:a05:6870:21ca:b0:48f:e363:5cc8 with SMTP id
+ 586e51a60fabf-4a9077bbf39mr3116106fac.54.1793443359009; Sat, 31 Oct 2026
+ 03:42:39 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,233 +64,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-batch-tlb-flush-v6-5-190539839eec@tencent.com>
-References: <20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com>
-In-Reply-To: <20261031-batch-tlb-flush-v6-0-190539839eec@tencent.com>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, David Hildenbrand <david@kernel.org>, 
- Michal Hocko <mhocko@kernel.org>, Qi Zheng <qi.zheng@linux.dev>, 
- Shakeel Butt <shakeel.butt@linux.dev>, Lorenzo Stoakes <ljs@kernel.org>, 
- Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>, 
- Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
- Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- Zhang Peng <bruzzhang@tencent.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA0MiBTYWx0ZWRfX7sKGwIC7XZPd
- PlZTtk40uF8LvLnqACQ8aufD5hXMFxFHfWdWKTbDRKlSrMQ1eBHE4hbnZuFnAaMaydk4pV6vNnw
- Hap7fwxHgWrD8y/xo1OdKTQL6W2RPGuNxCCZaRetMz7sm4vCxAL6iFNaR37L85G4mxBPpITTCAy
- XLyIzX2H/KllL+lSojsFvyCu6hIqQh+89vK3uiCsoQIlYnEoKCesOJMZjLwxOOLcjFmQfvLjz2V
- XTkSLVxfsyBzueG9hRWoSGCSww1u20BGEe4Y/XARuOzeTjCDV8Am7kSAm4KxgS5Cgb11YC/PdKA
- wD6+LCDy5Soi2J7wniaFucu8GkDiim5i91fkNJ6BGh11jxeZOx+hTwn5Ekwn5k=
-X-Proofpoint-ORIG-GUID: 2mMLgDoyhFjcu4KCPlvbE47ROxDQhDnr
-X-Proofpoint-GUID: 2mMLgDoyhFjcu4KCPlvbE47ROxDQhDnr
-X-Authority-Info-Out: v=2.4 cv=TZqbdBQh c=1 sm=1 tr=0 ts=6ae5c48a
- cx=c_apl:c_pps:t_out a=oyWFxbOnq+dmhQrAPgaJYA==:117
- a=oyWFxbOnq+dmhQrAPgaJYA==:17 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=x7bEGLp0ZPQA:10 a=YE32fvk_ji8A:10 a=VkNPw1HP01LnGYTKEx00:22
- a=GvQkQWPkAAAA:8 a=bSmHYz4YPk1EoIDwg3UA:9 a=QEXdDO2ut3YA:10
-X-JNJ: AAAAAAABkHeuJtQ6+/Yz0kcGtFchbRSQCpFyLuLDBdfBx6VKDWxqbOwMQEmXLmjTvwZLHC
- CjYk9wluuR7x032VqgXQBFkaqUL6E1KqRgawRTh84mFlnEUdUVpctk4idnb2qdUSEn6RY4
- UZekgnDWlB1dieovTC9WTvWSR5u5Z7JlLbhnllwscDKuOJeXaEZcsYALJ8qoND+uJgJUtR
- nRJ5r6SWHVzWW9CG/8hOlt1yagfcMJ3bI5xv8KhLzsWQpxc5qWT1T4fj4sqfTLBYul7uVd
- fIaKoTVUr3C62OpZ2XASYURr32t+PSBlJ/cg+z5vOomyKLKXRA85vsqZW+DSl3O+pQzt1q
- tFvyPqM8HIouPuUt64Acnfn4kwW0U0ckZewLhf1ilILAAKYXdzfR2rKB0MrmoGB7ly/uxn
- mITyoVgcblLaWUC+WfqRj9riTY++EadCsbGDMf/b+8E+vXPEqinbLAxzSyufLdbvsI+W3M
- +5UkX6PapxJnWon8ZjHFwTBVaRSrc3XaocTV8irVtdhJ1gaFb8zOQEYCxYuvSNoaV+pwZz
- 8Ge04pMKi7W1dppdUar5mUqK4wzUkunD547xM7+vEz5mbbWtP+1RXg0Acyvn3+fmMBCW5l
- TFpT3EcANYIhK/CUKq08HsBRrlVetuRb6U5cdHXgXUlMLwEnOgLmDRrNiBuWkXTmS/LGcJ
- pCcvlggyV32lGTA5/kNyt45vyblCD5mnEidSA2TaIGrgcGyXJbN0wIHv49Rqg5K04//YfY
- nUkH6nmXUTgt+wPKnDijtsfp2I/4fTgdxyAPSQ+oJQv8iGAwGDYyzvMAZADHCsvntqqhRR
- X5veXEIQ3Zcqfjl4R+zfaQuFprTFP3NvbZ4idyDZI6k3xZPy3UgjwBYvWsvOPSNwd5sY4B
- crgRlNslOt7i0t+qsKw6EOsXuXD1sJb4Ob
+References: <20261023235959.2988087-1-rojer@rojer.me> <38baaf87-4d5c-48bc-a11f-a5b6c04c20a8@rock-chips.com>
+ <CABFmFwrWL1sej-=xCK-opxn3B9VVy=TaCyRQU43sw=6PY7bcmQ@mail.gmail.com> <4193517.ZaRXLXkqSa@phil>
+In-Reply-To: <4193517.ZaRXLXkqSa@phil>
+From: "Deomid \"rojer\" Ryabkov" <rojer@rojer.me>
+Date: Sat, 31 Oct 2026 12:42:27 +0200
+X-Gmail-Original-Message-ID: <CABFmFwoDKspgTcsStz4WKQZ+diRLLzu+MMGaRD2D9JXqDmg1_w@mail.gmail.com>
+X-Gm-Features: AclHuK8EOjybxhaUBVSSjy2qBrrG1wOp4iky1FyIolBHsnDnBLbFpYQOr0Uc5JA
+Message-ID: <CABFmFwoDKspgTcsStz4WKQZ+diRLLzu+MMGaRD2D9JXqDmg1_w@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi R2S Plus
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Shawn Lin <shawn.lin@rock-chips.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Sergey Bostandzhyan <jin@mediatomb.cc>, 
+	Jensen Huang <jensenhuang@friendlyarm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently reclaim flushes the TLB for every dirty folio before pageout.
-On systems with many CPUs, the resulting IPIs can be a significant
-bottleneck.
+yes, i double-checked the schematics and this is indeed a difference
+between the R2S and R2S Plus, the change is necessary to make the wifi
+card work.
+sending v2
 
-Collect dirty folios in a folio_batch instead. When the batch is full,
-lock and revalidate each folio, flush pending writable TLB entries once,
-and page out the folios that remain eligible. Flush a final partial batch
-at the end of the scan.
+On Sat, 31 Oct 2026 at 02:23, Heiko Stuebner <heiko@sntech.de> wrote:
+>
+> Hi Deomid,
+>
+> Am Dienstag, 27. Oktober 2026, 23:10:31 Mitteleurop=C3=A4ische Normalzeit=
+ schrieb Deomid "rojer" Ryabkov:
+> > Hi Shawn,
+> >
+> > agreed, it makes no sense here. will drop in v2, holding on for
+> > feedback on patch 1.
+>
+> No direct clue about the board itself, but I assume the schematics
+> should be correct then?
+>
+> So no change needed there and just send your v2, I guess :-)
+>
+>
+> Heiko
+>
+>
 
-Folios are unlocked while waiting in the batch so swap faults can make
-progress. After reacquiring the folio lock, recheck writeback, mappings,
-and DMA pins; a concurrent swapin may have installed a PTE and allowed a
-parallel GUP pin while the folio was unlocked. Keep each unmapped folio
-locked across the TLB flush and pageout to prevent swap faults from
-remapping it before I/O starts. The folio lock alone does not exclude GUP.
 
-Save the original batch count and reinitialize the batch, then add back
-folios that pass validation. Reinitialization leaves the array intact,
-and each add writes at or before the current read index. This reuses
-the batch without overwriting unread entries or needing a second array.
-
-Suggested-by: Kairui Song <kasong@tencent.com>
-Signed-off-by: Zhang Peng <bruzzhang@tencent.com>
----
- mm/vmscan.c | 115 ++++++++++++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 101 insertions(+), 14 deletions(-)
-
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 061414ff45bb..1150361e7d52 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -1334,6 +1334,92 @@ static enum folio_pageout_result folio_try_pageout(struct folio *folio,
- 	unreachable();
- }
- 
-+static void folio_batch_pageout(struct folio_batch *batch,
-+		struct reclaim_folio_state *state, struct scan_control *sc,
-+		struct reclaim_stat *stat, struct swap_io_ctx *ctx,
-+		struct list_head *folio_list)
-+{
-+	unsigned int nr = folio_batch_count(batch);
-+	unsigned int i;
-+
-+	/*
-+	 * Reuse this private batch to collect the locked folios. Reinit
-+	 * leaves the array intact; nr preserves the original input count.
-+	 * Adding each accepted folio writes at or before the current read
-+	 * index, so entries we have not read yet cannot be overwritten.
-+	 */
-+	folio_batch_reinit(batch);
-+
-+	/*
-+	 * Revalidate after taking the lock: writeback may have started, or
-+	 * a swap fault may have remapped the folio and allowed GUP to pin it.
-+	 * Keeping an unmapped folio locked prevents swap faults from mapping
-+	 * it again before the TLB flush and pageout. The lock alone does not
-+	 * exclude GUP, so existing mappings and pins must both be checked.
-+	 */
-+	for (i = 0; i < nr; i++) {
-+		struct folio *folio = batch->folios[i];
-+
-+		if (!folio_trylock(folio)) {
-+			list_add(&folio->lru, &state->ret_folios);
-+			continue;
-+		}
-+
-+		VM_WARN_ON_FOLIO(folio_test_lru(folio), folio);
-+
-+		/* The folio may have changed while it was unlocked. */
-+		if (folio_test_writeback(folio) || folio_mapped(folio) ||
-+		    folio_maybe_dma_pinned(folio)) {
-+			folio_unlock(folio);
-+			list_add(&folio->lru, &state->ret_folios);
-+			continue;
-+		}
-+
-+		folio_batch_add(batch, folio);
-+	}
-+	nr = folio_batch_count(batch);
-+
-+	if (!nr)
-+		return;
-+
-+	/*
-+	 * Flush writable TLB entries before any folio in the batch is
-+	 * submitted for I/O.
-+	 */
-+	try_to_unmap_flush_dirty();
-+
-+	for (i = 0; i < nr; i++) {
-+		struct folio *folio = batch->folios[i];
-+
-+		switch (folio_try_pageout(folio, sc, ctx, folio_list)) {
-+		case FOLIO_PAGEOUT_ACTIVATE:
-+			goto activate_locked;
-+		case FOLIO_PAGEOUT_KEEP_LOCKED:
-+			goto keep_locked;
-+		case FOLIO_PAGEOUT_KEEP_UNLOCKED:
-+			goto keep;
-+		case FOLIO_PAGEOUT_RECLAIM:
-+			break;	/* folio is locked; try to free it below */
-+		}
-+
-+		switch (folio_try_reclaim_free(folio, state, sc)) {
-+		case FOLIO_RECLAIM_ACTIVATE:
-+			goto activate_locked;
-+		case FOLIO_RECLAIM_KEEP:
-+			goto keep_locked;
-+		case FOLIO_RECLAIM_DONE:
-+			continue;
-+		}
-+activate_locked:
-+		folio_activate_locked(folio, stat);
-+keep_locked:
-+		folio_unlock(folio);
-+keep:
-+		list_add(&folio->lru, &state->ret_folios);
-+	}
-+	folio_batch_reinit(batch);
-+}
-+
- static bool folio_try_unmap(struct folio *folio, struct reclaim_stat *stat,
- 		unsigned int nr_pages)
- {
-@@ -1375,6 +1461,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 		struct mem_cgroup *memcg)
- {
- 	struct reclaim_folio_state state = {};
-+	struct folio_batch pageout_folios;
- 	LIST_HEAD(demote_folios);
- 	unsigned int nr_demoted = 0;
- 	unsigned int pgactivate = 0;
-@@ -1383,6 +1470,7 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 
- 	INIT_LIST_HEAD(&state.ret_folios);
- 	folio_batch_init(&state.free_folios);
-+	folio_batch_init(&pageout_folios);
- 	memset(stat, 0, sizeof(*stat));
- 	cond_resched();
- 	do_demote_pass = can_demote(pgdat->node_id, sc, memcg);
-@@ -1679,21 +1767,16 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 			if (!sc->may_writepage)
- 				goto keep_locked;
- 			/*
--			 * Folio is dirty. Flush the TLB if a writable entry
--			 * potentially exists to avoid CPU writes after I/O
--			 * starts and then write it out here.
-+			 * Drop the lock so swap faults finding this folio
-+			 * via swap cache lookup can make progress; the
-+			 * recheck that this necessitates is documented in
-+			 * folio_batch_pageout().
- 			 */
--			try_to_unmap_flush_dirty();
--			switch (folio_try_pageout(folio, sc, &ctx, folio_list)) {
--			case FOLIO_PAGEOUT_ACTIVATE:
--				goto activate_locked;
--			case FOLIO_PAGEOUT_KEEP_LOCKED:
--				goto keep_locked;
--			case FOLIO_PAGEOUT_KEEP_UNLOCKED:
--				goto keep;
--			case FOLIO_PAGEOUT_RECLAIM:
--				break;	/* folio is locked; try to free it below */
--			}
-+			folio_unlock(folio);
-+			if (!folio_batch_add(&pageout_folios, folio))
-+				folio_batch_pageout(&pageout_folios, &state,
-+						    sc, stat, &ctx, folio_list);
-+			continue;
- 		}
- 
- 		switch (folio_try_reclaim_free(folio, &state, sc)) {
-@@ -1721,6 +1804,10 @@ static unsigned int shrink_folio_list(struct list_head *folio_list,
- 		VM_BUG_ON_FOLIO(folio_test_lru(folio) ||
- 				folio_test_unevictable(folio), folio);
- 	}
-+	if (folio_batch_count(&pageout_folios)) {
-+		folio_batch_pageout(&pageout_folios, &state, sc, stat,
-+				    &ctx, folio_list);
-+	}
- 	/* 'folio_list' is always empty here */
- 
- 	/* Migrate folios selected for demotion */
-
--- 
-2.56.0
-
+--=20
+Deomid "rojer" Ryabkov
+rojer@rojer.me
