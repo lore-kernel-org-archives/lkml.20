@@ -1,21 +1,22 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793421367;
-	b=tTNlgCzTBicFE9S/dKWqr5OrkytANXzwAiSwMFO9HqUKtxhmcLD85oFdSQked+4m7dwg
-	 IV4KMSTeVaIH5MdBy+x+1lJF+zMt33Ojj2OCBnDiDT9+9PsaLgc3MIIQ1V/bqox96132y
-	 S3klUlF75+AFH0mc9svUJ3AkH9De0sX10dLettqC0qQHWbvwHyfasN6k39jXOmFEGeIUA
-	 z6RKXBOUDi2z9NPVU+JrGXGzBcJ8p8PmTzpOqk8RoiW4RWCMjFreqKWFcmyJ/mc2lTicj
-	 cLVQj6cWMoqrLZmqiFnlmyCgwkPTSFybrN22ZeHyERxk4D+rOktddDs+iW/tERPckew==
+	t=1793421365;
+	b=T5QrZD36BJcBw8fn5Lgu7CJ9B6dRAcdevWEe2PcKPdoe8WHnGGqrAI9//0N/ffxsvG1r
+	 GKrneEbYwovr5zyNNwDtUpsgUj3hXTiV1RbKHkkTQkLHWgZtHoHoOWNF0rPw0vpC2D3NQ
+	 tdPtkL4UAg9X8Unf80QbBKkVfqBbKqLcUpXNY2z5y0S7fchcGkF8s8xyRz7L8yCMJ7sVo
+	 oWwRAK5AGco7dCRiK1G6ns7h3v6eNGTWOc2oj3YFlatDhrXw83dlZgjsiRNcbR0fU7fHV
+	 9YWaOFmQImC9MEjUG0X2iAHG3MSshZjvVsXsigOEGVP7+8pmFGaI/LsQhqusDtEnh3Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793421367;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793421365;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:From:Date:Subject:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:CC:
-	 X-Mailer:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-LD-Processed:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 Received:Received:Received:Received:Received:From:Subject:Date:
+	 Message-Id:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:CC:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-LD-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
 	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
 	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
@@ -25,72 +26,76 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-HPE-SCL:X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=zdRRsR17U1IQjJpCNDBAf1NEKxEKXj8wR0AWW4c0Z+w=;
-	b=5UGCEuJ4pN+NwDtKTUF1UdZLb7qyS4TXOS/GxUKiyHJKLrF+j6mDlfxOWR+NNdLZrLfs
-	 vTP9Qb6BggmCmtOCnAn7v69j3M3sC/L6CYI6Boglb55V3KldR7R5p6HAl1D+LrzzbHtxY
-	 IIvJf9HLpxKJlZNZV7HR+afBEtGBsFqO6Vh+TLy6MfuoTHMQVMRGe2f5f+/qNUP9NcAKs
-	 W/htSjpzaw9mZxWChakDMRnwmI3qB+UJsC3pdivTUkAMKdC4shyDB28UrMHDdH+rY8bhB
-	 k+bnZnq9kp5UORNX5xJcs3CsNH02fRAsdbEX63MtMSoMdqKvdIR2FU6iic8/aVENyww==
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-HPE-SCL:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=Jfkw+z3fgfI8mM3aazCa5CoC4gURxMdq8wklCjpJ0Ts=;
+	b=4H+yHug5Vo7pD3veZ1A9iB3bqQwV+c02MkZC/NA6RqgRD1tjEaRXtlktAUeOH33p//wE
+	 pHtBIjf5H7JSa6UavzfQDEpkMvyzePxvqpIBDpUPsGyOREAQQltoNdKekiFArbEWH0k7s
+	 3ktYBMGnxTxaXXa2xfm9qOJmuF5MO2z0N6znQgEcnLXilXq8/80IDDuwyU9SItkQMJrB+
+	 BZ4psAc3YhAq4SXIRh+XI+/othJJ7sWGYtjjDKOGQEdas4Wjr7FDfP/xf/0h8Qlvt7x9z
+	 9iEJ4gBBYj7A154FT7SJRKimWBA/eedyP61VAVevesKh1Db5t9nr2mEYc/kDeD6MAxA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hpe.com;
 	spf=pass smtp.mailfrom=hpe.com;
-	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=bj2YRfNe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.147.86
-Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
+	dkim=pass header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=UBa5xkmP;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=148.163.143.35
+Received: from mx0b-002e3701.pphosted.com (mx0b-002e3701.pphosted.com [148.163.143.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 266EF606A32F;
-	Sat, 31 Oct 2026 04:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 266EF606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A875606A31C;
+	Sat, 31 Oct 2026 04:36:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5A875606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=bj2YRfNe
-Received: from pps.filterd (m0134420.ppops.net [127.0.0.1])
-	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69V4VtOi524247;
-	Sat, 31 Oct 2026 04:36:04 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=hpe.com header.i=@hpe.com header.a=rsa-sha256 header.s=pps0720 header.b=UBa5xkmP
+Received: from pps.filterd (m0148664.ppops.net [127.0.0.1])
+	by mx0b-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69V2JMWN1566781;
+	Sat, 31 Oct 2026 04:35:59 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps0720; bh=zd
-	RRsR17U1IQjJpCNDBAf1NEKxEKXj8wR0AWW4c0Z+w=; b=bj2YRfNecQg5+FmnxD
-	vuH1A053Ileotp8ZO3VXLNUWvJ4Mp9cfjBn4mjwO+r0K+5IyY+w2mKW93aFKrXoo
-	Skw5f7i6iRDrGedGi9zZawuDk7YseK+X4kfnnCiYzxbHOBGllsX2c0MLQ8bGfqJv
-	Cx75TNLPZMtIe857B+woU+jraIJxRprAuuey33F/PTLOa/iJzHYWC9gHUokyOoIL
-	F6xsEcUPxhJPh+gTGNnAuIuGfPc8yG7uaBK3qpMvKqy8euqe0d4nP3brWwqPbkb4
-	4CX55wbxVsEYDMxXA0gqi/0DxQRwTdUdh0p0RH/aVkbbk2PEfYNLuJOOxash/Cdg
-	SZPQ==
-Received: from p1lg14881.it.hpe.com (p1lg14881.it.hpe.com [16.230.97.202])
-	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hn5ptht8m-1
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps0720; bh=Jfkw+z3fgfI8mM3aazCa5CoC
+	4gURxMdq8wklCjpJ0Ts=; b=UBa5xkmPt7C3gApX28bIfy2KX8KKR++fS+VsDIqO
+	SyKBPzZ0KoRqydN24Y1fQEwp1r+mPgfZkG/3mop3OlaTIM0Zy09pQUD9JGKI+Wg2
+	N2u9qV+SujmC+hnswi9Qdv2QE2tOUuBWfepHiDzdyZbqdom/6eNugbCLmCZ5HerW
+	SgxG6wz+jAN31A47vhbsBjlewT8gBWlDRrDWDkoWRTAyEUTWpiowrhs8Bb/cLL41
+	YI1L8aeEgUcZpWIRpjhMTtMlpuDdv3G6pxolJMC0p7O35VF0I7RsSRv5rb5Qvj7g
+	x5FZ8JPhby3BkEuDRUwadNclfk1FbqQvejgBX9LO1ALzRQ==
+Received: from p1lg14879.it.hpe.com (p1lg14879.it.hpe.com [16.230.97.200])
+	by mx0b-002e3701.pphosted.com (PPS) with ESMTPS id 4hn7esgy4a-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Sat, 31 Oct 2026 04:36:04 +0000 (GMT)
-Received: from p1wg14925.americas.hpqcorp.net (unknown [10.119.18.114])
+	Sat, 31 Oct 2026 04:35:58 +0000 (GMT)
+Received: from p1wg14926.americas.hpqcorp.net (unknown [10.119.18.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by p1lg14881.it.hpe.com (Postfix) with ESMTPS id B8B3180479A;
-	Sat, 31 Oct 2026 04:36:03 +0000 (UTC)
-Received: from p1wg14923.americas.hpqcorp.net (10.119.18.111) by
- p1wg14925.americas.hpqcorp.net (10.119.18.114) with Microsoft SMTP Server
+	by p1lg14879.it.hpe.com (Postfix) with ESMTPS id C658912B73;
+	Sat, 31 Oct 2026 04:35:57 +0000 (UTC)
+Received: from p1wg14927.americas.hpqcorp.net (10.119.18.117) by
+ p1wg14926.americas.hpqcorp.net (10.119.18.115) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 30 Oct 2026 16:36:03 -1200
-Received: from p1wg14921.americas.hpqcorp.net (16.230.19.124) by
- p1wg14923.americas.hpqcorp.net (10.119.18.111) with Microsoft SMTP Server
+ 15.2.2562.43; Fri, 30 Oct 2026 16:35:57 -1200
+Received: from p1wg14927.americas.hpqcorp.net (10.119.18.117) by
+ p1wg14927.americas.hpqcorp.net (10.119.18.117) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 16:36:03 -1200
+ 15.2.2562.43; Fri, 30 Oct 2026 16:35:57 -1200
+Received: from p1wg14920.americas.hpqcorp.net (16.230.19.123) by
+ p1wg14927.americas.hpqcorp.net (10.119.18.117) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Fri, 30 Oct 2026 16:35:57 -1200
 Received: from DM2PR0701CU001.outbound.protection.outlook.com (192.58.206.35)
- by edge.it.hpe.com (16.230.19.124) with Microsoft SMTP Server
+ by edge.it.hpe.com (16.230.19.123) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Fri, 30 Oct 2026 16:36:03 -1200
+ 15.2.2562.43; Fri, 30 Oct 2026 16:35:55 -1200
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=l9by2djZiN84d48eAz5SglNIFDhrOfw2kK3SraTnI5FjZwI3uAGYHY+0Mts7+LVfBcjCwjqqy0uoJSsEsEkgAXdA+qK516idywXLeFONKSwfIPBCLoC9qXqLTlRtBxrG0zSZsyZ1snWAyArveQGH7YsPVPSWmnLwgkHyqoRcbR1c1xVOTiYtVATXzogkFbwY6YYHmfM/sLbhzdGXkvGX8NqDikjIUynh0sPf6kZpxh0l6NdJrUC4YkaFHsHfXA6hixShMuCoP3/qSclWyD06+MO2M+rpdjF87TwhdmVGqZmGLtbMU0vaWJ7hrRinQhdXunfwB2Q6qQcQd86EMyzrqQ==
+ b=v+Gh6WOQN75BbWffX+kzpMrDtRepVxxWVDxaWJzdm3zfZyCcZp0MOxcM7rkz5uMhFYohgaoJGNbYx9NPSdpMpJkgaaebjKqN4IiXPVgQXftNkDKHQu4M1lKvnKNr3bJZ+ICkN+CNTNUZhoRB2oClPzPSuyFm/bK67Pe7kCiRTfTWHyJDyf+rDCJjGOPYlULs4JgRpl0jhH4hm8SO+ktlqig4aVQPRXMkZZ4ngXzYtxV4kJxp67vnsSDFpmXLbeNtAdduFd/i5fWA+v0utrfLtvb48dlU6oSACUOfpmZDSEBiVDiZYgF2s9fDhP2GuNTppyTX/9v2t2RhlrsAJ6gVeQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zdRRsR17U1IQjJpCNDBAf1NEKxEKXj8wR0AWW4c0Z+w=;
- b=QxJ1KQBClfCAfXNBrRKRfMCRsjf2fKZCW9XQV2OLbEBhMiXml2UchwtkqScX/k8vWs0A9ENxI3lAhR5nIjaJIS3YgkigEp2sW+aHqZ+n7Xpn3noW/U4DMdj6e7Jf5iATEZw4yI7mXKvvF3FEKfzdwV8WpnCxxJBbAN2U/sC7ctXTYcF86QLJ317mM9wUjcXsxj6Y8uINXVl6zbMp1DCQH9F+tlsZsQJwFjOX0+wrecztHjPQT9QP9OapjGROn1Iu3RzSxiEH9YwZjEeJlePWIs5wqhBfMjbDOYsFz3sqrA2XFLiHkSuyiTEgdiR2C1q+I9UlvQoVHbM0wd33vn3Zyw==
+ bh=Jfkw+z3fgfI8mM3aazCa5CoC4gURxMdq8wklCjpJ0Ts=;
+ b=lTzH/orq0N+hAxLXOC3dMo2y+S6zydPMenJLcuBU0wCFLC8371gAaAEjRxmiLxIMPyAhCMFK+MifQeoCg6CH4h43e57WL21vbsJmNusWdWhz5dzd0RnFtCDQjGkK0MDfX9rVswfscNyCfiRRGotjk936doiG+imxoep7EfjKozxaJ8jCavjC51MViOtEYuSv2f6Rxzg+fao1ZV5pCv0indlqWkmsRxZiO0Lr4ZGsEs5jfH2ifxb6Gb3wSnRj10bavGriW4waTATb5wnh6GAhBk+QMPdLKNYjGZf7TwjHCt2fLnykvAv9P18epe4OlUFVtOKgChlYPN1qcTWt79BfWA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
  header.d=hpe.com; arc=none
@@ -100,28 +105,34 @@ Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:225::20)
  by MW4PR84MB2091.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:303:1b2::8) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
- 2026 04:36:00 +0000
+ 2026 04:35:53 +0000
 Received: from DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8]) by DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
  ([fe80::d136:e75e:53c5:73d8%6]) with mapi id 15.21.0569.009; Sat, 31 Oct 2026
- 04:36:00 +0000
+ 04:35:52 +0000
 From: Doug Ledford <doug.ledford@hpe.com>
-Date: Fri, 30 Oct 2026 21:35:31 -0700
-Subject: [PATCH 03/11] RDMA/core: add Slingshot identifiers and
- driver-owned GIDs
+Subject: [PATCH 00/11] Subject: [PATCH for-next 00/11] RDMA/cxi: add the
+ HPE Cassini verbs driver
+Date: Fri, 30 Oct 2026 21:35:28 -0700
+Message-Id: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261030-cxi-for-next-v1-3-bc6e49e07037@hpe.com>
-References: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
-In-Reply-To: <20261030-cxi-for-next-v1-0-bc6e49e07037@hpe.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAA/yXMQQ5AMBBA0avIrE1SFYKriEVbU8aipEWaiLsrl
+ m/x/wWBPFOALrvA08mBV5dQ5BmYWbmJkMdkkELWhSgFmshoV4+O4o6NrYRWUo9VayElmyfL8dv
+ 1w+9w6IXM/j7gvh91DXQ2cAAAAA==
+X-Change-ID: 20261030-cxi-for-next-8f50ba2bd59f
 To: Jason Gunthorpe <jgg@ziepe.ca>, Leon Romanovsky <leon@kernel.org>,
         Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>
 CC: <linux-rdma@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
         Doug Ledford
-	<doug.ledford@hpe.com>
+	<doug.ledford@hpe.com>,
+        Iraimani P <iraimani.pavadai@hpe.com>,
+        Mamila Santosh
+	<santosh-kumar.mamila@hpe.com>
 X-Mailer: b4 0.16.0
-X-ClientProxiedBy: DS7P221CA0017.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25c::7)
- To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:225::20)
+X-ClientProxiedBy: DS1P223CA0017.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:8:44e::15) To DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
+ (2603:10b6:8:225::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,294 +144,264 @@ Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM4PR84MB3970:EE_|MW4PR84MB2091:EE_
-X-MS-Office365-Filtering-Correlation-Id: b5ddc4e5-19d3-4fed-fecd-08df370876d6
+X-MS-Office365-Filtering-Correlation-Id: 9df7de38-37cb-41d0-3873-08df37087247
 X-LD-Processed: 105b2061-b669-4b31-92ac-24d304d195dc,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|6133799003|10067099003|18002099003|22082099003|3023799007|56012099006|261021121427099003|261021135927099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|261009223027099003|261009221227099003;
-X-Microsoft-Antispam-Message-Info: squAZMu0YU7eVEXyxLDuZJnsnikVkBjoJ611g0fb80lbIf43ayZyWz0FSFeTjvgi2JMnm9tqp99B35dqF7GKGx9KMqKuzRquWHC65qLs8vXzjxSLPLj5Gtx70UwJ3JhgObmeHuP6dKAN2Buzn+X8EyRo3+O5mzfacctb21E1++F4ztHGPVuM6xbqjVNoS4T7aBQ0ArxKqV+LIjk8AISF/+iQE1icjqfx+PQNgLVQymNlbPCM8iO20BpqsNaV/0aiT9Ax9wmrYRPEmAdiAMfWlTqWuNCe3xQ+KkP3jH3npaVbFKkRYlKkYLbYpYFGg6Mm3nhPhlqLaWuF+rbWCvIhVQm2Ky9HC3Yfwq+kzCLxW4hQogLaYrQFt9VW9w4+fxkrd0hyXbWOOQhOqBebjoWVzKxc0uup3GjGSfKIhnnRUYRVOnHsN+kjAA3hnjUF7lA7mbxB9ae4CAK82b6kpVrjoJsYDT2iKKlT6t0wLdq125vxf8CWVHrJze+/FMMyy5WOCx0VSN0wROe6DcVDvzWgztbVIZijWsw3spZDtCdT6tu4X0Ri6hr7qI1fU1y4mIumtvhILVsd6r74/K2jtyXBDHhPEBqm86ptPi18sW1n8GWt/hL0jbM8sIFTGo/hAjiev0vG5YEGzJsq9NbvxIwREfkYKZGx6v0xPdaYa7u5W3k=
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(56012099006)(261021121427099003)(261021135927099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261009223027099003)(261009221227099003);DIR:OUT;SFP:1101;
+X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|6133799003|10067099003|18002099003|3023799007|56012099006|261021121427099003|5023799004|261021135927099003|261021123027099003|261022105027099003|261026140227099003|261026121527099003|261028144727099003|261022075727099003|261009223327099003|261009223027099003|261009221227099003|261009221727099003|261009220027099003;
+X-Microsoft-Antispam-Message-Info: +BWzEOC1btWT2aZl+5f8/Gfk0rPLmCJUILykA3pR8SvxSuYgyUrrWAmnYCqA3caCHDbPdvaOJb+Qsrth3EzikT4WnkGs4au/txHv4MBFSxnF7k4/jfsyp8a+a5npDd+D/ENhJJuYi/kqFuX2YnTys9i1YTOp7NlBnFka5MEo3788OgQ0IkrHH5KYHYjZZiwItZofavicGasQ4nFuv78at1iQWeeEkzu2SurTDRpMck021fnpYkf5zojeCHarN2cirxIz8kVYW/+oKOagc4IyD7zgJzkjYGvoqKJgHdXMQEdsEJ38uOEQ1RNJDUfhi4twIop+ebAhRtyjGPHLA+dm7WpryDoDx+LYQHfdMw3pjTDUTac4AuOXRjnIxipWsSSbcsNoIuGIf1GhiRXGUVCtoCdGHycw/DTEHbwjOcjrs9/Czvuh3GFO5qtOD0dNANKkH+aU0W8XnBA+DjqWbaUsVK/QtKcnw2lwydIX1TWlU/IIvkQewMnY2qx1OLxzRqqAIu1f3RZg8kdiTGChCifDnJpcha2YAKiqlAJsY/T/x7MXNoVYX91LbL7xPxPyn8JCom9z76c/qJpRBG6HevegrdZjjSJh89+LPpTz4TdUObfUMu+Tc4Ll1j+88Zf80Mce
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(6133799003)(10067099003)(18002099003)(3023799007)(56012099006)(261021121427099003)(5023799004)(261021135927099003)(261021123027099003)(261022105027099003)(261026140227099003)(261026121527099003)(261028144727099003)(261022075727099003)(261009223327099003)(261009223027099003)(261009221227099003)(261009221727099003)(261009220027099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?c3RNQnN6NXphL3lPSTBLM2hMdnRQbkY0bHMxcVIxYThRazdubGtBYjBUVk1q?=
- =?utf-8?B?YXBEei9PNnU5QUY1QTFjZDVtOWlFV3VLMmloeFlySy9PUU9jVkFVQ3ZBbExw?=
- =?utf-8?B?c2M4TzJFVzNnaVphNnhHRHU5RGFxcnRLM2htcU1lQ0gwL0ZTOGtiOWxuK2dS?=
- =?utf-8?B?Q3prVmFQTkw2T29NdTBSZ3JTYk4yQTlwVUVWRFhQZUptQjllTFFsRWtEckdQ?=
- =?utf-8?B?ZFVQY0NLUE9GbFZJMlp2WlA1TU1UTEY3NnJvd25lM3BkeFlXY05ucS9CLzVW?=
- =?utf-8?B?d09PVUx1dkNrSzQwamtpbFE3SHd3YnYzSHpVeGJ5WWwvV3htYTk3U3NTbFox?=
- =?utf-8?B?ektXdm9vdXpUWlR1ZENyUnZLd0hYTy9sOW1zNUdSazErV2RDMjI1bWxUTlE3?=
- =?utf-8?B?TGVRTHExcnZaV0Zjb3NTOTltVlg4VTdrWEF3NVhMeGxKOEErd0dyK2R1RzlJ?=
- =?utf-8?B?T2pXSHFOeWxmd3ozMUdScGEzRitSWW1sd0o2dGo5dmU3V0RIS3ZEQkJNSW1n?=
- =?utf-8?B?UGQ3RHNFOEk4ZTZpNEQ0dGIwSjZCcSsrSWxmTVFQK1pCTFh6YXUvTmdKN3lL?=
- =?utf-8?B?QVp2TkpDeGR6UDJDYVozTzBhTFp0aW9Uby83VTJ3QWg0dmZLRkdueFpJOVJW?=
- =?utf-8?B?TFZ6b2RSbmpkaWVEQytDNGxaWVg1Q1JQYmhiVElFVjdxK0xtWUR4UEhxZC9N?=
- =?utf-8?B?dlNNM2dmY3IwRlMwZnF5elFMbk45cDFTNytjN0J4MXhVbVJTNU9Ocmw1d3dt?=
- =?utf-8?B?c2Via1ZIaHlmaEsvNXJXcXR2MDhpbzVXeWVkcFJzVWo5am9yS1ZNU2ZGbmww?=
- =?utf-8?B?dkZhY0FGVkMzR2I0UGJvQjV1Z2prSTlqaitHY0pPbklJekJRUEVHQ21EK01P?=
- =?utf-8?B?NGN0MDJKa1JzVmJRU2UxbnJNRWdVbFRYUmVqY2lDSnpsYVJhWkdhNkxKWVhW?=
- =?utf-8?B?MmtPVVNmZlRnS1REMHZtVXNFSk5RT0o0RTgzbytDMXlmSitXV3lBb2tySnM2?=
- =?utf-8?B?amxOWFUxWXNaei81NzB3VU83bGNyM0pFdGlGMWNjMHZaNjJuWWlTMnBEVWN2?=
- =?utf-8?B?QnpXMjIxMzlMMFhmRXlwalZYV1Rqam1IK0JzaUJBWHhkV01JdlltaVhmWmh6?=
- =?utf-8?B?aHB6QlJ0U21MR0FUUmF1cXpwb00xVkdtODdPVmYyc2wzS2NXMTYvUVBJUU00?=
- =?utf-8?B?VlV6Y3BHTkwxc0g3dmRTQ2VDMzZVenc3WXZDVFNOM1F4bUl6NlRoc0JkWjgw?=
- =?utf-8?B?R2xEZWh1blZUY2E1WEpiWkZWOHZIbDlCMlRJVnY4Mm96aWxiRnZFSFc0Q2Jt?=
- =?utf-8?B?bTN1R3pCYkNudmlHT3UzbWtzRlBZTTFlWHVoMlA5ZzBvclJ2STBFMmI1RlZ0?=
- =?utf-8?B?T1JJaHNWVlYxcXRkRDVzYUkrM0xwUVkwWU92TjBvK1FyUWVJVXpIaDlNWVBL?=
- =?utf-8?B?MWp1Y2xMY1R3WEkrZDhNZ3Ercjg5U3MrR3Z2cXEraEkzTlVLNUZ1cWNXVGVy?=
- =?utf-8?B?WmYzWkxCWTZFQ1FPZTBZZG9CMDV0NDErZllGcTNrSmQzTFRzWlphRVJaSDBq?=
- =?utf-8?B?L2hvVjg3dkpvOW01djF6NlFqditrZlhJamF1dCtKTUZjYXVQbDJ3OHZqNlVT?=
- =?utf-8?B?R1FLZTFqckZyRk5HdnNqQk92eVU2Vnd3bVg5MjJUU2UxZjZ4ZXJzeWVkMjY5?=
- =?utf-8?B?VGJOOHJxNjlOQmdnby9rN0luOEdHSlpSWXByZ21JeUlzRzUwTlA3ajV1bmhn?=
- =?utf-8?B?SjJGenIwbnJiQUtMVm9Bd3poWnRxa3pYUjlpbWlkSlA4UVVJaGYvVWxhQmdy?=
- =?utf-8?B?U29FYTFIWDhaTkZ4RkkvYUg2WGozY1g5dVhLNUtoYVUzaC9LQUlCM3JUY2Nq?=
- =?utf-8?B?aFEwdFlTODFOMzR1Um5vNHdob3EydWY1YlRqYmF2VEp6QmJGc09Qcy9VZ1V3?=
- =?utf-8?B?N1haWnF0Q1IvWXNUR3VkU1dPY1BZUzlEOHhvTkVFNzFiREVrN3JUUThUcmxn?=
- =?utf-8?B?NzY2c1Awdmt0TUp4Y3lQaDJuOHhwSFhHdUJkdFVjaU5iL29ONDJyTW9hY3BC?=
- =?utf-8?B?NVdDTHl6bnlINTQ3NktTc2gyS3ZjMlR6V2FGQUNJZjYzZlIwTHVEWWJ0WHNC?=
- =?utf-8?B?NytRZ0VMZlpQMm1DdGdoTzI5STdnZ0srMWZkZHZtZTltbTBwYjk0UE1HNXBa?=
- =?utf-8?B?QlF6dFRqVFNxV3dsUnEwcnVMemVsVEV5UktmMk95ekJjVm5mUWxoT2lRbFJF?=
- =?utf-8?B?Ky95RUsvcUhSRURhRHRzVnBOWVR4VnEycXc4VzJMVXkrZWJPVjVyTzlhQVBk?=
- =?utf-8?B?WXBRUjZyV3YxWVhlZy9Za25XaUp5NHdXdFVXeXFlQUZKd1FsV0VVUT09?=
-X-Exchange-RoutingPolicyChecked: Y4QIRHv+nNhjiHqkMrnXEnCDlu5xIH9uXOD5tSTCMxYeKq6pxI8Syge8BB1M7BqJKMBmzDCjRRmP7MQs1MoANV/wjCjktIvlWNZ5yycrs7v1xXz41ouUEPlIjHhyN/VKuJ5p3v5i/z4uOjh7SlBr5MWud3WaeoVZi48Y+yPY9tPcon6WYgvhOWymlDwYG04w7v02zzwju+hiPKkw4Kug/kCdz1CwAmXQIpKjNBTZ5SSj5KFK9f7bTrAkmpCeTt5cLj39TBxO1AVQMCD0JIgDjzXEXmivyDi23uKUrRVRXezD2bvU8do4xo94X0CA5IuJjGRxBft6u5bHO74aJwtpQg==
-X-MS-Exchange-CrossTenant-Network-Message-Id: b5ddc4e5-19d3-4fed-fecd-08df370876d6
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YXh4RHE1Q2w1aEZBV1NHV0pVZHN4eURTQlViTDE0R3pTZ2tKVWNIcUFzRmdM?=
+ =?utf-8?B?L2xuc0I0YnZhbmRkaCtqcmp6UnBMTzRFbHhHcC9YWFNoNkp2Vy8rNzlDUTMz?=
+ =?utf-8?B?QWhaNU5RbnArRUR1S0JxeWgxRGYxb29VNFdZK2o1TXUvK1pTcmRGZ1NJaFgz?=
+ =?utf-8?B?WnByOVhzK0hqZkV2MVhuQmxHVEYzK2RBNFFvdWcxdzVVekJtMVFZSklsb09N?=
+ =?utf-8?B?RXBzMXdvYnQ3LytCQ1UzUFJIVklmcU5Ua1NNcTN1azc4aStNREw3R01HMW9F?=
+ =?utf-8?B?aGRDbnNlNHc5VE9KR1UzSnRCRS9mbExnazk5SlVDNElxTWZnZUhDdGRGWnFi?=
+ =?utf-8?B?dVl1NWoxNnVWVnZRKzNvZ0hRQUs3YXk2SXBnRndmcVZsd1MwcTgzSzdqS1oz?=
+ =?utf-8?B?R3ZQcExid0pnV2FMY1A4SnZRQ2JUZTY4YXpOMXRWQlpaVmI2RDFWOHgwSDA3?=
+ =?utf-8?B?bFByOXVKTHpyVGUyeTgxS2lnY2hvd3JnZ1FwZXdnRFA4OVNQSmtlbW83RVVr?=
+ =?utf-8?B?T1JKcjY3eVBnYnJUeEkyeDZCRWhxTWNBT1Z2bWk5ZnhKTnpFdWR4dDNMSlJv?=
+ =?utf-8?B?Mm4zdWVGWXpYT0VZVlErRGRYUm9hUEl2a0hxWDloZ2thcFZUdEdNWE1YMVFz?=
+ =?utf-8?B?SmdVelQzZUplYjQ3Z0RUSGlXOGhMM2hGZkVZMUNLL0ZoM2tBMzloekRqWWdU?=
+ =?utf-8?B?TjRqZncrYk1DbGVqU1ZQeDBOQ1ppczJvdUV4SGwxL0FEMWZrS0h1ODB1WkVG?=
+ =?utf-8?B?MGlXZVpOS3U5KzNGVzlUdS9QbDNVUTNpZGptUUhBY3lQZ3dJT1VTeCsrWEdh?=
+ =?utf-8?B?dzQrb2ltQXRmWVlKY0JQL2pDMEdzekJucUdyNmZVZmN1MERrbnJFVUo4cUx2?=
+ =?utf-8?B?bGhpZmhacjZYRlRPVE1IVXV1bWJONlJTRGozSWNtV0JFSHpTd2VKZFc1a2xn?=
+ =?utf-8?B?ODM3RFhZR2MySDR4UGtNczZJbWt3cVp5V1RFaWpLT05TanRjL24zN2FBZ2cy?=
+ =?utf-8?B?dW85bHd1TXQreUdCcVhJeVJNRXFHY2U2NnFGYk15clZ2T3hEYkJrZHA2amlI?=
+ =?utf-8?B?Nzg3R3FaOGVhOTFSYitNV21tWFZTTG9RTnphYUJJb1BNQkw3a3BiMm93aTJa?=
+ =?utf-8?B?ODVVZVBTUkh3OFFBYk9qajFmQ2NjZUh5ZEhHWGFLYXppLzRDODFIT09Ha1hN?=
+ =?utf-8?B?Ty9VUy9wQS9ldG1uZGhQME1JYmQ2UkFnYTVreFVmUDVqL01GaFhGOUNHMXcw?=
+ =?utf-8?B?dlRlbjZ6TDJVa3ltUzk5MkxYTHl6YWsvVll5TUZuOC9RMStHSkFhT0FqV2tz?=
+ =?utf-8?B?U0hmNEhvNGp6T2JQemVJT1pNeFJWLzNtbnlhUHNHM2VHNC9yLzBFd0JWV1Ba?=
+ =?utf-8?B?Q3hwMkZLVXNRODhCYjBmaytuQ2FNdEhTYm5ZUHRVdGx3R01sVUxFN1BSRnlt?=
+ =?utf-8?B?c1F1Ly9LM0ZBNmZYQkJjODR6R3V6OURNeVpsZUxHN3FuSEU0ajAySjBGTHIy?=
+ =?utf-8?B?SGd0Wm9JQ1RlaktUQ3h5VVErUVJxRGhmcDhNMGRtakt2NWh5MVR2NUlxbEZo?=
+ =?utf-8?B?aUYzQmRaQWl2bHlnalFJWFhCOGJjZ0FSc3hDMnJaYmx4YkxBZjB4MEFTSkww?=
+ =?utf-8?B?eHVzbXYwSWtQS3pnM0dlam1FR0kxVjVIMXVpekpjaERieXM0ejZrYUh3cGg4?=
+ =?utf-8?B?aVE5Q1lXaGxPK0VFY2FtNlIrL09SeUo0bnpZcFVBaS9DL2lzd0U3aDgwNHlH?=
+ =?utf-8?B?NG4yd2VrZ2d2cStnUmxkMVpITFlvN2dReEdmaVVKUGFEeWRqVGt4WVdhNXVy?=
+ =?utf-8?B?eUhjU2NNbnQ3VjU2MnFTK1dkMDg1ZlB0NXdyQVV0azVBbU9pZUI5Z0RQYmJ2?=
+ =?utf-8?B?bDR1SzBDSXJUeUhMaHZXaWVWL0NNOVVzZFhmZ2lZdnlHbnJ5bk51T2g0NG9t?=
+ =?utf-8?B?Y1FTbHlMY1FlRVBHQmFUZVYwZTUxTEJYOHZsN2hpbzN5a2xEclE4d21YYm1O?=
+ =?utf-8?B?dENqWEdkQ2g0ZFEyV3MvL0ljamRGU2RKN2ZLcyt3bWFkRnNIcHZlSVh3SUNi?=
+ =?utf-8?B?YWFMVC9jQXpxbjZMbUdEdUFEcjJQTWdkYVdZSVVoTlhXc1NKQkxQNHM4YXhS?=
+ =?utf-8?B?eThSMWlEQ2tOMVVCcjBTUnRFeEVaVHFYWmwzMmN4UXA1bjFPbzJYZlhnTWpL?=
+ =?utf-8?B?dkMweURQeG0xOVM4elAvRnNWWHB3Z1ZQeWc0REJSQlBmU2k1SmliemRHZkVp?=
+ =?utf-8?B?NkNNNWJoeHFUMTlxcGpEWnVvSlZIZnc3dmVSeExWcjlRbUVJZnJ3QjI3d2Nz?=
+ =?utf-8?B?YWRXQ0lIQTJFTzNFYzlSYmRBVk1PSUs5Nk5NcFdlUWYyUHBSc28wZz09?=
+X-Exchange-RoutingPolicyChecked: N0Sw89MOePtTQFIrZ/iQFlW5UQ0J4Fwzw92kEbobplYc3o6GZsC04HdMDg4odJd6B5mmfuooIHNpjaAHzdN19jy1gMiCqMdHg8D0T3snS3O7sxjmkSFBevAVMEzEfWL0c6eQm8XtB/otDRuNPBefLOYa2uzAN01HUZSjrLcOMQgftDSuQIBXYN0zK8+3wWYKLZzPlf/n5hmmhLloDHFxBNEJzfCWSL0zTfa2Avz8iHA7rNP2xY4gzfBAB5MXTgKJbgVXo/CPIGd+zmNXmsFu6XarAMgnZiYRuK38mMfpk73hnEafK0HrlxatStHx1HwB0+WmEctyB8cnVBW1IIHVxQ==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9df7de38-37cb-41d0-3873-08df37087247
 X-MS-Exchange-CrossTenant-AuthSource: DM4PR84MB3970.NAMPRD84.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 04:36:00.4189
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 04:35:52.8230
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 105b2061-b669-4b31-92ac-24d304d195dc
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: /y9X+knWT+AqBf3tW55h1j7teJh7LK/Vfowkz7ZiH5M80DAK9pkJ99zOUK60OCLeWxOjtB+Icix7c3dXPseazw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2BjVafXh5qOTzwVm1GgityrisfLh25JYR8IkmyMa2DFq7AYnL6Fd1fVSd4oVXp7CIIdNpg5PY5YXzj6+NBqftw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR84MB2091
 X-OriginatorOrg: hpe.com
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDAxNyBTYWx0ZWRfX7G0e55pqEVQz
- OoufR9z2AuvQvHat6oY6//MJ0a6WB1AY02Ncsl7zlnfVTRj8Z4tChcUXrunXGbQig4lCXSMZ1Bt
- JGONhtb9Z0aSsW+FuroT+cE6GZNtjLY=
-X-Proofpoint-ORIG-GUID: VQ_8hQusTIm9g0LK50EYGjTKdjKgFNoN
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDAxNyBTYWx0ZWRfX83Ld6YGHA2+b
- mNw6V4OAMgjqsfN3rQxcR0dT+8jXW+VubgzXzdWtzVcaTcfrNDxKarDDWFxdRoTOue+B/tU10ar
- iQq3WzU2GKehHd4mX2OSru2WqUT5uMvpJ0jq3ZhH0KmOFfNnvpNbLePMOVxHormEvoON6jQ7l3s
- j31iQRknBB5UdRpDDTJSvC1v+IqaPlU91mxZOzRn89Rg6kU20pzV0A9RKtpEKoJgVGBrbqaARTP
- joe4GP3mFof1gKD6KQOKzYR3/QDPsm/VyHzFeOlLDh+XBewgD7Bnx7K0pbzT5XjLZy6SPwJ0+2k
- 7+NuEvngzQdv3V6aAGsl3NHFSdgBkbh5PUTp1y4uZoNFy4/F57+0CplCYdk/43SpdOz4DszSgZV
- 1S3l9UWNqpkePrYUpEJMuIRM9hNTW3YeQA/ZEpXarQbwC/lBq9raTVZTw+BuRJQLTsBHMK319GE
- 1ob5yYM0sBsdsHNycuA==
-X-Proofpoint-GUID: VQ_8hQusTIm9g0LK50EYGjTKdjKgFNoN
-X-Authority-Analysis: v=2.4 cv=ZPJCCn7b c=1 sm=1 tr=0 ts=6ae57034 cx=c_pps
- a=FAnPgvRYq/vnBSvlTDCQOQ==:117 a=FAnPgvRYq/vnBSvlTDCQOQ==:17
+X-Proofpoint-GUID: 3n3zQfl5iatnxC5tTcYY7YAsUEQMgTTu
+X-Proofpoint-ORIG-GUID: 3n3zQfl5iatnxC5tTcYY7YAsUEQMgTTu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDAxNyBTYWx0ZWRfX91izf/uq8Szo
+ w7nRnREa/3QiOeOKeaXjeWBQC3PfVV3uuLvsjbNVT5OajYZ8WwgeFWiOR38SaqQcvrKXB6Khh/L
+ wsfqDVfmA20AfW9vpgRdW9MBEoyNxWdAFNjaT0hN3AFMcctUICp7PvBnzQQFCuB4VyytKEo70Bu
+ uGkMk90z37sES21By/Ji4Z4vaHwzZ/NNPNARZlOXGb2KP0qdZE7zecWruoUf8hDeIpfAO6S5w4B
+ quDC3ziuTumKbhWthO5FrWnhv7fCKifwnzmFlfpWEAyVc16n4hKtCC407dvaghixfC4gsk/LiwX
+ eGtFYS42XsbFKBHSxgk2L2FK5RgLaw46bTVdKBRgFvJhxbYyqEuF65TMhZ3Z1kT0xOaRHbyIYOz
+ XeA9ws20HZrwOkoC8o/Qp5EBClRfCEcLSCzcYyC/8lW0gtBOpiFkD1EG2NIPn4oGUnsorkkhinI
+ 8ckErcMK/MxeS7UtZmw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDAxNyBTYWx0ZWRfX6suOcyrAA5Zn
+ oKledobt9bpWN8VvAiyNtwWTNJKlTNil9XGDMImIXgsT2fHFn3q76DYmjsRwXCNPGS77lvCwEEJ
+ 4zbWGrsmJB3VRdVTsd+Y/a5d3NAll1c=
+X-Authority-Analysis: v=2.4 cv=OLayTiaB c=1 sm=1 tr=0 ts=6ae5702e cx=c_pps
+ a=5jkVtQsCUlC8zk5UhkBgHg==:117 a=5jkVtQsCUlC8zk5UhkBgHg==:17
  a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
  a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22
- a=RtSn8ETxjE2H05FtM2s8:22 a=MvuuwTCpAAAA:8 a=4gJl8e_CxB3hIM5OUqsA:9
- a=QEXdDO2ut3YA:10
+ a=NCWKwCw8Xy9Og0ibBRsL:22 a=VwQbUJbxAAAA:8 a=MvuuwTCpAAAA:8 a=Q-fNiiVtAAAA:8
+ a=Ep5skU6GpA05FKZfv_IA:9 a=QEXdDO2ut3YA:10
 X-HPE-SCL: -1
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-31_01,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015
- bulkscore=0 priorityscore=1501 malwarescore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310017
+ bulkscore=0 malwarescore=0 suspectscore=0 adultscore=0 clxscore=1015
+ lowpriorityscore=0 spamscore=0 impostorscore=0 phishscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2610310017
 
-Add the identifiers the CXI RDMA driver needs from the core: the
-RDMA_NODE_SLINGSHOT node type and RDMA_TRANSPORT_SLINGSHOT transport,
-the RDMA_CORE_CAP_PROT_SLINGSHOT port capability with the matching
-rdma_protocol_slingshot() helper, and the IB_GID_TYPE_SLINGSHOT_UFH
-GID type.  Names are added to the sysfs, GID cache and node/transport
-lookup tables so the new values are reported like any other.
+This series adds cxiverbs, an RDMA driver for the HPE Slingshot Cassini
+NIC. It exposes the NIC through the verbs API using the UET reliable
+unconnected (RU) queue pair type from the UET RDMA core series.
 
-A Slingshot GID carries only the 20-bit NID of the port, so the port
-exposes a single GID type and does not take part in the RoCE style
-netdev GID population.  RDMA_CORE_PORT_SLINGSHOT combines the new
-capability with RDMA_CORE_CAP_ETH_AH.
+cxiverbs does not drive the hardware itself. It is an auxiliary bus
+client of the cxi-ss1 Cassini core driver and does everything through
+that driver's exported CXI interface.
+
+Patches 1-3 extend the RDMA core:
+
+ - read selected counters, with per-item timestamps, through the
+   COUNTERS object, so that a monitor can read a few of the NIC's
+   thousands of telemetry values
+ - allow UET jobs without an address table. Cassini transmit commands
+   carry the destination fabric address directly and the hardware has
+   no programmable peer-address table equivalent to the UET job table.
+   This relaxes a rule in the UET core series and needs agreement from
+   its authors; the commit message gives the hardware reasons.
+ - add the Slingshot node type, transport, port capability and a
+   driver-owned GID type that carries the 20-bit NID of the port
+
+Patches 4-11 add the driver:
+
+ - the user space ABI is built around explicit resource ownership:
+   the CXI service, LNI (logical network interface) and PID are
+   allocated explicitly through private uverbs methods instead of as a
+   side effect of opening the device
+ - VNI-isolated RU queue pairs, native memory registration, services,
+   jobs, communication profiles, command and event queues, counting
+   triggers, and NIC telemetry read through the counters extension
+
+Dependencies
+------------
+
+This series depends on:
+
+ - the Cassini NIC driver series for net-next,
+   net: hpe: add HPE Slingshot NIC drivers
+   https://lore.kernel.org/netdev/20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com/
+ - the UET RDMA core series
+   RDMA/core: Ultra Ethernet transport verbs
+   https://lore.kernel.org/linux-rdma/20261019-uet-ib-core-v2-0-8bd654f25370@broadcom.com/T/#t
+
+The upcoming cxiverbs rdma-core provider pull request will depend on
+this series.
+
+Known open issues
+-----------------
+
+Every patch with a known unresolved issue says so in its commit
+message. In summary:
+
+ - SR-IOV: patches 9 and 10 carry virtual-function code from an older,
+   incomplete version of the Cassini SR-IOV support. V2 will include the
+   updated SR-IOV implementation, so please ignore issues in the VF
+   paths for now.
+ - Patch 9: on a physical function cxi_eq_free() cannot fail. On a
+   virtual function it fails if the PF mailbox is unreachable. If that
+   happens while the file is closed or the device is removed, the RDMA
+   core drops the EQ object without native cleanup, so the VF EQ and its
+   references leak. Explicit EQ destroys are retried. This will be fixed
+   with the SR-IOV update in V2.
+
+checkpatch
+----------
+
+Patches 1-3, 10 and 11 are checkpatch --strict clean. Patches 4-9 still
+report CHECK-level items only (157 in total, mostly
+PARENTHESIS_ALIGNMENT and OPEN_ENDED_LINE); each patch lists them. This
+code is also maintained in internal HPE repositories, so these fixes
+need coordination with those repositories and will be made in V2.
+
+Review and testing
+------------------
+
+Before posting, the series was reviewed with the Sashiko AI code
+review tool and checkpatch. All valid findings are fixed, except the
+open items listed above.
+
+Tool use: GitHub Copilot, an AI coding assistant, was used under our
+direction to write many of the review fixes, to fold them into these
+patches, to write commit messages and to run the build and hardware
+tests. Every change was reviewed by the submitter, who takes
+responsibility for it as for any other patch.
+
+ - every patch builds incrementally, without compiler warnings, on top
+   of the two series it depends on, with an x86_64 configuration that
+   enables the driver
+ - with this series, the netdev series and the rdma-core provider,
+   booted on two Cassini 2 x86_64 nodes, the complete stack
+   passed a full test matrix on both nodes: the rdma-core Python suite
+   (434 tests; tests that need features this device lacks are
+   skipped), resource and VNI isolation tests in default and indexed
+   addressing modes, including wrong-VNI rejection, privileged and
+   unprivileged CSR access tests, and 36 two-node RU ping-pong and RMA
+   traffic cases (polling and event modes) in each direction, 72 in
+   total. Native NIC resource accounting was identical before and
+   after the traffic, no verbs references remained, and the kernel
+   logs had no WARN, BUG or oops reports and no module load errors.
+   The only later change is in the netdev series (cxi-eth hardware
+   timestamp configuration), which was tested separately on hardware.
+ - targeted user space models of the functions changed by the review
+   fixes pass under AddressSanitizer and UndefinedBehaviorSanitizer.
+
+Co-developed by Mamila Santosh and Iraimani P, as shown by the trailers
+on each patch.
+
+Doug Ledford (11):
+  RDMA/core: read selected counters with timestamps
+  RDMA/core: allow jobs without an address table
+  RDMA/core: add Slingshot identifiers and driver-owned GIDs
+  RDMA/cxi: add the native ABI and resource definitions
+  RDMA/cxi: add the auxiliary device and driver ops
+  RDMA/cxi: add explicit context LNI and PID lifetimes
+  RDMA/cxi: add VNI-isolated queue pairs
+  RDMA/cxi: add native memory registration
+  RDMA/cxi: add services jobs profiles queues and counting triggers
+  RDMA/cxi: read the NIC telemetry through counters
+  RDMA/cxi: wire the driver into the build
+
+ 25 files changed, 5696 insertions(+), 7 deletions(-)
 
 Signed-off-by: Doug Ledford <doug.ledford@hpe.com>
 ---
- drivers/infiniband/core/cache.c         |  3 +++
- drivers/infiniband/core/nldev.c         |  3 +++
- drivers/infiniband/core/roce_gid_mgmt.c |  3 +++
- drivers/infiniband/core/sysfs.c         |  2 ++
- drivers/infiniband/core/verbs.c         |  2 ++
- include/rdma/ib_verbs.h                 | 14 ++++++++++++++
- include/uapi/rdma/ib_user_ioctl_verbs.h |  2 ++
- include/uapi/rdma/rdma_netlink.h        |  1 +
- 8 files changed, 30 insertions(+)
+Doug Ledford (11):
+      RDMA/core: read selected counters with timestamps
+      RDMA/core: allow jobs without an address table
+      RDMA/core: add Slingshot identifiers and driver-owned GIDs
+      RDMA/cxi: add the native ABI and resource definitions
+      RDMA/cxi: add the auxiliary device and driver ops
+      RDMA/cxi: add explicit context LNI and PID lifetimes
+      RDMA/cxi: add VNI-isolated queue pairs
+      RDMA/cxi: add native memory registration
+      RDMA/cxi: add services jobs profiles queues and counting triggers
+      RDMA/cxi: read the NIC telemetry through counters
+      RDMA/cxi: wire the driver into the build
 
-diff --git a/drivers/infiniband/core/cache.c b/drivers/infiniband/core/cache.c
-index d5e17a36f186..b407e5e25dbc 100644
---- a/drivers/infiniband/core/cache.c
-+++ b/drivers/infiniband/core/cache.c
-@@ -141,6 +141,7 @@ static const char * const gid_type_str[] = {
- 	[IB_GID_TYPE_ROCE_UDP_ENCAP]	= "RoCE v2",
- 	[IB_GID_TYPE_UET_UDP]		= "UET UDP",
- 	[IB_GID_TYPE_UET_IP]		= "UET IP",
-+	[IB_GID_TYPE_SLINGSHOT_UFH] = "SLINGSHOT UFH",
- };
- 
- const char *ib_cache_gid_type_str(enum ib_gid_type gid_type)
-@@ -1404,6 +1405,8 @@ static int config_non_roce_gid_cache(struct ib_device *device,
- 
- 	gid_attr.device = device;
- 	gid_attr.port_num = port;
-+	if (rdma_protocol_slingshot(device, port))
-+		gid_attr.gid_type = IB_GID_TYPE_SLINGSHOT_UFH;
- 	table = rdma_gid_table(device, port);
- 
- 	mutex_lock(&table->lock);
-diff --git a/drivers/infiniband/core/nldev.c b/drivers/infiniband/core/nldev.c
-index 5313eb4849c7..97ee2f5118d6 100644
---- a/drivers/infiniband/core/nldev.c
-+++ b/drivers/infiniband/core/nldev.c
-@@ -350,6 +350,9 @@ static int fill_dev_info(struct sk_buff *msg, struct ib_device *device)
- 		ret = nla_put_string(msg, RDMA_NLDEV_ATTR_DEV_PROTOCOL, "iw");
- 	else if (rdma_protocol_roce(device, port))
- 		ret = nla_put_string(msg, RDMA_NLDEV_ATTR_DEV_PROTOCOL, "roce");
-+	else if (rdma_protocol_slingshot(device, port))
-+		ret = nla_put_string(msg, RDMA_NLDEV_ATTR_DEV_PROTOCOL,
-+				     "slingshot");
- 	else if (rdma_protocol_uet(device, port))
- 		ret = nla_put_string(msg, RDMA_NLDEV_ATTR_DEV_PROTOCOL, "uet");
- 	else if (rdma_protocol_usnic(device, port))
-diff --git a/drivers/infiniband/core/roce_gid_mgmt.c b/drivers/infiniband/core/roce_gid_mgmt.c
-index 214af921341a..bcdbb9e45107 100644
---- a/drivers/infiniband/core/roce_gid_mgmt.c
-+++ b/drivers/infiniband/core/roce_gid_mgmt.c
-@@ -77,6 +77,7 @@ static const struct {
- 	{rdma_protocol_roce_udp_encap, IB_GID_TYPE_ROCE_UDP_ENCAP},
- 	{rdma_protocol_uet_udp, IB_GID_TYPE_UET_UDP},
- 	{rdma_protocol_uet_ip, IB_GID_TYPE_UET_IP},
-+	{rdma_protocol_slingshot, IB_GID_TYPE_SLINGSHOT_UFH},
- };
- 
- #define CAP_TO_GID_TABLE_SIZE	ARRAY_SIZE(PORT_CAP_TO_GID_TYPE)
-@@ -86,6 +87,8 @@ unsigned long roce_gid_type_mask_support(struct ib_device *ib_dev, u32 port)
- 	int i;
- 	unsigned int ret_flags = 0;
- 
-+	if (rdma_protocol_slingshot(ib_dev, port))
-+		return 1UL << IB_GID_TYPE_SLINGSHOT_UFH;
- 	if (!rdma_port_gids_from_netdev(ib_dev, port))
- 		return 1UL << IB_GID_TYPE_IB;
- 
-diff --git a/drivers/infiniband/core/sysfs.c b/drivers/infiniband/core/sysfs.c
-index 4cd861b5d953..5121a622f822 100644
---- a/drivers/infiniband/core/sysfs.c
-+++ b/drivers/infiniband/core/sysfs.c
-@@ -1262,6 +1262,8 @@ static const char *node_type_string(int node_type)
- 		return "usNIC UDP";
- 	case RDMA_NODE_UNSPECIFIED:
- 		return "unspecified";
-+	case RDMA_NODE_SLINGSHOT:
-+		return "Slingshot";
- 	}
- 	return "<unknown>";
- }
-diff --git a/drivers/infiniband/core/verbs.c b/drivers/infiniband/core/verbs.c
-index adcda33b04f2..77d1d71d7167 100644
---- a/drivers/infiniband/core/verbs.c
-+++ b/drivers/infiniband/core/verbs.c
-@@ -282,6 +282,8 @@ rdma_node_get_transport(unsigned int node_type)
- 		return RDMA_TRANSPORT_IWARP;
- 	if (node_type == RDMA_NODE_UNSPECIFIED)
- 		return RDMA_TRANSPORT_UNSPECIFIED;
-+	if (node_type == RDMA_NODE_SLINGSHOT)
-+		return RDMA_TRANSPORT_SLINGSHOT;
- 
- 	return RDMA_TRANSPORT_IB;
- }
-diff --git a/include/rdma/ib_verbs.h b/include/rdma/ib_verbs.h
-index 5aa1fa576a44..c26d7e562914 100644
---- a/include/rdma/ib_verbs.h
-+++ b/include/rdma/ib_verbs.h
-@@ -147,6 +147,7 @@ enum ib_gid_type {
- 	IB_GID_TYPE_ROCE_UDP_ENCAP = IB_UVERBS_GID_TYPE_ROCE_V2,
- 	IB_GID_TYPE_UET_UDP = IB_UVERBS_GID_TYPE_UET_UDP,
- 	IB_GID_TYPE_UET_IP = IB_UVERBS_GID_TYPE_UET_IP,
-+	IB_GID_TYPE_SLINGSHOT_UFH = IB_UVERBS_GID_TYPE_SLINGSHOT_UFH,
- 	IB_GID_TYPE_SIZE
- };
- 
-@@ -171,6 +172,7 @@ enum rdma_transport_type {
- 	RDMA_TRANSPORT_USNIC,
- 	RDMA_TRANSPORT_USNIC_UDP,
- 	RDMA_TRANSPORT_UNSPECIFIED,
-+	RDMA_TRANSPORT_SLINGSHOT,
- };
- 
- enum rdma_protocol_type {
-@@ -682,6 +684,7 @@ void rdma_free_hw_stats_struct(struct rdma_hw_stats *stats);
- #define RDMA_CORE_CAP_PROT_USNIC        0x02000000
- #define RDMA_CORE_CAP_PROT_UET_UDP      0x04000000
- #define RDMA_CORE_CAP_PROT_UET_IP       0x08000000
-+#define RDMA_CORE_CAP_PROT_SLINGSHOT    0x20000000
- 
- #define RDMA_CORE_CAP_PROT_UET         (RDMA_CORE_CAP_PROT_UET_UDP \
- 					| RDMA_CORE_CAP_PROT_UET_IP)
-@@ -722,6 +725,8 @@ void rdma_free_hw_stats_struct(struct rdma_hw_stats *stats);
- 
- #define RDMA_CORE_PORT_USNIC		(RDMA_CORE_CAP_PROT_USNIC)
- 
-+#define RDMA_CORE_PORT_SLINGSHOT        (RDMA_CORE_CAP_PROT_SLINGSHOT | RDMA_CORE_CAP_ETH_AH)
-+
- struct ib_port_attr {
- 	u64			subnet_prefix;
- 	enum ib_port_state	state;
-@@ -3596,6 +3601,13 @@ static inline bool rdma_protocol_uet_ip(const struct ib_device *device,
- 	       RDMA_CORE_CAP_PROT_UET_IP;
- }
- 
-+static inline bool rdma_protocol_slingshot(const struct ib_device *device,
-+					   u32 port_num)
-+{
-+	return device->port_data[port_num].immutable.core_cap_flags &
-+		RDMA_CORE_CAP_PROT_SLINGSHOT;
-+}
-+
- static inline bool rdma_port_gids_from_netdev(const struct ib_device *device,
- 					      u32 port_num)
- {
-@@ -5219,6 +5231,8 @@ void rdma_move_ah_attr(struct rdma_ah_attr *dest, struct rdma_ah_attr *src);
- static inline enum rdma_ah_attr_type rdma_ah_find_type(struct ib_device *dev,
- 						       u32 port_num)
- {
-+	if (rdma_protocol_slingshot(dev, port_num))
-+		return RDMA_AH_ATTR_TYPE_IB;
- 	if (rdma_protocol_roce(dev, port_num) ||
- 	    rdma_protocol_uet(dev, port_num))
- 		return RDMA_AH_ATTR_TYPE_ROCE;
-diff --git a/include/uapi/rdma/ib_user_ioctl_verbs.h b/include/uapi/rdma/ib_user_ioctl_verbs.h
-index 75cdfdbdb2f7..e8e84aa034ef 100644
---- a/include/uapi/rdma/ib_user_ioctl_verbs.h
-+++ b/include/uapi/rdma/ib_user_ioctl_verbs.h
-@@ -258,6 +258,7 @@ enum rdma_driver_id {
- 	RDMA_DRIVER_ERDMA,
- 	RDMA_DRIVER_MANA,
- 	RDMA_DRIVER_IONIC,
-+	RDMA_DRIVER_CXI,
- };
- 
- enum ib_uverbs_gid_type {
-@@ -266,6 +267,7 @@ enum ib_uverbs_gid_type {
- 	IB_UVERBS_GID_TYPE_ROCE_V2,
- 	IB_UVERBS_GID_TYPE_UET_UDP,
- 	IB_UVERBS_GID_TYPE_UET_IP,
-+	IB_UVERBS_GID_TYPE_SLINGSHOT_UFH,
- };
- 
- struct ib_uverbs_gid_entry {
-diff --git a/include/uapi/rdma/rdma_netlink.h b/include/uapi/rdma/rdma_netlink.h
-index ee11c3bbbae2..69ff1dee2db6 100644
---- a/include/uapi/rdma/rdma_netlink.h
-+++ b/include/uapi/rdma/rdma_netlink.h
-@@ -158,6 +158,7 @@ enum {
- 	RDMA_NODE_USNIC,
- 	RDMA_NODE_USNIC_UDP,
- 	RDMA_NODE_UNSPECIFIED,
-+	RDMA_NODE_SLINGSHOT,
- };
- 
- /*
+ MAINTAINERS                                        |    9 +-
+ drivers/infiniband/Kconfig                         |    1 +
+ drivers/infiniband/core/cache.c                    |    3 +
+ drivers/infiniband/core/device.c                   |    1 +
+ drivers/infiniband/core/nldev.c                    |    3 +
+ drivers/infiniband/core/roce_gid_mgmt.c            |    3 +
+ drivers/infiniband/core/sysfs.c                    |    2 +
+ .../infiniband/core/uverbs_std_types_counters.c    |   68 +-
+ drivers/infiniband/core/uverbs_std_types_job.c     |    3 +-
+ drivers/infiniband/core/verbs.c                    |    2 +
+ drivers/infiniband/hw/Makefile                     |    1 +
+ drivers/infiniband/hw/cxi/Kconfig                  |   11 +
+ drivers/infiniband/hw/cxi/Makefile                 |    5 +
+ drivers/infiniband/hw/cxi/cxiverbs.h               |  443 +++++
+ drivers/infiniband/hw/cxi/cxiverbs_counters.c      |   38 +
+ drivers/infiniband/hw/cxi/cxiverbs_ct.c            | 1906 ++++++++++++++++++++
+ drivers/infiniband/hw/cxi/cxiverbs_drv.c           |  270 +++
+ drivers/infiniband/hw/cxi/cxiverbs_main.c          | 1105 ++++++++++++
+ drivers/infiniband/hw/cxi/cxiverbs_mr.c            |  192 ++
+ drivers/infiniband/hw/cxi/cxiverbs_qp.c            |  949 ++++++++++
+ include/rdma/ib_verbs.h                            |   25 +
+ include/uapi/rdma/cxiverbs-abi.h                   |  658 +++++++
+ include/uapi/rdma/ib_user_ioctl_cmds.h             |    2 +
+ include/uapi/rdma/ib_user_ioctl_verbs.h            |    2 +
+ include/uapi/rdma/rdma_netlink.h                   |    1 +
+ 25 files changed, 5696 insertions(+), 7 deletions(-)
+---
+base-commit: 306a2f8432f516069b2e673de7a07043132c034f
+change-id: 20261030-cxi-for-next-8f50ba2bd59f
 
--- 
-2.56.0
+Best regards,
+--  
+Doug Ledford <doug.ledford@hpe.com>
 
