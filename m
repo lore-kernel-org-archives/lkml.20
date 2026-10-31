@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793476585;
-	b=qp1aZQpTwwNFxIw5IN7PQDMEksJFIcWkWnuh0EAniPYxrSqabB2oNPs/EvzJy0RL5LSj
-	 kaanU4tVPY8EwxAfbLYuCGBMCnbH8NKI39ebPrk8DHc9MifQ7xGNhTQZshsr9SNwpC41u
-	 mYWXLV/4AjDzWKX8ZMH31he7LohxXjd165vWs/5Hk2g9ewYopUWWlr9KtkxHKKmrI/gAD
-	 mKFhaank1rwtb4JP2bk+bY2GOLnGL+VReA1npxb2q7T8VzkGhhlc9J4C8hTwSO/QqNQy2
-	 Wa/7PADETrRr8R6RPhC2oN0Hpmb60jxLJp/M/BMnkiCkz9/dv3+uF7Z0hgLmzb47x7w==
+	t=1793476651;
+	b=3m7yfwB3gJHSUeKLH5Cgr6ERSWG/R+DPLahE9B43l+KZFQpp0REwKJTrUiLY8Czy2uqU
+	 UP80ppfphCpfg9ui70hDaf0ASCzDAHJYGwYO9nk1JeP8TXlpb9KMJXFFOhNNpE3rBgmIN
+	 YxdNiaRdQRRKTa5O9vnOWuD2JvVVQx+lS5hv6XbVvhtvn5yrbR4JXjGfUTiW7J65JV2JB
+	 5sQpfY0HbUgzOwsKcJTIuBAcGbCEPDhbNlbeiLhKG++8VWSY41OX8+g2dTv+2iKjxgnPD
+	 6p+xXkUx63VwlTV7Qcy/8rj9V0NkqGg73OCdIxSH3Kaa2053QWY6J4hc/jm2bM29NFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793476585;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793476651;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=dwrcbsknGFmVz4+ZF6mDEPtgchjJAiKOuwaGvt8CwOQ=;
-	b=fy8R2n4qlp4cAMNt2+jTORWk/H8Fs6zFBttx77bCdj6M5KIlOR19SX+7tBRyOQIBEU3g
-	 bzZZ/VQL2nwwmwUXTMU22CJHuxbDYhw/d6CyqUV8957SXHwTeSW2YuK1NXswWgFU5f+Yn
-	 /BrGGrEVuTbgI/rwDd6YNktQoOE7u7+9hItaNjN2XH4Kot8Vkr9d7lSakOA18PlLbZFIz
-	 Kw9ny3ZxuY6dn6qjfBPAQhEhueFNSCdQ8pOfk/Vq+vTxWPF9lKdEMRxgxSB3pTTxuIY7I
-	 CnShn1k1KuT871nYX2XIiAb9BGmrO5mhowacDJbySn0ccyb+BOsQTI7X62ET+QVKtTQ==
+	bh=EhbCfZIKF/z8CmeZ81yrmHlag9Fq3VRo/4XV3cKq5E0=;
+	b=Mxcb1Fd+61FUSdnVhTsngLPJfjMfymYf8iPS0lbhdjaRjpKIVv7Hf7ffxbbiFVYCiZaQ
+	 8gicOy3uwqsXrj4N5uJV83jOVYVEKVW8OuzFLaLrhBHNh5jmNhKsSZemXLj8KpaKEbAWH
+	 P6yky08OoBDWTJERwB7qtm9yRt+b+WPM3rlJADjT63lR3iwGmflyyo3SRsyTCiXrRzkUI
+	 gguCrRexXr0y1rm06AnN6Ku9MwAguVE5Z4LjeXZE8f37XI52TJHmzaYKQlF9r1CF+VQky
+	 nvazPm/9akKC6DCG4jjyeHThhHYpvWV6mP/ZQ/Lpp2Iz+H6pXu5AJOXeHdM/Kf8Ap8A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqfWuiYY;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I401xoiw;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89BB606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:56:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D89BB606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC59606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:57:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AC59606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqfWuiYY
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so15404285e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:56:24 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I401xoiw
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a549cd7fd2so15578145e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:57:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793476583; x=1794081383; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793476649; x=1794081449; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dwrcbsknGFmVz4+ZF6mDEPtgchjJAiKOuwaGvt8CwOQ=;
-        b=cqfWuiYYDKmcg1zu/PAZdCgzRi/i9VRR+mMiMAGlbyBGA/DJrK6hm7DpD4BvScsYcV
-         Pc1EzTpWYO7meduCu5DECX7Iw+tdWUoc+jiR0zEDEBU0W7jyknB32GOlZPUQAAMOgcG8
-         UD17vwfsn+TIViRIwHrlCQcbLu5roIv0JiBW1Hl/Km3q3w4eFd4UyVSKNwzNZGazqv2I
-         hcjzNd1shXHFaLiUrONE8Vy9/SOhVUmTAIybR+kAFEie2XjCAeXkRjbN3xnvHTjW/SWS
-         yM99KoZK0UvQHD1RkJDL0DTCEI5WuEDjq4WSDL5ZOsqPSA4D/imPBpOMj24U4curNn8O
-         OIIw==
+        bh=EhbCfZIKF/z8CmeZ81yrmHlag9Fq3VRo/4XV3cKq5E0=;
+        b=I401xoiwd5Rsm3yIWBlda4cG4Lr6MmSdbc5xwj86O3EWuBbU+5Q41REHYPT8rOWhfc
+         Qnsv1MH+14vPTX3RvSrnP9dB3NGPda+vyu7CpcG9SN4T+SHnIWdXo4I5JZtGh+Uz8M8C
+         wDphVn5A4RS1wipAWQ6DWDA1F+4OI5IcEh945zr6EwgA2MH9dHE0p6uk/MiLCPZLIZ6o
+         PfGVkfq8xpTy+YtqlRDOtRQgaMGBR+4IL8K2gOvKtjw7oNSBWADJ6Gbv2tu/t4Np85qe
+         dZ1f6l6FyNXIBiMQIAqLII0gTPK0k7DljB7FAJqLcZmL+GirNpAT1TXsUPhlwGgYg7bp
+         WhVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793476583; x=1794081383;
+        d=1e100.net; s=20260707; t=1793476649; x=1794081449;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=dwrcbsknGFmVz4+ZF6mDEPtgchjJAiKOuwaGvt8CwOQ=;
-        b=ywZv/fa+tet9NQQlKhj31p3a1dySTB2wUJ9Sh29XUxQWgyMa1D1bG5K9v0lnxH97SB
-         EZwXBiVg9IKkk8Prft+gIACRz/GVYlnNC0H7gJ8WrqJ7MzvrKCw9rxw/QEaVvwMdK/uP
-         QvQXDM8rO8hRjj/q/moWtqpdMCNp52bVAZ+wGSHE2hIyi/QrnMCYroksHXnHHq9yjs0V
-         DNNrPzwP0wBK5uu8ouJO1d58Z58xLOtn+bjQsAMsMv1Z5oZi8yd57SOdxUYTaNdIs184
-         kSqcS/6FsSbeRETRcVX6EtMAc5UKOPNiASkAep3FZ83gWurWQBk87fAckIDoFJ+gA0t8
-         QMzQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy9CokGdfGMuaa+ZM2lqmlKojmPalvr5e67hJx/WbO9Vi2sPm4NVV8bRbDovjnGUL5mht9yVs+O89gxBOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxMYtotDssaAmcE6m424cXnKNR9S52b2JhC70xongBlaysNvVk
-	BB6G+wd2qPg+3xO/QQ+HQVD9pVoJbiqjdDmSkJ8ldRQlJbffRH42GUER
-X-Gm-Gg: AYBFou2rXm+0DFk/IG/hcuvPj+x7BK0/sFhoEqcYIdT0dXJJuBdEz3LcrvrFrpZibPE
-	tQdkp00vOcAqtST3vLuuoTqTYam2BBnbedwEVk3Q7CTZm6JQnS+9z/0wTsfBAishdb6EYWx0PPJ
-	hS/LC2YDdeK5S3KCBOJgrU++8E7mL1OqIf2JHl/TEnUD6sbNqBNpB5XBhEnNOMcykeVA95o4at5
-	1wPZtiKcix8g/cVyboLui41XesF7FgRUuQDvu3f/4V2AYSlpgMZBNPwGbKpJUyvc3wXN21+DpMR
-	MjsAaf8PfTlKGV2P+CESponSjuAcyYbGYf3GNSfQ6EaViCcfFLaCfpqk+GorlEjPUlywfsCF0oQ
-	3AHxhMLsQYcJoVr74oxRLlu1WqXETufPUa6Pt775sG/kBrpulpNtpJSp2yri2D8CdOic5k4PYRr
-	eRV6u3NPaPRuEq8GFVwPuo7BqeppHJ/xgMTS/uZArMxstUj8Vtdb6xqZYmUQVJ+viB/2/KoCyjJ
-	jzFoSYbuWk6DoQARegCQLlHqtMjZn5VffkQdQmdkLTM5As3PhNfb28Jg/2PfDNP8pFlykM7X0fq
-	Mx6IwP0+DQTCOT4VyfyDotRRNor3+fJIftY8+1h07qU=
-X-Received: by 2002:a05:600c:3b2a:b0:4a4:3a2d:15da with SMTP id 5b1f17b1804b1-4ac1709a2c3mr128664365e9.15.1793476583039;
-        Sat, 31 Oct 2026 12:56:23 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4773:6f00:661d:f91:664:493c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm11513907f8f.6.2026.10.31.12.56.22
+        bh=EhbCfZIKF/z8CmeZ81yrmHlag9Fq3VRo/4XV3cKq5E0=;
+        b=wUR5kRC/WZFFT/ZOrD6Vo6ZR/tB68I92Lx+PQN/HXMpyNZL4NGcfbFgYuVhjP7bDx3
+         Bqphw61tBx3ChIcaT6nTJdgi5aD++m77hpfGFl7DwktuU0LeAH5oh4rE6KJQovvdo1tP
+         92nlnQkKwhhu8AFZifyA7zJOI7uPkZ6fhJf342C/YH0ZNy8RTGIKLgA2luVs2+rGwvrX
+         ywfpKpFWLHmlzU36Dk9adXfZYK/Cc0r28eRHDRiLbjBTWggnV9PEqzM4Gr9t4MBe3JYy
+         KF22NiHUlARQ5p4w4kJG7U50M8C4aMMtwuXsAudBpwm8L9ITSd4Y6PzMG2j9LIVZSSYU
+         eOnw==
+X-Forwarded-Encrypted: i=1; AKwUvBysDzFqtNrMZdL9M85VoALsxu0wjjZ52moIJLu/sIOdopXUsGngz1gbpEAW82qoX5ZM6v2lf7YdUT0Cv9E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyKuIpo8ZqKq3JdDTH9WCrHVknhsJvV+oJxEBydsYsUXIWm3Q5
+	/Hgqy3uUKj3JwuImRgzS3Ep5LNOSV449QS2EBzHKtwTxxx3GVsrwGz/L
+X-Gm-Gg: AYBFou13iTKM1u9c4eLnQN5o5wVrECxcQb9JZQc/oHabJNhNohjED1ko2pkQT2gpi35
+	N/fwvDteK7jQIe9W9hj8W3gwDT+69ZsErfXQCZo6vPtZWWCafQlMzNF3bJuTIbHQp8U7gOKSbi+
+	rOjYMj+sF5smGGHf5uu1fBp6v3Q4qQdYsLUIUU+cT1NtJIAK0K3BS9DgbDFuf1IDQOQPQpT/nkt
+	3X3BYlpxKpzDxMyoXkmooaXTBxgmMhpnC7OLDLgJcUd5EyYd0Bz4eCOgJ7gc+ZZyYoeh3l/7tnP
+	FoUduQCS6PBqjAaw2esSYsTzT2jo1K+nSprt+7k7X3vzxn4H2vnjq/BS+T8AB/ZOmbzTq9aJje5
+	KwLR0DSJTS/ExpwP8DktwcaKavNwgib6UGRDa071ITIIPDiZaRsYP6DCtjYDq9iwvYS6/T92SHE
+	Ojhb3FULNbf1d0Y/hoMBdkLJiCSLMIZXKIVA8ksPNNyAwAF9PhrCqUUe5s8csw8RTZDnWvlTG/Q
+	YP5Saqt5oKLke9y96KE+GBRjbMGZZ95YYUjBYu/Ur7LfY2SeKaddFCAqHRyY9J6A3nYIhJP1xGv
+	Vy5Rtu+H9hrVT2ICyiTcD6Hutse0l1A=
+X-Received: by 2002:a05:600c:37c8:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4ac16acd93cmr142198705e9.6.1793476649395;
+        Sat, 31 Oct 2026 12:57:29 -0700 (PDT)
+Received: from thinkpad.lan ([2a06:c701:4773:6f00:ea89:68da:557c:f0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a1dsm10065563f8f.24.2026.10.31.12.57.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 12:56:22 -0700 (PDT)
+        Sat, 31 Oct 2026 12:57:29 -0700 (PDT)
 From: Avi Weiss <thnkslprpt@gmail.com>
 To: tglx@kernel.org
 Cc: radu@rendec.net,
 	linux-kernel@vger.kernel.org,
 	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] irqdomain: Preserve reused IRQ descriptors on allocation failure
-Date: Sat, 31 Oct 2026 21:56:19 +0200
-Message-ID: <20261031195618.4167524-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] genirq: Report pending state for disabled IRQs
+Date: Sat, 31 Oct 2026 21:57:16 +0200
+Message-ID: <20261031195716.194625-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,36 +97,35 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When __irq_domain_alloc_irqs() reuses an existing IRQ descriptor,
-irq_domain_alloc_irqs_locked() frees that descriptor if IRQ data or
-hierarchy allocation fails. This removes an IRQ descriptor which was
-allocated before the call.
+irq_sim_get_irqchip_state() returns success without updating the
+output argument when the simulated IRQ is disabled. This leaves
+callers with the previous value rather than the pending state.
 
-Only free descriptors allocated by irq_domain_alloc_irqs_locked().
-Leave reused descriptors intact on failure.
+Read the pending bitmap regardless of whether the IRQ is enabled.
 
-Fixes: f8264e34965a ("irqdomain: Introduce new interfaces to support hierarchy irqdomains")
+Fixes: 337cbeb2c13e ("genirq/irq_sim: Simplify the API")
 Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- kernel/irq/irqdomain.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
-index 4fdcb6df5306..494a7982f1ab 100644
---- a/kernel/irq/irqdomain.c
-+++ b/kernel/irq/irqdomain.c
-@@ -1672,7 +1672,8 @@ static int irq_domain_alloc_irqs_locked(struct irq_domain *domain, int irq_base,
- out_free_irq_data:
- 	irq_domain_free_irq_data(virq, nr_irqs);
- out_free_desc:
--	irq_free_descs(virq, nr_irqs);
-+	if (!realloc || irq_base < 0)
-+		irq_free_descs(virq, nr_irqs);
- 	return ret;
- }
+ kernel/irq/irq_sim.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/kernel/irq/irq_sim.c b/kernel/irq/irq_sim.c
+index 44747754530d..176100c074f8 100644
+--- a/kernel/irq/irq_sim.c
++++ b/kernel/irq/irq_sim.c
+@@ -58,8 +58,7 @@ static int irq_sim_get_irqchip_state(struct irq_data *data,
  
+ 	switch (which) {
+ 	case IRQCHIP_STATE_PENDING:
+-		if (irq_ctx->enabled)
+-			*state = test_bit(hwirq, irq_ctx->work_ctx->pending);
++		*state = test_bit(hwirq, irq_ctx->work_ctx->pending);
+ 		break;
+ 	default:
+ 		return -EINVAL;
 
-base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
+base-commit: e9954f3fbddd25e1a01b7e5a0b72fb8b564204e0
 -- 
-2.43.0
+2.53.0
 
