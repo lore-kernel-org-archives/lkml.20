@@ -1,85 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424795;
-	b=jBdj5nMoyC3WKgq5O6qcYGSgesaIb13ApiRidPeH3RMHAGx9LjDY4yG7jep7G3aOmkRp
-	 TroUMeCtJ91xx7Apm+hjE4/tCo3tjrnFWZMNb4fg0BrMWSx5X3nEgdd30LCBe1+ghPtzS
-	 /5FQspZghQFyCa5txKBnf/OtUy3blAIGVyE0DyidMyDzYTpoLwihmqAXQQbqVBeMctTX0
-	 H1TtoIT5N9Qacja/9x64/nrRZokeIUwHWqaU0ciSl9R+E5rxggzdAvp04pd/On4bc3dXR
-	 /A60upsc+uGbkrr7fgiYgnV5kpsViBOKNMFDLfmel8Cf1mtF4vJFy16ygLuRhXcV6+g==
+	t=1793424849;
+	b=LGKDb7e0/B4GbZwnjONGy+6AZABcT8x/TXrMjeYyXvGQbYikwQ7WIjKL2z4JPlUcCmys
+	 axAo04eKDD+kLn18KqYuFZCbc9QaivyfJ/QASd1VN1qtUcy0ZcHLZH+/XNgXCT3O0m4/b
+	 Hs07SWgvB4UKmCOKCQdZzelreD5grzK4PcnlvjXe+vy0vYd8pW2o3WegMrnvt8hQBB9yI
+	 SRvL/P8zmHMwrtmq/zwQwdCd/hgq5lFcPIZsBDgTrO7abZtoDGEbqL+jkTs3WDvA7U0kd
+	 /ibArA+43y3r6TsyH+cWKtLJkM+INWZWhsDlXFLm+UQlwxu1tHzgIcZOIxld8rYdPDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424795;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=9hA0RtygbyeBTKIUbR1UY8pw3tFoRbmfRyYcN+7ussM=;
-	b=o/R+BFslBrzQngjY5RQD0Y/OlfxLTX+jp2BqMlXt/xb0rKKWdkohOq3jEnOFpP/uHxT3
-	 7RqIOQDkVaerQ0X9ir4ImDZefOd7h73sM9+UTtj6T0wLL3hVDX4rh77bJ4Le3NwwlokQA
-	 OALYx0LydcQu271KGb2+njjymOt+/aCNZSGZ55o5wDt8DnIbjRBRK6UuXetU9lJgtfrwN
-	 zPoTn9poNDaBLuHhBZIknTRwlFXQ94T16jsUS66hywbRJZqthihbvJPka111GfMGF5lCj
-	 qlvP68gNZIji1FVZkzcGgoR0Bi5C3bd8jKzfSmIRK8Vc4m9qhRYSk51ip9PNHkMkA6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424849;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=/VwbcVFoAg5lnb5ziZ5bsI4g8Kl0QWqGFO+0605f0UM=;
+	b=BrST1j63MaoZsxpuhF13WIqTIXFSXwLgF2Q1f6rbOKx81lAekrY1lxV3vljoholeJJh5
+	 kiFaa0HcB3Wewj+vMdHfLCmLFZy31UQ/nH6fWFDMuFh/GJbo0CB5IFL4b6o7eCLsHJKhU
+	 J7ah22TYH6ptrZIcnUX92+DUomxUduRIN5qDt8yvwa3tz3OqFyHbJ5XlUUyLcEqH2QUO+
+	 ZirBMMupKnwX3qoH4IIv7a1JpLccvgIjjgDikQP6MNsdmLYvW+vkqaPFDEG/q/Kmn3O0J
+	 buyCCIXXqgPtwPlxFLLcuLYLZZ5kVlHvVwGfxhNE5aA/RZAfsoHPb4fdFarjwC2qi4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VZ6gfXv5;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZK+DtdfU;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B43606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:33:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86B43606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1219606A31A;
+	Sat, 31 Oct 2026 05:34:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1219606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=VZ6gfXv5
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 86BC640E04D0;
-	Sat, 31 Oct 2026 05:33:12 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id CWBewB1VTMUG; Sat, 31 Oct 2026 05:33:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793424789; bh=9hA0RtygbyeBTKIUbR1UY8pw3tFoRbmfRyYcN+7ussM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VZ6gfXv59RUewNMWGMmoakQR96OO0EDF1/Yc3XaxwlJHDsC8KOHnxmTtF8YfuMydC
-	 XZaQ9dNzc8yMTe7XFbjZJC0nvvXghM1iHD55jufUW9FEckACYi0WSt+bqaK/dzJ+pl
-	 c6UU+Ocea5C21hvOUOmqhTO13EpIIwioAc4u2ofKYmkeqKUhBFvb/Eoxo50oGqzIJu
-	 ffNShgGyAtfSQQEuBd3hfuIDJ00caat1abbBuNXHAKgjLIvupEccShq9Xx23u5PB6S
-	 /0GJ5xGblAdexFf1V/wpqlQu8/dKpTY9lR5EwwdlH2rCTuaE4hbVNAwb/pHKfsptSJ
-	 3qgqfpyjVoCFFXiD0i7RyymfWOIP1suvuvH1LV04fm85bw1oP9OrhlYyORqik1F4UD
-	 w4odYvyEb2ycNVbAObDsQQwjAmbi1Q7kZEDOTmOc9EOXgwc7Xlw+IvKfIP1MKchngP
-	 o54e5fcGYPidwodDXrMjSp901EL4GdnqSWVCAzENBKmCuu8sdoZOh0n1ZciVa8riIM
-	 uZvZeVoGIF+NyB5aofJH9tVdcqRsLflSCfKfv2cfI7KxUTKnF4ZxqyI3Qm7XecyEZ2
-	 2pwkzpneYVk0WyRMrRcXv0ivGK9sqFsLNL26dn+FI0q73+ChbrAYo78cMYjtp1iUDq
-	 a7XiE63P1R0FLsDpdY/T/fEE=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id CD04C40E03BE;
-	Sat, 31 Oct 2026 05:33:02 +0000 (UTC)
-Date: Fri, 30 Oct 2026 22:32:59 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: Sean Christopherson <seanjc@google.com>, x86-ML <x86@kernel.org>,
-	LKML <linux-kernel@vger.kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"Luck, Tony" <tony.luck@intel.com>
-Subject: Re: [RFC PATCH] x86/cpu: Change AMD uarch detection
-Message-ID: <20261031053259.GKauV9i_VyDoLdMlwl@fat_crate.local>
-References: <20261022040047.GDatmKb9L_fwqBGQ0_@fat_crate.local>
- <auDBUQQ9Ympsobkh@google.com>
- <20261028044653.GBauF-PdTS6gsOOozC@fat_crate.local>
- <auIBRhu4Zs3UgsQ7@google.com>
- <20261028153458.GBauIWIhGKCYhaxl2_@fat_crate.local>
- <20261029175611.GEauOIu-Xi9_DGVXKe@fat_crate.local>
- <2a6f9c90-a6a3-4b4b-a77b-9a3b99d66d4a@intel.com>
- <20261031015500.GGauVKdGNWuqeo0MG_@fat_crate.local>
- <c9984c6e-9829-4e47-a1d1-50886ad9a83d@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZK+DtdfU
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793424848; x=1824960848;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=+fcibPi2ZDVRjTuc7ggPd3G0vq20xPXdnRW/+shzkss=;
+  b=ZK+DtdfU2Dm1CqhLETfptaPwLpu7nI52fPj0zI0VkMENS0cr3FeXyGiZ
+   gOzENHdRq4X40HUI+K+fkILJNCWpblt4VZNHmH2OiLQ+5a7gC1UqnjbPs
+   sUlgOoEpY5EILHYsCxHFHTMcB48QOsOD/ahNf7td1V2TpZydeizCr7PJn
+   CnSRI81pqToEvCiyPAAEbO5Z252kwZACLBddnEt7dw+OPwS3NPm7oyIPd
+   yozW2tjIpScj6G/hCZk78id7YNcWrWKO4BiIKtTYFOdi5ASYF8vEQY8+2
+   UkngMLGImKUIqN7HCz036UbSPoy55Pt2duMhmTyBOPVRSwlizswtFRn/C
+   g==;
+X-CSE-ConnectionGUID: MOmQdHMRQnyThLHyXSUJdw==
+X-CSE-MsgGUID: nG2BgiNwTVm3zSsNZs8LnA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2068561"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2068561"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:34:07 -0700
+X-CSE-ConnectionGUID: F453hYEiQM+q6Op/y8/sww==
+X-CSE-MsgGUID: Z3Ms19v7S7KM2iyhLgEFog==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5994725"
+Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:34:02 -0700
+Message-ID: <38384919-f0e5-4c93-b71b-065b96a74c38@linux.intel.com>
+Date: Sat, 31 Oct 2026 13:34:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,25 +72,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <c9984c6e-9829-4e47-a1d1-50886ad9a83d@intel.com>
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>, Robin Murphy <robin.murphy@arm.com>,
+ Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 05/18] iommu: Implement device and IOMMU HW
+ preservation
+To: Samiullah Khawaja <skhawaja@google.com>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-6-skhawaja@google.com>
+ <df75f891-05a0-4d47-8705-d6a00c81ff97@linux.intel.com>
+ <auTzN4NWuKsBvIZU@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <auTzN4NWuKsBvIZU@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 10:08:34PM -0700, Sohil Mehta wrote:
-> Is the thinking that we could make x86_uarch work with all the VFM
-> macros?
+On 10/31/2026 9:45 AM, Samiullah Khawaja wrote:
+> On Fri, Oct 30, 2026 at 01:12:31PM +0800, Baolu Lu wrote:
+>> On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+>>> Add IOMMU ops to preserve/unpreserve the device state handled by the
+>>> IOMMU driver. This is IOMMU specific state of the device that needs to
+>>> be preserved for liveupdate. These ops can be implemented by the IOMMU
+>>> drivers that support preservation of devices that have their IOMMU
+>>> domains preserved. During device preservation the state of the
+>>> associated IOMMU is also preserved as dependency.
+>>>
+>>> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>> ---
+>>>  drivers/iommu/iommu-priv.h       |   2 +
+>>>  drivers/iommu/iommu.c            |  72 +++++++++++-
+>>>  drivers/iommu/liveupdate.c       | 189 +++++++++++++++++++++++++++++++
+>>>  include/linux/iommu-liveupdate.h |  76 +++++++++++++
+>>>  include/linux/iommu.h            |  33 ++++++
+>>>  5 files changed, 371 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
+>>> index 1f9f886b2c10..6b0ef210b32f 100644
+>>> --- a/drivers/iommu/iommu-priv.h
+>>> +++ b/drivers/iommu/iommu-priv.h
+>>> @@ -21,6 +21,8 @@ static inline const struct iommu_ops 
+>>> *dev_iommu_ops(struct device *dev)
+>>>  void dev_iommu_free(struct device *dev);
+>>> +bool iommu_group_is_singleton(struct iommu_group *group);
+>>> +
+>>>  const struct iommu_ops *iommu_ops_from_fwnode(const struct 
+>>> fwnode_handle *fwnode);
+>>>  static inline const struct iommu_ops *iommu_fwspec_ops(struct 
+>>> iommu_fwspec *fwspec)
+>>> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+>>> index b486b8bbd1fc..a66363789ca9 100644
+>>> --- a/drivers/iommu/iommu.c
+>>> +++ b/drivers/iommu/iommu.c
+>>> @@ -18,6 +18,7 @@
+>>>  #include <linux/errno.h>
+>>>  #include <linux/host1x_context_bus.h>
+>>>  #include <linux/iommu.h>
+>>> +#include <linux/iommu-liveupdate.h>
+>>>  #include <linux/iommufd.h>
+>>>  #include <linux/idr.h>
+>>>  #include <linux/err.h>
+>>> @@ -328,6 +329,47 @@ void iommu_device_unregister(struct iommu_device 
+>>> *iommu)
+>>>  }
+>>>  EXPORT_SYMBOL_GPL(iommu_device_unregister);
+>>> +struct iommu_dev_iter {
+>>> +    struct iommu_device *iommu;
+>>> +    iommu_dev_iter_fn fn;
+>>> +};
+>>> +
+>>> +static int _iommu_for_each_dev_cb(struct device *dev, void *data)
+>>> +{
+>>> +    struct iommu_dev_iter *iter = data;
+>>> +
+>>> +    if (dev->iommu && dev->iommu->iommu_dev == iter->iommu)
+>>> +        return iter->fn(dev, iter->iommu);
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +
+>>> +/**
+>>> + * iommu_for_each_dev() - Iterate over all devices attached to an IOMMU
+>>> + * @iommu: IOMMU instance
+>>> + * @fn: Callback to call for each device attached to @iommu
+>>> + *
+>>> + * Return: 0 on success, or negative error code.
+>>> + */
+>>> +int iommu_for_each_dev(struct iommu_device *iommu, iommu_dev_iter_fn 
+>>> fn)
+>>> +{
+>>> +    struct iommu_dev_iter iter = {
+>>> +        .iommu = iommu,
+>>> +        .fn = fn,
+>>> +    };
+>>> +    int ret;
+>>> +
+>>> +    for (int i = 0; i < ARRAY_SIZE(iommu_buses); i++) {
+>>> +        ret = bus_for_each_dev(iommu_buses[i], NULL, &iter,
+>>> +                       _iommu_for_each_dev_cb);
+>>> +        if (ret)
+>>> +            return ret;
+>>> +    }
+>>> +
+>>> +    return 0;
+>>> +}
+>>> +EXPORT_SYMBOL_GPL(iommu_for_each_dev);
+>>
+>> The function has no locking against iommu probe or release, so the
+>> callback can read dev->iommu while it is being freed or before it is
+>> fully set up.
+> 
+> It is only called from intel_iommu_shutdown(), which runs after the
+> other CPUs are stopped and interrupts are disabled, so probe and release
+> can't run. I will rename it to iommu_for_each_dev_unsafe(), document
+> that it must only be called at shutdown and drop the export, since the
+> only user is built in.
 
-No, x86_uarch is separate. I'm using it because I don't want to waste space
-unnecessarily and this was a reserved field.
+If it's only intended for the intel iommu driver, then it should be
+open-coded there. There is no need to add an immature interface like
+this to the core. It could be misused in the future.
 
-But it probably will have to be a separate member for you, if you decide to
-need it because, if it is part of the union, it will botch x86_vfm
-comparisons.
-
-Oh well, we'll cross that bridge when we get to it.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+Thanks,
+baolu
