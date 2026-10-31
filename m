@@ -1,97 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.58
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793411905;
-	b=yLfC8YJKjKm09XtUSBR/k1BbCfNDy5LMCdAfE8xf1O8sAWtO6asj74suvfcWbGxdtuxL
-	 kV1LC0E8WfFEeJjGxB/QU0rzVpVovPSlDJDwmVmDdBAYVnAfIzDuPEmWQS3rgkjQf5bWl
-	 9CoxlDqdcwGOlrmdPurV/X1g0rCUjSd7M4sqXJK9vqc02QDAjxBNoUQz1zU1AGXsGJRao
-	 Jok0byUcR66hKCwtEoCOK8O1v8WzIUQOtS3AlgbdJ6d88T8HQbGA5xNdnv00qQ+eGduXK
-	 D0YAgmoVfmsirS9lfA+CMQLv+hXpyD8BjcEsZzH+ml7XE+l+rVI8f7sR8ZSl/ATrWHA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793411905;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=WXPcEx4+VV7OUKEnzoc8JHtbgGVJZOtNhbarnBrVY3g=;
-	b=BT7bz0RdyNlt/KXbwhGrdvM59DiyNZ9G1+cOn10t7Rc9YFRaJuyPVSsLKivi435uoIcS
-	 w09DbivaQ2kIgGrqQ1vUxwDMwd56WbC1GhFHjpprZI3gISpdn/v20s4wGijpqtj9VOJti
-	 7F75V0h0x5N/bliR38IM5Ctoq8MLgtxczql0D+xfFXPhcw5aFerpK+cYdsbcYzzYun4xE
-	 J5Eyy9ZDuTfiU3AZ8hXTFdW6tigUlk64mTPwvbIggFWIfHnw+0nY6E/ib0cYdCT97321t
-	 lu7981EB0BrvKrfaGx1171vRWKynmBHmwgyKP2DFOPtuVILZbB6Z7KZXEKMCqUJ8jpQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cMwYP2YK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.58
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011058.outbound.protection.outlook.com [52.101.57.58])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793412010;
+	b=Vtq8JyL5Hsru03FsQADVJymqNYGJO7+3ybk20UTvxYO1x4oBxHN+Mv7O/gC3/QlAhDnW
+	 Vom1xIHC+o6Ddot5+jkLA32Ve4vvxHvJEJeuh3dAxMKFCwfqOgGZCslAOxWgGra2BwxTH
+	 zBK1yXg5hXAeTsXtO6ykZD9g4LlRV0PcRDOru56JpOGFOw2h88wdsXdWo5tg6x70ewWdm
+	 gh9+YmaScXSpMAQxgOHN0162cflJrpZonyhD0SCgJ8A24PJglMlwERPnfFpKV/xs584EL
+	 Sj9yXgVIK6bUDDhRXCBAetYQXDIEEP9zC8qV4WWILfH6Y3UdbdeUaedg9ZXgpJRrwtg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793412010;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=zOEe8PLQN4K7qNjqD6ms1qaRAWIhWTuNuui9A9Hljo4=;
+	b=zXwvW3X2wE2UqI1sNNgKblFskbDVogr9iCKoIjFW8B+67gDV2tGbbBYpnPFRMvV+Dk8+
+	 br0yP8DKcVAX8XItl9NEQ3AWICGlNEPCYgL5ocfhnh/K9XcBndtIe6Vbn3D14evcbviIm
+	 fDiJ8aqaphvIoaSM9hwn6E6lfwSrfFfBwC/JY4dloyLRr/Dzt2YLAgpdqA4jOcFgJA0nv
+	 pqOaD9adoD2jOfOi8Aq5Wia7XkRkQOc/WvSo8i0dZrJG/YP1Xtlv8xEFcu83MjwnK5/w5
+	 6jYKwhHCvHVwsukTzDkoep7BXvXUg8x9zlqX7omLaHknlu9IQIysbN9V+5W51OOOd3A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QDGDFZw4;
+	arc=none smtp.remote-ip=113.46.200.222
+Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9CCA606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:58:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9CCA606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0B606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:00:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54A0B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=cMwYP2YK
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Auc+UQWT5RemVozKQODcRDZ/anGxXYIyidwA3r+R+F2UvgrmPbRIyScp6IF/5cSY/D4Wf73SbQthzhYQdX5ZJUW9sNbkvLkWx2u1zbaFOW1aXZSh4TkKIMMeDPR6LpkOuJ8v+E7InvwVBZXX2VbuLIsgmjNYTi0269af2jYmJKT4EPxfWa2Zxxwn+vjX86twgCbBivmlhNG7Hu43Xxyx8mXEVm3n7AkoEqzT7803UM5SZdv1HpR+5UfX0XBQQEnAtMP2FwT9vmpuSnNWwhXBXHnn1yBbbtdJAEjv4/4NPvN6X3+0VOiRFTqCR0qjlODP8p7F+LMgaykQViAK+NXGBQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=WXPcEx4+VV7OUKEnzoc8JHtbgGVJZOtNhbarnBrVY3g=;
- b=hOSLJpzlQ6sj4p+QWTPM41n9ldutK7Aud2N2P6A3L6lg62UTmUHjW0+OqGJ1JqzeyJlObbZmJOwd+JWnyxsrSS0gXCuFTy6L2ohautTE4MTgdcTsyk3PeJATf4psdlls1eD41zHgoB3PMCm7h0pnF5XncSdWVmkAs0DawXai9Q++6kKfQDA+ctzw6XP7l+MolXamgf7ahfQ6Sz098MEKRY9RkVSWjoFjrUbvrtGES6l5Ja4MrcSVwovq7bGYSfJOpE5XkaXSw8GedFmQWexSNqMSvCUIHE8sr4IDwCLaCTsu8fTa3K3scL5V94x+GyP80fAUlpm9CI1Ok2DfCn7TNw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=WXPcEx4+VV7OUKEnzoc8JHtbgGVJZOtNhbarnBrVY3g=;
- b=cMwYP2YKVWLJ81cys/hUSY7JjAaGIEtk6blqX0kOEnYZSHaiUTrGnZMw9mLCEvA4mk7vCLb2fJyWlU+tZDVPOiTx3bKJ3AB9NkteP2QwiD3AE+UvnIggp+p/8+u11wWtpIvkGoYmQx8UweyLVmsiQw6KmCTpHvl72lECjyruY+I=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from CY0PR12MB226969.namprd12.prod.outlook.com
- (2603:10b6:930:130::18) by SN7PR12MB7420.namprd12.prod.outlook.com
- (2603:10b6:806:2a7::7) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.9; Sat, 31 Oct
- 2026 01:58:19 +0000
-Received: from CY0PR12MB226969.namprd12.prod.outlook.com
- ([fe80::f47a:5d4e:f3d5:5b26]) by CY0PR12MB226969.namprd12.prod.outlook.com
- ([fe80::f47a:5d4e:f3d5:5b26%4]) with mapi id 15.21.0569.009; Sat, 31 Oct 2026
- 01:58:19 +0000
-Message-ID: <f25f4726-17c1-4fdf-8fd2-d96e73fbb22a@amd.com>
-Date: Fri, 30 Oct 2026 19:58:17 -0600
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/amd/display: Don't select zero V_TOTAL_MIN/MAX on
- DCN2 seamless boot
-To: kyliepc@proton.me, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261022-dcn2-seamless-vtotal-v1-1-6ceb87f98629@proton.me>
-Content-Language: en-US
-From: Alex Hung <alex.hung@amd.com>
-In-Reply-To: <20261022-dcn2-seamless-vtotal-v1-1-6ceb87f98629@proton.me>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MW4PR04CA0124.namprd04.prod.outlook.com
- (2603:10b6:303:84::9) To CY0PR12MB226969.namprd12.prod.outlook.com
- (2603:10b6:930:130::18)
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QDGDFZw4
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=zOEe8PLQN4K7qNjqD6ms1qaRAWIhWTuNuui9A9Hljo4=;
+	b=QDGDFZw4kA5V0eB7p01VrcimtwRHFyKsvQ4we5c74i6mhN1V7Bv+tuXbloCM17DS+d8pvlMLu
+	mved7FVib7+HB/X9o0UB5R4fhwQ3rW7OG4BxU0kO8mMaTcMaTV2lB7sLlQoWcu8tLQdjxtuY1gQ
+	A58HX4f6dMFwmp/+q2DMtjo=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jGh4D2NkbzLlZ9;
+	Sat, 31 Oct 2026 09:59:56 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7362140586;
+	Sat, 31 Oct 2026 10:00:04 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 31 Oct
+ 2026 10:00:03 +0800
+Message-ID: <bec33507-f683-4d52-990c-be520a99f6f1@huawei.com>
+Date: Sat, 31 Oct 2026 10:00:03 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,119 +62,156 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY0PR12MB226969:EE_|SN7PR12MB7420:EE_
-X-MS-Office365-Filtering-Correlation-Id: a101b893-1255-4384-077b-08df36f26f6d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|23010399003|10067099003|11063799006|6133799003|261028144727099003|261009223027099003|261022105027099003|56012099006|261021121427099003|261026121527099003|261026140227099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	YnYNhJc57OBBROPsLsWpcEqdVBFy6mvq/JxRx01fgnA7saT4jZkmWaA3Ao2fyVgQViFAZGirjhfO4f3cuAFzJzd043NOyDsr1gjybvQPFmW4pAs4d0MwvLuby5tLTwqEHmaWdzfKZzlXcQzJuruQS8FaJim2LxHJUuLslURwMrp0Ort5/Yke76jibIPFmOg6QgwW3vVy9Fm8sLscsxV70XM6XaH4iR6tkJaG7d6aOhXL8AkxyyLbbABUZHa+PulvrK0K/8H7AdYLpVS1HJhfQ5tCmZBbL/lHYmojfyYsmgawCpelJsTNrBLeP/WglPWiHgU6eNjnU2mG10KAwiCQB7oCBSsLcUbcshKAE1hQNc00DYV70PfuuEoWiPP/Od9oi7ywmitJQDXL6aTELzri6M7fFfJw6iORFTFtAvGZpnYwwk9WMDe/WBmqZSwVPLGKV7PqliZeCZ10UjXUbP00AwBkKii2qU3F8cCu4egKPI3YpNqrutSQSPKNMBFlRDkQcNDX/9SuReI7EsqTYv8BOuOtI3yxZb9t62tq1FB0XhPv+1sFogqzfxBIqZ6ep1B/OM4hnuADLPch5UJ9JIXIC3zXDfSdBmaKzG1rynu1ihhIBgDMr6bfQjjzg1s3cXKyekpgl37d6cosUwx2DPnF7GI2MGovOmxWof5vJ88BO4Q=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY0PR12MB226969.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(23010399003)(10067099003)(11063799006)(6133799003)(261028144727099003)(261009223027099003)(261022105027099003)(56012099006)(261021121427099003)(261026121527099003)(261026140227099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?aksyYytsRUtseGtvQjVFUi9tak1EOUsrYlBwd3ZkckxVeUpMbTJ0WVBMbWlN?=
- =?utf-8?B?d1J6T1pzZG5sSnBEQVpHYkRJQmxqc3BSRStlV0JXQWJZZ3NXNGo4eFZtdDNZ?=
- =?utf-8?B?SHRoQTlSSkxPSXhlN2p6eUpKdFNXSi9tV0t2N0NwVG10WHRMaTRYbGtuY00x?=
- =?utf-8?B?REVvdEMxcUxqanhla2Z0ditPZkJkU05jNXpzTEx1byt3TXhiWExQdFhDN3Uz?=
- =?utf-8?B?RlhvWDBYa3gwMGJtMmJJeTA4N2hvbVlxSWdQcGFmUDBIclVid3hsZERJUkRl?=
- =?utf-8?B?U1h2bndQZzhEYnlKUmNVeG8vNGtXRkNmZlNpbUNYSUxDRDVHaUVqWHZPQTNW?=
- =?utf-8?B?VVRTQXpRaXNManNuSFUycXY1dEprZUpPR2pOaDR2SUR3Zk14WEdMUEFJM2Jk?=
- =?utf-8?B?cm9rNEZoS1pMOXBhU21LUy8zZWhQVU9XZ3kyeGV3QnhIeHdocVZqTXhoWlFZ?=
- =?utf-8?B?Q1JKN2cydXFTSk1XT0RsTEV1Y3k5M3dEd1dFbEpsdE5USlc4SFZMVjc1dGlQ?=
- =?utf-8?B?K3UxVUlxYk1JZWxlVnAxdGt0N2ZkS1d1TjBXeGh5SDVzOXNuQ2xvb3JMYW9W?=
- =?utf-8?B?OUdSVzRlTmdlSVRIMjNUV2p2V3hlclphcjdsQXFBSGhKQWJ0T1NpSzJJY0pq?=
- =?utf-8?B?M3FCbXk3K25yTUlkNmdVZVJIckpzblNuWkFHdUhXeVZaSmhyc0RrYm5iN1BN?=
- =?utf-8?B?d2dnZVVmbWVPL1ZlSzVJZGZrTEZqc0s2T01wODZ0Yk5RV2lSY3VnT1ZtQjNZ?=
- =?utf-8?B?T2lxZFZKRGJRaTI1VHMvMXd1cG9NNGprZGdEMWJxMjNTQWlCaVMwSkUzMFJH?=
- =?utf-8?B?OFI5bkUrOHBUaUpZSndJS0l2MUEwMUdYekxLRVN2d3I5SnVZSVJwZ2VsOVh5?=
- =?utf-8?B?blZ2dGVkeU8vVGc4QnRjMGMwcURKMHhRVnJ2aDBNQ2VMSG9wVWM3Ym9KTXZl?=
- =?utf-8?B?T3htQnBkRWlWM0x4emV2N3ZtUThjTzN4dlhwck1TTHUyWmN5dWFYQTFHWUZ5?=
- =?utf-8?B?cmxNYVF4a2lDUVh5NGp6ZEZjN1VBSlcyT2VBSkpQSWpuenk4T3h3Y1kzQ1Nn?=
- =?utf-8?B?UlNmZldpM0EwYkFWTUZ4QThwRGNFTktES01OSzlNVjd6bGErM0VyRkVwbXhR?=
- =?utf-8?B?M3N5Ry8rUzVIUDgzQTkwN2JuUnV0LzFGSTdrVDIwZ2RzbWlnNVdNN0QrVzVC?=
- =?utf-8?B?NnVZNnU3QVYvdzZKMk1LeE5ZdU03RTdYd1MxbUFrbDg3VWs2M2VKL2JROVls?=
- =?utf-8?B?ZlNuWE9wZ2tIQ1IxNlVpWGdaeGJjYU9sbDQ4SWJtUFdrcTVkUnhCa29tMmV5?=
- =?utf-8?B?TndMdHNMejhFUit5V0wxQWlDM3lLY0thcjRIeGt5aUNrZHBTMzlvTS9YUW1B?=
- =?utf-8?B?aHJxUC9BWU5ZaTZLY2NxNnBPMXd5akNEaTJwUkNPL3ErTW4rbEJkZnJHazdq?=
- =?utf-8?B?NHVFdzN3d2c1THJ0d09JdmVDTndIRnlSRHV3TURNWXYyR2p1NlFSd0NQcFI3?=
- =?utf-8?B?c1ZvKzZsanF3ZEpwVGFUdWhDYVMrSEpoVEQyVG5YYVBRUGJ1eGRpYm80TVY4?=
- =?utf-8?B?VjB1NEpOTEVKUTlLZ01QdlVuWUFOK0UyenNlejdqakVkVStFbHhjMG5EQ0NM?=
- =?utf-8?B?RnNudUNkZ2pRSGtHUm5td094eW5Jb2ovUGlUeXQxcThVL2pNWE1yUFIxckp6?=
- =?utf-8?B?REFRNXcrMG52dVM5ZHlIdi9Dam4zc1BNc3V6Zk01TmpFUlpUU1l4Y01TdmYx?=
- =?utf-8?B?M2xvRTBXbmd2UzBuSVhNVDlWS0l4SmJjUDZlL3l6U0hTRGFSdVhBRTh6dWd4?=
- =?utf-8?B?UkpEcUtjeUpsRlZmWXFJMzFUdUR4MHZ3SzQ1VmRzR0lUNjhybmdJcWU3Mk9x?=
- =?utf-8?B?c09oMHVEUVB0N09VRlNkUDladEY4VGFVUkZBaDI3TTRxTnBBZjNzVGI3ZnBq?=
- =?utf-8?B?bWxDdFhXN0JqbERPSG5yQitSb3pJL1pXRWRKeHZxRkRvSjg4Smt2YlZUbEl5?=
- =?utf-8?B?WThZUjFZV2IzS3Mxb0s2UTlZWjF2dGhpVUE0MzlWY2g2S0Y0UExkbUJZSXV1?=
- =?utf-8?B?ckdZbG1QRHVhTllBdzc4blRCTHBiNXJ6ZGF4Vi8rRHBVTU1mZG9MSm5hYzFM?=
- =?utf-8?B?ZFJWVTlsdDNmc01XQjBScVBJSEp2RlluOWlUbTE1RTFYeW9yT0Mya2tkOTVn?=
- =?utf-8?B?TGJBdkxVS3V5OS82WUZYbTBacllJLzZOb1dJSmxNMTkzbUlYVDQ4WTl3Z2Rl?=
- =?utf-8?B?blRSZVRDVU1Jb3RGbEJVR3d4SDYzNndoS0QyQ2I3NkRBK3Urek50b1lrMVdO?=
- =?utf-8?Q?XQ0wA1F4xSwcEb+F7/?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a101b893-1255-4384-077b-08df36f26f6d
-X-MS-Exchange-CrossTenant-AuthSource: CY0PR12MB226969.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 01:58:19.0002
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: IXsWaWh/5Lia+NYEW7dX88roFMcarB5GlZFl8NffZKYVYDu7zcCVxMN2I++ZPw00Ofd3dHdbu7Gv/HTmQ0On7w==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7420
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 RESEND 06/15] fs/resctrl: Unmount resctrl with the CDP
+ state it was mounted with
+To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
+	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
+	<babu.moger@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
+	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <fenghuay@nvidia.com>,
+	<tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>, <jic23@kernel.org>,
+	<gshan@redhat.com>, <catalin.marinas@arm.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
+ <20261020134239.3921377-7-ruanjinjie@huawei.com>
+ <8f6fdcad-912d-49f6-babe-e428290f0cce@arm.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <8f6fdcad-912d-49f6-babe-e428290f0cce@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-This affects more than DCN2, but I can fix patch title by removing "DCN2".
 
-Reviewed-by: Alex Hung <alex.hung@amd.com>
 
-On 10/22/26 07:30, Kylie C via B4 Relay wrote:
-> [Some people who received this message don't often get email from devnull+kyliepc.proton.me@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+在 2026/10/26 23:08, Ben Horgan 写道:
+> Hi Jinjie,
 > 
-> From: Kylie C <kyliepc@proton.me>
+> On 20/10/2026 14:42, Jinjie Ruan wrote:
+>> From: Zeng Heng <zengheng4@huawei.com>
+>>
+>> resctrl disables CDP before the control and monitor groups are torn down
+>> on unmount. The architecture translates between CLOSID and PARTID using
+>> the CDP state, so the RMIDs freed by rmdir_all_sub() and
+>> resctrl_fs_teardown() are parsed with the wrong mapping. On arm64 the
+>> RMID limbo handler can still be running, and a CLOSID left in the limbo
+>> list is re-interpreted with the CDP state of the next mount. Enabling
+>> CDP doubles the CLOSID on arm64, which can push the stale value out of
+>> range and take an MPAM error interrupt.
+>>
+>> Disable CDP after the groups have been torn down, so every CLOSID freed
+>> on unmount is parsed with the CDP state it was allocated under. Return
+>> the RMIDs still in limbo to the free list and stop the worker, so
+>> nothing carries over to the next mount.
+>>
+>> Cc: Tony Luck <tony.luck@intel.com>
+>> Cc: Reinette Chatre <reinette.chatre@intel.com>
+>> Cc: Dave Martin <Dave.Martin@arm.com>
+>> Cc: James Morse <james.morse@arm.com>
+>> Cc: Babu Moger <babu.moger@amd.com>
+>> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> ---
+>>  fs/resctrl/rdtgroup.c | 46 +++++++++++++++++++++++++++++++++++++++++--
+>>  1 file changed, 44 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+>> index 5dcbb0a964e8..40821cf07649 100644
+>> --- a/fs/resctrl/rdtgroup.c
+>> +++ b/fs/resctrl/rdtgroup.c
+>> @@ -3145,6 +3145,41 @@ static void resctrl_fs_teardown(void)
+>>  	rdtgroup_destroy_root();
+>>  }
+>>  
+>> +/*
+>> + * The RMID limbo handler keeps running after unmount. Any CLOSID still in
+>> + * limbo would be re-interpreted with the CDP state of the next mount. MPAM
+>> + * doubles CLOSID when CDP is enabled, which can push the stale value out of
+>> + * range. Force the limbo list back to the free list before the CLOSID state
+>> + * is torn down.
 > 
-> Initialize V_TOTAL_MIN/MAX to V_TOTAL before enabling the selectors if
-> they are still 0, as optc1_program_timing() does without seamless boot.
+> If the limbo list is being emptied then the limbo handler is effectively not being run. This is a
+> reduction of functionality of resctrl. We either need a way to keep it running or rebuild the list
+> at mount. There was some discussion at
+> https://lore.kernel.org/all/20260413085405.1166412-2-zengheng4@huawei.com/
+
+Hi Ben,
+
+Thank you for the reminder, will update the patch based on the
+discussion and your new suggestion.
+
 > 
-> Tested on Renoir (DCN 2.1) eDP with amdgpu.seamless=1.
+> This is a fs/resctrl patch that doesn't directly relate with the subject of the series and so
+> unlikely to get much attention from the resctrl maintainers. If you respin I'd suggest posting this
+> separately. I note that Tony Luck has a patch in the same area, [1].
+
+Thank you! I will notice Tony's patch and post next version separately.
+
 > 
-> This removes the flash between the bios logo & plymouth on my laptop.
+> [1] https://lore.kernel.org/lkml/20260928221509.68002-14-tony.luck@intel.com/
 > 
-> Signed-off-by: Kylie C <kyliepc@proton.me>
-> ---
-> Fixes the black screen when enabling amdgpu.seamless=1 on Renoir APU
+> Thanks,
 > 
-> With this plymouth smooth boot is possible on this hardware
-> ---
->   drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c | 7 +++++++
->   1 file changed, 7 insertions(+)
+> Ben
 > 
-> diff --git a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-> index 73cc8a713..2cdfe3d7a 100644
-> --- a/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-> +++ b/drivers/gpu/drm/amd/display/dc/optc/dcn20/dcn20_optc.c
-> @@ -449,6 +449,13 @@ void optc2_lock_doublebuffer_disable(struct timing_generator *optc)
->   void optc2_setup_manual_trigger(struct timing_generator *optc)
->   {
->          struct optc *optc1 = DCN10TG_FROM_TG(optc);
-> +       uint32_t v_total, v_total_max;
-> +
-> +       REG_GET(OTG_V_TOTAL_MAX, OTG_V_TOTAL_MAX, &v_total_max);
-> +       if (!v_total_max) {
-> +               REG_GET(OTG_V_TOTAL, OTG_V_TOTAL, &v_total);
-> +               optc->funcs->set_vtotal_min_max(optc, v_total, v_total);
-> +       }
+>> + */
+>> +static void rdt_flush_limbo(void)
+>> +{
+>> +	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+>> +	struct rdt_l3_mon_domain *d;
+>> +
+>> +	if (!IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
+>> +		return;
+>> +
+>> +	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
+>> +		return;
+>> +
+>> +	list_for_each_entry(d, &r->mon_domains, hdr.list) {
+>> +		if (!has_busy_rmid(d))
+>> +			continue;
+>> +
+>> +		/*
+>> +		 * The limbo handler acquires rdtgroup_mutex. Release it
+>> +		 * here to allow the handler to complete, then reacquire
+>> +		 * to maintain lock ordering for __check_limbo().
+>> +		 * This matches the pattern used in resctrl_offline_cpu().
+>> +		 */
+>> +		mutex_unlock(&rdtgroup_mutex);
+>> +		cancel_delayed_work_sync(&d->cqm_limbo);
+>> +		mutex_lock(&rdtgroup_mutex);
+>> +		__check_limbo(d, true);
+>> +	}
+>> +}
+>> +
+>>  static void resctrl_unmount(void)
+>>  {
+>>  	struct rdt_resource *r;
+>> @@ -3152,13 +3187,20 @@ static void resctrl_unmount(void)
+>>  	cpus_read_lock();
+>>  	mutex_lock(&rdtgroup_mutex);
+>>  
+>> -	rdt_disable_ctx();
+>> -
+>>  	/* Put everything back to default values. */
+>>  	for_each_alloc_capable_rdt_resource(r)
+>>  		resctrl_arch_reset_all_ctrls(r);
+>>  
+>>  	resctrl_fs_teardown();
+>> +	rdt_flush_limbo();
+>> +
+>> +	/*
+>> +	 * Clear the CDP state last. free_rmid() translates between CLOSID and
+>> +	 * PARTID using the CDP state; clearing it first would make the
+>> +	 * translation inconsistent for the RMIDs being torn down.
+>> +	 */
+>> +	rdt_disable_ctx();
+>> +
+>>  	if (resctrl_arch_alloc_capable())
+>>  		resctrl_arch_disable_alloc();
+>>  	if (resctrl_arch_mon_capable())
 > 
->          /* Set the min/max selectors unconditionally so that
->           * DMCUB fw may change OTG timings when necessary
-> 
-> ---
-> base-commit: 77f548b127c6de34ce271fa09ba270cb1ef9f2da
-> change-id: 20261022-dcn2-seamless-vtotal-351d08d2df54
-> 
-> Best regards,
-> --
-> Kylie C <kyliepc@proton.me>
+
+-- 
+Best regards,
+Jinjie
 
