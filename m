@@ -1,61 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.230.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793470888;
-	b=jatLje/oDBW5AAvxRtSF94Hez12R9ccLpp5qsGZJhxKwnWKV+Li4mBHdjorov33RQAiX
-	 ztt2jg6JK8UKblXf1nPiIgvL0s+MhMqpuKqiWpXJLU2wsuLz18lk2ZArlsNFAx4GYm5++
-	 A5Hun1fU6yGnkGBgBF5Sr5Z8qXGy9SKMiyBdEQToLf1SBk/C+O8FGG3Ep7CniHeYZcUKp
-	 HKteochWkJLdD5k9BejL6GqtqRQvxElbDxO9/0oY9a4kDDYssLqTLzH11lGZxvC+HX28f
-	 a2Xzbn/D5hvC9LOWYtsLBsUy1/WNDFi1RSe7D8UMAqD7K9+DDsyF5TcDAdFemF/1U+g==
+	t=1793471002;
+	b=KMnehEUtKecFrmb197U8xywfW0dTtYuLEH39afZpxNzaUBaunKZib+Dj4CENQupOM3Eg
+	 Q3bI7/FbnSy66/PWIKxRaGnValn9ASJmj+P4/z8Sl20Co5hWqVFYAjJ2isuZnerq9XXWu
+	 Mz0yjZkuquHjQ8h84wtxwE6/pNDC0eZffCMfd4wjoKb1/aAe28V8UNBWRmCdAMgHY2bAm
+	 U6CEvtg8F8UbrqyIsj92MZjd92b2ZtGb6/z2roaBQYXIdAT1w4xLFAd2HZzoQ5zP5elQB
+	 AOZxJdbIzzDxBlvcdjDp4KjRzI9Dbe2HMhus4DPfrrW1hWguE8tpEQ8ySBeAVUIsXJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793470888;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding;
-	bh=lHKFRctLDfXlCv2OU3bCsqyyCRbSpNPu6FlORAWwFwE=;
-	b=UI4kfa3xjgDuUC56w2XLG7y12+SWDOZVlIiAv53T4GTy6DV8kL3P7T/byqN7BJ/AJwo+
-	 IYM3vp/V1RmvGmJ9JJOewGaubL+xTEvMqVE6anfVLl4aaqVyR45FKJO49JzKtAJeLkjEz
-	 hFGi6KxVND/PxccFgFWruB5Cp1J3Y1cUToGpCG8eYLRlgEy0GvEF6Hy0Nc4XSc1GExziI
-	 KySi6OKBpampuzc5+QzoQpTmMnR5uwKl0x6jV7rd+xsYqlfRO1EuJ+NvFzynKHrN5M1b9
-	 37ihAKiWIraTFOoRN3puFlWEiO4KWwtOl0p5T6yvb2OdX0YP1jmWol074Sct4QQ/LYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793471002;
+	h=DMARC-Filter:DKIM-Signature:From:Mime-Version:X-Lms-Return-Path:
+	 Content-Type:Date:X-Mailer:X-Original-From:Content-Transfer-Encoding:
+	 Cc:Message-Id:To:Subject;
+	bh=vXDRVZFCX5eXPv5+rEujKnF1AW3QkNUi2OD2EgtvPTE=;
+	b=ZiSYYriNloyCVfBVDBCJN4emu4Pa4l7++xArz9CE6CcAA1AHEKW892THy8KNwHQrL2nN
+	 qRR7sH9pgi04pPblF9Ah5EuOag9UEJfQww4AjHLnChuBkHhDTtdX0w1HQhX2U5DWNzark
+	 vcl8XSJqF4wRHlrykQIwQhZqTOdSYNbZ79vjEZlN0o97DsfMXxrJF4i9x4SzD1/mon+cy
+	 6du/5uXjJUmnLQZhtCRfCUP8bHCB/o8vjCdHQ50CzHaJo7lKFbU5+tt5nukmN8llLJ4yy
+	 ggMF7Ripy6QuhsCV+pWTIjM3sxP6fpe/ag56lngEmbmSTyr/W96gWwa1JINMbnbp21g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTiVZ46j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=bytedance.com;
+	spf=pass smtp.mailfrom=bytedance.com;
+	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XrsGCPuM;
+	arc=none smtp.remote-ip=209.127.230.112
+Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C18606A31A;
-	Sat, 31 Oct 2026 18:21:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09ED5606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09ED5606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hTiVZ46j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9FFF1F000C1;
-	Sat, 31 Oct 2026 18:21:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793470887;
-	bh=lHKFRctLDfXlCv2OU3bCsqyyCRbSpNPu6FlORAWwFwE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hTiVZ46jpxyLejVCQJV/JU+oCM33Z8pBI4QxA0ZJJUrQRNV/2jfoDvmS4Bz/D4zr7
-	 /1ZFLS8neKlXUNFNy3GkEl4V41ArIFXF9PX+y40Ucv6ynGIDV1LjB3buv0RU/A2Nlv
-	 LCPtpLDllFhQZVZCkeRBFhGTru/QY1O/0DBZnayzBTN5+GNhs9IFid/0GiaYEtmC40
-	 lYPKayUGmUtcHb/LtBlTTjUR9XmFlLTclXORuPBq2UAxDTSc2wRtzY3Y80R1njO6BV
-	 liAvZbOsgi99Z3PrY87WENo/G0TFHijqkvWwlnRoctYGRRp0KTS+D0qQfJ1SsfcKS2
-	 mljHYemnl3+Pg==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: William Breathitt Gray <wbg@kernel.org>,
-	Li Youhong <dayou5941@163.com>,
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>,
-	Li Youhong <liyouhong@kylinos.cn>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v2] counter: rz-mtu3-cnt: put runtime PM ref if counter init fails
-Date: Sat, 31 Oct 2026 14:21:19 -0400
-Message-ID: <20261031182120.3646747-1-wbg@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <TY3PR01MB1134606C5DE0411FDACBF0001866C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <TY3PR01MB1134606C5DE0411FDACBF0001866C2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=2212171451 header.b=XrsGCPuM
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=2212171451; d=bytedance.com; t=1793470996; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=vXDRVZFCX5eXPv5+rEujKnF1AW3QkNUi2OD2EgtvPTE=;
+ b=XrsGCPuM38VRdyljtUfiHBIpNl0ymbf1a8Q2dBGVEEaEWpP9LN1kYcgnJMUAS4EzVEDQy1
+ 8AIECxw/zZwtl5GAkeZEDkkQFKgdzepJpIMMesZ3fuw4kf2kK+v7K9jQVDavHp4PT+34GI
+ okUDMSsDKqJwlcC+A93kB9/J3vrg6D01FlzJw1mj/OlA6/9m130RnaE3S5Z/r+F71X3XY2
+ nqe8TmGusSbF5PBI7rQtH+jDhmjVYZ7MtoorjmE0xbCmsLvJ7ELQOHuEivPUQdUn8Tu262
+ r7+wrtswUWj8nlbwZL9K320ZDti+TftYw/lK0SUOZrWQPi+stENfnEt39e3JYg==
+From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,76 +52,74 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2694; i=wbg@kernel.org; h=from:subject; bh=4jOGApQctKuARm0QUpYj59awkb17qYceby5349anA7c=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFnPDLs+zMzxqVJ8LFWoosmlav7pRaBJWszVQw6Vyz9Os z7E6/W7o5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZjI1kMM/5O+vn3F+Xch75LC 9Wt49nzYfkH9RmJBr/WLxTkMv/xOTrzCyPCO8Xn31u3aV/MFP9xKmbJ4s8qL8wIvXgaWNXN8Fd5 gwMAKAA==
-X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Lms-Return-Path: <lba+26ae63212+378e21+vger.kernel.org+zhaogongyi@bytedance.com>
+Content-Type: text/plain; charset=UTF-8
+Date: Sun,  1 Nov 2026 02:22:56 +0800
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
+Content-Transfer-Encoding: 7bit
+Cc: <xu.xin@linux.dev>, <chengming.zhou@linux.dev>, <aarcange@redhat.com>, 
+	<riel@redhat.com>, <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>, 
+	"Zhao Gongyi" <zhaogongyi@bytedance.com>
+Message-Id: <20261031182256.40205-1-zhaogongyi@bytedance.com>
+To: <akpm@linux-foundation.org>, <david@kernel.org>
+Subject: [PATCH] mm/ksm: avoid anon_vma UAF during page merging
 
-On Sat, Oct 31, 2026 at 04:34:32PM +0000, Biju Das wrote:
-> Hi William Breathitt Gray,
-> 
-> Thanks for the feedback.
-> 
-> > -----Original Message-----
-> > From: William Breathitt Gray <wbg@kernel.org>
-> > Sent: 31 October 2026 16:29
-> > Subject: Re: [PATCH v2] counter: rz-mtu3-cnt: put runtime PM ref if counter init fails
-> >
-> > On Sat, Oct 31, 2026 at 10:28:13PM +0800, Li Youhong wrote:
-> > > From: Li Youhong <liyouhong@kylinos.cn>
-> > >
-> > > Counter enable takes a runtime PM reference before initialization but
-> > > only puts it on disable. Drop the reference if initialization fails.
-> > >
-> > > Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter
-> > > driver")
-> > > Cc: stable@vger.kernel.org
-> > > Reviewed-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-> > > Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
-> > > ---
-> > > v2:
-> > > - Add Cc: stable@vger.kernel.org.
-> > > - v1:
-> > > https://lore.kernel.org/all/20261008020506.211566-1-dayou5941@163.com/
-> > >
-> > >  drivers/counter/rz-mtu3-cnt.c | 7 +++++--
-> > >  1 file changed, 5 insertions(+), 2 deletions(-)
-> > >
-> > > diff --git a/drivers/counter/rz-mtu3-cnt.c
-> > > b/drivers/counter/rz-mtu3-cnt.c index 7bfb6979193c..61fbeb122851
-> > > 100644
-> > > --- a/drivers/counter/rz-mtu3-cnt.c
-> > > +++ b/drivers/counter/rz-mtu3-cnt.c
-> > > @@ -506,8 +506,11 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
-> > >  	if (enable) {
-> > >  		pm_runtime_get_sync(counter->parent);
-> > >  		ret = rz_mtu3_initialize_counter(counter, count->id);
-> > > -		if (ret == 0)
-> > > -			priv->count_is_enabled[count->id] = true;
-> > > +		if (ret < 0) {
-> > > +			pm_runtime_put(counter->parent);
-> > > +			goto exit;
-> > > +		}
-> > > +		priv->count_is_enabled[count->id] = true;
-> > >  	} else {
-> > >  		rz_mtu3_terminate_counter(counter, count->id);
-> > >  		priv->count_is_enabled[count->id] = false;
-> > > --
-> > > 2.25.1
-> > >
-V> >
-> > This patch seems similar to another we're considering for ti-eqep.[^1] In that patch, runtime PM is
-> > managed via devm which allows us to remove the explicit PM unwind on failures and have them implicitly
-> > handled when the device resource is released. Should we use the same approach for rz-mtu-cnt?
-> 
-> Here we save power, clock is turned on/off during counter enable/disable.
-> On TI case, they enable it during the probe which unnecessarily waste power.
-> Even disable case, the clock is on.
-> 
-> Cheers,
-> Biju
+KASAN reports a use-after-free in page_address_in_vma() while ksmd
+merges pages. ksmd keeps a folio reference across an mmap_lock drop,
+during which mremap() can remove its last mapping and free its
+anon_vma. page_address_in_vma() then dereferences the stale pointer
+from folio->mapping.
 
-I suppose you are right. There is no need to keep the clocks powered if
-the counter is disabled because we are no longer counting.
+KSM needs only a candidate address. write_protect_page() checks that
+the PTE maps the folio, and replace_page() verifies the saved PTE
+before replacing it. Compute the candidate from the folio index and
+VMA instead of dereferencing the folio-side anon_vma. Reject KSM
+folios because their page index is not meaningful.
 
-William Breathitt Gray.
+Fixes: 21d0d443cdc1 ("rmap: resurrect page_address_in_vma anon_vma check")
+Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+---
+Testing:
+  Unpatched mm-new: fixed-pool KSM/mremap reproduced the KASAN UAF.
+  Patched mm-new: the same workload ran for 12 minutes without KASAN,
+  BUG or WARNING; fork/COW KSM smoke passed.
+
+ mm/ksm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/mm/ksm.c b/mm/ksm.c
+index d6f736a..f8af5ee 100644
+--- a/mm/ksm.c
++++ b/mm/ksm.c
+@@ -1307,7 +1307,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+ 	if (WARN_ON_ONCE(folio_test_large(folio)))
+ 		return err;
+ 
+-	pvmw.address = page_address_in_vma(folio, folio_page(folio, 0), vma);
++	pvmw.address = vma_anon_address(vma, folio_pgoff(folio), 1);
+ 	if (pvmw.address == -EFAULT)
+ 		goto out;
+ 
+@@ -1408,7 +1408,7 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+ 	int err = -EFAULT;
+ 	struct mmu_notifier_range range;
+ 
+-	addr = page_address_in_vma(folio, page, vma);
++	addr = vma_anon_address(vma, page_pgoff(folio, page), 1);
+ 	if (addr == -EFAULT)
+ 		goto out;
+ 
+@@ -1515,7 +1515,7 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
+ 	if (page == kpage)			/* ksm page forked */
+ 		return 0;
+ 
+-	if (!folio_test_anon(folio))
++	if (!folio_test_anon(folio) || folio_test_ksm(folio))
+ 		goto out;
+ 
+ 	/*
+base-commit: 243e8cdab64129d6207c398f8cf5fbb1962ff7e1
+-- 
+2.39.5 (Apple Git-154)
