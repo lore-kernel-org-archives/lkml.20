@@ -1,72 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793478957;
-	b=IdgvLh2n68mdLHyuxstwR7TZ6gsgtnC5/m0HmMuyapyqp8AfJi7N7WB/Dwy1XUxSVNo3
-	 egV1d7Yp9alOX8NjSBdSpGah5mZEEy8zcYlDtOE+m4AhWkuihpQsbnIZSI3LL2E4hQNfI
-	 Eu7JjP12fte5RXqGxUPDU+ub/CoujUI6bTINdkuANolTihjDoHi7MJhSm56+ofchfesZz
-	 Q8VVRX4Ch67ul92p9M09tc3n7Dc0Vtiy2REcSkdNlcPHmS6w58RETdDxA/Yzv1/Wli+B5
-	 AgPTHfZ5TklZ/SF/P4txyYpJPLMwBVdbXBya86pztm675ygK7uVAF1V78d2kVjw1Mug==
+	t=1793479161;
+	b=FvWwUGByHHrcV0QcAXNlSjrMObAdN4n/8uW30/LDQHHjOLEG2JilrG/wYmxP1ZiUMwQO
+	 WZcf+v4zPbaT+CGb3azx42WPD20Kx1kBVsaMS0ECbWHYMfg50XXq9usfbSanMqO2Gfi8z
+	 B6/M4U8uGVypLsr8IwtIjj+c9pKO1QuEWuiMep044vEANvkpUKLfXpmAoCIS+2WzBXIDf
+	 Nsdkcwd9w0+8+7XeooSDDgL8YY/GWRfiDdLyeA+zhItFm3cq55UuuQW+7qWQlnl40ldPZ
+	 mS0AFO4ezR8fWC/re9sMfMfiOCALccgSFlfEL6lni85zWj2qdfcWTfZhGZdAuOGibBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793478957;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793479161;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=mWqOErFXDyqrG4+5c5D2/KSgqZrNhszC76dEZeElAkE=;
-	b=NP32AcbbZhUcP8bfW5cboGyi44+Ybok5M1c2TPJHGnTl9YUsoKDtalnQKkG/r+w7TGzT
-	 Y3FT7SRnRnjgeFK/GmbqMTopmJdCTJCHNFZBMSWfaJ+fZzrWbxl9aF+79x29qH6XIe1j1
-	 jcN2n8CW2CfWykJL62sdETH53OZNsiZVgofXe6ggUemyooYMvoXDm20AOhNACMwWjiX/y
-	 lvnflqoHyfJBqhNXgi4WjUrNY7KkFzk+M03k1uUHiqNL37cXvMlQRF2JvrINNduOZCayn
-	 zXReAZ1cbeIWzG3G1aiv5a1WDacTA0Mtnf/XQcs8cYsLG4vEBrkN4cJl+Txorlo8/aQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Lw1QeIPbva61X8kOSwfRbW2IpFMSjR97yWrLghxbqQs=;
+	b=gaTpc1Qm7peFAyUG4yeLmwUtiYNbsUyUCT++cJv99UFQR32crWp/YdIAJ6DQ0LgPSmJy
+	 FQPPYF4ZTSdBl0sMB29VagBYFQ4GgGM8hK7Vz6iyE0i+AgiMeq7LW5VtlW1tQbv1mksNp
+	 rUCQ8XvPtLIRFZ7pj3HEGF45wpZBdDxUIJfYTIvNTdQZFx5tIJi3bVGh4y7QQxTuzWqUt
+	 hQvqCOkOuRWDxn3lWw0OWPFYhAqWXm6qtQSJEHJIAxDRJJFPywuElkd2aapDv0n+hAgMc
+	 o5ZJuMLLpk0msJ8azltEopnoxBlOWAAi1MxPkom+5JuoiinIHxQSRncsc9tfqlWPXcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="ki/9YKoY";
-	arc=none smtp.remote-ip=209.85.215.197
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vnzncOL5;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD16606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:35:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AD16606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--skhawaja.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABB78606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:39:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ABB78606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ki/9YKoY
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-cc1ca15334cso2064594a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:35:56 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vnzncOL5
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e4831c028so1663156f8f.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:39:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793478956; x=1794083756; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mWqOErFXDyqrG4+5c5D2/KSgqZrNhszC76dEZeElAkE=;
-        b=ki/9YKoYUw81LJ6sDOtptLyi9sWhn2YmEATyMT8ZLmxR+u+Yz4InCrDUXGJrFOxAFe
-         PjrvfiPQxG7i/ISfbE6nw+unf7r4gRhaqVLLX/0GTKgYM2tNsCBRINJjUMu4tIwGDb1+
-         DPJ+32ilu8lm4gDCzUbyIFDp9dYU0myYNDL+ABhpfKXRRV/W8Sma8fYZwkZeBwK3rbDP
-         AEAWAJqoLoM0oIMcXZ2kfb8c49P6ZyUG9yEWwfImy763ScEI0zJKxjDXUixD/C1q6/Rd
-         YMoZNJTLLuYI/jKFBEwXXYIhfD4UtXfIqgNYFa/8cYLnfYOUbuWqN1PO5YccoikgeZCV
-         o7jw==
+        d=gmail.com; s=20260707; t=1793479159; x=1794083959; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Lw1QeIPbva61X8kOSwfRbW2IpFMSjR97yWrLghxbqQs=;
+        b=vnzncOL56tJDqqOdKFxHy2ZiIzQGcH5TieMVIfutGfF47fn50E83iUFGfz63/dsONO
+         pyZwMHwvQ5qQDsDf/5dsqMYoeiPPeyq/CfOZgdYBZenIAvf8LFjK8nqd8LcE8tr/N+Yl
+         lfPURBQF7RFRTFhwY9iRsM/I0EhOh5OXJX2jdCdgGQLdmkyCn3DEOJ+EOGUZMIEPpA/d
+         hbRipmVS1PneGisJlzprJwDG2AwcJLOcby9bqoByWJOyy8xpxOfQw9OYeCFoRlDZvtGE
+         kr4JIPbc9bWdLtH30gOdpW3eecKnI5vYgvWOUWN8B6YDKaCp2G66IMaqyfuim85I4TvK
+         hJmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793478956; x=1794083756;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mWqOErFXDyqrG4+5c5D2/KSgqZrNhszC76dEZeElAkE=;
-        b=kutEE2DQK3T4UNglHn7nh7rqV75ZOkbM3Cug0EWK1hhcLfxVdiy1C2RXZZBb1dTsrL
-         5u8NWhmwpuKp+f+RJEUkTXqmo5Po+P23rJgzxMo1ZY4gj6ZU1jSkV8n0GHo+BcOOnMXP
-         psXdetyUbfijNTiF7dvbynPluWgVmmJVxbBSoiUIBqMTRW0vNBbQ08SibAukDByQywMd
-         U1+qhwZ1tzB/LD57/7kyuf/V7YrIcm87Gc4gAHknv8hTHQWui8mlWXLlj6tvlf/qwWoX
-         4+Ge+xrqN4oRVqWa6egLP6RDA3Q57dNO5FG/woo7b1smToq3QBGzDo0j7R2HDnCdkXPx
-         17EQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx2dw8IUZJkr0Qwi1rT3/1uUhuyZN5imG3jOXEUJE3q5Z4qcNs4VbX8L+6Af7DLe8DhXQWbL24wP08vf0g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLrMQFY5Tng74tyYuFT204KJaD3xLnbvejgOkXR3IJ/bluPXoVh
-	q+Wz2dW+BYO1WI+f+tESk7WlD7M93g+QlVpDEhrBx0gDzAqwF+VN6l4xgqiTSAMN01QOFaZaaSd
-	9K6/YIPMfnTF+Vg==
-X-Received: from pfle16.prod.google.com ([2002:aa7:9210:0:b0:8a0:e479:9889])
- (user=skhawaja job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a21:3945:b0:3e1:aa91:7134 with SMTP id adf61e73a8af0-3e928ace8d8mr5315059637.72.1793478955460;
- Sat, 31 Oct 2026 13:35:55 -0700 (PDT)
-Date: Sat, 31 Oct 2026 20:35:40 +0000
+        d=1e100.net; s=20260707; t=1793479159; x=1794083959;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Lw1QeIPbva61X8kOSwfRbW2IpFMSjR97yWrLghxbqQs=;
+        b=ww3rI8P+ZMki71Ai4uM+xLCbPe1r9G1kJ64kuVjDa8WvaJz1z4Ga/oDBenmvNs0mIS
+         kdtFLdDbIQrvfT3z64KjYyES8Thcz1+MJfX9ZN1Qbk1kLgb1b2/OzLGvUwk13weXTrFf
+         4gGJEsSPMeRSWuKRlrepSWb3qeTVOXvo/kszxbmY6L5lCRs2aYzn3SykVItcvxhiU9CJ
+         h2iLDph+4lJQCw9Tg2kVi5Hdnj6OqxpTXiCoBY6yKPmFRcgG7rPAo3nL01mjM+O5epF/
+         ejQmVHwoZ5w274Tx3KDG+ZA2dOBwN7PP8Cm3NMmSuqqW0RTr0NSXEPQmFGYXNAt7fguQ
+         3NSA==
+X-Forwarded-Encrypted: i=1; AKwUvBzOsY9o4CZb8bGQZycp3rRgEcErZGCyWQXkXkX+vwwFImc5EMATzh/FiSP1UUMZZyFFlcQl5Djbn+JUdPE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIp+8XarY8ws9y4LmTB3cuytgCK2f84ZoDFZzx6OH5xIuO3NYzO
+	4Ie8iIVcSOSSy0JX3Ibo7vhD03kdOiNcyLpGf1Cib0S7MC/XBt5Gi9tu
+X-Gm-Gg: AYBFou3duegSPAfW6kkI4fEqjWuc8HpN3rivSAxCgn74fuVDlmzaqHZ1DBpHLvXHe8l
+	ZoE5SZnom9bbRg6kWkViIRob6W6TMyYcHk4xE2EO4+79aXwkbQiPvuCxw0not8mc53IOrqbd1UK
+	mVTI+BwEUQ0JjX6BPSO6uZe0/a3lBaimbRSND3Yp9BG1ceKd0j8mBe9ngS5u/A2+8wVPYP183Jy
+	puCblOJCEV9gmCfbrXfap14X8XjzY85VfmuP9Kmrqb8Bj8F4g7tyBzCFW+fdYahqQ3pN7UEwjaR
+	uc6VAKHPeh5k/dV7ZgBCQf0HRrNVMqWPqid2RvoznhhZ+9B21ROELgxMtlpiA9tFAYebrJNlCAt
+	Qw3g4p5EzrXIt77mpBP9STQua1zz227tcxqC499WSRlM50+LxiDpAWBDOxixmwMJzHbtei0jgoZ
+	t2RhD8jCLy+A2OgA1yhtWkVoTfNKa5fb4fF831sA/wvne8EQW9E/tclYzVZW7Y5+jGDpzyLXjgG
+	YCXyqOiD9OqL5Zd70vlSDznQ/9Z5T+2fOHflDO01SCzXLZCCZW/gfvLDfmQ7SVBFfHJW6kNZO/H
+	MRgRTWnUVLPDCUWbRArq27ADA9lcBI4rdvTZ55sHx5SMINfRpkyNsrwi881Uqw4zaDTX30xkK/A
+	sNBdSKYQcLT2RKw==
+X-Received: by 2002:a05:600c:870f:b0:4a2:1196:db0e with SMTP id 5b1f17b1804b1-4ac1899348bmr125929225e9.30.1793479158956;
+        Sat, 31 Oct 2026 13:39:18 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8a84esm11386624f8f.39.2026.10.31.13.39.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 13:39:18 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Masami Hiramatsu <mhiramat@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing/eprobe: Install the trigger for every instance that enables the eprobe
+Date: Sat, 31 Oct 2026 20:39:15 +0000
+Message-ID: <20261031203915.491866-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,100 +98,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261031203540.2282507-1-skhawaja@google.com>
-Subject: [PATCH] mm/gup: check folio->mapping under folio lock in memfd_pin_folios()
-From: Samiullah Khawaja <skhawaja@google.com>
-To: David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
-	Andy Lutomirski <luto@amacapital.net>, Chris Mason <mason@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, Samiullah Khawaja <skhawaja@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-memfd_pin_folios() pins folios from the page cache without taking the
-folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
-its refcount check while memfd_pin_folios() still pins the old folio,
-and the caller ends up with a folio that is no longer part of the memfd.
+The eprobe trigger lives in the instance of the enabling file, but it is
+only added when the eprobe is first enabled and only removed when the
+last file goes away. A second instance then records nothing, and the
+first instance's trigger is left behind once the eprobe is disabled
+there, so the eprobe can be deleted while that trigger still uses it.
 
-Lock the folio and recheck folio->mapping before pinning it, like other
-page cache users do. If the folio was removed, retry the folio lookup
-from the index that was removed.
+Add and remove the trigger for each file.
 
-Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning memfd folios")
-Reported-by: Andy Lutomirski <luto@amacapital.net>
-Closes: https://lore.kernel.org/all/CALCETrV5eqg6d9=+BQhCpRwBNe3aCQiut8vxPBs8b7PToqjaHg@mail.gmail.com/
+Fixes: 7491e2c44278 ("tracing: Add a probe that attaches to trace events")
 Cc: stable@vger.kernel.org
-Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- mm/gup.c | 29 +++++++++++++++++++++--------
- 1 file changed, 21 insertions(+), 8 deletions(-)
+ kernel/trace/trace_eprobe.c | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/mm/gup.c b/mm/gup.c
-index ba4907b35232..2b405cce2ca5 100644
---- a/mm/gup.c
-+++ b/mm/gup.c
-@@ -3471,7 +3471,7 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- {
- 	unsigned int flags, nr_folios, nr_found;
- 	unsigned int i, pgshift = PAGE_SHIFT;
--	pgoff_t start_idx, end_idx;
-+	pgoff_t start_idx, end_idx, retry_idx;
- 	struct folio *folio = NULL;
- 	struct folio_batch fbatch;
- 	struct hstate *h;
-@@ -3512,6 +3512,7 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- 			 * reason, we try to allocate them and add them to the
- 			 * page cache.
- 			 */
-+			retry_idx = start_idx;
- 			nr_found = filemap_get_folios_contig(memfd->f_mapping,
- 							     &start_idx,
- 							     end_idx,
-@@ -3524,7 +3525,21 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- 			for (i = 0; i < nr_found; i++) {
- 				folio = fbatch.folios[i];
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index 998e6390937a..a0bc6fa1fc69 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -661,20 +661,20 @@ static int enable_trace_eprobe(struct trace_event_call *call,
+ 	} else
+ 		trace_probe_set_flag(tp, TP_FLAG_PROFILE);
  
-+				/*
-+				 * The folio might have been removed from the
-+				 * page cache (e.g., truncated or collapsed)
-+				 * after the lookup. Recheck under the folio
-+				 * lock.
-+				 */
-+				folio_lock(folio);
-+				if (unlikely(folio->mapping != memfd->f_mapping)) {
-+					folio_unlock(folio);
-+					start_idx = retry_idx;
-+					break;
-+				}
-+
- 				if (try_grab_folio(folio, 1, FOLL_PIN)) {
-+					folio_unlock(folio);
- 					folio_batch_release(&fbatch);
- 					ret = -EINVAL;
- 					goto err;
-@@ -3535,14 +3550,12 @@ long memfd_pin_folios(struct file *memfd, loff_t start, loff_t end,
- 				 * page cache that were never cleared.
- 				 */
- 				if (!folio_test_uptodate(folio)) {
--					folio_lock(folio);
--					if (!folio_test_uptodate(folio)) {
--						folio_zero_range(folio, 0, folio_size(folio));
--						flush_dcache_folio(folio);
--						folio_mark_uptodate(folio);
--					}
--					folio_unlock(folio);
-+					folio_zero_range(folio, 0, folio_size(folio));
-+					flush_dcache_folio(folio);
-+					folio_mark_uptodate(folio);
- 				}
-+				retry_idx = folio_next_index(folio);
-+				folio_unlock(folio);
+-	if (enabled)
++	/* The trigger lives in the instance of the file, add it for each file */
++	if (!file && enabled)
+ 		return 0;
  
- 				if (nr_folios == 0)
- 					*offset = offset_in_folio(folio, start);
-
-base-commit: 96995467b456942f5bf1c7f2c5c004467f9dd14e
+ 	for_each_trace_eprobe_tp(ep, tp) {
+ 		ret = enable_eprobe(ep, file);
+ 		if (ret)
+ 			break;
+-		enabled = true;
+ 		cnt++;
+ 	}
+ 
+ 	if (ret) {
+ 		/* Failed to enable one of them. Roll back all */
+-		if (enabled) {
++		if (cnt) {
+ 			/*
+ 			 * It's a bug if one failed for something other than memory
+ 			 * not being available but another eprobe succeeded.
+@@ -709,18 +709,11 @@ static int disable_trace_eprobe(struct trace_event_call *call,
+ 	if (file) {
+ 		if (!trace_probe_get_file_link(tp, file))
+ 			return -ENOENT;
+-		if (!trace_probe_has_single_file(tp))
+-			goto out;
+-		trace_probe_clear_flag(tp, TP_FLAG_TRACE);
+-	} else
+-		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
+-
+-	if (!trace_probe_is_enabled(tp)) {
+ 		for_each_trace_eprobe_tp(ep, tp)
+ 			disable_eprobe(ep, file->tr);
+-	}
++	} else
++		trace_probe_clear_flag(tp, TP_FLAG_PROFILE);
+ 
+- out:
+ 	if (file)
+ 		/*
+ 		 * Synchronization is done in below function. For perf event,
 -- 
-2.56.0.317.g454f8302e1-goog
+2.55.0
 
