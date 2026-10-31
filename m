@@ -1,98 +1,90 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793478497;
-	b=gzqTvSw6mGVF+ldkwPg4ZrkULDH6666iT0nhFTwqKDij4mPCnsXCnpM9IN/fep8xQdZb
-	 nyAHg+MTwuSVSyoW/g/dhA8dEkE/lnA2pbp000TCqQoP4DRtzxmEvhZCrYEaeacW3pZlJ
-	 Ft+6Wpibmsa7WflfB0I6H+gpDNYdqgZSVQuoPmVnvHzc0xglC1xXAI9TvGGGQIVP490vK
-	 N/1vxfldeEkUSzNH7IS59B3B6uVBSe9Hq8xb/SMeZ6UNn9Z0LBSF8Ykejk9EnMti/j/y1
-	 exQcrlK6ZycQ34eStxNT7lkHwct+DN2nlfH6ZA+4FnOCmTaKEg+Ca7aM0wpxIxegrgg==
+	t=1793478645;
+	b=jPG7Y78zkHY8bqg9a5rFfYzzQoR0HzM/+b9s9XG38lNjtb8Xwd0lsjHHjGlllBS+ZnAf
+	 EMvnntdIqAjHXdnu2Skr2LOpbKbc3xq09zZ68Gqrkc8HwD7zBiaq/Pv8EggJ+KZVOA0vy
+	 qG4Jftk6HcwPhHB+Mvs434v37uTRHIguTI0ZvwSv8EpOgwGkw0TnMJSZp2i6/4xQgWKmi
+	 oXxOWHe4oGIYyXWTvhZS8SJPGjyoVq/h1zlvVDouVR/p9xFkMVebWHRqjZ5GK/x1UjPWd
+	 jMj0CTJ7PRwe9Bi1z5KuI3BTtKjkzuBK4Zx6OiKljxonc5WFlh+oG9iKn2ojnPFlffw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793478497;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793478645;
 	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
 	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
 	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=iREJnj1dRudypne7M94cfs97N8m2yOo1WUEkEn9vXIQ=;
-	b=hwjcqoOJ6bcYsrl1hcwCnFf+EsbPJeqyaF7iOmb6y4x0YVwvYV99/JUiCcN7P3bjDwqm
-	 DzQ+GuBnQwhenuIDc4suMbF/hK/KeWCNNz4QwCQEPcCrNo/ZCI2s+oJuoVptKTBYwHbMY
-	 1o+LvgLn0gUJxYui5YjlnxkhP2TgIAEZyGmj5CzJLaHn3/jFgpiAOH7453aEPigUIBgKU
-	 lMYk+JOtJVsbY4VBoxbvCF3IjRWEvbd2IV399+rgFNR0LzMuNQ3bVZaMFBQ57lCYLSatX
-	 52qomN3P2AVvJ5xm0tLNoXw/LnyEIBSLaiyABY+vqQWwaChhgD1gdc9RQsxtsSR36SQ==
+	bh=etg8xIk7/mHuwznIV2LiEcwlbKyebNzAJOUuKQB92CY=;
+	b=FAVh+gDpD5xfeoGuuPNA5h6lYZF+uSzk8WA47RUhDs5abfaB+/CwHC/E1j0NemdyTtph
+	 nDzlLb3QijCkScPpOP9a/TIwpTNXiaVbnp9ADKUHifhAioBNrjJGbU6yW70QWysozws7Z
+	 MSn5ICBRNd5lTk0MQaf9p98GJDIL+WFOBdTkDYIhJ414g+QZCKFE/nZ2mGBgSgF6goTqn
+	 uTMeaPb3l1X1PKaPRtGZHfRtp/x0QiIqyMJ5s0kAC94u48rlR1w5F+3gOeoi2y4NFJJ2E
+	 Adg1eZVZxrxClzQ0dW0beEVqRoo5kHPHsGA1hgsMoj4rp9hewCpHPAYLuzRe3wPxwZA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=alien8.de;
 	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GfwnDjGs;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=emSACvfh;
 	arc=none smtp.remote-ip=65.109.113.108
 Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9E3606A31D;
-	Sat, 31 Oct 2026 20:28:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F9E3606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF6E606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:30:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ECF6E606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=GfwnDjGs
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=emSACvfh
 Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BAFAD40E02B7;
-	Sat, 31 Oct 2026 20:28:06 +0000 (UTC)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id E976440E02B7;
+	Sat, 31 Oct 2026 20:30:42 +0000 (UTC)
 X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
 Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
 	header.d=alien8.de
 Received: from mail.alien8.de ([127.0.0.1])
 	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id d0DInQcl9Vsc; Sat, 31 Oct 2026 20:28:03 +0000 (UTC)
+	with ESMTP id MWea6NI3gU-5; Sat, 31 Oct 2026 20:30:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793478482; bh=iREJnj1dRudypne7M94cfs97N8m2yOo1WUEkEn9vXIQ=;
+	t=1793478639; bh=etg8xIk7/mHuwznIV2LiEcwlbKyebNzAJOUuKQB92CY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GfwnDjGsTTSvrYvL9jD5KoRtqPnFWR7pNmGeUe1LQ8+mKgzDwoPvY5MGnwWyx8jue
-	 DHbOegJ/qfwq6V1M6jF651IJGrylE/eIFPk/7hM926G4MfH0CrWvfMpTgrNAWHKM93
-	 OH/SFBACY7wFCyoPDFLdsAwWDUg7aXGUTrJ5eXcPjJVfn1fX7smbieNQ1lrvJoZA0J
-	 gq4oxz/olxQGhln696QmLr58NQeUDs2JfM7ayKSx+2/9wnKGD4pjDNOScY4q5Nobak
-	 2JQ0NdgHgYXL5TlBWnqhi6uDE4LFN4mi6i3BeNWSQ3/Id66O7RWWGaZK6zhf7+DUoj
-	 XaTQFh8CJ0GRgfLXLEqaqZBPZE1jOeSynmMtJ86cYwYY0LwdqklC1llpUiqEuB48bC
-	 xXS+rh3HJ8GYjepifmhRA4Ho3z5efricr9IBpxl1Aw1H1Ge93mvuizIdOMH1XzvS/O
-	 9W7Pgj2qEYwqnsZKJX9xUDckGeYfGZdl5QSQwGRfiaDw+TRKuDmoZ7bKbJjXod2Fz0
-	 71ZMb4UsA9DnAiSo+xAAAuqdddBXxnhCN5uNdnRkA7jtbTvqJwP/sHVatcBm3MVLYm
-	 s/JtuuL4ZJoqugV64RoQl0ZTujkiXuyR9n3kl3wPYOl3VPzanfZwF11aRQqwyZmPZz
-	 AU2r622K6p4eTzOd0O6imPCY=
+	b=emSACvfhZ/bWvWkfjo+IyHx/2jJUgTQ5ygP74ijNKqAW5Qp6J7FOoNeVobf6teG4A
+	 4bJ7/ULFGE72jby9mWZxWWPo1Tv/BOgeygSKuugTx4AdVpIKjrOXMFG80ESRvbtOnv
+	 Rrk8JRAblvwOefy6PnMby7LoPgmZf+L6aQZ977m0H4NKfnFvsld2NCsTXcV0uJno1q
+	 dcEyqWqbtWoaV95LZy67iu4HKjjErf0EsRtw8D5xlwREhp3zfsf6ovtywW5ZkZ7CGy
+	 5F2gTL+n5BIryeVmdgOlzgvroAHWLUtGRMjO93+SYPQ5fy4XrjVojWRxmyajnqwqFu
+	 rJBygOnuUotg5nR3THXe23k4FuZ2T2phziKPihZ3VNhwc+rD5gL/O27u5xBxMEK3+K
+	 I/rTlbP7KtEoyINkatGHJObo3vm0qTOdoVD4KO/Ej3S/JaaVg8P2XJK7bboJToydsQ
+	 SCt4rJi0bMmhTmMjmqLC9Vu6l2GV5Di2jT2ah1b70PLAaDP+TE/zInTEIxPP3613gz
+	 KB/vGcwVx3U/E2NZaw2hB1yLy9vO/jjUyiFt984eLTB1cXqo4YMs7Aw7VCQM7XYW7e
+	 jsEk6XVyXt/01GcuzshZdEdYX140LFbYQN3ZxOeDA2EIQ8Bhe9Syy5r7KfZJ2EXYN0
+	 gMcOSk1c5qVPTUuG17atELuo=
 Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
 	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id E677640E016C;
-	Sat, 31 Oct 2026 20:27:44 +0000 (UTC)
-Date: Sat, 31 Oct 2026 13:27:41 -0700
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6EC8740E016C;
+	Sat, 31 Oct 2026 20:30:22 +0000 (UTC)
+Date: Sat, 31 Oct 2026 13:30:19 -0700
 From: Borislav Petkov <bp@alien8.de>
-To: Joe Perches <joe@perches.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	"biju.das.au" <biju.das.au@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	Au Dang <au.dang.jx@renesas.com>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-Message-ID: <20261031202741.GAauZPPfNDpQLSmIZD@fat_crate.local>
-References: <TY3PR01MB113468FBD8E5EFA65C4B4E5EB86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org>
- <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
- <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
- <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
- <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
- <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
- <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
- <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Rosen Penev <rosenp@gmail.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Florian Westphal <fw@strlen.de>, Julian Anastasov <ja@ssi.bg>,
+	Jeff Johnson <jeff.johnson@oss.qualcomm.com>,
+	linux-kernel@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH] x86/csum: Relax the len and proto constraints in 32-bit
+ csum_ipv6_magic()
+Message-ID: <20261031203019.GBauZP25b7gS7rmv21@fat_crate.local>
+References: <20261020003238.2823758-1-sashal@kernel.org>
+ <CAKxU2N9paXhCuNknUzKx5dYxhXitLZ=OVVY7Sym1HV8Mow6cSQ@mail.gmail.com>
+ <20261020011140.GCata_zHOTeTXLdlr2@fat_crate.local>
+ <atbBFRU1Wm94oYB7@laps>
+ <20261020012844.GDatbDzDp1zC0NtI6k@fat_crate.local>
+ <20261031133638.580496-1-sashal@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,46 +96,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
+In-Reply-To: <20261031133638.580496-1-sashal@kernel.org>
 
-On Sat, Oct 31, 2026 at 09:43:44AM -0700, Joe Perches wrote:
-> It's not an error in get_maintainer.pl
+On Sat, Oct 31, 2026 at 09:36:38AM -0400, Sasha Levin wrote:
+> Gentle ping on this one, I don't see it in tip yet. The clang i386
+> allmodconfig build of mainline is still failing on it.
 
-I'm open to suggestions.
+Yah, lost in the avalanche of mail. :-\
 
-> > +F:	include/uapi/linux/tdx
-> 
-> No file match.
+I have queued this below, it should appear next week, when the MW is over.
 
-Works:
+---
 
-./scripts/get_maintainer.pl -f include/uapi/linux/tdx-guest.h
-Kiryl Shutsemau <kas@kernel.org> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-Rick Edgecombe <rick.p.edgecombe@intel.com> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-Dave Hansen <dave.hansen@linux.intel.com> (reviewer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-x86@kernel.org (open list:X86 TRUST DOMAIN EXTENSIONS (TDX))
-...
+commit e0837307007837088ce417d8f061f90105f1b20c (HEAD -> refs/heads/queue)
+Author: Rosen Penev <rosenp@gmail.com>
+Date:   Mon Oct 19 20:32:38 2026 -0400
 
-because it is enough to match the beginning of the string:
+    x86/csum: Relax the len and proto constraints in 32-bit csum_ipv6_magic()
+    
+    Building an i386 allmodconfig kernel with clang fails since allmodconfig
+    started building netfilter with GCOV profiling:
+    
+      In file included from net/netfilter/nf_synproxy_core.c:7:
+      In file included from ./include/linux/skbuff.h:26:
+      In file included from ./include/net/checksum.h:21:
+      In file included from ./arch/x86/include/asm/checksum.h:9:
+      ./arch/x86/include/asm/checksum_32.h:149:6: error: inline assembly requires more registers than available
+    
+    The csum_ipv6_magic() asm needs five registers at once: the early-clobber sum
+    plus register-only inputs for saddr, daddr, htonl(len) and htonl(proto). With
+    frame pointers enabled, six general purpose registers are left to choose from.
+    
+    In synproxy_send_tcp_ipv6(), the GCOV instrumentation lets clang's machine
+    scheduler move the copies of two incoming register arguments, EDX and ECX,
+    below the asm.
+    
+    Both registers then stay live across the asm, which leaves four registers for
+    its five operands. This is LLVM issue #206307. The error goes away without
+    either GCOV or frame pointers, and it reproduces with clang 19-22.
+    
+    Neither len nor proto has to be in a register: ADCL also takes a 32-bit memory
+    or immediate source operand. Use "g" for both, so the asm needs at most three
+    registers whatever the caller looks like.
+    
+    ASM_INPUT_G, which normally replaces "g" to avoid clang's poor handling of it,
+    is not enough here. It expands to "ir" for clang, so callers that pass
+    a variable protocol, like nf_ip6_checksum(), would still need five registers.
+    With "g", clang passes a non-constant len or proto through the stack and still
+    turns constants into immediates.
+    
+      [ bp: Make Rosen Penev the author because of a previous identical submission
+        https://lore.kernel.org/all/20260904000833.2058186-1-rosenp@gmail.com/ and
+        Sasha graciously agreeing and giving his much more detailed commit message
+        explaining the background of why this exists. ]
+    
+    Fixes: 403cec8ab6d0 ("netfilter: add option for GCOV profiling")
+    Closes: https://dashboard.kernelci.org/build/maestro:6ad55fe255fda507603d2651
+    Closes: https://lore.kernel.org/a28df759-d0e9-41c0-97c7-5f89a18d54e2@oss.qualcomm.com
+    Reported-by: kernelci.org bot <bot@kernelci.org>
+    Reported-by: Jeff Johnson <jeff.johnson@oss.qualcomm.com>
+    Assisted-by: LLM
+    Signed-off-by: Rosen Penev <rosenp@gmail.com>
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+    Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+    Acked-by: Nick Desaulniers <ndesaulniers@google.com>
+    Cc: stable@vger.kernel.org
+    Link: https://github.com/llvm/llvm-project/issues/206307
 
-$ perl -we 'print "match\n" if "include/uapi/linux/tdx-guest.h" =~ m@^include/uapi/linux/tdx@'
-match
-
-> F:	include/uapi/linux/tdx*
-> 
-> but as far as I can see there's only a single file there.
-
-The idea is to cover everything that starts with "tdx" in that path when new
-headers are added without the need to touch the file pattern.
-
-$ touch include/uapi/linux/tdx-host.h
-$ ./scripts/get_maintainer.pl -f include/uapi/linux/tdx-host.h 
-./scripts/get_maintainer.pl: file 'include/uapi/linux/tdx-host.h' not found in version control 
-Kiryl Shutsemau <kas@kernel.org> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-Rick Edgecombe <rick.p.edgecombe@intel.com> (maintainer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-Dave Hansen <dave.hansen@linux.intel.com> (reviewer:X86 TRUST DOMAIN EXTENSIONS (TDX))
-x86@kernel.org (open list:X86 TRUST DOMAIN EXTENSIONS (TDX))
-...
+diff --git a/arch/x86/include/asm/checksum_32.h b/arch/x86/include/asm/checksum_32.h
+index 17da95387997..f74873a5e351 100644
+--- a/arch/x86/include/asm/checksum_32.h
++++ b/arch/x86/include/asm/checksum_32.h
+@@ -159,7 +159,7 @@ static inline __sum16 csum_ipv6_magic(const struct in6_addr *saddr,
+ 	    "adcl $0, %0	;\n"
+ 	    : "=&r" (sum)
+ 	    : "r" (saddr), "r" (daddr),
+-	      "r" (htonl(len)), "r" (htonl(proto)), "0" (sum)
++	      "g" (htonl(len)), "g" (htonl(proto)), "0" (sum)
+ 	    : "memory");
+ 
+ 	return csum_fold(sum);
 
 -- 
 Regards/Gruss,
