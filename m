@@ -1,72 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793463597;
-	b=SHnKwkM50/nAF3PHJK0b3/0aLYtdSY37deFY4hx9x3zlUWFXi5RDc3N0JdQN8cypplYQ
-	 35m8TtU5h4zvbKT9CYs3g6YWnMxfM7allG40FqcMhETpTGSyAv91vk6Y94RjQXqjhW5Xm
-	 klADQxq+G36WHKEkq5DQzlfZpe9mwUUFkNzaK0m4iX3bMYWP7gv/wY6tRwA0zQFL1hro8
-	 efK2r86iXbZ6dFGIgQati/wycVfID8/4T6SGoVE989PS7OKb+bz6VFGw8lgCc/qGdRsdK
-	 h26MvnnDwG4/W18xSQpXNEBW2sllL2+Mzkndknjr0BtRYGUV+BP0yuP/np4+gRFYeig==
+	t=1793463616;
+	b=n/JNVK8LhMIPPgKu4BsTx5yNW/TshkX2w+KRYdvUBQT9rKoNwjNFLAWZHeP0hTaPO6Kz
+	 5PIMZ1psiGfyT8rkkI19xMwWaTT8AV2okC+dYD+YiqHb+1jmhB2jSVdtjtwvb5g6aC1kV
+	 nypjGp4nWMgh/RXJKhmYf3JlCi76ZnQCA0RxETap/pf8eh/3BqadUWKjgXLWOzNQhQ2QR
+	 9qIis7kX1P3hDyUzpwm3h9t6tMq3ts1ws4qEP+D0VaPhHY3xd/6BOf8fN/7Bn2OZwBdVa
+	 644YW8LZEwTMHQXNSicNTS039+F0iNogcdRgBxjIbocCIubhP8OVrTy/JJ40XkBfbJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793463597;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=9geVxMb5IZteTgFL+HeGjo+5jRnnsufYuQQZgpvqUcQ=;
-	b=MIbojWzWLC7m0c81edFYCoyyqFo3cRtQ7WvlSS9I/ZEA8I1giKe/2x30PBO+DInJsP+0
-	 t3/vV9aaWDnsksTdUsuBYlh6QMNYpu2g9K1D9dCwkwemJ3zUBG5m7GGJRl0L7wxECFiAG
-	 7eZVz0DEoWNtC2wit71IY2ywMkvRgjx4aouMV50U9M9Ez+jgdEwuacqokFGoCmcPQUoN9
-	 DwPqALWEGihukpLpwAAt1EH/vmeVxaeL/ZGtGP/4cwtcbTn4LhT7nlG5MflFF/AKrxpHd
-	 qTBrfV2I3QrSPE5EJ497OflBQhBRlORij5BLqKJM3FelVmDJ1asDZHlIR5kEZrWBFOA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793463616;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=lmWTmNuesxAJc0uIdXgg1Y/3RQtDi2m58HS/0OcMlyk=;
+	b=AESIx+9QyQgjD3Lffx3Up2CGOMMY+FG1UvZ05fB1iEVkGiliappFc4VWm+UvLxj7Cb/3
+	 3IvtOhENJdnYyobXXIKx+h93zHRXOAz4PfLl2MfT345DInOzJOP60XQ3M87Cg8KulmsM4
+	 2I3/T7jUrHsMrIdZJe4NxDBArma+pkliOel7qG1PMV8q4pF4E9wQjtGKYqiYX9TfXjp0X
+	 kMKvyCP+7e1Gh/hyAjsLWJ4UtEnkbdJj7oPr8FjFpsGe46AOpJVPm9bKJ0gKUIFTAXHeC
+	 uRNWcY7RKxxolBlRBO5HBn4ei0oS5psHcIQkgmgoSBPZeHAmZw/72JNTCq8EjiGiv9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=ZNGjbWML;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+	dmarc=pass header.from=csail.mit.edu;
+	spf=pass smtp.mailfrom=csail.mit.edu;
+	dkim=pass header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=zQ8+bq8P;
+	arc=none smtp.remote-ip=128.30.2.78
+Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C30606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:19:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70C30606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D541F606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:20:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D541F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=ZNGjbWML
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jH38V3cnSzKmjh;
-	Sat, 31 Oct 2026 17:19:54 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793463594;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=9geVxMb5IZteTgFL+HeGjo+5jRnnsufYuQQZgpvqUcQ=;
-	b=ZNGjbWMLPz1bov1TCOX/bpQ29RVoojZzzUv2vpKLwpNQh4ptJ0yawnnKgSbE+2pf858kUX
-	OqzI+DwgyE1dPwu5GpQEd1b8lG2psq84WkHIQuWFNCaVACtLWsgszB6xO9LmcTZivw4QRJ
-	vQtDbHCX+AciV5JTZYuygSFnq2qH3HenZYE6R+K9WfvIEjgo6PMLBML5kW87Dsom/IcKQl
-	9N/dvq/cWkm6NI/bEhxDZQTWj0Kr36eh1Q17zb7qvG5MQ/zjSMlAlWM+iGFZ7YxbkX4ipS
-	Qewasnw0Gp2sV2MISz2G2L1tBhlWA3GZCsB3UsYMTMqqlUs/0Zx0R7rNRAJCYA==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	dri-devel@lists.freedesktop.org
-Cc: airlied@gmail.com,
-	simona@ffwll.ch,
-	harry.wentland@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/probe-helper: Sort and set crtcinfo before dropping the modeset locks
-Date: Sat, 31 Oct 2026 16:19:52 +0000
-Message-ID: <20261031161952.660049-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=outgoing.csail.mit.edu header.i=@outgoing.csail.mit.edu header.a=rsa-sha256 header.s=test20231205 header.b=zQ8+bq8P
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=outgoing.csail.mit.edu; s=test20231205; h=Content-Transfer-Encoding:
+	Content-Type:Cc:To:Subject:Message-ID:Date:From:In-Reply-To:References:
+	MIME-Version:Sender:Reply-To:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=lmWTmNuesxAJc0uIdXgg1Y/3RQtDi2m58HS/0OcMlyk=; t=1793463615; x=1794327615; 
+	b=zQ8+bq8PPCypUJUGwYV5ivu+HtGExZJa75cbnVjvraiHyNPhSzFzojXz/CIUc40MPOS19XXDpq5
+	z7/NN0c5foCZkHDgv0keU9O6Os4NwEkKVA8BzqycYHd+wcMVJL6aBGx2o8hgEpDS6HnmXSO7mUG1P
+	LImxoLd8YwWwkS1dkoZbEDLO7R4Vhnd9rM/oBnrOoh+6KyKTN/Ue568ZxFqOTgb5mPap6IEnfHMdk
+	mIrYND05ywPpX8Sp7nu3xEyvOs4aNt4Opmb0JPJBavNtfrPONKEbAqb1+RdbCkhYpv3f5XO/al7rw
+	WThA6XOUMqHbZ8ey8DLEHcFQRPpBfFiZ/qfA==;
+Received: from mail-dl1-f45.google.com ([74.125.82.45])
+	by outgoing2021.csail.mit.edu with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.95)
+	(envelope-from <nickolai@csail.mit.edu>)
+	id 1xNBoV-00EgG9-3f
+	for linux-kernel@vger.kernel.org;
+	Sat, 31 Oct 2026 12:20:15 -0400
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-14fc585291cso1457780c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:20:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBymHiTuo1H1Wsa1bDv7m02+8n01ydGhAWb/MKM2lFlumHSgHsF28SMP+TpNZ7wAsm2KBFypKBbN+3Gd80A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0bMSJN3aN3h3t0FSKRWX9vmFNqHjPHl+9azfQY5H5GpiSFQT+
+	LP6pw64m3f1xak3p84enA+xIeqgmoMQ+Xda97EUDQyCdOpIuRWYwhgtKMEhV4KB5nv+hUDRNmJm
+	AB6X0YyAv25mHFZLkJ9RsvzP5DgdDjhM=
+X-Received: by 2002:a05:701b:4644:b0:1ae:b906:773c with SMTP id
+ a92af1059eb24-1aeb90678acmr3333147c88.47.1793463614161; Sat, 31 Oct 2026
+ 09:20:14 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,66 +71,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jH38V3cnSzKmjh
+References: <20261016160708.790397-1-nickolai@csail.mit.edu> <auUP2yrVl7lwkNkC@Tao-Chiu's-Mac>
+In-Reply-To: <auUP2yrVl7lwkNkC@Tao-Chiu's-Mac>
+From: Nickolai Zeldovich <nickolai@csail.mit.edu>
+Date: Sat, 31 Oct 2026 12:20:01 -0400
+X-Gmail-Original-Message-ID: <CADGQE7EUcOebpYG5_R19d0NhukBjZxPiShEgHeNd3Y2i13SS8A@mail.gmail.com>
+X-Gm-Features: AclHuK83lGOlIj8EgJp99GFL2iWJP-4RbsNCMWo5hxhuwya0BJw1cO0otTZXMIA
+Message-ID: <CADGQE7EUcOebpYG5_R19d0NhukBjZxPiShEgHeNd3Y2i13SS8A@mail.gmail.com>
+Subject: Re: [PATCH v1] riscv: signal: mark the FP state clean before
+ restoring it from the frame
+To: Andy Chiu <tchiu@tenstorrent.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Andy Chiu <andybnac@gmail.com>, 
+	Deepak Gupta <debug@rivosinc.com>, linux-riscv@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Currently, drm_helper_probe_single_connector_modes() holds
-connection_mutex while it probes and prunes connector->modes, then drops
-it before sorting the list and filling in the crtc_* fields of each
-mode. The caller still holds mode_config.mutex at that point, but
-drm_atomic_check_only() never takes it. The only lock it holds on the
-connector is connection_mutex, which drm_atomic_get_connector_state()
-takes for it
+On Fri, Oct 30, 2026 at 5:45=E2=80=AFPM Andy Chiu <tchiu@tenstorrent.com> w=
+rote:
+> I would prefer adding this into riscv selftest just to keep future
+> developments intact.
+> [...]
+> With the v2 patch from Guobin [1], consider something like:
+>
+>         if ((regs->status & SR_FS) !=3D SR_FS_OFF) {
+>                 preempt_disable();
+>                 __fstate_clean(regs);
+>                 preempt_enable();
 
-amdgpu walks connector->modes from its atomic_check, in
-create_stream_for_sink() and amdgpu_dm_get_highest_refresh_rate_mode(),
-holding only the locks of the atomic acquire context. list_sort()
-NULL-terminates the list while it runs, so that walk can follow a NULL
-next pointer or read a mode whose crtc_* fields are being rewritten
+Thanks -- I just sent a v2 with both changes: preempt_disable() around
+__fstate_clean() and a selftest in
+tools/testing/selftests/riscv/sigreturn/.
 
-Sort the list and set crtcinfo before dropping the locks, as the
-function already does when it probes and prunes the modes. As far as I
-can tell, the unlock ended up in front of the sort when
-commit 6c5ed5ae353c ("drm/atomic: Acquire connection_mutex lock in drm_helper_probe_single_connector_modes, v4.")
-first took connection_mutex here, and that commit gives no reason for
-the order
+  https://lore.kernel.org/lkml/20261031161826.858908-1-nickolai@csail.mit.e=
+du/
 
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
- drivers/gpu/drm/drm_probe_helper.c | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
-index 856b40fdaac4a..2085d93651b21 100644
---- a/drivers/gpu/drm/drm_probe_helper.c
-+++ b/drivers/gpu/drm/drm_probe_helper.c
-@@ -703,11 +703,10 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
- 	}
- 
- exit:
--	drm_modeset_drop_locks(&ctx);
--	drm_modeset_acquire_fini(&ctx);
--
--	if (list_empty(&connector->modes))
--		return 0;
-+	if (list_empty(&connector->modes)) {
-+		count = 0;
-+		goto unlock;
-+	}
- 
- 	drm_mode_sort(&connector->modes);
- 
-@@ -720,6 +719,10 @@ int drm_helper_probe_single_connector_modes(struct drm_connector *connector,
- 			    DRM_MODE_ARG(mode));
- 	}
- 
-+unlock:
-+	drm_modeset_drop_locks(&ctx);
-+	drm_modeset_acquire_fini(&ctx);
-+
- 	return count;
- }
- EXPORT_SYMBOL(drm_helper_probe_single_connector_modes);
--- 
-2.56.0
-
+Nickolai.
