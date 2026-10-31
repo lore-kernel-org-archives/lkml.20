@@ -1,86 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.165
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793437323;
-	b=CAaxF9nHCAAiK468cw/KmD0c2H0rl528Y0xSQE8I6cBQo54rrms6cqeRz9TTKOVwPVNY
-	 ZaCIwJGjOG9ISIbo8T2MRhmcs4Ssg9UNauVi3oIvDQzYT+P4TJbJ350jayGaw6ihFIYNJ
-	 cpC3cbuWfp5mNcEDiKs4718ZGm071T1k2H3lfjVtQNpqIo3v7zkKNFOUrPuHs/O3Nbdmm
-	 cnUzthRIAhrdHLI6+z+4O6i+8Yw+usOw5St7OhSltgGUgB6+Klx9NhrjUD7K4TNQOT7nI
-	 szLqCVUH9sYHCKKh+gig1xQ0CiJXtQRU1+IEtYHbf/LNsqtzg45Od207pq0t+G5r3Zg==
+	t=1793437375;
+	b=QkK5oTX/Ad8ZTezW1qpCjIvILr/XfXdy32Y2/9H+y2kP5lFM9blpoiayPix5hzT3Svzf
+	 gJ0/sZLB54VdG0apGMv5y6svUi9eRZGWd4QRpA6Q4UvSfnk61Gi5ccKAmD0lQCOeir9DB
+	 l2oCJO3eHq6u6koh7vvJCMKcO00UazDQ1+/y6FV9lIKy7I3L4NgBy1q9nST935dupHG1l
+	 lDznLs8QJnQLHP+akBOZ77wLosCA32x7uKmoIAuIF60eEA+1Y3+/nt2rVPokQWqCdXO7L
+	 4Bs+RToVZJs+36gPquO4p58l4F4qGYrCz3IhWcEsD63oIVvvOYwpFO2GnEhp4gXbCLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793437323;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=olUAZWb4rGnN0WOUAfDAcNNMoLgDIGZnl5od4gLL/8A=;
-	b=2Xns48k8bSny/zGw0OsWcvYJwBERV8fksj/LAuPAyBOkBkXgcdQD5TngfZvS9guK/8fu
-	 vgeR8RrFpzI6wO2ZyFDlOnvgrDPUYSSkQg+PbXx1XCOD65OgvXUNpTFB/Gr+whTqMI8DB
-	 Aknv7iMNy8nbVZSNX+afPDuDsTyad2zSnsKsP0RVTek7N61XETnCy1If4pwUQcau+7ejc
-	 7ORF5hGxFQI4nz+OL4hIYu6Z/eDxB2F9lqWaWGgsB43puz1/awBWFvjQqrr14Vsc6m2Zt
-	 nTcdl24Mm4uNPViSBJYPKlPLFF2NAsRuMQrxcp8TEmjmf5AxnPBFx2LbvXetY4+dpfg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793437375;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=TXER8ykX7RgHrj/Ix1+8XpZnaqbFqeCPubeDYKTDVEY=;
+	b=i+HvrV/ud6CqTBGSU7+1LIuyH13QmA7aD/nHOG/3TfAl6Ko8y3sLycy0aDZ0dLozOyzO
+	 BEG9K/Vies3Bi3Uv4//AzKF1dFeEObAFgDPT6QjILjNYaVB6MXykHteEchHBzgViqX3uj
+	 /qKZjhCz9tb/nEDyHGFwH4lFfY7+Bv/m8Riow+gRU7veRI04ZK+LtsFEgLXdVbny9H+xc
+	 J0dXw+m9yaNnzwRDph0BpWQ/wNig/l1pzTszA1XsMnae/b5KIqdoHSofp5pwnVMWYNtiH
+	 X+PZN8ymXsk9WO+5XG2ToT7wBjez+JhSjB0NisU4FTNeoK1RjEJux5Onmlxs2yCJfxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uGbX2OdZ;
-	arc=none smtp.remote-ip=91.218.175.165
-Received: from mta0.migadu.com (out-165.mta0.migadu.com [91.218.175.165])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XGiEgM3x;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88769606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:02:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88769606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6158606A31A;
+	Sat, 31 Oct 2026 09:02:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6158606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=uGbX2OdZ
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=7oaQzh3qIYdYljiSohYitxTlhwMYY+sEAEK75MIPRFw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793437320; v=1; x=1794042120;
- b=uGbX2OdZDDvuT9QNY7AfoBgt6rUlIIG5PSNdObeHyALrAP1okGgWz4f4p4tTlFqHUVD9j1ZG
- WNLlsgtgdqhG2FdFDIK/q1pbYHcHJt4dC+IeeW8D2XxgOoScxqh4x1OtVzHYOKDlGLCVUo/J4NZ
- bShoJ8QG63/QOTYhq/BftB7w=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id bda5cc6f278b6035;
-	Sat, 31 Oct 2026 09:02:00 +0000
-X-Mizu-Trace-ID: bda5cc6f278b6035
-X-Migadu-Flow: FLOW_OUT
-From: Ridong Chen <ridong.chen@linux.dev>
-To: Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Michal Hocko <mhocko@kernel.org>,
-	Roman Gushchin <roman.gushchin@linux.dev>,
-	Shakeel Butt <shakeel.butt@linux.dev>,
-	Dave Chinner <david@fromorbit.com>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Muchun Song <muchun.song@linux.dev>,
-	Qi Zheng <qi.zheng@linux.dev>,
-	Kairui Song <kasong@tencent.com>,
-	Barry Song <baohua@kernel.org>,
-	Axel Rasmussen <axelrasmussen@google.com>,
-	Yuanchu Xie <yuanchu@google.com>,
-	Wei Xu <weixugc@google.com>,
-	Baoquan He <baoquan.he@linux.dev>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-mm@kvack.org,
-	cgroups@vger.kernel.org (open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)),
-	bpf@vger.kernel.org (open list:BPF [MISC]:Keyword:(?:\b|_)bpf(?:\b|_)),
-	Ridong Chen <ridong.chen@linux.dev>,
-	Ridong Chen <chenridong@xiaomi.com>
-Subject: [PATCH v5 6/6] mm/mglru: add tracepoint for inc_max_seq()
-Date: Sat, 31 Oct 2026 17:00:41 +0800
-Message-ID: <20261031090041.58574-7-ridong.chen@linux.dev>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261031090041.58574-1-ridong.chen@linux.dev>
-References: <20261031090041.58574-1-ridong.chen@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=XGiEgM3x
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793437374; x=1824973374;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=5VowtKNFv1YlISIfX3eMIr0wi5T9Z/ReCQjtjoFgpwY=;
+  b=XGiEgM3xMxRxwirbmV2wM4RJqQiR3qtKhNBTinPRQDd0MwHy18TsrXSD
+   GxjgicdvNVcreVgCKEYhbyWzauZeco84svjWOq2fPHmZY8P/+suJwPfuw
+   ZEM5xyMvc+YAyU+0eg4Pp3aJZzQIi5iVxdqKP5Gr/DVcKs+PfbgVEcvGw
+   qSyn5gKd3L8aTOOorvVldzs1Zirubm7wx01NB5fd4cGupUS/pn9oMVkPi
+   DW0QwVtqlgmAU9R6RYAVZBoEQb9XlFvuwTdS/q4hi8Q8Bgg+WNz26N09r
+   b7wUSGqsAajnaR0VSWhDdg05p8s1KRpMHpxHua2AxBW9amhrrQw5eXC62
+   g==;
+X-CSE-ConnectionGUID: lA4ddROdS/m+Pu6ohGCRng==
+X-CSE-MsgGUID: nv81KePORdejvP9a4y7Urw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2224664"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2224664"
+Received: from fmviesa011.fm.intel.com ([10.60.135.151])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 02:02:53 -0700
+X-CSE-ConnectionGUID: 7cfGZNEKQYi0eh0hwPPrxw==
+X-CSE-MsgGUID: Ao2Qn6DRSemTL0BZpTwvVA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7470576"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa011.fm.intel.com with ESMTP; 31 Oct 2026 02:02:51 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xN4z9-00000000cgq-2KOu;
+	Sat, 31 Oct 2026 09:02:47 +0000
+Date: Sat, 31 Oct 2026 17:02:13 +0800
+From: kernel test robot <lkp@intel.com>
+To: chitranshmandhaniya@gmail.com, hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: oe-kbuild-all@lists.linux.dev, platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Chitransh_Mandhaniya@dell.com,
+	srinivas.pandruvada@linux.intel.com, david.e.box@linux.intel.com,
+	irenic.rajneesh@gmail.com, qipeng.zha@intel.com
+Subject: Re: [PATCH 1/8] platform/x86: isst_if_mmio: switch to
+ devm_mutex_init()
+Message-ID: <202610311637.I3TdahBR-lkp@intel.com>
+References: <20261030082303.284271-2-chitranshmandhaniya@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,106 +86,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030082303.284271-2-chitranshmandhaniya@gmail.com>
 
-From: Ridong Chen <chenridong@xiaomi.com>
+Hi,
 
-Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
-youngest generation. There is currently no tracepoint on this path, so
-the moment a new generation is created, and how the min_seq of each type
-trails behind it, cannot be observed as it happens.
+kernel test robot noticed the following build warnings:
 
-Add mm_mglru_inc_max_seq, emitted right after max_seq is bumped while
-the lruvec lock is still held, with the node id, memcg id, the new
-max_seq, the anon and file min_seq, and the number of pages in each
-generation for both types, summed over zones and clamped to >= 0 the
-same way the debugfs lru_gen file reports them. The nr_anon/nr_file
-arrays are indexed by generation slot, so the emitted max_seq/min_seq
-say which slot holds which seq. They are printed with __print_array(),
-so the output is hex and its length follows MAX_NR_GENS automatically.
+[auto build test WARNING on linus/master]
+[also build test WARNING on v7.3 next-20261030]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Only the lruvec is passed in; all of the above is collected in
-TP_fast_assign(), so inc_max_seq() does no extra work when the event is
-disabled. Paired with mm_mglru_scan_folios it makes the full
-aging-to-eviction window observable per memcg.
+url:    https://github.com/intel-lab-lkp/linux/commits/chitranshmandhaniya-gmail-com/platform-x86-isst_if_mmio-switch-to-devm_mutex_init/20261030-135255
+base:   linus/master
+patch link:    https://lore.kernel.org/r/20261030082303.284271-2-chitranshmandhaniya%40gmail.com
+patch subject: [PATCH 1/8] platform/x86: isst_if_mmio: switch to devm_mutex_init()
+config: x86_64-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311637.I3TdahBR-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311637.I3TdahBR-lkp@intel.com/reproduce)
 
-Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
----
- mm/trace_vmscan.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
- mm/vmscan.c       |  2 ++
- 2 files changed, 49 insertions(+)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610311637.I3TdahBR-lkp@intel.com/
 
-diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-index 8148b8224422..cddf42b5849a 100644
---- a/mm/trace_vmscan.h
-+++ b/mm/trace_vmscan.h
-@@ -456,6 +456,53 @@ TRACE_EVENT(mm_mglru_scan_folios,
- 		__entry->min_seq)
- );
- 
-+TRACE_EVENT(mm_mglru_inc_max_seq,
-+
-+	TP_PROTO(struct lruvec *lruvec),
-+
-+	TP_ARGS(lruvec),
-+
-+	TP_STRUCT__entry(
-+		__field(u64, memcg_id)
-+		__field(unsigned long, max_seq)
-+		__field(unsigned long, anon_min_seq)
-+		__field(unsigned long, file_min_seq)
-+		__array(unsigned long, nr_anon, MAX_NR_GENS)
-+		__array(unsigned long, nr_file, MAX_NR_GENS)
-+		__field(int, nid)
-+	),
-+
-+	TP_fast_assign(
-+		struct lru_gen_folio *lrugen = &lruvec->lrugen;
-+		int gen, zone;
-+
-+		__entry->memcg_id = mem_cgroup_id(lruvec_memcg(lruvec));
-+		__entry->max_seq = lrugen->max_seq;
-+		__entry->anon_min_seq = lrugen->min_seq[LRU_GEN_ANON];
-+		__entry->file_min_seq = lrugen->min_seq[LRU_GEN_FILE];
-+		/* summed over zones and clamped to >= 0, as debugfs lru_gen does */
-+		for (gen = 0; gen < MAX_NR_GENS; gen++) {
-+			__entry->nr_anon[gen] = 0;
-+			__entry->nr_file[gen] = 0;
-+			for (zone = 0; zone < MAX_NR_ZONES; zone++) {
-+				__entry->nr_anon[gen] +=
-+					max(lrugen->nr_pages[gen][LRU_GEN_ANON][zone], 0L);
-+				__entry->nr_file[gen] +=
-+					max(lrugen->nr_pages[gen][LRU_GEN_FILE][zone], 0L);
-+			}
-+		}
-+		__entry->nid = lruvec_pgdat(lruvec)->node_id;
-+	),
-+
-+	TP_printk("nid=%d memcg_id=%llu max_seq=%lu anon_min_seq=%lu file_min_seq=%lu nr_anon=%s nr_file=%s",
-+		__entry->nid,
-+		__entry->memcg_id,
-+		__entry->max_seq,
-+		__entry->anon_min_seq,
-+		__entry->file_min_seq,
-+		__print_array(__entry->nr_anon, MAX_NR_GENS, sizeof(unsigned long)),
-+		__print_array(__entry->nr_file, MAX_NR_GENS, sizeof(unsigned long)))
-+);
- #endif /* CONFIG_LRU_GEN */
- 
- TRACE_EVENT(mm_vmscan_write_folio,
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index ff51fee872f8..24cb2b7779b1 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -4134,6 +4134,8 @@ static bool inc_max_seq(struct lruvec *lruvec, unsigned long seq, int swappiness
- 	WRITE_ONCE(lrugen->timestamps[next], jiffies);
- 	/* make sure preceding modifications appear */
- 	smp_store_release(&lrugen->max_seq, lrugen->max_seq + 1);
-+
-+	trace_mm_mglru_inc_max_seq(lruvec);
- unlock:
- 	lruvec_unlock_irq(lruvec);
- 
--- 
-2.43.0
+All warnings (new ones prefixed by >>):
 
+   drivers/platform/x86/intel/speed_select_if/isst_if_mmio.c: In function 'isst_if_remove':
+>> drivers/platform/x86/intel/speed_select_if/isst_if_mmio.c:142:32: warning: variable 'punit_dev' set but not used [-Wunused-but-set-variable]
+     142 |         struct isst_if_device *punit_dev;
+         |                                ^~~~~~~~~
+
+
+vim +/punit_dev +142 drivers/platform/x86/intel/speed_select_if/isst_if_mmio.c
+
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26  139  
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26  140  static void isst_if_remove(struct pci_dev *pdev)
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26  141  {
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26 @142  	struct isst_if_device *punit_dev;
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26  143  
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26  144  	punit_dev = pci_get_drvdata(pdev);
+6cc8f6598978b8 drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2020-03-03  145  	isst_if_cdev_unregister(ISST_IF_DEV_MMIO);
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26  146  }
+d3a23584294c1f drivers/platform/x86/intel_speed_select_if/isst_if_mmio.c Srinivas Pandruvada 2019-06-26  147  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
