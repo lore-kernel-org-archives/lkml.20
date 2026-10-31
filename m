@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793483826;
-	b=IbasXKhsrSLyB0HlFiTOUWqqxyRHl7mgzF2KdVGPv5Iiau8IQJMsWcyK1SPn82/yyldn
-	 CsAT7tDznlmUx/0wXI0PDJJczRz/w/6mG3w2hWeUj13c+6SmT4rW2IPn1CjEKamJnz9Ly
-	 cDvbsFIcz9P1SfMDaJLDE+V15mwxJ3gHJMf8dYEqGInRbsk7ChbWpkAHXe1Jy/vcIcv4b
-	 +L4zb/4jG7nuT45uhp00AR/Ptj77nSodXv0aoaXV1rXArwRrOz88CSEWPEFKPhZeI8Mym
-	 ISAsa5K1JrmHk2x5X/YwrL7XvWCJ/MvjUcREOKbQDKx1jtnuoTuRn4/8dVaNsrE7D3w==
+	t=1793483827;
+	b=ynQmsJ3vUIpZH9G6jbmZmUFkruN1feG9O7/ACaKeVypgmXpiY02Q+uRdnImBt99sNPAt
+	 WNY6ry0Jc7uEIbZidEIjptZTUJm8j4DU27PWGkloGGXDhfofvC1/KbgibmgWWFN0EIfik
+	 zieX0WpWf62eNx2egWjt9viozYL1UEJRefwL8dTMR2nAyKis1TqpTtxx5X3a0nqTfG1AS
+	 SEjgqLpjiQ+aID7fjNYFLJzfq0J5e0HN+pod2m57gPHD4MojHlz12aTg23Oi/stzNRhTR
+	 /Z9jABElHBt3qgZDrYgTyUuqlICUfLsOO4inAEPf0AvXdKOTytKvRdK+qzC/5ACrV5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793483826;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793483827;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=+mdX8qPo+Ygv049Nh0fcFgBYwmXuC2JUmslOg97T4Og=;
-	b=B3QKS6F0N1sAsdQyUlPUnBHT2BDGaOrlxphV4g0HeocM/0gK6AbPeWLSFJnqGfc8lYis
-	 5gD2+whFAzSd5A1MaS3qR4ktvigak38OjCkNt6dbQ3SRYg8H+Iq3Ly/LiSMRsyGxiAlE8
-	 1mkjEUygVPvH3VyZb7gjg/Sr03oED/dwqJd5b1Cg8j08b0CTw838HFNjXB1/Lzs3SV40p
-	 wXq/xETqJSGCPBfYOjBsmKhtmJlwWBZuc3CO4tLVTYhmweGhiK2b3IFJX6t8U4/Nf7/90
-	 MUh4byQWavveVzV3hwAn7oCdSMP5STXmlyLsIj71x3OHdSJ1eGHOVkiCWIFRikRoYfQ==
+	bh=H6uCfJ+8CnteF7kubtyKLhjEI6t6YiAeXrR2BoYOOyA=;
+	b=QH0ylpxa0H06i5LjH9zKFRTuQPd5v2xTYZpBnM1UBo7lc9oSfl14Z6H2TTCfsMkgYfHt
+	 /iHzLMDoI63vPOsnjOV1xFYCodpLk7IPyzhPnww9yPiGo+VnP2D3i66xViPT+uTapj37r
+	 Yh2aRmLOAjOvgcYiIyUbH0L4tkc++eR0zy7eJr4cjiAMG+AcbIS6y5CReZxImgRYmVe2/
+	 sgTja9JA9Uc0/if1F4TGXFFcUsvjqNkVhxUNC6Y0cijYmopR73KAb5S0Xwsrf/KSbpvSE
+	 NLLb1LgpuneTgydEzlBgBlT1NMoMx1vZvOVRPg9iHkhcPfIjkITNOx41uGRvttYCTdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hsal.es;
 	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=XRrzFZa0;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=gUmmKxN+;
+	arc=none smtp.remote-ip=80.241.56.151
+Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BCB4606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:57:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9BCB4606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A13E606A322
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:57:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8A13E606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=XRrzFZa0
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=gUmmKxN+
 Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jHBdW29lgzMljg;
-	Sat, 31 Oct 2026 22:57:03 +0100 (CET)
+	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jHBdX36ysz8vTW;
+	Sat, 31 Oct 2026 22:57:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793483823;
+	t=1793483824;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=+mdX8qPo+Ygv049Nh0fcFgBYwmXuC2JUmslOg97T4Og=;
-	b=XRrzFZa059tp/B16hCtEo3jg0U3XB91ko3VFg9unhc9rx9ogd9xmLKEwJYcml0HoUkZTOu
-	ZmR9K2+Ldb3oHyPDJcj6SKMgtbQJqL2t/c9iNjZt79VDeFYhPCFxrdIuY55MPIAYNGBR7Q
-	H6f2FeONx0Ibi7yD5f8CeMADzNP/UZZnDVFBOcJOqAFnuu/7yPdbvdbrv54qA/M9J2Kl/v
-	sJliRa1TcH5jc9n6oToeOBhLxWwDz8sIP7HL0PySlFNaL8MjF9VIdAFJOIr0sD7S74CNlI
-	TkG7QPHjjNim13wBamXt9yio2wxnviDZOeoXq2VoniGYD5j/pKubug2VAg/Udw==
+	bh=H6uCfJ+8CnteF7kubtyKLhjEI6t6YiAeXrR2BoYOOyA=;
+	b=gUmmKxN+FHeYhM9NsxDZOz+NjHObPqPEd+DsIKke2Y8KOFdbMKlsN7IG4Qvr75XzhcrlZS
+	3PpW9I3YnMNLbJqOes2EA3ckPjFdAsNcA1y2Pof0CdyxY0GjQoKtcUV8mxShT9R/t3yy2b
+	QPaK54ryOnjaNea0WwFjNKhVlhSr3AVreCB9ReoXWUfc9zli7K30oZT8CQlhcbkbOvClyQ
+	cUj+3jvZvKTjPpMEbCdOSqUc//LbLfzB6lM68WvQ5vgqsKwvyAuXfz/MEzwqjbzc1Qatpz
+	iFxGcFWulOAJm7/qy9EKSEymkRjujtVzMvz5HvW5fn3xsFNI33NTnMopJmp1qg==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
@@ -63,9 +63,9 @@ Cc: David Airlie <airlied@gmail.com>,
 	=?UTF-8?q?Ville=20Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/client: Clear cmdline modes before the 1024x768 clone pass
-Date: Sat, 31 Oct 2026 21:56:59 +0000
-Message-ID: <20261031215700.1077873-2-hugo@hsal.es>
+Subject: [PATCH 2/2] drm/tests: client-modeset: Test cloning with video= on one connector
+Date: Sat, 31 Oct 2026 21:57:00 +0000
+Message-ID: <20261031215700.1077873-3-hugo@hsal.es>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261031215700.1077873-1-hugo@hsal.es>
 References: <20261031215700.1077873-1-hugo@hsal.es>
@@ -79,53 +79,148 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jHBdW29lgzMljg
+X-Rspamd-Queue-Id: 4jHBdX36ysz8vTW
 
-drm_client_target_cloned() first tries to clone with each connector's
-cmdline mode. That pass fills modes[] as it goes and stops at the first
-enabled connector without a cmdline mode, or ends with modes that don't
-match. Either way the earlier slots keep their cmdline modes
+Add a drm_client_target_cloned() test with two connectors. The first
+one has a video= mode and only 1920x1080, the second one has no video=
+mode and only 1024x768. The connectors share no mode, so the function
+must not report them as clonable
 
-The 1024x768 pass that follows only writes a slot when the connector has
-a matching mode, and relies on an empty slot to spot a connector it
-can't clone. A connector with a mode from video= and no 1024x768 mode
-keeps its cmdline mode instead, so the function returns true with modes
-that differ. drm_client_target_preferred() then never runs, and on a
-single-CRTC device drm_client_pick_crtcs() leaves one of the connectors
-without a CRTC
+Without the previous commit the first connector keeps its cmdline mode
+through the 1024x768 pass and the test fails
 
-Free the modes from the cmdline pass before looking for 1024x768
-
-Fixes: 1d42bbc8f7f9 ("drm/fbdev: fix cloning on fbcon")
 Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
-Sashiko flagged this while reviewing my fbdev probe series [1]. The bug
-predates that series, so I'm sending the fix on its own. I haven't hit
-it on hardware. The KUnit test in the next patch fails without this fix
-and passes with it
+ .../gpu/drm/tests/drm_client_modeset_test.c   | 109 +++++++++++++++++-
+ 1 file changed, 108 insertions(+), 1 deletion(-)
 
-DRM KUnit on UML passes 672/672, also with KASAN and with kmemleak.
-kmemleak reports six objects leaked by drm_bridge tests, which it also
-reports on the base without this series
-
-[1] https://lore.kernel.org/all/20261024165355.2782145-1-hugo@hsal.es/
----
- drivers/gpu/drm/drm_client_modeset.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/drm_client_modeset.c b/drivers/gpu/drm/drm_client_modeset.c
-index 0080a8e9556a5..5e45beea66438 100644
---- a/drivers/gpu/drm/drm_client_modeset.c
-+++ b/drivers/gpu/drm/drm_client_modeset.c
-@@ -343,6 +343,8 @@ static bool drm_client_target_cloned(struct drm_device *dev,
- 		return true;
- 	}
+diff --git a/drivers/gpu/drm/tests/drm_client_modeset_test.c b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+index ec58fe064d862..a8b316fbe8433 100644
+--- a/drivers/gpu/drm/tests/drm_client_modeset_test.c
++++ b/drivers/gpu/drm/tests/drm_client_modeset_test.c
+@@ -10,6 +10,7 @@
+ #include <drm/drm_edid.h>
+ #include <drm/drm_drv.h>
+ #include <drm/drm_kunit_helpers.h>
++#include <drm/drm_managed.h>
+ #include <drm/drm_modes.h>
+ #include <drm/drm_modeset_helper_vtables.h>
+ #include <drm/drm_probe_helper.h>
+@@ -195,7 +196,113 @@ static struct kunit_suite drm_test_pick_cmdline_test_suite = {
+ 	.test_cases = drm_test_pick_cmdline_tests
+ };
  
-+	modes_destroy(dev, modes, connector_count);
+-kunit_test_suite(drm_test_pick_cmdline_test_suite);
++static int drm_client_target_cloned_add_dmt_mode(struct drm_connector *connector,
++						 int hsize, int vsize)
++{
++	struct drm_display_mode *mode;
 +
- 	/* try and find a 1024x768 mode on each connector */
- 	can_clone = true;
- 	dmt_mode = drm_mode_find_dmt(dev, 1024, 768, 60, false);
++	mode = drm_mode_find_dmt(connector->dev, hsize, vsize, 60, false);
++	if (!mode)
++		return 0;
++
++	drm_mode_probed_add(connector, mode);
++
++	return 1;
++}
++
++static int drm_client_target_cloned_get_modes_1080p(struct drm_connector *connector)
++{
++	return drm_client_target_cloned_add_dmt_mode(connector, 1920, 1080);
++}
++
++static int drm_client_target_cloned_get_modes_xga(struct drm_connector *connector)
++{
++	return drm_client_target_cloned_add_dmt_mode(connector, 1024, 768);
++}
++
++static const struct drm_connector_helper_funcs drm_client_target_cloned_1080p_helper_funcs = {
++	.get_modes = drm_client_target_cloned_get_modes_1080p,
++};
++
++static const struct drm_connector_helper_funcs drm_client_target_cloned_xga_helper_funcs = {
++	.get_modes = drm_client_target_cloned_get_modes_xga,
++};
++
++/*
++ * Only the first connector has a video= mode, so the cmdline pass stops
++ * at the second one. The first connector has no 1024x768 mode, so the
++ * 1024x768 pass must not report the two connectors as clonable
++ */
++static void drm_test_target_cloned_cmdline_on_one_connector(struct kunit *test)
++{
++	struct drm_connector *connectors[2];
++	const struct drm_display_mode *modes[ARRAY_SIZE(connectors)] = {};
++	struct drm_client_offset offsets[ARRAY_SIZE(connectors)] = {};
++	bool enabled[ARRAY_SIZE(connectors)] = { true, true };
++	struct drm_device *drm;
++	struct device *dev;
++	bool cloned;
++	int i, ret;
++
++	dev = drm_kunit_helper_alloc_device(test);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
++
++	drm = __drm_kunit_helper_alloc_drm_device(test, dev, sizeof(*drm), 0,
++						  DRIVER_MODESET);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, drm);
++
++	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
++		connectors[i] = drmm_kzalloc(drm, sizeof(*connectors[i]), GFP_KERNEL);
++		KUNIT_ASSERT_NOT_NULL(test, connectors[i]);
++
++		ret = drmm_connector_init(drm, connectors[i],
++					  &drm_client_modeset_connector_funcs,
++					  DRM_MODE_CONNECTOR_Unknown, NULL);
++		KUNIT_ASSERT_EQ(test, ret, 0);
++
++		/* Drop any video= option the kernel was booted with */
++		memset(&connectors[i]->cmdline_mode, 0,
++		       sizeof(connectors[i]->cmdline_mode));
++		connectors[i]->force = DRM_FORCE_UNSPECIFIED;
++	}
++
++	drm_connector_helper_add(connectors[0],
++				 &drm_client_target_cloned_1080p_helper_funcs);
++	drm_connector_helper_add(connectors[1],
++				 &drm_client_target_cloned_xga_helper_funcs);
++
++	KUNIT_ASSERT_TRUE(test,
++			  drm_mode_parse_command_line_for_connector("1920x1080@60",
++								    connectors[0],
++								    &connectors[0]->cmdline_mode));
++
++	mutex_lock(&drm->mode_config.mutex);
++	for (i = 0; i < ARRAY_SIZE(connectors); i++) {
++		ret = drm_helper_probe_single_connector_modes(connectors[i],
++							      1920, 1080);
++		KUNIT_EXPECT_EQ(test, ret, 1);
++	}
++	cloned = drm_client_target_cloned(drm, connectors, ARRAY_SIZE(connectors),
++					  modes, offsets, enabled, 1920, 1080);
++	mutex_unlock(&drm->mode_config.mutex);
++
++	KUNIT_EXPECT_FALSE(test, cloned);
++
++	modes_destroy(drm, modes, ARRAY_SIZE(connectors));
++}
++
++static struct kunit_case drm_test_target_cloned_tests[] = {
++	KUNIT_CASE(drm_test_target_cloned_cmdline_on_one_connector),
++	{}
++};
++
++static struct kunit_suite drm_test_target_cloned_test_suite = {
++	.name = "drm_test_target_cloned",
++	.test_cases = drm_test_target_cloned_tests
++};
++
++kunit_test_suites(&drm_test_pick_cmdline_test_suite,
++		  &drm_test_target_cloned_test_suite);
+ 
+ /*
+  * This file is included directly by drm_client_modeset.c so we can't
 -- 
 2.56.0
 
