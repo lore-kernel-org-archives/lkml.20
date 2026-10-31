@@ -1,101 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793459932;
-	b=McRphvqoBlesecAkGUJK4rqwJW9NQALiXZ8NFiat+hzePCObrH2cZLl+qAO7P2lAeUer
-	 vtJWK9fwiKe3UBzYz/3/b+eJ4LhdzKABTb4tH0mxuP4V2DWEsYC57NsiJqBgofXfZXMc4
-	 VKBNUMc0PzPulCieYjtf46u/NVPfOenbqVIe9YlqKxjxLF347ahBFbGXCX0j20A2JRtFB
-	 AdMYwtSqvj2sIoAVk96CeZlGOglvKIwC/e5F1R4QiD70Cd6GPUVjPOny4YR0WFvEfpsjY
-	 Mug1hHvr2pVjMPtBB1+gAdHqN5XS2x27mTZ5Nd4H3jac+v5N+ERgvHX6xNfjWhyuNow==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793459932;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=pWROUaQbGzutORUjoHU2j5EievY+f7Xwsbb9sewJ+VE=;
-	b=quxbDOFx8tu6M9MO5+BVEw/05KjqClhMNywImVOZB+LajDsWX5n8h6Y2/gX4VNrOtCOi
-	 TwhmVtESNWYF6WvgRrhxeFg5PmGcPAzAZ1o4cJ6dIY4I9N0UWlA1NUBGNdw0a+pj36czQ
-	 DKYID+I38PhhSI22M8+RXYk+E+rCMBfp3xD9oSnBKlg4EZaXD6ryPbLgZFI3Pw+e1DHuP
-	 qxgq+sHTf8G/BecuEs1LTJ2fQmNK/oCxYj08D+rELSuDLQV12+mupZfM0Zs5V1NkTJX6X
-	 n7ldBEIl9OkAYOFdqoE3CJ2vE/95e3z7PQDg+wutFQ35b/c2aZVdIldRxEfOAxgGbXQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jRC70ElT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793459960;
+	b=OoDzLSHTYZ+B0J0k4Wkv1gif/iDz6/OTiugedoX5C9UAv0gSLepGOq/WPAQR7chyAq+9
+	 7nE6Fwo32+FKO1fgbwnIXtEC/CFNzLiSA6Deo2Kw+NCzXbP0xhuSjxnO140zbTzIhDPYt
+	 jln17mb7WFAMHFJzerMgA48t9tt/PilSbJo4refhUcAvPzGCMFsVL0dtPUQGqnwGd9Y+e
+	 kdv3I5EGWjoJMSr3fQkUQm5ApmGvO520kbPERaD7ZttN8gkYBXgLcj5b8HHiDA+4QqL5F
+	 vKBBw9ZQCT6e92h2ZP5Cm+d/dfrnKqtlIZY6dydx7FA+nEymDCe/KUT4XO+4cKGI2/Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793459960;
+	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
+	 Date:MIME-Version:To:Cc:From:Subject:Content-Type:
+	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
+	bh=rGJRUWHVZc+GV1T2glbBDs4zn8y35bavghVZaNWEV38=;
+	b=Av5kKTrlmzsO69X/sIN4wJRDKF+1DSQDH5frfrHBCNRW55PyWMP+kgHU1rGL5P6s3N6Y
+	 ptIGgs++3vYDPqXEbWYbdwcAwQ3AGU9gA33FVPgFJCaG8DYukd/KCk/8YeP0sYg8qw3x8
+	 P1BRWwpE1cUt5LINhvvAOoeP7OwEuEkGVO37G7ENjLPvNWEeNk/9pvALwmJdUCe7R7kSY
+	 h0ERybmFwMpYlWllJqUkf15mGySou06fMBhCF8qJgRZ22JGhSBhm8vl6g+Foay975ne1v
+	 IoTZWupK2u1x0y4Acpb8YDrh/5FzH7BAKoO1zaYO804iLR32L9PqsYcXmCfe/FaoLJw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmx.com;
+	spf=pass smtp.mailfrom=gmx.com;
+	dkim=pass header.d=gmx.com header.i=aros@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b="j/nX8rSD";
+	arc=none smtp.remote-ip=212.227.17.20
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BB90606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:18:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5BB90606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB17F606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:19:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB17F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jRC70ElT
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b1aa377c61so2074735a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:18:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793459931; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cW6a4QDUSg70bBL29BcvB0j+u1XLxvV0U/qwePxJDeG+2Wxi8YBC+fi/jaUq2Y+bJp
-         czOV1LhFDQZVE++UZu0/+Zy+LI8Q/pyn/wpOSXlLr0ea7vtbrKRAz36D0SO818arp4OK
-         9tYX06RXlS9vOMXRtihgTo0pVy8MvAKiQnEeaT7pMBeYaVBD2KaX419+b6yAHe8yHkBV
-         n3Ry+76UwWd9W+WyZ40+nsg9OZoN7AcRWqgXcE6wmxYUjKVT6kJNi4lpPPZZ4cNfJmDk
-         WxXCNCPTkpB4zT477PZKVa/J1tm0UzjYWI90yCmaD/TcAWzdz0qU7nVsKS8BY8ZMVXWJ
-         6GTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pWROUaQbGzutORUjoHU2j5EievY+f7Xwsbb9sewJ+VE=;
-        fh=FOLWnNzWBRZZ/VqoyRMqOPvX8k2Rd2vxlRwV85NxZ5o=;
-        b=PbPQxnhCp4jawDRqgIICbjXMY5CkR8G+UDoPiqyttBN10DqTzTOKatv884YiHTyKZ4
-         kPwqBUgf810HJxm3ZOU9vU7QHFc8vJ0kzhA02/DV5MtRWZUqhmy2BAyPj8bRMc0fA7/T
-         85uBGl5AoEH3DoidpSazzBN8te/FAOrofaJeIv16gBprWoHdOXsLPZkaUZsv+XtsuZwm
-         gWdJZgvmkLhlFf7NFrftZLRjpmuJpMQbEQib3M7DC2y2GvWOkkdsjXydqId5M8aur2ZY
-         tynQzdecfpf13x8UVB/0FmIMwkzTXNBiComnaGJhXv/Dzs0xocB2dNb9IgjZVkIEZIfX
-         r9TA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793459931; x=1794064731; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pWROUaQbGzutORUjoHU2j5EievY+f7Xwsbb9sewJ+VE=;
-        b=jRC70ElTjpZC4Vg1gVotImxyxtgyoZo7aRDc6o2t5nSg7r6QLeG8hrjb68LTY8c2p5
-         q1wiBjkSw+VolE4LuiszzBip9EitT9gwcWiSv/klhcYKzL+XEA/l8+Mq1K1bp2hwU7a3
-         jPPpC2o9NDLj9FMw/ZpwckA56sROEr8lo3UeNvgucN+InNzR3dtxrlwgmYhN+fHXRh1g
-         d/6usaK76WvnxqQGGUYobWBDTlwYQbhLPTpvrqozTTyaZb6ifGS12KojgI4KEgCQoddM
-         4A2RRBOoRyI541uPo6G1XP6z1GBnkq+oGLwH4FnfhUJu9C9RrC0p8if91GlwfOklu9Qk
-         6XbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793459931; x=1794064731;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pWROUaQbGzutORUjoHU2j5EievY+f7Xwsbb9sewJ+VE=;
-        b=Hiawrr8Z5GUVjlRP5S44ZFOPOHBI2Gx0Pbl3igMqr9a7lAUZqenN6qDGahbiX74ZvR
-         Ecij46EdslQ03suiBCI0XCpSBAi8YnS6KXD+pZRViaToZocDJTlJFPl6ifT8lSLBNAFV
-         L+lBHxq/JQgGHjWFnrzKA3MhedZlTqShNJv8xlp5RBXBtO+sWbFKQ8kzpOVp1IVmtynW
-         sYCWKetTR6Ia9ZGqedf92QBX8/u0EfjTiMCPR2mXmtbN0wERYtmO0Hyt9yAhY1Z/CF9E
-         v72PA18YR7hRykIpXAiKedJHlT4h1kFCHtxStAkoBsjC8c4g42A7fARy6xTs2pA7EcCG
-         j6Mg==
-X-Forwarded-Encrypted: i=1; AKwUvByNKRBHBUHNtdw0tLHSicp57RXaT7vaWsox6Uv5Ax6LchtuymEBSG2RhBscTtvH84/5wYIv5F9ZOW0tDl8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK+fhffr33pvUNH8Nqsk+hYiLgedV9ExBkuERWSolAlDljPTNKv
-	QHRciLC/xuRtYFKIsytCz4pdYCYXAa78/agBJfvi5q4lYpHCnX1F5DF2HhvlpPtP+d1ajh8Abou
-	/F65WvfmoM5pZLZt3B8xvT9ShUznAdDE=
-X-Gm-Gg: AYBFou1Mvpc2KuE8tw5NPKypj1Is4MlYtCQg29YNek+eLthrFroUKFddaGHIKOmTSy7
-	aUphA5pIAQRBlgPMgP8wEMUcBg6WNYLcW8LhfBZz+M80nyyqgWZA0Nf7B7IcPHHQFmw4QbowVLn
-	rY7PCPQ5w6pa8kbnDKyvCoC7OlW6vfyVtkyZ+e2OAy8hh3E0Yg7x+XlYOQ60IfHqiJEyYnL4u02
-	pVGGuAnca9MZlsNHpVGN/4g3qZwKxBKjYKP0Va3EPdAgS/7FphSR1CLJHeZvVvfqgxWG4rgNKXq
-	7gU2Sh4l3CHtA8ScG+QhqkSvOl2d7WlHOd3d3m7kTAVP9B4riUHICjzWKzKfDYos8VL/PcS7GZX
-	VUItyufkEMs0i7ZxxvvKz5XehpURKsiOkqc81wz3XOVQZZui1QCGOtUmYENnyCu/5dkPXT7duze
-	BJ0nIbelRNw5JaTTbMjWnIgfA=
-X-Received: by 2002:aa7:d7da:0:b0:6b4:a136:8788 with SMTP id
- 4fb4d7f45d1cf-6b4d438bba8mr2984206a12.7.1793459930510; Sat, 31 Oct 2026
- 08:18:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmx.com header.i=aros@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=j/nX8rSD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
+	s=s31663417; t=1793459953; x=1794064753; i=aros@gmx.com;
+	bh=rGJRUWHVZc+GV1T2glbBDs4zn8y35bavghVZaNWEV38=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
+	 Subject:Content-Type:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=j/nX8rSD4Mfw1iqyIRgS/twhxb1tk6Yv42LTcq/9lDMX1UDaSb26hAimO1JuhBuf
+	 HOKn+3UhV0zlkP4pR7QcDehLRheVugtdceZYfAXlD+8OsW2HVzF4GFbiozYNYNRdd
+	 EsVtzV1+1K9KKEJTyI/oW1gfKTZC0pkgO1XLVb+RE4uXN8ozIUtbTae37g+BJQnD9
+	 uNxSjY1R5nH0zQPxJ3XlCbEZT69UQX0hIuI23B6UOqoWpcAYhYD11ugUgl1lkU+X4
+	 dbKx6tmVFkuHTvR4CRRwpAkXq50QiKwia9H3c3IakxAyLs7fLDqVMclYQN/RAuIRl
+	 8FnLYzw4THj3DJCVRA==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.174]) with ESMTPSA (Nemesis) id 1N9MpY-1wR89E3Sho-012l6H; Sat, 31
+ Oct 2026 16:19:13 +0100
+Message-ID: <b42192af-d9b6-4820-bff3-e3b6c6ce9bf2@gmx.com>
+Date: Sat, 31 Oct 2026 15:19:08 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,112 +61,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-alpha-profileme-v2-0-c702f1c65272@gmail.com> <20261030-alpha-profileme-v2-2-c702f1c65272@gmail.com>
-In-Reply-To: <20261030-alpha-profileme-v2-2-c702f1c65272@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sat, 31 Oct 2026 16:18:39 +0100
-X-Gm-Features: AclHuK-fcn4Vq_6bW1E8x2uH1VVvD4ohFBO2dvy4BaT3WU-s5Ewn8vz03NCGQRw
-Message-ID: <CA+=Fv5TZQ4O89gd9PU6HOaM6i+ZdpE=8jEN66o3_qSe4r2HCvg@mail.gmail.com>
-Subject: Re: [PATCH v2 2/5] alpha/perf: add sysfs format and event attributes
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+To: d@ilvokhin.com
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, david@kernel.org
+From: "Artem S. Tashkinov" <aros@gmx.com>
+Subject: mm: tmpfs: huge=always Kconfig help understates severe space
+ amplification
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:xPe759PgRxemlHDr55Fx082NlvzbE+Q1otpItHIcym3ZjYJ++Zn
+ kZgmbtIF05SLsfsocZsjna0DWdPIacKvLbe+ghl3RzZZ6Xq45CI6Wlb5ZhE3Br0kURVWadz
+ TGk5ukLRdKK/ys8rm8nIdTCOySWuZQmZt89jEXRgC4I/F48d7Wt7GdqCX64BUkob791e1Fm
+ hNp4ZjW9xneUeKl1o4+eQ==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Nlp4ASWUcvY=;x26xLF1PeZhZYQMlPGuzCfCutpf
+ 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
 
-Hi Matt,
+Hi Dmitry,
 
-On Fri, Oct 30, 2026 at 5:04=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
-ote:
->
-> The Alpha PMU registers with no attribute groups, so the perf tool has no
-> way to learn the raw config layout, and the PMU's own events can only be
-> named as raw hex numbers.
->
-> Describe the event field in format/event and export aliases for the four
-> EV67 event types. mbox-replay has no generic hardware event, and can now
-> be named as cpu/mbox-replay/.
->
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
-> ---
->  arch/alpha/kernel/perf_event.c | 39 ++++++++++++++++++++++++++++++++++++=
-+++
->  1 file changed, 39 insertions(+)
->
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index 2d9383425357..70840c05d39b 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -212,6 +212,44 @@ static int ev67_raw_event_valid(u64 config)
->  };
->
->
-> +PMU_FORMAT_ATTR(event, "config:0-7");
-> +
-> +static struct attribute *ev67_format_attrs[] =3D {
-> +       &format_attr_event.attr,
-> +       NULL,
-> +};
-> +
-> +static const struct attribute_group ev67_format_group =3D {
-> +       .name =3D "format",
-> +       .attrs =3D ev67_format_attrs,
-> +};
-> +
-> +/* Values must match enum ev67_pmc_event_type. */
-> +PMU_EVENT_ATTR_STRING(cycles, ev67_event_cycles, "event=3D0x01");
-> +PMU_EVENT_ATTR_STRING(instructions, ev67_event_instructions, "event=3D0x=
-02");
-> +PMU_EVENT_ATTR_STRING(bcache-misses, ev67_event_bcache_misses, "event=3D=
-0x03");
-> +PMU_EVENT_ATTR_STRING(mbox-replay, ev67_event_mbox_replay, "event=3D0x04=
-");
-> +
-> +static struct attribute *ev67_event_attrs[] =3D {
-> +       &ev67_event_cycles.attr.attr,
-> +       &ev67_event_instructions.attr.attr,
-> +       &ev67_event_bcache_misses.attr.attr,
-> +       &ev67_event_mbox_replay.attr.attr,
-> +       NULL,
-> +};
-> +
-> +static const struct attribute_group ev67_events_group =3D {
-> +       .name =3D "events",
-> +       .attrs =3D ev67_event_attrs,
-> +};
-> +
-> +static const struct attribute_group *ev67_attr_groups[] =3D {
-> +       &ev67_format_group,
-> +       &ev67_events_group,
-> +       NULL,
-> +};
-> +
-> +
->  static const struct alpha_pmu_t ev67_pmu =3D {
->         .event_map =3D ev67_perfmon_event_map,
->         .max_events =3D ARRAY_SIZE(ev67_perfmon_event_map),
-> @@ -761,6 +799,7 @@ static struct pmu pmu =3D {
->         .start          =3D alpha_pmu_start,
->         .stop           =3D alpha_pmu_stop,
->         .read           =3D alpha_pmu_read,
-> +       .attr_groups    =3D ev67_attr_groups,
->         .capabilities   =3D PERF_PMU_CAP_NO_EXCLUDE,
->  };
->
->
-> --
-> 2.55.0
->
+I'd like to raise a documentation issue with the Kconfig option=20
+introduced by your patch:
 
-Tested the PMU event/config interface on my AlphaServer ES40.
-The four ProfileMe event selections recorded successfully, with
-the expected selectors in the captured status.
+     mm: shmem/tmpfs hugepage defaults config choice
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Specifically, CONFIG_TRANSPARENT_HUGEPAGE_TMPFS_HUGE_ALWAYS.
+
+The help text currently says:
+
+     Always attempt to allocate hugepage for tmpfs mount, can
+     increase the memory footprint of applications without a
+     guaranteed benefit but it will work automatically for all
+     applications.
+
+I believe this substantially understates the potential consequences of=20
+selecting this option, particularly on general-purpose systems where=20
+/tmp is mounted as tmpfs.
+
+I recently encountered the following situation while extracting a Fedora=
+=20
+filesystem tree under /tmp on an x86-64 system running Linux 7.3.
+
+The tmpfs mount had huge=3Dalways enabled.
+
+     $ df -hT /tmp/Fedora
+     Filesystem  Type   Size  Used  Avail  Use%
+     tmpfs       tmpfs   48G   47G   925M   99%
+
+     $ du -sh /tmp/Fedora/usr
+     45G     /tmp/Fedora/usr
+
+     $ du -sh --apparent-size /tmp/Fedora/usr
+     1.4G    /tmp/Fedora/usr
+
+Even more strikingly:
+
+     $ du -sh /tmp/Fedora/usr/share/man/man3
+     7.5G    /tmp/Fedora/usr/share/man/man3
+
+     $ du -sh --apparent-size /tmp/Fedora/usr/share/man/man3
+     7.8M    /tmp/Fedora/usr/share/man/man3
+
+Thus, a directory containing just 7.8 MiB of apparent file data occupied=
+=20
+approximately 7.5 GiB of allocated space.
+
+The overall tree occupied approximately 45 GiB despite containing only=20
+1.4 GiB of apparent file data.
+
+This is consistent with severe allocation amplification caused by=20
+transparent huge pages, although I have not yet established the exact=20
+breakdown of huge-page allocations and other tmpfs overhead.
+
+The problem with the existing Kconfig help is not that it fails to=20
+mention additional memory consumption. It does mention that.
+
+The problem is that "can increase the memory footprint" gives no=20
+indication of the magnitude involved, nor does it explain the workloads=20
+most likely to suffer.
+
+A kernel builder selecting "always" may reasonably expect better=20
+performance at the cost of somewhat higher memory consumption. The help=20
+does not adequately warn that workloads involving many small files can=20
+experience extreme space amplification, potentially exhausting a tmpfs=20
+filesystem containing relatively little actual data.
+
+There is also an important distinction between enabling transparent huge=
+=20
+pages for selected workloads and making huge-page allocation the default=
+=20
+policy for all tmpfs mounts.
+
+I suggest expanding the Kconfig help text to explicitly mention:
+
+- The potential for very large allocation overhead with small files.
+- The risk of exhausting tmpfs space far sooner than apparent file sizes=
+=20
+would suggest.
+- The fact that selecting "always" is not a universal performance=20
+optimisation.
+- The availability of "never", "within_size", and "advise" as=20
+alternative policies.
+
+For example, the help might say:
+
+     Always attempt hugepage allocation for tmpfs mounts.
+
+     WARNING: This policy can substantially increase memory and
+     tmpfs space consumption, particularly for workloads creating
+     large numbers of small files. Allocated space may greatly
+     exceed apparent file sizes, potentially exhausting tmpfs
+     capacity even when relatively little file data is stored.
+
+     This setting does not guarantee improved performance and
+     should only be selected when its memory overhead is
+     understood and acceptable for the intended workload.
+
+     Consider "never", "within_size", or "advise" for
+     general-purpose systems.
+
+I appreciate that the upstream default remains "never". My concern is=20
+specifically that the help text does not adequately communicate the=20
+consequences of explicitly selecting "always".
+
+A more prominent warning would help kernel builders make an informed=20
+choice and avoid potentially severe memory consumption surprises.
+
+Regards,
+Artem
