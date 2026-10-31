@@ -1,59 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793464975;
-	b=oK9kIuO4981mtHo/mh9UUi7nkivjhPuBp5WRsGdd6I46+GkhhY3tk1iqT9SLjom5IVoO
-	 fG/l3CJ4lMdNhyTtG4bnBhFoSFVFI/XGmevIknQR06pSJ1O/eixuw9wqcWW0b6pL5xxKi
-	 +bQy1C/3YxnAkxsEQmaWmbw1D/se5/IivJ6bwe1+0tbJrRmoLgAQJ28LO0JQFSG1iy/DG
-	 TvUTnTMbfRsMtIAr56qlPkJPGiPvwU0tLf5LW6QIEaCc48MtnOdR7huDm+/kdh2NXmVST
-	 IqYxDjncEyh4Ljnub095yTv1WinLXFyl40AvxiyQwGJR3yuSFnup1VCD0PvhxiBUNTw==
+	t=1793465040;
+	b=bQXRXOVYbX5TZJsUkThjk+mylZAZBURDp5RRd9egAysApE0Sqc+Xyxm2CkXfaDRlkjxo
+	 wEJFjbR4maaGsR3crTAcSxYgo4wmH+9R6xqDU1aS6p+rRA7cQV/P3UNcC1hTpPBSq9LaO
+	 SQI55T3LDxMD5x1F+E3fCd0P1FzrHqoNmbLwJwsbBFtzOZP+kErn4FtuywArutF20YjjJ
+	 APeicVG9iIPiXJTK/PY8wq8gCsZ1A+IXMA91UkjtrjO+bBUd1Bhqd8R+wkXboIaILJPGM
+	 OQl5yIOL0SwOl+MHsRhdiiIj8K47mRgGcjesnWC9zVtehphyy8CMTYkSnQYmvzBlo4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793464975;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=J41Y1S2rh3yGXRCAhNBommWpMFq+IhDlxy5NAe+nz38=;
-	b=45QzEYvzWE+svrWIRKiXPcuiesS3+JdGeOQZgify49fD80V4gIzxd6rD5QL+ioS7ZHaK
-	 v7zmZtRp2yc8yL+EthuRoxORhSITJTPXpHL42J7UF5evDOK0ca6enBQxfCs/j08aY6UxV
-	 KWAyru4/oaK5Y2Ehblp0d4PYjC2IiY5rtttG0t6Y/5gv/YMv5Td1tXUrzAwiJ1fB9tgfZ
-	 IkgCFRY/PuIp0wvbPmIt7a97p3tUVjoqIbZAaYLASL0L2yz3EpHIuQNkDA43r7vfGiStN
-	 8cVacpEaQJcgyLWOabntSAM49DxPPNizEfQ+IAPlDcPtWvxgorVg9EnMoC/4ymhSdqg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465040;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=htO4y8Jcii89sIWN9YYC+xewu8E5vXH8dUHgiKAmlcc=;
+	b=jYrBHjypbz6KKjrUYZ696u+aIBu74weuH2u8llfHqOsxXR9dzU7cNiDXmyEeOuFweIo7
+	 TJBLF8BV/TqVVKPOFfYGyL3ORhfapfTEhwdTfc6A3tDrqfiZOdztcWYq210I0siQem3UF
+	 Nh2ELQ1+Ge9dBMEFcRKuuazE97qJg7Yx1Ypk/iR3JSSEWkU8s/tMPxz5ZPjhyl8NAwSB4
+	 Wy8v6j273JCrytx4XqyT3s1dDsirU7fVICzkOILDGCiN3dqmLtWda0u3eMUkGFmIOlNFR
+	 ysCOrb5AovknEhreiL1kbovc+HDybq7+OOJ6kMKPBLP3o+cNn5S4+pnDZGMhBT7axkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=maf51kOi;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b="TMQfAw/h";
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BD55606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:42:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65FAF606A31E;
+	Sat, 31 Oct 2026 16:43:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65FAF606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=maf51kOi
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D6831F000C1;
-	Sat, 31 Oct 2026 16:42:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793464974;
-	bh=J41Y1S2rh3yGXRCAhNBommWpMFq+IhDlxy5NAe+nz38=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=maf51kOi2GfeExT2mteFp7wbRm1Pbs4NPJ8LE3EJWN7TJAxJ+lFNA8GrTaJtq2Ssf
-	 BOvgg2MqoNiY2Lxsx0H23hLjEqLlDS6PB328E6JD3yfPOJYCuZISy3EUG6x1BN4b11
-	 alPh9jtkf+21MD4RjaM/0HgJ4mZ1YCQxzeKaFHCo=
-Date: Sat, 31 Oct 2026 09:42:53 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Qi Xi <xiqi5703@163.com>, linux-mm@kvack.org, Zi Yan <ziy@nvidia.com>,
- Matthew Brost <matthew.brost@intel.com>, Joshua Hahn
- <joshua.hahnjy@gmail.com>, Byungchul Park <byungchul@sk.com>, Gregory Price
- <gourry@gourry.net>, Ying Huang <ying.huang@linux.alibaba.com>, Alistair
- Popple <apopple@nvidia.com>, Qiliang Yuan <odys.yuan@gmail.com>,
- linux-kernel@vger.kernel.org, wangkefeng.wang@huawei.com,
- sunnanyong@huawei.com, xiqi2@huawei.com
-Subject: Re: [PATCH] mm/migrate: fix softlockup in do_pages_stat() with huge
- page arrays
-Message-Id: <20261031094253.d28f484e7e27de469cfa76d2@linux-foundation.org>
-In-Reply-To: <76579248-64db-47bf-b8d0-4eb3ca556f5a@kernel.org>
-References: <20261031033330.3416326-1-xiqi5703@163.com>
-	<76579248-64db-47bf-b8d0-4eb3ca556f5a@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=TMQfAw/h
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 5C5FF120351;
+	Sat, 31 Oct 2026 13:43:46 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1793465028;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=htO4y8Jcii89sIWN9YYC+xewu8E5vXH8dUHgiKAmlcc=;
+	b=TMQfAw/hUdDodiYjNk5tmyy2yw8XgvRwD1Ns/6CEtWTDyFaCSWuAkS3Mb3PEkObjCQX3mV
+	AvjNpIMy2SkCxY6RMwzxna0g0lHA8QDH1Fv4mUSOvzHjc0icmhKtADMWl5/fLH0DUvcce0
+	7J5kRSAadyYpNnoRq4VFbalSxjDd8NjPNIZ+KMQQjajoH6YZAbEbGKznC9n46W9GH+zcIT
+	NbdlRPrFoxvfYRstl+0CR5epGXke9FI4+HOIiJIY6xYugjolezbWaRhqyNoQJqoR3QI7mE
+	nfevHw/K34feFq1Gn/15BjhIRwbsAkWXijw0Aj/RKfTlMJiSWVBN311ZOivZOw==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org,
+	brauner@kernel.org,
+	djwong@kernel.org,
+	hch@lst.de,
+	linux-kernel@vger.kernel.org,
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [RFC PATCH 0/8] fat: convert to iomap
+Date: Sat, 31 Oct 2026 13:43:18 -0300
+Message-ID: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,66 +65,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat, 31 Oct 2026 11:52:30 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+Hi,
 
-> On 10/31/26 04:33, Qi Xi wrote:
-> > From: Qi Xi <xiqi2@huawei.com>
-> > 
-> > do_pages_stat() walks the user page array in 16-page chunks but never
-> > reschedules, so a huge nr_pages can hold a CPU past the watchdog
-> > threshold on non-preemptible kernels. Add cond_resched() to the loop so
-> > long move_pages() node-query calls yield periodically.
-> > 
-> > With KASAN and function tracing enabled, a move_pages() node query
-> > (nodes == NULL) over 10 million page entries (~40GB) can trigger the
-> > softlockup on a PREEMPT_NONE kernel.
-> > 
-> > Fixes: 80bba1290ab5 ("mm: no get_user/put_user while holding mmap_sem in do_pages_stat?")
-> > Signed-off-by: Qi Xi <xiqi2@huawei.com>
-> > ---
-> >  mm/migrate.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/mm/migrate.c b/mm/migrate.c
-> > index 7bdcdb57652f..6c2371020cc5 100644
-> > --- a/mm/migrate.c
-> > +++ b/mm/migrate.c
-> > @@ -2545,6 +2545,7 @@ static int do_pages_stat(struct mm_struct *mm, unsigned long nr_pages,
-> >  
-> >  		chunk_offset += chunk_nr;
-> >  		nr_pages -= chunk_nr;
-> > +		cond_resched();
-> >  	}
-> >  	return nr_pages ? -EFAULT : 0;
-> >  }
-> 
-> I though we wanted to stop throwing in cond_resched() at this point?
+This series converts fat to use iomap. It follows roughly the direction
+suggested by https://docs.kernel.org/filesystems/iomap/porting.html,
+with the exfat conversion series and related fixes as a reference.
 
-It's almost unneeded in current mainline kernels.  PREEMPT_NONE can
-still be selected by
+Overall, the largest performance improvements were seen for extending
+writes (~30%) and fallocate() (~18%).
 
-	All supported Alpha configurations
+Thanks,
+Matheus
 
-	All supported Hexagon configurations
+Matheus Alves de Almeida (8):
+  fat: support FIEMAP
+  fat: use iomap for ->bmap()
+  fat: add iomap direct I/O support
+  fat: clean stale bdev buffers of newly allocated clusters
+  fat: drop ->write_begin() and ->write_end() usage from
+    fat_cont_expand()
+  fat: add iomap buffered I/O support
+  fat: remove ->mmu_private
+  fat: add multi-cluster allocation for write
 
-	Non-ColdFire configurations (classic m68k)
+ fs/fat/Kconfig  |   2 +-
+ fs/fat/Makefile |   2 +-
+ fs/fat/cache.c  |  95 ++++++++++-----
+ fs/fat/dir.c    |   1 -
+ fs/fat/fat.h    |  20 +--
+ fs/fat/fatent.c |  67 ++++++++--
+ fs/fat/file.c   | 316 ++++++++++++++++++++++++++++++++++++++----------
+ fs/fat/inode.c  | 248 +++++--------------------------------
+ fs/fat/iomap.c  | 180 +++++++++++++++++++++++++++
+ 9 files changed, 599 insertions(+), 332 deletions(-)
+ create mode 100644 fs/fat/iomap.c
 
-However 99% of the world are on 5.x and 6.x kernels and many of those
-machines use PREEMPT_NONE.
+-- 
+2.43.0
 
-
-IOW, cond_resched() is not really needed in mainline, needed in
--stable.
-
-
-I think simply merging the thing with cc:stable is the simplest and
-most reliable way of getting those older kernels fixed up.  mm/ already
-has >200 cond_resched/need_resched so a few more won't matter.
-
-Presumably the day will come when we remove all those scheduling
-points, after which people will have to work directly with the -stable
-maintainers to get these things fixed up.
