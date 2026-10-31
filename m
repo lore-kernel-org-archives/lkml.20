@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793458992;
-	b=d+hXqBUHjiMojdpjdVj3UhMrQ0VKQaUsWhoe3yyCsdWAKHur8yuy82l2oMugWqg5DQzg
-	 59WYWG5VQCc4xbLOr7IQi+FQn1QDQDF6JepvK05PrdgBP+eryH1mZ2tmceFL6a6H0yntH
-	 FXY2L42S8+BeeUdDvueBRbb6QhS9gfE5GJh4qMX3r/ud50UbBESVdvPcScGAmQw1Mg7HR
-	 Smaj7ZtxSNRlCa9bqFySfKv2q+E+QRNiz2iv5KIkCx99Xv9KHZJWnoIbTK8tp/+EW9Yvl
-	 V/C9EqvUN4tt2PyIXOWkVeX4ZZ9ypxQS1NEIRzpDOBQPj0dN4fAbLHdlQ0cfB78LiNA==
+	t=1793458991;
+	b=EZMTn9GIDWnrpgxWfG1BYLkVWd+Yyh0N6/DWhv/JEAj/76PgESKg7VSOqaJcuxv0SRU7
+	 uwxLe461KIUVrxQrwtfQv3MLYm6b7VR7/9/2RPx8j/0dKqlquBwLHZ/mWMjfZOf3yWwaK
+	 TjJWVreeBP8pjpRcUB5W7re7GTSgET5hCbecDlBLI10dpk27UsVgiYrW04NH6rmfZeaOi
+	 UczGMUtrOW0cC2u843CXzxuHntVHvlpwUKSL4YAk0vanoRXxqw7rfoQLXtIma6L/3mNgb
+	 KAooG2RQkOIN+6bDp6AJZxGuSygLodCgY7EcHP7FGeHuA8oZR7RSBmJlpjZa0oU8HVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793458992;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793458991;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=YHf42dT4GUuGEkFrxXMEdkY9Ofr+uP3rQXVMmCvRrVM=;
-	b=xBwmEOA2XzT5UZ7U3Ya1kUq6GmBLAg+d3LW+0bXzU57pIaEeHZnfpAvI8hhw16dLhVS7
-	 KO9OcxBD5VrPXeZ7POMODSfRZV26OaYA6KGIG6EQXYAOtp3m7Y2siUfrpnVmdNVGih+EK
-	 xVoQrXAyFfzK5w8keBigf3GQLYbGaGDpPr7/asZjH8WioMMu1gZ+r+hnBkKBPbH5npkXc
-	 U2dwb0axWWKgpPoIkpNTRLgp5Uw9APHb3zFiejRVNAoukWnMKOLgwiJLXA51+Xd+RiNAE
-	 2XT17H4oBY5kOTxyYMoE9rUcdg81IRFgWoWc1UNNNUuM4CHlk+Yr07/BFBDCrjTVelw==
+	bh=NwxbiKZt5M6bguLSwezvKHdUYiGPqH05PtmFGqFk5EE=;
+	b=RXl9yFxqBof0SM9LZLd0zmxulRSChanLec4fLCXaiRr9G6VgtxCnBO0iKwL+LWVkyjfs
+	 D3JzBjSylsHRHnuQ/0hHNF1c6WzkjaLgSfT4erIc6U84ChO6RP9rYPlXZQDJ3wEpIPrM0
+	 AUnxhxs/BfmH5dDJE0MAfCWKwghAkZtD5U2QgVDx4Gj7PXoc1ft5u4Sa2BWNH7YRth4nO
+	 +x/1pZfH/qt4S0QG5ki4Dbmr3VkLknPpkrtKKinONJTZcP9pK/zgmM+8nU9gl8hMJnh7s
+	 Wz6BE0Uc35KowVOU+V9iyoC5fwv2ENxVTUk2ourx+5hflSnMkAE2pyUsSij8kwtmnzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=rU1B7S3f;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=mr0XE0sE;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87F24606A31F;
-	Sat, 31 Oct 2026 15:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87F24606A31F
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D204606A31C;
+	Sat, 31 Oct 2026 15:03:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D204606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=rU1B7S3f
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=mr0XE0sE
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=YHf42dT4GUuGEkFrxXMEdkY9Ofr+uP3rQX
-	VMmCvRrVM=; b=rU1B7S3fm56HwmhW44Z6C+QUmSP8v53TML5bV533kfyfn62aPn
-	ouvy9sFkKrm/LpDv189XhbqiQYF3NvAG2TP7FtA/7qt/mW4A6rPNqgM31pqgr8eJ
-	7N6zGlZWirqEzJ4syKT2nFJ/0byxVktz2M8uaDTo8DHQeebTv87ixzlxk=
+	Content-Transfer-Encoding; bh=NwxbiKZt5M6bguLSwezvKHdUYiGPqH05Pt
+	mFGqFk5EE=; b=mr0XE0sEItzOPl7x19LcUZFi5gYUt7VgIhMkPpMfZUG3nYvody
+	hbJHwMJywo7aWBrLgsdKWJfL3i1UcWb6SMw3b/0cOQVu/CxxNu2RBiwjjjN3WewD
+	NiyAq03PZmLR19pMiA9emMYsMmdbc1Z4Orbzk9512af8lSA/GUxQoFxuI=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S4;
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S3;
 	Sat, 31 Oct 2026 23:03:06 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
@@ -47,9 +47,9 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/5] drm/msm/dsi: add per-SoC bonded command-path config
-Date: Sat, 31 Oct 2026 23:03:02 +0800
-Message-ID: <20261031150305.1107572-3-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 1/5] drm/msm/dsi: move bonded command failure flag into dsi manager state
+Date: Sat, 31 Oct 2026 23:03:01 +0800
+Message-ID: <20261031150305.1107572-2-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -63,13 +63,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgDHS0ApA+ZqqSNvAA--.5005S4
-X-Coremail-Antispam: 1UD129KBjvJXoW3AryUAry8WF48WrWfJFW5ZFb_yoWxKw1DpF
-	WYqw15tr4kA3ZI9wsxtF1UC3WrAFnavayxJ3srGwnxAwnxtw1UXF4v9a43KFy7ta48Jr1a
-	va1kAryUGF1kJrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+X-CM-TRANSID:3pYKCgDHS0ApA+ZqqSNvAA--.5005S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxWw4xKr48Wr4fCry8Xw4xWFg_yoW5Gr48p3
+	9rWw4jvFWqv3ZI9anIyFW5CF1fAFn3Gas7J3ZrWw4xAFs8t3W5ZrykXrW3KrySvFy8AF1j
+	qa1DGFyFqF1xG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_Jrv_JF4l8cAvFVAK0II2c7xJM28CjxkF
 	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
 	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
 	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
@@ -77,188 +77,76 @@ X-Coremail-Antispam: 1UD129KBjvJXoW3AryUAry8WF48WrWfJFW5ZFb_yoWxKw1DpF
 	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
 	AK67AK6ryrMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
 	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x02
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
 	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07b2
-	T5LUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAHse
+	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bw
+	LvNUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAGsf
 
-The bonded command path carried its constants inline: the error-mask bits
-in dsi_cmd_error_prepare()/dsi_cmd_error_cleanup(), the CMD_DMA_CTRL bits
-staged before a broadcast and the peer poll budget. Those are controller
-facts, so they belong in the existing per-SoC table next to the regulator
-and bus-clock data rather than in the driver body.
-
-Add struct msm_dsi_bonded_cfg and hang it off struct msm_dsi_config.
-SM8750 reports DSI 6G v2.9, which selects the sm8650 cfg entry, so the
-bonded data is attached there with values copied verbatim from the
-current code. Use remains gated on the sm8750 compatible, so behaviour is
-unchanged.
+The bonded-DSI command path kept a file-scoped `static bool
+dsi_bonded_cmd_failed` next to the global manager instance, so bonded
+state was split across two storage classes. Move the flag into
+struct msm_dsi_manager (msm_dsim_glb) so the manager owns all of it and
+nothing mutable stays file-scoped. READ_ONCE/WRITE_ONCE use is unchanged,
+so behaviour is identical.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 26 ++++++++++++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi_cfg.h  | 22 ++++++++++++++++++++++
- drivers/gpu/drm/msm/dsi/dsi_host.c | 22 +++++++++++++++-------
- 3 files changed, 63 insertions(+), 7 deletions(-)
+ drivers/gpu/drm/msm/dsi/dsi_manager.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index da3fe68244..640ebe8244 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include "dsi_cfg.h"
-+#include "dsi.xml.h"
- 
- static const char * const dsi_v2_bus_clk_names[] = {
- 	"core_mmss", "iface", "bus",
-@@ -194,6 +195,24 @@ static const struct regulator_bulk_data sm8650_dsi_regulators[] = {
- 	{ .supply = "vdda", .init_load_uA = 16600 },	/* 1.2 V */
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+index 559c07a8b9..93d636220b 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
+@@ -30,6 +30,7 @@ struct msm_dsi_manager {
+ 	bool is_bonded_dsi;
+ 	bool is_sync_needed;
+ 	bool is_sm8750;
++	bool bonded_cmd_failed;
+ 	int master_dsi_link_id;
  };
  
-+/*
-+ * Bonded command-path data. Values are copied verbatim from the vendor-derived
-+ * in-tree code; the SM8750 compatible check in dsi_host.c/dsi_manager.c still
-+ * gates every use until the master link moves into this table as well.
-+ * TODO(doc): err_clear_bits/err_cleanup_bits touch bits that dsi.xml does not
-+ * describe (see reports/b5-per-soc-cfg-design-20261027.md, RFC-SCOPE R1).
+@@ -37,8 +38,10 @@ static struct msm_dsi_manager msm_dsim_glb = {
+ 	.master_dsi_link_id = -1,
+ };
+ 
++/* Serialises bonded command transactions; the failure flag it guards lives in
++ * msm_dsim_glb so no bonded state is file-scoped.
 + */
-+static const struct msm_dsi_bonded_cfg sm8750_dsi_bonded_cfg = {
-+	.master_link_id = DSI_0,
-+	.cmd_dma_ctrl = DSI_CMD_DMA_CTRL_BROADCAST_EN |
-+			DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER,
-+	.err_clear_bits = 0x001f0200,
-+	.err_cleanup_bits = 0x44440400,
-+	.poll_timeout_us = 5000,	/* 500 polls, 10 us apart */
-+	.needs_link_clk_bump = true,
-+	.needs_sw_reset = true,
-+};
-+
- static const struct msm_dsi_config sm8650_dsi_cfg = {
- 	.io_offset = DSI_6G_REG_SHIFT,
- 	.regulator_data = sm8650_dsi_regulators,
-@@ -203,6 +222,13 @@ static const struct msm_dsi_config sm8650_dsi_cfg = {
- 	.io_start = {
- 		{ 0xae94000, 0xae96000 },
- 	},
-+	/*
-+	 * SM8750 reports DSI 6G v2.9, i.e. it selects this very table entry, so
-+	 * the bonded data has to hang off it. Its use is still gated on the
-+	 * "qcom,sm8750-dsi-ctrl" compatible, so an actual SM8650 keeps taking
-+	 * the regular command path.
-+	 */
-+	.bonded = &sm8750_dsi_bonded_cfg,
- };
+ static DEFINE_MUTEX(dsi_bonded_cmd_lock);
+-static bool dsi_bonded_cmd_failed;
  
- static const struct msm_dsi_config kaanapali_dsi_cfg = {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index ccf0667960..c8813a738b 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -41,6 +41,26 @@
- /* Maximum number of configurations matched against the same hw revision */
- #define VARIANTS_MAX			2
+ #define IS_BONDED_DSI()		(msm_dsim_glb.is_bonded_dsi)
+ #define IS_SYNC_NEEDED()	(msm_dsim_glb.is_sync_needed)
+@@ -51,7 +54,8 @@ static bool dsi_mgr_uses_bonded_cmd(void)
  
-+/**
-+ * struct msm_dsi_bonded_cfg - per-SoC data for the bonded command path
-+ * @master_link_id: link that drives the broadcast; not the probe order
-+ * @cmd_dma_ctrl: CMD_DMA_CTRL bits both engines need while staged
-+ * @err_clear_bits: error-mask bits set before a command
-+ * @err_cleanup_bits: side-effectful FIFO status bits written after a command
-+ * @poll_timeout_us: the peer is polled, never completed through its IRQ
-+ * @needs_link_clk_bump: command-time link clock vote for this generation
-+ * @needs_sw_reset: this generation needs the stock controller reset sequence
-+ */
-+struct msm_dsi_bonded_cfg {
-+	u8 master_link_id;
-+	u32 cmd_dma_ctrl;
-+	u32 err_clear_bits;
-+	u32 err_cleanup_bits;
-+	u32 poll_timeout_us;
-+	bool needs_link_clk_bump;
-+	bool needs_sw_reset;
-+};
-+
- struct msm_dsi_config {
- 	u32 io_offset;
- 	const struct regulator_bulk_data *regulator_data;
-@@ -48,6 +68,8 @@ struct msm_dsi_config {
- 	const char * const *bus_clk_names;
- 	const int num_bus_clks;
- 	const resource_size_t io_start[VARIANTS_MAX][DSI_MAX];
-+	/* NULL when the SoC has no bonded command path */
-+	const struct msm_dsi_bonded_cfg *bonded;
- };
- 
- struct msm_dsi_host_cfg_ops {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index 5405173a43..a3e9882c22 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -2345,12 +2345,19 @@ void msm_dsi_host_bonded_wait_video(struct mipi_dsi_host *host)
- 	dsi_wait4video_eng_busy(to_msm_dsi_host(host));
+ bool msm_dsi_manager_cmd_failed(void)
+ {
+-	return dsi_mgr_uses_bonded_cmd() && READ_ONCE(dsi_bonded_cmd_failed);
++	return dsi_mgr_uses_bonded_cmd() &&
++	       READ_ONCE(msm_dsim_glb.bonded_cmd_failed);
  }
  
-+static const struct msm_dsi_bonded_cfg *
-+dsi_bonded_cfg(struct msm_dsi_host *msm_host)
-+{
-+	return msm_host->cfg_hnd->cfg->bonded;
-+}
-+
- static void dsi_cmd_error_prepare(struct msm_dsi_host *msm_host)
- {
-+	const struct msm_dsi_bonded_cfg *bonded = dsi_bonded_cfg(msm_host);
- 	u32 val;
+ static inline struct msm_dsi *dsi_mgr_get_dsi(int id)
+@@ -374,7 +378,7 @@ static void dsi_mgr_bridge_enable(struct drm_bridge *bridge,
+ 	if (!panel->prepared) {
+ 		dev_err(&msm_dsi->pdev->dev,
+ 			"panel is not prepared; refusing video enable\n");
+-		WRITE_ONCE(dsi_bonded_cmd_failed, true);
++		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
+ 		return;
+ 	}
  
- 	val = dsi_read(msm_host, REG_DSI_ERR_INT_MASK0);
--	val |= 0x001f0200;
-+	val |= bonded->err_clear_bits;
- 	dsi_write(msm_host, REG_DSI_ERR_INT_MASK0, val);
- 	wmb(); /* Stock completes the error-mask write before stale clear. */
- 
-@@ -2360,13 +2367,14 @@ static void dsi_cmd_error_prepare(struct msm_dsi_host *msm_host)
- 
- static void dsi_cmd_error_cleanup(struct msm_dsi_host *msm_host)
- {
-+	const struct msm_dsi_bonded_cfg *bonded = dsi_bonded_cfg(msm_host);
- 	u32 val;
- 
- 	/* Stock mask_error_intr(0x2, false) W1C-clears FIFO errors. */
- 	val = dsi_read(msm_host, REG_DSI_FIFO_STATUS);
--	dsi_write(msm_host, REG_DSI_FIFO_STATUS, val | 0x44440400);
-+	dsi_write(msm_host, REG_DSI_FIFO_STATUS, val | bonded->err_cleanup_bits);
- 	val = dsi_read(msm_host, REG_DSI_ERR_INT_MASK0);
--	val &= ~0x001f0200;
-+	val &= ~bonded->err_clear_bits;
- 	dsi_write(msm_host, REG_DSI_ERR_INT_MASK0, val);
- 	wmb(); /* Complete overflow unmask before stale-error clear. */
- 
-@@ -2553,8 +2561,7 @@ void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
- 	val &= ~(DSI_CMD_DMA_CTRL_BROADCAST_MASTER |
- 		 DSI_CMD_DMA_CTRL_WC_SEL | DSI_CMD_DMA_CTRL_PACKET_TYPE |
- 		 DSI_CMD_DMA_CTRL_LOW_POWER);
--	val |= DSI_CMD_DMA_CTRL_BROADCAST_EN |
--	       DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER;
-+	val |= dsi_bonded_cfg(msm_host)->cmd_dma_ctrl;
- 	if (master)
- 		val |= DSI_CMD_DMA_CTRL_BROADCAST_MASTER;
- 	if (msg->flags & MIPI_DSI_MSG_USE_LPM)
-@@ -2636,10 +2643,11 @@ int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
- int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-+	u32 timeout_us = dsi_bonded_cfg(msm_host)->poll_timeout_us;
- 	u32 status = 0;
--	int i;
-+	u32 elapsed;
- 
--	for (i = 0; i < 500; i++) {
-+	for (elapsed = 0; elapsed < timeout_us; elapsed += 10) {
- 		status = dsi_read(msm_host, REG_DSI_INTR_CTRL);
- 		if (status & DSI_IRQ_CMD_DMA_DONE) {
- 			dsi_cmd_dma_intr_update(msm_host, false, true);
+@@ -646,7 +650,7 @@ static int dsi_mgr_bonded_cmd_xfer(const struct mipi_dsi_msg *msg)
+ 	ret = master_ret < 0 ? master_ret : slave_ret < 0 ? slave_ret : len;
+ 	if (ret < 0) {
+ 		/* Never reuse a packet buffer while either DMA engine is unresolved. */
+-		WRITE_ONCE(dsi_bonded_cmd_failed, true);
++		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
+ 		dev_err(&master_dsi->pdev->dev,
+ 			"bonded command DMA failed: master=%d peer=%d\n",
+ 			master_ret, slave_ret);
 -- 
 2.53.0
 
