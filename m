@@ -1,85 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=213.167.242.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793480284;
-	b=EfDknVwmqG1Y1Rk4PtvE6IZTRx3Q1ZvgoIyJ5JOfB7M1dkz1k0o63XCKAgTO3X3MLW8M
-	 z7a/Hy0FY+nBsC7hO+5wbJjbI5/d6gYwA4fBevHOqA8YSJK43A8SU/iE2H3xDy0qc1h8A
-	 mQFVdtVvEgli631zXeJx5wMrNkwzvMceP9yESZ0s06paBcZ6EZ3a4kjLRQrO0uXZFuVjN
-	 98FKNlp6eIZpqdE+0buFe3yJleCZV58vRA3knw/i0ghw2eSdEiw/+NApTQvFo9wmav0+j
-	 7AcKg/A6FkMiHp3u1ueRJlFsY+1AtSV+AKCAJcB2ehmSHb8RxSxM1SkjOBswAJIAHGg==
+	t=1793480351;
+	b=H2riEpiqkn+Zu13sNh0ySGRc50cZj5QFodhYh/OFW98mp+BnNe3iX7cm1pe045cQ7872
+	 L9tkEdCpdilq51L9OHhpGTMKjH4vZ6ZWlICwK4pVvc5cBPVtx2ccuIVQh9wIbkKmDYwTr
+	 q7gTu4yywRfryEx1A+JACfRq3Kr/9AAC4AGBhvcMIe/JzrsATKKkrRzfx13I0nf/02EwO
+	 S4SdWIkIiBLZD/9Szl6gcbEQz9oifJCY8zs499AMAIeqlecpBn8mt1xyB3xKBYxHvoK7P
+	 2pvApwLk+oAuoMXxvLwVbsAUGJpDMaSUTydmOn5SBrm+xOZ6Za3rY2V3G4ldIuU6Ywg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793480284;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
-	bh=Y/LYbbBt7trzTMNEroyzygNAvIrDGCzErGprATR8hIs=;
-	b=xUnh6m4rDjgmoWsqyrqe8s2BdrvixGW+2Dz5gV9r0eaSXoLV6Ot477NGffXFjSMVRjsV
-	 ysdx1ARKBpQJJL6RZasFfZKJkV4HcGE6l05jkxBvXX0T+1bvNpyGobGKmyk+XpUSvnQTW
-	 F/jLEtbmlhoquuNicT9KVnBZaVNDiMbVjxjE2ddSxIdSFkEY/HtXPNuZ422VuTgpfVcfB
-	 0pzVLObfRvuDn8mUpUTWnU34014UUwvOBV+wd3aXfhOXOd2pfMctP8aE3CQF6yib6hewa
-	 Bo5p+yh4jfYt1g17Fm1jHJwz3Fkcxvj7RJaPb9/A3iiykRtTXj26W3yUojoqDsRXhxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793480351;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:From:To:Cc:Subject:
+	 Date:In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 MIME-Version;
+	bh=vE5h/yx8/zL5y/9bVhY/d/nCK5S2dR4yjgKbW3Cj/RU=;
+	b=mtjelxkDtT3Qnb97nNhJsJ8K3YPTwM9pc96Qy1Vv7CUkY+x3e4stcCebWcHujuT63Bws
+	 ynWJB1vLD3U6pu7IZM+VnjdEXHlkyPIDK//KRIAsV8JEkUUwbcOxvY39Qlc1cde2Akb0P
+	 L3vOBkV+ZEnzfIbbzTspIo+Mb1dmlejJN1VLuuJlw1w2fGuMgjRPOeJmFQmf6P3UUXyi6
+	 ulQrlkkLZTvsMwyfyqjzBt1sLquo1xB98vHluTC6t61kPY0Ld5C+z3c7tcznUKVx4bYxN
+	 fZiv3Vk/Vq7CvZ8kM6PvUDVFilAzOhYOdROPn8WDdjIVKPJx1nQ4xe1vLzAd9GcBIAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vIz5pZpn;
-	arc=none smtp.remote-ip=209.85.210.173
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ideasonboard.com;
+	spf=pass smtp.mailfrom=ideasonboard.com;
+	dkim=pass header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=XyeeDSbE;
+	arc=none smtp.remote-ip=213.167.242.64
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB691606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:58:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB691606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50329606A31A;
+	Sat, 31 Oct 2026 20:59:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50329606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vIz5pZpn
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06454116eso792154b3a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:58:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793480283; x=1794085083; darn=vger.kernel.org;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Y/LYbbBt7trzTMNEroyzygNAvIrDGCzErGprATR8hIs=;
-        b=vIz5pZpn/CV/yT3JZ9+1Z8dTi8d7iNdhPVwu7OHZVUJIqYzO+tijbQDNdD4DTk6NDL
-         Gje9LUAQUA2bhu3AtYBzjfgA+ADNZMmCw75yfHKfhu69QGj8bU74LyR4Rc6mDTEaZ5YE
-         b77vZZqkQqCWM60tqV1LmKF7ixexHIaZDLyG9T6tKaxPpy8oHSZKQMCmPEqOP51FLPgG
-         MT1VRA1zNe9Ww3FN8aLr7AgQ/ivfkQ/d7jYTqRuvitlh05Ebui+s6dpbGoEa8h/sT4G7
-         o3LLNgX4g1GuuFV11VC3Rm8Dxd8h11rh1Pc/HKAxRcc+psyMI20jAACnaB06y8W9RyIJ
-         7rHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793480283; x=1794085083;
-        h=in-reply-to:references:from:subject:cc:to:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Y/LYbbBt7trzTMNEroyzygNAvIrDGCzErGprATR8hIs=;
-        b=KnomeHA7UiAOl959yM7BbbBuFMIuEcBRBVvz9LhwNHq2LR/ki83h0j8TBiwBwlvegu
-         92tJHhbb+W42pfkJ4bTontL/iKinf8k1jKMqs6c49R7dLhDsK0VYRn6IhL1TVT6kEw4M
-         xVcyN0kTx3fA3KeSWmkcil9pBWqpCWDjDTCt+7Cvt7zP5kBhmlkjBY7SYGD29YkvTQ/E
-         WLOVs3niruEFmOJS5naDR3kynXyF8khN3TP31qJz/Rddey2fZ7gU7JCEt9G+xygYQ/yh
-         k0pwyQ47ScNfA8Vo4A2lTJLt5BkEif9U2Ee30YuMyPQeyAjf/iA4zONKyhEIoxa8pk7b
-         pwzA==
-X-Forwarded-Encrypted: i=1; AKwUvByrBL/mDBEuVOwNr5lgi9mo2oq8/531UsB/f3DC0PxH6O9zUD7UQxZbXWDm+hUG8HjoLsQmqPMNQt7+/pA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIqt0wmHw0SliqyC5PuIcRLKptPIlo9/BvTe4kkHUZfqg/188ln
-	Xb3Fu9vpUITARP3+Yfy18ahh1fJGPjw0wiM6cV1JRAP2wshc5ykD70BT
-X-Gm-Gg: AYBFou3dz1he0PbTcRA6rkyB5xhnzUUIkDa0n7Z0LjAnIecU5uP1KAbPAGz9jpB41xU
-	9l+gO58y1tQ915+ZKfMKjXqBXrNLjk6CxnERHdPe3ghqVTU5C3XlAP/VQIf0Uedq/kAIk3R0WXy
-	uVdwWL5cB0UBSLvWuLDLoApZvWDE7biWBT0Dmtmwkc+BztPqRTeR2mRfI//BKvZCDDz6bRJySmb
-	pHif9RwU9wM+LlYRNWAfdYiAP8jxE9MOWMqAglcbHuyLrSM+TAiDXK1MSVJNdijdVyUO4NkDgfV
-	QJf0Nbv1XgWRB9TyVlJmRoEcOZq8Lk3BJsk+sAUKj51+9iyo/xIyzjjV4W8q1gpKbKRgs/P3c91
-	jKftZ9uT8jjLkfkrJSkDYys2ealYNYq5102h1khqy1ObR0KQIhg9+VCjZ2lNPIv7/s7nk3byYkX
-	dJsWU+xqNmEk/LzeH6npbN9wpvJ2qH8Dsveb2Yb5wZ+EvTIb/VM8HuLPdokKRA7Tkis496CdjHH
-	0KBY+bWkpJhxR6Yuc+oQ2WVDpuuJqzXNRwJxZwZvUvIB6GrXsDh40hBrRNXckWbCeTc18lWOU4k
-	9jjB3/zZE8Zba1A0E3+6KPUXgItoOVeEfEiFqNG26YX469BAddT1aEKjhg3YcleEBRuBPZpJdLt
-	zv1zOmvQpaEF02lye1baGUBGSLW3eYBha29s/5bNkzifEtGDNoQtEq9I=
-X-Received: by 2002:a17:90b:4a85:b0:3ab:c674:cad1 with SMTP id 98e67ed59e1d1-3ae897994c4mr4981300a91.50.1793480283148;
-        Sat, 31 Oct 2026 13:58:03 -0700 (PDT)
-Received: from localhost ([153.61.198.255])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9426ffsm13250949a91.7.2026.10.31.13.58.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 13:58:02 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=XyeeDSbE
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 998CCC1;
+	Sat, 31 Oct 2026 21:56:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1793480205;
+	bh=hZ6wxHe7flnyW2Otc3yTvX00TNNSJqtOeZppvOl9ZFE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=XyeeDSbEiS26R5eqV58/jMD244ohGGgum/nf7blVlok/MLKMG5eXdVvY1c0NQ7mui
+	 ecYh+Dqs1woNhEpGahqnRZL38/Ove2snK4DcPW6nQLBPw3LkWCVQrF9WSULHE9UGey
+	 +3eq6SRjTgZsiBDAFbxmmfgsruYyQXP46msFWY9o=
+Message-ID: <30c65bce25544fc867abfa5abdadf9fc@killaraus.ideasonboard.com>
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Samarth Narang <samarth.colleges@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Samarth Narang <samarth.colleges@gmail.com>,
+ Michal Simek <michal.simek@amd.com>, linux-media@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [BUG] media: xilinx: dma - stop_streaming does not wait for a
+ running DMA completion callback
+Date: Sat, 31 Oct 2026 22:58:34 +0200
+In-Reply-To: <20261031202653.4110846-1-samarth.colleges@gmail.com>
+References:  <20261031202653.4110846-1-samarth.colleges@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,44 +65,110 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 31 Oct 2026 20:58:02 +0000
-Message-Id: <DMJBP7BG3GE8.1ZXVVR0YIM9OO@gmail.com>
-To: "Chris Down" <chris@chrisdown.name>
-Cc: "Nuoqi Gui" <gnq25@mails.tsinghua.edu.cn>, "Alexei Starovoitov"
- <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
- Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Mykyta Yatsenko" <yatsenko@meta.com>, "Shuah Khan"
- <shuah@kernel.org>, <bpf@vger.kernel.org>,
- <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH bpf 0/2] bpf: Gate dynptr probe-read kfuncs like helpers
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
-References: <20260615-f01-07-dynptr-probe-read-cap-v1-0-e626cd61a381@mails.tsinghua.edu.cn> <DJ9QOWVIXFHR.1S8UL5H0USVCB@gmail.com> <auN_R9gCBqNwEkKV@chrisdown.name>
-In-Reply-To: <auN_R9gCBqNwEkKV@chrisdown.name>
+MIME-Version: 1.0
 
-On Thu Oct 29, 2026 at 5:15 PM UTC, Chris Down wrote:
-> Hey Alexei,
->
-> Alexei Starovoitov writes:
->> It's fine as-is. Won't fix.
->
-> Could you expand a bit on the lockdown side of this? I ran into the same=
-=20
-> discrepancy independently and was preparing fixes until I found this thre=
-ad=20
-> while looking for prior discussion.
->
-> The CAP_PERFMON side is now covered by 81c975aae375 ("bpf: Require CAP_PE=
-RFMON=20
-> for kfuncs reading memory"), but the probe_read_kernel helpers still chec=
-k=20
-> LOCKDOWN_BPF_READ_KERNEL while the matching dynptr kfuncs don't. Is that=
-=20
-> intentional?
+Hello,
 
-lockdown is a security circus. It was broken from day one. It never worked.
-So all these 'ohh let's fix it' missing the point.
+This is an automated reply.
+
+You have sent a patch or bug report that appears to have been generated
+by an LLM. The commit message, code and/or problem description show
+little to no real understanding of the issue and changes being proposed.
+
+Such patches or reports require a large amount of work to handle. They
+rely on maintainers to propose - and often even implement - a proper
+design. The probability that the author will learn from the experience
+to improve their future contributions is close to zero.
+
+As a result, to make good use of maintainer time and keep the kernel
+development process sustainable, your contribution has been rejected.
+
+If you believe the change you proposed is important, take time to study
+the problem, learn, and develop a solution without AI assistance.
+Answering this e-mail or generating a new version of a patch by feeding
+this reply to an LLM will only result in your e-mails being ignored.
+
+Please note that if your patch attempted to address an important
+problem, maintainers or other contributors can submit and merge a
+similar or entirely different fix without crediting you.
+
+Your contributions to the Linux kernel will be welcome if you genuinely
+desire to invest your time and learn.
+
+Thank you,
+
+Laurent's mail bot
+
+On Sat, 31 Oct 2026 20:26:53 +0000, Samarth Narang <samarth.colleges@gmail.co=
+m> wrote:
+> Hi,
+>=20
+> I think xvip_dma_stop_streaming() can race with an in-progress DMA
+> completion callback, potentially causing a buffer to be returned twice
+> or accessed after it has been released. The line numbers below refer to
+> mainline at 36aad21d50d1.
+>=20
+> In drivers/media/platform/xilinx/xilinx-dma.c, xvip_dma_stop_streaming()
+> calls dmaengine_terminate_all() (line 442) before taking queued_lock and
+> returning the buffers on queued_bufs with VB2_BUF_STATE_ERROR (lines
+> 449-454). Meanwhile, xvip_dma_complete() takes the same lock, removes
+> the completed buffer from the list, and then calls vb2_buffer_done()
+> with VB2_BUF_STATE_DONE after releasing the lock (lines 283-296).
+>=20
+> The Xilinx DMA provider invokes completion callbacks from a tasklet
+> after releasing the channel lock. Although xilinx_dma_terminate_all()
+> halts the channel and frees its descriptor lists, it does not wait for
+> a callback that is already running. That synchronization is handled by
+> xilinx_dma_synchronize(), which calls tasklet_kill()
+> (drivers/dma/xilinx/xilinx_dma.c, lines 2739-2743), but is not invoked
+> by dmaengine_terminate_all().
+>=20
+> If a completion callback is already running when streaming is stopped,
+> the two paths can race over the same buffer. If stop_streaming()
+> acquires queued_lock first, it may remove the buffer and return it with
+> VB2_BUF_STATE_ERROR before the callback attempts to remove the same list
+> entry and return it again with VB2_BUF_STATE_DONE. Even when the
+> callback removes the entry first, it may still be using the buffer after
+> stop_streaming() returns, at which point videobuf2 may release it. This
+> is a callback synchronization issue rather than an outstanding hardware
+> DMA transfer, since the engine itself has already been halted.
+>=20
+> Since stop_streaming() can sleep, I believe dmaengine_terminate_sync()
+> would address the race, following the approach used for stm32-dcmi in
+> ab32b2c3636b ("media: stm32-dcmi: remove deprecated
+> dmaengine_terminate_all()"):
+>=20
+> --- a/drivers/media/platform/xilinx/xilinx-dma.c
+> +++ b/drivers/media/platform/xilinx/xilinx-dma.c
+> @@ -439,7 +439,7 @@ static void xvip_dma_stop_streaming(struct vb2_queue *v=
+q)
+>  	xvip_pipeline_set_stream(pipe, false);
+> =20
+>  	/* Stop and reset the DMA engine. */
+> -	dmaengine_terminate_all(dma->dma);
+> +	dmaengine_terminate_sync(dma->dma);
+> =20
+>  	/* Cleanup the pipeline and mark it as being stopped. */
+>  	xvip_pipeline_cleanup(pipe);
+>=20
+> There is also a related question about the error path in
+> xvip_dma_start_streaming() (lines 422-427), which returns previously
+> queued buffers with VB2_BUF_STATE_QUEUED without terminating the DMA
+> channel. As far as I can tell, their descriptors remain pending and
+> could be issued by a subsequent dma_async_issue_pending(). Is that the
+> intended behavior?
+>=20
+> This issue was identified by a research static analyzer for DMA
+> lifecycle ordering and subsequently checked against the client and
+> provider implementations. I have not reproduced it on hardware, as I do
+> not have access to a Xilinx video pipeline and QEMU does not emulate the
+> relevant VDMA or video IP. The proposed change has been compile-tested
+> on arm64 with W=3D1.
+>=20
+> If someone with suitable hardware can confirm the race or test the
+> change, I would be happy to submit it as a proper patch.
+>=20
+> Thanks,
+> Samarth
+>=20
+>=20
