@@ -1,71 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.162
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420349;
-	b=jOnb1GM3S3JPZlr85L1wOesnBlc4/C8mCpcRGk/cHujFrviCtv857YbpWbSL+mYpcDtr
-	 5CPmmFwSnOnyJ1bwGI6pDDIS5TMg/QTQrfJ9cltH1w03nMKsdto+lTCwagLmf/wWhvwUI
-	 dNxpSPVDAUWnyLjwAn4BfRHkIPUu6XprW5/WouRsjaa6Bpdp1wr0yGlA+QutsrwL+R3vj
-	 gt3/+QDQK/JoOqIBF84yF3a4XIhhpTvJuBF1fVrqxgrsjtf1fnx48S5owjVu76UoDz4Un
-	 TknzieFMNrh0tTc93YGeVR1V3w2Qf4lIZJCR8AWAVs5h5gtqSvFXEaIzkg3wl8XLUjg==
+	t=1793420432;
+	b=pPQXnKkXkdm0nl7J5VgTGt9nwCA3IyXRgTnh2lK3c2kpSAAip0SamdfNhkjx8+uPvo9Y
+	 6QSAa0WKI0JRDQU2yEMGCfrCz7mMNMH5MW/2T8W/fuVHm03VRqbc90DCjsi4lZlpAjSCC
+	 ku6K8U/y127rc0cqIMqK+8OYftFkQ9w4CS4nZlblfirf7Fij3NHX0otlJmtQ6TwZ0rj6z
+	 C65IN9jmKweG7omhHlpvJGvXCrBcPIMJuTcHEqAWoLwzgSjlx6AydE1rhpjL2ZL1NaL5n
+	 E3QOPyuEuDNtZihBB0M2wa4kIMPPKy62qA+xIjbZvyqIh2gqclAJoMdfsNPkaGwC6Nw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420349;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GZeiFgakHNQZFua855MrSW0tgqte9INNSDrGHp4zabQ=;
-	b=NlKMzuqd8guWLpEP0fVt4ULd0UPXWuog5C3bubjwW25hR1WxeKizBg6s0eLwhWVyO28S
-	 Z4JRMJ9uyayT+ZMT84ROjJR0jNDveCZ7zV793qo6ftME/ezl5N8ojRxNIxwroSo/5M/he
-	 ICEu0Puy1aSXH0SLCKx1nG8Evm776BZMad7HRFtckhVRzL4MhJ5SDXnnn+/50nx7nQSc/
-	 TmcrYQE06uf79en3Z98S5ALruBRehXZWB3BBaWOC01GVqI8hXuLpWrkAlQwy4m260+0mm
-	 t9tNY4+CiJB3gWFHiMJy5OD1qtP1Oef5C0/mw4RDhliaQ/GspKYfHuI9T78pbbC5jZQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420432;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=aT41beIP3bq5uedJzmXJrLnGkca8gBeByJi7igmmcZ4=;
+	b=UQbX4UCohLxoPh4ONGmrNcKmEqWqP15nI9CPoxE5/qsP8s4IllgTYUhr3/PTDX4X1K1B
+	 zMdQrJ5BNeg+IhmXtDPrQCkWSDplb+LAdLKWL+ybgy/NzKPU0LTs0oaoKjygJktpr+Wvw
+	 b/eth3gd/JEaQxX6wok6tDJiaPEqRh3FPfG/Frwjs1fAKk1jE6Mz6sqS9LZaZXvHzvt+5
+	 7Yh8VqTuk8/FLn4Knwl9EnktbS6b5q+s4zM7Y1bzhE5PWZ4+qufzIUwzUCzlDCQQty1WB
+	 DQwp/TmmboMPZeI9ccewvEKTH9qgUtBFTzC5cD50B3UXnuHndtdJ5uswdIa8E2Y/qjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cwooper.dev;
-	spf=pass smtp.mailfrom=cwooper.dev;
-	dkim=pass header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=Jiugm3x3;
-	arc=none smtp.remote-ip=91.218.175.162
-Received: from mta0.migadu.com (out-162.mta0.migadu.com [91.218.175.162])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hS5NNOag;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F127606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:19:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F127606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cwooper.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cwooper.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D95606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:20:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D95606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=Jiugm3x3
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Jpm4hUEiEt808dRSR8x297ZiH9nhQqjGAjQNsGPCmPY=;
- c=simple/simple; d=cwooper.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793420346; v=1; x=1794025146;
- b=Jiugm3x3/CRfKTGEixLGbQH9qqOobLxJytn8uywHfrTPls0VYMh3sC0RHSKeoDxPE2OMsroh
- ivcRaGEGaOctYvLohighWcpNOpHAztShWZ99xHK53g14kj/gwx9l4t8Y2dXBqMEnlH2ToCsYSXs
- AcnSosRvS2Gbc3e937QIKfqgqFYLSAPEufnSO4D9rDYyrRX2K17xQBcz7TOnL/xME1IGD8YDbBF
- hXwwMNmvhxCH40FiO2lYepc6XCOGEbTa69Lejf5CQAScLbJ/Gu7y2AxmqzJ1XNjTQyV1zfFlhDz
- fSQRXn8qsGoxizOM04Ygb8GKcn8KtCJxKbxCqIADvd8Vw==
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id da7909de37f0bb45;
-	Sat, 31 Oct 2026 04:19:06 +0000
-X-Mizu-Trace-ID: da7909de37f0bb45
-X-Migadu-Flow: FLOW_OUT
-From: Cooper Morgan <ext-github@cwooper.dev>
-To: amd-gfx@lists.freedesktop.org
-Cc: Harry Wentland <harry.wentland@amd.com>,
-	Leo Li <sunpeng.li@amd.com>,
-	Rodrigo Siqueira <siqueira@igalia.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] drm/amd/display: Use FreeSync v3 infopacket for sinks above 255 Hz
-Date: Fri, 30 Oct 2026 21:18:26 -0700
-Message-ID: <20261031041827.162730-3-ext-github@cwooper.dev>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261031041827.162730-1-ext-github@cwooper.dev>
-References: <20261031041827.162730-1-ext-github@cwooper.dev>
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hS5NNOag
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A686F40E03BE;
+	Sat, 31 Oct 2026 04:20:25 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id 7l8FJU6iKTwx; Sat, 31 Oct 2026 04:20:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793420422; bh=aT41beIP3bq5uedJzmXJrLnGkca8gBeByJi7igmmcZ4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=hS5NNOagxeSIZP7l7+r4Vt9J41AyloPgDUUF9m5eSYcdhg0pb7axxFU5LPF6804QF
+	 P3THEOX+beo/5YGodEvGGgIkSCV4ANtZ4q1ilY7Il7IsZ53JbshQlrzb52JMx/1KQm
+	 85q/vEkiUtRurITQErxVK1n/sDecW+2wrJ6gokpigUXD6auvjQpFjc9Z7jEVOG9gwO
+	 xcVJTwKk+ngcWELG9W5FeFMQaXsL/d4jQEW4umesxhAS+1skm+AiZ+yEcpjRWmaliu
+	 bI+kk9hsLWf9PiXT3BXKvKZZy6douplXRwh7LKM4b7GXKd4WXwJGmESUjBxpqMrxgv
+	 xa76Kqwtc17IB/pxn9jQbmQfWi+RGzrWJ40wYTzNLpToVzNM68TVYGfNyHPvWiZTIC
+	 9tw8XmEXmhOsnDeHpBHf2u4B9VlrnGE+4gAIHpP3aeWOPgY8GHvLySzTVjlGmouMx3
+	 6yILUfWLpvtC1Dsy2w/zA8jX46qJg0OLEcSW7CZlIuzzIHQnQymlXPq7mZr0dNFosp
+	 tPZ9m9l3xS/TzXZ66KSayVq9q7u+Cf1XL8GXJr0yKcE020f46NBInwYa4yVTKBGGan
+	 OkV5sJxfNYHuTnZx0CViO5XvU3/niVL+0YmzrQpxukp3e2Q9gFqBn2Uu/hIJA++Oi/
+	 ENyrdl/vS4GUvVe3KpRHRPsQ=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C6B4740E016C;
+	Sat, 31 Oct 2026 04:20:11 +0000 (UTC)
+Date: Fri, 30 Oct 2026 21:20:08 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Sohil Mehta <sohil.mehta@intel.com>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	"H . Peter Anvin" <hpa@zytor.com>,
+	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
+	Dave Hansen <dave.hansen@intel.com>,
+	Tony Luck <tony.luck@intel.com>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] x86/bugs: Replace RFDS model checks with VFM ones
+Message-ID: <20261031042008.GJauVseM2X4-dye4ra@fat_crate.local>
+References: <20261030195214.1284995-1-sohil.mehta@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,194 +83,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261030195214.1284995-1-sohil.mehta@intel.com>
 
-Native DP, eDP, and HDMI sinks get the v1 FreeSync infopacket unless
-they are a whitelisted PCON or support Replay. v1 holds each refresh
-rate in one byte, so a sink whose range goes above 255 Hz cannot be
-told its real maximum. The v3 packet carries the high bits in
-PB11/PB12.
+On Fri, Oct 30, 2026 at 12:52:14PM -0700, Sohil Mehta wrote:
+> The RFDS vulnerability check uses raw model numbers to identify Alder
+> Lake and Raptor Lake. Most Intel-specific code has already moved away
+> from x86_model checks, but this one got added recently.
+> 
+> Replace the x86_model checks with VFM ones to make them more readable.
+> 
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+> ---
+>  arch/x86/kernel/cpu/common.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+> index c7352827f491..8d7bd8bb7b18 100644
+> --- a/arch/x86/kernel/cpu/common.c
+> +++ b/arch/x86/kernel/cpu/common.c
+> @@ -1392,8 +1392,8 @@ static bool __init vulnerable_to_rfds(u64 x86_arch_cap_msr)
+>  	 * both Core and Atom CPUs. Mark unaffected when Atom CPUs are not
+>  	 * present.
+>  	 */
+> -	if ((boot_cpu_data.x86_model == 0x97 ||
+> -	     boot_cpu_data.x86_model == 0xB7) &&
+> +	if ((boot_cpu_data.x86_vfm == INTEL_ALDERLAKE ||
+> +	     boot_cpu_data.x86_vfm == INTEL_RAPTORLAKE) &&
+>  	     boot_cpu_data.topo.intel_type != INTEL_CPU_TYPE_ATOM &&
+>  	     !boot_cpu_has(X86_FEATURE_HYBRID_CPU))
+>  		return false;
+> -- 
 
-The AMD VSDB version was stored for DP and eDP sinks only when they
-support Replay. Store it for every DP and eDP sink, as the HDMI path
-already does, and send v3 when the sink advertises AMD VSDB v3 and its
-maximum refresh rate is above 255 Hz. The choice follows the sink's
-maximum rather than the current mode, so such a sink gets v3 at every
-mode and the packet version stays fixed per sink. Sinks whose maximum
-is 255 Hz or less are unchanged.
+Queued, thx.
 
-Storing the VSDB version for DP sinks and selecting v3 from it follows
-sunryze's approach in the linked issue.
-
-Tested with this series backported to v7.2.13 on an MSI MAG 271QPX32
-(AMD VSDB v3, 48-320 Hz) over DP 1.4 on an RX 9070 XT: 320 Hz shows a
-correct picture, and with VRR active the refresh rate tracks frame
-caps of 300, 270, and 100 Hz. At 240 Hz, where the sink now gets v3
-instead of v1, the picture is correct and VRR tracks a 100 Hz cap.
-
-Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5988
-Signed-off-by: Cooper Morgan <ext-github@cwooper.dev>
----
- .../display/amdgpu_dm/amdgpu_dm_connector.c   |  2 +-
- .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  7 +++
- .../tests/amdgpu_dm_connector_test.c          | 25 ++++++++
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 59 +++++++++++++++++++
- 4 files changed, 92 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-index bc5745a5b..25b4d575e 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
-@@ -3912,10 +3912,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
- 		}
- 
- 		get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
-+		amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
- 
- 		if (vsdb_info.replay_mode) {
- 			amdgpu_dm_connector->vsdb_info.replay_mode = vsdb_info.replay_mode;
--			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
- 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
- 		}
- 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-index 386ba88c5..6cfeb9d6d 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
-@@ -269,6 +269,13 @@ void amdgpu_dm_update_freesync_state_on_stream(
- 
- 		mod_build_adaptive_sync_infopacket(new_stream, aconn->as_type, NULL,
- 					&new_stream->adaptive_sync_infopacket);
-+	} else if (aconn && aconn->vsdb_info.amd_vsdb_version == 3 &&
-+		   aconn->max_vfreq > 255) {
-+		/*
-+		 * v1 saturates at 255 Hz. Keyed on the sink's max, not the mode's
-+		 * rate, so the packet version stays fixed per sink.
-+		 */
-+		packet_type = PACKET_TYPE_FS_V3;
- 	}
- 
- 	mod_freesync_build_vrr_infopacket(
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-index acde20241..001155f56 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
-@@ -9554,6 +9554,30 @@ static void dm_test_fs_caps_edp_replay_mode(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, (int)ctx->aconnector->as_type, (int)ADAPTIVE_SYNC_TYPE_EDP);
- }
- 
-+/**
-+ * dm_test_fs_caps_dp_vsdb_version - Test a DP sink's VSDB version without replay
-+ * @test: The KUnit test context
-+ *
-+ * The version selects the FreeSync infopacket, so it is kept for every DP sink,
-+ * and a later sink without the VSDB clears it.
-+ */
-+static void dm_test_fs_caps_dp_vsdb_version(struct kunit *test)
-+{
-+	struct dm_test_fs_caps_ctx *ctx =
-+		dm_test_fs_caps_ctx_alloc(test, SIGNAL_TYPE_DISPLAY_PORT);
-+
-+	amdgpu_dm_update_freesync_caps(&ctx->aconnector->base,
-+				       dm_test_fs_edid_amd_vsdb(test, 0, 0, 0), false);
-+
-+	KUNIT_EXPECT_FALSE(test, ctx->aconnector->vsdb_info.replay_mode);
-+	KUNIT_EXPECT_EQ(test, ctx->aconnector->vsdb_info.amd_vsdb_version, 3);
-+
-+	amdgpu_dm_update_freesync_caps(&ctx->aconnector->base,
-+				       dm_test_fs_edid_displayid(test, 40, 144), false);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->aconnector->vsdb_info.amd_vsdb_version, 0);
-+}
-+
- /**
-  * dm_test_fs_caps_hdmi_vsdb - Test the HDMI AMD VSDB refresh range
-  * @test: The KUnit test context
-@@ -10425,6 +10449,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
- 	KUNIT_CASE(dm_test_fs_caps_dp_narrow_range),
- 	KUNIT_CASE(dm_test_fs_caps_dp_msa_not_allowed),
- 	KUNIT_CASE(dm_test_fs_caps_edp_replay_mode),
-+	KUNIT_CASE(dm_test_fs_caps_dp_vsdb_version),
- 	KUNIT_CASE(dm_test_fs_caps_hdmi_vsdb),
- 	KUNIT_CASE(dm_test_fs_caps_hdmi_no_vsdb),
- 	KUNIT_CASE(dm_test_fs_caps_pcon_whitelist),
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-index b603516e2..b1a414445 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-@@ -720,6 +720,61 @@ static void dm_test_update_freesync_state_dp_v2_saturates(struct kunit *test)
- 	KUNIT_EXPECT_EQ(test, p.sb[8], 255);
- }
- 
-+/**
-+ * dm_test_update_freesync_state_dp_v3_above_255 - Test v3 for a VSDB v3 sink above 255Hz
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_freesync_state_dp_v3_above_255(struct kunit *test)
-+{
-+	struct dc_info_packet p =
-+		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 3, 320, 320);
-+
-+	KUNIT_EXPECT_EQ(test, p.hb3, 3 << 2);
-+	KUNIT_EXPECT_EQ(test, p.sb[8], 320 & 0xff);
-+	KUNIT_EXPECT_EQ(test, p.sb[12], 320 >> 8);
-+}
-+
-+/**
-+ * dm_test_update_freesync_state_dp_v3_mode_240 - Test v3 follows the sink max, not the mode
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_freesync_state_dp_v3_mode_240(struct kunit *test)
-+{
-+	struct dc_info_packet p =
-+		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 3, 320, 240);
-+
-+	KUNIT_EXPECT_EQ(test, p.hb3, 3 << 2);
-+	KUNIT_EXPECT_EQ(test, p.sb[8], 240);
-+	KUNIT_EXPECT_EQ(test, p.sb[12], 0);
-+}
-+
-+/**
-+ * dm_test_update_freesync_state_dp_v3_at_255 - Test a VSDB v3 sink at 255Hz keeps v1
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_freesync_state_dp_v3_at_255(struct kunit *test)
-+{
-+	struct dc_info_packet p =
-+		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 3, 255, 255);
-+
-+	KUNIT_EXPECT_EQ(test, p.hb3, 0x04);
-+	KUNIT_EXPECT_EQ(test, p.sb[8], 255);
-+}
-+
-+/**
-+ * dm_test_update_freesync_state_hdmi_v3_above_255 - Test v3 for a VSDB v3 HDMI sink
-+ * @test: The KUnit test context
-+ */
-+static void dm_test_update_freesync_state_hdmi_v3_above_255(struct kunit *test)
-+{
-+	struct dc_info_packet p =
-+		dm_test_freesync_packet(test, SIGNAL_TYPE_HDMI_TYPE_A, 3, 320, 320);
-+
-+	KUNIT_EXPECT_EQ(test, p.hb1, 3);
-+	KUNIT_EXPECT_EQ(test, p.sb[8], 320 & 0xff);
-+	KUNIT_EXPECT_EQ(test, p.sb[12], 320 >> 8);
-+}
-+
- /* Tests for amdgpu_dm_update_stream_irq_parameters() */
- 
- /**
-@@ -957,6 +1012,10 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v3),
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_default),
- 	KUNIT_CASE(dm_test_update_freesync_state_dp_v2_saturates),
-+	KUNIT_CASE(dm_test_update_freesync_state_dp_v3_above_255),
-+	KUNIT_CASE(dm_test_update_freesync_state_dp_v3_mode_240),
-+	KUNIT_CASE(dm_test_update_freesync_state_dp_v3_at_255),
-+	KUNIT_CASE(dm_test_update_freesync_state_hdmi_v3_above_255),
- 	/* amdgpu_dm_update_stream_irq_parameters */
- 	KUNIT_CASE(dm_test_update_stream_irq_parameters_no_stream),
- 	KUNIT_CASE(dm_test_update_stream_irq_parameters_invalid_timing),
 -- 
-2.56.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
