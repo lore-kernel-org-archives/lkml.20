@@ -1,49 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793412607;
-	b=PIK1yQdlc0vEdSJD8pwIcp0fGFCHm9+q71Mf0e2EY19YBWpNzU2jPBJACXF6EtnYVtnR
-	 qlpYm2/Xp8aX0iTFNU/1JPX1bvrMxjxwKFbRe+OcaM3iZV7bTGRbDfYEZhGeKz88ejEDP
-	 LCKuVzIA4Ymr+ii4xajiYcXNIpz4pveLslNdBQvN1NF83n8/GnKmb3IWbEoropWHWYTGW
-	 y7aR/HlEOdDPHUtbXfBUTPHXYSIuW8/ngdQ5vpHtz3Z1xdwMOFhDhBxRMRE11SDHS2axS
-	 Y6Pzp/n4xk5DY3OK5DcytQM5F3NnM4gBjcbO33AKn6JcgVG0jrUF8VA03VRONDF0ahA==
+	t=1793412658;
+	b=A3B9XjEAN9oiD6W1KY45Ye408L3vwtkKcnma7YtmTxAe7z42wm2rmVY1OGJya4oL5Hi6
+	 VC6ikUfgCVaGAYp2Zxf/r9wdq9VMzpiglULNHELjrnMrtWt/BpQTaBelXVXiVm/8lDVK6
+	 7kEjA49kQhEaiNuC8W4s5JOLwTapXrUeWK7N/X13ry2dQ0Z+lYubO0/IRGGaOCS6RotZu
+	 gDLm+lunae6+ZiZlSO5x/eOzOhDjfUMCyUl0Y3O5wXcWie/C6Kv2DdOopSSoBWZSyMMXv
+	 emtqB1yu1/TKnEVvMQuOxq0cZkqlmjhdkOg4YBGo8gYBFd1J++o6KcIvNNVsaEpBXVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793412607;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=Wze92pAkEVKTzAAivNFkrMcbBfdNBRMgj3JMk5sLv6A=;
-	b=Eio1GJr7alRB/QL7tCyct4DniwOSKusmtnx1J1QgHEsPyzHcNAXoi8GtStw4LjS/C3C0
-	 WFkcXKurhGQ6hIpaW9V06SBKcAgGybYZGAQzNUtFRmhinVUqILqbXYknL2sMJCmA/v6dD
-	 pKeDhdtKwQDEQRFI1JdEuCsqux3omNYy551nX+Z7axbrZEVm5sO6S+gV9rKsU8tV9o8S5
-	 wJNp8FNwx+C8oylu6MyewbNZF9PwUnH7LLPqX24aFciMJ/cWBt8ElknnfJaGpLRxlVMIv
-	 Ix49Vqy6ED9l6r/3HDSusbVzqjmUxxeIpcCavv73TCBlUIhf0lbkj1qpg2NiNy+HzWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793412658;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=qEwymFVp2Zq2jgvCpSYjWSfGxMjlENvd9A4hKHtWv/0=;
+	b=ID9ANPttI2Q/uJSXqjnjvJussiRz6wCGLLGy7R/fgK9VDLzYXal/axlinjgi70n1T0pz
+	 +XmIBQ1JwNmB25THHN4FhRlC+ZaGvw1bn5jeENNQSzokWPEjmc4cMNNN2awsbfkQEYfbA
+	 0Ebvx9uf38ZzMlT+CQNWDGTPoAgBZ+e6y9ZFHkGgBgpm3sTKCLEDs7WgIaFjFXR/Y3mA3
+	 Nnc0DnLAvAeVGn/oT9bEoRKgqqvZX1tNR/bPm1RJDOjqwfFXsvKzPuhLImUAlRjJQxdyW
+	 vm4YP2LUUtkwd60ReT8DinKz+ddUAc3ESC1PpFlrqb/iDFZVc4pOS3CsZFGUsP+2keA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ACMjgBvc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5hIO+W9;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C9A606A31A;
-	Sat, 31 Oct 2026 02:10:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E992F606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:10:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ACMjgBvc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498BF1F000C1;
-	Sat, 31 Oct 2026 02:10:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f5hIO+W9
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 963241F00A17
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:10:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793412606;
-	bh=Wze92pAkEVKTzAAivNFkrMcbBfdNBRMgj3JMk5sLv6A=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ACMjgBvcO8F1NSj5Y02ujXb3wTKQi9p7oBk9xKj/VMvdexcRuAFd3QSZwV2mndvjm
-	 CGK8htpHh0dZUsbefdUN1Z6FvfhzZmQ1JD3xj2F1JpaQmKB63K2zv6pqKrFkN9i+X6
-	 beD4fb4OHqqlUwM3KoFkzIGdW5vHDMfKSYtI1nT2NI2jqwLf2ohBqwrYULrKT49wOF
-	 IeS1tiTY1ld77P72WUDF9oe2XkW7t1PEQkuQsUfZwfUOreK8bl/pSWrBL4UG0k2ApN
-	 PesmFSrkSbdvCt2kYUkrR10VcAitw/tNjaoPqB4D/SSfe2ULan+wZXx6feNp977lFd
-	 QCWXQj4hcA4Ew==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401EB3800479;
-	Sat, 31 Oct 2026 02:10:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793412656;
+	bh=qEwymFVp2Zq2jgvCpSYjWSfGxMjlENvd9A4hKHtWv/0=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=f5hIO+W9GkiGL/k4n4TrpsRrhCRoPE/baLsosaGfiDi5TuMBScdGETNtWvLWYnw0L
+	 /1xR/bLOrZkgXxVJH7+GQVkSLUI6/NI66dbpP84wsCHnhQ6U2j6eNwOUfyF69Yo/NO
+	 ZLDOtA7F0BbcA/+LvCdkIsBINTT7WuvbKSYaBD0pDCNB1Nn5sDz4al/LoYFj9oRm3g
+	 2uc6lRtEm3/s+pK4ZZ1mxYuGap8GEOSFV5jrsg2QNec1c7mF7OThrbjpePiByJ6xWL
+	 tYKu3LLEfL3UQEHh1h04YkCBCoCbA6Y7dyMLahL9ITePScn4OtMbQklOYmypj0szYp
+	 y5skg1pM0yRFA==
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6ae14eecc64so1761785a12.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:10:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxvlbLv5kVJGxbD5UJ01pUFnQoBKgYmAaqZ0gZah4HlzvTg+HVFjlgbDUmZOOIcMT/QwFFb6qOG9NDacn8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfQfdFvhSHUtgkGXpwb3rldKXmYMx2cwcIhE6Zsf5NGhwlSFyD
+	XhIfoVM8Saqv06zTsT4boFZ5d3PFRWaWy05wMXM+InQQkDXwCF2m6HivXk+TprQ0zMDsnJA45Gn
+	Sav9QwOhCw1pUMh5ox5DE1Xn1GhXtjho=
+X-Received: by 2002:a05:6402:1bc1:b0:6b4:5f9a:528b with SMTP id
+ 4fb4d7f45d1cf-6b4d5ce83f4mr2182825a12.36.1793412655304; Fri, 30 Oct 2026
+ 19:10:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,44 +59,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net,v2] net: ipa: Fix double free of the interrupt
- structure
- on  config error
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179341260505.1900554.6200995720286463519.git-patchwork-notify@kernel.org>
-Date: Sat, 31 Oct 2026 02:10:05 +0000
-References: <20261029082100.17722-2-fourier.thomas@gmail.com>
-In-Reply-To: <20261029082100.17722-2-fourier.thomas@gmail.com>
-To: Thomas Fourier <fourier.thomas@gmail.com>
-Cc: elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261030020523.302085-1-icb@fastmail.org> <20261030020523.302085-2-icb@fastmail.org>
+In-Reply-To: <20261030020523.302085-2-icb@fastmail.org>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Sat, 31 Oct 2026 11:10:43 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd9_=P_ruM+mnF6j9L-sKP3fdkK3-SeHBYwF5FpmwPNUFw@mail.gmail.com>
+X-Gm-Features: AclHuK8IYZhS44FO0B57D4KDqQnvzDJhfZCOVTn-ExASVAhMYT89hRfnPPbtJ-Y
+Message-ID: <CAKYAXd9_=P_ruM+mnF6j9L-sKP3fdkK3-SeHBYwF5FpmwPNUFw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] ksmbd: evaluate the DACL in order for requested access
+To: Ian Bridges <icb@fastmail.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello:
+On Fri, Oct 30, 2026 at 11:05=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
+te:
+>
+> On an acl_xattr share, smb_check_perm_dacl() evaluates the whole DACL in
+> order only for a MAXIMUM_ALLOWED open. Any other open is checked against
+> a single ACE, the first one whose SID matches the caller.
+>
+> If that ACE is a deny, the caller gets every right the deny does not
+> name. For example, a deny for writing grants read. Later ACEs are never
+> checked, and an inherit-only ACE counts as if it applied to the file.
+>
+> Evaluate the DACL in order (MS-DTYP 2.5.3.2) for every open, as the
+> MAXIMUM_ALLOWED path already does. The extra rights that path gives the
+> owner, and the execute right it adds, stay limited to MAXIMUM_ALLOWED.
+>
+> Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ian Bridges <icb@fastmail.org>
+Can you check Sashiko's review comments ?
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+https://sashiko.dev/#/patchset/20261030020523.302085-1-icb%40fastmail.org
 
-On Thu, 29 Oct 2026 09:20:55 +0100 you wrote:
-> Since ipa_interrupt_init() allocates struct ipa_interrupt in ipa_probe(),
-> the structure is owned by ipa_probe() and released with
-> ipa_interrupt_exit() on its error paths and in ipa_remove().  The error
-> path of ipa_interrupt_config() still frees it with kfree().  If
-> ipa_interrupt_config() fails (called from ipa_config() via ipa_setup()),
-> ipa_probe() unwinds through err_interrupt_exit, which frees the same
-> structure again.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,v2] net: ipa: Fix double free of the interrupt structure on config error
-    https://git.kernel.org/netdev/net/c/cb284914e749
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks!
