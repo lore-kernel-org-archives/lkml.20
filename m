@@ -1,94 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793440639;
-	b=liYzM6gbrVbibqoI1GiK+ThjS7FDwrNkdjp7OdZbJ/qTxnk/zgrGr53UJgqmkL3AntF5
-	 LeOdgYE9Fb8a55Cv6MIZGCx1yVc2sppTlxmzvbomJ7YoNuWWfMf9PZsZ+Htbw1jbfd4h1
-	 +S9XYw4p9VC7T1yvpBcXqNZO+i/Z8NAjDiikPfsiwfZaCSO2TMn973+QOrHZFwHaBLllp
-	 SXpclob/WaNhX60861v5Eah8qsuvfr3R0W+mWDes1vDBlWzMFpFgWTxraPwoRMM7HIi3C
-	 ucoyMQbKNNtGK5ir59hVmDIxmYoO4B5ynsDRtVEmsJWCMHcLPPX4ZxyzRjC70ckNZ4w==
+	t=1793440770;
+	b=2N8BdxQESRIWpblHLpdnMRA6rop5TR1mFoIoUiKVxGsR0BsvKzXZsH1eZWvDfDo4pLXR
+	 46w+f3xywNwavnfvITgWxzFhK348H1iWq6cAB14g7tZ8DsVF5QcD0T5c8mdKY6lik4uUz
+	 H1c/KGnNmom4Y8vtTxP6b0Ta6coOjgpQgPs/ZdnwkTIbmFiP1kYSWUXgk8yJgRZMe6HKy
+	 mrz+4IXEzEw/Skgz8wyMhZbHiLLO4CSzOMc+ok0ieU4yELeRZpAxo68S8mKt9I6TXpXEd
+	 eWeBUFzX5AWQi7Caj2XaeFjPuBxtj9qdoXjsgeLXAWIVMAuRZ7XWT2mY2bRWdcux7TQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793440639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440770;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=OsyNUXVXYVasBHvigfoIW6Ne0ad3jx5r3liNsbVXCQA=;
-	b=iqBFArpNIso3XzIBXl89Tjk0CNdrEGZnwocCUHPbtGGgq4UkAfoIa/uvomAtJjMB600T
-	 WsPZbpXTPAlBbswWg1w+l+VadQ72cSr2mF/RHhWCoyzCMYyARNi35TutUBFH3gmtrhg7Z
-	 ZAXeQvYkhgtvPKRuoiGxNMvVMpSRpegkhxt89xKuNZU8eC9pm7UDlwIu6qFBknroxIWN/
-	 iJhtityd42Vy+LUKGsYQWPIrwliz414Y81SJbbF7duOD3/JwSW4EEGLHylDXb+TqrO5wn
-	 QJq5JOsahFZaEvVyNZrMJoEs7OZeI5wFffCgHCpD/oDWK0R+/j4bsylSYOJcaGd7q9A==
+	bh=lrg91VXppCw++dPJi09YCHr1ozvZZtqaDezxwuYyj1c=;
+	b=Je5njRXk5bN4BkBIbKOUaUxVhIwqSw9gqj8Vy/VV1Y6SdOhiZdWo32iwV4rAD0SYYyfz
+	 VdZ0T7uk++xRfoL9M2TbZFreEqgtiMYGX/Syzi3DxQV312bJbTPgCdNrk6c4zEtGeIheg
+	 /oGU0hwasjyoWAP8OLN1R4vl7op0z/Vv6Qny4yWplqn3miMz5vevkO1XDJ0xZQ68VDfhK
+	 iVfuepF8/dTir8zwnA64Wgej2ru/MkzkXFpypCBqUow4JKfkFIfnBGpxnoeD75+83hZ7z
+	 QFsLSluGSYZvXKspp1gezP+rDIMu1Aah1Hwcoso+eKUQM1DcnWHMuQv+cR7Gl3wA6RQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XnTL5T+D;
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VJCloE6b;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A0B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:57:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73A0B606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0606F606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:59:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0606F606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XnTL5T+D
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6b1aa27963eso4473192a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:57:19 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VJCloE6b
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso10195605e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:59:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793440638; x=1794045438; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793440768; x=1794045568; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OsyNUXVXYVasBHvigfoIW6Ne0ad3jx5r3liNsbVXCQA=;
-        b=XnTL5T+DL2phlNXmbqkLLhvirOg7giMe+mzsT6jZ3P8q/gtVkvtsUMetvI3WeBSUvk
-         llwG/hhPLVMRmIyp8d5tgkbOZoBBQIuLCegr9vGom7SruDl1DB179AUZ/Yhhfxjzf7c7
-         CxwW9/z1nouoKL6XVjZYisWJa+bfFOXecphWR9/tI5EnH739xdz7+xgWS5H71GI5KCAd
-         nIdiHLJGUT8eLmrYRG9E2+VcvEy9Ru36X6uVFpmK7yOe6qdRHTjuMFHgVpM+Dy6CQgMv
-         SyHcR9mvXrE9s3dzRZVY4TJ9SDpnQTzTYsZRKuGZqj4rI1QiINkvSJasKRJ0GPmbEcEb
-         sXsw==
+        bh=lrg91VXppCw++dPJi09YCHr1ozvZZtqaDezxwuYyj1c=;
+        b=VJCloE6b86yvWABy075rF+peJ+s9iHi9Oj8A8xN3AKg90+d9lov+D2SVeH1MIqS5U1
+         fZMPNtsj1CDhKMGFKUhX/Y7SioiFJHDFZxK1BxSniSDdO6XkDzaNITmT2/EfHCNE/VCu
+         EEp1yBILY8uUu/44qbbq0HxUgf1g8gKaFstU+2foeow9x0g5wfA98wGXpn83HWo/jveg
+         kibon7+vRr0Od96+ZX/Uzr5kKCEc3JBcwuMkag/EL2OvqxbAlZU9AdfjPuK2nNyWgA9H
+         33vDNRwhXbsSV/htjoVhUdVWpO/imuheL2Z2PUKcle3/hLWR08BQO1L5n0lsoWKiy37T
+         nb+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793440638; x=1794045438;
+        d=1e100.net; s=20260707; t=1793440768; x=1794045568;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OsyNUXVXYVasBHvigfoIW6Ne0ad3jx5r3liNsbVXCQA=;
-        b=s+K9VgbnDAuVQKMq/yknl56mh72K9jxVf/WbTDjVBT9aZi2p7Z2UYrWfAD3PrzgpN+
-         dP+Y6NITcxgvil+OtY/1jlnjJePWWfgIKmQkHaiCFcl5BgcdRRt9iLyRhyLfEX+G84ug
-         TH4SXd49G9mBIVJUIpt5hcadASsIm50xwsNFwQyFWWESqSdD/JvY9PdDRvHKgpS+7u2n
-         kqAlJiX61xEvCEVyErIyTANoT3FeLEeLW5ESu5eA7P6bI2ud2Vb3lcyg1jX+BMjcITD3
-         FkPFF2AZaaPydjPjjzBRArEKsV/LjSa6TaQNhjIDUO0Z3wOOdh9xYnna3HInpCYFVHXk
-         6XTg==
-X-Forwarded-Encrypted: i=1; AKwUvByYobmNInRa82bkgdGzflwq89b6r9jGNbxFo2+mSWdsy7zDDtRcacIG3rGFC57tGL1v3bueOiy9NAZ4XqY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFo2/GMYbnZEnONbUeBcHYACmQzX9i0ryCvj50+o7ZjryFOHjA
-	d565Hy2zsDMupWv77cK+/bjI1l29Ku55EEIzW8BADDiU9EE/JcT7oK+Y
-X-Gm-Gg: AYBFou2tr1tAD3c+8A9HbWWtP/j84ge3Id8BC/mM2Jb1/JgEfIbr8qGs/+Xx0Uv2mna
-	RkB2nJa3nV6yEDyZk90Czsdqq8UBNio+3idLlgM6E4FSjKfLIeOwigq8VTmXEFYzN09217E+6aF
-	y+KheZv95tWxQ8KwR3VYqyTG4C5cGpMyLuPRMZMnjuKWl1AtDBUzGY8VOChNLynqyPg8x/JBjHr
-	QVU7sucYMMDITG0dZMiwbPAmxo1wF7k4L9Cz4954IYcF3PcY0CzK78umTDys0Ph/IzEAxTsVhH1
-	m6DpJOTReuTZmgK++68KcR28t+UyE56Nz9iuS5Q/JCtZlu0CxfgkKAvN+Q3YUPzW89RDfsyiJW3
-	LOtsxum7KpOEL76Yn1wkjNYku0htb+dFRu9/lrDe2p48a/+uk33/eRm+451m1wPHDOmoouv8OZa
-	TyiJYeDBQ3m2KKd7FxMq2Aj2msOXaXCX7Om9YkbdmVk4VYR8QbVOZAlSi03FnmnL3H0PnJhmLLT
-	8SJi31Nv9GBmqHnkDaSdlglmuQutylaj28GXPLqqZ65Ib8B2HkYO/tQciXVrbluOWHLyHy1r+7T
-	rbvEKkIVNEg8CPWqtxr9HvjAHIqK3x/FDrGwnSDugH88fUGLKP4pMLw096+51Movnpoqq2HY7be
-	/kJjQ9z0xIOi5aSpspllpnCeRN/t5nHfrRg==
-X-Received: by 2002:a17:907:940f:b0:c2e:1b6b:8b19 with SMTP id a640c23a62f3a-c49d142cb22mr731014066b.23.1793440637746;
-        Sat, 31 Oct 2026 02:57:17 -0700 (PDT)
-Received: from localhost (178-84-201-199.dynamic.upc.nl. [178.84.201.199])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe1002asm162304466b.45.2026.10.31.02.57.17
+        bh=lrg91VXppCw++dPJi09YCHr1ozvZZtqaDezxwuYyj1c=;
+        b=st6cNr6ncc1Y6jMZSp0qAoo/gXaDni8NRugZBL/s051iADcuJ6MODr4jl4yeoL/n1o
+         o6L0CalaqBpx66/wI8woeBuVcqCPp8yh1dxpXYrR4RTkXE/I9K+GUjB5UW8dAS0yV5bP
+         i8wANCyFeGsDbG9xF9gmnwq/Zxy7XlgIOMuezzK0XT/m5m3Xt/7fSZE3ERl+UcQMNBNt
+         YIHTISpVWGnzro+Xng6tPi9zItbc9JSMreCL9jgreTTIq9yUM3LSkS0UUPTiV+LWRBjo
+         wI1cOxHZrZw474trPA4D1IEHEJbmlefMIZEDWlecfxzW+uid/kCIaJXzexgFpW6eZ6dZ
+         Bg3w==
+X-Forwarded-Encrypted: i=1; AKwUvBzdwdWPma0G/vAm376bURmLl/Mrf1SVlM1g2c9hONCsexgQgL5K5rMPzLbMVBG4Cz+mSXKVtu5/A5UAU7s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoWiip/YnXSEQ/Z29X34rRHahx4OdmpRDt7+Q0QQTFlB50fKCq
+	QkWLjDJ/gtOnYmUDArouI3W9O0YOhe37taHjVfVppda3q5zLqmwrzUxk
+X-Gm-Gg: AYBFou2TPnf8Ixn9ApVkch7OaFwnQwETFBXlgaVOfHAusqs9R9uZmZKiwsBCbn8PwZM
+	bdy7m1jDqFDlEEVP1HxyKedzmrRFcwdU3Vluf45Pg0P/DmqGthGgfHChHUnqfEVav5Nd8ekjh/3
+	K4PvHJ9YJG9HreQLoo6FTqQ2+oWYaAypvSADrJR8oo3aYI0+f8bq35cwWLCrZzKM94Kq8/8JsFj
+	8vvbLNlEuN9GxJqONquGr3wTSts+63nWfLO8nXws4WXjk37eEYW/S/PRrM8HBFlrCuoFhVEdm7M
+	lye/X3tIs1XFbRuTGoT2t0L77d7mGOKgo1WtX4mgQmhzHjyFDmH88NKQinWhXRMT+my5gRABH3T
+	I/ul51GgxYxSl5tcaf4/1XWKHRpA6+WDRmU8xT1L7ADmLgZ42LmdwIvOTYRkizCEbrC/3dB3O2u
+	TtIlcj2SUUtOmoAGntErZg8wXiJn3EUd12g+lPc7ghewelPW7nDvqXCvxVmWHjiZTxbXSHQ7/yR
+	c3xqvPn2uFAddseMlgoTDpXGqrNUx0j2zvCwx5rBUrJLidq2mSTsSAgYYoctLSKhvR/xd1FtyTn
+	WUJfB6DfSS46q/c78UDZjh5yhfzT1FYF5088+8+cJBZe
+X-Received: by 2002:a05:600c:8b4c:b0:4a5:1cf1:b7b8 with SMTP id 5b1f17b1804b1-4ac17b2cf8amr106495125e9.28.1793440768232;
+        Sat, 31 Oct 2026 02:59:28 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4773:6f00:c8d4:ec29:293e:f39])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe77053fesm55354435e9.0.2026.10.31.02.59.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 02:57:17 -0700 (PDT)
-From: Amir Goldstein <amir73il@gmail.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-kernel@vger.kernel.org,
+        Sat, 31 Oct 2026 02:59:27 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: brauner@kernel.org,
+	viro@zeniv.linux.org.uk
+Cc: jack@suse.cz,
 	linux-fsdevel@vger.kernel.org,
-	linux-unionfs@vger.kernel.org
-Subject: [GIT PULL] overlayfs fixes for 7.3
-Date: Sat, 31 Oct 2026 10:57:16 +0100
-Message-ID: <20261031095716.3030288-1-amir73il@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dhowells@redhat.com,
+	kuba@kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] splice, net: avoid MSG_MORE when the bvec array fills
+Date: Sat, 31 Oct 2026 11:59:23 +0200
+Message-ID: <20261031095922.3577591-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,92 +102,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+splice_to_socket() leaves tail at the last included pipe buffer when
+its 16-entry bvec array fills. If the requested length exceeds the
+available pipe data, pipe_occupancy() counts that buffer again and sets
+MSG_MORE even though the pipe is empty. Small TCP transfers can then be
+delayed until the cork timeout expires.
 
-Please pull overlayfs fixes for 7.3.
+Advance tail before checking the array limit so the occupancy test
+counts only pipe buffers that have not been included in the send.
 
-- Was in linux-next overnight
+Fixes: ca2d49f77ce4 ("splice, net: Fix splice_to_socket() to handle pipe bufs larger than a page")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ fs/splice.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-- Gone through the usual overlayfs test routines
+diff --git a/fs/splice.c b/fs/splice.c
+index bc243ab8dc43..7c67e0375ae2 100644
+--- a/fs/splice.c
++++ b/fs/splice.c
+@@ -863,9 +863,9 @@ ssize_t splice_to_socket(struct pipe_inode_info *pipe, struct file *out,
+ 
+ 			bvec_set_page(&bvec[bc++], buf->page, seg, buf->offset);
+ 			remain -= seg;
++			tail++;
+ 			if (remain == 0 || bc >= ARRAY_SIZE(bvec))
+ 				break;
+-			tail++;
+ 		}
+ 
+ 		if (!bc)
+-- 
+2.43.0
 
-- Includes one change in vfs code, factor out helper
-  try_take_dentry_name_snapshot() with RVB from Christian
-
-- Merges cleanly with master branch of the moment
-
-Note that commit 8457ca071faba ("selftests/ovl: fix detached layer
-mountinfo expectations") was already merged via Christain's vfs.fixes
-PR from earlier today is duplicate and also on my branch.
-
-Standard maintainers race and miscommunication. No merge conflict.
-Let me know if you want me to drop this patch from my branch.
-
-Thanks,
-Amir.
-
-----------------------------------------------------------------
-The following changes since commit 214897acc8c2e5d6b63189d23ccaed6fa2af45a9:
-
-  Revert "namei: don't reveal overmounted entries in refwalk" (2026-10-16 10:50:57 +0200)
-
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/overlayfs/vfs.git ovl-fixes-7.3
-
-for you to fetch changes up to 1d27da7de3f74405b1de85ad26c5ea90f826114b:
-
-  ovl: check the casefold flag of directories only (2026-10-29 13:40:31 +0100)
-
-----------------------------------------------------------------
-overlayfs fixes for 7.3
-
-- Fixes for bugs found by Chris Mason's AI review, several of them
-  reachable by unprivileged users: an info leak, use-after-free and NULL
-  deref bugs, an RCU walk stall with remote layers and data loss with
-  nfs_export
-
-- Fix copy up of files with an empty security.capability xattr, which
-  any user could set to block copy up
-
-- Fix a regression from v6.16 with the override_creds mount option
-
-- Two casefold fixes
-
-----------------------------------------------------------------
-Amir Goldstein (6):
-      ovl: fortify ovl_copy_xattr() against underlying layer modifications
-      ovl: add assertions in dir cache code
-      vfs: add try_take_dentry_name_snapshot()
-      ovl: skip copy up of empty security.capability
-      selftests/ovl: fix detached layer mountinfo expectations
-      ovl: fix mount setup failing when override_creds drops CAP_SYS_ADMIN
-
-Chris Mason (13):
-      ovl: do not copy up an xattr value that was never read
-      ovl: set OVL_WHITEOUTS before publishing the upper dir
-      ovl: check that the parents of volatile/dirty are dirs
-      ovl: take a snapshot of the name for copy up
-      ovl: do not take a name snapshot in RCU walk
-      ovl: use the pinned upper dir in ovl_fix_origin()
-      ovl: hold a reference on the parent in readdir
-      ovl: do not copy up a dentry that was removed
-      ovl: fix a torn path in ovl_get_redirect()
-      ovl: read the nlink xattr of every indexed non-dir
-      ovl: always encode the origin fh when index is enabled
-      ovl: set the revalidate flags after d_instantiate()
-      ovl: check the casefold flag of directories only
-
-Hungyu Lin (1):
-      ovl: reserve space for the casefolded name terminator
-
- fs/dcache.c                                        |  29 +++++-
- fs/overlayfs/copy_up.c                             | 110 +++++++++++++--------
- fs/overlayfs/dir.c                                 |  22 ++++-
- fs/overlayfs/inode.c                               |  16 ++-
- fs/overlayfs/namei.c                               |  11 ++-
- fs/overlayfs/overlayfs.h                           |   8 +-
- fs/overlayfs/readdir.c                             |  65 +++++++++---
- fs/overlayfs/super.c                               |  39 ++++++--
- include/linux/dcache.h                             |   1 +
- .../filesystems/overlayfs/set_layers_via_fds.c     |  18 ++--
- 10 files changed, 233 insertions(+), 86 deletions(-)
