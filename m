@@ -1,72 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.139
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793432838;
-	b=Y/FB9RgQBA9/qDbP+LsaFE3ZDp28wFETBXCXXXf4nfk1RuOthqOUvNSYLAHNCSqBGSKu
-	 80obGMjUUtZwAxEQiMe1mlji0Orl52MNhC4xcF5uz5osebtQnHa1HuhwkoItfAVP5A6Ca
-	 28ctSefvGxfWcBwPyZZ3Tfd+J9q3pkJRUoQVcwDiJmZC5FWzf7dnrTbW8Ueikjbqe/uTa
-	 +dzoo4BbFrcue4rPjCaLw1Pu74aABed39qjiFRD1DU/Klxsdqam/DC+egE+T/SmSIjU0g
-	 +4t+iWCvKJRYb7STZCM61jGFtBcQPwxHI7QPnU7jvLU1ega+BlavWfQGpOIcZcT6Jwg==
+	t=1793432886;
+	b=Q177WohDfwKeuqBhIUGs2qX1I7LINGQ2dgr+VmO6tvD88hJilCTBARXoVPbv8xLgMT2d
+	 YQ6lUFCNUiap8YY0Qjy9I7LGf8reYdjlPYvmW6mwL5zdnjQXcSp+gcY+WArseX7BmJ6VB
+	 Wk4b9oQnjEodd7lPPEZ/oovfZqm4BJ81lzMDiyAsRNND/agVoTtKlS+DSGdM0EzHQMDt9
+	 AFJ8+Cn+yymwccJF/IokuJUy7WydaKBXEhp1Bv00GBJORYTFb7sxjgG4c0Z6fhB1Eikow
+	 1R4gzPXTnI5gWUGjAlz+zrEeONbC0axOFprH4H6LUh+Dupp1ZuQvHLeQC3Lgj3e6r+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793432838;
-	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
-	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
-	 To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=GBaUg8nhg5Dp/odicKAnQbPKQztKEv19Ui9b1WPcV1k=;
-	b=QCTmL7jD9XP8Y1abVdPyxeN5HbniWINK22AWTo4gm6eu9Yo/QphDGdf31DzW4L8xisf+
-	 stasiz9Je/poCcTq2l74LaWGwsmZrK+/Ug7I06SMf4kvEElZPTjH/CShLq9Lo357dzXX8
-	 LfO9goCQqHWgwtxZKsAznpg4TGpZRl/zAwtAtU8tn2Tc4EVoM5tlzV9h4sfF6aZaMF395
-	 3oRbCBefWZ2Ighcw0GUPIac2dG78eePpsAi3eRDICkBGw5B36Tvt5Wlc/GlnQ9sX6XMhY
-	 JlBddIvbJb+MMFUX2iLihMwjVZlt/zdogUOOmAziH/ywUk3mdi5L/10qT8vhLSmiVQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793432886;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
+	b=02ab0Vtyoq8DwYwm6Uf+lgY0+UnAniydrRPGWrIpCxuILyyNSmf98TUDBFr1UVapsUnZ
+	 91jhtjWgO6u5rQetjdkUEf1Sqr9RU7ATkHX35ffKypZ/pe3JHBawankhvsJ9TRYUVG475
+	 nMO9yOitxsTQCRjErXywBOLlwxZehYZ4F8tchT6T9220SMNyd5CsHF64w1P2t8ensCTZw
+	 Rzm4QL1kXMNdjwPpPNScFBQe6IZS53q9sTnWuJiej/tbsq5Nlpm+yI9vf7bKfuETS4elf
+	 hyV/s6wDA5CX7afAmrjqf0W26FXSnvi0wt40XtIk+sWMT7MxMjMVig05dpZypg7OKEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=cmss.chinamobile.com;
-	spf=pass smtp.mailfrom=cmss.chinamobile.com;
-	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CdAhnODb;
-	arc=none smtp.remote-ip=111.22.67.139
-Received: from cmccmta6.chinamobile.com (cmccmta6.chinamobile.com [111.22.67.139])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A3D90606A31A;
-	Sat, 31 Oct 2026 07:47:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3D90606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=UGq62yiA;
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98826606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:48:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98826606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=CdAhnODb
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=UGq62yiA
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso164016466b.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:48:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=CdAhnODblpjQtu/IfDk7hoiEwbG6Rnm3s2ABXRxWr53nET4Ax3dp8wuS3MNm0OHZgvUvIgQ5yPprr
-	 QLPBv+G0AFXUP1O6w2a87Eiyq9bW3XQpS9+eouafn5vime0Ps6b1F091al32uXU9jjVerUyMY2DzX3
-	 gY7PmVV3Rv6g/Rvg=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app01-12001 (RichMail) with SMTP id 2ee16ae59cf5847-555d7;
-	Sat, 31 Oct 2026 15:47:06 +0800 (CST)
-X-RM-TRANSID:2ee16ae59cf5847-555d7
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[222.93.19.82])
-	by rmsmtp-syy-appsvr08-12008 (RichMail) with SMTP id 2ee86ae59cf830c-7c9a8;
-	Sat, 31 Oct 2026 15:47:06 +0800 (CST)
-X-RM-TRANSID:2ee86ae59cf830c-7c9a8
-From: Xia Yan <yanxia@cmss.chinamobile.com>
-To: netdev@vger.kernel.org
-Cc: edumazet@kernel.org,
-	ncardwell@google.com,
-	kuniyu@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	torvalds@linux-foundation.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	yana06070@163.com
-Subject: [PATCH net] tcp: fix device binding after failed IPv6 connect
-Date: Sat, 31 Oct 2026 15:46:54 +0800
-Message-ID: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+        d=linux-foundation.org; s=google; t=1793432883; x=1794037683; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
+        b=UGq62yiAsCHbZ2NlaDbor4G+IWiwn6vRFyj+sHuuVA39qNZkdJe2rwZ40MRsjUp5gg
+         0vTZzjodRGNv9RYr/oQkNGdOI9zRr9qHmlSjQHrgyeg5ZtB4OPZXCtZg904OxZt1fiIr
+         OeHwh65HO3Epfz8J1veNj7jLg1hbUf0sOhUmA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793432883; x=1794037683;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
+        b=oVanM9SibawKw6l6D0YzZcA9cqdfWQElsaC2KJBB525AkhtjObKZWcwB8IYw1TU9Kr
+         dVUfKN2Rojc2oq8eEICzUhcpvcGk3+RdItuXNT+V4q1IIbkCDbjw54sV0+re6LnZ1UC8
+         CNN5F/5I4oKj4SRz3A5Y973EnJZLGSZzV44e/hg2mkU6NJcpeUwD1TrNRztUMJHY7Ky/
+         E1m3qa32M47CeFsrcRKLC157xWcbk+6pE+WlYiL+Lyq2TYk2jJk4XR+dupqIVAC0rXXT
+         DJ84tIoBK90F9mj7TIePlmeMxKu6KfRKOqMXElBbIgTYo2rJuYxkzUU3CispUB4jaPXj
+         IYAw==
+X-Forwarded-Encrypted: i=1; AKwUvBwvS4umQwBrONIAllkIkG8k8AzoscX42lMDwHQFpu7TWrHjcgiazw8RrKNIxez11jEm2tRIeNinZfVIjLY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJoqACoTdiPIltgj8Ig8MLRsVYx6DdPJH2PAKRh5W8/Q3zaL4/r
+	cl3aCvE294QxBj/vcy9J3tyHrLbEfo+IeFXZkk3mWZNr3sOID9kuRTgevBzMs2KC3G0Aw29NGpk
+	NMqDapzQ=
+X-Gm-Gg: AYBFou1QcngJ9Tmp+lWkFTdqpyxSD+genryVet4PDpG6WkuxwdiIFD/FTVCW+vKvrpW
+	/nh3hLIdd9szLSRmfpM7BWKIzJjIBm/H3a8oSzNnvcQ9VHzrU2tMH9HQZ7qtbQV18WF/HgTeNUA
+	KCPY6WzkhLzah3bKIJ39cdNzO2aVk4JStWxio5AkZZ0ERAXvUMGYV+0lqqbITKshFxkm0z6eMlX
+	ywB4X+Oh6cro6yxjohu5KXyI31HI54Cj4GqMv+kwSkm7fDtVe/PVeL718m3848PUexXRdMz7CTM
+	BZXvNQD3k/zNwLN/HqbIkN1rwYMEZcI/jE8XIH6EFwk1x2toaawXC7vciqGVFRSA6p3PI+IjGI5
+	SKvnU1/k+wA7Cy7bXZJyP4Q/yeJRwbTL2urAdb496J7zi11/NtGTV8QJQyvRJSe89RZV4Bgb8S4
+	fFx/EXdsOzrFgYlZPJ9RIH9hySzAvfpdXmyGeo4YssRBk3VhijXEBj6OroQSV7uTxVlZ7RaEhiE
+	WsHV+MkspepZvGdTdcrlBn71WcU5/S3/TTzH4PyCBrd6AHPJqz6Gs2JTZASw1ERHAgq1gcru+3p
+	Lg6HD+NDcgAic+sVGZATDu3iF3L9DC+h9hTlkJYRHPK3y3NFJx+YrZjAFuUtDATM8zB/rUUs+WC
+	xu4A=
+X-Received: by 2002:a17:907:9693:b0:c49:ca4f:ede6 with SMTP id a640c23a62f3a-c4ca792e78bmr375732566b.2.1793432882802;
+        Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com. [209.85.218.52])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca0fbd6sm779973a12.24.2026.10.31.00.48.02
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4697404c2bso181848366b.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByltuFqThovTn21+WjSFS5kz+k0bt7LZO/QLLQyuGOaHbDQ/s1dnpLgyW/4PCZgs+S0PdxBiVsDPuRpa2o=@vger.kernel.org
+X-Received: by 2002:a17:907:9693:b0:c49:ca4f:ede6 with SMTP id
+ a640c23a62f3a-c4ca792e78bmr375730066b.2.1793432881922; Sat, 31 Oct 2026
+ 00:48:01 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,71 +95,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+In-Reply-To: <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sat, 31 Oct 2026 00:47:45 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
+X-Gm-Features: AclHuK-PoafTkfrw-_O-xG5p4dHxh4twzZ1rG1r_WKPFt1VL68cMWA8bARoVDr4
+Message-ID: <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
+Subject: Re: [GIT PULL for v7.4] media updates
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-tcp_v6_connect() sets sk_bound_dev_if from sin6_scope_id when connecting
-to a link-local address. If the route lookup fails, the failure path
-clears the destination port and route capabilities but leaves the
-device binding in place.
+On Mon, 26 Oct 2026 at 10:34, Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Sat, 24 Oct 2026 at 06:51, Mauro Carvalho Chehab
+> <mchehab+huawei@kernel.org> wrote:
+> > Sakari Ailus (60):
+> >       media: Don't hide I=C2=B2C or SPI drivers by default
+>
+> This needs to be fixed some way.
 
-A failed connection through a down interface can therefore leave the
-socket bound to that interface. A subsequent connect() on the same
-socket to ::1 then fails with ENETUNREACH, even though a fresh socket
-can reach the listener.
+Btw, there's something else *seriously* wrong with the whole media
+tree in a more fundamental way.
 
-Save the original device binding before processing the destination and
-restore it on failure.
+The commit dates on those things are pure garbage, and all over the map.
 
-Found while reviewing the error paths in tcp_v6_connect(). Reproduced
-in UML by connecting to fe80::1 on a down dummy interface, then retrying
-the same socket against a listener on ::1. With the fix, the retry
-succeeds and data flows in both directions. Tests also confirm that
-existing device bindings are retained after failed IPv6, IPv4-mapped
-and link-local connections without an explicit scope ID.
+Look at this:
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
----
+  $ git show -q --pretty=3D'%h %cd %cn' --date=3Dlocal 0d2ca6403186 0d2ca64=
+03186^
+  0d2ca6403186 Tue Sep 15 03:01:28 2026 Sakari Ailus
+  63c578491cb4 Wed Sep 16 14:09:38 2026 Sakari Ailus
 
-Tested in UML on net fcc00b15cb21. The complete tcp_ipv6.c file is
-unchanged at the base commit. Before the fix, the socket remains
-bound after the failed link-local connect and cannot reconnect.
-With the fix, all 12 checks pass.
+what that shows is that the commit date of Sakari's commit
+0d2ca6403186 is *before* the commit date of its parent.
 
-Build-tested on x86_64 with W=1 using configurations based on
-allmodconfig and allyesconfig. The corrected tcp_ipv6.o compiles
-without warnings in both configurations, and incremental kernel
-builds complete successfully. WERROR was disabled for both;
-allyesconfig also had KUNIT_ALL_TESTS disabled.
+That is impossible.
 
- net/ipv6/tcp_ipv6.c | 2 ++
- 1 file changed, 2 insertions(+)
+Unless somebody is playing games with rewriting commit dates or has a
+completely broken machine with dates that are several *days* off,
+because there are 11 commits like this, and the worst is off by three
+days.
 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index e006a30360eae..7bb8266d9d1b7 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -146,6 +146,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 	struct flowi6 *fl6;
- 	int addr_type;
- 	int err;
-+	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
- 
- 	if (addr_len < SIN6_LEN_RFC2133)
- 		return -EINVAL;
-@@ -358,6 +359,7 @@ late_failure:
- failure:
- 	inet->inet_dport = 0;
- 	sk->sk_route_caps = 0;
-+	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
- 	return err;
- }
- 
+Sakari Ailus is commonly - but not always - involved. There's a commit
+sequence by Bryan O'Donoghue where the parent commit is three hours in
+the future from its child.
 
-base-commit: cb284914e749388eef402938bdb3115fe1f6d337
--- 
-2.39.0.windows.2
+Time doesn't go backwards. And if you have three hours time difference
+(or three *days*) between different machines, you need to fix your
+machines.
 
+And if people are playing games with commit dates, they need to stop
+doing that. NOW. Because I'm not pulling the media tree until this is
+dealt with.
 
-
+                 Linus
