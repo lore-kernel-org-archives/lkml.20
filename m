@@ -1,92 +1,48 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.35.192.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793452403;
-	b=pXdYMNiVS5DZkUxpM/I0Cwc+i4dqvjZeY0vpO1q47yhiqTrD82OzWcoC93R5kzgoY4tA
-	 tNx98nEQH9vvzd2WQxioFEMhNBglZNeXZ6plZm6dOOZQr/0OsPfwkZH4Rx+Y0AywWdkK9
-	 AjG4RTD0xgyWoXOswX0WAT8c54pNFuCy373T/v2Y0b+gnNseL2/IEfKWKd+BQjybGrT4p
-	 evRu/Ezm6Xt1JOwzRloUyI3F7Ke3/49WMv4EEch93xeFtt0/MdmdO7sur68KXoh+5dFLk
-	 tx/3Rr3wL6JGjapAC+lK/P+ptkKXwXdgzLvhehKa8R2JJPCRrmvLTQlK5WVMIMdjOkA==
+	t=1793452910;
+	b=MrqqqupkFkh6/Oa0+/xdiwcndhovbdPJeOWj1Lc7y6JuGjbPduLVQAH1js3YVR/VJei5
+	 2br6Jnuy72zHGeTlGoMpvZHcEUxd87ceL+IvcfMAExvPHuaNKk3fCYeSOInGGcrea4QAh
+	 UUtguKseesLbI8Gp+WlzQ8wmxEuMG1dVpnT2KesL0BJ2T4b8lYbLuesNM47ClM3GtJ9Ue
+	 sAlDNiI92z2lFJLho4vcNuz5vIkcGCHLBWrpffec7Dm/L5DgTIqBe7QmO8IRqnOW24sUj
+	 RQnOlcpCO6Jd8QXrFNOmZOMPLkNVVXRGnUHXML/ec4JZjDwao1Az/SxvpV4SFbDd0IQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793452403;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
-	 From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=7C18DKFZIWaFXskMKG5hKpW3a2jitMcBzhWiOTJcy4Q=;
-	b=UphYYkj7DxnLnPUmq9tWtUdS4qID09hGZdLrVPhl2go+zKbUmoxG3uP+ctj1Talni5PX
-	 X7gdTciHQZS1fkzMg3q4HPe9IsbcAvPwQ/3Ydfg627XVvAjIhn2voZO4NO2sjI/PUl6Vb
-	 HDYPc6Y+FlJlnPOME8aKPOqe63b2vNvPovDWd3sCqbN6DBs3A3CVeHPWv3Jj5OH0baVf9
-	 jJXHnpOJIxcOrxvYgR/EKQDuUiWeDxmTy8/On48gAUljrt9wDnIVvScsw/9m57bOPGjUj
-	 qU+xeDmO8oRUHrplafjrl5kT3Bj2YXv/PetPrB5p59Y5mMWAlx20azE+6XX1DJzH5TQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793452910;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
+	b=Y7U3B+KzbzsYzzcWY583R5xVtoJ5CJXYQmhLn4Z3/rMRBGv6dt0NQy2sQHP2yHuoKivl
+	 GT9z0K8hn3/Itqv7itVVdqCMYfXn2KBzuh75AmI5xiBbVbvWBwVQ1VBWt2YSwVi8uQWwb
+	 WEZIRwoVBnKDQXVNc51P/mTbQVYfcZXccnUkZstAalfmTOFPoPbiEWECC1ad80LXIaLWI
+	 RDgJJk9xbsrSMsEGXbn/0sFA5EbE4T5e0MD9vo0cwIhCZZCRbUjYgs3bASYaEnqLtIiiS
+	 jxe4eIeheWkvY3hR5dG1uLL0aQRpJUyaTsAimJ7LUrm1zpPXqO0G2jgNXS+C1HXSX/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amazon.com;
-	spf=pass smtp.mailfrom=amazon.com;
-	dkim=pass header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b="U6g/Z67i";
-	arc=none smtp.remote-ip=52.35.192.45
-Received: from pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.35.192.45])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD27B606A31C;
-	Sat, 31 Oct 2026 13:13:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD27B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F9F606A31A;
+	Sat, 31 Oct 2026 13:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=amazon.com header.i=@amazon.com header.a=rsa-sha256 header.s=amazoncorp2 header.b=U6g/Z67i
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1793452402; x=1824988402;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=7C18DKFZIWaFXskMKG5hKpW3a2jitMcBzhWiOTJcy4Q=;
-  b=U6g/Z67iK4x8Y1I6/dLnX63RTOF01pAodjoboBRMTDkAMLu36jxylpTX
-   clCKZMNABggKj7HQfFinWZtpEygJB6n45WiZl7/4Baad9K2vxDgxjx6iF
-   XcLIyEJ3gLdGm0Ygph3oUwqoOggE2mVsTiyRnY+sGxsrjAilKCM6wANzh
-   FLmHT3PMOjv4l7ECwKzCiEaFKH2EAhaElHC4IbArS6LYKxS00PRQlzGhP
-   p69XKgYaqD+CZBJ46xtWdWbaP4MyOnUAdUPUj2twY8FNagSVkobbeJpaJ
-   QH6ilrMLMSgMeDUbKhDrFCVx+bGw/LXHWMn8pynPROBO5bGucEtDEIbDk
-   Q==;
-X-CSE-ConnectionGUID: hly44ySaR9uFED7ZApa/Hg==
-X-CSE-MsgGUID: RD5UJqX+T3e1daIfth8l6w==
-X-IronPort-AV: E=Sophos;i="6.27,188,1787011200"; 
-   d="scan'208";a="32516003"
-Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
-  by internal-pdx-out-011.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 13:13:22 +0000
-Received: from EX19MTAUWB001.ant.amazon.com [205.251.233.104:25917]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.15.208:2525] with esmtp (Farcaster)
- id 4b22ba2f-c8ad-4f9e-bc22-f51de3ab3b3b; Sat, 31 Oct 2026 13:13:21 +0000 (UTC)
-X-Farcaster-Flow-ID: 4b22ba2f-c8ad-4f9e-bc22-f51de3ab3b3b
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWB001.ant.amazon.com (10.250.64.248) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sat, 31 Oct 2026 13:13:21 +0000
-Received: from dev-dsk-wanjay-2c-d25651b4.us-west-2.amazon.com (172.19.198.4)
- by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
- Sat, 31 Oct 2026 13:13:21 +0000
-From: Jay Wang <wanjay@amazon.com>
-To: <bpf@vger.kernel.org>, Alexei Starovoitov <ast@kernel.org>, "Daniel
- Borkmann" <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>,
-	"Eduard Zingerman" <eddyz87@gmail.com>, Kumar Kartikeya Dwivedi
-	<memxor@gmail.com>
-CC: Ihor Solodrai <ihor.solodrai@linux.dev>, Alan Maguire
-	<almagui@kernel.org>, Martin KaFai Lau <martin.lau@linux.dev>, Yonghong Song
-	<yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, Steven Rostedt
-	<rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, "Mathieu
- Desnoyers" <mathieu.desnoyers@efficios.com>,
-	<linux-trace-kernel@vger.kernel.org>, Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>, <linux-kbuild@vger.kernel.org>, "Arnd
- Bergmann" <arnd@arndb.de>, <linux-arch@vger.kernel.org>, <x86@kernel.org>,
-	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Hazem Mohamed
- Abuelfotoh" <abuehaze@amazon.com>, Bjoern Doebel <doebel@amazon.de>, "Martin
- Pohlack" <mpohlack@amazon.de>, <jay.wang.upstream@gmail.com>
-Subject: [PATCH bpf-next 13/13] Documentation/bpf: describe CONFIG_DEBUG_INFO_BTF_LAZY
-Date: Sat, 31 Oct 2026 13:09:59 +0000
-Message-ID: <20261031130959.23472-14-wanjay@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261031130959.23472-1-wanjay@amazon.com>
-References: <20261031130959.23472-1-wanjay@amazon.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618321F00919;
+	Sat, 31 Oct 2026 13:21:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793452909;
+	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
+	h=From:Date:Subject:To:Cc;
+	b=ZkBgRzIEkHeFIEu1mBrLS8uCcW/eiV77hYpKgOQEqGa8JuxCDDpwtONKzFMKLIZWQ
+	 ZDcGHuzAN18w/ICIqeC2OI28lVlMy4TtywZSnMdjOhQjCSlDV2bVbLYGQqL/46AX5R
+	 VWvaOxyloIrL5IlyNls7EHZpGbrkAGiEEFWNPaS62hShlFfYl6JRVKGFwkqHOSLtWK
+	 f+cIjTk02/1X1LxYbiWzezfDLyZuBPbm58lsWZawqPEd9a+DGXu0OlXbHPcBp2J4VT
+	 dgmi+KrBHw9uBoO8Q5mZtbT4K66WJceGDICYAHeM2Y3Otx7VA0evWg5rSpfLHeNClw
+	 IFqLnhGEk65FQ==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Sat, 31 Oct 2026 15:21:46 +0200
+Subject: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,62 +52,98 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr9LMWmILqU29inEBdIAxCmamGpOmd
+ xd0+X7e+xsIMqHAuduA8U1CJVcYDh34ZHNERUtl0L0+Db2eVKAPirqXkqNln1RYzDSOwZh5mKF
+ WT8afUqPL9c/ycjf0a7tphrOCyrHNPrWpMEXKx4eVFRn2/Qv0tSeakwAAAA==
+X-Change-ID: 20261027-fixes-loongarch-fd3755f33919
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Mike Rapoport <rppt@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-Describe what the option does, where it is available, when the
-vmlinux BTF gets parsed, and what changes for users: registrations and
-module BTF that wait for the first use, the BTF id, the missing
-__start_BTF/__stop_BTF symbols, and what still parses it at boot.
+With KFENCE enabled, resume from hibernation triggers KFENCE reports while
+swsusp_asm_resume() copies the image pages, for example:
 
-Signed-off-by: Jay Wang <wanjay@amazon.com>
+  BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
+
+  Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
+   swsusp_asm_resume+0x20/0x94
+   hibernation_restore+0x128/0x1a0
+   load_image_and_restore+0x6c/0xc8
+   software_resume+0x240/0x260
+   do_one_initcall+0x68/0x200
+   kernel_init_freeable+0x26c/0x304
+   kernel_init+0x20/0x134
+   ret_from_kernel_thread+0x24/0x1d0
+   ret_from_kernel_thread_asm+0xc/0x98
+
+During resume from hibernation, the image pages that occupy physical pages
+used by the restore kernel are first loaded into free pages and then, as
+the very last step, swsusp_asm_resume() copies them to their final location
+pointed to by pbe->orig_address, which the hibernation core sets to
+page_address() of the page in the restore kernel.
+
+The early KFENCE pool is allocated from memblock and normally occupies the
+same physical pages in the restore kernel and in the image kernel, so these
+pages are usually copied by swsusp_asm_resume().
+
+The KFENCE pool is remapped into the KFENCE area above vm_map_base and
+set_page_address() adjusts page->virtual so that page_address() returns
+the page-table mapped alias rather than the DMW address of the pool pages.
+
+Hence, pbe->orig_address of KFENCE pages points to that alias and
+swsusp_asm_resume() writes them through the page tables. But:
+
+* the copy loop overwrites the kernel page tables, so a TLB refill for the
+  KFENCE alias may use a partially restored page table
+* the KFENCE pool pages that are protected in the restore kernel fault in
+  the middle of the copy
+
+Convert pbe->orig_address to DMW addresses before starting the copy.
+
+Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- Documentation/bpf/btf.rst | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Reproduced with hibernation in QEMU, the KFENCE reports are gone with
+this patch.
+---
+ arch/loongarch/power/hibernate.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
-diff --git a/Documentation/bpf/btf.rst b/Documentation/bpf/btf.rst
-index 29de1222c3e7..1ebce5cf5783 100644
---- a/Documentation/bpf/btf.rst
-+++ b/Documentation/bpf/btf.rst
-@@ -1276,6 +1276,36 @@ format.::
-             .long   58
-             .long   8206                    # Line 8 Col 14
+diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
+index 817270410ef98..ff571ab4e8df9 100644
+--- a/arch/loongarch/power/hibernate.c
++++ b/arch/loongarch/power/hibernate.c
+@@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
  
-+6.1 Compressed vmlinux BTF
-+--------------------------
+ int swsusp_arch_resume(void)
+ {
++	struct pbe *pbe;
 +
-+With ``CONFIG_DEBUG_INFO_BTF_LAZY``, the kernel image carries the vmlinux BTF
-+zstd-compressed, at about a quarter of its size, and the kernel decompresses
-+and parses it when something first needs it: a BPF program or map that uses
-+kernel types, ``BPF_BTF_GET_NEXT_ID``, tracing options that print arguments or
-+return values by their BTF types.
-+``/sys/kernel/btf/vmlinux`` has its full size from the start; reading or
-+mapping it decompresses the BTF but does not parse it. Systems that never use
-+BTF keep only the compressed copy in memory. The vmlinux file keeps the
-+uncompressed ``.BTF`` section, not loaded, for tools and module builds.
-+The option is available on x86 and arm64.
++	/*
++	 * page_address() of KFENCE pages is mapped by page tables that are
++	 * overwritten during restore and may be protected by KFENCE, copy
++	 * through DMW instead.
++	 */
++	if (IS_ENABLED(CONFIG_KFENCE)) {
++		for (pbe = restore_pblist; pbe; pbe = pbe->next)
++			pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
++	}
 +
-+Kernel function, destructor kfunc and struct_ops registrations made before the
-+first use, and the BTF of modules loaded before it, are kept and applied by the
-+task that parses the vmlinux BTF, before anyone else can see it. Errors of
-+those registrations then only show in the kernel log, and a module whose BTF
-+fails validation at that point stays loaded without BTF and without its files
-+in ``/sys/kernel/btf``. A first use that runs out of memory fails with
-+``-ENOMEM`` and leaves all of this as it was, for the next one to start over.
-+The vmlinux BTF gets the next free BTF id, not necessarily 1, and the image has
-+no ``__start_BTF``/``__stop_BTF`` symbols. The inline BTF
-+(``CONFIG_DEBUG_INFO_BTF_INLINE``) is not compressed.
-+
-+Users of kernel types during boot still parse it during boot, for example BPF
-+LSM programs, the iterators of ``CONFIG_BPF_PRELOAD`` (loaded at boot, or at the
-+first bpffs mount if ``bpf_preload`` is a module), or a module with a
-+``.BTF.base`` section.
-+
- 7. Testing
- ==========
- 
--- 
-2.47.3
+ 	/* Avoid TLB mismatch during and after kernel resume */
+ 	local_flush_tlb_all();
+ 	return swsusp_asm_resume();
+
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261027-fixes-loongarch-fd3755f33919
+
+--
+Sincerely yours,
+Mike.
 
