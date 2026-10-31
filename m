@@ -1,56 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793409845;
-	b=VAtmuHrqHPM6/1GgnIpJRecfeJODe+AP5EvCAjl9irk6FoB0+886QftLyb5fcoBEbXtf
-	 2yYevh73Lx6Kr3fjNdT9db0HVWZd5d5zdbGqUZFz/p8DI26/zmXeH/xBuEA/PXcq84Zfx
-	 C7Zt+bWIV4Jn08zCVwuqcdrR+lJRyX9aPbn3WjwmLfRfp51Rs4MDa/YG60720F4ho1Hj7
-	 xZ4h8ZndGZOgj6vjMwwpgaGRmv7DDKQbI5/SjIjXYjywabPlFKwoFI9/S4vyYDO8PZ6g/
-	 Km7S50Es/HtXdX7GEb60SwGxyBF5Rp1985CC0UlycjKTl+Au437falAZLQeCI4fvTAQ==
+	t=1793409856;
+	b=kZ7taq09e1KHvsl6OO1nM95jeLyo1O52dUgBBAHOD9Ej9ge0SpP4WjUQb5Ii8l8rpdFo
+	 2hw4aVOf++N3lJjl1EuXcVWjGvD0jel14ozsKDAZESYzn0rGrsdLdDqocw+kU/XzQ/VnX
+	 MX1a4MDeZFDwz+so387s4QT2bxgWMCK04DhWS+5XHQyR9LhZ+w0LaIocUxjO2cvLc33Us
+	 8nXSIuz5HfLWcNEksweOR2nJbhNWIYTbA+XyuxIOHSSmq6P9HJhUje2QOi+wUXl4/WASv
+	 wfB0/NQxNATnZp+2e84QdkAIjlqomFzYSVebtQwhpLJ9mbu03XI7U7BloF2K3scWTQg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793409845;
-	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
-	 References:Date:MIME-Version:Content-Type;
-	bh=r/eSCdeMizNNCvlDhJnnqiITSv5k7zOJDtk3hcAbaKo=;
-	b=F/2ILsdmo0FNBlFbfUbKVA2f2ie2DzYqbRQt9W9uRvHESQPYXBNSM97NqcQ6Hnw4J3ym
-	 0UCocyeMq42jwWXWRn0MjGzeR/JPMpPcMmIUP6LYIBRQj2w3RG6v2A9GSB+IZQ03rCtGs
-	 tF2ROkAC8TeJr47EkUaDzcUCPOtFld+Gtf7b4DNYQTgv5APMn3SfWnVLdW519XwAneMGB
-	 g4w7eia78tQM3aPIvSfSnZ6dNAIr+WeSayUSInxfxnwwXKPlc+z+/tTuC0y9UdlK/lD5U
-	 YIU+ZjdpS6TWnrxm/aOLCXpiENnmwPMZAyqELNmrxo8GxSjhkBra+hfekuwjSl9h8gQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793409856;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=/bTTjj8n/ts39yLomRcVpuIj0WjaFRlNCsiPPRonh80=;
+	b=XmZIERFst2UAy6rXLRYs7KluRHYzmY3balooVln8Gmeagm66b/hDeLi3Fl4zYYjNPLIE
+	 W7f+p+dmK0QVDm6lBUAM95idofTBCU7jSTqwxAFH/bgROBLgoFUbynfClBmzkpPojkzYE
+	 l7TdX6rV4yGIDENaR+YH3XpW5GzLGEK5LSqWmwEmtILfA5VBcCkFfDeMEZKGIJA2Mb95+
+	 3qNtzZ5sSpjkEpuIpBzzjIfNFjCy8wgKNcRuqaUQkmvV+sArKuT/MbjzYvzmIvEurcbRV
+	 MjH57p9Hp/iG2lNz7w6h/Oh+JqvWArtXihy33u87ImtKTVi7aznG9zUpckdRDCTiZTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQDZHkwm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	arc=none smtp.remote-ip=192.198.163.12
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B37F606A31C;
-	Sat, 31 Oct 2026 01:24:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQDZHkwm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882801F000C1;
-	Sat, 31 Oct 2026 01:24:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793409844;
-	bh=r/eSCdeMizNNCvlDhJnnqiITSv5k7zOJDtk3hcAbaKo=;
-	h=To:Cc:Subject:From:In-Reply-To:References:Date;
-	b=HQDZHkwmwJvCM+9gLHZgFV1ubwHMPRcvLbwYHm7IZXShrbzWyzzW9hLMpVVe7jHe9
-	 sPUI/fDOZs0pK+tHwNtP5MCxm/akWIo630gn7ljWME6Z5eUpzmHzId/IfBZHDxbovJ
-	 RTSaCR2voN6JtLcAXBrUwPDmoWspLGQAsYsdu/EWB/qBaAUaCUgTHRua7vwyZn60QM
-	 cZ7sCl3WJUycWO9jDsXro7wcujiyej0ZrSbb+OxBvEVjiuCHW72O0MIPhWxD6LBKuF
-	 PM3VVVc3RbYyQUvpZlsfkqCmjeuukPXXmXomiseRAEqXmkHAyVZyOJp9B4JNJqzMDn
-	 0N91nWJ7+QF9A==
-To: <shao.mingyin@zte.com.cn>
-Cc: <bostroesser@gmail.com>,  <mkp@kernel.org>,
-  <linux-scsi@vger.kernel.org>,  <target-devel@vger.kernel.org>,
-  <michael.christie@oracle.com>,  <bvanassche@acm.org>,
-  <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH] scsi: target: tcmu: Fix divide-by-zero in
- data_pages_per_blk store
-From: "Martin K. Petersen" <mkp@kernel.org>
-In-Reply-To: <20261026195245337ktSXy9G17VCcXyw760g9s@zte.com.cn>
-Message-ID: <yq1bj8a3boi.fsf@mail.kernel.org>
-References: <20261026195245337ktSXy9G17VCcXyw760g9s@zte.com.cn>
-Date: Fri, 30 Oct 2026 21:24:03 -0400
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109B0606A31A;
+	Sat, 31 Oct 2026 01:24:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 109B0606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793409847; x=1824945847;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YUY4SZ+Fxv6EF7SHsc9znE54cxaG4yTMfXDhf7S41o0=;
+  b=LJIMsVt8IJvp+60uuXos4izZxHgUsfZQnop/Ifw1JmR/P1+fXVHxeEyr
+   Vu98gJO+Ci4JPWq2YknZixMiJl0pK3JYk5dwAltThV8kPVSqgsWUhrigz
+   M88Zs3SKyb8QP5J4xNgnRh5T0YNXRGIuuCMdZpYDCq9UaoY1bnA8yLlPb
+   wAzota1WGyiUxmPP0FlvYo9UnNcLnA3MY2w6XxZX9gvSVdzKagdVQY06v
+   w0utLwA7S3xOZw5ARUsj7oDXc4fagF8U8tf+nG/nAThU2Rwa2Nws4IUba
+   VKDXz6H5nogR/u1kXLrRmUbCJPtBHRYFS96SMrhR/NWkOvvOwlwjlsQPL
+   A==;
+X-CSE-ConnectionGUID: cXqIlUJHTzOFMF2e4Pnrmw==
+X-CSE-MsgGUID: Pn2/85yWTlqAQ2IKYsrCEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2071714"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2071714"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 18:24:06 -0700
+X-CSE-ConnectionGUID: XPJUpvmdR0Sqa12yYvTrOA==
+X-CSE-MsgGUID: wbKxthZwQamUMnWMhHnqvA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5915287"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa008.fm.intel.com with ESMTP; 30 Oct 2026 18:24:05 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xMxpC-00000000cQO-3Pry;
+	Sat, 31 Oct 2026 01:24:02 +0000
+Date: Sat, 31 Oct 2026 09:23:38 +0800
+From: kernel test robot <lkp@intel.com>
+To: ahmad baghereslami <ahmad.b1995@gmail.com>, dmitry.torokhov@gmail.com
+Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	ahmad baghereslami <ahmad.b1995@gmail.com>
+Subject: Re: [PATCH] Input: synaptics - support the touchpad LED on RMI
+ function $30
+Message-ID: <202610310804.T0iDq0C6-lkp@intel.com>
+References: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,14 +81,41 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
 
+Hi ahmad,
 
-> tcmu_set_data_pages_per_blk() only validates the upper bound of the
-> value parsed from data_pages_per_blk=. Zero passes that check and is
-> then used as the divisor when computing udev->max_blocks:
+kernel test robot noticed the following build errors:
 
-Applied to 7.4/scsi-staging, thanks!
+[auto build test ERROR on dtor-input/next]
+[also build test ERROR on dtor-input/for-linus hid/for-next linus/master v7.3 next-20261029]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
--- 
-Martin K. Petersen
+url:    https://github.com/intel-lab-lkp/linux/commits/ahmad-baghereslami/Input-synaptics-support-the-touchpad-LED-on-RMI-function-30/20261030-103821
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
+patch link:    https://lore.kernel.org/r/20261030070821.1716595-1-ahmad.b1995%40gmail.com
+patch subject: [PATCH] Input: synaptics - support the touchpad LED on RMI function $30
+config: um-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610310804.T0iDq0C6-lkp@intel.com/config)
+compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610310804.T0iDq0C6-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610310804.T0iDq0C6-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   /usr/bin/ld: drivers/input/mouse/synaptics.o: in function `synaptics_disconnect':
+>> synaptics.c:(.text+0x22dc): undefined reference to `led_classdev_unregister'
+   /usr/bin/ld: drivers/input/mouse/synaptics.o: in function `synaptics_init_ps2':
+>> synaptics.c:(.text+0x406d): undefined reference to `led_classdev_register_ext'
+   collect2: error: ld returned 1 exit status
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
