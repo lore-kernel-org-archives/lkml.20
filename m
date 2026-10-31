@@ -1,45 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793466748;
-	b=pQ+0xPV+6kIxWdQqRR1lBqXOMw63PYK1IIJFf3DL8h000aO478WUqUBIQbAa6I1UHw8N
-	 X/iGEf70G5nC1NXIYM7h7yEnojVSdV3CoOX0m3GNRL4WcqX9Qtp7gVF6w0wRtiwCdK95r
-	 zxHFKD/9RcDg84es9fB5NJHLF4K+tdGjUzxyr0M2Xd6Y/wym1hHwkRY2Rcd0tbdtv6ZWr
-	 JA5zyCTwcmxnZSTanTzMxZp1/ytKr+agaAcsZwc8Cs/j0hS0fh09N2TdOPViIH1sIi9nJ
-	 kuOwaXfxsL94dqkvdJrvkqV4nKLTtPk2FZ5TZ795uLCX4odGmvXzznFX1wBaOAnQGwg==
+	t=1793466811;
+	b=tnbU0wk9nwW3IeO4yJwG5tSSfH+5Ir1/MFal/IYBTGc/8cCIwzayhu/3zA4eKz/e0PVO
+	 rwpV5lGHJsniszpjjnWEZZyUkB9ZjYAmoJ5NLySR2GMxNcuMPh3KwfKGkxRv9Gwql5Btd
+	 dLjwy20WSPjhZP+t9V1iEsB5BRdTAjzAGbQNisikjfn+z02w6ateK66UGY2FDALx831GF
+	 rpW9VHmrlenS1BkU4IVnMD8BYh0n7UZf32hxA9LGlLSYi9ix3houyprcHQZ1LmSR/DIVd
+	 buoJiuS9kEPnJxU30qqAXL1klHpvbxYSBvnYdZ/0f36wXprXFqpE+AsmKi3tdSDu8Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793466748;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=GMNH5PJ1zs7wQCaXmS01TMbB9K7ZhNKKB1ihknjVnC8=;
-	b=eBiVT09DZftykgE8BmTxoEUVFBtjfoYFFycALpqEWth8aUgI4tmaB7WFZiuabLKN6wSx
-	 YXvraiaYTvdKpK0CKHZRstmLYtlp7ylnkhp6FEGJUYe7pXUVDkCoUmxHPgh5uGG2CnZPZ
-	 7eqyUDxsArkFVEFtDM/StUGgaC9fi/La+5oKadpa4+G7Ud0lCEKxvO82LeGy5AtPBuJg0
-	 EESNxwZwU6bS5tr+559VjzO4RjhqqS6bmmxfqMg4WUK4sXZHsdde5iojb+RqT5tYSs8HS
-	 R1gimcm4XSPs5mw8iD5fzBIR3fP09MXDZ2cLZ1Nu2kZxYsZUjax5CVvVeXTYHVKSCuw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793466811;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=UFAtyEX/QMO092wagtIJFdMc9yPuNGCH/ra7KSp06dg=;
+	b=szK/lLcpCJ+aClFio0G/m/tiYOFx1+YxNnXX42rhayHsFSHlFAaaU8bgvxlRlGt9Zd+D
+	 wWoL6lkHNo1aq7kG+MkRmGoBnz6a7AWu7r4paid7VL63UfwDrl//MEbHpbbo3cYwDf+0F
+	 F+zNL5SpIaF3SZDnAMmro3NBYKtkAHO1b9pTe5SN+eK4kpzz1ChNr2CDC0kGRmKolfE0U
+	 pUYWfpIox6qKPceoG+1qqgFdjQSjRlL7/OmYuHLsQd4UH1s8sLwKBcTLi3lB7kT0GUc5h
+	 y923Rq8h3nbt+K0vDzd8jA4uNEYnDy8zWDF8dDR6hlut/HoNrBEFgbweviVIN/Ja/OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMaEYJnL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kaRtL9n6;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B30606A31C;
-	Sat, 31 Oct 2026 17:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AE5606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:13:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81AE5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMaEYJnL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A331F000C1;
-	Sat, 31 Oct 2026 17:12:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793466748;
-	bh=GMNH5PJ1zs7wQCaXmS01TMbB9K7ZhNKKB1ihknjVnC8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=BMaEYJnLIefXDhMWLYdYrrhwXQE62rpfq3dGqj1AU5EeKwav4odEooNw18M8CdsEg
-	 DEGl4kyl//DaTlNwlg1VNv3NZiZFugdHqRvOYJP4ZvJVhFPIs5ZesfSmdB5joFsbpl
-	 wAs2WapbBCTDFiF0Ly6CveX03Vo9O7TlTeLLqqa5/bnMmPkLiTd8YTULcRV6A17LmJ
-	 GD1yJL0ak/fit75+ROYgl81226cPJPYG3jQxm40/lZRIRlUgJeD/90s4GscR1zcraz
-	 aTwjKCeDD6uR7R8S8FVYtzxBOtOIWnfxnjiz0gNdt/BP11sSUwujk1Dhuexz3rElJX
-	 Vcjr/0y9SvkUA==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kaRtL9n6
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso16791515e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:13:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793466810; x=1794071610; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UFAtyEX/QMO092wagtIJFdMc9yPuNGCH/ra7KSp06dg=;
+        b=kaRtL9n6U1rkkhjUxMFR6xepfJGoGJ/gEOBjP6oBxpCkI2xv47FxYrSdIdxXYEhDC6
+         E0DxmnpBwtxDanktL2Qjld5I6MNTOIg8R5QeeOeO1qInL+bjebkgrPXzeR9zfOmzS7QY
+         7sNIicqqbKSCCs0naPvqp2uJxPHjwfBsGaR+MlqC2MO09X2wxjzBbwj9OTHtayQKiLK1
+         w6aFsO6h+iLPw8e0iyjPVv/L7HdC0T6YUY5rIOxFdVQ8Z5/UxZQTVcrMP0VXUbH4yu7/
+         Ij64xxvbgQkJAnwDo3Tj7sR3qBJPyX2shOrItDUhnJVOsVCwfk8jqFcrqQ3cLHJ2y+5Y
+         wV/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793466810; x=1794071610;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UFAtyEX/QMO092wagtIJFdMc9yPuNGCH/ra7KSp06dg=;
+        b=OPV/7sWi52EN1B+9dh4oLqydHVVC9fMErNo7ubk80XnQJbeszreDKN+JOemNt0fr61
+         XAOVh0aaWMlKQFWISaRMduogIKqk9zBmKkI2/pRVa3V6l4gAQvCnRb4FPmDaC6mQ0V2A
+         aKv3unHdJYFwc7vVewOD8W6OuW9qCP9uxZbzrN5u6TWM3ifkMM3s88zuB33dXOSvZVVd
+         U5LDHmmsc1upe6RjbnGxWZYVeAAxpvFWkqvGiSfd6O2XC+h4zKesRQKNd1TKdR/wO1eO
+         n2IvMXKFvQYV1Qmw+osDbLCxYc6lx8WnD97qoyIr3+hBZPcMCCw0wW+Ns4jrUbx3CueL
+         1C5Q==
+X-Gm-Message-State: AFq9FYLYOZEPszuTSnbYxh6BIExe1VcMFJbdwNYkgZiz57XKoT9aLy7s
+	ew3jMQacmPQUsy4OWprekSFjVJbO3j8aP08ItQ8fY3LGomrFIM7njAcv
+X-Gm-Gg: AYBFou01y2QbMrqWoxDjqb+8wNGcKbxXpootgewkfSpuPau6kJnZy5OviqQ4jH46mn6
+	vRfDdPhUMgNBH+vzOyX14Hk5CBwZVR5AgkrY/LM77rDNma4MAC3plhrKAWTzKPIFEjOaqm7iRbL
+	5pQx3zadskiHM1fcHejhjxTp3lKg+91AOtFbFCUxAFOGN3WiQAal/tcxX4bVODoISGcgBAAvIry
+	aFaPTISruDYeSSbCLBRpueS4R1MgQlu40kUTJOd94EuiiD1xMvMnKq43JYCMDyCb80MSuDA31aj
+	73itcqgAMFgQtnLIfhDWiYq9c07a8jOWviw0CovFMORxHqQXOUaOGMdv3Bxw13z1lhy9pdx8dQk
+	gRLrWFhrJaWDSJKmKYtmES8waiQCycTPu8MGEnTSVzSq6qBmm7l51CiaBeWLWJaECGtcYMhCZpy
+	rlC/wdPP+5UPlstTpbWPeyOpOQUVg2ZIvZqqq4xC2LUnhMWImYDx8U50GMcMoLm0QE3TsthJ1aH
+	N+X3EKkViqW39wk4+6foeFXF3nSkIPZs2SsyUuSFfO5QoI96A21ipeYZpqmnpm8XzwCdPQ5TPZb
+	Pi75I/aFrtjFURdct6EHYHAWjLvSzOCsGj+C
+X-Received: by 2002:a05:600c:4454:b0:4a5:1cf1:b7bd with SMTP id 5b1f17b1804b1-4ac1794032cmr130809795e9.16.1793466809748;
+        Sat, 31 Oct 2026 10:13:29 -0700 (PDT)
+Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:3d62:20f2:9efe:c976])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7700c3bsm138714895e9.0.2026.10.31.10.13.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 10:13:29 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Christian Brauner <brauner@kernel.org>,
+	linux-block@vger.kernel.org
+Subject: [PATCH] block: avoid repeated notifications for dead disks
+Date: Sat, 31 Oct 2026 19:13:26 +0200
+Message-ID: <20261031171325.4073830-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,47 +95,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3] phy: mediatek: tphy: simplify main allocation
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Rosen Penev <rosenp@gmail.com>
-Cc: linux-phy@lists.infradead.org, Chunfeng Yun <chunfeng.yun@mediatek.com>, 
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org
-In-Reply-To: <20261012173402.24568-1-rosenp@gmail.com>
-References: <20261012173402.24568-1-rosenp@gmail.com>
-Date: Sat, 31 Oct 2026 22:41:57 +0530
-Message-Id: <179346671702.7309.17461254006600303157.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=398; i=mani@kernel.org;
- h=from:subject:message-id; bh=21ALoJZRF1WHs+ZZUeTM9Q1HsKMp63LeGtOBM/EVfUY=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5iFgeuOv1+eLZ12O13MSJlXCmdg89j4NckzP5
- UYGpyFFwNaJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauYhYAAKCRBVnxHm/pHO
- 9UuHCACno9GivkxmGWGngNdtOGaQSYyvrb833t8/wh68gbuSJ1dIa5ReLAvEYO4lpDCA0wToCRM
- k44utPmmDO+2JxDg2MYNr9C+GIbto5pnYY5tNolcefbrnc1e1H2Z7yA9gOye0Ercntu9EO00sCL
- ZcKgNs35e7SYHzyGpGiuhkcOXH9HFv5aok0KTRRJ9ArHXZtjtPxqYk2Ia8S+twFddHii528/gnV
- nDLH/5sqEH6NIf5gFoGnyyDrLaxMj3XFsjNB37s0PIcuxZKTFHqfYpxjsBGW4M+IIw+WBWoD3Xd
- g7Aa8T2gx/abXj3uTO2Wx5bTy5EHhPn9kerkN7MRsELoWTfR
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
+Content-Transfer-Encoding: 8bit
 
-On 2026-10-12 10:34 -0700, Rosen Penev wrote:
-> Use a flexible array member to replace kzalloc + kcalloc with a single
-> kzalloc.
-> 
-> Shuffled some code around as __counted_by requires the counting variable
-> to be assigned before any array access.
-> 
-> Signed-off-by: Rosen Penev <rosenp@gmail.com>
+blk_mark_disk_dead() reports disk death even when GD_DEAD is already
+set. For example, NVMe reset failure and subsequent namespace removal
+can call it twice, repeating holder mark_dead callbacks.
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Only report disk death when __blk_mark_disk_dead() first sets GD_DEAD.
+Keep its existing return value for queue drain handling in
+__del_gendisk().
 
-- Mani
+Fixes: d8530de5a6e8 ("block: call into the file system for bdev_mark_dead")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ block/genhd.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
+diff --git a/block/genhd.c b/block/genhd.c
+index 10ca8b4d6eea..a511fc192174 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -657,13 +657,15 @@ static void blk_report_disk_dead(struct gendisk *disk, bool surprise)
+ 	rcu_read_unlock();
+ }
+ 
+-static bool __blk_mark_disk_dead(struct gendisk *disk)
++static bool __blk_mark_disk_dead(struct gendisk *disk, bool *newly_dead)
+ {
+ 	/*
+ 	 * Fail any new I/O.
+ 	 */
+ 	if (test_and_set_bit(GD_DEAD, &disk->state))
+ 		return false;
++	if (newly_dead)
++		*newly_dead = true;
+ 
+ 	if (test_bit(GD_OWNS_QUEUE, &disk->state))
+ 		blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
+@@ -688,9 +690,12 @@ static bool __blk_mark_disk_dead(struct gendisk *disk)
+  */
+ void blk_mark_disk_dead(struct gendisk *disk)
+ {
++	bool newly_dead = false;
++
+ 	blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
+-	__blk_mark_disk_dead(disk);
+-	blk_report_disk_dead(disk, true);
++	__blk_mark_disk_dead(disk, &newly_dead);
++	if (newly_dead)
++		blk_report_disk_dead(disk, true);
+ }
+ EXPORT_SYMBOL_GPL(blk_mark_disk_dead);
+ 
+@@ -727,7 +732,7 @@ static void __del_gendisk(struct gendisk *disk)
+ 	 * Drop all partitions now that the disk is marked dead.
+ 	 */
+ 	mutex_lock(&disk->open_mutex);
+-	start_drain = __blk_mark_disk_dead(disk);
++	start_drain = __blk_mark_disk_dead(disk, NULL);
+ 	if (start_drain)
+ 		blk_freeze_acquire_lock(q);
+ 	xa_for_each_start(&disk->part_tbl, idx, part, 1)
+
+base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
+-- 
+2.43.0
 
