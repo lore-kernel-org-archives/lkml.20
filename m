@@ -1,72 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793416085;
-	b=yBDEnylrJfsaW+YgiiUedajKBPhJGhjCXy1TO4ygK1SBl1GcgAPzw2F99ynu08YcaA+N
-	 Lc0V6P+VDTFSHRd12WTtTVVo7fdt/CaFIWib2x/LvgY5Fy3Rq543hSK8jrGgQ7IEXUzVQ
-	 5ku8T3rWdhWAT+/8dNWr6tbMul3euVjz8rISLl5vI+oxuAvLGFC2NJjrAZGGeSkIrRJEe
-	 b3BvDfaTFPwFYsqRIuNtZxjQtPn2XcsVR2Kp5oJz2ULYw1gPYp7W4a7txkBe+wqGBjXMY
-	 G/C8mO9YP8Y4QB5clfSTeFttY/7Xe3o4BXKTy/z675Tej0rE68JClX1npGHcYrz6bGg==
+	t=1793416090;
+	b=zw7uZwBfe8KJFDJoBarmHBPIB8jK5viXr/XAbYa+8zSww3wA9v+GqVxb217mUN1yXywM
+	 uQTIN6IXYFWRyZt3g3Gj6djiomxHDnwKquBD0XtG4zcY6DNypwz+2yaq6iCF7ygF101zK
+	 z6dgwXGeeBBRfvvyUOhDKz1hNwnj1Wj4++7nw72nu8cxkqH26HSEHLAExEi8cEJ2ltfJF
+	 DmUxIZpWh+vWVZtZXsdiHIg4/4on2QHKxi5AEtRESTnQEGcXV/rfQKI4kySkzPaoH/0W1
+	 UtZQNECxttyq07BFADdxxjiVva8qb/WlRuWFTfOpdP/Qf3hnhcnj0gyVplv2MvpXUmQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793416085;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793416090;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
 	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=o1FEkdA5FmB+YAQJAjjfHQSd/ZADRSwbH+6EouZmhfo=;
-	b=voCClY7MoJ9HWOGzuECAE0E/Q9FWCjDUccRK+mrsOsVgAZQHGGSZbApDTM4Mai51wBLf
-	 lGINTyYq1HPmwh7zX0IWNipLzweLiGRHisI4b00QPAro/tiP/ks6gAWdorLDihFmQRg79
-	 2JdtlgjofQBfhtXk+9hvojYzyqdFDpfB4XpcNzpFeb6UXRSv6wfEMsyq9zFUkwbzYTrVW
-	 v8Mr1/WI/HyUtgphSMAn3GUyp2pJVXVBoFeaYEVa0yWePNTiwN3ZB4r+z70edlVQLGdaO
-	 KOVtrnEAreXF4J2/J0ezhOAd5UZjkYofsTExCTGpOvUmie6iCE/Nk9LIgFC+qywo8zg==
+	bh=f5aloOxgBcfJJK8SvXENQRlRRIiOwSu/Xe/rRaruUWM=;
+	b=pGHOhZ0AGAOX0h+elO9nm6Kh7Dahgw2y+P14fUuFLwrTER8dtkwIGbpaEiF9eEp/+yug
+	 w2ie+zUe2Ie68J3awC26ZOMGELCgJU7iVq+Soz36zg/Oq95dXeZvQmiLdL0E5hM4lSA4D
+	 P6skXxmGYxl0DOOCYvLZ2Ss/owt/tt34U/MWFCdAfeGncA02Vn3LNopA+dTDoPrx0kcsO
+	 hPBcJ3aJ6HWyuvu60j5yyAMXgJD0HHgvO36YcLp9a0DRl1cPxNppTveNxC2MhzEGwxoft
+	 k04tcZsHjtpHBTyZy3V9qgSimKmDcyT6ms9PIVDhTmg7/KEdaUdYe8A5aS1hpIZzA0Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="QlV/qh5n";
-	arc=none smtp.remote-ip=74.125.82.71
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PR1nKxpi;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB90606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:08:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CB90606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D47606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:08:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20D47606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QlV/qh5n
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-1663fb7e005so1611689c88.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:08:05 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PR1nKxpi
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a01e2962a1so1345014b3a.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:08:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793416084; x=1794020884; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793416089; x=1794020889; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o1FEkdA5FmB+YAQJAjjfHQSd/ZADRSwbH+6EouZmhfo=;
-        b=QlV/qh5nuwjJSVPmqCiy6TZK3xq6czlH+3GBteMaXm7j2/n14rVRVuPRp2dzJt9NdZ
-         7BJHgz9Bc/h5DctKdcZUvocJEyDzz0L5QEPmmfUS5unb46ZKXb9MfRYC+UNtpapnanyC
-         a8zJYzVu3YVw77Z6FM2r99kuE7aP9vaJF3jnHb3igy48pTlQrO64hb91NonWE4PdyKBZ
-         jYWkZXaI0NjufX6jKw+6+Joq/tEMD88lYGxoq5Gdt3jhpwcg7r8dr2ky5dGAJy9fzEzQ
-         k//Yt3GaaGYOqKyyYIVFCl+fi7S/UoX81d5q7UuJnvgcBP8P4uEcIIH0EBosOXuQBBH0
-         2lwg==
+        bh=f5aloOxgBcfJJK8SvXENQRlRRIiOwSu/Xe/rRaruUWM=;
+        b=PR1nKxpik6V79K8q/LNhpRQ378eU2tznOaZY+s3r8sZKIvt8BulNk73ToJPdUdYGXl
+         dOk8JZKtI2RgGYfrMH0NE1UstYE+cb8Dp1hlUxXV4rM+NofrDb1Cmnh2W+p6ckEM4Nps
+         iXPB29uWC+QqEwQvEYj0C50SdGFtMW2Kerfdu9l9kpYRKiBK6AQNMzGt4n01Op6smPla
+         dk/x40lhcjPC6/XjCBqyN6DaDkwbZLJjiZ7Zd5pCFUAMmHBngOzO0NaBvxvRW31zPoIo
+         IaQ9Z5wHilqcYGEVS3tUZYYtUpy3wrMEiZ8IVR+FQzDwDqYjTZ9IUaVhEOFOniruPdJP
+         yE6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793416084; x=1794020884;
+        d=1e100.net; s=20260707; t=1793416089; x=1794020889;
         h=content-type:cc:to:from:subject:message-id:mime-version:date
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=o1FEkdA5FmB+YAQJAjjfHQSd/ZADRSwbH+6EouZmhfo=;
-        b=GgenO/L4qp7kRK7fyihKZQpnyBROml+ssklO6H3UM5cPB0KhYiWkVYbVsUvrhD7l02
-         R6g/zNxAwq3USGUJVQ4XrgnyfHi4H0ovPR7nS70r18pEPKkc7WiogQKCplngg+fiyxEk
-         NETCop2VfKDWj7EKNVy9vSix+L1zQG9NO6cJQYRlAraBadeydHoNEu2zTgE+tH3P7U69
-         hP1A0PgAQa7Y3pXIW8pYyB7wO5M9/Tah90mdgJe+2X4AsR8uU+GHC/w20UvFJF84VOQ5
-         mf4YWK1ssaWoL3Eq2W7tOT5MbWSDWhYkXv4420/HdsyosPoBOinCT+kELoB8zQOAtHMs
-         I5uw==
-X-Forwarded-Encrypted: i=1; AKwUvByt/FOPzbL/O5AI6PMdhlS8zVYWvKUF3R99MbQdtGVnxA2jE8TZI1U+9QcyY9nZq8E7Mj9fXwOg18GOA7E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLmf8t+IlIJDyoqL8ZHEs/5lvYHUyj0mfztcOquONva0EBimeIq
-	5+V9qRB0jvp3r4opyOdJFlzvhGMDXTu/1VGqQbldK0sknrLBjIZ6pJF2Ye19wR5TYAeoKklz96L
-	Q7l7eyxFOwc7oP//N3kUNCg==
-X-Received: from dlan17-n2.prod.google.com ([2002:a05:7022:eb51:20b0:1a7:7e65:9dcb])
+        bh=f5aloOxgBcfJJK8SvXENQRlRRIiOwSu/Xe/rRaruUWM=;
+        b=TvqybjujDIDbcyqpsViMgepDjqCTEQ0fzkXktmZYv7zV9AsCYjzpKSeEONGxrW2PBH
+         9iKY0K3P7lgPVWaQSj1c9J5ksuj3OY8q00KI1HyRfTI73j+Iip9+3Vfxx4svjkX+RMZc
+         CNyMBubPvZaXWpU3DDaYJS1agaHlLH2IUuUjqeo9M3FGMfbE2OHJ5PhI2WHfnQu47WTz
+         SQGRvoyaYOV1rnGkYiYw/OXQjGPMuea89YMwBRs83x2EfdSJhYIjDI98kcvMe0XL1l47
+         xj66saNrbB5MogAFp7EAqsc2SMZ8D+8GeUn498Kx9UwLtkPXE0UxXQaIb46OqCF6XcWB
+         +Nsw==
+X-Forwarded-Encrypted: i=1; AKwUvBwl03lfyIl2gKy87h0PHCLMkZNEYPjTn0hB2f4Qil5N+T2QYXB+k7VMu/3ryqlb5zMifAHJM9/YbduCX/E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZFYjpsAg9jOTvmgpbdpk76qBMCx1Hb/vbKq/Mlx3tiEpOUpgu
+	k4mlsy7UuclJyRCvZaAlRnXGl4UepHxeRbe67zHiabmFNLNOh8uznU4o7HDwbm+kv18fEHHaem2
+	2EOm84w4il+eGsyaadcz4Ww==
+X-Received: from pfbft2.prod.google.com ([2002:a05:6a00:81c2:b0:8a2:dc6e:fcd0])
  (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7022:b887:b0:143:2719:f800 with SMTP id a92af1059eb24-1ac5f742576mr5088128c88.40.1793416083588;
- Fri, 30 Oct 2026 20:08:03 -0700 (PDT)
-Date: Sat, 31 Oct 2026 03:08:01 +0000
+ 2002:a05:6a00:10c9:b0:878:34d7:699e with SMTP id d2e1a72fcca58-8a9bfa0326bmr3697231b3a.46.1793416089082;
+ Fri, 30 Oct 2026 20:08:09 -0700 (PDT)
+Date: Sat, 31 Oct 2026 03:08:07 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,70 +77,113 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261031030801.4100693-1-jenhaochen@google.com>
-Subject: [PATCH] rust_binder: use Atomic::add() in BinderStats
+Message-ID: <20261031030807.4101384-1-jenhaochen@google.com>
+Subject: [PATCH] kbuild: rust: pass AutoFDO flags to Clang with inline helpers
 From: Jenhao Chen <jenhaochen@google.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"=?UTF-8?q?Arve=20Hj=C3=B8nnev=C3=A5g?=" <arve@android.com>, Todd Kjos <tkjos@android.com>, Martijn Coenen <maco@android.com>, 
-	Joel Fernandes <joelagnelf@nvidia.com>, Christian Brauner <brauner@kernel.org>, 
-	Carlos Llamas <cmllamas@google.com>, Alice Ryhl <aliceryhl@google.com>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>
+Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
 	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
 	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, FUJITA Tomonori <fujita.tomonori@gmail.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Matthew Maurer <mmaurer@google.com>, Rong Xu <xur@google.com>, 
+	Han Shen <shenhan@google.com>, Sami Tolvanen <samitolvanen@google.com>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
 	Qais Yousef <qyousef@google.com>, Ben Wei <benwei@google.com>, rust-for-linux@vger.kernel.org, 
+	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
 	linux-kernel@vger.kernel.org, Jenhao Chen <jenhaochen@google.com>
 Content-Type: text/plain; charset="UTF-8"
 
-BinderStats::inc_bc() and BinderStats::inc_br() increment command and
-return statistics counters on every Binder transaction and reply using
-Atomic::fetch_add(1, Relaxed), discarding the returned previous value.
+When CONFIG_RUST_INLINE_HELPERS=y, cmd_rustc_o_rs and cmd_rustc_library
+compile Rust sources to LLVM bitcode (.bc), link rust/helpers/helpers.bc
+via llvm-link, and then invoke $(CC) to compile the combined bitcode
+into the final ELF object (.o).
 
-Because the return value of fetch_add() is unused in Rust but must still
-be produced by the underlying value-returning atomic RMW helper
-(atomic_fetch_add_relaxed()), the compiler is forced to emit a
-value-returning atomic operation (LDADD on arm64 with LSE, or LOCK XADD
-on x86) instead of a non-value-returning atomic add (STADD on arm64, or
-LOCK ADD on x86). On arm64 CPUs with LSE, value-returning LDADD requires
-a round-trip response from the L2/interconnect to populate the
-destination register, whereas non-value-returning STADD (encoded as
-LDADD with WZR as the destination register) may be executed as a far
-atomic without waiting for the old value to return to the core.
+When commit a960c2cdb19e ("kbuild: rust: add AutoFDO support") was
+tested with CONFIG_RUST_INLINE_HELPERS=y and CONFIG_LTO_CLANG_THIN=y,
+cmd_rustc_o_rs skipped the post-llvm-link $(CC) step under
+CONFIG_LTO_CLANG and handed the linked bitcode directly to ld.lld, where
+the ThinLTO backend applied --lto-sample-profile,
+-plugin-opt=-split-machine-functions, and LLD's default function
+sections. Non-LTO builds (!CONFIG_LTO_CLANG), however, ran the
+post-llvm-link $(CC) step without $(CFLAGS_AUTOFDO_CLANG) ever since
+commit 3a2486cc1da5 ("kbuild: rust: provide an option to inline C
+helpers into Rust").
 
-Switch BinderStats::inc_bc() and BinderStats::inc_br() from
-fetch_add(1, Relaxed) to add(1, Relaxed) so they lower to atomic_add()
-and emit non-value-returning atomic increments. This also matches the C
-Binder driver, which uses atomic_inc() for these statistics counters in
-binder_thread_write() and binder_stat_br().
+Subsequently, commit 5febf432df1c ("kbuild: rust: keep Rust objects out
+of Clang LTO with inline helpers") updated cmd_rustc_o_rs and
+rust/Makefile to always invoke $(CC) on the linked bitcode even when
+CONFIG_LTO_CLANG=y. Because that $(CC) invocation only passes
+$(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) and does not include
+$(CFLAGS_AUTOFDO_CLANG) (which is normally appended to _c_flags in
+scripts/Makefile.lib), the final code generation step for Rust objects
+is compiled without -ffunction-sections, -fsplit-machine-functions,
+-fprofile-sample-use, or flow-sensitive discriminator flags whenever
+CONFIG_RUST_INLINE_HELPERS=y.
 
-No functional change intended.
+As a result, Rust crates built with both CONFIG_RUST_INLINE_HELPERS=y
+and CONFIG_AUTOFDO_CLANG=y emit all functions into a single monolithic
+.text section (0 .text.<func> sections instead of 417 in
+rust_binder_main.o and 424 in rust/kernel.o on arm64 with
+CLANG_AUTOFDO_PROFILE set), preventing the linker from performing
+AutoFDO hot/cold function clustering and discarding SamplePGO weights on
+the inlined C helpers during final code generation.
 
+Factor out _autofdo_c_flags in scripts/Makefile.lib (preserving per-file
+and per-directory AUTOFDO_PROFILE opt-outs) and pass it to the
+post-llvm-link $(CC) invocation in scripts/Makefile.build and
+rust/Makefile.
+
+Fixes: 3a2486cc1da5 ("kbuild: rust: provide an option to inline C helpers into Rust")
+Fixes: 5febf432df1c ("kbuild: rust: keep Rust objects out of Clang LTO with inline helpers")
 Signed-off-by: Jenhao Chen <jenhaochen@google.com>
 ---
- drivers/android/binder/stats.rs | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ rust/Makefile          | 2 +-
+ scripts/Makefile.build | 2 +-
+ scripts/Makefile.lib   | 3 ++-
+ 3 files changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/android/binder/stats.rs b/drivers/android/binder/stats.rs
-index ec81dc7747db..68cb0cf48865 100644
---- a/drivers/android/binder/stats.rs
-+++ b/drivers/android/binder/stats.rs
-@@ -32,14 +32,14 @@ impl BinderStats {
-     pub(crate) fn inc_bc(&self, bc: u32) {
-         let idx = _IOC_NR(bc) as usize;
-         if let Some(bc_ref) = self.bc.get(idx) {
--            bc_ref.fetch_add(1, Relaxed);
-+            bc_ref.add(1, Relaxed);
-         }
-     }
+diff --git a/rust/Makefile b/rust/Makefile
+index 0ac9ab28cc2b..f2d9b4411720 100644
+--- a/rust/Makefile
++++ b/rust/Makefile
+@@ -658,7 +658,7 @@ quiet_cmd_rustc_library = $(if $(skip_clippy),RUSTC,$(RUSTC_OR_CLIPPY_QUIET)) L
+ 	$(if $(link_helper),;$(LLVM_LINK) --internalize --suppress-warnings $(patsubst %.o,%.bc,$@) \
+ 		$(obj)/helpers/helpers$(if $(part-of-module),_module).bc -o $(patsubst %.o,%.m.bc,$@); \
+ 		$(CC) $(CLANG_FLAGS) $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) \
+-		$(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
++		$(_autofdo_c_flags) $(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
+ 		$(cmd_ld_single)) \
+ 	$(if $(rustc_objcopy),;$(OBJCOPY) $(rustc_objcopy) $@) \
+ 	$(cmd_objtool)
+diff --git a/scripts/Makefile.build b/scripts/Makefile.build
+index 6127feb970c6..bd7bd05e9fe9 100644
+--- a/scripts/Makefile.build
++++ b/scripts/Makefile.build
+@@ -369,7 +369,7 @@ quiet_cmd_rustc_o_rs = $(RUSTC_OR_CLIPPY_QUIET) $(quiet_modtag) $@
+ 	$(if $(CONFIG_RUST_INLINE_HELPERS),;$(LLVM_LINK) --internalize --suppress-warnings $(patsubst %.o,%.bc,$@) \
+ 		$(objtree)/rust/helpers/helpers$(if $(part-of-module),_module).bc -o $(patsubst %.o,%.m.bc,$@); \
+ 		$(CC) $(CLANG_FLAGS) $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) \
+-		$(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
++		$(_autofdo_c_flags) $(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
+ 		$(cmd_ld_single)) \
+ 	$(cmd_objtool)
  
-     pub(crate) fn inc_br(&self, br: u32) {
-         let idx = _IOC_NR(br) as usize;
-         if let Some(br_ref) = self.br.get(idx) {
--            br_ref.fetch_add(1, Relaxed);
-+            br_ref.add(1, Relaxed);
-         }
-     }
- 
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+index 19e96b30a122..e72efa5c6c05 100644
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -120,9 +120,10 @@ endif
+ # enable (depends on variables AUTOFDO_PROFILE_obj.o and AUTOFDO_PROFILE).
+ #
+ ifeq ($(CONFIG_AUTOFDO_CLANG),y)
+-_c_flags += $(if $(patsubst n%,, \
++_autofdo_c_flags = $(if $(patsubst n%,, \
+ 	$(AUTOFDO_PROFILE_$(target-stem).o)$(AUTOFDO_PROFILE)$(is-kernel-object)), \
+ 	$(CFLAGS_AUTOFDO_CLANG))
++_c_flags += $(_autofdo_c_flags)
+ _rust_flags += $(if $(patsubst n%,, \
+ 	$(AUTOFDO_PROFILE_$(target-stem).o)$(AUTOFDO_PROFILE)$(is-kernel-object)), \
+ 	$(RUSTFLAGS_AUTOFDO_CLANG))
 -- 
 2.56.0.317.g454f8302e1-goog
 
