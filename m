@@ -1,55 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793412877;
-	b=q7EKS1ldPWHMamzm778qA8loqIgoG5fYZeccYpliI7EaXM4XoUVHVfuCFXzqvqfryYAw
-	 mYvBZdwjqdln6drWyOZHzbgvGOySe5IZO/Jt7+SxkYy52yfZauqsQsUJBBwzN+hj7On3L
-	 3sjuiJhBPo4EArp29FCAR9r9+nkoEM2o+E5b7AvIPStQYPQ9H5L6GGr0qjyl7l+Kctshm
-	 jdDf9bmcZchSY30mzLV9RPteiNOMceimpkrcfZY3k5RTRmo/12ZjEzcYndS1BF7en409o
-	 IyyZvbDF7+Izk5ZamQXEe4rgjGQ3NjQoqo/BAMoh5IPaC5CgLIfE4TXbLuzU1+KkbhQ==
+	t=1793412920;
+	b=p0wYdPydPqO0J8iZGzLbcK5imkTfPuJ88WFV8S87Vkns3xD88NfPegQenvqhDi/2Cbe0
+	 h2QAXd7Hgn1nQlJxV+s6gzQ2mDw0lAxGfKZfgpdBN9TLRvjpEqawHiKrSpzlLaNqPbtBx
+	 jysorOdnvnuVUk2Bjn7nahNm/LvbctQzLzmPOa4Eja1cpu3Ri4a08NRtJ1JqlHv9jrNaS
+	 nUJvtyvsoWGsMtdqwsK33o4py8IvrI7pFLhKGEPGsgOXMA9qQIvjPPFDXcBsInoAdk/Gb
+	 Y1acTxql1LYOtKUHoatVlUzRIJPdHHk76J1Q5Qb40hjrc1iSyeutVFq24T8LslQ0ESQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793412877;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=f9IKS9zGIIKM7edosOh1a1Wh2JBUsckOYZOYeXHwshk=;
-	b=gjqfiuk0oKGMiTnYakpboigWr8ni2k8rPNKrWi753eydwcI3qRg6HwcZyB/tTbHPDeBp
-	 MMO38C9HauG+c92/4SFWfoKS9CYFtd9Ga9FJFwETMxO+PbZ4Qhbtt6NRtY5wPLjhfpuDJ
-	 8hFpIBtIOxegeh6K2XFQmyDQpwzYTPWAEaSDvNoMT+lTwUNT386u7M/v2as9sDlqKT+AI
-	 5xUcYhKYn/WylIZCrSi4LISHoi4gNM1vUsxPuVwkk4RJKj4rWs3BYpQD1O5r1JWI8BFM1
-	 CiVUG4ujQoS0+/hVNWTAWpV3MsYSfPvDTPjbeZUHuRg9OJ50LSsTLafdL03J1p1l7xQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793412920;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=0SEzR/ufTmBewXqynudJstt5wvDRwVALxX8EDKc0tqg=;
+	b=3C8vpEuFl1Erv7GjHI6g7Aqy0MNRZNmUC/TX/RpTMce3mNlWOAg+RVxCpU2kiG5XhbiJ
+	 jTK+9LUPaKEjcXsMhn3OrQ6tow/KPWs6rF32O+OoSki2QwF6jaWuXdNYplczlHG3zi92Q
+	 QEHwgsqPzqdxpg0x9pmQy0yLLcPMNRnBnEgHJkpgalVYNqPS5hudqZSyQ7Jx3C59yw76Y
+	 bGvrzb2GP/14aWoshIZUApniPjQCD+3NF468XMMDtW8QB+6rDBG8o5vkP0LMo/dOtagRb
+	 n2cYvuZHvrb9P244Bj2kfh6pk7Vc7RHmA+5uD0vZwpFN3TjFTescpGmQViovlbgkQrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPjC+gEB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Ffz+sS/H";
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8119F606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:14:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B8AB606A322
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:15:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B8AB606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPjC+gEB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D98B1F00A17
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:14:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793412875;
-	bh=f9IKS9zGIIKM7edosOh1a1Wh2JBUsckOYZOYeXHwshk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BPjC+gEBbrPZ+w7qFXZpLaTJqAuSMJPCs1rxlfpOIhSgeG5WfO1JJN2DE1xCzT5du
-	 fiDsA+4iFwcEik2A+gFokT04BVXuUZytEWP1HkohLWeFkxXUOu1OZWf7LuvhWU1MhB
-	 BlZlJBD6+8vRZw+fgWkq1QTBIRPfXaEdzZ9OQH/qjpCATz9bC6qek+t4jojMT+nCxn
-	 M79N3QAoFbsRtmyg3WLm/kUB74uU2/XupqCYe+QOOyMUazUkvJJNPDxQafAagaMTZa
-	 Q+R1gJNkSH2XccLeRWNS7Khy7zpOlDZZvtLy85P0ej1LG+7LaPZwT+hX6LDSev82Av
-	 3VRb7tqawMTdA==
-Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c4682977f9aso156825066b.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:14:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxJ96LEZiEEiyuBBzNrBoK9o+sF47zkQqKOyzVzcFw0sKMJd7LyieT3GRHVOe9yMXrWxV8YSWtuJI13vPU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3HgjCGjX6sKpz5CtYtoCuGzihNw/NS3Xe1klPrSJyV2OM5CfS
-	oxHgtHAlz+xS5IYOybiAo3+NgBBpTXvnU3ry+6wEFk70UN/GR8KPBme0m+KgYbCrHBQVVdjUolI
-	nJsH3FhHmgLSZhVF47rzu/jg9QiiUKX8=
-X-Received: by 2002:a17:907:9687:b0:c31:c767:ae0b with SMTP id
- a640c23a62f3a-c4ca73fcb98mr356130366b.0.1793412873726; Fri, 30 Oct 2026
- 19:14:33 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Ffz+sS/H
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793412919; x=1824948919;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=JDGnfo9AO3La6lbmSWT/ExmOzEpPsX5TkCTGoppcGTk=;
+  b=Ffz+sS/HMnP/ci3DyL8sXpvUS4MHZol414VTyrCmWEVzE3Qw1mq8Dx8P
+   HotAn3CRC4EJ9HNKmRAyKHvqXFl6JOLzPH95ExNWsq6GDPNmScUBp/2cy
+   dxl9ysOMwW9cR8PYfMyX6tWgwVUSng9fMAREr9E4W1aA9GVpVzSLZM2G/
+   A4c8ZU7FH2yfpKT5k96/RjT/SjLRpnOk/V64wTIflcSqftPUrCL4F+IkK
+   GqkSmZzizqCy3cFu3Hk0mxw4F3WYQhjxgdG7ZuYMdBRbfPcY4OmhIhO3N
+   v426YhtFFkQoJxkQ4scfvnutZdYWRtFN0apUCPeq8yVmKvC0VaE9NcPH7
+   A==;
+X-CSE-ConnectionGUID: 455rR8t9Q7GTznaKRN5SbQ==
+X-CSE-MsgGUID: L35yHWzLSRWEFm3PlEQemg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2092329"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2092329"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:15:18 -0700
+X-CSE-ConnectionGUID: AiHVaetHQuKJFUKKhBg86g==
+X-CSE-MsgGUID: 37q5X9yRROuT9Ddl+x8oDQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5467278"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 30 Oct 2026 19:15:11 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xMycd-00000000cSC-3G7I;
+	Sat, 31 Oct 2026 02:15:07 +0000
+Date: Sat, 31 Oct 2026 10:14:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Will Deacon <will@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
+	torvalds@linux-foundation.org, olof@lixom.net,
+	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
+	Boqun Feng <boqun@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Vladimir.Kondratiev@mobileye.com
+Subject: Re: [PATCH v3 1/2] riscv: build kernel atomics from LR/SC when Zaamo
+ is disabled
+Message-ID: <202610311058.zODtC2bF-lkp@intel.com>
+References: <20261026-lrsc-only-v3-1-ec29c8190fb1@mobileye.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,52 +93,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030020523.302085-1-icb@fastmail.org>
-In-Reply-To: <20261030020523.302085-1-icb@fastmail.org>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Sat, 31 Oct 2026 11:14:20 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd_S5aDNPXTjmkfHG55SvzgCGuYn0ZGfgOesoSB0moMHRA@mail.gmail.com>
-X-Gm-Features: AclHuK93r1WSK9NSa1N53nmg9WySXNe5_cwoqELfy2nnxYIHH6q2OIrtxk-tZfE
-Message-ID: <CAKYAXd_S5aDNPXTjmkfHG55SvzgCGuYn0ZGfgOesoSB0moMHRA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] ksmbd: fix DACL evaluation for denies and guest sessions
-To: Ian Bridges <icb@fastmail.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, Tom Talpey <tom@talpey.com>, 
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>, linux-cifs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-lrsc-only-v3-1-ec29c8190fb1@mobileye.com>
 
-On Fri, Oct 30, 2026 at 11:05=E2=80=AFAM Ian Bridges <icb@fastmail.org> wro=
-te:
->
-> On an acl_xattr share, smb_check_perm_dacl() has two evaluation errors.
-> Patch 1 makes every open evaluate the DACL in order. Today a deny ACE
-> that is the first one matching the caller grants every right it does not
-> name. Patch 2 stops guest and anonymous sessions from matching
-> Authenticated Users ACEs.
->
-> The two patches belong together. Each one alone moves some guest results
-> the wrong way through the other error. Patch 1 alone lets a guest gather
-> rights from Authenticated Users ACEs as it walks the DACL. Patch 2 alone
-> can leave an Everyone deny as the first ACE a guest matches, and that
-> deny then grants every right it does not name.
->
-> With both applied, every combination of one or two allow or deny ACEs
-> for the caller, Everyone and Authenticated Users was tested, with
-> READ_DATA, WRITE_DATA, WRITE_EA, APPEND_DATA or full access as the mask
-> (930 DACLs). Each DACL also ended with an allow ACE giving the owner
-> full access. The tests ran as an authenticated user, a guest and an
-> anonymous session. Compared with the base, every result that changes
-> agrees with ordered evaluation (MS-DTYP 2.5.3.2) and the definition of
-> Authenticated Users (MS-DTYP 2.4.2.4), and no result that agreed
-> changes.
->
-> Both patches carry Cc stable and need to be backported in this order.
->
-> Ian Bridges (2):
->   ksmbd: evaluate the DACL in order for requested access
->   ksmbd: exclude guest and anonymous sessions from Authenticated Users
->     ACEs
-This patch conflicts with your "[PATCH v2] ksmbd: enforce the DACL
-permission check on delete-on-close opens" patch when applied. Can you
-check it?
+Hi Vladimir,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on c03c1a14507dfaf8b856c2608f9ac216021fc222]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Vladimir-Kondratiev/riscv-build-kernel-atomics-from-LR-SC-when-Zaamo-is-disabled/20261026-112002
+base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
+patch link:    https://lore.kernel.org/r/20261026-lrsc-only-v3-1-ec29c8190fb1%40mobileye.com
+patch subject: [PATCH v3 1/2] riscv: build kernel atomics from LR/SC when Zaamo is disabled
+config: riscv-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311058.zODtC2bF-lkp@intel.com/config)
+compiler: riscv32-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311058.zODtC2bF-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610311058.zODtC2bF-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> cc1: error: -march=rv32imc_zalrsc: unsupported ISA substring '_zalrsc'
+   make[3]: *** [scripts/Makefile.build:290: scripts/mod/empty.o] Error 1 shuffle=1963593903
+>> cc1: error: -march=rv32imc_zalrsc: unsupported ISA substring '_zalrsc'
+   make[3]: *** [scripts/Makefile.build:185: scripts/mod/devicetable-offsets.s] Error 1 shuffle=1963593903
+   make[3]: Target 'scripts/mod/' not remade because of errors.
+   make[2]: *** [Makefile:1424: prepare0] Error 2 shuffle=1963593903
+   make[2]: Target 'prepare' not remade because of errors.
+   make[1]: *** [Makefile:248: __sub-make] Error 2 shuffle=1963593903
+   make[1]: Target 'prepare' not remade because of errors.
+   make: *** [Makefile:248: __sub-make] Error 2 shuffle=1963593903
+   make: Target 'prepare' not remade because of errors.
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
