@@ -1,69 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793455106;
-	b=JfJ6PmbTzLptxegwXiXC/zzqGCFxFJ20sBBHnCrtiFAIYV5LKqu5NlwGKALDPXTcLPLO
-	 uAamx7LpcjmsGAi1iNya7VRP/5ULupEn0W4lIc+XIuNNuW4EDJWQyoe/ctmfrJ0m+ct/N
-	 nOBjzK4XbmRAErv4ukN3Q5tckmX6r0iR5hyvmU7ldmibJEPrZR3nfLrTSSxg4XTnQtwuk
-	 gMu/YIneavcSFaCBcby/8sGD7zOGs9zL9x4v+d9HDeV+sv477+7C8o5hFcRxmipHqTBGK
-	 mxiOn0hIHxpAsNltnHqL799bFpHPDmWuCjNDQxauDU3zrdTsbBjK8Vl9pJDxf42zzwQ==
+	t=1793455102;
+	b=PZPyNN8L2z5yMjPWc0mpzrbhaNx4CFWnVP5HE/vwtl4+rKPhvvz80khtKjndB7TalkpX
+	 cB+wYl54Qa9sd1329qHbiZrdtIjKjRclk4VckpQDi4xtiVFdtTABxyP18H0QifrkXXrGD
+	 y+hgO0//H4frs3hN/sKmS4euqbHW2ZXH0WcSbccqvKBmc7QAcltXG9Pkm71bXlXTd0dkO
+	 O+cLgcJ+CbEc0KjyWEVeyFWHHn8mnjpq7cd2s463kKh+NCosw0xe4r8QEA04a+KfRVHje
+	 M3xhCas5kLH+k1Trz0H16DKX6ugRNCgddmn0lur79xoJoWmnhB8EMod5h/9M0VMkIXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793455106;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
-	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=yltHeuWbWpNQZrqX8/wfMKp7JXkeaATdV1A2mH2EMgA=;
-	b=QKe6WAJqjF3R5mgcW/oEF8Dgs0Z08dF7/fjuwPLMk0Kt3uGCEIGgKwYJbM6yfZOjLnbG
-	 Men3aL0SDDl8wiSdn7frslCAUqDWzMkGyDbf1jCfU9JkcgBE9PLDFp06WfzX4Zp+QCqui
-	 fpgmiBDglwJVJ3NYA+0juHSA3ZoA4+PpvqIFEcTuXhHPgy04gPUpyJOvuMSW45tJJC6Wa
-	 GKiq70hFeNS1VBd9/9Y+My53oQ7sa2Y/gn/MSK3HylGKuIyto4O10qa7aN3q17VSIftnb
-	 NVYmhjsA0Q4pZd/aUcykfZLkLnLDV7Bm2gtImjmAPPkYjkyX8ekC06Mcxg36GTMhfgQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793455102;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=KdwwhQ4hmLe2ojysKovryYH2AE4HDI2oZLgU2MxJ0ZM=;
+	b=A2dnR3KZh3+sKFBAyvMlQlu2+AybGPM3OpURLZ8y9ODL1S9eA/Am7NiLkEe1SpfUfZQa
+	 NXb6YoHTqZ352PZksnF//rzQ3kZwYhB7FHeoz5QoiWuPMgfnfrLpHtQ4hYBqEGKuovLJm
+	 svpndXHZqsvwTd7hXJk7a8MogmpEFQiIXA2h9OPkg2IR5xucPwFYcUJ6t8XmY/8ZE9Urr
+	 lodgW0tNGhviMunavtuo0UA/ak8aYxSxk8oI+Ugeq7pCUS6dbmvvad/8Rh6X85MhzIRQV
+	 FMvn4R9t/qexo+H1z4kCdWYdRmy7xEuW8N6cCffNe6zHDORfqtVsMyw/D3qCCl2atvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G4YXWior;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=isS3ErHr;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BAC606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:58:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55BAC606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04866606A31A;
+	Sat, 31 Oct 2026 13:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04866606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G4YXWior
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793455105; x=1824991105;
-  h=message-id:date:mime-version:subject:to:cc:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=yltHeuWbWpNQZrqX8/wfMKp7JXkeaATdV1A2mH2EMgA=;
-  b=G4YXWior6W8aRN/iR3WXJkP3iYlqQhREpIppI0TFQgq4/bFc2/WqSk1l
-   SO3RP3UC1QDEgNwWt9rw+pzfxi7xiyzhC6qmr34jIisVyyBCVAB5ELzhG
-   xtm4bJNHXuCgIhfx8z5nc7A5v3PZJMe4wZFEmxCILDKYa3G/pplM9Ujfl
-   jl+u+slabHCIWw8SYCh1dAGgJAIWaRnPRoWZEOATBSyoBi24/YgpfdB1x
-   gKyFB3LxgkmYPMnST/CHwZs5Le+w0JQNfgDd5lFg0W27lgwX07JRhXqau
-   EsjcjAWkMC0sL5d8IK/bsaqqSbCzqdlpMMarecepf09bLwF51sQkrrY4n
-   g==;
-X-CSE-ConnectionGUID: yERcc3NGSwe8LlVRpYw1/w==
-X-CSE-MsgGUID: /ge/OdRWTQySRIdR9GnAvA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2085587"
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="2085587"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 06:58:24 -0700
-X-CSE-ConnectionGUID: n4eYlxEAQq2pbnR0Pcaa4A==
-X-CSE-MsgGUID: u1RRNZM1TyiRh6e8k6qsGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="5663418"
-Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.109.122]) ([10.125.109.122])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 06:58:23 -0700
-Message-ID: <efbf7f55-755b-49e1-aa01-dae92fadb426@intel.com>
-Date: Sat, 31 Oct 2026 06:58:22 -0700
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=isS3ErHr
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=KdwwhQ4hmLe2ojysKovryYH2AE4HDI2oZLgU2MxJ0ZM=; b=isS3ErHrsAIzCMLoNHWkaFEAo7
+	YDK0QFMSiHyKxc8ya1zB0lmWd/pAdj5U1Cq+UYbVQIOsC8uSuAYH08Bjyo0b5Zm2g+9RN6QBGMRV4
+	p8BkUQH/AXKoZ8u69b8GcgH30oglb6EBdHEJPZOcMCSntSFt6nhUSX5furwaDQK24Ch4=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xN9au-00DX5Y-MN; Sat, 31 Oct 2026 14:58:04 +0100
+Date: Sat, 31 Oct 2026 14:58:04 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Doug Ledford <doug.ledford@hpe.com>
+Cc: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, linux-kbuild@vger.kernel.org,
+	Sandeep Bhoot <sandeep.bhoot@hpe.com>
+Subject: Re: [PATCH 01/23] net: hpe: ss1: add the Cassini headers
+Message-ID: <531c7d63-548f-467e-95df-187214ff344d@lunn.ch>
+References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
+ <20261030-cxi-netdev-submission-v1-1-8c2c391cc283@hpe.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,76 +73,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] x86/cpu: don't gate PROCESSOR_SELECT with EXPERT
-To: Vincent Mailhol <mailhol@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>
-Cc: linux-kernel@vger.kernel.org
-References: <20261031-processor_select_is_not_an_expert_feature-v1-0-6227bdbbe5a9@kernel.org>
- <20261031-processor_select_is_not_an_expert_feature-v1-3-6227bdbbe5a9@kernel.org>
-From: Dave Hansen <dave.hansen@intel.com>
-Content-Language: en-US
-Autocrypt: addr=dave.hansen@intel.com; keydata=
- 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
-In-Reply-To: <20261031-processor_select_is_not_an_expert_feature-v1-3-6227bdbbe5a9@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-cxi-netdev-submission-v1-1-8c2c391cc283@hpe.com>
 
-On 10/31/26 00:51, Vincent Mailhol wrote:
-> Remove the EXPERT dependency from PROCESSOR_SELECT. Make the option N by
-> default so that all x86 CPU types remain supported by default.
+On Fri, Oct 30, 2026 at 01:58:57PM -0700, Doug Ledford wrote:
+> Start the Cassini core driver (cxi-ss1) with its headers: the register
+> and counter definitions, error definitions, telemetry item tables, and
+> the CXI interface (cxi.h, cxi_prov_hw.h, libcassini.h) through which
+> client drivers use the NIC.
+> 
+> The cassini_* headers are generated from the hardware description and
+> are not meant to be edited by hand, so they carry the generator's
+> formatting.  cassini_user_defs.h is shared byte-for-byte with the user
+> space libraries and is therefore under include/uapi/ethernet.
 
-I actually kinda despise the vendor selection stuff in the first place.
+You want to keep the UAPI as small as possible, because once this is
+merged, it can never change in ways that break backwards
+compatibility. 
 
-It just causes problems. Like for protection keys. I diligently made it
-Intel-only when it was merged. But AMD came along and ruined my party
-when they added support for it. We had to go do more work later to make
-it available on AMD.
+We also strongly discourage APIs that allow user space drivers, which,
+at first glance, such definitions would allow. 
 
-It's also one of those things that inevitably hides build problems.
 
-Hiding it all behind EXPERT seems very prudent to me. I'm not seeing
-justification in this series to change that.
+> It
+> provides inline accessors that need errno.h, string.h and size_t,
+> which a standalone UAPI header cannot assume, so this patch excludes
+> it from the UAPI header self-test.
+
+Does any other driver do this? If you are doing something which no
+other driver does, it is probably broken.
+
+> checkpatch --strict (100 columns) still reports the following in this
+> patch.
+
+netdev prefers 80.
+
+> They need coordination with the internal repositories this code
+> is maintained in and will be fixed in V2:
+
+Your internal repos don't matter. Once this is merged it has a life of
+its own.
+
+	Andrew
