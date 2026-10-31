@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420731;
-	b=vO6RRnfAiVhYO0t2ilaUKXAAGmajpqX7tUZhs8M6lqO+DaRK3a02F12RQa05fd4qcJ0D
-	 3dNaRfOfxpD4I36YXgCkz8SfXSlAGH5K3/jly6pjCsLo81TcjHtPW1T+wr3jomouaZGQm
-	 BX1zvpLf4zK1qzCkc9J6l0Q7XWH9ANYDfcVutsqCoOEmV0EtwsZT30tDneihxohyc5pCo
-	 6zmWyhUXsq90hWjujlThd/28wYgs2yye8t0eCENve5y8tapsv7JeKSsuikcizFPIA9Hju
-	 +wgJT5VBmY4bI71ouGt23qmDzEwshvJT2EhCLLL/Viee8pYJyNzTYD+s46vBRRlZGcg==
+	t=1793420801;
+	b=INbYL0RC+EAWE6ojMuZunEX5V4Yl1k6iNTpzKcWwngUl1D9iemrOZ8GcEH38AFCaDVRU
+	 FuZbSyjoHy2kb97DxPDabKg1JEB58LvoqVxWA3J5G+kEmMWsDpOBWT5H2NdXtikiRaMOP
+	 IIACzENmMd9gNGj8IV8kwTB8DnUS50oeAj9DnPEoe/oo/Vukt+zqZRJuWvO5tu4eP/LTk
+	 vbn7T3UZbaFr5qOO0Vjkq6a67Cli+FUMG6mRBzPM1VFLXZgzT5iVZ5MjcLguCRe43m24h
+	 UTrqBZFVi0H/9tq4oxBBqjbVt2bPyiGLhn73hL/CUXQq8jPMba4nZ6TPR6SE3t8Z5nA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420731;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=Ytn1aoCXRBTnTF0UFBaz0xL8UpYoU0vm5ll32XMj224=;
-	b=44zadCL+eWuzDJ8SlaiwvgxppKKKgWLwNQ/KUd3rkiRQsyFwJbgoFfvN8COqPgNqnsjV
-	 x+E3HJXNIr2nGjtAT4BrPQXWNeHZosAfkhANDu7y4ArvKke/rws0R9Dp0XJOdaCVq9HJB
-	 jzSK56sde87acZKMrpdecOrRcRMHiLiN+IZAZSa3wqT5+bmJoMWl96wZgY0w2U4DGJjQm
-	 WwJQbj/C/6PmKdWcPvdD6YY9m8wGpKjxE4hQipZFUaTTmsjs6kH482W3Kfau607c20Kj6
-	 7TL016gUqCHmFHz/EOoGDRSuRuvxoGy07g+PD1Hbuf5GTKWMxKimoKalMM0w74X9p4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420801;
+	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
+	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
+	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
+	 X-CM-SenderInfo;
+	bh=V21TV/zhZYZBx4vw4bMRfE5IzXMZMg0TRnefxN4ViKk=;
+	b=bU3RUFeIg23/mmKCHjXS3zKRMOnv52UoLVfio43YUaeOf4CbNt2O0nAs9FH8rRnEn0oG
+	 ebtO0UV73qWluLtLYO2ACbgHshXoIyYjEDFmDfjXxyIew2w0xZ6Lg1WgXg0v4D8Sf/Vry
+	 TesJWV4f6AKNH7j0Os24tmg4O5Etj6ahg+jP1qoDpG2wr8NrmWmVZFUSmS5WgxRk5/7t8
+	 ypuKstfzeNB8kVpi9NrbqVs3NrqbsUVRD3w6TfpMPBgh9qapfBSSLJa4q+MuyhbD1LUDU
+	 m2XhR1WXCfEdRZVgKZAyPJ3imeQhHEgBltoY6SJnRnLanAdhpVEylOpmCeJR1NYa/IA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=PVHUMYdG;
-	arc=none smtp.remote-ip=209.85.210.46
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA60A606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:25:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA60A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=PVHUMYdG
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-8241a56cd70so927630a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:25:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793420730; x=1794025530; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ytn1aoCXRBTnTF0UFBaz0xL8UpYoU0vm5ll32XMj224=;
-        b=PVHUMYdG3XBHZ1PPdwW9kxzi/Cn3CLep2Rtt9KE6biMyJvv6TAC6+UwIzzz+LIv/eh
-         Oc1+GM90zU1928AVqs5BGAA1xWOAnhh6yl59/31jDUwHmMePDF8Hi8ng8LTYvh3bfg1C
-         rRrQPUvMYQLUyl74arO4LT3ONE9+1Fo+YToD0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793420730; x=1794025530;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ytn1aoCXRBTnTF0UFBaz0xL8UpYoU0vm5ll32XMj224=;
-        b=cXRIj7rxIrrZv29sE6Hp+CExp63J+QoNMq+X8mm7XweVnt9x4tbY0hdJPuOkrfNY8J
-         uYi1wtNBhDZ+vOnGl43+oFGzlvHWHKe4qZurgzoZWfhyf+KBC11TTL96ACMvxqVk2REB
-         5SjdzVCkF+UsFN3kARSrXCd4c/Vp7RoisPd73bSCRNWqXPgT1BCxjBzieiXFIC4KeWFJ
-         8bprdhoXdYK+1OWwANOW1QROgBoQ6GpeZ7KMBANcp83qyXHO+MuJ6I8ZOvTxpaLTVM0L
-         VU4xHDuY6EFXybg0MZXgaz/gyNTenA6Qds+AB/BE03nGEjr2TECEakth9KC1JGHKyx+a
-         YsHg==
-X-Gm-Message-State: AFq9FYII+C7O+zFCQtqzKjKdKX/vggVDQxlPS3hZ5Fg8YXbQ6zRyuIaZ
-	ICmn5T4AiKk5alvI9AnMYlSENGgmitx8fkymZHrbggPdWx0qHeSFa/nD+q0SLgdJjrs=
-X-Gm-Gg: AYBFou06Er+XT61JR8dBBJfSQxHKnj5+HCrsWpRB5ObFk1weOa/JTr7iiBkBLtDT8Ry
-	lgrhawKEFgQrVaU95HRMW+LQwmjCHC4xwX7hUGnKzXz/q3rI5J5yDiN0PxaHEd+x7sSk7DLE2Bb
-	Ub0geFONxC1SaIMy4b5WmYLWUVWbd1TUt5cr8ndxSOCKTA0Xc5AWcAWFWQl4Uj1NFTkmvb35nMm
-	HsdQpbLxCVmfbzj4qJjCawPA/WagDz5CrH0fYT71fydBYLZjRQJmA2kFYu8OmBcidj6kts4DexP
-	YBLNXtpD+hd4TJWZRzXSC4r62QIBPIxhgC9tUFnRN1IX986oh02e/3SrouN2p/SvgtIXa/oSN0M
-	evHox9LVKk3OXK/s2dI4xpNylqXV+udlqLjalKEr8ohDCIHsiP4cHCuM1wF/dOEFUoe5j05cAr4
-	RTgxEuVgQBOlAPmPg858yJMCMslCiEzuGGNzO25n0Kk6hulRSDHYEYAhpwvG+S9uxgNauMRmjQf
-	kIz3oU7Zozh/J4ceJvOpy9oFxQjRPnKwppN9G/uYoQtycE1EmXAqTbgOuAnhcZ4cdglF88K02fn
-	xYZb7IXx2lXsJBdEPhx58kQ8qNmHTmtP/ene9e9NuvGENtL2Rr2hIyX8HDmOnul3EY0oxvlLK7Q
-	IIF0yU1d7Ap6ClqJSD3VWSOz4VS4zBg==
-X-Received: by 2002:a05:6808:c3d5:b0:53d:c86f:d332 with SMTP id 5614622812f47-5640ddf9e52mr3176595b6e.22.1793420729703;
-        Fri, 30 Oct 2026 21:25:29 -0700 (PDT)
-Received: from com-75606.corp.openai.org ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-5640fd93451sm3000260b6e.3.2026.10.30.21.25.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 30 Oct 2026 21:25:29 -0700 (PDT)
-From: Kyle Zeng <kylebot@openai.com>
-To: iommu@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	Jason Gunthorpe <jgg@ziepe.ca>,
-	Kevin Tian <kevin.tian@intel.com>,
-	outbounddisclosures@openai.com
-Subject: [PATCH 1/2] vfio: Publish the container after all fallible initialization
-Date: Fri, 30 Oct 2026 21:25:26 -0700
-Message-ID: <20261031042527.6418-1-kylebot@openai.com>
-X-Mailer: git-send-email 2.55.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B68F606A31C;
+	Sat, 31 Oct 2026 04:26:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7B68F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
+	by APP-03 (Coremail) with SMTP id rQCowABHGpvybeVqSLsJAA--.7893S2;
+	Sat, 31 Oct 2026 12:26:27 +0800 (CST)
+Message-ID: <20933d0650fcead77cb14dc1d07e0b05f0ce2448.camel@iscas.ac.cn>
+Subject: Re: [PATCH] drm/loongson: Fix framebuffer selection in async cursor
+ updates
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Evanshenf <archwse@gmail.com>, dri-devel@lists.freedesktop.org
+Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
+ Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>, kernel
+ test robot <lkp@intel.com>, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Sat, 31 Oct 2026 12:26:25 +0800
+In-Reply-To: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
+References: <20261003090006.4e29fdce9913-1-archwse@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,151 +59,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABHGpvybeVqSLsJAA--.7893S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4fCFy3urWUCrykGw1UGFg_yoW8Kr4DpF
+	Z8t340krWkJw4vywsruF1fGFyfua1fWFyxKFyDGw1Fg34Yyr1Svry8u3yUWr47XrZrW34a
+	vrsIkFn8KF4qv3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvmb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26F4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnU
+	UI43ZEXa7IU84v3UUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-vfio_group_init() publishes /dev/vfio/vfio before vfio_init() has
-finished. The optional no-IOMMU backend is also registered after the
-misc device. A concurrent open can therefore obtain a container while
-the module is still COMING, even if a later initialization step fails.
+=E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:00 +0000=EF=BC=8CEvanshenf=E5=86=
+=99=E9=81=93=EF=BC=9A
+> An asynchronous cursor update swaps the new framebuffer into the live
+> plane state. However, the driver reads both old_fb and new_fb from
+> the
+> live state before this swap. When an enabled cursor changes buffers,
+> the
+> address-update condition is therefore false and the hardware
+> continues
+> scanning the previous buffer.
+>=20
+> Read new_fb from the new plane state before swapping the framebuffer
+> references. This updates the hardware address when the framebuffer
+> changes while retaining the existing behavior for cursor movement.
+>=20
+> Verified on a Loongson 3A5000 with LS7A2000 using 32x32 and 64x64
+> legacy
+> cursor updates. Callback counters and read-only register observations
+> confirmed the asynchronous path, the stale address before the change,
+> and the new address afterward. Same-framebuffer movement and cursor
+> disable/re-enable also passed, with the primary framebuffer and mode
+> unchanged.
+>=20
+> AI assistance was used to investigate the existing report, prepare
+> the
+> fix and test tools, run the build and hardware comparison, and draft
+> this message.
+>=20
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes:
+> https://lore.kernel.org/r/202311152357.4KFS0M8f-lkp@intel.com/
+> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
+> controller")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Evanshenf <archwse@gmail.com>
+>=20
 
-The failed-module-init path frees the module without waiting for these
-open files. misc_deregister() prevents new opens, but does not revoke
-existing files, leaving their vfio_fops and callbacks in freed module
-memory. An unprivileged first-autoload race can trigger this by exhausting
-the global task limit before the IRQFD workqueue creates its rescuer.
-A subsequent VFIO_GET_API_VERSION ioctl reports:
+Applied to drm-misc-fixes, Thanks for your contribution!
 
-  BUG: KASAN: vmalloc-out-of-bounds in __se_sys_ioctl+0xaf/0x120
-  Read of size 8 at addr ffffffffc089df70 by task vfio_race/1484
+Icenowy
 
-Move container initialization out of vfio_group_init() and make it the
-last fallible step in vfio_init(). Register the no-IOMMU backend before
-the misc device, and unwind both resources in reverse order. Once an
-open can reach vfio_fops, module initialization can no longer fail.
-
-Fixes: cba3345cc494 ("vfio: VFIO core")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
----
- drivers/vfio/container.c | 22 +++++++++++++---------
- drivers/vfio/group.c     |  9 +--------
- drivers/vfio/vfio_main.c |  8 ++++++++
- 3 files changed, 22 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/vfio/container.c b/drivers/vfio/container.c
-index 003281dbf8bc..bd245e23a55d 100644
---- a/drivers/vfio/container.c
-+++ b/drivers/vfio/container.c
-@@ -577,29 +577,33 @@ int __init vfio_container_init(void)
- 	mutex_init(&vfio.iommu_drivers_lock);
- 	INIT_LIST_HEAD(&vfio.iommu_drivers_list);
- 
-+	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU)) {
-+		ret = vfio_register_iommu_driver(&vfio_noiommu_ops);
-+		if (ret)
-+			goto err_mutex;
-+	}
-+
- 	ret = misc_register(&vfio_dev);
- 	if (ret) {
- 		pr_err("vfio: misc device register failed\n");
--		return ret;
-+		goto err_noiommu;
- 	}
- 
--	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU)) {
--		ret = vfio_register_iommu_driver(&vfio_noiommu_ops);
--		if (ret)
--			goto err_misc;
--	}
- 	return 0;
- 
--err_misc:
--	misc_deregister(&vfio_dev);
-+err_noiommu:
-+	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU))
-+		vfio_unregister_iommu_driver(&vfio_noiommu_ops);
-+err_mutex:
-+	mutex_destroy(&vfio.iommu_drivers_lock);
- 	return ret;
- }
- 
- void vfio_container_cleanup(void)
- {
-+	misc_deregister(&vfio_dev);
- 	if (IS_ENABLED(CONFIG_VFIO_NOIOMMU))
- 		vfio_unregister_iommu_driver(&vfio_noiommu_ops);
--	misc_deregister(&vfio_dev);
- 	mutex_destroy(&vfio.iommu_drivers_lock);
- }
- 
-diff --git a/drivers/vfio/group.c b/drivers/vfio/group.c
-index b2299e5bc6df..dc8f8a38723f 100644
---- a/drivers/vfio/group.c
-+++ b/drivers/vfio/group.c
-@@ -898,14 +898,10 @@ int __init vfio_group_init(void)
- 	mutex_init(&vfio.group_lock);
- 	INIT_LIST_HEAD(&vfio.group_list);
- 
--	ret = vfio_container_init();
--	if (ret)
--		return ret;
--
- 	/* /dev/vfio/$GROUP */
- 	ret = class_register(&vfio_class);
- 	if (ret)
--		goto err_group_class;
-+		return ret;
- 
- 	ret = alloc_chrdev_region(&vfio.group_devt, 0, MINORMASK + 1, "vfio");
- 	if (ret)
-@@ -914,8 +910,6 @@ int __init vfio_group_init(void)
- 
- err_alloc_chrdev:
- 	class_unregister(&vfio_class);
--err_group_class:
--	vfio_container_cleanup();
- 	return ret;
- }
- 
-@@ -925,5 +919,4 @@ void vfio_group_cleanup(void)
- 	ida_destroy(&vfio.group_ida);
- 	unregister_chrdev_region(vfio.group_devt, MINORMASK + 1);
- 	class_unregister(&vfio_class);
--	vfio_container_cleanup();
- }
-diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
-index 423ead48aafe..dfc48a9e0fe6 100644
---- a/drivers/vfio/vfio_main.c
-+++ b/drivers/vfio/vfio_main.c
-@@ -1852,10 +1852,17 @@ static int __init vfio_init(void)
- 	if (ret)
- 		goto err_alloc_dev_chrdev;
- 
-+	/* Publish /dev/vfio/vfio only after all other fallible setup. */
-+	ret = vfio_container_init();
-+	if (ret)
-+		goto err_container;
-+
- 	vfio_debugfs_create_root();
- 	pr_info(DRIVER_DESC " version: " DRIVER_VERSION "\n");
- 	return 0;
- 
-+err_container:
-+	vfio_cdev_cleanup();
- err_alloc_dev_chrdev:
- 	class_unregister(&vfio_device_class);
- err_dev_class:
-@@ -1868,6 +1875,7 @@ static int __init vfio_init(void)
- static void __exit vfio_cleanup(void)
- {
- 	vfio_debugfs_remove_root();
-+	vfio_container_cleanup();
- 	ida_destroy(&vfio.device_ida);
- 	vfio_cdev_cleanup();
- 	class_unregister(&vfio_device_class);
-
-base-commit: 70dd4ee72eb2d5793c62e71c14e3aba78e5a4e56
--- 
-2.53.0
-
+> ---
+> =C2=A0drivers/gpu/drm/loongson/lsdc_plane.c | 2 +-
+> =C2=A01 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/loongson/lsdc_plane.c
+> b/drivers/gpu/drm/loongson/lsdc_plane.c
+> index bcc0ffa..7b9c65c 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_plane.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_plane.c
+> @@ -230,7 +230,7 @@ static void
+> lsdc_cursor_plane_atomic_async_update(struct drm_plane *plane,
+> =C2=A0
+> =C2=A0	new_state =3D drm_atomic_get_new_plane_state(state, plane);
+> =C2=A0
+> -	new_fb =3D plane->state->fb;
+> +	new_fb =3D new_state->fb;
+> =C2=A0
+> =C2=A0	plane->state->crtc_x =3D new_state->crtc_x;
+> =C2=A0	plane->state->crtc_y =3D new_state->crtc_y;
+>=20
+> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
 
