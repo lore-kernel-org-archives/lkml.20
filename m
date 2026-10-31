@@ -1,93 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420205;
-	b=fTeBChBv6MuBjz0Z2Pz8mX99Hlg7G+yTey21DC0aUFSv6lGOmaDKydd7SvTf73kTdhbd
-	 TGKmpG8E1LBnXhwfe4m8G5S0YKR4WQ6oKmMgEtoLQi/kJ2Jli4OfBGw6xvZ2BQAv8WIHG
-	 Q4le90HmjJ1DdENiIChGbaLCOOh8VqxS+vwUqBzLuV8dzArtkUsy83B1SFQmKxgBmzuve
-	 52gWP25qEl7vP+Y8OrwOzE7j5osBvSkhlsquRHnFB2PK9CidPmtnXUW2jK3PEqDIRUSAc
-	 47vQ63aB+S6qHLts9YLh/blGN80mSht0hfBqDdBLfbgh/eKf1Py9CZSQziGPyeowdBA==
+	t=1793420249;
+	b=ec4/liIEnwez+sCZirx6F7WeBp9JFLG1LMaEhiV1sInSHC3pxcTfLBb5jBuh6MWp1zjK
+	 YP4yHZ9sbJF7QeEPM32AxJ+BYiOM/jz6IbVl7puXIl0dCGJK7ZAqrFSihL3ERrcX2peOg
+	 PNWPTGtp1RK1NvHfGUPGbHSo6J+iRemiQ/s1RKxBqP34Wom8gxt1rLYjHkep4DOIOnsZG
+	 xrYOFJzm+/Ri0q3TZ8/Chgt8MU3gaf7rcOIMb34SuAeyxeoGI7zxUOb7yIUiRYPPC9iNR
+	 +ptcYBHs6goKLXgg+gQn9ZMGdoKorpEC5IG1peqpzcq65JHSEcyQxeEsZiCIMCr7pQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=dr4r/lEBb5xuUcD8BOU9Xdjlpmhf/DQoTif+P9r4G1U=;
-	b=iuXCSOGuU3LaAfBui09Sdbgj+OkMH6DNXLibIwX9nUDjMURiWnJLitbcsArdmFUd8fPI
-	 VjgE3pqndbbJhaPF4Ws3PBe68fkGPhJIasvJ8KDcNx90XQyDpVb0NSRJq1J0KwgSNfn9b
-	 upaOJuYh/rk9K8/+wRAu6gOQfWA4y6N2wLxnA5YpfkN5kssdwFmFh0E2ZoDAD83hikky+
-	 IN5GijsWSlw50Jwgb91M91EkSJFfjoUOaGzI0jzuvuepSfLpmnsn788r+j7eq0NqiBNBI
-	 uYDMYpG8jr4ZrzoKi57vpuZYEMyqMWcHImhOsqrLuimNPoObMKuyPotPpkBNycFhzaA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420249;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=8TqGj30S1M01nBTKS0rP1dh/7dQv0SfGvxWL56l6kOw=;
+	b=ibivHvcNUzrkOiD69152DNMzjZd3fStTZGxmMQYOaukN7+cLZy7KyjwPLmKs1+yP0KrB
+	 LcEXjvDOyRz/NbXFAQsLHBihFJnFBZzbIr5RGEXfnw5sRlh24dQ7imJbXMRQpNGiFkbOk
+	 vW9BcmaN9Nh7nv9zEsqE9/JPC9yE3infASF8Gzf/eQfwYpOpcxriEJKdY5YzI8v4SXA2E
+	 kwg99KTa5qX89eEuIKFNpsXUxCjVaCxtD7Y6BVrIVfKx9bzoW0X277jVCHRTB4OgdQwat
+	 Jl45k2vcuh+slUJ1MwK0KFWgH9IhAHJxWC1S5VgLoz6a3U7X8SBAaT+kCYYj7paqtrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=openai.com;
-	spf=pass smtp.mailfrom=openai.com;
-	dkim=pass header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=INPcjmg3;
-	arc=none smtp.remote-ip=209.85.160.47
-Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com [209.85.160.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+ZJukh0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70013606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70013606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=openai.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=openai.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8384C606A31A;
+	Sat, 31 Oct 2026 04:17:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=openai.com header.i=@openai.com header.a=rsa-sha256 header.s=google header.b=INPcjmg3
-Received: by mail-oa1-f47.google.com with SMTP id 586e51a60fabf-48ed0b68895so954870fac.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:16:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=openai.com; s=google; t=1793420204; x=1794025004; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dr4r/lEBb5xuUcD8BOU9Xdjlpmhf/DQoTif+P9r4G1U=;
-        b=INPcjmg3TV6T9OKJSme9EMV7D4kdpVtFWP1ounWUGIKHzb/eM1tLHvJ3upGmuNvPWo
-         Lt3FKZwSQJs8bTqPUeU9YpE7748bQnO0A6HbrM/UpuQFWRa6PoVDsXo7c4Gdv4+mKhfu
-         /0KCBHMxZLnn0w4uL7YBaKCjG+mHTLgpkAvBw=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793420204; x=1794025004;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dr4r/lEBb5xuUcD8BOU9Xdjlpmhf/DQoTif+P9r4G1U=;
-        b=ePp7d80ci6yAO+W4CwZjHTfLjWnPwnc6XXCwqQjecmcOMhmag9xIj4AL/Bf5FXT7w3
-         c9O2Ks8Y0jswFck1wFL/3J0H1rFiy37n9eTIdyhPkpHGRt4VI50ySsfG9tfXI7qDK3+0
-         uzFR/yBXAEmjgzBOQATxJP6u8HgjxXElIND7K1w2VpOqxYj+Jo7HC6eSPlMdm6xW24Pq
-         Fdyd7tI0WHUd5MDpgDQEn+TjvAT+g9Zk75LheXOlW4/vc7tIHx5bJgtTtJfMQBqWwTFZ
-         u/jzm02Iy1w54PTMnDwGBS7mzspHP7NhqA2FWXa9Q4WZzeBD6eEDlNibDk+JYMyHKjN8
-         lKcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwdIQW5Qs2PM0g6nwiqZvTpqPowOEc2CYXUi3nx5/1vZ/ETDL5t0ogVIMcrVP+/46qnf+5B8dh8uCe08oI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbA8CE7BCguOUNjGynrmEGlT8Jz7MPA7hkYwZEE7yldq0/eXOc
-	+1I/PEsjGIxcFMyUStWcs7iZ5ehleaz5QY4UflVd2UXiZd/1q8pbsf2kp1MEdwjJHOtoMQaUW/K
-	s3m1RbDtU+A==
-X-Gm-Gg: AYBFou3DMlf9rx19tJFnIUGBBbcZcZ92EgsIu3iHcPE92SeNQKjnE1kFo/jAUDiHWZO
-	TfT1/PepL6LKc0h3bIe9pvmEQb2dEdcMqFLhnpxJM087QGWn6aDllnwrWmQT2aWnAzq4pnfJO0C
-	MPECQ7mve4pTVFXb+FQqz8vpWRGOutWmnhg44oFofEjCHje/qCazmBtyxOGvhEHHabuzEcR8o4p
-	D1jUFYgKAQTIX5BwDQYYpsOYNrII4xJH3QEgqKiHM23vLJFJbC5PIL5Ni3yiC9SiKXHaAJJN4Iv
-	tbM844H08j/GVBGv0IZzkAJp5EojLwV5WNrFfkBjBvLmn4FKXJS2zQfnNTZPsHzy0GiN9Y79Lal
-	kQ7PuglJBtUCpDk54yHMJ6DODy4PR0vBZcKARh3lJeyYybsYn3PtRmXP15J3OpCR2/GJ9TFasVr
-	2XcFBV72B/GD1eXHTnGKb0vog5zwc+FSz0kuZzUg0km3DRo0XrqjNT6l5yWyL7sbeC0k+DeqOgs
-	6KuzuS5EwcXWbRI6+mDS/L0hCwmLvqImxc0Qptdge2UljwHBDPDTiFYojyFb5d4xffZHGNmYtuv
-	DsOuQRVpU7tfAtI6ymT/oQm8JEcBFWf69eCayuCV/fKtMapUE0NPtiC/ZhwXletBkwlBeYO2rVK
-	OzEpf9mWe
-X-Received: by 2002:a05:6871:8903:b0:498:c323:4a90 with SMTP id 586e51a60fabf-4a9076e0878mr2842634fac.33.1793420204314;
-        Fri, 30 Oct 2026 21:16:44 -0700 (PDT)
-Received: from com-75606 ([199.47.143.7])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a92196a7eesm1457788fac.9.2026.10.30.21.16.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 21:16:44 -0700 (PDT)
-Date: Fri, 30 Oct 2026 21:16:40 -0700
-From: Kyle Zeng <kylebot@openai.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: iommu@lists.linux.dev, Kevin Tian <kevin.tian@intel.com>,
-	linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
-Subject: Re: [PATCH] iommufd: Reject opens until module initialization
- succeeds
-Message-ID: <auVrqO6e2daXFwCW@com-75606>
-References: <20261030042345.74537-1-kylebot@openai.com>
- <20261030120845.GA3889730@ziepe.ca>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=X+ZJukh0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C01C1F000C1;
+	Sat, 31 Oct 2026 04:17:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793420249;
+	bh=8TqGj30S1M01nBTKS0rP1dh/7dQv0SfGvxWL56l6kOw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=X+ZJukh09k95tOFSiSKcjzf5IwhTAal9NzT7PYeaTHJoqQh5dMzFVaWuMmxRZ2PU+
+	 J3iDFNpMYWaxrW/WtmmKGpNX2iBRZKH4a2/ClNtvAKMkyA99RNu2rZgdwnlt6uPmrV
+	 yUtQ8BWtxmVm4pcpKzmcvo2yyl4hvzLF+W/MNur9t2urIv3NLjFwckiVHtYHEAjgF0
+	 XUPXmh+KP9fQpwWzJy4Y13Mnmx7En7pc0bET9jzOcEgZ6nQfEJ1o3unw9iidX2V4xR
+	 ZJBlkuLY+fyGgjCTWQjBixbzS4mJgTaMtXJA0BaY6wVAEdI1kS41JfLwsSquG9nNDt
+	 Pc9fIkWhVHh4w==
+Date: Fri, 30 Oct 2026 21:17:29 -0700
+From: Kees Cook <kees@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2 3/6] mm/slab: Support disabling SLAB_BUCKETS at boot
+Message-ID: <202610302115.8C7AD110@keescook>
+References: <cover.1793253633.git.chris@chrisdown.name>
+ <9a68a4d95830352ad3821437c2e22c30a673055b.1793253633.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,42 +67,129 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030120845.GA3889730@ziepe.ca>
+In-Reply-To: <9a68a4d95830352ad3821437c2e22c30a673055b.1793253633.git.chris@chrisdown.name>
 
-On Fri, Oct 30, 2026 at 09:08:45AM -0300, Jason Gunthorpe wrote:
-> On Thu, Oct 29, 2026 at 09:23:45PM -0700, Kyle Zeng wrote:
-> > iommufd_init() publishes /dev/iommu before registering the optional
-> > /dev/vfio/vfio compatibility node and running the optional self-test
-> > initialization. Either later operation can fail. Since file operations
-> > can acquire a reference to a COMING module, an already-open file can
-> > survive the failed initialization and refer to freed iommufd module
-> > memory.
+On Thu, Oct 29, 2026 at 02:08:25PM +0800, Chris Down wrote:
+> SLAB_BUCKETS gives allocations with user-controlled size and contents,
+> like memdup_user() and msg_msg, their own set of kmalloc caches, at the
+> cost of the memory for those caches. It can only be chosen at build
+> time, so hosts which want it and hosts which would rather not pay for it
+> need separate kernels.
 > 
-> What? This seems like a core bug not iommufd.
-> 
-> files take refcounts on their modules when they open via this:
-> 
-> static const struct file_operations iommufd_fops = {
-> 	.owner = THIS_MODULE,
-> 
-> If the module hasn't even loaded yet I would rather expect the core
-> code to not allow the module refcount to be taken, and if it somehow
-> succeeds then it shouldn't allow the module to get yanked out from
-> under it.
-> 
-> It is hard to guess what crashes to be more specific, but
-> at least misc_deregister() is safe while files are open.
-> 
-> Though I wonder how module auto loading works..
-> 
-> Jason
+> Add a slab_buckets= early parameter, enabled by default on kernels built
+> with CONFIG_SLAB_BUCKETS=y, so that it can be turned off at boot.
 
-Hi Jason,
+I thought the issue here was about calling convention (i.e. with
+CONFIG_SLAB_BUCKETS Vlastimil had suggested making the argument lists
+for the call chain shorter by dropping the bucket argument entirely).
 
-Sorry for the confusion. This is supposed to be a two-patch series and I
-accidentally dropped the first patch.
-I'll resend the patch series. Also, I have a reproducer for this issue
-and can provide through DM.
+> 
+> Signed-off-by: Chris Down <chris@chrisdown.name>
+> ---
+>  .../admin-guide/kernel-parameters.txt         |  8 ++++++
+>  mm/Kconfig                                    |  4 +++
+>  mm/slab_common.c                              | 26 +++++++++++++++----
+>  3 files changed, 33 insertions(+), 5 deletions(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index 68647ff4bdd2..de2fd6963a16 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -7001,6 +7001,14 @@ Kernel parameters
+>  			apic=verbose is specified.
+>  			Example: apic=debug show_lapic=all
+>  
+> +	slab_buckets= [MM,EARLY]
+> +			Format: <bool>
+> +			Enable or disable separate kmalloc buckets on kernels
+> +			built with CONFIG_SLAB_BUCKETS=y. When disabled,
+> +			allocations use regular kmalloc caches. Ignored
+> +			without that option.
+> +			Default: on.
+> +
+>  	slab_debug[=options[,slabs][;[options[,slabs]]...]]	[MM]
+>  			Enabling slab_debug allows one to determine the
+>  			culprit if slab objects become corrupted. Enabling
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index 92ff97ff24fb..48078c1fd26f 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -231,6 +231,10 @@ config SLAB_BUCKETS
+>  	  of extra pages since the bulk of user-controlled allocations
+>  	  are relatively long-lived.
+>  
+> +	  The separate buckets can be disabled at boot with the
+> +	  "slab_buckets=0" kernel parameter, in which case these
+> +	  allocations use the regular kmalloc caches.
+> +
+>  	  If unsure, say Y.
+>  
+>  config SLUB_STATS
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index e66c0778ee98..b7a46c368ab1 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -410,6 +410,16 @@ EXPORT_SYMBOL(__kmem_cache_create_args);
+>  
+>  static struct kmem_cache *kmem_buckets_cache __ro_after_init;
+>  
+> +static bool slab_buckets_enabled __ro_after_init = IS_ENABLED(CONFIG_SLAB_BUCKETS);
+> +
+> +#ifdef CONFIG_SLAB_BUCKETS
+> +static int __init setup_slab_buckets(char *str)
+> +{
+> +	return kstrtobool(str, &slab_buckets_enabled);
+> +}
+> +early_param("slab_buckets", setup_slab_buckets);
+> +#endif
+> +
+>  /**
+>   * kmem_buckets_create - Create a set of caches that handle dynamic sized
+>   *			 allocations via kmem_buckets_alloc()
+> @@ -424,10 +434,12 @@ static struct kmem_cache *kmem_buckets_cache __ro_after_init;
+>   *
+>   * Context: Cannot be called within an interrupt, but can be interrupted.
+>   *
+> - * Return: a pointer to the cache on success, NULL on failure. When
+> - * CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned, and
+> - * subsequent calls to kmem_buckets_alloc() will fall back to kmalloc().
+> - * (i.e. callers only need to check for NULL on failure.)
+> + * Return: a pointer to the cache on success, NULL on failure or when the
+> + * separate buckets were disabled with the "slab_buckets=0" boot parameter.
+> + * When CONFIG_SLAB_BUCKETS is not enabled, ZERO_SIZE_PTR is returned. In all
+> + * of these cases subsequent calls to kmem_buckets_alloc() with the returned
+> + * value fall back to kmalloc(), so callers that can live without separate
+> + * buckets do not need to check the return value.
+>   */
+>  kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
+>  				  unsigned int useroffset,
+> @@ -448,6 +460,10 @@ kmem_buckets *kmem_buckets_create(const char *name, slab_flags_t flags,
+>  	if (!IS_ENABLED(CONFIG_SLAB_BUCKETS))
+>  		return ZERO_SIZE_PTR;
+>  
+> +	/* NULL makes kmalloc_slab() use the regular kmalloc caches. */
+> +	if (!slab_buckets_enabled)
+> +		return NULL;
 
-Best,
-Kyle
+Regardless, I still prefer this being a static branch so we don't end
+up with a needless rodata global check.
+
+> +
+>  	if (WARN_ON(!kmem_buckets_cache))
+>  		return NULL;
+>  
+> @@ -1059,7 +1075,7 @@ void __init create_kmalloc_caches(void)
+>  	/* Kmalloc array is now usable */
+>  	slab_state = UP;
+>  
+> -	if (IS_ENABLED(CONFIG_SLAB_BUCKETS))
+> +	if (IS_ENABLED(CONFIG_SLAB_BUCKETS) && slab_buckets_enabled)
+>  		kmem_buckets_cache = kmem_cache_create("kmalloc_buckets",
+>  						       sizeof(kmem_buckets),
+>  						       0, SLAB_NO_MERGE, NULL);
+> -- 
+> 2.54.0
+> 
+
+-- 
+Kees Cook
