@@ -1,61 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.155
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420325;
-	b=ghh5wjxsEldAlvUpsnKEIhLeo0/QTwZJrkksghgkaB2Nw25XaNZ+5LFPVNq96OA2ng6h
-	 8JcQ6z9+CGCQG+1pgrsEAAq4xapmOFwWoK64BlZRy6/C1mu35AGAZwm87UTN11tnzhDiA
-	 1sSs76OO4Z0VyOoHjTBJXVDmWkD2PvdxDVar8l2uQojWEcWxZsG6rMb73SF4ITz+OeC1T
-	 IW9kYfE49wCxyEy/1dFrB9gyaUhbAEvgHsjWIWcpoRudWpQq4Wnfr3GTeAZjh4jpSk6xI
-	 fMvgdSq/yGbjffD03GnJSLYHJGxCBOI+Co/J7AbTLpeztwJl9G3+mKuqfpGaRWOi+AQ==
+	t=1793420337;
+	b=dNDAg+ipO+Dn7SSkezDI5BDmOfLHTCTt8+8W9wOh0McvN6jBrpc30mACccipoPzHXFql
+	 /fdDakS1vaUrV9DK2D57DAiHdgdGsUEh/C42dg7RU2uZ1vHw2AqZB6OkKQ39qTUSzxzaE
+	 WR20D3tI34MJa0DP62XUmk7wrlZo0K1xIUkpkBJKKcufhVC/RCLxKx99hkTQLWsCD0Bd9
+	 OXBjLR/0doNpOfdgGoJlp2OmZx4oRjt8V+ZhlcH/TJJSnQzNKO5LcUcOADzAu/3iRwCRj
+	 yeHXGcnPPae9GHTdubmisjSTucqAnn5qDgyKMzMtQi3ed4XCeNpKVznn4xI4XyxXF6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420325;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=Snguuyp18QvWLb9cGp+wAxPu7wY8N31s13jih6PFRFgQm2CvoqnuAsKFpEmehyjjWWH6
-	 1tbhBKEBRKNjqWXQouoCLKN3Zhe/D5dSA/aZYFV5R9bt4sdkS21cX+7lZJEFFVgnYbg1D
-	 YuDxqb42Yfb2lTiq8JCWFQaPhAa6S8mfPYZmC9piayWLijbzq3RjcVw9S2WApMipMUg+K
-	 PM/iO4sy8ddWHkkEs7BZlMqIV2VLKEmaySKi4kNsBRbA/Ds/mniGFsCl452OS1C363ibU
-	 oPIdtnVwXyapuvg0QRMcSkhi/vL75AxxRPnzTVghhLnkNXLh4ZD4a66o+HtsVJmf7AQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420337;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=hxIv65ISz3oSbnuq9qC370kkn88GmZmcEZ0xPYG7U8k=;
+	b=XBe3yTx9l3Fg9tSoweqT6mVeLZBGiDElT3pDRg24X8L0ce/7A5v3oZxoSspzFFYhR41S
+	 vLzLIvWUT2g9LfbaYLCvPo3dFWvKt7KPM0U/yQNj0RAIbBFQ0cf+vAzlshQbxGKkfRxxz
+	 McaRdX1jQO8YwMcEbgnJ2QHH+fawpV2a83H3itVdhnuLEQUGn4YJwjvMFUbhv0032UcnF
+	 9qPH+ofWcvOOG5G6yNoAdo6EFkZT6DYYwmvmYPej8GZUfPY80BXpY/Qq5kGwxOdh6GjR7
+	 dD00zbx1/HGI2mr2IsRN/RDHYTiQ8rzBwLYAoj0keCuMW5/vYMCRPTa5eI73PHSnE6Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nbT0KJVz;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=cwooper.dev;
+	spf=pass smtp.mailfrom=cwooper.dev;
+	dkim=pass header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=KAr4jI65;
+	arc=none smtp.remote-ip=91.218.175.155
+Received: from mta0.migadu.com (out-155.mta0.migadu.com [91.218.175.155])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6DB606A31C;
-	Sat, 31 Oct 2026 04:18:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210FC606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:18:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 210FC606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cwooper.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cwooper.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nbT0KJVz
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B8C1F000C1;
-	Sat, 31 Oct 2026 04:18:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793420324;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nbT0KJVzZeyPQWKJpwN+OAUD+ODY/HtmahXU+KTS1YmOBXszd6eNUdvMMOCVPc0dg
-	 g3JgVyB2Kyku8AHStjyMoSGVhvKad5HI1Mv11ngmW+8arie2Hhx+T6tvptGmmzQTUv
-	 Svxn8UZhvz3zFtbaya/DtErwl+ApMcKMkC9Yzn3R7Vg/R2ggOrIv5SGcru961h3OTk
-	 lSD5DLnzroHDUdZHGxOxkMeGizbQqbsbVoW/XZjgsmxzDB/iTa5K8R8P7fmYSzE3hE
-	 cwwaYyJLJ5HXAnKxm8vXiKepzhFlEmIAYp6X9p8I+BjVxGzpziKTrolRAHgYRNl7mS
-	 +Tym2wSxqTUBg==
-From: netdev-bot+sinfo@kernel.org
-To: Cen Zhang <zzzccc427@gmail.com>
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- baijiaju1990@gmail.com, jjzuming@gmail.com
-Subject: Re: [PATCH ipsec 0/2] xfrm: fix state lifetimes in xfrm_migrate()
-Date: Sat, 31 Oct 2026 04:18:43 +0000
-Message-ID: <179342032377.3286.12462579966925281138@kernel.org>
-In-Reply-To: 
- <pm-xfrm-core-objects-candidate-0027-v3-cb1e033bff1976f510c9-0@gmail.com>
-References: 
- <pm-xfrm-core-objects-candidate-0027-v3-cb1e033bff1976f510c9-0@gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=KAr4jI65
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JQRBTsLyo1USJxXJkqovGqVi5MENsxtF02GpdlXi6O0=;
+ c=simple/simple; d=cwooper.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793420333; v=1; x=1794025133;
+ b=KAr4jI65XUqFsOoIvs9+SFceAWMbXu/ZgpxBjCx1ZbXQz6HmPXWsRNnnT0F5JljmWWTgN3rQ
+ VLd0Koh6hz9HK7XELNk+jOS8JsSAC36x386kO/mSF5T76YYUY1ddTwsLs24HIOwISbG4kbPD42b
+ 9yXQJvhvv5V/Lal/qlngnnMVPpNJUv8tgnKQwZG2ZQc5PlqnOo7NvjEx6lr4z/6a0PGebQ3c/s0
+ FAuX6+86DTN5lKW0UR/yr+pLHxkKF8loLHIldkeCR7rQUpug927IYl4V352aCP04iwjr2y8InFb
+ 8f0aar6S5Jp8Rjj9gIrQig/+spDNRd6RjZV5ZcN1wL6LA==
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6d492372f5c77a27;
+	Sat, 31 Oct 2026 04:18:53 +0000
+X-Mizu-Trace-ID: 6d492372f5c77a27
+X-Migadu-Flow: FLOW_OUT
+From: Cooper Morgan <ext-github@cwooper.dev>
+To: amd-gfx@lists.freedesktop.org
+Cc: Harry Wentland <harry.wentland@amd.com>,
+	Leo Li <sunpeng.li@amd.com>,
+	Rodrigo Siqueira <siqueira@igalia.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] drm/amd/display: Fix FreeSync infopacket refresh rates above 255 Hz
+Date: Fri, 30 Oct 2026 21:18:24 -0700
+Message-ID: <20261031041827.162730-1-ext-github@cwooper.dev>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,21 +72,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi!
+On my MSI MAG 271QPX32 (320Hz QD-OLED over DP 1.4, RX 9070 XT), 320Hz
+looks like a 720p image stretched to fill the screen whenever
+Adaptive-Sync is on in the monitor's OSD. Custom modes at 305-315Hz put
+it into its self-test pattern instead. Windows is fine on the same
+machine and cable. It's the same bug as
+https://gitlab.freedesktop.org/drm/amd/-/issues/5988, where an LG at
+280Hz shows up as 24Hz.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+The cause is the v1 FreeSync infopacket, which native DP sinks get
+unless they're a whitelisted PCON or support Replay. It stores the min
+and max refresh in one byte each, so 320 wraps to 64.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+Patch 1 caps those bytes at 255 instead of letting them wrap. With the
+EDID range capped at 255, the monitor gets the same bytes patch 1 sends,
+and the picture was correct, so I tagged it for stable.
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Patch 2 sends the v3 packet to sinks that advertise AMD VSDB v3 and go
+above 255Hz, so VRR gets the full range. Sinks at 255Hz and below are
+unchanged.
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+This builds on what sunryze and oystersuki worked out in that issue.
+sunryze found that the VSDB version was only saved for Replay sinks on
+DP and tested sending v3 on their LG. oystersuki suggested pairing that
+with a 255 cap for sinks that don't advertise v3. Neither has a public
+email, so they're credited here instead of with tags.
+
+Tested with the series backported to 7.2.13: 320Hz looks right, and
+with VRR on, the monitor's refresh readout follows frame caps at 300,
+270, 240, and 100fps. Both patches add KUnit tests.
+
+Cooper Morgan (2):
+  drm/amd/display: Saturate refresh rates in v1/v2 FreeSync infopackets
+  drm/amd/display: Use FreeSync v3 infopacket for sinks above 255 Hz
+
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |   2 +-
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |   7 ++
+ .../tests/amdgpu_dm_connector_test.c          |  25 ++++
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 116 ++++++++++++++++++
+ .../amd/display/modules/freesync/freesync.c   |  12 +-
+ 5 files changed, 158 insertions(+), 4 deletions(-)
+
+-- 
+2.56.0
+
