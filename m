@@ -1,55 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.227
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793409823;
-	b=pTpmNiWqZA0G2HHhgy2BrUHBqdivlL5Dr9H3XxzIf11MU5DuwjMeCTTVrjRLnbPdWtmR
-	 JC5N/Ee2qGkcPfBTrMIamzYyvG5W90VjvMi1PiOxiFZPEiP89D6bi/9vqyjJjwibJYf/t
-	 ITPniqIRpqw0sKoUQHgWeMAlSFXE/wYqytOWuSmHEZvLFjX/GW5rCISKETdB8AIo9ETWX
-	 EfuK/WrKTWCNlbmBbIgS1FN3YBp9TiS2n6LzvGuAbPqPk2+dlawKA0sgsvlxBBYB4VXEh
-	 Snm/ttcH8S4x9WTJmxfvfdXy7ZP1lQz9/vxWOzjJXpKC94sKSu34X7/tm7sQ7Z0uJgA==
+	t=1793409817;
+	b=wVQ/BziA/APi8u9ZC85UXVzhZhIPPrqcX3NxarTtRzKzfOt/cNMvxBNwosU4LEQgL6I8
+	 dpLBKhbbTHAVtZi0zHxSkicjK3uN8cB0ccREvY6lqFyNlj0K0TKn68tjrhvUzor1TVO1w
+	 Uu7lCn2dWxq6mHzZadFYsykHnn5xHCSoXvalV8zd6nJ5mwHG2yUzcUxdOmG1OnQVNfqho
+	 GNpOgMPL/FLsR7FHnU6k8QC53Fm5Gf28+LtwfHrnaKKS3x8xSn+euNzGhDI25TzZThNb3
+	 E8bXfBaOl7PlmjHKIJfyO2G/fUlnz7DQYAvO0Yidr9UxUX36R5CkJew+GHPQUkLRiXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793409823;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=/djHoVRSu8RS6DtnCiM+mYZz89TH0aYl6ButQAaM0Sk=;
-	b=1mKXEZUrVsURLrec3phVE22HwED7GIGq7MzSogN5zoPEAubGVH+jKUUjV+pHyODSyZuD
-	 SCPAJI7B6SVJlZcVTS/iGvEC2lGfO7KfvWj9XPSCfzz+TQIeKVqZDyuETYu1+PsqJhNQN
-	 wVg9PTncjPLxO4jIHIL7EDLKf9ZtU1P+c8ahKM0vCabnLgg1c75OthRlxzc7OXdtvW2uu
-	 U2mgAz/8L9TiCFJpxY0Ov4k+q0iicuPjZ9sJJZOkv8E8cikUuVNMmANF9v9EeO6fped56
-	 qMlNAbh1yeCtFwtneu3RE3H+E450DfwUEtgvi768wMCePVilGOKBnYCaCnTlh5PLYug==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793409817;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=6nKy42afFVXtc1pmf+02i77MnNtiH68dE+UHRbcYHP4=;
+	b=14uRKGCUItuoRnkvLNzCJTDDD3ARHJU6wM6BcJkwvHzSfmF8ywaXxdA1owxXdkbgY+1C
+	 ROrBMqUbWZzfEGGiGEzbWPNRAKoaMAXRCuOn9UMcNZtkDBPnXLE6hivhE+yUaQMyLxIxl
+	 W65aaDa9VZXh9MfvTq+n9p02YmxR6uvT3ZJzbInaNWIkyJrc1ch9WWkflk2A0poh9HE/P
+	 VMcekRnIgnGLQevQB2WWiFDGlbJKdOhJPgRof6osx3wCHOvrtuWxunIKV1kWlIO27Nm9l
+	 DAabPrbV9KV4j9t2vnCRp1rAMxgROMJNWgK4a5mImideUnZ5XYBu8Z4Dr9AHILNP4aw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	arc=none smtp.remote-ip=113.46.200.227
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d0NblGy2;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33F76606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:23:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33F76606A31F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=/djHoVRSu8RS6DtnCiM+mYZz89TH0aYl6ButQAaM0Sk=;
-	b=KaajHLldyIp//h8hgNcWbRjuvnaPu9NU7xroCnhAHv5Y6IHpXKQj5MHAhFJIvtYDdexHrHDTV
-	X/lStQJK1nuLHQ7Qdq9c8WJZXYgBrnDTioPNFDQfRt+fE/TbwnX7YO/Qqew85cDot6S8k4BzjBB
-	JYcwaRE8bDH7Cnp1mpf99YQ=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jGgGF70qKznTXn;
-	Sat, 31 Oct 2026 09:23:33 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 54D0540572;
-	Sat, 31 Oct 2026 09:23:35 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 31 Oct
- 2026 09:23:34 +0800
-Message-ID: <96a7b9ca-a5da-449e-b4d7-c34299692012@huawei.com>
-Date: Sat, 31 Oct 2026 09:23:33 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33FC6606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:23:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33FC6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=d0NblGy2
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-353804b591eso2042454eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:23:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793409816; x=1794014616; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6nKy42afFVXtc1pmf+02i77MnNtiH68dE+UHRbcYHP4=;
+        b=d0NblGy2IsRhO34Y7hO7u7yOI+pl2kbpMI3OrB3LQIBKfZ5bePXrUzAms7mvg//bUc
+         Vk+FpwQtD5TYY6prFAg6SYanxBQm/YJ2Xoi4pzkmb6UNA/mHfKW+sqWD8RctXoyDhIXm
+         RzUawgosSZnougVC1cQvz208uFRNITZ5gcJa5DhCIQXKAfstvOPIhKNdD3IWjZkv6vdl
+         DTYdW0otw6PH8+G6v/nFrg3pfYUViNKD9AQIHGKlzXZP9Pa9znosTHDn5jtj74EOhkeI
+         auSb0OPy6pCojvDKL3e2VfaMUaG1vSK45UV5mkLRQF6OPvlMjcXHEinDbnYLW5uUI2xV
+         JFbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793409816; x=1794014616;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6nKy42afFVXtc1pmf+02i77MnNtiH68dE+UHRbcYHP4=;
+        b=XU1HzyuPBU98SZFfEkpnY/T1Tq2gg4BrRG6XlR4C0yAzPg4LS3LsFJbIexhuGASDXX
+         zofvwg7L7e+zNrLtc87/amCS4a3EXGp+i01s5kYPvbQ/Fzsr+Ee98bwFqABicVcy52mp
+         3tKGNdXdI7PDu5iFHWzRhRz9KHcDAC9TQ4wfIcjzj1lAw04TD/tY53Z4ekjrNYrJzF8q
+         DlyqrChag+/CjDMct5iJpMr+MkGXYVKFypSn+hSrVRl8j8nsKycFzhC1qqony+wkhu2K
+         sKzCT2ADXfH+hbLXUNmR/+oOxy99Khq996lACb5XMjosMTSmW1fPiEW8P68ixQSxFrzV
+         7tjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAYnh7NW1hsv9b8bkI42aU0zedS4RX6CRf0moDkgboNSG0dxg4HqmdE/zuHFiw0qiCLIJQiwywRfVeQ4c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLsdlifNg3U54eBIYCOU9CYzKvhcLnnA3bVcyV2SSQrGWtKLT0q
+	2gyJ+Qhzt+F5qRyuH2qkZ317tT5mofEBPy0QfJoctFoTK1PYMgGWqOnE2EvVaJJ/
+X-Gm-Gg: AYBFou12s3AIb2LA7OI1BPlo77Br4u6dg6ZfaBAkH8dqtyHCqj+nIOEBhL6TpoAVLIl
+	yvh3myr9h1a7t4hfgaA1se0WMrqgFYJWAQWA+6QweDT1Z27JYme4xfAwoQV/czSCkDNcxrxw6Hc
+	/4X2bAVoYZQPiR4DWxUcUUubJY2Phq71akaWslm52Ue79m2/FN2QffVUOvCHFa+9rvIpLlBXsGo
+	PbJN04c2ui7NHGu5Apf9C7KVHMpaSNugItgksii0QfStxVtZQBJkAPSNz6XcSiIPVAb4DuEjUH6
+	LitxmMeHC51zIF0iCiJ38KXtbbb6PaRcqDSJyy1gdr2ZCAA02Kly86kW4xQ7rFHWGZWiznWUdKL
+	05FGaeUN6+uqZU1BzQK4vE0IHoY1ZdWbDd/jpumRAqyY4w8Dyq91FWYroS8CH2q5p3ZGAWvxkIC
+	A9HRPsV0P7BIG1gzPpIdi18zXWS/0msUS+bMAUxBcNSMsermSUGAb+XBYcxANiEDfNHNp1FBvjd
+	uofXWivvToPqsrWXi7uIHs3bHdMpBKOSm6Dv5/nDqtL6PUeHN3ukDJaGFjL0AxOCf63VfBix4/h
+	KUij1j9vpF7oQ8aTsYNu0b4PyK8U95zzLqg0nlnQveFumzuRvCL9THIWwp0cSL0wCyWdoIbXR7m
+	IO6qBK+tnWpENZZlz+99hcM4yTbZJ
+X-Received: by 2002:a05:693c:835c:20b0:36a:30b:5dc0 with SMTP id 5a478bee46e88-36a423c338dmr5639993eec.24.1793409815876;
+        Fri, 30 Oct 2026 18:23:35 -0700 (PDT)
+Received: from macbook-pro-de-joas.local ([2804:7f0:b101:c5e8:f804:4efd:32bc:71d3])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm11924617eec.24.2026.10.30.18.23.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 18:23:35 -0700 (PDT)
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+To: Deepanshu Kartikey <kartikey406@gmail.com>, slava@dubeyko.com,
+ glaubitz@physik.fu-berlin.de, frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+ syzbot+c0ba772a362e70937dfb@syzkaller.appspotmail.com
+Subject: Re: [PATCH v7] hfsplus: fix null-ptr-deref by creating hidden dir on
+ remount rw
+Date: Fri, 30 Oct 2026 22:23:32 -0300
+Message-ID: <179340981245.8403.4135841764755575334@gmail.com>
+In-Reply-To: <20260717135706.42918-1-kartikey406@gmail.com>
+References: <20260717135706.42918-1-kartikey406@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,165 +102,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 RESEND 05/15] arm_mpam: Don't stall MPAM enable when
- an MSC fails to probe
-To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
-	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<babu.moger@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <fenghuay@nvidia.com>,
-	<tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>, <jic23@kernel.org>,
-	<gshan@redhat.com>, <catalin.marinas@arm.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
- <20261020134239.3921377-6-ruanjinjie@huawei.com>
- <c0fe8907-81e2-4bde-a5a4-193209946583@arm.com>
- <feb50fb6-b165-4fd2-95d9-c67cf3412ff8@huawei.com>
- <9c14a9c8-0ab6-4160-95e9-4242cfaa2a4b@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <9c14a9c8-0ab6-4160-95e9-4242cfaa2a4b@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- kwepemk200008.china.huawei.com (7.202.194.74)
 
+On Fri, 17 Jul 2026 19:27:06 +0530, Deepanshu Kartikey wrote:
+> hfsplus_reconfigure() does not create the hidden directory when
+> remounting from read-only to read-write, leaving sbi->hidden_dir
+> as NULL.
 
+I independently reproduced the syzbot null-ptr-deref and confirm the
+root cause: on a read-only mount of a volume whose on-disk "HFS+ Private
+Data" directory is absent, sbi->hidden_dir stays NULL (it is created
+only in hfsplus_fill_super() under !sb_rdonly). After a remount,rw,
+hfsplus_unlink() -> hfsplus_cat_write_inode(sbi->hidden_dir) dereferences
+the NULL inode (inode->i_sb) during rename -- the reported crash in the
+[0x28-0x2f] range.
 
-在 2026/10/30 23:29, Ben Horgan 写道:
-> Hi Jinjie,
-> 
-> On 27/10/2026 01:47, Jinjie Ruan wrote:
->>
->>
->> 在 2026/10/26 22:49, Ben Horgan 写道:
->>> Hi Jinjie,
->>>
->>>
->>>
->>> On 20/10/2026 14:42, Jinjie Ruan wrote:
->>>> mpam_msc_drv_probe() registers the discovery cpuhp callbacks only when
->>>> the number of successfully probed MSCs reaches fw_num_msc. Every failure
->>>> path returns before the counter is incremented, and a failed probe is
->>>> final - the driver core does not retry. One failing MSC therefore leaves
->>>> the counter below fw_num_msc forever: the discovery callbacks are never
->>>> registered, mpam_enable() is never scheduled, and MPAM stays dead
->>>> system-wide - the resctrl filesystem is never registered, and no error
->>>> message hints at the cause.
->>>>
->>>> An MSC can legitimately fail to probe on an otherwise working system:
->>>> firmware may describe MSCs that are not accessible from any possible
->>>> CPU, e.g. when the possible CPUs are restricted with nr_cpus=. The MSCs
->>>> of the clipped CPUs then fail with "MSC is not accessible from any
->>>> CPU!", or their cache resources become unresolvable from PPTT.
->>>
->>> As the MPAM resources are system wide we need to query the support from each of the MSC to know what
->>> resources will end up. I do appreciate that if you have full control of your system then you can
->>> know this in advance but then you can also adjust your acpi tables to mark the non-accessible MSC as
->>> disabled. As such, I don't think changes such as this should be in the driver. Here is a previous
->>> explanation for a similar patch [1]
->>
->> Hi Ben,
->>
->> Does this mean that "nr_cpus=" and the MPAM enabling are mutually exclusive?
->>
->> I was previously doing experiments related to MB nodes and ran into a
->> failure of topology_matches_l3(). I therefore tried to reduce the number
->> of system CPUs from two clusters to one cluster using "nr_cpus=", but as
->> a result I ran into this problem, which prevented MPAM from being
->> enabled properly.
-> 
-> Yes, unfortunately this is expected behaviour.
+I applied v7 on c339f4010 and tested on arm64 with KASAN, using the
+crafted image from the syzbot reproducer and the equivalent sequence
+(mount -o ro -> mount -o remount,rw -> rename): without the patch this
+oopses in hfsplus_cat_write_inode; with v7 the remount,rw creates the
+hidden directory, the rename succeeds, and the KASAN splat is gone. A
+normal read-write mount + rename is unaffected.
 
-Hi Ben,
-
-Thanks for the explanation.
-
-Perhaps we could add a comment in mpam_msc_drv_probe(), or clarify this
-somewhere in the documentation—otherwise it can be quite confusing.
+Tested-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
 Thanks,
-Jinjie
-
-> 
-> Thanks,
-> 
-> Ben
-> 
->>
->>>
->>> Thanks,
->>>
->>> Ben
->>>
->>> [1] https://lore.kernel.org/lkml/59c21340-4e3d-4c48-9d9f-c0f78a023bac@arm.com/
->>>
->>>>
->>>> Count every completed probe, successful or not. Failed MSCs are not on
->>>> mpam_all_msc (either never added, or removed by mpam_msc_drv_remove()),
->>>> so the discovery path skips them naturally, and MPAM is enabled for the
->>>> surviving devices.
->>>>
->>>> Cc: stable@vger.kernel.org
->>>> Cc: Ben Horgan <ben.horgan@arm.com>
->>>> Cc: Reinette Chatre <reinette.chatre@intel.com>
->>>> Cc: Fenghua Yu <fenghuay@nvidia.com>
->>>> Cc: Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>
->>>> Cc: Catalin Marinas <catalin.marinas@arm.com>
->>>> Fixes: f04046f2577a5 ("arm_mpam: Add probe/remove for mpam msc driver and kbuild boiler plate")
->>>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->>>> ---
->>>>  drivers/resctrl/mpam_devices.c | 26 ++++++++++++++++++--------
->>>>  1 file changed, 18 insertions(+), 8 deletions(-)
->>>>
->>>> diff --git a/drivers/resctrl/mpam_devices.c b/drivers/resctrl/mpam_devices.c
->>>> index 61cbc75625fa..a44d66a5733d 100644
->>>> --- a/drivers/resctrl/mpam_devices.c
->>>> +++ b/drivers/resctrl/mpam_devices.c
->>>> @@ -2120,21 +2120,31 @@ static int mpam_msc_drv_probe(struct platform_device *pdev)
->>>>  	msc = do_mpam_msc_drv_probe(pdev);
->>>>  	mutex_unlock(&mpam_list_lock);
->>>>  
->>>> -	if (IS_ERR(msc))
->>>> -		return PTR_ERR(msc);
->>>> +	if (IS_ERR(msc)) {
->>>> +		err = PTR_ERR(msc);
->>>> +		goto out;
->>>> +	}
->>>>  
->>>>  	/* Create RIS entries described by firmware */
->>>>  	err = acpi_mpam_parse_resources(msc, plat_data);
->>>> -	if (err) {
->>>> +	if (err)
->>>>  		mpam_msc_drv_remove(pdev);
->>>> -		return err;
->>>> -	}
->>>> -
->>>> -	if (atomic_add_return(1, &mpam_num_msc) == fw_num_msc)
->>>> +out:
->>>> +	/*
->>>> +	 * A failed MSC must not prevent MPAM being enabled for the
->>>> +	 * surviving devices. Firmware may describe MSCs that are not
->>>> +	 * accessible from any possible CPU, e.g. when the possible CPUs
->>>> +	 * were restricted by nr_cpus=. The failed device is not
->>>> +	 * re-probed, so count it here too: otherwise the counter never
->>>> +	 * reaches fw_num_msc, the discovery cpuhp callbacks are never
->>>> +	 * registered and mpam_enable() is never scheduled - MPAM stays
->>>> +	 * dead system-wide, without any error message.
->>>> +	 */
->>>> +	if (atomic_inc_return(&mpam_num_msc) == fw_num_msc)
->>>>  		mpam_register_cpuhp_callbacks(mpam_discovery_cpu_online, NULL,
->>>>  					      "mpam:drv_probe");
->>>>  
->>>> -	return 0;
->>>> +	return err;
->>>>  }
->>>>  
->>>>  static struct platform_driver mpam_msc_driver = {
->>>
->>
-> 
-
--- 
-Best regards,
-Jinjie
-
+Joas
