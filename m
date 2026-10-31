@@ -1,95 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.20
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436510;
-	b=3jiyL3OyijYb32NiB5cANwKqAmxJdf2OvJuDcZWKbiBw54LN+4BcoZv2xR13ernyWoJu
-	 Kv5BR+zSZHgvraDpieY45OmMosRiXuapYVptqe91jkpplPBAnu6Z0I6fLW6gsExBEHDbj
-	 u4OlyzopJZy6gXi6RkLXOgCHunEmV8LkXWR38UEoBz68ib1xRHRy1u17NGZKb88O82KqM
-	 /3VL5XOphyDMUFOucBtbToWPnCjYioO8ADAu8eJAhv+IuwxYCbKRAaaVeqIEkf3JxQCGb
-	 toghhmADs2Pivq9MCcT/3ud6hbkNKyZue34biYYZaGjA+yZ9qVSHemSsiA6LG3tSa5Q==
+	t=1793436675;
+	b=pXWeqOrde37Yg25LXyjiUa+wDzl9tCOaL0dQYe3Q3aoC75/W6P5DHFGvXwOkGCIcM0bw
+	 cposIv51kSWe6KjR/zumH3sKkrDEivxF0hl8WF5sffEV/jCRDIbIcokzLi1LwyevFWkLf
+	 35T62JYaJPGSSExcNtBCR/dEO3sOvvpXc/aMyd7FudoNqhQNFLvcjvntslpQTLPiaEWqF
+	 krqt5rBrYseBKmsWO57Dm6Hiqx4bdtuKN0pX3wqLHUJPg8H0s6IBJ3/R7RyvG2OYVNbAT
+	 1Xz2y6zwQGd0edyBjlUcOOGCE8PV9dmyjWjNW3BryCb3syeDSs47aA+Ek0hTIFpp1gw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436510;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=hDQTovz7Ix9maIgBq+C0wW/9n5tDPpyQGeZtV66dPdQ=;
-	b=VBgLTzg6mqEHsKWFJILN8qHHJKPG/YAEpNTHVfUCoUdQVmxxsiG4KtiWGG3UcDv8GVpz
-	 lsIobgzpFBHfHFoutvpUunZGH7M/DPUdHCaXo4t9Px02c5bQTwwEVK6POkLyPw8Dbfbn9
-	 taQeUNIKvFT2yaPpg806Uh4np3Ewq1aZDk17oQ50ROZ3DuQ+3uTg6hJBS6rkJm50e3UBT
-	 s8cf9Nqz+WaH911pEpGa/Ci/4ajks6gRJQ8zr6yLWI0VOiVBrkoAfDoID66jLgXVBcJoO
-	 wI1ptafk6wBt/bfR7EDwaNVPZykxxWWujH6VNSHmQYUH0ZqU+lWTEWNxXJiJhyonHhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436675;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=4u4LKmqPQwyYsLxjj1JePiWhJRAotn+x2mWC12SUM8g=;
+	b=dTgnwpT0TqNjfkgG641E4XYUTyV8nyp+KV5H3UqzZ4nKmKrUozWpwfMYIGe9wKMG5zSU
+	 TFrn8MHEOwK8S4ZB1HqAlSYcXgdOjCB6hKmlLTF+VkOFt2fQu7oJFQil+RW/DbvKsnZjz
+	 ynbpykMmSYkGFOBWD/JGNS6KoYzHnEGB4JdbLLYlYGsSTEqDeJGx3eT4IB40skB8WUGcd
+	 5YMl9xNxGm61b3iyjH1+KYdCzu4iYezoZRXoK24+X/TNUVGkIdESA6ByNofHmM0DiyK1f
+	 QL8fNenLc8agJFa7RmuzY/oKYV/8mEGpBe0P1XQPwcrPTfiLJLN4ra/pT0EUN1ILpxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ixl3PA1s;
-	arc=none smtp.remote-ip=74.125.229.137
-Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KMYTDdgR;
+	arc=none smtp.remote-ip=198.175.65.20
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74DB5606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:48:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 74DB5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9247E606A31D;
+	Sat, 31 Oct 2026 08:51:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9247E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ixl3PA1s
-Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-164f08a9e84so326488c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:48:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793436509; x=1794041309; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hDQTovz7Ix9maIgBq+C0wW/9n5tDPpyQGeZtV66dPdQ=;
-        b=ixl3PA1s6PjhSIrWR5kPJ64QjE/agdh9UqNyOWV1ySem+79JIIUOLzNLONM0IY7UKK
-         P3NvpMh9xEz/pj92JOmS5SseX1elNocUu0CyJZ//KzKbhetxal1SXx8pRgyhf9iFmJcZ
-         7sPGpZ6AARFpNkl923pwYzd2tJxTKB6YwoiIZnwkh8o3AuXnHcYuO2MJJM/0KMT/UJHJ
-         FNHCJ/lWRX148zz1wuYMPfRUROeS5EnTT/hPKR5HXYa9uQiZp2b1tmB8gBfmMpKca3Zi
-         +ec+gE4INblNK3O1l/HjvqKCqaj6mTICqJZE+YY3cFDqJFghFHVEkqPhi3HafkcoYZAO
-         mawA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793436509; x=1794041309;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hDQTovz7Ix9maIgBq+C0wW/9n5tDPpyQGeZtV66dPdQ=;
-        b=bACale5MDmXE/DCqy9XSKNLVCP/VxFxB/yxtq11VbFIouLb4DPABHMQQyOT5CPOkpo
-         DBHEWNH1sOdbXebBTjnpY3A1WZrIK/RHc5XCXydVHCvksKJWDlriRIwi9NDIOQ3eZe6d
-         6nXW5pB8uv80g8OntjCF6C4wD3wP5Neao/JSLh4syrauVoPG+C3/HbZlTq5MAAu76lwi
-         8SuCWimyPTGxcvoMJDvy6TwUtMQtvNyMdR2hHqfZyn7uBhrzV17L8Kucu0yeDuAgJeum
-         rHlDyGmYyWkjNSoHqC11tntpKntn/k1dPwvqPFnEQZo8rhtxmNB0NCVkuiQfXoPRkOL1
-         LeqA==
-X-Forwarded-Encrypted: i=1; AKwUvBx26UB0qTw8UYD7o9oyS8RlOrMlLjOdP5BCAQGtWxhXWe25iPWRbiVp2c78ZIhdHRL0Zb6gAHEjdxqUqoQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKCOwiRrm6l7d1tH++N1utcFkKTG4BM5e/g9RY4ax9OiqH1HYJL
-	lsQlzXL4iNwrAg2W88YWsrgFzemok+UqJCBXRuy60bWKOdCFh5hBDmw+
-X-Gm-Gg: AYBFou1sl30RmR/nygWQg/B1/8rxxYQOyg9NxRusaMjvqEUfjTj5aTiyCDActEFzLFE
-	980CwzCMFBCqnL36WZrRj6+LAaQfHuwaIFJH4w+mS/68uwgRlgo2r6QoTCSS+gp2lckgEDcd7vb
-	2fHpN2vKC8mfChvT4WOz1FMxTaebyQqxpO8MmZNTeX9YqaM4bjAhoIqHjd3ieSalCkRUGkaYS2R
-	8PtEDF4bSxyJQA4d3UHxKbp5Ong+snVXZIdLHqTIYZSO3JHqJCUpLGaYzichUF+tkBuFv7CyzgL
-	cXwoEdghc22P0T3hGIlkUEzL1BxayVjl1l00Jx+MigLkqUkGBbYlYtrCLFIAWe1b68ZowiNdGYZ
-	mFeP6nz8DR8H8Qqk2zR/bJAEs+oBUHftAxFANB9tOngwcaXwV/KvcVBvwbg7Mn0deWZTTc7+D/q
-	ziyFKxe5kXsT80L0Sw6O7+OkYisegJQsKJQxTp75McjkkllX9uXtNcl21JN59DxHhgrcELJyPS2
-	8fRbjmh8IXY7ow+rghlqqkKVTJgqK3ODnaeVbdMKVHhHSJaYf9UqluNtqT12hTMzwJwp93LxuOn
-	m1g4qYzVd7SyDGL0vp8gVmTCJugU8ItqVozTOljemb1bJOepFLiNdtPbfcTEoZxKkyN4sd8b
-X-Received: by 2002:a05:7022:4392:b0:1a4:c892:b14f with SMTP id a92af1059eb24-1ac5de53bc8mr10454378c88.29.1793436509417;
-        Sat, 31 Oct 2026 01:48:29 -0700 (PDT)
-Received: from 49152.tail67c8a6.ts.net ([170.62.100.241])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac194b5437sm15684575c88.13.2026.10.31.01.48.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:48:29 -0700 (PDT)
-From: Kenzema <ken3009le@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Johan Hovold <johan@kernel.org>,
-	Alex Elder <elder@kernel.org>
-Cc: Rui Miguel Silva <rmfrfs@gmail.com>,
-	greybus-dev@lists.linaro.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Kenzema <ken3009le@gmail.com>
-Subject: [PATCH] staging: greybus: light: use sysfs_emit() instead of sprintf()
-Date: Sat, 31 Oct 2026 15:48:13 +0700
-Message-ID: <20261031084813.214366-1-ken3009le@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KMYTDdgR
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793436672; x=1824972672;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=nwv4TqEAetnRJKnu4Hrrk+6Di2VlM6tDrcI2fKdJ5VQ=;
+  b=KMYTDdgRIzF1/n1vdMfXlkE9pxaCXwXb8nmUvK4PIzXzZ4t4fZYraQOF
+   sbFeoUxL2MBvcxvdBm/W/I7jinZ4Y2nz4kjZb4rMYHTqD1AXIWg56ngPb
+   VM14NLzULT7aIbU8/yV3/KqaIZxRIrgGsTfEeotuTA+2GiwnAezjHxzHJ
+   98m0EEZzvmJ+KhlD8IifReXBOZZJgzHe+m0urJaFMdR4oZg6AmeeLBojs
+   FwUM690Loc7vK1EqlqEYDL8TmgRfO0TaXRgdRSESEIaJifKCCfZTqDdMO
+   ROokVQZwf9mSMdjSeWwMGEpJH3DBzoBY+pcyaQNtiS7CmZvpCS81i/fQS
+   A==;
+X-CSE-ConnectionGUID: VYdfTtzORkW4SAN5TZ0YNg==
+X-CSE-MsgGUID: 1UjASIP2RzKueJ/AtssqxQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2216613"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2216613"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:51:12 -0700
+X-CSE-ConnectionGUID: pzWFCsmLSBm2xkm65MLrJQ==
+X-CSE-MsgGUID: JtZESsbbQ42wojQyHjrWGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5972826"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:51:10 -0700
+Date: Sat, 31 Oct 2026 10:51:07 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nithishvelan M <mnithishvelan@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Nuno Sa <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+	linux@analog.com
+Subject: Re: [PATCH] staging: iio: frequency: ad9832: use devm_mutex_init()
+Message-ID: <auWr-zLzIIaQ2Nzi@ashevche-desk.local>
+References: <CAFonu5gDrT6znf3VUDjyg9=mTtB2nqXj9MFVO6cUZF3X4F-UeA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,40 +84,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAFonu5gDrT6znf3VUDjyg9=mTtB2nqXj9MFVO6cUZF3X4F-UeA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-According to Documentation/filesystems/sysfs.rst, the show() callback
-should use sysfs_emit() instead of sprintf() or snprintf().
-Convert fade_*_show() and color_show() to use sysfs_emit() for safer
-buffer handling and consistency with other greybus drivers.
+On Sat, Oct 31, 2026 at 01:02:58PM +0530, Nithishvelan M wrote:
+> Replace mutex_init() with devm_mutex_init() in ad9832_probe() and
+> check its return value. The driver already uses devm_* helpers for
+> its other resources and has no remove() callback, so this ensures
+> the mutex is destroyed automatically on teardown when mutex
+> debugging is enabled.
+> 
+> No functional change intended. Compile-tested only.
+> 
+> Signed-off-by: Nithishvelan M <mnithishvelan@gmail.com>
 
-Signed-off-by: Kenzema <ken3009le@gmail.com>
----
- drivers/staging/greybus/light.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+> From d6899b1d88d9c9b224dd78b94b67caaad05098bf Mon Sep 17 00:00:00 2001
+> From: Nithishvelan M <mnithishvelan@gmail.com>
+> Date: Sat, 31 Oct 2026 12:03:37 +0530
+> Subject: [PATCH] staging: iio: frequency: ad9832: use devm_mutex_init()
 
-diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
-index cab02b5da..2689f9a75 100644
---- a/drivers/staging/greybus/light.c
-+++ b/drivers/staging/greybus/light.c
-@@ -173,7 +173,7 @@ static ssize_t fade_##__dir##_show(struct device *dev,			\
- 	struct led_classdev *cdev = dev_get_drvdata(dev);		\
- 	struct gb_channel *channel = get_channel_from_cdev(cdev);	\
- 									\
--	return sprintf(buf, "%u\n", channel->fade_##__dir);		\
-+	return sysfs_emit(buf, "%u\n", channel->fade_##__dir);		\
- }									\
- 									\
- static ssize_t fade_##__dir##_store(struct device *dev,			\
-@@ -220,7 +220,7 @@ static ssize_t color_show(struct device *dev, struct device_attribute *attr,
- 	struct led_classdev *cdev = dev_get_drvdata(dev);
- 	struct gb_channel *channel = get_channel_from_cdev(cdev);
- 
--	return sprintf(buf, "0x%08x\n", channel->color);
-+	return sysfs_emit(buf, "0x%08x\n", channel->color);
- }
- 
- static ssize_t color_store(struct device *dev, struct device_attribute *attr,
+No, we don't accept attachments. But `b4` might, I dunno.
+
+> Replace mutex_init() with devm_mutex_init() in ad9832_probe() and
+> check its return value. The driver already uses devm_* helpers for
+> its other resources and has no remove() callback, so this ensures
+> the mutex is destroyed automatically on teardown when mutex
+> debugging is enabled.
+> 
+> No functional change intended. Compile-tested only.
+> 
+> Signed-off-by: Nithishvelan M <mnithishvelan@gmail.com>
+> ---
+>  drivers/staging/iio/frequency/ad9832.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/staging/iio/frequency/ad9832.c b/drivers/staging/iio/frequency/ad9832.c
+> index 35f823f24f..a90ee89803 100644
+> --- a/drivers/staging/iio/frequency/ad9832.c
+> +++ b/drivers/staging/iio/frequency/ad9832.c
+> @@ -325,7 +325,9 @@ static int ad9832_probe(struct spi_device *spi)
+>  		return PTR_ERR(st->mclk);
+>  
+>  	st->spi = spi;
+> -	mutex_init(&st->lock);
+
++ Blank line.
+
+> +	ret = devm_mutex_init(&spi->dev, &st->lock);
+> +	if (ret)
+> +		return ret;
+>  
+>  	indio_dev->name = spi_get_device_id(spi)->name;
+>  	indio_dev->info = &ad9832_info;
+
 -- 
-2.43.0
+With Best Regards,
+Andy Shevchenko
+
 
