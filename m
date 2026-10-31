@@ -1,60 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424575;
-	b=X65iWKgeo5KbxLYsTvcbxcnHfR4mn3XFE0z1FxmQGodVSh0UGt2K3wdsArRrtiXmv5Ix
-	 wXBBCe85wh6A7QjduYss2irsTzjH4tx1CAiEno/H/rq7u06Ok6FnI6htW756eaMOy9AwR
-	 aObsc4x4aYZ1wd6Me8zvoouSh03poSToFlhGRMdQULGFETEOYuYUIKbbFoabzip+/nQom
-	 6r+mXi5zyOXHNRwZ0WqCoVk+V1L67nf7DPalxU/UvK8pUq/9KvU0CHWv0+owEkmt6r1p2
-	 /1UwBQ8ZPTeTtLEcNcqxii5ryjvp1JUq9HAdwN0XnTau8bKrMFnP6CeuD7uS74pP/Pw==
+	t=1793424586;
+	b=SZRL6uX1G29dxNw3ML3YVBO+DKra3M91WBWpupPfs+qbIuyhNElk3qz0qmxLioHZHmfi
+	 dFE35dpNvS9n6XtU588e/Ol7h6eOHNCToYbwVxntlMLHh6vldgv2pT7HMOTdmm1IDiwV9
+	 qbg9uVwrwZTU/9ENwyJEItKP2rL9W8PPTS6Gwc6wsBs92I4njRqtaDP3DK5l3xDO68fUy
+	 o8/b4jjUQbM3O9v/Z3b+b1+HIc5GF67hOPlaCGqWrKm09z3B+GTgcDBP588dEqtDakLy/
+	 inWiz+uOlhyPRvkfkXeIlidt4UcvRehQVDC1ZXHgy11MpNly9KRq5Xmk/gZgGB6cTwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424575;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-Originating-IP:X-CM-SenderInfo;
-	bh=PoEJOz6BO3EABg6aGcSf6huZBWcr0145a9Y7my193cA=;
-	b=VVdaaRNuuPRsZ/bQlw9K08ir1ZndXhkpVZuB2Z+8qw7irMkaxgUOpzNBl6bFxkUTPC+K
-	 jnbP17UdiYw+qozPBE4hEtwVJyQmpolBDsLb7tReytQg8Bg/ZZnkDGXCBo63+fXIaeJz7
-	 OKXH11hcQy4yU2IfUiL4XaTdzwIPjFw1VdTR/ogJvq3CGovkFYX50dNGTniI2lPg0GYd2
-	 07MUMgWkMsZe23hJyi3ClR1S/EKEAVp4CSY37Hmw1kn9nmP/PGg5YS1Tg4x1C1pXoBLQx
-	 v1ZEv98aVsFS9bc97Lcn9QrxD/iJtKtacFu7pfnwK4NKdbJbO/jKtLVHHr08rANSGeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424586;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=pPCYtQzMZtajXWmvtb2q+ThOcxjNXkaUo5PJHZCV/CM=;
+	b=O1/IuQH1TDLUuDvtNR9ZT6NGMXJRqw1LP4OUuS6gkp5Yu3XWryM98LwxQVaqzjUtAdsM
+	 ecqUc7pBLiu6gFTp7MF778J72QXDi+MFv6Tc8ED/PydTLvQRt9bQmew+pG/9Ul9ZywSw8
+	 nfuLixVQekjlSudLZx6kk4BVQ6D79L61FWE3/BxJT35odNCNS8m+3URydBgCttTU7dmUL
+	 5jHQdjX4OJ3ZCqy6U/hLxMj5Ln0XLVIYsiVdOYLUG4s2PwXMavvX+6piJKJgkHCjl3Px8
+	 YB7LiXbcnP1I8at1dgC6OhHvkyfz3qNYeP6dpt/bfX8+8WOs6MltI1WWlkjzP1b8wQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b="o/hSwahP";
-	arc=none smtp.remote-ip=220.197.31.5
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ocmjj6TV;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A46E606A32E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:29:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A46E606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94FF606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:29:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B94FF606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=o/hSwahP
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=Po
-	EJOz6BO3EABg6aGcSf6huZBWcr0145a9Y7my193cA=; b=o/hSwahPWdzxf1Tc4Y
-	JNq+LrWv9DwXJJtZHNiQLivtJAb88/8QgZLcFboo7SB3C8nTWhLYJ40MjrEuw5yv
-	MXLehcmA6lVwfC/1EIXri++r4n4EnDd3lmlSnSnJDFjEWoY9IUwTyUFTXjB9RRY0
-	E7vwp23hHoCMfBt0QQqQGyWx0=
-Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgDX37adfOVqFDprDA--.9490S4;
-	Sat, 31 Oct 2026 13:29:05 +0800 (CST)
-From: Baolin Liu <liubaolin12138@163.com>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Xuewen Wang <wangxuewen@kylinos.cn>
-Subject: [PATCH v2 2/5] ntfs: preserve timestamps when creating hard links
-Date: Sat, 31 Oct 2026 13:28:54 +0800
-Message-ID: <20261031052857.1542936-3-liubaolin12138@163.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20261031052857.1542936-1-liubaolin12138@163.com>
-References: <20261031052857.1542936-1-liubaolin12138@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ocmjj6TV
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so872509a91.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:29:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793424585; x=1794029385; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=pPCYtQzMZtajXWmvtb2q+ThOcxjNXkaUo5PJHZCV/CM=;
+        b=ocmjj6TVIvlHNqe4suqwOILLkAWxwzL2+oK3CrsX4xlSxWKBbGvRQxBURZ6Hoa1vkQ
+         /MCoc2qsnAJwrym5ldC7tWZaik4xJgiRUwuGDrM013ukasqiZTX7EOjTDpKU2W+nv+Lp
+         +r4Oyojn0AcdY6tZI32VcYdlKIM6FZXMEnakR+WWXid2sLZbpKB2/DlSyHH1X9/6NOvn
+         sKT/Ve5Yr5wO+HcxxcwNV1VEsFPg2aUVDlSq1Hl+Ab8rnBHiM+OkVbJMzkyM1SxoME+8
+         HoDqGtybBm/6JHnUlk2lhcLE9k8UlOQpBE8/nCzMyQPYtUIaTIHzDPiMp9qXS6OCoOaS
+         BOUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793424585; x=1794029385;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:from
+         :subject:cc:to:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pPCYtQzMZtajXWmvtb2q+ThOcxjNXkaUo5PJHZCV/CM=;
+        b=zaio5dCDYGCkThocWkAZCFtN6jbXLsjd/JzhzKQEneZCqJtPW5Xx5Q4ZSnQSlEePMu
+         6XLVIoBnMg/uiuX+3J8C62veL+zKhAJS/nGKX7g2OGACaSH+kRRdnTd+BZfIaeMINJIn
+         W7pHqRZG9UrPazBoj2TD2bGN3W8KIiaOM+QBEVusx+bjO5+NFY3nzANkRrsBRR0iCqZt
+         ZhrSdxoGgc5uy9C7WCfq5b2F3HEB2ECA3N+ph6KyRNlATmQZzGozGA0jY0/dLK8C00KL
+         zff8PvTF4NZR4uWGRKh92mhRNYHJVj87fWViJtYtjvtsWs3CweFCI6o3gdZrCux5MUWi
+         cVPA==
+X-Forwarded-Encrypted: i=1; AKwUvBwxMTOWWXmjWc9GrBejFLfpfV3SYn68oIE1UYNZ6pKVZcy9J8N8ucuB9V6mI+G4UfVUxXARCM+oGJRZ5cw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ3eYTor2JRdD7Q4wMw/68WmuX02q/1KPJX/pDRTHybvybwcMgk
+	48HXjIgwOUUSbd38ynox+lm/vGo8FLf749sM44Kvy+GJQ+6ekyv4R9m5
+X-Gm-Gg: AYBFou18ZSvpnGkDrm61u0qY7oqpbTMrMbP89JcAXT8MiIjhDVEqnqY3ceTmLDFEArQ
+	M4Ng9kap43Jw3MSV+Pe6uweA55ZbJbCejABPVRuxMvm+hZsEeEO1sklkrJEpxw5+wOYxLrNQeBM
+	gUs0lzVq/derrum76sJRAQgViLbYv/P6xF0mgzyH9esY6uY8TnN5S4ne1ezPoMgf3IFXnH8kgje
+	hH9MMHxSgYi/U3rDbS+qvDzvhdN7rpnIEGe8VgJ6XfvtyaF78+Uin8FW+D7GyqXrLJ7BgyPM+YW
+	bsvuNq77+asOvtEfgbAVflSXwPNaY0ptPxoC0IjbM2iLfMxsENH6TEky4qRQVqQts5Kcwr9W82b
+	84QPQmGkuHMat7qJVl66d/u4m+x3PZK3kqlTajusQVlDDs5iIF0HfumB3kDStJ70VcpBH8VROH7
+	VKnd9xqfzEMIPi1nfaXhRCZNrUwS+t56hGAOr2//mkARXKDmuWZ0SSMaKj7/qlT2hAJLP5D2yuF
+	NuGMgaZM8GDnsN9zd8HwB459zsOk3sqH/BO1CPqiPbAwjNVrzIToiNm+MCy/jEViDseXdUjNlVE
+	GEmd13UYCE3g/xwJEhM5rwSnZixPQIguZPT9dBdTXsCeAq0xF67vNvj9KFclo65htsmPPx8WFly
+	ysA+FWlwNDHrW4gw4Qqs1tA5Zx8iVEy/kjhI=
+X-Received: by 2002:a17:90b:4c4c:b0:3a6:d2ac:74ce with SMTP id 98e67ed59e1d1-3ae8972b662mr2341161a91.19.1793424584986;
+        Fri, 30 Oct 2026 22:29:44 -0700 (PDT)
+Received: from localhost ([153.61.198.254])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8826a769sm2582771a91.4.2026.10.30.22.29.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 22:29:44 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 31 Oct 2026 05:29:43 +0000
+Message-Id: <DMIRYFU9YEX1.14HBEXD0UQR7H@gmail.com>
+To: "Qiliang Yuan" <odys.yuan@gmail.com>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>
+Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>
+Subject: Re: [PATCH bpf-next v2 07/22] bpf: Let the patch list remove
+ instructions
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+In-Reply-To: <20261030-bpf-verifier-patch-batch-v2-7-55cd43439f7c@gmail.com>
+References: <20261030-bpf-verifier-patch-batch-v2-0-55cd43439f7c@gmail.com> <20261030-bpf-verifier-patch-batch-v2-7-55cd43439f7c@gmail.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,117 +108,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgDX37adfOVqFDprDA--.9490S4
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXr48uF43Xr17XFW7Ar48Crg_yoWrCFW3pF
-	W3Kw1DKr4xXrW7Wrn2yF4DZFySga4I9FW7JFWUKw13Aan0qw18tF1Iqry7ZF1rtrZ5Wr1j
-	qa1Fgr1UWw1UG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jyxRhUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gFbJmrlfKFp4QAA3M
 
-From: Xuewen Wang <wangxuewen@kylinos.cn>
+On Fri, Oct 30, 2026 at 04:51 AM Qiliang Yuan <odys.yuan@gmail.com> wrote:
+>  	bpf_patch_image_install(prog, &img);
+[...]
+> +	/* before subprogs are removed, since it looks at them */
+>  	for (i = 0; i < env->func_ptr_cnt; i++) {
+>  		struct bpf_func_ptr *fp = &env->func_ptrs[i];
+> +		int subprog;
+>
+>  		if (fp->xlated_off == BPF_FUNC_PTR_DELETED)
+>  			continue;
+> +		if (bpf_patch_image_deleted(&img, fp->xlated_off)) {
+> +			subprog = bpf_find_subprog(env, fp->xlated_off);
+> +			if (subprog <= 0 ||
 
-ntfs_link() resets atime, mtime and ctime on both the source file and
-the destination directory after creating a hard link. This overwrites
-the source file's atime and mtime and the directory's atime.
+Sashiko is right. It's real, and it crashes the kernel.
 
-Update only the source ctime and the destination directory mtime/ctime.
-Use the same timestamp for the new FILE_NAME attribute, its directory
-index entry and the source inode, so the new name does not retain the
-old ctime. Set the inode's ctime only after the link succeeds and mark
-both inodes dirty to queue their timestamps for writeback.
+bpf_patch_image_install() already set prog->len to the new length.
+bpf_find_subprog() gets an old offset and compares it with prog->len.
+When the prog shrinks enough it doesn't find a live function.
+The func ptr is marked as deleted and the slot in .rodata becomes NULL.
 
-Keep the rename caller's existing timestamp behavior unchanged.
+It needs two things:
+- the first insn of the function goes away as a nop
+- this commit removes at least (end of prog - start of function) insns
 
-Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
----
-Tested the standalone five-patch series in QEMU. The requested unchanged
-xfstests generic/004 and generic/389 passed. Hard-link tests checked that
-prepared atime/mtime remained unchanged and source ctime advanced.
-Offline checks compared STANDARD_INFORMATION, the new FILE_NAME and
-the directory index ctime.
+Plain C hits it:
 
-Changes in v2:
-- Use the same new ctime for the inode, FILE_NAME and directory index,
-  as requested in review.
-- Update inode ctime only after the link succeeds.
+  #include <linux/bpf.h>
+  #include <bpf/bpf_helpers.h>
 
- fs/ntfs/namei.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+  struct st { int a; } g = { .a = 10 };
 
-diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-index 14eaf7204ead..a83a648c8ff8 100644
---- a/fs/ntfs/namei.c
-+++ b/fs/ntfs/namei.c
-@@ -1244,6 +1244,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
-  * @dir_ni:	ntfs inode for directory in which new link should be placed
-  * @name:	unicode name of the new link
-  * @name_len:	length of the name in unicode characters
-+ * @ctime:	metadata change time for the new FILE_NAME
-  *
-  * Create a new hard link. This involves adding an entry to the directory
-  * index and adding a new FILE_NAME attribute to the target inode.
-@@ -1251,7 +1252,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
-  * Return 0 on success and -errno on error.
-  */
- static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
--		__le16 *name, u8 name_len)
-+		__le16 *name, u8 name_len, struct timespec64 ctime)
- {
- 	struct super_block *sb;
- 	struct inode *vi = VFS_I(ni);
-@@ -1313,7 +1314,7 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
- 
- 	fn->creation_time = utc2ntfs(ni->i_crtime);
- 	fn->last_data_change_time = utc2ntfs(inode_get_mtime(vi));
--	fn->last_mft_change_time = utc2ntfs(inode_get_ctime(vi));
-+	fn->last_mft_change_time = utc2ntfs(ctime);
- 	fn->last_access_time = utc2ntfs(inode_get_atime(vi));
- 	memcpy(fn->file_name, name, name_len * sizeof(__le16));
- 
-@@ -1464,7 +1465,8 @@ static int ntfs_rename(const struct mnt_idmap *idmap, struct inode *old_dir,
- 			goto err_out;
+  #define OP(name, expr)					\
+  static __noinline int name(struct st *s)		\
+  {							\
+  	if (!s)						\
+  		return bpf_get_prandom_u32();		\
+  	return expr;					\
+  }
+  OP(op_a, s->a + 2) OP(op_b, s->a + 3) OP(op_c, s->a + 4) OP(op_d, s->a + 5)
+  OP(op_e, s->a + 6) OP(op_f, s->a + 7) OP(op_g, s->a + 8) OP(op_h, s->a + 9)
+
+  static int (* const volatile ops[])(struct st *) = {
+  	op_a, op_b, op_c, op_d, op_e, op_f, op_g, op_h
+  };
+
+  SEC("socket")
+  int vt_all(struct __sk_buff *skb)
+  {
+  	int i, sum = 0;
+
+  	for (i = 0; i < 8; i++)
+  		sum += ops[i](&g);
+  	return sum;
+  }
+  char _license[] SEC("license") = "GPL";
+
+The verifier knows that &g is not NULL, so every op starts with a nop.
+
+  bpf-next:     Return value: 124
+  this series:  BUG: kernel NULL pointer dereference, address: 0000000000000000
+                RIP: 0010:0x0
+
+That's the shape of any table of ops.
+
+The minimal fix is to do the lookup before the install.
+On top of the whole series:
+
+diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
+index a442188647bc..de758ce7afac 100644
+--- a/kernel/bpf/fixups.c
++++ b/kernel/bpf/fixups.c
+@@ -451,6 +451,28 @@ int bpf_patch_list_commit(struct bpf_verifier_env *env)
+ 		}
  	}
  
--	err = __ntfs_link(old_ni, new_dir_ni, uname_new, new_name_len);
-+	err = __ntfs_link(old_ni, new_dir_ni, uname_new, new_name_len,
-+			  inode_get_ctime(old_inode));
- 	if (err)
- 		goto err_out;
++	/*
++	 * Before the new image is installed and subprogs are removed:
++	 * bpf_find_subprog() looks at prog->len and at the subprogs.
++	 */
++	for (i = 0; i < env->func_ptr_cnt; i++) {
++		struct bpf_func_ptr *fp = &env->func_ptrs[i];
++		int subprog;
++
++		if (fp->xlated_off == BPF_FUNC_PTR_DELETED)
++			continue;
++		if (bpf_patch_image_deleted(&img, fp->xlated_off)) {
++			subprog = bpf_find_subprog(env, fp->xlated_off);
++			if (subprog <= 0 ||
++			    img.new_off[env->subprog_info[subprog].start] ==
++			    img.new_off[env->subprog_info[subprog + 1].start]) {
++				fp->xlated_off = BPF_FUNC_PTR_DELETED;
++				continue;
++			}
++		}
++		fp->xlated_off = bpf_patch_image_remap(&img, img.new_off, fp->xlated_off);
++	}
++
+ 	bpf_patch_image_install(prog, &img);
  
-@@ -1630,6 +1632,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
- 	int uname_len;
- 	int err;
- 	struct ntfs_inode *ni = NTFS_I(vi), *dir_ni = NTFS_I(dir);
-+	struct timespec64 ctime;
+ 	for (i = 0, k = 0; i < img.cnt; i = end) {
+@@ -474,25 +496,6 @@ int bpf_patch_list_commit(struct bpf_verifier_env *env)
+ 	env->insn_aux_data_len = img.new_cnt;
+ 	data = NULL;
  
- 	if (NVolShutdown(vol))
- 		return -EIO;
-@@ -1654,7 +1657,8 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
- 	ihold(vi);
- 	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
- 	mutex_lock_nested(&dir_ni->mrec_lock, NTFS_INODE_MUTEX_PARENT);
--	err = __ntfs_link(NTFS_I(vi), NTFS_I(dir), uname, uname_len);
-+	ctime = current_time(vi);
-+	err = __ntfs_link(ni, dir_ni, uname, uname_len, ctime);
- 	if (err) {
- 		mutex_unlock(&dir_ni->mrec_lock);
- 		mutex_unlock(&ni->mrec_lock);
-@@ -1664,12 +1668,13 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
- 	}
+-	/* before subprogs are removed, since it looks at them */
+-	for (i = 0; i < env->func_ptr_cnt; i++) {
+-		struct bpf_func_ptr *fp = &env->func_ptrs[i];
+-		int subprog;
+-
+-		if (fp->xlated_off == BPF_FUNC_PTR_DELETED)
+-			continue;
+-		if (bpf_patch_image_deleted(&img, fp->xlated_off)) {
+-			subprog = bpf_find_subprog(env, fp->xlated_off);
+-			if (subprog <= 0 ||
+-			    img.new_off[env->subprog_info[subprog].start] ==
+-			    img.new_off[env->subprog_info[subprog + 1].start]) {
+-				fp->xlated_off = BPF_FUNC_PTR_DELETED;
+-				continue;
+-			}
+-		}
+-		fp->xlated_off = bpf_patch_image_remap(&img, img.new_off, fp->xlated_off);
+-	}
+-
+ 	if (img.del)
+ 		patch_list_del_subprogs(env, img.new_off);
  
- 	inode_inc_iversion(dir);
--	simple_inode_init_ts(dir);
-+	inode_set_mtime_to_ts(dir, inode_set_ctime_current(dir));
-+	mark_inode_dirty(dir);
- 
- 	inode_inc_iversion(vi);
--	simple_inode_init_ts(vi);
-+	inode_set_ctime_to_ts(vi, ctime);
-+	mark_inode_dirty(vi);
- 
--	/* timestamp is already written, so mark_inode_dirty() is unneeded. */
- 	d_instantiate(dentry, vi);
- 	mutex_unlock(&dir_ni->mrec_lock);
- 	mutex_unlock(&ni->mrec_lock);
 
+With it the prog above returns 124.
+
+But that fixes one instance.
+The commit changes prog->len, aux data, func ptrs, subprogs, line info and
+insn arrays one after another, and helpers read env and prog in between.
+So the order of the steps is load-bearing, and nothing says so.
+Make each table a function of (old value, new_off[]), with no helper that
+looks at env or prog, and install the image as the last step.
+Then this class of bugs cannot happen.
+
+Please add a selftest for it: callx through a pointer in .rodata, the callee
+starts with a nop, and main loses more insns than the callee has.
+All tests in patches 21 and 22 pass on bpf-next without the series,
+so they don't tell whether a remap rule of the commit is wrong.
+
+Also patches 4 and 6 don't apply anymore, since arena_scalar is gone.
+
+Other than that the patches look great.
+
+pw-bot: cr
