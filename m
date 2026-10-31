@@ -1,63 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793418187;
-	b=B9p/cwGtCx+X5XDeLBvfE/4ZDBiW9lIgw0ezVWc1RPivjhTeiBbp9JnQ4bYCQmHF4q7R
-	 SOg35Hoo+JexxJjUcncHkMB/Wq/g/r3RQop8byXaWcOcJPgW7s6MRzaQ5+QbbYuwp0iM+
-	 GdtNLXXvCFG0WlCIl/6NFU3dMGQFiWScbNhKAcjGEOsUh6+9jQn4shOwvUrDBqrc80el8
-	 YPb1h8kZa9fgtN/amYIkZmbFa6FqkvEazqAT9B8oYUgCZK3vSQ87vyx6jzzhca2y0ER4x
-	 da/SLB+KJ6WsS7saZ36Ev2Q7J7TZnQfnsvCO4YuYJEkiwo4DvG+YApup7TuNJ0q9uTA==
+	t=1793419057;
+	b=qEFrJJtsDqrdAhBjnkyLZV/Z9GtWsmrpsX8tDOyjfIgg5LrMnEmWqcnLSNcNRAq9J89G
+	 caGFhIOQNN6AnUu7CvU0q474YXFXciQf9XeXj4Xt/ce26Wsc7obU7vFtClXER66PoZ1Dt
+	 HhtzPit0YhTjdX1tp6WlBWE31e6D6rng2hxr/GpzqBbvHl+CfmXUO4hr5GfsmZ1sEErfn
+	 LhLVwLR18P5pc2VgJgeq0/c2lDrQvau1oIoNNj1WL36T8NSKCX9vC+q4dNombPN+Rjm0Y
+	 wMmY4gPMcIaje7YtFcdefhxLh3XfyXtZhlylFzrlIRpOltbdBchObyLb+EVlppqC76A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793418187;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=OAnvTUB+U+uNjQa0UULo5vi2SNWE9EM+D+w/T8NXLOw=;
-	b=vbDXlErFfHaM0iVhdMl1+RdGtBv3iu4bU2iV+d0VPHghZiGG3f2A41yNeOB0X/NyUMg3
-	 TfHMr6rp/ngFSjlKWg7tgyaOyiypV63GmhmvBh+E56/kPRmuXx8bRTr6fsiEZ55n7C6FM
-	 CM9QQ5VH+ujJ6jBZga6jScJH0+44v+sBqSlkTnDklDIVELlEkc+Fd6BUSC5ElmgtHC0KL
-	 iT0sRAHNgqy4DFvSARHzrV2WaxBGEj1BR8jhOTX+KBo9ieTTUO/49v2aZyVR1YLpDYa1m
-	 5imcRC9iok52I/AwPIOgz122QfgMpxOtCcuIPB/E46YZ0UnXlBlxLam9nC90pczGPHg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793419057;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8jDkWnNhNjZqKQIv7pGifKaP1FfWkuWc7CK6zb7zNeY=;
+	b=UYj+XgcGxQCMd3lt5Aa7QLy/UqQocuPI0QrmJKOd3SRwyJfL9MFuWW5Lm7oa626ZJYL1
+	 4CuZzenm/AS7tlLYVZnuL7hkwuDbftCW1kx/Ax1COfhL0MluQM0RAJ7/cj5wjbZTcrYcf
+	 VvX8CCFDb53uZHGtxCxKXvSM8sN1HBZKoRkUe5RpnINIyRaQiS26IuryReDrAx2B1NzGs
+	 0kJYpeDqDHVOiIVUX63y7MYyjP0ZMaNYuZFTVzHD4PADKW+UKukapcRKxLq/l7akGg2dB
+	 7Bx42E4o16I5a4H+/fWcQlwc1bXkpkch6mwvvJqgJyPrSO+E5B8/7GOe89vcB3b7pVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=uM8H6qrk;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A7D7F606A31D;
-	Sat, 31 Oct 2026 03:43:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7D7F606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h+IVmTE7;
+	arc=none smtp.remote-ip=209.85.214.177
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E47E5606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:57:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E47E5606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=uM8H6qrk
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=h+IVmTE7
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so17815ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:57:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=OAnvTUB+U+uNjQa0UULo5vi2SNWE9EM+D+
-	w/T8NXLOw=; b=uM8H6qrklq3pS7IHYuSaSoGer0YwlrH//mRxWNrDWGiJsI86Fp
-	26P2tZ1IB9ZwOUkaT24gMi7pyU1ZHsto4s9NcsCFStdhEBtZ5RIohw13OiId3NOR
-	XgyzdSQn1q3cL5rWJG5zkw2pWwgDS1CDL0yO6D+OHej8ZfFwc/G679UaU=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXjjLEY+VqGO1sAA--.76S3;
-	Sat, 31 Oct 2026 11:43:01 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v3 1/3] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-Date: Sat, 31 Oct 2026 11:42:58 +0800
-Message-ID: <20261031034300.272730-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
+        d=google.com; s=20260707; t=1793419056; x=1794023856; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8jDkWnNhNjZqKQIv7pGifKaP1FfWkuWc7CK6zb7zNeY=;
+        b=h+IVmTE7YS2vVMxJn2EgHy/dgU6tm3Kx58IDUbnIc0/m6YEZHedyFHkEgk5wovIKz+
+         QawUiOlVrvE/PhRwK64PRGlQYD3rGRLncoNKxjhRU5RhZzY3eSViC+1o04TRvfvlRokg
+         DdJU+qrgY0s0JzqW1pE/dirU2baPdE2aDNSzAhB9wygTPw3hdM7UFvG6vjk5QiGXIylY
+         d7lY/tx9A8G3fKkW2cZkOCuGcmE9q1E5Q7zyLW73yd7UOU5o9QVHwW/bRot9rzSTRmJQ
+         UhnYlKhehtaMEtKj/xdBeDI6uMGWZejUqleoPFOUkLBTcWdUOxXY+FgN4yp9MylM00ub
+         vpsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793419056; x=1794023856;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8jDkWnNhNjZqKQIv7pGifKaP1FfWkuWc7CK6zb7zNeY=;
+        b=LjPRbJfbKe7ZUfeVwtvdVc+4TL/dcwxL0vMyP7Ccw0AqZB2KWmneaaPobhEln0qTQg
+         E6VtXGbIAzaXj5y3XK24RHc2LwzU65Jy+A3Z1bja3ZjHcJwHkhPWOnvcIWeCeLrvBkvN
+         rzsdF1uXNSVKqJ2fd6ilGIWw2CuKcoBfF7ivGd+LAOnEc3GddQU7YsbPZZY+DZ3w6znB
+         2/wK5rnHGZ/KDnmMK76aguHOhBJniZA/Vk3nNJ2jSTcrxArXeJajiH4kN5w4VFNQXKB4
+         bpVYfh1SnxPLnOZlOMC+otLJXS78ZOS3UOiHJCoFzU0nsOzZkEgNb+VlTpG6h+MeB2I4
+         ljRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwv5lJNtCxPczi+lnj20hFNAHu9pJXy86jsXn6ZjrfqdPzzYfrg8QJRn81PKuPiEUuB2dDgxH4xTi0ANcI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI0Ru1I7hBrbefu2ZbgN/1XJCOltrHfgbMOpr2ixqMtiXbRNELW
+	bri25yJE7mps6BVVLOipEboMpG8f+IvVV0g/JZCmZ9d0L9g8dNPncnOJ11XntsE8Rw==
+X-Gm-Gg: AYBFou3nMwsOlmJzBnIgRr8nvS19NgPW7z8OblwrDI7FTAXcRW/enVhV2YnKQojOKbc
+	bCttGA0+NUWnrVbGrUzoxRKk/2j8O+7pZGQctriE7dYuKQJq9u/yc3o0dAFIF8wAadXaVHjJ762
+	j+sT2IKrVAeZknoJWG9IB5Z3uRLnN8bGzzg95iqp6LYJM6VsvHcm7rBcQAMD9gwLiXIA0XP1KNP
+	tSN+IElCVN/ZITYozrQjvUuAWgkvV9tVwnnSC244yRX1dkQd3k/cPStLLSrETjN+tF2KGTuZDRy
+	4GwpmgeqUCj5tHggS89aFOPVkWIpeAoL+sFAZTHEydYB17EYGpc7DTmMuJOb4pee9Hk1ePt2KfS
+	8zXADLclGT5NMr1dqf6F74rRvgbIJfNXZJSqSK0lobdIgU3VjvY6rw+M+rjxWfU83tbxGFTF2if
+	/Pw+PgtMkdvfLg7B+MMnCm7lANELGZTlWgzwruuN2D0cuDLWb4BWhpm/hsRfOUyqc4hxXJSNn2O
+	ZV9SDvr7VlKA66EDWSeh75esTK7V2Gf6jzc6/vMiT3a2fNQ0KErvkQLE/PF9Y28rSvySXMiE3Iv
+	Y6dv+yMX3Kj1REn01c5YKMDTraihgEjdv6L66Gv7cpx+AsdwFrUWOWyo2X5AoxmfITJ4ThZRKuR
+	WtB1L9fK1+kPow/dFHv25Tg==
+X-Received: by 2002:a17:902:c40b:b0:2c7:f0cc:dafa with SMTP id d9443c01a7336-2eb1ebe546cmr12291235ad.5.1793419055560;
+        Fri, 30 Oct 2026 20:57:35 -0700 (PDT)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7d429fsm10473502a91.2.2026.10.30.20.57.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 20:57:34 -0700 (PDT)
+Date: Sat, 31 Oct 2026 03:57:31 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
+	Pranjal Shrivastava <praan@google.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, 
+	Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma <vipinsh@google.com>, 
+	Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>, 
+	John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 16/18] iommufd: Add APIs to preserve/unpreserve a vfio
+ cdev
+Message-ID: <auVj8rCNJ8O5fwi1@google.com>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-17-skhawaja@google.com>
+ <07a7f12c-3cd8-4c03-9304-af89c32e0b46@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,152 +108,319 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAXjjLEY+VqGO1sAA--.76S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrJryrpF
-	Z8CFsrKFyrKr1xGw4xKa4ru3W3GFZYyrn3Aryay34rKa98tFnavrnIyw1Yva45Ar18GFZF
-	yFyqyrnrtF1rurJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP2b7Iv0xC_tr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv
-	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
-	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
-	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4
-	AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
-	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8KZ
-	X5UUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAdsf
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <07a7f12c-3cd8-4c03-9304-af89c32e0b46@linux.intel.com>
 
-The WL2868C is an I2C-controlled camera power management IC from Will
-Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are
-fed from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and
-LDO4 share VIN34, and LDO5 to LDO7 each have their own input, covering
-1.504 V to 3.544 V. All outputs are programmable in 8 mV steps and are
-gated by per-output enable bits with a chip-wide SYS_EN master. The
-chip also exposes an optional active-low RST_N input.
+On Sat, Oct 31, 2026 at 11:31:47AM +0800, Baolu Lu wrote:
+>On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+>>Add APIs that can be used to preserve and unpreserve a vfio cdev. Use
+>>the APIs exported by the IOMMU core to preserve/unpreserve device.
+>>
+>>The LUO token of the preserved iommufd is fetched and returned back to
+>>the caller as that can be used during restore to get the restored
+>>iommufd.
+>>
+>>Reviewed-by: Pranjal Shrivastava <praan@google.com>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  drivers/iommu/iommufd/device.c          | 156 ++++++++++++++++++++++++
+>>  drivers/iommu/iommufd/iommufd_private.h |   6 +
+>>  include/linux/iommufd.h                 |  29 +++++
+>>  3 files changed, 191 insertions(+)
+>>
+>>diff --git a/drivers/iommu/iommufd/device.c b/drivers/iommu/iommufd/device.c
+>>index a664c70a6fe7..c8ea2e288240 100644
+>>--- a/drivers/iommu/iommufd/device.c
+>>+++ b/drivers/iommu/iommufd/device.c
+>>@@ -2,6 +2,7 @@
+>>  /* Copyright (c) 2021-2022, NVIDIA CORPORATION & AFFILIATES
+>>   */
+>>  #include <linux/iommu.h>
+>>+#include <linux/iommu-liveupdate.h>
+>>  #include <linux/iommufd.h>
+>>  #include <linux/pci-ats.h>
+>>  #include <linux/slab.h>
+>>@@ -686,6 +687,10 @@ int iommufd_hw_pagetable_attach(struct iommufd_hw_pagetable *hwpt,
+>>  	int rc;
+>>  	mutex_lock(&igroup->lock);
+>>+	if (iommufd_device_is_preserved(idev)) {
+>>+		rc = -EBUSY;
+>>+		goto err_unlock;
+>>+	}
+>>  	attach = xa_cmpxchg(&igroup->pasid_attach, pasid, NULL,
+>>  			    XA_ZERO_ENTRY, GFP_KERNEL);
+>>@@ -868,6 +873,10 @@ iommufd_device_do_replace(struct iommufd_device *idev, ioasid_t pasid,
+>>  	int rc;
+>>  	mutex_lock(&igroup->lock);
+>>+	if (iommufd_device_is_preserved(idev)) {
+>>+		rc = -EBUSY;
+>>+		goto err_unlock;
+>>+	}
+>>  	attach = xa_load(&igroup->pasid_attach, pasid);
+>>  	if (!attach) {
+>>@@ -1747,3 +1756,150 @@ int iommufd_get_hw_info(struct iommufd_ucmd *ucmd)
+>>  	iommufd_put_object(ucmd->ictx, &idev->obj);
+>>  	return rc;
+>>  }
+>
+>Why is there no such check in iommufd_hw_pagetable_detach()?
 
-Its user on the Lenovo Legion Tab (TB322FC, SM8750) is the camera
-subsystem: the rear samsung,s5kjns sensor takes DVDD from LDO1, AVDD
-from LDO4 and DOVDD from LDO7, the front galaxycore,gc08a8 sensor
-takes DVDD from LDO2, AVDD from LDO3 and DOVDD from LDO7, and the
-rear giantec,gt9764 voice coil motor takes VDD from LDO5 and VDDIO
-from LDO7. The third patch of this series describes the board wiring
-that carries these eight supply references; LDO6 is the only unused
-output.
+Detach can't fail, so it is blocked in the caller,
+vfio_df_ioctl_detach_pt() returns -EBUSY for a preserved device. The
+other detach path is unbind on close of the device file, which can't
+happen while LUO holds a reference to it.
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../bindings/regulator/willsemi,wl2868c.yaml  | 79 +++++++++++++++++++
- MAINTAINERS                                   |  6 ++
- 2 files changed, 85 insertions(+)
+>
+>>+
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+static bool _iommufd_device_has_pasid_attachments(struct iommufd_device *idev)
+>>+{
+>>+	struct iommufd_group *igroup = idev->igroup;
+>>+	unsigned long start = IOMMU_NO_PASID;
+>>+
+>>+	if (xa_find_after(&igroup->pasid_attach, &start, UINT_MAX, XA_PRESENT))
+>>+		return true;
+>>+
+>>+	return false;
+>>+}
+>>+
+>>+/**
+>>+ * iommufd_device_preserve() - Preserve an iommufd device across live update
+>>+ * @s: Live update session
+>>+ * @idev: Target iommufd device
+>>+ * @iommufd_tokenp: Pointer to store outgoing iommufd token
+>>+ *
+>>+ * Return: 0 on success, or negative error code.
+>>+ */
+>>+int iommufd_device_preserve(struct liveupdate_session *s,
+>>+			    struct iommufd_device *idev,
+>>+			    u64 *iommufd_tokenp)
+>>+{
+>>+	struct iommufd_hwpt_paging *hwpt_paging;
+>>+	struct iommufd_hw_pagetable *hwpt;
+>>+	struct iommufd_attach *attach;
+>>+	struct iommufd_group *igroup;
+>>+	int ret;
+>>+
+>>+	if (!idev)
+>>+		return -EINVAL;
+>>+
+>>+	if (iommufd_device_is_noiommu(idev))
+>>+		return -EOPNOTSUPP;
+>>+
+>>+	igroup = idev->igroup;
+>>+	mutex_lock(&igroup->lock);
+>>+	if (idev->liveupdate_preserved) {
+>>+		ret = -EBUSY;
+>>+		goto out;
+>>+	}
+>>+
+>>+	if (_iommufd_device_has_pasid_attachments(idev)) {
+>>+		ret = -EOPNOTSUPP;
+>>+		goto out;
+>>+	}
+>>+
+>>+	attach = xa_load(&igroup->pasid_attach, IOMMU_NO_PASID);
+>>+	if (!attach) {
+>>+		ret = -ENOENT;
+>>+		goto out;
+>>+	}
+>>+
+>>+	if (!xa_load(&attach->device_array, idev->obj.id)) {
+>>+		ret = -ENOENT;
+>>+		goto out;
+>>+	}
+>>+
+>>+	hwpt = attach->hwpt;
+>>+	if (!hwpt_is_paging(hwpt)) {
+>>+		ret = -EOPNOTSUPP;
+>>+		goto out;
+>>+	}
+>>+
+>>+	hwpt_paging = to_hwpt_paging(hwpt);
+>>+	ret = liveupdate_get_token_outgoing(s, idev->ictx->file, iommufd_tokenp);
+>>+	if (ret)
+>>+		goto out;
+>>+
+>>+	if (!hwpt_paging->liveupdate_preserved) {
+>>+		ret = -EINVAL;
+>>+		goto out;
+>>+	}
+>>+
+>>+	ret = iommu_preserve_device(hwpt_paging->common.domain,
+>>+				    idev->dev,
+>>+				    *iommufd_tokenp);
+>>+
+>>+	if (!ret) {
+>>+		igroup->num_liveupdate_preserved++;
+>>+		idev->liveupdate_preserved = true;
+>>+	}
+>>+out:
+>>+	mutex_unlock(&igroup->lock);
+>>+	return ret;
+>>+}
+>>+EXPORT_SYMBOL_NS_GPL(iommufd_device_preserve, "IOMMUFD");
+>>+
+>>+/**
+>>+ * iommufd_device_unpreserve() - Unpreserve an iommufd device
+>>+ * @s: Live update session
+>>+ * @idev: Target iommufd device
+>>+ */
+>>+void iommufd_device_unpreserve(struct liveupdate_session *s,
+>>+			       struct iommufd_device *idev)
+>>+{
+>>+	struct iommufd_hwpt_paging *hwpt_paging;
+>>+	struct iommufd_hw_pagetable *hwpt;
+>>+	struct iommufd_attach *attach;
+>>+	struct iommufd_group *igroup;
+>>+
+>>+	if (!idev)
+>>+		return;
+>>+
+>>+	igroup = idev->igroup;
+>>+	mutex_lock(&igroup->lock);
+>>+	if (!idev->liveupdate_preserved)
+>>+		goto out;
+>>+
+>>+	attach = xa_load(&igroup->pasid_attach, IOMMU_NO_PASID);
+>>+	if (!attach) {
+>>+		WARN(1, "IOMMU_NO_PASID attachment not found");
+>>+		goto out;
+>>+	}
+>>+
+>>+	hwpt = attach->hwpt;
+>>+	if (WARN(!hwpt_is_paging(hwpt), "Attached HWPT is not a paging HWPT"))
+>>+		goto out;
+>>+
+>>+	hwpt_paging = to_hwpt_paging(hwpt);
+>>+	if (!hwpt_paging->liveupdate_preserved) {
+>>+		WARN(1, "Attached domain is not preserved");
+>>+		goto out;
+>>+	}
+>>+
+>>+	iommu_unpreserve_device(hwpt_paging->common.domain, idev->dev);
+>>+	igroup->num_liveupdate_preserved--;
+>>+	idev->liveupdate_preserved = false;
+>>+out:
+>>+	mutex_unlock(&igroup->lock);
+>>+}
+>>+EXPORT_SYMBOL_NS_GPL(iommufd_device_unpreserve, "IOMMUFD");
+>>+
+>>+/**
+>>+ * iommufd_device_is_preserved() - Check if an iommufd device is preserved
+>>+ * @idev: Target iommufd device
+>>+ *
+>>+ * Return: true if preserved, false otherwise.
+>>+ */
+>>+bool iommufd_device_is_preserved(struct iommufd_device *idev)
+>>+{
+>>+	return idev && idev->igroup && idev->igroup->num_liveupdate_preserved;
+>>+}
+>
+>How is it different from
+>
+>	return idev && idev->liveupdate_preserved;
+>
+>?
+>
+>Device preservation requires a singleton group, so these two are
+>effectively the same. However, the latter seems more straightforward
+>given the function's name. Or anything I overlooked?
 
-diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-new file mode 100644
-index 0000000000..96541870cd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Will Semiconductor WL2868C camera power management IC
-+
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+
-+description:
-+  The WL2868C is a camera power management IC with seven programmable LDOs.
-+  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
-+  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
-+  3.544 V. All outputs are programmable in 8 mV steps.
-+
-+properties:
-+  compatible:
-+    const: willsemi,wl2868c
-+
-+  reg:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low RST_N input.
-+
-+  vin12-supply:
-+    description: Input supply for LDO1 and LDO2.
-+
-+  vin34-supply:
-+    description: Input supply for LDO3 and LDO4.
-+
-+  vin5-supply:
-+    description: Input supply for LDO5.
-+
-+  vin6-supply:
-+    description: Input supply for LDO6.
-+
-+  vin7-supply:
-+    description: Input supply for LDO7.
-+
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+
-+    patternProperties:
-+      "^ldo[1-7]$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
-+
-+required:
-+  - compatible
-+  - reg
-+  - regulators
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pmic@2f {
-+            compatible = "willsemi,wl2868c";
-+            reg = <0x2f>;
-+
-+            regulators {
-+                ldo1 {
-+                    regulator-max-microvolt = <1128000>;
-+                    regulator-min-microvolt = <1128000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index f53047aa8d..632b17b3ea 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29413,6 +29413,12 @@ L:	linux-input@vger.kernel.org
- S:	Maintained
- F:	drivers/hid/hid-wiimote*
- 
-+WILLSEMI WL2868C CAMERA PMIC
-+M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-+L:	linux-kernel@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-+
- WILOCITY WIL6210 WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
- S:	Orphan
--- 
-2.53.0
+Agreed. I kept the group counter for supporting non-singleton groups
+later down the road, but for now they are the same. I will use
+idev->liveupdate_preserved and drop num_liveupdate_preserved.
 
+>
+>>+EXPORT_SYMBOL_NS_GPL(iommufd_device_is_preserved, "IOMMUFD");
+>>+#endif
+>>diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+>>index 69d902b69b82..4760fffd2512 100644
+>>--- a/drivers/iommu/iommufd/iommufd_private.h
+>>+++ b/drivers/iommu/iommufd/iommufd_private.h
+>>@@ -507,6 +507,9 @@ struct iommufd_group {
+>>  	struct xarray pasid_attach;
+>>  	struct iommufd_sw_msi_maps required_sw_msi;
+>>  	phys_addr_t sw_msi_start;
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+	int num_liveupdate_preserved;
+>>+#endif
+>>  };
+>>  /*
+>>@@ -524,6 +527,9 @@ struct iommufd_device {
+>>  	bool enforce_cache_coherency;
+>>  	struct iommufd_vdevice *vdev;
+>>  	bool destroying;
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+	bool liveupdate_preserved;
+>>+#endif
+>>  };
+>>  static inline struct iommufd_device *
+>>diff --git a/include/linux/iommufd.h b/include/linux/iommufd.h
+>>index 6e7efe83bc5d..80382aceca18 100644
+>>--- a/include/linux/iommufd.h
+>>+++ b/include/linux/iommufd.h
+>>@@ -9,6 +9,7 @@
+>>  #include <linux/err.h>
+>>  #include <linux/errno.h>
+>>  #include <linux/iommu.h>
+>>+#include <linux/liveupdate.h>
+>>  #include <linux/refcount.h>
+>>  #include <linux/types.h>
+>>  #include <linux/xarray.h>
+>>@@ -213,6 +214,15 @@ int iommufd_access_rw(struct iommufd_access *access, unsigned long iova,
+>>  int iommufd_vfio_compat_ioas_get_id(struct iommufd_ctx *ictx, u32 *out_ioas_id);
+>>  int iommufd_vfio_compat_ioas_create(struct iommufd_ctx *ictx);
+>>  int iommufd_vfio_compat_set_no_iommu(struct iommufd_ctx *ictx);
+>>+
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+int iommufd_device_preserve(struct liveupdate_session *s,
+>>+			    struct iommufd_device *idev,
+>>+			    u64 *iommufd_tokenp);
+>>+void iommufd_device_unpreserve(struct liveupdate_session *s,
+>>+			       struct iommufd_device *idev);
+>>+bool iommufd_device_is_preserved(struct iommufd_device *idev);
+>>+#endif
+>>  #else /* !CONFIG_IOMMUFD */
+>>  static inline struct iommufd_ctx *iommufd_ctx_from_file(struct file *file)
+>>  {
+>>@@ -397,4 +407,23 @@ static inline void iommufd_viommu_destroy_mmap(struct iommufd_viommu *viommu,
+>>  {
+>>  	_iommufd_destroy_mmap(viommu->ictx, &viommu->obj, offset);
+>>  }
+>>+
+>>+#if !IS_ENABLED(CONFIG_IOMMU_LIVEUPDATE) || !IS_ENABLED(CONFIG_IOMMUFD)
+>>+static inline int iommufd_device_preserve(struct liveupdate_session *s,
+>>+					  struct iommufd_device *idev,
+>>+					  u64 *iommufd_tokenp)
+>>+{
+>>+	return 0;
+>
+>Why does it return success when IOMMU_LIVEUPDATE is disabled?
+
+This is intentional. vfio-pci live update works without IOMMU state
+preservation, so with IOMMU_LIVEUPDATE disabled the device is still
+preserved without its IOMMU state. Returning an error here would break
+that. I will add a comment explaining this.
+
+>
+>>+}
+>>+
+>>+static inline void iommufd_device_unpreserve(struct liveupdate_session *s,
+>>+					     struct iommufd_device *idev)
+>>+{
+>>+}
+>>+
+>>+static inline bool iommufd_device_is_preserved(struct iommufd_device *idev)
+>>+{
+>>+	return false;
+>>+}
+>>+#endif
+>>  #endif
+>
+>Thanks,
+>baolu
+
+Thanks,
+Sami
