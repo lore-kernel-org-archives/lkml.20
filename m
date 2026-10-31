@@ -1,91 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793466811;
-	b=tnbU0wk9nwW3IeO4yJwG5tSSfH+5Ir1/MFal/IYBTGc/8cCIwzayhu/3zA4eKz/e0PVO
-	 rwpV5lGHJsniszpjjnWEZZyUkB9ZjYAmoJ5NLySR2GMxNcuMPh3KwfKGkxRv9Gwql5Btd
-	 dLjwy20WSPjhZP+t9V1iEsB5BRdTAjzAGbQNisikjfn+z02w6ateK66UGY2FDALx831GF
-	 rpW9VHmrlenS1BkU4IVnMD8BYh0n7UZf32hxA9LGlLSYi9ix3houyprcHQZ1LmSR/DIVd
-	 buoJiuS9kEPnJxU30qqAXL1klHpvbxYSBvnYdZ/0f36wXprXFqpE+AsmKi3tdSDu8Aw==
+	t=1793466821;
+	b=3zbw6UdZa4FgB3Qy3DsufmqULx4iMJf9BG7zVAhqYsVdL1zQ+WEJORHr3nuqLOOkAJkN
+	 UPlrtRUXDFKgEy6/7ZVgQAf9NrLEMtViPZG0VpSwVBrqsVd4V1Es9Vb+6hFOIbF8VgEpp
+	 JMt+BGZKaiRAd3W2TJSNuYeBuL/ztyI78ww50caGNqASb6PCN6YudA6ecpQktyPmOjO35
+	 2bkmdqwMpUzZlP6YI7o0zRstaTDFZL93u0n3LsWRrGrDLZsJk3d+UcK8ZTy6ifIzwrM76
+	 iSXSzEyPwpz/nCI3mvUDLGuaXEP2XusxPqVvUVAD0NyW9EVZTDEOSaTHg6qgnhWl5tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793466811;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=UFAtyEX/QMO092wagtIJFdMc9yPuNGCH/ra7KSp06dg=;
-	b=szK/lLcpCJ+aClFio0G/m/tiYOFx1+YxNnXX42rhayHsFSHlFAaaU8bgvxlRlGt9Zd+D
-	 wWoL6lkHNo1aq7kG+MkRmGoBnz6a7AWu7r4paid7VL63UfwDrl//MEbHpbbo3cYwDf+0F
-	 F+zNL5SpIaF3SZDnAMmro3NBYKtkAHO1b9pTe5SN+eK4kpzz1ChNr2CDC0kGRmKolfE0U
-	 pUYWfpIox6qKPceoG+1qqgFdjQSjRlL7/OmYuHLsQd4UH1s8sLwKBcTLi3lB7kT0GUc5h
-	 y923Rq8h3nbt+K0vDzd8jA4uNEYnDy8zWDF8dDR6hlut/HoNrBEFgbweviVIN/Ja/OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793466821;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
+	 X-AntiAbuse:X-AntiAbuse:X-Get-Message-Sender-Via:
+	 X-Authenticated-Sender:X-Source:X-Source-Args:X-Source-Dir;
+	bh=39qI15/gvYYxuDuo0yqQ2O0uqVDWTO8RyTVe8eRnfmQ=;
+	b=BT/obBtvkHDbG+P4QcxKzlYyRjhQJU/ztkxZSRPVI9lDY5OmRaiFJHxo9liSwkmFWjxl
+	 SaSOjT+2jOj9R3Tv8a+3gMaqMsEcxjHiYYKESJwGjeI/ZGIHgjs64A5E8aNM/EEEPX/f2
+	 wbeCGVVgLHXPVEIIEzyxNWjbSnPdVKzYGtIjpw/3FU4leY8G3xEX4QIPsC28PzTjfpJju
+	 64QlSDy6vAvs+z9kX7q08YCw2JSIecY8YhB74lGm7MSZhOB1/RURUj8tSvPci3FqGDUsE
+	 DnbTbQ4lLlUi5kFGyAaBg+QlTjdIkQGzSWtjakD80eLjNaZGDYRipuJaZZKgzl2E9Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kaRtL9n6;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.cyber.gouv.fr;
+	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
+	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=X2F7T9wx;
+	arc=none smtp.remote-ip=51.159.188.251
+Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81AE5606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:13:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81AE5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFBA606A31C;
+	Sat, 31 Oct 2026 17:13:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0DFBA606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kaRtL9n6
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso16791515e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:13:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793466810; x=1794071610; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UFAtyEX/QMO092wagtIJFdMc9yPuNGCH/ra7KSp06dg=;
-        b=kaRtL9n6U1rkkhjUxMFR6xepfJGoGJ/gEOBjP6oBxpCkI2xv47FxYrSdIdxXYEhDC6
-         E0DxmnpBwtxDanktL2Qjld5I6MNTOIg8R5QeeOeO1qInL+bjebkgrPXzeR9zfOmzS7QY
-         7sNIicqqbKSCCs0naPvqp2uJxPHjwfBsGaR+MlqC2MO09X2wxjzBbwj9OTHtayQKiLK1
-         w6aFsO6h+iLPw8e0iyjPVv/L7HdC0T6YUY5rIOxFdVQ8Z5/UxZQTVcrMP0VXUbH4yu7/
-         Ij64xxvbgQkJAnwDo3Tj7sR3qBJPyX2shOrItDUhnJVOsVCwfk8jqFcrqQ3cLHJ2y+5Y
-         wV/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793466810; x=1794071610;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UFAtyEX/QMO092wagtIJFdMc9yPuNGCH/ra7KSp06dg=;
-        b=OPV/7sWi52EN1B+9dh4oLqydHVVC9fMErNo7ubk80XnQJbeszreDKN+JOemNt0fr61
-         XAOVh0aaWMlKQFWISaRMduogIKqk9zBmKkI2/pRVa3V6l4gAQvCnRb4FPmDaC6mQ0V2A
-         aKv3unHdJYFwc7vVewOD8W6OuW9qCP9uxZbzrN5u6TWM3ifkMM3s88zuB33dXOSvZVVd
-         U5LDHmmsc1upe6RjbnGxWZYVeAAxpvFWkqvGiSfd6O2XC+h4zKesRQKNd1TKdR/wO1eO
-         n2IvMXKFvQYV1Qmw+osDbLCxYc6lx8WnD97qoyIr3+hBZPcMCCw0wW+Ns4jrUbx3CueL
-         1C5Q==
-X-Gm-Message-State: AFq9FYLYOZEPszuTSnbYxh6BIExe1VcMFJbdwNYkgZiz57XKoT9aLy7s
-	ew3jMQacmPQUsy4OWprekSFjVJbO3j8aP08ItQ8fY3LGomrFIM7njAcv
-X-Gm-Gg: AYBFou01y2QbMrqWoxDjqb+8wNGcKbxXpootgewkfSpuPau6kJnZy5OviqQ4jH46mn6
-	vRfDdPhUMgNBH+vzOyX14Hk5CBwZVR5AgkrY/LM77rDNma4MAC3plhrKAWTzKPIFEjOaqm7iRbL
-	5pQx3zadskiHM1fcHejhjxTp3lKg+91AOtFbFCUxAFOGN3WiQAal/tcxX4bVODoISGcgBAAvIry
-	aFaPTISruDYeSSbCLBRpueS4R1MgQlu40kUTJOd94EuiiD1xMvMnKq43JYCMDyCb80MSuDA31aj
-	73itcqgAMFgQtnLIfhDWiYq9c07a8jOWviw0CovFMORxHqQXOUaOGMdv3Bxw13z1lhy9pdx8dQk
-	gRLrWFhrJaWDSJKmKYtmES8waiQCycTPu8MGEnTSVzSq6qBmm7l51CiaBeWLWJaECGtcYMhCZpy
-	rlC/wdPP+5UPlstTpbWPeyOpOQUVg2ZIvZqqq4xC2LUnhMWImYDx8U50GMcMoLm0QE3TsthJ1aH
-	N+X3EKkViqW39wk4+6foeFXF3nSkIPZs2SsyUuSFfO5QoI96A21ipeYZpqmnpm8XzwCdPQ5TPZb
-	Pi75I/aFrtjFURdct6EHYHAWjLvSzOCsGj+C
-X-Received: by 2002:a05:600c:4454:b0:4a5:1cf1:b7bd with SMTP id 5b1f17b1804b1-4ac1794032cmr130809795e9.16.1793466809748;
-        Sat, 31 Oct 2026 10:13:29 -0700 (PDT)
-Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:3d62:20f2:9efe:c976])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7700c3bsm138714895e9.0.2026.10.31.10.13.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 10:13:29 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-Cc: linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>,
-	Josef Bacik <josef@toxicpanda.com>,
-	Christian Brauner <brauner@kernel.org>,
-	linux-block@vger.kernel.org
-Subject: [PATCH] block: avoid repeated notifications for dead disks
-Date: Sat, 31 Oct 2026 19:13:26 +0200
-Message-ID: <20261031171325.4073830-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=X2F7T9wx
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:Content-Type:
+	MIME-Version:Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=39qI15/gvYYxuDuo0yqQ2O0uqVDWTO8RyTVe8eRnfmQ=; b=X2F7T9wxYNuG3UUoSCVrEU2qv8
+	Io1MDWNWnSPnbJ8lxNGxg/7GBrMlBcKyZVnQ8snAmbmeFjuAgWoRv6XtpS723QEWQhCs7KzWIaYqZ
+	6oriPhlP8saOJjXEp5U/o5TfY0k1/sPMICrWLh/ZevQi+ZVPnSV4eHduXXPqmwuvPzCBpvJR2ee6d
+	AFcozUsBDSvwnGYRYOATOJ3WuxctkZ5OthT1mjlCatSuZm9kKRFMr3TDiz0P7iy26Dw/1HdhAHeCg
+	n2XP47P/3Qf2meGP8Dm0cLPbCMX+sKKWcrmraQWRS2Z6n7lXQovf+vWmuv8qf88I+djxmZUkezjDu
+	5v11g+PQ==;
+Received: from [151.115.150.205] (port=37456 helo=gepetto..)
+	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.100.1)
+	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
+	id 1xNCe7-00000006Wj6-2Jt4;
+	Sat, 31 Oct 2026 18:13:31 +0100
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+To: Chuck Lever <cel@kernel.org>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
+	stable@vger.kernel.org
+Subject: [PATCH] nfsd: fix XDR tail bounds after spliced READ
+Date: Sat, 31 Oct 2026 17:10:59 +0000
+Message-ID: <20261031171057.1562342-3-Jeremy.Jean@oss.cyber.gouv.fr>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,69 +76,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
+X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
+X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-blk_mark_disk_dead() reports disk death even when GD_DEAD is already
-set. For example, NVMe reset failure and subsequent namespace removal
-can call it twice, repeating holder mark_dead callbacks.
+After a successful spliced READ, nfsd points the XDR tail at the
+unused bytes remaining in the first response page, so that later
+operation results are written into that space.
+nfsd4_encode_splice_read() correctly computes how much space is left
+there, but then moves xdr->end from its old value instead of using
+xdr->p. This gives the tail an incorrect size limit, which can cause
+an OOB write past the end of the page.
 
-Only report disk death when __blk_mark_disk_dead() first sets GD_DEAD.
-Keep its existing return value for queue drain handling in
-__del_gendisk().
+Keep the tail end at the current pointer plus the bounded remaining
+space.
 
-Fixes: d8530de5a6e8 ("block: call into the file system for bdev_mark_dead")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+Fixes: 30596768b310 ("nfsd4: fix buflen calculation after read encoding")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
 ---
- block/genhd.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ fs/nfsd/nfs4xdr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/block/genhd.c b/block/genhd.c
-index 10ca8b4d6eea..a511fc192174 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -657,13 +657,15 @@ static void blk_report_disk_dead(struct gendisk *disk, bool surprise)
- 	rcu_read_unlock();
- }
+diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+index 606ddcb085c0..2f92b6dfd92c 100644
+--- a/fs/nfsd/nfs4xdr.c
++++ b/fs/nfsd/nfs4xdr.c
+@@ -5200,7 +5200,7 @@ static __be32 nfsd4_encode_splice_read(
+ 	space_left = min_t(int, (void *)xdr->end - (void *)xdr->p,
+ 				buf->buflen - buf->len);
+ 	buf->buflen = buf->len + space_left;
+-	xdr->end = (__be32 *)((void *)xdr->end + space_left);
++	xdr->end = (__be32 *)((void *)xdr->p + space_left);
  
--static bool __blk_mark_disk_dead(struct gendisk *disk)
-+static bool __blk_mark_disk_dead(struct gendisk *disk, bool *newly_dead)
- {
- 	/*
- 	 * Fail any new I/O.
- 	 */
- 	if (test_and_set_bit(GD_DEAD, &disk->state))
- 		return false;
-+	if (newly_dead)
-+		*newly_dead = true;
+ 	return nfs_ok;
  
- 	if (test_bit(GD_OWNS_QUEUE, &disk->state))
- 		blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
-@@ -688,9 +690,12 @@ static bool __blk_mark_disk_dead(struct gendisk *disk)
-  */
- void blk_mark_disk_dead(struct gendisk *disk)
- {
-+	bool newly_dead = false;
-+
- 	blk_queue_flag_set(QUEUE_FLAG_DYING, disk->queue);
--	__blk_mark_disk_dead(disk);
--	blk_report_disk_dead(disk, true);
-+	__blk_mark_disk_dead(disk, &newly_dead);
-+	if (newly_dead)
-+		blk_report_disk_dead(disk, true);
- }
- EXPORT_SYMBOL_GPL(blk_mark_disk_dead);
- 
-@@ -727,7 +732,7 @@ static void __del_gendisk(struct gendisk *disk)
- 	 * Drop all partitions now that the disk is marked dead.
- 	 */
- 	mutex_lock(&disk->open_mutex);
--	start_drain = __blk_mark_disk_dead(disk);
-+	start_drain = __blk_mark_disk_dead(disk, NULL);
- 	if (start_drain)
- 		blk_freeze_acquire_lock(q);
- 	xa_for_each_start(&disk->part_tbl, idx, part, 1)
-
-base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
 -- 
-2.43.0
+2.47.3
 
