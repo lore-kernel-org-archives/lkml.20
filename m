@@ -1,100 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.227.9
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793422162;
-	b=qJ5OV1wnQxZdqj40dtWJsXh3QnwYdbmnsMCrl94d82efsva3A/9zXAOKsOx//LRmxWg6
-	 42HYbJG+TBy6LV/pbhG7VUduXaADyS6gWSf4g9cqLYrNI/5MmtknFXKtpfFOaVMsAqkov
-	 h084xoGA61Yz5nX5UCGRPRSJxuIy3dk48oN9cEhW69PgFFAy5c263PYapZ6trcHPP6EpL
-	 sBpVYIk24GBpHaO8jRB3UUO5N4+WoIlFE/PzcLVa3CqRbgLcfdVNGJvTbYt4BveBFVsq0
-	 Xt9ZsqE4X4R9hlKUWwTPbxX54Uad5SIl0HmsjaYweiizyi+SqknigkqVmArEDVGce0g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793422162;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=DFy0aXOcH5qGYelFMWeP0BXiiUrKikgkI3RC4XhUa28=;
-	b=Goh3Fr+2MkIjOglCYHuJxcO0yedegxFsGkx/aEjL7KzQ5IfOSbhj9sdUDcaSrYOtwsZT
-	 dkpMGo91f2QjmODRTPi2SElcvmtF9xXALKpvAfR52XQgNdIVtpSGyz7P55IjsdNaUE/b6
-	 Dtmj0MCBn7uGIPvVwMmhnHD0AFTwRQvnstQHjeT1C2sTfd/mb9ZlbNqEuyIz6QOSbJ0dw
-	 7ct5YXEhR9td/B/x9PxCTMf2IxZl3CKFOrr2jhnSKt6ZKEwxSoPRjhb1m1ZkYhd7tmhsj
-	 ADuFyumg86QQVeoj2gXzwGRDiurlNdjlv8qKnNGpKzR6PLJHrhCO3dFLT4LAVNA5FBQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xfBSgSCE;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.227.9
-Received: from mail-vs2-f9.google.com (mail-vs2-f9.google.com [74.125.227.9])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793422233;
+	b=cPCecnxkTHChYNtBckycF9jJQ9sYxclCQDI/GM4QGWfAkJHTfpJT95BEDIRhGWBhX3L+
+	 uunwZ2kWG25zUzj90q3Q2OrTL/9bYV3f3tP0UfhwdcOWy4c7eU8pTB+KwWNQNLvJ2owSn
+	 MnAMwqiI8sBvioo/uj6QZ5dcIUOkvcVNRONB0Aex+1KZXdz8ip79xJP042EwhmWgJnFL9
+	 tjlDm1QO/qXUuERE8OWQ/bCYkV5ppbpkhYXghtNgM5rgo8EbhRzJq4gVpLN6C06yU+RIz
+	 t5h0SLOKWXt+1FfEmBR6AmpkXFtBAyeuIPon2jc2kaRicGuw/aXzxd6AA0uYXS3omeA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793422233;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=U0ah+/mdXfppCcH+FdTlHAr5Y6FK4dmXjWDNtY24zT8=;
+	b=LSQqm+uN11LcbgO7uOCMBE4IL/l58/MVoO6ZUHeEkeR0vfq4LujkSu3lmrgS+5XKaXLV
+	 6EwD4xn+ABWShsgDd1fnCF+D66mUm9C7UE/iXjuOpjN3zY1hQGR/rwxSC/zSrO0NTzB/+
+	 rkdaXwsRuIo+sqnUQxqocDcq6cNn4/m85dDI7BQ9CKbMsjsdlPAHUUBYnSFNApl0Zp1z1
+	 pdaVUFihDGylHxkMJXiOaeqhKGpoK5jLGyRAx+3BKBVRCIGvyVmlemllvZgYr+b7uXmUb
+	 XXhsz4VPrvzwveEtnqD4C08OFke28GhujHZX/TUkeZ+3wNPodEDcsTubAd2KXPWGwUw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RVVpX0zH;
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCF53606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:49:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CCF53606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC73606A31A;
+	Sat, 31 Oct 2026 04:50:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC73606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xfBSgSCE
-Received: by mail-vs2-f9.google.com with SMTP id ada2fe7eead31-7c1f5b1dcf4so276321137.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 21:49:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793422161; cv=none;
-        d=google.com; s=arc-20260327;
-        b=nyVROQJXNLIiVExRKaaiF0PaAShHMjNQg9VyNQR4pgXgJTl2uYh15zeweqkyIixm66
-         b2DvpdYw7ZrepkoPwZly6ZuC14YzKiOLlW8GJqgdKoPtqP39Dxv04H7IjsFT4dO0plp5
-         TZYrNIdgpB5OHgR8GdVEuvPWY54RhFi4PuvvHDaD4ENy+Y4zSfnQ6DVesVKuQTNsgbLv
-         wy2y5pQJVhL+S/0equIXZhPQO60/5Cz5T7GFIn6eXBEACE501WfkyBEuuZ/DnIEAysxN
-         mnz4mEsqPIvMk/lCaAXOkQBydHfJ4UmZlIAe7E6I3F3ADtNriECdEFxSlO2gk+tDFnsK
-         P+iQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DFy0aXOcH5qGYelFMWeP0BXiiUrKikgkI3RC4XhUa28=;
-        fh=mOYdYuC+msNvDTDxiZ83Iaem7sj1J1L42CkeomV3/K8=;
-        b=oc448nEPq9m/mFbSvrUgAmiiMATEraa+acA7MQ//YEA5sMl/ji7tWV6UsPOVG43i6y
-         IjbdRXx/MfIUPZHugqOcOi8hecQkLLAIkNu9mdg5IiiHJthy6VrogtUsqbHHCqdKTCo4
-         Zm/+83gkPEK4A9jZVWJatiOhicofICfqyTQkf615LQJuh5J0X4yhIlN/BLh74zOu5Id+
-         8zkq6irgUMvxyiH3iaPmIMi/hc8S/qmjvp5j6Yad63GV4tmdJQYJ4JhSziXp8M3wtlkg
-         EQVE21wVtkqAIugDip43RBOTtA2C2hBa1YT+SoGvsPyFtojO/ETJ/4EF8jDdmpgJnOTH
-         I0Kg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793422161; x=1794026961; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DFy0aXOcH5qGYelFMWeP0BXiiUrKikgkI3RC4XhUa28=;
-        b=xfBSgSCEWJzIq7AjGQNCQPuTQvYK9qaFK9vqMVQWIAIMv39PJy/essix3RXjual/6v
-         Y8dbuZiPFSm1jVVOKX5CNi8r1q2aBVTe0QdmS9cvpBkLQuZbERj1Ork6wSqcNQbh1wbC
-         rzjz6sc7IGnuv3LGlNMD3FOBjyrnRL8ma9bHG+a3/mihH1wtmgYJap54Dol9LO5qFljY
-         ENzU8SACdZFhayVjas109bcVz2o/g47bUZ2M14spABocCEBJ00nuckG7kn4YxoCGAXYw
-         x+HC1hxg10v1kAz6hB37Yf1/HHCcpDCfoNxTKzY30aMk1V5ze2Sg9djLqmaByVCbtzt3
-         hHbQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793422161; x=1794026961;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DFy0aXOcH5qGYelFMWeP0BXiiUrKikgkI3RC4XhUa28=;
-        b=Jc7jYGRkwFYHplKo34N7bIY9QawuBLQBQxpQk7n71resr3CAePZqgOD88pSV8z2nza
-         /FHS/iX+sqrGAyibf1AQIWfrdAg0apiHDd7p3Jas68KjncClqW3bg257/NY9d+sZ8q9O
-         wYawp8kDqQNeWBxkicgEJbucL5l4heyxQFquVuz2qItO6Rq/uk/xA4ru9CrtT8ao1cGX
-         NDPO++gHmMpR7OlLBtGs2nMsDkeQsqt43PSKqCIIUUo6J4qFgQAC9fFYuWtvzJG32l8B
-         rzth4BEebSndnlVAmorVsJq7K4qzfIChiGOPaxWYJzK0bMzq/Jrh/4LlAuLg24GZ2Br5
-         tSiA==
-X-Forwarded-Encrypted: i=1; AKwUvBym85pSWyczD+eT5lRhD7DTC3OUMX9S6opkds3Ytv0ZPKoaLJm8NWnZHwpMH4B6De6i0Uk1adTrHtoezC0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItl/8LX3pvWeCVqmZwIExms0ZYOUXVI4Zry6VauMmJTCyPy8vh
-	IxciBZDoRhOOafLgCDokhgIhErLAvEJq/AH0GqGhJFwm67JzN0CzUA2XXrsuDsiifC8kvBC5Bk0
-	1x7NssTO2CIUTvpcN+7eEY2wtKes8MA==
-X-Gm-Gg: AYBFou212dtXS3Sltow+c9zSte7awSS6o1u2zx+TMV8XhTkPI2Fbsz6mSeCUcwBi+aW
-	rf9Yw+WA3Hsp1GXl1fx0pS0fDc7DvnY5pDOtPeqk1+6XuleaX0aZ4dc/hP4IfPn4/IKrXyJua4o
-	1YePJXkwQQ+q6sH/4jZVR8n3cOkAcsmgOTDia80/GFx8BdIbSHly8OtcOcYF8cpAr8Ebl1SH0T2
-	QFkpi5c/TfSVmModC/Lyply6yNxxTs4s6kWum7xsCBhBaXY54fOhnXYi/0pm7zOvj11tUpMZ1qB
-	Y5WdLqB0ODvfdhz87dIGmFFbwgLLF7mgN79NgwF/OM3ld4Ly7vQ+EGXT+VKsptpl9f4fVkyKnnr
-	XkaVwPU4ex1ARWM9wb97lp6t4FOuom3JlNpH2U/KLJoEeSUh3lLhEyth6fkPe/+U5pyLR
-X-Received: by 2002:a05:6102:5106:b0:7c1:e804:3c91 with SMTP id
- ada2fe7eead31-7d072c398bdmr1240318137.8.1793422160846; Fri, 30 Oct 2026
- 21:49:20 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RVVpX0zH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793422232; x=1824958232;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VQIxThp1B2mpWnsX0MaSqLPhRU+ui0ShDgvVHR25dYQ=;
+  b=RVVpX0zHVF2NYfL9h4VgwAQN0n0qBEKkVQgcKRBSKd0N/QoOKfDW9XaB
+   oHXNmo0uMBpqgYJxY1CfhaMFDwFT0nihK5cP5YsCOeANuygFs47TMS2Yu
+   B6CKGpAd+2FMi+6pa0xrNfLhy5Kg3rxkxujV/wn0SZ4aYbLb5jnsu0lm+
+   boZDMBZAkqADlKqbTt1tSMWul0b/f9D0uvGbqK8WIEz0KK208FeBti/Qv
+   V6nCDm4g0HFpczY0tjEJYdQ8UuTW6MHdLpuoyS7JBOzKI70dWIlrNM6j4
+   SZMdrZTj2zT0+omgZQxXVVaY2HttGBFP0SlIf6/837tTrYOgmoltgYwWj
+   g==;
+X-CSE-ConnectionGUID: Gd7xGkt8SniTi2EMU8bJGQ==
+X-CSE-MsgGUID: kHmBInVYQSWX4uw6IRDe3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2199117"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2199117"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 21:50:31 -0700
+X-CSE-ConnectionGUID: jh76AprFT1i2+5WyacK76w==
+X-CSE-MsgGUID: aWxndDEHTM6RBXMZz9Yrew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5481267"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 30 Oct 2026 21:50:30 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xN12x-00000000cXk-2XEz;
+	Sat, 31 Oct 2026 04:50:27 +0000
+Date: Sat, 31 Oct 2026 12:49:32 +0800
+From: kernel test robot <lkp@intel.com>
+To: Saranya Gopal <saranya.gopal@intel.com>, linux-acpi@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, linux-pm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, rafael.j.wysocki@intel.com
+Subject: Re: [PATCH] ACPI: s2idle: Handle shared _Ixx GPEs without an EC
+Message-ID: <202610311242.kB7pRXhy-lkp@intel.com>
+References: <20261030030515.3127310-1-saranya.gopal@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,98 +82,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030173930.40948-1-permissiontogallop@gmail.com> <auTfZL8RjQqT8uiW@kernel.org>
-In-Reply-To: <auTfZL8RjQqT8uiW@kernel.org>
-From: Gallop Permission <permissiontogallop@gmail.com>
-Date: Sat, 31 Oct 2026 10:10:36 +0530
-X-Gm-Features: AclHuK-FdSUYVJnYySxi8P-Zi8EKZ3CeyjPrglCec33fiP5ieEc_Yb5Fdpv6Yas
-Message-ID: <CAMdFwLH_cg_=cLaL-j2B_0kzAEof89r13=cYR--hgeLxC7Bubw@mail.gmail.com>
-Subject: Re: [PATCH] KEYS: request_key: enforce keyring restrictions on
- constructed keys
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: keyrings@vger.kernel.org, David Howells <dhowells@redhat.com>, 
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030030515.3127310-1-saranya.gopal@intel.com>
 
-Hi, Jarkko
+Hi Saranya,
 
-1. you asked: What does "key becoming positive" mean here broken down?
-    Here key becoming positive=E2=80=9D means the transition from
-KEY_IS_UNINSTANTIATED to KEY_IS_POSITIVE
-    after the type=E2=80=99s instantiate() succeeded and the payload is pre=
-sent.
+kernel test robot noticed the following build warnings:
 
-2. And on the second para
-    For an unrestricted destination, construct_alloc_key() still
-pre-links the under-construction key,
-    so concurrent request_key() calls for the same type/description
-find it and wait instead of
-    starting another helper. That visibility is what deduplicates construct=
-ion.
+[auto build test WARNING on rafael-pm/linux-next]
+[also build test WARNING on rafael-pm/bleeding-edge amd-pstate/linux-next amd-pstate/bleeding-edge linus/master next-20261030]
+[cannot apply to v7.3]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-    For a restricted destination, the patch skips that provisional
-link until the key has been
-    constructed and checked. A concurrent request for the same key may
-therefore fail to find
-    the in-progress key and start a second helper. The keyring still
-holds at most one link for
-    a given type/description; each result is offered through
-key_link(), and only a key accepted by
-    the restriction is cached. This is a duplicate-work tradeoff, not
-duplicate links in the keyring.
+url:    https://github.com/intel-lab-lkp/linux/commits/Saranya-Gopal/ACPI-s2idle-Handle-shared-_Ixx-GPEs-without-an-EC/20261030-083515
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git linux-next
+patch link:    https://lore.kernel.org/r/20261030030515.3127310-1-saranya.gopal%40intel.com
+patch subject: [PATCH] ACPI: s2idle: Handle shared _Ixx GPEs without an EC
+config: x86_64-buildonly-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311242.kB7pRXhy-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311242.kB7pRXhy-lkp@intel.com/reproduce)
 
-    KEY_ALLOC_BYPASS_RESTRICTION callers are excluded from the deferral,
-    they keep the existing provisional-link behavior and bypass the
-restriction check as before.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610311242.kB7pRXhy-lkp@intel.com/
 
-3. the rationale for the code change will be to stop an un priviledge
-actor with write access to
-a restricted keyring from bypassing the restriction checks.
+All warnings (new ones prefixed by >>):
 
-As for the points raised by sashiko ai (concerning
-potential outer-search bypasses in request_key_and_link)
-im going to need some more time to verify them and fold any necessary
-fixes for v2.
+   In file included from drivers/acpi/sleep.c:26:
+   drivers/acpi/internal.h: In function 'acpi_ec_dispatch_gpe':
+   drivers/acpi/internal.h:262:17: error: 'ENOTSUP' undeclared (first use in this function); did you mean 'ENOTSUPP'?
+     262 |         return -ENOTSUP;
+         |                 ^~~~~~~
+         |                 ENOTSUPP
+   drivers/acpi/internal.h:262:17: note: each undeclared identifier is reported only once for each function it appears in
+>> drivers/acpi/internal.h:263:1: warning: control reaches end of non-void function [-Wreturn-type]
+     263 | }
+         | ^
 
-Best regards,
-Anvik
+Kconfig warnings: (for reference only)
+   WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
+   Depends on [n]: PM_GENERIC_DOMAINS [=y] && OF [=n]
+   Selected by [y]:
+   - COMMON_CLK_MT8173_MFGTOP [=y] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=y] && PM [=y]
 
 
-On Fri, 30 Oct 2026 at 23:48, Jarkko Sakkinen <jarkko@kernel.org> wrote:
->
-> On Fri, Oct 30, 2026 at 11:09:30PM +0530, Anvik Loitongbam wrote:
-> > construct_alloc_key() pre-links a newly allocated key into the destinat=
-ion
-> > keyring with __key_link(), bypassing __key_link_check_restriction(). If
-> > the request-key helper instantiates the key with ringid 0 (or any keyri=
-ng
-> > other than the restricted destination), the key becomes positive while =
-the
-> > provisional link in a restricted keyring remains, so the restriction ne=
-ver
-> > sees the payload, potentially resulting in a policy violation, where a
-> > user with write access can inject keys which are restricted on the rest=
-ricted
-> > keyring.
->
-> What does "key becoming positive" mean here broken down?
->
-> Also I have really hard time on reading the second paragrah as it is,
-> let me count, over five lines long. I honestly cannot say that I
-> understood what I read. I tried it three times.
->
-> If you understand your fix, you should be able to nail it.
->
-> >
-> > Restricted destinations lose the provisional-link deduplication while t=
-he
-> > key is being constructed. Callers that pass
-> > KEY_ALLOC_BYPASS_RESTRICTION keep the existing provisional-link behavio=
-r.
->
-> The second paragraph should be reformatted and there is no rationale
-> or descriptio for the code change.
->
-> Br, Jarkko
+vim +263 drivers/acpi/internal.h
+
+a6021aa24f64174 Arnd Bergmann 2024-10-11  258  
+a6021aa24f64174 Arnd Bergmann 2024-10-11  259  static inline void acpi_ec_flush_work(void) {}
+c644e4b14c9cb08 Saranya Gopal 2026-10-30  260  static inline int acpi_ec_dispatch_gpe(void)
+a6021aa24f64174 Arnd Bergmann 2024-10-11  261  {
+c644e4b14c9cb08 Saranya Gopal 2026-10-30  262  	return -ENOTSUP;
+a6021aa24f64174 Arnd Bergmann 2024-10-11 @263  }
+a6021aa24f64174 Arnd Bergmann 2024-10-11  264  
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
