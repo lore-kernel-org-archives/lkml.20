@@ -1,93 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.205
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793589553;
-	b=gdvBAU8ryD/2dx1zE4gMmgc93Qrzp4pKNVY7i+4RcYR3eB4uj1mXEZHsZ1ScOyU4wVPx
-	 uZVYUFbxFK5PS6XJ7oxl5caNAd6D2CB3UT1cKMiR14juAVZs7tZNuu2wz+AvESWEStQXu
-	 RFFYoNJGlrdr9GCi2P9qEOfsKq+k4uOEMp6X6Zw1CSJKuzXpzepmgzKUsBMRWrS4zYwOu
-	 2haP6hI7KTtEnJSCb4oc1PHklN43sUil8sGS/T9unJV4LeU+AQifO5sMW8vRpZhEHTOon
-	 ilQSvDrFaSfou36Gc9QfnNqQA4V0h3bw2ImKBSoqOzSdz+G8QBgF+VCEx90Bt0zWf9Q==
+	t=1793589589;
+	b=SPC/XtoCAaUG2jwVqkhIxFPb8QtjgIP+xzHJvKcgTrA6qPhxefOXozBTbmFpyEB22ra3
+	 gh8zbNFfYFGqMdME9JaKGPHw4doY86N0hCbnm+Swn2IX/kH360uZ56XWeRy8BUSe/vGL5
+	 YEtcAclR1Dk3xVfAZFf/ZUebQJoQJjc+NvHFz5y+eCCNJu20OXtShxmjyh3e1fl63Ea8q
+	 CPULZZ5o+coFmP+kVdL7UGE4hjU1A0kLaB7IVZ6ery0hbs2PnaqxFI8NqI46jRnD1+iRd
+	 HFsv5U1CMTVb8/Rbo1VEUWz2aMVY+CZrykUVmhurCATQbMHolQXTFiCPMHFUKsX1Eiw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793589553;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Pq7i3VhC2u37X3a2faYflIcKZg9HRolwFH3fa/oNdq8=;
-	b=KNlND/jmFASmX4WGd/154oYY8rn+SpGS+qTzK3hgRJnfgTJDig83uCRubncwqQ+c0hDu
-	 Pv/r01Nmqft6uf1jDfMlR2WNYLIxT3ysNQP49zRf2rDcLtebp0yJof+P9cF16fRc/UH+H
-	 FW7FU3/iwsLVEpY3utrJFfTn0BJomRDDaH9BEdMdrvuGc0XVpWD4l5fL3/Oofhk/Ffaj+
-	 0zuCiwlhcCJ3N8Z4Qtok1pjkYBkvNhHS296BM4e36a9CAIj1a6DWWWH53UTsTXCiXtUUG
-	 yfPFx7/1LavXEzCDKdYhy4vDorcmXCopuSRLUrgcXr2ZM/J6tGHUIjJBQ2bRe+o/5DA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589589;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=BdwjwPAEV6EkihF5MiY4SKdrZWQzw2ZQoPGzEAYyN2A=;
+	b=nRmw615hbbd0u6nNqYf0SPl70tsYCGuaImjhydPUDGFKYQY0cujfwgWVQrkcsbwgYBku
+	 DBC/R0Zy7Av80CaPbriLtfl5701x6gCO95KM5eLrVe+LgHt1xjefFjWqwW2U61z+pvPg5
+	 C6VRojyO0qFfvnajMwfRix9fHSiGz/n/Ok2qqh3e2gMNtW5QSd/tQsR4+5l8l7ytrlPwu
+	 5cBJCmeQ+MBArDMELbRfv871h3u6avNppsTPLeImxlG0deJdo+ZpdLnXaWhrRdcZhXWj2
+	 nHLN04/nL5pTpBGVm+EUuGx3MrLBLPbCViqGrh99yd8gndRlHz6l0aOMApoglwVoZeQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c4lNAqb;
-	arc=none smtp.remote-ip=209.85.214.178
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jvhAD7cD;
+	arc=none smtp.remote-ip=203.205.221.205
+Received: from out203-205-221-205.mail.qq.com (out203-205-221-205.mail.qq.com [203.205.221.205])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD286606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:19:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD286606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B13A606A324;
+	Mon,  2 Nov 2026 03:19:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0B13A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c4lNAqb
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso14992485ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:19:12 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793589552; x=1794194352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Pq7i3VhC2u37X3a2faYflIcKZg9HRolwFH3fa/oNdq8=;
-        b=0c4lNAqbAvc8AsVXd5NU8F1DHR4DwN4NTrsozwI15qfIQWOterjv+nT1KBRXjrRt1c
-         dZyeR+imfEBPM1DpcuT3hEt/NPiscPltdOtGM10Es0jdEN+aVSYheQ0s0Irjd+jh3JVD
-         rOAaK/CBiek7Y1Bntw9Ab2sazue6F9QgBPEmPPNNTE+dzZTh44SFWPXYGtGY5hXDdAS/
-         c3F3kEGSNBML4pnSKP/wMMV42Z5ZyJcmBamJYOHz3wD2DyO/FZ5G9OM4AyshV6+5L70p
-         XLhRERyHe3ZdCoxrKkwybkxfkeXD61g2DffpSWZwt5GA2DF3UAH24C3Ya9mSrq3XnjaL
-         TSXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793589552; x=1794194352;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Pq7i3VhC2u37X3a2faYflIcKZg9HRolwFH3fa/oNdq8=;
-        b=u6dShlUPVRv9DhKaJoP9ik9G76HIwwLv0q8FQHdGEU8oTEpX2Gge/SxXWTFXdB5YER
-         YZJyiFQ3n/Aml83vQ3hpwxFysEINXRgPBaH1r3UhGxtM3luxi98f3k3J/lZRgDLZOtpr
-         NaV6+pvsORD79eYhz25enj2lJKfXQx1WhPe+wWF5pG0y81wqHyJ7N65Wdm8u7xFIenZS
-         kwMXrw2AcSO6wZYrf/N3B+RTfRmy3SVPC6Hi63vqaB7ANOpuzEwhDNv+3HBMqabNDsd3
-         i5vmkU4eZXIhsY2CVG6CDYkG2ra6s4s35qC/dH3pJxiadWzJtPauBHYNc5OLBm3E4nFO
-         H9vg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYSBp5RplWiW+wJedSk1RHE46c004Yr0OXTACPiQKNpUD2/QoZYNK0h0z8kFhbL9uaI1uGNO6bJzXooww=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/YWzjRqd+bY3A3ajkkzzhSKfFZIWuQ2EcdGTraDWMCeWde6TSa
-	iesNuLgP1zX8bqyDz/sliiQYJk21lmHEmApRzeRIfCP3FrJoAHAv5ITm
-X-Gm-Gg: AYBFou1xPLotENf1E186vu3/SO5HnLNEOnoSmZ+Q8eWFx7RN1IAGuASR3tvzfdegVia
-	WMZGEjvy9ORfWLm2bS8onWUe14j/2qxiANdlXs+hYJPbaH/GIruYCSCZNYZ95mfB4wKkqxyGj87
-	XySGuJOXYFqwrvi9DLoflU0+Re3EcoY9s7XGyX+BkdX2gwhxHLIPQdhbN+j0Ft1RvOf6/0gb2/Z
-	cv89FX3pA0AxQc6RTJHg2/ucFrIYYWppekaFgmUzT6p95pV4XbzuH3o9uQTR1rrPvHq1zT5HA1X
-	D932id0OcQVKeJvJoSGHtNiLphoD/4OpcsIUKewzSTioGrcT/rYpaMzGesH/Df8V3zg+pNkfhyD
-	9B3ZdSdMFvhYH79M2YpOOm/Yf2QKIDDym/EADZ8Wtl9WwkGObuLHPY3eWRpKlJBTnzPVnQ//mR5
-	2mRsjiOVXlLeOuUwpH4Kf5AgWvf8UrMbeAY5MN+omphiWH8VpB+QmTj/OgkCudq5aRQguyRCVcf
-	dYTJTIQQc7heDV2LxsuseZr01kfK6YQLdlB76ckJerSufildbArA402WtZWeSawfsAf81nnJj67
-	f90kX+abTeWrmvnCB8N6uqjW0ehCQda7nDjo+IV4m2MTP1NJOvXtLc6rBB1yBPrx+8euhhd8U3Z
-	mEJ4vmEXTgfDjdndke90zO+uq5GGp7j0SjE8SNaM6doZrEorlrzxm+P8xoQPI5zuxvsLq7fCnMc
-	f377G6L9oBMLn2ZOvcDRp30F0=
-X-Received: by 2002:a17:90a:dfc5:b0:3ac:ad90:7090 with SMTP id 98e67ed59e1d1-3ae897dd47amr7489423a91.67.1793589552079;
-        Sun, 01 Nov 2026 19:19:12 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85cb1bfdsm7752417a91.0.2026.11.01.19.19.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 19:19:11 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: platform-driver-x86@vger.kernel.org
-Cc: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] platform/x86: dell-lis3lv02d: Add Precision M4800
-Date: Sun,  1 Nov 2026 19:19:10 -0800
-Message-ID: <20261102031910.82286-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=jvhAD7cD
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793589579; bh=BdwjwPAEV6EkihF5MiY4SKdrZWQzw2ZQoPGzEAYyN2A=;
+	h=From:To:Cc:Subject:Date;
+	b=jvhAD7cDnBOXdQ/IbIRq62eTHBUhA7MTS1nUYariBsd0etycIbGxHWeW4WXhRokrC
+	 Nw2DxgidHJNMd7lRFNmeob3Shet9yCgacnikpNPlGySd3BtC/WtR2BhTiNlYxSrxHN
+	 Uajwx5tsN63THiTiSJgVsOGrH9LDs0Mtd3f3xI14=
+Received: from [172.18.4.77] ([61.136.26.103])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 4E59D856; Mon, 02 Nov 2026 11:19:37 +0800
+X-QQ-mid: xmsmtpt1793589577tsbw4ynw3
+Message-ID: <tencent_6946E1A60E7EAF8C6439BD988E45D5F9580A@qq.com>
+X-QQ-XMAILINFO: N2mW3FWpw+i+JXhJuL37TMnn/8Yb23V5GYmnYmjJuqRHnVM/AZ9NokTcVXhnhp
+	 kIxWLl/xB8O3FrEK6dsUdF/HyRVgTRJnyla0uddLG4cx7i/0duCAbdvrXgGFjwkdHWnbW+Rs4FBe
+	 C1Agi1SutX73omb9Dp4RaSdec9E7EZxfggT0DrY+46V8orAdRY84suTrkv3Z7Lw89np6qZ+861OY
+	 D1r+jHHl0Z7i7Gub7WH7QHl4r+BVGENnl0idP2prKXZbuKPRw2Zr8FLuXCMtYtIiDuZjmi0b6SC+
+	 2sDH5QyFzc+lgV3YFfPXaw87jSLDh5DlFBRnc6p01jYlsCIfvYYuV7R5qW6rJxVwsbeboMQOlMsT
+	 wIVWHPr0oME/QXnZ/hSt3CH9GUbD7jneEkOSnar5Df0e2M3JqD7jlZXNvwa5t73EdWgF45TxH7Kw
+	 O2UIxztaVkKghR92QnE6zt0oED7uWLushu+DOej1xmXuKmh/yBuYh9fm4ev8c/Pio+o7Dnf/Tths
+	 JyawD6cqq4aAQNksrv7V9LXJxoxYAAihZTTli8DI6PR2FhDJ/7Y1bFzTzw+Ya+qIn0hbTfDQF/Ca
+	 yGT84jO+C3j1Ua34T3xUHG+EXh0bo768k/88RJ35+8TJtql7vgM1sUr8xmo3/OWoCiUeTXH2h677
+	 3x2sL9sMmraUb+S8uI/bRtiGu/ptriCI27obG9JOJR4eDuFe0sscR0p1/Kz5+D/ZLijicYdYf0aN
+	 7mfiRHb8mLtinwDZXVaeDP641JuTsZ5REtE8s450tG3kQmuyubtdxGEnRQJ9khT93rRl57dSHvsy
+	 7GlXEKLVkoRaqn0GC/9MpOgz8SSUAaq/Bp4MBRCpGAmNRq+2i4H/TCiPoFEAhSIdfxMxbusyloUE
+	 pkf78k/DaA1WTEy8VNFvMaMw03qMNSWhGOx/9vDSc0eG5oWPAu/qg+xlLBpjaBwE23z+t1bxac+G
+	 vag4Wh3zrZ3uRIWXvVVoyQfpcbw06FLXtunt8YxK31VzgId2WNQcCMZ1Q2Ym5jPwut8m0wGeXLXV
+	 reGff6Z74VQcVa6RxU85mfkeslG6Py7AijuiUy02GW+AtaROFNWCnI5SPJDI4xM3E4Ya8f84zteV
+	 tfW2dnMV/vL+cJUdvy6XV5WtaKJuZ8sSkAXwr+
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Guikun Yang <yangguikun19@qq.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org, Christian Brauner <brauner@kernel.org>
+Subject: [Bug report] qnx6: unvalidated di_filelevels in an inode drives a
+ shift-out-of-bounds in qnx6_block_map() - UBSAN panic at first read
+X-OQ-MSGID: <c4-qnx6-filelevels-ubsan-20261031@qq.com>
+Date: Sat, 31 Oct 2026 21:00:00 +0800
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,36 +78,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The Dell Precision M4800 has an accelerometer on the i801 SMBus which
-is not described by ACPI, so the driver currently skips it:
+To: linux-kernel@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org, Christian Brauner
+Subject: [Bug report] qnx6: unvalidated di_filelevels in an inode drives a
+ shift-out-of-bounds in qnx6_block_map() - UBSAN panic at first read
 
-  dell_lis3lv02d: accelerometer is present on SMBus but its address is unknown, skipping registration
+Hi,
 
-Reading the WHO_AM_I register at address 0x29 returns 0x33 (LIS3DC),
-the same address as the sibling Precision M6800. With this entry the
-sensor is detected and reports sane values:
+While testing on-disk field corruption in the QNX6 filesystem driver we
+found that the per-inode di_filelevels byte is copied from disk and used
+as a shift exponent without any bounds check, while the same field is
+bounds-checked for the superblock's two root nodes. A single crafted inode
+therefore panics the kernel (UBSAN shift-out-of-bounds) the first time its
+data is read.
 
-  lis3lv02d: 8 bits 3DC sensor found
+The code:
 
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
----
- drivers/platform/x86/dell/dell-lis3lv02d.c | 1 +
- 1 file changed, 1 insertion(+)
+fs/qnx6/inode.c, qnx6_iget():
 
-diff --git a/drivers/platform/x86/dell/dell-lis3lv02d.c b/drivers/platform/x86/dell/dell-lis3lv02d.c
-index fe52bcd896f7..ee61b08324ad 100644
---- a/drivers/platform/x86/dell/dell-lis3lv02d.c
-+++ b/drivers/platform/x86/dell/dell-lis3lv02d.c
-@@ -52,6 +52,7 @@ static const struct dmi_system_id lis3lv02d_devices[] __initconst = {
- 	DELL_LIS3LV02D_DMI_ENTRY("Latitude E6530",     0x29),
- 	DELL_LIS3LV02D_DMI_ENTRY("Precision 3540",     0x29),
- 	DELL_LIS3LV02D_DMI_ENTRY("Precision 3551",     0x29),
-+	DELL_LIS3LV02D_DMI_ENTRY("Precision M4800",    0x29),
- 	DELL_LIS3LV02D_DMI_ENTRY("Precision M6800",    0x29),
- 	DELL_LIS3LV02D_DMI_ENTRY("Vostro V131",        0x1d),
- 	DELL_LIS3LV02D_DMI_ENTRY("Vostro 5568",        0x29),
--- 
-2.56.0
+    ei->di_filelevels = raw_inode->di_filelevels;      /* disk u8, 0..255 */
+
+fs/qnx6/inode.c, qnx6_block_map():
+
+    int ptrbits = sbi->s_ptrbits;      /* ilog2(s_blocksize / 4) */
+    int depth = ei->di_filelevels;
+    ...
+    bitdelta = ptrbits * depth;
+    levelptr = no >> bitdelta;         /* shift >= 32 is undefined */
+
+sbi->s_ptrbits is set from ilog2(s_blocksize / 4) when the superblock is
+read, so with 512-byte blocks ptrbits is 7. Any di_filelevels above 4
+already gives a shift exponent of 35 or more, and 200 gives 1400.
+
+The asymmetry: qnx6_fill_super() does check the same field for the
+superblock's two root nodes:
+
+    if (sb1->Inode.levels > QNX6_PTR_MAX_LEVELS)    goto out;
+    if (sb1->Longfile.levels > QNX6_PTR_MAX_LEVELS) goto out;
+
+with QNX6_PTR_MAX_LEVELS = 5 (include/linux/qnx6_fs.h), but ordinary
+inodes get no check at all. Note that even the superblock bound is one
+level too loose for a 512-byte block size: ptrbits * 5 = 35 >= 32.
+
+Trigger: a 30KB hand-built QNX6 image (little endian, 512-byte blocks),
+a root directory with three entries, one of them pointing at an inode
+whose di_filelevels is 200. The mount succeeds and the first read of that
+file panics:
+
+    UBSAN: shift-out-of-bounds in fs/qnx6/inode.c:128:16
+    shift exponent 1400 is too large for 32-bit type 'unsigned int'
+    Call Trace:
+     __ubsan_handle_shift_out_of_bounds
+     qnx6_get_block.cold
+     do_mpage_readpage
+     mpage_readahead
+     ...
+    Kernel panic - not syncing: UBSAN: panic_on_warn set ...
+
+Reproduced 3/3 on a self-built 7.3.0 kernel (CONFIG_QNX6FS_FS=y,
+CONFIG_UBSAN=y, CONFIG_UBSAN_SHIFT=y) under QEMU/KVM. A control image with
+di_filelevels = 4 reads the same file normally. The field and the missing
+check are unchanged in current mainline.
+
+A natural fix is to reject the inode in qnx6_iget() when di_filelevels
+exceeds what ptrbits allows, and to tighten the superblock check to the
+same bound. QNX6_PTR_MAX_LEVELS alone is not sufficient for small block
+sizes: with ptrbits = 7 the usable maximum is 31 / 7 = 4. Happy to test a
+patch.
+
+We report this as a crafted-image robustness issue; the crash is a plain
+UBSAN violation reachable from a normal mount and read.
+
+The reproducer (the crafted image, a control image, the run script and
+guest init that mount, open and read, and the image builder with the
+exact field offsets) is available on request.
+
+Kernel: self-built 7.3.0, CONFIG_QNX6FS_FS=y, CONFIG_UBSAN=y,
+CONFIG_KASAN_GENERIC=y; QEMU/KVM x86_64, 1 vCPU.
+
+Thanks,
+Guikun Yang
 
