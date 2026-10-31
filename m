@@ -1,54 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.108.3.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793407610;
-	b=FvAaU1qLMNfYCgXwib+FohHORMQ7I328EysUf3Q6qHOFMeA97MdAJXFsunv6ftvAVywF
-	 8z5GXfjYyyo/Uc+ZGGJ4S2DVExF50rZdO7xHak2GE9H8FoUAJ7WWV1Lfv2DIZYzWA2uih
-	 c1XxNPoDqhN8SZa7zohzSrxeC4BYcQr/O2jMt1pqKhzrTPleTtEHEQf9mUNbmimFDjOMk
-	 J+ZOpVFwZCCpIJMOzFbEdczRjfAel9GnjI7BfiahACBCZffqn+f/s+LW1lRI88QByRdPe
-	 WccVi/TW1dl6D+kxrrXjj6sV5ofKR1VSIsNlwDhaCmD8HtZmcGFrU1yh6pYNicFN1Tw==
+	t=1793407631;
+	b=D9WP46jkte6pkF3mF/FZm94UbxSYbk8HJmp+ROEKZtT3BUqgP62hRt8+4kCNEcqgDuKp
+	 Wf8Jz2dgtIl1df0uUILkkvpc5Z48SmsUOjwcHwokydJzX3WX6JYdsUQVMS9d9NoG6UnY2
+	 tfI5bsSdQky1JVbkFDz56/OSGtxu8WD/FSmAMoOizoa1yHHBjKQDZBOo8xeR5hdRFlohn
+	 6mmpb4acKRt7X7R9zO/cwqztiUvZtewY7hbWj4NnaGcl877pAtBA8RRCqckLYSeRw8RCt
+	 Hx95nEw2x3ZjXnnQ1C3QXHZuuFpulUueZZFL50JMryaIsRV2twHCvMx1xonsru8Wqnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793407610;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=H7Ifc7p7cHcO1C78lzF+gI6I9rOcTVWv5sLtNAQ1MO0=;
-	b=kg3zI6hx9Rwz09mBnPXjaEP21p8MguWftbOuLZywRpsdPF5xbltEu+TRwS1tuLpq4ZiD
-	 qDdnxcN/L1YXZrGxEGzZAvUXkigiQAu8Y8hUTYMMGKOvK/Y14Xu181RtoVLSq3jMFar47
-	 KWiWQTRbkx1TJ5L8nt9kPOpEsIpgga/nPj1eESirv4gYgDMMcvxixiJfRoS4+uR4K0pmg
-	 73cJIHyuT+b3Ff/uCRxr81/9hbvkJZlhM69IWCei5KDPDWGKzAr6xLNKriNR1k80UqiqA
-	 JjuwZiAtAfDxucakbU7N/tsBrmnxeiZhtMhOvoc8x6bJpoU7LeiEnEVQefCMwWZRkVg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793407631;
+	h=DMARC-Filter:DKIM-Signature:X-SMAIL-HELO:Received:X-Sender:X-Auth-ID:
+	 X-SMAIL-MID:X-SMAIL-UIID:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=UCvegi+i1apDZdVVmEmHCl1vJCt7SNjmj4csEy7A/78=;
+	b=u/GdqfW/uE7thawlynekHnBgLzqKcWxeNTCQ9tRU9SZrY/VLBtpGOnghmZyww0v/F5Ld
+	 1fdkBieXuGpI25fvNDv++RJAqtjWYbqp+525O1kNRS52JJw42418z4WbU3H6PZz6vBZYu
+	 cyZ6gH0W5HqY5oW9noW1Qin2fAWW5Gx68up5+jOcnfIoPS4TMqki+oELuDTX1TDbKg9Wa
+	 hGx0DLTYOnHGahFIku7wEbBqIAJRnENWpsF+7VUj4r1+idy03KljzYdz8Y598vLLjfJIp
+	 pbJLsP0Y5uFWFhC4pnvsJ0A0MmpSh+nkE/Xtk1Njg95evbpV5u+bxaCTDl7mPQFjksQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=StOVEISL;
-	arc=none smtp.remote-ip=95.215.58.33
-Received: from mta1.migadu.com (out-33.mta1.migadu.com [95.215.58.33])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=sina.com;
+	spf=pass smtp.mailfrom=sina.com;
+	dkim=pass header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hG6omZN9;
+	arc=none smtp.remote-ip=202.108.3.162
+Received: from mail3-162.sinamail.sina.com.cn (mail3-162.sinamail.sina.com.cn [202.108.3.162])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820EB606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:46:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 820EB606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA3F3606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:47:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA3F3606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sina.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sina.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=StOVEISL
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=z26c2PyZ8pF8QGqqT2YXQEk7jdeK6dxDZwh05tv1Xdw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793407607; v=1; x=1794012407;
- b=StOVEISLs7OTCFFflGvKw3SGY3u0LB+qtHOZoYHM907Qe2I2bliBtIMwaVx+X9XV9oDdZhX6
- bLwv6fhv4B1GGNxmjaxcHbXmWHIqDa5viGyTJEQjrRnrO5qvYvuTCDBPgdIRpYdqow2OdTTLZpP
- UT8a7Gr/3H22m/GTp4QsGiEY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id 619347082113727e;
-	Sat, 31 Oct 2026 00:46:47 +0000
-X-Mizu-Trace-ID: 619347082113727e
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (1024-bit key, unprotected) header.d=sina.com header.i=@sina.com header.a=rsa-sha256 header.s=201208 header.b=hG6omZN9
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sina.com; s=201208; t=1793407629;
+	bh=UCvegi+i1apDZdVVmEmHCl1vJCt7SNjmj4csEy7A/78=;
+	h=From:Subject:Date:Message-ID;
+	b=hG6omZN9DURI0dH/sTwnwwe+TDeUZ/ZPV1hBazZJdPMPg2RVfBNbGZLkrNyRkLSsF
+	 wl/W2/VAyTlUuJtnDgU6E9xOziVQBXjXKrxEVLUNeNRhZbb9kxgWK/k1ybk33JPZpU
+	 Pm4b/kTv7cAUi6QnqAq54aUsXwfY31d/BiP6GQQA=
+X-SMAIL-HELO: localhost.localdomain
+Received: from unknown (HELO localhost.localdomain)([114.246.236.199])
+	by sina.com (10.54.253.34) with ESMTP
+	id 6AE53A860000686A; Sat, 31 Oct 2026 08:47:05 +0800 (CST)
+X-Sender: hdanton@sina.com
+X-Auth-ID: hdanton@sina.com
+Authentication-Results: sina.com;
+	 spf=none smtp.mailfrom=hdanton@sina.com;
+	 dkim=none header.i=none;
+	 dmarc=none action=none header.from=hdanton@sina.com
+X-SMAIL-MID: 8196726291870
+X-SMAIL-UIID: EE7AC67ADAD14D6B94E3B3DDB2C746CE-20261031-084705-1
+From: Hillf Danton <hdanton@sina.com>
+To: NeilBrown <neilb@ownmail.net>
+Cc: "Kal Cutter Conley" <kalcutterc@nvidia.com>,
+	"Chuck Lever" <cel@kernel.org>,
+	linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sunrpc: fix lost wakeups when stopping service threads
+Date: Sat, 31 Oct 2026 08:46:56 +0800
+Message-ID: <20261031004657.251-1-hdanton@sina.com>
+In-Reply-To: <179340033904.269288.4611945330659974906@noble.neil.brown.name>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,65 +69,139 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 2/5] memcg: force charges from reclaim before trying
- the limits
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20261030205418.341214-3-shakeel.butt@linux.dev>
-Date: Sat, 31 Oct 2026 08:46:31 +0800
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Tejun Heo <tj@kernel.org>,
- Harry Yoo <harry@kernel.org>,
- Meta kernel team <kernel-team@meta.com>,
- cgroups@vger.kernel.org,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- Michal Hocko <mhocko@suse.com>
-Content-Transfer-Encoding: 7bit
-Message-Id: <7CE7A687-C45B-4F99-8F58-88633E052D85@linux.dev>
-References: <20261030205418.341214-1-shakeel.butt@linux.dev>
- <20261030205418.341214-3-shakeel.butt@linux.dev>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-
-
-> On Oct 31, 2026, at 04:54, Shakeel Butt <shakeel.butt@linux.dev> wrote:
+On Sat, 31 Oct 2026 09:45:39 +1100 NeilBrown wrote:
+> On Sat, 31 Oct 2026, Kal Cutter Conley wrote:
+> > Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
+> > this stack:
+> > 
+> >   svc_stop_kthreads [sunrpc]
+> >   svc_set_num_threads [sunrpc]
+> >   nfsd_svc [nfsd]
+> >   write_threads [nfsd]
+> >   nfsctl_transaction_write [nfsd]
+> > 
+> > SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
+> > nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
+> > 
+> > The stop request is published with unordered set_bit() operations.
+> > svc_pool_wake_idle_thread() checks the idle list and task state before
+> > calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
+> > it skips the wakeup and its memory barrier. The requester can therefore
+> > miss a sleeping worker while that worker misses the stop request.
+> > 
+> > Order work publication before both lockless checks, even when no
+> > wakeup occurs. Pair with set_current_state() and llist_add() in
+> > svc_thread_wait_for_work(), so the worker observes the pending work or
+> > the requester observes the idle worker and wakes it.
+> > 
+> > Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsigned int.")
+> > Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
+> > ---
+> >  net/sunrpc/svc.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> > 
+> > diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+> > index af8d87c1de83..f3cc63acc5e1 100644
+> > --- a/net/sunrpc/svc.c
+> > +++ b/net/sunrpc/svc.c
+> > @@ -29,6 +29,8 @@
+> >  #include <linux/sunrpc/clnt.h>
+> >  #include <linux/sunrpc/bc_xprt.h>
+> >  
+> > +#include <asm/barrier.h>
+> > +
+> >  #include <trace/events/sunrpc.h>
+> >  
+> >  #include "fail.h"
+> > @@ -693,6 +695,13 @@ void svc_pool_wake_idle_thread(struct svc_pool *pool)
+> >  	struct svc_rqst	*rqstp;
+> >  	struct llist_node *ln;
+> >  
+> > +	/*
+> > +	 * Order work publication before the idle-list and task-state checks,
+> > +	 * even when wake_up_process() is skipped. Pairs with the barriers in
+> > +	 * set_current_state() and llist_add() in svc_thread_wait_for_work().
+> > +	 */
+> > +	smp_mb();
+> > +
 > 
-> Reclaim can charge memory, for example when zswap stores a page.
-> try_charge_memcg() forces these PF_MEMALLOC charges, but only after
-> they fail at a limit. A charge that fits still has memory.high
-> enforced. That can make a task in direct reclaim do more reclaim and
-> sleep longer later, and kswapd records overage that it never handles.
+> I don't like this.  Stand-alone barriers are, I think, harder to read
+> than barriers combined with operations, like smp_load_acquire() or
+> similar.  And this one seems quite detached from anything.
 > 
-> It is also a problem for the next patches, which make kernel threads
-> queue high_work. The worker charges memory from its own reclaim, so it
-> can queue itself again. With those patches but not this one, the worker
-> queued itself in 118 of 284 runs in a VM test with incompressible zswap
-> data.
+> If I understand correctly, the possible race is between
+> svc_thread_wait_for_work which includes:
 > 
-> Check PF_MEMALLOC before trying the limits. Reclaim charges then skip
-> memory.high, as they can already go over memory.max. Drop the
-> PF_MEMALLOC check in memcg_enforce_high(), which no longer sees them.
+> 		llist_add(&rqstp->rq_idle, &pool->sp_idle_threads);
+> 		if (likely(svc_thread_should_sleep(rqstp)))
 > 
-> Other effects:
-> - As before, the check reads current, so it also catches interrupts on
->  a PF_MEMALLOC task such as kswapd. Softirqs set PF_MEMALLOC
->  themselves for swap over network, so the check can't be limited to
->  task context.
-> - These charges no longer charge a batch or refill the per-cpu stock.
-> - MEMCG_MAX still goes to the first cgroup that the charge puts over
->  its limit. On cgroup v1, memory.failcnt no longer counts them.
-> - high_work can still run again and again when there is nothing left
->  to reclaim. This only stops reclaim from queuing more reclaim.
+> and svc_stop_kthread which includes:
 > 
-> Suggested-by: Michal Hocko <mhocko@suse.com>
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+> 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
+> 		svc_pool_wake_idle_thread(pool);
+> 
+> The first sets ->sp_idle_threads.first and then checks SP_NEED_VICTIM
+> and the second sets SP_NEED_VICTIM and then checks
+> ->sp_idle_threads.first.
+> 
+> So we need barriers to ensure the values are seen is the expected order.
+> Have I missed anything?
+> 
+> llist_add() always calls try_cmpxchg() which is fully ordered, so no
+> extra barriers are needed there.
+> 
+> There is no barrier between the set_bit)( and the READ_ONCE() in
+> svc_pool_wake_idle_thread(), so you added one.  I agree that is correct
+> and solves the problem.
+> But it is only this call to svc_pool_wake_idle_thread() that needs a
+> barrier, not all calls.  So I would prefer the barrier went in
+> svc_stop_kthreads().   Do you have a reason for not including it there?
+> 
+> We do need a full memory barrier - a "release" on the set_bit and an
+> "acquire" on the test of ->sp_idle_threads.first
+> 
+> I would be happy with smp_load_acquire(->sp_idle_theads_first) in
+> svc_pool_wake_idle_thread().  I'm not sure it is needed though.
+> 
+> I would like set_bit_release(SP_NEED_VICTIM) in svc_stop_kthreads()
+> but we don't have that.
 
-Acked-by: Muchun Song <muchun.song@linux.dev>
+It is on the way [11].
 
-Thanks.
+[11] Subject: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
+https://lore.kernel.org/lkml/20261021095512.1345191-3-phasta@kernel.org/
 
+> We could do
+>    atomic_long_fetch_or_release(BIT(SP_NEED_VICTIM), (atomic_long_t*)&pool->sp_flags)
+> but that is ugly.
+> 
+> So I think the best solution is
+> 
+> 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
+> 		/* Order SP_NEED_VICTIM before testing sp_idle_threads,
+>                  * matching svc_thread_wait_for_work() which orders
+>                  * setting sp_idle_threads before testing the bit
+> 		 */
+> +               smp_mb__after_atomic();
+> 		svc_pool_wake_idle_thread(pool);
+> 
+> We probably need the same in svc_wake_up() after the set_bit().
+> 
+> Does this make the barriers easier to understand?
+> 
+> Thoughts?
+> 
+> Thanks,
+> NeilBrown
+> 
+> 
+> >  	rcu_read_lock();
+> >  	ln = READ_ONCE(pool->sp_idle_threads.first);
+> >  	if (ln) {
+> > 
+> > base-commit: b803428098f6fcd584db9f0499217b80e465bb34
+> > -- 
+> > 2.53.0
