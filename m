@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793449083;
-	b=LUyXsM9kxZWSQttx4+nDcZ0pDw11y/TwP6uXTSUW7jXrrx5ku1Lu9DEmD0ID5Ls+PZ7C
-	 3YWmplDAQRdd1VyR6mi3S++FAiF+izX+Ucg+TD2iy1pCAO89sgKLScHOxgugW+b7IUZes
-	 vcSqDxyAb/LWabx5+hjlzEGUR+KQdYwXoTDLsr+kM23bswl3bhL1dxuwNq9hj+kHX65JB
-	 /qIbuPFbzrDH6F5yX/B5t9O2/q7X/pzr8LukTU9qjgFa3UDLL6C0hqHpDzIvvOogYyq1+
-	 qcE3hV3MjrPsxiC4RHlMGeDMQ1n5EYyzElNjP3paHRD7xDLWfxEakoaAXY/RE78eAcg==
+	t=1793449206;
+	b=EFHCxPaJYQR/crMcwWo0jg+3Gm4wGq0ddjhMqq3/cPVyLLvPyQsM602C628Xurv9gmI9
+	 1Zq5bn3J9jLggosu33iqu4b9rWYN/Z7LK4n265gIgSJxUcTcho4NU5sT983MAmNmrQhH4
+	 axeZEVtsc087PgayixGqPWFRkQWB6S/fbcV2IAiS+AZ6wgyiNKGlB5ent2Dv8fjtqZ9yf
+	 yW27xzlx1F5Bw94RMwpod5sF48sA5VnM7tK846+C+E7W+VSF43hKxVo7MEHj9IAfosyZO
+	 iLqR1eKU2HcZs+9vZnegGh37eSu+uVeRKQofDZ0oAJOi/Y3asoEfo2oO8wU8XdZQFAQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793449083;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793449206;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=WfqDrmC+ehUZ60Gx9Aa5w4mrh+zG4BxXWhM7P84e/E4=;
-	b=xyrNG9Bugwh7UDECN0CEc+AXIzTP0M7fd96NN3lI3gxpje6pfSTIPJAFc2bpBxvXkgIa
-	 7mi9IHwaqp8tlCKHd4l/XR2p559hTbpbiHtmLGMlCa8ioNevdWHRqNX/4wxkKoYYrjPlA
-	 0xdS0d2VzCnYXvUx5RiOe61c0xaUHphQke9rA20iFVrPCL33IKhEBiX8IwnmG2V7duUHl
-	 8KMkJPEiGqHKzpUYsuqLA2Y5xNTcIsX76m1iC1t0qbKrrQ9Oar49yqYsrBb7YGF5q8zr+
-	 heGIusziYh1KYljGIHCZkrpkJqhSmBUErdvSzUDX/M7g5ivzyQJzcVcsMnUk0/tny+g==
+	bh=aC+ozKo1SQbQOnribQKSECUAZggGyzBm59lqVF1tIOo=;
+	b=lOQ+/Lqxnnt50jiX0eyXNZxMFGUWUrf0esMOA2XKJbJFmICyPX5FYw8EcxXLmSXrCmwR
+	 IYxEwePEqPYSBTjNt+0LYKit2sOSNF+Q/+4bYvtELJtOOHKYZGrhjsX4anI3SCL++og/j
+	 /jEDW1ozRC8eJLCwW7x0bGwhzMxZ+7yZbCYb8vgevh4oDme/HXP2d/S8q8KxK+0UNnVZW
+	 nAe3Gmwo1kNGgllj3Cc0aVKpAOuCEqoro8JflOnNMZNX460bALQKrzMDyupyRxuTRSEi9
+	 qrgAJDfwEhy+HO8E7WqR1hmv4jhsryjajVPw4ZCIyv077apxhi0JxvNWLmNeeqrRiog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GvRvl7W4;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wn0m+C6a;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A42606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:18:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FD5B606A31A;
+	Sat, 31 Oct 2026 12:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GvRvl7W4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E73181F000C1;
-	Sat, 31 Oct 2026 12:17:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wn0m+C6a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EDB71F000C1;
+	Sat, 31 Oct 2026 12:19:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793449082;
-	bh=WfqDrmC+ehUZ60Gx9Aa5w4mrh+zG4BxXWhM7P84e/E4=;
+	s=k20260515; t=1793449205;
+	bh=aC+ozKo1SQbQOnribQKSECUAZggGyzBm59lqVF1tIOo=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=GvRvl7W4RGrqljpx94XdbaZMsVvL1Kt/Z5Jd/55eORWHsalS5nFdOLhZslVPHATyj
-	 Epqi1/8K2P+7A0aNrdghr3K0m5IKSQhcClb9RXYBmakKy8MPKStyQWmBH87IH10nf8
-	 eEw5QOOfHjMHbUF24xNoaBSgLAY0d9lzM00aOqEfsR4dJw5IFzIdMcMJ2mOkycUdrA
-	 57Hm22yeq29PdAbHNTDoD+NKhP9WJBm1s0CUo4SHgyKLXCy7meoL3v2MaMZsIH8cIT
-	 EYpEeAzPOzbogU1W1PvT1ADFAEq5SGwV5qRz4Wbl1AwHr8iQXW9XRQxGfi16qKyFEI
-	 qTuDlCJgPT3nw==
+	b=Wn0m+C6aMhE7uVoLV2BVwEXr+GHb38ZUaXinLEPRHFjG/lnjQ4dZFfvtXyfCQHfXp
+	 arVihC/zaPmkiH8hP1jnUxkrPr5rGStFGsxynFP+TTFv4cmbi+Uwuut5uBV4jMLHEh
+	 NTqT6IPj59AKleG0mNw6RlcKjGxZyRp6YNiceiHqxApEewYwehiPUvI311yRk4kw3c
+	 3LHhOByqcEl1TuvG3Xd0hvif0T7ojAFTcNzvh10ml0rx+omja63LWaR26hvTUEkKUA
+	 VkIL0ZxUE84tc/WGjb8jgUGnIZf3U9OTP508kby+amxpI/TYG+BfL6xUEFCAeDeDYg
+	 amOFwVYUc+MkQ==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,60 +51,44 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [RFC PATCH 1/1] phy: mediatek: phy-mtk-hdmi: Use regmap to
- manipulate hdmi registers
+Subject: Re: [PATCH] phy: tegra: Clean-up Makefile for Tegra186
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, 
- Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
+To: Jon Hunter <jonathanh@nvidia.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261011082042.348422-2-l.scorcia@gmail.com>
-References: <20261011082042.348422-1-l.scorcia@gmail.com>
- <20261011082042.348422-2-l.scorcia@gmail.com>
-Date: Sat, 31 Oct 2026 17:47:39 +0530
-Message-Id: <179344905948.5901.6799097646166176701.b4-reply@b4>
+ Thierry Reding <thierry.reding@kernel.org>, JC Kuo <jckuo@nvidia.com>, 
+ linux-phy@lists.infradead.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261012-tegra-phy-v1-1-3241bf3c86e9@nvidia.com>
+References: <20261012-tegra-phy-v1-1-3241bf3c86e9@nvidia.com>
+Date: Sat, 31 Oct 2026 17:49:41 +0530
+Message-Id: <179344918143.5901.8981385742603582219.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=806; i=mani@kernel.org;
- h=from:subject:message-id; bh=JmZC2SA93RT2nPUoPyZmky/enQbqCKoYwEii8HOdWaU=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5dxxUWs3ovbRHBJTHeGitgowF1no/6nrpoiQQ
- oBBFLTs8GKJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauXccQAKCRBVnxHm/pHO
- 9VQoB/4v8G/Tb9ty7lQVKYjEB7a7AKK/iMtr9bXlp4uhf0FbVMlBFpK+AqT+8hXG2Ve55+mvO3n
- w+/xPG4afcQ8jvJbvZIV58WBAhvz2bqcD4euJOA086kJzuGuMclGxwj14c/2NJg54MHpXd0nTIS
- l48kwjeeEjv+CNZaShfLX5LZPLTM3lfngz8mbECL90TIpRCEvErerhFamQUNdE7VQPHBnYaEpar
- 6+VVkA3oVnQLdsJVXAA1Ch/4qPAfotKX/QJtctVHRWkhTOMED4AhCgo/5CKzs0Dq+itjhre2eaJ
- PHzkdZJn6fMqAOgKbr47Mf9YZ61mvvmSV7rFZCjdz2M6BhZy
+X-Developer-Signature: v=1; a=openpgp-sha256; l=579; i=mani@kernel.org;
+ h=from:subject:message-id; bh=UKIJFkSajcdCYHAY1RJJ/pyc1TD2FQZP6j6DLPWaSzg=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5dztue46volUCrz/xKgQVfRbKUG7RKrz8ThIo
+ ZMvs92iuOuJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauXc7QAKCRBVnxHm/pHO
+ 9aShB/9p3OuLoAMX0st+401EKD1UTkEvFE7RWcx6prtgkrGWqavJs+4/D6GcqNrGO0e3SRaj5cw
+ YqYzxgHPkPzBiehtRMCtq/37PwhGBufQnjTEhkm/io6AlAIdQdSrTZtx7y7X5h5XWm+JYbr3Xkq
+ tQZo2f3oW9uoU6FHRe15XRmj2Qumi/Cs69Re7WPSHUSBjEZmNOeRLC5YEIxssPyLEb1+Be1W0we
+ s7Fj2u9KayL+XrA/S6RWQesK/6ocMQgnnwimE87+vue2AGP6bntZKatqYUe1yXPP22OdtVzaSu+
+ 7zw70ZnUcxptzeeZf0tMfWuuWdtZ7VBywVuwFn6lX8uh4K1n
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-11 10:20 +0200, Luca Leonardo Scorcia wrote:
-> Use the regmap primitives to manipulate HDMI registers instead of custom
-> helpers from phy-mtk-io.h. No functional changes.
+On 2026-10-12 12:16 +0100, Jon Hunter wrote:
+> The Makefile for the Tegra XUSB PHY driver has an entry for every Tegra
+> SoC that compiles the xusb-tegra186.c file. Clean this up by adding a
+> new Kconfig option called PHY_TEGRA186_XUSB that when defined compiles
+> the xusb-tegra186.c file.
 > 
-> This avoids the following issue with mt8167:
+> Finally, update the xusb.[ch] files to use this new config option as
+> well instead of using the individual SoC Kconfig options.
 > 
-> hdmi-phy: error -EBUSY: can't request region for resource
-> [mem 0x10018300-0x1001831f]
-> 
-> due to the fact that HDMI PHY registers are actually mapped inside the
-> apmixedsys memory space.
-> 
-> The same situation is present on mt8173 too but this SoC does not exhibit
-> the issue as its apmixedsys driver uses of_iomap instead of
-> devm_platform_ioremap_resource to map its memory space, just like regmap
-> does.
-> 
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
 
-Why RFC?
-
-Anyhow, please fix the build errors reported.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
 - Mani
 
