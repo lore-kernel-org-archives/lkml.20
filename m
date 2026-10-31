@@ -1,105 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.178
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793425610;
-	b=zZFkQhdykWmafUQfcm70lmeiywRThIPBsesoq4wj2UYHjuj92mTZ3JwcSERiUODA74ba
-	 177YxSObN5SCn5h98WZRN36FdWIRtwQzu1SsTNkVQftbAM2exWhIMsIaiSbD+YeD5BMDp
-	 BVdq4stwGmbe6x1FSFRNWKmQWwI5Xio2yLZWoQcNd+rFy2wo8IUcHGgrVwF6YFaKCB0jy
-	 Az4SNGBBEkrxJFx5OAgn1qXsneKZLnQouJne68hWUAJC4ooq6ulvmviD2AiwUWbEOIMq0
-	 pzNZ/NvERahXahfcF/bv5DvMoH/ek012zA+2u+BNKRmnKgEnCZYENquaDST2jd99V0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793425610;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793426108;
+	b=wuOvZfdv74JSCaFIvnFga7VN05EZP0UAG8ijTBgfcIY0h4IlNesRJWcmFtgkjkF2Fwhf
+	 3H0N8/b1lksMqTMtlNb+DhZrgUFJbUG/Fm+NNdApAnaANaPZ3xAbcJ4aAJc5Q3ONyVI8s
+	 xzNBQdmXmYp+t3UAYRRdWHH5dgJvWDjF919+dZyyTa4W34P2BQVtIU7YEXU2PyYIAB5Ti
+	 LUya8CYA8gOlTnx9Sd+3OsfIvMAxRDDhidUmlKggq2BvTwo+/DB4f295yw8GW/Wq6f/qL
+	 WsRKBDEf/+m6t8Pe1DP67uCGJoXvKbmZieYxV9kJtIUuIkXH89Ya+pSipZYi9xxWSpw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793426108;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=UW3BQ/Y5PiheRrkEpcONiNTmtPHiTfQrc+Cn+a3/JAE=;
-	b=MSLnIRN3ACj+SiUvKlWuCvqx+uNwgTwcb+M2Zi0MRMZn2vEuXfe7napLeAvyx3EoQlNG
-	 20F6ZFmR9IVeye51wXLyDwf7mQHndsJh7163biIagV2cIh5o663PbWaHFZQ2Zq1RfoQdF
-	 nWwB0tq6YkGE59F1a1qJ+Ucag4zFCu1HGeZoUxmjrXeZrYX5HVXBg6bphkmZfopd1x8s0
-	 y+gfSvhPyl+hcTxukKI2SYR1FscwnyDuLx0vM7EqllsZOOBKo5SJTYT6wXbh/Ab9s2FC3
-	 iZNwotgYiXx3kc+NfoXg4n/JwVgSw08y7J5FcAa8T1+l7jWf8q6DdUOIOLcHhfRQnxA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+	b=1SqxCY+DG8sSd6v4Fm0n5oidYMy76P8olYNBucSjEz8gaLgFNsfRO6woMCXzEqRZQuIl
+	 MJo+pKYE8BXyS/UESrIKOyfdUp5m/eZtpIw8MsM96a/kKnLufO3WwcxMqVZdeR/oC1W0n
+	 oIHS1M1e9wZ+Bwe3UM8+Ag82mAPaP89rk9fWGxkrJpKwwD7ntGNJ/VgC5IgQV44PojG80
+	 7hA+o+ou+1xhypqfufsU36Rjn783kvU3Kcz72eoIsfRF/GH3fsZVc8foM8JxV1plKbUaJ
+	 +xNpaWVJE91c2iFeUn01vF1J6xpzDjVnfbaebb2nI48WNzwMoFPURNwVPAXWlePEv8g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O5oaTt9Q;
-	arc=none smtp.remote-ip=74.125.82.178
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xV7PJY0o;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66A97606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:46:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66A97606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4D9606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:55:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA4D9606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O5oaTt9Q
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so2426684eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:46:49 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xV7PJY0o
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b4e814214aso1151344a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:55:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793426106; cv=none;
+        d=google.com; s=arc-20260327;
+        b=GlJOC1yD0mqqkKtthQaMkCHjOa4DvVMpJqvJ3RiTg5RgH+5oXHO3A4d7Wd4xKvgjab
+         S7UDZJ0LvMEydEAs2XhS9a7pgHDaKXl8TyIcj9bRQEP4DHGCrGtYdAjSuk7e0U7TuL/s
+         9SEAVKD/pkd2DuAMO8/nz4QAtWSgoAjdxhSBNPhtSSJwcTxoLlDhwvHlJCNDOeW6gENp
+         nO4EuXN4P7hIL9AytmnZW3KPUhMOO7p8IjcZt8SbLHH7MVTdnVCOyMZthiwuZDN8k58J
+         zIRd/pw2EmfnFzXZzD/7vLQr2dljbvJVKHoyhxX12Zw/FnclEzxi7qwa0JVvHTYsz7cM
+         Y8HA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+        fh=/2ELrNbRZfmU/QrbQ1EkPt7kNgnKD3wT4A1XLdV+7i0=;
+        b=G4qFM7hPgbcMCqqxsBP6xMYvCINZ4fUc7ue5mfqazkyKPr9o6S3dtxwPXPBd9k3oFe
+         tdt2imIgkNsqgv1TNwIHGsYNee0wVjNhxxONRbnH+Vb2D83ZRWNenVU5hGuwdRuBx9vt
+         LV4+iPm6wjnZrXM6fcd6JxGzA4VQSczgnOL9gcQTOdx0f2zk2oUva6KGRnyiiZI1m/cl
+         vlS4m1Xk+t3GqeU4kBh4cVh4jfIFaG8/YOGCMuBSGHNqiqdoQjux/uqGHpT8Km/ebdMn
+         +qoHBlMS/YwlGeQFKvjbZqckGQEKk7lWjIIUWMNzy4yAzEzjTckHtahj+QSs3PqTaXhd
+         CRvg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793425608; x=1794030408; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UW3BQ/Y5PiheRrkEpcONiNTmtPHiTfQrc+Cn+a3/JAE=;
-        b=O5oaTt9Q4TqZOVrT2B9SV76ivfBonsnDWXbr8gc+d75/IBvHLUOr2ZCt9Z4mzI/J9i
-         vR9reN6cLhhyx679o4IwXW9GMGC4LI1Bd5oyVh6Ttq3umuBSLzOhzxZEn0ybaHQQ7SlE
-         B1X/6LKEDA5UK+HRO9TliPtsajk/+17mVJycrHt26tyuL2pExAFVsIdJAO3tS8BLiKjd
-         BdnU6ATNqcyBAtoEM9FY5kKib9NfWpZ6vkwtUer/d9eMRFsWYW9voLYfG9frPly0UMz0
-         PKVCoHLIs0sp7WaPe7jMUSMIxsjSH4hhm8i34ExT20pvmwaEo1/QCRU3geYkw9nLeIPf
-         LnQA==
+        d=gmail.com; s=20260707; t=1793426106; x=1794030906; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+        b=xV7PJY0oSGo3+Jmw5WWOaPc0jhDEJMKkRV+2fYmDaQsyVjcNO2rT+mEUN8CPQGwZ+H
+         SLvGGuMp5UAfvdn+TSsSNDMpC3NmqwB27qotDk8PQa+gO/e7Ho0aAkfftj2Pr4xi18Bw
+         JX2i1FOODLAERxdXq4lYYCkEsIJKkSluqSNtB73P6ppguZRZ9aDrmFcz34t6VjlN2b9N
+         8iuYGEdmx5wx1ud7ElRWy4zsm5l1riG9HFw3df7bGHTAbltFEhxj/K1Aj19iKRLb01p1
+         /TvVbnnhJjmBC7gckFQrrelkB8mV4VAyPEA2V64ci+1wZs+/7a4pW7AEutEKtBOm/MwF
+         FHvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793425608; x=1794030408;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UW3BQ/Y5PiheRrkEpcONiNTmtPHiTfQrc+Cn+a3/JAE=;
-        b=vBqfAneTiUYgfIGHuDeOOUwRnotDaasJ2R5Tf4hKPdiQUNO2yg2CE07x/vmkMaifq3
-         JSYQnFjyMRWOGcszfs7tY+wPmszL7/V39ocEjrIoOmC+y2UONDNbg0Cgac59NCYVcjzD
-         XFalOOqkxwjdwHzHHXLTTccRLbxHP4s67BrddtuxhCqqzkr0qUjC7cHPRDYLyWhWit5H
-         mrHKGY3HQVfGD74wyKcc1yhEvW6dBg2L3lU/EvOPq2A4CNC4SOLmBJGVJgOSWEC/G1fL
-         qI/U79xB4IfwFa/Wt/XzQDbzdNWAaik/NRR3Yr/H5Prbvmx0YBkop+I3AA1DkHFphSuf
-         2csQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwodGl3WeGkdGAOPeQtanli4yLzKlsdohl4dDJgQpRMuu2rAIivPqh8b+RAdcqDFIIJB6nlSc/S4kjOwq0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYjJyXaWVvuRVqTaY86/iyPsibFGM7tMOuh6kw2va7WNeu94Gt
-	EdD0R7Ps64rH2J7PcFHZIdTPCaLz5lgvdjaBUGKA0IChg4cMxQyeiBW+
-X-Gm-Gg: AYBFou13ZxvcSH7fJ/pfBcQNz76FMQM+AmP8U9OaUTbbNt5TNTVRkANxoEuAQu2CQYa
-	cSQMwJRRou+ZPFcmGkyRJUOuXNO4OoAHtyPYdl/a+7rWRlRA2SLoO4QoTES9lf0rLxK+riVO8fh
-	gF+EK90+CJ3gplnWtecVXncqFAqkvOR+8jrbblZcF0OnS3eb09RWdmdZG7IVOPRCz90bnM3U9Ok
-	gDt5kFTJcssG7vofY/PvGCyqKtr8heGmnm/KW28PhVyhwBiHWYbw6eRQbKMspBQy9XJbe4TVF+W
-	cqeIOiGeEmKQlccA4dzaxIUuLvIy8h3aWJT8e8D7iVWDgZ6mOBXa0Z/oLlu2BESPwtNhMJn75KI
-	8XkXssWzaRmjSZxrEe06ZYlhEQr1gtvyWvFNUMxsnD9Pl2WqSV82+z+EJ4Jx1kKmT3T07U5NeJv
-	ymCypX/+lc96cx/fgfTEhiljzD1b1MZEDIgjKeqp0uNbktr1vfqPQC4+g8b8x4O708JuTxDt6OB
-	tel9btODvoHrxGAcGtZbQM5xgb6QWcMHuoKKyMrGkFQydh9r9gZFjWhBGElKZKTmyHWE9j/fHJa
-	J0ILEi3FPQ0P0RsVTPnHxp8A8JFa38g5iCGffD6w4xdaNC8We3v13ba+KcP5hqDOZQi8SmEC5oM
-	09OjeJl+xWLpxBwxYYWUHSriDQiYqrZWPcO2ZG+LGBS41NPNcgj/JdMrDQFXGex6geI8Np/ZXCg
-	==
-X-Received: by 2002:a05:7301:f8b:b0:36a:2383:eb51 with SMTP id 5a478bee46e88-36a423c4070mr5816413eec.26.1793425608219;
-        Fri, 30 Oct 2026 22:46:48 -0700 (PDT)
-Received: from ramen-dev-security-2.asia-south1-c.c.ramen-dev-345017.internal (90.156.200.35.bc.googleusercontent.com. [35.200.156.90])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429018casm11668877eec.14.2026.10.30.22.46.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 22:46:47 -0700 (PDT)
-From: Anil Kaushik <anilkaushikwireless@gmail.com>
-To: netdev@vger.kernel.org
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Nicolas Dichtel <nicolas.dichtel@6wind.com>,
-	Jacob Keller <jacob.e.keller@intel.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	XingWang Xiang <v3rdant.xiang@gmail.com>,
-	Alice Ryhl <aliceryhl@google.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v2 2/2] genetlink: Clear stale members when assigning multicast group IDs
-Date: Sat, 31 Oct 2026 05:46:32 +0000
-Message-Id: <20261031054632.3697295-3-anilkaushikwireless@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261031054632.3697295-1-anilkaushikwireless@gmail.com>
-References: <20261031054632.3697295-1-anilkaushikwireless@gmail.com>
+        d=1e100.net; s=20260707; t=1793426106; x=1794030906;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mCgjURrKo6HedSLNTmVowrdbKxaGNL1I2PpeVk6fWxc=;
+        b=1X0nOzZZ0Aj48hO/woHBuQB/f5YyqIzHPf75hxGFv2cPvOxe0FVQphZfzPQbcndoKG
+         rZkIPkRMbEU3hIYVF/BDwegjhOM//RxwOVZk17wPz83dcfzhJU0Bn82g9uLIIu0cQryZ
+         +shM+bRC2xDQFVCH/cqfmVG/WzuHEYIy0rwPAS6mcava5jM2e0BwiQHJQB2HqC7RH20B
+         vX3m8KRUzQRkxP9hl3CF9/3SiRp7uFd+yjAGgd5vFrS/2LgxVbrK88mIh/0OAfnbz+DT
+         epym2slrWt2DyZGK1tgxVx2yFwPLZBLpzu9BYcN7exUk9GSY2uEoxJIXcQIgQf279qTR
+         XRuA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZCvIxXUaInCyJRyozGlRW3vVVNDVqijsvEmB+tW9CUCP1jNkYZZVxSgcWp9jEh/R/fp12/nE08NYqtrM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIsOfW8TdC2PZZzhvmnMlIHX+9h7PKqAQ7MAbLkfU9LRgrOFTZa
+	L08g5OcLEo5d/QNt6iIgJi/YdYrr7GXO2EnBbHidbLebrCSRb3DM54J8Xx0/bGq51emOVRkWynQ
+	TbOxgqU8PEB7SJbh2OYe3VseeNWSfIgU=
+X-Gm-Gg: AYBFou16zxlrmqeyESpz4BHF5BGBS/UdK8zQwE+DVLcTk19EcRlz4ZCuMgWHz/+923r
+	IW7ur7h8vdbaZPJWgIDw+XnbS/TSTcGUOKUjIvmSwe+pFmkh7dWH5mmVss5neIxwBSa3CwT/5qx
+	sK6AoIpDJtYCVJXX75rGpltWiWHmA4Q1JjpRV5vU/qbV2kiElOk7tqBj7NXGH6IuLEx40TDpDW1
+	RoQYMeWyaCKmdcXPF9v/ozp55qJkOKgaqgwadZA9upW6ibNaba2otXdGEMBkWaZZ3nJDErpQLMS
+	cBV419aOj7/5k9oO67WKCHV+wrrjO4DlvjtKpaBBAt6/+bhqSXDHncT+Yq40XzpEir4yFrB9QNX
+	bFpGjxYdtIfky05vaQtPXqtKprDnxuMVjJgMfiERrH5gcAwt/VpxD4fUdzilkiMWh1CgbzcA=
+X-Received: by 2002:a17:907:2d25:b0:c41:1e13:8896 with SMTP id
+ a640c23a62f3a-c4ca7a7586fmr378054666b.28.1793426106050; Fri, 30 Oct 2026
+ 22:55:06 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,83 +104,138 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
+In-Reply-To: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
+From: Kairui Song <ryncsn@gmail.com>
+Date: Sat, 31 Oct 2026 13:54:29 +0800
+X-Gm-Features: AclHuK-xDhrqISf5wq7z_z32la-j7uMJ_BSTSk-mqM8zIBPegNWP5UzqHeqNVC0
+Message-ID: <CAMgjq7CwaE1Fmdz1Edm60HVyqSWWpFrUo0n5GZFdJoCZUbhKbA@mail.gmail.com>
+Subject: Re: [PATCH] mm/swapfile: drop a large unmapped swap-in folio in unuse_pte()
+To: mt4022@columbia.edu
+Cc: Andrew Morton <akpm@linux-foundation.org>, Chris Li <chrisl@kernel.org>, 
+	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
+	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
+	Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-genl_bind() checks a group under cb_lock, but netlink_setsockopt() and
-netlink_bind() set the membership bit only after it returns and the lock
-is dropped. If the family is unregistered in between, its members are
-cleared before this socket is one, and the socket stays a member of a
-group ID that no family owns. A family registered later can get that ID
-and its GENL_MCAST_CAP_* flags are never checked for the socket.
+On Sat, Oct 31, 2026 at 3:12=E2=80=AFAM Mani Tofigh via B4 Relay
+<devnull+mt4022.columbia.edu@kernel.org> wrote:
+>
+> From: Mani Tofigh <mt4022@columbia.edu>
+>
+> Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
+> for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range into
+> one large folio in the swap cache.  The folio only becomes anon once
+> do_swap_page() maps all of it, so if the faulting PTE changes in the
+> meantime the folio stays in the swap cache while not being mapped or
+> anon:
+>
+>   Task A (fault)                       Task B
+>   do_swap_page()
+>     /* swaps in large folio F */
+>                                        madvise(MADV_DONTNEED)
+>                                          /* zaps the faulting PTE */
+>     /* PTE changed (F not mapped) */
+>
+> swapoff then maps it, which marks all of its pages as mapped and
+> exclusive, and the next fault on one of the other PTEs crashes in
+> do_swap_page():
+>
+>   [    6.424485] kernel BUG at mm/memory.c:5195!
 
-Clear the members of the group IDs when a family is given them, the
-same way genl_unregister_mc_groups() does when they are freed. No socket
-can be a valid member at that point: cb_lock is held for writing, so
-genl_bind() cannot see the new family yet.
+So what's being triggered here is this right?
+BUG_ON(folio_test_anon(folio) && PageAnonExclusive(page));
 
-Link: https://lore.kernel.org/netdev/179340003139.3131.11274717768928642724@kernel.org/
-Fixes: e03781879a0d ("drop_monitor: Require 'CAP_SYS_ADMIN' when joining "events" group")
-Signed-off-by: Anil Kaushik <anilkaushikwireless@gmail.com>
----
- net/netlink/genetlink.c | 31 +++++++++++++++++++++----------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+That check is a bit overkill to be a BUG I think, and we have been trying
+to remove unnecessary kernel panics. Before f1879e8a0c60 we can occasionall=
+y
+see large folios got stuck in swap cache and partially mapped (e.g. failed
+writeback, see activate_locked: in vmscan.c, much less likely but still
+occurs from time to time), but the ones still referenced by swap PTEs don't
+have PAE set so we are good.
 
-diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
-index f038f04ef4ea..0ddebd828585 100644
---- a/net/netlink/genetlink.c
-+++ b/net/netlink/genetlink.c
-@@ -452,6 +452,22 @@ static int genl_allocate_reserve_groups(int n_groups, int *first_id)
- 
- static struct genl_family genl_ctrl;
- 
-+static void genl_clear_mc_users(const struct genl_family *family)
-+{
-+	struct net *net;
-+	int i;
-+
-+	netlink_table_grab();
-+	rcu_read_lock();
-+	for_each_net_rcu(net) {
-+		for (i = 0; i < family->n_mcgrps; i++)
-+			__netlink_clear_multicast_users(net->genl_sock,
-+							family->mcgrp_offset + i);
-+	}
-+	rcu_read_unlock();
-+	netlink_table_ungrab();
-+}
-+
- static int genl_validate_assign_mc_groups(struct genl_family *family)
+Now the problem here is unuse_pte() calls folio_add_new_anon_rmap()
+while only one sub PTE is mapped.  So yeah, that's a problem.
+Still it doesn't have to panic the kernel though.
+
+>   [    6.424503] Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
+>   [    6.427654] CPU: 0 UID: 0 PID: 67 Comm: swapmthp Tainted: G        W=
+            7.3.0-17087-gd865f2677c44 #1 PREEMPT
+>   [    6.432665] RIP: 0010:do_swap_page+0x24eb/0x2fa0
+>   [    6.451035] Call Trace:
+>   [    6.451567]  <TASK>
+>   [    6.453841]  __handle_mm_fault+0x13b5/0x3b40
+>   [    6.458525]  handle_mm_fault+0x16f/0x480
+>   [    6.461143]  do_user_addr_fault+0x312/0xa30
+>   [    6.462044]  exc_page_fault+0x66/0xc0
+>   [    6.462846]  asm_exc_page_fault+0x26/0x30
+>   [    6.476708]  </TASK>
+>
+> do_swap_page() already drops such a folio from the swap cache when it
+> can't map all of it.  Do the same in unuse_pte() so that swapoff swaps
+> the entries in again.  With the fix, nothing is reported.
+>
+> This bug was identified and confirmed with the help of a deterministic
+> hypervisor currently under development.  The C reproducer below however
+> hits it within a second.
+
+Great working catching this!
+
+>
+> Fixes: f1879e8a0c60 ("mm, swap: never bypass the swap cache even for SWP_=
+SYNCHRONOUS_IO")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+> ---
+> This conflicts in context with patch 41/47 of David's v2 series [1],
+> which changes the line right below in unuse_pte() for KSM folios.  I
+> can rebase on top of it once it's applied if needed.
+>
+> [1] https://lore.kernel.org/all/20261029-fixes_core-v2-41-a64ce7f83abb@ke=
+rnel.org/
+>
+> Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/sw=
+apmthp.c
+> ---
+>  mm/swapfile.c | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+>
+> diff --git a/mm/swapfile.c b/mm/swapfile.c
+> index 189f04d8838f..b0b75ff16835 100644
+> --- a/mm/swapfile.c
+> +++ b/mm/swapfile.c
+> @@ -2518,6 +2518,18 @@ static int unuse_pte(struct vm_area_struct *vma, p=
+md_t *pmd,
+>         if (!folio_matches_swap_entry(folio, entry))
+>                 return 0;
+>
+> +       /*
+> +        * A large folio that is not anon yet was swapped in by a page fa=
+ult
+> +        * that did not map it (yet). It can only be mapped as a whole, b=
+y
+> +        * do_swap_page(). Drop it from the swap cache and swap in small
+> +        * folios instead.
+> +        */
+> +       if (unlikely(folio_test_large(folio) && !folio_test_anon(folio)))=
  {
- 	int first_id;
-@@ -527,23 +543,18 @@ static int genl_validate_assign_mc_groups(struct genl_family *family)
- 			clear_bit(family->mcgrp_offset + i, mc_groups);
- 	}
- 
-+	/* drop sockets that joined the IDs while no family owned them */
-+	if (!err)
-+		genl_clear_mc_users(family);
-+
- 	return err;
- }
- 
- static void genl_unregister_mc_groups(const struct genl_family *family)
- {
--	struct net *net;
- 	int i;
- 
--	netlink_table_grab();
--	rcu_read_lock();
--	for_each_net_rcu(net) {
--		for (i = 0; i < family->n_mcgrps; i++)
--			__netlink_clear_multicast_users(
--				net->genl_sock, family->mcgrp_offset + i);
--	}
--	rcu_read_unlock();
--	netlink_table_ungrab();
-+	genl_clear_mc_users(family);
- 
- 	for (i = 0; i < family->n_mcgrps; i++) {
- 		int grp_id = family->mcgrp_offset + i;
--- 
-2.25.1
+> +               if (!WARN_ON_ONCE(folio_test_dirty(folio)))
+> +                       swap_cache_del_folio(folio);
+> +               return 0;
+> +       }
 
+Force dropping a large folio for any swapoff doesn't seems very
+reasonable.. We really should reuse the common large swapin code between
+unuse_pte and the ordinary fault processing code, and there has been quite
+some patches just for unuse_pte just because its out of sync with
+do_swap_page.
+
+But, having this fix first and backport for stable looks good to me, clean
+up and improvement can come later and I'm trying to properly split the
+folios when the PTE backing it is partially gone during swapin, that seems
+much more reasonable.
+
+Introducing a helper to avoid code duplication from this fix is also a
+good idea.
