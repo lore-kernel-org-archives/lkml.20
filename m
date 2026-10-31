@@ -1,79 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793482827;
-	b=NmIUUi9RSi5tdo3BWDBo5ppQwzZCp3vS2bO12S8l+BARZeWEDvaFkj7ZbeqZaIIuwTLm
-	 RB6riA2SYZJpcNX1Auw6VCBv3XxLGe+2qGqjNzNzif/RmXXDgodBNvR+Qs2TElPexH4Rc
-	 OkinumLF2vZYhZdsNfPB5P96OhOi9XX/HC1RkhMlbzO9a/v0ckihDoEscJplKnZrLFvI2
-	 jHqil56AUQZ9WVJ4hhEfaXMsOU/vfKAN3+BV7QwPXHSghIMCUT0ZBiWpJd58S06YlGdjI
-	 GSWwMnO0Gl8aqDcXDQhysgwKMJVUJCfChLrhN++CfZqu5j8BC9TQje9PG1EV7/0KImw==
+	t=1793483045;
+	b=urqYpmzl5zdnQyolDh7bJGOenV1F9uE8i9eC90P0mahTnzYt9R8yCad+E5+kD6iEO2oE
+	 acH293aI5TyfewmUUev8sYdcWMkY1C8gl6ADvQB6zbga9Z5GwgRpXXIEyhgnjmUbsw98K
+	 1iStBg0JZnAFtHo4RNm7kJK+g2L5V7pfhyKgHbnyTygbiegSUZzeHzt0xQ6464puB3oGT
+	 mqkph5/CjWfh8AlH7p6+ZE8bg/k8xnknz91nruG8fEjZijIBbEoKDzKp5qBY/mP55cQK6
+	 JDQng4iGoDzeojptZtg/qnfEVsJ6ITp2FEbQvt5iBFP3/Fstz4iHq3mx4qDOXcFPMSQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793482827;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bED6UeHGo0n+Fue3XhZb+EygmdR0ZJTzWFCCOjQLUHI=;
-	b=TnP6tE5bK/l56sA/64Z8goxoZMMA0E6P4msp7u+XKGtTIoDD8PQrr+aJNw/OEQiGcw3S
-	 59bUYcINn3xDosdCF2cwgCgjQ5F20ee6YY31enYBjMjijnNHaToLN1jtpxWT9dqNL2pfR
-	 O+N7j35YnqlticvsQEOnwOcuL63lj41k56hQXRZYQbf8/FeK2gr4/7fadZOBic5TVsclv
-	 6HEY6Rh0unGWo98HDrp9eeNs1d2bkimdyoBdnoGCLbRigqzoea8SofUIxl7HOjHLy3HU6
-	 qwdIcRUt3zag7w9s1qDgRYrxjNbjpYYYlivY8epdNh7l7tF+ZJ1O2EhgSYEmxPTLPjg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793483045;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
+	b=IHj/oAepJYavaPjdVWx9wQShnwj6PG1yd99rcXDugqSEqS56vM6x1S+9NJz3Zn+IVlTb
+	 kaXJQFsnZodfKN3KB4h/8PfXQQe5FwjL5oT8Hf27ah+nF/xp0ZkewT2L73jsfTw8DPz51
+	 aDAHPQ9HLlLQhWRiLh26iyFDSOB8EgN4hBbVX7U3LRM3vSklAw3VVQIoHSr2e8eJFh24w
+	 H8xFGSftgoHti7ig88sUEXwn0v4BRgdXbYvzaTbA+AoTkm5PYTVbeMF+zjP0bSPVBMjVW
+	 igDiSttk9M9VuIiwz+FJHdxuWZgoVqzVF9Y224FNZWqsbLxlx9fPBTvCkQHd8Xvll5g==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOc3ftma;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CDCF606A31A;
-	Sat, 31 Oct 2026 21:40:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HOc3ftma
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793482827;
-	b=ob7NZqI+GTz/hFX25Lo3U3DJNGFuB2mm/xWQNZyk7s0LAkEHHiZ3wLCOuSsfEv+UN5vS
-	 rW0n8qs9Df/NL/FPDdQyJ/KDafp2TgD2wiELJk0/BD1KH9rnjsKPhBsFxVIGWsDww5U9a
-	 aEbKcZ/IZPt0qZjATPBc2/jtt94QifqTmFpfkJ8KasI5MJbsbuUrOpzqHsvvHgSJ1VHD9
-	 +D2suq6h+ajr1bHp3MBMWPwH03O6XcSw9yX8j16D/rupjVsUyC9+LSMggPMdGHIy/MJtC
-	 uAMmESvtZ1OiaeLQwp4aoMgTWxLAGW0QAoA5TWqJXsI54WbVFEwLZUNpJ4MhvT1ifjg==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793482827;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=bED6UeHGo0n+Fue3XhZb+EygmdR0ZJTzWFCCOjQLUHI=;
-	b=3izxiB/XrpmuvcPctm8jdhs5Sn/HZdSJNcMswrUuLy0Ubjqko5BvMidMnVwmoqQPECiZ
-	 guZ5y1QckeDlflB95qZ8wF2CaiHLZfhUUzZBqrhbnkXTp1dtEGwkCdfq+e3LMalEa3CXe
-	 NaTDNjBian5F2JPzubf3kp6Ja7K3LAPkTLPExi5ERBqfHGW7uX3BdNlKzPMVy/fwfTwLo
-	 +9HtsHehjj1vfMrCIMvMKxMLBcw0RFCFwq7Xpy6gUtHQYnryPzmIoy2rxW3uFic2hsuEJ
-	 tioccaVS8/Z5blHm+R6h/nylump9rCIfqQLWWI3RM6BgeuWPh3zd7fCXeOL1Zluz/cw==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=amacapital.net;
+	spf=pass smtp.mailfrom=amacapital.net;
+	dkim=pass header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VlNTMbus;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.45
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 83B9E1F000C1;
-	Sat, 31 Oct 2026 21:40:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793482827;
-	bh=bED6UeHGo0n+Fue3XhZb+EygmdR0ZJTzWFCCOjQLUHI=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=HOc3ftmafAvvALaDUBUROCDuIyEvqWxRMmzJUonIbA1SXH4WBT7zJ9QilCpgtDhBQ
-	 dtDNeaQb6StQXjins1Oo4Jec3wjt4w6QeVIpUsnJxLbQe45cosvse7cYxUv8qg8ywY
-	 A6TqLsZ9E6INdBgUGCy3cu1gQb08IMCLCtRfGZdFxXpqtbabGquB9PFeWJfPaFNesi
-	 QdLr2aKYR3G+YADfxuzlkXRZ8p7r/qZ2g/8piXZH41pqRzEvWM40TvSY1iqOUX6Qvu
-	 ruuJmwKqFZ5tVkZsIY7YAaoPHP6XhJFKcmEuh1109haIjBXiyON3QEPFDgXPBUOwI2
-	 T7KERol6aTqUw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 00F2C45FDC;
-	Sat, 31 Oct 2026 21:40:25 +0000 (UTC)
-From: =?utf-8?q?Stanis=C5=82aw_Titenko_via_B4_Relay?= <devnull+kernel.resetko.pl@kernel.org>
-Date: Sat, 31 Oct 2026 22:40:15 +0100
-Subject: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.0 on Lenovo ThinkPad
- T14 Gen 2a
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A100606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:43:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A100606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=amacapital.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amacapital.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=amacapital-net.20260707.gappssmtp.com header.i=@amacapital-net.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=VlNTMbus
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5be3ed646a5so1827013e87.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:43:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793483038; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b9Qg/8k1pFzn6kfzTkC6gM9nPsBERdET8w/YrP4cxGi4EQE1PC0g734DrLBcbrcY3i
+         LXvELnHKmugnjgTcR+y0pClATc4MkZcFJqlwxye8UCz7voki/xiogVpFKACCccyN9Fx9
+         ztrkF8c6DgWcA4pHRu0hzjGmQoPl32Cg6Jnd8LGppA7lR8xhgGlqRicYBFv1jP/cDKYM
+         TzcjpOl5xmQirY1Ib3tSquvUHAye3Fjhz5/QZZacGOBhYNuQiuiqlT4NmLZ4eytzhqjV
+         jqg6ke0bY5tO4zq/kr+KzVybGcyUB80EsLrSj14yUXCnFtRD/vNVOTek9vF3LBgNshcV
+         MUyQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
+        fh=OyuDwlOfxdC6iuvjr6gXTKWagPEcBHB0zDMeULXtwcU=;
+        b=LVdAzfljf1ckE73vmgrVT+pc9edHTnH/QyLhCM+sjHJtCQoC86KkYiOSGmKv4Wuq3U
+         sXggo/BpuEQFvADbKMBSXuduymptZxWTPIFWOqaKUKrYHp6ElQe5WIyXPdZSFkWAeZ5v
+         fkp5iP25uzo7pAn/iSCwMzZIBNE0/0a7KnwJB077euAdLW7RzxObZ1wi8IN6CeIVat2W
+         pPnRr7Pn9Z3FwpiOLTolrX5MDj1exivxArJufkB9sWcdoY0aZQSwF92851k0CnS0vWaG
+         UUVd7BbpSEquhBIAqTWzjH9VoUtKdTQXMCiS0UhrB/F+a0YMvBcI8J/0vGnyj4J752YK
+         /Lng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amacapital-net.20260707.gappssmtp.com; s=20260707; t=1793483038; x=1794087838; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
+        b=VlNTMbusTTtj5z/0RoodUfO2YXSIX1yilyHP+JCuk4VW/18QD3PGWTc5f6wSekj0ZB
+         j/+TxCN6iTQJfc+1bM9s3GgGh1JITXBXD7UFd4n5QoXYi0rpFXnmP1BAL9QVcG24IZvl
+         8vfpwSx98fuLBVv4938WA/mQbf8V3kTnlfP6z/6KfJWNO9yy4JSyMLOL6qp9+10Dx/dj
+         FJnF850XVbS6l9IgNdVuMVzcEUyf2gIe2JgK/U1/8OmEpQnEBMj4HuRZjXFY+q7Riy9n
+         Q02asQ+mlz0ISiaxbXw6SRrTYj4sy9rJ9dy7IBD+bWMBwSPLBWilnrDW6RmcDd0mpYOG
+         Iy/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793483038; x=1794087838;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=n4/FdkbJCBiK1V2GJNaCfclA9B0e/fDcc+jSWi7alCA=;
+        b=LKjdeuTbXVIH8BCtsZBrejjaueElYBtV2tAc8NDGbmV9boHPW28pZN4m9iJfmXJyjA
+         0+9SEFcziPjs4UkwYMgvY/8KtfTrAa0v67GvkGkzmAEYef8e1BSiO5Al9Chnv3KHIeqO
+         7MAeZn9LyFZTUqqEyguMJLwz36px1Uqq1du4dSWbLFjDVP/H0QCVNj+NhARd28zIYmHT
+         bIsXs5pZTU3MIj68wEo67oJWk6tZFy7nrREXM3Wupgv+A262DQeq6uy+FPz/GmstSqby
+         9Qstvv3+8meFz5uIeYwCPM4UjRomGTnyXT5RxOv5luJylwWXv9lJCRVqANccs7JAzWtn
+         F4UQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxRAG+0+IJjZMBNpnBpFGVyxO4FDAzxa4GiBSMt2imbj5VhowhpwvzzeCC6NZ9DSE2Nr3ZpciZvWuqR63g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeUpxTD4yRMNFIlKpmHVCgTJqKHmJyMtnJHRXhu2uKfYBTTNB6
+	JcuUNPX1SPTcfjb97AhGvgXFlgyMkv0ATxbOWI/l8Z47QeDCC/2LWng7IpalT6DrpVHFfyW7v09
+	FJdUoehz3ahRSqWC8r67/JVrf+4z0nwu6mYD7xH7X
+X-Gm-Gg: AYBFou3WCqPTKqBfYVMKnyJk1WkRc2U8cAPkMipeCMFK6p1B91+G24vPLaFVZRMsmTk
+	6duKraNuEFFQ+ZgoFQUyUYs5+YTN/Bg2bk5osmaP0XvXx4E3K3+CCqA/LhIzTi1KjQB0Z6kUxFb
+	FbG/Q4gfInx4gsitPhhga4sDvds1X9B6NjNFapQ0oB8HHiWC8gfnZmqQJoYxkBUcPkvZh4BcjL2
+	l5PjNpA70YJUufGly5NOAw1dz5SxnMP0n6+UlUekl/Z6wQiu7Db4JnyVXk7mw7EBDH/SHze/kjs
+	1eWDdihIElfdHP8QwU4AI5gutfa+CT4cUEw9EVvM1LFOiiDclUS3QvJ0UHjMqdYoXseABVIGVuS
+	bp1R22V85Zds7IijiRiH9MkPHFUBdg5PGgz35vo75q85bQfkXbuxgNBs=
+X-Received: by 2002:ac2:5681:0:b0:5bf:c2af:3915 with SMTP id
+ 2adb3069b0e04-5bfd95730d2mr2003629e87.28.1793483037747; Sat, 31 Oct 2026
+ 14:43:57 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,125 +104,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-ucsi-lenovo-t14g2a-v1-1-183751e63c02@resetko.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDtgomjtVYqLNJnoFElKRkUQ7
- 96oy7f4fwehxCTwKnZItLJwDBnqUYAdTRgI2WWDLnWjykrhYoVxohDXiLOqB23QOEOt86313RN
- y+Evkebum7/62LJ8v2fk8wXH8AVRi7SV2AAAA
-X-Change-ID: 20261031-ucsi-lenovo-t14g2a-adae7df7cf98
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Guenter Roeck <linux@roeck-us.net>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Mark Pearson <mpearson-lenovo@squebb.ca>, Daniel Dev <daniel.dev@noex.uk>, 
- stable@vger.kernel.org, 
- =?utf-8?q?Stanis=C5=82aw_Titenko?= <kernel@resetko.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793482825; l=3304;
- i=kernel@resetko.pl; s=20261031; h=from:subject:message-id;
- bh=p95Jlz0L7Maeo6S23F9A5uV32hXuG2XEilhjG+4iteE=;
- b=CJVzqOB2QyLwtfq1dMaLkgblbKND58j8M5qXBZC2kN1CjY990raZUSbjvlijsEqgUuCOnCkak
- lRFLLh29W+JBI+/OT6O76jtSQQVnqYmwV39EtBUqnCLNxt1CBq1zxQq
-X-Developer-Key: i=kernel@resetko.pl; a=ed25519;
- pk=xMhqzbyPNWfeOgdmzSHsSlr5qjH779F5SD6BBHXixlY=
-X-Endpoint-Received: by B4 Relay for kernel@resetko.pl/20261031 with
- auth_id=1372
-X-Original-From: =?utf-8?q?Stanis=C5=82aw_Titenko?= <kernel@resetko.pl>
-Reply-To: kernel@resetko.pl
-Content-Transfer-Encoding: 8bit
+References: <20261031203540.2282507-1-skhawaja@google.com>
+In-Reply-To: <20261031203540.2282507-1-skhawaja@google.com>
+From: Andy Lutomirski <luto@amacapital.net>
+Date: Sat, 31 Oct 2026 14:43:45 -0700
+X-Gm-Features: AclHuK8DXwQuKXG7YuVQ17qPxlP42BoepMeBjGp7aRwX7XDPrtPwMbgsBa7Xe70
+Message-ID: <CALCETrVMC4cPuBeSgPRr21zNoCDqz5op8VR=16382FFSf9ymeA@mail.gmail.com>
+Subject: Re: [PATCH] mm/gup: check folio->mapping under folio lock in memfd_pin_folios()
+To: Samiullah Khawaja <skhawaja@google.com>
+Cc: David Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, 
+	Chris Mason <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Stanisław Titenko <kernel@resetko.pl>
+On Sat, Oct 31, 2026 at 1:35=E2=80=AFPM Samiullah Khawaja <skhawaja@google.=
+com> wrote:
+>
+> memfd_pin_folios() pins folios from the page cache without taking the
+> folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
+> its refcount check while memfd_pin_folios() still pins the old folio,
+> and the caller ends up with a folio that is no longer part of the memfd.
+>
+> Lock the folio and recheck folio->mapping before pinning it, like other
+> page cache users do. If the folio was removed, retry the folio lookup
+> from the index that was removed.
+>
+> Fixes: 89c1905d9c14 ("mm/gup: introduce memfd_pin_folios() for pinning me=
+mfd folios")
+> Reported-by: Andy Lutomirski <luto@amacapital.net>
 
-The Lenovo ThinkPad T14 Gen 2a exposes a functional UCSI ACPI PPM but
-the firmware leaves the VERSION field of the UCSI mailbox at zero.
+Reviewed-by: Andy Lutomirski <luto@amacapital.net>
 
-ucsi_register() rejects a zero version with -ENODEV, leaving the
-system without registered USB Type-C connectors. Without an OPM, the
-embedded controller does not complete DisplayPort Alternate Mode setup
-when a USB-C dock or monitor that supplies power is connected after
-boot, so the display stays dark while USB and charging work.
-
-The mailbox uses the 48-byte UCSI 1.x layout, and the PPM works
-correctly when UCSI 1.0 is assumed.
-
-Add a DMI-specific UCSI operation for the ThinkPad T14 Gen 2a that
-substitutes UCSI 1.0 only when firmware reports a zero version.
-Preserve any valid non-zero firmware version.
-
-Tested on a ThinkPad T14 Gen 2a with BIOS 1.33 (R1MET63W): both
-Type-C connectors register, and plugging and replugging a USB-C
-monitor with an integrated hub and power delivery brings up
-DisplayPort Alternate Mode each time.
-
-Reported-by: Daniel Dev <daniel.dev@noex.uk>
-Closes: https://lore.kernel.org/linux-usb/b1Wn_eFvTFShGbd970WWl4CWhge_6P2x7Wb6rab3QHNlE4OJ4p__O-QN3B6I-308ftr5oV5Zr7vywA0vdvmtNw6E0YJnVM2ek_5DcFnkXB0=@noex.uk/
-Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-Cc: stable@vger.kernel.org
-Assisted-by: pi:claude-opus-5-5
-Signed-off-by: Stanisław Titenko <kernel@resetko.pl>
----
- drivers/usb/typec/ucsi/ucsi_acpi.c | 34 ++++++++++++++++++++++++++++++++++
- 1 file changed, 34 insertions(+)
-
-diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c b/drivers/usb/typec/ucsi/ucsi_acpi.c
-index 5697ccc24ec3..33747e24353f 100644
---- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-+++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-@@ -148,6 +148,33 @@ static const struct ucsi_operations ucsi_acer_ops = {
- 	.async_control = ucsi_acpi_async_control
- };
- 
-+static int ucsi_lenovo_read_version(struct ucsi *ucsi, u16 *version)
-+{
-+	struct ucsi_acpi *ua = ucsi_get_drvdata(ucsi);
-+	int ret;
-+
-+	ret = ucsi_acpi_read_version(ucsi, version);
-+	if (ret)
-+		return ret;
-+
-+	if (!*version) {
-+		dev_warn(ua->dev, "UCSI version is zero, assuming 1.0\n");
-+		*version = UCSI_VERSION_1_0;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct ucsi_operations ucsi_lenovo_ops = {
-+	.read_version = ucsi_lenovo_read_version,
-+	.read_cci = ucsi_acpi_read_cci,
-+	.poll_cci = ucsi_acpi_poll_cci,
-+	.read_message_in = ucsi_acpi_read_message_in,
-+	.write_message_out = ucsi_acpi_write_message_out,
-+	.sync_control = ucsi_sync_control_common,
-+	.async_control = ucsi_acpi_async_control
-+};
-+
- static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32 *cci,
- 				  void *val, size_t len, void *msg_out,
- 				  size_t msg_out_size)
-@@ -196,6 +223,13 @@ static const struct dmi_system_id ucsi_acpi_quirks[] = {
- 		},
- 		.driver_data = (void *)&ucsi_acer_ops,
- 	},
-+	{
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-+			DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad T14 Gen 2a"),
-+		},
-+		.driver_data = (void *)&ucsi_lenovo_ops,
-+	},
- 	{
- 		.matches = {
- 			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
-
----
-base-commit: e9954f3fbddd25e1a01b7e5a0b72fb8b564204e0
-change-id: 20261031-ucsi-lenovo-t14g2a-adae7df7cf98
-
-Best regards,
---  
-Stanisław Titenko <kernel@resetko.pl>
-
-
+(with the caveat that I still don't like the fact that pinning a folio
+does not keep it associated with the mapping.)
