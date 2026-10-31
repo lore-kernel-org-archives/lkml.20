@@ -1,78 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436187;
-	b=xvPMvUm3AhhnjSDQ4X6oT9SQ2GUbwEqeLgCV+lTqCdoAHcApfKlJBOU4XA22PsQLVNDq
-	 WLHlqyXSh2/KCeSUbcYYiQ0OHl/wWHACmvwJkW3jCqJ27eo9XBewbuNj+HZhsCDX9i1ly
-	 y11sKaWm0G1gCLzpHy+lP+YsJrmalKZlZfS73hI/uJfof0MmNzraff9++3wNA15LWsV0V
-	 GS1ohxEaDhv0nRYgUae8I90i0wqF7Z7sZ4YOOypEdOBimwIQHC4zngzOWHu7kg425lISE
-	 cdhIrQ2iutwwTMJ0zEjviLqn1++z8c9YixoT0ARdR6YhbKe4beVFQOHUwf7VWYJ3Psg==
+	t=1793436174;
+	b=HApfUtFunoWyCnGu8+Iq4WLaFAuVZjUU54vZu7MI7A8Fu5oyxpxvaf/4TnqkxR2FCVu/
+	 6PBwjUY6pXMtZZJJVUF2xwvTjkBQPnUf2RZGRX9sVulE3czywoLKmXWL482GFrxQlVmJM
+	 xw5O70ogf46xrtoKv+UrDhitzpNfio6FYivJUJMT4teksEyZdPiJUzmXUjIEPNPsku691
+	 6MkLNLr5CY7dO1ufoljCBZ4Z/acVMi7w3DSP34hpXUwiO9puHxDNcIENzljoLqAgwf7LB
+	 OjRjYY9GkwxLauYoFwsBukS9cpUZKETMJ140bjtcqn5UyKlZcgjVhJPI/h3h3xI2U4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436187;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=nXkkUyzWC+RTVIrTwIsDK9pB6UYriIk9MdsE6VCyJgY=;
-	b=rVnWnQQ78w4gcJzcsyhjV6hHQOXHqsTg+7m6GpCsfFpC72a3lR4T1TDR53CfDveTg1cM
-	 Ji92X1KwzjpwgPIz92Xq+ijMYM3aJ0b6bOYOVMndvZ1zRyNVQK7zuUKUFe1pqxwSdyqcb
-	 05O+wRj9y7MzSmh/tqthN327o4UsWuY8s1x5t37EXPyD+AKJzDuXf0uZThVPYkNGu5CTQ
-	 q6bwOZMgqyh6V6UGw32DrwbOE9EYeJnQEnr8qdIiO9K/lAwcp/IEYYIVrtQZBRGuJIeDL
-	 hsGHbqgmRAvmWFeAjH3F57j/hA6zTz6uDcg/Wh1qA+JSu0WSGigBAlihu7sjwkap+0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436174;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:Content-Language:To:Cc:References:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=zyM541AR7ZZE38ApRIgXfw9vU7L1IaJEwloMzTLw3Ig=;
+	b=3sp4Z6ekbn2LcGzMrls9H4x37gI7DvYp892X72S15GaqmiIMx0Fsc1DdyKixWPIWWBkJ
+	 HhPqlbBAn1if8XKgMKQJxEgrekBvSDw/g3ezYmknxPhzd3D/fJBkL5XxRGDmNEYW9+vUR
+	 6INr8kwujrv30u+jCDjrk90fYbOnSRyc9SAEZXi5o4lKBZGsFd5DIV3Z+mi5FY4NaPvuU
+	 2C0OQ7SsJQ9rVd7qiXp4SMlqXBXWOt7Jxxt/2xaEhO2mnKOVlEOxzpnDN/b71PoLE568z
+	 uYH7Olhc4Lw6wkb/T55O+/lWQjrkoBvD0kGT3OXuqUOHktJvygFmujFOQS4fRsuAwHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORlPXPgS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBF4C606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:43:06 +0000 (UTC)
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fencjVNn;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 369DB606A31A;
+	Sat, 31 Oct 2026 08:42:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 369DB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ORlPXPgS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D1F31F00919;
-	Sat, 31 Oct 2026 08:42:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793436186;
-	bh=nXkkUyzWC+RTVIrTwIsDK9pB6UYriIk9MdsE6VCyJgY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ORlPXPgS5XwD4OguPrHtmOsXivt5T92Q84WqGkbL/0pA7y0ygtOZdpnEZaz9Xq75S
-	 US82CX/J14UW4oK6p/4nAFyjft/uU881oICIH9XwGhKGyBHazPWz6+sdwVMTgTHXDi
-	 OeN4YpipRkgLoSH8ULA2Z/yZC+J60LcYLxJqnz32JMX3nCWhoFA9JLZ6UbgBL9rD9q
-	 lmad44Lw8D7ovPNw2Mfe4qfZwt1gWdC0eCmj58arhxqRnpb9XG2txUBAshrChHctp2
-	 Vgp7xVZWatKmrEFdxi+E/33RziYGHa60Cfxb2/ehfPZvSelsPlVrqsBf7jn7qJtT41
-	 PW5YyYA6B/J6Q==
-Date: Sat, 31 Oct 2026 08:42:50 +0000
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Brendan Jackman <brendan.jackman@linux.dev>, 
-	Byungchul Park <byungchul@sk.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
-	Chris Li <chrisl@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
-	Dave Chinner <david@fromorbit.com>, David Rientjes <rientjes@google.com>, 
-	Dennis Zhou <dennis@kernel.org>, Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, 
-	Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Hugh Dickins <hughd@google.com>, 
-	Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	John Hubbard <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
-	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
-	Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
-	"Liam R. Howlett" <liam@infradead.org>, Matthew Brost <matthew.brost@intel.com>, 
-	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
-	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
-	Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Nick Piggin <npiggin@gmail.com>, 
-	Nico Pache <nico.pache@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, 
-	Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
-	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
-	Will Deacon <will@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
-	Ying Huang <ying.huang@linux.alibaba.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 2/7] MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
-Message-ID: <auWpV3BHsYVLaKLx@gremlin>
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
- <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=fencjVNn
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 1D2171595;
+	Sat, 31 Oct 2026 01:42:48 -0700 (PDT)
+Received: from [10.57.13.152] (unknown [10.57.13.152])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 7B38B3F59E;
+	Sat, 31 Oct 2026 01:42:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793436171; bh=avExJZ8pIb5Ca/dscv5M6k88MfirFVDBlv6ja+R8bbw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=fencjVNnt00wM0wda3KJv3WoRmZ8GoSQNWWxyQRTkf7seFOhLkY2VnuWG+597t0Ez
+	 +itFgbGaU/suCHgpoFnAbgN+AQ4E3wUGbwU9OaVV8jDvTTym1FhRUmtTgNedvKgBUS
+	 uz1DkVoVayYJVDZ+51JRhGrKSIrbf6I74AdaRYLo=
+Message-ID: <a1d9608c-8169-49c5-b843-ed9d304136ed@arm.com>
+Date: Sat, 31 Oct 2026 08:42:46 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,95 +53,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [EXTERNAL] Re: [PATCH v5 2/6] firmware: smccc: Detect hypervisor
+ via RSI host call in CCA Realms
+Content-Language: en-GB
+To: Dexuan Cui <DECUI@microsoft.com>,
+ Catalin Marinas <catalin.marinas@arm.com>,
+ Kameron Carr <kameroncarr@linux.microsoft.com>
+Cc: Haiyang Zhang <haiyangz@microsoft.com>,
+ "wei.liu@kernel.org" <wei.liu@kernel.org>,
+ "mhklinux@outlook.com" <mhklinux@outlook.com>,
+ "will@kernel.org" <will@kernel.org>, "Mark.Rutland" <Mark.Rutland@arm.com>,
+ "lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+ "sudeep.holla@kernel.org" <sudeep.holla@kernel.org>,
+ "arnd@arndb.de" <arnd@arndb.de>, "thuth@redhat.com" <thuth@redhat.com>,
+ "linux-hyperv@vger.kernel.org" <linux-hyperv@vger.kernel.org>,
+ "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-arch@vger.kernel.org" <linux-arch@vger.kernel.org>
+References: <20261002215725.2015959-1-kameroncarr@linux.microsoft.com>
+ <20261002215725.2015959-3-kameroncarr@linux.microsoft.com>
+ <auPOnb_9Jfzh-oQE@arm.com>
+ <CH4PPF0966F22FCAF3D8C6535743902930DBF6C2@CH4PPF0966F22FC.namprd21.prod.outlook.com>
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <CH4PPF0966F22FCAF3D8C6535743902930DBF6C2@CH4PPF0966F22FC.namprd21.prod.outlook.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 10:34:26PM +0100, David Hildenbrand (Arm) wrote:
-> I am not really the best shmem/tmpfs/memfd expert around, but it should
-> be good enough to judge when something is ready to be picked up, to then
-> pick it up. I'll have to heavily rely on Hugh and Baolin on judgment
-> for the more involved and more controversial bits.
->
-> Rename "TMPFS (SHMEM FILESYSTEM)" to "MEMORY MANAGEMENT - SHARED MEMORY
-> (SHMEM/TMPFS/MEMFD)" and move it accordingly. Add myself as a MAINTAINER
-> so people know whom to CC.
->
-> Add mm/core.git as the target git tree. Once shmem becomes a high volume
-> component we can dedicate it a separate tree and have dedicated people
-> pick it up.
->
-> While at it, add some more shmem/tmpfs/memfd related files+directories
-> we missed so far.
->
-> There is also "kernel/pid_sysctl.h", which includes some of the pid
-> namespaced sysctl vm.memfd_noexec. But that's really more of a proc/
-> namespace thingy, so it's not a good fit here.
+Hi
 
-Maybe not for shmem, but there's definitely still some stuff in kernel/ that
-should be ported over to mm/ (thinking particularly of fork stuff).
+On 31/10/2026 04:47, Dexuan Cui wrote:
+>> From: Catalin Marinas <catalin.marinas@arm.com>
+>> Sent: Thursday, October 29, 2026 3:54 PM
+>>   ...
+>> + Suzuki
+>>   ...
+>>> +static void arm_smccc_realm_get_hypervisor_uuid(struct arm_smccc_res
+>> *res)
+>>> +{
+>>> +	guard(spinlock_irqsave)(&uuid_hc_lock);
+>>> +
+>>> +	memset(&uuid_hc, 0, sizeof(uuid_hc));
+>>> +	uuid_hc.gprs[0] = ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID;
+>>> +
+>>> +	if (rsi_host_call(__pa_symbol(&uuid_hc)) != RSI_SUCCESS) {
+>>> +		res->a0 = SMCCC_RET_NOT_SUPPORTED;
+>>> +		return;
+>>> +	}
+>>> +
+>>> +	res->a0 = uuid_hc.gprs[0];
+>>> +	res->a1 = uuid_hc.gprs[1];
+>>> +	res->a2 = uuid_hc.gprs[2];
+>>> +	res->a3 = uuid_hc.gprs[3];
+>>> +}
+>>> +#endif
+>>> +
+>>>   bool arm_smccc_hypervisor_has_uuid(const uuid_t *hyp_uuid)
+>>>   {
+>>>   	struct arm_smccc_res res = {};
+>>>   	uuid_t uuid;
+>>>
+>>> -
+>> 	arm_smccc_1_1_invoke(ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC
+>> _ID, &res);
+>>> +#ifdef CONFIG_ARM64
+>>> +	if (is_realm_world())
+>>> +		arm_smccc_realm_get_hypervisor_uuid(&res);
+>>> +	else
+>>> +#endif
+>>> +
+>> 	arm_smccc_1_1_invoke(ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC
+>> _ID,
+>>> +				     &res);
+>>
+>> Is this meant to be generic? I'm not sure the trick to pass
+>> ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID in gprs[0] and forward it to
+>> the host is a documented ABI. I think it even confuses other realm guests
+>> that don't expect this (e.g. kvm_init_hyp_services()).
 
->
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Yes, this is how a Realm can talk to the Host hypervisor, i.e, 
+RSI_HOST_CALL. In simpler terms, HVC is routed to Realm world for
+Realms (e.g., a Paravisor running in Realm world Plane-0).
+A Realm must always use RSI_HOST_CALL to reach the non-secure
+hypervisor. RSI_HOST_CALL expects the arguments to be passed
+in a "memory" area to preserve forward compatibility with
+the SMCCC standards to allow for using the full argument/result
+list.
 
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+The RMM does the job of copying the arguments from the Realm memory
+to the rec_exit.gprs for consumption by the Host. The host can then
+return the results in rec_entr.gprs, which then gets copied over
+to the Realm memory area.
 
-> ---
->  MAINTAINERS | 30 +++++++++++++++++++-----------
->  1 file changed, 19 insertions(+), 11 deletions(-)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index dbb5582ec1c74..0baeb37b0dcdc 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -17772,6 +17772,25 @@ S:	Maintained
->  F:	include/linux/secretmem.h
->  F:	mm/secretmem.c
->
-> +MEMORY MANAGEMENT - SHARED MEMORY (SHMEM/TMPFS/MEMFD)
-> +M:	Hugh Dickins <hughd@google.com>
-> +M:	David Hildenbrand <david@kernel.org>
-> +R:	Baolin Wang <baolin.wang@linux.alibaba.com>
-> +L:	linux-mm@kvack.org
-> +S:	Maintained
-> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
-> +F:	Documentation/filesystems/tmpfs.rst
-> +F:	Documentation/mm/shmfs.rst
-> +F:	Documentation/userspace-api/mfd_noexec.rst
-> +F:	include/linux/memfd.h
-> +F:	include/linux/shmem_fs.h
-> +F:	include/uapi/linux/memfd.h
-> +F:	mm/memfd.c
-> +F:	mm/shmem.c
-> +F:	mm/shmem_quota.c
-> +F:	tools/testing/selftests/memfd/
-> +F:	tools/testing/selftests/tmpfs/
-> +
->  MEMORY MANAGEMENT - SWAP
->  M:	Andrew Morton <akpm@linux-foundation.org>
->  M:	Chris Li <chrisl@kernel.org>
-> @@ -28202,17 +28221,6 @@ S:	Maintained
->  F:	Documentation/hwmon/tmp513.rst
->  F:	drivers/hwmon/tmp513.c
->
-> -TMPFS (SHMEM FILESYSTEM)
-> -M:	Hugh Dickins <hughd@google.com>
-> -R:	Baolin Wang <baolin.wang@linux.alibaba.com>
-> -L:	linux-mm@kvack.org
-> -S:	Maintained
-> -F:	include/linux/memfd.h
-> -F:	include/linux/shmem_fs.h
-> -F:	mm/memfd.c
-> -F:	mm/shmem.c
-> -F:	mm/shmem_quota.c
-> -
->  TOMOYO SECURITY MODULE
->  M:	Kentaro Takeda <takedakn@nttdata.co.jp>
->  M:	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
->
-> --
-> 2.43.0
->
+> 
+> Hi Catalin,
+> Regarding the concern about passing ARM_SMCCC_VENDOR_HYP_CALL_UID_FUNC_ID
+> In gprs and forwarding it to the host via an RSI Host Call: if I read the code correctly,
+> this pattern actually aligns seamlessly with the current KVM host-side
+> implementation for ARM CCA (e.g., in the v16 patchset [1]).
+> 
+> In arch/arm64/kvm/rmi-exit.c, when a Realm guest triggers an
+> RMI_EXIT_HOST_CALL, KVM intercepts it and invokes rec_exit_hvc():
+> 
+> case RMI_EXIT_HOST_CALL:
+> 	rec_exit_hvc(vcpu);
+> 	kvm_make_request(KVM_REQ_RMI, vcpu);
+> 	return ARM_EXCEPTION_TRAP;
+> 
+> Inside rec_exit_hvc(), KVM copies the GPRs from the rec run structure
+> into the vCPU registers and explicitly emulates a standard HVC
+> exception by populating esr_el2:
+> 
+> static void rec_exit_hvc(struct kvm_vcpu *vcpu)
+> {
+>          struct realm_rec *rec = &vcpu->arch.rec;
+>          int i;
+> 
+>          for (i = 0; i < REC_RUN_GPRS; i++)
+>                  vcpu_set_reg(vcpu, i, rec->run->exit.gprs[i]);
+> 
+>          vcpu->arch.fault.esr_el2 = (ESR_ELx_EC_HVC64 << ESR_ELx_EC_SHIFT) |
+>                                       ESR_ELx_IL;
+> }
+> 
+> After doing so, it returns ARM_EXCEPTION_TRAP, causing KVM's generic
+> exception handling loop (kvm_arch_vcpu_ioctl_run() -> handle_exit()) to
+> route it straight into the standard handle_hvc() ->
+> kvm_smccc_call_handler() path.
+> 
+> Because KVM deliberately unpacks the RSI Host Call structure and pushes
+> it down the traditional non-CVM HVC servicing pipeline, the guest passing
+> standard SMCCC Function IDs inside the gprs array of an RSI Host Call is
+> exactly how the host expects to handle hypervisor services. It shouldn't
+> break or confuse other standard realm implementations since this exact
+> emulation block translates the RSI exception back into a generic HVC
+> abstraction for the hypervisor layer.
+>   
+>> I thought realms should stick to the RSI interface and not try to guess
+>> the host hypervisor. But if you do need this, a better fit would be in
+>> hyperv_detect_via_smccc() (if realms don't boot with ACPI).
+>>
+>> I'll leave it to Sudeep or Suzuki to comment further.
+>>
+>> --
+>> Catalin
+> 
+> As I described above, this patch from Kameron should work fine.
+> 
+> BTW, as Kameron mentioned in another reply, he better organized the
+> code by moving the code in this patch into
+> arch/arm64/hyperv/mshyperv.c: hyperv_detect_via_smccc().
 
---
-Cheers, Lorenzo
+Any Realm specific stuff must be handled accordingly in the 
+"enlightened" path, not in the common code like this patch.
+
+Cheers
+Suzuki
+
+
+> (technically, IMO this change is unnecessary)
+> 
+> Thanks,
+> Dexuan
+> 
+> [1] https://gitlab.arm.com/linux-arm/linux-cca/-/tree/cca-host/v16
+> [2] https://lore.kernel.org/all/20261031001412.4150488-3-kameroncarr@linux.microsoft.com/
+
