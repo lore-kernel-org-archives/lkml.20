@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793454311;
-	b=bsVVKVqeKfW+2XzXGoS4CKBIUxKahGfOwvYnUq0ZYdhg5P55EK4iAQqQDcQSH4lBRTBR
-	 6uHRNOYZO0iTRUUWln6zhe16fmGzoPUG34ZVD0YB5SgpBDJ7c7ccseU4kkctq8I4Xp+g6
-	 NPI+JMeXOamDyRok4W/rjB2DE7lXkP5QHBG2mvN1r94e2JgHadAAFBL/9cZl9DuN3XyA6
-	 3nJeC7xGMmMkJuf5J4L0aotiPPF2PNAKKkBi4myCJmyqz5387ICIYP5FqJIp/Fkcv6FgX
-	 5tfW29oeL9QPARAgxw75qnKGILvUFMdOfZqkx/kNkelHUbg1BObNPeRHmvsE08mdQAg==
+	t=1793454352;
+	b=a31g4GT0B8LFj2ozR4r4n/lsCmL1Sy/PkaIvgkX4bLC1KSURi3ykqdtaKgoE3RSKogP4
+	 7TpzoPVkp1m9br7d5UidV8glOG96ZKH1FJOd28qRS88p9xVW0zmDQq7avlQk3LtiyC+DU
+	 pjEIqq2X8BO/7pCCf42v9VwRc0zbXxYXslFGDSQbnDZjXMiZtcCq/ErkzqmC0pdiAeLm4
+	 sCUL5RBcz+Qf/vodawldxP06QGbtgUYhBZUSwG92W/P1t4w3iOtaF5/HZasowBJBp6h1E
+	 aAo+hrJQnEIklHjUoC256CcfkDmN9zMsjeCC7Ux9nlTnBAXYqplNmuNRWAt8r77PiHg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793454311;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Ydiuw2JFoGviRXfS/1qoEyS58uTjOZNZXXzHRdS4SA8=;
-	b=Ajpum5IKPTxqwdq7q0KmLZmAECayqJF+nGEPNV6JTpRBqHrrQ+tO2/Gi972U3+guJFtZ
-	 5an/+kBwSCeZoAMrOYKqJdXeaAy9bQFgJiHI92RCSulBwXU63DVS0A75Q9YDV29e9HvoG
-	 x8CaMv0QSupqU4jVGOwTObghC3j4NSQ4hTFDp3WvDIaEfhjvo2t7J2C7541rlcVylLFHA
-	 uinSRWR2AiU1d+5R5deHl0IL9y0kpr8n25Mofl0OHnXooPcKX3q2Q20M/peFWDMI3lxQt
-	 SMCFR+4Ed3XhLWYKjN4Rv3rcg9oOZStvVMx8EbJd1UQHzZfgH2sVRtKr41JChTtEOKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793454352;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Importance:User-Agent:X-Mailer;
+	bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=;
+	b=tCSY/HE0YMqtrKZZ5ZadvPZlupZP3FtkOn9vx9tW6xgGVJxkEoVvkWv+dJpAB/jyyOZO
+	 awuB++o9vJEN6dZY3hdqoWAcCQVX3ynQSLxD4T2NXZIWy488xG7/1909H9OiyfoULLwaY
+	 WzZv02QiB3Ple/B+FKI/uArxtSXK07JVZ2BlH6QY5mJMFHeRcGmyUiEYlZVhHnrNOYuFY
+	 Fn3nAwD12DCjSeUcgFtgJ0yZh4WtLrL6LAP05JOi7klFbV0CzdWIS7IT2CeiWWznvAf4e
+	 dbSrNF9G82wt9cWgHD/ovKVLapwRdRidt5kBXCTvwMUj7lV+mqEKsZbf2rRBN8zv5XA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1CbNOxg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jzAu9FRJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BAD606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:45:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77BAD606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83475606A31A;
+	Sat, 31 Oct 2026 13:45:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83475606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h1CbNOxg
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b413b0a974so2398162a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:45:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793454310; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FLrg2uQQyrPpq9Fn1Lu8Dc0ooeIgAlFwmD6rW6rLhfPXEmyKH0CZPlUru2GXTjlEIM
-         P8Rx/RTsfKn2ASG3IaAZtHJtM82A44OWGUZiifpqfzmD66+SrNtAPdj+q0hlqfPwCuUX
-         bOlYKvUfIYGoDRCjyWMbfXQp1a1v4/bcLBUFhmPsGm+lcbZkZjS2fgedh44Dha12AiZ1
-         rFLFufArb04a6hxV4wXB22HT0i1al9QJvhWztlZwa2o2aJ9A+qnLBt8o1cNG9TW474h4
-         PA0Dh+azSqzrH3r7qR/ll1vCMvr1ZlqMUa4oJmEjJJzZIGniSvKJgSgjZ4hbFRdGcaL+
-         9vdg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Ydiuw2JFoGviRXfS/1qoEyS58uTjOZNZXXzHRdS4SA8=;
-        fh=rA++95uj3Z+gmrdS365u0rAPkEaMKpVqUuE5Km63hPI=;
-        b=EF6sj1STU+uA57XyPz3fAlY9yhjXf4/V9T+bD3TMvnA8+4ZihhlY6slkW5J08R45ZD
-         pjgIPcnifSXZL0VWb6xeJ1COU5baw6YorPwoYOA6JZBnE+G38JC48cFHL4op44hwOTWx
-         ydpjTfUzzR0fnpDi424Oo3VolhA9F4XvRV0jzrmtyKTmg/Wml5l+DlNLNmEoPjM6yi2m
-         neBPC0p1KbecAjaqcbZMv9leh212qfzKUEyIzneANh1lXteu8RSbc8Z/hQPJ0lWFHJMF
-         A063fXj4N6fpFbxLOZGPdgQcqUxeMV5SFBaPtNBAdxoL7ugZGwEPXpkP9xI1rRD6Z6xb
-         yEGA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793454310; x=1794059110; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ydiuw2JFoGviRXfS/1qoEyS58uTjOZNZXXzHRdS4SA8=;
-        b=h1CbNOxgyw+hpQJtd6f107k9Jr7eTRpY7s5wNEukKTRX8dgBrYA2wfAwECF6uhHUv8
-         TK63MbmgAkGBNAFJ7zK9KiFGeYc3oKVgxY0GSsOWP7Jp5lwDBrHaH/ByaDt2vSYCYV8N
-         dfRQEsJyZAMTGK7AkPvr3rQIpQrAx4vjyMQTzLLld8ZS938SHHZNYV06dqi61zv+L9BO
-         1tqUzMtkBSLucnsaI8ncxcGWacThWVI/LZPgAHBaig5AzOaJcb7MOR8KIJjpMxEH9Bao
-         5ARS15jFwp9Ol8YnJOo+atsdimimrpeg6er+oZ5pRvMKEoEezrfoNqWszIeXEnLaGhE4
-         3iBA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793454310; x=1794059110;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ydiuw2JFoGviRXfS/1qoEyS58uTjOZNZXXzHRdS4SA8=;
-        b=en8EtwvfKAma2ajjwFbsweITd+lZx6Lnu5nbDEvFAxv/BQpVgPVUoauVj4b9uBuQBF
-         NAdLLMbICApTLtI6lszaztRwh2dMYoUypE8HyGDqdF9gpSs9OG+szyP4dBtqeVVijo6H
-         QPyRFIzFF8OkSWB/+udp+IqX/499z+X4wqLywmVtP76hNHanE3lf5tQNnMSm+AhDaPz3
-         /DVIJIcWxqlJFjnNxkolciexzbgjdL8d2pAECoDZZpjUHsslNQBk4kut4LciEXC0dXhP
-         TobQOZ/v3hAojtb2jVGCjPKMqZ+LU3skYLpkk9RoO8YLT8x0DAHwvVsrra05pV2nyW1u
-         k8Yg==
-X-Forwarded-Encrypted: i=1; AKwUvByJzwWSgR1tTW2iWcyIbDFIunMhjopTbt6gj3tAZOBvUwucSGXt80QO17ZKeOK4kVUQt1GlAOAsUac7/r0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYInBjd+Gb7e9wO23+Q3Gj4TSP4s+mfhvzMka8ca1+RMLTWWAFL5
-	edz9rd8XjyArjLrueiLHlMZGFw7SmeNdJ8MVNkGtiiHqPsm5RUWFqIp5i6Yzt5O3HjRNvSTHHZk
-	rrFcOhiWaTE9VdmZ/mU9Ttw+gmysIOlA=
-X-Gm-Gg: AYBFou00pPqKcQbYfmWtx1wsqoDbKZruAqxtg4hmnOwHnEx5maq8dBA+QPcGhtI62yp
-	0qHMORF2SkveLOcUgCzKvfADP8q3r8EihpYzVEm1xLT10S71xmbCUzBHESL7U5a9N0CR1Eaopdz
-	9qQdoSUbpolmxvIC9ENvrcE+IA4YFBuBIdTsMFjt4xP15EaZonBHcNFesg/5SVo250S9uf89bfP
-	z5tx9M0uSY4Bg9WFfMFBoyhLynwT8eoW2Du+Wq7fvW7mIEebT1DI+jKOIh0YEjfjw+7Fm3dQ6AE
-	KE9ZHjFMNTgPeJlq6+pAmwfFQHDTIUC23yIY6HvbYpFY8old3g3sV5pRzKLVyRINbdkEvLIAkbn
-	XlR4rG4W33PyqEIDaSuWrjI/B06iSe7vTKM5mR4Wvd0uVP0DcrDtUFR7yGWGxHiuP2+R8B1M=
-X-Received: by 2002:a05:6402:1ecc:b0:6b3:d0e9:2e87 with SMTP id
- 4fb4d7f45d1cf-6b4ee0e1f24mr1392387a12.5.1793454309714; Sat, 31 Oct 2026
- 06:45:09 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jzAu9FRJ
+ARC-Seal: i=1; a=rsa-sha256; t=1793454313; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=h/xD/GnjIT4Rf3g3eJLjZfk3+Qsa80d2N2y7utHj6RLU3orDPYbpqk0pR7Ywl8RAqUXhJD2PjfB4Mtu1RWr5pkSCkSQ1hc6J4ztFZmAVpvi+ToTASlpEZ/+GJu1WP4RoFEiz6Vrqk/ZKaEmiZNx3zUD83FbLYgzYrH7yQfhbP4k=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793454313; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=; 
+	b=WAD9taRwR+ehdUcZuwyq1fHrzlSOTc/eYpAMznpjbfEud4VaX1IA9Zt/4+GBp2H3xHGaTUwT9wF72eKqVhFbowKaxL+WEN3G8bxi+j9rA8JHrbi3B5lXVkyC6pmki18zML6qzbsWUAQ0M1n72S9qUUbY00loeCAWO2fNG6rGIy8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=nicolas.dufresne@collabora.com;
+	dmarc=pass header.from=<nicolas.dufresne@collabora.com>
+DKIM-Signature: a=rsa-sha256; b=jzAu9FRJBaNSJ3AHilw2eWXauQJuC0SSmJh121wg9/CuUKZwl6srQeaaMXIDHfyzNyXmOCkbtSyKyJUSqJfDGHCGOHoBrlEzej4Q1/Ow3g6ZoFAt93aQdii1H8++3yJTzyjthijpIhccsjlCAb8N0K5iRvlMgdCYyVNauKzrbnA=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: from mail.zoho.com by mx.zohomail.com
+	with SMTP id 1793454311209756.6514837174597; Sat, 31 Oct 2026 06:45:11 -0700 (PDT)
+Date: Sat, 31 Oct 2026 09:45:11 -0400
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: <zhentao.guo@amlogic.com>
+Cc: <wbieganski@baylibre.com>, <neil.armstrong@linaro.org>,
+	<khilman@baylibre.com>, <jbrunet@baylibre.com>,
+	<martin.blumenstingl@googlemail.com>, <mchehab@kernel.org>,
+	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>,
+	<linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<krzysztof.kozlowski@oss.qualcomm.com>
+Message-ID: <1a192350728.896283f8650321.6916105559730663215@collabora.com>
+In-Reply-To: <31535217-e87d-4ef7-b22d-32c35ee998bb@amlogic.com>
+References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com> <179337024629.131241.9227206619077693683.b4-reply@b4> <1a18d5c5f7f.3e45f382588509.8172330954347509989@collabora.com> <31535217-e87d-4ef7-b22d-32c35ee998bb@amlogic.com>
+Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for
+ S4
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,60 +72,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031005425.3351240-1-samarth.colleges@gmail.com>
- <20261031123749.3783352-1-samarth.colleges@gmail.com> <2026103143-alienate-subduing-50f6@gregkh>
-In-Reply-To: <2026103143-alienate-subduing-50f6@gregkh>
-From: Samarth Narang <samarth.colleges@gmail.com>
-Date: Sat, 31 Oct 2026 09:44:58 -0400
-X-Gm-Features: AclHuK_UZoL4ALbG8OiocStKAY43wgTppT1vPowuPmaCkqxwveQ1ulzoHGIddAk
-Message-ID: <CAAbz3fR3DxTL66-0MJVsoWq5-FhypwdDn6=A5iyLUKY_LyOD0A@mail.gmail.com>
-Subject: Re: [PATCH 0/2] serial: keep the flushed TX buffer mapped until DMA
- has stopped
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, linux-serial@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+Importance: Normal
+User-Agent: Zoho Mail
+X-Mailer: Zoho Mail
 
-Thanks Greg, I will address the findings Sashiko found, would
-appreciate someone with hardware giving a stamp of approval!
 
-On Sat, Oct 31, 2026 at 9:00=E2=80=AFAM Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->
-> On Sat, Oct 31, 2026 at 12:37:47PM +0000, Samarth Narang wrote:
-> > This series addresses the DMA buffer lifetime issues in amba-pl011 and
-> > fsl_lpuart reported in the parent thread, where flush_buffer() unmaps
-> > the TX buffer before the terminated DMA transfer is guaranteed to have
-> > stopped accessing it. In fsl_lpuart, the buffer is unmapped even before
-> > termination is requested.
-> >
-> > Since flush_buffer() runs under the port lock and cannot wait for DMA
-> > termination, both patches request termination while holding the lock an=
-d
-> > defer unmapping to a work item that first calls dmaengine_synchronize()=
-.
-> > The TX completion callback leaves the cleanup of flushed transfers to
-> > this work item, while shutdown, and suspend in the case of fsl_lpuart,
-> > waits for the work to finish before releasing the TX DMA state.
-> >
-> > Both patches have only been compile-tested with arm64 defconfig, the
-> > relevant drivers enabled, and W=3D1, with no new warnings. I do not hav=
-e
-> > access to PL011 or LPUART hardware with DMA support, so testing by
-> > someone with suitable hardware would be appreciated.
-> >
-> > The imx driver also needs a fix for the issue reported in the same
-> > thread, but requires a different approach because its TX completion
-> > callback unmaps the scatterlist unconditionally. I will send that patch
-> > separately.
->
-> Again, these need to be tested on real hardware.  Not to mention the
-> bugs that sashiko just found in the changes as well.
->
-> thanks,
->
-> greg k-h
+Hi Zhentao,
+
+---- Le sam., 31 oct. 2026 00:51:29 -0400 zhentao.guo@amlogic.com a =C3=A9c=
+rit ----
+
+> > That reminded me, is that firmware in linux-firmware?
+> This firmware is currently not in the repo of linux firmware. Should we
+> merge the driver first, and then submit the blob to the firmware repo?
+
+
+
+Thus far, we have always required the firmwares to land first, unless a str=
+ong justification or valid alternative was proposed.
+
+
+Nicolas
