@@ -1,90 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793416226;
-	b=ZWQLfLaS1QP5XbQ4I3TTTrHmLVCo3rLFYpiqZl/lrSGi/RiGuMQmBo4bSpiEWeDdqa60
-	 BLFUzE5KhHoRbkO6cUnXHdRrvnty++kDgRGMXtyT3iPpsqKN0tXTqpIKoHtxEJ+YuEK4G
-	 9i8T5uuVEaeHfIoe4QRvq3dikvyLotzF1bNMUY1pEQ8qPsXpMS3EnBnlJLwDfu8ILUVrF
-	 QpKhsQ6bqwjG0DVi9gLn336ppnQUOua8XBKxBRXJ35owfMl4puzVzsUvmytdOo1qNy/L3
-	 qFk2bIhzCK5OvcaC7tfDp9rqe7mrixTbk9If3zIcrHE2DwTLDuT0aoPTItu35ndp8Fw==
+	t=1793416683;
+	b=cmPJH2kYkWzB9iJUx2uRWJ1OZMksdOg0KPkdKDsuPiXkzPks4Da+W8A5/V3Wy8PVmTAo
+	 l97WkqdqcIp7MgxCG+jJKZpcdBBTZM5RSa0fiznT1MjclgOUQKbh3B28RCFNjw+TrhqHA
+	 Sj4thbPDVFeT2BcD4303V5YyfkNIzhNLYUPz/pT5sgqPXSb0YDORduSdeFt73E+T9x1dm
+	 ppazBPQaD2A8i4WEDnlAo69hkpp3M31Y7WUteO0JYOQafuxBU56A24Vo6P1K4Ma8qbhNn
+	 Ox+6DM9mhtrEz6qI/EHBRDKyaZ80yPtYHVT1eoFZE0uhI9aAZJx5osVv1CcZ/8dsXlQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793416226;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=rSQVuufJqG4DagM4PmCmZM1z/EqJK6JLyOoiv3ybUJs=;
-	b=jZgH9V9JAnJWmltjgecXecjZhtbJGuRMcr2qotMlBzYcIIDCejsHmaddC+q4QYtf6zF0
-	 QVOlzQeucuCHqCh0IbZuh/Q3fFgt05l7HebDdDeccoThQiKA/pX2SnKRQYKoIWDTN/0Ct
-	 VkSctFD36TQT1Wb/CfaOvlVjqPNIMTXVCSmJuKtYWcglDHN+fuNh4HMYsp8ShqhtU1Pdr
-	 HPiFXIlOqsFNA9J2WN5uGmwLVeZNyUUMPISO7pcmRpPdlPrjNk7HuLQF1QIS0t1YUZmwJ
-	 qSKwZU6MnhJdTwjtyKHBcaLGy9PZ5UrV15ZdWSjhCRgxOASU88+rJeJd2my3w/thmGw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793416683;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=PaQvshL8roUle9Khhx9uxLt6U4tXSGazn/JXYOhcGzc=;
+	b=Y5ecQxIIbjG0MvOmUYo+eXTE61S3jm1ngXFdh2Po7uswS94ZAZqrJHMMnudJvE3dbpdN
+	 o2FxGGiIhmo4gUWDbl5NdvbKADwLfDly+DJczpIhspilZDOfCbVYC+NELP/Rvl/Xe4B1i
+	 0qrz1b8lPl2NqjTbCXF1NgaZw8NXtVqx1jhtP1mRMpc1fPpyLj1qCwTlu6uMbM/c3MY14
+	 cJ/1NRXGfrlncmNbOwhnHk90kwsbyJ5laNImsLYqerDWz01yRLesC3iixo9CXHuGwY4sQ
+	 eyNVPa4EmL1E1/62/qdvxk3Vk9vaGvuag0zUwNaDYqEZLYVuZ4KbsDCwUHkJ7282QXw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H03yVUwC;
-	arc=none smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=gibson.dropbear.id.au;
+	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
+	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b="nk7gBTM/";
+	arc=none smtp.remote-ip=150.107.74.76
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AC7606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:10:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35AC7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2841606A31A;
+	Sat, 31 Oct 2026 03:18:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2841606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H03yVUwC
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso1857392a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:10:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=nk7gBTM/
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793416224; x=1794021024; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rSQVuufJqG4DagM4PmCmZM1z/EqJK6JLyOoiv3ybUJs=;
-        b=H03yVUwCDBp/meoXXTo95GjtgwZG8nXQWbdXt+tkq/+w+2HU6Fhep5fXf0IO+sFxPo
-         tYb6tEm3KEqdlWhM9yeUzDOOrCX6V2KPaYQhz7Nkcv9z99v1nA+o7fKVVnlVeo6MAlo7
-         AikobQPbV3TPRR1YmPVk3AJuRJcrS0UaoEnoE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793416224; x=1794021024;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rSQVuufJqG4DagM4PmCmZM1z/EqJK6JLyOoiv3ybUJs=;
-        b=YU03/bnMSReKbbcgWOBDpe5C9bN2Vkd58PGDu3O1Cw5BFGTbLqIJWXH9ekPIHuC/Bb
-         8RrrGkyR0KT+wED6RIt4K4I4aMfqLEc2KjXoo/B1f8h3YBIoVkLX9LvftQpMMpV0hNx9
-         pG+FfZ1nwuGPv1GDgKvLo9yptQ0a4LxXCv+FJGd9PI4UtknQ2eumLOBZKSsQhFFQdoEI
-         9L5AxsrwL/jLYSn8nOPyh5dMBbA7JEEt5K1z/0etbd6BMY/tjNICgN8Y9gH/AphCjc4V
-         chUqpDFreibE40rLtPeT/T1/AZpAX2BxJ1qMCNfogI7kHed4DaKnvS7hflYgnxwfEP4m
-         t3Vg==
-X-Forwarded-Encrypted: i=1; AKwUvByXlscDsiqzIpvCuBFHcJdPxKFHqMUaomCSd2lIjqU0EgXBceqStuVFtbYtrNggpJctykr+W3zv+4Ue4lw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL47axYg+ZwmxCupxeVGj3O1iknLUp8VMwLdihWo92nmkgw7iYK
-	iq8k70kUv/O146m9QCUJ0fR3McQq5e8hHeEJggholhioz7RO0L4K113wjeLpgDshjuKC/gZZlzN
-	0VYrsxbB2
-X-Gm-Gg: AYBFou1uHzhBeRUGPO6EuCFJBSnCbVcRZdmlagvwTS0Lg3FiHtb90x0BRxvEkrMPThf
-	CsuJ5mpFsYoSbTggUKf3aHffo4XG99PdmVhiINyJZ/uRaiof/KKbZGAaeNbcwTt0f3xBs9tTXhH
-	JJCFIYZ3X/v7ylU1i6+wfD8rgHjdBfoanBEkWN/M9ucDEbJVkSLmQ6TPLFP+BchbgNR8dsAPjo/
-	Sh/BXiJavjVCiY2osn/jHD7alNvuwl5ecL9rcXCmeA2Gway45NoqVjKcXo+WALO9Qb8a94cxAwH
-	VB9bS/9fc03qW40hQNe96F6iSi4Oec4KcO/BGpFUa5QKGkvQsQCoCV7mBiWv+ki11xz5H3WbbdB
-	FUMDEwi42UeL7nLkJoChEQjO+vmZTQSPEle7Z0D6KDUASHeOgZ+QVOS1cHGgns5dzYjbPDcnKpf
-	JBx3pRuFGpfBPSco2lAIYBTwpSJQPvtTaJsudrLKyflreuAuU92iOQ371gvT9IaSeQEeud8Geox
-	5p+BciEXkneJgx4NpLHatHcFjXQ31NsVF2Ep3bLZBTToTOiD9kJFiNBF+8pZcEhB8WO4XZZHBO8
-	6mehs0J/I+6wcL8IC9plMHRMPHENH50UAUqr8/2fdvmQJH+REcFDCufVpLkAKlZacQoT
-X-Received: by 2002:aa7:d886:0:b0:6b1:cef8:609a with SMTP id 4fb4d7f45d1cf-6b4d562e7d0mr2124068a12.38.1793416224566;
-        Fri, 30 Oct 2026 20:10:24 -0700 (PDT)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com. [209.85.221.50])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec91e2f2sm587034a12.0.2026.10.30.20.10.21
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 20:10:23 -0700 (PDT)
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1405697f8f.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:10:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzUx5OnZtitsWyo0kfzs6MN5EgsKygplJWl21deexbPAOBXaL5x9YwCjxQEljf7/oaYDgGKrJJJ2r3ip1s=@vger.kernel.org
-X-Received: by 2002:a5d:5f84:0:b0:48d:eec6:308b with SMTP id
- ffacd0b85a97d-48e6e4f561bmr9818154f8f.21.1793416220997; Fri, 30 Oct 2026
- 20:10:20 -0700 (PDT)
+	d=gibson.dropbear.id.au; s=202610; t=1793416672;
+	bh=PaQvshL8roUle9Khhx9uxLt6U4tXSGazn/JXYOhcGzc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nk7gBTM/nhxwfoXdrdcjQAvxYtiemldpUgscldjFGInCEs1bN6TDzk1PP83wDlsxm
+	 a44uhWTmAnlzZc9pF43RdZh8xdQHDSWRIvBkRCitDjiYAjxlH1b4KrsHA9jfhe5psG
+	 +4oSADuXbt+Xdf9gjRyepRaD8Y4Wt4BR7rQB1e49bfsxQEk/rEttrKUl84Rmkp7A8m
+	 LuVs0uN5aTwM+2Zy+11QDkgSarsk+GBXloRGAifG5UU1xw7+eBDEo5RuWuoHdcVSbi
+	 AOOujTLpknf14hX6ECraANRI89/fWeNKjSWBNgQ6f7hBBfI+qHhBC5+qiXpJTzYuOe
+	 bJYdZXZIv95jA==
+Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
+	id 4jGjp863cTz4wt0; Sat, 31 Oct 2026 14:17:52 +1100 (AEDT)
+Date: Sat, 31 Oct 2026 14:17:47 +1100
+From: David Gibson <david@gibson.dropbear.id.au>
+To: Herve Codina <herve.codina@bootlin.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Ayush Singh <ayush@beagleboard.org>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
+	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
+	Hui Pu <hui.pu@gehealthcare.com>,
+	Ian Ray <ian.ray@gehealthcare.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Subject: Re: [RFC PATCH v2 10/74] tests: Add basic metadata tests
+Message-ID: <auVdylQ7ny1FvL-5@gractus.seuss>
+References: <20260826094950.1088288-1-herve.codina@bootlin.com>
+ <20260826094950.1088288-11-herve.codina@bootlin.com>
+ <auQqI8WEOVeDRZM_@gractus.seuss>
+ <20261030120117.24afadf7@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,102 +75,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020153652.2907186-1-dianders@chromium.org>
- <CAFLszTgzpQ-donjjtcPwy5T3pfWg_u83QMh0GcdpY2JCq_s75w@mail.gmail.com> <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
-In-Reply-To: <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 30 Oct 2026 20:10:09 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Xxn75bf6ZjRPyQ5jfWwxx9cPe8_8bV6qzAXQc+gckB-A@mail.gmail.com>
-X-Gm-Features: AclHuK-bghq4wzz1qNlwlR04GGQ-u_3zjoGTgsEW-iZ0A7dRvqdHdSoL4JcYqzo
-Message-ID: <CAD=FV=Xxn75bf6ZjRPyQ5jfWwxx9cPe8_8bV6qzAXQc+gckB-A@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
-To: Simon Glass <sjg@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
-	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Jones <andrew.jones@linux.dev>, 
-	Bjorn Andersson <andersson@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	David Sterba <dsterba@suse.com>, Gary Guo <gary@garyguo.net>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Luis Augenstein <luis.augenstein@tngtech.com>, 
-	Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nick Terrell <terrelln@fb.com>, 
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	cros-qcom-dts-watchers@chromium.org, linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="qGRKqLyeF2vUtYlJ"
+Content-Disposition: inline
+In-Reply-To: <20261030120117.24afadf7@bootlin.com>
+
+--qGRKqLyeF2vUtYlJ
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Fri, Oct 30, 2026 at 12:01:17PM +0100, Herve Codina wrote:
+> On Fri, 30 Oct 2026 16:24:52 +1100
+> David Gibson <david@gibson.dropbear.id.au> wrote:
+>=20
+> > On Wed, Aug 26, 2026 at 11:48:39AM +0200, Herve Codina wrote:
+> > > This first test is related to local phandle references used in
+> > > properties (FDT_PROPDATA_PHANDLE dtb tag).
+> > >=20
+> > > The test pattern used is
+> > >   - Generate a dts (xxx.dts.dts) from an input dts
+> > >   - Check this generated dts against expected contents
+> > >   - Generate a dtb (xxx.dtb) from the same input dts
+> > >   - Check this generated dtb against expected contents
+> > >   - Generate a dts (xxx.dtb.dts) from the generated dtb
+> > >   - Check this generated dts against expected contents
+> > >   - Generate a dtb (xxx.dtb.dts.dtb) from the generated dts
+> > >   - Check this generated dtb, expect the same contents as for xxx.dtb
+> > >=20
+> > > Even if only one meta-data feature is currently tested in this tests
+> > > introduction, use a loop in order to ease future addition consisting =
+in
+> > > adding new input dts as soon as new meta-data feature are supported.
+> > >=20
+> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com> =20
+> >=20
+> > As noted elsewhere, I'd prefer to see new helper tools for comparing
+> > metadata in binary rather than using text comparisons.
+>=20
+> Right, be ready to see treegen.c growing a lot.
+>=20
+> Indeed, to compare in binary, I need to generate the expected binary (I d=
+on't
+> want to store it directly in git).
 
-On Fri, Oct 30, 2026 at 6:09=E2=80=AFPM Doug Anderson <dianders@chromium.or=
-g> wrote:
->
-> > The FIT_ITS path is a second way to build image.fit alongside
-> > make_fit.py, and much of it repeats what make_fit.py already does: it
-> > puts the root compatible from each DTB into the configuration and
-> > compresses the DTBs. The series adds fdtget/fdtput, sed parsing of
-> > /incbin/ paths and a shell loop in Makefile.lib to do the same for a
-> > hand-written .its file, and the .its files repeat the DTB lists from
-> > the Makefiles.
-> >
-> > Have you thought about extending make_fit.py to take the per-board
-> > metadata (e.g. from a small file next to the DTs, or via
-> > FIT_EXTRA_ARGS) and to run fdtfactor itself? That would avoid the
-> > in-tree fdtget/fdtput, the mkimage dependency and most of the Makefile
-> > logic, and trogdor would come almost for free.
->
-> I certainly can do that if that's what people want. ...and, yes, I
-> think it would simplify some stuff in this patch series. The
-> question is: what does it look like? Is it a file that is a list
-> of devicetrees along with descriptions? The list of devicetrees
-> would be to limit which devicetrees are built into the FIT
-> and then each would have a description. ...and yes, that would mean
-> it would need to be updated in parallel with the Makefile, but I
-> don't see a significantly better way to do it. Yeah, I guess that
-> could work OK.
->
-> If so, I think a bunch of the patches in this series will be
-> dropped or look very different. I probably won't directly reply
-> to your comments on patch 2, 4, 6, and 7 if we go this way.
->
-> Should I give it a shot for v2?
+Sure.
 
-FWIW, I did a quick prototype of this, and it is definitely a much
-smaller / less invasive patch series. I've got
-"sc7180-trogdor.fitconfig" and "lga.fitconfig" files. Because they are
-easy to parse in python, they're in ".ini" format in my prototype. So
-"lga.fitconfig" looks like this:
+> I already plan to split the treegen.c file in several files. Indeed, with
+> unknown "structured" tags, a bunch of expected dtbs (instead to text file=
+s)
+> are going to be generated.
+>=20
+> The plan is then to have one .c files per expected dtbs set and so the
+> concept of dtbs harnesses.
+>=20
+> The problem I see here with known meta-data, is that we:
+>   1) Need to keep consistency between the dts file (input source use in t=
+est)
+>      and the treegen source file (which generate the expected dtb).
+>=20
+>   2) If new meta-data tags are added in the future, treegen source files
+>      will need an update. This update will be more complex than looking at
+>      expected text files (fdtdump or other), and commiting the new expect=
+ed
+>      files if the diff is explained.
 
-+# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
-+#
-+# Each configuration description encodes board and SoC matching metadata
-+# for downstream packaging tools in the format:
-+#   "<Model> (<key>=3D<value>,...)"
-+# where <key> includes board_id, board_rev, soc_id, and soc_rev with
-+# hexadecimal <value>s (in any key order).
-+
-+[lga-blazer.dtb]
-+description =3D Blazer
-(board_id=3D0x070406,board_rev=3D0x010000,soc_id=3D0x0005,soc_rev=3D0x01000=
-0)
-+
-+[lga-frankel.dtb]
-+description =3D Frankel
-(board_id=3D0x070306,board_rev=3D0x010000,soc_id=3D0x0005,soc_rev=3D0x01000=
-0)
-+
-+[lga-mustang.dtb]
-+description =3D Mustang
-(board_id=3D0x070506,board_rev=3D0x010000,soc_id=3D0x0005,soc_rev=3D0x01000=
-0)
+Hm, only when/if the new tags are required / automatic.
 
+> I've proposed 'fdtanalyze' as a new tool [1] to convert a dtb to a "frien=
+dly"
+> text file. The output of 'fdtanalyze' could be something like that:
+> --- 8< ---
+>   (0x1-FDT_BEGIN_NODE): "my_node"
+>     (0x3-FDT_PROP): ...
+>     (0x3-FDT_PROP): ...
+>   (0x2-FDT_END_NODE)
+>   ...
+>   (0x9-FDT_END)
+> --- 8< ---
+>=20
+> No complex analysis but you don't seem to like it neither.
 
-Happy to post a v2 RFC showing what that looks like if you want...
+It's better than relying on fdtdump, but at this point it's just
+making a text format that's isomorphic to the binary and I don't see a
+lot of point.
+
+> Without fdtanalyze, fdtdump nor other ideas, I will use treegen and
+> dtbs_equal_ordered to perform tests.
+>=20
+> [1] https://lore.kernel.org/all/20260925144003.61f72c0e@bootlin.com/
+>=20
+> Best regards,
+> Herv=E9
+>=20
+
+--=20
+David Gibson (he or they)	| I'll have my music baroque, and my code
+david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
+				| around.
+http://www.ozlabs.org/~dgibson
+
+--qGRKqLyeF2vUtYlJ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrlXcoACgkQzQJF27ox
+2GdGjQ//e6G/W5rXwEy8Nrf1QNAci5wcd3u6SaRWPCtsAhhv2/dHfRFXN9oeNevp
+ZXVfJS+rSfKe8RJggpij1XBnXz9O4R/+IGIfKv0jgi/5OCmktjBcGQRQYKzPId7H
+sTde5ygmDQEgnZjHDbAcFE7foLNSoKhJVog50TyQF4di5cQYlZWFKTI6RVF7YrrO
+5dX9yHtddNxrZ0XsfVx1eDwd4Q3xDCY2nMWbYWRM6kg8LknHBth7+GJ20IcWmQj+
+Dv8yAzNNq63u0BvsYUbE92Hr4WOitySTpe87D1WiqBb0udYCKAGo0mJxCjZZOmpr
+QKOIURIPyewHwXGlg5/VArUGG2nf5hkMSSI9PYcchkN4Ar8yS2VPS/hrYXtrJCQM
+DzuuG75ZfisrNayD6Mw+hz/JrlRLei6F8gm70jN4cyOYcK+ykc2t9WvKTpyqDzPe
+Og3wbDw82P6k/oH74NxBX/aK8yyFpZ/uCLgh7yFJL0bhDYRCpg6+TfAO5k+vWpqp
+xbINrUv8XAmHrCdykmyLEKQnq4dhKFUg7j/g/2b6Q+ddDxhdE2E3dNkcdMX3BU6U
+agNzeG64XTAcgciRPWCpXLa57XqQ3UX7QHDjiC2+rnDT3oaHqb27IXWPxOq6wYaO
+Oj47D2pmjsdV0imDCzm7xNFgHxg7Hyoqw78ooIVyieDIHW0EuyQ=
+=wUhV
+-----END PGP SIGNATURE-----
+
+--qGRKqLyeF2vUtYlJ--
