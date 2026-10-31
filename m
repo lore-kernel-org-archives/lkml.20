@@ -1,85 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=43.163.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793471806;
-	b=NtiHLBdSAiUfr3Rac7cR/SbRdFl14fKRoYoESVjoZCWGDKCNFBHJDF1+Ao/tLBrLD19J
-	 gUpOqxbICCL26/M0hvBFKgSOBHGNRb2J+IW//jKp/+3ixi/R20xgEo4NH6XCFS/NMFAbz
-	 UY7RkISS/9aRs6XQtEZuyd2c1it1nPTS3ibgmAcrMrFJ4yVkkb2px5Ady1K79y+lGUjTr
-	 VlBGiWkX2te1qDXD7z6gVCOqf7nqXkZ1pdSWatrUN9FWC8lvlLvIv1Syo5tXQ6OegMBW2
-	 GALwuTGaKaPCwOwvBuN82IRq34aZUK8uZGUBDs+SScDHOgtzIDNulwxn7UcxcOMK7sg==
+	t=1793472147;
+	b=VJ+iFkofKwWDXzIGS1+G51+hf0d7NzmlqG4oSj426XUiRqxkeDuke0TQc2HbcISMm0KR
+	 wzgQ50Ic90JsffmZHwDRoCRrFXgZOzctrImjoSOBcwmflOQ/dIbU3tJtfbq/Dmq70eFIi
+	 Nd2Sh/NuXpx4owc78jdpfjgPCliOfVS2CpG/amD97ih8ov/E9rLFkaOzUiIw6jjysijQF
+	 r/cLfb6Cqml6sTuhQ+BeE1Z/r6gEf1l5lOSqpRGMmgxnCHwClcwUAuswKr6LsuPKvcz5R
+	 J0X+iolsuEC2XERc/uQfnuQZHrb+ykQwz7eqaugJHzGP6piNAa/q4s3GJXyWuHNCFtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793471806;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793472147;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=6nzAVwFzrriiPAkOBNvkvTODQ7DAYj7j6hOeNHJihso=;
-	b=RbnmL9YK5LYyu5JLXby/3mG5U1eufyHqD6nrqrlQx/IQvOQlZe8+c5MSTG4atxpHYlvQ
-	 EDLjPrNKmsVbzlbMsWSi9y22Hg5m20Cp6KK0SMsom5a24NjZB7b7dutiOMCXskD14HEGR
-	 jn5gAR4gErrVKOrfkkl5iemkTVW8ke8yEfrXrNQpZ4iwcQqDuQ6TAMhjVmBiQgh8QbCrc
-	 CWRkaT5D9qo0ZIX7YE/xiyEY8f300/sEeA0sV+Jb+l7eyTfE/qqyFElrzIPlR/m3/6NPc
-	 HG3147KztMBYYNd6jSB6wIeR3iydddJAQcdiyJTnZQYN+WsGZDwIUFp1KkWEJldIGcQ==
+	bh=v1eiqX8docxBHA/MpMD1bL0iQ8o/6yCcGdWuSGen3JU=;
+	b=U7RToMfMYDJrHPzMRXRbLxg1u1xYPFYfzD0EYaFTxF2E1pgOSCpf4iTJoa9Np4uTEBGe
+	 LGnGaEe2uuJclJxEYFQiiQfspzJSYOX6DF0S7EztYU/5Lq13eU3ckYwzmPYzVWQXSAd3b
+	 oOQU5B70RgAMN7glOLGt9+PepQ+GywPPn2l8M+u0V8u8rN2pb6ParrD/ufDiu2xhs327h
+	 EtZB0f7gx8GgFu0V///V10al4C4Af6tUyrWgdX6F/rDo4wEeMKvi+EiQdDaMVSPtTtY/b
+	 DeNzekmQj3qGEpDJEeTqQ/6nfi+FkFnXTBXrRM6O5IleMYyRfu9GmRpIOQLWE8zKf3w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=g6+ioPth;
-	arc=none smtp.remote-ip=43.163.128.47
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhuL52v2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D7B606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7D7B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E53606A31A;
+	Sat, 31 Oct 2026 18:42:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=g6+ioPth
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793471790; bh=6nzAVwFzrriiPAkOBNvkvTODQ7DAYj7j6hOeNHJihso=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhuL52v2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293DF1F00A15;
+	Sat, 31 Oct 2026 18:42:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793472146;
+	bh=v1eiqX8docxBHA/MpMD1bL0iQ8o/6yCcGdWuSGen3JU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g6+ioPth9/Ch5VVkZD9fDOIoMHGcnPKceN37F/9KmVKD3xCXsa1cJlVb1Yd+rGAx8
-	 quKW0JNOmrXqvKQ3xmUpgm+mz/Z3I1Legky5tscP7uVCxg/MItF+NtjPvmw3WYyB7M
-	 Y9genKZ9Dj/dNXrslO6NQvH2OZy0GirTaFWhuITM=
-Received: from kernel-lab.tail5e91bb.ts.net ([2409:8950:57d:63:6833:326:ef1e:ba71])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 91B946ED; Sun, 01 Nov 2026 02:36:27 +0800
-X-QQ-mid: xmsmtpt1793471787taxbxfhij
-Message-ID: <tencent_49563D9E7F44599779272CFF719F54418F08@qq.com>
-X-QQ-XMAILINFO: N/WmRbclY25Gtq/EWKSesU26xD36uVauzBeVFPnWMnWv/iRjbKWL1KrzocJ/nQ
-	 nell1/cXYisi/mj9LVuBVdp0xUjF9BL9Qlz+ZPm6TjMTjbxyloMUSmLo3om4nJPc5RgYItbmEuaF
-	 8CCCc3P4X6xMTHGcn2zG95voma0otrqVhzoDISRaMeTfstS0BuhaimEbKk/hj/mqDse4KwsduBUi
-	 xKRyzXewW8GkeW+EFjE9oj+uYV1OceGMuExFycyXii2p6xm05CDg1KiMsDKRHsIJrSje2RjH9cLL
-	 q/LMwHUwXSoQD4GZenHOGDuJhEpbJGvIWfehPgKKcpyrJL4zM4vdAJJYpbQTa9SMB9DSieslRKY9
-	 +8Q95sPG1Dc+nxazVVYPoYVuXKV4+fJRU0NR3XtzC2Sat6yn3IG4HFB7wrwjD16sCQI+0aQD/WV5
-	 VQpS32jW2x7rELn1OGlVKToEBh8Is/ATmK3ggI6rN+ftVwKxuEAsbBad6o7k6qeaasfBazogjUeR
-	 Glv6N1ftAYazUDkB662XtvbcQ4Nt0reO9O3+iIEnM9EYA03msxhfuHoQGaz7VcCfjG4T+74bklt1
-	 PJDo22ZnZ0QYBrA7AsQJ/QyZiLFgyLhrsTycQgbBmak93aDzs2UsUukU1oQCtjSUywiHS0fBvU4n
-	 ACQLN7xmVO9aQeEae7P7HE5umNWVC++kK+8uH8NGx1U4TpyrQAaR4QrUW1eyiAUNUB0Iz3q9zfSE
-	 A/WDvaiOqpo6yJnovBH2tJLZX+iwp/hYhc0iml4wiJ7dXeG/LvYOUbhf6dc1+cFE+Spx8Z2wX/m8
-	 zaOw1d8piMbOC0ILTJJE9Mpt0f5zpq/2DOShgOm+mp5Nf8aavS0g7GJi+Uv4mInSlIS29Xp2IuHV
-	 KdAmdDirFmKgs8PyLiqFAhfFkJ+XLQm/sluFue21QocFFNRMGunHzuZF2MOS4CDGac8FUlfVAyv4
-	 LSxUSAhND6aCIfLFPVQQmTgpzXNzmMK9iGJqnHu2MVCVTV7lyVrnm7fYp49v/kLWyLVBnt3RESaZ
-	 k3Ih6SJxMh+gDzDvEO9uuiZRJu8tjr9c/227G/oNI8BpvCg1uOzL8rnorRu9oOvJ0dleE8/aibj2
-	 2BZickih197+IytAEw1A5hshGdMQ==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Yingjie Wang <1075151112@qq.com>
-To: Xia Yan <yanxia@cmss.chinamobile.com>
-Cc: netdev@vger.kernel.org,
-	David Ahern <dsahern@kernel.org>,
-	Ido Schimmel <idosch@nvidia.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Alex Henrie <alexhenrie24@gmail.com>,
+	b=GhuL52v2tQWHHqDpMVCXdBVQ4AbXs9TMKrb40xfRUznVL1o/fAv4bB3n3nTL2bpjc
+	 VJa6fe93AdpEARFLu+PIO0rzcOgKidBjuiOmmP7a4wkCUVVmdykCs6xb+SWkhaOtf0
+	 kMzZMMGI8mq/0YVunxnYL6KORTJUVFR7waThwAtT3jSmAPoqXShJTljyxf/TBSmuGd
+	 of/wl5agA4whtCWy82/QlJtgf90syzkhP6zKMzFAN2OyThsSfiZpWCESt0XQbajrT7
+	 Lv8provko+SP0lo80o7ePoBNhh+HumYqotP+8PXzghtvZLvz9QW8Pe5klUEZ5fLUau
+	 zUUmkSO4SSOWQ==
+From: Chuck Lever <cel@kernel.org>
+To: Jeff Layton <jlayton@kernel.org>,
+	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
+Cc: NeilBrown <neil@brown.name>,
+	Olga Kornievskaia <okorniev@redhat.com>,
+	Dai Ngo <Dai.Ngo@oracle.com>,
+	Tom Talpey <tom@talpey.com>,
+	linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	yana06070@163.com
-Subject: Re: [PATCH net v3] ipv6: reject wrapped temporary address preferred lifetimes
-Date: Sun,  1 Nov 2026 02:36:27 +0800
-X-OQ-MSGID: <20261031183627.3756897-1-1075151112@qq.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <179344707641.114606.12665582704521593779@cmss.chinamobile.com>
-References: <tencent_C2E4FE9B7C0A05615861782611715EAA9C0A@qq.com> <tencent_7A270291DDE5CD89DAFFE8A745D094D5BD06@qq.com> <179344707641.114606.12665582704521593779@cmss.chinamobile.com>
+	stable@vger.kernel.org
+Subject: Re: [PATCH] nfsd: fix XDR tail bounds after spliced READ
+Date: Sat, 31 Oct 2026 14:42:23 -0400
+Message-ID: <179347213462.1463036.1895447020089582210.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20261031171057.1562342-3-Jeremy.Jean@oss.cyber.gouv.fr>
+References: <20261031171057.1562342-3-Jeremy.Jean@oss.cyber.gouv.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,18 +65,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Hi Xia,
+On Sat, 31 Oct 2026 17:10:59 +0000, Jérémy Jean wrote:
+> After a successful spliced READ, nfsd points the XDR tail at the
+> unused bytes remaining in the first response page, so that later
+> operation results are written into that space.
+> nfsd4_encode_splice_read() correctly computes how much space is left
+> there, but then moves xdr->end from its old value instead of using
+> xdr->p. This gives the tail an incorrect size limit, which can cause
+> an OOB write past the end of the page.
+> 
+> [...]
 
-Agreed, this is separate from the wrapped or truncated lifetime handled
-by this patch. In the case you describe, the stored preferred lifetime
-does not wrap, so the new check is not intended to reject it.
+Applied to nfsd-testing, thanks!
 
-I have not tested that case or established whether the repeated
-regeneration is intended. Thanks for the detailed analysis.
+[1/1] nfsd: fix XDR tail bounds after spliced READ
+      commit: d650fb277960ef221f7fa2160072493aec418d65
 
-Thanks,
-Yingjie
+--
+Chuck Lever
 
