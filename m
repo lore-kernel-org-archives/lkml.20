@@ -1,100 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468356;
-	b=q8mHRtAJkJANWpT5Ps0CpukEV/FHJ7RqpyPi2FViv1LEECUKRDp2k+GSwzWG5JVeQh+w
-	 BS0yRgBmyi3hGaqtU7/jnnCZviS/gK1xNX/BWsUVECyoq6+gBRm9eAnnpYSYfLsd/HznH
-	 d0bX+jYTEGTfv+xsDfVvt6BHrsgVYz7+YC4RLktFb1iu5zYjnRpjzBl/hJMTHRmxf/wvF
-	 u/SDMNKUqp37V6ZZdf/xQ8BGiZSs5pLTWrdURs9rx7nLlNbgxVPtXE9rFQ/5Fj0hWwBM7
-	 UvsGkjud0C5YMuc5q+lWCGUcKgaioLejyhMJcX1eOHhpS8Ywon+nZfd+0jDxYZ0txxw==
+	t=1793468406;
+	b=KQXyOmWzAemNq3mH3OfarnOEja7wwHDFcFQJAiQBeTqXYxV98wb6Ss5M8i/B7pDA9Qnq
+	 EeGYAz8Val4s3wLTHt/Wjpp9nVrlEUbIe5RfFQujVdQSaXHg4MxAmome5Hq/JkKeJdeuD
+	 MYPIzCOsVPJgbYDelFXTOYDf6a7H87vaNctVVH+hukLIXQEXPQpB2O6RUMdpIy9Ka1QJx
+	 RorzE81fnMPlUvE4XRntuTLlhwdLmDl06HbRebrPjQIi5Ce064trQz7B8AiIsNcf4lawD
+	 D+m1rw/mQc+cLzPsdgGFjekz5AgLv/YbXxwuA1tNQHbPpbpvsOpQLcCPEbUPEb8RKSg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468356;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793468406;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Date:Message-ID:Subject:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=5RS4/TCOhSiJb1fSn9tcNQ8qqueFM9qglyQ2e/KfPJY=;
-	b=JrtiGbXrsdmYzVMApZQCf8GMbbnRM/zCRhktbKMsf2vS+TYZ7LCL17xxpwtxnWTgKmC8
-	 FeIhFE8IwaMixnjm/hTmR+O3WbldmYCl09z9R5lL0UaZSr9tYT7BeENVu9snE1EylOlKB
-	 brQRNoid9hmIQLqazDdyA20OQSgdyOvTnh6q+LfY1UVOosY4WiGY8ch/jjkjQBaKBy8FB
-	 E50aLuw7Z5+vs87XmRJKUuxCJSFuvao3aaksGXybuHJOsQy94JteBhpPCpmlKR3RGp0ix
-	 TDoiHNCOgOnxbuiHCvjTyTw9hk007f3b0eTOF6Be1k7ockx6FVAis5GuKNixvqan4Vg==
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
+	b=dnbt7xVb7ZXq+VMJ6R8Oh9zHQxfnGgUWoQWy591/kGTkakLAepbbd9WfWvEXUlszrUnp
+	 zNiM/HeTnXBCpu0vAUaS7PpV3gQUfpt1aoYThf9Ze7xybLiGiOOzC0xzf4TraO0+YGmmX
+	 EFcgS4IWjBOaVTBPnCHGJIWjGyORmF3AT5xz3OK9ZMJF6ioeyAeFg4AbzQcjDtXtRJt45
+	 g62nnyekjPQs0XuRu592TUYuc6f2aOKddP31gEniE/JML2fbGTRR4L4gWsrcATxw3YvIE
+	 0BJBxfO5HatGti9brURJzqaFcxhCPQdH48EO0E5UU7MtGzA6Jmjr4VUzjT9QWv0tS9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AylsZbl8;
-	arc=none smtp.remote-ip=74.125.229.138
-Received: from mail-dl2-f10.google.com (mail-dl2-f10.google.com [74.125.229.138])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="JGRW/2AM";
+	arc=none smtp.remote-ip=74.125.82.169
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0940B606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:39:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0940B606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FF0606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:40:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7FF0606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AylsZbl8
-Received: by mail-dl2-f10.google.com with SMTP id a92af1059eb24-14e61bbf1e0so20842c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:39:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JGRW/2AM
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so3047224eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:40:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793468355; x=1794073155; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:message-id:date:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5RS4/TCOhSiJb1fSn9tcNQ8qqueFM9qglyQ2e/KfPJY=;
-        b=AylsZbl8rD/zrNKDrvJnSKn0FCOCurNXnYVPihbd2lSu/OdLgTm6IVDAsekTWCxioF
-         EAiIMkmxAcbysGVh+GzJK5fPmJaTOlJFVfDkHn42S85LoLvm9PO1VKl21FRIl9n8pRhg
-         BrusB0ZG+yGAU+AhRyzbo5FY7gX7DeCM1wZCwUKkHl0Jv3+mifOFQAfzfWd+RbmsJm/e
-         Vep/I5DjYulWWM4KCntGv4D9+Wd9X5xEOknPKleKu3jE36AgAyANSbEHOShTPs2xue/5
-         CTXEIBUQkP/lcJVne52Pvo4jzz4F0pIvdMK9/yyFME9eSFQ8U2gqcfFhTyPnhQBbH7Sg
-         GN+w==
+        d=gmail.com; s=20260707; t=1793468405; x=1794073205; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
+        b=JGRW/2AMeLNySqBe7BDRSGF8sZGlwaRlOclOiqJeJl6Gn6CSX+8lZHX+1zvL1qGGCm
+         WGWgUP1m8VfPe2MSWHHtUqNOqVxwDeWHJkwy3GLSIlOnm6C1fINb47is5eX5lXLvW3PU
+         OHlwOEJRw6uOf/taRkZwpwOHN3bf/P9Th7X4YrEaO1doceMhAhEngG5c8wYLDKFbYhBu
+         g7UngjbOyEdba+Rzo7rnzLRD6hiOwH84SzdDJ4xr3iQo5eGQAh8LPGvLAZhCizOgEbEq
+         7KXgrQhDayXGbFetoF+HFvxTtyh/Zrl/cKdMtljRm0bheY23Un/jpLCIa7whQWD3c/gw
+         whVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793468355; x=1794073155;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:message-id:date:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5RS4/TCOhSiJb1fSn9tcNQ8qqueFM9qglyQ2e/KfPJY=;
-        b=j2qYI+Al2vSDHvI+YCYuPRAhc9q1M2PPSemooRWECvIobJh1mbhUX8kfPdEky0tAk4
-         UcK2+6FfZELOVAjzgiIb0kgyLSX56oLMjSBXLaH/N8gWuOGW9Dc7tNXbLHNT+OwFFYsx
-         B8z71Fa1k4gFZpAEAq7wqbQant23COzv+ayZx2rAJ28MYHVrppi/BJnslsgba4KewgML
-         HZH1GoXfw//1EQLRJURc3Rm7o+OTE3F61T/utSjYrjmCrTweVCSXr5qiPZCFbcKazzPI
-         7QDe6odeNZsb+4OnqQWMj8SswO7/shmgKvA7JASVbl62qBqXlX/bs4COGmX1SSlWNpUP
-         /Q/Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzAO2xfd303nkd+8ittS0rNSP3wP0cWiiTSmChy4TFe88oNyYPNLGih9fjmo8KQxIUVMVNIQfVN13jQd+g=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdCgSvjbOecIWkpD7HThgK3p/upCeKg7bZOj0YUyeIIJJptow6
-	Bw+srrNBPfDdnM3TV+iXNDRFQxK4YtFeSQfpsnQSiGmn8nNYJbQ4rywGBsrfBNtFnY8Yde2Q
-X-Gm-Gg: AYBFou15VozNJlVSrH/ahji47aSwM68/PPIE88yFUXDJgq+Gv+0aTmUyK8t1xVsCHxn
-	KDWgYY4/hG7SIw3UXOm6PoSEEdol63Yy8gGjDZuvCEbcGzgRIeS2xCMbprinPFPPzINXxysxVwE
-	8ksiJjURy/0+CKs7igro+C5APgiruhIiUlkIUGze2eB0fdCNh2L8zv6tT0TO3cwnxCV4+v4+Xq2
-	XR2xWD2ft72DKnwS9NPGMvppJafqR6rhEUjA+Z7eUDX7WABWfxGvsm8pBucUat5DTEaHDbSKzB0
-	IfBkpMmdRJVUbhaa5TXG4NZOBUDC73aPNmpSBxwTUW2rvNfdeZxwCLxxSaK46MiOxQb0zUptks4
-	1Mu0XnyMaFo8fRdkuoaAFEX5qK7xrVqES0ZpoKfH/fpcwVYAmJOtKaczPd4I368kL9frl//qf2Y
-	PQQXnUbU2QPwB1WzQup/eVF9xtFZFuH7K5Y4BTD7glFASuXsg7i7Q3ODjvXm6Y+en6JL+4+VpZv
-	WbQhanGfGMdKkI6nEb84Eqmt3ztwmPoyiaTblNmAobIem8QraSGLH0mzHi+BBkhjr16rZVWD7hN
-	dalCANM22HjD/HgyP6Hs8vaDNo5z3K6i979LqnLp8jPO+YfnesynSxs1VbvA2/YD+dD87qa6IsH
-	vfnTJXPOQZhD0HaZQaqFEIyRLNNLOM7T4zw==
-X-Received: by 2002:a05:7022:258f:b0:19e:78fe:9d67 with SMTP id a92af1059eb24-1ac5a680801mr9985603c88.9.1793468354679;
-        Sat, 31 Oct 2026 10:39:14 -0700 (PDT)
-Received: from [192.168.50.20] (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac194b5437sm19811655c88.13.2026.10.31.10.39.07
+        d=1e100.net; s=20260707; t=1793468405; x=1794073205;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
+        b=qeYW/JiPZGCPSoptiUQrkLZN/LNK/qsQs1lkbUcx/l4jLq4yVvI1woOizUGvEkMfOs
+         9CMJSH4ZgoYnd8r3GmBNzVZsiwKtj7XBIOs3yytmMqo99s6xVt7t+CzbHWaKzG1z0+nM
+         ms2X1m2MZNp50Zls7m5fg3Fw1hd6OgCHOYPf8gpv1a8GwYPeWmXzQdnyIXD/yglIMwpr
+         9J8zEtjAFFAvzBsj19iHKQe0I3s2dkD4E1fuZuDDsFMOs3XOKd+VozraLPFeRo5NzUri
+         NIPx7lPR/2dPCFJOZt4nPqO4wCllPsXnA/dkrgIKoAeccFji7OY4Ro5VzWEUTASI9f4g
+         mtRg==
+X-Gm-Message-State: AFq9FYJ64elgmKhOK03CZUPQ0DeKHOSiZkgYdkFzYdfG1aX7ZhqXQMMb
+	qJxVXVpmSNZHsaUaRAxqqjTTYpJNS5jpY2CAAHsFIn81U7rduprjrpEl
+X-Gm-Gg: AYBFou3OT+gPTxTb1l/5ajX/0RWySy2seGwlMA54QBPn9BMBX1HMFfFQVo+NpgaiyHQ
+	9p65XKinaSGbS1MzZMf9TkFZTTOnzIBf3fWDqDLKnwA8zw2q+7M5vig9uMxguDS3qFvdUEZCUQ6
+	8yiAzLnVmCXq+8e0yryLVW4B+D3wjAm1zzNTWwfKlbySuW6OihAfOARHZ0pvAfzaNHAJFkCC1id
+	DG7a3U8qE7Rta05ppgLAN/SrCWqPqaGuYU31g8QQ5jzYtURGDIWYumvXjMbUJVKbrJSBTTSEsNk
+	VBsfBLwaAm/QSKPbN7wEBItKAlWSQyNZmfRS3YQ2lsAVe8amo791c8MrmuZ+QoP28isvBZjIaBo
+	0CoMD/KCuz14FxJneuRFPac4V2H5a9YauqHQPKHfvLOkinwpzkz4SXXSbvVaIJAOutwQ23ODpos
+	sQ5/oiL97vNDuodczN77PK/LBFWxod2wZ/0gQbD31gCBAK1fQmOQIfFTm3hmVul33F7s60qKqe5
+	7IDEYb5lN5OmO3F653AR080Ekh6Hz9I4LXtbZnzLhEi+YSWCS9i4+9WD88Ue8OiLcdRh/uPbdp2
+	9VHmQA560tkzZ0lrymnf7L2nH/Ta3s31Cn7vl0qWCXoEtQ==
+X-Received: by 2002:a05:7301:6787:b0:361:306f:c32a with SMTP id 5a478bee46e88-36a42345b05mr10664935eec.11.1793468404548;
+        Sat, 31 Oct 2026 10:40:04 -0700 (PDT)
+Received: from localhost.localdomain ([2406:7400:51:284f:c2b6:f9ff:fe77:10a0])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a96172sm17207026eec.27.2026.10.31.10.39.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 10:39:14 -0700 (PDT)
-From: Aveline Noir <jm5905938@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-mm@kvack.org, sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
- Shuah Khan <shuah@kernel.org>, stable@vger.kernel.org
-Date: Sun, 01 Nov 2026 03:34:41 +1100
-Message-ID: <179346448183.4.15545164251841296990@gmail.com>
-Subject:
- Re: [RFC PATCH] selftests/damon/sysfs_memcg_path_leak: define ksft_skip
-In-Reply-To: <20261031153858.84302-1-sj@kernel.org>
-References: <179342136087.2.16978105493403840270@gmail.com>
- <20261031153858.84302-1-sj@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        Sat, 31 Oct 2026 10:40:04 -0700 (PDT)
+From: Amaan Cheval <amaan.cheval@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	Amaan Cheval <amaan.cheval@gmail.com>,
+	stable@vger.kernel.org,
+	Joshua Washington <joshwash@google.com>,
+	Harshitha Ramamurthy <hramamurthy@google.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Zhiling Zou <zhilinz@nebusec.ai>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	Kuniyuki Iwashima <kuniyu@google.com>
+Subject: [PATCH net] gve: leave refcount headroom in the RX page bias
+Date: Sat, 31 Oct 2026 23:04:43 +0530
+Message-ID: <20261031173449.2439047-1-amaan.cheval@gmail.com>
+X-Mailer: git-send-email 2.49.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,23 +103,161 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi SJ,
+gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX and
+hand references to the stack by decrementing page_info->pagecnt_bias, to
+avoid an atomic op per packet. This leaves the page no headroom: while a
+fresh page's buffer sits in an skb its refcount is already INT_MAX, so a
+single get_page() from the stack wraps it negative.
 
-On Sat, 31 Oct 2026 08:38:58 -0700 SJ Park wrote:
+splice() of received TCP data into a pipe takes such a reference, and the
+onward splice into a socket then fails: skb_splice_from_iter() sees
+page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
+commit 2e910b95329c ("net: Add a function to splice pages into an
+skbuff for MSG_SPLICE_PAGES"))
 
-> Thank you for reviewing, Aveline.
+tee() of the pipe fails with -EFAULT via try_get_page(). On GQI the reuse
+check gve_rx_can_recycle_buffer() also sees page_count() < pagecnt_bias,
+WARNs and calls gve_schedule_reset(), so a task that merely pins a fresh
+RX page (e.g. holds spliced data in an undrained tee() pipe) can reset
+the NIC.
 
-Oh, looks like I forgot that. Thanks for the reminder.
+Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias only
+has to make the per-packet atomic rare so a small value leaves page_count()
+ample headroom below INT_MAX for the stack's references, and the u16 bounds
+it. Refill by adding a fixed batch and setting the bias to it, which keeps
+the rule `references = page_count() - bias` intact.
 
-That also gives me an idea: maybe I could build a modular tool to help
-write emails. Building on b4 might be a good starting point.
+Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12), no kernel
+changes needed, with relay.py -- a small splice(2) TCP proxy -- relaying a
+download while the RX ring is refilled with fresh pages:
 
-Tested the non-root skip path on x86-64 Linux with Bash 5.3.20:
-the exit status changed from 0 to 4.
+  ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
+  ./relay.py $HOST 8080 &                             # splice()s both ways
+  for i in $(seq 200); do curl -so /dev/null \
+      --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
 
-Reviewed-by: Aveline Noir <jm5905938@gmail.com>
-Tested-by: Aveline Noir <jm5905938@gmail.com>
+Most downloads failed with EIO before the fix (tee() with EFAULT) and all
+completed after it, including with the bias forced to 1. Built allmodconfig
+W=1, no new warnings; no selftests run. relay.py is at the Link below.
 
-Thanks,
-Aveline Noir
+This bug was found and fixed with the help of an AI coding assistant
+(Claude Code) over an interactive session; it read the driver and
+splice/pipe code and ran the tests above.
+
+Link: https://github.com/amaanc/kernel-bias
+Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
+Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
+Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx path")
+Cc: stable@vger.kernel.org
+Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
+---
+ drivers/net/ethernet/google/gve/gve.h                |  2 +-
+ .../net/ethernet/google/gve/gve_buffer_mgmt_dqo.c    |  4 ++--
+ drivers/net/ethernet/google/gve/gve_rx.c             |  8 ++++----
+ drivers/net/ethernet/google/gve/gve_utils.c          | 12 +++---------
+ drivers/net/ethernet/google/gve/gve_utils.h          |  8 +++++++-
+ 5 files changed, 17 insertions(+), 17 deletions(-)
+
+diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
+index b7ce6e8632db..18d7edbf4b3b 100644
+--- a/drivers/net/ethernet/google/gve/gve.h
++++ b/drivers/net/ethernet/google/gve/gve.h
+@@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
+ 	void *page_address;
+ 	u32 page_offset; /* offset to write to in page */
+ 	unsigned int buf_size;
+-	int pagecnt_bias; /* expected pagecnt if only the driver has a ref */
++	u16 pagecnt_bias; /* expected pagecnt if only the driver has a ref */
+ 	u16 pad; /* adjustment for rx padding */
+ 	u8 can_flip; /* tracks if the networking stack is using the page */
+ };
+diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+index 6880d1531ba5..571f851d6dcd 100644
+--- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
++++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
+@@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
+ 	buf_state->last_single_ref_offset = 0;
+ 
+ 	/* The page already has 1 ref. */
+-	page_ref_add(buf_state->page_info.page, INT_MAX - 1);
+-	buf_state->page_info.pagecnt_bias = INT_MAX;
++	page_ref_add(buf_state->page_info.page, GVE_PAGECNT_BIAS - 1);
++	buf_state->page_info.pagecnt_bias = GVE_PAGECNT_BIAS;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
+index 81ea800e66e9..6533fff06155 100644
+--- a/drivers/net/ethernet/google/gve/gve_rx.c
++++ b/drivers/net/ethernet/google/gve/gve_rx.c
+@@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
+ 	page_info->buf_size = rx->packet_buffer_size;
+ 	*slot_addr = cpu_to_be64(addr);
+ 	/* The page already has 1 ref */
+-	page_ref_add(page, INT_MAX - 1);
+-	page_info->pagecnt_bias = INT_MAX;
++	page_ref_add(page, GVE_PAGECNT_BIAS - 1);
++	page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
+ }
+ 
+ static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *dev,
+@@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring *rx,
+ 			rx->qpl_copy_pool[j].buf_size = rx->packet_buffer_size;
+ 
+ 			/* The page already has 1 ref. */
+-			page_ref_add(page, INT_MAX - 1);
+-			rx->qpl_copy_pool[j].pagecnt_bias = INT_MAX;
++			page_ref_add(page, GVE_PAGECNT_BIAS - 1);
++			rx->qpl_copy_pool[j].pagecnt_bias = GVE_PAGECNT_BIAS;
+ 		}
+ 	}
+ 
+diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
+index caed38cd5f2b..cb6fba3122d5 100644
+--- a/drivers/net/ethernet/google/gve/gve_utils.c
++++ b/drivers/net/ethernet/google/gve/gve_utils.c
+@@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+ {
+ 	page_info->pagecnt_bias--;
+ 	if (page_info->pagecnt_bias == 0) {
+-		int pagecount = page_count(page_info->page);
+-
+-		/* If we have run out of bias - set it back up to INT_MAX
+-		 * minus the existing refs.
+-		 */
+-		page_info->pagecnt_bias = INT_MAX - pagecount;
+-
+-		/* Set pagecount back up to max. */
+-		page_ref_add(page_info->page, INT_MAX - pagecount);
++		/* Out of bias: take another batch of references. */
++		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
++		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
+ 	}
+ }
+ 
+diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/ethernet/google/gve/gve_utils.h
+index bf2e9a0adb36..316f97607351 100644
+--- a/drivers/net/ethernet/google/gve/gve_utils.h
++++ b/drivers/net/ethernet/google/gve/gve_utils.h
+@@ -25,7 +25,13 @@ struct sk_buff *gve_rx_copy_data(struct net_device *dev, struct napi_struct *nap
+ struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
+ 			    struct gve_rx_slot_page_info *page_info, u16 len);
+ 
+-/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. */
++/* Up-front references gve holds on an RX page, so handing a buffer to the
++ * stack is a pagecnt_bias decrement, not a get_page(). Keep it in a u16 so
++ * the 32-bit page refcount keeps the headroom every page needs below INT_MAX.
++ */
++#define GVE_PAGECNT_BIAS USHRT_MAX
++
++/* Decrement pagecnt_bias. Top it up by GVE_PAGECNT_BIAS if it reached zero. */
+ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
+ 
+ void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
+
+base-commit: d8a4f4c59da52b7c31ae337243b8473a19a3f819
+-- 
+2.47.3
+
