@@ -1,54 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.149
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793411229;
-	b=c1affsE3jWm4/795PEljgrSMUCvZQZsmQyWVtsm28Wvd5ADZmvLjoZyETzNyuvQCaSHx
-	 UfcKNYhCt5kXMfRc4TN9v9e4YbcbKm+1QsKXdFoW8MJ26Pqg86ZlQDJdp7n/ZnY5sn7Xj
-	 eKR1lhK43oJombHthQ+vZzOIwTYlk8/CBHcWIiF5xSGmNr6pybFN7cjMTH8/7Q6zfAThJ
-	 C0p9W4p4M0LHHXp4WS7wwIWOmBrg4lHVEjjllM9Zxs4RWimMnOdREhMVQQJZIOdb+OvX+
-	 FP6+bH4MNBsTroq+UMDnwpcywdvxOekkaFFu8Pkyu2RBGegYznns0ZPxib9Hs2PA2KQ==
+	t=1793411334;
+	b=Tc2qhH07IlcI8uSRGeJzFmsxq7qILCGZwm2nce1QDgo85K7U8R2TEmbFDylQbTeX4IXq
+	 KrKb8UwK7UJPo73uymMrFAittNiQCdXX3Pj+BRenGrMEYfwjz7t5Y5SnDWyJwVmshpRs0
+	 2rNCGVaQmTJlCyO2ftqMwk91vtx8+btoCaL2e+5CPqhM3XkUfePk2ihkwrj9/ClS1rQyb
+	 jBzAG5zJ1kJ/3it+Ca278OpSwuY1nxC3qWi9Tgp/e1++HRXtKXHPdNGNTAVN0HrOI97F2
+	 lYH5UdQHTRowlp1a2iroE+p2fTkFRyqh4NwCE5/noLB071wzLIrbxLLEgrAFo+zOUFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793411229;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=AYlirVancYMmRVjJDVShp6lZsb2527J0ak94H6cSizE=;
-	b=KXRi+Yj6WAEYkRYG3KP+0kec0VZlH2lZKZEegfx7MKKaRnTyvUSauEVzAyO84lH/7aLo
-	 oflUlFwqcBGP+2Vb55Y+vr04jAMHcUlgEP3JO3SAYZSJ/z9lyUX6Gdr1nBw+BC4Qas3VY
-	 3b22L7oDWpxyV4TUvB57bke00/itHUyXbIi+hyRJfhImAJScvdHf1+eXqxhJnvYcthtsl
-	 Usmw6IyFCopRhYBk9mnuZXpEYt5WO7K7qkVcnPn+slMmUV6c1GhAncw2YhzuCHd/aWxoM
-	 e/cA8gz/P+ltQSNivGQCOEVc03Z74fIqHb9zPCHYoxGf62nL4fH5ndlG37i/Wst5OeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793411334;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=DDNUkdp/AZl9JhN6WFKJZe6JzjdwBOldOY8jhM6xHPs=;
+	b=r4PJHhmTgOWADXEz8HqqYnTunf57d9NP0RqzL9JJXsOrRHG0TVVBFpv3ConXG83EuIHN
+	 H+tv+KRhOEsQYdT6mT5Dp91VFk4eYRtiO0E9uytykbcd/rt7pgaFujT2h+JCznt+creil
+	 Ip1IghDDJvR1rs32DQ/2nGY6T8Tb6SexRRtia8GAurTOfQgDXSQUvyR3GouQYxphs851S
+	 an1icG3Ha1KH3tsiv3Tg8NR/7+37pbtj54nvoR0AIz+s2KBYI7sHsd83c3FholbIRFpRk
+	 6MNPN9E7JJFJ+0ZLDOO56yYO/LnfqJvHaVEqvuVCzQSG7Tasq1cfHvLsWRWfp8XW8hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="oaR/9Pk5";
-	arc=none smtp.remote-ip=95.215.58.149
-Received: from mta1.migadu.com (out-149.mta1.migadu.com [95.215.58.149])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IxhMzQrp;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEA4606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:47:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FEA4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E2A606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:48:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E2A606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oaR/9Pk5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=AYlirVancYMmRVjJDVShp6lZsb2527J0ak94H6cSizE=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793411222; v=1; x=1794016022;
- b=oaR/9Pk5kopXuDFGOADw5cPDH8Yeq4Tq0PC9zZCmeYWgtIkIP6nFWBr2T/b6HDaxKTldYK6D
- pVJb4K3qheNdEpfyyusTssNM+tD5QtLEKbpFp43OuHwws/sYB0BiZnXS/dFPK6KM90iEL4u0PCV
- iCIGRF/sxnsFXhzxYHJah06Y=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta11.migadu.com with ESMTPS id 6df660725638d07e;
-	Sat, 31 Oct 2026 01:47:01 +0000
-X-Mizu-Trace-ID: 6df660725638d07e
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=us-ascii
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IxhMzQrp
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so15925ad.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:48:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793411333; x=1794016133; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=DDNUkdp/AZl9JhN6WFKJZe6JzjdwBOldOY8jhM6xHPs=;
+        b=IxhMzQrpAMb8PtplimjtjnlP2ShmsdO18mqw/JCLA0dTwtuOwmQCeYsvCdggZZsGPh
+         Lol1U5Yye/9loC9UodFkk6ArrONa3J4lx55uwV5NjXynTI9uAs7Xc8gxmhrA6AMLMJDi
+         tl78OQuFfnM2q24NwsKL5+BldSaX7+2OQiHTbJGLTmQ5JT2M+fgtRj35w5lSLR8/XUN4
+         O2sIGccIP8i9bEyVX8ldQyoZQdnRi2zhEaXYZQWgxO8di+SkqCZ4O+hLmMKTRfJ5k4Yw
+         wFoa9JW3PXRsGQP6DfxHr+Jlkx9wfkhqxkWWKgvcza0r4b/PkSuyPO9R26cTnVVmsYn6
+         Evrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793411333; x=1794016133;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DDNUkdp/AZl9JhN6WFKJZe6JzjdwBOldOY8jhM6xHPs=;
+        b=yM7yRROC4BKFfoXXHNp/SImDIe8pB9NFZI8fGQkfDXIusvYDxftwf3DoySyZzXpIbX
+         Z4wNpK2vFY+V5zlinBizcoKXq/5GE3BjnSQ3ex0hsNLmgbbCLLsXTIGK0uLG1P9GuZSt
+         Z/bJO7l2B0Zw388/e/Tfux19cY5sLLdKMX+OVfnYqqkDvInuHyqlzA6AHEgcpIjDCViV
+         dVLA0m+NSzetgtakZ3hsaqTlEuSjEDscw/vn6FZw6+uGjk3HKnGTYhTUJ45mWsYEpm0j
+         y2v1BWKSiWJGQ62RsaE9fXjOaMc1pkOquDbPf+zdBicjFloOjsUccHRoMpA7r0NK39OU
+         gX0g==
+X-Forwarded-Encrypted: i=1; AKwUvBx1z2THfagxuUL8He6OIs0b+Z5asQiJg7W1yi2UzvVSAjTYWPVpARfJaIArq2kKSLCadUdLqUfaoKqRPs0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLm+QdoQdwenb+dmd7691fkZ5tXVBfPv/55s1iODxiTZOTQ42RD
+	pJFsaR/pKslOvh2qkcD6qsIhN4XPv6TUlvQar2aNptfgwBIjseMmZc0dlqsF2BzSyQ==
+X-Gm-Gg: AYBFou3l+CZhoil1x6Ty3nQU5KFfoma69fdcHsuXFKoTiJBWhLWs5zlOmE0J0Yb5ql3
+	BuMIblfT10hK62XxA+OZOFkG+omKnq5iJoSjBfclwpsEvpEioLHVH6s+8WcOr8FNOvyNO/xQgKb
+	Q6BURIJo0a3TvgN0Bwy9/jySs2czs/vPC++e1Th9lcd/Nu59RR/v+NIhNUYERcx1lL4fJlNG+Jg
+	apswYe4gn4hywOy6A6dB0nGfkzWEWnhZ8D9yUdc/lt1HW87T3H8prU1ckk7sPrcbUNOJXOG2NVD
+	+9ipYfzmb2C3WBCS0zj+cra/UJ8ulHgnTk0CcPG07x77S9xdFMbjhCnEXHvzzQrQWtIXG3CTwUg
+	8db+QWP5i5X/4Z17bpRTZu90D/RxsEBiHDJL73UpKRn4Y3iOiyGAOdrg47EXBMxUT74oIErAaF4
+	HjQIh9vYQM6ExAWILJxohSXPxObUW/tsmV70wSQ8HmFHn7N4zFED/20tzI+ESraLPIqMZvy+pPc
+	F/YqXRlqiMUFnFEtcQ/xrKPuBb82LMGv3apQoi9xJht//o+SEsA6qkOnBuSrbsXwFRdqTM8KmY8
+	A1d0al3f5qt7SfNjt3tu66t22FGn3DEqmVsAntBKi3Ui97b5hNTiLcsc/89BIAQnB1k9IvtLqWf
+	ey6ff2IwW3V3ULsofA60t2g==
+X-Received: by 2002:a17:903:1a2b:b0:2ea:7180:3abf with SMTP id d9443c01a7336-2eb019a757fmr21235195ad.15.1793411332583;
+        Fri, 30 Oct 2026 18:48:52 -0700 (PDT)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada6c2c28sm444881b3a.43.2026.10.30.18.48.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 18:48:50 -0700 (PDT)
+Date: Sat, 31 Oct 2026 01:48:45 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
+	YiFei Zhu <zhuyifei@google.com>, Pranjal Shrivastava <praan@google.com>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma <vipinsh@google.com>, 
+	Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>, 
+	John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 14/18] iommufd: Implement ioctl to mark HWPT for
+ preservation
+Message-ID: <auVIrh3NVgcYEOIx@google.com>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-15-skhawaja@google.com>
+ <887b7c7e-38b8-4798-84a5-bf96bc13ef04@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,136 +107,273 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
-Subject: Re: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
- PUD and PMD tables
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <febf6aeb-82dd-4a98-9a33-0ef321792285@linux.dev>
-Date: Sat, 31 Oct 2026 09:46:37 +0800
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
- SJ Park <sj@kernel.org>,
- Johannes Weiner <hannes@cmpxchg.org>,
- Michal Hocko <mhocko@kernel.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Shakeel Butt <shakeel.butt@linux.dev>,
- Lorenzo Stoakes <ljs@kernel.org>,
- Kairui Song <kasong@tencent.com>,
- Barry Song <baohua@kernel.org>,
- Axel Rasmussen <axelrasmussen@google.com>,
- Yuanchu Xie <yuanchu@google.com>,
- Wei Xu <weixugc@google.com>,
- Baoquan He <baoquan.he@linux.dev>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- "Liam R. Howlett" <liam@infradead.org>,
- Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>,
- Kees Cook <kees@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Jann Horn <jannh@google.com>,
- Pedro Falcato <pfalcato@suse.de>,
- Hugh Dickins <hughd@google.com>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- "Matthew Wilcox (Oracle)" <willy@infradead.org>,
- Jan Kara <jack@suse.cz>,
- Zi Yan <ziy@nvidia.com>,
- Lance Yang <lance.yang@linux.dev>,
- Rik van Riel <riel@surriel.com>,
- Harry Yoo <harry@kernel.org>,
- Alistair Popple <apopple@nvidia.com>,
- Nico Pache <nico.pache@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>,
- Dev Jain <dev.jain@arm.com>,
- Usama Arif <usama.arif@linux.dev>,
- Kiryl Shutsemau <kas@kernel.org>,
- Matthew Brost <matthew.brost@intel.com>,
- John Hubbard <jhubbard@nvidia.com>,
- Peter Xu <peterx@redhat.com>,
- Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Nick Piggin <npiggin@gmail.com>,
- Oscar Salvador <osalvador@suse.de>,
- Minchan Kim <minchan@kernel.org>,
- Xu Xin <xu.xin@linux.dev>,
- Chengming Zhou <chengming.zhou@linux.dev>,
- Chris Li <chrisl@kernel.org>,
- Kemeng Shi <shikemeng@huaweicloud.com>,
- Nhat Pham <nphamcs@gmail.com>,
- Youngjun Park <youngjun.park@lge.com>,
- Gregory Price <gourry@gourry.net>,
- Joshua Hahn <joshua.hahnjy@gmail.com>,
- Rakie Kim <rakie.kim@sk.com>,
- Ying Huang <ying.huang@linux.alibaba.com>,
- Jason Gunthorpe <jgg@ziepe.ca>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org,
- kexec@lists.infradead.org,
- linux-fsdevel@vger.kernel.org,
- linux-arch@vger.kernel.org,
- linux-cxl@vger.kernel.org,
- Josef Bacik <josef@toxicpanda.com>,
- stable@vger.kernel.org,
- Muhammad Usama Anjum <usama.anjum@arm.com>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <6FACF8FF-F943-45C8-BDFD-3AFB5C060E0A@linux.dev>
-References: <20261030002004.154595-1-sj@kernel.org>
- <6d679adb-a866-4a76-b9ea-3b8c64171fae@kernel.org>
- <febf6aeb-82dd-4a98-9a33-0ef321792285@linux.dev>
-To: Ridong Chen <ridong.chen@linux.dev>
-X-Mailer: Apple Mail (2.3901.100.1.1.12)
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <887b7c7e-38b8-4798-84a5-bf96bc13ef04@linux.intel.com>
 
+On Fri, Oct 30, 2026 at 03:20:02PM +0800, Baolu Lu wrote:
+>On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+>>From: YiFei Zhu <zhuyifei@google.com>
+>>
+>>Userspace provides a token to mark the HWPT for preservation. Note that
+>>this token is not the LUO token that is used to preserve the iommufd.
+>>Once all the required HWPT are marked for preservation, the user can
+>>preserve the iommufd into LUO. The iommufd will preserve the HWPTs that
+>>are marked for preservation.
+>>
+>>The marked HWPTs are tracked using a new XArray mark protected by a new
+>>liveupdate mutex. This mutex will also be used during iommufd
+>>preservation to protect against any race with the mark preserve ioctl.
+>>
+>>The HWPT token will be used during restore to identify this HWPT. The
+>>restoration logic is not implemented and will be added later.
+>>
+>>Reviewed-by: Pranjal Shrivastava <praan@google.com>
+>>Signed-off-by: YiFei Zhu <zhuyifei@google.com>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  MAINTAINERS                             |  1 +
+>>  drivers/iommu/iommufd/Makefile          |  1 +
+>>  drivers/iommu/iommufd/iommufd_private.h | 17 ++++++
+>>  drivers/iommu/iommufd/liveupdate.c      | 72 +++++++++++++++++++++++++
+>>  drivers/iommu/iommufd/main.c            |  9 ++++
+>>  include/uapi/linux/iommufd.h            | 27 ++++++++++
+>>  6 files changed, 127 insertions(+)
+>>  create mode 100644 drivers/iommu/iommufd/liveupdate.c
+>>
+>>diff --git a/MAINTAINERS b/MAINTAINERS
+>>index 15e1da41b0cc..78af4e3dc106 100644
+>>--- a/MAINTAINERS
+>>+++ b/MAINTAINERS
+>>@@ -13738,6 +13738,7 @@ M:	Samiullah Khawaja <skhawaja@google.com>
+>>  R:	Pranjal Shrivastava <praan@google.com>
+>>  L:	iommu@lists.linux.dev
+>>  S:	Maintained
+>>+F:	drivers/iommu/iommufd/liveupdate.c
+>>  F:	drivers/iommu/liveupdate.c
+>>  F:	include/linux/iommu-liveupdate.h
+>>  F:	include/linux/kho/abi/iommu.h
+>>diff --git a/drivers/iommu/iommufd/Makefile b/drivers/iommu/iommufd/Makefile
+>>index 67207914bb6e..cfd5b4b14ccb 100644
+>>--- a/drivers/iommu/iommufd/Makefile
+>>+++ b/drivers/iommu/iommufd/Makefile
+>>@@ -12,6 +12,7 @@ iommufd-y := \
+>>  iommufd-$(CONFIG_IOMMUFD_NOIOMMU) += hwpt_noiommu.o
+>>  iommufd-$(CONFIG_IOMMUFD_TEST) += selftest.o
+>>+iommufd-$(CONFIG_IOMMU_LIVEUPDATE) += liveupdate.o
+>>  obj-$(CONFIG_IOMMUFD) += iommufd.o
+>>  obj-$(CONFIG_IOMMUFD_DRIVER) += iova_bitmap.o
+>>diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
+>>index eb2e85b27e42..a33b32708afa 100644
+>>--- a/drivers/iommu/iommufd/iommufd_private.h
+>>+++ b/drivers/iommu/iommufd/iommufd_private.h
+>>@@ -44,6 +44,11 @@ struct iommufd_ctx {
+>>  	struct file *file;
+>>  	struct xarray objects;
+>>  	struct xarray groups;
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+#define IOMMUFD_OBJ_LIVEUPDATE_MARK XA_MARK_1
+>>+	/* @liveupdate_mutex: Protects the preservation of HWPTs. */
+>>+	struct mutex liveupdate_mutex;
+>>+#endif
+>>  	wait_queue_head_t destroy_wait;
+>>  	struct rw_semaphore ioas_creation_lock;
+>>  	struct maple_tree mt_mmap;
+>>@@ -392,6 +397,9 @@ struct iommufd_hwpt_paging {
+>>  	bool auto_domain : 1;
+>>  	bool enforce_cache_coherency : 1;
+>>  	bool nest_parent : 1;
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+	u64 liveupdate_token;
+>>+#endif
+>>  	/* Head at iommufd_ioas::hwpt_list */
+>>  	struct list_head hwpt_item;
+>>  	struct iommufd_sw_msi_maps present_sw_msi;
+>>@@ -729,6 +737,15 @@ void iommufd_vdevice_abort(struct iommufd_object *obj);
+>>  int iommufd_hw_queue_alloc_ioctl(struct iommufd_ucmd *ucmd);
+>>  void iommufd_hw_queue_destroy(struct iommufd_object *obj);
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd);
+>>+#else
+>>+static inline int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
+>>+{
+>>+	return -ENOTTY;
+>>+}
+>>+#endif
+>>+
+>>  #ifdef CONFIG_IOMMUFD_TEST
+>>  int iommufd_test(struct iommufd_ucmd *ucmd);
+>>  void iommufd_selftest_destroy(struct iommufd_object *obj);
+>>diff --git a/drivers/iommu/iommufd/liveupdate.c b/drivers/iommu/iommufd/liveupdate.c
+>>new file mode 100644
+>>index 000000000000..5fb491ff3a3d
+>>--- /dev/null
+>>+++ b/drivers/iommu/iommufd/liveupdate.c
+>>@@ -0,0 +1,72 @@
+>>+// SPDX-License-Identifier: GPL-2.0-only
+>>+
+>>+/*
+>>+ * Copyright (C) 2026, Google LLC
+>>+ * Author: Samiullah Khawaja <skhawaja@google.com>
+>>+ */
+>>+
+>>+#define pr_fmt(fmt) "iommufd: " fmt
+>>+
+>>+#include <linux/file.h>
+>>+#include <linux/iommufd.h>
+>>+#include <linux/liveupdate.h>
+>>+
+>>+#include "iommufd_private.h"
+>>+
+>>+int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
+>>+{
+>>+	struct iommu_hwpt_liveupdate_mark_preserve *cmd = ucmd->cmd;
+>>+	struct iommufd_ctx *ictx = ucmd->ictx;
+>>+	struct iommufd_hwpt_paging *hwpt;
+>>+	struct iommufd_object *obj;
+>>+	unsigned long index;
+>>+	bool marked = false;
+>>+	int rc = 0;
+>>+
+>>+	hwpt = iommufd_get_hwpt_paging(ucmd, cmd->hwpt_id);
+>>+	if (IS_ERR(hwpt))
+>>+		return PTR_ERR(hwpt);
+>>+
+>>+	mutex_lock(&ictx->liveupdate_mutex);
+>>+
+>>+	xa_lock(&ictx->objects);
+>>+
+>>+	/* PRI use cases are not supported. */
+>>+	if (hwpt->common.fault) {
+>>+		rc = -EOPNOTSUPP;
+>>+		goto out_unlock;
+>>+	}
+>>+
+>>+	xa_for_each_marked(&ictx->objects, index, obj, IOMMUFD_OBJ_LIVEUPDATE_MARK) {
+>>+		struct iommufd_hwpt_paging *hwpt_marked;
+>>+
+>>+		if (WARN_ON_ONCE(obj->type != IOMMUFD_OBJ_HWPT_PAGING))
+>>+			continue;
+>>+
+>>+		hwpt_marked = to_hwpt_paging(container_of(obj, struct iommufd_hw_pagetable, obj));
+>>+
+>>+		if (hwpt_marked == hwpt)
+>>+			marked = true;
+>>+
+>>+		if (hwpt_marked->liveupdate_token == cmd->hwpt_token) {
+>>+			if (hwpt_marked == hwpt)
+>>+				goto out_unlock;
+>>+
+>>+			rc = -EADDRINUSE;
+>>+			goto out_unlock;
+>>+		}
+>>+	}
+>>+
+>>+	__xa_set_mark(&ictx->objects, hwpt->common.obj.id, IOMMUFD_OBJ_LIVEUPDATE_MARK);
+>>+
+>>+	if (marked)
+>>+		pr_warn_ratelimited("Overwriting HWPT liveupdate token from: %llu to %llu\n",
+>>+				    hwpt->liveupdate_token, cmd->hwpt_token);
+>>+	hwpt->liveupdate_token = cmd->hwpt_token;
+>>+
+>>+out_unlock:
+>>+	xa_unlock(&ictx->objects);
+>>+	mutex_unlock(&ictx->liveupdate_mutex);
+>>+	iommufd_put_object(ictx, &hwpt->common.obj);
+>>+	return rc;
+>>+}
+>>diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
+>>index 9a921b153162..fe8610fd58e3 100644
+>>--- a/drivers/iommu/iommufd/main.c
+>>+++ b/drivers/iommu/iommufd/main.c
+>>@@ -333,6 +333,9 @@ static int iommufd_fops_open(struct inode *inode, struct file *filp)
+>>  	init_rwsem(&ictx->ioas_creation_lock);
+>>  	xa_init_flags(&ictx->objects, XA_FLAGS_ALLOC1 | XA_FLAGS_ACCOUNT);
+>>  	xa_init(&ictx->groups);
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+	mutex_init(&ictx->liveupdate_mutex);
+>>+#endif
+>>  	ictx->file = filp;
+>>  	mt_init_flags(&ictx->mt_mmap, MT_FLAGS_ALLOC_RANGE);
+>>  	init_waitqueue_head(&ictx->destroy_wait);
+>>@@ -395,6 +398,9 @@ static int iommufd_fops_release(struct inode *inode, struct file *filp)
+>>  	 * iommufd_object_tombstone_user()
+>>  	 */
+>>  	xa_destroy(&ictx->objects);
+>>+#ifdef CONFIG_IOMMU_LIVEUPDATE
+>>+	mutex_destroy(&ictx->liveupdate_mutex);
+>>+#endif
+>>  	WARN_ON(!xa_empty(&ictx->groups));
+>>@@ -440,6 +446,7 @@ union ucmd_buffer {
+>>  	struct iommu_hwpt_alloc hwpt;
+>>  	struct iommu_hwpt_get_dirty_bitmap get_dirty_bitmap;
+>>  	struct iommu_hwpt_invalidate cache;
+>>+	struct iommu_hwpt_liveupdate_mark_preserve mark_preserve;
+>>  	struct iommu_hwpt_set_dirty_tracking set_dirty_tracking;
+>>  	struct iommu_ioas_alloc alloc;
+>>  	struct iommu_ioas_allow_iovas allow_iovas;
+>>@@ -516,6 +523,8 @@ static const struct iommufd_ioctl_op iommufd_ioctl_ops[] = {
+>>  		 __reserved),
+>>  	IOCTL_OP(IOMMU_VIOMMU_ALLOC, iommufd_viommu_alloc_ioctl,
+>>  		 struct iommu_viommu_alloc, out_viommu_id),
+>>+	IOCTL_OP(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE, iommufd_hwpt_liveupdate_mark_preserve,
+>>+		 struct iommu_hwpt_liveupdate_mark_preserve, hwpt_token),
+>>  #ifdef CONFIG_IOMMUFD_TEST
+>>  	IOCTL_OP(IOMMU_TEST_CMD, iommufd_test, struct iommu_test_cmd, last),
+>>  #endif
+>>diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
+>>index 206fa667c782..93372689afec 100644
+>>--- a/include/uapi/linux/iommufd.h
+>>+++ b/include/uapi/linux/iommufd.h
+>>@@ -58,6 +58,7 @@ enum {
+>>  	IOMMUFD_CMD_VEVENTQ_ALLOC = 0x93,
+>>  	IOMMUFD_CMD_HW_QUEUE_ALLOC = 0x94,
+>>  	IOMMUFD_CMD_IOAS_NOIOMMU_GET_PA = 0x95,
+>>+	IOMMUFD_CMD_HWPT_LIVEUPDATE_MARK_PRESERVE = 0x96,
+>>  };
+>>  /**
+>>@@ -1390,4 +1391,30 @@ struct iommu_hw_queue_alloc {
+>>  	__aligned_u64 length;
+>>  };
+>>  #define IOMMU_HW_QUEUE_ALLOC _IO(IOMMUFD_TYPE, IOMMUFD_CMD_HW_QUEUE_ALLOC)
+>>+
+>>+/**
+>>+ * struct iommu_hwpt_liveupdate_mark_preserve - ioctl(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE)
+>>+ * @size: sizeof(struct iommu_hwpt_liveupdate_mark_preserve)
+>>+ * @hwpt_id: HW pagetable ID to preserve for liveupdate
+>>+ * @hwpt_token: Token to identify this hwpt upon restore
+>>+ *
+>>+ * The target HWPT will be preserved during iommufd preservation.
+>>+ * Only file-based memory mappings (e.g. memfd) are supported for HWPTs marked
+>>+ * for preservation. Mapping anonymous memory into a preserved HWPT will result
+>>+ * in a failure during the preservation phase.
+>>+ *
+>>+ * The hwpt_token is provided by userspace. If userspace enters a token
+>>+ * already in use within this iommufd, -EADDRINUSE is returned from this ioctl.
+>>+ *
+>>+ * Note: There is no 'unmark' operation, so any HWPTs pooled in userspace that
+>>+ * are marked for preservation must be destroyed after use.
+>>+ */
+>>+struct iommu_hwpt_liveupdate_mark_preserve {
+>>+	__u32 size;
+>
+>Most iommufd commands have a "flags" member here, so that the uAPI
+>struct can be extended later. Why is this one different?
 
+Agreed. I will update this.
+>
+>>+	__u32 hwpt_id;
+>>+	__aligned_u64 hwpt_token;
+>>+};
+>>+#define IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE \
+>>+	_IO(IOMMUFD_TYPE, IOMMUFD_CMD_HWPT_LIVEUPDATE_MARK_PRESERVE)
+>>+
+>>  #endif
+>
+>Otherwise, this patch looks good to me,
+>
+>Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
 
-> On Oct 31, 2026, at 09:41, Ridong Chen <ridong.chen@linux.dev> wrote:
->=20
->=20
->=20
-> On 10/30/2026 6:21 PM, David Hildenbrand (Arm) wrote:
->> On 10/30/26 01:20, SJ Park wrote:
->>> 'get_maintainer.pl --nogit --nogit-fallback' suggests adding below =
-recipients.
->>> But I can show there are already quite a number of recipients, so =
-I'm just
->>> noting here.
->>>=20
->>> - Brian Geffon <bgeffon@google.com>
->>> - Oleksandr Natalenko <oleksandr@natalenko.name>
->>> - Steven Barrett <steven@liquorix.net>
->>> - Yu Zhao <yuzhao@google.com>
->> The CC list was so long that I limited it to people that area either =
-a reviewer
->> or a maintainer of code.
->> MGLRU not having any real maintainer is a big problem; because that =
-maintainer
->> would know whom to CC.
-> Agreed. FWIW, I think Barry Song and Kairui Song would be good =
-candidates
-> for the maintainer role.
-
-+1
-
-It would be great if they could take this over.
-
-Thanks,
-Muchun
-
->=20
-> Both of them have been contributing to MGLRU consistently and
-> substantially. Barry is currently working on improving aging and =
-fixing
-> the swappiness-related issues, and Kairui is driving the MGLRU-FG
-> optimization work.
->=20
-> They have also been active in reviewing MGLRU patches, and their =
-review
-> comments are usually to the point and helpful. They have been looking
-> after this code well, so I think they would be a good fit as
-> maintainers.
->=20
-> --=20
-> Best regards
-> Ridong
->=20
-
+Thanks for the review,
+Sami
