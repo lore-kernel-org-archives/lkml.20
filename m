@@ -1,100 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793426113;
-	b=dj8wfhFOkJ4o09v5BGeV/i5e9wQZ7hsuv2yaKAFo/p17lwZ2Y669kkHzsSQsBdEHfR4N
-	 te5uuIo39vqmVcJ5U35CgTzjioFs/ZTGLlkHu5vaj7NEnDXkybg3RIJfm6uXQUBXpXFvw
-	 ZDXdbouwe/5SP4xUe1CC3mFrvqxFyVoltdlkSTgwvTksLusIttG70y0u4kAntVcKorbix
-	 wzuLyCndhxAR3itBXjD7O3mPzzMSpXRyfDu/v87lKsfwTnNhiNwpvNrVrA49zNIaM4nhT
-	 tYBkgghOfJ3YNPfMCLtI47dTydCO3yr7/gzubpW2cTJ6M8gtmF+iEre8iDpM10Zx3qg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793426113;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=mK4CIiWiVxpLggdWj3AZATJbmi8Y5VPf+YWX8QjFhvA=;
-	b=I4wyqBJggJFglj+gsJoO9Us7nmlfnb5uAAJtE9zjH/FEaTw/oApof9Yk65jMGfzj89Tx
-	 Nuej1aXlPVaht9oi50cKe2qd9t9hrlMwtGTfIAckmSvBp2srYzjZeF8HWjSNnWH+cYsv5
-	 L7/iUVmdrTJd3SRTxpp8l0F6Xuv2Ua2zi9nxfF9PoZHOnAKStCKfCe+CGvBmZ3NSHj1ox
-	 M2bcgQ9CmBFqBwswG73mH+620YhRQcI0sxyYro7iKWs5lR8i3MINNafZ9YzwLSDs2aikD
-	 /HqyUz9txJxbLIiyYv0hS3VQzz9l2jq4ugHdH1mxqSpz6kAqEcsdNXUBEfDDDMbhVJQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="urPdt/Du";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793426181;
+	b=2dlnC+8kEzKJSqF531Dh4hquOgP2NzWh9QnmW1LkWQ+CwYDqPXDZ3VZAfETkMO0xNVny
+	 +ndJG8XoRrX1+wV22UvxTDbok7f6gwfYGoCzcB1eOxSixgO/nMyvgJ8gPxKZNgRZ9ksV7
+	 dXw7HD9RrTCen4vNI5FcEFdWY772OkJQ2J6Z7mSQYs9+I9zbxxCDEWJi6XkhUI+nBhphH
+	 v3N60+upUHjCMy8ItZxfonmaWwJDw3PVtjNgy8YsP2K8zAJ+o/GJJmjXUzaGXrQP4V0QL
+	 1Qc3Aq3xGqE2iy3BYXx1X1frLjgzaMp0/q1bLRinJDG5bWPg3Cn3GIuEca9ZaD2ZtoA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793426181;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=N7ZwaJ7vbMee9aorv3youp0owlQKKiWsc6xwL1/KdJ4=;
+	b=NLkwA2ZT/2UjQG4mdAgsv6TwitQiIGE/qKRDHsOqm14oG6PoYvNB1EMDb4NwBRxHH6Vj
+	 r4fpJsntqHRlHL6QdslooWq5BUVx6ESnOCbuw2V4g2+akfItRES/ih+fF20J14n4U6SoL
+	 JqSSAHZx+4WskBimVlHxxdDo76t0RAOlJmNpRZ8vhPK4x2TnEJm62YlF0n/8ED/TXJ0EG
+	 P6hKm+QFyw3R19YBej0T6ybqMoFa7qLlPmaV4F+kkVV3XRi/uPznX7GOZjzrlKAwNerQ9
+	 Km3x5SJCFXr8EfkxsWTOUzZMP/IrOUIsELiF5+T/7c6jHuGGfuxd8YOBIGAb5ldHglA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aKLdi0PH;
+	arc=none smtp.remote-ip=192.198.163.14
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE54A606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:55:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE54A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9375A606A31A;
+	Sat, 31 Oct 2026 05:56:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9375A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=urPdt/Du
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so2018744a12.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:55:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793426111; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RoxQVFlwKc1Rxl94QSR1FGPuDltDLEHcbiZfLfVDbdBrWtZGHAsUwK3eBCcZURSn/+
-         ZbuB0L9Hr7YEprS/iFjcDh9/yAM0FwPWDIVIwjoirySxamJYwQSPI8+j68Qc2BouhFSy
-         qa3CFlrnIFXXHiuBMK1f/2yivtChSub7Q7LYUIHyCpk7TcfWs46y7mZAQECfJ0fF/0h7
-         ZIxcM/0vD5nGDqZVyOeMUB6FxCeWCZzrB2nKUdEQw22ftnF1fcpQsaNECPYSb3zbkya3
-         /LI6HclKQdZa8dtIdfh/RnZI7MPFb0kspXMoGbi9sG++KYeqjW2m5W3ceP3oshUg0vpF
-         x+AQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=mK4CIiWiVxpLggdWj3AZATJbmi8Y5VPf+YWX8QjFhvA=;
-        fh=o3yb8WoMWjB2Tm5d2eRWgeF0fotfLkg3V6UcgZijxxo=;
-        b=bnAnfKb01pLgkJjJBu5BKMZgowqPayCwhh2ysOWXqyTKGbMEsEb5JMw43yc/bkwEsG
-         E5uiPDKk8/GHFWkS+/NtjwB5GOdjfT9IUEGtySydmwLvGcT1156+gyZLvTpN5+nRJ8Rj
-         9t5TkiZUlAieHONgVvrjLTE9KB6pjDKXEi9ZvxXf9FMkMQ10JJryxip+LPFVFqduulDG
-         ZE8XdPyIcnYVnlMQESfaoGj7zqtp8vH160r+TqROBB4M8KYe7oJl0y0Clhu11GHCMt8w
-         pBzmjwYOnYQ9bhPy9oue4n5jDHZBhUXlAMIHfbOPun5kdWhec6xQwu48N2duvbv/prZU
-         PFEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793426111; x=1794030911; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=mK4CIiWiVxpLggdWj3AZATJbmi8Y5VPf+YWX8QjFhvA=;
-        b=urPdt/Dus+RyVnLBTI2XTdiS8d8qF+cOZSfn28ZBE6GgJz7liH+foI4aJGnODLZa2H
-         nnNTg11oajI9SCp4RhYWinsF/zPDh+QLTbZK5hivQmKaVh9qOfRJktGJusAnGtXvlC8z
-         wr5A53tEr60a3Z7FNqcIExahUTUBL+b61F+4Fs4NTaRDCNX4x0cIPXq71eUppbXQYNmp
-         v15buepgFFssGmImCXbFzYCxqDuf1OjBbKwvGpcteK/1ujDKRRsCD4CbWzw27QxPzv+/
-         FvsjYjK/r+jCxldtNCSfS4oTcq68HfYu7jaG6FVXhE6LHDDe9VsdSyKin054+/AYWQ31
-         qldQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793426111; x=1794030911;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=mK4CIiWiVxpLggdWj3AZATJbmi8Y5VPf+YWX8QjFhvA=;
-        b=Y66caPMBI///WW4vgJNhLVySQW3wfKmOZGcRzxCCIVaxOTlmWIxxTXSYMyb0pPouXy
-         lRgA4xVUsy7Gw9QerCb1HWFICgIWGYOqdGlhWSnrFfsD3msofFETdjeBMWAQ78ZDrC14
-         GiTMePDqk1YkSZr2eAW3vGbt+qFzROAg378vxgnu7oaJQdCTjfHm9F13ilpqKWLuKDfj
-         BVs0E1oXW6esNbiHWhLKNFla9n85356Ov2KVDhoKQvD9dfDNwuuOWAVLc1Xy7bdagA15
-         rfU+DaQzj871utBK2fl+ZfxIjCAcL7OJg0aD58KH5yvuA+Z4GEqBwHqQ2IaYcB6dWN4R
-         gr8A==
-X-Forwarded-Encrypted: i=1; AKwUvBxoOOjYi8R2ifY8SHjM4EofzeKvGUWmx1drIEDivVn3QHya6v0itGSSyJukegeFUAPxMMNYeM1G03TFfcQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaVxUcygvDsB6OMi8Nu4ynOPFedu8VMpV4zwzBXbmEmPsM6BA+
-	5iIWY2RFzlvvmb6APojFV3zo4AjHbXFh8fJDGX14lU42VtZeQDfkMYTxD0DEdYA1UJIsh8w/N0f
-	w5JP9DwSnxjQ2E8SkubL67EUHjyWirio=
-X-Gm-Gg: AYBFou31175wCeGoSVcBq8gJ/G4Siy7zL06zm9Q0lHrKJRmix6Le5UxVLIVgycNKxvq
-	MgMMrt/YnoEnMCWhWcQ4vlCRYa2kZ5P2Vam/uUahJPM1k5Knggqv0V+w05tzAWSVinkowa3tSH6
-	f7m4dDBFG3IKpIgNUgzzmJNgFYjEsys4wMsgpu+EeZiORXQWlYSGx7gIffytrn9kyLUl8sx7l0B
-	8Cz15eKua/gGeRXYujLrrt0tt4htWexCjSxlMl0muAxyCp5N89E/y7QAeU0TmIOBZgPdVZDUmmy
-	E6/yU1fYIFi9sCjCyogS4G5gmq5xk+eioryQxU7J4m13Ms3XotiNmFq2YMZjFo1lfmHYqqa7BZz
-	b1QqhecxZy9Kq4b4GG2djz9/XAI5HDwGV5uG7+Kxee1241JZpLr2Y9kUsaa0QrgkElcHkSA==
-X-Received: by 2002:a17:906:2846:b0:c4c:bff4:200c with SMTP id
- a640c23a62f3a-c4cbff42ce4mr14178866b.32.1793426111172; Fri, 30 Oct 2026
- 22:55:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=aKLdi0PH
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793426181; x=1824962181;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=n/Ma+Vo5Cq0vdWeRsNkNZSUCDb5boMlJRuQWnHLIVzk=;
+  b=aKLdi0PH1cSOc14ptDhanrOGD7MCHaYKmohyIQmz94qWaunfzNls7AlU
+   1aURrWG3o7RlV3/LQOE45JntFM0fXpldYwCkr0keUiZ2bRJgZMwJDohcV
+   A+EYracqNdQCPbXBYI0ReeSzTDQGHAvH/SuqePoFdGuU/Z1A/pxu4pzzm
+   YFJNIIa8wbhiRV/imdr9ooOBuZ4R+k3abECH0xc/Kgm4FSDd7s5/HS5f2
+   WMPrTUMR6lhkvg2ZEnejPeKg9KIISRWkxAwm4U1zTHvCyZQLCMgol5NnO
+   xaw0ktCtdXc/HbtZH85FhsT0nIWrcMz9lKNHqGBSsHAg8mJs8W3adAVsS
+   g==;
+X-CSE-ConnectionGUID: gs85RA/MRmKZUozLmTUtsw==
+X-CSE-MsgGUID: FZQhZBdBSwu+Fy+n8+HYQA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2220910"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2220910"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:56:20 -0700
+X-CSE-ConnectionGUID: IxzEUO4USva7/99YVRagNw==
+X-CSE-MsgGUID: uXSHQduPTyaAZA2NJIELYQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5502480"
+Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:56:15 -0700
+Message-ID: <2574cbc8-8c2b-4458-9fcd-b077190084a3@linux.intel.com>
+Date: Sat, 31 Oct 2026 13:56:12 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,109 +72,154 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu> <20261030155419.b10056c8fb37bc784b0d2778@linux-foundation.org>
-In-Reply-To: <20261030155419.b10056c8fb37bc784b0d2778@linux-foundation.org>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Sat, 31 Oct 2026 13:54:34 +0800
-X-Gm-Features: AclHuK_Tt59KRB7QsGGZXIHAqauNkBZQGJskNrhNJaJ3MGaw4y8I0GPZZ0wnfjU
-Message-ID: <CAMgjq7AUvsHVKkHmLzL-KKf+MBed6e4TeVP7jcGMLM22xO+=5g@mail.gmail.com>
-Subject: Re: [PATCH] mm/swapfile: drop a large unmapped swap-in folio in unuse_pte()
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Mani Tofigh <mt4022@columbia.edu>, Chris Li <chrisl@kernel.org>, 
-	Kemeng Shi <shikemeng@huaweicloud.com>, Nhat Pham <nphamcs@gmail.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, 
-	Youngjun Park <youngjun.park@lge.com>, David Hildenbrand <david@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Pranjal Shrivastava <praan@google.com>,
+ Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
+ Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma
+ <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>,
+ Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 17/18] vfio/pci: Preserve the iommufd state of the vfio
+ cdev
+To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-18-skhawaja@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <20261025021930.674647-18-skhawaja@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 31, 2026 at 6:54=E2=80=AFAM Andrew Morton <akpm@linux-foundatio=
-n.org> wrote:
->
-> On Fri, 30 Oct 2026 15:11:56 -0400 Mani Tofigh <mt4022@columbia.edu> wrot=
-e:
->
-> > Since commit f1879e8a0c60 ("mm, swap: never bypass the swap cache even
-> > for SWP_SYNCHRONOUS_IO"), a fault can read a swapped-out mTHP range int=
-o
-> > one large folio in the swap cache.  The folio only becomes anon once
-> > do_swap_page() maps all of it, so if the faulting PTE changes in the
-> > meantime the folio stays in the swap cache while not being mapped or
-> > anon:
-> >
-> >   Task A (fault)                       Task B
-> >   do_swap_page()
-> >     /* swaps in large folio F */
-> >                                        madvise(MADV_DONTNEED)
-> >                                          /* zaps the faulting PTE */
-> >     /* PTE changed (F not mapped) */
-> >
-> > swapoff then maps it, which marks all of its pages as mapped and
-> > exclusive, and the next fault on one of the other PTEs crashes in
-> > do_swap_page():
-> >
-> >   [    6.424485] kernel BUG at mm/memory.c:5195!
-> >
-> > ...
-> >
-> > do_swap_page() already drops such a folio from the swap cache when it
-> > can't map all of it.  Do the same in unuse_pte() so that swapoff swaps
-> > the entries in again.  With the fix, nothing is reported.
-> >
-> > This bug was identified and confirmed with the help of a deterministic
-> > hypervisor currently under development.  The C reproducer below however
-> > hits it within a second.
-> >
-> > --- a/mm/swapfile.c
-> > +++ b/mm/swapfile.c
-> > @@ -2518,6 +2518,18 @@ static int unuse_pte(struct vm_area_struct *vma,=
- pmd_t *pmd,
-> >       if (!folio_matches_swap_entry(folio, entry))
-> >               return 0;
-> >
-> > +     /*
-> > +      * A large folio that is not anon yet was swapped in by a page fa=
-ult
-> > +      * that did not map it (yet). It can only be mapped as a whole, b=
-y
-> > +      * do_swap_page(). Drop it from the swap cache and swap in small
-> > +      * folios instead.
-> > +      */
-> > +     if (unlikely(folio_test_large(folio) && !folio_test_anon(folio)))=
- {
-> > +             if (!WARN_ON_ONCE(folio_test_dirty(folio)))
-> > +                     swap_cache_del_folio(folio);
-> > +             return 0;
-> > +     }
->
-> Let's not WARN here.  If it hits and someone reports it, what do we
-> tell them?  "uh, that's working as designed, no action needed".
+On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+> If the vfio cdev is attached to an iommufd, preserve the state of the
+> attached iommufd also. Basically preserve the iommu specific state of
+> the device and also the attach iommu HW unit.
+> 
+> Once the device and its iommufd attachment is preserved, it cannot be
+> detached or attached to another IOAS until it is unpreserved.
+> 
+> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> ---
+>   drivers/vfio/device_cdev.c             | 10 +++++++++
+>   drivers/vfio/pci/vfio_pci_liveupdate.c | 28 ++++++++++++++++++++++++--
+>   2 files changed, 36 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
+> index b818aab92f76..4eb7ffd489bd 100644
+> --- a/drivers/vfio/device_cdev.c
+> +++ b/drivers/vfio/device_cdev.c
+> @@ -284,6 +284,11 @@ int vfio_df_ioctl_attach_pt(struct vfio_device_file *df,
+>   	}
+>   
+>   	mutex_lock(&device->dev_set->lock);
+> +	if (iommufd_device_is_preserved(device->iommufd_device)) {
+> +		ret = -EBUSY;
+> +		goto out_unlock;
+> +	}
+> +
+>   	if (attach.flags & VFIO_DEVICE_ATTACH_PASID)
+>   		ret = device->ops->pasid_attach_ioas(device,
+>   						     attach.pasid,
+> @@ -342,6 +347,11 @@ int vfio_df_ioctl_detach_pt(struct vfio_device_file *df,
+>   	}
+>   
+>   	mutex_lock(&device->dev_set->lock);
+> +	if (iommufd_device_is_preserved(device->iommufd_device)) {
+> +		mutex_unlock(&device->dev_set->lock);
+> +		return -EBUSY;
+> +	}
+> +
+>   	if (detach.flags & VFIO_DEVICE_DETACH_PASID)
+>   		device->ops->pasid_detach_ioas(device, detach.pasid);
+>   	else
+> diff --git a/drivers/vfio/pci/vfio_pci_liveupdate.c b/drivers/vfio/pci/vfio_pci_liveupdate.c
+> index f0ea37d98696..fb2141ee8942 100644
+> --- a/drivers/vfio/pci/vfio_pci_liveupdate.c
+> +++ b/drivers/vfio/pci/vfio_pci_liveupdate.c
+> @@ -106,6 +106,7 @@
+>   
+>   #include <linux/errno.h>
+>   #include <linux/file.h>
+> +#include <linux/iommufd.h>
+>   #include <linux/kexec_handover.h>
+>   #include <linux/kho/abi/vfio_pci.h>
+>   #include <linux/liveupdate.h>
+> @@ -114,6 +115,8 @@
+>   
+>   #include "vfio_pci_priv.h"
+>   
+> +MODULE_IMPORT_NS("IOMMUFD");
+> +
+>   static bool vfio_pci_liveupdate_can_preserve(struct liveupdate_file_handler *handler,
+>   					     struct file *file)
+>   {
+> @@ -154,15 +157,25 @@ static int vfio_pci_liveupdate_preserve(struct liveupdate_file_op_args *args)
+>   	struct vfio_pci_core_device_ser *ser;
+>   	struct vfio_pci_core_device *vdev;
+>   	struct pci_dev *pdev;
+> -	int ret;
+> +	u64 iommufd_token;
+> +	int ret = 0;
 
-I think we better keep it, a dirty folio in the swap cache must not be
-dropped directly or it can lose data: the copy on the swap device is stale,
-so a later swapin of a shared entry reads that stale copy back. If it
-triggers it means somewhere forgot to write back a dirty folio properly.
+nit: no need to initialize ret.
 
-We may generalize this check into the swap cache helper though,
-something like:
+>   
+>   	vdev = container_of(device, struct vfio_pci_core_device, vdev);
+>   	pdev = vdev->pdev;
+>   
+> -	ret = pci_liveupdate_preserve(pdev);
+> +	mutex_lock(&device->dev_set->lock);
+> +	ret = iommufd_device_preserve(args->session,
+> +				      device->iommufd_device,
+> +				      &iommufd_token);
+> +	mutex_unlock(&device->dev_set->lock);
+> +
+>   	if (ret)
+>   		return ret;
+>   
+> +	ret = pci_liveupdate_preserve(pdev);
+> +	if (ret)
+> +		goto err_iommufd_unpreserve;
+> +
+>   	ser = kho_alloc_preserve(sizeof(*ser));
+>   	if (IS_ERR(ser)) {
+>   		ret = PTR_ERR(ser);
+> @@ -177,6 +190,12 @@ static int vfio_pci_liveupdate_preserve(struct liveupdate_file_op_args *args)
+>   
+>   err_unpreserve:
+>   	pci_liveupdate_unpreserve(pdev);
+> +
+> +err_iommufd_unpreserve:
+> +	mutex_lock(&device->dev_set->lock);
+> +	iommufd_device_unpreserve(args->session,
+> +				  device->iommufd_device);
+> +	mutex_unlock(&device->dev_set->lock);
+>   	return ret;
+>   }
+>   
+> @@ -184,6 +203,11 @@ static void vfio_pci_liveupdate_unpreserve(struct liveupdate_file_op_args *args)
+>   {
+>   	struct vfio_device *device = vfio_device_from_file(args->file);
+>   
+> +	mutex_lock(&device->dev_set->lock);
+> +	iommufd_device_unpreserve(args->session,
+> +				  device->iommufd_device);
+> +	mutex_unlock(&device->dev_set->lock);
+> +
+>   	pci_liveupdate_unpreserve(to_pci_dev(device->dev));
+>   	kho_unpreserve_free(phys_to_virt(args->serialized_data));
+>   }
 
-WARN_ON_ONCE(folio_swapped(folio) && folio_test_dirty(folio));
+Unpreservation isn't the exact reverse of preservation. Anything special
+here?
 
-There are some special users so it's kept out side.
+Otherwise, this patch looks good to me,
 
-> Also, won't this change cause try_to_unuse() to keep spinning away until
-> someone kills it?  Might be better to return -EBUSY and fail the
-> swapoff?
-
-It seems fine? The folio is removed from the swap cache, so the next pass
-will go on. But you're right about the dirty and WARN case, it spins, so
-maybe:
-
-   if (unlikely(folio_test_large(folio) && !folio_test_anon(folio))) {
-      if (WARN_ON_ONCE(folio_test_dirty(folio)))
-         return -EBUSY;
-      swap_cache_del_folio(folio);
-      return 0;
-   }
-
-We won't run into this unless there are some other bugs I think.
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
