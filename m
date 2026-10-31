@@ -1,71 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.218
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793416683;
-	b=cmPJH2kYkWzB9iJUx2uRWJ1OZMksdOg0KPkdKDsuPiXkzPks4Da+W8A5/V3Wy8PVmTAo
-	 l97WkqdqcIp7MgxCG+jJKZpcdBBTZM5RSa0fiznT1MjclgOUQKbh3B28RCFNjw+TrhqHA
-	 Sj4thbPDVFeT2BcD4303V5YyfkNIzhNLYUPz/pT5sgqPXSb0YDORduSdeFt73E+T9x1dm
-	 ppazBPQaD2A8i4WEDnlAo69hkpp3M31Y7WUteO0JYOQafuxBU56A24Vo6P1K4Ma8qbhNn
-	 Ox+6DM9mhtrEz6qI/EHBRDKyaZ80yPtYHVT1eoFZE0uhI9aAZJx5osVv1CcZ/8dsXlQ==
+	t=1793416831;
+	b=curnIjrCLLZSl36VyB0BKvmyFny7HGY2T4aUm8OzvY+0SBfm3aE8GMoKM5FcQU4RGOY5
+	 /BtciAEQNfVNC+80Fzhx7+qeTxt9iXxnpO/WYrD72negpvxNEDexXxkWEiJ6ZvNuuGn8a
+	 FwVIiuq8N8koCszIouGXmemkUYScpyhrBbj5lMzLCYZpw0SQq9hQg7O/bS+SyrPjanETS
+	 EJmomlahz/E4Y80x/ACuRFWTjVoL+ebpOy3rJhjJXAsBPczzMY2FvSPsfya2f17tET2St
+	 Cel2EANNAlltSQ21IdzuKMCqp0UGI+WQlD945KvACqGbTsYMYtSTJGKDQcu9YSfaP4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793416683;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=PaQvshL8roUle9Khhx9uxLt6U4tXSGazn/JXYOhcGzc=;
-	b=Y5ecQxIIbjG0MvOmUYo+eXTE61S3jm1ngXFdh2Po7uswS94ZAZqrJHMMnudJvE3dbpdN
-	 o2FxGGiIhmo4gUWDbl5NdvbKADwLfDly+DJczpIhspilZDOfCbVYC+NELP/Rvl/Xe4B1i
-	 0qrz1b8lPl2NqjTbCXF1NgaZw8NXtVqx1jhtP1mRMpc1fPpyLj1qCwTlu6uMbM/c3MY14
-	 cJ/1NRXGfrlncmNbOwhnHk90kwsbyJ5laNImsLYqerDWz01yRLesC3iixo9CXHuGwY4sQ
-	 eyNVPa4EmL1E1/62/qdvxk3Vk9vaGvuag0zUwNaDYqEZLYVuZ4KbsDCwUHkJ7282QXw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793416831;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=nITl5IFk9A+mvJzHtILuBr8ym7+NtYyEOnEqaxUameA=;
+	b=in1UolR1p+0NYmVOYgBpmwIWx+693tE+AqfFmORxyqR8OZBow1U/e9iyDYxwHWn9uBgQ
+	 W1GeAjHL7NvbCvt6t+3vSzfIVOWn/E9urYdLAU1S7wE3vgCBHo0TQBWyhOoxWV4KMZOwf
+	 FBD9az7wL3udL5VkoqhKd3ZIgHHbZVzKf21NLe3Psfxft0L0niRLQDkFWBTIvIWJxP1VI
+	 njl9b76zQj01p2Ay2AQhkjNqqBm9gWdYoymtgWej0BuwJ7K3Imh3JqWNsLlEYEwdBPYNh
+	 PkYCpNp4ll9qsT8eMP3sBV3vPLgWbnBFRrdApE4kBlVRGBs7izISNKz0EPlGNIfRmVg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=gibson.dropbear.id.au;
-	spf=pass smtp.mailfrom=gandalf.ozlabs.org;
-	dkim=pass header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b="nk7gBTM/";
-	arc=none smtp.remote-ip=150.107.74.76
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=3EPknp3y;
+	arc=none smtp.remote-ip=113.46.200.218
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2841606A31A;
-	Sat, 31 Oct 2026 03:18:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2841606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3247606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:20:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3247606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.a=rsa-sha256 header.s=202610 header.b=nk7gBTM/
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202610; t=1793416672;
-	bh=PaQvshL8roUle9Khhx9uxLt6U4tXSGazn/JXYOhcGzc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=nk7gBTM/nhxwfoXdrdcjQAvxYtiemldpUgscldjFGInCEs1bN6TDzk1PP83wDlsxm
-	 a44uhWTmAnlzZc9pF43RdZh8xdQHDSWRIvBkRCitDjiYAjxlH1b4KrsHA9jfhe5psG
-	 +4oSADuXbt+Xdf9gjRyepRaD8Y4Wt4BR7rQB1e49bfsxQEk/rEttrKUl84Rmkp7A8m
-	 LuVs0uN5aTwM+2Zy+11QDkgSarsk+GBXloRGAifG5UU1xw7+eBDEo5RuWuoHdcVSbi
-	 AOOujTLpknf14hX6ECraANRI89/fWeNKjSWBNgQ6f7hBBfI+qHhBC5+qiXpJTzYuOe
-	 bJYdZXZIv95jA==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4jGjp863cTz4wt0; Sat, 31 Oct 2026 14:17:52 +1100 (AEDT)
-Date: Sat, 31 Oct 2026 14:17:47 +1100
-From: David Gibson <david@gibson.dropbear.id.au>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [RFC PATCH v2 10/74] tests: Add basic metadata tests
-Message-ID: <auVdylQ7ny1FvL-5@gractus.seuss>
-References: <20260826094950.1088288-1-herve.codina@bootlin.com>
- <20260826094950.1088288-11-herve.codina@bootlin.com>
- <auQqI8WEOVeDRZM_@gractus.seuss>
- <20261030120117.24afadf7@bootlin.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=3EPknp3y
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=nITl5IFk9A+mvJzHtILuBr8ym7+NtYyEOnEqaxUameA=;
+	b=3EPknp3yVV+7kd/knlQFAAXuO68acDU8Srh3ldK5PQ+idnngPNWzZwK4fliuDpWGPFNmBtYpO
+	ymRjagyj9BIN6yp4uueVBo+0NdRzngsae/Dio7djCWPssFsE9MO4YCfkFFkOhg3DhuZpots4eAt
+	lLwO1yaaaWDpMk9B6q1MYHg=
+Received: from mail.maildlp.com (unknown [172.19.162.197])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4jGjrj6dgJzpSxG;
+	Sat, 31 Oct 2026 11:20:05 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id 5CE7740579;
+	Sat, 31 Oct 2026 11:20:23 +0800 (CST)
+Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 31 Oct
+ 2026 11:20:22 +0800
+Message-ID: <3374b30b-eb3b-4794-949f-313ef32a5ce2@huawei.com>
+Date: Sat, 31 Oct 2026 11:20:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,124 +62,153 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qGRKqLyeF2vUtYlJ"
-Content-Disposition: inline
-In-Reply-To: <20261030120117.24afadf7@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] fs/resctrl: Do not allocate a monitor context when
+ releasing limbo RMIDs
+To: Reinette Chatre <reinette.chatre@intel.com>, <tony.luck@intel.com>,
+	<Dave.Martin@arm.com>, <james.morse@arm.com>, <babu.moger@amd.com>,
+	<bp@alien8.de>, <tan.shaopeng@fujitsu.com>, <x86@kernel.org>,
+	<linux-kernel@vger.kernel.org>
+References: <20261030092144.1233551-1-ruanjinjie@huawei.com>
+ <20261030092144.1233551-4-ruanjinjie@huawei.com>
+ <5c2c561e-b970-4ca0-a66d-b1043608d847@intel.com>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <5c2c561e-b970-4ca0-a66d-b1043608d847@intel.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
---qGRKqLyeF2vUtYlJ
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026 at 12:01:17PM +0100, Herve Codina wrote:
-> On Fri, 30 Oct 2026 16:24:52 +1100
-> David Gibson <david@gibson.dropbear.id.au> wrote:
->=20
-> > On Wed, Aug 26, 2026 at 11:48:39AM +0200, Herve Codina wrote:
-> > > This first test is related to local phandle references used in
-> > > properties (FDT_PROPDATA_PHANDLE dtb tag).
-> > >=20
-> > > The test pattern used is
-> > >   - Generate a dts (xxx.dts.dts) from an input dts
-> > >   - Check this generated dts against expected contents
-> > >   - Generate a dtb (xxx.dtb) from the same input dts
-> > >   - Check this generated dtb against expected contents
-> > >   - Generate a dts (xxx.dtb.dts) from the generated dtb
-> > >   - Check this generated dts against expected contents
-> > >   - Generate a dtb (xxx.dtb.dts.dtb) from the generated dts
-> > >   - Check this generated dtb, expect the same contents as for xxx.dtb
-> > >=20
-> > > Even if only one meta-data feature is currently tested in this tests
-> > > introduction, use a loop in order to ease future addition consisting =
-in
-> > > adding new input dts as soon as new meta-data feature are supported.
-> > >=20
-> > > Signed-off-by: Herve Codina <herve.codina@bootlin.com> =20
-> >=20
-> > As noted elsewhere, I'd prefer to see new helper tools for comparing
-> > metadata in binary rather than using text comparisons.
->=20
-> Right, be ready to see treegen.c growing a lot.
->=20
-> Indeed, to compare in binary, I need to generate the expected binary (I d=
-on't
-> want to store it directly in git).
 
-Sure.
+在 2026/10/31 2:15, Reinette Chatre 写道:
+> Hi Jinjie,
+> 
+> On 10/30/26 2:21 AM, Jinjie Ruan wrote:
+>> Busy RMIDs of a monitor domain are normally released by the limbo
+>> handler once their cache occupancy drops below the threshold. When a
+>> domain goes offline, its busy RMIDs are released without checking
+>> occupancy, since the domain is going away and the RMIDs must not be
+>> left behind.
+> 
+> nit: "left behind" is vague. How about changing "RMIDs must not be
+> left behind" to "RMIDs would otherwise never return to the free list."
 
-> I already plan to split the treegen.c file in several files. Indeed, with
-> unknown "structured" tags, a bunch of expected dtbs (instead to text file=
-s)
-> are going to be generated.
->=20
-> The plan is then to have one .c files per expected dtbs set and so the
-> concept of dtbs harnesses.
->=20
-> The problem I see here with known meta-data, is that we:
->   1) Need to keep consistency between the dts file (input source use in t=
-est)
->      and the treegen source file (which generate the expected dtb).
->=20
->   2) If new meta-data tags are added in the future, treegen source files
->      will need an update. This update will be more complex than looking at
->      expected text files (fdtdump or other), and commiting the new expect=
-ed
->      files if the diff is explained.
+That indeed sounds more clear.
 
-Hm, only when/if the new tags are required / automatic.
+> 
+>>
+>> On the monitor domain offline path, __check_limbo() allocates
+>> the monitor context that an occupancy check needs before it scans
+>> the busy RMIDs, but without using it, and returns early when that
+>> allocation fails. Then the caller destroys the domain's monitoring state,
+>> including the bitmap that records which RMIDs are busy, so nothing can
+>> clear those bits afterwards and the busy counts never reach zero. Those
+>> RMIDs never return to the free list and, where the RMID depends on
+>> the CLOSID, the dirty count of their CLOSID never decreases. The allocation
+>> can also wait for a monitor to become free, which stalls the CPU offline
+>> path on a context that is not going to be used.
+>>
+>> Only MPAM systems are affected. An architecture that can always read an
+>> RMID allocates nothing for the monitor context, so the allocation can
+>> neither fail nor wait there.
+>>
+>> So move the release of busy RMIDs into a separate function that does
+> 
+> nit: Please drop "So" to stick with imperative. Just start with "Move the release ..."
 
-> I've proposed 'fdtanalyze' as a new tool [1] to convert a dtb to a "frien=
-dly"
-> text file. The output of 'fdtanalyze' could be something like that:
-> --- 8< ---
->   (0x1-FDT_BEGIN_NODE): "my_node"
->     (0x3-FDT_PROP): ...
->     (0x3-FDT_PROP): ...
->   (0x2-FDT_END_NODE)
->   ...
->   (0x9-FDT_END)
-> --- 8< ---
->=20
-> No complex analysis but you don't seem to like it neither.
+Thank you! Will drop it.
 
-It's better than relying on fdtdump, but at this point it's just
-making a text format that's isomorphic to the binary and I don't see a
-lot of point.
+> 
+>> not take a monitor context and leave the occupancy check to
+>> __check_limbo().
+>>
+>> This is not a revert of the fixed commit. It preserves the original fix's
+>> intent of not reading a counter in the offline path.
+> 
+> More on this below but after reconsidering the fallout I think above paragraph
+> needs to be dropped.
+> 
+> For entire changelog, could you please adjust the line wraps after edit to not
+> jump around as much?
+> 
+>>
+>> Fixes: fc16126cc11d ("x86,fs/resctrl: Prevent out-of-bounds access while offlining CPU when SNC enabled")
+> 
+> Taking a closer look, the issue as described is present before fc16126cc11d. 
+> At fc16126cc11d^, __check_limbo() already returns early on allocation failure,
 
-> Without fdtanalyze, fdtdump nor other ideas, I will use treegen and
-> dtbs_equal_ordered to perform tests.
->=20
-> [1] https://lore.kernel.org/all/20260925144003.61f72c0e@bootlin.com/
->=20
-> Best regards,
-> Herv=E9
->=20
+Indeed it is.
 
---=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
+> and the force-release caller already falls through to domain_destroy_l3_mon_state(d),
+> so the RMIDs leak there too. 
 
---qGRKqLyeF2vUtYlJ
-Content-Type: application/pgp-signature; name=signature.asc
+I agree.
 
------BEGIN PGP SIGNATURE-----
+> 
+> The issue seems to originate from feature that added the allocation and early
+> release, which is:
+> e557999f80a5 ("x86/resctrl: Allow arch to allocate memory needed in resctrl_arch_rmid_read()")
+> 
+> Even so, as with patch #1, since the impact is only on MPAM this need not
+> be backported as far. I thus think the tags should be:
+> 	Fixes: e557999f80a5 ("x86/resctrl: Allow arch to allocate memory needed in resctrl_arch_rmid_read()")
 
-iQIzBAABCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmrlXcoACgkQzQJF27ox
-2GdGjQ//e6G/W5rXwEy8Nrf1QNAci5wcd3u6SaRWPCtsAhhv2/dHfRFXN9oeNevp
-ZXVfJS+rSfKe8RJggpij1XBnXz9O4R/+IGIfKv0jgi/5OCmktjBcGQRQYKzPId7H
-sTde5ygmDQEgnZjHDbAcFE7foLNSoKhJVog50TyQF4di5cQYlZWFKTI6RVF7YrrO
-5dX9yHtddNxrZ0XsfVx1eDwd4Q3xDCY2nMWbYWRM6kg8LknHBth7+GJ20IcWmQj+
-Dv8yAzNNq63u0BvsYUbE92Hr4WOitySTpe87D1WiqBb0udYCKAGo0mJxCjZZOmpr
-QKOIURIPyewHwXGlg5/VArUGG2nf5hkMSSI9PYcchkN4Ar8yS2VPS/hrYXtrJCQM
-DzuuG75ZfisrNayD6Mw+hz/JrlRLei6F8gm70jN4cyOYcK+ykc2t9WvKTpyqDzPe
-Og3wbDw82P6k/oH74NxBX/aK8yyFpZ/uCLgh7yFJL0bhDYRCpg6+TfAO5k+vWpqp
-xbINrUv8XAmHrCdykmyLEKQnq4dhKFUg7j/g/2b6Q+ddDxhdE2E3dNkcdMX3BU6U
-agNzeG64XTAcgciRPWCpXLa57XqQ3UX7QHDjiC2+rnDT3oaHqb27IXWPxOq6wYaO
-Oj47D2pmjsdV0imDCzm7xNFgHxg7Hyoqw78ooIVyieDIHW0EuyQ=
-=wUhV
------END PGP SIGNATURE-----
+Yes, I also find this patch add alloc code.
 
---qGRKqLyeF2vUtYlJ--
+> and
+> 	Cc: <stable@vger.kernel.org> # 7.1.x
+> 
+> This fix does depend on fc16126cc11d to apply cleanly but fortunately it has been
+> backported to 7.1.
+
+Since commit 4aab135bda16 ("arm64: mpam: Select ARCH_HAS_CPU_RESCTR")
+arm64 can use resctrl fs, which is v7.1-rc1.
+
+> 
+>> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+>> Cc: James Morse <james.morse@arm.com>
+>> Cc: Reinette Chatre <reinette.chatre@intel.com>
+>> Cc: <stable@vger.kernel.org>
+>> ---
+> 
+> ...
+> 
+>>  /*
+>>   * Check the RMIDs that are marked as busy for this domain. If the
+>>   * reported LLC occupancy is below the threshold clear the busy bit and
+>>   * decrement the count. If the busy count gets to zero on an RMID, we
+>>   * free the RMID
+>>   */
+>> -void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+>> +static void __check_limbo(struct rdt_l3_mon_domain *d)
+>>  {
+>>  	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+>>  	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+>>  	struct rmid_entry *entry;
+>> -	bool rmid_dirty = true;
+>> +	bool rmid_dirty;
+>>  	u32 idx, cur_idx = 1;
+>>  	void *arch_mon_ctx;
+>>  	void *arch_priv;
+> 
+> Another difference between MPAM and tip style is that tip prefers variable
+> declarations to be in reverse fir order. For reference, see "Variable declarations" in 
+> Documentation/process/maintainer-tip.rst.
+
+I also prefer the reverse Christmas tree style for local variable
+declarations, and it seems other modules have similar requirements.
+
+> 
+> Please re-order the declarations to maintain reverse fir.
+> 
+> Everything else looks good.
+> 
+> Thank you very much.
+> 
+> Reinette
+
+-- 
+Best regards,
+Jinjie
+
