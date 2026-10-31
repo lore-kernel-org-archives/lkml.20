@@ -1,92 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793489987;
-	b=fSHj727gXoSufUa6ri01tcR2Pp7vqqKSn8jyU4M4/tnBmzDBlHYKk6/2HdBeqZ2e4a0U
-	 8ah2kxsmV8ycAW9KzjXmddYgdzyl8DJQWNoTRXoLzOn42/4okcxTfCBlGuo11peyKrRBx
-	 QcMDXKMEirdO5OH8o7PLjEhwVk3q2lE4nJAwBBSSdPDnSNhSIk7kmCEmeKCqPGPMCssAj
-	 TgMKUnmDCzYXWDjpcAyQvEJZbYM/pF8rGKmJQ5uH7QCBjBbf7Tbor3/RsWJpWIhYqWq4N
-	 ssujL98MFY29+0FwCEZmCUdPWwjh2bJWmwuVL60GRk2O4wuzfsPx9GZpgDwrWEHmtEg==
+	t=1793490537;
+	b=wMCt891CxofXGr5dCqjyDKj963JKML3l2QGHfqVn9TSB6gVJVBnVer/QAMoGvfgSqDm6
+	 WrboVvisY3RREeSEjUJrrt1yzViEa7VVBUe84qm14Q5E5brc4gjneML81wExGXkNoQsct
+	 Crp2/QFDf5BdbLMFeE17K6GcrfCrLhrxDoqwQ0R+vtO7G+Sz0kRnWNvxomuhWVJo4w1uQ
+	 yij+mOWmHKG10o63lFEdxpAi0AKhRe5XypHOg4l0beDCagz3hF/MWYPy+NOfP2S8b9pBO
+	 5zqzxDfkCPdcTz757jHDoCnlgrDKRKj9qGRMO2lZMvD5b82fWV9Pdk7VBXGcj4lGx9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793489987;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793490537;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=34cB3uC2AMmxA4aiV16zEHx0bet8w40xYeWOvwX1TF4=;
-	b=qIk9G9n/JACdl7gTIcwVOeruESOjW4RKo0V+fuUGayh3OlPbWs2imuIZ42no98mPKsiH
-	 fHgz35J/YnNjlrmntFs7OOQeb5Y0MKGsm0BTD73esMgmzOYlvYCv1RShRkqcJsWEPwdV/
-	 kgXuVnp+zyvOCSZLqWh1AlUDajksCX+C4jsgTvGo939FMYzW+iMMuH9feZwor9hOpLQ2K
-	 hHhKxMn0oyaa/UmNRHeSynPfpTmxXEPX1GGZsTBOFqaaDCFwXzPGsrYraVQ61syWYXioG
-	 rPiLnh+WxUsassZ8kyRXmiZXkKV+kQjCFZGm2NKifdOLfFTBEGFb/ZfhCle+EmFrgrA==
+	bh=/r3zCo7njBBfgCidFvl6iw1dmiN6qAZZCDeJgQVlCmE=;
+	b=cw1s1uEWyB6Dl9Rr7BRIq+a0m1mot5RsXcWmZRocKYnwMPP7IsxY9MGZC8o/udn2gbI5
+	 G8V4NHVKmjYcU7ryZLQHeN8W/U1bWEeJQrRIAYI984G40sNnE7cl3rZ6UUwLZJD7hRv9d
+	 fxjL+RS0iZ1Z6vApK5+1nLXSpnj2Nahu6psDQZf+gaDMiF1st4Bx629Jb44Jo27phnD2p
+	 hh9x29k6Cf2TKycO8Hjz55YPmHCh1ZuYJOU33E+zD1HGSaRv9Ba4SiRY5eJzQaeBvhwgC
+	 Qkjr55b3Y5QoD0rhPNL++m7TQE+WnxulZkbgv1ksw5PN34iwOtEj8UAqUy/TlbexHPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="AwYfa/Dh";
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exy0rapW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C000606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 23:39:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7C000606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1622B606A31A;
+	Sat, 31 Oct 2026 23:48:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AwYfa/Dh
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-3535a54c09bso1815504eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:39:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793489986; x=1794094786; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=34cB3uC2AMmxA4aiV16zEHx0bet8w40xYeWOvwX1TF4=;
-        b=AwYfa/DhObqy50v9gbYRVC0WG+szIT819eubKkgF9HgfFBohDHV/MEzzX5m8Yo1lMD
-         OHxjE+64YlE7gY/Ak9AxDQPCpGV2+eLliUlONKB0IRWI/f+M78Hm9KGxXn88PJQbDHW1
-         JVoK8K3pYkeck3CAn4tWpqe/w+RWBoPhdeeQ+u+bX+cranJIyt5HX1JJdmviNsz9pnQZ
-         tnM62Yl+X4B+UM/iu2qzpPg89LgaYcWICTya6wdo3I6w5hsjirW0BrEoQxC/wdqNGRe8
-         /GgXhGSKoRpgw4Xqz5XzkRTRbhdhonxzBkkvu2z3TtVK+IZ6voFMkX6PCyPJWO1hZYx2
-         ogwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793489986; x=1794094786;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=34cB3uC2AMmxA4aiV16zEHx0bet8w40xYeWOvwX1TF4=;
-        b=ct2erNE4yOQRCInHqCIoBaXCZ6qASJxeI4KmF3gxCyUVnZyqYey7mXvn7IDKlESK57
-         DsWODfw3U8vOG5xEY2e8oB86cCUCiE4IbJJ3rcX6ymg/i1565r46oweGisNhnqbN7XIv
-         aVUoJb1RbMl/QYPLx5RdYvDU/OFmWbnfjIEO50n/WDDU7lXHQaKka4Qt2by7GzXZztvs
-         TLJy/rQ7JIS8Ev0viTzRrudaDj4sCwyjFnTuwbICoiiczpch+VHBYHNziD9ps8UuCT5h
-         W9lC4jtVMzQhHcd735Z1K4Biqt4tcyy3Q/eG0T7TCnBhR4uALHDTKuiZPfxWcccVK71C
-         AdCg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7RXTE+0FOtqBk4AmkgyB/bMaKDctjTzCF2O+uJqDpq+FFfxDKFwaf0Jplc4FJS4BCt6EYkSkz1hoHbK0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL8KuN26dPAkIv2CXOoCUUT0SsXFKfxSPImZQO5XgpFrK6YHuZF
-	3YN8MxC4SsSgNKczQgoOfWHYg0Uyi/BBMz3aXsyJOPybEwztK8Bd9dTO
-X-Gm-Gg: AYBFou2gmtMTXfFKLLOaT23+ytuHWG3gkWkeolwminKB/dR4SwAEJ6Lt2kHRibPMqMs
-	fEfNELySi5ysj5AL4VNobR/NBQbjiz2cp0go3fG4lJKtWCTcRBKRftxHbxx0xG2WUPuBgVA+RDd
-	tJETNj3kbD3J7k05lq2+81CnnkiuqtLtdd5URSyGV4FFZx/O/dTQ45rxCGUqtNQNnyv1UM3tn+/
-	4NPpD6+9porAkj+/HH/FQV7tedT/VT1+v0jlTKYJ1MLpYpywYA8QRevouB0LkGJ4jTSsBPqu1sI
-	hBDK2gTTC51FcdRtsnndNOHVR4Ke4LZhPirP/fk+jIJmCQlcWmDrWRggfDS7f6vJ8Xmz0pA0JL0
-	WUhI73dGUiM3xsTH+s3LycTw9NiKgL2MC84z+6FgK7FL9ovltJWmlH0xpH7DkdWYgs1XCDKTV32
-	zFapZzQEq/CaOrONggWlfgt4oitWS6O6cof+goBi/PwOkDKUP/mOeSAfBHab2cgBsnLOQTAaGx5
-	5jj5dNxe9LuV34Jn/IdVmLENxNLo+wJdOebFuE5vCXvTCFGZz13jJ3aVfv2G1NUW+qBSbpiwwvA
-	s6XCFkXSdA0YvrH+Y3ybwEmqM7PSAgsjc0v4Vs5dcPRdcvJlFNASkHzw
-X-Received: by 2002:a05:7301:6193:10b0:369:a162:af96 with SMTP id 5a478bee46e88-36a4238974bmr9155351eec.17.1793489986095;
-        Sat, 31 Oct 2026 16:39:46 -0700 (PDT)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm18318233eec.10.2026.10.31.16.39.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 16:39:45 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Jaegeuk Kim <jaegeuk@kernel.org>
-Cc: Chao Yu <chao@kernel.org>,
-	linux-f2fs-devel@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] f2fs: preserve 64-bit FITRIM minimum lengths
-Date: Sat, 31 Oct 2026 23:39:35 +0000
-Message-ID: <20261031233935.9600-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=exy0rapW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 893D51F000C1;
+	Sat, 31 Oct 2026 23:48:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793490536;
+	bh=/r3zCo7njBBfgCidFvl6iw1dmiN6qAZZCDeJgQVlCmE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=exy0rapWigz/9yHpnXX20JqhTSlf6+G+Nx+sWJUaqXLQIJ2RYeZQydYKVi8Td8xk1
+	 0dzINn2X/DI9iwlPPBW3xG4VOYT3HfQYujF5j6nipuYj0bIzVn3P7kjv6genyjoHYn
+	 jzv5vLvCqOAHlUnIPsFyOYMvO1NC7T0O3VvdNx0CxzfwLw/OmiNg+H5vSVTf7rAne1
+	 /1uPERehCpvWqnxuPHRAVcLeu3yGSOVmWy3Ib2KuF/BWSRNQxDwScHKKG/ifw15B1i
+	 yJaHosCZ5+u4rAqqZvNXukDKk0kIiBTTh/OUPCwkCeIXjUlmg/rusU2ZjeVzV0KFsg
+	 Opk52UjWGOgXQ==
+Date: Sat, 31 Oct 2026 23:48:48 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matti Vaittinen <mazziesaccount@gmail.com>, Rodolfo
+ Giometti <giometti@enneenne.com>, Marcelo Schmitt
+ <marcelo.schmitt@analog.com>, Antoniu Miclaus <antoniu.miclaus@analog.com>,
+ Angelo Dureghello <adureghello@baylibre.com>, Tobias Sperling
+ <tobias.sperling@softing.com>, Eason Yang <j2anfernee@gmail.com>, Marilene
+ Andrade Garcia <marilene.agarcia@gmail.com>, Cosmin Tanislav
+ <cosmin-gabriel.tanislav.xa@renesas.com>, duje@dujemihanovic.xyz,
+ herve.codina@bootlin.com, thomas.petazzoni@bootlin.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: adc: add driver for Texas Instruments
+ TLA2528 adc
+Message-ID: <20261031234848.00248ddd@jic23-hlaptop>
+In-Reply-To: <20261030164705.297354-3-maxime.chevallier@bootlin.com>
+References: <20261030164705.297354-1-maxime.chevallier@bootlin.com>
+	<20261030164705.297354-3-maxime.chevallier@bootlin.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,67 +72,226 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The FITRIM minimum length is a 64-bit byte count. f2fs_ioc_fitrim()
-narrows it to unsigned int while applying the device granularity, so a
-minimum of 4 GiB becomes the device granularity. fstrim can consequently
-discard free extents smaller than the requested minimum.
+On Fri, 30 Oct 2026 17:47:04 +0100
+Maxime Chevallier <maxime.chevallier@bootlin.com> wrote:
 
-Use u64 when applying the device granularity. The checkpoint's
-trim_minlen already retains the 64-bit block count; also widen the
-discard policy field and its initializer argument so larger minimums
-are not truncated when passed to the issue and wait paths.
+> Add a new driver for the TI TLA2528 ADC chip. It has 8 12-bit
+> channels, that can also be configured as 16-bit averaging channels.
+> 
+> This is a very simple driver, allowing reading raw values for each
+> channel. GPIO mode isn't supported for now, as well as buffered mode and
+> the 16-bit averaging mode.
+> 
+> Co-developed-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Rodolfo Giometti <giometti@enneenne.com>
+> Signed-off-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+Hi Maxime
 
-Fixes: 4b2fecc84655 ("f2fs: introduce FITRIM in f2fs_ioctl")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/f2fs/f2fs.h    | 2 +-
- fs/f2fs/file.c    | 4 ++--
- fs/f2fs/segment.c | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+A couple of minor things inline.  At least one due to cleanup
+that happened tree wide in the last year.
 
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index f7423b3f6e4a..94ff3852bd1c 100644
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -522,7 +522,7 @@ struct discard_policy {
- 	bool sync;			/* submit discard with REQ_SYNC flag */
- 	bool ordered;			/* issue discard by lba order */
- 	bool timeout;			/* discard timeout for put_super */
--	unsigned int granularity;	/* discard granularity */
-+	u64 granularity;		/* discard granularity */
- };
- 
- struct discard_cmd_control {
-diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index e2c0f5083313..93a9c04bca0f 100644
---- a/fs/f2fs/file.c
-+++ b/fs/f2fs/file.c
-@@ -2729,8 +2729,8 @@ static int f2fs_ioc_fitrim(struct file *filp, unsigned long arg)
- 	if (ret)
- 		return ret;
- 
--	range.minlen = max_t(unsigned int, range.minlen,
--			f2fs_hw_discard_granularity(sbi));
-+	range.minlen = max_t(u64, range.minlen,
-+			     f2fs_hw_discard_granularity(sbi));
- 	ret = f2fs_trim_fs(sbi, &range);
- 	mnt_drop_write_file(filp);
- 	if (ret < 0)
-diff --git a/fs/f2fs/segment.c b/fs/f2fs/segment.c
-index 43f400715766..384e0cd5e5b9 100644
---- a/fs/f2fs/segment.c
-+++ b/fs/f2fs/segment.c
-@@ -1241,7 +1241,7 @@ static void __check_sit_bitmap(struct f2fs_sb_info *sbi,
- 
- static void __init_discard_policy(struct f2fs_sb_info *sbi,
- 				struct discard_policy *dpolicy,
--				int discard_type, unsigned int granularity)
-+				int discard_type, u64 granularity)
- {
- 	struct discard_cmd_control *dcc = SM_I(sbi)->dcc_info;
- 
--- 
-2.43.0
+I'd also like to avoid propagating the fallback to all channels
+if none are specified. In this particular case it is problematic
+because if you add the GPIO mode, for chips like this, we tend
+to expose all pins that aren't in use for anything else as GPIOs.
+With the fallback scheme you have no way to tell if you want all
+pins as GPIOs.
+
+That hack went in a few drivers were we added per channel properties
+after the initial driver was added added and had to paper over
+the backwards compatibility issue.  Hopefully it didn't make it
+into fresh drivers whilst I wasn't paying attention!
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/adc/ti-tla2528.c b/drivers/iio/adc/ti-tla2528.c
+> new file mode 100644
+> index 000000000000..287e52dc9d6d
+> --- /dev/null
+> +++ b/drivers/iio/adc/ti-tla2528.c
+
+> +
+> +static int tla2528_read_sample(const struct i2c_client *client)
+
+Benefit of this helper seems marginal.  Maybe squash into where
+it is currently called?  I don't care either way on this one.
+
+
+> +{
+> +	__be16 data;
+> +	int ret;
+> +
+> +	ret = i2c_master_recv(client, (char *)&data, sizeof(data));
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	return be16_to_cpu(data) >> 4;
+> +}
+> +
+> +static int tla2528_read(struct tla2528 *tla2528, u8 channel, int *val)
+> +{
+> +	int ret;
+
+As below. Use guard() in here. That makes it really obvious why
+the mutex is needed.
+
+> +
+> +	ret = regmap_update_bits(tla2528->regmap, TLA2528_CHANNEL_SEL_ADR,
+> +				 TLA2528_CHANNEL_SEL_MANUAL_CHID, channel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = tla2528_read_sample(tla2528->client);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	*val = ret;
+> +
+> +	return 0;
+> +}
+> +
+> +static int tla2528_read_raw(struct iio_dev *indio_dev,
+> +			    struct iio_chan_spec const *chan,
+> +			    int *val, int *val2, long mask)
+> +{
+> +	struct tla2528 *tla2528 = iio_priv(indio_dev);
+> +	int ret;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		mutex_lock(&tla2528->lock);
+> +		ret = tla2528_read(tla2528, chan->channel, val);
+> +		mutex_unlock(&tla2528->lock);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		return IIO_VAL_INT;
+	case IIO_CHAN_INFO_RAW: {
+		guard(mutex)(&tla2528->lock);
+
+		ret = tla2528_read(tla2528, chan->channel, val);
+		if (ret < 0)
+			return ret;
+
+		return IIO_VAL_INT;
+	}
+Small gain here in keeping the error check right next to the thing
+that set it, but might as well have that given it is simple to
+use a guard.
+
+Or better still: Move the guard into tla2528_read() 
+There it will be more obvious that it is the two step nature
+of the read that requires the lock.
+
+> +
+> +	case IIO_CHAN_INFO_SCALE:
+> +		*val = tla2528->vref_mv;
+> +		*val2 = 12;
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +
+> +static int tla2528_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct iio_chan_spec *channels;
+> +	struct iio_dev *indio_dev;
+> +	struct tla2528 *tla2528;
+> +	int ret;
+> +
+> +	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
+
+Add a comment that the data reads directly use i2c with
+no register address.  FWIW I briefly wondered why the checks in
+the regmap init weren't enough.  They aren't because for this particular
+mix of reg and val sizes can match others I2C protocol options in
+regmap_get_i2c_bus().  With this present though we know they will match
+the first and simplest one.
+
+> +		return -EOPNOTSUPP;
+> +
+> +	if (i2c_check_quirks(client->adapter, I2C_AQ_NO_CLK_STRETCH))
+> +		return dev_err_probe(dev, -EOPNOTSUPP,
+> +				     "adapter does not support clock stretching\n");
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*tla2528));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	tla2528 = iio_priv(indio_dev);
+> +	tla2528->client = client;
+> +
+> +	tla2528->regmap = devm_regmap_init_i2c(client, &tla2528_regmap_config);
+> +	if (IS_ERR(tla2528->regmap))
+> +		return PTR_ERR(tla2528->regmap);
+> +
+> +	ret = devm_mutex_init(dev, &tla2528->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_regulator_get_enable(dev, "dvdd");
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_regulator_get_enable_read_voltage(dev, "avdd");
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	tla2528->vref_mv = ret / (MICRO / MILLI);
+> +
+> +	ret = devm_iio_adc_device_alloc_chaninfo_se(dev, &tla2528_chan_template,
+> +						    TLA2528_NUM_CHANNELS - 1,
+> +						    &channels);
+> +	if (ret < 0 && ret != -ENOENT)
+> +		return ret;
+> +
+> +	if (ret == -ENOENT) {
+
+We do this trick for old drivers where we only added per channel properties
+later.  For a new driver, why not always require the binding to be explicit
+and list the channels (even if that is all of them)?
+
+> +		indio_dev->channels = tla2528_channel;
+> +		indio_dev->num_channels = ARRAY_SIZE(tla2528_channel);
+> +	} else {
+> +		indio_dev->channels = channels;
+> +		indio_dev->num_channels = ret;
+> +	}
+> +
+> +	indio_dev->name = "tla2528";
+> +	indio_dev->info = &tla2528_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +
+> +	ret = regmap_write(tla2528->regmap, TLA2528_GENERAL_CFG_ADR,
+> +			   TLA2528_GENERAL_CFG_RST);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(5 * USEC_PER_MSEC);
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct i2c_device_id tla2528_id[] = {
+> +	{ "tla2528" },
+
+This is something that happened in last year, but for these
+we now always use named initializers.  There is work ongoing
+for a change in the structure definition and that only works
+if they are named.  + It is consistent with what we always
+did for the of_device_id tables.
+
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, tla2528_id);
 
