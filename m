@@ -1,116 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793458762;
-	b=gWVOg2Z50/NPKLj6W/88rRYP1BnpLkH3AGjU+BSysIWgNoaZmAKl9FNHdGi+9+BF4ce1
-	 P6BktEAPiBKJjt1aaxbepl9WmBxCWvBbeJcfd3BxIb0M6Wpl9NpRFCkmRxtHg92e/vR8t
-	 8zLaKgg6O6zJNvjISx1pPz85M1YM3JKZ5XQ8FO5aoH90Qa7RQ/J7Tn+Xh9Zh1GGM7kt3w
-	 SJVX/dlfXR5pCjeDCbMYONAO4VXlzJzFC/9S3yJWGLjHfgfJ5FPt2wZ3HDEc0qEPaLiP7
-	 0Olhn53B6+YsdDd1AwW5SghSYnkUOzkt1o23nQplqALYIFXOQIjO7hRNDLMdBbDgwTA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793458762;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=if99jRjTkbW+bMdt3bQMbXM0UCEb2EHx3ismkh4nY6Y=;
-	b=2x8lT63XVmIId7YQoFh1RI6d9n/TkkMC/pAyTLpz2bJXiGq+o4O2qqnzT5yi+lfiEAPQ
-	 57Zm2lYVn4P+LfIyfdRoAE72RT/4AfAozZNtDHuOJLr9G2KIngOXiP2hJThSOZl2TtU8o
-	 y2kprVdLyMJt85jsXKj/N09yGq/sXgdIu5TXfnijHqFiAi7aQU2T+YMoE7g5nRFIiYO4V
-	 noSQQ464Hk+2MCNkfic+dw13iJPbHSx4ksEJyx+QhSIlrWR43bCE7BdJCC9xxA611/MhL
-	 2Z5LKvrHEFoJRkO6lzVqpGp3jUGB80DHfKmm+nICflnXFTTm2ydEO1PytgfeZioKYnQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=pE7M49Qy;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b="QW/hB+q9";
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.112
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793458851;
+	b=0Rg1ImggdkRXBjHUVM2xtYtUimrh1JBxbQ6GNPFZswAnaW851/uzcJohXymP3U0KZV1O
+	 p2LZp7TemJaArtXWZu5/l5+5Nvr4qMqcTyc0mkAvI9AkcDoQoOmfzaFuF0E3r/0XWEFEr
+	 3DZrZrqX7vru/r9FckpQOM/BN3KHBaX18TP/Y2bujoyzKDfrZvCcP2oWUKVNc6bVhgfWP
+	 /KDdo0gK4UUCYiebP6Cwt5VgoQW0fRvE3dSFycq9W5j55NjbJCgc1wY2hEWGjq2Nop7kN
+	 Mf8ryR4pZe5QkWtUVbKNeXtAFbwo9DaFdPoduIPmq+h7+Mx7fq7ha8i5geElIs+CUag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793458851;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=09+pBcrXi+iTTD3FgzSbL5gpjXpztADXxpLWc8Woroo=;
+	b=wqr5aThAPNaGYd0TSMKoKNSZl/OX75VdBgIAtCofx4ZP0zbJhsrbVruNu4Oakcnl/BJu
+	 cJeEJCRVMpMfYpxklKaw03x7tTXzJG2cJX3kR4gnf0uXFkhvKrr4a1uyY+LItV+FhgpAC
+	 yMnfDJbiwkamyuLwCr+Umjt1fS2Pff8FtF/s3gFfwK0OS+cqXtRqzXV+9VdVShI0BO5DU
+	 tqPYrEayZB3DpWgccqGvJgbJb0ZcWG4/PMYT85Dufxm2PtGiV3MtRX0IJmyloOFf5hKHR
+	 pqWq6TNi4PKy3iRzS0ZC6gQxGYo5GL9LQ9JEHySKDPzsmQp6KD1Sjp5Mh8re8TF6Ilw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=J+Gj0tuk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.112
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020112.outbound.protection.outlook.com [52.101.228.112])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C15606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:59:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6C15606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4920F606A31C;
+	Sat, 31 Oct 2026 15:00:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4920F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=pE7M49Qy;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=QW/hB+q9
-Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VDjnZB084664
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:59:20 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pps01; bh=if99jRjTkbW+bMd
-	t3bQMbXM0UCEb2EHx3ismkh4nY6Y=; b=pE7M49QyW11myLfjJkWPCHnqT/G+Zue
-	gmLqfmwv/eRzR2PZVYBFSw+DF576xCwH7mbdMqUkHLWVHv62oRjMLK/5DnCIvnFD
-	W4Se6NbfQF17OUYB3cGLsRvdRidwozUY98Y9c05+ISE5eVBOSgcT1KHsS1kLQhJ2
-	Yr6k226bVBNcwz9c4f7ITnKUQ69VflwAQdr+8VIiMsQyIuyI6ynWAZxXUwnHn1e2
-	aODTz08RzMamb3M2YYUPhOMlX3Rq7gMrJeQMdfa+VOWPfJiMdXgezI1+nJL0ZRPA
-	4S10e4jRffxKeKDFxwn1Xt9pSVPHrG9T5zltfAy9+x1Wf6BmuVc2E9g==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hn9wq9vn5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:59:20 -0400 (EDT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-944101e6367so321606385a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:59:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793458760; x=1794063560; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=if99jRjTkbW+bMdt3bQMbXM0UCEb2EHx3ismkh4nY6Y=;
-        b=QW/hB+q9TExrs3ddW5Sfg/uIbv5eXh3P48yKJHSnaBhLh8NLKPAvcdwlDodc8uu55I
-         jDHmvCFpNKCepgGxwX3WgN6IQQ1F6zw05uA14LgmoDdsoDhfVhOVw2aHAOjJTJvIffB0
-         ErGp/J/zBCxlnU39buo5duglIRNvTq8LbYe7zZInGndAAJp5qm213P0RqYftqIVILoOj
-         d3YK9xOe8siG7CPfJRByi8Pcwl2u65dt7eIlpd+33jUFnnQaP3SaQrfd7O8DimvVPSDg
-         942cLqAqKDhA/82AavyAI1GZH17k09TDOjEDZ0hwD+s7OofbUsL3A4xAZZnTizX1TdXn
-         mFFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793458760; x=1794063560;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=if99jRjTkbW+bMdt3bQMbXM0UCEb2EHx3ismkh4nY6Y=;
-        b=Cq2eDjyz2UHZ66kLwHGkcop0MEnjxGBXOYwJn5CaCa5dj5i0GGxW5JRBYDIEURHnNl
-         F4otEO9NOvc1dW07QS6YCYJ47bs7bZ7EWXevuaba9+8AcJGdWBNWBIVCVH/1L6eG8iLg
-         V0J+/90Ssz8SYpSUP5Y7LLlH6150ltreYyEse0kqOwhZs/m98mwoGXBjLryBd3L25YLe
-         UO0TljhX9AbN+Ug/grH7JuRqoRqqEfq7hJQ/PufgUfs0Y6I8DHvCnOT5fQRgXK06HomT
-         9k3c1cLSdAH095VO7Okwvwm3iYFJuBXtHSD0oG6sDABXftorX3o+Rrlxjqa03G7ZkaNV
-         twYw==
-X-Forwarded-Encrypted: i=1; AKwUvByi5SIMPMa9F4+zeDNF9I30zX7DBs+GyAbY0RWm1E78qyFxp6TQCFPn8253AhYVfUfPumm2Wa5P9Qal7JY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAm7h0qA1KIGjO4IpOFafrKFGyzdvRMR3YKVI9SaI7DOn4sH3H
-	OD1IvFIDkjBvgfT8FeypZOpXZmFyrcze5ddxSbpfRYAOmv+IYIyn0teXAckTSX/rc8cxQbAmbIh
-	ja+lH4EQU50kMcjKO/FPEbQ0FP7PIxImF9/g7Uh5FSkwYCqLMxxQ+6k4XNeJVbw==
-X-Gm-Gg: AYBFou0nwxUR8p83lQPRDzQSPA8YgK89HxXhSFlRu3c+KPU7XA8uPPKulatTSXgssgc
-	n7xACq3hAVFY05flrJyJ7+sJOfsnGculUxCeFUUNadolC/2af67IMf4DxOIraz95i9QQghIwX8e
-	0DE6QyxLMj85N7VwyfnEufIbbg2CziTupknjqudgJ+2Ak3z7rm+LqhiM7HUmK9VEB7SBE6N01y1
-	8UYAbvB7L53JehjfW2tndTSzyqqw4S6XnBTTFlIyWrAODMrPoloLJ5e8ZSbNgeCJOiqWrL+xT+/
-	q/lLiQ8TZlhkAoH/YWdwZMzWHOIi/WJizNg2qGYhx5AL2V0jVN5yydqYCCGhiXBdxXpmn9mDsoW
-	6hzRk66W7IS8PlonKUQyKjlfXRJtvc+qbu1vDUSEKbuByaR2oaxRpUGq75m+bofNZlBYw+Qs=
-X-Received: by 2002:a05:620a:4d94:b0:944:1e9b:e674 with SMTP id af79cd13be357-9441e9beab0mr653736485a.17.1793458759740;
-        Sat, 31 Oct 2026 07:59:19 -0700 (PDT)
-X-Received: by 2002:a05:620a:4d94:b0:944:1e9b:e674 with SMTP id af79cd13be357-9441e9beab0mr653734385a.17.1793458759237;
-        Sat, 31 Oct 2026 07:59:19 -0700 (PDT)
-Received: from localhost.localdomain ([37.142.159.89])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09cc3e9asm57890975e9.3.2026.10.31.07.59.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 07:59:18 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-To: Mike Rapoport <rppt@kernel.org>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Peter Xu <peterx@redhat.com>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        tz2294@columbia.edu
-Subject: Re: [PATCH] userfaultfd: clear uffd state in child PTEs if uffd is released during fork
-Date: Sat, 31 Oct 2026 10:58:35 -0400
-Message-Id: <20261031145835.960656-1-tz2294@columbia.edu>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261031-uffd-prot-bits-fork-event-v1-1-3572921c2111@kernel.org>
-References: <20261031-uffd-prot-bits-fork-event-v1-1-3572921c2111@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=J+Gj0tuk
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w7S8TXuySUWr3VCXGHkBwCv4jplaV7gttT/BHh3IM03OdZGey19Wp5Yw0p9gEHM7zy2WH8zSsmOZFLjh3hOTkAj45BoUj/1mw5FIgp8W/ciwIg9vHW7AsrAxGnF4ehkiUQyiA2z1uHnmd4BSZN8UA++TE97kHncLicWAR/6FqRaZcGhbEg8EJNTzrc9p8zxqZgJdFUW8SoX2WCob4E9xUb90EODdc8JuErmYTjG0XMVO5WU6+DRh60BJL65M8ZOjyO5s3QIXtjf2n7JKuV5+IWVSwLAMSTLHfVUSGi3yqYG6ymiCL2AWv3DFlAQymb2SbtK+J6q++CJB3URiq6ZIMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=09+pBcrXi+iTTD3FgzSbL5gpjXpztADXxpLWc8Woroo=;
+ b=p5ptdTVOZEVDIHG7zUO1EbD8GpxcXzK8YciplTIqXh6Y8U22eGrNm0Sda7ZqXh3+eQwXLUw7rrlSYPy1qsATO4+eq8IukNyZAUsD902xKrHm4P2LrQhvz62EIdn+7QuLH9VLWZTMwi1cq5xh5F/hNMGSFJFW40UhVbfl4/CCfYOZfsUqRuENfOOfaGjAFum9CuZJ8hJcJvUr6/xpyG6ajQVBjLUpuNw9unLISDNm7wSsAGvZDq6ri51KoSuX1dCzVEbVt6taSTmpPh3Xnnzrj9YuRxH7elE3vP+vuCC7s694xx8pgSBm6KsV93RKjnhI/bFUEsxo+8DYROAjWCC+GQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=09+pBcrXi+iTTD3FgzSbL5gpjXpztADXxpLWc8Woroo=;
+ b=J+Gj0tukHXicsWWeoXiTiTcQvq0bDHHYFM4DBPKYzyJ0kV5i0baO6l382EcbQcCv2EHJsEZgl7RwK23wWowBUfFdK1ZlOa3Jz8m67g1wKJj1jZmHUIfkD7S7Y4qiDoD7RWEyZunuO+BVqQB7aG9ZRMFDjKkYu4pjm8N+4zCGPrA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by TY3P286MB2771.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:257::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sat, 31 Oct
+ 2026 15:00:47 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0569.010; Sat, 31 Oct 2026
+ 15:00:47 +0000
+Date: Sun, 1 Nov 2026 00:00:46 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>, 
+	Serge Semin <fancer.lancer@gmail.com>, Cai Huoqing <cai.huoqing@linux.dev>, 
+	Niklas Cassel <cassel@kernel.org>, Devendra K Verma <devverma@amd.com>, dmaengine@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v6 2/5] dmaengine: dw-edma: Reclaim LL entries from
+ hardware progress
+Message-ID: <rggq7a5lcvqshd6wu7qubo4f3b3qxgyp32qwiyytkrvpoat4vz@xcl3lbatl5hc>
+References: <20261030150742.2586776-1-den@valinux.co.jp>
+ <20261030150742.2586776-3-den@valinux.co.jp>
+ <auTL2mHwCt20uhII@SMW015318>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <auTL2mHwCt20uhII@SMW015318>
+X-ClientProxiedBy: TYCP286CA0266.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:455::19) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -120,183 +101,367 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=YpWa1IYX c=1 sm=1 tr=0 ts=6ae60248 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=P+xgYyhW+KadpqoI50EQPQ==:17
- a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
- a=VwQbUJbxAAAA:8 a=d7BrdpvQtwasfi09MFoA:9 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1OSBTYWx0ZWRfX+ms1KnlKlm1S
- nOslX9Irh/di38hRm+dgWLgxBRbAFmHqv65KCVAtMdMf7WIVXt9JqY6K7jGaC5Lf5qQGOTk5ccF
- qmoJGLvoPbqYVrB+AbXqM33U4iPkKtq/zgmQnSO1fu+CkEJvnq3H
-X-Proofpoint-GUID: mzxVgoFpxTOZ6Mbj26gx6YBrcQTYO3l2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1OSBTYWx0ZWRfX8u3thSbNRw6q
- XHsSaP1LW+ojPgQEUyCMsVDsvN3+N80m2x5xaRmbjwto9vxiris26QFE80bh8JmRdh3eLJkcaBx
- /3kRpheAXdj+Ogr/VwnLfe/DctgS5gGvudklQUVZhpmG9Ef3dD9S3fjNM9ylpgT5erJ4WuulPqZ
- gkxYr3Vn2iv2C0YNJl5TFGyAnke/uCCKVqIM9WrOiPVceDYRDFwfdDUBuA6cd5wmVa9Q4mFtjoy
- Bfs6cxuMp9LMifCln7xlRs49xZ/InE2mvk2UcxO/gY44hQzd/rzCYSuEtbrwyjBcvHaNWcDHP+A
- PkTTpPYlJWrAaaKwBdnd9NFzZ5fBzcfRWeH32H9jDoSmwFo1qC1Z5HfCLaWq71BlHCutudasbcD
- ELI6slEmzX/OEXZYG/dmwTqNnkvQ+W+t4Q4hgp/gSTlPPrkjeiXARRSDZ3tc7iEvJOkejBVe4Al
- taBSiIyNnvIBo9vou8g==
-X-Proofpoint-ORIG-GUID: mzxVgoFpxTOZ6Mbj26gx6YBrcQTYO3l2
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11952
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=10 priorityscore=1501 spamscore=0 malwarescore=0 phishscore=0
- impostorscore=10 suspectscore=0 lowpriorityscore=10 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2610310059
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY3P286MB2771:EE_
+X-MS-Office365-Filtering-Correlation-Id: 636db6ff-254c-4134-c7ab-08df375fbeda
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|10070799003|376014|7416014|4143699003|5023799004|56012099006|261009223027099003|261028144727099003|261026135527099003|261026121527099003|261021121427099003|261021123027099003|261026140227099003|261022105027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	e/IT61BNamTLeUWou5OgqHlbQ1H9NA0UeRq2u0MaP3wpXn1CzqGTZYmuGCWo7ac/ufMrQnMqouLqoRxUHddxTFRtiwEiQORZRzBcU6pKT2WKA9tNg94g1b4GdlCiUnrcF27+Y0gwjQ8BXVmghoHAci0hkUVVjkNGY1U9gvh+0WW6gXPFUBN9sVNILsIsHDLlRVzB+0vhZq28BJblfG5+dwQ8V9ITrgT1I5+BCDTXmt8RWd0dF0ayFaIP4kvunTPfhEZ1AP9C28loewQcw2i1IviV7ZFhgAk4jJWkpNg11vDGZIpMwY5pgu83bZAK088Kwadworw+R+8KvFT1/6einZ6IyxK4jSfjp4FI5dOYbFjUAX0ljIo+5kOfHGY5XEtoo+ibKFGnnAS5MJXN2thDpsYY5PhGtGXQbWT7PtkhoaIAbYIwtRErEotsezVWbHHxnam8QNRu2kazuMD7PO2aYm9+zxzDs+GpmAfegp72bKayVLNqao+0jmIPr6Fjm6KSZoA9kAAiI1gBZHQc7IbXcGCE9Kvtf0i3isPDbaqzgBGJWVyzboD/V8avr1H69sNNy9RGSzyJKHuRET39wV+dt/eWGKXlJUy3WJIBiv32yDifeHgBF83mV1suKnqFytC3
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(376014)(7416014)(4143699003)(5023799004)(56012099006)(261009223027099003)(261028144727099003)(261026135527099003)(261026121527099003)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?bplHqT13Qy7QyImCHlMfBiGbdVIYPL9fSmDna5rSyTSNNu1wCPUhNdjrBUEi?=
+ =?us-ascii?Q?88uoL9CChZ5q9j43TLzs+haiEeM20olW6mFY8III0UMdpvhyDxnwtdeTQ/Zd?=
+ =?us-ascii?Q?Hg/DKjMTMqX1mIpBcjDvHmt0DumbRzXbPVcD2f719WWd3d8zzVqrY8jr+bGH?=
+ =?us-ascii?Q?xxMsrtMOACKiPOx1AnXg9SeHEGtWUiCLu4av/ZpeudqOFT0fKuXh0Wnqy0rR?=
+ =?us-ascii?Q?hocy7D1VD3NsncTvSMzOqJAp+EmPdNRU/mzuEW6PFn/y7ZL2vXI8fY20zw+q?=
+ =?us-ascii?Q?JT+5E+1bGS+lkJ45vEwbAKZ6xBKhwUfw+UWr5ipQz4te20ZRvQJp34lE4uzN?=
+ =?us-ascii?Q?Qrb71uZAsHZJ+UUmuh+mVoUpZr+yut4iCqsB+z9AhVo8SLQqZtrwwspbBQFp?=
+ =?us-ascii?Q?C3QV5B2GdjIKxGKBsbGmn4ntWHYhAX1+LOAWU8yQxDwvODX13r2ayE9Mdx3+?=
+ =?us-ascii?Q?jv+PN1Ts3/1/WbG39hey2pASBQ0inaumC8QKxD2U7PCOG8U00cAAq2TfbC9d?=
+ =?us-ascii?Q?sgqTakuGtsuiFNdDjZobDT41erE7vc81kvdXwjj02Y+FubYPaKlW5jPykWFB?=
+ =?us-ascii?Q?Mbf7B1bgqOK97euhNB5T+pvMj+bMEL8SC/V8r6KlNJkwNLUQXRF4T6dufefX?=
+ =?us-ascii?Q?vhB6BNzCLglmYJkBNEzuhVw1zZH8JbkoFHdpSrPBoFWi5bpk/sq0NF8V29/v?=
+ =?us-ascii?Q?DFsVCWdiB3w+YHFpIqU+i9cVhkJQzefw/CWiO35ObJWDgfw1mtN4agYwUtC+?=
+ =?us-ascii?Q?JrSf4SZmsCPE/pHSCujDIESXIEMZ6HNLFheyNQ9XYG9LPiintObO9++xgXp0?=
+ =?us-ascii?Q?TU3zO099zRSC7ySIgNmMtu3chubtGWM2hcHeBro/z1UZKn9e9uVKMjiMq+j1?=
+ =?us-ascii?Q?D8J03y3zeb0Gyvi4Rb6UuMT4zNW5VcLnM0O+G4n0mmjeXvb+vNNd2ejhL0xU?=
+ =?us-ascii?Q?MID6UFg6vCO+bhhJ0QYWtRcgwhIyEcMguJKh1uzXeQPD/9ia2HQuFhmG1jv9?=
+ =?us-ascii?Q?F90+NnMEOnenpsc4YtX9sf18xxBBCOgxA9OqQRiMyzlgpAJtacXBc9f7ZoS4?=
+ =?us-ascii?Q?GipFv+tH+DZ8+KTtbDOnXVE5POhi0rxu97eGaY2COzPeE3p8vtfLJHUV//lz?=
+ =?us-ascii?Q?yc2K6T9opf/tmskQ9B/QgT09MKHv6ziroxkEmJvl1XX9mQQC/XnOfKZcaqHY?=
+ =?us-ascii?Q?lBJS6WnL1RItchXd7sCchdfgS2JxeI31XgxEVLR7k9I5D3MU6W5QpK92Qx3B?=
+ =?us-ascii?Q?IMRgtFM0rmRKtOpEwqLbDjQI/kd0sFtQwzRFW2pbJIsqMNgDdDG377400FHk?=
+ =?us-ascii?Q?3LTBRw9onXF4XZiSKVhhg+XRlN8q+US9Cm2VH941jNvYrfwDrxUVH9RRP3Wv?=
+ =?us-ascii?Q?utFt+YLw+3lpuLptCFmRsp/7vH+M8+x6rS8Na/vr6SZnMD3VbV4PBRtEQdzi?=
+ =?us-ascii?Q?pyBw8N8oSxFnN2kWnecdN58LRtvdGpfl87Z53REmn/hV8Oiq9Sgzo0T4Mytm?=
+ =?us-ascii?Q?vWrLVCGvUs64YqS9MBiBzdRdd7IPTDSLQedTnRVnV9sBwGW1WuoSGvSj8fJs?=
+ =?us-ascii?Q?vduQ1DTIy8ZaQoNXwIT4KuqsAQ4DHYlZgznIvnLdztt1PooWVTSS6ymH7EkX?=
+ =?us-ascii?Q?S0lzXm5igAn8wbV5bOuOnxpjjFlZnFm6ql67zE9nbWF4ISUqtLbc5swJPtFG?=
+ =?us-ascii?Q?X2AniyfjPPsm1BZoRKINFtVim9iw1WqIehCSTqSYyn8oRgEmwSHt2pPyrfKg?=
+ =?us-ascii?Q?XafELEO0uRx02tIOE71QJqwV5TCQOEjN90oXr3gJULJ514UW4uyx?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: 636db6ff-254c-4134-c7ab-08df375fbeda
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 15:00:47.4562
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: w/D+I9th7ZG5THQvihdCAt1CMmY/OSAqaMn7oxnahsS60V6xnKj+nUQdgIIYXXNuCPWSuNk+9AovR0aF77gd+g==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3P286MB2771
 
-On Sat, Oct 31, 2026 at 02:35:05PM +0200, Mike Rapoport (Microsoft) wrote:
-> With UFFD_FEATURE_EVENT_FORK the userfaultfd context is duplicated for the
-> child process, the child VMAs are registered with the new context, and uffd
-> protection state from the parent PTEs is copied into the child.
->
-> If the parent's userfaultfd is released before the fork event is read,
-> userfaultfd_release_new() resets the VMA flags but keeps uffd state in the
-> child PTEs.
->
-> This leaves the child's VMAs in an inconsistent state: they are not
-> registered with userfaultfd but their mappings carry uffd protection state.
->
-> If the child registers the range with userfaultfd again, the stale state
-> turns into protection the child never asked for.
->
-> When a write fault makes such a PTE writable without copying the page, the
-> uffd bit remains set and page_table_check_pte_flags() warns about it.
->
-> Split resolving of the uffd PTE state out of userfaultfd_clear_vma() and
-> call it from userfaultfd_release_new() before resetting the VMA.
->
-> Fixes: f369b07c8614 ("mm/uffd: reset write protection when unregister with wp-mode")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+On Fri, Oct 30, 2026 at 11:54:50AM -0500, Frank Li wrote:
+> On Sat, Oct 31, 2026 at 12:07:39AM +0900, Koichiro Den wrote:
+> > Once requests are appended while the channel runs, a DONE interrupt no
+> > longer means that all published entries have completed.
+> >
+> > Use DMA_LLP to advance ll_done and complete descriptors in issue order.
+> > Reclaim entries as they complete so descriptors larger than the ring
+> > can be submitted in batches.
+> >
+> > DMA_LLP may advance before payload completion, so keep the running
+> > completion boundary one entry behind it. Use DMA_LLP itself once the
+> > channel is stopped with a zero transfer size. Hold vc.lock to serialize
+> > progress with ring resets and doorbells.
+> >
+> > Refill reclaimed entries and restart a stopped channel if work remains.
+> > Defer STOP and PAUSE completion until the channel stops.
+> >
+> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > ---
+> > Reworked v5 patch 13:
+> > https://lore.kernel.org/r/20260812155721.2807506-14-den@valinux.co.jp/
+> >
+> > Changes since v5:
+> >   - Read the registers in the progress handler instead of retaining an
+> >     IRQ-paired LLP snapshot.
+> >   - Allow index 0 to wrap. Reject running samples that would reclaim all
+> >     pending entries, so an unchanged start pointer cannot look like a
+> >     full lap.
+> >
+> >  drivers/dma/dw-edma/dw-edma-core.c | 140 ++++++++++++++++++++++++++---
+> >  1 file changed, 126 insertions(+), 14 deletions(-)
+> >
+> > diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
+> > index b08bb31657c9..74613c95ae11 100644
+> > --- a/drivers/dma/dw-edma/dw-edma-core.c
+> > +++ b/drivers/dma/dw-edma/dw-edma-core.c
+> > @@ -53,13 +53,6 @@ dw_edma_alloc_desc(struct dw_edma_chan *chan, size_t nburst)
+> >  {
+> >  	struct dw_edma_desc *desc;
+> >
+> > -	/*
+> > -	 * For now, a descriptor that does not fit would stall the channel
+> > -	 * forever: reject it up front.
+> > -	 */
+> > -	if (!chan->non_ll && nburst > chan->ll_max - 1)
+> > -		return NULL;
+> > -
+> >  	desc = kzalloc_flex(*desc, burst, nburst, GFP_NOWAIT);
+> >  	if (unlikely(!desc))
+> >  		return NULL;
+> > @@ -146,6 +139,76 @@ static bool dw_edma_ll_pending(struct dw_edma_chan *chan)
+> >  	return chan->ll_head != chan->ll_done;
+> >  }
+> >
+> > +static bool dw_edma_ll_stopped(struct dw_edma_chan *chan)
+> > +{
+> > +	return dw_edma_core_ch_status(chan) == DMA_COMPLETE &&
+> > +	       !dw_edma_core_ch_transfer_size(chan);
+> > +}
+> > +
+> > +/* Return the first entry we cannot reclaim yet. */
+> > +static int dw_edma_ll_boundary(struct dw_edma_chan *chan, int idx,
+> > +			       bool stopped)
+> > +{
+> > +	if (idx < 0 || (u32)idx > chan->ll_max)
+> > +		return -EINVAL;
+> > +
+> > +	/* After a stop, LLP points past the completed entries. */
+> > +	if (stopped)
+> > +		return idx == chan->ll_max ? 0 : idx;
+> > +
+> > +	/*
+> > +	 * DMA_LLP can advance before payload completion. Keep the boundary
+> > +	 * one entry behind it, wrapping at the start of the ring.
+> > +	 */
+> > +	return idx ? idx - 1 : chan->ll_max - 1;
+> 
+> use mod
+> 
+> 	(idx + (chan->ll_max - 1) - 1) % chan->ll_max - 1;
 
-Hi Mike,
+I believe what you meant was:
 
-I managed to trigger a warning without this patch too by using an
-mprotect(PROT_READ | PROT_WRITE) in the child with CONFIG_PAGE_TABLE_CHECK:
+  (idx + chan->ll_max - 1) % chan->ll_max
 
-  WARNING: mm/page_table_check.c:202 at __page_table_check_ptes_set+0x181/0x2f0
-  Call Trace:
-   change_pte_range+0x1ef7/0x29b0
-   change_protection+0xd2b/0x1560
-   mprotect_fixup+0x4cb/0x1040
-   do_mprotect_pkey+0x7c2/0xac0
-   __x64_sys_mprotect+0x78/0xc0
+and if yes, I agree. I'll update it in the next revision.
 
-No warning with the patch, so:
+> 
+> 
+> > +}
+> > +
+> > +/* Must be called with vc.lock held. */
+> > +static void dw_edma_ll_consume(struct dw_edma_chan *chan, int idx,
+> > +			       bool stopped)
+> > +{
+> > +	struct virt_dma_desc *vd, *_vd;
+> > +	u32 done, used;
+> 
+> lockdep_assert_held()
 
-Reviewed-by: Tal Zussman <tz2294@columbia.edu>
-Tested-by: Tal Zussman <tz2294@columbia.edu>
+Will add it.
 
-With a couple comments about comments below.
+> 
+> > +
+> > +	idx = dw_edma_ll_boundary(chan, idx, stopped);
+> > +	if (idx < 0)
+> > +		return;
+> > +
+> > +	done = dw_edma_core_get_ll_dist(chan, chan->ll_done, idx);
+> > +	used = dw_edma_core_get_used_num(chan);
+> > +
+> > +	/*
+> > +	 * LLP may still point to the first pending entry. Subtracting one
+> > +	 * can wrap the index and falsely mark all pending entries complete.
+> > +	 * Reclaim them all only after the channel has stopped.
+> > +	 */
+> 
+> Do you means !done for this comments?
 
-> ---
->  mm/userfaultfd.c | 43 ++++++++++++++++++++++++++-----------------
->  1 file changed, 26 insertions(+), 17 deletions(-)
->
-> diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-> index 3b71712edab4c..2c11ac5dad3d5 100644
-> --- a/mm/userfaultfd.c
-> +++ b/mm/userfaultfd.c
-> @@ -2220,6 +2220,28 @@ static void userfaultfd_reset_ctx(struct vm_area_struct *vma)
->  	userfaultfd_set_ctx(vma, NULL, 0);
->  }
->  
+No, it was about the last term (ie. "!stopped && done == used") only. In
+retrospect I should've separated the if blocks like the following. WDYT?
 
-I think uffd is woefully under-commented considering how many edge cases and
-races are associated with it... so how about the following instead:
+    if (!done || done > used)
+            return;
 
-/*
- * Clear uffd state from a WP or RWP range: the uffd bit, WP markers and
- * RWP PAGE_NONE entries. Call this before dropping the registration, as it
- * needs the VMA flags to know what to resolve.
- */
+    /*
+     * LLP may still point to the first pending entry. Subtracting one
+     * can wrap the index and falsely mark all pending entries complete.
+     * Reclaim them all only after the channel has stopped.
+     */
+    if (!stopped && done == used)
+            return;
 
-> +/* Clear the uffd bit and/or restore protnone PTEs */
-> +static void userfaultfd_clear_ptes(struct vm_area_struct *vma,
-> +		unsigned long start, unsigned long end)
-> +{
-> +	unsigned int mm_cp_flags = 0;
-> +	struct mmu_gather tlb;
-> +
-> +	if (!userfaultfd_protected(vma))
-> +		return;
-> +
-> +	if (userfaultfd_wp(vma))
-> +		mm_cp_flags |= MM_CP_UFFD_WP_RESOLVE;
-> +	if (userfaultfd_rwp(vma))
-> +		mm_cp_flags |= MM_CP_UFFD_RWP_RESOLVE;
-> +	if (vma_wants_manual_pte_write_upgrade(vma))
-> +		mm_cp_flags |= MM_CP_TRY_CHANGE_WRITABLE;
-> +
-> +	tlb_gather_mmu(&tlb, vma->vm_mm);
-> +	change_protection(&tlb, vma, start, end, mm_cp_flags);
-> +	tlb_finish_mmu(&tlb);
-> +}
+> 
+> > +	if (!done || done > used || (!stopped && done == used))
+> > +		return;
+> > +
+> > +	chan->ll_done = idx;
+> > +
+> > +	/* Match reclaimed entries to descriptors in issue order. */
+> > +	list_for_each_entry_safe(vd, _vd, &chan->vc.desc_issued, node) {
+> > +		struct dw_edma_desc *desc = vd2dw_edma_desc(vd);
+> > +		u32 consumed = min_t(u32, done,
+> > +				     desc->start_burst - desc->done_burst);
+> > +
+> > +		if (!consumed)
+> > +			break;
+> > +
+> > +		desc->done_burst += consumed;
+> > +		done -= consumed;
+> > +		if (desc->done_burst != desc->nburst)
+> > +			break;
+> > +
+> > +		dw_hdma_set_callback_result(vd, DMA_TRANS_NOERROR);
+> > +		list_del(&vd->node);
+> > +		vchan_cookie_complete(vd);
+> > +	}
+> > +
+> > +	WARN_ON_ONCE(done);
+> > +}
+> > +
+> >  static void dw_edma_core_ll_start(struct dw_edma_desc *desc)
+> >  {
+> >  	struct dw_edma_chan *chan = desc->chan;
+> > @@ -174,7 +237,6 @@ static void dw_edma_core_ll_start(struct dw_edma_desc *desc)
+> >  		}
+> >  	}
+> >
+> > -	desc->done_burst = desc->start_burst;
+> >  	desc->start_burst = i;
+> >  }
+> >
+> > @@ -283,6 +345,45 @@ static void dw_edma_core_ch_maybe_doorbell(struct dw_edma_chan *chan)
+> >  	dw_edma_core_ch_doorbell(chan);
+> >  }
+> >
+> > +/*
+> > + * Must be called with vc.lock held.
+> > + *
+> > + * HDMA does not update LLP continuously. Only use it to track running
+> > + * transfers when handling an interrupt.
+> > + */
+> > +static void dw_edma_ll_advance(struct dw_edma_chan *chan, bool event)
+> > +{
+> > +	bool stopped = dw_edma_ll_stopped(chan);
+> > +
+> > +	if (stopped || event)
+> > +		dw_edma_ll_consume(chan, dw_edma_core_ll_cur_idx(chan),
+> > +				   stopped);
+> > +
+> > +	if (chan->request != EDMA_REQ_NONE) {
+> > +		/* Wait for the channel to stop before completing STOP or PAUSE. */
+> > +		if (!stopped)
+> > +			return;
+> > +
+> > +		if (chan->request == EDMA_REQ_STOP) {
+> > +			dw_edma_finish_termination(chan);
+> > +		} else if (chan->request == EDMA_REQ_PAUSE) {
+> > +			dw_edma_set_request(chan, EDMA_REQ_NONE);
+> > +			chan->status = EDMA_ST_PAUSE;
+> > +		}
+> > +		return;
+> > +	}
+> > +
+> > +	dw_edma_start_transfer(chan);
+> > +	if (!dw_edma_ll_pending(chan)) {
+> > +		chan->status = EDMA_ST_IDLE;
+> > +		return;
+> > +	}
+> > +
+> > +	chan->status = EDMA_ST_BUSY;
+> > +	if (stopped)
+> > +		dw_edma_core_ch_doorbell(chan);
+> > +}
+> > +
+> >  static void dw_edma_device_caps(struct dma_chan *dchan,
+> >  				struct dma_slave_caps *caps)
+> >  {
+> > @@ -749,7 +850,7 @@ dw_edma_device_prep_interleaved_dma(struct dma_chan *dchan,
+> >  	return dw_edma_device_transfer(&xfer, dw_edma_device_get_config(dchan, NULL));
+> >  }
+> >
+> > -/* Must be called with vc.lock held. */
+> > +/* Non-LL completion; vc.lock must be held. */
+        ^^^^^^(a)
+> >  static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
+> >  {
+> >  	struct dw_edma_desc *desc;
+> > @@ -772,8 +873,6 @@ static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
+> >  			dw_hdma_set_callback_result(vd, DMA_TRANS_NOERROR);
+> >  			list_del(&vd->node);
+> >  			vchan_cookie_complete(vd);
+> 
+> why not use dw_edma_ll_consume(), let vchan_cookie_complete() at one
+> place only
 
-I think it may also be helpful to comment the fork release path that
-triggers this bug for clarity, so how about the below on top? Happy to send
-it separately.
+With this patch, the existing dw_edma_done_interrupt_locked() now serves the
+non-LL case only (see (a) above), so we cannot simply use dw_edma_ll_consume()
+here, as it works on ring indices.
 
-That ewq->msg.arg.reserved.reserved1 at the end is horrific too... I'll send
-a patch to clean that up.
+That said, avoiding scattering vchan_cookie_complete() around makes sense.
+Would it be a middle ground to add a new helper like:
 
----8<---
-From: Tal Zussman <tz2294@columbia.edu>
-Subject: [PATCH] mm/userfaultfd: comment the fork event release path
+   static void dw_edma_complete_vdesc(struct virt_dma_desc *vd,
+                                   enum dmaengine_tx_result result)
+   {
+        dw_hdma_set_callback_result(vd, result);
+        list_del(&vd->node);
+        vchan_cookie_complete(vd);
+   }
 
-Document what userfaultfd_reset_ctx() expects from its callers, and why
-the fork event release path has to unregister the child.
+and replace the remaining open-coded vchan_cookie_complete() call sites with it?
 
-Link: https://lore.kernel.org/lkml/20261031-uffd-prot-bits-fork-event-v1-1-3572921c2111@kernel.org/
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
----
- mm/userfaultfd.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+Thanks for the review!
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3b71712edab4..249f3b4444ab 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -2215,6 +2215,13 @@ static void userfaultfd_set_ctx(struct vm_area_struct *vma,
- 				 (vma->vm_flags & ~__VM_UFFD_FLAGS) | vm_flags);
- }
- 
-+/*
-+ * Drops the registration from the VMA.
-+ *
-+ * Page tables are left alone. Callers must make sure no uffd state is
-+ * left behind in them, either by calling userfaultfd_clear_ptes() first
-+ * or because none was ever installed in the range.
-+ */
- static void userfaultfd_reset_ctx(struct vm_area_struct *vma)
- {
- 	userfaultfd_set_ctx(vma, NULL, 0);
-@@ -2997,6 +3004,10 @@ static void userfaultfd_event_wait_completion(struct userfaultfd_ctx *ctx,
- 		set_current_state(TASK_KILLABLE);
- 		if (ewq->msg.event == 0)
- 			break;
-+		/*
-+		 * The fd is gone or we are being killed, so the event
-+		 * will never be read.
-+		 */
- 		if (READ_ONCE(ctx->released) ||
- 		    fatal_signal_pending(current)) {
- 			/*
-@@ -3009,6 +3020,10 @@ static void userfaultfd_event_wait_completion(struct userfaultfd_ctx *ctx,
- 			if (ewq->msg.event == UFFD_EVENT_FORK) {
- 				struct userfaultfd_ctx *new;
- 
-+				/*
-+				 * Nobody will get an fd for the new context,
-+				 * so unregister the child.
-+				 */
- 				new = (struct userfaultfd_ctx *)
- 					(unsigned long)
- 					ewq->msg.arg.reserved.reserved1;
--- 
-2.39.5
+Best regards,
+Koichiro Den
 
+> 
+> Frank
+> 
+> > -			if (!chan->non_ll)
+> > -				chan->ll_done = chan->ll_head;
+> >  		}
+> >
+> >  		if (chan->request == EDMA_REQ_PAUSE) {
+> > @@ -796,7 +895,6 @@ static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
+> >  	default:
+> >  		break;
+> >  	}
+> > -	dw_edma_core_ch_maybe_doorbell(chan);
+> >  }
+> >
+> >  static void dw_edma_done_interrupt(struct dw_edma_chan *chan)
+> > @@ -808,6 +906,16 @@ static void dw_edma_done_interrupt(struct dw_edma_chan *chan)
+> >  	spin_unlock_irqrestore(&chan->vc.lock, flags);
+> >  }
+> >
+> > +static void dw_edma_ll_interrupt(struct dw_edma_chan *chan)
+> > +{
+> > +	guard(spinlock_irqsave)(&chan->vc.lock);
+> > +
+> > +	if (chan->status == EDMA_ST_PAUSE)
+> > +		return;
+> > +
+> > +	dw_edma_ll_advance(chan, true);
+> > +}
+> > +
+> >  static void dw_edma_abort_interrupt(struct dw_edma_chan *chan)
+> >  {
+> >  	struct virt_dma_desc *vd;
+> > @@ -838,8 +946,12 @@ static void dw_edma_irq_work(struct work_struct *work)
+> >  	do {
+> >  		events = atomic_xchg(&chan->irq_pending, 0);
+> >
+> > -		if (events & DW_EDMA_DEFERRED_DONE)
+> > -			dw_edma_done_interrupt(chan);
+> > +		if (events & DW_EDMA_DEFERRED_DONE) {
+> > +			if (chan->non_ll)
+> > +				dw_edma_done_interrupt(chan);
+> > +			else
+> > +				dw_edma_ll_interrupt(chan);
+> > +		}
+> >  		if (events & DW_EDMA_DEFERRED_ABORT)
+> >  			dw_edma_abort_interrupt(chan);
+> >  	} while (atomic_read(&chan->irq_pending));
+> > --
+> > 2.54.0
+> >
