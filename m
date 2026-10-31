@@ -1,101 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793465732;
-	b=m9pF2ACS7ahEod6lOoCJlX+Ft0f/f5HJUmxbHOXKOEQHMLDyGRLRosV3urq6VsWwh6ZF
-	 1jgOEEkCwCXbLE7I/Y7FZe/+iyhNAAiDwKwmmOFCKf2GBVYT6EQcABSZmhiR5Wxf8vvzi
-	 H3WSVOWLhrA4aMkN8sDKpCAi87u7K2pljXwhuZTVh+Y261s5EXDeKMuOT1o+WcIoVzJMp
-	 5LEEJeoImH8661WBTjeTrQS5UZhrsJUuIF2zTbxCB/9Vv7dXfb/zFgmbhmQlDAZJwIzYh
-	 nMF4udmN0bcpGnxYRAuEm+nG/puC2O9g3hqPdk+l+NQykh+HjDVDefXs7lA1TUQ1U6A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465732;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793465761;
+	b=VehTrKOnnbK/RdANYUJ9ST+d/dM2BcWXrfm9F+9zvAOvMsqXz6I7MOXjm3LblC6GLntB
+	 yYDSpx33/zZCYASxNK4uNohtZcOecHx4zxp13T31Dn8K2ZJ9z5X10VQDWM4oYswSEoe79
+	 Uv73rCGHGO2xquQFgOwECWlqdWOQSzY+fvyxX6jePftjYxiscZvU+NRiYWGsHKOnybAVW
+	 RMEyhAxXvaY5R1tS6mP4h/kFtBgv6pbKQSU75WM603RMD6gtcP337DPSgEH4zW3aDUamm
+	 akpmJMEy/N1x7FSG6xcEg1vraF25EkVey6gyAaPWT/LnNhxfDtMLAncE33zXRvJt0yg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465761;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=K3AF4yhejw1zi/AA2enCSIBecmS/SX7iKrYz1efJHMs=;
-	b=qPdoqRqMxzVqo5i7SgYfWv5Y/R4PUxhnQxRORdBkesE+bj1Ag/0DkFgltaJDTgMKSiIi
-	 V7/9UUQnHJZwOmBXCqT5OSgq7Bx3MPxmI/FT5Jta7OjLBVygv9Re/j9itl3yN2sEXXCaG
-	 rQ2P/cGMoWjuvr45r4OBEV/etw0kTLljiJ2MUHTAbnckGERTX9vz41Hr92ukzAdLFeJWk
-	 k1fc5MXPMqQu7ExbIUD9xPezVk+YlwAQHKj1e8auy42xRXM/6gZPKW+jxBM/081/WO/AL
-	 CXXxdvRii8DO0MnyNQhCTfQcRov34HLovGC7OnY4cavtvrVzEN6qZZaJ9Q01AMv8DBw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iKfmBFaO;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.45
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
+	bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
+	b=XpysT9E/rQp64QKeYR3GJOhNvY+g9wM7I2oSxz/4MQPvwZWVxn4bRyhcYtm8VmP8h9kP
+	 2nmdEs3N2hyA/ASPxGxEDz0IV8vVF7jBrWljPt+sX0YdkdYoTmBD4nB3zJyrI9gnmMIPg
+	 jtYeV4YVHkoGZXTXBYss8rZpeamj3eP+jZrsL59UU7KfdAG0sN5IUIvMVigTr4y22a8WY
+	 GzT4fyPxfJ8RXRXAOS/AqYrw5aURQKwWL/jxeOvtFVFTzDyVuYInrB3WPqWf83cPSONCd
+	 j+fuPd/48H1gnutdxJSn/AJYc0w0HeEcFxxhBraailqdT+mg/wNYA/0ryDrhuuhy/Qg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=REnspDXt;
+	arc=none smtp.remote-ip=74.125.82.44
+Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F2B606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:55:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2F2B606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D45E606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:56:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D45E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iKfmBFaO
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c46822eefb6so228253966b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:55:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793465730; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RwCIqsuUqDQMfFqncWw+VGYPxF04/DU2MIy4c58MUUOJpxJ6To85MP/psiX/y1Qsal
-         AcASkizkPyveBOg0h2UskBPzc1shiwj2z2TAgqsUGszhKD9kJibU+1KOonCd3iMzZa2D
-         A1jzCfVnIRfuI3yQqgiTPX41As6wMSJusa0SS7DjjaH9zE96tvU/MZX+/HZMpGZx6aqx
-         ZHyZOPAjEzkj+pNhAPQunRYDmRbKTGkD0uzdkxJkJkIg/CreSTZf2xmR34q4QpazAxPm
-         Nlq5Tf0jIWzcFijArRa0+RGOGNRCJ/DvLmvTraOInsnovB3N1sIkaVWpmqNOKEOqoNTM
-         LuGw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=K3AF4yhejw1zi/AA2enCSIBecmS/SX7iKrYz1efJHMs=;
-        fh=Pylzzv9wF38hA6iCKI7IMeeK35vTVZVEfbp/39VVfRQ=;
-        b=B+Ftv/dT9WT1Nvoqoa2SZ8AzzJbsepPhspJmSGkIq9Q879sbD+bIXmtzZldQGdduJc
-         EAu8SaUQfuP5/ErqNjkvr7MmMlMNB/Fny6sfz7u63AGEaycXXneaqeNuV/ifhYPiL2zk
-         33mKL2VVDJEjETb5NAir+3TnnF3Usf839Dqy57/iHVOzzQ6XRgZAtF/aOugzYtEQ10gk
-         8wjMgnnfXGriYqi9/rM7xNabMZ1zZeSdErH5r97RHPdOTvddDz0x1RPTgBt4HC2aWwZ8
-         PLQWB+S2VxZ9TAMYNI3lt+u0JhVNuXiqNAgUk16axI9PjiSEPX0HcBtt+E9+UBI1rXGO
-         uSMw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=REnspDXt
+Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so1471373c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:56:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793465730; x=1794070530; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K3AF4yhejw1zi/AA2enCSIBecmS/SX7iKrYz1efJHMs=;
-        b=iKfmBFaO1qcZGGI4H7JNSxj7oj8c5/6s7Vax8sgKFZjJlHrMQS1enaClD4f3FDXMnt
-         dtwvj9gSO3p2T7lAjAT/31qSboEVvGvkl5P6aGoAa6ES+/bCPlB/77KHVyrC7nccZBDz
-         lxTIzCVgqCCNLLpatpcal7M+Z9bgteex6lf55JqgMVK4xPaejgccN+E+wUb99IUY6GeX
-         TXPXGvrBcrtIpBwXpxFRXwCy7Fgysrsvl9n7xPyeLMPeaHhRYq/xFOshB5l2pheVevu9
-         d9GDq25zA6BNagVZ5BT6/GrphzSqigB0XH4grQrtryxT3UW0JBpAMW1E2LDmy/lQfcb/
-         lOxA==
+        d=nexthop.ai; s=google; t=1793465760; x=1794070560; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
+        b=REnspDXt+lRcxcp94OICDLypGbuOKyCjYRTlZ8QxpOGOD/WcUbDMN8O87C0EzS5UbH
+         MQ4zjwmACZ/pc67zk2cSLhpLFdA/fPA2CijbU5WtXW+A4anQtI977v6hGmbFP8CAVVbG
+         VeOE/gGNtxRthMf33tWZ6UY4ItrNj/LdHDtfulZtzF82/dqO7e6ppHfP95h+EqkrZgQm
+         tFKGT6wZpO8Oew+0k3NsoOYHf148k6g8PFRY/DLQrssuXEME11rbKsfzQQ9bOF4HyYQl
+         ZxeHqNAkvqaMdt1FXjihcuQZ0kT6wvgGewF5IMb7pOmNBK+g9R4V+K82agU4w5nD4Awk
+         IaVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793465730; x=1794070530;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1793465760; x=1794070560;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=K3AF4yhejw1zi/AA2enCSIBecmS/SX7iKrYz1efJHMs=;
-        b=THJr9P1WIef6eS0QcsVivfdVqQO7tiRtYjQmQGxjmDZ5iUM15jVA+sLYSfPvNE1xJY
-         1Z8z+INenAEkXKxSGo5DeXqU3DlWVdzZEUFFkKYHDkxB/7P/9vMRew9NttTXVY8LuCjC
-         1iszUIy3eq5pTkpJnSSUIEtDFsL2WI1lVVL7ergzrWmHQ7ZlNkh6PJs2CgaPkficoTuM
-         ccAGPSL4GCUWgvsTKFxXAd1ABJkc0Y2cyKa1NO4/Z6waifoCWSZtPHp6YxCbzoQDAYI3
-         DV/JEv15vNDKcUMvaKkoYQdkGQiwS3AhU3D9/TRm080FzQ/VePIaKBKZ7cfZZqkFC8Vd
-         NxpQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy4p/vqS9wytVFF/Y/iuzbS58zPfp7IO75472JuzTcnMD0DblatncZ6/DNYcjRq5wgW1lTI/ym4QxjOVBg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJyIMUmIg4a0/XMblHFXl8B0X8b7WZT0dauWPaXlxmLqnBZ/VAM
-	URHMSNHsTtinej2n+0oJurXbZgpMSYrKUDl9pH3RzlMZwcJ1cKwWe/CZlQiMLF8rBS/L6OAavLK
-	tRvabdDocLIaZiy48/p09oHpEyzib8Nw=
-X-Gm-Gg: AYBFou13cEZS8EI03cOVMWQaYeSl0WJeQOxwzwp9pQN8fYGgIEunad88HIGWrG0c15F
-	lrVVH0FbewICMq5oi525hmCeAb3p7dDiGl+ooynqbNj6ivvS0PVn1ziI2scsoy2zIvD4+/gr/8R
-	zndvMJcM7mRem8mzcAQphS/J8BLGWF0cD9HPVsLkBvmyTnYS+seNpqsXBi3bNXUdtAC5A0RbUdQ
-	6IN3/7mTKPH0Xk40ocmy2wo6Bny6IqWnhXfX29PnBzhlCrlJnD1e4VNl5dcsqq3SXkWeQ5RvJxP
-	CdUuAGRse0yn7+po1dO1/c027k9edKpLqFKvl6B8iSzb6PepYzeo0mwTTIwr4D2cgUS7cb5i3lu
-	znBfQvlnqETkdm+XtL37ZypLJp1rSYGLcYF/ImMxofnRwpRjaWHE85xDG8vCwG8dA5zv+iERU5N
-	EEHmzZ9YrC+xtL1zqSd2dlaqY=
-X-Received: by 2002:a17:907:d9f:b0:c40:b477:dfa0 with SMTP id
- a640c23a62f3a-c4ca7a46ab6mr449889766b.18.1793465729824; Sat, 31 Oct 2026
- 09:55:29 -0700 (PDT)
+        bh=dTSpWgCuU+uPZLriefRpG7c7+1TKz+jm36CBK/vsWJk=;
+        b=e96N0Fbr0QRlGF4epNEsGLga1s47hW0SxstcmkWIFQJxtszIRdnUL3L2pzgAW3ZLyx
+         5QAPakBEXoYuIZKRzjsW2Q0IrhfDJFs0d1lJfIF/W/iWyfJP8f1BQ0ESgm4umNQVAoaU
+         kWNzavYwFQbLtfqMcEzyRW415I4uzr95LF0lgqEjiVJXw+MdayC/2umSxzX2Q5/Jza5l
+         +5zTTIVc1WAIXTqDvrx/qfASkja7I8143giNcJrF1ZuHdt7vrjwov/VRkh8zEL1k3vdx
+         aFXU4ZNcJiDMJ22WhDMqU6PWsnKCD/e9MitgHbIVuGrF53RkdBFyPDYeKvIhExzvpOvC
+         2Xmg==
+X-Forwarded-Encrypted: i=1; AKwUvBwh7dvgzy4TQ1H/jQ7AZ/qybw2/ujNGWUYCN7ZeNObF6PPgDfY6G3vUlvLfsSvFy54l6jgmCkj6WXkyjg0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUb1L7+r53klXn1w7NrBltDQX9gc8xAab4f03XwVGPfvO61NiX
+	ayKLNbjbYCf+PJD52J/zOlUnAHxF4PjqnZEBE42p33YojOI2NDpLzZTqU0JzbvWxPKI=
+X-Gm-Gg: AYBFou3AHx1WiEAMyZnsJC1vLFTCPNjti6F2OC1NyLz1FbxmCN9ZbDkxk6gEr50IcR9
+	j1jGheC2F7MO5dlUd8S7SSlAQi7fKwFHVGVxTHDRlaAIBBgjNKqMK12wQx1TqaSA6uyZbSKUosQ
+	XpU3IBAWogQ6a7Lz3zi6+2fW3KuQ6K2dVCq3gLS1IqSROb3lBTPfkAe7rIpUD6WLrlxTOZSkD0G
+	6zXoIurldQC9WWuylAdYAJ2ilaNxPtt0jhuDbHJmUzId37Imkraqe2F4or4nW7uQ7t3p45dQXvk
+	dQ6E3IM3eoh9LYxqIuJCOpGeZQSIJfqhDtPzaTNcBocQUaYqjpzk9Vm+oqcbK9BDk6KOWRLRQMp
+	cUKefoElyD0QJMA6D8KJbKTfQkUn4a0uAmfwB3xnxLDvOcTlperz/+hA16QdDcLzTRnXAHZiV5U
+	gjxU/3uE7t1HJrEYlXKWS7ek+4qEigSumGEkk/OPetQW4MUI3iCssM2EPGPo1qcKuJnZOFn8Ctj
+	QnJudUuoKQBXLXQPZT+tS4nlOQDZ3KykGRtw6YTXgDiTdSqfMWHBtMbiA5I8FZBrGKJf1M5Nugx
+	ZdWIOO0559gVCsIgHmSx9YK10cSZRw==
+X-Received: by 2002:a05:701b:4517:10b0:185:fd0c:4585 with SMTP id a92af1059eb24-1ac5fb18de9mr7587298c88.33.1793465760211;
+        Sat, 31 Oct 2026 09:56:00 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19f4a04esm17690437c88.15.2026.10.31.09.55.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 09:55:59 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,170 +87,176 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-References: <20261030-alpha-profileme-v2-0-c702f1c65272@gmail.com> <20261030-alpha-profileme-v2-4-c702f1c65272@gmail.com>
-In-Reply-To: <20261030-alpha-profileme-v2-4-c702f1c65272@gmail.com>
-From: Magnus Lindholm <linmag7@gmail.com>
-Date: Sat, 31 Oct 2026 17:55:18 +0100
-X-Gm-Features: AclHuK9VG7SljAuL-qamMShABUtKfhaQI7d13gpXjDolIqZkv45p0cl55F8_LIQ
-Message-ID: <CA+=Fv5QT6MwHYwXzX5ttrH=XWQHZV0xdjoe76YD9BjqjTwAMCQ@mail.gmail.com>
-Subject: Re: [PATCH v2 4/5] alpha/perf: attach ProfileMe status as
- PERF_SAMPLE_RAW data
-To: Matt Turner <mattst88@gmail.com>
-Cc: Richard Henderson <richard.henderson@linaro.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>, 
-	Mark Rutland <mark.rutland@arm.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Jiri Olsa <jolsa@kernel.org>, 
-	Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, linux-alpha@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 31 Oct 2026 09:55:58 -0700
+Message-Id: <DMJ6JVD0I6KI.2DKEVAB8RYTO4@nexthop.ai>
+Cc: <linux-arm-kernel@lists.infradead.org>, <linux-i2c@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Sasha Levin" <sashal@kernel.org>,
+ "Siddarth Chilukuri" <siddarth@nexthop.ai>, <stable@vger.kernel.org>
+Subject: Re: [PATCH v2] Revert "i2c: xiic: defer RX_FULL until all trailing
+ bytes are in FIFO"
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>, "Michal Simek"
+ <michal.simek@amd.com>, "Andi Shyti" <andi.shyti@kernel.org>
+X-Mailer: aerc 0.22.0
+References: <20261008-i2c-xiic-block-read-nack-v2-1-76735ed0b0bf@nexthop.ai>
+In-Reply-To: <20261008-i2c-xiic-block-read-nack-v2-1-76735ed0b0bf@nexthop.ai>
 
-Hi Matt,
-
-On Fri, Oct 30, 2026 at 5:04=E2=80=AFAM Matt Turner <mattst88@gmail.com> wr=
-ote:
+On Thu Oct 8, 2026 at 6:01 PM PDT, Abdurrahman Hussain wrote:
+> This reverts commit e6fe3ea04f0113fe4d47c03d76e03805a4768ca7.
 >
-> A ProfileMe sample's PC alone does not say what happened to the profiled
-> instruction. I_STAT and PCTR_CTL do: whether it trapped and why, was
-> mispredicted, stalled, or was killed on a wrong path, and what PCTR1
-> counted during the window.
+> That commit raised the Rx FIFO threshold for an SMBus block read whose
+> trailing bytes fit in the FIFO, on the grounds that firing RX_FULL with
+> the last byte still in flight made xiic_read_rx() NACK, and so truncate,
+> that byte. NACKing the last byte does not truncate it: it is how a
+> master ends a read. The byte is still clocked in and is drained on the
+> bytes_rem =3D=3D 0 path that follows, which also issues the STOP.
 >
-> With PERF_SAMPLE_RAW, attach PMPC, I_STAT and PCTR_CTL to each ProfileMe
-> sample in a versioned struct alpha_profileme_sample. PMPC is included
-> because a PALmode PMPC is not the sample's IP. Killed instructions can be
-> told apart by PM_KILLED_BM and VAL. The 64-bit fields are packed after
-> the 32-bit version, since the payload follows the 32-bit raw size in the
-> sample record: they are then 8-byte aligned in the record, which needs
-> no padding.
+> What the higher threshold does instead is skip the bytes_rem =3D=3D 1
+> branch, the only place that sets NO_ACK, so every trailing byte is now
+> ACKed. Having had its last byte ACKed, the target goes on to drive the
+> next one, and the STOP that follows lands in the middle of it.
 >
-> Signed-off-by: Matt Turner <mattst88@gmail.com>
+> Some targets ride this out; others are left wedged until the next
+> transactions clock them free. A TDK FS1412 fails the two transfers that
+> follow any block read, so it never probes: pmbus reads MFR_ID as a block
+> and then VOUT_MODE as a byte. A Renesas RAA228246 and one RAA228244 on
+> the same controller fail the plain block read itself and the byte read
+> after it.
+>
+> With commit b7e6df2f52ed ("i2c: xiic: preserve PEC byte length in SMBus
+> block read setup") and commit 840d8acc8792 ("i2c: xiic: don't clobber
+> msg->len to signal block-read completion") in place, PEC block reads
+> pass at the original threshold. The PEC failures the reverted commit
+> attributed to the threshold came from the bugs those two fix; all three
+> were developed together against an ADM1266, which rides out the extra
+> ACK, so the regression did not show.
+>
+> Twenty rounds per device of a block read and a PEC block read of MFR_ID,
+> each followed by a byte read:
+>
+>                before                      after
+>             block  PEC   byte after     block  PEC   byte after
+>   FS1412    20/20  0/20  20/40 fail     20/20 20/20   0/40 fail
+>   RAA228246  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
+>   RAA228244  0/20 20/20  20/40 fail     20/20 20/20   0/40 fail
+>
+> A second RAA228244 and an Infineon XDPE1A2G5B passed every round before
+> and after.
+>
+> Fixes: e6fe3ea04f01 ("i2c: xiic: defer RX_FULL until all trailing bytes a=
+re in FIFO")
+> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> Cc: stable@vger.kernel.org # v6.3+
 > ---
->  arch/alpha/include/asm/perf_event.h      |  2 ++
->  arch/alpha/include/uapi/asm/perf_event.h | 31 ++++++++++++++++++++++++++=
-+++++
->  arch/alpha/kernel/perf_event.c           | 22 +++++++++++++++++++---
->  3 files changed, 52 insertions(+), 3 deletions(-)
+> A follow-up to my xiic block-read series, now in 7.3-rc as
+> b7e6df2f52ed, e6fe3ea04f01 and 840d8acc8792. The second of those
+> stopped NACKing the final byte of a block read that fits in the Rx
+> FIFO, which leaves some PMBus targets wedged for the next couple of
+> transfers.
 >
-> diff --git a/arch/alpha/include/asm/perf_event.h b/arch/alpha/include/asm=
-/perf_event.h
-> index 72536566014a..f498c1d47c07 100644
-> --- a/arch/alpha/include/asm/perf_event.h
-> +++ b/arch/alpha/include/asm/perf_event.h
-> @@ -1,6 +1,8 @@
->  #ifndef __ASM_ALPHA_PERF_EVENT_H
->  #define __ASM_ALPHA_PERF_EVENT_H
+> Tested on a 6.12 kernel carrying that series, against an AXI IIC
+> controller with an FS1412, RAA228244/RAA228246 and XDPE1A2G5B behind
+> it, using plain and PEC block reads and the byte reads that follow.
 >
-> +#include <uapi/asm/perf_event.h>
-> +
->  /*
->   * Software events have no trap frame, so perf_fetch_caller_regs() fills
->   * in a zeroed pt_regs. A zero ps already means kernel mode; only pc is
-> diff --git a/arch/alpha/include/uapi/asm/perf_event.h b/arch/alpha/includ=
-e/uapi/asm/perf_event.h
-> new file mode 100644
-> index 000000000000..aa0eff5a917c
-> --- /dev/null
-> +++ b/arch/alpha/include/uapi/asm/perf_event.h
-> @@ -0,0 +1,31 @@
-> +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
-> +#ifndef _UAPI_ASM_ALPHA_PERF_EVENT_H
-> +#define _UAPI_ASM_ALPHA_PERF_EVENT_H
-> +
-> +#include <linux/types.h>
-> +
-> +/*
-> + * PERF_SAMPLE_RAW payload of a ProfileMe sample from the cpu PMU.
-> + *
-> + * pmpc, i_stat and pctr_ctl are the values of the PMPC, I_STAT and
-> + * PCTR_CTL registers when the ProfileMe window closed. i_stat holds onl=
-y
-> + * bits 40:30 and pctr_ctl only bits 47:0. See the EV67/EV68 Hardware
-> + * Reference Manuals for the field layout.
-> + *
-> + * In the sample record the payload follows the 32-bit PERF_SAMPLE_RAW
-> + * size, so it starts 4 bytes past an 8-byte boundary. The 64-bit fields
-> + * are packed after the 32-bit version so that they are 8-byte aligned i=
-n
-> + * the record and no padding follows the payload.
-> + *
-> + * Fields may be added to the end in later versions.
-> + */
-> +#define ALPHA_PROFILEME_SAMPLE_VERSION 1
-> +
-> +struct alpha_profileme_sample {
-> +       __u32 version;
-> +       __u64 pmpc __attribute__((packed));
-> +       __u64 i_stat __attribute__((packed));
-> +       __u64 pctr_ctl __attribute__((packed));
-> +};
-> +
-> +#endif /* _UAPI_ASM_ALPHA_PERF_EVENT_H */
-> diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_even=
-t.c
-> index c7f0ccf8ec80..c9d4b13817bc 100644
-> --- a/arch/alpha/kernel/perf_event.c
-> +++ b/arch/alpha/kernel/perf_event.c
-> @@ -944,10 +944,13 @@ static void alpha_perf_event_profileme(struct perf_=
-event *event,
->                                        struct hw_perf_event *hwc,
->                                        struct pt_regs *regs)
->  {
-> +       struct alpha_profileme_sample pm;
-> +       struct perf_raw_record raw;
->         struct perf_sample_data data;
->         struct pt_regs *pm_regs;
-> -       unsigned long i_stat, pmpc, ovr, pc, saved_pc, saved_ps;
-> +       unsigned long pctr_ctl, i_stat, pmpc, ovr, pc, saved_pc, saved_ps=
-;
+> The same happens on a second board, where two of four ISL68225s behind
+> the same AXI IIC core fail plain block reads and the transfer
+> after them. A capture of SCL/SDA taken inside the FPGA shows the
+> mechanism: after the last byte of an MFR_ID block read the master
+> drives ACK, the target starts on the next byte with SDA low, and the
+> STOP the master then attempts never appears, leaving SDA held low. With
+> this change the last byte is NACKed and the STOP is clean, and all four
+> pass.
 >
-> +       pctr_ctl =3D wrperfmon(PERFMON_CMD_READ, 0);
->         i_stat =3D wrperfmon(PERFMON_CMD_I_STAT, 0);
->         pmpc =3D wrperfmon(PERFMON_CMD_PMPC, 0);
+> PEC block reads do not regress: 1000 PEC block reads of MFR_ID per
+> device, each followed by a byte read, on the FS1412, both RAA parts, the
+> XDPE1A2G5B and a further RAA228244 passed without a failure, both with
+> this revert alone and with Siddarth's patch on top of it.
 >
-> @@ -982,8 +985,8 @@ static void alpha_perf_event_profileme(struct perf_ev=
-ent *event,
->          * happens for ITB miss, Istream access violation and interrupt
->          * redirects, and for instructions inside PALcode. Keep the
->          * interrupted PC, which for redirects is the instruction that
-> -        * trapped. Do the same for a user PMPC in a kernel thread, which=
- has
-> -        * no user frame.
-> +        * trapped, and report the real PMPC in the raw data. Do the same
-> +        * for a user PMPC in a kernel thread, which has no user frame.
->          */
->         pm_regs =3D regs;
->         pc =3D pmpc & EV67_PMPC_PC_MASK;
-> @@ -1001,6 +1004,19 @@ static void alpha_perf_event_profileme(struct perf=
-_event *event,
+> With this change a block read ends with a NACK, and so with TX_ERROR,
+> like any other read. That puts it in the window Siddarth's patch closes,
+> where xiic_process() sees TX_ERROR before RX_FULL and resets the core
+> even though the data is already in the Rx FIFO:
 >
->         perf_sample_data_init(&data, 0, hwc->last_period);
+>   https://lore.kernel.org/linux-i2c/20261005-i2c-xiic-rx-fifo-v1-1-0177ac=
+5f72d7@nexthop.ai/
 >
-> +       pm.version =3D ALPHA_PROFILEME_SAMPLE_VERSION;
-> +       pm.pmpc =3D pmpc;
-> +       pm.i_stat =3D i_stat;
-> +       /* PALcode sign-extends bit 47 of PCTR_CTL. */
-> +       pm.pctr_ctl =3D pctr_ctl & GENMASK(47, 0);
-> +       raw =3D (struct perf_raw_record) {
-> +               .frag =3D {
-> +                       .size =3D sizeof(pm),
-> +                       .data =3D &pm,
-> +               },
-> +       };
-> +       perf_sample_save_raw_data(&data, event, &raw);
-> +
->         if (!alpha_perf_event_set_period(event, hwc, 0))
->                 return;
+> The two touch different functions and apply cleanly to v7.3-rc6 in
+> either order.
+> ---
+> Changes in v2:
+> - Revert e6fe3ea04f01 outright instead of moving the threshold back by
+>   truncated), and with b7e6df2f52ed and 840d8acc8792 in place PEC block
+>   reads pass at the original threshold. The code change is the same
+>   single line as v1 minus its tail =3D=3D 1 branch, which could never run
+>   (Siddarth, Sashiko): reads with fewer than two trailing bytes are
+>   padded to SMBUS_BLOCK_READ_MIN_LEN first.
+>   Sashiko review: https://sashiko.dev/#/patchset/20261008-i2c-xiic-block-=
+read-nack-v1-1-94882af6e598%40nexthop.ai
+> - Link to v1: https://patch.msgid.link/20261008-i2c-xiic-block-read-nack-=
+v1-1-94882af6e598@nexthop.ai
 >
+> To: Michal Simek <michal.simek@amd.com>
+> To: Andi Shyti <andi.shyti@kernel.org>
+> To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-i2c@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> hand: that commit's premise was wrong (a NACKed last byte is not
+> ---
+>  drivers/i2c/busses/i2c-xiic.c | 8 ++++----
+>  1 file changed, 4 insertions(+), 4 deletions(-)
 >
+> diff --git a/drivers/i2c/busses/i2c-xiic.c b/drivers/i2c/busses/i2c-xiic.=
+c
+> index 5e397a7e63f6..76ef9c26ed57 100644
+> --- a/drivers/i2c/busses/i2c-xiic.c
+> +++ b/drivers/i2c/busses/i2c-xiic.c
+> @@ -569,11 +569,11 @@ static void xiic_smbus_block_read_setup(struct xiic=
+_i2c *i2c)
+>  			i2c->smbus_actual_len =3D 1 + rxmsg_len + pec_len;
+>  		} else {
+>  			/*
+> -			 * All trailing bytes fit in the Rx FIFO. Defer RX_FULL
+> -			 * until every one of them is buffered, so the drain
+> -			 * takes xiic_read_rx()'s bytes_rem =3D=3D 0 path.
+> +			 * All trailing bytes fit in the Rx FIFO. The widened
+> +			 * condition above guarantees rxmsg_len + pec_len >=3D 2,
+> +			 * so this cannot underflow.
+>  			 */
+> -			rfd_set =3D rxmsg_len + pec_len - 1;
+> +			rfd_set =3D rxmsg_len + pec_len - 2;
+>  			i2c->rx_msg->len =3D rxmsg_len + 1 + pec_len;
+>  		}
+>  		xiic_setreg8(i2c, XIIC_RFD_REG_OFFSET, rfd_set);
+>
+> ---
+> base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+> change-id: 20261007-i2c-xiic-block-read-nack-d2b735baddd3
+>
+> Best regards,
 > --
-> 2.55.0
->
+> Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
-I checked the raw samples from all four ProfileMe modes on my ES40.
-The selectors matched the configured events, and I saw the VAL, TAK,
-killed and stalled bits set in the recordings.
+Hi Andi,
 
-Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
-Tested-by: Magnus Lindholm <linmag7@gmail.com>
+Gentle ping on this one. It missed 7.3, so v7.3 and v7.3.1 now ship
+e6fe3ea04f01, and any pmbus device on xiic that reads a block (the
+FS1412 above, for one) fails to probe. Could you take the revert
+through i2c-fixes for 7.4-rc?
+
+When you apply it, the stable hint should be
+
+Cc: stable@vger.kernel.org # v7.3
+
+rather than "# v6.3+". Sasha dropped e6fe3ea04f01 from the older stable
+queues, so 7.3.y is the only stable branch that has it.
+
+The patch still applies cleanly on current mainline. I can resend
+against -rc1 if that's easier for you.
+
+Thanks,
+Abdurrahman
+
