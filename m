@@ -1,124 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793456729;
-	b=Zk07/dZjDFKRbjIXKwMKi12lIQiVcaNKpoK/6KI/HU/KbRSVWGD0ST8xV348aqKAYnwk
-	 Mk1JL8y96G7WYuOjzxF+M0EGcANRFbAGe5N5QaE78lhhl1zGmZVCcitnMI/IrmKVK/AOB
-	 N7rOD07Ui8Z6Q2sFB/DHziezeyMHK8q31GXjVl3APxrzt1MW+zpJaXyhlJbx4aY9m73yz
-	 PmLfe3Y8e9SgkxqSg2RBxXU7dCw9MRsMuoHf4xXuNAPZY6XYlMcqmjHgsovBpegYPRBVN
-	 j9NXJ65k2+lT18am6eitd4AUsugvo4U/SvPvML/SIdBYbRbt6EmpMldEaZxKVJCyk7A==
+	t=1793456922;
+	b=bl8dABK5FhIUbJFxEf0V2MBLpGUKQyC/AzWh72x/kKQm3KK2jPCzr6QpIuDbSsA2gy2i
+	 otx5SgqrM63c7ZSAwQRvbUqCa/+t5tMdYbIHctQHIdSYG6SSbuQCSv8XkiFd5TSLFkCnC
+	 BgYTcMK8WC7iHVOj5rFfKOe3FVQUDwplIltvE5Xof/wzxAbP8MKgVyzUgZndYS1Iu2Ux7
+	 I6o5mPwj3PTwkWQdmFbTKEEHj6YQDbX4QzGxyNydsR9+7rsch7JBl4WNitzkWzPmC4Q3p
+	 25zRyUP1wjF0OhsU2pk6Tmq2wq08CHrU3XQbGjqTx3icA0lacscGrDkoTzeTqgjz+vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793456729;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Authority-Analysis:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=5uJBzesEdn8JWNtnL1mhsTmx0/t5Wkhbj05DbKxlros=;
-	b=cgRwAKJBrmCh/MJFcbM8QyyI4o41LenX1io0End4bqZEGuFYfmutDHFQxvMluF+UW/oE
-	 f8ziKmGknPTCL6o4/OtXvzwtLAzJQzzK9TqeMBBK42c1XsNsJIhd5EyTJQW3Q5yefhC0M
-	 gAp8iSozw8AYctxAZoVf1FMKLQ2+CXFkd4J9yDHjQhEss5e2xLW8u97xpLLKInZpocg6k
-	 257IwbEljvOqPK+duoAR6QgBIAkEZGhCs4TZpmy++Q5y0IpffxpnJE1oGYA5dFS3IzWD5
-	 yt9JJ/QY6Kb7vDchA5xgeig+oPc5hUbET0KezWvogXztxPgykqq7PkqPXtTmOHEK1CA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793456922;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=1KhEjBbS2PxEW961tuGY+mC3rr8BuX8rY+suSCsiUYo=;
+	b=2kfW4GeH0HjfXBwxOlK6XLOwHx1ulnPIUxN7paHAQwQR9zo/T+2B1gR6FmoesGAwbyK1
+	 KAhFf/zluX1PWLwbHRTSHR0ExjjS0nJks3hUO8FwjCbjXLE3t996YcQC/Qo835wvh8mhT
+	 lJ+Bz86WRsMLix/iKlcg/ga9JYIu4ihXGgqZ5mK4HYZswY9XymPZuRVGYQ9DC4YgY+wVw
+	 QLDAccv3eODKKUhNwG298fcRE7erzSaY34Tn/o81cTSwjyZUXAzCgmAnsLEkW9FTc9dMK
+	 2wT1xdO/JtsIaIPQbrbCTTfnzgU25NI22ijs/7ZTqqGhwVrN1nhm0D22pZ80U1DEp+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LiQeguRt;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LySodKSq;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDVFHp9R;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FF2606A326
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:25:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48FF2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1FD606A31D;
+	Sat, 31 Oct 2026 14:28:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB1FD606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LiQeguRt;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LySodKSq
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD00nO2202683
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:25:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=5uJBzesEdn8
-	JWNtnL1mhsTmx0/t5Wkhbj05DbKxlros=; b=LiQeguRtraozvTWcJG2Lfi4vsn5
-	Uzsyy72XxzJUSNOdDh0auoKDMqtlAWcwaJYmwoF8umt1t2+CrCKBCh6rh5SuVJh1
-	8I2EJ1WR4M7fQ+7v0/DkAFv1iGTb13vWaMQ5QXHhNAhmmug/S68djh0jhCGo49IB
-	k/kkH3tPBiDgPTp3eYGxIhf1HM5CPcvlX0vE2xrJ3KEuOmPgR2gImnHmeoCyunyT
-	+Az8YaKG1qAP/flAc9cQ4Hf2PCuN7EvpDnI+KXqzijY1IV/WCdIerki3OW9xDz/f
-	DYQE+thPlG0Z6U/txpO3fQoKdEBY7V+QB94SuvFWwGYdT8Xe7pweG5wEZQg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn5pkhmu5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:25:28 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36637676140so2355132eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:25:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793456727; x=1794061527; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5uJBzesEdn8JWNtnL1mhsTmx0/t5Wkhbj05DbKxlros=;
-        b=LySodKSq+22PQBXoo2UsyFDdIxRz2Kg+JR//CanddfCixjoZNyJO5swFEc2Zp+isib
-         ffC/Yt1JEZAIaEdhZFtjkvB7VYSuWdm78V8d1krhF6KElSUjQYNrYyXn+tXVimDtqMK+
-         PfB7roycmDecfYJl5oTbkVYilHUKczFkZwlEQ1Z0vQs5kFUFquNHspPGUW3JSpUrEEe/
-         jJ4edmzMEMD624+wOivKF2tqM/MFF7z2PdtcIpRMIYUFc9N0bAhXrvd1OINzYy+jd2I2
-         RgGyJ1aP4Hw865xJtm5BcOPjzp8ScvJwjl8JX7HYFwUiNRHrQ6PjaHgZhMFZIdaw8+y6
-         Gq0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793456727; x=1794061527;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5uJBzesEdn8JWNtnL1mhsTmx0/t5Wkhbj05DbKxlros=;
-        b=vj72IN0gUuJZUCHZ1NZe3CuIK/gRQg6+3pd0jt7vYsoe83qAn+ZSM2+Gw14EuneNOZ
-         8LP4dlMimigSfyNuAES2JBDfkGVdYOKOwIl7zeNztpxv42tku9OPVZeoEQlBq+W5vHX1
-         OTLP+uDLua0+i6B5vzwa35oMS8LMPIQSlAaoVL0jtEnw+D+PVU/hJlkhSj97lGS5MDAG
-         RRprvRIehHmiTwhV4xyQD0ONdnqB8JIkqhpxy/Hff0XZuU45Otui+fTAUG7I+NGKOw+J
-         Sa8Q5HB386AIKRBOluqDKbj+hs264EBJPn5alf8SPaKK74REMTT355njkIVsbIGE/ERt
-         YoyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxAqJP9X/OsPiME5Fx+vYoJnnamgu/v7QN1p1Y8+vwpOwm5eYHeqkVuQ6M3XSh/4IXAd7WfbbOA3pI80bs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL5dv6ffYCymt3xblVNPukkzCpFBrg5Z4AQz3OnrKL7/kuP9uPn
-	B79JbrRtvEjyxPyxID65Tql4akmT5xYg3DcT3KBdaH6I5yuOOEYahx/hCZipZZ1LWS2O+KTbMuJ
-	dhcoAC2YCHUfU3KJ1Jhcd0/gigVXEJnsEtV4AEE5LyUk6677DvxFTTM7oc1gJMsU4qGHL2xRrNn
-	bVaQ==
-X-Gm-Gg: AYBFou3DBMccq1QfWF1S8TKsAxJwY8HDTIuhFIhvvRzzZZIZGSTsLLWZthGeVlp32Sc
-	8LuQkLdt3e7Xx/DuDPLb0+YJLBbUmRQ3IOtL/Lrn2IsT7ZxCb5Q2oW1+m9QKQ+cbLURN0gv5yl2
-	gD9Jzc76SRkuQtIt5eWis65gIgEF0p/OXewwHhHecj1sqGmhBDnM3WegYr/cixy76gC4cBPBLZA
-	m3trDgmXR1Q//jsItjggIcB5lZiMOoNGg5yKpi9X1XK1ljQlUg963TCNYTYbRylq1SbZNAqBcMc
-	duki0wDLJmzXPiNHOq0CNdvz1HPyNuSqiYq0zrKm70ga63sjRR8ivtRR7BIdvBF490esEm8VoUb
-	yrp6hYkVqrtC01ZqBauGCaAGkVkPnbpqg0TZJRGZP4y5oQgkU1AaAGzjc4qIiqtX/71pXjHlCSI
-	BCHqXEkhqn6cTkWsIKf5g7MrH77zEK2eev
-X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a42437876mr7966068eec.34.1793456726941;
-        Sat, 31 Oct 2026 07:25:26 -0700 (PDT)
-X-Received: by 2002:a05:7301:6194:10b0:369:f937:9a7a with SMTP id 5a478bee46e88-36a42437876mr7965970eec.34.1793456725286;
-        Sat, 31 Oct 2026 07:25:25 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm24968586eec.16.2026.10.31.07.25.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 07:25:25 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-        Yu Zhang <yu.zhang@oss.qualcomm.com>,
-        Shuai Zhang <shuai.zhang@oss.qualcomm.com>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH RFC v4 7/7] arm64: dts: qcom: nord-rrd: Add WCN7850 Bluetooth support
-Date: Sat, 31 Oct 2026 22:24:33 +0800
-Message-ID: <20261031142433.1212809-8-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261031142433.1212809-1-shengchao.guo@oss.qualcomm.com>
-References: <20261031142433.1212809-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=jDVFHp9R
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=1K
+	hEjBbS2PxEW961tuGY+mC3rr8BuX8rY+suSCsiUYo=; b=jDVFHp9RAeq6ZVsR8N
+	3CV6cu9eLBtrxTaXeS5b4et1mdeZ5gB3YOQvw2d9S3rjf9gg8oRJ5SItdfBXLd9Y
+	06pdAndN1tddOQPv7p0x1YlHD8nhzLfeeVZu6/sq/glhcsPYifnfJ63ang8SadZj
+	vG02iybI6+a2FvdWLk/H6KhEM=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp1 (Coremail) with SMTP id PCgvCgB30HEA++VqtTNjCw--.5261S2;
+	Sat, 31 Oct 2026 22:28:17 +0800 (CST)
+From: "Li Youhong" <dayou5941@163.com>
+To: biju.das.jz@bp.renesas.com,
+	wbg@kernel.org
+Cc: linux-iio@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cosmin-gabriel.tanislav.xa@renesas.com,
+	Li Youhong <liyouhong@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] counter: rz-mtu3-cnt: put runtime PM ref if counter init fails
+Date: Sat, 31 Oct 2026 22:28:13 +0800
+Message-Id: <20261031142813.2522444-1-dayou5941@163.com>
+X-Mailer: git-send-email 2.25.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -129,90 +65,48 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: OKGk9g5XfcY9qgbwXvQ53kMtsHc9sIAO
-X-Authority-Analysis: v=2.4 cv=Z4F5j3RA c=1 sm=1 tr=0 ts=6ae5fa58 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=grFeI82b2oVWyHTUkKAA:9 a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1NyBTYWx0ZWRfX036LlzszWTQT
- xKnUbDPqou7c+tLnICkQr2sxHoxGB00JlgOV1KVHsGKQTbVLZiVKiTtCJTIbmJRqvCTAfDURlYX
- 8yKE2uMXnZaEgS8c9XicgHguG50ta24=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1NyBTYWx0ZWRfX/jc2mIt4+9UW
- Z9FarOHqzHnmv+Ve//KVRfYAja9R1OcGyuKumSHd8/T50CEwRMYugcrRsTtXTxkhIAhr8MYLx78
- /bDcOLxWEMD+pw6KkGYruVhN77xgIelUeNN9gjluYTGy0KQ3T/BxA/FeVy7WRNI1T3vKfCz6NeZ
- pVPI+0y9pOJRvdMdTlkouYCdB8RWg0FJudml17d23m05umqCON7YVAds4teDJxxw9bQtlt3FvWF
- kXwzRflOMFp3niw6OYEgM9lkVqPUPvVnjogtRh1HStIq82zP0G8+iCjPeiTCZ77PTl8PQ8jbab4
- OIwGtUqaCIAhgeYAEO0CfXUE95UCO2pRJS0UI3JLXiCcK9m0lOTyOST5M4FTp1IA+Z4kIVbAZJG
- 9oFjmiy92Hvc/chVUJEJ2MQ47Ur5imWakibiXTB1y6CleavihmDMzGhfJhzcNGF34QJx/Mq1YTL
- cRmke3NhXusFSjl9FZg==
-X-Proofpoint-ORIG-GUID: OKGk9g5XfcY9qgbwXvQ53kMtsHc9sIAO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- phishscore=0 impostorscore=0 adultscore=0 spamscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2610310057
+X-CM-TRANSID:PCgvCgB30HEA++VqtTNjCw--.5261S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Kw1xXr45Jw17Zr13WF43Awb_yoW8GF1xpF
+	4jqrZ5CrW0yrWkGF4xG34DZFyagw40yrWrWFy8K3WrZ3Z5ArnYv3WkWr4YqF1ktr95KFy2
+	qrn7W3WUCFyUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07j5R6wUUUUU=
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3gITwWrl+wJWywAA3l
 
-From: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
+From: Li Youhong <liyouhong@kylinos.cn>
 
-Enable Bluetooth for the WCN7850 module on the Nord RRD: route the
-BT UART (uart17) as serial1, add the bt-enable GPIO (pmau0102_e GPIO9)
-to the WCN7850 PMU and describe the bluetooth node with its supplies.
+Counter enable takes a runtime PM reference before initialization but
+only puts it on disable. Drop the reference if initialization fails.
 
-Signed-off-by: Shuai Zhang <shuai.zhang@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
+Cc: stable@vger.kernel.org
+Reviewed-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
 ---
- arch/arm64/boot/dts/qcom/nord-rrd.dts | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+v2:
+- Add Cc: stable@vger.kernel.org.
+- v1: https://lore.kernel.org/all/20261008020506.211566-1-dayou5941@163.com/
 
-diff --git a/arch/arm64/boot/dts/qcom/nord-rrd.dts b/arch/arm64/boot/dts/qcom/nord-rrd.dts
-index b23c1a81a376..827d3ba3a238 100644
---- a/arch/arm64/boot/dts/qcom/nord-rrd.dts
-+++ b/arch/arm64/boot/dts/qcom/nord-rrd.dts
-@@ -18,6 +18,7 @@ / {
- 
- 	aliases {
- 		serial0 = &uart15;
-+		serial1 = &uart17;
- 	};
- 
- 	chosen {
-@@ -102,6 +103,7 @@ vreg_wcn_core_vh_1p95: regulator-wcn-core-vh-1p95 {
- 	wcn7850-pmu {
- 		compatible = "qcom,wcn7850-pmu";
- 
-+		bt-enable-gpios = <&pmau0102_e_gpios 9 GPIO_ACTIVE_HIGH>;
- 		wlan-enable-gpios = <&pmau0102_e_gpios 10 GPIO_ACTIVE_HIGH>;
- 
- 		vdd-supply = <&vreg_wcn_3p3>;
-@@ -602,6 +604,23 @@ &uart15 {
- 	status = "okay";
- };
- 
-+&uart17 {
-+	status = "okay";
-+
-+	bluetooth {
-+		compatible = "qcom,wcn7850-bt";
-+		max-speed = <3200000>;
-+
-+		vddaon-supply = <&vreg_pmu_aon_0p59>;
-+		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
-+		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
-+		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
-+		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
-+		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
-+		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
-+	};
-+};
-+
- &ufs_mem_hc {
- 	reset-gpios = <&tlmm 181 GPIO_ACTIVE_LOW>;
- 
+ drivers/counter/rz-mtu3-cnt.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
+index 7bfb6979193c..61fbeb122851 100644
+--- a/drivers/counter/rz-mtu3-cnt.c
++++ b/drivers/counter/rz-mtu3-cnt.c
+@@ -506,8 +506,11 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
+ 	if (enable) {
+ 		pm_runtime_get_sync(counter->parent);
+ 		ret = rz_mtu3_initialize_counter(counter, count->id);
+-		if (ret == 0)
+-			priv->count_is_enabled[count->id] = true;
++		if (ret < 0) {
++			pm_runtime_put(counter->parent);
++			goto exit;
++		}
++		priv->count_is_enabled[count->id] = true;
+ 	} else {
+ 		rz_mtu3_terminate_counter(counter, count->id);
+ 		priv->count_is_enabled[count->id] = false;
 -- 
-2.43.0
+2.25.1
 
