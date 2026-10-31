@@ -1,100 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.10
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793438800;
-	b=WqzgssbhvHlmzhxXSK6iw0fjAVnSVWbVmQMa1eeuIO7QQu/9KgCh+5gFi1kQ6b7tIWj7
-	 BM9SO3pkKSsCq5dKyAGS3ks3YZuQvQfGiwN++j8L2AjJRGZy/i5j8oF+U5h4rTuzeCSY3
-	 SliqPIc86mI92zK8b0wCYZcetBEM3cXNk5cNcexkojCPegdm3nyNr8nnZ7QzpOAoPfuZk
-	 cMXXx2UaMrekf1umQqWX2QN+fEwM5NOeIwBkzhs51pzIAfLIDZwoHre7LemLgPEWd5G+S
-	 bFr4i/qw1YEqbq0Gc1iBfnraPtn6H7ZsRP1lAJpc5EZ+wbkUbEP0VyZnnBl6K0rQMFw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793438800;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:From:Content-Language:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=UNxKSJLkMXzmpkPDAv6i9Ygc6x3gD7Jp38/QcgPVnMk=;
-	b=O/RAtPNcXWfT5cgIGbCa2RjI1UKTik/6nkntIQBYilg3gvvHJ6wrabOmvFKto2I/cpzh
-	 rV5zVelfx0IZ1XY0BtuuBVWWaUOsuNQw6yLVFxjKsjHD3m2uWQDwv533/bdy6A/RTTuSV
-	 9FilQSCIMeXgVkv94B9Da0/+PflK0SA/b5wjARPPtDhXVy7u2RGHgsPBPHBthW849Qg6h
-	 /UFLb91nLQs97R0KFAICZKFNfpjRvrIV3r9H8R1KsrT5EZG+iWftvLcW38bqefZQvClPA
-	 bqivzq7BnTD/arp+SLKahIZjkfAC+92G9VDL94eUIJU3cUhFnC4M8iOjNjkc8VY97EQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YeGgWKUm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.195.10
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012010.outbound.protection.outlook.com [40.93.195.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.69
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793438804;
+	b=wdqrU3ZIxTHg4tacVpxSq84dlQr7enA1mn54yRWKGBUqeHxPL9G5F8ab/0P2o4ESplnK
+	 /quW3JJfRmJkCOlhZp4rXX/6/PlwrQ+YBWKt9fgZBqYKPANq7yiqGEuTqTpKgSlLoM1vV
+	 EpCOKMfBqkATL1Qa4dIcOI4QYqc86jepnN4kdFSslmlhXyi38NhHiuXT1zvCNEAo3m+MT
+	 jmWy8c5DRGRyIsGIdlElye/uoMfeAAjfw+cU60h+pYxYNr7vJEvAmr7duWcWkGk1DUybW
+	 h6q8Sh7OlDJGtUFwt73lkqDccULt1NtSWysFlnCh60NvYBcJoIwC3b7avzPr6XCmuVQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793438804;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=lYUXLDsuH0kOjSZHyOASfKtU+4hD7I+9skjy+tMb1e0=;
+	b=QePif242R79JDjIGjszPHZt8XR19EfOKuzhgXT41c1gAG9WHX+iKv+jfiT9i9sUzKdw4
+	 kWvUGjcaKbHkdtzX/G61cIVfsAcqEz1hHabyO0Tx4AoER8Bg571CLz4/jF1KW9yA1bu5r
+	 dP9CUdy+lRe7GZ4c74WyAXXyYLvd5bwUpn40AT/x1nd+rSPyee1gEogdGltamQTLhMbvq
+	 Q7rfkvmZ/cYQQTUG2JLy3mpG+N9AkdfWHntvY4MS5vvAuHL+ejifQ7avtIRxMBEIRn51o
+	 TLrgzUqgN8XYXI3y218lVLogVl25O79ZQwmIffhrZDfmylSLyM8K+iXuz8j4egX74vA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.69
+Received: from mail-ot1-f69.google.com (mail-ot1-f69.google.com [209.85.210.69])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0F2606A31A;
-	Sat, 31 Oct 2026 09:26:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A0F2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=YeGgWKUm
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DcSVAvGQSAAu2wB4dtaYPq3wdbmjzYpzNfDT4WO0vegt9/4n+mlAgx/M7zWfVXzyTyLZuIRjmGwm5I1LcsjF9M0K7SbYXjshvoV7e8hh90QaqsWlpdGM7szBibzJvVoHUMk7jQhkeQF6eccgz5X6sYE6DhYCvpH6QSP6LNexF9Tg2LgbHjNfRHeE+7ZiRAVC+CKFAAg9DkT2eGJ2pNeyO8yqR/I+SwiHiUS8WSpfCDywuUROfXXG538k5AamrzFx6Ae1UuKPH+jyFHB0VjBKWJx/aFh1PFOjywF60npmC0kkqWyCSOrXKa4rVOiYx00FsL65iucxTqtVrYcW1gERWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=UNxKSJLkMXzmpkPDAv6i9Ygc6x3gD7Jp38/QcgPVnMk=;
- b=GdOjcE0kmYYCgOrnwGzYp+KoWM3JPqDERwZxrCJwotVjF2LBPi2Umbv1RQpJQ0nHb/JddghQx9x6k4Ft8+bSb5pYx8cLdcr43Vj7NWL1J6AAqgIF6BmppiYQXwjGZMhUALjDU5qrKtPKFX+L10eHndkYSXmtq08u1aGZVH6z03cqsMejmOD0liwNuwqbrQYWjXRKDOLoJNZ4At78BTukgpGPC42MAWzLbBRz4avnbKDIQLfgz7haNNC1GQH2mbq4P3dQB6APbiGIVvqvTkzjvC4fXdJmEDx60jGFarktCPeylrVm002maPs2O2KZT/KcqgR+0c3A7Lz7WkijJG2d5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=UNxKSJLkMXzmpkPDAv6i9Ygc6x3gD7Jp38/QcgPVnMk=;
- b=YeGgWKUm74VsFTY9t2tIVDNDHhu5jEgmMwcmzB4SkRmB37hIfe6++q9h++Od1nBSRY7GZ4M+OmcunQ4q/2zllGwYwqoXmxXgB+E5s77r9lvGV6uJAtukgf4jtggnFJlEqFeaWsZMkfyMCsFGvuZ19ozrAJvbR059Sv3m/BWYAlFYg4Ap9Nw+eGptedygXHiUAqwyptWlpox9o0xG18T1WMJTCNZ9xPD/tm5AzCy3+6wFOxNuMu/FtnEmYjTLQAr7fvfmM1VjvFWXhY5kgwkUUe5qnvqu6VLnpJ3rK1cdE/Y5iDEtxOZWWUyTGLXV8inTPY7ezofW4WGy1nFtW1sUYQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SN7PR12MB7106.namprd12.prod.outlook.com (2603:10b6:806:2a1::7)
- by FT1PR12MB222952.namprd12.prod.outlook.com (2603:10b6:170:d::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sat, 31 Oct
- 2026 09:26:35 +0000
-Received: from SN7PR12MB7106.namprd12.prod.outlook.com
- ([fe80::7a85:58cd:4146:bb1]) by SN7PR12MB7106.namprd12.prod.outlook.com
- ([fe80::7a85:58cd:4146:bb1%4]) with mapi id 15.21.0569.010; Sat, 31 Oct 2026
- 09:26:34 +0000
-Message-ID: <80816b31-948c-45a8-9f98-4cc55f5bd530@nvidia.com>
-Date: Sat, 31 Oct 2026 09:26:08 +0000
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, f.fainelli@gmail.com,
- sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
- hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
- sr@sladewatkins.com, linux-tegra@vger.kernel.org, stable@vger.kernel.org
-References: <20261029073135.159947193@linuxfoundation.org>
- <b85e0697-d669-4b14-859f-52ee295264e4@rnnvmail201.nvidia.com>
-From: Jon Hunter <jonathanh@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <b85e0697-d669-4b14-859f-52ee295264e4@rnnvmail201.nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0032.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:c7::6) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0723606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:26:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0723606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f69.google.com with SMTP id 46e09a7af769-84c4dce8182so2134960a34.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:26:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793438803; x=1794043603;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lYUXLDsuH0kOjSZHyOASfKtU+4hD7I+9skjy+tMb1e0=;
+        b=1ay5nHAV5ledVJikGtUDN1NwntLLsXww6xRF9+2hYt0QxM6H7sKY5mIs7I1JJq2w49
+         6JpmtR+nxWGsFSByItcZL34LLvxvrH+FFj/5nh+D+yP2mcFWsKmHw97TwZrqICb+6Fi6
+         XzrCAH936mY8AMsr/jU8d66LZTpq8jn1p6ELZnFp2LxITdmv9XOUfh/4QiyfOjox4N36
+         Hpms/uV1l0n1COjwR3Vua4iNYUHhOlistvZ/9MlNQvsX0xLBTxs1LkRWvV7fdYZpkYsl
+         lmJczSOp9+VoDpXLeRgJmiP2UwXRl6I2mzvf/ogUz9ttqObBF75HO510NUMVfmVFZ77D
+         i6qw==
+X-Forwarded-Encrypted: i=1; AKwUvByRZXD86ybZeFp1qqZj2A6NXK7snk0i07+yx1o/d8zeA+Rox0G9kUOtTKsdJJwFJ5QLcQWouBBEcroZ7Uo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ/fUFuokZKAp9C5uISCuTfSqWUDNGNy22AXthwaxPzIJowRx2
+	xh3uV+q3dZOps+CEdfqZx12SDvN5oa0f1mEFQBHKNtx5nsMZzvYzv4VIVkgCNeX4xiQgUr4x2it
+	cVmB2V3I0eueAAoooVey4as1GPrn3bUNEIkkJF5GxnjoTCgEBVirfef1W3z4=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,123 +58,219 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR12MB7106:EE_|FT1PR12MB222952:EE_
-X-MS-Office365-Filtering-Correlation-Id: df25c9a8-8791-4b0d-deb6-08df373103f5
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|10070799003|10067099003|261009223027099003|261026140227099003|261022105027099003|261028144727099003|11063799006|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	PPXCcY4JqcXICDMtsgwstzTo8W6LR5EBwgEC1nRt3P06l4bxh3GKB/hxi8Eq24UluhuJ3sAuED7JOnPtlNpopQcsn7p3uJChS+vJTGom9mow3pSy4EMzO/BLsuhgG79cIliRmFD1rQKoHhYZKUnSknUqsnRklb/YHIqCjnY+nuEMijSE/PSaRcpDtf91d5/+S3afoRWfkxLLwn9ZCJLgph1pH1ruomy5lLF5mCs7nd8hC9Pu/l9pcN4sPLugxXZiRVzuBjAhSkOSct4j2Tcc88VA5KKz+ZwhAyxdT2133yfg4LG80g9vJB96SHXxhZ3zCX1Hq0zXn2HW5EE9UGRMzgH4iGYX/6MlAF56N/qzJQnPBWsE1D8y8BoQoV+rbOgCEcgR+Nt/MZxJ7Xy9mBsaHOH+wZkU/gzGGqBjUbZAglKcpdu+dH8AJ0W9rOKZzXSyipfq/dSwtQDTvcXFo1HgoXZgjgd46o9b9QxxO8ad4fPV+BXPezap4oQ0a0hqlHg+xC8hGV5O1OWcQ+HL8vLquImbAqqa+Q+OsNM/egST4kFfH3BdvIVLaXAXQEY5cu0VDNsxZ/X3PYz1csJLSqlOhFHDUqD5cAKW9gyeg7APnNRAZCjnieYSa8TTV/gBD1nsDg31VB2Tj4TcFydX9RLMtS5tNL6ZIoG5m7yHOwm34Hg=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SN7PR12MB7106.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(10070799003)(10067099003)(261009223027099003)(261026140227099003)(261022105027099003)(261028144727099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?dlVqcnJOaXpObmNwanZDU0xDUWhBbFFlR2pkVGFPOTZPbWJpK3Jvb3BBKzU3?=
- =?utf-8?B?bngwa1FEeXVLOXZiMGJsVU4zVWdrbThDN2d5NXpMUXV4TnJQZjdQSHhHT3Fq?=
- =?utf-8?B?MUdrM3oyNWlaSitHd3NoZllhUW40Z012anRSQlVnSTMvbmFITkNqWlg0Y2pz?=
- =?utf-8?B?NVA0ZmRjY1d2MnRpVmxURTlwOC9PRklqYVl6LzNBb3F1c3FZZWxyVUQ2UG1Q?=
- =?utf-8?B?SHNhY0Vya2t0ZW9vdTB3OUYxd1NRVlUya2hUYThQd3FQd290UW40RjBIQXV3?=
- =?utf-8?B?dm9NbEk5RTNkczNic3pqMjBTNjFWWWdGcnc4QWpZL1NkNkc3aVE3M3VjZkdp?=
- =?utf-8?B?V3dwMW1tMDd0MU4xTGowNFJpRUlCNzcrbW43aVJHVmllWmlsT0p1amNWM1Zh?=
- =?utf-8?B?S21CMkljaDUzZTBoT0RsRU9VdkZZZDBhRWJ2QUJ4SzlCZnRVWldHZnlkVWlK?=
- =?utf-8?B?MmEzNzVHa0huZEdKalBpUTZWc0wzYnVzdUVRcWdFb3Q4QjBBa0VUck9TNFNh?=
- =?utf-8?B?QzBaejlJcHdCbHlJVFF4NDNMZnBQRGl0bVg1UnFMSUdtTlgwQzh3VzFXZ2RR?=
- =?utf-8?B?Q3JubkNVTUIrTExhaUx3ckxmYTlLWGY2Y0c4WDdwNFhoZzYyWUYwT1VGcHNN?=
- =?utf-8?B?b3E3STRPTzFjUUVUNXNGd3BoYmNuUE5rUVV1eG9RR3V0SjVIRUtBRFZwMHJR?=
- =?utf-8?B?d2lyQ0R2L0JJR1dTcDRUTUlFVFVjaFVvTTVlTk9NV2tobHVsZFYwR2puTDQz?=
- =?utf-8?B?OXZrZFBLWllxZW42RTQ0UjFUWTR2TWNrY3pEbUJia3VnRlJuRlFWSVJzNHhO?=
- =?utf-8?B?NjdEY2VXZTZXQUF4Q2JpL05XRlhYYzBBem5ndk5VaHBFUVV3bG1va2dUWUE5?=
- =?utf-8?B?ZlpCVzJhYTlSZVdYellLZWd5d29KMk5lalBXTW42dG9nc01Gdm9iL1BUcGp0?=
- =?utf-8?B?bU12TFp4WnduTUdBTndqNWhaZk5ZWkFhc2lyYkJ3TkFlakxBUzdTZzNrU0Na?=
- =?utf-8?B?VEZRNkZEK0NNeVJCY1pCbmduZzlmSWR2TGV2RDZhK3ZkTjg0dG9qMUFjM3p6?=
- =?utf-8?B?and0dkNmUDZUZFMyK3Yxc2t6aHpqUng1ZFRlV2lyZ3BFaU1lT3F0M0RiY3Yw?=
- =?utf-8?B?VTNBZHl2c3FLc1RDMGhpcURHN1llSlpQNjVjeFk5N2JwdC9qaFdvM1hKdmpR?=
- =?utf-8?B?NjRHK1lpVWtjUkVYWW5GLzFHV1RQa0NwSjkwanB6cTkyeDkxdW9MSUxXYUJx?=
- =?utf-8?B?OUF2ZlRxUk9oYXFTSzBFTGNDWSs1L0wzQ2E1WVZnSThQaFRPekp6M2JPZVE3?=
- =?utf-8?B?ZFhPR3JKRUZ1MVNHbUQ4WlovRGpNNG90czhIOVNlQ280NG5QN01wZEpDV1ZI?=
- =?utf-8?B?Y2Q5RjhBTSs2QjUvNDdUdE5pSEx0Q1VURnlnL3FnSGYyNXBRZExkMDJYcE50?=
- =?utf-8?B?QTJSNyswa25vaTdPR2doWFNQQmxnc1pxUWJzNFI0dzNObDhOSDRuR1ZFd2sw?=
- =?utf-8?B?TVVzMUROOVoyZXM0UDNVZXNDY2JteFJVQWYzbDlzeGlIeGdwc2E1OFNOZHpV?=
- =?utf-8?B?QVlDRnhQRUdkaE9rZDVoc2Vzb2FJelphcE9lbXpjTTVua1Y2alBXajFjeERI?=
- =?utf-8?B?ZFNvZzkzMFZ0L2ZMVytVNEtZL2xvMjRBMEZ5K3ZqOUVTc09BSmsxMkd2Wkta?=
- =?utf-8?B?d1hJNkl5YktwbzlSL2FjTXVOYlFWOTY4QVBPb1NWUTFaamNFckNLUktXeER5?=
- =?utf-8?B?SEt1QmdoQmN4QzBicXpwWE1pNWpMYkd2VmpROG1ET05LRU9LTzlTaWRGU2NH?=
- =?utf-8?B?OWFteDA3dzNzVFIydFBuRko0a2lhRWJ0VjkxYTBQUlJCbmRGK1pMTUxXSm1l?=
- =?utf-8?B?RmczQ0JWcHZuMTlnYnVOUFJGK3ZRZFk1VFFUSHRPclJBZDFNRGhmNFR5M3pE?=
- =?utf-8?B?SGhQNXU5QlMrM2dtREJiUEQreHkzTnN5N2wvaEt5TnJFU1NiTmVJbUlpRXIx?=
- =?utf-8?B?TjcwOU1lekJTS2k2YWF5WjI0TmZXTEJRTXpsUjFkcHNidFphZFI1V2htSE5q?=
- =?utf-8?B?YUtzU1c0b3FQQmNWNEZuZGJGTDF5ZTBJYUp4TnZhN0ZCc0NNT3NSK2RXSjJV?=
- =?utf-8?B?SGp3ejhSanpaSkVmRll6Qno0THN2TldsK1JYaFB3dGdyZC9pakcrRGxwTk9S?=
- =?utf-8?B?RlU1R3dLaG9wVUwzT203aERiemhlclpvWW92RDFuZVVyK21LcGpHREpOOC96?=
- =?utf-8?B?LzZheVZuT0VlOXdTUTJZQUwxanFybGg5cjhJdW0wdnIwS2o3a2tMeFY1VzZ3?=
- =?utf-8?B?MTIvaDlaakcxalVOQ21odUJQeW1rMzZtTk5WNURPNE1lYmNoQnIvRGRJVXBz?=
- =?utf-8?Q?BAR8kAe8Ymf+csttI9P9q/3008hkhLqi+/VDjPCndfhc7?=
-X-MS-Exchange-AntiSpam-MessageData-1: kokGPx5Ip+5pLw==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: df25c9a8-8791-4b0d-deb6-08df373103f5
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 09:26:34.3110
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k/ltrUyepxOIl3nOmz4imB4dtSzXcmUVFZCYDm2XdFW7z6OMGDq0VWFako1CQHTZXLMGBeRzCkOQm4xcyFYaPg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FT1PR12MB222952
+X-Received: by 2002:a05:6808:6718:b0:557:308a:9e9a with SMTP id
+ 5614622812f47-5640dcfd646mr3138139b6e.21.1793438802958; Sat, 31 Oct 2026
+ 02:26:42 -0700 (PDT)
+Date: Sat, 31 Oct 2026 02:26:42 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae5b452.88e51036.1515fd.0004.GAE@google.com>
+Subject: [syzbot] [block?] possible deadlock in md_alloc
+From: syzbot <syzbot+cd254889291ef8666036@syzkaller.appspotmail.com>
+To: linux-block@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Greg,
+Hello,
 
-On 31/10/2026 09:24, Jon Hunter wrote:
-> On Thu, 29 Oct 2026 08:33:04 +0100, Greg Kroah-Hartman wrote:
->> This is the start of the stable review cycle for the 6.1.191 release.
->> There are 1879 patches in this series, all will be posted as a response
->> to this one.  If anyone has any issues with these being applied, please
->> let me know.
->>
->> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
->> Anything received after that time might be too late.
->>
->> The whole patch series can be found in one patch at:
->> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
->> or in the git tree and branch at:
->> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
->> and the diffstat can be found below.
->>
->> thanks,
->>
->> greg k-h
-> 
-> Failures detected for Tegra ...
-> 
-> Test results for stable-v6.1:
->     builds:	9 pass, 0 fail
->     boots:	28 pass, 4 fail
->     tests:	83 pass, 7 fail
-> 
-> Linux version:	6.1.191-rc2-g3b00df762ebc
-> Boards tested:	tegra20-ventana
->                 tegra30-cardhu-a04
->                 tegra124-jetson-tk1
->                 tegra210-p2371-2180
->                 tegra210-p3450-0000
->                 tegra186-p2771-0000
->                 tegra186-p3509-0000+p3636-0001
->                 tegra194-p2972-0000
->                 tegra194-p3509-0000+p3668-0000
-> 
-> Boot failures:	tegra186-p2771-0000, tegra186-p3509-0000+p3636-0001,
->                 tegra194-p2972-0000, tegra194-p3509-0000+p3668-0000
-> 
-> Test failures:	tegra124-jetson-tk1: pm-system-suspend.sh
->                 tegra20-ventana: pm-system-suspend.sh
->                 tegra30-cardhu-a04: pm-system-suspend.sh
-I am looking into the above boot and suspend issues and will let you
-know what I find.
+syzbot found the following issue on:
 
-Jon
+HEAD commit:    a39c95080621 Add linux-next specific files for 20261029
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1406117f980000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=82467d52d846ff27
+dashboard link: https://syzkaller.appspot.com/bug?extid=cd254889291ef8666036
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16477d31580000
 
--- 
-nvpublic
+AI-generated root cause summary:
+A circular locking dependency exists between major_names_lock, md's internal
+disks_mutex, and mddev->reconfig_mutex. In blk_probe_dev(), major_names_lock is
+held while invoking the driver's autoload probe callback md_probe(), which calls
+md_alloc() and acquires disks_mutex followed by mddev->reconfig_mutex.
+Concurrently, md ioctls (such as ADD_NEW_DISK) hold mddev->reconfig_mutex while
+calling bdev_file_open_by_dev(), which triggers block device autoloading and
+attempts to acquire major_names_lock via blk_request_module() / blk_probe_dev(),
+resulting in a potential ABBA deadlock.
 
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=cd254889291ef8666036
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+cd254889291ef8666036@syzkaller.appspotmail.com
+
+md: could not open device unknown-block(8,200).
+md: error, md_import_device() returned -6
+md: could not open device unknown-block(8,250).
+md: error, md_import_device() returned -6
+======================================================
+WARNING: possible circular locking dependency detected
+syzkaller #0 Not tainted
+------------------------------------------------------
+syz-executor140/6002 is trying to acquire lock:
+ffffffff91329200 (disks_mutex){+.+.}-{4:4}, at: md_alloc+0x40/0xf40 drivers/md/md.c:6355
+
+but task is already holding lock:
+ffffffff9096c060 (major_names_lock){+.+.}-{4:4}, at: blk_probe_dev block/genhd.c:885 [inline]
+ffffffff9096c060 (major_names_lock){+.+.}-{4:4}, at: blk_request_module+0x35/0x2a0 block/genhd.c:901
+
+which lock already depends on the new lock.
+
+
+the existing dependency chain (in reverse order) is:
+
+-> #2 (major_names_lock){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       blk_probe_dev block/genhd.c:885 [inline]
+       blk_request_module+0x35/0x2a0 block/genhd.c:901
+       blkdev_get_no_open+0x3f/0xe0 block/bdev.c:870
+       bdev_file_open_by_dev+0xa0/0x240 block/bdev.c:1091
+       md_import_device+0x2e9/0x650 drivers/md/md.c:3861
+       md_add_new_disk+0x522/0x1850 drivers/md/md.c:7681
+       md_ioctl+0x2027/0x2630 drivers/md/md.c:8525
+       blkdev_ioctl+0x5e3/0x740 block/ioctl.c:798
+       vfs_ioctl fs/ioctl.c:51 [inline]
+       __do_sys_ioctl fs/ioctl.c:597 [inline]
+       __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #1 (&mddev->reconfig_mutex){+.+.}-{4:4}:
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       mddev_lock_nointr drivers/md/md.h:734 [inline]
+       md_alloc+0x81e/0xf40 drivers/md/md.c:6413
+       md_alloc_and_put+0x1a/0x1f0 drivers/md/md.c:6452
+       add_named_array+0x240/0x350 drivers/md/md.c:-1
+       param_attr_store+0x214/0x310 kernel/params.c:591
+       module_attr_store+0x65/0x90 kernel/params.c:906
+       kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+       new_sync_write fs/read_write.c:595 [inline]
+       vfs_write+0x612/0xba0 fs/read_write.c:687
+       ksys_write+0x150/0x270 fs/read_write.c:1036
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+-> #0 (disks_mutex){+.+.}-{4:4}:
+       check_prev_add kernel/locking/lockdep.c:3209 [inline]
+       check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+       validate_chain kernel/locking/lockdep.c:3952 [inline]
+       __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+       lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+       __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+       __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+       md_alloc+0x40/0xf40 drivers/md/md.c:6355
+       md_alloc_and_put+0x1a/0x1f0 drivers/md/md.c:6452
+       blk_probe_dev block/genhd.c:888 [inline]
+       blk_request_module+0x27d/0x2a0 block/genhd.c:-1
+       blkdev_get_no_open+0x3f/0xe0 block/bdev.c:870
+       blkdev_open+0x1d7/0x600 block/fops.c:678
+       do_dentry_open+0x80e/0x1360 fs/open.c:1000
+       vfs_open_consume+0x4a/0x350 fs/open.c:1131
+       do_open fs/namei.c:4845 [inline]
+       path_openat+0x16fc/0x20f0 fs/namei.c:5010
+       do_file_open+0x23e/0x4a0 fs/namei.c:5039
+       do_sys_openat2+0x115/0x200 fs/open.c:1442
+       do_sys_open fs/open.c:1448 [inline]
+       __do_sys_openat fs/open.c:1788 [inline]
+       __se_sys_openat fs/open.c:1783 [inline]
+       __x64_sys_openat+0x138/0x170 fs/open.c:1783
+       do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+       do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+       entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+other info that might help us debug this:
+
+Chain exists of:
+  disks_mutex --> &mddev->reconfig_mutex --> major_names_lock
+
+ Possible unsafe locking scenario:
+
+       CPU0                    CPU1
+       ----                    ----
+  lock(major_names_lock);
+                               lock(&mddev->reconfig_mutex);
+                               lock(major_names_lock);
+  lock(disks_mutex);
+
+ *** DEADLOCK ***
+
+locks held by syz-executor140/6002: 1, last CPU#1:
+ #0: ffffffff9096c060 (major_names_lock){+.+.}-{4:4}, at: blk_probe_dev block/genhd.c:885 [inline]
+ #0: ffffffff9096c060 (major_names_lock){+.+.}-{4:4}, at: blk_request_module+0x35/0x2a0 block/genhd.c:901
+
+stack backtrace:
+CPU: 1 UID: 0 PID: 6002 Comm: syz-executor140 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ print_circular_bug+0x2e2/0x300 kernel/locking/lockdep.c:2087
+ check_noncircular+0x12f/0x150 kernel/locking/lockdep.c:2219
+ check_prev_add kernel/locking/lockdep.c:3209 [inline]
+ check_prevs_add kernel/locking/lockdep.c:3328 [inline]
+ validate_chain kernel/locking/lockdep.c:3952 [inline]
+ __lock_acquire+0x164c/0x2de0 kernel/locking/lockdep.c:5288
+ lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
+ __mutex_lock_common kernel/locking/mutex.c:646 [inline]
+ __mutex_lock+0x197/0x15a0 kernel/locking/mutex.c:821
+ md_alloc+0x40/0xf40 drivers/md/md.c:6355
+ md_alloc_and_put+0x1a/0x1f0 drivers/md/md.c:6452
+ blk_probe_dev block/genhd.c:888 [inline]
+ blk_request_module+0x27d/0x2a0 block/genhd.c:-1
+ blkdev_get_no_open+0x3f/0xe0 block/bdev.c:870
+ blkdev_open+0x1d7/0x600 block/fops.c:678
+ do_dentry_open+0x80e/0x1360 fs/open.c:1000
+ vfs_open_consume+0x4a/0x350 fs/open.c:1131
+ do_open fs/namei.c:4845 [inline]
+ path_openat+0x16fc/0x20f0 fs/namei.c:5010
+ do_file_open+0x23e/0x4a0 fs/namei.c:5039
+ do_sys_openat2+0x115/0x200 fs/open.c:1442
+ do_sys_open fs/open.c:1448 [inline]
+ __do_sys_openat fs/open.c:1788 [inline]
+ __se_sys_openat fs/open.c:1783 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1783
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f9cb93efb37
+Code: 48 89 fa 4c 89 df e8 98 1d 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
+RSP: 002b:00007ffd0a7a14d0 EFLAGS: 00000202 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 000055558698d400 RCX: 00007f9cb93efb37
+RDX: 0000000000000002 RSI: 00007ffd0a7a15f0 RDI: ffffffffffffff9c
+RBP: 00007ffd0a7a15b0 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 00007ffd0a7a15f0
+R13: 00000000ffffffff R14: 00007f9cb942909a R15: 0000000000000002
+ </TASK>
+md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
+block device autoloading is deprecated and will be removed.
+md: async del_gendisk mode will be removed in future, please upgrade to mdadm-4.5+
+block device autoloading is deprecated and will be removed.
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
