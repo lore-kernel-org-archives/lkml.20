@@ -1,90 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793409025;
-	b=0mJmfJfNPpCCYpvitnfRy70UrjpBRayPSCAk+lVPtrtfcnGyxoHHmFQ1GEiHsH9+Kl6f
-	 m85EmKK7xGYZViFAAtC6lgaXL/llr+fFW8S0Bv1lgS6xModhKpd2hqcUTUaNE7Q490U2l
-	 M7tOiQsrw3yLKEyy3P172lQDs0twRjvVTRPbqdFl0ROwSJt/hpbvaZpev9A+DBFdRJsJD
-	 O4J62xPsFXAOnMWQgOkgb1Zph5pK0VZ+rm2zPdHqLn5yAOKCfwq5ezDRRs9tZjaG+WK1x
-	 uWElWi/ej1QrIKisc+MEb8YME081dNlsfDrm0TSSTpkdAT0N2VMRzh4+RQQBCnUh1uQ==
+	t=1793409060;
+	b=axZF5/OlqktyRlAHz2RMvJZoW112wfIQoi6G1UbsVPdakb3BW9o1eK5r72Tpv7K3XVVM
+	 lxy0MPq0aee41sSPYGlNoFh4wzTO7YVh31QDcfzY3UgKu7A1logRiPJAClkAA0iMBNrTD
+	 MSNbBSMSRAEApJ4MA/TjWUtMtVwL3GI+2yCO60W5t9EBehpqJUZkDBbKCQ4khsjCpW0U1
+	 ArnAMF58QCGTtuHAtuTF/6etPCDfXV2ZhMKyTOYmMnAQlI7m+XE/fWSmQ2VqWvmUNAVsy
+	 Y4KVnYrsZeXIDGBbx2a5FVQVdKTMOOWog+WWLHhPk5vVCE0M8H4iiRxmUYFk8vOO/8Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793409025;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793409060;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Nzihp1P/HgfQSWtejVyE9BkuDNhZgLetHLW5DYDxxQs=;
-	b=4wsy02dyVOzIB2642jNNd3Tap3f5tnqEQtxTcauEtbwfEGDjA483JT0kvP3TG6w5TXWx
-	 p9AUUIAeeO/6C7GsIyS40+1YB26zWiGM6tLNaD8oB6IVjn/A7F2ta7in61wcEOAVwVinN
-	 VSvfhiD3YoyfH7fsMHxCTLB/1MhMpYGNj8sTQb00W/ydBHvRaatb3EZbxnoUtCJlovd8Z
-	 lyHOBqPqUxhhazYBbcyo6MlmHpf7XDygATCNfI61qon0y10/KCE9cRU34vo47twtp+34y
-	 uT+jPVZiCCi4vGBTBkF1gov6ClzFXcDULKTvZ0SEkK96w5wss+fJWxEPImpDCHEP4ZA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=u6n9A3ZneE8NABlrOWtzgZuqAMh0oDJ8q3EQsuGSkn0=;
+	b=ZNfWxSWK/e15OcV2JrderfiDBbCO1onosce/pv2knxk6DI2eMond3s83qJcAL5l38B4E
+	 it7KiACgKIyVbERpLnm99sdQQwTFZA4deBlDedi/mfTyRJRFmVWBU9bNOA9qXMkwqzTQ8
+	 HEqiP17dI6eRuqO6MUdMnO18IQTZ9tNfVy4CHZVFgQeo+hhZ2vRn2mexxsps+b5RmnfBg
+	 yaO+0QkLU+fEwz07MSLVsFsVbWppUC8QQ8xlBrrc7cBrMbnaletAcZPdEtsHwC7e5fQz7
+	 vtGSoh4hPeRmxyrSj2AYp9CeQ8OLAIAY1OvksnoNrmc0+rkaMHylP56A6AVB4wgn6Vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JRBCsu+z;
-	arc=none smtp.remote-ip=209.85.218.42
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MdnSbLoo;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50AA4606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:10:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50AA4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF80F606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:10:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF80F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=JRBCsu+z
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c43373ae89aso202151866b.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:10:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MdnSbLoo
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1931ff67a29so586503c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:10:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793409024; x=1794013824; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Nzihp1P/HgfQSWtejVyE9BkuDNhZgLetHLW5DYDxxQs=;
-        b=JRBCsu+zxoSb0WpHLiIFsPQUiK+ol3aR6cXcfnKp6uS4mFx0pxDfRLfPYIztukC7e2
-         xx1Hbm/FyA8h4WkXYvvBTz46uL3xWDPC06wE3z59JR/gjh8KkKyaZjXOkNcDxcPcY1eZ
-         at0aVhMx7yyJrCTucE5flND20mFsFvKg0O8L0=
+        d=gmail.com; s=20260707; t=1793409059; x=1794013859; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u6n9A3ZneE8NABlrOWtzgZuqAMh0oDJ8q3EQsuGSkn0=;
+        b=MdnSbLoow4XHYSAMpeanDAsO5fXk3GRDZWFXUXt2lOyOcNiSWwKXxiwqLr33NjNJVc
+         Me+mhuJIMhV7aJvUcYHKmaldWldcjtIhQ0QJvBWdYtDtr1hsxuptU8Lzuxd7JHO/w4B2
+         XW6G24c+okFeaO3vQJBIUmuu3Qr1mfBJZAk5oS68S4/vQisgk8+0/9EbJzJwZR33V1aL
+         qt6+2+FF5Be8m6HvWStBvbZW6kwFebJr8HIeuqStAlOIDTzp4Dq6qbXFg8FtrfsteWPC
+         mK06rsdNDyHQOUoSOM8wL8zN/+9geuknric2ZMGhmx1gXJW/hHiSElhjoOzHyWOHxS/t
+         NagQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793409024; x=1794013824;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Nzihp1P/HgfQSWtejVyE9BkuDNhZgLetHLW5DYDxxQs=;
-        b=DrWYxtnvHcXXA5soyvfJcGGuH0vtjLwSK7eDpp/1JgvEdi+Iz038pE1bnNhJ5Gw2dy
-         ipl/WOpWkEbo/ThQ+Sbxg+6SYNXXJiU50FxznpqsqgW7g/Ub8WQpiJnGP/UEGQlUg8JZ
-         a+tnJ/l8B40wdb+zHqIeviVh9POiJqVNSxKVPBOmIfPIaXtMMTDN/9M9569P2C4BYyOw
-         8n0yzUobCZ4BKwPu99unJm4ixQXNiEaA2ZMMBqZ0kmY0Hc6iiSgEbd5riWo+R0yxBKVS
-         4gLx/vPIp+NBJdjnwSFxwwGQzTKEzcfeLr8Ra2G+miG5yC/9kXEfycn598MjmYlQGI80
-         Q8sg==
-X-Forwarded-Encrypted: i=1; AKwUvBxs2ckGf0DrK52GtwaebUy6eWGnW8X5QlM2k2iT9T0QezaW4hKzek0fDZ2X2GAT9GhJZOB4/54WQ6cU8xg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgukD79Z67KF/ClrKM9XPtbCh54/vycs2cdzwzlfZ2FwhBCFNM
-	tnzpkjBYvwXkIOp3e+ANcyjcKGjE6/PKFvJODvvM5uUS9PiTTdceXtrF67lpYG4QyIkMjK0EFaZ
-	h67A5FQ==
-X-Gm-Gg: AYBFou2hozh/33UvdUdV0TjWme2jr627m3/UgjGUEI5DddF76jfkBdMsLttNnS3xe+h
-	25y1JiI3oYMKnHyNFsWdtYX+/dbFjEiomKgu9y0HBMNGF+/yopTnyyNQqd8nz1fX9bNrxhvUFiI
-	f2rJoXnMxshh79OCSqoKq4QQwHrfvImkIS7vSkZQ7qqU5LiTgF92xOLmXGRWE099Y5K/GAaWuq8
-	3QWmD9PX2EkomJdlAEpnFPMDFBCxQgFlrNSQ5/g2InL/DFF16X9UWCdX2S0OJXDa+45SE0oZihW
-	KYWvxkftBFrPQCDMgARW9CoUMag7Bp+7qONHOHYY+zILVgzq6ui3TuyrfPvekskI6lrvkQwzR5b
-	0sDMT0EoQw2Un96yyTYJPBcQivsmwys+geG1c9aeePyh+XAcZrh1imRyLUFXPJk63AvuRL3veDy
-	edOkuLc7jeCxE7fC3EenxJziHkmivHzeMyuaTOwMRfkVuorimXGShaMbcMXdoWOY/HC/MgnSpMP
-	b/Pv1Soxn+E/D4dvn/QohQfLl5eB+dS8ORba6TXvgl7cvCfMy8QFPnGWWiOb1nc3BnLL4gTCcnq
-	I58kA+NvF6Gka0qXETxk5IH8NVuCW7HEYte/8MlvtGdbt1NGtnmzlxgrg5Chz/xlzIGMZg==
-X-Received: by 2002:a17:907:3d8f:b0:c34:d75b:dde9 with SMTP id a640c23a62f3a-c4ca7b22eaamr367800866b.26.1793409023599;
-        Fri, 30 Oct 2026 18:10:23 -0700 (PDT)
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com. [209.85.128.48])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe5006dsm121317366b.64.2026.10.30.18.10.22
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 30 Oct 2026 18:10:23 -0700 (PDT)
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a215e64962so12684005e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:10:22 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxMynk5CWtSZ6sTayZypEtsCUdDmatk+wpP3sNBVTkYfWDDcsc3z1/KjR8jWDalCuPMcfGLIfxMPzzt2ak=@vger.kernel.org
-X-Received: by 2002:a05:600c:a41:b0:4a1:ac66:6ac6 with SMTP id
- 5b1f17b1804b1-4ac18c73d85mr83192945e9.26.1793409021466; Fri, 30 Oct 2026
- 18:10:21 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793409059; x=1794013859;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=u6n9A3ZneE8NABlrOWtzgZuqAMh0oDJ8q3EQsuGSkn0=;
+        b=PmIvBgSO/UjXc020KvCkBxhNcUDNuwEDpf5P5EZjjCn5e99JuEBEGIPdQ/tY5h0JN/
+         HwWG6ZjSgFuXLB1Wb7VOZJQ8bC13womSCjUyTmBCkG2qnOKd+2UIua8Ox2+d1tWV2FoV
+         F7N62H5ysl77xDaSbCzaxEvvyNIrN4zAvZwUmk71Wf26p6bOfAr08QIMyoQbThv7ISPx
+         nAvQb6+DSYrLGpZhaVPict1xu7HIZja3az7vHyq+7GEY9mhGGOMw6BqNhEGS6Yj7hRNB
+         2xbfPjKvfKct/JUwSimGUhc5354LLYLhEngMg+sPaOb7vaD9YY31FMxriTfYvYiJ3pnL
+         bF2w==
+X-Forwarded-Encrypted: i=1; AKwUvBz4hdnQumvx41ouzrTAMqAqPHspuJoKX0re4MIi6bTojGbhXhXI+ohJTxpII5UNStqosjaautvfYM0KURA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYOAweodMHWOb6asDZHBPDAvMn8zw4m+c+OkiZGEe6y03heymx
+	rX7SZuECSGkUAuYlH/5701K5sLAM6rK8uHUvv/WCJFZKh1thESlrH/MU
+X-Gm-Gg: AYBFou2p7AOW/5xrpRusRJlIx4O25CnAZt25CHRSIzCir0z2PdJf+8qeO5PNI4viQu1
+	dnc4796pWh1SJ0NnkxqmejpSfBRD8HofJOiV6FGXV6ElYuM55ogcrbZC49BbMkauYN8927javKI
+	CkY4ivrDgPHYkGoopDkmWl2U9bmzWeVnCnzRNSQqiochTlGD1k82cMFEPDsOE4PWvpqXot2ncPD
+	P+18o+bbFx3nMdhRDZKi4HCvfEdjbYsH3M3so3EZIwLO4fittPNp8QWSC+zr60KAoh0ObFUoDVs
+	mln1LgHnQcXLPchTdCBkysjOEbBMthS6HI0iUZ5TPDJu+vktQlc+BF+eUIf87y0hwSty4ciHCSk
+	TUs9KtHoMq2I3HwuQAD5UgR+xa3DMUtpQjO5du1VxBOVluaaln9TOMiN7AeR1bwge+8gtBKyXt+
+	0iGFnEWtG+cvdnFncGofdhOIe0rwnMqIc/PanxdYsyCUuF+AWV8zu9v9TPlio1rrL2Ec4BhMMUH
+	FfbmToutwKVb2hrbQV8GsL8YjGT4hihXzEm1mvd124cRHE+gOuIKzmITT3nGC8BICHfTyi7zrzm
+	6fZWdFmPQx2iR0pDo0RqS8W+O2BieYQlw0kKe06o1M5SEAT+G/XyrCsvrr1eDjrnfQDZGj/vSH3
+	VXaMzDLUovgOZlKP0yL7jSU0qVKQ0wUDn1KiJnBdaWI9WiANv6hBwVG5W1Ut0nnPTtJ2dVAWOwi
+	GwjTTfF4ijohpjYz0=
+X-Received: by 2002:a05:701b:424e:10b0:1a1:47b2:5512 with SMTP id a92af1059eb24-1ac5b7dfd1cmr5677779c88.26.1793409058894;
+        Fri, 30 Oct 2026 18:10:58 -0700 (PDT)
+Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm9900636c88.8.2026.10.30.18.10.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 18:10:58 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Qii Wang <qii.wang@mediatek.com>,
+	Andi Shyti <andi.shyti@kernel.org>
+Cc: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	linux-i2c@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Samarth Narang <samarth.colleges@gmail.com>
+Subject: [RFC PATCH] i2c: mediatek: stop APDMA before releasing DMA buffers on timeout
+Date: Sat, 31 Oct 2026 01:10:53 +0000
+Message-Id: <20261031011053.3370685-1-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,154 +102,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020153652.2907186-1-dianders@chromium.org>
- <20261020083501.RFC.5.I4a691041bb6d31e5ab2fde8cd4139ca72ee72c5b@changeid> <CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com>
-In-Reply-To: <CAFLszTh6vmFGVD4_Reewe9p4QqQjN=CVJ3SgfQKosAhedJpAQA@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Fri, 30 Oct 2026 18:10:10 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V7neyofHdv-LdAtFaEhAcWEHHNRYAKrr5f2EHXWmKAuA@mail.gmail.com>
-X-Gm-Features: AclHuK8jubqKMZtp2zZmgL9M6Iv-P5KmHBzgb2f1Y0xcGERjxzkWO1A9oKK2NzE
-Message-ID: <CAD=FV=V7neyofHdv-LdAtFaEhAcWEHHNRYAKrr5f2EHXWmKAuA@mail.gmail.com>
-Subject: Re: [RFC PATCH 5/7] kbuild: fit: Add opt-in FIT_FACTOR_DTBS support
- using fdtfactor
-To: Simon Glass <sjg@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
-	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Josh Poimboeuf <jpoimboe@kernel.org>, 
-	Marco Elver <elver@google.com>, "Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+mtk_i2c_do_transfer() unmaps the DMA buffers and releases the DMA-safe
+message buffers through i2c_put_dma_safe_msg_buf() immediately after the
+completion wait, before checking whether the transfer completed
+successfully.
 
-On Sat, Oct 24, 2026 at 1:17=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
-e:
->
-> Hi Doug,
->
-> On 2026-10-20T15:35:18, Douglas Anderson <dianders@chromium.org> wrote:
-> > kbuild: fit: Add opt-in FIT_FACTOR_DTBS support using fdtfactor
-> >
-> > Add opt-in support for factoring the DTBs inside a compiled FIT image
-> > into shared base DTBs and per-board overlays using `fdtfactor` when
-> > `FIT_FACTOR_DTBS=3D1` is passed to make:
->
-> Please can you add a short paragraph at the start saying why this is
-> wanted (the bootloader needs a base DTB plus a per-board DTBO) and
-> where fdtfactor comes from? It is not in scripts/dtc, so someone
-> reading the git log won't know where the tool lives or which version
-> is needed. A link to the dtc series would help.
+If the wait times out, APDMA reset occurs only later, through
+mtk_i2c_init_hw(), with i2c_dump_register() running between buffer
+release and the reset.
 
-I think that was in the the "after the cut" part, where I said:
+A completion timeout does not establish that APDMA has stopped accessing
+memory. For example, a target may hold SCL low until the adapter times
+out and then release it. If APDMA resumes the remaining RX transfer
+before it has been stopped, it could write into memory whose DMA mapping
+has already been released and whose bounce buffer may have been freed or
+reused. With SWIOTLB, a released bounce slot could also be reassigned to
+another mapping.
 
-You can see the fdtfactor post at:
- http://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
+Commit aafced673c06 ("i2c: mediatek: move dma reset before i2c reset")
+previously addressed APDMA accesses to DRAM after the transfer buffer
+was freed by changing the reset order in mtk_i2c_init_hw(). However, the
+reset still occurs after mtk_i2c_do_transfer() has released the DMA
+buffers.
 
-This patch obviously could only land if some form of that series
-lands. Presumably we'd also want to import fdtfactor into the local
-kernel copy of the devicetree compiler before this patch.
+Move APDMA shutdown ahead of buffer teardown on timeout and ACK-error
+paths. Request an APDMA warm reset and wait for the enable bit to clear
+before unmapping and releasing the buffers.
 
-My plan was for this series to be RFC until `fdtfactor` lands, after
-which it would include an import of `fdtfactor` as one of the earlier
-patches. ;-)
+If APDMA cannot be confirmed to have stopped, retain the mappings and
+buffers rather than potentially returning memory that the controller can
+still access. This intentionally sacrifices memory reclamation on the
+failed-stop path to avoid unsafe reuse.
 
+The change is conditional on the APDMA reset and status operations
+providing the necessary hardware-retirement guarantee.
 
-> > - When `FIT_FACTOR_DTBS` is set, pass `-@ -L` to `dtc` for the DTBs
-> >   included in the FIT image so they retain `/__symbols__` and
-> >   `/__local_fixups__` metadata needed for factoring.
-> > - Run `$(FDTFACTOR) $(FDTFACTOR_ARGS) -f $@` (with `FDTFACTOR_ARGS`
-> >   defaulting to `--strip-local-fixups`) at the end of `cmd_fit` and
-> >   `cmd_fit_its` when `FIT_FACTOR_DTBS` is set.
-> >
-> > Assisted-by: Gemini:gemini-pro-prerelease
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> >
-> >  scripts/Makefile.dtbs |  8 ++++++++
-> >  scripts/Makefile.lib  | 18 ++++++++++++------
-> >  2 files changed, 20 insertions(+), 6 deletions(-)
->
-> > diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-> > @@ -425,6 +425,8 @@ quiet_cmd_uimage =3D UIMAGE  $@
-> >  MAKE_FIT :=3D $(srctree)/scripts/make_fit.py
-> > +FDTFACTOR ?=3D fdtfactor
-> > +FDTFACTOR_ARGS ?=3D --strip-local-fixups
->
-> Patches 1-3 go to some trouble to build fdtget and fdtput in-tree, and
-> cmd_fit_its puts scripts/dtc on the PATH, but fdtfactor comes from the
-> host. So FIT_FACTOR_DTBS=3D1 uses whatever fdtfactor happens to be on
-> the PATH, and the build does not depend on it. Is the plan to sync
-> fdtfactor.c into scripts/dtc once it lands upstream? If so, it would
-> be worth saying so under the --- line.
+Fixes: ce38815d39ea ("I2C: mediatek: Add driver for MediaTek I2C controller")
+Assisted-by: LLM
+Signed-off-by: Samarth Narang <samarth.colleges@gmail.com>
+---
+This issue was identified through static analysis and model checking and
+the patch has been compile-tested with arm64 defconfig and the driver
+enabled, using W=1, without new warnings. It has not been tested on
+hardware.
 
-Yup, that's the plan.
+I am submitting this as an RFC because the hardware-retirement guarantee
+remains uncertain. I would appreciate clarification on the following
+points:
 
+1. APDMA warm-reset semantics. Does writing I2C_DMA_WARM_RST to
+   OFFSET_RST abort an outstanding transfer, and does observing
+   I2C_DMA_START_EN clear in OFFSET_EN guarantee that APDMA will issue
+   no further memory writes, including writes already accepted by the
+   interconnect?
 
-> > diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-> > @@ -137,6 +137,14 @@ DTC_FLAGS +=3D -Wnode_name_chars_strict \
-> > +# When FIT_FACTOR_DTBS is set, pass -@ -L to dtc so the built DTBs ret=
-ain the
-> > +# /__symbols__ and /__local_fixups__ nodes required by fdtfactor.
-> > +ifneq ($(FIT_FACTOR_DTBS),)
-> > +ifneq ($(filter arch/$(SRCARCH)/boot/dts%, $(obj)),)
-> > +DTC_FLAGS +=3D -@ -L
-> > +endif
-> > +endif
->
-> One thing I'd like to check is composite DTBs (the foo-dtbs :=3D
-> base.dtb bar.dtbo entries built by cmd_fdtoverlay). My understanding
-> is that fdt_overlay_apply() merges the overlay's __symbols__ into the
-> base but drops its __local_fixups__ after using them to renumber
-> phandles inside the overlay. So the __local_fixups__ in a composite
-> DTB only cover the base part, even though both inputs were built with
-> -L
->
-> This doesn't affect lga or trogdor, but the make_fit.py path packs
-> every DTB in dtbs-list, and qcom has lots of composite entries
-> (lemans-evk-camera.dtb, etc). If fdtfactor relies on __local_fixups__
-> to find phandle properties, it may silently produce a bad overlay for
-> these. Please can you check this? It might be enough to detect such
-> DTBs and skip or refuse them.
+2. SoC-specific synchronization. The multi-message apdma_sync path polls
+   OFFSET_RST until I2C_DMA_WARM_RST clears and additionally sets
+   I2C_DMA_HANDSHAKE_RST. Should the timeout path use the same sequence
+   on SoCs requiring APDMA synchronization, rather than relying solely
+   on the enable-bit status?
 
-I'm not sure I 100% understand, but let me try to respond and you can
-tell me if I got it right.
+3. Reset ordering. Must the I2C controller be reset before or together
+   with APDMA to ensure that no further peripheral requests can reach
+   it? Commit 05f6f7271a38 ("i2c: mediatek: Fix apdma and i2c hand-shake
+   timeout") appears relevant to this ordering.
 
-The goal was to make sure that we could fully reconstruct
-__local_fixups__ after applying the overlay to the base. v2 of the
-fdtfactor series handled this more properly, and I'm planning to see
-this through and land it unless there are major objections.
+4. ACK-error handling. An ACK error may occur before the RX data phase,
+   in which case no outstanding RX writes are expected. The proposed
+   patch also stops APDMA on this path as a precaution. Is that
+   appropriate for the supported controllers?
 
-By default here, I'm running fdtfactor with "-S" to strip the
-__local_fixups__ out with the assumption that today people don't
-really need them. However, someone could easily override that locally.
+The DMA-safe message buffers were introduced later by fc66b39fe36a
+("i2c: mediatek: Use DMA safe buffers for i2c transactions"). Before
+that change, the timeout path could unmap the caller's buffer before the
+APDMA reset.
 
-I'm a little unclear how things would silently produce a bad overlay, thoug=
-h.
+The intent of this RFC is to establish the required ordering between
+APDMA retirement and DMA-buffer release. I would appreciate guidance on
+the correct hardware shutdown sequence before treating the proposed fix
+as complete.
 
+ drivers/i2c/busses/i2c-mt65xx.c | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
 
-> > diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-> > @@ -486,7 +490,9 @@ quiet_cmd_fit_its =3D FIT     $@
-> > -             done
-> > +             done \
-> > +             $(if $(FIT_FACTOR_DTBS),; $(FDTFACTOR) $(FDTFACTOR_ARGS) =
-\
-> > +                     $(if $(findstring 1,$(KBUILD_VERBOSE)),-v) -f $@)
->
-> Just to check, does fdtfactor handle compressed DTBs in the FIT, i.e.
-> nodes with compression =3D 'lz4' as in sc7180-trogdor.its from patch 7?
-> If not, FIT_FACTOR_DTBS=3D1 with that .its will either fail or silently
-> skip the DTBs. Either way, it would be worth mentioning in the commit
-> message.
+diff --git a/drivers/i2c/busses/i2c-mt65xx.c b/drivers/i2c/busses/i2c-mt65xx.c
+index 307925fb7..2a8b8bd1d 100644
+--- a/drivers/i2c/busses/i2c-mt65xx.c
++++ b/drivers/i2c/busses/i2c-mt65xx.c
+@@ -993,6 +993,19 @@ static void i2c_dump_register(struct mtk_i2c *i2c)
+ 		readl(i2c->pdmabase + OFFSET_RX_4G_MODE));
+ }
+ 
++static int mtk_i2c_stop_dma(struct mtk_i2c *i2c)
++{
++	u32 reg_dma_en;
++	int ret;
++
++	writel(I2C_DMA_WARM_RST, i2c->pdmabase + OFFSET_RST);
++	ret = readl_poll_timeout(i2c->pdmabase + OFFSET_EN, reg_dma_en,
++				 !(reg_dma_en & I2C_DMA_START_EN), 1, 1000);
++	writel(I2C_DMA_CLR_FLAG, i2c->pdmabase + OFFSET_RST);
++
++	return ret;
++}
++
+ static int mtk_i2c_do_transfer(struct mtk_i2c *i2c, struct i2c_msg *msgs,
+ 			       int num, int left_num)
+ {
+@@ -1201,6 +1214,15 @@ static int mtk_i2c_do_transfer(struct mtk_i2c *i2c, struct i2c_msg *msgs,
+ 	mtk_i2c_writew(i2c, ~(restart_flag | I2C_HS_NACKERR | I2C_ACKERR |
+ 			    I2C_ARB_LOST | I2C_TRANSAC_COMP), OFFSET_INTR_MASK);
+ 
++	/* Stop the APDMA before unmap; leak the buffers if it won't stop. */
++	if (ret == 0 || (i2c->irq_stat & (I2C_HS_NACKERR | I2C_ACKERR))) {
++		if (mtk_i2c_stop_dma(i2c)) {
++			dev_err(i2c->dev, "APDMA stop timeout, leaking buffers\n");
++			mtk_i2c_init_hw(i2c);
++			return -ETIMEDOUT;
++		}
++	}
++
+ 	if (i2c->op == I2C_MASTER_WR) {
+ 		dma_unmap_single(i2c->dev, wpaddr,
+ 				 msgs->len, DMA_TO_DEVICE);
 
-Yes, `fdtfactor` transparently decompresses compressed FDT image nodes
-inside the FIT (including `lz4` in `sc7180-trogdor.its`), factors them,
-and re-compresses the resulting base DTB and overlays. I'l update the
-commit message to mention this explicitly.
+base-commit: 83f32c773255720a661aa45d83e36278135f23f5
+-- 
+2.34.1
+
