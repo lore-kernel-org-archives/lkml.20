@@ -1,100 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793444954;
-	b=HgsQ7XXJWnFpRavH/m8L4kn+IomgqbDpPtSsTzKGqXv0uEIyMAnLyD3uSNl4Jgsovsg3
-	 We+3HNiHkn9hUwzGYB/GZqD20dv9mPoDF2gNIVwgW7Gd7dFAiB5xBYmAFSbIW2c8GQ52s
-	 xMGlALMJioGtQKVbkOuIY4vuwCdJMSI4wDXGrus9qXbUJNnoyihTON7v8GPPW3Y2vYAlk
-	 3M/yP9pIk5Cj2BGMM2sgiDHVVKmBqqQI88jTAf/nYgYN+0qN/Qg+TVC1S5dyqe5YDzFt0
-	 gE4/OYORQhZYQS6lIHi6ovSTqJRAObq1lj1pIbakOoR5S4vl4iLJ/x+7amyYigiB2DA==
+	t=1793445050;
+	b=h2teV5H41Ll7iNrvmXtMeYkA5Y5TzvOQt2qfEsLJPJ84hsgQoOVsfLV142YRMGuQq1hV
+	 e4m6G4tR4H9c/TcEtpYYLh5BujCuQy9I2zLtefeWcqIwivTPAOCLio9G1NsDTKq7UM6uX
+	 W8BI8mXnJcIZFg98vglSPZ7EXOJ36BdbEYzzwhjuphVmNiovboL59cWdkN4OT7dNYvtEL
+	 bt2NZRgkU935V24Ep5JCsLpFnLKpTK0kamZ6yMfXu7tyWQOCNSAfJGpw9JLop2iokqTSM
+	 yRr2yQZ3zSgo0EA0/UI+FP1iI/YDejXv7J8rRbKlQrZVpwoEBgLMNsKIeAPq84dmkvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793444954;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793445050;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=dBEoy5iqEE1c+mW/hlhl+h0UQlikvbw3e87Ek3myWuU=;
-	b=nRz4MQkyo6tSXmw1bVgXtf2DFH+sjvioQK7CH1smvR31M+tBA/FUx0yHaPzGg8P7FlJl
-	 lk2TLZY+3JbQHbkxKOi4nlKCtrZ6NEDDmv06TGegvRmOsQ7iAZPUD64LU0wjjpKSckKqx
-	 J7H6IiTm2ZYb4zNiqCfPY+k/1mbikZlDi+xizh2s8vD/xNjdlduZJ7GgrTFtTGrPAXGlG
-	 scWo5xcXNxrgdNFKI0hNF00VS0zV1xh1ze4TpXViMp4PwsmPCCGa6eVrL4us8K0OmVge7
-	 5bcj15SG/JWF/eElvNu/gVKtKFW0eI+XdG7G2Fmf/KuVtYC5UNUYb2qJu5XMM4TJrkA==
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=8/DEyBWZeNjbIYVLMYEXjqZxeouD7j/CxCTXFjXVFWE=;
+	b=onUJdDDuXRC7bKiVN4uWd9zL3vtMla41ViL8MvjEx705z4SU7uUJ4BWMibdXl05brTpN
+	 kmi9hcvSzOr1m3HMaR5L0halNhTc24l6v5MmD7sukDqbOPf8LYeIZz3lowa3pfivQBtl8
+	 ja3LPu+CIBCYZqNYxGRmLTYk0yDN7MF0v2mvFEV4vOdmuf94g/d5qXjlbwuO4ZKCWhAsn
+	 0WgCsErNvhx0OtcMzHu9KWFbZGLZiEFHU/KWfJH4eJkShqBCfAn7yIxFIyHCe4y13DuBa
+	 sa3OXocoMNys+Vx5yFTadHtFOXZ7THGdOUcP4tWtNyknlaYDblkl6uTRZb/0veWo6+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ezJTXjiW;
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nlvriD47;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3141606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:09:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3141606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7398B606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:10:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7398B606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ezJTXjiW
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e00eee27dso759769f8f.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:09:13 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=nlvriD47
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so17324395e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:10:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793444952; x=1794049752; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dBEoy5iqEE1c+mW/hlhl+h0UQlikvbw3e87Ek3myWuU=;
-        b=ezJTXjiWRX8u+57GIh7lc8J3gcmuICa9M7RIvDGzkt0/p5VD5AbZAA2FwdQpjtbuhs
-         DGx44hX8P5+dpvioF9cVeF/+hb76i62fTCVxjZi/X17CwRKjhL+4XvYTGlG7cgASRHz0
-         QWuN5OIxzwoPZllg6vSVrsvNqQ+R8ZC5Nq4H5MrwBxDE9tDIk7IgBvVGTB1PATvSuK2Q
-         txtV5ekYGFUU12sYQdighPpchg+Q4iSU/YU3WCL4VUubYe4PeRss1juPO0EX8q8XTcJK
-         ZSQMNq/+LryLcLwci96Q73ed8JCe0dD0IgAN0Z33BKcs5ZysNrOHMxK0yva/T6hEv1kV
-         6AcQ==
+        d=gmail.com; s=20260707; t=1793445049; x=1794049849; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8/DEyBWZeNjbIYVLMYEXjqZxeouD7j/CxCTXFjXVFWE=;
+        b=nlvriD47siSUj/pHhAZKx+QLV5KHM/oCUhB2Z72IcmRKuDh3jiEue41W2bEqqDFxx/
+         epSfCs0ji+w96+RHDverYdlufb2BeD51SHb8d3aVAf+bP+sHMqHpLrleLcr8XhEat+Nm
+         VvdLIP08AZAu/HYXHTlVeHrk2AaqHs9omZ+vtzdVJZTnqNPbFwfOqYWohu0mLNHzx5kJ
+         UjaZlR+pqvdN6OFKp6OtIFKhTA/nOquQtmw59tEofdPcG/4gvVN33faezMupVGz9Vq6b
+         7noxXbyB6tLXWzdp8rBQ+Uvzirz/0qTMpQojvrDhungxg0breARLZraCM2bJ7BqfbDNO
+         f57Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793444952; x=1794049752;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dBEoy5iqEE1c+mW/hlhl+h0UQlikvbw3e87Ek3myWuU=;
-        b=FrSWkrRX7BR6MyDh48TgI4JZw1Ply4xnsqrmRAr6VQdr+AH78zI+YvBFisN0tgkXg8
-         gMGHFeq2oqmU8+fay1Dc9ZsAd+CaUIBYA7XcCQ9mPbjALMuh9JaGMoAowydzQdBuDBY/
-         2EeE7ybLALtH2JJiYpVgNHKCMT8Runpoe4G4Hu5XnUbIkFlRBJYsrTw6LVRjVAhpl4w9
-         ffJYqw6CRmYmTTannSKWgSk53q56JuGSH13uVXevaftn2SJs1VfxuKRwvtlp7ItIoYOf
-         gUbBmT1//hw0sh8+rB+erazOvqCpzYEE1lJYX1TJiN/GA318Q+aamE5fgxIf8ueXkhRX
-         gA+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzdzgKa03c9Nk74gX29nMuQHOjgv9bKWxrQ4HbpKWTxJL7dY5x3wAbMGWd6zn9C/9t8jRWHUZ4nho208bc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLAzc3hmLi7hZnVhxHF9zB0h/EbQb9H8oNPt0yIugbNsMLo0tzI
-	usEhc/okW0OZzQ+CEHhjSoQXXqQduzVJnsdQZB5IfugPWrtXE6nPZI3g
-X-Gm-Gg: AYBFou3s70T7XnnksP2bwsFBm1haLwQTjALiK1tW7j/aMBhzNjSfGgmcWyV25p0ksdt
-	NzM39lvAFqmwwTb827laSyAzO6sjVP5fEaOJfFjjz01gajybaPKKL0NvStz1G7vMtO5tiKDwkuW
-	7kg4oX6SV2Gs8UnTrt0H8eTZySuzOs7h3Vsd8oE0UOy6XIt64oeddXp0j0A9JdpvmBmWcST2CIK
-	NJHyN7oziHazKrK9yDjwpVyTkhx7o/c/uVaFLOHzuTJYRBv0BcCDV9c9RwNUFG8ezKNvghWKLwd
-	EUXrTp7vbufYciGnufZbz8yAcUVNfwSV9zgAaCLi5MX1IuOAo/A+ilDKxb6pr8ZlTfiip8Ewc9v
-	DjeDQ+UrFR+zdgjFdP5Lnm/PRKQKqd0X4ENQD0HRbhUgQscqS3A1xQg9juyrXra9T+8rAtjdle6
-	Y2hIn4CWIEaEBMu4j1Tz5njtVuVSnJjQ8iy04kQ7Px80yd1XN79BJQjVo85ZpfDg3DEJa2+FpJo
-	xIJLTuxzNdMELAgG1Li1e4TrH8JYDGyxlafCynJNFB1/ZuZSwtl+H9DHvKsFtaRm7yCqWIKKvrR
-	MWL32itHZYyLJFNyfQ1mieKBpXVJ0C4AvX63Utm6xbuR2ipYCf/tCCVZs2z4eAz2fg==
-X-Received: by 2002:a5d:64e4:0:b0:48d:bae6:d7ba with SMTP id ffacd0b85a97d-48e6e3041edmr11132647f8f.26.1793444952037;
-        Sat, 31 Oct 2026 04:09:12 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4773:6f00:c8d4:ec29:293e:f39])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728f9sm8190774f8f.10.2026.10.31.04.09.09
+        d=1e100.net; s=20260707; t=1793445049; x=1794049849;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8/DEyBWZeNjbIYVLMYEXjqZxeouD7j/CxCTXFjXVFWE=;
+        b=FBGfiODsKjwf3Fns9Bu0weC+r8p0PHDYFKeY1FeIYia4QJYxjaYmLHTxAOpsU866rE
+         +Ddpg0HFPXtBTlSOLQhCc/v3gxqAJd/NysWePce0OcwoSKY3mZa2M7x3Nw8DQo/AYDYZ
+         tL9JYP3Wy/3VTeRX9xL0QgTMV3Znt7RH0ayboiQZMr9Jbwwiu5Tz21WrKoFcaEmZCtpK
+         RYN3fNMwE3bZR5VzSM7yZcSOBnboR5dyyK8xvfTSZcDhQQPqwGubks104axyTuOzQGlp
+         4FhZN+PvQpoe08Ai3rZwtVqlfnFGS2SCTRuenCD7w8Pi2oMZv2FZdJGzKqhPd9depgq4
+         LkCw==
+X-Forwarded-Encrypted: i=1; AKwUvByMWsRyXU8JbcbZcx0eKDAhwtMvmjJc5S8ZufaI5snJQHve/fsCSRvw5L6feda8H6zoxtxVjkbz+E+jNEA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLFBydwfKUBggjfA9SvgVM/qcUzHgdL9WoeUbW/KQ+HE5yQorCe
+	wCp0q+0l/dgCqHBNd2JgOy/hv3EGbUo+pcAhfmNWK+dm3Op55HrnxSZ7
+X-Gm-Gg: AYBFou0/NmMlxdL1OgsM0Kt0zTx5gVmUUmvwUmKn8ba5TbT0AK+yFILYa7wm59dmR6s
+	0mC8U0gIrl+1/b2LJa91MicAYGI1Q+5dTuGCJe2AESpPU7eo8fcyoB1gQszyOz+V6d4F5GSYuBo
+	68/pGGJ/n4e5E9j5ntStfkARQqoFGSVAaQCHGjwaFfsf9heDd4OQNGOp873q9d+N26ri5lSx6ob
+	Q56jxBPDXC69TnJpE5nLiXOSHcObNNvXoE4GEuGdVnDAw6ubliCOLwiPbQJ8nOn9xdMZFVfBQvZ
+	FNwoUMMuflYid2mkT8GWA8av3bT1U/zfOjjDwn4EJ+2QqIzNSg/OD1yBlu/UiynYFyqF5lKjD0B
+	iuXhtOCtGX15MM+t4eUd80rbtEtbdmY6EhzBJY2cMKeK17CjusG6aoim8NKEfb/OmMye72aatKp
+	odSjhJirEiYt4pstGyJdAm22zH4QjY5uJEG2uACKVaNo7Toky4uBXVv4uBkwU2PwjAn5rTmMTqG
+	RQWqi/pFltWlSJ/JINZ1/cMiVBb8yuNg3YTURCf8ZIU3eHcVtxfWjj3grWeN4coXmxjHW5zCSHU
+	Rg1u1zIYc86/1QTYZPoX+DAWjC7vaDdQjWBjApGCRK/RwM+YhtaWvC6MlcdKqjf1Dh8w6xFt6v7
+	zZDvtW1qiD50jTzSO72rKC5BIKwkWVCTv2tYJM11V52DwnXZbMlZVwNWReb2Oil7ZF4KUg7aST9
+	qNO7lGpeWXHbO1fUYWQuj1/J3bq9ax
+X-Received: by 2002:a05:600c:198c:b0:4a2:5ca:767f with SMTP id 5b1f17b1804b1-4ac151a9a36mr117500995e9.4.1793445048512;
+        Sat, 31 Oct 2026 04:10:48 -0700 (PDT)
+Received: from unknown748F3CBA5068 (dynamic-2a02-3100-a81d-e001-9c9b-db33-f166-0fda.310.pool.telefonica.de. [2a02:3100:a81d:e001:9c9b:db33:f166:fda])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aa704sm117315545e9.8.2026.10.31.04.10.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 04:09:11 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: netdev@vger.kernel.org
-Cc: edumazet@kernel.org,
-	kuniyu@google.com,
-	pabeni@redhat.com,
-	willemb@google.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	horms@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH net 2/2] net: check the recvmsg LSM hook for every recvmmsg entry
-Date: Sat, 31 Oct 2026 13:08:41 +0200
-Message-ID: <edbdf4f4075565b1fb5925d7e311d6f315151a48.1793444262.git.thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <0b1a91e7fa0de128c6e2bd3ae2f5c960a5c0f883.1793444262.git.thnkslprpt@gmail.com>
-References: <0b1a91e7fa0de128c6e2bd3ae2f5c960a5c0f883.1793444262.git.thnkslprpt@gmail.com>
+        Sat, 31 Oct 2026 04:10:47 -0700 (PDT)
+Date: Sat, 31 Oct 2026 12:10:45 +0100
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Steven Rostedt <rostedt@goodmis.org>, 
+	Thomas Gleixner <tglx@kernel.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, Ingo Molnar <mingo@redhat.com>, 
+	Andy Lutomirski <luto@kernel.org>, Frederic Weisbecker <frederic@kernel.org>, 
+	"Paul E. McKenney" <paulmck@kernel.org>, Boqun Feng <boqun@kernel.org>, Waiman Long <longman@redhat.com>, 
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, 
+	Dietmar Eggemann <dietmar.eggemann@arm.com>, Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
+	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
+	Hongyan Xia <hongyan.xia@transsion.com>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Nathan Chancellor <nathan@kernel.org>, 
+	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
+	Justin Stitt <justinstitt@google.com>, linux-arm-kernel@lists.infradead.org, 
+	linux-trace-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org, 
+	llvm@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 03/13] sched: Split preempt-count bookkeeping from
+ raw updates
+Message-ID: <auXLfz6mFh_uOvRr@gmail.com>
+References: <20261028033127.82193-1-kmehltretter@gmail.com>
+ <20261028033127.82193-4-kmehltretter@gmail.com>
+ <20261029093219.GH1779021@noisy.programming.kicks-ass.net>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,50 +115,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029093219.GH1779021@noisy.programming.kicks-ass.net>
 
-do_recvmmsg() passes the number of received datagrams as the nosec
-argument to ___sys_recvmsg(). After the first datagram, this bypasses
-security_socket_recvmsg() even when a later entry requests a larger
-receive buffer that would be rejected by an LSM policy.
+On Thu, Oct 29, 2026 at 10:32:19AM +0100, Peter Zijlstra wrote:
+> Urgh, so much crazy.
+> 
+> So WARNs in noinstr code are 'fine'. That is, they should not happen, if
+> they do, bad things have happened and we need the warning out ASAP, if
+> it takes the machine down, too bad. See the
+> instrumentation_{begin,end}() markers in x86 asm/bug.h.
+> 
+> But yes, the tracing needs to go. But moving that around should not be
+> this ugly and also, that will give you the opportunity to fix
+> preempt_{en,dis}able_notrace(), since they currently also skip the bound
+> checks.
 
-Pass zero for both native and compat entries so each receive goes
-through the security check. Remove the first-datagram-only comment.
+Yes, that's a good direction.
 
-Fixes: a2e2725541fa ("net: Introduce recvmmsg socket syscall")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- net/socket.c | 7 ++-----
- 1 file changed, 2 insertions(+), 5 deletions(-)
+I checked the call chain and DEBUG_LOCKS_WARN_ON() is already fine in
+noinstr. arm64 just needs __always_inline on preempt_count() and
+should_resched() so Clang doesn't outline them.
 
-diff --git a/net/socket.c b/net/socket.c
-index c2a85224ab55..fff80fbca1a8 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -3057,13 +3057,10 @@ static int do_recvmmsg(int fd, struct mmsghdr __user *mmsg,
- 	compat_entry = (struct compat_mmsghdr __user *)mmsg;
- 
- 	while (datagrams < vlen) {
--		/*
--		 * No need to ask LSM for more than the first datagram.
--		 */
- 		if (MSG_CMSG_COMPAT & flags) {
- 			err = ___sys_recvmsg(sock, (struct user_msghdr __user *)compat_entry,
- 					     &msg_sys, flags & ~MSG_WAITFORONE,
--					     datagrams);
-+					     0);
- 			if (err < 0)
- 				break;
- 			err = put_user(err, &compat_entry->msg_len);
-@@ -3072,7 +3069,7 @@ static int do_recvmmsg(int fd, struct mmsghdr __user *mmsg,
- 			err = ___sys_recvmsg(sock,
- 					     (struct user_msghdr __user *)entry,
- 					     &msg_sys, flags & ~MSG_WAITFORONE,
--					     datagrams);
-+					     0);
- 			if (err < 0)
- 				break;
- 			err = put_user(err, &entry->msg_len);
--- 
-2.43.0
+I will work on that.
 
+Thanks,
+Karl
