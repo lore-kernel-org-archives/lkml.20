@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793458934;
-	b=hbWbm9KdcWDsjn0KeKzLEkYY9X2rG4tOfAfMI0giQE0NSqQTrhhQp+DoKz6igh9z9D2x
-	 r9wF/ANrEX6kT0nbEXrw/DD+uomzsjnjmvKjAaPJXAcKNiJ7o/mYf1ooC62XNXgt0yPub
-	 d8YOKa/630V3W6GkX3jO5OEsdXTybCIE42oB6gyHOj345rq9y1VoJjWrMRpmUERnMlNKS
-	 6ZOAyfFlEN/sGMiA0UsE7yFK8BoHqKl3k+aVwKwvNavNftxNxGS/BcsQKai4//jOe3+1u
-	 wjGRrYPBgWACUYfp5/tcyaa8snhK15N6dHhS9si0zErIBqsR9nLoMQPfeVk690Wuo5A==
+	t=1793458992;
+	b=d+hXqBUHjiMojdpjdVj3UhMrQ0VKQaUsWhoe3yyCsdWAKHur8yuy82l2oMugWqg5DQzg
+	 59WYWG5VQCc4xbLOr7IQi+FQn1QDQDF6JepvK05PrdgBP+eryH1mZ2tmceFL6a6H0yntH
+	 FXY2L42S8+BeeUdDvueBRbb6QhS9gfE5GJh4qMX3r/ud50UbBESVdvPcScGAmQw1Mg7HR
+	 Smaj7ZtxSNRlCa9bqFySfKv2q+E+QRNiz2iv5KIkCx99Xv9KHZJWnoIbTK8tp/+EW9Yvl
+	 V/C9EqvUN4tt2PyIXOWkVeX4ZZ9ypxQS1NEIRzpDOBQPj0dN4fAbLHdlQ0cfB78LiNA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793458934;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793458992;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=nnXs9/jiLDJivYH/VI0f8ccm4hA2wr7h1eXD5kdk5yo=;
-	b=4q+DKN1uld2G75ZoPJ6DJHaUeu6dwMkR6dN2dVVP6OCbdlgVlJ8OwUTGj3Lo/+LJtyK3
-	 +ZwRazu8Qg13HHV+RAQQy6Ue6oGNjEHBxJBpg5SEG+/nSWyrEWPt7Q+0BCt8EUM6y2R2P
-	 Mz8xwMMToG/cgOcZOT5rA6JKQrHwUlOGwlPQjoTWhZUK6AJKkSI3+t7uAnaZw4hz2HL2K
-	 k0IASTJXBDHkDne5pPchDm6UZ2LM63b4Xu8pzLDzxWm0LRQBGX2DpqSx/OZRmeXG7iWhX
-	 jFq76qsJ6oFOEuNJzHprHYHTVJ7TVNyPa7At52YZbGL03RRjoCAGuSP2vFprF8X/MpA==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=YHf42dT4GUuGEkFrxXMEdkY9Ofr+uP3rQXVMmCvRrVM=;
+	b=xBwmEOA2XzT5UZ7U3Ya1kUq6GmBLAg+d3LW+0bXzU57pIaEeHZnfpAvI8hhw16dLhVS7
+	 KO9OcxBD5VrPXeZ7POMODSfRZV26OaYA6KGIG6EQXYAOtp3m7Y2siUfrpnVmdNVGih+EK
+	 xVoQrXAyFfzK5w8keBigf3GQLYbGaGDpPr7/asZjH8WioMMu1gZ+r+hnBkKBPbH5npkXc
+	 U2dwb0axWWKgpPoIkpNTRLgp5Uw9APHb3zFiejRVNAoukWnMKOLgwiJLXA51+Xd+RiNAE
+	 2XT17H4oBY5kOTxyYMoE9rUcdg81IRFgWoWc1UNNNUuM4CHlk+Yr07/BFBDCrjTVelw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=UusYf9a+;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=rU1B7S3f;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38A12606A31E;
-	Sat, 31 Oct 2026 15:02:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38A12606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 87F24606A31F;
+	Sat, 31 Oct 2026 15:03:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87F24606A31F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=UusYf9a+
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=rU1B7S3f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:MIME-Version:Content-Transfer-Encoding; bh=nnXs9/jiLD
-	JivYH/VI0f8ccm4hA2wr7h1eXD5kdk5yo=; b=UusYf9a+Xh3tjomJv5gL5ujEDy
-	0bycsLer7E38ogQl98sN4pRLWzCx5gM0lVtnLj8gg/7bRlsQBkWpdp+320rVw2Ls
-	tCB4+QxJUhsx91LfPN1fOmDKLcNx0rfnRdfr3S4iHKpJJjcovZSyv/ixf3oT3L1G
-	srlvxZ5dzJM5FE7k0=
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=YHf42dT4GUuGEkFrxXMEdkY9Ofr+uP3rQX
+	VMmCvRrVM=; b=rU1B7S3fm56HwmhW44Z6C+QUmSP8v53TML5bV533kfyfn62aPn
+	ouvy9sFkKrm/LpDv189XhbqiQYF3NvAG2TP7FtA/7qt/mW4A6rPNqgM31pqgr8eJ
+	7N6zGlZWirqEzJ4syKT2nFJ/0byxVktz2M8uaDTo8DHQeebTv87ixzlxk=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3uDziAuZqpyJvAA--.1475S2;
-	Sat, 31 Oct 2026 23:01:55 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S4;
+	Sat, 31 Oct 2026 23:03:06 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-usb@vger.kernel.org,
-	linux-devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Rob Clark <robdclark@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 0/2] usb: dwc3: fixes for two connectors sharing one HS bus
-Date: Sat, 31 Oct 2026 23:01:52 +0800
-Message-ID: <20261031150154.1106455-1-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH 2/5] drm/msm/dsi: add per-SoC bonded command-path config
+Date: Sat, 31 Oct 2026 23:03:02 +0800
+Message-ID: <20261031150305.1107572-3-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,172 +63,202 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgA3uDziAuZqpyJvAA--.1475S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxtFW8Kw4DAFyrtF45JFyUGFg_yoWxtw1rpF
-	WaqrZ2yr1DJrZa9ws7Aa18ua48uws3GFW7Jr45Ww15CF45Cr40qFWUK3W5Za47CFZag342
-	9rn0grZ8WFnrKw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r1q6r43
-	MxkIecxEwVAFwVW5WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s
-	026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_
-	Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20x
-	vEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE
-	14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyT
-	uYvjxUyFoXUUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FYreQAysO
+X-CM-TRANSID:3pYKCgDHS0ApA+ZqqSNvAA--.5005S4
+X-Coremail-Antispam: 1UD129KBjvJXoW3AryUAry8WF48WrWfJFW5ZFb_yoWxKw1DpF
+	WYqw15tr4kA3ZI9wsxtF1UC3WrAFnavayxJ3srGwnxAwnxtw1UXF4v9a43KFy7ta48Jr1a
+	va1kAryUGF1kJrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8JVWxJwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4
+	AK67AK6ryrMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07b2
+	T5LUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAHse
 
-*** AI-assistance disclosure ***
-This cover letter and the accompanying patches were prepared with the help
-of an LLM coding assistant; the author reviewed, tested and takes full
-responsibility for the content. All measurements cited below come from real
-hardware runs and are reproducible with the commands referenced in our
-public reports.
+The bonded command path carried its constants inline: the error-mask bits
+in dsi_cmd_error_prepare()/dsi_cmd_error_cleanup(), the CMD_DMA_CTRL bits
+staged before a broadcast and the peer poll budget. Those are controller
+facts, so they belong in the existing per-SoC table next to the regulator
+and bus-clock data rather than in the driver body.
 
-Greetings,
+Add struct msm_dsi_bonded_cfg and hang it off struct msm_dsi_config.
+SM8750 reports DSI 6G v2.9, which selects the sm8650 cfg entry, so the
+bonded data is attached there with values copied verbatim from the
+current code. Use remains gated on the sm8750 compatible, so behaviour is
+unchanged.
 
-This is v5.  It is a fixup series that applies *on top of* v4 [1] -- it
-does not replace v4 1/3..3/3, it fixes them in place:
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 26 ++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dsi/dsi_cfg.h  | 22 ++++++++++++++++++++++
+ drivers/gpu/drm/msm/dsi/dsi_host.c | 22 +++++++++++++++-------
+ 3 files changed, 63 insertions(+), 7 deletions(-)
 
-  - 1/2 tightens the binding of v4 1/3 (snps,dwc3-common.yaml),
-  - 2/2 fixes the driver of v4 3/3 (usb: dwc3: support two connectors
-    sharing one HS data bus) and also corrects
-    usb_role_switch_at_endpoint() introduced by v4 2/3.
-
-Base: v4 3/3 (fd69bd54e328, "usb: dwc3: support two connectors sharing
-one HS data bus").  Please apply v4 1/3..3/3 from lore [1] before this
-series; the `base-commit:` trailer in this posting is informational only,
-since it names a commit that is not in any public tree yet.
-
-Hardware: Lenovo Legion Y700 (4th gen) tablet, SM8750.  Both High Speed
-connectors share one DWC3 controller; a port-select GPIO picks which
-connector owns the bus, and each connector has its own typec port with its
-own role switch, described per graph endpoint.
-
-Changes since v4 (all points are replies to the automated review by
-Sashiko [2][3][4]; no human maintainer replied in the v4 thread yet):
-
-Binding (Sashiko on v4 1/3, three Medium findings [2]):
-
-  * "hs-port patternProperties does not match what the driver expects /
-    escapes unevaluatedProperties".  Fixed: the endpoint name pattern is
-    now the same one graph.yaml uses, so an unnumbered endpoint or
-    endpoint@2+ is validated too instead of silently escaping the
-    unevaluatedProperties: false rule (v5 1/2).
-
-  * "usb-role-switch should not be required only indirectly".  Fixed: the
-    controller node must now carry "usb-role-switch" whenever
-    port-select-gpios is present.  This is a driver-fact fix, not just
-    schema cosmetics: without that property dwc3_get_dr_mode() forces
-    dr_mode back to peripheral and dwc3_drd_init() never runs, so a DT
-    that passed the old schema did not describe a DT the driver could act
-    on (v5 1/2).
-
-  * "mux-state complementarity is not expressed".  Fixed: the two
-    independent `if: const: 0` blocks only rejected two zeroes; two
-    endpoints both claiming mux-state = <1> passed validation.  The pair
-    is now a single oneOf so exactly one assignment is accepted (v5 1/2).
-
-  * On the standing question whether this should use the standard
-    mux-controls/mux-states properties instead of per-endpoint role
-    switches: kept the graph-endpoint shape for now.  Reason: the
-    arbitration is "earliest request wins" between two *typec connectors*
-    that must each be a usb role switch consumer, and the endpoint is the
-    fwnode the connector is attached to; a mux-control consumer does not
-    give us that per-connector identity.  drivers/usb/ has no
-    mux_control consumer today to follow as precedent.  Happy to reshape
-    if the DT maintainers prefer the standard property.
-
-usb: roles (Sashiko on v4 2/3, one High finding [3]):
-
-  * "-EPROBE_DEFER is swallowed by !IS_ERR_OR_NULL(sw)".  Fixed: pass the
-    error up, as suggested (v5 2/2, last hunk).  This was also the root
-    cause we hit on real hardware: the UCSI glue kept a NULL switch and
-    the connectors never bound.
-
-usb: dwc3 (Sashiko on v4 3/3, five High + three Medium findings [4]):
-
-  * "dwc3_set_mode() under dwc->lock self-deadlocks".  Fixed: request
-    decision and issue are now paired by mux->lock; dwc->lock is only held
-    while updating the individual fields (v5 2/2).
-
-  * "glue layer is never notified".  Fixed: dwc3_pre_set_role() is called
-    with the effective role, outside spinlocks, before dwc3_set_mode(),
-    mirroring the single-connector path (v5 2/2).
-
-  * "same-role request that moves the data path to the other connector".
-    Fixed: dwc3_set_prtcap() only clears SUSPHY when PRTCAP changes, so
-    that case now clears it explicitly (v5 2/2).
-
-  * "registration earlier than the initial mode request races with a
-    connector driver".  Fixed: register and request the initial mode under
-    mux->lock, tear down in reverse order on failure (v5 2/2).
-
-  * "fwnode references leak on error paths".  Fixed: dwc->role_mux is
-    published before the error paths that used to leak the endpoint
-    fwnodes, so dwc3_role_mux_exit() can actually unwind (v5 2/2).
-
-  * "sticky mux->error is reported to the next caller after it already
-    committed its own request".  Fixed: the sticky value is dropped; a
-    failed data-path switch is logged and counted per connector (v5 2/2).
-
-  * (found during on-device testing, same area) dwc3_mux_role_get()
-    returned USB_ROLE_NONE for a connector that did not own the data path,
-    hiding its pending request; the connector driver then never sent the
-    set_role(NONE) that would clear it, and the stale request kept winning
-    arbitration after unplug.  get() now reports the requested role
-    (v5 2/2).
-
-Test evidence (all on the SM8750 tablet, kernel built from this series):
-
-  - `git am --3way` of the whole series on top of v4 3/3 succeeds;
-    checkpatch --strict reports 0 errors / 0 warnings / 0 checks for both
-    patches.
-  - `dt-doc-validate` on snps,dwc3-common.yaml: clean.
-  - `make W=1 drivers/usb/dwc3/ drivers/usb/roles/` (arm64): 0 warnings.
-  - On device: after the -EPROBE_DEFER fix, /sys/class/typec shows port0,
-    port1 and a bound partner; with function_graph tracing, 12 consecutive
-    plug/unplug cycles each went usb_role_switch_set_role ->
-    dwc3_mux_role_set [dwc3] -> glue notifier -> dwc3_set_mode with zero
-    WARNING/BUG/lockdep splats, USB data and charging both stable
-    throughout.
-  - The binding topology (two HS connectors on port@0 and port@2 of the
-    controller's port node, one endpoint each, mux-state on the endpoint)
-    matches what the board DTS uses; port@1 is occupied by the SuperSpeed
-    path to the QMP PHY, which is why the two HS connectors are not
-    siblings under one port.
-
-Known limitation, stated up front: the role *arbitration* detail (which
-connector wins a simultaneous request) is verified only by code reading and
-the stale-request test above; a dedicated per-port role-value trace is
-instrumented but its data set is not yet complete.  Everything else listed
-above has been exercised on hardware.
-
-Thanks,
-Qianhui Xu
-
-[1] v4: https://lore.kernel.org/linux-usb/20261026123211.243224-1-xiaqinghuan@mail.ustc.edu.cn/
-[2] Sashiko on v4 1/3: <sashiko-outbox-185247@kernel.org>
-[3] Sashiko on v4 2/3: <sashiko-outbox-185254@kernel.org>
-[4] Sashiko on v4 3/3: <sashiko-outbox-185299@kernel.org>
-
-Qianhui Xu (2):
-  dt-bindings: usb: snps,dwc3: tighten the two-connector shared HS bus
-  usb: dwc3: fix the two-connector shared HS bus role handling
-
- .../bindings/usb/snps,dwc3-common.yaml        | 105 +++++++++---------
- drivers/usb/dwc3/core.c                       |  36 ++++--
- drivers/usb/dwc3/core.h                       |   4 +-
- drivers/usb/dwc3/drd.c                        |  65 ++++++++---
- drivers/usb/roles/class.c                     |   7 +-
- 5 files changed, 140 insertions(+), 77 deletions(-)
-
-
-base-commit: fd69bd54e328c407b1853378b25d15803d3453fa
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+index da3fe68244..640ebe8244 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include "dsi_cfg.h"
++#include "dsi.xml.h"
+ 
+ static const char * const dsi_v2_bus_clk_names[] = {
+ 	"core_mmss", "iface", "bus",
+@@ -194,6 +195,24 @@ static const struct regulator_bulk_data sm8650_dsi_regulators[] = {
+ 	{ .supply = "vdda", .init_load_uA = 16600 },	/* 1.2 V */
+ };
+ 
++/*
++ * Bonded command-path data. Values are copied verbatim from the vendor-derived
++ * in-tree code; the SM8750 compatible check in dsi_host.c/dsi_manager.c still
++ * gates every use until the master link moves into this table as well.
++ * TODO(doc): err_clear_bits/err_cleanup_bits touch bits that dsi.xml does not
++ * describe (see reports/b5-per-soc-cfg-design-20261027.md, RFC-SCOPE R1).
++ */
++static const struct msm_dsi_bonded_cfg sm8750_dsi_bonded_cfg = {
++	.master_link_id = DSI_0,
++	.cmd_dma_ctrl = DSI_CMD_DMA_CTRL_BROADCAST_EN |
++			DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER,
++	.err_clear_bits = 0x001f0200,
++	.err_cleanup_bits = 0x44440400,
++	.poll_timeout_us = 5000,	/* 500 polls, 10 us apart */
++	.needs_link_clk_bump = true,
++	.needs_sw_reset = true,
++};
++
+ static const struct msm_dsi_config sm8650_dsi_cfg = {
+ 	.io_offset = DSI_6G_REG_SHIFT,
+ 	.regulator_data = sm8650_dsi_regulators,
+@@ -203,6 +222,13 @@ static const struct msm_dsi_config sm8650_dsi_cfg = {
+ 	.io_start = {
+ 		{ 0xae94000, 0xae96000 },
+ 	},
++	/*
++	 * SM8750 reports DSI 6G v2.9, i.e. it selects this very table entry, so
++	 * the bonded data has to hang off it. Its use is still gated on the
++	 * "qcom,sm8750-dsi-ctrl" compatible, so an actual SM8650 keeps taking
++	 * the regular command path.
++	 */
++	.bonded = &sm8750_dsi_bonded_cfg,
+ };
+ 
+ static const struct msm_dsi_config kaanapali_dsi_cfg = {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+index ccf0667960..c8813a738b 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
++++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
+@@ -41,6 +41,26 @@
+ /* Maximum number of configurations matched against the same hw revision */
+ #define VARIANTS_MAX			2
+ 
++/**
++ * struct msm_dsi_bonded_cfg - per-SoC data for the bonded command path
++ * @master_link_id: link that drives the broadcast; not the probe order
++ * @cmd_dma_ctrl: CMD_DMA_CTRL bits both engines need while staged
++ * @err_clear_bits: error-mask bits set before a command
++ * @err_cleanup_bits: side-effectful FIFO status bits written after a command
++ * @poll_timeout_us: the peer is polled, never completed through its IRQ
++ * @needs_link_clk_bump: command-time link clock vote for this generation
++ * @needs_sw_reset: this generation needs the stock controller reset sequence
++ */
++struct msm_dsi_bonded_cfg {
++	u8 master_link_id;
++	u32 cmd_dma_ctrl;
++	u32 err_clear_bits;
++	u32 err_cleanup_bits;
++	u32 poll_timeout_us;
++	bool needs_link_clk_bump;
++	bool needs_sw_reset;
++};
++
+ struct msm_dsi_config {
+ 	u32 io_offset;
+ 	const struct regulator_bulk_data *regulator_data;
+@@ -48,6 +68,8 @@ struct msm_dsi_config {
+ 	const char * const *bus_clk_names;
+ 	const int num_bus_clks;
+ 	const resource_size_t io_start[VARIANTS_MAX][DSI_MAX];
++	/* NULL when the SoC has no bonded command path */
++	const struct msm_dsi_bonded_cfg *bonded;
+ };
+ 
+ struct msm_dsi_host_cfg_ops {
+diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
+index 5405173a43..a3e9882c22 100644
+--- a/drivers/gpu/drm/msm/dsi/dsi_host.c
++++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
+@@ -2345,12 +2345,19 @@ void msm_dsi_host_bonded_wait_video(struct mipi_dsi_host *host)
+ 	dsi_wait4video_eng_busy(to_msm_dsi_host(host));
+ }
+ 
++static const struct msm_dsi_bonded_cfg *
++dsi_bonded_cfg(struct msm_dsi_host *msm_host)
++{
++	return msm_host->cfg_hnd->cfg->bonded;
++}
++
+ static void dsi_cmd_error_prepare(struct msm_dsi_host *msm_host)
+ {
++	const struct msm_dsi_bonded_cfg *bonded = dsi_bonded_cfg(msm_host);
+ 	u32 val;
+ 
+ 	val = dsi_read(msm_host, REG_DSI_ERR_INT_MASK0);
+-	val |= 0x001f0200;
++	val |= bonded->err_clear_bits;
+ 	dsi_write(msm_host, REG_DSI_ERR_INT_MASK0, val);
+ 	wmb(); /* Stock completes the error-mask write before stale clear. */
+ 
+@@ -2360,13 +2367,14 @@ static void dsi_cmd_error_prepare(struct msm_dsi_host *msm_host)
+ 
+ static void dsi_cmd_error_cleanup(struct msm_dsi_host *msm_host)
+ {
++	const struct msm_dsi_bonded_cfg *bonded = dsi_bonded_cfg(msm_host);
+ 	u32 val;
+ 
+ 	/* Stock mask_error_intr(0x2, false) W1C-clears FIFO errors. */
+ 	val = dsi_read(msm_host, REG_DSI_FIFO_STATUS);
+-	dsi_write(msm_host, REG_DSI_FIFO_STATUS, val | 0x44440400);
++	dsi_write(msm_host, REG_DSI_FIFO_STATUS, val | bonded->err_cleanup_bits);
+ 	val = dsi_read(msm_host, REG_DSI_ERR_INT_MASK0);
+-	val &= ~0x001f0200;
++	val &= ~bonded->err_clear_bits;
+ 	dsi_write(msm_host, REG_DSI_ERR_INT_MASK0, val);
+ 	wmb(); /* Complete overflow unmask before stale-error clear. */
+ 
+@@ -2553,8 +2561,7 @@ void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
+ 	val &= ~(DSI_CMD_DMA_CTRL_BROADCAST_MASTER |
+ 		 DSI_CMD_DMA_CTRL_WC_SEL | DSI_CMD_DMA_CTRL_PACKET_TYPE |
+ 		 DSI_CMD_DMA_CTRL_LOW_POWER);
+-	val |= DSI_CMD_DMA_CTRL_BROADCAST_EN |
+-	       DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER;
++	val |= dsi_bonded_cfg(msm_host)->cmd_dma_ctrl;
+ 	if (master)
+ 		val |= DSI_CMD_DMA_CTRL_BROADCAST_MASTER;
+ 	if (msg->flags & MIPI_DSI_MSG_USE_LPM)
+@@ -2636,10 +2643,11 @@ int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
+ int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
+ {
+ 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
++	u32 timeout_us = dsi_bonded_cfg(msm_host)->poll_timeout_us;
+ 	u32 status = 0;
+-	int i;
++	u32 elapsed;
+ 
+-	for (i = 0; i < 500; i++) {
++	for (elapsed = 0; elapsed < timeout_us; elapsed += 10) {
+ 		status = dsi_read(msm_host, REG_DSI_INTR_CTRL);
+ 		if (status & DSI_IRQ_CMD_DMA_DONE) {
+ 			dsi_cmd_dma_intr_update(msm_host, false, true);
 -- 
 2.53.0
 
