@@ -1,69 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793455102;
-	b=PZPyNN8L2z5yMjPWc0mpzrbhaNx4CFWnVP5HE/vwtl4+rKPhvvz80khtKjndB7TalkpX
-	 cB+wYl54Qa9sd1329qHbiZrdtIjKjRclk4VckpQDi4xtiVFdtTABxyP18H0QifrkXXrGD
-	 y+hgO0//H4frs3hN/sKmS4euqbHW2ZXH0WcSbccqvKBmc7QAcltXG9Pkm71bXlXTd0dkO
-	 O+cLgcJ+CbEc0KjyWEVeyFWHHn8mnjpq7cd2s463kKh+NCosw0xe4r8QEA04a+KfRVHje
-	 M3xhCas5kLH+k1Trz0H16DKX6ugRNCgddmn0lur79xoJoWmnhB8EMod5h/9M0VMkIXg==
+	t=1793455127;
+	b=lfLjjF1UljO4b+Qs1KkGBCLT7Oqj+TPxZacj+KaUZ2LP/NdchEwZFeDjnUMyrtcCKVvC
+	 +0Bs88fmdGsWck6bOWfOGhGFv0tj43bWzeIpcAEieMXsPsiEf6QYO8FOFy7RH+nfxgNFY
+	 8SdmzC1aFffjvXGr+T1DvYGvmvSN6mmGgg3xIhLxNxnKjjuEhJySC4dlJ4FT1caeuju4l
+	 kW+gzMuK851U63Rwa16YaqRHoKiqUIlpYY9RxerxYOpj9/Wl225MScSUDmuUW+6SLeaxY
+	 jShXpgwxeVKfgUH1ot9jbWhs9Aydbn9/fUFWErvYy1CS8YxoGHTNf5PtDo0xUgq3hvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793455102;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=KdwwhQ4hmLe2ojysKovryYH2AE4HDI2oZLgU2MxJ0ZM=;
-	b=A2dnR3KZh3+sKFBAyvMlQlu2+AybGPM3OpURLZ8y9ODL1S9eA/Am7NiLkEe1SpfUfZQa
-	 NXb6YoHTqZ352PZksnF//rzQ3kZwYhB7FHeoz5QoiWuPMgfnfrLpHtQ4hYBqEGKuovLJm
-	 svpndXHZqsvwTd7hXJk7a8MogmpEFQiIXA2h9OPkg2IR5xucPwFYcUJ6t8XmY/8ZE9Urr
-	 lodgW0tNGhviMunavtuo0UA/ak8aYxSxk8oI+Ugeq7pCUS6dbmvvad/8Rh6X85MhzIRQV
-	 FMvn4R9t/qexo+H1z4kCdWYdRmy7xEuW8N6cCffNe6zHDORfqtVsMyw/D3qCCl2atvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793455127;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
+	 X-HM-Spam-Status:DKIM-Signature;
+	bh=GjGyYPqN6ABzGQWTravT6MIzH9CljgHIVuIlMzWcs6Y=;
+	b=0yPuVZgvjwdNdJRpup4MQPYzWQMat+zlalDohuiPn8YnYK/gfuzSXV7manXv043UC1cG
+	 SAcYxYyJINa9OeXmToNTEkO4qWDPr9ZXzIfkSoMPdmeW3TKCMfMDy7y9x8dRN3FFqsaoX
+	 AMF5WYOf4Nh88EtAUkJzNtbbrl/M6JWZ/+L1IANDeWNuU7ACrzdqXn7A2i60EpCtONuMx
+	 mMGWSwIBLGmdmiIjx1LSic5CIppWs9cZmJ+kSgchLwXRuH8Y5wQ9kbn1VmZHIFjWeQfCF
+	 qL646qihcc66sQgeCrtgndu7p5k9RzCkAkIvz0KasJ+qihlgdx5tsAsjhjbAgmhPhag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=isS3ErHr;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	dmarc=pass header.from=mail.sdu.edu.cn;
+	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
+	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=Dib4UUL2;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04866606A31A;
-	Sat, 31 Oct 2026 13:58:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04866606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE66606A31A;
+	Sat, 31 Oct 2026 13:58:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AE66606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=isS3ErHr
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=KdwwhQ4hmLe2ojysKovryYH2AE4HDI2oZLgU2MxJ0ZM=; b=isS3ErHrsAIzCMLoNHWkaFEAo7
-	YDK0QFMSiHyKxc8ya1zB0lmWd/pAdj5U1Cq+UYbVQIOsC8uSuAYH08Bjyo0b5Zm2g+9RN6QBGMRV4
-	p8BkUQH/AXKoZ8u69b8GcgH30oglb6EBdHEJPZOcMCSntSFt6nhUSX5furwaDQK24Ch4=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xN9au-00DX5Y-MN; Sat, 31 Oct 2026 14:58:04 +0100
-Date: Sat, 31 Oct 2026 14:58:04 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Doug Ledford <doug.ledford@hpe.com>
-Cc: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	Sandeep Bhoot <sandeep.bhoot@hpe.com>
-Subject: Re: [PATCH 01/23] net: hpe: ss1: add the Cassini headers
-Message-ID: <531c7d63-548f-467e-95df-187214ff344d@lunn.ch>
-References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
- <20261030-cxi-netdev-submission-v1-1-8c2c391cc283@hpe.com>
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=Dib4UUL2
+Received: from lgs.. (unknown [101.76.249.61])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5306b5bf6;
+	Sat, 31 Oct 2026 21:58:39 +0800 (GMT+08:00)
+From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
+	stable@vger.kernel.org,
+	Michael Krufky <mkrufky@linuxtv.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Maciej S. Szmigiero" <mail@maciej.szmigiero.name>
+Subject: [PATCH] media: cxusb: Fix URB leak on start_streaming failure
+Date: Sat, 31 Oct 2026 21:58:39 +0800
+Message-ID: <571c9fb8ed616125263768da034d54aec6ddb02c.1793455088.media-usb.git.liguangshuo@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,46 +57,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030-cxi-netdev-submission-v1-1-8c2c391cc283@hpe.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa192415e0603a1kunm670a63218615e
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSEMdVhhPTx5KTUoeTBkZS1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
+	++
+DKIM-Signature: a=rsa-sha256;
+	b=Dib4UUL2L7/BEZBGXKit7/mVe0/KcR4kU7LTCQQ/sZYU5YXFIWSU3Yg3FLclZTPzUiVJET/LtebH6oDBiLl2vEs1EKBfu3hLE5OTNOQV/bRk7zCzwPCLoRcuApOV7SDu8MYOLCNWef1LJ18q0G0lBiB2EjhdsH94nS25mlxjAWg=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
+	bh=GjGyYPqN6ABzGQWTravT6MIzH9CljgHIVuIlMzWcs6Y=;
+	h=date:mime-version:subject:message-id:from;
 
-On Fri, Oct 30, 2026 at 01:58:57PM -0700, Doug Ledford wrote:
-> Start the Cassini core driver (cxi-ss1) with its headers: the register
-> and counter definitions, error definitions, telemetry item tables, and
-> the CXI interface (cxi.h, cxi_prov_hw.h, libcassini.h) through which
-> client drivers use the NIC.
-> 
-> The cassini_* headers are generated from the hardware description and
-> are not meant to be edited by hand, so they carry the generator's
-> formatting.  cassini_user_defs.h is shared byte-for-byte with the user
-> space libraries and is therefore under include/uapi/ethernet.
+When the streaming buffer allocation fails during one of the first two
+URB iterations, cxusb_medion_v_start_streaming() jumps to ret_freeab,
+which only frees the auxiliary buffer.  The URBs already allocated and
+stored in cxdev->streamurbs[] are leaked: the error label that calls
+cxusb_medion_urbs_free() is skipped, and videobuf2 does not call
+stop_streaming() after a failed start_streaming().
 
-You want to keep the UAPI as small as possible, because once this is
-merged, it can never change in ways that break backwards
-compatibility. 
+Jump to ret_freeu instead so the already allocated URBs are freed too
+before the auxiliary buffer.
 
-We also strongly discourage APIs that allow user space drivers, which,
-at first glance, such definitions would allow. 
+This issue was found by our static analysis tool under development.
 
+Fixes: e478d40540544 ("media: cxusb: add analog mode support for Medion MD95700")
+Cc: stable@vger.kernel.org
+Assisted-by: OpenAI:gpt-6-astra
+Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+---
+Build-tested the changed objects with x86_64 allmodconfig.
+No runtime or fault-injection testing was performed.
 
-> It
-> provides inline accessors that need errno.h, string.h and size_t,
-> which a standalone UAPI header cannot assume, so this patch excludes
-> it from the UAPI header self-test.
+ drivers/media/usb/dvb-usb/cxusb-analog.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Does any other driver do this? If you are doing something which no
-other driver does, it is probably broken.
+diff --git a/drivers/media/usb/dvb-usb/cxusb-analog.c b/drivers/media/usb/dvb-usb/cxusb-analog.c
+index 8c7d0888c721..648f947e8cce 100644
+--- a/drivers/media/usb/dvb-usb/cxusb-analog.c
++++ b/drivers/media/usb/dvb-usb/cxusb-analog.c
+@@ -822,7 +822,7 @@ static int cxusb_medion_v_start_streaming(struct vb2_queue *q,
+ 		if (!streambuf) {
+ 			if (i < 2) {
+ 				ret = -ENOMEM;
+-				goto ret_freeab;
++				goto ret_freeu;
+ 			}
+ 			break;
+ 		}
+@@ -879,8 +879,6 @@ static int cxusb_medion_v_start_streaming(struct vb2_queue *q,
+ 
+ ret_freeu:
+ 	cxusb_medion_urbs_free(cxdev);
+-
+-ret_freeab:
+ 	vfree(cxdev->auxbuf.buf);
+ 
+ ret_unstream_md:
+base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+-- 
+2.43.0
 
-> checkpatch --strict (100 columns) still reports the following in this
-> patch.
-
-netdev prefers 80.
-
-> They need coordination with the internal repositories this code
-> is maintained in and will be fixed in V2:
-
-Your internal repos don't matter. Once this is merged it has a life of
-its own.
-
-	Andrew
