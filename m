@@ -1,101 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793481460;
-	b=pOc9hlByS9ZJPmptloQN6+bFSy2z2lE8MbGDLwpk3Y+nT52ZhEogFcwz4dMpkKSCLj6Z
-	 C6klq/SwpQ5LUK8S1NW9zk4YSD1ai0VK5RH4VLi7uFvdAdyrC4wAoVhfOi75TeTpRPzqt
-	 skAHHU4uQmFySUUGWFYdg5IA38l+HWIgGEF1SKx3PnjEm8KieMo/o9hDfkulaa2DVqHfK
-	 VMaLOUnHE0pLmjljbwyyclGrFqqnDmJ5xVuoACj344mNONIG/g/NZ0C0noGBPW/Tl9AGn
-	 HCo8D9WIZ+zCZt8STZ+o2RATIxGCus3GXQ61iyaSIoWW66jh587l/dbJFQTCK5hgq3g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793481460;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.179
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793481574;
+	b=AeHZ/Xx9fFR7ca2CTGHt8DKaOHuyHXIxc1VsvcHBSjHs6v9S5qVO+yD2PJ3kGQ3nt4Iq
+	 s5g4H4Jk0CJURAO+ASpZZK3I6gpkHdF9LgD53XWODnUhhxmhaloratUUtPQVaY0l8PC/j
+	 CLWVH5gyZoFB0RkABnFkBvQW5ekzFWoM82UjCjRhnwkBDhPjNNgwo4fYXrXl+szQxvd9b
+	 aQeQA8OtM+xi4LR8uFm0VSQ2C6FvqzOoGKRiyR/+VsKmmuyeeJ7WVXfQNy9Ei4WeZQU9N
+	 7tcyuoEWDahs/b0nFKiMcjMLJ6sTJH19fytMWX4kNTC4y/s/m83SjW/z5KUW/Ewynug==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793481574;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=cXCPp3YOjVOMEYnPkFXhZpoDSfPXdwR+BZnSniJGgXU=;
-	b=u94aoUEgVABdQ2yoDl6284zv7P/+3sLWEBZ9k9MwvzSQv4eEilI6W79ggve0JFZ3+X3D
-	 ko5XKq2NT/Yil4h8BOxwdiuH348wVOCcQ42HmhApFfNASrXyAVjjWTrWzsoTxil6chonm
-	 mt1NshAR1ltqHcBnYuJPJQnMsFI95XHIS3/oQjrq9/JkWyDcM/OEsixeSRNsMET0DwI92
-	 9EcpGc4UyY82HYySCVhCDuwMyJcO+cVodcrxvd/GoE6b5GD45oa6RKIh8XHbXWGk+jarH
-	 GhHsH6t9NAoqR4vyuWbo25LWI+TULP/ASAj6CuGiKrLr/iNCIY7LuzN0ii8VUtCbAzw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=GMctS9Xh;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.43
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=RX61jLwYDYv5I+j+19UR19HppQveJQd+TQJZ67BiwVU=;
+	b=EDz4pql5yK9LX0IZvyAW/iaZqZ1IEsOjP4GQ1RpPYDULB+SHyr5OyWYjBBBZgoLboCgh
+	 Tjo8E3DYdxj9uEmgd0+VNh9dx+skAn+Qt1rkdalxboAnGuSrtOrvME1Kgtx2ygHgSBrb1
+	 o+owg3gUDvZSrR3ihDa0zEkHAKg/2QcacgbhwNy0I8Zg+CWqLYt1ZGM6Wn4/fESTh6zeY
+	 5txkRv/VnkC2kr4Umc9pv3svWEtjuWX5EefKlItlLNB4AeFpL/edqEIdrQ8b2W08Vx4q4
+	 qpRy2QKVKXA3Q+LDcdWwVB/e8CGVYoj8TShVzNhzioa72xtTO33mFCdEKv1wa5qvUCw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U4cDSkjb;
+	arc=none smtp.remote-ip=209.85.222.179
+Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E10A606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:17:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E10A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBD60606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:19:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EBD60606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=GMctS9Xh
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-67999045530so1529854d50.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:17:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793481459; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ASE/AmdIhYWCe+mx3XDknHOoSCuX+QfCWae6qrIHF2lnraz6ozXDdljEFQnqX/7enl
-         LBSjd8XefWssRKL9nqm/b86OG+ptrcIk//HwjbYoz4JqsMlR6oGez7YcLdxYv4WsIzf6
-         iEPljtVmSRJCaXiWL+xv94s+WHd4xzByb2dMGR8p1NMYhUFq4riDHtQb0ZDLDs0RjXaT
-         n6vXqBdjGw2x/da19cQNgXgkAS9+E5Ij/wA18ZQ30tk+J5UufHT/u/tx7d8fY7sYmAPN
-         JINhNjBiePHWlDEWmEKMN6xn+aVLTaMUSry8OAjT3vpDrc3RqIvSXSe/QnEf1hMPhjst
-         U2Qw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=cXCPp3YOjVOMEYnPkFXhZpoDSfPXdwR+BZnSniJGgXU=;
-        fh=6BMahNhISeI9e40deO55r7XauxF3rrebjRr3JebWCCc=;
-        b=nd/uYccclDBWdD349ZhRNEM8eiGJZIH43uOX8ctn1cdJtsndMFgwp1S/N2TiJec0gB
-         Uf1Vb1/O1iD2hD9jjuSNi9qOXbfKYooNKGVRuys+cUD0Fvtx4MffMuKY/ydQyYkdtiMy
-         hrgHJWgTrs0qw7M4aQGN4f0hR2mEnjitYKFwL/+aIehHqricE+N1VW0f6ojXAYEYGA11
-         RlvRMx3woNaTmMk0X0kPzU2jHtpGXafHaOfGcd7W36vFbNLbnYAWs17FAU49CTIctjSv
-         d6mQ8M4sS7DDbFgoIksrexD7Pda5Yudfz8CFrNHdlsl1lVUcuOPEbD45p7t00QVz+KdO
-         VBaA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=U4cDSkjb
+Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-93f3c89594cso122226085a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:19:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1793481459; x=1794086259; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cXCPp3YOjVOMEYnPkFXhZpoDSfPXdwR+BZnSniJGgXU=;
-        b=GMctS9XhyvIuaGAhiGhTuzsHLGM4BRlCyXy4/1QS8nYiZWiCLMUIFgfMR+R0rN1xJS
-         nAg85Hh0cQko6Dn5rR4MwhrBJulQYEobDq6H2lJMCKjWGPQRo4el3NxlsWtGuPDJjF8G
-         LQNQhnRReFbjQ2W57Meswjet/fxq2pn8RatEpTsdhHlRP5w/QJAe1OkNpnJsQS4MUb5x
-         /YP4GhxKH/itsEHM4V86UdhbG2CxeMB9+lN6Vwk8BtGWFc/3qx6nzL2DByMHq2iZ0m82
-         5Z06TE6fd6JL+FHbQf0qh9kMXqkDOZGOuUmlpE7CPIfqpL1zH9VfcNs+91JVgyWL6q2X
-         PAQA==
+        d=gmail.com; s=20260707; t=1793481573; x=1794086373; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RX61jLwYDYv5I+j+19UR19HppQveJQd+TQJZ67BiwVU=;
+        b=U4cDSkjbhP/C6t+3QMtMsthI+MoUnZh7Ilqj3BvMwF6vRdxw9pacKHfwUw8skNvtZ5
+         Xe3SE8axPbqUDwfO9MPwuWVUPNFltdaZc43y/GkXyxEAN3fM+OpA9zjyDGf+hpmBjX/C
+         oL1hqLY/MirKszjdQLyjp65Ptap4w0GwmuV3lFi5tqIIxwMZLP6dLEvkQDOvpGIb59Uj
+         eiBEwOne70DcEJWqtYMaeMNzbDBra9so9WkT32UydkfSL1d93C/iHIx2HZXTOpFp4qRl
+         0m1ItZZfsIv/muACqMNCmAcdlKOme+s6/hiF7QbhJ9+A+87CUakhS3ZlUrhcoraJ21wb
+         i5RA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793481459; x=1794086259;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cXCPp3YOjVOMEYnPkFXhZpoDSfPXdwR+BZnSniJGgXU=;
-        b=ZzSOTN9ynRb9o/hSkn8JmFoZSwJoHJthSoxe6Ic1aYQbOU1fDM41T8lMeKbWNvMmze
-         j+D4apmO2TwWyWKig68VyMJuSgUtDdNtMpkt/y2b9d/6WCb87XMdhDQbBmQcxdYfkGuP
-         JxCHsx3ciz0987plaLKcCnyzJR5K4fSE0y+tYA4INfwehOAHoFeLSrczRiNXWWJGUkQk
-         bNQMS9cqE8JbH3WXTUuFCNdgYNI0VzWKabIsPYRRVm0bXLmy9G9Rq0rE51Ar9pxP77ui
-         qKRpN6qfuhVsjtw4zvY45NZoPqvIX5xDqg3urjnKSYG4IkIzxQibjtRNX2CTnRxdXFem
-         EgIw==
-X-Forwarded-Encrypted: i=1; AKwUvBzRpON7tBvpqAUgfIOtmngkWn1lqq5KWPfKxJpEdMAK66fIDcQOoVFFsGXWe5LoXJ5wPnfnkYhYCty/lKQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+LJjHzkiPzp6Jowh+JN74I00qjG5/3VlqxzU2An8//ArDwUWnA
-	5wZSjZAfAqPecx84LflKUYdagjSbSrw4Hk0E5DnVpzPlWRSk4ZtXDQyOtpVReBl6rnWu3M7WLY/
-	d6fWKjnNCBT7NqcUcWqOI6zsmgLUP8Yzo7GuI
-X-Gm-Gg: AYBFou2qPoy7rkL+M+Bsh9Uo2PAlVEMaqREOTs6bfCOrHK5An5yPTyn7u7NVOTpURaE
-	VkqxZIPTgm4W0MggGszsqjYI+RpphC339lge8wa8+y1NnlenP6JY2/KrSsiomFdRvVJl/Ab7zD5
-	aDGN8kAcPmL+R3PQDy10imW0NZ8XADrJV9fGOxtwynisSFhu2sGRoj9nAwWq11tcGKAq4wv/FjT
-	hZhDD0BhEwxED2pxB08/9rD6nWL6bICFCRS8qPIcM3ljGqEdaD9DYF0/0RKsy9FkDwlMPWPCHYB
-	Kfdf7udcWiVi2m2eiKBPZ56tbvoGKTVygw1sSXbldbTG4TymZI5IyQTDvrC7SC3RwSP+7Qi/vuI
-	P4LUh7jVHACxuChE4HwtVjPj8kxhriOOzbl199Xi2MUg191FbvTsgrXNhG5ODE0+jov6tenD1m4
-	4LA0HzQoqKoghWC4M=
-X-Received: by 2002:a05:690e:dcb:b0:679:ad95:8ef8 with SMTP id
- 956f58d0204a3-67ba4f44351mr3951527d50.62.1793481458984; Sat, 31 Oct 2026
- 14:17:38 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793481573; x=1794086373;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RX61jLwYDYv5I+j+19UR19HppQveJQd+TQJZ67BiwVU=;
+        b=cVzcfsimQvKVVIRS9IzQ3N4k+ulrBJ80Fn9CcWBarXL/qJTbU+ISz6wSlLxMnki+/o
+         gYVPUTCwirJ2EVrufRFy5VpSNvXLBsRG453qa8yiTcnULRKzTD1VwUmtudULBXzhTHcy
+         oEAeHg/jdSycrwvAcoqpkHOO7BJ6Mh36a1/+s9W6w3nuPzCwh28g7SRXPexhzcxRJzDF
+         QPHShNB56qiuV55fasMHUw9FtNBcd+rjZ8O2MSMbfUyWz36wLdSHVHYJkjIbMvJ4rGaX
+         b5sR5khIMAlC5FAB+yB2eSigcCnWeZsFYC4RGxH0Rqzj9rtnhnhqKGTuAZTh2PNVkh1P
+         78BA==
+X-Forwarded-Encrypted: i=1; AKwUvByYAs5odzuG7/MO+nTrSO5tGabsIvceF4T0ni1d6glX0E4AIXMdtEMHbORVDzz7osKeEtQsxkitG5UDs/A=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI1+PCN9szZY4m6bxvDRcj8ix4/kgGOawMCtdT4obrMg9LVwq2b
+	GJlm6Mz3sGTeLITaUD4jGRkkL3GDkanePubOR56m7KGA4QQyzKvYe4b+
+X-Gm-Gg: AYBFou1bQGXn3eoo1kW8q3kG7pKuAtIPdhcfxk4BYkRTX1DdfSYCH8+0BjF0SMztrux
+	h32Mrm9ylRc162YdHX0apcSxa7Ddpu22oXvkTpBOLxNadnll+6QGXtLk2BRR11UrfYBVtGVKkO+
+	l5rdB1ZeQZNf/6Y2hesKuNDFXS/+ZyZWJncYzj34diuMrx7WxeAchHtxbBtDoxOG9IdBZYH2yPp
+	oHQR8tAc80ul1Dml+ThPErOB4EfgCK74BGkflfr0jJw8Fn9xQiY7GQgnw71n0H5vB+CMXWe0jP6
+	G6Xv263faO0U7iMYDxLarheujN6hS5/+BdB1N0bc3jTd5om40ep83mckzwFsed6a1hpEDPC2V+8
+	GTCaiYTcUmw3c4UrvR4dPqy/LS303puv4V0HiU+Jyp8ePyZ4aTwbI3O2jMX04EU7XZL4erAruVo
+	uxkYTqw7IWyGokDv1EVz6ilewl4UGj6A4iVh3Ut1zFzA1Jl8GPt3l2K0XH9HZfp7aWXww6/EWOD
+	TecT8LJuhcco6QQYC8V+A4ERGWw6UM9Bd6+IrlNTN+Ob/mIxzeOWHq6OcCVQyOoXPWASVB1JQSh
+	uo4YWyP2SoEsVyBoUUYsujnvgYPG1DpAHr0=
+X-Received: by 2002:a05:620a:17a4:b0:92e:bc28:5479 with SMTP id af79cd13be357-944214d169fmr1049948185a.2.1793481572859;
+        Sat, 31 Oct 2026 14:19:32 -0700 (PDT)
+Received: from deb05.proceq.com ([213.160.61.66])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca807d8fasm49629256d6.41.2026.10.31.14.19.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 14:19:32 -0700 (PDT)
+From: Mehmet Fide <mehmet.fide@gmail.com>
+To: Luka Gejak <luka.gejak@linux.dev>
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	mehmet.fide@screeningeagle.com
+Subject: Re: [PATCH rtw-next v9 2/3] wifi: rtw88: support channel switch in AP mode
+Date: Sat, 31 Oct 2026 22:19:29 +0100
+Message-ID: <20261031211929.3296373-1-mehmet.fide@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <7ea86f5208f259f01ce8c18b7701f2a3e41e0fca@linux.dev>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,73 +100,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031200925.3364-1-yuanzhenpeng210@gmail.com>
-In-Reply-To: <20261031200925.3364-1-yuanzhenpeng210@gmail.com>
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sat, 31 Oct 2026 22:17:28 +0100
-X-Gm-Features: AclHuK9aT_AtsyMcO-RHgeZfhZoWmnaHOU2QYfBUHDRz-4_ywAKOHyMlNGOtG-I
-Message-ID: <CAFBinCBo0C=KABcg5ueDTRSJhF9vmWnPwYHbaMGTOYppOsabwA@mail.gmail.com>
-Subject: Re: [RFC PATCH] mmc: meson-mx-sdhc: add DMA bounce buffer support
-To: ZHENPENG YUAN <yuanzhenpeng210@gmail.com>
-Cc: linux-mmc@vger.kernel.org, ulfh@kernel.org, neil.armstrong@linaro.org, 
-	khilman@baylibre.com, jbrunet@baylibre.com, linux-amlogic@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+Hi Luka,
 
-Thank you for this patch!
+Thanks for the review.
 
-On Sat, Oct 31, 2026 at 9:09=E2=80=AFPM ZHENPENG YUAN <yuanzhenpeng210@gmai=
-l.com> wrote:
->
-> The Meson MX SDHC controller uses a single DMA address for each
-> transfer. Since the driver leaves max_segs at the MMC core default
-> of 1, large I/O requests are split into single-segment requests,
-> typically 4 KiB each.
->
-> On an Amlogic S805, this limits eMMC sequential read throughput
-> to approximately 15 MiB/s despite using HS200 timing.
->
-> Add a 128 KiB DMA bounce buffer for multi-segment requests and
-FWIW, while reviewing your patch I found that Amlogic actually uses a
-512KiB bounce buffer in their downstream driver: [0]
+> Maybe clear csa_vif again at the end of rtw_core_stop(), once the mutex
+> is taken back?
 
-> advertise up to 64 scatterlist segments. Single-segment requests
-> continue to use direct DMA. If buffer allocation fails, fall back
-> to the original single-segment limit.
->
-> Testing on a Xunlei OneCloud (Meson8b, Samsung 8GME4R eMMC)
-> running Linux 7.3.1:
->
->   Block size       Before       After
->   4 KiB            14.47        14.69 MiB/s
->   64 KiB           15.06        63.21 MiB/s
->   128 KiB          15.08        75.13 MiB/s
->   1 MiB            15.07        75.93 MiB/s
->
-> For a 128 MiB sequential read, block requests decreased from
-> 32768 to 1024.
-That's a nice performance improvement!
+Yes. The USB chips never start the recovery, rtw_fw_c2h_cmd_isr() is
+only called from pci.c, so I started it from a test hook on an
+RTL8821CU, held rtw_core_stop() open for 3 s with the mutex dropped and
+started a switch in that time:
 
-> Direct I/O SHA256 readback verification and fio CRC32C write
-> verification passed. No MMC errors were observed.
->
-> Assisted-by: LLM
-> Signed-off-by: ZHENPENG YUAN <yuanzhenpeng210@gmail.com>
-Could you please compare your patch to simply setting mmc->caps2 |=3D
-MMC_CAP2_MERGE_CAPABLE; ?
-From what I understand this will allow physically contiguous SG
-entries to be merged by mmc core.
+- before the cancels: the countdown never finished and the next switch
+  was refused, 3 of 3 runs;
+- after cancel_delayed_work_sync(): the work stayed queued with csa_vif
+  set, ran after the power off, and the restart then failed to download
+  the firmware, 3 of 3 runs.
 
-Ulf: the code here looks similar to the sdhci.c implementation. I'm
-wondering if there were any plans to somehow move this to MMC core.
+With csa_vif cleared again after the mutex_lock(), the switch completed
+in all 6 runs. v10 does that.
 
-
-Best regards,
-Martin
-
-
-[0] https://github.com/endlessm/linux-meson/blob/d6e13c220931110fe676ede6da=
-69fc61a7cb04b6/arch/arm/mach-meson8/include/mach/sd.h#L627
+Mehmet
