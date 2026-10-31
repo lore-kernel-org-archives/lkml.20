@@ -1,61 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793465563;
-	b=dRJ2oeUfJC8MzBqnG5dC4KZjBzaGEOmuRjVUJTnO5ci5B3jOjBe33BJIuNyLd1To3pmc
-	 X+a11X8xHgIvA+Muv61WYHZI8WyZDBp4Y+QwIPxT5LR3HwhpPuwODtR32E1QdjdFupwiX
-	 MTVIze1Ra24XnZKKMekcGvwZkUKt+1q6Bul7e/9T6TFbE/jw2vd6Lxvs7Jqr3bRlm8BA0
-	 IOL0sULvmHan+N01aDzsNQJ8Slig4HODb1f/HIy5U5EbmQFvVwy9bBgiPCGzyWY/LjBx+
-	 AdjnHBNelyIDkhumsw5AzWzaZuhL3Ya5hAc8y/FIZmxKSVmlmc3EiCLV8798hs0fHew==
+	t=1793465628;
+	b=yA1OcQ8zJmPCsZzUOP383v9zkhe7pvcatfW5wS+LN3f/SepAwXViOZV1MndJKkOZusxg
+	 qtNRfFSieaBi/hOKxMr4fp7jjW6n1abbK971R8g6Vy5KfcLZ68lmud5ibdS3bD9QP/nH0
+	 b+H6SQ7XDgbLZGP4fjGXUgOW1SaldyXnHRonTUKNxVrITFawxKAI78PNQkzKqTaVoLbE9
+	 sauSSDah76EIWifAYjyFqAn0U4/e8OljPaDfsiz9lAo34avax1sbMM8Qz1Tx/j6zfu4Al
+	 +o6fJv7At/DFKTEr17c7Pc/mczSmLCpnv2WYO8qmTeTOhubIjpyo/hbkfmqMsD5xWRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465563;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=CpDc0Fd22BqQEPmxXBfznc+cqZ7jBDRaBjmgcOMLibc=;
-	b=V4jsouKPRahguKKlW1Bg+u2cp5gXBjm31xvG8pudDbgOmSCz3yrfm+fbaAuIqqfOnAjo
-	 LSSrr/ctM2E7rStZP6ht6givT4r4ot61qIG1uBuQjUqvb/gwsP38G9A9uxUIjVeZ/5tAS
-	 4rFfIhxtJzNPw1G1SCduJiZuuqifJXXbijVCgep/2Hk94NmXccgyS81IbIZLRwHbaK7B/
-	 hTXzPjszW7Xif+2OmLSZRHIqZoO/uXS/d5yt73ocPdmpx3Rb/50slbheTJ5rtL9uwDR04
-	 0zgO9svoPHxTeZ2S7JZIBLDunR7njbMGo3rSZ/vnAuZ+hj8FEZOSnyOeRqj5G09OZ0Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465628;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=WXG/VuGgA2nLHyyo2HBxCIFByTCjqyBPDh3lixMNfY4=;
+	b=esC+qd5sfp1SxKzm4OCXjThnhmJdx70ig1g04cav1k9HBjet77og4Fed8Xrk0ZLbyX9I
+	 eLTCHZw2as1PO5S7zSZmjlbqMvmE+E+6xImCnGvYVP/B2gxxJ/OZ4WL2kLuKT5OESW82L
+	 2bp+lTmeLGPl4zmUSRcGXOSUZaeMZnUb22whN0VWrt3OjtA5MInq7EeaDqiEAkjBKAGL+
+	 a2yqcr1pfdBxGXJJ3cbA8uRvUT6Lm7wyH0T/uPmRqoyQcGx+BiWaS91npgRFzJhYhzQJ0
+	 Artja8V8C3kNkbO/sYZOdbIp55CG6tcFxAXq87qrUFbrOwA+kzz5IkqfpD1FQFPKhiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 80E1B606A324;
-	Sat, 31 Oct 2026 16:52:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80E1B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=CpDc0Fd22BqQEPmxXBfzn
-	c+cqZ7jBDRaBjmgcOMLibc=; b=T5sYcNR/jMy6+H3qUN4QOSbcQviy5xXnhGwma
-	K5HOYY0iTLbjy8/eVzpXbFOEZuzJOYbB65Q8xEIYCL9QCsCNtsMRA0itah07j2O/
-	OBoT+MhTnMKlhhCZ1KnCOS0ijDU18klAIC13kY72Xi1GmVq10GZLjXawT29/yVBN
-	hA52mk=
-Received: from [127.0.1.1] (unknown [113.200.174.19])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCm7gPSHOZqMBoSAQ--.18634S2;
-	Sun, 01 Nov 2026 00:52:35 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: sashiko-bot@kernel.org
-Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
- UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- Andrew Lunn <andrew+netdev@lunn.ch>, Russell King <linux@armlinux.org.uk>,
- Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org,
- Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH net] net: usb: lan78xx: only stop phylink if the interface
- is running
-Date: Sun, 01 Nov 2026 00:52:34 +0800
-Message-ID: <179346555447.2831.9240931140716315096@stu.xidian.edu.cn>
-In-Reply-To: <sashiko-outbox-191206@kernel.org>
-References: <20261029160204.2567-1-25031212351@stu.xidian.edu.cn>
- <sashiko-outbox-191206@kernel.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=w0+M577m;
+	arc=none smtp.remote-ip=91.218.175.193
+Received: from mta0.migadu.com (out-193.mta0.migadu.com [91.218.175.193])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8D6606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:53:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D8D6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=w0+M577m
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=jade3sx8Nnul+MHi6aqoKxBIknYtcAapdEpzanu8AQo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793465624; v=1; x=1794070424;
+ b=w0+M577mVaWzqtdSUI3kEqiAiA64yOA9tnImxrrKnPp7n5JJoXbPlfWGM7FwWuWM5y06ESp5
+ MUs5SfJhO0QzMIWJKGHpN+UTN31dxavlleBVkc1FZp9bbfIK9kTN81+qB4EclE5K4IcYPCdnAGV
+ 6PrUwCvKHgOS1w4QSUcd0Co4=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a73ddf1f7291a74a;
+	Sat, 31 Oct 2026 16:53:43 +0000
+X-Mizu-Trace-ID: a73ddf1f7291a74a
+X-Migadu-Flow: FLOW_OUT
+Date: Sat, 31 Oct 2026 09:53:38 -0700
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Vernon Yang <vernon2gm@gmail.com>
+Cc: akpm@linux-foundation.org, david@kernel.org, kasong@tencent.com, 
+	qi.zheng@linux.dev, baohua@kernel.org, axelrasmussen@google.com, yuanchu@google.com, 
+	weixugc@google.com, baoquan.he@linux.dev, hannes@cmpxchg.org, mhocko@kernel.org, 
+	ljs@kernel.org, roman.gushchin@linux.dev, dave@stgolabs.net, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Vernon Yang <yanglincheng@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] mm: vmscan: don't count per-node proactive reclaim as
+ memory pressure
+Message-ID: <auYc-G488bbhy9QY@linux.dev>
+References: <20261012022917.1102467-1-vernon2gm@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,72 +67,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:BLQMCkCm7gPSHOZqMBoSAQ--.18634S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF1xWry8Ary3XrW8Jw1UKFg_yoW8ury7pa
-	y7KFsrWwn7Ar4rury3uw1UuryUZF1DJa4xAryYgrySvw45WF929r4xtryxA3W3CFsrJa12
-	yw1fWayvvFW8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBSb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxG
-	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r1l42xK82
-	IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC2
-	0s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMI
-	IF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF
-	0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87
-	Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUkFApDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUDD2rmBsIMBQAAsK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012022917.1102467-1-vernon2gm@gmail.com>
 
-On Fri, Oct 30, 2026 at 04:02:36PM +0000, sashiko-bot@kernel.org wrote:
-> Does calling phylink_stop() and phylink_disconnect_phy() before
-> unregister_netdev(net) in drivers/net/usb/lan78xx.c:lan78xx_disconnect()
-> cause out-of-order teardown, a duplicate phylink_stop() call, and a race
-> window when rtnl_lock() is dropped?
+On Mon, Oct 12, 2026 at 10:29:17AM +0800, Vernon Yang wrote:
+> From: Vernon Yang <yanglincheng@kylinos.cn>
+> 
+> When the cgroup has no memory pressure at all, writing to
+> /sys/devices/system/nodeX/reclaim triggers proactive reclaim on
+> NUMA node, causing increase in the writer cgroup's memory PSI.
+> 
+> Due to this reclaim is performed in the context of the write(),
+> accounted as memory pressure on the writer, like
+> commit e22c6ed90aa9 ("mm: memcontrol: don't count limit-setting reclaim
+> as memory pressure"). This is unexpected, the similar scenarios (e.g.
+> senpai) will continue to occur, only this time it is for the
+> /sys/devices/system/nodeX/reclaim knob.
+> 
+> The Documentation/ABI/stable/sysfs-devices-node documentation also
+> notes that "This interface is equivalent to the memcg variant."
+> 
+> This patch unifies the semantics of the memcg and node interfaces:
+> per-node proactive reclaim is no longer counted as memory pressure,
+> and the per-node proactive reclaim interface no longer produces
+> phantom pressure.
+> 
+> I ran demo[1] that performs per-node proactive reclaim 10000 times
+> in qemu, writer cgroup memory.pressure as follows:
+> 
+> without patch:
+> 
+> some avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> full avg10=31.53 avg60=13.42 avg300=3.31 total=10602985
+> 
+> with patch:
+> 
+> some avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> full avg10=9.59 avg60=3.41 avg300=0.81 total=2686221
+> 
+> [1] https://github.com/vernon2gh/app_and_module/tree/main/reclaim_node_psi
+> 
+> Fixes: b980077899ea ("mm: introduce per-node proactive reclaim interface")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vernon Yang <yanglincheng@kylinos.cn>
 
-Yes, the ordering is wrong. v2 drops the explicit phylink_stop() from the
-disconnect path and unregisters the net device first:
-
-	unregister_netdev(net);
-
-	rtnl_lock();
-	phylink_disconnect_phy(dev->phylink);
-	rtnl_unlock();
-
-unregister_netdev() closes a running device, so phylink_stop() is done by
-lan78xx_stop() with dev->dev_mutex held and after the TX/RX URBs have been
-terminated, which is the same sequence as a normal ifdown. When the
-interface was never started no phylink_stop() happens at all, and that is
-exactly the case phy_stop() complains about with "called from state READY".
-
-This also removes the second phylink_stop() invocation and the window in
-which the net device was still registered with no PHY attached.
-
-On the remaining points:
-
-- The duplicate phylink_stop() was harmless in practice, because after
-  phylink_disconnect_phy() pl->phydev is NULL and PHYLINK_DISABLE_STOPPED
-  is already set. It is gone now anyway.
-
-- The PHY interrupt is not released by phylink_disconnect_phy(). The virq
-  created by irq_create_mapping() is disposed in lan78xx_remove_irq_domain(),
-  called from lan78xx_unbind(), which also clears dev->domain_data.phyirq;
-  lan78xx_status() tests that field before generic_handle_irq_safe(). The
-  intr URB is killed later in lan78xx_disconnect(), and that ordering is
-  unchanged by this patch.
-
-- Andrew also asked why the Fixes tag points at e110bc825897: that commit
-  added both the phylink instance and the unconditional phylink_stop() call
-  in lan78xx_disconnect(), and
-
-    git log -S'phylink_stop(dev->phylink)' -- drivers/net/usb/lan78xx.c
-
-  shows that the line has not been touched since.
-
-v2 is sent as a separate thread.
-
-Thanks,
-YuanZhe
-
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
