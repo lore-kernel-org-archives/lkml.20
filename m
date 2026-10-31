@@ -1,97 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434719;
-	b=mKOi7aeM+rVUWK60bBY5719BSglbSnRZLFWF8f+axT9R1Goeyz6LETEZmB3w6GrydJle
-	 KWyvfgYjf3J5woUe465/Zu8fpAAYEqwuHDn7SoWQ2BOLuGCw4dM+GFqZBEWqL/ND8bjWJ
-	 N16dZDQjckYJnmKiFKvHaXMuRU+VWNY3xTVB1cP6zRbY9e3DkqJhNupLAWKzQBCgbeleu
-	 2gPB8x5h9dAEjJZnCOaog8gtOISAyexxE8djEa8rG5ZbEHofxibOOu170F1cojPOxu9l0
-	 0RmAPGPuZpHypgT6nsoNUnek6dZIy4hLyNkabQN1MR1yKSb+6qKDqlANJzSqRlEHgMw==
+	t=1793434844;
+	b=05Vkut1eaijooc55kEi26h7mephIFIwEoWs7f02VbeGBidkbQoMwAjzvuCDFOEfGfUH4
+	 KAhdYHANrWE9CZ1ems7cRG9XbP2O+vF8x2RkxOBPuGiJ86M753AaODnZXSu/S9anXg8nj
+	 Qx+mEbb4AwaA+BSeSrRrVqj511i17wnttlROW+D3xLc2U/ymY6Gag3120sphH74SuoFO2
+	 stH/81VKYkP+ujX9IiCJ0J0mNBnUF4pZUDWDIk6Jj2Dz/OtSqw3U8qUtIEbqoT780+g4x
+	 PMrs9aa46nm64ktSq+e8tkHtdAL2qQnj2EkiktfJxqlyvvRO8rH+4QyCDB9RB4BD9jw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434719;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DRIIJZvR3wc7jeqvnffYZMLIW2BsmoDA36GgncS3Xds=;
-	b=LCQws4qsMEdGL/ZBwTuxKwZN5smBhI6jSTsDwzfDFpdFwAeDm6Eh1WN4ve/R9RBBpLJs
-	 TIZbk3YUej8B0hPfpP2+3EgThtpSkOosQpzVeff0MLkR3So8I1xBd8brscMHVVRpPPJH0
-	 Yf9B/DLTjtSXBFI/yNy9WOKIfWWJdz1YdYYhRLv/N17QDV2fHDVS9jiJCmjvphauZa0R0
-	 q0gnEjYhF+HHswD0bd4v0emamFl51vyBxmJIkHOCGFgDqrmjNC//beTfA6McLDrB5B8hA
-	 qU3QFOacsDbKPYc/YxrXCkh756pmDtIy5HIlL9urqbygYnQ4BfKmYRGkokSF8crWt0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434844;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=QR9ZUM3+BAi7COqEi8WRxHv0xaeR1LV8PUZl/W0E5QA=;
+	b=M5RYJGKkCET7155NN1LwM0OZ/7BZa4EE50tSyhbZ1NHJg783bM9LdlyWsxhP61PoE9wt
+	 y54dj3ujtusJvvEVhKpcg2mHElzWjKr078ob9rc5AJ90H7Gz9BVuMrgMb/VSgjQBdRQ/g
+	 uaEGfiaPmAjpEX+moYot6pkvEys2F4wTgndVbl/zLb0kY+h4hYO99ms4YJB72oe/+0n7M
+	 Bl8Pq1F5ueU1FxI9Tn56dcKy9ZHTW4ng9JUOQHVlFeTSVz3i0mTCX8bE4K6fVEOtdcTqq
+	 wmziE95KChbtsd+WsCT9Zt8SYzxasrmjdYd4z/VhGfit6ONI9ucr5a8+cCb0mAJjznQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYp3E2L9;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfuOQ2Lg;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E865C606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:18:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E865C606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 4F73E606A31A;
+	Sat, 31 Oct 2026 08:20:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYp3E2L9
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35c76e9614aso2134736eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:18:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793434718; x=1794039518; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DRIIJZvR3wc7jeqvnffYZMLIW2BsmoDA36GgncS3Xds=;
-        b=cYp3E2L9DBBXAhk7HlWiRzxpEHJpf5XsA58uGR6sWYuHI+K6xN9qV1Th5loPQaGFeD
-         8Dma28hL1Fmir6qp+34DrfR/ltVNgadnCLL0JxbQI8m8VibdPEXpVC4Sv9dxop/fBbQR
-         W8Id9c+CEC3udRrFj8TdYRD43W8C0QFACakl1TwYKuEBngT7ZGCg2Y1Tnxtn0G3zefUu
-         EIMjnf3HXX0p0Gk7zsjHaQN5U7M3o3jj1fjRZLFzffugUX69ko+AYy4IyczoMR5HMIkd
-         5lis10hPX5wgUybgkt5FDSQ87bxBAjDHv7ap3LQlsxaXU3Wb8fv8Q29A60PQQh/2hf5N
-         0mfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793434718; x=1794039518;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DRIIJZvR3wc7jeqvnffYZMLIW2BsmoDA36GgncS3Xds=;
-        b=qtpNc5ukbw8w/AtHR5DYCvUU1lYRIPI3PlLFizv7HOQv9N5XEbhFQ87niEdidca2fV
-         5oPpZU7yyaueA3GGRvB7/IhqaAGZqpUukTjn6qLBC97WNIaeS1Wts+zRqYDw+wJKSSou
-         zRQ+QDkBE9MCMXX5sXLTcgAHI/N979jMLKPReVJXJZBfHivVGiha5JofVJXZ7qpu9VUD
-         0n9EG7Wp0/m+nEGk+6F7t5jJwMH383marS4QegXnSyXoXwyT9VdBVfBJUR41Mqi/YcNq
-         5aaNJ3TvmEht8sy/LPhxNZLci5ybC2ylAbm5ZwQB+sBayGHBvcAK1KjNvsjj4fV5Zb4J
-         CyhQ==
-X-Forwarded-Encrypted: i=1; AKwUvByXRRzdchtbb9p8BYoIRnXfbdeAxTj9otmL0M0aQRW8tIfq/fOTu7/N/nQjhrZJNQUcf5gQDQK0kEraSIY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRy/jGiy1Vk/4tljiqYHD/DhMy/viPNSu2QbQPSXCQRRpPhonv
-	IVoaHYZi1ldTQofqEMc7EMD9H36vWmQAG1OoEq+8gEo9oih/8v/SYQ9N
-X-Gm-Gg: AYBFou2BTquNOIJv0h81e2GKh6tUmcKiWjKTySlxO1pBMqtu842moDF5+bPX/0AnBRj
-	6YgDtjMVjvuSDQojkNgU3YXgX9raFn2FdJfzE57Rs1FiHw6InadbPSZAeM7P0HgJgnObSyG3Wq4
-	0nBLdq9qeHRF0eLIZXZajI7ZzzIIwW+eRQFI4ERXl5w5wldvV8iB08wmGa6khTz885HO/pP8yo3
-	iNWVYvpLx8t9gMDidn7P5jJDKpwjLn4TNwrzXOy7ZcGaXvowkiwuapDcsEAUKE++E6EwuNuo/ly
-	FQsUQpMxLOYSlVdNVC/JsMnnXdd9I9hdf2YU8XFPtyIAr9a7iIchZbl+9Hj8chqqGG/Q1scQ1jO
-	K47hfhXQP/bxq9Mmp5TX6UMKzE9k6bpSrafM/hms9PzV5jkKUAf/WqlS7BpIQ3+88Ohu0HMtx82
-	qWsYunO5ZnOro+oJuIv87yzss3x1cS34riejr6/B29HRqFF0FnIrO910enAeqh5QgR0MTrf0Ifo
-	Ify5DNV4KreH8jaiFq7EAeJi/TxPjykAuO8KCALIfOFa7IXZFE/VNbW3tOg+wWI4lJJ1XSn/PzP
-	lNm7lWomCjESmansYkwUUo1s34U31DHv07nLpch4Mgkfpn/0oIg=
-X-Received: by 2002:a05:7022:ec03:b0:1a9:b7f2:3015 with SMTP id a92af1059eb24-1ac5e22a7e0mr7334800c88.39.1793434717941;
-        Sat, 31 Oct 2026 01:18:37 -0700 (PDT)
-Received: from localhost.localdomain ([103.170.55.71])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm13112236c88.14.2026.10.31.01.18.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:18:37 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: sreekuttan2156239@gmail.com
-Cc: hare@suse.de,
-	hch@lst.de,
-	kch@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	sagi@grimberg.me
-Subject: [PATCH v2] nvmet: use appropriate types for authentication payload lengths
-Date: Sat, 31 Oct 2026 08:17:51 +0000
-Message-ID: <20261031081751.4583-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261031075932.4345-1-sreekuttan2156239@gmail.com>
-References: <20261031075932.4345-1-sreekuttan2156239@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kfuOQ2Lg
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 479AF1F000C1;
+	Sat, 31 Oct 2026 08:20:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793434843;
+	bh=QR9ZUM3+BAi7COqEi8WRxHv0xaeR1LV8PUZl/W0E5QA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kfuOQ2LgNAmEchsDESHzYlxeovd2BxBGsYXDJoxQLW8WU7XY8zfHj+jQ9w6FFKyUN
+	 gV1/imK8pMkuziUxMwhkffGOW5MRbABX11XgEhUeW5ImpYDJxyr3GkUVOsRzIw4+cg
+	 7z2Y/RQFWpHXvLY1moCDbPUaHdObrAwfjkTLdajOQFRPpOIfGkFTKJ9I2riq3PFToK
+	 HmywflqYh9SfsubCykmGoaRliWA+8OsE6T/Ei/LUX+TqcEkcQHg5Qv3NYPg4GCt3aT
+	 XLzJC7Hmb/vtqGw5t0IoZs3j3HVX2vyzHVC8fxmX71adale8uXXG9R5EoRDtC7yfx0
+	 OmGXi+LBQUsLw==
+Date: Sat, 31 Oct 2026 10:20:40 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Anvik Loitongbam <permissiontogallop@gmail.com>
+Cc: keyrings@vger.kernel.org, David Howells <dhowells@redhat.com>,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] KEYS: request_key: enforce keyring restrictions on
+ constructed keys
+Message-ID: <auWk2PAYDgQGXLqr@kernel.org>
+References: <20261030173930.40948-1-permissiontogallop@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,69 +58,189 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030173930.40948-1-permissiontogallop@gmail.com>
 
-The authentication payload length is obtained as a u32 value from the
-NVMe command, but nvmet_auth_challenge() and nvmet_auth_success1()
-accept it as a signed int.
+On Fri, Oct 30, 2026 at 11:09:30PM +0530, Anvik Loitongbam wrote:
+> diff --git a/security/keys/request_key.c b/security/keys/request_key.c
+> index e6ba2d054399..3de6c9160651 100644
+> --- a/security/keys/request_key.c
+> +++ b/security/keys/request_key.c
+> @@ -370,18 +370,21 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  			       struct key *dest_keyring,
+>  			       unsigned long flags,
+>  			       struct key_user *user,
+> -			       struct key **_key)
+> +			       struct key **_key,
+> +			       bool *defer_link)
+>  {
+>  	struct assoc_array_edit *edit = NULL;
+>  	struct key *key;
+>  	key_perm_t perm;
+>  	key_ref_t key_ref;
+> +	bool link_locked = false;
+>  	int ret;
+>  
+>  	kenter("%s,%s,,,",
+>  	       ctx->index_key.type->name, ctx->index_key.description);
+>  
+>  	*_key = NULL;
+> +	*defer_link = false;
+>  	mutex_lock(&user->cons_lock);
+>  
+>  	perm = KEY_POS_VIEW | KEY_POS_SEARCH | KEY_POS_LINK | KEY_POS_SETATTR;
+> @@ -404,6 +407,21 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  		ret = __key_link_lock(dest_keyring, &key->index_key);
+>  		if (ret < 0)
+>  			goto link_lock_failed;
+> +
+> +		/*
+> +		 * A restricted keyring should not take an uninstantiated key,
+> +		 * the restriction has to be evaluated with the payload,
+> +		 * which is only available after construction. Skip the
+> +		 * provisional link and add the key with key_link() later,
+> +		 * unless the caller explicitly asked to bypass restrictions.
+> +		 */
+> +		if (dest_keyring->restrict_link &&
+> +		    !(flags & KEY_ALLOC_BYPASS_RESTRICTION)) {
+> +			__key_link_end(dest_keyring, &key->index_key, NULL);
+> +			*defer_link = true;
+> +		} else {
+> +			link_locked = true;
+> +		}
+>  	}
+>  
+>  	/*
+> @@ -424,7 +442,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  	if (!IS_ERR(key_ref))
+>  		goto key_already_present;
+>  
+> -	if (dest_keyring) {
+> +	if (dest_keyring && link_locked) {
+>  		ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
+>  		if (ret < 0)
+>  			goto link_alloc_failed;
+> @@ -432,7 +450,7 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  	}
+>  
+>  	mutex_unlock(&key_construction_mutex);
+> -	if (dest_keyring)
+> +	if (link_locked)
+>  		__key_link_end(dest_keyring, &key->index_key, edit);
+>  	mutex_unlock(&user->cons_lock);
+>  	*_key = key;
+> @@ -446,15 +464,44 @@ static int construct_alloc_key(struct keyring_search_context *ctx,
+>  	mutex_unlock(&key_construction_mutex);
+>  	key = key_ref_to_ptr(key_ref);
+>  	if (dest_keyring) {
+> -		ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
+> -		if (ret < 0)
+> -			goto link_alloc_failed_unlocked;
+> -		ret = __key_link_check_live_key(dest_keyring, key);
+> -		if (ret == 0)
+> -			__key_link(dest_keyring, key, &edit);
+> -		__key_link_end(dest_keyring, &key->index_key, edit);
+> -		if (ret < 0)
+> +		/*
+> +		 * The outer search checks Link permission on a key it finds.
+> +		 * The second search must do the same; otherwise a key that
+> +		 * appeared in the race window could be linked without the
+> +		 * caller holding Link permission on it.
+> +		 */
+> +		ret = key_task_permission(key_ref, ctx->cred, KEY_NEED_LINK);
+> +		if (ret < 0) {
+> +			if (link_locked)
+> +				__key_link_end(dest_keyring, &key->index_key,
+> +					       NULL);
+>  			goto link_check_failed;
+> +		}
+> +		if (*defer_link) {
+> +			/*
+> +			 * The key may still be under construction, in which
+> +			 * case its payload cannot be checked yet.  Do not add
+> +			 * a provisional link to a restricted keyring; only an
+> +			 * already instantiated key can be checked here.
+> +			 */
+> +			if (!key_is_positive(key)) {
+> +				ret = -EPERM;
+> +				goto link_check_failed;
+> +			}
+> +			ret = key_link(dest_keyring, key);
+> +			if (ret < 0)
+> +				goto link_check_failed;
+> +		} else {
+> +			ret = __key_link_begin(dest_keyring, &key->index_key, &edit);
+> +			if (ret < 0)
+> +				goto link_alloc_failed_unlocked;
+> +			ret = __key_link_check_live_key(dest_keyring, key);
+> +			if (ret == 0)
+> +				__key_link(dest_keyring, key, &edit);
+> +			__key_link_end(dest_keyring, &key->index_key, edit);
+> +			if (ret < 0)
+> +				goto link_check_failed;
+> +		}
+>  	}
+>  	mutex_unlock(&user->cons_lock);
+>  	*_key = key;
+> @@ -495,6 +542,7 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
+>  {
+>  	struct key_user *user;
+>  	struct key *key;
+> +	bool defer_link;
+>  	int ret;
+>  
+>  	kenter("");
+> @@ -512,7 +560,8 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
+>  		goto error_put_dest_keyring;
+>  	}
+>  
+> -	ret = construct_alloc_key(ctx, dest_keyring, flags, user, &key);
+> +	ret = construct_alloc_key(ctx, dest_keyring, flags, user, &key,
+> +				  &defer_link);
+>  	key_user_put(user);
+>  
+>  	if (ret == 0) {
+> @@ -522,6 +571,30 @@ static struct key *construct_key_and_link(struct keyring_search_context *ctx,
+>  			kdebug("cons failed");
+>  			goto construction_failed;
+>  		}
+> +
+> +		/*
+> +		 * The key was not provisionally linked because the
+> +		 * destination keyring is restricted. Link it now that the
+> +		 * payload is available so the restriction can be checked.
+> +		 */
+> +		if (defer_link) {
+> +			/*
+> +			 * A helper may have negatively instantiated the key
+> +			 * (e.g. KEYCTL_REJECT) and returned success.  A
+> +			 * restricted keyring must not cache a negative key;
+> +			 * key_reject_and_link() rejects those too.
+> +			 */
+> +			if (!key_is_positive(key)) {
+> +				ret = -EPERM;
+> +				key_put(key);
+> +				goto error_put_dest_keyring;
+> +			}
+> +			ret = key_link(dest_keyring, key);
+> +			if (ret < 0) {
+> +				key_put(key);
+> +				goto error_put_dest_keyring;
+> +			}
+> +		}
+>  	} else if (ret == -EINPROGRESS) {
+>  		ret = 0;
+>  	} else {
+> -- 
+> 2.56.0
+> 
+> 
 
-Use u32 for the payload length parameters in both functions to keep
-their types consistent with the value returned by
-nvmet_auth_receive_data_len() and avoid an unnecessary conversion
-from unsigned to signed.
+I tried to go through the code change now as it is huge and there was no
+explanation why you need to do all of this.
 
-Also, use size_t for data_size in nvmet_auth_challenge(), since the
-calculation includes sizeof(), which returns size_t. This avoids
-implicitly narrowing the calculated payload size to int.
+It is full out-of-scope changes. Please redo this just as a scoped bug
+fix, and don't add any new flags.
 
-These changes make the payload length handling consistent with the
-underlying types and avoid potential signedness and narrowing issues.
-
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
-v2:
- - Update the debug format specifiers in "nvmet_auth_challenge()" to match the 
-   updated parameter types. Use "%u" for the "u32" payload length and "%zu" for 
-   the "size_t" data size to avoid format type mismatches and ensure correct debug output.
-
- drivers/nvme/target/fabrics-cmd-auth.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
-index 70136f6c22e8..c90917d26c98 100644
---- a/drivers/nvme/target/fabrics-cmd-auth.c
-+++ b/drivers/nvme/target/fabrics-cmd-auth.c
-@@ -448,18 +448,18 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
- 	nvmet_req_complete(req, status);
- }
- 
--static int nvmet_auth_challenge(struct nvmet_req *req, void *d, int al)
-+static int nvmet_auth_challenge(struct nvmet_req *req, void *d, u32 al)
- {
- 	struct nvmf_auth_dhchap_challenge_data *data = d;
- 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
- 	int ret = 0;
- 	int hash_len = nvme_auth_hmac_hash_len(ctrl->shash_id);
--	int data_size = sizeof(*data) + hash_len;
-+	size_t data_size = sizeof(*data) + hash_len;
- 
- 	if (ctrl->dh_tfm)
- 		data_size += ctrl->dh_keysize;
- 	if (al < data_size) {
--		pr_debug("%s: buffer too small (al %d need %d)\n", __func__,
-+		pr_debug("%s: buffer too small (al %u need %zu)\n", __func__,
- 			 al, data_size);
- 		return -EINVAL;
- 	}
-@@ -488,7 +488,7 @@ static int nvmet_auth_challenge(struct nvmet_req *req, void *d, int al)
- 	return ret;
- }
- 
--static int nvmet_auth_success1(struct nvmet_req *req, void *d, int al)
-+static int nvmet_auth_success1(struct nvmet_req *req, void *d, u32 al)
- {
- 	struct nvmf_auth_dhchap_success1_data *data = d;
- 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
--- 
-2.55.0
-
+Br, Jarkk
