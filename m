@@ -1,61 +1,67 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793464147;
-	b=zEO4+F1ebakgoO8StymGeLJT8HmIis2V/WzWvVmPx5NFm9jGeyy9NeO6ri/8Wv2U4+hR
-	 prrVNGCeOXCrqMw58a2c8hoYBj57v1Z4aQrglVbYgFnGZqHWg6gFRFMqmG59i/2Y01hdO
-	 dW5kpp5iZcrUI+Fi25kkYJsKTlyTM87k848T8byw9Rc8XsH6NwItyGB1H2fVpYZ3MpBha
-	 95d1/7kOJbUZ7phKVCMaQBKl151T2B9wf7RW73dMn4Ln6x+WSYxOVvXgLSFI1htrjCqhI
-	 9CyqOznR4HQnjrZ76uhoXkpQ0JwO4CFbqX3SLhGzCPWnSMSkZ+VAXuuBJTuPctIQxBQ==
+	t=1793464175;
+	b=zQIh9YGrfnXoLGVa2rLYIA3dDvNEoHwzJIn/xoj/qPjLT3IsNMtu66eJNTSQ88R8A6JB
+	 cGq1gSnC37wc0Xx7V9vF32yhaycLA9GVv0YBT3GZj44Dk+ESuR+R/s7sZFcTgIvj5DdBU
+	 9umIVaVBly2e50mSKnODnZ4JIqmy7qnsE93GfXHos6dj+Nx/zkBCvH6oBXzpRLO2iR8oO
+	 l8WJaCa7MAef2VxXpZ5Ym+2A4bbJ2ruRVxivPqi+qbZzSWLMo/975sWIzm68Sgbi+4Uxz
+	 nTskdtGmdsbpD/o8JVYnbtJyc65URgbfKFyOTbjMBp7Cls721DYcsXx2sYM504tkbkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793464147;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793464175;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding;
-	bh=oBQyf3LnZsTBEP9KDYlRdvFMh74zWPl/J2LK0/JvVx4=;
-	b=jmcBU3uRn8jZq+xeCMpD57x/LUHIdK8Z81Tm+S+wwm0ZvCSE9IC12vpX2fVCB6OeuhgE
-	 0XYIkEIJSt/apWkmgqL94IbyDng+iILoxCUYBUhNTTKgeuA8JNO83fivfPCs1bKRnsNx0
-	 fuZQKSNjzWvD+tJ92C2cdbVFASDlR7OkbhEk6sUTlvEuDjh6qJCOovSTkxM+UoodbWG6v
-	 eOs8bgds89+4MeHDL2Hb84qLonJAvnGfdhbAZv5ASC3gcWxA0QonDCIlewfMDnZwiLQO5
-	 Q4xfgH4KsKXJX9OLYLpv3QNFudBsYg6kmaKADn8xE8HP5sWvBI2bH+KwDrKqv2/4Ueg==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=9zgZOaH/pTrBga2uIvgJ+J3Jf4YGUIVSNOYm7+FX/ow=;
+	b=OQE0sHCg2+09WJf1l+6MO/TMXkQQsSkhtltzMIXJOFM1QSJZr1SE7P4ybps9ISBJnkDU
+	 PS5ZhWgVURqbS2Su6WfZ4cASPjKnYl1CjHu9p4zJ+uLUI8f+s7d+m6OUqCIqYIskkBmPO
+	 /Mbasm3TPYUXGNGQHENOJtKOUfFix4SAhIxIONuTHSwb/ee5h6EQ5x8pmPmDUNR1RyQqK
+	 felOEdmEpUxHZoHyi5g6jsFWwUAhsAB02qG0KtIYk1XnI+qepb7ynDs3OUmhcLPlU0hgJ
+	 saaQm34fZf1zoUO6lTwKJ/FymUw9t2WBec94EGsLtqn5ZohS/xyWcNViAVoDspFCaBg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCWGkDPH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fzm+pKMH;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 753F1606A31A;
-	Sat, 31 Oct 2026 16:29:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27BF7606A31D;
+	Sat, 31 Oct 2026 16:29:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VCWGkDPH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01971F000C1;
-	Sat, 31 Oct 2026 16:29:05 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fzm+pKMH
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277081F000C1;
+	Sat, 31 Oct 2026 16:29:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793464146;
-	bh=oBQyf3LnZsTBEP9KDYlRdvFMh74zWPl/J2LK0/JvVx4=;
+	s=k20260515; t=1793464174;
+	bh=9zgZOaH/pTrBga2uIvgJ+J3Jf4YGUIVSNOYm7+FX/ow=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VCWGkDPHHBokzqBmrPfqJHBQKb1NtIuK+WlYZeUn1oA9VArN1IXm4floJ0MVoK9Pq
-	 jOux7Bxy4+hPEt2L0qqDNYn6ZbymwG9V9M+Y89BFlvq8b9VaoWu3a0GdjNnauoNAR+
-	 OlMFYsK5FEgOmoZKtBoW9kx/lz2YRyzEOi/788X9+VIb0ys0yYGqYNYC5Ux++Uf0cp
-	 Lh8Ca2hkZkLdt43geKPe8y+AQLd7EPh+Dn3SFl1aN1DkBir3VMFQEJFVyR1UjZ89NP
-	 Dak7ctA1P6bqhzkdZeyGhSqyvHbyKcV7dBctRqCT4uot911BGrWaB5im2/DC5MYiv8
-	 u0Ye31woJ9S6w==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Li Youhong <dayou5941@163.com>
-Cc: William Breathitt Gray <wbg@kernel.org>,
-	biju.das.jz@bp.renesas.com,
-	linux-iio@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cosmin-gabriel.tanislav.xa@renesas.com,
-	Li Youhong <liyouhong@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] counter: rz-mtu3-cnt: put runtime PM ref if counter init fails
-Date: Sat, 31 Oct 2026 12:28:49 -0400
-Message-ID: <20261031162853.3635249-1-wbg@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261031142813.2522444-1-dayou5941@163.com>
-References: <20261031142813.2522444-1-dayou5941@163.com>
+	b=fzm+pKMHA1jaM18c4ND1UjKuZfxRb4bPpgPqB8XcO3wLDNySsaGQJMp6Ec3jObCMl
+	 5n5V/Rgrk1QMpOxj2tshy14MN8hhoCx9cPHJT503nY9pN2Tv0tvltifKiJBm1LNSTg
+	 0eLR9MYc1gy21MkTh7aka5kx1Gwdhbbr+9kIbG5Ye61VPhk8JhbBMstknYNSYgpdi9
+	 MdYEOQipsoBD2MMjVuTwdRZ6h0d03j3xGBa0dES4aplajt2KoK/QQVeY0Zi2sXGWcL
+	 WCaksiE2bspJ9pkMs/8sGpVIhZHS+RDg3m4zBlPclmNSzHcJvKtqOXS4qqw1b1wOag
+	 VxQZk+r9CJz5g==
+From: Sasha Levin <sashal@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Josef Bacik <josef@toxicpanda.com>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	rust-for-linux@vger.kernel.org,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] rust: bindings: derive Zeroable for bindgen's opaque array wrappers
+Date: Sat, 31 Oct 2026 12:29:31 -0400
+Message-ID: <20261031162931.792607-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAH5fLgiSOae48jr65rv6ynLWUhT7xVCjjCEK=9oKXvSxKpdq6g@mail.gmail.com>
+References: <27b58e47-723b-4d67-a1f0-ccb8b0ae66a9@kernel.dk> <20261031152846.746656-1-sashal@kernel.org> <CAH5fLgiSOae48jr65rv6ynLWUhT7xVCjjCEK=9oKXvSxKpdq6g@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,56 +71,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1891; i=wbg@kernel.org; h=from:subject; bh=ojrAAUCAhsERcK/RsagjgBNQlTeYOB/egHHvD3QPR3Y=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFnPxCXe3LvNvSdZ+k7vl07pbRZ3nWRup66Ps36mUhn65 psxy9LujlIWBjEuBlkxRZZe87N3H1xS1fjxYv42mDmsTCBDGLg4BWAiPS8YGQ44WW75lZnkbbxz jnfs5QSxkmlpuTsXzZvyyjysL+nFUQWGf/ZHn+sdLu+NLdP6Lh6v/aT8354Jn4+Z/quYz+PfsPF 2Lj8A
-X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
 Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 10:28:13PM +0800, Li Youhong wrote:
-> From: Li Youhong <liyouhong@kylinos.cn>
-> 
-> Counter enable takes a runtime PM reference before initialization but
-> only puts it on disable. Drop the reference if initialization fails.
-> 
-> Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-> Signed-off-by: Li Youhong <liyouhong@kylinos.cn>
-> ---
-> v2:
-> - Add Cc: stable@vger.kernel.org.
-> - v1: https://lore.kernel.org/all/20261008020506.211566-1-dayou5941@163.com/
-> 
->  drivers/counter/rz-mtu3-cnt.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
-> index 7bfb6979193c..61fbeb122851 100644
-> --- a/drivers/counter/rz-mtu3-cnt.c
-> +++ b/drivers/counter/rz-mtu3-cnt.c
-> @@ -506,8 +506,11 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
->  	if (enable) {
->  		pm_runtime_get_sync(counter->parent);
->  		ret = rz_mtu3_initialize_counter(counter, count->id);
-> -		if (ret == 0)
-> -			priv->count_is_enabled[count->id] = true;
-> +		if (ret < 0) {
-> +			pm_runtime_put(counter->parent);
-> +			goto exit;
-> +		}
-> +		priv->count_is_enabled[count->id] = true;
->  	} else {
->  		rz_mtu3_terminate_counter(counter, count->id);
->  		priv->count_is_enabled[count->id] = false;
-> --
-> 2.25.1
-> 
+On Sat, Oct 31, 2026 at 05:17:46PM +0100, Alice Ryhl wrote:
+>Is it possible to instead fix this by adding the impl of Zeroable in
+>rust/bindings/lib.rs, similar to this piece of code that we already
+>have:
+>
+>unsafe impl<Storage> Zeroable for __BindgenBitfieldUnit<Storage> where
+>Storage: Zeroable {}
 
-This patch seems similar to another we're considering for ti-eqep.[^1]
-In that patch, runtime PM is managed via devm which allows us to remove
-the explicit PM unwind on failures and have them implicitly handled when
-the device resource is released. Should we use the same approach for
-rz-mtu-cnt?
+I looked at doing it that way, but the wrapper types don't always exist,
+so a fixed impl in lib.rs won't build everywhere:
 
-William Breathitt Gray
+ - bindgen 0.71 and 0.72 (we still support 0.71.1) don't generate them
+   at all, the blob is a plain array there.
 
-[^1]: https://lore.kernel.org/all/20260529095834.2561-1-sozdayvek@gmail.com/
+ - 0.73 only emits the alignments a config actually needs. On x86_64,
+   allmodconfig gets __BindgenOpaqueArray, __BindgenOpaqueArray8,
+   __BindgenOpaqueArray64 and __BindgenOpaqueArray4096, but defconfig
+   with Rust enabled has no __BindgenOpaqueArray4096, so an impl for it
+   would break the build there.
+
+__BindgenBitfieldUnit works because it's always generated. We could do it
+in lib.rs with a Kconfig symbol for the bindgen version plus some way to
+know which alignments a config ends up with, but tagging the wrappers
+right after bindgen runs seemed simpler.
+
+--
+Thanks,
+Sasha
