@@ -1,92 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793444134;
-	b=i6mwXDLe5FVDfmvHHJbTrVN5xzAZv9dFdK+giahxYXS9PtE2ucsqj69Eot7OeeWIjlrW
-	 w3IQhcTwTs9zljLY+T40nrO7Aj5ln7366Rx6/Iwap0P12SzwOuyvNpEFN04YzB4lMXQM0
-	 QUwmRM5wPzXLboWEkXBRNI4XnjW9WOoAE4HhStdPXs398NwZLQl/GFe6542zP/jVLhkn1
-	 WafRNjduwJZMbAnY53akdCpGkJ9QIqgyqZ/vLLPEhghR7sqKk5r0I9fMLh5YwHhktWmiH
-	 1Ju0rdqmcirmj6eGF2cMfYL6O+p0ucjfYmzUSOQRG0oX/8d7Ti65bwM476roJxu66yg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793444134;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=kf7DHW+HPMG6HKkFPWFn96X9OnxzATvopEw39adSoAw=;
-	b=k6WqZc7DOzaeq+Hq++domnX+5PrwESKUs6vVxZMfmDO28FkfCtCNGp4qPzzPS6j1SCk7
-	 fExC6tSUfiiFwsnEDySkZ0a60AfP75FXPeSoAKX0XWm0NKnH+tfbj4Voean0/uFMb8ku+
-	 1PTwKSC91tlmnRrdUzLNSzCUAuOLKWD3B8/KtlWzDTf3xMo6E0lcoYUX3VQNxjcIoDDat
-	 zj6z5Qm4mRwtsEEog66al1JyfKJYTL5lzHmS8UaEQM8D3VSZ8cyF5uxtAdl66fJddIdu7
-	 tdpQ0b8IO0BD2bQcwprPG1C6w9VkO52JTsML0Qn50LcgKK2n+rKSCALmsAAFIJpTJLw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZVih8RK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793444299;
+	b=pjrvF6URtKJZlIaPwIPaalMVcdCDt5nfhzErBSsA1SyCKp3W9Dc8cq5Hl8hMUGgSeLK1
+	 /KrPhdQrwt7IS0KNd3mVV++RHTdo2RghXVnfMAmu9lk3+LKZW7Lb5PUeCSz8H3C3CDCUL
+	 a5NArIo8V0j2Ic7KRgKZ2h662XV8ff18L60+DkSzb/GJHypHOqTLqSNYrEbySDrM34ym0
+	 8XdTHYcG6/KeAeHZtw6LXnrAZ+ftfwl2OghrFfjXEc0NhY4YoHTlzacJobOMy0TvmwPuG
+	 p9VXEDPqewkfx0ysaMoR9yRshziK5aPw4Ei4v6oTFmHufMGMH20milCbkeEaAneA00Q==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793444299;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Content-Type;
+	bh=pQdgwGwX3UbTjniYm5PHDppiBqFG7tm5q1sllUN72/o=;
+	b=rU0gvWblsiEJkLaF2W5BXjxW+jevQm7UwrO6xp0gIF570ns7pRb7is22UegjwnaIaSlO
+	 UZBhBXGsZw/DZqBF9Sw5HvXfy7tk17hXJiAyhzjlOnaDcIE5Nc+Yg7q5QUXcPLZnu1vgI
+	 zXSi6btYvc1KS8Z1oDPKDJtDL7Ev5qz3iOvtaSEB6Zo0P25EHsem+uDna+1QhpVZqhnUL
+	 OFKPz4/NjcUa7ZQH2H0LlluDFEJd5V/U//gJXrGJRehXWBtENVmVrUm7X43zSBwpmnBah
+	 /QmTBauFbh+qBKkc/fVGQbKk5j9bjfhUYrhw0htiEo/htzbhWwnYS3zxelJHGlhlukA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ljPtd3Ub;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.47
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17346606A31A;
-	Sat, 31 Oct 2026 10:55:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597C2606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:58:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 597C2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZVih8RK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E14E1F000C1;
-	Sat, 31 Oct 2026 10:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793444133;
-	bh=kf7DHW+HPMG6HKkFPWFn96X9OnxzATvopEw39adSoAw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=hZVih8RKW7+5gqeTqGdWFckbkE1fBUoRpN0Yf0ztRjkuk4YcZRZ4SSexv/PHbbF0M
-	 Iw/MDy6ZJVau5vIvy4d9TQWjFHxgzfqg7bAxcQxHH7309wEJ+KyA/WF+gb8Ma44Loc
-	 9wYsFL/TYaZFnAgSNIladW1t5k5pX9s2HV/slhp4sv/yPogd5Np88XzSI7K6yxbGiR
-	 U+XWdtKEx3lD/aDZfVO3Mxo7uGmn9jDQqnBS3Zl7IX2O1Y8pWhA/5Ptf4nkgq+Aof7
-	 Kos1TmRXkKGX3i46dfJQXPVPBQJTav6JodXebp2iYW9yajnhsPGigGBu9AbiWXzfC9
-	 hTLYOZQ3crkbA==
-From: David Hildenbrand <david@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, SJ Park <sj@kernel.org>, 
- Chris Mason <mason@kernel.org>, 
- Thadeu Lima de Souza Cascardo <cascardo@igalia.com>, 
- Mani Tofigh <mt4022@columbia.edu>, Samiullah Khawaja <skhawaja@google.com>
-In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-Subject: Re: [PATCH v3 00/47] mm: various (urgent?) fixes
-Message-Id: <179344411888.15514.3120155844849052881.b4-ty@b4>
-Date: Sat, 31 Oct 2026 11:55:18 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ljPtd3Ub
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c434376dbebso313348666b.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:58:18 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793444297; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VTvOpxWDYkdklQ3lgPrQ8dxbPgbeLZTeiozTXSoCvFz4FdXhpZlpKtXjOkUJz3lH6b
+         HTF11ktlk3zqXBgmrdnMxuOuZG5lrC4UlK5ISZ37jGqnKNid2YiMgsvv7MOLoVTRsxnl
+         qOtgJvDEmqT8CG/eiLOgUCTJP/WDj10UEVTyW0WcTFOPquP4eNWtS5IHJHbO9p24xcl7
+         4KQEBHo1jHC2iM8lG6Z40czURn5nSMIyN1N7sBQM2qAK6OPMF51+1gPzTOWrZYr8RWPJ
+         p5O3P8FQbeTNko/1b6AgA27bPTaqcGiG8R66cY7+jhDWQyM38TKMcjvsuIXZ7lqSdnE7
+         cwEA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=pQdgwGwX3UbTjniYm5PHDppiBqFG7tm5q1sllUN72/o=;
+        fh=y5PVwU216GAH834rjUR7lcb2AZxN/1MO7bmlrGFMRfM=;
+        b=sIGY8Q6aX0Vfhf6Yr7KZk8/Ld0fMOVbeuRnNWWV9X2kKcDHq2ZgOzNjsKb/GLf/NXF
+         N4Vs68gBtxKf07cwRypmRghGuSZMGJsoGyY6KT6V85hiDHVVMYQrcmhMq2LJExRrslP/
+         4/SSl6QyH6f4O4Sk2zdl/2khzfjIfT5082X//FEa0X0/hQ1dAmZGdlO0zWy6ydoPUfLf
+         ra0BXsFUIcoWDWgS/Chpi5bjzNBPVe/ov7vnonVrJ+0XkYq8z6ao7MVftCSQMxGwDK8y
+         +DAPnEvij/0WiD3Q+mX1PpmYj1IhTw4Vhbibs1XoC5XimZhkd2v+Pa923w9yKbu4qlwX
+         u93w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793444297; x=1794049097; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:mime-version:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pQdgwGwX3UbTjniYm5PHDppiBqFG7tm5q1sllUN72/o=;
+        b=ljPtd3UbiRLvcNG3R3UBSoxOxXI9TcShlLTOifevRCixL72nD6cR724sU3vIw8XDVt
+         Jd1O7aWSy4TES3pUh3x0PnT5AgbpHmjWIRi9XKatdpTF46CLcrALAj48syve0a789K/5
+         5euGqlzFBe7AcUDufCuW8QrsTsLgoYonXissEiT4R0uCseVRQBKMF41Dngbit9/xnwuQ
+         ftrcRBikEHqQKMR5GcdaC0Sr05kI5MHgLUY5hv1UNcCV7JzPFiw3x6Mn+w3V4O+8igWb
+         kJLmGhLosjd3XUrC2xM0QhHoTGaoph0rRN0SdMb98vsgPyhBCUoMPSoQl1xGBJL13ZzG
+         hk+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793444297; x=1794049097;
+        h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pQdgwGwX3UbTjniYm5PHDppiBqFG7tm5q1sllUN72/o=;
+        b=WCxW9RjJFLWG/47flLSgchZW4ovqEkYZlEBsbN+fRK3loDpPUJ0SMHHVAqv3LBCM9y
+         Yg6+iCiCYYiaKwII/poNKPW0Mz3Vq21COGGQyhtve6X4vGy9szAZRTqtBIwCLxjM71Rz
+         6KZKrsDCdX71BZIsXozb0grywbimNqLi/y6jpv7/DKMBgu7d1GGjzW/mG2RAay0ifnUw
+         OIDLGjVrevUyGy6leZ3lKFtxZ3BetjFb5V4G7Xpa5g/Y8vaAxd3MXQ+V/B6cIQGKElsJ
+         KJU/fVPB9KRa47ZJdyJcQxraofFhCWuskVHyvdwwqGzYQhrZwJdlujz32ENr0Frs1wBi
+         xgkw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2A71Cc59qzjYrQpfodsFyowbjQFIX6tg0X8IVn8xIylGNh0loc/4Un20gnJI93VoTK/nFOiY5oQQSqgY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJA08lpVEjYU4NEQ9uteQek9kztFvE8/JKlSJUlhgWxrR0oLFwl
+	cEQA+4wx3QqVq3U4cdYM9HHtiZQGrD01JFFda+Oo/2kwbB41S3/EQK7k2SuHswHYqR71kjSmFjR
+	fq3Vg8q/qVJJ/+z7Gvr1aJ8s6/G/kMVE=
+X-Gm-Gg: AYBFou3xXQScXWkvQDtHwNqgLgnCzH7D+s3Gx7FUgNe5tVReyKGx/gsDrbplohdTsAX
+	NRm5VEXtpGMTsiCPlUDJtSb+AkOvBujlfgaRE+2nmN6ypLyH7+fUOv1kKWPbIHajthcNnkYazXQ
+	7IIecMBa/MPeJ/1EWYCvlOR5VqeeU4aR5GTX0jKcjbHSP7ROfR4aySvYV0kuhSuo3Y+Ty3X2jVU
+	9fEx7keCA+EvI4cMTRGMM+7oCSJgz6ehIWk4+btAzcGUuMgVgOBQJJpBVOevfZI6Ub/x/Z/akFH
+	B+j41W5T/Z2jOU8GvrTxLFcPwGFDcGJMPmvGFQXIDPo/yz/UEuPQX73WWgC64dkpg54L/Lo4m5P
+	nKYmu/vKTwFgCVBCwau3AE1enBXT3VMU6sVXYz9sf9afpDoATJrvJSg2Cwbe960NNOq49Kws=
+X-Received: by 2002:a17:907:f495:b0:c29:4b57:503e with SMTP id
+ a640c23a62f3a-c4ca7953a29mr405328266b.1.1793444296370; Sat, 31 Oct 2026
+ 03:58:16 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,131 +101,274 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+From: Maholi Tumanggor <maholitumanggor@gmail.com>
+Date: Sat, 31 Oct 2026 17:58:04 +0700
+X-Gm-Features: AclHuK9DH_UCctbwhtp8l1cWtFttRQl0hWmXfkGoOI68eGa9m2ROh863f-sUCgU
+Message-ID: <CAELScTboG_Bqn1hpM3855oYpM=io3sW-zMWs2AHkH6T0bpx7BQ@mail.gmail.com>
+Subject: [SECURITY] net/ncsi: Fix heap OOB write in ncsi_rsp_handler_gp() MAC
+ filter loop
+To: netdev@vger.kernel.org, sam@mendozajonas.com, eajames@linux.ibm.com, 
+	linux-kernel@vger.kernel.org, paulfertser@gmail.com
+Content-Type: multipart/mixed; boundary="00000000000035f1cf065f20ca18"
 
-On Sat, 31 Oct 2026 10:39:29 +0100, David Hildenbrand (Arm) wrote:
-> Thanks to everyone for the review! Hoping I can get some more? :)
-> 
-> A quick resend, I'll queue these immediately after sending to get them
-> into -next asap. Don't let that discourage you from reviewing ;)
+--00000000000035f1cf065f20ca18
+Content-Type: text/plain; charset="UTF-8"
 
-Applied, thanks!
+Hi,
 
-tree: mm/core.git
-branch: for-next-fixes
+I found a heap out-of-bounds write vulnerability in the NCSI response
+handler for the Get Parameters (GP) command.
 
-Applied patches will appear soon in mm-next, followed by linux-next.
+== ROOT CAUSE ==
 
-Please report any outstanding bugs that were missed during review, so we
-can either drop the patch series or decide how to fix it up.
+ncsi_rsp_handler_gc() allocates nc->mac_filter.addrs based on counts
+from the GC response:
 
-It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
-though the patches have already been applied. If possible, patch trailers
-will be updated.
+  size = (rsp->uc_cnt + rsp->mc_cnt + rsp->mixed_cnt) * ETH_ALEN;
+  nc->mac_filter.addrs = kzalloc(size, GFP_ATOMIC);
 
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. Further, this is not a guarantee that the
-patches will go upstream. If in doubt, please check the listed branch.
+Later, ncsi_rsp_handler_gp() loops using mac_cnt from the GP response:
 
-[01/47] mm/mglru: don't use stack pointers when walking PUD and PMD tables
-        https://git.kernel.org/mm/core/c/3922fe76
-[02/47] fork: take mmap_lock before copying mm_struct
-        https://git.kernel.org/mm/core/c/6cf33ce8
-[03/47] mm/shmem: make shmem_file() check the file's inode
-        https://git.kernel.org/mm/core/c/d6003145
-[04/47] mm/memfd: make f_pos accesses atomic
-        https://git.kernel.org/mm/core/c/b6638250
-[05/47] mm/truncate: look again if a folio left the mapping
-        https://git.kernel.org/mm/core/c/e7086d79
-[06/47] mm/filemap: read mapping->a_ops->free_folio under i_lock
-        https://git.kernel.org/mm/core/c/c9073948
-[07/47] mm/filemap: don't lose a folio lock wakeup to a signal
-        https://git.kernel.org/mm/core/c/c39c22f2
-[08/47] mm/filemap: finish fault cleanup before dropping the fault lock
-        https://git.kernel.org/mm/core/c/335429f6
-[09/47] mm/rmap: handle device-exclusive entries in folio_referenced_one()
-        https://git.kernel.org/mm/core/c/6324d435
-[10/47] mm/huge_memory: fix list corruption when deferred_split_scan() races with deferred_split_folio()
-        https://git.kernel.org/mm/core/c/be9ec969
-[11/47] mm/huge_memory: properly handle refcounted PUD mappings on fork
-        https://git.kernel.org/mm/core/c/1ef69272
-[12/47] mm/huge_memory: fix livelock on device private folio
-        https://git.kernel.org/mm/core/c/88ee4890
-[13/47] mm/huge_memory: fix truncate racing with PMD zapping
-        https://git.kernel.org/mm/core/c/a63ff7ba
-[14/47] mm/huge_memory: fix zapping migration entries for device-private THPs
-        https://git.kernel.org/mm/core/c/2814cce8
-[15/47] mm/khugepaged: always recheck the pmd in try_collapse_pte_mapped_thp()
-        https://git.kernel.org/mm/core/c/17382ca5
-[16/47] mm/khugepaged: fix PMD table lock leak in try_collapse_pte_mapped_thp()
-        https://git.kernel.org/mm/core/c/bf852461
-[17/47] mm/khugepaged: preserve dirty bits when collapsing PTE-mapped THPs
-        https://git.kernel.org/mm/core/c/299b8524
-[18/47] mm/khugepaged: check if PTE table is empty in try_collapse_pte_mapped_thp()
-        https://git.kernel.org/mm/core/c/22b08cd1
-[19/47] mm/gup: recheck the PUD under PTL in follow_pud_mask()
-        https://git.kernel.org/mm/core/c/e04a9b5e
-[20/47] mm/gup: fix clearing folios in memfd_pin_folios()
-        https://git.kernel.org/mm/core/c/c6791388
-[21/47] mm/gup: fix out-of-bounds write for nr_pages == 0 in GUP-fast
-        https://git.kernel.org/mm/core/c/5b1b815c
-[22/47] mm/gup: check for overflow when converting nr_pages to bytes in GUP-fast
-        https://git.kernel.org/mm/core/c/8791ac0a
-[23/47] mm/userfaultfd: write-lock the VMA before waking waiters when unregistering
-        https://git.kernel.org/mm/core/c/35f48d65
-[24/47] mm/userfaultfd: wake all waiters on unregister
-        https://git.kernel.org/mm/core/c/9e4d60fe
-[25/47] mm/userfaultfd: wake waiters when registration modes are removed
-        https://git.kernel.org/mm/core/c/a9cba229
-[26/47] mm/userfaultfd: compare exact registration modes before skipping
-        https://git.kernel.org/mm/core/c/86de3945
-[27/47] mm/mmu_gather: fix flushing ranges with 4 GiB or larger
-        https://git.kernel.org/mm/core/c/61437375
-[28/47] mm/mmu_notifier: finish non-blocking interval invalidation on error
-        https://git.kernel.org/mm/core/c/ec3feff7
-[29/47] mm/mmu_notifier: set ->mm only after mmgrab()
-        https://git.kernel.org/mm/core/c/10ad9b99
-[30/47] mm/mremap: use pudp_huge_get_and_clear() when moving huge PUDs
-        https://git.kernel.org/mm/core/c/f16f7e7c
-[31/47] mm/mremap: recheck PUDs under the page table lock
-        https://git.kernel.org/mm/core/c/ae414aed
-[32/47] mm/mremap: fix moving PUD leaves
-        https://git.kernel.org/mm/core/c/262a6a25
-[33/47] mm/memory_hotplug: avoid races in pfn_to_online_page() with dying pgmap
-        https://git.kernel.org/mm/core/c/67782b68
-[34/47] mm/madvise: fix data loss from MADV_FREE on a KSM page
-        https://git.kernel.org/mm/core/c/4fc80184
-[35/47] mm/memory: reject remote COW faults on PFN mappings
-        https://git.kernel.org/mm/core/c/99e96e4d
-[36/47] mm: fix unmap_mapping_range() beyond 4 GiB on 32-bit
-        https://git.kernel.org/mm/core/c/1ca84b58
-[37/47] mm: fix unkillable fault loop on MAP_DROPPABLE memory
-        https://git.kernel.org/mm/core/c/a4c8fb4f
-[38/47] mm: fix deadlock of mremap() against UFFDIO_MOVE
-        https://git.kernel.org/mm/core/c/55f62b5f
-[39/47] mm/ksm: reset the unstable trees of all nodes
-        https://git.kernel.org/mm/core/c/9c1d2a06
-[40/47] mm/ksm: fix use of a freed anon_vma at swap-in
-        https://git.kernel.org/mm/core/c/9c20c73c
-[41/47] mm/ksm: check large swap-cache folios before mapping them
-        https://git.kernel.org/mm/core/c/7fa9d8cb
-[42/47] mm/vma: call ->may_split() before a partial merge
-        https://git.kernel.org/mm/core/c/e0b967df
-[43/47] mm/huge_memory: split huge PUDs when adjusting VMA boundaries
-        https://git.kernel.org/mm/core/c/0653a27f
-[44/47] mm/vma: don't leak the charge for stack growth
-        https://git.kernel.org/mm/core/c/a8ebd75d
-[45/47] mm/cma: don't release CMA pages still in use
-        https://git.kernel.org/mm/core/c/d7950ad4
-[46/47] mm/memory-tiers: unregister empty tiers outside memory_tier_lock
-        https://git.kernel.org/mm/core/c/b6d7ad49
-[47/47] fs/proc/task_mmu: refuse addresses beyond 32 bits on 32bit
-        https://git.kernel.org/mm/core/c/021ea6d2
+  for (i = 0; i < rsp->mac_cnt; i++, pdata += 6)
+      memcpy(&ncmf->addrs[i * ETH_ALEN], pdata, ETH_ALEN);
 
--- 
-Cheers,
+rsp->mac_cnt is a u8 read directly from a network packet (attacker-
+controlled in a compromised BMC scenario). There is no check that.LKJ
+mac_cnt does not exceed the count used for the original allocation.
+This results in a heap buffer overflow with write data controlled by
+the network packet content.
 
-David
+== AFFECTED FILE ==
 
+  drivers/net/ncsi/ncsi-rsp.c, lines 886-892
+
+== REPRODUCTION ==
+
+Confirmed via fortify_panic() on kernel 6.8.0-147-generic
+(Ubuntu 24.04, CONFIG_FORTIFY_SOURCE=y) using a kernel module that
+reproduces the same allocation pattern.
+
+Crash log excerpt:
+  [  314.323325] RIP: 0010:fortify_panic+0x13/0x20
+  [  314.321952] Modules linked in: ncsi_validator(OE+) ...
+  [  314.206937] NCSI-VALIDATOR: VULN-1: alokasi 6 bytes, GP klaim 10
+MAC (60 bytes)
+
+== FIX ==
+
+Add a bounds check before the MAC filter loop in ncsi_rsp_handler_gp():
+
+--- a/drivers/net/ncsi/ncsi-rsp.c
++++ b/drivers/net/ncsi/ncsi-rsp.c
+@@ -858,6 +858,17 @@ static int ncsi_rsp_handler_gp(struct ncsi_request *nr)
+        if (!nc)
+                return -ENODEV;
+
++       /* Validate mac_cnt from GP response against the buffer size
++        * allocated in ncsi_rsp_handler_gc() based on the GC response.
++        * mac_cnt is u8 from a network packet; exceeding the allocation
++        * count causes a heap buffer overflow. Also cap at 64 to prevent
++        * set_bit()/clear_bit() writing past the u64 bitmap field.
++        */
++       if (rsp->mac_cnt > nc->mac_filter.n_uc + nc->mac_filter.n_mc +
++                          nc->mac_filter.n_mixed ||
++           rsp->mac_cnt > 64) {
++               netdev_err(ndp->ndev.dev,
++                          "NCSI: GP mac_cnt %u exceeds allocated size\n",
++                          rsp->mac_cnt);
++               return -EINVAL;
++       }
++
+        /* Modes with explicit enabled indications */
+        if (ntohl(rsp->valid_modes) & 0x1) {
+
+Regards,
+Maholi Tumanggor
+
+--00000000000035f1cf065f20ca18
+Content-Type: text/plain; charset="US-ASCII"; name="ncsi_crash_evidence_20261031_030827.txt"
+Content-Disposition: attachment; 
+	filename="ncsi_crash_evidence_20261031_030827.txt"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mvwa267s1>
+X-Attachment-Id: f_mvwa267s1
+
+WyAgMzE0LjIwNjMwMl0gbmNzaV92YWxpZGF0b3I6IGxvYWRpbmcgb3V0LW9mLXRyZWUgbW9kdWxl
+IHRhaW50cyBrZXJuZWwuClsgIDMxNC4yMDYzMjFdIG5jc2lfdmFsaWRhdG9yOiBtb2R1bGUgdmVy
+aWZpY2F0aW9uIGZhaWxlZDogc2lnbmF0dXJlIGFuZC9vciByZXF1aXJlZCBrZXkgbWlzc2luZyAt
+IHRhaW50aW5nIGtlcm5lbApbICAzMTQuMjA2ODUwXSBOQ1NJLVZBTElEQVRPUjogPT09IE5DU0kg
+VnVsbmVyYWJpbGl0eSBWYWxpZGF0b3IgU1RBUlQgPT09ClsgIDMxNC4yMDY5MzddIE5DU0ktVkFM
+SURBVE9SOiBWVUxOLTE6IGFsb2thc2kgNiBieXRlcywgR1Aga2xhaW0gMTAgTUFDICg2MCBieXRl
+cykKWyAgMzE0LjIxMDU2M10gZGV0ZWN0ZWQgYnVmZmVyIG92ZXJmbG93IGluIG1lbWNweQpbICAz
+MTQuMjEyMDMxXSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0tLS0tLS0KWyAgMzE0LjIx
+MjA0M10ga2VybmVsIEJVRyBhdCBsaWIvc3RyaW5nX2hlbHBlcnMuYzoxMDQ4IQpbICAzMTQuMjEy
+MTE4XSBpbnZhbGlkIG9wY29kZTogMDAwMCBbIzFdIFBSRUVNUFQgU01QIE5PUFRJClsgIDMxNC4y
+MTIxNTldIENQVTogMCBQSUQ6IDE1NTcgQ29tbTogaW5zbW9kIFRhaW50ZWQ6IEcgICAgICAgICAg
+IE9FICAgICAgNi44LjAtMTQ3LWdlbmVyaWMgIzE0Ny1VYnVudHUKWyAgMzE0LjIxMjIxMV0gSGFy
+ZHdhcmUgbmFtZTogaW5ub3RlayBHbWJIIFZpcnR1YWxCb3gvVmlydHVhbEJveCwgQklPUyBWaXJ0
+dWFsQm94IDEyLzAxLzIwMDYKWyAgMzE0LjIxNDIyMF0gUklQOiAwMDEwOmZvcnRpZnlfcGFuaWMr
+MHgxMy8weDIwClsgIDMxNC4yMTU0MjhdIENvZGU6IDAwIDY2IDBmIDFmIDQ0IDAwIDAwIDkwIDkw
+IDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDU1IDQ4IDg5IGZlIDQ4
+IGM3IGM3IGY4IGU4IGFiIDkyIDQ4IDg5IGU1IGU4IDNkIDY4IDkzIGZmIDwwZj4gMGIgOTAgNjYg
+MmUgMGYgMWYgODQgMDAgMDAgMDAgMDAgMDAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAKWyAg
+MzE0LjIxODI5M10gUlNQOiAwMDE4OmZmZmZjOWY5ODA4YWY3OTggRUZMQUdTOiAwMDAxMDI0Ngpb
+ICAzMTQuMjE5NTM1XSBSQVg6IDAwMDAwMDAwMDAwMDAwMjIgUkJYOiBmZmZmZmZmZmMwYzBjMDEw
+IFJDWDogMDAwMDAwMDAwMDAwMDAwMApbICAzMTQuMjIwODI0XSBSRFg6IDAwMDAwMDAwMDAwMDAw
+MDAgUlNJOiAwMDAwMDAwMDAwMDAwMDAwIFJESTogMDAwMDAwMDAwMDAwMDAwMApbICAzMTQuMjIy
+MDExXSBSQlA6IGZmZmZjOWY5ODA4YWY3OTggUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAw
+MDAwMDAwMDAwMDAwMApbICAzMTQuMjIzMTY3XSBSMTA6IDAwMDAwMDAwMDAwMDAwMDAgUjExOiAw
+MDAwMDAwMDAwMDAwMDAwIFIxMjogMDAwMDAwMDAwMDAwMDAwMApbICAzMTQuMjI0NjA2XSBSMTM6
+IDAwMDAwMDAwMDAwMDAwMDAgUjE0OiBmZmZmYzlmOTgwOGFmODEwIFIxNTogZmZmZmZmZmZjMGMw
+ODBjMApbICAzMTQuMjI1ODI2XSBGUzogIDAwMDA3OGQ1YTY0MGYwODAoMDAwMCkgR1M6ZmZmZjg5
+Y2JmZGMwMDAwMCgwMDAwKSBrbmxHUzowMDAwMDAwMDAwMDAwMDAwClsgIDMxNC4yMjcxMjNdIENT
+OiAgMDAxMCBEUzogMDAwMCBFUzogMDAwMCBDUjA6IDAwMDAwMDAwODAwNTAwMzMKWyAgMzE0LjIy
+ODQyN10gQ1IyOiAwMDAwNjM2NTNkMjY3Nzc4IENSMzogMDAwMDAwMDAwNDVhMDAwMCBDUjQ6IDAw
+MDAwMDAwMDAwNTA2ZjAKWyAgMzE0LjIyOTYyMV0gQ2FsbCBUcmFjZToKWyAgMzE0LjIzMTA0MF0g
+IDxUQVNLPgpbICAzMTQuMjMyMjUxXSAgbmNzaV92YWxpZGF0b3JfaW5pdCsweGVmLzB4ZmYwIFtu
+Y3NpX3ZhbGlkYXRvcl0KWyAgMzE0LjIzMzYzOF0gIGRvX29uZV9pbml0Y2FsbCsweDVlLzB4MzQw
+ClsgIDMxNC4yMzUwOTldICBkb19pbml0X21vZHVsZSsweDk3LzB4MjkwClsgIDMxNC4yMzYzMjBd
+ICBsb2FkX21vZHVsZSsweGI1Zi8weGNhMApbICAzMTQuMjM3Njg4XSAgPyBzcnNvX3JldHVybl90
+aHVuaysweDUvMHg1ZgpbICAzMTQuMjM5MzgzXSAgPyBzZWN1cml0eV9rZXJuZWxfcG9zdF9yZWFk
+X2ZpbGUrMHg3NS8weDkwClsgIDMxNC4yNDA5MzhdICBpbml0X21vZHVsZV9mcm9tX2ZpbGUrMHg5
+Ni8weDEwMApbICAzMTQuMjQyMjgwXSAgPyBpbml0X21vZHVsZV9mcm9tX2ZpbGUrMHg5Ni8weDEw
+MApbICAzMTQuMjQzNjQ1XSAgaWRlbXBvdGVudF9pbml0X21vZHVsZSsweDExYy8weDMxMApbICAz
+MTQuMjQ1MDQ3XSAgX194NjRfc3lzX2Zpbml0X21vZHVsZSsweDY0LzB4ZDAKWyAgMzE0LjI0NjIx
+NF0gIHg2NF9zeXNfY2FsbCsweDIwMTkvMHgyNWEwClsgIDMxNC4yNDc2MTBdICBkb19zeXNjYWxs
+XzY0KzB4ODcvMHgxODAKWyAgMzE0LjI0OTIwNV0gID8gc3Jzb19yZXR1cm5fdGh1bmsrMHg1LzB4
+NWYKWyAgMzE0LjI1MDQ5NV0gID8gZXh0NF9sbHNlZWsrMHhjMy8weDEzMApbICAzMTQuMjUxNzk2
+XSAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHg1ZgpbICAzMTQuMjUzMjQ0XSAgPyBrc3lzX2xz
+ZWVrKzB4ODAvMHhkMApbICAzMTQuMjU0NjE2XSAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHg1
+ZgpbICAzMTQuMjU1ODkxXSAgPyBhcmNoX2V4aXRfdG9fdXNlcl9tb2RlX3ByZXBhcmUuaXNyYS4w
+KzB4MWEvMHhlMApbICAzMTQuMjU3MjAxXSAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHg1Zgpb
+ICAzMTQuMjU4NDk2XSAgPyBzeXNjYWxsX2V4aXRfdG9fdXNlcl9tb2RlKzB4NDMvMHgxZTAKWyAg
+MzE0LjI2MDI5N10gID8gc3Jzb19yZXR1cm5fdGh1bmsrMHg1LzB4NWYKWyAgMzE0LjI2MTYxOV0g
+ID8gZG9fc3lzY2FsbF82NCsweDk0LzB4MTgwClsgIDMxNC4yNjI5MDNdICA/IHNyc29fcmV0dXJu
+X3RodW5rKzB4NS8weDVmClsgIDMxNC4yNjQzNzFdICA/IHZmc19yZWFkKzB4Mjc4LzB4M2EwClsg
+IDMxNC4yNjU3NTRdICA/IHNyc29fcmV0dXJuX3RodW5rKzB4NS8weDVmClsgIDMxNC4yNjY5NzRd
+ICA/IGtzeXNfcmVhZCsweDczLzB4MTAwClsgIDMxNC4yNjgxOTldICA/IHNyc29fcmV0dXJuX3Ro
+dW5rKzB4NS8weDVmClsgIDMxNC4yNjk0NDJdICA/IGFyY2hfZXhpdF90b191c2VyX21vZGVfcHJl
+cGFyZS5pc3JhLjArMHgxYS8weGUwClsgIDMxNC4yNzA5OTBdICA/IHNyc29fcmV0dXJuX3RodW5r
+KzB4NS8weDVmClsgIDMxNC4yNzIzMjBdICA/IHN5c2NhbGxfZXhpdF90b191c2VyX21vZGUrMHg0
+My8weDFlMApbICAzMTQuMjczNjUxXSAgPyBzcnNvX3JldHVybl90aHVuaysweDUvMHg1ZgpbICAz
+MTQuMjc1MjczXSAgPyBkb19zeXNjYWxsXzY0KzB4OTQvMHgxODAKWyAgMzE0LjI3NjQ0N10gID8g
+c3Jzb19yZXR1cm5fdGh1bmsrMHg1LzB4NWYKWyAgMzE0LjI3Nzg2Nl0gID8gX19kb19zeXNfbmV3
+ZnN0YXRhdCsweDUzLzB4OTAKWyAgMzE0LjI3OTE0OV0gID8gc3Jzb19yZXR1cm5fdGh1bmsrMHg1
+LzB4NWYKWyAgMzE0LjI4MDYxMF0gID8gYXJjaF9leGl0X3RvX3VzZXJfbW9kZV9wcmVwYXJlLmlz
+cmEuMCsweDFhLzB4ZTAKWyAgMzE0LjI4MTgyOV0gID8gc3Jzb19yZXR1cm5fdGh1bmsrMHg1LzB4
+NWYKWyAgMzE0LjI4Mjk1Nl0gID8gc3lzY2FsbF9leGl0X3RvX3VzZXJfbW9kZSsweDQzLzB4MWUw
+ClsgIDMxNC4yODQzMjddICA/IHNyc29fcmV0dXJuX3RodW5rKzB4NS8weDVmClsgIDMxNC4yODU4
+NzJdICA/IGRvX3N5c2NhbGxfNjQrMHg5NC8weDE4MApbICAzMTQuMjg3MDQwXSAgPyBzcnNvX3Jl
+dHVybl90aHVuaysweDUvMHg1ZgpbICAzMTQuMjg4Mjk2XSAgPyBhcmNoX2V4aXRfdG9fdXNlcl9t
+b2RlX3ByZXBhcmUuaXNyYS4wKzB4MWEvMHhlMApbICAzMTQuMjg5NTUxXSAgPyBzcnNvX3JldHVy
+bl90aHVuaysweDUvMHg1ZgpbICAzMTQuMjkwNjk3XSAgPyBpcnFlbnRyeV9leGl0X3RvX3VzZXJf
+bW9kZSsweDM4LzB4MWUwClsgIDMxNC4yOTE4NjVdICA/IHNyc29fcmV0dXJuX3RodW5rKzB4NS8w
+eDVmClsgIDMxNC4yOTMxMjJdICA/IGlycWVudHJ5X2V4aXQrMHg0My8weDUwClsgIDMxNC4yOTQz
+NTddICA/IHNyc29fcmV0dXJuX3RodW5rKzB4NS8weDVmClsgIDMxNC4yOTYxNTBdICA/IGV4Y19w
+YWdlX2ZhdWx0KzB4OTQvMHgxYjAKWyAgMzE0LjI5NzI5MF0gIGVudHJ5X1NZU0NBTExfNjRfYWZ0
+ZXJfaHdmcmFtZSsweDc4LzB4ODAKWyAgMzE0LjI5ODQ4MV0gUklQOiAwMDMzOjB4NzhkNWE1YjI3
+NTJkClsgIDMxNC4zMDAwMThdIENvZGU6IGZmIGMzIDY2IDJlIDBmIDFmIDg0IDAwIDAwIDAwIDAw
+IDAwIDkwIGYzIDBmIDFlIGZhIDQ4IDg5IGY4IDQ4IDg5IGY3IDQ4IDg5IGQ2IDQ4IDg5IGNhIDRk
+IDg5IGMyIDRkIDg5IGM4IDRjIDhiIDRjIDI0IDA4IDBmIDA1IDw0OD4gM2QgMDEgZjAgZmYgZmYg
+NzMgMDEgYzMgNDggOGIgMGQgYmIgYzggMGQgMDAgZjcgZDggNjQgODkgMDEgNDgKWyAgMzE0LjMw
+NDE4N10gUlNQOiAwMDJiOjAwMDA3ZmZmMWFlMDdmNTggRUZMQUdTOiAwMDAwMDI0NiBPUklHX1JB
+WDogMDAwMDAwMDAwMDAwMDEzOQpbICAzMTQuMzA1NDQ3XSBSQVg6IGZmZmZmZmZmZmZmZmZmZGEg
+UkJYOiAwMDAwNjM2NTNkMjYzNzQwIFJDWDogMDAwMDc4ZDVhNWIyNzUyZApbICAzMTQuMzA2NzAz
+XSBSRFg6IDAwMDAwMDAwMDAwMDAwMDAgUlNJOiAwMDAwNjM2NTFiODAwZTUyIFJESTogMDAwMDAw
+MDAwMDAwMDAwMwpbICAzMTQuMzA3NzUwXSBSQlA6IDAwMDA3ZmZmMWFlMDgwMTAgUjA4OiAwMDAw
+MDAwMDAwMDAwMDQwIFIwOTogMDAwMDYzNjUxYjgwMTBiMApbICAzMTQuMzA4OTk4XSBSMTA6IDAw
+MDA3OGQ1YTVjMDRiMjAgUjExOiAwMDAwMDAwMDAwMDAwMjQ2IFIxMjogMDAwMDYzNjUxYjgwMGU1
+MgpbICAzMTQuMzEwMzc3XSBSMTM6IDAwMDAwMDAwMDAwMDAwMDAgUjE0OiAwMDAwNjM2NTNkMjYz
+NzAwIFIxNTogMDAwMDAwMDAwMDAwMDAwMApbICAzMTQuMzExNTc2XSAgPC9UQVNLPgpbICAzMTQu
+MzEyNzkwXSBNb2R1bGVzIGxpbmtlZCBpbjogbmNzaV92YWxpZGF0b3IoT0UrKSBpbnRlbF9yYXBs
+X21zciBzbmRfaW50ZWw4eDAgc25kX2FjOTdfY29kZWMgYWM5N19idXMgaW50ZWxfcmFwbF9jb21t
+b24gc25kX3BjbSBzbmRfdGltZXIgdm13Z2Z4IGRybV90dG1faGVscGVyIGkyY19waWl4NCBzbmQg
+dHRtIHNvdW5kY29yZSBxcnRyIHZib3hndWVzdCBqb3lkZXYgaW5wdXRfbGVkcyBtYWNfaGlkIHNl
+cmlvX3JhdyBjZmc4MDIxMSBiaW5mbXRfbWlzYyBzY2hfZnFfY29kZWwgZG1fbXVsdGlwYXRoIG1z
+ciBlZmlfcHN0b3JlIG5mbmV0bGluayBkbWlfc3lzZnMgaXBfdGFibGVzIHhfdGFibGVzIGF1dG9m
+czQgYnRyZnMgYmxha2UyYl9nZW5lcmljIHJhaWQxMCByYWlkNDU2IGFzeW5jX3JhaWQ2X3JlY292
+IGFzeW5jX21lbWNweSBhc3luY19wcSBhc3luY194b3IgYXN5bmNfdHggeG9yIHJhaWQ2X3BxIGxp
+YmNyYzMyYyByYWlkMSByYWlkMCBjcmN0MTBkaWZfcGNsbXVsIGNyYzMyX3BjbG11bCBwb2x5dmFs
+X2NsbXVsbmkgaGlkX2dlbmVyaWMgYWhjaSBwb2x5dmFsX2dlbmVyaWMgZ2hhc2hfY2xtdWxuaV9p
+bnRlbCB1c2JoaWQgaGlkIHNoYTI1Nl9zc3NlMyBlMTAwMCB2Z2ExNmZiIGxpYmFoY2kgdmdhc3Rh
+dGUgc2hhMV9zc3NlMyBwc21vdXNlIHBhdGFfYWNwaSB2aWRlbyB3bWkgYWVzbmlfaW50ZWwgY3J5
+cHRvX3NpbWQgY3J5cHRkClsgIDMxNC4zMjE5NTJdIC0tLVsgZW5kIHRyYWNlIDAwMDAwMDAwMDAw
+MDAwMDAgXS0tLQpbICAzMTQuMzIzMzI1XSBSSVA6IDAwMTA6Zm9ydGlmeV9wYW5pYysweDEzLzB4
+MjAKWyAgMzE0LjMyNDg0MF0gQ29kZTogMDAgNjYgMGYgMWYgNDQgMDAgMDAgOTAgOTAgOTAgOTAg
+OTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgOTAgNTUgNDggODkgZmUgNDggYzcgYzcg
+ZjggZTggYWIgOTIgNDggODkgZTUgZTggM2QgNjggOTMgZmYgPDBmPiAwYiA5MCA2NiAyZSAwZiAx
+ZiA4NCAwMCAwMCAwMCAwMCAwMCA5MCA5MCA5MCA5MCA5MCA5MCA5MCA5MCA5MApbICAzMTQuMzI3
+OTgwXSBSU1A6IDAwMTg6ZmZmZmM5Zjk4MDhhZjc5OCBFRkxBR1M6IDAwMDEwMjQ2ClsgIDMxNC4z
+Mjk2NDJdIFJBWDogMDAwMDAwMDAwMDAwMDAyMiBSQlg6IGZmZmZmZmZmYzBjMGMwMTAgUkNYOiAw
+MDAwMDAwMDAwMDAwMDAwClsgIDMxNC4zMzE0MTZdIFJEWDogMDAwMDAwMDAwMDAwMDAwMCBSU0k6
+IDAwMDAwMDAwMDAwMDAwMDAgUkRJOiAwMDAwMDAwMDAwMDAwMDAwClsgIDMxNC4zMzcxNjZdIFJC
+UDogZmZmZmM5Zjk4MDhhZjc5OCBSMDg6IDAwMDAwMDAwMDAwMDAwMDAgUjA5OiAwMDAwMDAwMDAw
+MDAwMDAwClsgIDMxNC4zMzg3MDVdIFIxMDogMDAwMDAwMDAwMDAwMDAwMCBSMTE6IDAwMDAwMDAw
+MDAwMDAwMDAgUjEyOiAwMDAwMDAwMDAwMDAwMDAwClsgIDMxNC4zNDA0MjJdIFIxMzogMDAwMDAw
+MDAwMDAwMDAwMCBSMTQ6IGZmZmZjOWY5ODA4YWY4MTAgUjE1OiBmZmZmZmZmZmMwYzA4MGMwClsg
+IDMxNC4zNDIwNTddIEZTOiAgMDAwMDc4ZDVhNjQwZjA4MCgwMDAwKSBHUzpmZmZmODljYmZkYzAw
+MDAwKDAwMDApIGtubEdTOjAwMDAwMDAwMDAwMDAwMDAKWyAgMzE0LjM0ODA4N10gQ1M6ICAwMDEw
+IERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMwpbICAzMTQuMzQ5ODM3XSBD
+UjI6IDAwMDA2MzY1M2QyNjc3NzggQ1IzOiAwMDAwMDAwMDA0NWEwMDAwIENSNDogMDAwMDAwMDAw
+MDA1MDZmMApbICAzNTYuNjkwMDM3XSB3b3JrcXVldWU6IGRybV9mYl9oZWxwZXJfZGFtYWdlX3dv
+cmsgaG9nZ2VkIENQVSBmb3IgPjEwMDAwdXMgMzIgdGltZXMsIGNvbnNpZGVyIHN3aXRjaGluZyB0
+byBXUV9VTkJPVU5ECg==
+--00000000000035f1cf065f20ca18
+Content-Type: application/octet-stream; 
+	name="0001-ncsi-fix-mac-oob-write-in-gp-handler.patch"
+Content-Disposition: attachment; 
+	filename="0001-ncsi-fix-mac-oob-write-in-gp-handler.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mvwaashm1>
+X-Attachment-Id: f_mvwaashm1
+
+RnJvbSAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBNYWhvbGkgVHVtYW5nZ29yIDxtYWhvbGl0dW1hbmdnb3JAZ21h
+aWwuY29tPgpEYXRlOiBGcmksIDMxIE9jdCAyMDI2IDAwOjAwOjAwICswMDAwClN1YmplY3Q6IFtQ
+QVRDSF0gbmV0L25jc2k6IEZpeCBoZWFwIE9PQiB3cml0ZSBpbiBuY3NpX3JzcF9oYW5kbGVyX2dw
+KCkKCm5jc2lfcnNwX2hhbmRsZXJfZ2MoKSBhbGxvY2F0ZXMgbmMtPm1hY19maWx0ZXIuYWRkcnMg
+YmFzZWQgb24gdGhlCk1BQyBhZGRyZXNzIGNvdW50cyBmcm9tIHRoZSBHQyByZXNwb25zZToKCiAg
+c2l6ZSA9IChyc3AtPnVjX2NudCArIHJzcC0+bWNfY250ICsgcnNwLT5taXhlZF9jbnQpICogRVRI
+X0FMRU47CiAgbmMtPm1hY19maWx0ZXIuYWRkcnMgPSBremFsbG9jKHNpemUsIEdGUF9BVE9NSUMp
+OwoKTGF0ZXIsIG5jc2lfcnNwX2hhbmRsZXJfZ3AoKSBsb29wcyB1c2luZyBtYWNfY250IGZyb20g
+dGhlIEdQIHJlc3BvbnNlCnBhY2tldCB3aXRoIG5vIGJvdW5kcyBjaGVjazoKCiAgZm9yIChpID0g
+MDsgaSA8IHJzcC0+bWFjX2NudDsgaSsrLCBwZGF0YSArPSA2KQogICAgICBtZW1jcHkoJm5jbWYt
+PmFkZHJzW2kgKiBFVEhfQUxFTl0sIHBkYXRhLCBFVEhfQUxFTik7Cgpyc3AtPm1hY19jbnQgaXMg
+YSB1OCByZWFkIGRpcmVjdGx5IGZyb20gYSBuZXR3b3JrIHBhY2tldC4gSWYgdGhlIEdQCnJlc3Bv
+bnNlIGNsYWltcyBhIG1hY19jbnQgbGFyZ2VyIHRoYW4gdGhlIGNvdW50IHVzZWQgaW4gdGhlIEdD
+CnJlc3BvbnNlLCB0aGUgbWVtY3B5KCkgd3JpdGVzIHBhc3QgdGhlIGVuZCBvZiB0aGUgYWxsb2Nh
+dGVkIGJ1ZmZlciwKY2F1c2luZyBhIGhlYXAgb3V0LW9mLWJvdW5kcyB3cml0ZS4KCkFkZGl0aW9u
+YWxseSwgbWFjX2NudCBjYW4gZXhjZWVkIDY0LCBjYXVzaW5nIHNldF9iaXQoKS9jbGVhcl9iaXQo
+KQp0byB3cml0ZSBwYXN0IHRoZSA2NC1iaXQgbmMtPm1hY19maWx0ZXIuYml0bWFwIGZpZWxkLCBh
+bmQgdGhlIHNoaWZ0CmV4cHJlc3Npb24gKDB4MSA8PCBpKSBpcyB1bmRlZmluZWQgYmVoYXZpb3Vy
+IGluIEMgd2hlbiBpID49IDMyLgoKQ29uZmlybWVkIHZpYSBmb3J0aWZ5X3BhbmljKCkgb24ga2Vy
+bmVsIDYuOC4wLTE0Ny1nZW5lcmljCihVYnVudHUgMjQuMDQsIENPTkZJR19GT1JUSUZZX1NPVVJD
+RT15KS4KClJlcG9ydGVkLWJ5OiBNYWhvbGkgVHVtYW5nZ29yIDxtYWhvbGl0dW1hbmdnb3JAZ21h
+aWwuY29tPgpTaWduZWQtb2ZmLWJ5OiBNYWhvbGkgVHVtYW5nZ29yIDxtYWhvbGl0dW1hbmdnb3JA
+Z21haWwuY29tPgotLS0KIG5ldC9uY3NpL25jc2ktcnNwLmMgfCAyMCArKysrKysrKysrKysrKysr
+KysrKwogMSBmaWxlIGNoYW5nZWQsIDIwIGluc2VydGlvbnMoKykKCmRpZmYgLS1naXQgYS9uZXQv
+bmNzaS9uY3NpLXJzcC5jIGIvbmV0L25jc2kvbmNzaS1yc3AuYwppbmRleCB4eHh4eHh4Li54eHh4
+eHh4IDEwMDY0NAotLS0gYS9uZXQvbmNzaS9uY3NpLXJzcC5jCisrKyBiL25ldC9uY3NpL25jc2kt
+cnNwLmMKQEAgLTg1OSw2ICs4NTksMjYgQEAgc3RhdGljIGludCBuY3NpX3JzcF9oYW5kbGVyX2dw
+KHN0cnVjdCBuY3NpX3JlcXVlc3QgKm5yKQogCWlmICghbmMpCiAJCXJldHVybiAtRU5PREVWOwog
+CisJLyogVmFsaWRhdGUgbWFjX2NudCBmcm9tIHRoZSBHUCByZXNwb25zZSBwYWNrZXQgYWdhaW5z
+dCB0aGUgYnVmZmVyCisJICogc2l6ZSBhbGxvY2F0ZWQgaW4gbmNzaV9yc3BfaGFuZGxlcl9nYygp
+IGJhc2VkIG9uIHRoZSBHQyByZXNwb25zZS4KKwkgKgorCSAqIG1hY19jbnQgaXMgYSB1OCByZWFk
+IGZyb20gYSBuZXR3b3JrIHBhY2tldC4gV2l0aG91dCB0aGlzIGNoZWNrLAorCSAqIGEgR1AgcmVz
+cG9uc2Ugd2l0aCBtYWNfY250IGdyZWF0ZXIgdGhhbiBuX3VjK25fbWMrbl9taXhlZCBjYXVzZXMK
+KwkgKiBtZW1jcHkoKSB0byB3cml0ZSBwYXN0IHRoZSBlbmQgb2YgbmMtPm1hY19maWx0ZXIuYWRk
+cnMuCisJICoKKwkgKiBBbHNvIGNhcCBhdCA2NDogc2V0X2JpdCgpL2NsZWFyX2JpdCgpIG9uIHRo
+ZSB1NjQgYml0bWFwIGZpZWxkCisJICogd3JpdGUgb3V0IG9mIGJvdW5kcyB3aGVuIGkgPj0gNjQs
+IGFuZCAoMHgxIDw8IGkpIGlzIHVuZGVmaW5lZAorCSAqIGJlaGF2aW91ciBpbiBDIHdoZW4gaSA+
+PSAzMi4KKwkgKi8KKwlpZiAocnNwLT5tYWNfY250ID4gbmMtPm1hY19maWx0ZXIubl91YyArIG5j
+LT5tYWNfZmlsdGVyLm5fbWMgKworCQkJICAgbmMtPm1hY19maWx0ZXIubl9taXhlZCkgeworCQlu
+ZXRkZXZfZXJyKG5kcC0+bmRldi5kZXYsCisJCQkgICAiTkNTSTogR1AgbWFjX2NudCAoJXUpIGV4
+Y2VlZHMgR0MgYWxsb2NhdGlvbiAiCisJCQkgICAiKCV1IHVjICsgJXUgbWMgKyAldSBtaXhlZClc
+biIsCisJCQkgICByc3AtPm1hY19jbnQsIG5jLT5tYWNfZmlsdGVyLm5fdWMsCisJCQkgICBuYy0+
+bWFjX2ZpbHRlci5uX21jLCBuYy0+bWFjX2ZpbHRlci5uX21peGVkKTsKKwkJcmV0dXJuIC1FSU5W
+QUw7CisJfQorCWlmIChyc3AtPm1hY19jbnQgPiA2NCkgeworCQluZXRkZXZfZXJyKG5kcC0+bmRl
+di5kZXYsCisJCQkgICAiTkNTSTogR1AgbWFjX2NudCAoJXUpIGV4Y2VlZHMgYml0bWFwIHNpemUg
+KDY0KVxuIiwKKwkJCSAgIHJzcC0+bWFjX2NudCk7CisJCXJldHVybiAtRUlOVkFMOworCX0KKwog
+CS8qIE1vZGVzIHdpdGggZXhwbGljaXQgZW5hYmxlZCBpbmRpY2F0aW9ucyAqLwogCWlmIChudG9o
+bChyc3AtPnZhbGlkX21vZGVzKSAmIDB4MSkgewkvKiBCQyBmaWx0ZXIgbW9kZSAqLwotLSAKMi40
+My4wCg==
+--00000000000035f1cf065f20ca18--
