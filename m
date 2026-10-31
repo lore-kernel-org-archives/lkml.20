@@ -1,98 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793437204;
-	b=o+tFPi509dMFn5H149FSerjaCRxVdrxZI2ibII7AYPElluVJdrp72JRGZrIzPrn5GpYV
-	 HczD5DO5oOHNiSQbtTKWRAEiy4z8BmU2+S7E8iYZsaX0EOqXwH5xd2RPARH5KlHrU/l6G
-	 mGCNl22pDsLbXifE1RJJB7jiieIjXbMJvbNhIqF5vQIX8gRvRZ7aMkq4b8URF4nC2vGXN
-	 cNhGS0VZvHJhiEvvA3vC/7NACsXZNi5moVJDSiJyHnbST3FSUxHuPtrKfNMv6oE/Cb5L5
-	 Jt5kGb3FCw+6ODMfumFLi6/wlEvw7xgUuuQyjz2r8n0ve88klxZarKcYsItPJEfA3sw==
+	t=1793437256;
+	b=TDlowBMBtHeCqEECc5cN7txOe6zkfrkdVHxH4jGDu67AYqTSOxgBm2+OYuG8nsgQi7Wg
+	 sLA/08epsvFCtK/XVSPS2SIii759MuPhzoQnE3JmDOHEj6QMaFy0yZsSMxcCW557s4RBg
+	 GzQov1YVb5NySxcTLhi6ai0cSaaH+d6pqKn7xZgAvrJN011ed6RBOIIDdtVucbNdCXqk2
+	 Ev5ar9+5l/hDL7pys2ZUnW1fO4lr/cYcVncp3qK5VnKJsjc1QeWcoat8GrdmlNOhbqZVL
+	 DR82BX91zN5lH5212sGNW+PCDwgvL1zIIcBSuTXL9osaom9JZaj/HUT/FAU7Kyg2UGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793437204;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=+sZ2SGBKL+wA+F9N/uPCteUC32WVd5RJNFGupXt8+xA=;
-	b=qcga/ltfmq0Mx44ZnT/BqF45iwnsrmmTwJbsvT5exKx8LyKvxAAHtCTHfX3dEubSMkLG
-	 JQ13cjMjfQK7Hs8UnJxf8CK0S6yWcl3UWEaaiLu+CSh5elucuZVViK3n+26UATqYyKnys
-	 K4QkJT9oJGGAc/Xa3fu3N3QdffBEqG56RR5pBRJwKky13XXl0f9/2gfHTNHi2GR1Wan2p
-	 0sJcxWhwLGXgWYzKuCjllgKw0v6msJPSRxntMPMFFkapAp9l3fT46OhoXxJS7+X3+2xES
-	 Y0P4fhjdCMqqmlc5FjZiKS6IQ79WvQg6OTdsjadV9qv3mfc1HJbmiGS4B3fwvDdsL3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793437256;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-Spam-Info:
+	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=hEBW3LH4sOgJCtCxVxcQeurZ55QVpzO3dxYT1b7yId4=;
+	b=lhiHAsDErtMY6pXNaz2oLb6QYGy6tdxXyRSTKHxwD0k8rTl0jpNUTs3uwmF/f7JPIHjW
+	 eE+A/+sj3/no3ak64mxJSHOBEYb7AM81qnfNJI3TNjlkyQ6A0itWq1EcYOzQo+CdiP1jI
+	 5slWiJGuRl8qvXTGrQa7nNKmYD5Ns8F5ZFKHGLToImCQ70iEN/2PjZIDZ2D+0QQUlYMj0
+	 ZUrM3xU5MZW/c7+o44+FhAYV4TNXX9R/rHdB7uWJwbUTK+2Dr/e7wwTvJMLiqCeFE4MWf
+	 +Ye9djxJfpwzY2+6JexSAJ5Vgmda3EvNIapNqfTv4EXOQUdZnH2ZvxhMSNWQSgnBJYQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wLC4nbCN;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pTEaXROH;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="LE92xQ/w";
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 570C2606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:00:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 570C2606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D032C606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:00:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D032C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wLC4nbCN
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2ea759cc9b6so7084945ad.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:00:03 -0700 (PDT)
+	dkim=temperror header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=pTEaXROH;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LE92xQ/w
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69V4aHJj2142766
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:00:50 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=hEBW3LH4sOgJCtCxVxcQeurZ
+	55QVpzO3dxYT1b7yId4=; b=pTEaXROHxaEJuVLIa8+QCUI9rfTd001z1ZdX+N7q
+	GsbISwdcTtepdCjg1lb946VR6cl/Ilqpcf+XyN+eIBGgEqcFDCg56brsi7dpLh0K
+	iGnkdiTq1k16T51BJCgUCUKtHQEeaZVtJ/5utoTVSbdNPc0YIkdCyjFwDoWPBCLd
+	76u7QTLCycONR6dWlS4Kbk6ELMMHrm5eSPmNWumt8WTIOvvj9QCpnrZyHDymyXMJ
+	z50wJcNfnJL+zcu+Ui2kCIcNoVHsAtcOUU5JbZYiTsAZiIQkzcyZfsLl+RFYQVBo
+	ueeC5/Dm+/qMssHNYS8J0yWfip6a0X8TUdSxjX3VUar2Bg==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn61fs1we-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:00:49 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-36a223755e4so6006373eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:00:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793437203; x=1794042003; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+sZ2SGBKL+wA+F9N/uPCteUC32WVd5RJNFGupXt8+xA=;
-        b=wLC4nbCNzS5Lc4pkvG+1R0lZT4CKRKMLrcJ3C7eYNgveSM4ha4ySCLJTKQctRIzj3q
-         pp+KACA3l8OqyNhgTlNA24UEH0JkmomtWkd4Zl4Ixyf3DCuwSbqXpFh7REB+uNN94CD8
-         46KwRIDy2yqHlHmQDz5dMvJsa3ZEQTg9YVyEZAMtZuq7b3HYXNBPkKJapl2yfAPeJzSk
-         PCEtVj72AvkpDVsxtj2QQlHPD7e81GEHcBQZuHZcPZeVNplsA3nOOvBxYA5SrJ3vReKK
-         +HkxaLToOyKReO41QPDuKw/FZtH7JVz9Hf0n4+ioOZvwNyiLer2CE5A0Ogt0bwJiG60S
-         RCiw==
+        d=oss.qualcomm.com; s=google; t=1793437249; x=1794042049; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=hEBW3LH4sOgJCtCxVxcQeurZ55QVpzO3dxYT1b7yId4=;
+        b=LE92xQ/w18R1PWG3hE5olTjWIpG9qa2JlaGU39E5BlRmixusUGK/lV+B/l5Xw2qB2U
+         jR/xe+dRZ5tEqxfioR1HLt9VR/nffboe5HIvthkAhJiW92mARQX9xxIQwNzJvA3/YR7H
+         GZd93CL0WlsThiyhAiK//hoyUPHDdzQfmBSZqDIrCwQhosdaDJduGIOtOB5igmNP1I3J
+         yQoepOORu3Yxc76ip3sxiGwzCkvNlb6En19WS74cT9hTK5nG3CIDlhcyit8rVKt4e0pn
+         7vjmck7mvZpBWDNYGrCqZeaz1Mxn2DvDvE5XuW3mpVaW7QmGmw/c0Au7JOZGrf5ZB5eQ
+         0JVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793437203; x=1794042003;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+sZ2SGBKL+wA+F9N/uPCteUC32WVd5RJNFGupXt8+xA=;
-        b=LA7IopcR5FXrnxz0If3l1G2Eklv+J+MwAUxdtvoS6W7MDNx0p6EGzL+c8WBcLRQYes
-         QoL8slwzObgYsblsBYiOS39R0/s9yfz9kXHm9poTlY6WYluJBDg0phLxH0Apyn6lx4AV
-         zmfOU0CjQCnHiXBgatrCT/IR9rdBVEXhxu5FzaUCEB7JT2SodyJgsEyNqatFhlqqwDLu
-         DxMjkumYElIyZb7ATLIC1brjuLXALLLL9VCH88CAVamqzIQ0sLrRrf6Yl8pTIDMCpBgP
-         /hm1Uqkbsbrm/CRa0vwrNQe5xaNdu6rYO0B2fybCgtj9/qzZlN8yPkvNOC7LC+LywhOo
-         oGNg==
-X-Forwarded-Encrypted: i=1; AKwUvBy8Gw4UM4sU2/KBAgmKqQVzkBxNsld1MZZWeWajDMDPuDhT1vtA6MpOuhyTKSJ2vSd+OXD2O+QZqQ9mS7o=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLpK9NB26FWBAs5gG3nbgxwU8k9H1n+0Ds9b2lim1+8mY5/0s6A
-	DARN2QvbX3YuhDFgkXMcn5HFUOAKLXoGumDkNbc5FcQgnJ3JdDuJiqj3
-X-Gm-Gg: AYBFou1K1tGmesbzuviYccUcnCLAfW5xoK8Whdj37h+lQwxqrjljMM3ptfuv/YOrU/B
-	AnQ7yvK0EJ0kI2f9oNWGbOsa5+Q5V8pQ5bcgMldV/K5Yf1GHVA0AzTmAN4OnsOjbkLwbtyi515s
-	FGsG3XhIkfteia3bzQs4ar/8HjYOMNJIcVa13nVLGr80LuDpyX25PE/PzMF6ylZjlHf6PWT46UN
-	4koqP/LOxGKihqcXgBa67dN+pi+AUH+gn87B4BbOV6ZKBhj3PxQgJ3b3n42X1tx4fOcJksFhyFB
-	13AbZn8XIOznNWtasrTNKIMg4PVoK7tkPjsKWSqLkHQBzz2AHri1iyEwaKbvUXD8hIA/VfgOpt4
-	p+Dd50RzbPiA/B42nIG4Z+U0lNTPBjWqJ9QFtTbX4acGya2IAgijsZz+XWzTbUyA6sTdXuiUSod
-	a3zyJS6wth9hQ+i4w8APXxySoUqcci/avKWBCZNlrASdyDY5FQ7zSh2f8J18+uyRsjdRiVuwWsV
-	zx8Vu3yzSMjHGtJ6N0RRaezJjIma4ObZ8hM2dC0UFUow/wlOLYLGlBWbh/G3BUqBXx1aWk/8Hvv
-	lD4YXR5jonGfAdFu8nlFpt0765zX3W9bFRU8txoe29MNLFlnJ4gn/oaUP2h0bsUn2xjUWeSKEJl
-	5ZWF1AgbtyITQmrHX0DhX1nWRjm03MwU6g1O//A4tNqNMTbNAZc5ucymechG1hfKXh8m+0q5gPx
-	QyzaQ0z6NBvci25NVDAifXvmfD
-X-Received: by 2002:a17:902:d548:b0:2e2:d9fe:51fb with SMTP id d9443c01a7336-2eb363ffa94mr46855425ad.4.1793437202530;
-        Sat, 31 Oct 2026 02:00:02 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb392486bbsm13932775ad.30.2026.10.31.01.59.50
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 31 Oct 2026 02:00:01 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Koichiro Den <koichiro.den@canonical.com>,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] gpio: sim: fix the configfs lockup racing with mkdir/rmdir
-Date: Sat, 31 Oct 2026 18:58:21 +1000
-Message-ID: <20261031085821.23385-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261027085653.90471-1-yuz08559@gmail.com>
-References: <20261027085653.90471-1-yuz08559@gmail.com>
+        d=1e100.net; s=20260707; t=1793437249; x=1794042049;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=hEBW3LH4sOgJCtCxVxcQeurZ55QVpzO3dxYT1b7yId4=;
+        b=xMK18dLpaH+SYEphViDMWxL+P6P4FtAYjZAqIHB6Dm3ZFA8+rim9EeeOaphBv56xMv
+         LwwTgzeOwUZMGRJVpgdTie6RudD4lWxfXbZzCnaEfHnWTxT+ihz0KX0ys1RWnP/rVcSC
+         qVOmB0h1PXjPmISmrkCqLIvGrlBK9RH4xDXcF3MActqo2Al2IqufnOVBBoyhhWmKI7H4
+         qRla/XzkqSsUTXplbn/Dk9kxkoqV3bEb34OyfZqXAWBoQrfsLB29jbNwWTCmibHZuxmi
+         PSc4Rqd22prUw5jCU2EjKUo5pXbOnI83JXr+VKb68ZN1y6zbGfWeP8FVo0JjUrBA8WHy
+         KwpA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZb1oZCh+T5B/WSIWwoYkX3GKnKoU5Xg3PM8NZ/ZlPnmBIaJo7Gp9uRCVFKb54PUJ6s0CmGCd530t1HRA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNBwQso5ckzJ36ABh05PpZP8CTjYvdU81HBSB5nU66Esg26xTa
+	41oR/Uqzs6UpSWHAvRzEFTu9sHLae9/ChbWQNJKHK2q+xSY/tflAYdKUWI3d1wKBcWCFktCVF0y
+	DcVMBbnq3qXJx1DHqlDX+tlMTfuKoi6JicESP4rbHly8nvAzhXMnM5sa4Ptyy1CNA90E=
+X-Gm-Gg: AYBFou110TR8/Q8VM4aw4y4aHRIUgYOQD8F2Vb03Ez1gs6EXPhwRsiAeBknDJgqBq7h
+	DNvjwcRsN5cW8ZVdbJBU6ak5n+WVcNXqPKvxOU4Kw24MQ0sYqxLJOI3Bl5JT/DRnk8BmJ2+TdkZ
+	rzN4h7PSX7kTLn0N63RUk6uBoP91GrU92mT4OWKM/I2C/IHUnLraiEVdHY6fwKvi6/F3epAULnG
+	BeypE5FJjZv40CmbSj9LW0+cKkWNDjCTULIurQNhIRhzNAcGzXdUwKQTX+HiYf88PshZC1mQbVZ
+	pwiwbIhqDBrI5dVKKteELXUVal5pV9ULiOYOVXBK0wehjPZZJJqUVO7HF/rgKsm7hxZQZZ5gu+y
+	DCGAUgdG0JwiNEIvmJl9NWUyOwDFDIk3eudSSixJab5VeomQ9AAFDTlVg+hoA6T31YRLIVcWki5
+	AVhXXmDDwGUq4moRE=
+X-Received: by 2002:a05:7300:a945:b0:35d:d9a9:e455 with SMTP id 5a478bee46e88-36a423b3556mr11293412eec.21.1793437249087;
+        Sat, 31 Oct 2026 02:00:49 -0700 (PDT)
+X-Received: by 2002:a05:7300:a945:b0:35d:d9a9:e455 with SMTP id 5a478bee46e88-36a423b3556mr11293357eec.21.1793437248425;
+        Sat, 31 Oct 2026 02:00:48 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428c17bdsm14573186eec.6.2026.10.31.02.00.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 02:00:48 -0700 (PDT)
+Date: Sat, 31 Oct 2026 17:00:42 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
+        Nikunj Kela <quic_nkela@quicinc.com>
+Subject: Re: [PATCH v2 5/7] arm64: dts: qcom: Add device tree for Lemans
+ GearVM variant
+Message-ID: <auWuOmzGjuT9Zjmd@QCOM-aGQu4IUr3Y>
+References: <20261015023711.721837-1-shengchao.guo@oss.qualcomm.com>
+ <20261015023711.721837-6-shengchao.guo@oss.qualcomm.com>
+ <302ff5ea-cd47-4703-8b29-125d5f91ccc2@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,226 +129,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <302ff5ea-cd47-4703-8b29-125d5f91ccc2@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDAzNSBTYWx0ZWRfX0ixv6S+74Jbi
+ ea7eXYW0pWC4N855bBLjyFeRHpYxfwanEZgMbuCR0khEptiQsuRDor/hxuQPue7qFNEK9fShzHd
+ qMC+m5lkS7aBgu6Bc9w3b+5GIEjw1MA=
+X-Authority-Analysis: v=2.4 cv=V/LoQuni c=1 sm=1 tr=0 ts=6ae5ae42 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=ht1BiLNV8k9JpZ-vTNMA:9 a=CjuIK1q_8ugA:10 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: gNMbFcDkNrDlSlrCjkRRVfgLIXKE1W0W
+X-Proofpoint-ORIG-GUID: gNMbFcDkNrDlSlrCjkRRVfgLIXKE1W0W
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDAzNSBTYWx0ZWRfXycQ7c5hOywre
+ CFJ8dROnk9OowQD4oTO0zxPShwn91mUCiTNUIVepQTLSnuIfTWhpr2LN1KPT1mPCJXBA//vhKX2
+ 4ux+8LRsxlroqh9SfV++GDgy+/kU1lu3bnOdXBYvUiLp3W4x6OKPvZeqskPB89HoSOl82obwKW5
+ rZvRONkLHu5OjE0sgVBRVhxd7TbIEDQMQWi4Jry07iCCQaYa5RgaO3l4OD8LXs4Q5YNGyy8vvcg
+ Flua6HhcLMlG6tU4LaFZn8H8ZYTiixRQ1FA3GRW2kbfYSVIt+xUxzASKswjdqgp9c2pUd6eSDCe
+ vgPi4ZGIHk9z5J6gvwoBMfVTA5sY5CAKxfaV843V7qihp55vmIUBC+rZJT5HRUx5BBqPMJRFJi3
+ /MJ5lplmpHwwLeOFeL/3hL3/FFiIcCd7hFDe+mqZwS2n9ACLX9b4b3oDip8mnII1ASozoVsXCl8
+ Ch7QqrjXyC8P9MLrzcQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_02,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
+ phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310035
 
-gpio_sim_device_lockup_configfs() depends (on activation) and undepends
-(on deactivation) the leaf configfs entries of a device. It walks
-dev->bank_list and bank->line_list without dev->lock, while the lists
-are modified and their nodes freed under dev->lock by the configfs
-make/release callbacks. It also walks the lists twice, once to depend
-and once to undepend, and the two walks can see different entries:
+On Tue, Oct 20, 2026 at 02:14:46PM +0200, Konrad Dybcio wrote:
+> On 10/15/26 4:37 AM, Shawn Guo wrote:
+> > Add lemans-gearvm.dtsi for Lemans GearVM variant (SA8255P) that utilizes
+> > firmware to configure platform resources such as clocks, interconnects
+> > and TLMM.
+> > Device drivers request these resources through the SCMI power, reset and
+> > performance protocols.  Assign each device driver a dedicated SCMI
+> > channel and Tx/Rx doorbells to support parallel resource requests and
+> > aggregation in the SCMI platform server.  Operate the SCMI server stack
+> > in an SMP-enabled VM using the Qualcomm SMC/HVC transport driver for
+> > communication.
+> 
+> [...]
+> 
+> > +&firmware {
+> > +	scm {
+> > +		memory-region = <&tz_ffi_mem>;
+> > +	};
+> 
+> SCM should have its own label since it's an existing node
+> 
+> [...]
+> 
+> > +&qupv3_id_0 {
+> > +	compatible = "qcom,sa8255p-geni-se-qup";
+> > +
+> > +	i2c0: i2c@980000 {
+> 
+> Likewise all of these
 
- - A hog created while the device is live is never depended on, but
-   it is undepended on deactivation, hitting
-   BUG_ON(sd->s_dependent_count < 1) in configfs_undepend_item().
-   The following is enough to trigger it:
+Yes, I should have done it like what we did on Nord.
 
-	mkdir $G/dev $G/dev/bank0 $G/dev/bank0/line0
-	echo 1 > $G/dev/live
-	mkdir $G/dev/bank0/line0/hog
-	echo 0 > $G/dev/live
+> 
+> [...]
+> 
+> > +	cma: linux,cma {
+> > +		compatible = "shared-dma-pool";
+> > +		alloc-ranges = <0x0 0x00000000 0x0 0xdfffffff>;
+> > +		reusable;
+> > +		alignment = <0x0 0x400000>;
+> > +		size = <0x0 0x2000000>;
+> > +		linux,cma-default;
+> 
+> What's the nonobvious reason for this?
 
- - An entry that is being created or removed when the device goes live
-   cannot be depended on (the WARN_ON() fires), but it is undepended
-   later, hitting the same BUG_ON(). If it has already been unlinked,
-   configfs_depend_item_unlocked() dereferences its NULL ci_group.
+I will drop it.
 
-Toggling "live" while concurrently creating and removing line and hog
-directories hits the WARN_ON() and then the BUG_ON() within a second.
-
-Hold the configfs subsystem mutex and dev->lock across the whole live
-transition. The subsystem mutex is what configfs holds when it links
-and unlinks entries and when it calls the make_group()/make_item()
-callbacks, which then take dev->lock, so the lock order is the same.
-Record the entries that were actually depended on and undepend exactly
-those. If an entry cannot be depended on because it is being created
-or removed, undo the dependencies already taken and fail with -EBUSY
-instead of warning.
-
-configfs_depend_item_unlocked() and configfs_undepend_item_unlocked()
-only take configfs_dirent_lock for an item of the caller's own
-subsystem, so calling them under these locks is fine.
-
-Fixes: 8bd76b3d3f3a ("gpio: sim: lock up configfs that an instantiated device depends on")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
----
-v3:
- - Count the lines with list_count_nodes() (Bartosz).
-v2: https://lore.kernel.org/all/20261027085653.90471-1-yuz08559@gmail.com/
- - Supersedes v1 "gpio: sim: snapshot configfs leaf items before
-   depending on them". The v1 approach of taking references on the
-   entries and depending on them after dropping dev->lock still raced
-   with mkdir/rmdir, as the sashiko review pointed out, so the fix
-   was redone: hold the subsystem mutex and dev->lock across the whole
-   live transition, record the entries that were depended on and fail
-   with -EBUSY instead of warning.
-v1: https://lore.kernel.org/all/20261026060049.60599-1-yuz08559@gmail.com/
----
- drivers/gpio/gpio-sim.c | 108 +++++++++++++++++++++++++++++++---------
- 1 file changed, 84 insertions(+), 24 deletions(-)
-
-diff --git a/drivers/gpio/gpio-sim.c b/drivers/gpio/gpio-sim.c
-index 0c73bec..abc73bb 100644
---- a/drivers/gpio/gpio-sim.c
-+++ b/drivers/gpio/gpio-sim.c
-@@ -560,6 +560,10 @@ struct gpio_sim_device {
- 	struct mutex lock;
- 
- 	struct list_head bank_list;
-+
-+	/* Leaf entries depended on while the device is live. */
-+	struct config_item **deps;
-+	unsigned int num_deps;
- };
- 
- static struct gpio_sim_device *to_gpio_sim_device(struct config_item *item)
-@@ -974,31 +978,80 @@ static void gpio_sim_device_deactivate(struct gpio_sim_device *dev)
- 	gpio_sim_remove_swnode_recursive(swnode);
- }
- 
--static void
--gpio_sim_device_lockup_configfs(struct gpio_sim_device *dev, bool lock)
-+static void gpio_sim_device_unlock_configfs(struct gpio_sim_device *dev)
-+{
-+	unsigned int i;
-+
-+	lockdep_assert_held(&dev->lock);
-+
-+	for (i = 0; i < dev->num_deps; i++)
-+		configfs_undepend_item_unlocked(dev->deps[i]);
-+
-+	kfree(dev->deps);
-+	dev->deps = NULL;
-+	dev->num_deps = 0;
-+}
-+
-+static int gpio_sim_device_lockup_configfs(struct gpio_sim_device *dev)
- {
- 	struct configfs_subsystem *subsys = dev->group.cg_subsys;
- 	struct gpio_sim_bank *bank;
- 	struct gpio_sim_line *line;
- 	struct config_item *item;
-+	unsigned int num = 0;
-+	int ret;
-+
-+	lockdep_assert_held(&subsys->su_mutex);
-+	lockdep_assert_held(&dev->lock);
- 
- 	/*
- 	 * The device only needs to depend on leaf entries. This is
- 	 * sufficient to lock up all the configfs entries that the
- 	 * instantiated, alive device depends on.
-+	 *
-+	 * dev->lock keeps the bank and line lists stable and the subsystem
-+	 * mutex keeps the entries' ci_group stable. An entry that is still
-+	 * being created or removed cannot be depended on, in which case the
-+	 * device is not brought up. The entries that were actually depended
-+	 * on are recorded, so that exactly those are undepended when the
-+	 * device goes down.
- 	 */
-+	list_for_each_entry(bank, &dev->bank_list, siblings)
-+		num += list_count_nodes(&bank->line_list);
-+
-+	if (!num)
-+		return 0;
-+
-+	dev->deps = kzalloc_objs(*dev->deps, num);
-+	if (!dev->deps)
-+		return -ENOMEM;
-+
- 	list_for_each_entry(bank, &dev->bank_list, siblings) {
- 		list_for_each_entry(line, &bank->line_list, siblings) {
- 			item = line->hog ? &line->hog->item
- 					 : &line->group.cg_item;
- 
--			if (lock)
--				WARN_ON(configfs_depend_item_unlocked(subsys,
--								      item));
--			else
--				configfs_undepend_item_unlocked(item);
-+			/* Already unlinked by a concurrent rmdir(). */
-+			if (!item->ci_group) {
-+				ret = -EBUSY;
-+				goto err_unlock;
-+			}
-+
-+			ret = configfs_depend_item_unlocked(subsys, item);
-+			if (ret) {
-+				ret = -EBUSY;
-+				goto err_unlock;
-+			}
-+
-+			dev->deps[dev->num_deps++] = item;
- 		}
- 	}
-+
-+	return 0;
-+
-+err_unlock:
-+	gpio_sim_device_unlock_configfs(dev);
-+	return ret;
- }
- 
- static ssize_t
-@@ -1013,26 +1066,32 @@ gpio_sim_device_config_live_store(struct config_item *item,
- 	if (ret)
- 		return ret;
- 
--	if (live)
--		gpio_sim_device_lockup_configfs(dev, true);
--
--	scoped_guard(mutex, &dev->lock) {
--		if (live == gpio_sim_device_is_live(dev))
--			ret = -EPERM;
--		else if (live)
--			ret = gpio_sim_device_activate(dev);
--		else
--			gpio_sim_device_deactivate(dev);
--	}
--
- 	/*
--	 * Undepend is required only if device disablement (live == 0)
--	 * succeeds or if device enablement (live == 1) fails.
-+	 * Lock order: subsystem mutex, then dev->lock. This is the same
-+	 * order as in the make_group()/make_item() callbacks.
- 	 */
--	if (live == !!ret)
--		gpio_sim_device_lockup_configfs(dev, false);
-+	guard(mutex)(&dev->group.cg_subsys->su_mutex);
-+	guard(mutex)(&dev->lock);
-+
-+	if (live == gpio_sim_device_is_live(dev))
-+		return -EPERM;
-+
-+	if (live) {
-+		ret = gpio_sim_device_lockup_configfs(dev);
-+		if (ret)
-+			return ret;
- 
--	return ret ?: count;
-+		ret = gpio_sim_device_activate(dev);
-+		if (ret) {
-+			gpio_sim_device_unlock_configfs(dev);
-+			return ret;
-+		}
-+	} else {
-+		gpio_sim_device_deactivate(dev);
-+		gpio_sim_device_unlock_configfs(dev);
-+	}
-+
-+	return count;
- }
- 
- CONFIGFS_ATTR(gpio_sim_device_config_, live);
-@@ -1546,6 +1605,7 @@ static void gpio_sim_device_config_group_release(struct config_item *item)
- 
- 	mutex_destroy(&dev->lock);
- 	ida_free(&gpio_sim_ida, dev->id);
-+	kfree(dev->deps);
- 	kfree(dev);
- }
- 
--- 
-2.43.0
-
+Shawn
