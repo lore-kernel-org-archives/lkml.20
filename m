@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.219
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.221
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793428636;
-	b=TkLG3/TTwGnY4ho+p+6cR69/iX9RXMKRKV4GkrFpCIvhCQWo3hVfQmsTyDiLHYhsdZQo
-	 v0hvrhOpBmtG3IWai+0/Xg/VdFD8iip9OGFzRDwJTE3aHkNxkOkpVQQkU/YQ3tU235ceT
-	 sjPmFZre0SvjZvDmdNdGzPyRRCtDnhInP5db1qnfZ8bH3Tbg0l6I87ee4FRagnQdpOjm3
-	 Dx6wqbDg7KSF/3SCJk3567HFYVO8lGA/ZwCZTOkjh4Tt4AUkbjTMHoBVge2iGqmvrHflT
-	 0RzZJIPrK4xNLYlwzV7LJclGAhpl0ya7M5qaBeatFdxr99bMBm55BRZkmP/h57U0+EA==
+	t=1793428631;
+	b=SnnBu3qRE/hBLEB0Me9JKqyIlOPQUZvVP4JR+JigQlnszBJuoo+gtvy0b0iAlSGVfQ6w
+	 ddHlvj/VOFpoGEE4MlrMlGvWW6r3wYBHSJThvGvgkBqxue5xOczeb3s0G70gqFv7ybRIx
+	 aY2VThL3rbDoD9MjHOLkc+gnwGakJvXBw8sqSdQ2GVbi70WleT5nAiKDdWTwwm/mjeLwf
+	 Lvy0dJ2yw3DHVW0c4Rn9cDePBcICgUPvwV+ZY5WP/oFQYttRtMFbJSQKTDJGduTDAzGWR
+	 Zc7IXaXoXiIqG0y9+4ES7o8C+79HG3FNM7j7tO3Bg7E5LMr/v3YzRY/ifFuw5Y4JIYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793428636;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793428631;
 	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
 	 X-ClientProxiedBy;
-	bh=ZaU92wQOKtZlhr0N7Xv6iaFNmTDPTrxP4sRgQMzCUB4=;
-	b=XizlI1qtkPdLf0jAJ2SjO0k1Rq26PO/K0j0kQi+SfGlMYZpr/pSpyQVIeod76qlZ4SD6
-	 SOzMd00ulM63Y8hNtgyT5XDuv3EYNjG24Ofjitv7seISGAlFXJRNtGkwcrgJtNT8xGE2v
-	 O6ECY++k6tzdjHoSgkYXJtwL3lp6OMyIfvMBcNKQjKTfsDOwERDPM+zBvMOSJA1mMMEsC
-	 L/HcHpIHX6oDsOaCwQJUfp8l/3YPMlJ4SvJBVxakTXzfonPCLEs9hmmOCTwTrW8a3FYkV
-	 2TCypJN7ytTan89PpbDmcgY0RkfebQ99swnf8Sa6Yfya4RigZrW9a0gIJLHwQ6b/heA==
+	bh=LN9bgOGk8oKGPNyAS3E4/iF/kMh5XZyM4j/meiW41yw=;
+	b=J8p4Aur8ThRRGJektHc9PNEnR91qHEASBIWfDG5rVLFMg4EMQg9tbAstkIyO7aDuqhwP
+	 6zvWAma+US5U0GesPAg+j1CeWmPlUEih3Id80QvJOVyUKgLMmDZhYUCE90lTOEH7dYPlf
+	 HvA3iNYe1iCwPIFNqGlgoTsafCWru4G+mHZ8guyQ7nfcxWtHuoGEwaoYHVfLrey5hY1ot
+	 dvgnzbKQQV8B8Cou232Yxa47QQDD8aPtGRnI4xQK0y01i/H6atq4wxzHkOWfOGu07LM9f
+	 cay16roRN2nNPgEZTZJF2d4iMY6dIYP51gVzvlY/AS4yHt5q7VG6JRlrQ/LyH3fDCnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=huawei.com;
 	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=n+6KDBva;
-	arc=none smtp.remote-ip=113.46.200.219
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=w1kNXyUu;
+	arc=none smtp.remote-ip=113.46.200.221
+Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1197606A323
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:37:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A1197606A323
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A93606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2A93606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=n+6KDBva
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=w1kNXyUu
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=ZaU92wQOKtZlhr0N7Xv6iaFNmTDPTrxP4sRgQMzCUB4=;
-	b=n+6KDBvaOE1D85wjEDmglys4+uO1EX4b88F0YY3B7DXsu7A/uIpTOpiNj9fTFV0zILH2zSTsi
-	VO99vX7WwevKPWF1/XxOtWXuWT5FQ3d5SbMNym7+zcKiX5jdywCi+cIyRgNeI42iLLMKB0RxFeD
-	YLLrLWZYtOo7fRbgqhkmNYI=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4jGpCy23ZTz1prRK;
-	Sat, 31 Oct 2026 14:37:02 +0800 (CST)
+	bh=LN9bgOGk8oKGPNyAS3E4/iF/kMh5XZyM4j/meiW41yw=;
+	b=w1kNXyUu7vT46dxuLQmkQ06Ae18ov53hO4j+fuPO74sQTtcIvf0lb+knlumRofp6msdCRyMB4
+	3TKcewRaecOMVfxi9q/boBq2tphD4MEexBqOA/d8uiSGPAyPuAMNM63Z2Xg1IgrVMKQhCfpTZka
+	MTg15Sx/4x8d3Pn3952LrFM=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4jGpCw1W6rzRhQT;
+	Sat, 31 Oct 2026 14:37:00 +0800 (CST)
 Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6A8564056E;
+	by mail.maildlp.com (Postfix) with ESMTPS id 01CC240537;
 	Sat, 31 Oct 2026 14:37:04 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
  (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
@@ -56,12 +56,10 @@ To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
 	<james.morse@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
 	<tan.shaopeng@fujitsu.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v3 1/2] fs/resctrl: Report a temporary RMID shortage per CLOSID
-Date: Sat, 31 Oct 2026 14:36:33 +0800
-Message-ID: <20261031063634.1678345-2-ruanjinjie@huawei.com>
+Subject: [PATCH v3 0/2] fs/resctrl: Fix RMID limbo handling
+Date: Sat, 31 Oct 2026 14:36:32 +0800
+Message-ID: <20261031063634.1678345-1-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261031063634.1678345-1-ruanjinjie@huawei.com>
-References: <20261031063634.1678345-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,75 +74,34 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
  kwepemk200008.china.huawei.com (7.202.194.74)
 
-An RMID that is freed is held in limbo until its cache occupancy drops
-below the threshold, after which it returns to the free list. A request
-that fails because of limbo is thus temporary and worth retrying, which
-resctrl reports to userspace as -EBUSY. A request that fails because
-every RMID is in use is permanent and reported as -ENOSPC.
+Fix resctrl RMID allocation to report a retryable -EBUSY only when the
+target CLOSID actually has RMIDs in limbo, and split the domain-offline
+path out so it releases busy RMIDs without allocating a monitor context
+it never uses.
 
-Where an RMID is only meaningful together with a CLOSID, a request can
-only be satisfied by an RMID belonging to the requested CLOSID, so the
-distinction has to be drawn per CLOSID. Instead it is drawn system wide.
--ENOSPC is reported when the free list holds no RMID for the requested
-CLOSID, even when that CLOSID has RMIDs in limbo. -EBUSY is reported
-when the free list is empty and another CLOSID has an RMID in limbo,
-even when the requested CLOSID has none. Userspace is thus told to give
-up on a shortage that may clear on its own, and to retry one that cannot
-clear until it removes a group itself.
+These two fixes are split out of the v10 Narrow-PARTID series below.
+        https://lore.kernel.org/all/20261020134239.3921377-1-ruanjinjie@huawei.com/
 
-Architectures where the RMID is independent of the CLOSID always match
-the first entry on the free list, so neither case arises there and only
-MPAM systems are affected.
+Changes in v3:
+- Add Reviewed-by.
+- Local varibles uses reverse Christmas tree style.
+- Update the commit message as Reinette suggested.
+- Link to v2: https://lore.kernel.org/all/20261030092144.1233551-1-ruanjinjie@huawei.com/
 
-Draw the distinction from the number of RMIDs the requested CLOSID has
-in limbo where the RMID depends on the CLOSID, and from the system wide
-count otherwise. Drop the separate test for an empty free list, which
-the search handles on its own.
+Changes in v2
+- Update the commit message as Reinette suggested.
+- Link to v1: https://lore.kernel.org/all/20261029081513.924019-1-ruanjinjie@huawei.com/
 
-Fixes: c4c0376eefe1 ("x86/resctrl: Allow RMID allocation to be scoped by CLOSID")
-Reviewed-by: Reinette Chatre <reinette.chatre@intel.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: James Morse <james.morse@arm.com>
-Cc: Reinette Chatre <reinette.chatre@intel.com>
-Cc: Babu Moger <babu.moger@amd.com>
-Cc: <stable@vger.kernel.org> # 7.1.x
----
- fs/resctrl/monitor.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+Jinjie Ruan (2):
+  fs/resctrl: Report a temporary RMID shortage per CLOSID
+  fs/resctrl: Do not allocate a monitor context when releasing limbo
+    RMIDs
 
-diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
-index 73413cb128ea..88674e28b2f8 100644
---- a/fs/resctrl/monitor.c
-+++ b/fs/resctrl/monitor.c
-@@ -207,9 +207,6 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
- 	struct rmid_entry *itr;
- 	u32 itr_idx, cmp_idx;
- 
--	if (list_empty(&rmid_free_lru))
--		return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
--
- 	list_for_each_entry(itr, &rmid_free_lru, list) {
- 		/*
- 		 * Get the index of this free RMID, and the index it would need
-@@ -225,7 +222,17 @@ static struct rmid_entry *resctrl_find_free_rmid(u32 closid)
- 			return itr;
- 	}
- 
--	return ERR_PTR(-ENOSPC);
-+	/*
-+	 * No free RMID matched. If this CLOSID has RMIDs in limbo, return
-+	 * -EBUSY so userspace can retry. Otherwise, the CLOSID is genuinely
-+	 * out of RMIDs. When RMIDs are not per-CLOSID, any RMID in limbo
-+	 * delays the allocation.
-+	 */
-+	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
-+		return closid_num_dirty_rmid[closid] ? ERR_PTR(-EBUSY) :
-+						       ERR_PTR(-ENOSPC);
-+
-+	return rmid_limbo_count ? ERR_PTR(-EBUSY) : ERR_PTR(-ENOSPC);
- }
- 
- /**
+ fs/resctrl/internal.h |  2 +-
+ fs/resctrl/monitor.c  | 87 ++++++++++++++++++++++++++++---------------
+ fs/resctrl/rdtgroup.c |  2 +-
+ 3 files changed, 60 insertions(+), 31 deletions(-)
+
 -- 
 2.34.1
 
