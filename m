@@ -1,78 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=119.15.109.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793417765;
-	b=v7N7Lto6ygQPu2mhwVKLfmGp9M1/5ht8BBlcUh2llzn9mZmJ32yX35jTl6i+gsYW2xov
-	 /qGDMEZmk6mB5ModaJMkSAn3CNJ0rWdsDQP8tWXNR25bILrUeFJcQ0ArpoJhfcRxTyDSX
-	 lMQxh9Q55qPT5eNGpq8V0OSz+BqgZkLGzMhNgFC9OdlE39e/QAa5y+8GkUIvTtustrE9I
-	 ueR9p9hr175ZNXI9YtM7sZX+GCZ6bZsBTKGyzhiOSwd6fR62w/7OQq7CEtJC9B7LCbpsn
-	 g1CY4uUuY1+SKJWQ/FUu3xDLpwL9/JOtbL+2vA9ohCMC02B4Q++dhbdgS+/TMYQPDmA==
+	t=1793417955;
+	b=X+OjTrKcvRMncgcNJTmnXoCvmVivdK4iw8+UinNXiMU8gXZt7Xntr0Vc3IvRu4XSwYYT
+	 iNgGlMvMY1Opb2gdPgoKwn+izO5FBKowsbrmEwdyc5GePD8OGTcRm+nXR9AmiSRY9LmcU
+	 77JKNd2d744yYyuXMAeyJ2ICsJZdJi5/osVwSFtYHkGvM/OT/fd6Nhm5tZEFYvY/VgKdc
+	 6QKJ1aCpdVgaRyhM2DvEVP8NIRYsKOUkGj1SOA56mQoshi1XqRcHKehohqB+1fE9S+bU6
+	 GJnPM5X8mMHkmEghUd0x5118RlwalG6hVjtvZoG6Du2lL8ZptwlXshhIjo6AIbJUHKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793417765;
-	h=DMARC-Filter:Received:DKIM-Signature:X-GPT-Reason:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=4Na50D0QOOyHfeH63Jpl8GSNXR3NkGq1Q86qFqEh1Nc=;
-	b=eoZNCUzy7LyflJWsgpRTc0TLZ6uty0tTH+yb6svncmNpf9renUpX1SSTRJMHtlfBX4da
-	 cNa4IidEHnNBaunvcWiYKydYvvMNgt2M+8s5ZagHVkplRoaEphDSZUISoXmEdZQnnWoj8
-	 oOATetfizSbFRM/yzQebP+bPKzmEKq631QCGRKe7e7kDRuZzub1qlkXh3S1Q3jfN8q7og
-	 fIE0TFlEQa3+YDnFtcuwJuNUNpykXadMQ2SzJegwzXWwZmKPVJsxCvSAXjGssMdtJerUS
-	 QEE162WTfmM41xerJ7XHewREqkrIoJUtWVN1V7asvWam9BL/+fzcGZYtlUUiQ5abieA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793417955;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=L/p52lX/PQbmqaF+6AAwWsvywExDSWVo6NSUa2HEi6k=;
+	b=1z/h9ZMvWV9AuoXZRl7T1i4rLFvjUADdXAMWnU/2tJKlTz/7HOEvmi4gNwQNVjhtm5Bu
+	 LyMColum03v94ihUNHwPM+H09LWkB+idc8qMB6nhNuR5zHJsarri7cRzheXP8nE2fQRv7
+	 14Z9h3bQ2gZUyE4sfvdoxy5N+VFUTE4ofuXlsG5LyZqP5viFVHLXneeVc6VdJBOnZuVjq
+	 gMi2L0Gfvf2S9+Z5CXgFWXMjbQaOE8Ma2FOqRh+ejWisuKecdW8FTdR6eDvriuCwpliBG
+	 llYQtILRHW9Vuc3KsQ8rdG9MSmGHdebRqnRzsgdO89Sd/Kg3Nv4Ar1iBTmr0LMpX5ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=d-silva.org;
-	spf=pass smtp.mailfrom=d-silva.org;
-	dkim=pass header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=k7Wl3rFF;
-	arc=none smtp.remote-ip=119.15.109.137
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90998606A31D;
-	Sat, 31 Oct 2026 03:36:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90998606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=tTGi52ye;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF652606A31A;
+	Sat, 31 Oct 2026 03:39:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF652606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=k7Wl3rFF
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 656CC41404;
-	Sat, 31 Oct 2026 14:35:56 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1793417756;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=4Na50D0QOOyHfeH63Jpl8GSNXR3NkGq1Q86qFqEh1Nc=;
-	b=k7Wl3rFFfZxN3NeXM6E2en27tCzGA+C7b5ZmEpgT2chsCqVAcWtrIx+GwasEkKzjLnL0pi
-	VUVPo72KEsuQN1G3M23yZ5uQzUxkxMPCC6Lw7fy3aklQiS0jBpJbb7/fnzPzMOrdRhYYPg
-	NFPIzgcQCCYeTkgmvQexevTwYjiBI5RpTR8GewfWvNtrSXnJ8nkJwhNhUExGuT2ArpKQAT
-	fHP78GFBjzLGWE6ik3UlNBIqEJIeLFFxrqaS+Ry9gaM/94qgi/UigG5fCCRxm5it225rCn
-	yNKX6OMTv37YWMvX9HmyHB4VIaKZ775triXbqJlnNvpu+xc6F8NHUB1M0rKqMA==
-X-GPT-Reason: This email is classified as legitimate. It is a
-	technical software patch submission (Linux kernel style) sent
-	from a personal/professional domain (alastair@d-silva.org) that
-	matches the "Signed-off-by" signature and the "From" header. The
-	content is a specific refactoring of a Wi-Fi driver (rtw88) involving
-	architectural differences between 8051 and 3081, and it contains
-	no marketing, urgency, or suspicious links. The message follows
-	standard open-source contribution patterns with clear technical
-	details and acknowledgments from real-world entities like Realtek.
-From: Alastair D'Silva <alastair@d-silva.org>
-To: linux-wireless@vger.kernel.org,
-	Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH rtw-next v7 4/4] wifi: rtw88: sdio: Split rtw_sdio_rx_isr into 8051 and 3081 variants
-Date: Sat, 31 Oct 2026 14:35:26 +1100
-Message-ID: <20261031033526.474710-5-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031033526.474710-1-alastair@d-silva.org>
-References: <20261031033526.474710-1-alastair@d-silva.org>
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=tTGi52ye
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=L/p52lX/PQbmqaF+6AAwW
+	svywExDSWVo6NSUa2HEi6k=; b=tTGi52yeRdJHnXpEhsMl2EELPHe33eaAjfN5R
+	CF/X1BUQpCwqY5KnC/BQWuV0k6llDEOzBngApUQOQDkrp7cn2KTzEEMmyyPmkr6I
+	5t5j38qk5+oX7ScF7KYXJzNzGyFy6Xv7SpgIYvZ7amfJmny1CViW7n7ZdygS6ar8
+	JPPuhs=
+Received: from [127.0.1.1] (unknown [114.214.177.113])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnIDXUYuVq_+lsAA--.3682S2;
+	Sat, 31 Oct 2026 11:39:01 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] regulator: dt-bindings: willsemi,wl2868c: add the
+ WL2868C camera PMIC
+Date: Sat, 31 Oct 2026 11:39:00 +0800
+Message-ID: <179341794086.262379.12925109262126624772@mail.ustc.edu.cn>
+In-Reply-To: <20261029-amiable-loutish-wolf-60a76a@quoll>
+References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261029-amiable-loutish-wolf-60a76a@quoll>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,121 +65,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgCnIDXUYuVq_+lsAA--.3682S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCrWUXw15tF4rZr17Ary8Grg_yoW5GFWfpF
+	Z0gFy8trs7KFy8C34kX3W8Za4Ivws3G3y5Za45Gr45Zan8CaySyr4ftr45ZrW7WryrGa1a
+	yrnFgrnxCF1vqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv0b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkI
+	ecxEwVAFwVW8GwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
+	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
+	ZB_UUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAasY
 
-Split rtw_sdio_rx_isr() into separate 8051 and 3081 variants to be
-clear. The two differences between the architectures are:
-- Register size: REG_SDIO_RX0_REQ_LEN is 16-bit on 8051, 32-bit on 3081.
-- HISR behavior: 8051 re-reads REG_SDIO_HISR on each iteration, while
-  3081 drains based on rx_len without re-reading HISR.
+Hi Krzysztof,
 
-This is a refactoring without any logic changes.
+one thing about the earlier replies before the technical part.  I am the
+author of this series, but I work on this board alone and my English is
+not good enough to write upstream mail unaided, so I draft with an AI
+assistant and edit it myself; the content, measurements and decisions are
+mine.  You were right that the earlier replies read like generated text.
 
-Assisted-by: LLM
-Acked-by: Ping-Ke Shih <pkshih@realtek.com>
-Reviewed-by: Luka Gejak <luka.gejak@linux.dev>
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
----
- drivers/net/wireless/realtek/rtw88/sdio.c | 58 +++++++++++++----------
- 1 file changed, 33 insertions(+), 25 deletions(-)
+1) "Looks like broken patch. Please use git or b4 to generate patches."
+   The fault was in the commit message, not the diff: I had typed a
+   diffstat into the body, so the mail carried two.  Since v2 the patches
+   are real commits on pristine v7.3-rc7, exported with git format-patch.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index 75a5f5a96169..352ebb380a3e 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1441,17 +1441,13 @@ static int rtw_sdio_rxfifo_recv(struct rtw_dev *rtwdev, u32 rx_len)
- 	return 0;
- }
- 
--static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
-+static void rtw_sdio_rx_isr_8051(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes = 0;
- 	int ret;
- 
- 	do {
--		if (rtw_chip_wcpu_8051(rtwdev))
--			rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
--		else
--			rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
--
-+		rx_len = rtw_read16(rtwdev, REG_SDIO_RX0_REQ_LEN);
- 		if (!rx_len)
- 			break;
- 
-@@ -1461,33 +1457,45 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 
- 		total_rx_bytes += rx_len;
- 
--		if (rtw_chip_wcpu_8051(rtwdev)) {
--			/* Stop if no more RX requests are pending, even if
--			 * rx_len could be greater than zero in the next
--			 * iteration. This is needed because the RX buffer may
--			 * already contain data while either HW or FW are not
--			 * done filling that buffer yet. Still reading the
--			 * buffer can result in packets where
--			 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
--			 * end of the buffer.
--			 */
--			hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
--		} else {
--			/* RTW_WCPU_3081 chips have improved hardware or
--			 * firmware and can use rx_len unconditionally.
--			 */
--			hisr = REG_SDIO_HISR_RX_REQUEST;
--		}
-+		/*
-+		 * Stop if no more RX requests are pending, even if
-+		 * rx_len could be greater than zero in the next
-+		 * iteration. This is needed because the RX buffer may
-+		 * already contain data while either HW or FW are not
-+		 * done filling that buffer yet. Still reading the
-+		 * buffer can result in packets where
-+		 * rtw_rx_pkt_stat.pkt_len is zero or points beyond the
-+		 * end of the buffer.
-+		 */
-+		hisr = rtw_read32(rtwdev, REG_SDIO_HISR);
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
- }
- 
-+static void rtw_sdio_rx_isr_3081(struct rtw_dev *rtwdev)
-+{
-+	u32 rx_len, total_rx_bytes = 0;
-+	int ret;
-+
-+	do {
-+		rx_len = rtw_read32(rtwdev, REG_SDIO_RX0_REQ_LEN);
-+		if (!rx_len)
-+			break;
-+
-+		ret = rtw_sdio_rxfifo_recv(rtwdev, rx_len);
-+		if (ret)
-+			break;
-+
-+		total_rx_bytes += rx_len;
-+	} while (total_rx_bytes < SZ_64K);
-+}
-+
- static void rtw_sdio_handle_interrupt_8051(struct rtw_dev *rtwdev, u32 hisr)
- {
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
- 		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_8051(rtwdev);
- 	}
- 
- 	/*
-@@ -1517,7 +1525,7 @@ static void rtw_sdio_handle_interrupt_3081(struct rtw_dev *rtwdev, u32 hisr)
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST)
--		rtw_sdio_rx_isr(rtwdev);
-+		rtw_sdio_rx_isr_3081(rtwdev);
- 
- 	/*
- 	 * Unmasking HIMR re-asserts the IRQ line if new packets arrived or if
--- 
-2.53.0
+2) "where is any user of this? Why do we want this binding?"
+   The users are in patch 3/3, the board DTS for the Lenovo Legion Tab
+   (TB322FC, SM8750): eight "*-supply = <&camera_ldoN>" references, rear
+   s5kjns dvdd/dovdd/avdd = ldo1/ldo7/ldo4, front gc08a8 = ldo2/ldo7/ldo3,
+   rear gt9764 VCM vdd/vddio = ldo5/ldo7.  LDO7 feeds three, LDO5 one,
+   LDO1 to LDO4 one each; LDO6 is not wired out.  These are the camera
+   subsystem's own rails, without them the sensors cannot be described, and
+   they match the vendor DTS.  You saw no users because I sent the binding
+   alone; v3 sends the three together.
+
+3) "That's LLM output. Why do you paste it?", and your longer comment that
+   the reply was generated text.
+   Those points are fixed in v3: MAINTAINERS reads "WILLSEMI WL2868C CAMERA
+   PMIC" (no driver claim), sorted between WIIMOTE and WILOCITY, and
+   linux-media is dropped from its list.
+
+4) "Please respond to comments from previous version."  Done here and in
+   the v3 cover letter, together with Mark's v1 comments.
+
+5) "I still see no users of this binding."  See 2).  If you would rather
+   review the users first, say so and I will reorder the series.
+
+Measured on v7.3-rc7, rebuilt from the patch files alone: checkpatch
+--strict 0 errors in all three (3/3 has 5 warnings: the three sensor/lens
+compatibles below, one MAINTAINERS false positive, one "DT binding docs
+should be a separate patch" for a qcom.yaml line); dt-doc-validate and
+dt-check-style rc=0; the board DTB builds rc=0 with no DTC errors (v2 died
+with 15 phandle errors from the missing clocks), the only remaining dtc
+warnings being pre-existing in sm8750.dtsi; dt-validate on it rc=0, 7 lines
+left, all missing s5kjns / gc08a8 / gt9764 bindings; driver W=1 clean.
+
+Gaps I know of: vin12/vin34/vin5..7-supply are not wired in the board DTS
+yet, so the driver falls back to dummy supplies; enable_time and
+max_register come from the vendor driver only; nothing is measured on
+hardware beyond boot.
+
+Thanks for reading.
+Qianhui Xu
 
