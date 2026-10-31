@@ -1,57 +1,119 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793473790;
-	b=HabjO9x5+8ulz65pLli0g8aqHYW687E2llJq5fcgP1LXpSngXGP7ozw3htXgg28MGUuO
-	 4hYlb+pspkBNhzLkPFamxYW1uj+UJYmbIyEJj9IXNtMSCuexBwSCMI7lSveDNZZcrv1m4
-	 1GiACdKj58h6HXirkWJibGnxoi6NcyVKxqPu3sOYf7mC7bTzssHzClaBqQ0uBPhPSWytT
-	 mdRWn4YQEDDBIWG+qrylXBEndLuRqnj6CFiPzhQixWIXW1796HQM1gRA6hMTZG7drCFyZ
-	 98blSLNCugMXVf5YqxSkNZVGWy7QSBdxNyeEWuVFOM88+jrRIWJgxF0l3FTBQjdG9KQ==
+	t=1793473826;
+	b=HFY1Qj8oOQblH5f9EibDzs38uH1YtZemvWyTQ76ck+0nZMHdFffxzaa9i06Qh5IPBZnT
+	 m6WSgTbzefTQQUWPF+/vuW+OW0Mlf59dZTri+sGVbJdGNmGzP2u5wdyxMUi/nZ7kIgQZ1
+	 YoRdNoTWREgU+c2i83kICnainSpWPfSGhheTEjIajC5OWQxGQpdnuahtHUL9SNiKj9D3p
+	 W8qEQNadbxqXPN2RTYEsXP2Se35PrMbhNqJrMqApDxiaXJsxf4cq6YErITkjEPzkiVjqF
+	 O0q2NY7hc+cHU5T/zfgZz2GEp3ilIcNbjZgLMVxtHW9R8YJ93umNAVj66XLWj7cm4Lg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793473790;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=b+Qh5Uwalfg4+sQsbYwohX2NOBHbbc/nf2ild3+ohzI=;
-	b=wIPu/tDt0icu52GfUFwuhzI3ClU5hIAr4jXcPa6eAvtQecVLxB5XEoYz1vC2YYSvZ0Ya
-	 irFgFQl/mTCG4uSzVUJV6/dfot56ZWIWUW5lzFpXxtLH98Cv3Xpccs/T0k6pz2mhMUWFE
-	 JN7CxU8j+oPgrn+1pcc5A0HfIb9b8TAaOI06nDmO/6JelpFOGOE9Vl2/Dmm4Ci01e4rLn
-	 GaDbLBhZlENZZGJ+qXqCk3i6EmFcSLLhpg38gr6kXC5V9G72pFAXRSCo4/4XnCZzUC89A
-	 Qlh5FZiTrSvo0r0sH/DcKHotqhv/G2FsbAjT3xLFyNxX59RSjJ6dG6ZEv2ebjgwlAwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793473826;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=P15p9Hb5w1tBvsdlJFg638wJNRLHIyW6DyqlyUCSHFc=;
+	b=Cg8FGas1Pc2/ZDHxywVczmOBH7iO9jrKsyVEMrPo8jozsG6XF5YE92g5Gnd/18evJw86
+	 O7aJzRigVK19BRCMgB7wmMCRFKQGiR1SoSD0EnJ/k91YARrC+w8dBwqCC1iE1fnWTGvey
+	 ZGCk5iGYAg+G6uuyVk6niT8C7cvkTn5121AtMjtjOGirgrQ+mTLu/ZyQG6Gno2HyurtTN
+	 Tq+pwsUbdtjf9b8mRlNLdOrh/X9SW8ExQjlcwjl1pbL1IZkZkvZIXRDHAgjnpR1VYU0jt
+	 FH1uL4YgF7EYzkAH6ZASIJSych0gMZgFhE1voU2e3GGv7TFQ7AyHNjUx6BzPd0q83xg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8605F606A31A;
-	Sat, 31 Oct 2026 19:09:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8605F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+	dmarc=pass header.from=nexthop.ai;
+	spf=pass smtp.mailfrom=nexthop.ai;
+	dkim=pass header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=M0iRGKX4;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3AF6606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:10:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3AF6606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nexthop.ai
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nexthop.ai header.i=@nexthop.ai header.a=rsa-sha256 header.s=google header.b=M0iRGKX4
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-353804b591eso2919071eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:10:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=b+Qh5Uwalfg4+sQsbYwohX2NOBHbbc/nf2
-	ild3+ohzI=; b=OZLx7He7D9sWFx/jS8d1BqhnntFDHg2vzEGnO6cw6aH1sTzqFR
-	S9/jwtY31X0kzr9yWPE6Li7aVpcL6dJ8+IP3MA38LtYakBiocNxz+ZilyQS/5Cq8
-	/42lp5DfmgmF7GvVxUUqSlKYoP38by4Lq5Fi+JF82KQkOjO4Wp9I7MKgM=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.19])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkCm6v_xPOZquI0SAQ--.42611S2;
-	Sun, 01 Nov 2026 03:09:38 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.de>
-Cc: Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ALSA: bcd2000: Fix use-after-free of MIDI URBs on file close
-Date: Sun,  1 Nov 2026 03:09:36 +0800
-Message-Id: <20261031190936.5696-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <874ie1rbge.wl-tiwai@suse.de>
-References: <874ie1rbge.wl-tiwai@suse.de>
+        d=nexthop.ai; s=google; t=1793473825; x=1794078625; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=P15p9Hb5w1tBvsdlJFg638wJNRLHIyW6DyqlyUCSHFc=;
+        b=M0iRGKX4ZakyHPXgwlWKQuWrbvUmrEt1k4+8j+Da6Dso/Dh7GSCRhGjVKtDYwfzJrj
+         2HEAllh00C24MUCD82TGUaZz4bWnjiMTRhAzuWXvWqNUwh9NIMyFAIxSoJmQ4tgmhnAF
+         F245HULIR/4UBpfnm4XNgJVWo0HiMpt1bXAuHbkJDG9vLis8pelTxr1WpUiwasUmrW+0
+         9tOkzQntOI0UA8bT96YYn1nh7WxQBJCWb1rCljfbu4Ofk4oPQ7yUkax5ncCroyqti4PR
+         O+aX72UPS59IWB8w+y+J4RXBJLyCiSRq72tVighCAw7INgBmnyi41FWHKGgDOpB397rH
+         f/EA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793473825; x=1794078625;
+        h=content-transfer-encoding:mime-version:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=P15p9Hb5w1tBvsdlJFg638wJNRLHIyW6DyqlyUCSHFc=;
+        b=EqTfMkNr2VRy2WNRbpQ6s7SP+8FFABJfDO/3n8yjBnTP6BQx9KTsjEscsW9OcHAhgC
+         HH6RwSoZ7LvlgMqSc6Ne8xhPqB4LPFdOhIJA+C5qC5N1u7wb2DT9By9N/llHXC2XHElv
+         B92Cl3W3ROEzGrA53eTdhPKZG1Y50zbwfSZe58sAnJkfaGvDebIJti3w7LsmMNRCDhmb
+         LzxldkrhyzxDg912/4jbYxLIKlPJK54i7hGhOxk8nUWOO3fzqJ3Jhl/CssZScg7RrEd7
+         bO1MnHMngi136c3eSTa4aRk5OG2Kt0m7PjkL7n/tVLWjN4lfIAwKlmak5ShzJl6vUNJf
+         gz+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzkiIb2NrjcjdvWHTB0PcLeUX7oui8MkzNiSjLhXcn4Tlx5Z6ULIm8+cq6ngXsiyXrTGYgp4oELTIgwHb4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaGuBY/X5XwGRu2l5hYAuHHW+VonvvvSQDeQ11n8a91UhdNXTD
+	3A9dSpMfV4s0zItHHL4l9Sk6EK9ayzC3T69wCvT8mQzkTpJi5aRriYY97HBoQV9w0d4=
+X-Gm-Gg: AYBFou0u2SLB0dmQgdvsDxFOSytG2Tgi9ZXS2jniHW/ZZoFeSgcZx2w48cIICv2ubyr
+	kPWXNylA9Oq90EQB+76MhkFjmhDW9LNrsVqBaWrjT4MSdDtsyR4bT4oJqsCzjx3jGF6Q8kkqLcr
+	XTYYewbWUy/Ew2H5U/RPRgD+JGlQqrWctPkzcM27ivMIVxAKbj6yToboITan0UoLd/5J1kyD2cK
+	ji804BZlCFqHhn1kicqspq7EUUpJXe5adb/QTkCEry3u2mcfsuDIszKnFmZNnkXMHIiVcppdFxK
+	O8+xIDgPAo3ehizouTK2K6D+2koUup75Q1C9fZ/CgXzppFwJFub676ulgWRmLtKATsigOrVSVc6
+	gIUEKiMQF+3EGcMIP7mxtQy/amKxlQw4+T7uEtuqNwW6tn9G83Jt6pr0cL4XRAEVNKhVeTp1oSC
+	0DqiG4NlV/jCEeYIypWQYh5l9lFJFpbeRt4Fhi0/qgNGbpmtwBJzOZFCocg5IfMJMcjIpKG+zN4
+	z2z4Sz6oUSzPJI2KWQUaFQggDe6+52yPimDEoy/HmmrPTEguJD9rM/85ZQol+k9MAxWp7/G8i4A
+	nPEmFV5e2Mg6fzGzj+5ygid8dvdBrp3ZI8DvwjgumMQrOKSe4SA=
+X-Received: by 2002:a05:701b:4515:20b0:166:5552:780a with SMTP id a92af1059eb24-1ac5b028b11mr7948547c88.8.1793473824427;
+        Sat, 31 Oct 2026 12:10:24 -0700 (PDT)
+Received: from localhost ([50.145.100.174])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b38ac58sm17384804c88.23.2026.10.31.12.10.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 12:10:23 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 31 Oct 2026 12:10:22 -0700
+Message-Id: <DMJ9ERWOMF5G.3KVDIP2QE3A7J@nexthop.ai>
+Cc: "Richard Cheng" <icheng@nvidia.com>, "Andrew Lunn" <andrew@lunn.ch>,
+ "Rob Herring" <robh@kernel.org>, "Saravana Kannan" <saravanak@kernel.org>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "Danilo Krummrich" <dakr@kernel.org>, "Bjorn Helgaas"
+ <bhelgaas@google.com>, "Charles Keepax" <ckeepax@opensource.cirrus.com>,
+ "Richard Fitzgerald" <rf@opensource.cirrus.com>, "David Rhodes"
+ <david.rhodes@cirrus.com>, "Linus Walleij" <linusw@kernel.org>, "Andy
+ Shevchenko" <andriy.shevchenko@linux.intel.com>, "Daniel Scally"
+ <djrscally@gmail.com>, "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
+ "Sakari Ailus" <sakari.ailus@linux.intel.com>, "Bartosz Golaszewski"
+ <brgl@kernel.org>, "Len Brown" <lenb@kernel.org>, "Davidlohr Bueso"
+ <dave@stgolabs.net>, "Jonathan Cameron" <jic23@kernel.org>, "Dave Jiang"
+ <dave.jiang@intel.com>, "Alison Schofield" <alison.schofield@intel.com>,
+ "Vishal Verma" <vishal.l.verma@intel.com>, "Dan Williams"
+ <djbw@kernel.org>, "Ira Weiny" <iweiny@kernel.org>, "Li Ming"
+ <ming.li@zohomail.com>, "Lizhi Hou" <lizhi.hou@amd.com>,
+ <driver-core@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+ <linux-pci@vger.kernel.org>, <linux-sound@vger.kernel.org>,
+ <patches@opensource.cirrus.com>, <linux-gpio@vger.kernel.org>,
+ <linux-acpi@vger.kernel.org>, <linux-cxl@vger.kernel.org>, "Allan Nielsen"
+ <allan.nielsen@microchip.com>, "Horatiu Vultur"
+ <horatiu.vultur@microchip.com>, "Daniel Machon"
+ <daniel.machon@microchip.com>, "Steen Hegelund"
+ <steen.hegelund@microchip.com>, "Luca Ceresoli"
+ <luca.ceresoli@bootlin.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>
+Subject: Re: [PATCH v13 00/10] lan966x pci device: Add support for SFPs, PCI
+ part
+From: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
+To: "Herve Codina" <herve.codina@bootlin.com>
+In-Reply-To: <20261012142826.159178-1-herve.codina@bootlin.com>
+References: <20261012142826.159178-1-herve.codina@bootlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,97 +124,33 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkCm6v_xPOZquI0SAQ--.42611S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxZw1kCr13tFyxWF43Ww45KFg_yoW5Ar1kpF
-	W8Kr4Yyr1DGrn09FySyF1kCF1Fy3Wxta4DKryrW34YyFyrXw13tay0kF15ursxCryfG390
-	vF1ktFWfGFs8Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6rWl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUyfb8UUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUDD2rmBsIaGwAAsC
 
-bcd2000_disconnect() calls snd_card_disconnect(), which only prevents
-new opens, and then frees the MIDI URBs.  A rawmidi file that was
-already open can still be closed afterwards, and its close callback,
-bcd2000_midi_output_close(), calls usb_kill_urb() on midi_out_urb.
+Hi Herve,
 
-The URB pointers are cleared on disconnect and their accesses are
-serialized with midi_lock, but bcd2000_midi_output_close() reads
-midi_out_urb without that lock.  The check can therefore pass just
-before the pointer is cleared, and usb_kill_urb() then runs on the URB
-that has already been freed:
+On Mon, Oct 12, 2026 at 04:28:14PM +0200, Herve Codina wrote:
+> Patches 8 and 9 fix fw_devlink issues specific to PCI and the
+> device-tree nodes created during enumeration.
 
-  BUG: KASAN: slab-use-after-free in usb_kill_urb+0x74/0x80
-  Read of size 8 at addr ffff8880078e7d40
-   usb_kill_urb
-   bcd2000_midi_output_close
-   close_substream
-   rawmidi_release_priv
-   snd_rawmidi_release
+We hit exactly this on x86 switch platforms with
+CONFIG_PCI_DYNAMIC_OF_NODES. A driver applies a device-tree overlay
+onto each Xilinx FPGA PCI endpoint and populates I2C controllers
+(xiic), watchdogs and GPIO blocks. Their interrupts go through small
+chained irqchips that are themselves fed by the FPGA's MSI vectors.
 
-  Allocated by: usb_alloc_urb <- bcd2000_init_midi <- bcd2000_probe
-  Freed by:     usb_free_urb <- bcd2000_midi_free
-                <- bcd2000_disconnect
+Without this series, fw_devlink drops every supplier link under the
+synthesized PCI root bridge node ("Not linking ... might never become
+dev"), so the irqchips end up with no consumers. Unbinding one of them
+frees IRQ descriptors that the I2C controllers and the watchdog still
+hold. We get a remove_proc_entry "removing non-empty directory 'irq/N'"
+WARNING per IRQ, and the I2C controllers are dead until reboot.
 
-Take the lock in bcd2000_midi_output_close() and reference the URB with
-usb_get_urb() before releasing it.  The URB then stays valid until
-usb_put_urb() after usb_kill_urb() has returned, even if a disconnect
-frees it in the meantime.  usb_kill_urb() itself cannot run under
-midi_lock, as the completion handler takes the same lock.
+With the series applied on v7.3, the device links are created (up to
+32 consumers per irqchip), and unbinding an irqchip now unbinds its
+consumers first. I tested on two platforms, with 2 and 3 FPGAs (4 and
+7 irqchips). Repeated unload/reload of the irqchip driver was clean
+every time, and everything probed again afterwards.
 
-Fixes: b47a22290d58 ("ALSA: MIDI driver for Behringer BCD2000 USB device")
-Cc: stable@vger.kernel.org
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-v3: reference the URB under midi_lock in bcd2000_midi_output_close()
-    instead of waiting for open files in bcd2000_disconnect(), which
-    would block the USB disconnect path on userspace.
+Tested-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
 
- sound/usb/bcd2000/bcd2000.c | 20 +++++++++++++++++---
- 1 file changed, 17 insertions(+), 3 deletions(-)
-
-diff --git a/sound/usb/bcd2000/bcd2000.c b/sound/usb/bcd2000/bcd2000.c
-index 2bd49bf82748..0fd086cac955 100644
---- a/sound/usb/bcd2000/bcd2000.c
-+++ b/sound/usb/bcd2000/bcd2000.c
-@@ -183,10 +183,24 @@ static int bcd2000_midi_output_open(struct snd_rawmidi_substream *substream)
- static int bcd2000_midi_output_close(struct snd_rawmidi_substream *substream)
- {
- 	struct bcd2000 *bcd2k = substream->rmidi->private_data;
-+	struct urb *urb = NULL;
- 
--	if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
--		usb_kill_urb(bcd2k->midi_out_urb);
--		bcd2k->midi_out_active = 0;
-+	/*
-+	 * Reference the URB under the lock so that it stays valid until
-+	 * usb_kill_urb() returns, even if a disconnect frees it in the
-+	 * meantime.  usb_kill_urb() cannot run under the lock, as the
-+	 * completion handler takes the same lock.
-+	 */
-+	scoped_guard(spinlock_irqsave, &bcd2k->midi_lock) {
-+		if (bcd2k->midi_out_active && bcd2k->midi_out_urb) {
-+			urb = usb_get_urb(bcd2k->midi_out_urb);
-+			bcd2k->midi_out_active = 0;
-+		}
-+	}
-+
-+	if (urb) {
-+		usb_kill_urb(urb);
-+		usb_put_urb(urb);
- 	}
- 
- 	return 0;
--- 
-2.34.1
-
+Thanks,
+Abdurrahman
