@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793465055;
-	b=XDRRczMLDYUHcQFVKBF+/he2uk8RuseNDj6ajOQx4qezurA/G0OtlsgIB5ASTIhuaK8/
-	 DMnPS0/drPCAb1etIpOJTvOFfWdC3iSyj+uZVzpI20BcWGOEvWanLz7vV9r3s6JS+MWEm
-	 TUvtcbHypfmGRepbSzksL1ipBYyzJ1bWxBWoM33QzFujeU+DsJP9mDiy2cZh54q6NryUC
-	 6JH+0dAyEO3/F1XpDCzatnyYCW2kQGjjChWaN1pJsgCAVk6CxhIF1nPupCrjlJszECecF
-	 mGXKcuzZLIb3ovK3YSCkZnq4QqBwflPZ5VjIcZBihf0Xudyx0xv+u+O2C0Op+sYBsGQ==
+	t=1793465071;
+	b=jEtJeBYK4AdxnMNRDKNMzwYGT8akp3f4eMeDPr2c35UiQYa4ZqcEOUlTFxfNj6LsHN6d
+	 SI2EQ082sFJ1ZKnundtgmSoZdrebZ2oaRcW0Gs0mN8gK0HrIFcv9xpYasQbdLuErBcUIX
+	 MKxmi2DxjTeo/5hOi3B5sXlH1l0Sb1M/k2bpG/3WkfDczxNLlsseHoRjbv6vioHyub8rO
+	 AelTzdBnljj7pGd58RnYNp+j2o5WS2LpNjqUYUVED3XeCbn6XOxmRoYlRwBO5nfnf8Dw4
+	 aBgPz6Ynw5PB+d3rJRjvfu8BIODty6hOU4pM4fXPAqIQESSMv6n3mwOXKFBEMjHTVzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465055;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465071;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=Y5kGJgaPGLkDdtKNEhQvwj0VFZ66SbjhczVs6BeoDp0=;
-	b=nVFO/V1eSk/577kSP3XQzOYXQ9ljU+nB2+SpLsSf5IKorIlGRPUcWPGPFmrdNwsQCffq
-	 BwkLGMbjwjVn/99k4g04cRci43K5XYwnFPCrF3S1obe0fzFE+31hFKwVOo4eAj8JlA8vN
-	 XFcZd1ksM+K74scZmsI6nW2kIT4Xk6x3wHAe8EuyIAt5bgknqbaL+8iGr/T/yQ1uCw5r0
-	 CbRDphXsfpSE7Sbt/LncL1HZQnrbXaOhBSqEZA48xsllaKogpbAZPhGBKyhBIlmRMBKTg
-	 yEKSYfjQ2eFZZ2Oj6c2VXzQnz42LnhDd8FtBrOhip99odAcRzw4IHuWywJ4TUTNMWKg==
+	bh=0PmMqAfUOs12+NDVbE69ZLsuEf1No4KveDJoNk4lNwM=;
+	b=fIgalhYDZ+o+JFnHgHHIrBnIoAT0ULiQw5FcTRGt1Y1kBXXQW5iZQ/WamhksF5I3+U9w
+	 8O4qTimfufX4vEfh0gwb4cQgKlav7EkARRH3UjP+vn/q0eZTWLTdgMSJXil7rAdSgq4mW
+	 byS22tYha8KNWKL6QDabLl3XGGE8OWfY7wA0A3XhM6us3MVf7siPMwK7+2FAalnqHqhKI
+	 gvsSF2O2lYtAoyS5qgyjwq8vLQFvhsXqwRM4jkDAnac1IWMQ+Gzx/4BRkOOvARK41gmE0
+	 TgDRnNo4aBzk9SqCeb/4StOOUxUmXBQAb59SOkEXdVpp+PKDqW0zScxSV44f4MduWNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=inf.ufrgs.br;
 	spf=pass smtp.mailfrom=inf.ufrgs.br;
-	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=KKxB8J72;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=vuA83h+1;
 	arc=none smtp.remote-ip=143.54.11.23
 Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8216E606A31D;
-	Sat, 31 Oct 2026 16:44:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8216E606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70334606A31C;
+	Sat, 31 Oct 2026 16:44:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70334606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=KKxB8J72
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=vuA83h+1
 Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 3FF69120369;
-	Sat, 31 Oct 2026 13:43:49 -0300 (-03)
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 02CF2120590;
+	Sat, 31 Oct 2026 13:43:50 -0300 (-03)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1793465029;
+	s=dkim2026; t=1793465030;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=Y5kGJgaPGLkDdtKNEhQvwj0VFZ66SbjhczVs6BeoDp0=;
-	b=KKxB8J72TlC/zc6+wJZUKlpbXLT4shm2XyUzold/HK973zvdEb6RQupWsusOXPjKQyPzG0
-	0T6WWJ+0xy244g5HS1zBAfIphp9AJqnX/ZOR44rlaLeepPo4BSuHh3kOHr+H5kfLfFelnK
-	COzmxBKsE4ZY/+O0KsFVR5u6xA0nz1cI1NXwPbQ5cQdSZ/CfFJafCaTXC6Glrr7zXT0Awx
-	7wUEYECv+WiFl4bDO3NWNC8jBsyfxGyt+LmzPMjIysNt7rAHC/dsAIdqiQTZT5P7g/QeLw
-	q+WIU2fZOIYJ45tZxVvWuGL8hqYZTreR/imhfdu13vY4E86CBWmbXNSNn4tmbQ==
+	bh=0PmMqAfUOs12+NDVbE69ZLsuEf1No4KveDJoNk4lNwM=;
+	b=vuA83h+1rhVWWUlOncIlwnse/MwMEOunDbAt1Q7ORMySfu3I1z54wRQtqCrU1fW7eMfpEW
+	K1j3gAwwJe62ooPBJNytYjr8/9ehezIrrCVQetzGzf3z4mgxRUiobIQwPJaFY/7iDCdwCE
+	nMjDwYTCbF9vtYqGDbrptwOhc8ehzetTZY89D8cd9e7Mq6H1CQtIk5XHMhdfHhgcauLBT5
+	7At0j8zr7ac6P2CiivTEF3vP2VyKJwbqsrMI+TtaSyI9Je7yowiwUnW2dn/BHyTr6c/Rkg
+	fg1mdnap8RpUGp5CUaImFtkzjpHPSQO7BfXtjO3w9Tb1LbdsbMFiFyQJutnPkA==
 From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
 Cc: linux-fsdevel@vger.kernel.org,
@@ -55,9 +55,9 @@ Cc: linux-fsdevel@vger.kernel.org,
 	hch@lst.de,
 	linux-kernel@vger.kernel.org,
 	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [RFC PATCH 3/8] fat: add iomap direct I/O support
-Date: Sat, 31 Oct 2026 13:43:21 -0300
-Message-ID: <20261031164326.278125-4-matheus.aalmeida@inf.ufrgs.br>
+Subject: [RFC PATCH 6/8] fat: add iomap buffered I/O support
+Date: Sat, 31 Oct 2026 13:43:24 -0300
+Message-ID: <20261031164326.278125-7-matheus.aalmeida@inf.ufrgs.br>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
 References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
@@ -72,83 +72,78 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Replace the deprecated ->direct_IO() path with ->{read,write}_iter() and
-iomap_dio_rw(). Add fat_file_open() to advertise direct I/O support.
+Use iomap for buffered I/O, replacing buffer_heads. Remove
+fat_get_block(), fat_write_begin(), fat_write_failed() as the iomap path
+makes them unnecessary.
 
 Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
 ---
- fs/fat/Kconfig |   1 -
- fs/fat/fat.h   |   1 +
- fs/fat/file.c  | 119 ++++++++++++++++++++++++++++++++++++++++++++++++-
- fs/fat/inode.c |  36 ---------------
- fs/fat/iomap.c |  24 ++++++++++
- 5 files changed, 142 insertions(+), 39 deletions(-)
+ fs/fat/fat.h   |   4 +-
+ fs/fat/file.c  |  72 +++++++++++++++++++----
+ fs/fat/inode.c | 157 +++++--------------------------------------------
+ fs/fat/iomap.c |  84 ++++++++++++++++++++++++++
+ 4 files changed, 164 insertions(+), 153 deletions(-)
 
-diff --git a/fs/fat/Kconfig b/fs/fat/Kconfig
-index d31d7866ce19..7989c6bf0fb6 100644
---- a/fs/fat/Kconfig
-+++ b/fs/fat/Kconfig
-@@ -4,7 +4,6 @@ config FAT_FS
- 	select BUFFER_HEAD
- 	select FS_IOMAP
- 	select NLS
--	select LEGACY_DIRECT_IO
- 	help
- 	  If you want to use one of the FAT-based file systems (the MS-DOS and
- 	  VFAT (Windows 95) file systems), then you must say Y or M here
 diff --git a/fs/fat/fat.h b/fs/fat/fat.h
-index 81c454f8a78a..e14d6d9a6ac1 100644
+index e14d6d9a6ac1..78c6fb5cdc46 100644
 --- a/fs/fat/fat.h
 +++ b/fs/fat/fat.h
-@@ -492,6 +492,7 @@ extern const struct export_operations fat_export_ops_nostale;
+@@ -415,9 +415,9 @@ extern int fat_getattr(const struct mnt_idmap *idmap,
+ int fat_fileattr_get(struct dentry *dentry, struct file_kattr *fa);
+ extern int fat_file_fsync(struct file *file, loff_t start, loff_t end,
+ 			  int datasync);
++int fat_preallocate(struct inode *inode, loff_t new_size);
+ 
+ /* fat/inode.c */
+-extern int fat_block_truncate_page(struct inode *inode, loff_t from);
+ extern void fat_attach(struct inode *inode, loff_t i_pos);
+ extern void fat_detach(struct inode *inode);
+ extern struct inode *fat_iget(struct super_block *sb, loff_t i_pos);
+@@ -492,7 +492,9 @@ extern const struct export_operations fat_export_ops_nostale;
  /* fat/iomap.c */
  extern const struct iomap_ops fat_iomap_ops;
  extern const struct iomap_ops fat_iomap_bmap_ops;
-+extern const struct iomap_dio_ops fat_iomap_write_dio_ops;
++extern const struct iomap_ops fat_iomap_write_ops;
+ extern const struct iomap_dio_ops fat_iomap_write_dio_ops;
++extern const struct iomap_writeback_ops fat_writeback_ops;
  
  /* helper for printk */
  typedef unsigned long long	llu;
 diff --git a/fs/fat/file.c b/fs/fat/file.c
-index c27d4e7f698c..177a26186ddc 100644
+index 8689cbbdad13..723b671d5b4b 100644
 --- a/fs/fat/file.c
 +++ b/fs/fat/file.c
-@@ -201,11 +201,126 @@ int fat_file_fsync(struct file *filp, loff_t start, loff_t end, int datasync)
- 	return blkdev_issue_flush(inode->i_sb->s_bdev);
+@@ -220,12 +220,13 @@ static ssize_t fat_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	struct inode *inode = file_inode(iocb->ki_filp);
+ 	ssize_t ret;
+ 
+-	if ((iocb->ki_flags & IOCB_DIRECT) == 0)
+-		return generic_file_read_iter(iocb, iter);
+-
+ 	inode_lock_shared(inode);
+-	file_accessed(iocb->ki_filp);
+-	ret = iomap_dio_rw(iocb, iter, &fat_iomap_ops, NULL, 0, NULL, 0);
++	if (iocb->ki_flags & IOCB_DIRECT) {
++		file_accessed(iocb->ki_filp);
++		ret = iomap_dio_rw(iocb, iter, &fat_iomap_ops, NULL, 0, NULL, 0);
++	} else {
++		ret = generic_file_read_iter(iocb, iter);
++	}
+ 	inode_unlock_shared(inode);
+ 	return ret;
+ }
+@@ -266,6 +267,50 @@ static ssize_t fat_file_dio_write_iter(struct kiocb *iocb,
+ 	return ret;
  }
  
-+static int fat_file_open(struct inode *inode, struct file *file)
-+{
-+	int err;
++static int fat_cont_expand(struct inode *inode, loff_t new_size);
 +
-+	err = generic_file_open(inode, file);
-+	if (err)
-+		return err;
-+
-+	file->f_mode |= FMODE_CAN_ODIRECT;
-+	return 0;
-+}
-+
-+static ssize_t fat_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
++static ssize_t fat_file_write_iter_buffered(struct kiocb *iocb,
++					    struct iov_iter *iter)
 +{
 +	struct inode *inode = file_inode(iocb->ki_filp);
-+	ssize_t ret;
-+
-+	if ((iocb->ki_flags & IOCB_DIRECT) == 0)
-+		return generic_file_read_iter(iocb, iter);
-+
-+	inode_lock_shared(inode);
-+	file_accessed(iocb->ki_filp);
-+	ret = iomap_dio_rw(iocb, iter, &fat_iomap_ops, NULL, 0, NULL, 0);
-+	inode_unlock_shared(inode);
-+	return ret;
-+}
-+
-+static ssize_t fat_file_dio_write_iter(struct kiocb *iocb,
-+				       struct iov_iter *iter)
-+{
-+	struct inode *inode = file_inode(iocb->ki_filp);
-+	struct msdos_inode_info *mi = MSDOS_I(inode);
-+	unsigned int dio_flags = 0;
++	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
++	loff_t offset, old_size, old_alloc, keep_alloc;
 +	ssize_t ret;
 +
 +	inode_lock(inode);
@@ -156,183 +151,382 @@ index c27d4e7f698c..177a26186ddc 100644
 +	if (ret <= 0)
 +		goto out;
 +
-+	/* We do not support DIO writes which would need zeroing */
-+	if (iocb->ki_pos + iov_iter_count(iter) > mi->mmu_private) {
-+		ret = -ENOTBLK;
-+		goto out;
-+	}
-+
 +	ret = file_modified(iocb->ki_filp);
 +	if (ret)
 +		goto out;
 +
-+	/* Wait under the inode lock for size updates and partial-block zeroing. */
-+	if (iocb->ki_pos + iov_iter_count(iter) > i_size_read(inode) ||
-+	    !IS_ALIGNED(iocb->ki_pos | iov_iter_alignment(iter),
-+			i_blocksize(inode)))
-+		dio_flags |= IOMAP_DIO_FORCE_WAIT;
++	offset = iocb->ki_pos;
++	old_size = i_size_read(inode);
++	if (offset > old_size) {
++		/* We need to fill this hole */
++		ret = fat_cont_expand(inode, offset);
++		if (ret)
++			goto out;
++	}
 +
-+	ret = iomap_dio_rw(iocb, iter, &fat_iomap_ops,
-+			   &fat_iomap_write_dio_ops, dio_flags, NULL, 0);
++	inode_dio_wait(inode);
++	old_alloc = inode_get_bytes(inode);
++	ret = iomap_file_buffered_write(iocb, iter, &fat_iomap_write_ops,
++					NULL, NULL);
++	keep_alloc = max(old_alloc, round_up(i_size_read(inode),
++					     sbi->cluster_size));
++	if (inode_get_bytes(inode) > keep_alloc)
++		fat_truncate_blocks(inode, keep_alloc);
++	if (ret > 0)
++		ret = generic_write_sync(iocb, ret);
++
 +out:
 +	inode_unlock(inode);
 +	return ret;
 +}
 +
-+static ssize_t fat_file_write_iter_buffered_fallback(struct kiocb *iocb,
-+						     struct iov_iter *iter)
-+{
-+	ssize_t ret;
-+	loff_t end, offset;
-+	int err;
-+
-+	iocb->ki_flags &= ~IOCB_DIRECT;
-+	ret = generic_file_write_iter(iocb, iter);
-+	if (ret <= 0)
-+		return ret;
-+
-+	offset = iocb->ki_pos - ret;
-+	end = iocb->ki_pos - 1;
-+	err = filemap_write_and_wait_range(iocb->ki_filp->f_mapping, offset,
-+					   end);
-+	if (err)
-+		return err;
-+
-+	invalidate_mapping_pages(iocb->ki_filp->f_mapping,
-+				 offset >> PAGE_SHIFT,
-+				 end >> PAGE_SHIFT);
-+
-+	return ret;
-+}
-+
-+static ssize_t fat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
-+{
-+	ssize_t ret;
-+
-+	if ((iocb->ki_flags & IOCB_DIRECT) == 0)
-+		return generic_file_write_iter(iocb, iter);
-+
-+	ret = fat_file_dio_write_iter(iocb, iter);
-+	if (ret == -ENOTBLK)
-+		ret = 0;
-+	else if (ret < 0)
-+		return ret;
-+
-+	/* Fall back to buffered I/O if we could not do DIO */
-+	if (iov_iter_count(iter)) {
-+		ssize_t done;
-+
-+		done = fat_file_write_iter_buffered_fallback(iocb, iter);
-+		if (done < 0)
-+			return done;
-+		ret += done;
-+	}
-+
-+	return ret;
-+}
+ static ssize_t fat_file_write_iter_buffered_fallback(struct kiocb *iocb,
+ 						     struct iov_iter *iter)
+ {
+@@ -274,7 +319,7 @@ static ssize_t fat_file_write_iter_buffered_fallback(struct kiocb *iocb,
+ 	int err;
  
- const struct file_operations fat_file_operations = {
-+	.open		= fat_file_open,
- 	.llseek		= generic_file_llseek,
--	.read_iter	= generic_file_read_iter,
--	.write_iter	= generic_file_write_iter,
-+	.read_iter	= fat_file_read_iter,
-+	.write_iter	= fat_file_write_iter,
- 	.mmap_prepare	= generic_file_mmap_prepare,
- 	.release	= fat_file_release,
- 	.unlocked_ioctl	= fat_generic_ioctl,
+ 	iocb->ki_flags &= ~IOCB_DIRECT;
+-	ret = generic_file_write_iter(iocb, iter);
++	ret = fat_file_write_iter_buffered(iocb, iter);
+ 	if (ret <= 0)
+ 		return ret;
+ 
+@@ -297,7 +342,7 @@ static ssize_t fat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+ 	ssize_t ret;
+ 
+ 	if ((iocb->ki_flags & IOCB_DIRECT) == 0)
+-		return generic_file_write_iter(iocb, iter);
++		return fat_file_write_iter_buffered(iocb, iter);
+ 
+ 	ret = fat_file_dio_write_iter(iocb, iter);
+ 	if (ret == -ENOTBLK)
+@@ -334,7 +379,7 @@ const struct file_operations fat_file_operations = {
+ 	.setlease	= generic_setlease,
+ };
+ 
+-static int fat_preallocate(struct inode *inode, loff_t new_size)
++int fat_preallocate(struct inode *inode, loff_t new_size)
+ {
+ 	int nr_cluster; /* Number of clusters to be allocated */
+ 	loff_t mm_bytes; /* Number of bytes to be allocated for file */
+@@ -755,11 +800,16 @@ int fat_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 	}
+ 
+ 	if (attr->ia_valid & ATTR_SIZE) {
+-		error = fat_block_truncate_page(inode, attr->ia_size);
++		filemap_invalidate_lock(inode->i_mapping);
++		error = iomap_truncate_page(inode, attr->ia_size, NULL,
++					    &fat_iomap_ops, NULL, NULL);
++		if (!error) {
++			truncate_setsize(inode, attr->ia_size);
++			fat_truncate_blocks(inode, attr->ia_size);
++		}
++		filemap_invalidate_unlock(inode->i_mapping);
+ 		if (error)
+ 			goto out;
+-		truncate_setsize(inode, attr->ia_size);
+-		fat_truncate_blocks(inode, attr->ia_size);
+ 	}
+ 
+ 	/*
 diff --git a/fs/fat/inode.c b/fs/fat/inode.c
-index 3885ddb916bd..953706aab68b 100644
+index 953706aab68b..9df10e5a1ede 100644
 --- a/fs/fat/inode.c
 +++ b/fs/fat/inode.c
-@@ -253,41 +253,6 @@ static int fat_write_end(const struct kiocb *iocb,
+@@ -116,141 +116,27 @@ int fat_add_clusters(struct inode *inode, int nr_cluster)
  	return err;
  }
  
--static ssize_t fat_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+-static inline int __fat_get_block(struct inode *inode, sector_t iblock,
+-				  unsigned long *max_blocks,
+-				  struct buffer_head *bh_result, int create)
 -{
--	struct file *file = iocb->ki_filp;
--	struct address_space *mapping = file->f_mapping;
--	struct inode *inode = mapping->host;
--	size_t count = iov_iter_count(iter);
--	loff_t offset = iocb->ki_pos;
--	ssize_t ret;
+-	struct super_block *sb = inode->i_sb;
+-	struct msdos_sb_info *sbi = MSDOS_SB(sb);
+-	unsigned long mapped_blocks;
+-	sector_t phys, last_block;
+-	int err, offset;
 -
--	if (iov_iter_rw(iter) == WRITE) {
--		/*
--		 * FIXME: blockdev_direct_IO() doesn't use ->write_begin(),
--		 * so we need to update the ->mmu_private to block boundary.
--		 *
--		 * But we must fill the remaining area or hole by nul for
--		 * updating ->mmu_private.
--		 *
--		 * Return 0, and fallback to normal buffered write.
--		 */
--		loff_t size = offset + count;
--		if (MSDOS_I(inode)->mmu_private < size)
--			return 0;
+-	err = fat_bmap(inode, iblock, &phys, &mapped_blocks, create, false);
+-	if (err)
+-		return err;
+-	if (phys) {
+-		map_bh(bh_result, sb, phys);
+-		*max_blocks = min(mapped_blocks, *max_blocks);
+-		return 0;
+-	}
+-	if (!create)
+-		return 0;
+-
+-	if (iblock != MSDOS_I(inode)->mmu_private >> sb->s_blocksize_bits) {
+-		fat_fs_error(sb, "corrupted file size (i_pos %lld, %lld)",
+-			MSDOS_I(inode)->i_pos, MSDOS_I(inode)->mmu_private);
+-		return -EIO;
 -	}
 -
+-	last_block = inode->i_blocks >> (sb->s_blocksize_bits - 9);
+-	offset = (unsigned long)iblock & (sbi->sec_per_clus - 1);
 -	/*
--	 * FAT need to use the DIO_LOCKING for avoiding the race
--	 * condition of fat_get_block() and ->truncate().
+-	 * allocate a cluster according to the following.
+-	 * 1) no more available blocks
+-	 * 2) not part of fallocate region
 -	 */
--	ret = blockdev_direct_IO(iocb, inode, iter, fat_get_block);
--	if (ret < 0 && iov_iter_rw(iter) == WRITE)
--		fat_write_failed(mapping, offset + count);
+-	if (!offset && !(iblock < last_block)) {
+-		/* TODO: multiple cluster allocation would be desirable. */
+-		err = fat_add_clusters(inode, 1);
+-		if (err)
+-			return err;
+-	}
+-	/* available blocks on this cluster */
+-	mapped_blocks = sbi->sec_per_clus - offset;
 -
--	return ret;
+-	*max_blocks = min(mapped_blocks, *max_blocks);
+-	MSDOS_I(inode)->mmu_private += *max_blocks << sb->s_blocksize_bits;
+-
+-	err = fat_bmap(inode, iblock, &phys, &mapped_blocks, create, false);
+-	if (err)
+-		return err;
+-	if (!phys) {
+-		fat_fs_error(sb,
+-			     "invalid FAT chain (i_pos %lld, last_block %llu)",
+-			     MSDOS_I(inode)->i_pos,
+-			     (unsigned long long)last_block);
+-		return -EIO;
+-	}
+-
+-	BUG_ON(*max_blocks != mapped_blocks);
+-	set_buffer_new(bh_result);
+-	map_bh(bh_result, sb, phys);
+-
+-	return 0;
 -}
 -
- static sector_t _fat_bmap(struct address_space *mapping, sector_t block)
+-static int fat_get_block(struct inode *inode, sector_t iblock,
+-			 struct buffer_head *bh_result, int create)
+-{
+-	struct super_block *sb = inode->i_sb;
+-	unsigned long max_blocks = bh_result->b_size >> inode->i_blkbits;
+-	int err;
+-
+-	err = __fat_get_block(inode, iblock, &max_blocks, bh_result, create);
+-	if (err)
+-		return err;
+-	bh_result->b_size = max_blocks << sb->s_blocksize_bits;
+-	return 0;
+-}
+-
+ static int fat_writepages(struct address_space *mapping,
+ 			  struct writeback_control *wbc)
  {
- 	sector_t blocknr;
-@@ -328,7 +293,6 @@ static const struct address_space_operations fat_aops = {
+-	return mpage_writepages(mapping, wbc, fat_get_block);
++	struct iomap_writepage_ctx wpc = {
++		.inode = mapping->host,
++		.wbc = wbc,
++		.ops = &fat_writeback_ops,
++	};
++
++	return iomap_writepages(&wpc);
+ }
+ 
+ static int fat_read_folio(struct file *file, struct folio *folio)
+ {
+-	return mpage_read_folio(folio, fat_get_block);
++	iomap_bio_read_folio(folio, &fat_iomap_ops);
++	return 0;
+ }
+ 
+ static void fat_readahead(struct readahead_control *rac)
+ {
+-	mpage_readahead(rac, fat_get_block);
+-}
+-
+-static void fat_write_failed(struct address_space *mapping, loff_t to)
+-{
+-	struct inode *inode = mapping->host;
+-
+-	if (to > inode->i_size) {
+-		truncate_pagecache(inode, inode->i_size);
+-		fat_truncate_blocks(inode, inode->i_size);
+-	}
+-}
+-
+-static int fat_write_begin(const struct kiocb *iocb,
+-			   struct address_space *mapping,
+-			   loff_t pos, unsigned len,
+-			   struct folio **foliop, void **fsdata)
+-{
+-	int err;
+-
+-	err = cont_write_begin(iocb, mapping, pos, len,
+-				foliop, fsdata, fat_get_block,
+-				&MSDOS_I(mapping->host)->mmu_private);
+-	if (err < 0)
+-		fat_write_failed(mapping, pos + len);
+-	return err;
+-}
+-
+-static int fat_write_end(const struct kiocb *iocb,
+-			 struct address_space *mapping,
+-			 loff_t pos, unsigned len, unsigned copied,
+-			 struct folio *folio, void *fsdata)
+-{
+-	struct inode *inode = mapping->host;
+-	int err;
+-	err = generic_write_end(iocb, mapping, pos, len, copied, folio, fsdata);
+-	if (err < len)
+-		fat_write_failed(mapping, pos + len);
+-	if (!(err < 0) && !(MSDOS_I(inode)->i_attrs & ATTR_ARCH)) {
+-		fat_truncate_time(inode, NULL, FAT_UPDATE_CMTIME);
+-		MSDOS_I(inode)->i_attrs |= ATTR_ARCH;
+-		mark_inode_dirty(inode);
+-	}
+-	return err;
++	iomap_bio_readahead(rac, &fat_iomap_ops);
+ }
+ 
+ static sector_t _fat_bmap(struct address_space *mapping, sector_t block)
+@@ -273,29 +159,18 @@ static int fat_swap_activate(struct swap_info_struct *sis, struct file *file,
+ #endif
+ }
+ 
+-/*
+- * fat_block_truncate_page() zeroes out a mapping from file offset `from'
+- * up to the end of the block which corresponds to `from'.
+- * This is required during truncate to physically zeroout the tail end
+- * of that block so it doesn't yield old data if the file is later grown.
+- * Also, avoid causing failure from fsx for cases of "data past EOF"
+- */
+-int fat_block_truncate_page(struct inode *inode, loff_t from)
+-{
+-	return block_truncate_page(inode->i_mapping, from, fat_get_block);
+-}
+-
+ static const struct address_space_operations fat_aops = {
+-	.dirty_folio	= block_dirty_folio,
+-	.invalidate_folio = block_invalidate_folio,
++	.dirty_folio	= iomap_dirty_folio,
++	.invalidate_folio = iomap_invalidate_folio,
+ 	.read_folio	= fat_read_folio,
+ 	.readahead	= fat_readahead,
  	.writepages	= fat_writepages,
- 	.write_begin	= fat_write_begin,
- 	.write_end	= fat_write_end,
--	.direct_IO	= fat_direct_IO,
+-	.write_begin	= fat_write_begin,
+-	.write_end	= fat_write_end,
  	.bmap		= _fat_bmap,
- 	.migrate_folio	= buffer_migrate_folio,
+-	.migrate_folio	= buffer_migrate_folio,
++	.migrate_folio	= filemap_migrate_folio,
  	.swap_activate  = fat_swap_activate,
++	.is_partially_uptodate = iomap_is_partially_uptodate,
++	.error_remove_folio = generic_error_remove_folio,
++	.release_folio = iomap_release_folio,
+ };
+ 
+ /*
 diff --git a/fs/fat/iomap.c b/fs/fat/iomap.c
-index 7977147889bb..8a697deba9d4 100644
+index 8a697deba9d4..cfeaea5d352e 100644
 --- a/fs/fat/iomap.c
 +++ b/fs/fat/iomap.c
-@@ -26,6 +26,10 @@ static int __fat_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 		return 0;
- 	}
+@@ -5,6 +5,9 @@
+  * Copyright (C) 2026 Matheus Alves de Almeida
+  */
  
-+	/* Keep the same behavior of syncing metadata on direct writes */
-+	if (flags & IOMAP_WRITE)
-+		iomap->flags |= IOMAP_F_DIRTY;
++#include <linux/highmem.h>
++#include <linux/pagemap.h>
 +
- 	/*
- 	 * We need to separate normal data clusters and
- 	 * uninitialized FALLOC_FL_KEEP_SIZE clusters.
-@@ -93,3 +97,23 @@ static DEFINE_IOMAP_ITER_NEXT(fat_iomap_next_bmap, fat_iomap_begin_bmap);
- const struct iomap_ops fat_iomap_bmap_ops = {
- 	.iomap_next = fat_iomap_next_bmap
+ #include "fat.h"
+ 
+ static int __fat_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+@@ -74,6 +77,65 @@ const struct iomap_ops fat_iomap_ops = {
+ 	.iomap_next = fat_iomap_next
  };
-+
-+static int fat_dio_write_end_io(struct kiocb *iocb, ssize_t size, int error,
-+				unsigned int flags)
+ 
++static int fat_iomap_end_write(struct inode *inode, loff_t offset,
++			       loff_t length, ssize_t written,
++			       unsigned int flags, struct iomap *iomap)
 +{
-+	struct inode *inode = file_inode(iocb->ki_filp);
++	struct msdos_inode_info *mi = MSDOS_I(inode);
 +
-+	if (error)
-+		return error;
-+
-+	if (size && i_size_read(inode) < iocb->ki_pos + size) {
-+		i_size_write(inode, iocb->ki_pos + size);
-+		mark_inode_dirty(inode);
++	if (written > 0) {
++		mi->mmu_private = max(mi->mmu_private, offset + written);
++		if (!(mi->i_attrs & ATTR_ARCH)) {
++			mi->i_attrs |= ATTR_ARCH;
++			mark_inode_dirty(inode);
++		}
 +	}
++
++	if (iomap->flags & IOMAP_F_SIZE_CHANGED)
++		mark_inode_dirty(inode);
 +
 +	return 0;
 +}
 +
-+const struct iomap_dio_ops fat_iomap_write_dio_ops = {
-+	.end_io = fat_dio_write_end_io
++static int fat_iomap_begin_write(struct inode *inode, loff_t offset,
++				 loff_t length, unsigned int flags,
++				 struct iomap *iomap, struct iomap *srcmap)
++{
++	loff_t curr_size = i_size_read(inode);
++	loff_t old_alloc = inode_get_bytes(inode);
++	int err;
++
++	/* Only support extending writes that start at EOF */
++	if (WARN_ONCE(offset > curr_size, "Write starting past EOF"))
++		return -EOPNOTSUPP;
++
++	if (offset == curr_size) {
++		/*
++		 * TODO: allocate multiple blocks while allowing
++		 * short writes
++		 */
++		err = fat_preallocate(inode, offset + 1);
++		if (err)
++			goto err_truncate;
++	}
++
++	err = __fat_iomap_begin(inode, offset, length, flags, iomap);
++	if (err)
++		goto err_truncate;
++
++	return 0;
++err_truncate:
++	fat_truncate_blocks(inode, old_alloc);
++	return err;
++}
++
++static DEFINE_IOMAP_ITER_NEXT_END(fat_iomap_next_write, fat_iomap_begin_write,
++				  fat_iomap_end_write);
++
++const struct iomap_ops fat_iomap_write_ops = {
++	.iomap_next = fat_iomap_next_write
++};
++
+ static int fat_iomap_begin_bmap(struct inode *inode, loff_t offset,
+ 				loff_t length, unsigned int flags,
+ 				struct iomap *iomap, struct iomap *srcmap)
+@@ -117,3 +179,25 @@ static int fat_dio_write_end_io(struct kiocb *iocb, ssize_t size, int error,
+ const struct iomap_dio_ops fat_iomap_write_dio_ops = {
+ 	.end_io = fat_dio_write_end_io
+ };
++
++static ssize_t fat_writeback_range(struct iomap_writepage_ctx *wpc,
++				   struct folio *folio, u64 offset,
++				   unsigned int len, u64 end_pos)
++{
++	if (offset < wpc->iomap.offset ||
++	    offset >= wpc->iomap.offset + wpc->iomap.length) {
++		int err;
++
++		err = __fat_iomap_begin(wpc->inode, offset, len, 0,
++					&wpc->iomap);
++		if (err)
++			return err;
++	}
++
++	return iomap_add_to_ioend(wpc, folio, offset, end_pos, len);
++}
++
++const struct iomap_writeback_ops fat_writeback_ops = {
++	.writeback_range = fat_writeback_range,
++	.writeback_submit = iomap_ioend_writeback_submit,
 +};
 -- 
 2.43.0
