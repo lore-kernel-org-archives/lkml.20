@@ -1,87 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793408271;
-	b=JvSdosITB+iEVQm9Q7uzoAzc+WW7JomrQMkCBHReItrJyIzzfveo5qs2hWgCwp4b/RVg
-	 FKaSIGSTkt5HmZVew88ZscOD/iVfP0sWv725gchn6GBVr6tsVZWIVOdzR/TtLZGU+RKL4
-	 uuxD+vRytamhU9e5Eel0957n3KPdRnov1fQHhbV6Ia9m6haB/y0wmmScLwncR0IyCsH1v
-	 Mj0WHEReSv9GX6FVpLNQI1csCveAW8h7kXuKwk4C70GxNQhwAHUaYld9h3wKtb37/MrjQ
-	 U90ZIlgD8YRLWSCUsUSHcIhoirUVOjbxdU+gT2CIHwPKjpTErUwNUF9tyXE9Rx0n9mA==
+	t=1793408307;
+	b=4IbK1hLkawJcUoeZEul15coSDX4wr36VgmTe3bSbzi+Bo3IumdCsGCPVmpXtjllDZnj+
+	 d9rK9mc/j1obEwtd+ZAl5Lpsk7iVgkPC3ybKQTxVsW3wL2BhHEThUoKNAJUPEkObONLIE
+	 wNx5GUoEofBp7nOlb3Y/gG+GJyPpkI9qLIlfczULix7Kkv0SW5R0wBtrERevjwjI4+Mze
+	 yOt5EIzRS/B7ZOgDhRXM0EgJF2YF6FWjf3AdR43Ah0o1ARmYw+LkRc9Au6T51nP4C0tIa
+	 0xBD1eMJIl28F0XxgkrX5JsEyIIB+Vjr9QZgmr0yLB6fnIj6l3tIroUf6KswUBGd0ag==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793408271;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=Bl537ijlD23VW4erxTZOlzT9E/4cxctJl4Miyc9Kivg=;
-	b=JaopQsHQuSKzUu2JXBkf6LYmn2e+f3SdlHmkJWsDCc2YHZzDftXVS3EGrjbXBPKdgWgJ
-	 gHXrgi9FjDZAOZuqaItaZjx3qFrF2PENlMQNuKIKQM8/wH2RSlWW0GEV3FvE5aO2MdIJw
-	 4QA8ChKpFjwC0W3ZrwEgGMEmoBfUstBt+tOU4aew4cjz7NppmmiRGLB304qqCudS5YtrL
-	 Y8QBcYgRiTXk3tnr49v4TPfCuOpwDKsHqrZ30JwqxY5g6rE/r9sWm6wnQHtQ244+T8tls
-	 CyWpDAs7EA9KKOWp/juSPQh4c4Y8L6UgHM6docGsplCQoq6BF+hHCvhBvh76fgX3EYQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793408307;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=zW5UvcivH6E7BIbJRCa4jWGgQMxs7esFMSqsxUz89DA=;
+	b=rTpEXadW0F/D0OT3r4P9Ik52amTyKJILRUP+ugnZ+e/RAQbjZBv6QpKsyFGwCruZcYbB
+	 rBu4rDwFiTVBogIViPjkycC8pV8+xllXJUZF/kf11TGNopzs1ULAs4YL5gQqjm07RHAfY
+	 MMELhO4D2tfasBrrpdo39P8CFOnLaMurpMRVteVgTBMcqnz24ouW6uUaEvSX7w11ETycy
+	 Gw4+TDhS0JUFtgkwg5gervqF9PTjST2qc+1LDrAaKilff1KTG3MyTGnueBwDq8RHd3d9q
+	 G24hZrd0ou0ye49BXVwz6ZCbKpJovGQIevLiJ0vrrMVRthZhIw6p74ibJaVwSOEeyaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=linux.com;
-	spf=pass smtp.mailfrom=korea.io;
-	arc=none smtp.remote-ip=209.85.215.179
-Received: from mail-pg1-f179.google.com (mail-pg1-f179.google.com [209.85.215.179])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rEPUfn5Q;
+	arc=none smtp.remote-ip=74.125.82.176
+Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4307E606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:57:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4307E606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.io
-Received: by mail-pg1-f179.google.com with SMTP id 41be03b00d2f7-cc4c02ddd62so655587a12.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:57:51 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF4D606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:58:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DDF4D606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=rEPUfn5Q
+Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35b2c599f43so521970eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:58:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793408306; x=1794013106; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zW5UvcivH6E7BIbJRCa4jWGgQMxs7esFMSqsxUz89DA=;
+        b=rEPUfn5QmD5IGvy6JDCcv65UrQ3AIzRqq+JBlnuAB4gSyrvMqONNeVFhN/n6TSr8IH
+         ArXmDatgYTnyKWKJcCSSHb3T0WCuQHqgbU0V9jQb8xIicT6cru/o/QFl6v7WZieYAbF8
+         6Ndq28PUTsCisA/XDR7QJWeoeGpqBSCpjvQrgyXhW0OMl/1iIA6WWzbOK9CEN0+nCxvW
+         wOD6mlHul1q04YEBDowxEYB0xDPtkkamjIw2CVBwn8pT6oNKOmTkrwYdCwceQKVNweL1
+         JyPqDYPF0Dm/bIleQqcRU3BsUYXV7hImQNfsjSfTvmgwYAw7tMhnCNwu6RbO7CVr3XmB
+         BpRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793408270; x=1794013070;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Bl537ijlD23VW4erxTZOlzT9E/4cxctJl4Miyc9Kivg=;
-        b=C7FuT9cFOD0KXEK3apOlPj4lDKr0zTRWen4QruAaUNktLnyanFK0/wojBpe+4bWYWi
-         Copw52D3dvRQPiRQ9ApLQnJaZjFxMgp+iGchYwSm5gCVY/TNlPdix2ctR0lZycVNNkJK
-         1b6zSuTFVfBYa3xybzZLLcRtUyz+H7a/9x+2qQq8wPfYG1kYhvfYCwbWXjNSngslYUQd
-         +sO2HlXnLogYlmWzXh0rMnqFkYLzTIKKxMIWNIDvg+G6Ckr2696WzHSmuPRakKbsbEce
-         yKy039tQMImQva1x/4tUohG9Psg9B1Knwo8CUnk+rt9hn4I//XrrHVlmgL4qNml1Graw
-         6REQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzq3uac/lobbFdkmj/m+fWCQ18yTfvPNNmNec4MF8uy0f62S0stZmUA8w7e+5HsbqGfftklG3pNB7/skDY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJe2xDyDXyjv6vtWiy/dc4o2nKy3lF+WUTPpnn8kGFEMqAJQhQi
-	a+kPRSK27ui1VfusJ3zjoW/KUIpXFnengYLRn7jKwZXl9MA+OWJlKCNnh3wiF4sreQLeloUhiys
-	hI8V84xr/vIGWOg==
-X-Gm-Gg: AYBFou2nwm3NJ8TkoCsNcAAbnqhSmVxFvfojvv7BvVMosv3dwa5ew3y24leS7wH0Yk6
-	Pbo1quNXiLLrWMo7IS01hq1UT8tpUryRQW1Hg5dYhcvUz5AnmUe6BcRNf37D9p8DeBV+hzZYjvH
-	h+xW/HFzgoxiyILLGML9KT4lcLTC1qDMLIfc8jH657APF2XEn3Tw0GmwSvtATnQhq0t96/v+MBY
-	NMauRRnLagSZdEQjy/ATXJXZ3DlC5vOfH9ke56Ct8Aoz41WOomIVXjqGnO61Be48QxcWFJLZRGi
-	z+sn+brOmWJmZHxfDm6SyzXiO4nkUaEa4yf37HkiKVfGaUf/8aVv+99MxYXZTK/iMgT78aONSwq
-	mvlfd9vHM8FqkJZvAYoekmWmMZsFhtsp7CRt/PkDOfSKYCI4HqwB9kj240LDLIhRgibzP0L15Ny
-	Ni4Fi/Xg6CQFEI32O/FbyOkLaLbii1Ybv6hSS7oNCdGFL3zHSh83fSRxKaQ4ZRxRh5tCkANiSVL
-	CfFxN6+LYWc6oGSVOYpJO7yco68mLGaeCB2oq+BBNEAK4rNfBZXN56gL3zOl526RAFXluV8cfTT
-	OswEqRCum2JSXOpPEuIPZcmiKSmZeBEQCsixv3eRoJtRvfN6X9t1YasoJ7oOHjw8bwZ5k7aGV4b
-	jBe9s7F3XnDXKt572pONdHZ9QZV8lvQFKsuBXtlU=
-X-Received: by 2002:a17:90b:440d:b0:3a4:fe48:d410 with SMTP id 98e67ed59e1d1-3ae897f8c6fmr2910757a91.30.1793408270496;
-        Fri, 30 Oct 2026 17:57:50 -0700 (PDT)
-Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([118.217.70.161])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e98f888sm10200098a91.13.2026.10.30.17.57.46
-        (version=TLS1_2 cipher=ECDHE-ECDSA-CHACHA20-POLY1305 bits=256/256);
-        Fri, 30 Oct 2026 17:57:49 -0700 (PDT)
-From: Jongwon Lee <ai@linux.com>
-To: Dave Jiang <dave.jiang@intel.com>
-Cc: Davidlohr Bueso <dave@stgolabs.net>, Jonathan Cameron <jic23@kernel.org>,
- Alison Schofield <alison.schofield@intel.com>,
- Vishal Verma <vishal.l.verma@intel.com>, Dan Williams <djbw@kernel.org>,
- Ira Weiny <iweiny@kernel.org>, Li Ming <ming.li@zohomail.com>,
- Richard Cheng <icheng@nvidia.com>, linux-cxl@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cxl/edac: Mask DPA flags in the event record cache key
-Date: Sat, 31 Oct 2026 09:57:42 +0900
-Message-ID: <179340826284.3478.8780635809480680434@linux.com>
-In-Reply-To: <8afa233c-13c3-478e-89d2-1d3f87ec7c08@intel.com>
-References: <20261030072721.31970-1-ai@linux.com>
- <8afa233c-13c3-478e-89d2-1d3f87ec7c08@intel.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+        d=1e100.net; s=20260707; t=1793408306; x=1794013106;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zW5UvcivH6E7BIbJRCa4jWGgQMxs7esFMSqsxUz89DA=;
+        b=OsoMLEMu6KGN4GdXDj/t6+HeOQ2O9CtXQc+SvCmB7RPs3zZNaiTXlzSxhauoDZLKZZ
+         tFUmmjm4nV9k2oqVGwZaqeDdmDj9HOOWezUfCGdiaIdN421ndGfSyY4mzFyNUz3mBNLX
+         of4ghDHdb9Qd2p0UaPWMq0vnljTb0y2Vi+Adcgezr0wlPzONWfIN5Uvt8kESZ+WVmNiZ
+         RxYQZ10AAuD2b/2rG/h6n6BxhtUGL+EJcmSJe6J3+EzYAbo2XAkLrlnyE4vlqFqKMcyl
+         ZERfh9v4R5dwQ0hILKC/JjY8Ujz5S6HDrcBX4jFiDnkTevCPNqZqch5UO72lU8GW9asF
+         cxog==
+X-Forwarded-Encrypted: i=1; AKwUvBx69t/LhdsccRM4Z3MpWII9AwJMaJZVBh7x7aAEF1WnYAY9IqBwp5S8zzMjAc5chHdq5muLDL1C9TaMBPs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKtBXyBXjuRJ7aMeC/MvdmasiJHs3kjSZODUdmY4APUU/Fi7G8u
+	/bgH0y8YnoV2+Qg3zkphXSe3pP+kGEh3u2NAKJoESPds3ETj8ldXVEaK
+X-Gm-Gg: AYBFou1d5gdfoiuP+u6NxEe67+H1VE/rsVijBr2Jf2gW/rOaaA9638Z013/YF7hNi5h
+	38CRRHupYBCNOGdzfj8SfWCRGX2jDXlLVWTe/ShXZ79PHK9VuCgrzxgIyERH3Z519/HR0xhnLrP
+	YfWKW0SS2zEQF6ZkCm2wIOUI3KLzizq4UgOB5SyajhzhGdByru1yYbAp1nWoc+nHJ3x51825Rhh
+	gISKFS7Hwbcb9yXZlSUZORrMyV5BAApzN5G2kZsSPeCjGKK6VqjfYJzCCFMNuck8E2piBrvN2g5
+	TH7JSjqsjJ5QEHdXfuau1zmz7SWVkRJSyK6vieDnNitaactbv9ywZKhXC91trmkE7TlkcmSTUp2
+	MZsCYZ1I5ufnXO/DAAxBfZcyVK/TO6sEnhYahG8T2bgMLXJyBlVmchKZmVrKMJYBDB35+fFRgcP
+	StrRuPHvnwDQabWUnbIvwZFdcH/aE16aUSjeYjZtWqnk1o2wl5TM5joqTqN6WgikO74SGzVb9Sp
+	3p1lK2Cmt3NhhDFKeuL+tyYimAUc01ste3Nkeea8rBaOXdsnKzVE61r+ijygu6oowkRh81S7G4S
+	7ClufxeFkIR7CIkzwp2Xn5gUe4SAieSMnhAN7cOvO9fqIWbYWPrbQnpAZcMNWRkJ5AbClfIyeSv
+	dYb/A+OkUR7h6d6ABDoBmsgelHjzhV1IoB+FP3D6t4s4ZSgfBKxwXK/RKGstLLu7css0hqlcWGh
+	uhJoXvcSN5Yx4s7g==
+X-Received: by 2002:a05:693c:4144:10b0:35d:4185:5395 with SMTP id 5a478bee46e88-36a423a205fmr6672963eec.16.1793408305799;
+        Fri, 30 Oct 2026 17:58:25 -0700 (PDT)
+Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42662f23sm13094902eec.2.2026.10.30.17.58.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 17:58:25 -0700 (PDT)
+From: Samarth Narang <samarth.colleges@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Samarth Narang <samarth.colleges@gmail.com>,
+	Frank Li <Frank.Li@kernel.org>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: dmaengine: pl330: no device_synchronize -- does terminate_sync guarantee the transfer stopped?
+Date: Sat, 31 Oct 2026 00:58:20 +0000
+Message-Id: <20261031005820.3354888-1-samarth.colleges@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,20 +99,59 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On 10/30/26 10:44 AM, Dave Jiang wrote:
->> Co-developed with Claude Code.
->
-> You can drop this now. Or just put it under ---
+Hello,
 
-Moved it under --- in v2.
+I'm trying to clarify the termination guarantees provided by the PL330
+DMAengine driver.
 
->> Signed-off-by: Jongwon Lee <ai@linux.com>
->
-> Is this a real email address? Please use your actual email.
+PL330 does not implement device_synchronize. Consequently, for PL330
+channels, dmaengine_terminate_sync() calls pl330_terminate_all() without
+any additional provider-specific synchronization.
 
-Yes, it's my own address and I read it. It's a linux.com alias
-that forwards to my inbox, and it's the one I use for my other
-upstream work (rasdaemon). Happy to change it if it's a problem.
+pl330_terminate_all() requests termination through _stop(), which issues
+DMAKILL using the controller's debug interface. However, I could not
+establish from the driver code that this operation waits for the channel
+thread to reach STOPPED or guarantees that all outstanding bus writes
+have completed before returning.
 
-Thanks for the review. I'll send v2 shortly.
+There is a separate callback concern: PL330 uses a per-channel
+completion tasklet, but pl330_terminate_all() does not explicitly
+synchronize or kill that tasklet. The tasklet is killed in
+pl330_free_chan_resources().
+
+DMAengine clients rely on dmaengine_terminate_sync(), or
+dmaengine_terminate_async() followed by dmaengine_synchronize(), to
+establish that the DMA operation and its callbacks have completed before
+unmapping or freeing buffers, as described in
+Documentation/driver-api/dmaengine/client.rst.
+
+One relevant client is Samsung UART on Exynos. Its release_dma() path
+has a proposed change to use dmaengine_terminate_sync() before unmapping
+and freeing the RX buffer [1]. The safety of that ordering depends on
+the guarantees provided by PL330.
+
+I have two questions:
+
+Hardware completion: Does DMAKILL guarantee that all outstanding DMA bus
+transactions have completed before the command finishes, or is an
+additional wait for the channel to reach STOPPED required?
+
+Callback synchronization: Can a PL330 completion tasklet still be
+running or become scheduled after pl330_terminate_all() returns? If so,
+would implementing device_synchronize to wait for the appropriate
+hardware retirement condition and synchronize the tasklet be the
+preferred approach?
+
+I'm particularly interested in whether PL330 currently satisfies the
+DMAengine synchronous-termination contract, or whether an additional
+synchronization mechanism is needed.
+
+This question arose from a research static analyzer for DMA lifecycle
+ordering and a subsequent source review.
+
+[1] https://lore.kernel.org/r/20261030162334.3000737-1-samarth.colleges@gmail.com
+
+Thanks,
+Samarth
