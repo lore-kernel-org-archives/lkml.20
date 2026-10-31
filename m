@@ -1,119 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793483333;
-	b=sMq9ZG5U3LJTUl3YqXa7tTy8T8oIgAfqJta3VAeqzAkrDcqMnatzqb5caLxW0umPqTvc
-	 N1g2GtvNlvkVJavhoKHCLNlsjfUsa9siu+8ufXtX67ZENLJ1DVWkw+N0wtE8SCZ2wIcok
-	 waeNZov5Tr5fPye3ucLVYjx3izlHGROKbH/76eA2tggMf4MjFynILLtK8/hgWxqElep/6
-	 aSFHTuWgjkPaBpnJ4OGdOLjIjtXztFQQw/QJE7l68GDVNUaPhwzIXvFnMOd1CRsyY+pCg
-	 3np17ePehRwJ2BEJpnIUsFRGBqik0RzkElTHoGfM5A3/casfdZDe1m6yij7n6OdnGnQ==
+	t=1793483390;
+	b=248qs6zgnml5GhlVgMrwf3Xjh+U4tBsarvU79j4iPOmDkma0t6SoTX1hGmB+raZhq2Kn
+	 8AcxEgbEx5YqgPK/DAipRLotjCmuS8ObsHQVkASTbFGTBtmKpk3JZygwTYFR3MzKFLv3u
+	 2t4cbj3+Z8tyH6imaMDX2M7spnAA+bcuD4+aC1hojj4waddNbDmoJE0ztYNLNFl0JJ9IY
+	 YjgUCUMzE2wIJ3I+QTQWdapRhc+G/LJz2szseEHh7vI0Tj0LZPdlV2AAb1UGSuvZlKzpC
+	 b+cZWkOzHXrpob2fs09RumOPf4S5XmG1ymBxSBrldmSNeJfb5fA8ksHk1dJltDa08IA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793483333;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
-	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+Lhjmp7pZXEoSu7S8VjkEKvSY0g4l0O/7K8WaJ0F8JY=;
-	b=TOjnsO+fjrOZy9LEjufigZ2azWNiFlsq7dQp9mkMXnsqfwiRh9S07fCxGd6KCMIGbgPo
-	 v8rvfAsIHgtb18N/sSz00j4khlP23bHXC39yUEmnZf59q6z6ePcfoC+4jVrqzedjPcJvR
-	 FU0ZDX4FyiDoiMCjAOodNSeClcHT4PcDmpat66fEpNxdoYxY7LHeJEad13E6SjsNCSXc7
-	 Bbwl3w4ZL7ZMCKN80NP6qLgL54Qo8lBAY6biK0aRtRWuBEP5cFO1NIVs3mTJSViUX1TCi
-	 3IduwZCHmIrfG37FibiOjSl2s4Phlk1yEhKKNnNmgTswNYYug505T3KdQZXXktP5vxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793483390;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
+	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
+	bh=Dqptpgk/y801BpkwD0flbCVwz21NUliVvaq6MdaCT5I=;
+	b=Cs1oI2anwr+4x1zF1yYgIHh5/gEGHkYeXSkHqKXd8xRbnfxgW5/Sx+RH6tdIAf4ff+p9
+	 gKadt69AJDSTrbPZoxqT4w+fGfm2b0F9aqTRRyDj77t6xis2oI7bDbpm7Mzj2f9ttZJM9
+	 Kn4XDFxpxRm+qKvi1p6ofztZ0W83kNryQFjJlzu+Bj11XMIC6LkUcLmwZxLGNE/3focIc
+	 mJ8XdTFlgzDy+u3pYudwWp1vCCKU7UE0Lp4b8+TvfYuAfRrlolUTmbGqgfiJ9jbE9+hcQ
+	 vQ5NlvY0ldHMZi6vBwhRstdfRsoRl2Vr0TarT5/+hKFn3yKkg8vJBB/bs1X81+ULbuA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZUG10rbO;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VC5xRwEN;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=temperror header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=IkZ88K3+;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="KI/X1V0W";
+	arc=none smtp.remote-ip=202.12.124.159
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD357606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:48:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD357606A31E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39ACE606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:49:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39ACE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZUG10rbO;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=VC5xRwEN
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VJEs7o2968857
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:48:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=+Lhjmp7pZXEoSu7S8VjkEKvS
-	Y0g4l0O/7K8WaJ0F8JY=; b=ZUG10rbO1FpoTeNiOmCzs8M9cp+V4F7Kt9yOHcOK
-	eyxrWHZY6Cm5oI9tudJT25wC+RPH3fVrJeXxiDrB9ZRAfcEt6r8xfh5UyfzJR4iC
-	x7tf3RMbDGL/PGxKKNvC0ySFsjwtZJkG8173nYLK8KH21dEMlthhzc/8ypjk43Vo
-	dvjr/kpXgLLleTiHgMRX/f4qzh7RfZBEHSjP3b0nYlaNT/fgtDNnjnnnGzHEHjSv
-	I7f13wQiXGRaM/ANEXB+/A5eyto+2ZjMUOL0JWqnsOQmtwmVIsFDGVy1N4TCxn48
-	VY8XAN9b5zSLK0XEJRTlyXYrU81rgB0t/xz5dRzhtD0ndg==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn5pkjh66-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:48:51 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91becce058aso39105686d6.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:48:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793483331; x=1794088131; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+Lhjmp7pZXEoSu7S8VjkEKvSY0g4l0O/7K8WaJ0F8JY=;
-        b=VC5xRwEN9dJF+v0bQoqtw6h1aQYnrjoXNjuxvamOOLwJQHGTkCey6RYucq/J7n+es3
-         GPR7uuW/3iRwOWBm/ZqoOix/cXE+N5r+JBrIZsdNyPOv6IucMe0b2JaSFoMEs5ZmJMBo
-         XxlbpsuVUeejzVfdHZ8UkjcmQoGvrvQBt56Q68xnKKbF7T4AlY1/TDv94UAPIPy4z2Op
-         YWr3IM1YQmTieTI9SYkEqcKd1UWWMHAHZNh5XP+S6ChNrgbMUNzkkCcFvcmyl27PbNFz
-         mELxTNYxvN9zWJj7dtZt3zaHJ5+HVw8JWOoxzwuu/T4OtMnZZNVJlaEHHtnuLL2/riWY
-         wEkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793483331; x=1794088131;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+Lhjmp7pZXEoSu7S8VjkEKvSY0g4l0O/7K8WaJ0F8JY=;
-        b=b+++qnmD+DWh7IXMtTz54VGa1o0iyIspauhqQli77KzDLbVeO+WMF3ApX7+aQ7DMAm
-         YjF9OPHvuflUi8VWd/+fciqoVnZpvhS0KReL6YbXR2GnylmXwvYNJY+ujSFXH6r/4N61
-         HBS/qecEHamby4dVWga0EYqfOIcpXOvRbTrd8OZePfyFocLGpVJYLZ8Xy0lYJg3Gqbwz
-         e4IvM6nzw+h2BxN1zQzhp7dArAeBRmU2YG1Nu9srNyvegs7bdukIMrBePXZp3CablPPe
-         navwRODIojdhNOcLNBeaZnoMXiEj6gh5zb/6INV04Wqtm/TFPgvAVqgvvFAO3rEKU8qt
-         BYKw==
-X-Forwarded-Encrypted: i=1; AKwUvBwLILchqu/ZUdYqDxZepJASa3YFde/4HhA1scPmF2aZLwLVS2vnyy03uPB95Fkpb11fnHI6U5ucj3DW3G0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcgPkF+ZFFbEvpXUKWM0T2F2sdOFFFHV4vNKyQz1fS8/loKNDu
-	c5HBJmPcZGmcfNyTpjWcJ7igAZqZ14T7JR//GH05F6SN9qIfUlVxRzPeQhI3KHJ7sZ0YYc2MPx6
-	UopygK7FhSh5W7FhwJpfIoLnsEty+7n0jWEdyY9H1vXEwoD50dJp+6OHpeaUwPqXFt8Y=
-X-Gm-Gg: AYBFou2abq9Nd4rYOw8iIXlbTdoIGx4dpHOptKQj0557kr1EZBfONk+tMRt/jZKnKWn
-	ppn+vokCCQaYYswMNjtoUZSWVsLaeGahi/92VykI5uvpbmDtIGg0NSHuvBpoDMXob8d7vj90e9G
-	E4bS1vPhNSZxCl5gDZ37IMwlNxRqjGcEdR0WK7lyxx7zre9j97arN8vpgX5LUKv5PetIzec0wL4
-	FxbwPIZJwBlP8g6mYjj6kIyztX7vQFaZUKUfkTzi9sPwyzdjnzUF9lpvJD+Vmf/zrVytjJj7sQf
-	jmdxqfl32pWbQDUZg6odRXWmWZzeqYkP3j9W/tC4fy/hiTsqraGPhY60LefnqnBDCkENIznAPWY
-	8pNlBHRECJr032HfungbxE2Te5ig61T1MkzBLxqYGZpqkxahXkdtBFh2CdhjphrvjRvA7RnhprV
-	sTsSQ/1pQJdEcSA2G3o+B3IimoVotpIPzky7xpP33L3u74WdU1xTAFIfBdQxStcA==
-X-Received: by 2002:ad4:596d:0:b0:91c:5fd1:b334 with SMTP id 6a1803df08f44-91ca4ba268cmr99988516d6.54.1793483331088;
-        Sat, 31 Oct 2026 14:48:51 -0700 (PDT)
-X-Received: by 2002:ad4:596d:0:b0:91c:5fd1:b334 with SMTP id 6a1803df08f44-91ca4ba268cmr99988266d6.54.1793483330659;
-        Sat, 31 Oct 2026 14:48:50 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3acbbee0094sm13744921fa.20.2026.10.31.14.48.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 14:48:49 -0700 (PDT)
-Date: Sat, 31 Oct 2026 23:48:47 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Ishu Brar <patches@brar.si>
-Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-pm@vger.kernel.org, konradybcio@kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] interconnect: qcom: Add SM7250 interconnect
- provider driver
-Message-ID: <ms272llmwo6na3e3i3qxv72zvxedblxdisxfb3lswmjrbobbej@zq3hh6srj3fw>
-References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
- <010601a17d62222c-befdb9b3-ce1d-469d-a6d3-00511529579f-000000@ap-northeast-1.amazonses.com>
+	dkim=temperror header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=IkZ88K3+;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=KI/X1V0W
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id A5EA87A00C6
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:49:48 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Sat, 31 Oct 2026 17:49:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1793483388; x=1793569788; bh=Dqptpgk/y801BpkwD0flbCVwz21NUliVvaq
+	6MdaCT5I=; b=IkZ88K3+TXbp0L7k9to7D5tpfWlV5bRy7mcMrD6rl+sre9Zox1q
+	QCbNBXl+wAg3HJcLbcghlBOJTGLd+BjGDS76+ODnJ/l7+QxaQ2fKiRbxRtBRCyRy
+	rY6saNn9ZNWvCRmmJBmH6xjeoQTK9xc9bYRxsyaFHpLPDEgvecOYuxRXWZghVR8p
+	hqKxIDuXLqFsr7IuN3CdAe81FlnUnI30uPyZ5KO1iIBEF6ULllAUO/+bLkaRsFwl
+	ZLWgsooV5o4sokrNBmqbN98OvaHmQnZ4Q3eLiHoyL0QboxHQicIT1xnxdlFr8TX7
+	JSinoP47Y+2O6UuPACN7DHUHEwoXYKeG/qw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793483388; x=
+	1793569788; bh=Dqptpgk/y801BpkwD0flbCVwz21NUliVvaq6MdaCT5I=; b=K
+	I/X1V0WYcruPn9u0clQ2ESfYmfztqyXyUuN0QTOmjT368S7OmnwyNyMiikmcSqMW
+	O+K+Iy9a7O0Pm+JYXkx/INIan5UG2YkYY5JNEK8C/QRH6UP2zHcoa0pT1k6eAM+g
+	6OsRm+koYxq/kOXqKvwXk33SI/8MWo8vxX+fiPb2MAQ4nuzfEo+zqwiqU0gaIniJ
+	TQW1aF7H9yf2kBPaFqM7b2Fo5NkYgEMC99gbvubiUlY53PcUXjZlrGteeJE8e6hB
+	f7+8UiXz3KMx+ZlgrjCKE2TeoTo336smACM4MpoKlaEGDUWAtyNvvZP9tlpeYbpQ
+	S6D/1S+zNcOlhctlyuj9g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793483388; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:NcGml65/sqs6cxPIYTBwEl5RK8hU1Jbzobl1/+8cBqbklzS
+	sIvreRjn2Mf/o6C0EduEDkVmP8ZbuOkxIpWk7uElrMhLRWP3b1gRj8lTg0C0cksa
+	WFt7UzLVoSL0aDPL94RNuxFYve2+kkFhr6DppObZmBkxNoybTOeKmNnk7GRRY1s4
+	ppBXXRwDkxyqwyrxVod0mc/rlhiwVXqV4UeGDfEiGqU5ZWRjwDlkHA43HWLksDv0
+	1GcvEdNH2CSVxgDPK0BpnezFzI1kpaG0B467CXbIHQB+deDWkTNBIPue0WUqVhkk
+	pVSc6zQ19kS3c58bLCNynIRQsFujZkU/ZF14a7Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:xjZ38JdK4Ue/7wgJJp2aBnbMI4nnu3fmuT4Nf+KGkc4=:E1SEvAU69AdkxdM4A+CVF4YirlaFtUkMYecNKZnSW2k=;
+X-ME-Sender: <xms:e2LmalSIxTQ82Wa-O7omUf7cpUASoddBIGQsG-OPSzlMHerUQccIHg>
+    <xme:e2LmagSup_vUYJmguAKtwpADF93ijr8kEKKGWn0d72sSf-LIaPPqFbNWMraiNRao7
+    U8v9XcUG3RTe3aEJKypieFSlPdWvjZWTXo1muofmCSMSxhfk_8>
+X-ME-Received: <xmr:e2Lmaq5sguXaRpGs5KOg87p4e98EN0oxWcRWgMgXuey8COT-zPZHf7U0D3d0NiJpZ5h3IxXo6JgEaG6WVGMAySXWgBkTGcM>
+X-ME-Proxy-Cause: dmFkZTE2LiUPb/ID0mHqgShd3s/VNy+MkggIzMwmBVkban68WO6kPnLOVHVnoMzsODhJdx
+    ACjYPiJ8xQlrCyS6plUxyvvg3QOVJZWv22taoUBC9kpnl77t5yACruRxBVeGyGhFf7jqUa
+    HubwA4T7B+RmDLH+bJgnYMwy4iwyjoCdochxhPLq80cOYjJCAKZRdHTvTAyNGKERVnPyw1
+    OmPCie5n2usuzPBrLchKOzaHx08wd17GjxAhbZek+TY12bN5vEHlrvB2vfAf/jXSLDZiM8
+    9yE9GZ6Q3AgiLlKu1zwM4EWcRY0Yu8uB6fd3nul/dF+vs11Z13nsn5FkwOO8eG+GWQXUA+
+    9cvLiog4HfHB++NpdNX7B+S1cSloIA9ar9bUIX/a6v5sirqv2JPP5hba3KYNiz5ESuUWG5
+    Mm3r+lsh8OT1SCouJPUqZ1pYGfecMQmQUC4WmCOwEALOzzlSbuK141skivyg5F55QlJMgx
+    GoCzIMTHTU7xBPPuvsWDqCg4JliQpesLWGqp172YpiWdu/etNe3sDsPfR1Bq7UVanKaL4+
+    ipGp44Nek+FMVI/FSRi7tnS4J/A8D/Ii1hZUnO9dLr9+QtZOYcYSR8AmVCBwzlxSDrNUYt
+    qJuR0lLLXnidUU0gVioL5jYB/RYVX1/McsTrkSqDkXRd/dVuXM3o6SwPH2QA
+X-ME-Proxy: <xmx:e2Lmas3zkP5IzQQVR2VRaM3-XrZDheu4592077VzDOno4vH6CXVCUQ>
+    <xmx:e2LmalBE93uxGm4iE_BYzoZbKeRsM7ri-Yu8xrgsq8TZ5GVyX71ENQ>
+    <xmx:e2LmanM32UA1DBFVCDYPlK7E1m48usxoU_BIHzqX01I-C6_Y_ZzYcg>
+    <xmx:e2LmaqZIFeUNlNhT_xg8YQCsHrEbQ7RdvwW2GzCOviduq4lMLVy2Vw>
+    <xmx:fGLmajg9Zvs7rNMJNcz8RQ75PAMPD-oGnR6Xti4wGhZfa7Dt7BqXLOg6>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 31 Oct 2026 17:49:45 -0400 (EDT)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,56 +118,190 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <010601a17d62222c-befdb9b3-ce1d-469d-a6d3-00511529579f-000000@ap-northeast-1.amazonses.com>
-X-Proofpoint-GUID: rXtd26sO7irPmu_K8W6UHCDuFD2fcCLp
-X-Authority-Analysis: v=2.4 cv=Z4F5j3RA c=1 sm=1 tr=0 ts=6ae66243 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=rbLHc7TusOZuPl1584oA:9
- a=CjuIK1q_8ugA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4NiBTYWx0ZWRfX7FlfL3k8lZYD
- Ak0HzSb+2OqgfR1QLv62WaOR4GkeTlsX6u5vxuCz0rtlYLb+z+vjYvnFAg6ngxJnqXSmzEt0UYx
- D2NupozwQ5wwP9dQTTbOIIiMz8g5jao=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4NiBTYWx0ZWRfX4HXd7jes+aVv
- yY52CbRY+/JBtZflJ2UTlpOdmqcZIvDSGvuCTiPewu3YtlBif3B9PvewMzgwmYMFIFER4uHA7Hz
- /hfGIMlS/le1i61gFJQUHSbyQ0qgYcz8SbwiI4dNAiZ4284Ptg6Q1W5383GAcDXcaeZe9rcBJCj
- aesmp3TP96rbIr1O5Dwm8wiy1yI5CRdBxFtzgh9n9K/9GL8b5tF6oqNU5X+6T5aQjlRyhuvzKKB
- /wJPZKgPlOvyX8zen2bgs3gvPRmA/ZbU3mV7sKqJpODp00hwXehCqbkP5XApnasanU2wh2ZYQ+G
- ARmiaT7qE3jhtFYslQwMaS5QLql8QJ7Qi7LPyy67xUyUmISWwM38rAUi5rjFz9CWbqPzRmwya4b
- EAaBr7H2hR6W+Rk+yiuSE0PqwRYp2HF+HGdhYIG6YyjUawW3JrecpOrMscaVi0+OT7IojSraecP
- 2VHM+CBWAc2SnT6B+AA==
-X-Proofpoint-ORIG-GUID: rXtd26sO7irPmu_K8W6UHCDuFD2fcCLp
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-31_05,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- phishscore=0 impostorscore=0 adultscore=0 spamscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2610310086
+From: NeilBrown <neilb@ownmail.net>
+To: "Hillf Danton" <hdanton@sina.com>
+Cc: "Kal Cutter Conley" <kalcutterc@nvidia.com>,
+ "Chuck Lever" <cel@kernel.org>, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] sunrpc: fix lost wakeups when stopping service threads
+In-reply-to: <20261031004657.251-1-hdanton@sina.com>
+References: <>, <20261031004657.251-1-hdanton@sina.com>
+Date: Sun, 01 Nov 2026 08:49:42 +1100
+Message-id: <179348338213.447095.12525891242476966502@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-On Tue, Oct 27, 2026 at 12:42:25PM +0000, Ishu Brar wrote:
-> Add a driver for the Network-On-Chip interconnect providers of the
-> Qualcomm SM7250 SoC (Snapdragon 765/765G/768G). It follows the layout of
-> the other RPMh based providers: the nodes and the Bus Clock Managers
-> come from the downstream interconnect description of the platform.
-> 
-> Tested on a OnePlus Nord: all providers probe, and the UFS, USB,
-> display, I2C, serial and camera ISP devices get their paths without
-> errors.
-> 
-> Signed-off-by: Ishu Brar <patches@brar.si>
-> ---
->  drivers/interconnect/qcom/Kconfig  |   14 +
->  drivers/interconnect/qcom/Makefile |    2 +
->  drivers/interconnect/qcom/sm7250.c | 1489 ++++++++++++++++++++++++++++++++++++
->  3 files changed, 1505 insertions(+)
-> 
-> 
+On Sat, 31 Oct 2026, Hillf Danton wrote:
+> On Sat, 31 Oct 2026 09:45:39 +1100 NeilBrown wrote:
+> > On Sat, 31 Oct 2026, Kal Cutter Conley wrote:
+> > > Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
+> > > this stack:
+> > >=20
+> > >   svc_stop_kthreads [sunrpc]
+> > >   svc_set_num_threads [sunrpc]
+> > >   nfsd_svc [nfsd]
+> > >   write_threads [nfsd]
+> > >   nfsctl_transaction_write [nfsd]
+> > >=20
+> > > SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
+> > > nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
+> > >=20
+> > > The stop request is published with unordered set_bit() operations.
+> > > svc_pool_wake_idle_thread() checks the idle list and task state before
+> > > calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
+> > > it skips the wakeup and its memory barrier. The requester can therefore
+> > > miss a sleeping worker while that worker misses the stop request.
+> > >=20
+> > > Order work publication before both lockless checks, even when no
+> > > wakeup occurs. Pair with set_current_state() and llist_add() in
+> > > svc_thread_wait_for_work(), so the worker observes the pending work or
+> > > the requester observes the idle worker and wakes it.
+> > >=20
+> > > Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsi=
+gned int.")
+> > > Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
+> > > ---
+> > >  net/sunrpc/svc.c | 9 +++++++++
+> > >  1 file changed, 9 insertions(+)
+> > >=20
+> > > diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
+> > > index af8d87c1de83..f3cc63acc5e1 100644
+> > > --- a/net/sunrpc/svc.c
+> > > +++ b/net/sunrpc/svc.c
+> > > @@ -29,6 +29,8 @@
+> > >  #include <linux/sunrpc/clnt.h>
+> > >  #include <linux/sunrpc/bc_xprt.h>
+> > > =20
+> > > +#include <asm/barrier.h>
+> > > +
+> > >  #include <trace/events/sunrpc.h>
+> > > =20
+> > >  #include "fail.h"
+> > > @@ -693,6 +695,13 @@ void svc_pool_wake_idle_thread(struct svc_pool *po=
+ol)
+> > >  	struct svc_rqst	*rqstp;
+> > >  	struct llist_node *ln;
+> > > =20
+> > > +	/*
+> > > +	 * Order work publication before the idle-list and task-state checks,
+> > > +	 * even when wake_up_process() is skipped. Pairs with the barriers in
+> > > +	 * set_current_state() and llist_add() in svc_thread_wait_for_work().
+> > > +	 */
+> > > +	smp_mb();
+> > > +
+> >=20
+> > I don't like this.  Stand-alone barriers are, I think, harder to read
+> > than barriers combined with operations, like smp_load_acquire() or
+> > similar.  And this one seems quite detached from anything.
+> >=20
+> > If I understand correctly, the possible race is between
+> > svc_thread_wait_for_work which includes:
+> >=20
+> > 		llist_add(&rqstp->rq_idle, &pool->sp_idle_threads);
+> > 		if (likely(svc_thread_should_sleep(rqstp)))
+> >=20
+> > and svc_stop_kthread which includes:
+> >=20
+> > 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
+> > 		svc_pool_wake_idle_thread(pool);
+> >=20
+> > The first sets ->sp_idle_threads.first and then checks SP_NEED_VICTIM
+> > and the second sets SP_NEED_VICTIM and then checks
+> > ->sp_idle_threads.first.
+> >=20
+> > So we need barriers to ensure the values are seen is the expected order.
+> > Have I missed anything?
+> >=20
+> > llist_add() always calls try_cmpxchg() which is fully ordered, so no
+> > extra barriers are needed there.
+> >=20
+> > There is no barrier between the set_bit)( and the READ_ONCE() in
+> > svc_pool_wake_idle_thread(), so you added one.  I agree that is correct
+> > and solves the problem.
+> > But it is only this call to svc_pool_wake_idle_thread() that needs a
+> > barrier, not all calls.  So I would prefer the barrier went in
+> > svc_stop_kthreads().   Do you have a reason for not including it there?
+> >=20
+> > We do need a full memory barrier - a "release" on the set_bit and an
+> > "acquire" on the test of ->sp_idle_threads.first
+> >=20
+> > I would be happy with smp_load_acquire(->sp_idle_threads_first) in
+> > svc_pool_wake_idle_thread().  I'm not sure it is needed though.
+> >=20
+> > I would like set_bit_release(SP_NEED_VICTIM) in svc_stop_kthreads()
+> > but we don't have that.
+>=20
+> It is on the way [11].
+>=20
+> [11] Subject: [PATCH 1/2] asm-generic/bitops: Add set_bit_release()
+> https://lore.kernel.org/lkml/20261021095512.1345191-3-phasta@kernel.org/
 
--- 
-With best wishes
-Dmitry
+Thanks for that pointer.  It helped me realise that I was wrong about
+the sort of barriers needed.  A set_bit_release() would not help.
+And an acquire on the subsequent read of sp_idle_threads also wouldn't
+help.
+
+A release is between two writes:
+T1:
+  foo =3D 1
+  smp_store_release(&bar, 2)
+puts a write barrier between the two.
+
+An acquire is between two reads.
+T2:
+  y =3D smp_load_acquire(&bar);
+  x =3D foo
+
+These ensure that if T2 sees '2' in bar, it will definitely see '1' in foo.
+
+But we don't have two reads or two writes, we have a write-then-read,
+and that requires a full memory barrier.
+
+So we would want set_bit_mb() (corresponding to smp_store_mb()).
+As we don't have that,
+   set_bit()
+   smp_mb__after_atomic()
+
+is the right way to fix this - acquire/release barriers would not be
+effective.=20
+
+As I noted, this is needed in both svc_wake_up() and
+svc_stop_kthreads().
+
+Thanks,
+NeilBrown
+
+=20
+> > We could do
+> >    atomic_long_fetch_or_release(BIT(SP_NEED_VICTIM), (atomic_long_t*)&poo=
+l->sp_flags)
+> > but that is ugly.
+> >=20
+> > So I think the best solution is
+> >=20
+> > 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
+> > 		/* Order SP_NEED_VICTIM before testing sp_idle_threads,
+> >                  * matching svc_thread_wait_for_work() which orders
+> >                  * setting sp_idle_threads before testing the bit
+> > 		 */
+> > +               smp_mb__after_atomic();
+> > 		svc_pool_wake_idle_thread(pool);
+> >=20
+> > We probably need the same in svc_wake_up() after the set_bit().
+> >=20
+> > Does this make the barriers easier to understand?
+> >=20
+> > Thoughts?
+> >=20
+> > Thanks,
+> > NeilBrown
+> >=20
+> >=20
+> > >  	rcu_read_lock();
+> > >  	ln =3D READ_ONCE(pool->sp_idle_threads.first);
+> > >  	if (ln) {
+> > >=20
+> > > base-commit: b803428098f6fcd584db9f0499217b80e465bb34
+> > > --=20
+> > > 2.53.0
+>=20
+
