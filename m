@@ -1,73 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793455298;
-	b=1DaZ+SErBuJ45j+dYIJO8R9FtfOCyNjaBEPN/A6+iJDL1851eKAUHMMXcpn+hUd3Lwl8
-	 IeL9yLwaxMkCZGysgY7mPutV5lfFih10m1yGFt7QHniEtqI1OzFP/O2/j7cCF+E88WOrF
-	 30rRD0vqZpL/NnM904VdpL2er2cvvJy6jqAN+gVr5MxrbrUak7nVo07FuCLr9cGZUNL/p
-	 ZNbYO9N5gYoldMIK4eP5sbZbOa3j+Rqe+grrlZ5GwZSOeHLXlT71FEjq/HavKS2zuZz5+
-	 MgLiGG3R56TFvNCv415Qo0tK2Wq8eGOYpYvXUwpeu7MeR3DHbPEqmx6D2r7e/HAhQgA==
+	t=1793455911;
+	b=Hd64nK1rLKGUlx9QGV08rGP7/shZJCDJ+CNxZChJgr2mlRm+7BnoK4BYMF0qwB3L3Ndl
+	 maHVg30Uedxr2u6ENo2ySLQxi3ddcyS9R6DKqsF881fVjU8jsPdZ4RfwCPfad+kwNsVrE
+	 zH5s6W4SrKg1bbD57ShzSdicfv3wzzjGYv1fVvBmddwc3Gp8Nj7qiSwIlx1QwXvZ6XYPa
+	 ByJ35QQlEiMBK5j4pYje9oBiccFoK5JCOE7+w1fdCyAFn+rIiIV72ukR3RcfGtbHTU6va
+	 E5OL1qiKGfjkJmGfSheEcwWzm3xQaacQC6tgkA+hQ28qs0Mfo4KE1+sVeE4DmKeicuA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793455298;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=qlxETbMEjoAzP8XM9VVKvs0aq198sYaqIYGCvv4J8aM=;
-	b=k8ag9YNUi69e8P3as+dbAeG5zxrRAXmczX4mcnjaYeK9Jqt0xMOnIywr5PwAolAJ7WBp
-	 O3+VOQ3uA1mcTs4JtvLum8n/7pfbzIetLTgg1LtgBKbpCdBM6it5a3hSpAaMHF9mtTeIS
-	 BQOGwKfIB9UQInL7vt8n/c3VUrgEdrbYuXcm1zHzZIe/GRERkdIdAvpBuTQvs/8DYyEIS
-	 hp7JP9EVh8xgJDHnwhNmtgtj5xhAYSpKsScG6ZCd3qtHHe9b7tyFaFQtKFjT9Eaa1Zb0z
-	 EtX8NaB4V+GXGuDdG1jnazjtFVjaWVL0pXd3WVxZWl1f67lElDaRzm0/N84Q37YHkeQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793455911;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:MIME-Version;
+	bh=lvlz765PeiLIZOiym9FNUcuzEVbVNRreYuI+C2LJcxg=;
+	b=LXrJEOTMPKXDQ6sxtEqsOJ8mPvQLcIurbpFVWoC9Br0qOunbsTW8FlkA1iy++DgjstR6
+	 qFH11a8vyvLpTw8vkNSNFR4VOR3oTue0KdHK2XKplB8vzZBT8/Wt7BpwzPlDLMJb7/gnZ
+	 /xgQZcBEPe9a/4F9yTiaLWyrBy4JhoQPxlJuCsSPRkeKiiLnYPqT1NSTvGGQ8o48gVIf/
+	 DjyUdkIluURXhDynZ/kDbVxQ88y6sj57bjvevj/gesmY6oNHV2vaeH+pRNrTtIhqQ6LAf
+	 IULfXD/aJcVTC4VH5iCwNZNlmufjj2n52Ws/6Zm/P41PlhA9oNp0Lt2WtSdupU1mpOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KdSrTV0T;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=itx.no;
+	spf=pass smtp.mailfrom=itx.no;
+	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=fEszFz5Z;
+	arc=none smtp.remote-ip=91.189.121.228
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C278A606A31C;
-	Sat, 31 Oct 2026 14:01:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2023F606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:11:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2023F606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KdSrTV0T
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FF41F000C1;
-	Sat, 31 Oct 2026 14:01:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793455297;
-	bh=qlxETbMEjoAzP8XM9VVKvs0aq198sYaqIYGCvv4J8aM=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=KdSrTV0TE1H6slCwCQjATUxv7oux6CVS9eVctew258Dmcjegqamx6DhOKaek6YzFs
-	 xBxRNY18yOVZ3RHuZBcDMek+X8c5hdnxrqawwfGMD4832U11RBYWP+4032cmoVj26u
-	 0YnkbdbuJHDpNPUSVd3F9k8l/QvaG1TAbLcK0oChMB1q3+Acx4fSAMwiQVBjcNDurF
-	 0dy2nNM1Y/UhxISbWUbeoXAFrE3GfdsUjT6MGM5/x3KrPqo4Hf0GvhpfO5zKcQbjxV
-	 2BuL0r1SGZwKnym7QIg04LiiouM2wyNiJMX6uCwyRVK9jSAgIFk8cEJgLCMlzs4F6i
-	 F8qAkJTEj3GOQ==
-Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 1000BF40066;
-	Sat, 31 Oct 2026 10:01:36 -0400 (EDT)
-Received: from phl-imap-15 ([10.202.2.104])
-  by phl-compute-10.internal (MEProxy); Sat, 31 Oct 2026 10:01:36 -0400
-X-ME-Sender: <xms:v_Tlaib5Yib547iuUSIk_ndMzf-YUuNLv4KofcaWK3M_kU2mcq7ihg>
-    <xme:v_TlagMNk8KwMFDpqaW4g5RiQaMMuMA9pGGLJYZL_kT27ayojOIN2LXxW4wTAscPB
-    gbokRTDjvXrnRI_k2JwYMpH-Ve-RTI7dltMrFrylWXMJ9dTmn0anQ>
-X-ME-Proxy-Cause: dmFkZTFbnwXPtfUJ8TOIh/2YtHnqlVp+wY0Lc4pIVwZ1MqbZW4KTXu1pZrx7Cd5LCrmRK+
-    RbTH7wiFeWIi0ZG4+rSLatRSXg8soJu9J/dLSesI0u+30a1VP7fSze3kiaUkq4gpKh8E4O
-    k6Q6k1X3ZjO8gir323OR58KtmV+AA/xCHwEjyiAPe/8kZSqbhgiDVVcCpSCD84A1azOBTN
-    G3KtwfoWQyMQLEW64q7hWp35tZTyc186DhYS5g6bgc1vdTC5Cw2ariX2I06hpIt0iuptba
-    bXpTLGH5dv92jLOYf8EjurjZpgFS3fY6vfFnGfZpYCN8ZvZXnGnB1+AMIEaCn0ssv7eMdE
-    kerMulL04F/rsVFIEiYbns6xnND+DzfPuPgjoUUFA0sgmvCvI4duSn8bMiyjbPKXkk6VE3
-    /f6GHFWd7/7t4s99SxZmhWT4NTFE2ir+w5VKVK7WNS4SRw868jkrTnS/R0ZGOBIVglqcu5
-    +uPFnzUfMbko2OBM6v2V5QFkyC/VhtAqDfSVHJISEkgdy6nvIaOYVf1iusxmcjrrTeHz8w
-    b8Hj3PTEydvOMAvP+b8Z31c67aU3pJ2gncUX86ypRLjPb/ZaRauPy1ADNpW5JsW8n0w7pp
-    GXz1nzZj/dV5K8oaK27A2FZSZ+iJ16spTklrHvzuDXOIZA7FouoBh/9sjLeg
-X-ME-Proxy: <xmx:v_Tlaj3GHLzRa0W6w_2BixaYdWX1qGD7bO88XnmGbQPok7ChaWWAHw>
-    <xmx:wPTlas9Rkw4-mx2GbL09dK75cjOJc2uyB09TwzcI-U7nsfqs-y8t4g>
-    <xmx:wPTlauEadE4JQrLU4vqppEzPDoX5M3G6200z-Hb2KYLXVRwT44Ximg>
-    <xmx:wPTlaqjVAG2yA_DRkagNKsHPKobQGDyLlhjQ0fNG9goENFvBTIg-0A>
-    <xmx:wPTlar9maAxbWeGYJdB5f85BK3jCzq-wMvhYVySOLBENkaoE4u9mvT-R>
-Feedback-ID: ifa6e4810:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id CE4E878273B; Sat, 31 Oct 2026 10:01:35 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=fEszFz5Z
+Message-ID: <a4ba7e5be50ed4de4cad3d3e53355eb533587694.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1793455907;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lvlz765PeiLIZOiym9FNUcuzEVbVNRreYuI+C2LJcxg=;
+	b=fEszFz5Z3nynviUrhTPmHzI8erwiqpKmx5HQM7/56p+bimpZ/V6fhIX/UOre5vXeP55JlW
+	4O1mTyLIm48+Iui4LFmeo8DrIXEgvX5lj80v9DweSSOiWlJ1pAbBeXlzr2d0Ai50H7il+g
+	iDJs6FJM6A7pfoykCDcnBxXZwtrmCfg=
+Subject: Re: [PATCH] sched/cputime: Don't warn when the tick period starts
+ after idle exit
+From: Stian Halseth <stian@itx.no>
+To: Frederic Weisbecker <frederic@kernel.org>
+Cc: Peter Zijlstra <peterz@infradead.org>, Paul Menzel
+ <pmenzel@molgen.mpg.de>,  Thomas Gleixner <tglx@kernel.org>, Anna-Maria
+ Behnsen <anna-maria@linutronix.de>, Ingo Molnar <mingo@redhat.com>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>,  regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: Sat, 31 Oct 2026 15:11:46 +0100
+In-Reply-To: <auXzIbzU9aWBD_fM@pavilion.home>
+References: <bfe9b14a-6e65-41c5-b638-26f6e033788b@molgen.mpg.de>
+	 <20261025100202.2584654-1-stian@itx.no>
+	 <at-C_3rGi55L1v2X@localhost.localdomain>
+	 <1e00b909b81c6195b3ad5aeda207d20cbedc3971.camel@itx.no>
+	 <auDaMdhD2zGBLhDE@localhost.localdomain>
+	 <bd9b6592bce4b8f2e802518bf2cad561af61e78e.camel@itx.no>
+	 <auIDNl9EUX4CzWzr@localhost.localdomain>
+	 <68f0450d47577dc4f83d32e5b0211c97ee8d24bd.camel@itx.no>
+	 <auXzIbzU9aWBD_fM@pavilion.home>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-Xwu0bUm283+Mi4l8kNS5"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,145 +73,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Am0AR9z1Vk8F
-Date: Sat, 31 Oct 2026 10:01:15 -0400
-From: "Chuck Lever" <cel@kernel.org>
-To: NeilBrown <neil@brown.name>, "Kal Cutter Conley" <kalcutterc@nvidia.com>
-Cc: "Trond Myklebust" <trondmy@kernel.org>,
- "Anna Schumaker" <anna@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, "David S. Miller" <davem@davemloft.net>,
- "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
- "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <44664d64-3694-49d1-ad17-ca70221ed327@app.fastmail.com>
-In-Reply-To: <179340033904.269288.4611945330659974906@noble.neil.brown.name>
-References: <20261030130629.103716-1-kalcutterc@nvidia.com>
- <179340033904.269288.4611945330659974906@noble.neil.brown.name>
-Subject: Re: [PATCH] sunrpc: fix lost wakeups when stopping service threads
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
 
 
+--=-Xwu0bUm283+Mi4l8kNS5
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 30, 2026, at 6:45 PM, NeilBrown wrote:
-> On Sat, 31 Oct 2026, Kal Cutter Conley wrote:
->> Stopping NFS can leave rpc.nfsd 0 in an uninterruptible wait with
->> this stack:
->> 
->>   svc_stop_kthreads [sunrpc]
->>   svc_set_num_threads [sunrpc]
->>   nfsd_svc [nfsd]
->>   write_threads [nfsd]
->>   nfsctl_transaction_write [nfsd]
->> 
->> SP_NEED_VICTIM and SP_VICTIM_REMAINS remain set while all remaining
->> nfsd threads sleep in svc_recv() and none has RQ_VICTIM set.
->> 
->> The stop request is published with unordered set_bit() operations.
->> svc_pool_wake_idle_thread() checks the idle list and task state before
->> calling wake_up_process(). If it sees an empty list or TASK_RUNNING,
->> it skips the wakeup and its memory barrier. The requester can therefore
->> miss a sleeping worker while that worker misses the stop request.
->> 
->> Order work publication before both lockless checks, even when no
->> wakeup occurs. Pair with set_current_state() and llist_add() in
->> svc_thread_wait_for_work(), so the worker observes the pending work or
->> the requester observes the idle worker and wakes it.
->> 
->> Fixes: 60749cbe3d8a ("sunrpc: change sp_nrthreads from atomic_t to unsigned int.")
->> Signed-off-by: Kal Cutter Conley <kalcutterc@nvidia.com>
->> ---
->>  net/sunrpc/svc.c | 9 +++++++++
->>  1 file changed, 9 insertions(+)
->> 
->> diff --git a/net/sunrpc/svc.c b/net/sunrpc/svc.c
->> index af8d87c1de83..f3cc63acc5e1 100644
->> --- a/net/sunrpc/svc.c
->> +++ b/net/sunrpc/svc.c
->> @@ -29,6 +29,8 @@
->>  #include <linux/sunrpc/clnt.h>
->>  #include <linux/sunrpc/bc_xprt.h>
->>  
->> +#include <asm/barrier.h>
->> +
->>  #include <trace/events/sunrpc.h>
->>  
->>  #include "fail.h"
->> @@ -693,6 +695,13 @@ void svc_pool_wake_idle_thread(struct svc_pool *pool)
->>  	struct svc_rqst	*rqstp;
->>  	struct llist_node *ln;
->>  
->> +	/*
->> +	 * Order work publication before the idle-list and task-state checks,
->> +	 * even when wake_up_process() is skipped. Pairs with the barriers in
->> +	 * set_current_state() and llist_add() in svc_thread_wait_for_work().
->> +	 */
->> +	smp_mb();
->> +
->
-> I don't like this.  Stand-alone barriers are, I think, harder to read
-> than barriers combined with operations, like smp_load_acquire() or
-> similar.  And this one seems quite detached from anything.
->
-> If I understand correctly, the possible race is between
-> svc_thread_wait_for_work which includes:
->
-> 		llist_add(&rqstp->rq_idle, &pool->sp_idle_threads);
-> 		if (likely(svc_thread_should_sleep(rqstp)))
->
-> and svc_stop_kthread which includes:
->
-> 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
-> 		svc_pool_wake_idle_thread(pool);
->
-> The first sets ->sp_idle_threads.first and then checks SP_NEED_VICTIM
-> and the second sets SP_NEED_VICTIM and then checks
-> ->sp_idle_threads.first.
->
-> So we need barriers to ensure the values are seen is the expected order.
-> Have I missed anything?
->
-> llist_add() always calls try_cmpxchg() which is fully ordered, so no
-> extra barriers are needed there.
->
-> There is no barrier between the set_bit)( and the READ_ONCE() in
-> svc_pool_wake_idle_thread(), so you added one.  I agree that is correct
-> and solves the problem.
-> But it is only this call to svc_pool_wake_idle_thread() that needs a
-> barrier, not all calls.  So I would prefer the barrier went in
-> svc_stop_kthreads().   Do you have a reason for not including it there?
->
-> We do need a full memory barrier - a "release" on the set_bit and an
-> "acquire" on the test of ->sp_idle_threads.first
->
-> I would be happy with smp_load_acquire(->sp_idle_theads_first) in
-> svc_pool_wake_idle_thread().  I'm not sure it is needed though.
->
-> I would like set_bit_release(SP_NEED_VICTIM) in svc_stop_kthreads()
-> but we don't have that.
-> We could do
->    atomic_long_fetch_or_release(BIT(SP_NEED_VICTIM), 
-> (atomic_long_t*)&pool->sp_flags)
-> but that is ugly.
->
-> So I think the best solution is
->
-> 		set_bit(SP_NEED_VICTIM, &pool->sp_flags);
-> 		/* Order SP_NEED_VICTIM before testing sp_idle_threads,
->                  * matching svc_thread_wait_for_work() which orders
->                  * setting sp_idle_threads before testing the bit
-> 		 */
-> +               smp_mb__after_atomic();
-> 		svc_pool_wake_idle_thread(pool);
->
-> We probably need the same in svc_wake_up() after the set_bit().
-
-Kal's patch as written adds an mfence-class instruction to every transport
-enqueue (a common case) for no ordering benefit. So let's go with Neil's
-proposed solution. Kal, can you send a v2?
+Hi Frederic,
 
 
--- 
-Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
+On Sat, 2026-10-31 at 14:54 +0100, Frederic Weisbecker wrote:
+> >=20
+> > Here is where it goes wrong. One tick has passed in real time, but not
+> > in ktime. The switch happened d after the last tick, jiffies never
+> > counted that d, and the tsc only counts from the switch on, so here
+> > ktime_get() =3D=3D jiffies + TICK_NSEC - d.
+>=20
+> So that assume that during the clocksource switch, the new clock synchron=
+ize
+> with the old one so that ktime_get() from the new clock should start from
+> the last value of the old clock. I'm having troubles to verify if
+> tk_setup_internals() does exactly that.=A0
+
+Not that one, the timekeeping_forward_now() just before it. It folds
+the old clock into xtime_nsec, and tk_setup_internals() keeps that and
+only resets cycle_last from the new clock. On jiffies that value is the
+last tick.
+
+>=20
+> [=A0=A0=A0 1.549194] old=3D 1352575566
+> [=A0=A0=A0 1.549930] new=3D 1352578748
+> [=A0=A0=A0 1.550636] clocksource: Switched to clocksource tsc-early
+>=20
+> That's 3 us, it could be the simple difference between the 2 printk.
+
+Look at the timestamps: 736 us passed between the two printks, but
+ktime moved 3 us. The 3 us is tsc-early, from the read in
+tk_setup_internals() to your second ktime_get(). The time from the
+last tick to the first printk, plus the 733 us from there to
+tk_setup_internals(), is never counted. That is the d. If you print
+ktime_get() in tick_periodic() as well, old=3D will match the previous
+tick exactly.
+
+>=20
+> But the switch from tsc-early to tsc is much more:
+>=20
+> [=A0=A0=A0 2.639818] old=3D 2445754540
+> [=A0=A0=A0 2.640172] new=3D 2446107950
+> [=A0=A0=A0 2.640927] clocksource: Switched to clocksource tsc
+>=20
+> That's 353 us.
+
+Here the printks are 354 us apart and ktime moved 353 us. Both clocks
+run, so nothing is lost: tsc-early counts up to the switch and tsc
+continues from there.
+
+
+/Stian
+
+
+--=-Xwu0bUm283+Mi4l8kNS5
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCauX3IgAKCRDoeAEuJe36
+Vm63AQDQGv3N0diSFTWp+l2Ve0ji6no/verLCGOZM8j/6mEARQD+LsaZJKEYH6Ac
+hVj1Ob+CQjxKCa1+nmNCcVTlgYFucwA=
+=epro
+-----END PGP SIGNATURE-----
+
+--=-Xwu0bUm283+Mi4l8kNS5--
