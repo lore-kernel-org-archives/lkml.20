@@ -1,72 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793416090;
-	b=zw7uZwBfe8KJFDJoBarmHBPIB8jK5viXr/XAbYa+8zSww3wA9v+GqVxb217mUN1yXywM
-	 uQTIN6IXYFWRyZt3g3Gj6djiomxHDnwKquBD0XtG4zcY6DNypwz+2yaq6iCF7ygF101zK
-	 z6dgwXGeeBBRfvvyUOhDKz1hNwnj1Wj4++7nw72nu8cxkqH26HSEHLAExEi8cEJ2ltfJF
-	 DmUxIZpWh+vWVZtZXsdiHIg4/4on2QHKxi5AEtRESTnQEGcXV/rfQKI4kySkzPaoH/0W1
-	 UtZQNECxttyq07BFADdxxjiVva8qb/WlRuWFTfOpdP/Qf3hnhcnj0gyVplv2MvpXUmQ==
+	t=1793416226;
+	b=ZWQLfLaS1QP5XbQ4I3TTTrHmLVCo3rLFYpiqZl/lrSGi/RiGuMQmBo4bSpiEWeDdqa60
+	 BLFUzE5KhHoRbkO6cUnXHdRrvnty++kDgRGMXtyT3iPpsqKN0tXTqpIKoHtxEJ+YuEK4G
+	 9i8T5uuVEaeHfIoe4QRvq3dikvyLotzF1bNMUY1pEQ8qPsXpMS3EnBnlJLwDfu8ILUVrF
+	 QpKhsQ6bqwjG0DVi9gLn336ppnQUOua8XBKxBRXJ35owfMl4puzVzsUvmytdOo1qNy/L3
+	 qFk2bIhzCK5OvcaC7tfDp9rqe7mrixTbk9If3zIcrHE2DwTLDuT0aoPTItu35ndp8Fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793416090;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793416226;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=f5aloOxgBcfJJK8SvXENQRlRRIiOwSu/Xe/rRaruUWM=;
-	b=pGHOhZ0AGAOX0h+elO9nm6Kh7Dahgw2y+P14fUuFLwrTER8dtkwIGbpaEiF9eEp/+yug
-	 w2ie+zUe2Ie68J3awC26ZOMGELCgJU7iVq+Soz36zg/Oq95dXeZvQmiLdL0E5hM4lSA4D
-	 P6skXxmGYxl0DOOCYvLZ2Ss/owt/tt34U/MWFCdAfeGncA02Vn3LNopA+dTDoPrx0kcsO
-	 hPBcJ3aJ6HWyuvu60j5yyAMXgJD0HHgvO36YcLp9a0DRl1cPxNppTveNxC2MhzEGwxoft
-	 k04tcZsHjtpHBTyZy3V9qgSimKmDcyT6ms9PIVDhTmg7/KEdaUdYe8A5aS1hpIZzA0Q==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=rSQVuufJqG4DagM4PmCmZM1z/EqJK6JLyOoiv3ybUJs=;
+	b=jZgH9V9JAnJWmltjgecXecjZhtbJGuRMcr2qotMlBzYcIIDCejsHmaddC+q4QYtf6zF0
+	 QVOlzQeucuCHqCh0IbZuh/Q3fFgt05l7HebDdDeccoThQiKA/pX2SnKRQYKoIWDTN/0Ct
+	 VkSctFD36TQT1Wb/CfaOvlVjqPNIMTXVCSmJuKtYWcglDHN+fuNh4HMYsp8ShqhtU1Pdr
+	 HPiFXIlOqsFNA9J2WN5uGmwLVeZNyUUMPISO7pcmRpPdlPrjNk7HuLQF1QIS0t1YUZmwJ
+	 qSKwZU6MnhJdTwjtyKHBcaLGy9PZ5UrV15ZdWSjhCRgxOASU88+rJeJd2my3w/thmGw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PR1nKxpi;
-	arc=none smtp.remote-ip=209.85.210.197
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H03yVUwC;
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20D47606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:08:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 20D47606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jenhaochen.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AC7606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:10:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35AC7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PR1nKxpi
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-8a01e2962a1so1345014b3a.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:08:10 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=H03yVUwC
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b1b13e09ffso1857392a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:10:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793416089; x=1794020889; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f5aloOxgBcfJJK8SvXENQRlRRIiOwSu/Xe/rRaruUWM=;
-        b=PR1nKxpik6V79K8q/LNhpRQ378eU2tznOaZY+s3r8sZKIvt8BulNk73ToJPdUdYGXl
-         dOk8JZKtI2RgGYfrMH0NE1UstYE+cb8Dp1hlUxXV4rM+NofrDb1Cmnh2W+p6ckEM4Nps
-         iXPB29uWC+QqEwQvEYj0C50SdGFtMW2Kerfdu9l9kpYRKiBK6AQNMzGt4n01Op6smPla
-         dk/x40lhcjPC6/XjCBqyN6DaDkwbZLJjiZ7Zd5pCFUAMmHBngOzO0NaBvxvRW31zPoIo
-         IaQ9Z5wHilqcYGEVS3tUZYYtUpy3wrMEiZ8IVR+FQzDwDqYjTZ9IUaVhEOFOniruPdJP
-         yE6g==
+        d=chromium.org; s=google; t=1793416224; x=1794021024; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rSQVuufJqG4DagM4PmCmZM1z/EqJK6JLyOoiv3ybUJs=;
+        b=H03yVUwCDBp/meoXXTo95GjtgwZG8nXQWbdXt+tkq/+w+2HU6Fhep5fXf0IO+sFxPo
+         tYb6tEm3KEqdlWhM9yeUzDOOrCX6V2KPaYQhz7Nkcv9z99v1nA+o7fKVVnlVeo6MAlo7
+         AikobQPbV3TPRR1YmPVk3AJuRJcrS0UaoEnoE=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793416089; x=1794020889;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
+        d=1e100.net; s=20260707; t=1793416224; x=1794021024;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=f5aloOxgBcfJJK8SvXENQRlRRIiOwSu/Xe/rRaruUWM=;
-        b=TvqybjujDIDbcyqpsViMgepDjqCTEQ0fzkXktmZYv7zV9AsCYjzpKSeEONGxrW2PBH
-         9iKY0K3P7lgPVWaQSj1c9J5ksuj3OY8q00KI1HyRfTI73j+Iip9+3Vfxx4svjkX+RMZc
-         CNyMBubPvZaXWpU3DDaYJS1agaHlLH2IUuUjqeo9M3FGMfbE2OHJ5PhI2WHfnQu47WTz
-         SQGRvoyaYOV1rnGkYiYw/OXQjGPMuea89YMwBRs83x2EfdSJhYIjDI98kcvMe0XL1l47
-         xj66saNrbB5MogAFp7EAqsc2SMZ8D+8GeUn498Kx9UwLtkPXE0UxXQaIb46OqCF6XcWB
-         +Nsw==
-X-Forwarded-Encrypted: i=1; AKwUvBwl03lfyIl2gKy87h0PHCLMkZNEYPjTn0hB2f4Qil5N+T2QYXB+k7VMu/3ryqlb5zMifAHJM9/YbduCX/E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZFYjpsAg9jOTvmgpbdpk76qBMCx1Hb/vbKq/Mlx3tiEpOUpgu
-	k4mlsy7UuclJyRCvZaAlRnXGl4UepHxeRbe67zHiabmFNLNOh8uznU4o7HDwbm+kv18fEHHaem2
-	2EOm84w4il+eGsyaadcz4Ww==
-X-Received: from pfbft2.prod.google.com ([2002:a05:6a00:81c2:b0:8a2:dc6e:fcd0])
- (user=jenhaochen job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:10c9:b0:878:34d7:699e with SMTP id d2e1a72fcca58-8a9bfa0326bmr3697231b3a.46.1793416089082;
- Fri, 30 Oct 2026 20:08:09 -0700 (PDT)
-Date: Sat, 31 Oct 2026 03:08:07 +0000
+        bh=rSQVuufJqG4DagM4PmCmZM1z/EqJK6JLyOoiv3ybUJs=;
+        b=YU03/bnMSReKbbcgWOBDpe5C9bN2Vkd58PGDu3O1Cw5BFGTbLqIJWXH9ekPIHuC/Bb
+         8RrrGkyR0KT+wED6RIt4K4I4aMfqLEc2KjXoo/B1f8h3YBIoVkLX9LvftQpMMpV0hNx9
+         pG+FfZ1nwuGPv1GDgKvLo9yptQ0a4LxXCv+FJGd9PI4UtknQ2eumLOBZKSsQhFFQdoEI
+         9L5AxsrwL/jLYSn8nOPyh5dMBbA7JEEt5K1z/0etbd6BMY/tjNICgN8Y9gH/AphCjc4V
+         chUqpDFreibE40rLtPeT/T1/AZpAX2BxJ1qMCNfogI7kHed4DaKnvS7hflYgnxwfEP4m
+         t3Vg==
+X-Forwarded-Encrypted: i=1; AKwUvByXlscDsiqzIpvCuBFHcJdPxKFHqMUaomCSd2lIjqU0EgXBceqStuVFtbYtrNggpJctykr+W3zv+4Ue4lw=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL47axYg+ZwmxCupxeVGj3O1iknLUp8VMwLdihWo92nmkgw7iYK
+	iq8k70kUv/O146m9QCUJ0fR3McQq5e8hHeEJggholhioz7RO0L4K113wjeLpgDshjuKC/gZZlzN
+	0VYrsxbB2
+X-Gm-Gg: AYBFou1uHzhBeRUGPO6EuCFJBSnCbVcRZdmlagvwTS0Lg3FiHtb90x0BRxvEkrMPThf
+	CsuJ5mpFsYoSbTggUKf3aHffo4XG99PdmVhiINyJZ/uRaiof/KKbZGAaeNbcwTt0f3xBs9tTXhH
+	JJCFIYZ3X/v7ylU1i6+wfD8rgHjdBfoanBEkWN/M9ucDEbJVkSLmQ6TPLFP+BchbgNR8dsAPjo/
+	Sh/BXiJavjVCiY2osn/jHD7alNvuwl5ecL9rcXCmeA2Gway45NoqVjKcXo+WALO9Qb8a94cxAwH
+	VB9bS/9fc03qW40hQNe96F6iSi4Oec4KcO/BGpFUa5QKGkvQsQCoCV7mBiWv+ki11xz5H3WbbdB
+	FUMDEwi42UeL7nLkJoChEQjO+vmZTQSPEle7Z0D6KDUASHeOgZ+QVOS1cHGgns5dzYjbPDcnKpf
+	JBx3pRuFGpfBPSco2lAIYBTwpSJQPvtTaJsudrLKyflreuAuU92iOQ371gvT9IaSeQEeud8Geox
+	5p+BciEXkneJgx4NpLHatHcFjXQ31NsVF2Ep3bLZBTToTOiD9kJFiNBF+8pZcEhB8WO4XZZHBO8
+	6mehs0J/I+6wcL8IC9plMHRMPHENH50UAUqr8/2fdvmQJH+REcFDCufVpLkAKlZacQoT
+X-Received: by 2002:aa7:d886:0:b0:6b1:cef8:609a with SMTP id 4fb4d7f45d1cf-6b4d562e7d0mr2124068a12.38.1793416224566;
+        Fri, 30 Oct 2026 20:10:24 -0700 (PDT)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com. [209.85.221.50])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec91e2f2sm587034a12.0.2026.10.30.20.10.21
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 20:10:23 -0700 (PDT)
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4be28b82so1405697f8f.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:10:21 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzUx5OnZtitsWyo0kfzs6MN5EgsKygplJWl21deexbPAOBXaL5x9YwCjxQEljf7/oaYDgGKrJJJ2r3ip1s=@vger.kernel.org
+X-Received: by 2002:a5d:5f84:0:b0:48d:eec6:308b with SMTP id
+ ffacd0b85a97d-48e6e4f561bmr9818154f8f.21.1793416220997; Fri, 30 Oct 2026
+ 20:10:20 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,115 +93,103 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261031030807.4101384-1-jenhaochen@google.com>
-Subject: [PATCH] kbuild: rust: pass AutoFDO flags to Clang with inline helpers
-From: Jenhao Chen <jenhaochen@google.com>
-To: Miguel Ojeda <ojeda@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>
-Cc: Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Matthew Maurer <mmaurer@google.com>, Rong Xu <xur@google.com>, 
-	Han Shen <shenhan@google.com>, Sami Tolvanen <samitolvanen@google.com>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
-	Qais Yousef <qyousef@google.com>, Ben Wei <benwei@google.com>, rust-for-linux@vger.kernel.org, 
-	linux-kbuild@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Jenhao Chen <jenhaochen@google.com>
+MIME-Version: 1.0
+References: <20261020153652.2907186-1-dianders@chromium.org>
+ <CAFLszTgzpQ-donjjtcPwy5T3pfWg_u83QMh0GcdpY2JCq_s75w@mail.gmail.com> <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
+In-Reply-To: <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 30 Oct 2026 20:10:09 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=Xxn75bf6ZjRPyQ5jfWwxx9cPe8_8bV6qzAXQc+gckB-A@mail.gmail.com>
+X-Gm-Features: AclHuK-bghq4wzz1qNlwlR04GGQ-u_3zjoGTgsEW-iZ0A7dRvqdHdSoL4JcYqzo
+Message-ID: <CAD=FV=Xxn75bf6ZjRPyQ5jfWwxx9cPe8_8bV6qzAXQc+gckB-A@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
+To: Simon Glass <sjg@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
+	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Jones <andrew.jones@linux.dev>, 
+	Bjorn Andersson <andersson@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	David Sterba <dsterba@suse.com>, Gary Guo <gary@garyguo.net>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Luis Augenstein <luis.augenstein@tngtech.com>, 
+	Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nick Terrell <terrelln@fb.com>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>, 
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+	cros-qcom-dts-watchers@chromium.org, linux-samsung-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When CONFIG_RUST_INLINE_HELPERS=y, cmd_rustc_o_rs and cmd_rustc_library
-compile Rust sources to LLVM bitcode (.bc), link rust/helpers/helpers.bc
-via llvm-link, and then invoke $(CC) to compile the combined bitcode
-into the final ELF object (.o).
+Hi,
 
-When commit a960c2cdb19e ("kbuild: rust: add AutoFDO support") was
-tested with CONFIG_RUST_INLINE_HELPERS=y and CONFIG_LTO_CLANG_THIN=y,
-cmd_rustc_o_rs skipped the post-llvm-link $(CC) step under
-CONFIG_LTO_CLANG and handed the linked bitcode directly to ld.lld, where
-the ThinLTO backend applied --lto-sample-profile,
--plugin-opt=-split-machine-functions, and LLD's default function
-sections. Non-LTO builds (!CONFIG_LTO_CLANG), however, ran the
-post-llvm-link $(CC) step without $(CFLAGS_AUTOFDO_CLANG) ever since
-commit 3a2486cc1da5 ("kbuild: rust: provide an option to inline C
-helpers into Rust").
+On Fri, Oct 30, 2026 at 6:09=E2=80=AFPM Doug Anderson <dianders@chromium.or=
+g> wrote:
+>
+> > The FIT_ITS path is a second way to build image.fit alongside
+> > make_fit.py, and much of it repeats what make_fit.py already does: it
+> > puts the root compatible from each DTB into the configuration and
+> > compresses the DTBs. The series adds fdtget/fdtput, sed parsing of
+> > /incbin/ paths and a shell loop in Makefile.lib to do the same for a
+> > hand-written .its file, and the .its files repeat the DTB lists from
+> > the Makefiles.
+> >
+> > Have you thought about extending make_fit.py to take the per-board
+> > metadata (e.g. from a small file next to the DTs, or via
+> > FIT_EXTRA_ARGS) and to run fdtfactor itself? That would avoid the
+> > in-tree fdtget/fdtput, the mkimage dependency and most of the Makefile
+> > logic, and trogdor would come almost for free.
+>
+> I certainly can do that if that's what people want. ...and, yes, I
+> think it would simplify some stuff in this patch series. The
+> question is: what does it look like? Is it a file that is a list
+> of devicetrees along with descriptions? The list of devicetrees
+> would be to limit which devicetrees are built into the FIT
+> and then each would have a description. ...and yes, that would mean
+> it would need to be updated in parallel with the Makefile, but I
+> don't see a significantly better way to do it. Yeah, I guess that
+> could work OK.
+>
+> If so, I think a bunch of the patches in this series will be
+> dropped or look very different. I probably won't directly reply
+> to your comments on patch 2, 4, 6, and 7 if we go this way.
+>
+> Should I give it a shot for v2?
 
-Subsequently, commit 5febf432df1c ("kbuild: rust: keep Rust objects out
-of Clang LTO with inline helpers") updated cmd_rustc_o_rs and
-rust/Makefile to always invoke $(CC) on the linked bitcode even when
-CONFIG_LTO_CLANG=y. Because that $(CC) invocation only passes
-$(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) and does not include
-$(CFLAGS_AUTOFDO_CLANG) (which is normally appended to _c_flags in
-scripts/Makefile.lib), the final code generation step for Rust objects
-is compiled without -ffunction-sections, -fsplit-machine-functions,
--fprofile-sample-use, or flow-sensitive discriminator flags whenever
-CONFIG_RUST_INLINE_HELPERS=y.
+FWIW, I did a quick prototype of this, and it is definitely a much
+smaller / less invasive patch series. I've got
+"sc7180-trogdor.fitconfig" and "lga.fitconfig" files. Because they are
+easy to parse in python, they're in ".ini" format in my prototype. So
+"lga.fitconfig" looks like this:
 
-As a result, Rust crates built with both CONFIG_RUST_INLINE_HELPERS=y
-and CONFIG_AUTOFDO_CLANG=y emit all functions into a single monolithic
-.text section (0 .text.<func> sections instead of 417 in
-rust_binder_main.o and 424 in rust/kernel.o on arm64 with
-CLANG_AUTOFDO_PROFILE set), preventing the linker from performing
-AutoFDO hot/cold function clustering and discarding SamplePGO weights on
-the inlined C helpers during final code generation.
++# SPDX-License-Identifier: GPL-2.0 OR BSD-3-Clause
++#
++# Each configuration description encodes board and SoC matching metadata
++# for downstream packaging tools in the format:
++#   "<Model> (<key>=3D<value>,...)"
++# where <key> includes board_id, board_rev, soc_id, and soc_rev with
++# hexadecimal <value>s (in any key order).
++
++[lga-blazer.dtb]
++description =3D Blazer
+(board_id=3D0x070406,board_rev=3D0x010000,soc_id=3D0x0005,soc_rev=3D0x01000=
+0)
++
++[lga-frankel.dtb]
++description =3D Frankel
+(board_id=3D0x070306,board_rev=3D0x010000,soc_id=3D0x0005,soc_rev=3D0x01000=
+0)
++
++[lga-mustang.dtb]
++description =3D Mustang
+(board_id=3D0x070506,board_rev=3D0x010000,soc_id=3D0x0005,soc_rev=3D0x01000=
+0)
 
-Factor out _autofdo_c_flags in scripts/Makefile.lib (preserving per-file
-and per-directory AUTOFDO_PROFILE opt-outs) and pass it to the
-post-llvm-link $(CC) invocation in scripts/Makefile.build and
-rust/Makefile.
 
-Fixes: 3a2486cc1da5 ("kbuild: rust: provide an option to inline C helpers into Rust")
-Fixes: 5febf432df1c ("kbuild: rust: keep Rust objects out of Clang LTO with inline helpers")
-Signed-off-by: Jenhao Chen <jenhaochen@google.com>
----
- rust/Makefile          | 2 +-
- scripts/Makefile.build | 2 +-
- scripts/Makefile.lib   | 3 ++-
- 3 files changed, 4 insertions(+), 3 deletions(-)
-
-diff --git a/rust/Makefile b/rust/Makefile
-index 0ac9ab28cc2b..f2d9b4411720 100644
---- a/rust/Makefile
-+++ b/rust/Makefile
-@@ -658,7 +658,7 @@ quiet_cmd_rustc_library = $(if $(skip_clippy),RUSTC,$(RUSTC_OR_CLIPPY_QUIET)) L
- 	$(if $(link_helper),;$(LLVM_LINK) --internalize --suppress-warnings $(patsubst %.o,%.bc,$@) \
- 		$(obj)/helpers/helpers$(if $(part-of-module),_module).bc -o $(patsubst %.o,%.m.bc,$@); \
- 		$(CC) $(CLANG_FLAGS) $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) \
--		$(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
-+		$(_autofdo_c_flags) $(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
- 		$(cmd_ld_single)) \
- 	$(if $(rustc_objcopy),;$(OBJCOPY) $(rustc_objcopy) $@) \
- 	$(cmd_objtool)
-diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 6127feb970c6..bd7bd05e9fe9 100644
---- a/scripts/Makefile.build
-+++ b/scripts/Makefile.build
-@@ -369,7 +369,7 @@ quiet_cmd_rustc_o_rs = $(RUSTC_OR_CLIPPY_QUIET) $(quiet_modtag) $@
- 	$(if $(CONFIG_RUST_INLINE_HELPERS),;$(LLVM_LINK) --internalize --suppress-warnings $(patsubst %.o,%.bc,$@) \
- 		$(objtree)/rust/helpers/helpers$(if $(part-of-module),_module).bc -o $(patsubst %.o,%.m.bc,$@); \
- 		$(CC) $(CLANG_FLAGS) $(filter-out $(CC_FLAGS_LTO),$(KBUILD_CFLAGS)) \
--		$(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
-+		$(_autofdo_c_flags) $(CC_FLAGS_RUST_INLINE_HELPERS) -Wno-override-module -c $(patsubst %.o,%.m.bc,$@) -o $@ \
- 		$(cmd_ld_single)) \
- 	$(cmd_objtool)
- 
-diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
-index 19e96b30a122..e72efa5c6c05 100644
---- a/scripts/Makefile.lib
-+++ b/scripts/Makefile.lib
-@@ -120,9 +120,10 @@ endif
- # enable (depends on variables AUTOFDO_PROFILE_obj.o and AUTOFDO_PROFILE).
- #
- ifeq ($(CONFIG_AUTOFDO_CLANG),y)
--_c_flags += $(if $(patsubst n%,, \
-+_autofdo_c_flags = $(if $(patsubst n%,, \
- 	$(AUTOFDO_PROFILE_$(target-stem).o)$(AUTOFDO_PROFILE)$(is-kernel-object)), \
- 	$(CFLAGS_AUTOFDO_CLANG))
-+_c_flags += $(_autofdo_c_flags)
- _rust_flags += $(if $(patsubst n%,, \
- 	$(AUTOFDO_PROFILE_$(target-stem).o)$(AUTOFDO_PROFILE)$(is-kernel-object)), \
- 	$(RUSTFLAGS_AUTOFDO_CLANG))
--- 
-2.56.0.317.g454f8302e1-goog
-
+Happy to post a v2 RFC showing what that looks like if you want...
