@@ -1,60 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793444588;
-	b=z7ugsw8zXTbWG8SypfoIF8yH9ykv7ksO1JgxihMGqRkhGxRNtVFDMdth12xznsDUEWRn
-	 kh/iZn6aZO0leE6+/vYO12a/qmNz4WlBJxNUUmFbuHwt0F349pnLI1yHk4QWDEt6kVhis
-	 TOHNFNAc/jS1ENtkO/qMjxsp8c7IO71ZA+mkYzQ9/v+cAwee9fjX7NEm+IEH+loOkcdVK
-	 0X1+zv3KqfbpEiY72/5At8TxlvxHMWdTanEZk+FgCsLnTeuJkUqsV3Izc3YQeBR+xlTsb
-	 cDfBbyu0f9jHwbq4+rWXUVs7W5eeWsivSM/JSDhf9Gd3PDARK5qneryNJ2/BYzlHS6Q==
+	t=1793444773;
+	b=ozysdjD9aQQeE6Eewzzz5lD3IjsZVirRNgvCwPZvNHAms2UDT3sBBtsKpHic/U038Wnl
+	 hQcM88NUA9qRWT8+onXjZYZds4fjwDJd3UW0/d/zIaVTJXP9rOtUrrBoGcuRy1WZNhrZy
+	 FGKRv4nrCzCDJXAa7wsUXdLm2j+1aBlhAuVlHNKXvYAiMbQZLHZlHqgukvvxeVqCzTbTE
+	 trCn2yTt6atj57wibc5KKuoEGMQC/wlOqGfyKZuHvFKxTHom3f81+Jb3ubSXWju/v4Xmm
+	 kjMDjNfBCy5Kv0+mFWMvVluBNxUiULtvkQICyiXN8Av5df7YHm0is+B+NAJKv8pNXvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793444588;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:Auto-Submitted:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	b=nji9v7YPfVp52xdQ75NSvVXCNxdpAFSkpmeIyfM0oVogFEQLzm+c1W22HuZLfwYtxkXY
-	 SbHrv9p4NOlcTjZOpO+ksswbY1DFo7cGa7HHzWpllYH660bwDAPMlb2Qzhfs87tJk8Rfc
-	 Ut8Gdy6bRoxkgz3qvPyDeZi8tJ8camlDefAYuu5y7svyDEh0DQ5oI6jXlR2nFbTWUnbTI
-	 +u5j+AZ5IBrGRP2ZAPjUVnZRfKqWn9BugzDiKmxaKICdvR3DhJSm200oGsygHo9TxQtXq
-	 K0q96yhe+BkQM8/fNWRdHHCqExciFFxWobfessOCqlAUbpeQjyiS63eLLQa5li6twUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793444773;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
+	bh=YYYiZeIarG26HWVQV4zePGaIw+qvE8QRJcOljSaV4/I=;
+	b=Y1bW2lSsRTWO59nlhzH3ViaT0xPSw1QHtoBCQz8RyJr8lCQbSycPeqaROWwcRN8U8h9/
+	 SWdmFg2EeXTPnaToYu9Mz8iiTwUhmDU2K+aU+cHCV8/vEkmWlp9YfV7F5wZyp5gR9sXTK
+	 ES0QTUcJzhtw+xw+WNhFUiCvUmZYpNHmAcVWAK45NzcOLWXdIUTGYnXGyz5KztNfVoeE9
+	 6GraJibhftrJJMAVabLRm0vr/RmdfXa+TEUOWrcgSc4DuVqVI2Tj6Aom2b2oRH7AAjXcP
+	 sTZ3deZOPfrGqGJmukXR7f0kchWB2DZ3S6o/CUvKDYRA/D6ScpGHzLPKtuE3c3s6O7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HuR2qd3C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=wp.pl;
+	spf=pass smtp.mailfrom=wp.pl;
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=ivqmU6Ia;
+	arc=none smtp.remote-ip=212.77.101.11
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.11])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3106606A31A;
-	Sat, 31 Oct 2026 11:03:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22FED606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:06:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 22FED606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HuR2qd3C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0411F000C1;
-	Sat, 31 Oct 2026 11:03:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793444587;
-	bh=PJRu7W6/Or1we5Gv3BgoLEtby0D0Y0UGgfjBHfRc5+k=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HuR2qd3ChuWNT3PLyeA8ezzKrEugX/Krsi18nHp6PG52kmbRFYyp8nW1qZYihgKWn
-	 qm1WDWAU665q35N8VZrMFBKTUwyxbc5T3L3fv5uZhbOKr5zIGDtP9sQUlywXip8bsV
-	 foxXj9No3l1WvLYfOZqFb3Ciz1dtS/gXl+lXbcjoGpqWJ3j7sFSnijLeLhofuIN59C
-	 s/blaMHpDl9CkyyQDzWgrQOOYz6dqVeGGHGMgInNgUMZABBwEL4gUIM95mt3gJGw1b
-	 KAN7z46SOuJNCkaLiiJxf7YBUvpfpgH6CoTyJ99VM6tQHBtFJLDqZHYPULGcWpMRnc
-	 q0yBeqWaKvzYQ==
-From: netdev-bot+sinfo@kernel.org
-To: Maholi Tumanggor <maholitumanggor@gmail.com>
-Cc: netdev@vger.kernel.org, sam@mendozajonas.com, eajames@linux.ibm.com,
- linux-kernel@vger.kernel.org, paulfertser@gmail.com
-Subject: Re: [SECURITY] net/ncsi: Fix heap OOB write in ncsi_rsp_handler_gp()
- MAC filter loop
-Date: Sat, 31 Oct 2026 11:03:06 +0000
-Message-ID: <179344458649.3286.6525891273156291826@kernel.org>
-In-Reply-To: 
- <CAELScTboG_Bqn1hpM3855oYpM=io3sW-zMWs2AHkH6T0bpx7BQ@mail.gmail.com>
-References: 
- <CAELScTboG_Bqn1hpM3855oYpM=io3sW-zMWs2AHkH6T0bpx7BQ@mail.gmail.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=ivqmU6Ia
+Received: (wp-smtpd smtp.wp.pl 21341 invoked from network); 31 Oct 2026 12:06:09 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1793444769; bh=YYYiZeIarG26HWVQV4zePGaIw+qvE8QRJcOljSaV4/I=;
+          h=From:To:Cc:Subject;
+          b=ivqmU6IaMbGCXikTf1UbD9GQ79SBcXQ1+hKLAMKhXPZRMuZsDbmL0/jrUXmWCFKQV
+           EDhhXrSfDSDwtSbCTQrndUFWBTYjnddU2+hhzEvXp23+Rfsjc5b4QexyyoFIXmc31J
+           y766Qhpezbw3Jnc3FstR87giVAC+wG2eH9EJGlYeUKndyaY5xd58vupzGuuUq4UqLW
+           7GPkroGj3iEB+ZUkqTo0lWmnyqKd+rYkBcno/Kevtlmhyy+zL9IjBCsV5NrReVmTyx
+           DNFjBNO5NZ2egN5RaZl3BTh04B0RLo7RxEsRYb9HTqGYob6HLpiEt5qPKdE6TsCKG5
+           FfpzI5Dj77iIQ==
+Received: from localhost (77-236-11-144.static.play.pl [77.236.11.144])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <hjf3108@gmail.com>; 31 Oct 2026 12:06:09 +0100
+Date: Sat, 31 Oct 2026 12:06:08 +0100
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: Jie Feng <hjf3108@gmail.com>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Johannes Berg <johannes@sipsolutions.net>
+Subject: Re: [PATCH wireless-next 6/8] wifi: rt2800: set the mac80211
+ fast-xmit and aggregation flags
+Message-ID: <20261031110608.GD31143@wp.pl>
+References: <20261029134752.1299130-1-hjf3108@gmail.com>
+ <20261029134752.1299130-7-hjf3108@gmail.com>
+ <20261030091743.GB27096@wp.pl>
+ <CABOQOSX6mBCtTTg9eJX665t7tj65jo=9hVTgr7pmFRB6csG2Yg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,21 +68,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CABOQOSX6mBCtTTg9eJX665t7tj65jo=9hVTgr7pmFRB6csG2Yg@mail.gmail.com>
+X-WP-MailID: 8ae6e56a1c67c4863d898adb9f9c23ef
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000001 [MbKR]                               
 
-Hi!
+On Fri, Oct 30, 2026 at 07:33:44PM +0800, Jie Feng wrote:
+> On Fri, 30 Oct 2026 at 17:17, Stanislaw Gruszka <stf_xl@wp.pl> wrote:
+> >
+> > On Thu, Oct 29, 2026 at 09:47:47PM +0800, Ho Jie Feng wrote:
+> > > Enable AMSDU TX/RX support for this driver, which can increase
+> > > throughput.
+> > >
+> > > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> > > ---
+> > >  drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 3 +++
+> > >  1 file changed, 3 insertions(+)
+> > >
+> > > diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> > > index 032cd6ac345f0..8b4458a74d33d 100644
+> > > --- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> > > +++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> > > @@ -11861,6 +11861,9 @@ static int rt2800_probe_hw_mode(struct rt2x00_dev *rt2x00dev)
+> > >       ieee80211_hw_set(rt2x00dev->hw, SIGNAL_DBM);
+> > >       ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_PS);
+> > >       ieee80211_hw_set(rt2x00dev->hw, TX_STATUS_NO_AMPDU_LEN);
+> > > +     ieee80211_hw_set(rt2x00dev->hw, SUPPORT_FAST_XMIT);
+> >
+> > IFICT this flag will not take the effect since we have SUPPORTS_PS.
+> > Also for WAP3 (802.11w) we fallback to software encryption -
+> > that will prevent fast xmit as well. To truly enable
+> Yeah, that is true. I also have a patch that enables hwcrypto in that case.
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+So let's wait until all needed parts will be in tree or posted in the
+same patchset before advertising the support.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
+> > fast xmit, I think we would need add hardware encryption support for
+> > WPA3 and also compromise by remove Power Save support (which is disabled by
+> > default, so that's possibly fine).
+> I think maybe a more general patch to mac80211 to enable fast-xmit when PS
+> is disabled and not only checking the feature flag will be better?
 
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
+Sounds like good idea to me, but let check with Johannes (cc-ed).
 
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+> > > +     ieee80211_hw_set(rt2x00dev->hw, TX_AMSDU);
+> > > +     ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_AMSDU_IN_AMPDU);
+> Although I think this flag will still be useful for this patch.
+
+AFICT TX_AMSDU require FAST_XMIT. I think we could potentially enable
+RX SUPPORTS_AMSDU_IN_AMPDU as long all buffer sizes setup by the driver
+and configured in registers allow handling big enough frames. Though
+I don't know how much beneficial that would be since we most likely 
+can not configure very large (A)MPDU buffers. Need to check.
+
+Regards
+Stanislaw
+
+> > >
+> > >       /*
+> > >        * Don't set IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING for USB devices
+> > > --
+> > > 2.53.0
+> > >
