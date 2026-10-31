@@ -1,52 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=152.53.16.207
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.21
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793458102;
-	b=eHLaKFW/UEEpdq2tI8naebAWUPpgJTm+7+KXF7D/y7xd1qn/7+Z+NpNnHXa6snIrB1AE
-	 SwsKiSztvq54/q7OoZppRIhB0pBI0ynT1rPFuLTVhRm+1fia3ndLuLbwJNflLBE7M3zA8
-	 zVJMluDxa02fP+OsWkqNE/4QsKqXHTczqXj249PU/3vLmgMxphxRnjhFSpmb0PohN6lip
-	 1tMT9sqm5wg6IN86+elsa375nlrF7+H+ZCwcmrle/QfZFXtCC6hzUseGWD+gP2kp+zepw
-	 KY4gqZHy9CrcQRe4i8BWayM4DexAPigLBvH1LEzZlcbx3T9bBa3DiAMnD72tI5gXQrA==
+	t=1793458271;
+	b=2HGOjVAnt2cQ7Ii+RHk4lIKqjD7XkTJSp+6kvpT0F/7xTaH4iQxJRcNGBkrMifY1bkZZ
+	 +mfZqriotq2SjDEmzzDJ968Q+CYnsKQikPIbvs8K1CHXqzOdSi+Jz20pKNOF3MPG+HDbD
+	 FiFz1MF5WGS9rcNUZMqxtsav3Ezn5BFMwTNdtir+rj98JDHPQjhp2X0rxZehUFi8W3A+l
+	 m9EEbBwnmxXdhflbsB9vHenIP7SSdVKPEgs99yFcNxBhCXrsCSmJtiGwDkGLB7kOXW3Lf
+	 2raEPSiWMxqwVtFTtJZBmVlB4pjmH1N6CgeQe9ZTWumPeLwsBtMVWz1vjs1oaFP2dHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793458102;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XrVrWqMATAHE/YlBzQd3sd5zcx5pm3st6lTv2jbSA2w=;
-	b=AybOTuN5TOZk+/flc4iNQAsOkczcRgHAzyXdePVPfT2hWu5vJzRRkkkneTm/SqGX+8Ip
-	 3lFbHDHjb+PrcQHM9/H3nPnnPx2JP1EPk2fojcfH8xAsNuOBZ8GYxpTgP2OTZPDRXbnPt
-	 64St57VqyIKy1mkoIFm6nq0grK+7DD0M8UpqCiOGLOAqLdbeJyNAa9vrAK1epsm5e5u3y
-	 k2Zyk6zZmIDunR+OVgswBlb8VgzF+8mRRcfchBbrQrEWKMezhYudifUAdX8qkl2tI38Xj
-	 ABdGT38swR53tH4/OPYbSuKhpp1CxwESH7lzTLP+gCGwjpzzKy3RmGd8awzZcfnzQ5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793458271;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=yX+Eb2hbcn1VGjIA9ugvOGDuJoIr7z5NQD3gBPv+gJE=;
+	b=gYe2yWxCVDfknd2dAUVk7PG81ALfN/KxBOmxxs8B5j2jAKmEamJrJvnTS8zVPQCldSKD
+	 fnVTd8/gOGJrKrH53nPHWYDHa44nMJifU69Q7dDBItOzG5q1lNNcc3lckXiJPwXYPTHOG
+	 qhgKq1cLqtpbQS0IctZMBbJpgqsKoYEgHoXcVk5FsXU6edwVNAb/fxL88t+s9H0RKHAYh
+	 2oRrtxdIkd2mCCnvukjMxIHy5AO7PAE7jFjtR5OrVWTawY1RzTQ9Ki5k4VfEEC+Q+uf/k
+	 Xzn0ff7GglI3y7UVHAHWmAALP1U9tM9Q/gXTlLMxq/3iPTmR5+dnNrC5gYKV8Tedfsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kaiser.cx;
-	spf=pass smtp.mailfrom=kaiser.cx;
-	arc=none smtp.remote-ip=152.53.16.207
-Received: from akranes.kaiser.cx (akranes.kaiser.cx [152.53.16.207])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WbqhGeKx;
+	arc=none smtp.remote-ip=198.175.65.21
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 058E6606A31A;
-	Sat, 31 Oct 2026 14:48:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 058E6606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kaiser.cx
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaiser.cx
-Received: from ipservice-092-209-185-051.092.209.pools.vodafone-ip.de ([92.209.185.51] helo=nb282.user.codasip.com)
-	by akranes.kaiser.cx with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <martin@kaiser.cx>)
-	id 1xNAND-00000002Cxz-4AfD;
-	Sat, 31 Oct 2026 15:48:00 +0100
-From: Martin Kaiser <martin@kaiser.cx>
-To: Hadar Gat <hadar.gat@arm.com>,
-	Olivia Mackall <olivia@selenic.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Martin Kaiser <martin@kaiser.cx>,
-	linux-crypto@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] hwrng: cctrng - fix usage counter in error path
-Date: Sat, 31 Oct 2026 15:46:20 +0100
-Message-ID: <20261031144729.2327464-1-martin@kaiser.cx>
-X-Mailer: git-send-email 2.43.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1ED2606A31A;
+	Sat, 31 Oct 2026 14:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E1ED2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WbqhGeKx
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793458270; x=1824994270;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GIFMjVskQIqlefjjExfal5xqxXFAr3WcxyIFbCNZQBY=;
+  b=WbqhGeKxqdO4S6sC9tia8s755aCGTPygEPS/XiK/dnjEf07yo94tJNsV
+   hEwdiduAQe0VsOnMVQJwS0gEHr7Er8F5ZkjZCY5WzZPsLUOIEC2wiSNf6
+   sBx55FHYrVVAa78RzIRAJ5LM3aneOj+a0KRhz36lFFL0tvKL73ikKVXM4
+   iB5Fk9m4Jhkn91TObrJjfdhfl566IAWWgqjYK4s6M9MKF9AhBSyfx13Bm
+   7oWIgIQn8nS5qjQHw5oKaprCKGiSJnqMjjVM7nHoYjMsFzGhtvPx9VP73
+   FfKPBxpikvQa7b3AiYfvvYyg3ZHNiZLlb4NK2rqFOktHXT1BbPBKhQh1A
+   Q==;
+X-CSE-ConnectionGUID: EqW6KsNMThGY9FWyR2G6Vg==
+X-CSE-MsgGUID: fV+IRKBPQwWBTiT5pH2xVA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2299026"
+X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
+   d="scan'208";a="2299026"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 07:51:09 -0700
+X-CSE-ConnectionGUID: QD58CKUZSmyLGT4iEOd+aQ==
+X-CSE-MsgGUID: KuRn2edPTv+RlIDwxEcLMQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
+   d="scan'208";a="6012669"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 07:51:07 -0700
+Date: Sat, 31 Oct 2026 16:51:04 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: vidhu.linux@gmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v2 3/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
+Message-ID: <auYAWEQNZyHwogV6@ashevche-desk.local>
+References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+ <20261031-tf-luna-v2-3-ce403579bb8a@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,44 +85,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031-tf-luna-v2-3-ce403579bb8a@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-If probe fails after the runtime pm usage counter was incremented,
-we have to decrement it before we exit.
+On Sat, Oct 31, 2026 at 12:23:30AM +0530, Vidhu Sarwal via B4 Relay wrote:
+> 
+> Add a driver for the Benewake TF-Luna, a single-point time-of-flight
+> LiDAR distance sensor with a range of 0.2 m to 8 m, connected over I2C.
+> 
+> The sensor is run in trigger mode. Each read starts one measurement and
+> waits for the timestamp register to change before reading the result.
+> In continuous mode a read can catch the sensor in the middle of updating
+> its result registers unless it is synchronised to the data ready output,
+> which this driver does not use yet.
+> 
+> When the signal strength is too low the sensor reports a dummy distance
+> of 0, so such readings, as well as overexposed ones, return -ENODATA
+> instead of a distance.
 
-Remove the cc_trng_pm_fini call in the error path. It calls
-pm_runtime_disable before runtime pm is enabled.
+LGTM now,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Fixes: a583ed310bb6 ("hwrng: cctrng - introduce Arm CryptoCell driver")
-Signed-off-by: Martin Kaiser <martin@kaiser.cx>
----
-based on sashiko review
-https://lore.kernel.org/linux-crypto/67844d9d-d4d4-4026-9549-73589afcc1ff@wanadoo.fr/T/#m1a770f5f9eeed95b48cad7545580aed4fa74e6fa
-
-compile-tested only
-
-v2:
- - don't duplicate the error code in dev_err_probe
-
- drivers/char/hw_random/cctrng.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/char/hw_random/cctrng.c b/drivers/char/hw_random/cctrng.c
-index 03401ee59a8e..088aa031bf22 100644
---- a/drivers/char/hw_random/cctrng.c
-+++ b/drivers/char/hw_random/cctrng.c
-@@ -533,9 +533,8 @@ static int cctrng_probe(struct platform_device *pdev)
- 	/* registration of the hwrng device */
- 	rc = devm_hwrng_register(dev, &drvdata->rng);
- 	if (rc) {
--		dev_err(dev, "Could not register hwrng device.\n");
--		cc_trng_pm_fini(drvdata);
--		return rc;
-+		pm_runtime_put_noidle(dev);
-+		return dev_err_probe(dev, rc, "Could not register hwrng device\n");
- 	}
- 
- 	/* trigger HW to start generate data */
 -- 
-2.43.7
+With Best Regards,
+Andy Shevchenko
+
 
