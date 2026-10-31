@@ -1,63 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424469;
-	b=DWYSk1j5T4ilZjekhF1J+wQ8ZSTO4Lcb90BM16xI+FrRPHD465rIV7CVpZa2fCY/IYZ2
-	 Y5FAacibnOo9M1XtX5d30Ww/s7ra7deB5668wGlyddVCnVzcXvHhZIav4q+FFm4iPoH5M
-	 NtiWfk9tkhaYyHmVgj6Kt2Tl5Kcfqp1Zzc5lQ3Rx04S8L7rk1bFuXZmadWiHUwp5J4ZKx
-	 +Uh0LfS/laoR1P8/JdHIUoF0CQeizpXhyJ/nX5e7CInDzaO25LOXtz101hgtq8mE0Y4ym
-	 EXCyCi09pf9W4P6u/uG5FnTXP0NQ46qN2x2qMeBHCvS7ApA6vqJSwZVFzExqvym7Hbg==
+	t=1793424547;
+	b=zU5WmV0bqk2ku8eiYXjtY6XqZuwP6f5qVOJxFvx75a3QM66gVZVNVmdlGLYy3ozicj98
+	 3MUEhEmu3Xc/LLj0WaxVpWlW3M5YuHdbsaoK7ubXWFEGAsCCSS4wnQc7XMiOZOkCkXovK
+	 97WExXKu1D5UPPBRcCNTEumgoQyghERTb+a8ynFN4yQw1VR9oHdycSd7555/ke0MH5EQh
+	 HFAuIuVW6oVPysA0/Bw6e9nfj7hq1sWCD6FLWUViu7vZx3gnWtl5B2cICaUtSmmrG07Td
+	 RKpMpERhozIZsFjHzgVeb4+eg6fr5g+JxrRYP6qv8xdmZZ/LQUM//qvxmvTnT0KgTxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424469;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424547;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:Content-Type:
 	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
 	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=ZEF2f4QM23xxp5nfr+zqHD8hjPW2/JUV1k15Xchzdzs=;
-	b=K9naAQYnhn4+jR8fWTRmzmAA34rxViZqOarOcDFuSTr1iLOFyvsQLd6ooJOiAlJPjZTM
-	 ze2zEsuRRSS52sQeM0knk8baU+r0mHUgs81EtEJWq4EEayi0YodrNt/p1Z2EgleTkpFsJ
-	 qZ5rTT4dp03a1wxiM9dGJWNuWqZAwTlyXBI73I1FOBn2t7Qneq4Hf9uU1C/xYD4Tnu/HV
-	 GU3gCDck1vRFc9Ci+UIdxnsKc0jG5xX3smzXdhdXoInVTTl1Gh3fnucgHAGGccXFCvUkw
-	 2xXQtEpjjiyxhe3t8LDl3HpfNfAwG5zr5q6F8yBpPJMGdEs2YYfm8G9A8hTTykPY9Hg==
+	bh=Vp4ntnb+XElE4TpyNxo2r3GVX7MGf+Q7eXs3f9RgFlg=;
+	b=V/GZsB/hmIt8GoIfH4nwY6CXUcJKsk8uJ6dENrQwOzw7DlPsVS7N9RXWRPuRh3oZo9TU
+	 TLfVoyZIiYQVwS89F3f0YW2GtZbO2zXZ67lL+CdBjZXepEf3eVHLsmdim1IZfib2Ek/Rz
+	 LLJ/LivSl3LjJukb190DBZBO5tx6yEOdeH/B8IPw3WKTFXW3FKHaMxdSKgricSdEnyEQs
+	 VlzKuvY0jUnBeH96Qay8zmG+7RkiUNCW1OA8zDyw7u7PJrNKjKECvOwIwi9yvIrofFnC1
+	 BFnZIMSEp/OCZXazg9YM+Uky8/dPFliK/Z+GMy1xPrd1Wo7bO06s/4qmn7DRE2MifDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=dTHlKQS5;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iaQjTOt+;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B01F606A31A;
-	Sat, 31 Oct 2026 05:27:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B01F606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81E03606A31A;
+	Sat, 31 Oct 2026 05:29:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E03606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=dTHlKQS5
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iaQjTOt+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=ZEF2f4QM23xxp5nfr+zqH
-	D8hjPW2/JUV1k15Xchzdzs=; b=dTHlKQS52p4jU6k6aQY90t5//eq2cLropd6mJ
-	E9BMVmgrvidnFacwWKaT18jB+uq8/j3yJ2YuZxK2BICSgVe59HfpOkyClfs26aQi
-	ksJgzABeqEduCpsIMiaT6aDSN/wsiPYyJ7hPcgofqrN2x8g/4orOGOj0NL58pF4y
-	Qr4Lvw=
+	Content-Transfer-Encoding:MIME-Version; bh=Vp4ntnb+XElE4TpyNxo2r
+	3GVX7MGf+Q7eXs3f9RgFlg=; b=iaQjTOt+i+y8CdLvA+KH7QLZGAn65bFxYWkcu
+	Qigaaqh9Km5juDS+QlmnqohP0keWsxfKaCbXNsh4qvwSjeNvW8LMAjxhH2Cy2RI9
+	R/C14UVoUvnT9RVc0wOEIEnxf3IlJSWCKKXnfLzFnPDbdj2M5u5ADZIAMd1Vpa5M
+	m8IRf0=
 Received: from [127.0.1.1] (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAns0dHfOVqqzVtAA--.5315S2;
-	Sat, 31 Oct 2026 13:27:35 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHwDSefOVqwDZtAA--.172S2;
+	Sat, 31 Oct 2026 13:29:02 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: sashiko-bot@kernel.org
+To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
  Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm8750-lenovo-elden: describe
- the WL2868C regulators
-Date: Sat, 31 Oct 2026 13:27:34 +0800
-Message-ID: <179342445495.451929.5990710287507462097@mail.ustc.edu.cn>
-In-Reply-To: <sashiko-outbox-191739@kernel.org>
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] regulator: dt-bindings: willsemi,wl2868c: add the
+ WL2868C camera PMIC
+Date: Sat, 31 Oct 2026 13:29:02 +0800
+Message-ID: <179342454262.453004.7013252409006345812@mail.ustc.edu.cn>
+In-Reply-To: <20261029-amiable-loutish-wolf-60a76a@quoll>
 References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261031034300.272730-4-xiaqinghuan@mail.ustc.edu.cn>
- <sashiko-outbox-191739@kernel.org>
+ <20261029-amiable-loutish-wolf-60a76a@quoll>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -69,104 +65,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgAns0dHfOVqqzVtAA--.5315S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWrWrJr45tF15ZrWktFy8uFg_yoWrWFWkpF
-	ZxKrnxKr4kKFyIk3yxCr48tF1fuw4fJFZ8Cry5G34kAan8WFyIkr4Skw4Y9FyUWr18X3WY
-	yF1a934fKFZ8ZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+X-CM-TRANSID:3pYKCgBHwDSefOVqwDZtAA--.172S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxCw1xur47Kry5XF43tr1rtFb_yoW5ZF4kpF
+	ZIqr1DCr4DJFZa9w4xAr4xXa4S9ws5JayDAF9Yqw4rZan8C3WftFn5tw4Yva4jkr4kWr1j
+	yFs0g348GFWDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
 	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
-	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8Jw
-	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
-	c7CjxVAaw2AFwI0_Jw0_GFylc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU5-VyDUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAysw
+	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
+	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
+	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkI
+	ecxEwVAFwVW8WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
+	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
+	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
+	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj
+	xUgasjDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwA2s0
 
-One note on how this mail was written, since it matters for how you read
-it: I work on this board alone and my English is not good enough to
-write upstream mail unaided, so I draft with an AI assistant and edit it
-myself. The content, the measurements and every decision in it are mine.
+Hi Krzysztof,
 
-Four findings, and three of them are real. Taking them in your order.
+two corrections to what I sent you this morning, both measured after v3
+went out, plus one thing I got wrong in the first reply.
 
-[High] i2c10 enabled while qupv3_2 and gpi_dma2 are still disabled.
+First, how this mail is written: I draft with an AI assistant and edit it
+myself; the content, the measurements and the decisions are mine.  You
+asked for that explicitly and it is a fair thing to ask.
 
-Confirmed, and it is the worst of the four: nothing in the patch enables the
-parent, so geni_se_probe() never runs on qupv3_2, i2c10 is never populated,
-wl2868c_probe() never runs, and none of camera_ldo1..camera_ldo7 exists at
-runtime. That also means the twelve "*-supply = <&camera_ldoN>" references in
-this same patch point at regulators that cannot be registered. v4 enables
-both parents in the board DTS:
+1) v3 has a defect that makes the "users" argument weaker than I claimed.
+
+sashiko's review of v3 3/3 is right: that patch enables i2c10 but never
+enables its parents, so geni_se_probe() never runs on qupv3_2, i2c10 is
+never populated, and the eight "*-supply = <&camera_ldoN>" phandles in the
+same patch point at regulators that cannot register.  So in the upstream
+board file as posted, the consumers exist on paper only.  v4 enables both
+parents in the same patch:
 
 	&qupv3_2 { status = "okay"; };
 	&gpi_dma2 { status = "okay"; };
 
-I have not measured this on the board yet - it is a DTS-only change and I
-will not claim it works until I have booted it and seen wl2868c probe.
+2) What I can show for the hardware today, stated precisely.
 
-[Medium] undocumented sensor/lens compatibles, missing CSI endpoints, and
-power-domains on external sensors.
+On our own downstream board DTS (a much larger file than the upstream
+submission, which also enables the QUP) the driver does probe and the
+regulators do appear, measured on the board running 7.3-rc7:
 
-Partly accepted, and the parts that are not accepted need a different answer
-than "fix it here":
+  geni_i2c 888000.i2c: Bus frequency not specified, default to 100kHz.
+  [camera] loaded wl2868c-regulator
+  /sys/kernel/debug/regulator/: camera_ldo1 camera_ldo2 camera_ldo3
+                                 camera_ldo4 camera_ldo5 camera_ldo7
 
- - "giantec,gt9764" and "samsung,s5kjns" are documented, just not in this
-   series: the bindings were posted separately on 2026-10-27
-   (<20261027051048.213177-1-xiaqinghuan@mail.ustc.edu.cn>) and are still in
-   review. "galaxycore,gc08a8" has no binding posted at all. So the nodes
-   here reference one reviewed-pending and one non-existent binding, and
-   dtbs_check cannot pass for either in this series.
- - the missing port/endpoint nodes are a real omission. Sensors without a
-   CSI endpoint cannot be connected to the CSID, which makes them decorative
-   in the current form.
- - power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC> on an I2C sensor is wrong:
-   the GDSC belongs to the camera controller that owns the CCI bus, not to
-   the sensor, which is powered through its supplies and its reset GPIO.
+with camera_ldo1/2/3/4/5/7 at 1128/1288/2816/2824/2808/1800 mV (LDO6 has
+no consumer on this board).  That is the same wiring the upstream file
+describes, just carried in the vendor-shaped file.  It shows the chip
+works and the supplies are real; it does not show that the two hundred
+lines I am asking you to take bind, because they are not the same file.
 
-Where I disagree is only about sequencing, not about the facts: the reason the
-sensor and lens nodes are in this patch is that they are the consumers of the
-regulators, and the binding reviewer asked for the users of the binding to be
-shown. Dropping them makes the regulator series a binding with no consumer
-again. So my plan for v4 is:
+3) On "I still see no users", the honest answer rather than the
+   convenient one.
 
- - keep this patch to qcom.yaml + the WL2868C node on i2c10 + the regulator
-   supplies that are genuinely wired on this board, and drop the sensor and
-   lens nodes until their bindings are in;
- - carry the -supply wiring in the patch that adds each sensor, so every
-   consumer arrives with its own binding and its own endpoints;
- - drop the sensor power-domains either way.
+The users are the camera stack: s5kjns, gc08a8, gt9764 and the CSIPHY
+rails, eight supplies in total.  Their bindings are not in this series -
+the two sensor bindings were posted separately on 2026-10-27 and are still
+in review, and gc08a8 has no binding posted at all.  So the board file
+cannot be complete, and dtbs_check cannot pass on those nodes, until those
+land.  My reading was that this is exactly why the regulator binding
+should go in first, but I accept that from your side it reads as a binding
+with no user, and I would rather say that plainly than keep shipping
+sensor nodes that cannot bind.
 
-If you think that leaves the regulator series without a user, the honest
-statement is that the user is the board DTS as a whole and it will land in
-pieces; I would rather say that in the cover letter than ship nodes that
-cannot bind.
+What v4 will be, if you want to sanity check the shape before I post it:
 
-[Low] cci0_i2c1 and cci1_i2c1 disabled while the bus0 siblings are enabled,
-bus1 pinctrl omitted, node ordering, and "two CCI controllers" in the commit
-message while the SoC has three.
+ - 1/3: arm/qcom.yaml registration plus the binding, unchanged in
+   behaviour from v3 apart from review comments.
+ - 2/3: sm8750.dtsi, the three DTSs split out as you and checkpatch both
+   asked (this one was mixed into the board patch in v3).
+ - 3/3: board DTS with qupv3_2, gpi_dma2, i2c10 and the WL2868C node, and
+   the eight supply references, but without the sensor and lens nodes.
+ - the sensor and lens nodes move into the patches that add those bindings,
+   each arriving with its own binding and its own CSI endpoints.
 
-Accepted on all four. v4 leaves both i2c-bus@0 and i2c-bus@1 available (as
-sm8550.dtsi and sm8650.dtsi do), adds the cci0_1 / cci1_1 pinctrl states on
-gpio115/116 and gpio119/120, moves the cci nodes to unit-address order after
-videocc@aaf0000 with the pinctrl nodes alphabetical inside &tlmm, and the
-commit message will say three controllers exist of which two are described.
-
-[Low] binding schema, SoC dtsi and board DTS mixed in one patch.
-
-Accepted, and checkpatch already told me the same thing in the same run (one
-of the five warnings on 3/3 is "DT binding docs and includes should be a
-separate patch"). v4 is qcom.yaml one patch, sm8750.dtsi one patch, board DTS
-one patch.
-
-Nothing above is measured except the DTS content itself; the probe of i2c10
-and the runtime existence of the regulators are still unverified on hardware,
-and I will report them as such in the v4 cover letter.
+If you would rather not see the regulator series again until the sensor
+bindings are in, say so and I will park it - that is a legitimate call and
+I do not want to burn your review time on a series whose consumer side is
+not ready.
 
 Thanks,
 Qianhui Xu
