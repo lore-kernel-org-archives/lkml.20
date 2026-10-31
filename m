@@ -1,53 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.158
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.162
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420343;
-	b=gVK+wvSf4ckZtFnHHeo6U04uO+3I0u1lzKMld+AsldaiRsHAnyAdu16VFDW+/YQ1leOG
-	 FvlSatFLO0Qh0/0iWeEgvSGVygSwy2vsZhuPvqIgtdQuSd8zSCwC/EEPSI2F/B2DYGuRo
-	 XXHKifP8iTOchiZKrAysCdoLdzddRDxhNNEhKXvokotSnLN7OJa5SceIK+k5VA97iaWWm
-	 ov13tIwkzMnjzK92jOfZB87r8C9vJqktjNJfT7BoG492C9hYx0e2r/9MNOSM0oDfSIAgh
-	 ACTmDCY7nyRwTrySBDmj30OT0846tZ9/fm0RFtExqm1sFI1IGRPiIwIF1O2prTzmyaA==
+	t=1793420349;
+	b=jOnb1GM3S3JPZlr85L1wOesnBlc4/C8mCpcRGk/cHujFrviCtv857YbpWbSL+mYpcDtr
+	 5CPmmFwSnOnyJ1bwGI6pDDIS5TMg/QTQrfJ9cltH1w03nMKsdto+lTCwagLmf/wWhvwUI
+	 dNxpSPVDAUWnyLjwAn4BfRHkIPUu6XprW5/WouRsjaa6Bpdp1wr0yGlA+QutsrwL+R3vj
+	 gt3/+QDQK/JoOqIBF84yF3a4XIhhpTvJuBF1fVrqxgrsjtf1fnx48S5owjVu76UoDz4Un
+	 TknzieFMNrh0tTc93YGeVR1V3w2Qf4lIZJCR8AWAVs5h5gtqSvFXEaIzkg3wl8XLUjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420343;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420349;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=FjaprEqnq3Ht16aGLjLhtlHDEpAzHCzAXN2oS94TnPI=;
-	b=QLQazBMqLTGMlfhIBoRHqIBOrviLJ4CjmizGQEcN6X3RmB2p6ZHR3kGJWvsFytUgb7d6
-	 dFyZJFYB1SBZJ+lmK1dTsdCE90kOT95xYGbo2zxc7UxujgahlRKshVWH6KjPsE/fyWGVw
-	 VVI5lGEI1SUqXqISEz3+wid0Qj4CQ/Z8a1uf+CTWgO9XbE9NsqcRxFs+nmLvK4a1qcVay
-	 k2yzxncRXW+gEB9eiW0I0zDFfMOGAw8l7ZkUFkYYQk7wGZHllKdv1QoERQ0A7gxr7cZou
-	 F6OS+eErC/JSqYrii/K1DzslLTN57bVFcLJjckDdE7I6xV2jK3+UlYRVeRfvgpjAd4A==
+	bh=GZeiFgakHNQZFua855MrSW0tgqte9INNSDrGHp4zabQ=;
+	b=NlKMzuqd8guWLpEP0fVt4ULd0UPXWuog5C3bubjwW25hR1WxeKizBg6s0eLwhWVyO28S
+	 Z4JRMJ9uyayT+ZMT84ROjJR0jNDveCZ7zV793qo6ftME/ezl5N8ojRxNIxwroSo/5M/he
+	 ICEu0Puy1aSXH0SLCKx1nG8Evm776BZMad7HRFtckhVRzL4MhJ5SDXnnn+/50nx7nQSc/
+	 TmcrYQE06uf79en3Z98S5ALruBRehXZWB3BBaWOC01GVqI8hXuLpWrkAlQwy4m260+0mm
+	 t9tNY4+CiJB3gWFHiMJy5OD1qtP1Oef5C0/mw4RDhliaQ/GspKYfHuI9T78pbbC5jZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=cwooper.dev;
 	spf=pass smtp.mailfrom=cwooper.dev;
-	dkim=pass header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=qF7+ryy7;
-	arc=none smtp.remote-ip=95.215.58.158
-Received: from mta1.migadu.com (out-158.mta1.migadu.com [95.215.58.158])
+	dkim=pass header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=Jiugm3x3;
+	arc=none smtp.remote-ip=91.218.175.162
+Received: from mta0.migadu.com (out-162.mta0.migadu.com [91.218.175.162])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6127F606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:19:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6127F606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F127606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:19:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F127606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cwooper.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cwooper.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=qF7+ryy7
+	dkim=pass (2048-bit key, unprotected) header.d=cwooper.dev header.i=@cwooper.dev header.a=rsa-sha256 header.s=key1 header.b=Jiugm3x3
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=W3RYCzdyOzDqvLgu9ozi/BTEzVvjp21rlibNduXqxDM=;
+DKIM-Signature: a=rsa-sha256; bh=Jpm4hUEiEt808dRSR8x297ZiH9nhQqjGAjQNsGPCmPY=;
  c=simple/simple; d=cwooper.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793420340; v=1; x=1794025140;
- b=qF7+ryy7idi+OBG7zyUeuT4LOg+AR2MMpaBjhZon4BbMJL6O2rWrotJUqouXLi4MCQwuHKMa
- m/4zBm7Ve5VLR1ePH+iBPpXdIK4Gxc5dUCySIL3X8Mb8PCROieYx6QJGX8o4XnxPv+qpK3Gchry
- 4j/DDtNhlNE3hGBwTVqsRadVJI3MMvmbbxkqBYkq1oNViyD4av/ljteuKf2Dxnui6Cha0rPnjpO
- H6q1i1ZwtHePl8yw3cbFu0jeQXZLNi2N3/h8nHI3DWe/ELXlZAuC/56lwtYmOHItzo3s8r1liIY
- 4/OxJBlclfoGgQ/OC+V+b4ps3M1HICcrrbiWhsVWq6J5g==
+ t=1793420346; v=1; x=1794025146;
+ b=Jiugm3x3/CRfKTGEixLGbQH9qqOobLxJytn8uywHfrTPls0VYMh3sC0RHSKeoDxPE2OMsroh
+ ivcRaGEGaOctYvLohighWcpNOpHAztShWZ99xHK53g14kj/gwx9l4t8Y2dXBqMEnlH2ToCsYSXs
+ AcnSosRvS2Gbc3e937QIKfqgqFYLSAPEufnSO4D9rDYyrRX2K17xQBcz7TOnL/xME1IGD8YDbBF
+ hXwwMNmvhxCH40FiO2lYepc6XCOGEbTa69Lejf5CQAScLbJ/Gu7y2AxmqzJ1XNjTQyV1zfFlhDz
+ fSQRXn8qsGoxizOM04Ygb8GKcn8KtCJxKbxCqIADvd8Vw==
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id d31f048f24ec9d98;
-	Sat, 31 Oct 2026 04:19:00 +0000
-X-Mizu-Trace-ID: d31f048f24ec9d98
+Received: by smtp.migadu.com with ESMTPS id da7909de37f0bb45;
+	Sat, 31 Oct 2026 04:19:06 +0000
+X-Mizu-Trace-ID: da7909de37f0bb45
 X-Migadu-Flow: FLOW_OUT
 From: Cooper Morgan <ext-github@cwooper.dev>
 To: amd-gfx@lists.freedesktop.org
@@ -60,9 +60,9 @@ Cc: Harry Wentland <harry.wentland@amd.com>,
 	Simona Vetter <simona@ffwll.ch>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] drm/amd/display: Saturate refresh rates in v1/v2 FreeSync infopackets
-Date: Fri, 30 Oct 2026 21:18:25 -0700
-Message-ID: <20261031041827.162730-2-ext-github@cwooper.dev>
+Subject: [PATCH 2/2] drm/amd/display: Use FreeSync v3 infopacket for sinks above 255 Hz
+Date: Fri, 30 Oct 2026 21:18:26 -0700
+Message-ID: <20261031041827.162730-3-ext-github@cwooper.dev>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261031041827.162730-1-ext-github@cwooper.dev>
 References: <20261031041827.162730-1-ext-github@cwooper.dev>
@@ -77,143 +77,192 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The v1 and v2 FreeSync infopackets carry the minimum and maximum
-refresh rate in one byte each, and build_vrr_infopacket_data_v1() casts
-the rate in Hz to unsigned char. On a sink whose range goes above
-255 Hz the value wraps: a 320 Hz mode is advertised as a 64 Hz maximum.
+Native DP, eDP, and HDMI sinks get the v1 FreeSync infopacket unless
+they are a whitelisted PCON or support Replay. v1 holds each refresh
+rate in one byte, so a sink whose range goes above 255 Hz cannot be
+told its real maximum. The v3 packet carries the high bits in
+PB11/PB12.
 
-Sinks that treat the field as authoritative misbehave once the wrapped
-value lands inside their range. An MSI MAG 271QPX32 (48-320 Hz) over
-native DP looks like a ~720p image upscaled to the full screen at 320 Hz
-and runs its self-test pattern at 305-315 Hz, while 300 Hz (wrapping to
-44 Hz, below its minimum) is fine. Capping the EDID range at 255 Hz, so
-the packet says 255, gives a correct picture at 320 Hz.
+The AMD VSDB version was stored for DP and eDP sinks only when they
+support Replay. Store it for every DP and eDP sink, as the HDMI path
+already does, and send v3 when the sink advertises AMD VSDB v3 and its
+maximum refresh rate is above 255 Hz. The choice follows the sink's
+maximum rather than the current mode, so such a sink gets v3 at every
+mode and the packet version stays fixed per sink. Sinks whose maximum
+is 255 Hz or less are unchanged.
 
-Saturate the fields at 255 Hz instead of wrapping.
+Storing the VSDB version for DP sinks and selecting v3 from it follows
+sunryze's approach in the linked issue.
 
-Capping v1 at 255 as a fallback was suggested by oystersuki in the linked
-issue.
+Tested with this series backported to v7.2.13 on an MSI MAG 271QPX32
+(AMD VSDB v3, 48-320 Hz) over DP 1.4 on an RX 9070 XT: 320 Hz shows a
+correct picture, and with VRR active the refresh rate tracks frame
+caps of 300, 270, and 100 Hz. At 240 Hz, where the sink now gets v3
+instead of v1, the picture is correct and VRR tracks a 100 Hz cap.
 
-Fixes: 98e6436d3af5 ("drm/amd/display: Refactor FreeSync module")
-Closes: https://gitlab.freedesktop.org/drm/amd/-/issues/5988
-Cc: stable@vger.kernel.org
+Link: https://gitlab.freedesktop.org/drm/amd/-/issues/5988
 Signed-off-by: Cooper Morgan <ext-github@cwooper.dev>
 ---
- .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 57 +++++++++++++++++++
- .../amd/display/modules/freesync/freesync.c   | 12 +++-
- 2 files changed, 66 insertions(+), 3 deletions(-)
+ .../display/amdgpu_dm/amdgpu_dm_connector.c   |  2 +-
+ .../display/amdgpu_dm/amdgpu_dm_freesync.c    |  7 +++
+ .../tests/amdgpu_dm_connector_test.c          | 25 ++++++++
+ .../amdgpu_dm/tests/amdgpu_dm_freesync_test.c | 59 +++++++++++++++++++
+ 4 files changed, 92 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-index 710cdc7f4..b603516e2 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
-@@ -664,6 +664,62 @@ static void dm_test_update_freesync_state_pcon_default(struct kunit *test)
- 	dm_test_update_freesync_state_pcon_version(test, 0);
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+index bc5745a5b..25b4d575e 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_connector.c
+@@ -3912,10 +3912,10 @@ void amdgpu_dm_update_freesync_caps(struct drm_connector *connector,
+ 		}
+ 
+ 		get_amd_vsdb(amdgpu_dm_connector, &vsdb_info);
++		amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
+ 
+ 		if (vsdb_info.replay_mode) {
+ 			amdgpu_dm_connector->vsdb_info.replay_mode = vsdb_info.replay_mode;
+-			amdgpu_dm_connector->vsdb_info.amd_vsdb_version = vsdb_info.amd_vsdb_version;
+ 			amdgpu_dm_connector->as_type = ADAPTIVE_SYNC_TYPE_EDP;
+ 		}
+ 
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+index 386ba88c5..6cfeb9d6d 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_freesync.c
+@@ -269,6 +269,13 @@ void amdgpu_dm_update_freesync_state_on_stream(
+ 
+ 		mod_build_adaptive_sync_infopacket(new_stream, aconn->as_type, NULL,
+ 					&new_stream->adaptive_sync_infopacket);
++	} else if (aconn && aconn->vsdb_info.amd_vsdb_version == 3 &&
++		   aconn->max_vfreq > 255) {
++		/*
++		 * v1 saturates at 255 Hz. Keyed on the sink's max, not the mode's
++		 * rate, so the packet version stays fixed per sink.
++		 */
++		packet_type = PACKET_TYPE_FS_V3;
+ 	}
+ 
+ 	mod_freesync_build_vrr_infopacket(
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+index acde20241..001155f56 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_connector_test.c
+@@ -9554,6 +9554,30 @@ static void dm_test_fs_caps_edp_replay_mode(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, (int)ctx->aconnector->as_type, (int)ADAPTIVE_SYNC_TYPE_EDP);
  }
  
-+/*
-+ * Build the VRR infopacket for a non-PCON, non-Replay sink with VRR inactive
-+ * over 48Hz to @mode_hz, the max that mod_freesync_build_vrr_params() clamps
-+ * to the mode's rate.
++/**
++ * dm_test_fs_caps_dp_vsdb_version - Test a DP sink's VSDB version without replay
++ * @test: The KUnit test context
++ *
++ * The version selects the FreeSync infopacket, so it is kept for every DP sink,
++ * and a later sink without the VSDB clears it.
 + */
-+static struct dc_info_packet
-+dm_test_freesync_packet(struct kunit *test, enum signal_type signal,
-+			u8 vsdb_version, int sink_max_hz, int mode_hz)
++static void dm_test_fs_caps_dp_vsdb_version(struct kunit *test)
 +{
-+	struct amdgpu_device *adev = dm_kunit_alloc_adev(test);
-+	struct dc_link *link = dm_kunit_alloc_link(test);
-+	struct dc_stream_state *stream = dm_kunit_alloc_stream(test, link);
-+	struct amdgpu_dm_connector *aconnector;
-+	struct mod_vrr_params *vrr;
-+	struct amdgpu_crtc *acrtc;
-+	struct dm_crtc_state crtc_state = { 0 };
++	struct dm_test_fs_caps_ctx *ctx =
++		dm_test_fs_caps_ctx_alloc(test, SIGNAL_TYPE_DISPLAY_PORT);
 +
-+	acrtc = kunit_kzalloc(test, sizeof(*acrtc), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, acrtc);
-+	aconnector = kunit_kzalloc(test, sizeof(*aconnector), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, aconnector);
-+	crtc_state.base.crtc = &acrtc->base;
-+	stream->timing.h_total = 2200;
-+	stream->timing.v_total = 1125;
-+	stream->signal = signal;
-+	stream->dm_stream_context = aconnector;
-+	aconnector->vsdb_info.amd_vsdb_version = vsdb_version;
-+	aconnector->max_vfreq = sink_max_hz;
-+	vrr = &acrtc->dm_irq_params.vrr_params;
-+	vrr->send_info_frame = true;
-+	vrr->state = VRR_STATE_INACTIVE;
-+	vrr->min_refresh_in_uhz = 48000000;
-+	vrr->max_refresh_in_uhz = mode_hz * 1000000;
-+	adev->dm.adev = adev;
++	amdgpu_dm_update_freesync_caps(&ctx->aconnector->base,
++				       dm_test_fs_edid_amd_vsdb(test, 0, 0, 0), false);
 +
-+	amdgpu_dm_update_freesync_state_on_stream(&adev->dm, &crtc_state, stream, NULL, 0);
++	KUNIT_EXPECT_FALSE(test, ctx->aconnector->vsdb_info.replay_mode);
++	KUNIT_EXPECT_EQ(test, ctx->aconnector->vsdb_info.amd_vsdb_version, 3);
 +
-+	return crtc_state.vrr_infopacket;
++	amdgpu_dm_update_freesync_caps(&ctx->aconnector->base,
++				       dm_test_fs_edid_displayid(test, 40, 144), false);
++
++	KUNIT_EXPECT_EQ(test, ctx->aconnector->vsdb_info.amd_vsdb_version, 0);
++}
++
+ /**
+  * dm_test_fs_caps_hdmi_vsdb - Test the HDMI AMD VSDB refresh range
+  * @test: The KUnit test context
+@@ -10425,6 +10449,7 @@ static struct kunit_case amdgpu_dm_connector_tests[] = {
+ 	KUNIT_CASE(dm_test_fs_caps_dp_narrow_range),
+ 	KUNIT_CASE(dm_test_fs_caps_dp_msa_not_allowed),
+ 	KUNIT_CASE(dm_test_fs_caps_edp_replay_mode),
++	KUNIT_CASE(dm_test_fs_caps_dp_vsdb_version),
+ 	KUNIT_CASE(dm_test_fs_caps_hdmi_vsdb),
+ 	KUNIT_CASE(dm_test_fs_caps_hdmi_no_vsdb),
+ 	KUNIT_CASE(dm_test_fs_caps_pcon_whitelist),
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+index b603516e2..b1a414445 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/tests/amdgpu_dm_freesync_test.c
+@@ -720,6 +720,61 @@ static void dm_test_update_freesync_state_dp_v2_saturates(struct kunit *test)
+ 	KUNIT_EXPECT_EQ(test, p.sb[8], 255);
+ }
+ 
++/**
++ * dm_test_update_freesync_state_dp_v3_above_255 - Test v3 for a VSDB v3 sink above 255Hz
++ * @test: The KUnit test context
++ */
++static void dm_test_update_freesync_state_dp_v3_above_255(struct kunit *test)
++{
++	struct dc_info_packet p =
++		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 3, 320, 320);
++
++	KUNIT_EXPECT_EQ(test, p.hb3, 3 << 2);
++	KUNIT_EXPECT_EQ(test, p.sb[8], 320 & 0xff);
++	KUNIT_EXPECT_EQ(test, p.sb[12], 320 >> 8);
 +}
 +
 +/**
-+ * dm_test_update_freesync_state_dp_v2_saturates - Test v1 saturates above 255Hz
++ * dm_test_update_freesync_state_dp_v3_mode_240 - Test v3 follows the sink max, not the mode
 + * @test: The KUnit test context
-+ *
-+ * A VSDB v2 sink keeps the v1 packet, which cannot carry 320Hz.
 + */
-+static void dm_test_update_freesync_state_dp_v2_saturates(struct kunit *test)
++static void dm_test_update_freesync_state_dp_v3_mode_240(struct kunit *test)
 +{
 +	struct dc_info_packet p =
-+		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 2, 320, 320);
++		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 3, 320, 240);
++
++	KUNIT_EXPECT_EQ(test, p.hb3, 3 << 2);
++	KUNIT_EXPECT_EQ(test, p.sb[8], 240);
++	KUNIT_EXPECT_EQ(test, p.sb[12], 0);
++}
++
++/**
++ * dm_test_update_freesync_state_dp_v3_at_255 - Test a VSDB v3 sink at 255Hz keeps v1
++ * @test: The KUnit test context
++ */
++static void dm_test_update_freesync_state_dp_v3_at_255(struct kunit *test)
++{
++	struct dc_info_packet p =
++		dm_test_freesync_packet(test, SIGNAL_TYPE_DISPLAY_PORT, 3, 255, 255);
 +
 +	KUNIT_EXPECT_EQ(test, p.hb3, 0x04);
-+	KUNIT_EXPECT_EQ(test, p.sb[7], 255);
 +	KUNIT_EXPECT_EQ(test, p.sb[8], 255);
++}
++
++/**
++ * dm_test_update_freesync_state_hdmi_v3_above_255 - Test v3 for a VSDB v3 HDMI sink
++ * @test: The KUnit test context
++ */
++static void dm_test_update_freesync_state_hdmi_v3_above_255(struct kunit *test)
++{
++	struct dc_info_packet p =
++		dm_test_freesync_packet(test, SIGNAL_TYPE_HDMI_TYPE_A, 3, 320, 320);
++
++	KUNIT_EXPECT_EQ(test, p.hb1, 3);
++	KUNIT_EXPECT_EQ(test, p.sb[8], 320 & 0xff);
++	KUNIT_EXPECT_EQ(test, p.sb[12], 320 >> 8);
 +}
 +
  /* Tests for amdgpu_dm_update_stream_irq_parameters() */
  
  /**
-@@ -900,6 +956,7 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
- 	KUNIT_CASE(dm_test_update_freesync_state_pcon_v2),
+@@ -957,6 +1012,10 @@ static struct kunit_case amdgpu_dm_freesync_tests[] = {
  	KUNIT_CASE(dm_test_update_freesync_state_pcon_v3),
  	KUNIT_CASE(dm_test_update_freesync_state_pcon_default),
-+	KUNIT_CASE(dm_test_update_freesync_state_dp_v2_saturates),
+ 	KUNIT_CASE(dm_test_update_freesync_state_dp_v2_saturates),
++	KUNIT_CASE(dm_test_update_freesync_state_dp_v3_above_255),
++	KUNIT_CASE(dm_test_update_freesync_state_dp_v3_mode_240),
++	KUNIT_CASE(dm_test_update_freesync_state_dp_v3_at_255),
++	KUNIT_CASE(dm_test_update_freesync_state_hdmi_v3_above_255),
  	/* amdgpu_dm_update_stream_irq_parameters */
  	KUNIT_CASE(dm_test_update_stream_irq_parameters_no_stream),
  	KUNIT_CASE(dm_test_update_stream_irq_parameters_invalid_timing),
-diff --git a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-index 4bd060e30..af7054668 100644
---- a/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-+++ b/drivers/gpu/drm/amd/display/modules/freesync/freesync.c
-@@ -571,6 +571,12 @@ static bool vrr_settings_require_update(struct core_freesync *core_freesync,
- 	return false;
- }
- 
-+/* v1/v2 packets hold each rate in one byte; saturate instead of wrapping. */
-+static unsigned char vrr_refresh_hz_u8(unsigned int refresh_in_uhz)
-+{
-+	return min((refresh_in_uhz + 500000) / 1000000, 255U);
-+}
-+
- static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
- 		struct dc_info_packet *infopacket,
- 		bool freesync_on_desktop)
-@@ -614,15 +620,15 @@ static void build_vrr_infopacket_data_v1(const struct mod_vrr_params *vrr,
- 	/* PB7 = FreeSync Minimum refresh rate (Hz) */
- 	if (vrr->state == VRR_STATE_ACTIVE_VARIABLE ||
- 			vrr->state == VRR_STATE_ACTIVE_FIXED) {
--		infopacket->sb[7] = (unsigned char)((vrr->min_refresh_in_uhz + 500000) / 1000000);
-+		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->min_refresh_in_uhz);
- 	} else {
--		infopacket->sb[7] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
-+		infopacket->sb[7] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
- 	}
- 
- 	/* PB8 = FreeSync Maximum refresh rate (Hz)
- 	 * Note: We should never go above the field rate of the mode timing set.
- 	 */
--	infopacket->sb[8] = (unsigned char)((vrr->max_refresh_in_uhz + 500000) / 1000000);
-+	infopacket->sb[8] = vrr_refresh_hz_u8(vrr->max_refresh_in_uhz);
- }
- 
- static void build_vrr_infopacket_data_v3(const struct mod_vrr_params *vrr,
 -- 
 2.56.0
 
