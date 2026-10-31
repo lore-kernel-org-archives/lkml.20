@@ -1,78 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.14
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793410194;
-	b=NF0791MDteSWH0S2hlyG76QbKs49Gj/yfA5HkYMKM5615OD3x4PPApG6tXzGnB+hMQlQ
-	 FuB6BMmGGGj3LdmgQdEOgiExFiAXeenrhFzZ9d3NPg754xDvH5KXxVaKe0SWDHWskNAWK
-	 aXjxtD0PIKDJzfvH0qSC25ZRmS7mACufc2fQ+g4ieM1xCogRaW3PxRyAuLWiWlsxadoFT
-	 luSf1kZwm1r2xttEQcsFulLDKHdQ+wbpgWhjvtW/95hicWjztrCq4Gifnphrmre5csKeY
-	 gtNpYclgKKWpqsuuV70ZJWItSYcc/YyQWfPWiDVaUDHgV8bxiLkNy+OnPot5R+lGnrw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793410194;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=48u8q9gbjgm+FnmBNe9mWVyF+rAqI8YoLJBqJ5vrjbc=;
-	b=tNxaXxOXjXawH8nXchB8sCaQy8C43pINCAl11pFDnMVPQZ10B4m9ZUBjLPQOaU/LGURE
-	 VYIwGj4HIZCIFxA9OZJ2+5cgWvEajEba3OQtxSKyKlBiuJ1Hnjqg+RHnvJTCDcFsOpvWG
-	 l19zbDR6rRWckGGxe2mQ0/6uryrOQDgPy3NkFfATZwlEE1emzl6iySJGRBcLK2s8IUyfb
-	 U/2DOXzKJRVYtvS1jWxQVHHDzL42rrYl3xSmEjo0d9qR8WzMn2a7nrO7GSdwlVneLvQ5X
-	 Tw6c3+Ui8b9gk71IdHYg2OQ2u1Es8Mos0+GaEADbUiiOsBqd2UKWR370O6vy7axDZtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Cglssmy+;
-	arc=none smtp.remote-ip=192.198.163.14
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.5
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793410261;
+	b=KIfZJsptysM8dRaVx2XhwwOQSfrCnPvex529tyLqbJfw/0JnjpP3eXLbPoBrkPawwtIu
+	 mEX6z6Ui2QGypHKPMugMz8Z4hSZHGTSlPW4QIICTI6oZ/yMu1nsc7qEnBTYcz4/AOEDOk
+	 AJyrhhN85GJjzNyInDQbDxOUD2SBGcXG0zqFaF/zwZ6Zay0+n31zAVqW74BaeXHz9oF3O
+	 x7PmQv0zZzMIr/ghLMFw29INRu+2SjdNYEB1w5U3IYAYNSSBW+I/Bg0lgaAN2zJnRz/Fv
+	 +DrJ9GobJFYuKTXbCmnPDZ28e/rdf3ECoiNeOBaIW49iW7rwBNPTp2crNv2F9TutWWA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793410261;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
+	 Date:Message-ID:In-Reply-To:References:Content-Transfer-Encoding:
+	 Content-Type:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=C+T9AiBLS3ALrg30192Tn7xsPWVJvRyqVTsAfGqR0C0=;
+	b=FMCNzPWqv2XVW2P2ysH8MoTe7lf2+YPCy72xIA1f8n3XmIUTkYsJnQTh07H2NC8oP4wj
+	 VSS7XDWlWZEMS8QJWzAfUUNfOZhAUC4Ip/ojcsSIrlOoyR9jxVPt3WkbpqD+mVOOM5cQ9
+	 zAVI5IlOw1345+fGB7QtCo94QJS6hMcE+FRGc0q94kfSU4x3cvFKMB3VsqVpSzPkPAWVO
+	 JCfh0IBk4Vr0u9dKonoba4mUh37cZ+d5enAFfvTMA3xeZT+Ry3zrT5MtEN5w4DlUw96eb
+	 myHYIvZB2C82vGSp0x0ipmdzxTouCHjIHAP2UBkh19DiJ5jo9+nHCbGb4iCxJHQFYXg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iNpAtZTj;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.52.5
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011005.outbound.protection.outlook.com [52.101.52.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B583A606A329;
-	Sat, 31 Oct 2026 01:29:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B583A606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2506E606A31A;
+	Sat, 31 Oct 2026 01:31:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2506E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Cglssmy+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793410189; x=1824946189;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=LRiKvRUskUruRWJMg/LsXb4ThqjjFUrvPJlq+ZPlX2w=;
-  b=Cglssmy+95nA78tNwMlXS5sOkr9k5RTdFoOkMTCOCxC+tw44eK/TOEVb
-   1/gjMXIDdF6Aqz8Op6JAT4KHFq9kHIFigMsXoOKlaIFmu1m1Si3zR9pMs
-   zE/fS9QMUGa/hE+jKxSxv8juSBGshMn5VXUntVGwR/PWw0FTmMXj0u3/5
-   J6DYCsmCQn0nf1BrMTPgROCKvdRKEekTgiz6xEXGgvOf2Adb4cMu9WLc+
-   +KgFfHXx09mwLo+sny1ghIWhc73VN2QlZWKS6XRB3h2aGvhgZ6VvU3ee9
-   GSgHFvSrsZBol17EVSNtAJ5MXE8n/0OD1raaO9FoB5hj+caeFongqIbE/
-   w==;
-X-CSE-ConnectionGUID: N7h26zIzTg2g5/h88wbHTQ==
-X-CSE-MsgGUID: amjMmt9QSGSfgB+xqBgtQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2213338"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2213338"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 18:29:46 -0700
-X-CSE-ConnectionGUID: YmNQ32gQRdmsfzYwTlrarw==
-X-CSE-MsgGUID: rxrHooNkRa+GI/KhRuk5EA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7397959"
-Received: from debox1-desk4.jf.intel.com ([10.54.77.98])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 18:29:46 -0700
-From: "David E. Box" <david.e.box@linux.intel.com>
-To: Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	platform-driver-x86@vger.kernel.org
-Cc: "David E. Box" <david.e.box@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6/6] platform/x86/intel/pmt: Validate telemetry regions against the BAR
-Date: Fri, 30 Oct 2026 18:29:38 -0700
-Message-ID: <20261031012939.377995-7-david.e.box@linux.intel.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261031012939.377995-1-david.e.box@linux.intel.com>
-References: <20261031012939.377995-1-david.e.box@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=iNpAtZTj
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j4x4JP3kqw8PMjfrGEVl5erYrCNHZ0OPq+OV8YU5/YEf7LgvtzDYQmT37FFns2d6Uq09sfegihIZ2n3jo3B7Mc2OiQltbY5GpQw/5EP+CvUZPLTv+3HZKY6uInfnw6GJ4fVWOnddNaFkry1dp5UOZ0F5yyfgt7m3NS6C1KXfoYy1/PttqNLOFLOeZDPpA4TAny30er9IkWmqcW5LZ1IcYeiWYkDtcHKr/2dklEsgYXJhCVy+yd56LuzGKA1MRAYSNLMtYze3+hgLtw2XCkd4U6Etz9RriN2p9X3y+ddCaHOEAAv66hU7L1n32nCRyZ1KOgFBERzD8O/ymTVCtRgieg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C+T9AiBLS3ALrg30192Tn7xsPWVJvRyqVTsAfGqR0C0=;
+ b=m0erkftMJL+lgQ9SWnaOryoIPpxpzWDR/IdoC2HR3CoxKtsVsYXg4otljjxJ2iWUY3C63V1pTULXkDuo6S8gE/Sn+8IG9ZmynviReqxtwQ+s4/uOQYEB7n7QghXHjvAbHJBFWwI+vs/yWQjcqec4zzl4oS5qAtd7LsgkiUKVowVtr4s6j4YEF3oJ+RdbcZ9s5LFo7G5d9VbI772609Hx9fdn3HXd4tGVAUsfyES5NpdEuAbm2rBq1R97fbk22kloHCiumFSE+LNpF1hXHgsvcrKoKghTHLnye7iAngfKusfOaev1yWmAM+uRIiBC1Cl8/2CG9alag4Vv9RJ95E/5/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C+T9AiBLS3ALrg30192Tn7xsPWVJvRyqVTsAfGqR0C0=;
+ b=iNpAtZTjz6C4WwOeR9zyAVbyZBfmZay778ouNRcnTbzngRIWOdz0mLacAKXSgUYJ7a3q9BMdrnvS8uebV5JyEKOJU6FpM1ImiM6GGUX3OmCyXFTvijexOrxSpCKu/1YhD1lpUYs6GrotNBlLT6Le4JnHCSXpR67W9RGgSgxOQtgSu3M0C0ywac0MPYBzoyX/qW+uogIgM5wjpnd5QJ5Jjjld+REGmMUYIvQ7HHVzGg9Vmj8Q3lElRHppsMsPEdS7wsJgX6wA9iKhf02XhSMcpvh9i0lhQPcwBgyn/xjyG8zDFgp2BBuT+WzMyyt6xKDAbq6zmGpy8pPTu6SpBWFY+g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DM6PR12MB4353.namprd12.prod.outlook.com (2603:10b6:5:2a6::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
+ 2026 01:30:55 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0569.008; Sat, 31 Oct 2026
+ 01:30:54 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-tegra@vger.kernel.org, Maxime Ripard <mripard@kernel.org>
+Subject: Re: [PATCH v5 01/11] drm: Add MIPI DBI bus support
+Date: Sat, 31 Oct 2026 10:30:49 +0900
+Message-ID: <wkoWhtHcTeCIo_G2MZlRcg@nvidia.com>
+In-Reply-To: <auS1aG5y3nmnDkVu@houat>
+References:
+ <20261029152909.234584-1-clamor95@gmail.com>
+ <CAPVz0n3K74CZemDzVVymmjU_5GUGE9FsEKk555-AJfG0jek_hg@mail.gmail.com>
+ <auS1aG5y3nmnDkVu@houat>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: OS7PR01CA0006.jpnprd01.prod.outlook.com
+ (2603:1096:604:251::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,92 +107,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DM6PR12MB4353:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a721390-3731-4666-18d4-08df36ee9af1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|10070799003|376014|7416014|4143699003|11063799006|56012099006|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003|261022075727099003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	wJkk0PLrQlPxQYoiozW3e6gDNFPgBp1/5GO003TuUqL0gzGZhABxGoWFjcVJIo1hANYR6Feigwm/K81ModzAniLHYVsi+tQ4DQG1Cs5s7CHW8v3CCMzLroopsTP8oNAlsGbbJFtPKhC+AGWlFC4fxX28P6fmCyPFGU5A6xUvgspUvt153qfaWM9NuNuj525ioClyi9ZhIKa1nxHpyBV36+DDET3nFCCley64AQpEB5X9XrasLg9eVnHy5cjGOaXLfyon46MmepzvBVdwG3SaiWC/u2xVhE0Yfbq22ScDFiuzTRzUxJB/vQk8JzJGz7WTGknFSuasKklFysSGOvgzn8n7vNtOQ1CTnuvo7rD629JsLl2i8o8Q/kYJnC0TsOf7MO7qbLBsXCfG6uXPPjynEJV9vySVhryGYru+mUZdZSB5w4THCaOFszYcS5XSKE5FlAOdOZgog+Vc6bP5SDR09oCw3ydCImSN+WnBmXenms5ThgTKaqASNtjv6AdPWsVN/WROA5A0aTLIdpcz3iYkyd9d/MFIvVWNhgkNNY1qnpLghLRzr39Xk9Ksa2r2MNHkfAkbs4j/rii+Z7xBOf7rbNTTTI4xR1oja3+tsiD7Uhfc2PTRs74M+COmokD6RRvvw50Qdepc6YzNx5CjKScQNgnZ6DBBeVkSf20FpXuqKiY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(376014)(7416014)(4143699003)(11063799006)(56012099006)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?UG9kSXlLYU41WXB0d3NRanY4K1RGTXg0dHFXRmQyWkVyamhHampiamp5L1My?=
+ =?utf-8?B?SEE2SlVUL0Y0U3NIbnpiY1pnWExtUWI0dlg5TzArWWZJRDJwbnp2NEptbExP?=
+ =?utf-8?B?MmFHWmdLeTd4WiswUFhPSXE1c244UnVIbXgxWFF0VXR6T0p0blYwM1Bua3J5?=
+ =?utf-8?B?OTBVL1NEVHQzUm55enZoVVVnbHBrQ2NJQm9URlV4WVZHYnpmeXBPRllmYjBr?=
+ =?utf-8?B?clNPWW5lUU5KRkNab0VsZ2JTZU5zT3dsR3FEUjNiNUpjNnQ3VE5HbVN6bzI3?=
+ =?utf-8?B?QXRYR0JhbkNYMUhlaXQ0NnpIdnk3WkR3a1dsOXRTZmwwYVlWdTUwVzlBT3dR?=
+ =?utf-8?B?d2J6NEVyVkJqYmZ2RW1zM2FXVnN0ekJhNWVkd1REelFIaDl0Y0VoYit3Ri9M?=
+ =?utf-8?B?ekNwZXIrc0RzQ01CdWV4QWNHQVJsZEpBM0hWS2l5d3YwSTJmYUJsU0JOQkcx?=
+ =?utf-8?B?aDBJRWYvdlp1b1JJZWw1Wk1rUU1pdHZMdG1tWDU3cm83U2ZOKzZUK3k2ekd2?=
+ =?utf-8?B?aXBGR0VSOERwQytjM1grekJCd2FGdlBJNGdML09wNm8rYzRCU2htNVNYYi9o?=
+ =?utf-8?B?ZEVZamdqbUJXSmxCNWhRVkhjMVpBWTR5alhTakRDK013STBpU0Z4YjFLRkFu?=
+ =?utf-8?B?MVYwRWZ1VzNmMWNQaEZ5d2lvTlZ0Y0FmdHdPaWtRYWlSQ2Frais2NUpRRHhQ?=
+ =?utf-8?B?cU5EUkthSUFTazUwMEtLbm4vTFdLbnc5OHdmRGw2OVVqWVdqZ0ZDV3ZlMS9t?=
+ =?utf-8?B?RUpRMnkvQnVnNkw2Q3RZaU96U1FsT3ZIRFV6cHdlMnJDK2d3TnpJUkJrTzBL?=
+ =?utf-8?B?UGNPMDRPc25vQWRjc0VUVG9mb2FRTytqYWdTc2ZQaGIzejFRQmhGK3RDMlVw?=
+ =?utf-8?B?T0NZZTFmajZ2TzNKMEh4LzJ2REU3YjJpMHBtSVQzRHRLOW5qRHZjRk54S0xE?=
+ =?utf-8?B?UjBLM0RHZXZtRnlnTUJIM3VGak9LWTVsWlQzQjBBRVRBdDlabENLcFNuUUFz?=
+ =?utf-8?B?M3lBdFVCMTUvRllMbUlnSVFjWjJ0YXphRWRCUjc1QklDZEloRlRVWGVoZ3F2?=
+ =?utf-8?B?NXoyRXFwNTdHNFQ1OG01QnNVbHZ3SkZwZnJ3cVpBMHFnaFRHUjQ0WnpsRGQw?=
+ =?utf-8?B?OStnbUNpKzJzWFZLUE5wL2VXeURLTC9rRDNJU0YvMnl1N1gybHpWbnhRc1N3?=
+ =?utf-8?B?TkVXK1RTQWhGNTVZR1l5T3dTNjU5Ym1NUm44VERIN3NYZEJPN09ERy9VYWJH?=
+ =?utf-8?B?M3NLZjdtMlZ5ODJMTU1kSzZScW5wa0FOS1Y1aTJ2SkJJdkxSdmNiVENMUDlJ?=
+ =?utf-8?B?QmJQbC93Q2p2Y3RrUUtoTWcrYXVUa3dNUGthSUUzV0FIZ1Q2cWhvdnMzSmNx?=
+ =?utf-8?B?WUl1ZzkrY1IycnVTZlo1aXFKQnlobmp6ZndxMHpFdDZZeXNOVkVZQTMzci80?=
+ =?utf-8?B?aWFJYlBsZWVNTHFsNG0veDJFcGhJbUNyMFJCUUkweEltSmJlV294NjVVYXNT?=
+ =?utf-8?B?RU5rVVZDcVNRRW11RUVtUmdBdXNoUElBNUYwT3lZM0c5S09wcTQ2QkhaUkgy?=
+ =?utf-8?B?NWplTUFaRmErNlZEMVNwc3JSaXgvMlhkK3VSVjFTUCtXcWRDczJneVJIQ0NZ?=
+ =?utf-8?B?THFwcCtwcUFrcG5QaXRIMXBqbmRpcmdieXZvazV4bW9TQVRGWnUycjJHbklm?=
+ =?utf-8?B?WENQM0MzTXpqU2Q0ZlZ5RzFPZWNoYUJ0WUM4R1BwVHk5NzF5YloweU5vaUdu?=
+ =?utf-8?B?Vk5ydHJRNitCRTl4Rk9KWjYrRXhnSDN2NWF6TjJoeml5V2FPV1VpYmVwUDJi?=
+ =?utf-8?B?UGFsZ0VmU25BdVl5Nkk4MVc1YUdwMnB6dWowU1cvNG5ONUUwbUdLeUZKemZC?=
+ =?utf-8?B?T3l3cVhzSlc1cWJ4dEJmT1RoUmREcm50eHpLY3hxY0p5RkVlUm1MdU9QbVhJ?=
+ =?utf-8?B?R1diMHZvb3RLNjA5R01GVFFHeGFWTFVGM05lVHBlWlRLenpuZWxzSGJENmt6?=
+ =?utf-8?B?N2JqeVVPaCtLSHkrb3kzb2x4ZWRac25EdFdxVDFGMlNKZERkS3lWTS9DdzNq?=
+ =?utf-8?B?TTg4VitEL0lWYkFuYzBSbi9JZjBmNFY5WnlmSDBsWjJEV1NTMnJJQWJqT0Fu?=
+ =?utf-8?B?UjNrSC9wbU1tcWNWSStmMzNmSFp3eHlad1I5ckkvbnVZNDNhZFlMdGI3YzFw?=
+ =?utf-8?B?QW9FQkgxWW9uNDhRVG94UldjMXJHUzVsaWRXOWJjTDgzMnM5eW9rUS9wWVhI?=
+ =?utf-8?B?dW9vMXNYOWJ2UFZzeTAxb1BUY2pJeEV2ZktmeEUxVzh0ckVvUGcwM3dQcXhM?=
+ =?utf-8?B?bWpYMUlCQmFrTlQxT0dIMHhjT05yMUMwQ2xVWFhveG9hMUxWRnZtbGZRNmsz?=
+ =?utf-8?Q?EGQ5x8ZdjTm48R+UbFG3avMUkjvBzRe8CUsy/W2DkGkm3?=
+X-MS-Exchange-AntiSpam-MessageData-1: AE5L9Zd6Yb3Rwg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a721390-3731-4666-18d4-08df36ee9af1
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 01:30:54.0960
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: fGoQQv1aySaqCMs2U5TtqdIAxWxFf2kfVxzakWBTmVqAnqyF3Em699b3FOGgomqqZsLrW5gLRxBomie7eOiUYA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4353
 
-pmt_resolve_access_pci() computes the base address of a telemetry or
-crashlog region from the base offset and BAR index in the device's
-discovery header, and the region size also comes from the device. The
-resulting range is ioremapped by intel_pmt_dev_register() and can be
-mmapped by userspace through sysfs, but it is never checked against the
-BAR it claims to be in. A malicious or broken device can therefore
-direct the driver at MMIO outside its BAR. For ACCESS_BARID the BAR
-index is three bits, so it may also select BAR 6 or 7, which are not
-standard BARs.
+On Saturday, October 31, 2026 12:19=E2=80=AFAM Maxime Ripard wrote:
+> On Fri, Oct 30, 2026 at 12:02:52PM +0200, Svyatoslav Ryhel wrote:
+> > =D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+11:51 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Fri, Oct 30, 2026 at 11:42:12AM +0200, Svyatoslav Ryhel wrote:
+> > > > =D0=BF=D1=82, 30 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=
+=BE 11:29 Maxime Ripard <mripard@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > > >
+> > > > > On Thu, Oct 29, 2026 at 05:28:59PM +0200, Svyatoslav Ryhel wrote:
+> > > > > > From: Mikko Perttunen <mperttunen@nvidia.com>
+> > > > > >
+> > > > > > The MIPI DBI bus allows modeling DBI hosts and peripherals usin=
+g the Linux
+> > > > > > driver model. DBI hosts are registered by their respective driv=
+ers. During
+> > > > > > registration, DBI peripherals are created from the device tree =
+nodes
+> > > > > > provided by the host.
+> > > > > >
+> > > > > > DBI hosts expose operations that can be used by peripheral driv=
+ers to
+> > > > > > access associated devices.
+> > > > > >
+> > > > > > The original code was authored by Mikko Perttunen; I have align=
+ed it with
+> > > > > > the existing MIPI DSI implementation.
+> > > > > >
+> > > > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > >
+> > > > > The SoB situation isn't right here. The author is allegedly Mikko
+> > > > > Perttunen, but you don't have their SoB, and yours isn't there ei=
+ther.
+> > > >
+> > > > This is up to Mikko to decide what to do.
+> > >
+> > > Not only, no. When you're sending a patch you must add yours too.
+> > >
+> >=20
+> > > > > > Co-developed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> >=20
+> > My CO dev and SoB are both present. Mikko will say their word and I
+> > will update accordingly in v6
+>=20
+> Oh, right... I'm sorry.
+>=20
+> Maxime
 
-Check the region against its BAR before it is mapped: the BAR holding the
-discovery table for ACCESS_LOCAL, or the BAR named in the header for
-ACCESS_BARID.
+Svyatoslav, feel free to take full authorship on this patch. You can add=20
+my Suggested-by if you'd like.
 
-Fixes: e2729113ce66 ("platform/x86: Intel PMT class driver")
-Assisted-by: LLM
-Signed-off-by: David E. Box <david.e.box@linux.intel.com>
----
- drivers/platform/x86/intel/pmt/class.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Mikko
 
-diff --git a/drivers/platform/x86/intel/pmt/class.c b/drivers/platform/x86/=
-intel/pmt/class.c
-index 2b11c4012f6a..8f87f8db3966 100644
---- a/drivers/platform/x86/intel/pmt/class.c
-+++ b/drivers/platform/x86/intel/pmt/class.c
-@@ -214,6 +214,10 @@ static int pmt_resolve_access_pci(struct intel_pmt_ent=
-ry *entry,
- 	struct device *dev =3D &ivdev->auxdev.dev;
- 	struct intel_pmt_header *header =3D &entry->header;
- 	struct resource *disc_res;
-+	struct resource res;
-+	/* BAR the region lives in, the discovery BAR unless the device names one=
- */
-+	unsigned int bar =3D ivdev->tbir;
-+	int ret;
- 	u8 bir;
-=20
- 	/*
-@@ -258,6 +262,7 @@ static int pmt_resolve_access_pci(struct intel_pmt_entr=
-y *entry,
- 				   (disc_res->start <=3D pci_resource_end(pci_dev, i))) {
- 					entry->base_addr =3D pci_resource_start(pci_dev, i) +
- 							   header->base_offset;
-+					bar =3D i;
- 					break;
- 				}
- 			if (!entry->base_addr)
-@@ -280,6 +285,7 @@ static int pmt_resolve_access_pci(struct intel_pmt_entr=
-y *entry,
- 		 */
- 		entry->base_addr =3D pci_resource_start(pci_dev, bir) +
- 				   GET_ADDRESS(header->base_offset);
-+		bar =3D bir;
- 		break;
- 	default:
- 		dev_err(dev, "Unsupported access type %d\n",
-@@ -287,6 +293,20 @@ static int pmt_resolve_access_pci(struct intel_pmt_ent=
-ry *entry,
- 		return -EINVAL;
- 	}
-=20
-+	/*
-+	 * The base offset and size come from the device. Make sure the region
-+	 * lies within the BAR it claims to be in before it is mapped.
-+	 */
-+	if (header->size) {
-+		res =3D DEFINE_RES_MEM(entry->base_addr, header->size);
-+
-+		ret =3D intel_vsec_check_bar_resource(ivdev, bar, &res);
-+		if (ret) {
-+			dev_err(dev, "Region %pR is outside of its BAR\n", &res);
-+			return ret;
-+		}
-+	}
-+
- 	return 0;
- }
-=20
-@@ -574,3 +594,4 @@ module_exit(pmt_class_exit);
- MODULE_AUTHOR("Alexander Duyck <alexander.h.duyck@linux.intel.com>");
- MODULE_DESCRIPTION("Intel PMT Class driver");
- MODULE_LICENSE("GPL v2");
-+MODULE_IMPORT_NS("INTEL_VSEC");
---=20
-2.43.0
+
 
