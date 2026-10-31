@@ -1,94 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793471748;
-	b=ti3/uwYouOXtPA2GZOhbBGJLyaXavXDfq4yuPKFiyDHUqDw5Iuy2Lj+rsNBg7NQRuQ5r
-	 JIYSVEDVK4nRe+yH4BWYywC5bt7G/NVswkiO9qlVR7koiuL2FzYLSNCOeWJFF/Fj/OHkr
-	 MqsWhCsvcVlnGsLec3dnh+Ach4JWJnJ/T8HHZUkcUxRlc5T7GadLsS/0DMfCR8GgO7scs
-	 ezmxqGRB7Lv1m4rkt35KRWK9l3rVeFngAOGpysap/s65kiu+Yw0ga4p2GIfKoYZEjml+z
-	 yzia06VZkKlO71I5afg1z+C2CtqS/1kftPy8CQAAjvKsewr7lOcQdwW4TPOK4mXSFwg==
+	t=1793471755;
+	b=ZAX9Ft+AfF94oVTmLjU/FmhcVoXRYK9byvj/e8MqaUFF0gI4ysE+Uc87zqu2f4DFA9IJ
+	 N2saIcuIJEMuZH4DEg9PEAQah+LCpt0Xub7nRkqKRa9d49wx3oSGVr6CsY+og8BwbjlDb
+	 2QoqcXqq900hGCGRQfGb00RxFlpUrLS/1lA1xXKxNjkpUrCf93N6qMssebdVni66asHu7
+	 9GEOfGtq9mqiu0FF+Du/8iOfxxg9UWetbqrFd4bbXn934LS22pk46dYmKDJUNM/j2vLEG
+	 8BqzHr8WOGXuymygsJqpwhsGefw/zJFil2HZhxd2bYD22Nup7LTuKtTMRz0d7uUKMBA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793471748;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793471755;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9swVnJsIFTaqwiyOyx92HyZhMjF20rJmhD0f7aWIjtk=;
-	b=wZ1ETDpkHZ8EIz9zFYCl81K6HYtnCgYjvTdvK4Mt7SLLeCVEVVY9k7TfTipuwXzGPoVn
-	 U4ZXrTRKYRmTZwE/rvBzRRmzSBbqqde1q4swDm6FX83w4NXT0dzuzl+mnvwvRW5YxHQc+
-	 KPyfaRT00OfJB9ia+FD9tbApGDxKenmnNKa1cRtfzH7oij9Ue1aFTJQwyAcJI0HxQjKoW
-	 72YtKwDoSUIvifGDUP5iwSzOt+fJHZ588VtQNegffACH3lsG82oC6XzQuwKhMUy80LwJf
-	 dCfrZaff9VMKRsRYwSzwFlJhGbqIPo0/MdfZG7ThJ88qwYx0FWZkUeRZr1D1NfDTFSA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=yN+TG3cll45GlRcOY9f9N+pL2X7AI2IfUU7T9/nu2cA=;
+	b=dZ1wTRzHXCKAYbJN8WGJ8EHAcrmd+8SDBbpo8v5/G8z4MPMFrXFSAI+klzjVWsvMC73/
+	 /hfn03r0MWcCBYvOySG+MW0NFgZ9SbDjpYRVQM/bvqq82qQRenY39QfXj2JTrQESMTBMG
+	 rzhj4Nwqwv+jH4Qb90LdayN26lo8Sg9HOLZHqTtZtj7tpuTUyM2DAZpq3IF157vOXu4B1
+	 7SZ4LMy6ByhqYAWZoH3UI4j+q3JJ3ZQbJNTlNSgEdca9A16ryoruOZP/MdvG6l5s4bSiE
+	 nrsZ7OmpSl987bZ4fxMtCrXNh3MQ9IvIH0Gf7fMPywqI9BN8/McPKVtxHo+y9+lt6fQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nsd0MLVN;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tFXZPhc2;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58EC6606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:35:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58EC6606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0684606A322
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:35:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0684606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Nsd0MLVN
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a35ac4475dso11824885e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:35:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tFXZPhc2
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso11286365e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:35:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793471747; x=1794076547; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9swVnJsIFTaqwiyOyx92HyZhMjF20rJmhD0f7aWIjtk=;
-        b=Nsd0MLVNyEjYloLgtQyhI0rlXtLaWTrhoWJJzdeIhPVRwPXp9TwHxMyyVKfohJ0uo1
-         zqzWerpdQPacrdbBun7VlOo+K8uaLEttT5vTILxlscCidV2Xir+y7yLh+O5CEFnUCo4R
-         PNwLdy4NLODNJc2hbubtLbnaXAGPousxIx6rZrKlVQlHeBk/KOmyco50p5+2VJv1vrZw
-         8s6jQbbrOiCJ7rz2Tgpgop9l48odC6/DQE85XW++C5SLhWqFNiOGOSZu8Tc/dBrbfsJs
-         XxkvB7/zLSjyK4Sj38cqQcaA2NqNqaOVNuIjQW1DPt66IIbDo5TCbuIaz3JKmzwRJ+Df
-         hpag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793471747; x=1794076547;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793471753; x=1794076553; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9swVnJsIFTaqwiyOyx92HyZhMjF20rJmhD0f7aWIjtk=;
-        b=K9Px/VvD0bfDVru6GVHqqpDHaQRZsplFsQC/6HPFD5Gv6NK4OlOt9EuJ5zP30X9ef3
-         qfEx4pSnOpDJfzMtu7mfN20ZqkWXCrrLQfoE0BB12XOqQgqxL+SHglObFk7fO4J927Pj
-         ys5ZLCxny9Hjobb01Q+PppAi+W3r11zOmWg6MyBTU7YRoMHVEyRjxJhWqhxWLFZChO2r
-         nfF1cyA+sGm7VGpbgqFPyH6BddKCctsRxM4yU/p2b1kC1mZTDIKuAwnKMO2y4E4pYGKc
-         ps4aV5xmGQlu0PMNVSdG/thuM8qDDz0yxiNHjZBNIq1rLKtPkpLdRR8mQ8DxKCnHcYd4
-         EaEg==
-X-Forwarded-Encrypted: i=1; AKwUvByF2E1YbmX6ggGMP1ZJWPqylVB8RV2E9+lIA2g5ogGjxM23NFEYYB8X+JwzC1qnKDFNGPVTM4THtcosVno=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ9GqueDGCx4J9CQALq+oGpxTzDLoiKRVUz20V0c2thXkb/Wn79
-	VYkR2ginQ7jOQf0ti7iUMaZSbPowmX0HMAU+FEPqg5vcSbf6ykt2YhmH
-X-Gm-Gg: AYBFou2uZo5MGJ/2j5yWlOu6sKlXX/KHQNd7enQ6e1+rGU0GDW0koZWvqQLB+OotPym
-	56FuQ4+sdadBqLwX/PdHxfL/J0Xppy06KoVVSZae47ZXHfDDggE7b4pHu2F2ZROMJEzmGEDJCtS
-	7XEwOB8tJh+eXkZadBUfBHjZW4yFQABpfny6oPZi26J3BaP7b3TL4RjyXnhsWAlQfwRwuNoMwFh
-	bBmP4hef5GbmOkvmrj2X9ZP45X6ROCnAp5PuqHH2gM8bD8kOzBsCL1yMPYiwei3STYPNU43ky08
-	yzJVG0Scc0i6gg9IdxVWxY9880tQLFHdsYLmuui43qA6I56kyGVdYzd0tc/0E8DfqGTcLYV6vOS
-	2hEvgRFvXqOvACAAlg3I34XaPYQnj49THH49TFcx5jft+GwvVLkWizqDq8PNAIoIcidpWgNF4zd
-	YA3MbrV8JkjXlqmtysR59CZ7346Gq2/9fycH5vCnYufVxzK0TWwHkDGO8moDHAIgm1+b4/DhJ5q
-	7M08LsYwYJfNQojQ1Gg9MHxvCn17k17sdKj4sNTIxhqNcFIgi7iduC4/aiAoDjHApu+U7Bvq1oz
-	UzirCwDv/kG7jXI64eX/BiYrLprwp2UXRXEvRaWSlmJOUACQzZfIt1j2Cze6CKiO9U6IoefEKg7
-	zrOj06iXgCpnUYHrWy86iEtWd7pqadfczC5YvRi55fZJIG4FOQZhV5KQodKGPZTw0JLfKlFi64M
-	+y15MJyXky6z3uY+lsSD1H50BbAj77laiVlk3gZehS0e16Rbi5Q8qBxXdJ93bjq+mFzmEtGANRc
-	IkowwIWHE7Xyzvo
-X-Received: by 2002:a05:600c:3547:b0:4a5:cfc:1e95 with SMTP id 5b1f17b1804b1-4ac182dbb5emr126461055e9.33.1793471746626;
-        Sat, 31 Oct 2026 11:35:46 -0700 (PDT)
+        bh=yN+TG3cll45GlRcOY9f9N+pL2X7AI2IfUU7T9/nu2cA=;
+        b=tFXZPhc25wDITKGyVPKqC3DzYiaZ+oFIdXG++nD2y/LuWK/g275eSvM+aQ79akTaZD
+         enjN3K5neTOIYTnJADUWlGNL0W6owwNMW7cXUSwFqNEcAdjaKv60zD0wkLZD4PFxBMFr
+         AI+JIaIFkC7G2DPF5FywgNUclcAMPV0uDLRenxuni4WdWUdTnG1Xq6u+d1BdhAN1oX92
+         TOtHZelzqBOTZ7aqhfIUkIAJX4sX4Ug1oPq+gL62IPCy1ZpmWVr1JylYueDR3d1sqT/v
+         ccn/ntkzbwpxROl6AQtCrruY3t6I5snTGU7WW3qn03HBH/8f5+9Mmm0QforKTdwU4R0N
+         voWg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793471753; x=1794076553;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yN+TG3cll45GlRcOY9f9N+pL2X7AI2IfUU7T9/nu2cA=;
+        b=EKEeMYlNu8hF1FFp3TQju1Ae9LlZIjYNygGXbECZiRzYobL5gHMt0oispDZrD5Zvuo
+         ukEPfKVrFOTqY99VGQAEICSOqRxjHW0TlG0jtbRQn9b2eHAn0LiTj4AUwgnYvmcK3dU3
+         NyII4j9bUBSUF8JrUFKdImzem134AW1srZ3IrQMhhbkOgPM52/30ZyXuf6xfAbaiqn8B
+         xEqhreupdbrOnS+6fDS42hiM/CfsuE6Yg7OZdNyNdOwODWFNjAoglxTlumrw8DOpj/pd
+         wcN8sRIT7ryzh9/QuLMeoWAKt1JkzjxPqPW3inaeH3sNR8lyS9sJ8+1mejmLOdOSkK6c
+         zgeg==
+X-Forwarded-Encrypted: i=1; AKwUvBxWfkou7OIGZnQZsl9dyFtbq0qY8X2ZHo2LS6a+qJvRFtBBA1S4Y8Wd1tBvKA7lBzFwqbfl7dApmwSTReg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWdXI6f4hvgiLChZQKg7/kw5od973STPysfIkzclHTIgfqcG+1
+	EqnhPCW6wCBn0Hn+FEnfLKkUpaDb2ztkcNAGGJSXPaK8GzzfHCVjmqCDhBH+lAmXSAic/Q==
+X-Gm-Gg: AYBFou2Kq2dgxIvyMT7YVhObUaxN2kQRzIkODnt1UAU5EIAIkFTQt9/cwe1sQXT/GO5
+	QubhNR+/lRabKp4QbU2ttfiJQBDlDXq9+PI+udDvEYv8pfRtqAL40lZiuFEpN7QUhpB4LkPZmG3
+	aKREBbE+U6hRy43Y12TmtWwo7A6F6N91zmG3qZp4EH8coHjKcCkOm8XcJoWCVEUJWP3JQy+aFdd
+	olTjaMLD11XoUqVYPTFK31x+snno9MTAut0ug4/dTAZwJG+MEiwGR9cx2FfComZbevcjtQE+zNi
+	Drz6VfOOBUAh7YjPp8WH1DSoV29PMJbKTW+rYmrDiPKLG0xNV7Gqw95+nH9SLk8BJwPJkug/mNF
+	MKG3mhvuFKsPy36YczeUXogVoUnPEgQAc/YehkT14YXa9arMhYUrHLm0pFzA77R3aVeagHtWY/3
+	NCbMvix+rsvD3TCPk1/Cema4hVgFd2W20Uq4eEv464Cq0edVmtHdRDHxsU9RpgstxBAMdrW9y1M
+	6n0wGMS8nNifLm/9wdyaVgujtDpiJ68kW9XFVPKTbKjHLSHVW/kJnJdyD3kPg3kyrb3CxzYh6Wr
+	6fumUXQSACh9lL7XQoSyu6CLj+wPWMFwHJz9YNrP20YX/zmf8GJkMS6g6lx0nPw8vxhfx2s8J+8
+	Sr4HaPqF9rn6438kJhSw09Nz+Kq+rlkmzlgx49/E4rOOpPyfJ4pkcMLyGThnJ2ZkkKq2RDgwE+3
+	uoG/hPEDTMC8BIQyDeZ8Ywc8U1TZQHSQgO92UwV3WSTeF/+UKAGCsWYJs6n3SbpWdDDQ+ltxcjs
+	BU19js3tlUIkuXDpBu3Ei1g/PjmB6fIBsgkrQ==
+X-Received: by 2002:a05:600c:34d6:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4ac150b2192mr132858705e9.3.1793471753435;
+        Sat, 31 Oct 2026 11:35:53 -0700 (PDT)
 Received: from longitude (2a02-8434-fda5-4201-0247-bf06-1f38-d09d.rev.sfr.net. [2a02:8434:fda5:4201:247:bf06:1f38:d09d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm219745075e9.1.2026.10.31.11.35.45
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm219745075e9.1.2026.10.31.11.35.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 11:35:46 -0700 (PDT)
+        Sat, 31 Oct 2026 11:35:53 -0700 (PDT)
 From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 To: mhiramat@kernel.org
 Cc: rostedt@goodmis.org,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/5] tools/bootconfig: Fix tracing script filters and histogram dependencies
-Date: Sat, 31 Oct 2026 19:35:29 +0100
-Message-ID: <cover.1793471731.git.edumucelli@gmail.com>
+Subject: [PATCH 4/5] tools/bootconfig: Resolve histogram dependencies until no progress is made
+Date: Sat, 31 Oct 2026 19:35:33 +0100
+Message-ID: <cc5b165d95ad5f2083453644f70f8b194874598b.1793471731.git.edumucelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1793471731.git.edumucelli@gmail.com>
+References: <cover.1793471731.git.edumucelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,49 +103,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Masami,
+The exporter retries unresolved events only three times. A valid chain
+of eight histogram dependencies in reverse traversal order therefore
+exports only four histograms and reports the others as undefined, even
+though all their providers are present.
 
-Thanks for the reviews and for picking up the previous fixes. Here are
-five more script fixes, based on bootconfig/core as you suggested.
+Retry while the unresolved event list changes. Stop when all events have
+been exported or a pass makes no progress, preserving the diagnostic for
+missing variables and dependency cycles.
 
-They address:
-- The documented ftrace.notraces setting being ignored by bconf2ftrace.sh.
-- Single quotes in event actions producing invalid exported bootconfig.
-- Literal filter text being mistaken for histogram variable syntax.
-- Valid histogram dependency chains exceeding the exporter's retry limit.
-- Helper key lookups matching unrelated bootconfig keys.
+Fixes: 2b86062a34a8 ("tools/bootconfig: Add a script to generates bootconfig from ftrace")
+Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+---
+I installed a valid chain of eight dependent histograms in a temporary
+tracefs instance on my Ubuntu machine, running kernel 7.0.0-38-generic,
+with recording disabled.
 
-The action-quoting patch follows up on the trigger-filter fix you picked
-up. It uses the same warning approach for unrepresentable values that
-you suggested for event filters. The histogram scan uses POSIX sed.
+The original exporter emitted only four histograms, so replay restored
+half the configuration. With the fix, all eight were exported in provider
+order and restored correctly. Fixture checks cover shorter and longer
+chains, missing variables and cycles that must stop without looping.
 
-I tested the conversion and export fixes in temporary tracefs instances
-on my Ubuntu machine, running kernel 7.0.0-38-generic, with recording
-disabled. The tests cover each relevant step and the combined series.
-The helper fix has focused checks, and all 81 combined fixture checks
-also pass with POSIX sed.
+ tools/bootconfig/scripts/ftrace2bconf.sh | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-Feedback is welcome.
-
-Thanks,
-Eduardo
-
-Eduardo Mucelli Rezende Oliveira (5):
-  tools/bootconfig: Read the documented ftrace.notraces key
-  tools/bootconfig: Preserve quotes in exported event actions
-  tools/bootconfig: Ignore filter strings when resolving histogram
-    variables
-  tools/bootconfig: Resolve histogram dependencies until no progress is
-    made
-  tools/bootconfig: Match literal keys in tracing script helpers
-
- tools/bootconfig/scripts/bconf2ftrace.sh |  2 +-
- tools/bootconfig/scripts/ftrace2bconf.sh | 27 ++++++++++++++++++------
- tools/bootconfig/scripts/xbc.sh          | 13 ++++++++----
- 3 files changed, 31 insertions(+), 11 deletions(-)
-
-
-base-commit: a52ceed51e9bf8f1ca9c2c868b14bf6861986c65
+diff --git a/tools/bootconfig/scripts/ftrace2bconf.sh b/tools/bootconfig/scripts/ftrace2bconf.sh
+index 8ba1a698611e..b3c976bc98c8 100755
+--- a/tools/bootconfig/scripts/ftrace2bconf.sh
++++ b/tools/bootconfig/scripts/ftrace2bconf.sh
+@@ -203,10 +203,10 @@ event_options() {
+ 			per_event_options $INSTANCE/events/$group/$event
+ 		done
+ 	done
+-	retry=0
+-	while [ $retry -lt 3 ]; do
++	while [ "$UNRESOLVED_EVENTS" ]; do
++		prev_unresolved=$UNRESOLVED_EVENTS
+ 		retry_unresolved
+-		retry=$((retry + 1))
++		[ "$prev_unresolved" = "$UNRESOLVED_EVENTS" ] && break
+ 	done
+ 	if [ "$UNRESOLVED_EVENTS" ]; then
+ 		cat 1>&2 << EOF
 -- 
 2.53.0
 
