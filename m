@@ -1,61 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793417955;
-	b=X+OjTrKcvRMncgcNJTmnXoCvmVivdK4iw8+UinNXiMU8gXZt7Xntr0Vc3IvRu4XSwYYT
-	 iNgGlMvMY1Opb2gdPgoKwn+izO5FBKowsbrmEwdyc5GePD8OGTcRm+nXR9AmiSRY9LmcU
-	 77JKNd2d744yYyuXMAeyJ2ICsJZdJi5/osVwSFtYHkGvM/OT/fd6Nhm5tZEFYvY/VgKdc
-	 6QKJ1aCpdVgaRyhM2DvEVP8NIRYsKOUkGj1SOA56mQoshi1XqRcHKehohqB+1fE9S+bU6
-	 GJnPM5X8mMHkmEghUd0x5118RlwalG6hVjtvZoG6Du2lL8ZptwlXshhIjo6AIbJUHKA==
+	t=1793417985;
+	b=rSOhmL3x3AitCC8BHkH3ygacSBesqTzAIM30rXKwOXH/DySc5+f5LSINa7gzky2rdsML
+	 49uGz3NDa/FUfVWv8nDMUm7pL3hmAOOwRbSgOvq5G/tAwVE6zEg6RzRDeoCHn9jkyzEtN
+	 lyxL02wjiJMdYsxvuIr84fZugKtbO4KoWEWF2vtqqQoZIyU+9VUptQn4SkkCIaehf0+aw
+	 YJgFiEr6JfPhtYCdFKHIuEWvgDfXLSfHDOrtnGbvfhN7IHnIHh+/AWrxxlAHqVDwQHfFP
+	 awgKWQRNFGtKIPb6debFWc3NuKm/Ncc1ECAmZPhIvnQQaiy/OdBRxNB2M7zr1qTJamQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793417955;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=L/p52lX/PQbmqaF+6AAwWsvywExDSWVo6NSUa2HEi6k=;
-	b=1z/h9ZMvWV9AuoXZRl7T1i4rLFvjUADdXAMWnU/2tJKlTz/7HOEvmi4gNwQNVjhtm5Bu
-	 LyMColum03v94ihUNHwPM+H09LWkB+idc8qMB6nhNuR5zHJsarri7cRzheXP8nE2fQRv7
-	 14Z9h3bQ2gZUyE4sfvdoxy5N+VFUTE4ofuXlsG5LyZqP5viFVHLXneeVc6VdJBOnZuVjq
-	 gMi2L0Gfvf2S9+Z5CXgFWXMjbQaOE8Ma2FOqRh+ejWisuKecdW8FTdR6eDvriuCwpliBG
-	 llYQtILRHW9Vuc3KsQ8rdG9MSmGHdebRqnRzsgdO89Sd/Kg3Nv4Ar1iBTmr0LMpX5ow==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793417985;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
+	 In-Reply-To;
+	bh=NXyWjDtz5Zwj67m+4i2xpy2FHpW9IbWNwHkPcCAx9Qo=;
+	b=WDiSHRMthanECtZZjUP9m7fNaqAALlQI8OM+zANu8ASda+Csnh3QEBVtv+5jYGTf3DaS
+	 LIPt37xJSb776jZZpeO+rBX5+Xt6bydDA2ujLDOskp+Dj212TjMsR0+CMlovIHtrWc9Ju
+	 TPnL9qJyclgFOFZlDhRYPUqsl+J7PCgrNFKK/goJVsuxf4CuG1FF0ytZd/pl/RtRZNGfg
+	 ZctNhCxwoyMfeOLqwbGfMFGzSomcrlSyD3HKY6mPu9kmLdRcbkntch8Vgx9oPrrmzPgZz
+	 66hUHElMvng1VW/M0Y7ND8kt2xDGav/3wdL0PlVy4Tk0nzwR4LBVlOm7v1atSh37CWA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=tTGi52ye;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DF652606A31A;
-	Sat, 31 Oct 2026 03:39:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF652606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M2eEn+xk;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E06606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:39:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94E06606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=tTGi52ye
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=M2eEn+xk
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ea7f9c11e6so28245ad.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:39:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=L/p52lX/PQbmqaF+6AAwW
-	svywExDSWVo6NSUa2HEi6k=; b=tTGi52yeRdJHnXpEhsMl2EELPHe33eaAjfN5R
-	CF/X1BUQpCwqY5KnC/BQWuV0k6llDEOzBngApUQOQDkrp7cn2KTzEEMmyyPmkr6I
-	5t5j38qk5+oX7ScF7KYXJzNzGyFy6Xv7SpgIYvZ7amfJmny1CViW7n7ZdygS6ar8
-	JPPuhs=
-Received: from [127.0.1.1] (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCnIDXUYuVq_+lsAA--.3682S2;
-	Sat, 31 Oct 2026 11:39:01 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] regulator: dt-bindings: willsemi,wl2868c: add the
- WL2868C camera PMIC
-Date: Sat, 31 Oct 2026 11:39:00 +0800
-Message-ID: <179341794086.262379.12925109262126624772@mail.ustc.edu.cn>
-In-Reply-To: <20261029-amiable-loutish-wolf-60a76a@quoll>
-References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261029-amiable-loutish-wolf-60a76a@quoll>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+        d=google.com; s=20260707; t=1793417984; x=1794022784; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NXyWjDtz5Zwj67m+4i2xpy2FHpW9IbWNwHkPcCAx9Qo=;
+        b=M2eEn+xkW9HXdrnGBVCPoD0ATd230Y9lo2N46HE9du4xBUIn0CB2r8KZWRIq5OOU/B
+         0VnD3VAOuTN+hVMgmmxxcDq8qAZvj1XV8yTnOnUSPrp1Bdf03E9b9MUAAEXQUygT9Tmx
+         qJYakEgHBxoGAHmPOVurWLcN/iFC8of49wIZyMgC0AMa0kqST0t3wI+nM8LqU9F3+Cle
+         pk5c1pgM4DA5ABRTcW0FA2xwp/Sg0jFNkZZVOCD5D8kHQF+C7ZVsQDlyBYRMqtLZrf0L
+         IqRJNBtaeR3ZUYDIXiPsQFVxABgtSaBDMKLF3pwDwLINmLFCtSepOuGMdYA1T4Q2R0tl
+         llrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793417984; x=1794022784;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NXyWjDtz5Zwj67m+4i2xpy2FHpW9IbWNwHkPcCAx9Qo=;
+        b=cWuNnhZlZDjxUzzewcXfTQjrbswvQbGmRAlpmlG55CFDpIK3s9s9nzoM5ojIXazXgQ
+         kPIrM1uYBxzkNwdA6x4c5J5L7hfrdP1wpilsX5rSZkhgYoCgcHrEe6ZsGikvkZLFtxh4
+         Sdh73ejSKGX4h0YfJlIQqKAKJK5nDFjuyrsINARMdc6UgUznAKTAKTJAFLltmKCGrggs
+         I/FI+eBgHakJScLSP5id8dh5mgklsMwbAJiBqI+6KE50+GvkYzYKKPfMfFCoWYOF616I
+         p0l3IyDfKl1yg/imGWMMagP2xhfc4UalON2xSh75K64ljgCKEXykkMTYmCLUtdFCUhGf
+         YI8w==
+X-Forwarded-Encrypted: i=1; AKwUvBx9DNSpo5JOQQUX7hmknZUXa+qEeSceJVYs5xxJsW4z7iDSUUdFqE9Pib4tTd77Qng3njAhZ9tdlsm9bM8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKCeVH74/1W/ILVvGHDWXpZ4EcETYHk3EynWqLOa37PyvWEZ93x
+	Vmwik0Yf2i7Qh7eDhY902yzmBhaWVJTk9CzC4Zvrma1w6qFM4v4oXhZ5d8GrTa/kFw==
+X-Gm-Gg: AYBFou3cQJlanL8SpV7mCWOzk1BV6jkdnX2W5AfjvcJRsSsxfw1HmED92vST+jfyWi9
+	Xs7sO0wMrDMk4Mdi2l5TIS0zg677F/BA9/eNhyk0+3cNyrxn4ThAkHXbN9VbMtTaP4k3W1BQ/wU
+	MWtrCvkVHS8eAbKTFb2SLRSQxeda3M+F5+kgfH0zF4y9srcKOycZgAdwlLvd1uKFrSAXFQep++1
+	+Jt6bfqKsZA8MOzHdaEZZSSOYVm4Gs3cOpr+m4M8+UW1OgL5qTkVKJo+KrXtR8jNwio41rpbRkC
+	SsdA1z0CL489gJaz/9BSZse2ChqeykW+UukdMfa71LI5CuCKDtkUq7W0WQ09E64LaMpnCS96MRp
+	MiMGNQOwi67GNtoxntk0ydpwB9rOg2dHb/qXog6+jqAoxCPghy626L+jVYh6kHgP4aOvA6pEuXS
+	IdiTRfrCPqJeHLCfe6RGe2YdOZNT30bZk4XN8lLV6QPyUZqhe4Ou4ASlIOAghvtWeX1yU6PjAjd
+	ynGVPRtEprHh0I060pSZaJqOD9bW8w/N0mrEHfqyCKwQEnOSCovgI8Q6nWvYbgpuWwmqOe1cCia
+	aJFSoSTVILrsNPdmd22ojDkxM1YKwLG3mqcJnAYEDsF9BXtOyBMbhNMRjiTSRecmPFoTFuqE0mq
+	Wz6ckBmPXj1gHhEmQ3cE9NUo=
+X-Received: by 2002:a17:903:3904:b0:2e2:d665:6ad8 with SMTP id d9443c01a7336-2eb1b81b9e8mr15045105ad.4.1793417983213;
+        Fri, 30 Oct 2026 20:39:43 -0700 (PDT)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9583c1sm11236719a91.10.2026.10.30.20.39.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 20:39:41 -0700 (PDT)
+Date: Sat, 31 Oct 2026 03:39:36 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
+	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
+	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
+	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
+	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 05/18] iommu: Implement device and IOMMU HW
+ preservation
+Message-ID: <auVfqaDhk25JUkYd@google.com>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-6-skhawaja@google.com>
+ <df75f891-05a0-4d47-8705-d6a00c81ff97@linux.intel.com>
+ <auTzN4NWuKsBvIZU@google.com>
+ <51b23019-8ac2-4f6b-9be7-29f3635b472e@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,74 +110,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgCnIDXUYuVq_+lsAA--.3682S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrWUXw15tF4rZr17Ary8Grg_yoW5GFWfpF
-	Z0gFy8trs7KFy8C34kX3W8Za4Ivws3G3y5Za45Gr45Zan8CaySyr4ftr45ZrW7WryrGa1a
-	yrnFgrnxCF1vqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv0b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkI
-	ecxEwVAFwVW8GwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
-	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU5
-	ZB_UUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAasY
+Content-Type: text/plain; charset=iso-8859-1; format=flowed
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <51b23019-8ac2-4f6b-9be7-29f3635b472e@linux.intel.com>
 
-Hi Krzysztof,
+On Sat, Oct 31, 2026 at 11:04:22AM +0800, Baolu Lu wrote:
+>On 10/31/2026 9:45 AM, Samiullah Khawaja wrote:
+>>>>+
+>>>> #if IS_ENABLED(CONFIG_IOMMUFD_TEST)
+>>>> void iommu_device_unregister_bus(struct iommu_device *iommu,
+>>>>                  const struct bus_type *bus,
+>>>>@@ -626,8 +668,8 @@ DEFINE_MUTEX(iommu_probe_device_lock);
+>>>> static int __iommu_probe_device(struct device *dev, struct 
+>>>>list_head *group_list)
+>>>> {
+>>>>+    struct group_device *gdev, *gdev2;
+>>>>     struct iommu_group *group;
+>>>>-    struct group_device *gdev;
+>>>>     int ret;
+>>>>     /*
+>>>>@@ -661,6 +703,13 @@ static int __iommu_probe_device(struct 
+>>>>device *dev, struct list_head *group_list
+>>>>         goto err_put_group;
+>>>>     }
+>>>>+    for_each_group_device(group, gdev2) {
+>>>>+        if (dev_iommu_has_preserved_state(gdev2->dev)) {
+>>>>+            ret = -EBUSY;
+>>>>+            goto err_free_gdev;
+>>>>+        }
+>>>>+    }
+>>>>+
+>>>>     /*
+>>>>      * The gdev must be in the list before calling
+>>>>      * iommu_setup_default_domain()
+>>>>@@ -697,6 +746,7 @@ static int __iommu_probe_device(struct 
+>>>>device *dev, struct list_head *group_list
+>>>> err_remove_gdev:
+>>>>     list_del(&gdev->list);
+>>>>+err_free_gdev:
+>>>>     __iommu_group_free_device(group, gdev);
+>>>> err_put_group:
+>>>>     iommu_deinit_device(dev);
+>>>>@@ -3543,6 +3593,26 @@ bool iommu_group_dma_owner_claimed(struct 
+>>>>iommu_group *group)
+>>>> }
+>>>> EXPORT_SYMBOL_GPL(iommu_group_dma_owner_claimed);
+>>>>+/**
+>>>>+ * iommu_group_is_singleton() - Query if group contains exactly 
+>>>>one device
+>>>>+ * @group: The group.
+>>>>+ *
+>>>>+ * Return: true if group contains exactly 1 device, false otherwise.
+>>>>+ */
+>>>
+>>>We discussed this interface before, and the consensus was that such an
+>>>interface is not feasible, because the membership of an iommu_group is
+>>>not fixed, given the hot-plug support of buses like PCI.
+>>>
+>>>I am fine with the usage model of ensuring the iommu group of a
+>>>preserved device to be a singleton, but I don't think we even need such
+>>>a kAPI. It should be handled case by case.
+>>
+>>The iommu_group membership can change, this is why we check it in two
+>>places, both under group->mutex:
+>>
+>>- During preservation we check that the group is a singleton, and check
+>>   again after setting device_ser.
+>>- During probe we refuse to add a device to a group that has a preserved
+>>   device.
+>>
+>>So if a device is added to the group while we are preserving, either the
+>>probe fails because the group already has a preserved device, or the
+>>preservation fails because the group is no longer a singleton. Could you
+>>please elaborate what you mean by handling it case by case?
+>
+>I am fine with the singleton-group checking logic you described above,
+>but I don't think we need a helper like iommu_group_is_singleton(). It
+>drops group->mutex before returning, so its result may already be stale
+>when the caller uses it. That makes it easy to misuse in the future.
+>
+>I'd prefer to open-code the check where group->mutex is already held, as
+>iommu_attach_device() does today:
 
-one thing about the earlier replies before the technical part.  I am the
-author of this series, but I work on this board alone and my English is
-not good enough to write upstream mail unaided, so I draft with an AI
-assistant and edit it myself; the content, measurements and decisions are
-mine.  You were right that the earlier replies read like generated text.
+struct iommu_group is private to drivers/iommu/iommu.c, and
+iommu_preserve_device() is in liveupdate.c, so open coding it there is
+tricky.
 
-1) "Looks like broken patch. Please use git or b4 to generate patches."
-   The fault was in the commit message, not the diff: I had typed a
-   diffstat into the body, so the mail carried two.  Since v2 the patches
-   are real commits on pristine v7.3-rc7, exported with git format-patch.
+You are correct that it drops the lock before returning. That is why I
+recheck the singleton state after setting device_ser, which handles the
+race.
 
-2) "where is any user of this? Why do we want this binding?"
-   The users are in patch 3/3, the board DTS for the Lenovo Legion Tab
-   (TB322FC, SM8750): eight "*-supply = <&camera_ldoN>" references, rear
-   s5kjns dvdd/dovdd/avdd = ldo1/ldo7/ldo4, front gc08a8 = ldo2/ldo7/ldo3,
-   rear gt9764 VCM vdd/vddio = ldo5/ldo7.  LDO7 feeds three, LDO5 one,
-   LDO1 to LDO4 one each; LDO6 is not wired out.  These are the camera
-   subsystem's own rails, without them the sensors cannot be described, and
-   they match the vendor DTS.  You saw no users because I sent the binding
-   alone; v3 sends the three together.
+I was thinking of adding something like iommu_group_lock() and
+iommu_group_unlock() for this, but the number of devices check also
+needs struct iommu_group definition.
 
-3) "That's LLM output. Why do you paste it?", and your longer comment that
-   the reply was generated text.
-   Those points are fixed in v3: MAINTAINERS reads "WILLSEMI WL2868C CAMERA
-   PMIC" (no driver claim), sorted between WIIMOTE and WILOCITY, and
-   linux-media is dropped from its list.
+To avoid misuse, I can add a comment on iommu_group_is_singleton() that
+the result may be stale and the caller must recheck. What do you think?
 
-4) "Please respond to comments from previous version."  Done here and in
-   the v3 cover letter, together with Mark's v1 comments.
-
-5) "I still see no users of this binding."  See 2).  If you would rather
-   review the users first, say so and I will reorder the series.
-
-Measured on v7.3-rc7, rebuilt from the patch files alone: checkpatch
---strict 0 errors in all three (3/3 has 5 warnings: the three sensor/lens
-compatibles below, one MAINTAINERS false positive, one "DT binding docs
-should be a separate patch" for a qcom.yaml line); dt-doc-validate and
-dt-check-style rc=0; the board DTB builds rc=0 with no DTC errors (v2 died
-with 15 phandle errors from the missing clocks), the only remaining dtc
-warnings being pre-existing in sm8750.dtsi; dt-validate on it rc=0, 7 lines
-left, all missing s5kjns / gc08a8 / gt9764 bindings; driver W=1 clean.
-
-Gaps I know of: vin12/vin34/vin5..7-supply are not wired in the board DTS
-yet, so the driver falls back to dummy supplies; enable_time and
-max_register come from the vendor driver only; nothing is measured on
-hardware beyond boot.
-
-Thanks for reading.
-Qianhui Xu
-
+Thanks,
+Sami
