@@ -1,60 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793444138;
-	b=zeTsygx3FRgM2FPzVaJS0BS1OxNMG/O1y1q14DiEBnNo9xBV29dyagozhRmagTuyI2q3
-	 QS184aw9akH0BPnpHSiRTqdK+SMc2ZvFwDxBGvnmy398TONj90OCkmP6cK61+0jF2+ixZ
-	 /gVI1mh40x9TG50wgSYguvdZpRsdTHOZP1zTDNILCCDgBM9VsSXLYVHW08UvBDxcrTHKa
-	 OYGj5I+Sxe5mYYD2gxzTd9LNqEt7tHVteDfoOqsFBxFPIfSeVOBOog01llihBx4ScDE0N
-	 IZYb4+ZqPCaLhTKpuMuh1Y13Y+Hk72wjxyPzqslithvTNz78h5TCwF7tq7tQiOFnegw==
+	t=1793444144;
+	b=Pvn8gbW5+veP3Qku5Mb+G0LTSsbQPkP7BmbzmeN8GVdqnTW4ehYNDX17mSj918O2zbEU
+	 y7zPS4BJtQj9NZEGQuBNZHWjMaImfYIxccglnCcoJe9SMiR1F4vgaaaK23Ch+yiXUJFdi
+	 s1EyohVvh0kSTFnIlCkfLU5zcSj2corSPpzz8tup9N6hNd+JvhBiwOu+VsJiY09UUgKBM
+	 1mXXwY8RIfWdtc0iSPNpm1mCRsUcTDCIxwFu5bwSQPYiiS/dd0pEicr9jZKtnw8BRlSQ5
+	 5Imk4i2H+JajW7ZY+8rDstINTh+c/Fj1ne5MsTUlNtmkzLtrcCHWSuownscJO+8JSZg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793444138;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793444144;
 	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
 	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 X-Mailer;
-	bh=7b46y4s0/zi9X4zHo11yWW6Vbp88X1A148hn2dA9HOA=;
-	b=TrEgMosOtw2IO/6E1XKnBnBBRJARc+L4ieTNHvjrSLB5hfhaLC491t6BrbYL344aJ7G+
-	 IFI4hplk5RtsRrdh48yGG1SzRIHZ9rTuoJGNzc5wOug3iQ5fGQ4s9SVNH+PUdHo6TTZqr
-	 QPn4YKJB+hqgX2AK4p3bcfD1RDcnT+duC6h04x1H46yGn7hlKjFmMjIJd4Vf5agazIgZb
-	 +xv90uNXMjrQ7FMkJ2fgtSAVeRfcn3agPouLnhMWsCHo5LfeKsjhZ0q7Q/hMvoLsXMbtD
-	 Zwa2M/HcswqVamllC6aKpsjBRUurjLj8wTKXz/InlIeZf8ze7GcE7e6jVOfEFaCAX1w==
+	bh=/zHOCVGlKd+Gbw9WkcwRAX9nfU8lVQAZb5r1Oq1ewkk=;
+	b=NFq09kTbSLI+oTwKkl2u4B5BBR5GQ83MmfeqOX59GW2OMCLpdtzE06sXFAjztrsTyaSs
+	 HQVOrTyV7Nt83+j3VeCVO66uJhf72+ZLWkDCPzhUbVxc6qnuh4xEW4H5ngq4M3+ocWSuJ
+	 9H5teq4MlULVKx5FB7pbXh96xTkzTEMwbtUBtFSq47gaD3n0GebYdDP3Ax/OB/O6Ms3Zy
+	 CKLv4MU/1WJ19w+4hy241Zy1QyVdAt6zUkRNxQoHvW84sOWErtnOjU71E9SIFe0XHaZjX
+	 nGgVuxmBeJtx+/A9TotLMQDa6SXvUkYAMgki9oNnwpwbnnRO3PNI5SYt1ppeISoK1SA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX0RjJQJ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdAdo72s;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DD0606A31F
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:55:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5A7B606A31D;
+	Sat, 31 Oct 2026 10:55:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX0RjJQJ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210BC1F00919;
-	Sat, 31 Oct 2026 10:55:33 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FdAdo72s
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF88D1F00A17;
+	Sat, 31 Oct 2026 10:55:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793444137;
-	bh=7b46y4s0/zi9X4zHo11yWW6Vbp88X1A148hn2dA9HOA=;
+	s=k20260515; t=1793444143;
+	bh=/zHOCVGlKd+Gbw9WkcwRAX9nfU8lVQAZb5r1Oq1ewkk=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=LX0RjJQJpWdppLt42SNRn7EQV2Ff5N7jMe3itfLCjplO/MRkUZIp3jFNWvcrwA1mQ
-	 UcCj6Mk2yZ8lLHHTQDlrfQDnCXDNASSI3GyG08p720TBjS7E7BDx/hdhXgrHg1QsO3
-	 LbeRvsMZBc5KtLwSi7wWODzYoqe6aeCx8rzl2jQQSBqaCz+nLmFTtRvNi8zQ4mcSLK
-	 IWFp1W844QfHer5jTZdGQvH25z2biHGD6EeJx++6y7oK/Hf2tF4RjSoEn4R3z8Xtnk
-	 8m+5hfjRvvOela8b76hyVYCr8+w5vrvKSzquGangM6VzaPOpzRyecLva2TLMDrvoyV
-	 b8B8LK0WZHFHg==
+	b=FdAdo72siP0pWKtPYHKtDnT3myBbO44Iwr2y7PQ+tvrQr16MRxsWBeogf0w1mEycX
+	 F7KTXuXQz91GvFIZwzuFXxSVKD02xpOyrHOGApOiHCw0zx8OXrMxu3khaoylsQzd1m
+	 xKaG+SRpDZHcgyg+l3ScfTlpQdzujaWDiHne2N8c4k9djSAqlQUdQDr7cy3uJ/lzeP
+	 VMrODT4NtA6cATADzB73dBOSZfqgXIV6n2GgvQTDXcVIqnmhMNXHHgSV/nFteiftAi
+	 fv9qjBDhYrKGwvHE3Y0MQhc0eXTV7uKkWuk+6b1W4Y91/zGSNhOl8gODnISQZyt8JJ
+	 jjetI8m0mleMg==
 From: David Hildenbrand <david@kernel.org>
-To: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
- "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, David Hildenbrand <david@kernel.org>, 
- Muchun Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- Pavithra <pavrampu@linux.ibm.com>
-In-Reply-To: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com>
-References: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com>
-Subject: Re: [PATCHv2] mm/huge_memory: set the mmu_gather page size in
- zap_huge_pud()
-Message-Id: <179344413383.15514.17004105179365165951.b4-ty@b4>
-Date: Sat, 31 Oct 2026 11:55:33 +0100
+To: akpm@linux-foundation.org, Lance Yang <lance.yang@linux.dev>
+Cc: david@kernel.org, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
+ liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, 
+ dev.jain@arm.com, baohua@kernel.org, usama.arif@linux.dev, kas@kernel.org, 
+ jack@suse.cz, djwong@kernel.org, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, hch@lst.de, pfalcato@suse.de, 
+ ngocthang2710.1999@gmail.com, 
+ syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org
+In-Reply-To: <20261026152013.10511-1-lance.yang@linux.dev>
+References: <20261026152013.10511-1-lance.yang@linux.dev>
+Subject: Re: [PATCH v4] khugepaged: fix readahead lock inversion in
+ collapse_file()
+Message-Id: <179344413746.15514.3017134720155207012.b4-ty@b4>
+Date: Sat, 31 Oct 2026 11:55:37 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,22 +69,17 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.16.0
 
-On Fri, 30 Oct 2026 05:37:36 +0530, Ritesh Harjani (IBM) wrote:
-> Unmapping a device-dax mapping with 1G alignment on powerpc radix kernel
-> built with CONFIG_DEBUG_VM triggers this warning on every munmap:
+On Mon, 26 Oct 2026 23:20:13 +0800, Lance Yang wrote:
+> collapse_file() can call page_cache_sync_readahead() while still holding
+> source folios locked. If truncate holds mapping->invalidate_lock
+> exclusively and waits for one of those folios, readahead waits for
+> invalidate_lock and neither side can make progress.
 > 
->     WARNING: mm/mmu_gather.c:176 at __tlb_remove_folio_pages_size+0x38/0x230
->     NIP [c00000000063d508] __tlb_remove_folio_pages_size+0x38/0x230
->     LR [c0000000006fb688] zap_huge_pud+0x1b8/0x2d0
->     Call Trace:
->      zap_huge_pud+0x170/0x2d0 (unreliable)
->      __zap_vma_range+0x1604/0x1e20
->      unmap_vmas+0xa0/0x1f0
->      unmap_region+0xb0/0x130
->      vms_complete_munmap_vmas+0x120/0x310
->      do_vmi_align_munmap+0x1ec/0x240
->      __vm_munmap+0x148/0x220
->      sys_munmap+0x28/0x40
+> We need to release those folio locks before starting readahead. On a page
+> cache miss, roll back first, populate the collapse range, and retry once.
+> Doing readahead after rollback avoids an extra pass when all folios are
+> already present. If another miss occurs on retry, give up rather than keep
+> retrying while truncate or reclaim removes folios.
 > 
 > [...]
 
@@ -105,8 +101,8 @@ Note that commit hashes shown below are subject to change due to rebase,
 trailer updates or similar. Further, this is not a guarantee that the
 patches will go upstream. If in doubt, please check the listed branch.
 
-[1/1] mm/huge_memory: set the mmu_gather page size in zap_huge_pud()
-      https://git.kernel.org/mm/core/c/0ba86a16
+[1/1] khugepaged: fix readahead lock inversion in collapse_file()
+      https://git.kernel.org/mm/core/c/96995467
 
 -- 
 Cheers,
