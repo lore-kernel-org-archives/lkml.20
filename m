@@ -1,66 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793465071;
-	b=jEtJeBYK4AdxnMNRDKNMzwYGT8akp3f4eMeDPr2c35UiQYa4ZqcEOUlTFxfNj6LsHN6d
-	 SI2EQ082sFJ1ZKnundtgmSoZdrebZ2oaRcW0Gs0mN8gK0HrIFcv9xpYasQbdLuErBcUIX
-	 MKxmi2DxjTeo/5hOi3B5sXlH1l0Sb1M/k2bpG/3WkfDczxNLlsseHoRjbv6vioHyub8rO
-	 AelTzdBnljj7pGd58RnYNp+j2o5WS2LpNjqUYUVED3XeCbn6XOxmRoYlRwBO5nfnf8Dw4
-	 aBgPz6Ynw5PB+d3rJRjvfu8BIODty6hOU4pM4fXPAqIQESSMv6n3mwOXKFBEMjHTVzw==
+	b=apgxN+omnN+pdrks1ggYxp9/ClgZ/ruWBpkU19C+GknAucCFwLJliY/+JP6Q9vKT92fz
+	 YiLd67sUO6B8VkIEFL7YUImq3xiRjh1mJ0Ce46N/sG/nCUhoq07pbE264FhLTYNaCURDr
+	 4TxqQ9+cDtFNt4xMGNhduQcaVXsua6u78oSk0ALuCURtJLXyMo3ZGjaolzrZh/5Zj2ahV
+	 xj4gZGAajtnxrB8azmHThwIgLnD+4eoQfdTZK5zcXatMIPtJBrM3xrfUJ6C58yr4S4LtM
+	 +RGCiqIaaXrygT+p56RjB4KMZJBUqTS91hDmjHozf7cZsySLMHD+XFecn/TLjLdySyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793465071;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=0PmMqAfUOs12+NDVbE69ZLsuEf1No4KveDJoNk4lNwM=;
-	b=fIgalhYDZ+o+JFnHgHHIrBnIoAT0ULiQw5FcTRGt1Y1kBXXQW5iZQ/WamhksF5I3+U9w
-	 8O4qTimfufX4vEfh0gwb4cQgKlav7EkARRH3UjP+vn/q0eZTWLTdgMSJXil7rAdSgq4mW
-	 byS22tYha8KNWKL6QDabLl3XGGE8OWfY7wA0A3XhM6us3MVf7siPMwK7+2FAalnqHqhKI
-	 gvsSF2O2lYtAoyS5qgyjwq8vLQFvhsXqwRM4jkDAnac1IWMQ+Gzx/4BRkOOvARK41gmE0
-	 TgDRnNo4aBzk9SqCeb/4StOOUxUmXBQAb59SOkEXdVpp+PKDqW0zScxSV44f4MduWNw==
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Authority-Analysis:
+	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZZOKYyBGhdrFpwB/co=;
+	b=T646fID1y7ol8c5riMXc0ei5Fh8RIE3po0zHSBf5FUMySc2QJ/r1ulres7kZrLbjX2tJ
+	 2bv5QwkpfzaC8B8MVyUraD4tkwMQjXnUeX6OaFNpCtKZ+5HYHwuh9IihUI3B7noKSVrLr
+	 WwLVBzk3anf18LZxmUnQrv5XpyaytifvgWmHYUnZ1wnjuYmuR0mzB67IQPN+lZtPvaoDg
+	 j/eQ8YKQvPylrPPA/7tSvNMwLZviIwgw3g+yjoRn7tWklQ+3osVdF3sD5M4w2xAErwLLe
+	 lbUvqCFcXX1YLhuT//xygmshDoQ7OJFHU+GsXvkXDPGew9XTDYDRxN/AhNWxyBAfOOQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inf.ufrgs.br;
-	spf=pass smtp.mailfrom=inf.ufrgs.br;
-	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=vuA83h+1;
-	arc=none smtp.remote-ip=143.54.11.23
-Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=GapK3r4U;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=vycQHPpv;
+	arc=none smtp.remote-ip=148.163.135.74
+Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70334606A31C;
-	Sat, 31 Oct 2026 16:44:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70334606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BF07606A332
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BF07606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=vuA83h+1
-Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
-	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 02CF2120590;
-	Sat, 31 Oct 2026 13:43:50 -0300 (-03)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
-	s=dkim2026; t=1793465030;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=0PmMqAfUOs12+NDVbE69ZLsuEf1No4KveDJoNk4lNwM=;
-	b=vuA83h+1rhVWWUlOncIlwnse/MwMEOunDbAt1Q7ORMySfu3I1z54wRQtqCrU1fW7eMfpEW
-	K1j3gAwwJe62ooPBJNytYjr8/9ehezIrrCVQetzGzf3z4mgxRUiobIQwPJaFY/7iDCdwCE
-	nMjDwYTCbF9vtYqGDbrptwOhc8ehzetTZY89D8cd9e7Mq6H1CQtIk5XHMhdfHhgcauLBT5
-	7At0j8zr7ac6P2CiivTEF3vP2VyKJwbqsrMI+TtaSyI9Je7yowiwUnW2dn/BHyTr6c/Rkg
-	fg1mdnap8RpUGp5CUaImFtkzjpHPSQO7BfXtjO3w9Tb1LbdsbMFiFyQJutnPkA==
-From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-Cc: linux-fsdevel@vger.kernel.org,
-	brauner@kernel.org,
-	djwong@kernel.org,
-	hch@lst.de,
-	linux-kernel@vger.kernel.org,
-	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
-Subject: [RFC PATCH 6/8] fat: add iomap buffered I/O support
-Date: Sat, 31 Oct 2026 13:43:24 -0300
-Message-ID: <20261031164326.278125-7-matheus.aalmeida@inf.ufrgs.br>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
-References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=GapK3r4U;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=vycQHPpv
+Received: from pps.filterd (m0167069.ppops.net [127.0.0.1])
+	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VDmSXc2738548
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:44:24 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps01; bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZ
+	ZOKYyBGhdrFpwB/co=; b=GapK3r4UAiGKvHngHi+r0R1DgOpvzZDBYS7+39q8Eq
+	apQz3tClueWSWZ16luQPLQIsMJoDPZN0gmyjyg4MUTHsgmtJxcSvv5qiqxkKsZRv
+	75jab9LKGHNzgTdRL3+csMTlVFWVJ9MdR7sMGduAB5xl65f/I9cvPfihlp4E30qw
+	Ae7i86Q7yMoW9eqO6OVjrvtBeTPL9qIL8jOQFM3N6RtQYhqzmCT4ThjR+vngHHBa
+	KpTUPrLiPD0ItSHh/Se2Gbo2DYWuoPEFPLyFE2Kr6XCO4Ta6Dn2hwPrypPwZ3074
+	HtJRux9p1nlLNUbbqkANEHXRpztS2hbG/MorWfoFXUVQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hn9betm3y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:44:24 -0400 (EDT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9440b27c1feso301946985a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:44:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793465063; x=1794069863; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZZOKYyBGhdrFpwB/co=;
+        b=vycQHPpv/htYqiPtUyog51/mdirSFE/aPCEd3c3kjxniztCvBZQ1xEOb3WEy2hNs29
+         +74daTuH0/skeZRqf3HWiwXNytnLBNSYY4pK6Gp6JBXbxy9yV69jIRUOJc4kiGHpk8/j
+         q25drW2sbp01ABHdCqF2ny9UCoD2pQrmPuuyTZ7O94Invmc8QRc/6vmav8SvplMol4Fh
+         VNwKVig+6sh/99eBqPaYQwIEbaAj4hYox+8OW8rJq97xNjLuWbIpyG84HK8PA+yWtusH
+         5oN9yvRriUtQuLPv9DflNA0voyDjSAf5BGVEvkUM6U0ZjO2Nq9dJSDCX89hfljIyGINx
+         HanA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793465063; x=1794069863;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=X7cn4ZV0x0ZMDrVEWu9sE8OpsZZOKYyBGhdrFpwB/co=;
+        b=Vj171iRwsYms5455qqt/2bFLmTDCa6TCM85NEhadgfJgE2v2b252rwwCQ5I5W9Cuf4
+         fc4YM9qzFvGpSZffJCi+xHMtpMMsO/QiXyAHhhLXCyUFWcC1rt74r7gMs0YFR0m2qgOV
+         z98UG6hML4YT80YwSemRju61BKTLT8GORor4VM5Vzzaa/ncTfESMUmae06BION1+RnMJ
+         g3DPizmFKxNrsY6enhRc0cv6v/i7w5UA9N9aH/+leyiJmKZqtnD/EhKgoF4VTwONTGRS
+         EgT6Hw/ocs84nF7pmgBtql7J+w5VKPVBBqoQHE/Q2qaCq92OLIenjVSYobbSL4mLEPu7
+         aXsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzx7vQjAkJIvfk/lvbvO1xsEvwCJC3zt9ybNqMA8B/TFmS61WD0uHoYUVroTJ1wG+DjzJfFnIeCm3rYNvY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIUDLILASxTkTqVGm+7QdtNmKHVl+MidQHPgfBwVeC8WMc2MLf
+	VsgVpjWqRGxp0xLH27QztxXoIGDVShvdkMThJMI78QApX5t1eMJVUZsRq3ApQllpXWHLCbnK24+
+	ywXsn+E2mZXELbfME3VFnIFjoPbOTryokmotWkt6bFvq5Ll2Sm01o7QsC4g8BXQ==
+X-Gm-Gg: AYBFou0JcxHnpOIyr9kWbccOlfvfBfNopCOeU3JiaqsPP0pr9QCveM989cgCSBQjKs3
+	kL5PuViYSetj4f/tf6RCkC4QpOI4IeRFEF3PcHSz31Cw5dksdPzHVZEv+dIC8w9nK5PZqbcbJsT
+	5aQJyVAFez1hKWqpK9O1bvGBNUwbFyKxLspo6wvSvrAfnSaboxn4y4rQg8mK1mXL/H5igIzHSwG
+	9AUpoXILWwaYB+XrVTguiyNBbkwJExBfCis0pDDn39P11DCz4B0mWMyPvyL1eOGhDGh4h/UkrtS
+	00oGBCLR5Mf5L+aIjuy2I0XCj/1AuotpTaoQzZuRPbo1jgeGSg1yfqVcFNqhXUFHXB6kxlkJS4j
+	32D7jnbMla0kEyRXdm3LAs57meWYDjwHQXxq1uErQrFGWqCqPDLpx8b2oLA==
+X-Received: by 2002:a05:620a:4487:b0:93e:c12c:9b77 with SMTP id af79cd13be357-94421841ae1mr945199685a.82.1793465063430;
+        Sat, 31 Oct 2026 09:44:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:4487:b0:93e:c12c:9b77 with SMTP id af79cd13be357-94421841ae1mr945196085a.82.1793465062899;
+        Sat, 31 Oct 2026 09:44:22 -0700 (PDT)
+Received: from [127.0.1.1] ([37.142.159.89])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9a3b1sm10420517f8f.44.2026.10.31.09.44.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 09:44:21 -0700 (PDT)
+From: Tal Zussman <tz2294@columbia.edu>
+Date: Sat, 31 Oct 2026 12:44:06 -0400
+Subject: [PATCH] media: videobuf2: mark pinned pages dirty when unpinning
+ them
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,464 +114,289 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261031-vb2-unpin-dirty-v1-1-701a22f124a5@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIANUa5moC/yXMTQ5AMBBA4avIrE3SjqhwFbHwMxiLkhYh4u6K5
+ bd47wLPTthDEV3geBcvsw3QcQTtWNuBUbpgIEVGK53i3hBudhGLnbj1xFyTMYoy4oQgVIvjXo7
+ vWFa//dZM3K7vBu77AXD4BLJzAAAA
+X-Change-ID: 20261015-vb2-unpin-dirty-912660272e32
+To: Tomasz Figa <tfiga@chromium.org>,
+        Marek Szyprowski <m.szyprowski@samsung.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Tal Zussman <tz2294@columbia.edu>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793465059; l=9244;
+ i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
+ bh=0Zgg5LuaLNQVXitGF2rcc/q5f373bqNV8WZoIIzGqec=;
+ b=VptzJgCTZbgyasiwYdNAqG11XxP6rlJg51oNYHfNgBHGxifTKsKlgDin88RGrchsLEOLaWWss
+ 6UXMUbOpsUqATAqJ1OQy0Rtb7Wm0VVh4Q01gZSW5pn4EibUjdhACfsq
+X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
+ pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
+X-Authority-Analysis: v=2.4 cv=d5dgWhjE c=1 sm=1 tr=0 ts=6ae61ae8 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=P+xgYyhW+KadpqoI50EQPQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=JR4YdQiviy7OQf72WyZ1:22
+ a=UdNpxy7SnptkXq1s2ckA:9 a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: ubfFCz8ODAQqKvXz6p4u_kEyZAABgVB5
+X-Proofpoint-ORIG-GUID: ubfFCz8ODAQqKvXz6p4u_kEyZAABgVB5
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA2NiBTYWx0ZWRfX8vxctltYwYFP
+ Moyox3uZ7A2JyJax2Z8RL3ZqMzHpvptCcxanwiM/QKr9mW2Rvc4vYafdKLSmVulQ83wNf+Ubnpx
+ Ux+K9Ywsx6kPMmwr1NTTqCiK9mwDHvhroFB2Ds/PfVdUYnDc8TzG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA2NiBTYWx0ZWRfX0zWmFm/l9j5R
+ lezwPU8wZk8fmPt5KQzJnEDVyX7aPlNf6uaztF0GeevPzStxV9SB5jHZ0G7GjERwsqv+tn5ba4/
+ xprgYipWi5x8Xx+laebwN09mxlmnWLB6hfRjFBWXWLRiUxK7eBfgc40ZI/N4nz7DaRpoDzW4+pq
+ zQY2m3H1iu9iR4pKRXXizV03rAlqkTmb1cvAGVyjBp7kcLWdxdcBZ6RuUSCKsidch4fQHt+SIRM
+ p79Ed4MdbQunaTiLgYF4Qu05YR4n1sPSXz0B2O2IirPanbzFu8n/VXcW/2ut7iK3PxCDzvbC69t
+ 3yrZjnH9dROXasLzsp6ZMZ0fDGrFxNY+vFt/QnrPc9C6wzOk/ejKX8tsv4CgUltoIG1CoQodlSX
+ X1gjUoAUg950nwz/vOsTzPtb82OJ8GhDBEecu8XeLyXqyFJSY5qibNUaBnWVvkDtPpZCf5Ycvsx
+ HHue+x03NAU+BSL/UQQ==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11952
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 lowpriorityscore=10 clxscore=1015 priorityscore=1501
+ adultscore=0 suspectscore=0 spamscore=0 malwarescore=0 impostorscore=10
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2610310066
 
-Use iomap for buffered I/O, replacing buffer_heads. Remove
-fat_get_block(), fat_write_begin(), fat_write_failed() as the iomap path
-makes them unnecessary.
+The three USERPTR release paths each loop over the pinned pages with
+set_page_dirty_lock() before vb2_destroy_framevec() unpins them. Use
+unpin_user_pages_dirty_lock() instead by passing a dirty argument to
+put_vaddr_frames(). unpin_user_pages_dirty_lock() works a folio at a
+time, so a pinned THP is marked dirty once rather than once per page.
 
-Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+This removes the last callers of set_page_dirty_lock() in videobuf2.
+
+Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 ---
- fs/fat/fat.h   |   4 +-
- fs/fat/file.c  |  72 +++++++++++++++++++----
- fs/fat/inode.c | 157 +++++--------------------------------------------
- fs/fat/iomap.c |  84 ++++++++++++++++++++++++++
- 4 files changed, 164 insertions(+), 153 deletions(-)
+ drivers/media/common/videobuf2/frame_vector.c         | 11 ++++++-----
+ drivers/media/common/videobuf2/videobuf2-dma-contig.c | 15 +++------------
+ drivers/media/common/videobuf2/videobuf2-dma-sg.c     | 10 +++-------
+ drivers/media/common/videobuf2/videobuf2-memops.c     | 10 ++++++----
+ drivers/media/common/videobuf2/videobuf2-vmalloc.c    | 14 +++-----------
+ include/media/frame_vector.h                          |  2 +-
+ include/media/videobuf2-memops.h                      |  2 +-
+ 7 files changed, 23 insertions(+), 41 deletions(-)
 
-diff --git a/fs/fat/fat.h b/fs/fat/fat.h
-index e14d6d9a6ac1..78c6fb5cdc46 100644
---- a/fs/fat/fat.h
-+++ b/fs/fat/fat.h
-@@ -415,9 +415,9 @@ extern int fat_getattr(const struct mnt_idmap *idmap,
- int fat_fileattr_get(struct dentry *dentry, struct file_kattr *fa);
- extern int fat_file_fsync(struct file *file, loff_t start, loff_t end,
- 			  int datasync);
-+int fat_preallocate(struct inode *inode, loff_t new_size);
- 
- /* fat/inode.c */
--extern int fat_block_truncate_page(struct inode *inode, loff_t from);
- extern void fat_attach(struct inode *inode, loff_t i_pos);
- extern void fat_detach(struct inode *inode);
- extern struct inode *fat_iget(struct super_block *sb, loff_t i_pos);
-@@ -492,7 +492,9 @@ extern const struct export_operations fat_export_ops_nostale;
- /* fat/iomap.c */
- extern const struct iomap_ops fat_iomap_ops;
- extern const struct iomap_ops fat_iomap_bmap_ops;
-+extern const struct iomap_ops fat_iomap_write_ops;
- extern const struct iomap_dio_ops fat_iomap_write_dio_ops;
-+extern const struct iomap_writeback_ops fat_writeback_ops;
- 
- /* helper for printk */
- typedef unsigned long long	llu;
-diff --git a/fs/fat/file.c b/fs/fat/file.c
-index 8689cbbdad13..723b671d5b4b 100644
---- a/fs/fat/file.c
-+++ b/fs/fat/file.c
-@@ -220,12 +220,13 @@ static ssize_t fat_file_read_iter(struct kiocb *iocb, struct iov_iter *iter)
- 	struct inode *inode = file_inode(iocb->ki_filp);
- 	ssize_t ret;
- 
--	if ((iocb->ki_flags & IOCB_DIRECT) == 0)
--		return generic_file_read_iter(iocb, iter);
--
- 	inode_lock_shared(inode);
--	file_accessed(iocb->ki_filp);
--	ret = iomap_dio_rw(iocb, iter, &fat_iomap_ops, NULL, 0, NULL, 0);
-+	if (iocb->ki_flags & IOCB_DIRECT) {
-+		file_accessed(iocb->ki_filp);
-+		ret = iomap_dio_rw(iocb, iter, &fat_iomap_ops, NULL, 0, NULL, 0);
-+	} else {
-+		ret = generic_file_read_iter(iocb, iter);
-+	}
- 	inode_unlock_shared(inode);
- 	return ret;
- }
-@@ -266,6 +267,50 @@ static ssize_t fat_file_dio_write_iter(struct kiocb *iocb,
- 	return ret;
- }
- 
-+static int fat_cont_expand(struct inode *inode, loff_t new_size);
-+
-+static ssize_t fat_file_write_iter_buffered(struct kiocb *iocb,
-+					    struct iov_iter *iter)
-+{
-+	struct inode *inode = file_inode(iocb->ki_filp);
-+	struct msdos_sb_info *sbi = MSDOS_SB(inode->i_sb);
-+	loff_t offset, old_size, old_alloc, keep_alloc;
-+	ssize_t ret;
-+
-+	inode_lock(inode);
-+	ret = generic_write_checks(iocb, iter);
-+	if (ret <= 0)
-+		goto out;
-+
-+	ret = file_modified(iocb->ki_filp);
-+	if (ret)
-+		goto out;
-+
-+	offset = iocb->ki_pos;
-+	old_size = i_size_read(inode);
-+	if (offset > old_size) {
-+		/* We need to fill this hole */
-+		ret = fat_cont_expand(inode, offset);
-+		if (ret)
-+			goto out;
-+	}
-+
-+	inode_dio_wait(inode);
-+	old_alloc = inode_get_bytes(inode);
-+	ret = iomap_file_buffered_write(iocb, iter, &fat_iomap_write_ops,
-+					NULL, NULL);
-+	keep_alloc = max(old_alloc, round_up(i_size_read(inode),
-+					     sbi->cluster_size));
-+	if (inode_get_bytes(inode) > keep_alloc)
-+		fat_truncate_blocks(inode, keep_alloc);
-+	if (ret > 0)
-+		ret = generic_write_sync(iocb, ret);
-+
-+out:
-+	inode_unlock(inode);
-+	return ret;
-+}
-+
- static ssize_t fat_file_write_iter_buffered_fallback(struct kiocb *iocb,
- 						     struct iov_iter *iter)
- {
-@@ -274,7 +319,7 @@ static ssize_t fat_file_write_iter_buffered_fallback(struct kiocb *iocb,
- 	int err;
- 
- 	iocb->ki_flags &= ~IOCB_DIRECT;
--	ret = generic_file_write_iter(iocb, iter);
-+	ret = fat_file_write_iter_buffered(iocb, iter);
- 	if (ret <= 0)
- 		return ret;
- 
-@@ -297,7 +342,7 @@ static ssize_t fat_file_write_iter(struct kiocb *iocb, struct iov_iter *iter)
- 	ssize_t ret;
- 
- 	if ((iocb->ki_flags & IOCB_DIRECT) == 0)
--		return generic_file_write_iter(iocb, iter);
-+		return fat_file_write_iter_buffered(iocb, iter);
- 
- 	ret = fat_file_dio_write_iter(iocb, iter);
- 	if (ret == -ENOTBLK)
-@@ -334,7 +379,7 @@ const struct file_operations fat_file_operations = {
- 	.setlease	= generic_setlease,
- };
- 
--static int fat_preallocate(struct inode *inode, loff_t new_size)
-+int fat_preallocate(struct inode *inode, loff_t new_size)
- {
- 	int nr_cluster; /* Number of clusters to be allocated */
- 	loff_t mm_bytes; /* Number of bytes to be allocated for file */
-@@ -755,11 +800,16 @@ int fat_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	}
- 
- 	if (attr->ia_valid & ATTR_SIZE) {
--		error = fat_block_truncate_page(inode, attr->ia_size);
-+		filemap_invalidate_lock(inode->i_mapping);
-+		error = iomap_truncate_page(inode, attr->ia_size, NULL,
-+					    &fat_iomap_ops, NULL, NULL);
-+		if (!error) {
-+			truncate_setsize(inode, attr->ia_size);
-+			fat_truncate_blocks(inode, attr->ia_size);
-+		}
-+		filemap_invalidate_unlock(inode->i_mapping);
- 		if (error)
- 			goto out;
--		truncate_setsize(inode, attr->ia_size);
--		fat_truncate_blocks(inode, attr->ia_size);
- 	}
- 
- 	/*
-diff --git a/fs/fat/inode.c b/fs/fat/inode.c
-index 953706aab68b..9df10e5a1ede 100644
---- a/fs/fat/inode.c
-+++ b/fs/fat/inode.c
-@@ -116,141 +116,27 @@ int fat_add_clusters(struct inode *inode, int nr_cluster)
- 	return err;
- }
- 
--static inline int __fat_get_block(struct inode *inode, sector_t iblock,
--				  unsigned long *max_blocks,
--				  struct buffer_head *bh_result, int create)
--{
--	struct super_block *sb = inode->i_sb;
--	struct msdos_sb_info *sbi = MSDOS_SB(sb);
--	unsigned long mapped_blocks;
--	sector_t phys, last_block;
--	int err, offset;
--
--	err = fat_bmap(inode, iblock, &phys, &mapped_blocks, create, false);
--	if (err)
--		return err;
--	if (phys) {
--		map_bh(bh_result, sb, phys);
--		*max_blocks = min(mapped_blocks, *max_blocks);
--		return 0;
--	}
--	if (!create)
--		return 0;
--
--	if (iblock != MSDOS_I(inode)->mmu_private >> sb->s_blocksize_bits) {
--		fat_fs_error(sb, "corrupted file size (i_pos %lld, %lld)",
--			MSDOS_I(inode)->i_pos, MSDOS_I(inode)->mmu_private);
--		return -EIO;
--	}
--
--	last_block = inode->i_blocks >> (sb->s_blocksize_bits - 9);
--	offset = (unsigned long)iblock & (sbi->sec_per_clus - 1);
--	/*
--	 * allocate a cluster according to the following.
--	 * 1) no more available blocks
--	 * 2) not part of fallocate region
--	 */
--	if (!offset && !(iblock < last_block)) {
--		/* TODO: multiple cluster allocation would be desirable. */
--		err = fat_add_clusters(inode, 1);
--		if (err)
--			return err;
--	}
--	/* available blocks on this cluster */
--	mapped_blocks = sbi->sec_per_clus - offset;
--
--	*max_blocks = min(mapped_blocks, *max_blocks);
--	MSDOS_I(inode)->mmu_private += *max_blocks << sb->s_blocksize_bits;
--
--	err = fat_bmap(inode, iblock, &phys, &mapped_blocks, create, false);
--	if (err)
--		return err;
--	if (!phys) {
--		fat_fs_error(sb,
--			     "invalid FAT chain (i_pos %lld, last_block %llu)",
--			     MSDOS_I(inode)->i_pos,
--			     (unsigned long long)last_block);
--		return -EIO;
--	}
--
--	BUG_ON(*max_blocks != mapped_blocks);
--	set_buffer_new(bh_result);
--	map_bh(bh_result, sb, phys);
--
--	return 0;
--}
--
--static int fat_get_block(struct inode *inode, sector_t iblock,
--			 struct buffer_head *bh_result, int create)
--{
--	struct super_block *sb = inode->i_sb;
--	unsigned long max_blocks = bh_result->b_size >> inode->i_blkbits;
--	int err;
--
--	err = __fat_get_block(inode, iblock, &max_blocks, bh_result, create);
--	if (err)
--		return err;
--	bh_result->b_size = max_blocks << sb->s_blocksize_bits;
--	return 0;
--}
--
- static int fat_writepages(struct address_space *mapping,
- 			  struct writeback_control *wbc)
- {
--	return mpage_writepages(mapping, wbc, fat_get_block);
-+	struct iomap_writepage_ctx wpc = {
-+		.inode = mapping->host,
-+		.wbc = wbc,
-+		.ops = &fat_writeback_ops,
-+	};
-+
-+	return iomap_writepages(&wpc);
- }
- 
- static int fat_read_folio(struct file *file, struct folio *folio)
- {
--	return mpage_read_folio(folio, fat_get_block);
-+	iomap_bio_read_folio(folio, &fat_iomap_ops);
-+	return 0;
- }
- 
- static void fat_readahead(struct readahead_control *rac)
- {
--	mpage_readahead(rac, fat_get_block);
--}
--
--static void fat_write_failed(struct address_space *mapping, loff_t to)
--{
--	struct inode *inode = mapping->host;
--
--	if (to > inode->i_size) {
--		truncate_pagecache(inode, inode->i_size);
--		fat_truncate_blocks(inode, inode->i_size);
--	}
--}
--
--static int fat_write_begin(const struct kiocb *iocb,
--			   struct address_space *mapping,
--			   loff_t pos, unsigned len,
--			   struct folio **foliop, void **fsdata)
--{
--	int err;
--
--	err = cont_write_begin(iocb, mapping, pos, len,
--				foliop, fsdata, fat_get_block,
--				&MSDOS_I(mapping->host)->mmu_private);
--	if (err < 0)
--		fat_write_failed(mapping, pos + len);
--	return err;
--}
--
--static int fat_write_end(const struct kiocb *iocb,
--			 struct address_space *mapping,
--			 loff_t pos, unsigned len, unsigned copied,
--			 struct folio *folio, void *fsdata)
--{
--	struct inode *inode = mapping->host;
--	int err;
--	err = generic_write_end(iocb, mapping, pos, len, copied, folio, fsdata);
--	if (err < len)
--		fat_write_failed(mapping, pos + len);
--	if (!(err < 0) && !(MSDOS_I(inode)->i_attrs & ATTR_ARCH)) {
--		fat_truncate_time(inode, NULL, FAT_UPDATE_CMTIME);
--		MSDOS_I(inode)->i_attrs |= ATTR_ARCH;
--		mark_inode_dirty(inode);
--	}
--	return err;
-+	iomap_bio_readahead(rac, &fat_iomap_ops);
- }
- 
- static sector_t _fat_bmap(struct address_space *mapping, sector_t block)
-@@ -273,29 +159,18 @@ static int fat_swap_activate(struct swap_info_struct *sis, struct file *file,
- #endif
- }
- 
--/*
-- * fat_block_truncate_page() zeroes out a mapping from file offset `from'
-- * up to the end of the block which corresponds to `from'.
-- * This is required during truncate to physically zeroout the tail end
-- * of that block so it doesn't yield old data if the file is later grown.
-- * Also, avoid causing failure from fsx for cases of "data past EOF"
-- */
--int fat_block_truncate_page(struct inode *inode, loff_t from)
--{
--	return block_truncate_page(inode->i_mapping, from, fat_get_block);
--}
--
- static const struct address_space_operations fat_aops = {
--	.dirty_folio	= block_dirty_folio,
--	.invalidate_folio = block_invalidate_folio,
-+	.dirty_folio	= iomap_dirty_folio,
-+	.invalidate_folio = iomap_invalidate_folio,
- 	.read_folio	= fat_read_folio,
- 	.readahead	= fat_readahead,
- 	.writepages	= fat_writepages,
--	.write_begin	= fat_write_begin,
--	.write_end	= fat_write_end,
- 	.bmap		= _fat_bmap,
--	.migrate_folio	= buffer_migrate_folio,
-+	.migrate_folio	= filemap_migrate_folio,
- 	.swap_activate  = fat_swap_activate,
-+	.is_partially_uptodate = iomap_is_partially_uptodate,
-+	.error_remove_folio = generic_error_remove_folio,
-+	.release_folio = iomap_release_folio,
- };
- 
- /*
-diff --git a/fs/fat/iomap.c b/fs/fat/iomap.c
-index 8a697deba9d4..cfeaea5d352e 100644
---- a/fs/fat/iomap.c
-+++ b/fs/fat/iomap.c
-@@ -5,6 +5,9 @@
-  * Copyright (C) 2026 Matheus Alves de Almeida
+diff --git a/drivers/media/common/videobuf2/frame_vector.c b/drivers/media/common/videobuf2/frame_vector.c
+index 41f289c75cbb..d4da45cc5624 100644
+--- a/drivers/media/common/videobuf2/frame_vector.c
++++ b/drivers/media/common/videobuf2/frame_vector.c
+@@ -72,12 +72,13 @@ EXPORT_SYMBOL(get_vaddr_frames);
+  * put_vaddr_frames() - drop references to pages if get_vaddr_frames() acquired
+  *			them
+  * @vec:	frame vector to put
++ * @dirty:	whether to mark the pages dirty first
+  *
+- * Drop references to pages if get_vaddr_frames() acquired them. We also
+- * invalidate the frame vector so that it is prepared for the next call into
+- * get_vaddr_frames().
++ * Drop references to pages if get_vaddr_frames() acquired them, marking them
++ * dirty first if @dirty is set. We also invalidate the frame vector so that it
++ * is prepared for the next call into get_vaddr_frames().
   */
+-void put_vaddr_frames(struct frame_vector *vec)
++void put_vaddr_frames(struct frame_vector *vec, bool dirty)
+ {
+ 	struct page **pages;
  
-+#include <linux/highmem.h>
-+#include <linux/pagemap.h>
-+
- #include "fat.h"
+@@ -92,7 +93,7 @@ void put_vaddr_frames(struct frame_vector *vec)
+ 	if (WARN_ON(IS_ERR(pages)))
+ 		goto out;
  
- static int __fat_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
-@@ -74,6 +77,65 @@ const struct iomap_ops fat_iomap_ops = {
- 	.iomap_next = fat_iomap_next
- };
+-	unpin_user_pages(pages, vec->nr_frames);
++	unpin_user_pages_dirty_lock(pages, vec->nr_frames, dirty);
+ 	vec->got_ref = false;
+ out:
+ 	vec->nr_frames = 0;
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-contig.c b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+index 9ce6284cd5f2..94e00e6bc0fb 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-contig.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-contig.c
+@@ -533,8 +533,6 @@ static void vb2_dc_put_userptr(void *buf_priv)
+ {
+ 	struct vb2_dc_buf *buf = buf_priv;
+ 	struct sg_table *sgt = buf->dma_sgt;
+-	int i;
+-	struct page **pages;
  
-+static int fat_iomap_end_write(struct inode *inode, loff_t offset,
-+			       loff_t length, ssize_t written,
-+			       unsigned int flags, struct iomap *iomap)
-+{
-+	struct msdos_inode_info *mi = MSDOS_I(inode);
-+
-+	if (written > 0) {
-+		mi->mmu_private = max(mi->mmu_private, offset + written);
-+		if (!(mi->i_attrs & ATTR_ARCH)) {
-+			mi->i_attrs |= ATTR_ARCH;
-+			mark_inode_dirty(inode);
-+		}
-+	}
-+
-+	if (iomap->flags & IOMAP_F_SIZE_CHANGED)
-+		mark_inode_dirty(inode);
-+
-+	return 0;
-+}
-+
-+static int fat_iomap_begin_write(struct inode *inode, loff_t offset,
-+				 loff_t length, unsigned int flags,
-+				 struct iomap *iomap, struct iomap *srcmap)
-+{
-+	loff_t curr_size = i_size_read(inode);
-+	loff_t old_alloc = inode_get_bytes(inode);
-+	int err;
-+
-+	/* Only support extending writes that start at EOF */
-+	if (WARN_ONCE(offset > curr_size, "Write starting past EOF"))
-+		return -EOPNOTSUPP;
-+
-+	if (offset == curr_size) {
-+		/*
-+		 * TODO: allocate multiple blocks while allowing
-+		 * short writes
-+		 */
-+		err = fat_preallocate(inode, offset + 1);
-+		if (err)
-+			goto err_truncate;
-+	}
-+
-+	err = __fat_iomap_begin(inode, offset, length, flags, iomap);
-+	if (err)
-+		goto err_truncate;
-+
-+	return 0;
-+err_truncate:
-+	fat_truncate_blocks(inode, old_alloc);
-+	return err;
-+}
-+
-+static DEFINE_IOMAP_ITER_NEXT_END(fat_iomap_next_write, fat_iomap_begin_write,
-+				  fat_iomap_end_write);
-+
-+const struct iomap_ops fat_iomap_write_ops = {
-+	.iomap_next = fat_iomap_next_write
-+};
-+
- static int fat_iomap_begin_bmap(struct inode *inode, loff_t offset,
- 				loff_t length, unsigned int flags,
- 				struct iomap *iomap, struct iomap *srcmap)
-@@ -117,3 +179,25 @@ static int fat_dio_write_end_io(struct kiocb *iocb, ssize_t size, int error,
- const struct iomap_dio_ops fat_iomap_write_dio_ops = {
- 	.end_io = fat_dio_write_end_io
- };
-+
-+static ssize_t fat_writeback_range(struct iomap_writepage_ctx *wpc,
-+				   struct folio *folio, u64 offset,
-+				   unsigned int len, u64 end_pos)
-+{
-+	if (offset < wpc->iomap.offset ||
-+	    offset >= wpc->iomap.offset + wpc->iomap.length) {
-+		int err;
-+
-+		err = __fat_iomap_begin(wpc->inode, offset, len, 0,
-+					&wpc->iomap);
-+		if (err)
-+			return err;
-+	}
-+
-+	return iomap_add_to_ioend(wpc, folio, offset, end_pos, len);
-+}
-+
-+const struct iomap_writeback_ops fat_writeback_ops = {
-+	.writeback_range = fat_writeback_range,
-+	.writeback_submit = iomap_ioend_writeback_submit,
-+};
--- 
-2.43.0
+ 	if (sgt) {
+ 		/*
+@@ -543,21 +541,14 @@ static void vb2_dc_put_userptr(void *buf_priv)
+ 		 */
+ 		dma_unmap_sgtable(buf->dev, sgt, buf->dma_dir,
+ 				  DMA_ATTR_SKIP_CPU_SYNC);
+-		if (buf->dma_dir == DMA_FROM_DEVICE ||
+-				buf->dma_dir == DMA_BIDIRECTIONAL) {
+-			pages = frame_vector_pages(buf->vec);
+-			/* sgt should exist only if vector contains pages... */
+-			if (!WARN_ON_ONCE(IS_ERR(pages)))
+-				for (i = 0; i < frame_vector_count(buf->vec); i++)
+-					set_page_dirty_lock(pages[i]);
+-		}
+ 		sg_free_table(sgt);
+ 		kfree(sgt);
+ 	} else {
+ 		dma_unmap_resource(buf->dev, buf->dma_addr, buf->size,
+ 				   buf->dma_dir, 0);
+ 	}
+-	vb2_destroy_framevec(buf->vec);
++	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
++			     buf->dma_dir == DMA_BIDIRECTIONAL);
+ 	kfree(buf);
+ }
+ 
+@@ -676,7 +667,7 @@ static void *vb2_dc_get_userptr(struct vb2_buffer *vb, struct device *dev,
+ 	kfree(sgt);
+ 
+ fail_pfnvec:
+-	vb2_destroy_framevec(vec);
++	vb2_destroy_framevec(vec, false);
+ 
+ fail_buf:
+ 	kfree(buf);
+diff --git a/drivers/media/common/videobuf2/videobuf2-dma-sg.c b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+index b1d0695cda26..c80d3232436d 100644
+--- a/drivers/media/common/videobuf2/videobuf2-dma-sg.c
++++ b/drivers/media/common/videobuf2/videobuf2-dma-sg.c
+@@ -271,7 +271,7 @@ static void *vb2_dma_sg_get_userptr(struct vb2_buffer *vb, struct device *dev,
+ userptr_fail_map:
+ 	sg_free_table(&buf->sg_table);
+ userptr_fail_sgtable:
+-	vb2_destroy_framevec(vec);
++	vb2_destroy_framevec(vec, false);
+ userptr_fail_pfnvec:
+ 	kfree(buf);
+ 	return ERR_PTR(-ENOMEM);
+@@ -285,7 +285,6 @@ static void vb2_dma_sg_put_userptr(void *buf_priv)
+ {
+ 	struct vb2_dma_sg_buf *buf = buf_priv;
+ 	struct sg_table *sgt = &buf->sg_table;
+-	int i = buf->num_pages;
+ 
+ 	dprintk(1, "%s: Releasing userspace buffer of %d pages\n",
+ 	       __func__, buf->num_pages);
+@@ -293,11 +292,8 @@ static void vb2_dma_sg_put_userptr(void *buf_priv)
+ 	if (buf->vaddr)
+ 		vm_unmap_ram(buf->vaddr, buf->num_pages);
+ 	sg_free_table(buf->dma_sgt);
+-	if (buf->dma_dir == DMA_FROM_DEVICE ||
+-	    buf->dma_dir == DMA_BIDIRECTIONAL)
+-		while (--i >= 0)
+-			set_page_dirty_lock(buf->pages[i]);
+-	vb2_destroy_framevec(buf->vec);
++	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
++			     buf->dma_dir == DMA_BIDIRECTIONAL);
+ 	kfree(buf);
+ }
+ 
+diff --git a/drivers/media/common/videobuf2/videobuf2-memops.c b/drivers/media/common/videobuf2/videobuf2-memops.c
+index f9a4ec44422e..605e24aa710b 100644
+--- a/drivers/media/common/videobuf2/videobuf2-memops.c
++++ b/drivers/media/common/videobuf2/videobuf2-memops.c
+@@ -59,7 +59,7 @@ struct frame_vector *vb2_create_framevec(unsigned long start,
+ 	}
+ 	return vec;
+ out_release:
+-	put_vaddr_frames(vec);
++	put_vaddr_frames(vec, false);
+ out_destroy:
+ 	frame_vector_destroy(vec);
+ 	return ERR_PTR(ret);
+@@ -69,13 +69,15 @@ EXPORT_SYMBOL(vb2_create_framevec);
+ /**
+  * vb2_destroy_framevec() - release vector of mapped pfns
+  * @vec:	vector of pfns / pages to release
++ * @dirty:	whether to mark the pages dirty first
+  *
+  * This releases references to all pages in the vector @vec (if corresponding
+- * pfns are backed by pages) and frees the passed vector.
++ * pfns are backed by pages), marking them dirty first if @dirty is set, and
++ * frees the passed vector.
+  */
+-void vb2_destroy_framevec(struct frame_vector *vec)
++void vb2_destroy_framevec(struct frame_vector *vec, bool dirty)
+ {
+-	put_vaddr_frames(vec);
++	put_vaddr_frames(vec, dirty);
+ 	frame_vector_destroy(vec);
+ }
+ EXPORT_SYMBOL(vb2_destroy_framevec);
+diff --git a/drivers/media/common/videobuf2/videobuf2-vmalloc.c b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+index 63f023696f3e..bf6273f3bc86 100644
+--- a/drivers/media/common/videobuf2/videobuf2-vmalloc.c
++++ b/drivers/media/common/videobuf2/videobuf2-vmalloc.c
+@@ -116,7 +116,7 @@ static void *vb2_vmalloc_get_userptr(struct vb2_buffer *vb, struct device *dev,
+ 	return buf;
+ 
+ fail_map:
+-	vb2_destroy_framevec(vec);
++	vb2_destroy_framevec(vec, false);
+ fail_pfnvec_create:
+ 	kfree(buf);
+ 
+@@ -127,25 +127,17 @@ static void vb2_vmalloc_put_userptr(void *buf_priv)
+ {
+ 	struct vb2_vmalloc_buf *buf = buf_priv;
+ 	unsigned long vaddr = (unsigned long)buf->vaddr & PAGE_MASK;
+-	unsigned int i;
+-	struct page **pages;
+ 	unsigned int n_pages;
+ 
+ 	if (!buf->vec->is_pfns) {
+ 		n_pages = frame_vector_count(buf->vec);
+ 		if (vaddr)
+ 			vm_unmap_ram((void *)vaddr, n_pages);
+-		if (buf->dma_dir == DMA_FROM_DEVICE ||
+-		    buf->dma_dir == DMA_BIDIRECTIONAL) {
+-			pages = frame_vector_pages(buf->vec);
+-			if (!WARN_ON_ONCE(IS_ERR(pages)))
+-				for (i = 0; i < n_pages; i++)
+-					set_page_dirty_lock(pages[i]);
+-		}
+ 	} else {
+ 		iounmap((__force void __iomem *)buf->vaddr);
+ 	}
+-	vb2_destroy_framevec(buf->vec);
++	vb2_destroy_framevec(buf->vec, buf->dma_dir == DMA_FROM_DEVICE ||
++			     buf->dma_dir == DMA_BIDIRECTIONAL);
+ 	kfree(buf);
+ }
+ 
+diff --git a/include/media/frame_vector.h b/include/media/frame_vector.h
+index 541c71a2c7be..daf40b9b3d3d 100644
+--- a/include/media/frame_vector.h
++++ b/include/media/frame_vector.h
+@@ -17,7 +17,7 @@ struct frame_vector *frame_vector_create(unsigned int nr_frames);
+ void frame_vector_destroy(struct frame_vector *vec);
+ int get_vaddr_frames(unsigned long start, unsigned int nr_pfns,
+ 		     bool write, struct frame_vector *vec);
+-void put_vaddr_frames(struct frame_vector *vec);
++void put_vaddr_frames(struct frame_vector *vec, bool dirty);
+ int frame_vector_to_pages(struct frame_vector *vec);
+ void frame_vector_to_pfns(struct frame_vector *vec);
+ 
+diff --git a/include/media/videobuf2-memops.h b/include/media/videobuf2-memops.h
+index 4b5b84f93538..8a66ec46bc71 100644
+--- a/include/media/videobuf2-memops.h
++++ b/include/media/videobuf2-memops.h
+@@ -36,6 +36,6 @@ extern const struct vm_operations_struct vb2_common_vm_ops;
+ struct frame_vector *vb2_create_framevec(unsigned long start,
+ 					 unsigned long length,
+ 					 bool write);
+-void vb2_destroy_framevec(struct frame_vector *vec);
++void vb2_destroy_framevec(struct frame_vector *vec, bool dirty);
+ 
+ #endif
+
+---
+base-commit: 27285b099fbc5cb2ae3aef20f3bbd7b3c88b3005
+change-id: 20261015-vb2-unpin-dirty-912660272e32
+
+Best regards,
+--  
+Tal Zussman <tz2294@columbia.edu>
 
