@@ -1,77 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420457;
-	b=JQAi9n2WY9uNkZVW4kKNO2xmI/wv4k2nfHKggMHKYsovio/SNQ+fMlruFWDBMaGlt5c5
-	 XwCLiUsKrFEt9UTfsb/yIWYhUALZwI2zHjBKAwC04tuMOpnJ8ZEQghWC7vlJ4O3XE+ewd
-	 XGR3VOrERAXN4WSRO2Bd5d3oSBYP+IGYKDaqm42qnJHlmUVeRBWoSfoJ+JfhK9cJzDvAI
-	 vTHzQf20CvhAE+xW62dDWqM5vHigxZ370f914NqXbyRKG9rdC+RVBoZqZ4BAE+Ci/ZidM
-	 zRGbRu0TrHJLg9rfEayf5pCVMnJxYmmONugWVGDUATPL1oDhADR424a/mZfIns7Sj4w==
+	t=1793420544;
+	b=iWVSSqv5DAO/PWmc2Nm503SPBpbhzaiRggUvCtgQ7dI9VUyErg76jpnCHspWBnOrXERr
+	 DlD9YH9qnOfcVIQLpUFqg+aTCckixj9PjO63g9EvAvFW0k0E9IV9D15SgD1f+NzM5XsOm
+	 YcaxvDWWQyD11vu5dppY7LchTPgyncnioSnTq/2j2b1+2fiG35eQCNCRCfzjOPHFei7AM
+	 HtHm9Xvr2PxkHpsO7AAElN3S9D+mgIHL0MHVLZTJCy/AZ+NGecEwXIgCsM8YAqIapvYLs
+	 WWSJPtcngH88vavWnsWc9GDMrYALLjjpPro5KEViCvE4PUeLAn2NXtRKBzJBJzE414g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420457;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
-	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 User-Agent:MIME-Version:Content-Type;
-	bh=W0hdCHLr9QUbd2Sd2fherl19yeusAeZGY0041G9jaws=;
-	b=ERsLmwSTG88n8vPuDaYLGdwlQBX2nZYCXoJAhmhfb5VkACG0PCKuJ7V+ebPX/Oh6vTU5
-	 YFs8srBOEfV0KrP9iX+09U+7mGPyeGsDXPX+IYdcGJzJ6zb4a7zUg8JnKEI91GWa4E99M
-	 3IfrQjkb1cqEFoTHAbmGqOlvxc/uOYVFMYDBgLFoEAXyCywB9F0oLDcJgsjFAL+zja88+
-	 3ten5jRUPtOcqgoLAF8hlh9mSu1aU20O7f66Vrd3GMkTDJpHXjqVanXsMEHVbgEusT0H5
-	 DGQgmDsRFT69OR6yIcVfGlmuwlV8h8FzrVCxUP0VSqfrSTg/3EjBFtgW8gz8e9mCiDg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420544;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=2R0GYd790JXnb4Y8ot5FR6nSs52IU/ungvwEsnVbrT8=;
+	b=VJXZ3+bIYoQ55VHyWglJyjOxKj+IwH9LrL7e49B2AIi/ZtM3ws5DicDZy8hbbzPqINzg
+	 ZTeo1OeRQvNKLN5iJB/fOU8+zue8zXpKGXx3Oi1e4feRL0ZHGSCw1HK8cuQ17EccdV3O1
+	 XXk7bihIUGH008emoV8GMXCB8WYc6WB5qNuPr/599LO9+7XtlipByU91eX54JNf9cnjZA
+	 h9j5djTX67X8VNb+Iwo+GTC8lPlRPdslVaJXL8BrtYp9esQxBKEMj6NpfAYzPOGAillhA
+	 UEWYQoj2mUcnIP2dYQY5/LHt+4RwJ7pKTVFPiU0osM1YmDuj+o0nL/SuwwjTEP8S7WA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.parknet.co.jp;
-	spf=pass smtp.mailfrom=parknet.co.jp;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=MQRe8cdh;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=OiUxWO0l;
-	arc=none smtp.remote-ip=210.171.160.6
-Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="jWF3W+s/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B13606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:20:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2B13606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C9F0606A31A;
+	Sat, 31 Oct 2026 04:22:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=MQRe8cdh;
-	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=OiUxWO0l
-Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
-	by mail.parknet.co.jp (Postfix) with ESMTPSA id 0D38B26F7662;
-	Sat, 31 Oct 2026 13:20:52 +0900 (JST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114; t=1793420452;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W0hdCHLr9QUbd2Sd2fherl19yeusAeZGY0041G9jaws=;
-	b=MQRe8cdhLjD5MrI4DEzApZSG5RpSu3Paz+fsTdj8g4f5hloTndC2gFTcvYqwN1VQbeYsMS
-	iPxKrDHoupMgdN/CDHeT8y0JFUgUlJuDTZwiKvaNqmmm1kgU+3LvkynKbHsx8TUFUKH8Ws
-	uzHJ7YY67oos6pffxJ3WTjMxWCWyZOAhI4cWck65QBQS9U52/I35PzTSaivZcmsD7HGK7R
-	ELpOwZ7oZzAJwBm/U3TYt6v8a0Ay740MPLNgEkWrQD/0Lfw1LWKUFJa3w8E1k8mkwprZjV
-	uKBG327fMAidsPWqY2Iweex7mWLMHQatZKBiTnV9KOSZsWAgEQLUMkqjJzLBPw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
-	s=20250114-ed25519; t=1793420452;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=W0hdCHLr9QUbd2Sd2fherl19yeusAeZGY0041G9jaws=;
-	b=OiUxWO0leMgVfMCbz4LqPZmrtEpgtunrs/5AXeuaKgZwBuPvYIHMlu2EQ+eGqyVmoX/Ub2
-	YRNc29ocxeeZ6KDA==
-Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
-	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 888EDE00131;
-	Sat, 31 Oct 2026 13:20:51 +0900 (JST)
-Received: by devron.myhome.or.jp (Postfix, from userid 1000)
-	id 79C4222000C4; Sat, 31 Oct 2026 13:20:51 +0900 (JST)
-From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: linux-kernel@vger.kernel.org,
-  syzbot+018e6f695ad9bccb182a@syzkaller.appspotmail.com,
-  syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] fat: serialize primary and mirror updates
-In-Reply-To: <20261031033232.2490931-1-matthias.goergens@gmail.com>
-References: <20261031033232.2490931-1-matthias.goergens@gmail.com>
-Date: Sat, 31 Oct 2026 13:20:51 +0900
-Message-ID: <87tsm25wm4.fsf@mail.parknet.co.jp>
-User-Agent: Gnus/5.13 (Gnus v5.13)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWF3W+s/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9151F000C1;
+	Sat, 31 Oct 2026 04:22:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793420543;
+	bh=2R0GYd790JXnb4Y8ot5FR6nSs52IU/ungvwEsnVbrT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jWF3W+s/1UqGh8FCgl+GBRs8Op4RxqFJ9/kFjrGf9PWl7ayKREc36HjsyAtHZEz4x
+	 0LxCRfFC8ByNO0yTT0jQgUSuGxBle5jQFmEVaNgleN+8YvQJLNes7EKCkLclRIEkOt
+	 0wJLrEQlMiMM6jyXLaLH7JJ44A5kvcJTf3HdXtM0TUBROwL8w2wn8CiP+pW9kk3fW1
+	 cnmjcFUwMZaTHcyLBZNef8J9HTpPAEKn1Xf/9ffMR6VSBg8e9N0KO+GpM693LJkNvt
+	 yhHZj8ZHJOUdw4u1fzf0XMFjtIC7zXWzBmLDKOBDSWXVur00pMF2pYEBAhmf7cIhC5
+	 4DoEM4I5L3LZA==
+Date: Fri, 30 Oct 2026 21:22:23 -0700
+From: Kees Cook <kees@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2 4/6] slub_kunit: Add a test for the slab_buckets boot
+ parameter
+Message-ID: <202610302117.74D1EB1@keescook>
+References: <cover.1793253633.git.chris@chrisdown.name>
+ <47c0b11109203640122a9b5b030d3f41bfbac609.1793253633.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,76 +66,142 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <47c0b11109203640122a9b5b030d3f41bfbac609.1793253633.git.chris@chrisdown.name>
 
-Matthias Goergens <matthias.goergens@gmail.com> writes:
-
-> __fat_alloc_clusters() drops fat_lock before syncing and mirroring
-> modified buffer heads. Another allocation can change the primary FAT
-> while an earlier allocation is copying it to the mirror.
->
-> fat_ent_write() also updates and mirrors without fat_lock. Take the lock
-> in both paths, preserving the existing post-unlock error cleanup.
->
-> The test detector reproduced a primary-FAT write during a mirror copy.
-> Three exact-current trials completed with no FAT conflicts and matching
-> mirrors.
-
-What is the real issue?
-
-> Link: https://syzkaller.appspot.com/bug?extid=018e6f695ad9bccb182a
+On Thu, Oct 29, 2026 at 02:08:44PM +0800, Chris Down wrote:
+> Check that memdup_user() allocates from the memdup_user buckets by
+> default, and from the regular kmalloc caches when they're turned off
+> with slab_buckets=0.
+> 
+> Signed-off-by: Chris Down <chris@chrisdown.name>
 > ---
->  fs/fat/fatent.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
-> index 2d10a815a579..5f2779c7f947 100644
-> --- a/fs/fat/fatent.c
-> +++ b/fs/fat/fatent.c
-> @@ -419,6 +419,7 @@ int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
->  	const struct fatent_operations *ops = MSDOS_SB(sb)->fatent_ops;
->  	int err;
+>  lib/tests/slub_kunit.c | 41 +++++++++++++++++++++++++++++++++++++++++
+>  mm/slab.h              |  4 ++++
+>  mm/slab_common.c       |  4 +++-
+>  3 files changed, 48 insertions(+), 1 deletion(-)
+> 
+> diff --git a/lib/tests/slub_kunit.c b/lib/tests/slub_kunit.c
+> index e3b63f0338d5..670645875b27 100644
+> --- a/lib/tests/slub_kunit.c
+> +++ b/lib/tests/slub_kunit.c
+> @@ -9,6 +9,8 @@
+>  #include <linux/delay.h>
+>  #include <linux/perf_event.h>
+>  #include <linux/kprobes.h>
+> +#include <linux/mman.h>
+> +#include <linux/string.h>
+>  #include "../mm/slab.h"
 >  
-> +	lock_fat(MSDOS_SB(sb));
->  	ops->ent_put(fatent, new);
->  	if (wait) {
->  		err = fat_sync_bhs(fatent->bhs, fatent->nr_bhs);
-> @@ -429,7 +430,7 @@ int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
->  			 * would not have value to write again on I/O
->  			 * error.
->  			 */
-> -			return err;
-> +			goto out_unlock;
->  		}
->  	}
->  
-> @@ -440,6 +441,8 @@ int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
->  		if (wait)
->  			fat_sync_bhs(fatent->bhs, fatent->nr_bhs);
->  	}
-> +out_unlock:
-> +	unlock_fat(MSDOS_SB(sb));
->  	return err;
+>  static struct kunit_resource resource;
+> @@ -296,6 +298,41 @@ static void test_krealloc_redzone_zeroing(struct kunit *test)
+>  	kmem_cache_destroy(s);
 >  }
 >  
-> @@ -582,7 +585,6 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
->  	err = -ENOSPC;
+> +#ifdef CONFIG_SLAB_BUCKETS
+
+Please don't ifdef to drop a test. If you have to do any ifdef, use it
+for test skipping instead.
+
+> +static void test_slab_buckets(struct kunit *test)
+> +{
+> +	unsigned long user_addr;
+> +	const char *name;
+> +	void *p;
+> +
+> +	if (!slab_buckets_enabled)
+> +		KUNIT_EXPECT_NULL(test, kmem_buckets_create("TestSlub_buckets",
+> +							    0, 0, INT_MAX, NULL));
+> +
+> +	if (!IS_ENABLED(CONFIG_MMU))
+> +		kunit_skip(test, "userspace allocation needs an MMU");
+> +
+> +	user_addr = kunit_vm_mmap(test, NULL, 0, PAGE_SIZE,
+> +				  PROT_READ | PROT_WRITE,
+> +				  MAP_ANONYMOUS | MAP_PRIVATE, 0);
+> +	KUNIT_ASSERT_NE_MSG(test, user_addr, 0, "Could not create userspace mm");
+> +	KUNIT_ASSERT_LT_MSG(test, user_addr, (unsigned long)TASK_SIZE,
+> +			    "Failed to allocate user memory");
+> +
+> +	p = memdup_user((void __user *)user_addr, 64);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, p);
+> +
+> +	name = virt_to_slab(p)->slab_cache->name;
+> +	if (slab_buckets_enabled)
+> +		KUNIT_EXPECT_TRUE_MSG(test, strstarts(name, "memdup_user-"),
+> +				      "allocated from %s", name);
+> +	else
+> +		KUNIT_EXPECT_TRUE_MSG(test, strstarts(name, "kmalloc-"),
+> +				      "allocated from %s", name);
+> +	kfree(p);
+> +}
+> +#endif
+> +
+>  #if defined(CONFIG_PERF_EVENTS) || (defined(CONFIG_KPROBES) && defined(CONFIG_SMP))
+>  #define NR_ITERATIONS 1000
+>  #define NR_OBJECTS 1000
+> @@ -489,6 +526,9 @@ static struct kunit_case test_cases[] = {
+>  	KUNIT_CASE(test_kfree_rcu_wq_destroy),
+>  	KUNIT_CASE(test_leak_destroy),
+>  	KUNIT_CASE(test_krealloc_redzone_zeroing),
+> +#ifdef CONFIG_SLAB_BUCKETS
+> +	KUNIT_CASE(test_slab_buckets),
+> +#endif
+>  #ifdef CONFIG_PERF_EVENTS
+>  	KUNIT_CASE_SLOW(test_kmalloc_nolock_and_friends_perf),
+>  #endif
+> @@ -505,5 +545,6 @@ static struct kunit_suite test_suite = {
+>  };
+>  kunit_test_suite(test_suite);
 >  
->  out:
-> -	unlock_fat(sbi);
->  	mark_fsinfo_dirty(sb);
->  	fatent_brelse(&fatent);
->  	if (!err) {
-> @@ -591,6 +593,7 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
->  		if (!err)
->  			err = fat_mirror_bhs(sb, bhs, nr_bhs);
->  	}
-> +	unlock_fat(sbi);
->  	for (i = 0; i < nr_bhs; i++)
->  		brelse(bhs[i]);
+> +MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
+>  MODULE_DESCRIPTION("Kunit tests for slub allocator");
+>  MODULE_LICENSE("GPL");
+> diff --git a/mm/slab.h b/mm/slab.h
+> index e94ac63d10dc..b5b344d6e402 100644
+> --- a/mm/slab.h
+> +++ b/mm/slab.h
+> @@ -390,6 +390,10 @@ extern struct list_head slab_caches;
+>  /* The slab cache that manages slab cache information */
+>  extern struct kmem_cache *kmem_cache;
 >  
->
-> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+> +#if IS_ENABLED(CONFIG_KUNIT)
+> +extern bool slab_buckets_enabled;
+> +#endif
+
+This feels messy. Any reason not to just export it entirely and avoid
+all the ifdefness?
+
+> +
+>  /* A table of kmalloc cache names and sizes */
+>  extern const struct kmalloc_info_struct {
+>  	const char *name[NR_KMALLOC_TYPES];
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index b7a46c368ab1..9fe48da12010 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -29,6 +29,7 @@
+>  #include <linux/memcontrol.h>
+>  #include <linux/stackdepot.h>
+>  #include <trace/events/rcu.h>
+> +#include <kunit/visibility.h>
+>  
+>  #include "../kernel/rcu/rcu.h"
+>  #include "internal.h"
+> @@ -410,7 +411,8 @@ EXPORT_SYMBOL(__kmem_cache_create_args);
+>  
+>  static struct kmem_cache *kmem_buckets_cache __ro_after_init;
+>  
+> -static bool slab_buckets_enabled __ro_after_init = IS_ENABLED(CONFIG_SLAB_BUCKETS);
+> +VISIBLE_IF_KUNIT bool slab_buckets_enabled __ro_after_init = IS_ENABLED(CONFIG_SLAB_BUCKETS);
+> +EXPORT_SYMBOL_IF_KUNIT(slab_buckets_enabled);
+>  
+>  #ifdef CONFIG_SLAB_BUCKETS
+>  static int __init setup_slab_buckets(char *str)
+> -- 
+> 2.54.0
+> 
 
 -- 
-OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Kees Cook
