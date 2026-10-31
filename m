@@ -1,107 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793452274;
-	b=Yw1wle4udx47WCbpWcpCMbRD7lVK6Zp2ew7SszYCkN+aXra3IjrwSfsT+d/KsFSPVxG0
-	 5RGlPyTUPQH6LmZUyRjEqK7vU1bDC2RF3V5bF63AO9Y8HA5wnqjI19UrQk/IFrXjLQyaq
-	 X3ZcaliuD92UKdU6qoxy6ER7DEta4MZ+Y0ZRU02tuhYcx5BWyjNb+c7dWzqvALtZHaq2d
-	 go1zntTLtl56GN9p1/fRGRvuFcLaiYn6E9Pw7+X2mLH6B8qnSuc98rfzEHt/84NKkGFVw
-	 MGzDGYKDoEgcLGnyT5tsU13udyvxMbFZQKJa0NsiOO8Co5nGH14+5vjTA4m7Ph3fkyw==
+	t=1793452272;
+	b=IngL4YK3KRGwrwSfuscCkVAvvQmnlRcr8i5kzYckuUFQlRjCn4dtX6Xv/FyjnmzXvNBq
+	 +I6sTz05BnAWqTiUNcGk6HWPkJaiGTB3418j/Cy8uvQ/7UF97l6s21hwc7vbVAaDoFtnO
+	 B5s8qS2sN1KTxtnclPC206mrqRY09ILX7081Oz/Om76n+eY1cf6bfouJGbWhtwxx+ciqb
+	 I8+wc5dYYNykOBRED2ljeNnCECX0w6Me/oXtsA6YBSO7WCZkWmlqbfsaU2adoH6nVlwO4
+	 ql9FSISPX/zbyNLQeGY0/8oX6tGknHGi1bMH+9ahzW4JjrZ/JbwmK1ATLAh5atz7/eQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793452274;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793452272;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
 	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
 	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
 	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
 	 X-Proofpoint-Spam-Details;
-	bh=ZjowRiis49WC5hZioqYWlZTiLLrFCHYTqCaAy9Vq52c=;
-	b=NkBBmMysNI8JKJmUrzuQaOysjUCCcv4vxsQzzszl7mYAiZcqcrgf5uJcNtSRzRlhigHV
-	 gOhGMnE8Ludauj2WgaBWLeqMdDCT8lsIBCpp/MJx4X3Iu6QxFgUW6u5pQa5adAV3GJhm/
-	 jd1NlRKZDf4Tttq6F7wEBuhIMVPmUeOgjYRrpYQvn6pbSU65kwnYMR+apCLqNY1SZPfrE
-	 +JhX70n7ooV3f5MBelJGPrqhjLMLCvOYP+dtjm7PAly031vF78Ly3bKOgKyPQl7x/9LmZ
-	 Qjy78VY5P96ZHAFh1xFqtc79+TZv+yoOoxBo0djDKk27AWZUzNGgG8aauItP4L3YTRQ==
+	bh=Ngho7V0WfqH1kDsLhQSN8iwWbKHo9PvDH0CUu2sZsqs=;
+	b=GA/5P2sYDqRKY07jVu+6SsANc5x9KnmxAPlW7K7we2/AtdrsZMNgmqCuq/OOG3bLC2ZG
+	 mBa7lNuRE/Az1shoF/Va94gyCVLGMbnRdHJZ3ASuh30RHifjI2INaVU16V8TtYWNP19s1
+	 If9lfpKB77oekojBlFYruAkJj6ThzVDgxhP7nsFT8EA0+dhpDFWTXjcVPa7Bc4cPC/NqB
+	 Y8nL6veYY4KyxNKn85rWEDjCP+Ns3t32XQO2fNntEnKSa7eTQ+D/c1GySWVoSnGSspTlR
+	 Nb2avA1AE0VmSEO8CiLhM6aOCmkrIcJxM+pPqfqbw48bDX90WYiGvaGmeYGppXeLpzg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=oss.qualcomm.com;
 	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z2IlnkNz;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XkyLmp68;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LrX5S4r8;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sy1G+GdK;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD4E60A2614
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AD4E60A2614
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C13460A2601
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5C13460A2601
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Z2IlnkNz;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=XkyLmp68
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD0i3N2199439
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:13 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=LrX5S4r8;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Sy1G+GdK
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD0E1Z1631011
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:11 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=ZjowRiis49W
-	C5hZioqYWlZTiLLrFCHYTqCaAy9Vq52c=; b=Z2IlnkNz5nTuRqCewm1uBBSYzmE
-	ly1nW0Hc9e4X7U+W/Gk7hKrvV0m2Tb1Rpbuhzvjw2GJdUHGteLuODn34YWjJdyF1
-	sWeaMfFonqa6yC2smjJxH3C80oQSak9Jl3eRSG3J9dl31KRZUAx4lCJZ1wed5tiJ
-	bUJrfw9dOnb1Eiv5v8l/6dLY+sLG5TkRh1b7xpQc57GQYlN3RZoUsD2ASGu1agAc
-	91jAv6sNlFIFOOMm1UaWXxsXG+S7MMFurv3lQ/hwSBh32/t1EnMqN/fFAUkCWkaZ
-	h9XHB6EllVixualzlxDQKs5e2yd/Hh2p4Fbs0TSmXesTVFjnaK+tsUNa/mA==
-Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8du94dc-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Ngho7V0WfqH
+	1kDsLhQSN8iwWbKHo9PvDH0CUu2sZsqs=; b=LrX5S4r8qpFgxuciesKCJFGFLzQ
+	mFPOJydzliPObHJmENov5e9fR3NJPCS2OlCmuYtTOGGo5s0e0GmCe1zd++6aBtq6
+	EQ1UUOOTt667xUvjloBrPUUh0LenknHqenB/kf37XCAyZzySleJtfJW+1wCVGfr8
+	M8jQu1Bvyiiy4xgTP/AITiyIRYmJjAYB++5dJAX/SBN4rgNwIb/EPzeHA6CRDxIb
+	IKVX3fj2BKBNNfH2ZizRih2w1xpdXS+vCFpz/yo2uSBOQtnSfUoizu8AA0MsBNkp
+	RgRWzGUFhIQPGgrQb8H0s/dN/3I/6MNjWhxypjOL9YA46PdRC1K42GZvseA==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn93eh1rx-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:13 +0000 (GMT)
-Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so1792349c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:11:13 -0700 (PDT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:11:10 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-147be78cd56so1881583c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:11:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793452272; x=1794057072; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793452270; x=1794057070; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZjowRiis49WC5hZioqYWlZTiLLrFCHYTqCaAy9Vq52c=;
-        b=XkyLmp68UErskm9MQXgNBZWctPGstP9uaTKwwfl1qac0Mp9Pn4jYhfGu98Oox5s0jG
-         AhMd+1eT+YRrKPhA0q9soXa0CuSSowT2ryGmYqOx7vzP0yn1+wug+EVIjxiV7qWoN2i1
-         eUk0dFha7DBU5hq96DItbz2+hOK4DN/2gNfYJIHj9tnaE6BSMvccj6z8fYiFDlIDq6MR
-         YNpDkaD1/jN7i1F8fwXiFdF8AyCpkIIyZw2R2TWOMCHZ2odJuCEu4TdZygR6NKj8n19+
-         KJKmkyx+95ZAYBp9B6D01wv0ce3oCJsSeHbV5w9k8cnwiLJRMHgSB4P0eDh28MEAoHZE
-         nyvw==
+        bh=Ngho7V0WfqH1kDsLhQSN8iwWbKHo9PvDH0CUu2sZsqs=;
+        b=Sy1G+GdKWd0FT1RtOxsr3xt7BQqND75R8QH4kLPk9JWdpvgtayPs0Ud+lQ4Pk75h4j
+         c2TfaRVgIfPKH8fRJvKkjxKaqy45s2hWHAshJwjqpJXkXS7SbvxQkGbDZmbLHkC/FM8V
+         urmjIhV2csLNrP1SQJdfbSoWgd1/IXtfDCyZ62fA8+Gmw6rxitmRCb2BSfUzmaBkJr10
+         sYLKn1mDibQc1W5Uy5ufEPa5jU9lE2CyOnEHb6lMT1MKJqRAel0D57gCbbKulaorntra
+         XXrTZre4pxtxSKfbmT2i6kvJgCB1dOA66/O9kxuVjOow065q2G5JsQ/Zk2sKzMNzRU5m
+         /gvQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793452272; x=1794057072;
+        d=1e100.net; s=20260707; t=1793452270; x=1794057070;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZjowRiis49WC5hZioqYWlZTiLLrFCHYTqCaAy9Vq52c=;
-        b=I4YTaSKV7fqLE+xx3s4ofy4azePrbXrOSFkra1XLgTQh01sYtVbbO74Zv6U6KhOljO
-         dUmDfqR9bZvZnZv1AlMMRdp5PzieFGCK+OtXRDD8xr046uB10SctqmlHIp8zGJX5mRKE
-         JbwbiK82CUiRbDSLz4XBQSTgXd9LL5+VppePU63FdVWLNJ0QqwBCGdIileV0ZW4lL8Rq
-         c69v0hfHmR7Y1Igkdrd1u0p4GHHOrDOcjttS6MU44LlecWP/1b+/JQ0A+ccsyGFC2Vqn
-         QmXH8GGf2e68FIC2UnMBj6/9mur3NePBdWT2oOvsFvO/nBXhkT6O3G0TCEY8/O4ArDKc
-         muGQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzZhC5JmY9/HUQVe52eAe4rIJAFpWOf5/0NC9iMVx+lpV3XG0J7sVd99JQ7UvXp7IxTW54jIqXU6ognk+M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5nubM4M54+NyQqCz+BjioptVCXK6V4qNId6CYXxdziEaQEK+7
-	+8NMNMdLUuoUQgvKQta0AvACi/U5Q6fjBfdACyrTNbTd2WU/qBHDdiO21eaAv+9x9LZjYzKp8HD
-	rn0n3qc28bL/6ppWyJ+53rffrC4YcIANft9klXZqmPX3Q9N0ogOQDI6TgCGsgYH0C6aMdrUYeQZ
-	LSpw==
-X-Gm-Gg: AYBFou359YzG9PzAN++V2MMfwx45VqOYLCX70T0mQo9SOI5w16m6YLUPXjz+2CIZB82
-	c0kKkUPwCv3oNb0/PbAu8yztAtF6MfaOSsAXRg4oYgQOrXHh4NM+ThTNfMFiuRGbMdgkH6xsqSh
-	CT00Te2qrq4aAi1L8FJU0jk7bPN67sRFgZQAWnXsl54pdgy6cP1+b9G2g8gNLMS4OFzdqm+6t+P
-	0feb89n3C1E0tOqHLGgGueAQ/wXZ6uhUV/qMkJtzvRZ4yvpBuFFGuKtecIZQuh9Z2cxpEVZ60XP
-	dfrIxRB3nrad2Epig68QTGWQPGOuO87SHTgwWQYQfn3wzxlXPxNXIvOkVu75EqU0uLxaLqZZhTT
-	LlQUsxzci58nmj+O84TyWW2q6qy80k5pgeza3p0Cgvtj0tYUW1Lz6iNwsjZWYu1jlIkBcc41TKA
-	Sm1tF09yuQKO3o3ahq0BpWhuXlXRep0fby
-X-Received: by 2002:a05:701b:4519:20b0:17b:fea8:1425 with SMTP id a92af1059eb24-1ac5da753f6mr6938509c88.30.1793452272406;
-        Sat, 31 Oct 2026 06:11:12 -0700 (PDT)
-X-Received: by 2002:a05:701b:4519:20b0:17b:fea8:1425 with SMTP id a92af1059eb24-1ac5da753f6mr6938476c88.30.1793452271906;
-        Sat, 31 Oct 2026 06:11:11 -0700 (PDT)
+        bh=Ngho7V0WfqH1kDsLhQSN8iwWbKHo9PvDH0CUu2sZsqs=;
+        b=u34I1p8jjImXevg486rNRJcrxkw9xy4nvZxgo45NfPExu86Qj56b+Xjzqv3jxSd98C
+         Rs36/xscG+TTMYz3AMfEzQbo8fHzoMuDldFdWXwAbUPuht1DMbLhm0dz+MJS59kK3CQy
+         5BRYS2GgPF/pXJKo20LsV2cQF1V9cog/L8EJF3CPBgYEHTwmUght6/AGVJ8ts80r08v5
+         ZXycwqSkMmbC+09tVLajd3BOhMenq5ipJYhJf/JTI78yb6vvvTHIqHC4cLA39hEN7DGX
+         75rG2gAbP0OPyYxZRLpL851UvmJ1BcXSURpJ/rDBo/BpX8vHsiLju+KI3MqviPD4LlG/
+         m6ig==
+X-Forwarded-Encrypted: i=1; AKwUvBzqXAsQ3SSi6bm/MkVV47zvrGZS51Ywi3VqwZkpB5x/cDAQB+Hds0koV68SgtJA417mmXGDgzPNF/Sfktg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJaRx3c7Ncn8AiO1qZ+RsdtMmLsj0IKOptwVwLFQZalUx+2uE/4
+	TAEFA00AThvwSvqWCkPhS/NRJR9IpPk9PtOobKFexaR+g72VQcr2iCrPU6ECqbjEF55vKOQUmFH
+	5bjgP2fkfjXi8AUQo3Ws0RtG/NrBOSPVFP4RpOpJIA49el8opKfe0smxpP9TlrGoRaDI=
+X-Gm-Gg: AYBFou1BCkQe1wdSjlcN5y/8gJcvp5XZW7A1nRBzxCiDGfnaqQ3Hh65RMsHT7TEq7sW
+	tx0ac0PsIYBW2ucwVbvevhzsz4YbrpuBDMDlTUKnOdUebqXfNgEaxaNk45BHXJI/+ncmML7Qy+T
+	CQTmCDmu8/5fDBGqITpUlvEnNRyGEqXup4x8Sq8k16S0rRSv61vuaX8wbcRPPmUJ07AlFj7d/nS
+	hkHfglr/KbcaJaZN0rbXpEoENTFz24PcLzrDRLlc+vvtrWwdoX5Wn7nDY26cHLftIDhvQ43qMcS
+	LdaoamZZe9AlON5A9Q52bEQUgGk4DNr+4EquGqTcJkD5WaxtA8iJ5Tkt3CGSzYkP9AjmNoTMsp4
+	J7ApyqXC8Q/0Q7Z8x6P/Daj/+avGhBKTXhabDE2fbqBNuY0r3Te7E1a/f4HI0iqlAqIrWqrPgtl
+	yhErvzrqnVzjq0KCumI3F/yR4bkmAkbvGj
+X-Received: by 2002:a05:701b:464d:b0:150:c9c5:1ca1 with SMTP id a92af1059eb24-1ac5c64c61dmr7216365c88.18.1793452268556;
+        Sat, 31 Oct 2026 06:11:08 -0700 (PDT)
+X-Received: by 2002:a05:701b:464d:b0:150:c9c5:1ca1 with SMTP id a92af1059eb24-1ac5c64c61dmr7216296c88.18.1793452267396;
+        Sat, 31 Oct 2026 06:11:07 -0700 (PDT)
 Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1845817csm15717872c88.5.2026.10.31.06.11.07
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1845817csm15717872c88.5.2026.10.31.06.11.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 06:11:11 -0700 (PDT)
+        Sat, 31 Oct 2026 06:11:07 -0700 (PDT)
 From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>
 Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
@@ -112,12 +111,11 @@ Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
         Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
         Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
         linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
         Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
         Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v3 5/6] dt-bindings: arm: qcom: add SA8255p Ride board
-Date: Sat, 31 Oct 2026 21:10:41 +0800
-Message-ID: <20261031131042.1200862-6-shengchao.guo@oss.qualcomm.com>
+Subject: [PATCH v3 4/6] arm64: dts: qcom: Add device tree for Lemans GearVM variant
+Date: Sat, 31 Oct 2026 21:10:40 +0800
+Message-ID: <20261031131042.1200862-5-shengchao.guo@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
 References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
@@ -131,64 +129,3323 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=O6esLx9W c=1 sm=1 tr=0 ts=6ae5e8f1 cx=c_pps
- a=JYo30EpNSr/tUYqK9jHPoA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1MiBTYWx0ZWRfX7iLF5l5R9xj7
+ MKRQZ8mDMnkDmr+ps+xT4z7oOR3T/bYIVcBpuaewSZX/L2PZ5acUNCX0V0uhBrfPO0md3va9H4k
+ 2e9ihiw0kj73k+xl4oUgbyXYSCYIKHABABPl+K8toMgYhznk1CBcrRFFK14WPy6j0Oaobxbem23
+ A76qlpG6A5kGVyDIIaVPRpgtJ4wmlpfkh/qaQqVnb+4SKYJGRNY9GsvjmKAT92pt/lf3mr6Qh36
+ YECVRm7zUh++qU66nwVXcTpOr/0z26CtPmj6qiHdy13NAWUoLssh52IyOP6npH/vPcYLDabxBVM
+ uHdSCt9Zc/5QR7TDVPwjBF3UndHbusWRQYBXwPvK3aDkN9d+gwpQ3tCQgvvEve5Kj+5+0akYVbu
+ NwRDWAWMHAzdql4CwgL+0OUBFyivEQM1ffZlB9Uxi2Q0v3EyD/dYCOKMvNi3hvDw0C+SGfltjOp
+ sccOHiCCe8lNdzdUe5A==
+X-Authority-Analysis: v=2.4 cv=FciiV5+6 c=1 sm=1 tr=0 ts=6ae5e8ee cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=COk6AnOGAAAA:8
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=uytbUiI1na4GE1GmpowA:9
- a=Fk4IpSoW4aLDllm1B1p-:22 a=TjNXssC_j7lpFel5tvFf:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: bbfuaY2tD3KDrRJPkL30dMWutfgLUsSG
-X-Proofpoint-GUID: bbfuaY2tD3KDrRJPkL30dMWutfgLUsSG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1MiBTYWx0ZWRfX6m3cNAuKEUDl
- LQ/4rS5728JXoAnGIjKm9fVmlzI8SloE9GjJJoqkefknoEGJjBytOeMtOOK6YIWNWmipHtYdyE3
- Ca8MGghmZtvx/MWU1a0O3HlACsxUzq/9ObCIgMlQw7Te9Nv4EAf9sr/2VrUbH2cwcMKjETXspp0
- LkiGvlxZlDN+cmF2J7KGjfjpZ1gqRsF4Du+qIs06Fg22T9P3BSpmbIoCJNdfIKBqnRlsXXIxmUm
- 54oc/kRJ9qEtrNX+XdWAZQdcXcTSzUu9mVVy6IeEqjOl30xqmINhXhXWEYH/2ZeVvJe+QnMXBTQ
- Z0ZTyzb1CAXhbWPslCEZzJg3OD1NMl0rs9Sq6Q4dl990HSBcVU1DBiu6w/sXDzweeUFY4iVEAVe
- GN5B+5RG4nFvb3QcA29ylpspz2NenFyVrPLgFMvpE+pV3YfATLmeAm62JWJ3l5ntekBxuF/TweE
- pYdlRFuEDWwG03WNkQw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1MiBTYWx0ZWRfX16Hj9UcvIUes
- XsiZSTvC1muHesO0SQyoEUiuvur3TIbwMWc7I4HBhhCPRvE6jWD5bmsk5A0jgMuOQzaiNs13we4
- TRCHJKdtlutWtIxhr2VBYhTXxHah1Ms=
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=rlZTxoBvtJAmAVCzChoA:9
+ a=vr4QvYf-bLy2KjpDp97w:22 a=cvBusfyB2V15izCimMoJ:22 a=TjNXssC_j7lpFel5tvFf:22
+X-Proofpoint-ORIG-GUID: ROCcKPuA4loBM0d7WmCQSVU2kktNSY3H
+X-Proofpoint-GUID: ROCcKPuA4loBM0d7WmCQSVU2kktNSY3H
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1MiBTYWx0ZWRfX/webMQgb+I/6
+ zSyeO8norcWtgPGAG1SuIPAkawJnqAGQTqmyGDfOmVxkJNbgWtWv4BmEXTdIGXo34DHngwpK6pn
+ Ou0kpCT7T1OY6TZhz7+/FwURzJZAzkw=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015
+ clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310052
 
-From: Nikunj Kela <quic_nkela@quicinc.com>
+Add lemans-gearvm.dtsi for Lemans GearVM variant (SA8255P) that utilizes
+firmware to configure platform resources such as clocks, interconnects
+and TLMM.  The exception is the TLMM GPIOs that are directly controlled
+by the kernel, e.g. PCIe EP PERST# and WAKE#.
 
-Document the SA8255p SoC and its reference board: sa8255p-ride.
+Device drivers request these resources through the SCMI power, reset and
+performance protocols.  Assign each device driver a dedicated SCMI
+channel and Tx/Rx doorbells to support parallel resource requests and
+aggregation in the SCMI platform server.  Operate the SCMI server stack
+in an SMP-enabled VM using the Qualcomm SMC/HVC transport driver for
+communication.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Group resource operations to improve abstraction and reduce the number of
+SCMI requests.  Follow the SCMI-based resource management approach
+demonstrated by Qualcomm at Linaro Connect 2024 [1].
+
+Add labels for firmware, scm and reserved-memory nodes in lemans.dtsi,
+so that lemans-gearvm.dtsi can override them by label instead of
+duplicating the node hierarchy.
+
+[1] https://resources.linaro.org/en/resource/wfnfEwBhRjLV1PEAJoDDte
+
+Co-developed-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
+Signed-off-by: Shazad Hussain <shazad.hussain@oss.qualcomm.com>
 Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
+Co-developed-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi | 3224 +++++++++++++++++++
+ arch/arm64/boot/dts/qcom/lemans.dtsi        |    6 +-
+ 2 files changed, 3227 insertions(+), 3 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 121ca557ce1e..415567b085db 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -490,6 +490,11 @@ properties:
-               - qcom,sa8155p-adp
-           - const: qcom,sa8155p
- 
-+      - items:
-+          - enum:
-+              - qcom,sa8255p-ride
-+          - const: qcom,sa8255p
+diff --git a/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
+new file mode 100644
+index 000000000000..91c97a55f278
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/lemans-gearvm.dtsi
+@@ -0,0 +1,3224 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-       - items:
-           - enum:
-               - qcom,sa8295p-adp
++#include "lemans.dtsi"
++
++/delete-node/ &xbl_boot_mem;
++/delete-node/ &pil_adsp_mem;
++/delete-node/ &q6_adsp_dtb_mem;
++/delete-node/ &q6_gdsp0_dtb_mem;
++/delete-node/ &pil_gdsp0_mem;
++/delete-node/ &pil_gdsp1_mem;
++/delete-node/ &q6_gdsp1_dtb_mem;
++/delete-node/ &q6_cdsp0_dtb_mem;
++/delete-node/ &pil_cdsp0_mem;
++/delete-node/ &pil_gpu_mem;
++/delete-node/ &q6_cdsp1_dtb_mem;
++/delete-node/ &pil_cdsp1_mem;
++/delete-node/ &pil_cvp_mem;
++/delete-node/ &pil_video_mem;
++/delete-node/ &scmi_mem;
++/delete-node/ &firmware_reserved_mem;
++
++/ {
++	clocks {
++		bi_tcxo_div2: bi-tcxo-div2-clk {
++			compatible = "fixed-factor-clock";
++			clocks = <&xo_board_clk>;
++			clock-mult = <1>;
++			clock-div = <2>;
++			#clock-cells = <0>;
++		};
++
++		gpll0_board_clk: gpll0-board-clk {
++			compatible = "fixed-clock";
++			#clock-cells = <0>;
++		};
++
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			#clock-cells = <0>;
++		};
++
++		xo_board_clk: xo-board-clk {
++			compatible = "fixed-clock";
++			#clock-cells = <0>;
++		};
++	};
++};
++
++&adreno_smmu {
++	power-domains = <&scmi15_pd 0>;
++};
++
++&cpufreq_hw {
++	clocks = <&bi_tcxo_div2>, <&gpll0_board_clk>;
++	clock-names = "xo", "alternate";
++};
++
++&firmware {
++	scmi0: scmi-0 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem0>;
++
++		/* We expect the bootloader to update the IRQ number */
++		interrupts = <GIC_SPI 963 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi0_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi0_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi0_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi1: scmi-1 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem1>;
++
++		interrupts = <GIC_SPI 964 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi1_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi1_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi1_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi2: scmi-2 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem2>;
++
++		interrupts = <GIC_SPI 965 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi2_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi2_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi2_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi3: scmi-3 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem3>;
++
++		interrupts = <GIC_SPI 966 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi3_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi3_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi3_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi4: scmi-4 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem4>;
++
++		interrupts = <GIC_SPI 967 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi4_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi4_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi4_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi5: scmi-5 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem5>;
++
++		interrupts = <GIC_SPI 968 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi5_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi5_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi5_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi6: scmi-6 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem6>;
++
++		interrupts = <GIC_SPI 969 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi6_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi6_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi6_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi7: scmi-7 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem7>;
++
++		interrupts = <GIC_SPI 970 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi7_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi7_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi7_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi8: scmi-8 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem8>;
++
++		interrupts = <GIC_SPI 971 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi8_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi8_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi8_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi9: scmi-9 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem9>;
++
++		interrupts = <GIC_SPI 972 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi9_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi9_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi9_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi10: scmi-10 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem10>;
++
++		interrupts = <GIC_SPI 973 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi10_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi10_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi10_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi11: scmi-11 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem11>;
++
++		interrupts = <GIC_SPI 974 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi11_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi11_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi11_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi12: scmi-12 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem12>;
++
++		interrupts = <GIC_SPI 975 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi12_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi12_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi12_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi13: scmi-13 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem13>;
++
++		interrupts = <GIC_SPI 976 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi13_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi13_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi13_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi14: scmi-14 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem14>;
++
++		interrupts = <GIC_SPI 977 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi14_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi14_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi14_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi15: scmi-15 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem15>;
++
++		interrupts = <GIC_SPI 978 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi15_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi15_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi15_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi16: scmi-16 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem16>;
++
++		interrupts = <GIC_SPI 979 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi16_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi16_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi16_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi17: scmi-17 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem17>;
++
++		interrupts = <GIC_SPI 980 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi17_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi17_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi17_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi18: scmi-18 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem18>;
++
++		interrupts = <GIC_SPI 981 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi18_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi18_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi18_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi19: scmi-19 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem19>;
++
++		interrupts = <GIC_SPI 982 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi19_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi19_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi19_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi20: scmi-20 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem20>;
++
++		interrupts = <GIC_SPI 983 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi20_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi20_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi20_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi21: scmi-21 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem21>;
++
++		interrupts = <GIC_SPI 984 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi21_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi21_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi21_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi22: scmi-22 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem22>;
++
++		interrupts = <GIC_SPI 985 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi22_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi22_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi22_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi23: scmi-23 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem23>;
++
++		interrupts = <GIC_SPI 986 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi23_sensor: protocol@15 {
++			reg = <0x15>;
++			#thermal-sensor-cells = <1>;
++		};
++	};
++
++	scmi24: scmi-24 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem24>;
++
++		interrupts = <GIC_SPI 987 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi24_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi24_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi24_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi25: scmi-25 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem25>;
++
++		interrupts = <GIC_ESPI 0 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi25_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi25_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi25_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi26: scmi-26 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem26>;
++
++		interrupts = <GIC_ESPI 1 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi26_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi26_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi26_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi27: scmi-27 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem27>;
++
++		interrupts = <GIC_ESPI 2 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi27_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi27_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi27_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi28: scmi-28 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem28>;
++
++		interrupts = <GIC_ESPI 3 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi28_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi28_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi28_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi29: scmi-29 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem29>;
++
++		interrupts = <GIC_ESPI 4 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi29_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi29_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi29_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi30: scmi-30 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem30>;
++
++		interrupts = <GIC_ESPI 5 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi30_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi30_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi30_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi31: scmi-31 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem31>;
++
++		interrupts = <GIC_ESPI 6 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi31_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi31_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi31_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi32: scmi-32 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem32>;
++
++		interrupts = <GIC_ESPI 7 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi32_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi32_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi32_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi33: scmi-33 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem33>;
++
++		interrupts = <GIC_ESPI 8 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi33_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi33_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi33_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi34: scmi-34 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem34>;
++
++		interrupts = <GIC_ESPI 9 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi34_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi34_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi34_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi35: scmi-35 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem35>;
++
++		interrupts = <GIC_ESPI 10 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi35_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi35_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi35_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi36: scmi-36 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem36>;
++
++		interrupts = <GIC_ESPI 11 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi36_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi36_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi36_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi37: scmi-37 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem37>;
++
++		interrupts = <GIC_ESPI 12 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi37_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi37_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi37_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi38: scmi-38 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem38>;
++
++		interrupts = <GIC_ESPI 13 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi38_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi38_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi38_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi39: scmi-39 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem39>;
++
++		interrupts = <GIC_ESPI 14 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi39_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi39_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi39_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi40: scmi-40 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem40>;
++
++		interrupts = <GIC_ESPI 15 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi40_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi40_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi40_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi41: scmi-41 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem41>;
++
++		interrupts = <GIC_ESPI 16 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi41_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi41_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi41_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi42: scmi-42 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem42>;
++
++		interrupts = <GIC_ESPI 17 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi42_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi42_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi42_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi43: scmi-43 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem43>;
++
++		interrupts = <GIC_ESPI 18 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi43_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi43_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi43_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi44: scmi-44 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem44>;
++
++		interrupts = <GIC_ESPI 19 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi44_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi44_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi44_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi45: scmi-45 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem45>;
++
++		interrupts = <GIC_ESPI 20 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi45_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi45_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi45_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi46: scmi-46 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem46>;
++
++		interrupts = <GIC_ESPI 21 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi46_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi46_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi46_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi47: scmi-47 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem47>;
++
++		interrupts = <GIC_ESPI 22 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi47_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi47_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi47_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi48: scmi-48 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem48>;
++
++		interrupts = <GIC_ESPI 23 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi48_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi48_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi48_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi49: scmi-49 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem49>;
++
++		interrupts = <GIC_ESPI 24 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi49_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi49_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi49_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi50: scmi-50 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem50>;
++
++		interrupts = <GIC_ESPI 25 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi50_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi50_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi50_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi51: scmi-51 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem51>;
++
++		interrupts = <GIC_ESPI 26 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi51_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi51_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi51_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi52: scmi-52 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem52>;
++
++		interrupts = <GIC_ESPI 27 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi52_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi52_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi52_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi53: scmi-53 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem53>;
++
++		interrupts = <GIC_ESPI 28 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi53_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi53_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi53_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi54: scmi-54 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem54>;
++
++		interrupts = <GIC_ESPI 29 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi54_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi54_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi54_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi55: scmi-55 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem55>;
++
++		interrupts = <GIC_ESPI 30 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi55_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi55_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi55_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi56: scmi-56 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem56>;
++
++		interrupts = <GIC_ESPI 31 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi56_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi56_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi56_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi57: scmi-57 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem57>;
++
++		interrupts = <GIC_ESPI 32 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi57_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi57_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi57_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi58: scmi-58 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem58>;
++
++		interrupts = <GIC_ESPI 33 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi58_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi58_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi58_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi59: scmi-59 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem59>;
++
++		interrupts = <GIC_ESPI 34 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi59_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi59_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi59_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi60: scmi-60 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem60>;
++
++		interrupts = <GIC_ESPI 35 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi60_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi60_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi60_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi61: scmi-61 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem61>;
++
++		interrupts = <GIC_ESPI 36 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi61_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi61_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi61_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi62: scmi-62 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem62>;
++
++		interrupts = <GIC_ESPI 37 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi62_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi62_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi62_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++
++	scmi63: scmi-63 {
++		compatible = "qcom,scmi-smc";
++		arm,smc-id = <0xc6008012>;
++		shmem = <&shmem63>;
++
++		interrupts = <GIC_ESPI 38 IRQ_TYPE_EDGE_RISING>;
++		interrupt-names = "a2p";
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		arm,max-msg = <10>;
++		arm,max-msg-size = <256>;
++		arm,max-rx-timeout-ms = <3000>;
++
++		status = "disabled";
++
++		scmi63_pd: protocol@11 {
++			reg = <0x11>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi63_dvfs: protocol@13 {
++			reg = <0x13>;
++			#power-domain-cells = <1>;
++		};
++
++		scmi63_rst: protocol@16 {
++			reg = <0x16>;
++			#reset-cells = <1>;
++		};
++	};
++};
++
++&i2c0 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 0>,
++			<&scmi9_dvfs 0>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c1 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 1>,
++			<&scmi9_dvfs 1>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c2 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 2>,
++			<&scmi9_dvfs 2>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c3 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 3>,
++			<&scmi9_dvfs 3>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c4 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 4>,
++			<&scmi9_dvfs 4>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c5 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 5>,
++			<&scmi9_dvfs 5>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c7 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 7>,
++			<&scmi9_dvfs 7>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c8 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 8>,
++			<&scmi9_dvfs 8>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c9 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 9>,
++			<&scmi9_dvfs 9>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c10 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 10>,
++			<&scmi9_dvfs 10>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c11 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 11>,
++			<&scmi9_dvfs 11>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c12 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 12>,
++			<&scmi9_dvfs 12>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c13 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 13>,
++			<&scmi9_dvfs 13>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c14 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 14>,
++			<&scmi9_dvfs 14>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c15 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 15>,
++			<&scmi9_dvfs 15>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c16 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 16>,
++			<&scmi9_dvfs 16>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c17 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 17>,
++			<&scmi9_dvfs 17>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c18 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 18>,
++			<&scmi9_dvfs 18>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c19 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 19>,
++			<&scmi9_dvfs 19>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c20 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 20>,
++			<&scmi9_dvfs 20>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&i2c21 {
++	compatible = "qcom,sa8255p-geni-i2c";
++	power-domains = <&scmi9_pd 21>,
++			<&scmi9_dvfs 21>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&pcie0_ep {
++	compatible = "qcom,sa8255p-pcie-ep";
++	power-domains = <&scmi5_pd 1>;
++};
++
++&pcie1_ep {
++	compatible = "qcom,sa8255p-pcie-ep";
++	power-domains = <&scmi6_pd 1>;
++};
++
++&qupv3_id_0 {
++	compatible = "qcom,sa8255p-geni-se-qup";
++};
++
++&qupv3_id_1 {
++	compatible = "qcom,sa8255p-geni-se-qup";
++};
++
++&qupv3_id_2 {
++	compatible = "qcom,sa8255p-geni-se-qup";
++};
++
++&qupv3_id_3 {
++	compatible = "qcom,sa8255p-geni-se-qup";
++};
++
++&reserved_memory {
++	xbl_boot_mem: xbl-boot@90700000 {
++		reg = <0x0 0x90700000 0x0 0x100000>;
++		no-map;
++	};
++
++	tz_ffi_mem: tz-ffi@91c00000 {
++		compatible = "shared-dma-pool";
++		reg = <0x0 0x91c00000 0x0 0x1400000>;
++		no-map;
++	};
++
++	pil_adsp_mem: pil-adsp@95c00000 {
++		reg = <0x0 0x95c00000 0x0 0x1e00000>;
++		no-map;
++	};
++
++	pil_adsp_dtb_mem: q6-adsp-dtb@97a00000 {
++		reg = <0x0 0x97a00000 0x0 0x80000>;
++		no-map;
++	};
++
++	pil_gdsp0_dtb_mem: pil-gdsp0-dtb@97a80000 {
++		reg = <0x0 0x97a80000 0x0 0x80000>;
++		no-map;
++	};
++
++	pil_gdsp0_mem: pil-gdsp0@97b00000 {
++		reg = <0x0 0x97b00000 0x0 0x1e00000>;
++		no-map;
++	};
++
++	pil_gdsp1_mem: pil-gdsp1@99900000 {
++		reg = <0x0 0x99900000 0x0 0x1e00000>;
++		no-map;
++	};
++
++	pil_gdsp1_dtb_mem: pil-gdsp1-dtb@9b700000 {
++		reg = <0x0 0x9b700000 0x0 0x80000>;
++		no-map;
++	};
++
++	pil_cdsp0_dtb_mem: pil-cdsp0-dtb@9b780000 {
++		reg = <0x0 0x9b780000 0x0 0x80000>;
++		no-map;
++	};
++
++	pil_cdsp0_mem: pil-cdsp0@9b800000 {
++		reg = <0x0 0x9b800000 0x0 0x1e00000>;
++		no-map;
++	};
++
++	pil_gpu_mem: pil-gpu@9d600000 {
++		reg = <0x0 0x9d600000 0x0 0x2000>;
++		no-map;
++	};
++
++	pil_cdsp1_dtb_mem: pil-cdsp1-dtb@9d680000 {
++		reg = <0x0 0x9d680000 0x0 0x80000>;
++		no-map;
++	};
++
++	pil_cdsp1_mem: pil-cdsp1@9d700000 {
++		reg = <0x0 0x9d700000 0x0 0x1e00000>;
++		no-map;
++	};
++
++	pil_cvp_mem: pil-cvp@9f500000 {
++		reg = <0x0 0x9f500000 0x0 0x700000>;
++		no-map;
++	};
++
++	pil_video_mem: pil-video@9fc00000 {
++		reg = <0x0 0x9fc00000 0x0 0x700000>;
++		no-map;
++	};
++
++	audio_config_mem: audio-config-region@ac600000 {
++		reg = <0x0 0xac600000 0x0 0xa00000>;
++		no-map;
++	};
++
++	audio_mdf_mem: audio-mdf-region@ad000000 {
++		reg = <0x0 0xad000000 0x0 0x2000000>;
++		no-map;
++	};
++
++	firmware_mem: firmware-region@b0000000 {
++		reg = <0x0 0xb0000000 0x0 0x800000>;
++		no-map;
++	};
++
++	hyptz_reserved_mem: hyptz-reserved@beb00000 {
++		reg = <0x0 0xbeb00000 0x0 0x11500000>;
++		no-map;
++	};
++
++	shmem0: scmi-mem@d0000000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0000000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem1: scmi-mem@d0001000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0001000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem2: scmi-mem@d0002000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0002000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem3: scmi-mem@d0003000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0003000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem4: scmi-mem@d0004000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0004000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem5: scmi-mem@d0005000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0005000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem6: scmi-mem@d0006000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0006000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem7: scmi-mem@d0007000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0007000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem8: scmi-mem@d0008000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0008000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem9: scmi-mem@d0009000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0009000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem10: scmi-mem@d000a000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd000a000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem11: scmi-mem@d000b000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd000b000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem12: scmi-mem@d000c000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd000c000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem13: scmi-mem@d000d000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd000d000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem14: scmi-mem@d000e000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd000e000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem15: scmi-mem@d000f000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd000f000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem16: scmi-mem@d0010000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0010000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem17: scmi-mem@d0011000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0011000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem18: scmi-mem@d0012000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0012000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem19: scmi-mem@d0013000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0013000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem20: scmi-mem@d0014000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0014000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem21: scmi-mem@d0015000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0015000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem22: scmi-mem@d0016000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0016000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem23: scmi-mem@d0017000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0017000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem24: scmi-mem@d0018000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0018000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem25: scmi-mem@d0019000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0019000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem26: scmi-mem@d001a000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd001a000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem27: scmi-mem@d001b000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd001b000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem28: scmi-mem@d001c000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd001c000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem29: scmi-mem@d001d000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd001d000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem30: scmi-mem@d001e000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd001e000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem31: scmi-mem@d001f000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd001f000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem32: scmi-mem@d0020000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0020000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem33: scmi-mem@d0021000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0021000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem34: scmi-mem@d0022000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0022000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem35: scmi-mem@d0023000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0023000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem36: scmi-mem@d0024000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0024000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem37: scmi-mem@d0025000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0025000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem38: scmi-mem@d0026000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0026000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem39: scmi-mem@d0027000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0027000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem40: scmi-mem@d0028000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0028000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem41: scmi-mem@d0029000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0029000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem42: scmi-mem@d002a000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd002a000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem43: scmi-mem@d002b000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd002b000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem44: scmi-mem@d002c000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd002c000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem45: scmi-mem@d002d000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd002d000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem46: scmi-mem@d002e000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd002e000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem47: scmi-mem@d002f000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd002f000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem48: scmi-mem@d0030000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0030000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem49: scmi-mem@d0031000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0031000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem50: scmi-mem@d0032000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0032000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem51: scmi-mem@d0033000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0033000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem52: scmi-mem@d0034000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0034000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem53: scmi-mem@d0035000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0035000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem54: scmi-mem@d0036000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0036000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem55: scmi-mem@d0037000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0037000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem56: scmi-mem@d0038000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0038000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem57: scmi-mem@d0039000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd0039000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem58: scmi-mem@d003a000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd003a000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem59: scmi-mem@d003b000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd003b000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem60: scmi-mem@d003c000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd003c000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem61: scmi-mem@d003d000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd003d000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem62: scmi-mem@d003e000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd003e000 0x0 0x1000>;
++		no-map;
++	};
++
++	shmem63: scmi-mem@d003f000 {
++		compatible = "arm,scmi-shmem";
++		reg = <0x0 0xd003f000 0x0 0x1000>;
++		no-map;
++	};
++
++	firmware_logs_mem: firmware-logs@d0040000 {
++		reg = <0x0 0xd0040000 0x0 0x10000>;
++		no-map;
++	};
++
++	firmware_audio_mem: firmware-audio@d0050000 {
++		reg = <0x0 0xd0050000 0x0 0x4000>;
++		no-map;
++	};
++
++	firmware_camera_mem: firmware-camera@d0054000 {
++		no-map;
++		reg = <0x0 0xd0054000 0x0 0x2000>;
++	};
++
++	firmware_reserved_mem: firmware-reserved@d0056000 {
++		reg = <0x0 0xd0056000 0x0 0x9a000>;
++		no-map;
++	};
++
++	firmware_quantum_test_mem: firmware-quantum-test@d00f0000 {
++		reg = <0x0 0xd00f0000 0x0 0x10000>;
++		no-map;
++	};
++
++	tags_mem: tags@d0100000 {
++		reg = <0x0 0xd0100000 0x0 0x1200000>;
++		no-map;
++	};
++
++	qtee_mem: qtee@d1300000 {
++		reg = <0x0 0xd1300000 0x0 0x500000>;
++		no-map;
++	};
++
++	deepsleep_backup_mem: deepsleep-backup@d1800000 {
++		reg = <0x0 0xd1800000 0x0 0x100000>;
++		no-map;
++	};
++
++	trusted_apps_mem: trusted-apps@d1900000 {
++		reg = <0x0 0xd1900000 0x0 0x3800000>;
++		no-map;
++	};
++
++	tz_stat_mem: tz-stat@db100000 {
++		reg = <0x0 0xdb100000 0x0 0x100000>;
++		no-map;
++	};
++
++	cpucp_fw_mem: cpucp-fw@db200000 {
++		reg = <0x0 0xdb200000 0x0 0x100000>;
++		no-map;
++	};
++};
++
++&scm {
++	memory-region = <&tz_ffi_mem>;
++};
++
++&spi0 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 0>,
++			<&scmi10_dvfs 0>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi1 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 1>,
++			<&scmi10_dvfs 1>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi2 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 2>,
++			<&scmi10_dvfs 2>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi3 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 3>,
++			<&scmi10_dvfs 3>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi4 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 4>,
++			<&scmi10_dvfs 4>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi5 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 5>,
++			<&scmi10_dvfs 5>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi7 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 7>,
++			<&scmi10_dvfs 7>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi8 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 8>,
++			<&scmi10_dvfs 8>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi9 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 9>,
++			<&scmi10_dvfs 9>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi10 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 10>,
++			<&scmi10_dvfs 10>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi11 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 11>,
++			<&scmi10_dvfs 11>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi12 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 12>,
++			<&scmi10_dvfs 12>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi14 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 14>,
++			<&scmi10_dvfs 14>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi15 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 15>,
++			<&scmi10_dvfs 15>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi16 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 16>,
++			<&scmi10_dvfs 16>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi17 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 17>,
++			<&scmi10_dvfs 17>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi18 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 18>,
++			<&scmi10_dvfs 18>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi19 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 19>,
++			<&scmi10_dvfs 19>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi20 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 20>,
++			<&scmi10_dvfs 20>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&spi21 {
++	compatible = "qcom,sa8255p-geni-spi";
++	power-domains = <&scmi10_pd 21>,
++			<&scmi10_dvfs 21>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart0 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 0>,
++			<&scmi11_dvfs 0>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart1 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 1>,
++			<&scmi11_dvfs 1>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart2 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 2>,
++			<&scmi11_dvfs 2>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart3 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 3>,
++			<&scmi11_dvfs 3>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart4 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 4>,
++			<&scmi11_dvfs 4>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart5 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 5>,
++			<&scmi11_dvfs 5>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart7 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 7>,
++			<&scmi11_dvfs 7>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart8 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 8>,
++			<&scmi11_dvfs 8>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart9 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 9>,
++			<&scmi11_dvfs 9>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart10 {
++	compatible = "qcom,sa8255p-geni-debug-uart";
++	power-domains = <&scmi11_pd 10>,
++			<&scmi11_dvfs 10>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart11 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 11>,
++			<&scmi11_dvfs 11>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart12 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 12>,
++			<&scmi11_dvfs 12>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart14 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 14>,
++			<&scmi11_dvfs 14>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart15 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 15>,
++			<&scmi11_dvfs 15>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart16 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 16>,
++			<&scmi11_dvfs 16>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart17 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 17>,
++			<&scmi11_dvfs 17>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart18 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 18>,
++			<&scmi11_dvfs 18>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart19 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 19>,
++			<&scmi11_dvfs 19>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart20 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 20>,
++			<&scmi11_dvfs 20>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&uart21 {
++	compatible = "qcom,sa8255p-geni-uart";
++	power-domains = <&scmi11_pd 21>,
++			<&scmi11_dvfs 21>;
++	power-domain-names = "power",
++			     "perf";
++};
++
++&ufs_mem_hc {
++	compatible = "qcom,sa8255p-ufshc";
++	power-domains = <&scmi3_pd 0>;
++};
+diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/qcom/lemans.dtsi
+index 821c86409c5d..5284030fe69d 100644
+--- a/arch/arm64/boot/dts/qcom/lemans.dtsi
++++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+@@ -276,8 +276,8 @@ eud_in: endpoint {
+ 		};
+ 	};
+ 
+-	firmware {
+-		scm {
++	firmware: firmware {
++		scm: scm {
+ 			compatible = "qcom,scm-sa8775p", "qcom,scm";
+ 			qcom,dload-mode = <&tcsr 0x13000>;
+ 			sram = <&minidump_config>;
+@@ -365,7 +365,7 @@ system_pd: power-domain-system {
+ 		};
+ 	};
+ 
+-	reserved-memory {
++	reserved_memory: reserved-memory {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+ 		ranges;
 -- 
 2.43.0
 
