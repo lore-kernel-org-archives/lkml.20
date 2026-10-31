@@ -1,65 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.163.59.80
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468696;
-	b=UY0fJYhYDGazNnRjEwbdG8ikhaFHAPiWJwB9ogT21BwWxvAE8rYUxWHP7+nr/xBf7sQa
-	 SxKEIT16ebG9oTzDRzJ26Al3JrlEkJ2dXG6IpPDbJeqxmUUNXLVcf7lDcQ5hhVqX0QnXn
-	 OmZ6vY/yJK/8yCGWxa+qR94CVKVr6zGeiVsG9/8VDE6t8qB1PRR5w1DBx7yzKRfrJ68sg
-	 pvojh+DNaiGy3RgVTPhMk6sq9Z4gBFJS/YhCfT37uVU8Az1j9CE9SBDccNLCko+fpRo4J
-	 41f/ES77v4NYeaSWuQb121OqHKq2uIOMR+Kj+U1/r1/yo4gbZNQZDe28ZCQdXoQJsbg==
+	t=1793468746;
+	b=eipXW0ob/E1geq3AVD9qHfZRE8tQJPJpX+68fxVRBpVdKAAcix2UII8HZyl/VSFzxKuH
+	 cZ8KU97CA4m79No2BwUWQm1V83Yxzy35bwYRHpd6VyH9TWPeRmCLoi4po9SX9hRhCPABy
+	 GtsFpU0X00+H9oWG1ZmNsJagoBgYlFwKyRknic2Vwi/1IAldD/NbSesjEd0zJVdLegzyn
+	 TBzdNDAKK0/gVLqClut3fuTlP5ek6uyzBJYuui69ojVVpN1xqvbJE6kXJhPHFVFho5jul
+	 sn2vNzRLq3cIvXMpXv1/mScZup5uiq6MWkmiDX3nBAku7Ha86IB9axbycRRwiDCo2Vg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468696;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=YMBT2ijh+QQJnJcDmP6v6P8yLIIn5SX909Rt3fSnSx4=;
-	b=1xsVBwcUfzO6yyEKdEpoYcUTYqKHyqPe5HPjJYRkcXowMdIWQrElom9Cw3yiqP+F/hzD
-	 IfDnNXfXgbVx5LidUC0F5AmBCQ8DxI1V11LLR0et4iP3KlW6wJSwaa93VYwIjiO8FKJxy
-	 qf/53Pw4ClpMDxDSoPA6QpzkmlJM/qQW8fDjMmCZr3VIExa9mECa0JMnEe5DcLb1lFDlb
-	 2JuRwYZtyHP3xk8dbq600JXKU49O7FJjVAtKRdpH/1GhALPP98XQZR9gKQDH2jkyUUat9
-	 RBk4t80RSfgGzwF72rBPDvdxb/KBoNJVhwI8jOXQtK0ihtbUTUAdpjANFwPhl26XVtA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793468746;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Mailru-Src:X-7564579A:X-77F55803:
+	 X-7FA49CB5:X-87b9d050:X-C1DE0DAB:X-C8649E89:X-D57D3AED:
+	 X-Mailru-Sender:X-Mras;
+	bh=t4fbglAcPrxA2vRFmF/rTmX9yQxyaIe8aXQiugqJF7U=;
+	b=Wojv34XcAz7LWBs+pBMLpFG8W9eIs8j32B3g3QLAsAu66NJ2rQX6shdfOuWfrkkG44N8
+	 C2roiGmv0VXDNccznPPCGvPPPLT7Hlhr0jmSTuNTgDTJtl6qOk8SjVLDJLD8Ge2KRRAOr
+	 lKEitH/NGsX5hSl5sFzsLBp5mGxJmnesHc/lHE8dKLXbQ7lN3gEf/H56whaDPxtNlL0Wt
+	 /vloMER67dwZTU1H6AYmGyZIUOOCNZpFAIs7psKg+V9aM8kjCaUtuhvqNi3fswqAdTmoe
+	 mu71WIQk6L+oSlCEQY+RANsdz/kj7txgaF198WqcVYmPZ6R1Vi7+Ow2tgY8Ib5qGQew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b="UbEe/aGp";
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	dmarc=pass header.from=mail.ru;
+	spf=pass smtp.mailfrom=mail.ru;
+	dkim=pass header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=2sBlJa5F;
+	arc=none smtp.remote-ip=95.163.59.80
+Received: from send241.i.mail.ru (send241.i.mail.ru [95.163.59.80])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id B3A0A606A31A;
-	Sat, 31 Oct 2026 17:44:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3A0A606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7E56606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:45:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D7E56606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=UbEe/aGp
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1793468685;
-	bh=YMBT2ijh+QQJnJcDmP6v6P8yLIIn5SX909Rt3fSnSx4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=UbEe/aGpzOXH0f6KrxZobb/EJUodVQ1naJPxfHFYxlDy+cXfgjQjbTqeAAMsdzRK6
-	 cTbumJv5gXm7aKQZyng5blfnoSOfbVYoD+pH2CwQzsZuRhS+3ZI2NoDytMjDfLYnum
-	 V4hqVErs5AwVDYP/Wm6iDeth7oMzzrh+sAxA6jjrZdGxg5uVTLt2tZ3O0sfGUduLGr
-	 WH2ntzFUsiCzzlTE53TBxhVDBBXHvtvQJBafpsvtq2hGzXUN2YAG4bzTvxl+NsBZOX
-	 cNxoPA4YfbHhRKU9crC2JJgnb1HUYN/LVP686vx8Tl0tyPMAewUOYjxtOq56RhKwdr
-	 It0+2AGFoZd0Q==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id C9C746005C;
-	Sat, 31 Oct 2026 18:44:45 +0100 (CET)
-Date: Sat, 31 Oct 2026 18:44:43 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: joasantonio108@gmail.com
-Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf] netfilter: nft_set_rbtree: do not pair an expired
- start with another interval's end
-Message-ID: <auYpCzdrOsoWr84Z@chamomile>
-References: <20261031-b4-nft-rbtree-gc-v1-1-51d087c187a6@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=mail.ru header.i=@mail.ru header.a=rsa-sha256 header.s=mail4 header.b=2sBlJa5F
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+	s=mail4; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
+	Message-ID:Date:Subject:Cc:To:From:From:Sender:Reply-To:To:Cc:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Resent-Date:
+	Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
+	X-Cloud-Ids:Disposition-Notification-To;
+	bh=t4fbglAcPrxA2vRFmF/rTmX9yQxyaIe8aXQiugqJF7U=; t=1793468743; x=1793558743; 
+	b=2sBlJa5FS2Gc2onvDBoVwgXsGlP3IrfhRoxJQZ8j8NezHrEeHEb367c6FJJcsTsCEusj1UrY5Fp
+	1SnjKX1dttYH6fcfLSuuK/+JvlSueVAuHE4YwVYvVilNqGQbfNCvdFePo36ipaYKDq8rIySd9oOND
+	fcHvtUpx/FgWNFFaScsA7xiAA9R9yTekoH72NF3ZXvOuQYK3nOv8JfQ1eJRZOkNb318h33/NXgpus
+	mLVjM13pjtHwsRfjPdiqHGUjktBx7dvcOL/BFN1761CUs7Ru6AD9CRmpffpX4QhXSjOA7W0uKSZvw
+	R2JnusbkIOXiDLuOAbYTGE5pcz2XZrZewhig==;
+Received: by exim-smtp-675c6798c6-72zrn with esmtpa (envelope-from <s.mavlenkov@mail.ru>)
+	id 1xND93-00000000Tgp-3J5C; Sat, 31 Oct 2026 20:45:34 +0300
+From: bitey <s.mavlenkov@mail.ru>
+To: intel-gfx@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org,
+	intel-xe@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Jani Nikula <jani.nikula@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+	Tvrtko Ursulin <tursulin@ursulin.net>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Patrik Jakobsson <pjakobsson@suse.de>,
+	bitey <s.mavlenkov@mail.ru>
+Subject: [PATCH v4] drm/i915/display: Add quirk for interlane align bit on CH7511
+Date: Sat, 31 Oct 2026 20:45:18 +0300
+Message-ID: <20261031174518.10004-1-s.mavlenkov@mail.ru>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260608082500.45902-1-pjakobsson@suse.de>
+References: <20260608082500.45902-1-pjakobsson@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,161 +78,140 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261031-b4-nft-rbtree-gc-v1-1-51d087c187a6@gmail.com>
+Content-Transfer-Encoding: 8bit
+Authentication-Results: exim-smtp-675c6798c6-72zrn; auth=pass smtp.auth=s.mavlenkov@mail.ru smtp.mailfrom=s.mavlenkov@mail.ru
+X-Mailru-Src: smtp
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD943C6AEBB953A11868B9A05538DDD48EA808D1CAF36FB1EF61313CFAB8367EF908E2BE116634AD74DC962550A7C05FB5FA421357250EF31ADBFFEA52BB3F27CA9C5E31B7A8E739F68224C9A2F61B97637
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE776377A057133B646EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB553375667B1596EEF16A891D10C3F914A2355645963ACA32F3B8FBED51E18396E974CB7C8EEF46B7454FC60B9742502CCDD46D0D062BEEFFB5F8EA3EF6B57BC7E64490611E7FA7ABCAF51C92176DF2183F8FC7C0CB629EEF1311BF91D2E47CDBA5A96583BA9C0B312567BB231DD303D21008E29813377AFFFEAFD269176DF2183F8FC7C0D75EB778CE7D8A0C68655334FD4449CB9ECD01F8117BC8BEAAAE862A0553A39223F8577A6DFFEA7C747589E6AAA3516243847C11F186F3C59DAA53EE0834AAEE
+X-87b9d050: 1
+X-C1DE0DAB: 0D63561A33F958A54C44E028246F950C5002B1117B3ED696436D8E3A28293F4530C8F815570A35303610D81D389A125CDE35189EBF2DEA281E618B5D5F965AFD1BF51D96AE4B494FB2D1C9E48B6DC60AE2A7E19323554B12787CBDA4B9FA07ACF6AAE36F1AF2432B4EAF44D9B582CE87C8A4C02DF684249CC203C45FEA855C8F
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE191716CD42B3DD1D34C77DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D6599222D52304DBDCD2AE65DB698DCA296A16A405D620AC03824236FA4ECE01622BE78B892AF3917F36B8341EE9D5BE9A0A102C3DC83FFE6E1A4B51B2A63FEF6BF09B8D2FF1C041D53752EE4E5D9E54FDA4F44A2BDFCEC9DBD838705C4085B645248947CB5EE6AA4F0FCFECA0A3B40025F483DB18EBE73F7D69
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4ZrlAo0bq3TDyw5v+G6YiroYwgTYgFAQi6fY=
+X-Mailru-Sender: 689FA8AB762F73937C9FA53A4753B3133054573B6CB812E8357DCD99F990607D4A8B2E7A85DF2F57F3CDC8BC78C4DE7BDA68109F586B92E9CCFD498835386E8A2DDEA15287B001569AA14EBBF425EE34BC7555A253F5B2000D4ABDE8C577C2ED
+X-Mras: Ok
 
-On Sat, Oct 31, 2026 at 03:54:05PM +0000, Joas Antonio dos Santos via B4 Relay wrote:
-> From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> 
-> Garbage collection of an expired interval start element also removes its
-> end element. Both the insertion path, nft_rbtree_gc_elem(), and the
-> commit path, nft_rbtree_gc_scan(), find that end element by its position
-> in the tree, and both can pick the end element of a different, live
-> interval:
->
-> - nft_rbtree_gc_elem() walks towards higher keys and skips end elements
->   that are not active in both generations. If the end element of the
->   expired interval is being deleted in the same transaction, the walk
->   skips it, passes the start element of the next interval and takes that
->   interval's end element instead.
-> 
-> - nft_rbtree_gc_scan() remembers the last end element it visited in
->   rbe_end, but does not clear it when it visits a live start element. An
->   expired start element without an end element (a start-only element, or
->   an interval whose end element was already removed) then takes the end
->   element of the live interval above it.
-> 
-> In both cases the live interval [S, E) loses E: the set no longer holds
-> the interval that userspace added, and deleting [S, E) later fails with
-> ENOENT.
-> 
-> In the insertion path, stop the walk at the first element that is active
-> in the current generation. Elements added by this transaction are still
-> skipped, as intended by commit 60c0c230c6f0 ("netfilter: nft_set_rbtree:
-> skip end interval element from gc"). If that element is a start element,
-> the expired interval has no end element. If it is an end element that
-> this transaction is removing, leave it to the transaction. In the commit
-> path, clear rbe_end when a live start element is visited.
-> 
-> Reproduced on current mainline under QEMU (arm64, KASAN), from an
-> unprivileged user in a new user and network namespace:
-> 
-> - insertion path: add [10,20) with a 50ms timeout and [30,40), wait,
->   then in one batch delete the end element 20 and add [12,13).
+When disabling pattern training after successful link training the
+CH7511 bridge incorrectly clears the DPCD link status bits: not only
+INTERLANE_ALIGN_DONE, but also the per-lane CR_DONE, CHANNEL_EQ_DONE
+and SYMBOL_LOCKED bits. This is interpreted as a link failure when
+rechecking the link status and triggers an endless loop of retraining
+sequences.
 
-I don't follow.
+This patch adds a quirk to pretend the bits are still set and no
+retraining is needed. The quirk is matched on the Chrontel IEEE OUI
+(F0:02:2B) and the device ID "CH7511" on any platform.
 
-You add [10,20) with 50ms...
+Tested on Ivy Bridge (HD Graphics 2500, device 0152) with a CH7511
+DP-to-HDMI adapter on kernels 7.1-rc1, drm-tip and 7.3.
 
-and [30,40) with... what timeout?
+Fixes: 3b3be899fc81 ("drm/i915/dp: Recheck link state after modeset")
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15744
+Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/15994
+Co-developed-by: Patrik Jakobsson <pjakobsson@suse.de>
+Signed-off-by: Patrik Jakobsson <pjakobsson@suse.de>
+Signed-off-by: bitey <s.mavlenkov@mail.ru>
+---
+Changes in v4:
+- Also force the per-lane status bits (CR_DONE / CHANNEL_EQ_DONE /
+  SYMBOL_LOCKED). On Ivy Bridge the CH7511 zeroes the entire lane
+  status registers after training (ln0_1 = ln2_3 = 0x00), so forcing
+  only the INTERLANE_ALIGN_DONE bit is not enough to stop the retrain
+  loop.
+- Rebased on top of v7.3
 
-you wait how long?
+v3 changes:
+- Match on all devices with a CH7511, instead of only VLV
+- Rebased on top of drm-tip
+- Additional "Closes" tag
+---
+ .../drm/i915/display/intel_dp_link_training.c   | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.c     | 17 +++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_quirks.h     |  1 +
+ 3 files changed, 35 insertions(+)
 
-You follow up with another batch an you only delete 20?
+diff --git a/drivers/gpu/drm/i915/display/intel_dp_link_training.c b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+index 9a692f4..a2d5b04 100644
+--- a/drivers/gpu/drm/i915/display/intel_dp_link_training.c
++++ b/drivers/gpu/drm/i915/display/intel_dp_link_training.c
+@@ -43,6 +43,7 @@
+ #include "intel_hotplug.h"
+ #include "intel_modeset_lock.h"
+ #include "intel_panel.h"
++#include "intel_quirks.h"
+ #include "intel_psr.h"
+ 
+ /**
+@@ -2515,6 +2516,22 @@ intel_dp_needs_link_retrain(struct intel_dp *intel_dp)
+ 	if (link_recovery_autoretrain_pending(link_training))
+ 		return true;
+ 
++	/*
++	 * The CH7511 bridge incorrectly clears all link status bits
++	 * (INTERLANE_ALIGN_DONE, per-lane CR/CEQ/SYMLOCK) when disabling
++	 * the training pattern. Force them to indicate successful training.
++	 */
++	if (intel_has_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT)) {
++		u8 lane_eq = DP_LANE_CR_DONE | DP_LANE_CHANNEL_EQ_DONE |
++			     DP_LANE_SYMBOL_LOCKED;
++		int i;
++
++		for (i = 0; i < (intel_dp->lane_count + 1) / 2; i++)
++			link_status[i] |= lane_eq | (lane_eq << 4);
++		link_status[DP_LANE_ALIGN_STATUS_UPDATED - DP_LANE0_1_STATUS] |=
++			DP_INTERLANE_ALIGN_DONE;
++	}
++
+ 	/* Retrain if link not ok */
+ 	return !intel_dp_link_ok(intel_dp, link_status) &&
+ 		!intel_psr_link_ok(intel_dp);
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c b/drivers/gpu/drm/i915/display/intel_quirks.c
+index 7d7db77..359bca4 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.c
++++ b/drivers/gpu/drm/i915/display/intel_quirks.c
+@@ -94,6 +94,14 @@ static void quirk_disable_edp_panel_replay(struct intel_dp *intel_dp)
+ 	drm_info(display->drm, "Applying disable Panel Replay quirk\n");
+ }
+ 
++static void quirk_ignore_interlane_align_bit(struct intel_dp *intel_dp)
++{
++	struct intel_display *display = to_intel_display(intel_dp);
++
++	intel_set_dpcd_quirk(intel_dp, QUIRK_IGNORE_INTERLANE_ALIGN_BIT);
++	drm_info(display->drm, "Applying ignore interlane align bit quirk\n");
++}
++
+ static void quirk_disable_psr2(struct intel_display *display)
+ {
+ 	intel_set_quirk(display, QUIRK_DISABLE_PSR2);
+@@ -289,6 +297,15 @@ static const struct intel_dpcd_quirk intel_dpcd_quirks[] = {
+ 		.sink_oui = SINK_OUI(0x00, 0x22, 0xb9),
+ 		.hook = quirk_disable_edp_panel_replay,
+ 	},
++	/* Chrontel CH7511 DP-to-LVDS bridge */
++	{
++		.device = DEVICE_ID_ANY,
++		.subsystem_vendor = PCI_ANY_ID,
++		.subsystem_device = PCI_ANY_ID,
++		.sink_oui = SINK_OUI(0x2b, 0x02, 0xf0),
++		.sink_device_id = SINK_DEVICE_ID('C', 'H', '7', '5', '1', '1'),
++		.hook = quirk_ignore_interlane_align_bit,
++	},
+ };
+ 
+ void intel_init_quirks(struct intel_display *display)
+diff --git a/drivers/gpu/drm/i915/display/intel_quirks.h b/drivers/gpu/drm/i915/display/intel_quirks.h
+index 970a4fe..7fcc396 100644
+--- a/drivers/gpu/drm/i915/display/intel_quirks.h
++++ b/drivers/gpu/drm/i915/display/intel_quirks.h
+@@ -23,6 +23,7 @@ enum intel_quirk_id {
+ 	QUIRK_EDP_LIMIT_RATE_HBR2,
+ 	QUIRK_DISABLE_EDP_PANEL_REPLAY,
+ 	QUIRK_DISABLE_PSR2,
++	QUIRK_IGNORE_INTERLANE_ALIGN_BIT,
+ };
+ 
+ void intel_init_quirks(struct intel_display *display);
+-- 
+2.56.0
 
->   Before: a GET for 45 finds an element, the end element 40 is gone and
->   deleting [30,40) fails with ENOENT. After: 45 is not found, 40 is
->   present and the delete succeeds.
-> 
-> - commit path: add [30,40) and a start-only element 10 with a 50ms
->   timeout to a set with a 100ms gc interval, wait, then add [200,201),
->   whose insertion walk stops at the highest element, so only the
->   commit-time scan reaches 10. Before: the end element 40 is gone and
->   deleting [30,40) fails with ENOENT. After: both work.
-> 
-> Normal expiry, and a new interval whose end element shares the key of an
-> expired start element (the case handled by 60c0c230c6f0), behave the same
-> before and after. About 39000 random batches on interval sets with
-> timeouts, with and without slab/page allocation fault injection, showed
-> no KASAN, lockdep or WARN reports with the patch applied.
-> 
-> The insertion path issue was found with a small nfnetlink fuzzer. Both
-> paths had been pointed out earlier by the netdev AI review of commit
-> 86b6471e690c ("netfilter: nft_set_rbtree: skip transaction elements
-> during GC"), see the Link below.
-> 
-> Fixes: f718863aca46 ("netfilter: nft_set_rbtree: fix overlap expiration walk")
-> Fixes: 8d8540c4f5e0 ("netfilter: nft_set_rbtree: add timeout support")
-> Link: https://lore.kernel.org/all/179063970372.3145.17414936987144600093@kernel.org/
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> ---
-> Tool-use note: the fuzzer, the directed tests and the analysis were
-> prepared with help from an LLM-based assistant; I reviewed the change
-> and built and ran all tests myself. Test harness available on request.
-> 
-> This is a resend through the kernel.org web endpoint: my earlier
-> submission of this patch was blocked by my mail provider and never
-> reached the lists.
-> ---
->  net/netfilter/nft_set_rbtree.c | 23 +++++++++++++++++++----
->  1 file changed, 19 insertions(+), 4 deletions(-)
-> 
-> diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
-> index fbe1750f1..086823067 100644
-> --- a/net/netfilter/nft_set_rbtree.c
-> +++ b/net/netfilter/nft_set_rbtree.c
-> @@ -215,17 +215,25 @@ nft_rbtree_gc_elem(const struct nft_set *__set, struct nft_rbtree *priv,
->  	struct nft_set *set = (struct nft_set *)__set;
->  	struct rb_node *prev = rb_prev(&rbe->node);
->  	struct net *net = read_pnet(&set->net);
-> +	u8 cur_genmask = nft_genmask_cur(net);
->  	struct nft_rbtree_elem *rbe_prev;
->  
->  	/* search for end interval coming before this element.
->  	 * end intervals don't carry a timeout extension, they
->  	 * are coupled with the interval start element.
-> +	 *
-> +	 * Skip elements added in this transaction. The first element
-> +	 * that is active in the current generation is either the end
-> +	 * element of this interval or the start element of another
-> +	 * interval, in which case this interval has no end element.
->  	 */
->  	while (prev) {
->  		rbe_prev = rb_entry(prev, struct nft_rbtree_elem, node);
-> -		if (nft_rbtree_interval_end(rbe_prev) &&
-> -		    nft_set_elem_active(&rbe_prev->ext, NFT_GENMASK_ANY))
-> +		if (nft_set_elem_active(&rbe_prev->ext, cur_genmask)) {
-> +			if (!nft_rbtree_interval_end(rbe_prev))
-> +				prev = NULL;
->  			break;
-> +		}
->  
->  		prev = rb_prev(prev);
->  	}
-> @@ -233,7 +241,11 @@ nft_rbtree_gc_elem(const struct nft_set *__set, struct nft_rbtree *priv,
->  	rbe_prev = NULL;
->  	if (prev) {
->  		rbe_prev = rb_entry(prev, struct nft_rbtree_elem, node);
-> -		nft_rbtree_gc_elem_move(net, set, priv, rbe_prev);
-> +		/* end element is being removed by this transaction */
-> +		if (nft_set_elem_active(&rbe_prev->ext, NFT_GENMASK_ANY))
-> +			nft_rbtree_gc_elem_move(net, set, priv, rbe_prev);
-> +		else
-> +			rbe_prev = NULL;
->  	}
->  
->  	nft_rbtree_gc_elem_move(net, set, priv, rbe);
-> @@ -911,8 +923,11 @@ static void nft_rbtree_gc_scan(struct nft_set *set)
->  			rbe_end = rbe;
->  			continue;
->  		}
-> -		if (!__nft_set_elem_expired(&rbe->ext, tstamp))
-> +		if (!__nft_set_elem_expired(&rbe->ext, tstamp)) {
-> +			/* rbe_end belongs to this live interval */
-> +			rbe_end = NULL;
->  			continue;
-> +		}
->  
->  		/* end element needs to be removed first, it has
->  		 * no timeout extension.
-> 
-> ---
-> base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> change-id: 20261031-b4-nft-rbtree-gc-1d9c72dba2bd
-> 
-> Best regards,
-> -- 
-> Joas Antonio dos Santos <joasantonio108@gmail.com>
-> 
-> 
