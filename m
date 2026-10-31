@@ -1,64 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793448959;
-	b=cckE2NZkb7fPjEsUacrJmD3FriQhIBmj+Q5ROFlmxm3VAGVsqn0BwspZDLLVr0CTgLZL
-	 JcWv4mpaVFrWUYxbQp7WEZ1bpGJLqMFsSjRTQNF/zz3xWQnqRteA2BNoRCU793TespyJI
-	 fWqEGwj9mg6JAUcX8W3maJAAQBU6SmgXZAuiBouV8MNfzJ7WuwYqWMwutW5ODnFwx90jV
-	 IbWNKF3GZIXjjPcIiWdVyXi/Q9LrN4zkoyIpBvXPZylc2hAhwwOIYlAJ/0fTXa2zmWGt8
-	 NG2CFXqoLIdiTVuqefKAzEw7zwypyauJ3ToKX3hmDYDbfkWI0Yny3qgbKoPfHt3vVoQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793448959;
-	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:MIME-Version;
-	bh=EDnpldi5RK0AnuEzL3K5R2iyu0Pi3r3gBMzfdKdH7kY=;
-	b=Wsva6d1CMlUXcx+IkCwJMM/C6boHRtE0mSjhD+b+gv/E7MUoEA3tsWpd21egmrhaJ3nk
-	 gcVRtCyg0kFKs09zk80Xya1HyCQWBfhALE4i7RdvPwKsMZ7PZP5ikQfG9bqwweWJXkkmn
-	 VddBlQT7M2yBdB2x1HFxUOdhOhR3SYESYMjxAY2CfZaB7uAaq1Tzu9dbHo7McttrcOaU5
-	 /aMEu/QBNfob0yiyY6JCZ5PsLPsLOzr51Wizm/gq5iOiTxFFPc7IhJWbxag7awzE7d104
-	 QSfdPLN6LhrEWAUaT3P6iZPg/7nKi9XAYjXQNOOAk7mesdEmFreD3wM7ScoXr/WQ2Hg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=itx.no;
-	spf=pass smtp.mailfrom=itx.no;
-	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=EwmoYvxk;
-	arc=none smtp.remote-ip=91.189.121.228
-Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793448997;
+	b=aPSLe90Oyib9/f3GnVkb6cP6KKdnYCaMKQ7nMM3uqf3am9lzMOSJSn/7gg8ibfwfNlAq
+	 ri8+NXMHCopRHjXLRtSLjOvIZxa6b7NugLjKY4m3Egvey8Jp4L0a/m0NQ4VkZAGN+8YG7
+	 84KTN1bdvBgtkT1x4pOhrKkByemKy3ft6Kso/lCE6P/GDpe5Tmj4St3OuGjrPw55y7j6e
+	 8VVbH5b3ynBaAICu7ORkBRLpRC6aR/ArIHnb60EWGUi/+NuCoOzbvgIfsLz63dKWWKekL
+	 s1DadlKFfg1aUE9L6ebUrzvzCoP9r5nETJ5rKih0Ws7kTvo2B5Gc5AvSwnRI5ATGKDA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448997;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=he2Rfu8KETjYQmLhYbCWYK09Xpzsszq5xHpoav7qOTE=;
+	b=EXPeRE4Tqcl2J9BB4ScBaOf+hC37wzU+LiI9GIUmhUJlh2MCbwhz/f6MxSGuXBG7OrPT
+	 FoPftViIqB/gSWuyOOMODlOQigaop7SXF5YzFLRsQu1B3Z+GsX8F1bkO9V+eXRnpw7l/u
+	 f5xE0xlRoM28KUfX+uHmSIPJdjVA7UQJg7qMZkBr94Hb/wg/6e/L+80pgBeeLut0cLdr0
+	 0Gi80GqBP9JaZ1TqkCSzeco75fnYqjMUMV53YVSFLjtUl3VZ9vw+8dOhm7BNUpbUoBKxM
+	 5ACzy0E2HWMSGXOQKYAVfFTSGXVcsU2FEESsexremvemSkcCd8He207Gz5PPbfYBkVg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hApxP2Pe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D240606A31A;
+	Sat, 31 Oct 2026 12:16:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hApxP2Pe
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793448997;
+	b=OQClpE6GLk20TKFy8l55dAkphJD/hhSIWxBvVugGObPQlwMaPB+W83XcLKxmgtED/Syk
+	 F2PuutDKFpSK6X66qQQlsXyxvKtKb5l7d+lPfzQ90Mh3PeRHTglQe86ONtLaHcKpvp7Gb
+	 LtF83narSSDyu7Ms2HrhKAZpQ24qcrNkXe5lgD0SeKxx/RcJgY8ZzvCAya/8/LbENsmAN
+	 +Eurbe/SRlFLae6MHuOBWT+bd8pjS3cnsXD2AQxIoUFOhJo5zW8M/zq4RDk+Wo9WPB8MY
+	 kjLN08PUtBG+Wzm+eUkqpJTSnArw9sZ9nzBslhS266dRbgXDjs4tPoUTdyj5ZKVBp0A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793448997;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=he2Rfu8KETjYQmLhYbCWYK09Xpzsszq5xHpoav7qOTE=;
+	b=dAbDmh6ugNYXh5MZPrWl4ZEeltgxICKIDXx1fuYKpGJ8rgupJnwyQhyAZ/FOjJ4D2BsS
+	 Q1Sv+ttyTUwPseBinZEydd4Hd+l58BKZ+qD9YZthp8HBkdUKpiZNRTW9dvbERoV7UscYl
+	 lMbr2jrLSExvj6cmaGHtepffPZAXTdXYxvjb4XFlJ2BnCffVSvQUSPP+vii6xetKmGZWo
+	 R30k/9ukBwESDNi/FGCEL8wr8a6Z/g3pva8RV22h8eSax//sRSPeIUYNWCQaArLBG3cPI
+	 vKx+6VL7GLZoB5xDSg6RrVL2E/6xtJjolQCMf801k9kPi67cG+ZYSDMWNC5K9eeQWCQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA54B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:15:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA54B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=EwmoYvxk
-Message-ID: <9bf3339ad6bf6b15668f6c35b57a8f42265b7f6e.camel@itx.no>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
-	t=1793448951;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EDnpldi5RK0AnuEzL3K5R2iyu0Pi3r3gBMzfdKdH7kY=;
-	b=EwmoYvxkqH/hqN+UsiyREG55YjF9GhjlnPm2KDvmj6HnsKOEaXr90TwVMzH2yjgo0psomQ
-	M+w629M374F7Eh0rKz85UMovDv6ZbQ+BJvp+YxiZqPsyVdtqmpoaoczFODQcbHd+YoFba6
-	jI4em8Zpzq+N3FWjGBWRLet3lsrcY/k=
-Subject: Re: [PATCH v2] sched/cputime: Don't warn when the tick period
- starts after idle exit
-From: Stian Halseth <stian@itx.no>
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: Frederic Weisbecker <frederic@kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, Linus Torvalds
- <torvalds@linux-foundation.org>, Paul Menzel <pmenzel@molgen.mpg.de>, Breno
- Leitao <leitao@debian.org>, Thorsten Leemhuis <linux@leemhuis.info>, Thomas
- Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>,
- Shrikanth Hegde <sshegde@linux.ibm.com>, regressions@lists.linux.dev,
- linux-kernel@vger.kernel.org
-Date: Sat, 31 Oct 2026 13:15:49 +0100
-In-Reply-To: <auW3XbhjMjakWAhT@scheduler.schedules>
-References: <20261031081408.3378884-1-stian@itx.no>
-	 <auW3XbhjMjakWAhT@scheduler.schedules>
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-VoUST8Xfb5JSxNKPyQ83"
+	by smtp.kernel.org (Postfix) with ESMTPS id C35E01F0093A;
+	Sat, 31 Oct 2026 12:16:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793448997;
+	bh=he2Rfu8KETjYQmLhYbCWYK09Xpzsszq5xHpoav7qOTE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=hApxP2PedjALElTRO5iFpDttxphp384/LvgjDMFvP63/6JK/4span6d+i/z27jJKm
+	 rPHEF4LwlIHBuvUyRTT34ZIPQrJZVZ78aKwvSdh7IX2WD3ATHyeDhTlnSkNA3dkjK4
+	 1GWkMkMlVhLlHNp0NqcCKtIH4zSXESl9VXxPwkEp/PMj+uYnMbcKadoKAsraZZ0y/Q
+	 6Da1a9cV2IDk1QEu/Cms2f/mR47LmXl71VHMieRFt8Qm31I7k9G0cUdieziTw5A6ZP
+	 lGhXoZ/gfG/1DVd+58veqPACXecCeUzmYs5PBPMXC1bcFkyJE3FwhUA/eY+I4/b3ZY
+	 uRcy5o+ThgQuw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 360F845E62;
+	Sat, 31 Oct 2026 12:16:35 +0000 (UTC)
+From: Ernesto Salvetti via B4 Relay <devnull+ernesto.salvetti.tambosi.tn.it@kernel.org>
+Date: Sat, 31 Oct 2026 13:16:15 +0100
+Subject: [PATCH 1/3] Bluetooth: hci_core: Don't use extended advertising
+ with broken ext scan
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,70 +83,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-barrot-le-fixes-v1-v1-1-30e2089882bf@tambosi.tn.it>
+References: <20261031-barrot-le-fixes-v1-v1-0-30e2089882bf@tambosi.tn.it>
+In-Reply-To: <20261031-barrot-le-fixes-v1-v1-0-30e2089882bf@tambosi.tn.it>
+To: Marcel Holtmann <marcel@holtmann.org>, 
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Ernesto Salvetti <ernesto.salvetti@tambosi.tn.it>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793448994; l=3587;
+ i=ernesto.salvetti@tambosi.tn.it; s=20261031; h=from:subject:message-id;
+ bh=S7EzWsPZZdSgugiaMBXQ3KzQZLGqMEw7XwNS27NrlD4=;
+ b=al2oVKRlVrqvqfhDXOnL7HuOnmehyNkRhbKOm5rwBPFElOx9z5fp0hrlwCaXL1gva2cjAvvyR
+ AbR64GHNe3VB8JnEV8/lDJzhBn3orJfcrImxRcaFc+r778m5dLpg1TJ
+X-Developer-Key: i=ernesto.salvetti@tambosi.tn.it; a=ed25519;
+ pk=OLNiuyRbYD4dcNYoAvM99nt/1KZTKeM316r91BCQDUs=
+X-Endpoint-Received: by B4 Relay for
+ ernesto.salvetti@tambosi.tn.it/20261031 with auth_id=1370
+X-Original-From: Ernesto Salvetti <ernesto.salvetti@tambosi.tn.it>
+Reply-To: ernesto.salvetti@tambosi.tn.it
+Content-Transfer-Encoding: 7bit
+
+From: Ernesto Salvetti <ernesto.salvetti@tambosi.tn.it>
+
+When HCI_QUIRK_BROKEN_EXT_SCAN is set the stack falls back to the legacy
+LE Set Scan Parameters/Enable commands, but it keeps using extended
+advertising if the controller reports the LE Extended Advertising
+feature. Already during init it then sends LE Read Number of Supported
+Advertising Sets, which is an extended advertising command.
+
+Core Spec 5.3, Vol 4, Part E, 3.1.1 does not allow mixing the two
+command sets: once the Host has issued an extended advertising command,
+the Controller shall reject the legacy advertising, scanning and
+initiating commands with Command Disallowed until the next reset.
+
+A controller that enforces this, such as the Barrot one in the UGREEN
+Bluetooth 5.4 dongle (33fa:0010), then can't scan at all once the quirk
+is set:
+
+  < HCI Command: LE Read Number of Su.. (0x08|0x003b) plen 0
+  > HCI Event: Command Complete (0x0e) plen 5
+        LE Read Number of Supported Advertising Sets (0x08|0x003b) ncmd 1
+          Status: Success (0x00)
+          Num supported adv sets: 4
+  ...
+  < HCI Command: LE Set Scan Parameters (0x08|0x000b) plen 7
+  > HCI Event: Command Complete (0x0e) plen 4
+        LE Set Scan Parameters (0x08|0x000b) ncmd 1
+          Status: Command Disallowed (0x0c)
+
+  Bluetooth: hci0: Opcode 0x200b failed: -16
+
+Treat the controller as not capable of extended advertising whenever
+extended scanning is marked broken, so that only legacy commands are
+used.
+
+Fixes: 392fca352c7a ("Bluetooth: Add quirk to disable extended scanning")
+Assisted-by: LLM
+Signed-off-by: Ernesto Salvetti <ernesto.salvetti@tambosi.tn.it>
+---
+ include/net/bluetooth/hci.h      |  4 +++-
+ include/net/bluetooth/hci_core.h | 11 +++++++++--
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
+diff --git a/include/net/bluetooth/hci.h b/include/net/bluetooth/hci.h
+index 1c992e87534d..74b96941ad11 100644
+--- a/include/net/bluetooth/hci.h
++++ b/include/net/bluetooth/hci.h
+@@ -274,7 +274,9 @@ enum {
+ 	/*
+ 	 * When this quirk is set, the HCI_OP_LE_SET_EXT_SCAN_ENABLE command is
+ 	 * disabled. This is required for some Broadcom controllers which
+-	 * erroneously claim to support extended scanning.
++	 * erroneously claim to support extended scanning. Extended
++	 * advertising is disabled as well, since legacy and extended
++	 * commands can't be mixed.
+ 	 *
+ 	 * This quirk can be set before hci_register_dev is called or
+ 	 * during the hdev->setup vendor callback.
+diff --git a/include/net/bluetooth/hci_core.h b/include/net/bluetooth/hci_core.h
+index 9d5d3ab4a075..d622cab32ca9 100644
+--- a/include/net/bluetooth/hci_core.h
++++ b/include/net/bluetooth/hci_core.h
+@@ -2095,8 +2095,15 @@ void hci_conn_del_sysfs(struct hci_conn *conn);
+ /* Use ext create connection if command is supported */
+ #define use_ext_conn(dev) (((dev)->commands[37] & 0x80) && \
+ 	!hci_test_quirk((dev), HCI_QUIRK_BROKEN_EXT_CREATE_CONN))
+-/* Extended advertising support */
+-#define ext_adv_capable(dev) (((dev)->le_features[1] & HCI_LE_EXT_ADV))
++/* Extended advertising support
++ *
++ * Controllers shall reject legacy advertising, scanning and initiating
++ * commands with Command Disallowed once an extended advertising command
++ * has been issued (Core Spec 5.3, Vol 4, Part E, 3.1.1), so extended
++ * advertising can't be used when extended scanning is broken.
++ */
++#define ext_adv_capable(dev) (((dev)->le_features[1] & HCI_LE_EXT_ADV) && \
++			      !hci_test_quirk((dev), HCI_QUIRK_BROKEN_EXT_SCAN))
+ 
+ /* Maximum advertising length */
+ #define max_adv_len(dev) \
+
+-- 
+2.53.0.697.g625c4fb2daa
 
 
---=-VoUST8Xfb5JSxNKPyQ83
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: quoted-printable
-
-Hi Kayra,
-
-On Sat, 2026-10-31 at 14:47 +0300, Kayra Cizmeci wrote:
->=20
-> TICK_NSEC =3D 4
->=20
-> =A0=A0=A0=A0=A0=A0=A0=A0 switch
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 |
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 v
-> Real: 8 9 10 11 12 13 14 15 16 17 18
->=20
-> Time: 8 8 8=A0 9=A0 10 11 12 13 14 15 16
->=20
-> Tick: 8 8 8=A0 8=A0 10 10 10 10 10 10 16
->=20
->=20
-> So if we enter idle at real-12, and exit at real-13 this happens:
->=20
-> last_tick is 16, so last_tick - 4 =3D 12. But normally, last_tick needs t=
-o
-> be 14 and tick_start needs to be 10. Or am I missing something?
-
-Your diagram is correct AFAICT, and that's the case this patch is about.
-
-10 and 14 would follow the old periodic ticks, but after the switch the
-tick runs on a grid that is d ahead of them.
-
-Idle ends at 11, before tick_start at 12. The code already accounted
-that correctly but warned about it, and v2 drops the warning.
-
->=20
-> IDK if there is a better solution tho.
-> Maybe fixing it from the root would be better. If its even possible to do=
- it
-> cleanly...
-
-Someone might have a better idea, but maybe we could realign
-tick_next_period when the clocksource switches away from jiffies.
-
-I kept v2 to the warning though, since this is a regression in the
-current release, and a change to the tick setup could be a potential
-follow-up.
-
-Thanks for the review!
-
-/Stian
-
-
---=-VoUST8Xfb5JSxNKPyQ83
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCauXb9QAKCRDoeAEuJe36
-VqEZAQC2E0gGPVVWwk7ejLcmaZxNocbAcJhx1JjlibzdMIVwLgD/dGfqMB876H+W
-GfrivKJdNnMZ9Y8fuomOe2qVUozYGgw=
-=WNqC
------END PGP SIGNATURE-----
-
---=-VoUST8Xfb5JSxNKPyQ83--
