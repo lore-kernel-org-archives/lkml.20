@@ -1,50 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.211
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468504;
-	b=BFRwE8eytDej/wTMVQgHDDkex331wihzmkTelvkzFCSU+kAmmF/OD/lbVa0Jwoy4mktD
-	 4EWenmqqWXKB8BNV9h/4SGTClIke3iN1mfz6yP6tuPSGfwu4DcaHScOm7sk30pvDG/0/j
-	 t7IdufpwUbdwtMfFd42ZNN7ZTY47mJaQniq56iK4Tndx7dOPcPRFdhF9No20BkHjuHXPB
-	 AR5SY0uxh6ZOXxPCnnvwVmmctqm8Yxx99Xv70DLAaOUFvCTEiN+j6+0tSKvNfrJCY+xHk
-	 jubm57YM3PwtuGwZwVBBsyA1uae1gOiQhsDG3I84hVMGcMbFi+w9VMs5pxdRfXRokNg==
+	t=1793468522;
+	b=EBvCIKPkOBgSbGxxrBVd8iu7m2CNZg2DZfrdZPURa21QSxhRxYV3CLTxqgIPMVev5aau
+	 5DLZs7po/cFKnkfMIqZ+u/quhkZ25MBv9+EJCSu+MtJO7PN44ofRClJplRiHdY2ZzBoTL
+	 yrGgC9ilvWTYOtbkw6QEA2gebHKHpecoVnFfgnVE/bssjDzPIMTPFJ1PplmY3McQA6R31
+	 cqF1hUHWTr5md/PAAjwR/I8DluxaKUw2YOrBs/pFbhMhZgC9IgQtDBoXDw6woA+lF9nk9
+	 nhE8VLvAzZ+C6lYgOBZAW56U1FaI8wktMeLE7DN87zJLv8yduq8xVYW8I+9Mvfzv6cw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468504;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793468522;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=pvBDOy0V7q5N1+jDpS2CB86A7b5VsTWBtrlxCIp8A6M=;
-	b=clSiS6YVVqcIeir1Bf6xWCEYJGB2Tm7b+erxRvVEPJeKqTXOuBv9B4o8LVzQBhjwj5jS
-	 cPeJOgWTKWT4I4gKMk8+bHCrz2yfrZqEw8bbSEvVGPRENwcHsH/Q+PlRwOjWxsCt4DPXX
-	 LYXS+CN2dBRqP6sSyGPyVIv30L++eE3WtUxePfiSLEBKQ7LHFTSGjcCNm+M0uXpAmRJ2n
-	 Pm/8j5uRi7uiZ2H5vK8gnpKboqlZSWCrmyS90zRHKy2jOr42439TChqihZ7CzV9Iaim8y
-	 RBHLKme3igsdm/100veofRLhG9OYs2q2oQdBTVDWym71A4rVq84+mBWIv7t3RJ3fTCQ==
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=fnglHdL92d7me25ljOOzRkWIOVcn2BKelrtZ2QHAtoc=;
+	b=tRcGW8WCBrySM4NmfVk+VcPnw/xPhTIEnyhHMSg+0RM2xI9fLuUsnU8vTWIla4boGElu
+	 RYDunMZ3n0p2ry/vNEjK635HocmLF1CC3FZS5zpxMtiLrXTbpMF1W2q1IV1HZEWxJq8RS
+	 JaKU9rMOJNVgCtm2JLzMxrUY6p3VefwX3216Z8+n47fO1X+7wtahV4c22pXW+1CxHFymx
+	 Woz+6JtlbbHeBwEtNPYAUEVunSQvfx659AFWomzuRgKDs26D1JvwJ2M9Q1K4WnIev3Fyv
+	 V0O4F7o+BtnxOOSqnYxVhL74O+FpIAn1F/d6Zz7K3j5Is1bqCNiHMqP0ZzGe0xxF2HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Eh1K0liq;
-	arc=none smtp.remote-ip=95.215.58.211
-Received: from mta1.migadu.com (out-211.mta1.migadu.com [95.215.58.211])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="MnFma1/B";
+	arc=none smtp.remote-ip=91.218.175.223
+Received: from mta0.migadu.com (out-223.mta0.migadu.com [91.218.175.223])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2993D606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:41:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2993D606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E6F606A322
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 09E6F606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Eh1K0liq
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MnFma1/B
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=WRok/qLZ5iyrLgRXnadD5cv50FCGpGjqs2f2LfyrO3w=;
+DKIM-Signature: a=rsa-sha256; bh=k4UjJr4bkwrIwXAGO2C5sjzpBE0ObNx0lNhoPFFFlCk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793468500; v=1; x=1794073300;
- b=Eh1K0liqFB8hCoGiQPQqqIDl2mxuV5NVG+oHLnwBlJ+ssShVAGvz7ZUFwNDpGSP6Uu6LyUl7
- FQdkzf9XlCddkl2RTIXAnk1LEM+roEzZfP72xQwXOs2JOcJegi0SXDdj2TsWKmZ0hei/B9zPnmf
- BZMxraboKWP/uxi1IN/N6yS4=
+ t=1793468520; v=1; x=1794073320;
+ b=MnFma1/BoTfQJst8rNWftuTS1FtxWtBHD+At85I9cLp0fRJ+2B7rHCvaLXbjEp0rCpl7/+Ce
+ rWxYT503DZPcYfsJh9XbPUYitsB8YFHMA6tICttD0BRuTKOykO8aGjajfTr9komymmHuxCBsIVM
+ HrFQD4THVJuMFDlKVxKsZchk=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id f9d36484384e361c;
-	Sat, 31 Oct 2026 17:41:40 +0000
-X-Mizu-Trace-ID: f9d36484384e361c
+Received: by smtp.migadu.com with ESMTPS id 81ba42ac1b05ef11;
+	Sat, 31 Oct 2026 17:42:00 +0000
+X-Mizu-Trace-ID: 81ba42ac1b05ef11
 X-Migadu-Flow: FLOW_OUT
 From: Denis Benato <denis.benato@linux.dev>
 To: linux-kernel@vger.kernel.org
@@ -67,10 +68,12 @@ Cc: platform-driver-x86@vger.kernel.org,
 	"Hans de Goede" <hansg@kernel.org>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
 	Denis Benato <denis.benato@linux.dev>
-Subject: [PATCH v12 00/17] HID: asus: add support for ROG Ally handhelds
-Date: Sat, 31 Oct 2026 17:41:13 +0000
-Message-ID: <20261031174130.208240-1-denis.benato@linux.dev>
+Subject: [PATCH v12 04/17] HID: asus: add vibration strength configuration
+Date: Sat, 31 Oct 2026 17:41:17 +0000
+Message-ID: <20261031174130.208240-5-denis.benato@linux.dev>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261031174130.208240-1-denis.benato@linux.dev>
+References: <20261031174130.208240-1-denis.benato@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,576 +85,229 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+ASUS ROG Ally handhelds support the vibration strength to be configured:
+add sysfs attributes to allow userspace configure motors vibration
+intensity.
 
-This patch series adds support for ROG Ally handhelds in the HID driver for ASUS devices.
+Signed-off-by: Denis Benato <denis.benato@linux.dev>
+Co-developed-by: Luke Jones <luke@ljones.dev>
+Signed-off-by: Luke Jones <luke@ljones.dev>
+---
+ drivers/hid/hid-asus.c | 173 +++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 173 insertions(+)
 
-The changes include reinitialization of the device after exiting a sleep state,
-gamepad configuration, vibration strength configuration, joysticks and triggers
-range configuration, anti-deadzone configuration, response curve support,
-force feedback support, gamepad mode support, turbo buttons support,
-and button remapping support.
-
-This driver is based on the original Luke's work, which was a great starting point
-and I have reworked it to be upstreamable, while keeping the original functionality
-intact and extending hid-asus to avoid regressions in functionality such as the
-backlight control.
-
-The ally support has been a surprisingly long task, spanning multiple years and
-being used in Steam OS and well as other distributions for quite a while,
-and I am happy to finally be submitting it.
-
-At this time LEDs are not part of the patch series as I have work in progress to
-unify LEDs handling across all ASUS devices, and I will submit that in a separate
-patch series when the userspace interface will be ready to express capabilities
-of these devices, but that will take some more time.
-
-This driver is the culmination of a lot of work, from many different people,
-and I want to thank Luke for his original work, as well as the many people that have
-helped me test and provide feedback on the driver: Khamunetri, Jonathan, Derek,
-Matthew and others that have helped during these years.
-
-Best regards,
-Denis Benato
-
-Link v1: https://lore.kernel.org/all/20260813144736.2477941-1-denis.benato@linux.dev/
-Link v2: https://lore.kernel.org/all/20260819195835.1649657-1-denis.benato@linux.dev/
-Link v3: https://lore.kernel.org/all/20260823185849.2478673-2-denis.benato@linux.dev/
-Link v4: https://lore.kernel.org/all/20260830234320.114356-1-denis.benato@linux.dev/
-Link v5: https://lore.kernel.org/all/20260904145845.184887-1-denis.benato@linux.dev/
-Link v6: https://lore.kernel.org/all/20260908174433.74260-1-denis.benato@linux.dev/
-Link v7: https://lore.kernel.org/all/20260915201314.28279-1-denis.benato@linux.dev/
-Link v8: https://lore.kernel.org/all/20260922230205.6847-1-denis.benato@linux.dev/
-Link v9: https://lore.kernel.org/all/20261009122820.7603-1-denis.benato@linux.dev/
-Link v10: https://lore.kernel.org/all/20261017181520.70206-1-denis.benato@linux.dev/
-Link v11: https://lore.kernel.org/all/20261025235232.129945-1-denis.benato@linux.dev/
-
-------------------------------------------------------------------------------------------------
-
-The 12th version is aimed at cleaning up all the weird locking/unlocking machinery
-and compressing the code wherever it was natural to do so while also addressing
-all comments and suggestions.
-
-I thank all the reviewers for their feedback and suggestions, along with Luytan that
-borrowed me an API key for sashiko-bot as I could ensure no medium/high/critical issues
-were left unaddressed and low ones are benign.
-
-Given I have made quite a bit of changes I would ask for a second test by at least
-Rebecca and Paolo to ensure I hadn't screwed up what was working before:
-this is also the reason why I left out Tested-by tags.
-
-------------------------------------------------------------------------------------------------
-
-Version v11 has been more involved and I focused on two main things: extending the
-xg mobile (which the ROG ally is one of the few models that supports it) and
-properly handling hid packet sizes because it has been a constant source of issues
-and fight in the past and I want to put an end to both of those.
-
-I kindly ask Rebecca and Paolo to try using the new asus_report_len() to see if its
-also suitable for theirs Zenbook Duo devices and if so to adopt it in theirs patches
-as well.
-
-Link of a relevant patchset: https://lore.kernel.org/all/20261020092423.36380-1-p.pisati@gmail.com/
-
-------------------------------------------------------------------------------------------------
-
-Version v10 drops a patch already merged as part of XG mobile and applies the
-patchset on top of for-next/7.4.
-
-------------------------------------------------------------------------------------------------
-
-With v8 the driver does sysfs_notify after successfully changing configuration
-attributes so that userspace can be notified of the changes immediately.
-
-------------------------------------------------------------------------------------------------
-
-With v7 the series is rebased on top of the asus tree: the first patch of v6
-has been applied upstream as 8099f9da59f1 ("HID: asus: do not send keyboard
-init reports to touchpads"), so this series is now 12 patches.
-
-The probe paths of the ally interfaces now reserve the interface role while
-their initialization is running, the configuration attributes work from the
-moment their files exist and a failed initialization rolls the configuration
-back instead of leaving the created sysfs groups behind. The response curve
-is no longer configured entry by entry: a single attribute per joystick now
-takes the whole curve in one validated write, and a companion index file
-documents what each value is.
-
-------------------------------------------------------------------------------------------------
-
-With v5 I returned to the original manual management of memory and sysfs groups
-as going devm did not play well with the general "plugin" architecture of the
-ally portion of the driver and has caused more bugs than it solved: sashiko-bot
-will have to come to terms with hand-managed memory this time.
-
-------------------------------------------------------------------------------------------------
-
-Changelog:
-
--v2
-  - HID: asus: add support for ROG Ally handhelds
-   - release all vendor buttons on resume
-   - align arguments of hid_asus_ally_raw_event()
-  - HID: asus: add gamepad configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add vibration strength configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add joysticks inner and outer range configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add triggers inner and outer range configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add joysticks anti-deadzone configuration
-   - clean up comments and kernel-doc
-  - HID: asus: add support for response curve
-   - normalize kernel-doc comment
-  - HID: asus: add support to force feedback
-   - remove a stale comment
-  - HID: asus: add support for gamepad mode
-   - remove a stale comment, normalize kernel-doc
-  - HID: asus: add support for turbo buttons
-   - remove stale comments, normalize kernel-doc
-  - HID: asus: add support for btn remapping
-   - convert function comments to kernel-doc
-
--v3
-  - HID: asus: add support for ROG Ally handhelds
-   - take references on input devices to avoid use-after-free on unbind
-   - reject probes from USB devices other than the recorded controller
-   - add open/close callbacks to the gamepad input device
-   - keyboard_input is populated after hid_hw_start(): issue does not apply
-  - HID: asus: add gamepad configuration
-   - restore cached Xbox controller mode after an MCU reset
-   - convert remaining scoped_guard() users to guard()
-   - avoid printing "(null)" for unnamed sysfs groups
-  - HID: asus: add vibration strength configuration
-   - send MCU commands through ally_gamepad_send_packet()
-  - HID: asus: add joysticks inner and outer range configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add triggers inner and outer range configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add joysticks anti-deadzone configuration
-   - send MCU commands through ally_gamepad_send_packet()
-   - gate sysfs groups and callbacks on capabilities
-  - HID: asus: add support for response curve
-   - send MCU commands through ally_gamepad_send_packet()
-   - check resp_curve_support in show callbacks too
-  - HID: asus: add support to force feedback
-   - read ally_x_hdev under ally_data_lock and take a reference on it
-   - publish ally_x_hdev before registering the input device
-  - HID: asus: add support for gamepad mode
-   - convert remaining scoped_guard() users to guard()
-  - HID: asus: add support for turbo buttons
-   - pass the config pointer directly to ally_config_remove()
-   - run ally_config_remove() outside ally_data_lock
-   - restore cached values when the hardware rejects an update
-   - check turbo_support in show callbacks too
-   - reported scoped_guard warning verified as false positive
-  - HID: asus: add support for btn remapping
-   - look up default mappings by name instead of array index
-   - resend the old mapping when a sequential update fails midway
-   - allow macros regardless of the gamepad mode
-   - rename PAD_* codes to proper input event names
-   - convert remaining scoped_guard() users to guard()
-
-- v4
-  - HID: asus: do not send keyboard init reports to touchpads
-    - Added to avoid regressting touchpads and as guidance for maintainers
-  - HID: asus: reinitialize the device after exiting a sleep state
-    - Follow the modified logic of the previous patch
-  - Addressed issues of sashiko-bot albeit one was a false positive
-  - Rework patches: I made some disasters rebasing in v3
-
-- v5
-  - HID: asus: add support for ROG Ally handhelds
-    - Fix UAF due to inverted input device ownership in hid_asus_ally_remove()
-    - Reject probes claiming an interface role that is already owned
-  - HID: asus: add gamepad configuration
-    - Keep the configuration allocated until module removal instead of
-      devm-managing it: the sysfs callbacks must be able to outlive probe
-    - Undo sysfs group creation manually on the error path and in
-      ally_config_remove(): creation and removal are now symmetric
-    - Add payloads size check in ally_alloc_cmd()
-  - HID: asus: add vibration strength configuration
-    - Restore the cached vibration intensity after an MCU reset
-  - HID: asus: add joysticks inner and outer range configuration
-    - Restore the cached joystick thresholds after an MCU reset
-    - Remove the calibration sysfs groups manually like the other ones
-  - HID: asus: add triggers inner and outer range configuration
-    - Restore the cached trigger ranges after an MCU reset
-  - HID: asus: add joysticks anti-deadzone configuration
-    - Restore the cached anti-deadzone values after an MCU reset
-  - HID: asus: add support for response curve
-    - Restore the cached response curves after an MCU reset
-    - Keep holding config_mutex until the curve packet has been sent
-  - HID: asus: add support to force feedback
-    - Serialize the cross-interface force-feedback sends with the gamepad
-      interface removal by holding intf_mutex in the callers
-  - HID: asus: add support for gamepad mode
-    - Restore the recorded gamepad mode after an MCU reset
-  - HID: asus: add support for turbo buttons
-    - Fix UAF allocating the turbo button entries with kcalloc
-    - Restore the cached turbo parameters after an MCU reset
-  - HID: asus: add support for btn remapping
-    - Keep the button mappings outside of the controller lifetime, so
-      that the recorded configuration survives a re-probe
-    - Re-apply the recorded mappings after an MCU reset
-    - Fetch the configuration through ally_get_config()
-
-- v6
-  - HID: asus: add support for ROG Ally handhelds
-    - Add a maximum size check in ally_alloc_cmd()
-    - Drop the dead x_hdev snapshot taken in hid_asus_ally_raw_event()
-    - Drop the unused hdev parameter of handle_ctrl_alt_del()
-    - Drop the unused hdev/report parameters of ally_x_raw_event()
-    - Turn the "// F20;" comment into a proper "/* F20 */"
-  - HID: asus: add gamepad configuration
-    - Publish the configuration (ally->config under ally_data_lock)
-      before the sysfs groups are created and withdraw it on the error
-      path: attributes could become visible while ally_get_config()
-      still returned NULL and the restore path silently did nothing
-    - Record the Xbox controller mode in the first-setup defaults and
-      apply the recorded value from hid_asus_ally_init()
-    - properly rebase ally_alloc_cmd(): make it no change from previous patch
-  - HID: asus: add joysticks inner and outer range configuration
-    - Drop the unused cfg parameter of ally_set_joystick_thresholds()
-  - HID: asus: add triggers inner and outer range configuration
-    - Drop the unused cfg parameter of ally_set_trigger_ranges()
-    - Fix a commit message typo: "sensitivity"
-  - HID: asus: add support for response curve
-    - Add ally_resp_curve_is_valid() and use it in the init/resume
-      restore path exactly like the apply path does
-    - Drop the unused struct device * parameter of the four
-      response-curve helpers
-  - HID: asus: add support to force feedback
-    - Drop the unused pointers from ally_x_send_ff_report() and ally_x_send_ff_off()
-  - HID: asus: add support for gamepad mode
-    - Apply the mode exactly once from hid_asus_ally_init()
-  - HID: asus: add support for turbo buttons
-    - Remove the calibration groups created before a sysfs failure
-  - HID: asus: add support for btn remapping
-    - Do not gate remapping by turbo
-    - Reject NULL remap/macro pointers in ally_set_button_mapping()
-    - Carry the ally pointer in struct button_remap_attr
-    - Fix the "hypen" comment typo
-
-- v7
-  - The "HID: asus: do not send keyboard init reports to touchpads" patch
-    is not part of this series anymore: it has been applied upstream as
-    8099f9da59f1 and the series is rebased on top of it
-  - HID: asus: add support for ROG Ally handhelds
-    - Reserve the probed interface role for the whole duration of its
-      sleeping initialization: a concurrent probe of the same role could
-      pass the singleton checks before the first one published its pointer
-  - HID: asus: add gamepad configuration
-    - Publish drvdata->rog_ally before the configuration attributes are
-      created: the callbacks fetched it before asus_probe() published it
-      and returned -ENODEV in the meantime
-    - Roll the configuration back with ally_config_remove() when
-      hid_asus_ally_init() fails, instead of leaking the created sysfs
-      groups and the button entries
-  - HID: asus: add support for response curve
-    - Replace response_curve_pct_1..4, response_curve_move_1..4 and the
-      apply attributes with one response_curve attribute per joystick that
-      takes the whole curve in a single validated all-or-nothing write:
-      staged partial edits reaching the MCU on resume cannot happen anymore
-    - Add a read-only response_curve_index attribute documenting the
-      meaning of each value
-    - Restore both curves unconditionally on init/resume: only validated
-      curves are recorded now
-  - HID: asus: add support for btn remapping
-    - Drop the stale cfg->turbo_support gate in ally_config_create():
-      remapping attributes are created for every device with button
-      directories, not only turbo-capable ones
-
-- v8
-  - HID: asus: add support for ROG Ally handhelds
-    - Release the probe reservation when the interface pointer is
-      published: the flags were only cleared on failure, leaving them
-      stuck set after the first bind and rejecting every later probe
-      of that role
-    - Reserve the keyboard interface role too: its check and its
-      publication were two separate locked sections, so concurrent
-      probes of the same role could both publish
-    - Keep the recorded USB device while any probe is still in flight
-  - HID: asus: add gamepad configuration
-    - Report the missing Xbox controller capability with -EOPNOTSUPP
-  - HID: asus: add vibration strength configuration
-    - Wake pollers with sysfs_notify() after a successful write
-  - HID: asus: add joysticks inner and outer range configuration
-    - Wake pollers with sysfs_notify() after a successful write
-  - HID: asus: add triggers inner and outer range configuration
-    - Wake pollers with sysfs_notify() after a successful write
-  - HID: asus: add joysticks anti-deadzone configuration
-    - Wake pollers with sysfs_notify() after a successful write
-  - HID: asus: add support for response curve
-    - Wake pollers with sysfs_notify() after a successful curve write
-  - HID: asus: add support to force feedback
-    - Clear the rumble update latch on setup so a fresh interface
-      cannot inherit one left over from a teardown race
-  - HID: asus: add support for gamepad mode
-    - Return -EIO for invalid gamepad modes stored in the device
-    - Wake pollers with sysfs_notify() after a successful write
-  - HID: asus: add support for turbo buttons
-    - Wake pollers with sysfs_notify() after a successful write
-  - HID: asus: add support for btn remapping
-    - Return -EIO if a mapping is ever found unset instead of
-      dereferencing it
-    - Wake pollers with sysfs_notify() after remap and macro writes,
-      and after a mode switch re-defaults the mappings
-
-- v9
-  - HID: asus: add support to force feedback
-    - Hold intf_mutex while unpublishing the gamepad interface in the
-      setup error path, like hid_asus_ally_remove() does
-    - Improve gamepad interface device lock around the initialization
-      force-feedback send
-  - HID: asus: add support for btn remapping
-    - Unpublish button_entries under config_mutex before removing the
-      attributes and freeing the array
-
-- v10
-  - HID: asus: reinitialize the device after exiting a sleep state
-    - Dropped as already merged in XG Mobile patchset
-
-- v11
-  - HID: asus: add support for ROG Ally handhelds
-    - Split the chained data[1] = data[3] = 0x00 assignment into two
-      statements
-    - Align the hid_asus_ally_raw_event() continuation line with the
-      opening parenthesis
-  - HID: asus: add gamepad configuration
-    - Add the missing blank line between struct hid_driver and
-      asus_init()
-  - HID: asus: add joysticks inner and outer range configuration
-    - Align the sysfs_remove_group() and hid_warn() continuation lines
-      with the opening parenthesis
-  - HID: asus: add triggers inner and outer range configuration
-    - Align the hid_warn() continuation lines with the opening
-      parenthesis
-  - HID: asus: add joysticks anti-deadzone configuration
-    - Align the hid_warn() continuation lines with the opening
-      parenthesis
-  - HID: asus: add support for response curve
-    - Drop the duplicate blank line before ally_config_attrs[]
-  - HID: asus: add support to force feedback
-    - Add the missing blank line before the static_assert
-    - Align the hid_warn() continuation line with the opening
-      parenthesis
-  - HID: asus: add support for btn remapping
-    - Align the hid_warn() and ally_set_button_mapping() continuation
-      lines with the opening parenthesis
-  - HID: asus: size feature reports from the HID report descriptor
-    - New patch
-  - HID: asus: identify XG Mobile stations and bind the LED to the
-    reported model
-    - New patch
-  - HID: asus: expose XG Mobile identity and firmware information
-    - New patch
-  - HID: asus: size ally gamepad commands from the HID report descriptor
-    - New patch
-  - platform/x86: asus-armoury: pick the eGPU activation from the
-    reported GPU
-    - New patch
-  - HID: asus: report the XG Mobile GPU vendor to asus-wmi
-    - New patch
-  - MAINTAINERS: add maintainer for the ASUS HID driver
-    - New patch
-
-- v12
-  - HID: asus: size feature reports from the HID report descriptor
-    - First commit in the series. v11 had it after the Ally driver
-    - Look reports up in report_id_hash. asus_find_report() is that
-      lookup, and asus_has_report_id() is three calls to it after
-      rejecting an id of HID_MAX_IDS or more
-    - asus_kbd_get_functions() returns -EINVAL when the 0x5A report is
-      shorter than 7 bytes, before it reads the flags byte
-    - mcu_request_version() sizes the 0x0D response from the descriptor
-      and names the request FEATURE_KBD_REPORT_ID
-    - Remove ROG_ALLY_REPORT_SIZE as not needed anymore
-    - Include linux/container_of.h as asus_xgm_led_set() already calls
-      container_of()
-  - HID: asus: add support for ROG Ally handhelds
-    - One ally_intf per interface. Vendor keys are reported on the
-      input device of the interface that received the report
-    - The private gamepad input is registered and unregistered by that
-      interface.
-    - Remove BTN_TRIGGER_HAPPY as it was unused
-    - The rumble-off packet is the array ally_force_feedback_off (lowercase)
-    - Include linux/compiler_attributes.h for the packed report structs
-    - hid_asus_ally_probe() frees the interface with __free(kfree) and
-      returns no_free_ptr()
-    - Commands are allocated from the FEATURE_KBD_REPORT_ID length.
-      ally_dev_set_report() calls asus_kbd_set_report(), so a short
-      payload is padded to the descriptor length. The init rumble-off
-      packet starts with 0x0D and is padded to the length of report
-      0x0D. ally_dev_get_report() reads HID_ALLY_GET_REPORT_ID through
-      asus_kbd_get_report()
-    - ally_gamepad_check_ready() sleeps after a failed transfer as well
-    - HID_ALLY_X_INPUT_REPORT_SIZE is not defined.
-      hid_asus_ally_raw_event() does not take the unused struct
-      hid_report. The kernel-doc @ally lines are gone
-    - handle_ctrl_alt_del() names the boot-protocol offsets
-      (HID_INPUT_REPORT_ID_OFFSET, HID_INPUT_MODIFIER_OFFSET,
-      HID_INPUT_RESERVED_OFFSET, HID_INPUT_KEY_OFFSET) and the modifier
-      and key bytes. Its kernel-doc says true means the buffer was
-      rewritten and ally processing of that report stops
-    - KEY_PROG1 and KEY_F16-F19 are set in asus_input_mapping(), before
-      input_register_device(). KEY_F19 is the second event of usage
-      0x38
-  - HID: asus: add gamepad configuration
-    - The cache is the static ally_prefs. A comment on it says one set
-      is by design: the controller is part of the PC, and a second HID
-      device only appears when one is emulated with uhid
-    - Payloads passed to ally_alloc_cmd() are const
-    - hid_asus_ally_init() holds ally_prefs.lock with one guard().
-      ally_prefs_setup() does the same from the capability stores
-      through sysfs_live
-    - ally_sysfs_remove() is its own call and runs before hid_hw_stop
-    - The message names xbox_controller and says hid_asus_ally_reset_resume()
-      can fail with -ENODEV. The comment in that function about
-      initialization already having been performed is gone
-  - HID: asus: add vibration strength configuration
-    - The intensity fields, the attributes, and the restore path are
-      born on ally_prefs
-    - ally_set_vibration_intensity() has a kernel-doc comment. The lock
-      requirement is in the Context section
-  - HID: asus: add joysticks inner and outer range configuration
-    - The threshold fields, the attributes, and the restore path are
-      born on ally_prefs. The calibration groups are created only when
-      user_cal_support is set
-    - ally_sysfs_remove() takes ally_prefs.lock with guard() and holds
-      it until the function returns, so the calibration-group removal
-      reads the capability flags under the mutex
-  - HID: asus: add triggers inner and outer range configuration
-    - The trigger fields, the attributes, and the restore path are born
-      on ally_prefs, under the same calibration-group gate
-  - HID: asus: add joysticks anti-deadzone configuration
-    - The attributes are born on the joystick groups. The calibration
-      gate includes anti_deadzone_support
-    - The command buffer is declared with __free(kfree) on the
-      ally_alloc_cmd() line. The capability test stays above that
-      declaration
-  - HID: asus: add support for response curve
-    - The curves, the attributes, and the restore path are born on
-      ally_prefs. The calibration gate includes resp_curve_support
-    - response_curve_store() parses eight values with
-      ally_parse_u8_token(), which copies each token out of the write,
-      bounds it by count, and parses it with kstrtou8(). After the
-      eighth value every remaining byte is checked, and a non-space
-      byte, including an embedded NUL, is rejected
-    - ally_set_joystick_resp_curve() has a kernel-doc comment, with the
-      lock requirement in the Context section
-  - HID: asus: add support to force feedback
-    - Rumble state, the work, and rumble-off live on the gamepad
-      interface. The off packet is sent on that interface's own hdev.
-      There is no snapshotted ally_x_hdev
-    - ally_ff_quiesce() runs before hid_hw_stop
-    - select INPUT_FF_MEMLESS in config HID_ASUS is indented with a tab
-  - HID: asus: add support for gamepad mode
-    - Changed gamepad_mode_index to gamepad_mode_available to follow conventions
-    - The mode byte and the attribute are born on ally_prefs.
-      ally_prefs_setup() stores ALLY_GAMEPAD_MODE_GAMEPAD as the
-      initial mode
-    - The command buffer is declared with __free(kfree) on the
-      ally_alloc_cmd() line
-    - gamepad_mode_store() returns the sysfs_match_string() error for
-      an unknown mode and does not log it
-    - ally_set_gamepad_mode() has a kernel-doc comment, with the lock
-      requirement in the Context section
-  - HID: asus: add support for turbo buttons
-    - The turbo parameters and attributes are born on ally_prefs. The
-      button attributes do not carry an Ally back-pointer
-  - HID: asus: add support for btn remapping
-    - Changed btn_remap_index to btn_remap_available to follow conventions
-    - The mapping cache and the attributes are born on ally_prefs. The
-      button attributes do not carry an Ally back-pointer. Mappings are
-      applied on the configuration interface under ally_prefs.lock
-    - ally_encode_button_code() writes one code into a slot of
-      ASUS_ALLY_BTN_FUNCTIONS_LEN (11) bytes. ally_set_button_mapping()
-      calls it at offsets 5, 16, 27 and 38. A type of 0 writes only the
-      type byte
-    - ally_apply_button_mappings() says the caller holds
-      ally_prefs.lock
-    - gamepad_mode_store() takes that mutex once, with guard(), and
-      holds it until the function returns. The mode update, the
-      default-mapping refresh, and the notifies all run under that
-      lock. The store notifies remap_index together with remap and
-      macro
-    - button_remap_store() restores the previous code through
-      err_restore. On a first-generation device, a pair that already
-      reached the hardware is pushed back through err_restore_hw
-  - HID: asus: identify XG Mobile stations and bind the LED to the
-    reported model
-    - Identity fields are copied by tag (MB, SN, PRO, PNUM)
-    - The LED name is asus:xgm-<model>-<uniq>:led. The second field is
-      hdev->uniq when that string is non-empty, and dev_name(&hdev->dev)
-      otherwise
-    - ASUS_XGM_QUERY_VERSION is not defined in this commit
-    - asus_xgm_get_identity() is tried three times, with ssleep(1)
-      between attempts. The LED stays unregistered only when all three
-      fail. An unsupported model is not retried
-  - HID: asus: expose XG Mobile identity and firmware information
-    - ASUS_XGM_QUERY_VERSION is defined next to the identity query
-    - A version field is a 3-character tag, a length byte, and the data
-  - HID: asus: document ROG XG Mobile sysfs attributes
-    - New patch. Documents xgm_model, xgm_serial, xgm_mainboard,
-      xgm_part_number, xgm_firmware_version and xgm_generation
-  - platform/x86: asus-armoury: pick the eGPU activation from the
-    reported GPU
-    - This commit also reports the GPU vendor. v11 had that report in
-      the following commit
-    - The version payload's four PCI IDs are stored high byte first.
-      asus_wmi_egpu_set_vendor() receives the 16-bit vendor
-    - The message records that the WMI method returned 1 for every
-      activation value, that 0x0001, 0x0101 and 0x0201 are NVIDIA, AMD
-      and Intel, and that known tools only write 1
-    - Removing the station stores 0, and the next activation uses the
-      default
-    - egpu_vendor_lock covers that one word. The armoury store reads
-      the vendor inside egpu_mutex. The getter takes egpu_vendor_lock
-      and drops it before returning
-  - MAINTAINERS: add maintainer for the ASUS HID driver
-    - The entry also lists Documentation/ABI/testing/sysfs-driver-hid-asus
-  HID: asus: size ally gamepad commands from the HID report descriptor
-    - Dropped. The descriptor-length commit sizes mcu_request_version(),
-      and the Ally commits allocate their commands from
-      FEATURE_KBD_REPORT_ID
-  HID: asus: report the XG Mobile GPU vendor to asus-wmi
-    - Dropped as its own commit. Joined into the armoury commit
-
-Denis Benato (17):
-  HID: asus: size feature reports from the HID report descriptor
-  HID: asus: add support for ROG Ally handhelds
-  HID: asus: add gamepad configuration
-  HID: asus: add vibration strength configuration
-  HID: asus: add joysticks inner and outer range configuration
-  HID: asus: add triggers inner and outer range configuration
-  HID: asus: add joysticks anti-deadzone configuration
-  HID: asus: add support for response curve
-  HID: asus: add support to force feedback
-  HID: asus: add support for gamepad mode
-  HID: asus: add support for turbo buttons
-  HID: asus: add support for btn remapping
-  HID: asus: identify XG Mobile stations and bind the LED to the
-    reported model
-  HID: asus: expose XG Mobile identity and firmware information
-  HID: asus: document ROG XG Mobile sysfs attributes
-  platform/x86: asus-armoury: pick the eGPU activation from the reported
-    GPU
-  MAINTAINERS: add maintainer for the ASUS HID driver
-
- .../ABI/testing/sysfs-driver-hid-asus         |   95 +
- MAINTAINERS                                   |    7 +
- drivers/hid/Kconfig                           |    1 +
- drivers/hid/hid-asus.c                        | 4382 ++++++++++++++++-
- drivers/platform/x86/asus-armoury.c           |   57 +-
- drivers/platform/x86/asus-wmi.c               |   43 +
- include/linux/platform_data/x86/asus-wmi.h    |   11 +
- 7 files changed, 4491 insertions(+), 105 deletions(-)
- create mode 100644 Documentation/ABI/testing/sysfs-driver-hid-asus
-
+diff --git a/drivers/hid/hid-asus.c b/drivers/hid/hid-asus.c
+index 5f5393ea92b7..fe2008f9d51d 100644
+--- a/drivers/hid/hid-asus.c
++++ b/drivers/hid/hid-asus.c
+@@ -764,6 +764,9 @@ static struct ally_prefs {
+ 
+ 	bool xbox_controller_enabled;
+ 	u8 gamepad_mode;
++
++	u8 vibration_intensity_left;
++	u8 vibration_intensity_right;
+ } ally_prefs = {
+ 	.lock = __MUTEX_INITIALIZER(ally_prefs.lock),
+ };
+@@ -891,6 +894,154 @@ static ssize_t xbox_controller_store(struct device *dev,
+ 
+ static DEVICE_ATTR_RW(xbox_controller);
+ 
++/**
++ * ally_set_vibration_intensity() - Set the gamepad vibration intensity
++ * @hdev: HID device the command packet is sent on
++ * @left: left motor intensity
++ * @right: right motor intensity
++ *
++ * Context: Caller holds ally_prefs.lock.
++ * Return: 0 on success, negative errno on failure.
++ */
++static int ally_set_vibration_intensity(struct hid_device *hdev, u8 left, u8 right)
++{
++	const u8 data[] = { left, right };
++	size_t buf_len;
++	int ret;
++
++	u8 *buf __free(kfree) = ally_alloc_cmd(hdev, CMD_SET_VIBRATION_INTENSITY,
++					       data, sizeof(data), &buf_len);
++
++	if (!buf)
++		return -ENOMEM;
++
++	ret = ally_gamepad_send_packet(hdev, buf, buf_len);
++	if (ret < 0) {
++		hid_err(hdev, "Failed to set vibration intensity: %d\n", ret);
++		return ret;
++	}
++
++	return 0;
++}
++
++static void ally_vibration_defaults(void)
++{
++	guard(mutex)(&ally_prefs.lock);
++
++	if (ally_prefs.initialized)
++		return;
++
++	ally_prefs.vibration_intensity_left = 100;
++	ally_prefs.vibration_intensity_right = 100;
++}
++
++static ssize_t left_vibration_intensity_show(struct device *dev,
++					     struct device_attribute *attr, char *buf)
++{
++	guard(mutex)(&ally_prefs.lock);
++
++	return sysfs_emit(buf, "%u\n", ally_prefs.vibration_intensity_left);
++}
++
++static ssize_t left_vibration_intensity_store(struct device *dev,
++					      struct device_attribute *attr,
++					      const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	u8 value;
++	int ret;
++
++	ret = kstrtou8(buf, 10, &value);
++	if (ret || value > 100)
++		return -EINVAL;
++
++	scoped_guard(mutex, &ally_prefs.lock) {
++		ret = ally_set_vibration_intensity(hdev, value,
++						   ally_prefs.vibration_intensity_right);
++		if (ret < 0)
++			return ret;
++
++		ally_prefs.vibration_intensity_left = value;
++	}
++
++	sysfs_notify(&dev->kobj, "left_vibration", "intensity");
++
++	return count;
++}
++
++static ssize_t left_vibration_intensity_range_show(struct device *dev,
++						   struct device_attribute *attr,
++						   char *buf)
++{
++	return sysfs_emit(buf, "0 100\n");
++}
++
++static ssize_t right_vibration_intensity_show(struct device *dev,
++					      struct device_attribute *attr, char *buf)
++{
++	guard(mutex)(&ally_prefs.lock);
++
++	return sysfs_emit(buf, "%u\n", ally_prefs.vibration_intensity_right);
++}
++
++static ssize_t right_vibration_intensity_store(struct device *dev,
++					       struct device_attribute *attr,
++					       const char *buf, size_t count)
++{
++	struct hid_device *hdev = to_hid_device(dev);
++	u8 value;
++	int ret;
++
++	ret = kstrtou8(buf, 10, &value);
++	if (ret || value > 100)
++		return -EINVAL;
++
++	scoped_guard(mutex, &ally_prefs.lock) {
++		ret = ally_set_vibration_intensity(hdev,
++						   ally_prefs.vibration_intensity_left,
++						   value);
++		if (ret < 0)
++			return ret;
++
++		ally_prefs.vibration_intensity_right = value;
++	}
++
++	sysfs_notify(&dev->kobj, "right_vibration", "intensity");
++
++	return count;
++}
++
++static ssize_t right_vibration_intensity_range_show(struct device *dev,
++						    struct device_attribute *attr,
++						    char *buf)
++{
++	return sysfs_emit(buf, "0 100\n");
++}
++
++static struct device_attribute dev_attr_left_vibration_intensity =
++	__ATTR(intensity, 0644, left_vibration_intensity_show, left_vibration_intensity_store);
++
++static struct device_attribute dev_attr_left_vibration_intensity_range =
++	__ATTR(intensity_range, 0444, left_vibration_intensity_range_show, NULL);
++
++static struct device_attribute dev_attr_right_vibration_intensity =
++	__ATTR(intensity, 0644, right_vibration_intensity_show, right_vibration_intensity_store);
++
++static struct device_attribute dev_attr_right_vibration_intensity_range =
++	__ATTR(intensity_range, 0444, right_vibration_intensity_range_show, NULL);
++
++static struct attribute *ally_left_vibration_attrs[] = {
++	&dev_attr_left_vibration_intensity.attr,
++	&dev_attr_left_vibration_intensity_range.attr,
++	NULL
++};
++
++static struct attribute *ally_right_vibration_attrs[] = {
++	&dev_attr_right_vibration_intensity.attr,
++	&dev_attr_right_vibration_intensity_range.attr,
++	NULL
++};
++
+ static struct attribute *ally_config_attrs[] = {
+ 	&dev_attr_xbox_controller.attr,
+ 	NULL
+@@ -900,6 +1051,14 @@ static const struct attribute_group ally_attr_groups[] = {
+ 	{
+ 		.attrs = ally_config_attrs,
+ 	},
++	{
++		.name = "left_vibration",
++		.attrs = ally_left_vibration_attrs,
++	},
++	{
++		.name = "right_vibration",
++		.attrs = ally_right_vibration_attrs,
++	},
+ };
+ 
+ static int ally_prefs_setup(struct hid_device *hdev)
+@@ -910,6 +1069,8 @@ static int ally_prefs_setup(struct hid_device *hdev)
+ 	if (ret)
+ 		return ret;
+ 
++	ally_vibration_defaults();
++
+ 	guard(mutex)(&ally_prefs.lock);
+ 
+ 	if (!ally_prefs.initialized) {
+@@ -1144,6 +1305,18 @@ static int hid_asus_ally_init(struct hid_device *hdev)
+ 			hid_warn(hdev, "Failed to apply Xbox controller mode: %d\n", ret);
+ 	}
+ 
++	/*
++	 * The MCU does not keep the vibration intensity across a reset:
++	 * send the recorded values again.
++	 */
++	if (ally_prefs.initialized) {
++		ret = ally_set_vibration_intensity(hdev,
++						   ally_prefs.vibration_intensity_left,
++						   ally_prefs.vibration_intensity_right);
++		if (ret < 0)
++			hid_warn(hdev, "Failed to restore vibration intensity: %d\n", ret);
++	}
++
+ 	return 0;
+ }
+ 
 -- 
 2.47.3
 
