@@ -1,96 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793478420;
-	b=ocbXSPGFb6tF5tO1PXrZskF4KaYTMEIMzBN8peEzjIrvfHE3EafJqClTPvUkLm+/wwtV
-	 6ZUL6SuccsvKtN6HB47jveQ9/qIdkGTKFxIF7RnE4lkwQjfrfkCUYbAJOKkXM7OcNAurB
-	 JyzMIQZiKi/hWJxRyVyCjWTpq1U8I0dZVJBfR030h3ORslzES8vujFmLCh9zUEMRodlM1
-	 Dm2eEymgIkYeSVpqeAtFt03gLXpgQs0rOuTez+4Dm9ALhxuZpOp/umLoTrYWk9KgdhRto
-	 A0NvKZ4hqfyqIz63dBaYa5WhXlTFM8VN1Bv5K1jwjQI6YnpNEun3+xljeIOC0qlhU2w==
+	t=1793478442;
+	b=boHgYsQwjbYgn+eS6XXJSeKLpNnlYE3ou6KNvNUuuSbuN34JxaQy6VTulyzzAuVwVz+W
+	 X+G5uxmCmiUmSc4bmxqVC61r0TcURf8/klhSFmTB9XlwtNAWfLTW1WJ4QMmRDA6pS+ZjB
+	 RAAofPDEPevQ95owrAO+D9dxIVD7h9SFzZXysh8vO4kfJCJje4i//4gsFx3kUuqCdssZU
+	 5FhcjNKssakT4drdd8kcCfXaylsTH0FZJpTFi0S8PZOpbowEFefIgU6KO2cPtAAK4NZ7j
+	 GCi1uMteGaZ+RDJy1ENXmBVRtJyqUM/1zb7QEeK69GfcFAYRJX1c2+v5PMq1DdShHvg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793478420;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=3fkzFlhskYVLezmC5cyEV4VuxjdTetmArNG2q7mDGVs=;
-	b=A9TeXF4pRYUWZXYhCnKPigyOmKM0PN2exs2UkQvjJRLAZGyzhbF1elF3idr7SVHiu/kw
-	 EA/psxWB2kdIjDm/ruY4mrY8xt6ibMV1AMgTqkgZZqzpcWt7XbYdxnjLEl+UdddwmFSDm
-	 LL3iyFRJTucCJfuqFSB8sPFtF4xj9td88DG7yOg5FtnU94oYgqL3MTS95XZ05vlHIGJ/3
-	 L/oPGStkh+6KFuZfNKSEI744uDVfvFxOJp4PRNsXEo7+wwICmDO8ekYd9l4WXl208MpN6
-	 QFjsGQw9meL/UCYEsacOdInsseeJXoGC8Tw+Po0bbOi7tuWk9n/mAJLMiOa7WmmIlxw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793478442;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=U5YmrFJ9xFF8sJ7me68N1z1NhFM5GxKEjaWMihJs3s8=;
+	b=rPjEyXdhvre/THjpQH9OGYyGlWnBUpVdaQGOsyzY9pRQuvNwk6ajFxEI9wKmN8i6scSo
+	 e5jSE3R25wf9cx82gh6MfnKuz48A6BTtDo+5jvtei3FhZ5z1ufry7Vjjo8vP5Weg9lUrY
+	 d8uigUOCa7xfkLwLnu0o0l8tBRC6PLUFWKk9+Mh+V275Rr7ilHmV7JyC6u8mCa3vW+yzL
+	 ZN4CmsVWJuHO3hEUIT5zZFJbao9VF9FYJABfZx/1hTEwYOhmVSFk8GPxMigeXGL2Z4Tlx
+	 KfOg1yxu3MLSXk5/c0opfQKgi5n7yFE1dJUzWJH4gmtJOI2yvA08ixNzRqFtZ2su8HA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YpQhYkHc;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NIIzl0sG;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T6s9FZBR;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61E8C606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:27:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61E8C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBDB606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:27:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FBDB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YpQhYkHc
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-14394530ec6so2343450c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:27:00 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NIIzl0sG;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=T6s9FZBR
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VJFUpa1997558
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:27:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=U5YmrFJ9xFF8sJ7me68N1z1N
+	hFM5GxKEjaWMihJs3s8=; b=NIIzl0sGSoeqHRvyEzKaGiGSnfBuMhyy48qA5DvE
+	FplqLBB6x5XJu+B1+L7nf5shPuAWoT+BpaARqQeqZ/69clzof8BdvDpll9OscVdj
+	qz4JSNXcYjUaChxpju62SeHroIxim4zAqoySWCTeT2Cp6Ul4R9d0JAdHiSHikD/b
+	CM/pWKpS+keNlsKu9WIkLTHb1nr242axLtGmt4GPB7HqVSoWnscysGDsSrCVUcfd
+	JQfjmi76sbygprrMeCQreWmXlJo4OoVQjrGgzj2BpBQ3LVrgfq459DWJEvhvCFqI
+	JhzsGzH2+qGgmVVkccXePEKxgqbIi0kwbUOeTMuIqOAvqA==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn9m99t9p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:27:20 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93f26dd2165so504951485a.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:27:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793478419; x=1794083219; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3fkzFlhskYVLezmC5cyEV4VuxjdTetmArNG2q7mDGVs=;
-        b=YpQhYkHcvMezUVrsCJt+POW0qMKRK2IAyrGI8CMaeBiXmpObZI3xUHi4lKo2KtdmwX
-         Tt69uwKDvF65tSkbhPHPDlw8pJOdZFcQ6RVtFugWe1yEVQay0q7jsaR6r4xzhSyLg03i
-         U8/R15JE96xUTIe90uGpZgytXZSOwBnP2vwnnM67frdWYhSkk8Tm4icqmZQsBJEJrjOV
-         7wCxSKOYzCC7JUrHeGhzYpFp1OMLxCyrWbOokdYYZbwBSLKl5tHncIGdtFEBa1njncot
-         V5Uegr2DxxB/JEEdd+Qj21Hzq/YLnuF/NAQ442GngY0dr6IpumVkEhTMxviTOaE3M9W+
-         wDvQ==
+        d=oss.qualcomm.com; s=google; t=1793478439; x=1794083239; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=U5YmrFJ9xFF8sJ7me68N1z1NhFM5GxKEjaWMihJs3s8=;
+        b=T6s9FZBRnnmqOW7bFwSmLFmd+AnFLx1DNTjdlcPHYKAZoUMBu4/7iNDRuTbRD2WHi8
+         aA67D0Zo9iyJ2oj4U5dT8HsNi5F5AaybXXS7fPJNKdb5GFS9TKCuBYIlenjglpI1iZ+0
+         lVYnlOF57Yx+8qeMqJIzM3zuycUEi1QnzLRNpZ/sDQ+dBdnNSpuJFGegxk4ZqOK2UPS8
+         XNGFADYAzpMy3xUtBXb/RzcRryQki7zCQO0xUvOpnSeoCQlc5ejwC0/zxIwvNF5hPhqD
+         cbKutWKrhBRJnY0YMAW0amipzmIMYQxXgm0izDzt5Jm/Rm1lgWGOb6L/9ZppNt3xDpc5
+         BZFw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793478419; x=1794083219;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3fkzFlhskYVLezmC5cyEV4VuxjdTetmArNG2q7mDGVs=;
-        b=Ary8b8u9I6lAc7kbY3PPCptiD99p7vd0rJDac/q3HeDvbukH48ZLnm91DmWg6kvQFl
-         xCofqcXZzZBkpAG1cuRGJ0DW6TS3QNeQsXdPAg1sHoE/a/8y8bGf3w5GH0RU9as9Y9mB
-         bVZj9MYOztlqz10dS2qExch7yAamVmdlhdyIjDO79RC3AJx99+BEWDRmz7BNa1WURC4c
-         kn0j230AECgTTEdpRbrdX2f/2usKcLyH+DtuxXx2Ew2fLT2W13/NgzRVqDogGvXli8bv
-         NwrAvGGmOxFJ3yg3q3FC20BjUETtnSqxxGN8IXBr4KzTcC6Tlbpjg8k0deUFpfNkTEeD
-         r4yg==
-X-Forwarded-Encrypted: i=1; AKwUvBzdMYMCRlZaWgrauCz024n28UHOPxysNg3yvUdQIsXCK9C4S7OT46sb3jWTgrsWgERu2jjrCSmpmfCk7As=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJzczhlG+VZLb+LBvYLx2hXgKV1RS1A7B1vPNc/tBfarNbFHFLU
-	WgffxTQtbOTFYE1NR5fk4QEkeogcgqeDZKRmRo6iE44CcuTaVVz5o8Hc
-X-Gm-Gg: AYBFou2JUOmNmWyzAPOxQ2Dx9sZnbjJhJVoIHww/YxBPAHPObNi57IKaPD9VWRetaih
-	vpR6i96qiLA3M2JLMD8d0yGneLWFYloZzY2fJQcBWKRzjw+gutWhLyFDJZHf1sf+gWOqMPj78fd
-	EDOv8ns99TxYopTSsASeDk7jtR8ztIblTuu35LrjwFNtXpzMp4HkG8kn6bPiJ8ujtoruaPjrad4
-	UXzI+Oiui5GgBd+QKLMD1k5wc/99OwKc+DIVxUhzGGPVpumw5sSUo0wCSTSgsnExCfqE44qsglW
-	fmzBh5DhIIJiz3hc602R5cho0/gRQShHURW2SIVNd+fqxFOd7QwCDNTLTJqIoAtoCkcYfSeIN60
-	QhCRgZFD/mnIw8v1KCJ9jeyDhtVAGw1eWfD/myMVrON1DW5ddXYlooEH05qRErUky1QDey8abY0
-	u07PI12rqIRlbUfnXtvmr94Qtg8aTOEQ49wKlxC5eWTw9GLJHztMRN08MMtUbYaTwHOIciLrtBt
-	odav9QbTHgLDrCN5JuzNIdRlsLvV0ihT1xJU0E3c15MHQz+VWNRdICbLtrvRbhZpG+3FRiF3mLc
-	iPogMyg2NhVdUUl5KvD7YIkXI0QNWL0X06gDMGj7mvh6swd3aLJuB86X6XTq+kUeknmicKfAdCP
-	T5aXQ5vVFXUwwatR5mLJe29fUFKv5ps9f2hdsden3zMlUKOrJmv2qkt8b3rHoFgbEXHerJIdsRj
-	IVHlmm1alDZnWfHEQ=
-X-Received: by 2002:a05:7022:3f0a:b0:1ac:2f6d:e1c6 with SMTP id a92af1059eb24-1ac56c9fffamr9537679c88.6.1793478419246;
-        Sat, 31 Oct 2026 13:26:59 -0700 (PDT)
-Received: from brev-9gdpyq8lp.ap-south-1.compute.internal (ec2-3-110-210-194.ap-south-1.compute.amazonaws.com. [3.110.210.194])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm1639998c88.9.2026.10.31.13.26.56
+        d=1e100.net; s=20260707; t=1793478439; x=1794083239;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U5YmrFJ9xFF8sJ7me68N1z1NhFM5GxKEjaWMihJs3s8=;
+        b=xqUPI2WVO5oLAzhccwV0Bs932OMYKdxWRXNgrXU5mcxYIvHuCQv362Srsj26tJbz15
+         8zlB4QfNGOx6P+bHqGcDeESYX7Cw1O9V+fGrodCzg3ekZYv/d403JDXnBqUEhCLA6pgo
+         V6FeA9n8pOA5ddr+oCU+00cJ/WHULW0H7jkn2Nt5MvP1Y6wa+nGvkG4PMxySwyqmcrOz
+         wGgRAwO0EJTGJ7cf8PGC0EUHeUUHZomSE1cdjB7U47tllQSjyon+l1yiQg8Z4+aNPriY
+         vi8UIU+NKdIC/VorGP+HCk6BlASL8BeUXW6JzHMGU45Q+286m1U+Lbk/9EOTTeYcD6wG
+         UAGg==
+X-Forwarded-Encrypted: i=1; AKwUvBylhED9Qg2CyZJJoCDzc9fN68AsBpTZOiyIQyJlP+DwYwr4WM59C336kmDPpwnG7vOyigulzJzbDQ3G5bs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWc+E3vTja9NMLhJNuvcFr92kvJ8uGBG6XWJgAy3SgN0osiwBS
+	i09oAtgHauTJboqoXIgtFc/q/kDPi97T01r9Yo8ZXyv0hgdr+Yg4AhNw7TfmIGq9lItcZ8Ih5Q9
+	jo/BKf7FIyRwcspCfS1WBhvOQkJoJOnsB9DbrAlJycHpl16uvHMEOygAblZotxfuARiE=
+X-Gm-Gg: AYBFou0RlR2yv9A3zlBpCc2sxNXLjEciz0USl5mCjP8YHXFVrLoXvG1Sm3MQAekPNBN
+	7VhgrVAK8c9Xv4xQqoFcpVdzRNzlfyVDfPY5HM3XMYBeK58Pq7g7qW+r6HK0tISEpRKbCJv2L/s
+	ANUrx70gEzC5taILqBkbvdaoZAAzlZWLp3UENhnO9XwHe0x7eMbVWaigk7ZaLEBk1XjCOSA1yxy
+	4uJFVtNBrzKEgjUcTtu4mS/BlBP46fepGCkQ2gi4xpjV1u7WSRRob+COmqkga0yX7CCgl2Xhaov
+	+adxFVdyemprY1wVr69l/65+ZtP2jVjrnLPQOJBu81eOMjVWSDtTQAt++Q6RvQqSdHo04G/SRHG
+	8PBnwIk/afNDNSQ4rF0tUhmL4mOv+HYwYKx/va90BjDzX6eMFbCi6yv97kVl3NEPuTkg1l5+9z4
+	JbC/qhD6wLJ0fZgTEeJ7vEIWXIC8jGpe8YKivLkgkxiIuXqX24Z+/0ZECYWU8rNA==
+X-Received: by 2002:a05:620a:28c5:b0:936:ab1f:6aa4 with SMTP id af79cd13be357-944214dce98mr1001815685a.1.1793478439329;
+        Sat, 31 Oct 2026 13:27:19 -0700 (PDT)
+X-Received: by 2002:a05:620a:28c5:b0:936:ab1f:6aa4 with SMTP id af79cd13be357-944214dce98mr1001813485a.1.1793478438875;
+        Sat, 31 Oct 2026 13:27:18 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe072d19csm750618e87.40.2026.10.31.13.27.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 13:26:58 -0700 (PDT)
-From: Samarth Narang <samarth.colleges@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Samarth Narang <samarth.colleges@gmail.com>,
-	Michal Simek <michal.simek@amd.com>,
-	linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [BUG] media: xilinx: dma - stop_streaming does not wait for a running DMA completion callback
-Date: Sat, 31 Oct 2026 20:26:53 +0000
-Message-Id: <20261031202653.4110846-1-samarth.colleges@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Sat, 31 Oct 2026 13:27:16 -0700 (PDT)
+Date: Sat, 31 Oct 2026 22:27:13 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Rob Clark <robdclark@gmail.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] drm/msm/dsi: add per-SoC bonded command-path config
+Message-ID: <pql25o7nhpmdbwkprsu5b3xurusxmnht3p3xb3425ubdkxnzdy@wguqdarh7h2a>
+References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261031150305.1107572-3-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,73 +120,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031150305.1107572-3-xiaqinghuan@mail.ustc.edu.cn>
+X-Proofpoint-ORIG-GUID: GYk1jElCs6h9gdDz5efHC3q1J8JupL6f
+X-Proofpoint-GUID: GYk1jElCs6h9gdDz5efHC3q1J8JupL6f
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4MSBTYWx0ZWRfX21yuzxXAClPh
+ 7DL6y5psJguMW597b+mi+8q8dg5uVDB+l+YJXIjRaiqKF+3o7NaYgHpIpntG7OPglzY3oGRIitQ
+ /Fz0tXRbiVs8kWolHi4OUu+QygxUkMX/f4uxs+Q6AjVCbKOTHHTY/4U+cZ2db5x8fdrOL4XobLS
+ qeMlzAW6Shy46uDznJ97kLiMc7VWzaii+55EWRWQJBfij4ruoHYMO2qU1Ya/nMnC8O7yeMBBfp5
+ gJcIJErtNCfdxrih8PVoSSO1Fr2w3uVb8SnFKtyct/qKSDOYEZs7RvpOZozXH1qpGjS8Wx9nP2R
+ 8gUz+TRVe/+Q5AvTVmZAMpMvJY2+1OVnVU3FxnXYkaLC7t6ne3KyAFmoumPGM5mg0jxlFQqKSlY
+ oFBefYY/ffgJ9wqwkQmqHqqi8fYOR5RgCdnoldpdEZoq+DxG5YHt6gp1s1YywA7lsFPm4bIzMqc
+ 1MP3g55R2Y2mhczd+xg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4MSBTYWx0ZWRfXxsErmC7jEwdD
+ oushl7kjLa+EAJbZnMX13Z9uBVCdtsMHdzsaE7tzAB5XyPzUwGT0/QrI3lG0AIqnh9ekvcrDX3h
+ Shj6Qqgs2S68pgUAgTEM8gsmE+P88vU=
+X-Authority-Analysis: v=2.4 cv=cfVHPXDM c=1 sm=1 tr=0 ts=6ae64f28 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=luF8A-hlZe_ITdDpm1sA:9
+ a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_05,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ priorityscore=1501 spamscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310081
 
-Hi,
+On Sat, Oct 31, 2026 at 11:03:02PM +0800, Qianhui Xu wrote:
+> The bonded command path carried its constants inline: the error-mask bits
+> in dsi_cmd_error_prepare()/dsi_cmd_error_cleanup(), the CMD_DMA_CTRL bits
+> staged before a broadcast and the peer poll budget. Those are controller
+> facts, so they belong in the existing per-SoC table next to the regulator
+> and bus-clock data rather than in the driver body.
 
-I think xvip_dma_stop_streaming() can race with an in-progress DMA
-completion callback, potentially causing a buffer to be returned twice
-or accessed after it has been released. The line numbers below refer to
-mainline at 36aad21d50d1.
+Do they differ from platform to platform?
 
-In drivers/media/platform/xilinx/xilinx-dma.c, xvip_dma_stop_streaming()
-calls dmaengine_terminate_all() (line 442) before taking queued_lock and
-returning the buffers on queued_bufs with VB2_BUF_STATE_ERROR (lines
-449-454). Meanwhile, xvip_dma_complete() takes the same lock, removes
-the completed buffer from the list, and then calls vb2_buffer_done()
-with VB2_BUF_STATE_DONE after releasing the lock (lines 283-296).
+> 
+> Add struct msm_dsi_bonded_cfg and hang it off struct msm_dsi_config.
+> SM8750 reports DSI 6G v2.9, which selects the sm8650 cfg entry, so the
+> bonded data is attached there with values copied verbatim from the
+> current code. Use remains gated on the sm8750 compatible, so behaviour is
+> unchanged.
 
-The Xilinx DMA provider invokes completion callbacks from a tasklet
-after releasing the channel lock. Although xilinx_dma_terminate_all()
-halts the channel and frees its descriptor lists, it does not wait for
-a callback that is already running. That synchronization is handled by
-xilinx_dma_synchronize(), which calls tasklet_kill()
-(drivers/dma/xilinx/xilinx_dma.c, lines 2739-2743), but is not invoked
-by dmaengine_terminate_all().
+What happens on the other platforms?
 
-If a completion callback is already running when streaming is stopped,
-the two paths can race over the same buffer. If stop_streaming()
-acquires queued_lock first, it may remove the buffer and return it with
-VB2_BUF_STATE_ERROR before the callback attempts to remove the same list
-entry and return it again with VB2_BUF_STATE_DONE. Even when the
-callback removes the entry first, it may still be using the buffer after
-stop_streaming() returns, at which point videobuf2 may release it. This
-is a callback synchronization issue rather than an outstanding hardware
-DMA transfer, since the engine itself has already been halted.
+> 
+> Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+> ---
+>  drivers/gpu/drm/msm/dsi/dsi_cfg.c  | 26 ++++++++++++++++++++++++++
+>  drivers/gpu/drm/msm/dsi/dsi_cfg.h  | 22 ++++++++++++++++++++++
+>  drivers/gpu/drm/msm/dsi/dsi_host.c | 22 +++++++++++++++-------
+>  3 files changed, 63 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> index da3fe68244..640ebe8244 100644
+> --- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> +++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
+> @@ -4,6 +4,7 @@
+>   */
+>  
+>  #include "dsi_cfg.h"
+> +#include "dsi.xml.h"
+>  
+>  static const char * const dsi_v2_bus_clk_names[] = {
+>  	"core_mmss", "iface", "bus",
+> @@ -194,6 +195,24 @@ static const struct regulator_bulk_data sm8650_dsi_regulators[] = {
+>  	{ .supply = "vdda", .init_load_uA = 16600 },	/* 1.2 V */
+>  };
+>  
+> +/*
+> + * Bonded command-path data. Values are copied verbatim from the vendor-derived
+> + * in-tree code; the SM8750 compatible check in dsi_host.c/dsi_manager.c still
+> + * gates every use until the master link moves into this table as well.
+> + * TODO(doc): err_clear_bits/err_cleanup_bits touch bits that dsi.xml does not
+> + * describe (see reports/b5-per-soc-cfg-design-20261027.md, RFC-SCOPE R1).
+> + */
+> +static const struct msm_dsi_bonded_cfg sm8750_dsi_bonded_cfg = {
+> +	.master_link_id = DSI_0,
+> +	.cmd_dma_ctrl = DSI_CMD_DMA_CTRL_BROADCAST_EN |
+> +			DSI_CMD_DMA_CTRL_FROM_FRAME_BUFFER,
+> +	.err_clear_bits = 0x001f0200,
+> +	.err_cleanup_bits = 0x44440400,
+> +	.poll_timeout_us = 5000,	/* 500 polls, 10 us apart */
+> +	.needs_link_clk_bump = true,
+> +	.needs_sw_reset = true,
+> +};
+> +
+>  static const struct msm_dsi_config sm8650_dsi_cfg = {
+>  	.io_offset = DSI_6G_REG_SHIFT,
+>  	.regulator_data = sm8650_dsi_regulators,
+> @@ -203,6 +222,13 @@ static const struct msm_dsi_config sm8650_dsi_cfg = {
+>  	.io_start = {
+>  		{ 0xae94000, 0xae96000 },
+>  	},
+> +	/*
+> +	 * SM8750 reports DSI 6G v2.9, i.e. it selects this very table entry, so
+> +	 * the bonded data has to hang off it. Its use is still gated on the
+> +	 * "qcom,sm8750-dsi-ctrl" compatible, so an actual SM8650 keeps taking
+> +	 * the regular command path.
+> +	 */
 
-Since stop_streaming() can sleep, I believe dmaengine_terminate_sync()
-would address the race, following the approach used for stm32-dcmi in
-ab32b2c3636b ("media: stm32-dcmi: remove deprecated
-dmaengine_terminate_all()"):
+Huh?
 
---- a/drivers/media/platform/xilinx/xilinx-dma.c
-+++ b/drivers/media/platform/xilinx/xilinx-dma.c
-@@ -439,7 +439,7 @@ static void xvip_dma_stop_streaming(struct vb2_queue *vq)
- 	xvip_pipeline_set_stream(pipe, false);
- 
- 	/* Stop and reset the DMA engine. */
--	dmaengine_terminate_all(dma->dma);
-+	dmaengine_terminate_sync(dma->dma);
- 
- 	/* Cleanup the pipeline and mark it as being stopped. */
- 	xvip_pipeline_cleanup(pipe);
+> +	.bonded = &sm8750_dsi_bonded_cfg,
 
-There is also a related question about the error path in
-xvip_dma_start_streaming() (lines 422-427), which returns previously
-queued buffers with VB2_BUF_STATE_QUEUED without terminating the DMA
-channel. As far as I can tell, their descriptors remain pending and
-could be issued by a subsequent dma_async_issue_pending(). Is that the
-intended behavior?
+If it's a sm8650 struct all the fields should be sm8650 too.
 
-This issue was identified by a research static analyzer for DMA
-lifecycle ordering and subsequently checked against the client and
-provider implementations. I have not reproduced it on hardware, as I do
-not have access to a Xilinx video pipeline and QEMU does not emulate the
-relevant VDMA or video IP. The proposed change has been compile-tested
-on arm64 with W=1.
+>  };
+>  
+>  static const struct msm_dsi_config kaanapali_dsi_cfg = {
 
-If someone with suitable hardware can confirm the race or test the
-change, I would be happy to submit it as a proper patch.
-
-Thanks,
-Samarth
+-- 
+With best wishes
+Dmitry
