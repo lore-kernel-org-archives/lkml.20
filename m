@@ -1,48 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793439990;
-	b=25AyPhRT0LsWuzeqqV1vlIP/2TAQd2KaMMn1DmAfIpUbrMqQyPOtdW68UbEmWcKPHDRE
-	 6z0qmYpGsNHRB47bH5M5/RMZhMgzGZ5j7Wy31KuXSzi4jzuy0ri+U+JoXi5UsGdWgD8u4
-	 oeAaC9QLKo4of7clMGpY3i/D9cQlXSny6duXJOlM24h2hGVZjan9XuZmzv78PdYflSgS/
-	 BdsTX5af+RXLGz0qCEtYZFoZWF6O5Igvd9xxPY+OQTXEIM5/OBcFgJ4LdWaxnq8jKS7il
-	 xZC/iL0ltFehsPdtVySHfFLWDkpbXg9sQxjxprgc9nPZL/sGIkeXh5VZeEslNGvC55w==
+	t=1793440011;
+	b=f1LQzysad0te0cI17P/OyBwGgIubHjoO8+LUmLgD2MosQQhb7j6XLndAZcTWoPjDUuwr
+	 +FCVK61p9lQQg6qJ3PB721oaF8b4TPr7J3jaMTXfKzxv1AVaxkgA4Otbn9moNSHP42O7G
+	 PxxLNPsesZJgPVJASkoFhSDUjLOhagSpbOf3Ljl5we/Ssq8zePv98NMu8kGHJbhYmW/eN
+	 ke2V6y0n1GqbLbLqZxVcYCpo49Y5SZ0F5z0JpAqWi2uRafa+Zsux0KPNlecNzzilvJHeE
+	 S/OmiIlh+Ky7KjO+KUqxTTwGw/AmBh2m+ytW2I1uEDE2Rjo/wlclYs1UBxWAtVLNq6Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793439990;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=6rdFsSanvdSasr5hp2c+zM3yMNq0teCos7F9FeyTNnc=;
-	b=Lu+vpu25J2CpKFKR8Dd4L9yjPq2Nq5u5VqhN2lnFddH44ayu5zEtUa4a70BMQvhTFGKO
-	 mDLoOx1hFoS3OiYYAc8WvNZ2J88F7rDaWObuwjbvUx+mNEN7GFDoU8KF4X4mfeTdyiCIa
-	 85BFYcQsN9JDTxzNZe/zo2sJJ1PuTBrT0LOR5l1cEigoc5B9bd0Lr06PlgjhfkdM5A9L+
-	 GwGqle0wFLGdilLY9gBffAX74Zg4fe5SdApJkFHBsaBJI9LzsBeMUyTA53XwfD2t/nwMP
-	 N1zohwDM13xYmHeAXMc0lq+LfeKBpT//mc226h+4uVjJP6SJRvtH7T1QDxS0m6KNZOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440011;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=7bm3t/C8KJVAAPnP4IdqHCepXp4mEsI41K4jjOhVEPo=;
+	b=kmUKmUj9NicSJWQgGxAgjkqorQ9/a/Tlkh/3p235Ab/hmZ1HdxtxEedCIYRzRJExHhc6
+	 M9+S6w0o4eCWduKFo0BtjmpjYYlw8ZK3uFTid6feXhd9M6J+UwlI3h/xjHIFFraJWL71G
+	 rjBY1Xb7yfMPaDoGIgglZk+RaqqsQepAnQGq7au3jdrWeFfyAgcMQ0bi6Bh7i+dF6KjVP
+	 qR7mz1q477+9NwMzF98BLbyP1CM0yeXymzQPsGEkApbhSrKmmXzzMmFvj72rQGPjK9meo
+	 Zk5k/dDHu3cfMSpldFniDloJasz+MFp5q9xQcHxUXt7K7/ycdhAGfJUNe4zMMG2sRaw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yugjn+pB;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b="iY0y/S4u";
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0D1B606A31A;
-	Sat, 31 Oct 2026 09:46:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60926606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:46:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 60926606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yugjn+pB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FC641F00919;
-	Sat, 31 Oct 2026 09:46:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793439989;
-	bh=6rdFsSanvdSasr5hp2c+zM3yMNq0teCos7F9FeyTNnc=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Yugjn+pBYLqLBNC3xTiCz5oiW74vhvC7wFkycvRquO3PnYkqqxvJdBjpVVLOOf9a3
-	 GMY5NPMvyim4j6zvtGkobuJQM6LHuop5J9jeU838zTWLADf6gS9mENKHqyeQ3U/cE2
-	 tJ3QNIKkVHGA8XgYw0iQQ87Mz2ixJeN+SwIvqwqJfyG5NckD6CXkcAUg8jOqrL4xfa
-	 4j3O2xRowLdRQSBYvwRe96Lht4Bnym9ZIAj/D5fzhJgLn932plRC2akFWJdgu9efrr
-	 PFVFdC6cmtsSCVrw0oaNlN0Ha4j0Xykq9Zmdvyk6cfI3okiXdYyvJvgkiQPI3PQ4x/
-	 B7Mx6SnjXL73w==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:39:53 +0100
-Subject: [PATCH v3 24/47] mm/userfaultfd: wake all waiters on unregister
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=iY0y/S4u
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=7bm3t/C8KJVAAPnP4IdqHCepXp4mEsI41K4jjOhVEPo=;
+	b=iY0y/S4u0uycZ0SpAIvYpY3kOfA77Hfp0TXtBKbvtuWXeHoNifYj9UsOj/89MRhR//N8dY0jJ
+	A2D7Mzrz5FjRye07mJyIno2dWOseLCvYidny3VDw/nHML0avW0W7LUrtqqgfc0IocxqTlO+byP+
+	3PC36X4fUmnuHrjc3I3tl8k=
+Received: from mail.maildlp.com (unknown [172.19.163.200])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jGtQY4q9szmV8Y;
+	Sat, 31 Oct 2026 17:46:29 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id DDD6B4055B;
+	Sat, 31 Oct 2026 17:46:37 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 31 Oct
+ 2026 17:46:37 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <jic23@kernel.org>,
+	<ben.horgan@arm.com>, <zengheng4@huawei.com>, <gshan@redhat.com>,
+	<x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH] fs/resctrl: Unmount resctrl with the CDP state it was mounted with
+Date: Sat, 31 Oct 2026 17:46:16 +0800
+Message-ID: <20261031094616.1691026-1-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,125 +70,262 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes_core-v3-24-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Josef Bacik <josef@toxicpanda.com>, stable@vger.kernel.org, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2433; i=david@kernel.org;
- h=from:subject:message-id; bh=jQmdKlit53in6eLyB5lf4macOO/l2TcVDsIv/EBmrGQ=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs+QuqZh0vyitqWjpyf93yWBKxsFeRNZrt5UZ0/01
- uPyqfjQUcrCIMbBICumyBIUfN/g5ct1tdVufMwwc1iZQIYwcHEKwESW2TH8lXjDYm1v2hI/s91y
- 7fU857DG/g2ne3flZlXO0qn8+vyaKCPD/kUxxXONRZa5rZX00Vw4Oe9ZxN3rE9xft8fcOiRdJvG
- cEwA=
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-From: Josef Bacik <josef@toxicpanda.com>
+Busy RMIDs of a monitor domain are normally released by the limbo handler
+once their cache occupancy drops below the threshold. The handler keeps
+running after resctrl is unmounted, and  each RMID left in limbo retains
+the CLOSID it was allocated with.
 
-UFFDIO_UNREGISTER only wakes pending faults if VM_UFFD_MISSING is set.
-Threads waiting on write-protect, minor or RWP faults can therefore remain
-asleep after unregistering a range that does not track missing faults.
+When reading the counter for an RMID in limbo, the architecture translates
+the CLOSID associated with that RMID into a PARTID. On arm64 MPAM with CDP
+enabled, CLOSID c maps to data PARTID 2 * c and code PARTID 2 * c + 1,
+so the same CLOSID selects a different PARTID depending on the CDP state.
+resctrl_unmount() clears the CDP state before resctrl_fs_teardown() frees
+the groups, so an RMID left in limbo is read using the CDP state of the
+next mount rather than the state it was allocated under. A CLOSID from the
+upper half of the range then produces a PARTID beyond the MSC's range; the
+MSC raises an MPAM error interrupt, and mpam_disable() disables MPAM.
 
-Wake pending faults regardless of the registration mode so they can retry
-without an explicit UFFDIO_WAKE or closing the userfaultfd. This matches
-the existing behavior for missing faults, including removing unread fault
-messages for the woken waiters.
+Move the CDP disable after the groups have been torn down, so every
+CLOSID freed on unmount is translated with the CDP state it was
+allocated under. Keep the RMIDs in limbo instead of forcing them back
+to the free list, because a quick remount would otherwise reuse RMIDs
+whose counters are still dirty. Pause the limbo handler while the
+filesystem is unmounted. At mount, release any RMID left in limbo under
+a different CDP state without reading its counter, since its CLOSID no
+longer selects the same PARTID, and restart the handler.
 
-Fix generated by an LLM and sent by Josef Bacik in private.
+x86 RMIDs are independent of the CLOSID, so the CDP state does not
+change which counter is read. Only arm64 MPAM systems are affected, and
+only when CDP is enabled with the cdp mount option (CDP depends on
+CONFIG_EXPERT).
 
-Fixes: 63b2d4174c4a ("userfaultfd: wp: add the writeprotect API to userfaultfd ioctl")
-Cc: stable@vger.kernel.org
-Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-[ david: rebase; simplify description ]
-Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Reproduced on QEMU:
+- mount resctrl, create four control groups
+- unmount, and mount again with -o cdp.
+
+Before this patch, the limbo handler reads the counters for the limbo RMIDs
+using the doubled PARTID:
+
+	mpam:__mpam_irq_handler: error irq from msc:1 'MSMONCFG_ID_RANGE', partid:5, pmg: 0, ris: 0
+	mpam:mpam_disable: MPAM disabled due to hardware error interrupt
+
+After this patch the RMIDs are released before their counters are read, and
+the same sequence completes without an error.
+
+Rebased on the below fix.
+	https://lore.kernel.org/all/20261031063634.1678345-3-ruanjinjie@huawei.com/
+
+Fixes: 6789fb99282c ("arm_mpam: resctrl: Add CDP emulation")
+Suggested-by: Ben Horgan <ben.horgan@arm.com>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: <stable@vger.kernel.org> # 7.3.x
+Cc: Tony Luck <tony.luck@intel.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: Dave Martin <Dave.Martin@arm.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Babu Moger <babu.moger@amd.com>
 ---
- mm/userfaultfd.c | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+ fs/resctrl/internal.h |  1 +
+ fs/resctrl/monitor.c  | 60 ++++++++++++++++++++++++++++++++++++++++---
+ fs/resctrl/rdtgroup.c | 31 +++++++++++++++++-----
+ 3 files changed, 83 insertions(+), 9 deletions(-)
 
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3ca04b582329f..be630674fda9b 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -3977,6 +3977,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+index 1c85e06f09bf..ccae796a1489 100644
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -373,6 +373,7 @@ void closid_free(int closid);
+ int setup_rmid_lru_list(void);
  
- 	ret = 0;
- 	for_each_vma_range(vmi, vma, end) {
-+		struct userfaultfd_wake_range range;
+ void free_rmid_lru_list(void);
++void resctrl_limbo_pause(void);
+ 
+ int alloc_rmid(u32 closid);
+ 
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 2002c4af1a5c..292f7f334b4c 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -70,6 +70,16 @@ static u32 *closid_num_dirty_rmid;
+  */
+ static unsigned int rmid_limbo_count;
+ 
++/*
++ * @limbo_paused - True if the filesystem is unmounted
++ *     The limbo handler must not read counters until the next mount has
++ *     set the CDP state up.
++ * @limbo_cdp - True if the RMIDs currently in limbo were freed with
++ *     CDP enabled.
++ */
++static bool limbo_paused;
++static bool limbo_cdp;
 +
- 		cond_resched();
+ /*
+  * @rmid_entry - The entry in the limbo and free lists.
+  */
+@@ -350,6 +360,8 @@ static void add_rmid_to_limbo(struct rmid_entry *entry)
+ 		entry->busy++;
+ 	}
  
- 		/* VMA not registered with userfaultfd. */
-@@ -3994,18 +3996,14 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
- 		/* Prevent new userfaults from being queued after the wakeup. */
- 		vma_start_write(vma);
++	if (!rmid_limbo_count)
++		limbo_cdp = resctrl_arch_get_cdp_enabled(RDT_RESOURCE_L3);
+ 	rmid_limbo_count++;
+ 	if (IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
+ 		closid_num_dirty_rmid[entry->closid]++;
+@@ -852,6 +864,13 @@ void cqm_handle_limbo(struct work_struct *work)
+ 	 */
+ 	mutex_lock(&rdtgroup_mutex);
  
--		if (userfaultfd_missing(vma)) {
--			/*
--			 * Wake any concurrent pending userfault while
--			 * we unregister, so they will not hang
--			 * permanently and it avoids userland to call
--			 * UFFDIO_WAKE explicitly.
--			 */
--			struct userfaultfd_wake_range range;
--			range.start = start;
--			range.len = vma_end - start;
--			wake_userfault(vma->vm_userfaultfd_ctx.ctx, &range);
--		}
++	/*
++	 * The limbo state is kept across mounts, but can't be read while
++	 * the filesystem is unmounted: the CDP state may have changed.
++	 */
++	if (limbo_paused)
++		goto out_unlock;
++
+ 	/*
+ 	 * Ensure the worker is dedicated to a CPU as intended and not
+ 	 * relocated by workqueue subsystem as part of CPU going offline.
+@@ -991,6 +1010,8 @@ void mbm_setup_overflow_handler(struct rdt_l3_mon_domain *dom, unsigned long del
+ int setup_rmid_lru_list(void)
+ {
+ 	struct rmid_entry *entry = NULL;
++	struct rdt_l3_mon_domain *d;
++	struct rdt_resource *r;
+ 	u32 idx_limit;
+ 	u32 idx;
+ 	int i;
+@@ -1001,11 +1022,37 @@ int setup_rmid_lru_list(void)
+ 	/*
+ 	 * Called on every mount, but the number of RMIDs cannot change
+ 	 * after the first mount, so keep using the same set of rmid_ptrs[]
+-	 * until resctrl_exit(). Note that the limbo handler continues to
+-	 * access rmid_ptrs[] after resctrl is unmounted.
++	 * until resctrl_exit(). The limbo state is kept too, so that dirty
++	 * RMIDs aren't reused after a quick remount.
+ 	 */
+-	if (rmid_ptrs)
++	if (rmid_ptrs) {
++		r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
++
 +		/*
-+		 * Wake any concurrent pending userfault while we unregister,
-+		 * so they will not hang permanently and it avoids userland to
-+		 * call UFFDIO_WAKE explicitly.
++		 * An entry freed under a different CDP state can't be read
++		 * with the new one: its CLOSID selects a different PARTID.
++		 * Release those without reading them.
 +		 */
-+		range.start = start;
-+		range.len = vma_end - start;
-+		wake_userfault(ctx, &range);
++		if (resctrl_arch_get_cdp_enabled(RDT_RESOURCE_L3) != limbo_cdp) {
++			list_for_each_entry(d, &r->mon_domains, hdr.list) {
++				if (has_busy_rmid(d))
++					release_limbo_rmids(d);
++			}
++		}
++
++		limbo_paused = false;
++
++		/* Restart the handler for the domains that are still busy. */
++		if (resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID)) {
++			list_for_each_entry(d, &r->mon_domains, hdr.list) {
++				if (has_busy_rmid(d))
++					cqm_setup_limbo_handler(d, CQM_LIMBOCHECK_INTERVAL,
++								RESCTRL_PICK_ANY_CPU);
++			}
++		}
++
+ 		return 0;
++	}
  
- 		vma = userfaultfd_clear_vma(&vmi, prev, vma,
- 					    start, vma_end);
-
+ 	idx_limit = resctrl_arch_system_num_rmid_idx();
+ 	rmid_ptrs = kzalloc_objs(struct rmid_entry, idx_limit);
+@@ -1030,9 +1077,16 @@ int setup_rmid_lru_list(void)
+ 	entry = __rmid_entry(idx);
+ 	list_del(&entry->list);
+ 
++	limbo_paused = false;
+ 	return 0;
+ }
+ 
++void resctrl_limbo_pause(void)
++{
++	lockdep_assert_held(&rdtgroup_mutex);
++	limbo_paused = true;
++}
++
+ void free_rmid_lru_list(void)
+ {
+ 	if (!resctrl_arch_mon_capable())
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 20c800e678d5..9fa8388099b6 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -3152,13 +3152,25 @@ static void resctrl_unmount(void)
+ 	cpus_read_lock();
+ 	mutex_lock(&rdtgroup_mutex);
+ 
+-	rdt_disable_ctx();
+-
+ 	/* Put everything back to default values. */
+ 	for_each_alloc_capable_rdt_resource(r)
+ 		resctrl_arch_reset_all_ctrls(r);
+ 
+ 	resctrl_fs_teardown();
++
++	/*
++	 * Stop the limbo handler before the CDP state changes: it reads the
++	 * entries' CLOSID, which selects a different PARTID. The entries are
++	 * kept for the next mount so that dirty RMIDs aren't reused.
++	 */
++	resctrl_limbo_pause();
++
++	/*
++	 * Clear the CDP state last. free_rmid() translates between CLOSID and
++	 * PARTID using the CDP state; clearing it first would make the
++	 * translation inconsistent for the RMIDs being torn down.
++	 */
++	rdt_disable_ctx();
+ 	if (resctrl_arch_alloc_capable())
+ 		resctrl_arch_disable_alloc();
+ 	if (resctrl_arch_mon_capable())
+@@ -3195,10 +3207,6 @@ static int rdt_get_tree(struct fs_context *fc)
+ 		goto out;
+ 	}
+ 
+-	ret = setup_rmid_lru_list();
+-	if (ret)
+-		goto out;
+-
+ 	ret = rdtgroup_setup_root(ctx);
+ 	if (ret)
+ 		goto out;
+@@ -3207,6 +3215,11 @@ static int rdt_get_tree(struct fs_context *fc)
+ 	if (ret)
+ 		goto out_root;
+ 
++	/* The limbo state of the previous mount depends on the CDP state. */
++	ret = setup_rmid_lru_list();
++	if (ret)
++		goto out_disable_ctx;
++
+ 	ret = schemata_list_create();
+ 	if (ret)
+ 		goto out_schemata_free;
+@@ -3310,6 +3323,12 @@ static int rdt_get_tree(struct fs_context *fc)
+ 	closid_exit();
+ out_schemata_free:
+ 	schemata_list_destroy();
++out_disable_ctx:
++	/*
++	 * The mount failed after the limbo handler was restarted: stop it
++	 * again before the CDP state is cleared, as in resctrl_unmount().
++	 */
++	resctrl_limbo_pause();
+ 	rdt_disable_ctx();
+ out_root:
+ 	rdtgroup_destroy_root();
 -- 
-2.43.0
+2.34.1
 
