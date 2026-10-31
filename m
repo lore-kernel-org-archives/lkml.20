@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793453486;
-	b=pIU+2WSTxhWCZ5SMYPP8jEpt+/1BCgdl4RIZ75iyja5wGG+3nRhTvJEL2iu9rBF3Q1eB
-	 Kaemm8mjbcPzL6AmNjYHXnxe58nHoV/RGaux1aaUFF0aLBCrdDmP4fvzlf5eQmw6pat5V
-	 48wGkFt1foAtU+TnKYNxCw60FYUTL/t8tWP0X+lNuVz4jRmtLg9eFHPTLIPZlflRmdhVv
-	 T8PRWzgLvXt8ovlDiJoywKO2jXP7KOZ1WxW5Hl0xmpP+zli5Ey4YN1qkVm5n6W5bu+ASh
-	 0isS8dwqNk8ULVMPNv5jk7YZvJTsLSU/iQYK921hqFdPeOVld3kEnk+AF2kLSxppCsw==
+	t=1793453555;
+	b=R4t8flwqn/CfT/7xxlL37PNz5zdfKGMnTGEAg+plxE9NVnPwH6xVOs2NRZj/GFYk55Nr
+	 ZoWVaJGeBopctoBQOA+s0TygplNTBg0+mE1SVwL8l+qcLpB1Yar+ezA4yAc0Bvi9VzyAk
+	 7vzhhwR08Ma5S/EtEeckUCR27DKThQdtuKfBESzk9XaQjBH5IVj4l9kDMvBRnGbxWbRA3
+	 aHmp4Qhq87kKDS9OwZYDFPllXwoywHKHt1NVWSYAcUF82PYFIAARi/pGN83X+BkKKxI3f
+	 WTSlXLjUAqTZYgQQdRN/6OAcIi41DhLzE4OV1avU1nQBn62C5D/n0M5krXfYOp2h3qQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793453486;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=PJNVVxE7OIZ4yKjAIaacSz6SsBBJvpnt+JxXa9+t5Sg=;
-	b=XpplT1vxkfqoVvuwSRQneJxF0Zv5GhFJ+xfQozeMKnZk7jXV4oKxun9S5rD9YTstAbd7
-	 125FSR5SC1lzq/qaYH1JQ3CElwNuju1nNZIAJ8OS/O3KFVGDMgFdeK+q/s8C5yoQ6Y2oa
-	 fgxXitUiiAARJx9HcPUBpXMT5FZ/IjiN84HDZGRQ1Jb6FHxc+5lehV5cwA7HWctKm8VDz
-	 B3dN3cyX9/RO+Fgk7PzQTUH4P4K547bz6/5rXCgc54OmiytOZkabRwdXqR6svL50HSsU2
-	 OUZqxXGwI0jYfAcG8CFTgD4ZU8ZGbAVS8RTJtXIT4t7ocj3oETCuGfhMaApxGtO8Hdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793453555;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Content-Type:Content-Transfer-Encoding:From:
+	 Mime-Version:Subject:Date:Message-Id:References:Cc:In-Reply-To:To:
+	 X-Mailer;
+	bh=D7LvaphkkZhIV8sWBjj5XfC38F7LHAzLjBycln5nMTQ=;
+	b=ab+aEcNc8Np/LXvjKf3yKUyLD52KM1XKOg05/9gjE4Y14BK7LLUGyjXQAt5IB6aXVvAL
+	 tRgwLD4PBYj/ldzbv3W0N78AmNGm/NCrMC/ODU2VAHwnbbaOeEd8uNDQvtFIkdJthUVkj
+	 4k1GokJiGfD01r4r+6FnWDpl1+ZBmS6I/F3fzVTPqr9grjkhKGQWTam04yCtyz8+mjZVg
+	 lH5tfslnZ3NzR2GfvvbZkBxbWljpNYfSGnoOnlLgQmcrjmkwoX2kreL731UuTkFizGBjb
+	 53z7otOvGTYtt8quOSTtnHGDWhg1xnz7kMKouowinqhxVJZkqP/6OqdcZlln/lD6aPg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g2TadhsM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=p5HdaAwh;
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA22D606A31C;
-	Sat, 31 Oct 2026 13:31:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB695606A31D;
+	Sat, 31 Oct 2026 13:32:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB695606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g2TadhsM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B4AA1F00919;
-	Sat, 31 Oct 2026 13:31:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793453485;
-	bh=PJNVVxE7OIZ4yKjAIaacSz6SsBBJvpnt+JxXa9+t5Sg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=g2TadhsMJggUoREUlf+t814kuuj29R2baqc4pV8biJAkBr2mE4OJvb8HWSooU3HDs
-	 9+DwvD5ql/UUsadMKXTDQWSXXFAh12Q9+j4YFpeNQCQgm4hsQ1gTo63/U48vKgEJ3D
-	 yKMY7KvVdJTrppqlDe7k+tb5pFNXkz+utlO9MuT3gNEinMgR42rXusSWiDdEyAOGn6
-	 9ZZpvxXfWp5TEh0IIpqA0VhLAmWyQQhYa3L12Dc8YzeZ70YVH/zF09Vr87JpMVsKZ1
-	 nbpinYJeqOgt1i+EoHICO3SZkPtFCGP6+LG0jV/mKeXH5bb6kfxWAMG1nL6GudYvuw
-	 rQlFsmJF06m/A==
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-To: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Cc: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>, rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/4] tools/bootconfig: Preserve tracing settings during export
-Date: Sat, 31 Oct 2026 22:31:23 +0900
-Message-ID: <undine-1793453483000634761-30a1647e17bcfa19@undined.local>
-X-Mailer: UndineD 0.1
-In-Reply-To: <undine-1793452028139689664-4d0bf20c02a1c855@undined.local>
-References: <cover.1793364709.git.edumucelli@gmail.com> <cover.1793442331.git.edumucelli@gmail.com> <undine-1793452028139689664-4d0bf20c02a1c855@undined.local>
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=p5HdaAwh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=content-transfer-encoding:from:mime-version:subject:date:
+   message-id:references:cc:in-reply-to:to;
+  bh=D7LvaphkkZhIV8sWBjj5XfC38F7LHAzLjBycln5nMTQ=;
+  b=p5HdaAwhI5g3hTzWI43jKfRzRQZLNw+Bu1TShoYLkXBKR6ktAymmpBBx
+   fVXldhYgKWBQT4XU0y9EvHEQxK8FnDwS5ujelMz1fpD+mBTdk+lwxj9QP
+   sjVG660D6P6mrQqgu/7gm8js0Qm2DbM+nqhLd9j+2iMC+QeUbwM5sH/FH
+   E=;
+X-CSE-ConnectionGUID: 0JLDJ17zQY60Wwg+oM/8bQ==
+X-CSE-MsgGUID: DKW+yWdNSEOI4tCpgy1QHQ==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=Julia.Lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,188,1787004000"; 
+   d="scan'208";a="303148185"
+Received: from c-76-123-3-53.hsd1.va.comcast.net (HELO smtpclient.apple) ([76.123.3.53])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 14:32:29 +0100
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: Julia Lawall <Julia.Lawall@inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,44 +60,55 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0 (1.0)
+Subject: Re: [PATCH] staging: fbtft: fb_tinylcd: align argument with open parenthesis
+Date: Sat, 31 Oct 2026 09:32:19 -0400
+Message-Id: <9445966A-996E-4F2F-9E8F-E71E9C90A6C5@inria.fr>
+References: <20261031064705.9513-1-mariasheikh812@gmail.com>
+Cc: outreachy@lists.linux.dev, andy@kernel.org, gregkh@linuxfoundation.org,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Maria Sheikh <mariasheikh812@gmail.com>
+In-Reply-To: <20261031064705.9513-1-mariasheikh812@gmail.com>
+To: Maria Sheikh <mariasheikh812@gmail.com>
+X-Mailer: iPhone Mail (23E261)
 
-On Sat, 31 Oct 2026 22:07:08 +0900, Masami Hiramatsu (Google) <mhiramat@kernel.org> wrote:
-> On Sat, 31 Oct 2026 11:25:30 +0100, Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com> wrote:
-> > Hi Masami,
-> > 
-> > Thanks for the review. I've updated the event-filter patch to use the
-> > explicit delimiter pattern you suggested. It now warns and skips filters
-> > that contain delimiters and both quote types, since bootconfig cannot
-> > represent them. The other three patches are unchanged.
-> > 
-> > Changes in v2:
-> > - Patch 1: use explicit escapes in *[,\;\#\}]* for the delimiter check.
-> >   The semicolon also needs escaping for the shell to parse the pattern.
-> > - Patch 1: detect both quote types, warn on stderr and skip the filter.
-> > - Patches 2-4: no changes.
-> > 
-> > The series keeps event filters, generic trigger counts, histogram
-> > variable ordering and paused histogram state during export. It is still
-> > based on bootconfig/fixes, including the two fixes you picked up earlier.
-> > 
-> > I retested the filter change in a temporary tracefs instance on my Ubuntu
-> > machine, running kernel 7.0.0-38-generic, with recording disabled. I also
-> > checked the mixed-quote cases against real tracefs filters and added
-> > regression checks for both quote orders and all four delimiters. The
-> > fixture checks cover each fix and the full series.
-> 
-> Thanks, this series looks good to me. Let me pick those.
 
-BTW, I will move these fixes (including your previous series of patches)
-to bootcofig/core, instead of bootconfig/fixes, because it fixes a script
-which is not related to kernel build/boot process but just helping specific
-users - who can easily get the latest kernel.
 
-Thanks,
+> On 31 Oct 2026, at 02:47, Maria Sheikh <mariasheikh812@gmail.com> wrote:
+>=20
+> =EF=BB=BFAlign the continuation line of the write_reg() call with the open=
 
--- 
-Masami Hiramatsu (Google) <mhiramat@kernel.org>
+> parenthesis to fix the checkpatch.pl check "Alignment should match open
+> parenthesis".
+
+I believe that this patch had already been proposed by another applicant and=
+ rejected. Please check the mailing list archives before sending a patch.
+
+Julia
+
+>=20
+> Signed-off-by: Maria Sheikh <mariasheikh812@gmail.com>
+> ---
+> drivers/staging/fbtft/fb_tinylcd.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/staging/fbtft/fb_tinylcd.c b/drivers/staging/fbtft/fb=
+_tinylcd.c
+> index afa8f1c740c5..d58b1247262b 100644
+> --- a/drivers/staging/fbtft/fb_tinylcd.c
+> +++ b/drivers/staging/fbtft/fb_tinylcd.c
+> @@ -38,7 +38,7 @@ static int init_display(struct fbtft_par *par)
+>    write_reg(par, 0xE5, 0x00);
+>    write_reg(par, 0xF0, 0x36, 0xA5, 0x53);
+>    write_reg(par, 0xE0, 0x00, 0x35, 0x33, 0x00, 0x00, 0x00,
+> -               0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
+> +          0x00, 0x35, 0x33, 0x00, 0x00, 0x00);
+>    write_reg(par, MIPI_DCS_SET_PIXEL_FORMAT, 0x55);
+>    write_reg(par, MIPI_DCS_EXIT_SLEEP_MODE);
+>    fsleep(250);
+> --
+> 2.53.0
+>=20
+>=20
 
