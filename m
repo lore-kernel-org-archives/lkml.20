@@ -1,68 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793454352;
-	b=a31g4GT0B8LFj2ozR4r4n/lsCmL1Sy/PkaIvgkX4bLC1KSURi3ykqdtaKgoE3RSKogP4
-	 7TpzoPVkp1m9br7d5UidV8glOG96ZKH1FJOd28qRS88p9xVW0zmDQq7avlQk3LtiyC+DU
-	 pjEIqq2X8BO/7pCCf42v9VwRc0zbXxYXslFGDSQbnDZjXMiZtcCq/ErkzqmC0pdiAeLm4
-	 sCUL5RBcz+Qf/vodawldxP06QGbtgUYhBZUSwG92W/P1t4w3iOtaF5/HZasowBJBp6h1E
-	 aAo+hrJQnEIklHjUoC256CcfkDmN9zMsjeCC7Ux9nlTnBAXYqplNmuNRWAt8r77PiHg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793454352;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Message-ID:
-	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Importance:User-Agent:X-Mailer;
-	bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=;
-	b=tCSY/HE0YMqtrKZZ5ZadvPZlupZP3FtkOn9vx9tW6xgGVJxkEoVvkWv+dJpAB/jyyOZO
-	 awuB++o9vJEN6dZY3hdqoWAcCQVX3ynQSLxD4T2NXZIWy488xG7/1909H9OiyfoULLwaY
-	 WzZv02QiB3Ple/B+FKI/uArxtSXK07JVZ2BlH6QY5mJMFHeRcGmyUiEYlZVhHnrNOYuFY
-	 Fn3nAwD12DCjSeUcgFtgJ0yZh4WtLrL6LAP05JOi7klFbV0CzdWIS7IT2CeiWWznvAf4e
-	 dbSrNF9G82wt9cWgHD/ovKVLapwRdRidt5kBXCTvwMUj7lV+mqEKsZbf2rRBN8zv5XA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jzAu9FRJ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.11
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793454358;
+	b=bMOiqzXEuz/ULsL6MDb8ifHiqWuA4TnUL8S/KmDgkNWpOH0CB9j6xsRLSBGayqWLl725
+	 2BzIL0Rn9lJusc6srxQnYoxCDJ8Beh+N4zOr6IVvS7A0+S4WIeEWUYQdQbtvctkYbvaR0
+	 O9ImBUOiNfodl0jidyyCjBkRFZGk2F2lypCzkTMxpmK1A/kJ1khPAe8f6U8tu7QTWzmGI
+	 lItcTr1+fH19s1TOkOoRaYZ2KwWz4SaXHIX1PYZo495FwxX62dmg1JxCQ83rv0GzJHwbG
+	 H3eJNBMGm4ffTfHht6mKZ8bYY8FO/grJ+NmsPFrHhGqWI/mHa/HGCL73U1xKyvVwmnw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793454358;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-Rspamd-Queue-Id;
+	bh=RzSVGEDnt2v1e9IyCd8MHB2A0CzuAV9Q0LfSGRDAFgI=;
+	b=aeAFAGGjyIXgxtpUSvmTgXBNRU/6yWnpcVnKOzsacNgnH1uBvralBfBZlXZhQVPZJqeh
+	 jtIQ7g/4mY7K0/7K0cddaocU2aB0UIqR9fYSgPNO/GsWo5CCl4PHXw+cEanYvTuhunqXu
+	 4uyaoEwvwjlIosMyWZUUyMAejNZANVHMz53f9Z3z9k2k4Rso1KXJkgu6IxGIhAOvfb9fL
+	 FY63SPrcAHqaEouq2tZRtCl4FTj1W9SIu4rLA0XL7dsZ+oc3jVeepEw8cYtszRXedhjUf
+	 Bv7/05VI4c6WYwhUiPe4KAMYpED8BIYx4D4weqE8CTzMkwmcgAmQbkOCWe2QPfr6BZA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=QuftJV5R;
+	arc=none smtp.remote-ip=80.241.56.172
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83475606A31A;
-	Sat, 31 Oct 2026 13:45:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83475606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454F5606A321
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:45:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 454F5606A321
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jzAu9FRJ
-ARC-Seal: i=1; a=rsa-sha256; t=1793454313; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=h/xD/GnjIT4Rf3g3eJLjZfk3+Qsa80d2N2y7utHj6RLU3orDPYbpqk0pR7Ywl8RAqUXhJD2PjfB4Mtu1RWr5pkSCkSQ1hc6J4ztFZmAVpvi+ToTASlpEZ/+GJu1WP4RoFEiz6Vrqk/ZKaEmiZNx3zUD83FbLYgzYrH7yQfhbP4k=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793454313; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=; 
-	b=WAD9taRwR+ehdUcZuwyq1fHrzlSOTc/eYpAMznpjbfEud4VaX1IA9Zt/4+GBp2H3xHGaTUwT9wF72eKqVhFbowKaxL+WEN3G8bxi+j9rA8JHrbi3B5lXVkyC6pmki18zML6qzbsWUAQ0M1n72S9qUUbY00loeCAWO2fNG6rGIy8=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.dufresne@collabora.com;
-	dmarc=pass header.from=<nicolas.dufresne@collabora.com>
-DKIM-Signature: a=rsa-sha256; b=jzAu9FRJBaNSJ3AHilw2eWXauQJuC0SSmJh121wg9/CuUKZwl6srQeaaMXIDHfyzNyXmOCkbtSyKyJUSqJfDGHCGOHoBrlEzej4Q1/Ow3g6ZoFAt93aQdii1H8++3yJTzyjthijpIhccsjlCAb8N0K5iRvlMgdCYyVNauKzrbnA=; c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1; bh=IA2zfU+elFDnFUhawKqcn+g6PD/rFJZaMV/qgUC1Ch4=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: from mail.zoho.com by mx.zohomail.com
-	with SMTP id 1793454311209756.6514837174597; Sat, 31 Oct 2026 06:45:11 -0700 (PDT)
-Date: Sat, 31 Oct 2026 09:45:11 -0400
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: <zhentao.guo@amlogic.com>
-Cc: <wbieganski@baylibre.com>, <neil.armstrong@linaro.org>,
-	<khilman@baylibre.com>, <jbrunet@baylibre.com>,
-	<martin.blumenstingl@googlemail.com>, <mchehab@kernel.org>,
-	<robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-amlogic@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<krzysztof.kozlowski@oss.qualcomm.com>
-Message-ID: <1a192350728.896283f8650321.6916105559730663215@collabora.com>
-In-Reply-To: <31535217-e87d-4ef7-b22d-32c35ee998bb@amlogic.com>
-References: <20261022-b4-s4-vdec-upstream-v12-0-616240978792@amlogic.com> <179337024629.131241.9227206619077693683.b4-reply@b4> <1a18d5c5f7f.3e45f382588509.8172330954347509989@collabora.com> <31535217-e87d-4ef7-b22d-32c35ee998bb@amlogic.com>
-Subject: Re: [PATCH v12 0/6] Add Amlogic stateless H.264 video decoder for
- S4
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=QuftJV5R
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jGzkp37xMzMlJj;
+	Sat, 31 Oct 2026 14:45:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793454354;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=RzSVGEDnt2v1e9IyCd8MHB2A0CzuAV9Q0LfSGRDAFgI=;
+	b=QuftJV5RoQJ/tif+CucklESWieMZDr1Odfv4IGM4qi4XF2jE/29KtAzPM9Q8uMp9XjgY46
+	hkSyKeqkZcyOTCD/70ifIftg31slmxnlMoin4I6cRWtZCNhZlUXTYUl2bmWmbxmwz+vkJs
+	QPeAKSlmRMSqFr5kRLUp2l9+ore60YwqkJHILoSP6psKtyByrICC601gV/4Wykp8xIsgbm
+	x8MjIAGl6FOufLFO7i26bv4D+ukgzNpzWyr7HZS61H36WccwgDLUM0MHMSJyFAwDHIYspl
+	qo3dvdo+1C83uu/bcfUvK5opty1baNeR45jfykDDCcqjxCVCR3QAKPbywkFCzQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
+From: Hugo Sales <hugo@hsal.es>
+To: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	dri-devel@lists.freedesktop.org
+Cc: airlied@gmail.com,
+	simona@ffwll.ch,
+	superm1@kernel.org,
+	alexander.deucher@amd.com,
+	harry.wentland@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] drm: panel-backlight-quirks: Add ASUS ROG Flow X13 3840x2400 panel
+Date: Sat, 31 Oct 2026 13:45:51 +0000
+Message-ID: <20261031134551.2735792-1-hugo@hsal.es>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,26 +78,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Importance: Normal
-User-Agent: Zoho Mail
-X-Mailer: Zoho Mail
+Content-Transfer-Encoding: 8bit
+X-Rspamd-Queue-Id: 4jGzkp37xMzMlJj
 
+On an ASUS ROG Flow X13 GV301QH (BIOS 418) ATIF
+QUERY_BACKLIGHT_TRANSFER_CHARACTERISTICS answers with a minimum input
+signal of 12 and 49 curve points for the Sharp LQ134R1JW51 panel, and
+amdgpu logs "Using custom brightness curve". With that minimum,
+brightness 0 gives 4.7% duty
 
-Hi Zhentao,
+With the quirk, brightness 0 sends PWM 0 (read back from
+amdgpu_current_backlight_pwm in debugfs). The panel stays lit, but much
+dimmer than the old 4.7% floor. Its LED driver has a minimum of its own,
+so 0 does not turn the backlight off
 
----- Le sam., 31 oct. 2026 00:51:29 -0400 zhentao.guo@amlogic.com a =C3=A9c=
-rit ----
+linux-hardware.org also lists this panel in a GV301QE. Match the ASUS
+vendor and the panel, as the Framework 13 entries do, and let the
+brightness reach the bottom of the PWM range
 
-> > That reminded me, is that firmware in linux-firmware?
-> This firmware is currently not in the repo of linux firmware. Should we
-> merge the driver first, and then submit the blob to the firmware repo?
+Signed-off-by: Hugo Sales <hugo@hsal.es>
+---
+I could only test this on a GV301QH. The entry matches any ASUS laptop
+with this panel, and linux-hardware.org only lists it in ROG Flow X13s,
+one of them a GV301QE. If you'd rather limit it to the GV301QH, I can
+add a DMI_BOARD_NAME match in v2
 
+ drivers/gpu/drm/drm_panel_backlight_quirks.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
+diff --git a/drivers/gpu/drm/drm_panel_backlight_quirks.c b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+index 2d0238382ebd5..b60333e748741 100644
+--- a/drivers/gpu/drm/drm_panel_backlight_quirks.c
++++ b/drivers/gpu/drm/drm_panel_backlight_quirks.c
+@@ -69,6 +69,14 @@ static const struct drm_get_panel_backlight_quirk drm_panel_min_backlight_quirks
+ 		.dmi_match_other.value = "Galileo",
+ 		.quirk = { .min_brightness = 1, },
+ 	},
++	/* ASUS ROG Flow X13 3840x2400 panel */
++	{
++		.dmi_match.field = DMI_SYS_VENDOR,
++		.dmi_match.value = "ASUSTeK COMPUTER INC.",
++		.ident.panel_id = drm_edid_encode_panel_id('S', 'H', 'P', 0x151b),
++		.ident.name = "LQ134R1JW51",
++		.quirk = { .min_brightness = 1, },
++	},
+ 	/* Have OLED Panels with brightness issue when last byte is 0/1 */
+ 	{
+ 		.dmi_match.field = DMI_SYS_VENDOR,
+-- 
+2.56.0
 
-Thus far, we have always required the firmwares to land first, unless a str=
-ong justification or valid alternative was proposed.
-
-
-Nicolas
