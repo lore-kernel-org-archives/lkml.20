@@ -1,87 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793416839;
-	b=asRKxgjjYx33e53QsFK0JAtph2AVwnOtT1SVLw6J3oEVHgv54NuwXt4EHj1yLvnNPELL
-	 0zDH6pLa4/lbVMB8TdrDZevnBR5KDjEMa/CoFlv9ujbrgPiFP9se2bmyY3PbG0IX0QvOA
-	 8d5yFjQx18jZkH8AVqowhmlJUO01lz3QkOp3HHP5WHwUCVMzL7bgQ/VLE2rIzY13W8e9s
-	 QBwX0pMgE+tMdz5xmhY1iOdbWJOeikRFxKaJEmmNSx8QTEnronVIgIsGc8V6w0+zDEA40
-	 Mv2bhw7F4BJRo363NOBwnNEtRNyUXxZtMOO/Gtj6h6W8WDrh8SxbYJ+TsIVtyXlBmBQ==
+	t=1793417001;
+	b=hiLOQ+wCBuMLMU1y8sIDGtihjUb419Qv6WmjFnPRAbpB4A8bNFl/gzTeNbcBo1kK/sFL
+	 +2Zob1PsIM6psW4MftbN4bIllLdK591ByAr27SJcedXhfIo1FqtFM94jsVcsWmSjcIUhd
+	 CEeem9pZ5TrLCqc1b/cvX/CW1h8fORh4JrzgvtafC6oM9MEwgexrZ37BLmzdIUiXPqk+P
+	 4/QmHF8ZkwJ4ZnTD3HZosvADXZAn3wiGowE+HS7EffU/5vEKU90kXux9iHGWWYBWMrWFr
+	 DUVRJJeRXmyfJHZyVLT0moHL5nBJyYBxDCaep4wB/WIKoSbf1uWCkSiHmPm4Wq1K6Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793416839;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=Klm3BPKegCJLOq8Ks12UtrTpT08D/JxDFOWEzcnuIcA=;
-	b=JPGevruSHOhkt2Av1SzGDwK7NujDqIOztXGoHEcI9GqjZ68z9UTPMQ/EhXUOQfc/kVBX
-	 ULw4a1KmwtpUWwStWxVC+nsthOB77IIYK+USzoegpAflP3z2gcEspyM+pa913lrSXDX8h
-	 3viq+5iOctdQlCw1ZVwcceJ13Ih3p2jtMVuxi0ExPnmpGF9JLUUaz4REgp+zDHhqm7/Eu
-	 Za0C8m76u0ghMjQoJc662AnzqRiJLZEPeT/80VWa13izn/sLnNqfVQinMKuJnDTHeEEpd
-	 s2P9eVus1f/ZpxqAagpffRfjmEPN+T31s9sxtv+n/cDjoYCWPgMrbhLdpF8Hb7V/cJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793417001;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=4wOVj5BkuVqeNk0QZ1pVDwZxFHvve0w3swvsjOEFbZg=;
+	b=D561CBljUe0rJbW17luLntZCvcOhDMkJDiHUIJIhDlJeG219OJKSPDaequ/xECvFBEQG
+	 hvh1X4w8eoInjuK4urSUZ5qpI6wF5yQbIQZC/SKbWw40+jD3RccEiq8RrIfp7kKGLhjKf
+	 Iu+CHnIBmBAsdQxVQQni0DOWPPa8XnCMxQJuiyggKE2RXrEwKQ/33zbprNLbaLa5xGHOG
+	 Y6pXkUoh+QaagmAq4owkdKgSNyyi96BQq89ctIgFvt6H28NB77oAVQy5EOzDnNcQUDEjl
+	 nHsZg0veYE/r8BZ2oceYg4Soiin9dk3t8ILH1FwDgamAjt+1357pEzXpmDunl547dhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=jyPzJuiB;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x3UnRd7Z;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36629606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:20:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36629606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036B1606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 036B1606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=jyPzJuiB
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 17F2740E02B7;
-	Sat, 31 Oct 2026 03:20:37 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id PLd-mWRMhp0Y; Sat, 31 Oct 2026 03:20:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793416834; bh=Klm3BPKegCJLOq8Ks12UtrTpT08D/JxDFOWEzcnuIcA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jyPzJuiBOC2jtFU5He9dgn18qRO9UVk6fLepmpXLRJQxU7rYKKtv2llp/tKzckA2F
-	 t7I46KhCAPpwMey1QZ053NtyuecFfTeLBFZAKvIdXftaMJkAbc8cU2inPO260+M7bG
-	 5sWeQSqH84YMxJzmnL1epY6A/IXfJFtkxEmD/R4UtEPs82RVSbyjE988Q7nKIl3XFe
-	 Jvd7Ob6ArF2kPpNGDvM0f3Xn9mlzTieC9RN/LfmvyBFbgN/Mza13r2+yKjVB/jym8c
-	 +zG5SkVTQj5WuSthqdhXOTeqkIIGsPbgo20e7ATjZFFZsJTm91atu5E3LQiufQ6guY
-	 jQo3IUvjFRMUjrslP3/FU3l5L0uAj6lmcmH2+X44VJbd1mh6XaVXX/t1LZWulvHOCM
-	 zWtucKc4CwOLM84WKnvK0lIsnyXPq+6R4XCKyS+zH5rdIQdB2B4W8exD0s2ylDpB5B
-	 ZmT+RDUVVKXX9XNJtXhdctDXxDFam4iyKCOkcrstDsOtiYwneJy+1Jg3w2zhkxjO0N
-	 A49UV7WYEnT9I8xFVMbICyEfmHg9Zh7bGkv0MEHfaOwhCWYt6OtHYo9wH5kd14yqPV
-	 RjBXouR2RTFygk5l63/E9l8d6hPPbPcm6tgXqiFoxIZNOQWneG1nBNA8zIe0nYYUMy
-	 0OmRJUzw0B96jcoPxQWaMtSA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 3AD0340E016C;
-	Sat, 31 Oct 2026 03:20:13 +0000 (UTC)
-Date: Fri, 30 Oct 2026 20:20:09 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Jason Andryuk <jason.andryuk@amd.com>
-Cc: Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Yazen Ghannam <yazen.ghannam@amd.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Sean Christopherson <seanjc@google.com>,
-	Ingo Molnar <mingo@kernel.org>, virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org
-Subject: Re: [PATCH] x86/paravirt: Add ioremap_verify_range hook and
- implement it for Xen PV
-Message-ID: <20261031032009.GIauVeaXTMNHgjYEiM@fat_crate.local>
-References: <20261031003309.3751-1-jason.andryuk@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x3UnRd7Z
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so1961341eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:23:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793417000; x=1794021800; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4wOVj5BkuVqeNk0QZ1pVDwZxFHvve0w3swvsjOEFbZg=;
+        b=x3UnRd7ZY6hNbKR/Gv1xjuAGRmJfBE8SrMicwcbUrQYlw/vH6J91OiHDLGEEsE7q1v
+         dGcTHVC5Jpdoq30kmksfq9dIwFxuQ7C6XKVJcaYOtzj5XkGRqQ7lF3DDki0L5Q1l6W9S
+         2hzepL7hJ83MFbTcicJAdjKWwgw3NOJWrL73ZxEhwQ+KCeLZMjvHtoiPFz20IyUo4NhB
+         H8I7NRPS4EQ4Qcrm/yPDvSjPaGtLgfuwO6Je04K8G/ayJEmnag8hzpnCQUHsMpnc+8QO
+         YT9wuH/dM5xObZiYOAgezfCPnQJsLV3EyJBNgYQz8lFcqDLnJuqwlTJ3KOkFwa3nUpxT
+         9bWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793417000; x=1794021800;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=4wOVj5BkuVqeNk0QZ1pVDwZxFHvve0w3swvsjOEFbZg=;
+        b=TWEHoHpamhAcrKhBRb7CcP9r7CdBoG7ffDgU+qByHHHO0LQZXtGLOj/3a0QI3nQsBH
+         MinqxT1OgVA9tP4lMsXcei5OROgPYV394hXqQhyC3pNwcrBiYx9Uok/9PkY5OQD43oUY
+         FeRHAKya9n88a66zjhtfsaUjUQFz7B5oF7JM6CENZkOhfTQtAweg2DEEbguNhsraGST1
+         W87aXblrlzbTYW/S55xtk0lN8+u61Le//CyX1w80EAjf2E4Vf8tGHubGph9S4Ed4+vzp
+         yuO74Deb2yE8/7lCnX4E/dvvPC2dpD9aXdN1/HXnxmr2yjkGa/YHDi9GPRK/MXly6uvP
+         wb9w==
+X-Forwarded-Encrypted: i=1; AKwUvBw1l1ZgxqGq6ihP4lVS+iLuS3o1yCf/AeUPOL/GigvIjG/WWdudakBGfGonLXuB8QBuujDDYWKR/RBPqtA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLstyDynR3ulzvRtW24oZVOj+YGYyPXIP9fPOOkfswEi5b+Bil5
+	+1ljF6kJc61m+kqAAFy/aR9AEU42wS2/QtVCFERbJ8LrD/8bMVjseYO+
+X-Gm-Gg: AYBFou3K8Du8nFfgpOw/6cekz5A4qT0Fd1jqUpL8ogMhZdKoHmlj4jJxDpTU4slPn1G
+	1kjAkk2gHY/cn1w1ZPBFBq/r/uLg6RE4H1UnHpy9RBDBWMTAqbbOIVDxV7cZ6yX4I0NcIEWfJTu
+	VwHyoo33hKf5E4DLyhAWuQ8op3O2EdR8f1eNt5xviVxPxp+F8XSZSSIVsR0HnUmo3Yn4JxRwweW
+	X7FchdOawO0wyuoEeb2XX+T1vU+aqU+synKQXm67tNvuCuHXk5vpwKJSKkuBi60A1BsXbES+Kqx
+	m6ZRx2B8A+/oIGfVs/6XfPEKopVInsCMIP+5LI0lm4y03+hLxEeb6irTYhGVA0FPilWeVLDT15o
+	ltBulQGxC3Obd9BHxrtcPzcrPwIZwne/uUXCGfFMgjdYolz3UKds/BrkojLB6n4FxM2vgRtEllM
+	mypPrgxDzcYcCxb/6GoFhPAehqGiujdRsqGLI3vZnPpA6OkcE6EnlrfzZhTDiN06O5sn4HowEyH
+	SGBgB2qTTq2bZ56ffy71KLLXG/fW4PAbxbksPK32DQTm+Y7pWB0CuNxBq+9x6JCw72/SZuK+XjO
+	i3+Y2qAPkjTeW2n2MYaZf+juN2KHtk45tTwZDZUlbJ4PpTC1lld7HfSMRPLdgsZ9AEXh3fmCjKu
+	Oe8KRDl9Go4gPDLBZjmYXgRa4N5UZvsCqxwftswYbNiFrnJBmY9sKJYPsw3QHzcCzVakj09nVVl
+	FYVA==
+X-Received: by 2002:a05:7301:4242:b0:358:dfed:d0fe with SMTP id 5a478bee46e88-36a42219d4fmr6026478eec.5.1793416999929;
+        Fri, 30 Oct 2026 20:23:19 -0700 (PDT)
+Received: from [192.168.2.3] ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a61a0csm13399064eec.22.2026.10.30.20.23.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 20:23:19 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+Date: Sat, 31 Oct 2026 13:23:03 +1000
+Subject: [PATCH] ASoC: tas2770: Fix VISENSE at sample rates greater than 48
+ kHz
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,50 +94,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261031003309.3751-1-jason.andryuk@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261031-tas2770-sdout-clkedge-v1-1-5266daf35f4c@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBCF4avIrA2MY2lsryIuTDLq2KIlE0tBv
+ HvTuvzgvX8H5SiscC92iPwWlXXJqMoC/NQvIxsJ2UBI1wprNKlXshaNhnVLxj8fHPLIXbi+Bde
+ QJYT8fUUe5PPvtt1p3dzMPv1icBxfMuDrOXkAAAA=
+X-Change-ID: 20261030-tas2770-sdout-clkedge-b4e39db82720
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Frank Shi <shifu0704@thundersoft.com>, 
+ James Calligeros <jcalligeros99@gmail.com>, 
+ =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+ Neal Gompa <neal@gompa.dev>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ asahi@lists.linux.dev
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2455;
+ i=jcalligeros99@gmail.com; h=from:subject:message-id;
+ bh=fiqDQ9C11prPwEgLHZ2ImZCTzidS1bFS1JQKAWZHhfg=;
+ b=owGbwMvMwCV2xczoYuD3ygTG02pJDFlP45Un2Zz1v3/148GPa+O+FO7/yBvMvOmeknM/z4ZFv
+ M8jw4Svd0xkYRDjYrAUU2TZ0CTkMduI7Wa/SOVemDmsTCBDpEUaGICAhYEvNzGv1EjHSM9U21DP
+ 0EjHWMeIgYtTAKb6zxtGhk1XMrr2Jm66fXzW1WvSz7nuGPwp+h7YaGgQM/uRsl+eigTD/7Ti2lT
+ bO2Xn5+a6X/k/63bjtZNdG6O0+n6oG0Ss8w8VZQUA
+X-Developer-Key: i=jcalligeros99@gmail.com; a=openpgp;
+ fpr=B08212489B3206D98F1479BDD43632D151F77960
 
-On Fri, Oct 30, 2026 at 08:33:08PM -0400, Jason Andryuk wrote:
-> Xen PV guests update page tables via hypercalls, and Xen refuses to let a
-> domain map machine frames it does not own, such as chipset MMIO in a domU.
-> The set_pte() paths ignore the hypercall result, so ioremap() returns a
-> mapping whose PTEs are not present.  Accessing the virtual address then
-> faults.  This was seen in print_s5_reset_status_mmio() on Xen PV domUs
-> on AMD Zen hosts.  The machine address is not accessible by the domU and
-> faults on access.
-> 
-> Add a pv_mmu_ops hook, ioremap_verify_range, which __ioremap_caller()
-> calls after ioremap_page_range().  It defaults to returning success.
-> Xen PV implements it by walking the range with lookup_address() and
-> failing if any entry is not present, making ioremap() return NULL.
-> 
-> This also affects a Xen PV dom0: an ioremap() of a range containing any
-> page Xen refuses to map (e.g. MMIO Xen reserves for itself) now fails as
-> a whole, rather than succeeding and faulting only when the refused page
-> is accessed.  Pages Xen forces read-only are still mapped present and
-> are unaffected.
-> 
-> Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
+On reset, TAS2770 is configured to both transmit and receive on the
+falling edge of the I2S clock. At sample rates higher than 48 kHz,
+this causes strange artefacts in any transmitted VISENSE data which
+manifest as corrupted/nonsensical readings for voltage and current
+once decoded. Transmitting on the rising edge of the clock instead
+results in correct VISENSE data at all sample rates.
 
-That patch is an innocent bystander, if anything - nothing it can do about Xen
-being weird about not mapping host physical addresses not owned by the domain.
+Unconditionally configure the codec to transmit data on the rising
+edge of the I2S clock when setting up VISENSE transmit.
 
-And TBH, all that gymnastics just to prevent this from running on Xen, is not
-something that makes me all happy and so on.
+Fixes: 1a476abc723e ("tas2770: add tas2770 smart PA kernel driver")
+Fixes: 6553ee024b44 ("ASoC: tas2770: Factor out set_ivsense_slots")
+Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+---
+ sound/soc/codecs/tas2770.c | 9 +++++++++
+ sound/soc/codecs/tas2770.h | 1 +
+ 2 files changed, 10 insertions(+)
 
-What is more, we try to get rid of PV ops, not add more.
+diff --git a/sound/soc/codecs/tas2770.c b/sound/soc/codecs/tas2770.c
+index 882e19857697..41e4fcf09c25 100644
+--- a/sound/soc/codecs/tas2770.c
++++ b/sound/soc/codecs/tas2770.c
+@@ -222,6 +222,15 @@ static int tas2770_set_ivsense_transmit(struct tas2770_priv *tas2770,
+ 	struct snd_soc_component *component = tas2770->component;
+ 	int ret;
+ 
++	/*
++	 * At sample rates >48 kHz, transmitting VISENSE on the same clock
++	 * edge as receiving seems to cause artefacts in the VISENSE data.
++	 * Send on the rising edge of the clock instead.
++	 */
++	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG4,
++					    TAS2770_TDM_CFG_REG4_TX_EDGE_FALLING,
++					    TAS2770_TDM_CFG_REG4_TX_EDGE_RISING);
++
+ 	ret = snd_soc_component_update_bits(component, TAS2770_TDM_CFG_REG5,
+ 					    TAS2770_TDM_CFG_REG5_VSNS_MASK |
+ 					    TAS2770_TDM_CFG_REG5_50_MASK,
+diff --git a/sound/soc/codecs/tas2770.h b/sound/soc/codecs/tas2770.h
+index 102040b6bdf8..45bbd75fb09d 100644
+--- a/sound/soc/codecs/tas2770.h
++++ b/sound/soc/codecs/tas2770.h
+@@ -75,6 +75,7 @@
+ #define TAS2770_TDM_CFG_REG4_TX_FILL BIT(4)
+ #define TAS2770_TDM_CFG_REG4_TX_OFFSET_MASK GENMASK(3, 1)
+ #define TAS2770_TDM_CFG_REG4_TX_EDGE_FALLING BIT(0)
++#define TAS2770_TDM_CFG_REG4_TX_EDGE_RISING	0
+     /* TDM Configuration Reg5 */
+ #define TAS2770_TDM_CFG_REG5  TAS2770_REG(0X0, 0x0F)
+ #define TAS2770_TDM_CFG_REG5_VSNS_MASK  BIT(6)
 
-I'm sorry if I've misled you with my comment on the previous thread - I didn't
-think someone would even act on it.
+---
+base-commit: 11ae63bd9030349a0136fb2edd1622a4a029edc8
+change-id: 20261030-tas2770-sdout-clkedge-b4e39db82720
 
-And I know Sean doesn't like X86_FEATURE_HYPERVISOR but sorry, nothing beats
-a oneliner at the beginning of print_s5_reset_status_mmio() vs this overkill.
+Best regards,
+--  
+James Calligeros <jcalligeros99@gmail.com>
 
-Thx.
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
