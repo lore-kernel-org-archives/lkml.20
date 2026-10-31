@@ -1,64 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424091;
-	b=ak7HpP3Ic24Tu3tLGiZf5h364p3UoKHkspXAom4UOHTeGthieFHtmhCKf2kPLvGG1BiT
-	 7Fswj8sijSdeX1IoUF18cLLv3hZY1GGwYCgWDe+yDXWrq8OUsbjGnxUZUKtsTARjc9iYK
-	 ytxyfx5pVc9UwT9n0xvb20KHUNk4LVqSmDo8uwX76bFN6xp5SkAMTq69/MaLrZQQYQpGF
-	 Wjru3Q+lwOKiFt24SSAV9TU2w7yyKisQ5O0M5k8LO6pQCBc8yHJebyxNsfAGt+786ZjbO
-	 sRNPKpRFpPQM2ozC0RtptprqSMTBcdka/zp8uBZXcr+Nn+3TLKXug931uEpw/rdpP7w==
+	t=1793424129;
+	b=HMCZ/BHNW1cu3kz/PsXevjmLQXHMNXYh/c+kjfXCV0IeD08mrdB+flrPS7vWgDXvwIFC
+	 lrMtoVJzK1aLoHSAwBLkltK2M0akva2cGywaCiph6McAj+LFMPQI/MWiu5SAomNcPuNTs
+	 0Rp0kW5NUlpeW5EhTBJJSfYiZWNrc3H5dsfA4Qf18oW7qoq5QMrbpv/4zG4H4h8vGW3gC
+	 qiXjNgtnahJA+Zny2VZVVCFVww41AcsqdT4yWyTZdy0d5N6WzktGH+8zpAPBd2JiStvbT
+	 SUoSrrwrtbkaLzblxsUla14WYPyfPcoISMkV9CvdiuGdtjAgqO9UnO9aHSSBWIzFbRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424129;
 	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
 	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
 	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
 	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=P+8vvVVt/SrEKdOymHQWCVEHjlCKQV+GBgTPtVcUZoY=;
-	b=yzeJahYULEzN8/iO9HdglorpixQ8vJiWf8axha0DBs0K5fhxjKshcPB71P/1p6eciSQH
-	 ZUDv8rnpI6Fo+tWr7KFsgNgYd2whBBClq0Deav3VBoiCVYwiIZGz9ULroUhPuqb5SOGjh
-	 Z31ck650RHm4R7J5Jd+byd7kOcE/jAr0ahYsyVZlV+EThq3beBOaOKiiNz1d1+UP0SGMw
-	 GlI7zeCBWTFdvYBRBBUH3stxOQdM4K+ZVnaCwWTuL/v0VkXz8JLquZPrNMpHeGw8jGn1Q
-	 /Y4MYi10VJMmzCMMEJfD2wJRT7cTcW2F1mNX4oTuhnnleIjVKbJcO6gF5Vg/CIrQwbg==
+	bh=89hniTA14+zLFpbds6fJzzb1670tsFDUAgg7XEIrMEY=;
+	b=pLfPBfzr64cKbKHhXvQL1vtW4EWPHRZQePUe76Ux9uWNfCPDz2ffRVDASRDEEUm9wpzJ
+	 0Dw3PvUhslAqqdD8iBUX3jzY67S83G04Ybrl2f2W3YhHVQItL+XT43gDUXSohhEFrcwzt
+	 FyqYDM5ZSUhGHEami2DbxPwFzdJuNCJP6zm/7Vfxm+VIQejl5eyTxkPoZiyYx33CW1m0c
+	 XGxgFx9zWEf5//S9eaNZ3Eo/2HMroBNYgy7kaR/MsoKcZw0VlTobFejkKFkrhAmskKSdD
+	 ioYPdxVBAo/TU2PQL83tQhzdljpjhMjtSBWM8WSneKQHI14TEyQvXE+7BTkkWSyLNTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZmVvhcjx;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="mcn8H/Q+";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD4E606A31D;
-	Sat, 31 Oct 2026 05:21:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD00606A31C;
+	Sat, 31 Oct 2026 05:22:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZmVvhcjx
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3DD1F00A02;
-	Sat, 31 Oct 2026 05:21:30 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mcn8H/Q+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EDD21F000C1;
+	Sat, 31 Oct 2026 05:22:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793424090;
-	bh=P+8vvVVt/SrEKdOymHQWCVEHjlCKQV+GBgTPtVcUZoY=;
+	s=k20260515; t=1793424129;
+	bh=89hniTA14+zLFpbds6fJzzb1670tsFDUAgg7XEIrMEY=;
 	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=ZmVvhcjxXfoVUL5WynqefI7AgQW7NVbSeP1qMht1nbgxI8tpxsUO3ZuZeuIBkqW4T
-	 VTG5u0vx1xGkDOvwpETm7biCZ5VISEr1UN4L1kVtRR3Q55S86X+g7cgcJcyS5hOA37
-	 YlPJr5mF84PGDg2AesCNQYDFjFkjNxRK/WRh7UZG9a0BvqrBCFgkq8zGmJ7NkSqQ4V
-	 jelV7+DXmYPm+ftF4oW016uayOOH0BxnMbe4Jn7WqLkZWKFI3rLOo6EoOKQD5olvE7
-	 nSX9m3HHXevvOd4AQmosv02a4at7aMlsrvJIoXDChkkXDM0sMcMFHRqOSYPXQjAgq4
-	 P5N9K4A8GJi4A==
+	b=mcn8H/Q+e/i7xwUyeguAhkwBgxbYLtOEbiK/FNV3T86pMDPOIQtja6oeO4cCEQzeq
+	 S/1XK4HIq8oYrPzdGgSNl03eIuJer5kqHkO/a8asSOiFpTplDR2RfCsuSu4g6U9UEf
+	 v3avy/r9xDWLT/yJ1WZhIKTLqu2vgXB5JAClOuJAEGjUHsXQ7Ng9+Mia7cSeVdw9y8
+	 AE8/8cHYfHQoSOkETBP+OK1jWuqcZM50yzo2gk2rpl7KsUHjiXFbGHZe0RYJ1A5dVo
+	 8Qggt76MnrtYvCW5JW27ehXvJg2FeKWKX/Bic/5NfnaMb8k3V+baI3lLYtR1RbCPtp
+	 aCrvUIIUh4q7w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id AF805380047D;
-	Sat, 31 Oct 2026 05:21:30 +0000 (UTC)
-Subject: Re: [GIT PULL] AppArmor bugfixes for 7.4
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0334C380047C;
+	Sat, 31 Oct 2026 05:22:09 +0000 (UTC)
+Subject: Re: [GIT PULL update] perf tools changes for v7.4
 From: pr-tracker-bot@kernel.org
-In-Reply-To: <ca16996b-2917-4869-8e22-e6731804e4e6@canonical.com>
-References: <ca16996b-2917-4869-8e22-e6731804e4e6@canonical.com>
-X-PR-Tracked-List-Id: <linux-security-module.vger.kernel.org>
-X-PR-Tracked-Message-Id: <ca16996b-2917-4869-8e22-e6731804e4e6@canonical.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor tags/apparmor-pr-2026-10-29
-X-PR-Tracked-Commit-Id: ed35bbe7d06e6505401eff3f3c7a36bd1f167a17
+In-Reply-To: <20261030220603.27617-1-acme@kernel.org>
+References: <20261030220603.27617-1-acme@kernel.org>
+X-PR-Tracked-List-Id: <linux-perf-users.vger.kernel.org>
+X-PR-Tracked-Message-Id: <20261030220603.27617-1-acme@kernel.org>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git tags/perf-tools-for-v7.4-1-2026-10-30
+X-PR-Tracked-Commit-Id: 4626d370ae89b8af4d46a45372b269f926ec662d
 X-PR-Merge-Tree: torvalds/linux.git
 X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 60aba79a50127e92d8c4a663d35b855e52a9da01
-Message-Id: <179342408918.1961943.8874862562044379333.pr-tracker-bot@kernel.org>
-Date: Sat, 31 Oct 2026 05:21:29 +0000
-To: John Johansen <john.johansen@canonical.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKLM <linux-kernel@vger.kernel.org>, "open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+X-PR-Merge-Commit-Id: dd384658c738d15783a786d3af2851e02490f171
+Message-Id: <179342412770.1961943.10787848066034752638.pr-tracker-bot@kernel.org>
+Date: Sat, 31 Oct 2026 05:22:07 +0000
+To: Arnaldo Carvalho de Melo <acme@kernel.org>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, Ingo Molnar <mingo@kernel.org>, Thomas Gleixner <tglx@linutronix.de>, Jiri Olsa <jolsa@kernel.org>, Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>, James Clark <james.clark@linaro.org>, Clark Williams <williams@redhat.com>, linux-kernel@vger.kernel.org, linux-perf-users@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>, Aaron Tomlin <atomlin@atomlin.com>, Alice Rogers <alice.mei.rogers@gmail.com>, Andi Kleen <ak@linux.intel.com>, Chun-Tse Shao <ctshao@google.com>, Dapeng Mi <dapeng1.mi@linux.intel.com>, Kan Liang <kan.liang@linux.intel.com>, liujing <liujing@cmss.chinamobile.com>, Mark Amirkan <markdamirkan@gmail.com>, Matt Turner <mattst88@gmail.com>, Nylon Chen <nylon.chen@sifive.com>, Qerogram <qerogram@naver.com>, sashiko-bot <sashiko-bot@kernel.org>, Tengda Wu <wutengda@huaweicloud.com>, Thomas Richter <tmricht@linux.ibm.com>, Triet Hoang <triet.hoang.dev@g
+ mail.com>, Wang Yan <wangyan01@kylinos.cn>, Zide Chen <zide.chen@intel.com>, Arnaldo Carvalho de Melo <acme@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,12 +69,12 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 
-The pull request you sent on Fri, 30 Oct 2026 09:46:57 -0700:
+The pull request you sent on Fri, 30 Oct 2026 19:06:03 -0300:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor tags/apparmor-pr-2026-10-29
+> git://git.kernel.org/pub/scm/linux/kernel/git/perf/perf-tools-next.git tags/perf-tools-for-v7.4-1-2026-10-30
 
 has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/60aba79a50127e92d8c4a663d35b855e52a9da01
+https://git.kernel.org/torvalds/c/dd384658c738d15783a786d3af2851e02490f171
 
 Thank you!
 
