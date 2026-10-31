@@ -1,68 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424435;
-	b=iBRfT5INhtYZViTuCg0G6HVWMZNCSlNcbjONQ6H0yof+/FZLZ7LSt0O1oGnQym4FBNa/
-	 ftElf/8vAFsMfMX2Bdco2+b883xwsm/93UBGNjfe8daoSoyXOuTRJJTdS7yo4xwh1p0lX
-	 OGwn4EvTG2z6WCiN5zu8ineaQB6qVVJsDGJvyztF9W0uYAlwWnQw3+ZfarYQYsbImvHKM
-	 cdHJIkHymLI77VkiK8Vm4F6q4VsoaNC5SpZqEGWgZL7MfTIEVXry++tqJbVnDlooFhRjS
-	 36OFlnkzf8JdRCijVRFkl8SFVaQMc2STTnNRSIcb8BkgAv3SKGxem5xPCUmt0i2gQ/A==
+	t=1793424464;
+	b=TW6DetZNC46dmYp8Hy032xRbjTGkEORy7uZ6JWj32ozg8fJUYeXOJcKYJjjz8+skK+yM
+	 v+8TGmyu4xKm0aqsnT2f+XTNkC4nQDSQQWBaPhAMLzC2dAI1jwHlkucZuM7jf3/+56IYA
+	 sVoOvDZIkBQuszk6bT0SqmmgkHYyMmfBSWmoohaaGo1Kl2KYxmEAmONNyqt9yjFh2c3JB
+	 KpUKiYsqxvk2tCG2r9gFY1zOvxYqgk5WR1i5iWq5MRW/lttN2+7VRJ6aTUdgfzEzF+lXD
+	 pPq8ldSgMeVQ5wwPpAIambrQEAMZY+28RkPN/od66VpzpHcTtFexM6+auzTdSiYFHkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424435;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=sJ1i2sB19WjZsWpCLPMyCnOc+WH6sAraGwOCsPP3qWk=;
-	b=qBDtk3twiRZTXsni/Sk8ODqNUFdp6Bf+YR2HttBGw8gfFqxHzFIvtQOVuIx5cz81DeEf
-	 6cs7TGcG2+/+bs2NNmrPQIZaSVfphEMNiDMSl9hIFSo2O95wVFxl//QVuCgAvFI70q/W5
-	 9HS8rkCT/21lkWTMkgQMrA4EiDy6God5yEiEq8mC4CoURbbFsx7pVQql10i/zOGWx/v37
-	 xBT1vzbQBWic3B2rAc7CzjOGTFML8bB+cfm6+hrPpfJsYgnZw+jF1ZQkKlaIWNma1diFr
-	 vUX0+L5tJIaPYYIb3u/dbPYSoSJNisFCm4hx2eEheOxcngMvMUaNUKUmSZ9XP8NAQKA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424464;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=RFyWw8vuZkBEx/wkkxZdiqnMcUj85ATVC8BmKduUB8A=;
+	b=kAhRT5G8+FDf2iVIg81MRg1HNbWdd6Mn+X2m0fjjvRggZA0bU7+sTc7Xsd3vvSVFDs8O
+	 NSjIspykEtxP0L1uyd2NPy5lcCjphurB7DFX7WcktySOinWl3VGCmNCL7jRSNKsyeE6dl
+	 2IMOYsPF1qdKyLYEgQMET+yRwJFKM7LULMr08yI5hstSShI+8vuFdYuk+oloodZH9Z+Xp
+	 /jgkWbJuamLQI2fcy0mWg5qIF05w9eAxnqLZ6RD693BVGYDZdjUdZR0TmGbAlzd0G8IkP
+	 nEzNBH2fRy7SjGTkwAnMJ/QE/ml29zH7WY8J4HOFCxhkVfjBmTYri07gnbhDm5XsovA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U6+0nqv7;
-	arc=none smtp.remote-ip=192.198.163.7
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD75C606A31C;
-	Sat, 31 Oct 2026 05:27:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD75C606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pHAApBGe;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5B11A606A31C;
+	Sat, 31 Oct 2026 05:27:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B11A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U6+0nqv7
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793424434; x=1824960434;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=HorgvWPM7Wg7lJRLSZ/w7jpsG9fGBf5ZSc6uneNyf3A=;
-  b=U6+0nqv72QIpc2fEPdQxl37/PzV5q2/hD5yxHH5Pv2zSceIHN9INyYgS
-   GeWvVCoE+7qGre8nwfmQqLglY1uvkIhU4pp09yX2Y6uLM46IpmSBPEKPA
-   0uCt0gYW6u6vR7CFequC9rX90OuIBAPWsoB83tgGBGmhVHAZLckcm0ql+
-   usgS672L6VWm6s8Dx48tBpxmcn+mM3CO1PY25R2H4dZThy0dE3pDB7aSG
-   gWxwjQ9XR1H98x/M9xXAi9wl6HxxGvk6gFTBTlsiavg/f6LNfnKEBee0E
-   HmaPzgHhe0vWc0U2oEQV1T/mRg/684wkVcrr50KMbGuPY2rTb9Ef9tGma
-   Q==;
-X-CSE-ConnectionGUID: lNvTJLG9S6OJiniS+MJQPQ==
-X-CSE-MsgGUID: G6RzzXZXS7Ke5PYxO+gsDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2069153"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2069153"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:27:13 -0700
-X-CSE-ConnectionGUID: CpMzmVyzRTmwuefiKAjO9A==
-X-CSE-MsgGUID: uS7oy4RhQLqJhtXiqh+oLw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5994163"
-Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:27:08 -0700
-Message-ID: <7b059c0e-3b60-4d8c-b7d2-7dcb89a51c6f@linux.intel.com>
-Date: Sat, 31 Oct 2026 13:27:05 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=pHAApBGe
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=RFyWw8vuZkBEx/wkkxZdi
+	qnMcUj85ATVC8BmKduUB8A=; b=pHAApBGergbRPvGIMagonHssWgXT06sEZ8c+R
+	i8I52oj8pw2iSLUUkbD69SeLCHnhnASc2u871g799/jojVmTi2tYpfqu5Qf/1LrM
+	HNGExz4zLGV0+FQo0BAoy5fa3SaFBa7OeWuJGvTNzRInWFfTwFB94r60K85B++cC
+	eIxXmI=
+Received: from [127.0.1.1] (unknown [114.214.177.113])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCHCT46fOVqfzVtAA--.5284S2;
+	Sat, 31 Oct 2026 13:27:22 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Rob Clark <robdclark@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abhinav Kumar <quic_abhinavk@quicinc.com>,
+ Jessica Zhang <quic_jesszhan@quicinc.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: mdss-common: describe
+ additional block resets
+Date: Sat, 31 Oct 2026 13:27:22 +0800
+Message-ID: <179342444215.451721.1758131515489182461@mail.ustc.edu.cn>
+In-Reply-To: <d265dd66-d8fb-4fd2-b6cb-d50462e4b6e2@oss.qualcomm.com>
+References: <20261029123238.29877-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261029123238.29877-2-xiaqinghuan@mail.ustc.edu.cn>
+ <d265dd66-d8fb-4fd2-b6cb-d50462e4b6e2@oss.qualcomm.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,144 +74,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 05/18] iommu: Implement device and IOMMU HW
- preservation
-To: Samiullah Khawaja <skhawaja@google.com>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-6-skhawaja@google.com>
- <df75f891-05a0-4d47-8705-d6a00c81ff97@linux.intel.com>
- <auTzN4NWuKsBvIZU@google.com>
- <51b23019-8ac2-4f6b-9be7-29f3635b472e@linux.intel.com>
- <auVfqaDhk25JUkYd@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <auVfqaDhk25JUkYd@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgCHCT46fOVqfzVtAA--.5284S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr1UAFWUtw48KF4kWry3urg_yoW8tw15pF
+	sxta4Ykrs2k39a93W8Aw1jyFWxZ3s5GrW5AF15KryIvay5GF4Iyr47Ka1YvasIgrs7u398
+	tw4ag39xCFZ8taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI
+	64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8Jw
+	Am72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l
+	c7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK67AK6r4rMxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IUYTUDtUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAxsz
 
-On 10/31/2026 11:39 AM, Samiullah Khawaja wrote:
-> On Sat, Oct 31, 2026 at 11:04:22AM +0800, Baolu Lu wrote:
->> On 10/31/2026 9:45 AM, Samiullah Khawaja wrote:
->>>>> +
->>>>>  #if IS_ENABLED(CONFIG_IOMMUFD_TEST)
->>>>>  void iommu_device_unregister_bus(struct iommu_device *iommu,
->>>>>                   const struct bus_type *bus,
->>>>> @@ -626,8 +668,8 @@ DEFINE_MUTEX(iommu_probe_device_lock);
->>>>>  static int __iommu_probe_device(struct device *dev, struct 
->>>>> list_head *group_list)
->>>>>  {
->>>>> +    struct group_device *gdev, *gdev2;
->>>>>      struct iommu_group *group;
->>>>> -    struct group_device *gdev;
->>>>>      int ret;
->>>>>      /*
->>>>> @@ -661,6 +703,13 @@ static int __iommu_probe_device(struct device 
->>>>> *dev, struct list_head *group_list
->>>>>          goto err_put_group;
->>>>>      }
->>>>> +    for_each_group_device(group, gdev2) {
->>>>> +        if (dev_iommu_has_preserved_state(gdev2->dev)) {
->>>>> +            ret = -EBUSY;
->>>>> +            goto err_free_gdev;
->>>>> +        }
->>>>> +    }
->>>>> +
->>>>>      /*
->>>>>       * The gdev must be in the list before calling
->>>>>       * iommu_setup_default_domain()
->>>>> @@ -697,6 +746,7 @@ static int __iommu_probe_device(struct device 
->>>>> *dev, struct list_head *group_list
->>>>>  err_remove_gdev:
->>>>>      list_del(&gdev->list);
->>>>> +err_free_gdev:
->>>>>      __iommu_group_free_device(group, gdev);
->>>>>  err_put_group:
->>>>>      iommu_deinit_device(dev);
->>>>> @@ -3543,6 +3593,26 @@ bool iommu_group_dma_owner_claimed(struct 
->>>>> iommu_group *group)
->>>>>  }
->>>>>  EXPORT_SYMBOL_GPL(iommu_group_dma_owner_claimed);
->>>>> +/**
->>>>> + * iommu_group_is_singleton() - Query if group contains exactly 
->>>>> one device
->>>>> + * @group: The group.
->>>>> + *
->>>>> + * Return: true if group contains exactly 1 device, false otherwise.
->>>>> + */
->>>>
->>>> We discussed this interface before, and the consensus was that such an
->>>> interface is not feasible, because the membership of an iommu_group is
->>>> not fixed, given the hot-plug support of buses like PCI.
->>>>
->>>> I am fine with the usage model of ensuring the iommu group of a
->>>> preserved device to be a singleton, but I don't think we even need such
->>>> a kAPI. It should be handled case by case.
->>>
->>> The iommu_group membership can change, this is why we check it in two
->>> places, both under group->mutex:
->>>
->>> - During preservation we check that the group is a singleton, and check
->>>   again after setting device_ser.
->>> - During probe we refuse to add a device to a group that has a preserved
->>>   device.
->>>
->>> So if a device is added to the group while we are preserving, either the
->>> probe fails because the group already has a preserved device, or the
->>> preservation fails because the group is no longer a singleton. Could you
->>> please elaborate what you mean by handling it case by case?
->>
->> I am fine with the singleton-group checking logic you described above,
->> but I don't think we need a helper like iommu_group_is_singleton(). It
->> drops group->mutex before returning, so its result may already be stale
->> when the caller uses it. That makes it easy to misuse in the future.
->>
->> I'd prefer to open-code the check where group->mutex is already held, as
->> iommu_attach_device() does today:
-> 
-> struct iommu_group is private to drivers/iommu/iommu.c, and
-> iommu_preserve_device() is in liveupdate.c, so open coding it there is
-> tricky.
-> 
-> You are correct that it drops the lock before returning. That is why I
-> recheck the singleton state after setting device_ser, which handles the
-> race.
-> 
-> I was thinking of adding something like iommu_group_lock() and
-> iommu_group_unlock() for this, but the number of devices check also
-> needs struct iommu_group definition.
-> 
-> To avoid misuse, I can add a comment on iommu_group_is_singleton() that
-> the result may be stale and the caller must recheck. What do you think?
+Hi Konrad,
 
-I would suggest something like this:
+One note on how this mail was written, since it matters for how you read
+it: I work on this board alone and my English is not good enough to
+write upstream mail unaided, so I draft with an AI assistant and edit it
+myself. The content, the measurements and every decision in it are mine.
 
-size_t iommu_group_device_count(struct iommu_group *group)
-{
-         size_t count;
+you are right, and I will drop it.
 
-         mutex_lock(&group->mutex);
-         count = list_count_nodes(&group->devices);
-         mutex_unlock(&group->mutex);
+MDSS RSC is not part of the MDSS block: the RSC sits in its own node
+(apps_rsc at 0x16500000 on SM8750), and the only reason I pulled
+DISP_CC_MDSS_RSCC_BCR into the mdss resets list is that the reset bit
+happens to be generated inside dispcc. That is a register-map argument, not
+a block-ownership argument, and the block-ownership one is the one that
+decides which node owns a reset.
 
-         return count;
-}
+What v3 will look like, so nobody has to guess:
 
-and, add a comment stating that the device count may change after the
-function returns, so the caller must recheck it.
+ - mdss-common.yaml: resets keeps "minItems: 1" with two array entries,
+   MDSS core and MDSS core INT2. The RSC entry goes away, and the
+   commit message says why.
+ - qcom,sm8750-mdss.yaml and sm8750.dtsi: resets drops to CORE and
+   CORE_INT2.
+ - drm/msm/mdss: unchanged, it still drives the whole array from DT.
+
+One thing I would like to flag rather than paper over: the reason RSCC was
+in the list at all is empirical. This board is handed over with the display
+block running, and on the vendor stack both a warm reset and a cold boot can
+end in the same panel-init failure (command DMA timeout, L1/L2 error
+counters non-zero). Resetting MDSS core + core INT2 + RSC is what makes the
+failure go away on that stack, and I have not yet isolated which of the
+three is load-bearing; I have only ever measured them together. So after
+dropping RSCC from the binding I will re-measure with CORE + INT2 alone. If
+that turns out not to be enough, the RSC reset will be driven from the RSC
+device, where you are saying it belongs, and not from mdss - I am not
+proposing to add it back here.
+
+Note also that the reset ordering caveat from the cover letter stands
+independently of this: mdss consumes dispcc clocks, so dispcc has to have
+programmed the PLLs before msm_mdss_reset() runs. I have no measurement for
+"block reset after the PLLs are up does not disturb them" beyond the vendor
+stack behaviour; that is still the open point, and if you think it should be
+answered before this series goes anywhere, say so and I will hold it.
 
 Thanks,
-baolu
+Qianhui Xu
+
