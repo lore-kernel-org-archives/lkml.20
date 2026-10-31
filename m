@@ -1,115 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.154.119.183
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793470550;
-	b=1cDI7ZGUISGWyzU/+tDlxE27gtz+19/KARWX/AnGfGtYWJ3rCjmGYoFaTnskBJY4G8g1
-	 vc2xnbmRtnAs6nHqzXekrn60HPe9lIxLIeZEuxXHUjxYt9N6MgoO9kNylsdITTXqGuqU8
-	 IbDOkrPiM40eewGPEiGRoKEK8ssjIjele9YZHCM0X/HRyftOgT1SJfVcrv+EMerbBt2NV
-	 LicMswXLKsXCcBJB6e3Ns0hJO26a+pr2bf47hn/7UaP4Bjf4z70kS9xcIPmVHY+QRiSwP
-	 44M/pp3ra3Yi0F6QXR4JL58hJme13VVO3VxwnxulQ1DnU8FDRaEEtzfGhiGqrawaNHQ==
+	t=1793470757;
+	b=Uo7fRTdkEmt7R0M6Je7TjeSg33C7YaNS0oQ4OhBh0YT/9cR7kpZPVSbmj4Yg/sXybEST
+	 ZEwlXfNpj9qRW/njtZteC8iHIL8nTXuzu0uSHH4Hy80KZFQAyhKml0G/RhewJSdgxDiNe
+	 jAyOjOmqNgP6JFsPi83Y9kp9UAIkFXuhVTegV69Ptdr+36vXWdqKPNQcX+qruN3coZCVq
+	 DdO8PexXELRYBQ8QlI35knww37ISbEr3lIKQE/OU5XHACzc/go6/Hrws+OhiKBSmAaVAq
+	 foyXKvpQUNr9cf5nAoCprjU7x3SLGtRXvCWvXfqOdOH4ytSaF9ghBtbu5XhwmyRnAFA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793470550;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Eec5Aouc9wFIQO+NM0GHrs+3vbQHhqX9lnMdXV8EI1A=;
-	b=l1YCv/5HYFxUUG9jzeCOiFOi72Q0GgYpcadhXWg2hkNyuPUsu98ZXa4TMKFBstu60RWV
-	 OeMZbt36C4w7/6EUr0Jzq7zpJpuE097AZQst9HR0/I6nC7wQsXnbF+8Eo/NHOzSMJpZ32
-	 jifwW1FMhAnQ6b1ZyHIFa4iDCK+qoeQDeojuhRmfvkdvwFRdP+N64+5IjMqMHnLVkpfNO
-	 MLsqvi1UYmoy+HlzPX+koDkpzVpDBWHFtuZ856XEpptTKgioFc5WtsLD0w1pBw/nyx3PL
-	 EVpusoOkR4grpFhOAaziL/NR+P2agsj7HD2/RQvQQZxM+IgPQEerR1MFTaUnxxbqPUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793470757;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:Mail-Followup-To:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:User-Agent;
+	bh=wXvKtxMScM3vklVT7dsWI8q+OIPz4wEMOfjmV3tlROo=;
+	b=BoEBY0Wjtm8MhJ90JrHys+6MzDgwqZ9ycDHOgNpVBWZGRLS210RKOBZH7SW9vGZiQNFG
+	 oWexl1ONdQXBMLA0R78N2QBexaY/Fyfzpkp2IicyUE2zmwhUSdpMItTlfoW9h3m0RW6Pr
+	 T4yDkLlSpCnYzx4PtQmkTnn6tnNYAfPw38SuXC00jzxlz/ZhRLR8D6SaZizFVE3abytOl
+	 tzIHouvfnpA2BIXcHIXE1YUT5BE9eHiOGBDtRmiRK+yCpgLhogxcT1hoVEtI9KGliT00Q
+	 nGi7gsHK3+K5S4hgoZb3oOCGG/FP77/gae9yrS+JzTjg+S882rLqv3U7q9bPd4NDVfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Hjfmx7R9;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b="H/fq+Ykn";
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dmarc=pass header.from=aurel32.net;
+	spf=pass smtp.mailfrom=aurel32.net;
+	dkim=pass header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=G25HnGaD;
+	arc=none smtp.remote-ip=195.154.119.183
+Received: from hall.aurel32.net (hall.aurel32.net [195.154.119.183])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FC7606A32C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:15:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52FC7606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C6B606A31A;
+	Sat, 31 Oct 2026 18:19:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26C6B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=aurel32.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aurel32.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Hjfmx7R9;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=H/fq+Ykn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793470549;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Eec5Aouc9wFIQO+NM0GHrs+3vbQHhqX9lnMdXV8EI1A=;
-	b=Hjfmx7R9iywA6KXTFpxV71O3wCoc08rG1gMpNd9i0tetg03gqu+V6cEyGZR5Mc0pnGYX6V
-	go6RJuUVXkJM+Uvwn6SLiQgAdah2DhK6ZK7FvIQldergPSVbR2g4XLsnjqPH/E1tgHbU8V
-	Y8xXXHezqHEvHIU0CBv4b+mRbAOGWYQ=
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-470-vd7qMxIuNvKGFkkBtBKpqg-1; Sat, 31 Oct 2026 14:15:46 -0400
-X-MC-Unique: vd7qMxIuNvKGFkkBtBKpqg-1
-X-Mimecast-MFC-AGG-ID: vd7qMxIuNvKGFkkBtBKpqg_1793470545
-Received: by mail-wm1-f69.google.com with SMTP id 5b1f17b1804b1-4a359c7f47bso15368415e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:15:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793470545; x=1794075345; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Eec5Aouc9wFIQO+NM0GHrs+3vbQHhqX9lnMdXV8EI1A=;
-        b=H/fq+Ykn4OXvibmZ58WSymPH6UkvtK1toNLmfG9r7MHqEuGHzGt0A9ihKTFdMqNtlk
-         YDRv1FERKM2oU5FWRr17AhGkbTcViLFILRYTnz2NxuUJqpnvbBL5Pfzm3nxluOBozULg
-         IzVt9RaX6KRRqmvWhNmfGrnDYzRlSs6MrU9VyeEweL91zR0TZByaJQiPILB1r7e5TdKc
-         7KRPrCNbJPgCi0Ng0pxNBh0v7VU4PcwyTnKM6KmVOsCj5/2gcQyENkZWptsRZhv2QVt9
-         WK7nYhlkE6QQcUslLMMBUCcTfFltq8wTNPC98Ak2pfkh5B7aS+BS1XYMZHje1/Nw2rQ+
-         Q9fw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793470545; x=1794075345;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Eec5Aouc9wFIQO+NM0GHrs+3vbQHhqX9lnMdXV8EI1A=;
-        b=U9jWjEHJawKfjALtlyApqLYnhWwhN7uWz0ubJXXmI/pdcaSVkQVD9Uxyq2tXZfA+2k
-         jYGPZZcXYOAqriTwEpiVjvwiuhaT9CPFqfYLxZ/6UKtQF4zzAii3VviDcIoYRBUK8U9Y
-         H2xXr9b9pqXerk9zS8t/MJDcNicwbQCEo0hzfi1fihpGyUI1O+zV6o/vgGANI4qxqhSu
-         jj1dJq29yuaPNnSlueu6LSu3ILfyJPnbXQf/rIwv+jHbiaaIcGY+D0hsAFlVTR903X96
-         4nNnYnKbj4bIC/Wltfk56q0TQ4Ueq2PRur3WOJaOoEtNxwHcph/ok8pyrOi5O93nun/R
-         yFnA==
-X-Forwarded-Encrypted: i=1; AKwUvBwv3ZcuSFeqqZhRjM5LkoaWMPlLFs36dGCQGTVicNUiT+0bt1JRQnmb2rw++igdUWTUUxCdqetauWA18Pc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJFsgEyFbRUPVa5aJPEkamiPRWfUzoDhVzujbHOF1D3ZQ0mYfHI
-	ftV3wm3k2WxU2pFb3YMjW+X8/v25fwEpbJbQ0mJY5DufkK1R392p21f3b7m005NVOExpfNTMqsP
-	BafAFRKAQRlv/j4HvNUy33QMZS7vqnop0PxCRgkGEPwlgxNT1uglkWPJoUANzRWYrjA==
-X-Gm-Gg: AYBFou1hIjeMPNr1bjzVMLOOGCLrfN31Q3pX1vH7UDYtU2VQ2Vcgq7ZNYjMYtaOUh+3
-	B70445bAVlDJRLRaZWmjKjQz0ThFccN5yo1s7BatQNIODkQ0b/H/uM2usaLDqG/GL+Nj8BjnZgq
-	krw5/tGa35w95j1ThKiY6ae8vmRws6PRxVdCcKY2j4nLlO0GQJMPizd2M7Pe1P/uboqJzhM5YRb
-	NQYZIuCkpyKPiv+RQVtlCDxLbZQCph96FsKs/qxlmKYbOHbsY7qL67FBWpkxWmD0gLOJjvciOqr
-	unpJY/2mZcWs9X/CHqNxVPMDSoUOKoD5D6H9sLvJLJ7r4aAV3+Gnl8qQPIPwddjfYUUxsZCRoEk
-	kI6bf1bLzWzpvdyWLOl5+ii6dojIe8LD6OuWXdi83TjiE
-X-Received: by 2002:a05:600c:4454:b0:4a3:5a7b:6002 with SMTP id 5b1f17b1804b1-4ac17d19777mr127328205e9.28.1793470544597;
-        Sat, 31 Oct 2026 11:15:44 -0700 (PDT)
-X-Received: by 2002:a05:600c:4454:b0:4a3:5a7b:6002 with SMTP id 5b1f17b1804b1-4ac17d19777mr127327715e9.28.1793470543790;
-        Sat, 31 Oct 2026 11:15:43 -0700 (PDT)
-Received: from redhat.com ([2a06:c701:73c1:fd00:6c8e:5a61:f533:519d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abeb77af8csm210425925e9.1.2026.10.31.11.15.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 11:15:43 -0700 (PDT)
-Date: Sat, 31 Oct 2026 14:15:40 -0400
-From: "Michael S. Tsirkin" <mst@redhat.com>
-To: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Jason Wang <jasowangio@gmail.com>,
-	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
-	Meta kernel team <kernel-team@meta.com>, cgroups@vger.kernel.org,
-	linux-mmc@vger.kernel.org, kvm@vger.kernel.org,
-	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=aurel32.net header.i=@aurel32.net header.a=rsa-sha256 header.s=202004.hall header.b=G25HnGaD
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=aurel32.net
+	; s=202004.hall; h=In-Reply-To:Content-Type:MIME-Version:References:
+	Message-ID:Subject:Cc:To:From:Date:Content-Transfer-Encoding:From:Reply-To:
+	Subject:Content-ID:Content-Description:X-Debbugs-Cc;
+	bh=wXvKtxMScM3vklVT7dsWI8q+OIPz4wEMOfjmV3tlROo=; b=G25HnGaDkc1RgIW91lVD6GGCn7
+	ujfzrPuOEazvc9Ofi9P8wnL97LyD0rSL6DBLcNFoQF57HBxyLfbBLHo+JoWJJCqgXtqe0Ng75yZRy
+	CHdsGq9Uu5UAr1avEaMd2utnyJ/Vy9WVZnENmGrny5ozCa82wVAhbWOsLxaYfKqvoFFUQx0raHLrg
+	01tmJs9J0g7B4M7b2UBzDsL1NNjZ5v/4v3+tA7IG6cYpgIQ1xYhHRSda25icsS05cWlnKjOimDC2E
+	Kui1OWenvFiRlVVjeSmq+iL/RrtyeazdmNXRrRaoNpoA1J+AaDtnSiiyNPU4IgOb/FlKJmZrWQ0Jt
+	hjoXbK6Q==;
+Received: from authenticated user
+	by hall.aurel32.net with esmtpsa  (TLS1.3)  tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <aurelien@aurel32.net>)
+	id 1xNDfU-00000009eFe-1DoC;
+	Sat, 31 Oct 2026 19:19:04 +0100
+Date: Sat, 31 Oct 2026 19:19:01 +0100
+From: Aurelien Jarno <aurelien@aurel32.net>
+To: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
+Cc: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] vhost_task: do the return-to-userspace work between work
- items
-Message-ID: <20261031141506-mutt-send-email-mst@kernel.org>
-References: <20261031181004.4193627-1-shakeel.butt@linux.dev>
+Subject: Re: [PATCH] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
+Message-ID: <auYxFRtKWbGAlRTL@aurel32.net>
+Mail-Followup-To: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>,
+	Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	spacemit@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	Troy Mitchell <troy.mitchell@linux.spacemit.com>,
+	linux-kernel@vger.kernel.org
+References: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -121,85 +87,112 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261031181004.4193627-1-shakeel.butt@linux.dev>
+In-Reply-To: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
+User-Agent: Mutt/2.4.1 (2026-07-04)
 
-On Sat, Oct 31, 2026 at 11:10:04AM -0700, Shakeel Butt wrote:
-> A vhost task is a user worker: a thread of a user process that runs only
-> kernel code. It never returns to userspace, so it never runs the work
-> that is queued for the way back. resume_user_mode_work() does that work
-> when TIF_NOTIFY_RESUME is set. For a vhost task this means:
-> 
-> - memory.high is handled at the wrong time. When a charge goes over
->   memory.high, the task counts the pages, and should reclaim, and sleep
->   if needed, on its way back to userspace. A vhost task only reclaims
->   when more than a batch of pages has built up and the charge can block.
->   Then it reclaims and sleeps in the middle of the charge, maybe while
->   it holds a lock. vhost-scsi, for example, can fault in guest memory
->   while it holds vq->mutex. If the charges can't block, nothing is done
->   at all, and the count keeps growing.
-> 
-> - Block cgroup throttling never runs. blkcg_schedule_throttle() asks for
->   it, but only resume_user_mode_work() acts on it.
-> 
-> - Task work queued with TWA_RESUME, like a deferred fput() or a NUMA
->   balancing scan, waits until the task gets a signal or exits.
-> 
-> io_uring workers had the same problem, and io_run_task_work() calls
-> resume_user_mode_work() for them. Do the same in vhost_task_fn(): if
-> TIF_NOTIFY_RESUME is set, call resume_user_mode_work() at the top of the
-> loop. That is between work items, no locks are held there, and the task
-> is running. Passing a NULL regs is fine, io_uring and KVM already do it.
-> 
-> This covers every user of vhost_task_create(): the vhost workers and
-> KVM's NX huge page recovery thread.
-> 
-> Tested in a VM with a version of tools/virtio/vhost_net_test that puts
-> each RX buffer on a new page, so the vhost worker faults in, and
-> charges, 256M while its cgroup has memory.high=64M. Before, all 285
-> calls to __mem_cgroup_handle_over_high() came from try_charge_memcg(),
-> inside handle_rx() with vq->mutex held. After, all 589 came from
-> vhost_task_fn(). memory.peak stayed at 64M, and the run took about the
-> same time (0.66s before, 0.67s after). A lockdep kernel showed no
-> warnings.
-> 
-> Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+Hi,
 
-Is this different from:
-
-Message-ID: <AS8P251MB00012469E6ECBEA2B7D87BB0C86C2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-
-
+On 2026-10-30 17:40, Chunyan Zhang wrote:
+> Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
+> of the K3 SoC.
+> 
+> Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
+> yet, so the port runs at high-speed (maximum-speed = "high-speed").
+> 
+> Enable USB3 port A with dr_mode = "peripheral", so it can be used as
+> a USB device.
+> 
+> Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
 > ---
->  kernel/vhost_task.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+>  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  9 ++++++
+>  arch/riscv/boot/dts/spacemit/k3.dtsi         | 30 ++++++++++++++++++++
+>  2 files changed, 39 insertions(+)
 > 
-> diff --git a/kernel/vhost_task.c b/kernel/vhost_task.c
-> index 3717885a5992..f0ab21aa2a1c 100644
-> --- a/kernel/vhost_task.c
-> +++ b/kernel/vhost_task.c
-> @@ -7,6 +7,7 @@
->  #include <linux/sched/task.h>
->  #include <linux/sched/vhost_task.h>
->  #include <linux/sched/signal.h>
-> +#include <linux/resume_user_mode.h>
+> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> index b084a35aa00e..74d4fdf9e405 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
+> @@ -323,6 +323,15 @@ &usb2_phy {
+>  	status = "okay";
+>  };
 >  
->  enum vhost_task_flags {
->  	VHOST_TASK_FLAGS_STOP,
-> @@ -38,6 +39,14 @@ static int vhost_task_fn(void *data)
->  				break;
->  		}
->  
-> +		/*
-> +		 * A vhost task never returns to userspace. Do the work that
-> +		 * would run on the way back, like memory.high reclaim, here
-> +		 * between work items, while no locks are held.
-> +		 */
-> +		if (test_thread_flag(TIF_NOTIFY_RESUME))
-> +			resume_user_mode_work(NULL);
+> +&usb3a_u2phy {
+> +	status = "okay";
+> +};
 > +
->  		/* mb paired w/ vhost_task_stop */
->  		set_current_state(TASK_INTERRUPTIBLE);
+> +&usb3a {
+> +	dr_mode = "peripheral";
+> +	status = "okay";
+> +};
+> +
+>  &usb3d_u2phy {
+>  	status = "okay";
+>  };
+> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> index c3f2dce0969c..220dfe29bb78 100644
+> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+> @@ -630,6 +630,36 @@ gmac2_axi_setup: stmmac-axi-config {
+>  			};
+>  		};
 >  
-> -- 
-> 2.53.0-Meta
+> +		usb3a: usb@cad00000 {
 
+Please move this after the eth2 node, so that the node addresses are 
+kept sorted.
+
+> +			compatible = "spacemit,k3-dwc3";
+> +			reg = <0x0 0xcad00000 0x0 0x10000>;
+> +			interrupts = <118 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-parent = <&saplic>;
+> +			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
+> +			clock-names = "usbdrd30";
+> +			resets = <&syscon_apmu RESET_APMU_USB3_A_AHB>,
+> +				 <&syscon_apmu RESET_APMU_USB3_A_VCC>,
+> +				 <&syscon_apmu RESET_APMU_USB3_A_PHY>;
+> +			reset-names = "ahb", "vcc", "phy";
+> +			phys = <&usb3a_u2phy>;
+> +			phy-names = "usb2-phy";
+
+Please move the PHYs definition to the board level, matching was it is 
+done for the other USB3 ports, as other boards might have different PHY 
+configuration.
+
+> +			phy_type = "utmi";
+> +			snps,dis_enblslpm_quirk;
+> +			snps,dis_u2_susphy_quirk;
+> +			snps,dis-del-phy-power-chg-quirk;
+> +			snps,dis-tx-ipgap-linecheck-quirk;
+> +			maximum-speed = "high-speed";
+
+I think the maximum-speed property should also be moved to the board 
+level, as its value depends on the PHYs configuration.
+
+> +			status = "disabled";
+> +		};
+
+Any reason not to define the snps,parkmode-disable-ss-quirk property? It 
+is defined for the other USB3 ports, as well as for the USB3 A port in 
+the vendor kernel
+
+> +
+> +		usb3a_u2phy: phy@cad20000 {
+> +			compatible = "spacemit,k3-usb2-phy";
+> +			reg = <0x0 0xcad20000 0x0 0x200>;
+> +			clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
+> +			#phy-cells = <0>;
+> +			status = "disabled";
+> +		};
+> +
+>  		pdma: dma-controller@d4000000 {
+>  			compatible = "spacemit,k3-pdma";
+>  			reg = <0x0 0xd4000000 0x0 0x4000>;
+
+Otherwise looks good.
+
+Regards
+Aurelien
+
+-- 
+Aurelien Jarno                          GPG: 4096R/1DDD8C9B
+aurelien@aurel32.net                     http://aurel32.net
