@@ -1,92 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793414393;
-	b=PRYfC2hWAnQkooM69YgMP2DpzEO51gD/ahtcIFf9x6pCrmdXWlbQ6reuQV4hxp5jsnSR
-	 h9ducU8x2pWT6s/KdndqQ6ALWo4bRu8IRX2lx0v0pH++1uKhKG16Yfm3NQpozsKxYE9ab
-	 KjWFhP7gYOTAQIipMWW6rq6n2CvG0oVKNMKPgHiG7i9nmfRDsRae0nmH58rtuTty3Ce3J
-	 kSZLmkel4K5cr55Z80i+8jVy7uoVrAvwi11+paxJSz+rjiOE25X+BD4jH8DXvljOQgDOB
-	 Q1bUGA9yu5HA2GVTZGOna6WQinNkmWl20rj/lhHnw5J7y4OqnIDmCyp1f1HkUv/eTfA==
+	t=1793414576;
+	b=JGfxB9zFqlLaHo3uKGvlCewzbnfu5VjuxlsRC8/7hz1BDM7OkvqchE67xkz5SmHyqAHs
+	 UIXFQ3hjAhBEJ3XYLSC+mZWj0q0OUN/XLDCZ1E0Q+NL9fP06wDUv7BTMjKgldSlDqcXw2
+	 QQHlazll9ArAlDAablxedkjSkLdmhm6ZOD6F1wWXevlJoihFIxFxiTIpExqVRDVIY4F0+
+	 5FcVvASNULvXNdMW54MmBVIK/M3c4kdIpLV2VE8Ta7i2z5PW6baPN5/d0nnSganIceRQ3
+	 MaOuig6O3sTI3SLLfY2pSdFsLQT67iYYRa69RilVcht5fOSLQluZoV/e+JobF/zwxMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793414393;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=piM8eBA62VwSbnQR+cjmfd8LxrXIq2seOpkUOZ9qd4E=;
-	b=VOzuwcNzaIDmX9C0DbMqVtud6Hs/xB5A0ZFLBQvFnoAY8X+nQntbYy68BXMitd7D30Cu
-	 52fmsbOffSnP8bmrMHDiqiYXIqFwJeUPo26cPSKeEQRybNIyG07ma9sQVF0iHv9h+4wtU
-	 k9Rtm1AsHAZRAyYL9ZEAlY+pAl1LwzbYXBRXWT7Ob12qRoQjQb+UtAFhdoQ6zClkbw5lf
-	 Ibak9/ks8obaCDAEp46v619t4lDlFts6od8pM46omdai5pwF41fAgam2JmOARt0gM/cDg
-	 0hoNaiPnOezHJTQXchfF5sfqNWmcrqVmKwHFG+8IFurN9vIAlDhvqarpqs5cgBnt5zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793414576;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=XbvjHIncb8G+BYsmpLe0PUSaotGhY48mcOIF6+E1fiA=;
+	b=j+Nb7Xw/CkjX1lhlfL8nIwHemGZhYf8k19rHFBuiaKog0XJbqFnYj+hz4dpk03cjl/Jr
+	 sajsREPuYbbuDY6NncYQIswVsKF4mCzUk+U2G0iGfhSzZj5+UbA0lsL9OhQLg+T2HT993
+	 4HwOSp5Za5OARkd9F+hKlPlMoLyI9UwELV/zdPKftX18bnUd+D2owNUZpIGZ0tqopxWuZ
+	 D2BNwgkaqx/+whmDfl/TuU4/7SNqRE6ZuiVl8LCqeZ0vHNuaeeLdSIr9yX16jBjZDjL0T
+	 G84k4FnwrMqvMrFFTEc3opPUDXkRKq9UPBze8mwR5KXi5Z/RRKV+dFe+RQFf1/rryag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LeRni7od;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQUtdKcr;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47930606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:39:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47930606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B971606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:42:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LeRni7od
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2243237eec.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:39:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793414392; x=1794019192; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=piM8eBA62VwSbnQR+cjmfd8LxrXIq2seOpkUOZ9qd4E=;
-        b=LeRni7odaRZoXAvnLaclH4vnpxuCG3bxk+dXiY/g0FKl+yrvI1QqtiRFcLbmej/qaY
-         cQ/L9gPjCJ5UpYHpkZ4tuqu+ZRSMquNWgCXlHGNs+AUKcIdsz/7/FWgZ1fiWvZXHHRrp
-         TxoJyFErfbEwgh09SEPG0hLL2TyGRFpXTPI5FiTQu0QetUbHRyxjn3bf2EUuFkUEGcXM
-         p6+cBjy1K2Iaa3MzBBOdNYsunWrGo+UjowMpsFE5fn3hYzF4gV7ULvruzZHGC7/RyvCk
-         LdyF5FWz5AydyAfYbGndCi/9UiLrpIN2660YYJB8S/WcUcoASvLWssEzz24d49TmNUCa
-         BCcg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793414392; x=1794019192;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=piM8eBA62VwSbnQR+cjmfd8LxrXIq2seOpkUOZ9qd4E=;
-        b=IMDfSZE6350r5Ucp2uCwzu4mzDARsEAFIUI4hgaKxQLcCAlTDJE93hXPs/iDl32Vv4
-         3XyW8YSxsuWtncosAE8ansFZ6atFChnPDoWdRniQrzR2hZieGzPqZXCHlYfLwxnDE0wB
-         24uagOVxRImWuGt+Khfqm5+tkbTd4SyUd19uznPeVJ0SEiVMswb5iRSAIJMjhSi049np
-         6s8P4gxtmIOunQcZ85h910wXBoaWe0ig2442Xr8tluW57zgxeZXWt7bBC8wpzQJI0hgB
-         oB3R2lRphNHPkE5dnDG6dJ/vlm9qR/xZ0wAg1K6XdYwSnkIWr/Db7IjC3oQmCvBrC+lO
-         FzcQ==
-X-Forwarded-Encrypted: i=1; AKwUvByg30fctCOHTu9cbWBwcS2bUFYFUAMfsXax6VeQiGYtXAkzoxBUFPV512Y2Q8d7n+5cDoqht/UZHmnF0i8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJs8hrHcOu3uGQfeWqi95CRRn7lrb+8QXppsWr0cxwOKF310/Om
-	PfIab6W04bZj/bHMHjcD4q7rL98EdsWTLvpwMYgiHMQ8PsHm64fYZu5/
-X-Gm-Gg: AYBFou34JPNE8LKu/Th62a00rKMf87cLW2sgOmZO//9KXRc4zZbQDHhw+ST+E+v1Qpd
-	0FGHYQRxKtDm916iH+4FEyoDeDaaBpXM2xKsihu1kYrdmJLfW4miYrnllH30YElCcil9tsyX98s
-	e/TJQ0iUse1yU9E+N0chl7/RZZdKF+2xgc1zpw03Y098/m6+qVZsUzvFIkbxfAY9TV2kNpYiYWJ
-	QLGY5UTEdVSFRhSI3dK03JJonzy98wgh2e0oIibJRRpuWxrtI/7UkVXDZwq1T2zOLRdbG5IkOsX
-	49yHO6ZSlc9F4spW7wbLZ/PMdGU4qeZafvpEtSJ8XluR0QvYVPkw8AQfjEMcoS6X9Bnl4P0xyBQ
-	vPRIUekwdeTbksq3PsFkKjjDBwRGHUBVLdMGl7ZFfIsKx3g7GkKJfImIzDhUr4eeTyJ7rDnB74b
-	Pa6wldaLV+sQ/9rVWvAoSplJQ/vhnSoJ3YOhJg46p6schBCSDAgLbFugkJT9pYt1ve8xB6jAg3s
-	lU2qDia6r6n+7+GE2hmi1bhBWBRvuz+8DiBuVCX9PDKyb4mY98zQe8IHfNQUCUSXyCY9J95Yau3
-	scGQS3L+T4pEN1SFxG7B3YJHWA==
-X-Received: by 2002:a05:693c:87c6:10b0:367:5e31:ce29 with SMTP id 5a478bee46e88-36a42404ab3mr6235454eec.20.1793414392190;
-        Fri, 30 Oct 2026 19:39:52 -0700 (PDT)
-Received: from spidy ([2401:4900:55af:1de3:e93d:d70:4a7e:784d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429000f8sm11231278eec.13.2026.10.30.19.39.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 19:39:51 -0700 (PDT)
-From: Gowtham S Bhushan <gowtham398gs@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Gowtham S Bhushan <gowtham398gs@gmail.com>,
-	syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
-Subject: [PATCH] spi: core: do not WARN on OOM spi_controller_id_alloc
-Date: Sat, 31 Oct 2026 08:09:42 +0530
-Message-ID: <20261031023942.591298-1-gowtham398gs@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZQUtdKcr
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADAE21F00A15
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:42:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793414575;
+	bh=XbvjHIncb8G+BYsmpLe0PUSaotGhY48mcOIF6+E1fiA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZQUtdKcrS6RDP3uE5pAO0mfK3gPkgf3kTf1CXS5kTnnOqP0hRgEdNUeC7QYUH5O+T
+	 jY6284N1dSZONlv9RR5zpkHT5XhWxgnla/CPrxYLDjL3UGvQAVPK6JVcH2FMQY55Js
+	 UpFO8bsCGzez+m7ir0msUKVwZ2pKhjKE3yvzR3RoWneih1OgDKUw3qPKYVgh+7eXlG
+	 2ZZdpRRCXwNPHr7tVdC3HoNZ3n0t8CbGrFPKmf5edGLXI7q/7X6yrZPpQstbM2FsVg
+	 Vh+XT3MO9ifEFsm5iMU2+UIByb1ZH96aMlKdkhG8ARBg0nRGNB2E8z7eLjh0m00WsV
+	 Z7BLZvp74Go1Q==
+Received: by mail-qv1-f43.google.com with SMTP id 6a1803df08f44-91c7a706b1fso34485816d6.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:42:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxwnPdzZ6a0IThP8awj46iD8AJVwkInvNDxjDgaYoFLg6AV6hyfl6B3lw6wX4JRgAE8x6+Kyh2SQsUJN5M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeaIvLQIL4NnYy0TXsccR0p2vfHofhY32RUM+6Z82eSGC0c7v9
+	xoY42rFQtly67hE6aeGtxPpsIyxq/8jecOebhl01XfjLPuTHDMSZEV1RNlbYz5zJJw6Vi5Re0S+
+	6jaG7oKc7NhM1C4x6AycBxi8H2EI531g=
+X-Received: by 2002:a05:620a:1999:b0:93c:891b:90f1 with SMTP id
+ af79cd13be357-944133ab8aemr1157540585a.26.1793414575057; Fri, 30 Oct 2026
+ 19:42:55 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,50 +59,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261026084035.535989-1-hui.zhu@linux.dev> <CAMgjq7AJSU9jUBTHGcm05mtGBH4EMQ_ua9YNwuLOGVzhkdLKkA@mail.gmail.com>
+In-Reply-To: <CAMgjq7AJSU9jUBTHGcm05mtGBH4EMQ_ua9YNwuLOGVzhkdLKkA@mail.gmail.com>
+From: Barry Song <baohua@kernel.org>
+Date: Sat, 31 Oct 2026 10:42:44 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4zPZg6pCuhDtTpSkueS2EDSfWeYa23h7kC9hEU0iGB-+w@mail.gmail.com>
+X-Gm-Features: AclHuK8OP7DyMs9ASLJHmA1rKTTTWsz_2q-gGMGDEWgbxTqGh_WEH7YWpp83KIg
+Message-ID: <CAGsJ_4zPZg6pCuhDtTpSkueS2EDSfWeYa23h7kC9hEU0iGB-+w@mail.gmail.com>
+Subject: Re: [PATCH v2] mm/mglru: fix a no-op lru_gen_clear_refs() call in lru_lazyfree()
+To: Kairui Song <ryncsn@gmail.com>
+Cc: Hui Zhu <hui.zhu@linux.dev>, Andrew Morton <akpm@linux-foundation.org>, 
+	David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike Rapoport <rppt@kernel.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, Yu Zhao <yuzhao@google.com>, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Hui Zhu <zhuhui@kylinos.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In spi_controller_id_alloc() (drivers/spi/spi.c), idr_alloc()
-can return -ENOMEM when radix tree memory allocation fails 
-under memory pressure or fault injection. The function
-inappropriately invokes WARN(id < 0, "couldn't get idr") on any
-failure rather than handling expected runtime allocation errors silently.
+On Tue, Oct 27, 2026 at 7:40=E2=80=AFPM Kairui Song <ryncsn@gmail.com> wrot=
+e:
+>
+> On Mon, Oct 26, 2026 at 4:41=E2=80=AFPM Hui Zhu <hui.zhu@linux.dev> wrote=
+:
+> >
+> > From: Hui Zhu <zhuhui@kylinos.cn>
+> >
+> > lru_lazyfree() calls lru_gen_clear_refs() after lruvec_del_folio(), but
+> > lru_gen_del_folio() has already cleared LRU_GEN_MASK, so folio_lru_gen(=
+)
+> > returns -1 and lru_gen_clear_refs() exits at its "gen < 0" check withou=
+t
+> > clearing the refs or PG_workingset.
+> >
+> > A MADV_FREE folio therefore keeps the state it had before madvise(2),
+> > even though madvise_free_pte_range() has already cleared the accessed a=
+nd
+> > dirty bits of its PTEs.  lru_gen_folio_seq() places it one generation
+> > younger, and PG_workingset puts it in the last tier, so sort_folio()
+> > promotes and protects it instead of evicting it and charges it to
+> > lrugen->protected[], which read_ctrl_pos() uses to balance anon against
+> > file reclaim.  __folio_inc_gen() clears the refs but not PG_workingset,
+> > so this repeats every time the folio reaches the oldest generation.  If
+> > the folio is redirtied first, ttu_anon_lazyfree_folio() keeps it and
+> > lru_gen_eviction() packs the stale state into the shadow entry, so a
+> > later refault is promoted to the youngest generation.
+> >
+> > Call lru_gen_clear_refs() while the folio is still on the generation
+> > list, as deactivate_file_folio() and folio_deactivate() already do.  It=
+s
+> > return value only says whether the folio is in the oldest generation,
+> > which lru_lazyfree() does not need because it re-adds the folio below.
+> > Keep folio_clear_referenced() unconditional: the classic LRU needs it,
+> > and it also covers the folios that lru_gen_clear_refs() skips.
+> >
+> > Fixes: cc8ec7be78ff ("mm/mglru: optimize deactivation")
+> > Suggested-by: Barry Song <baohua@kernel.org>
+> > Signed-off-by: Hui Zhu <zhuhui@kylinos.cn>
+> > ---
+> > Changelog:
+> > v2:
+> > Call lru_gen_clear_refs() before lruvec_del_folio() instead of
+> > open-coding the flag clears; drop the lru_gen_enabled() branch and
+> > the comment (Barry Song).
+> >
+> >  mm/folio.c | 6 ++----
+> >  1 file changed, 2 insertions(+), 4 deletions(-)
+> >
+> > diff --git a/mm/folio.c b/mm/folio.c
+> > index 35e242b48870..ea3adb6a89d7 100644
+> > --- a/mm/folio.c
+> > +++ b/mm/folio.c
+> > @@ -597,12 +597,10 @@ static void lru_lazyfree(struct lruvec *lruvec, s=
+truct folio *folio)
+> >             folio_test_swapcache(folio) || folio_test_unevictable(folio=
+))
+> >                 return;
+> >
+> > +       lru_gen_clear_refs(folio);
+> >         lruvec_del_folio(lruvec, folio);
+> >         folio_clear_active(folio);
+> > -       if (lru_gen_enabled())
+> > -               lru_gen_clear_refs(folio);
+> > -       else
+> > -               folio_clear_referenced(folio);
+> > +       folio_clear_referenced(folio);
+>
+> Why can't we just call folio_set_lru_refs(.., 0), and should we clear
+> PG_workingset? Keeping it helps PSI on refualt / redirty tracking (not
+> sure if meaningful but CLRU does this), clearing it makes eviction
+> better, but the eviction issue is MGLRU-only, CLRU keeps it.
 
-Modify the error handling path to only trigger a WARN when the failure
-is due to reasons other than an out-of-memory condition (such as -ENOSPC).
+I recall that in v1 [1], Hui mentioned:
 
-Reported-by: syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=41172204e7323356ecdb
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Tested-by: syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
+"Use folio_clear_referenced() rather than
+folio_set_lru_refs(), which is not defined without
+CONFIG_LRU_GEN."
 
-Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
----
- drivers/spi/spi.c | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
+I assume we can support this, but doesn't the code below
+also look a bit weird?
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 40cda0037ea5..a1276d194465 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -3631,8 +3631,17 @@ static int spi_controller_id_alloc(struct spi_controller *ctlr, int start, int e
- 	mutex_lock(&board_lock);
- 	id = idr_alloc(&spi_controller_idr, ctlr, start, end, GFP_KERNEL);
- 	mutex_unlock(&board_lock);
--	if (WARN(id < 0, "couldn't get idr"))
-+
-+	/*
-+	 * Modify the error handling path to only trigger a WARN when the failure
-+	 * is not due to an out-of-memory condition
-+	 */
-+
-+	if (id < 0) {
-+		WARN(id != -ENOMEM, "couldn't get idr");
- 		return id == -ENOSPC ? -EBUSY : id;
-+	}
-+
- 	ctlr->bus_num = id;
- 	return 0;
+
+diff --git a/include/linux/mm_inline.h b/include/linux/mm_inline.h
+index 829977d399e6..66ed805a48f5 100644
+--- a/include/linux/mm_inline.h
++++ b/include/linux/mm_inline.h
+@@ -431,6 +431,15 @@ static inline void folio_migrate_lru_refs(struct
+folio *new, const struct folio
+        if (folio_test_referenced(old))
+                folio_set_referenced(new);
  }
--- 
-2.56.0
++
++static inline void folio_set_lru_refs(struct folio *folio, unsigned int re=
+fs)
++{
++       if (!refs)
++               folio_clear_referenced(folio);
++       else if (refs =3D=3D 1)
++               folio_set_referenced(folio);
++}
++
+ #endif /* CONFIG_LRU_GEN */
 
+[1] https://lore.kernel.org/linux-mm/20261023080430.465305-1-hui.zhu@linux.=
+dev/
+
+Best,
+Barry
