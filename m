@@ -1,123 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.138
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.193
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793436405;
-	b=2I3H7nbjmAuKtzQwx7j4+6icufBDvWMK7OdqcGHLtpR6kFv92ahxmhZTYumKHID1tS/D
-	 yBXeqA6wxDzES1QVSNj+PFuuPoPfvJ8b6gqC4DUfsbBrYCEWKEnKCnrj+hF+nUkhsd8rm
-	 N/d+mres65e/MArnXrITZI3t4Px0B+hRZ4jsFuNWygMlv9m7WVVg4tWpI422x2YAoqzl+
-	 5anSSboQpr8zMtpgp81NqkrJYLPMpgIu5+TPxxEn/+4UZIDtslTop8QPr5b76hDLT51zD
-	 BgEvgbzgBOhg7vClQEbiio31pepbgGYgsxgnY3PEVPNV6ZJvm8on12X+YWOffjTOxVg==
+	t=1793436426;
+	b=F/zadc6FwFa1Bny9QMY+jRpLdixjSUHCJegzvkgUgo2sUUCMIZeOgVmFaCb84yf3K+8G
+	 6SsWeX1vSZqOiOn6MALL0QbEJ4iN0kTzAQFXmMKvW4jNLwvzvQ8282b8b0t4PLzcqREtf
+	 ibFHKGtonwKwTMn1uyLmXDJ0mwyGujPiY4kA+ErnLte+xGUzO/QcvFM/aJzsNK5uhvmdA
+	 mU8DjDDYIgAOOqCIKFoG5l6YxG7nVY7Q6qMNDBDyLbiyx6gHofEbTJYvtNBT8KrOVs1Nl
+	 OLXRhpbbskSQbG1Zg7Nli0qBkd4ffiZqOlKopvN08m2d41/oiRZFo5efT/Bx98en9GQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793436405;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793436426;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 Content-Type:MIME-Version:Content-Transfer-Encoding;
-	bh=ADFJourLj++R5GH+t9pIXonKOLiFA6JXJ+zYJJ9JLn8=;
-	b=pVyFpwgdaqRgYLSiXM5tekLDc0UuY30Q0sPO2uAPbzLF0lUaArTRKjjq2CsIUmOiXLnA
-	 G1jOZVOPv0fxEkBzXDFSi2pEBvz84zVxsubAE2Ke+Ko3Q89RQ4pKulhjFesqjtuHTDbZa
-	 1I3I6z8pMcjLCJpMP0IsPVcJ8ERGnyTH9qHl/k5QV7IcmY527quQu6aIwgfy9AQl0aptQ
-	 JHMT7gfkkoEfzt/AkJtFK6yAJ4SThXa188sQYkKtZOizeDR6RNRtMOwybLwUrs617c7I1
-	 4ixq1IEH+09QwpNCvsJmpDPt0Ba8Bu1CkObs2ft20jwNkV9QdHjQXbtJlrsj9CDRi1A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tQZ+SMI7bX5fVz6VQ//lpX/hBzSPPOS0UylhAHpyrgQ=;
+	b=f+xdNNKoIgsogCRoQ5MH+Lnm40XmOAhOUk6Gfee6QC/de+PyNW4cb8zLxAkSazx1nl+D
+	 ++9BjFHp/5KPk1KrzpH9nTbUhdq/gGFA0e0xBpKhaFu+jHBQntHatn7ytRqFd57p3BWgi
+	 +LSlzpoEOFhjkqPOLUFwNIOhYZMS48HbnNB6QeKYsz6GvwS55f07L8bm3M6zpnwMoVkLv
+	 csUXdN/gzl/K9Nrwo0fi4AxB9NJxbHU/ekFHne6763lg2IhTSXU+1+JdgL7BWsSJoUhFF
+	 2ml9fovAr8AmT66Mx6EW6iSAOWTnE8McT7IfNA5r60FkpB6vwpO4oyBFRGdpDkZNJGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oOJ62FCQ;
-	arc=none smtp.remote-ip=74.125.227.138
-Received: from mail-pj2-f10.google.com (mail-pj2-f10.google.com [74.125.227.138])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ug/lUxyZ";
+	arc=none smtp.remote-ip=74.125.82.193
+Received: from mail-dy1-f193.google.com (mail-dy1-f193.google.com [74.125.82.193])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F03FD606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:46:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F03FD606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23289606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:47:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23289606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oOJ62FCQ
-Received: by mail-pj2-f10.google.com with SMTP id d9443c01a7336-2e934c6c1c8so5758125ad.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:46:44 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ug/lUxyZ
+Received: by mail-dy1-f193.google.com with SMTP id 5a478bee46e88-369f3e9e431so1173171eec.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:47:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793436404; x=1794041204; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ADFJourLj++R5GH+t9pIXonKOLiFA6JXJ+zYJJ9JLn8=;
-        b=oOJ62FCQ2LNaqHJK4k6l2uTtYPCA2hD0PEmRn3vdYi+Bo2hnnqDBvJw4z6fEVaOauK
-         EUnyNf8Cc2OIuzJOqX70/vOLgHR6YunD40orkxbhK7UNFIMMjL6h+qhKSenSxjKqldbI
-         LQh+FAS8m2gaUtaaYfn3CTpCXSry1bo0LnmuaNogaBgT7D4KIMbKNcZQZf3L95j/YHIl
-         7/3iIR+Ee9ZymPwZRPT9pjrVxYlwcq1ZoM/HlutTVoKVFun2S7ezykfiFEXUk7qaDZgZ
-         2IIz8Ti/yhWyDCwq35CpW5fedNk54hkQujwwnyQKQ8iHS/4n7vxlsn9coOlxk5F+xWFI
-         FDyg==
+        d=gmail.com; s=20260707; t=1793436425; x=1794041225; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tQZ+SMI7bX5fVz6VQ//lpX/hBzSPPOS0UylhAHpyrgQ=;
+        b=ug/lUxyZ74PliptXDM5MTNx8dWypa/F2gaM+lxD+zjIQlXP/GA//eel6j/LsA/PXLN
+         Jm6etJFR3I498VAiBSAC0JMJi92VDDHa6FenIKT0TjShoie15feMcbjxu6vLmZyNLjp9
+         06uBUDnp8c4g/aW8N5qIMip9iGuVCcFIfpkRV6Ao4d9crM8S31OKg/eeEdlEk66stflA
+         SCqFNcfN79laZ3+XAmtJragmuXDbOxNaUXv0Lla5gdaU+YrefFO4OZbcXTf8MiqoGpSC
+         6S9ZTSzqLkI/OHJrl8tDodYyjC7K4q5EbGu+pgXHSErc/ndn9erdvHXSFlcrjPk1BNSj
+         I0Cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793436404; x=1794041204;
-        h=content-transfer-encoding:mime-version:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ADFJourLj++R5GH+t9pIXonKOLiFA6JXJ+zYJJ9JLn8=;
-        b=yB5ukfKdB22tevIYOroDo5/zJB6Shq4sgK0/XgfbmmZLiLjQoxOJ3Mst/1iaMPoOYp
-         NMxJuvLTPTU9nJkEonwwI/2G80bWsqzXKmJOinqBuuehlI1WQ0d4UjoTUoHK7TnSy3eB
-         rUHBpFrkYF8jfkANDNQ+vkzEKR9klhvpYL082Lw3PvMBab5hQC/ZyrvhsuiOEKO+rSkT
-         Sk4yGIkw+7N1HC3NLI1vxtReOpPQwkKxqx0t98c+ecLVisXDXTd5djctVrnQWCEPmrxj
-         Kie0/XYrVm9zB72r+/IswsjFxJwU8QJPF0cX/dRu5UwWpf2ijoghPs0aj9gCqBqeOu6M
-         0gtg==
-X-Forwarded-Encrypted: i=1; AKwUvBwE9xhq5Mm/Cpg6ROHrD0CcwoSZRd8Ld/3XL2Jv05Mm5mKxNZCh1MWkpNi4fQl+qjC5/QvXn3cVoK7F36I=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwZoK5sNrvrRk30BLLcHkGg+ur69CeHQDQd3B6xT1dPfELK1WA
-	W4pztnW/i157NOTCe9NmEDsTrFj0TIlID4dv9lci1RHzV5oW21l2J71u6qFs97BZnQ==
-X-Gm-Gg: AYBFou236JBm6UJybE6d9EmX9VfaUsnlDAOcncslODQZTEbG/EkwzrJbERq16Z/dMnO
-	ysiWT3hah5aDwbHD/wT9gm80tCq7n6i8qfqNLHciTW+3+qlAGA8DIyvZHDz1tMILD4zvpLw0HXw
-	Mr627HYUf5/dWZKAHvHKSLCI9SMGt6+kk0Z2+C+z4uLElJC1MYSeuoiHA3kw/Or0KwOk9IhGNjU
-	PYWlET32DETb15bd3AsCb1MZ8e+zdhVCHlyLD50oWymzYBPH39opSaFLVXH7cI2Ba1MxwtPdbVh
-	wazq+oTt/iuI119nT97TOdW7Ywo1djhE6Wv5viLZ2D4ZDj8s/dG3KqlSPI0IX/uV/7kCaZCssH/
-	7vrR4Aa4Y5/0SIqS5mdbiNNlJEfgMzGQPU/QMUpGWvekIuJsRJm1JvYeM9mNmHeMjyX/JaWt+Y9
-	6wQgFHjm58upwUuDfDhHjvmwrwn3WMFT7SW1x9PyQ6uVe/h5isH1pztdnkhDDQCUNxlV/3NRvW5
-	quns4nq1Uz1Pg+beOe7f3vrTq85sIy88UgayF4SpEDmoP1XNhjlPXXgQxbavOY8iFYx0dnBg7P9
-	GChYXOmHlnlsomAKtLfG+aRvNZshZE4jfPZ9JCbzG3ywzWQ=
-X-Received: by 2002:a17:902:da4d:b0:2ea:4c42:573c with SMTP id d9443c01a7336-2eb364823cemr42643475ad.51.1793436404146;
-        Sat, 31 Oct 2026 01:46:44 -0700 (PDT)
-Received: from WIN-2DEDQG69EF6.localdomain ([2a06:a005:87f:ffff::102])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb3927ff6bsm14261305ad.52.2026.10.31.01.46.33
+        d=1e100.net; s=20260707; t=1793436425; x=1794041225;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tQZ+SMI7bX5fVz6VQ//lpX/hBzSPPOS0UylhAHpyrgQ=;
+        b=OV+O/olx/0s6r9wfutHkU3gKgABhR8cSekqjA80EBdsR0oJWRcwESz8Xuqo/GeVaRQ
+         YJ1o8yLRWRFVBm9Sc94U4OmxomQUcm+K2j1Pji4nmrCkK/HPBJpzuVgZR3yjmMuT7m7k
+         QdbcuV6L59vj815WBcI0jhOQjNL1rfqedHrzK26DW/Px/0bUISlxMLHG+evAna+1ixrZ
+         C1ihTCvDJuo6n95UXOf0C0GTN5d8NgeU+JheZCNjtICd6jv1q6L9j3Nxi/4xH5YBV2UT
+         cS0A98Aivo00hiZFNGTZ9yKwznityax7JTdw0gixtnrGK6RdPw5zm0xCHjgtJLTd8qYc
+         gLow==
+X-Forwarded-Encrypted: i=1; AKwUvBz7XAi0M92qvGsjwkpq3ziRbVJC9MzyZF3ZXVajg0gVn67ZCJy7UwieVj1BMtgdagfBuvrMEUNhG2OgpD4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWlbplGoqo8byBFL9DZPDh6GUhC2iLzfOzZAwmWn2FvwBDOKjM
+	ZGBxyKRTsgPuR8qVZd2QmJmQaISKNieo/eGH9O/aI/j+x+JqiaUNybkn
+X-Gm-Gg: AYBFou1G5JcmjJHWOBIWKjKqQiywZ5ES+AjgQmr2Alrfoyz2ovQBjCEIFPY0OwZdkX7
+	1AcD8qYF8kmKz+AqiLns2ra2k1Nmg76dPhalWa86Ut+kEYshXt0nkqJG/78nBn5+Qdg4Te9moGV
+	ljb5mFnWqEpFpwDJMT+zxyZyh3noFGU4DO/GG5L0l2HWezo0/u5pV87dbSBgIRySqna1git2WuC
+	mnFDqSWDoCLcehszcCbtzc0ICQ8qHNMRY/lB6IKVUh8pVEAruf5aiCsjssJK6i1sFKUvV7uTZfE
+	fcY2W+F7exTiBFCzCCHfvYUfXBpUs9Ja30K7mdJD/hubsoq50/tmooVdN7QdVJ+ehxNdxDdriCF
+	fltAJMo2/jlcOhKAx+cQ29ocs/q5tA7VM6chgYx0E0yyGcmUXTO9PiQuPTTm8pln85t9MIkGarq
+	R+E5wuYTNqIgtN03rINFSNvAB0WsmWI0q6oHNbrdiFjBcC/idvDV04npGOw584SUiBd66CLNls3
+	NSc4WUGGCrwEt1zIVPa+hGFnQea3OSHoPaAbNKshy6QZJ8DAheyh4wzEw7PH5fjvzuQxNucK8cW
+	oumhr8uWqUIxLEzX2QIO+RFB69mVBgbFTiY0QKmBbjW/pjRtO9t/xdRAnT1UIe4pHZyQkFFI
+X-Received: by 2002:a05:7301:5408:b0:36a:1446:4852 with SMTP id 5a478bee46e88-36a30008540mr10632884eec.5.1793436425057;
+        Sat, 31 Oct 2026 01:47:05 -0700 (PDT)
+Received: from 49152.tail67c8a6.ts.net ([170.62.100.241])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm19952736eec.16.2026.10.31.01.46.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:46:42 -0700 (PDT)
-From: chenhan <chenhan0017.work@gmail.com>
-To: Andreas Hindborg <a.hindborg@kernel.org>
-Cc: rust-for-linux@vger.kernel.org,
-	boqun@kernel.org,
-	fujita.tomonori@gmail.com,
-	frederic@kernel.org,
-	lyude@redhat.com,
-	tglx@kernel.org,
-	anna-maria@linutronix.de,
-	jstultz@google.com,
-	sboyd@kernel.org,
-	ojeda@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	miguel.ojeda.sandonis@gmail.com,
-	tomo@flapping.org,
-	georgeandrout13@gmail.com,
+        Sat, 31 Oct 2026 01:47:04 -0700 (PDT)
+From: Ken <ken3009le@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Johan Hovold <johan@kernel.org>,
+	Alex Elder <elder@kernel.org>
+Cc: Rui Miguel Silva <rmfrfs@gmail.com>,
+	greybus-dev@lists.linaro.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] rust: time: make Delta division and remainder fail
- consistently
-Date: Sat, 31 Oct 2026 16:46:28 +0800
-Message-Id: <20261031084628.13273-1-chenhan0017.work@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <87bj8goc6x.fsf@t14s.mail-host-address-is-not-set>
-References: <20261023130413.178487-1-chenhan0017.work@gmail.com> =?utf-8?q??=
- =?utf-8?q?=3Com4kxbW6RonEr7EJOnn5nizbkBZi1B662AdSPv=5FiWS7XNJXuPCDAsOeWG0SM?=
- =?utf-8?q?SeK7XqoTrwOPzwMC1jS2nKknXQ=3D=3D=40protonmail=2Einternalid=3E?=
- <20261023130413.178487-3-chenhan0017.work@gmail.com>
- <87bj8goc6x.fsf@t14s.mail-host-address-is-not-set>
-Content-Type: text/plain; charset="utf-8"
+	Ken <ken3009le@gmail.com>
+Subject: [PATCH] staging: greybus: light: use sysfs_emit() instead of sprintf()
+Date: Sat, 31 Oct 2026 15:46:48 +0700
+Message-ID: <20261031084648.213333-1-ken3009le@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,53 +99,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Andreas,=0D
-=0D
-Thanks for asking. I should have distinguished the non-zero-divisor=0D
-requirement from the MIN/-1 check in those comments.=0D
-=0D
-> Why change the safety comment here? If the function is always safe to=0D
-> call, the exclusion is not relevant. Was the old comment wrong?=0D
-=0D
-The old "regardless of the input values" statement is too broad. In the=0D
-generic 32-bit implementation, div64_s64() goes through div64_u64() and=0D
-div_u64_rem() to do_div(). The latter contains C division and remainder=0D
-operations which require a non-zero divisor. The kernel's=0D
--fno-strict-overflow does not define division by zero. An architecture's=0D
-divide-by-zero handling therefore does not establish that the C call is=0D
-safe for every input across implementations.=0D
-=0D
-The zero-divisor check above the call supplies that precondition. I have=0D
-updated the local comments for the next revision to cite that check=0D
-explicitly, without grouping it with MIN/-1. For the division call:=0D
-=0D
-    // SAFETY: `rhs.value` is non-zero due to the check above.=0D
-=0D
-The MIN/-1 check preserves Rust's panic semantics; the generic=0D
-32-bit helpers use unsigned magnitude division and wrapping sign=0D
-arithmetic, so I should not present its rejection as a necessary safety=0D
-precondition of those implementations.=0D
-=0D
-> Again, was the old safety comment wrong?=0D
-=0D
-The old pointer explanation was correct: the local rem supplies valid=0D
-storage for the output. I expanded it to make the validity, alignment=0D
-and writability of &mut rem explicit. The signed remainder helper also=0D
-reaches the division path above, so the comment should explain both=0D
-the non-zero divisor, established by the check, and the valid output=0D
-pointer. The updated comments keep these separate from the MIN/-1=0D
-behavior check; both runtime checks are unchanged.=0D
-=0D
-I have made the corresponding comment changes in the math helpers in=0D
-patch 3 as well, so the explanation remains consistent after extraction.=0D
-=0D
-> Once kunit supports the `#[should_panic]` attribute, we can assert the=0D
-> behavior on all platforms.=0D
-=0D
-Agreed; that would let us keep these panic cases as in-tree regression=0D
-tests when the support is available.=0D
-=0D
-Best regards,=0D
-chenhan=0D
+According to Documentation/filesystems/sysfs.rst, the show() callback
+should use sysfs_emit() instead of sprintf() or snprintf().
+Convert fade_*_show() and color_show() to use sysfs_emit() for safer
+buffer handling and consistency with other greybus drivers.
+
+Signed-off-by: Ken <ken3009le@gmail.com>
+---
+ drivers/staging/greybus/light.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/staging/greybus/light.c b/drivers/staging/greybus/light.c
+index cab02b5da..2689f9a75 100644
+--- a/drivers/staging/greybus/light.c
++++ b/drivers/staging/greybus/light.c
+@@ -173,7 +173,7 @@ static ssize_t fade_##__dir##_show(struct device *dev,			\
+ 	struct led_classdev *cdev = dev_get_drvdata(dev);		\
+ 	struct gb_channel *channel = get_channel_from_cdev(cdev);	\
+ 									\
+-	return sprintf(buf, "%u\n", channel->fade_##__dir);		\
++	return sysfs_emit(buf, "%u\n", channel->fade_##__dir);		\
+ }									\
+ 									\
+ static ssize_t fade_##__dir##_store(struct device *dev,			\
+@@ -220,7 +220,7 @@ static ssize_t color_show(struct device *dev, struct device_attribute *attr,
+ 	struct led_classdev *cdev = dev_get_drvdata(dev);
+ 	struct gb_channel *channel = get_channel_from_cdev(cdev);
+ 
+-	return sprintf(buf, "0x%08x\n", channel->color);
++	return sysfs_emit(buf, "0x%08x\n", channel->color);
+ }
+ 
+ static ssize_t color_store(struct device *dev, struct device_attribute *attr,
+-- 
+2.43.0
+
