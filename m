@@ -1,97 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793437706;
-	b=yq/faCqVosQ5SxSekeoX82r9S9Mv3gSzck9EDmdaKvnCoLgc31rPY7d0houlZKhO31sy
-	 pfGMPuRBSayPcAhVPyby8VaHOjjBcwCDTDJIdPLERe1AYeTiLoaoWy3xAHR3BAKO/LKHF
-	 ngvXeI2xisU91ivBmDl2b+z54ut0/fUzXbSPGi23DWvcu6vy4extFLAhdflwEaIDUz7sp
-	 rXz56W7a4y9kD2ZMG5jbuWv6jazaafuKvVyX+cKUQem3Jd2QF0prgLTL9ZRkcsFscfLnK
-	 VLeaiCiCOh+ZDd5RMCV3klieWVaAru3EnrzVVTPHtlI/2FR/c7oaGCja+DHljt1BHvQ==
+	t=1793437993;
+	b=czI7MHEcnD5AlOVxHtYdrKRpauJG6ukysxe7Zi5Tq/ClacoovoswEpkJyI1ur1Pag5ya
+	 6mdsCAm68prhkonkLvCTFKJB4UmDisEYsm/1zei9ozwpeAz3Azw6MrMO9di/a2QIpb5T2
+	 z3NMMJW20bXOZPgso/53rzg7u0OZQ5NmO6jYpYG6NHjrg+b7hRnR9Idw56NSZpmPC4BG2
+	 E7qVUwg+QWHwJRzDH6IsEqws0SaI5J62+tgpaCaej/FE5O3eaQFmWr6rkAY61/njkXTZR
+	 aUUTocQHSmlddqLobnXasz04dnoPZ5YTvogH/xkV7oeCaQ5CUkG7xuKDOAFmlk197jg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793437706;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793437993;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=aG7uUgIWZ0oyfHEXG9QJCx6yU4GdFnWFe7KXXLifVuA=;
-	b=iNvVCq8R3opd0irsY88aTwUkyTu6DWRW55rw9+ONigbB2V7+NWPS8JD/Xe2oD7NNIEor
-	 EiaTIRWDCS17mV6wkKfjCdyoXvxAuqUBEEa9Og4DPwgIXdtWnBX9tu3DTkSOMZvAYETZV
-	 qGBrJBNKEd3DE8IOj+dNrDRhjX0JZpjUF8KFh5k8TaHBVaFlOZj0eCnxV5s28EX0B9raV
-	 SxrOKCiUde6V7wtglD8o20lccy1OUBZmOmp4eC+qNk2ZlTlbDwTNMgrMpETRgt2n/gO0H
-	 /lDYffR84fYhDXqa8R21f5ANeBv6N8x5jMiVTVgBtSoIfnB65JojPvoKj0cXNSpv6KQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=yvb6WJh+6K9JJR5AEaTQbWzXxWner501dTBgAUHA8yQ=;
+	b=eRNGdkvjawir8gcSv9z/A6Rpv+y6KI5IcJ9JuQZT5+mFmvbZ6HA/ZmcKR7KOL6rtnPFc
+	 KRfquC8F/W2w5kOs7woewUyBktMIWTmjE9eY61ktlR91H7emCshQ3mB61LMn14fDN6VG2
+	 59R3X0dJ/9oqMRVLYjjf/2Yew1kNYw6bxaQZFqINXbZJmg3usNoC4KBsY2bwDmikHgkZD
+	 D3pKQeu8+2ufNKvtrq788ap8uNgekhFwUFrP7AiQaBtbeUqGpeh/1HM6QZUZWqivvKfL5
+	 OJR5tCqkttySmq0FTcIn1v9JdHsGXqxEEnMcMYPhw55+UQ+FRfaAItsVGBaEIPT3uiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vg5vE9eJ;
-	arc=none smtp.remote-ip=209.85.216.53
-Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8TRV+nK;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97820606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:08:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 97820606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9214606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:13:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9214606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vg5vE9eJ
-Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-3ac78f4c10bso705963a91.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:08:25 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l8TRV+nK
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1adbf62dd31so1348245c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:13:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793437705; x=1794042505; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aG7uUgIWZ0oyfHEXG9QJCx6yU4GdFnWFe7KXXLifVuA=;
-        b=vg5vE9eJNhVaTMln33GkMcgicuA4inDLsHF5BvImPmEHkyD6jFVW5B3uGrkO1lKCOy
-         fkE6Nl86pPiNat/cAwxbPK1mAY0nRI4jH2D+C/ETCc7ZqybzifUFaJf7bM8F7fucQSDT
-         /Yrz3uDAK6z7FDHPhaCqOZj+UZG7PK/ptf8XtNQy3EdeOpJxdxJIJ3dQ3IOA9oT1+YrJ
-         ErxmzQ1Dcs77K7uuzGdg0ZdLnHS57s600+N9TKEQONeIeW0jSa1cy+6fFFHYwzNsJEMi
-         BrU6nsY2nYG9ONNeQyVPhZDcLeNdk+vYJKbagwk0ThAnSaYNVCM3ZFqcKP8ltuqZfB+3
-         ++gQ==
+        d=gmail.com; s=20260707; t=1793437992; x=1794042792; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yvb6WJh+6K9JJR5AEaTQbWzXxWner501dTBgAUHA8yQ=;
+        b=l8TRV+nKZq27poYKUBpHFHNHKP/A+FczxkUjgPZVg+TgooT7d3lvIHeADPQPVRY0lA
+         ZnItKG79DJ9KXKc9uCmGPVHZfqpf8LCTG6ViNOh1WAdo7ydTAS8gYl+GH4u01SA2+KU7
+         lG/vGR96+URF1BiPqfinuaUFYyeClCicViVPlp9lFumQgAY1Tz7pzl/Yy0Dzv2hyv6MZ
+         EW4Tvlswug29I0wvMtsMAE8js/f0jjfd6vBZPE2R50YSSlBPKqnwA7XVS0mVjktukqGW
+         tBYXmhpeZkL8+szN0YCHIUl0UvwvwQOdzIPSFab110vwhZF5O0FIx99fsDeZwHyqpQdw
+         Qm9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793437705; x=1794042505;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aG7uUgIWZ0oyfHEXG9QJCx6yU4GdFnWFe7KXXLifVuA=;
-        b=xE2J6dupYcVdPgusrDoRnkZ48tu6AUqt4yqLSA5SEaCqMIKWpjAsLPMBrwmbAFPsod
-         uDlSN8jdFwvpdBcs7AYbgTG7LoFA/Yo4ZcYVj1UoyxcEueJBl+FZpEoz9vzq+zP6AVGI
-         7ECex66vuZ0ZnQGUxrpwb39J4X8gOqkl/+fHxjmZGsGmNbQZa80HUqs3/XghioGgt/IG
-         pXhgL8XstX2Fd3WNLcrqmwIRPToqpZ8Mt/O1nck6uGdG951KutyuuWODXsIGYUoAAzT5
-         mG9coXA4B597coHErj5YRtkeUmFaWc5kOx0uFK7nVAVufkE4YVozjHTlXlrXzXq+wUV2
-         mCnw==
-X-Forwarded-Encrypted: i=1; AKwUvBxTxf6iBC3mV6dUhFnVa/xEjYogNCCXYfzN3OSqPfabqs8K+azpAgRNO0rNNHLtL2WAEt48/Eqt8FaleUE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhZWPxAqJaK/+3f9eyg4eV6E29lS2WetN8JdB1yycjWthoQBZv
-	hudc4l00XS+UIZl+Jur189Pr91NnuZjEUS3V7kYY3G7qMfIZ6rp0kxP3eP747Q==
-X-Gm-Gg: AYBFou1KOdSTniLQCMoHrXwz1hbYCjvP79syeeXtVSk3CMvec0PTlM6yFPkEPBB+fTF
-	EP1GT3N70wokya3fyq0+tmwvH2b2mbxDDcuMl1rqLVqDZCCd2W9emASkFdRPeAFBedNIo6e4wCz
-	53j94BQkA7K5u8k7UAE10ZCfJZ2pEakV98PxPPLkD5waABQ7pDyTeozgxqJgN6TtKV1DiaSfbEg
-	MftLkuopxe69GJsxTnqmGAa2fK92gR02cIESkg4aLXuBwedqasdz2pQ5SbmaRjnlWtwJ90bFNYI
-	vOSmpbpPIdT1tk6vyGWny3BKRMh/OH34Nn5a1x69oWK1K5PzJTXH3UVZ48OuBNAfP/kZttefbgK
-	KFATQgh9Y89qMSoI8hIBILh8JuN3xp3AiucJPojBb/3qoayoeQnCDXNQQ1AP/Du3O++B/UZSpaD
-	Obcqg4DMvPoHl/1H0aF0QoRO1r7S7r/uzjE2J8C0e4rQmk/QhQNV/0F7W5ro4dJuxBDWdGnlLBe
-	s/6mlZtYzogtoSYFY2juzkLNEoQP2gIobYIE4l4OVOzvOwLVG/EW7/arUxV36Dm77Sy1qua+Y0I
-	GYRP7hK5cmKv63E2LdBP1zmyX5HZ7ib3xsQrXo32hDvm+17DhG8T3/4dw9vg5oKdkyEMBwMbNKB
-	ZBk4xTBwWXvOE6GaaSKnexY+fHpnbtHnolfqqxEuKDLz46rhAkp09WTLInd+zP6JnbOi9CuszBc
-	TibTM7dMjBcyPfU9F69i9CDxcarQ==
-X-Received: by 2002:a17:90b:3d8e:b0:3a8:86b7:ad95 with SMTP id 98e67ed59e1d1-3ae897c5e7emr4019087a91.60.1793437704316;
-        Sat, 31 Oct 2026 02:08:24 -0700 (PDT)
-Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb09610f48sm1614184a12.2.2026.10.31.02.08.16
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 31 Oct 2026 02:08:23 -0700 (PDT)
-From: Yu Zhang <yuz08559@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: linux-remoteproc@vger.kernel.org,
+        d=1e100.net; s=20260707; t=1793437992; x=1794042792;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yvb6WJh+6K9JJR5AEaTQbWzXxWner501dTBgAUHA8yQ=;
+        b=wITu2YLwCzo5piGvhLQIThk6/Fje2XeOelWHPP+Hp2Rtwq4zz9Ft5ut1E3PJKz5l2v
+         yFb6VjW1Uh72vYKfsHazYe/nVXC5mGKiJ5eOvq70R+PK5X5DO8X1XmbdIA9keIRl2bMg
+         6csJ4WQPRqOboLTDaSh3XapxbPLWQIHGqglcW4OO5WQ779RFTP5EnIlnoemL2pa9W6fs
+         HV9OqqXQyitWFPHHQGy3yeLO5GHS2YzSuTa26ElkAEr8lXPYBoJ6ON3I64tEh0qjanlz
+         jY/nwpOWxNbfKheA3KB21AvSeHPeRJDZNwhPBCgXlJHzLF9myJUSkF4MXlcQFDl8O18E
+         Xd9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBz2L0Xb5rwcdOn48swmgykimSmajgWHbOD4Sj1gd1wj3g58yUy2GLkLLlx1xMfvVjL7SPIxgZiVB/jCUB0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+dpFq+XcHig3Pi5YfuBmXVMUDecN52ffCTKNSaHAKbe4/vij2
+	hLMFJUM9KOK/m0Engznd9TPTpQhuzXDtyVirfE8ltCl82IRkrsSGFaeW
+X-Gm-Gg: AYBFou0Wp5x7Zb5OMVeTb00XxwbeykrOO343oKYjmYtvJWKVKhr6udIJxXb1r8NUalj
+	RpkB47GAIv7ZxkaGu49CkKL38J6nIOjnK9wqsoa9rvMSuGMeLaNx+idzypz2VoPn2+2CW8iU6d4
+	cnuD1QLw6tTAQyyH1KyM5yEIi4dIERisLiC42qHEhvQDA2fU4KwJAzoDzpbv49ZngmtFuM1CrP4
+	pCJmctp4+sPti0LzmbQ3mSWEJ9BscuJJ8conDeS5dQbm+3w3/ryL+CvZ1UMQSpkQmcrKMHCTooZ
+	e7C61JMp50fY3Um+k2C/sxHaXwmifyibK1cdDiG3J7eIy3ohdlxdo7FyuRpx6HvCfE3A5VytSgD
+	tBNDml6HomD1r+l3MiOyPRtUCDahKP6vFTQRd1rSqC5qN0kv4uLBin0ZJ6FeExm01639EHiNh1a
+	NWSLesAcI3nE1dPMc6RgzWbv4YsgbJsF1X2HBvhlwqW1JC1vpiBqyniZ1trwXPdY5OBQ00SVR0D
+	6jKIUeYQeDVo0yhY0ghzXXx+3bHsGgU4HmdSHm2sWKfPtIUXzNfZGj5+QtnZySdvMskvrg6tvRP
+	QzM0wr4ZWQ7Ye8AMQklqLyTBG2Ecd468Drd3
+X-Received: by 2002:a05:7022:3b88:b0:1a8:ff0b:a4e1 with SMTP id a92af1059eb24-1ac5c8380aamr7862765c88.18.1793437991368;
+        Sat, 31 Oct 2026 02:13:11 -0700 (PDT)
+Received: from archlinux ([2401:4900:ccca:8aae:db4f:18dc:62fa:a502])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm15771014eec.24.2026.10.31.02.13.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 02:13:10 -0700 (PDT)
+From: Nithishvelan M <mnithishvelan@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] rpmsg: char: take ept_lock in the SET_INCOMING_FLOWCONTROL ioctl
-Date: Sat, 31 Oct 2026 19:06:50 +1000
-Message-ID: <20261031090650.23701-1-yuz08559@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261026100306.68019-1-yuz08559@gmail.com>
-References: <20261026100306.68019-1-yuz08559@gmail.com>
+	linux@analog.com,
+	Nithishvelan M <mnithishvelan@gmail.com>
+Subject: [PATCH v2] staging: iio: frequency: ad9832: use devm_mutex_init()
+Date: Sat, 31 Oct 2026 14:42:36 +0530
+Message-ID: <20261031091236.40401-1-mnithishvelan@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,66 +104,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rpmsg_eptdev_ioctl() handles RPMSG_SET_INCOMING_FLOWCONTROL by calling
-rpmsg_set_flow_control(eptdev->ept, ...) without holding eptdev->ept_lock
-and without checking eptdev->ept for NULL. rpmsg_set_flow_control()
-dereferences ept->ops, so this is the only eptdev->ept user that does not
-honour the ept_lock discipline.
+Replace mutex_init() with devm_mutex_init() in ad9832_probe() and
+check its return value. The driver already uses devm_* helpers for
+its other resources and has no remove() callback, so this ensures
+the mutex is destroyed automatically on teardown when mutex
+debugging is enabled.
 
-eptdev->ept is torn down under ept_lock: rpmsg_chrdev_eptdev_destroy()
-(reached via RPMSG_DESTROY_EPT_IOCTL on a second fd, or when the rpmsg
-device is removed) and rpmsg_eptdev_release() both do
+No functional change intended. Compile-tested only.
 
-	mutex_lock(&eptdev->ept_lock);
-	rpmsg_destroy_ept(eptdev->ept);
-	eptdev->ept = NULL;
-	mutex_unlock(&eptdev->ept_lock);
-
-and rpmsg_destroy_ept() drops the endpoint's last reference and frees it.
-A SET_INCOMING_FLOWCONTROL ioctl running concurrently can therefore read
-eptdev->ept just as it is freed and dereference ept->ops -> use-after-free
-(or a NULL dereference once ept has been cleared).
-
-Fixes: 5550201c0fe2 ("rpmsg: char: Add RPMSG GET/SET FLOWCONTROL IOCTL support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Signed-off-by: Nithishvelan M <mnithishvelan@gmail.com>
 ---
-v2:
- - Drop the paragraph about the other ept_lock users from the commit
-   message (Mathieu).
- - Bail out early when the endpoint is already gone instead of an
-   if/else around the call (Mathieu).
-v1: https://lore.kernel.org/all/20261026100306.68019-1-yuz08559@gmail.com/
----
- drivers/rpmsg/rpmsg_char.c | 15 ++++++++++++++-
- 1 file changed, 14 insertions(+), 1 deletion(-)
+Changes in v2:
+- Add blank line after "st->spi = spi;" (Andy)
 
-diff --git a/drivers/rpmsg/rpmsg_char.c b/drivers/rpmsg/rpmsg_char.c
-index 550fda2..d8868fa 100644
---- a/drivers/rpmsg/rpmsg_char.c
-+++ b/drivers/rpmsg/rpmsg_char.c
-@@ -343,7 +343,20 @@ static long rpmsg_eptdev_ioctl(struct file *fp, unsigned int cmd,
- 			break;
- 		}
- 		set = !!arg;
--		ret = rpmsg_set_flow_control(eptdev->ept, set, eptdev->chinfo.dst);
+ drivers/staging/iio/frequency/ad9832.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/staging/iio/frequency/ad9832.c b/drivers/staging/iio/frequency/ad9832.c
+index 35f823f24f..e3b4e19a8d 100644
+--- a/drivers/staging/iio/frequency/ad9832.c
++++ b/drivers/staging/iio/frequency/ad9832.c
+@@ -325,7 +325,10 @@ static int ad9832_probe(struct spi_device *spi)
+ 		return PTR_ERR(st->mclk);
+ 
+ 	st->spi = spi;
+-	mutex_init(&st->lock);
 +
-+		ret = mutex_lock_interruptible(&eptdev->ept_lock);
-+		if (ret)
-+			break;
-+
-+		if (!eptdev->ept) {
-+			mutex_unlock(&eptdev->ept_lock);
-+			ret = -EPIPE;
-+			break;
-+		}
-+
-+		ret = rpmsg_set_flow_control(eptdev->ept, set,
-+					     eptdev->chinfo.dst);
-+		mutex_unlock(&eptdev->ept_lock);
- 		break;
- 	case RPMSG_DESTROY_EPT_IOCTL:
- 		/* Don't allow to destroy a default endpoint. */
++	ret = devm_mutex_init(&spi->dev, &st->lock);
++	if (ret)
++		return ret;
+ 
+ 	indio_dev->name = spi_get_device_id(spi)->name;
+ 	indio_dev->info = &ad9832_info;
 -- 
-2.43.0
+2.56.0
 
