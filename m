@@ -1,108 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793461428;
-	b=sNMo90afHXxC2zvqk3zey3trq4AVltYiBi5d5eFOEEFBHDmBvGd7W/Ga35w5gS8GMfx8
-	 KYbunF3qX41IbU6d+MbKGt4C/c073JhRl5zD1WtwTg0tyqDePqhtcajmDEmcrpP9gdTF1
-	 C+HiXxENefRKdHQ80ZRJCOZDBwM5zbcbrrZHRavZUwKZ5cgS8RmJgaQvwxMyJxzGVpH+d
-	 hCKrnbtO2DqpCrYU+v2nTVAFMV4dRxy88R5xbzu+DnUm3C0qNdK5Y6kBMEnuScY6Fjp2M
-	 HukuNG1+E9aMKpvOlmRnD/ErhmRfTsd6xSUAGN3AcOumL8Q4YI6McrBtt2GVZSo6KTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793461428;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=bnH4J6z0IFEZARKEd79W5NrbUkY8SRwIOuFp6jS6D18=;
-	b=QrsOuddgnVn0ibyXgiZXT7TMN/Klbd+dc55UqeT+mpKChIjzhB30dCcoDUDgG/D7tMko
-	 DeVZr9wy1/xOVf1FdKVxCRHakEH3XHULYNAAIBxxlVSZcEL4mE7oVhTJ5enrMeXotMMPJ
-	 zelgBligZQ6IbOudRjVNi1heHmHIKyswE0RtwbuzQxegF4W23KT64kcchDH0l9VAKsjXm
-	 fMK3l1Bb5gkLCIa/y2YLibc9SIF9RLsLFUmRyzhxd+8GYJApbzDlPLA3tf9tXUWvJc0nn
-	 6saMeodBt7TjfrNzvilksxrZUAMV8k0OGxr4deOV+cZq/z9b8xvwdc+eJxPvw4U+QTg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pSCc+W8K;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zu5oqykL;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FHID1f4P;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d0GtMeD6;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.160
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793461459;
+	b=A3CKJp0J7Lu9bb+uUREWhru4YgPj6bYyA6uVXyqnLSPv4QKJyRxvJ5X3hBykIPOKV/Ke
+	 B33WbMXVpR9X+5iHbcaJ2pg2wdzOYn0acf97/1kVFn2POi6NhFRB+BnjO7ZSXbjSnxVrG
+	 RS78THV/7/CEGjZTHr6vEP385lhYaVu62zXWKM9dPavIqduxAskPzz8p1aQWjIr8CNutR
+	 mFgsTsREAKJafgGLcKFo+MA+BnmyY4qKk0rxuNduOpli48OWbpG4+GMEsGxb0xnAL5XAo
+	 Wpr9JNypdjZ5MecQUWU4lD5qqn5bUIlj5cUK+zCsSjWC5qnu6H6t4pkpBxgykM/1ZEA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793461459;
+	h=DMARC-Filter:DKIM-Signature:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From:To:Cc:Message-ID:X-SimpleLogin-Type:
+	 X-SimpleLogin-EmailLog-ID:X-SimpleLogin-Want-Signing;
+	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
+	b=xRkkWK3ZnsIg8HFdBDTNycWsh7EsB4p4mZnXhGDTYNiQpQG3HSKnJzdWVPLc+qDQ5Fq1
+	 mdW1eeJCV6jzw/aJXjj/xkiNukM3Nmsscv3NnqYItgavJBKKYBKD0NXhI6Zl1KG5GaDsE
+	 ztdiVEhcvdFL76Ae8KmDo1yW/pt6wkdlcaL85GlgKXk17fDQYROzwwlJ0SjhdZD0VU633
+	 J4+6H0MyzYkNYAAEWvUc4LSZJ/fP9OdNkWEDxKGBtDgRGLyggf9wmqVKmcd0oEvGPyqx7
+	 7rxqrj0N/clZYSnwNHyLrrj7eZiZWPzQ7vul7BBHPHm2uH1WNRJFO8EFBhpjl6ZwH9A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=8alias.com;
+	spf=pass smtp.mailfrom=8alias.com;
+	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.160
+Received: from mail-200160.simplelogin.co (mail-200160.simplelogin.co [176.119.200.160])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DC28606A31A;
-	Sat, 31 Oct 2026 15:43:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DC28606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F7F606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:44:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44F7F606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=pSCc+W8K;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=zu5oqykL;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=FHID1f4P;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=d0GtMeD6
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 4DFA522314;
-	Sat, 31 Oct 2026 15:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793461426; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bnH4J6z0IFEZARKEd79W5NrbUkY8SRwIOuFp6jS6D18=;
-	b=pSCc+W8KoXBAWrJLI0rP7qvlQNKsmifuGIB5l9tFcrs/iCtYijS8JMhpb5SjFeTFlgkffS
-	qHPkBy6LOWDPL8TwGZ3yTez4awA4u9rmWMr1dvxdjqnbTpLNCYi4yErFAc7pG08ii+nN32
-	/j1/LNUetb63vZWB1ijJDTFwM1hNwDw=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793461426;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bnH4J6z0IFEZARKEd79W5NrbUkY8SRwIOuFp6jS6D18=;
-	b=zu5oqykL2DmvaoIkG2M/nEImUJbB5pSM27+BQAb+5JHEiSgT239TPKEufwphs8ruU51vm6
-	4IrMU8rCUWRTCQDg==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793461425; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bnH4J6z0IFEZARKEd79W5NrbUkY8SRwIOuFp6jS6D18=;
-	b=FHID1f4Pi/ggYDsuP+K5aYRXa5Y5UHUfNPRloVShLvb6kQucPOsLtBG/znlIcejNK9ORGr
-	GfgFoU6P9/3M+O0JOkT3aY+0R+hrczCsfLqn6dCiUUd5oA5otDRy0vtSrY4AhKc7n8NEPg
-	XiJ3+6pV0Epg4pahCEQoRhTk+UaWxco=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793461425;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=bnH4J6z0IFEZARKEd79W5NrbUkY8SRwIOuFp6jS6D18=;
-	b=d0GtMeD6Wlf9S0GgBiMg7g7AjX04RMHyodjYfBUgW32CPdTkNaXmXIRVB3MyCUkRY0hdJS
-	w/oEbGi+6N1sMKBQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 033CF13432;
-	Sat, 31 Oct 2026 15:43:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id KZDkMrAM5moGHQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 31 Oct 2026 15:43:44 +0000
-Date: Sat, 31 Oct 2026 16:43:44 +0100
-Message-ID: <877bixswnj.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: Benjamin Pryor <programmer2514@gmail.com>
-Cc: Takashi Iwai <tiwai@suse.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Andrew Udvare <audvare@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Extend ALC1316 fixup to MSI GE76 Raider
-In-Reply-To: <20261028132951.1253841-1-programmer2514@gmail.com>
-References: <20261028132951.1253841-1-programmer2514@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT
+ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793461452;
+	cv=none; b=fy1nhGxdBgNPgBGYeULAMIbyVTYhTLWlYJG9Dg5X4DK5q9TR5h08gWPaXE7ssGltP2iEaX9fIomiSaTdWZIVkjb9Yhe/2zkUjy8qQvVPrjt6m0mbQqNM/B63TsmUakCuncyptv4opAn78uoF+H0BXBIPiIrqtpNijmCQVPJpDVt/9gMiu4/oYRvNaco3eKUMfH01epZYuy27C6Q85BcUo/b5BfQS2n/iHvYbXxf/rqxHvHZm4rcCJzBqS8e/82e743q5p1dTnogUCJjeeOVX8/EvIoIznFYLkNxpyTDZn2zDXEefxtAAA2/eHZnP0UG/yFjMZNsp1b6s7eMaFMYHTQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
+	t=1793461452; c=relaxed/simple;
+	bh=AaZu+tZdoMwvlXleI2bXaZaMVRyFk7eBBWZBUTdqvVg=;
+	h=Date:Subject:From:To:Cc; b=GaJMk2VjNlyoblVTAhJJ3jgsYCI+Y7E0cDKngujSXWVYnlxJLXcQYdljvxiiKiSQOh0Jf9toSWxpjv/Hf4w1vPNhRg5sqDXKMDl/EnO7GOpHSSIkYNeKpmymSNrPZk1K0iUVPHVg6wW8ch4NktAV8iLPsCyXHubIDMxPVlNkRbFL35LAsswigJ3ZA40CZLjfeK68E/ih0u3L0QuX0UNBOvb1nvDcYKRHU9RbObBxi7FrGPKmdSVOVPcDBQggnqQ6N1elFIpCxn5YCDn/Nt4psJIvb7dnAjP4FIqj9JbPIY739G7swjoN0E/kUQEdzbgvPj0Z/C6QG9Kjk50KGkPUiA==
+ARC-Authentication-Results: i=1; mail.protonmail.ch
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
+	t=1793461452;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
+	b=vzQKTonTT5HawogrM6SpGnIN1YVuH4qET1IATmnOM465cKAMVDHshDrQeR3zFKqK2uqMHE
+	UI30wJsVOVqYOOoCS/XAg2NupgZJAc83xu/teB4lcBG0yZYvtt2509EOtVOjZHyTmxYsKC
+	X5w5K+/FECZRp3pfmAoDdmWDZF7it4M=
+Date: Sat, 31 Oct 2026 15:44:03 +0000
+Subject: [PATCH 6.12.y 0/2] Fix ioremap of addresses above 4 GiB on x86-32 PAE
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,50 +59,91 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	TO_DN_SOME(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[gmail.com];
-	FREEMAIL_ENVRCPT(0.00)[gmail.com];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	FREEMAIL_CC(0.00)[suse.com,perex.cz,gmail.com,vger.kernel.org];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+From: =?utf-8?q?Radek_Marci=C5=88a?= <github.unusual340@8alias.com>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@kernel.org>,Ingo Molnar <mingo@redhat.com>,Borislav
+ Petkov <bp@alien8.de>,Dave Hansen
+ <dave.hansen@linux.intel.com>,x86@kernel.org,Andrew Morton
+ <akpm@linux-foundation.org>,David Hildenbrand
+ <david@kernel.org>,linux-mm@kvack.org,Arnd Bergmann <arnd@arndb.de>,Michael
+ Kelley <mhkelley58@gmail.com>,linux-kernel@vger.kernel.org
+Message-ID: <179346145167.7.7861216093151225931.1735978772@8alias.com>
+X-SimpleLogin-Type: Reply
+X-SimpleLogin-EmailLog-ID: 1735978785
+X-SimpleLogin-Want-Signing: yes
 
-On Wed, 28 Oct 2026 14:29:51 +0100,
-Benjamin Pryor wrote:
-> 
-> The MSI GE76 Raider drives its speakers using the exact same ALC1316 smart
-> amplifier as the GE66 Raider, but under a different hardware ID. Thus, the
-> same speaker dropout fixup should apply to both devices.
-> 
-> This patch extends the fixup that configures this amplifier's silence
-> detection to apply to the hardware ID of the GE76 as well.
-> 
-> Link: https://github.com/thesofproject/sof/issues/10475
-> Link: https://lore.kernel.org/all/20260909193104.26508-1-audvare@gmail.com
-> 
-> Signed-off-by: Benjamin J Pryor <programmer2514@gmail.com>
+From: Radek Marci=C5=88a <github.unusual340@8alias.com>
 
-Applied now.  Thanks.
+Both patches are stable-only. In these trees the x86 PAGE_MASK is an
+unsigned long, so "phys_addr &=3D PAGE_MASK" on a 64-bit physical address
+clears bits 32-63. __ioremap_caller() and __early_ioremap() both do
+this and map the low 32-bit alias of anything above 4 GiB.
+
+Mainline is not affected since v6.13, where commit efe8419ae78d ("vdso:
+Introduce vdso/page.h") and commit d4a65302dd84 ("vdso: Change
+PAGE_MASK to signed on all 32-bit architectures") made PAGE_MASK signed
+on 32-bit. Neither was marked for stable. They cannot go to 6.6.y and
+older, which lack CONFIG_PAGE_SHIFT (added in v6.9). They do apply to
+6.12.y, but together with the i915 build fix in commit 8fd236b00fc1
+("drm: i915: Change fault type to unsigned long") they change PAGE_MASK
+on every 32-bit architecture, the kind of change that caused the arm32
+regression d4a65302dd84 itself fixes. So these patches cast at the two
+affected sites instead.
+
+Please apply to 6.12.y, 6.6.y, 6.1.y, 5.15.y and 5.10.y; the series
+applies unchanged to all five. 6.18.y and later have the upstream
+change.
+
+Reproducer for 1/2: i386_defconfig plus CONFIG_HIGHMEM64G=3Dy,
+CONFIG_VIRTIO_PCI=3Dy and CONFIG_HW_RANDOM_VIRTIO=3Dy, booted with
+
+  qemu-system-x86_64 -M q35 -accel kvm -cpu host,host-phys-bits-limit=3D44 =
+\
+    -m 5G -object memory-backend-ram,id=3Dbig,size=3D4G,share=3Don \
+    -device ivshmem-plain,memdev=3Dbig -device virtio-rng-pci \
+    -nic none -nographic -no-reboot \
+    -kernel arch/x86/boot/bzImage -append "console=3DttyS0 panic=3D-1"
+
+The extra options get the virtio BARs above 4 GiB with SeaBIOS 1.16.2,
+1.16.3 and 1.17.0. Since 1.16.3 SeaBIOS places 64-bit BARs high when
+the guest has RAM above 4 GiB, which on q35 starts at -m 2816M; before
+that only when the 32-bit window overflows, which the 4 GiB ivshmem BAR
+forces. host-phys-bits-limit=3D44 keeps SeaBIOS 1.16.3 from placing them
+beyond the 44 bits a PAE kernel can address.
+
+On 6.12.115 the virtio BAR 4 at 0xe0100000000 gets mapped at physical
+0x0-0x3fff (per /proc/vmallocinfo), the device ends up FAILED and the
+log shows
+
+  virtio_rng virtio0: probe with driver virtio_rng failed with error -2
+
+With 1/2 applied the mapping is at 0xe0100000000, the device reaches
+DRIVER_OK and /dev/hwrng returns data.
+
+Nothing in a QEMU boot early-maps memory above 4 GiB on i386, so 2/2
+was tested with a throwaway late_initcall that calls
+early_memremap(0x100000123, 16) and prints slow_virt_to_phys() of the
+result: 0x123 on 6.12.115, 0x100000123 with 2/2 applied.
+
+Unmodified v7.3 in the same setup (CONFIG_X86_PAE=3Dy in place of
+CONFIG_HIGHMEM64G=3Dy, which no longer exists) gets both mappings right.
+
+Built with GCC 16.2.1, run on QEMU 11.1.2 with KVM.
+
+Radek Marci=C5=88a (2):
+  x86/ioremap: Sign-extend PAGE_MASK when aligning the physical address
+  mm/early_ioremap: Sign-extend PAGE_MASK when aligning the physical
+    address
+
+ arch/x86/mm/ioremap.c | 2 +-
+ mm/early_ioremap.c    | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+--=20
+2.56.0
 
 
-Takashi
+
