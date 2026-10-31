@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793478383;
-	b=so33WwE55ioqTA5Rvmd9K09bYYXNxble9gyLrMrNefeZM5htba1/Z1Uao1yfJ3Cf1WAl
-	 /1Y7K735qvqzjL2aoo184gomZRf2NUHxr8dpELNWvl7NDz4eM/OsJgzoYNA8hrzGd/Iao
-	 N83gbojvGrtiDzomkmf2JUW92vih0DTFaC/Y0nDxB4LEcbEB+7rBtlodvsyM8QUwIFmZZ
-	 J01UaLuZU9v37Km1Vt8kvClKRq+HQxH0xmnjOnb4ddzOj5rEktAtRBHDLrseFCwqu9Dv5
-	 IKBmeDN75lxldwvCe5jK4PGe0+XCpOmPj896KidwWi/j3sTdooonNqtu0wDXObNvPQg==
+	b=jfg+u3ZzqYeRGuJXF+N5zltpA2ATc5TDTzo4Cs35jX5zC46cQw007flnO0UEa1UZoeCs
+	 kGo337091smwhh4EYSeiSN+riOYjIGPi/z+cm0+3MUFlskYtuzLltSyBFIsqJsVuU/Ssw
+	 rY72YuLz4D3ov/s8HZKwtzKDYx9t34/RDCVKOJHpdpRWuMLEv284+kY4YlB1/+jmzz0SH
+	 GFZwa/t+Wx0jQIV2Jskcdm8qi28361+BwTxendfXSzUmygIbS7JfvoryDv96FBkBsnPio
+	 m54aBILh5jlYwrajwPTPsaN9HuC2YqBofgH8YuutWK3SKBxb78cRZqHIRlwmVebLfYQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793478383;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=b0huW68ClW7zGxTajFYrPJIOdcCJij4zkacprcElp1s=;
-	b=DhYEW1UrZNKHUzdKKr/UuIMiHB7Bp536S7B1oExPwNJUNEw7hCHdc2WGX/v3Ho+Bqhr/
-	 SMZnpPm1u2YO+mMkhRdBC++ve/VcoHSvDcdvg8+n5WY4N4G+HL4zitDYu+0EfmKZBRu9N
-	 3EP8lXw88yHN0A+5Q4nqpFK4Khvi6gTRDE5r/253VhDiGZaaBfyLmn532XHDdBzOkCt+I
-	 G5cwFJ5HuN1n4LZuoJXJxzPFV4ILRb22sVNVinfJBm1BGvbHLnwznXgxq0Q2NCkNIzdrJ
-	 7jWobvr2cQ5TI3uxCDHg3oc0cJdZS2w4pQWyoYsQ8RZXOM24va6v9b4e6APCZf75cvQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=qzYWdZOqtsRFb3ngZK/C1CAHvUR8f0Jk0wMaxETN/S8=;
+	b=V3SPDe1G2pOTcwYfy/iNqaErr9fgnJdY9V25qNliMrKW/B9yBFc4a0FdZOsdHPTDSmsT
+	 qLRQ2hQEbkYcvp1CHlHg0f9Ir2fOTq3NlSUwUq+xdAlbeKJVtD/z0QJGib0d7nsZF4/Xn
+	 ERgiQEu8TtPQVwL//zey+38OjuJSWWUhsSJLDaR/O0kj7smCmOC9EY/IvOqX0VFKPtZb5
+	 DE5JIiL8l2cUNq/eYAYuZeLA2OfuUJbRpPUyV7yeTLK9AdOKClYJepmWekgqWEpxTfAUf
+	 k5q4hZs3j2ZU1imz/WtCZkfHienkERmhCzLMN8Fe3emY/g1h3VcJIRTVKgQqGRZ3hNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FosXs5Zy;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXuiWQid;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B947C606A31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBFF6606A31D;
 	Sat, 31 Oct 2026 20:26:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FosXs5Zy
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 163741F000C1;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dXuiWQid
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 745481F0093A;
 	Sat, 31 Oct 2026 20:26:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793478382;
-	bh=b0huW68ClW7zGxTajFYrPJIOdcCJij4zkacprcElp1s=;
-	h=From:To:Cc:Subject:Date;
-	b=FosXs5ZyY5xbW4Vt8TM/mcfwydXXh/ABN663PHVu6Pa+NXbNYlyaRNfyMpyehFD/A
-	 h2tvLbUW0QyBnsb2kzHl+zNC5pELZUzqRLfYpmAdJBVNFfwu8Kppiv0b9XQfalqLbi
-	 YHy83IUL8RXhX/ydUmE/IrnCDdJHPj1jiGrnrtYApjI44WR1pmekbS86EPBE6MM2H6
-	 Bx/XtLng/sPM34p5dtsGwgn3KCzSgx50WoCK9Ocv5GJVzU6Dh4X3WCPNn97KXPR5v8
-	 5HOG0AKD4CgNS7hLNuY68i6rILQnmi5fJCCxWPSivXzMITY8F2DwkpQ9dZ9/H5u10x
-	 vxc6rQGSORdrg==
+	bh=qzYWdZOqtsRFb3ngZK/C1CAHvUR8f0Jk0wMaxETN/S8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dXuiWQidxV4GKs1te2r8gQmqYhcV1FaR1jedExIalifCzD4YoA7zD4x7ducE94Zbx
+	 VSXw9pzJ0MtbNE57AWdEBBEm8j/4qxd9wLxHgBMsq4y4TVvwXgvCBMyLTztCngesZv
+	 xGmqDr6Z36wN5ZxnpHhCmCK5Tgwhlr4RB9izoTQCYt5RMEGFAQh3IU4Kv6SQn1Fw7c
+	 mA9n/ivt7TW+YNqdRqEY7YNIJq5KXI+I/o7/UF9fRxEc+oXkJnmvshRnGrlDSXAIRc
+	 /Jd15eCnt6ozjqwsV9gLsRfKGG3SwX2f4cZL6hWZ41zm6/SYuXfvFkWeKN88R2q1/S
+	 RRtvmySP98taQ==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH 0/6] mm/damon: misc cleanup/improvements for core, vaddr, sysfs and tests
-Date: Sat, 31 Oct 2026 13:26:07 -0700
-Message-ID: <20261031202614.96036-1-sj@kernel.org>
+Subject: [RFC PATCH 1/6] mm/damon/core: handle invalid target in damos_fix_stale_charge_pointers()
+Date: Sat, 31 Oct 2026 13:26:08 -0700
+Message-ID: <20261031202614.96036-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261031202614.96036-1-sj@kernel.org>
+References: <20261031202614.96036-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,38 +63,51 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refactor code, optimize code speed, and add a missing feature support on
-various areas of DAMON.
+The fixup of DAMOS quota charge pointers
+(damos->charge_{target,addr}_from) for removed targets and regions is
+done in damos_fix_stale_charge_pointers().  A similar fixup for invalid
+(terminated pid) targets is done in kdamond_apply_schemes().  Having
+similar fixups in different places only make it confusing to read the
+code.  Consolidate the fixups into damos_fix_stale_charge_pointers().
 
-Consolidate invalid DAMOS quota charge pointers fixes into single place
-in core with patch 1.  Optimize the efficiency of vaddr damos_migrate
-action under filter failures with patch 2.  Implement sz_filter_passed
-feature for damos_migrate action in vaddr, with patch 3.  Drop a
-redundant and racy quota goal target value validation in sysfs, in favor
-of that in the core layer, with patch 4.  Drop unused variables and
-imports from selftests with patch 5 and 6.
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 15 ++++++---------
+ 1 file changed, 6 insertions(+), 9 deletions(-)
 
-SJ Park (6):
-  mm/damon/core: handle invalid target in
-    damos_fix_stale_charge_pointers()
-  mm/damon/vaddr: advance migration attempt in folio level for filter
-    out
-  mm/damon/vaddr: implement sz_filter_passed for migrate_{hot,cold}
-    action
-  mm/damon/sysfs-schemes: drop redundant and racy zero target_value
-    check
-  selftests/damon/damos_apply_interval: remove unused variables
-  selftests/damon: remove unused imports of os and sys modules
-
- mm/damon/core.c                                   | 15 ++++++---------
- mm/damon/sysfs-schemes.c                          |  3 ---
- mm/damon/vaddr.c                                  |  8 ++++++--
- .../selftests/damon/damos_apply_interval.py       |  2 --
- .../selftests/damon/sysfs_no_op_commit_break.py   |  1 -
- .../sysfs_update_schemes_tried_regions_hang.py    |  1 -
- 6 files changed, 12 insertions(+), 18 deletions(-)
-
-
-base-commit: de796f0221d9cfc6a468e83934b9514c43b0a4b3
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 73b571b429cb3..ce75db510a9d3 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3394,7 +3394,11 @@ static void damos_fix_stale_charge_pointers(struct damon_ctx *c,
+ 		return;
+ 	damon_for_each_target(t, c) {
+ 		if (t == quota->charge_target_from) {
+-			if (damon_nr_regions(t) > 0)
++			bool valid_target = true;
++
++			if (c->ops.target_valid && !c->ops.target_valid(t))
++				valid_target = false;
++			if (valid_target && damon_nr_regions(t) > 0)
+ 				return;
+ 			break;
+ 		}
+@@ -3513,15 +3517,8 @@ static noinline_for_stack void kdamond_apply_schemes(struct damon_ctx *c)
+ 	max_region_sz = damon_region_sz_limit(c);
+ 	mutex_lock(&c->walk_control_lock);
+ 	damon_for_each_target(t, c) {
+-		if (c->ops.target_valid && c->ops.target_valid(t) == false) {
+-			damon_for_each_scheme(s, c) {
+-				if (s->quota.charge_target_from != t)
+-					continue;
+-				s->quota.charge_target_from = NULL;
+-				s->quota.charge_addr_from = 0;
+-			}
++		if (c->ops.target_valid && c->ops.target_valid(t) == false)
+ 			continue;
+-		}
+ 		damos_apply_target(c, t, max_region_sz);
+ 	}
+ 
 -- 
 2.47.3
