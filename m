@@ -1,75 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793474028;
-	b=fngdgNvYy3cTl4d/2PnTV/q2oJZtG3yte0bxczawa+GaC7U/b0qqUERRpYcdwjR70bTE
-	 +XeCC13E7nOHIEAZR8VDrUV3a/jznnRbwSpc6MHgH6y1I/Z4K0LlrY6hRYDJozC4TEVjl
-	 KzWkEfb1t5Ey3Yp8uQhd74znZImTRVfr+2D4Oau2nXVHFnZwKSx8NGGtSmQLgHOvynBHV
-	 KXc2wvkzIk6n0iKtXgVg+rhhFIhZMb4OXCd2I0wMigtfM0/nbW7p97GKOb1fSLoiby7Ir
-	 W2BdqKQJ8JELpqxYH6sAN5JK6B9gbFTaFV7RrlV/VoOMW/PNdM+ZXzVJIjJxbFpbBNQ==
+	t=1793474169;
+	b=wjFXrUj9gBkb2U6oRGQZvm+d/jhTB/npySmrSn9H8YZv4bFWFU3KOiKhqRL2+mJmo/oN
+	 Fw+RCSCzjbvmdOFFDWE/89ANzLHQlCu8aEbUt6HSIrX5T68Lu0eGHPVtQdsVnKTIjEi3+
+	 Ceeoeuf1vIIc2rGT8n13tFCSig/AsBGJAzhUNqpoOmCt94ljX/Kxbt68LXABpI4tFYq7z
+	 RiNcv04RXSTsT40fqEi8ErRrBqpEZiXDI6e3oBOKq5gEF+iavrcXbhxmLEC0QoN2xxB4A
+	 cPkh3vJ5emHKqqfsQjiflq/Thj94IYEFUDBLE2Ek9kaqguLStDCzSPVKPwVrxVWZWxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793474028;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=nJBv0GgW2v5Ry5/NUsW0hqijVCknn5LFKWAu/3Zahsw=;
-	b=weypVc1xtbU0EYqGy19KdgjGj8UGGAxM8/lCJdpMTFGDI9/7MCcPvrQqe93Yb0nA8MDT
-	 tPA1sOxKKELorwB9eRntyHRd8Ry37Ee/8ngFYNha8Jn8SH7kFJBE6AG70JfmNfOpqXznW
-	 +zEe24Ea0UIwABGkxuKoozISpepZpHR/fucUvXDRD7keyHjbcOI2QdyJYbNs7c+fycuHO
-	 xAI5G9aDR7OBjaVCvVXwDQ3kpplm0Pd93hdFCo+VxsGplHFh9Rxl83E0oG8tzT1xSsK2N
-	 WCTcqTPfYLPFO6uMBpG4jHl22Z+u7YD4RqBUSQPDS/jsilNlEWq9IMtuQwC2F5dUtoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793474169;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=Nh74L2V0w3daekaVVOQrrhXLM9Gl1Uf9oljAtssfNp8=;
+	b=krtlDk+6n3Qlwm7WIVjCe6VuSsci0791iArLXFEumRv3T5bNG9E5+ryqhyYfEWZqlEAG
+	 RCJchLBPkKKmw+FdCtso0Bq19tUCESDjtMhTchlq02fYiyi4Bbt3KLKLu/L4kXR3rHw8Z
+	 OcgDWiDDqm4awJKUyOpc70Vf+rbX2BNl7mivDD9FjZ/M91EFw4da/UiCNa0jIpHMKUCpf
+	 mluP6Kt3siE4Z8BdxEprrMtSzuMv7RfBu8LBTtQvQZOY6nUAYwDqaw9Se/uKdoabbJ1Ge
+	 ouaPPVDoUI0UPt5rF5Fi/wSrMirPX2MnuvN+py+3j/HJkTH0dvw0Fw+ny3KI50CYYdw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V0uWqi8B;
-	arc=none smtp.remote-ip=209.85.128.71
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40778606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:13:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40778606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--aliceryhl.bounces.google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=V0uWqi8B
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a214a5f8a1so16439285e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:13:47 -0700 (PDT)
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F4C8606A31A;
+	Sat, 31 Oct 2026 19:16:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F4C8606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793474026; x=1794078826; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nJBv0GgW2v5Ry5/NUsW0hqijVCknn5LFKWAu/3Zahsw=;
-        b=V0uWqi8B7GwgqIHzrE1bRswy9+KlfjTqf31ihGHlqT0zNVj8T16xGnm6OEIffSkW7j
-         yyZP6dlXtLjJks1TX63RQNSRdIAKhNoELH34vnEkjeHApzAEZjbxDPu87CEdi+2AF+9l
-         1Iz19fD7H3/7zQ215YAZAsIJ2MyDbLD3SnOKFszATJoHhuKiR7ydA6LPx3abH5DzHQdw
-         EaaEQM7puBPZgpydvqnV0scM8XlRQWp9whAl4pGyBxl/JQJS7TQoPNMRJS61C3XXu5Ga
-         HnltfeuFgKZJhGfnPvKOXN5cVHz97iJibdtruLRQEy76vXaRlj0CBUyvDTaVR8IUiWrW
-         hVJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793474026; x=1794078826;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nJBv0GgW2v5Ry5/NUsW0hqijVCknn5LFKWAu/3Zahsw=;
-        b=kR2WmvxoHeutPTJ//XgF0E068bR2UWxnf/bwFC7ttElpw8BXK+jD4EZMeTFXtWrLdB
-         iBsiJatDDruel2XR5JW06t9UjI/4e6Bs6ejtXtJJ0dieztpLEOToe8dw86hzDsn8/qki
-         tlYaq0T5cTmYq7MPTJBwvCsY3k6ZhovJXkkpubYrj7+fXlIiuqLNUwttpjmAcnSF/NMw
-         yK3JIXG3wrOuY/5l3bpOWp6i8aXPfpnvgqvJy/OpCWDPJpyn8gSAWnQP3jCmtn6V3WAu
-         4BJq9TLsrySyLyuYpoNWcOKLT48v71k7fyVIF5ME7mDb43n3I+whbxUTidoWN76c7Zkz
-         /32w==
-X-Forwarded-Encrypted: i=1; AKwUvBwaoi6J/r+GzaHy6q1HCco4aMPCD693TegMddrkc0RMWoNrQuFv8Bp/b+UiW9FHwEmhm1EFKnN+z1CEkck=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK/Od/VXG4fkl7FAM4U5byfCnDTVnMDxsUsP9lkM12D8EJlnbdm
-	HTMB6U96u5zQzpZUkv8YU9Qi5nm8+DBNqnZpp9DfBiDN0jyqFAsZRZmiN9inLywDdpang4oh6gw
-	LrhLYsaFdkLTAq6cjUw==
-X-Received: from wmxa5-n2.prod.google.com ([2002:a05:600d:6445:20b0:4a2:18:cfee])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:4e8c:b0:4a1:dade:f049 with SMTP id 5b1f17b1804b1-4ac1793ff26mr134595615e9.15.1793474025531;
- Sat, 31 Oct 2026 12:13:45 -0700 (PDT)
-Date: Sat, 31 Oct 2026 19:13:44 +0000
-In-Reply-To: <20261022160725.2215244-2-phasta@kernel.org>
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=Nh74L2V0w3daekaVVOQrrhXLM9Gl1Uf9ol
+	jAtssfNp8=; b=e1Sbnki6hsw8gC2qNLcvXFlpjsFXdVTqVAGFLtZajNTlYAGdv1
+	xxO8iSl6ujJA8Max7P8qHRGI01axVE8jHTPX6B0vU3xlPshTfAT+/AlFPGl9keat
+	MM068hqJWZtz9mgdjqLAsT4Sy3RVm040FYZXEIOg302m2n5r6PFJguDTo=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.19])
+	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkD2+fxtPuZqvkQSAQ--.18279S2;
+	Sun, 01 Nov 2026 03:15:58 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.de>
+Cc: Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v4] ALSA: usx2y: Refuse a retried DSP load after a failure
+Date: Sun,  1 Nov 2026 03:15:57 +0800
+Message-Id: <20261031191557.8460-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <871p95svvd.wl-tiwai@suse.de>
+References: <871p95svvd.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,36 +60,93 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261022160725.2215244-2-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261031191344.2913779-1-aliceryhl@google.com>
-Subject: Re: [PATCH v4] rust: sync: Accept errors for Lock payload data
-From: Alice Ryhl <aliceryhl@google.com>
-To: Philipp Stanner <phasta@kernel.org>
-Cc: Alice Ryhl <aliceryhl@google.com>, Peter Zijlstra <peterz@infradead.org>, 
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>, Boqun Feng <boqun@kernel.org>, 
-	Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>, Lyude Paul <lyude@redhat.com>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, 
-	"=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, Miguel Ojeda <ojeda@kernel.org>, 
-	"=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, 
-	Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>, 
-	Alexandre Courbot <acourbot@nvidia.com>, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BbQMCkD2+fxtPuZqvkQSAQ--.18279S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr1UAr13Kw15tr43ZFWrXwb_yoW5XFW7p3
+	909FWDKrWDXr4q9a1DZw4DK3WIkwsYyFW3A39Yyw18Ar1DAFyfCrWrKw129r42krW8Aa40
+	qrWjgr4UWrW5Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15Mc
+	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6rWl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
+	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
+	IYCTnIWIevJa73UjIFyTuYvjxUIl1vUUUUU
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUDD2rmBFQcDAAAsE
 
-On Thu, Oct 22, 2026 at 06:07:26PM +0200, Philipp Stanner wrote:
-> The `Lock` baseclass currently does not allow for fallible user-data.
-> This can cause conflicts when used with other primitives, for example
-> when a lock shall be pin-initialized with payload data that is fallible.
-> 
-> Add support for the lock base class so that it works with
-> try_pin_init!(). Adjust spinlock and mutex accordingly.
-> 
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
+the interrupt URB when the FPGA firmware image with index 1 is loaded,
+and then creates the ALSA devices.  If usx2y_in04_init() or
+usx2y_create_alsa_devices() fails, the URBs that were already set up
+are left in place.
 
-Boqun, are you ok with merging this through drm-rust-next for JobQueue, once
-we get Gary's reviewed-by?
+The core keeps the index unloaded when the callback fails, so user
+space may issue the same request again.  The second attempt then enters
+usx2y_async_seq04_init() or usx2y_in04_init() with the URBs still
+allocated and trips WARN_ON(usx2y->as04.buffer) or
+WARN_ON(usx2y->in04_urb).
 
-Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+The URBs cannot be released at this point: the card may already have
+registered PCM devices that user space can still open, and the
+disconnect handler accesses the URBs without holding the DSP lock.
+Mark the chip as hung instead, so that a retried request is refused
+with -ENODEV and the assertions keep their meaning.  The URBs are
+released by snd_usx2y_card_private_free() when the card is freed.
+
+A failing usx2y_async_seq04_init() still releases its own URBs, so that
+path remains retryable.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Co-developed-by: Bin Yu <byu@xidian.edu.cn>
+Signed-off-by: Bin Yu <byu@xidian.edu.cn>
+Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
+Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+---
+v4: drop the release of the URBs on the error paths.  The card may already
+    have registered PCM devices, and the disconnect handler accesses the
+    URBs without the DSP lock; mark the chip as hung instead and let
+    snd_usx2y_card_private_free() release the URBs.
+
+ sound/usb/usx2y/usX2Yhwdep.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
+index 7f153a2fcdd8..3800c5b5887c 100644
+--- a/sound/usb/usx2y/usX2Yhwdep.c
++++ b/sound/usb/usx2y/usX2Yhwdep.c
+@@ -179,6 +179,9 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 	int lret, err;
+ 	char *buf;
+ 
++	if (priv->chip_status & USX2Y_STAT_CHIP_HUP)
++		return -ENODEV;
++
+ 	buf = memdup_user(dsp->image, dsp->length);
+ 	if (IS_ERR(buf))
+ 		return PTR_ERR(buf);
+@@ -201,11 +204,13 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		err = usx2y_in04_init(priv);
+ 		if (err) {
+ 			dev_err(&dev->dev, "usx2y_in04_init error\n");
++			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
+ 			return err;
+ 		}
+ 		err = usx2y_create_alsa_devices(hw->card);
+ 		if (err) {
+ 			dev_err(&dev->dev, "usx2y_create_alsa_devices error %i\n", err);
++			priv->chip_status |= USX2Y_STAT_CHIP_HUP;
+ 			return err;
+ 		}
+ 		priv->chip_status |= USX2Y_STAT_CHIP_INIT;
+-- 
+2.34.1
+
