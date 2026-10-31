@@ -1,92 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793435798;
-	b=RtK0qi6FV5mH7/a/pw4W838XrRMaIXv3SXw3VI+xAgCwVjx5oV1idA6ErZbPStIJ1Hfi
-	 0nachWf0x/oeW5US1ymiFIwMXNZHnePUmBmo8eoXIJ61iII5mkfSoL4nC06rhK5Gx2IIj
-	 0BmJk+L2UVZxEtAouu+H1g62454dhFxNptNaYnfuTba1EvAazxqASmhKXTIRpmeHUwhC3
-	 NZcWrASE/DuT4uBkSoWxCuxsF741LanigyVnYOsHfyRefDbwg65+vmPlY0AZNY1Y84JiV
-	 dQLnB2H9wRU3JS5ZjlDxyyUtleJZZEsA41i5fIElOOiwOuJdfUhVW3PxEexYip0c+0Q==
+	t=1793435813;
+	b=JF7kqsZ7Xm2GdAIgzDeEubY51bRsLPTA9MdBic5oN8ppEjusWflq8x18vGX6Y3vEKowy
+	 Ha0dBh8lNhl86TawpcFxaUqbJO5ORtx8DiLhd4W/CVCfmKhnXhCehqeRTRAGaReOygB7Q
+	 ri2vL2yuWTvynhqKywOHgFewSOWxuf0oeXelAjorGFxs2GoAIhV5vmzsPX0QgMpFUHDF6
+	 t3jbWbexmI1Vx3jEsGCZvnoTJvCOpxmfImoRqk0SVghKzyj7iosn3kfeW4iUitsXR3kB2
+	 P1T2hRpJ2gaiBEu8uHxBmmIGhNvExuZfaqS9fuUQ756hascQmIpi8jWHAucNHvblWaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793435798;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=vQ/cN3iXQ5B/i7JVQO6YetuFxzCYaMnwWxfI1uKAl1g=;
-	b=VxJUcA5DdJtQUH2Z1u0jZIwuxkzyzJLreFUKPjdwjEBjEyNQeC+uhJnkTLMjPVoiovqH
-	 0yuxVeQpLYZAIYOclPF4uRcvAA4aFhqBDzWZmamNGDxBPWvnUkiZ+XKyJCyTVKyS3Cfhs
-	 lpio/eQtjd4nGZqiaw3WlB4ktde7b69/9N79yXZxjlhT6MaV7CwkdUneA8a9SWRXBd17k
-	 8U6zi+Q1Vw1wT7meUEpObTSjKcgcgNOY+IhxLpKCFV0Qnq1aA6v+Dq1R2f6O199zL01/D
-	 byxzVZIJginqxG162nGG+uOzevbVa9vXiVF+FHjiaMnimycovFjjr1VsS15tJycl0tA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793435813;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:User-Agent;
+	bh=bJgvSlNrNKH1NoDZY0nuEfgdStiOApNnubWTBDknRnI=;
+	b=h7Zzk2QwOFy3RNZgIIfasQVD52YfWKR/WFj1UUQkWTSmrK5LeCFvIkvolH9soKCfHDcT
+	 /8f1a6zQqRJgMydCTNe2475UOAIUkLURdpd+SHPfNKKbtoA2Uq4GMAdxQPCMsWpCaNHpR
+	 GBqd0Kbk0YyVLJjHU9d8kFsMq8oyVfoNen1/5tQyTGpyqxC4NWxuX6bNRI0DTSxUmtn1C
+	 aW8I8glBzvKFJn2ysMKg64YxwPCxJg0u8w07zRQMznC9QcsOrGipg9hdFjPjuOQlgQADp
+	 7sDmGUDK0V2lEeQn04RaG02iryEyfds8UQHDZGYW60B6utGqOiHK6T9wa2jPl9O6KYA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="o/NVGFrq";
-	arc=none smtp.remote-ip=74.125.82.173
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Gtk9xW2O;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E94D606A327
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:36:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E94D606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B47606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:36:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70B47606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=o/NVGFrq
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-36a17a332ecso2583402eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:36:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793435797; x=1794040597; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vQ/cN3iXQ5B/i7JVQO6YetuFxzCYaMnwWxfI1uKAl1g=;
-        b=o/NVGFrqut97p0EnNLhdbCUAJ07cPRZVqMjz50pkaKE15ulX9LcQTdJgLopxBCbjTT
-         ihhobuAIOPfT53TgWxP6egHv9VvpGz9KKEstcqTdyrhiEV5IEuVnLU+eah+UJfvYAWzl
-         oc6XCweeB2xeZzinoxVGc0iLKv38jCcgIytrZc7XSbOuFB2UEe97s9ZgxPoBzq6poOR4
-         IkZw0YHQsGRRMAEHJCDCAzAxj7iL+407BoICx4qpmOVDCAx5ERsxUJs1eTJuxoAPlLGz
-         /jrL1xZs+IDlFc0zU43XsMAJq0Bgg2RJVbSi5aNBG8i+BJx764tUjmsP9oN/RxaQpxnR
-         kPdw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793435797; x=1794040597;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vQ/cN3iXQ5B/i7JVQO6YetuFxzCYaMnwWxfI1uKAl1g=;
-        b=pV3GqZdUYl1semkjLuG5X2gvyTc/we2Kc1rHlYUmUzqUdUP6ajhmar2B2+/JRfbLOz
-         y1V/9WuYVEDOauC8sENh0GoKrZGtdNp35naFY+ptu8fOuLdIoW44Qyk9SSpdLKo9Q2oi
-         zYFhtt0zc9iBHQ06+DVNHlrnBg9lawIqMGdwBT7ShrRI613xNIT1ZtV63L5Rq/fXiUwh
-         cNirx2E26uVJQOQo8iLbyKvP91bWI7M1MheVttbQOdq1Zi0yfE70d0W4Jjtx1ZkeLj9Y
-         JTF8iaGcoQ7F79n59HtknYFBmy5F2hwd4ZYeBdlB2MB765/d0EauzVCovSY0aod51G1h
-         hG9g==
-X-Forwarded-Encrypted: i=1; AKwUvBxEs2HfRmJ1utQuc9zS7D417bMhyUi4X6c+bSOdEvABWBQkLHx9UTRqoBOsB1jGkyW+2akZTA8BVbddfo8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJum1+EGjEb4aXzSLSgRAHlTCaJRx0/v4M03YHLfDviBG6lcDlP
-	7zcWSFU0hJVXpf5WpSqk2e5KVwwEAbtkgf6f5mWln4Kg/u+7XtsWcfzL
-X-Gm-Gg: AYBFou29wkGkENaSWboRD3TH0gapVPkgYbw/SzMn9rncesN4FVUwGjQTDaSWlPOhQal
-	JwF4DBlsyzGzmyDl/qeFLyShp+OY3K+rmei8RljpzMI8xwuOj+RGDXW/2ItahXQ1RVUujTnEAdr
-	84Y3ehb4iJIYAflZTiWcCIXljvVkeJBXX+Up7iMBxXmCuqBAjsOnHyVELQCQzuOZuHI9iwskzVG
-	sqdkmodVLMViJWwgFSWYFnp70OtXHXfoL2sd0SdBWZqD6Rsfc44SPHY6G3N7wkuKwA2IRab5Pbe
-	XJywX4DQDchO+KqFLcCS+LOAxQL7IoTfKKoDRORe7bf7P4ZWGP/DsZagt/aBNCtggPriHGOFTsj
-	xDJlYruhSdZUuThCHacBfJWFOQ/WDtIYpvCRQ+3n9WfRVP7Lch+8EIjEJH6rZ+lPW02lp5MincR
-	Q9tqfZ2ZkCyR5gFlLG5IC+C/bVrHKd7tZzIztuHNXkXAozJemuUStU3PM/bF3VCudSGiDpFwJ+6
-	PWzQFxZhsOKI99E7P9RkgqF9IXlypeEljxRfQqglZZ45vksI+7x/xAphuL8eQx7zXSbuHeAI8W9
-	cOPMCLbz1Yvs+akk3gf+e2da9aqL
-X-Received: by 2002:a05:7301:6f09:b0:36a:5126:a8aa with SMTP id 5a478bee46e88-36a5126a932mr2780573eec.27.1793435797407;
-        Sat, 31 Oct 2026 01:36:37 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:3397:a4c1:ed94:f99d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a98f65sm14245639eec.28.2026.10.31.01.36.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:36:36 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: eli.billauer@gmail.com
-Cc: arnd@arndb.de,
-	gregkh@linuxfoundation.org,
-	linux-kernel@vger.kernel.org,
-	Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH] char: xillybus: use stream_open for stream semantics
-Date: Sat, 31 Oct 2026 14:06:10 +0530
-Message-ID: <20261031083610.87160-1-mdshahid03@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Gtk9xW2O
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793435811; x=1824971811;
+  h=date:from:to:cc:subject:message-id;
+  bh=dtvVYbFvIDyClFn9yLxM4QhxjXgihlmypuRixwz0OHQ=;
+  b=Gtk9xW2OXfs8azdG4QDuMA5qPxtEJgryiwbksijmrFoT6pgYoOusAcKN
+   XApR/g9RRNT0idyfJYq6xZxbN1Bn2D5ZnkaBlXNDuS6xhNDayZyCeVzet
+   Bo3eJQ3pvv2Px14l2tjl/W5E02Y/DtixWs2JVi8jM4ZQDd5vTzDtSn5CB
+   qJRgtM3Xf1/BYwgLwQNGYLaBXGBKcYiLe1RCu1fULeKzhR/pMAMco9uR+
+   EzcgzxPPnxmdCRSZZDPpNGzP4JopsDSn2Fnky+aATFXEsO9NJ8aBbjMpH
+   qpSgtRAqKvwhRY8ETQhLVSX2SOCtbZE5LjXHtDpdL2ScTN3i43wHJQs0n
+   g==;
+X-CSE-ConnectionGUID: EDNCHU5XR5WUCV5CTPuVwQ==
+X-CSE-MsgGUID: jXrZXySCS/KULuzQWYJ9vw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2073556"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2073556"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:36:51 -0700
+X-CSE-ConnectionGUID: mphRazFYQZepekTuwCYghA==
+X-CSE-MsgGUID: q+ktFgiNTK2IKryNULnS7Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="7454246"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa013.fm.intel.com with ESMTP; 31 Oct 2026 01:36:49 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xN4Zy-00000000cfc-19P3;
+	Sat, 31 Oct 2026 08:36:46 +0000
+Date: Sat, 31 Oct 2026 16:36:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Linux Memory Management List <linux-mm@kvack.org>,
+ "Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: arch/riscv/include/asm/syscall_wrapper.h:35:14: warning:
+ '__se_sys_userfaultfd' alias between functions of incompatible types 'long
+ int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long
+ int(long unsigned int,  long unsigned int,  long uns...
+Message-ID: <202610311814.sISpHHXr-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,41 +84,106 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Mohammad Shahid <mdshahid03@gmail.com>
+Hi Mike,
 
-The Xillybus uses nonseekable_open() in xillybus_open()
-for non-seekable channels. However,its read and write
-callbacks maintain their own buffer positions and do not
-use the file position passed by VFS.
+FYI, the error/warning still remains.
 
-Use stream_open() to mark these channels as streams and
-disable unnecessary file position handling,allowing read
-and write operations to run concurrently.
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   2a500a04d6f969318c05f46aedb6e73fc1963a00
+commit: 7bc5e747bba29d5b77b2278e8c696eea0c796706 userfaultfd: merge fs/userfaultfd.c into mm/userfaultfd.c
+date:   5 months ago
+config: riscv-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311814.sISpHHXr-lkp@intel.com/config)
+compiler: riscv32-linux-gcc (GCC) 8.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311814.sISpHHXr-lkp@intel.com/reproduce)
 
-This issue is reported by stream_open.cocci script as a
-potential deadlock between read and write operations.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 7bc5e747bba2 ("userfaultfd: merge fs/userfaultfd.c into mm/userfaultfd.c")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610311814.sISpHHXr-lkp@intel.com/
 
-Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
----
- drivers/char/xillybus/xillybus_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+All warnings (new ones prefixed by >>):
 
-diff --git a/drivers/char/xillybus/xillybus_core.c b/drivers/char/xillybus/xillybus_core.c
-index 7189c6d97e7d..92c526e84572 100644
---- a/drivers/char/xillybus/xillybus_core.c
-+++ b/drivers/char/xillybus/xillybus_core.c
-@@ -1607,7 +1607,7 @@ static int xillybus_open(struct inode *inode, struct file *filp)
- 		mutex_unlock(&channel->wr_mutex);
- 
- 	if (!rc && (!channel->seekable))
--		return nonseekable_open(inode, filp);
-+		return stream_open(inode, filp);
- 
- 	return rc;
- }
--- 
-2.43.0
+   In file included from include/linux/compat.h:34,
+                    from arch/riscv/include/asm/elf.h:12,
+                    from include/linux/elf.h:6,
+                    from include/linux/module.h:20,
+                    from include/linux/device/driver.h:21,
+                    from include/linux/device.h:32,
+                    from include/linux/blk_types.h:11,
+                    from include/linux/writeback.h:13,
+                    from include/linux/memcontrol.h:23,
+                    from include/linux/rmap.h:12,
+                    from mm/userfaultfd.c:16:
+>> arch/riscv/include/asm/syscall_wrapper.h:35:14: warning: '__se_sys_userfaultfd' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int)' [-Wattribute-alias]
+     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
+                 ^~~~~
+   arch/riscv/include/asm/syscall_wrapper.h:82:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
+     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
+     ^~~~~~~~~~~~~~~~~~~~
+   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
+     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
+     ^~~~~~~~~~~~~~~~~
+   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
+    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
+                                       ^~~~~~~~~~~~~~~
+   mm/userfaultfd.c:4475:1: note: in expansion of macro 'SYSCALL_DEFINE1'
+    SYSCALL_DEFINE1(userfaultfd, int, flags)
+    ^~~~~~~~~~~~~~~
+   arch/riscv/include/asm/syscall_wrapper.h:41:14: note: aliased declaration here
+     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
+                 ^~~~~~
+   arch/riscv/include/asm/syscall_wrapper.h:82:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
+     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
+     ^~~~~~~~~~~~~~~~~~~~
+   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
+     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
+     ^~~~~~~~~~~~~~~~~
+   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
+    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
+                                       ^~~~~~~~~~~~~~~
+   mm/userfaultfd.c:4475:1: note: in expansion of macro 'SYSCALL_DEFINE1'
+    SYSCALL_DEFINE1(userfaultfd, int, flags)
+    ^~~~~~~~~~~~~~~
 
+
+vim +35 arch/riscv/include/asm/syscall_wrapper.h
+
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  16  
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  17  #define __SYSCALL_SE_DEFINEx(x, prefix, name, ...)					\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  18  	static long __se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__));		\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  19  	static long __se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  20  
+08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  21  #define SC_RISCV_REGS_TO_ARGS(x, ...)							\
+08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  22  	__MAP(x,__SC_ARGS								\
+08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  23  	      ,,regs->orig_a0,,regs->a1,,regs->a2					\
+08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  24  	      ,,regs->a3,,regs->a4,,regs->a5,,regs->a6)
+08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  25  
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  26  #else
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  27  /*
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  28   * Use type aliasing to ensure registers a0-a6 are correctly passed to the syscall
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  29   * implementation when >word-size arguments are used.
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  30   */
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  31  #define __SYSCALL_SE_DEFINEx(x, prefix, name, ...)					\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  32  	__diag_push();									\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  33  	__diag_ignore(GCC, 8, "-Wattribute-alias",					\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  34  			"Type aliasing is used to sanitize syscall arguments");		\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11 @35  	static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong, 	\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  36  					ulong)						\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  37  			__attribute__((alias(__stringify(___se_##prefix##name))));	\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  38  	__diag_pop();									\
+653650c468be211 Sami Tolvanen 2024-03-26  39  	static long noinline ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))	\
+653650c468be211 Sami Tolvanen 2024-03-26  40  			__used;								\
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  41  	static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
+a9ad73295cc1e3a Sami Tolvanen 2024-03-11  42  
+
+:::::: The code at line 35 was first introduced by commit
+:::::: a9ad73295cc1e3af0253eee7d08943b2419444c4 riscv: Fix syscall wrapper for >word-size arguments
+
+:::::: TO: Sami Tolvanen <samitolvanen@google.com>
+:::::: CC: Palmer Dabbelt <palmer@rivosinc.com>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
