@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793429742;
-	b=O/LoDaJAqnqtrM9zjlqpkd8OvSxXT0XjhXJ/woXM0VdkgToZqC+GWNlid8VgfQ57hog2
-	 MqJ2cqGejTy0umqbpHDwEGjZSJuIm7GTa1DyRe8TTGJ2AvldLR5p00hEPIeoHQcPsJvwb
-	 fSKeAbW0x3suM3TE2JKMuO1TvwK5eEtu0wTYyfwdzUcSaISS66ONAYB3jATnuPJ6kYzD/
-	 8N+gp0yCao3g2LQwUXtMYm4aW2Ubl4zbpUDvqt9qs5azYW2vNdOwgY2+J8PwMDzpnNBUD
-	 2l4L4LupOcQyAXKjwHsbMwmFFnN01+n+UlAGa6b2+Nfnx1Y3ioacfwdw7d+9nxK/drg==
+	t=1793429741;
+	b=SZ3a5qQwf5xi/F+POZzCOtrtQ/TkThtIdZIP8m41RBJ0KFcAgLXIlRL1Nh5NGfjtU3sx
+	 bPlJmKK0HHOcXcPXm9RcyE8JL/BmlGA8MrE1WvzSpVDox+zHyv170i0GNu7agOkJGMRv+
+	 o43Z1n8NfXvTqsxg0KftxEHP+ppIEZvG/AEqgS2jfXQB2YCemA7fSFte8NyyUATsgAtto
+	 CRES85dpZPthH8yMWuPN5BwP6Nks1wU369vCQ90cOrCXm40azvmU5aRYb+J8dW4enwHPZ
+	 OA0vYsDwKLRBnHiTk7oKnmvLxj0rnjzIzQxwNh6oUZqqjFkfzfqezhtgUzeci+aTvBg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793429742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793429741;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=a7jemQyT7LfB3Ed1PQqf5uO2W5QbjRHcY2qO+/5nEMM=;
-	b=GxA3iPCXfhrlA+ZseAKXSvqyPKqS+S6wEKEuOtceDmCjLUlFU4mGU3xAS3IH40V96ns3
-	 pUQ3GJHTEmN1m36N+ScG6CjIRaxyCBOPWTm546FTDoIMpnc6VtMpcBlI1XR8k9hYuxMg+
-	 GUYIu8+gdngz53YTXLovEAeAt9teSKUNQmsK6HCqST3rzOFmPbsnBOBedMXqlGCld072T
-	 jK8li8x/V/vTKwImRzJWIxdLWZ8hEfbpSVt7RZB7RZ4NRG2f2OOmkJv87T6wjrceGJmO8
-	 dNyI+VPhOnmoeoikGhLUn+sJtGR78HZ0ii6Z26jCJzxsfrFSnY40FH+Tc88MxaphRwg==
+	bh=MHSt2ooCYUBzuKcYHR8HbnlXyzm34DmNLXrkva2+CrE=;
+	b=gaPZSR3nfU4Imls9NbI/sk1IBN+N/VOButVqgRwnrtWnxIXKRVdghy0RPxGtGltLuxh5
+	 3hqWHzN4KQAYRsEzHHqzNQRT8zekFHHoqIFOAdICXBvLzgJrzWn2S2Ap0IeEitG4ocv2w
+	 nf2alGjz5DI6HahgWga3CU3aBaqJD5yF4hM+WCjwnf0N/9kwtm96fjmfaTR+Oa+AJz35N
+	 bMfelmBOCFMsk5yj+hlpEAobSeIqfw0SPXOiKZbESZJTaBTzhTq3xoSis0v86Hc0cXjEP
+	 lonRdvD2xlUmxMqm9lzwEMY5S+GLVwKlpDGyRQKB7YXUEb+/z19poyuPJXo9w8FZkJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ka6ZeFwT;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=UikUsnQ+;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 12CCB606A31A;
-	Sat, 31 Oct 2026 06:55:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12CCB606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9104B606A31E;
+	Sat, 31 Oct 2026 06:55:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9104B606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ka6ZeFwT
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=UikUsnQ+
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=a7jemQyT7LfB3Ed1PQqf5uO2W5QbjRHcY2
-	qO+/5nEMM=; b=ka6ZeFwTyHOI0RYLN+0QxDvNtm8Dcm7evdbfY3AW9FGYe1JmP/
-	3wh1UKkP6nm7COSLgMesqPNQ03prnaxrSl6E+QHgpXXp7vT1gq82ncY8biYwX7LS
-	LCb0/ZmA4j3ODVGzRIhDN6ESxPNNdIx3BHShxEYfBs884NYuGrH1mNK4Y=
+	Content-Transfer-Encoding; bh=MHSt2ooCYUBzuKcYHR8HbnlXyzm34DmNLX
+	rkva2+CrE=; b=UikUsnQ+lNA2s5eUIANrV2sO0vQ4U9PhtgA5SdPwTXq09XMKnN
+	0aHodjTa+1dD26ycKxzzjTLwH2ib3MaNtazu5NMACR/MHOX+CYas6De0/jzPVKDc
+	o/MgzYprWfO8ds7H9cHPfPZ75bqpGEOxnj79UisWHsYhb/ywiVKEFmEKo=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgCH_THmkOVqQXFtAA--.295S3;
-	Sat, 31 Oct 2026 14:55:34 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgCH_THmkOVqQXFtAA--.295S5;
+	Sat, 31 Oct 2026 14:55:36 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -50,9 +50,9 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 1/4] regulator: dt-bindings: willsemi,wl2868c: add the WL2868C camera PMIC
-Date: Sat, 31 Oct 2026 14:55:31 +0800
-Message-ID: <7f2062a377f701fbaa649f31c954edcce15b4d12.1793427040.git.xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v4 3/4] arm64: dts: qcom: sm8750: describe two of the three CCI I2C controllers
+Date: Sat, 31 Oct 2026 14:55:33 +0800
+Message-ID: <74cccd474e7955f3d79f57059bca68ae0df7a005.1793427041.git.xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793427040.git.xiaqinghuan@mail.ustc.edu.cn>
 References: <cover.1793427040.git.xiaqinghuan@mail.ustc.edu.cn>
@@ -66,13 +66,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgCH_THmkOVqQXFtAA--.295S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrJFW5pa
-	98uFsrKr4FgF1xW3yxKa48uw1agF9Yyr9Yyr1UAry8Ka98Jasaq3sIkwn8Z3W5AFy8JFZF
-	kF9F9r47tF1ru3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Zr1lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+X-CM-TRANSID:3pYKCgCH_THmkOVqQXFtAA--.295S5
+X-Coremail-Antispam: 1UD129KBjvJXoWxurWfZr4fArWxWrW7WF4kJFb_yoWrtry3pw
+	nrArWfCrn29r4jqws3Z340yr9xCa1kG34kCrnrWry8Gw10qayv9F40vryfWF1DJFZ7Xw1Y
+	qr43X34xKFsFkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Cr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
 	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
 	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
 	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
@@ -82,131 +82,199 @@ X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5JF45urykZr17WF4kZwb_yoWrJFW5pa
 	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
 	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
 	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07j3
-	nYrUUUUU=
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwA6s4
+	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07jw
+	R6wUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwA8s+
 
-The WL2868C is an I2C-controlled camera power management IC from Will
-Semiconductor. It provides seven programmable LDOs: LDO1 and LDO2 are
-fed from a shared VIN12 input and cover 0.496 V to 1.512 V, LDO3 and
-LDO4 share VIN34, and LDO5 to LDO7 each have their own input, covering
-1.504 V to 3.544 V. All outputs are programmable in 8 mV steps and are
-gated by per-output enable bits with a chip-wide SYS_EN master. The
-chip also exposes an optional active-low RST_N input.
+The SM8750 has three CCI I2C controllers; this dtsi describes the two
+that the Qualcomm camera subsystem binds to on this SoC. Each controller
+exposes two I2C buses; both buses are described and left available, as
+on sm8550 and sm8650, and the second bus pinctrl states are carried for
+both controllers (cci0 bus 1 on gpio115/116, cci1 bus 1 on gpio119/120).
 
-Its user on the Lenovo Legion Tab (TB322FC, SM8750) is the camera
-subsystem: the rear samsung,s5kjns sensor takes DVDD from LDO1, AVDD
-from LDO4 and DOVDD from LDO7, and the rear giantec,gt9764 voice coil
-motor takes VDD from LDO5 and VDDIO from LDO7. The front sensor is
-powered from LDO2, LDO3 and LDO7, but its binding is still pending, so
-its supply wiring follows with that series. The board DTS patch of this
-series describes the supply wiring that is documented; LDO6 is the only
-output with no user on this board.
+The nodes are placed in unit-address order after videocc@aaf0000.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- .../devicetree/bindings/arm/qcom.yaml         |  1 +
- .../bindings/regulator/willsemi,wl2868c.yaml  | 79 +++++++++++++++++++
- 2 files changed, 80 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
+ arch/arm64/boot/dts/qcom/sm8750.dtsi | 158 +++++++++++++++++++++++++++
+ 1 file changed, 158 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index ff8a35df78..41d5e65c4e 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -1168,6 +1168,7 @@ properties:
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index dd738d13df..9649af7f6f 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -3060,6 +3060,72 @@ videocc: clock-controller@aaf0000 {
+ 			#power-domain-cells = <1>;
+ 		};
  
-       - items:
-           - enum:
-+              - lenovo,elden
-               - qcom,sm8750-mtp
-               - qcom,sm8750-qrd
-           - const: qcom,sm8750
-diff --git a/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-new file mode 100644
-index 0000000000..96541870cd
---- /dev/null
-+++ b/Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-@@ -0,0 +1,79 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/regulator/willsemi,wl2868c.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++		cci0: cci@ac7b000 {
++			compatible = "qcom,sm8750-cci", "qcom,msm8996-cci";
++			reg = <0x0 0x0ac7b000 0x0 0x1000>;
++			interrupts = <GIC_SPI 426 IRQ_TYPE_EDGE_RISING>;
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
++				 <&camcc CAM_CC_CCI_0_CLK>;
++			clock-names = "ahb", "cci";
++			assigned-clocks = <&camcc CAM_CC_CCI_0_CLK>;
++			assigned-clock-rates = <37500000>;
++			pinctrl-0 = <&cci0_0_default &cci0_1_default>;
++			pinctrl-1 = <&cci0_0_sleep &cci0_1_sleep>;
++			pinctrl-names = "default", "sleep";
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+title: Will Semiconductor WL2868C camera power management IC
++			cci0_i2c0: i2c-bus@0 {
++				reg = <0>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
 +
-+maintainers:
-+  - Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
++			cci0_i2c1: i2c-bus@1 {
++				status = "disabled";
++				reg = <1>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
 +
-+description:
-+  The WL2868C is a camera power management IC with seven programmable LDOs.
-+  LDO1 and LDO2 share the VIN12 input and cover 0.496 V to 1.512 V; LDO3 and
-+  LDO4 share VIN34, and LDO5 to LDO7 have one input each, covering 1.504 V to
-+  3.544 V. All outputs are programmable in 8 mV steps.
++		cci1: cci@ac7c000 {
++			compatible = "qcom,sm8750-cci", "qcom,msm8996-cci";
++			reg = <0x0 0x0ac7c000 0x0 0x1000>;
++			interrupts = <GIC_SPI 427 IRQ_TYPE_EDGE_RISING>;
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
++				 <&camcc CAM_CC_CCI_1_CLK>;
++			clock-names = "ahb", "cci";
++			assigned-clocks = <&camcc CAM_CC_CCI_1_CLK>;
++			assigned-clock-rates = <37500000>;
++			pinctrl-0 = <&cci1_0_default &cci1_1_default>;
++			pinctrl-1 = <&cci1_0_sleep &cci1_1_sleep>;
++			pinctrl-names = "default", "sleep";
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
 +
-+properties:
-+  compatible:
-+    const: willsemi,wl2868c
++			cci1_i2c0: i2c-bus@0 {
++				reg = <0>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
 +
-+  reg:
-+    maxItems: 1
++			cci1_i2c1: i2c-bus@1 {
++				status = "disabled";
++				reg = <1>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
 +
-+  reset-gpios:
-+    maxItems: 1
-+    description: Active-low RST_N input.
+ 		mdss: display-subsystem@ae00000 {
+ 			compatible = "qcom,sm8750-mdss";
+ 			reg = <0x0 0x0ae00000 0x0 0x1000>;
+@@ -4090,6 +4156,98 @@ qup_uart15_default: qup-uart15-default-state {
+ 				bias-pull-up;
+ 			};
+ 
++			cci0_0_default: cci0-0-default-state {
++				sda-pins {
++					pins = "gpio113";
++					function = "cci_i2c_sda";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
 +
-+  vin12-supply:
-+    description: Input supply for LDO1 and LDO2.
++				scl-pins {
++					pins = "gpio114";
++					function = "cci_i2c_scl";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++			};
 +
-+  vin34-supply:
-+    description: Input supply for LDO3 and LDO4.
++			cci0_0_sleep: cci0-0-sleep-state {
++				pins = "gpio113", "gpio114";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
 +
-+  vin5-supply:
-+    description: Input supply for LDO5.
++			cci1_0_default: cci1-0-default-state {
++				sda-pins {
++					pins = "gpio117";
++					function = "cci_i2c_sda";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
 +
-+  vin6-supply:
-+    description: Input supply for LDO6.
++				scl-pins {
++					pins = "gpio118";
++					function = "cci_i2c_scl";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++			};
 +
-+  vin7-supply:
-+    description: Input supply for LDO7.
++			cci1_0_sleep: cci1-0-sleep-state {
++				pins = "gpio117", "gpio118";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
 +
-+  regulators:
-+    type: object
-+    additionalProperties: false
++			cci0_1_default: cci0-1-default-state {
++				sda-pins {
++					pins = "gpio115";
++					function = "cci_i2c_sda";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
 +
-+    patternProperties:
-+      "^ldo[1-7]$":
-+        type: object
-+        $ref: regulator.yaml#
-+        unevaluatedProperties: false
++				scl-pins {
++					pins = "gpio116";
++					function = "cci_i2c_scl";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++			};
 +
-+required:
-+  - compatible
-+  - reg
-+  - regulators
++			cci0_1_sleep: cci0-1-sleep-state {
++				pins = "gpio115", "gpio116";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
 +
-+additionalProperties: false
++			cci1_1_default: cci1-1-default-state {
++				sda-pins {
++					pins = "gpio119";
++					function = "cci_i2c_sda";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
 +
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++				scl-pins {
++					pins = "gpio120";
++					function = "cci_i2c_scl";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++			};
 +
-+        pmic@2f {
-+            compatible = "willsemi,wl2868c";
-+            reg = <0x2f>;
++			cci1_1_sleep: cci1-1-sleep-state {
++				pins = "gpio119", "gpio120";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
 +
-+            regulators {
-+                ldo1 {
-+                    regulator-max-microvolt = <1128000>;
-+                    regulator-min-microvolt = <1128000>;
-+                };
-+            };
-+        };
-+    };
-+...
+ 			sdc2_sleep: sdc2-sleep-state {
+ 				clk-pins {
+ 					pins = "sdc2_clk";
 -- 
 2.53.0
 
