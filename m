@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793456389;
-	b=W2DeBXNQ0/u4sBY5BbDihY3qe4cRKVUp84vuQwLuXk5k4s/6NCdg62Ln4IKvO8TCCa/t
-	 5dHl4DsylVki3J9HvQc7uktSuoLNpLv/3s4hZ+5SSqJdYAHi1Qmc7RLmoa1Ku1Pg/x2Pr
-	 Pksv7iJgR5dBXVHCXq4Vm5Wg2z1wkekb+eW0CSdqEUrGuwjPFkgdnI8rdxJv4q+dQ2wdA
-	 ZMAGkCgfuMUabP3IFQaF9PRSMdjO+qyixRFunSEC6HP8hzAdwd/xFiCvq6yxVdFyywvrd
-	 wjHX7y1A0ocEYwNJuCZ3bcrUKaLqRw5nFSNMFlnRRCDrbhUIQvzm6bwE/HKFK3CIS0w==
+	t=1793456388;
+	b=OdfAAnMHB7lcnqUV+BFazrv1bB5KoA7sExneoZWBrullEsdhfhGCsMuURDRRPifKuoNR
+	 3mtdZBSfanqVVCikCaO3jdr6i2wkCA9CdYPasHqZUyaR6TRDRlk93xSYYEEVYN+Gz+SM6
+	 ab2/glwolXnlV4faZiKsVl0EdN7p3HrJeCJErgWql5+Nq+WDcASefSBxwR6YsxcEqkOYe
+	 g6pUxa4B27rv9QpBHH0nWTF2u+RA9J3O46gogeQQ7m9fmwf8fqkQLI4mTnBSK8QIBe5uU
+	 t99IV5RG3uJQvW0TKRdJCtQAE7oVCo9kUoQmSOgNNFrasZvK2116brS6apk67uPS+VQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793456389;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793456388;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=DumkLdRaEi2aL/d8oCdFXZcLeE1nyTM9K2F0kvbSfy4=;
-	b=18LAwI/U0nv+J040SaEnAx6QSGY4HoOir6fPabHZEQ3cEljxNOdBk9bXjkbxoapv4l+/
-	 LCCExjtdap8jEhmKFlkubOyvfwitrLkFIYAZXr88hGXqx7orzAZBq7kWv7iDgGsXED/aH
-	 cOiQkUG2w2PUrd9ilLNEg0MEzxTCmppHqe9yoSBA+STiKepnTBJSqX4Sc0fWAHPW2iYcU
-	 VNAXodLhZwbdCDCZnwSh6fDHrvUZa7JbjBPSQjoSC1wBXC0fMIbdJljP3FyI15R8manX/
-	 JuZd0EPIi+Pg9nUYjvkUvI5uH78+4upOW5RFBMZSYxWspbxakkE4dhOrm0uMYH/WNkQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=c15yII0Bbqbvlrh2M47suTP3fe26fyb8Izw0IoDwLNY=;
+	b=0LczTsbtxsU9yeZB+uqjTSu1F53OZsi370N00GeHaz6ataugUwCr0UtuXn0zVO21UBxl
+	 Sb9m7ucYOteQSY4Yctjogs9Pz/33mdaocLV64YlKCJZJoLX1T4g++r1BOkcfaGkBD2zmv
+	 4XD9ZhGWj8fsLFvri8brO7KU3NMEOTuFhqAFMzlFIDWtIXHvtQQ2JMd0o/ZSOkUEKerBz
+	 ueCrpFSxb7s1hTK5DBTsVJfiDaPRRcqsynWDMA91UImHvPaNRJ8A7XTLEfdKfYCsqjD8u
+	 +bLs1F+ON7Oc386PJec6sKw8w6yWvnp2HyOKzk2Q9OWQxF6dZfJrRPjq+GmT7W7DFJA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DhioXdfr;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=utAh3K9n;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D595606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:19:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0D595606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB1C606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:19:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ADB1C606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DhioXdfr
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so18158385e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:19:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=utAh3K9n
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a210470b49so12857615e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:19:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793456387; x=1794061187; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DumkLdRaEi2aL/d8oCdFXZcLeE1nyTM9K2F0kvbSfy4=;
-        b=DhioXdfrgaJlZ22HTvGQPCeRUttiMsmL61Z+mzkS0AjXsZuhKzl0srNgL1jdlya6nD
-         WwZOhxgk9Zl2+/au5urjac0KC+ppFbkcoSWXVgE3ToaxC2p2HLqtRLU3vREt9TI1BpFX
-         fx4wGQimT6AOUgZkSD5XZsk2mtH+Fik5m+pe0C6e0htIBGnSgyQQxVjppnUyDVnARocG
-         VUVgo0sE5dIFZxuIFTa4okxZMMeDfDl7pYVnIHtMaX4vnLo2ZdgDfM7olreZfn9yCX4R
-         +fUm5JG/Yu3Ky9mrZBBJZtbf+b/ZZ9taexlyfhvq8+9SIBwfkNYHuL/RuiRCNGS/vD9o
-         cYHg==
+        d=gmail.com; s=20260707; t=1793456386; x=1794061186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=c15yII0Bbqbvlrh2M47suTP3fe26fyb8Izw0IoDwLNY=;
+        b=utAh3K9n6ASkvDKJCVcthNXfPz/IXZukGbpuM7aKzBdZQ/aWHtg41rLYOxQx+vyywK
+         WyliRtagefBD3CuNc6cy3qlkAVHtkwKGaf8+h6pxEpjCyTxzOGbsYi+f8aHxns5KK+hL
+         iHE05tiSBV2MEtCWBkRFA2TFoP8kaQ7zMHIjh9Wqv8ciRlbItUIUZjjLy84MGZYrkb7O
+         SLcFer62IwjVekybP2FP4RyADwVJGSoWqaFAkG+TZDWoHo+uIndqCkm1RKmCQUuflLZ3
+         P+vpGJlOQsZDfm9K09G/35yl7q/OuYF8nld6YjFCE0CA6N3tseIpqKhp0KxLk5pY9oZ1
+         PRqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793456387; x=1794061187;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DumkLdRaEi2aL/d8oCdFXZcLeE1nyTM9K2F0kvbSfy4=;
-        b=RM2D2Q+AvkLfKGjJ2/o3YjgDn0r7K2sKXXYfccN1GefPwY+oTTZ07b6ThHhGSEsnJx
-         YYrz+SaBjxpUGrfUewWjBhjfND9plDtkd0dVhr7gRmazwT83g2tLrtjtF2vzVw1JrdnQ
-         teXvQo4CIjYaVphHZOmTI4PFtsDfFmT9pKy7bEeWkwEVdc/UOfSTEaCx3Ag2pM9tkKVk
-         RSQBYU0arpe9Xr3poiU+kWNsOUflq6wji6v/AaTTQ1PycAw7cyOs3jdzUMsuVB52zzsH
-         oiKaziwEjufum8o+1Ozw/941RVqCTwheFIYjp5YXREfZrq1Th7ivCelt5KJNhFgU8lzP
-         T44Q==
-X-Forwarded-Encrypted: i=1; AKwUvBxnSYpato1Owf1p7nMMfIe4idOWOlhS8XHFWxjwi5Rt1oi5J43Ru1XuD+nTr+9kTFsdPFD9c6Jrzijy6zA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJmhf++gHN66Ng6A7FFIfpjK7XyYAuJM1QEgBIPqWkptq29BFYK
-	cd1MuLd8CzVTJeid4iZn94+nDQPmxl26vr9PtCbQzFeWXpaThZE/bVc=
-X-Gm-Gg: AYBFou1VIXr9TxDCug0FIx0uBJkzB1fdRb+c+sBp6ZJnTb3ftu8c4HABEOLkhz5I/9g
-	UTdtFaVlWHZgYOxn5Wo1f3huf8MB/m7cawku4st+9vika4fPahPpd+p5Vu98FDuXXrLkrd5SoQB
-	Sme8FWOg3gJUAEx/kLn/p+k7nXTPwnDdhm5fuookJIl+Zl+CQ35EUmYphkf1fD4kfTi5thblYif
-	K9aMMR4G8OD/ceDI/oIHXd6Y8cTWVjMq9V83/JudZ6pz8z0DQo7nN9zS6VDWyH03i30W7CzeLdG
-	IulzGsLEwN+YbqeH8Yt/jIfIXxh00rQby8yEYpLT4gVgvFWTnMoLg/P3M8bbeiAXBJlARH9HeEQ
-	5NiMhOW4IN0dqVS4Vk98lfHbz9ey+iCkfsPk4gkQnNJbZdsKBxMUmdhX0fKBteRNF6b2zfKmfvH
-	sWKkf1B9OBqWvrA1wESSTCPrT/SU+SEqQOmnPugOkItjr/dmQR+X0+q0aYq4oSDAMm70Gox0/Bw
-	R4TEKlvZU2+QcX99fHe8fmo2+Kz7npVi/ojDszEdXcoeOCzIqz/5IcfBOQkrYmzdsEpv5MYTO97
-	f1IFDCOHrkXdE7FzD1M=
-X-Received: by 2002:a05:600c:e54a:20b0:4a2:b89:b02 with SMTP id 5b1f17b1804b1-4ac1c361ademr77200685e9.10.1793456387439;
-        Sat, 31 Oct 2026 07:19:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793456386; x=1794061186;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=c15yII0Bbqbvlrh2M47suTP3fe26fyb8Izw0IoDwLNY=;
+        b=Z7ilmhkEDFYD0lyZOJLCJXz0RIGrpEt6nVZe5LrFkpxtz0dn8uWsqcPTdN46p0f8dd
+         3XJT6m/Gl4VIXB8tajeX/uvYGr1rGluPPYfh8Iyu8VVxur2UPQiQcZdxDfwByenm3iVu
+         yLw6bKUSFrUPbNPJlZ+bsRYmjPrZa9aiSeAHmenU5aQOe6hy4XmUx9hWKfZ4C5PEX9QP
+         QeFFu5t7ocbH4IvbSbWD7nzXE/R5gZPlFUEBrKSXLIWgkyyw1ucderMfrC/z2d9k8eTX
+         YYOL6t0lJG2RTqLlR2Yi2MfSdELUWLNkAjmKW6Z712hRTVkDine+wjdof89Z2ExvQ41/
+         2SfA==
+X-Forwarded-Encrypted: i=1; AKwUvBzV1Cr3WZC67a9bf6kwp5N2ua43t8T/iP7WolOYxSx8TPKxOgghz9sLKQtZff7RETRIJ7htc5gYTWjyh0E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYtaOtlxClhS/4qoABoNAcxi7UEl1Ya13l69yVPyJ6ltCKjN8O
+	OUcJue1DaeS4oWTelOAgNJS02AI717aKOp986MxuypxiRZeh64ryRnk=
+X-Gm-Gg: AYBFou0VoQFxAyWwOQ7vqO0Ft3vPkzsrE9XLAHUURV//+b8XWQTXhwkCiI90mBTlMDi
+	a/ln26nRoKbDY+gZhy0ZSxXKJJegrhIwZSAxUfzgAlTg/K/12atGTGZwVx7U4Tlcipz+qn7eZfz
+	GsO/fW2ohSFgRWUnrmlpxM2jQZYKlpSYvk9VIhs3zpRJJewW0ObGpHz/4exEiyJ1ieGUyx7Kv8x
+	tEanXMqhRpkGUkGliaBVvETRoWZip1gsMsuaB13eilScSgcAJgRWnet6xC61ovNMeAUNBPwdP1O
+	whNn4f0ISEE+HdJvhKjqkoaP61YoY/F3RQiXGdsEHhzeHdApjfwAfZdQfAdYeOvJx+qECIfEtgr
+	usYecjy2dNsJQS9IsT4WtcWDCrbuYwu2u3RMR+7jKX5RpeAgQ5ZiCtP4lkTnkrYEUCjapwpYiv5
+	mjDPuyamzo1JJDhrI5gpXx1yVQeXhwTFN+BwirglaxQmvkukwKsGLQwy2j8ZCshxI+Hqe10JlVW
+	PzZ9gGLRSs5tI4HgrFuJTQcRiGyBBU9rUfQv1UHKsmCt+XzLf5khjvNyM+FuHDov9Vgoz6KEv+s
+	g7aP0CBngW2vHEyb1GtJ3FRY5PX9SSY2ZaSfoEmV
+X-Received: by 2002:a05:600c:4e49:b0:4a4:6fdb:cc42 with SMTP id 5b1f17b1804b1-4ac17b2c38bmr128602715e9.11.1793456386005;
+        Sat, 31 Oct 2026 07:19:46 -0700 (PDT)
 Received: from fedora ([46.8.219.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm209871275e9.4.2026.10.31.07.19.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm209871275e9.4.2026.10.31.07.19.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 07:19:47 -0700 (PDT)
+        Sat, 31 Oct 2026 07:19:45 -0700 (PDT)
 From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
 To: daniel.lezcano@kernel.org
 Cc: rafael@kernel.org,
@@ -91,12 +90,10 @@ Cc: rafael@kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Vitaliy Sochnev <sochnev.v.74@gmail.com>
-Subject: [PATCH 1/2] dt-bindings: thermal: airoha: Allow sensor indices for EN7581
-Date: Sat, 31 Oct 2026 16:19:11 +0200
-Message-ID: <20261031141912.1664575-2-sochnev.v.74@gmail.com>
+Subject: [PATCH 0/2] thermal: airoha: Expose EN7581 CPU temperature
+Date: Sat, 31 Oct 2026 16:19:10 +0200
+Message-ID: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
-References: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,31 +105,27 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Allow either the existing zero-cell form or a sensor index that
-selects the main or CPU ADC.
+EN7581 has a second thermal ADC for the CPU die at SCU offsets 0x2fc/0x308.
+Expose it as sensor index 1 while keeping the main ADC at index 0 and
+retaining zero-cell device tree compatibility. The hardware temperature
+monitor and its trips continue to use only the main ADC.
 
-Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
----
- .../devicetree/bindings/thermal/airoha,en7581-thermal.yaml  | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Tested on Nokia XG-040G-MD (EN7581, OpenWrt 6.18.55): both zones read
+successfully before and after reboot; temperatures tracked CPU load and
+cooling, and matched direct ADC readings within 0.3 C. Twenty driver
+unbind/bind cycles with an IRQ pending preserved both zones and handled
+the interrupt each time. The driver builds for arm64 with W=1 and the
+binding passes dt_binding_check.
 
-diff --git a/Documentation/devicetree/bindings/thermal/airoha,en7581-thermal.yaml b/Documentation/devicetree/bindings/thermal/airoha,en7581-thermal.yaml
-index ca0242ef03788..e7be20d1bd1ce 100644
---- a/Documentation/devicetree/bindings/thermal/airoha,en7581-thermal.yaml
-+++ b/Documentation/devicetree/bindings/thermal/airoha,en7581-thermal.yaml
-@@ -24,7 +24,11 @@ properties:
-     $ref: /schemas/types.yaml#/definitions/phandle
- 
-   '#thermal-sensor-cells':
--    const: 0
-+    description: >
-+      With one cell, the phandle argument selects ADC 0 (main) or 1 (CPU).
-+      Zero cells remain valid for existing device trees. Only the main ADC
-+      has a hardware trip interrupt; CPU ADC zones with trips need polling.
-+    enum: [0, 1]
- 
- required:
-   - compatible
+Vitaliy Sochnev (2):
+  dt-bindings: thermal: airoha: Allow sensor indices for EN7581
+  thermal/drivers/airoha: Read the EN7581 CPU ADC
+
+ .../thermal/airoha,en7581-thermal.yaml        |   6 +-
+ drivers/thermal/airoha_thermal.c              | 157 ++++++++++++++++--
+ 2 files changed, 152 insertions(+), 11 deletions(-)
+
+
+base-commit: 2dc1f296b5754dd2441fc8b6613a362a47f6b98f
 -- 
 2.55.0
-
