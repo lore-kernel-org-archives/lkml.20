@@ -1,95 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793430646;
-	b=NrhXDMul2PYGtrxJpyMtoQTYCGk4YQ/ZVU4m2em3j+czPIb4vI9vRuP2Xp252lye9hh2
-	 BvBhJJ8Xo3A5HJm6bCIs2JcPhFnkHHNTlO7wxreW17zdrtITYoI2ns7vmd+pbMEXaSODA
-	 wXSXyop0rMdzIzYoS9JZEjbaNX14qAkgAxT/bkhkQ4vMZ4Z7KFclOyE1GG/1dMOS4DNqG
-	 j3eT2hjC+Hg71cx71pYTt6ysxmwC057VaYb5TGyehPtEtnxiON32Huk+9Dg+K9jlo9GLN
-	 GwR9bZZjZT5CGFOLi4L5nZa/AAWIQqqNx4Ex598wGptYLh1CFf4IhKleARLvjli3PdA==
+	t=1793430697;
+	b=2IsXd/Hq8aL6jsRsamD0EWIBCjHUF2rtAxgRkYvGiaNohgUGGb44K3teW5qm8eooiN9/
+	 HHstcCJeLjMq9zqc6ed5iNj6NUvcxoItaO5QDn446zoh57lyhE1qyo/WAsk1ce5tAhMyL
+	 L9jhIlQoxTM4HmnQRodV8gzL8hWJZeZGXoU/tjAHFSZHrkKdAgGSkI0z7s4NZXI+S2QD3
+	 Kr2BDZvueC/e9PLCSh1+bcy5cwXRbP42I0segJHa7LjvTnHi9eRZfwG5n7jCYQaDaUnGS
+	 8qPTZweEl89ug2eDhmy2n4Z7XV4IDhXsFqyUrKtSy1aR3UqXwIzpqt0uU1Q7PSZ8hAw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793430646;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=hIbCKUk+U6FsLHVkr6pPqtyC0W3f5NodOwSHEwiGNpQ=;
-	b=4PUWf8mylv+4hMYwhDvLusbG5QsjdNKewMQcx4nA72cHGa4W+1F8ih3m+k2rXpGJAFxZ
-	 aONtDi0EgYkqrJQe6a6mFeF8mRehmxjXkmbBi+++JLCnrmjgCYNJn6BPNgsSAni2NtxJk
-	 XnTV3TgN4Uqs4CDt5yMTspr+9CfBw8dCCD7GRkTlTO4ECcaTz8hljClqdixmAhAo2j1cz
-	 AtrJMHlcxVCWJPv2Mb0QJ6VYbJu9uE5GKyKvcGglcRToHGXnZsoj9CUdnhANiGx7AyorT
-	 aaYdmPEKDkfTa6gif02bifdUjqHbv5mNgC7pjOcHngxy2u2o7cye6nbYrkJ2YQe/c6Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793430697;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MNSb9ssm6PkfnnU35o6Gc/PwNjgcFxJc+CzizpyKcEQ=;
+	b=YVQ+1yseQj+nxOuyqJROsojYqKb++RziZka3kPy0/zTy1V3I0TjxCy8umyYmAS4rqa8X
+	 1JZT4XDmd1z53dcp0FncGFe6FV4DEgYm/8ewvdvmk3WSaz/1bURKcNWhaeDJTxVgAYHnp
+	 uGgbxHKGR1tSiOJGyyfiHE29k1hbv4rd4fXbGkkKrNWfMwlvh7C1zV4xh8T9AV618GKgW
+	 CIb9ZYW1/+7/fKfyxh32l9oM9oN7M7dY+v8k+LHiX/HrABrsAokVvsFWJhRYNtfcAHASN
+	 G4WompaEp60TD4JF/WrdhruBqgiALVyajSeEcQZDW7BEt1yZ6UX8q+fMD+Mr76STZKg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q5uEKOIB;
-	arc=none smtp.remote-ip=209.85.215.172
-Received: from mail-pg1-f172.google.com (mail-pg1-f172.google.com [209.85.215.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnUOa03a;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EAB6606A339
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:10:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5EAB6606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21933606A31A;
+	Sat, 31 Oct 2026 07:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q5uEKOIB
-Received: by mail-pg1-f172.google.com with SMTP id 41be03b00d2f7-cc4dbda1e5dso515071a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:10:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793430629; x=1794035429; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hIbCKUk+U6FsLHVkr6pPqtyC0W3f5NodOwSHEwiGNpQ=;
-        b=Q5uEKOIBTV9QGM03Zaz+qCvMKmlNEqR+kn+WGYekyYkAJ2kgD3ViDc6ifJpdLuhB03
-         bHUyNPA2bkfGpUuqCwYdGrWgpSkucsZlDX3GcDdA/mUR6wXqP5TDzunspQsAuuUYmyiI
-         JHKHGjJjTTtx6do4oH3SJhlTd1ownBxGV4brwuWfu+iTV1hE57RhHmXZIVqn6J2TYaXY
-         PpmPPqZLu+lof6oJtiXm6thSgph0zqWgYPcNF8ZumgEKWVdH85i51RuBiog7He2yvirV
-         9VenchdnzJboxKB8xODTK/1qhxlf/+biyuQwQbFLFKtqDctZ1w3NbejZNx0KSuGjHZRm
-         jE2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793430629; x=1794035429;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hIbCKUk+U6FsLHVkr6pPqtyC0W3f5NodOwSHEwiGNpQ=;
-        b=FP0lH+TZRZdCNWjIG763aZIKwT0OZqf9JyvcLqU9K1vFTuMDphLnW54VYw7nLazWr4
-         U54Uq/sszcloXI9kJ1kVcActyYMCXAKwORs6vucb43JL7sZ2odfuNZLSTRNCthuPIctw
-         x78Cgoaqieb57X4cYS9AUdYInPwWoBj05N3x8yiPtmy0vh8NBPeCVgwOY2UvxcyZbOWn
-         J3b5RNw5KEH6EHxmKm6w8AWLVp0o4iM1BoB3eO8Dy/H3JG4CUPdN549hxc+pKPIX5qDI
-         5Ozhl+eCYX3Kdm638lheUoyYQyTkN/7glopzFpER7XjPKwfTrhbnHUx+AgfREUBviJZ8
-         JGFw==
-X-Forwarded-Encrypted: i=1; AKwUvBwD8HnGhqtezgtTeSp9giy4CNetSf3aYsNQJzaBp72YFIybfRKzkF7VpScXidcZr5xYTT+DXs8pxLmP+24=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKvLBzXjp6J2+sLhkDcmr1c3EXILGNLKUjAKIGNpUfZTSAFkFgk
-	fY7gCl1sjtdiaZjBp3hMhRuGx9hiOq27PJHzxjWykLE/2wqmKGKn+LPw
-X-Gm-Gg: AYBFou1Wg+N6WSiWjNJhf98kzNp29Qk1GtoscpZpi3u/l5Rgqx5JVj40mERTYa4svlc
-	Ck3PfVqFHl9fMICdZP0sunSSkzw5HIpcCe4yU05tbrni/sAf380dKX1tqTbWa9r/36VXZnaxIjx
-	AfK47UdMTzhrUMnznIehePUH+FX4xPRJ40nz0h4IkTLe2YsCZwK52Gk0trmjvIvoJHH5IYOZHD5
-	Y4mDEfPTPtAPnfxRDbByvhLTHAmNtoCCAnbaVAa9rpt7HKUPVnwlTuIvI9BWc/NFJvyT3dukrFT
-	qsrTToW3KThD9KBVWDOJfIe6jaVPk9kI/LzPOm9hCyk4ClTBg68rA0lK4SyWro69VJmKlsJClMU
-	8Ve3rPenQUU/wGN8V0QQVOJI4sdQvmpoW2Bihm0Vyl+2gifLCsYYtWxrrAKsN2M2dzq7yMJzzGK
-	OzWs3Gqedoeni0GxVoJqWeGTx1h0FdiXTiYzdSNz9CgGHF24Q/AUVPb5l7smiURF4E23DjCPkUy
-	HWu1aHKAm80qeYTqhJ/OP7rqjE6vqUb/u2o/IweqWFYp3yqBHkJw8J4/D7P/3w3f9plMi6w2tIy
-	jc6fuXjrrfLSnYwoZdqtZhg8Z1EHy3iBRsIjZnUQxnUVBPXquVYWXhw9BDTqtYLavV6AewLcOl4
-	ttCQ3
-X-Received: by 2002:a17:90b:3b51:b0:3a0:cbe2:9e0c with SMTP id 98e67ed59e1d1-3ae897c8800mr4019346a91.63.1793430628615;
-        Sat, 31 Oct 2026 00:10:28 -0700 (PDT)
-Received: from hostname.tail4fb79.ts.net ([2401:7400:c804:b668:65cc:625f:9c43:1e88])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-3ae845432e4sm6670459a91.3.2026.10.31.00.10.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 00:10:28 -0700 (PDT)
-From: Ho Jie Feng <hjf3108@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: linux-wireless@vger.kernel.org,
-	Ho Jie Feng <hjf3108@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH rtw-next v2 4/7] wifi: rtw88: prepare frequency-offset correction for more chips
-Date: Sat, 31 Oct 2026 15:09:44 +0800
-Message-ID: <20261031070950.425176-5-hjf3108@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261031070950.425176-1-hjf3108@gmail.com>
-References: <20261031070950.425176-1-hjf3108@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OnUOa03a
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BD171F000C1;
+	Sat, 31 Oct 2026 07:11:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793430696;
+	bh=MNSb9ssm6PkfnnU35o6Gc/PwNjgcFxJc+CzizpyKcEQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OnUOa03ac+I4pGZtYSk0Ww/0heqPOhUpcQHB7Eh9S6biQEFC84XnJ9sDfHtUEY6eu
+	 9KHcv/KbuZN94dtpbsx9jLs4fzSfJw4t2k6FAyB2GSA8douPVv8ssMbVXo6TXYWPeT
+	 /alrKBASakWLw/3IRvsheP9P2hqCEU3l5nyncA7JoPMcQIZigx7M9QycfSX2HulFUn
+	 VEbja9jROF3enhxJcwmSVzChQkDvscD4a1Hp8uEI2mXHMGKVI/AS1+ayEvclBPrmVh
+	 FsboFPm832Jr4ElHeu2rK0M9HtFJw+4jC+HTz7aJ/M4FAbsRPA9dHzdmK9r1SUmQSI
+	 xR8dY5bkZ9/Zw==
+Date: Sat, 31 Oct 2026 00:11:34 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Aaron Tomlin <atomlin@atomlin.com>
+Cc: peterz@infradead.org, mingo@redhat.com, acme@kernel.org,
+	mark.rutland@arm.com, alexander.shishkin@linux.intel.com,
+	jolsa@kernel.org, irogers@google.com, adrian.hunter@intel.com,
+	chjohnst@mail.com, neelx@suse.com, sean@ashe.io,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH perf-tools-next v12 06/10] perf ftrace: Support display
+ of inlined functions in function graph tracer
+Message-ID: <auWUpl0toDFpwSYS@z2>
+References: <20261026025735.546101-1-atomlin@atomlin.com>
+ <20261026025735.546101-7-atomlin@atomlin.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,284 +61,170 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261026025735.546101-7-atomlin@atomlin.com>
 
-Promote chip specific functions into the common core for cfo tracking.
-These become helpers which can be used by the other drivers.
+On Sun, Oct 25, 2026 at 10:57:31PM -0400, Aaron Tomlin wrote:
+> The Linux kernel's function graph tracer operates at the machine
+> instruction level via compiler instrumentation
+> (-fpatchable-function-entry), recording entry and return events for
+> physical function calls. Consequently, functions inlined by the compiler
+> are invisible in the resulting call graph, as no discrete call or return
+> instructions are emitted for them. While technically expected, this
+> omission frequently obscures the logical execution flow when analysing
+> kernel subsystems heavily reliant upon inlining.
+> 
+> Address this by introducing the --inline option to perf ftrace for the
+> function_graph tracer.
+> 
+> When the kernel is configured with CONFIG_FUNCTION_GRAPH_RETADDR=y, the
+> funcgraph-retaddr trace option records the caller's return address on
+> each function entry, manifested in the trace stream as a comment
+> (e.g. /* <-irq_work_queue_on+0x81/0xa0 */). By interrogating DWARF debug
+> information from the kernel image (vmlinux) utilising libdw, perf ftrace
+> resolves this return address to its inlined callchain and synthesises the
+> intermediate inlined frames directly into the streamed call graph.
+> 
+> Key aspects of this implementation:
+> 
+>     1.  DWARF inline resolution
+> 
+>         Implement ftrace_resolve_inlines() using libdw to locate inlined
+>         subroutines at the instruction address corresponding to the
+>         caller's return address.
+> 
+>         Implement perf_ftrace__setup_inlines() and
+>         perf_ftrace__cleanup_inlines() to initialise machine symbol
+>         tracking, load vmlinux symbols, and verify kernel
+>         CONFIG_FUNCTION_GRAPH_RETADDR support.
+> 
+>     2.  Inline frame synthesis
+> 
+>         In ftrace_process_fgraph_line(), when --inline is active:
+>             - Interrogate return addresses using ftrace_parse_retaddr()
+>               and resolve inlines via ftrace_resolve_inlines().
+> 
+>             - Identify common inlined ancestors on the tracked stack and
+>               unwind inactive frames.
+> 
+>             - Open new inlined frames with /* (inline) */ and indent by
+>               inlined_depth * 2.
+> 
+>             - On function exit, close matching inlined frames with
+>               } /* func (inline) */.
+> 
+>     3.  Command-line options and documentation
+> 
+>         Add --inline and -k/--vmlinux options in
+>         tools/perf/builtin-ftrace.c and document their usage in
+>         tools/perf/Documentation/perf-ftrace.txt.
+> 
+> Tested-by: Ian Rogers <irogers@google.com>
+> Reviewed-by: Ian Rogers <irogers@google.com>
+> Signed-off-by: Aaron Tomlin <atomlin@atomlin.com>
+> ---
+[SNIP]
+> @@ -664,11 +834,16 @@ static void extract_exit_func_name(const char *str, char *buf, size_t size)
+>   * @cpu: Pointer to store the CPU number
+>   *
+>   * Locate the context columns that precede the function call column of a
+> - * function_graph trace record.
+> + * function_graph trace record. Depending on the funcgraph-* options set
+> + * up by perf, a record looks like:
+> + *
+> + *   [ abstime |]  CPU)  [ comm-pid |]  [ duration |]  func
+> + *
+> + * The abstime and comm-pid columns are only present with --graph-opts
+> + * verbose.
+>   *
+>   * Return: A pointer to the last character of the context columns (the final
+> - * '|' delimiter, or the CPU ')' when no delimiter follows it). Returns NULL
+> - * if @line is not a trace record.
+> + * '|' delimiter). Returns NULL if @line is not a trace record.
+>   */
 
-Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
----
- drivers/net/wireless/realtek/rtw88/phy.c      | 106 ++++++++++++++++++
- drivers/net/wireless/realtek/rtw88/phy.h      |   2 +
- drivers/net/wireless/realtek/rtw88/rtw8822c.c | 100 +----------------
- drivers/net/wireless/realtek/rtw88/rtw8822c.h |   3 -
- 4 files changed, 113 insertions(+), 98 deletions(-)
+It'd be nice if you could move the comments to the original commit that
+introduced the function.
 
-diff --git a/drivers/net/wireless/realtek/rtw88/phy.c b/drivers/net/wireless/realtek/rtw88/phy.c
-index e2515a662bb30be88920236e8b7d42791b8880c2..d0c1fb65be9563c5fc29a7d18a1c9e8589730b10 100644
---- a/drivers/net/wireless/realtek/rtw88/phy.c
-+++ b/drivers/net/wireless/realtek/rtw88/phy.c
-@@ -720,6 +720,112 @@ void rtw_phy_parsing_cfo(struct rtw_dev *rtwdev,
- }
- EXPORT_SYMBOL(rtw_phy_parsing_cfo);
- 
-+#define CFO_TRK_ENABLE_TH	20
-+#define CFO_TRK_STOP_TH		10
-+#define CFO_TRK_ADJ_TH		10
-+
-+static u8 rtw_phy_cfo_tracking_reset(struct rtw_dev *rtwdev)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+
-+	cfo->is_adjust = true;
-+
-+	if (cfo->crystal_cap > rtwdev->efuse.crystal_cap)
-+		return cfo->crystal_cap - 1;
-+	else if (cfo->crystal_cap < rtwdev->efuse.crystal_cap)
-+		return cfo->crystal_cap + 1;
-+
-+	return cfo->crystal_cap;
-+}
-+
-+void rtw_phy_cfo_xcap_init(struct rtw_dev *rtwdev)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+
-+	cfo->crystal_cap = rtwdev->efuse.crystal_cap;
-+	cfo->is_adjust = true;
-+}
-+EXPORT_SYMBOL(rtw_phy_cfo_xcap_init);
-+
-+#define REPORT_TO_KHZ(val) ({typeof(val) _v = (val); (_v << 1) + (_v >> 1); })
-+static s32 rtw_phy_cfo_calc_avg(struct rtw_dev *rtwdev, u8 path_num)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+	s32 cfo_avg, cfo_path_sum = 0, cfo_rpt_sum;
-+	u8 i;
-+
-+	for (i = 0; i < path_num; i++) {
-+		cfo_rpt_sum = REPORT_TO_KHZ(cfo->cfo_tail[i]);
-+
-+		if (cfo->cfo_cnt[i])
-+			cfo_avg = cfo_rpt_sum / cfo->cfo_cnt[i];
-+		else
-+			cfo_avg = 0;
-+
-+		cfo_path_sum += cfo_avg;
-+	}
-+
-+	for (i = 0; i < path_num; i++) {
-+		cfo->cfo_tail[i] = 0;
-+		cfo->cfo_cnt[i] = 0;
-+	}
-+
-+	return cfo_path_sum / path_num;
-+}
-+
-+static void rtw_phy_cfo_need_adjust(struct rtw_dev *rtwdev, s32 cfo_avg)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+
-+	if (!cfo->is_adjust) {
-+		if (abs(cfo_avg) > CFO_TRK_ENABLE_TH)
-+			cfo->is_adjust = true;
-+	} else {
-+		if (abs(cfo_avg) <= CFO_TRK_STOP_TH)
-+			cfo->is_adjust = false;
-+	}
-+}
-+
-+u8 rtw_phy_cfo_xcap_track(struct rtw_dev *rtwdev, u8 xcap_max, bool bt_hold)
-+{
-+	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
-+	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
-+	u8 path_num = rtwdev->hal.rf_path_num;
-+	s8 crystal_cap = cfo->crystal_cap;
-+	s32 cfo_avg = 0;
-+
-+	if (rtwdev->sta_cnt != 1)
-+		return rtw_phy_cfo_tracking_reset(rtwdev);
-+
-+	if (cfo->packet_count == cfo->packet_count_pre)
-+		return cfo->crystal_cap;
-+
-+	cfo->packet_count_pre = cfo->packet_count;
-+	cfo_avg = rtw_phy_cfo_calc_avg(rtwdev, path_num);
-+	rtw_phy_cfo_need_adjust(rtwdev, cfo_avg);
-+
-+	if (bt_hold) {
-+		cfo->is_adjust = false;
-+		return rtwdev->efuse.crystal_cap;
-+	}
-+
-+	if (cfo->is_adjust) {
-+		if (cfo_avg > CFO_TRK_ADJ_TH)
-+			crystal_cap++;
-+		else if (cfo_avg < -CFO_TRK_ADJ_TH)
-+			crystal_cap--;
-+
-+		crystal_cap = clamp_t(s8, crystal_cap, 0, xcap_max);
-+	}
-+
-+	return (u8)crystal_cap;
-+}
-+EXPORT_SYMBOL(rtw_phy_cfo_xcap_track);
-+
- static void rtw_phy_cfo_track(struct rtw_dev *rtwdev)
- {
- 	const struct rtw_chip_info *chip = rtwdev->chip;
-diff --git a/drivers/net/wireless/realtek/rtw88/phy.h b/drivers/net/wireless/realtek/rtw88/phy.h
-index 8a843aac7350ad07aa64388ee712f2617120289c..b551cb860d6255ff149c76d437a7c5af1ef68b56 100644
---- a/drivers/net/wireless/realtek/rtw88/phy.h
-+++ b/drivers/net/wireless/realtek/rtw88/phy.h
-@@ -68,6 +68,8 @@ void rtw_phy_adaptivity_set_mode(struct rtw_dev *rtwdev);
- void rtw_phy_cck_pd_set(struct rtw_dev *rtwdev, u8 new_lvl);
- void rtw_phy_parsing_cfo(struct rtw_dev *rtwdev,
- 			 struct rtw_rx_pkt_stat *pkt_stat);
-+void rtw_phy_cfo_xcap_init(struct rtw_dev *rtwdev);
-+u8 rtw_phy_cfo_xcap_track(struct rtw_dev *rtwdev, u8 xcap_max, bool bt_hold);
- void rtw_phy_tx_path_diversity(struct rtw_dev *rtwdev);
- 
- struct rtw_txpwr_lmt_cfg_pair {
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.c b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-index 32d9709f2c2431a2df2f363e548f2c510fe41c34..54f012a2383912142a45cce88c3a11101f7d6464 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.c
-@@ -4243,103 +4243,13 @@ static void rtw8822c_set_crystal_cap(struct rtw_dev *rtwdev, u8 crystal_cap)
- 	rtw8822c_set_crystal_cap_reg(rtwdev, crystal_cap);
- }
- 
--static void rtw8822c_cfo_tracking_reset(struct rtw_dev *rtwdev)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--
--	cfo->is_adjust = true;
--
--	if (cfo->crystal_cap > rtwdev->efuse.crystal_cap)
--		rtw8822c_set_crystal_cap(rtwdev, cfo->crystal_cap - 1);
--	else if (cfo->crystal_cap < rtwdev->efuse.crystal_cap)
--		rtw8822c_set_crystal_cap(rtwdev, cfo->crystal_cap + 1);
--}
--
--static void rtw8822c_cfo_init(struct rtw_dev *rtwdev)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--
--	cfo->crystal_cap = rtwdev->efuse.crystal_cap;
--	cfo->is_adjust = true;
--}
--
--#define REPORT_TO_KHZ(val) ({typeof(val) _v = (val); (_v << 1) + (_v >> 1); })
--static s32 rtw8822c_cfo_calc_avg(struct rtw_dev *rtwdev, u8 path_num)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--	s32 cfo_avg, cfo_path_sum = 0, cfo_rpt_sum;
--	u8 i;
--
--	for (i = 0; i < path_num; i++) {
--		cfo_rpt_sum = REPORT_TO_KHZ(cfo->cfo_tail[i]);
--
--		if (cfo->cfo_cnt[i])
--			cfo_avg = cfo_rpt_sum / cfo->cfo_cnt[i];
--		else
--			cfo_avg = 0;
--
--		cfo_path_sum += cfo_avg;
--	}
--
--	for (i = 0; i < path_num; i++) {
--		cfo->cfo_tail[i] = 0;
--		cfo->cfo_cnt[i] = 0;
--	}
--
--	return cfo_path_sum / path_num;
--}
--
--static void rtw8822c_cfo_need_adjust(struct rtw_dev *rtwdev, s32 cfo_avg)
--{
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--
--	if (!cfo->is_adjust) {
--		if (abs(cfo_avg) > CFO_TRK_ENABLE_TH)
--			cfo->is_adjust = true;
--	} else {
--		if (abs(cfo_avg) <= CFO_TRK_STOP_TH)
--			cfo->is_adjust = false;
--	}
--
--	if (!rtw_coex_disabled(rtwdev)) {
--		cfo->is_adjust = false;
--		rtw8822c_set_crystal_cap(rtwdev, rtwdev->efuse.crystal_cap);
--	}
--}
--
- static void rtw8822c_cfo_track(struct rtw_dev *rtwdev)
- {
--	struct rtw_dm_info *dm_info = &rtwdev->dm_info;
--	struct rtw_cfo_track *cfo = &dm_info->cfo_track;
--	u8 path_num = rtwdev->hal.rf_path_num;
--	s8 crystal_cap = cfo->crystal_cap;
--	s32 cfo_avg = 0;
--
--	if (rtwdev->sta_cnt != 1) {
--		rtw8822c_cfo_tracking_reset(rtwdev);
--		return;
--	}
--
--	if (cfo->packet_count == cfo->packet_count_pre)
--		return;
--
--	cfo->packet_count_pre = cfo->packet_count;
--	cfo_avg = rtw8822c_cfo_calc_avg(rtwdev, path_num);
--	rtw8822c_cfo_need_adjust(rtwdev, cfo_avg);
--
--	if (cfo->is_adjust) {
--		if (cfo_avg > CFO_TRK_ADJ_TH)
--			crystal_cap++;
--		else if (cfo_avg < -CFO_TRK_ADJ_TH)
--			crystal_cap--;
-+	u8 crystal_cap;
- 
--		crystal_cap = clamp_t(s8, crystal_cap, 0, XCAP_MASK);
--		rtw8822c_set_crystal_cap(rtwdev, (u8)crystal_cap);
--	}
-+	crystal_cap = rtw_phy_cfo_xcap_track(rtwdev, XCAP_MASK,
-+					     !rtw_coex_disabled(rtwdev));
-+	rtw8822c_set_crystal_cap(rtwdev, crystal_cap);
- }
- 
- static const struct rtw_phy_cck_pd_reg
-@@ -4985,7 +4895,7 @@ static const struct rtw_chip_ops rtw8822c_ops = {
- 	.cfg_csi_rate		= rtw_bf_cfg_csi_rate,
- 	.adaptivity_init	= rtw8822c_adaptivity_init,
- 	.adaptivity		= rtw8822c_adaptivity,
--	.cfo_init		= rtw8822c_cfo_init,
-+	.cfo_init		= rtw_phy_cfo_xcap_init,
- 	.cfo_track		= rtw8822c_cfo_track,
- 	.config_tx_path		= rtw8822c_config_tx_path,
- 	.config_txrx_mode	= rtw8822c_config_trx_mode,
-diff --git a/drivers/net/wireless/realtek/rtw88/rtw8822c.h b/drivers/net/wireless/realtek/rtw88/rtw8822c.h
-index fc62b67a15f216496bfb572a55366f900a2d6734..c27e4c394a435cb11fc755bb8806ee1b51a30e47 100644
---- a/drivers/net/wireless/realtek/rtw88/rtw8822c.h
-+++ b/drivers/net/wireless/realtek/rtw88/rtw8822c.h
-@@ -181,9 +181,6 @@ const struct rtw_table name ## _tbl = {			\
- #define REG_ANAPARLDO_POW_MAC	0x0029
- #define BIT_LDOE25_PON		BIT(0)
- #define XCAP_MASK		GENMASK(6, 0)
--#define CFO_TRK_ENABLE_TH	20
--#define CFO_TRK_STOP_TH		10
--#define CFO_TRK_ADJ_TH		10
- 
- #define REG_TXDFIR0		0x808
- #define REG_DFIRBW		0x810
--- 
-2.55.0
 
+>  static const char *find_func_column(const struct perf_ftrace *ftrace,
+>  				    const char *line, int *cpu)
+[SNIP]
+> diff --git a/tools/perf/util/ftrace.h b/tools/perf/util/ftrace.h
+> index 45f5090d0115..7b9e0919ae8d 100644
+> --- a/tools/perf/util/ftrace.h
+> +++ b/tools/perf/util/ftrace.h
+> @@ -42,6 +42,8 @@ struct perf_ftrace {
+>  	int			graph_verbose;
+>  	int			graph_thresh;
+>  	int			graph_tail;
+> +	bool			use_inline;
+> +	struct machine		*machine;
+>  };
+>  
+>  struct filter_entry {
+> @@ -96,44 +98,18 @@ perf_ftrace__latency_cleanup_bpf(struct perf_ftrace *ftrace __maybe_unused)
+>  
+>  #endif  /* HAVE_BPF_SKEL */
+>  
+> -#define FTRACE_MAX_CPUS 4096
+> -#define FTRACE_MAX_STACK 256
+> -#define FTRACE_PID_HASH_BITS 10
+> -#define FTRACE_PID_HASH_SIZE (1 << FTRACE_PID_HASH_BITS)
+> +struct machine;
+>  
+> -#define FTRACE_IDLE_PID(cpu)       ((pid_t)(-1 - (cpu)))
+> -#define FTRACE_UNKNOWN_PID(cpu)    ((pid_t)(-1 - FTRACE_MAX_CPUS - (cpu)))
+> -
+> -struct ftrace_stack_frame {
+> -	char *name;
+> -	bool inlined;
+> -	int indent;
+> -	int raw_indent;
+> -	u64 seq;
+> -};
+> -
+> -struct ftrace_indent_watermark {
+> -	u64 seq;
+> -	int raw_indent;
+> -};
+> -
+> -struct ftrace_task_state {
+> -	struct hlist_node	node;
+> -	pid_t			pid;
+> -	struct ftrace_stack_frame *stack;
+> -	int			max_stack;
+> -	int			depth;
+> -	int			inlined_depth;
+> -	int			overflow_depth;
+> -	u64			seq;
+> -	struct ftrace_indent_watermark *watermarks;
+> -	int			max_watermarks;
+> -	int			nr_watermarks;
+> -};
+
+Hmm.. probably better to define the structs in the .c file in the first
+place?
+
+Thanks,
+Namhyung
+
+
+> +#define FTRACE_MAX_INLINES 32
+>  
+>  bool ftrace_parse_retaddr(const char *str, char *sym_name, size_t sym_len, u64 *offset);
+>  void ftrace_filter_retaddr(char *str);
+> -void ftrace_cpu_states__clear(void);
+> +int ftrace_resolve_inlines(struct machine *machine,
+> +			   const char *sym_name, u64 offset,
+> +			   const char **inlined_names, int max_inlines);
+>  int ftrace_process_fgraph_line(struct perf_ftrace *ftrace, const char *line, FILE *out);
+> +void ftrace_cpu_states__clear(void);
+> +int perf_ftrace__setup_inlines(struct perf_ftrace *ftrace);
+> +void perf_ftrace__cleanup_inlines(struct perf_ftrace *ftrace);
+>  
+>  #endif  /* __PERF_FTRACE_H__ */
+> -- 
+> 2.55.0
+> 
