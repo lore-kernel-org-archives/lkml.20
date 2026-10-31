@@ -1,56 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.160
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793461459;
-	b=A3CKJp0J7Lu9bb+uUREWhru4YgPj6bYyA6uVXyqnLSPv4QKJyRxvJ5X3hBykIPOKV/Ke
-	 B33WbMXVpR9X+5iHbcaJ2pg2wdzOYn0acf97/1kVFn2POi6NhFRB+BnjO7ZSXbjSnxVrG
-	 RS78THV/7/CEGjZTHr6vEP385lhYaVu62zXWKM9dPavIqduxAskPzz8p1aQWjIr8CNutR
-	 mFgsTsREAKJafgGLcKFo+MA+BnmyY4qKk0rxuNduOpli48OWbpG4+GMEsGxb0xnAL5XAo
-	 Wpr9JNypdjZ5MecQUWU4lD5qqn5bUIlj5cUK+zCsSjWC5qnu6H6t4pkpBxgykM/1ZEA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793461459;
-	h=DMARC-Filter:DKIM-Signature:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:From:To:Cc:Message-ID:X-SimpleLogin-Type:
-	 X-SimpleLogin-EmailLog-ID:X-SimpleLogin-Want-Signing;
-	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
-	b=xRkkWK3ZnsIg8HFdBDTNycWsh7EsB4p4mZnXhGDTYNiQpQG3HSKnJzdWVPLc+qDQ5Fq1
-	 mdW1eeJCV6jzw/aJXjj/xkiNukM3Nmsscv3NnqYItgavJBKKYBKD0NXhI6Zl1KG5GaDsE
-	 ztdiVEhcvdFL76Ae8KmDo1yW/pt6wkdlcaL85GlgKXk17fDQYROzwwlJ0SjhdZD0VU633
-	 J4+6H0MyzYkNYAAEWvUc4LSZJ/fP9OdNkWEDxKGBtDgRGLyggf9wmqVKmcd0oEvGPyqx7
-	 7rxqrj0N/clZYSnwNHyLrrj7eZiZWPzQ7vul7BBHPHm2uH1WNRJFO8EFBhpjl6ZwH9A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=8alias.com;
-	spf=pass smtp.mailfrom=8alias.com;
-	dkim=pass header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=176.119.200.160
-Received: from mail-200160.simplelogin.co (mail-200160.simplelogin.co [176.119.200.160])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.42
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793461466;
+	b=N0a4IMC8TkU2gaWBMJJ4Pb4vYYOLXcgLBBmz0HlWGiIkWrsv/sVRpsXqjRzMRC8ynvwg
+	 uvVYf5OqB/F5SP7lqHysYnqlIxlTYzztah8JkTyUaf8epL4u4psGLJagv71MTU2NNdcYQ
+	 XTUK0pMNxCDbpwg8q80DQLr1r6QnfRNRZEjZPDHhEm/lAfpt/gV+WHDkXYLxqRZ6F4XHz
+	 Z6j23JM2VYoCRRbt0W+CZcW0CR1aQnuI8n5TqXawWDaxh51njhUNwgybLdmxbFQ1VCQrO
+	 Ac1/LsSRN+SQHyjYtI1Fh85Ot4uY/2lEve1UNAykj1R6dZMv93pj0DXmptp2qmiRDHg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793461466;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=56Jp62HZwbl/bs25PK+pXtbwrUN07Joj+4AgiDDMgHU=;
+	b=j33d1r+fjRwF9QQXWcsOPL4UjnrDVnA92i0GkGlTLIcZWTErHxp1iJswfmLdL5qoPxUe
+	 pB/g2gSGcTgGdzUu3OmczuPY6JwTpYlAfVZUVrour1yQtjbrWv1xZwOwbBUwM7ibHLEVX
+	 wCVvJ9MYD7tQGzEGHEKfapSuDQLZ77DZTTo9BGJeku5zX0aEwPDgfB2b5G7o2pdCF2sMl
+	 AlydJJ+XzJs9IrsXqb5a/mPjgsO04i9wK2DH80CGRBW10BA8b+pAb3YDvB0tTckD8gvVr
+	 5DoSwaq6wIDOsqBmGxcp135DqX1GP2RVaEgpDZNgwXjjcg/xmEvxRvlVBhtG4ZDmINg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JlB8oX09;
+	arc=none smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F7F606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:44:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44F7F606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=8alias.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8alias.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B651E606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B651E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=8alias.com header.i=@8alias.com header.a=rsa-sha256 header.s=dkim header.b=vzQKTonT
-ARC-Seal: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626; t=1793461452;
-	cv=none; b=fy1nhGxdBgNPgBGYeULAMIbyVTYhTLWlYJG9Dg5X4DK5q9TR5h08gWPaXE7ssGltP2iEaX9fIomiSaTdWZIVkjb9Yhe/2zkUjy8qQvVPrjt6m0mbQqNM/B63TsmUakCuncyptv4opAn78uoF+H0BXBIPiIrqtpNijmCQVPJpDVt/9gMiu4/oYRvNaco3eKUMfH01epZYuy27C6Q85BcUo/b5BfQS2n/iHvYbXxf/rqxHvHZm4rcCJzBqS8e/82e743q5p1dTnogUCJjeeOVX8/EvIoIznFYLkNxpyTDZn2zDXEefxtAAA2/eHZnP0UG/yFjMZNsp1b6s7eMaFMYHTQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; d=simplelogin.co; s=arc-20230626;
-	t=1793461452; c=relaxed/simple;
-	bh=AaZu+tZdoMwvlXleI2bXaZaMVRyFk7eBBWZBUTdqvVg=;
-	h=Date:Subject:From:To:Cc; b=GaJMk2VjNlyoblVTAhJJ3jgsYCI+Y7E0cDKngujSXWVYnlxJLXcQYdljvxiiKiSQOh0Jf9toSWxpjv/Hf4w1vPNhRg5sqDXKMDl/EnO7GOpHSSIkYNeKpmymSNrPZk1K0iUVPHVg6wW8ch4NktAV8iLPsCyXHubIDMxPVlNkRbFL35LAsswigJ3ZA40CZLjfeK68E/ih0u3L0QuX0UNBOvb1nvDcYKRHU9RbObBxi7FrGPKmdSVOVPcDBQggnqQ6N1elFIpCxn5YCDn/Nt4psJIvb7dnAjP4FIqj9JbPIY739G7swjoN0E/kUQEdzbgvPj0Z/C6QG9Kjk50KGkPUiA==
-ARC-Authentication-Results: i=1; mail.protonmail.ch
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=8alias.com; s=dkim;
-	t=1793461452;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=xalrLin20XWlk6bzYnzzbgaIXTRXr6SHiU+Ft8ewMUI=;
-	b=vzQKTonTT5HawogrM6SpGnIN1YVuH4qET1IATmnOM465cKAMVDHshDrQeR3zFKqK2uqMHE
-	UI30wJsVOVqYOOoCS/XAg2NupgZJAc83xu/teB4lcBG0yZYvtt2509EOtVOjZHyTmxYsKC
-	X5w5K+/FECZRp3pfmAoDdmWDZF7it4M=
-Date: Sat, 31 Oct 2026 15:44:03 +0000
-Subject: [PATCH 6.12.y 0/2] Fix ioremap of addresses above 4 GiB on x86-32 PAE
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JlB8oX09
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-745497ac8fcso649021137.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:44:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793461465; x=1794066265; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=56Jp62HZwbl/bs25PK+pXtbwrUN07Joj+4AgiDDMgHU=;
+        b=JlB8oX09+gQ0HkWyOkRuAVVACNCbNqN1h+iW6a9AR/dEqjdMo4CpJs8/c2wMjxEcmv
+         MVcQKdECqWy09zVNJNVw/UL9n1lOVxoHChZpXhuTB6ZDt+SUF8IvdzZpIHCGMMmsNuZL
+         hlYpdSKkXWy1qm3KlZVVkcJnPmlPvT01IJLy2jTGirQ8vpIpuhHJFJ8MpQ6i+EflmXCF
+         ME3BqoyVJbaCtHOl0fcKRIeg0dRQcez2+u2d/SYj3ZScC83t7rsGS6trFbjevxA+by3m
+         9X/NYcjXd6PGxwf8MC/yn7ntF16SjRfeE7rj6JvFUf864Rfr3N6PTQMROVum8IE08lzR
+         9bxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793461465; x=1794066265;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=56Jp62HZwbl/bs25PK+pXtbwrUN07Joj+4AgiDDMgHU=;
+        b=IWXkXXXzj5LSUvGNLZXBV3xkX0bOXUz0uOMhCqEsijSCX7ovSJ066jjubxExBt4Kt9
+         U/GD5PWdA35FsVvtbvdOgZgGPC1n45sfT9oj7LRCD8l4P1rtkcx19SslW9rmqzViqSNz
+         Z3mcCAdblTif9+ueJRiMCUHtMv3mx1Och6EvPCXbDC9ZV059Ahwp+msg9e1BQmMPQ5JO
+         ZFwCpvm1UXFAYgjy1t0Box5AVO422pgIDkFfMB6NJaxEovuhK6Gr6HfyDJHaB+B9CZfy
+         xDC4JEibfdn/4+fdSen3g0H7pjW8wnjHayjUxdEgwhBAZYYU6xyLOvCtDQKfpm75lP6V
+         5YmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBybyztIbKkfCMzz6mM8qkCTtoivvsDALJhht+yD8T/lzm+BF88nYCwaCIdBlL92UeZ3xMEB6LyX9hexAGM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITMev21dcySjjc7E1xZ2HTV3fp3xMi7wg8Y56lbm8M2ZXaUw/T
+	bLYIQa6D7HQl40+hdb74QI1H9XhsiX4st59LLoN44s5c+mh3poCpot8f
+X-Gm-Gg: AYBFou10j46BGye6Qe7UOftd4NUWZYtBE56KHUtA+EL81PSr2p9Rh+6UsMEimF+Ym6R
+	gVqgbULAJots7cC0dDp2JLs0s+JORPN4YwZ4YOSyusi1qZacvJ+98wYekOlBDFGTdh5qB8ATkMa
+	uSVGuI2VjsQiLl9ZtZ5WmdbfJNP5Bp2oZHZLl3k1S0alzowcJkM4rkh22b+HTr+4x5LAFD58Pkm
+	JBNBHPdZjo74DPBjkVCLQtfTumSyb3kQSHXMnz5fNnV44lFAlPBslg6HHCLQ+ndVinjYhhmiW1m
+	/YlwJRlrHiQtiQaXZiGj7YE2SPIWNGf7oH5nopTHFrW0YV1/fxskEt5CpwDXwvJrKfDrQsSBIAc
+	pzK/N+uk7Hc/vZQ/+hw9lWLPrFeBLA8eI0VZo8mFtS8DJvG28vAtKC0w7TUSRtGOzAHIFtRw2wS
+	PBPMe+AQOm/DyIo/f4AoxcedSXyTGE3SrAV+wev23/TAb2OxIaLY5PwdUJCSLyjP1YagRPYDzxr
+	1BsgEjncP+A6pvnwuzkiesdmqcZW1/dndPu6F8jbXNugoRF2n1Oa3XlR+ljiVUa6R6/++N/tj/J
+	hMppjeW9Dhf1VIYu9XrbdTjn1Aliq5wZVN3bv8JplV2r8yGU5nLvL07TRzbTY46NAy7duCWBeTF
+	UAIX5U2BsIADu7apB163Y6Loq9vizzsnABCoj+SENdTis8ipCgHTrWubhthsZ7IQjZp8pUB3T5E
+	s/+XKxaLHKDjF5Zeo=
+X-Received: by 2002:a05:6102:3ec5:b0:7cc:2bb7:131d with SMTP id ada2fe7eead31-7d072baa484mr2303904137.9.1793461464434;
+        Sat, 31 Oct 2026 08:44:24 -0700 (PDT)
+Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa ([2804:7f0:b101:c5e8:f804:4efd:32bc:71d3])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d077606b7asm5730837137.8.2026.10.31.08.44.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 08:44:24 -0700 (PDT)
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Miklos Szeredi <mszeredi@redhat.com>, John Groves <john@groves.net>,
+ fuse-devel@lists.linux.dev, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: [PATCH] fuse: refuse FUSE_NOTIFY_STORE for DAX inodes
+Date: Sat, 31 Oct 2026 12:44:19 -0300
+Message-ID: <179346145958.61208.701521796030924197@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,90 +99,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-From: =?utf-8?q?Radek_Marci=C5=88a?= <github.unusual340@8alias.com>
-To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@kernel.org>,Ingo Molnar <mingo@redhat.com>,Borislav
- Petkov <bp@alien8.de>,Dave Hansen
- <dave.hansen@linux.intel.com>,x86@kernel.org,Andrew Morton
- <akpm@linux-foundation.org>,David Hildenbrand
- <david@kernel.org>,linux-mm@kvack.org,Arnd Bergmann <arnd@arndb.de>,Michael
- Kelley <mhkelley58@gmail.com>,linux-kernel@vger.kernel.org
-Message-ID: <179346145167.7.7861216093151225931.1735978772@8alias.com>
-X-SimpleLogin-Type: Reply
-X-SimpleLogin-EmailLog-ID: 1735978785
-X-SimpleLogin-Want-Signing: yes
 
-From: Radek Marci=C5=88a <github.unusual340@8alias.com>
+Since commit 2fbe4586cff3 ("fuse: add support for opening dax device as
+backing"), a regular file is marked S_DAX whenever the server sets
+FUSE_ATTR_DAX in the attributes. This does not depend on any INIT flag,
+so any FUSE server can do it, including an unprivileged one.
 
-Both patches are stable-only. In these trees the x86 PAGE_MASK is an
-unsigned long, so "phys_addr &=3D PAGE_MASK" on a 64-bit physical address
-clears bits 32-63. __ioremap_caller() and __early_ioremap() both do
-this and map the low 32-bit alias of anything above 4 GiB.
+fuse_notify_store() does not check for this. It adds ordinary page cache
+folios to the mapping of such an inode with filemap_grab_folio(), while
+the DAX code expects that mapping to hold only DAX entries. When the
+inode is evicted, fuse_evict_inode() calls dax_break_layout_final(), and
+dax_layout_busy_page_range() hits WARN_ON_ONCE(!xa_is_value(entry)):
 
-Mainline is not affected since v6.13, where commit efe8419ae78d ("vdso:
-Introduce vdso/page.h") and commit d4a65302dd84 ("vdso: Change
-PAGE_MASK to signed on all 32-bit architectures") made PAGE_MASK signed
-on 32-bit. Neither was marked for stable. They cannot go to 6.6.y and
-older, which lack CONFIG_PAGE_SHIFT (added in v6.9). They do apply to
-6.12.y, but together with the i915 build fix in commit 8fd236b00fc1
-("drm: i915: Change fault type to unsigned long") they change PAGE_MASK
-on every 32-bit architecture, the kind of change that caused the arm32
-regression d4a65302dd84 itself fixes. So these patches cast at the two
-affected sites instead.
+  WARNING: fs/dax.c:825 at dax_layout_busy_page_range+0x394/0x4dc
+  CPU: 0 UID: 65534 PID: 93 Comm: fusedax
+  Call trace:
+   dax_layout_busy_page_range+0x394/0x4dc (P)
+   dax_break_layout_final+0x104/0x278
+   fuse_evict_inode+0x2cc/0x57c
+   evict+0x2b4/0x748
+   iput.part.0+0x51c/0x964
+   ...
+   fuse_kill_sb_anon+0x170/0x268
+   deactivate_locked_super+0x98/0x11c
 
-Please apply to 6.12.y, 6.6.y, 6.1.y, 5.15.y and 5.10.y; the series
-applies unchanged to all five. 6.18.y and later have the upstream
-change.
+With panic_on_warn set, this lets an unprivileged FUSE server panic the
+machine.
 
-Reproducer for 1/2: i386_defconfig plus CONFIG_HIGHMEM64G=3Dy,
-CONFIG_VIRTIO_PCI=3Dy and CONFIG_HW_RANDOM_VIRTIO=3Dy, booted with
+DAX mappings do not hold page cache folios, so storing data into one has
+no use. Return -EINVAL, as is already done for files that are not
+regular. This also covers virtiofs DAX inodes.
 
-  qemu-system-x86_64 -M q35 -accel kvm -cpu host,host-phys-bits-limit=3D44 =
-\
-    -m 5G -object memory-backend-ram,id=3Dbig,size=3D4G,share=3Don \
-    -device ivshmem-plain,memdev=3Dbig -device virtio-rng-pci \
-    -nic none -nographic -no-reboot \
-    -kernel arch/x86/boot/bzImage -append "console=3DttyS0 panic=3D-1"
+Reproduced on current mainline (arm64, CONFIG_FS_DAX=y) with a FUSE
+server running as uid 65534 in a new user and mount namespace, answering
+INIT with no flags, LOOKUP with FUSE_ATTR_DAX on a regular file, then
+sending FUSE_NOTIFY_STORE for it and unmounting. Before: the WARN above,
+and a panic with panic_on_warn=1. After: FUSE_NOTIFY_STORE fails with
+EINVAL and nothing is logged. FUSE_NOTIFY_STORE on a regular inode
+without FUSE_ATTR_DAX still works.
 
-The extra options get the virtio BARs above 4 GiB with SeaBIOS 1.16.2,
-1.16.3 and 1.17.0. Since 1.16.3 SeaBIOS places 64-bit BARs high when
-the guest has RAM above 4 GiB, which on q35 starts at -m 2816M; before
-that only when the 32-bit window overflows, which the 4 GiB ivshmem BAR
-forces. host-phys-bits-limit=3D44 keeps SeaBIOS 1.16.3 from placing them
-beyond the 44 bits a PAE kernel can address.
+Found by code review of the DAX backing changes and confirmed with the
+reproducer above.
 
-On 6.12.115 the virtio BAR 4 at 0xe0100000000 gets mapped at physical
-0x0-0x3fff (per /proc/vmallocinfo), the device ends up FAILED and the
-log shows
+Fixes: 2fbe4586cff3 ("fuse: add support for opening dax device as backing")
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+Tool-use note: the code review that found this and the reproducer were
+prepared with help from an LLM-based assistant; I reviewed the change
+and built and ran the tests myself. Reproducer available on request.
 
-  virtio_rng virtio0: probe with driver virtio_rng failed with error -2
+ fs/fuse/notify.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-With 1/2 applied the mapping is at 0xe0100000000, the device reaches
-DRIVER_OK and /dev/hwrng returns data.
-
-Nothing in a QEMU boot early-maps memory above 4 GiB on i386, so 2/2
-was tested with a throwaway late_initcall that calls
-early_memremap(0x100000123, 16) and prints slow_virt_to_phys() of the
-result: 0x123 on 6.12.115, 0x100000123 with 2/2 applied.
-
-Unmodified v7.3 in the same setup (CONFIG_X86_PAE=3Dy in place of
-CONFIG_HIGHMEM64G=3Dy, which no longer exists) gets both mappings right.
-
-Built with GCC 16.2.1, run on QEMU 11.1.2 with KVM.
-
-Radek Marci=C5=88a (2):
-  x86/ioremap: Sign-extend PAGE_MASK when aligning the physical address
-  mm/early_ioremap: Sign-extend PAGE_MASK when aligning the physical
-    address
-
- arch/x86/mm/ioremap.c | 2 +-
- mm/early_ioremap.c    | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
-
---=20
-2.56.0
-
-
+diff --git a/fs/fuse/notify.c b/fs/fuse/notify.c
+index 984e4945e..938440474 100644
+--- a/fs/fuse/notify.c
++++ b/fs/fuse/notify.c
+@@ -167,6 +167,11 @@ static int fuse_notify_store(struct fuse_conn *fc, unsigned int size,
+ 		err = -EINVAL;
+ 		goto out_iput;
+ 	}
++	/* DAX mappings do not hold page cache folios */
++	if (IS_DAX(inode)) {
++		err = -EINVAL;
++		goto out_iput;
++	}
+ 
+ 	mapping = inode->i_mapping;
+ 	file_size = i_size_read(inode);
+-- 
+2.43.0
 
