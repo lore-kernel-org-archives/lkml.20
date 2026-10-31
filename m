@@ -1,75 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793461199;
-	b=ZcM+HkJU9VVHYgxjlGoaB6nPGYFDVP2xPpwCtQTVfeDM39GppvDv4pRL7KJdye2UwwRC
-	 tTFqujcDb13ywQHXkJbRf5rW9t18FAZegaTasMVVePp/bHK7BfdiS6ckbXlTXXaDgwYoI
-	 NfFMjSg8v5N7HCdB8Q5LFtR2Qr/DWHtkn9D6xa3rg6Sg30jIvuTk2Fs01SB0hQ7gLffDO
-	 5PEnrSSXwKXqZz8U10MaiNnrqh95oQYFVqj90fbPa+w5F1x/u5SqticR6junBvAMzUPce
-	 Vgw7qafP1ljlJ4EsjQYawjtU6djMl2lrHtOiWxjHr3m78dEkV7ol8Y3pjws4qR/2x0A==
+	t=1793461203;
+	b=GP0rQVr/QqHtXSTKlgxW29vW3ChMWA534WXPrAInLsfpebTbF+f8NSCMi2SsXkVMe3RJ
+	 0ljyzvUVVQ98sx1SbJaBijGCZVysOqhXxjxZ5GEO0HLt3NwtnltklOALYNa7BYypThoFV
+	 J6P2tkZzTCx7vnOrOcW1FABxQUkgVqAUkYWxYX2tsKL7aaUd7M+OkJvcMBhIKhofyGQD5
+	 5MuafAeJ9ofna0sbPNyzpZC5u9ZZio1GJ/vzaobeEwiPOpD8A7fTgP6oF+6dYojdc7fnx
+	 lmFi/Mz3DK/W2ukTkPUF7Mlm1DjmSqa3Jm/2SG+qVhgylagTIX3//TyTDQ1Dne4ThfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793461199;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Rspamd-Queue-Id;
-	bh=adnGSaSpP4BAdVI9adsOus4fU610Llwk+z/mzctLwuc=;
-	b=znr09R1x8lE4fkCPqrX9Gg13B7AUkb+VLcrns18IeirS6nW9f6+Ev9iRtz+Xs4pJVQs+
-	 Ml3EFdur7WOu4biJRg7pgmYWJY9HH4hNt5gLpfkPUk2tz2sDRnUFoDErEkJp73O/iTFPb
-	 9zY1c7TLQD8oU/ezeX8h1+6TOOCwpG9O/DFWRYWpaCjlGK34a/zg0UI+SrWe8qGFAGFi+
-	 J+RsUTre9vERS/FHOx2P2KuUfs4hSAXaQvneBbymKfnGUAl1Vj3YBxR57HdvxMXBdRrTG
-	 UAUYPknuutbSC/LpoJt77/UsDsqsgr6jTD4r3zzmeozKO7r5GxhnDpcpeFqSv/oGZZg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793461203;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
+	bh=zMB+mWff2A0n0ceUIh0eWG6jkh7oYH1n8cB3sLdOLEo=;
+	b=E+aTsPythoxqMsuj3eqtOSOSk8QoZXHBRHLkw1R/impDYpik5rgLMmSn2Ow+IkdUvPrK
+	 +g6VZY1yylitH1qycVd/xw5JbOexQY/BZ7smdEeq9J1AluSnB3BEp1lHlqoZJvFQ4jmr3
+	 460BKXKjErTnoBwCHO6gnjeyUSyfBa3lApBY7GJcDb45N/c1lmgV3fqx3NctaHJHeWwzr
+	 9VTf1X/nW3I9noEj5jqRyl6ktaf/zQPEWOodBnTEcrADbisVZWm41++qvhQCxelIQEWiQ
+	 +mmyJGA9oZPYsNNoj2duCqB48u4RgP0wZYPP4UWN98UMn+IVbbGcpEqgCsIyJEn7+Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=XMODGxoP;
-	arc=none smtp.remote-ip=80.241.56.171
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=awKwKaC4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="9mLEwQ3/";
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=awKwKaC4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b="9mLEwQ3/";
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C46606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:39:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9C46606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3C1606A323;
+	Sat, 31 Oct 2026 15:40:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F3C1606A323
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=XMODGxoP
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=awKwKaC4;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9mLEwQ3/;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=awKwKaC4;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=9mLEwQ3/
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jH2GG28hFzMlcN;
-	Sat, 31 Oct 2026 16:39:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793461190;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=adnGSaSpP4BAdVI9adsOus4fU610Llwk+z/mzctLwuc=;
-	b=XMODGxoP8K0i2JmT5G3NAunZ8O8RDukJhXUb82dntJS/qmHlCV8SLhBZC5T8z65tiGMK+a
-	OhOH5Qj+QupkaZUB0lHW3E1LgArMVAkdHMmGVZH+leT267/1YqfsKk+eu+PsLa1bk/jarO
-	IF08S1OAzP5/2pGXqPYMG6OaS6xgyqepCq3Fyolr25HU/BFPcgME6dgxOiypeBjPS2KK/b
-	aNtVMUSc9tKkOFJgEqXEqn4Wc1dlBE96STrxcGqKPACc4mvc6MjGJXhToRXH308e+0Fofx
-	+8ZvvGThFB8xHg/EWiyDqoRLcI128HvvZI/HtCs0sjYbXzuagTRf1fx9BNi6Og==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	amd-gfx@lists.freedesktop.org
-Cc: superm1@kernel.org,
-	lijo.lazar@amd.com,
-	harry.wentland@amd.com,
-	alex.hung@amd.com,
-	kees@kernel.org,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	dri-devel@lists.freedesktop.org,
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 30A4C1F749;
+	Sat, 31 Oct 2026 15:40:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793461201; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zMB+mWff2A0n0ceUIh0eWG6jkh7oYH1n8cB3sLdOLEo=;
+	b=awKwKaC48wpCIfhTKxAH8W+XzLYV4MBBroiHlQivB0Dsi27Bo/3ePgfYbWHBoC/3WAAzH8
+	2fr0Ql49wV4jBHpKwut1d2e3GZt+8iJH/Q4lmgco0iyWOIq7OP8MKMkuCsB3E0auYM4dxY
+	XmisTYcxcPTvISKNdW5rdWYRrCOY/7c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793461201;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zMB+mWff2A0n0ceUIh0eWG6jkh7oYH1n8cB3sLdOLEo=;
+	b=9mLEwQ3/5u7dBycrF0S/KPTSlcCU1G0Y9ndwor5gV37Ln4R6jltv4BXqLevOzpic2AzXve
+	VG2lMd3JGj+mzaCg==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793461201; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zMB+mWff2A0n0ceUIh0eWG6jkh7oYH1n8cB3sLdOLEo=;
+	b=awKwKaC48wpCIfhTKxAH8W+XzLYV4MBBroiHlQivB0Dsi27Bo/3ePgfYbWHBoC/3WAAzH8
+	2fr0Ql49wV4jBHpKwut1d2e3GZt+8iJH/Q4lmgco0iyWOIq7OP8MKMkuCsB3E0auYM4dxY
+	XmisTYcxcPTvISKNdW5rdWYRrCOY/7c=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793461201;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=zMB+mWff2A0n0ceUIh0eWG6jkh7oYH1n8cB3sLdOLEo=;
+	b=9mLEwQ3/5u7dBycrF0S/KPTSlcCU1G0Y9ndwor5gV37Ln4R6jltv4BXqLevOzpic2AzXve
+	VG2lMd3JGj+mzaCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id DCC7D13432;
+	Sat, 31 Oct 2026 15:40:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6KdmLNAL5mpLGQAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Sat, 31 Oct 2026 15:40:00 +0000
+Date: Sat, 31 Oct 2026 16:40:00 +0100
+Message-ID: <87cxspswtr.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Cian Ruane <cian.ruane1@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: Clamp the ATIF backlight curve to its 99 points
-Date: Sat, 31 Oct 2026 15:39:48 +0000
-Message-ID: <20261031153948.127016-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.56.0
+Subject: Re: [PATCH] ALSA: hda/realtek: Add quirk for Huawei MateBook X Pro 2020
+In-Reply-To: <20261027234732.6893-1-cian.ruane1@gmail.com>
+References: <20261027234732.6893-1-cian.ruane1@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,47 +110,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jH2GG28hFzMlcN
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spamd-Result: default: False [-10.80 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	TO_DN_SOME(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TAGGED_RCPT(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCPT_COUNT_FIVE(0.00)[5];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -10.80
+X-Spam-Level: 
+X-Spam-Flag: NO
 
-amdgpu_atif_query_backlight_caps() stores the firmware's number_of_points
-as data_points but copies only the 99 points that luminance_data[] holds.
-number_of_points is a u8, so a firmware table that claims more makes the
-custom curve code in amdgpu_dm index past the array, and
-dm_query_extended_brightness_caps() copy past the end of the
-data_points[] buffer it fills
+On Wed, 28 Oct 2026 00:47:32 +0100,
+Cian Ruane wrote:
+> 
+> The Huawei MateBook X Pro 2020 (MACHC-WAX9) has a combined headphone and
+> microphone jack, but the BIOS marks pin 0x19 as unconnected (0x411111f0).
+> As a result the headset microphone is missing and only the internal
+> microphone is available.
+> 
+> The mic mute LED on the F7 key does not follow the capture mute state
+> either. The machine uses the PCI subsystem vendor ID 0x1e83 (Huaqin)
+> rather than 0x19e5, so the Huawei vendor-wide quirk that sets up the LED
+> does not match.
+> 
+> Add a fixup that configures pin 0x19 as a headset microphone without its
+> own jack detection and chains to ALC269_FIXUP_HEADSET_MODE, which enables
+> headset mode and the mic mute LED. This is the MACHR-WX9 fixup without
+> its other pin overrides. The remaining BIOS pin defaults work, and pin
+> 0x14, which the MACHR-WX9 uses for a second speaker pair, produces no
+> sound on this machine. Configuring pin 0x19 with presence detection
+> (0x04a11040) does not work either: the jack state drops to unplugged
+> while the headset is still connected.
+> 
+> Tested on: HUAWEI MACHC-WAX9 (MateBook X Pro 2020), BIOS 1.26,
+> Ubuntu 26.04 (kernel 7.0.0-38-generic, with this patch backported).
+> 
+> Signed-off-by: Cian Ruane <cian.ruane1@gmail.com>
 
-Clamp the count to ATIF_QBTC_MAX_DATA_POINTS and warn, since a table
-that claims more is a firmware bug
+Applied now.  Thanks.
 
-Fixes: f729e63743f0 ("drm/amd: Pass luminance data to amdgpu_dm_backlight_caps")
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-The other ATIF checks log at debug level because they make the call fail
-and the driver falls back to its defaults. Here the driver keeps going
-with a truncated curve, so this one warns
 
- drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-index 63088c072087a..4874ee864b807 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_acpi.c
-@@ -406,7 +406,11 @@ int amdgpu_atif_query_backlight_caps(struct amdgpu_atif *atif)
- 			characteristics.max_input_signal;
- 	atif->backlight_caps.ac_level = characteristics.ac_level;
- 	atif->backlight_caps.dc_level = characteristics.dc_level;
--	atif->backlight_caps.data_points = characteristics.number_of_points;
-+	if (characteristics.number_of_points > ATIF_QBTC_MAX_DATA_POINTS)
-+		pr_warn(FW_BUG "ATIF: backlight curve has %u points, using the first %u\n",
-+			characteristics.number_of_points, ATIF_QBTC_MAX_DATA_POINTS);
-+	atif->backlight_caps.data_points = min_t(u8, characteristics.number_of_points,
-+						 ATIF_QBTC_MAX_DATA_POINTS);
- 	memcpy(atif->backlight_caps.luminance_data,
- 	       characteristics.data_points,
- 	       sizeof(atif->backlight_caps.luminance_data));
--- 
-2.56.0
-
+Takashi
