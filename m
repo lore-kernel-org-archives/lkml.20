@@ -1,96 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434689;
-	b=aHCNNwsLaKXNz5aBrdkAOc4nakMbsNqfenW/jsgWFtkbU4YbUQ3VFEtpfqIp4lBPKIm7
-	 4TVFVDrUMG3uk0vWArD6u57PFbgpR93R+1s+Scz8i10bud85jlVPl50D3jrsTJWTR/vs5
-	 mf60O1vQiAKWLMrhydS9iilVmbTm+DuXed6TfRwW2OdDEvhJx2CGc0dhSyj12IS9aLIrz
-	 uq8vgWx7zGNPJF5eOcsdgFlBOqynRvBOqidjcpIBjW5rSj8i+GThoZ6nVdV9bKwyku1HL
-	 P0Hy6xlZd7TLb9EN7cJcOn5cJhqR9vSizs9pOB5WwrXS9GzU84jDpcOnfot8vVJODMQ==
+	t=1793434719;
+	b=mKOi7aeM+rVUWK60bBY5719BSglbSnRZLFWF8f+axT9R1Goeyz6LETEZmB3w6GrydJle
+	 KWyvfgYjf3J5woUe465/Zu8fpAAYEqwuHDn7SoWQ2BOLuGCw4dM+GFqZBEWqL/ND8bjWJ
+	 N16dZDQjckYJnmKiFKvHaXMuRU+VWNY3xTVB1cP6zRbY9e3DkqJhNupLAWKzQBCgbeleu
+	 2gPB8x5h9dAEjJZnCOaog8gtOISAyexxE8djEa8rG5ZbEHofxibOOu170F1cojPOxu9l0
+	 0RmAPGPuZpHypgT6nsoNUnek6dZIy4hLyNkabQN1MR1yKSb+6qKDqlANJzSqRlEHgMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434689;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434719;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xcR6OO9DMf/GV3DMUQD0OFfeXG/gnWXrfg7cl7YoGnE=;
-	b=t3myTqfHMJJmMNQWKZFYhlpw4sZPf1Ngi182mdm6T6hat54STSA/GthTP6oPKjX5rkZC
-	 tjshQR/Cnkk0h93QfD0oBv6pUe/+PNafMwIfqc2H8R/Pei8W0S81LCyJx6Dv/Ogma9wCI
-	 cS2lkWoGVdp+46b6PqMIkUnWl4SDy3OiiM7+NLT9w9bIkZLV7HcyVZFTopqSEa8b550r0
-	 v7fFbGz7MbweJyQ/Yr2YPF75dfZNBvxDmil8N0dRevbxBbwLWSjLyTsjgN3MdqWMPOfmW
-	 UEcHPfw/1qxjqs9j8+leFBMjS5xeWtYFS013enng9ASnxheL4E13Fuj+P6fmKBcK+zQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DRIIJZvR3wc7jeqvnffYZMLIW2BsmoDA36GgncS3Xds=;
+	b=LCQws4qsMEdGL/ZBwTuxKwZN5smBhI6jSTsDwzfDFpdFwAeDm6Eh1WN4ve/R9RBBpLJs
+	 TIZbk3YUej8B0hPfpP2+3EgThtpSkOosQpzVeff0MLkR3So8I1xBd8brscMHVVRpPPJH0
+	 Yf9B/DLTjtSXBFI/yNy9WOKIfWWJdz1YdYYhRLv/N17QDV2fHDVS9jiJCmjvphauZa0R0
+	 q0gnEjYhF+HHswD0bd4v0emamFl51vyBxmJIkHOCGFgDqrmjNC//beTfA6McLDrB5B8hA
+	 qU3QFOacsDbKPYc/YxrXCkh756pmDtIy5HIlL9urqbygYnQ4BfKmYRGkokSF8crWt0g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="zKULn/6D";
-	arc=none smtp.remote-ip=209.85.216.46
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYp3E2L9;
+	arc=none smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324BD606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:18:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 324BD606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E865C606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:18:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E865C606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zKULn/6D
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ac7842c17dso979654a91.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:18:09 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cYp3E2L9
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35c76e9614aso2134736eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:18:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793434688; x=1794039488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xcR6OO9DMf/GV3DMUQD0OFfeXG/gnWXrfg7cl7YoGnE=;
-        b=zKULn/6Dode09/lnBjRIO9OamUmJKqsN3UyMmIPm1wcXvP1MO+eJTj2vp5pX8oBLMq
-         LfpYtOMFP20aXUWHKlPQkX6kRjD8kc9f6R4sTNMK/p8xMxLUXH0bQJPCeRPaJiHePuVV
-         NeSt1VX+SJf7MLTgXbVM3GItqzA/l2zYjw0Yyj4p0/T0fJ//gf/Zbx2BTWNFpnZ3A0BR
-         J3tuOZSj7lpfcOIvLRUbJpkELPIxayjn7O4Rd3KOCArYkRtGOepzAzBE0wNh5ZLcmh/e
-         h8KrVl5961YqnT+3/vrRSgScW7kw+jBiYipM5JJwRy5ze/Ll07G03CIE8sVKelWERVpg
-         QAQg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793434688; x=1794039488;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793434718; x=1794039518; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xcR6OO9DMf/GV3DMUQD0OFfeXG/gnWXrfg7cl7YoGnE=;
-        b=lbMekUehmSaPk/FW3VUONmKCZO15vuyQJUz7ZF70Jbwp1I3Z+Ovvk9Y6A+74n2keS+
-         N/BDWqKfEvXABEWZRa/8cYGnu5RCpUZGA2scgY7QGLgbkZaGc7L4bUcfMLdjUKUZlb1y
-         5wztyqcSPRaamA3iFk0n0SVrRpAKXe8DKWlra3e5UUNLfZXJDxjLLpRXEtp2kYPFKHpW
-         JXFZ8fHqFxvut7JRgxuOxlYFBcQgipjhGgAB32k88yVsI6dLc1uyeAzRVTHH8bcWRKPB
-         aM4t3vGqW4C7mUetkfIHsy9ZhSCBnEbGDSfvd81KJVTLC67CMtOU032Af3v2v7yeF9i8
-         psQg==
-X-Forwarded-Encrypted: i=1; AKwUvBy9Sdk6b8JOzakVFoA1GZmW9KKBXfaQLTnk66dPXJMSCHcgFRDRvAHpqwzj+dL8PJ8MU0PZOYbIBSw2ewI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDxwaN8qODF3fq67OcR6T0bPpo0HnbG9GAFS4NDsKACRSVKmjS
-	xd2i61LZEsqbvCJtulhTBCLU6YApkZSe/3fEUD6+LSpgVO5Mx7AWHQil
-X-Gm-Gg: AYBFou2jHHU2dnv/ZEANFKJGDeLfig+YyB9ZL8DVrnm9j05d0xO9m+731A1qsrkqlFP
-	Exl4a5HQ1SYkHYh2KDQO5F51BmhIkVjiDVXL+PrxAlSPSGQblcMBPxx87D+vhm71I2kHtczkuNS
-	r3yl7aVRhDLbNLA+FcfdBcKUY2pD3yO7vGbQR4yc0RcneMUme/7XscdNO/n5F+Xdd94qAllVlh9
-	KdkVx0jY763JrFrKbx0pelNrYQl4TOWHGjVJv71Ha069xqx1l737REffpBQs1UBtxs8trntkFpX
-	6E4cGnvvmzZbQTunvLpWEWXCNb5o6Po+q/46OfC+nMWs+iFDGc3MSf+thgTh3lQM3It+EGdT2Pg
-	Gas4p+Q7YeI4/N7alPtPsEw5aJkFmVrELtIj4hA2fODYkGVYkyseDdJFpWWyuqDGxMlIwL+TU54
-	Sp6Qlsht+OZWPWyjGzgoEUeVarFtF6hbaNBPhR0/QpLVfr3bB0wYS7laGW46LJ7zNCjZqzIfOX/
-	7W717a1PeFeReIQAg+EzRhcbFHzH6BKemTw5XUDpciVJWP4OTwMlUUfgIMdyuuMGAE8RynZy8RM
-	WjTb8yh3sBbqJGH2KrBAqkQE+ZtXMzoWhKAwv7WejohCHyztYwx2bKeTUa5lByfiLMY=
-X-Received: by 2002:a17:90b:43:b0:3a7:e126:4980 with SMTP id 98e67ed59e1d1-3ae8979de24mr3720019a91.43.1793434688533;
-        Sat, 31 Oct 2026 01:18:08 -0700 (PDT)
-Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e99b267sm11288897a91.14.2026.10.31.01.18.06
+        bh=DRIIJZvR3wc7jeqvnffYZMLIW2BsmoDA36GgncS3Xds=;
+        b=cYp3E2L9DBBXAhk7HlWiRzxpEHJpf5XsA58uGR6sWYuHI+K6xN9qV1Th5loPQaGFeD
+         8Dma28hL1Fmir6qp+34DrfR/ltVNgadnCLL0JxbQI8m8VibdPEXpVC4Sv9dxop/fBbQR
+         W8Id9c+CEC3udRrFj8TdYRD43W8C0QFACakl1TwYKuEBngT7ZGCg2Y1Tnxtn0G3zefUu
+         EIMjnf3HXX0p0Gk7zsjHaQN5U7M3o3jj1fjRZLFzffugUX69ko+AYy4IyczoMR5HMIkd
+         5lis10hPX5wgUybgkt5FDSQ87bxBAjDHv7ap3LQlsxaXU3Wb8fv8Q29A60PQQh/2hf5N
+         0mfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793434718; x=1794039518;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DRIIJZvR3wc7jeqvnffYZMLIW2BsmoDA36GgncS3Xds=;
+        b=qtpNc5ukbw8w/AtHR5DYCvUU1lYRIPI3PlLFizv7HOQv9N5XEbhFQ87niEdidca2fV
+         5oPpZU7yyaueA3GGRvB7/IhqaAGZqpUukTjn6qLBC97WNIaeS1Wts+zRqYDw+wJKSSou
+         zRQ+QDkBE9MCMXX5sXLTcgAHI/N979jMLKPReVJXJZBfHivVGiha5JofVJXZ7qpu9VUD
+         0n9EG7Wp0/m+nEGk+6F7t5jJwMH383marS4QegXnSyXoXwyT9VdBVfBJUR41Mqi/YcNq
+         5aaNJ3TvmEht8sy/LPhxNZLci5ybC2ylAbm5ZwQB+sBayGHBvcAK1KjNvsjj4fV5Zb4J
+         CyhQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXRRzdchtbb9p8BYoIRnXfbdeAxTj9otmL0M0aQRW8tIfq/fOTu7/N/nQjhrZJNQUcf5gQDQK0kEraSIY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRy/jGiy1Vk/4tljiqYHD/DhMy/viPNSu2QbQPSXCQRRpPhonv
+	IVoaHYZi1ldTQofqEMc7EMD9H36vWmQAG1OoEq+8gEo9oih/8v/SYQ9N
+X-Gm-Gg: AYBFou2BTquNOIJv0h81e2GKh6tUmcKiWjKTySlxO1pBMqtu842moDF5+bPX/0AnBRj
+	6YgDtjMVjvuSDQojkNgU3YXgX9raFn2FdJfzE57Rs1FiHw6InadbPSZAeM7P0HgJgnObSyG3Wq4
+	0nBLdq9qeHRF0eLIZXZajI7ZzzIIwW+eRQFI4ERXl5w5wldvV8iB08wmGa6khTz885HO/pP8yo3
+	iNWVYvpLx8t9gMDidn7P5jJDKpwjLn4TNwrzXOy7ZcGaXvowkiwuapDcsEAUKE++E6EwuNuo/ly
+	FQsUQpMxLOYSlVdNVC/JsMnnXdd9I9hdf2YU8XFPtyIAr9a7iIchZbl+9Hj8chqqGG/Q1scQ1jO
+	K47hfhXQP/bxq9Mmp5TX6UMKzE9k6bpSrafM/hms9PzV5jkKUAf/WqlS7BpIQ3+88Ohu0HMtx82
+	qWsYunO5ZnOro+oJuIv87yzss3x1cS34riejr6/B29HRqFF0FnIrO910enAeqh5QgR0MTrf0Ifo
+	Ify5DNV4KreH8jaiFq7EAeJi/TxPjykAuO8KCALIfOFa7IXZFE/VNbW3tOg+wWI4lJJ1XSn/PzP
+	lNm7lWomCjESmansYkwUUo1s34U31DHv07nLpch4Mgkfpn/0oIg=
+X-Received: by 2002:a05:7022:ec03:b0:1a9:b7f2:3015 with SMTP id a92af1059eb24-1ac5e22a7e0mr7334800c88.39.1793434717941;
+        Sat, 31 Oct 2026 01:18:37 -0700 (PDT)
+Received: from localhost.localdomain ([103.170.55.71])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm13112236c88.14.2026.10.31.01.18.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:18:08 -0700 (PDT)
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Yu-Chun Lin <eleanor.lin@realtek.com>
-Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
-	James Tai <james.tai@realtek.com>,
-	=?UTF-8?q?Andreas=20F=C3=A4rber?= <afaerber@suse.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-realtek-soc@lists.infradead.org,
-	linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] pinctrl: realtek: Write the encoded slew rate value
-Date: Sat, 31 Oct 2026 17:18:04 +0900
-Message-ID: <20261031081804.218566-1-pocj8ur4in@gmail.com>
+        Sat, 31 Oct 2026 01:18:37 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: sreekuttan2156239@gmail.com
+Cc: hare@suse.de,
+	hch@lst.de,
+	kch@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	sagi@grimberg.me
+Subject: [PATCH v2] nvmet: use appropriate types for authentication payload lengths
+Date: Sat, 31 Oct 2026 08:17:51 +0000
+Message-ID: <20261031081751.4583-1-sreekuttan2156239@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261031075932.4345-1-sreekuttan2156239@gmail.com>
+References: <20261031075932.4345-1-sreekuttan2156239@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,41 +103,67 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rtd_pconf_parse_conf() maps slew-rate arguments 1, 10, 20 and 30 to the
-two-bit field values 0, 1, 2 and 3. However, it shifts the original
-argument into the register value instead of using the computed encoding.
-After masking, these arguments write 1, 2, 0 and 2 respectively. In
-particular, the distinct 10 and 30 settings write the same field value.
+The authentication payload length is obtained as a u32 value from the
+NVMe command, but nvmet_auth_challenge() and nvmet_auth_success1()
+accept it as a signed int.
 
-Use set_val when constructing the register value so that both individual
-pin and group configuration apply the existing conversion. Leave argument
-validation, field offsets, masks and regmap error handling unchanged.
+Use u32 for the payload length parameters in both functions to keep
+their types consistent with the value returned by
+nvmet_auth_receive_data_len() and avoid an unnecessary conversion
+from unsigned to signed.
 
-Fixes: dcc9334435b0 ("pinctrl: realtek: add support for slew rate, input voltage and high VIL")
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+Also, use size_t for data_size in nvmet_auth_challenge(), since the
+calculation includes sizeof(), which returns size_t. This avoids
+implicitly narrowing the calculated payload size to int.
+
+These changes make the payload length handling consistent with the
+underlying types and avoid potential signedness and narrowing issues.
+
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
-An arm64 QEMU kernel exercised the RTD1625 MAIN2 pin and group
-state-selection paths using the real pinctrl callbacks and a synthetic
-regmap backend. A slew-rate request of 10 wrote field value 2 before
-the change and 1 after it, while adjacent bits were preserved. No
-board device tree, physical MMIO or signal timing was tested.
+v2:
+ - Update the debug format specifiers in "nvmet_auth_challenge()" to match the 
+   updated parameter types. Use "%u" for the "u32" payload length and "%zu" for 
+   the "size_t" data size to avoid format type mismatches and ensure correct debug output.
 
- drivers/pinctrl/realtek/pinctrl-rtd.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/nvme/target/fabrics-cmd-auth.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/pinctrl/realtek/pinctrl-rtd.c b/drivers/pinctrl/realtek/pinctrl-rtd.c
-index 60222339726b4..656c281c557ac 100644
---- a/drivers/pinctrl/realtek/pinctrl-rtd.c
-+++ b/drivers/pinctrl/realtek/pinctrl-rtd.c
-@@ -438,7 +438,7 @@ static int rtd_pconf_parse_conf(struct rtd_pinctrl *data,
- 		sr_off = config_desc->base_bit + config_desc->slew_rate_offset;
- 		reg_off = config_desc->reg_offset;
- 		mask = 0x3 << sr_off;
--		val = arg << sr_off;
-+		val = set_val << sr_off;
- 		break;
+diff --git a/drivers/nvme/target/fabrics-cmd-auth.c b/drivers/nvme/target/fabrics-cmd-auth.c
+index 70136f6c22e8..c90917d26c98 100644
+--- a/drivers/nvme/target/fabrics-cmd-auth.c
++++ b/drivers/nvme/target/fabrics-cmd-auth.c
+@@ -448,18 +448,18 @@ void nvmet_execute_auth_send(struct nvmet_req *req)
+ 	nvmet_req_complete(req, status);
+ }
  
- 	case PIN_CONFIG_INPUT_VOLTAGE_UV:
+-static int nvmet_auth_challenge(struct nvmet_req *req, void *d, int al)
++static int nvmet_auth_challenge(struct nvmet_req *req, void *d, u32 al)
+ {
+ 	struct nvmf_auth_dhchap_challenge_data *data = d;
+ 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
+ 	int ret = 0;
+ 	int hash_len = nvme_auth_hmac_hash_len(ctrl->shash_id);
+-	int data_size = sizeof(*data) + hash_len;
++	size_t data_size = sizeof(*data) + hash_len;
+ 
+ 	if (ctrl->dh_tfm)
+ 		data_size += ctrl->dh_keysize;
+ 	if (al < data_size) {
+-		pr_debug("%s: buffer too small (al %d need %d)\n", __func__,
++		pr_debug("%s: buffer too small (al %u need %zu)\n", __func__,
+ 			 al, data_size);
+ 		return -EINVAL;
+ 	}
+@@ -488,7 +488,7 @@ static int nvmet_auth_challenge(struct nvmet_req *req, void *d, int al)
+ 	return ret;
+ }
+ 
+-static int nvmet_auth_success1(struct nvmet_req *req, void *d, int al)
++static int nvmet_auth_success1(struct nvmet_req *req, void *d, u32 al)
+ {
+ 	struct nvmf_auth_dhchap_success1_data *data = d;
+ 	struct nvmet_ctrl *ctrl = req->sq->ctrl;
 -- 
 2.55.0
 
