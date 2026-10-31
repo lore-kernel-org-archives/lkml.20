@@ -1,81 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793435813;
-	b=JF7kqsZ7Xm2GdAIgzDeEubY51bRsLPTA9MdBic5oN8ppEjusWflq8x18vGX6Y3vEKowy
-	 Ha0dBh8lNhl86TawpcFxaUqbJO5ORtx8DiLhd4W/CVCfmKhnXhCehqeRTRAGaReOygB7Q
-	 ri2vL2yuWTvynhqKywOHgFewSOWxuf0oeXelAjorGFxs2GoAIhV5vmzsPX0QgMpFUHDF6
-	 t3jbWbexmI1Vx3jEsGCZvnoTJvCOpxmfImoRqk0SVghKzyj7iosn3kfeW4iUitsXR3kB2
-	 P1T2hRpJ2gaiBEu8uHxBmmIGhNvExuZfaqS9fuUQ756hascQmIpi8jWHAucNHvblWaw==
+	t=1793435830;
+	b=D4EvDUzZSF0BUsx4jYCDTG/ef5xt9LnWC1jLWcArHCAGxzoFNurzexpq7VGC4VoMG7ZE
+	 rDDoB7EsRB1wwvE3tAgZi0ucRbR0pp4cxT3a3SfRO+4TbIdVqdrN3ujoawPEEWmPGpB9J
+	 AnS3Q8JnKVcSPn87T564N5DG2wfGnPaeh3cWEAK97ouKUwefiBrszFuRvVDJ80By8TyyY
+	 iZnLJ232q6XotYZUySQS8TkoRlGymFfA6ykLurRJ/mlW72Ll6Efal9YxzTP6p5mDVjnOb
+	 G+HN5HLYb22FvydapUAtsDgfh1uKfIbE3qciOXlUbYvyXUglM3xv2q8LGVDVh9CuZNw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793435813;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=bJgvSlNrNKH1NoDZY0nuEfgdStiOApNnubWTBDknRnI=;
-	b=h7Zzk2QwOFy3RNZgIIfasQVD52YfWKR/WFj1UUQkWTSmrK5LeCFvIkvolH9soKCfHDcT
-	 /8f1a6zQqRJgMydCTNe2475UOAIUkLURdpd+SHPfNKKbtoA2Uq4GMAdxQPCMsWpCaNHpR
-	 GBqd0Kbk0YyVLJjHU9d8kFsMq8oyVfoNen1/5tQyTGpyqxC4NWxuX6bNRI0DTSxUmtn1C
-	 aW8I8glBzvKFJn2ysMKg64YxwPCxJg0u8w07zRQMznC9QcsOrGipg9hdFjPjuOQlgQADp
-	 7sDmGUDK0V2lEeQn04RaG02iryEyfds8UQHDZGYW60B6utGqOiHK6T9wa2jPl9O6KYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793435830;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=JGTlKeifjArZrE5QjdVxeEEwfoKkEK/kcyQWuyAcxng=;
+	b=StQh7Agy4jPXXaATM+c56XM7nH35gSmjfTm+8kYN9oMHDRJxteQC35e+uvK/TWeJsGU6
+	 PMzoNCoHp5dxJKk1Po5tmtONORO8EQeMCGBnLiJHKGXEUHHhKDpn9vNyrzLOycgfqSrpi
+	 veDAXpNobaAmbSpiLS1hCmznWQfD1C/AZzmk6YUesR5f9xmrvv5jut1TopxiuYLaxVYWv
+	 k8U14wfxd2NoHIXAXPKDnjt6UnJAsntVUyGsUoXYDKigUf46z5wZmWwf6Tc9f/n/oWfqq
+	 AVdF86p4E34ruY+d64fb8vmXMMYPIHRMSzHwFSquHE9luDyeavl9hziS0Q+5NWvpiQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Gtk9xW2O;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=furiosa.ai;
+	spf=none smtp.mailfrom=furiosa.ai;
+	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b="SdPp/Bbt";
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70B47606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:36:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 70B47606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0559A606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0559A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Gtk9xW2O
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793435811; x=1824971811;
-  h=date:from:to:cc:subject:message-id;
-  bh=dtvVYbFvIDyClFn9yLxM4QhxjXgihlmypuRixwz0OHQ=;
-  b=Gtk9xW2OXfs8azdG4QDuMA5qPxtEJgryiwbksijmrFoT6pgYoOusAcKN
-   XApR/g9RRNT0idyfJYq6xZxbN1Bn2D5ZnkaBlXNDuS6xhNDayZyCeVzet
-   Bo3eJQ3pvv2Px14l2tjl/W5E02Y/DtixWs2JVi8jM4ZQDd5vTzDtSn5CB
-   qJRgtM3Xf1/BYwgLwQNGYLaBXGBKcYiLe1RCu1fULeKzhR/pMAMco9uR+
-   EzcgzxPPnxmdCRSZZDPpNGzP4JopsDSn2Fnky+aATFXEsO9NJ8aBbjMpH
-   qpSgtRAqKvwhRY8ETQhLVSX2SOCtbZE5LjXHtDpdL2ScTN3i43wHJQs0n
-   g==;
-X-CSE-ConnectionGUID: EDNCHU5XR5WUCV5CTPuVwQ==
-X-CSE-MsgGUID: jXrZXySCS/KULuzQWYJ9vw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2073556"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2073556"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 01:36:51 -0700
-X-CSE-ConnectionGUID: mphRazFYQZepekTuwCYghA==
-X-CSE-MsgGUID: q+ktFgiNTK2IKryNULnS7Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="7454246"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 31 Oct 2026 01:36:49 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xN4Zy-00000000cfc-19P3;
-	Sat, 31 Oct 2026 08:36:46 +0000
-Date: Sat, 31 Oct 2026 16:36:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>,
- Linux Memory Management List <linux-mm@kvack.org>,
- "Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: arch/riscv/include/asm/syscall_wrapper.h:35:14: warning:
- '__se_sys_userfaultfd' alias between functions of incompatible types 'long
- int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long
- int(long unsigned int,  long unsigned int,  long uns...
-Message-ID: <202610311814.sISpHHXr-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=SdPp/Bbt
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-35c76e9614aso2145608eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:37:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=furiosa.ai; s=google; t=1793435829; x=1794040629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JGTlKeifjArZrE5QjdVxeEEwfoKkEK/kcyQWuyAcxng=;
+        b=SdPp/BbtTuOS1PjRag9Os2hDi8I5Cu3oVhGu6esgmAxF7bXJ2sxbaUPE1d1n/eLxOi
+         5lvfoznO6MvGW6x/QxoLnSPDXBEKeesXPm45vuDT8eiER8FUHCzLJUfGLx2jBf5QSRKX
+         kP3hhBs+JjMqgWQ7A/zJwVG3zY+a9hkVGu2tA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793435829; x=1794040629;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JGTlKeifjArZrE5QjdVxeEEwfoKkEK/kcyQWuyAcxng=;
+        b=cMqsixmsdiJmu2lHP6MJ4hwheXIevDH1DiGhAMDpWq/5Srn5D/Bk3kNTytPubrObHC
+         1fWAWyLFDNixfJJEd104O1UhTzu997hFc1AJ8qvGaoUc8xKg51MoFQ+JRdott1ys9kQK
+         oPMC/miorGdUYd6IZjaKmOtP2TWxPcPNinhvl3Z6PUlbNBYvarCTYAQXX1nYvu/8Bp9S
+         ADjidDikRQ6MAIokgAWw36g5H+nRlCzgMcX3W84E50LM8J8Efq+hUs9WHducPuYAB762
+         q5wLyj8kW0fjlmVWo9nj3CywNOeAtko9f4eDdekHrPE2WmygEd6PdqmMwQS1JgFxR5ab
+         j2Aw==
+X-Forwarded-Encrypted: i=1; AKwUvByU9dKET8JpqrtRoU9+igMTTHP6HRD/OOYoiAGFylmD9Qivbh5smgB0FX5KWlVAF/yqBiB5shDHZe9IcM4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/FAo0HJ5KDQ+4LrofaXQL2tPBZlFwaBDijNje1+8d8iyp2zw+
+	5nqHTuI8KMsO1ZVMkNVxVu2BFvfAZkmhynI26owqwSPrX5UAzz534tLsV7cS6CmGk/UYxUOTfil
+	F0zHJVrw=
+X-Gm-Gg: AYBFou28frH86wtOdPSLj5fx3X6BXmIHSqkBDFQzlNQBbyUDLUt4HIyZJwBtbR6Dzkj
+	quSZQWHyo19qKJIMBnoMpIw0u1wBf/lQYgazeiDTaJDD0Qf0jyO1lD5ca4GigzBJmwuTgwsTqk4
+	NGWVNGGYJGyFaZwwflVDWcs2yiLZ2XIfSpUb9s1/1mcxn786+/DHrZOG9C8QQraHl+347PXB9lq
+	tMREkrgBsk+8P768cJsjA+EfX+o+8Oayts84YLfyrAKx/Llg/dCIGKdcHeZSb+Sve+aJuA7M/KG
+	Ls+jbfyBRUQt234MS/gwbG6NkaqFZOk2/unJbELZ+pq+XKuN/m5tBCHN9i9BSQQxSMJskzoXB5j
+	/9T+1l8GgGVGWZuM+6hLpB/X4mSSP54kZ2xErQIaf3LYv2PzC2BK0eEqkSIEtYW/y/RXgGajS0p
+	dVzgHgm/8K1O9qPpTCzZYBQ9JNisixuO3tjKHFWbgV/SLzpsQdLlVVoLyR7BZsVzloVwH7ldjgQ
+	Rz0a+7tnjXV1lmv6PrZFAzKC3jIH1DOZNgq+iAwWWHYWPQqQ2qDugpkQsfSg88qmItbK7PskRxR
+	vhHzxU68IVVk+hzJhuo+N/6jumivlYA=
+X-Received: by 2002:a05:693c:414f:20b0:369:e930:6bc4 with SMTP id 5a478bee46e88-36a423f6f4amr7002919eec.30.1793435828892;
+        Sat, 31 Oct 2026 01:37:08 -0700 (PDT)
+Received: from rock-5b-plus ([61.83.209.48])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4294419dsm14322826eec.18.2026.10.31.01.37.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 01:37:08 -0700 (PDT)
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Sidong Yang <sidong.yang@furiosa.ai>
+Subject: [PATCH] accel/rocket: Report per-core engine usage through fdinfo
+Date: Sat, 31 Oct 2026 17:36:42 +0900
+Message-ID: <20261031083642.1076356-1-sidong.yang@furiosa.ai>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,106 +93,251 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Mike,
+There is no way to tell how much of the NPU a client uses, or whether its
+jobs reach more than one core. Implement the DRM usage stats: account the
+time each job occupies a core and report it per client as
+drm-engine-npu<n>, along with drm_show_memory_stats() for the BOs.
 
-FYI, the error/warning still remains.
+Jobs can outlive the file that submitted them, so the counters are
+refcounted and each job holds a reference. The time covers the whole
+period a job owns a core, so it also includes handling the completion
+interrupt and the gaps between the tasks of a multi-task job.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   2a500a04d6f969318c05f46aedb6e73fc1963a00
-commit: 7bc5e747bba29d5b77b2278e8c696eea0c796706 userfaultfd: merge fs/userfaultfd.c into mm/userfaultfd.c
-date:   5 months ago
-config: riscv-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311814.sISpHHXr-lkp@intel.com/config)
-compiler: riscv32-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311814.sISpHHXr-lkp@intel.com/reproduce)
+For example, teflon running a model two operations deep 3001 times gives:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 7bc5e747bba2 ("userfaultfd: merge fs/userfaultfd.c into mm/userfaultfd.c")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311814.sISpHHXr-lkp@intel.com/
+  drm-engine-npu0:	22719385 ns
+  drm-engine-npu1:	23345296 ns
+  drm-engine-npu2:	0 ns
 
-All warnings (new ones prefixed by >>):
+The NPU is busy 15.6% of the wall clock time and one core is never used.
 
-   In file included from include/linux/compat.h:34,
-                    from arch/riscv/include/asm/elf.h:12,
-                    from include/linux/elf.h:6,
-                    from include/linux/module.h:20,
-                    from include/linux/device/driver.h:21,
-                    from include/linux/device.h:32,
-                    from include/linux/blk_types.h:11,
-                    from include/linux/writeback.h:13,
-                    from include/linux/memcontrol.h:23,
-                    from include/linux/rmap.h:12,
-                    from mm/userfaultfd.c:16:
->> arch/riscv/include/asm/syscall_wrapper.h:35:14: warning: '__se_sys_userfaultfd' alias between functions of incompatible types 'long int(ulong,  ulong,  ulong,  ulong,  ulong,  ulong,  ulong)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int,  long unsigned int)'} and 'long int(long int)' [-Wattribute-alias]
-     static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong,  \
-                 ^~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:82:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   mm/userfaultfd.c:4475:1: note: in expansion of macro 'SYSCALL_DEFINE1'
-    SYSCALL_DEFINE1(userfaultfd, int, flags)
-    ^~~~~~~~~~~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:41:14: note: aliased declaration here
-     static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-                 ^~~~~~
-   arch/riscv/include/asm/syscall_wrapper.h:82:2: note: in expansion of macro '__SYSCALL_SE_DEFINEx'
-     __SYSCALL_SE_DEFINEx(x, sys, name, __VA_ARGS__)    \
-     ^~~~~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:236:2: note: in expansion of macro '__SYSCALL_DEFINEx'
-     __SYSCALL_DEFINEx(x, sname, __VA_ARGS__)
-     ^~~~~~~~~~~~~~~~~
-   include/linux/syscalls.h:225:36: note: in expansion of macro 'SYSCALL_DEFINEx'
-    #define SYSCALL_DEFINE1(name, ...) SYSCALL_DEFINEx(1, _##name, __VA_ARGS__)
-                                       ^~~~~~~~~~~~~~~
-   mm/userfaultfd.c:4475:1: note: in expansion of macro 'SYSCALL_DEFINE1'
-    SYSCALL_DEFINE1(userfaultfd, int, flags)
-    ^~~~~~~~~~~~~~~
+Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
+---
+ drivers/accel/rocket/rocket_drv.c | 60 +++++++++++++++++++++++++++++--
+ drivers/accel/rocket/rocket_drv.h | 14 ++++++++
+ drivers/accel/rocket/rocket_job.c |  7 ++++
+ drivers/accel/rocket/rocket_job.h |  4 +++
+ 4 files changed, 83 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 8bbbce594883..5b81d1ecc0e4 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -3,8 +3,10 @@
+ 
+ #include <drm/drm_accel.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_ioctl.h>
++#include <drm/drm_print.h>
+ #include <drm/rocket_accel.h>
+ #include <linux/clk.h>
+ #include <linux/err.h>
+@@ -68,6 +70,25 @@ rocket_iommu_domain_put(struct rocket_iommu_domain *domain)
+ 	kref_put(&domain->kref, rocket_iommu_domain_destroy);
+ }
+ 
++static void
++rocket_engine_usage_destroy(struct kref *kref)
++{
++	kfree(container_of(kref, struct rocket_engine_usage, kref));
++}
++
++struct rocket_engine_usage *
++rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
++{
++	kref_get(&rocket_priv->engine_usage->kref);
++	return rocket_priv->engine_usage;
++}
++
++void
++rocket_engine_usage_put(struct rocket_engine_usage *usage)
++{
++	kref_put(&usage->kref, rocket_engine_usage_destroy);
++}
++
+ static int
+ rocket_open(struct drm_device *dev, struct drm_file *file)
+ {
+@@ -86,10 +107,19 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 	}
+ 
+ 	rocket_priv->rdev = rdev;
++
++	rocket_priv->engine_usage = kzalloc_flex(*rocket_priv->engine_usage,
++						 elapsed_ns, rdev->num_cores);
++	if (!rocket_priv->engine_usage) {
++		ret = -ENOMEM;
++		goto err_free;
++	}
++	kref_init(&rocket_priv->engine_usage->kref);
++
+ 	rocket_priv->domain = rocket_iommu_domain_create(rdev->cores[0].dev);
+ 	if (IS_ERR(rocket_priv->domain)) {
+ 		ret = PTR_ERR(rocket_priv->domain);
+-		goto err_free;
++		goto err_put_engine_usage;
+ 	}
+ 
+ 	file->driver_priv = rocket_priv;
+@@ -109,6 +139,8 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 	mutex_destroy(&rocket_priv->mm_lock);
+ 	drm_mm_takedown(&rocket_priv->mm);
+ 	rocket_iommu_domain_put(rocket_priv->domain);
++err_put_engine_usage:
++	rocket_engine_usage_put(rocket_priv->engine_usage);
+ err_free:
+ 	kfree(rocket_priv);
+ err_put_mod:
+@@ -125,6 +157,7 @@ rocket_postclose(struct drm_device *dev, struct drm_file *file)
+ 	mutex_destroy(&rocket_priv->mm_lock);
+ 	drm_mm_takedown(&rocket_priv->mm);
+ 	rocket_iommu_domain_put(rocket_priv->domain);
++	rocket_engine_usage_put(rocket_priv->engine_usage);
+ 	kfree(rocket_priv);
+ 	module_put(THIS_MODULE);
+ }
+@@ -139,7 +172,29 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
+ 	ROCKET_IOCTL(FINI_BO, fini_bo),
+ };
+ 
+-DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
++static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *file)
++{
++	struct rocket_device *rdev = to_rocket_device(file->minor->dev);
++	struct rocket_file_priv *rocket_priv = file->driver_priv;
++	unsigned int core;
++
++	/*
++	 * These are estimates: the time is taken around the whole period a job
++	 * occupies a core, so it also covers handling the completion interrupt
++	 * and, for a job made of several tasks, the gaps between them.
++	 */
++	for (core = 0; core < rdev->num_cores; core++)
++		drm_printf(p, "drm-engine-npu%u:\t%llu ns\n", core,
++			   rocket_priv->engine_usage->elapsed_ns[core]);
++
++	drm_show_memory_stats(p, file);
++}
++
++static const struct file_operations rocket_accel_driver_fops = {
++	.owner = THIS_MODULE,
++	DRM_ACCEL_FOPS,
++	.show_fdinfo = drm_show_fdinfo,
++};
+ 
+ /*
+  * Rocket driver version:
+@@ -150,6 +205,7 @@ static const struct drm_driver rocket_drm_driver = {
+ 	.open			= rocket_open,
+ 	.postclose		= rocket_postclose,
+ 	.gem_create_object	= rocket_gem_create_object,
++	.show_fdinfo		= rocket_show_fdinfo,
+ 	.ioctls			= rocket_drm_driver_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(rocket_drm_driver_ioctls),
+ 	.fops			= &rocket_accel_driver_fops,
+diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
+index 2c673bb99ccc..eff5c2ac54d1 100644
+--- a/drivers/accel/rocket/rocket_drv.h
++++ b/drivers/accel/rocket/rocket_drv.h
+@@ -16,6 +16,15 @@ struct rocket_iommu_domain {
+ 	struct kref kref;
+ };
+ 
++/*
++ * Time each core has spent running a client's jobs, in nanoseconds, indexed by
++ * core. Jobs hold a reference, as they can outlive the file that submitted them.
++ */
++struct rocket_engine_usage {
++	struct kref kref;
++	u64 elapsed_ns[];
++};
++
+ struct rocket_file_priv {
+ 	struct rocket_device *rdev;
+ 
+@@ -24,9 +33,14 @@ struct rocket_file_priv {
+ 	struct mutex mm_lock;
+ 
+ 	struct drm_sched_entity sched_entity;
++
++	struct rocket_engine_usage *engine_usage;
+ };
+ 
+ struct rocket_iommu_domain *rocket_iommu_domain_get(struct rocket_file_priv *rocket_priv);
+ void rocket_iommu_domain_put(struct rocket_iommu_domain *domain);
+ 
++struct rocket_engine_usage *rocket_engine_usage_get(struct rocket_file_priv *rocket_priv);
++void rocket_engine_usage_put(struct rocket_engine_usage *usage);
++
+ #endif
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ce994748dd5d..c0ffbccfb6cc 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -13,6 +13,7 @@
+ #include <linux/iommu.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/sched/clock.h>
+ 
+ #include "rocket_core.h"
+ #include "rocket_device.h"
+@@ -265,6 +266,7 @@ static void rocket_job_cleanup(struct kref *ref)
+ 	unsigned int i;
+ 
+ 	rocket_iommu_domain_put(job->domain);
++	rocket_engine_usage_put(job->engine_usage);
+ 
+ 	dma_fence_put(job->done_fence);
+ 	dma_fence_put(job->inference_done_fence);
+@@ -351,6 +353,7 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		core->in_flight_job = job;
++		job->start_ns = local_clock();
+ 		rocket_job_hw_submit(core, job);
+ 	}
+ 
+@@ -379,6 +382,9 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 				return;
+ 			}
+ 
++			core->in_flight_job->engine_usage->elapsed_ns[core->index] +=
++				local_clock() - core->in_flight_job->start_ns;
++
+ 			iommu_detach_group(NULL, iommu_group_get(core->dev));
+ 			dma_fence_signal(core->in_flight_job->done_fence);
+ 			pm_runtime_put_autosuspend(core->dev);
+@@ -587,6 +593,7 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 
+ 	rjob->rdev = rdev;
+ 	rjob->domain = rocket_iommu_domain_get(file_priv);
++	rjob->engine_usage = rocket_engine_usage_get(file_priv);
+ 
+ 	ret = drm_sched_job_init(&rjob->base,
+ 				 &file_priv->sched_entity,
+diff --git a/drivers/accel/rocket/rocket_job.h b/drivers/accel/rocket/rocket_job.h
+index 4ae00feec3b9..14aa78aebc99 100644
+--- a/drivers/accel/rocket/rocket_job.h
++++ b/drivers/accel/rocket/rocket_job.h
+@@ -38,6 +38,10 @@ struct rocket_job {
+ 
+ 	struct rocket_iommu_domain *domain;
+ 
++	/* When the job was handed to a core, and where to account the time */
++	u64 start_ns;
++	struct rocket_engine_usage *engine_usage;
++
+ 	struct kref refcount;
+ };
+ 
 
-vim +35 arch/riscv/include/asm/syscall_wrapper.h
+base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
+-- 
+2.53.0
 
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  16  
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  17  #define __SYSCALL_SE_DEFINEx(x, prefix, name, ...)					\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  18  	static long __se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__));		\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  19  	static long __se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  20  
-08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  21  #define SC_RISCV_REGS_TO_ARGS(x, ...)							\
-08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  22  	__MAP(x,__SC_ARGS								\
-08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  23  	      ,,regs->orig_a0,,regs->a1,,regs->a2					\
-08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  24  	      ,,regs->a3,,regs->a4,,regs->a5,,regs->a6)
-08d0ce30e0e4fcb Sami Tolvanen 2023-07-10  25  
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  26  #else
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  27  /*
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  28   * Use type aliasing to ensure registers a0-a6 are correctly passed to the syscall
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  29   * implementation when >word-size arguments are used.
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  30   */
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  31  #define __SYSCALL_SE_DEFINEx(x, prefix, name, ...)					\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  32  	__diag_push();									\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  33  	__diag_ignore(GCC, 8, "-Wattribute-alias",					\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  34  			"Type aliasing is used to sanitize syscall arguments");		\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11 @35  	static long __se_##prefix##name(ulong, ulong, ulong, ulong, ulong, ulong, 	\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  36  					ulong)						\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  37  			__attribute__((alias(__stringify(___se_##prefix##name))));	\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  38  	__diag_pop();									\
-653650c468be211 Sami Tolvanen 2024-03-26  39  	static long noinline ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))	\
-653650c468be211 Sami Tolvanen 2024-03-26  40  			__used;								\
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  41  	static long ___se_##prefix##name(__MAP(x,__SC_LONG,__VA_ARGS__))
-a9ad73295cc1e3a Sami Tolvanen 2024-03-11  42  
-
-:::::: The code at line 35 was first introduced by commit
-:::::: a9ad73295cc1e3af0253eee7d08943b2419444c4 riscv: Fix syscall wrapper for >word-size arguments
-
-:::::: TO: Sami Tolvanen <samitolvanen@google.com>
-:::::: CC: Palmer Dabbelt <palmer@rivosinc.com>
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
