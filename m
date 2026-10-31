@@ -1,106 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793465851;
-	b=AhAvmYqhgVO8m/BJsE+2MlAgaWIDSEdsEFcmS4p3zzeqWpSMvOQxFyJ9867qj14L8ler
-	 gkQvm5gbU2Mui3OJ8Kyf2eabeCpgCd3E3kAXzM0eW5EVnd/1ZwtgLpHYNJdagg9yVCZ8t
-	 s3QCAbiRNDkwGs/iXqrQpLWNiD1Pkx9q8bNwJ+rulzVVIKva0YLYGZyrCYicaAIUK/O4j
-	 MpFKVzNxU2TQfTxoGVliKksuyEo0vL5Q+7CWjh8urtoUEc03Rg6nGhooQREbD+baGv/O1
-	 4HfV4+sbQ5/tXNyK3VUb6vmNwEMMn4EUHALY4e5Pl23lbyU+snIUui2l+9oX0ZgNcoA==
+	t=1793466193;
+	b=KklWi8/OySfgNuUQOQtiKVzj+RBCjSr7I3L/ESlynhZcyvk8plXLskOezulB7V9YjyAs
+	 3L4jcAeCTQp6w68/rBnWBdbAGTssCdWjDTwnF9HxnrI+l+Lp7pGiLJK78t7J7obMLVzz6
+	 NlpQcF1uOC9E6PhDCnsJA1Me9pusFSXJUrbICsCfY0gQrRhqNXMKA9xoRKVkoQSOym1fa
+	 F73F9iQHbVe3em+mmFhWbZmfYCULW0tpJ+EvDRGno3/1ybIlzlAjlMB+OGq66PWpoIpWp
+	 Cv1ehCcKNPLSCCtvnKurEdl6GEImwc/MiQRp0nzRXlUvEhboFZu1LT3hsFty/00MWnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465851;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spamd-Result:X-Spam-Score:X-Spam-Level:X-Spam-Flag;
-	bh=YBhiIwvADJajh3RbHDwL/JDcA8HU7Bu/kdL+MLxWhn4=;
-	b=vl+OIglsGMwln1v1cACtP8v9wRJM1ppNrSXNaG82kFkwIxtYfjzta57fxuXPA+lWxajM
-	 9UC5zSFGGoVr7pyLn6MFzhPv4GEFgEDwAxIO7/Z69DYdqdn1KjRIQHH9Dzy+7JMgx6LI+
-	 4zFrY6EFDXtfZC5r+odJixwRh1pBPez2zhOQVw4FD5/056JejkijIadnL77S7DVFmvIj2
-	 RikhBUg1J9AHskERqgrvJ802rpsE46RZ+GmDURVwuJRHmc9fzJnJeaOEjE8jUotb0Nahl
-	 2u1ZEQnyNhwY9De+zqxMCcMLsoAcgowlrPyOT8SqQJ91ci30bf5ukvD1JxFJbaCJ7iA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793466193;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=gba0XFZ/wiG7mOW6sD/3lIcnTLkNzkhvuJnY/kVtgnw=;
+	b=lCfH9C3s8Ffh/fxdQJwthpBp/UsEZLwQ8r48IMOPTJ87zVZW5MSieNI+2yXpUZwdAi41
+	 A/vzYM5gIzAb4KOuZEFJvfitNuZwb+QgLPiYYSczSrIArJMNFIdil8OPJdryE5bpImEtr
+	 CUiZgfKQCwgd1jXK/xSI7iH4WRBmXZK7EwDFuz601V/hkMPr3/IFvSnM74QN49r8iYZ5O
+	 hI3jKjFGZNlm306+dMV3VT5dmxpCP+P2Lr0ZvMKa+AB2fKKmXjANIVCCEMr97hOLFYYBe
+	 Q2BPv/c6Fpubx2xDKnvPHmki+YoKS3uuRBZ+p2sxKAlyX6iJjlQrnDi41Xc44xWL09w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AQim8VLD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+B+Rr1Nb;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SShI2Dm8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8xljWlZX;
-	arc=none smtp.remote-ip=195.135.223.131
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i8E3v5cp;
+	arc=none smtp.remote-ip=209.85.210.177
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B27A606A31C;
-	Sat, 31 Oct 2026 16:57:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B27A606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0478606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:03:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0478606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=AQim8VLD;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=+B+Rr1Nb;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=SShI2Dm8;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=8xljWlZX
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 96BB31F38F;
-	Sat, 31 Oct 2026 16:57:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793465848; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YBhiIwvADJajh3RbHDwL/JDcA8HU7Bu/kdL+MLxWhn4=;
-	b=AQim8VLDAfZ2B0MG15a44DFFH3lTH9uxZ0FEkdCt+KKY9mHHnKz+udEE6ieQiE7ES1xryN
-	Dt8yHRz3lyKW/kOvuacPoK7UZBmT3rGAnpuHyZ89aFDRvbOy3QiDTzpH3GNDsPI7ZHxRZ1
-	kSzIY9CUiRYehWeKim59z7Sb9zl33tk=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793465848;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YBhiIwvADJajh3RbHDwL/JDcA8HU7Bu/kdL+MLxWhn4=;
-	b=+B+Rr1NbzzLi+IbWn4BrqWkUTRQakoYBuBHt9TY3gbgrT15ST2fyBPBA7djfkeGvNx3iPd
-	gWTF0nLUIyC8raAA==
-Authentication-Results: smtp-out2.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793465847; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YBhiIwvADJajh3RbHDwL/JDcA8HU7Bu/kdL+MLxWhn4=;
-	b=SShI2Dm8GHXidWTZIQ/+2pbnZSiXK/4tgljKcyAQtEAu76jKd12xUjUmIxE8egJKN2r9oh
-	os8Z+nwFrJKmEu8DsmVXBkRo88ETIQ1muOclUW9p/IY+mYPtwXa4t6LiCf+CK4/aV52QYi
-	scetrf4VO3IYvctRrnqSN7TGdpI6HY4=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793465847;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YBhiIwvADJajh3RbHDwL/JDcA8HU7Bu/kdL+MLxWhn4=;
-	b=8xljWlZXMHnEby8ymRgHWTDKAicRPYtqXs0Bg6ywWfglWBrjWqyTzUGYApBQppbsdkt2xE
-	OMImbAmZl+XK2ZDA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 28B04132D3;
-	Sat, 31 Oct 2026 16:57:27 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id AWBwO/Yd5mp8ZQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 31 Oct 2026 16:57:27 +0000
-Date: Sat, 31 Oct 2026 17:57:26 +0100
-Message-ID: <87bj89reo9.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: RenPanpan <rppxj178543@163.com>
-Cc: alsa-devel@alsa-project.org,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [DISCUSSION] ALSA: usb-audio: Card naming for composite devices
-In-Reply-To: <20261030121740.250336-1-rppxj178543@163.com>
-References: <20261030121740.250336-1-rppxj178543@163.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=i8E3v5cp
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8a070755c8cso777949b3a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:03:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793466187; x=1794070987; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gba0XFZ/wiG7mOW6sD/3lIcnTLkNzkhvuJnY/kVtgnw=;
+        b=i8E3v5cpMSfAi1mqqro21Q/8Raqh769HEWZJL46CwnM2v9wK2OLVzJsAuCSE9qf3zq
+         tQY50fNwQDpf+SJSRQlAgqkCXH0WUUKhP57b7/iP77Uf3WNogA/laZGasAKdFWEz783R
+         toarBNdQRNtB75h9qwyX3N4XLDJa/7DPVsqKt+7a6In8nxnIlpSFdU2WiAXEmjKaF5ks
+         XnZGp+AauqkTqlVVZmUVXtl4Ag0HgI6GlxH75NYUPYnvp305gsOHdLStmb2NDkg/ihGG
+         sRkldpqZ/xsViTVAvbYKqxtnovFp7bSCwKkO/qhbTEhCAOOAoI1dYAM/lSLdEuekL6SG
+         SZDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793466187; x=1794070987;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gba0XFZ/wiG7mOW6sD/3lIcnTLkNzkhvuJnY/kVtgnw=;
+        b=1AFGJO649ku7Njmd1Z6nKZvTFDpfqvOPCVfFYMxHxckpEvGD5R/w7BK96pQDKY0YL3
+         iI+JBe3rvz2GN/31oRGoJX/ZhS7FIJ2rY731KlY2go2bLbQtRKzQBfRxLtOW7ebzCmzD
+         ltuaEAeuuCIKcQh3nLb4HhJbKQZ8cmiAgiczacwEQxfZe+TtJkal+Q4jQkuC5iescPk2
+         YFqT/ED9aVxS/L1lJ5DHbeZ11I3myuFCpmPn791UoQEO7y/oN58CdMq/BHuyiPDHX+jy
+         5R05dt/1Z2qiMBvRFfDYXNLPmFN5x0CmV3o3BTalQhww2bT37u+aA6ITsKcsCFCVQDJy
+         AUeQ==
+X-Forwarded-Encrypted: i=1; AKwUvByyB/pbpEyjofiejTMTdgt5nB7LnpOpZAnCNBXXqt3He2fSRwjNf6r2L9nhQ8vseEK63kAUML2ZQHlpn+Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYITes01ssdt39/JqmIxaF9bQ2ASDRmTIgKkr4N00Q4dd9qq4OkE
+	8PCRyP7D+nZDhbV4qkeGPcNar5sNbDa7/6iDrjIyggoyhCdLWAhY/FHX
+X-Gm-Gg: AYBFou34jtWrzjywlSbz+wnOcmghCR+/tE8JyaM9gfZLY9WCMbxOwGHaLwCtubmF5/q
+	YvFSdk57Igg/G4XWioh6YM8nrzCE3G+im9QtY1FAAQsQ9yBtMEtX3e4LVXHF41YDb0qr6LKnLXD
+	JZjoATPp8em6Rh+gsBAQ+aCzqYCui5rqM5LtsoXelgApF3zf+sxfg6FASWYlieA5++IOsYpSSLr
+	jsIROUzwRfWHlcxYBUWEZd8tbFwnKjRG8XyNfKvHnG1vV5kxynBS6z9M0TEjcayQPNK9ETP9FyA
+	DGxAHWXTnc6cqz0p3/+YeMb/Tiv30lbGRmZHCcd0AWHyEOG6DVSv6q5Dq4pOZWZc0hHS/4gHOOf
+	o2vEK7kJy7aJqO6aUIuhuoSJmqp9zbC1ngbopi8uXrzZ7XMggAcmOQruZ9+1FG9RImatulxm29m
+	Ik4srZKj3Ye7hT1FGML8ZLzRibGc10Tr0I1nXPVKnAJoKeEMmOng6VpW6dkYGSo4e83p+hr8d2v
+	SfnG0ZjFidjxy/KHkI0V9+c/W4PAHcnQyCuRu2ha6IEmyTR03bKtUS2eH/nejT16VoWf+2/MuRb
+	JHOwWm/E9LBhMuGvseyBBsLR+NlAVNB+3dF3qnxSxGmdpSOYMWPMQFBX+Chs/EeapLvnHNDXMFX
+	VLfLVnsYRDfI1jHPu+VgNIJtWiZGTlVFlEN/Yx557QfmrUWmpYqy6vjk=
+X-Received: by 2002:a05:6a21:b91:b0:3e8:e974:e45a with SMTP id adf61e73a8af0-3e928e26581mr4547143637.63.1793466186813;
+        Sat, 31 Oct 2026 10:03:06 -0700 (PDT)
+Received: from localhost ([153.61.198.246])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadad94a8esm817264b3a.55.2026.10.31.10.03.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 10:03:05 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 31 Oct 2026 17:03:04 +0000
+Message-Id: <DMJ6PAVGV9ND.29T5161F064JL@gmail.com>
+Cc: "Ihor Solodrai" <ihor.solodrai@linux.dev>, "Alan Maguire"
+ <almagui@kernel.org>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Masami Hiramatsu" <mhiramat@kernel.org>,
+ "Mathieu Desnoyers" <mathieu.desnoyers@efficios.com>,
+ <linux-trace-kernel@vger.kernel.org>, "Nathan Chancellor"
+ <nathan@kernel.org>, "Nicolas Schier" <nsc@kernel.org>,
+ <linux-kbuild@vger.kernel.org>, "Arnd Bergmann" <arnd@arndb.de>,
+ <linux-arch@vger.kernel.org>, <x86@kernel.org>,
+ <linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Hazem Mohamed
+ Abuelfotoh" <abuehaze@amazon.com>, "Bjoern Doebel" <doebel@amazon.de>,
+ "Martin Pohlack" <mpohlack@amazon.de>, <jay.wang.upstream@gmail.com>
+Subject: Re: [PATCH bpf-next 03/13] bpf: check CAP_SYS_ADMIN before looking
+ up bpffs delegation names
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Jay Wang" <wanjay@amazon.com>, <bpf@vger.kernel.org>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
+ Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
+ <memxor@gmail.com>
+In-Reply-To: <20261031130959.23472-4-wanjay@amazon.com>
+References: <20261031130959.23472-1-wanjay@amazon.com> <20261031130959.23472-4-wanjay@amazon.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,112 +113,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	ARC_NA(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	FREEMAIL_TO(0.00)[163.com];
-	MIME_TRACE(0.00)[0:+];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FREEMAIL_ENVRCPT(0.00)[163.com];
-	RCPT_COUNT_THREE(0.00)[4];
-	TO_DN_SOME(0.00)[];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
-X-Spam-Level: 
-X-Spam-Flag: NO
+MIME-Version: 1.0
 
-On Fri, 30 Oct 2026 13:17:39 +0100,
-RenPanpan wrote:
-> 
-> Hello,
-> 
-> I'd like to discuss an issue with USB audio card naming for composite
-> devices and propose a possible improvement.
-> 
-> Problem
-> -------
-> 
-> For USB composite devices containing both non-audio and UAC audio
-> functions, the ALSA card shortname is derived from the device-level
-> iProduct string, which describes the entire device rather than the
-> audio function.
-> 
-> For example, the CVT Touch Device (1ff7:0f33) is a composite device
-> with HID touch interfaces and UAC audio interfaces. Its iProduct is
-> "Touch Device", which is the name for the whole device. The UAC
-> OUTPUT_TERMINAL descriptor defines the audio function name as
-> "MAXHUB Speaker" via the iTerminal string descriptor (index 14).
-> 
-> Currently, the ALSA card name shows "Touch Device", which does not
-> identify the audio function. The UAC mixer code already reads
-> iTerminal for mixer control names (e.g. "MAXHUB Mic" from the
-> Microphone INPUT_TERMINAL's iTerminal=17), but the card naming
-> function (usb_audio_make_shortname) does not use iTerminal.
-> 
-> Proposed approach
-> -----------------
-> 
-> When the USB device is composite (i.e. it has non-audio interfaces),
-> prefer the Speaker OUTPUT_TERMINAL's iTerminal string as the card
-> shortname, instead of the device-level iProduct. If iTerminal is not
-> set (zero) or not readable via usb_string(), fall back to iProduct
-> (existing behavior).
-> 
-> Non-composite (dedicated audio) devices are not affected and continue
-> to use iProduct.
-> 
-> The composite device detection checks whether any interface has a
-> non-Audio class. The iTerminal reading uses the existing
-> snd_usb_find_csint_desc() helper to parse OUTPUT_TERMINAL descriptors
-> in the Audio Control interface's extra data. The iTerminal field is
-> the last byte of the descriptor, common to both UAC1 (bLength=9) and
-> UAC2 (bLength=12).
-> 
-> As an immediate fix, I have also prepared a quirk entry for 1ff7:0f33
-> to override the card shortname to "MAXHUB Speaker" directly.
-> 
-> Questions for the community
-> ----------------------------
-> 
-> 1. Is this approach reasonable for composite devices, or should it
->    remain a per-device quirk?
-> 
-> 2. Are there concerns about changing card names for existing composite
->    USB audio devices that have iTerminal set? For example, UCM profile
->    matching or PulseAudio device identification.
-> 
-> 3. Would it be preferable to also check the IAD's iFunction field
->    before falling back to iTerminal, or is iTerminal sufficient?
-> 
-> 4. Are there known composite USB audio devices where the iTerminal
->    string might be empty or contain unexpected content?
-> 
-> I have tested the quirk approach on a MT81C device (Kylin V10-SP1)
-> and it works correctly. The iTerminal approach compiles but has not
-> been tested on multiple devices yet.
-> 
-> Any feedback would be appreciated.
-> 
-> Best regards,
-> RenPanpan
+On Sat, Oct 31, 2026 at 06:09 AM Jay Wang <wanjay@amazon.com> wrote:
+> That is free today because the vmlinux BTF is parsed at boot.  Once it
+> is parsed on first use (CONFIG_DEBUG_INFO_BTF_LAZY, later in this
+> series), it would let any user make the kernel parse it and keep it
+> parsed until reboot, which is what the option is meant to avoid on
+> systems that do not use BTF.
 
-I took your first fix patch as it was simple enough.
-(It took time just because I was traveling in the last week.)
+Any user can do that without this mount.
+/sys/kernel/btf/vmlinux is 0444. With patch 9 one read() decompresses
+5.5 MB into vmalloc_user() memory that is never freed.
+The parse is the other 2 MB.
+After the first use the kernel has what every BTF=y kernel has today.
+There is nothing to guard.
 
-If it still doesn't suffice, let us know.  Thanks.
+> Check the capability first.  An unprivileged caller could only ever set
+> an empty mask; such a no-op delegate option, and a malformed value,
+> now fail with EPERM as well instead of being accepted or failing with
+> EINVAL.  Privileged callers are not affected.
 
-
-Takashi
+That changes what user space sees, with or without the option.
+Drop this patch.
