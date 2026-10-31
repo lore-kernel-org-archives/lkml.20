@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793444091;
-	b=MBEIdyyRTjYVxJoWNFpQlDvUYl0QgHWco7mqnsTsgpTK+9A2KQRqFKnoCwTm2qu6m4qX
-	 LjXCltFvRggvkAZmBMxrzKY4f3xmBukzmescFd2+5Zqz62Vv8wA/49wzcWmmaUB9LlK4k
-	 AuGy/sewh3eqqiWEJM5B+eltZj+hJsggZxn3zlE6F+0P2SCfNp8esbFoRliBADBmoNNYJ
-	 +BOwC9ZsErFeT+RElClxdcAB+mYXkoHFVMDjROSuFZW+OoibTX2CqoXhFsZUplzw74KZK
-	 vfziVhOiyPfaK5TVHhojXiV/Faw9LUmHKd0Ckn6iZuKbVLBq9b1NnyrOEtTfclcCx0w==
+	t=1793444138;
+	b=zeTsygx3FRgM2FPzVaJS0BS1OxNMG/O1y1q14DiEBnNo9xBV29dyagozhRmagTuyI2q3
+	 QS184aw9akH0BPnpHSiRTqdK+SMc2ZvFwDxBGvnmy398TONj90OCkmP6cK61+0jF2+ixZ
+	 /gVI1mh40x9TG50wgSYguvdZpRsdTHOZP1zTDNILCCDgBM9VsSXLYVHW08UvBDxcrTHKa
+	 OYGj5I+Sxe5mYYD2gxzTd9LNqEt7tHVteDfoOqsFBxFPIfSeVOBOog01llihBx4ScDE0N
+	 IZYb4+ZqPCaLhTKpuMuh1Y13Y+Hk72wjxyPzqslithvTNz78h5TCwF7tq7tQiOFnegw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793444091;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
-	bh=/V86iMFP1vJ/V4kzs5t71VbJUoSDcgmsIQzUVHvfOMI=;
-	b=rs725dgyTatZjzieX3Ik+Ad+kHkaENBGAXTa9Iauwyf9Ees5Pd+Eva9CLyJVZbm0k8Mo
-	 Q/QaSsHBvs4y4F9dkiP4CgzuPuzChyoVXHmPqZ9DWmzzyR5gGXTXKI/PO/G7vQCpBZe20
-	 +pYz01NXNIVAfVoTtiV6wclWo4VZIvyMLo8akLy0CziEQkd0P1v1UkxiuUKJBR+Rz9QPa
-	 hNcfzfcickZbR2TQ9f+vn7H5HLZ1IsAzsOPuAQrsGzqGFJxOCBslCehLpdW1IA8qF5LxE
-	 Fc/sI/aHus4O0S6dxAlmsdHYxSc/nac8GuwUvaELnXINls95eK9fm+S7kdIckPcP/3Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793444138;
+	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
+	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-Mailer;
+	bh=7b46y4s0/zi9X4zHo11yWW6Vbp88X1A148hn2dA9HOA=;
+	b=TrEgMosOtw2IO/6E1XKnBnBBRJARc+L4ieTNHvjrSLB5hfhaLC491t6BrbYL344aJ7G+
+	 IFI4hplk5RtsRrdh48yGG1SzRIHZ9rTuoJGNzc5wOug3iQ5fGQ4s9SVNH+PUdHo6TTZqr
+	 QPn4YKJB+hqgX2AK4p3bcfD1RDcnT+duC6h04x1H46yGn7hlKjFmMjIJd4Vf5agazIgZb
+	 +xv90uNXMjrQ7FMkJ2fgtSAVeRfcn3agPouLnhMWsCHo5LfeKsjhZ0q7Q/hMvoLsXMbtD
+	 Zwa2M/HcswqVamllC6aKpsjBRUurjLj8wTKXz/InlIeZf8ze7GcE7e6jVOfEFaCAX1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wp.pl;
-	spf=pass smtp.mailfrom=wp.pl;
-	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=e11ULkk3;
-	arc=none smtp.remote-ip=212.77.101.11
-Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.11])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX0RjJQJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23FE1606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:54:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23FE1606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8DD0606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:55:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=e11ULkk3
-Received: (wp-smtpd smtp.wp.pl 23110 invoked from network); 31 Oct 2026 11:54:42 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
-          t=1793444082; bh=/V86iMFP1vJ/V4kzs5t71VbJUoSDcgmsIQzUVHvfOMI=;
-          h=From:To:Cc:Subject;
-          b=e11ULkk3pWCGiV2PCC29hhbDKI9Qc05LIOHgp7qUv+tfIPZ/zZGzNNeArBlzFIBF9
-           GB2CxTp7Z6W4xjhEIAppPOIGb8u7bYPBzeyUtqZpNw96Y4As021vrJ00e4/iPpG0Aj
-           UvCy0Cnr4QRHz2aBhlKoUIPv8AonE86xe/XY3cO6EyQH6+VbDwaOh2UjYNVUee2Dzk
-           pOlj1tNR36qwhJwPm3l1Mw5zenUhs9H8Z+cNth+Zsgd6dqee3u91uvSYDQPoeVgPJp
-           hSVSDqgm4bqgD5MJhw1K8lH2kliXyx25vXMOP6LwrlwuLxo6pH6a+fLhvUQNSKkwhP
-           Ilt2xnhDURJlg==
-Received: from localhost (77-236-11-144.static.play.pl [77.236.11.144])
-          (envelope-sender <stf_xl@wp.pl>)
-          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
-          for <hjf3108@gmail.com>; 31 Oct 2026 11:54:42 +0100
-Date: Sat, 31 Oct 2026 11:54:41 +0100
-From: Stanislaw Gruszka <stf_xl@wp.pl>
-To: Ho Jie Feng <hjf3108@gmail.com>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH wireless-next 4/8] wifi: rt2800: report the MCS16 to MCS8
- fallback of RT3593 in TX status
-Message-ID: <20261031105441.GC31143@wp.pl>
-References: <20261029134752.1299130-1-hjf3108@gmail.com>
- <20261029134752.1299130-5-hjf3108@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX0RjJQJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 210BC1F00919;
+	Sat, 31 Oct 2026 10:55:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793444137;
+	bh=7b46y4s0/zi9X4zHo11yWW6Vbp88X1A148hn2dA9HOA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=LX0RjJQJpWdppLt42SNRn7EQV2Ff5N7jMe3itfLCjplO/MRkUZIp3jFNWvcrwA1mQ
+	 UcCj6Mk2yZ8lLHHTQDlrfQDnCXDNASSI3GyG08p720TBjS7E7BDx/hdhXgrHg1QsO3
+	 LbeRvsMZBc5KtLwSi7wWODzYoqe6aeCx8rzl2jQQSBqaCz+nLmFTtRvNi8zQ4mcSLK
+	 IWFp1W844QfHer5jTZdGQvH25z2biHGD6EeJx++6y7oK/Hf2tF4RjSoEn4R3z8Xtnk
+	 8m+5hfjRvvOela8b76hyVYCr8+w5vrvKSzquGangM6VzaPOpzRyecLva2TLMDrvoyV
+	 b8B8LK0WZHFHg==
+From: David Hildenbrand <david@kernel.org>
+To: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+ "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
+Cc: Madhavan Srinivasan <maddy@linux.ibm.com>, 
+ Venkat Rao Bagalkote <venkat88@linux.ibm.com>, linux-kernel@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, David Hildenbrand <david@kernel.org>, 
+ Muchun Song <muchun.song@linux.dev>, Zi Yan <ziy@nvidia.com>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ Pavithra <pavrampu@linux.ibm.com>
+In-Reply-To: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com>
+References: <8b853e5f9f16145859407b28af654b0f79e12642.1793318297.git.ritesh.list@gmail.com>
+Subject: Re: [PATCHv2] mm/huge_memory: set the mmu_gather page size in
+ zap_huge_pud()
+Message-Id: <179344413383.15514.17004105179365165951.b4-ty@b4>
+Date: Sat, 31 Oct 2026 11:55:33 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,89 +64,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029134752.1299130-5-hjf3108@gmail.com>
-X-WP-MailID: 65d240ddf3a61c8536ea342b3dea758a
-X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
-X-WP-SPAM: NO 0000001 [4YIB]                               
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16.0
 
-On Thu, Oct 29, 2026 at 09:47:45PM +0800, Ho Jie Feng wrote:
-> The RT3593 retry chain is now MCS 16 to MCS 8, skipping 7 MCS
-> rates in between. Reflect that in the retry calculation code.
+On Fri, 30 Oct 2026 05:37:36 +0530, Ritesh Harjani (IBM) wrote:
+> Unmapping a device-dax mapping with 1G alignment on powerpc radix kernel
+> built with CONFIG_DEBUG_VM triggers this warning on every munmap:
 > 
-> Test results:
->    before after
-> TX 27.0   29.4
-> RX 70.0   70.0
+>     WARNING: mm/mmu_gather.c:176 at __tlb_remove_folio_pages_size+0x38/0x230
+>     NIP [c00000000063d508] __tlb_remove_folio_pages_size+0x38/0x230
+>     LR [c0000000006fb688] zap_huge_pud+0x1b8/0x2d0
+>     Call Trace:
+>      zap_huge_pud+0x170/0x2d0 (unreliable)
+>      __zap_vma_range+0x1604/0x1e20
+>      unmap_vmas+0xa0/0x1f0
+>      unmap_region+0xb0/0x130
+>      vms_complete_munmap_vmas+0x120/0x310
+>      do_vmi_align_munmap+0x1ec/0x240
+>      __vm_munmap+0x148/0x220
+>      sys_munmap+0x28/0x40
+> 
+> [...]
 
-I think this patch should be merged with patch 3, and also 
-similar handling should be done for RT3883 since it has
-the same fallback pattern.
+Applied, thanks!
 
-Regards
-Stanislaw
-> 
-> Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
-> ---
->  drivers/net/wireless/ralink/rt2x00/rt2800lib.c |  8 ++++++++
->  drivers/net/wireless/ralink/rt2x00/rt2x00dev.c | 13 +++++++++++--
->  2 files changed, 19 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-> index 9d88ee698b854..de234bcc7a065 100644
-> --- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-> +++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
-> @@ -1116,6 +1116,14 @@ void rt2800_txdone_entry(struct queue_entry *entry, u32 status, __le32 *txwi,
->  		 */
->  		__set_bit(TXDONE_SUCCESS, &txdesc.flags);
->  		txdesc.retry = ((mcs > real_mcs) ? mcs - real_mcs : 0);
-> +
-> +		/*
-> +		 * On RT3593 MCS16 falls back to MCS8, so a frame that was
-> +		 * sent below MCS16 after a three stream rate skipped MCS9
-> +		 * to MCS15.
-> +		 */
-> +		if (rt2x00_rt(rt2x00dev, RT3593) && mcs >= 16 && real_mcs < 16)
-> +			txdesc.retry -= 7;
->  	} else {
->  		/*
->  		 * Transmission failed. The number of retries is
-> diff --git a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-> index 4d94b7062f440..823785088a308 100644
-> --- a/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-> +++ b/drivers/net/wireless/ralink/rt2x00/rt2x00dev.c
-> @@ -329,10 +329,10 @@ static void rt2x00lib_fill_tx_status(struct rt2x00_dev *rt2x00dev,
->  	 * lowest rate was used.
->  	 */
->  	for (i = 0; i < retry_rates && i < IEEE80211_TX_MAX_RATES; i++) {
-> -		tx_info->status.rates[i].idx = rate_idx - i;
-> +		tx_info->status.rates[i].idx = rate_idx;
->  		tx_info->status.rates[i].flags = rate_flags;
->  
-> -		if (rate_idx - i == 0) {
-> +		if (rate_idx == 0) {
->  			/*
->  			 * The lowest rate (index 0) was used until the
->  			 * number of max retries was reached.
-> @@ -340,8 +340,17 @@ static void rt2x00lib_fill_tx_status(struct rt2x00_dev *rt2x00dev,
->  			tx_info->status.rates[i].count = retry_rates - i;
->  			i++;
->  			break;
-> +		} else if (rate_idx == 16) {
-> +			/*
-> +			 * TX_FBK_CFG_3S_0 makes MCS16 fall back to MCS8 on
-> +			 * RT3593, the decrement below shifts it back to 8.
-> +			 */
-> +			if (rt2x00_rt(rt2x00dev, RT3593) &&
-> +			    (rate_flags & IEEE80211_TX_RC_MCS))
-> +				rate_idx = 9;
->  		}
->  		tx_info->status.rates[i].count = 1;
-> +		rate_idx--;
->  	}
->  	if (i < (IEEE80211_TX_MAX_RATES - 1))
->  		tx_info->status.rates[i].idx = -1; /* terminate */
-> -- 
-> 2.53.0
-> 
+tree: mm/core.git
+branch: for-next-fixes
+
+Applied patches will appear soon in mm-next, followed by linux-next.
+
+Please report any outstanding bugs that were missed during review, so we
+can either drop the patch series or decide how to fix it up.
+
+It is encouraged to provide Acked-bys, Reviewed-bys, and Tested-bys even
+though the patches have already been applied. If possible, patch trailers
+will be updated.
+
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. Further, this is not a guarantee that the
+patches will go upstream. If in doubt, please check the listed branch.
+
+[1/1] mm/huge_memory: set the mmu_gather page size in zap_huge_pud()
+      https://git.kernel.org/mm/core/c/0ba86a16
+
+-- 
+Cheers,
+
+David
+
