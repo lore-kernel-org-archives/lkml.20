@@ -1,74 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=143.54.11.23
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793465038;
-	b=phVyTkzmX0sg+wOlSy82pVUp/gxC6ro1mXUnvd2pGGkb3RgpuVV75a/LXuB2CQ6ZdlIx
-	 apEH7pZRHL4oVccZ7yP4vUXCCoLx3Yhd0AOdC3+xuYT0otqQDXdAJCL/qK3VOZTQw4E2C
-	 QtFoEthGf4ewBAln1GNVUmmdnNhxUqaazVHcZC/XlleDYU7fsnFyBXrj5RI7Hl8I5nyiV
-	 Iila2BXHHnpfKTwPDKVX7OGK4lya4lOsSIZphV9SsaOVtkoNuu4VTEbuNKTeh//Q4i4kF
-	 VbJmbB7VHjH2zoOZZuDUMqXtSXsDvTNlpjT0bAFgL4B5Lf6BoLGQmgt3vhU+8mUgdAw==
+	t=1793465050;
+	b=WOpJsXmmR3+qKZDutKfrB/PE7WPm2Spg0c+/qmUNmfllrcO6i80tzYChDE23cHE1Ay3k
+	 ltYesHNpAs3h6AfAIq8RPNzHRGkxYDsSGVFHM7+UPMBoMs9ap61zomX8QTCAdOBWyZgqd
+	 g07HXYlFfYHadbzJFIinDbQCIUBnfgFme26DSxaAQooAXSdp+z90RMgcVaCAnOf1eo/bn
+	 +Yq3wFcnIaJsijz8Ly5B7s94smbCNMdCNlWARvKlllrcfP0TwqUVmweNEgWLYbI6jcVc6
+	 fjDmOR5kBb6Fe1KOjeZy8W2yhXzGbi2Yp4U0PuZxmmTUgLLiZklvke9uiGcpj20gqMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465038;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Spam-Status:X-Rspamd-Server:
-	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
-	 X-HE-Tag:X-HE-Meta;
-	bh=2qB20Z5OO2PNW4tv0VUCGMSLze3zUhNo7SG7JE4xwdA=;
-	b=Y7r1BFy/Pz6RkXOliCoYkNOxWagUYdAawfluPm6olEPYBkNC+tRPb/BB5HF8NpmcT9K5
-	 jleFiLTg8pRTCtDZ0nnI47ajgNVf80dX8b9Cccum6ZiFlOpb3bsep1+eWMRyYxB7jJpOg
-	 G0WgQCfu+djOKg5l8CcyYZaufIkX6g9RMvTfQHnUffdf9yYnUHglGDSHyBdRZCnZCO0K1
-	 9xb2CmYfVHSL13mI0CehhkxmZ/MY5HwPG+JPpZGm/9GROUilNRXXuA8q3N20Tg2cK2Diy
-	 2qCl7VSZ/deG9qBMXYOZOb2jPEmImrmryIczyiBbY/JYZOG6HX5U1b2BkrZfd3+ozxA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465050;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=q8x4IoJ7UN+WXDTt7ckPSij87x9Cp2l1PVssvsZolTM=;
+	b=IQ8Q0pU8a9WXpYd/cm3tARlumR/rzNhh6fzgrOEl39WEZwPhvC+lV19XpAOxnYXOo1Vk
+	 vGLjfXmyhtM4u0ZSV6vEMCucILT6KMq74R3tyX4cdJeczAo/AMgVbjOX0QO/kkGBGQBjW
+	 zqFAthVvOmJAoZmXJGXrif+cWTHjSqFXTVwrW+LpreCbb+eUaP/2tECGH5dJql9jQY+vd
+	 1mLN89NNxGVRqUA9LrDRmhsvvtqM5fxyJ0mRQ/5gJPyHtJ+rl51/Um/YZacEtlj8E+doh
+	 6zTu4XHyeAqTwkDamQRB1u4XlHjlHM6k0Zhr/1ZrPGuFtsOkdtI9+CXpc6r6EZiSdjA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.13
-Received: from relay.hostedemail.com (smtprelay0013.hostedemail.com [216.40.44.13])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inf.ufrgs.br;
+	spf=pass smtp.mailfrom=inf.ufrgs.br;
+	dkim=pass header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=IEueRR7O;
+	arc=none smtp.remote-ip=143.54.11.23
+Received: from smtp.inf.ufrgs.br (smtp.inf.ufrgs.br [143.54.11.23])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18C1606A31C;
-	Sat, 31 Oct 2026 16:43:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D18C1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf10.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay05.hostedemail.com (Postfix) with ESMTP id 42C19409E2;
-	Sat, 31 Oct 2026 16:43:50 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf10.hostedemail.com (Postfix) with ESMTPA id 8D14E30;
-	Sat, 31 Oct 2026 16:43:45 +0000 (UTC)
-Message-ID: <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-From: Joe Perches <joe@perches.com>
-To: Borislav Petkov <bp@alien8.de>, Kiryl Shutsemau <kas@kernel.org>, Rick
- Edgecombe <rick.p.edgecombe@intel.com>, Dave Hansen
- <dave.hansen@linux.intel.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, Biju Das
- <biju.das.jz@bp.renesas.com>,  "biju.das.au" <biju.das.au@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Greg Kroah-Hartman	
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "linux-serial@vger.kernel.org"	 <linux-serial@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org"	 <linux-renesas-soc@vger.kernel.org>,
- "x86@kernel.org" <x86@kernel.org>,  "linux-coco@lists.linux.dev"	
- <linux-coco@lists.linux.dev>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
- Au Dang <au.dang.jx@renesas.com>
-Date: Sat, 31 Oct 2026 09:43:44 -0700
-In-Reply-To: <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
-References: <20261026-g2ul_sci-v3-0-b3097163edd5@bp.renesas.com>
-	 <20261027055750.GBauA9XlPykc1c1Xhv@fat_crate.local>
-	 <TY3PR01MB113468FBD8E5EFA65C4B4E5EB86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-	 <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org>
-	 <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-	 <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
-	 <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
-	 <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
-	 <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
-	 <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
-	 <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B2D606A322;
+	Sat, 31 Oct 2026 16:44:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01B2D606A322
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inf.ufrgs.br
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=inf.ufrgs.br header.i=@inf.ufrgs.br header.a=rsa-sha256 header.s=dkim2026 header.b=IEueRR7O
+Received: from LAPTOP-R01LEAQM.localdomain (unknown [189.6.233.4])
+	by smtp.inf.ufrgs.br (Postfix) with ESMTPSA id 21676120368;
+	Sat, 31 Oct 2026 13:43:49 -0300 (-03)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inf.ufrgs.br;
+	s=dkim2026; t=1793465029;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=q8x4IoJ7UN+WXDTt7ckPSij87x9Cp2l1PVssvsZolTM=;
+	b=IEueRR7OPNJo1ScF0rVI1VX6m300ZlwfAmBRYxvfRzBIhfoDWdQGHmSQTyNfrhJUa4R89J
+	atYSYluskS70uBBhrIe831gW09cYqwLMB/HTPJwNkyOKd7CP0VbHBDgj9xaq5yAaSsrgfb
+	JdiToECnWl0V6kqZNoP/LQsguwgO5aP+U475NBieqYbapKtaLcVnFsymG0PKf8PUw5OXIO
+	3ppdr2PxV+2EFueOCoEZ/niMorE5h9NEsplUxgiU9wObe9yLXAced6lRx0PDZxHd15oF43
+	dkeOsGyQF5VdZlxhMKWcJp87rGuoCnFIPPZTeguYw6XQJJtIgB3NFeSQXmPZrg==
+From: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+To: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+Cc: linux-fsdevel@vger.kernel.org,
+	brauner@kernel.org,
+	djwong@kernel.org,
+	hch@lst.de,
+	linux-kernel@vger.kernel.org,
+	Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+Subject: [RFC PATCH 2/8] fat: use iomap for ->bmap()
+Date: Sat, 31 Oct 2026 13:43:20 -0300
+Message-ID: <20261031164326.278125-3-matheus.aalmeida@inf.ufrgs.br>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
+References: <20261031164326.278125-1-matheus.aalmeida@inf.ufrgs.br>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,69 +70,174 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: cz19ooi49e8kna7me5cxdfeognint4ao
-X-Rspamd-Queue-Id: 8D14E30
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1+aPwco/IotqFsTCHguuiIZ71NEMlq/oig=
-X-HE-Tag: 1793465025-286637
-X-HE-Meta: U2FsdGVkX1+7oQJ8xZbPzF3WUzJtxPMOp4ITyHXTuBqjUwjvWCL8pBnLSLvJ6P0zSuLxo6wFO7RN6RtWjz0Dd3+Fp0tsyGSgSYJQm7LqbZsSbe7+icfF7JAurJ13t8RbUmVfWj9blGLVueeiSOt3v9FUAPxaFjtPpztPj6aySPsRhOfbpZ1wPEpAMCR6Cm4JTzr38J0YNJO32IGcvTDTp7k+TjjpoORr4BqcJYvhG2oto0Cp9TRmqNrU0yqH1w+F8tcRm5C91rM/OCOcwGT7GAZ37awfxD2pryYnFYjKs1KCnJ5mYfL3hXLHEt9C92e5kuLNELHnFkXZP0MgVhpC/ORI5IckZIpVH/+vjzgGJQbwIjmbPDcTmA==
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-10-30 at 20:01 -0700, Borislav Petkov wrote:
-> From: "Borislav Petkov (AMD)" <bp@alien8.de>
->=20
-> A K: is a content regex file pattern which matches any text in a patch
-> so if a commit message contains "tdx" as in
->=20
->   has_tdxe_auto_clear
->=20
-> for example, see
->=20
->   https://lore.kernel.org/r/20261026-g2ul_sci-v3-3-b3097163edd5@bp.renesa=
-s.com
->=20
-> get_maintainer.pl erroneously adds the x86 gang to the Cc list for what
-> obviously is a completely unrelated patch.
+Make FAT ->bmap() use iomap_bmap(). Add an iomap-backed
+fat_swap_activate() to prevent a swapon() deadlock. Remove
+truncate_lock as ->bmap() now uses i_rwsem.
 
-It's not an error in get_maintainer.pl
-and V2: no changelog
+Signed-off-by: Matheus Alves de Almeida <matheus.aalmeida@inf.ufrgs.br>
+---
+ fs/fat/fat.h   |  2 +-
+ fs/fat/file.c  |  2 --
+ fs/fat/inode.c | 47 ++++++++++++++---------------------------------
+ fs/fat/iomap.c | 24 ++++++++++++++++++++++++
+ 4 files changed, 39 insertions(+), 36 deletions(-)
 
+diff --git a/fs/fat/fat.h b/fs/fat/fat.h
+index 3d0f91fa11df..81c454f8a78a 100644
+--- a/fs/fat/fat.h
++++ b/fs/fat/fat.h
+@@ -131,7 +131,6 @@ struct msdos_inode_info {
+ 	loff_t i_pos;		/* on-disk position of directory entry or 0 */
+ 	struct hlist_node i_fat_hash;	/* hash by i_location */
+ 	struct hlist_node i_dir_hash;	/* hash by i_logstart */
+-	struct rw_semaphore truncate_lock; /* protect bmap against truncate */
+ 	struct timespec64 i_crtime;	/* File creation (birth) time */
+ 	struct mapping_metadata_bhs i_metadata_bhs;
+ 	struct inode vfs_inode;
+@@ -492,6 +491,7 @@ extern const struct export_operations fat_export_ops_nostale;
+ 
+ /* fat/iomap.c */
+ extern const struct iomap_ops fat_iomap_ops;
++extern const struct iomap_ops fat_iomap_bmap_ops;
+ 
+ /* helper for printk */
+ typedef unsigned long long	llu;
+diff --git a/fs/fat/file.c b/fs/fat/file.c
+index 531abf9e533c..c27d4e7f698c 100644
+--- a/fs/fat/file.c
++++ b/fs/fat/file.c
+@@ -613,10 +613,8 @@ int fat_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
+ 		error = fat_block_truncate_page(inode, attr->ia_size);
+ 		if (error)
+ 			goto out;
+-		down_write(&MSDOS_I(inode)->truncate_lock);
+ 		truncate_setsize(inode, attr->ia_size);
+ 		fat_truncate_blocks(inode, attr->ia_size);
+-		up_write(&MSDOS_I(inode)->truncate_lock);
+ 	}
+ 
+ 	/*
+diff --git a/fs/fat/inode.c b/fs/fat/inode.c
+index 2a16ed415631..3885ddb916bd 100644
+--- a/fs/fat/inode.c
++++ b/fs/fat/inode.c
+@@ -216,9 +216,7 @@ static void fat_write_failed(struct address_space *mapping, loff_t to)
+ 
+ 	if (to > inode->i_size) {
+ 		truncate_pagecache(inode, inode->i_size);
+-		down_write(&MSDOS_I(inode)->truncate_lock);
+ 		fat_truncate_blocks(inode, inode->i_size);
+-		up_write(&MSDOS_I(inode)->truncate_lock);
+ 	}
+ }
+ 
+@@ -290,43 +288,26 @@ static ssize_t fat_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+ 	return ret;
+ }
+ 
+-static int fat_get_block_bmap(struct inode *inode, sector_t iblock,
+-		struct buffer_head *bh_result, int create)
+-{
+-	struct super_block *sb = inode->i_sb;
+-	unsigned long max_blocks = bh_result->b_size >> inode->i_blkbits;
+-	int err;
+-	sector_t bmap;
+-	unsigned long mapped_blocks;
+-
+-	BUG_ON(create != 0);
+-
+-	err = fat_bmap(inode, iblock, &bmap, &mapped_blocks, create, true);
+-	if (err)
+-		return err;
+-
+-	if (bmap) {
+-		map_bh(bh_result, sb, bmap);
+-		max_blocks = min(mapped_blocks, max_blocks);
+-	}
+-
+-	bh_result->b_size = max_blocks << sb->s_blocksize_bits;
+-
+-	return 0;
+-}
+-
+ static sector_t _fat_bmap(struct address_space *mapping, sector_t block)
+ {
+ 	sector_t blocknr;
+ 
+-	/* fat_get_cluster() assumes the requested blocknr isn't truncated. */
+-	down_read(&MSDOS_I(mapping->host)->truncate_lock);
+-	blocknr = generic_block_bmap(mapping, block, fat_get_block_bmap);
+-	up_read(&MSDOS_I(mapping->host)->truncate_lock);
+-
++	inode_lock_shared(mapping->host);
++	blocknr = iomap_bmap(mapping, block, &fat_iomap_bmap_ops);
++	inode_unlock_shared(mapping->host);
+ 	return blocknr;
+ }
+ 
++static int fat_swap_activate(struct swap_info_struct *sis, struct file *file,
++			     sector_t *span)
++{
++#ifdef CONFIG_SWAP
++	return iomap_swapfile_activate(sis, file, span, &fat_iomap_ops);
++#else
++	return -EIO;
++#endif
++}
++
+ /*
+  * fat_block_truncate_page() zeroes out a mapping from file offset `from'
+  * up to the end of the block which corresponds to `from'.
+@@ -350,6 +331,7 @@ static const struct address_space_operations fat_aops = {
+ 	.direct_IO	= fat_direct_IO,
+ 	.bmap		= _fat_bmap,
+ 	.migrate_folio	= buffer_migrate_folio,
++	.swap_activate  = fat_swap_activate,
+ };
+ 
+ /*
+@@ -790,7 +772,6 @@ static struct inode *fat_alloc_inode(struct super_block *sb)
+ 	if (!ei)
+ 		return NULL;
+ 
+-	init_rwsem(&ei->truncate_lock);
+ 	/* Zeroing to allow iput() even if partial initialized inode. */
+ 	ei->mmu_private = 0;
+ 	ei->i_start = 0;
+diff --git a/fs/fat/iomap.c b/fs/fat/iomap.c
+index 7fb24d0296f7..7977147889bb 100644
+--- a/fs/fat/iomap.c
++++ b/fs/fat/iomap.c
+@@ -69,3 +69,27 @@ static DEFINE_IOMAP_ITER_NEXT(fat_iomap_next, fat_iomap_begin);
+ const struct iomap_ops fat_iomap_ops = {
+ 	.iomap_next = fat_iomap_next
+ };
++
++static int fat_iomap_begin_bmap(struct inode *inode, loff_t offset,
++				loff_t length, unsigned int flags,
++				struct iomap *iomap, struct iomap *srcmap)
++{
++	int err;
++
++	err = __fat_iomap_begin(inode, offset, length, flags, iomap);
++	if (err)
++		return err;
++	/*
++	 * iomap_bmap() only returns blocks in an IOMAP_MAPPED range.
++	 * As the old ->bmap() returned KEEP_SIZE blocks, keep that behavior.
++	 */
++	if (iomap->type == IOMAP_UNWRITTEN)
++		iomap->type = IOMAP_MAPPED;
++	return 0;
++}
++
++static DEFINE_IOMAP_ITER_NEXT(fat_iomap_next_bmap, fat_iomap_begin_bmap);
++
++const struct iomap_ops fat_iomap_bmap_ops = {
++	.iomap_next = fat_iomap_next_bmap
++};
+-- 
+2.43.0
 
-> So switch the x86 TDX patterns to files and directories (F:) wildcard
-> type patterns and group them by path, for less false positives.
->=20
-> Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-> Link: https://lore.kernel.org/r/20261027055750.GBauA9XlPykc1c1Xhv@fat_cra=
-te.local
-
-nack.  Bad file pattern below
-
-
-> diff --git a/MAINTAINERS b/MAINTAINERS
-[]
-> @@ -30347,8 +30347,11 @@ L:	linux-coco@lists.linux.dev
->  L:	kvm@vger.kernel.org
->  S:	Supported
->  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git x86/tdx
-> -N:	tdx
-> -K:	\b(tdx)
-> +F:	arch/x86/**/*tdx*
-> +F:	Documentation/**/*tdx*
-> +F:	drivers/virt/coco/tdx*/
-> +F:	include/uapi/linux/tdx
-
-No file match.  Probably should be:
-
-F:	include/uapi/linux/tdx*
-
-but as far as I can see there's only a single file there.
-
-F:	include/uapi/linux/tdx-guest.h
-
-> +F:	tools/testing/selftests/tdx/
-> =20
->  X86 VDSO
->  M:	Andy Lutomirski <luto@kernel.org>
-> --=20
-> 2.53.0
->=20
