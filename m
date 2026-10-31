@@ -1,99 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.161.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793413608;
-	b=lgTo45KP8eELZWJyzdO6XJbyJtpd6aU9r9huiRZbIkK7BQfZOJ4+rMNWS1T8bq2fxbs+
-	 fP0M/J/rSEKsZqFBG3r28WhL7L349qJQT/tXDC5aIfguCglGhxTUiPWvQ//O8UPjXlmLS
-	 WTVDpMV3wj8E/7LiveY0EoCsrsI2bVcREUphPyYGPkCCutiR9VOqJu75c257UUfRWcZTO
-	 o3lz6VL0yx+dAexAs0g2ytzG/8Ugzq9dBakXpZS5kHJzpdYN67CkunqrJ0bednPPvWst3
-	 dX7m2xyZ97AERNsDQJKt3G8H89mQQG8rRCkQGE+YBHfIn9iVI+1rwVEg9IcSxbFWYSA==
+	t=1793413613;
+	b=aazby/DZRPdMVjESt05WpKfa8i+6f37tFL+D5O5aX+sEXexP4l+yDuYX+Mmex4o86B3p
+	 5YKbG4KVLHf+ui2rYsyC+SE1Ox0a7kEqQTdg2Y7/f0L5+ZUHa15MFRDlglLpCkVFo2K5G
+	 u9PRkuz5HiuCGE/Kt/nvQvqBmO9ZkSN+wn1z6yGbAU+RyJX/2QuxHp1hHSA9SGIyUsnOa
+	 qHaFzV++d6czhQU++G5uKbvro0qM7lehVa1TVcyjlHQsA52NJ08AO5Ao2S2i+302KmQxW
+	 tirCw9JKm6AAw4EL/ofD9ymjaXDDs0+C6oeB+KGkgUfi3/9j65El6ntjhTGCONVxLyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793413608;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793413613;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=onJ9qopBB2j2Cgb6Ett7zzhP9v/di/tu3NzVy6YdsQI=;
-	b=enMPkUkM1mzc9SilatO5XNy+fbDf2cN9SR4aYQ68mSQ9n8qnDwhDCmDVmQ0g285DWAHQ
-	 6GQo2LLpuvzNORRTLb+5MCrl/LyS6gy4RbK+Oh21y0oSD/VZsvmT5R/lodiKdiLkM7E4W
-	 s4SgBdVpBhQdfBhwipdYqIjlZJu94vJkbkzmgISwq7OR0EkDvKmx4JZUNsdmxaBRfhS+7
-	 TRBY7yrGO9786SteH6oOdPOkVHrno2ov9MH/YBaTnUAzOMGLkeNwj46P2fevkGFQu+Sh/
-	 FmwzxzIGkzauJJS7fNGEJbZTMEbbsR31MMeKc5LUools+xAeysyFEvKvYZJOsrvoAfw==
+	bh=WSDe6VAckHzkQ8XkTETzpDW5Bx6aUAkrRS4D3VagePM=;
+	b=TW0SyadBw4pG3fOdc5bCARmUZTmRni/datKWqROdIhWAaB6oIgQYosEqfQyewpFFn6p/
+	 NaVDIRdedCl8OLptLx8loBvkfSLchOodJarWm1U5ht1BwED7l8zfc5ratavz7WovwHCVQ
+	 4fQXPi9otwbZLEdb3XDGpWfDPjtU3xYVoyizJeTpymDfZ6i+676UcIVk3eUVARHTpXweC
+	 U9SZWrAp3Iz4NCp+NNTp+nlE8WoyWXBQJuPgDd+gVP7YziBAlLwwNtIBYI7ile2+undfe
+	 Kio4mU42VeVEFy7jyXj5/aRQ+sET+ZWC0kXpjK9WOkUAKbxpWQyL/B6vtNc146qJA4g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IL1sHmPL;
-	arc=none smtp.remote-ip=209.85.161.50
-Received: from mail-oo1-f50.google.com (mail-oo1-f50.google.com [209.85.161.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UWmohlI8;
+	arc=none smtp.remote-ip=209.85.210.45
+Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690F0606A326
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:26:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 690F0606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B99606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:26:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B99606A320
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IL1sHmPL
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6d290b10a35so556690eaf.2
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:26:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UWmohlI8
+Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-85a5455bd3cso801129a34.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:26:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793413607; x=1794018407; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793413612; x=1794018412; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=onJ9qopBB2j2Cgb6Ett7zzhP9v/di/tu3NzVy6YdsQI=;
-        b=IL1sHmPLKtU0rRg7pygkrSoGdCemnp4peUGe9lQsQ030tgO11MecsUjgIgrc7Mbvo0
-         yVRoNCx1afODLfYi3xDfik0x18vPeNj0te/ipCOmoFHtNBj4PvA6hI7QExBlTuvMzOaF
-         y8q3VTYqoQAjia5p413YOfp3UvhYDLzZ2px7PJEeYPYIi/yx2rlx/ATVDazOIWbapHi1
-         0lT4tiJXv39Jm0kXOy3+vzub3W9oaFiwK05Q8foJycbM++Vc5H+HSieLnbObT2n5u6NG
-         hAEnv5sEh5Osd9J92AKSXeA087grqxKaLcGaSA3nAlWVQ3c1f1Q+VrJ/3v+axbEnpNHe
-         nEQw==
+        bh=WSDe6VAckHzkQ8XkTETzpDW5Bx6aUAkrRS4D3VagePM=;
+        b=UWmohlI8f7ebq5LnGnp9uXKEXcbIsZh7Uw1469TQi8DMAjdd/z41WAC+/4MxASy54U
+         eJmIAUzOQWsa6QfQW/PJWZZWvGckrW7IefBOBhpNyVTjWWT+VX1adSlqPfDTd/kY+HTK
+         9VP4lMJR1GVgjUorFikEqDuqMcYtZZYyFvOMDLtTC+8TEa5JNsYw5xj6iYbBD4NCChpH
+         AJDupVsED9I/GaJi/yUc8Au8JgzC0iu0e2Op2F2wvART8V8XY1K3k5grS/RS+j7kTzR5
+         wjebMmVpwwKx2r8rM6Kf0b4Lk8TKy1Nn/HHpRD/wi+pfRfz5IxjudkJtY7WRbP/n+e9v
+         otOg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793413607; x=1794018407;
+        d=1e100.net; s=20260707; t=1793413612; x=1794018412;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=onJ9qopBB2j2Cgb6Ett7zzhP9v/di/tu3NzVy6YdsQI=;
-        b=l52UI4Dc92S0Z9eBFxH+rG9GNgeuTxvGRr20jGddlup4x+CKMTvVHnXtEx1VHbELfw
-         zD/p2HbsG7zuvtbsJIMVk5c6z8MqXorP9sQgKJZJwiHN7nk8p620SPHN5Ify+d/eC4Qy
-         nDQOm+7gkVuc2pl/scdJQWZUPvx6D836P03TiOz1UOVNsNKUe6dOLsLfBe9PzS/+weaW
-         gl1ZaMrfZ7T2L0hHJcb4GdDYCSiMgS84aQIvnqwC97otEUz/Hr47D0CU4klaMnJmbGBQ
-         CpjsFVFTY22qBcoqP4Fy90cMeC4m3W8KFxSPGvqqbb3R1SEY1Cx2j+oHUHWRnSTU/awI
-         zdgQ==
-X-Forwarded-Encrypted: i=1; AKwUvByQVdABWIMrrlmqzofAA7/YjleTJHmlr2MYgIt5TCJoLdD0EXR3ViOJv+OEfqVTBuUTLMx5vKR0eTi6Ex8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK9QnLz2pEneyZmw+WfMTweedPnse4kpBDmOxj0miu+lJhQB5U5
-	yjhNrk+jmcXyyh+w+twdZrl4N6Bak321z56dPCzsJZ90K7mnuQz76ZmJ
-X-Gm-Gg: AYBFou0ZQpw2PMIqc3zQc62hDrWcYN3IZJcWVaueMxg8RizSgSEzeO2mEFhN3kR9MoD
-	ev0G7kdD8ZkpraJ+jo4jhlduyTHV9k8hrtl/LazsxrTntdwJWJ1MWC2Vcvj8UOXV8uWur/kP+RH
-	JG8ImaYMN0qT8zgHUBBfo0j0XBAPFsZTurTpIHgteJUXIjQfd7t7fklNp3h1M7LxjHt+vjbyfUe
-	10JRltO+febEKLNF51eZJ2Jtxrj2fm3AYUQ6FKPpyLKhrPrsTOIw82egfkXtZrsWSBpv4kE4KJj
-	9rehW4ekCxr96hZmn9lY9HK+PNZwtZ2ib5rGvuwbyy9Pz/L4CipgBXXlbTzKigPc6bqul2pbKyD
-	bPi6jZKBK9vx0rDuXXTy23Ikz/sARsmuKw9Uye9sm+t3tEaSQVmawxI+X4dtPfGTKqQny4wJnGk
-	vBAoyS4BOzWyCywSIu+xLGAs89CmpskiovHNpUlEJFdeKqgNlv1juCPjR/xdlwsg83xWT5VfhJE
-	xZ+/FckCKazcwRUwJHvuVLd45PXCQ7Ik4v8s8sL0Sxfab7XMOOZ5MaAZ59nzeglCh90PBKWpD/C
-	CgNxlzMkQtnX+4YCWuX9lMyWcdvRl/znKic+bYQMleLB9BLhUE+stvPVMRaOV/scgDgj/bI96cq
-	ZOSYH1g==
-X-Received: by 2002:a05:6820:1c84:b0:6dd:696d:b21f with SMTP id 006d021491bc7-714f24e7c6bmr2638903eaf.2.1793413607382;
-        Fri, 30 Oct 2026 19:26:47 -0700 (PDT)
+        bh=WSDe6VAckHzkQ8XkTETzpDW5Bx6aUAkrRS4D3VagePM=;
+        b=NJxPgzblWTZqhvhq2X9vatp04upmZyqXnktNHsRNGeTCvu/uJaG1bwTh8bDF/s1d+5
+         04wKt8KTZgBYIOQPupzmA47gxsqHlWmNDU33fo2XYlTmk8Xucl+8ekPrIm18E6JX0F2s
+         u7Y2fekDs5CBvwc9p0RvORPvA5Mqjj/6JCNbEE0XCBjC99E3tUoV70hgoDPBYwJzpmcP
+         Oaon3HSOKBgV00Kw35tNsKk2rvu/PG2ZSApuxoWgq85FuXafThSCZmlEbYYP/HpjZKUS
+         PgGcXKbUESCflDOm9YlUXuyjCfo7hb6b/lDPw8AR/cYiiZr+pzu1LEHOXElLQrAFxlJ3
+         Q7ng==
+X-Forwarded-Encrypted: i=1; AKwUvByzj9A77+a81KkKHhGF/jwro9lSrhSOhkoPTlVNTwotP+ID9Ts9x7oB9OOD1oidJOct//wvGVI8EtkpfLs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJDLAoaAUFtI/BOMXEpHf+Fznayi992qNrypxR9GIslONvehDP
+	iGHSjQOclaKlgBv8SlU0twMODldwMOt+LhCmSF0ZLO/BbkBEQvhMo+Bf
+X-Gm-Gg: AYBFou3HvD1m6g8XupVgw4PTrxwYSP/fWU+XbwXrHwFPMPhQBWoJbCCwJi4ZXS5BGgB
+	g6/KzVM2KUrZe5CPpbDhOFlR3v5c+uEXQLvcO5z4GQDi6jOgx3SxeJmZvRTmB63CN6GcqNMOFsS
+	j2NdbZWKkxGSeo49rSdFXJaVewWpwyxm8dpTaZRkcYjH2IfE9qNvU8QxZGpuhdBvYHhdJ5BhEyC
+	yDf47ySydxANAa26V+LHqtJfmD2wrprqxU/73yZvPlfxf89DUIHUdJbl06JM2zPpDc5/naWczXc
+	MVBk4Gmd0J3qf3mpV4Th0lnurXfNGA14KVygbGn9//Hwkzdwnv6GQVOvtcCLRGzbI1t3XLL7wFS
+	cuZTWL4pYQXO9jD3Nh28Rd2Nsi+XZqOYgyOW70Ja1DuDsYc43AKqksZf7vEppeFSg+sOsBa0WuT
+	jEoohlpaEWaWDdWkgPqN/6MQEz0HUjgQRRmcjT9ax4t7VZLrQzJ9Hzq/XjBef9cV3pxnc9q5QvL
+	ESk86U3VAGz/dHh08QvIqFH2FV2u4OuKTVGiD30G1gd7qpjMginJF5Ou+nJ1N6im/uKr7pGPjB6
+	cbfshWhkrorRJ29CCd84dLuvf7bahtRTbt97bO4HDS1iIpSkH3oVq2lajGUYYEt1exww92Ith9f
+	JheLqATgP23R92vyNi/fqiUDP6E0=
+X-Received: by 2002:a05:6830:4413:b0:81f:22fd:6ed5 with SMTP id 46e09a7af769-85d364de390mr3092732a34.21.1793413612419;
+        Fri, 30 Oct 2026 19:26:52 -0700 (PDT)
 Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4a92167984dsm1438390fac.1.2026.10.30.19.26.46
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d3545b89asm3810712a34.6.2026.10.30.19.26.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 19:26:47 -0700 (PDT)
+        Fri, 30 Oct 2026 19:26:51 -0700 (PDT)
 From: Enzo Adriano <enzo.adriano.code@gmail.com>
-To: Linus Walleij <linusw@kernel.org>,
+To: Andre Przywara <andre.przywara@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
 	Chen-Yu Tsai <wens@kernel.org>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
 	Samuel Holland <samuel@sholland.org>
-Cc: linux-gpio@vger.kernel.org,
+Cc: Maxime Ripard <mripard@kernel.org>,
+	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Andre Przywara <andre.przywara@arm.com>,
+	Junhui Liu <junhui.liu@pigmoral.tech>,
+	Jerome Brunet <jbrunet@baylibre.com>,
 	Pablo Mazzini <pmazzini@gmail.com>,
 	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Subject: [PATCH] pinctrl: sunxi: preserve A733 firmware voltage modes
-Date: Fri, 30 Oct 2026 22:26:45 -0400
-Message-ID: <20261031020640-263f7b05-a7s-pinctrl@gmail.com>
+Subject: [PATCH v2 0/3] arm64: dts: allwinner: add A733/Cubie A7S support
+Date: Fri, 30 Oct 2026 22:26:50 -0400
+Message-ID: <20261031020640-263f7b05-a7s-dt-v2-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,113 +111,122 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-The A733 voltage-selection fields are two bits wide. The main controller
-uses a separate VCCIO field at bits 25:24 for PB; the older one-bit
-handler instead writes bit1 when PB is requested. A733 R-PIO also
-differs from A523: its documented table has SEL at 0x340 and VAL at
-0x348, without the A523 control register at 0x344.
+This v2 adds the initial Allwinner A733 SoC description and Radxa Cubie
+A7S board support. It incorporates Andre's review of v1: RTC, all main
+and R-domain UART/I2C instances, all four MMC controllers and their pin
+groups, R-PIO/R-CCU, the GIC maintenance interrupt, ITS description and
+the ARMv8.2 EL2 virtual timer interrupt.
 
-Stop using those incompatible layouts on A733. Select BIAS_VOLTAGE_NONE
-for both controllers and give A733-R its own descriptor, retaining the
-A523-R descriptor and behavior. This preserves firmware voltage modes
-when explicit bank supplies are requested. It does not implement dynamic
-voltage switching or choose among conflicting manual AUTO descriptions.
+The board enables UART0, AXP318W on R-I2C0, and the microSD slot at up to
+50 MHz with four data bits and 3.3 V signaling. PMIC input/output, CPU
+and pin-bank supplies follow the board schematic. PF6 card detect is
+active-high with a pull-down. The firmware-selected PF supply path is
+preserved; 1.8 V signaling and dynamic voltage switching are disabled.
 
-The public October 14 discussion recommends this conservative treatment:
-https://lore.kernel.org/all/20261014183516.172060-1-vinicius.eduardo.pedrosa@gmail.com/
+The DT patches are separate from three supporting submissions:
 
+* clk: sunxi-ng: a733: preserve system-controller firmware clocks
+* pinctrl: sunxi: preserve A733 firmware voltage modes
+* dt-bindings: mmc: describe the Allwinner A733 eMMC controller
+
+The clock change keeps firmware-owned timer/mailbox resources available
+through Linux's unused-clock cleanup. The pinctrl change follows
+Vinicius Pedrosa's recommendation to preserve A733 firmware voltage
+modes and give A733-R its own descriptor, without changing A523-R.
+The MMC3 binding is distinct because SMHC3's DMA descriptors differ
+from SMHC0-2. The node is disabled and has no driver match; the existing
+A733/D1 fallback is used only for MMC0-2. ITS is also described disabled.
+
+Base and dependencies
+---------------------
+
+The tested base is the official Torvalds commit
+d89e1d186ec9271bf78e62771779e9fc03bf0fc3, plus these public inputs:
+
+[1] Junhui Liu, clock helpers, v1 patches 1-4:
+https://lore.kernel.org/r/20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech
+[2] Junhui Liu, A733 CCU/PRCM, v6 patches 1-8:
+https://lore.kernel.org/r/20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech
+[3] Jerome Brunet / Andre Przywara, AXP318W, v8 patches 1-5:
+https://lore.kernel.org/r/20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com
+[4] Pablo Mazzini, pinctrl IRQ-bank numbering, v3 patches 1-3:
+https://lore.kernel.org/r/20261025142412.112216-1-pmazzini@gmail.com
+[5] Vinicius Pedrosa, A733 UART, v2 patches 2-4:
+https://lore.kernel.org/r/cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com
+
+This is the exact 23-patch test stack, not a claim that every patch in
+each series is a direct A7S dependency. The A523-only changes in [1]
+and [4] accompany those public series. UART patch 1 concerns the real
+DLF path; patch 2 excludes the A733 noncontiguous readback from that
+path. PMIC patch 5 and UART patch 2 needed context-only adaptations to
+this base; their added/deleted implementation lines were unchanged.
+The three separate supporting patches above complete the test stack.
+The DT series should follow the clock and binding prerequisites through
+their respective trees; the external series are not being resubmitted
+here. Patch 1 records the exact base and prerequisite patch IDs.
+
+Changes since v1
+----------------
+
+* Retain the acknowledged board-compatible binding.
+* Drop the old MMC binding patch already present in the selected base.
+* Add RTC and its clock connections; use the board's 26 MHz crystal and
+  32768 Hz RTC input, and provide all four main-CCU clock inputs.
+* Use arm,psci-0.2 without the redundant arm,psci-1.0 string; add the
+  fifth architectural timer interrupt and GIC maintenance PPI 9.
+* Add the ITS subwindow and retain dma-noncoherent on GIC/ITS, following
+  Andre's A733 reference and the A523 integration precedent.
+* Add remaining UARTs, MMC controllers, main/R I2C, R-PIO and R-CCU.
+* Move UART0 pins into the DTSI; supply explicit MMC/UART pinmux values.
+* Add the PMIC and real board power connections, CPU supplies and card
+  detection; sort the DTB Makefile entry and use schema-valid node names.
+
+Validation
+----------
+
+The full ARM64 dtbs target and W=2 CHECK_DTBS=y for the final A7S DTB
+passed. The separate MMC3 binding example passed dt_binding_check.
+The W=1 Image build reused the independent build tree and rebuilt the
+affected objects; source reconstruction and patch application also pass.
+
+On one Cubie A7S, two final-candidate RAM boots passed with vendor boot
+firmware: eight CPUs, RTC counter advancement, AXP318W/R-I2C0, UART0
+including 115200/57600/115200 baud changes, and warm reboot. Each boot
+completed a read-only SD ladder of 4 + 16 + 128 MiB at the reported
+50 MHz/four-bit/3.3 V mode. The first 4 MiB matched a fresh vendor-kernel
+read; the later loops checked successful transfers. The second boot
+tested after late unused-regulator shutdown. No clk_ignore_unused or
+register-writing helper was used. The existing vendor handoff needed a
+RAM-only BL31 reservation at 0x48000000/0x01000000.
+
+Limits: card writes, physical hotplug, UHS, other UART/I2C instances,
+MMC1-3 operation, RTC alarms and EL2/ITS/MSI delivery were not tested.
+The BLDO2 software selector reports 3.3 V, while the schematic implies
+a nominal 2.4 V input. Physical measurements are unavailable, so the
+board DT preserves that setting without a voltage constraint or newly
+enabled LVDS consumer. Assigning its actual voltage requires checking
+the fitted RP220/RP298/RP299 values and measuring UP11 LDO2V5-INPUT and
+BLDO2/VCC-LVDS0 to ground.
+
+The six source diffs have no checkpatch errors/checks. The requested
+Assisted-by: LLM trailer produces a nonstandard-signature/unrecognized
+email diagnostic in raw mail checkpatch; it is retained explicitly.
 AI assistance: Codex:gpt-6-astra.
 
-Suggested-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
----
-This implements Vinicius Pedrosa's recommended conservative approach
-for both A733 controllers, including a separate A733-R descriptor:
-https://lore.kernel.org/r/20261014183516.172060-1-vinicius.eduardo.pedrosa@gmail.com
-It avoids the disputed AUTO encoding and does not replace that public
-discussion with a claim that voltage switching is solved.
+v1:
+https://lore.kernel.org/r/20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com
+Andre's review:
+https://lore.kernel.org/r/20260911001805.0a2e033d@ryzen.lan
 
-The standalone base is official commit
-d89e1d186ec9271bf78e62771779e9fc03bf0fc3 plus Pablo Mazzini's three
-IRQ-bank v3 patches:
-https://lore.kernel.org/r/20261025142412.112216-1-pmazzini@gmail.com
-The IRQ changes are prerequisites, not part of this patch's diff.
+Enzo Adriano (3):
+  dt-bindings: arm: sunxi: document Radxa Cubie A7S
+  arm64: dts: allwinner: add A733 SoC description
+  arm64: dts: allwinner: add Radxa Cubie A7S board
 
-With the separate A7S DT v2 and its PMIC/bank supplies enabled, two
-final-candidate RAM boots preserved the main and R SEL controls and
-PF supply selector across kernel handoff. UART0, R-I2C0/PMIC and
-read-only MMC0 traffic worked, including after unused-regulator cleanup.
-The firmware's PF high-voltage path was verified before each boot.
+Supporting submission Message-IDs:
+  clock: <20261031020640-263f7b05-a7s-clock@gmail.com>
+  pinctrl: <20261031020640-263f7b05-a7s-pinctrl@gmail.com>
+  mmc-binding: <20261031020640-263f7b05-a7s-mmc-binding@gmail.com>
 
-A regression harness exercised 60 A733 no-read/no-write cases, the old
-main-handler wrong-bit counterexample, and the unchanged A523-R
-handler behavior. Both changed objects built with W=1. A523-R hardware
-was not tested; its behavior is retained and checked by the regression
-harness. No analog voltage, UHS or dynamic voltage-switching claim is
-made. The read-only VAL observations are not precision measurements.
-
- drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c | 20 +++++++++++++++----
- drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c   |  3 ++-
- 2 files changed, 18 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
-index cffc1e53eef141cf5f00ec37435af0f8f6a94b45..1cfd8118435066b403f8b9b0b3725e849643ff84 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sun55i-a523-r.c
-@@ -30,17 +30,29 @@ static struct sunxi_pinctrl_desc a523_r_pinctrl_data = {
- 	.pin_base = PL_BASE,
- };
- 
-+static struct sunxi_pinctrl_desc a733_r_pinctrl_data = {
-+	.irq_banks = ARRAY_SIZE(a523_r_irq_bank_map),
-+	.irq_bank_map = a523_r_irq_bank_map,
-+	/* A733 has two-bit voltage modes, without the A523 control register. */
-+	.io_bias_cfg_variant = BIAS_VOLTAGE_NONE,
-+	.pin_base = PL_BASE,
-+};
-+
- static int a523_r_pinctrl_probe(struct platform_device *pdev)
- {
-+	struct sunxi_pinctrl_desc *desc;
-+
-+	desc = (struct sunxi_pinctrl_desc *)of_device_get_match_data(&pdev->dev);
- 	return sunxi_pinctrl_dt_table_init(pdev, a523_r_nr_bank_pins,
--					   a523_r_irq_bank_muxes,
--					   &a523_r_pinctrl_data,
-+					   a523_r_irq_bank_muxes, desc,
- 					   SUNXI_PINCTRL_NCAT2_REG_LAYOUT);
- }
- 
- static const struct of_device_id a523_r_pinctrl_match[] = {
--	{ .compatible = "allwinner,sun55i-a523-r-pinctrl", },
--	{ .compatible = "allwinner,sun60i-a733-r-pinctrl", },
-+	{ .compatible = "allwinner,sun55i-a523-r-pinctrl",
-+	  .data = &a523_r_pinctrl_data },
-+	{ .compatible = "allwinner,sun60i-a733-r-pinctrl",
-+	  .data = &a733_r_pinctrl_data },
- 	{}
- };
- 
-diff --git a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-index 3ebe926a1bc6ba75716f13804db718174b4be229..e2cd7a431af7bc5ec47e8f5719ab11c22b461658 100644
---- a/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-+++ b/drivers/pinctrl/sunxi/pinctrl-sun60i-a733.c
-@@ -27,7 +27,8 @@ static struct sunxi_pinctrl_desc a733_pinctrl_data = {
- 	.irq_banks = ARRAY_SIZE(a733_irq_bank_map),
- 	.irq_bank_map = a733_irq_bank_map,
- 	.irq_read_needs_mux = true,
--	.io_bias_cfg_variant = BIAS_VOLTAGE_PIO_POW_MODE_SEL,
-+	/* Preserve the firmware-configured two-bit voltage modes. */
-+	.io_bias_cfg_variant = BIAS_VOLTAGE_NONE,
- };
- 
- static int a733_pinctrl_probe(struct platform_device *pdev)
-
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-prerequisite-patch-id: 85db03df3394cdcb2780a0da122a74b2c1fe220d
-prerequisite-patch-id: a3e883da50bf03e8f522444def66fec7f996ffbe
-prerequisite-patch-id: c6889699a6dc13c336ce4cf4659e21b551e9a9fc
 -- 
-2.53.0
-
+Enzo Adriano
