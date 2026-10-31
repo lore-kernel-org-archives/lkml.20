@@ -1,79 +1,77 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.171.160.6
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420432;
-	b=pPQXnKkXkdm0nl7J5VgTGt9nwCA3IyXRgTnh2lK3c2kpSAAip0SamdfNhkjx8+uPvo9Y
-	 6QSAa0WKI0JRDQU2yEMGCfrCz7mMNMH5MW/2T8W/fuVHm03VRqbc90DCjsi4lZlpAjSCC
-	 ku6K8U/y127rc0cqIMqK+8OYftFkQ9w4CS4nZlblfirf7Fij3NHX0otlJmtQ6TwZ0rj6z
-	 C65IN9jmKweG7omhHlpvJGvXCrBcPIMJuTcHEqAWoLwzgSjlx6AydE1rhpjL2ZL1NaL5n
-	 E3QOPyuEuDNtZihBB0M2wa4kIMPPKy62qA+xIjbZvyqIh2gqclAJoMdfsNPkaGwC6Nw==
+	t=1793420457;
+	b=JQAi9n2WY9uNkZVW4kKNO2xmI/wv4k2nfHKggMHKYsovio/SNQ+fMlruFWDBMaGlt5c5
+	 XwCLiUsKrFEt9UTfsb/yIWYhUALZwI2zHjBKAwC04tuMOpnJ8ZEQghWC7vlJ4O3XE+ewd
+	 XGR3VOrERAXN4WSRO2Bd5d3oSBYP+IGYKDaqm42qnJHlmUVeRBWoSfoJ+JfhK9cJzDvAI
+	 vTHzQf20CvhAE+xW62dDWqM5vHigxZ370f914NqXbyRKG9rdC+RVBoZqZ4BAE+Ci/ZidM
+	 zRGbRu0TrHJLg9rfEayf5pCVMnJxYmmONugWVGDUATPL1oDhADR424a/mZfIns7Sj4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420432;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=aT41beIP3bq5uedJzmXJrLnGkca8gBeByJi7igmmcZ4=;
-	b=UQbX4UCohLxoPh4ONGmrNcKmEqWqP15nI9CPoxE5/qsP8s4IllgTYUhr3/PTDX4X1K1B
-	 zMdQrJ5BNeg+IhmXtDPrQCkWSDplb+LAdLKWL+ybgy/NzKPU0LTs0oaoKjygJktpr+Wvw
-	 b/eth3gd/JEaQxX6wok6tDJiaPEqRh3FPfG/Frwjs1fAKk1jE6Mz6sqS9LZaZXvHzvt+5
-	 7Yh8VqTuk8/FLn4Knwl9EnktbS6b5q+s4zM7Y1bzhE5PWZ4+qufzIUwzUCzlDCQQty1WB
-	 DQwp/TmmboMPZeI9ccewvEKTH9qgUtBFTzC5cD50B3UXnuHndtdJ5uswdIa8E2Y/qjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420457;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:Received:
+	 Received:From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 User-Agent:MIME-Version:Content-Type;
+	bh=W0hdCHLr9QUbd2Sd2fherl19yeusAeZGY0041G9jaws=;
+	b=ERsLmwSTG88n8vPuDaYLGdwlQBX2nZYCXoJAhmhfb5VkACG0PCKuJ7V+ebPX/Oh6vTU5
+	 YFs8srBOEfV0KrP9iX+09U+7mGPyeGsDXPX+IYdcGJzJ6zb4a7zUg8JnKEI91GWa4E99M
+	 3IfrQjkb1cqEFoTHAbmGqOlvxc/uOYVFMYDBgLFoEAXyCywB9F0oLDcJgsjFAL+zja88+
+	 3ten5jRUPtOcqgoLAF8hlh9mSu1aU20O7f66Vrd3GMkTDJpHXjqVanXsMEHVbgEusT0H5
+	 DGQgmDsRFT69OR6yIcVfGlmuwlV8h8FzrVCxUP0VSqfrSTg/3EjBFtgW8gz8e9mCiDg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hS5NNOag;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=mail.parknet.co.jp;
+	spf=pass smtp.mailfrom=parknet.co.jp;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=MQRe8cdh;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=OiUxWO0l;
+	arc=none smtp.remote-ip=210.171.160.6
+Received: from mail.parknet.co.jp (mail.parknet.co.jp [210.171.160.6])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2D95606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:20:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2D95606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2B13606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:20:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2B13606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.parknet.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=parknet.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=hS5NNOag
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A686F40E03BE;
-	Sat, 31 Oct 2026 04:20:25 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id 7l8FJU6iKTwx; Sat, 31 Oct 2026 04:20:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793420422; bh=aT41beIP3bq5uedJzmXJrLnGkca8gBeByJi7igmmcZ4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hS5NNOagxeSIZP7l7+r4Vt9J41AyloPgDUUF9m5eSYcdhg0pb7axxFU5LPF6804QF
-	 P3THEOX+beo/5YGodEvGGgIkSCV4ANtZ4q1ilY7Il7IsZ53JbshQlrzb52JMx/1KQm
-	 85q/vEkiUtRurITQErxVK1n/sDecW+2wrJ6gokpigUXD6auvjQpFjc9Z7jEVOG9gwO
-	 xcVJTwKk+ngcWELG9W5FeFMQaXsL/d4jQEW4umesxhAS+1skm+AiZ+yEcpjRWmaliu
-	 bI+kk9hsLWf9PiXT3BXKvKZZy6douplXRwh7LKM4b7GXKd4WXwJGmESUjBxpqMrxgv
-	 xa76Kqwtc17IB/pxn9jQbmQfWi+RGzrWJ40wYTzNLpToVzNM68TVYGfNyHPvWiZTIC
-	 9tw8XmEXmhOsnDeHpBHf2u4B9VlrnGE+4gAIHpP3aeWOPgY8GHvLySzTVjlGmouMx3
-	 6yILUfWLpvtC1Dsy2w/zA8jX46qJg0OLEcSW7CZlIuzzIHQnQymlXPq7mZr0dNFosp
-	 tPZ9m9l3xS/TzXZ66KSayVq9q7u+Cf1XL8GXJr0yKcE020f46NBInwYa4yVTKBGGan
-	 OkV5sJxfNYHuTnZx0CViO5XvU3/niVL+0YmzrQpxukp3e2Q9gFqBn2Uu/hIJA++Oi/
-	 ENyrdl/vS4GUvVe3KpRHRPsQ=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id C6B4740E016C;
-	Sat, 31 Oct 2026 04:20:11 +0000 (UTC)
-Date: Fri, 30 Oct 2026 21:20:08 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Sohil Mehta <sohil.mehta@intel.com>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Pawan Gupta <pawan.kumar.gupta@linux.intel.com>,
-	Dave Hansen <dave.hansen@intel.com>,
-	Tony Luck <tony.luck@intel.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] x86/bugs: Replace RFDS model checks with VFM ones
-Message-ID: <20261031042008.GJauVseM2X4-dye4ra@fat_crate.local>
-References: <20261030195214.1284995-1-sohil.mehta@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=parknet.co.jp header.i=@parknet.co.jp header.a=rsa-sha256 header.s=20250114 header.b=MQRe8cdh;
+	dkim=pass header.d=parknet.co.jp header.i=@parknet.co.jp header.a=ed25519-sha256 header.s=20250114-ed25519 header.b=OiUxWO0l
+Received: from ibmpc.myhome.or.jp (server.parknet.ne.jp [210.171.168.39])
+	by mail.parknet.co.jp (Postfix) with ESMTPSA id 0D38B26F7662;
+	Sat, 31 Oct 2026 13:20:52 +0900 (JST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114; t=1793420452;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W0hdCHLr9QUbd2Sd2fherl19yeusAeZGY0041G9jaws=;
+	b=MQRe8cdhLjD5MrI4DEzApZSG5RpSu3Paz+fsTdj8g4f5hloTndC2gFTcvYqwN1VQbeYsMS
+	iPxKrDHoupMgdN/CDHeT8y0JFUgUlJuDTZwiKvaNqmmm1kgU+3LvkynKbHsx8TUFUKH8Ws
+	uzHJ7YY67oos6pffxJ3WTjMxWCWyZOAhI4cWck65QBQS9U52/I35PzTSaivZcmsD7HGK7R
+	ELpOwZ7oZzAJwBm/U3TYt6v8a0Ay740MPLNgEkWrQD/0Lfw1LWKUFJa3w8E1k8mkwprZjV
+	uKBG327fMAidsPWqY2Iweex7mWLMHQatZKBiTnV9KOSZsWAgEQLUMkqjJzLBPw==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=parknet.co.jp;
+	s=20250114-ed25519; t=1793420452;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=W0hdCHLr9QUbd2Sd2fherl19yeusAeZGY0041G9jaws=;
+	b=OiUxWO0leMgVfMCbz4LqPZmrtEpgtunrs/5AXeuaKgZwBuPvYIHMlu2EQ+eGqyVmoX/Ub2
+	YRNc29ocxeeZ6KDA==
+Received: from devron.myhome.or.jp (devron.myhome.or.jp [192.168.0.3])
+	by ibmpc.myhome.or.jp (Postfix) with ESMTPS id 888EDE00131;
+	Sat, 31 Oct 2026 13:20:51 +0900 (JST)
+Received: by devron.myhome.or.jp (Postfix, from userid 1000)
+	id 79C4222000C4; Sat, 31 Oct 2026 13:20:51 +0900 (JST)
+From: OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
+To: Matthias Goergens <matthias.goergens@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+  syzbot+018e6f695ad9bccb182a@syzkaller.appspotmail.com,
+  syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] fat: serialize primary and mirror updates
+In-Reply-To: <20261031033232.2490931-1-matthias.goergens@gmail.com>
+References: <20261031033232.2490931-1-matthias.goergens@gmail.com>
+Date: Sat, 31 Oct 2026 13:20:51 +0900
+Message-ID: <87tsm25wm4.fsf@mail.parknet.co.jp>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,43 +81,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030195214.1284995-1-sohil.mehta@intel.com>
+Content-Type: text/plain
 
-On Fri, Oct 30, 2026 at 12:52:14PM -0700, Sohil Mehta wrote:
-> The RFDS vulnerability check uses raw model numbers to identify Alder
-> Lake and Raptor Lake. Most Intel-specific code has already moved away
-> from x86_model checks, but this one got added recently.
-> 
-> Replace the x86_model checks with VFM ones to make them more readable.
-> 
-> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
+Matthias Goergens <matthias.goergens@gmail.com> writes:
+
+> __fat_alloc_clusters() drops fat_lock before syncing and mirroring
+> modified buffer heads. Another allocation can change the primary FAT
+> while an earlier allocation is copying it to the mirror.
+>
+> fat_ent_write() also updates and mirrors without fat_lock. Take the lock
+> in both paths, preserving the existing post-unlock error cleanup.
+>
+> The test detector reproduced a primary-FAT write during a mirror copy.
+> Three exact-current trials completed with no FAT conflicts and matching
+> mirrors.
+
+What is the real issue?
+
+> Link: https://syzkaller.appspot.com/bug?extid=018e6f695ad9bccb182a
 > ---
->  arch/x86/kernel/cpu/common.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
-> index c7352827f491..8d7bd8bb7b18 100644
-> --- a/arch/x86/kernel/cpu/common.c
-> +++ b/arch/x86/kernel/cpu/common.c
-> @@ -1392,8 +1392,8 @@ static bool __init vulnerable_to_rfds(u64 x86_arch_cap_msr)
->  	 * both Core and Atom CPUs. Mark unaffected when Atom CPUs are not
->  	 * present.
->  	 */
-> -	if ((boot_cpu_data.x86_model == 0x97 ||
-> -	     boot_cpu_data.x86_model == 0xB7) &&
-> +	if ((boot_cpu_data.x86_vfm == INTEL_ALDERLAKE ||
-> +	     boot_cpu_data.x86_vfm == INTEL_RAPTORLAKE) &&
->  	     boot_cpu_data.topo.intel_type != INTEL_CPU_TYPE_ATOM &&
->  	     !boot_cpu_has(X86_FEATURE_HYBRID_CPU))
->  		return false;
-> -- 
-
-Queued, thx.
+>  fs/fat/fatent.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/fat/fatent.c b/fs/fat/fatent.c
+> index 2d10a815a579..5f2779c7f947 100644
+> --- a/fs/fat/fatent.c
+> +++ b/fs/fat/fatent.c
+> @@ -419,6 +419,7 @@ int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
+>  	const struct fatent_operations *ops = MSDOS_SB(sb)->fatent_ops;
+>  	int err;
+>  
+> +	lock_fat(MSDOS_SB(sb));
+>  	ops->ent_put(fatent, new);
+>  	if (wait) {
+>  		err = fat_sync_bhs(fatent->bhs, fatent->nr_bhs);
+> @@ -429,7 +430,7 @@ int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
+>  			 * would not have value to write again on I/O
+>  			 * error.
+>  			 */
+> -			return err;
+> +			goto out_unlock;
+>  		}
+>  	}
+>  
+> @@ -440,6 +441,8 @@ int fat_ent_write(struct inode *inode, struct fat_entry *fatent,
+>  		if (wait)
+>  			fat_sync_bhs(fatent->bhs, fatent->nr_bhs);
+>  	}
+> +out_unlock:
+> +	unlock_fat(MSDOS_SB(sb));
+>  	return err;
+>  }
+>  
+> @@ -582,7 +585,6 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
+>  	err = -ENOSPC;
+>  
+>  out:
+> -	unlock_fat(sbi);
+>  	mark_fsinfo_dirty(sb);
+>  	fatent_brelse(&fatent);
+>  	if (!err) {
+> @@ -591,6 +593,7 @@ static int __fat_alloc_clusters(struct inode *inode, int *cluster, int nr_cluste
+>  		if (!err)
+>  			err = fat_mirror_bhs(sb, bhs, nr_bhs);
+>  	}
+> +	unlock_fat(sbi);
+>  	for (i = 0; i < nr_bhs; i++)
+>  		brelse(bhs[i]);
+>  
+>
+> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+OGAWA Hirofumi <hirofumi@mail.parknet.co.jp>
