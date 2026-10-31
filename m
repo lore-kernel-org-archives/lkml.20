@@ -1,64 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793407241;
-	b=mLB6S3VyuUD2OcJf63VKk7ZE6kA6WVK5M4P9j3ImTWjcLajiGVupVx6nFudfNFY4iPwD
-	 9IDmZ+nq3kiXageQKJUTPYIsa6ckdIk8Edy35e5hk/1V5kb1q4SwpTUgSzWxEJiEhlMXV
-	 UQTCFe1A9fVpXH3TfDAkMK6bgdCUb/S2wIxqh5WwzIUFC9FahT106XhvIVLJ1NyAqjvMO
-	 h1gaWJ2apKexxJNwJ4eo4sTNU3NChvr4KtsDsNXL85xEx6d+2Uv9BkI5yAV/lcg9lQncQ
-	 PbgU05uZDEi5lu/kYK3StbC+77lOrZvM3B5Wm2vcuGne3OJxH0fouzRwSz1/RFUdapA==
+	t=1793407263;
+	b=EP/ocS1HVHQdHogS8fSKB+/Z+J1KRN4RR9TzqpGcMkNnCzmuqi28Yqe+noNSVrK+Mr+i
+	 WLtJ2z19BZUS8YUSmJ4+fDzd3rGKtlrHZBsx5BIo6ZDqScecGXiGBlZPZX6jWUkeDddvI
+	 tcx/DUPPKx4Z1ol25vR/igjHl+bZiqhrbBPuWO2Hd22vR9DxZc9+34ldYwgXOAtdeL6Bb
+	 Svm1hZtQSyXC84whCDfTOvS7vC0E8iWQNKKWT3I4IoAVKYkbXOr7xdVe9f6HYCqJBj3B5
+	 YWfLMwE0pdd0qQSxhULM/1IBOA4lO1ytDuQWkg6JvSCAKRelbeBvp3OJ2AcRV/izQ9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793407241;
-	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
-	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
-	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
-	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
-	bh=XIrVq3kPI22LYKRdffakTBUEt4uVyLiadT26NI5zzpI=;
-	b=sYZngUKaGt92tdTCIz5K3N0QnWE9Fa0UTz9vRZBqWLvRqLVa2T9eodZb4fDdFD3qdt+n
-	 TJLITLwHGFmVj9C9Q48fiA2tzG1Te7BWo5joMk7pC1xShyS3vpD8EdHrl9T3aRcH3GI9H
-	 Y//iEaKJ6B8cgU3/gqOszB/MY4rL+8bDL3d2bBXMp76FdaHFRw2k2+IjP2QzHrAlEMDvg
-	 sbO1dwyadSjvlH3obF298D/LsDILGC3koJmFDA93In2CVbAz29x15nVzKQ+OMy/gdKKm+
-	 Z0T9YbCmgFyYZgEvAvCzeYvkafmMlFsodmzbsYq/vpVpBWc8y6bbEoSh+XZdfNfn6SA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793407263;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=RVsVhQ/ReZ0Z2nIJhQWtigrg3sY6kB0bqA5wLYKs5WM=;
+	b=uOdaVljhCcIQNeE0ebqtjE7+VjlnGgNpTGb38LjDhS2DMOyt8fhf9mS5akjZ6D51jhqx
+	 5b5jLEMMBWTjjZIwFYFtG8OoCvbATmOQCGUY10BLprMw1xwccbSO5YmsD4syBxtrv28kQ
+	 5ME/lKt0KUWZfmn8hg5MXxqAeMpAMh1OnmsmJkXBSMJ8XSticT0eOmx2sT+CUaJSAtr/9
+	 qAf1rXBr5prC+OSd6ftaZCbcD0z62QUMiUCvrQIkJpTHmIlXCchUj6jDzJeii17gpzb9y
+	 qMMsYMfEG3vbjTliM+Sup3TH4RVje81s5evcRX84/sdcQAfBlbXiw5Zqd/ByUbfLEzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AX3MoHCf;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="j8uPZm/c";
+	arc=none smtp.remote-ip=95.215.58.97
+Received: from mta1.migadu.com (out-97.mta1.migadu.com [95.215.58.97])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FC01606A31A;
-	Sat, 31 Oct 2026 00:40:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 467C3606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:41:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 467C3606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AX3MoHCf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECE851F000C1;
-	Sat, 31 Oct 2026 00:40:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793407241;
-	bh=XIrVq3kPI22LYKRdffakTBUEt4uVyLiadT26NI5zzpI=;
-	h=Subject:From:In-Reply-To:References:Date:To:Cc;
-	b=AX3MoHCf8a9hVc2/9WbzlY4QtvFg2jKU99S+Z9C6rudeTsWapcFTXif7g3Aww18Vd
-	 EVi3ptb3y3swvDwzIqdIQPLp9zMrJkAP7NDWG3dlXSHPKsMsk+xNUWN3CpPuk/Xp4o
-	 8gI9SQxv5LveUcfSdl78GFfcZspvMU9e/OBtXh2wZ2hOjlI4g93xLKUSlH7yXcWXvt
-	 E1/zOBFCDDlndJRha0MR2J5Q2yv0qwHfhAP7qbO9HEVNePNsDWqf70QAf2dk5pTkWm
-	 ne7VttT8rXWDFtzt+43bmQ2p1Dak88PH4od4eHqKmea+oWN6N88HGLLO6tUzByGrJH
-	 zE5GZ6OBBvn4w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BCDD03800478;
-	Sat, 31 Oct 2026 00:40:40 +0000 (UTC)
-Subject: Re: [GIT PULL] Driver core fixes for 7.4-rc1 (2nd)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <DMIL3FNP8HDY.3K2425TJD0OU2@kernel.org>
-References: <DMIL3FNP8HDY.3K2425TJD0OU2@kernel.org>
-X-PR-Tracked-List-Id: <linux-kernel.vger.kernel.org>
-X-PR-Tracked-Message-Id: <DMIL3FNP8HDY.3K2425TJD0OU2@kernel.org>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git tags/driver-core-7.4-rc1-3
-X-PR-Tracked-Commit-Id: a287f97d4256b5f5527f5b5a54f8ada55e1482c7
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 2a500a04d6f969318c05f46aedb6e73fc1963a00
-Message-Id: <179340723942.1872657.5495369132087270175.pr-tracker-bot@kernel.org>
-Date: Sat, 31 Oct 2026 00:40:39 +0000
-To: Danilo Krummrich <dakr@kernel.org>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Johan Hovold <johan@kernel.org>, Saravana Kannan <saravanak@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, driver-core@lists.linux.dev, rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=j8uPZm/c
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RVsVhQ/ReZ0Z2nIJhQWtigrg3sY6kB0bqA5wLYKs5WM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793407260; v=1; x=1794012060;
+ b=j8uPZm/cTAon5Bx/qz/wD3CF3+IVsaSKY1ZevVtNO1QBhqfs7WaSMurCbxcpTVXHmwEz2shA
+ C79mytiiso1SKU2stFj/VmIcisD7f9str2F0QVhZ8gbvHyjnLQVXETwKFxvhL5O9sux3cGjl4fv
+ PH1rWL9p5WGJVHIB550VXHjA=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id bce34db760ad78a9;
+	Sat, 31 Oct 2026 00:40:59 +0000
+X-Mizu-Trace-ID: bce34db760ad78a9
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,16 +57,96 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 1/7] MAINTAINERS: mention for-next branch in MEMORY
+ MANAGEMENT - MEMORY MAP
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261030-maintainers-v1-1-97278f8a5f54@kernel.org>
+Date: Sat, 31 Oct 2026 08:40:27 +0800
+Cc: Alistair Popple <apopple@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Barry Song <baohua@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Byungchul Park <byungchul@sk.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>,
+ Dave Chinner <david@fromorbit.com>,
+ David Rientjes <rientjes@google.com>,
+ Dennis Zhou <dennis@kernel.org>,
+ Dev Jain <dev.jain@arm.com>,
+ Gregory Price <gourry@gourry.net>,
+ Hao Li <hao.li@linux.dev>,
+ Harry Yoo <harry@kernel.org>,
+ Hugh Dickins <hughd@google.com>,
+ Jann Horn <jannh@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>,
+ Kiryl Shutsemau <kas@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Nick Piggin <npiggin@gmail.com>,
+ Nico Pache <nico.pache@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Peter Xu <peterx@redhat.com>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Rakie Kim <rakie.kim@sk.com>,
+ Rik van Riel <riel@surriel.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Tejun Heo <tj@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>,
+ Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Will Deacon <will@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Youngjun Park <youngjun.park@lge.com>,
+ Zi Yan <ziy@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-kernel@vger.kernel.org,
+ linux-mm@kvack.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <FA211DB3-E11E-4FC3-8AB2-9EDB5AA80DB7@linux.dev>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-1-97278f8a5f54@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-The pull request you sent on Sat, 31 Oct 2026 01:07:07 +0100:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git tags/driver-core-7.4-rc1-3
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/2a500a04d6f969318c05f46aedb6e73fc1963a00
+> On Oct 31, 2026, at 05:34, David Hildenbrand (Arm) <david@kernel.org> =
+wrote:
+>=20
+> "memmap" will be used as a prefix for branches, but not as a branch
+> itself. "for-next" is the integration for all these things against =
+which
+> people should ideally send patches.
+>=20
+> Not mentioning a branch makes them assume "master", which is wrong.
+>=20
+> So just mention the right thing, which is "for-next"
+>=20
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Thank you!
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Thanks.
+
