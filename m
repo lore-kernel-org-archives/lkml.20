@@ -1,62 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793466908;
-	b=UKGAtJJ3mTSMbId9M81AVSDmAxFtYYoAEld4lgSLCiqhvexUeurYnSv8N2JxqoEMwMI3
-	 mAs7+PXyWQF3yLxqRMLhFVKO9pzYTo3uGkWExvJal9PP+fBb62N0hl8E9Kicf7kYZMDtK
-	 DVoA42sb+YFSRbN6XrWO07JLHqCFolSjf4hKcHm6JOR59dJY8Pb2/peVDGElDr2NvdXCx
-	 GVA6fmejK5KNwDQKqd9zFEB5ZL+ZkgCF2uKRrJZ63C+lEliuo8k/zuUyho9wRcuyoUkc0
-	 7NL3tR18PHDEJgTTxfblYjk1GhQo/YpKJtRciWr4gnxqhLeXaPt1ddlRjgBZ/OdLsyg==
+	t=1793466982;
+	b=DLu+pqxivKFVNwY2F8Pub7VFeZhY7A38kdcbeo6DX/pgEzLTivRMHzEFLiDoxBhlyMW8
+	 1jKWE65IHDulE14Q3nmLsdHiYHN79ro+SA433p5h0JykFUEC9RqB0zhGsi7VV4iF+VyVa
+	 AWRkgs322i5DCoAqeZFlakfEuWqGCg+Q+lVKEg9/vcHRlC+6gDQTRySVoMv7o1P0faU+a
+	 lgtVIo5Tcwm+qZD8cn73c3G0USTYFVjgYlw3kiGBZ6vgBq57tVNEbMSaR+uVlTxDuMwUz
+	 n8w3GoDQ+2qG0HxHhqur+jlZlWf2IfOBV4mBYcOx0isDuDXGVeClDJ7vqT03rCyq0sA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793466908;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bHlvjqB25V4L8nTFSkvwTyjVDrH38SIIXQz2UDWl2zQ=;
-	b=XKUxCGu0HXVb09I1Gs/jh31mSrndHfIok9TFt1IoZjaLS/TB81f18TKOgcr4uAqddCtB
-	 X/QwpM7avjSt5DisfGi8uwsUOh2d9EyM0UimpHQB5rolH6qDzSoeh0oyMcfTFAphuva2S
-	 IUs2g1q9+cc828Qc/M2Y1wegLg2VgbleXzkDkNByI5gqZ3mH7qo1zyJUHK6byNy7Wo+sy
-	 51pN3VfXSQLRvw+LQ11jwiKYoMQ0ctfn+9BlYLUytGm1lz+TuIOsGZ7/RhIZ7FP6HJsnB
-	 +4ECpOC6JIFUbGiyZ5rf5QgBPX5h4sBatmDS8p0Ylfk68qw1dCVGKKIFG/Wkx+G73qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793466982;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding;
+	bh=/mBZi5W3sDWHIrgVG5ai7HwJIE30ho6SI0RH0HYnw5g=;
+	b=hatdBiIZpfuJBDWIixsElrKmyJk6zyX8tRVnD8ynpc6FJMeIe3+GGeYkWx8qgiegVUy8
+	 neCyAPYY2J06Np1QliKMHm1bA9xfaH4H/GQGOLXF1kAcxjT6J0Al4SRB364FFxZMVEjCw
+	 FfaGBc98lmFE52gwTPOkI/beKtFagsuqqFnCe412cOnGOU6WdnVUOPlchFj5C9Kb44ymO
+	 X09DzJzlsHT9HPuSDZyBUqHsXFrErT3HWxtP7mo+IZonXLbf8Jgn9AMVaSZl25Rl39Py6
+	 EvgJ1Vg/ApjEaOnb3GReREKHuw1lqW/iBxe0HuUDt7qgIm3bLNdzFWbQODGtsTCB/DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQpgKMWn;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXkkPmEc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D749606A31D;
-	Sat, 31 Oct 2026 17:15:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B71606A31A;
+	Sat, 31 Oct 2026 17:16:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kQpgKMWn
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5C391F00919;
-	Sat, 31 Oct 2026 17:15:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HXkkPmEc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50B5A1F000C1;
+	Sat, 31 Oct 2026 17:16:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793466907;
-	bh=bHlvjqB25V4L8nTFSkvwTyjVDrH38SIIXQz2UDWl2zQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kQpgKMWnLaqZ7hr2kQf07gjCaH2p+09H85n8fc9S7xwlLfSrzANZPnYctO+ucFdkO
-	 I+71FkIrUlGV92iOiJvcfMWQ3xJJwU/RTuucKtJavSUZL/pOoUqBjq2O/nYigdRFNr
-	 sb+4VATVXZj3VxxQANApN8lMUjMfqH4twjmyU/caLitWCi6u20RJCr7s+9sf6mmfaH
-	 WYjNCPutZoFk14PfLTxujd2rNdNnz+X1+ZUOuXXPv3eKJ369zp13G2Y/ju1GFrjhfY
-	 nvOmPu8H8XTWXYPN8uPANBscguZc5k+quFKXAGPSNSsJBZbizUWDkecbqc5ls+SEHc
-	 dtCvYFPuM2cmg==
-Date: Sat, 31 Oct 2026 17:15:02 +0000
-From: Simon Horman <horms@kernel.org>
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>
-Cc: Saeed Mahameed <saeedm@nvidia.com>, Tariq Toukan <tariqt@nvidia.com>,
-	Leon Romanovsky <leon@kernel.org>, Mark Bloch <mbloch@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>,
-	Boris Pismenny <borisp@nvidia.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org, linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] net/mlx5: macsec: free struct mlx5_fs_id after an
- RCU grace period
-Message-ID: <20261031171502.GP257209@horms.kernel.org>
-References: <179313582625.87630.11382992904624255106@gmail.com>
+	s=k20260515; t=1793466981;
+	bh=/mBZi5W3sDWHIrgVG5ai7HwJIE30ho6SI0RH0HYnw5g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=HXkkPmEcBzmhUuLw3mxD5Qu20BXyKdtzE2d4WOom2Nzy1s2rcyn4rSNB9kOGrk6El
+	 sKJlTtr4cGyfXDFmDgG6X3JRAmxUvAw7UBm4s7As/QDk1ch470V8tWz3SFTZh5vxLl
+	 ZBYk7QWc0aIIfGsPp4xwJLaaoJuWnfsYOTERGyBKqSBcus3IiKKpSP2tkYur9X7NQR
+	 64vYdKrpbilEaUbmmWBBEu0Lg9IcA4kUAOGOeGt7de55GCqAtjqcqQqIp4qVzwVHh7
+	 YGHPFT6VAuHF2h+1oeI3eCUyFred5oVs9wbfCQjg9SU66wwdR3vrmB9z+dDJzz0/se
+	 NykGJ583PCqRg==
+From: William Breathitt Gray <wbg@kernel.org>
+To: Vignesh Raghavendra <vigneshr@ti.com>,
+	Julien Panis <jpanis@baylibre.com>,
+	"Peng Fan (OSS)" <peng.fan@oss.nxp.com>
+Cc: William Breathitt Gray <wbg@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	Peng Fan <peng.fan@nxp.com>,
+	linux-iio@vger.kernel.org,
+	linux-omap@vger.kernel.org
+Subject: Re: [PATCH] counter: ti-ecap-capture: use regmap_assign_bits() for conditional set/clear
+Date: Sat, 31 Oct 2026 13:16:09 -0400
+Message-ID: <179346694223.3640101.18401240670826689615.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20260924083448.461792-1-peng.fan@oss.nxp.com>
+References: <20260924083448.461792-1-peng.fan@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,51 +64,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179313582625.87630.11382992904624255106@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=408; i=wbg@kernel.org; h=from:subject:message-id; bh=J4NaL/W2yZsqaCGWyer5oIJrl7TEhysTub4ajAq0dV4=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFnPlDwO12YLKeY9dF6RtOzZjfyIpz4uszauNxFUl3gj+ FXZmpGlo5SFQYyLQVZMkaXX/OzdB5dUNX68mL8NZg4rE8gQBi5OAZhIjwTD//IneSI/hTNeLf30 8K9e1LY/35Mvz5sUM1vw9QXddMuLD44x/JXn/h1xxuWStd9eg5BXez5f4Pa84RM4J/+Qg5XcLKf Qz7wA
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 06:17:06PM -0300, Joas Antonio dos Santos wrote:
-> macsec_fs_id_del() removes a struct mlx5_fs_id from its rhashtable with
-> rhashtable_remove_fast() and then frees it with kfree() right away.
-> 
-> The TX (SCI) table is read locklessly from the transmit path:
-> mlx5e_macsec_handle_tx_skb() and mlx5e_macsec_tx_build_eseg() call
-> mlx5_macsec_fs_get_fs_id_from_hashtable(), which does
-> rhashtable_lookup() under rcu_read_lock() and then reads
-> mlx5_fs_id->id. A transmit that looked the entry up just before it was
-> removed reads freed memory.
-> 
-> Before commit d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per MACsec
-> device inside macsec steering") the SCI table held struct
-> mlx5e_macsec_sa directly, and mlx5e_macsec_del_txsa() freed it with
-> kfree_rcu_mightsleep(). That commit moved the table into macsec_fs.c
-> with the new struct mlx5_fs_id, but frees it with a plain kfree().
-> 
-> Add an rcu_head to struct mlx5_fs_id and free it with kfree_rcu().
-> 
-> The same issue was flagged by the Sashiko AI review as a pre-existing
-> problem while reviewing the HW-GRO for PSP series.
-> 
-> Fixes: d4ece08f4b1d ("net/mlx5: Maintain fs_id xarray per MACsec device inside macsec steering")
-> Link: https://lore.kernel.org/all/20260909065542.4B80D1F00ACA@smtp.kernel.org/
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
-> ---
-> v2:
-> - Drop the macsec.c hunk: the sc_xarray_element free was already fixed
->   by ad17ad50b8dc ("net: mlx5e: Fix use-after-free of the MACsec xarray
->   entry on RX SC deletion"). (Simon)
-> - Embed an rcu_head and use kfree_rcu() instead of
->   kvfree_rcu_mightsleep(). (Simon)
-> - Fixes: now points at the commit that introduced the kfree().
-> - v1: https://lore.kernel.org/all/179285888829.90275.17386097105525068016@gmail.com/
-> 
-> Testing: compile-tested only (arm64, W=1, CONFIG_MLX5_MACSEC=y, no new
-> warnings). I do not have
-> MACsec-capable ConnectX hardware, so this was not run on a device.
 
-Thanks for the update, and testing and discovery information.
+On Thu, 24 Sep 2026 16:34:47 +0800, Peng Fan (OSS) wrote:
+> Replace if/else block using regmap_set_bits()/regmap_clear_bits() with
+> the simpler regmap_assign_bits() call.
+> 
+> 
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Applied, thanks!
 
+[1/1] counter: ti-ecap-capture: use regmap_assign_bits() for conditional set/clear
+      commit: 6954e1a8996bc35a6e1b65f6028c850490b1d20a
+
+Best regards,
+-- 
+William Breathitt Gray <wbg@kernel.org>
