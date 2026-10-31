@@ -1,104 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.226
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793411334;
-	b=Tc2qhH07IlcI8uSRGeJzFmsxq7qILCGZwm2nce1QDgo85K7U8R2TEmbFDylQbTeX4IXq
-	 KrKb8UwK7UJPo73uymMrFAittNiQCdXX3Pj+BRenGrMEYfwjz7t5Y5SnDWyJwVmshpRs0
-	 2rNCGVaQmTJlCyO2ftqMwk91vtx8+btoCaL2e+5CPqhM3XkUfePk2ihkwrj9/ClS1rQyb
-	 jBzAG5zJ1kJ/3it+Ca278OpSwuY1nxC3qWi9Tgp/e1++HRXtKXHPdNGNTAVN0HrOI97F2
-	 lYH5UdQHTRowlp1a2iroE+p2fTkFRyqh4NwCE5/noLB071wzLIrbxLLEgrAFo+zOUFg==
+	t=1793411340;
+	b=v733Tr5vUP5sz7LArrliSECMXZOyi0HeXATCGizpMRXQyCRCIR1o2AjmuusKiaDsbqSD
+	 akHy7BRQdFb7hdmKC2JgLfVkoJZvS6DQOzfeVXREq8IHkPpI+YJVL70ykuFUOMpd0QgiJ
+	 31HFjYTp1FLRSxPXQEvsMfXWglkhDL9dqW9duyFygz2qc6s6DFR0wRd7Q+NLV618btVue
+	 QkVnakJ29K53L07GIA5bZ6/zaa7vTAxJQJ4rQZOWzpw/3GIWegteb2X4wiBTmwFJaFzGe
+	 UrBOp/l0ZECvj1LE4OktpgpFcfP4AK1DusVCYYk1lphR1EU8afnJaFIphqTJb8zElAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793411334;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=DDNUkdp/AZl9JhN6WFKJZe6JzjdwBOldOY8jhM6xHPs=;
-	b=r4PJHhmTgOWADXEz8HqqYnTunf57d9NP0RqzL9JJXsOrRHG0TVVBFpv3ConXG83EuIHN
-	 H+tv+KRhOEsQYdT6mT5Dp91VFk4eYRtiO0E9uytykbcd/rt7pgaFujT2h+JCznt+creil
-	 Ip1IghDDJvR1rs32DQ/2nGY6T8Tb6SexRRtia8GAurTOfQgDXSQUvyR3GouQYxphs851S
-	 an1icG3Ha1KH3tsiv3Tg8NR/7+37pbtj54nvoR0AIz+s2KBYI7sHsd83c3FholbIRFpRk
-	 6MNPN9E7JJFJ+0ZLDOO56yYO/LnfqJvHaVEqvuVCzQSG7Tasq1cfHvLsWRWfp8XW8hg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793411340;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 X-Gm-Gg:X-Received:Received:X-Relaying-Domain:X-CFilter-Loop:Received:
+	 DKIM-Signature:X-Received:X-Received:Received:Mime-Version:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Cc:Subject:
+	 From:To:X-Mailer:References:In-Reply-To:X-DetectorID-Processed;
+	bh=1SgcnqVdQJGi68NMbZM9x7rfQgXngTJp0Jblk14QXao=;
+	b=T0pCpiAOenfbT7Bo07oqL/YiDixDiu4FPp+xjx+0HKW7cvth3drmpog1AOYS1u1wR5Cp
+	 ZwM3cyILbcPHIFu0aNUJc4meBRfMbzVNIzXwlu1hxbhAk2EKDKrdnxP+n+9+15Qq/yJ7V
+	 pXGO8B+G3fH4e4OZYXCfxrhOQl3Sw7eujN8EdcXsV1JIJgoXnfq6iPHbMg1XPzt7e+2u8
+	 1RSV7lOw+3ItXgCG20vnwmHf4E4bjghtvW77ebgpojR44FVljHnYJJY4LzfPNb+OBcJwI
+	 ckVfOdAjdlZFwHgNTOec475xAasfm99Y/2wqGDSUjD4oNY6/4OEG2C7ZzLyNp06YwBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IxhMzQrp;
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=feoWLFWv;
+	arc=none smtp.remote-ip=209.85.215.226
+Received: from mail-pg1-f226.google.com (mail-pg1-f226.google.com [209.85.215.226])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E2A606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:48:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7E2A606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A526606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:49:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4A526606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IxhMzQrp
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so15925ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:48:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793411333; x=1794016133; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DDNUkdp/AZl9JhN6WFKJZe6JzjdwBOldOY8jhM6xHPs=;
-        b=IxhMzQrpAMb8PtplimjtjnlP2ShmsdO18mqw/JCLA0dTwtuOwmQCeYsvCdggZZsGPh
-         Lol1U5Yye/9loC9UodFkk6ArrONa3J4lx55uwV5NjXynTI9uAs7Xc8gxmhrA6AMLMJDi
-         tl78OQuFfnM2q24NwsKL5+BldSaX7+2OQiHTbJGLTmQ5JT2M+fgtRj35w5lSLR8/XUN4
-         O2sIGccIP8i9bEyVX8ldQyoZQdnRi2zhEaXYZQWgxO8di+SkqCZ4O+hLmMKTRfJ5k4Yw
-         wFoa9JW3PXRsGQP6DfxHr+Jlkx9wfkhqxkWWKgvcza0r4b/PkSuyPO9R26cTnVVmsYn6
-         Evrw==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=feoWLFWv
+Received: by mail-pg1-f226.google.com with SMTP id 41be03b00d2f7-cc4aa0246b7so687803a12.3
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:49:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793411333; x=1794016133;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DDNUkdp/AZl9JhN6WFKJZe6JzjdwBOldOY8jhM6xHPs=;
-        b=yM7yRROC4BKFfoXXHNp/SImDIe8pB9NFZI8fGQkfDXIusvYDxftwf3DoySyZzXpIbX
-         Z4wNpK2vFY+V5zlinBizcoKXq/5GE3BjnSQ3ex0hsNLmgbbCLLsXTIGK0uLG1P9GuZSt
-         Z/bJO7l2B0Zw388/e/Tfux19cY5sLLdKMX+OVfnYqqkDvInuHyqlzA6AHEgcpIjDCViV
-         dVLA0m+NSzetgtakZ3hsaqTlEuSjEDscw/vn6FZw6+uGjk3HKnGTYhTUJ45mWsYEpm0j
-         y2v1BWKSiWJGQ62RsaE9fXjOaMc1pkOquDbPf+zdBicjFloOjsUccHRoMpA7r0NK39OU
-         gX0g==
-X-Forwarded-Encrypted: i=1; AKwUvBx1z2THfagxuUL8He6OIs0b+Z5asQiJg7W1yi2UzvVSAjTYWPVpARfJaIArq2kKSLCadUdLqUfaoKqRPs0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLm+QdoQdwenb+dmd7691fkZ5tXVBfPv/55s1iODxiTZOTQ42RD
-	pJFsaR/pKslOvh2qkcD6qsIhN4XPv6TUlvQar2aNptfgwBIjseMmZc0dlqsF2BzSyQ==
-X-Gm-Gg: AYBFou3l+CZhoil1x6Ty3nQU5KFfoma69fdcHsuXFKoTiJBWhLWs5zlOmE0J0Yb5ql3
-	BuMIblfT10hK62XxA+OZOFkG+omKnq5iJoSjBfclwpsEvpEioLHVH6s+8WcOr8FNOvyNO/xQgKb
-	Q6BURIJo0a3TvgN0Bwy9/jySs2czs/vPC++e1Th9lcd/Nu59RR/v+NIhNUYERcx1lL4fJlNG+Jg
-	apswYe4gn4hywOy6A6dB0nGfkzWEWnhZ8D9yUdc/lt1HW87T3H8prU1ckk7sPrcbUNOJXOG2NVD
-	+9ipYfzmb2C3WBCS0zj+cra/UJ8ulHgnTk0CcPG07x77S9xdFMbjhCnEXHvzzQrQWtIXG3CTwUg
-	8db+QWP5i5X/4Z17bpRTZu90D/RxsEBiHDJL73UpKRn4Y3iOiyGAOdrg47EXBMxUT74oIErAaF4
-	HjQIh9vYQM6ExAWILJxohSXPxObUW/tsmV70wSQ8HmFHn7N4zFED/20tzI+ESraLPIqMZvy+pPc
-	F/YqXRlqiMUFnFEtcQ/xrKPuBb82LMGv3apQoi9xJht//o+SEsA6qkOnBuSrbsXwFRdqTM8KmY8
-	A1d0al3f5qt7SfNjt3tu66t22FGn3DEqmVsAntBKi3Ui97b5hNTiLcsc/89BIAQnB1k9IvtLqWf
-	ey6ff2IwW3V3ULsofA60t2g==
-X-Received: by 2002:a17:903:1a2b:b0:2ea:7180:3abf with SMTP id d9443c01a7336-2eb019a757fmr21235195ad.15.1793411332583;
-        Fri, 30 Oct 2026 18:48:52 -0700 (PDT)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aada6c2c28sm444881b3a.43.2026.10.30.18.48.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 18:48:50 -0700 (PDT)
-Date: Sat, 31 Oct 2026 01:48:45 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
-	YiFei Zhu <zhuyifei@google.com>, Pranjal Shrivastava <praan@google.com>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma <vipinsh@google.com>, 
-	Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>, 
-	John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 14/18] iommufd: Implement ioctl to mark HWPT for
- preservation
-Message-ID: <auVIrh3NVgcYEOIx@google.com>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-15-skhawaja@google.com>
- <887b7c7e-38b8-4798-84a5-bf96bc13ef04@linux.intel.com>
+        d=1e100.net; s=20260707; t=1793411339; x=1794016139;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:dkim-signature
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=1SgcnqVdQJGi68NMbZM9x7rfQgXngTJp0Jblk14QXao=;
+        b=izOF4j1dzV/FLnENQKLea7ogvF642tMy2lYb3eNK+YLJpn0okBhqq0+gbD35w6r643
+         +8KZHGZGUnK/hcTIpVsUV1LYaSEK04AIB0mlOUcYTgoanE9mYnN6YkI62f/o5n92x2O+
+         SBKpwSexrgStjW9KfiG9pkOrhSVSnPVys5n2oH3HedX3TBJOwvpy5ZgEz6k4TD4+pOoU
+         oY33jINpv+Q5tmShD3DWx5MbvBnlMflnqrbBXZGJWvR41DZIE1F9he2jkCq+SeCUBZiJ
+         SQFPosAdAvxHH1WP6LglKNc0+gsjU/uXAxKuVFuIGmKYQ8ar6wEGVSUhbg7UrYluAl1k
+         YV5Q==
+X-Gm-Message-State: AFq9FYK4Cgi8uYUm3uiJmM8mLOHLfFHmzPqqcd6RjnhtVN/UI1FfZ/ac
+	xWuwBjnRiM1zAVpy67ObbXgPGTtxIkNSwd4J9PLfCFc++NAvYtHh4fzVuEVBiQ+sh5bHJz60w0p
+	Td3z+ZzxjGg6N1VzFtBV+LwaQzatt476a9CuBNf5cLzmQEw0hpy0xroZrbV/46ENn+kp1iPdZON
+	1SGlvwb5vCKzrLU1yMPoH1cgtCsl0TTN5cYk5dubvNTw0w5aO30Ggf8NFOcU8zTQ7YkGGuNBP/F
+	NM2F5bn5trGbwbPZQBSF6HT
+X-Gm-Gg: AYBFou2EPwtm/FpNvo2uuxx9PA0KIiPtfnabAfCjEWXD4MHuCFeLcQVNlMOFL6VAiyG
+	50MKWmA5TppErRtODTqSUFZ599fey96gUxwXNc5MYCmTY2tZdbljAsrmdlf1ncuLjzPb/ADmsKn
+	aGBOLVHZKuhh5vy9SUmnjYjKi1vs39mWo24AtecTUhmxFa54d+xLCJr67d8YXVIM/bf6U36N1WG
+	rPb8tCC86Yg+/O3UAja+LUPnbq0qYpN4rex1KbzYKbWTul4OZEDtkVHwjSNGsnj3AJutUPQf3Ow
+	6+Th5iDnuSSd77hYjTHHNd+rINmnXKSp8M+vphKUbuyyu1SYEYHeMnij5+u0+axKCMC6oSoCWN5
+	j8EWyR6QaZGZ6XZcSKsUHsw3tjnY7Z2Rt5QLfSPTiNjrdlIT9xCBDX1rqWwEYP+xItG/vJDR6b7
+	zl74AFZllhtwOEeLexgwYfmK9pedPyNLHeImrSF84q
+X-Received: by 2002:a17:90b:1b03:b0:3ab:2ad1:f10a with SMTP id 98e67ed59e1d1-3ae89287394mr3014608a91.0.1793411339472;
+        Fri, 30 Oct 2026 18:48:59 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae881b1b69sm882955a91.4.2026.10.30.18.48.58
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Fri, 30 Oct 2026 18:48:59 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso1555519eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 18:48:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793411337; x=1794016137; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=1SgcnqVdQJGi68NMbZM9x7rfQgXngTJp0Jblk14QXao=;
+        b=feoWLFWvg9VElaO694lDcx5hAgfvD6f/6r/syVkYhCtogBpSTkDjMV8Q5KWqEc6PAQ
+         HBhCOQSCEuHdg4GoDrBtTYSofEA2tZSBZ4VXXBul6Spn3q7Ia0NNDfC3YEmTzK7u7tmL
+         TVyZjpcw6TeGhtDXKW/XuBRnrUYgKYRxb3to4=
+X-Received: by 2002:a05:701b:4505:20b0:154:fa0b:6df1 with SMTP id a92af1059eb24-1ac5d69f9c1mr4947233c88.37.1793411337502;
+        Fri, 30 Oct 2026 18:48:57 -0700 (PDT)
+X-Received: by 2002:a05:701b:4505:20b0:154:fa0b:6df1 with SMTP id a92af1059eb24-1ac5d69f9c1mr4947199c88.37.1793411336852;
+        Fri, 30 Oct 2026 18:48:56 -0700 (PDT)
+Received: from localhost ([192.19.50.250])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a9e2ed3sm10290353c88.19.2026.10.30.18.48.55
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 30 Oct 2026 18:48:56 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,273 +98,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <887b7c7e-38b8-4798-84a5-bf96bc13ef04@linux.intel.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 30 Oct 2026 18:50:17 -0700
+Message-Id: <DMINAFH3EEBW.26VZ1LKJN1CSI@broadcom.com>
+Cc: <linux-kernel@vger.kernel.org>, <bcm-kernel-feedback-list@broadcom.com>,
+ <mripard@kernel.org>, <maarten.lankhorst@linux.intel.com>,
+ <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>
+Subject: Re: [PATCH] drm/vmwgfx: Fix use-after-free race in
+ vmw_dumb_create()
+From: "Maaz Mombasawala <maaz.mombasawala@broadcom.com>"
+ <maaz.mombasawala@broadcom.com>
+To: "Nair, Jayapal Ashwin" <jayapalashwin.nair@amd.com>,
+ <dri-devel@lists.freedesktop.org>, <zack.rusin@broadcom.com>
+X-Mailer: aerc 0.17.0
+References: <48e6780670395107cc9853bf63fa7ac1d034cdd7.1793249917.git.jayapalashwin.nair@amd.com> <DMHS7SIDIUGJ.168385UCMC4QI@broadcom.com> <7a822adb-ddb5-4338-8949-3ccb0942e0a0@amd.com>
+In-Reply-To: <7a822adb-ddb5-4338-8949-3ccb0942e0a0@amd.com>
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-On Fri, Oct 30, 2026 at 03:20:02PM +0800, Baolu Lu wrote:
->On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
->>From: YiFei Zhu <zhuyifei@google.com>
->>
->>Userspace provides a token to mark the HWPT for preservation. Note that
->>this token is not the LUO token that is used to preserve the iommufd.
->>Once all the required HWPT are marked for preservation, the user can
->>preserve the iommufd into LUO. The iommufd will preserve the HWPTs that
->>are marked for preservation.
->>
->>The marked HWPTs are tracked using a new XArray mark protected by a new
->>liveupdate mutex. This mutex will also be used during iommufd
->>preservation to protect against any race with the mark preserve ioctl.
->>
->>The HWPT token will be used during restore to identify this HWPT. The
->>restoration logic is not implemented and will be added later.
->>
->>Reviewed-by: Pranjal Shrivastava <praan@google.com>
->>Signed-off-by: YiFei Zhu <zhuyifei@google.com>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  MAINTAINERS                             |  1 +
->>  drivers/iommu/iommufd/Makefile          |  1 +
->>  drivers/iommu/iommufd/iommufd_private.h | 17 ++++++
->>  drivers/iommu/iommufd/liveupdate.c      | 72 +++++++++++++++++++++++++
->>  drivers/iommu/iommufd/main.c            |  9 ++++
->>  include/uapi/linux/iommufd.h            | 27 ++++++++++
->>  6 files changed, 127 insertions(+)
->>  create mode 100644 drivers/iommu/iommufd/liveupdate.c
->>
->>diff --git a/MAINTAINERS b/MAINTAINERS
->>index 15e1da41b0cc..78af4e3dc106 100644
->>--- a/MAINTAINERS
->>+++ b/MAINTAINERS
->>@@ -13738,6 +13738,7 @@ M:	Samiullah Khawaja <skhawaja@google.com>
->>  R:	Pranjal Shrivastava <praan@google.com>
->>  L:	iommu@lists.linux.dev
->>  S:	Maintained
->>+F:	drivers/iommu/iommufd/liveupdate.c
->>  F:	drivers/iommu/liveupdate.c
->>  F:	include/linux/iommu-liveupdate.h
->>  F:	include/linux/kho/abi/iommu.h
->>diff --git a/drivers/iommu/iommufd/Makefile b/drivers/iommu/iommufd/Makefile
->>index 67207914bb6e..cfd5b4b14ccb 100644
->>--- a/drivers/iommu/iommufd/Makefile
->>+++ b/drivers/iommu/iommufd/Makefile
->>@@ -12,6 +12,7 @@ iommufd-y := \
->>  iommufd-$(CONFIG_IOMMUFD_NOIOMMU) += hwpt_noiommu.o
->>  iommufd-$(CONFIG_IOMMUFD_TEST) += selftest.o
->>+iommufd-$(CONFIG_IOMMU_LIVEUPDATE) += liveupdate.o
->>  obj-$(CONFIG_IOMMUFD) += iommufd.o
->>  obj-$(CONFIG_IOMMUFD_DRIVER) += iova_bitmap.o
->>diff --git a/drivers/iommu/iommufd/iommufd_private.h b/drivers/iommu/iommufd/iommufd_private.h
->>index eb2e85b27e42..a33b32708afa 100644
->>--- a/drivers/iommu/iommufd/iommufd_private.h
->>+++ b/drivers/iommu/iommufd/iommufd_private.h
->>@@ -44,6 +44,11 @@ struct iommufd_ctx {
->>  	struct file *file;
->>  	struct xarray objects;
->>  	struct xarray groups;
->>+#ifdef CONFIG_IOMMU_LIVEUPDATE
->>+#define IOMMUFD_OBJ_LIVEUPDATE_MARK XA_MARK_1
->>+	/* @liveupdate_mutex: Protects the preservation of HWPTs. */
->>+	struct mutex liveupdate_mutex;
->>+#endif
->>  	wait_queue_head_t destroy_wait;
->>  	struct rw_semaphore ioas_creation_lock;
->>  	struct maple_tree mt_mmap;
->>@@ -392,6 +397,9 @@ struct iommufd_hwpt_paging {
->>  	bool auto_domain : 1;
->>  	bool enforce_cache_coherency : 1;
->>  	bool nest_parent : 1;
->>+#ifdef CONFIG_IOMMU_LIVEUPDATE
->>+	u64 liveupdate_token;
->>+#endif
->>  	/* Head at iommufd_ioas::hwpt_list */
->>  	struct list_head hwpt_item;
->>  	struct iommufd_sw_msi_maps present_sw_msi;
->>@@ -729,6 +737,15 @@ void iommufd_vdevice_abort(struct iommufd_object *obj);
->>  int iommufd_hw_queue_alloc_ioctl(struct iommufd_ucmd *ucmd);
->>  void iommufd_hw_queue_destroy(struct iommufd_object *obj);
->>+#ifdef CONFIG_IOMMU_LIVEUPDATE
->>+int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd);
->>+#else
->>+static inline int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
->>+{
->>+	return -ENOTTY;
->>+}
->>+#endif
->>+
->>  #ifdef CONFIG_IOMMUFD_TEST
->>  int iommufd_test(struct iommufd_ucmd *ucmd);
->>  void iommufd_selftest_destroy(struct iommufd_object *obj);
->>diff --git a/drivers/iommu/iommufd/liveupdate.c b/drivers/iommu/iommufd/liveupdate.c
->>new file mode 100644
->>index 000000000000..5fb491ff3a3d
->>--- /dev/null
->>+++ b/drivers/iommu/iommufd/liveupdate.c
->>@@ -0,0 +1,72 @@
->>+// SPDX-License-Identifier: GPL-2.0-only
->>+
->>+/*
->>+ * Copyright (C) 2026, Google LLC
->>+ * Author: Samiullah Khawaja <skhawaja@google.com>
->>+ */
->>+
->>+#define pr_fmt(fmt) "iommufd: " fmt
->>+
->>+#include <linux/file.h>
->>+#include <linux/iommufd.h>
->>+#include <linux/liveupdate.h>
->>+
->>+#include "iommufd_private.h"
->>+
->>+int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
->>+{
->>+	struct iommu_hwpt_liveupdate_mark_preserve *cmd = ucmd->cmd;
->>+	struct iommufd_ctx *ictx = ucmd->ictx;
->>+	struct iommufd_hwpt_paging *hwpt;
->>+	struct iommufd_object *obj;
->>+	unsigned long index;
->>+	bool marked = false;
->>+	int rc = 0;
->>+
->>+	hwpt = iommufd_get_hwpt_paging(ucmd, cmd->hwpt_id);
->>+	if (IS_ERR(hwpt))
->>+		return PTR_ERR(hwpt);
->>+
->>+	mutex_lock(&ictx->liveupdate_mutex);
->>+
->>+	xa_lock(&ictx->objects);
->>+
->>+	/* PRI use cases are not supported. */
->>+	if (hwpt->common.fault) {
->>+		rc = -EOPNOTSUPP;
->>+		goto out_unlock;
->>+	}
->>+
->>+	xa_for_each_marked(&ictx->objects, index, obj, IOMMUFD_OBJ_LIVEUPDATE_MARK) {
->>+		struct iommufd_hwpt_paging *hwpt_marked;
->>+
->>+		if (WARN_ON_ONCE(obj->type != IOMMUFD_OBJ_HWPT_PAGING))
->>+			continue;
->>+
->>+		hwpt_marked = to_hwpt_paging(container_of(obj, struct iommufd_hw_pagetable, obj));
->>+
->>+		if (hwpt_marked == hwpt)
->>+			marked = true;
->>+
->>+		if (hwpt_marked->liveupdate_token == cmd->hwpt_token) {
->>+			if (hwpt_marked == hwpt)
->>+				goto out_unlock;
->>+
->>+			rc = -EADDRINUSE;
->>+			goto out_unlock;
->>+		}
->>+	}
->>+
->>+	__xa_set_mark(&ictx->objects, hwpt->common.obj.id, IOMMUFD_OBJ_LIVEUPDATE_MARK);
->>+
->>+	if (marked)
->>+		pr_warn_ratelimited("Overwriting HWPT liveupdate token from: %llu to %llu\n",
->>+				    hwpt->liveupdate_token, cmd->hwpt_token);
->>+	hwpt->liveupdate_token = cmd->hwpt_token;
->>+
->>+out_unlock:
->>+	xa_unlock(&ictx->objects);
->>+	mutex_unlock(&ictx->liveupdate_mutex);
->>+	iommufd_put_object(ictx, &hwpt->common.obj);
->>+	return rc;
->>+}
->>diff --git a/drivers/iommu/iommufd/main.c b/drivers/iommu/iommufd/main.c
->>index 9a921b153162..fe8610fd58e3 100644
->>--- a/drivers/iommu/iommufd/main.c
->>+++ b/drivers/iommu/iommufd/main.c
->>@@ -333,6 +333,9 @@ static int iommufd_fops_open(struct inode *inode, struct file *filp)
->>  	init_rwsem(&ictx->ioas_creation_lock);
->>  	xa_init_flags(&ictx->objects, XA_FLAGS_ALLOC1 | XA_FLAGS_ACCOUNT);
->>  	xa_init(&ictx->groups);
->>+#ifdef CONFIG_IOMMU_LIVEUPDATE
->>+	mutex_init(&ictx->liveupdate_mutex);
->>+#endif
->>  	ictx->file = filp;
->>  	mt_init_flags(&ictx->mt_mmap, MT_FLAGS_ALLOC_RANGE);
->>  	init_waitqueue_head(&ictx->destroy_wait);
->>@@ -395,6 +398,9 @@ static int iommufd_fops_release(struct inode *inode, struct file *filp)
->>  	 * iommufd_object_tombstone_user()
->>  	 */
->>  	xa_destroy(&ictx->objects);
->>+#ifdef CONFIG_IOMMU_LIVEUPDATE
->>+	mutex_destroy(&ictx->liveupdate_mutex);
->>+#endif
->>  	WARN_ON(!xa_empty(&ictx->groups));
->>@@ -440,6 +446,7 @@ union ucmd_buffer {
->>  	struct iommu_hwpt_alloc hwpt;
->>  	struct iommu_hwpt_get_dirty_bitmap get_dirty_bitmap;
->>  	struct iommu_hwpt_invalidate cache;
->>+	struct iommu_hwpt_liveupdate_mark_preserve mark_preserve;
->>  	struct iommu_hwpt_set_dirty_tracking set_dirty_tracking;
->>  	struct iommu_ioas_alloc alloc;
->>  	struct iommu_ioas_allow_iovas allow_iovas;
->>@@ -516,6 +523,8 @@ static const struct iommufd_ioctl_op iommufd_ioctl_ops[] = {
->>  		 __reserved),
->>  	IOCTL_OP(IOMMU_VIOMMU_ALLOC, iommufd_viommu_alloc_ioctl,
->>  		 struct iommu_viommu_alloc, out_viommu_id),
->>+	IOCTL_OP(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE, iommufd_hwpt_liveupdate_mark_preserve,
->>+		 struct iommu_hwpt_liveupdate_mark_preserve, hwpt_token),
->>  #ifdef CONFIG_IOMMUFD_TEST
->>  	IOCTL_OP(IOMMU_TEST_CMD, iommufd_test, struct iommu_test_cmd, last),
->>  #endif
->>diff --git a/include/uapi/linux/iommufd.h b/include/uapi/linux/iommufd.h
->>index 206fa667c782..93372689afec 100644
->>--- a/include/uapi/linux/iommufd.h
->>+++ b/include/uapi/linux/iommufd.h
->>@@ -58,6 +58,7 @@ enum {
->>  	IOMMUFD_CMD_VEVENTQ_ALLOC = 0x93,
->>  	IOMMUFD_CMD_HW_QUEUE_ALLOC = 0x94,
->>  	IOMMUFD_CMD_IOAS_NOIOMMU_GET_PA = 0x95,
->>+	IOMMUFD_CMD_HWPT_LIVEUPDATE_MARK_PRESERVE = 0x96,
->>  };
->>  /**
->>@@ -1390,4 +1391,30 @@ struct iommu_hw_queue_alloc {
->>  	__aligned_u64 length;
->>  };
->>  #define IOMMU_HW_QUEUE_ALLOC _IO(IOMMUFD_TYPE, IOMMUFD_CMD_HW_QUEUE_ALLOC)
->>+
->>+/**
->>+ * struct iommu_hwpt_liveupdate_mark_preserve - ioctl(IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE)
->>+ * @size: sizeof(struct iommu_hwpt_liveupdate_mark_preserve)
->>+ * @hwpt_id: HW pagetable ID to preserve for liveupdate
->>+ * @hwpt_token: Token to identify this hwpt upon restore
->>+ *
->>+ * The target HWPT will be preserved during iommufd preservation.
->>+ * Only file-based memory mappings (e.g. memfd) are supported for HWPTs marked
->>+ * for preservation. Mapping anonymous memory into a preserved HWPT will result
->>+ * in a failure during the preservation phase.
->>+ *
->>+ * The hwpt_token is provided by userspace. If userspace enters a token
->>+ * already in use within this iommufd, -EADDRINUSE is returned from this ioctl.
->>+ *
->>+ * Note: There is no 'unmark' operation, so any HWPTs pooled in userspace that
->>+ * are marked for preservation must be destroyed after use.
->>+ */
->>+struct iommu_hwpt_liveupdate_mark_preserve {
->>+	__u32 size;
->
->Most iommufd commands have a "flags" member here, so that the uAPI
->struct can be extended later. Why is this one different?
+LGTM!
+That sounds like a good test case to put in igt, please do so if you can.
 
-Agreed. I will update this.
->
->>+	__u32 hwpt_id;
->>+	__aligned_u64 hwpt_token;
->>+};
->>+#define IOMMU_HWPT_LIVEUPDATE_MARK_PRESERVE \
->>+	_IO(IOMMUFD_TYPE, IOMMUFD_CMD_HWPT_LIVEUPDATE_MARK_PRESERVE)
->>+
->>  #endif
->
->Otherwise, this patch looks good to me,
->
->Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+Reviewed-by: Maaz Mombasawala <maaz.mombasawala@broadcom.com>
 
-Thanks for the review,
-Sami
+--=20
+Maaz Mombasawala <maaz.mombasawala@broadcom.com>=20
+
