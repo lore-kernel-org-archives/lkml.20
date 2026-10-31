@@ -1,68 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424849;
-	b=LGKDb7e0/B4GbZwnjONGy+6AZABcT8x/TXrMjeYyXvGQbYikwQ7WIjKL2z4JPlUcCmys
-	 axAo04eKDD+kLn18KqYuFZCbc9QaivyfJ/QASd1VN1qtUcy0ZcHLZH+/XNgXCT3O0m4/b
-	 Hs07SWgvB4UKmCOKCQdZzelreD5grzK4PcnlvjXe+vy0vYd8pW2o3WegMrnvt8hQBB9yI
-	 SRvL/P8zmHMwrtmq/zwQwdCd/hgq5lFcPIZsBDgTrO7abZtoDGEbqL+jkTs3WDvA7U0kd
-	 /ibArA+43y3r6TsyH+cWKtLJkM+INWZWhsDlXFLm+UQlwxu1tHzgIcZOIxld8rYdPDA==
+	t=1793425307;
+	b=Hvz0iO/2TuVov5EmQkbweeFzmqcygXz6fXyBYeF55GBZgvzfd5sP7hoIvx7jUpJhUTBl
+	 Id78xaY3TQ5lNds9dvo2gKdLKfIK13zVpJ1X9jtFST7hTFMhVz/EfFZFIGi0A8UgptqEs
+	 gEQBze61TTBq9L0Zqjgv4YSk1nLFfmbjNjIzHLMsBEwTHsxYNpSTQXAEvtza6ZySd6eip
+	 TiIYpOAYgNmrH/ml5sF8xbykPtSn6LltXjp4u0hKcboqzoIaH1tTlUMbK4XZjMPy9TEL7
+	 jUqe7UGVnTMe4566WWYSWE9KW0SRfvX6AEBXtVDsm8ZzMrWPfMBmlSw3IEn19qyWcwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424849;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=/VwbcVFoAg5lnb5ziZ5bsI4g8Kl0QWqGFO+0605f0UM=;
-	b=BrST1j63MaoZsxpuhF13WIqTIXFSXwLgF2Q1f6rbOKx81lAekrY1lxV3vljoholeJJh5
-	 kiFaa0HcB3Wewj+vMdHfLCmLFZy31UQ/nH6fWFDMuFh/GJbo0CB5IFL4b6o7eCLsHJKhU
-	 J7ah22TYH6ptrZIcnUX92+DUomxUduRIN5qDt8yvwa3tz3OqFyHbJ5XlUUyLcEqH2QUO+
-	 ZirBMMupKnwX3qoH4IIv7a1JpLccvgIjjgDikQP6MNsdmLYvW+vkqaPFDEG/q/Kmn3O0J
-	 buyCCIXXqgPtwPlxFLLcuLYLZZ5kVlHvVwGfxhNE5aA/RZAfsoHPb4fdFarjwC2qi4A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793425307;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
+	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
+	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
+	bh=jI8T5c3f3LqNpG25TWB8fWvMcJXinVSA9ZWa73qQlCQ=;
+	b=WVvmMWY3U6NauKqfBhcR18bx33ia2Pp+xGr5xsJPoglnH5aISWOkJW/y54cn0yHxP0cO
+	 LvBxy6Q5wZtkERJxWrfQ7wDEkudIqMqnYxI4h9rpEAu8vsFUG0VHxkWIU1rTJMI0FVaVB
+	 KimS326/ZCQxYpL9qSfRjoL1aQmcRbUrxwunN00g39X8AoecpiWTwsuXx94qwEUfNCUSa
+	 +BBd8kRMT1HrWeIE+qUUGOHE4SXYGcC11La5KG8seZXrbvTLqeoYp+3zmp4FHjN8Z6M16
+	 I0SdnjmapMrZtGR+rzI4KaOd25/lhgvsHj2xoiBjPSVFmxlP4Ee2Nu45NJNSGbs30vA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZK+DtdfU;
-	arc=none smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=brar.si;
+	spf=pass smtp.mailfrom=rsend.brar.si;
+	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=Ka+af0qI;
+	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=CfDXVVxL;
+	arc=none smtp.remote-ip=23.251.234.53
+Received: from e234-53.smtp-out.ap-northeast-1.amazonses.com (e234-53.smtp-out.ap-northeast-1.amazonses.com [23.251.234.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1219606A31A;
-	Sat, 31 Oct 2026 05:34:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1219606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41C4606A31A;
+	Sat, 31 Oct 2026 05:41:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B41C4606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZK+DtdfU
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793424848; x=1824960848;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=+fcibPi2ZDVRjTuc7ggPd3G0vq20xPXdnRW/+shzkss=;
-  b=ZK+DtdfU2Dm1CqhLETfptaPwLpu7nI52fPj0zI0VkMENS0cr3FeXyGiZ
-   gOzENHdRq4X40HUI+K+fkILJNCWpblt4VZNHmH2OiLQ+5a7gC1UqnjbPs
-   sUlgOoEpY5EILHYsCxHFHTMcB48QOsOD/ahNf7td1V2TpZydeizCr7PJn
-   CnSRI81pqToEvCiyPAAEbO5Z252kwZACLBddnEt7dw+OPwS3NPm7oyIPd
-   yozW2tjIpScj6G/hCZk78id7YNcWrWKO4BiIKtTYFOdi5ASYF8vEQY8+2
-   UkngMLGImKUIqN7HCz036UbSPoy55Pt2duMhmTyBOPVRSwlizswtFRn/C
-   g==;
-X-CSE-ConnectionGUID: MOmQdHMRQnyThLHyXSUJdw==
-X-CSE-MsgGUID: nG2BgiNwTVm3zSsNZs8LnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2068561"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2068561"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:34:07 -0700
-X-CSE-ConnectionGUID: F453hYEiQM+q6Op/y8/sww==
-X-CSE-MsgGUID: Z3Ms19v7S7KM2iyhLgEFog==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5994725"
-Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:34:02 -0700
-Message-ID: <38384919-f0e5-4c93-b71b-065b96a74c38@linux.intel.com>
-Date: Sat, 31 Oct 2026 13:34:00 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=Ka+af0qI;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=CfDXVVxL
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=brar.si; t=1793425305;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=FEQXhvLhTuGrd5NaJDpvvxJxaBTVbUfxPfAcURqm+dE=;
+	b=Ka+af0qIkhPtHxtN3J9YkC4Af5HTcC2Nx1Zp1gHcMcEdCI+u+IQbSl6kJ38XznmX
+	EWC9ygq20weTsBwasjy6wa/kH/5B7lMP9ZqS5sBuxm/qlJJGKN90a3VwGM+0Oa1rF1H
+	DtCnIHiEsoD0lNLccdBTXnEWenmPpGwLazyvT6tQ=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793425305;
+	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=FEQXhvLhTuGrd5NaJDpvvxJxaBTVbUfxPfAcURqm+dE=;
+	b=CfDXVVxLPGNFVqBzzMnWg8FWowHMxHU4V5nNOYo4y+4OYPoY7Lptv7mrbSZdblId
+	IvGnGYAaO0OoiybOFy4UnyaYMtUhny85e2UOkZ/CHKVMX+fJOk2FAN5zvoPL5ajJuxs
+	C79TLIWVQIUkKshKY6TSzrAGcJ2DFjMxUZg2OISg=
+In-Reply-To:
+ <natokcic7hm2l3erd2jhghzlkg4nvy5kejms27hi6dr4xmid5h@tnhinn7yjp3i>
+Message-ID: <010601a1907a6e57-6b4897eb-cb32-47c4-8b79-1ad1c73e7613-000000@ap-northeast-1.amazonses.com>
+References: <20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si>
+ <20261027-gpucc-sm7250-v2-2-773056e4043e@brar.si>
+ <natokcic7hm2l3erd2jhghzlkg4nvy5kejms27hi6dr4xmid5h@tnhinn7yjp3i>
+X-Pmail-ID: <1793425304285.ee9300a6194d@brar.si>
+From: Ishu Brar <patches@brar.si>
+To: abel.vesa@oss.qualcomm.com
+Cc: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
+	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, taniya.das@oss.qualcomm.com, 
+	quic_imrashai@quicinc.com, linux-arm-msm@vger.kernel.org, 
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] clk: qcom: Add SM7250 graphics clock controller
+ driver
+Content-Transfer-Encoding: 7bit
+Date: Sat, 31 Oct 2026 05:41:45 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,136 +77,24 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>, Robin Murphy <robin.murphy@arm.com>,
- Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
- Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
- linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 05/18] iommu: Implement device and IOMMU HW
- preservation
-To: Samiullah Khawaja <skhawaja@google.com>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-6-skhawaja@google.com>
- <df75f891-05a0-4d47-8705-d6a00c81ff97@linux.intel.com>
- <auTzN4NWuKsBvIZU@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <auTzN4NWuKsBvIZU@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
+X-SES-Outgoing: 2026.10.31-23.251.234.53
 
-On 10/31/2026 9:45 AM, Samiullah Khawaja wrote:
-> On Fri, Oct 30, 2026 at 01:12:31PM +0800, Baolu Lu wrote:
->> On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
->>> Add IOMMU ops to preserve/unpreserve the device state handled by the
->>> IOMMU driver. This is IOMMU specific state of the device that needs to
->>> be preserved for liveupdate. These ops can be implemented by the IOMMU
->>> drivers that support preservation of devices that have their IOMMU
->>> domains preserved. During device preservation the state of the
->>> associated IOMMU is also preserved as dependency.
->>>
->>> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>> ---
->>>  drivers/iommu/iommu-priv.h       |   2 +
->>>  drivers/iommu/iommu.c            |  72 +++++++++++-
->>>  drivers/iommu/liveupdate.c       | 189 +++++++++++++++++++++++++++++++
->>>  include/linux/iommu-liveupdate.h |  76 +++++++++++++
->>>  include/linux/iommu.h            |  33 ++++++
->>>  5 files changed, 371 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
->>> index 1f9f886b2c10..6b0ef210b32f 100644
->>> --- a/drivers/iommu/iommu-priv.h
->>> +++ b/drivers/iommu/iommu-priv.h
->>> @@ -21,6 +21,8 @@ static inline const struct iommu_ops 
->>> *dev_iommu_ops(struct device *dev)
->>>  void dev_iommu_free(struct device *dev);
->>> +bool iommu_group_is_singleton(struct iommu_group *group);
->>> +
->>>  const struct iommu_ops *iommu_ops_from_fwnode(const struct 
->>> fwnode_handle *fwnode);
->>>  static inline const struct iommu_ops *iommu_fwspec_ops(struct 
->>> iommu_fwspec *fwspec)
->>> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
->>> index b486b8bbd1fc..a66363789ca9 100644
->>> --- a/drivers/iommu/iommu.c
->>> +++ b/drivers/iommu/iommu.c
->>> @@ -18,6 +18,7 @@
->>>  #include <linux/errno.h>
->>>  #include <linux/host1x_context_bus.h>
->>>  #include <linux/iommu.h>
->>> +#include <linux/iommu-liveupdate.h>
->>>  #include <linux/iommufd.h>
->>>  #include <linux/idr.h>
->>>  #include <linux/err.h>
->>> @@ -328,6 +329,47 @@ void iommu_device_unregister(struct iommu_device 
->>> *iommu)
->>>  }
->>>  EXPORT_SYMBOL_GPL(iommu_device_unregister);
->>> +struct iommu_dev_iter {
->>> +    struct iommu_device *iommu;
->>> +    iommu_dev_iter_fn fn;
->>> +};
->>> +
->>> +static int _iommu_for_each_dev_cb(struct device *dev, void *data)
->>> +{
->>> +    struct iommu_dev_iter *iter = data;
->>> +
->>> +    if (dev->iommu && dev->iommu->iommu_dev == iter->iommu)
->>> +        return iter->fn(dev, iter->iommu);
->>> +
->>> +    return 0;
->>> +}
->>> +
->>> +/**
->>> + * iommu_for_each_dev() - Iterate over all devices attached to an IOMMU
->>> + * @iommu: IOMMU instance
->>> + * @fn: Callback to call for each device attached to @iommu
->>> + *
->>> + * Return: 0 on success, or negative error code.
->>> + */
->>> +int iommu_for_each_dev(struct iommu_device *iommu, iommu_dev_iter_fn 
->>> fn)
->>> +{
->>> +    struct iommu_dev_iter iter = {
->>> +        .iommu = iommu,
->>> +        .fn = fn,
->>> +    };
->>> +    int ret;
->>> +
->>> +    for (int i = 0; i < ARRAY_SIZE(iommu_buses); i++) {
->>> +        ret = bus_for_each_dev(iommu_buses[i], NULL, &iter,
->>> +                       _iommu_for_each_dev_cb);
->>> +        if (ret)
->>> +            return ret;
->>> +    }
->>> +
->>> +    return 0;
->>> +}
->>> +EXPORT_SYMBOL_GPL(iommu_for_each_dev);
->>
->> The function has no locking against iommu probe or release, so the
->> callback can read dev->iommu while it is being freed or before it is
->> fully set up.
-> 
-> It is only called from intel_iommu_shutdown(), which runs after the
-> other CPUs are stopped and interrupts are disabled, so probe and release
-> can't run. I will rename it to iommu_for_each_dev_unsafe(), document
-> that it must only be called at shutdown and drop the export, since the
-> only user is built in.
+On Tue, 27 Oct 2026 13:32:54 +0200, Abel Vesa wrote:
+>> +static struct clk_branch gpu_cc_hlos1_vote_gpu_smmu_clk = {
+>> +	.halt_reg = 0x5000,
+>> +	.halt_check = BRANCH_HALT_VOTED,
+>
+> sm8250 uses BRANCH_VOTED here.
 
-If it's only intended for the intel iommu driver, then it should be
-open-coded there. There is no need to add an immature interface like
-this to the core. It could be misused in the future.
+Yes, that is on purpose. BRANCH_VOTED skips the status poll on enable,
+while BRANCH_HALT_VOTED still checks that the voted clock came up. The
+newer GPU clock controller drivers (SM8350, SM8450, SM8550, SM8650,
+SM8750, X1E80100) use BRANCH_HALT_VOTED for this clock. I tested it on
+the Nord with the GPU SMMU as a consumer: the clock enables and there
+are no "stuck at off" warnings.
 
-Thanks,
-baolu
+Should i match SM8250 or keep BRANCH_HALT_VOTED iin v3?
+
+Ishu Brar
