@@ -1,54 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793420817;
-	b=CSez106GbeRGoTY0/FZ07BbLyx30yf+KDrEjF8uJPz/Vs7QPV8Uhttah67w0phWLuzCH
-	 R2GpASFFZOg3hBgy3wC8fGI1GxPofqIpLNiUtcbYbj3rxNDxWHcqvS8sYSM3rXSMX+Tvb
-	 UDTqZDO23UVQnIibKNsKxZ5airA9JP0C/Cu3MtYpFnDStpd1OP0u/3qAC4fFAK527PaqB
-	 upksP0zeysUQszlxF1YUq6p9/ydcjUzrtpcw/5Fk9nmnmTFPZ/UgwMyGn5YuCk6vC/Tp+
-	 g35sDjr2G3shxdLr8/R5dRSxBGQ9k97UtoC+X04B1ZUKwL3Iq0oQw6uhaP1j5H3Gc9Q==
+	t=1793420912;
+	b=KSZdzQ35sgL+iPFP6l4BPZJnbjZcZni8yGCN6quQAlyL6EzOq6oZkmNDINqcr3AdbFt0
+	 fNXD4GGyFT402TZnHgDfeDegcvjqSuNnOtjfjhzUgwPovPkHfcKrhlEP9/ystJCYbRhSp
+	 JFKtvr7LTiCAB/AG3eGfTro97jEgLq6vh13QVbNmkwU80cNfV4JEXkqkw0hw9JZStnHN5
+	 HW31tUw48vEdYGLLypoOVWQPnOvN89kG8HmgLC+XXUZT3fKUuHjb7eQ8Ym2bhok09lERd
+	 zxa5gZKHeHoDnapIT9Oau9JpH6SZClCaIh7PVAw+G+cDUUvZ/Q3RCqpuEWWu3uT1Hxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793420817;
-	h=DMARC-Filter:Received:Message-ID:Subject:From:To:Cc:Date:In-Reply-To:
-	 References:Content-Type:Content-Transfer-Encoding:User-Agent:
-	 MIME-Version:X-CM-TRANSID:X-Coremail-Antispam:X-Originating-IP:
-	 X-CM-SenderInfo;
-	bh=1w1ytPc99jlF/2NSETwrUERR/dm3RP4N5mEmso5/ilo=;
-	b=Wb+tNSxkXajQVE4ub0g6dUUloCfxJA4QOpBgA7UNIR4UJebmpRSHRvKB34yErIKCXrLE
-	 XgXcxHFEHPUuccjdmeWX1IifyjZWCDIFSul/+xKfI+M/gFp+nc4kXd+lggvUJxiGDQIIb
-	 Af4V4XBdPflaY2ck8iZiLWvzeWbmrc/TPqvkUZ1Tui6UeDL1zRVgDtiTK9FZTPGor1GsR
-	 7hM+X0HrPAKexlEhKcdDI6WQGZLBSeNSTsqCfudoEB+CN5E40sLaHl6xRokBpl2tubT7O
-	 nYCbm2g9l9lLdWeNEiQD8M2BIupxD/5Ig4yz/ZlAe08H0km4otu2VfI88KE61FIX5lg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420912;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=nPI7+m7xqukMbqrFFt+ctdQhrHqe+UHCY/7XpSE1aQU=;
+	b=KTDyJj8GWLgyiJRv4A44MUWIuVg1HifGO/DhvkU5RfGp0F6IekxmtPfCV3l+yiuNf9mu
+	 /APzjXzWiWPyVdOJDhcPzregCl9LWhFrs61BPqW52iTLWkrPgI6ojT20p2uojzTpK528b
+	 8ahcy8irvygMkj38TTGaf/DOlNObjNbP0EtZ9HeToMqA4cA69DECDaP7AzQGvFWRojMPh
+	 RNNKQjeOpb3RuzGynffnqSkO2dmJiaHVwp3Xs5dMXp7kVG3Y9Rh8ehhXlRIiv+oex7Lnw
+	 FMcHLicCo7BlnrgrVATAbKFh1mNdka8olMG6DPyUtfgsK5ibA/CKc1QkQUNo6rudjmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iscas.ac.cn;
-	spf=pass smtp.mailfrom=iscas.ac.cn;
-	arc=none smtp.remote-ip=159.226.251.81
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYb7BKxt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E48C606A32E;
-	Sat, 31 Oct 2026 04:26:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E48C606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
-	by APP-03 (Coremail) with SMTP id rQCowACXaZoKbuVqW7wJAA--.8213S2;
-	Sat, 31 Oct 2026 12:26:50 +0800 (CST)
-Message-ID: <8639aa770c3289b83cc1b55e67885dd73c9e3efd.camel@iscas.ac.cn>
-Subject: Re: [PATCH 1/2] drm/loongson: Fix double free on BO initialization
- failure
-From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-To: Evanshenf <archwse@gmail.com>, dri-devel@lists.freedesktop.org
-Cc: Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, Xi
- Ruoyao <xry111@xry111.site>, Sui Jingfeng <suijingfeng@loongson.cn>,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Sat, 31 Oct 2026 12:26:50 +0800
-In-Reply-To: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-References: <20261003093415.e64386de1e64-1-archwse@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9951D606A31A;
+	Sat, 31 Oct 2026 04:28:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YYb7BKxt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389E31F000C1;
+	Sat, 31 Oct 2026 04:28:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793420911;
+	bh=nPI7+m7xqukMbqrFFt+ctdQhrHqe+UHCY/7XpSE1aQU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YYb7BKxtbnvtVVP17CkQSB9ZHp+q7J5pQnsntezGl3/r67S0/g58i2DSZyhH4Vcc+
+	 8zHUeXXiqXoaogxItyNX3VmIJffBG+2qwMRxX2b5gZaoe2R7eNUsxLwWct4M1pJcU3
+	 u8AEKYNCE2vXGX+8ZOkVT0kczwGR4QPYYo7obUvEOlacUL/7pt1CHJN9Rf33ojM1lH
+	 u8qBgs0DngHLJeIYCVYXuLPpu7MhtfZnlcUgoTvsFbNMrfzEq38fzrF9PgtKONtCac
+	 MNHhdYS9I/TKZIF/Sm8OemJe2Ne5yyAvMh2f3JkX+q9FBkzPgyONJZIykuMTDNEBPC
+	 OZadJGLN+hLEw==
+Date: Fri, 30 Oct 2026 21:28:30 -0700
+From: Kees Cook <kees@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2 5/6] mm/slab: Support disabling
+ KMALLOC_PARTITION_CACHES at boot
+Message-ID: <202610302123.687A961@keescook>
+References: <cover.1793253633.git.chris@chrisdown.name>
+ <617bbfdce4fb2689c2510f0cd7f9adbb3ab8edfa.1793253633.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,90 +66,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:rQCowACXaZoKbuVqW7wJAA--.8213S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr1rurWrJF1UJF47Zr1kKrg_yoW8ZF1Upa
-	nxCa4jkryDJan2kr9rAF18C3W0ya1FgFWUuF45W3ZxWr13Cr1kCFyrua4jg3W7XFy7CF1a
-	van3GanxWFn09wUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvlb7Iv0xC_KF4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVWxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xv
-	F2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r
-	4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xK
-	xwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvE
-	x4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvj
-	DU0xZFpf9x07jUkucUUUUU=
-X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <617bbfdce4fb2689c2510f0cd7f9adbb3ab8edfa.1793253633.git.chris@chrisdown.name>
 
-=E5=9C=A8 2026-10-03=E5=85=AD=E7=9A=84 09:34 +0000=EF=BC=8CEvanshenf=E5=86=
-=99=E9=81=93=EF=BC=9A
-> If ttm_bo_init_validate() fails, it drops the buffer object's
-> reference
-> and cleans it up through the supplied destroy callback.
-> lsdc_bo_destroy()
-> releases the GEM object and frees the enclosing lsdc_bo, so freeing
-> it
-> again in lsdc_bo_create() causes a double free on a synchronous
-> failure
-> path.
->=20
-> Let TTM own the cleanup after initialization has started and return
-> the
-> error directly. Keep the explicit free on drm_gem_object_init()
-> failure,
-> which occurs before ownership is passed to TTM.
->=20
-> Tested on LS7A2000 by making drm_vma_offset_add() return -ENOSPC for
-> one
-> selected dumb-buffer creation. The error reached userspace, the
-> destroy
-> callback ran once, and no handle was published or tracked BO
-> retained.
-> Normal buffer creation, zeroing, mapping, readback and release
-> passed.
->=20
-> AI assistance was used for the ownership analysis, fix, fault-
-> injection
-> tools, build and test execution.
->=20
-> Fixes: f39db26c5428 ("drm: Add kms driver for loongson display
-> controller")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Evanshenf <archwse@gmail.com>
-
-Applied both to drm-misc-fixes, Thanks for your contribution!
-
-Icenowy
-
+On Thu, Oct 29, 2026 at 02:09:09PM +0800, Chris Down wrote:
+> KMALLOC_PARTITION_CACHES creates several copies of each normal kmalloc
+> cache and spreads allocations across them. That costs a fair bit of
+> memory: Harry measured about 18 MiB more slab memory after boot on a 64
+> CPU, 64 GiB VM, mostly from under-used slabs [1]. Like SLAB_BUCKETS, it
+> can only be chosen at build time.
+> 
+> Add a kmalloc_partition= early parameter, enabled by default on kernels
+> built with CONFIG_KMALLOC_PARTITION_CACHES=y. When it's off, the copies
+> alias the normal caches rather than being created.
+> 
+> Let's leave kmalloc_type() unchanged since each index simply resolves to
+> the same cache when partitioning is off.
+> 
+> Link: https://lore.kernel.org/r/179312451613.474906.1475329637924619088@kernel.org [1]
+> Signed-off-by: Chris Down <chris@chrisdown.name>
 > ---
-> =C2=A0drivers/gpu/drm/loongson/lsdc_ttm.c | 4 +---
-> =C2=A01 file changed, 1 insertion(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> index d7441d9..88536e2 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_ttm.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_ttm.c
-> @@ -475,10 +475,8 @@ struct lsdc_bo *lsdc_bo_create(struct drm_device
-> *ddev,
-> =C2=A0
-> =C2=A0	ret =3D ttm_bo_init_validate(bdev, tbo, bo_type, &lbo-
-> >placement, 0,
-> =C2=A0				=C2=A0=C2=A0 false, sg, resv,
-> lsdc_bo_destroy);
-> -	if (ret) {
-> -		kfree(lbo);
-> +	if (ret)
-> =C2=A0		return ERR_PTR(ret);
-> -	}
-> =C2=A0
-> =C2=A0	return lbo;
-> =C2=A0}
->=20
-> base-commit: bca45af5998a05f34b13a2ef11e639bac9c62643
+>  .../admin-guide/kernel-parameters.txt         |  7 +++++++
+>  mm/Kconfig                                    |  5 +++++
+>  mm/slab_common.c                              | 19 ++++++++++++++++++-
+>  3 files changed, 30 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+> index de2fd6963a16..6633a553a79c 100644
+> --- a/Documentation/admin-guide/kernel-parameters.txt
+> +++ b/Documentation/admin-guide/kernel-parameters.txt
+> @@ -3054,6 +3054,13 @@ Kernel parameters
+>  			Configure the RouterBoard 532 series on-chip
+>  			Ethernet adapter MAC address.
+>  
+> +	kmalloc_partition= [MM,EARLY]
+> +			Format: <bool>
+> +			Enable or disable kmalloc cache partitioning on
+> +			kernels built with CONFIG_KMALLOC_PARTITION_CACHES=y.
+> +			Ignored without that option.
+> +			Default: on.
+> +
+>  	kmemleak=	[KNL,EARLY] Boot-time kmemleak enable/disable
+>  			Valid arguments: on, off
+>  			Default: on
+> diff --git a/mm/Kconfig b/mm/Kconfig
+> index 48078c1fd26f..b90b3915fcd5 100644
+> --- a/mm/Kconfig
+> +++ b/mm/Kconfig
+> @@ -266,6 +266,11 @@ config KMALLOC_PARTITION_CACHES
+>  	  limited degree of memory and CPU overhead that relates to hardware
+>  	  and system workload.
+>  
+> +	  The partitioning can be disabled at boot with the
+> +	  "kmalloc_partition=0" kernel parameter, in which case the copies
+> +	  are not created and all normal kmalloc allocations use the
+> +	  regular kmalloc caches.
+> +
+>  choice
+>  	prompt "Partitioned slab cache mode"
+>  	depends on KMALLOC_PARTITION_CACHES
+> diff --git a/mm/slab_common.c b/mm/slab_common.c
+> index 9fe48da12010..5391149a2eed 100644
+> --- a/mm/slab_common.c
+> +++ b/mm/slab_common.c
+> @@ -781,6 +781,16 @@ unsigned long random_kmalloc_seed __ro_after_init;
+>  EXPORT_SYMBOL(random_kmalloc_seed);
+>  #endif
+>  
+> +#ifdef CONFIG_KMALLOC_PARTITION_CACHES
+> +static bool kmalloc_partition_enabled __ro_after_init = true;
+> +
+> +static int __init setup_kmalloc_partition(char *str)
+> +{
+> +	return kstrtobool(str, &kmalloc_partition_enabled);
+> +}
+> +early_param("kmalloc_partition", setup_kmalloc_partition);
+> +#endif
+> +
+>  /*
+>   * Conversion table for small slabs sizes / 8 to the index in the
+>   * kmalloc array. This is necessary for slabs < 192 since we have non power
+> @@ -1013,8 +1023,15 @@ new_kmalloc_cache(int idx, enum kmalloc_cache_type type)
+>  	}
+>  
+>  #ifdef CONFIG_KMALLOC_PARTITION_CACHES
 
+Swap the ifdef for a CONFIG-controlled static branch that defaults off
+without CONFIG_KMALLOC_PARTITION_CACHES.
+
+> -	if (type >= KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END)
+> +	if (!kmalloc_partition_enabled) {
+> +		/* Use the normal caches, which have already been created. */
+> +		if (type > KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END) {
+> +			kmalloc_caches[type][idx] = kmalloc_caches[KMALLOC_NORMAL][idx];
+> +			return;
+> +		}
+> +	} else if (type >= KMALLOC_PARTITION_START && type <= KMALLOC_PARTITION_END) {
+>  		flags |= SLAB_NO_MERGE;
+> +	}
+>  #endif
+>  
+>  	/*
+> -- 
+> 2.54.0
+> 
+
+-- 
+Kees Cook
