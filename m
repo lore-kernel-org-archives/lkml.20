@@ -1,51 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793443385;
-	b=VJhYnm7UeaRFmiqZZs0Jg30F5HC+UGDRNjnV1VQs7GzrnU6OkyJWvdrRH/JRoIUi6kk1
-	 YBbyS3HCamssEjyIxjEJawLMNqM+2+5N41vPO2Y4Sj49ltvRoNbkC79jo8gx4Jc9FuwyE
-	 LVEK+VBljW6hRARX9inJjpFaajZsBHy+BZ1ro8ez0CsC54Bcs+xb6Y29UZgLD2sVJNuAn
-	 c9gjdz8gOP91na3S8Sdg5IlAmOcW6/hMFoB9WcnQ5eg6GtMJbyxq6jhxj/2qnOMwRs3yO
-	 o4GzlQ1U6r5Dl4ThrDCj5ZXjI8Hnl48Syrw6rtAO9eURBN2yD+F9kwnQ1wRW9q201qA==
+	t=1793443495;
+	b=Q5hdFeJKUSY+MxCR6Vy9pY7vboNz3IusUvK9kqdrpMLYvEaRb6Juhqzrn2vWa5dx5LH7
+	 FM2ZnGlgiaABoNGD6JZYgBZtqmwN9L2c2eABdLhTxK1Vh7MXZaMlYZZfTMVW4net+wV7Q
+	 frZhUi8LXjdelzkgyRTTmVPXOYnCI/QN9IdGU7uW0js10MRAlImMTkncxZkbgbipOkBCS
+	 wB+B5Zaz4ai8/9Wq7FkS9APh9Hk3uJhrkrpTXCFKJMOIX/p7kSrwlcRjJ/6jrZthDfH18
+	 i766FHySkBsaSudM0ui3YbxhiOFdcr6NajnzRsk5CBXR2lGmYVhbCOPUMtgaG/CQfTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793443385;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=rA40hPVN3Ee0cQ30/rR5Ha6uxxqpzfXY/oC6nYnSEK0=;
-	b=TqF/j4HUvL4JYcn3r3MZDOB/H7Y+y7GBkXtBNMbnwrTJ9bsEKR+4AEXgpTjsS25PIAPz
-	 Hc/4uKQ4nzSHEK4yGPGZw6keADsUgNZwG/rD0LQGtH0ej/kOOWmr2BtMxALpzNyQQ+/mz
-	 dbiE6DIizh7idwIisU02vFkbTaZYoIy6GagcriR0tDJh8IyPfZ7VAE8jVTbGseDSIA+43
-	 Vo+KrS1EecJoMdbnynxQt/M6NAcbezlOrw+DPD0imfkML2pxcJoNwL0iP/wdB+o3IyJOj
-	 QTjgI7N5yuSIfKsBplqK6Iqf0jvAT85y+UgkFQ7mY69G7vZYmqdsCzBtyivPbZ8HJQg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793443495;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
+	b=lKG5Oaa/YJIE5tqg8M3f1z8VcBdjmR/cSBekM8XvzeZekQL1mUoWPcoZhMh65Fibt7N3
+	 lZy+gspuTwHhBpscQBSdnibEaNfzgowj3LlBLJDRLa5Sg6Q/dcjEIigvo7L+ciJwrKFf7
+	 yRLf5olTMBG7CDukxTIOAggtjLzBLn0P3KGQ1zXP84ndDQ9FKZa+eFdvKah4f/nuHYCpP
+	 parkj1HXvJO2biBmwknpOLdvLuLMqERTlNcFmftNJ3dJ+O92APeoIQoI9CJDUV8JEXzox
+	 kqVIfR4bef15dNIGZ7SFWO1mAu7dxNfE4nEtUohz5pIeQzIluDTvIyUvhtDWRXWe0EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eX7f97Pb;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UcqEXsLF;
+	arc=none smtp.remote-ip=209.85.221.52
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77255606A31A;
-	Sat, 31 Oct 2026 10:43:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77255606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E08E2606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:44:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E08E2606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=eX7f97Pb
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
-	Message-Id:To; bh=rA40hPVN3Ee0cQ30/rR5Ha6uxxqpzfXY/oC6nYnSEK0=;
-	b=eX7f97PbWQFlFOEQPQvgYh3PhwwjVuPVbrmNMW49CWauq7C3IKr1+2l8jl+HQm
-	zoXlBKL2OTmWExMMM8B0LfRCBvgBNMMRQanIX5l38jOjYYFt57lCDSxD9d9UNCXM
-	3PMH11DVf4HRJ0fOSooGuLKjW9AEi1vLff6M9cdiS9Jzo=
-Received: from 4F-GAME.localdomain (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wDnbwoTxuVqQyp9EA--.12272S3;
-	Sat, 31 Oct 2026 18:42:30 +0800 (CST)
-From: Bob Hui <bg9oxa@163.com>
-Date: Sat, 31 Oct 2026 18:42:25 +0800
-Subject: [PATCH v3 1/2] ASoC: es8328: reset the codec at probe time
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UcqEXsLF
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48e0d885929so1232957f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:44:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793443493; x=1794048293; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
+        b=UcqEXsLFGpK8HluJzwZWCLWSIIOtM1AqH30p/xVJh+ZCGnhCRxz2BiAmobnXB5MK1b
+         C8NxZii/6Ye9x8YoayP6CtCNMiFirmeJ2uu6lrMtSw/FM1dON+/H+7suN35Hke+NMkx6
+         8xP3u+LG/e4fDGo/QRVS9cyPaobpsrM+7CC5buc7VV1JrqWkKH4qelgddG9lRpsdyoFq
+         so16ADc2UqjedDxp2XyPoZ8UoTmBY3xnh+VZlgfQiW/cn8eWNOnNTpqrUBkxsRBsS4df
+         7Yqm4R9ItofReQI2nzy4+116xn5Vc78Ti66dF3eFr0JCssIbdLWtRluFZdovh/x8BEqL
+         2G5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793443493; x=1794048293;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4nZEer0OBORnNh+HtOSAonBsrwjZLbFagqy2gDjha3U=;
+        b=UDZRYAVzSIcpuZEBNtbCC2+cLg2SZ8BpNcsxbWHEF/jASGNz3VdJJ2G8/Um0dBCN+D
+         YKQGtq6xJv/kxU63y9S8NFb4RswHuQshDOSL8PU4WXN91TrxS8oC3LXrQPTBWflgeqVd
+         NnBJbnB3eAFDxfZvIq57xG6alZLNDovJP7XQpVo/IZessN9dkclGoVtb6epS+24WyBCZ
+         RmsaFzFe0ipiO6T0jvXQ1hmg+Ku6Jm5tuPkJh7YrmoHfV55n7+ErSjM3y7zilXsb2z2P
+         yOssIijuJOusGbJX308zSCxEzYb863sScdjdp3Hk3GfyE/4Q9qfyXA1pwMzf6ZREebwP
+         L8cw==
+X-Forwarded-Encrypted: i=1; AKwUvBzatRhbNVzLnAG8Z2cyJWAbaxxCWHfFKaSIfkaNg/tUD3EkRBn3fJ0UiMA2DDEHstMjV+ypFTCXlcEI0nM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ2OYNg18loYOb5YQvd2jWkXxp7WFwJIFtx2VxL6/NYfUnl1q63
+	WDV2huk9IN/do0MqZ05v5gOjbLeWe8PhNqWtvzXvpboZIx/3N/Dk5ySUkE2Ai09A
+X-Gm-Gg: AYBFou16XrUMkpG1lsuJaH3GXzXurFnTksTSrP62KTg/EGyLQHUnKubYAxRPGzePcIF
+	l0RP58L7jlUw9o1JF4f59Jr4Dwp9/5h6HAx7zmFdSMnu1dWhEKh7Wb1Hl3G9/T9vReQK0o+ovLy
+	2XLIGBXqzpz5W6hS0lyXtJtgRSRF1DSAcfrBJ+aeKNPW6reGoBfdlGYYBUGPvoIl+JiP8GlCBP2
+	OGzba1ADuoScNNvL1GcCgVJy9dhKiB7Bhd1te/L2zIDuAKcpH7iPYrrIESLqz4FqaTPLHkk0350
+	2NQNY1q8CUr4fBOnLdRrsUhsChCqwlEYkpgMfb2/rOFrjE2SDTUTXrOq9gl+9zol4bDh7vZpeL7
+	MW0NB8pxiLY7C32vDGD+CpwNRok19YB8GftidOAr44YO6WZk1X3oHAsR3pMl7tb1IfjD9rk1IMq
+	Y2YzTexVT38/OyD6lvh9nVUSfhBRFWmL2RkLHvk2ZrVG14vXJymPIUSQ3PNDos66XoB75sRtMe2
+	XSGFOOyD7jDF51l6pURG2Qxp/YS5s1stJvLR7xRbcMCpjgkJvzffQaw8AW/KcgJwjCQAz+SqX/4
+	9WjVR0HD+Ib5pBOw376quyVXrxV1IbaAKZrEbqw9tmnGnOSnBiwNJ6TdRqX4kpxW2FIMvFtodMn
+	Lko3fMOkZjv8kESuAT40KURAPxMYLWc5RRDkbuRlGnfve33awdQ6McC40n82+L9NhI9oyRU0TZi
+	Yxxnjqt49GShnQBZXYVTzPMfnsIHNPAjE=
+X-Received: by 2002:a5d:64a7:0:b0:48e:5e1f:9a36 with SMTP id ffacd0b85a97d-48e6e50191cmr8399741f8f.42.1793443493010;
+        Sat, 31 Oct 2026 03:44:53 -0700 (PDT)
+Received: from localhost.localdomain (dynamic-2a02-3100-a81d-e001-9c9b-db33-f166-0fda.310.pool.telefonica.de. [2a02:3100:a81d:e001:9c9b:db33:f166:fda])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b728f9sm8093899f8f.10.2026.10.31.03.44.50
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 31 Oct 2026 03:44:52 -0700 (PDT)
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+	Mikko Perttunen <mperttunen@nvidia.com>
+Cc: Karl Mehltretter <kmehltretter@gmail.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-tegra@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/tegra: Fix dma-buf reference on import errors
+Date: Sat, 31 Oct 2026 11:44:39 +0100
+Message-Id: <20261031104439.91346-1-kmehltretter@gmail.com>
+X-Mailer: git-send-email 2.39.5 (Apple Git-154)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,397 +107,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-es8328-vol-init-v3-1-7d9c4b7ab67f@163.com>
-References: <20261031-es8328-vol-init-v3-0-7d9c4b7ab67f@163.com>
-In-Reply-To: <20261031-es8328-vol-init-v3-0-7d9c4b7ab67f@163.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Bob Hui <bg9oxa@163.com>
-X-Mailer: b4 0.15.2
-X-CM-TRANSID:_____wDnbwoTxuVqQyp9EA--.12272S3
-X-Coremail-Antispam: 1Uf129KBjvAXoWfJrWrury3Gw45KFWkJF48Crg_yoW8JF4DWo
-	W2qry3Ww47Ww1kXFyrtr1fWF17WFs5Z343tFsrCw4DZwn3JFy5Kws2qw15ta4aga4Y9rZ5
-	Zw1DXFnxJrWxGFy7n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4i-B_UDUUUU
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+hbKOGrlxhaiXgAA39
+Content-Transfer-Encoding: 8bit
 
-Nothing brings the codec into a known state when the driver probes: the
-supplies may already be on, a warm reboot or a kexec keeps the registers
-alive, and a driver rebind leaves whatever the previous instance
-programmed.  Everything that reads a register back and writes it again,
-from the DAI format to the mute control, then works from a value the
-hardware never had.
+tegra_bo_import() takes its own dma-buf reference only on success, but if
+mapping fails, its detach error path still calls dma_buf_put(). That drops
+the reference held by the PRIME caller, which then puts it again, and can
+release the dma-buf file while its descriptor is still installed:
 
-Issue a control port reset while probing so the codec always starts from
-its documented defaults.  SCP_RESET is not self-clearing, so the reference
-and the VMID divider are written back afterwards, which is the documented
-default value of the register.
+  VFS: Close: file count is 0 (f_op=dma_buf_fops)
 
-The cache outlives a component rebind, so drop it after the reset:
-otherwise the next read-modify-write compares against the values the
-previous bind left there instead of the ones the reset just restored.
+Remove the unmatched put.
 
-Describe those defaults in the regmap as well, one table per supported
-part, so the cache describes the codec instead of being filled in lazily
-on first access.  The two parts differ in eleven registers, so one table
-cannot describe both; the variant is looked up from the match data in the
-I2C and SPI glue, which also makes the driver work on ACPI systems.  The
-SPI glue gains an ES8388 entry and an id table of its own, so a part
-behind SPI resolves the same way and the id table lookup never runs off a
-NULL table.
-
-The values come from the ES8328 datasheet, Revision 1.0, sections 6.1.1
-to 6.3.30, and from the ES8388 datasheet, Revision 5.0, same sections.
-
-Tested on a QuarkPi-CA2 (RK3588S, ES8388, I2C): a register deliberately
-modified before a warm reboot comes back at its reset value once the
-driver probes, so it is the reset rather than a power cycle that restores
-the state.
-
-Assisted-by: Hermes:deepseek-v4-flash
-Signed-off-by: Bob Hui <bg9oxa@163.com>
+Fixes: f5b8794e17e4 ("drm/tegra: gem: Don't attach dma-bufs when not needed")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 ---
- sound/soc/codecs/es8328-i2c.c |  18 +++--
- sound/soc/codecs/es8328-spi.c |  20 ++++-
- sound/soc/codecs/es8328.c     | 182 ++++++++++++++++++++++++++++++++++++++++--
- sound/soc/codecs/es8328.h     |   9 ++-
- 4 files changed, 212 insertions(+), 17 deletions(-)
+v2: Clean up the commit message (Mikko). No code change.
+v1: https://lore.kernel.org/r/20261026055842.96484-1-kmehltretter@gmail.com/
 
-diff --git a/sound/soc/codecs/es8328-i2c.c b/sound/soc/codecs/es8328-i2c.c
-index 36a4987e1a593..cb9392c0b8ea3 100644
---- a/sound/soc/codecs/es8328-i2c.c
-+++ b/sound/soc/codecs/es8328-i2c.c
-@@ -16,23 +16,29 @@
- #include "es8328.h"
- 
- static const struct i2c_device_id es8328_id[] = {
--	{ .name = "es8328" },
--	{ .name = "es8388" },
-+	{ .name = "es8328", .driver_data = ES8328_TYPE_ES8328 },
-+	{ .name = "es8388", .driver_data = ES8328_TYPE_ES8388 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, es8328_id);
- 
- static const struct of_device_id es8328_of_match[] = {
--	{ .compatible = "everest,es8328", },
--	{ .compatible = "everest,es8388", },
-+	{ .compatible = "everest,es8328", .data = (void *)ES8328_TYPE_ES8328 },
-+	{ .compatible = "everest,es8388", .data = (void *)ES8328_TYPE_ES8388 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, es8328_of_match);
- 
- static int es8328_i2c_probe(struct i2c_client *i2c)
- {
--	return es8328_probe(&i2c->dev,
--			devm_regmap_init_i2c(i2c, &es8328_regmap_config));
-+	enum es8328_type type = (unsigned long)i2c_get_match_data(i2c);
-+	const struct regmap_config *config;
-+
-+	config = type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
-+					    : &es8328_regmap_config;
-+
-+	return es8328_probe(&i2c->dev, devm_regmap_init_i2c(i2c, config),
-+			    type);
- }
- 
- static struct i2c_driver es8328_i2c_driver = {
-diff --git a/sound/soc/codecs/es8328-spi.c b/sound/soc/codecs/es8328-spi.c
-index 88e353ae52a10..93df788222ab6 100644
---- a/sound/soc/codecs/es8328-spi.c
-+++ b/sound/soc/codecs/es8328-spi.c
-@@ -13,16 +13,29 @@
- #include <sound/soc.h>
- #include "es8328.h"
- 
-+static const struct spi_device_id es8328_id[] = {
-+	{ .name = "es8328", .driver_data = ES8328_TYPE_ES8328 },
-+	{ .name = "es8388", .driver_data = ES8328_TYPE_ES8388 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, es8328_id);
-+
- static const struct of_device_id es8328_of_match[] = {
--	{ .compatible = "everest,es8328", },
-+	{ .compatible = "everest,es8328", .data = (void *)ES8328_TYPE_ES8328 },
-+	{ .compatible = "everest,es8388", .data = (void *)ES8328_TYPE_ES8388 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, es8328_of_match);
- 
- static int es8328_spi_probe(struct spi_device *spi)
- {
--	return es8328_probe(&spi->dev,
--			devm_regmap_init_spi(spi, &es8328_regmap_config));
-+	enum es8328_type type = (unsigned long)spi_get_device_match_data(spi);
-+	const struct regmap_config *config;
-+
-+	config = type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
-+					    : &es8328_regmap_config;
-+
-+	return es8328_probe(&spi->dev, devm_regmap_init_spi(spi, config), type);
- }
- 
- static struct spi_driver es8328_spi_driver = {
-@@ -31,6 +44,7 @@ static struct spi_driver es8328_spi_driver = {
- 		.of_match_table	= es8328_of_match,
- 	},
- 	.probe	= es8328_spi_probe,
-+	.id_table = es8328_id,
- };
- 
- module_spi_driver(es8328_spi_driver);
-diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
-index aaa6646ad4c5e..5618fd7e6eb62 100644
---- a/sound/soc/codecs/es8328.c
-+++ b/sound/soc/codecs/es8328.c
-@@ -78,6 +78,7 @@ static const char * const supply_names[ES8328_SUPPLY_NUM] = {
- struct es8328_priv {
- 	struct regmap *regmap;
- 	struct clk *clk;
-+	enum es8328_type type;
- 	int playback_fs;
- 	bool deemph;
- 	int mclkdiv2;
-@@ -836,6 +837,37 @@ static int es8328_component_probe(struct snd_soc_component *component)
- 		goto clk_fail;
- 	}
- 
-+	/*
-+	 * Put the codec into a known state: the supplies may already be on,
-+	 * a warm reboot or a kexec keeps the registers alive, and a driver
-+	 * rebind leaves whatever the previous instance programmed.  Without
-+	 * this every read-modify-write in the driver works from a value the
-+	 * hardware never had.  SCP_RESET is not self-clearing.
-+	 */
-+	ret = snd_soc_component_write(component, ES8328_CONTROL1,
-+				      ES8328_CONTROL1_SCP_RESET);
-+	if (ret) {
-+		dev_err(component->dev, "unable to reset the codec\n");
-+		clk_disable_unprepare(es8328->clk);
-+		goto clk_fail;
-+	}
-+	usleep_range(1000, 5000);
-+	ret = snd_soc_component_write(component, ES8328_CONTROL1,
-+				      ES8328_CONTROL1_ENREF |
-+				      ES8328_CONTROL1_VMIDSEL_500k);
-+	if (ret) {
-+		dev_err(component->dev, "unable to clear the codec reset\n");
-+		clk_disable_unprepare(es8328->clk);
-+		goto clk_fail;
-+	}
-+
-+	/*
-+	 * The reset put the codec back to its power-on values, so whatever
-+	 * the cache still holds from a previous bind is stale.  Drop it and
-+	 * let the next access read the chip again.
-+	 */
-+	regcache_drop_region(es8328->regmap, 0, ES8328_REG_MAX);
-+
- 	return 0;
- 
- clk_fail:
-@@ -856,16 +888,150 @@ static void es8328_remove(struct snd_soc_component *component)
- 			       es8328->supplies);
- }
- 
-+/*
-+ * Power-on defaults from the ES8328 datasheet, Revision 1.0, sections
-+ * 6.1.1 to 6.3.30.
-+ */
-+static const struct reg_default es8328_reg_defaults[] = {
-+	{ ES8328_CONTROL1,	0x06 },
-+	{ ES8328_CONTROL2,	0x1c },
-+	{ ES8328_CHIPPOWER,	0xc3 },
-+	{ ES8328_ADCPOWER,	0xfc },
-+	{ ES8328_DACPOWER,	0xc0 },
-+	{ ES8328_CHIPLOPOW1,	0x00 },
-+	{ ES8328_CHIPLOPOW2,	0x00 },
-+	{ ES8328_ANAVOLMANAG,	0x7c },
-+	{ ES8328_MASTERMODE,	0x80 },
-+	{ ES8328_ADCCONTROL1,	0x00 },
-+	{ ES8328_ADCCONTROL2,	0x00 },
-+	{ ES8328_ADCCONTROL3,	0x06 },
-+	{ ES8328_ADCCONTROL4,	0x00 },
-+	{ ES8328_ADCCONTROL5,	0x06 },
-+	{ ES8328_ADCCONTROL6,	0x30 },
-+	{ ES8328_ADCCONTROL7,	0x30 },
-+	{ ES8328_ADCCONTROL8,	0xc0 },
-+	{ ES8328_ADCCONTROL9,	0xc0 },
-+	{ ES8328_ADCCONTROL10,	0x38 },
-+	{ ES8328_ADCCONTROL11,	0xb0 },
-+	{ ES8328_ADCCONTROL12,	0x32 },
-+	{ ES8328_ADCCONTROL13,	0x06 },
-+	{ ES8328_ADCCONTROL14,	0x00 },
-+	{ ES8328_DACCONTROL1,	0x00 },
-+	{ ES8328_DACCONTROL2,	0x06 },
-+	{ ES8328_DACCONTROL3,	0x32 },
-+	{ ES8328_DACCONTROL4,	0xc0 },
-+	{ ES8328_DACCONTROL5,	0xc0 },
-+	{ ES8328_DACCONTROL6,	0x08 },
-+	{ ES8328_DACCONTROL7,	0x06 },
-+	{ ES8328_DACCONTROL8,	0x1f },
-+	{ ES8328_DACCONTROL9,	0xf7 },
-+	{ ES8328_DACCONTROL10,	0xfd },
-+	{ ES8328_DACCONTROL11,	0xff },
-+	{ ES8328_DACCONTROL12,	0x1f },
-+	{ ES8328_DACCONTROL13,	0xf7 },
-+	{ ES8328_DACCONTROL14,	0xfd },
-+	{ ES8328_DACCONTROL15,	0xff },
-+	{ ES8328_DACCONTROL16,	0x00 },
-+	{ ES8328_DACCONTROL17,	0x38 },
-+	{ ES8328_DACCONTROL18,	0x38 },
-+	{ ES8328_DACCONTROL19,	0x38 },
-+	{ ES8328_DACCONTROL20,	0x38 },
-+	{ ES8328_DACCONTROL21,	0x38 },
-+	{ ES8328_DACCONTROL22,	0x38 },
-+	{ ES8328_DACCONTROL23,	0x00 },
-+	{ ES8328_LOUT1VOL,	0x00 },
-+	{ ES8328_ROUT1VOL,	0x00 },
-+	{ ES8328_LOUT2VOL,	0x00 },
-+	{ ES8328_ROUT2VOL,	0x00 },
-+	{ ES8328_MONOOUTVOL,	0x00 },
-+	{ ES8328_DACCONTROL29,	0x00 },
-+	{ ES8328_DACCONTROL30,	0x00 },
-+};
-+
-+/*
-+ * Power-on defaults from the ES8388 datasheet, Revision 5.0, sections
-+ * 6.1.1 to 6.3.30.
-+ */
-+static const struct reg_default es8388_reg_defaults[] = {
-+	{ ES8328_CONTROL1,	0x06 },
-+	{ ES8328_CONTROL2,	0x5c },
-+	{ ES8328_CHIPPOWER,	0xc3 },
-+	{ ES8328_ADCPOWER,	0xfc },
-+	{ ES8328_DACPOWER,	0xc0 },
-+	{ ES8328_CHIPLOPOW1,	0x00 },
-+	{ ES8328_CHIPLOPOW2,	0x00 },
-+	{ ES8328_ANAVOLMANAG,	0x7c },
-+	{ ES8328_MASTERMODE,	0x80 },
-+	{ ES8328_ADCCONTROL1,	0x00 },
-+	{ ES8328_ADCCONTROL2,	0x00 },
-+	{ ES8328_ADCCONTROL3,	0x02 },
-+	{ ES8328_ADCCONTROL4,	0x00 },
-+	{ ES8328_ADCCONTROL5,	0x06 },
-+	{ ES8328_ADCCONTROL6,	0x30 },
-+	{ ES8328_ADCCONTROL7,	0x20 },
-+	{ ES8328_ADCCONTROL8,	0xc0 },
-+	{ ES8328_ADCCONTROL9,	0xc0 },
-+	{ ES8328_ADCCONTROL10,	0x38 },
-+	{ ES8328_ADCCONTROL11,	0xb0 },
-+	{ ES8328_ADCCONTROL12,	0x32 },
-+	{ ES8328_ADCCONTROL13,	0x06 },
-+	{ ES8328_ADCCONTROL14,	0x00 },
-+	{ ES8328_DACCONTROL1,	0x00 },
-+	{ ES8328_DACCONTROL2,	0x06 },
-+	{ ES8328_DACCONTROL3,	0x22 },
-+	{ ES8328_DACCONTROL4,	0xc0 },
-+	{ ES8328_DACCONTROL5,	0xc0 },
-+	{ ES8328_DACCONTROL6,	0x08 },
-+	{ ES8328_DACCONTROL7,	0x00 },
-+	{ ES8328_DACCONTROL8,	0x1f },
-+	{ ES8328_DACCONTROL9,	0xf7 },
-+	{ ES8328_DACCONTROL10,	0xfd },
-+	{ ES8328_DACCONTROL11,	0xff },
-+	{ ES8328_DACCONTROL12,	0x1f },
-+	{ ES8328_DACCONTROL13,	0xf7 },
-+	{ ES8328_DACCONTROL14,	0xfd },
-+	{ ES8328_DACCONTROL15,	0xff },
-+	{ ES8328_DACCONTROL16,	0x00 },
-+	{ ES8328_DACCONTROL17,	0x38 },
-+	{ ES8328_DACCONTROL18,	0x28 },
-+	{ ES8328_DACCONTROL19,	0x28 },
-+	{ ES8328_DACCONTROL20,	0x38 },
-+	{ ES8328_DACCONTROL21,	0x00 },
-+	{ ES8328_DACCONTROL22,	0x00 },
-+	{ ES8328_DACCONTROL23,	0x00 },
-+	{ ES8328_LOUT1VOL,	0x00 },
-+	{ ES8328_ROUT1VOL,	0x00 },
-+	{ ES8328_LOUT2VOL,	0x00 },
-+	{ ES8328_ROUT2VOL,	0x00 },
-+	{ ES8328_MONOOUTVOL,	0x00 },
-+	{ ES8328_DACCONTROL29,	0xaa },
-+	{ ES8328_DACCONTROL30,	0xaa },
-+};
-+
- const struct regmap_config es8328_regmap_config = {
--	.reg_bits	= 8,
--	.val_bits	= 8,
--	.max_register	= ES8328_REG_MAX,
--	.cache_type	= REGCACHE_MAPLE,
--	.use_single_read = true,
--	.use_single_write = true,
-+	.reg_bits		= 8,
-+	.val_bits		= 8,
-+	.max_register		= ES8328_REG_MAX,
-+	.cache_type		= REGCACHE_MAPLE,
-+	.reg_defaults		= es8328_reg_defaults,
-+	.num_reg_defaults	= ARRAY_SIZE(es8328_reg_defaults),
-+	.use_single_read	= true,
-+	.use_single_write	= true,
- };
- EXPORT_SYMBOL_GPL(es8328_regmap_config);
- 
-+const struct regmap_config es8388_regmap_config = {
-+	.reg_bits		= 8,
-+	.val_bits		= 8,
-+	.max_register		= ES8328_REG_MAX,
-+	.cache_type		= REGCACHE_MAPLE,
-+	.reg_defaults		= es8388_reg_defaults,
-+	.num_reg_defaults	= ARRAY_SIZE(es8388_reg_defaults),
-+	.use_single_read	= true,
-+	.use_single_write	= true,
-+};
-+EXPORT_SYMBOL_GPL(es8388_regmap_config);
-+
- static const struct snd_soc_component_driver es8328_component_driver = {
- 	.probe			= es8328_component_probe,
- 	.remove			= es8328_remove,
-@@ -884,7 +1050,8 @@ static const struct snd_soc_component_driver es8328_component_driver = {
- 	.endianness		= 1,
- };
- 
--int es8328_probe(struct device *dev, struct regmap *regmap)
-+int es8328_probe(struct device *dev, struct regmap *regmap,
-+		 enum es8328_type type)
- {
- 	struct es8328_priv *es8328;
- 	int ret;
-@@ -898,6 +1065,7 @@ int es8328_probe(struct device *dev, struct regmap *regmap)
- 		return -ENOMEM;
- 
- 	es8328->regmap = regmap;
-+	es8328->type = type;
- 
- 	for (i = 0; i < ARRAY_SIZE(es8328->supplies); i++)
- 		es8328->supplies[i].supply = supply_names[i];
-diff --git a/sound/soc/codecs/es8328.h b/sound/soc/codecs/es8328.h
-index 9109f6b5b045a..3e2cfca050e2b 100644
---- a/sound/soc/codecs/es8328.h
-+++ b/sound/soc/codecs/es8328.h
-@@ -10,8 +10,15 @@
- 
- struct device;
- 
-+enum es8328_type {
-+	ES8328_TYPE_ES8328 = 1,
-+	ES8328_TYPE_ES8388,
-+};
-+
- extern const struct regmap_config es8328_regmap_config;
--int es8328_probe(struct device *dev, struct regmap *regmap);
-+extern const struct regmap_config es8388_regmap_config;
-+int es8328_probe(struct device *dev, struct regmap *regmap,
-+		 enum es8328_type type);
- 
- #define ES8328_DACLVOL 46
- #define ES8328_DACRVOL 47
+Tested on a Jetson Nano (p3450-0000) with CONFIG_DMABUF_DEBUG=y and a local
+change that rejects zero-byte IOMMU mappings to force the error path. Without
+this patch the forced failure produced the warning above. With it, 100
+consecutive failures returned -EINVAL, kept the original dma-buf fd and left
+no dma-buf objects.
 
+ drivers/gpu/drm/tegra/gem.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+index f76af73..ed35a34 100644
+--- a/drivers/gpu/drm/tegra/gem.c
++++ b/drivers/gpu/drm/tegra/gem.c
+@@ -502,7 +502,6 @@ detach:
+ 		dma_buf_unmap_attachment_unlocked(attach, bo->sgt, DMA_TO_DEVICE);
+ 
+ 	dma_buf_detach(buf, attach);
+-	dma_buf_put(buf);
+ free:
+ 	drm_gem_object_release(&bo->gem);
+ 	kfree(bo);
+
+base-commit: 21a7f44fd0765fcc5194130b28767786eba1d1e7
 -- 
-2.34.1
+2.39.5 (Apple Git-154)
 
