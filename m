@@ -1,100 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793456299;
-	b=Jrwzrk/vM3JPXpfS2e/5+2eO+HD/Wd+tBNCmK9TwJi4E9vU/eGQSpNP1zPpUlJnfIcmW
-	 Je9dUH/KVLLf7c1hO//4epO9mPM+KYG8nUcK/57fqQMxGoovDKKzduFbGtrK2W0AJhvw8
-	 aEeXPHBxwVXO5uYY1G/xFYzGVUl3ukTHfiq8K7H2WIgxl0cFIQFvYlJS9X5j0FRMXLwAb
-	 LCy6/b8i0K9ffqULqhUTc3JHBSrIZpEz0Kvc5nOJoARtGuY55VYLErMj503qASgM3Wvzl
-	 Ti5G+0BJmDjLP0qtgHwpaewkMKevVGEoWOixsmrmuUnLFHS0k52KPH8u6ZxaAa6ET0A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793456299;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793456390;
+	b=4sco2oXRlGy/CaKbBC2cQV9Ue06PL5RVbkZO7j83GRNUOUsDqLpfbo4IUg9w/tXLwWXY
+	 /lNREZSEt31UEjAXT/B9OxRqT+i9uP+077B4GzQdOS35Du8K+N1ymtXkhpoWJnlY4mzT9
+	 TZO6xWtXphCrYlfzlvuY0jLSXARD4gxXZIodZMiCr/rIUeLPCr2nV5DCAd0wiyqhSx/LZ
+	 LH/FysnaNI9+wh/Q0Zgwu2+rQ1cTYdTbOcEeUNC9lQ1gdvpfCR8KwNB1LjXrNr+exaUnL
+	 3c90iH871rKPAChc4D/9TpqgpW3Fr71vZU5+O7MiuPM5F49EQrl7VT2lXxxJdHP+GqA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793456390;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Patvq8zmYKObsZg0m1UZqbH1b5GBfytCkWtSbWUod8M=;
-	b=n4IY7cnNyMqUdH1z14QKJBuc2xtci3ysyPGjnQNL1vYuX+oNnWx+DIAlbtvmF1QAkBnb
-	 LtwQNSCQVmYlUEU4bzE7oCzK4WKmlji5bz2o+t67shzFeeCVG6u6g5DVyqRm4uTP1XLp4
-	 uTsvZXMtZ0n0d0d9p42+0DOofPTJCuRtBEmpVxEtObQhI7pBYu5hni/jSyrap6VA6ZUqY
-	 udrWsvPRJ3NX0Ad0s3pzq2XVU5RMhL1HI31ywi/T4Cj3zI4Gb+zz5hG257fZi72ziAuME
-	 sKqPpv3uHFgibLx+OX8mwRJLpTxpzC/Dfoqr7tTtcyy78pBpSG8y8+zoN7uXx3RU5cA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=rej3bXCAP+KjyaBqazcdRvbtdKQGp5ZBUcG9XyBku1c=;
+	b=J2XzGoRcFnGVeq92cyv1AJKHuV92zMC07ZJBVr0aLT35xIzjzuxuGj7kB3I+AGkJXS6z
+	 oP/0KzVDHC8LG/XFgcEnxgz+CMGz5Cn7XyNP61Pknkr/0CYUZmM7AvoTSkfk0B8ZwqCfn
+	 RS4MuECOEZvlhTjB3+VR92o9+5UYjk+ePWIUv+dCdn+1wroaEZa3p8aXc1yTXFfmYCwT0
+	 7VYmi8yXb+V+0gSAr0gauWdYUbfRMENsSXPlEvRQ2Ra67VhPeuRyif2bBFf3F+Ir6uMFJ
+	 gp9RisE64m5sMQzDXGMYCwGUbPd/dB7w/qKl3PN8JJ8HpVaL18j4eLqQw+aRKTyL1/w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oQSLLC1m;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.51
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H7nBpwle;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E364E606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:18:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E364E606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92196606A322
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:19:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92196606A322
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oQSLLC1m
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b1dae0febeso2251660a12.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:18:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793456297; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OyXrfCixaXkIGAEKG6Guh9/v8vF8AFmTRvl2jM12fdDdhNj0mbkSfJcZbwsMACzlVe
-         OTUToY0ASwo8qp1R8HYEkt8/72Y4g2437wPODcB+V5affzgw3natVM1Vk5lYu30Vo44M
-         DYn+moCUdIPf1yc08OntQa9L1RnWm1/cdFAeDsv5yOkMrrOr7Igeu96+U8SDY93v5E/n
-         x93TqfHthtpkanlIO14a40iaf+KAJxgxXXdYPqKPOAJ2QrXRXem+Rvva18KxSWmIzHb2
-         oaynhG67nfo6khWrjQlFcQXJjL0509ZVSAp4KEnrzYpI5QxdTlRljnHDgrTRBJOcUWlx
-         AEcA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Patvq8zmYKObsZg0m1UZqbH1b5GBfytCkWtSbWUod8M=;
-        fh=ejbueqdndrgSYu6BFZd/TB74OmhJErYbmU0D7JWcWU0=;
-        b=ntiylbzoiZCgUGXVWWDZQ6npuyR0fuKKLdDUk8PQDxSQi5wswXaTSzin+DuKI4/Ff9
-         ecHcpMFXU2P4lPMdz/+VF4RchHbyMh4TvpgFEwatOF6GIV4DFnzX0IC5m2XOu3Bg4oS4
-         nmDbsyPMSbO4zt4aQEKfJPTta+rgP5cCBjcU28APOF48SpjybArYn0qc1NiLQfARhdqT
-         ctPdr3pnMxWLOdOeVeUeYn0dIpbnLQrKctHVqkwFhCfJzKoG+TEvbElGOKnU2wNSw5Yx
-         fdE9gSEXzbt5Qy8pAonxlM/utE2rxbDjzLNZrVv7KFei+GLkJ+TNIJqulPKK1gjqLu2F
-         Y4tQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H7nBpwle
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so14213485e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:19:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793456297; x=1794061097; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Patvq8zmYKObsZg0m1UZqbH1b5GBfytCkWtSbWUod8M=;
-        b=oQSLLC1mlwpZCk0ZZrL78sZBTbXMULvV3A5VNNAB+fjwScljqC/+c8krSIy+5QkCTU
-         9Aewd6oLipaVsncWBwbOzv9IQ35Sk7bSNgHjp0q9Wh0a2M5YtJgfdFZMc6J+S9HU2qBT
-         uw96KgDa0g49IduaTD9SDThtQLiSC3e2cy576lxjGXvJqx2nWlAIGE5JrjKqxNWqltIC
-         LeoPRHoC4Uw6ELdtd0segJT9DnVtvGhpAZ9uPZfReqwNibJQV+/ySK4LD1s+LQDGz9h0
-         4nHs5O8COquJdR38IVfmn3pvv/jXZZzJuRPfYpx/9C7z2hfBjbua015UnPZLfmLZJ2Xi
-         1BUw==
+        d=gmail.com; s=20260707; t=1793456389; x=1794061189; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rej3bXCAP+KjyaBqazcdRvbtdKQGp5ZBUcG9XyBku1c=;
+        b=H7nBpwle+mHqAf9JIVZdI28ifLoQvfTut+HiHb71pyp5ICyc4q/7zDeezZd/9BEu7H
+         FsBuKOgJN6epqqGcEeg8fhi7bYPX4MeqvjWSSjHe1pz1jlQtB+4FBgcnUsmUPxvfkpIq
+         3Kk2ytgTB2djUYCRFWJGjhTUUMpWTVeQgDrXfncfbGrQfYLubsCkkvLFUqJKmQjhmQOH
+         rMBhNcDVKcziNvniOd+Y5oWuH1jezLTVAX8urCv9muwbK40U+DLmDJdctXoAD6jpOtxZ
+         Jmh11SUee5Yvfhx0vdk/yu4i55a48HCwEZjmTMu6wulDCMIAsqa8MbgsiqGgaLpy789m
+         0ZhQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793456297; x=1794061097;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Patvq8zmYKObsZg0m1UZqbH1b5GBfytCkWtSbWUod8M=;
-        b=r//+w9u6nTlA1XWyoBKsTvc7sYeHLm0cPt7js0Cqyn12TEZtakZE+M3Gz6wgB8rf4W
-         BFpK1vrFaxSSitayFsDfl/wXaEgp7jaTUzpG4TPVB2TiYtmEZSfWsnjhjXzLj/baI8dq
-         HQTwgmtiXPQJcaZOd3Gu17zlXQCbgG1cCuYIXjeb7jflZAwP+OZ/oJPEAdiHUqGWz8NJ
-         BqOR4lm0jVGrueRa4h+/8gcamCIpelgBj6XYY6MsaNU6OkgtFoGP8ZF4KzzMiPkREAvw
-         lCVjLMS45g62lCnSz2FybBslt6hwGhjOhjL/COGftnWz+L1IKVbRlth4bVuTI9cbk07x
-         BFDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxYwOjfRUoEGOnsIPo0Zzqkf7zxy68fww49EedEwxVfMgK9tn0/w6PRO2+bf7Lq0A+4hq+sS980yUy9ZPQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEB2XSCttljMxzoOxRf8IKcu9uYvUg+ySmpMrnbzj6TCB2DIyz
-	mE2WJF8EAqZT9KMJlEdnl9gAVjOw9ZN4TY39hI1Gsyyjja0NK8vml68kD3zX+Cd6Rmw25R4xlmg
-	6/EXLLCol3bb9aHg4V8p8C96BXJhiNio=
-X-Gm-Gg: AYBFou02dG5Uj3EzfIc7oVd4T6hbklI9luYggFh/3RWSj4yL+gCJnhZa6clkQ1RNWb4
-	gAJSXr33/U8zxLrY2PXoKn1oisVWYs+0yLz2zF4JUrEbhsQFWFFUg2X27G0iyjhmcMrWkivxZu/
-	ac+qNK08dVy9kgqxFNX+7p7qCStYTHumcnmo5LTysqcosLbnrDWnhHtTc+jWWDrrHM+rnDrpVAv
-	aIYckBNkJamL1kGIIMi4cJY3uELIiXn7sSzVW/vXwzOdcJ6LuraTqDyL6YlmZPdN+MRFZl/Zhpt
-	izy+bcKMowlwI0QfsipBF8HWPkbuw4J4q6ktwSu3qg/bijn/e6xkNCF2GFx4r7M3+ANS1hoOxYz
-	UT6AYy5j2QKGbq0xbcHz68yVcNfsQopCkAjavbx/fcZW9irwRJK1LmyXpp4sQlAFl0g3+KQ==
-X-Received: by 2002:a05:6402:50a:b0:6b4:5a0c:a7fe with SMTP id
- 4fb4d7f45d1cf-6b4d4c72396mr3193898a12.28.1793456297060; Sat, 31 Oct 2026
- 07:18:17 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793456389; x=1794061189;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rej3bXCAP+KjyaBqazcdRvbtdKQGp5ZBUcG9XyBku1c=;
+        b=sPWR+TvDkev5JnhHERlyfADbbzJCTBpdARBs+qQ85r+vEBqAGHFs3RitSBsfGefsrR
+         /CSS76Oju8csxHDypJNIkf2lXH1o1/q9mxMRPZOZtpXkwpGsZLl6/T6DiWjY2+7hAHlh
+         dfJ1gPp3Mh4KVCAyR+Zy0b8Guw7mQR9xrek5LUaKskkP9p/Cbxh91pMeh769eJi9x7By
+         eTLT0wQgf0hVfE1Qxk7fwQT6TY9eiXP/DzllIBqS8k52fqlsied5Kay10PhfHZdH/cHQ
+         MUOiuHEIka8jP7aGIwJv/s4NaAMZ3ET4pERLGXRPeAT0WjEYe7zbPm5y38WXV9ijBS9K
+         bc3g==
+X-Forwarded-Encrypted: i=1; AKwUvBxQ8OZD6ZGf+zN42gw1VCi/y/xFM7bUQmQPVbJIJVNZlM5+MLLQRzIzrycSN+T1VpazNNZ97fB5V7vcmBs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIZ7GEt5Y5jKBHGRm3bm0Gxme9rIqgWxBLDM83BtFKI5Mmy7ZEn
+	MLB8zctducdYQAzmPpba+YSy/eYBBsv6lzKjQYLea8FrxXbXucC7W+c=
+X-Gm-Gg: AYBFou2QYE3hXD6L/UfYhSKG1SJWHr3ZwoqjUzuiCk/ZeHpdqG+8MIkS2i3XM9R4acz
+	irlVn9r++V3sGeoWOVF2/jvfrgsR4wDC1lDl44vQgDxS4OjSRq9BZlpvPllGxHPsfj4jd8hU+ij
+	AWnjh0kXTeTtViv3te3S1Hu3SxzegSnlRO4/KneJFEIKgnk9iSeAu0WojS1UGZkg/GO4OPB70zZ
+	dxQc4ZthjkQDGfHGy8pzIsBtjkBz8dtfRKQ/eqanYQedwXQeaLYz/mrPfk79AC04v/9+vg71x9S
+	E6T/xaSy6m7DSqExLE/m2zZxHQNcXVm8DC+BlkNk/YhcbxnfD3WP+xZWyPtEuXk53OgExyAD6Tp
+	cwHKeivoOozUfguPDtUietiPLFYDLO64v9ESxc4RjhWKfhNSnSSYE6EayT2DnNdmwDqM/UIfpTV
+	94iLqlSABgMWbm5KLTuqUZtFA3Tir6D8hKstiXJeHWUPESzXdL0WH4Hz4yGHzY/KyapIK20uE6P
+	P4Ey4UZhM06t3XBUDjSKJwUIb873UBdOiJN3pNWCRm6xLKXedMcM9sBV9Oc4tZvrRb9Xj7WPhWK
+	KbtcLm2Y/nRI31pJbk8=
+X-Received: by 2002:a05:600c:3b2a:b0:4a4:3a2d:15da with SMTP id 5b1f17b1804b1-4ac1709a2c3mr114534825e9.15.1793456388879;
+        Sat, 31 Oct 2026 07:19:48 -0700 (PDT)
+Received: from fedora ([46.8.219.5])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm209871275e9.4.2026.10.31.07.19.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 07:19:48 -0700 (PDT)
+From: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+To: daniel.lezcano@kernel.org
+Cc: rafael@kernel.org,
+	rui.zhang@intel.com,
+	lukasz.luba@arm.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ansuelsmth@gmail.com,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Vitaliy Sochnev <sochnev.v.74@gmail.com>
+Subject: [PATCH 2/2] thermal/drivers/airoha: Read the EN7581 CPU ADC
+Date: Sat, 31 Oct 2026 16:19:12 +0200
+Message-ID: <20261031141912.1664575-3-sochnev.v.74@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
+References: <20261031141912.1664575-1-sochnev.v.74@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,84 +106,286 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028134728.294127-1-koray.fra@gmail.com> <20261028134728.294127-2-koray.fra@gmail.com>
- <auILs54TUcWXf3us@pedro-suse.tail5790ac.ts.net> <auMzpUIEmGCE_x_N@amir-ThinkPad-T480>
-In-Reply-To: <auMzpUIEmGCE_x_N@amir-ThinkPad-T480>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sat, 31 Oct 2026 15:18:05 +0100
-X-Gm-Features: AclHuK_VupdwTnfkty2dMVhzMxaAc8BrZ6HJFAl7_OYvEEgnr1tOPYIrNbWdV30
-Message-ID: <CAOQ4uxiuy0VwZj+3M-zRqQ49WTpHZpiaQ+6MZ8z8WdLjyQM_zA@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 1/2] vfs: add provenance time (ptime)
-To: koraynilay <koray.fra@gmail.com>
-Cc: David Sterba <dsterba@suse.com>, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Chris Mason <mason@kernel.org>, Jan Kara <jack@suse.cz>, 
-	"Darrick J . Wong" <djwong@kernel.org>, Sean Smith <defendthedisabled@gmail.com>, 
-	Andrey Albershteyn <aalbersh@kernel.org>, linux-btrfs@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Pedro Falcato <pfalcato@suse.de>, =?UTF-8?Q?Pali_Roh=C3=A1r?= <pali@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 29, 2026 at 12:53=E2=80=AFPM Amir Goldstein <amir73il@gmail.com=
-> wrote:
->
-> On Wed, Oct 28, 2026 at 02:56:39PM +0000, Pedro Falcato wrote:
-> > On Wed, Oct 28, 2026 at 02:47:27PM +0100, koraynilay wrote:
-> > > Add provenance time (ptime), indicating the time when a file or
-> > > directory was created. This is user-settable via file_setattr() and
-> > > retrievable via statx(2) (using STATX_PTIME) or file_getattr().
-> > >
-> > > The semantics of when to preserve this new timestamp are the same as
-> > > mtime, the idea being that there is a correspondence like this:
-> > >
-> > > ctime <-> btime
-> > > mtime <-> ptime
-> > >
-> > > so every operation (copying, moving, ...) that currently preserves mt=
-ime
-> > > should also preserve ptime.
-> > >
-> > > Furthermore, in order to avoid the legacy FS_IOC_FSSETXATTR accepting
-> > > FS_XFLAG_PTIME, add an FS_FILE_ATTR_XFLAGS_MASK mask to support new
-> > > xflags, and use it in fileattr_to_file_attr()/file_attr_to_fileattr()=
- to
-> > > allow ptime to be used with the file_setattr()/file_getattr() syscall=
-s.
-> >
-> > Random comment, but: could this be doable with xattrs instead? I'm not =
-sure
-> > where I would put the xattrs code (if in userspace exclusively, or if h=
-ooking
-> > the VFS up with this, or if doing it on the filesystem side), but it wo=
-uld
-> > surely be less disruptive than modifying a bunch of filesystems one-by-=
-one.
-> >
-> > This patch is quite simple, but changing btrfs, then ext4, xfs, etc is =
-a
-> > mess, and inevitably you can't get these timestamps until you upgrade y=
-our
-> > filesystems.
-> >
->
-> I disagree.
->
-> I think that creation time should be a first class property in
-> filesystems that support it.
->
+Register the second EN7581 ADC as a read-only thermal zone. The
+hardware monitor and interrupt continue to use the main ADC. Use the
+CPU calibration offset from efuse, falling back to the main ADC when
+it is absent.
 
-One of the reasons that I think this API is a good match for the Windows
-style creation time is that it was already discussed as an API for the
-Windows style DOS attributes [1].
+Signed-off-by: Vitaliy Sochnev <sochnev.v.74@gmail.com>
+---
+ drivers/thermal/airoha_thermal.c | 157 +++++++++++++++++++++++++++++--
+ 1 file changed, 147 insertions(+), 10 deletions(-)
 
-koraynilay,
+diff --git a/drivers/thermal/airoha_thermal.c b/drivers/thermal/airoha_thermal.c
+index 7c63a1b44a6b9..982b0736df9a3 100644
+--- a/drivers/thermal/airoha_thermal.c
++++ b/drivers/thermal/airoha_thermal.c
+@@ -18,6 +18,8 @@
+ #define   EN7581_MUX_TADC			GENMASK(3, 1)
+ #define EN7581_DOUT_TADC			0x2f8
+ #define   EN7581_DOUT_TADC_MASK			GENMASK(15, 0)
++#define EN7581_PWD_TADC_CPU			0x2fc
++#define EN7581_DOUT_TADC_CPU			0x308
+ 
+ #define AN7583_MUX_TADC				0x2a0
+ #define   AN7583_LOAD_ADJ			GENMASK(3, 2)
+@@ -236,6 +238,13 @@ enum an7583_thermal_diode_mux {
+ 	AN7583_D1_TADC,
+ };
+ 
++enum en7581_thermal_sensor {
++	EN7581_TADC,
++	EN7581_TADC_CPU,
++
++	EN7581_NUM_SENSOR,
++};
++
+ enum airoha_thermal_chip_scu_field {
+ 	AIROHA_THERMAL_DOUT_TADC,
+ 	AIROHA_THERMAL_MUX_SENSOR,
+@@ -264,6 +273,8 @@ struct airoha_thermal_priv {
+ 	int init_temp;
+ 	int default_slope;
+ 	int default_offset;
++	int cpu_offset;
++	bool cpu_adc_failed;
+ };
+ 
+ struct airoha_thermal_soc_data {
+@@ -354,19 +365,53 @@ static void airoha_set_thermal_mux(struct airoha_thermal_priv *priv,
+ 	usleep_range(10 * USEC_PER_MSEC, 11 * USEC_PER_MSEC);
+ }
+ 
++static int en7581_thermal_read_adc(struct airoha_thermal_priv *priv, int sensor,
++				   int *value)
++{
++	u32 val;
++	int ret;
++
++	if (sensor != EN7581_TADC_CPU) {
++		*value = airoha_get_thermal_ADC(priv);
++		return 0;
++	}
++
++	ret = regmap_read(priv->chip_scu, EN7581_DOUT_TADC_CPU, &val);
++	if (ret)
++		return ret;
++
++	*value = FIELD_GET(EN7581_DOUT_TADC_MASK, val);
++	return 0;
++}
++
+ static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+ {
+ 	struct airoha_thermal_zone *zone = thermal_zone_device_priv(tz);
+ 	struct airoha_thermal_priv *priv = zone->priv;
+ 	int min_value, max_value, avg_value, value;
+-	int i;
++	int offset = priv->default_offset;
++	int i, ret;
++	u32 sel;
++
++	if (zone->sensor == EN7581_TADC_CPU) {
++		/* Other mux positions convert to temperatures above the trips */
++		ret = regmap_read(priv->chip_scu, EN7581_PWD_TADC_CPU, &sel);
++		if (ret)
++			return ret;
++		if (FIELD_GET(EN7581_MUX_TADC, sel) != EN7581_SCU_THERMAL_MUX_DIODE1)
++			return -EAGAIN;
++
++		offset = priv->cpu_offset;
++	}
+ 
+ 	avg_value = 0;
+ 	min_value = INT_MAX;
+ 	max_value = INT_MIN;
+ 
+ 	for (i = 0; i < AIROHA_MAX_SAMPLES; i++) {
+-		value = airoha_get_thermal_ADC(priv);
++		ret = en7581_thermal_read_adc(priv, zone->sensor, &value);
++		if (ret)
++			return ret;
+ 		min_value = min(value, min_value);
+ 		max_value = max(value, max_value);
+ 		avg_value += value;
+@@ -376,7 +421,8 @@ static int en7581_thermal_get_temp(struct thermal_zone_device *tz, int *temp)
+ 	avg_value -= (min_value + max_value);
+ 	avg_value /= AIROHA_MAX_SAMPLES - 2;
+ 
+-	*temp = RAW_TO_TEMP(priv, avg_value);
++	*temp = (((avg_value - offset) * 1000) / priv->default_slope +
++		 priv->init_temp) * 100;
+ 	return 0;
+ }
+ 
+@@ -387,6 +433,10 @@ static int en7581_thermal_set_trips(struct thermal_zone_device *tz, int low,
+ 	struct airoha_thermal_priv *priv = zone->priv;
+ 	bool enable_monitor = false;
+ 
++	/* The temperature monitor samples only the main ADC */
++	if (zone->sensor == EN7581_TADC_CPU)
++		return 0;
++
+ 	if (high != INT_MAX) {
+ 		/* Validate high and clamp it a supported value */
+ 		high = clamp_t(int, high, RAW_TO_TEMP(priv, 0),
+@@ -484,6 +534,70 @@ static void en7581_thermal_setup_adc_val(struct device *dev,
+ 	}
+ }
+ 
++static int en7581_thermal_setup_cpu_adc(struct device *dev,
++					struct airoha_thermal_priv *priv)
++{
++	int tries = AIROHA_THERMAL_MUX_TRIES;
++	u32 pllrg, sel, efuse, main;
++	int cpu;
++	int ret, restore_ret;
++
++	ret = regmap_read(priv->chip_scu, EN7581_PLLRG_PROTECT, &pllrg);
++	if (ret)
++		return ret;
++
++	ret = regmap_write(priv->chip_scu, EN7581_PLLRG_PROTECT,
++			   priv->pllrg_protect);
++	if (ret)
++		goto restore_protect;
++
++	/* Unprotected writes are dropped silently, so read the value back */
++	do {
++		ret = regmap_update_bits(priv->chip_scu, EN7581_PWD_TADC_CPU,
++					 EN7581_MUX_TADC,
++					 FIELD_PREP(EN7581_MUX_TADC,
++						    EN7581_SCU_THERMAL_MUX_DIODE1));
++		if (ret)
++			break;
++		ret = regmap_read(priv->chip_scu, EN7581_PWD_TADC_CPU, &sel);
++		if (ret)
++			break;
++	} while (FIELD_GET(EN7581_MUX_TADC, sel) != EN7581_SCU_THERMAL_MUX_DIODE1 &&
++		 --tries);
++
++	if (!ret && FIELD_GET(EN7581_MUX_TADC, sel) != EN7581_SCU_THERMAL_MUX_DIODE1)
++		ret = -EIO;
++
++restore_protect:
++	restore_ret = regmap_write(priv->chip_scu, EN7581_PLLRG_PROTECT, pllrg);
++	if (ret)
++		return ret;
++	if (restore_ret)
++		return restore_ret;
++
++	usleep_range(10 * USEC_PER_MSEC, 11 * USEC_PER_MSEC);
++
++	ret = regmap_read(priv->map, EN7581_PTPSPARE1, &efuse);
++	if (ret)
++		return ret;
++	if (FIELD_GET(EN7581_EFUSE_TEMP_OFFSET, efuse)) {
++		priv->cpu_offset = FIELD_GET(EN7581_EFUSE_TEMP_OFFSET, efuse);
++		return 0;
++	}
++
++	/* Without calibration assume both ADCs are at the same temperature */
++	ret = en7581_thermal_read_adc(priv, EN7581_TADC_CPU, &cpu);
++	if (ret)
++		return ret;
++	ret = regmap_field_read(priv->chip_scu_fields[AIROHA_THERMAL_DOUT_TADC],
++				&main);
++	if (ret)
++		return ret;
++	priv->cpu_offset = cpu - (int)main + priv->default_offset;
++	dev_info(dev, "missing CPU thermal calibration EFUSE, using main sensor offset\n");
++	return 0;
++}
++
+ static void en7581_thermal_setup_monitor(struct airoha_thermal_priv *priv)
+ {
+ 	/* Set measure mode */
+@@ -495,8 +609,7 @@ static void en7581_thermal_setup_monitor(struct airoha_thermal_priv *priv)
+ 	 * The AHB temp monitor system doesn't have direct access to the
+ 	 * thermal sensor. It does instead work by providing various
+ 	 * addresses to configure how to access and setup an ADC for the
+-	 * sensor. EN7581 supports only one sensor hence the
+-	 * implementation is greatly simplified but the AHB supports
++	 * sensor. EN7581 monitors only the main ADC here; the AHB supports
+ 	 * up to 4 different sensors from the same ADC that can be
+ 	 * switched by tuning the ADC mux or writing address.
+ 	 *
+@@ -556,7 +669,8 @@ static int en7581_thermal_probe(struct platform_device *pdev,
+ 	struct device_node *chip_scu_np;
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *base;
+-	int i;
++	u32 sensor_cells = 0;
++	int i, ret;
+ 
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+@@ -572,8 +686,11 @@ static int en7581_thermal_probe(struct platform_device *pdev,
+ 		return -EINVAL;
+ 
+ 	priv->chip_scu = syscon_node_to_regmap(chip_scu_np);
+-	if (IS_ERR(priv->chip_scu))
+-		return PTR_ERR(priv->chip_scu);
++	if (IS_ERR(priv->chip_scu)) {
++		ret = PTR_ERR(priv->chip_scu);
++		of_node_put(chip_scu_np);
++		return ret;
++	}
+ 
+ 	for (i = 0; i < AIROHA_THERMAL_FIELD_MAX; i++) {
+ 		struct regmap_field *field;
+@@ -592,11 +709,21 @@ static int en7581_thermal_probe(struct platform_device *pdev,
+ 		priv->chip_scu_fields[i] = field;
+ 	}
+ 
+-	of_address_to_resource(chip_scu_np, 0, &priv->scu_adc_res);
++	ret = of_address_to_resource(chip_scu_np, 0, &priv->scu_adc_res);
+ 	of_node_put(chip_scu_np);
++	if (ret)
++		return ret;
+ 
+ 	en7581_thermal_setup_monitor(priv);
+ 	en7581_thermal_setup_adc_val(dev, priv);
++	of_property_read_u32(dev->of_node, "#thermal-sensor-cells", &sensor_cells);
++	if (sensor_cells) {
++		ret = en7581_thermal_setup_cpu_adc(dev, priv);
++		if (ret) {
++			dev_warn(dev, "CPU thermal ADC unavailable: %d\n", ret);
++			priv->cpu_adc_failed = true;
++		}
++	}
+ 
+ 	return 0;
+ }
+@@ -751,6 +878,9 @@ static int airoha_thermal_probe(struct platform_device *pdev)
+ 		struct airoha_thermal_zone *zone;
+ 		struct thermal_zone_device *tz;
+ 
++		if (priv->cpu_adc_failed && soc_data->sensors[i] == EN7581_TADC_CPU)
++			continue;
++
+ 		zone = devm_kzalloc(dev, sizeof(*zone), GFP_KERNEL);
+ 		if (!zone)
+ 			return -ENOMEM;
+@@ -786,8 +916,15 @@ static const int an7583_zone_sensors[AN7583_NUM_SENSOR] = {
+ 	AN7583_CPU_TEMP_SENSOR,
+ };
+ 
++/* The main ADC stays zone 0 */
++static const int en7581_zone_sensors[EN7581_NUM_SENSOR] = {
++	EN7581_TADC,
++	EN7581_TADC_CPU,
++};
++
+ static const struct airoha_thermal_soc_data en7581_data = {
+-	.num_sensors = 1,
++	.sensors = en7581_zone_sensors,
++	.num_sensors = EN7581_NUM_SENSOR,
+ 	.pllrg_protect = EN7581_SCU_THERMAL_PROTECT_KEY,
+ 	.thdev_ops = &en7581_thdev_ops,
+ 	.probe = &en7581_thermal_probe,
+-- 
+2.55.0
 
-In your next posting, I suggest that you first demonstrate how the proposed
-API is used to facilitate filesystems that already support a user-settable
-creation time (smb, ntfs,vfat,exfat), before adding btrfs support.
-
-Thanks,
-Amir.
-
-[1] https://lore.kernel.org/linux-fsdevel/20241227121508.nofy6bho66pc5ry5@p=
-ali/
