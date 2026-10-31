@@ -1,45 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793454945;
-	b=vHQr4FAjxPul69y3wT0Rrx/hIlx5WXucIHmyCreNrpLHrCI3u0UK5vGo1OKvDLOqCe3H
-	 38c1nI3CJneeu4Wbiga9YfeTio6Q8S7Zc93goAukcaBlXRWQU11K61dJU56Jw8Rirxk6e
-	 CsxSUZ7iofSu7/X1ExiYBUxLepsw34j0vV3Tsx9s6Zs5nagSZ+qVRXNyTLh/vVUh3xbn1
-	 RRB8HNX34fjHUFwalwLF/5JoKOCUBNNc1QuGz7Y21WRinYkmLHXV0WpYwauaQFNVi72DE
-	 rSSrZHyAEme5FXmEQqVb3UK59axvUiKxSLrwANSj1SURg8Z2YLUKPuD0cG4hyczE5kA==
+	t=1793455106;
+	b=JfJ6PmbTzLptxegwXiXC/zzqGCFxFJ20sBBHnCrtiFAIYV5LKqu5NlwGKALDPXTcLPLO
+	 uAamx7LpcjmsGAi1iNya7VRP/5ULupEn0W4lIc+XIuNNuW4EDJWQyoe/ctmfrJ0m+ct/N
+	 nOBjzK4XbmRAErv4ukN3Q5tckmX6r0iR5hyvmU7ldmibJEPrZR3nfLrTSSxg4XTnQtwuk
+	 gMu/YIneavcSFaCBcby/8sGD7zOGs9zL9x4v+d9HDeV+sv477+7C8o5hFcRxmipHqTBGK
+	 mxiOn0hIHxpAsNltnHqL799bFpHPDmWuCjNDQxauDU3zrdTsbBjK8Vl9pJDxf42zzwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793454945;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=zuwM5CVnMPYRTsQ2zk+vWa+3BadmP9dyz74B+bdHmF0=;
-	b=SOQIT0Rhzuf+3QenP2pUdfQOXUbrlB4K4e0eGffv1EMoBP16mJKsHig0ZhsxZ8UgmwfR
-	 AjUUzhDrqO9G9LYdpjqgb9J5KQr7utCrvTqt345ELQ7lbyMteX/OnHN7QPyu21rfwdMXT
-	 ocjC2A7r0gpddpNLvojnPStck1Lx4O/4fcAPkPR0lhhfz8iJRAI134cf07T1L30MGVlaY
-	 HZBlYX5E2JuOXa1fuVbhm8N/Ultqt9GwqfewjocO//ovAj5UMrbbUKQv3g41CD70MJeZz
-	 6QbKxrO2GVrfpxCwrp/SYFeT5jHBEsfenslxA9x1JshbMqoKLJzS6RlX3HaSbjY96dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793455106;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:Autocrypt:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=yltHeuWbWpNQZrqX8/wfMKp7JXkeaATdV1A2mH2EMgA=;
+	b=QKe6WAJqjF3R5mgcW/oEF8Dgs0Z08dF7/fjuwPLMk0Kt3uGCEIGgKwYJbM6yfZOjLnbG
+	 Men3aL0SDDl8wiSdn7frslCAUqDWzMkGyDbf1jCfU9JkcgBE9PLDFp06WfzX4Zp+QCqui
+	 fpgmiBDglwJVJ3NYA+0juHSA3ZoA4+PpvqIFEcTuXhHPgy04gPUpyJOvuMSW45tJJC6Wa
+	 GKiq70hFeNS1VBd9/9Y+My53oQ7sa2Y/gn/MSK3HylGKuIyto4O10qa7aN3q17VSIftnb
+	 NVYmhjsA0Q4pZd/aUcykfZLkLnLDV7Bm2gtImjmAPPkYjkyX8ekC06Mcxg36GTMhfgQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqCh+Yfp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G4YXWior;
+	arc=none smtp.remote-ip=192.198.163.9
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E74A3606A32A;
-	Sat, 31 Oct 2026 13:55:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55BAC606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:58:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55BAC606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AqCh+Yfp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 174FB1F00A15;
-	Sat, 31 Oct 2026 13:55:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793454944;
-	bh=zuwM5CVnMPYRTsQ2zk+vWa+3BadmP9dyz74B+bdHmF0=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=AqCh+YfpQCCqL8CrhVxo8BEzEwuwwKIORnVBxN5OOyDPmkOrZypR2Cx75mzGOfEhk
-	 CnxKlI5lgfVuWkoxf3w9GSH3TsVEtuvz3NPDEDPYIbtb56iBSKB9MME1kB9infUPWq
-	 NWNGeTD8/EOyTAApPUVnNg15pQf7rQVcijnvFGUHxeKr/jexuwyMVF5aBkRr65z2Ek
-	 +0LE/V9WFXmn8YeEm1STMDFg4jP8P3qbBdI0CNxeMLQdB5YMoxVhiozytBQgRFPMuy
-	 tKCCXfQ7Q8zFZdAJkhro2+TEcHrLWg190UGI0vnPEJrtVpskpm77A9Wr3vOEEuO0+I
-	 Dv+mcXVWoVu+A==
-Content-Type: multipart/mixed; boundary="===============6180907473628245553=="
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=G4YXWior
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793455105; x=1824991105;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=yltHeuWbWpNQZrqX8/wfMKp7JXkeaATdV1A2mH2EMgA=;
+  b=G4YXWior6W8aRN/iR3WXJkP3iYlqQhREpIppI0TFQgq4/bFc2/WqSk1l
+   SO3RP3UC1QDEgNwWt9rw+pzfxi7xiyzhC6qmr34jIisVyyBCVAB5ELzhG
+   xtm4bJNHXuCgIhfx8z5nc7A5v3PZJMe4wZFEmxCILDKYa3G/pplM9Ujfl
+   jl+u+slabHCIWw8SYCh1dAGgJAIWaRnPRoWZEOATBSyoBi24/YgpfdB1x
+   gKyFB3LxgkmYPMnST/CHwZs5Le+w0JQNfgDd5lFg0W27lgwX07JRhXqau
+   EsjcjAWkMC0sL5d8IK/bsaqqSbCzqdlpMMarecepf09bLwF51sQkrrY4n
+   g==;
+X-CSE-ConnectionGUID: yERcc3NGSwe8LlVRpYw1/w==
+X-CSE-MsgGUID: /ge/OdRWTQySRIdR9GnAvA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2085587"
+X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
+   d="scan'208";a="2085587"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 06:58:24 -0700
+X-CSE-ConnectionGUID: n4eYlxEAQq2pbnR0Pcaa4A==
+X-CSE-MsgGUID: u1RRNZM1TyiRh6e8k6qsGA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
+   d="scan'208";a="5663418"
+Received: from ssimmeri-mobl2.amr.corp.intel.com (HELO [10.125.109.122]) ([10.125.109.122])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 06:58:23 -0700
+Message-ID: <efbf7f55-755b-49e1-aa01-dae92fadb426@intel.com>
+Date: Sat, 31 Oct 2026 06:58:22 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,158 +73,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <33ce2cfacb0d57a90dfe08484cdf752e0f66d3e620292a0a891c816e29aa21e6@mail.kernel.org>
-In-Reply-To: <20261031130959.23472-11-wanjay@amazon.com>
-References: <20261031130959.23472-11-wanjay@amazon.com>
-Subject: Re: [PATCH bpf-next 10/13] bpf: defer kfunc and struct_ops registrations until first BTF use
-From: bot+bpf-ci@kernel.org
-To: wanjay@amazon.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: ihor.solodrai@linux.dev,almagui@kernel.org,martin.lau@linux.dev,yonghong.song@linux.dev,jolsa@kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,linux-trace-kernel@vger.kernel.org,nathan@kernel.org,nsc@kernel.org,linux-kbuild@vger.kernel.org,arnd@arndb.de,linux-arch@vger.kernel.org,x86@kernel.org,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,abuehaze@amazon.com,doebel@amazon.de,mpohlack@amazon.de,jay.wang.upstream@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 31 Oct 2026 13:55:44 +0000 (UTC)
-
---===============6180907473628245553==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] x86/cpu: don't gate PROCESSOR_SELECT with EXPERT
+To: Vincent Mailhol <mailhol@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>
+Cc: linux-kernel@vger.kernel.org
+References: <20261031-processor_select_is_not_an_expert_feature-v1-0-6227bdbbe5a9@kernel.org>
+ <20261031-processor_select_is_not_an_expert_feature-v1-3-6227bdbbe5a9@kernel.org>
+From: Dave Hansen <dave.hansen@intel.com>
+Content-Language: en-US
+Autocrypt: addr=dave.hansen@intel.com; keydata=
+ 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
+In-Reply-To: <20261031-processor_select_is_not_an_expert_feature-v1-3-6227bdbbe5a9@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-> bpf: defer kfunc and struct_ops registrations until first BTF use
+On 10/31/26 00:51, Vincent Mailhol wrote:
+> Remove the EXPERT dependency from PROCESSOR_SELECT. Make the option N by
+> default so that all x86 CPU types remain supported by default.
 
-TL;DR:
-- btf_get_fd_by_id() may return an fd for a half-built vmlinux BTF after a
-  failed -ENOMEM parse round, possibly racing with struct_ops table updates
-- a permanent -ENOMEM may be retried forever, with the queue never dropped
-- Co-developed-by lacks a Signed-off-by
+I actually kinda despise the vendor selection stuff in the first place.
 
-> bpf: defer kfunc and struct_ops registrations until first BTF use
->
-> [ ... ]
->
-> Co-developed-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-> TODO-NEEDS-IHOR: Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-> Signed-off-by: Jay Wang <wanjay@amazon.com>
+It just causes problems. Like for protection keys. I diligently made it
+Intel-only when it was merged. But AMD came along and ruined my party
+when they added support for it. We had to go do more work later to make
+it available on AMD.
 
-The Co-developed-by: tag is followed by a "TODO-NEEDS-IHOR: Signed-off-by:"
-placeholder instead of a real Signed-off-by: line from the co-developer.
+It's also one of those things that inevitably hides build problems.
 
-Should the placeholder be resolved, or the Co-developed-by: tag dropped,
-before this is sent?  Documentation/process/submitting-patches.rst expects a
-Co-developed-by: to be followed immediately by that co-author's
-Signed-off-by:.
-
-> diff --git a/kernel/bpf/btf.c b/kernel/bpf/btf.c
-> --- a/kernel/bpf/btf.c
-> +++ b/kernel/bpf/btf.c
-
-[ ... ]
-
-> @@ -6928,33 +6928,70 @@ struct btf *btf_parse_vmlinux(void)
->  struct btf *bpf_get_btf_vmlinux(void)
->  {
-
-[ ... ]
-
-> +	mutex_lock(&btf_vmlinux_lock);
-> +	btf = btf_vmlinux;
-> +	if (!btf) {
-> +		btf = btf_parse_vmlinux();
-> +		if (IS_ENABLED(CONFIG_DEBUG_INFO_BTF_LAZY) && !IS_ERR(btf)) {
-
-[ ... ]
-
-> +		/* a lazy parse that ran out of memory is retried by the next caller */
-> +		if (!IS_ENABLED(CONFIG_DEBUG_INFO_BTF_LAZY) || btf != ERR_PTR(-ENOMEM)) {
-> +			if (IS_ERR(btf))
-> +				btf_drop_all_deferred(PTR_ERR(btf));
->  			/*
->  			 * Order the parsed BTF contents and the globals the
->  			 * parse populated (e.g. bpf_ctx_convert.t) before
->  			 * the pointer publication. Pairs with the acquire
->  			 * on the lockless fast path above.
->  			 */
->  			smp_store_release(&btf_vmlinux, btf);
->  		}
-
-Is every -ENOMEM from btf_parse_vmlinux() really transient here?
-
-btf_vmlinux_data() in kernel/bpf/sysfs_btf.c, from the previous patch in the
-series, also returns -ENOMEM for a permanent failure.  Its comment says
-"ERR_PTR(-ENOMEM) if that cannot be done (now: memory; for good: no copy of
-the compressed BTF)".  If the vmalloc() in btf_vmlinux_keep_zst() fails,
-btf_zst becomes NULL and every later call ends up at:
-
-	if (!btf_zst)
-		return ERR_PTR(btf_vmlinux_broken ? -EINVAL : -ENOMEM);
-
-From then on bpf_get_btf_vmlinux() never reaches btf_drop_all_deferred() and
-never publishes btf_vmlinux.  Every queued built-in registration and its
-kmemdup() copy is kept, no "dropped N deferred BTF registrations" warning is
-printed, and each later caller (verifier, BPF_BTF_GET_FD_BY_ID, the
-CAP_SYS_ADMIN BPF_BTF_GET_NEXT_ID, module BTF parse) takes btf_vmlinux_lock
-again to re-run a parse that cannot succeed.
-
-This also looks different from the commit message, which says "If the vmlinux
-BTF fails for good, the queue is dropped with a warning."
-
-Should btf_vmlinux_data() return a different errno for the permanent case, or
-should this retry test be able to tell the two cases apart?
-
-[ ... ]
-
-> @@ -9300,12 +9337,16 @@ int btf_get_info_by_fd(const struct btf *btf,
->  int btf_get_fd_by_id(u32 id)
->  {
->  	struct btf *btf;
->  	int fd;
->
-> +	/* kernel BTFs get their ids while parsed, before they are published */
-> +	if (IS_ENABLED(CONFIG_DEBUG_INFO_BTF_LAZY))
-> +		bpf_get_btf_vmlinux();
-> +
->  	rcu_read_lock();
->  	btf = idr_find(&btf_idr, id);
->  	if (!btf || !refcount_inc_not_zero(&btf->refcnt))
->  		btf = ERR_PTR(-ENOENT);
->  	rcu_read_unlock();
-
-Can this hand out an fd for a vmlinux BTF that is still being built?
-
-The return value of bpf_get_btf_vmlinux() is dropped here.  If this task's
-own parse round fails with -ENOMEM (the commit message names the case where
-the task is being killed and vmalloc() gives up), btf_vmlinux stays NULL and
-btf_vmlinux_lock is released.  Another task can then take the lock and start
-a new round.
-
-btf_parse_vmlinux() gives that new BTF an id in btf_idr via btf_alloc_id()
-before btf_apply_deferred() runs, so the idr_find() plus
-refcount_inc_not_zero() above can return it while its kfunc and struct_ops
-tables are still being filled in under btf_vmlinux_lock.
-
-That seems to conflict with the commit message ("Nobody else sees btf_vmlinux
-before its kfuncs and struct_ops are in"), and with the assumption in the
-drop path of bpf_get_btf_vmlinux():
-
-	/* nothing saw it: drop it with what was applied to it */
-	bpf_ctx_convert.t = NULL;
-	btf_put(btf);
-
-If the second round also fails with -ENOMEM, that btf_put() takes the
-refcount from 2 to 1.  The BTF is not freed and btf_free_id() is not called,
-so a second, partially applied "vmlinux" BTF stays in btf_idr and can be
-found by BPF_BTF_GET_NEXT_ID and BPF_BTF_GET_FD_BY_ID until that fd is
-closed.
-
-The fd could also be used while the other round is still applying
-registrations.  For example, BPF_PROG_LOAD accepts a kernel BTF fd as
-attach_btf_obj_fd, and for struct_ops programs the verifier then walks
-btf->struct_ops_tab while btf_add_struct_ops() may krealloc() it.
-
-Would returning the error from btf_get_fd_by_id() when bpf_get_btf_vmlinux()
-fails (or at least on -ENOMEM) close this?
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41205212136
---===============6180907473628245553==--
+Hiding it all behind EXPERT seems very prudent to me. I'm not seeing
+justification in this series to change that.
