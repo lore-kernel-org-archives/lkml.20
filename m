@@ -1,111 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793479518;
-	b=2+b3odbvKSR8cQFFEIMCyafJIHqz+XisV8puBCdR5uKz4Jq+3yGLoIzRFhkS3iGMV62X
-	 eGajXXFhq5R5KpTWS7nFZGqQIavx2NZhluzzOlugy2jKzQgCmXTf1M6ylNmGD4lWnxb2Z
-	 bnP1vDsyYRtwetBuJ0UTaC72RNzrzom7jcplh0ELv1sFNJEq6a01HFGdEW7Dv/kH7aAMB
-	 kIDAdx/k+EFttIDlpzg6KV3Tx9tWXqVAFVOvYS7qhG0Qx2+rnfhlGIkMNYalxJ1uuL7oU
-	 6GkfQDdtmM1MBBA5IA1T7x7tzAVDv5ZmW1bPyVU76UvERz0FarqeL2ErHQPHalnvJ7g==
+	t=1793479648;
+	b=kHvBIK1FSdvsXIP38hHgg/1fZazu0vyk2qD55GLKuN4z1DqDQuEkTAbLgGI4L3gsgfh0
+	 hyuKqEYZkqR7nmOGmh3koj00vPcWGoHW1n9NWMlYIKWl5HuPcDa6MS1TrC+jzCrMSG6mM
+	 CsVxZyOdB9iU7eWbM1REMHCEzaPaOgzMsjzhQfAXQSlXFvs+b+kQn0aPLpCqey8GdKsX4
+	 ti50v/o+p9ZWx1SkrzAZeE80xKlbWhKBF5hQYfjftW1nLwsfMIFz3R67vlSMxeermYUIL
+	 GE2to7Wi19rUBorBRKPFTLWrRomVMhW4GlpUY9VkEH1AXL0t/46HsDbisleCDBLhelg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793479518;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=Uz/Fqze7vjXHXkw3xCMrYU6OhmBnb9pnskloOWPqElc=;
-	b=MGQWWcTw+LFDqpKTDnIMAzFh/Q9ojcH3JkqUpNwmi7LEntWoD9PToy24c9DrX7I3wpTW
-	 htPyCbQ5clrM8iYHj1Ec1yH6F1HS2H0fj/+2rgkBOp+sTbK8iID4+V2B0+GXBY2lxL0zH
-	 J6uT0dcU+ng6AN5dJTlxKGEoHwoRDVjZhtnHgvmkSN63f7JETXVhuW+8NSg3RkSuMVZ8f
-	 Fddvrf/KVkxGsJXS++Csfzc4fjeBSg/RyKskCcEI6h3HFBAqPJ93v7BRnzit8w27/fx9o
-	 87eVx/MKuf+qvtGEuKcDnvrr0SoURWFSxRQ+G0fc8y3km4fxLrpx9od3KyANpDLuXOQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793479648;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=6pRrbeo6zVDPi8G+cRc3tH7FP8XtYrfaTkuc/zmCEVs=;
+	b=Jx0xur5cCt9iAPjX6U+9sAcqQUewr0EB8Xel/I078jz6CQbdlFK2DIGYSxg8n4n1n3SO
+	 ez84rXz870d85dC3ATOmLYaAO2wnH5IsnKEbbXNq0dBH78R3E6ldWsr4HpHpB/dhj/q+l
+	 /tqniM9keh96OLxfzFbAP8XUv2mcXcDICgGh8ZFET55dDLPfaZO0KyWYIdlVDgfYJIACa
+	 mo6a05CX46V72TI/f2ILoHk5HPMyd8dUk+HRQ1Sd4QmjoLQbncgHJsGDq+ZS79hTzplPT
+	 zGd75qpm2Gbf34FkV+MFjwSLFH7Uln+Re6EaSAZKRFBCtv5yJeyu6GSKxdR+5AMagog==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Au9zxSNX;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=o86pMxh7;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UC+LJti3;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F7B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:45:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3F7B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A4FB606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:47:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A4FB606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=Au9zxSNX;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=o86pMxh7
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VDoAOu3699299
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:45:17 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=Uz/F
-	qze7vjXHXkw3xCMrYU6OhmBnb9pnskloOWPqElc=; b=Au9zxSNXPrPM62rbkt+E
-	zqPdQF4JQblJl4rrMOcFHPen9286VgEZzE7phKxVeFhJTkoPUsCTsUXeUnDax81u
-	ZgJoVSDUM9iKa6VPh8SjqfxIIP3glCiwcy/14xQwQtCCxF/pi4eQ8e4OiHAlvWjh
-	8I4Od1RUUrUmZaDp6XKaJJsjIDnNCpLepxxvXHaB1LvlTd7aoUITXobQM0Icr5h4
-	blCSMbtyxYXBiLjYQxNdORgCUpOTaTM0TadWkeTYW/7oaOrJqfWE1wfmnpocyyv6
-	rNNzJJXo1QZKhtR6gccroyyxKXMbbptbzdrK4bl1bujha8rnYPbjm6JcQfEoixtJ
-	4w==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hn2xhw932-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:45:17 -0400 (EDT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-9308eafb465so456337185a.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:45:17 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UC+LJti3
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso21474295e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:47:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793479516; x=1794084316; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Uz/Fqze7vjXHXkw3xCMrYU6OhmBnb9pnskloOWPqElc=;
-        b=o86pMxh734DstvoJ0wDehkvLdMNzv0MVgr2LU0qYkWTsONkEu3dddjJZ7JzZ1zxc6v
-         TgAQUfXKxixKIkxt9ZuIihvF2RAZ//hRtO5l5ej9i3wLttYV2rw6CtDWdoUgtnYoGaCj
-         lu+UAFILvnVEYTKA9OAaso4SMj3LyPo2Xr0ED/NBOhySz9dzCFDMArR4+1QxJPRqxUuJ
-         pQQnRVWcVm27ajGQ5AX9PU0Lh3Useb7jp/SD2tzNJRsUx1QpEgYfyPn5VzO6qr5FWN5+
-         lFJpitailBhjthGswLYRFI9NERXyZqx4aIEfARdT31CA63zh9ReTXQef05AW7fxA9QK+
-         +TFw==
+        d=gmail.com; s=20260707; t=1793479646; x=1794084446; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6pRrbeo6zVDPi8G+cRc3tH7FP8XtYrfaTkuc/zmCEVs=;
+        b=UC+LJti3Yv47rlpsQtHWSUfnCSQ7T09uTWdO9TVT1rB2t2tdyw0SWFQ3j2d+ZVrwve
+         4r0z4s9Fx0oXKO6rVnZgEcoywRiNHsuirCmGjU+qyd/vGbHa5WR+WbjGLiOm2+cLJ9/l
+         gZUhrUw1iE+VasqZ8qabyUDE3xLwiEyw4CNY38lU/K2KhtgI/l+ZS98pDDWarhGLSCPz
+         Y1p+u+oQuA2T5Uwv3+1rXrvhvV5ZDVAO1j+VB1NgIYFSIaSa2fOTqh+Up5yNdCTb6vGr
+         fu1dIeM9gZ2PQ2cZiLI/FAg2xDaJ78VNKPK/a5kTx7smUBYQgZLGeMDPCXzSktEaq9Lc
+         hANQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793479516; x=1794084316;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uz/Fqze7vjXHXkw3xCMrYU6OhmBnb9pnskloOWPqElc=;
-        b=nTefIS3+FZlQPv72iJ/aIm/Fe4WQ7Q7E0hJYUI5+aj41+eKmJH3bPk63zjLIKc9gte
-         YHNXfrBcd9EgYE1iXEsitVozCcwyBrMQ9pReW0bOc1r/Mi677PQlK/p1mr+WOl1Pu7Hy
-         eXibKMEiGOUTSWRWs2zS/r4+zlaD0KevFik3Ccb3jmdjvbLcB5OjWbKqA5KYSISjF+ie
-         NDot1CCNwXSZupuaYyUb/L2Z8RreNM8YQyDOYeLdp5Xevjx2+GDeTXmecx26usJL5GsC
-         W9hKg8n7D+SNrzrNr8QVpxPt0bkDcX6UtSgukSyay5XeG8Vfe3dxoshczsTvxznS+Xnh
-         inkw==
-X-Forwarded-Encrypted: i=1; AKwUvBwSSZ+MPpg31vrpehIdzDWv8JO71MDfGC6sesyljx5skas5AJfP8DlFkilDs1NhGEAHH6K+b5TVUHMyk5A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJRwygmVK0bfB49g9mlya3SXU+oNpGCFds3m9f6j0k0N8+a6V7m
-	zieHhchRqwKv82cU6hFgqj5RbhNEy9tbKXomJogWcMEBiAvObB+S7RpNARY+u6sF2LtF8RHBwJ6
-	IvPe1O5TlmwDiUaunBr9lHG2u8V3zgvFs2UJK/jNBWAw2agtGrDrPZurIdP9qegdaU/pbiw==
-X-Gm-Gg: AYBFou0hTXTE804vRhqgJJXepjT/9K7Ua2SuHhO4fUGU87n5isIYSz8HLPFsR2JvQAj
-	kXKpcZX+jYnVydNB4uBC6YCJjXayI1cXtohSFacmgibjcbNqjUC7NxqVu1NIejFSGu7wFNeEBXc
-	QHQk79nhdujvwJLFH+TWKRztOh/cy9jTLrpAukWQOZq3D0Af9B+9R2JkAwZcjtdwmeH+2qXUPtB
-	ppT7EBVww/t7w6Zhrxyiowp7mfCkpNBg5X39Bv3k/B7IXPJKqbKwn9yhOJvmhkOTvS6OPeCBv0R
-	sQVNOOSKeGuQtGzJ7u6zd8gbsrGhNjzIom4Y1z1yNhpxaDJBYpAcKhkMHt2R/FjqV8lHY5kVLLQ
-	4tNvrsdOfrmdaX1yuL7Igdo5He6jqKbsY09IQqQmW0Rx5r9rfCQdKd5BONl4=
-X-Received: by 2002:a05:620a:1793:b0:93c:c96c:a592 with SMTP id af79cd13be357-944216964edmr1075239985a.36.1793479516252;
-        Sat, 31 Oct 2026 13:45:16 -0700 (PDT)
-X-Received: by 2002:a05:620a:1793:b0:93c:c96c:a592 with SMTP id af79cd13be357-944216964edmr1075237585a.36.1793479515783;
-        Sat, 31 Oct 2026 13:45:15 -0700 (PDT)
-Received: from [127.0.1.1] ([37.142.155.128])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09ad35fdsm104242845e9.2.2026.10.31.13.45.13
+        d=1e100.net; s=20260707; t=1793479646; x=1794084446;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6pRrbeo6zVDPi8G+cRc3tH7FP8XtYrfaTkuc/zmCEVs=;
+        b=wEINV00+8fC5ajNFZVDKzYYiorvfJDgqXgXo0ysvOY1vS3Y2RqoaOaU3ed68smMrM/
+         icHyYBj56aeyZVrQZD7u8jKq4V/SbcpGrySkECKgIVan/+rCvYKD1lP5ZODIxWXsgSjq
+         r3z8zCQ0cZjoqS7c5XwNQloDuD14zB8akwyBecKOaAVzRXXGaBvlGoybn1UOBaiCCzzD
+         3f3/FyRL1M3NIweEoh1UjdF5Qm1a7/OsoVPQFWfxDvbMFFzfWB7A27WVO5cpAVLyVyTj
+         L/MGsQ+J6/Ymi64RE1810e8nC+cN7+uQy10CI1mvDN4FNxTQWiOpQv6QX5LvVmT70zsX
+         ewCg==
+X-Forwarded-Encrypted: i=1; AKwUvBz6U6vlzRsfA6WS2NH11PZrsFXBJWC0auy1S1QD4mcSWy93l+ZoTYi7dSS2rGMUusvg7n69Lb9YNeRB0Dk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKiEgNgP9VbSMEw5t/IHyk+yScoBmNLThH/JmTKS5pFVvdgnKCm
+	tJGH7zXofLMo9q+b3NYESi58ng/uu6ALGrvi2IaVle7g6ubG58wa2GHF
+X-Gm-Gg: AYBFou2f427cl1hC8FVNsasDXcHBBpfRscqW5rgjcxzgeg0CXXOmyCHiXskTEuhYbfk
+	EMFgz5wgnFR3frWpCGZAmyn2YQKfp2jRtKfedDlC7hbLkvd5JYUUkvA0eum59OizSqRgYIokpax
+	ngaY8pSqKgU0wzJJ8JPIVdLzrFHWjyooB5n8r84LaW6iIM509GOCIlkZGn0lMmV9MTzzFM/+fA0
+	vD4A25PCgZ0wMfxDbqMapUguRnk+txf3I3uJ24yF8Gr11k4vpigeF0MO/drYvAiJgjVmH0ikGob
+	EvzNAhvWZtHJpuShrUZ/g8MiNEqGpMN2R1MxUnVuwjGewhrfABGxnhEtmwvs2t9LhIhuR3DNKfH
+	TEWi4Op7EgUK6EjyO8eFQVGnV4+Ad6K9txXjIAPSR/g5TiMSYTwnTGPPYFPaXtzEb13jM1qoVHt
+	f4DY2YevgwuiLMvU3gsWZwuXJ/JxHpYXLUPMpVMbehwVVbewVdDeFJXsETXaIrdnw/rWco4XAas
+	ZFe2qH9qpEyZOZ/Rl12LzGp0KGg+kGu9PM8rRarwXW3kJAhOIzLGkVBSs7n+hOR7pmVYs1/z+wg
+	oP3BGHLlljO9YG6IfEEkuM1/I888sIz/O9FHIP/OLqSgJM3bQVp8KDPrU/Vi5DYi8GOEB+y0q+1
+	5rV8=
+X-Received: by 2002:a05:600c:628d:b0:4a1:e01e:1927 with SMTP id 5b1f17b1804b1-4ac17d16a1bmr137026755e9.5.1793479646321;
+        Sat, 31 Oct 2026 13:47:26 -0700 (PDT)
+Received: from DESKTOP-IR7J1S9.localdomain ([105.98.98.195])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e77409821sm6564471f8f.0.2026.10.31.13.47.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 13:45:14 -0700 (PDT)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Sat, 31 Oct 2026 16:44:53 -0400
-Subject: [PATCH 1/2] arm64: mte: use a folio in __access_remote_tags()
+        Sat, 31 Oct 2026 13:47:25 -0700 (PDT)
+From: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
+To: mchehab@kernel.org,
+	hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: linux-usb@vger.kernel.org,
+	syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com,
+	Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: em28xx: fix v4l2 use-after-free after failed init
+Date: Sat, 31 Oct 2026 21:47:23 +0100
+Message-ID: <20261031204723.1415-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,107 +100,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-arm64-mte-folio-v1-1-a8bc2960d11e@columbia.edu>
-References: <20261031-arm64-mte-folio-v1-0-a8bc2960d11e@columbia.edu>
-In-Reply-To: <20261031-arm64-mte-folio-v1-0-a8bc2960d11e@columbia.edu>
-To: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
-        Mark Rutland <mark.rutland@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793479509; l=1922;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=umaz6XtbnXVNpH/k5rdDfLFgb6VcMXDTiPejDNlmohE=;
- b=gDvQQkEeZ9SjHt1/v4NbIHqmAV6DCAIWWIMmD2WSp3mCHc6fo/TgbTc0H5mDpRgcqzSHu+S9A
- g0CNvPZ4J6EAySnpfH9w/eH1aV8BpNzBYziCfogQ6eBBex4eCpIqmtB
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-GUID: gvxJXHjDDztv6qQ9otUH8o70VlHQSleg
-X-Proofpoint-ORIG-GUID: gvxJXHjDDztv6qQ9otUH8o70VlHQSleg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA4MiBTYWx0ZWRfX6J/IFgRef2JY
- KEcP6QKbvbX0yvfjfgdCXGbZZp3L82r6ZUEg9xiE6WCRI5Yma2VTnkznDaMvD9O4pAFwNs4iXCo
- I8xNnwzjl4cNAcS0lybMhYYToBztvpGhgideB8qOWLVFG086a97XPOs/V1HhOSFoDIgQcE8fwvA
- UIOZ+6rTAC7xjmNBpklsJjEFUuyIXRanWrS/pJDOEGJFae/k8K/X+FGLD4gUB6Wxs1DTSxzYvpf
- c4brCDz5W0hJrXpNRCXeOnbzfj5Yk+EQ/1HUMjCaAVDDKP0Ev8b1acL1b5brGH4vwtbVrEZR0E/
- ICSqEJVn6zvNTv83FwCuV5byGVcogKkDuMYpyO2jsb+LnQk2JqWP5DXEi5EwD+4GbrefKCMEpuO
- VP6Th/ySAk7ecXTcHZwH8+9cxLyPcctFo98Za+z5nxJK0ZXv09S1IDzd4vgh1l+SaAFOfY7jATE
- myeSEnkBno0G1//nZTg==
-X-Authority-Analysis: v=2.4 cv=LPLz05W9 c=1 sm=1 tr=0 ts=6ae6535d cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=OyQKmhT2Qqi7aVZxTY5mBQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=Bu24Ljrm87nzk03AsjUA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA4MiBTYWx0ZWRfXx2XYH1uA/Pf7
- 6gG949n3vB3eVLyl164I9sYv76ClZBhCIIC9O31JMsMUhntpCbUR7pl4/ejgLXkGSA6oSXBNoXG
- xxUTwgRtDvS3BdRTapyUhrzK3bd0LXtMWp61uqx1Xfl0DDkbgnSV
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11952
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 lowpriorityscore=10 clxscore=1015
- priorityscore=1501 spamscore=0 suspectscore=0 impostorscore=10 malwarescore=0
- bulkscore=10 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2610310082
+Content-Transfer-Encoding: 8bit
 
-__access_remote_tags() looks up the folio for the hugetlb check but
-still uses the page everywhere else it can use the folio. Use the folio
-for the rest, which removes the hidden compound_head() calls.
+em28xx_v4l2_init() publishes the new object in dev->v4l2 before the
+video device is registered. If a later initialization step fails -past
+v4l2_device_register-,  the error path unregisters the device nodes and
+drops the initial v4l2_device reference, but previously left dev->v4l2
+pointing at the freed object.
 
-This removes the last use of set_page_dirty_lock() in arm64.
+syzbot reported:
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+BUG: KASAN: slab-use-after-free in v4l2_device_disconnect+0xa4/0xc0
+		drivers/media/v4l2-core/v4l2-device.c:78
+
+em28xx_v4l2_fini() is called later from USB disconnect. It reads
+dev->v4l2 before taking dev->lock, and on the failed-init path it owns
+no reference. The last close of the video node can therefore drop the
+final v4l2_device reference and free the object between that read and
+its use in v4l2_device_disconnect(), causing a use-after-free.
+
+Fixing this by clearing dev->v4l2 under dev->lock in the init error path
+before dropping the initial reference, and read it under dev->lock in fini.
+This makes fini see NULL after a failed init, while the successful path
+continues to hold the initial reference until fini is done.
+
+Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
+Reported-by: syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=1e71765881a6fc43185f
+Cc: stable@vger.kernel.org
+Signed-off-by: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
 ---
- arch/arm64/kernel/mte.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/media/usb/em28xx/em28xx-video.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/arch/arm64/kernel/mte.c b/arch/arm64/kernel/mte.c
-index 31f5c6b0510e..f8d39e70857e 100644
---- a/arch/arm64/kernel/mte.c
-+++ b/arch/arm64/kernel/mte.c
-@@ -467,6 +467,7 @@ static int __access_remote_tags(struct mm_struct *mm, unsigned long addr,
- 			err = PTR_ERR(page);
- 			break;
- 		}
-+		folio = page_folio(page);
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d486..572e6835b851 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2414,7 +2414,7 @@ static int em28xx_v4l2_open(struct file *filp)
+  */
+ static int em28xx_v4l2_fini(struct em28xx *dev)
+ {
+-	struct em28xx_v4l2 *v4l2 = dev->v4l2;
++	struct em28xx_v4l2 *v4l2;
  
- 		/*
- 		 * Only copy tags if the page has been mapped as PROT_MTE
-@@ -477,16 +478,15 @@ static int __access_remote_tags(struct mm_struct *mm, unsigned long addr,
- 		 */
- 		if (!(vma->vm_flags & VM_MTE)) {
- 			err = -EIO;
--			put_page(page);
-+			folio_put(folio);
- 			break;
- 		}
+ 	if (dev->is_audio_only) {
+ 		/* Shouldn't initialize IR for this interface */
+@@ -2426,13 +2426,15 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		return 0;
+ 	}
  
--		folio = page_folio(page);
- 		if (folio_test_hugetlb(folio))
- 			WARN_ON_ONCE(!folio_test_hugetlb_mte_tagged(folio) &&
- 				     !is_huge_zero_folio(folio));
- 		else
--			WARN_ON_ONCE(!page_mte_tagged(page) && !is_zero_page(page));
-+			WARN_ON_ONCE(!page_mte_tagged(page) && !is_zero_folio(folio));
+-	if (!v4l2)
+-		return 0;
+-
+ 	dev_info(&dev->intf->dev, "Closing video extension\n");
  
- 		/* limit access to the end of the page */
- 		offset = offset_in_page(addr);
-@@ -495,11 +495,11 @@ static int __access_remote_tags(struct mm_struct *mm, unsigned long addr,
- 		maddr = page_address(page);
- 		if (write) {
- 			tags = mte_copy_tags_from_user(maddr + offset, buf, tags);
--			set_page_dirty_lock(page);
-+			folio_mark_dirty_lock(folio);
- 		} else {
- 			tags = mte_copy_tags_to_user(buf, maddr + offset, tags);
- 		}
--		put_page(page);
-+		folio_put(folio);
+ 	mutex_lock(&dev->lock);
  
- 		/* error accessing the tracer's buffer */
- 		if (!tags)
-
++	/* matches em28xx_v4l2_init error paths */
++	v4l2 = dev->v4l2;
++	if (!v4l2)
++		return 0;
++
+ 	v4l2_device_disconnect(&v4l2->v4l2_dev);
+ 
+ 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
+@@ -3129,6 +3131,9 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	/* matches check in em28xx_v4l2_fini (under the same lock) */
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
 -- 
-2.39.5
+2.43.0
 
