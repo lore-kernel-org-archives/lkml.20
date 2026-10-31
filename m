@@ -1,78 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793433223;
-	b=iIdYrouumek/LhfaKUj/dUYIu6sG6UMbO+JB0wmoBOnUwCQUBQ5jVUqxBniekZAbSjqY
-	 CihreUk5AGvtj9DT/FEMobKauP0q2Z/B46AUCVTAIFsbeCJQR7I5+tyeAObt83T+pXIm7
-	 iAWBCcN1yRczuu/I6CqE2buGqmANS1S2u8DDxTrAGgQdHNd89z2GipUSLrVZvRTqdAZF+
-	 gT7Jc7Te9f+VB3MqitjhdY4qCkb2xNNGPciDzArX30RRsEurXlwErFjxdPr0qJOOaa2FJ
-	 h5sisgM8Bi8uo1okVBuy553RoTFybOr3/Ftk7EGrCxM5WLUQSus1dj8xIFdSDZcaH5w==
+	t=1793433222;
+	b=gIXEYRHQ/YDTdDT/GCfpx3p8+dpf6DUmTrqQK+iLv5VJdAZT/eIbC7XhfZuFvLipKoMz
+	 DII3PyCo5XFS1LRQMGXtdhveKPnaTJoelOR6HMBJ1XA62FkGwRy2/L14Ls3HiF0p7JVR6
+	 84RkcTC+gmvwaApXFX2osTZTBzyh4inobGBCpD+07l+iBz5/q1cq3DIrj7Ke0cLGn9WxE
+	 KTjuAo9JNud7iRg9Xpv/IZEnd5k6Wvh1cC0Efp0bjIl/yWjpX4K0rN0IKsDAzM9COPxKF
+	 ofhj24eqa4B8j48sctjNSXHvUstD6EWmNALZiBlqDx3MHpjIoboBgTwBiT+1f0j4W9Q==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793433223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793433222;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wf7S5JFytIBVaojS8+eTHO20u2HSVydPobWXTDzC4Xc=;
-	b=Q4HmfMiJdSBiNCKz1vBOMFyH1XN/WQb0iLTavUq00h23xqSq6TBoOPcG9urKp1WAf60I
-	 nkD47EfISedaRWXx876mMmdsYLxjU5BQwu98q3tJsjFoyUuBbwMRXj9jRqzAUUPDxRY1W
-	 F8O0KFD0utyENkDBAbe94atSILG96mwIhDpI+IDryHOgOVw522wSGaDERTWc4CUe7S11Q
-	 2uGiF9DDx7QTIKnn/LtNtEOQRCH37APrp0eyRCCQ/LqUjTSkKd2gQDKolF6ePogpZ5kf4
-	 UOYTaRToahaDFIcgQArL20NfDK8qFoFo9W92BMc270MRTzPYxQ+Oe4hhfobG1y5ooqA==
+	bh=LzwTx5Bulr/nrBki91Vm3EDodkn3zFz3xSqfuqJXLrU=;
+	b=YAt4RAlzB2oNNJarZMhNDd9PaI0Np/mG1VcnfTuTAqXu62JbALgCjdhG9NAisiRarwLR
+	 BeRdUI3RhQ3Hd4G7HLu9upTEVXuEK5YYxdjGtBwdKbjKqpKQUEFCLt4s13dJhQNbb8eOj
+	 8QsHwbBxRHKQ3SZLt8njt4HRs/V2jC+EFeLACn3Hy/2x+WCJ0roupc8dFlm2iesjVMZHH
+	 X+JOajFSVWXJDnr9QyrtivJ4ujpfcTIKethl4s1t0/89p08F3Up/Vgl3l+IZCa/L+kxgQ
+	 EWeEnSV/FB8RUkN5mP98eVQ2aCPW9oq83Rh+e9DHk24AsmP7yANGgl+XUMpad1BYDUA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAzivkly;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="VeMs6e/P";
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6932D606A332;
-	Sat, 31 Oct 2026 07:53:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9203F606A320;
+	Sat, 31 Oct 2026 07:53:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KAzivkly
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VeMs6e/P
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793433223;
-	b=ZYXJkdWL3vzEWNnjfow+cRrs8utVvm0CK/Gka+qeh9YQswNKNaQw4ul6WvAn6Od9w+wx
-	 ANk2rLuwiaQ5ZCL8GRhLZKJnnxgknDUuWoM+dokLVbS14Dqrp+SSg3VmffLuTVXc0pC9d
-	 HPVS5yOdiBJzLARIcwbuqGX6Lpxx6oCdmvNIlaVtwBoGNafTWM/SBkSqCMgYsV+Z4qj7m
-	 95Xs5/xSMQBc8TcfR5qmXNvJRspklAmHJr39bpQBqBf8AFJ04ik5Ep9YO7fctC15UmYFa
-	 N+LKBpR9tzkC7xVhG4dZ6vXSCFwbrf5Lz4WBeFSD2p8nqQyKYKPGfBVEdBslV/nM2ng==
+	t=1793433222;
+	b=RCFalrWZzwC8OQuIxmI4JtFZQxPImSEmY7vkU/d0KWfeN4m/J63z4+YeuGOAK59SiJAU
+	 iVD2NhEua+y9I9035iVhhun3vV0VaHDiXNBFqQbC3niiu633iW/BQanlCuwdukkhg5RxK
+	 7ZyGtx2c7qsMe6PZvU9jf3jrFdTA6XepNYhShAo1rxUaCJ7YtxSmOEStk2Tenp3WNKLMG
+	 1aEj/WoFPcq/4MRdSXotKT0dG+HI36AYpFwhiGsh9jsUwRgdCGqlnKD0kB78QcGEsDEpy
+	 OIMvFluOlgr2f8in4lQnEE+6ilRxG44FB8xOevQUba0mjITPpNHX6mfI62CSPKduY1A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793433223;
+	c=relaxed/relaxed; t=1793433222;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=wf7S5JFytIBVaojS8+eTHO20u2HSVydPobWXTDzC4Xc=;
-	b=PixScGuEPEfFxaOTrx1ZcJri/l7ZhUrR5jGPef5EKAbYtNc1tLLLhOd36UrPgj0G13ca
-	 7Kvp3VRc+ceaZPrj87YFGBFQFnZunp0TpOriMysCH+s88CU5PMSP5dTTU46BSNBQQmpsJ
-	 itV233dL3UtnQlm8XZfbSlXthx3T/OB/qYA9GLVkiizex9Bj6yu+aKwH1pvYQEDDO/I98
-	 o7AsywWCX83v7xQezF3vEnPPZ+qdLVTck2OHZK91X83AjzBRl26VfG03YKj1ZQxKLooVw
-	 HowJ+6d593pmEMYnoG1+omgCcb/ODPqK7AVcdDlIc9EMUwR0sz7ocXFa5LiMmmwzF9g==
+	bh=LzwTx5Bulr/nrBki91Vm3EDodkn3zFz3xSqfuqJXLrU=;
+	b=dRld0+7Xbg28KbinyQhIRRvyBlFn1y9K+XKjmzw+WjZiHnb4TXRtevg3dohT3dZcenm9
+	 upDICcNS+pNF0zri8VzUb4N/2rQD6SlHkiHb++BIB5kF5fHZv5ypIEuEnk2f3myMUQB0T
+	 qCwPlCR3dCAFzPhuPEbdgqUdjtOwmpt7Ss1XUUXFN77boidPddtnZ7jdUWAQZpn86CaQJ
+	 mkQQXU7ATcAaSX13I9TpIs8uWkdvicEmsL+/sdDc5ihT0s9EMklXOzTP9V6IV+gD95Cn3
+	 qSHJapTukuCQ9TevCdng/R8k9y2hqNGjAQFb9iW+hC9l+b289W2/KzXedwBGDv7pQOw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 309911F0093A;
-	Sat, 31 Oct 2026 07:53:42 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id B90111F00A18;
+	Sat, 31 Oct 2026 07:53:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793433222;
-	bh=wf7S5JFytIBVaojS8+eTHO20u2HSVydPobWXTDzC4Xc=;
+	bh=LzwTx5Bulr/nrBki91Vm3EDodkn3zFz3xSqfuqJXLrU=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=KAzivkly9GqBySEM8SKJ9PhSrjhnPN+T+Ka912lNesDiPvMaMtX03tNDVAANUAUyV
-	 fHPS1PcIrio8NIXO8MwwXHBkzmCjFPUwvBntIcwH3T1jPT0jZpfMzpGWFrtjSLPwnu
-	 HXgQDRXMpPcks8iMTZWQ5ZEE5rvB+k0iDXkZfHy21RKxxmX6TzI6V3a1LgUuMPmxfZ
-	 iZVtKkoq16bpTTtLXEPjdost05y2ZW1kML9uvt9pRE8XJXEoQiWTV3ckzEPSbCrwtr
-	 u1hRxxl0WvMtBcTkBN9UUJu9w/96s69jcqIiUtdMpYgJGT2XI6JU3AZ/Q0OGlJizWr
-	 jUDDJQTzLrGaQ==
+	b=VeMs6e/Pbh4598UkiGsBEy/vv6U1DmP2vua3uuUhpUpMvE3Or25rKFB8SZImRZRU8
+	 9fOSXhEQUw2mVJndAhSTYTELjgFVdLEMN9RT8TE5dQ7wHbPpjvVPfam3WL7MHBw4vN
+	 24+Pev+VeCpDd/oiwOaUyJ7IJfzrYDQkcIyWd1lv+P3PFldpPRTi/KnQQEC1PlLqX8
+	 /iRhB6PWJZ+NtnSAoagypIs8pNhU5kNIQJtX2OztYfwNgczlSEb2FGyUvE2VRp66c6
+	 4KIMkljnujtXiUJtS7Y0/XJe1zSQ/YDdPH3hw0AAy/t6JvqhslTaChiiKOke8JG3uu
+	 hXw3TiLTg1eHw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 688E345A38;
+	by lkml.kernel.org (Postfix) with ESMTP id 4983444B45;
 	Sat, 31 Oct 2026 07:53:41 +0000 (UTC)
 From: Ishu Brar via B4 Relay <devnull+patches.brar.si@kernel.org>
-Date: Sat, 31 Oct 2026 13:23:41 +0530
-Subject: [PATCH 5/5] drm/msm: mdss: Add SM7250 support
+Date: Sat, 31 Oct 2026 13:23:38 +0530
+Subject: [PATCH 2/5] dt-bindings: display/msm: dpu: Document SM7250
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-dpu-sm7250-v1-5-159f403ec405@brar.si>
+Message-Id: <20261031-dpu-sm7250-v1-2-159f403ec405@brar.si>
 References: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
 In-Reply-To: <20261031-dpu-sm7250-v1-0-159f403ec405@brar.si>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, 
@@ -101,11 +101,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793433218; l=868;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793433218; l=1025;
  i=patches@brar.si; h=from:subject:message-id;
- bh=g7vyjU5OaCWQAuB+XPDJ7H51VnQBWV3XEI2bru+QI/o=;
- b=DIsCJEfbTq4ctqWG2qjdMbE2vI4+qelE1Uv786Dz1zMEOqjCS7fn7tGCVTnWZkc0nhh2z4tUz
- aDqmyZqIbWZBkI8mjkIdmx2eU7g+YOHI/d8pyl/m2/KN7O51DkvN8MQ
+ bh=jNRne+T5TGHiLh6XT+g5uA/MzROZisRFWcFsqwWvKA0=;
+ b=5E0KLCkUdM8e1q0zy2UQ/f4e+Hc9+wMor03N7R/MTw5Q9SZSdw4ZzoiuCm3RodBRENCisgfJS
+ Xg+F+rESVFTCGUKHJpxElU8h4Sz+JaARysiUo1qVhM7YEZ8NYbWOb2B
 X-Developer-Key: i=patches@brar.si; a=ed25519;
  pk=Ds+E23E3ntzjPzuBDyVRkOouclcNI5k75R+N42yJtCk=
 X-Endpoint-Received: by B4 Relay for patches@brar.si/default with
@@ -116,25 +116,29 @@ Content-Transfer-Encoding: 7bit
 
 From: Ishu Brar <patches@brar.si>
 
-Add support for MDSS on SM7250.
+The SM7250 DPU node has the same register regions (mdp, vbif) and the
+same four clocks (iface, bus, core, vsync) as the SM8150 and SM8250
+ones, so add its compatible to the existing qcom,sm8150-dpu.yaml
+instead of creating a new schema. qcom,sm7150-dpu.yaml is not a fit, it
+describes six clocks including rot and lut.
 
 Signed-off-by: Ishu Brar <patches@brar.si>
 ---
- drivers/gpu/drm/msm/msm_mdss.c | 1 +
+ Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/msm/msm_mdss.c b/drivers/gpu/drm/msm/msm_mdss.c
-index e69b122f2687..f619052bbb46 100644
---- a/drivers/gpu/drm/msm/msm_mdss.c
-+++ b/drivers/gpu/drm/msm/msm_mdss.c
-@@ -562,6 +562,7 @@ static const struct of_device_id mdss_dt_match[] = {
- 	{ .compatible = "qcom,sm6350-mdss", .data = &data_76k8 },
- 	{ .compatible = "qcom,sm6375-mdss", .data = &data_76k8 },
- 	{ .compatible = "qcom,sm7150-mdss", .data = &data_76k8 },
-+	{ .compatible = "qcom,sm7250-mdss", .data = &data_76k8 },
- 	{ .compatible = "qcom,sm8150-mdss", .data = &data_76k8 },
- 	{ .compatible = "qcom,sm8250-mdss", .data = &data_76k8 },
- 	{ .compatible = "qcom,sm8350-mdss", .data = &data_74k },
+diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
+index a88d22f30a60..d779d3008c1f 100644
+--- a/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
++++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8150-dpu.yaml
+@@ -14,6 +14,7 @@ $ref: /schemas/display/msm/dpu-common.yaml#
+ properties:
+   compatible:
+     enum:
++      - qcom,sm7250-dpu
+       - qcom,sm8150-dpu
+       - qcom,sm8250-dpu
+ 
 
 -- 
 2.56.0
