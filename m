@@ -1,84 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793413613;
-	b=aazby/DZRPdMVjESt05WpKfa8i+6f37tFL+D5O5aX+sEXexP4l+yDuYX+Mmex4o86B3p
-	 5YKbG4KVLHf+ui2rYsyC+SE1Ox0a7kEqQTdg2Y7/f0L5+ZUHa15MFRDlglLpCkVFo2K5G
-	 u9PRkuz5HiuCGE/Kt/nvQvqBmO9ZkSN+wn1z6yGbAU+RyJX/2QuxHp1hHSA9SGIyUsnOa
-	 qHaFzV++d6czhQU++G5uKbvro0qM7lehVa1TVcyjlHQsA52NJ08AO5Ao2S2i+302KmQxW
-	 tirCw9JKm6AAw4EL/ofD9ymjaXDDs0+C6oeB+KGkgUfi3/9j65El6ntjhTGCONVxLyg==
+	t=1793413619;
+	b=USEUQ/VFiBFKzbyTLvwCYuY74fwuRroAP9m62TljwmLWnNLTLZgFVjG5tRROzIb6++gM
+	 acYlNkWqBkPa0Gk0cJk34DUZbotckjwRSKQOcwpkXsWs5t3wW7ItBE2qz8wu/g1N+udbo
+	 CHXri6TZbYOx2d8pfOpthQjldjUnB4cEPTrQFB2RswnNY0iZs6Y1XiNBwhlDhFkC45Zgs
+	 kZMvUEjCudDYzeB1E1OeacxWhya/vEndNoE05YxNNJTw3iWmskRnKDl6iLtysOUeWn/KG
+	 ImVx4kqb8bW9Q+StZoGk7Vko13LbGAZLfLrGGuI3hJH+/KT+1oUEL0mU7oWd8WXqf3A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793413613;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793413619;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=WSDe6VAckHzkQ8XkTETzpDW5Bx6aUAkrRS4D3VagePM=;
-	b=TW0SyadBw4pG3fOdc5bCARmUZTmRni/datKWqROdIhWAaB6oIgQYosEqfQyewpFFn6p/
-	 NaVDIRdedCl8OLptLx8loBvkfSLchOodJarWm1U5ht1BwED7l8zfc5ratavz7WovwHCVQ
-	 4fQXPi9otwbZLEdb3XDGpWfDPjtU3xYVoyizJeTpymDfZ6i+676UcIVk3eUVARHTpXweC
-	 U9SZWrAp3Iz4NCp+NNTp+nlE8WoyWXBQJuPgDd+gVP7YziBAlLwwNtIBYI7ile2+undfe
-	 Kio4mU42VeVEFy7jyXj5/aRQ+sET+ZWC0kXpjK9WOkUAKbxpWQyL/B6vtNc146qJA4g==
+	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=w0sP9g9K0qnXPezFXNJXSocNniQdxPAJlla7ZkrNcCk=;
+	b=ONBZGIXkHLLictSun9gnFNi2LZJy800EYTYr18m78SMYNeCqxZEdIp9xCUHSX2k7RAh3
+	 q49GRb7YX0qy3Z6trEJK+KNVornwFaOR8XKyzZYvO2hqO9rqY+HuswM03YEo7ShtUrYze
+	 I2Q7XF1u8/7KXpBHRjgrpf4m9HUpv+muSn76Bs8U3U7CvyJGbC5ZpshXIG0kuS0gpha/G
+	 1sXH9ze/OUG5kO9iC0uVJgB4IaSDHXGK6xQZ2KIVAk5ZswWcYj2ubuH3G5uho9SOVaXS7
+	 r+0gZEKrUb0KzU9wxoxhh1xbDsTs/b2YQNHakTs8BbGO5qGui8XhbvcNbXStH0uytPQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UWmohlI8;
-	arc=none smtp.remote-ip=209.85.210.45
-Received: from mail-ot1-f45.google.com (mail-ot1-f45.google.com [209.85.210.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m1ZGkChR;
+	arc=none smtp.remote-ip=209.85.210.50
+Received: from mail-ot1-f50.google.com (mail-ot1-f50.google.com [209.85.210.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69B99606A320
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:26:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 69B99606A320
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE272606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:26:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE272606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=UWmohlI8
-Received: by mail-ot1-f45.google.com with SMTP id 46e09a7af769-85a5455bd3cso801129a34.3
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:26:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=m1ZGkChR
+Received: by mail-ot1-f50.google.com with SMTP id 46e09a7af769-7f84a55cc06so806159a34.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:26:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793413612; x=1794018412; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WSDe6VAckHzkQ8XkTETzpDW5Bx6aUAkrRS4D3VagePM=;
-        b=UWmohlI8f7ebq5LnGnp9uXKEXcbIsZh7Uw1469TQi8DMAjdd/z41WAC+/4MxASy54U
-         eJmIAUzOQWsa6QfQW/PJWZZWvGckrW7IefBOBhpNyVTjWWT+VX1adSlqPfDTd/kY+HTK
-         9VP4lMJR1GVgjUorFikEqDuqMcYtZZYyFvOMDLtTC+8TEa5JNsYw5xj6iYbBD4NCChpH
-         AJDupVsED9I/GaJi/yUc8Au8JgzC0iu0e2Op2F2wvART8V8XY1K3k5grS/RS+j7kTzR5
-         wjebMmVpwwKx2r8rM6Kf0b4Lk8TKy1Nn/HHpRD/wi+pfRfz5IxjudkJtY7WRbP/n+e9v
-         otOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793413612; x=1794018412;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793413618; x=1794018418; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WSDe6VAckHzkQ8XkTETzpDW5Bx6aUAkrRS4D3VagePM=;
-        b=NJxPgzblWTZqhvhq2X9vatp04upmZyqXnktNHsRNGeTCvu/uJaG1bwTh8bDF/s1d+5
-         04wKt8KTZgBYIOQPupzmA47gxsqHlWmNDU33fo2XYlTmk8Xucl+8ekPrIm18E6JX0F2s
-         u7Y2fekDs5CBvwc9p0RvORPvA5Mqjj/6JCNbEE0XCBjC99E3tUoV70hgoDPBYwJzpmcP
-         Oaon3HSOKBgV00Kw35tNsKk2rvu/PG2ZSApuxoWgq85FuXafThSCZmlEbYYP/HpjZKUS
-         PgGcXKbUESCflDOm9YlUXuyjCfo7hb6b/lDPw8AR/cYiiZr+pzu1LEHOXElLQrAFxlJ3
-         Q7ng==
-X-Forwarded-Encrypted: i=1; AKwUvByzj9A77+a81KkKHhGF/jwro9lSrhSOhkoPTlVNTwotP+ID9Ts9x7oB9OOD1oidJOct//wvGVI8EtkpfLs=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJDLAoaAUFtI/BOMXEpHf+Fznayi992qNrypxR9GIslONvehDP
-	iGHSjQOclaKlgBv8SlU0twMODldwMOt+LhCmSF0ZLO/BbkBEQvhMo+Bf
-X-Gm-Gg: AYBFou3HvD1m6g8XupVgw4PTrxwYSP/fWU+XbwXrHwFPMPhQBWoJbCCwJi4ZXS5BGgB
-	g6/KzVM2KUrZe5CPpbDhOFlR3v5c+uEXQLvcO5z4GQDi6jOgx3SxeJmZvRTmB63CN6GcqNMOFsS
-	j2NdbZWKkxGSeo49rSdFXJaVewWpwyxm8dpTaZRkcYjH2IfE9qNvU8QxZGpuhdBvYHhdJ5BhEyC
-	yDf47ySydxANAa26V+LHqtJfmD2wrprqxU/73yZvPlfxf89DUIHUdJbl06JM2zPpDc5/naWczXc
-	MVBk4Gmd0J3qf3mpV4Th0lnurXfNGA14KVygbGn9//Hwkzdwnv6GQVOvtcCLRGzbI1t3XLL7wFS
-	cuZTWL4pYQXO9jD3Nh28Rd2Nsi+XZqOYgyOW70Ja1DuDsYc43AKqksZf7vEppeFSg+sOsBa0WuT
-	jEoohlpaEWaWDdWkgPqN/6MQEz0HUjgQRRmcjT9ax4t7VZLrQzJ9Hzq/XjBef9cV3pxnc9q5QvL
-	ESk86U3VAGz/dHh08QvIqFH2FV2u4OuKTVGiD30G1gd7qpjMginJF5Ou+nJ1N6im/uKr7pGPjB6
-	cbfshWhkrorRJ29CCd84dLuvf7bahtRTbt97bO4HDS1iIpSkH3oVq2lajGUYYEt1exww92Ith9f
-	JheLqATgP23R92vyNi/fqiUDP6E0=
-X-Received: by 2002:a05:6830:4413:b0:81f:22fd:6ed5 with SMTP id 46e09a7af769-85d364de390mr3092732a34.21.1793413612419;
-        Fri, 30 Oct 2026 19:26:52 -0700 (PDT)
+        bh=w0sP9g9K0qnXPezFXNJXSocNniQdxPAJlla7ZkrNcCk=;
+        b=m1ZGkChR39+XxVHkUfn54mRtJhVWJJ1lBjWUN6dMOPRS0cE0SMcalgjomYY6ihhDwG
+         LkqwXEvxGqYGFEm1f/rz2C9j/jWSTKpPCGgRSujDYzjhcXraAbVMW65LXKH8DVxfyqZX
+         JrqNIPKmcu7H4qdlG2ARfKf6Rv+3IMRLYVbr7xaS96zG5LEdwSX3N24rfNuGn0cDihEi
+         FQ907uF5rLGDHlEDuCdtlxao0243Mz1ypMFujDqMUvzT7eWFCCkAJrlAXPh89+q8gDjj
+         VA4TTuLTQiYEM5FN7MtzgnafX6rhTW7BylgZ2WC3C3jywrqommQ+D6YLXEKXu/e6DJa5
+         3ZZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793413618; x=1794018418;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=w0sP9g9K0qnXPezFXNJXSocNniQdxPAJlla7ZkrNcCk=;
+        b=PmYrr7RZbrpra0khUjGkSA1yOxJK0zVZ27s8Bl1eiEdNko4ky2JvgN1NP4pe/lUmTR
+         8nUwYtX3yaLnZ4JFausrzV3BjtUwET+aAyu2RRZVgKB9QOH6nXckitl4TaxipSDyk1Vh
+         nuCd1hoJnVpmM+Afsl/28ecBuWrxORgDoC+xC1qlDFSlbrrP8xCwcTIVmTyAGS33kP0M
+         oVCbOecRTMwOFX20lr8GeZiFWTLXwPc/0NdLQ395z7ItxMc/hsxxI+QE5QkRUJ+apWJk
+         KywRzONoYzXAcf+Sn2755IRInVKnqssPJZbqqOuPN719uYxEj6byPvH7CJWWiiU9L1jB
+         sETQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwDR+N4dRhDoBvBTVQpdXIPSghvgDb21d72HFmWl8MuOj2qBdo264yHt/ZoxCmvznX9cl4vSMrKYtZfpAE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIOSfGEBVOdxFdapytYOCeeNPmIPt6MsY28SYzSKzpOno34TN9+
+	pYYhmOlweicE+mVKf2ugNmtPRyx+rzKWLs7Sg5QGolF4kKtFkJR3ejvi
+X-Gm-Gg: AYBFou2wyuPI91IPPjICtmzFabII4Tb4u6v7sXXgDHIeUQP6J7UEznAgZLZ6LA0yIKV
+	GaSpwZUOs0HCB0VyuGwLXequc6ee+073m8yBdRxwZGiYCjHmTSoNbAxzqU/Gi/mOvYKKAcD6HnO
+	D+V5PlpL/aNvPywjem7F/s85QwioNhtvSAzfjYUiaXjtiniozg85UBYNQkYu7NHWy+wD5louIBV
+	6kRzwH9UgV9nIau7tnDJjT1l2YGFlqkqlzS4yDKfvwyRq3848XzOseEDYl54OKNmzHS5d23Mzxf
+	qec9lYZGrZ+bgcNj+WB2+lzVrdFZRwGaGx9P+P7A1LyVul9XQCHhKWRTgUXgk9XEGUjZoljUlRq
+	p7ty6oBbrt/0AdlStQLPg8/Nek7RJ8VYImOyHUjdRjjcb3R66x5DVcj1YF76mJx/hrBLVnR0/S0
+	KPGNIdVyB7UpuW3aecjPCQsmjNzZa2/SpTDfJSejfd3Yu7JazoJ27uMbCa7eh4Lhm/Z0OVhZuX3
+	j9tQAw9UAR76i9jOv8XOtC49Jaw2Dyl46s6gekc6oSQ3DGn2Y5YFkgF10jVzRTGrSUmg+eVQ4nU
+	ohrRgDUULeb/GuNuTlA2v+tTLK6QI/M3MmZk/3sY9AU6vCtsenoDqWRY4FI3db6Ukla8mVoBabu
+	/peFF1w==
+X-Received: by 2002:a05:6830:4389:b0:81d:54f9:d6a3 with SMTP id 46e09a7af769-85d36313dd3mr3454977a34.4.1793413617785;
+        Fri, 30 Oct 2026 19:26:57 -0700 (PDT)
 Received: from AMD.home.internal (dhcp-9-244-8-156.gobrightspeed.net. [9.244.8.156])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d3545b89asm3810712a34.6.2026.10.30.19.26.50
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d354cd9bbsm3271119a34.16.2026.10.30.19.26.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 19:26:51 -0700 (PDT)
+        Fri, 30 Oct 2026 19:26:56 -0700 (PDT)
 From: Enzo Adriano <enzo.adriano.code@gmail.com>
 To: Andre Przywara <andre.przywara@arm.com>,
 	Rob Herring <robh@kernel.org>,
@@ -96,9 +97,11 @@ Cc: Maxime Ripard <mripard@kernel.org>,
 	Jerome Brunet <jbrunet@baylibre.com>,
 	Pablo Mazzini <pmazzini@gmail.com>,
 	Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-Subject: [PATCH v2 0/3] arm64: dts: allwinner: add A733/Cubie A7S support
-Date: Fri, 30 Oct 2026 22:26:50 -0400
-Message-ID: <20261031020640-263f7b05-a7s-dt-v2-0@gmail.com>
+Subject: [PATCH v2 2/3] arm64: dts: allwinner: add A733 SoC description
+Date: Fri, 30 Oct 2026 22:26:54 -0400
+Message-ID: <20261031020640-263f7b05-a7s-dt-v2-2@gmail.com>
+In-Reply-To: <20261031020640-263f7b05-a7s-dt-v2-0@gmail.com>
+References: <20261031020640-263f7b05-a7s-dt-v2-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,122 +114,659 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
 
-This v2 adds the initial Allwinner A733 SoC description and Radxa Cubie
-A7S board support. It incorporates Andre's review of v1: RTC, all main
-and R-domain UART/I2C instances, all four MMC controllers and their pin
-groups, R-PIO/R-CCU, the GIC maintenance interrupt, ITS description and
-the ARMv8.2 EL2 virtual timer interrupt.
+Describe the CPUs, PSCI, architectural timers, GIC, RTC, main and
+always-on clock/reset and pin controllers. Include all main and R-domain
+UART/I2C instances and all four MMC controllers with their documented
+pin groups.
 
-The board enables UART0, AXP318W on R-I2C0, and the microSD slot at up to
-50 MHz with four data bits and 3.3 V signaling. PMIC input/output, CPU
-and pin-bank supplies follow the board schematic. PF6 card detect is
-active-high with a pull-down. The firmware-selected PF supply path is
-preserved; 1.8 V signaling and dynamic voltage switching are disabled.
+MMC0/1/2 use the existing A733/D1 binding. MMC3 uses the distinct eMMC
+binding because its DMA descriptors differ; it remains disabled. Add the
+GIC maintenance PPI 9 and ARMv8.2 EL2 virtual-timer PPI 12. The
+GICD/GICR/ITS windows and noncoherent attributes agree with Andre
+Przywara's public A733 reference and the A523 integration precedent. The
+manual's CPUX interconnect diagram supports noncoherency as an
+integration inference. The ITS stays disabled until its clock/reset and
+MSI path are integrated.
 
-The DT patches are separate from three supporting submissions:
-
-* clk: sunxi-ng: a733: preserve system-controller firmware clocks
-* pinctrl: sunxi: preserve A733 firmware voltage modes
-* dt-bindings: mmc: describe the Allwinner A733 eMMC controller
-
-The clock change keeps firmware-owned timer/mailbox resources available
-through Linux's unused-clock cleanup. The pinctrl change follows
-Vinicius Pedrosa's recommendation to preserve A733 firmware voltage
-modes and give A733-R its own descriptor, without changing A523-R.
-The MMC3 binding is distinct because SMHC3's DMA descriptors differ
-from SMHC0-2. The node is disabled and has no driver match; the existing
-A733/D1 fallback is used only for MMC0-2. ITS is also described disabled.
-
-Base and dependencies
----------------------
-
-The tested base is the official Torvalds commit
-d89e1d186ec9271bf78e62771779e9fc03bf0fc3, plus these public inputs:
-
-[1] Junhui Liu, clock helpers, v1 patches 1-4:
-https://lore.kernel.org/r/20260906-sunxi-clk-no-p-v1-0-cbde21c9fe69@pigmoral.tech
-[2] Junhui Liu, A733 CCU/PRCM, v6 patches 1-8:
-https://lore.kernel.org/r/20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech
-[3] Jerome Brunet / Andre Przywara, AXP318W, v8 patches 1-5:
-https://lore.kernel.org/r/20260910-axp318-regulator-v8-0-e906a61a7f3d@baylibre.com
-[4] Pablo Mazzini, pinctrl IRQ-bank numbering, v3 patches 1-3:
-https://lore.kernel.org/r/20261025142412.112216-1-pmazzini@gmail.com
-[5] Vinicius Pedrosa, A733 UART, v2 patches 2-4:
-https://lore.kernel.org/r/cover.1792439398.git.vinicius.eduardo.pedrosa@gmail.com
-
-This is the exact 23-patch test stack, not a claim that every patch in
-each series is a direct A7S dependency. The A523-only changes in [1]
-and [4] accompany those public series. UART patch 1 concerns the real
-DLF path; patch 2 excludes the A733 noncontiguous readback from that
-path. PMIC patch 5 and UART patch 2 needed context-only adaptations to
-this base; their added/deleted implementation lines were unchanged.
-The three separate supporting patches above complete the test stack.
-The DT series should follow the clock and binding prerequisites through
-their respective trees; the external series are not being resubmitted
-here. Patch 1 records the exact base and prerequisite patch IDs.
-
-Changes since v1
-----------------
-
-* Retain the acknowledged board-compatible binding.
-* Drop the old MMC binding patch already present in the selected base.
-* Add RTC and its clock connections; use the board's 26 MHz crystal and
-  32768 Hz RTC input, and provide all four main-CCU clock inputs.
-* Use arm,psci-0.2 without the redundant arm,psci-1.0 string; add the
-  fifth architectural timer interrupt and GIC maintenance PPI 9.
-* Add the ITS subwindow and retain dma-noncoherent on GIC/ITS, following
-  Andre's A733 reference and the A523 integration precedent.
-* Add remaining UARTs, MMC controllers, main/R I2C, R-PIO and R-CCU.
-* Move UART0 pins into the DTSI; supply explicit MMC/UART pinmux values.
-* Add the PMIC and real board power connections, CPU supplies and card
-  detection; sort the DTB Makefile entry and use schema-valid node names.
-
-Validation
-----------
-
-The full ARM64 dtbs target and W=2 CHECK_DTBS=y for the final A7S DTB
-passed. The separate MMC3 binding example passed dt_binding_check.
-The W=1 Image build reused the independent build tree and rebuilt the
-affected objects; source reconstruction and patch application also pass.
-
-On one Cubie A7S, two final-candidate RAM boots passed with vendor boot
-firmware: eight CPUs, RTC counter advancement, AXP318W/R-I2C0, UART0
-including 115200/57600/115200 baud changes, and warm reboot. Each boot
-completed a read-only SD ladder of 4 + 16 + 128 MiB at the reported
-50 MHz/four-bit/3.3 V mode. The first 4 MiB matched a fresh vendor-kernel
-read; the later loops checked successful transfers. The second boot
-tested after late unused-regulator shutdown. No clk_ignore_unused or
-register-writing helper was used. The existing vendor handoff needed a
-RAM-only BL31 reservation at 0x48000000/0x01000000.
-
-Limits: card writes, physical hotplug, UHS, other UART/I2C instances,
-MMC1-3 operation, RTC alarms and EL2/ITS/MSI delivery were not tested.
-The BLDO2 software selector reports 3.3 V, while the schematic implies
-a nominal 2.4 V input. Physical measurements are unavailable, so the
-board DT preserves that setting without a voltage constraint or newly
-enabled LVDS consumer. Assigning its actual voltage requires checking
-the fitted RP220/RP298/RP299 values and measuring UP11 LDO2V5-INPUT and
-BLDO2/VCC-LVDS0 to ground.
-
-The six source diffs have no checkpatch errors/checks. The requested
-Assisted-by: LLM trailer produces a nonstandard-signature/unrecognized
-email diagnostic in raw mail checkpatch; it is retained explicitly.
 AI assistance: Codex:gpt-6-astra.
 
-v1:
-https://lore.kernel.org/r/20260613-a733-dts-v1-public-ready-v1-0-7787c94681db@gmail.com
-Andre's review:
-https://lore.kernel.org/r/20260911001805.0a2e033d@ryzen.lan
+Assisted-by: LLM
+Signed-off-by: Enzo Adriano <enzo.adriano.code@gmail.com>
+---
+ .../arm64/boot/dts/allwinner/sun60i-a733.dtsi | 624 ++++++++++++++++++
+ 1 file changed, 624 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
 
-Enzo Adriano (3):
-  dt-bindings: arm: sunxi: document Radxa Cubie A7S
-  arm64: dts: allwinner: add A733 SoC description
-  arm64: dts: allwinner: add Radxa Cubie A7S board
-
-Supporting submission Message-IDs:
-  clock: <20261031020640-263f7b05-a7s-clock@gmail.com>
-  pinctrl: <20261031020640-263f7b05-a7s-pinctrl@gmail.com>
-  mmc-binding: <20261031020640-263f7b05-a7s-mmc-binding@gmail.com>
-
+diff --git a/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+new file mode 100644
+index 0000000000000000000000000000000000000000..522eda3d5dc9c7824dac41017162548e7a39d0a2
+--- /dev/null
++++ b/arch/arm64/boot/dts/allwinner/sun60i-a733.dtsi
+@@ -0,0 +1,624 @@
++// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
++
++#include <dt-bindings/clock/sun6i-rtc.h>
++#include <dt-bindings/clock/allwinner,sun60i-a733-ccu.h>
++#include <dt-bindings/clock/allwinner,sun60i-a733-r-ccu.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/reset/allwinner,sun60i-a733-ccu.h>
++#include <dt-bindings/reset/allwinner,sun60i-a733-r-ccu.h>
++
++/ {
++	#address-cells = <2>;
++	#size-cells = <2>;
++	interrupt-parent = <&gic>;
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x0>;
++			enable-method = "psci";
++		};
++
++		cpu1: cpu@100 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x100>;
++			enable-method = "psci";
++		};
++
++		cpu2: cpu@200 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x200>;
++			enable-method = "psci";
++		};
++
++		cpu3: cpu@300 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x300>;
++			enable-method = "psci";
++		};
++
++		cpu4: cpu@400 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x400>;
++			enable-method = "psci";
++		};
++
++		cpu5: cpu@500 {
++			compatible = "arm,cortex-a55";
++			device_type = "cpu";
++			reg = <0x500>;
++			enable-method = "psci";
++		};
++
++		cpu6: cpu@600 {
++			compatible = "arm,cortex-a76";
++			device_type = "cpu";
++			reg = <0x600>;
++			enable-method = "psci";
++		};
++
++		cpu7: cpu@700 {
++			compatible = "arm,cortex-a76";
++			device_type = "cpu";
++			reg = <0x700>;
++			enable-method = "psci";
++		};
++	};
++
++	osc: osc-clk {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++	};
++
++	psci {
++		compatible = "arm,psci-0.2";
++		method = "smc";
++	};
++
++	timer {
++		compatible = "arm,armv8-timer";
++		interrupts = <GIC_PPI 13 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_PPI 14 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_PPI 11 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_PPI 10 IRQ_TYPE_LEVEL_HIGH>,
++			     <GIC_PPI 12 IRQ_TYPE_LEVEL_HIGH>;
++		arm,no-tick-in-suspend;
++	};
++
++	soc@0 {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges = <0x0 0x0 0x0 0x40000000>;
++
++		pio: pinctrl@2000000 {
++			compatible = "allwinner,sun60i-a733-pinctrl";
++			reg = <0x02000000 0x800>;
++			interrupts = <GIC_SPI 69 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 71 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 73 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 75 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 77 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 79 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 81 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 83 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 87 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_APB1>, <&osc>, <&rtc CLK_OSC32K>;
++			clock-names = "apb", "hosc", "losc";
++			gpio-controller;
++			#gpio-cells = <3>;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++
++			mmc0_pins: mmc0-pins {
++				pins = "PF0", "PF1", "PF2", "PF3", "PF4", "PF5";
++				function = "mmc0";
++				allwinner,pinmux = <2>;
++				drive-strength = <30>;
++				bias-pull-up;
++			};
++
++			mmc1_pins: mmc1-pins {
++				pins = "PG0", "PG1", "PG2", "PG3", "PG4", "PG5";
++				function = "mmc1";
++				allwinner,pinmux = <2>;
++				drive-strength = <30>;
++				bias-pull-up;
++			};
++
++			mmc2_pins: mmc2-pins {
++				pins = "PC5", "PC6", "PC8", "PC9", "PC10", "PC11",
++				       "PC13", "PC14", "PC15", "PC16";
++				function = "mmc2";
++				allwinner,pinmux = <3>;
++				drive-strength = <30>;
++				bias-pull-up;
++			};
++
++			mmc3_pins: mmc3-pins {
++				pins = "PC5", "PC6", "PC8", "PC9", "PC10", "PC11",
++				       "PC13", "PC14", "PC15", "PC16";
++				function = "mmc3";
++				allwinner,pinmux = <4>;
++				drive-strength = <30>;
++				bias-pull-up;
++			};
++
++			uart0_pb_pins: uart0-pb-pins {
++				pins = "PB9", "PB10";
++				function = "uart0";
++				allwinner,pinmux = <2>;
++			};
++		};
++
++		ccu: clock-controller@2002000 {
++			compatible = "allwinner,sun60i-a733-ccu";
++			reg = <0x02002000 0x2000>;
++			clocks = <&osc>, <&rtc CLK_OSC32K>, <&rtc CLK_IOSC>,
++				 <&rtc CLK_OSC32K_FANOUT>;
++			clock-names = "hosc", "losc", "iosc", "losc-fanout";
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++		};
++
++		uart0: serial@2500000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x02500000 0x400>;
++			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART0>;
++			resets = <&ccu RST_BUS_UART0>;
++			status = "disabled";
++		};
++
++		uart1: serial@2501000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x02501000 0x400>;
++			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART1>;
++			resets = <&ccu RST_BUS_UART1>;
++			status = "disabled";
++		};
++
++		uart2: serial@2502000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x02502000 0x400>;
++			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART2>;
++			resets = <&ccu RST_BUS_UART2>;
++			status = "disabled";
++		};
++
++		uart3: serial@2503000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x02503000 0x400>;
++			interrupts = <GIC_SPI 5 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART3>;
++			resets = <&ccu RST_BUS_UART3>;
++			status = "disabled";
++		};
++
++		uart4: serial@2504000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x02504000 0x400>;
++			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART4>;
++			resets = <&ccu RST_BUS_UART4>;
++			status = "disabled";
++		};
++
++		uart5: serial@2505000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x02505000 0x400>;
++			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART5>;
++			resets = <&ccu RST_BUS_UART5>;
++			status = "disabled";
++		};
++
++		uart6: serial@2506000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x02506000 0x400>;
++			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART6>;
++			resets = <&ccu RST_BUS_UART6>;
++			status = "disabled";
++		};
++
++		i2c0: i2c@2510000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02510000 0x400>;
++			interrupts = <GIC_SPI 11 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C0>;
++			resets = <&ccu RST_BUS_I2C0>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c1: i2c@2511000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02511000 0x400>;
++			interrupts = <GIC_SPI 12 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C1>;
++			resets = <&ccu RST_BUS_I2C1>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c2: i2c@2512000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02512000 0x400>;
++			interrupts = <GIC_SPI 13 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C2>;
++			resets = <&ccu RST_BUS_I2C2>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c3: i2c@2513000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02513000 0x400>;
++			interrupts = <GIC_SPI 14 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C3>;
++			resets = <&ccu RST_BUS_I2C3>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c4: i2c@2514000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02514000 0x400>;
++			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C4>;
++			resets = <&ccu RST_BUS_I2C4>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c5: i2c@2515000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02515000 0x400>;
++			interrupts = <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C5>;
++			resets = <&ccu RST_BUS_I2C5>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c6: i2c@2516000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02516000 0x400>;
++			interrupts = <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C6>;
++			resets = <&ccu RST_BUS_I2C6>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c7: i2c@2517000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02517000 0x400>;
++			interrupts = <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C7>;
++			resets = <&ccu RST_BUS_I2C7>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c8: i2c@2518000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02518000 0x400>;
++			interrupts = <GIC_SPI 19 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C8>;
++			resets = <&ccu RST_BUS_I2C8>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c9: i2c@2519000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x02519000 0x400>;
++			interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C9>;
++			resets = <&ccu RST_BUS_I2C9>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c10: i2c@251a000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x0251a000 0x400>;
++			interrupts = <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C10>;
++			resets = <&ccu RST_BUS_I2C10>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c11: i2c@251b000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x0251b000 0x400>;
++			interrupts = <GIC_SPI 22 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C11>;
++			resets = <&ccu RST_BUS_I2C11>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		i2c12: i2c@251c000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x0251c000 0x400>;
++			interrupts = <GIC_SPI 23 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_I2C12>;
++			resets = <&ccu RST_BUS_I2C12>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		gic: interrupt-controller@3400000 {
++			compatible = "arm,gic-v3";
++			reg = <0x03400000 0x10000>, <0x03460000 0x100000>;
++			interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_HIGH>;
++			dma-noncoherent;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges;
++
++			its: msi-controller@3440000 {
++				compatible = "arm,gic-v3-its";
++				reg = <0x03440000 0x20000>;
++				msi-controller;
++				#msi-cells = <1>;
++				dma-noncoherent;
++				status = "disabled";
++			};
++		};
++
++		mmc0: mmc@4020000 {
++			compatible = "allwinner,sun60i-a733-mmc",
++				     "allwinner,sun20i-d1-mmc";
++			reg = <0x04020000 0x1000>;
++			interrupts = <GIC_SPI 161 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_MMC0>, <&ccu CLK_MMC0>;
++			clock-names = "ahb", "mmc";
++			resets = <&ccu RST_BUS_MMC0>;
++			reset-names = "ahb";
++			pinctrl-names = "default";
++			pinctrl-0 = <&mmc0_pins>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		mmc1: mmc@4021000 {
++			compatible = "allwinner,sun60i-a733-mmc",
++				     "allwinner,sun20i-d1-mmc";
++			reg = <0x04021000 0x1000>;
++			interrupts = <GIC_SPI 162 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_MMC1>, <&ccu CLK_MMC1>;
++			clock-names = "ahb", "mmc";
++			resets = <&ccu RST_BUS_MMC1>;
++			reset-names = "ahb";
++			pinctrl-names = "default";
++			pinctrl-0 = <&mmc1_pins>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		mmc2: mmc@4022000 {
++			compatible = "allwinner,sun60i-a733-mmc",
++				     "allwinner,sun20i-d1-mmc";
++			reg = <0x04022000 0x1000>;
++			interrupts = <GIC_SPI 163 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_MMC2>, <&ccu CLK_MMC2>;
++			clock-names = "ahb", "mmc";
++			resets = <&ccu RST_BUS_MMC2>;
++			reset-names = "ahb";
++			pinctrl-names = "default";
++			pinctrl-0 = <&mmc2_pins>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		mmc3: mmc@4023000 {
++			compatible = "allwinner,sun60i-a733-emmc";
++			reg = <0x04023000 0x1000>;
++			interrupts = <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_MMC3>, <&ccu CLK_MMC3>,
++				 <&ccu CLK_MBUS_STORE>, <&ccu CLK_BUS_MSI_LITE1>;
++			clock-names = "ahb", "mmc", "mbus", "msi";
++			resets = <&ccu RST_BUS_MMC3>;
++			reset-names = "ahb";
++			pinctrl-names = "default";
++			pinctrl-0 = <&mmc3_pins>;
++			status = "disabled";
++		};
++
++		r_ccu: clock-controller@7010000 {
++			compatible = "allwinner,sun60i-a733-r-ccu";
++			reg = <0x07010000 0x250>;
++			clocks = <&osc>, <&rtc CLK_OSC32K>, <&rtc CLK_IOSC>,
++				 <&ccu CLK_SYS_24M>, <&ccu CLK_PLL_PERIPH0_200M>,
++				 <&ccu CLK_PLL_PERIPH0_300M>,
++				 <&ccu CLK_PLL_PERIPH1_300M>;
++			clock-names = "hosc", "losc", "iosc", "sys-24m",
++				      "pll-periph0-200m", "pll-periph0-300m",
++				      "pll-periph1-300m";
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++		};
++
++		nmi_intc: interrupt-controller@7010320 {
++			compatible = "allwinner,sun60i-a733-nmi",
++				     "allwinner,sun55i-a523-nmi";
++			reg = <0x07010320 0xc>;
++			interrupts = <GIC_SPI 188 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-controller;
++			#interrupt-cells = <2>;
++		};
++
++		r_pio: pinctrl@7025000 {
++			compatible = "allwinner,sun60i-a733-r-pinctrl";
++			reg = <0x07025000 0x800>;
++			interrupts = <GIC_SPI 198 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 200 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&r_ccu CLK_R_APB0>, <&osc>, <&rtc CLK_OSC32K>;
++			clock-names = "apb", "hosc", "losc";
++			gpio-controller;
++			#gpio-cells = <3>;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++
++			r_i2c0_pl_pins: r-i2c0-pl-pins {
++				pins = "PL0", "PL1";
++				function = "r_i2c0";
++				allwinner,pinmux = <2>;
++			};
++		};
++
++		r_uart0: serial@7080000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x07080000 0x400>;
++			interrupts = <GIC_SPI 201 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&r_ccu CLK_BUS_R_UART0>;
++			resets = <&r_ccu RST_BUS_R_UART0>;
++			status = "disabled";
++		};
++
++		r_uart1: serial@7081000 {
++			compatible = "allwinner,sun60i-a733-uart",
++				     "snps,dw-apb-uart";
++			reg = <0x07081000 0x400>;
++			interrupts = <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&r_ccu CLK_BUS_R_UART1>;
++			resets = <&r_ccu RST_BUS_R_UART1>;
++			status = "disabled";
++		};
++
++		r_i2c0: i2c@7083000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x07083000 0x400>;
++			interrupts = <GIC_SPI 203 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&r_ccu CLK_BUS_R_I2C0>;
++			resets = <&r_ccu RST_BUS_R_I2C0>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		r_i2c1: i2c@7084000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x07084000 0x400>;
++			interrupts = <GIC_SPI 204 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&r_ccu CLK_BUS_R_I2C1>;
++			resets = <&r_ccu RST_BUS_R_I2C1>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		r_i2c2: i2c@7085000 {
++			compatible = "allwinner,sun60i-a733-i2c",
++				     "allwinner,sun8i-v536-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x07085000 0x400>;
++			interrupts = <GIC_SPI 205 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&r_ccu CLK_BUS_R_I2C2>;
++			resets = <&r_ccu RST_BUS_R_I2C2>;
++			#address-cells = <1>;
++			#size-cells = <0>;
++			status = "disabled";
++		};
++
++		rtc: rtc@7090000 {
++			compatible = "allwinner,sun60i-a733-rtc",
++				     "allwinner,sun50i-r329-rtc";
++			reg = <0x07090000 0x400>;
++			interrupts = <GIC_SPI 196 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&r_ccu CLK_BUS_R_RTC>, <&osc>, <&r_ccu CLK_R_AHB>;
++			clock-names = "bus", "hosc", "ahb";
++			#clock-cells = <1>;
++		};
++	};
++};
 -- 
-Enzo Adriano
+2.53.0
+
