@@ -1,57 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.227.17.20
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.98
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793459960;
-	b=OoDzLSHTYZ+B0J0k4Wkv1gif/iDz6/OTiugedoX5C9UAv0gSLepGOq/WPAQR7chyAq+9
-	 7nE6Fwo32+FKO1fgbwnIXtEC/CFNzLiSA6Deo2Kw+NCzXbP0xhuSjxnO140zbTzIhDPYt
-	 jln17mb7WFAMHFJzerMgA48t9tt/PilSbJo4refhUcAvPzGCMFsVL0dtPUQGqnwGd9Y+e
-	 kdv3I5EGWjoJMSr3fQkUQm5ApmGvO520kbPERaD7ZttN8gkYBXgLcj5b8HHiDA+4QqL5F
-	 vKBBw9ZQCT6e92h2ZP5Cm+d/dfrnKqtlIZY6dydx7FA+nEymDCe/KUT4XO+4cKGI2/Q==
+	t=1793460053;
+	b=mdr3V3uZlS6JvU6vRpDjh0hJyZPnTJXy2HQeqcYxQaudTQrgLoEBYktrBL9q+t/0Zoxx
+	 Du1CdxkqkLLAn93n/XRzURlC9Nm7mgg2Dhjd4LVTmrYXsmqVoI60fIH7RDQyPSIGpPLTK
+	 IeqXBLND5CCznuHkoKmDqGXIsyKHaj/SmxaWqPmgFEh5jUfqCWLeuOjY8KYQSgcqNnqbd
+	 chH2AQlYx8LaHMqnAn+7Kplwik8H846/oL7GZTOYGRgE8eHAwhANE2CBwCm0jAgjz1KQL
+	 i4gRg/OxaH+6n+X9QzUEcOdD2/xLQZNmxzSiQUCYUvVNDZalZG4xT++oQUp/XQRXWEg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793459960;
-	h=DMARC-Filter:DKIM-Signature:X-UI-Sender-Class:Received:Message-ID:
-	 Date:MIME-Version:To:Cc:From:Subject:Content-Type:
-	 Content-Transfer-Encoding:X-Provags-ID:X-Spam-Flag:UI-OutboundReport;
-	bh=rGJRUWHVZc+GV1T2glbBDs4zn8y35bavghVZaNWEV38=;
-	b=Av5kKTrlmzsO69X/sIN4wJRDKF+1DSQDH5frfrHBCNRW55PyWMP+kgHU1rGL5P6s3N6Y
-	 ptIGgs++3vYDPqXEbWYbdwcAwQ3AGU9gA33FVPgFJCaG8DYukd/KCk/8YeP0sYg8qw3x8
-	 P1BRWwpE1cUt5LINhvvAOoeP7OwEuEkGVO37G7ENjLPvNWEeNk/9pvALwmJdUCe7R7kSY
-	 h0ERybmFwMpYlWllJqUkf15mGySou06fMBhCF8qJgRZ22JGhSBhm8vl6g+Foay975ne1v
-	 IoTZWupK2u1x0y4Acpb8YDrh/5FzH7BAKoO1zaYO804iLR32L9PqsYcXmCfe/FaoLJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793460053;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:X-DetectorID-Processed:
+	 Content-Type;
+	bh=mgfpB4DX6TS9sEAg2T8x0OQFSeES8z5sRJsFot7Axng=;
+	b=0XpZUzQ2lnp3i5R3+VkpbcvbO9a709+11g66WaNZqlnANXumN+wnjHR4K9H1CiPbWUl+
+	 DKuRR3GvcLwQQXhF0gev0WRf3j8taGABuLq/v9VdpazbX6z8PwgPE28WDudfcvVzTJIYS
+	 czboy2JveAjvsNJjAhcqXhYWDB3ceUaIytIAAjdo/BPv7m0tkBt+WezA3eKNVkKEJvrB4
+	 Y5QQtAzFBIrubDEUkekJBItpndFnyksTU02+DZOyfXS5gpP6s7ff6dBaGueNZFheCSFc1
+	 ks7rIdUKT+we+o/GG9OdKCYsGr4d9DUsxh7SRtlvM4PeEi/yaACnZOIR+9hqvjt0NoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmx.com;
-	spf=pass smtp.mailfrom=gmx.com;
-	dkim=pass header.d=gmx.com header.i=aros@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b="j/nX8rSD";
-	arc=none smtp.remote-ip=212.227.17.20
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.20])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Xi1mHB5z;
+	arc=none smtp.remote-ip=209.85.216.98
+Received: from mail-pj1-f98.google.com (mail-pj1-f98.google.com [209.85.216.98])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB17F606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:19:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB17F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EBBB606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:20:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EBBB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmx.com header.i=aros@gmx.com header.a=rsa-sha256 header.s=s31663417 header.b=j/nX8rSD
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.com;
-	s=s31663417; t=1793459953; x=1794064753; i=aros@gmx.com;
-	bh=rGJRUWHVZc+GV1T2glbBDs4zn8y35bavghVZaNWEV38=;
-	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:To:Cc:From:
-	 Subject:Content-Type:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=j/nX8rSD4Mfw1iqyIRgS/twhxb1tk6Yv42LTcq/9lDMX1UDaSb26hAimO1JuhBuf
-	 HOKn+3UhV0zlkP4pR7QcDehLRheVugtdceZYfAXlD+8OsW2HVzF4GFbiozYNYNRdd
-	 EsVtzV1+1K9KKEJTyI/oW1gfKTZC0pkgO1XLVb+RE4uXN8ozIUtbTae37g+BJQnD9
-	 uNxSjY1R5nH0zQPxJ3XlCbEZT69UQX0hIuI23B6UOqoWpcAYhYD11ugUgl1lkU+X4
-	 dbKx6tmVFkuHTvR4CRRwpAkXq50QiKwia9H3c3IakxAyLs7fLDqVMclYQN/RAuIRl
-	 8FnLYzw4THj3DJCVRA==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.174]) with ESMTPSA (Nemesis) id 1N9MpY-1wR89E3Sho-012l6H; Sat, 31
- Oct 2026 16:19:13 +0100
-Message-ID: <b42192af-d9b6-4820-bff3-e3b6c6ce9bf2@gmx.com>
-Date: Sat, 31 Oct 2026 15:19:08 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=Xi1mHB5z
+Received: by mail-pj1-f98.google.com with SMTP id 98e67ed59e1d1-3ac451e128cso1069738a91.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:20:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793460052; x=1794064852;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=mgfpB4DX6TS9sEAg2T8x0OQFSeES8z5sRJsFot7Axng=;
+        b=MD405ND7xuJricC9zZj9TBoTZNre3QmX2G0naYjKHbVFsX12aLdVp+5Gm0R5yKVnZC
+         QLlJggdD1z+PpSb79OmqcObSO4ZrALFjjMIT6rLdh/+SwwmDV0Wh9ucGhNyE6dRWB/+A
+         s/DjSLVKLCkeOwUwn+BaQgM+jxYqiWF+Bzi+do/4k/1FES0cFEce/YhRvmFPCwdgCE89
+         NhdGxYHoAKp9lX7+DbqpfKoqjtJN1Tw6qWZcXUDXCta7A9AFty+dChhzlHGcuN42bD+t
+         0GTdIyvrxtrXabZ4dOQcGLnOtXd0Xn2CCigyQiGF54zUSvkscAKwpPI/3CqPOr3g2xx/
+         LwOg==
+X-Forwarded-Encrypted: i=1; AKwUvBxiLHru/9FtUflirZ/Wz+6xxkGSGl17/1cAj8fV7Fp8cJ0U1gVL6P62XxHsl96bZ1k8emIe5Yx9YuaxkaI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWPCbgC7UrR4O5Q/Ts5k92KmKADaRoNp/152K6BO5La2/HJOex
+	PBFr4Z6dr4tZofPZB2/TMck/ynLoxvjbYULrdA8SyUiaGj+qw1ftGOZ3h9SaQVLMoQ2Zs4NkeWD
+	jMsgG8z+K0745qqDBfoTKqo6N0CNjyLGLfqGX7XQfBW0MGOH288ZSN8TjM9o4bFCyob8bAXw/zD
+	Wp3/5aJVdppTJsRoyZ66Sie2gIwrp/6LSbjwLf2nFbgmboY9is3iE+p5PlqJfKLBMUA5hlbFumH
+	ofDwgEg6YRPtrnD3F8=
+X-Gm-Gg: AYBFou0D9fPG6c+b3V5/qedXvMQkboKqDTPxISejofhowlphuwrAxqs2NdyupzD7HyC
+	KM9kDpDP1iMa/xtEmndNC/eNm5XQegKWo6tiQ8DtjptN9a2TtdQO9dGP8dnsRBB93cnoEpD1QOH
+	yeapdEvNhtlR0V65HFpFAnOq8hIIzAv8Zaul45vv7ZPHW0XMm+1tXf0TXBktdIelNUDmYKfm8v8
+	Vs319V7cIDGPa8BAup8K2qoSzEnDId/bCWnxN/agqcWm0//bNseutt56nYTQ8v2tluXxc1AowQJ
+	G5ztp8JQ9+GjN4Gc7LVAmsuUkDMc1mi9DMutQYWXU+mZ4pt6T2HsIYFMSgSXRGs4aFD9tdzYkKn
+	JddAE/fpeUupvEBlW9LQ6YOaFQQ55NxRHzWnAr9UnqIm+K3Q5WgTUjotSU/NddRxnhOWdAe+Z7P
+	Q6T/nduixH9Ox2uQrQjsz8NhgvHLIHPYn4GGQ=
+X-Received: by 2002:a17:90b:514f:b0:3a4:9dd7:296f with SMTP id 98e67ed59e1d1-3ae897e224bmr4070871a91.40.1793460051833;
+        Sat, 31 Oct 2026 08:20:51 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-13.dlp.protect.broadcom.com. [144.49.247.13])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e874b16sm6334611a91.6.2026.10.31.08.20.51
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 31 Oct 2026 08:20:51 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-89e05d31e54so1187455b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:20:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793460050; x=1794064850; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mgfpB4DX6TS9sEAg2T8x0OQFSeES8z5sRJsFot7Axng=;
+        b=Xi1mHB5z+WacTZ0FWyP0naBUs83GrMtGHqVYYY28W/yJc5w54mU9vnFTfx0JfZLK2V
+         00bXnMTsmJ219L76MSSSpP2lH0mccdh+1guW6o6pcOair51ug1z1AjxPxBlSHdSmgIhj
+         QkAYnRAtQDvyvw6YQOgqK4/PQT4k+xlX+Elgg=
+X-Forwarded-Encrypted: i=1; AKwUvByYOl18gz+rZClebEgBvuTzpNbGlbem1UEGtk0D8gNRLuHf1jKeSgqgGQKObsqY9FeX5W+XFlc1broXuKU=@vger.kernel.org
+X-Received: by 2002:a05:6a00:3497:b0:874:705d:f63d with SMTP id d2e1a72fcca58-8a9bee549fcmr3746820b3a.31.1793460050249;
+        Sat, 31 Oct 2026 08:20:50 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3497:b0:874:705d:f63d with SMTP id
+ d2e1a72fcca58-8a9bee549fcmr3746804b3a.31.1793460049823; Sat, 31 Oct 2026
+ 08:20:49 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,222 +98,152 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-To: d@ilvokhin.com
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, david@kernel.org
-From: "Artem S. Tashkinov" <aros@gmx.com>
-Subject: mm: tmpfs: huge=always Kconfig help understates severe space
- amplification
-Content-Type: text/plain; charset=UTF-8; format=flowed
+References: <20261031133455.3070233-2-rsalvaterra@gmail.com>
+In-Reply-To: <20261031133455.3070233-2-rsalvaterra@gmail.com>
+From: Pavan Chebbi <pavan.chebbi@broadcom.com>
+Date: Sat, 31 Oct 2026 20:50:38 +0530
+X-Gm-Features: AclHuK-GoMMG9YToT7U1afYJZJyVJealcZBV0G2ld1YqOOI2ormyQmOhqnD0q2c
+Message-ID: <CALs4sv3PapX2RSTA3iKWvfQ1chWRXYPgsohm4bbGoXmCp4dewg@mail.gmail.com>
+Subject: Re: [PATCH] tg3: make depend on ZONE_DMA
+To: Rui Salvaterra <rsalvaterra@gmail.com>
+Cc: michael.chan@broadcom.com, andrew+netdev@lunn.ch, davem@davemloft.net, 
+	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
+	boundary="0000000000003bad1f065f247586"
+
+--0000000000003bad1f065f247586
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:xPe759PgRxemlHDr55Fx082NlvzbE+Q1otpItHIcym3ZjYJ++Zn
- kZgmbtIF05SLsfsocZsjna0DWdPIacKvLbe+ghl3RzZZ6Xq45CI6Wlb5ZhE3Br0kURVWadz
- TGk5ukLRdKK/ys8rm8nIdTCOySWuZQmZt89jEXRgC4I/F48d7Wt7GdqCX64BUkob791e1Fm
- hNp4ZjW9xneUeKl1o4+eQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:Nlp4ASWUcvY=;x26xLF1PeZhZYQMlPGuzCfCutpf
- 5Ee69RsKGymm1eTMv1Gi6CovyvAY0GKBuSuPPgGfAzrVN7VNZK1BBxoz85KxY1D5CvF//pqe8
- R5ObrWcbW7qSwOvz/xaRybBbKHYIH/V66EOPx/ucRbn0+0JYvGcLXet6rREan4JbjQEAbgYXS
- MBSOWZQ3PGwra3e0ij4DuXvTBwcx4LCr0cUQXnl8IW+rWhVsW5lCTHcd5h8JUqQp3S/JLEle7
- lB5h4d7ClfPfRJKGAvtD32yvzG99U0/ZATy+Ro2ertCRxXF3MS1FGj39REe0kA+t8LIYJgNT1
- nTgRrff9s94owrrwQQkiPR96jllHn8gb9XLkzAzOLmNqeUeC5dM1ZRRhHsYfoDzrvvUI75fSx
- g526jKOKjg4l08iR1mdIX5givQrybT1OxiCZ8PKCbtIHnycfLNB5Wo2nCr7kBFrmaeXnYqg/F
- YFjwcLmAn5eLPtIIfMdIxANDdp3cffH4h331UZ/5/rSCHCm01sKClAIq0UHQdQyEVptZakHIP
- 8gVg4/abPbTF/0gvCzydeqp690X8UiF+7f560kMH22LOiyrozp1nF0OveQ/ZuvGm1AW56mHPI
- VRPdPlX4y8Q+MnCeOCTq70CnNYzUjnJFQdco3+2rDROnHNj8VtTa+SZJj6pGYxBTavgS0WxQ1
- QtHrsY4H8n0Jec+KujTj8rGvL6TFI7+kV5SK0Qxx6HCVJ0kz/aDW2Hqt6/CIDzVuzwrNlIz2v
- Vvfe48wDX6dlghxxWqvjPm4H0x6yz+m17skioJJHoLak0krgDTfnGbBuFFd5C+1sALEElz85q
- m2IfxGm6iWws84MNPSutFcmnQA80Bw7RQAymW/9RxC7o6YVlIPcfc0m3LPwxZMiK2bShBY4ks
- yTnoSkH0K8cvGisogxUCpcNBf4uVEOD9MrXF8mJZlG5oUdrIrrlR0RTGhIH6FC8bbn+U66OGO
- 7buE205NHPwf/1nb7vgdd51vSXgSjsgwfHgaE8cozSSddKDBhfVFvcZ2GqXBgOFNtp3LBbtl3
- OcghnFnxU55InjbOFNnOob+RmDiGrkDFdP3FzyExxq6sFuC6znU2zsDxTSQ/AyoI0JckpBiEF
- sB3br+MzqAzKENEBFQFyBKs9f9UtpNOgYmt13Dr+C5UuuCABw+7edB0GGzwVVmyCp8AKtj3YL
- j2fOZvnzL81aooRD6Bg1iQ7CV58pOmkZblVRZc0Yu0Sut0StMXoXxU+mWwvA9lDTahHYxLTqE
- G4jnDL8lR7VNmxbGJppFo40dM+sjJ6AEkPKZrnKKVEUA5qecO4NxBO9TSHRDIUKJdA0x3MHn5
- 8VKzldd9W8LL9E7yWo3ywvF4r6Zgq6Ru/loK28LG/FsKfdEVoIEccthmHs5BvIbS8fYgWpnRL
- suogw+MBCM80D5CmafkmbeqwmJ72RkSKLkQx5zcwHB5JstLD/xCkjyjGIMtuQ8+8/gGo77D82
- eH+0rAU0qsuzHOTXZUkpX97wGd+RoFTHHqe9qwQvNHmQC8mamm0EsjHssE3CTG6NAKDQHHO1/
- KA8q9alF6J0ywvwZ2NiCVE25FxuQ1k3aL/kjCjvZqGxzohnl5gtShNY38iRiqyOeTNky+DwuW
- GavO4MW1n9cwdnNzAw7+y1B8SV4Px8FFe3cvQ99BYUgMys5deNk8Z2tN/8xycW/xgiKsk/LGM
- o0oCP0KZ9KuBboLVV7Zl7rVJwU/UpINdQr9/s/VvyJNTA/STGpvRxftbKCSGsbLPTz5SGbaQf
- qC6ik8Ia2HPb/l/j/d3xZrAb6vLnZOlj2PjkFIN8Mpp0uDle/VIfXMsITa6MQWkFhHDSEIUKp
- /+ngi4G0MC5LD+IiFj1VcNmdViASDdyC+KoqwsyCWUzYUwXUHu+TSY92dQfwXfspL0WoIlxU8
- ec7LpgNhjbVgfysHVbRoBbjbRmYtKM2mi1z+2Ojs6cfvo6uZucaaMQZUjYFVIrfpV/VkEjpdh
- cCvBRlKaD4KEA9Z23TnZ4ERwng1gWCmR9NqyFZFuyatOwa9BmQ8FbI3+QHJSbNjro4YZ72LMq
- 1SxJ24vYDNvF9LDlTV/6q2cVTFF/nrv6HWiL3/RvyfcvnddeR7iriBHLoVEbdg6M1oG5qvvZE
- ijwuqJ7fAVhsi2Fzee2qjCC1oSIZPRHQBhgjxXd19UCKf8xdQGIc+crUTjjDj6Wc+rnIScs5Z
- qiIK+tt+9DZf090/GgZiQJI0co32Zkyt5HNtl+meJLsc/rMRkFHvpADyfrLtg31PUp/jQbrop
- 1HDxy/MBP6NGmat03wJXvITNiJeT8Bcx3mbW2jNqO5V23+lisTfi0MG34NUXChXlh60wogA1Q
- 8j6OTk2+wh8UfUccUF2lzl14K0eSOdlk54nG4LaddWaWNWRSP0jmYB+brkYNkBHtV4OP4JJPW
- COOncN1rNoM6fDmzyeNe/NnVyrJFnJNNZHjmPnYTLF6JM2t4GcNawLEtRcODFM1X98TRg89Nj
- buHuiyQ7+C5yhxfzinNNGZsvF5PgbDiji2+DoUMPWxmaCzNR9iupjcb7iibmNco8FjTB53Jpe
- ugVpLaoRi06VwVfhyYtMc4Tx9Uj48MDNRu4f4UClKr7TKWe1O8q75MbqJf1QoaImhC2DTQIRU
- bppJhsx3NqlhAULIQGpY+hpJwhXPU0gsTHGJrciv6N3vNHOlpZBD1GAHK1l6om5huAjsIlFtY
- 5Md/e6daK1gII2CcjNiPLOTnR6iocx0TZUjekn+D+ygOoZASIu8Bvpqiz+LLCxBi0HRYvW9vz
- Zh5dgE+WSSNsBG/ji1K9byeeblzzgPpj2XmfCauC5sa4l9hJScdLmTz9qeciiMrVlh/1PmeVH
- FY+UMhmG7/pEMb97/xhkN5vu++WhHWRO4B+LTlMzh2rBWWvSrAmW6CuADpI6ZsPdrSiXpSEVB
- psgBng60YbA7+qC3hZTXsQQj7bmR9vAdtaDHWk0tvwm5SKh8Yo4gzz756LJykscHLQBgy8T7T
- p01aio4cYrUNSwfJD8KnZvRhOSJb+7Xu4fLMM/D+EmOVyc3QFHutzKH/HXmNOIKg2c1Bycfj5
- XNeK20kpRY4nHUfgcsgBSw4XBxeRqZHHaYjgGuhpNJhe8kvn9LQcNxU61fVLw+gKL+2xVI7KE
- ti8of1MfW1+GzW0B95C7L27O+X2D0OdyWRZEzKgq7TNaxfJ8fBpdMJOdwebpphTOGYYkhHUwB
- Guy9svk15gaOVy6395LgIY+KKDOw7xBwqcNjyGPXUKTK9o96sRN5fnjionXqXAXRRBaxORyJy
- uPriVZiqR1ejinjlYm4Ldx5irNLzrPotxUdiCU0YE8BQzPkosLquggmQzcYmAqdTSoWieYGoc
- TrdeACqyg2qUcCO353OEJzJpw9RnTo3V1QU4ot1KcrJQMiJsXLzlubgZ2WBfILRtau/hfnC7O
- w44reAEeBtcNM+CpirqwAR1ESTaQGXvHrnePvcmCjLL+WAwtpY5S2tReHxafJ3299UMhPQ6MH
- qzsN8Hb6ushZGZYvkVzboqYCDZEu0y8OFVcMGax7rYPlfM2giGgQd6CrhpOAdN3+YHZdm3qap
- ldBPgHVcyUxSD8VNJagah4rX+9CFEOeJfbpEcVI5q0mDsY49T5Tb0PZfumzjHf51rNjrHO0w1
- /uatG11OhI5yDLYYTgyaE/89jM4IywVGKGu47IuyXNQeo75k6P/CxiAQ01aS/Xw6elzcDIA8D
- IbiEorWwhcIXH2xqT5DgbL26pquWQZKsBwXz7z4TbBDdfbggbsQRcf8L1aqdtgDZ8V47hbVBy
- gxQRy7nrIpkb1Dj83Nvdh297YlvAv6J0jZD15tW4E8pBAwsoOSNoy83ZdToKpK1j2ZXcc8eEY
- VOGuH03SpuXKM6oXsB/aE3KJII4mWO4DCgy99IklD3p7Iktz3XUo8CRqXwo3SCWmSd5L2u2KG
- 0S2o1GtXluqu8jGnFziSAO9j1tbE9ktjNpE8ok5eFZx+1I7cQNi1W5S/adZym29kEHyPyHMsB
- g6LqPt95qrTpiOci5NbLcyWDNlY266Cezmtr96nlFG2cCxm1a6wWlT3jOOT/bXhxYt15lf99+
- w5faqVgKXs+Osp/i+5R3DboiQEyIwOMEDFzSeU7vi0hyBqfgLiL2548CyTrPg4CSmnSVCb4n9
- DYWrH9QUpjjQt+5Ca26p9DbNj9TWZatlXsElAelbC0uNoKNTwBz9FOdf82r3a2/S/xeCXOYrO
- Wq+wghqrYWWMdxMBrCR4cQheFM4pI3AgLSXKD6nmR6/xkdbwe/fSFdtcws2E/o7wlujlURBgb
- RQJNYXFEcQV8FYDXGQngs6QZk413uQ39ZgW8d1+CkhMpyxDr9y7lwrVi/d8R9VzzImEv5wYyy
- vBGuJw3EvmwXOxm8wVdmT9Qq6oYmJY1S5LhzNUk4MFr1iLn/uJDQ7gtsS4g7RCThkOn70sCSJ
- EKuiQXeZQwrmgoJ7ZLZw5GrqyKsc4Nw9S84RoG0dnayb+dlGKzXYXIoUxO2ZiHLDSeEY9rrS7
- OXs79JwXxkkbw1kUNUzVPVrfSxTcaIh9se1sfKkfoyaXV6DIUg+V86FqfPPXmkPBzjoINNqt2
- aLezn45dGcIUp64Jxp3hvGTd95byZekFvV38dlF78d6PVADrXRXOUU+aWx5gvxEnlWhyaIF3w
- KmSlsbbKDEDqXMzfirZg+yj3f8yvnoH4MninQkiq8Z40kdjN3XzE7L8vCvvxC8PgjUhS4h9h9
- GT2XV0ao42pZ1BGZsL1uYddLPTou72zNcvnA94xCloISa2LshZlPsW6ooXKILd6Yyiurnz6rg
- 5pHypUGLnB2sm0yoNnKfBDGdOap6kF2CYKR0oVrvRM+eyYCyIMnGzf4ijYG5+68pdeTer1g3B
- dMGuSBAg2N3Ys7v79w9KN/2GIx3NdTUzCdsnlhP4IsaNqBqxNNdrzk6CPYxdglGOKHtaJDqeo
- whSP8NiQda86FdIl/Vu6rd3Ps11pKznK9Q3mFaFzeqScUN/X0GYHGWoPk5wI0oTlTdK40SMiu
- g271CR6YEFdYqunFDSWJC2djBDudDQTlKk2t77ilon2t4A8XcNWulgp/iz3iTty0/CxC6KZnV
- mUj76cSclYvMIR51e+S5P+VGRBOOgbqdqoplUqjPXrPxLqMwygZmBOMBx5eDxdgL2iNjgw4Pa
- RNok6toY1H1+JKLauf+b92RkTL1G6j2+vyPkBLIz++yTStabGfvXRTZ28Nsjce9XGxUtNnvxd
- ya6LLv8x/DTsXNhcKghdePsWS6hK4TvZzHrZDWFl5F+QjJMEUJV2cdMK5u9Dr/BGDJAIY5wfU
- mcQho4gw1YijwhQd+eFpgm+Z2+HFZveuyQ5wNy6rnXG2EABc15VqJAhKeXYVNrVyZtpdgcr+b
- sWHXLOYLe4G5//rPyDkf958Wu3beWWMmo3QclbG7gkfAbwlfbDwLSyjQp4GHz6JhwAWQqywW8
- zXr8hkdoEBDbRBKrsOtvsAcbJrrugHG2vPhCsbJQnbHw6EeXNo01+bcefsJHDRzdA0r4mUjBZ
- 6PonuCVd7p7V1ymqtFT6QQc7E6VENdHTY0tF9jXn/VeWDf9MTMsAFAIYkiY437lqzWfBJcsTa
- 91ju6IvuBYic27MrnGA7V/XiAIS44mwjNa+I7x4p3r/tj3mwkCK5zu10ashSisGcODPYBcHFL
- NStWQjuWOwiaAb6aHDtafu7crNBOrdyqRLpwyda38k6LrmTTgjdhnB+Zoe2StfNRSvmaFIgE/
- d3wMaEO9ZfZbSOO9/5jeKYYPm3eyYDX5dsx1mp0XnCRpdFqfBJ+Z6OXu2st3gdsD+eU6BmNXh
- gqq6YKlkmcti9VuMntWfml4xncgQjZDkJQkJ0nX+lMsC4GS8CcIjsz1tNj9zesfn+CH1cFBFE
- NLduMG+IvUHQTp7/kIfAom5s6UlzTJMeB2iEF/N+hLuMWd6bMaemVfWJ0p1Hf4lLowRg65OrU
- MNkLQvs1tuEGnO3XJkAW4JnFqt3c1SqGmPjxDbHyk+yvnvdNO25j/Dy8YyzsScIhdLvAXsEsH
- U0HDy18fSnCtim5fbOtI7fF8g6Ty5xueFhs0iQIVy1DqpQApKa7uNEVaNE4p7Warq2+j4lqPG
- Gmb6RMGCdg8/K9JvoMhSM0VL+mER2RujDm/eNv8J4y1sqGPLrIbVFcen1HxTiZTLRYqL0db7b
- KcNgsD205ZE+FCqI451VEaMZ30FzEYbJHMUaZF5JRVzfTiY+ZbPAjaA+v+El8pbz6QTUiIVUV
- vXT3YSKO13hiq7n13NvGdXK0QeQ9UqcQ/DiOR3mZl7P4SS8f6YJ/EQ1daymMAGvgKfchLqBOA
- zO+5yRuRW/N75WQL2BWhQQBuGCHPcZkl91ksSAWGvY+VGh4bzRa6DqJhAHNgcGXKkPJi0zYDR
- xc4M7JLIHNh3JpqzuQG+E1M+qmaoS5GvgD6LAYxWXRpF2FKpD0RVEHKLDmb3U0ivSrqBeROQH
- dYIh1HiBzhH9SHdubtC9iHT5N1T3SPY2qkOinUcNIIpmmzfu1HvHhRBjgWyTbyIRQYzKmOaX6
- jjUr1vg1sAHnS0PRL9E2SrJrYvbWL0OQneCIGRdS71RQR/cSKrCmgfvVXPZjcwv6+2WJrdyGM
- 0YHbn9KMO6gIvLVM8R219BUn3s+uppJIxVdNznBHdymSHYZER/DEhtEZrUGmO3VKPuUuAb+/O
- 60Q4egCV5R2N+1dw4aocgSeeqboE2cXgo6RrxNmf6Rx1YnSpuYFnkti9I/+WF0ab3jm9d9v2W
- ibpScoW4oJwDflmo2j7kylYIUvHE9tNlUChpwawENILrVj8ym+jcoQ==
 
-Hi Dmitry,
+On Sat, Oct 31, 2026 at 7:05=E2=80=AFPM Rui Salvaterra <rsalvaterra@gmail.c=
+om> wrote:
+>
+> Since 614f4d166eee, on systems with ZONE_DMA unavailable, the Tigon3 driv=
+er
+> fails to initialize, at least on systems with BCM57766 controllers. On a =
+late
+> 2012 Mac Mini:
+>
+> [    1.226623] tg3 0000:01:00.0: Unable to obtain 64 bit DMA for consiste=
+nt allocations
+> [    1.226718] tg3 0000:01:00.0: probe with driver tg3 failed with error =
+-5
+>
+> Fixes: 614f4d166eee "tg3: Set coherent DMA mask bits to 31 for BCM57766 c=
+hipsets"
+>
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Rui Salvaterra <rsalvaterra@gmail.com>
+> ---
+>  drivers/net/ethernet/broadcom/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+>
 
-I'd like to raise a documentation issue with the Kconfig option=20
-introduced by your patch:
+No! This is not the solution. Please wait while I am trying to fix it.
 
-     mm: shmem/tmpfs hugepage defaults config choice
+--0000000000003bad1f065f247586
+Content-Type: application/pkcs7-signature; name="smime.p7s"
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment; filename="smime.p7s"
+Content-Description: S/MIME Cryptographic Signature
 
-Specifically, CONFIG_TRANSPARENT_HUGEPAGE_TMPFS_HUGE_ALWAYS.
-
-The help text currently says:
-
-     Always attempt to allocate hugepage for tmpfs mount, can
-     increase the memory footprint of applications without a
-     guaranteed benefit but it will work automatically for all
-     applications.
-
-I believe this substantially understates the potential consequences of=20
-selecting this option, particularly on general-purpose systems where=20
-/tmp is mounted as tmpfs.
-
-I recently encountered the following situation while extracting a Fedora=
-=20
-filesystem tree under /tmp on an x86-64 system running Linux 7.3.
-
-The tmpfs mount had huge=3Dalways enabled.
-
-     $ df -hT /tmp/Fedora
-     Filesystem  Type   Size  Used  Avail  Use%
-     tmpfs       tmpfs   48G   47G   925M   99%
-
-     $ du -sh /tmp/Fedora/usr
-     45G     /tmp/Fedora/usr
-
-     $ du -sh --apparent-size /tmp/Fedora/usr
-     1.4G    /tmp/Fedora/usr
-
-Even more strikingly:
-
-     $ du -sh /tmp/Fedora/usr/share/man/man3
-     7.5G    /tmp/Fedora/usr/share/man/man3
-
-     $ du -sh --apparent-size /tmp/Fedora/usr/share/man/man3
-     7.8M    /tmp/Fedora/usr/share/man/man3
-
-Thus, a directory containing just 7.8 MiB of apparent file data occupied=
-=20
-approximately 7.5 GiB of allocated space.
-
-The overall tree occupied approximately 45 GiB despite containing only=20
-1.4 GiB of apparent file data.
-
-This is consistent with severe allocation amplification caused by=20
-transparent huge pages, although I have not yet established the exact=20
-breakdown of huge-page allocations and other tmpfs overhead.
-
-The problem with the existing Kconfig help is not that it fails to=20
-mention additional memory consumption. It does mention that.
-
-The problem is that "can increase the memory footprint" gives no=20
-indication of the magnitude involved, nor does it explain the workloads=20
-most likely to suffer.
-
-A kernel builder selecting "always" may reasonably expect better=20
-performance at the cost of somewhat higher memory consumption. The help=20
-does not adequately warn that workloads involving many small files can=20
-experience extreme space amplification, potentially exhausting a tmpfs=20
-filesystem containing relatively little actual data.
-
-There is also an important distinction between enabling transparent huge=
-=20
-pages for selected workloads and making huge-page allocation the default=
-=20
-policy for all tmpfs mounts.
-
-I suggest expanding the Kconfig help text to explicitly mention:
-
-- The potential for very large allocation overhead with small files.
-- The risk of exhausting tmpfs space far sooner than apparent file sizes=
-=20
-would suggest.
-- The fact that selecting "always" is not a universal performance=20
-optimisation.
-- The availability of "never", "within_size", and "advise" as=20
-alternative policies.
-
-For example, the help might say:
-
-     Always attempt hugepage allocation for tmpfs mounts.
-
-     WARNING: This policy can substantially increase memory and
-     tmpfs space consumption, particularly for workloads creating
-     large numbers of small files. Allocated space may greatly
-     exceed apparent file sizes, potentially exhausting tmpfs
-     capacity even when relatively little file data is stored.
-
-     This setting does not guarantee improved performance and
-     should only be selected when its memory overhead is
-     understood and acceptable for the intended workload.
-
-     Consider "never", "within_size", or "advise" for
-     general-purpose systems.
-
-I appreciate that the upstream default remains "never". My concern is=20
-specifically that the help text does not adequately communicate the=20
-consequences of explicitly selecting "always".
-
-A more prominent warning would help kernel builders make an informed=20
-choice and avoid potentially severe memory consumption surprises.
-
-Regards,
-Artem
+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
+/HTPxpDrr4vzZL0yoc9XefyCbdiwfyFl99oBekp+1ZxXc5bZsVhRPVyEWFtCys66nqu5cU2GPT3a
+ySQEHOtIKyGGgzMVvitOzO2suQkoMvu/swsftfgCY/PObdlBZhv0BD97+WwR6CQJh/YEuDDEHYCy
+NDeiVtF3/jwT04bHB7lR9n+AiCSLr9wlgBHGdBFIOmT/XMX3K8fuMMGLq9PpGQEMvYa9QTkE9+zc
+MddiNNh1xtCTG0+kC7KIttdXTnffisXKsX44B8ECAwEAAaOCAd0wggHZMA4GA1UdDwEB/wQEAwIF
+oDAMBgNVHRMBAf8EAjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3Nl
+Y3VyZS5nbG9iYWxzaWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEF
+BQcwAYYtaHR0cDovL29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1Ud
+IAReMFwwCQYHZ4EMAQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIB
+FiZodHRwczovL3d3dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAy
+hjBodHRwOi8vY3JsLmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwJAYDVR0R
+BB0wG4EZcGF2YW4uY2hlYmJpQGJyb2FkY29tLmNvbTATBgNVHSUEDDAKBggrBgEFBQcDBDAfBgNV
+HSMEGDAWgBQAKTaeXHq6D68tUC3boCOFGLCgkjAdBgNVHQ4EFgQUxJ6fps/yOGneJRYDWUKPuLPk
+miYwDQYJKoZIhvcNAQELBQADggIBAI2j2qBMKYV8SLK1ysjOOS54Lpm3geezjBYrWor/BAKGP7kT
+QN61VWg3QlZqiX21KLNeBWzJH7r+zWiS8ykHApTnBlTjfNGF8ihZz7GkpBTa3xDW5rT/oLfyVQ5k
+Wr2OZ268FfZPyAgHYnrfhmojupPS4c7bT9fQyep3P0sAm6TQxmhLDh/HcsloIn7w1QywGRyesbRw
+CFkRbTnhhTS9Tz3pYs5kHbphHY5oF3HNdKgFPrfpF9ei6dL4LlwvQgNlRB6PhdUBL80CJ0UlY2Oz
+jIAKPusiSluFH+NvwqsI8VuId34ug+B5VOM2dWXR/jY0as0Va5Fpjpn1G+jG2pzr1FQu2OHR5GAh
+6Uw50Yh3H77mYK67fCzQVcHrl0qdOLSZVsz/T3qjRGjAZlIDyFRjewxLNunJl/TGtu1jk1ij7Uzh
+PtF4nfZaVnWJowp/gE+Hr21BXA1nj+wBINHA0eufDHd/Y0/MLK+++i3gPTermGBIfadXUj8NGCGe
+eIj4fd2b29HwMCvfX78QR4JQM9dkDoD1ZFClV17bxRPtxhwEU8DzzcGlLfKJhj8IxkLoww9hqNul
+Md+LwA5kUTLPBBl9irP7Rn3jfftdK1MgrNyomyZUZSI1pisbv0Zn/ru3KD3QZLE17esvHAqCfXAZ
+a2vE+o+ZbomB5XkihtQpb/DYrfjAMYICVzCCAlMCAQEwYjBSMQswCQYDVQQGEwJCRTEZMBcGA1UE
+ChMQR2xvYmFsU2lnbiBudi1zYTEoMCYGA1UEAxMfR2xvYmFsU2lnbiBHQ0MgUjYgU01JTUUgQ0Eg
+MjAyMwIMClwVCDIzIfrgd31IMA0GCWCGSAFlAwQCAQUAoIHHMC8GCSqGSIb3DQEJBDEiBCDWAViG
+cpvvUrknP2PGT8d1WUUEkE58y4YlJ78wY2Ot1zAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwG
+CSqGSIb3DQEJBTEPFw0yNjEwMzExNTIwNTBaMFwGCSqGSIb3DQEJDzFPME0wCwYJYIZIAWUDBAEq
+MAsGCWCGSAFlAwQBFjALBglghkgBZQMEAQIwCgYIKoZIhvcNAwcwCwYJKoZIhvcNAQEHMAsGCWCG
+SAFlAwQCATANBgkqhkiG9w0BAQEFAASCAQCVVE9QWNHgc7et6t1/pnG0VRttQ7Imd32mB1N8IO7m
+x28+1GLdof6IeUjyKfhhupCJLxhissr07YscVtjrJ64OwZ758ljB707SStQzExsEEglif9kZoSS5
+MBas1OWCNYsn+sL5FmHZA8BPU/CA68vtlVQDGkFwvIiSPrsoOp5Hm3Wv8hPvaV51OsPkVm8EQlVn
+YjQDGisX2ZYQK5Dqo4erpMh244Hde0VvoFbZseF95JmQe/VOLDrQCYqP9+/MYJ3iVVPZbFQX/67z
+lEKgdjVWzc7B0r0WakRawhYS/wA7svnlJXuWk5tT2PgMIu69Yr2bYZPu7MqsxAJCsYG6QnGW
+--0000000000003bad1f065f247586--
