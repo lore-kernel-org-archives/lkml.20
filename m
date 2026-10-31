@@ -1,94 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424426;
-	b=3hBEjcWOjPdv8Y9Af7Wy5ZI2mdqBM90FDK2mr6YFOTEpVviOG0kd5S0GvCdLF5bXAguZ
-	 W/wXza4ClgbPSWQ19uLQXZHc47YSI+6OKKjBBAzO6NcYPJ/5EixZa7aFXTpa9Tg7yxfeu
-	 MVm0PS6SrOmID9ZJwOiRwgybOiB1sbvFN0TSOVq2Bsg19czpwR76jklbq5GtjIfauw8sd
-	 kENoPPR/K3+zbX79nZxcqepyKK58z7cpDdOtRhepzt87xLEK8uWmLZaBse0vQ6fY3i8LH
-	 f5XZD96SRPL9FPbnDjoGnrW7HmUsTdIcecaF0rq0aOe8SsMYMeJptcMhHyZ3kzCVNPg==
+	t=1793424435;
+	b=iBRfT5INhtYZViTuCg0G6HVWMZNCSlNcbjONQ6H0yof+/FZLZ7LSt0O1oGnQym4FBNa/
+	 ftElf/8vAFsMfMX2Bdco2+b883xwsm/93UBGNjfe8daoSoyXOuTRJJTdS7yo4xwh1p0lX
+	 OGwn4EvTG2z6WCiN5zu8ineaQB6qVVJsDGJvyztF9W0uYAlwWnQw3+ZfarYQYsbImvHKM
+	 cdHJIkHymLI77VkiK8Vm4F6q4VsoaNC5SpZqEGWgZL7MfTIEVXry++tqJbVnDlooFhRjS
+	 36OFlnkzf8JdRCijVRFkl8SFVaQMc2STTnNRSIcb8BkgAv3SKGxem5xPCUmt0i2gQ/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424426;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=isOGI4FSzz2pUsIsYAWF5XAAN1W0PAaZ0EywmlG30g4=;
-	b=SrCuDEg9B03uVNZIbmWV1eFYjxJWf+qaK/EUUbNQaouoQGxVgRGThbMBGK18b8axH1I9
-	 cqQju/oWA/iONJxvswLgNHKzrcIG1XASbF0i1RPcuZqI8Jwo3m+MeeyT1M1uPBnELhyYh
-	 /ZUxjNJQdrj14ZvuQ0ZikkODQBylt7CEr4V4OohFWDuDp6hZLkuaCrqxe3hlAVZAyYndS
-	 5uqmcxSowL+MAKCw+IzU8kPFKd9f76vWkDV2xh6d2H5hdTXfkM64ONThbLrEuty2OCxCZ
-	 CtX0imvtyrB7yCwaNSYAJQvcdOiyhWf/xYvYZ0lnYOUnvp/D+XpijTYu+ngYk+z+NVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424435;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=sJ1i2sB19WjZsWpCLPMyCnOc+WH6sAraGwOCsPP3qWk=;
+	b=qBDtk3twiRZTXsni/Sk8ODqNUFdp6Bf+YR2HttBGw8gfFqxHzFIvtQOVuIx5cz81DeEf
+	 6cs7TGcG2+/+bs2NNmrPQIZaSVfphEMNiDMSl9hIFSo2O95wVFxl//QVuCgAvFI70q/W5
+	 9HS8rkCT/21lkWTMkgQMrA4EiDy6God5yEiEq8mC4CoURbbFsx7pVQql10i/zOGWx/v37
+	 xBT1vzbQBWic3B2rAc7CzjOGTFML8bB+cfm6+hrPpfJsYgnZw+jF1ZQkKlaIWNma1diFr
+	 vUX0+L5tJIaPYYIb3u/dbPYSoSJNisFCm4hx2eEheOxcngMvMUaNUKUmSZ9XP8NAQKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GxoOqM8+;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U6+0nqv7;
+	arc=none smtp.remote-ip=192.198.163.7
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F672606A321
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:27:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F672606A321
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD75C606A31C;
+	Sat, 31 Oct 2026 05:27:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD75C606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GxoOqM8+
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a2084d62cdso12212015e9.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:27:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793424425; x=1794029225; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=isOGI4FSzz2pUsIsYAWF5XAAN1W0PAaZ0EywmlG30g4=;
-        b=GxoOqM8+UOka0XeuWQsrQLSw7IONpuBV0WQ03BssM4B9qFVCLAlwi6auFbiQ1VbynE
-         8vxJDsSpbWi6WsYgp8gZQSJZj1DmxZV4txjyg5C8Un7oMRIv7i4U5sL24XAzq3wkZjH1
-         XqQ9vk54yjQQptQg8PSrTk9Y979O/KOM0uQ3lsPFN0IGlkHxfbt53LEkuKalhkeJHcEn
-         1MPfGFR+7L8ilMh+oTpwUoVOIdBtplS3iFqb9ORTRI1EYc6j8LEZpxQ28Qq+vBpDGQCn
-         Pdeo9v+n4N7QiqVKtMPIhSSISi0IWShXN9erB7Y0YyCxhC8Db8rU6Mnn0elmAFLpmptn
-         eqXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793424425; x=1794029225;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=isOGI4FSzz2pUsIsYAWF5XAAN1W0PAaZ0EywmlG30g4=;
-        b=UPUN6wStx7nLQL7W0jjL66qxJ+5RPItvTX7Mr6nap1NbqjhFpmcUcxVDlbA5l1wnmG
-         hkEeG+MhwX9dnOWJegiIUrdtZPjEetbwNmVDDyXmti7uMP0sY9mMZqn53Vyf1djVsnUT
-         EJFxCHtRVHaXwxDOnDtAs6pCOwKaNLFH92OrWNynXILH16uyjGmLWRJSr2E9InCaiz3J
-         Ic4iSD5Vr1hqzvn8b1ODUedYBnZrxekdHxRn/FYFbKpvo8jeBIm4+IZ+lHSdKE6BiOmf
-         MwbzYI4QEJ4IU7sKrMZZQtJ12A2bZbn4ia/21GJX8U8fnfN2pP1jv0YPcy8m1YGx5zyh
-         LN8g==
-X-Forwarded-Encrypted: i=1; AKwUvBwlLUkXcksSIpVeNYYE0jrapBlDTshyJgVNZ3+qkugcN0n/lyRzJ1lJfYkIlXFQgpJZXipZvLJQWKa/cw8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJMuVAr5YdZknRohBNekkjLdBEU3H4dbq4ztjVxILV++5zSPt9
-	zuId+qnbDqVymMsF3LlaO0cv7ZGzbYcCeu+WP80TQDSiVDBwGacSN9Cc
-X-Gm-Gg: AYBFou3oWNdc0SExTMo7RRGLb1lqlSbI44LK6Q2u7i3uqTpYb/qCplOvLZWSFqM7Mkc
-	JFJMlurkuOKH01uoZcqOAOZVaYrLAHj+ZFNu4jphnUM6aAdlflz0P1gu3Au4TXiBXE/eWJILr64
-	H2PkIcZkWVxJDFt1llEsGCOhGhphcPyLoDzzkGn1fX2YNbX9cMy4daxBifJxWGJeOm5YrLGW3On
-	y4LkOxBZvQ/taZ30DwxFXfY9OZR16EOiA0NfuHxJW/BpFAXdVcnLxf0/p1Xa2uLMV8A2CijP4iJ
-	18/JKhDx4tFrxPw4YjIaa5uCA7VTMjYantvZXMuDdqbfjFJC3fkn0K78AyV/Nf53V4F3SADI7fa
-	2DVon5fVwbykQl5LzcJNwp9jVoUdSG6Xrz1CUsglEn+oHsOwB1IAk5lfnXbrehn5gpGJnWPJ/6m
-	PB0ThkQrCVF6S/vIrSriPwpIHAnIl3MFx/QfmIPrFGRx20roFVkle9xWUd1gV1q39oatkyUJIt3
-	IRUANb94fkuzFq2ihvzZZIQLDZKiuJK0+bPtsnnsobolC71xULnGTCraDZETyiXCRK9ePsTeRWw
-	2ISSlvKVva4zfCnxslym64Uex6akCsnSy11eMD7ZjxB0
-X-Received: by 2002:a05:600c:1d02:b0:4a0:1c94:7042 with SMTP id 5b1f17b1804b1-4ac16bc4731mr105048385e9.8.1793424424687;
-        Fri, 30 Oct 2026 22:27:04 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4773:6f00:c8d4:ec29:293e:f39])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d2640sm180158525e9.6.2026.10.30.22.27.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 22:27:03 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>
-Cc: Will Deacon <will@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Waiman Long <longman@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] locking/rtmutex: Use EDEADLK for deadlock handling
-Date: Sat, 31 Oct 2026 07:26:59 +0200
-Message-ID: <20261031052658.2863067-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=U6+0nqv7
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793424434; x=1824960434;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=HorgvWPM7Wg7lJRLSZ/w7jpsG9fGBf5ZSc6uneNyf3A=;
+  b=U6+0nqv72QIpc2fEPdQxl37/PzV5q2/hD5yxHH5Pv2zSceIHN9INyYgS
+   GeWvVCoE+7qGre8nwfmQqLglY1uvkIhU4pp09yX2Y6uLM46IpmSBPEKPA
+   0uCt0gYW6u6vR7CFequC9rX90OuIBAPWsoB83tgGBGmhVHAZLckcm0ql+
+   usgS672L6VWm6s8Dx48tBpxmcn+mM3CO1PY25R2H4dZThy0dE3pDB7aSG
+   gWxwjQ9XR1H98x/M9xXAi9wl6HxxGvk6gFTBTlsiavg/f6LNfnKEBee0E
+   HmaPzgHhe0vWc0U2oEQV1T/mRg/684wkVcrr50KMbGuPY2rTb9Ef9tGma
+   Q==;
+X-CSE-ConnectionGUID: lNvTJLG9S6OJiniS+MJQPQ==
+X-CSE-MsgGUID: G6RzzXZXS7Ke5PYxO+gsDw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2069153"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2069153"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:27:13 -0700
+X-CSE-ConnectionGUID: CpMzmVyzRTmwuefiKAjO9A==
+X-CSE-MsgGUID: uS7oy4RhQLqJhtXiqh+oLw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5994163"
+Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 22:27:08 -0700
+Message-ID: <7b059c0e-3b60-4d8c-b7d2-7dcb89a51c6f@linux.intel.com>
+Date: Sat, 31 Oct 2026 13:27:05 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,49 +72,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>, Robin Murphy <robin.murphy@arm.com>,
+ Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 05/18] iommu: Implement device and IOMMU HW
+ preservation
+To: Samiullah Khawaja <skhawaja@google.com>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-6-skhawaja@google.com>
+ <df75f891-05a0-4d47-8705-d6a00c81ff97@linux.intel.com>
+ <auTzN4NWuKsBvIZU@google.com>
+ <51b23019-8ac2-4f6b-9be7-29f3635b472e@linux.intel.com>
+ <auVfqaDhk25JUkYd@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <auVfqaDhk25JUkYd@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-rt_mutex_handle_deadlock() checks for -EDEADLOCK, but the rtmutex
-deadlock paths return -EDEADLK. These values differ on MIPS,
-PowerPC and SPARC, causing the handler to return without entering
-the intended warning and scheduling loop.
+On 10/31/2026 11:39 AM, Samiullah Khawaja wrote:
+> On Sat, Oct 31, 2026 at 11:04:22AM +0800, Baolu Lu wrote:
+>> On 10/31/2026 9:45 AM, Samiullah Khawaja wrote:
+>>>>> +
+>>>>>  #if IS_ENABLED(CONFIG_IOMMUFD_TEST)
+>>>>>  void iommu_device_unregister_bus(struct iommu_device *iommu,
+>>>>>                   const struct bus_type *bus,
+>>>>> @@ -626,8 +668,8 @@ DEFINE_MUTEX(iommu_probe_device_lock);
+>>>>>  static int __iommu_probe_device(struct device *dev, struct 
+>>>>> list_head *group_list)
+>>>>>  {
+>>>>> +    struct group_device *gdev, *gdev2;
+>>>>>      struct iommu_group *group;
+>>>>> -    struct group_device *gdev;
+>>>>>      int ret;
+>>>>>      /*
+>>>>> @@ -661,6 +703,13 @@ static int __iommu_probe_device(struct device 
+>>>>> *dev, struct list_head *group_list
+>>>>>          goto err_put_group;
+>>>>>      }
+>>>>> +    for_each_group_device(group, gdev2) {
+>>>>> +        if (dev_iommu_has_preserved_state(gdev2->dev)) {
+>>>>> +            ret = -EBUSY;
+>>>>> +            goto err_free_gdev;
+>>>>> +        }
+>>>>> +    }
+>>>>> +
+>>>>>      /*
+>>>>>       * The gdev must be in the list before calling
+>>>>>       * iommu_setup_default_domain()
+>>>>> @@ -697,6 +746,7 @@ static int __iommu_probe_device(struct device 
+>>>>> *dev, struct list_head *group_list
+>>>>>  err_remove_gdev:
+>>>>>      list_del(&gdev->list);
+>>>>> +err_free_gdev:
+>>>>>      __iommu_group_free_device(group, gdev);
+>>>>>  err_put_group:
+>>>>>      iommu_deinit_device(dev);
+>>>>> @@ -3543,6 +3593,26 @@ bool iommu_group_dma_owner_claimed(struct 
+>>>>> iommu_group *group)
+>>>>>  }
+>>>>>  EXPORT_SYMBOL_GPL(iommu_group_dma_owner_claimed);
+>>>>> +/**
+>>>>> + * iommu_group_is_singleton() - Query if group contains exactly 
+>>>>> one device
+>>>>> + * @group: The group.
+>>>>> + *
+>>>>> + * Return: true if group contains exactly 1 device, false otherwise.
+>>>>> + */
+>>>>
+>>>> We discussed this interface before, and the consensus was that such an
+>>>> interface is not feasible, because the membership of an iommu_group is
+>>>> not fixed, given the hot-plug support of buses like PCI.
+>>>>
+>>>> I am fine with the usage model of ensuring the iommu group of a
+>>>> preserved device to be a singleton, but I don't think we even need such
+>>>> a kAPI. It should be handled case by case.
+>>>
+>>> The iommu_group membership can change, this is why we check it in two
+>>> places, both under group->mutex:
+>>>
+>>> - During preservation we check that the group is a singleton, and check
+>>>   again after setting device_ser.
+>>> - During probe we refuse to add a device to a group that has a preserved
+>>>   device.
+>>>
+>>> So if a device is added to the group while we are preserving, either the
+>>> probe fails because the group already has a preserved device, or the
+>>> preservation fails because the group is no longer a singleton. Could you
+>>> please elaborate what you mean by handling it case by case?
+>>
+>> I am fine with the singleton-group checking logic you described above,
+>> but I don't think we need a helper like iommu_group_is_singleton(). It
+>> drops group->mutex before returning, so its result may already be stale
+>> when the caller uses it. That makes it easy to misuse in the future.
+>>
+>> I'd prefer to open-code the check where group->mutex is already held, as
+>> iommu_attach_device() does today:
+> 
+> struct iommu_group is private to drivers/iommu/iommu.c, and
+> iommu_preserve_device() is in liveupdate.c, so open coding it there is
+> tricky.
+> 
+> You are correct that it drops the lock before returning. That is why I
+> recheck the singleton state after setting device_ser, which handles the
+> race.
+> 
+> I was thinking of adding something like iommu_group_lock() and
+> iommu_group_unlock() for this, but the number of devices check also
+> needs struct iommu_group definition.
+> 
+> To avoid misuse, I can add a comment on iommu_group_is_singleton() that
+> the result may be stale and the caller must recheck. What do you think?
 
-Compare against -EDEADLK to handle the actual error.
+I would suggest something like this:
 
-Fixes: 3d5c9340d194 ("rtmutex: Handle deadlock detection smarter")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- kernel/locking/rtmutex.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+size_t iommu_group_device_count(struct iommu_group *group)
+{
+         size_t count;
 
-diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
-index 5a9534c715b8..e968e88834d8 100644
---- a/kernel/locking/rtmutex.c
-+++ b/kernel/locking/rtmutex.c
-@@ -1229,7 +1229,7 @@ static int __sched task_blocks_on_rt_mutex(struct rt_mutex_base *lock,
- 	 * enqueue on itself just to untangle the mess later. It's not
- 	 * only an optimization. We drop the locks, so another waiter
- 	 * can come in before the chain walk detects the deadlock. So
--	 * the other will detect the deadlock and return -EDEADLOCK,
-+	 * the other will detect the deadlock and return -EDEADLK,
- 	 * which is wrong, as the other waiter is not in a deadlock
- 	 * situation.
- 	 *
-@@ -1684,10 +1684,10 @@ static void __sched rt_mutex_handle_deadlock(int res, int detect_deadlock,
- 	__must_hold(&lock->wait_lock)
- {
- 	/*
--	 * If the result is not -EDEADLOCK or the caller requested
-+	 * If the result is not -EDEADLK or the caller requested
- 	 * deadlock detection, nothing to do here.
- 	 */
--	if (res != -EDEADLOCK || detect_deadlock)
-+	if (res != -EDEADLK || detect_deadlock)
- 		return;
- 
- 	if (build_ww_mutex() && w->ww_ctx)
+         mutex_lock(&group->mutex);
+         count = list_count_nodes(&group->devices);
+         mutex_unlock(&group->mutex);
 
-base-commit: 2a500a04d6f969318c05f46aedb6e73fc1963a00
--- 
-2.43.0
+         return count;
+}
 
+and, add a comment stating that the device count may change after the
+function returns, so the caller must recheck it.
+
+Thanks,
+baolu
