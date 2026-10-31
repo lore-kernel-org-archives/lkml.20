@@ -1,72 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.92.76
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793443648;
-	b=LFwmOeYcAHLLD666Y5HA3UvacbVXqWlpgQXYwIkeHqHbiwFZpYXzCBb7QlVFvN727DbV
-	 vlgyzQZoHcZHlrLxGttCF2PLNYS6W4ZRRsmfx4TAWlAis9kXjxCCq1l3K7O6RZYMHKzPN
-	 m6NyqgZjz557zox/8ixhJq0B7VTEZDdKA/BsDzEZ0/ZxmBxGdLDpJ7vmdNCxQpnxrpMND
-	 ZRN/iESabDnfo/7Bjh04xuZE6oF/9BO/IpuFzjEAMdygOChSzkJLDyGIQ1vGY+EUN9E1g
-	 URCFeaYij8LpUPh24moIz4O+g6uQgNHrgI1m96QA2wj+SzapfQ7tTNTuiZe1cS9XY0A==
+	t=1793443785;
+	b=abseWPdSejLXZ6v4mlv0qB0tuY77JMiuoIRM1FM5Z1ZGIySpgtV4byKQuf5Acpk9+1Hn
+	 OuqYvOtyp6OwX/UOzOiDbvo09de/XawPRmoAlAdBp4IxYzxe579Si3n7m9bN/Y2VNfPsx
+	 psLs3RYcbVS2U5sl5CLDM/WwWk3F2NkgbpEVHAGuoaHdYHRc+Qky7fMjJExtpGHDup4yu
+	 UmKAjstHIXVs8IGqWXd90r0cB8kHV/Q0VyThqt7USuQlQwjv5af5PcqnytAnbnU76i0lF
+	 huy5dlkv20Gt1UUBR9s88A1bx6uxXXLVYIoHHEa1jmOE57x/p6G/DIuUPicpHlKpEWw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793443648;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=iucrU4+p03FdCSZRLTlZqxKot7H9SPLlZsWdSw2qG/I=;
-	b=D85My2+Z23/aBdzlKe1+0T5wJ0qwyzdULcHkYOGyeeCBTXs1g99cqLSd60le9XFwdSrg
-	 yE8j1PKMH7Xng/CvjbRuO1SDINi7Z7RObPPnZ8uigvozQyjdLUtvj/TcuTm07NklM/9JA
-	 bVH8ydV1kGOkG2uT3E6VFMQksPyehxeRtCQK8Sxh82WdcUv/FjZe66g8PuN5WV3+fcba5
-	 A+jB+RO0/Mk7C2NJAcrt9VY5L6uzufOVIa+35kK0/G/UZFhdDmOdaTkLJZIyg9rj3FihU
-	 +IsUj24FW3TL6Zc458nzRjm6/jCYxV9cwMbyBcn2oEMZOato83cuZV93MheQY5Vr7mg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793443785;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
+	bh=Pem4c/xVlXIJMXRu8hbS7XQANQwY9xNX3xjHyyNsujU=;
+	b=igWrGWPr7J2eWrdy3xvfAV6fUuQR+NknnaELoM7U9cd8/qzytQSREDrLgQy6kkGxA/tm
+	 OqjhYRlxSF04k1JuAnay/rKaT4Cnp3ZzzbqvfVTb4D0/nN6ErvXF+OqiBIpljQjK+3X8h
+	 si+IlZkQgIPbB5NbspgUO1Sa/6VgCM9sC0tKcEUexHNsDwXR855nYgnrYyDELZahj1TiK
+	 kGsyvIs5j1GWFRL9G7D1AF+xWIjsXKLpONYWUq92MXZEcTOEaGtgI9LvwHjfNLGne+nJ5
+	 XJ/YhTG1QLKcpVLp4XB8gOj1gonfzwxw5DeFghcPfViqZF21EiNitPzlyrjDfJDIV5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=rojer.me;
-	spf=pass smtp.mailfrom=rojer.me;
-	dkim=pass header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=P2P4M2Gl;
-	arc=none smtp.remote-ip=88.99.92.76
-Received: from mail1.rojer.cloud (mail1.rojer.cloud [88.99.92.76])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wkQOT8xc;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B62606A32A;
-	Sat, 31 Oct 2026 10:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58B62606A32A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=rojer.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rojer.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9C5C606A31A;
+	Sat, 31 Oct 2026 10:49:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E9C5C606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rojer.me header.i=@rojer.me header.a=rsa-sha256 header.s=main header.b=P2P4M2Gl
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=rojer.me; s=main;
-	t=1793443645; bh=zziT8oTPD4AQbDCFBxBFdylEyOghbRAb6UI2zN+f59c=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=P2P4M2GlSWdaSPg6pGYMiB5IyL7goD5Ic+AQcYkTTBGyP7FRVCG2k7PMGWDxoVhs/
-	 pBogQxOa7SAJpKIYKSnpCCpysr3j+DNe28o1Pg+OTLSd9yxKEvL3Aq/2ZKpKP46+XC
-	 ZT2xJ8hMHy8cadJ2JpWcbUc/ntkvtxUB5cm6u5nkI6XfBqWwBheOSFH04XIS1qgX9H
-	 iQnqR/VYl1z/5TFkQzOHp18xG2AuLeZqJ8DOT6FHay4NOrfs4C1riK9ZQyC30nApft
-	 BowFsqx5fwBiJMoNqFvUzmWOuesora48+/t6ACv8txvMiA2bZZXSp62RFrYMomc5/j
-	 UF1eJZEcR2lzw==
-Received: from nbf.rojer.cloud (unknown [85.98.52.16])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by mail1.rojer.cloud (Postfix) with ESMTPSA id 10D8D2168D;
-	Sat, 31 Oct 2026 10:47:23 +0000 (UTC)
-From: Deomid rojer Ryabkov <rojer@rojer.me>
-To: heiko@sntech.de
-Cc: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	jin@mediatomb.cc,
-	shawn.lin@rock-chips.com,
-	jensenhuang@friendlyarm.com,
-	Deomid rojer Ryabkov <rojer@rojer.me>
-Subject: [PATCH v2 2/2] arm64: dts: rockchip: Enable SDIO Wi-Fi on NanoPi R2S Plus
-Date: Sat, 31 Oct 2026 13:47:14 +0300
-Message-ID: <20261031104714.3271017-3-rojer@rojer.me>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031104714.3271017-1-rojer@rojer.me>
-References: <20261031104714.3271017-1-rojer@rojer.me>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=wkQOT8xc
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 074561A13F2;
+	Sat, 31 Oct 2026 10:49:40 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B225460771;
+	Sat, 31 Oct 2026 10:49:39 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id AD62810329038;
+	Sat, 31 Oct 2026 11:48:56 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793443772; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Pem4c/xVlXIJMXRu8hbS7XQANQwY9xNX3xjHyyNsujU=;
+	b=wkQOT8xcyHQMWB9OEmtZKxKhcla8pzW8jvSZA/x2hal0q4bLz0JU8/AbA0mawe0Dw0DjnF
+	smQsxRHd8gGm24wPOPzLXmCZOappY+s574tn+Ot15X2CQkrhTntBbO7WXDMyU49KLQRkPK
+	h7j1KZhmVf/R/GTl4Nzp+pwdSzjR8YnlT4C4yRqR8NJdg7sSMxL2polFsLUci29G6I7az2
+	G7ZI9YBVzBbECQbXbEM5LUBOA60ZJjLIvJem/gBhbilhA1IJfKFkoP2+xvNFFD3XbHemx8
+	LfFG9kdrLGcZHm6vFXW8AM+Avi0U48paCXRSVpt60+sl7VTB7Aq1IEg3H56QDA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,105 +59,124 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 15/35] drm/bridge: anx6345: set the panel orientation
+ on the connector
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Douglas Anderson <dianders@chromium.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
+ Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
+ Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
+ Seung-Woo Kim <sw0312.kim@samsung.com>, 
+ Kyungmin Park <kyungmin.park@samsung.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
+ Paul Kocialkowski <paulk@sys-base.io>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
+ Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
+ Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Purism Kernel Team <kernel@puri.sm>, 
+ Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
+ Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
+ Michael Trimarchi <michael@amarulasolutions.com>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Michael Tretter <m.tretter@pengutronix.de>, 
+ Cristian Cozzolino <cristian_ci@protonmail.com>, 
+ Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
+ Nickolay Goppen <setotau@mainlining.org>, 
+ Stefan Mavrodiev <stefan@olimex.com>, 
+ Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, 
+ Alexander Koskovich <akoskovich@pm.me>, 
+ Markuss Broks <markuss.broks@gmail.com>, 
+ Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
+ Dzmitry Sankouski <dsankouski@gmail.com>, 
+ Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
+ linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
+ linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
+In-Reply-To: <20261026-drm-panel-funcs-v1-15-5e3070a3478f@oss.qualcomm.com>
+References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
+ <20261026-drm-panel-funcs-v1-15-5e3070a3478f@oss.qualcomm.com>
+Date: Sat, 31 Oct 2026 11:48:44 +0100
+Message-Id: <179344372467.9825.11469688608855257522.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 
-The NanoPi R2S Plus has an M.2 E-key slot wired to the sdmmc_ext
-controller in 4-bit SDIO mode, where FriendlyElec fit an optional
-Fn-Link 6222B-SRC (Realtek RTL8822CS) module:
+> The panel is used directly, without the panel bridge, so nothing sets
+> its orientation on the connector apart from the workaround in the
+> get_modes() of some panel drivers, which runs too late.
+>
+> Assisted-by: LLM
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> index 407834a03b63..91ce1a877bf8 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix-anx6345.c
+> @@ -525,6 +525,11 @@ static int anx6345_bridge_attach(struct drm_bridge *bridge,
+>
+>  	anx6345->connector.polled = DRM_CONNECTOR_POLL_HPD;
+>
+> +	err = drm_connector_set_orientation_from_panel(&anx6345->connector,
+> +						       anx6345->panel);
+> +	if (err)
+> +		goto connector_cleanup;
 
-  - SDIO signalling at a fixed 1.8V (VCC_18)
-  - WIFI_REG_ON on GPIO3_B0, 32kHz sleep clock from the RK805 CLKOUT2
+Muy understanding is that this driver, and those in patches 15-21, should
+be eventually converted to use the bridge API instead of the panel API, but
+that's a significant work and so for now this small change is enough to get
+to patch 22 (workaround removal).
 
-Enable the controller and add the power sequence. The SDIO pins need
-8mA drive strength for SDR104 tuning to succeed, as in the vendor
-device tree [1]; with the SoC default of 4mA no sample phase works.
+Correct?
 
-On boards without the module the controller gives up after about 0.2s
-("mmc2: Failed to initialize a non-removable card"); nothing else is
-affected.
+Luca
 
-With the mmc core change for the module's CMD11 handling at a fixed
-1.8V [2], the module is tuned to SDR104 at 150 MHz and works with the
-rtw88_8822cs driver; without it, it runs in high-speed mode at 50 MHz.
-
-[1] https://github.com/friendlyarm/kernel-rockchip/blob/9238df9d21e835bba35c8ba5248784387936cb2e/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2-rev24.dts#L144-L172
-[2] https://lore.kernel.org/linux-mmc/20261030142224.3183407-1-rojer@rojer.me/
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
-Signed-off-by: Deomid rojer Ryabkov <rojer@rojer.me>
----
- .../dts/rockchip/rk3328-nanopi-r2s-plus.dts   | 55 +++++++++++++++++++
- 1 file changed, 55 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-index 6ba4a74cb1f..a25421f5851 100644
---- a/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3328-nanopi-r2s-plus.dts
-@@ -17,6 +17,15 @@ / {
- 	aliases {
- 		mmc1 = &emmc;
- 	};
-+
-+	sdio_pwrseq: sdio-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		clocks = <&rk805 1>;
-+		clock-names = "ext_clock";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&wifi_reg_on_h>;
-+		reset-gpios = <&gpio3 RK_PB0 GPIO_ACTIVE_LOW>;
-+	};
- };
- 
- &emmc {
-@@ -34,3 +43,49 @@ &io_domains {
- 	vccio4-supply = <&vcc_io_33>;
- 	vccio6-supply = <&vcc_18>;
- };
-+
-+&pinctrl {
-+	wifi {
-+		wifi_reg_on_h: wifi-reg-on-h {
-+			rockchip,pins = <3 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
-+	};
-+};
-+
-+/*
-+ * SDR104 tuning fails with the default 4mA drive strength, use 8mA like the
-+ * vendor device tree.
-+ */
-+&sdmmc0ext_bus4 {
-+	rockchip,pins =
-+		<3 RK_PA4 3 &pcfg_pull_up_8ma>,
-+		<3 RK_PA5 3 &pcfg_pull_up_8ma>,
-+		<3 RK_PA6 3 &pcfg_pull_up_8ma>,
-+		<3 RK_PA7 3 &pcfg_pull_up_8ma>;
-+};
-+
-+&sdmmc0ext_clk {
-+	rockchip,pins = <3 RK_PA2 3 &pcfg_pull_none_8ma>;
-+};
-+
-+&sdmmc0ext_cmd {
-+	rockchip,pins = <3 RK_PA0 3 &pcfg_pull_up_8ma>;
-+};
-+
-+/* Optional M.2 E-key SDIO Wi-Fi module (Fn-Link 6222B-SRC, RTL8822CS) */
-+&sdmmc_ext {
-+	bus-width = <4>;
-+	cap-sd-highspeed;
-+	cap-sdio-irq;
-+	keep-power-in-suspend;
-+	mmc-pwrseq = <&sdio_pwrseq>;
-+	no-mmc;
-+	no-sd;
-+	non-removable;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&sdmmc0ext_clk &sdmmc0ext_cmd &sdmmc0ext_bus4>;
-+	sd-uhs-sdr104;
-+	vmmc-supply = <&vcc_io_33>;
-+	vqmmc-supply = <&vcc_18>;
-+	status = "okay";
-+};
 -- 
-2.53.0
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
 
