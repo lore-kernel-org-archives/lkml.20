@@ -1,97 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793458851;
-	b=0Rg1ImggdkRXBjHUVM2xtYtUimrh1JBxbQ6GNPFZswAnaW851/uzcJohXymP3U0KZV1O
-	 p2LZp7TemJaArtXWZu5/l5+5Nvr4qMqcTyc0mkAvI9AkcDoQoOmfzaFuF0E3r/0XWEFEr
-	 3DZrZrqX7vru/r9FckpQOM/BN3KHBaX18TP/Y2bujoyzKDfrZvCcP2oWUKVNc6bVhgfWP
-	 /KDdo0gK4UUCYiebP6Cwt5VgoQW0fRvE3dSFycq9W5j55NjbJCgc1wY2hEWGjq2Nop7kN
-	 Mf8ryR4pZe5QkWtUVbKNeXtAFbwo9DaFdPoduIPmq+h7+Mx7fq7ha8i5geElIs+CUag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793458851;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=09+pBcrXi+iTTD3FgzSbL5gpjXpztADXxpLWc8Woroo=;
-	b=wqr5aThAPNaGYd0TSMKoKNSZl/OX75VdBgIAtCofx4ZP0zbJhsrbVruNu4Oakcnl/BJu
-	 cJeEJCRVMpMfYpxklKaw03x7tTXzJG2cJX3kR4gnf0uXFkhvKrr4a1uyY+LItV+FhgpAC
-	 yMnfDJbiwkamyuLwCr+Umjt1fS2Pff8FtF/s3gFfwK0OS+cqXtRqzXV+9VdVShI0BO5DU
-	 tqPYrEayZB3DpWgccqGvJgbJb0ZcWG4/PMYT85Dufxm2PtGiV3MtRX0IJmyloOFf5hKHR
-	 pqWq6TNi4PKy3iRzS0ZC6gQxGYo5GL9LQ9JEHySKDPzsmQp6KD1Sjp5Mh8re8TF6Ilw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=J+Gj0tuk;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.228.112
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11020112.outbound.protection.outlook.com [52.101.228.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4920F606A31C;
-	Sat, 31 Oct 2026 15:00:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4920F606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=J+Gj0tuk
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w7S8TXuySUWr3VCXGHkBwCv4jplaV7gttT/BHh3IM03OdZGey19Wp5Yw0p9gEHM7zy2WH8zSsmOZFLjh3hOTkAj45BoUj/1mw5FIgp8W/ciwIg9vHW7AsrAxGnF4ehkiUQyiA2z1uHnmd4BSZN8UA++TE97kHncLicWAR/6FqRaZcGhbEg8EJNTzrc9p8zxqZgJdFUW8SoX2WCob4E9xUb90EODdc8JuErmYTjG0XMVO5WU6+DRh60BJL65M8ZOjyO5s3QIXtjf2n7JKuV5+IWVSwLAMSTLHfVUSGi3yqYG6ymiCL2AWv3DFlAQymb2SbtK+J6q++CJB3URiq6ZIMQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=09+pBcrXi+iTTD3FgzSbL5gpjXpztADXxpLWc8Woroo=;
- b=p5ptdTVOZEVDIHG7zUO1EbD8GpxcXzK8YciplTIqXh6Y8U22eGrNm0Sda7ZqXh3+eQwXLUw7rrlSYPy1qsATO4+eq8IukNyZAUsD902xKrHm4P2LrQhvz62EIdn+7QuLH9VLWZTMwi1cq5xh5F/hNMGSFJFW40UhVbfl4/CCfYOZfsUqRuENfOOfaGjAFum9CuZJ8hJcJvUr6/xpyG6ajQVBjLUpuNw9unLISDNm7wSsAGvZDq6ri51KoSuX1dCzVEbVt6taSTmpPh3Xnnzrj9YuRxH7elE3vP+vuCC7s694xx8pgSBm6KsV93RKjnhI/bFUEsxo+8DYROAjWCC+GQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=09+pBcrXi+iTTD3FgzSbL5gpjXpztADXxpLWc8Woroo=;
- b=J+Gj0tukHXicsWWeoXiTiTcQvq0bDHHYFM4DBPKYzyJ0kV5i0baO6l382EcbQcCv2EHJsEZgl7RwK23wWowBUfFdK1ZlOa3Jz8m67g1wKJj1jZmHUIfkD7S7Y4qiDoD7RWEyZunuO+BVqQB7aG9ZRMFDjKkYu4pjm8N+4zCGPrA=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TY3P286MB2771.JPNP286.PROD.OUTLOOK.COM (2603:1096:400:257::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sat, 31 Oct
- 2026 15:00:47 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0569.010; Sat, 31 Oct 2026
- 15:00:47 +0000
-Date: Sun, 1 Nov 2026 00:00:46 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>, 
-	Serge Semin <fancer.lancer@gmail.com>, Cai Huoqing <cai.huoqing@linux.dev>, 
-	Niklas Cassel <cassel@kernel.org>, Devendra K Verma <devverma@amd.com>, dmaengine@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v6 2/5] dmaengine: dw-edma: Reclaim LL entries from
- hardware progress
-Message-ID: <rggq7a5lcvqshd6wu7qubo4f3b3qxgyp32qwiyytkrvpoat4vz@xcl3lbatl5hc>
-References: <20261030150742.2586776-1-den@valinux.co.jp>
- <20261030150742.2586776-3-den@valinux.co.jp>
- <auTL2mHwCt20uhII@SMW015318>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auTL2mHwCt20uhII@SMW015318>
-X-ClientProxiedBy: TYCP286CA0266.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:455::19) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793458929;
+	b=mQ2geEZstcKb7Wcv730mI3N7SQ+0zasD1b9rYfiQNT1VuOPnUNH4T357ckCZavQWJHS5
+	 G40kPhT+qh4p60V0oJnevvadsWPcpJ7BkcJWOyNrgD6N6rWOn/QCYm5qX4cHZxbsF0Db5
+	 dtw3mhyN/J0Zx+RXIMrvOYbmK3dQG9Gh9wuBtSJEam0JY76gTtpJXUK0Sm6ytQWIir/+l
+	 H4yNwWluFXH1La0dEz187QKwmDJG0jYw24QyDDRH4FHG/WKQIaCiNrQ+/mGfX0L7QSIjx
+	 kGhkLPjZeXJAT7FxXiZq5fT2nAEyQtrmWIOL00lHzAWassgcANxPHCuxLoVNSckw9aA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793458929;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=5P5NGlEJXNEaDlXRF0TopP/kS95CMHEOark3g9yDUVM=;
+	b=AG8475qaw8qmvzjaWWyQioXWIs1LqOhT1JeT33uxFh1gARoSZdoqn8XzEhmh/8qUuMk7
+	 nq0bZvhZPDaHbxUuy41qgqlvRQpoDDaVENAbvskxuekaeVCSfMcF8CyOm+DFc9iCpEr7I
+	 DEJTZchq0mZLp0N1u1quaDJGtHk7WReGaCXCk329yOJt7kAa1E+VcoioLlNwn7LYhmUm4
+	 1rIsug7d1A0VbBJy/xwh4VT2uP/W5qKOfa7P3Nb2SxUM+9kkho1kYiG68YztFwsDhDZph
+	 NpsXrLn8ECRUZqSNzLQsT/LJtiTqGmNk9oq7grvNd6gdcJuqtWx9btYctswUCnVQEoA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3899E606A31A;
+	Sat, 31 Oct 2026 15:02:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3899E606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=5P5NGlEJXNEaDlXRF0TopP/kS95CMHEOar
+	k3g9yDUVM=; b=vVaXAPgm2kkqfBTHTLiRo36Qf3o6gcbFYEDH4r+DWZWh8qVsu3
+	JkYyQyVG7ilmaaxXjcJbvI4ddRWyVdtIH+RjYZYSF3/MAjc8hGmK8+jQxDOE/4GB
+	LtEtr+38+1U4Jj9PH9G/5EmBsG7JLFx8Do8YCIna10RdmKDR2HpMeGne4=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgA3uDziAuZqpyJvAA--.1475S3;
+	Sat, 31 Oct 2026 23:01:58 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-usb@vger.kernel.org,
+	linux-devicetree@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 1/2] dt-bindings: usb: snps,dwc3: tighten the two-connector shared HS bus
+Date: Sat, 31 Oct 2026 23:01:53 +0800
+Message-ID: <20261031150154.1106455-2-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261031150154.1106455-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261031150154.1106455-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,367 +63,204 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TY3P286MB2771:EE_
-X-MS-Office365-Filtering-Correlation-Id: 636db6ff-254c-4134-c7ab-08df375fbeda
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|10070799003|376014|7416014|4143699003|5023799004|56012099006|261009223027099003|261028144727099003|261026135527099003|261026121527099003|261021121427099003|261021123027099003|261026140227099003|261022105027099003|10067099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	e/IT61BNamTLeUWou5OgqHlbQ1H9NA0UeRq2u0MaP3wpXn1CzqGTZYmuGCWo7ac/ufMrQnMqouLqoRxUHddxTFRtiwEiQORZRzBcU6pKT2WKA9tNg94g1b4GdlCiUnrcF27+Y0gwjQ8BXVmghoHAci0hkUVVjkNGY1U9gvh+0WW6gXPFUBN9sVNILsIsHDLlRVzB+0vhZq28BJblfG5+dwQ8V9ITrgT1I5+BCDTXmt8RWd0dF0ayFaIP4kvunTPfhEZ1AP9C28loewQcw2i1IviV7ZFhgAk4jJWkpNg11vDGZIpMwY5pgu83bZAK088Kwadworw+R+8KvFT1/6einZ6IyxK4jSfjp4FI5dOYbFjUAX0ljIo+5kOfHGY5XEtoo+ibKFGnnAS5MJXN2thDpsYY5PhGtGXQbWT7PtkhoaIAbYIwtRErEotsezVWbHHxnam8QNRu2kazuMD7PO2aYm9+zxzDs+GpmAfegp72bKayVLNqao+0jmIPr6Fjm6KSZoA9kAAiI1gBZHQc7IbXcGCE9Kvtf0i3isPDbaqzgBGJWVyzboD/V8avr1H69sNNy9RGSzyJKHuRET39wV+dt/eWGKXlJUy3WJIBiv32yDifeHgBF83mV1suKnqFytC3
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(10070799003)(376014)(7416014)(4143699003)(5023799004)(56012099006)(261009223027099003)(261028144727099003)(261026135527099003)(261026121527099003)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?bplHqT13Qy7QyImCHlMfBiGbdVIYPL9fSmDna5rSyTSNNu1wCPUhNdjrBUEi?=
- =?us-ascii?Q?88uoL9CChZ5q9j43TLzs+haiEeM20olW6mFY8III0UMdpvhyDxnwtdeTQ/Zd?=
- =?us-ascii?Q?Hg/DKjMTMqX1mIpBcjDvHmt0DumbRzXbPVcD2f719WWd3d8zzVqrY8jr+bGH?=
- =?us-ascii?Q?xxMsrtMOACKiPOx1AnXg9SeHEGtWUiCLu4av/ZpeudqOFT0fKuXh0Wnqy0rR?=
- =?us-ascii?Q?hocy7D1VD3NsncTvSMzOqJAp+EmPdNRU/mzuEW6PFn/y7ZL2vXI8fY20zw+q?=
- =?us-ascii?Q?JT+5E+1bGS+lkJ45vEwbAKZ6xBKhwUfw+UWr5ipQz4te20ZRvQJp34lE4uzN?=
- =?us-ascii?Q?Qrb71uZAsHZJ+UUmuh+mVoUpZr+yut4iCqsB+z9AhVo8SLQqZtrwwspbBQFp?=
- =?us-ascii?Q?C3QV5B2GdjIKxGKBsbGmn4ntWHYhAX1+LOAWU8yQxDwvODX13r2ayE9Mdx3+?=
- =?us-ascii?Q?jv+PN1Ts3/1/WbG39hey2pASBQ0inaumC8QKxD2U7PCOG8U00cAAq2TfbC9d?=
- =?us-ascii?Q?sgqTakuGtsuiFNdDjZobDT41erE7vc81kvdXwjj02Y+FubYPaKlW5jPykWFB?=
- =?us-ascii?Q?Mbf7B1bgqOK97euhNB5T+pvMj+bMEL8SC/V8r6KlNJkwNLUQXRF4T6dufefX?=
- =?us-ascii?Q?vhB6BNzCLglmYJkBNEzuhVw1zZH8JbkoFHdpSrPBoFWi5bpk/sq0NF8V29/v?=
- =?us-ascii?Q?DFsVCWdiB3w+YHFpIqU+i9cVhkJQzefw/CWiO35ObJWDgfw1mtN4agYwUtC+?=
- =?us-ascii?Q?JrSf4SZmsCPE/pHSCujDIESXIEMZ6HNLFheyNQ9XYG9LPiintObO9++xgXp0?=
- =?us-ascii?Q?TU3zO099zRSC7ySIgNmMtu3chubtGWM2hcHeBro/z1UZKn9e9uVKMjiMq+j1?=
- =?us-ascii?Q?D8J03y3zeb0Gyvi4Rb6UuMT4zNW5VcLnM0O+G4n0mmjeXvb+vNNd2ejhL0xU?=
- =?us-ascii?Q?MID6UFg6vCO+bhhJ0QYWtRcgwhIyEcMguJKh1uzXeQPD/9ia2HQuFhmG1jv9?=
- =?us-ascii?Q?F90+NnMEOnenpsc4YtX9sf18xxBBCOgxA9OqQRiMyzlgpAJtacXBc9f7ZoS4?=
- =?us-ascii?Q?GipFv+tH+DZ8+KTtbDOnXVE5POhi0rxu97eGaY2COzPeE3p8vtfLJHUV//lz?=
- =?us-ascii?Q?yc2K6T9opf/tmskQ9B/QgT09MKHv6ziroxkEmJvl1XX9mQQC/XnOfKZcaqHY?=
- =?us-ascii?Q?lBJS6WnL1RItchXd7sCchdfgS2JxeI31XgxEVLR7k9I5D3MU6W5QpK92Qx3B?=
- =?us-ascii?Q?IMRgtFM0rmRKtOpEwqLbDjQI/kd0sFtQwzRFW2pbJIsqMNgDdDG377400FHk?=
- =?us-ascii?Q?3LTBRw9onXF4XZiSKVhhg+XRlN8q+US9Cm2VH941jNvYrfwDrxUVH9RRP3Wv?=
- =?us-ascii?Q?utFt+YLw+3lpuLptCFmRsp/7vH+M8+x6rS8Na/vr6SZnMD3VbV4PBRtEQdzi?=
- =?us-ascii?Q?pyBw8N8oSxFnN2kWnecdN58LRtvdGpfl87Z53REmn/hV8Oiq9Sgzo0T4Mytm?=
- =?us-ascii?Q?vWrLVCGvUs64YqS9MBiBzdRdd7IPTDSLQedTnRVnV9sBwGW1WuoSGvSj8fJs?=
- =?us-ascii?Q?vduQ1DTIy8ZaQoNXwIT4KuqsAQ4DHYlZgznIvnLdztt1PooWVTSS6ymH7EkX?=
- =?us-ascii?Q?S0lzXm5igAn8wbV5bOuOnxpjjFlZnFm6ql67zE9nbWF4ISUqtLbc5swJPtFG?=
- =?us-ascii?Q?X2AniyfjPPsm1BZoRKINFtVim9iw1WqIehCSTqSYyn8oRgEmwSHt2pPyrfKg?=
- =?us-ascii?Q?XafELEO0uRx02tIOE71QJqwV5TCQOEjN90oXr3gJULJ514UW4uyx?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 636db6ff-254c-4134-c7ab-08df375fbeda
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 15:00:47.4562
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: w/D+I9th7ZG5THQvihdCAt1CMmY/OSAqaMn7oxnahsS60V6xnKj+nUQdgIIYXXNuCPWSuNk+9AovR0aF77gd+g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY3P286MB2771
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgA3uDziAuZqpyJvAA--.1475S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxAr1rJry8CFWkAFW3Ary8Grg_yoW7JrW7pF
+	sIyF48JFWDK34fZ347AF18Cw1kGr4DZrnrJF18Cr1UZanxWr45Xa13KwnaqFWUuF92va4a
+	k34kWFn8X3W7Ww7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4
+	AK67AK6ryrMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x07bz
+	g4hUUUUU=
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FYreQAzsP
 
-On Fri, Oct 30, 2026 at 11:54:50AM -0500, Frank Li wrote:
-> On Sat, Oct 31, 2026 at 12:07:39AM +0900, Koichiro Den wrote:
-> > Once requests are appended while the channel runs, a DONE interrupt no
-> > longer means that all published entries have completed.
-> >
-> > Use DMA_LLP to advance ll_done and complete descriptors in issue order.
-> > Reclaim entries as they complete so descriptors larger than the ring
-> > can be submitted in batches.
-> >
-> > DMA_LLP may advance before payload completion, so keep the running
-> > completion boundary one entry behind it. Use DMA_LLP itself once the
-> > channel is stopped with a zero transfer size. Hold vc.lock to serialize
-> > progress with ring resets and doorbells.
-> >
-> > Refill reclaimed entries and restart a stopped channel if work remains.
-> > Defer STOP and PAUSE completion until the channel stops.
-> >
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> > ---
-> > Reworked v5 patch 13:
-> > https://lore.kernel.org/r/20260812155721.2807506-14-den@valinux.co.jp/
-> >
-> > Changes since v5:
-> >   - Read the registers in the progress handler instead of retaining an
-> >     IRQ-paired LLP snapshot.
-> >   - Allow index 0 to wrap. Reject running samples that would reclaim all
-> >     pending entries, so an unchanged start pointer cannot look like a
-> >     full lap.
-> >
-> >  drivers/dma/dw-edma/dw-edma-core.c | 140 ++++++++++++++++++++++++++---
-> >  1 file changed, 126 insertions(+), 14 deletions(-)
-> >
-> > diff --git a/drivers/dma/dw-edma/dw-edma-core.c b/drivers/dma/dw-edma/dw-edma-core.c
-> > index b08bb31657c9..74613c95ae11 100644
-> > --- a/drivers/dma/dw-edma/dw-edma-core.c
-> > +++ b/drivers/dma/dw-edma/dw-edma-core.c
-> > @@ -53,13 +53,6 @@ dw_edma_alloc_desc(struct dw_edma_chan *chan, size_t nburst)
-> >  {
-> >  	struct dw_edma_desc *desc;
-> >
-> > -	/*
-> > -	 * For now, a descriptor that does not fit would stall the channel
-> > -	 * forever: reject it up front.
-> > -	 */
-> > -	if (!chan->non_ll && nburst > chan->ll_max - 1)
-> > -		return NULL;
-> > -
-> >  	desc = kzalloc_flex(*desc, burst, nburst, GFP_NOWAIT);
-> >  	if (unlikely(!desc))
-> >  		return NULL;
-> > @@ -146,6 +139,76 @@ static bool dw_edma_ll_pending(struct dw_edma_chan *chan)
-> >  	return chan->ll_head != chan->ll_done;
-> >  }
-> >
-> > +static bool dw_edma_ll_stopped(struct dw_edma_chan *chan)
-> > +{
-> > +	return dw_edma_core_ch_status(chan) == DMA_COMPLETE &&
-> > +	       !dw_edma_core_ch_transfer_size(chan);
-> > +}
-> > +
-> > +/* Return the first entry we cannot reclaim yet. */
-> > +static int dw_edma_ll_boundary(struct dw_edma_chan *chan, int idx,
-> > +			       bool stopped)
-> > +{
-> > +	if (idx < 0 || (u32)idx > chan->ll_max)
-> > +		return -EINVAL;
-> > +
-> > +	/* After a stop, LLP points past the completed entries. */
-> > +	if (stopped)
-> > +		return idx == chan->ll_max ? 0 : idx;
-> > +
-> > +	/*
-> > +	 * DMA_LLP can advance before payload completion. Keep the boundary
-> > +	 * one entry behind it, wrapping at the start of the ring.
-> > +	 */
-> > +	return idx ? idx - 1 : chan->ll_max - 1;
-> 
-> use mod
-> 
-> 	(idx + (chan->ll_max - 1) - 1) % chan->ll_max - 1;
+Two connectors behind one controller only take the mux path when the
+controller node itself carries "usb-role-switch": dwc3_get_dr_mode()
+otherwise forces dr_mode back to peripheral, dwc3_get_extcon() skips the
+role-switch branch and dwc3_drd_init() never calls dwc3_role_mux_init().
+The binding accepted such a DT, so a DT that passed the schema check did
+not describe a DT the driver could act on.  Require the property whenever
+port-select-gpios is present.
 
-I believe what you meant was:
+Two more holes in the endpoint schema are fixed at the same time:
 
-  (idx + chan->ll_max - 1) % chan->ll_max
+  - the hs-port patternProperties only covered endpoint@0 and endpoint@1,
+    so an unnumbered endpoint or endpoint@2+ escaped the
+    unevaluatedProperties: false rule of the graph endpoint.  Use the same
+    endpoint name pattern as graph.yaml so every endpoint is validated.
 
-and if yes, I agree. I'll update it in the next revision.
+  - the mux-state complementarity was expressed with two independent "if
+    const: 0" blocks, which only rejected two zeroes; two endpoints both
+    claiming mux-state = <1> passed validation.  Express the pair as oneOf
+    so exactly one of the two assignments is accepted.
 
-> 
-> 
-> > +}
-> > +
-> > +/* Must be called with vc.lock held. */
-> > +static void dw_edma_ll_consume(struct dw_edma_chan *chan, int idx,
-> > +			       bool stopped)
-> > +{
-> > +	struct virt_dma_desc *vd, *_vd;
-> > +	u32 done, used;
-> 
-> lockdep_assert_held()
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ .../bindings/usb/snps,dwc3-common.yaml        | 105 +++++++++---------
+ 1 file changed, 55 insertions(+), 50 deletions(-)
 
-Will add it.
+diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+index 6b06b0027b..b23d5d8d74 100644
+--- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
++++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+@@ -31,7 +31,9 @@ $defs:
+         enum: [0, 1]
+         description:
+           Logical level of the port-select GPIO which connects this
+-          connector to the shared High Speed data bus.
++          connector to the shared High Speed data bus.  The two connectors of
++          one controller must use different levels; the driver rejects a
++          device tree where two connectors claim the same one.
+ 
+     dependentRequired:
+       usb-role-switch: [mux-state]
+@@ -42,7 +44,7 @@ $defs:
+     unevaluatedProperties: false
+ 
+     patternProperties:
+-      '^endpoint@[01]$':
++      '^endpoint(@[0-9a-f]+)?$':
+         $ref: '#/$defs/hs-endpoint'
+ 
+ allOf:
+@@ -61,70 +63,74 @@ allOf:
+   - if:
+       required: [port-select-gpios]
+     then:
+-      required: [dr_mode, ports]
++      # The mux path is only taken when the controller itself carries
++      # "usb-role-switch": dwc3_get_dr_mode() forces dr_mode back to
++      # peripheral, dwc3_get_extcon() skips the role-switch branch and
++      # dwc3_drd_init() never calls dwc3_role_mux_init() without it.
++      required: [dr_mode, ports, usb-role-switch]
+       properties:
+         dr_mode:
+           const: otg
+         ports:
+-          required: [port@0]
++          # Each connector is one port with a single endpoint: the mux-state
++          # property on that endpoint says which level of the port-select GPIO
++          # reaches it, so two connectors are two ports, not two endpoints of
++          # one port.  port@1 is the SuperSpeed lane of the PHY and is already
++          # described by snps,dwc3.yaml, so the second High Speed connector
++          # lands on port@2.
++          required: [port@0, port@2]
+           properties:
+             port@0:
+-              required: ['#address-cells', '#size-cells', endpoint@0, endpoint@1]
++              $ref: '#/$defs/hs-port'
++            port@2:
++              $ref: '#/$defs/hs-port'
++
++          # The two connectors must claim opposite levels of the port-select
++          # GPIO; requiring both ports in every branch is what makes the two
++          # cases mutually exclusive for oneOf.
++          oneOf:
++            - required: [port@0, port@2]
+               properties:
+-                endpoint@0:
+-                  required: [usb-role-switch, mux-state]
+-                endpoint@1:
+-                  required: [usb-role-switch, mux-state]
+-    else:
+-      properties:
+-        ports:
+-          properties:
+-            port@0:
+-              patternProperties:
+-                '^endpoint@[01]$':
++                port@0:
++                  $ref: '#/$defs/hs-port'
+                   properties:
+-                    usb-role-switch: false
+-                    mux-state: false
+-  - if:
+-      properties:
+-        ports:
+-          properties:
+-            port@0:
+-              properties:
+-                endpoint@0:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 0
++                port@2:
++                  $ref: '#/$defs/hs-port'
+                   properties:
+-                    mux-state:
+-                      const: 0
+-    then:
+-      properties:
+-        ports:
+-          properties:
+-            port@0:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 1
++            - required: [port@0, port@2]
+               properties:
+-                endpoint@1:
++                port@0:
++                  $ref: '#/$defs/hs-port'
+                   properties:
+-                    mux-state:
+-                      const: 1
+-  - if:
+-      properties:
+-        ports:
+-          properties:
+-            port@0:
+-              properties:
+-                endpoint@1:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 1
++                port@2:
++                  $ref: '#/$defs/hs-port'
+                   properties:
+-                    mux-state:
+-                      const: 0
+-    then:
++                    endpoint:
++                      properties:
++                        mux-state:
++                          const: 0
++    else:
+       properties:
+         ports:
+           properties:
+             port@0:
+-              properties:
+-                endpoint@0:
++              patternProperties:
++                '^endpoint(@[0-9a-f]+)?$':
+                   properties:
+-                    mux-state:
+-                      const: 1
++                    usb-role-switch: false
++                    mux-state: false
+ 
+ properties:
+   port-select-gpios:
+@@ -536,4 +542,3 @@ required:
+ 
+ additionalProperties: true
+ ...
+-
+base-commit: fd69bd54e328c407b1853378b25d15803d3453fa
+-- 
+2.53.0
 
-> 
-> > +
-> > +	idx = dw_edma_ll_boundary(chan, idx, stopped);
-> > +	if (idx < 0)
-> > +		return;
-> > +
-> > +	done = dw_edma_core_get_ll_dist(chan, chan->ll_done, idx);
-> > +	used = dw_edma_core_get_used_num(chan);
-> > +
-> > +	/*
-> > +	 * LLP may still point to the first pending entry. Subtracting one
-> > +	 * can wrap the index and falsely mark all pending entries complete.
-> > +	 * Reclaim them all only after the channel has stopped.
-> > +	 */
-> 
-> Do you means !done for this comments?
-
-No, it was about the last term (ie. "!stopped && done == used") only. In
-retrospect I should've separated the if blocks like the following. WDYT?
-
-    if (!done || done > used)
-            return;
-
-    /*
-     * LLP may still point to the first pending entry. Subtracting one
-     * can wrap the index and falsely mark all pending entries complete.
-     * Reclaim them all only after the channel has stopped.
-     */
-    if (!stopped && done == used)
-            return;
-
-> 
-> > +	if (!done || done > used || (!stopped && done == used))
-> > +		return;
-> > +
-> > +	chan->ll_done = idx;
-> > +
-> > +	/* Match reclaimed entries to descriptors in issue order. */
-> > +	list_for_each_entry_safe(vd, _vd, &chan->vc.desc_issued, node) {
-> > +		struct dw_edma_desc *desc = vd2dw_edma_desc(vd);
-> > +		u32 consumed = min_t(u32, done,
-> > +				     desc->start_burst - desc->done_burst);
-> > +
-> > +		if (!consumed)
-> > +			break;
-> > +
-> > +		desc->done_burst += consumed;
-> > +		done -= consumed;
-> > +		if (desc->done_burst != desc->nburst)
-> > +			break;
-> > +
-> > +		dw_hdma_set_callback_result(vd, DMA_TRANS_NOERROR);
-> > +		list_del(&vd->node);
-> > +		vchan_cookie_complete(vd);
-> > +	}
-> > +
-> > +	WARN_ON_ONCE(done);
-> > +}
-> > +
-> >  static void dw_edma_core_ll_start(struct dw_edma_desc *desc)
-> >  {
-> >  	struct dw_edma_chan *chan = desc->chan;
-> > @@ -174,7 +237,6 @@ static void dw_edma_core_ll_start(struct dw_edma_desc *desc)
-> >  		}
-> >  	}
-> >
-> > -	desc->done_burst = desc->start_burst;
-> >  	desc->start_burst = i;
-> >  }
-> >
-> > @@ -283,6 +345,45 @@ static void dw_edma_core_ch_maybe_doorbell(struct dw_edma_chan *chan)
-> >  	dw_edma_core_ch_doorbell(chan);
-> >  }
-> >
-> > +/*
-> > + * Must be called with vc.lock held.
-> > + *
-> > + * HDMA does not update LLP continuously. Only use it to track running
-> > + * transfers when handling an interrupt.
-> > + */
-> > +static void dw_edma_ll_advance(struct dw_edma_chan *chan, bool event)
-> > +{
-> > +	bool stopped = dw_edma_ll_stopped(chan);
-> > +
-> > +	if (stopped || event)
-> > +		dw_edma_ll_consume(chan, dw_edma_core_ll_cur_idx(chan),
-> > +				   stopped);
-> > +
-> > +	if (chan->request != EDMA_REQ_NONE) {
-> > +		/* Wait for the channel to stop before completing STOP or PAUSE. */
-> > +		if (!stopped)
-> > +			return;
-> > +
-> > +		if (chan->request == EDMA_REQ_STOP) {
-> > +			dw_edma_finish_termination(chan);
-> > +		} else if (chan->request == EDMA_REQ_PAUSE) {
-> > +			dw_edma_set_request(chan, EDMA_REQ_NONE);
-> > +			chan->status = EDMA_ST_PAUSE;
-> > +		}
-> > +		return;
-> > +	}
-> > +
-> > +	dw_edma_start_transfer(chan);
-> > +	if (!dw_edma_ll_pending(chan)) {
-> > +		chan->status = EDMA_ST_IDLE;
-> > +		return;
-> > +	}
-> > +
-> > +	chan->status = EDMA_ST_BUSY;
-> > +	if (stopped)
-> > +		dw_edma_core_ch_doorbell(chan);
-> > +}
-> > +
-> >  static void dw_edma_device_caps(struct dma_chan *dchan,
-> >  				struct dma_slave_caps *caps)
-> >  {
-> > @@ -749,7 +850,7 @@ dw_edma_device_prep_interleaved_dma(struct dma_chan *dchan,
-> >  	return dw_edma_device_transfer(&xfer, dw_edma_device_get_config(dchan, NULL));
-> >  }
-> >
-> > -/* Must be called with vc.lock held. */
-> > +/* Non-LL completion; vc.lock must be held. */
-        ^^^^^^(a)
-> >  static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
-> >  {
-> >  	struct dw_edma_desc *desc;
-> > @@ -772,8 +873,6 @@ static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
-> >  			dw_hdma_set_callback_result(vd, DMA_TRANS_NOERROR);
-> >  			list_del(&vd->node);
-> >  			vchan_cookie_complete(vd);
-> 
-> why not use dw_edma_ll_consume(), let vchan_cookie_complete() at one
-> place only
-
-With this patch, the existing dw_edma_done_interrupt_locked() now serves the
-non-LL case only (see (a) above), so we cannot simply use dw_edma_ll_consume()
-here, as it works on ring indices.
-
-That said, avoiding scattering vchan_cookie_complete() around makes sense.
-Would it be a middle ground to add a new helper like:
-
-   static void dw_edma_complete_vdesc(struct virt_dma_desc *vd,
-                                   enum dmaengine_tx_result result)
-   {
-        dw_hdma_set_callback_result(vd, result);
-        list_del(&vd->node);
-        vchan_cookie_complete(vd);
-   }
-
-and replace the remaining open-coded vchan_cookie_complete() call sites with it?
-
-Thanks for the review!
-
-Best regards,
-Koichiro Den
-
-> 
-> Frank
-> 
-> > -			if (!chan->non_ll)
-> > -				chan->ll_done = chan->ll_head;
-> >  		}
-> >
-> >  		if (chan->request == EDMA_REQ_PAUSE) {
-> > @@ -796,7 +895,6 @@ static void dw_edma_done_interrupt_locked(struct dw_edma_chan *chan)
-> >  	default:
-> >  		break;
-> >  	}
-> > -	dw_edma_core_ch_maybe_doorbell(chan);
-> >  }
-> >
-> >  static void dw_edma_done_interrupt(struct dw_edma_chan *chan)
-> > @@ -808,6 +906,16 @@ static void dw_edma_done_interrupt(struct dw_edma_chan *chan)
-> >  	spin_unlock_irqrestore(&chan->vc.lock, flags);
-> >  }
-> >
-> > +static void dw_edma_ll_interrupt(struct dw_edma_chan *chan)
-> > +{
-> > +	guard(spinlock_irqsave)(&chan->vc.lock);
-> > +
-> > +	if (chan->status == EDMA_ST_PAUSE)
-> > +		return;
-> > +
-> > +	dw_edma_ll_advance(chan, true);
-> > +}
-> > +
-> >  static void dw_edma_abort_interrupt(struct dw_edma_chan *chan)
-> >  {
-> >  	struct virt_dma_desc *vd;
-> > @@ -838,8 +946,12 @@ static void dw_edma_irq_work(struct work_struct *work)
-> >  	do {
-> >  		events = atomic_xchg(&chan->irq_pending, 0);
-> >
-> > -		if (events & DW_EDMA_DEFERRED_DONE)
-> > -			dw_edma_done_interrupt(chan);
-> > +		if (events & DW_EDMA_DEFERRED_DONE) {
-> > +			if (chan->non_ll)
-> > +				dw_edma_done_interrupt(chan);
-> > +			else
-> > +				dw_edma_ll_interrupt(chan);
-> > +		}
-> >  		if (events & DW_EDMA_DEFERRED_ABORT)
-> >  			dw_edma_abort_interrupt(chan);
-> >  	} while (atomic_read(&chan->irq_pending));
-> > --
-> > 2.54.0
-> >
