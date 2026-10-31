@@ -1,51 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793447169;
-	b=OcQeG1pJIrUUMTsEnGHAZA6rEhGu5AnvCOCsL5BsWVst+IGWKUrD8PHjP+7GonUT4ymW
-	 OidaV0QQ48euesirv/csZVunkCVCbbfSgOFUPEQqtYVvGiOMhLo1lb3xR2O6qcscDfjzk
-	 wbHjkQWu+tAjlVuuxqlH4//FE+CC/h/WUKpBXNCaBsTn3DX4tYKLLYBy/JEHYrzmANdhE
-	 RvAb0zw+W107xngxO2x5ab9Mh++GuBSJFqoad7ItZ2IwymKc3axHXa4CqzKWs1k7GPHgt
-	 aeMJqmIKtoPGAP4/0Wpv00rWAEC4g4ePY/7dQM7Nbt0tT7sIUeIWOSoK+iiWGMCVshQ==
+	t=1793447218;
+	b=lJ5T/bLPJ3K1dEmISsCKiza1DbuO8Tp+10NRqzPSwsWWEyqh3DKiBXix9iu704aeCQEt
+	 VK7xh2UY+oFo1MW7+1PIxUNlokm8QdjZJQug0dAWh032cX8lyhVnrJ3w7OGN9ZjWMdnKv
+	 oyRJSnvKdtVKsEdJqtHlu0tv5U0nedHxgSji98ig2tW1nFCrlSr5eer8tdGlCP+UHScbf
+	 KZ9Ymo+zwkrBNr3kopZigcL8QnJ/ItcTb7J9lC/SwzjUrj9vkP8nOVPWzmIRifw+wWtna
+	 VpH94kMMpLe9YlvlmvsQXqr8h8N/2a1lAa0Zo88MZO7MNVkYnVvsTwUD84XmGtDP+/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793447169;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=9yLH4z5SuPSiBo6vqjLp3kNCi1UZ/Xaxh+x3gvmmR1U=;
-	b=W3hwRIKMIfy3tlQrOWR+Ov3MDbY3+oc93QeazcTQBHjY6DBJYyJ6xLMsDpROsi/OmvIF
-	 R1ZFBDSwc2QOeAS5evjESJP0hVzdTz+8NUxhXdOdinylF5FdOEKikMyLqhim6IiDZov3s
-	 JFljmuh/uufkDRhfa3NVI1mHUITURLJg7tMFmdPd56g1Asw07TD8wmRDcAxCg86s1pPCe
-	 RAOnDPrwdYNSJ2ve3BcremK+hccho5u0IRfwkXQkBTYQ4QtMjkQDieKC3P0oQMKPSHM6B
-	 eqibfFXP5CaezRCn0Mbyu0mwOgQ9CgQfsUO8d0otgHAMvDSMrFnloeHjsb6RFyzO79g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793447218;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=iwY05ePos+qS824cLnj8Amy3FhuXuwmHwQQSArwlNIk=;
+	b=DoDSkCP3+7HUy3i+ytGT63aeQD1mn3ROeoeXD1VlUkrEb5a+M+UzVwQhNDvIboxlRcsa
+	 p585PEp7mA1ZlZUoIMhJV6QJ6lM4whmK7TO2K0X8kPekLQhQDyHD2pCGYPPtCuq84Piu5
+	 YvJ5s7dve9tXMo/n8SbQO7HDzATyrgD7OvhX/pmvGDngmyz0dPicijGMFQZbsga6BpFHP
+	 DYxRhU2L9EBPhiG3inVNd5xTn+/rIPhPJ72iC6DKg8+am/3LXp0x8fXn0IPPOoutI/pJV
+	 PnqZvmwAdrhUFIPgt0ZiocwV5C8/X41EXJb1E1NrI1T2c0GOI723aMNfNOyGYVvd4Pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nDS50Yoo;
-	arc=none smtp.remote-ip=220.197.31.3
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kihrlvM+;
+	arc=none smtp.remote-ip=209.85.208.180
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 645DF606A31A;
-	Sat, 31 Oct 2026 11:46:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 645DF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB231606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:46:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB231606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=nDS50Yoo
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Date:Subject:MIME-Version:Content-Type:
-	Message-Id:To; bh=9yLH4z5SuPSiBo6vqjLp3kNCi1UZ/Xaxh+x3gvmmR1U=;
-	b=nDS50YoorH7KsJxwaVfJI2r7JkH0BcuprYaSdchh5T/mvXcmUVO1wRVri1gLf0
-	WKBOylMdeZGhOY9IhZfYW015pZ5UFsARG5YgDLMuy0lcK+fRvq4UyFMqDhkuoPge
-	fNxTbsWW3cANV8dAlaL+uTmSHI/jWkrO4dI31/Wj+OguM=
-Received: from 4F-GAME.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3n9Pj1OVqq0aEDw--.53552S3;
-	Sat, 31 Oct 2026 19:45:42 +0800 (CST)
-From: Bob Hui <bg9oxa@163.com>
-Date: Sat, 31 Oct 2026 19:45:36 +0800
-Subject: [PATCH v4 1/2] ASoC: es8328: reset the codec at probe time
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=kihrlvM+
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3ab1a37faaeso2242001fa.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:46:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1793447215; x=1794052015; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=iwY05ePos+qS824cLnj8Amy3FhuXuwmHwQQSArwlNIk=;
+        b=kihrlvM+r/axU9K4onIBLVnsgAa7aihHO7bKTH0CKBkr0mLrslDBgHPJ0hLNouSI8v
+         Xd5IzzSJWtVZGhGjagABf2x33ruhhbx5/q27wBI9HjqpE12zwsVlT49Rjb2+X30DxgLK
+         KYWTEjmOHVlVTt1/qZmqPgNHoSCAF3uJOlA6ifo9YmAyBPLvVO6GHteaFu9n7FLmeiBG
+         AQNTPS59mN8u9NTKi6coI0YOO312VoKVtzBcpxYgkTZUSKEjWF2ePVII/0IaJvaJl/zK
+         AHdQV1q9DRdknG3U2lUTZNL4pIrPdlQz48InpNPgeQlLEfPAxNsZCa/1WvDFuyDvPH2n
+         uWMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793447215; x=1794052015;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iwY05ePos+qS824cLnj8Amy3FhuXuwmHwQQSArwlNIk=;
+        b=PE6O9AttuQyhqYGLNraQjVA6+QVWtF6Bqe8rCS9kicupXBJqjIQ5Gvl0mO7BqsDA7t
+         CsrXqDPHqEiOwo5PNhYIcqZpMDeanbC/Tw+NFXL1njpQyonXwmC7zr61PDUvrJH2+ApP
+         pQQ3/essDshG45cA0Wj8t5XnIjitC+FKL6C68tkGLIqqyzn9Y2KviYXH2vQI8YWUWvYz
+         bJZPpZ6zbrdEyMq5Kuuc5A9ZbvV6kWURtAmsJwfSU8HTC+t7ArsD7XRbVeuyJkQyrg8n
+         eY+ouawRcfKGwqpI5nwjq/14wWEqW27gqntRp9y/fi9cHUJMlPK0P3TlIY/HgHiSRhu+
+         hx6A==
+X-Forwarded-Encrypted: i=1; AKwUvBwrPlaNmCaQnmYoY8A1CwHyJ/4pOQDo3uY+TRP636VO2T3YRt9LI8NjzpmPkkqYxOFTQo56PX6aQqNLvk4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXbkKZJNn13iVTVVYZUZrznTxD0x1LAJRXbMzPxDUqCAu51/NN
+	zmKdlZtyOXhch8jXvT6SpbpkvKAfFmZ8w/6UPazce3RisAnkrQVcrd6IM/7Oat4kr+o=
+X-Gm-Gg: AYBFou0scBxQUztVEBPKWlrO2evS5KjTB0jG2LGD6Ykq6MfhNGgIH6tkQBnfuX9ISYb
+	hPX3Gz2RjW58Aj1xSz7oOgdcYT3PFTzgCd9aWd7aUPjqhTNb4aFSIz+k2VYm/6Pk3KZvlfLJgr6
+	g53nsGYvOYAbnNYNlCNgBuwdVjLR9cOP4aaqM3AuUz4PJbMCzgfn2SN6YuNLR383BP7HTLGh/VP
+	4sPjD1D3NyHNQg1ixl4kHJRAZ5TrELnP38qjjW66jr84y5BcniD3l0GjhneF4Tkcyn6wRzXuFE6
+	XYTSSS+Pd7Uz7M/VOE5lOX1cGkz8K/JqCtl+y22SHeGOPWulevJ+CRbNt+v2Rf9I2gIuNNspShy
+	L3muSTOX/l/WHVEuu9j13w6nrOBMmvZQNpvwqEu57sm2MYLIYQ6ect+PHYPXVBFa0Iv+3aICWQc
+	zKYE53OwlIbqPW7e2iIlXlHZFdztOHQvNuarF0UdLxzYs3d3kp5A0/uLD8q2zBxf/eQQp1GTu1b
+	s8SsViRjn1TxKo20Os5keHbnjkMtdmwo9lmMoHHzY9+cZX43tV6JyyNT3qZsv4Gw96PLOr6U8iP
+	hu3rJqRvS4UmT0sGOBYdArzIzh+6hNkYV7XB+jXwnCwv5Ktv2ugzAo1wTwx/obQBcGcUPQ5PS4O
+	/Q6QgSFE=
+X-Received: by 2002:a05:6512:6d3:b0:5bf:b8f1:8109 with SMTP id 2adb3069b0e04-5bfd95571d2mr1997148e87.4.1793447214848;
+        Sat, 31 Oct 2026 04:46:54 -0700 (PDT)
+Received: from [192.168.1.101] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe0747766sm515667e87.69.2026.10.31.04.46.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 04:46:54 -0700 (PDT)
+Message-ID: <55aef663-254a-4d36-b9ec-3ce7f4c4c74a@linaro.org>
+Date: Sat, 31 Oct 2026 13:46:53 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,415 +91,484 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v23 12/15] arm64: dts: qcom: kaanapali: Add CAMSS and
+ CSIPHY block definitions
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20261028-kaanapali-camss-v23-0-95f250b18612@oss.qualcomm.com>
+ <20261028-kaanapali-camss-v23-12-95f250b18612@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20261028-kaanapali-camss-v23-12-95f250b18612@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-es8328-vol-init-v4-1-5bdc00b25948@163.com>
-References: <20261031-es8328-vol-init-v4-0-5bdc00b25948@163.com>
-In-Reply-To: <20261031-es8328-vol-init-v4-0-5bdc00b25948@163.com>
-To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
-Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Bob Hui <bg9oxa@163.com>
-X-Mailer: b4 0.15.2
-X-CM-TRANSID:_____wD3n9Pj1OVqq0aEDw--.53552S3
-X-Coremail-Antispam: 1Uf129KBjvAXoW3Zw4xKF43WryUJF4fJr1DZFb_yoW8Gr45to
-	W2qry3Ww47Ww1kXFyrtr1fWF17WF4rZ343tFsrCw4DZwn7JFy5Kws2qw15ta4aga4Y9rZ5
-	Zw1DXFnxJrWxGF17n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvj4i-B_UDUUUU
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+gaC72rl1OZfEwAA3g
 
-Nothing brings the codec into a known state when the driver probes: the
-supplies may already be on, a warm reboot or a kexec keeps the registers
-alive, and a driver rebind leaves whatever the previous instance
-programmed.  Everything that reads a register back and writes it again,
-from the DAI format to the mute control, then works from a value the
-hardware never had.
+On 10/28/26 17:20, Hangxiang Ma wrote:
+> Describe the CAMSS and CSIPHY blocks on Kaanapali so that camera pipelines
+> can be enabled by board device trees.
+> 
+> The camera subsystem contains:
+> - 6 x CSIPHY (CSI Physical Layer)
+> - 3 x TPG (Test Pattern Generator)
+> - 3 x CSID (CSI Decoder)
+> - 2 x CSID Lite
+> - 3 x VFE (Video Front End), 5 RDI per VFE
+> - 2 x VFE Lite, 4 RDI per VFE Lite
+> 
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> ---
+>   arch/arm64/boot/dts/qcom/kaanapali.dtsi | 401 ++++++++++++++++++++++++++++++++
+>   1 file changed, 401 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> index e48a179d0722..0c8fd7da55b7 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> @@ -20,6 +20,7 @@
+>   #include <dt-bindings/interconnect/qcom,kaanapali-rpmh.h>
+>   #include <dt-bindings/interrupt-controller/arm-gic.h>
+>   #include <dt-bindings/mailbox/qcom-ipcc.h>
+> +#include <dt-bindings/phy/phy.h>
+>   #include <dt-bindings/phy/phy-qcom-qmp.h>
+>   #include <dt-bindings/power/qcom-rpmpd.h>
+>   #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+> @@ -3597,6 +3598,384 @@ usb_dp_qmpphy_dp_in: endpoint {
+>   			};
+>   		};
+>   
+> +		camss: isp@900b000 {
+> +			compatible = "qcom,kaanapali-camss";
+> +
+> +			reg = <0x0 0x0900b000 0x0 0x1000>,
+> +			      <0x0 0x09253000 0x0 0x5e80>,
+> +			      <0x0 0x09263000 0x0 0x5e80>,
+> +			      <0x0 0x09273000 0x0 0x5e80>,
+> +			      <0x0 0x092d3000 0x0 0x3880>,
+> +			      <0x0 0x092e7000 0x0 0x3880>,
+> +			      <0x0 0x093fd000 0x0 0x400>,
+> +			      <0x0 0x093fe000 0x0 0x400>,
+> +			      <0x0 0x093ff000 0x0 0x400>,
+> +			      <0x0 0x09151000 0x0 0x20000>,
+> +			      <0x0 0x09171000 0x0 0x20000>,
+> +			      <0x0 0x09191000 0x0 0x20000>,
+> +			      <0x0 0x092dc000 0x0 0x1300>,
+> +			      <0x0 0x092f0000 0x0 0x1300>;
+> +			reg-names = "top",
+> +				    "csid0",
+> +				    "csid1",
+> +				    "csid2",
+> +				    "csid_lite0",
+> +				    "csid_lite1",
+> +				    "csitpg0",
+> +				    "csitpg1",
+> +				    "csitpg2",
 
-Issue a control port reset while probing so the codec always starts from
-its documented defaults.  SCP_RESET is not self-clearing, so the reference
-and the VMID divider are written back afterwards, which is the documented
-default value of the register.
+These I/O regions should be named "tpgX".
 
-The cache outlives a component rebind, so rebuild it from the same table
-after the reset instead of dropping it: a drop would send every later
-read-modify-write to the bus, and this part does not read back reliably
-everywhere.
+> +				    "vfe0",
+> +				    "vfe1",
+> +				    "vfe2",
+> +				    "vfe_lite0",
+> +				    "vfe_lite1";
+> +
+> +			clocks = <&camcc CAM_CC_CAMNOC_NRT_AXI_CLK>,
+> +				 <&camcc CAM_CC_CAMNOC_RT_AXI_CLK>,
+> +				 <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
+> +				 <&camcc CAM_CC_CAM_TOP_FAST_AHB_CLK>,
+> +				 <&camcc CAM_CC_CAMNOC_RT_TFE_0_MAIN_CLK>,
+> +				 <&camcc CAM_CC_CAMNOC_RT_TFE_1_MAIN_CLK>,
+> +				 <&camcc CAM_CC_CAMNOC_RT_TFE_2_MAIN_CLK>,
+> +				 <&camcc CAM_CC_CAMNOC_RT_IFE_LITE_CLK>,
+> +				 <&camcc CAM_CC_CSID_CLK>,
+> +				 <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
+> +				 <&gcc GCC_CAMERA_HF_AXI_CLK>,
+> +				 <&gcc GCC_CAMERA_SF_AXI_CLK>,
+> +				 <&camcc CAM_CC_TFE_0_MAIN_CLK>,
+> +				 <&camcc CAM_CC_TFE_0_MAIN_FAST_AHB_CLK>,
+> +				 <&camcc CAM_CC_TFE_1_MAIN_CLK>,
+> +				 <&camcc CAM_CC_TFE_1_MAIN_FAST_AHB_CLK>,
+> +				 <&camcc CAM_CC_TFE_2_MAIN_CLK>,
+> +				 <&camcc CAM_CC_TFE_2_MAIN_FAST_AHB_CLK>,
+> +				 <&camcc CAM_CC_IFE_LITE_CLK>,
+> +				 <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
+> +				 <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
+> +				 <&camcc CAM_CC_IFE_LITE_CSID_CLK>,
+> +				 <&camcc CAM_CC_QDSS_DEBUG_XO_CLK>;
+> +			clock-names = "camnoc_nrt_axi",
+> +				      "camnoc_rt_axi",
+> +				      "cpas_ahb",
+> +				      "cpas_fast_ahb",
+> +				      "cpas_vfe0",
+> +				      "cpas_vfe1",
+> +				      "cpas_vfe2",
+> +				      "cpas_vfe_lite",
+> +				      "csid",
+> +				      "csid_csiphy_rx",
 
-Describe those defaults in the regmap as well, one table per supported
-part, so the cache describes the codec instead of being filled in lazily
-on first access.  The two parts differ in eleven registers, so one table
-cannot describe both; the variant is looked up from the match data in the
-I2C and SPI glue, which also makes the driver work on ACPI systems.  The
-SPI glue gains an ES8388 entry and an id table of its own, so a part
-behind SPI resolves the same way and the id table lookup never runs off a
-NULL table.
+This clock should be named "csiphy_rx" like on sa8775p and a number
+of other platforms.
 
-The values come from the ES8328 datasheet, Revision 1.0, sections 6.1.1
-to 6.3.30, and from the ES8388 datasheet, Revision 5.0, same sections.
-
-Tested on a QuarkPi-CA2 (RK3588S, ES8388, I2C): a register deliberately
-modified before a warm reboot comes back at its reset value once the
-driver probes, so it is the reset rather than a power cycle that restores
-the state.
-
-Assisted-by: Hermes:deepseek-v4-flash
-Signed-off-by: Bob Hui <bg9oxa@163.com>
----
- sound/soc/codecs/es8328-i2c.c |  18 ++--
- sound/soc/codecs/es8328-spi.c |  20 ++++-
- sound/soc/codecs/es8328.c     | 192 ++++++++++++++++++++++++++++++++++++++++--
- sound/soc/codecs/es8328.h     |   9 +-
- 4 files changed, 222 insertions(+), 17 deletions(-)
-
-diff --git a/sound/soc/codecs/es8328-i2c.c b/sound/soc/codecs/es8328-i2c.c
-index 36a4987e1a593..cb9392c0b8ea3 100644
---- a/sound/soc/codecs/es8328-i2c.c
-+++ b/sound/soc/codecs/es8328-i2c.c
-@@ -16,23 +16,29 @@
- #include "es8328.h"
- 
- static const struct i2c_device_id es8328_id[] = {
--	{ .name = "es8328" },
--	{ .name = "es8388" },
-+	{ .name = "es8328", .driver_data = ES8328_TYPE_ES8328 },
-+	{ .name = "es8388", .driver_data = ES8328_TYPE_ES8388 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(i2c, es8328_id);
- 
- static const struct of_device_id es8328_of_match[] = {
--	{ .compatible = "everest,es8328", },
--	{ .compatible = "everest,es8388", },
-+	{ .compatible = "everest,es8328", .data = (void *)ES8328_TYPE_ES8328 },
-+	{ .compatible = "everest,es8388", .data = (void *)ES8328_TYPE_ES8388 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, es8328_of_match);
- 
- static int es8328_i2c_probe(struct i2c_client *i2c)
- {
--	return es8328_probe(&i2c->dev,
--			devm_regmap_init_i2c(i2c, &es8328_regmap_config));
-+	enum es8328_type type = (unsigned long)i2c_get_match_data(i2c);
-+	const struct regmap_config *config;
-+
-+	config = type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
-+					    : &es8328_regmap_config;
-+
-+	return es8328_probe(&i2c->dev, devm_regmap_init_i2c(i2c, config),
-+			    type);
- }
- 
- static struct i2c_driver es8328_i2c_driver = {
-diff --git a/sound/soc/codecs/es8328-spi.c b/sound/soc/codecs/es8328-spi.c
-index 88e353ae52a10..93df788222ab6 100644
---- a/sound/soc/codecs/es8328-spi.c
-+++ b/sound/soc/codecs/es8328-spi.c
-@@ -13,16 +13,29 @@
- #include <sound/soc.h>
- #include "es8328.h"
- 
-+static const struct spi_device_id es8328_id[] = {
-+	{ .name = "es8328", .driver_data = ES8328_TYPE_ES8328 },
-+	{ .name = "es8388", .driver_data = ES8328_TYPE_ES8388 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, es8328_id);
-+
- static const struct of_device_id es8328_of_match[] = {
--	{ .compatible = "everest,es8328", },
-+	{ .compatible = "everest,es8328", .data = (void *)ES8328_TYPE_ES8328 },
-+	{ .compatible = "everest,es8388", .data = (void *)ES8328_TYPE_ES8388 },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, es8328_of_match);
- 
- static int es8328_spi_probe(struct spi_device *spi)
- {
--	return es8328_probe(&spi->dev,
--			devm_regmap_init_spi(spi, &es8328_regmap_config));
-+	enum es8328_type type = (unsigned long)spi_get_device_match_data(spi);
-+	const struct regmap_config *config;
-+
-+	config = type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
-+					    : &es8328_regmap_config;
-+
-+	return es8328_probe(&spi->dev, devm_regmap_init_spi(spi, config), type);
- }
- 
- static struct spi_driver es8328_spi_driver = {
-@@ -31,6 +44,7 @@ static struct spi_driver es8328_spi_driver = {
- 		.of_match_table	= es8328_of_match,
- 	},
- 	.probe	= es8328_spi_probe,
-+	.id_table = es8328_id,
- };
- 
- module_spi_driver(es8328_spi_driver);
-diff --git a/sound/soc/codecs/es8328.c b/sound/soc/codecs/es8328.c
-index aaa6646ad4c5e..716a1ec4714bf 100644
---- a/sound/soc/codecs/es8328.c
-+++ b/sound/soc/codecs/es8328.c
-@@ -78,6 +78,7 @@ static const char * const supply_names[ES8328_SUPPLY_NUM] = {
- struct es8328_priv {
- 	struct regmap *regmap;
- 	struct clk *clk;
-+	enum es8328_type type;
- 	int playback_fs;
- 	bool deemph;
- 	int mclkdiv2;
-@@ -812,6 +813,7 @@ static int es8328_component_probe(struct snd_soc_component *component)
- {
- 	struct es8328_priv *es8328;
- 	int ret;
-+	const struct regmap_config *config;
- 
- 	es8328 = snd_soc_component_get_drvdata(component);
- 
-@@ -836,6 +838,46 @@ static int es8328_component_probe(struct snd_soc_component *component)
- 		goto clk_fail;
- 	}
- 
-+	/*
-+	 * Put the codec into a known state: the supplies may already be on,
-+	 * a warm reboot or a kexec keeps the registers alive, and a driver
-+	 * rebind leaves whatever the previous instance programmed.  Without
-+	 * this every read-modify-write in the driver works from a value the
-+	 * hardware never had.  SCP_RESET is not self-clearing.
-+	 */
-+	ret = snd_soc_component_write(component, ES8328_CONTROL1,
-+				      ES8328_CONTROL1_SCP_RESET);
-+	if (ret) {
-+		dev_err(component->dev, "unable to reset the codec\n");
-+		clk_disable_unprepare(es8328->clk);
-+		goto clk_fail;
-+	}
-+	usleep_range(1000, 5000);
-+	ret = snd_soc_component_write(component, ES8328_CONTROL1,
-+				      ES8328_CONTROL1_ENREF |
-+				      ES8328_CONTROL1_VMIDSEL_500k);
-+	if (ret) {
-+		dev_err(component->dev, "unable to clear the codec reset\n");
-+		clk_disable_unprepare(es8328->clk);
-+		goto clk_fail;
-+	}
-+
-+	/*
-+	 * The reset put the codec back to its documented power-on values, so
-+	 * rebuild the cache from the same table instead of dropping it: a
-+	 * drop would send every later read-modify-write to the bus, and this
-+	 * part does not read back reliably, registers 0x28 and 0x29 return
-+	 * their power-on value whatever has been written to them.
-+	 */
-+	config = es8328->type == ES8328_TYPE_ES8388 ? &es8388_regmap_config
-+						    : &es8328_regmap_config;
-+	ret = regmap_reinit_cache(es8328->regmap, config);
-+	if (ret) {
-+		dev_err(component->dev, "unable to reinitialise the register cache\n");
-+		clk_disable_unprepare(es8328->clk);
-+		goto clk_fail;
-+	}
-+
- 	return 0;
- 
- clk_fail:
-@@ -856,16 +898,150 @@ static void es8328_remove(struct snd_soc_component *component)
- 			       es8328->supplies);
- }
- 
-+/*
-+ * Power-on defaults from the ES8328 datasheet, Revision 1.0, sections
-+ * 6.1.1 to 6.3.30.
-+ */
-+static const struct reg_default es8328_reg_defaults[] = {
-+	{ ES8328_CONTROL1,	0x06 },
-+	{ ES8328_CONTROL2,	0x1c },
-+	{ ES8328_CHIPPOWER,	0xc3 },
-+	{ ES8328_ADCPOWER,	0xfc },
-+	{ ES8328_DACPOWER,	0xc0 },
-+	{ ES8328_CHIPLOPOW1,	0x00 },
-+	{ ES8328_CHIPLOPOW2,	0x00 },
-+	{ ES8328_ANAVOLMANAG,	0x7c },
-+	{ ES8328_MASTERMODE,	0x80 },
-+	{ ES8328_ADCCONTROL1,	0x00 },
-+	{ ES8328_ADCCONTROL2,	0x00 },
-+	{ ES8328_ADCCONTROL3,	0x06 },
-+	{ ES8328_ADCCONTROL4,	0x00 },
-+	{ ES8328_ADCCONTROL5,	0x06 },
-+	{ ES8328_ADCCONTROL6,	0x30 },
-+	{ ES8328_ADCCONTROL7,	0x30 },
-+	{ ES8328_ADCCONTROL8,	0xc0 },
-+	{ ES8328_ADCCONTROL9,	0xc0 },
-+	{ ES8328_ADCCONTROL10,	0x38 },
-+	{ ES8328_ADCCONTROL11,	0xb0 },
-+	{ ES8328_ADCCONTROL12,	0x32 },
-+	{ ES8328_ADCCONTROL13,	0x06 },
-+	{ ES8328_ADCCONTROL14,	0x00 },
-+	{ ES8328_DACCONTROL1,	0x00 },
-+	{ ES8328_DACCONTROL2,	0x06 },
-+	{ ES8328_DACCONTROL3,	0x32 },
-+	{ ES8328_DACCONTROL4,	0xc0 },
-+	{ ES8328_DACCONTROL5,	0xc0 },
-+	{ ES8328_DACCONTROL6,	0x08 },
-+	{ ES8328_DACCONTROL7,	0x06 },
-+	{ ES8328_DACCONTROL8,	0x1f },
-+	{ ES8328_DACCONTROL9,	0xf7 },
-+	{ ES8328_DACCONTROL10,	0xfd },
-+	{ ES8328_DACCONTROL11,	0xff },
-+	{ ES8328_DACCONTROL12,	0x1f },
-+	{ ES8328_DACCONTROL13,	0xf7 },
-+	{ ES8328_DACCONTROL14,	0xfd },
-+	{ ES8328_DACCONTROL15,	0xff },
-+	{ ES8328_DACCONTROL16,	0x00 },
-+	{ ES8328_DACCONTROL17,	0x38 },
-+	{ ES8328_DACCONTROL18,	0x38 },
-+	{ ES8328_DACCONTROL19,	0x38 },
-+	{ ES8328_DACCONTROL20,	0x38 },
-+	{ ES8328_DACCONTROL21,	0x38 },
-+	{ ES8328_DACCONTROL22,	0x38 },
-+	{ ES8328_DACCONTROL23,	0x00 },
-+	{ ES8328_LOUT1VOL,	0x00 },
-+	{ ES8328_ROUT1VOL,	0x00 },
-+	{ ES8328_LOUT2VOL,	0x00 },
-+	{ ES8328_ROUT2VOL,	0x00 },
-+	{ ES8328_MONOOUTVOL,	0x00 },
-+	{ ES8328_DACCONTROL29,	0x00 },
-+	{ ES8328_DACCONTROL30,	0x00 },
-+};
-+
-+/*
-+ * Power-on defaults from the ES8388 datasheet, Revision 5.0, sections
-+ * 6.1.1 to 6.3.30.
-+ */
-+static const struct reg_default es8388_reg_defaults[] = {
-+	{ ES8328_CONTROL1,	0x06 },
-+	{ ES8328_CONTROL2,	0x5c },
-+	{ ES8328_CHIPPOWER,	0xc3 },
-+	{ ES8328_ADCPOWER,	0xfc },
-+	{ ES8328_DACPOWER,	0xc0 },
-+	{ ES8328_CHIPLOPOW1,	0x00 },
-+	{ ES8328_CHIPLOPOW2,	0x00 },
-+	{ ES8328_ANAVOLMANAG,	0x7c },
-+	{ ES8328_MASTERMODE,	0x80 },
-+	{ ES8328_ADCCONTROL1,	0x00 },
-+	{ ES8328_ADCCONTROL2,	0x00 },
-+	{ ES8328_ADCCONTROL3,	0x02 },
-+	{ ES8328_ADCCONTROL4,	0x00 },
-+	{ ES8328_ADCCONTROL5,	0x06 },
-+	{ ES8328_ADCCONTROL6,	0x30 },
-+	{ ES8328_ADCCONTROL7,	0x20 },
-+	{ ES8328_ADCCONTROL8,	0xc0 },
-+	{ ES8328_ADCCONTROL9,	0xc0 },
-+	{ ES8328_ADCCONTROL10,	0x38 },
-+	{ ES8328_ADCCONTROL11,	0xb0 },
-+	{ ES8328_ADCCONTROL12,	0x32 },
-+	{ ES8328_ADCCONTROL13,	0x06 },
-+	{ ES8328_ADCCONTROL14,	0x00 },
-+	{ ES8328_DACCONTROL1,	0x00 },
-+	{ ES8328_DACCONTROL2,	0x06 },
-+	{ ES8328_DACCONTROL3,	0x22 },
-+	{ ES8328_DACCONTROL4,	0xc0 },
-+	{ ES8328_DACCONTROL5,	0xc0 },
-+	{ ES8328_DACCONTROL6,	0x08 },
-+	{ ES8328_DACCONTROL7,	0x00 },
-+	{ ES8328_DACCONTROL8,	0x1f },
-+	{ ES8328_DACCONTROL9,	0xf7 },
-+	{ ES8328_DACCONTROL10,	0xfd },
-+	{ ES8328_DACCONTROL11,	0xff },
-+	{ ES8328_DACCONTROL12,	0x1f },
-+	{ ES8328_DACCONTROL13,	0xf7 },
-+	{ ES8328_DACCONTROL14,	0xfd },
-+	{ ES8328_DACCONTROL15,	0xff },
-+	{ ES8328_DACCONTROL16,	0x00 },
-+	{ ES8328_DACCONTROL17,	0x38 },
-+	{ ES8328_DACCONTROL18,	0x28 },
-+	{ ES8328_DACCONTROL19,	0x28 },
-+	{ ES8328_DACCONTROL20,	0x38 },
-+	{ ES8328_DACCONTROL21,	0x00 },
-+	{ ES8328_DACCONTROL22,	0x00 },
-+	{ ES8328_DACCONTROL23,	0x00 },
-+	{ ES8328_LOUT1VOL,	0x00 },
-+	{ ES8328_ROUT1VOL,	0x00 },
-+	{ ES8328_LOUT2VOL,	0x00 },
-+	{ ES8328_ROUT2VOL,	0x00 },
-+	{ ES8328_MONOOUTVOL,	0x00 },
-+	{ ES8328_DACCONTROL29,	0xaa },
-+	{ ES8328_DACCONTROL30,	0xaa },
-+};
-+
- const struct regmap_config es8328_regmap_config = {
--	.reg_bits	= 8,
--	.val_bits	= 8,
--	.max_register	= ES8328_REG_MAX,
--	.cache_type	= REGCACHE_MAPLE,
--	.use_single_read = true,
--	.use_single_write = true,
-+	.reg_bits		= 8,
-+	.val_bits		= 8,
-+	.max_register		= ES8328_REG_MAX,
-+	.cache_type		= REGCACHE_MAPLE,
-+	.reg_defaults		= es8328_reg_defaults,
-+	.num_reg_defaults	= ARRAY_SIZE(es8328_reg_defaults),
-+	.use_single_read	= true,
-+	.use_single_write	= true,
- };
- EXPORT_SYMBOL_GPL(es8328_regmap_config);
- 
-+const struct regmap_config es8388_regmap_config = {
-+	.reg_bits		= 8,
-+	.val_bits		= 8,
-+	.max_register		= ES8328_REG_MAX,
-+	.cache_type		= REGCACHE_MAPLE,
-+	.reg_defaults		= es8388_reg_defaults,
-+	.num_reg_defaults	= ARRAY_SIZE(es8388_reg_defaults),
-+	.use_single_read	= true,
-+	.use_single_write	= true,
-+};
-+EXPORT_SYMBOL_GPL(es8388_regmap_config);
-+
- static const struct snd_soc_component_driver es8328_component_driver = {
- 	.probe			= es8328_component_probe,
- 	.remove			= es8328_remove,
-@@ -884,7 +1060,8 @@ static const struct snd_soc_component_driver es8328_component_driver = {
- 	.endianness		= 1,
- };
- 
--int es8328_probe(struct device *dev, struct regmap *regmap)
-+int es8328_probe(struct device *dev, struct regmap *regmap,
-+		 enum es8328_type type)
- {
- 	struct es8328_priv *es8328;
- 	int ret;
-@@ -898,6 +1075,7 @@ int es8328_probe(struct device *dev, struct regmap *regmap)
- 		return -ENOMEM;
- 
- 	es8328->regmap = regmap;
-+	es8328->type = type;
- 
- 	for (i = 0; i < ARRAY_SIZE(es8328->supplies); i++)
- 		es8328->supplies[i].supply = supply_names[i];
-diff --git a/sound/soc/codecs/es8328.h b/sound/soc/codecs/es8328.h
-index 9109f6b5b045a..3e2cfca050e2b 100644
---- a/sound/soc/codecs/es8328.h
-+++ b/sound/soc/codecs/es8328.h
-@@ -10,8 +10,15 @@
- 
- struct device;
- 
-+enum es8328_type {
-+	ES8328_TYPE_ES8328 = 1,
-+	ES8328_TYPE_ES8388,
-+};
-+
- extern const struct regmap_config es8328_regmap_config;
--int es8328_probe(struct device *dev, struct regmap *regmap);
-+extern const struct regmap_config es8388_regmap_config;
-+int es8328_probe(struct device *dev, struct regmap *regmap,
-+		 enum es8328_type type);
- 
- #define ES8328_DACLVOL 46
- #define ES8328_DACRVOL 47
+> +				      "gcc_axi_hf",
+> +				      "gcc_axi_sf",
+> +				      "vfe0",
+> +				      "vfe0_fast_ahb",
+> +				      "vfe1",
+> +				      "vfe1_fast_ahb",
+> +				      "vfe2",
+> +				      "vfe2_fast_ahb",
+> +				      "vfe_lite",
+> +				      "vfe_lite_ahb",
+> +				      "vfe_lite_cphy_rx",
+> +				      "vfe_lite_csid",
+> +				      "qdss_debug_xo";
+> +
+> +			interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 605 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 376 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 433 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 606 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 377 IRQ_TYPE_EDGE_RISING>;
+> +			interrupt-names = "csid0",
+> +					  "csid1",
+> +					  "csid2",
+> +					  "csid_lite0",
+> +					  "csid_lite1",
+> +					  "vfe0",
+> +					  "vfe1",
+> +					  "vfe2",
+> +					  "vfe_lite0",
+> +					  "vfe_lite1";
+> +
+> +			interconnects = <&gem_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +					 &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> +					<&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
+> +					 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+> +			interconnect-names = "ahb",
+> +					     "hf_mnoc";
+> +
+> +			iommus = <&apps_smmu 0x1c00 0x00>;
+> +
+> +			power-domains = <&camcc CAM_CC_TFE_0_GDSC>,
+> +					<&camcc CAM_CC_TFE_1_GDSC>,
+> +					<&camcc CAM_CC_TFE_2_GDSC>,
+> +					<&camcc CAM_CC_TITAN_TOP_GDSC>;
+> +			power-domain-names = "ife0",
+> +					     "ife1",
+> +					     "ife2",
+> +					     "top";
+> +
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				camss_csiphy0_in_port: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				camss_csiphy1_in_port: port@1 {
+> +					reg = <1>;
+> +				};
+> +
+> +				camss_csiphy2_in_port: port@2 {
+> +					reg = <2>;
+> +				};
+> +
+> +				camss_csiphy3_in_port: port@3 {
+> +					reg = <3>;
+> +				};
+> +
+> +				camss_csiphy4_in_port: port@4 {
+> +					reg = <4>;
+> +				};
+> +
+> +				camss_csiphy5_in_port: port@5 {
+> +					reg = <5>;
+> +				};
+> +			};
+> +		};
+> +
+> +		csiphy0: phy@9523000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x09523000 0x0 0x2000>;
+> +
+> +			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
+> +
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				csiphy0_in_port: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				csiphy0_out_port: port@1 {
+> +					reg = <1>;
+> +				};
+> +			};
+> +		};
+> +
+> +		csiphy1: phy@9525000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x09525000 0x0 0x2000>;
+> +
+> +			clocks = <&camcc CAM_CC_CSIPHY1_CLK>,
+> +				 <&camcc CAM_CC_CSI1PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			interrupts = <GIC_SPI 478 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
+> +
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				csiphy1_in_port: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				csiphy1_out_port: port@1 {
+> +					reg = <1>;
+> +				};
+> +			};
+> +		};
+> +
+> +		csiphy2: phy@9527000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x09527000 0x0 0x2000>;
+> +
+> +			clocks = <&camcc CAM_CC_CSIPHY2_CLK>,
+> +				 <&camcc CAM_CC_CSI2PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			interrupts = <GIC_SPI 479 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
+> +
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				csiphy2_in_port: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				csiphy2_out_port: port@1 {
+> +					reg = <1>;
+> +				};
+> +			};
+> +		};
+> +
+> +		csiphy3: phy@9529000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x09529000 0x0 0x2000>;
+> +
+> +			clocks = <&camcc CAM_CC_CSIPHY3_CLK>,
+> +				 <&camcc CAM_CC_CSI3PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			interrupts = <GIC_SPI 448 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
+> +
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				csiphy3_in_port: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				csiphy3_out_port: port@1 {
+> +					reg = <1>;
+> +				};
+> +			};
+> +		};
+> +
+> +		csiphy4: phy@952b000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x0952b000 0x0 0x2000>;
+> +
+> +			clocks = <&camcc CAM_CC_CSIPHY4_CLK>,
+> +				 <&camcc CAM_CC_CSI4PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			interrupts = <GIC_SPI 122 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
+> +
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				csiphy4_in_port: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				csiphy4_out_port: port@1 {
+> +					reg = <1>;
+> +				};
+> +			};
+> +		};
+> +
+> +		csiphy5: phy@952d000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x0952d000 0x0 0x2000>;
+> +
+> +			clocks = <&camcc CAM_CC_CSIPHY5_CLK>,
+> +				 <&camcc CAM_CC_CSI5PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
+> +
+> +			interrupts = <GIC_SPI 89 IRQ_TYPE_EDGE_RISING>;
+> +
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
+> +
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
+> +
+> +			status = "disabled";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				csiphy5_in_port: port@0 {
+> +					reg = <0>;
+> +				};
+> +
+> +				csiphy5_out_port: port@1 {
+> +					reg = <1>;
+> +				};
+> +			};
+> +		};
+> +
+>   		camcc: clock-controller@956d000 {
+>   			compatible = "qcom,kaanapali-camcc";
+>   			reg = <0x0 0x0956d000 0x0 0x80000>;
+> @@ -6548,6 +6927,28 @@ pdp_tx: scp-sram-section@100 {
+>   		};
+>   	};
+>   
+> +	csiphy_mxc_opp_table: opp-table-mxc {
+> +		compatible = "operating-points-v2";
+> +
+> +		opp-300000000 {
+> +			opp-hz = /bits/ 64 <300000000>;
+> +			required-opps = <&rpmhpd_opp_low_svs_d1>,
+> +					<&rpmhpd_opp_low_svs_d1>;
+> +		};
+> +
+> +		opp-400000000 {
+> +			opp-hz = /bits/ 64 <400000000>;
+> +			required-opps = <&rpmhpd_opp_low_svs>,
+> +					<&rpmhpd_opp_low_svs>;
+> +		};
+> +
+> +		opp-480000000 {
+> +			opp-hz = /bits/ 64 <480000000>;
+> +			required-opps = <&rpmhpd_opp_low_svs>,
+> +					<&rpmhpd_opp_low_svs>;
+> +		};
+> +	};
+> +
+>   	thermal-zones {
+>   		cpullc-0-0-thermal {
+>   			thermal-sensors = <&tsens0 0>;
+> 
 
 -- 
-2.34.1
-
+Best wishes,
+Vladimir
