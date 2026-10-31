@@ -1,55 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793443813;
-	b=yCTy6MwuOJoc18DIdAU6ZDO494nDeQf96p015V44/Wnch0ljGWwS336YOVsc5ngMju8e
-	 RTTdxRtgDKSdDxtCX+v3Ad5L+wt1om3ZlSibO/cZru7IvjE2LHgY1lqLavAJLsHQKpoeI
-	 6wufqdeqrCRDiEZeYOj2vzAvBCd3lmY2R3WWWcCH+5KjDxvlV8q/VNP2cc24dOtaYG6tY
-	 mchTZpNJSNr4Vr/FxH73xdmjpXwL0icltcPr+MMW8ugLjSOH9A5TvzV9m2E3a1wT52ZD/
-	 mpPz1bKcfJ6Dy5rxhJesXf613dVT0CkulmEqTvicFFN5fsBkmSGfTKW/7h0OVMs2e7A==
+	t=1793443882;
+	b=j5vIvwJdU9EskAcEDiCKacXv+wU4Y0WfH0GJy2Fvtdk36etp3aExDdxiyI5UJ5X93+TG
+	 CGPCg4gBlzU44Oyfjy5yALOjw6qnC48Z0PPvxnTBhGQmPduz5YrEbw0zZ06lFBT+x134h
+	 JsXdbsY1r92oj6kspDgcFzOSwFFOElNFa/3UZaiRzUtm9lKp9xMWmwBse+silSNFu2oHR
+	 rzbTplps9Lqgo8PXNC4DyUYHwgAf9bTVSMpu1vz4yObnAnxEQ+xNthwQRHHsFo1Zp9M9c
+	 LoYX8drp0b6qB82fB02HAE1eQ5YpiR7H4vKQomzKV7rGmPV0lITU3crKQceJO4yCWDA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793443813;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id:X-Mailer:X-Last-TLS-Session-Version;
-	bh=wfW2viipMB+TYAZ+Y4DJ13i/34AHklnHI0K1OUw0+KM=;
-	b=F+HXNFOsp+1flRKHWk+pzSffASFIBMWJvI4H8zasjmyIrzGArP5li7ACtaRQ/GxgvrZS
-	 ADjV+C58h/gS70maJDMadpHV+gsnJgIUSiCtBSqf7pnuC93f+8o96+OVkHcK+oxL0sZW6
-	 D7SskXTx+bNwdvYzQAaw7YXusqnSJXdnOM/SqLaK+KU9hxKYFCXnBzEyi20o1TJIP2FmT
-	 UPHuSLnN5Ybfn5qN5uDMxCSySmElHD1jR8nbbsM1dlh6eG9Q5Uvul97zKbu7o3ETyELpb
-	 VZsqvg8k5k1qH46CC03zF3qqlzRNlICHijtEySsYKT0lW5n3qsM9CbfFcPETYpLbc9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793443882;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=GJfWazGdUI7keV3g8AbsyvSUWQ0SKJj/fzlMxSdGma8=;
+	b=e2n89H/o8eR5zvCYnnSY6WvuS+xoPEbQJV1v+g2cjUPjymVZy5hf4Ci/l+GbYzGJ19Nj
+	 XL3OHOoA1JaqXqV6f0xWenR26l72+1IM+ZMEtpvefCEv5x+83na0MYz8k32IdmAfCLEGC
+	 mTk6P3hPR7rAHwRZQFvl6d6cDyF+fAuRY6MAcbhbzwdCDxABqxkBzXiqb1twxSL+77JAg
+	 74894sKx/StS1bA4Aa+OWsMslmyOFmpdsbgXHSA2Hv2iUo5OGSeiGk/Ky5UAjPYxjYW+n
+	 VLmLxucVrgA9zOaU1ZVkQXZeZ4O8L2yvAtBUkOYOJf9Jlw19tX06YhQoh5kfA/E1vBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bootlin.com;
-	spf=pass smtp.mailfrom=bootlin.com;
-	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jdJxIjJ3;
-	arc=none smtp.remote-ip=185.246.84.56
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=APx9dNUb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F81C606A31D;
-	Sat, 31 Oct 2026 10:50:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F81C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DCF606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jdJxIjJ3
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B9D9D1A13F2;
-	Sat, 31 Oct 2026 10:50:09 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8A10C6076B;
-	Sat, 31 Oct 2026 10:50:09 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id F1C9410328D83;
-	Sat, 31 Oct 2026 11:49:33 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1793443803; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=wfW2viipMB+TYAZ+Y4DJ13i/34AHklnHI0K1OUw0+KM=;
-	b=jdJxIjJ3ChsL6d8hPAAPLvEecTqPISyKSGZRNxVtOxAwke8yKEgptsX4zZFKhMRL9hdxOw
-	BfK+XfFcbLUgMPqReS3H5MRyf2rvpoxSGy7ZozjCFRFAB/63KAsQK86vaIIXuO4Bwysabu
-	tj/Kgdyqa6XTfdrkGoYypbDhxnJQ0JnOhRvFVGJoWpyincax4aThygQbABx52TtBKB26Kp
-	1EtoW4BbWsFv0Kd58ffGuzr7DzUy/o5tVHMGGqcG2HxifVJgMrieCogibzySGKJnJD7kEW
-	5nPDyJUmtSOatVCdoMD9KOU7CMA5bx3Q7q44WxILZpLDr/XTKaPUjBBiiotsSw==
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=APx9dNUb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E37F1F00919;
+	Sat, 31 Oct 2026 10:51:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793443881;
+	bh=GJfWazGdUI7keV3g8AbsyvSUWQ0SKJj/fzlMxSdGma8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=APx9dNUbT7yZLB/p2GSjvVjuw7LZThTTfcI0IfJOtAItDN44ti8ZXwWN/0c7by3tN
+	 p4+LL9UVyELty38TxXOBsRGVLacUu9NNoJ9oB7guKvq1atTb755L6myuZ5PKejS9mj
+	 Rz3/jd+XHdmj6hi3rxbOoY+5jOuMqpM+BjAvYjVGqcYCz7hhsPXtO3Jsfgm1LeGFcx
+	 2+B5RkkIi9ziKbLkktFBECWAQap7Fe50mAdoFoz65Www1BSZGF/Hp2MNwV1bWbsYbo
+	 i9vIOK2RPNuMHhN9Prsw+WbKpA1fT1yy0xXFzs5M9kszTgEl2oWrkw9ag0D2NOkawU
+	 eTw4ornuUwqyw==
+Date: Sat, 31 Oct 2026 10:51:06 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Byungchul Park <byungchul@sk.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Dave Chinner <david@fromorbit.com>, David Rientjes <rientjes@google.com>, 
+	Dennis Zhou <dennis@kernel.org>, Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, 
+	Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Hugh Dickins <hughd@google.com>, 
+	Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Nick Piggin <npiggin@gmail.com>, 
+	Nico Pache <nico.pache@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, 
+	Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Will Deacon <will@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 7/7] MAINTAINERS: route more MM changes through
+ mm/core.git
+Message-ID: <auWz3J5Jrv3_grER@gremlin>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-7-97278f8a5f54@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,122 +83,209 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 16/35] drm/exynos: dpi: set the panel orientation on
- the connector
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Douglas Anderson <dianders@chromium.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Paul Cercueil <paul@crapouillou.net>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
- Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>, Biju Das <biju.das.jz@bp.renesas.com>, 
- Linus Walleij <linusw@kernel.org>, Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, Jonathan Corbet <corbet@lwn.net>, 
- Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>, Inki Dae <inki.dae@samsung.com>, 
- Seung-Woo Kim <sw0312.kim@samsung.com>, 
- Kyungmin Park <kyungmin.park@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, Alison Wang <alison.wang@nxp.com>, 
- Paul Kocialkowski <paulk@sys-base.io>, 
- Yannick Fertre <yannick.fertre@foss.st.com>, 
- Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
- Philippe Cornu <philippe.cornu@foss.st.com>, 
- Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
- Alexandre Torgue <alexandre.torgue@foss.st.com>, 
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Jagan Teki <jagan@amarulasolutions.com>, Ondrej Jirman <megi@xff.cz>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Igor Reznichenko <igor@reznichenko.net>, Michael Walle <mwalle@kernel.org>, 
- Dario Binacchi <dario.binacchi@amarulasolutions.com>, 
- Jagan Teki <jagan@edgeble.ai>, Jianhua Lu <lujianhua000@gmail.com>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Purism Kernel Team <kernel@puri.sm>, 
- Jerry Han <hanxu5@huaqin.corp-partner.google.com>, 
- Joel Selvaraj <jo@jsfamily.in>, Icenowy Zheng <icenowy@aosc.io>, 
- Michael Trimarchi <michael@amarulasolutions.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- Casey Connolly <casey.connolly@linaro.org>, 
- Michael Tretter <m.tretter@pengutronix.de>, 
- Cristian Cozzolino <cristian_ci@protonmail.com>, 
- Junjie Cao <junjie.cao@linux.dev>, Ryan Brue <ryanbrue.dev@gmail.com>, 
- Nickolay Goppen <setotau@mainlining.org>, 
- Stefan Mavrodiev <stefan@olimex.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Robert Chiras <robert.chiras@nxp.com>, 
- Alexander Koskovich <akoskovich@pm.me>, 
- Markuss Broks <markuss.broks@gmail.com>, 
- Artur Weber <aweber.kernel@gmail.com>, David Heidelberg <david@ixit.cz>, 
- Dzmitry Sankouski <dsankouski@gmail.com>, 
- Yedaya Katsman <yedaya.ka@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-mips@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
- linux-doc@vger.kernel.org, linux-samsung-soc@vger.kernel.org, 
- linux-stm32@st-md-mailman.stormreply.com, linux-sunxi@lists.linux.dev, 
- linux-tegra@vger.kernel.org, linux-rpi-kernel@lists.infradead.org
-In-Reply-To: <20261026-drm-panel-funcs-v1-16-5e3070a3478f@oss.qualcomm.com>
-References: <20261026-drm-panel-funcs-v1-0-5e3070a3478f@oss.qualcomm.com>
- <20261026-drm-panel-funcs-v1-16-5e3070a3478f@oss.qualcomm.com>
-Date: Sat, 31 Oct 2026 11:48:44 +0100
-Message-Id: <179344372468.9825.13949889516138830334.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-maintainers-v1-7-97278f8a5f54@kernel.org>
 
-> The panel is used directly, without the panel bridge, so nothing sets
-> its orientation on the connector apart from the workaround in the
-> get_modes() of some panel drivers, which runs too late.
+On Fri, Oct 30, 2026 at 10:34:31PM +0100, David Hildenbrand (Arm) wrote:
+> Let's start routing more components I (co)maintain through mm/core.git.
+> Update the git trees by pointing them at the for-next branch:
 >
-> Assisted-by: LLM
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+>  - MEMORY MANAGEMENT - BALLOON
+>  - MEMORY MANAGEMENT - CORE
+>  - MEMORY MANAGEMENT - GUP (GET USER PAGES)
+>  - MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+>  - MEMORY MANAGEMENT - MEMORY HOT(UN)PLUG
+>  - MEMORY MANAGEMENT - MIGRATION
+>  - MEMORY MANAGEMENT - NUMA PLACEMENT
+>  - MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
+>  - MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
 >
-> diff --git a/drivers/gpu/drm/exynos/exynos_drm_dpi.c b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-> index 74d3a2bebb74..05014c2e7d92 100644
-> --- a/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-> +++ b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-> @@ -109,6 +109,7 @@ static int exynos_dpi_create_connector(struct drm_encoder *encoder)
->  	}
+> Leave out MISC for now.
+
+Aww :(
+
+We do need to move as much as we can out of there over time, is really the
+catch-all obviously.
+
 >
->  	drm_connector_helper_add(connector, &exynos_dpi_connector_helper_funcs);
-> +	drm_connector_set_orientation_from_panel(connector, ctx->panel);
+> This change doesn't imply that all changes to these components will
+> immediately be routed through that tree; in particular changes that cover
+> other components, or severe conflicts will require coordination with
+> Andrew's tree.
+>
+> So this marks merely the start of "mm/core.git will start picking
+> relevant material for these components".
+>
+> Remove Andrew from these components to set the expectation that he won't be
+> the primary person picking stuff for these components; he is listed as
+> maintainer under the generic "MEMORY MANAGEMENT" and will get CCed on most
+> changes, and can keep an eye on stuff that falls through the cracks
+> (thanks!).
+>
+> While at it, drop the link to http://www.linux-mm.org: it's not
+> particularly useful in 2026.
 
-Patches 15-21 are quite inconsistent in terms of error checking:
+:))
 
- * some don't check for errors (like this one)
- * some do and return silently on error
- * some do and log an error before returning
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-I don't see a good reason, so I'd make them all log and return on error.
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-Luca
+> ---
+>  MAINTAINERS | 31 +++++++++----------------------
+>  1 file changed, 9 insertions(+), 22 deletions(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0adc674304987..b68bc36267091 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17446,18 +17446,15 @@ F:	mm/alloc_tag.c
+>  F:	tools/testing/selftests/alloc_tag/
+>
+>  MEMORY MANAGEMENT - BALLOON
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  L:	linux-mm@kvack.org
+>  L:	virtualization@lists.linux.dev
+>  S:	Maintained
+> -W:	http://www.linux-mm.org
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	include/linux/balloon.h
+>  F:	mm/balloon.c
+>
+>  MEMORY MANAGEMENT - CORE
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  R:	Lorenzo Stoakes <ljs@kernel.org>
+>  R:	Liam R. Howlett <liam@infradead.org>
+> @@ -17467,8 +17464,7 @@ R:	Suren Baghdasaryan <surenb@google.com>
+>  R:	Michal Hocko <mhocko@suse.com>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> -W:	http://www.linux-mm.org
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	Documentation/admin-guide/sysctl/vm.rst
+>  F:	Documentation/core-api/gfp_mask-from-fs-io.rst
+>  F:	fs/proc/meminfo.c
+> @@ -17526,15 +17522,13 @@ F:	include/linux/execmem.h
+>  F:	mm/execmem.c
+>
+>  MEMORY MANAGEMENT - GUP (GET USER PAGES)
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  R:	Jason Gunthorpe <jgg@nvidia.com>
+>  R:	John Hubbard <jhubbard@nvidia.com>
+>  R:	Peter Xu <peterx@redhat.com>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> -W:	http://www.linux-mm.org
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	Documentation/core-api/pin_user_pages.rst
+>  F:	mm/gup.c
+>  F:	mm/gup_test.c
+> @@ -17544,14 +17538,12 @@ F:	tools/testing/selftests/mm/gup.c
+>  F:	tools/testing/selftests/mm/gup_longterm.c
+>
+>  MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  R:	Xu Xin <xu.xin@linux.dev>
+>  R:	Chengming Zhou <chengming.zhou@linux.dev>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> -W:	http://www.linux-mm.org
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-ksm
+>  F:	Documentation/admin-guide/mm/ksm.rst
+>  F:	Documentation/mm/ksm.rst
+> @@ -17566,6 +17558,7 @@ M:	Oscar Salvador <osalvador@suse.de>
+>  L:	linux-mm@kvack.org
+>  L:	linux-cxl@vger.kernel.org
+>  S:	Maintained
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	Documentation/ABI/testing/sysfs-devices-memory
+>  F:	Documentation/admin-guide/mm/memory-hotplug.rst
+>  F:	Documentation/core-api/memory-hotplug.rst
+> @@ -17614,7 +17607,6 @@ F:	mm/vmscan.c
+>  F:	mm/workingset.c
+>
+>  MEMORY MANAGEMENT - MIGRATION
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  R:	Zi Yan <ziy@nvidia.com>
+>  R:	Matthew Brost <matthew.brost@intel.com>
+> @@ -17625,8 +17617,7 @@ R:	Ying Huang <ying.huang@linux.alibaba.com>
+>  R:	Alistair Popple <apopple@nvidia.com>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> -W:	http://www.linux-mm.org
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	include/linux/migrate.h
+>  F:	include/linux/migrate_mode.h
+>  F:	include/trace/events/migrate.h
+> @@ -17698,7 +17689,6 @@ F:	mm/numa_emulation.c
+>  F:	mm/numa_memblks.c
+>
+>  MEMORY MANAGEMENT - NUMA PLACEMENT
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  M:	Gregory Price <gourry@gourry.net>
+>  R:	Zi Yan <ziy@nvidia.com>
+> @@ -17707,8 +17697,7 @@ R:	Rakie Kim <rakie.kim@sk.com>
+>  R:	Ying Huang <ying.huang@linux.alibaba.com>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> -W:	http://www.linux-mm.org
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-memory-tiers
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-mempolicy
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-mempolicy-weighted-interleave
+> @@ -17782,7 +17771,6 @@ F:	mm/vmscan.c
+>  F:	mm/workingset.c
+>
+>  MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  M:	Lorenzo Stoakes <ljs@kernel.org>
+>  R:	Rik van Riel <riel@surriel.com>
+> @@ -17793,6 +17781,7 @@ R:	Jann Horn <jannh@google.com>
+>  R:	Lance Yang <lance.yang@linux.dev>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	include/linux/rmap.h
+>  F:	mm/interval_tree.c
+>  F:	mm/page_vma_mapped.c
+> @@ -17850,7 +17839,6 @@ F:	mm/swap_table.h
+>  F:	mm/swapfile.c
+>
+>  MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+>  M:	Zi Yan <ziy@nvidia.com>
+>  R:	Baolin Wang <baolin.wang@linux.alibaba.com>
+> @@ -17864,8 +17852,7 @@ R:	Usama Arif <usama.arif@linux.dev>
+>  R:	Kiryl Shutsemau <kas@kernel.org>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> -W:	http://www.linux-mm.org
+> -T:	git git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+> +T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/core.git for-next
+>  F:	Documentation/ABI/testing/sysfs-kernel-mm-transparent-hugepage
+>  F:	Documentation/admin-guide/mm/transhuge.rst
+>  F:	include/linux/huge_mm.h
+>
+> --
+> 2.43.0
+>
 
--- 
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
-
+--
+Cheers, Lorenzo
