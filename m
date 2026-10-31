@@ -1,55 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793481701;
-	b=Mgiu2XokU4Tt7G3C0Z7m1XBPvJGznTPeYOmR+IqzfyzMVu+kF4t9rexSw6JJ3RFMthMw
-	 irXIVuotOOnRsBH1NAH8QhZfOj3iWLoIxysyf9o/6WXNEbL2seOyAZy7REfnZtPkfw5io
-	 QXBxaUn0fVLCCZWpUIWtw8jKRFWptq3ivNI8uzArJYs77Codcu00RWuaMmSYcb0dUHiXM
-	 66f4728ykwe9xC4adEONRTefbMgiHDL1whTPtgrJSx4CiqqG+DHbRwzh38JtdSm6anuJS
-	 KrmXkHqw8tmBPFENJCevRR7KCEuYh3drjDYcuzW+PqFIZznXxzyPazZJwiTs3kaPEJw==
+	t=1793481899;
+	b=IKZ8Qy9K+oD8kqpFkHdQmO+f6EOmXnfQAGOc5Yi90JTHh4epcGaKlzjRoCTgZCaaEKfd
+	 ROi1MOxBkJOK5nSnz9yIfbR8CbBGqSPnr4MPQ0YQ8a/RviJnbLfKASSWnwEQTEGmcACve
+	 bsGfZynNuIX0O41fqEGGc/bPum9jlogIGg36YEAgpWJMe/9rX8SImAP6pD/+XZ4cquLmq
+	 sKx45yYItwfs/90a6UmNZbx1UB1DM7IoJxZw037PWg4mkWKiBZk9TVwVfFPqvHrCXZwV9
+	 HXxma/Fy1kAuWYolCAqOArZHfDw0D6D/b1q+dBetmeH/yz2j6tnje/ZwfODxnVETIGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793481701;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=ty94gSbhmDD5BIMgrsH4AK83dBi7LvnXvW0bmqOEn6Q=;
-	b=RXJBK7mWgPRFcaBlAElItsNUUDp0P7MBwZDJORQcMQlnav4ozZ2UDkhG6Zwx2cDecO4r
-	 k7OT74JRIAL8tVD+FbQhCy9TiqkLh1xSkiAK7TLehVzhbNFY2OuugdIn+FFC+BLn0RWsE
-	 8iXRF+cBptLexLgPdU+rsEQY9/o39fqRRAFzRzhYO9e2sLMWL0AQUttnCXhg6uIc+ND4O
-	 xEOq0fyz5YCkD8WMWaXmb6TtVsXlYvUo2SBqSAbonuVta7a48SL+QhRE1+LMTW39e2+z+
-	 YmCmS1byyQM38TeNPaNGKyFoLWHivErQkaYOtF26dD92vJVxvAldscuMQ9DHwlEVWqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793481899;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1Vk1hJfR0u61Fe9qHt5Nn3FgFhmPztbFsxazzVHlKZY=;
+	b=OUu00qGDnpYjH3oA5d/V03x98cU2cfeJS07uIG0aN2e2AN2p3nh9Qr4pmBoDxiS1Qhc1
+	 5JDa101G+7SYhfAbSrr0UGYV8rYPgGRv928cjZ8KqkEFCH2+jzARqj1dxUzkdFwR5j7lL
+	 OqDOPARPuUN4BvMr4KXwR/5gDVgHB2dh6QqncKYvm0d/KJqMsu6W51dBn9+enitt8Esza
+	 bBuNDskmAOIYrHJLRO3bifRMhH3OJaJNPFc4Q2DYRPWoA0o8DkX50bB7gEXMBJQb/ULFb
+	 gmG5BcGSIwdJ3/ZNVBdGChV6HGhnudEEYIVuix+cGYr7KvN6AdUjky7XjgjB+fDD5DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nv0K1geW;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fRulVzh3;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CA30606A31E
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:21:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55B8606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:24:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E55B8606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nv0K1geW
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4F791F00A22
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793481699;
-	bh=ty94gSbhmDD5BIMgrsH4AK83dBi7LvnXvW0bmqOEn6Q=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Nv0K1geWEW21EP+164tZ9ZkJwnFe5As405lOGWO05ZYOg7Lx1i0lmjU6Jao8qCyQN
-	 6kkf86pcNxo+ywvYPj/rGZsWRf2MvqsJhX0nC5iDudHzpU5LqtDe5A1F3HPiGUNfuA
-	 JaYI205jkw6gNuzTRwyhonMiz41vd3QmhBZRPfMkgoPHlFN6SKGKDPF9Y28Se0elkA
-	 8bFMZB5SOE/Ny2FWsDfPWdDLl5BjKKJilm6NBMqz966pnvFjTio5w0uqC2dtoMPEWT
-	 ott9wyW7S7gZPTyupY7DCxiVQVwg6XHctY5+AOUqjVKUb+QGQwCNA7hxm5IKr/ulxd
-	 zjgRTUm2h8X+w==
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5365b48238dso17116351cf.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:21:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByJS1Ohp8T4dpUjeFMS+5Yl1Qpi22dLjqce7L/AEDQP1mv6hZsp/gzLl5azFa/SqfA36XKtXBs19quFOGg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKfU9kqqk6+BiMwip9ndFNxsXttJVE6ZNl74iBmLuOucx9KN7oK
-	yUfqKd+A2IyaFxcZnrdaozs1nCYWH3OtLntmEKefU18nGB58a5KczagKtnDfDM13sfN1fJ06C5z
-	Z54tgmaAv+1CJECS1U4pViS4LHe1Qtr4=
-X-Received: by 2002:a05:620a:1a04:b0:93e:7939:acd0 with SMTP id
- af79cd13be357-944216bd289mr1066244785a.37.1793481699158; Sat, 31 Oct 2026
- 14:21:39 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fRulVzh3
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48df4e9d2d4so913628f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:24:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793481897; x=1794086697; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1Vk1hJfR0u61Fe9qHt5Nn3FgFhmPztbFsxazzVHlKZY=;
+        b=fRulVzh31Bhqv4/NY0qSOKuAao7KoNFrPQExsVBxY7qusbFaVTWyHO4RWrHIdAtg07
+         vFUPO5eJXntEXjdfR1QLkzpfOsUJKagNOTK8XkC/c0eOnia4NkMKvJI/Nk3VrVFoxsOh
+         i3oPWiPPU2rtDbWV4kOkc6izndYKP4KXuDEkGhXYsoeRWL/kH2x1YXIiD+1hnaPPH9HG
+         9EzMsLOiHjBNpJGxgjQQzJ7ekqcK37vxtBU4edxk2DSn5o2ErNIoJFaP/+AoToO0aF3U
+         MxjsXR6/F34luSr3gv8m2/9Ro5kDnFDCdNXHMzKkM8aUGzvbYkTbhDMjdSXCvtxNlOXL
+         N7fw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793481897; x=1794086697;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Vk1hJfR0u61Fe9qHt5Nn3FgFhmPztbFsxazzVHlKZY=;
+        b=LnYkCqOyWnCWohvZHnDyHIAjsd6q3MkFc8nu1b+iII4w53PybfePhhcJxLayAHvWjT
+         hMjBMKGcxtgSfQcbqrtbCTDlan3qn8RnKUTBvXdszBLgwLylcI3kTqDADVIInsm1pFM0
+         eEOuhTA/A1i5m0SeLRvUuTHiDG2K9bSPdtZWjcHQx/L3AIwx4q7vEQjs7Gg8YMhA+A/j
+         aQLt/601127KiMlwQPBhb9yR8XJLoZLJ7HhBfNM11tPfEiRU+Aqj+Hk2YeMFI+o886AC
+         R0S5mBs0RqNpom4znYxduyoyTSNMFOa6DvcHqBf/hkdTb+ntQNOx0wQ9iL/uAPTBSnHM
+         NcKw==
+X-Forwarded-Encrypted: i=1; AKwUvByrzcOX22ffGpIFRr/k7k0RKHGgw422O5lpWSBVT3lKe0m+ohHulcbYDiOVOoRv9BMDIe6tGY/YwrrHsU4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQkI2Bn6uWvv2lO1n1wOC+LFwfrNx4pCNgZqevZGNSDAsLoLoD
+	Jj+WNrX3g+WoOM3IkMFfUBPV/W5wAKCO52ADId5+kzsNDWUKnOAxBtPD
+X-Gm-Gg: AYBFou3LMRQi6V4BWSDNPR7L0LYX2KYL9cvPfX1it6hPI26CG4Hrg1pCPIQs1RKIV57
+	5+3ky6TAe5Awtv2mxhb4GRnqq/pLTd656mqpedjQnfx8VxDb0BZ3AgXk621JnqQu6ELOLU3PArO
+	j/xMWTlrNaXJZ44lF4vgz4wdbiINGpZVPyu43416RNDuyH5stw3FuPhdDilrqJP/59IGCl+qlIO
+	jlqxkp+AlxKDccEbsKMnBWlq94oOX1bOT8vcibytIaP/q0f1JjxrCOS4oZF0jSegYDLdIal/bwL
+	NC4W/+XETuRMbnOBxHc6IebPiLu+XS3bUu2cAPoXha2fe2iyhPKzcFjIunp+v74of4ufZI/5FCl
+	3/MO0D3xtwrU4WYfqAYATeskRqyFjCx2D4mX+3Hn9uTxuoPB2vipHke1xSLeCQCIl0hgEKR/wQ2
+	B0XmHnLYcr8XUr8WrW2B5rfLe6C+ncRAyoVi5ATxq3dImFqsq/WrzA/VpY4xhUm/X44Kt+EgxUX
+	+8da/PiMMm7y9yzyvCndmloBx5UkXVqJwYaoidJzgD4ksL8CW2n7qxskjFyjXD23sMNhiNyEvBm
+	rTi3s5GkEwm3w+sH8wHVU7pVq5SSCLE3B2AnkJtGoLb5fjab2fYmrnmFdYwTtgDn0kyHQ0fX+7u
+	3z7t67B1f92d2bxHjvAJ7+7UgkX/36MDBKO8=
+X-Received: by 2002:a5d:4982:0:b0:48c:7306:18e9 with SMTP id ffacd0b85a97d-48e6e307204mr9624281f8f.43.1793481897073;
+        Sat, 31 Oct 2026 14:24:57 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b81c74sm10204530f8f.36.2026.10.31.14.24.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 14:24:56 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	David Carlier <devnexen@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] tracing/user_events: Don't free an event that a dynamic event still references
+Date: Sat, 31 Oct 2026 21:24:35 +0000
+Message-ID: <20261031212453.16116-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,139 +99,65 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031090041.58574-1-ridong.chen@linux.dev> <20261031090041.58574-7-ridong.chen@linux.dev>
-In-Reply-To: <20261031090041.58574-7-ridong.chen@linux.dev>
-From: Barry Song <baohua@kernel.org>
-Date: Sun, 1 Nov 2026 05:21:27 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zUbkFXBhAesVV74-Ndga5f6xEbestK7Qinqddip8xBrw@mail.gmail.com>
-X-Gm-Features: AclHuK9WNH9aLICSgSeVZV5too_5MSDmgtyvPVk6Q01fvL_ZF8MPvPlJAdKgm4w
-Message-ID: <CAGsJ_4zUbkFXBhAesVV74-Ndga5f6xEbestK7Qinqddip8xBrw@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] mm/mglru: add tracepoint for inc_max_seq()
-To: Ridong Chen <ridong.chen@linux.dev>
-Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
-	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
-	Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Muchun Song <muchun.song@linux.dev>, 
-	Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, 
-	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
-	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
-	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
-	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>, Ridong Chen <chenridong@xiaomi.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 5:02=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
- wrote:
->
-> From: Ridong Chen <chenridong@xiaomi.com>
->
-> Aging in MGLRU advances max_seq via inc_max_seq(), creating a new
-> youngest generation. There is currently no tracepoint on this path, so
-> the moment a new generation is created, and how the min_seq of each type
-> trails behind it, cannot be observed as it happens.
->
-> Add mm_mglru_inc_max_seq, emitted right after max_seq is bumped while
-> the lruvec lock is still held, with the node id, memcg id, the new
-> max_seq, the anon and file min_seq, and the number of pages in each
-> generation for both types, summed over zones and clamped to >=3D 0 the
-> same way the debugfs lru_gen file reports them. The nr_anon/nr_file
-> arrays are indexed by generation slot, so the emitted max_seq/min_seq
-> say which slot holds which seq. They are printed with __print_array(),
-> so the output is hex and its length follows MAX_NR_GENS automatically.
->
-> Only the lruvec is passed in; all of the above is collected in
-> TP_fast_assign(), so inc_max_seq() does no extra work when the event is
-> disabled. Paired with mm_mglru_scan_folios it makes the full
-> aging-to-eviction window observable per memcg.
->
-> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
-> ---
->  mm/trace_vmscan.h | 47 +++++++++++++++++++++++++++++++++++++++++++++++
->  mm/vmscan.c       |  2 ++
->  2 files changed, 49 insertions(+)
->
-> diff --git a/mm/trace_vmscan.h b/mm/trace_vmscan.h
-> index 8148b8224422..cddf42b5849a 100644
-> --- a/mm/trace_vmscan.h
-> +++ b/mm/trace_vmscan.h
-> @@ -456,6 +456,53 @@ TRACE_EVENT(mm_mglru_scan_folios,
->                 __entry->min_seq)
->  );
->
-> +TRACE_EVENT(mm_mglru_inc_max_seq,
-> +
-> +       TP_PROTO(struct lruvec *lruvec),
-> +
-> +       TP_ARGS(lruvec),
-> +
-> +       TP_STRUCT__entry(
-> +               __field(u64, memcg_id)
-> +               __field(unsigned long, max_seq)
-> +               __field(unsigned long, anon_min_seq)
-> +               __field(unsigned long, file_min_seq)
-> +               __array(unsigned long, nr_anon, MAX_NR_GENS)
-> +               __array(unsigned long, nr_file, MAX_NR_GENS)
-> +               __field(int, nid)
-> +       ),
-> +
-> +       TP_fast_assign(
-> +               struct lru_gen_folio *lrugen =3D &lruvec->lrugen;
-> +               int gen, zone;
-> +
-> +               __entry->memcg_id =3D mem_cgroup_id(lruvec_memcg(lruvec))=
-;
-> +               __entry->max_seq =3D lrugen->max_seq;
-> +               __entry->anon_min_seq =3D lrugen->min_seq[LRU_GEN_ANON];
-> +               __entry->file_min_seq =3D lrugen->min_seq[LRU_GEN_FILE];
-> +               /* summed over zones and clamped to >=3D 0, as debugfs lr=
-u_gen does */
-> +               for (gen =3D 0; gen < MAX_NR_GENS; gen++) {
-> +                       __entry->nr_anon[gen] =3D 0;
-> +                       __entry->nr_file[gen] =3D 0;
-> +                       for (zone =3D 0; zone < MAX_NR_ZONES; zone++) {
-> +                               __entry->nr_anon[gen] +=3D
-> +                                       max(lrugen->nr_pages[gen][LRU_GEN=
-_ANON][zone], 0L);
-> +                               __entry->nr_file[gen] +=3D
-> +                                       max(lrugen->nr_pages[gen][LRU_GEN=
-_FILE][zone], 0L);
-> +                       }
-> +               }
+An eprobe takes a reference on the call of the event it attaches to,
+and kprobe, uprobe, fprobe and synth events all refuse to go away while
+trace_event_dyn_busy() says such a reference exists. user_events never
+checks it, so a user event can be freed under an eprobe:
 
-I feel this is wrong. Can we calculate the newest and
-oldest generations from seq, then print them in order
-from newest to oldest?
+  echo 'u:test u32 a' >> dynamic_events
+  echo 'e:ep user_events/test a=$a' >> dynamic_events
+  echo '-:user_events/test' >> dynamic_events
+  echo '-:eprobes/ep' >> dynamic_events
 
-The nr_pages[] array isn't ordered from newest to
-oldest or vice versa, as we have:
+The last write drops the reference on the freed call.
 
-static inline int lru_gen_from_seq(unsigned long seq)
-{
-        return seq % MAX_NR_GENS;
-}
+If the last fd of a non-persistent event closes while such a reference
+is held, the delayed destroy now fails. Mark the event persistent then,
+so it can still be deleted once the reference is gone instead of being
+leaked.
 
-And I added a helper here:
-https://lore.kernel.org/linux-mm/20261022220203.91911-11-baohua@kernel.org/
+Return -EBUSY from destroy_user_event() in that case.
 
-+static inline unsigned long lruvec_gen_size(struct lru_gen_folio *lrugen,
-+ int type, unsigned long seq)
-+{
-+     int gen =3D lru_gen_from_seq(seq);
-+     unsigned long size =3D 0;
+Fixes: 7f5a08c79df3 ("user_events: Add minimal support for trace_event into ftrace")
+Cc: stable@vger.kernel.org
+Signed-off-by: David Carlier <devnexen@gmail.com>
+---
+v2: keep an event whose delayed destroy fails deletable by marking it
+persistent (Sashiko). Deleting it then needs CAP_PERFMON, like any
+persistent event.
+v1: https://lore.kernel.org/all/20261031210420.501187-1-devnexen@gmail.com/
+ kernel/trace/trace_events_user.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index f658c3a77aa7..ea6a20a30cf5 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -256,6 +256,11 @@ static void delayed_destroy_user_event(struct work_struct *work)
+ 		 * attempt to delete it later.
+ 		 */
+ 		pr_warn("user_events: Unable to delete event\n");
++		/*
++		 * Keep it as persistent so it can be still deleted
++		 * since nobody own this event
++		 */
++		user->reg_flags |= USER_EVENT_REG_PERSIST;
+ 		refcount_set(&user->refcnt, 1);
+ 	}
+ out:
+@@ -1506,6 +1511,10 @@ static int destroy_user_event(struct user_event *user)
+ 
+ 	lockdep_assert_held(&event_mutex);
+ 
++	/* If there is a reference to a dynamic event */
++	if (trace_event_dyn_busy(&user->call))
++		return -EBUSY;
 +
-+     for (int zone =3D 0; zone < MAX_NR_ZONES; zone++)
-+          size +=3D max(READ_ONCE(lrugen->nr_pages[gen][type][zone]), 0L);
-+     return size;
-+}
+ 	/*
+ 	 * Detach the fields before removing the call. Removing the event
+ 	 * frees the field list memory (trace_destroy_fields() is run on
+-- 
+2.55.0
 
-Maybe you could port it here as a separate patch so it
-can land earlier as part of your tracepoints series. We
-could then use it in the next version of the swappiness
-series.
-
-Best,
-Barry
