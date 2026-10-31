@@ -1,99 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793465430;
-	b=n2S4+3yH5wlLJHfA4oaKNO+kJviozdlK3c30PvW08vjq8P3HqcNa1bNTvf/bpL5J5kgK
-	 SNLlG7hugjg1N1SBbYu5Ews37M7vSe5kulW25KtmloEj8rbF7pXPVwEkKKanZLH1aGcIp
-	 4Lh4tYbFdtvyTXtFW57bySUSCwmyd7vxJMLHJyU8PRAvC/Gi0oVD0+qT63la+8UDLc46a
-	 gm0A+ZGpw4MZB8XHxn4zeGrFUvW3Q9xCmHG3md08bhLu7qmiMZOobkz2jbTneCRVIFDft
-	 Q9g435VZ286IjBxBlED+t5rosWHGYF8Es61Md02nelf9PUFUNTgoDCrlK5VofCpA2KQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793465430;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=p7THrwOGLzbplnbkF72+f87VrPU0qVDjWjDR7mNS6ek=;
-	b=m/fHtwMo74+ZlcaQIgyPxbi9mgQstBNVlKxZELLaLlcqR2K8S/IjXJM9IBC3ti9iat9t
-	 UH2nqLoGZ69TZzDmdy4dzydQ+9CngBnJFm3pByNlfxHAL4iCLxmj3SJ5/iSOKbxIOy6uf
-	 mrl0GDjcZA+A8GBay9SrVAfYqC7pWWNm/6O0+7UvAg6UZNbd0StgaiP+t5lfE3BJHg9Pf
-	 2iqDmIEPp4A7tz/o6kA4iN1NPgvl/C5zpcqNVWvESTMpPO4VBOi0Ilz7W2HCvi2u/NutX
-	 WicIST/zkNW4IcZJvymMN09d8Mj4j4Ojw9NwYkCdfh0mVvDDuimwooNmLw/uQpEmPjA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="xU/989yO";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.48
-Received: from mail-oa1-f48.google.com (mail-oa1-f48.google.com [209.85.160.48])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793465482;
+	b=KTIVgpIL3A+wwhF8Ae+XdkcCI27c1VclbE8SJH63hZiiy6z46CLvfOcQUcQzFgTaz0py
+	 NX1Lsb7WGsGmuQ2AIsqiF5j//QqYoBWoKUgRgcma44egm0e20IYxrXbYXSCSDkNrVdIT+
+	 6ydW62MoRbuZ9384rQme4SJMqWEAt4r3NvJC6jIr1cRPFaxSLROKuPWnNB2bxIazB3USn
+	 QQv96kxEdo6JeJKVxJDt7XNHRzPParAQaVbB+bGD3RexhlC98a9Qb6iZu2H/2u2g2VxF/
+	 PX5d8aT3+1uz2RBvNbg8N1hUVdl0viFXoSc0XLyfnIB3nDEtzDYrICbHPUaSEzsJi4Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793465482;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=ZccZDmwpaj/O6pbTWegE+l+s9MNeeSWtqXGKbSCxwYE=;
+	b=jMmOaqgAxUvX2DXpMXjM+CynPcdYMuSwGeEulVBd4cmn4G1hcJihgSWT/EQHVr5iTjWH
+	 itYyS32zjd8QI7J0Q4plhOYs53KgetjOm58RDRJggG4AF//Wzxv6YOWvWN6F9LCBSUUJg
+	 VL1710lRFeNzZ99lpZK5Xpa8vQSxDiaxQmg4zqygF7j3r4FvSW/aiYdKGYMF7klqMGeFs
+	 BBSHkCQhF1m6nAipchFkZQagsabrrtSXvrnELVAEpZ+kZJ0k2LLs3znGWzLvoJs5sYPR0
+	 pmfUd+8a+eV+4EyY7MpZgPJsKzhVx8KxRPPzz+Vi3D9x/f/7F1LGoFA3A2jvBGm2XTA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13923606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:50:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 13923606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xU/989yO
-Received: by mail-oa1-f48.google.com with SMTP id 586e51a60fabf-48ed0b68895so1221967fac.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:50:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793465429; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q/WfC1zx9IA+3ASh3FeZ0PkMz2Y/ox/YnuL4Nikd1JVgvRu/gMhGvRgBQCrlVTxh47
-         5KkW+OWRK5/nj0Uxg9QXv9sDv65GRV6RY5g5ukmwFo9kA+6Vjiqdxmt8YH8ig8b8aFPM
-         Jz+m3HI0Jki3Zjh/ZKaBz0OEUC009/ritRcbDTQ02vfmUJ6G/A79sg5cg1SIHlP4Th9d
-         SyfYVnSdaq9sxaLgzBwX5W5Mk7iUJ49fKQzbQe8rtGYLDEafoChvTRDs19hCi/ccQyzb
-         lsD0dz4lG6wZTL37izLTEBSM+EC5OvQvR8LYvp7viV6OiodiaWghwmx4zpVR9xC1XNDA
-         IK+w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=p7THrwOGLzbplnbkF72+f87VrPU0qVDjWjDR7mNS6ek=;
-        fh=XJauy4/DwaedyDrwY1pNMYR+WxSPafiHAux5QyuMm0U=;
-        b=XzUO88o8BKqVbWLD8QFljDY8qUIx5Xgz/Fxb+roRQxUrvhSVJsx4WoGknNM9zO/4b/
-         cqaCf6DcJSmQUU14m+pVzprraLeH6s5vL25VPWZrthaO5EcLLoSha3CEHix4pYRsYyFB
-         nr2yPnj+wKo5UiPSQOj55UCIejiV7jcUfij4h8noPl64ETZcn40n8AGmZpwqcP+T+t93
-         aEpB4/EFtSgFqS8pFFuWpC31TeqUpErT4XQhU5UDkC7jRoGqPMuNPemsMuUEfKdpUw94
-         AuSA5vHOAsidSIDP+NBf+Ghl6ty89Cg6nR7oQ5bp4ZJNVCGoY65NmZadVgysfnzJh4pv
-         yrow==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793465429; x=1794070229; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=p7THrwOGLzbplnbkF72+f87VrPU0qVDjWjDR7mNS6ek=;
-        b=xU/989yOodyTP9zIdhLr9aOv6sWCWIBE1VClDUpQLlePRo7VRMBqTNi6eOjbPAPu54
-         mYEcfRm+u1PKEkOTpXkvePHM7nxebemIwPy3mGmYk7Sm/RX6HOBCO+jKGUsAsg655OsE
-         1vOx9J7QeUe+MfjEPG2KdwDk/1blaXpiDqo+hMtdxDf6RBhJ6mJ6SoFtT0Yo7Yywt7wX
-         SMaBsCd/ZaSFceR42o++LgP7AzBwmO5fJVq5WV1cXuArYg9R1BiBR/fPBysPOSlZDQrM
-         rx+7BeZqHcjtqzK2+jioOQsaLt1WOY6ZebBo6AUE3NByHTkrGQ3dL/uIykYwtcFUoAF5
-         SGlA==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1F8E606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:51:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1F8E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4a7de733fa9so2602132b6e.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:51:21 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793465429; x=1794070229;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=p7THrwOGLzbplnbkF72+f87VrPU0qVDjWjDR7mNS6ek=;
-        b=BMN672CvRV+2qV/BFwJ4Dk7yDQlDenbvBn3ztUXsU+d9U13n03g0Eex5FmQV4ECmQK
-         YWii8NkRVR81+kA0pgdz3BMAoErdQFyarRxEmxrCnVBbDgQZq7Km9uPje8gXGhVfvsBa
-         b1w+inA0OD/dis38/P6Bm4P1FAri92VtE3jIj2gIDVSO4V/NcAL1Lzfc4dNZrLGc1NuJ
-         WroVQWft0UDf9RACwMyPgeKPzt7iR5qnKSV0qxhzkqVZa+9w4hwM7+2HnZpgsxuWN1Ou
-         VMHrhppEgtKHzAQUxRuWP8be6byX+Be77kwHM6YSnMB51Kag9DdpWTE8irjl+is2SCT3
-         j2Fw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMZ2BM/KZIHkN8qqcYaElrdsnKqMA6EgFDp7Trm+cTNm4+Xv/sLEOiX7ZncJqUKT19Z3FN/vqXoP5iyM0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbZGdFg+ZZDLKS60W2YR6dDrW6PifBDOXfS7v5c5xVxiZYS4Lp
-	Wv3SoIZaUgzhEZUttNlxm9ZTYKMNXB28rfQNoHEicPpKHdjiZV/xVLdCZcPf45RyD3jB5vkBeSc
-	d0LDdYqG67rNPQas2/NQHIyWaNp6hDNI=
-X-Gm-Gg: AYBFou2Fv8FliGVsEl0huwPir7zDxvEYXqhuTKhRgLJtLY0L1mzSAIlDdqRLuzIwO+w
-	fUXEPCGWP7H+wzKjQbleHjd6wMPsfBdpZqyJxNITFcDNRlndTacbfBV/f/e6B6m+2a7GVeQ+kz6
-	n8RBk2526SHdNNVgNlWV4zrTyoU1++Vt912NdEvhtiFlBKDAEhob8MxN1/DK8UxCkxYnlUriMa1
-	2ki9I0KODr4QcVg7nisLOR0KP6tS2dV09ol0r0QKJjQxH3nawuDBNAQGdXYKEqLZDt5OmvuR/pM
-	X/SYhKTKuABobKl2Jx0k59llGoo39r/7pI2A4xYInwTYZaVcwXtF9h5FSN9/zY91ocvKQ0JmQbZ
-	E9kJhV/yhGQTYce07QGxsot/pvWiWwVi5cQRZbF/yCHUJN4FpstctccY9EnTMnK4MvCdBXM8=
-X-Received: by 2002:a05:6871:ed4e:10b0:48f:e3f5:c41d with SMTP id
- 586e51a60fabf-4a942ec0e6cmr345290fac.62.1793465428799; Sat, 31 Oct 2026
- 09:50:28 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793465480; x=1794070280;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZccZDmwpaj/O6pbTWegE+l+s9MNeeSWtqXGKbSCxwYE=;
+        b=yLSsPNIc7L2seepSXUWiWuGyaeVd+cEVAZo1cfr3uJiWBx/mRTLOz3u9kp5WRlU+Kv
+         8LrB1fx2WmCmSxg1QpCW+8tvx5SPxoXrzJdc3UZil17357HFNW6uPKmHCBX3JMzqWg7V
+         qGV6Bya907laOvYZuWnJOaHBJvlzhdNONhnVsJpn6ZyRcvVXVADff0JjP7Qo1Ftze0yH
+         yC908C5PTx2uxE4RsNZ6LpJzjyDpKYo2kJas5CY7aMSjW0M8xPV2zopTWfZL8LTvHwJI
+         6VyHnsKjFvSsKWLN0COT+D3qw3jnp7jlCcb0XlodSTA5dTN4usrQIgQix0AOd7IKgY/n
+         BKfw==
+X-Forwarded-Encrypted: i=1; AKwUvBwrb2saOYj8pZ1abXiqOwBWWkGLKC2FtAHU2uhb7KR/FZPkA/ew17m0DPVs7trWCZThDmVA7oeA5wI5ICo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI4AsTaYYk2isUWDM8A7wLoWn/eWxbdVfHFir6j2gGcL8a6N5pN
+	YCjAujn8xMpWO85cKeeoer9+fb55Ku0cBReaOX8LQAyz0lF89t2x11HZE8w9zCG8Q84IkLt4aaY
+	5+buXboXVtLdS/AMMfxoJg5aKG/MlSMF7KnvBcVncymc/EVwSw+gw36yR05M=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,34 +58,109 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029134752.1299130-1-hjf3108@gmail.com> <20261029134752.1299130-3-hjf3108@gmail.com>
- <20261031105217.GB31143@wp.pl>
-In-Reply-To: <20261031105217.GB31143@wp.pl>
-From: Jie Feng <hjf3108@gmail.com>
-Date: Sun, 1 Nov 2026 00:49:52 +0800
-X-Gm-Features: AclHuK99EmjXHytrhAXfUc1juGAzdAptbINp4Vqbhf42x0phiWF-brtKCtwlhmI
-Message-ID: <CABOQOSXEDgrxy9+J7DmrAdSz5esprHdX7nK4+2H6ehf+DMKyVQ@mail.gmail.com>
-Subject: Re: [PATCH wireless-next 2/8] wifi: rt2800: calibrate the crystal of
- RT3593 with the beacons
-To: Stanislaw Gruszka <stf_xl@wp.pl>
-Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+X-Received: by 2002:a05:6808:3206:b0:4f7:d324:bc3a with SMTP id
+ 5614622812f47-5640ddfb115mr4220012b6e.18.1793465480685; Sat, 31 Oct 2026
+ 09:51:20 -0700 (PDT)
+Date: Sat, 31 Oct 2026 09:51:20 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae61c88.6552420f.2a0efc.0003.GAE@google.com>
+Subject: [syzbot] [netfilter?] WARNING in nf_flow_offload_gc_step
+From: syzbot <syzbot+e1a88d8b7e4cf6b51d85@syzkaller.appspotmail.com>
+To: coreteam@netfilter.org, davem@davemloft.net, edumazet@kernel.org, 
+	fw@strlen.de, horms@kernel.org, kuba@kernel.org, linux-kernel@vger.kernel.org, 
+	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, pabeni@redhat.com, 
+	pablo@netfilter.org, phil@nwl.cc, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 31 Oct 2026 at 18:52, Stanislaw Gruszka <stf_xl@wp.pl> wrote:
->
-> On Thu, Oct 29, 2026 at 09:47:43PM +0800, Ho Jie Feng wrote:
-> > On a Netgear WNDA4100 (RT3593), as the adapter warms up, the
-> > frequency offset drifts enough to affect the link quality.
-> > In certain cases it can cause the link speed to drop
-> > to 1Mbit/s or below.
-> >
-> > Add a frequency calibration step function to RT3593 to use
-> > the frequency offset obtained from the beacon frames of the AP
-> > for tuning.
->
-> Presumably this is based on vendor driver? Could you point
-> the sources i.e. a link for some Github repo where the
-> correspond code is?
+Hello,
 
-The code is taken from here:
-https://github.com/boundarydevices/rt5572/blob/54265ac82ece4a1c6008a3d44d4abe96bf445479/common/frq_cal.c#L176
+syzbot found the following issue on:
+
+HEAD commit:    d135ab453a74 Merge tag 'backlight-next-7.4' of git://git.k..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13a51259580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=6f2905533069b0f5
+dashboard link: https://syzkaller.appspot.com/bug?extid=e1a88d8b7e4cf6b51d85
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14020995580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=100c4f0d580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-d135ab45.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/6c39e8158fba/vmlinux-d135ab45.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/7fb9f97c1f88/bzImage-d135ab45.xz
+
+AI-generated root cause summary:
+In the Netfilter flowtable subsystem, nf_flow_table_extend_ct_timeout() only
+accounts for IPPROTO_UDP and IPPROTO_TCP when refreshing conntrack timeouts
+during garbage collection. However, both tc act_ct and nftables flow offload
+support offloading IPPROTO_GRE connections to the flowtable. When the garbage
+collector checks an offloaded GRE connection whose timeout has dropped below
+min_timeout, the missing case in nf_flow_table_extend_ct_timeout() triggers the
+default: WARN_ON_ONCE(1) branch. In a production kernel without panic_on_warn,
+the warning does not crash the system and no memory corruption occurs.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=e1a88d8b7e4cf6b51d85
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e1a88d8b7e4cf6b51d85@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+1
+WARNING: net/netfilter/nf_flow_table_core.c:553 at nf_flow_table_extend_ct_timeout net/netfilter/nf_flow_table_core.c:553 [inline], CPU#2: kworker/2:2/1358
+WARNING: net/netfilter/nf_flow_table_core.c:553 at nf_flow_offload_gc_step+0xd84/0xf60 net/netfilter/nf_flow_table_core.c:593, CPU#2: kworker/2:2/1358
+Modules linked in:
+CPU: 2 UID: 0 PID: 1358 Comm: kworker/2:2 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: events_power_efficient nf_flow_offload_work_gc
+RIP: 0010:nf_flow_table_extend_ct_timeout net/netfilter/nf_flow_table_core.c:553 [inline]
+RIP: 0010:nf_flow_offload_gc_step+0xd84/0xf60 net/netfilter/nf_flow_table_core.c:593
+Code: f8 e9 82 fd ff ff 4c 89 f7 e8 28 e1 6a f8 e9 12 fc ff ff 48 c7 c7 80 f2 c0 8f e8 17 e1 6a f8 e9 ae fc ff ff e8 1d cb f1 f7 90 <0f> 0b 90 41 be 01 00 00 00 e9 7d fc ff ff e8 09 cb f1 f7 48 8b 04
+RSP: 0018:ffffc9000618fa88 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: ffff88803e161380 RCX: 0000000000000000
+RDX: ffff88802c392580 RSI: ffffffff8a1c51f3 RDI: ffff88802c392580
+RBP: ffff88803e161488 R08: 0000000000000001 R09: 0000000000000011
+R10: 000000000000002f R11: 0000000000000000 R12: 1ffff92000c31f56
+R13: ffff88803818f868 R14: 000000000000002f R15: ffffffff8fc0f280
+FS:  0000000000000000(0000) GS:ffff8880d469c000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000012000 CR3: 000000002f277000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ nf_flow_table_iterate net/netfilter/nf_flow_table_core.c:459 [inline]
+ nf_flow_table_gc_run net/netfilter/nf_flow_table_core.c:616 [inline]
+ nf_flow_offload_work_gc+0x11e/0x1e0 net/netfilter/nf_flow_table_core.c:624
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+ process_scheduled_works kernel/workqueue.c:3578 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
