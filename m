@@ -1,94 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793435744;
-	b=LhuKQu24Fv430ZPn8kEQVp7/V2COMpgTbyKc6SSrf7KvJfE4D1Ni9wgDatjbhA30V1AB
-	 UHQ9/sHthQRiM8/3Rfz3lBH20/3JpdHmA6uR3JmGh9BexEOP2J1KOwlDi2eAeldFNmMub
-	 FJPjDZ09cQZ2MdAoAVuP+R9jk3GRhKejR4E+faCUJ3EXROXS4C9x1ka4p1Bw+DG535k2X
-	 IC9CIcTH+hsbiO6EO5rI3kzzTvB2ah3544vI02KHmNpL0RVPcjnWqXkkIqopX1m4J0IRE
-	 b1O28hENu31NjENdIzrdxBI136kGEkiUsfF9JgEl7M/VvZAC3o/cdPv/Pc0//oc0eSw==
+	t=1793435794;
+	b=sWvCmblViG27cn71U2TyWo38Is7DoreBu1BZ6MQTwrZKFxtsbgBafIbcvkarGfr11EiS
+	 /QycgQSYYVU2EjsXpZD+0qL8SzQRng5csv7J8Tn86sRlLytAFGUggz0lo9dXLuDz1wKUX
+	 F3+pL6B4Laewm9S5bj7utv9nuJi7hTMpAuLV38yceKJvixO9mryLAFGPa2ry39sIuS+R6
+	 5LiHRCzAHHhcQyA3myOtQOKbUVA9di0zo8aEXunVDHyWE02kWo5EbhMlRnvsJzZOBYbvc
+	 +t7en9y2W9+T9f6SQcm0D3ZhMSOts4TRA40ZgqABg34PO7II7DeJ7aML8loFqjRttCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793435744;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=WLiyauFtJhuMbP58y+JmNLKI5+Crt03dR88sII+z+Zc=;
-	b=KInDmjKDhCo5K6tjx1jz/SX66N++nRgKnw/JvJerAl/8R1pIbCzezDTFN62V/3FFzq7t
-	 B+a1IOV0iUYjQ1POWRR7/0AdkRdDd1Ti7sdbhQNAPnRSgF/IS5geUEcae+M0RkaQ7o1Qe
-	 vKiXsnVWOkqySgt3IOAxR4aruuh8jucNMWupve9b3b3x3AS2ekNHbw0wgc8zqIlnNnq5k
-	 MWWpCYS6N569DE4p7dcootvYIKtMlMDOnznb83QglmBJRVivMP5bgSKZrPbGPpCHka9ct
-	 hvd+xBpkyF31Ctoor/UumTzUxkBMreLlgwn5cHMX/2+lLQVuFeITMSTIqdoLG75ES5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793435794;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=lbspxFRuG1ePr26isPz4p8MVA1RRVBu6YGTJfFDFJ5g=;
+	b=Pz/1Z7xs2HT5q+M68thI8hlMHvbEtJp2b807sjkoxoVtZJTJEYKs7xtlcQj5+hQirCZf
+	 1i76JvV3rg1VhcYOzEr4ytMkWy/cFz/k2iw/btHOSXtf0OvSpP9twTghpFoDp77U9JAUE
+	 JAMRtItXAtHNa0VZ+uryC4/+Cx/Q1M9cMH8GScsPO3OeokQaL/IUxBNtzcQ+vCbYJP7A+
+	 UwviHfWszBo3GOUcXcXuEd1w6nZmjUw9uu+lIkUrQFKC3y5MR1D9uwFNL2wzhwuuvlGGa
+	 HS6HyC6c/0SQEGVAchyDXJFHgQJtJ5V4QMGSE4i1pSruKYmtWFyFUm5/l7BbNBbVsAQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oM7MKWPX;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9oz3JPD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B39606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:35:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29B39606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E5A2606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oM7MKWPX
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1ae18eb9b69so809317c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:35:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793435743; x=1794040543; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WLiyauFtJhuMbP58y+JmNLKI5+Crt03dR88sII+z+Zc=;
-        b=oM7MKWPXiwBnmnUW7hjb7bFq7oaqkJ7gORRhViZm0K69X7bramu7qL9bsdRosphnds
-         tTgzzR22oZFcXrvHm5WQ9SrRFpx8/dmc814X+ECqN++TrtoAsu1YgSAb0AF1t4vblKzx
-         rRrVRHzHwxSIBANpvdQqFYhMX2G/BEhmf8Rm1syR2Irio0MjMcGteAk5/5NMqaB1K/Z0
-         r5sYfaROlkM0fSSf82q4QxF4xmvun5m1onRXi+2evqGpj7QqTmzn+NTuPPq6WKhXMWi0
-         6wh3qZoLVpGENMeF0PbiRqhu7mLHfMUPhDJ2q62wW6feRmKacl5MF9hMX982n5NbLNx3
-         3nzA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793435743; x=1794040543;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WLiyauFtJhuMbP58y+JmNLKI5+Crt03dR88sII+z+Zc=;
-        b=rmmoBrACf16OSK9oo2pQzVABY+YC/5X3vNbyKIF5TIBtEkw0bWvj+otbfz+SWOc1uX
-         QSZnq/wZJ4OlgjiKCrE2Qwd15S5XxEYyAEC7DlaBfKXWm8YUlDyj0TsCdQV+m0NQBYye
-         dk55Deb6j/EN9Heo0KG82AesbF5hHhErJiV8JjYVfphqcBu7qXFYufrhYCHQ+dgOg49R
-         sjTatF4E+kT4ZKvrWkvz1KhcwZ+XqfD9rqL/ZzZXVC/F3UZVCeKrgEebEfcvHQcFQgUs
-         HEC/cJeF27JoioiMr1Ts6T/9nX4jtcLgGKrAbAx+uw4e4355F+sWYpLYsjC8GaduLgjl
-         i21w==
-X-Forwarded-Encrypted: i=1; AKwUvByHNEWgeC+n+X17UItaBE6M73N5kRg3G7sV1LCJT5SDmrv23Hz+riGKkI6XY2d+sosYoUHMrCvNTc0C9Is=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImLiIQl10Lk32pMGYXF7dhX8yKmRhcFxAZspsCAXMs3R3NYJiM
-	bu8lvqxOR5avVpZul0YHsU4fDSt7/S1XCUIgNPj0D4ain8QpwRnKab9kdC5Hrg==
-X-Gm-Gg: AYBFou0aKrNzBtlWTUNisgZbLt8AhLqqA7yMKd4+nRBeftPxcNmu+fTjxWE6+WEHlXh
-	/gu5V5R21Bns2OrzSjCO32/I/SldqKRXJUdCNY423IiIfn3xNwoo7mUWuTlcDid0ZgC5WtWF+MP
-	vnQNYts7qHQHMqtnk+1eV3H0mtrMhyoPpP/vgGx92RwgixuaMO366woUhWZZ6F8YfzOA1Un75bD
-	SHk/CzN66c0vGg2/hRmQxvqPWu+kSu/kEjhIiST9D/ViD1FBkeiEGcvgeveWTRvgn8203BGyrAG
-	FvESTZK9I1dVDU/HSCX+pjF63jaFeNrM46KnNGA02652dS9qGBT1FRNUbAdSaYMd/jo5L7tdlXV
-	xj+8BHBNyaQw2sl9XDqaiuFJurftgqrKmCkpHEnxTWhSROcKFjgl7Zj2EdI3/FEBdSQoMTspSFw
-	gVWcm4/nWaygYUMcUIRJb/8AOiiUQQYcurZGtNl/QIy6tJJTlugAAg33GITghnYKYVnzXI6JSrO
-	hCpVgu+pe+OVuH544Qnz2nPumHmSHoDYPa8+TwQBoKmv7X1eIuwm7/gwK/2qq57D6OpPgKGVFeC
-	GP0qzNJgfXuVw1FTdtTG4SdbUZ+rdOxDCtkvUkbkMcIhvl4KeQ==
-X-Received: by 2002:a05:7022:7f17:b0:168:3243:c937 with SMTP id a92af1059eb24-1ac5cb1c8b3mr7522678c88.16.1793435743153;
-        Sat, 31 Oct 2026 01:35:43 -0700 (PDT)
-Received: from localhost.localdomain ([103.170.55.71])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854da78sm18910706c88.6.2026.10.31.01.35.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:35:42 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: hare@suse.de,
-	hch@lst.de,
-	sagi@grimberg.me,
-	kch@nvidia.com
-Cc: linux-nvme@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-Subject: [PATCH] nvmet: preserve ANA log page copy errors
-Date: Sat, 31 Oct 2026 08:35:05 +0000
-Message-ID: <20261031083505.4767-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=F9oz3JPD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 540411F000C1;
+	Sat, 31 Oct 2026 08:36:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793435793;
+	bh=lbspxFRuG1ePr26isPz4p8MVA1RRVBu6YGTJfFDFJ5g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=F9oz3JPD7vvav88u5xwG7vZiDr3PnHUFI8fOXgW/Qd1UYCWIDNQvtcH5wnrMUl2nD
+	 LgnwKJhtkTJxWu8MetMbGDOY5Wy8qJIMQGTWBTUBKLmhz82MjiDIW6kgydZsv/YG/9
+	 TdkD1iMlnd4yW2qLxJzDaxj+UF9VRWE4rmUbZBX9EYi3r4TLX+Pe+yYs/90o4NSpBU
+	 lz/SF1rDjLZA1FWqQjdpR9CT5O8yO71D9uNO53N2BrYXkBUomlv19t1Ufrq8uPcUSJ
+	 Vh+9Nf0M9OI8tToK00G4syxyBAXlNe3QT8l3MMhOnXGekqpai2BlvkmNkpc6pvGPBG
+	 MwMQnO5Fjn14A==
+Date: Sat, 31 Oct 2026 08:36:18 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Barry Song <baohua@kernel.org>, Brendan Jackman <brendan.jackman@linux.dev>, 
+	Byungchul Park <byungchul@sk.com>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Chris Li <chrisl@kernel.org>, Christoph Lameter <cl@gentwo.org>, 
+	Dave Chinner <david@fromorbit.com>, David Rientjes <rientjes@google.com>, 
+	Dennis Zhou <dennis@kernel.org>, Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, 
+	Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Hugh Dickins <hughd@google.com>, 
+	Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
+	John Hubbard <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
+	Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>, 
+	Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>, 
+	"Liam R. Howlett" <liam@infradead.org>, Matthew Brost <matthew.brost@intel.com>, 
+	Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+	Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Nick Piggin <npiggin@gmail.com>, 
+	Nico Pache <nico.pache@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+	Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
+	Peter Zijlstra <peterz@infradead.org>, Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, 
+	Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, 
+	Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau Rezki <urezki@gmail.com>, 
+	Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>, 
+	Will Deacon <will@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
+	Ying Huang <ying.huang@linux.alibaba.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 3/7] MAINTAINERS: add Zi Yan as co-maintainer for MEMORY
+ MANAGEMENT - THP
+Message-ID: <auWn9O8Ryx6-yCXY@gremlin>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,46 +83,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
 
-Do not overwrite an error returned while copying ANA
-group descriptors with the result of copying the ANA
-log page header.
+On Fri, Oct 30, 2026 at 10:34:27PM +0100, David Hildenbrand (Arm) wrote:
+> Zi has been contributing to THP consistently and reliably over many
+> years and is considered one of our most valuable THP experts. As THP is
+> an especially active area lately, having a single dedicated THP maintainer
+> is not sustainable.
+>
+> Fortunately, Zi volunteered to take on more responsibility by stepping
+> up as a THP co-maintainer. So let's do exactly that.
+>
+> His placement in the MAINTAINERS entry is very convenient to perform
+> this change :)
+>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Initialize the status to success before processing
-ANA groups and copy the header only if all group
-descriptor copies succeed. This ensures that failures
-during descriptor copying are correctly reported to
-the host.
+Amazing, congratulations Zi! :)
 
-Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
----
- drivers/nvme/target/admin-cmd.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 
-diff --git a/drivers/nvme/target/admin-cmd.c b/drivers/nvme/target/admin-cmd.c
-index 26028be8fe4d..2bcb6d3de9ec 100644
---- a/drivers/nvme/target/admin-cmd.c
-+++ b/drivers/nvme/target/admin-cmd.c
-@@ -543,7 +543,7 @@ static void nvmet_execute_get_log_page_ana(struct nvmet_req *req)
- 	u16 ngrps = 0;
- 	u16 status;
- 
--	status = NVME_SC_INTERNAL;
-+	status = NVME_SC_SUCCESS;
- 	desc = kmalloc_flex(*desc, nsids, NVMET_MAX_NAMESPACES);
- 	if (!desc)
- 		goto out;
-@@ -572,7 +572,8 @@ static void nvmet_execute_get_log_page_ana(struct nvmet_req *req)
- 	kfree(desc);
- 
- 	/* copy the header last once we know the number of groups */
--	status = nvmet_copy_to_sgl(req, 0, &hdr, sizeof(hdr));
-+	if (!status)
-+		status = nvmet_copy_to_sgl(req, 0, &hdr, sizeof(hdr));
- out:
- 	nvmet_req_complete(req, status);
- }
--- 
-2.55.0
+> ---
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0baeb37b0dcdc..02b5b542f81ee 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17817,7 +17817,7 @@ F:	mm/swapfile.c
+>  MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+>  M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+> -R:	Zi Yan <ziy@nvidia.com>
+> +M:	Zi Yan <ziy@nvidia.com>
+>  R:	Baolin Wang <baolin.wang@linux.alibaba.com>
+>  R:	Liam R. Howlett <liam@infradead.org>
+>  R:	Nico Pache <nico.pache@linux.dev>
+>
+> --
+> 2.43.0
+>
 
+--
+Cheers, Lorenzo
