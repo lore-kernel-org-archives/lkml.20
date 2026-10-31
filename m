@@ -1,97 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793449239;
-	b=PU9qsWcM1qRnLmXO/rJBnh60BngPxM/dV7/STsinuO9Sgnr2koYJP1yoIdtOQOHcHzw2
-	 6/DIbInToNeC0gILcMtGj9t6SD7YskotS7RWBlC8eb2q4sVQFaum6zeMEI04Q9XUmema6
-	 ahg6MCPKPAE2E+f0qgIvTqyjAX07lmR4oR3x5j5qk2Ea5S9IgEchdb+GDtJlGCB3aEm2G
-	 5A0G8QG/X+sng7TYul0yhfhawtzf4lz3iXpc3eJ+l7eFu5+zWFi1jiYb2BAYHuHN8z1uR
-	 ElXkhYp2p7F2H4VlvP1QTQxMgbUlKsOpEidwieltCZ6fGl3eboh8kVGEUoQEeNbGiGw==
+	t=1793449351;
+	b=Slnt4nTuYsLUbk0p5pQDuZNNJn5vtZbMsUlDRD11PYdmvI7GEoaneXeaRs1PuYciFq9t
+	 OIgUtcbLH5bpfMxKWPyyZwVGUATHOodRvD1x6OgwSyQh7IaUUbGYXP2gAPGB0QkkFIQvI
+	 gMgf/YQ0ZQVroFYNp7ApRsOTyXstKWycuvupQr+fl0THY0e5aJe/qvaNdWef3TuTf9qhj
+	 dW+y86L0cFLzfZn4R1fDzI9hlRlHpYxrqXPqhrMPfpTt4AtkKbIjkH0pVfoIUYa/mqaJI
+	 WmW4fsVLcrARkASL72SuZNgNBy1xSAIuv8MUoJ8jDUeBvQsqIjxfMF69wWOrEePWG4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793449239;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793449351;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9bOAqTsOXodJ3DV3e/3hRQIH3+U18bEo6K95SKJR4yg=;
-	b=rpdN45nZ16s3csh9ykIzBPbdDKfqenyNA1dgMQokjQkJT0VrPS1SeGhU0uMPOLhq6fBk
-	 M9ttQwTU9b3Q5D1f2ozRXSYGMUmuPLyPWDg9yRTcqjeywvuJRBn6cfrgei6WaU1RSYSA2
-	 eUsjF0M76JYRjMVXgGHL+PELIfxrgiQ/YE3F7jU1akno0NT8jaqTOyqHgRpEKRVXgolhd
-	 bD7ge5mxg2AXyGgk8RmQ3jyL5nUknk04VMD0Ro482Vov2l/H4i1yHil0trZNNsQGRBLfl
-	 wEmV8WI+QOTxG4mpatWxz1PrlT2Q2rO8GOTuqwedn13Oh2hp7wKpUIk3CtqulKtrEow==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=4lkK+MSkES5wvh82VxF8M2qBGmgjlmTgHuUFRptrIZM=;
+	b=Xt1v5cQI+DC20QTRnspP0/XLhpdMLzQ8Joby7zvg94bmwO+62qpmA5r/Oy6BkGWqiRSv
+	 hpeTHgmNrpabsGgybsRC9vxYtVGkZ4boJ2J3a4WZfK0bjMH7ZgROiSII1QKSWpmANmd8c
+	 d8Z3qoSYYpGv7NH08NmmVm0iBlNdSGo52nw33NTuygVEVJMLf6bkF/FBlk2BY5msWkR/J
+	 GZ2jFDfhRJbzqoFztecR5k95FFeKeG0kBULIN3orLgkz+JN2rn+YbuOM+46Mp2DUoY570
+	 6PCHy1/0kxnMUQbFeKFeAkznAeQZVDHyRmJk168WRpEMBwtXTImB9KlKemeHZ7Tt5qg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dq5ASzGC;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MELguBSR;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B94D5606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:20:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B94D5606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFB3606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:22:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CFB3606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Dq5ASzGC
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1931ff67a29so1506612c88.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:20:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MELguBSR
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48dee593f18so1294007f8f.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:22:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793449238; x=1794054038; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9bOAqTsOXodJ3DV3e/3hRQIH3+U18bEo6K95SKJR4yg=;
-        b=Dq5ASzGCUCbP3s4CjHUCJfbiI8248Fzg7Wz26kY9mjEVD5/Vu24MzJrU1vY5Fa4Zhv
-         5Zfa0Lal7zrKL9fmuC2yuzkzvh5wULU9Dw8vOllwRZdcpELHXnxE2wHO0nWfgWQBjEfJ
-         qpSgsb5Gbhkb3+6TLJvyGGrUqHjjg0txczDZeWGX4ku2K/sbbE50qnKOTcclq8eHRzDI
-         NYyN/HcRM0OvbT+emolv23gU3ZmKkPbKjeFawzj8jQInJX+ZxjmErCatMn4S9HxfAEbN
-         zYPZzIijoWY757+Y6IGiFJ9mesnNnOPxh0b1HKtL6TX1T68ajCq1xF1sI1smVofJBEJe
-         3kig==
+        d=gmail.com; s=20260707; t=1793449349; x=1794054149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4lkK+MSkES5wvh82VxF8M2qBGmgjlmTgHuUFRptrIZM=;
+        b=MELguBSR6j5uo5JEHTweez9q/Sg06UfOas+d6V3ON0MC4q4X/WI3qEWyd5nMOIottr
+         d02dwPmEaUy9YCwshKzLy2S5mw1Pdu4LO1fZDP1tnPyySCb5qPiii2aY9YE+CVGEL4IG
+         7RBuHPCm21i69AmDk2Uc+wnwG4ar+lHEgfgxxXA2mIBz/gcV+ltcOjoe6rlezYYBBWtk
+         hqMkt6FKQ/eghMeqAonwx48xXMHD0vkKmsdd1rrwnV0IqV/VS45eVo6ggYvE8WbVZ2Bb
+         LnVbZs7jj4dzKyesS1UKeUQxzMikQU6XgV0ljW97VXRqUxtYof1Nn4wzlanbxMz6kqG7
+         wNCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793449238; x=1794054038;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9bOAqTsOXodJ3DV3e/3hRQIH3+U18bEo6K95SKJR4yg=;
-        b=V2d2RqKv8sxeQaWP5OhBmvr52hRNzg2NADbm8HgMRA7FMOlzUbSRz9s9onDANJzhWR
-         ja04WrsrTxoqwrFgvbPMA3E4HaoWqV3smrQGZH8mI0lkPwRiOzcVQXLlTALuruJTVefo
-         J6VX3O83qs7a0yLxbIVPfzyVa6b51lLhWtw7xhsV8KnLNA1chznbANuE/KYgpWjGnazY
-         sQ3Ar042ddDll5UZaR/CSkjOnlC3n5h0ZTPKljMhRbu8SMyGU0ziQieLF7Exf/+mtV7T
-         Hf0A0LmMHnRcO79JrKTAc10Lh+iMb/i0ritOgjX0gik4/vPPoWUaIBjc6tDQmEj4OVxI
-         NwNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZ7Xx3Fxk9xavN85judwvL/XOnndK+68l45g6FAgfCLFx0vjabbvM3WXEH+Wf5FZEsaPSu6DRGZdvPKbo=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNvXAbIaE298oh8wtRM66kxYaUZda7nOdtVfTx+thRuv7enBT2
-	poGWsC2ak8Lc0UF02xaG7sTdZewKm1JzmbonVToIEvzc3i90f/Kdo1Nm
-X-Gm-Gg: AYBFou0fOUS2hmBPah43bJ1ix/yeqXd4trTV4mE/i+gTPPs84YhyFWNj21dQ+pg+K3b
-	O3j4JyIrsc72PcjWxFhpPHfn1yeqrUFgBEkCdObSE4eHZ3dkp09rWEdDcCgcIeOPny8IuhioyK7
-	S4jvDVCwmVBfm112zwvhMp8CBlfcFvQBI/yK3dxgkCQPt3zAth2GjhGRY3XafHpBG6fhh8eh9WD
-	P8GxDYuzzZ4+8zPIqgQDTshV40tlvErKFD2diZblG5RyCHwD6zHZC4ozCaa3Ggi9sMd/xxzrWTY
-	I+c8VFlAOVobAm0pvQV88O2cI/eBtMPtS02fzY3d03qp40GcPzgiYWgI722KCyI7ubvsH6Dk+Nb
-	LwNiKNXfze/7Qlm9sZd8bCL5VXH/WgaRxMBTkq5OUDJOc6WOHCV4CQdTsJyjF73Nv0gZ9TCF/Jr
-	PlYq04XfdehYqF2UG4k9ylyN4DCdU+1j2sSjZhadXVdoIRRcrXoxaMlbjTKleAKrHPxj54F4cYU
-	wAi7GNls2KNn068F5Iwys/alJogwvh2ccdfl8dHX5FIdUjdFs5UprCqK0RVXgukswmeqhQM9AOi
-	/fqmnepBXL/Pmtq9vcGdTspM+Ne9dRv5HUqZQ0AVUwC6ssBqOA==
-X-Received: by 2002:a05:7022:ea4b:b0:1a7:979f:ecc0 with SMTP id a92af1059eb24-1ac5b7e1074mr6738341c88.27.1793449237687;
-        Sat, 31 Oct 2026 05:20:37 -0700 (PDT)
-Received: from localhost.localdomain ([103.170.55.71])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm26919177c88.10.2026.10.31.05.20.34
+        d=1e100.net; s=20260707; t=1793449349; x=1794054149;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4lkK+MSkES5wvh82VxF8M2qBGmgjlmTgHuUFRptrIZM=;
+        b=AmRJbJUMI4RJiSyULtYV1Ghpihl65qq9SZ3kkZQiafaGQM9oITYLFdHCmmyIDVbFtC
+         3574XLA3i+ihLmNz3dP4zZBM8k/kXEYbd4sYMbq0be6LtuHSAywWlFmx7JCltGB4qzJd
+         zBlQNow47MPYG8UI2Cn9aMrI1bWXpyg1Z4/j/JJlXRt1aT3G6h5IviePyN8+Z243dmTh
+         vrNxdu140o9PBOQZLzUAcFZRRPP7HNrMHbwgj5u8oN5L4QTdmNCMa2zCbkbgnxe+58az
+         mPzJEC7vKj79s3mx2zFa3sWB7qfjnKAxUYvLHk6qQ2KYzp941Tt79K7RUp0lDHLbOmdh
+         AmdQ==
+X-Forwarded-Encrypted: i=1; AKwUvByRe2I4bzGfiOMoqhECvxKd1E4I9JqIuNwi5jKLmerYw5xP7gE6NyHfyF+NIihVsiZrkSl/l79gJgkLUg8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJozNiW63+5NoOJPJbKuHFLmUsEL18N8oAlaR9Br/DyBRJWZnIr
+	7E1UX9TwzZyQQTvgLJsqX2rCJJVvrs2DvVyb/RQ8PfCQRMh6HGyuvhsS
+X-Gm-Gg: AYBFou11PJL3+cy7LWIhiBI0lxVLojqgOnwZ0KStvcaz7k8uzj0DeSuacfUmLe5fjo3
+	6dBBAnXP+EhKwYowlIqtBaILXSesdAMXw5BzmTRvpE/7LVN8/AonHh2QuzlH3UlFczQspZUWXZW
+	EliaiBV0sEFZkJZJJZf/NF3Q+kjCdevLzu85GP6o4dHCvCRocXb65ES2DiT/ICKjszTReMl1k1O
+	CzA+AgwAftQxizf36w5XGlgYvA6aDTcyxRgIJO1MDg3XqK6d1u1PgdFpudN+ahofX/y5+5OkZOc
+	X9nkeVH6Q0kg3dZm9qhEUVxL1CedEz1QwsZiS7F0OG0rU/EOAYwPQ9wSNrhunOzlpAf0+Sdis/F
+	z5AQQc7KhYy1YbiHsXDxrQdc0DWoU4egNfFSaWr/jeU5hmw0Q7Am2Ixq+2JgOrxi324oUqCXdiX
+	VqIPExcfgflP8XBAXJSuRyI34zkTVFNvlguN3Dxw0IcqW/fRFn603WYJw77mF5738biA3xXonmQ
+	2SW9f1FLO60bELdaC9lDcJX0WmN/xCq829Abx9KYm6MyPS33CIpR/LFc4hm3gIgm+5aq/Dy3hc0
+	bP0ouzqh/pdnNPrPnLGorod94+sD
+X-Received: by 2002:a05:6000:4287:b0:488:7df9:3898 with SMTP id ffacd0b85a97d-48e6e30ba37mr11837908f8f.56.1793449349518;
+        Sat, 31 Oct 2026 05:22:29 -0700 (PDT)
+Received: from thinkpad ([2a06:c701:4773:6f00:d8a5:fbc7:98b2:c0e0])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b9b54dsm8442627f8f.47.2026.10.31.05.22.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 05:20:37 -0700 (PDT)
-From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
-To: sreekuttan2156239@gmail.com
-Cc: hare@suse.de,
-	hch@lst.de,
-	kch@nvidia.com,
+        Sat, 31 Oct 2026 05:22:29 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Thomas Gleixner <tglx@kernel.org>,
+	John Stultz <jstultz@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>,
+	Miroslav Lichvar <mlichvar@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	sagi@grimberg.me
-Subject: Re: [PATCH v2] nvmet: preserve ANA log page copy errors
-Date: Sat, 31 Oct 2026 12:19:57 +0000
-Message-ID: <20261031121957.2808-1-sreekuttan2156239@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261031083505.4767-1-sreekuttan2156239@gmail.com>
-References: <20261031083505.4767-1-sreekuttan2156239@gmail.com>
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] timekeeping: Reject cross timestamps for invalid AUX clocks
+Date: Sat, 31 Oct 2026 14:22:17 +0200
+Message-ID: <20261031122218.118921-1-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,13 +99,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+get_device_system_crosststamp() accepts AUX clock IDs even when the
+corresponding timekeeper is disabled. A never-enabled AUX timekeeper
+has no initialized clocksource, and a previously enabled one can
+retain stale timekeeping data.
 
-After further investigation, I found that the existing header-copy behavior is intentional for short ANA log-page reads. My proposed changes do not provide a functional fix.
+Return -ENODEV before calling the device timestamp callback when the
+selected timekeeper is invalid.
 
-I am withdrawing this patch. Please disregard both versions.
+Fixes: 9aebde8af6fe ("timekeeping: Add support for AUX clock cross timestamping")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ kernel/time/timekeeping.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Sorry for the noise.
+diff --git a/kernel/time/timekeeping.c b/kernel/time/timekeeping.c
+index dcf47f1ffdcf..7817c97dab61 100644
+--- a/kernel/time/timekeeping.c
++++ b/kernel/time/timekeeping.c
+@@ -1600,6 +1600,9 @@ int get_device_system_crosststamp(int (*get_time_fn)
+ 
+ 	do {
+ 		seq = read_seqcount_begin(&tkd->seq);
++		if (!tk->clock_valid)
++			return -ENODEV;
++
+ 		/*
+ 		 * Try to synchronously capture device time and a system
+ 		 * counter value calling back into the device driver
 
-Thanks,
-Sreeraj
+base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
+-- 
+2.53.0
+
