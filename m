@@ -1,78 +1,155 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793422233;
-	b=cPCecnxkTHChYNtBckycF9jJQ9sYxclCQDI/GM4QGWfAkJHTfpJT95BEDIRhGWBhX3L+
-	 uunwZ2kWG25zUzj90q3Q2OrTL/9bYV3f3tP0UfhwdcOWy4c7eU8pTB+KwWNQNLvJ2owSn
-	 MnAMwqiI8sBvioo/uj6QZ5dcIUOkvcVNRONB0Aex+1KZXdz8ip79xJP042EwhmWgJnFL9
-	 tjlDm1QO/qXUuERE8OWQ/bCYkV5ppbpkhYXghtNgM5rgo8EbhRzJq4gVpLN6C06yU+RIz
-	 t5h0SLOKWXt+1FfEmBR6AmpkXFtBAyeuIPon2jc2kaRicGuw/aXzxd6AA0uYXS3omeA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793422233;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=U0ah+/mdXfppCcH+FdTlHAr5Y6FK4dmXjWDNtY24zT8=;
-	b=LSQqm+uN11LcbgO7uOCMBE4IL/l58/MVoO6ZUHeEkeR0vfq4LujkSu3lmrgS+5XKaXLV
-	 6EwD4xn+ABWShsgDd1fnCF+D66mUm9C7UE/iXjuOpjN3zY1hQGR/rwxSC/zSrO0NTzB/+
-	 rkdaXwsRuIo+sqnUQxqocDcq6cNn4/m85dDI7BQ9CKbMsjsdlPAHUUBYnSFNApl0Zp1z1
-	 pdaVUFihDGylHxkMJXiOaeqhKGpoK5jLGyRAx+3BKBVRCIGvyVmlemllvZgYr+b7uXmUb
-	 XXhsz4VPrvzwveEtnqD4C08OFke28GhujHZX/TUkeZ+3wNPodEDcsTubAd2KXPWGwUw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RVVpX0zH;
-	arc=none smtp.remote-ip=198.175.65.17
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.143
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793422285;
+	b=sD/UyaTddZzeBf8oPyNfP3aVEe7zUaR1xJKhemAma5K05P1MLraAT0shhi8zHtmc722V
+	 FSF1UiqsiqFLRbbbGjXw06iJpvWoO2vYmVjmF3ZnTfr/3FAv4dWHhEXjXNvwolUEV0WeN
+	 OCq7Khhh/HeayZV94IM+Qiu/nxalBxu610XNMPL8rXyW8t2HnF1WkkWs5KFTp6am4N1E9
+	 /hcQF93x2RqIQ06v0LwCWnqcfCE1jc/PTbJjcaA7DnOW6HofTCva79+JDnM+SBL1CsODd
+	 6pLl0c/MjH6Vzt9Mg2ykb8wr/URINIeHP72s1Yq7YUbphjkb6dV/BXtNFcYBS17tCcg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793422285;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:References:In-Reply-To:
+	 Accept-Language:Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 msip_labels:x-ms-traffictypediagnostic:x-ms-publictraffictype:
+	 client-request-id:request-id:x-ms-office365-filtering-correlation-id:
+	 x-ld-processed:x-ms-exchange-senderadcheck:
+	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
+	 X-MS-Exchange-CrossTenant-userprincipalname:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=9DeGQICiLtTg9nSkIhPkMLPYOj2zayOu81E4wnX2DvE=;
+	b=RCqLEA4DqU51fEF/VZYCiyPqFJvm53lKOw7JoIpl5b6YE5NNXLAlv9aTBYKcRDjyJMWT
+	 oGKrXe1gwbD2e9ulVlrSu3cFQYOdPy6HQUFzVfZzAkLwwGJvkDRAB8u6PAPcb3PpqTssg
+	 zCQjx4qw663hU/4HzhqY93exjXvsPUOB3RAmbBYD+qzbuKKtNc3FqmgzJQzxuHFfGeswf
+	 Ww8qoHT8bmJQ4AG+3u33h+TEaExmw07+6TfrK/v5Wa1zAQhqxS8S4l0fZ6K7zSuf5KpV0
+	 4FgAwZSrRpmYRgs/Fg7ZIHtw599q4KNBnZHNBBd4tL7mxtLcXi8GJtr2SfRtqNtEkIg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=microsoft.com;
+	spf=pass smtp.mailfrom=microsoft.com;
+	dkim=pass header.d=microsoft.com header.i=@microsoft.com header.a=rsa-sha256 header.s=selector2 header.b=OPmZVDBh;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.46.143
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11020143.outbound.protection.outlook.com [52.101.46.143])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBC73606A31A;
-	Sat, 31 Oct 2026 04:50:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BBC73606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04611606A31A;
+	Sat, 31 Oct 2026 04:51:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04611606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microsoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RVVpX0zH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793422232; x=1824958232;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VQIxThp1B2mpWnsX0MaSqLPhRU+ui0ShDgvVHR25dYQ=;
-  b=RVVpX0zHVF2NYfL9h4VgwAQN0n0qBEKkVQgcKRBSKd0N/QoOKfDW9XaB
-   oHXNmo0uMBpqgYJxY1CfhaMFDwFT0nihK5cP5YsCOeANuygFs47TMS2Yu
-   B6CKGpAd+2FMi+6pa0xrNfLhy5Kg3rxkxujV/wn0SZ4aYbLb5jnsu0lm+
-   boZDMBZAkqADlKqbTt1tSMWul0b/f9D0uvGbqK8WIEz0KK208FeBti/Qv
-   V6nCDm4g0HFpczY0tjEJYdQ8UuTW6MHdLpuoyS7JBOzKI70dWIlrNM6j4
-   SZMdrZTj2zT0+omgZQxXVVaY2HttGBFP0SlIf6/837tTrYOgmoltgYwWj
-   g==;
-X-CSE-ConnectionGUID: Gd7xGkt8SniTi2EMU8bJGQ==
-X-CSE-MsgGUID: kHmBInVYQSWX4uw6IRDe3w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2199117"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2199117"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 21:50:31 -0700
-X-CSE-ConnectionGUID: jh76AprFT1i2+5WyacK76w==
-X-CSE-MsgGUID: aWxndDEHTM6RBXMZz9Yrew==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5481267"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa005.jf.intel.com with ESMTP; 30 Oct 2026 21:50:30 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xN12x-00000000cXk-2XEz;
-	Sat, 31 Oct 2026 04:50:27 +0000
-Date: Sat, 31 Oct 2026 12:49:32 +0800
-From: kernel test robot <lkp@intel.com>
-To: Saranya Gopal <saranya.gopal@intel.com>, linux-acpi@vger.kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, rafael.j.wysocki@intel.com
-Subject: Re: [PATCH] ACPI: s2idle: Handle shared _Ixx GPEs without an EC
-Message-ID: <202610311242.kB7pRXhy-lkp@intel.com>
-References: <20261030030515.3127310-1-saranya.gopal@intel.com>
+	dkim=pass (1024-bit key, unprotected) header.d=microsoft.com header.i=@microsoft.com header.a=rsa-sha256 header.s=selector2 header.b=OPmZVDBh
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PiGsG/X751tK/WZltOK7/hwvCqgVYz08rssg5NDK9teYrLQRvI/ceVK8N1oiTAoGdpXShKB61WnBcxUhBYIfWuiXklpiMZG1DM+wDqnj/wHJCc4XUsBUDh1OEIos7hu+6ScOmo40iEYNsFyvtWxcJbmAL+VWOf4vZ43e/LyzVopZIM0KPNvhI/h3EnHPSobRabO8+Q9VOiR+D3JPPAzlyHPeVCt24SGyDtffGnERKVfICObZVoadeZAhTqlzPbpq5JlUD1BkV2Gk/rk2pnhOpRcIiiG+DRt4ALoge0TveqMM4aHuYMMLDcpApfpC3qrH7s4+WLmW8AIJRWuV8fVnkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9DeGQICiLtTg9nSkIhPkMLPYOj2zayOu81E4wnX2DvE=;
+ b=awRKSURDECKlPuj+tMFgr6D8wQS5QJ07rFSQRVxvcwF1mFR+/7HuIj3K33OsFaWoPDfOASAXibOFq/8pmPfJeQ6ZpD9HkQ7cr/tLQtbEn/Cxl6CFuRYsXsJ1xXmHIbru/PfbOx7JdVF/tAydyj7NdNzU3jXzR344fhJ2LHszf7VCI+Qq+Iq+26y3Oq6v2Wp9kSJBQNDtLgXzv5EEDg44ji5Ir75AdCgCDnks5QxOLCv1d4NiGJJw88s1jMG7jIAShtaI/UCDIbrDqLGD1WHUPZxqrrrYmmPYM1lfuWbdJhWLNZvYKLJcuq2fvq2x+CAYVhEk2grkdjZTO1tvEkeFPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=microsoft.com; dmarc=pass action=none
+ header.from=microsoft.com; dkim=pass header.d=microsoft.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9DeGQICiLtTg9nSkIhPkMLPYOj2zayOu81E4wnX2DvE=;
+ b=OPmZVDBh3OOkEFevYuQWLOAR1PUrs6LrdPwptYr/5m4G1YD9Z52qv7gypz0llWE2qRT4qFgm5GlbxLqZ9H/kk1QHd/OkxtAeFiNHSnBRRQOA+lL0MSRAr/ko+lZHyixtOlIFizL89r/4XIZQdeEZwMjrK20089ElfnKVmGTvVxY=
+Received: from CH4PPF0966F22FC.namprd21.prod.outlook.com
+ (2603:10b6:61f:fc00::c44) by CH8PR21MB4693.namprd21.prod.outlook.com with
+ HTTP via P2P; Sat, 31 Oct 2026 04:51:21 +0000
+Received: from CH4PPF0966F22FC.namprd21.prod.outlook.com
+ ([fe80::d976:2d64:b851:4f61]) by CH4PPF0966F22FC.namprd21.prod.outlook.com
+ ([fe80::d976:2d64:b851:4f61%8]) with mapi id 15.21.0592.001; Sat, 31 Oct 2026
+ 04:51:21 +0000
+From: Dexuan Cui <DECUI@microsoft.com>
+To: Kameron Carr <kameroncarr@linux.microsoft.com>, Haiyang Zhang
+	<haiyangz@microsoft.com>, "mhklinux@outlook.com" <mhklinux@outlook.com>,
+	"wei.liu@kernel.org" <wei.liu@kernel.org>
+CC: "arnd@arndb.de" <arnd@arndb.de>, "catalin.marinas@arm.com"
+	<catalin.marinas@arm.com>, "linux-arch@vger.kernel.org"
+	<linux-arch@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+	<linux-arm-kernel@lists.infradead.org>, "linux-hyperv@vger.kernel.org"
+	<linux-hyperv@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "lpieralisi@kernel.org"
+	<lpieralisi@kernel.org>, "Mark.Rutland" <Mark.Rutland@arm.com>,
+	"sudeep.holla@kernel.org" <sudeep.holla@kernel.org>, "thuth@redhat.com"
+	<thuth@redhat.com>, "will@kernel.org" <will@kernel.org>
+Subject: RE: [PATCH v6 1/6] arm64: rsi: Add RSI host call structure and helper
+ function
+Thread-Topic: [PATCH v6 1/6] arm64: rsi: Add RSI host call structure and
+ helper function
+Thread-Index: AQHdaMzUUokNwK8a/EiHtGsVfz1nK7cXFNdQ
+Date: Sat, 31 Oct 2026 04:51:21 +0000
+Message-ID:
+ <CH4PPF0966F22FCBBF24F0929E97AC69951BF6C2@CH4PPF0966F22FC.namprd21.prod.outlook.com>
+References: <20261031001412.4150488-1-kameroncarr@linux.microsoft.com>
+ <20261031001412.4150488-2-kameroncarr@linux.microsoft.com>
+In-Reply-To: <20261031001412.4150488-2-kameroncarr@linux.microsoft.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+ MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ActionId=3b05dc1b-35e2-4bec-ad0e-0d9fe2821a86;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_ContentBits=0;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Enabled=true;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Method=Standard;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Name=Internal;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SetDate=2026-10-31T04:49:32Z;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_SiteId=72f988bf-86f1-41af-91ab-2d7cd011db47;MSIP_Label_f42aa342-8706-4288-bd11-ebb85995028c_Tag=10,
+ 3, 0, 1;
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=microsoft.com;
+x-ms-traffictypediagnostic: CH4PPF0966F22FC:EE_|CH8PR21MB4693:EE_
+x-ms-publictraffictype: Email
+client-request-id: 9e674162-bd76-4ec1-a8f6-e7ad9f5c3291
+request-id: a02e4ac3-508b-4bfd-0d6f-08df370a9bf9
+x-ms-office365-filtering-correlation-id: a02e4ac3-508b-4bfd-0d6f-08df370a9bf9
+x-ld-processed: 72f988bf-86f1-41af-91ab-2d7cd011db47,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|23010399003|1800799024|7416014|366016|376014|38070700021|7146999003|5023799004|11063799006|56012099006|261009223027099003|4143699003|261021121427099003|261022105027099003|261026121527099003|261026140227099003|10067099003|7053199004|18002099003|22082099003|6133799003|261028144727099003;
+x-microsoft-antispam-message-info:
+ HTJTt1CgTsmFpSWLdA6KooI2PV8CGryippcBo62f82bzFTh3OMXR3NQ5b9jQkjlRMhdRWitFIwghjY657FgWByR+JxgbEtFXod4t4WyOAQF/iXtJIWCCxmAK8tG4dO0BSoy2NgPPeaC6iOXwZx+HiVaADXUA0iXpLgtYEhMcoZph6i1SCdiZcg8BRYujK/DCwTfqGhZiqgi8tkNTXAvdr+QtGq9HN/QdbszUpzM7KjwvatQMbOhoFKrIZY0d2IadJB3W543/pI7MOHYGafNLSjWV342SQ6Je+XSzy3aOpf93kRsLghymtbCMETVOwc0oabS2Dofp4Ua5AjhZEfn+up+hrfqVFwAWfgmu8ckqyYZ18GDqAftBhCBW1bIRjLU1a2Dyd51nuLrCi9xm41X+EZsELv142IwCzjKAG7Ys67u7Jzec5DMiyUMnG3hPGbLI7Pfuaa0YxxPqsXXwzdNx3NSNc4fBBqrkHNBlJ4DN7/lJLZ5yDMwN3P9BVrCDntVSrz9HupXziGXbRsnzwQNojtLluEvpxC2GRjZSPiG2T3IiblVH4cRGToAzZGuiLK5UpyMlf3dn5K2K4RXzqQf83q6mH/x10eadcso8h2mynjq1lo6W5mBOwhP1ClMX6z2o4HhHB2+1pDKcDpbnJqzGwZjLsMXOD8IuLMMWrFSxp4cvn30WZqe6wFWy7cCwETx6
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(366016)(376014)(38070700021)(7146999003)(5023799004)(11063799006)(56012099006)(261009223027099003)(4143699003)(261021121427099003)(261022105027099003)(261026121527099003)(261026140227099003)(10067099003)(7053199004)(18002099003)(22082099003)(6133799003)(261028144727099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?xZxkbWjLehfuRL5rfTlkw3hp39I07Jo3ZfvgbYi6X7mV/zw6rARTGQ5MR47N?=
+ =?us-ascii?Q?GFZRsMPPloFm4i3wFRNFefbTJk/1vynD8M0AZfRJ7szaCQthnp/zMvHXERNo?=
+ =?us-ascii?Q?WogLXqGQ6Zn5zcw8yPm9b+ARefC+EehJyjkUL7n+QmNL6uNHHYIUcjIJiUTv?=
+ =?us-ascii?Q?NoBZz7vBzsnu3bq2vF0Mrzq/WxmEdVzd92geLzN6Bp5omeoqeSyutUpmEuBA?=
+ =?us-ascii?Q?aerSw5sE4aApNb+cTc0oPINBPzvJWzb4jqr7BxrKzzowLc4lbvm/KdbGz8iR?=
+ =?us-ascii?Q?wmtOJVr7HXO7RImJGxlRgWs5wdfBtXc8NLqlyCXk/jafrCUqsRGhDH/uIVEv?=
+ =?us-ascii?Q?0FoSp0aRLWyjcl787lp9epZAz2i+AtBnvs66sKoZrYxkOQR5yin8WKANMfKl?=
+ =?us-ascii?Q?bPCNqtv2geiLLeU4wHDsVrRCkl/H/pHwk+HSYx+9cgtR+goN+y3uDittfDD7?=
+ =?us-ascii?Q?7DAza9Pw8O33fdacbfFrLnhdk6MiToFshV5xYWt5lu/l6C5nn0bZ05bLr5q1?=
+ =?us-ascii?Q?y5t/pSb9eisVUl3iXADK5/8qzpGRMKjMZ6V91DDNE8Pj8ntd6RRJ9MlRsbFe?=
+ =?us-ascii?Q?r4pKKovk9qbBBlO1FX0D3vy3mWSE92X1QUF09fDpopCcqNpt8S2llmWldlkV?=
+ =?us-ascii?Q?i3T6Vwz1h9PlWERTASZqON2LouIsUBuDqeyJJnzhkS9MTq3nzBLiek0hqY2H?=
+ =?us-ascii?Q?tbp720rQR5RfLmYqr+RMenw8/KS/YHFA64GyoCO/Tbr53eABuiBgyLIC3OLA?=
+ =?us-ascii?Q?wi+vl5R/Lfs2cz9hWe5Efrtd/HiCSo9rTkX8Cwvn22jAsRjl67crwbSSb73p?=
+ =?us-ascii?Q?ZrGmWef319MzMznOlqxqnC0bemI72DWhowfjQkhkJvQEcCWA5s8x9FotUm6A?=
+ =?us-ascii?Q?Sc/FxYak05E/TnetS/QetsBrCZ1lPnAt94Xw3K6609GnFteM7VuhRwzpYEP3?=
+ =?us-ascii?Q?Lfm6I3YnmWF4cYwy/oM8Z8tFy5r97VR+lumsoTWZQtfFVSk1ETOlmSNt9iqa?=
+ =?us-ascii?Q?0JPq0rpKfEnIj/BwkpZWDPyVBCT26Vx7ncBnrPxPnc2eqRgjE2hNe0IsOcs2?=
+ =?us-ascii?Q?5TlXsLVMIc0PX+t1fo0B5vGztSUPjX13vPDSlewQlD3hkPedVOmfrIx4UngZ?=
+ =?us-ascii?Q?mkDgA4baqw0U/ux2sCmaeF9scAP/vj1IqbMmvhAuOO3S5uicrPpVycLqMWgs?=
+ =?us-ascii?Q?TeFe0jnemsXQq9wpQEs7piJx2vVo+2ODTFXDB6+9jBV0x1M/7fzopPhr5v1q?=
+ =?us-ascii?Q?fido7Q+oOfSOaHkWjDxeTOXGfeMSJjTKP8H/76wTfPQ4iJBZHiOkJTa+S9ze?=
+ =?us-ascii?Q?oq09TV5ei35KNaa6KRHeEyE8IrjR3wYs2RgKef6L34EuozNbY9Z20bgDQJIn?=
+ =?us-ascii?Q?Yo4zTW+8M3LptWfJwONaouF4WwxWkJtyIpgnRonoRlIyTRd4thgvYAYvDQ7B?=
+ =?us-ascii?Q?hxFAHYzprFf+R2N0E/YxZfFf/l7vekfCL92XqY9hZiNfrfjCHmC7sLA0rj3G?=
+ =?us-ascii?Q?/ELH15hmeVCbfNrkjG3Mb2U7G2nPlJYfuDPS3NFOWuJWdpDp0sHBOrN+tNWK?=
+ =?us-ascii?Q?3wkYq/07meL7tFXxXCj8nPLkQoG33O8NjL2oq7bun+Yiv0PdLSbz/SPjLZXU?=
+ =?us-ascii?Q?XnpYl/BSaD0VilaXwVamoYhB8bbDMow0yFsIhQ29fWDmhIKQFbthhyX4Yk6w?=
+ =?us-ascii?Q?2DRTOD3+Z1oUHXCxy1ksWu98qKiol4m8itSbrWAhuFwyZnQH?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,64 +159,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030030515.3127310-1-saranya.gopal@intel.com>
+X-OriginatorOrg: microsoft.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH4PPF0966F22FC.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a02e4ac3-508b-4bfd-0d6f-08df370a9bf9
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 Oct 2026 04:51:21.5471
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 72f988bf-86f1-41af-91ab-2d7cd011db47
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: EhcEXvbwswsu/cpy4OboIMVO5P68Tnunx2eLmCuRuSRNQExUGk6E14R1Td3AKmZKsc1kJud2ohBSwtsx45EsiQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR21MB4693
 
-Hi Saranya,
+> From: Kameron Carr <kameroncarr@linux.microsoft.com>
+> Sent: Friday, October 30, 2026 5:14 PM
+> To: Dexuan Cui <DECUI@microsoft.com>; Haiyang Zhang
+> <haiyangz@microsoft.com>; mhklinux@outlook.com; wei.liu@kernel.org
+> Cc: arnd@arndb.de; catalin.marinas@arm.com; linux-arch@vger.kernel.org;
+> linux-arm-kernel@lists.infradead.org; linux-hyperv@vger.kernel.org; linux=
+-
+> kernel@vger.kernel.org; lpieralisi@kernel.org; Mark.Rutland
+> <Mark.Rutland@arm.com>; sudeep.holla@kernel.org; thuth@redhat.com;
+> will@kernel.org
+> Subject: [PATCH v6 1/6] arm64: rsi: Add RSI host call structure and helpe=
+r
+> function
+>=20
+> Add struct rsi_host_call to arm-smccc-rsi.h, which represents the host
+> call data structure used by the Realm Management Monitor (RMM) for the
+> RSI_HOST_CALL interface. The structure contains a 16-bit immediate field
+> and 31 general-purpose register values, aligned to 256 bytes as required
+> by the CCA RMM specification.
+>=20
+> Add rsi_host_call() static inline wrapper in arm-rsi-cmds.h that invokes
+> SMC_RSI_HOST_CALL with the physical address of the host call structure.
+> This will be used by Hyper-V guest code to route hypercalls through the
+> RSI interface when running inside an Arm CCA Realm.
+>=20
+> Reviewed-by: Michael Kelley <mhklinux@outlook.com>
+> Signed-off-by: Kameron Carr <kameroncarr@linux.microsoft.com>
+> ---
 
-kernel test robot noticed the following build warnings:
-
-[auto build test WARNING on rafael-pm/linux-next]
-[also build test WARNING on rafael-pm/bleeding-edge amd-pstate/linux-next amd-pstate/bleeding-edge linus/master next-20261030]
-[cannot apply to v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Saranya-Gopal/ACPI-s2idle-Handle-shared-_Ixx-GPEs-without-an-EC/20261030-083515
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm.git linux-next
-patch link:    https://lore.kernel.org/r/20261030030515.3127310-1-saranya.gopal%40intel.com
-patch subject: [PATCH] ACPI: s2idle: Handle shared _Ixx GPEs without an EC
-config: x86_64-buildonly-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311242.kB7pRXhy-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311242.kB7pRXhy-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311242.kB7pRXhy-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In file included from drivers/acpi/sleep.c:26:
-   drivers/acpi/internal.h: In function 'acpi_ec_dispatch_gpe':
-   drivers/acpi/internal.h:262:17: error: 'ENOTSUP' undeclared (first use in this function); did you mean 'ENOTSUPP'?
-     262 |         return -ENOTSUP;
-         |                 ^~~~~~~
-         |                 ENOTSUPP
-   drivers/acpi/internal.h:262:17: note: each undeclared identifier is reported only once for each function it appears in
->> drivers/acpi/internal.h:263:1: warning: control reaches end of non-void function [-Wreturn-type]
-     263 | }
-         | ^
-
-Kconfig warnings: (for reference only)
-   WARNING: unmet direct dependencies detected for PM_GENERIC_DOMAINS_OF
-   Depends on [n]: PM_GENERIC_DOMAINS [=y] && OF [=n]
-   Selected by [y]:
-   - COMMON_CLK_MT8173_MFGTOP [=y] && COMMON_CLK [=y] && (ARCH_MEDIATEK || COMPILE_TEST [=y]) && COMMON_CLK_MT8173 [=y] && PM [=y]
+Catalin provided Reviewed-by to v5's patch #1, which is the same
+as v6's patch #1:
+https://lore.kernel.org/all/auPOxoaRbdOEHnv_@arm.com/
 
 
-vim +263 drivers/acpi/internal.h
-
-a6021aa24f64174 Arnd Bergmann 2024-10-11  258  
-a6021aa24f64174 Arnd Bergmann 2024-10-11  259  static inline void acpi_ec_flush_work(void) {}
-c644e4b14c9cb08 Saranya Gopal 2026-10-30  260  static inline int acpi_ec_dispatch_gpe(void)
-a6021aa24f64174 Arnd Bergmann 2024-10-11  261  {
-c644e4b14c9cb08 Saranya Gopal 2026-10-30  262  	return -ENOTSUP;
-a6021aa24f64174 Arnd Bergmann 2024-10-11 @263  }
-a6021aa24f64174 Arnd Bergmann 2024-10-11  264  
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
