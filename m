@@ -1,52 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793451956;
-	b=p5wYh1bC1SJ0SazBEJp96toccBbT7oBe1eFW2rJSrBwix1q2gkBzCm+y74qg5aPUjEKL
-	 O9VGoYcRSwcSiTRyjAu40n8I03Wme7PfanLNZfOIVtXHgt4JD6UVM/q10yU2ddPlqvnwb
-	 kWAN6Aou5j+2OAgp6o+f7QVFr0CHS7kTeWm0YFxpQVBZuJ2wLqhhmeQApsWe6p6vLUGEC
-	 rrwPIb/uK52ZU/OmB59fRA/1tp/LrMYqvOjWNFCDa6fex+LniR3H/pM6WsyLb2mexVtqm
-	 QtBj45Z2NfNX9TWCUtZzOovE+smB0iR++nbGhcwdx0z0nFh48UtWGMxO2/kzRZI6u0A==
+	t=1793452031;
+	b=yDJl6HrJoyrnzhlyuOoxlssgj2KiJk8+lS76kLs1MbU03HuR8kP1tVee40By4H0uaGlw
+	 CmjznqlfcaLTaFLb1JjYRWay4at6i2QSvvOxYUPOkv2P1vyZWng8iKLbYyeWeJF0kGci2
+	 HNt2tH962nxJ83t9FPmeu3r0osSoLqRV/7CVj13RZ3uKXTSns60hbX9eKRoPDMePfE5Bj
+	 3sBvcxu/leq5RoXElRv2Uwn35ECH5jtyIS8ESBK3gQwfB7tTNNiKiN3SODhCwLUsljb0U
+	 xbhKTj4jo3G228H5o2Pxbiwf+L9EKU5jBBrsT5pF08YJGYw2IKdniCe4+YTnJnIF6yQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793451956;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status:DKIM-Signature;
-	bh=0G1FYbn97ZpskU4kXqlNgRJ9OjsqiMFMjdyQhOyqtCI=;
-	b=L2lzQ2bV9rdla0e42vu5lFoL+jfck0yQWxdMpoqrkbRqOya5T09IuaZx+DNQfUw/vm9R
-	 OjTZBogdUyRFm1aBtJOzGqCOLEj2NtIuKtm8FXUICir6CZ+yrUUL/co48JCvfyAwraFxt
-	 1zny+YdBUGLJim0nfD3Kdu78JgjEKcWEVfLNyzAkZ3eFPhDoFpBuc9lZvsRhRA5YYvQwO
-	 Qjh2JlRedrkauHdlA+La1BTQGS4W5GFLWrK/aSjaqvzlX99oBzh6CLl9TLnf2da49QvOp
-	 TlTiLNopH6fs90Kq+QCujbOcRrJ68GNjqtt9VM1sVK7/eR3Ss7tiDA0ppucSMzEXW7Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793452031;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=rvdPv4hRvTf7pVG1n6aNMYDnMjBNHKJfM9FYI7MvNRU=;
+	b=mmYn8Htxr5yFRb94+czYzraUB+rFDIzGDJpea1UZbPKOTE/D3PPBLSiTk+rNw2CJEA3G
+	 gqcwCdnKk9D3c912NDQYu9cdnTmo6gVJhJZTVWix1qaFL13Z7pIGiO09Ru7i9vDeWNJGM
+	 vkWvHWpCN8wWF5156xlfiwn/xngk4NQZo0ofb7/Zy6zcK53Jf5bUgNNeBRJHYAQHtMln4
+	 fjVSG+7Kab+QPwIA8IM57noP102OE04C/Si7gSzzRge0pXHZ3PqaHxqNnXOd2iS5u+bzU
+	 NJtHHXsXgQp2M/5Z/ziMdHdjW3aeSNoHQOt9AGHsXR4HE4OIdlBKSLI1snYO1NqLWLw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.sdu.edu.cn;
-	spf=pass smtp.mailfrom=mail.sdu.edu.cn;
-	dkim=pass header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EW8HNwyx;
-	arc=none smtp.remote-ip=101.71.155.101
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKoXxjoi;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA886606A326;
-	Sat, 31 Oct 2026 13:05:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA886606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mail.sdu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.sdu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788D9606A31A;
+	Sat, 31 Oct 2026 13:07:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=EW8HNwyx
-Received: from lgs.. (unknown [101.76.249.61])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 530655124;
-	Sat, 31 Oct 2026 21:05:44 +0800 (GMT+08:00)
-From: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-To: Tim Harvey <tharvey@gateworks.com>
-Cc: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>,
-	stable@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: tda1997x: Fix potential use-after-free on probe failure
-Date: Sat, 31 Oct 2026 21:05:43 +0800
-Message-ID: <7c26d0753bb5a45f4abdec2ae12f2cba20dbd0c7.1793451813.git.liguangshuo@mail.sdu.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DKoXxjoi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14AE51F000C1;
+	Sat, 31 Oct 2026 13:07:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793452031;
+	bh=rvdPv4hRvTf7pVG1n6aNMYDnMjBNHKJfM9FYI7MvNRU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=DKoXxjoiV6quLf3es4UT1I3AzJQI2dmDLtMeemLY1n2qSpH6C9y0eMmNJIts8/Y4a
+	 Gf9DOO2dB4dL97eTVr3PBUfxUOe6Cf78kTqslJNKaPCQB/lSxXJsDCE6qytwLF5OYG
+	 PdVa2ftyQEf9fuqtHBEI3nvdIjxDBgKlEz0IuoxfEpwJ5vKVBteAp1s7GTzvBZgwq0
+	 GBjUi6LFM9Yc43z3U+mks2pPXWL2OGb1mzZo7Rg5X2pTvIextOtQ+tveX2TjSa9hak
+	 dH7x38IPVNsGt+6tz8xT0CS4s92CXMF4S2Kj4RU8SX1es9ZUMJg4cNP3f3lIenBlcb
+	 lBZ2YVY05V27Q==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
+Cc: rostedt@goodmis.org, linux-trace-kernel@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] tools/bootconfig: Preserve tracing settings during export
+Date: Sat, 31 Oct 2026 22:07:08 +0900
+Message-ID: <undine-1793452028139689664-4d0bf20c02a1c855@undined.local>
+X-Mailer: UndineD 0.1
+In-Reply-To: <cover.1793442331.git.edumucelli@gmail.com>
+References: <cover.1793364709.git.edumucelli@gmail.com> <cover.1793442331.git.edumucelli@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,67 +58,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa19210e9cd03a1kunm3ff2cb8183bf1
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGUNOVkhPGhpNSUgaGh4ZHlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKS0pVTE1VSU9CVU1KWVdZFhoPEhUdFFlBWUtVS1VLVUtZBg
-	++
-DKIM-Signature: a=rsa-sha256;
-	b=EW8HNwyxbhgn3VQFjKKPl+AY+t6wmioZvSqh8KHKOKoQB+luLIaCoApxe/7oLTPO7hNysyAZ3puvqpTzWDBSaPocfiqkYYc/soxpXZGAfT/j7PV/OYTL4yw2XCCqYxNkhrWh4hew8AvfW32U21MA5l+WOQbdKhyIAmBpXnXTDcs=; s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1;
-	bh=0G1FYbn97ZpskU4kXqlNgRJ9OjsqiMFMjdyQhOyqtCI=;
-	h=date:mime-version:subject:message-id:from;
 
-If audio component registration or IRQ setup fails after the subdevice
-has been registered, probe frees state without unregistering it. A bound
-notifier can then retain a pointer into freed state and dereference it
-during teardown.
+On Sat, 31 Oct 2026 11:25:30 +0100, Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com> wrote:
+> Hi Masami,
+> 
+> Thanks for the review. I've updated the event-filter patch to use the
+> explicit delimiter pattern you suggested. It now warns and skips filters
+> that contain delimiters and both quote types, since bootconfig cannot
+> represent them. The other three patches are unchanged.
+> 
+> Changes in v2:
+> - Patch 1: use explicit escapes in *[,\;\#\}]* for the delimiter check.
+>   The semicolon also needs escaping for the shell to parse the pattern.
+> - Patch 1: detect both quote types, warn on stderr and skip the filter.
+> - Patches 2-4: no changes.
+> 
+> The series keeps event filters, generic trigger counts, histogram
+> variable ordering and paused histogram state during export. It is still
+> based on bootconfig/fixes, including the two fixes you picked up earlier.
+> 
+> I retested the filter change in a temporary tracefs instance on my Ubuntu
+> machine, running kernel 7.0.0-38-generic, with recording disabled. I also
+> checked the mixed-quote cases against real tracefs filters and added
+> regression checks for both quote orders and all four delimiters. The
+> fixture checks cover each fix and the full series.
 
-Unregister the subdevice on these late probe failures before cleaning up
-the media entity and freeing state.
+Thanks, this series looks good to me. Let me pick those.
 
-This issue was found by our static analysis tool under development.
 
-Fixes: 9ac0038db9a7 ("media: i2c: Add TDA1997x HDMI receiver driver")
-Cc: stable@vger.kernel.org
-Assisted-by: OpenAI:gpt-6-astra
-Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
----
-Build-tested drivers/media/i2c/tda1997x.o with x86_64 allmodconfig
-(GCC 13.3, W=1). Rechecked the probe unwind paths in source.
-No hardware runtime or fault-injection testing was performed.
+> 
+> Feedback is welcome.
+> 
+> Thanks,
+> Eduardo
+> 
+> Eduardo Mucelli Rezende Oliveira (4):
+>   tools/bootconfig: Quote event filters in ftrace2bconf.sh
+>   tools/bootconfig: Export replayable event trigger counts
+>   tools/bootconfig: Reset histogram variable tracking for each instance
+>   tools/bootconfig: Preserve paused histograms in ftrace2bconf.sh
+> 
+>  tools/bootconfig/scripts/ftrace2bconf.sh | 29 +++++++++++++++++++++---
+>  1 file changed, 26 insertions(+), 3 deletions(-)
+> 
+> 
+> base-commit: 1dc6d173c43e10a1d0ee36b43d0d2f371f4d262a
+> -- 
+> 2.53.0
+> 
+>
 
- drivers/media/i2c/tda1997x.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/tda1997x.c b/drivers/media/i2c/tda1997x.c
-index 30dfd8a7b42b..4ff9acbc005e 100644
---- a/drivers/media/i2c/tda1997x.c
-+++ b/drivers/media/i2c/tda1997x.c
-@@ -2776,7 +2776,7 @@ static int tda1997x_probe(struct i2c_client *client)
- 					     &tda1997x_audio_dai, 1);
- 		if (ret) {
- 			dev_err(&client->dev, "register audio codec failed\n");
--			goto err_free_media;
-+			goto err_unreg_subdev;
- 		}
- 		v4l_info(state->client, "registered audio codec\n");
- 	}
-@@ -2788,11 +2788,13 @@ static int tda1997x_probe(struct i2c_client *client)
- 					KBUILD_MODNAME, state);
- 	if (ret) {
- 		v4l_err(client, "irq%d reg failed: %d\n", client->irq, ret);
--		goto err_free_media;
-+		goto err_unreg_subdev;
- 	}
- 
- 	return 0;
- 
-+err_unreg_subdev:
-+	v4l2_async_unregister_subdev(sd);
- err_free_media:
- 	media_entity_cleanup(&sd->entity);
- err_free_handler:
-
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
