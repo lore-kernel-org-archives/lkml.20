@@ -1,73 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793425307;
-	b=Hvz0iO/2TuVov5EmQkbweeFzmqcygXz6fXyBYeF55GBZgvzfd5sP7hoIvx7jUpJhUTBl
-	 Id78xaY3TQ5lNds9dvo2gKdLKfIK13zVpJ1X9jtFST7hTFMhVz/EfFZFIGi0A8UgptqEs
-	 gEQBze61TTBq9L0Zqjgv4YSk1nLFfmbjNjIzHLMsBEwTHsxYNpSTQXAEvtza6ZySd6eip
-	 TiIYpOAYgNmrH/ml5sF8xbykPtSn6LltXjp4u0hKcboqzoIaH1tTlUMbK4XZjMPy9TEL7
-	 jUqe7UGVnTMe4566WWYSWE9KW0SRfvX6AEBXtVDsm8ZzMrWPfMBmlSw3IEn19qyWcwA==
+	t=1793425440;
+	b=r6aX6mMpAIkPGKyIy+StHTZ2ZGSYiQVULWGg2BPb03AewMAdbe+MyG4bK+wy+2MdD6we
+	 GAxCZ4al4UNnaDV4iClkfuo6qqqdkOx59LYGUUcdeaNZWppseCzhufpZKAwv0/vyckeah
+	 Mt5eqx3mFqhFdhrYO6fpy/fkNeMHpfLaKj3p1gL9S8aqMo6BRa5M4PlniEsu+0FSbAwhH
+	 X7DFcQsocqJYIxWJTtzvviGlaaMHeO/kkbODEAQvtyMhMvvi8QLspfrdkVEeVoGbzL6Cr
+	 A++iO1lMXZnHyhz8kO5gl4qSKInQts/lYRZ9HHw6I24tAEtBJc15oiwN1ny/4moVrRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793425307;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
-	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
-	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=jI8T5c3f3LqNpG25TWB8fWvMcJXinVSA9ZWa73qQlCQ=;
-	b=WVvmMWY3U6NauKqfBhcR18bx33ia2Pp+xGr5xsJPoglnH5aISWOkJW/y54cn0yHxP0cO
-	 LvBxy6Q5wZtkERJxWrfQ7wDEkudIqMqnYxI4h9rpEAu8vsFUG0VHxkWIU1rTJMI0FVaVB
-	 KimS326/ZCQxYpL9qSfRjoL1aQmcRbUrxwunN00g39X8AoecpiWTwsuXx94qwEUfNCUSa
-	 +BBd8kRMT1HrWeIE+qUUGOHE4SXYGcC11La5KG8seZXrbvTLqeoYp+3zmp4FHjN8Z6M16
-	 I0SdnjmapMrZtGR+rzI4KaOd25/lhgvsHj2xoiBjPSVFmxlP4Ee2Nu45NJNSGbs30vA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793425440;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=bsdEHEUIdzvaQtRrVTZS/CJ+UHx0YM95KADOoQBI7W0=;
+	b=dTBWHN+fwAiQFMejnhTEPnNV7APHOR3TNKBTZ37Na/rrQPxy+uLQxPhVFHZ7FA7XRA0e
+	 kMZSkOyxaf2DcCbu26vfVf1Rw+g0UAIF6sLLnZkjzvEK2smQx5iZmMefbfhznzpHYDozN
+	 Oy4ae7fshrRpJZReET46eb4tKjIMJ03nZPlHKo/Vi7xN7s61eF6V3zLe4PKxCXIqX0l/6
+	 h72mxyi5F5NuFr/PCnU9/71zU8mVkGPXUyUrS15btU2IDfKIXxCrqDNzIeOSlvcbLCPJy
+	 zsckLYJgkspbXmBDxT/HrzFxtOl1Pr+am6l4ek/B+X3ZZRRFIk6wEj2FeyVl07Qb/VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=brar.si;
-	spf=pass smtp.mailfrom=rsend.brar.si;
-	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=Ka+af0qI;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=CfDXVVxL;
-	arc=none smtp.remote-ip=23.251.234.53
-Received: from e234-53.smtp-out.ap-northeast-1.amazonses.com (e234-53.smtp-out.ap-northeast-1.amazonses.com [23.251.234.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41C4606A31A;
-	Sat, 31 Oct 2026 05:41:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B41C4606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
+	dmarc=pass header.from=arm.com;
+	spf=pass smtp.mailfrom=arm.com;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=drTxhs0A;
+	arc=none smtp.remote-ip=217.140.110.172
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 785D8606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:43:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 785D8606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=Ka+af0qI;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=CfDXVVxL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=brar.si; t=1793425305;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=FEQXhvLhTuGrd5NaJDpvvxJxaBTVbUfxPfAcURqm+dE=;
-	b=Ka+af0qIkhPtHxtN3J9YkC4Af5HTcC2Nx1Zp1gHcMcEdCI+u+IQbSl6kJ38XznmX
-	EWC9ygq20weTsBwasjy6wa/kH/5B7lMP9ZqS5sBuxm/qlJJGKN90a3VwGM+0Oa1rF1H
-	DtCnIHiEsoD0lNLccdBTXnEWenmPpGwLazyvT6tQ=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793425305;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=FEQXhvLhTuGrd5NaJDpvvxJxaBTVbUfxPfAcURqm+dE=;
-	b=CfDXVVxLPGNFVqBzzMnWg8FWowHMxHU4V5nNOYo4y+4OYPoY7Lptv7mrbSZdblId
-	IvGnGYAaO0OoiybOFy4UnyaYMtUhny85e2UOkZ/CHKVMX+fJOk2FAN5zvoPL5ajJuxs
-	C79TLIWVQIUkKshKY6TSzrAGcJ2DFjMxUZg2OISg=
-In-Reply-To:
- <natokcic7hm2l3erd2jhghzlkg4nvy5kejms27hi6dr4xmid5h@tnhinn7yjp3i>
-Message-ID: <010601a1907a6e57-6b4897eb-cb32-47c4-8b79-1ad1c73e7613-000000@ap-northeast-1.amazonses.com>
-References: <20261027-gpucc-sm7250-v2-0-773056e4043e@brar.si>
- <20261027-gpucc-sm7250-v2-2-773056e4043e@brar.si>
- <natokcic7hm2l3erd2jhghzlkg4nvy5kejms27hi6dr4xmid5h@tnhinn7yjp3i>
-X-Pmail-ID: <1793425304285.ee9300a6194d@brar.si>
-From: Ishu Brar <patches@brar.si>
-To: abel.vesa@oss.qualcomm.com
-Cc: andersson@kernel.org, abelvesa@kernel.org, sboyd@kernel.org, 
-	bmasney+clk@redhat.com, jbrunet+clk@baylibre.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, taniya.das@oss.qualcomm.com, 
-	quic_imrashai@quicinc.com, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] clk: qcom: Add SM7250 graphics clock controller
- driver
-Content-Transfer-Encoding: 7bit
-Date: Sat, 31 Oct 2026 05:41:45 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=drTxhs0A
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 5EBF41596;
+	Fri, 30 Oct 2026 22:43:55 -0700 (PDT)
+Received: from [10.163.156.83] (unknown [10.163.156.83])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 361883F59E;
+	Fri, 30 Oct 2026 22:43:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1793425438; bh=KtacfKJeh6jI8AxfG3p3xz2pRnGpmEm0kIOWdqIWDvA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=drTxhs0AqTGZ7XVX19T7iR5Wpu1UV25u4Ad+13uRGp8CeQcTHc9Y8PgG5JdarN6PG
+	 ZnbRLSrZqvGCCXDNHjdA3mge//bTwwewRjTl5GRticQZAQtkrPWWJBvPaP03j2H3A6
+	 hz1fGA/OFAF6GhrflAwkV7TSa0oqutweHyyrEP9U=
+Message-ID: <9b5e22b0-3876-42d3-b58f-053120307a8a@arm.com>
+Date: Sat, 31 Oct 2026 11:13:34 +0530
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,24 +53,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
-X-SES-Outgoing: 2026.10.31-23.251.234.53
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/7] MAINTAINERS: add Zi Yan as co-maintainer for MEMORY
+ MANAGEMENT - THP
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Byungchul Park <byungchul@sk.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
+ David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>,
+ Gregory Price <gourry@gourry.net>, Hao Li <hao.li@linux.dev>,
+ Harry Yoo <harry@kernel.org>, Hugh Dickins <hughd@google.com>,
+ Jann Horn <jannh@google.com>, Johannes Weiner <hannes@cmpxchg.org>,
+ John Hubbard <jhubbard@nvidia.com>, Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Kairui Song <kasong@tencent.com>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>, Miaohe Lin <linmiaohe@huawei.com>,
+ Michal Hocko <mhocko@kernel.org>, Mike Rapoport <rppt@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
+ Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
+ Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Qi Zheng <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>,
+ Rik van Riel <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
+Content-Language: en-US
+From: Dev Jain <dev.jain@arm.com>
+In-Reply-To: <20261030-maintainers-v1-3-97278f8a5f54@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, 27 Oct 2026 13:32:54 +0200, Abel Vesa wrote:
->> +static struct clk_branch gpu_cc_hlos1_vote_gpu_smmu_clk = {
->> +	.halt_reg = 0x5000,
->> +	.halt_check = BRANCH_HALT_VOTED,
->
-> sm8250 uses BRANCH_VOTED here.
 
-Yes, that is on purpose. BRANCH_VOTED skips the status poll on enable,
-while BRANCH_HALT_VOTED still checks that the voted clock came up. The
-newer GPU clock controller drivers (SM8350, SM8450, SM8550, SM8650,
-SM8750, X1E80100) use BRANCH_HALT_VOTED for this clock. I tested it on
-the Nord with the GPU SMMU as a consumer: the clock enables and there
-are no "stuck at off" warnings.
 
-Should i match SM8250 or keep BRANCH_HALT_VOTED iin v3?
+On 31/10/26 3:04 am, David Hildenbrand (Arm) wrote:
+> Zi has been contributing to THP consistently and reliably over many
+> years and is considered one of our most valuable THP experts. As THP is
+> an especially active area lately, having a single dedicated THP maintainer
+> is not sustainable.
+> 
+> Fortunately, Zi volunteered to take on more responsibility by stepping
+> up as a THP co-maintainer. So let's do exactly that.
+> 
+> His placement in the MAINTAINERS entry is very convenient to perform
+> this change :)
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
 
-Ishu Brar
+Great!
+
+Acked-by: Dev Jain <dev.jain@arm.com>
+
+
+>  MAINTAINERS | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 0baeb37b0dcdc..02b5b542f81ee 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17817,7 +17817,7 @@ F:	mm/swapfile.c
+>  MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+>  M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	David Hildenbrand <david@kernel.org>
+> -R:	Zi Yan <ziy@nvidia.com>
+> +M:	Zi Yan <ziy@nvidia.com>
+>  R:	Baolin Wang <baolin.wang@linux.alibaba.com>
+>  R:	Liam R. Howlett <liam@infradead.org>
+>  R:	Nico Pache <nico.pache@linux.dev>
+> 
+
