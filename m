@@ -1,103 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.228.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793460435;
-	b=37C4Gaes/eROFCuvpedZKjwOvg34eHBxphRUlr2+/y5Mn480KNGVPU7bzsoYs/G1pJg+
-	 gNQmrtJmxVMlGTApUZo1GXqYcwubHg0TqeB35tVT87L4dlLRKAn2WLuLoOA3aaRrBPwDY
-	 Yurm1HFC2OtVS8BqktN/pCd3++6NJewLRBGq4VnFnEjZRTWCJm5gR4zRsyv+vLwwhmkSw
-	 CcaiCvSzZBh6NyfcPV9UJBqi8m+4QpcP3Y+il0NfNqY/EbJUPSHZh5kqCyBMIKJ8jbqhp
-	 UcXInxI0ZeBuv2CXk7C9bN2SvaBOw+ORbpWQM5NSGwzRAaZ9C7swNRFhI8LFOo66rog==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793460435;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ApVcgRbUJOCRqk0kM38newz6TbCCt9oxZvC4V9s3//Y=;
-	b=LjZ8K+C3uGdzIBlEIb/lOUWNLCtBuGi8Si5n8nHtvCRsiJuiT6mM6rHX1JijsTKMKG9V
-	 ul1YJVF/0Hk4jJ/x7kjLdV8V64VL1CEcCNObbbvgi9XmbmvqoW9lGRVqSA9RZ/o8d2pqf
-	 cCa41KRKnd0Ta+9GdWM//2dJXV0oanC6MBYwOU2q9WRkQHmvVZ50ML6yQ/gYtoR8vv/5E
-	 IAEIgnc3SWh/+gnD1iDsdvoO7ZOJmPce54BIL39h4hfxpM+lxblyUscnn+63o17GyrC+N
-	 +Mx5nGVbVE1yZoFLkSIJAa8KISIb7PzS5UQY0DDOQiO4jNxF0yhKHVMdCKuhMBkp0Hw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xxKt9e0N;
-	arc=none smtp.remote-ip=74.125.228.5
-Received: from mail-pz2-f5.google.com (mail-pz2-f5.google.com [74.125.228.5])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793460459;
+	b=42woKSZMhP63ODSU+XGaE7e2da8FbXTIJFnU7NA+x79SVUz9Ahunmj7H6lHUXkZhx+ei
+	 yDIeF+2VT4MZcnuLwBfSWOLqy2BuykCdt121Veb+WgzjzSjaX/JQKSGak1ctYEjiF1QdQ
+	 /fc7eAcXbvRkMco0vhAVzspPimmbcTvKJC2S+vkGf0BeHo4cDgqh9N10Rq71Uz8i/VDsK
+	 yP7lLtHDrxZgccbXEY1ncgFZJZhtTRvWZrklb044i7NAuxh4KktbkRwBrWfJ8SrgG16zW
+	 +dcyAmAHx57HbWQ4iuvi/7qAEAFGUWSi6zbCqIv7nTmk2r81tDzjy87W6H9EUrc0xHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793460459;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:Reply-To:From:Date:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=mbIGiHBiaKBjgOa8o+hDFP6aAnbPQE0+rh/Y8oaEe/8=;
+	b=2+5Q13wQete5ZYQP8JDvFLbQuh5OnOjAbudYsLelRSX7n+JKtEIakVyHTawcQm1Wgart
+	 Qq3x1UyX4wqRZdZJggEWG62w0HAUJgkuZdH3RIRL91o4q+RqY+aDyW4B8KNzPphXOcfMW
+	 sBPwCw8HRA5wc+HLYM89vFsVbzb3enFpt6tNxCpri8yLsWb2c7jPkIhRp5lE4TcO+rXRw
+	 /DbxsID3wLjPcBMmwYoKSmJ/VmNdlEw/zj0svXNqz+YhWdte6wnvn5Ny89vtmHDAo+JTx
+	 nedWO+flmkJLhcaeL+Irhcvm4P3qKwImLVwDSET7UVJo9+WeVSBzUMjj80Xx/m6b0tw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FJvFxJvg;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PyPWHxAD;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE760606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:27:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE760606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFA6D606A31F
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:27:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DFA6D606A31F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xxKt9e0N
-Received: by mail-pz2-f5.google.com with SMTP id 41be03b00d2f7-cc7c286026aso892108a12.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:27:14 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FJvFxJvg;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=PyPWHxAD
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD0CgL2196378
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:27:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=mbIGiHBiaKBjgOa8o+hDFP6aAnbPQE0+rh/Y8oaEe/8=; b=FJ
+	vFxJvgYCstEvbDKYUxxz1B9BCgQ0xfgx/UEGaF1nIXCswS1rwnxg2MGi4LH9mC/z
+	m0CNX+MrrlBxER6K9e5WE7YFVR9cU4n06eirW9IXTWyr1WFHRfuQmTguT2TwbH3n
+	nhM+M/w8FkQrlv9aWpmXsP5h5wG+5lDPvwpU+Ly9sTZ588JDZKn+bkKKujwO2MY3
+	gvDJoWlR6s8NwUwgmZdHpJ1vr++wRrHyUSoJAs7yW5rocMv+ZNdTHDP4T99XFnZk
+	+JRc4j8CgPg9nqu36ovtuGDjuaU8DlNHOa7Qu3MQET/V8i6+Tb0v/jhTmy64kdAj
+	7MO7z2UqRBPzaEBkf1xg==
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com [209.85.160.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8du9cd5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:27:37 +0000 (GMT)
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-48296f34f1dso1492749fac.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:27:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793460457; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UA3qx+o5q+w+w2hqVfBPFRQXYkOuunVztGUGO3/pYN2rrjkKxFi36sf90bURRdhdpL
+         iyEBA8k1jldepnGIdfFfYiaIgnvZkM1EcSPkhq2eWtohbA2Ju4EeUnkrIpUzs1f4Ffjo
+         bajd4jdybA8OZOtnaTG3y3nywwut7p2GrJ52BBuMy4o1PRl/AsfgWrQz+FU0ipwROrFz
+         azRHwGSOT9J4pFsS56qKFnzV4jmnyabS6yzfroQx4ZSX97XqP0avNXtJHhQ0aHGE/BlY
+         AeR12R8RWGThrAFERvEyk0Ewd7oCAvnBMcDdJI1YP8LybDd/uPGR3jZZG2cgBwk2vj8D
+         s/eA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=mbIGiHBiaKBjgOa8o+hDFP6aAnbPQE0+rh/Y8oaEe/8=;
+        fh=MhJdvVIixiriv+voKf0CWf3VMvgaluetxf1qzsSON34=;
+        b=klR5Q5jkUGbTnBGHmLZJO0M6ewEmi4sFQhAXWLe4UFxmtEF+0jtCFF3kpS9t7ci3OE
+         3YlgyVNw1mjIkDUw5JIKyMZ0d1kIbUeDOR7g3TsyeRsXtuYrZ2/2c0eHhphsO2GAbfgL
+         3AUaF0kzo6kfexJYTfKI++J3xrV0lDfnkf1zBKXKkhkX2hrrS5pyJD+/mPLWOW5baRTE
+         usZuxSM5Z4s5kjTkwUg+c8tdO3BUhd8W2h7+tFDUPgxBJjWz2n657ClsGQIltRxv5GT0
+         h2O2eGcARruE74Ic5u1ST276d5dIXuuK2Z/6iDoKnQZ4qpJ9dUPoyL8rbTTJwkfY9PBG
+         ni3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793460434; x=1794065234; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ApVcgRbUJOCRqk0kM38newz6TbCCt9oxZvC4V9s3//Y=;
-        b=xxKt9e0NpDf3tVGVMS6wABgShbLvUu1jspoSSPdQR+jrZURTsAUlFjFIUbaa+zldue
-         BH9Q2YVj/MhQi17vot9q4bxY+OgPjR93EO4U/n2JdlDzmd3jONUECn7mMK4+NWPOJKOn
-         CZ8OwCL1ud1Ux8ShHqn1BWX9Kct1BdM5w1EHu0/NuVMZGDeco7HRAjwnrvuugCPwdkE5
-         pC1dHjy68JWDh21fbmodKPKtC9Ll9YrERB/aYMaK6ZLn5+eTmvLscCsZLsAkpTivuWve
-         OF/OmyNhWECuTIhr0RePHZiKrER11pXgxqnJkKFItyYqiktMFEKB6P5GQzeInHxmkwCS
-         ttqg==
+        d=oss.qualcomm.com; s=google; t=1793460457; x=1794065257; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mbIGiHBiaKBjgOa8o+hDFP6aAnbPQE0+rh/Y8oaEe/8=;
+        b=PyPWHxADp1pWjWDSDTGV9orzS15rjIGMYWdiFuyXYSRB6pKNQI/fZsixMqmqJQyNe2
+         GVT8pfLkb9lGBwL6z4kmIDyIaObMIa1IVxFEqWYIj2+xQl+fFfLhneL9x4Fx77RRbJ94
+         XvLdUXWzxi3239joHCOOJL5RONN9I7N68xs6o996liqeW4/dk3uHx0CMqnFwAnvpBQ2K
+         CJjiXfAqReA576EFBQLMcZuSHzrE5EUHJhbUIfDf/r4AR1sI1ZZcNFnqKq96L7zwCeYb
+         6ftu66MWux4zcsERnsRBMDWB3wL17YZ2T8dzWHqFSpqKT1iT+3N/YTgX0Km3E2vhLbAT
+         guWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793460434; x=1794065234;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ApVcgRbUJOCRqk0kM38newz6TbCCt9oxZvC4V9s3//Y=;
-        b=n7Qc0d6bLxv5nK50IkxI3bG9tYxTMLgW7Z4/KXvuZnTLpN7gU6WGbww2elADL/JlcY
-         KExijeVvvGU/vwnYFMTVuTc4FInxivzEQg/fWy3u9NK46BGlbxqJBveumUP4v3WABGo6
-         HEmH46KP5OrNi/9ktwaqMFN9riFLoPZJfQzdwsXya7Fd0Kc7aED3yMr6E84DIrleObJQ
-         HH5OzvkgvEcjDJVwIqSfVxQdg6/FzOeS9A08NiuI8j4ksHLyimpNCox8VAaeykmWAS8k
-         ZWxqOI7ZxS0una2Hp1YfiwvPAETVLBLuCeClyEWaxguXDp5OwUiIpujbr488c625h8UB
-         8Qsg==
-X-Forwarded-Encrypted: i=1; AKwUvByWH3VaioVPUv2v+Z0sPnH9fxVECvXtXC1MNaGZ4jDz+FBxXqJ0GN3LxrN/62hd55iKLqA1IUmb99XlCJg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL6udqyJ3Xs8QQfJ10LYClV7KJUpx8ey6U7q/E48XENQ6Y1J+hj
-	1ZAJlG1g/ZIJULl+BQJkA9c4MbJ3apJYfUnB7lf87eowgO+EiLu+hI6U
-X-Gm-Gg: AYBFou2NmrTqcrInstekV85hXf0LzPHub4kIQVdOp4OqFewnHPxec7KIXdGS1AV13QG
-	NqJLtneF7ZwKMbQIdSA5L0FnPzz02Wro4dpTiWhmilMA4spOx9dJwVCcaz0bdoDlGPJbAionl19
-	h2CQfgkxOeBGl23V+GwgOd6Dm3d5pplRiySRNMuIZZf3+Saz0/76TUo1rCF4C3So/fr9NXqsrPM
-	sJumDAoP754SZ4WYzdxk3oTpL4i65mAH6xqpS6t+NwXi+pG3rO43alAvETn9gJwmx3bJt/rAwO+
-	/0WDygn9P99ubysNP1DwDyxFh7Fv6zBrzjDmacCpkEfTlGOuivUdfuTpxv2LmEVj64FJCb2ibrx
-	mvXmZ81elYqiOULBB/+fWSZLlBLEyMks+UNIzKP38n2nmhA8RcN5q4ezlyV4W+LW+UsOWLL271Z
-	6SW88bJxPLUtLpTS2O1NSWa6kvpNLMJFzc2+jXrD/GV+DoGHdNPdz01ikuUZLNgbEmB4l8S+teq
-	rQK60yFzEMRXpwh8a0RkfKlj4pzPfMjN6eRlH9Q0Us6it82hgTe8DGT39auhC0rkDx7Ta0WOq5v
-	aQIeFn1ucApXnR2/2FgesHWEHcXl4tY=
-X-Received: by 2002:a05:6a21:6b8c:b0:3de:b120:bba0 with SMTP id adf61e73a8af0-3e928cd25a1mr4531768637.36.1793460433856;
-        Sat, 31 Oct 2026 08:27:13 -0700 (PDT)
-Received: from kei ([222.141.54.22])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb09615125sm1731025a12.1.2026.10.31.08.27.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 08:27:13 -0700 (PDT)
-From: tianci xie <xiex16070@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Samarth Narang <samarth.colleges@gmail.com>,
-	linux-serial@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	tianci xie <xiex16070@gmail.com>
-Subject: [PATCH] tty: serial: samsung: fix TX fifo underflow on flush race
-Date: Sat, 31 Oct 2026 23:26:56 +0800
-Message-ID: <20261031152656.1422-2-xiex16070@gmail.com>
-X-Mailer: git-send-email 2.54.0.windows.1
-In-Reply-To: <20261031152656.1422-1-xiex16070@gmail.com>
-References: <2026103122-repurpose-cost-2da7@gregkh>
- <20261031152656.1422-1-xiex16070@gmail.com>
+        d=1e100.net; s=20260707; t=1793460457; x=1794065257;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mbIGiHBiaKBjgOa8o+hDFP6aAnbPQE0+rh/Y8oaEe/8=;
+        b=eAc8cjuW7sQSFIVL+KTs57ybj7SUvD4zBtP1OWFrHPXmbtvIV7zYb0nnDVOQ06/dFo
+         5Oh0XIYAhEYRe+3i0k8b06T3Ky0IcKdyJFZt50KhqhvR9GsuDdBrlpewAVXwExkLUbgl
+         F+osuH78Nt896qLBItGhrBXOYT4FN7xIwKS8XdxDpdAm+pHD842qw+AWOuVJC/4Y6glp
+         pRDlkUUj4+H2RmDBy6qamK4lyTcNy3oNlPDjuoVT8Acuz75hYKJ5X25zKvj4zVe8HZHM
+         SbpMaUPnXgMVNhG02H60FcgVAfrnGE8Ak8ZPlAxi+3AjQIEBMy/8+gCpEcM2K7NuNg0i
+         OfEQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz9Zimyw+bsbu1rvDKkVVgIJSzjzlzUCbI5kiqypmR00xGz6HDQDL5vQIgPwnaswruCdWOU8xkAGtgsT3w=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJib12KM1VU6YSmH00HghQgqUgrW4hjgUiLMIn/4q3hTRu/Y/eT
+	AQQTiEOm2Fjmbw8PBmaIfhUB7RGpJD6mTCrzMlMD0icRgvdyyHG9ILZ5ZZ/Xbf9qpnWwvsaApXr
+	lus4aXiGe+L9wb3vDEVlJl6AcvcZjFj8qPvm9BQf4RjfJS4GE+tNuXhT+YX1DWzoq7hZGwTEpux
+	QZEvwWn1nbaoi9lQVZUyQDEJES9O+NrOBcqrXshhXYPw==
+X-Gm-Gg: AYBFou3tr0cR81Du6AtL7PQx+G35GbbfTcztgwtMHeTGm9iK2wN0CocR2J8O/NcfRyk
+	UJmimhQDf1mG9GVK/QPHeXcsiGRqRMQByPnOdjhAJ1BKNsydcysEC/B8d5McA4qNnsxhePzK2Dk
+	QsMY4UORO/2uVCM4JRIR9QZvctisCEu1pUj8QPmSUv3pmd5Q0Bt58GOq2Njw==
+X-Received: by 2002:a05:6870:82ab:b0:4a6:d85c:a3f2 with SMTP id 586e51a60fabf-4a907684d6cmr3466579fac.33.1793460456863;
+        Sat, 31 Oct 2026 08:27:36 -0700 (PDT)
+X-Received: by 2002:a05:6870:82ab:b0:4a6:d85c:a3f2 with SMTP id
+ 586e51a60fabf-4a907684d6cmr3466570fac.33.1793460456464; Sat, 31 Oct 2026
+ 08:27:36 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,121 +127,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261031-msm-smmu-identity-v1-0-a2a70580eebd@oss.qualcomm.com> <20261031-msm-smmu-identity-v1-1-a2a70580eebd@oss.qualcomm.com>
+In-Reply-To: <20261031-msm-smmu-identity-v1-1-a2a70580eebd@oss.qualcomm.com>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Sat, 31 Oct 2026 08:27:25 -0700
+X-Gm-Features: AclHuK-pzJRTbh4UTFiq0fs-4bAqq6ic9ym9r9ejSwbktmESwt9yc0oaaUOjgyA
+Message-ID: <CACSVV01pWNJsLLek+az=uHbt1-Cavv5M=QhX=xD6_AG9J+magw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] iommu/qcom: Invalidate the TLB in flush_iotlb_all
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, iommu@lists.linux.dev,
+        linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=O6esLx9W c=1 sm=1 tr=0 ts=6ae608e9 cx=c_pps
+ a=CWtnpBpaoqyeOyNyJ5EW7Q==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8 a=BFTSSJhH0xhXNpwrsgYA:9
+ a=QEXdDO2ut3YA:10 a=vh23qwtRXIYOdz9xvnmn:22
+X-Proofpoint-ORIG-GUID: OP-zDUrNhImnYQjuyEZN72jzRbUlaY3s
+X-Proofpoint-GUID: OP-zDUrNhImnYQjuyEZN72jzRbUlaY3s
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA2MSBTYWx0ZWRfX28t4ewoIEmpL
+ 4O5jmYKzf/mjPJrfox3hgorUnNH00UN3BkIR2f9K4IL4Whg5T6aNwGmf3aOeGdGprEL1TLR7iHL
+ xnUMLJ73AmX+ymVovoXtgSA9MxOqaKQKRdDaPi44TskjW5Se2LYzJBjxTPKfgS1IHu52iObq6bq
+ +PjpNdX5tkTjOnd7NJFwhVcxM32eUv4ItYijEbsZ4BK5zdWjc00oCxj6KaeFbf/EJFzYsG51AJz
+ pa6X+YJnA5b8K5QtW0MTkZr7iJ0sy6zm+e6oRAHMtdDrHi82+yrrwLF6VR+SmMaHG+/wyLGwG8Z
+ 9G4Le2wGDfqx0n99OoKqaR0EIWM++Tp+Ysj10d4YuxCh80DIYHZTIoGO/4TkxZK721ln1iO+Ffn
+ p6HQgLDK1pbrrioYoaHfjcxj2cfY8lDcc4wTEGQAEsR0M32MET42vua7/0juv/XNxZKnIXTpqsG
+ 4qljeoPlKVtZ4A/I7Eg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA2MSBTYWx0ZWRfXyykF991VO2X8
+ WNUqrocIJ3V5WGnJTEAhS5m4vj73mqVbesT/CKyzR8Llvgj51rCSGSN9rPXzrwGUU7pH4QuP5Wt
+ 8/XwpMUY8ecnt8wuGE+Q69IJxVNNu/c=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
+ bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310061
 
-uart_flush_buffer() resets the xmit kfifo and then calls ->flush_buffer()
-with the port lock held.  Neither s3c64xx_serial_ops nor
-apple_s5l_serial_ops implements that callback, and
-s3c24xx_serial_tx_dma_complete() computes the transferred byte count from
-dma->tx_bytes_requested before it takes the port lock.
+On Fri, Oct 30, 2026 at 3:05=E2=80=AFPM Dmitry Baryshkov
+<dmitry.baryshkov@oss.qualcomm.com> wrote:
+>
+> qcom_iommu_flush_iotlb_all() only waits for a TLB sync and never
+> invalidates anything. iommu_unmap() users do not notice, since
+> io-pgtable invalidates each page through the gather, but drm/msm unmaps
+> with a NULL gather and relies on flush_iotlb_all. On db410c the GPU then
+> hangs on stale TLB entries as soon as another process reuses the IOVAs.
+>
+> Invalidate the whole context, as arm-smmu does, and keep iotlb_sync a
+> plain sync.
+>
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-A completion that has already sampled that count can therefore run after
-a TCOFLUSH has reset the kfifo, and advance the freshly reset kfifo by
-the byte count of the discarded transfer.  kfifo_skip_count() does not
-clamp, so ->out moves past ->in and kfifo_len() wraps to a huge value.
-The driver then keeps transmitting stale buffer contents, and a later
-close can wait in tty_wait_until_sent() until it times out.
+Reviewed-by: Rob Clark <rob.clark@oss.qualcomm.com>
 
-Handle this the way 8250 does in 9e512eaaf8f4 ("serial: 8250: Fix fifo
-underflow on flush"):
-
- - add s3c24xx_serial_flush_buffer(), which clears the outstanding byte
-   count and terminates the TX channel asynchronously.  The port lock is
-   held here, so dmaengine_terminate_sync() cannot be used;
-
- - sample dma->tx_bytes_requested under the port lock, so that a
-   completion racing with the flush observes the cleared value and
-   advances by zero.
-
-The callback may still run after dmaengine_terminate_async(); for the
-fifo it is then a no-op, but it does clear tx_in_progress so that a new
-transfer can be started.  As in 8250, this assumes that a terminated
-descriptor is retired before the next one is queued.
-
-Reported-by: Samarth Narang <samarth.colleges@gmail.com>
-Link: https://lore.kernel.org/all/20261031004733.3345841-1-samarth.colleges@gmail.com/
-Fixes: 29bef7990845 ("serial: samsung: add DMA support for TX")
-Signed-off-by: tianci xie <xiex16070@gmail.com>
----
- drivers/tty/serial/samsung_tty.c | 40 +++++++++++++++++++++++++++++++-
- 1 file changed, 39 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/tty/serial/samsung_tty.c b/drivers/tty/serial/samsung_tty.c
-index 640f85e..e955b7e 100644
---- a/drivers/tty/serial/samsung_tty.c
-+++ b/drivers/tty/serial/samsung_tty.c
-@@ -330,7 +330,6 @@ static void s3c24xx_serial_tx_dma_complete(void *args)
- 	int count;
- 
- 	dmaengine_tx_status(dma->tx_chan, dma->tx_cookie, &state);
--	count = dma->tx_bytes_requested - state.residue;
- 	async_tx_ack(dma->tx_desc);
- 
- 	dma_sync_single_for_cpu(dmaengine_get_dma_device(dma->tx_chan),
-@@ -339,6 +338,17 @@ static void s3c24xx_serial_tx_dma_complete(void *args)
- 
- 	uart_port_lock_irqsave(port, &flags);
- 
-+	/*
-+	 * uart_flush_buffer() resets the xmit fifo and then calls
-+	 * ->flush_buffer(), which clears tx_bytes_requested.  Sample the byte
-+	 * count under the port lock so that a completion which raced with a
-+	 * flush cannot advance the already reset fifo past its write index.
-+	 */
-+	if (dma->tx_bytes_requested)
-+		count = dma->tx_bytes_requested - state.residue;
-+	else
-+		count = 0;
-+
- 	uart_xmit_advance(port, count);
- 	ourport->tx_in_progress = 0;
- 
-@@ -1162,6 +1172,32 @@ static void s3c24xx_serial_release_dma(struct s3c24xx_uart_port *p)
- 	}
- }
- 
-+/*
-+ * Called from uart_flush_buffer() with the port lock held, after the xmit fifo
-+ * has already been reset.  A TX DMA transfer still in flight carries data that
-+ * no longer exists, so drop its byte count before terminating it: the
-+ * completion callback may still run and must not advance the reset fifo.
-+ */
-+static void s3c24xx_serial_flush_buffer(struct uart_port *port)
-+{
-+	struct s3c24xx_uart_port *ourport = to_ourport(port);
-+	struct s3c24xx_uart_dma *dma = ourport->dma;
-+
-+	if (!dma || !dma->tx_chan || ourport->tx_in_progress != S3C24XX_TX_DMA)
-+		return;
-+
-+	dma->tx_bytes_requested = 0;
-+
-+	/*
-+	 * dmaengine_terminate_sync() cannot be used here because the port
-+	 * lock is held.  The callback may or may not run afterwards; either
-+	 * way it is a no-op for the fifo because tx_bytes_requested is zero.
-+	 */
-+	dmaengine_terminate_async(dma->tx_chan);
-+
-+	ourport->tx_in_progress = 0;
-+}
-+
- static void s3c64xx_serial_shutdown(struct uart_port *port)
- {
- 	struct s3c24xx_uart_port *ourport = to_ourport(port);
-@@ -1684,6 +1720,7 @@ static const struct uart_ops s3c64xx_serial_ops = {
- 	.stop_tx	= s3c24xx_serial_stop_tx,
- 	.start_tx	= s3c24xx_serial_start_tx,
- 	.stop_rx	= s3c24xx_serial_stop_rx,
-+	.flush_buffer	= s3c24xx_serial_flush_buffer,
- 	.break_ctl	= s3c24xx_serial_break_ctl,
- 	.startup	= s3c64xx_serial_startup,
- 	.shutdown	= s3c64xx_serial_shutdown,
-@@ -1705,6 +1742,7 @@ static const struct uart_ops apple_s5l_serial_ops = {
- 	.stop_tx	= s3c24xx_serial_stop_tx,
- 	.start_tx	= s3c24xx_serial_start_tx,
- 	.stop_rx	= s3c24xx_serial_stop_rx,
-+	.flush_buffer	= s3c24xx_serial_flush_buffer,
- 	.break_ctl	= s3c24xx_serial_break_ctl,
- 	.startup	= apple_s5l_serial_startup,
- 	.shutdown	= apple_s5l_serial_shutdown,
+> ---
+>  drivers/iommu/arm/arm-smmu/qcom_iommu.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/iommu/arm/arm-smmu/qcom_iommu.c b/drivers/iommu/arm/=
+arm-smmu/qcom_iommu.c
+> index 21d18ce67b98..54130c32056a 100644
+> --- a/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> +++ b/drivers/iommu/arm/arm-smmu/qcom_iommu.c
+> @@ -479,14 +479,22 @@ static void qcom_iommu_flush_iotlb_all(struct iommu=
+_domain *domain)
+>                 return;
+>
+>         pm_runtime_get_sync(qcom_domain->iommu->dev);
+> -       qcom_iommu_tlb_sync(pgtable->cookie);
+> +       qcom_iommu_tlb_inv_context(pgtable->cookie);
+>         pm_runtime_put_sync(qcom_domain->iommu->dev);
+>  }
+>
+>  static void qcom_iommu_iotlb_sync(struct iommu_domain *domain,
+>                                   struct iommu_iotlb_gather *gather)
+>  {
+> -       qcom_iommu_flush_iotlb_all(domain);
+> +       struct qcom_iommu_domain *qcom_domain =3D to_qcom_iommu_domain(do=
+main);
+> +       struct io_pgtable *pgtable =3D container_of(qcom_domain->pgtbl_op=
+s,
+> +                                                 struct io_pgtable, ops)=
+;
+> +       if (!qcom_domain->pgtbl_ops)
+> +               return;
+> +
+> +       pm_runtime_get_sync(qcom_domain->iommu->dev);
+> +       qcom_iommu_tlb_sync(pgtable->cookie);
+> +       pm_runtime_put_sync(qcom_domain->iommu->dev);
+>  }
+>
+>  static phys_addr_t qcom_iommu_iova_to_phys(struct iommu_domain *domain,
+>
+> --
+> 2.47.3
+>
