@@ -1,68 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.189.121.228
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793448845;
-	b=XClB34K/ML0y7MCugJvHx3qPNAbkAqOGHzSONLk8yWxwnJVz/vwf5SD6L0RZuxRAcNVC
-	 oEkgTTmSyzMvQ0rFM/RhQWIIyOqnjPoSLfehillGBc75v2eiyWDHck9VVfYvP82BKbRVf
-	 nluflsKgvJSavLnwzsUIrdgswvopHu/i1u+dtocepEYRUMcZWIJwig9NlqpCKPtOolgu1
-	 F6kpQSzaV0I7oaVb/I0JS3ZQ8NTyJu/tK9VHA8l2ZsLaD8EK/3tbxoaBbjRloN7m66iEb
-	 8Nxy4CWM/uxZjHNUfh4huuOF8TtJmhObhHjbn+YOFzQI78K1hVs6AwWBzppqIEq9jjA==
+	t=1793448959;
+	b=cckE2NZkb7fPjEsUacrJmD3FriQhIBmj+Q5ROFlmxm3VAGVsqn0BwspZDLLVr0CTgLZL
+	 JcWv4mpaVFrWUYxbQp7WEZ1bpGJLqMFsSjRTQNF/zz3xWQnqRteA2BNoRCU793TespyJI
+	 fWqEGwj9mg6JAUcX8W3maJAAQBU6SmgXZAuiBouV8MNfzJ7WuwYqWMwutW5ODnFwx90jV
+	 IbWNKF3GZIXjjPcIiWdVyXi/Q9LrN4zkoyIpBvXPZylc2hAhwwOIYlAJ/0fTXa2zmWGt8
+	 NG2CFXqoLIdiTVuqefKAzEw7zwypyauJ3ToKX3hmDYDbfkWI0Yny3qgbKoPfHt3vVoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793448845;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=Q2uC7VxcfBZ583/qG7PLxMNvcI1B7rlvF3r1oodUFFk=;
-	b=qzCe0P9raUrUeKpBiwvuHf+mOTYbOkNdsEj0WkpztAuYv6S4fTK1dZ11IYIDuzdZIbyK
-	 vC0QLH7xXLrjdLQs15T5PJNGLzGsnixWqzAH0odQQ854NfabO0S0LLgffyQLZDE/mnwEj
-	 /w80laxNXdqHpTpCOjZYPSrveGIyHH9HWu7zPUAwL+1zDVEcqpZpGdyqgX/c0zbhqMuiH
-	 6w9WGUXrj9ZsOyNaJCZdBmn9gkcZVmwmMeaEuCd1iIlE8U3hqzBdA3x3EmhZh/FIqsQrY
-	 Hxc0ETevUpc+iAQGzKHOjyRCX8CdU1ILUvBwcmoqzPurNMojRWinxOPchxi+Itp9Ggg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793448959;
+	h=DMARC-Filter:Message-ID:DKIM-Signature:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:MIME-Version;
+	bh=EDnpldi5RK0AnuEzL3K5R2iyu0Pi3r3gBMzfdKdH7kY=;
+	b=Wsva6d1CMlUXcx+IkCwJMM/C6boHRtE0mSjhD+b+gv/E7MUoEA3tsWpd21egmrhaJ3nk
+	 gcVRtCyg0kFKs09zk80Xya1HyCQWBfhALE4i7RdvPwKsMZ7PZP5ikQfG9bqwweWJXkkmn
+	 VddBlQT7M2yBdB2x1HFxUOdhOhR3SYESYMjxAY2CfZaB7uAaq1Tzu9dbHo7McttrcOaU5
+	 /aMEu/QBNfob0yiyY6JCZ5PsLPsLOzr51Wizm/gq5iOiTxFFPc7IhJWbxag7awzE7d104
+	 QSfdPLN6LhrEWAUaT3P6iZPg/7nKi9XAYjXQNOOAk7mesdEmFreD3wM7ScoXr/WQ2Hg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bPAabyAA;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	dmarc=pass header.from=itx.no;
+	spf=pass smtp.mailfrom=itx.no;
+	dkim=pass header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=EwmoYvxk;
+	arc=none smtp.remote-ip=91.189.121.228
+Received: from mx.itxnorge.no (itx-kvm-14.itxnorge.no [91.189.121.228])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05256606A31C;
-	Sat, 31 Oct 2026 12:14:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05256606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA54B606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:15:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA54B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=itx.no
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=itx.no
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bPAabyAA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793448843;
-	bh=Q2uC7VxcfBZ583/qG7PLxMNvcI1B7rlvF3r1oodUFFk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bPAabyAAkYVJc0OHlHOf96fQEKTPsF/k+f6DmRmjU+of+l0GjROMlTl/WrMVHqgTC
-	 Wn9K9L/Lw4JH03Blb9D6fP6VfLvERniVOUBSD2YSC2NnPQDEbP4LHGq0t8f+hV1pvx
-	 Pr0+/WBgn29/13s6h12ZN8ShcoNifuxm3dCa0e0KaQlL7A4SWpA5XQK/2wvmL/IJDj
-	 GjNpuWgy3x+Og9wtNCXnZK1AQB0yquuGI+nbTqfmGqbVxG6xFih8uJ+B7G6HfsSgVY
-	 fazWJ4fi5WdF+lCJNOB3WjTW3ajBjbMUVVyyjMNviEpMtqFpsdXGfZvex5qH2G87+L
-	 utxrXJZukbgTQ==
-Received: from localhost (unknown [100.64.0.241])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id CEC0417E07EC;
-	Sat, 31 Oct 2026 13:14:02 +0100 (CET)
-Date: Sat, 31 Oct 2026 14:13:52 +0200
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
-Cc: Lee Jones <lee@kernel.org>, stable@vger.kernel.org,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Cristian Ciocaltea <cristian.ciocaltea@gmail.com>,
-	linux-actions@lists.infradead.org, mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/6] mfd: atc260x: Fix potential use-after-free on probe
- failure
-Message-ID: <auXbgFi3pmoaYhI2@collabws.localdomain>
-References: <cover.1793377422.mfd.git.liguangshuo@mail.sdu.edu.cn>
- <344536111bef51c4ee95740e2e17af26ca26929e.1793377422.git.liguangshuo@mail.sdu.edu.cn>
+	dkim=pass (1024-bit key, unprotected) header.d=itx.no header.i=@itx.no header.a=rsa-sha256 header.s=mx.itx.no header.b=EwmoYvxk
+Message-ID: <9bf3339ad6bf6b15668f6c35b57a8f42265b7f6e.camel@itx.no>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=itx.no; s=mx.itx.no;
+	t=1793448951;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EDnpldi5RK0AnuEzL3K5R2iyu0Pi3r3gBMzfdKdH7kY=;
+	b=EwmoYvxkqH/hqN+UsiyREG55YjF9GhjlnPm2KDvmj6HnsKOEaXr90TwVMzH2yjgo0psomQ
+	M+w629M374F7Eh0rKz85UMovDv6ZbQ+BJvp+YxiZqPsyVdtqmpoaoczFODQcbHd+YoFba6
+	jI4em8Zpzq+N3FWjGBWRLet3lsrcY/k=
+Subject: Re: [PATCH v2] sched/cputime: Don't warn when the tick period
+ starts after idle exit
+From: Stian Halseth <stian@itx.no>
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: Frederic Weisbecker <frederic@kernel.org>, Peter Zijlstra
+ <peterz@infradead.org>, Ingo Molnar <mingo@kernel.org>, Linus Torvalds
+ <torvalds@linux-foundation.org>, Paul Menzel <pmenzel@molgen.mpg.de>, Breno
+ Leitao <leitao@debian.org>, Thorsten Leemhuis <linux@leemhuis.info>, Thomas
+ Gleixner <tglx@kernel.org>, Anna-Maria Behnsen <anna-maria@linutronix.de>,
+ Shrikanth Hegde <sshegde@linux.ibm.com>, regressions@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+Date: Sat, 31 Oct 2026 13:15:49 +0100
+In-Reply-To: <auW3XbhjMjakWAhT@scheduler.schedules>
+References: <20261031081408.3378884-1-stian@itx.no>
+	 <auW3XbhjMjakWAhT@scheduler.schedules>
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-VoUST8Xfb5JSxNKPyQ83"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,20 +68,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <344536111bef51c4ee95740e2e17af26ca26929e.1793377422.git.liguangshuo@mail.sdu.edu.cn>
 
-On 2026/10/31, Guangshuo Li wrote:
-> The IRQ chip is device-managed, but the child registration failure path
-> also deletes it explicitly. Subsequent devres cleanup can then access
-> the freed IRQ-chip data. Let devres perform the IRQ-chip teardown.
->
-> This issue was found by our static analysis tool under development.
->
-> Fixes: f7cb7fe34db9 ("mfd: Add MFD driver for ATC260x PMICs")
-> Cc: stable@vger.kernel.org
-> Assisted-by: OpenAI:gpt-6-astra
-> Signed-off-by: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
 
-Reviewed-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
+--=-VoUST8Xfb5JSxNKPyQ83
+Content-Type: text/plain; charset="ISO-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Kayra,
+
+On Sat, 2026-10-31 at 14:47 +0300, Kayra Cizmeci wrote:
+>=20
+> TICK_NSEC =3D 4
+>=20
+> =A0=A0=A0=A0=A0=A0=A0=A0 switch
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 |
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 v
+> Real: 8 9 10 11 12 13 14 15 16 17 18
+>=20
+> Time: 8 8 8=A0 9=A0 10 11 12 13 14 15 16
+>=20
+> Tick: 8 8 8=A0 8=A0 10 10 10 10 10 10 16
+>=20
+>=20
+> So if we enter idle at real-12, and exit at real-13 this happens:
+>=20
+> last_tick is 16, so last_tick - 4 =3D 12. But normally, last_tick needs t=
+o
+> be 14 and tick_start needs to be 10. Or am I missing something?
+
+Your diagram is correct AFAICT, and that's the case this patch is about.
+
+10 and 14 would follow the old periodic ticks, but after the switch the
+tick runs on a grid that is d ahead of them.
+
+Idle ends at 11, before tick_start at 12. The code already accounted
+that correctly but warned about it, and v2 drops the warning.
+
+>=20
+> IDK if there is a better solution tho.
+> Maybe fixing it from the root would be better. If its even possible to do=
+ it
+> cleanly...
+
+Someone might have a better idea, but maybe we could realign
+tick_next_period when the clocksource switches away from jiffies.
+
+I kept v2 to the warning though, since this is a regression in the
+current release, and a change to the tick setup could be a potential
+follow-up.
+
+Thanks for the review!
+
+/Stian
+
+
+--=-VoUST8Xfb5JSxNKPyQ83
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTK1ph9OaYoND1R57zoeAEuJe36VgUCauXb9QAKCRDoeAEuJe36
+VqEZAQC2E0gGPVVWwk7ejLcmaZxNocbAcJhx1JjlibzdMIVwLgD/dGfqMB876H+W
+GfrivKJdNnMZ9Y8fuomOe2qVUozYGgw=
+=WNqC
+-----END PGP SIGNATURE-----
+
+--=-VoUST8Xfb5JSxNKPyQ83--
