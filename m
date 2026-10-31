@@ -1,54 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793445522;
-	b=RHzepYn+QE9/kWqOvTQJ0UmDFnOcb5v4NkeoDnMilOOpQC8qs0OyZa4ySasAnpGc7kBY
-	 wfMMsTXPffm6GVR+tPRkce6vn3JyYzBqn33/eYFkUbtSB2I2XOOlsH1LJFdhXthYgAtgh
-	 5Lda1ghgIBWDin4cOf0Q3BVqH0XNOg5ZkGJJsqRM7nYI4OeE5cFEWM6OARW/KcZuLsMUO
-	 uvf4qm29ntl03vCNeTdwjeyAVETa76iEp/ckcUq9jNPpPThOj9uQyKroEk7qNNTbfG4+i
-	 pwTBlDchHWHi2rXK9aQMTvrLEo+3VlMGeiIxXumYTd2JV2avaYUKpc33lLFFUrkhZHA==
+	t=1793445840;
+	b=pxQWYWKG1jG335MV5xtKvKhAc6baPyUHom5TaP3vpDBkZmrxn5/lXsNrv/Y6eSxHBPUY
+	 Gbf9nR3uUZy4kMSbvlnyXwGe1xMXfh4saxw682PHd8UvOGoLAcCpnnVPEyPDndmDiNn0i
+	 9KzTkywkJJsmw1uneYWfCvXn3y7yekvlu5r6EI60r+Pm90XKWBOzI1o/s8zS3B1X5HoVF
+	 OrCO42AOM7wL7u1bg54/WphYbMmMVqiZu6Z+Fj4R1wQs9GNovYDxRrFOzGoohXAQ55msU
+	 +esTPw5fFH2Fz7IDMV9njIiqNuzonxA1+rzhGmflNWI6bvebuQAv0E7vE0KrfsQhL5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793445522;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=wc4KI4JX6N3tKx7PcXacfJ/6loXxDCQLw7+V+x9ydRc=;
-	b=HYgeJlQioZN9V8WGO3ueiQEdaZFhD81nd22YwFcqbNP+krScHka/PdDyyuZBOTHgmsrE
-	 Q8rf0j1kpGMTY7kwAMm0z6M9qLrCzAtwflqdeaSyREqpgwwdNWAdvLBJ3X2dobEHuh0q1
-	 c5YcLpyCCMrQgwmehiFxLCIVAZ3Xv+5a8eDTIEiB3QuXawUYsnW+cDsAP9A2CpbH8DL3J
-	 0wwb9sZylosdF76Mg4wIQltr4hJXFW7m/O/L3nBNhCzlfilETeUvL5JOvIwm1fKItVJ5j
-	 O9Z4B/QLoiQuQfv01SXHWXRLkk0HG+kgoy5Ntd4oGhG2I2WrRGM3nuavPDUEOPUY8TA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793445840;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=XZHUr1oQEOeLBP+Qq36pZIDbK8j5Sb1VVuyeQgaaoms=;
+	b=dTqamm4yqIgEwmaMjLyeIY3OSQ3EYrpe1OQGsuRavBGOy/q8Dbc0oaNfLFFxGf5qkAZT
+	 /3ZcMXnlo+0AMIfH+h1AjZP7KdwPaXSTcsS1x3iTROaq7C0cBUxaKyYhXo2EvNdEfh6Ci
+	 xrxZjyYkB5ZZpHrWsUV88gg79560hA1BcY51gsG/fi22BiTmX+F7Cgbg3jB076FerXkYR
+	 rSQelWw0ROUMlx2GWB7tVr3/41Iy1F2dZ384kOhiPzFjLiMgFA/zRDXwQhFOK5LAK/cSz
+	 7cOF2vzD0p7dtNGG7nw6Z+XYoYdaJT7ueRvTVe/jyjC97SbtpgRjjqee0dBEnvdSwZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MU8hDDy1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294F5606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:18:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 294F5606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4db3db8687fso2547819b6e.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 04:18:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793445521; x=1794050321;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wc4KI4JX6N3tKx7PcXacfJ/6loXxDCQLw7+V+x9ydRc=;
-        b=y/DRhIFjKgRt1O1aZdWpWqsUtCjrfffAu1FHwFT0BeWOKkWPWyu9wyg345Tz1dyr8a
-         UxNlPvUQq/GUxxXYRClDGzoTNrtQhS/a1Bg62oyfBznNaoJBiEIepPlyZzRv2aROpHEC
-         cFaJBUd2IFAnKjsaUiBD/YpwqJ0IgfOOSDkLlkfS+xoBYL917NfYbsoI1e4zYAeV43Gp
-         DI86LrvnlsYkTL/dX+Ei7gw2yDpsoou8MJ1fQTvh2aT5C028hr8Qu3F0EPSOMXJKxrkS
-         pNSi1vYBcmERcSF26g1KFjXdT+pIM+dQRiweq3hQFonrM8hmMoXUd3c+TcHhTxcqZYLz
-         6Viw==
-X-Forwarded-Encrypted: i=1; AKwUvBxcJVm+Lw0EW6X7UXAf0R6wjFhHNmMvGHXKB2qJMfE5G1M91HJwdzJa0iSMvDZROx0T/rVn7SWbKV58Jtw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKkzr7HzfgtH/kLfl4TGBQbqgTySC/qbyZVSodTLR9Fe6gSWbr
-	qpKtdm4AERRtg43S+ExaMV/U3tFXzqq+6oTwHqSApPuBefANEY51DtoJrrmHLwWrx2eFz+/jTGe
-	cVvAQHdaKLdV6K/qPTOFiAqZo5P1sO9mUhb+V2U8bIGAsqzljPFTyJwc3jvI=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C557606A31A;
+	Sat, 31 Oct 2026 11:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MU8hDDy1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E898E1F000C1;
+	Sat, 31 Oct 2026 11:23:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793445840;
+	bh=XZHUr1oQEOeLBP+Qq36pZIDbK8j5Sb1VVuyeQgaaoms=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=MU8hDDy1pTM6qPzGLbDdWAvDuoZBe/le9Z8ZIvvDUwWNtoTjRX1wQ2J8ZYcUtDdS5
+	 1cCUyQkF+PhZQo1uPjDa35uHYuFcJESkeiCgCcZac11+MPlcv336JuEktU7qUBzc9C
+	 Whjx1s7HKv5c9QSG912G1yBaRXFGiy28w9KwozPr2r8M/8NJ2IDgwBXcGuAqALwgWK
+	 dLCoKKtFtih32+KFT0fxLTVfEtxNUVHtJhpIFLsyZ3pVe9XWZdwq8pSJQnucRZGnYF
+	 8X4s7qZbi0BCaSxfqFcOfxotAA4S3gqjLEQ/hD+IsNjw0ayTUC0/I09lAbV5yTcjaK
+	 8kwR3bsgkKbaw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,100 +49,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6411:b0:4f3:890b:5fec with SMTP id
- 5614622812f47-5640de4bed0mr3731564b6e.25.1793445521183; Sat, 31 Oct 2026
- 04:18:41 -0700 (PDT)
-Date: Sat, 31 Oct 2026 04:18:41 -0700
-In-Reply-To: <6a13d9ca.050a0220.7dd1.0000.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae5ce91.264039fe.1edcaa.0004.GAE@google.com>
-Subject: Re: [syzbot] [ocfs2?] kernel BUG in ocfs2_page_mkwrite (4)
-From: syzbot <syzbot+42984127d45ad96219de@syzkaller.appspotmail.com>
-To: heming.zhao@suse.com, jlbec@evilplan.org, joseph.qi@linux.alibaba.com, 
-	linux-kernel@vger.kernel.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2] phy: renesas: rcar-gen3-usb2: Keep OTG VBUS
+ disabled until role is known
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, 
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org, 
+ linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, 
+ Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+ Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20261007190654.452376-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261007190654.452376-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Sat, 31 Oct 2026 16:53:30 +0530
+Message-Id: <179344581059.3206.8395416724192046501.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1843; i=mani@kernel.org;
+ h=from:subject:message-id; bh=OBVf5IDGC4FyDWwrDXG4ci8tf+G7ymk2LQoN/g2ar/0=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5c/CRVkT28t1w3FlzGzVopt8Fuc8xm8t/K5RY
+ EhPlGorbHuJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauXPwgAKCRBVnxHm/pHO
+ 9Wh3B/94PqfA3+V/K1QqYPi5HU3IJ8VCgumeZnUj/7deLmMWM/52z9LJjbXXwg4XBh9KZaL7Uy7
+ VWqbYDTh3wsf2IaJPLuVFi200YlVqYJ4zYZlVZ227MQDtM1dzYoABlIrZNeUi0JEt1VTry+9Iir
+ hvQ6tSlLVl5Zt1IHvwxNKfklQ/lgPODtmrpMg0YerG/wZ+ou8C1DRamapNH7rsbLlugGArOJNL5
+ UAf4GBbRCHEguEXfaol4KpV0y7lfbtQbUMn7v3VRA147uwDcv9QMJKqv5kPZv0v/ZR1fewD5eOx
+ KYcwUQ12VgAii4fBzIcKBBj27mc9ZHKoMi5x+txMaUU+N93i
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-syzbot has found a reproducer for the following issue on:
+On 2026-10-07 20:06 +0100, Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> On OTG channels of SoCs without ADP control, the VBUS regulator is
+> acquired with devm_regulator_get_exclusive() and its output is switched
+> by rcar_gen3_enable_vbus_ctrl() using regulator_hardware_enable() once
+> the port role is known.
+> 
+> The helper acquiring the regulator has the following problems:
+> 
+> - The internal regulator is unconditionally enabled at probe, so VBUS
+>   is driven before the port role is known. If the port is connected to
+>   an external host this can back-power it.
+> 
+> - regulator_get_exclusive() hands the consumer an enable reference if
+>   the regulator is already enabled, for example by the bootloader. The
+>   unconditional regulator_enable() then takes a second reference while
+>   only one is released on unbind, leaving the regulator enabled and
+>   triggering the WARN_ON() in _regulator_put().
+> 
+> Fix this by making sure the driver always holds exactly one reference
+> to the regulator: reuse the reference handed over by the exclusive get
+> if the regulator is already enabled, and call regulator_enable()
+> otherwise. Register the disable action in both cases, then turn off the
+> physical VBUS output with regulator_hardware_enable() until the port
+> role is established. Enabling a disabled regulator to take the
+> reference may briefly drive VBUS during probe; this cannot be avoided
+> with the regulator API.
+> 
+> Rename the regulator helper to reflect that it acquires the regulator
+> without directly enabling its physical VBUS output.
+> 
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-HEAD commit:    abf8c33470f7 Merge tag 'spi-fix-v7.4-merge-window' of git:..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=14bd94b1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4a49f7c2815c8df7
-dashboard link: https://syzkaller.appspot.com/bug?extid=42984127d45ad96219de
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16bd94b1580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1170f04e580000
+Mising Fixes tag. With that added,
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-abf8c334.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2fa6d9134089/vmlinux-abf8c334.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/17b6a19466ca/bzImage-abf8c334.xz
-mounted in repro: https://storage.googleapis.com/syzbot-assets/afd449083684/mount_1.gz
-  fsck result: OK (log: https://syzkaller.appspot.com/x/fsck.log?x=10bd94b1580000)
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+42984127d45ad96219de@syzkaller.appspotmail.com
-
-(syz.0.17,5578,0):__ocfs2_journal_access:730 ERROR: Error -30 getting 1 access to buffer!
-(syz.0.17,5578,0):ocfs2_write_end_nolock:1945 ERROR: status = -30
-------------[ cut here ]------------
-kernel BUG at fs/ocfs2/mmap.c:106!
-Oops: invalid opcode: 0000 [#1] SMP KASAN NOPTI
-CPU: 0 UID: 0 PID: 5578 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__ocfs2_page_mkwrite fs/ocfs2/mmap.c:106 [inline]
-RIP: 0010:ocfs2_page_mkwrite+0xb59/0xb60 fs/ocfs2/mmap.c:143
-Code: 50 42 fe e9 27 fd ff ff e8 44 4d 07 08 e8 5f af c9 fd 4c 89 e7 48 c7 c6 40 21 77 8c e8 00 af 28 fd 90 0f 0b e8 48 af c9 fd 90 <0f> 0b cc cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffc90001c3f960 EFLAGS: 00010293
-RAX: ffffffff83ff77b8 RBX: 00000000ffffffe2 RCX: ffff88803c8ea580
-RDX: 0000000000000000 RSI: 0000000000001000 RDI: 00000000ffffffe2
-RBP: ffffc90001c3faf0 R08: ffffffff91be13bf R09: 1ffffffff237c277
-R10: dffffc0000000000 R11: fffffbfff237c278 R12: dffffc0000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000001000
-FS:  000055557db80500(0000) GS:ffff88808aa01000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f6af90e5440 CR3: 0000000040472000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- do_page_mkwrite+0x147/0x310 mm/memory.c:3879
- do_shared_fault mm/memory.c:6145 [inline]
- do_fault mm/memory.c:6207 [inline]
- do_pte_missing+0x70f/0x3570 mm/memory.c:4763
- handle_pte_fault mm/memory.c:6627 [inline]
- __handle_mm_fault mm/memory.c:6776 [inline]
- handle_mm_fault+0x1a53/0x3750 mm/memory.c:6943
- do_user_addr_fault+0x7f6/0x1480 arch/x86/mm/fault.c:1394
- handle_page_fault arch/x86/mm/fault.c:1483 [inline]
- exc_page_fault+0x6a/0xc0 arch/x86/mm/fault.c:1536
- asm_exc_page_fault+0x26/0x30 arch/x86/include/asm/idtentry.h:595
-RIP: 0033:0x7f8bc2868b02
-Code: 30 48 8b 14 24 48 85 d2 74 17 8b 44 24 10 0f c8 89 c0 48 89 44 24 10 48 83 fa 01 0f 85 aa 02 00 00 48 8b 44 24 18 8b 74 24 10 <89> 30 e9 1e fe ff ff 48 8b 44 24 18 8b 10 48 8b 04 24 48 85 c0 0f
-RSP: 002b:00007ffe54034e30 EFLAGS: 00010246
-RAX: 0000200000000480 RBX: 0000000000000004 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000004 RDI: 000055557db803d8
-RBP: 00007ffe54034f50 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000004 R11: 0000000000000000 R12: 0000000000000000
-R13: 00007f8bc2c25fac R14: 000000000001c34b R15: 00007f8bc2c25fa0
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:__ocfs2_page_mkwrite fs/ocfs2/mmap.c:106 [inline]
-RIP: 0010:ocfs2_page_mkwrite+0xb59/0xb60 fs/ocfs2/mmap.c:143
-Code: 50 42 fe e9 27 fd ff ff e8 44 4d 07 08 e8 5f af c9 fd 4c 89 e7 48 c7 c6 40 21 77 8c e8 00 af 28 fd 90 0f 0b e8 48 af c9 fd 90 <0f> 0b cc cc cc cc cc 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90
-RSP: 0018:ffffc90001c3f960 EFLAGS: 00010293
-RAX: ffffffff83ff77b8 RBX: 00000000ffffffe2 RCX: ffff88803c8ea580
-RDX: 0000000000000000 RSI: 0000000000001000 RDI: 00000000ffffffe2
-RBP: ffffc90001c3faf0 R08: ffffffff91be13bf R09: 1ffffffff237c277
-R10: dffffc0000000000 R11: fffffbfff237c278 R12: dffffc0000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000001000
-FS:  000055557db80500(0000) GS:ffff88808aa01000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00005598dcb9a660 CR3: 0000000040472000 CR4: 0000000000352ef0
+- Mani
 
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
