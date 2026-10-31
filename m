@@ -1,102 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.112
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793434919;
-	b=wkmoQ1ktsaC/jEbVy3fAtjUfL7iwwwXUVrDH9p/7ueTs3L9HYh9XHhuk3N1EMcH7enUC
-	 z7uA34kUfH6k4exM8EC9Td4z35cNeIVFyMyEhavN9u2gMbuGNghuGqE4aUvOUftCDzRHi
-	 xZ4RcN4APRkEU+FcVtGnAm7QV4JGUkIRjxoArDS5wl7ycq4SSa1dl9IiFmidyS30kBELW
-	 12ItrNlIU/CRcOat4cKgjEuDd9MGykRJd4HCA87h6PnUnERYC5+VQo5qjwDWmzhnUAKmO
-	 eFdHi0xHtMtSNIqWQS6zZ9DiY/5K11YQy4iVJy7QffIvs8ajhfmBH8N6/kv7k/tTxlA==
+	t=1793434985;
+	b=uy6fw1P8LV9pKPiQzTWVWHZx+mHMzTTIV4WaulxVO9ZS6DWuAMFbb6FOiU7dBqRDst5c
+	 J2Su55jMGspzO++zYM1TiqJNu49kvJk05f4N9foAGnAvSwGuT77E8hcXoZ9AYGoTJY1SV
+	 oosnBdjFpoL/uQmNytOSVR7MRQLvsoMPRBdB827Os1nzq1ziYjAUDVZrcH25UWZZmMy3q
+	 fLQVwx4Kqz304LlBpIIiz98C3kkYYLGj90QAAsY7yw7GcVKYz0q6y5l3wxW8xf3svpqgV
+	 XVyiDvL3sf3RTumbVBi7CfpkNv6t15WFL1rcQbT1/XxKtDQnBxDv+gRg/Ilr95oaM1g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793434919;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=K2Ycxsi7bQUBl6s3XkEfGjThxfYRK7mN668VlKr8sgY=;
-	b=XN5W30BDpHxWkOix1KQ4oFNcIESu5/zDjgHumABQiVfA4Fd3ogYKDtBsyVsIspTystKd
-	 PL/1OfXKLc2ojQcE7M+eSV2RWb+b9vsbc7Nm/9Ig0Ukh0Bdj9XI2SJp+mphtlu2bYKiB5
-	 L45IgQE5KFzcShxZP8Dq1EaWIwvXXoRliYOwXjvW72QP0jyh1mclml8Z94LRdJKm2Q5Q8
-	 IVs5Ol6Q16VhtGYe2neDQS2HtPQ64J2wHwY+4ddpSv9OP6Y6CjIJOdZxTD4QS7NJCOgvg
-	 TJs5avqfcnJj2m0xeVbLBWGn3DoVPhg5GexCzcyCZoI0Yy8jLSZvADW/R6jT4Yu4bBw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793434985;
+	h=DMARC-Filter:Received:Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=tOj9wR1+oMDTq+geNGWmE+H0ijWQOROYJCn+bfYjsvw=;
+	b=fEe4x9mbV1VPK7rA1smpz7TMuQxwdVJsBgIiW/DmMiv0xWaqCK6c98WcucMUE6FlomH5
+	 QH8GGc43Z1+Jlty/uZr5OEMH8uiBQnFfW+8z+klCXr3SomPp98P2n1eip3KptFdPtFlKI
+	 w8QZsHwc978/P22sJhD8cS4yNKbUyW6CNnRITxXdjlp6oNxNXpiAyChnFsax50cauFko+
+	 WllVFcd/dAYZGUP2vp/mMsmrPet0Dti0ljtkY0WotyScBTMh2DlI1tVIMBvhcxk0K0583
+	 ubtLO+ao3AyneZ1IeQRb3DBwrwfSQFX/AD6nNZgOC7ALu+X2NRmK+sw4xCgCqTaAWag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=purestorage.com;
-	spf=pass smtp.mailfrom=purestorage.com;
-	dkim=pass header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=ROQRJZbY;
-	arc=none smtp.remote-ip=74.125.82.176
-Received: from mail-dy1-f176.google.com (mail-dy1-f176.google.com [74.125.82.176])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.112
+Received: from dggmsgout12.his.huawei.com (dggmsgout12.his.huawei.com [124.71.93.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3410606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:21:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D3410606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=purestorage.com header.i=@purestorage.com header.a=rsa-sha256 header.s=google2022 header.b=ROQRJZbY
-Received: by mail-dy1-f176.google.com with SMTP id 5a478bee46e88-35cd4e8bdbdso1891130eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:21:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1793434918; x=1794039718; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=K2Ycxsi7bQUBl6s3XkEfGjThxfYRK7mN668VlKr8sgY=;
-        b=ROQRJZbYGt2u3KAYqgPJI3tChy8CLZD+lJcXpe119KzsAraDa6aQQgJ1ygbjYC7oiY
-         XcZCJGeTL9XEUGG8OqJuhBJlujxR9/swQfQIVdOU/aOz8zQLG/z6wHg7f9jx5F3I9sQ8
-         7ToXZCjKIyNF53sg5VZcRqYlFrDXHu+1/9fkqdLe1zoX9C30tpIhZGUqWGssXthjZS1+
-         f0IoalU7D61IDueVPTBaDduzoKdo1+5rN9gGiR3rvOk/VSZq4LaZW1JRhLngKrb0yS/h
-         mhIS4wn9pqE96Bz9UtEPG2m+cQHNJgaa1nl2JopviFtJTLR75BreGyBLHWKfqBG3kdRs
-         oJ4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793434918; x=1794039718;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K2Ycxsi7bQUBl6s3XkEfGjThxfYRK7mN668VlKr8sgY=;
-        b=y54ztjaVTzMYFihXrOO16/mk5RmUp/0K7lsV6FHRtCKnc7icoteaTBnEEWePJPRZg1
-         T4lrX++U3jjm7Sg7rSA9IiAUMMl9j6MoLMQrAYgXpVXl2mqF/1NHUGvujARWtBg4xdn4
-         2u3udxvXwP5xXlbMH+vHaqT1HOZkGEhPeHTz3/tHSzK01aZl2NZQPfqBaSwOIP6sUiRw
-         hm9BH9YfmQ+akMMfMRGx8zv0zZmqTF9NCZt2rB3kiV6syrJ0I158RmwWmghqzRpEhwAU
-         dAJnJGNr6u/lFWQJXZxmNqWMS9M0GaLBXN3zXfTMIIp2Qn+Z14koIaOhzD7Oamp/S51T
-         +MxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7L+NQdTxhcsxPd+Ab/WXcdLLRHRz4/1UsP++6zcmdQQjbxW8ajx2vJo9NEvP/0lbvs7Ym9i2Y5GLUdPg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIR9kupnTvShg/NOgGQrq/C4KxO6aWzFaxOf99FuRwKYM7zV9Pr
-	ex22mmUbB5eU7R2eMa6sJkPOvex26M4BppS1f1zIm4jNO2wue0dbYHOP1XIhNM2QtvGUkqKn6S0
-	izV4/
-X-Gm-Gg: AYBFou0rchU0AKAsOvBPfwzKfwBmCnIQeT2Iu0BgieXpZHd6UNoXXQKJUz2XlQ2Pn6x
-	50pbEWbUxSwpf4jGSEHpjPnFNJ5CuW4DR9eyKcvFvYbd8HD74HLVR8kzY0cKokiCbHSu3IUZIYS
-	KnpSdUT3fG0JexwFCz9VydYxYT2MGOoeMIdcqbxtGUt96I3pZmhT4kIfnK4peDAe6H6nGdY9Za0
-	S6kAIx+ds8bSWhQdkV35lRqo8mdkCsGNYO5aHKWpDzVq/oAT6Vb962/Olce975n+v5Cfe78EoB5
-	b2bZBUmW2FQV3V1b6GmGmBciVWMHmTHoc1UT16s6hIdVsNQPIkuzB6AwJKjRoVKA1McnzetDscD
-	/zEqj3azYvG7db+99sxqIlmYC+v1SOLMjtHlPveGQuvmefNcpEIDbWyqTsV22QayOnQ6vq/RiHE
-	5e9iYDMtdHJwqvZUUNqlnr5Z9IbhAMAkVzDvr+cnngYHqV82r55vsZGJ3eOyddO3FsWm7Q6LacZ
-	KCMopz3MpXzLnGX2kAvQp1kQVZNgsMO3GYfvaBv4taDBrgjIrMUrSOd7/oPhqSPaJJGiLWJUBm1
-	TIzsu1+1VHIzG9dOPmLLm3VQvnlfVAMSuTI=
-X-Received: by 2002:a05:7300:e9d3:20b0:369:fe81:a575 with SMTP id 5a478bee46e88-36a4243ab94mr8009376eec.35.1793434917521;
-        Sat, 31 Oct 2026 01:21:57 -0700 (PDT)
-Received: from medusa.lab.kspace.sh ([2607:fb92:580:a705::6b74])
-        by smtp.googlemail.com with ESMTPSA id 5a478bee46e88-36a42902649sm16685719eec.11.2026.10.31.01.21.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:21:56 -0700 (PDT)
-Date: Sat, 31 Oct 2026 01:21:55 -0700
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
-To: Daniel Wagner <dwagner@suse.de>
-Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	Justin Tee <justin.tee@broadcom.com>,
-	Naresh Gottumukkala <nareshgottumukkala83@gmail.com>,
-	Paul Ely <paul.ely@broadcom.com>, Hannes Reinecke <hare@kernel.org>,
-	Chaitanya Kulkarni <kch@nvidia.com>,
-	James Smart <jsmart833426@gmail.com>,
-	Randy Jennings <randyj@purestorage.com>,
-	linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 08/18] nvme: Implement cross-controller reset recovery
-Message-ID: <20261031082155.GC34016-mkhalfella@purestorage.com>
-References: <20260920182936.2317916-1-mkhalfella@purestorage.com>
- <20260920182936.2317916-9-mkhalfella@purestorage.com>
- <6e0b4de0-b030-47cc-84ce-3f021a5c75b0@flourine.local>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B58A606A31A;
+	Sat, 31 Oct 2026 08:23:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B58A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggmsgout12.his.huawei.com (SkyGuard) with ESMTP id 4jGrYh4CGBz20PM;
+	Sat, 31 Oct 2026 16:22:32 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.128])
+	by mail.maildlp.com (Postfix) with ESMTP id 33D814056E;
+	Sat, 31 Oct 2026 16:22:51 +0800 (CST)
+Received: from [10.174.179.19] (unknown [10.174.179.19])
+	by APP4 (Coremail) with UTF8SMTPSA id gCh0CgAnZPNZpeVqongWCg--.34205S3;
+	Sat, 31 Oct 2026 16:22:50 +0800 (CST)
+Message-ID: <1828cae6-692e-4fe7-a5da-bdfea4ea90e7@huaweicloud.com>
+Date: Sat, 31 Oct 2026 16:22:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,112 +51,213 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6e0b4de0-b030-47cc-84ce-3f021a5c75b0@flourine.local>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ext4: do not advance i_size on a buffered write that
+ copied nothing
+To: Hengyu Liang <hengyul@cs.unc.edu>
+Cc: linux-ext4@vger.kernel.org, tytso@mit.edu, adilger.kernel@dilger.ca,
+ libaokun@linux.alibaba.com, jack@suse.cz, ojaswin@linux.ibm.com,
+ ritesh.list@gmail.com, yi.zhang@huaweicloud.com, yizhang089@gmail.com,
+ dave.hansen@linux.intel.com, akpm@linux-foundation.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20261030040520.4138904-1-hengyul@cs.unc.edu>
+Content-Language: en-US
+From: Zhang Yi <yi.zhang@huaweicloud.com>
+In-Reply-To: <20261030040520.4138904-1-hengyul@cs.unc.edu>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:gCh0CgAnZPNZpeVqongWCg--.34205S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3AFyrAFy3uF4xtryxArWDurg_yoWxuryUpr
+	WYkw1rArZ2vw1jgrZ3ZF1jqF18K3W8JrW7GFyxKayfZFn8ZFyxKF10qrW5WFWUArZ7XF40
+	qF4kCr95W3WqyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcVAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kI
+	c2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbV
+	WUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF
+	67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42
+	IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF
+	0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
+	VjvjDU0xZFpf9x0JUd-B_UUUUU=
+X-CM-SenderInfo: d1lo6xhdqjqx5xdzvxpfor3voofrz/
 
-On Tue 2026-10-20 10:55:10 +0200, Daniel Wagner wrote:
-> > +static int nvme_issue_wait_ccr(struct nvme_ctrl *sctrl, struct nvme_ctrl *ictrl,
-> > +			       unsigned long deadline)
-> > +{
-> > +	struct nvme_ccr_entry ccr = { };
-> > +	union nvme_result res = { 0 };
-> > +	struct nvme_command c = { };
-> > +	unsigned long flags, now, tmo = 0;
-> > +	bool completed = false;
-> > +	int ret = 0;
-> > +	u32 result;
-> > +
-> > +	init_completion(&ccr.complete);
-> > +	ccr.ictrl = ictrl;
-> > +
-> > +	spin_lock_irqsave(&sctrl->lock, flags);
-> > +	list_add_tail(&ccr.list, &sctrl->ccr_list);
-> > +	spin_unlock_irqrestore(&sctrl->lock, flags);
-> > +
-> > +	c.ccr.opcode = nvme_admin_cross_ctrl_reset;
-> > +	c.ccr.ciu = ictrl->ciu;
-> > +	c.ccr.icid = cpu_to_le16(ictrl->cntlid);
-> > +	c.ccr.cirn = cpu_to_le64(ictrl->cirn);
-> > +	ret = __nvme_submit_sync_cmd(sctrl->admin_q, &c, &res,
-> > +				     NULL, 0, NVME_QID_ANY, 0);
-> > +	if (ret) {
-> > +		ret = -EIO;
-> > +		goto out;
-> > +	}
-> > +
-> > +	result = le32_to_cpu(res.u32);
-> > +	if (result & 0x01) /* Immediate Reset Successful */
-> > +		goto out;
-> > +
-> > +	now = jiffies;
-> > +	if (time_before(now, deadline))
-> > +		tmo = min_t(unsigned long,
-> > +			    secs_to_jiffies(ictrl->kato), deadline - now);
-> > +
-> > +	if (!wait_for_completion_timeout(&ccr.complete, tmo)) {
-> > +		ret = -ETIMEDOUT;
-> > +		goto out;
-> > +	}
-> > +
-> > +	completed = true;
-> > +
-> > +out:
-> > +	spin_lock_irqsave(&sctrl->lock, flags);
-> > +	list_del(&ccr.list);
-> > +	spin_unlock_irqrestore(&sctrl->lock, flags);
-> > +	if (completed) {
-> > +		if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
-> > +			return 0;
-> > +		return -EREMOTEIO;
-> > +	}
-> > +	return ret;
+On 10/30/2026 12:05 PM, Hengyu Liang wrote:
+> Commit 665575cff098 ("filemap: move prefaulting out of hot write path")
+> made generic_perform_write() call ->write_begin() and ->write_end()
+> before it finds out that the source buffer cannot be read.  In that
+> case ->write_end() is called with copied == 0.
 > 
+> However, ext4_write_end(), ext4_journalled_write_end() and
+> ext4_da_do_write_end() set i_size to pos + copied without checking
+> copied.  As of now, a buffered write() past EOF that fails with EFAULT
+> grows the file to the write offset, and the new size can reach the
+> disk.
 > 
-> This part could be made a bit simpler and there is no need for the local
-> completed variable:
+> The issue can be reproduced on an ext4 mount with:
 > 
-> [...]
->         if (!wait_for_completion_timeout(&ccr.complete, tmo))
->                 ret = -ETIMEDOUT;
+>     char *p = mmap(NULL, 4096, PROT_NONE,
+>                    MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>     int fd = open("/mnt/ext4/file", O_CREAT | O_TRUNC | O_RDWR, 0600);
+>     pwrite(fd, p, 4096, 1024 * 1024);   /* fails with EFAULT */
+>     fstat(fd, &st);
 > 
-> out:
->         spin_lock_irqsave(&sctrl->lock, flags);
->         list_del(&ccr.list);
->         spin_unlock_irqrestore(&sctrl->lock, flags);
+> Before that commit, the result is st_size = 0.
+> After it, the result is st_size = 1048576.
 > 
->         if (ret || !completion_done(&ccr.complete))
->                 return ret;
->         if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
->                 return 0;
->         return -EREMOTEIO;
-> }
+> This patch will leave i_size alone when nothing was copied, as
+> ext4_write_inline_data_end() already does.  Unlike ext4_write_end(),
+> the delalloc path does not trim after a short write, so the folio and
+> the delayed blocks that ->write_begin() set up beyond i_size are left
+> behind, and the blocks stay reserved until the inode is evicted.  When
+> the write ends beyond i_size, drop them as well.
+> 
+> Fixes: 665575cff098 ("filemap: move prefaulting out of hot write path")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hengyu Liang <hengyul@cs.unc.edu>
 
- 701
- 702         if (!wait_for_completion_timeout(&ccr.complete, tmo))
- 703                 ret = -ETIMEDOUT;
- 704
- 705 out:
- 706         spin_lock_irqsave(&sctrl->lock, flags);
- 707         list_del(&ccr.list);
- 708         spin_unlock_irqrestore(&sctrl->lock, flags);
- 709
- 710         if (ret || !completion_done(&ccr.complete))
- 711                 return ret;
- 712         if (ccr.ccrs == NVME_CCR_STATUS_SUCCESS)
- 713                 return 0;
- 714         return -EREMOTEIO;
- 715 }
+Thank you for the update! This looks good to me.
 
-Actually, this code has a bug. It does not correctly handle the case
-when CCR operation completes with an error. I added line numbers to show
-that.
+Reviewed-by: Zhang Yi <yi.zhang@huawei.com>
 
-- line 701: AEN, omplete(ccr.complete), x->done++, x->done = 1
-- line 702: wait_for_completion_timeout(), x->done--, x->done = 0
-- line 710: ret == 0, x->done == 0, completion_done() returns false.
-- line 711: return 0;
 
-The problem is that wait_for_completion_timeout() consumes the
-completion. This causes completion_done() to return false leading us to
-believe CCR operation has not completed.
+Please note that I went through the three scenarios reported by sashiko.
+I think the first one is a false positive, and I had already sent a
+patch to fix the third one [1].
+
+The second scenario, however, is indeed a real issue. But I think it is
+a pre-existing problem and needs a separate fix, because there is
+another way to end up with a half-converted inline inode passing
+through. That is, a truncate to 0 can catch up in the middle between
+ext4_da_convert_inline_data_to_extent() starting the conversion and
+ext4_do_writepages() completing it. I'm not sure whether this outcome is
+expected, though, since apart from the subsequent ext4_write_begin()
+path, I don't see any other damage.
+
+Perhaps we should, in ext4_write_begin(), after the
+EXT4_STATE_MAY_INLINE_DATA snippet, also check whether there is still
+inline data, and if so call something like ext4_convert_inline_data() to
+let it finish the conversion before copying data.
+
+[1] https://lore.kernel.org/linux-ext4/20261030021338.1768292-3-yi.zhang@huaweicloud.com/
+
+Thanks,
+Yi.
+
+> ---
+> Changes in v3:
+> - Also trim after a short copy: drop the '!copied' check and compare
+>   pos + len with i_size after the update, as ext4_write_end() does
+>   (Zhang Yi).
+> - Reword the last paragraph of the commit message.
+> - v2: https://lore.kernel.org/r/20261023172532.3271348-1-hengyul@cs.unc.edu
+> 
+> Tested in KVM with KASAN: the reproducer above, failed writes around
+> EOF, and short copies on delalloc, nodelalloc and 1k block filesystems.
+> e2fsck -fn reports no errors.
+> 
+>  fs/ext4/inode.c | 39 ++++++++++++++++++++++++++++++++-------
+>  1 file changed, 32 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+> index 6ede3644a738..9c20876629bc 100644
+> --- a/fs/ext4/inode.c
+> +++ b/fs/ext4/inode.c
+> @@ -1578,15 +1578,18 @@ static int ext4_write_end(const struct kiocb *iocb,
+>  	 * it's important to update i_size while still holding folio lock:
+>  	 * page writeout could otherwise come in and zero beyond i_size.
+>  	 *
+> +	 * If nothing was copied (e.g. the source buffer was unreadable), do
+> +	 * not move i_size up to pos.
+> +	 *
+>  	 * If FS_IOC_ENABLE_VERITY is running on this inode, then Merkle tree
+>  	 * blocks are being written past EOF, so skip the i_size update.
+>  	 */
+> -	if (!verity)
+> +	if (copied && !verity)
+>  		i_size_changed = ext4_update_inode_size(inode, pos + copied);
+>  	folio_unlock(folio);
+>  	folio_put(folio);
+>  
+> -	if (old_size < pos && !verity)
+> +	if (copied && old_size < pos && !verity)
+>  		pagecache_isize_extended(inode, old_size, pos);
+>  
+>  	/*
+> @@ -1697,13 +1700,13 @@ static int ext4_journalled_write_end(const struct kiocb *iocb,
+>  		if (!partial)
+>  			folio_mark_uptodate(folio);
+>  	}
+> -	if (!verity)
+> +	if (copied && !verity)
+>  		size_changed = ext4_update_inode_size(inode, pos + copied);
+>  	EXT4_I(inode)->i_datasync_tid = handle->h_transaction->t_tid;
+>  	folio_unlock(folio);
+>  	folio_put(folio);
+>  
+> -	if (old_size < pos && !verity)
+> +	if (copied && old_size < pos && !verity)
+>  		pagecache_isize_extended(inode, old_size, pos);
+>  
+>  	if (size_changed) {
+> @@ -3349,6 +3352,24 @@ static int ext4_da_should_update_i_disksize(struct folio *folio,
+>  	return 1;
+>  }
+>  
+> +/*
+> + * Delalloc counterpart of ext4_truncate_failed_write(): ->write_begin() only
+> + * reserved delayed blocks, so drop the page cache and the delayed extents
+> + * beyond i_size and leave the blocks that are allocated there alone.
+> + */
+> +static void ext4_da_truncate_failed_write(struct inode *inode)
+> +{
+> +	struct address_space *mapping = inode->i_mapping;
+> +	ext4_lblk_t lblk = EXT4_B_TO_LBLK(inode, inode->i_size);
+> +
+> +	filemap_invalidate_lock(mapping);
+> +	truncate_inode_pages(mapping, inode->i_size);
+> +	down_write(&EXT4_I(inode)->i_data_sem);
+> +	ext4_es_remove_extent(inode, lblk, EXT_MAX_BLOCKS - lblk);
+> +	up_write(&EXT4_I(inode)->i_data_sem);
+> +	filemap_invalidate_unlock(mapping);
+> +}
+> +
+>  static int ext4_da_do_write_end(struct address_space *mapping,
+>  			loff_t pos, unsigned len, unsigned copied,
+>  			struct folio *folio)
+> @@ -3386,12 +3407,12 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+>  	 * checked, we need to update i_disksize here as certain
+>  	 * ext4_writepages() paths not allocating blocks and update i_disksize.
+>  	 */
+> -	if (new_i_size > inode->i_size) {
+> +	if (copied && new_i_size > inode->i_size) {
+>  		unsigned long end;
+>  
+>  		i_size_write(inode, new_i_size);
+>  		end = offset_in_folio(folio, new_i_size - 1);
+> -		if (copied && ext4_da_should_update_i_disksize(folio, end)) {
+> +		if (ext4_da_should_update_i_disksize(folio, end)) {
+>  			ext4_update_i_disksize(inode, new_i_size);
+>  			disksize_changed = true;
+>  		}
+> @@ -3400,9 +3421,13 @@ static int ext4_da_do_write_end(struct address_space *mapping,
+>  	folio_unlock(folio);
+>  	folio_put(folio);
+>  
+> -	if (pos > old_size)
+> +	if (copied && pos > old_size)
+>  		pagecache_isize_extended(inode, old_size, pos);
+>  
+> +	/* Drop what ->write_begin() prepared beyond the resulting i_size. */
+> +	if (pos + len > inode->i_size)
+> +		ext4_da_truncate_failed_write(inode);
+> +
+>  	if (!disksize_changed)
+>  		return copied;
+>  
+> 
+> base-commit: 8c4f6e3376348fc3162eed86a05b933921c8f9ed
+
