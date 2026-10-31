@@ -1,48 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793440240;
-	b=pjDDgW4VPx5F9mvPEYbFbWhwvbDvmOYniO0La/OBkLjDTNxWlq5xQ61MzccAwaoQkDMl
-	 lMhBNJ3sj5+e5Vp3pUhovDRW0p2EdemyzIewNZaSI0wcbxntgbHbE4mIt/3MREFdsbbED
-	 n9HoPXvfRnZpm5GUvvTyMbxrHDdJFkHf5QsYBTErmGLPO9hF3rgJXMNu5m2mnwlqNPowd
-	 A7Z92r5b9vecMQ54Onfl0jTty6+uloGBNKOoUMjEqZmZa/i4/bQcUYV5V4U+ZU4eFuupz
-	 YmbU2LGoMzOuGsFjB5LYO0hg6Rr34WVBIyjaLsaHZqLd7VzoghL6gB0RPaq8l3tNV0A==
+	t=1793440244;
+	b=44FdxYAc75O8VbiW/u3UxarqXqDIQz69sIw3kMXh9wZCesHsRHdoj1fuE35ZL2suHEme
+	 +bBaMaT1RbRVpuo5ouYlXNtqceOQqPRe+zWIrUwC55O0hnAJKd7ubRLPSBX2bQXcubJj2
+	 LiIvwZrPpt48dkd7CGI2R81XRqjHF3MItzr5IxT2TvHYW6p3YT6NjATC7iWS2b4qoqj2l
+	 bj1nU0kjHtg2pBcJqW4dhtpVO9B4azkiBSasTC+pvOQBmg6pP/tK65w+zhWhTCRybCpuk
+	 1dICyyKnuRernfsvoqwsKJL1/4eZimKQQkR56WP7UGh/KqkJ5WlGAbXAF5PSmPO3Jog==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793440240;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=VYlMeH+q4hS08pWQrgQz/Zl4BVbNdljyBojnlqTTFgI=;
-	b=iWuVC4MK/fsfg+oNuCs2hQ6GhhJGMo5QXe3wxnDYy5G3+Uu1MsVP2HXg26ZAj/UrZAcr
-	 qIKkyOm/BnUBEJel4oiRGsIiX07XWvo1n0AwxVMy8bFzkaaxkMMmesn5bbmzdO1r2qYxV
-	 NiXNflg2CwVA/KVcfY92gRzh493LzdAtr1H9CrZgomxSUs2RKvfAlEHF28SzkffT2MBZY
-	 BKGQY1vGpcOK/by3JUBB1jZW5oKl08p6vDn0iEcolWoBlkGcxfbyE3hnUQkyE8WXBoPyc
-	 Y1x5PGPlL3zhRGikWLqt+ZCqSTA7XpRNFba38KmVhDa+t6HcXHTqJjmln2LJ2PR+d+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793440244;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=EivTM9AaIOsrkRjqX0xsfFPqcFyziSUsNmwZ7BEydgk=;
+	b=xThq+AAJE6oeLaipgq15etOKGlgCS9OTOjMQS4cV5gwdM8/7AXepvXj8vSUe5U6TAewk
+	 YdzMhRJczeYzpELSZb5JIlT811QG7LHkAahAD4uxW2sBSzQ2zyGdc0p1lI8mrwTSAvCVX
+	 WGg+OI0uEqN+ZCmmBFiftf4K0lUBOqydc0gQxV5sG0fjxOOCBuIBAXEXH1iRRQBrDElK/
+	 bgQzWdxohCamXQfTx5iNr3un6D9pJ5C+F7KLX+ffyga6OeIGicBYh5H2oPiEpCqrJnRkU
+	 HgMGBNrrJqwrWrWvQyjhByCTTNbmL3AUCp241yNOqPZr1mm/3MD0uquZITpmtaWVbGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yr9l+Fh+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="iw4oW4d/";
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3A35606A31A;
-	Sat, 31 Oct 2026 09:50:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1BAE606A320
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:50:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D1BAE606A320
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yr9l+Fh+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A2871F00919;
-	Sat, 31 Oct 2026 09:50:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793440239;
-	bh=VYlMeH+q4hS08pWQrgQz/Zl4BVbNdljyBojnlqTTFgI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=Yr9l+Fh+pf6zFn9EkhXVHrqHodWFP/3jvyRpjpmBWcx8JjtCbiIuRHptcMrztZgp3
-	 xz5ypGp89btb7Lor8BgzY7X0/CKKkdTUFMGeidSnO/gyReZTIInyi5ARFKjHj86Pes
-	 ze2A85JCyUVEQ4GOM0lwt68V41FnOJ93sDpvP6mFyGnk3XmHptyk0lvXUYSaZiFjHJ
-	 FlQy63tZOgqGXB0UpG/RhwdO5RSDdOXQhV8W3HuH9kozLXUjiXDamnKUb9VYrLFENM
-	 sEoydXOLV8Kh5t01uIGtMTcZFGXBtZkCQf9yZSiJk0Y8cuSUJAc27B0uRp1qrMh7nJ
-	 ZMUkvrp9l3rEQ==
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Date: Sat, 31 Oct 2026 10:40:09 +0100
-Subject: [PATCH v3 40/47] mm/ksm: fix use of a freed anon_vma at swap-in
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iw4oW4d/
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-35b2c599f43so1121587eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:50:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793440243; x=1794045043; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EivTM9AaIOsrkRjqX0xsfFPqcFyziSUsNmwZ7BEydgk=;
+        b=iw4oW4d/RyKBW5a1pYUtjFSFu6pJ15+v1M8Ps2Fa/meQTeGbEItgeF4eCgjjZuuM1Y
+         UMBWzwdzUMMtQYDGZoC98Vhj9YBtZs/hJJ0pWdzV7Uh8dYRFhM19GaA4+oO84Ywd/Wh4
+         y78kIys+Lfl9ZbsUUz6v5wEP2exSOW0Kz57pBSydGt8jgj6fOULsqqnfQ09vMS/X/x1Y
+         i3MAkvYpMvuHIDqdjmtXxWKcdBJDEzFihtwS++kyA2U0y6BjbD+2MOBJwbbw9zVRJloT
+         46gWf3qrr2GoDInbF4iUYb7EWBW8uKwnjkjfwjUW8ncUBLtmWovDQiPKyC4V+NMBOxX6
+         FAwg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793440243; x=1794045043;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EivTM9AaIOsrkRjqX0xsfFPqcFyziSUsNmwZ7BEydgk=;
+        b=WrwsRPSXp9TexK/pvnAHelqhus9qLwBJQcgyarqiLiEdkKvstbJwvl3a2ll9DVkNKt
+         WJIDUcarId/A/eSL/91QwY+cpXAr1P2b6Glpdgq8e9SYb2stL60Tywu6Vwo48vQtASNb
+         gZ2bV4/jgiYkhREoCt8Kb79nXf/3CRQYaqL6fkU+K95Rqa60cxQTCWWSnmLiI6UrjeIS
+         pt0eVqmOeh7lHwXNQG9OTCumO5iPddYW4GpLoVxiImrdNqiWFo1kYpOMdtOwJ2/SDZYW
+         XI5CWtOzPvjzgVyXVO6sGD1VJrxepcCfYzAdE0+0Ra1TZyoeb3neKL53sknZPERB+PkH
+         9uDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxXTGs9sNcpsJuCS36+3zJeJkY9REKhHIOHx0rqXLfZioHMYeNhaaUc6Uc2uX8Gjzwt0D00iBXMLUChCjU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI28H7+xLWXQjZk1KRrqWzqsGKhhlJANi0MwpBGVlpPLx/nXNKP
+	bgTeWBmp/HD9ItzkvbEexMEo46J/4Tc7O3rKiDK+X090tymEKT2YAykE
+X-Gm-Gg: AYBFou2WTCI3TpeJDaJDV7Qal8Fea1zzBbnDnpI+uWhy6FGF4k0nJ5mLaWmbWlQdBnl
+	ONVwwqJF3AkphfkMTxpsJrYWEAqGSGiNHi10v425SWkGK2lQTg0oXu/ZWLYTRtT2ZhJoykg6/B6
+	/5aNTF1aYRv4wTY8BXR37owclBjXlqvQ73fpJ/RZj4KqTqvltv3/6uK9AaDZSC81nbDqpkuIuQO
+	GumgCo8RErbmrQXLtDGih1td3n9ykcrC5jCq4DzTLlGYqikMANf1dCygPqE75kXz5/B/D84iorG
+	PfgybhqZ03a9+4d1eJujnzboEuC66ipaHXzA1mZ3xk2uuYL8ndD23Sj4km+FnPOVL1o7ghyX8eR
+	eHEmYOJQR0AUkkibmd0MLbcYTzle6+lq+dpTqgfC4Uv2U+URzBFxety8yIBeeaPWIcUWoF7/8vb
+	9Sg21TXMa03bQkOvW1oqQ//R4kh2ceaiGuZp2qDT5qr+B2Z3jO5Ef9YiEArEzB4jEUV6phoHZ6v
+	S93eMnn5Ohi08uRfXG9dHs9Z6Z7W6LD4Q2PEkoHAZ9n+4CocbVFIa8l4CQasdUUYKbYQcXmLZDl
+	AikLA3jodsTtfKuKFwqOR5Hh5cQRDPvr0ELbiNYZPRkpFA==
+X-Received: by 2002:a05:7300:e918:b0:35c:de00:93d3 with SMTP id 5a478bee46e88-36a4247d812mr6622966eec.40.1793440242826;
+        Sat, 31 Oct 2026 02:50:42 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm16137291eec.24.2026.10.31.02.50.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 02:50:42 -0700 (PDT)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: Guenter Roeck <linux@roeck-us.net>
+Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
+	linux-hwmon@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] hwmon: (gpio-fan) Update the speed cache before dropping the PM reference
+Date: Sat, 31 Oct 2026 18:50:39 +0900
+Message-ID: <20261031095039.11683-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,225 +95,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261031-fixes_core-v3-40-d6437171ecc3@kernel.org>
-References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-In-Reply-To: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>, 
- Johannes Weiner <hannes@cmpxchg.org>, Michal Hocko <mhocko@kernel.org>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Lorenzo Stoakes <ljs@kernel.org>, Kairui Song <kasong@tencent.com>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>, 
- Peter Zijlstra <peterz@infradead.org>, Jann Horn <jannh@google.com>, 
- Pedro Falcato <pfalcato@suse.de>, Hugh Dickins <hughd@google.com>, 
- Pasha Tatashin <pasha.tatashin@soleen.com>, 
- Pratyush Yadav <pratyush@kernel.org>, 
- "Matthew Wilcox (Oracle)" <willy@infradead.org>, Jan Kara <jack@suse.cz>, 
- Zi Yan <ziy@nvidia.com>, Lance Yang <lance.yang@linux.dev>, 
- Rik van Riel <riel@surriel.com>, Harry Yoo <harry@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>, Nico Pache <nico.pache@linux.dev>, 
- Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>, 
- Usama Arif <usama.arif@linux.dev>, Kiryl Shutsemau <kas@kernel.org>, 
- Matthew Brost <matthew.brost@intel.com>, John Hubbard <jhubbard@nvidia.com>, 
- Peter Xu <peterx@redhat.com>, Will Deacon <will@kernel.org>, 
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, 
- Nick Piggin <npiggin@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
- Minchan Kim <minchan@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
- Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
- Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>, 
- Nhat Pham <nphamcs@gmail.com>, Youngjun Park <youngjun.park@lge.com>, 
- Gregory Price <gourry@gourry.net>, Joshua Hahn <joshua.hahnjy@gmail.com>, 
- Rakie Kim <rakie.kim@sk.com>, Ying Huang <ying.huang@linux.alibaba.com>, 
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
- kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
- linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, 
- stable@vger.kernel.org, Chris Mason <mason@kernel.org>, 
- Muhammad Usama Anjum <usama.anjum@arm.com>, 
- "David Hildenbrand (Arm)" <david@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6048; i=david@kernel.org;
- h=from:subject:message-id; bh=Z78lq+MMz7mlQo8hJjX2bkGO/ohrcRkdBZioXy6jyEo=;
- b=owGbwMvMwCF2/OVpCdfQ3ZWMp9WSGLKebs+y5Z7KpLF2su5SK0n5dKOmGweTS3+WyVX4fTz4K
- n7Snl/dHaUsDGIcDLJiiixBwfcNXr5cV1vtxscMM4eVCWQIAxenAExkRzEjw8su08kyTcXuZuZL
- v25fMWvt1cTpz7Yv92QrS9hw+uB75XhGhicP3fxORy6MWq39vPG867acZWvKv/kVh1zQfajM0R7
- PwQcA
-X-Developer-Key: i=david@kernel.org; a=openpgp;
- fpr=1BD9CAAD735C4C3A460DFCCA4DDE10F700FF835A
 
-A folio read from a swap slot previously shared by KSM can remain in the
-swap cache after the process that first mapped it exits. Its anon_vma
-can then be freed, so ksm_might_need_to_copy() must not dereference it
-to compare roots.
+set_fan_speed() writes the GPIO control value before dropping the runtime
+PM reference when stopping the fan. pm_runtime_put_sync() decrements the
+usage count even when suspending the device fails, but the error return
+currently leaves speed_index at the previous running speed.
 
-Doing so can result in some false-positives, resulting in the reverse
-mapping missing the new folio mapping, preventing migration and reclaim.
+A request for that same running speed then returns success without
+changing the GPIOs or taking a runtime PM reference. Retrying the stop
+instead drops a reference the driver no longer owns and can trigger a
+runtime PM usage count underflow warning.
 
-SLAB_TYPESAFE_BY_RCU allows individual anon_vma objects to be reused
-immediately after freeing. A stale pointer can then refer to another
-anon_vma whose root matches, even though the target VMA is not linked
-to that anon_vma.
+Update speed_index after writing the GPIOs and before dropping the PM
+reference. The initial same-speed check already excludes a stopped fan,
+so a zero target is sufficient to identify the transition that needs a
+PM put. Preserve the PM error return and the CONFIG_PM=n exception.
 
-Move the anonymous rmap compatibility checks into
-folio_anon_rmap_compatible(). Keep the page-index check and compare the
-folio's anon_vma pointer against the VMA's own anon_vma and root first.
+This keeps the cached control state and PM reference ownership consistent
+without restoring running GPIOs after a possibly partial supply failure.
+It does not clear persistent runtime PM errors or claim that a failing
+regulator has successfully powered off.
 
-If neither matches, bite the bullet and walk the VMA's anon_vma_chain.
-The VMA keeps these anon_vmas alive, and finding a match guarantees that
-reverse mapping can find the new mapping.
+Fixes: 0d01110e6356 ("hwmon: (gpio-fan) Add regulator support")
 
-Lorenzo Stoakes says in a private discussion:
-
-  "This isn't quite equivalent to the existing check.
-
-  Every anon_vma in an anon_vma_chain shares the same root, but if you
-  split a VMA then fork both of them like this:
-
-                  VMA A
-               /        \         <split>
-            VMA B      VMA C
-               \        /
-        root <- anon_vma 1
-               ----^ ^----        <fork>
-              /   parent  \
-        anon_vma 2   anon_vma 3
-             |            |
-           VMA D        VMA E
-
-  VMA's D and E both get their own new
-  anon_vma's such that:
-
-  VMA D: anon_vma 2 -> anon_vma 1 -> root
-  VMA E: anon_vma 3 -> anon_vma 1 -> root
-
-  And if you found a folio referencing anon_vma 2, the existing check:
-
-	anon_vma->root == vma->anon-vma->root
-
-  Would be true for VMA's B, C, D & E.
-
-  However after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain.
-
-  Whether or not that could actually happen in practice... 🙂 I don't
-  know.
-
-  [...] after your change it'd be true for VMA D only, as it's the only
-  one with anon_vma 2 in its anon_vma_chain. [...] I would [...] say that
-  you are making the test stricter but more correct.
-"
-
-If this affects performance when KSM was never even involved, we could
-just track whether KSM ever merged anything and just skip these checks.
-
-There isn't really a lot we can do otherwise: for mapped folios we might
-be able to use folio_get_anon_vma(), but for unmapped folios there really
-is no easy way to see if the anon_vma is still valid.
-
-Document the (confusing) lifetime requirements of folio_anon_vma().
-
-Fixes: ba6f0ff3981e ("ksm: fix ksm swapin time optimization")
-Cc: stable@vger.kernel.org
-Reported-by: Chris Mason <mason@kernel.org>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: Xu Xin <xu.xin@linux.dev>
-Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
 ---
- mm/ksm.c  | 36 +++++++++++++++++++++++++++++++-----
- mm/util.c | 13 +++++++++++++
- 2 files changed, 44 insertions(+), 5 deletions(-)
+An arm64 QEMU/KVM kernel exercised gpio-fan through hwmon sysfs with
+virtual GPIO and regulator providers and the actual runtime PM core.
+An injected -EBUSY regulator disable error after a running-to-stopped
+request left GPIOs off and PM usage at zero. Before the change the
+speed cache stayed running and a repeated stop underflowed PM usage;
+after the change the cache stayed stopped and no PM underflow occurred.
+No physical fan or RPM was tested.
 
-diff --git a/mm/ksm.c b/mm/ksm.c
-index 9c51925825cbf..e050b1bdf810d 100644
---- a/mm/ksm.c
-+++ b/mm/ksm.c
-@@ -3137,11 +3137,40 @@ void __ksm_exit(struct mm_struct *mm)
- 	trace_ksm_exit(mm);
- }
+ drivers/hwmon/gpio-fan.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
+index 3f78375eeb448..08b58b49be5b9 100644
+--- a/drivers/hwmon/gpio-fan.c
++++ b/drivers/hwmon/gpio-fan.c
+@@ -150,7 +150,10 @@ static int set_fan_speed(struct gpio_fan_data *fan_data, int speed_index)
  
-+static bool folio_anon_rmap_compatible(const struct folio *folio,
-+		struct vm_area_struct *vma, unsigned long addr)
-+{
-+	const struct anon_vma *anon_vma = folio_anon_vma(folio);
-+	struct anon_vma_chain *avc;
-+
-+	VM_WARN_ON_ONCE_FOLIO(!folio_test_locked(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_large(folio), folio);
-+	VM_WARN_ON_ONCE_FOLIO(folio_test_ksm(folio), folio);
-+	vma_assert_stabilised(vma);
-+
-+	if (!anon_vma)
-+		return true;
-+	if (folio->index != linear_anon_page_index(vma, addr))
-+		return false;
-+
-+	/*
-+	 * Careful: anon_vma might have been freed, so we cannot safely
-+	 * dereference it. Add a fast path before we walk the anon_vma chain.
-+	 */
-+	if (anon_vma == vma->anon_vma || anon_vma == vma->anon_vma->root)
-+		return true;
-+
-+	list_for_each_entry(avc, &vma->anon_vma_chain, same_vma) {
-+		if (avc->anon_vma == anon_vma)
-+			return true;
-+	}
-+	return false;
-+}
-+
- struct folio *ksm_might_need_to_copy(struct folio *folio,
- 			struct vm_area_struct *vma, unsigned long addr)
- {
- 	struct page *page = folio_page(folio, 0);
--	struct anon_vma *anon_vma = folio_anon_vma(folio);
- 	struct folio *new_folio;
+ 	__set_fan_ctrl(fan_data, fan_data->speed[speed_index].ctrl_val);
  
- 	if (folio_test_large(folio))
-@@ -3151,10 +3180,7 @@ struct folio *ksm_might_need_to_copy(struct folio *folio,
- 		if (folio_stable_node(folio) &&
- 		    !(ksm_run & KSM_RUN_UNMERGE))
- 			return folio;	/* no need to copy it */
--	} else if (!anon_vma) {
--		return folio;		/* no need to copy it */
--	} else if (folio->index == linear_anon_page_index(vma, addr) &&
--			anon_vma->root == vma->anon_vma->root) {
-+	} else if (folio_anon_rmap_compatible(folio, vma, addr)) {
- 		return folio;		/* still no need to copy it */
+-	if (fan_data->speed_index > 0 && speed_index == 0) {
++	/* The GPIOs have changed, and a PM put drops the reference on error. */
++	fan_data->speed_index = speed_index;
++
++	if (speed_index == 0) {
+ 		int ret;
+ 
+ 		ret = pm_runtime_put_sync(fan_data->dev);
+@@ -158,8 +161,6 @@ static int set_fan_speed(struct gpio_fan_data *fan_data, int speed_index)
+ 			return ret;
  	}
- 	if (PageHWPoison(page))
-diff --git a/mm/util.c b/mm/util.c
-index 8acfe2148ba52..80f6c714844f2 100644
---- a/mm/util.c
-+++ b/mm/util.c
-@@ -697,6 +697,19 @@ void *vcalloc_noprof(size_t n, size_t size)
- }
- EXPORT_SYMBOL(vcalloc_noprof);
  
-+/**
-+ * folio_anon_vma - Get a folio's raw anon_vma pointer.
-+ * @folio: The folio.
-+ *
-+ * The returned pointer may be stale for an unmapped folio. The caller
-+ * must ensure the anon_vma stays alive before dereferencing it. A folio
-+ * reference or lock alone is insufficient; use folio_get_anon_vma() when
-+ * the anon_vma's lifetime is not otherwise protected. Note that
-+ * folio_get_anon_vma() is only useful for folios that are still mapped.
-+ *
-+ * Return: The raw anon_vma pointer for an anonymous, non-KSM folio, or
-+ * %NULL otherwise.
-+ */
- struct anon_vma *folio_anon_vma(const struct folio *folio)
- {
- 	unsigned long mapping = (unsigned long)folio->mapping;
-
+-	fan_data->speed_index = speed_index;
+-
+ 	return 0;
+ }
+ 
 -- 
-2.43.0
+2.55.0
 
