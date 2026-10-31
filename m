@@ -1,61 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.2
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793424547;
-	b=zU5WmV0bqk2ku8eiYXjtY6XqZuwP6f5qVOJxFvx75a3QM66gVZVNVmdlGLYy3ozicj98
-	 3MUEhEmu3Xc/LLj0WaxVpWlW3M5YuHdbsaoK7ubXWFEGAsCCSS4wnQc7XMiOZOkCkXovK
-	 97WExXKu1D5UPPBRcCNTEumgoQyghERTb+a8ynFN4yQw1VR9oHdycSd7555/ke0MH5EQh
-	 HFAuIuVW6oVPysA0/Bw6e9nfj7hq1sWCD6FLWUViu7vZx3gnWtl5B2cICaUtSmmrG07Td
-	 RKpMpERhozIZsFjHzgVeb4+eg6fr5g+JxrRYP6qv8xdmZZ/LQUM//qvxmvTnT0KgTxw==
+	t=1793424570;
+	b=OFo69sCLAlEjVTBmJW1WuOQSlMUZDangMwYGtLOkGNB5YwN1txzah6lwft3r8cW3pVep
+	 7+GHwBpL6FV2CehnaZ4uj3GJSdYBaav5nn8ZM/EWFXLHp4xuGxVgJLAf6bIjV8o9xXmSw
+	 C56MRTbwF23JMUPzbJH0ZbfCWKu07YWDoSZyHWkl6k9qabiQ9BfjmSPQVGLfk9gItmi4h
+	 unyjC6E2GBi5nPjrGEj46vjczb80+eCZMMCH1feLdiCnC5QNWcHphKBbd8deO1rKqE/T3
+	 ZD7e3hsBfltYKKxXXz5a0jIVdi+XbSv1BT2myNnLtgilykHzKkSei/0LYe8WtnRdsXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793424547;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424570;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
-	 X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=Vp4ntnb+XElE4TpyNxo2r3GVX7MGf+Q7eXs3f9RgFlg=;
-	b=V/GZsB/hmIt8GoIfH4nwY6CXUcJKsk8uJ6dENrQwOzw7DlPsVS7N9RXWRPuRh3oZo9TU
-	 TLfVoyZIiYQVwS89F3f0YW2GtZbO2zXZ67lL+CdBjZXepEf3eVHLsmdim1IZfib2Ek/Rz
-	 LLJ/LivSl3LjJukb190DBZBO5tx6yEOdeH/B8IPw3WKTFXW3FKHaMxdSKgricSdEnyEQs
-	 VlzKuvY0jUnBeH96Qay8zmG+7RkiUNCW1OA8zDyw7u7PJrNKjKECvOwIwi9yvIrofFnC1
-	 BFnZIMSEp/OCZXazg9YM+Uky8/dPFliK/Z+GMy1xPrd1Wo7bO06s/4qmn7DRE2MifDg==
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-Originating-IP:X-CM-SenderInfo;
+	bh=I7frXlGnMCDV3UFrGk5yfnthPFUH9+/nnSFzMhXI7Yo=;
+	b=fr0Y/5V1T5t91pQgQUCk5M5ucqd3SYFJAk/gIRxSltczgBm230BsM/qVUduC0LQmYz/D
+	 TXp0VjuKqQ6dwMLOC7/uu7IElR3R1j6QynzI+mTU1gId7Isj8M5uTOA8iwWTkPB3u4ehM
+	 Th6ceITebqtkhz0EIrL9bSGoDhbTj4dihuNwa1AWXraz3unVBkaaMd6cKXq/yZYbA/XaK
+	 uZvVCP92StMIFc7VaApR9Rqw+BYVBoaFTT5fv3srCzjep7cLSnPUqqBangtqvNfzRGOpz
+	 rqNVh1A6cJQB67oD2/hHygc0WRrEMmcHyAxB+ppUKW/O66UbRRKb2+ETy1qyjG5WWDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iaQjTOt+;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 81E03606A31A;
-	Sat, 31 Oct 2026 05:29:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81E03606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kL0XuHHV;
+	arc=none smtp.remote-ip=220.197.31.2
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5E3B606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:29:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5E3B606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=iaQjTOt+
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:Content-Type:
-	Content-Transfer-Encoding:MIME-Version; bh=Vp4ntnb+XElE4TpyNxo2r
-	3GVX7MGf+Q7eXs3f9RgFlg=; b=iaQjTOt+i+y8CdLvA+KH7QLZGAn65bFxYWkcu
-	Qigaaqh9Km5juDS+QlmnqohP0keWsxfKaCbXNsh4qvwSjeNvW8LMAjxhH2Cy2RI9
-	R/C14UVoUvnT9RVc0wOEIEnxf3IlJSWCKKXnfLzFnPDbdj2M5u5ADZIAMd1Vpa5M
-	m8IRf0=
-Received: from [127.0.1.1] (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgBHwDSefOVqwDZtAA--.172S2;
-	Sat, 31 Oct 2026 13:29:02 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
- Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] regulator: dt-bindings: willsemi,wl2868c: add the
- WL2868C camera PMIC
-Date: Sat, 31 Oct 2026 13:29:02 +0800
-Message-ID: <179342454262.453004.7013252409006345812@mail.ustc.edu.cn>
-In-Reply-To: <20261029-amiable-loutish-wolf-60a76a@quoll>
-References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261029-amiable-loutish-wolf-60a76a@quoll>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=kL0XuHHV
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=I7
+	frXlGnMCDV3UFrGk5yfnthPFUH9+/nnSFzMhXI7Yo=; b=kL0XuHHVL2R2IwA03t
+	JyiZw8KeBrt7+wfuMXXWeQXUe5fTx3dSES5e8X97QoG8FQO5a9g64SYlUmaFg+Ja
+	HjTT71F1MNCv0QroF3XvmxAAL7aIoJgFolAI1ez5JVK4F9rAw0ijnZNOpj/HaUeB
+	2F3KEz/TW82eJJbnNUsFKXQNY=
+Received: from liubaolin-ThinkPad-E15-Gen-2 (unknown [])
+	by gzsmtp5 (Coremail) with SMTP id QCgvCgDX37adfOVqFDprDA--.9490S5;
+	Sat, 31 Oct 2026 13:29:05 +0800 (CST)
+From: Baolin Liu <liubaolin12138@163.com>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Xuewen Wang <wangxuewen@kylinos.cn>,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v2 3/5] ntfs: initialize packed EA size when creating hard links
+Date: Sat, 31 Oct 2026 13:28:55 +0800
+Message-ID: <20261031052857.1542936-4-liubaolin12138@163.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261031052857.1542936-1-liubaolin12138@163.com>
+References: <20261031052857.1542936-1-liubaolin12138@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,92 +65,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-CM-TRANSID:3pYKCgBHwDSefOVqwDZtAA--.172S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCw1xur47Kry5XF43tr1rtFb_yoW5ZF4kpF
-	ZIqr1DCr4DJFZa9w4xAr4xXa4S9ws5JayDAF9Yqw4rZan8C3WftFn5tw4Yva4jkr4kWr1j
-	yFs0g348GFWDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwV
-	C2z280aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
-	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Jr0_Gr
-	1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxkF7I0En4kS14v26r126r1DMxkI
-	ecxEwVAFwVW8WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c
-	02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_
-	Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7
-	CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
-	6r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvj
-	xUgasjDUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwA2s0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:QCgvCgDX37adfOVqFDprDA--.9490S5
+X-Coremail-Antispam: 1Uf129KBjvJXoW7Ar4xtF1DAFyrKF1xWF18AFb_yoW8AF43pF
+	Z3Gryfta17Xry2kF9Iyr42vF1Sq3yxCF4UGr4xKr12y3ZYg3Z0ga48Kry5Zrn3Aay8u34Y
+	qF45t3y7WryUu3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jlCJQUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6gJbJmrlfKJp8QAA3c
 
-Hi Krzysztof,
+From: Xuewen Wang <wangxuewen@kylinos.cn>
 
-two corrections to what I sent you this morning, both measured after v3
-went out, plus one thing I got wrong in the first reply.
+A new hard link has a zero packed EA size in its FILE_NAME even when
+the source file already has extended attributes.
 
-First, how this mail is written: I draft with an AI assistant and edit it
-myself; the content, the measurements and the decisions are mine.  You
-asked for that explicitly and it is a fair thing to ask.
+For files with EAs and no reparse point, read EA_INFORMATION and check
+its attribute length before adding the name. Copy its ea_length into
+the new FILE_NAME's packed_ea_size. Skip this assignment for reparse
+points, where the same storage holds the reparse-point tag.
 
-1) v3 has a defect that makes the "users" argument weaker than I claimed.
+Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Xuewen Wang <wangxuewen@kylinos.cn>
+---
+Tested the standalone five-patch series in QEMU. Prepared EAs remained
+readable after publishing the temporary file and after cache eviction,
+remount and reboot.
 
-sashiko's review of v3 3/3 is right: that patch enables i2c10 but never
-enables its parents, so geni_se_probe() never runs on qupv3_2, i2c10 is
-never populated, and the eight "*-supply = <&camera_ldoN>" phandles in the
-same patch point at regulators that cannot register.  So in the upstream
-board file as posted, the consumers exist on paper only.  v4 enables both
-parents in the same patch:
+No functional change from v1.
 
-	&qupv3_2 { status = "okay"; };
-	&gpi_dma2 { status = "okay"; };
+ fs/ntfs/namei.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-2) What I can show for the hardware today, stated precisely.
-
-On our own downstream board DTS (a much larger file than the upstream
-submission, which also enables the QUP) the driver does probe and the
-regulators do appear, measured on the board running 7.3-rc7:
-
-  geni_i2c 888000.i2c: Bus frequency not specified, default to 100kHz.
-  [camera] loaded wl2868c-regulator
-  /sys/kernel/debug/regulator/: camera_ldo1 camera_ldo2 camera_ldo3
-                                 camera_ldo4 camera_ldo5 camera_ldo7
-
-with camera_ldo1/2/3/4/5/7 at 1128/1288/2816/2824/2808/1800 mV (LDO6 has
-no consumer on this board).  That is the same wiring the upstream file
-describes, just carried in the vendor-shaped file.  It shows the chip
-works and the supplies are real; it does not show that the two hundred
-lines I am asking you to take bind, because they are not the same file.
-
-3) On "I still see no users", the honest answer rather than the
-   convenient one.
-
-The users are the camera stack: s5kjns, gc08a8, gt9764 and the CSIPHY
-rails, eight supplies in total.  Their bindings are not in this series -
-the two sensor bindings were posted separately on 2026-10-27 and are still
-in review, and gc08a8 has no binding posted at all.  So the board file
-cannot be complete, and dtbs_check cannot pass on those nodes, until those
-land.  My reading was that this is exactly why the regulator binding
-should go in first, but I accept that from your side it reads as a binding
-with no user, and I would rather say that plainly than keep shipping
-sensor nodes that cannot bind.
-
-What v4 will be, if you want to sanity check the shape before I post it:
-
- - 1/3: arm/qcom.yaml registration plus the binding, unchanged in
-   behaviour from v3 apart from review comments.
- - 2/3: sm8750.dtsi, the three DTSs split out as you and checkpatch both
-   asked (this one was mixed into the board patch in v3).
- - 3/3: board DTS with qupv3_2, gpi_dma2, i2c10 and the WL2868C node, and
-   the eight supply references, but without the sensor and lens nodes.
- - the sensor and lens nodes move into the patches that add those bindings,
-   each arriving with its own binding and its own CSI endpoints.
-
-If you would rather not see the regulator series again until the sensor
-bindings are in, say so and I will park it - that is a legitimate call and
-I do not want to burn your review time on a series whose consumer side is
-not ready.
-
-Thanks,
-Qianhui Xu
+diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+index a83a648c8ff8..5124e7a3e124 100644
+--- a/fs/ntfs/namei.c
++++ b/fs/ntfs/namei.c
+@@ -1318,6 +1318,24 @@ static int __ntfs_link(struct ntfs_inode *ni, struct ntfs_inode *dir_ni,
+ 	fn->last_access_time = utc2ntfs(inode_get_atime(vi));
+ 	memcpy(fn->file_name, name, name_len * sizeof(__le16));
+ 
++	if (NInoHasEA(ni) && !(ni->flags & FILE_ATTR_REPARSE_POINT)) {
++		struct ea_information *info;
++		s64 size;
++
++		info = ntfs_attr_readall(ni, AT_EA_INFORMATION, AT_UNNAMED, 0, &size);
++		if (IS_ERR(info)) {
++			err = PTR_ERR(info);
++			goto err_out;
++		}
++		if (size != sizeof(*info))
++			err = -EUCLEAN;
++		else
++			fn->type.ea.packed_ea_size = info->ea_length;
++		kvfree(info);
++		if (err)
++			goto err_out;
++	}
++
+ 	/* Add FILE_NAME attribute to index. */
+ 	err = ntfs_index_add_filename(dir_ni, fn, MK_MREF(ni->mft_no,
+ 					le16_to_cpu(ni_mrec->sequence_number)));
 
