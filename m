@@ -1,86 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793484490;
-	b=PnUEFFMU4v6zdZMGZ8xVCfguuPY9E03a3Rz5vKh5fwWMD/K4wlqFHFDj+iNPIyhSLYJf
-	 Y7HFQnEpIAr5C+6TTt1DC7pjoW36I3BpWXCjFUGhoNWoFdMG+fKMz7ouGU0XP2qXE+0HM
-	 OVg5Ad/zwEA3qVoSCuBnagqECiP0bLWbOffdwMweXHpTjItKkJnf3F1klKViWGHf/P0rI
-	 D41LIkRKdyv32cov+jHAiipDypqH4nMbAW4PJszybiRdkbDsYsxOx6cKuP+1e876OENzp
-	 KmS5+I0T3MwN36yqi3RtUlZyx2Kl5NSw3QEt89NJOHwCpJfzUrvouheUIyHLecXlCJQ==
+	t=1793484547;
+	b=zdA1RKR2ZJgfxIPWZgY86brLZfv9CdN+Qgr5N1Z31IfX/cAHfH8lY4phlRpMWSe6TCLP
+	 g+oZYyyJrNkSBy31FtRqQJBxBaMzTIBtip8uE6ag1SKJeNCW/BQCIVqyWmD4JYzGpfYKi
+	 wvhXMYype6/n8kwA6L+gRXm+91rbKxV8xodo7VkAVxxZjUM2YNqWAQbdckdub9opHxtFK
+	 g/pcsVRn7YxkijpgRj+e9DkGj9HgWMmGRy5OKrok+2kms0vSIOsogWfr4SyLD032WK5HB
+	 EBUt6f5eFRsGc5R4LuWvIjCwQhlHt/QJcO9wpT22EyQyCZswV07Cgvt1xgJJAwlqMHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793484490;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:To:Cc:From:Subject:Autocrypt:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=u7hkZBdDMOeRJCx/V6agkDJoUh1Bg0n+5YdOFbLpFXQ=;
-	b=TRSNWbOhdfntUUSEMNe24qUVCG47hZImNdo2vLWUArSSM271fRGJRAhhqWAiO3yWshT3
-	 HpeEWxmV59xFYvl0ZFskF2MD35f2yt0sPrz9VRHxVIZHUJarjJK4FQtRdXumq0Mwbuu/8
-	 n7hT9rjw1rUZ10Q5V/aP0JTkabLQEbdzrRoeg2cTjVZyJKIM7T3e2ffknE+JYF7np7q/O
-	 YcI3vuxkBFL0pknOcOGQ6ZsHP8wD+wEvyy9Hg1opF0wgP4TeUH8Pu4BTpFA+8mUBI9Fka
-	 Ao02zjOdUD4xFj1xMp+ociDI7Qop8XtxWgJnhEnZJdwPqhV3ZHuRY8d4Gu5A15HQNcA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793484547;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=nHO0WMdIDamn3FBNdzLyeYZup1qzz9kZ3mhGfqufqE0=;
+	b=Nz3aRg00IEJurrpx18jdQKYh+G6G5vu2ZtdSFa4s21zT9KoG91yIzotN2y+w+tj/h56x
+	 +yXEwlBH4A1z85BnOppAARWjN9P5SnB0vL/wkMZB4h1+0xtcNEogc6Hf9iFEO0/o4z3Xe
+	 XEn7bQwM6fC0pfw2rAb77VkY2PhuoJYf196ZRgr2IK2bMkKE16VwgUnbu8vSO2Z6En4dd
+	 ovhJbiGEvkmPNn8WDTY7luubnQgOpLhxSojWjU5WntEzGXy+osUeabjC1VkzIJpLj56K2
+	 9VZZZyGmfKRGdvnNqaL1rPaqchhl9z+N6qL5Tc3BqPZ3zO4FM4RAnIexEFGxpF8P3KQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S60zogLR;
-	arc=none smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQVFOWp2;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 424B5606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:08:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 424B5606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EDC606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S60zogLR
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8b0d126f631so18431997b3.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:08:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793484489; x=1794089289; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:autocrypt:subject:from:cc:to
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u7hkZBdDMOeRJCx/V6agkDJoUh1Bg0n+5YdOFbLpFXQ=;
-        b=S60zogLR4R/USb4y+Plf+PXg7KNiF0R2MWmrsu416v8Fr3noC1aPez7DdMUp4gxnqR
-         MmwOmnExBa6Ii55T8AcFGwgiSBL9Ad8D+KFFjuUSpmMi93+wrq9Qdc2Rr4dyUmmnqxzC
-         X0W2CdFlP1sbytEeoYghQUM792nlkpRa6B83PEdD8muJvORo9HrFAspMIVBrhoKh54Jf
-         gN71ygj0cfyxTvUQiJOVyWYL+09SIBcTtYvopn6uZizDkptxbf8JeudvDDfCs3yqm/P8
-         z1Ak4VOwWFydgg1RnS/Hbk9CLzc91/Es82yACYYVXtPiqZfXJuH+gTGejdVM6+Bz2ZH+
-         saBg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793484489; x=1794089289;
-        h=content-transfer-encoding:content-type:autocrypt:subject:from:cc:to
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u7hkZBdDMOeRJCx/V6agkDJoUh1Bg0n+5YdOFbLpFXQ=;
-        b=slS2XKi/j/bTgxmukEkRYtP/15UTRcerqxOXtD2CKJDpJt7sFrjbz03wT4QW9ETKIs
-         uncIEgNZOyCZewvO3d+9JGQVE7h0sU4PNssRq2SjRxD5REnOPSDH3dgqe07IdjnxjhPp
-         Vwn7FaTbivJxMT2m186OmwawzZAwGfcOkj53YQt4IGThUVoDjzWtlgTEPQsJjs530WYx
-         WYxNvHg5anyTKmlVSuBKGa8B9i3wq5EKEn6vFT+6YZ8ouHWjkpnj7A2D0agGMprHmuAX
-         JwHhua8ez15sGqVqeFIxDiyTceFzKhwracKFnPyOe1XFpDP7A+y/4fsUm11BtvPLrPsd
-         1m7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzXLp8rj8R1RhuKoSRp76uYUxfEYxcvj7tiE4ZrklP62XqXbvUcGSJ6qaKJnIzYCHi6nn1qCV+Wp6f+sGM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8h1fli0vgmEhpQxVZhprIcffnT5xm/A1Y3ezv03lozUfNNez3q
-	qG2fE1EGYPABcayf6/xH+yKmF/RCbKeXrR5qQzqHfGN+YjTN1cKTj5II
-X-Gm-Gg: AYBFou2vVca8X2eBNg5ya2Bu6SvjCbf3h0zwXnAmQiZOPwjQRxJU/1pfynkIJcdxoO3
-	oG4bA0bkrIcg+eU/k25hVxKdNUawYSI/C89G5jrMHJf7Nv33rhOY0k8zV8W802wBG5R0Uf9GTAN
-	wV7ncRDM/GhhISaY41YrDdXdEiSJCHQjMlLobr8kcrjkysxagnuN8u2sVaTItM3OlDL0uz4wG9N
-	HBELIo5IiYKOGEeG3EsE+ohoPSY//gzm3JeW/LfSD7vt5t1fb74a0Ilt6UUD9yU7CzBb6myUXWA
-	RnLr2k6qnHIRZRSIgrFiBB8Q8yRvAsA+ANbhkJPlPxyk+ob1TdD0WTXMN6y2gH4EVJfAABPhOYv
-	9yRyMULVQF/tDxaqw4LoFfxLL++GvpDtjmW+CQqDqF4JGHhr8xIsNR87ea89y2/BMd1y495Y//v
-	c1Xc254u9cCeozZDU2tMecxfOchjc5t8O9oFikJY1U3NTovWENnGeHIhj4U5ioZJW8SmYXbp9i1
-	1hH08lj0YPYqCPusyNzu3Rl4EdVtsgnaw3a0Bc38KiDxjVp0O5V4hp7AoWdkuscy7pe31f8Tz0p
-	8w+nrV7eSIalwOh+vGUlDDdwBKXMaeY8JISeCe7MdZ9jntgk/ZmsI9uO2+iH/nMQaLPnJJt+FQe
-	RBuqnmkKdlRvwH0gkyV9MzMKbzLGU7oLNOU1LKG+KIytvuIwi9PbmB5nkdxXseac=
-X-Received: by 2002:a05:690c:3481:b0:8b1:bf85:3624 with SMTP id 00721157ae682-8b2b66c50c4mr45236217b3.11.1793484488972;
-        Sat, 31 Oct 2026 15:08:08 -0700 (PDT)
-Received: from [100.70.73.136] (host-219-69.tnnaknt.nashville.tn.us.clients.pavlovmedia.net. [96.63.219.69])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b71240a4sm26293567b3.7.2026.10.31.15.08.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 15:08:08 -0700 (PDT)
-Message-ID: <14508cb2-805f-41ac-9f6b-bfd7c3d7cb1c@gmail.com>
-Date: Sat, 31 Oct 2026 17:08:07 -0500
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YQVFOWp2
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0E7D1F000C1;
+	Sat, 31 Oct 2026 22:09:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793484547;
+	bh=nHO0WMdIDamn3FBNdzLyeYZup1qzz9kZ3mhGfqufqE0=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YQVFOWp2tQoiJAWEaY9XskjB/0pq8xVIQ4xLNbMAptf0mtF4V24e4glwEyaiCwECk
+	 zFm+kfkdObIb5WzxCxqWuu9a1gk6tYoL3ePzAkXjo+C58eNm6d6YrTVAIBvtP+aAk9
+	 TJ0XYa//cLYxxDCgY9gj+Fy7sJn0feqpwCiZgSL9bBafe09cXwBQaPoxUgopEgNqnU
+	 Zd+Wxear0Z981wVJBRn3uWmXLQ+oXow621sLqDu6CxwGK+oJ58uCg6DX07f+OWusgA
+	 DwRmScrZ7R8GGGnP6Sz+gXFYHrpWIfiDNGXjGHGJ2XhyRYJiH+R/uu+sP6DKnkgnXZ
+	 9TJqZE96CuJ7Q==
+Date: Sat, 31 Oct 2026 12:09:05 -1000
+Message-ID: <0de31a5e777c6cafce329dd9571b0049@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Juri Lelli <juri.lelli@redhat.com>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Ben Segall <bsegall@google.com>,
+	Mel Gorman <mgorman@suse.de>,
+	Valentin Schneider <vschneid@redhat.com>,
+	K Prateek Nayak <kprateek.nayak@amd.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH sched/urgent] sched/deadline: Fix stale rq->dl_server after a server pick returns RETRY_TASK
+In-Reply-To: <6db076ee2562b5fb84d70ed59abe670e@kernel.org>
+References: <20261030221842.4071610-1-tj@kernel.org> <6db076ee2562b5fb84d70ed59abe670e@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,467 +66,350 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Waiman Long <longman@redhat.com>, Ingo Molnar <mingo@redhat.com>,
- Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Michal Koutny <mkoutny@suse.com>, Ridong Chen <ridong.chen@linux.dev>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>,
- Mel Gorman <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>,
- K Prateek Nayak <kprateek.nayak@amd.com>,
- Guopeng Zhang <guopeng.zhang@linux.dev>,
- Guopeng Zhang <zhangguopeng@kylinos.cn>, cgroups@vger.kernel.org,
- regressions@lists.linux.dev, stable@vger.kernel.org,
- linux-kernel@vger.kernel.org
-From: Weiheng Qiu <weihengqiuu@gmail.com>
-Subject: sched/deadline, cpuset: total_bw corrupted by a sleeping DL task's
- cpuset move
-Autocrypt: addr=weihengqiuu@gmail.com; keydata=
- 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
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hello,
 
-Moving a sleeping SCHED_DEADLINE task from the root cpuset into an
-exclusive partition and back, before it runs again, leaves the root
-domain short by the task's bandwidth. The root then over-admits, and
-when the task exits its total_bw underflows: small DL requests fail
-with -EBUSY while large ones wrap in __dl_overflow() and are admitted.
-The partition also keeps a stale reservation.
+The report covered only the non-core pick path, __pick_next_task(). The
+core-scheduling pick_next_task() has three more ways of leaving
+rq->dl_server wrong. All three reproduce on mainline d89e1d186ec9 in an SMT
+VM with the fair server.
 
-cpuset_can_attach() and set_cpus_allowed_dl() both decide through
-dl_task_needs_bw_move(), which tests task_rq(p)->rd. A sleeping task
-is not migrated when its affinity changes, so task_rq(p) still points
-at the CPU it last ran on, and on the move back the root domain is
-neither re-credited nor the partition debited.
+1. In the core-wide selection, the cookie pass replaces this CPU's
+   first-pass pick, through sched_core_find() or forced idle, without
+   clearing the rq->dl_server that a server pick set, so
+   put_prev_set_next_task() hands the server to the replacement. This dates
+   from bd9bbc96e835 ("sched: Rework dl_server") and reproduces reliably.
 
-Reproducer below; needs root, cgroup v2 and debugfs, and turns the
-last CPU into a partition, so use a test VM. On mainline c339f4010dea
-with 4 CPUs:
+2. The cookie pass also clears rq_i->core_dl_server for every sibling, so a
+   sibling whose first-pass server pick survived the cookie pass runs it
+   from the fast path without its server. Same origin. It reproduces
+   reliably.
 
-  cpu3 is a partition; sleeping DL task 76 (0.5 CPU) in the root cgroup
-  total_bw in CPUs (change since start):
-  start:                     root  0.650 (+0.000)   partition  0.050 (+0.000)
-  moved into the partition:  root  0.150 (-0.500)   partition  0.550 (+0.500)
-  moved back to the root:    root  0.150 (-0.500)   partition  0.550 (+0.500)
-  (expected: +0.000 and +0.000; the task is in state S and has not run)
-  root domain admits 28 more 0.1-CPU tasks: 0.650 + 28 x 0.1 = 3.450 CPU
-  reserved, limit 3.000 CPU (3 CPUs x 1000000/1000000)
-  those tasks exited:        root  0.150 (-0.500)   partition  0.550 (+0.500)
-  the DL task exited:        root -0.350 (-1.000)   partition  0.550 (+0.500)
-  DL tasks left: 0; new 0.010-CPU request: Device or resource busy
-  DL tasks left: 0; new 0.500-CPU request: accepted
-  after a root-domain rebuild (recomputed): root 0.150, partition 0.050
-  moved in while asleep, then SCHED_DEADLINE: Operation not permitted
+3. Core scheduling gets enabled while a non-core __pick_next_task() has the
+   rq lock dropped in sched_balance_newidle(). core_pick_in_flight counts
+   only core-path picks, so __sched_core_flip() doesn't wait for it, and a
+   sibling's core-wide selection then runs pick_task() on this rq and sets
+   rq->dl_server, which the non-core pick hands to the task the fair class
+   picked. It reproduces only rarely, and needs the newidle window widened
+   by the patch's 2ms delay and a cookie toggled in a loop. It also happens
+   with the RETRY_TASK restart fixed.
 
-Thanks,
-Weiheng Qiu
-Vanderbilt University
+In a debug kernel, recomputing the core-wide selection's first-pass max with
+the servers the picks actually went through changes the cross-sibling
+priority choice and the chosen cookie in some selections; that is a
+recomputation, not an observed scheduling outcome.
 
-/* A sleeping SCHED_DEADLINE task moved into an exclusive cpuset partition and
- * back, without running in between: the move out debits the root domain and
- * credits the partition, the move back does neither, because
- * dl_task_needs_bw_move() looks at task_rq(p)->rd, which for a task that has
- * not run since the first move is still the root domain.
- * Needs cgroup v2 with the cpuset controller and at least 2 CPUs.
- * It temporarily turns the last CPU into a partition; use a test VM.
- *
- * Build: gcc -O2 -Wall -o cpuset_blocked_move cpuset_blocked_move.c
- * Run as root. Needs CONFIG_DEBUG_FS; total_bw is read from
- * /sys/kernel/debug/sched/debug.
- */
-#define _GNU_SOURCE
-#include <dirent.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <signal.h>
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/mount.h>
-#include <sys/stat.h>
-#include <sys/syscall.h>
-#include <sys/wait.h>
+The scripts need an SMT topology, stress-ng, coresched from util-linux and
+root, and the third also chrt.
 
-#define SCHED_OTHER_		0
-#define SCHED_DEADLINE_		6
-#define BW_UNIT			(1LL << 20)	/* BW_SHIFT: 1 CPU == 1 << 20 */
+The case 1 patch reports the hand-offs.
 
-struct sched_attr_ {
-	uint32_t size;
-	uint32_t sched_policy;
-	uint64_t sched_flags;
-	int32_t  sched_nice;
-	uint32_t sched_priority;
-	uint64_t sched_runtime;
-	uint64_t sched_deadline;
-	uint64_t sched_period;
-};
+  --- a/kernel/sched/core.c
+  +++ b/kernel/sched/core.c
+  @@ -6291,6 +6291,10 @@ extern void task_vruntime_update(struct
+   
+   static void queue_core_balance(struct rq *rq);
+   
+  +/* REPRO: core.dbg_core_1 counts the hand-offs */
+  +static atomic_t dbg_core_1;
+  +module_param_named(dbg_core_1, dbg_core_1.counter, int, 0444);
+  +
+   static struct task_struct *
+   pick_next_task(struct rq *rq, struct rq_flags *rf)
+   	__must_hold(__rq_lockp(rq))
+  @@ -6303,6 +6307,7 @@ pick_next_task(struct rq *rq, struct rq_
+   	int i, cpu, occ = 0;
+   	struct rq *rq_i;
+   	bool need_sync = false;
+  +	struct task_struct *pass1 = NULL;	/* REPRO */
+   
+   	if (!sched_core_enabled(rq))
+   		return __pick_next_task(rq, rf);
+  @@ -6434,6 +6439,8 @@ restart:
+   
+   		rq_i->core_pick = p;
+   		rq_i->core_dl_server = rq_i->dl_server;
+  +		if (i == cpu)
+  +			pass1 = p;	/* REPRO */
+   
+   		if (!max || prio_less(max, p, fi_before))
+   			max = p;
+  @@ -6482,6 +6489,17 @@ restart:
+   	/* Something should have been selected for current CPU */
+   	WARN_ON_ONCE(!next);
+   
+  +	/* REPRO: pass 2 replaced the pass 1 pick, so rq->dl_server is stale */
+  +	if (next != pass1 && rq->dl_server) {
+  +		static DEFINE_RATELIMIT_STATE(dbg_rs, 5 * HZ, 10);
+  +
+  +		atomic_inc(&dbg_core_1);
+  +		if (__ratelimit(&dbg_rs))
+  +			printk_deferred(KERN_WARNING "core pick: stale rq->dl_server handed to %s/%d (%ps), pass 1 picked %s/%d\n",
+  +					next->comm, next->pid, next->sched_class,
+  +					pass1->comm, pass1->pid);
+  +	}
+  +
+   	/*
+   	 * Reschedule siblings
+   	 *
 
-static inline int setattr(pid_t pid, uint32_t policy, uint64_t flags,
-		   uint64_t runtime_ns, uint64_t deadline_ns, uint64_t period_ns)
-{
-	struct sched_attr_ a = {
-		.size = sizeof(a), .sched_policy = policy, .sched_flags = flags,
-		.sched_runtime = runtime_ns, .sched_deadline = deadline_ns,
-		.sched_period = period_ns,
-	};
-	return syscall(SYS_sched_setattr, pid, &a, 0) ? -errno : 0;
-}
+  #!/bin/bash
+  #
+  # Reproducer for core scheduling handing the server of a CPU's pass 1 pick to
+  # the task pass 2 replaced it with. Needs a kernel with the case 1 debug patch, an SMT
+  # topology, stress-ng, coresched and root.
+  #
+  # RT FIFO hogs starve the fair tasks, so the fair server runs them. Each load
+  # runs under its own core scheduling cookie. When a CPU's fair server picks a
+  # fair task while its sibling picks an RT task, the RT task's cookie wins and
+  # pass 2 replaces the fair task with a task of that cookie or with idle.
+  #
+  # usage: repro-1.sh [DURATION_S]
+  
+  DURATION=${1:-60}
+  N=$(nproc)
+  
+  dmesg -C
+  coresched new -- stress-ng --cpu "$N" --sched fifo --sched-prio 10 --timeout "${DURATION}s" &> /dev/null &
+  coresched new -- stress-ng --switch "$N" --sched fifo --sched-prio 50 --timeout "${DURATION}s" &> /dev/null &
+  coresched new -- stress-ng --cpu $((N * 2)) --cpu-load 20 --timeout "${DURATION}s" &> /dev/null &
+  coresched new -- stress-ng --switch "$N" --timeout "${DURATION}s" &> /dev/null &
+  wait
+  
+  dmesg | grep 'core pick: stale rq->dl_server'
+  echo "stale rq->dl_server hand-offs: $(cat /sys/module/core/parameters/dbg_core_1)"
 
-static inline int getattr(pid_t pid, struct sched_attr_ *a)
-{
-	memset(a, 0, sizeof(*a));
-	return syscall(SYS_sched_getattr, pid, a, sizeof(*a), 0) ? -errno : 0;
-}
+The case 2 patch reports the fast-path picks that run without their server.
 
-static inline void need_debugfs(void)
-{
-	if (access("/sys/kernel/debug/sched/debug", R_OK))
-		mount("debugfs", "/sys/kernel/debug", "debugfs", 0, NULL);
-	if (access("/sys/kernel/debug/sched/debug", R_OK)) {
-		perror("/sys/kernel/debug/sched/debug");
-		exit(2);
-	}
-}
+  --- a/kernel/sched/core.c
+  +++ b/kernel/sched/core.c
+  @@ -6291,6 +6291,12 @@ extern void task_vruntime_update(struct
+   
+   static void queue_core_balance(struct rq *rq);
+   
+  +/* REPRO: each CPU's pass 1 pick and server. core.dbg_core_2 counts drops */
+  +static DEFINE_PER_CPU(struct task_struct *, dbg_pass1_pick);
+  +static DEFINE_PER_CPU(struct sched_dl_entity *, dbg_pass1_dls);
+  +static atomic_t dbg_core_2;
+  +module_param_named(dbg_core_2, dbg_core_2.counter, int, 0444);
+  +
+   static struct task_struct *
+   pick_next_task(struct rq *rq, struct rq_flags *rf)
+   	__must_hold(__rq_lockp(rq))
+  @@ -6335,6 +6341,16 @@ pick_next_task(struct rq *rq, struct rq_
+   	if (rq->core->core_pick_seq == rq->core->core_task_seq &&
+   	    rq->core_pick) {
+   		next = rq->core_pick;
+  +		/* REPRO: pass 2 dropped the server that picked @next */
+  +		if (next == __this_cpu_read(dbg_pass1_pick) &&
+  +		    __this_cpu_read(dbg_pass1_dls) && !rq->core_dl_server) {
+  +			static DEFINE_RATELIMIT_STATE(dbg_rs, 5 * HZ, 10);
+  +
+  +			atomic_inc(&dbg_core_2);
+  +			if (__ratelimit(&dbg_rs))
+  +				printk_deferred(KERN_WARNING "core pick: rq->dl_server dropped for %s/%d (%ps), pass 1 picked it through a server\n",
+  +						next->comm, next->pid, next->sched_class);
+  +		}
+   		rq->dl_server = rq->core_dl_server;
+   		rq->core_pick = NULL;
+   		rq->core_dl_server = NULL;
+  @@ -6434,6 +6450,8 @@ restart:
+   
+   		rq_i->core_pick = p;
+   		rq_i->core_dl_server = rq_i->dl_server;
+  +		per_cpu(dbg_pass1_pick, i) = p;			/* REPRO */
+  +		per_cpu(dbg_pass1_dls, i) = rq_i->dl_server;	/* REPRO */
+   
+   		if (!max || prio_less(max, p, fi_before))
+   			max = p;
 
-/* dl_bw->total_bw of the root domain @cpu belongs to. */
-static inline long long total_bw(int cpu)
-{
-	FILE *f = fopen("/sys/kernel/debug/sched/debug", "r");
-	char line[256], *p;
-	long long v = 0;
-	int cur = -1, c;
+  #!/bin/bash
+  #
+  # Reproducer for core scheduling dropping the server of a sibling's pass 1
+  # pick that pass 2 kept. Needs a kernel with the case 2 debug patch, an SMT topology,
+  # stress-ng, coresched and root.
+  #
+  # RT FIFO hogs starve the fair tasks, so the fair servers run them. Each load
+  # runs under its own core scheduling cookie. When the max is a fair task, a
+  # sibling's fair server pick with the same cookie survives pass 2 and runs
+  # from the fast path without its server.
+  #
+  # usage: repro-2.sh [DURATION_S]
+  
+  DURATION=${1:-60}
+  N=$(nproc)
+  
+  dmesg -C
+  coresched new -- stress-ng --cpu "$N" --sched fifo --sched-prio 10 --timeout "${DURATION}s" &> /dev/null &
+  coresched new -- stress-ng --switch "$N" --sched fifo --sched-prio 50 --timeout "${DURATION}s" &> /dev/null &
+  coresched new -- stress-ng --cpu $((N * 2)) --cpu-load 20 --timeout "${DURATION}s" &> /dev/null &
+  coresched new -- stress-ng --switch "$N" --timeout "${DURATION}s" &> /dev/null &
+  wait
+  
+  dmesg | grep 'core pick: rq->dl_server dropped'
+  echo "server picks run without the server: $(cat /sys/module/core/parameters/dbg_core_2)"
 
-	if (!f) {
-		perror("open sched/debug");
-		exit(2);
-	}
-	while (fgets(line, sizeof(line), f)) {
-		if (sscanf(line, "dl_rq[%d]:", &c) == 1)
-			cur = c;
-		else if (cur == cpu && (p = strstr(line, "dl_bw->total_bw")) &&
-			 (p = strchr(p, ':'))) {
-			v = atoll(p + 1);
-			break;
-		}
-	}
-	fclose(f);
-	return v;
-}
+The case 3 patch widens the newidle lock drop by fair.dbg_newidle_delay_us
+once a fair task is queued and reports the hand-offs.
 
-static inline char task_state(pid_t pid)
-{
-	char path[64], buf[512], *p;
-	FILE *f;
+  --- a/kernel/sched/core.c
+  +++ b/kernel/sched/core.c
+  @@ -6197,6 +6197,30 @@ static void prev_balance(struct rq *rq,
+   }
+   
+   /*
+  + * REPRO: per CPU, whether a non-core pick is in progress and the server a
+  + * sibling's pick_task() left meanwhile. core.dbg_core_3 counts the hand-offs.
+  + */
+  +static DEFINE_PER_CPU(bool, dbg_np_pick);
+  +static DEFINE_PER_CPU(struct sched_dl_entity *, dbg_sibling_dls);
+  +static atomic_t dbg_core_3;
+  +module_param_named(dbg_core_3, dbg_core_3.counter, int, 0444);
+  +
+  +/* REPRO: @p is getting rq->dl_server. @srv_pick means the dl class picked @p */
+  +static void dbg_np_handoff(struct rq *rq, struct task_struct *p, bool srv_pick)
+  +{
+  +	struct sched_dl_entity *dls = __this_cpu_read(dbg_sibling_dls);
+  +	static DEFINE_RATELIMIT_STATE(dbg_rs, 5 * HZ, 10);
+  +
+  +	WRITE_ONCE(*this_cpu_ptr(&dbg_np_pick), false);
+  +	if (!srv_pick && dls && rq->dl_server == dls) {
+  +		atomic_inc(&dbg_core_3);
+  +		if (__ratelimit(&dbg_rs))
+  +			printk_deferred(KERN_WARNING "non-core pick: stale rq->dl_server from a sibling's core pick handed to %s/%d (%ps)\n",
+  +					p->comm, p->pid, p->sched_class);
+  +	}
+  +}
+  +
+  +/*
+    * Pick up the highest-prio task:
+    */
+   static inline struct task_struct *
+  @@ -6207,6 +6231,8 @@ __pick_next_task(struct rq *rq, struct r
+   	struct task_struct *p;
+   
+   	rq->dl_server = NULL;
+  +	__this_cpu_write(dbg_sibling_dls, NULL);	/* REPRO */
+  +	WRITE_ONCE(*this_cpu_ptr(&dbg_np_pick), true);	/* REPRO */
+   
+   	if (scx_enabled())
+   		goto restart;
+  @@ -6228,6 +6254,7 @@ __pick_next_task(struct rq *rq, struct r
+   		if (!p)
+   			p = pick_task_idle(rq, rf);
+   
+  +		dbg_np_handoff(rq, p, false);	/* REPRO */
+   		put_prev_set_next_task(rq, rq->donor, p);
+   		return p;
+   	}
+  @@ -6240,6 +6267,7 @@ restart:
+   		if (unlikely(p == RETRY_TASK))
+   			goto restart;
+   		if (p) {
+  +			dbg_np_handoff(rq, p, class == &dl_sched_class);	/* REPRO */
+   			put_prev_set_next_task(rq, rq->donor, p);
+   			return p;
+   		}
+  @@ -6280,8 +6308,13 @@ static inline struct task_struct *pick_t
+   
+   	for_each_active_class(class) {
+   		p = class->pick_task(rq, rf);
+  -		if (p)
+  +		if (p) {
+  +			/* REPRO: a sibling picks during @rq's non-core pick */
+  +			if (cpu_of(rq) != smp_processor_id() &&
+  +			    READ_ONCE(per_cpu(dbg_np_pick, cpu_of(rq))))
+  +				per_cpu(dbg_sibling_dls, cpu_of(rq)) = rq->dl_server;
+   			return p;
+  +		}
+   	}
+   
+   	BUG(); /* The idle class should always have a runnable task. */
+  --- a/kernel/sched/fair.c
+  +++ b/kernel/sched/fair.c
+  @@ -21,6 +21,7 @@
+    *  Copyright (C) 2007 Red Hat, Inc., Peter Zijlstra
+    */
+   #include <linux/energy_model.h>
+  +#include <linux/delay.h>	/* REPRO */
+   #include <linux/mmap_lock.h>
+   #include <linux/jiffies.h>
+   #include <linux/math.h>
+  @@ -14849,6 +14850,10 @@ static inline bool nohz_idle_balance(str
+   static inline void nohz_newidle_balance(struct rq *this_rq) { }
+   #endif /* !CONFIG_NO_HZ_COMMON */
+   
+  +/* REPRO: fair.dbg_newidle_delay_us, see sched_balance_newidle() */
+  +static unsigned int dbg_newidle_delay_us;
+  +module_param(dbg_newidle_delay_us, uint, 0644);
+  +
+   /*
+    * sched_balance_newidle is called by schedule() if this_cpu is about to become
+    * idle. Attempts to pull tasks from other CPUs.
+  @@ -14968,6 +14973,10 @@ static int sched_balance_newidle(struct
+   			break;
+   	}
+   
+  +	/* REPRO: widen the drop after the cost update with fair tasks queued */
+  +	if (dbg_newidle_delay_us && data_race(this_rq->cfs.h_nr_queued))
+  +		udelay(dbg_newidle_delay_us);
+  +
+   	raw_spin_rq_lock(this_rq);
+   
+   	if (curr_cost > this_rq->max_idle_balance_cost)
 
-	snprintf(path, sizeof(path), "/proc/%d/stat", pid);
-	f = fopen(path, "r");
-	if (!f)
-		return '?';
-	if (!fgets(buf, sizeof(buf), f))
-		buf[0] = 0;
-	fclose(f);
-	p = strrchr(buf, ')');
-	return p && p[1] && p[2] ? p[2] : '?';
-}
+  #!/bin/bash
+  #
+  # Reproducer for a sibling's core-wide pick leaving rq->dl_server set in a
+  # non-core pick that released the rq lock before core scheduling got enabled.
+  # Needs a kernel with the case 3 debug patch, an SMT topology, stress-ng, coresched
+  # and root.
+  #
+  # RT FIFO hogs on one thread of each core make the fair servers run there.
+  # Sleeping fair tasks make the picks pull tasks in newidle balancing, and the
+  # knob widens the rq lock release once a fair task is queued. A busy group
+  # gets a new cookie and has it cleared in a loop, which enables and disables
+  # core scheduling and makes the busy tasks' CPUs run core-wide selections
+  # right after each enable.
+  #
+  # usage: repro-3.sh [DURATION_S] [DELAY_US]
+  
+  DURATION=${1:-60}
+  DELAY_US=${2:-2000}
+  KNOB=/sys/module/fair/parameters/dbg_newidle_delay_us
+  N=$(nproc)
+  
+  [ -w $KNOB ] || { echo "$KNOB missing, is the case 3 debug patch applied?"; exit 1; }
+  dmesg -C
+  echo "$DELAY_US" > $KNOB
+  
+  stress-ng --cpu $((N / 2)) --taskset even --cpu-load 95 --sched fifo --sched-prio 10 \
+  	--timeout "${DURATION}s" &> /dev/null &
+  stress-ng --cpu $((N * 2)) --cpu-load 20 --timeout "${DURATION}s" &> /dev/null &
+  stress-ng --switch "$N" --timeout "${DURATION}s" &> /dev/null &
+  setsid stress-ng --cpu "$N" --cpu-load 50 --timeout "${DURATION}s" &> /dev/null &
+  BUSY=$!
+  sleep 1
+  
+  # the toggler runs above the RT hogs, or they starve it
+  chrt -f 90 bash -c '
+  	end=$((SECONDS + $1))
+  	while [ $SECONDS -lt $end ]; do
+  		coresched new -t pgid -d $2 || break
+  		sleep 0.01
+  		coresched copy -s $$ -t pgid -d $2 || break
+  		sleep 0.02
+  	done
+  ' toggler $((DURATION - 2)) $BUSY
+  wait
+  echo 0 > $KNOB
+  
+  dmesg | grep 'stale rq->dl_server from a sibling'
+  echo "sibling-written rq->dl_server hand-offs: $(cat /sys/module/core/parameters/dbg_core_3)"
 
-/* Wait until @pid is asleep (S) in the kernel. */
-static inline void wait_sleeping(pid_t pid)
-{
-	for (int i = 0; i < 1000 && task_state(pid) != 'S'; i++)
-		usleep(1000);
-}
+Thanks.
 
-/* A child that blocks in read() and never wakes up by itself. */
-static inline pid_t spawn_sleeper(void)
-{
-	int fd[2];
-	pid_t pid;
-	char ch;
-
-	if (pipe(fd))
-		exit(2);
-	pid = fork();
-	if (pid == 0) {
-		close(fd[1]);
-		if (read(fd[0], &ch, 1) < 0)
-			_exit(1);
-		_exit(0);
-	}
-	close(fd[0]);
-	wait_sleeping(pid);
-	return pid;
-}
-
-static inline void reap(pid_t pid)
-{
-	kill(pid, SIGKILL);
-	waitpid(pid, NULL, 0);
-	usleep(200 * 1000);	/* well past any 0-lag time */
-}
-
-static inline const char *bw_str(long long bw)
-{
-	static char buf[4][48];
-	static int i;
-	char *b = buf[i++ & 3];
-
-	snprintf(b, 48, "%.3f CPU (%lld)", (double)bw / BW_UNIT, bw);
-	return b;
-}
-
-/* Number of threads whose policy is SCHED_DEADLINE (field 41 of stat). */
-static inline int count_dl_tasks(void)
-{
-	char path[600], buf[1024], *s;
-	struct dirent *p, *t;
-	DIR *pd, *td;
-	FILE *f;
-	int n = 0, i;
-
-	pd = opendir("/proc");
-	while (pd && (p = readdir(pd))) {
-		if (p->d_name[0] < '0' || p->d_name[0] > '9')
-			continue;
-		snprintf(path, sizeof(path), "/proc/%s/task", p->d_name);
-		td = opendir(path);
-		while (td && (t = readdir(td))) {
-			if (t->d_name[0] == '.')
-				continue;
-			snprintf(path, sizeof(path), "/proc/%s/task/%s/stat",
-				 p->d_name, t->d_name);
-			f = fopen(path, "r");
-			if (!f)
-				continue;
-			s = fgets(buf, sizeof(buf), f) ? strrchr(buf, ')') : NULL;
-			fclose(f);
-			for (i = 0; s && i < 39; i++)
-				s = strchr(s + 1, ' ');
-			if (s && atoi(s + 1) == SCHED_DEADLINE_)
-				n++;
-		}
-		if (td)
-			closedir(td);
-	}
-	if (pd)
-		closedir(pd);
-	return n;
-}
-
-/* After a leak, ask for a reservation of the same size for a new task. */
-static inline void try_fresh_admission(uint64_t runtime_ns,
-				       uint64_t period_ns)
-{
-	int dl = count_dl_tasks();
-	pid_t pid = spawn_sleeper();
-	int rc = setattr(pid, SCHED_DEADLINE_, 0, runtime_ns, period_ns,
-			 period_ns);
-
-	printf("DL tasks left: %d; new %.3f-CPU request: %s\n", dl,
-	       (double)runtime_ns / period_ns,
-	       rc ? strerror(-rc) : "accepted");
-	reap(pid);
-}
-
-/* Reading this sysctl makes sched_rt_handler() call rebuild_sched_domains(),
- * whose dl_rebuild_rd_accounting() recomputes total_bw from the servers and
- * the SCHED_DEADLINE tasks that actually exist. */
-static inline long long recomputed_total_bw(int cpu)
-{
-	char buf[32];
-	int fd = open("/proc/sys/kernel/sched_rt_runtime_us", O_RDONLY);
-
-	if (fd >= 0) {
-		if (read(fd, buf, sizeof(buf)) < 0)
-			perror("sched_rt_runtime_us");
-		close(fd);
-	}
-	return total_bw(cpu);
-}
-
-#define RUNTIME	(25 * 1000 * 1000ULL)	/* 25ms / 50ms = 0.5 CPU */
-#define PERIOD	(50 * 1000 * 1000ULL)
-#define CG	"/sys/fs/cgroup"
-#define PART	CG "/dl-repro"
-#define MAXF	1000
-
-static int put(const char *path, const char *val)
-{
-	int fd = open(path, O_WRONLY), rc = 0;
-
-	if (fd < 0 || write(fd, val, strlen(val)) < 0)
-		rc = -errno;
-	if (fd >= 0)
-		close(fd);
-	return rc;
-}
-
-static void get(const char *path, char *buf, int len)
-{
-	int fd = open(path, O_RDONLY), n = fd < 0 ? 0 : read(fd, buf, len - 1);
-
-	buf[n > 0 ? n : 0] = 0;
-	if (fd >= 0)
-		close(fd);
-}
-
-static int move(pid_t pid, const char *cg)
-{
-	char path[128], v[32];
-
-	snprintf(path, sizeof(path), "%s/cgroup.procs", cg);
-	snprintf(v, sizeof(v), "%d\n", pid);
-	return put(path, v);
-}
-
-static int iso;
-
-static void show(const char *what, long long r0, long long p0)
-{
-	long long r = total_bw(0), p = total_bw(iso);
-
-	printf("%-26s root %6.3f (%+.3f)   partition %6.3f (%+.3f)\n",
-	       what, (double)r / BW_UNIT, (double)(r - r0) / BW_UNIT,
-	       (double)p / BW_UNIT, (double)(p - p0) / BW_UNIT);
-}
-
-int main(void)
-{
-	pid_t pid, filler[MAXF];
-	long long r0, p0;
-	char buf[64], cpu[16];
-	int rc, n, i, rt_runtime, rt_period;
-
-	need_debugfs();
-	/* Read now: reading these rebuilds the root domains (see
-	 * recomputed_total_bw()). */
-	get("/proc/sys/kernel/sched_rt_runtime_us", buf, sizeof(buf));
-	rt_runtime = atoi(buf);
-	get("/proc/sys/kernel/sched_rt_period_us", buf, sizeof(buf));
-	rt_period = atoi(buf);
-	iso = sysconf(_SC_NPROCESSORS_ONLN) - 1;
-	if (iso < 1) {
-		fprintf(stderr, "needs at least 2 CPUs\n");
-		return 2;
-	}
-	if (access(CG "/cgroup.controllers", F_OK))
-		mount("none", CG, "cgroup2", 0, NULL);
-	put(CG "/cgroup.subtree_control", "+cpuset");
-	mkdir(PART, 0755);
-	snprintf(cpu, sizeof(cpu), "%d", iso);
-	put(PART "/cpuset.cpus", cpu);
-	put(PART "/cpuset.cpus.exclusive", cpu);
-	put(PART "/cpuset.cpus.partition", "root");
-	get(PART "/cpuset.cpus.partition", buf, sizeof(buf));
-	if (strncmp(buf, "root", 4)) {
-		fprintf(stderr, "could not make cpu%d a partition: %s", iso, buf);
-		return 2;
-	}
-
-	pid = spawn_sleeper();
-	rc = setattr(pid, SCHED_DEADLINE_, 0, RUNTIME, PERIOD, PERIOD);
-	if (rc) {
-		fprintf(stderr, "sched_setattr: %s\n", strerror(-rc));
-		return 2;
-	}
-	r0 = total_bw(0);
-	p0 = total_bw(iso);
-	printf("cpu%d is a partition; sleeping DL task %d (0.5 CPU) in the root "
-	       "cgroup\ntotal_bw in CPUs (change since start):\n", iso, pid);
-	show("start:", r0, p0);
-	rc = move(pid, PART);
-	show(rc ? "move out FAILED:" : "moved into the partition:", r0, p0);
-	rc = move(pid, CG);
-	show(rc ? "move back FAILED:" : "moved back to the root:", r0, p0);
-	printf("(expected: +0.000 and +0.000; the task is in state %c and has "
-	       "not run)\n", task_state(pid));
-
-	/* The root domain now has 0.5 CPU more "free" than it really has. */
-	for (n = 0; n < MAXF; n++) {
-		filler[n] = spawn_sleeper();
-		if (setattr(filler[n], SCHED_DEADLINE_, 0, 10000000, 100000000,
-			    100000000)) {
-			reap(filler[n]);
-			break;
-		}
-	}
-	printf("root domain admits %d more 0.1-CPU tasks: %.3f + %d x 0.1 = "
-	       "%.3f CPU\nreserved, limit %.3f CPU (%d CPUs x %d/%d)\n", n,
-	       (double)r0 / BW_UNIT, n, (double)r0 / BW_UNIT + n * 0.1,
-	       iso * (double)rt_runtime / rt_period, iso, rt_runtime,
-	       rt_period);
-	for (i = 0; i < n; i++)
-		reap(filler[i]);
-	show("those tasks exited:", r0, p0);
-
-	reap(pid);
-	show("the DL task exited:", r0, p0);
-	try_fresh_admission(1000000, 100000000);
-	try_fresh_admission(50000000, 100000000);
-	r0 = recomputed_total_bw(0);	/* rebuild first, then read both */
-	printf("after a root-domain rebuild (recomputed): root %.3f, "
-	       "partition %.3f\n", (double)r0 / BW_UNIT,
-	       (double)total_bw(iso) / BW_UNIT);
-
-	/* Same stale rq: a SCHED_OTHER task moved into the partition while
-	 * asleep cannot be made SCHED_DEADLINE before it has run. */
-	pid = spawn_sleeper();
-	rc = move(pid, PART);
-	if (!rc)
-		rc = setattr(pid, SCHED_DEADLINE_, 0, 1000000, 100000000,
-			     100000000);
-	printf("moved in while asleep, then SCHED_DEADLINE: %s\n",
-	       rc ? strerror(-rc) : "accepted");
-	reap(pid);
-
-	put(PART "/cpuset.cpus.partition", "member");
-	rmdir(PART);
-	return 0;
-}
+--
+tejun
