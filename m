@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.70.190.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=84.42.129.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793469007;
-	b=D5oRgAYSd/JuUqR0qAga5O+G1c6+x+a8MV+WlP7jq1YKRCqUdn5i/1XYkK61+tVS7E+8
-	 do38af2ywxntuU2hdvMvGf6nafvEVpT1fvPsju9ikSWEOfVZAgkJosivsLlukiz2JsCeW
-	 RsBQ+cmGsBygZMGjl/DxDR0hfHihBslkv0wzNTHj4f4C+OAKJm8PC/ou6GCvg3GA1UwnM
-	 yNCOKxlXPNSTM38eaynZUwWo3M7Hj87sfXhfZLufKMs2nN5K2H3d97ZvuwiJzpfaMgIYd
-	 X66p1jZh/Kbhw2obU1FpBQlJZa+Mv0mqRH3i8Pao7cyKcDC27/oLOQlwJbfXm8XxgeA==
+	t=1793469070;
+	b=4PBPpEYcIqEOE5UFGPUrvGvzWw8QsPt3D/z+6UZu7UjG1tpO3RoVCj2rGTuTAGDDOp8s
+	 D9ed39LOyXqR4uKPv4ec/Xc+rylnyMGRGvQ3gJx2l+QP2AxRaU3UV2R5b+SZaQ+P+I7Y9
+	 sxVvHI8CLaj41jTO/2pHRk2wnKHA4RzJjh+p2KgcWAwdhUQcEnL8fQY3jpUmT3UTuV2kD
+	 OPWdpDGD2+2YzvPlgPw0+AYLyBq349qGC2fhlxkH8cLqXKXFxuRc2eV5eq38VSC3IOf6x
+	 8RQc9/ZiZkSk7RaVYg0cT+ctvfcCaJKNf/B6niEt9VDONbr4nDTp4z85Us1z2jri4xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793469007;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-Spam-Status:X-Spam-Checker-Version;
-	bh=a6S6zBkzaXWw79IkNdAVgoQcByVNihqtZsvrPAeoS6Q=;
-	b=lgD5ybxJBMil+dUnDmnh9S8YXrTikcpVdP5hcPXL85nmgFsPJv881BxRTIzjFZUvmfcd
-	 Fk+il2TnzwqoIeaJ36Vxne6PPHi+ZDko+9Q5fX6bTDI1OzhUGo3Jq73GFIY9CbEymrqnG
-	 0jPd2A48F694/XuFdsC9qxYGO/UhaqX0xSUhU13ZbN4AJLQeofYgPwIgAt9MAnjZocjS5
-	 yVGFREmzgZNHXdbq93UIn/ut0XiMwDUmWJv8Huh6/R4LD7uQalrRCOAQjGSzGEy7HDhKz
-	 vBl3n0IXhprjJJPtgsmItYjSV75DSX352sLJr9jV38/FQxuANMiTERe7Y//f+dpZ46A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793469070;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:Autocrypt:
+	 In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=IQoWXAKk9lqD1Qmoebed09zFK+xDXdwlybu0gIZTbec=;
+	b=ihW4Yi2PQ98m2I9FQct5GkshNVv0MrGFNfuS2NU7bybEXlS/+JHwefwR5NbIjZjauIt3
+	 i8wGEG28EtDQLxhK/67r664NFjJClWsXLY+jQ5cjckDOCfYcG9QOTysSCbdvJg3M3CnC0
+	 WEwpgFlGq+SQRNlYEaEVuLGtLBOvsUfvc3LWvX4Dfkzda1Dq60fx6LgjSi4fcbyYa6Tb4
+	 4vs3e17lQOrKjw+svir/y76cp1EJwnVMhwRyK7plzeoolnr01mr7tIq87W8UMXDlx+y+0
+	 JII0FwvjPaU/9vndjLIENEeJvVjyWuamStpKKqsosabEZaUuMdCkw+5ixaLUrc+T+sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=netfilter.org;
-	spf=pass smtp.mailfrom=netfilter.org;
-	dkim=pass header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=GZ3a7I38;
-	arc=none smtp.remote-ip=217.70.190.124
-Received: from mail.netfilter.org (mail.netfilter.org [217.70.190.124])
+	dmarc=pass header.from=ixit.cz;
+	spf=pass smtp.mailfrom=ixit.cz;
+	dkim=pass header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=qWkuBQNY;
+	arc=none smtp.remote-ip=84.42.129.46
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id CEC0D606A323;
-	Sat, 31 Oct 2026 17:50:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEC0D606A323
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=netfilter.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=netfilter.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE66E606A31D;
+	Sat, 31 Oct 2026 17:51:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE66E606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=netfilter.org header.i=@netfilter.org header.a=rsa-sha256 header.s=2025 header.b=GZ3a7I38
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=netfilter.org;
-	s=2025; t=1793469004;
-	bh=a6S6zBkzaXWw79IkNdAVgoQcByVNihqtZsvrPAeoS6Q=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=GZ3a7I38eKFp561vuK/AXhasrUP+s7dSRtqh05f2QJWxzo/kuHQZdTcYJQg4gD587
-	 pJPihY0p/mXlSkYcEE+z/vfltlZglXFsufYDfR1BVamzp8s0iYvZFgeVqx3HM2BJIp
-	 3LJmYEIcm/0bROUm7RZuExGue9L4P5++P2jxLxNYjMcnhtket2iq2BHbIZ/zoRhYT8
-	 Lw5D3e/EOh83AdB8rqpzLQQrDhzOy9jzmEjsHej2+3QWX391Gr6r9fi4buh196ckm1
-	 B0K1hiNxIK45JvtHJeBzHicO9G3k8vKbVFYXc44nW/ICF1rbOeCU/bM8fkC3m/BGtP
-	 kKdGHPTdDc73w==
-Received: from netfilter.org (mail-agni [217.70.190.124])
-	by mail.netfilter.org (Postfix) with UTF8SMTPSA id 460A96007C;
-	Sat, 31 Oct 2026 18:50:04 +0100 (CET)
-Date: Sat, 31 Oct 2026 18:50:02 +0100
-From: Pablo Neira Ayuso <pablo@netfilter.org>
-To: joasantonio108@gmail.com
-Cc: Florian Westphal <fw@strlen.de>, Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, netfilter-devel@vger.kernel.org,
-	coreteam@netfilter.org, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH nf] netfilter: nft_set_rbtree: do not pair an expired
- start with another interval's end
-Message-ID: <auYqSpBFtC0nTDDd@chamomile>
-References: <20261031-b4-nft-rbtree-gc-v1-1-51d087c187a6@gmail.com>
- <auYpCzdrOsoWr84Z@chamomile>
+	dkim=pass (1024-bit key, unprotected) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=qWkuBQNY
+Received: from [IPV6:2a03:a780:1ab:100::816] (unknown [IPv6:2a03:a780:1ab:100::816])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 74C4D534039C;
+	Sat, 31 Oct 2026 18:51:01 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1793469061;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=IQoWXAKk9lqD1Qmoebed09zFK+xDXdwlybu0gIZTbec=;
+	b=qWkuBQNYm8KcojK3IiyoBl4GkijX36G3HPKFqaSBDfY8IL38/4dS79wFvr6ExE7xDWTZfK
+	XXp1nB9qy1/MIdhVfhGN+0B88c6pWFN2tphkWN0aPTwTgGFIRSZ0hDRSufs331CdLTnCGf
+	4uRwZ35twK+UBJSolp+gANQpyEANNWQ=
+Message-ID: <85282bf5-6d08-4d4f-b4b8-c80bb4bb2317@ixit.cz>
+Date: Sat, 31 Oct 2026 18:51:00 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,165 +60,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <auYpCzdrOsoWr84Z@chamomile>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: sdm670-google-common: set chassis-type
+ property
+To: =?UTF-8?Q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Arnaud Ferraris <aferraris@debian.org>,
+ phone-devel@vger.kernel.org
+References: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <20261030-pixel3a-handset-v1-1-0ad9b0d17a76@sigxcpu.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 06:44:43PM +0100, Pablo Neira Ayuso wrote:
-> On Sat, Oct 31, 2026 at 03:54:05PM +0000, Joas Antonio dos Santos via B4 Relay wrote:
-> > From: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> > 
-> > Garbage collection of an expired interval start element also removes its
-> > end element. Both the insertion path, nft_rbtree_gc_elem(), and the
-> > commit path, nft_rbtree_gc_scan(), find that end element by its position
-> > in the tree, and both can pick the end element of a different, live
-> > interval:
-> >
-> > - nft_rbtree_gc_elem() walks towards higher keys and skips end elements
-> >   that are not active in both generations. If the end element of the
-> >   expired interval is being deleted in the same transaction, the walk
-> >   skips it, passes the start element of the next interval and takes that
-> >   interval's end element instead.
-> > 
-> > - nft_rbtree_gc_scan() remembers the last end element it visited in
-> >   rbe_end, but does not clear it when it visits a live start element. An
-> >   expired start element without an end element (a start-only element, or
-> >   an interval whose end element was already removed) then takes the end
-> >   element of the live interval above it.
-> > 
-> > In both cases the live interval [S, E) loses E: the set no longer holds
-> > the interval that userspace added, and deleting [S, E) later fails with
-> > ENOENT.
-> > 
-> > In the insertion path, stop the walk at the first element that is active
-> > in the current generation. Elements added by this transaction are still
-> > skipped, as intended by commit 60c0c230c6f0 ("netfilter: nft_set_rbtree:
-> > skip end interval element from gc"). If that element is a start element,
-> > the expired interval has no end element. If it is an end element that
-> > this transaction is removing, leave it to the transaction. In the commit
-> > path, clear rbe_end when a live start element is visited.
-> > 
-> > Reproduced on current mainline under QEMU (arm64, KASAN), from an
-> > unprivileged user in a new user and network namespace:
-> > 
-> > - insertion path: add [10,20) with a 50ms timeout and [30,40), wait,
-> >   then in one batch delete the end element 20 and add [12,13).
+On 30/10/2026 22:27, Guido GÃ¼nther wrote:
+> From: Arnaud Ferraris <aferraris@debian.org>
 > 
-> I don't follow.
+> The Pixel 3a/3a XL are mobile phones, we should ensure userspace can be
+> aware of that by setting the `chassis-type` property.
 > 
-> You add [10,20) with 50ms...
+> Signed-off-by: Arnaud Ferraris <aferraris@debian.org>
+> Signed-off-by: Guido Günther <agx@sigxcpu.org>
+> ---
+>   arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> and [30,40) with... what timeout?
-> 
-> you wait how long?
-> 
-> You follow up with another batch an you only delete 20?
-> 
-> >   Before: a GET for 45 finds an element, the end element 40 is gone and
-> >   deleting [30,40) fails with ENOENT. After: 45 is not found, 40 is
-> >   present and the delete succeeds.
-> > 
-> > - commit path: add [30,40) and a start-only element 10 with a 50ms
-> >   timeout to a set with a 100ms gc interval, wait, then add [200,201),
-> >   whose insertion walk stops at the highest element, so only the
-> >   commit-time scan reaches 10. Before: the end element 40 is gone and
-> >   deleting [30,40) fails with ENOENT. After: both work.
-> > 
-> > Normal expiry, and a new interval whose end element shares the key of an
-> > expired start element (the case handled by 60c0c230c6f0), behave the same
-> > before and after. About 39000 random batches on interval sets with
-> > timeouts, with and without slab/page allocation fault injection, showed
-> > no KASAN, lockdep or WARN reports with the patch applied.
-
-Hm, no KASAN, no splat, what's the issue, really?
-
-> > The insertion path issue was found with a small nfnetlink fuzzer. Both
-> > paths had been pointed out earlier by the netdev AI review of commit
-> > 86b6471e690c ("netfilter: nft_set_rbtree: skip transaction elements
-> > during GC"), see the Link below.
-> > 
-> > Fixes: f718863aca46 ("netfilter: nft_set_rbtree: fix overlap expiration walk")
-> > Fixes: 8d8540c4f5e0 ("netfilter: nft_set_rbtree: add timeout support")
-> > Link: https://lore.kernel.org/all/179063970372.3145.17414936987144600093@kernel.org/
-> > Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> > ---
-> > Tool-use note: the fuzzer, the directed tests and the analysis were
-> > prepared with help from an LLM-based assistant; I reviewed the change
-> > and built and ran all tests myself. Test harness available on request.
-> > 
-> > This is a resend through the kernel.org web endpoint: my earlier
-> > submission of this patch was blocked by my mail provider and never
-> > reached the lists.
-> > ---
-> >  net/netfilter/nft_set_rbtree.c | 23 +++++++++++++++++++----
-> >  1 file changed, 19 insertions(+), 4 deletions(-)
-> > 
-> > diff --git a/net/netfilter/nft_set_rbtree.c b/net/netfilter/nft_set_rbtree.c
-> > index fbe1750f1..086823067 100644
-> > --- a/net/netfilter/nft_set_rbtree.c
-> > +++ b/net/netfilter/nft_set_rbtree.c
-> > @@ -215,17 +215,25 @@ nft_rbtree_gc_elem(const struct nft_set *__set, struct nft_rbtree *priv,
-> >  	struct nft_set *set = (struct nft_set *)__set;
-> >  	struct rb_node *prev = rb_prev(&rbe->node);
-> >  	struct net *net = read_pnet(&set->net);
-> > +	u8 cur_genmask = nft_genmask_cur(net);
-> >  	struct nft_rbtree_elem *rbe_prev;
-> >  
-> >  	/* search for end interval coming before this element.
-> >  	 * end intervals don't carry a timeout extension, they
-> >  	 * are coupled with the interval start element.
-> > +	 *
-> > +	 * Skip elements added in this transaction. The first element
-> > +	 * that is active in the current generation is either the end
-> > +	 * element of this interval or the start element of another
-> > +	 * interval, in which case this interval has no end element.
-> >  	 */
-> >  	while (prev) {
-> >  		rbe_prev = rb_entry(prev, struct nft_rbtree_elem, node);
-> > -		if (nft_rbtree_interval_end(rbe_prev) &&
-> > -		    nft_set_elem_active(&rbe_prev->ext, NFT_GENMASK_ANY))
-> > +		if (nft_set_elem_active(&rbe_prev->ext, cur_genmask)) {
-> > +			if (!nft_rbtree_interval_end(rbe_prev))
-> > +				prev = NULL;
-> >  			break;
-> > +		}
-> >  
-> >  		prev = rb_prev(prev);
-> >  	}
-> > @@ -233,7 +241,11 @@ nft_rbtree_gc_elem(const struct nft_set *__set, struct nft_rbtree *priv,
-> >  	rbe_prev = NULL;
-> >  	if (prev) {
-> >  		rbe_prev = rb_entry(prev, struct nft_rbtree_elem, node);
-> > -		nft_rbtree_gc_elem_move(net, set, priv, rbe_prev);
-> > +		/* end element is being removed by this transaction */
-> > +		if (nft_set_elem_active(&rbe_prev->ext, NFT_GENMASK_ANY))
-> > +			nft_rbtree_gc_elem_move(net, set, priv, rbe_prev);
-> > +		else
-> > +			rbe_prev = NULL;
-> >  	}
-> >  
-> >  	nft_rbtree_gc_elem_move(net, set, priv, rbe);
-> > @@ -911,8 +923,11 @@ static void nft_rbtree_gc_scan(struct nft_set *set)
-> >  			rbe_end = rbe;
-> >  			continue;
-> >  		}
-> > -		if (!__nft_set_elem_expired(&rbe->ext, tstamp))
-> > +		if (!__nft_set_elem_expired(&rbe->ext, tstamp)) {
-> > +			/* rbe_end belongs to this live interval */
-> > +			rbe_end = NULL;
-> >  			continue;
-> > +		}
-> >  
-> >  		/* end element needs to be removed first, it has
-> >  		 * no timeout extension.
-> > 
-> > ---
-> > base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
-> > change-id: 20261031-b4-nft-rbtree-gc-1d9c72dba2bd
-> > 
-> > Best regards,
-> > -- 
-> > Joas Antonio dos Santos <joasantonio108@gmail.com>
-> > 
-> > 
-> 
+Reviewed-by: David Heidelberg <david@ixit.cz
