@@ -1,108 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793462707;
-	b=FJhXUho0JBW9YHw+cgM6I6EqN43SNNpvWHT8lMRGbtp3kc9WIGIZgBC5Lnu1NkPCkns2
-	 XINsk+abw4jE9bJihO8ubqR6QtmhupWx6E47TpQEipwOU9BZJ5nh1bqzc1s3b2BSEUvus
-	 lZTaGAGoFiH3qdmwA31gi6g+P5hUB/m71yQd/cIpCQbNjCEmrU+H2LC5l+GEZhv+BAQH5
-	 BMLcauFmTmz7xtafxWdutV1ta7dgh808eIUMsudbKoL8Wr5zQJpmloLqbJLVAUDJwkEta
-	 V8kexn63otcaolR0/oxYXs2sF3ULN0gZeRIowuGwVGoyNzX8IBIBu+V16p012W6oiiA==
+	t=1793462756;
+	b=alWdeeIHQllwqpg88ztIfYZkhgY+cDtZJc/P5ea2JfgaDjG36LecM0i6I0J75cDgcN+C
+	 f33/qzQ03HAsuMA4SSrDdTLpPn9m3GF3YhpII3uKb2c9aZVu0K7dzN7/98/gYDYzKPW6H
+	 nqdDn83MxrqSFDVPijQwalbHiU3T/3YQj6ZYpOqtdX0lqrgk9iSafu6c3guW20mpd9llC
+	 AVvFSqyEBYzMn/NkciPim2DOqwabc23AS3mPZOMgA3BBUmp9ObKeXv06BPS/3B2Y3XWvd
+	 o1UjpQgI0AoaebnqEhca75igFk9zzryPCLsotSWjMQ64Zs3WoqVRwjcMrDSlLfw8I0A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793462707;
-	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
-	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=rllM8VXLfo/aWVmuH/zbhTItmWlijFXocU2MagJhvkMZt5WhOn6C7pmpwimjieNQQr4L
-	 YUuwfMziW3AtDsDzEiLSv8ngMzGYGryHSqU8iXAoXN13p+K/XqtNedcQ9Xaf6fVVLBvtJ
-	 gpmVgyx0QjXGPWf2Zd6MlULzEhKde0QAGA+6iipA847OPw3PXZLAp4Ba8THAHsmLELbzp
-	 wBIccTuU+6b+09pava/gkaDM68SKmafF14DZg1QsoUFoidjEqEcakt4qOYIAWMTTCqlqf
-	 zPU0RG6/qIBenKY8XMSXXF45pApg4gJotkWCi6JsIGEeW4F3yIEfoznbrphujY5GxvA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793462756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=yoVQweUhBNvvHzzBSqhEC+QBmmp2aRaw/Ip0znuFVys=;
+	b=PJhnFUdiBAUqC9shV6Az0Z84Oo9+J6zkqzb0oGfxwLMyzrRXdsL1c96Y0U3MbKWF4lWz
+	 AjIdaS6UutPdu0d5szLl9rUCYGB0NwliyFmxuNxmV136K3fZ3essgcbHrxmUzQf2xK+4F
+	 FA0YubmQqxD7IQgvxGtzJVLs7EJawSW/OGSCsH9oR9lCG+IF/2nM+qyVGTjkIW04DHVS5
+	 HwaMGF0MDdwiZhQLGK2p1S4/QZzFLG2kbfjU82XNmaLeSUTMbihuyL6WnS6fea8w+KW2M
+	 HtcxuDo0N+QBWDKUt4YK/68zb8qdNJ3GkEClWAHjErMcHkCW/l47IyJ/36zSh5uJAXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=suse.de;
-	spf=pass smtp.mailfrom=suse.de;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5;
-	arc=none smtp.remote-ip=195.135.223.130
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ABKsVenN;
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 780C1606A31C;
-	Sat, 31 Oct 2026 16:05:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 780C1606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451B6606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 16:05:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 451B6606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=vH9Y4anJ;
-	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=auAW+fm5
-Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 9B782222C8;
-	Sat, 31 Oct 2026 16:05:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793462704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=vH9Y4anJTJfCZne4ZOQofOwcpRJkXeP8iIaDpF0NIUikwkz/PeeizFYRnQpQBZ5fJWF5kh
-	nVY7YxsCecy7BSCK4q+RkU1pLUxOp3m1Szu33pzDUfZxIYKvBYS+/6hcdnWhBptNWG+aNM
-	kVPS/gZmgzhDkCt0vpdh5eHxV2+F75Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793462704;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=auAW+fm58VMP6sK6e6x+DRxSzfOvjUdIm3GqFtQTDBzHANATokJd5w5GVFIxIs3t1c3tNj
-	YvRXEI/cmhIncYDQ==
-Authentication-Results: smtp-out1.suse.de;
-	none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1793462704; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=vH9Y4anJTJfCZne4ZOQofOwcpRJkXeP8iIaDpF0NIUikwkz/PeeizFYRnQpQBZ5fJWF5kh
-	nVY7YxsCecy7BSCK4q+RkU1pLUxOp3m1Szu33pzDUfZxIYKvBYS+/6hcdnWhBptNWG+aNM
-	kVPS/gZmgzhDkCt0vpdh5eHxV2+F75Q=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1793462704;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uHdBAGKxNpYQx5L7VG+OolF5sikmRSMFd45XczdhFoA=;
-	b=auAW+fm58VMP6sK6e6x+DRxSzfOvjUdIm3GqFtQTDBzHANATokJd5w5GVFIxIs3t1c3tNj
-	YvRXEI/cmhIncYDQ==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 4A346132D3;
-	Sat, 31 Oct 2026 16:05:04 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id zGDwCLAR5mrtMQAAD6G6ig
-	(envelope-from <tiwai@suse.de>); Sat, 31 Oct 2026 16:05:04 +0000
-Date: Sat, 31 Oct 2026 17:05:03 +0100
-Message-ID: <87se1lrh3k.wl-tiwai@suse.de>
-From: Takashi Iwai <tiwai@suse.de>
-To: chris@nilk.net
-Cc: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] ALSA: hda/realtek: Enable bass speakers on Alienware m17 R3
-In-Reply-To: <20261029-alc289-m17r3-v1-1-5d3eac605e7a@nilk.net>
-References: <20261029-alc289-m17r3-v1-1-5d3eac605e7a@nilk.net>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ABKsVenN
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so21658345e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:05:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793462754; x=1794067554; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yoVQweUhBNvvHzzBSqhEC+QBmmp2aRaw/Ip0znuFVys=;
+        b=ABKsVenNXJ6pPb+KgqwprBr2Oa4zrVXF2hlOOUxI50ZiMl2UPo9qrUfMstWHbfReJU
+         nkbq7N+LnFd74vGmV20nPi06hu6YALPPEhLlHw9yWY6Zs/jg/o5VYQkxQdgNmRTj8+sP
+         ianCNXbciDBzs24ME/3caaUiyfJFy/Q3AXGOknNvr/cd951Ytf7npYtPPCYgiydyX820
+         beeUJLTOC+Pji2cUGplwPek7TBOoj9WicrUTbCmEw301SCDY3AQ4eOVe15z4Rlyg3iFK
+         6b8VIowDE7+RnBvAxQBU2bHzW870cBiP1pfdjH/v1X9lJrFHPhN3oUJ11jmd3SQLJXDU
+         5OqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793462754; x=1794067554;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yoVQweUhBNvvHzzBSqhEC+QBmmp2aRaw/Ip0znuFVys=;
+        b=Uot3RPvgkbmIW1VHXm8w4bPZikzVeycEaowX9oQuonJeHtXWG8TIr6KsWfU3RNzwOL
+         +T4ADZM14wTkG//lKrr2+aCi74urxezHNi3IQwqyEKcc5GJaruPXnwofV483g8r3MmyU
+         FXcSfAtD36rzMQ1PCkUtlZ1LgSAZ4fc+bB5gNanZERST8QebGKuwpX1KK1Aur9tMdPse
+         PPnSt159Sv62THi2rRywYXqjFJ77UmHrb/2vq5Y6gHs6bjk6Q21aTzsysIjew8Oehd6Z
+         HInALEIBG3qay3VJsmz89epXsYSd8cpKO8mVdXLagpE8z+j5/ctoxVuWuXpEuksZZqn2
+         lgBA==
+X-Forwarded-Encrypted: i=1; AKwUvByDl6gEPI+kkQMlkBjRChH1vKrFU00zomSdMsyZ+bc7JwPGCt+ukVDSSIRRV4DfVP9UiV6iVXD/o6O7Rm0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLDYQ8fgQQ2VC4iCO1w2sQ4nZjgvpuWgzI4sB2bTBHnoCkXKrqO
+	tx3far1khNfcruu4KMLJ+NC2J60CZqAnJmAoEbrf8jb8fpHPlqWU+bF5
+X-Gm-Gg: AYBFou2CB0VmXsc9ssImjP5pwV8wR3IivE2WtQwaMBw58yKL315xcnf3owvEolD3psQ
+	ZgXF+SrtUDLxQmJQU4H+NoyY5X/CiBaIs8isMN5Gija7F2VB1Y6AyOmbcKvnR1bkYbUBbRKEiF+
+	hgVMXGORz3j1jXEsAGzv4VMH/pxmK3ReC1+YgwhEoS/FanqlGhWFz4I5rX3oBj/FXZe01miSFcQ
+	ngyWO+BMTn436fcWxtxU7eREvHNkgTNR+cV3+US2ImDjxY6PfwhhDqoZC3UrBg/UHZnQHzvpSLQ
+	NCsI6fjx/qDO58mpqW/z4sr2UqFaC65puSs2fweCtA83H0foRAL1mxC9yhO/BopvGjvH/5SAgK4
+	RBNzeBovhTZdgR6ZkAAotexnOkHAzznCYipM5/CasQYeMFm8c8Ycd9W8Y4f5ys34PphvfIM8ycn
+	eWPh/GXFWiYz9DiP4O2Gx1drDtO6APt6Cri46QSAsjJdBnMwTiFhSJkP9pu5CSBScGagjzsOAfS
+	O07AHnnwJaNb+Dmd8ZwSWd545GSaToCZ+SjhCtWV33cr/hLoN3poCdGjGL4tj80Jg+5twb9ORda
+	WqXGY/xecRvXwGyQU1l8GslwSAHKf5GT1osmZQ5XcmLoGosYzAZM9uCYB9zKGTm5RvIeEhJjYmI
+	MiNM7FQFAOczEmhdjS2EOTdMpmrrgU/SfPhmpvGr0RsG5tONWI5hz2C5rBduvgoZVIchjTQtBVc
+	MpsmkLR1GyvgEW8yHXc5xbw9zvc3UBuueLLimjFCDSJmAMtqFkbAGosRIoJCCaSw==
+X-Received: by 2002:a05:600c:37c8:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4ac16acd93cmr132615215e9.6.1793462754293;
+        Sat, 31 Oct 2026 09:05:54 -0700 (PDT)
+Received: from systembl0wer ([2a02:8308:4092:11f0::f9f])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d2950sm212385695e9.8.2026.10.31.09.05.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 09:05:53 -0700 (PDT)
+Date: Sat, 31 Oct 2026 17:05:48 +0100
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Guangshuo Li <liguangshuo@mail.sdu.edu.cn>
+Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] iio: accel: kxsd9: Fix potential use-after-free on
+ removal
+Message-ID: <20261031170548.5bbd2c8a@systembl0wer>
+In-Reply-To: <47d9e9120165e819d706f922c798517701019bf1.1793377431.git.liguangshuo@mail.sdu.edu.cn>
+References: <47d9e9120165e819d706f922c798517701019bf1.1793377431.git.liguangshuo@mail.sdu.edu.cn>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,62 +102,30 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-X-Spam-Flag: NO
-X-Spam-Level: 
-X-Spamd-Result: default: False [-12.30 / 50.00];
-	SUSE_INTERNAL_BYPASS(-9.00)[];
-	BAYES_HAM(-3.00)[100.00%];
-	MID_CONTAINS_FROM(1.00)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	MIME_GOOD(-0.10)[text/plain];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	MIME_TRACE(0.00)[0:+];
-	ARC_NA(0.00)[];
-	TO_DN_SOME(0.00)[];
-	TO_MATCH_ENVRCPT_ALL(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	RCPT_COUNT_FIVE(0.00)[6];
-	FROM_EQ_ENVFROM(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
-X-Spam-Score: -12.30
+Content-Transfer-Encoding: 7bit
 
-On Thu, 29 Oct 2026 23:49:10 +0100,
-Chris Simpson via B4 Relay wrote:
-> 
-> From: Chris Simpson <chris@nilk.net>
-> 
-> The Alienware m17 R3 (ALC289, PCI SSID 1028:09d1) has a second speaker
-> pair, the bass speakers, on pin 0x17, which the BIOS leaves unconnected
-> (0x411111f0). No PCI SSID quirk matches the machine, so it gets
-> ALC269_FIXUP_DELL4_MIC_NO_PRESENCE from the fallback pin quirk table,
-> and only the speakers on pin 0x14 play.
-> 
-> Use ALC289_FIXUP_DUAL_SPK, as on the Alienware x16 R2 and Dell XPS 15
-> 9510/9520: it sets pin 0x17 up as a speaker on DAC 0x02, so one volume
-> control covers both pairs, and chains to
-> ALC269_FIXUP_DELL4_MIC_NO_PRESENCE, so the headset mic setup is
-> unchanged.
-> 
-> Tested on an Alienware m17 R3 (BIOS 1.38.0), Linux 7.3 with this change
-> applied: the bass speakers play, and volume and mute cover both pairs,
-> also after suspend and resume. Headphones and a headset mic were not
-> tested.
-> 
-> I used Claude Code (Claude Opus 5.5) to find the unused pin, pick the
-> existing fixup and write this patch and changelog; I did the listening
-> tests myself.
-> 
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Chris Simpson <chris@nilk.net>
+On Sat, 31 Oct 2026 21:05:38 +0800
+Guangshuo Li <liguangshuo@mail.sdu.edu.cn> wrote:
 
-Applied now.  Thanks.
+> Unregistering an IIO device with an active triggered buffer detaches its
+> poll function. Freeing the poll function first can therefore make
+> iio_device_unregister() access freed memory.
+> 
+> Unregister the device before cleaning up the triggered buffer.
+> 
+> This issue was found by our static analysis tool under development.
+> 
+> Fixes: 0427a106a98a ("iio: accel: kxsd9: Add triggered buffer handling")
+> Assisted-by: OpenAI:gpt-6-astra
 
+Drop this tag, it has been deprecated.
 
-Takashi
+Otherwise LGTM.
+
+Reviewed-by: Joshua Crofts <crofts@kernel.org>
+
+-- 
+Kind regards,
+Joshua Crofts
