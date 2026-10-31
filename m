@@ -1,82 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793423679;
-	b=nglOWdB/gBklCYY92QBIUoveF12yyQM4+CvuNx9NDVvVNKdtHjEOAZoZbj0mlkao1uAV
-	 i4awUZw0JRw1YnwoZliXAi+s5mSOjeB/MiUQTtpuG4Voqh9APm1/jD9zK6rBksQVHUW47
-	 YcHiJi+RqowTdP2IkqO27eI+xZu5MEx5Ajf2YSdrq1dTrmt81Y6fhyp2z9s8KDW7gvFDM
-	 w07pqZycHawV1YVKqWmEpkr5hAyJwDhTY27wdkljHBP1FWu0dZqG3pLD2VCJpCN5803YJ
-	 CsMpuuCRt81LD4TWbT38ZVwQUHteLsDNxdSIE5XZOF/nOmvfi3UmuB6j+bXC1RgnAjg==
+	t=1793423684;
+	b=opVNt0zFJpsALOxAEtFwa3k4n3UGaZv9aHndXybo4soSodqAe3QSX7YHOJh0qgsyGljj
+	 TOiDXgOtXbWwthw497VF21iMtl1nVXtUquEXBR6YFGWDh+uO/gOny1F6WCCgP/H81Tdvr
+	 /bnqsJvPEhXIcIUdv0vmbmsJ9jRXO6Rn1+4EnAzuw0r01+n5k78oOriQXIV6I2TgyoEGv
+	 xfnsJd8PxI7WUyBtmK0nDqE7Jknisr8IqdlD9vC1bQhQP9SNpS7DZDl8QZftbDlO6CWxV
+	 KtNRDcSS4U8d0BzDoaJmpjK9X9CPPC4dSfy9H0Ly14NobFUnKcTNKm7ImkCtDFioo7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793423679;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793423684;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=JV84msgXUJaDxvG1g2Xeu1J3+jfzXhZ4gyQkFLKAo20=;
-	b=e2US9wBPxnQg7zGHSlOqlsmwsvtSPfbYMJNJIxR1+2qYHRg0wy2R8N+gFWOnumD2iYzO
-	 zcJpV+isoAfiI2RANUCu65msNl+f//RnUTVWvsrr0fZtxhh9udvynZ4ukzXTD3XjSc2rX
-	 HuoUN6R1J/LQ8C+xjYPZZ+mZwcny8ss7XuAA3Yq9Ctvr9956otxTnRQ4kit7pxIXRNeI3
-	 Pg0mki8NHXUMk8fmNUxciKFLr65ZS+ByHGAaCeziMnSqz/NTLGgY8rJ7bPFEf9GCDhF/d
-	 TglS3h1wb6Wzbq7g8QzMQ4byjTMH2y8DibDH6fitnzFz580yKFwz7o0v6TR1QzrDKYA==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=30pXtA53sZGVQJXhOX5wcd/+heNkrnwBbzqhvNbEVSk=;
+	b=4lxxJ93VJ5D0RFNKV6QDmvZu9WKwKbIHYcdxTBc11YAuygnMt6JNG6JcvWAv6lkscz3C
+	 yOuvcaPyZxDkmVbEDae7M4NgiQAlank1iH+UptGt4KVXbWlyDJamWrOw9x4wW1rwuPE+D
+	 7NBQ9/MeJJ6Q4BZdhC7dWjPVJsveka9FZinpzc4vPSuOTHVNAXxfqeVOG2cP6BDn5sKok
+	 iOx7dRWfNtPI1HE6Cx4luOyu287kX1Pf8uwlT3eiAH5/uvjutwVfDVEr8mDECqSLX6ecM
+	 07hgjf/oxFPZ+yQEhI0Nb12fvAsghB0VorWBzDpaT5jx92aEFBQeta+fITQ7KDk99sA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ILf6iwf8;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Qebz+Iv;
 	arc=none smtp.remote-ip=209.85.216.54
 Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4E20606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:14:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4E20606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05313606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:14:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 05313606A31D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ILf6iwf8
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3a4b3ac8fb7so903188a91.0
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:14:38 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0Qebz+Iv
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-3ae486f8a27so891213a91.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 22:14:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793423678; x=1794028478; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JV84msgXUJaDxvG1g2Xeu1J3+jfzXhZ4gyQkFLKAo20=;
-        b=ILf6iwf8V/VJobhvhGdua6Qwd6lsSYAvzoTQnCNUwG2/1ESqujzI7L/t6oZx7WAe7M
-         BtH6QUWd/bR35qMsw0KgMTvkoV7nMRhc9fB9R2LVDJtyjGx0lqjTTgLLbNvkKd6OiUQm
-         aElcg+8ZaG2jgg6L6H4UU+g+8OORO8zgb1p/9IdSBvVlOwJRCpAsb6hqvgyPJdvZ8OXm
-         QqNno2uRF1rNA7sS0H6DgeSpmrNzoASIFWyMl2D91UTC/1YDaIVPY2+dq4qqQHdt8PYW
-         SfS6mHmboeSodbvO91acJ8lgGEoMEsDOJBhkDTI7kwRwsj4zR0Pgrq9t3J+0RlrIAnJR
-         PFUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793423678; x=1794028478;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793423683; x=1794028483; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JV84msgXUJaDxvG1g2Xeu1J3+jfzXhZ4gyQkFLKAo20=;
-        b=SqWMbBbN163fTdGI2xOsAzWGuwVYOeDUVnVhNAMXupDWyR57zfiNwOEHW2IgSVP4qO
-         cdqjpJbxLK3SnmyBnxbDGz/jgGSeRrYS43+q4bFoUx5yBvINhTxoiQ15VLlMEFdYvL+8
-         RWiV9/Q/6QYKBRdinpTMGOtHifiImyGo6Jxe0kJpcuIwN5uP1TjVsi4yZIjMwHsJtdDW
-         V0Y5CA6CI2bpeIGtjx0I1nGsWmhtRnW1CO7t0bfjnLmAHnXg7vop/GVMBrMvYcyeeLc0
-         n0635FbO5Ll15CSUaqsodyCxslcD/p2KX2IU8QW+6Ho1PsiCffC6MPZGT7qOFHY222yx
-         ZTrA==
-X-Forwarded-Encrypted: i=1; AKwUvBwJtAoAB2BnW/YCTxxARZKfhxuXFsps9uxRptZxBUrO0jfEQxRSFrWkKUI42lcHgYh+x8he/X+8sbfAbws=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9W7b02WQHvv6i2FQ8HBiEqw/g6pJYzEtqhfJFrhLx8FFn2hOO
-	ocbHgN4+LLW7XJuhg5R84+70JsSB1RMKDa4Au4FYvM/6kZfsGOno80/s
-X-Gm-Gg: AYBFou3P4f4dtyAIp8VI/LIJgK3zR1Yls9p3+RYGeX3rWpz8pYwu1i3Y5CMou5pjH3J
-	sN8o8NWatDC8cvSOWfcO3vg6M6y0+xks4zDf5f4jdeuBnxIp/2Mp85IXDp3s08cWlhEJ3gHWrcb
-	P8amjMu/HCnW0aA99zjV91/eNFRvqjzueft/6ukhm52jWqxA52kapUczDPcjF7L+6f2qTgGCcfm
-	+xzh7Ths4+kiBx8nXFgeG77jImPBH4nykJBaKrduUdYMtkUfZM99UCH7xhi95cV8DU60P4nIJ7T
-	C6IzORp/DY6ykxNiBRgU7fe6bXQQFu4loB0Q4MurKHt7IClnOBooNgwmnb4fyoPMWzPFU4aQjq9
-	A5rwuvZ83EOVWQABlixXMJX5jcH8tjne+Wb0s4kaTVq2EW35ndj4d43T6WN36ZcxgRKxqJjKdpI
-	DMufr0XRlDNzjdqVQ9xdu3GD1GTJ4oIw6cXBlXYSmY2baPG3MgJQGl/Bf5yuJKlaZaxthYJtXZF
-	PDa4310cp3Nfz4S8RHg1GAnFuIcokgBc+05Rl4DoYC96ZfI53RGZ1vn9cLbM2Y77brvQgMRUGpB
-	WmU2QCh3iVXsmczYfXdISGyl
-X-Received: by 2002:a17:90b:4a83:b0:3ad:b86d:dbad with SMTP id 98e67ed59e1d1-3ae89747e27mr3500938a91.30.1793423678081;
-        Fri, 30 Oct 2026 22:14:38 -0700 (PDT)
+        bh=30pXtA53sZGVQJXhOX5wcd/+heNkrnwBbzqhvNbEVSk=;
+        b=0Qebz+IvHEj8y0YEmn1Iqe4g3pNuphv6f/Ho6U88xAI5VD4fETOi8Rtc2TpTvmDYKE
+         WoF8fgj83fGlZnR3gsVPOLm8vzj4dVrgU+9GSMVTLWyBmdbsVuvDR02XkQHPHmhm1mKw
+         9agGnPJY2v0C9O/ZWV4KweZTb2oQbiotWogQd4RvfokQrnD3D5rwnMqibYY6wJlNOuvB
+         nd8tfvZYZRisWGvtCMSYuLfCbOXkgXQO422a4nY1LtFJrWl4e2G5S4X0MKdUXI5xabUJ
+         5qMqIT/Wt4jKvLrzd4/9PeBwL1xvFQlGwmtTRF4DpQPQxOPNPFB2gKX87iuXpFCsElMO
+         tFKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793423683; x=1794028483;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=30pXtA53sZGVQJXhOX5wcd/+heNkrnwBbzqhvNbEVSk=;
+        b=LLi95tZEJcIBkiZTpawhCbaraQ4xiRtXH22gRPK7yOqxzmP4596fOFwnHTeiK+9zHT
+         p0UR48cuO7XjNDkzGJ6cCmHqOXxOuHWrWCif6iihkOlnqWXbwZrCyXZeFxmqZcM201HJ
+         SMtOhaqg4LsR9h2hz5kFwcbXTZ68TYgtcdBk1txeaYlbQ/P9Mxt+1aLH+pbSPep8slQB
+         6GJftRRuKiyeg31FEcRAoZFBYq3CU6IGtNY3jEkiqnR6fuzCNPHb+/QMKqp2NLAYfVXM
+         1pIFy4W+tKZl4SilxI8rRxPEZCpPDdt6w8IvVOU+2D0dDXxyc7QJDMUhUfG6nBPi8cF+
+         pc1g==
+X-Forwarded-Encrypted: i=1; AKwUvBwzyW1cfZ9NnTAp8KSG7BirktkLyUAYGb7Odplfq3vWwLlX6Mqw0qHdqXo1xASHRJLUJmSsrzyfWrIYnes=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIua8mZUr7GiEx832723mB5TAXJdrYPEJNmK90RtOaFrRVMFn3m
+	LzRa6JNkUZpKCeHrQRefRCSzLzFiolJAlclUKk4+00Jc4n6+trf3erkH
+X-Gm-Gg: AYBFou3X7q8R26eIzrzsVyMyiom75+vWcwOUZVCw5i4sJrOI3Zzrm3Rkf2mY5gTr8x3
+	riNVaKQhj4f3V16YhMiGEH0uquBET9Kt8dGHMZ17a3g64fEyCLVq6dl3MBcfWg6Nm2ec3j3BxAd
+	knZH7dr7VWlRaSTfLOYvgBT8dcC8aLeZKqb3BqZ6DC4oAoyS+QzRbGCuIglbCIGJrCizsPxkqMo
+	ZzH/kpk09mazZjpZtqN9LLxKqdi1L0zw3FKbNzkghbeMHNTcG9ptr9PN0gxuMmQURt8UoQUJ+s/
+	UtnHfw56RcJBlIClWraLO7I7fLPoL3CIwFiTvtiAkBy3TlFW/3Up5iIPBFgz6YoZ265/8AZWeCu
+	A7K6dZLsX1vppbEIa3aOZJ5Tyx9bWyXZvYWTTRg3ctRwkPy9XdAZjIsgRG+wiy2boc/H/DL/Z2p
+	OzckkaPxqsoobdsJkleQ9MXW0R5aJe6HVZU5IrXEFbwps20NIr27LogZpYoCJmkzPu3xG2TfgqL
+	gJ/pXukCIrTJcgcRY3ScUbvX78HlYTSdYfTtr7B4XRe0HIigmPn7tLKiNS4Isfsu2v9bMxEmC2l
+	jlVG38CFpO/caLWqtNDt/7yl
+X-Received: by 2002:a17:90b:518b:b0:39e:59a0:46b5 with SMTP id 98e67ed59e1d1-3ae89734b72mr3900993a91.24.1793423683335;
+        Fri, 30 Oct 2026 22:14:43 -0700 (PDT)
 Received: from localhost ([111.228.63.84])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845df666sm6216305a91.14.2026.10.30.22.14.33
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845df666sm6216305a91.14.2026.10.30.22.14.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 22:14:37 -0700 (PDT)
+        Fri, 30 Oct 2026 22:14:42 -0700 (PDT)
 From: Cen Zhang <zzzccc427@gmail.com>
 To: perex@perex.cz,
 	tiwai@suse.com,
@@ -89,10 +90,12 @@ Cc: linux-sound@vger.kernel.org,
 	baijiaju1990@gmail.com,
 	jjzuming@gmail.com,
 	zzzccc427@gmail.com
-Subject: [PATCH v4 0/5] ALSA: hda: Wait for PCM files on codec teardown
-Date: Sat, 31 Oct 2026 13:14:25 +0800
-Message-Id: <pm-pmb-a4703edca61d34aa679b-v12-b75145090f6bcd7cf145-0@gmail.com>
+Subject: [PATCH v4 1/5] ALSA: hda: Serialize codec probe and remove on the same bus
+Date: Sat, 31 Oct 2026 13:14:26 +0800
+Message-Id: <pm-pmb-a4703edca61d34aa679b-v12-b75145090f6bcd7cf145-1@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <pm-pmb-a4703edca61d34aa679b-v12-b75145090f6bcd7cf145-0@gmail.com>
+References: <pm-pmb-a4703edca61d34aa679b-v12-b75145090f6bcd7cf145-0@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,63 +107,200 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When an HD-audio codec is unbound while the card stays registered, the
-codec remove frees its PCMs while files can still use them, and the
-probe and remove of codecs on one bus can run at the same time.
+The probe and remove of different codecs on one HD-audio bus can run at
+the same time, for example when two codecs are bound and unbound through
+sysfs. A codec probe on a registered card calls snd_card_register(),
+which walks card->devices in snd_device_register_all(), while the remove
+of another codec frees its PCMs and deletes them from the same list.
+The list has no lock of its own. The controller probe and the reconfig
+sysfs knob also call snd_card_register() after the codecs are bound, so
+a codec bound or unbound through sysfs at that time changes the list as
+well.
 
-Following Takashi's suggestion on v2, this version fixes both in the
-HD-audio layer: patch 1 serializes the codec probe and remove and the
-card registration on a bus, and patch 5 makes the codec teardown wait
-until the files opened on its PCMs are closed.
+Add a mutex to struct hdac_bus and hold it in hda_codec_driver_probe()
+and hda_codec_driver_remove(). Add snd_hda_card_register(), which
+registers the card of a bus under the same mutex, and use it in the
+controller drivers and in reconfig_codec(). The ASoC ext_ops paths are
+unchanged.
 
-Patches 2 and 3 add the file to the card while the PCM minor is looked
-up, so that the wait does not miss an open between the lookup and
-snd_card_file_add(), and record the device a file was opened for. The
-teardown waits only for the files of its own PCMs, because the card
-files also include the control device, which a sound server keeps open
-for as long as it runs. Patch 4 makes an open fail once its PCM is
-disconnected, so that a late open does not get a working stream and
-hold off the teardown.
-
-Cen Zhang (5):
-  ALSA: hda: Serialize codec probe and remove on the same bus
-  ALSA: core: Add the card file while looking up a minor
-  ALSA: pcm: Add the file to the card while looking up the minor
-  ALSA: pcm: Refuse to open a disconnected PCM
-  ALSA: hda: Wait for the files of the codec PCMs before freeing them
-
- include/sound/core.h               |  7 ++++
+Fixes: bcd96557bd0a ("ALSA: hda - Build PCMs and controls at codec driver probe")
+Suggested-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Cen Zhang <zzzccc427@gmail.com>
+---
  include/sound/hda_codec.h          |  1 +
  include/sound/hdaudio.h            |  1 +
- include/sound/pcm.h                |  1 +
- sound/core/init.c                  | 61 +++++++++++++++++++++++++++---
- sound/core/oss/pcm_oss.c           | 19 +++-------
- sound/core/pcm.c                   |  3 ++
- sound/core/pcm_native.c            | 37 ++++++++----------
- sound/core/sound.c                 | 34 +++++++++++++++++
- sound/core/sound_oss.c             | 21 ++++++++++
- sound/hda/common/bind.c            | 43 +++++++++++++++++++++
+ sound/hda/common/bind.c            | 26 ++++++++++++++++++++++++++
  sound/hda/common/sysfs.c           |  2 +-
  sound/hda/controllers/acpi.c       |  2 +-
  sound/hda/controllers/cix-ipbloq.c |  2 +-
  sound/hda/controllers/intel.c      |  2 +-
  sound/hda/controllers/tegra.c      |  2 +-
  sound/hda/core/bus.c               |  1 +
- 17 files changed, 193 insertions(+), 46 deletions(-)
+ 9 files changed, 34 insertions(+), 5 deletions(-)
 
-
-base-commit: a4311e9447bbb219044db38897f95be112f46a8a
-
----
-Changes in v4:
-- Address the unlocked snd_card_register() callers raised by Sashiko:
-  https://sashiko.dev/#/patchset/98644
-- Patch 1: add snd_hda_card_register() and use it in the controller probes
-  and in the reconfig sysfs knob, so that the card registration is
-  serialized with codec probe and remove as well.
-- Patch 1: use mutex_lock() and mutex_unlock() in hda_codec_driver_probe()
-  instead of mixing guard() with goto.
-
-Link to v1: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v6-680f350d78e44f9de7a7@gmail.com
-Link to v2: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v9-c4f3df026f28aea10fd1-0@gmail.com
-Link to v3: https://lore.kernel.org/r/pm-pmb-a4703edca61d34aa679b-v11-d9186d19e8afb48972af-0@gmail.com
+diff --git a/include/sound/hda_codec.h b/include/sound/hda_codec.h
+index c7f29ad64e02..084f06488a95 100644
+--- a/include/sound/hda_codec.h
++++ b/include/sound/hda_codec.h
+@@ -318,6 +318,7 @@ int snd_hda_codec_device_new(struct hda_bus *bus, struct snd_card *card,
+ int snd_hda_codec_configure(struct hda_codec *codec);
+ int snd_hda_codec_update_widgets(struct hda_codec *codec);
+ void snd_hda_codec_register(struct hda_codec *codec);
++int snd_hda_card_register(struct hda_bus *bus);
+ void snd_hda_codec_unregister(struct hda_codec *codec);
+ void snd_hda_codec_cleanup_for_unbind(struct hda_codec *codec);
+ 
+diff --git a/include/sound/hdaudio.h b/include/sound/hdaudio.h
+index 04fd4794bcee..682e10a0f6db 100644
+--- a/include/sound/hdaudio.h
++++ b/include/sound/hdaudio.h
+@@ -367,6 +367,7 @@ struct hdac_bus {
+ 	spinlock_t reg_lock;
+ 	struct mutex cmd_mutex;
+ 	struct mutex lock;
++	struct mutex codec_bind_lock;	/* codec driver bind, card register */
+ 
+ 	/* DRM component interface */
+ 	struct drm_audio_component *audio_component;
+diff --git a/sound/hda/common/bind.c b/sound/hda/common/bind.c
+index 957feace0f58..de867f34f290 100644
+--- a/sound/hda/common/bind.c
++++ b/sound/hda/common/bind.c
+@@ -104,6 +104,12 @@ static int hda_codec_driver_probe(struct device *dev)
+ 	if (WARN_ON(!codec->preset))
+ 		return -EINVAL;
+ 
++	/*
++	 * snd_card_register() below walks the device list of the card, which
++	 * the removal of another codec changes when it frees its PCMs.
++	 */
++	mutex_lock(&codec->bus->core.codec_bind_lock);
++
+ 	err = snd_hda_codec_set_name(codec, codec->preset->name);
+ 	if (err < 0)
+ 		goto error;
+@@ -140,6 +146,7 @@ static int hda_codec_driver_probe(struct device *dev)
+ 	}
+ 
+ 	codec->core.lazy_cache = true;
++	mutex_unlock(&codec->bus->core.codec_bind_lock);
+ 	return 0;
+ 
+  error_module:
+@@ -153,6 +160,7 @@ static int hda_codec_driver_probe(struct device *dev)
+  error:
+ 	snd_hda_codec_cleanup_for_unbind(codec);
+ 	codec->preset = NULL;
++	mutex_unlock(&codec->bus->core.codec_bind_lock);
+ 	return err;
+ }
+ 
+@@ -171,6 +179,7 @@ static int hda_codec_driver_remove(struct device *dev)
+ 		return codec->bus->core.ext_ops->hdev_detach(&codec->core);
+ 	}
+ 
++	guard(mutex)(&codec->bus->core.codec_bind_lock);
+ 	snd_hda_codec_disconnect_pcms(codec);
+ 	snd_hda_jack_tbl_disconnect(codec);
+ 	snd_refcount_sync(&codec->pcm_ref);
+@@ -184,6 +193,23 @@ static int hda_codec_driver_remove(struct device *dev)
+ 	return 0;
+ }
+ 
++/**
++ * snd_hda_card_register - register the card of an HD-audio bus
++ * @bus: HD-audio bus
++ *
++ * snd_card_register() walks the device list of the card, which codec driver
++ * probe and remove on the same bus change.  Register the card with them
++ * excluded.
++ *
++ * Return: zero or a negative error code.
++ */
++int snd_hda_card_register(struct hda_bus *bus)
++{
++	guard(mutex)(&bus->core.codec_bind_lock);
++	return snd_card_register(bus->card);
++}
++EXPORT_SYMBOL_GPL(snd_hda_card_register);
++
+ static void hda_codec_driver_shutdown(struct device *dev)
+ {
+ 	snd_hda_codec_shutdown(dev_to_hda_codec(dev));
+diff --git a/sound/hda/common/sysfs.c b/sound/hda/common/sysfs.c
+index bf65223fde10..ac08ee6f9c10 100644
+--- a/sound/hda/common/sysfs.c
++++ b/sound/hda/common/sysfs.c
+@@ -144,7 +144,7 @@ static int reconfig_codec(struct hda_codec *codec)
+ 	err = device_reprobe(hda_codec_dev(codec));
+ 	if (err < 0)
+ 		return err;
+-	return snd_card_register(codec->card);
++	return snd_hda_card_register(codec->bus);
+ }
+ 
+ /*
+diff --git a/sound/hda/controllers/acpi.c b/sound/hda/controllers/acpi.c
+index 04b261dde22e..87e5f3f14a2b 100644
+--- a/sound/hda/controllers/acpi.c
++++ b/sound/hda/controllers/acpi.c
+@@ -166,7 +166,7 @@ static void hda_acpi_probe_work(struct work_struct *work)
+ 	if (err < 0)
+ 		return;
+ 
+-	err = snd_card_register(chip->card);
++	err = snd_hda_card_register(&chip->bus);
+ 	if (err < 0)
+ 		return;
+ 
+diff --git a/sound/hda/controllers/cix-ipbloq.c b/sound/hda/controllers/cix-ipbloq.c
+index c1084a915c13..c193dc1428c2 100644
+--- a/sound/hda/controllers/cix-ipbloq.c
++++ b/sound/hda/controllers/cix-ipbloq.c
+@@ -80,7 +80,7 @@ static int cix_ipbloq_hda_probe_codec(struct cix_ipbloq_hda *hda)
+ 		return err;
+ 	}
+ 
+-	err = snd_card_register(chip->card);
++	err = snd_hda_card_register(&chip->bus);
+ 	if (err < 0) {
+ 		dev_err(hda->dev, "card register failed: %d\n", err);
+ 		return err;
+diff --git a/sound/hda/controllers/intel.c b/sound/hda/controllers/intel.c
+index 29679fe7f401..0a62723b3454 100644
+--- a/sound/hda/controllers/intel.c
++++ b/sound/hda/controllers/intel.c
+@@ -2434,7 +2434,7 @@ static int azx_probe_continue(struct azx *chip, bool free_on_error)
+ 		}
+ 	}
+ 
+-	err = snd_card_register(chip->card);
++	err = snd_hda_card_register(&chip->bus);
+ 	if (err < 0)
+ 		goto out_free;
+ 
+diff --git a/sound/hda/controllers/tegra.c b/sound/hda/controllers/tegra.c
+index 674cc0f79c3c..d601aa3db8b4 100644
+--- a/sound/hda/controllers/tegra.c
++++ b/sound/hda/controllers/tegra.c
+@@ -607,7 +607,7 @@ static void hda_tegra_probe_work(struct work_struct *work)
+ 	if (err < 0)
+ 		return;
+ 
+-	err = snd_card_register(chip->card);
++	err = snd_hda_card_register(&chip->bus);
+ 	if (err < 0)
+ 		return;
+ 
+diff --git a/sound/hda/core/bus.c b/sound/hda/core/bus.c
+index 02462bd035e7..304110c9a6a7 100644
+--- a/sound/hda/core/bus.c
++++ b/sound/hda/core/bus.c
+@@ -44,6 +44,7 @@ int snd_hdac_bus_init(struct hdac_bus *bus, struct device *dev,
+ 	spin_lock_init(&bus->reg_lock);
+ 	mutex_init(&bus->cmd_mutex);
+ 	mutex_init(&bus->lock);
++	mutex_init(&bus->codec_bind_lock);
+ 	INIT_LIST_HEAD(&bus->hlink_list);
+ 	init_waitqueue_head(&bus->rirb_wq);
+ 	bus->irq = -1;
