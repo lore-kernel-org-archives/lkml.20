@@ -1,68 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793414826;
-	b=ArDY9tMmenRMHAyp1CXkZ58c1vUsmtoSxTOCEZ5s+pYJXpQgMirl4e96OWyvfLPQNqHT
-	 i/AQnPwZUpbGnefeo1772sh+41HuMv4LjfrdOXJdZJuXY6oMBnmemhws0ugppxWS+6kaq
-	 2xD+M4or7zelrWcusPZKfgkrQkEsN9dLfahMqoOYPrHs650mvfM5FvLl9xPwHl+BetNjZ
-	 rlYVzKao9vIwoBMu6qcGdOc2OaP4Q45xw3lb2ek2lDUZcByywC2QKLNL6zs1P4NeG1mFt
-	 2dvkyuGYcYloar+Ors0bL5L2F/BFfkogLI0vdG2YIHnHCnX8hUgRgplj9mlqJcOoGEw==
+	t=1793415173;
+	b=pPOJ9/H4pc6w4vAWb5kkbliTqJm4HqLXhfScWVSHVrT5cSJVzQe61hkQYCFZSBvYDsZV
+	 A2DMsGwY0QPe1z6wMduyrQCZVQn1fT4yHNEeeKAjN8y4yj+V7hkrqXhmm28b03GrsZBo5
+	 3sXKVwimCvATjEl6B9gZzW0t9Cl1ECitu2DZqjQVgzKaso1M6JO6vWBIfhQ4pUSjUR+mF
+	 iWKC5BZlT0LBTlA/65xEO/KvaRoPY3p/Tb65I2dZz5hSv14hHusGRrH85huRGqUwSI9SA
+	 RexJ6my6qknu8aUPCIyblkqf/wGrH4g8j5tFuvNBs45DborFRdfva2rbdr5heev+mzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793414826;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
-	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=iSKGNFmKLTpmgOIzqerV8G2tWlRDYIbrTVmalAdizuI=;
-	b=yXPrIVZxoGnp+vQmOw/+d803bFPBmDbHQ7B9pwY7bH1h3KlpbG8Q1XGAb016FM4EZxZ8
-	 QEWDcfpOHvpZa5nEeH+eb04LbyJMpkHyz9IMzmDOJoz+HJiLi6SmMow1tCkni2IMWHfxT
-	 ZrFoRGlt9Hc+xHCr+OUBKEgLFF9WVCOTulqQ4CTzqMaTarepkEKuE/1YWelLjST5S2KIG
-	 skgbfSotJ/AYRCt5nQQtil3QwWgrzD8Z13NTsyVvcMXcYSwrBb0aVjm2K31GT+6UzJIzc
-	 onQyAqVq8Kxii1HUBVaDSFL2TePuuLiCX3L8zrjtkBsXEDVw0E/JLgvF3CmmT5bnTUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793415173;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=fJwlSYa8ic1yZvBuc1IZUrcV8mKfxUm7bx6YEt/tS9g=;
+	b=4WM8MIm1+QuOP2hkfi+lAQL7T2i70ck4LIT2bgiyTc4T+zsicK9ZGPi5MJXZy297UyGA
+	 wGGWD3r2fpPNKZrAYa/qcXb4ZjuUyEReY6mMCmR2BrKugPHkprw4uEppVjp7S+hShPt3U
+	 j0pcQxBot6Esl7uGc8647UUUrQX7Sob2bAK4kyxyeG+Jp6queri4aw69XAqmDLFKQDwAh
+	 D7Zxd72mN5Bay/tC3yFq4oWOhjyrgyg9B133jGwQUOVQg+5aj99phbMFciejUkVWOwIqI
+	 OyIOl4zNWdf4tj4APWvTS9UYloIzTQaILA3e5OHvCv9uWsYPHqxyPyB7Blb/HtvemQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.intel.com;
-	spf=pass smtp.mailfrom=linux.intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d1gNQvdA;
-	arc=none smtp.remote-ip=192.198.163.8
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Q0qWvPkE;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0472606A31A;
-	Sat, 31 Oct 2026 02:47:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0472606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F61E606A31A;
+	Sat, 31 Oct 2026 02:52:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d1gNQvdA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793414825; x=1824950825;
-  h=message-id:date:mime-version:cc:subject:to:references:
-   from:in-reply-to:content-transfer-encoding;
-  bh=UwPYZzHb0mj1mjEbXeNxm8CM4NcJfsvX2Gzy0sS/kH8=;
-  b=d1gNQvdAILLyb9JNUJdaNY6Yb6fQ3ZYYI336FPfiv4AdEYA3AFiUTY3N
-   htJ1sJYyrDv8XpXjWRWPpcbLSIXFdtFJBR9BklBnpglv1YEc1yN70gzSC
-   XqbxigIF1kNziTwusBECLZAdOvXOE0mgyk/hToFg1kFl8s+rBFaxfdN6Y
-   JWW7KvDkTafrP71x79ZmYviCM5o6ZTJkGYqsPL34DAyL7DMn7ejx2E34P
-   Q/PxRYDr7Wvks86h0ci7w28Lad7xkM09Lz/8K/QH8p+oUMEEGSkcmWR6B
-   2M05KhaAxfLp6k6VJ2gU6sHWVsZ7N9FdHuCMN8wLlpQs/aDDg6qsZe4dg
-   g==;
-X-CSE-ConnectionGUID: P2oxIEGkTEq6mEwUddsdDw==
-X-CSE-MsgGUID: g/fgUxZ3Tlet7M8jR0E2og==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2075245"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2075245"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:47:03 -0700
-X-CSE-ConnectionGUID: /PhNjvBYRlyhxoXUfZteEQ==
-X-CSE-MsgGUID: KMELGtAZSbGpkpSsz46Iuw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5971572"
-Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:46:59 -0700
-Message-ID: <98fe2806-d4a3-4bee-9324-d1862b2a2cb4@linux.intel.com>
-Date: Sat, 31 Oct 2026 10:46:56 +0800
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Q0qWvPkE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B12A1F00919;
+	Sat, 31 Oct 2026 02:52:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793415172;
+	bh=fJwlSYa8ic1yZvBuc1IZUrcV8mKfxUm7bx6YEt/tS9g=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Q0qWvPkEBzqENtyImz31+tkLV6OiVbmUNvDBNPJBOd8FctCHPfJeL2srMd4goty61
+	 NCqAvNmcb2vP/RhfOleYK6rO1qzz6K/T7e5UCijY5aP4wmp2ZYT5xq+GPoeJmdtbL6
+	 IaPl5PWhSsuCagxwWjGxaHzLPFHCILB3v6Ve481o=
+Date: Fri, 30 Oct 2026 19:52:52 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Cc: Petr Pavlu <petr.pavlu@suse.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Shyam Saini <shyamsaini@linux.microsoft.com>,
+ Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] params: serialize lookup_or_create_module_kobject()
+Message-Id: <20261030195252.d393e16f806dfe59f5c8197f@linux-foundation.org>
+In-Reply-To: <20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn>
+References: <20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,360 +57,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: baolu.lu@linux.intel.com, YiFei Zhu <zhuyifei@google.com>,
- Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
- Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>,
- iommu@lists.linux.dev, linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
- Pratyush Yadav <pratyush@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- David Matlack <dmatlack@google.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
- Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
- John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 15/18] iommufd: Persist iommu hardware pagetables for
- live update
-To: Samiullah Khawaja <skhawaja@google.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
- David Woodhouse <dwmw2@infradead.org>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-16-skhawaja@google.com>
-Content-Language: en-US
-From: Baolu Lu <baolu.lu@linux.intel.com>
-In-Reply-To: <20261025021930.674647-16-skhawaja@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
-> From: YiFei Zhu <zhuyifei@google.com>
+On Fri, 18 Sep 2026 10:07:12 +0000 Jiakai Xu <xujiakai24@mails.ucas.ac.cn> wrote:
+
+> lookup_or_create_module_kobject() first looks up the module kobject with
+> kset_find_obj() and, if not found, creates a new one with
+> kobject_init_and_add().  The function is called at runtime from
+> module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
+> module_kobject creation"), which means two concurrent driver
+> registrations for the same built-in module name can both miss the
+> lookup and race to create the same kobject.
 > 
-> Register iommufd with the LUO framework and implement the preserve and
-> unpreserve ops to save marked HWPTs.
+> The loser of the race gets -EEXIST from kobject_init_and_add() and its
+> kobject is removed from module_kset by kobject_add_internal() before
+> the failure is reported.  The error path then calls kobject_put(),
+> which invokes module_kobj_release(), but that only completes
+> ->kobj_completion and never frees the dynamically allocated
+> module_kobject, leaking it (96 bytes) along with the object having been
+> detached from the kset.
 > 
-> To make sure mappings do not change during preserved state, add a
-> liveupdate_immutable flag to IOAS. When an HWPT is preserved, its IOAS
-> is marked immutable and any map/unmap attempts will fail with -EBUSY.
-> This is synchronized using the domains_rwsem to prevent races with
-> concurrent mapping operations.
+> This is triggerable by unprivileged users, e.g. by concurrently issuing
+> the RAW_IOCTL_INIT ioctl of the raw-gadget driver, which registers the
+> "raw_gadget" driver on the gadget bus:
 > 
-> The preserve callback iterates over the marked HWPTs, verifies that the
-> backing memory pages are preserved, and calls iommu_preserve_domain() to
-> preserve the associated IOMMU domain.
+>   sysfs: cannot create duplicate filename '/module/raw_gadget'
+>   ...
+>   Adding module 'raw_gadget' to sysfs failed (-17), the system may be
+>   unstable.
+>   ...
+>   unreferenced object 0xffff8880188dacc0 (size 96):
+>     backtrace:
+>       lookup_or_create_module_kobject+0x47/0x100
+>       module_add_driver+0x73/0x1b0
+>       bus_add_driver+0x1d9/0x340
+>       driver_register+0xde/0x170
 > 
-> Signed-off-by: YiFei Zhu <zhuyifei@google.com>
-> Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+> Fix it by serializing the lookup and the creation with a mutex, so that
+> the second caller finds the kobject created by the first one instead of
+> racing with it.
+
+Thanks.  AI-based review said a bunch of things (below), but this fix
+is considered sound.  I'll make that Fixes: change and add a couple of
+Petr's changes while applying.
+
+> Crash report (raw_report0) of the syzkaller crash this patch fixes:
 > ---
->   MAINTAINERS                             |   1 +
->   drivers/iommu/iommufd/io_pagetable.c    |  24 ++
->   drivers/iommu/iommufd/iommufd_private.h |  16 ++
->   drivers/iommu/iommufd/liveupdate.c      | 327 ++++++++++++++++++++++++
->   drivers/iommu/iommufd/main.c            |  10 +-
->   include/linux/kho/abi/iommufd.h         |  56 ++++
->   6 files changed, 433 insertions(+), 1 deletion(-)
->   create mode 100644 include/linux/kho/abi/iommufd.h
-> 
+> BUG: memory leak
+> unreferenced object 0xffff8880188dacc0 (size 96):
+>   comm "syz.3.569", pid 12998, jiffies 4294992047
+>   hex dump (first 32 bytes):
+>     12 4e fe 86 ff ff ff ff c8 ac 8d 18 80 88 ff ff  .N..............
+>     c8 ac 8d 18 80 88 ff ff 00 00 00 00 00 00 00 00  ................
+>   backtrace (crc 8dccd85e):
+>     kmemleak_alloc_recursive home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/kmemleak.h:44 [inline]
+>     slab_post_alloc_hook home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4696 [inline]
+>     slab_alloc_node home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4996 [inline]
+>     __kmalloc_cache_noprof+0x1bf/0x420 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:5559
 
-[...]
-> diff --git a/drivers/iommu/iommufd/liveupdate.c b/drivers/iommu/iommufd/liveupdate.c
-> index 5fb491ff3a3d..828203d7254c 100644
-> --- a/drivers/iommu/iommufd/liveupdate.c
-> +++ b/drivers/iommu/iommufd/liveupdate.c
-> @@ -9,9 +9,28 @@
->   
->   #include <linux/file.h>
->   #include <linux/iommufd.h>
-> +#include <linux/kexec_handover.h>
-> +#include <linux/kho/abi/iommufd.h>
->   #include <linux/liveupdate.h>
-> +#include <linux/iommu-liveupdate.h>
-> +#include <linux/mm.h>
-> +#include <linux/pci.h>
->   
->   #include "iommufd_private.h"
-> +#include "io_pagetable.h"
-> +
-> +static u32 iopt_inc_num_preserved_domains(struct io_pagetable *iopt)
-> +{
-> +	guard(rwsem_write)(&iopt->domains_rwsem);
-> +	return ++iopt->num_preserved_domains;
-> +}
-> +
-> +static void iopt_dec_num_preserved_domains(struct io_pagetable *iopt)
-> +{
-> +	guard(rwsem_write)(&iopt->domains_rwsem);
-> +	if (!WARN_ON(!iopt->num_preserved_domains))
-> +		iopt->num_preserved_domains--;
-> +}
->   
->   int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
->   {
-> @@ -70,3 +89,311 @@ int iommufd_hwpt_liveupdate_mark_preserve(struct iommufd_ucmd *ucmd)
->   	iommufd_put_object(ictx, &hwpt->common.obj);
->   	return rc;
->   }
-> +
-> +static int iopt_area_validate_file_pages(struct iopt_area *area)
-> +{
-> +	unsigned long last_index = iopt_area_last_index(area);
-> +	unsigned long index = iopt_area_index(area);
-> +	unsigned int page_offset = area->page_offset;
-> +	struct iopt_pages *pages = area->pages;
-> +	unsigned long iova = iopt_area_iova(area);
-> +
-> +	guard(mutex)(&pages->mutex);
-> +	if (WARN_ON(!area->storage_domain))
-> +		return -EINVAL;
-> +
-> +	while (index <= last_index) {
-> +		phys_addr_t phys = iommu_iova_to_phys(area->storage_domain,
-> +						      iova) - page_offset;
+It would be nice to have a Reported-by: and a Closes: for the syscaller
+report, but I wasn't able to find the original.
 
-iommu_iova_to_phys() returns 0 when there is no underlying DMA
-translation. It would be better to check for !phys and return -EINVAL
-before passing it to page_folio():
 
-		if (!phys)
-			return -EINVAL;
+: The mutex fixes the race between two callers of this helper, but the
+: changelog needs Petr's corrections: USB_RAW_IOCTL_RUN does the
+: registration, and the device node defaults to root-only access.
+: 
+: Petr is also right about the remaining leak. Other failures from
+: kobject_init_and_add() or sysfs_create_file() still reach a release
+: callback which never frees the allocated module_kobject. That needs
+: a separate fix.
+: 
+: Please keep f95bbfe18512 as the Fixes commit and drop the redundant
+: 7c76c813cfc4 tag. Also remove the v6.15+ restriction: the introducing
+: change was backported, including to 6.12.28.
+: 
+: I don't think the module-removal answer is correct. mod_sysfs_init()
+: does not take this mutex, and module_patient_check_exists() checks
+: the loadable module list, not the built-in objects.
+: 
+: There is a conditional lifetime problem here. If a separately loaded
+: module already owns the same name before the built-in driver's first
+: registration, the lookup can return that module's embedded mkobj.
+: module_add_driver() drops the lookup reference before using and
+: caching the pointer, so unloading that module can leave a stale
+: pointer. This requires privileged loading of a same-named module;
+: it isn't an ordinary unprivileged raw-gadget operation.
+: 
+: That predates this patch, but deserves a separate follow-up. I checked
+: the source and a bounded model, not a running-kernel reproducer.
+: Successful kobject_get_unless_zero() protects the object while the
+: reference is held; there isn't a generic kobject-core gap there.
 
-> +		struct folio *folio = page_folio(pfn_to_page(PHYS_PFN(phys)));
-> +
-> +		if (folio->mapping != pages->file->f_mapping)
-> +			return -EINVAL;
-> +
-> +		iova += PAGE_SIZE - page_offset;
-
-This walks a full page table per 4K page size, right? Isn't it slow for
-large mappings? Why not jump ahead by folio_size()?
-
-> +		page_offset = 0;
-> +		index++;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int iopt_validate_preserved_memory(struct io_pagetable *iopt,
-> +					  struct liveupdate_session *s)
-> +{
-> +	struct iopt_area *area;
-> +	int ret = 0;
-> +
-> +	down_read(&iopt->iova_rwsem);
-> +	for (area = iopt_area_iter_first(iopt, 0, ULONG_MAX); area;
-> +	     area = iopt_area_iter_next(area, 0, ULONG_MAX)) {
-> +		struct iopt_pages *pages = area->pages;
-> +
-> +		if (!pages)
-> +			continue;
-> +
-> +		/* Only allow file based mapping */
-> +		if (pages->type != IOPT_ADDRESS_FILE) {
-> +			ret = -EINVAL;
-> +			break;
-> +		}
-> +
-> +		/* Make sure that the file was preserved. */
-> +		ret = liveupdate_get_token_outgoing(s, pages->file, NULL);
-> +		if (ret)
-> +			break;
-> +
-> +		/*
-> +		 * Make sure the mapped pages are still associated with the
-> +		 * preserved memfd.
-> +		 */
-> +		ret = iopt_area_validate_file_pages(area);
-> +		if (ret)
-> +			break;
-> +	}
-> +	up_read(&iopt->iova_rwsem);
-> +
-> +	return ret;
-> +}
-> +
-> +static int iommufd_preserve_hwpt(struct iommufd_hwpt_paging *hwpt,
-> +				 struct iommufd_hwpt_ser *hwpt_ser,
-> +				 struct liveupdate_session *session)
-> +{
-> +	struct iommu_domain_ser *domain_ser;
-> +	int rc;
-> +
-> +	/*
-> +	 * Make IOAS immutable so the DMA mappings do not change while
-> +	 * the HWPT is preserved. Since one IOAS can have multiple
-> +	 * HWPTs, if an error occurs this call needs to make the IOAS
-> +	 * mutable again if it was the one that made it immutable.
-> +	 */
-> +	if (iopt_inc_num_preserved_domains(&hwpt->ioas->iopt) == 1) {
-> +		rc = iopt_validate_preserved_memory(&hwpt->ioas->iopt, session);
-> +		if (rc)
-> +			goto err;
-> +	}
-> +
-> +	hwpt_ser->size = sizeof(*hwpt_ser);
-> +	hwpt_ser->token = hwpt->liveupdate_token;
-> +
-> +	rc = iommu_preserve_domain(hwpt->common.domain, &domain_ser);
-> +	if (rc < 0)
-> +		goto err;
-> +
-> +	hwpt_ser->domain_ser_phys = virt_to_phys(domain_ser);
-> +	return 0;
-> +
-> +err:
-> +	iopt_dec_num_preserved_domains(&hwpt->ioas->iopt);
-> +	return rc;
-> +}
-> +
-> +static void _iommufd_unpreserve(struct iommufd_ctx *ictx,
-> +				struct iommufd_ser *ser)
-> +{
-> +	struct iommufd_hwpt_paging *hwpt;
-> +	struct iommufd_object *obj;
-> +	unsigned long index;
-> +
-> +	xa_lock(&ictx->objects);
-> +	xa_for_each_marked(&ictx->objects, index, obj, IOMMUFD_OBJ_LIVEUPDATE_MARK) {
-> +		if (obj->type != IOMMUFD_OBJ_HWPT_PAGING)
-> +			continue;
-> +
-> +		hwpt = to_hwpt_paging(container_of(obj, struct iommufd_hw_pagetable, obj));
-> +		if (!hwpt->liveupdate_preserved)
-> +			continue;
-> +
-> +		xa_unlock(&ictx->objects);
-> +
-> +		iommu_unpreserve_domain(hwpt->common.domain);
-> +		iopt_dec_num_preserved_domains(&hwpt->ioas->iopt);
-> +
-> +		hwpt->liveupdate_preserved = false;
-> +		iommufd_put_object(ictx, obj);
-> +
-> +		xa_lock(&ictx->objects);
-> +	}
-> +	xa_unlock(&ictx->objects);
-> +
-> +	kho_unpreserve_free(ser);
-> +}
-> +
-> +static int iommufd_liveupdate_preserve(struct liveupdate_file_op_args *args)
-> +{
-> +	struct iommufd_ctx *ictx;
-> +	struct iommufd_hwpt_paging *hwpt;
-> +	struct iommufd_ser *iommufd_ser;
-> +	struct iommufd_object *obj;
-> +	unsigned int num_hwpts;
-> +	unsigned long index;
-> +	unsigned int i;
-> +	void *mem;
-> +	int rc;
-> +
-> +	ictx = iommufd_ctx_from_file(args->file);
-> +	if (IS_ERR(ictx))
-> +		return PTR_ERR(ictx);
-> +
-> +	mutex_lock(&ictx->liveupdate_mutex);
-> +
-> +	/* Count the number of HWPTs to preserve */
-> +	num_hwpts = 0;
-> +	xa_lock(&ictx->objects);
-> +	xa_for_each_marked(&ictx->objects, index, obj, IOMMUFD_OBJ_LIVEUPDATE_MARK) {
-> +		if (obj->type != IOMMUFD_OBJ_HWPT_PAGING)
-> +			continue;
-> +
-> +		hwpt = to_hwpt_paging(container_of(obj, struct iommufd_hw_pagetable, obj));
-> +		if (!hwpt->common.domain) {
-> +			rc = -EINVAL;
-> +			xa_unlock(&ictx->objects);
-> +			goto out_unlock;
-> +		}
-> +		num_hwpts++;
-> +	}
-> +	xa_unlock(&ictx->objects);
-> +
-> +	mem = kho_alloc_preserve(struct_size(iommufd_ser,
-> +					     hwpt_array, num_hwpts));
-> +	if (IS_ERR(mem)) {
-> +		rc = PTR_ERR(mem);
-> +		goto out_unlock;
-> +	}
-> +
-> +	iommufd_ser = mem;
-> +	iommufd_ser->size = sizeof(*iommufd_ser);
-> +
-> +	/* Preserve HWPTs */
-> +	i = 0;
-> +	xa_lock(&ictx->objects);
-> +	xa_for_each_marked(&ictx->objects, index, obj, IOMMUFD_OBJ_LIVEUPDATE_MARK) {
-> +		if (obj->type != IOMMUFD_OBJ_HWPT_PAGING)
-> +			continue;
-> +
-> +		if (!iommufd_lock_obj(obj)) {
-> +			rc = -ENOENT;
-> +			xa_unlock(&ictx->objects);
-> +			goto out_unpreserve;
-> +		}
-> +
-> +		/*
-> +		 * HWPT is locked so it will not be destroyed. The xarray lock
-> +		 * can be released here before preserving the HWPT.
-> +		 */
-> +		xa_unlock(&ictx->objects);
-> +		hwpt = to_hwpt_paging(container_of(obj, struct iommufd_hw_pagetable, obj));
-> +		rc = iommufd_preserve_hwpt(hwpt, &iommufd_ser->hwpt_array[i++], args->session);
-> +		if (rc) {
-> +			iommufd_put_object(ictx, obj);
-> +			goto out_unpreserve;
-> +		}
-> +
-> +		/*
-> +		 * Mark the HWPT as successfully preserved. This is distinct
-> +		 * from IOMMUFD_OBJ_LIVEUPDATE_MARK, which only indicates the
-> +		 * userspace intent to preserve.
-> +		 */
-> +		hwpt->liveupdate_preserved = true;
-
-Can userspace re-mark an already-preserved HWPT with a new token? It
-seems that mark_preserve() doesn't check hwpt->liveupdate_preserved.
-Would it help to simply return -EBUSY from mark_preserve() once
-hwpt->liveupdate_preserved is set?
-
-> +		xa_lock(&ictx->objects);
-> +	}
-> +	xa_unlock(&ictx->objects);
-> +
-> +	/* Store the actual number of HWPTs that are preserved */
-> +	iommufd_ser->num_hwpts = i;
-> +
-> +	args->serialized_data = virt_to_phys(iommufd_ser);
-> +	mutex_unlock(&ictx->liveupdate_mutex);
-> +	iommufd_ctx_put(ictx);
-> +	return 0;
-> +
-> +out_unpreserve:
-> +	_iommufd_unpreserve(ictx, iommufd_ser);
-> +out_unlock:
-> +	mutex_unlock(&ictx->liveupdate_mutex);
-> +	iommufd_ctx_put(ictx);
-> +	return rc;
-> +}
-> +
-> +static void iommufd_liveupdate_unpreserve(struct liveupdate_file_op_args *args)
-> +{
-> +	struct iommufd_ctx *ictx;
-> +
-> +	ictx = iommufd_ctx_from_file(args->file);
-> +	if (WARN_ON(IS_ERR(ictx)))
-> +		return;
-> +
-> +	mutex_lock(&ictx->liveupdate_mutex);
-> +	_iommufd_unpreserve(ictx, phys_to_virt(args->serialized_data));
-> +	mutex_unlock(&ictx->liveupdate_mutex);
-> +
-> +	iommufd_ctx_put(ictx);
-> +}
-[...]
-
-Thanks,
-baolu
