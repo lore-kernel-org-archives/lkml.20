@@ -1,54 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.156.86
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793438190;
-	b=woIgWW/DofDfDU+eAPxUr55HnP1n32Kyn6/80XWQ0KJRprmoJv8y1LnHAck1QMPYRH4F
-	 ZCN6CQLVo6fwuC72goxhpdXHLTlQY5atNdRYZ3Ms/pu4kLAYjLJmvUS2I6/4IAUK2zAtB
-	 ahlVdmimpyAju9To3JdGy+oUWSRFis/RbSN1SRg8SjJD0MgLwwmQckheyB1H1B9mbX6yF
-	 fC9k8lWXa+slCUURNtyF6pCt4yzROIZ3hwGoH//LU6C1sbc1czycEN0VQzWocsMnPUH9e
-	 GE5PAIa3b8aq2/01gsLLNCrJHIck4GukeZmz7Cv9kdKnb2iGjK1KR1kXCbM5LSDAMnA==
+	t=1793438191;
+	b=eyJy9NCvpvjQ3MIYddYFtUl1AeEewreveR9rvANfbZnOfX7siclyb0eN/wLTZqY2grPr
+	 TCJQGZSxf+3eDyhjVt1ynZKOdd7C6QzGIb3FWPCtd4QkB8C2AAOrN92KBoPB74MSIRu0Y
+	 Y2EOF8aZDMs4UsNlnLGc7HIGeAe3yd3EupX8gh7JVYw6HuRp1sNfmhgLAdOSISJlvXLNJ
+	 sRBtwvvldrYKa3EVmVVPxT+evlaKQQaKNaY7+9ztTSWTlbbxowpB7DJOCZUzOchuGZY7J
+	 8DRFBm/+HgYhLGOJA2LGLT8LgfUWEDE5LUerVGSVIpZlhzUwT0aQfZvp61QNO+42iUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793438190;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793438191;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-CMAE-Envelope;
-	bh=cF8hsAvh5NU0If2PiCZvQf2hA4O5R/M+iBgL1iW34Tw=;
-	b=EsClnYZefbd82+IHVUh0z9ZnynN4TlH7MKEmFE4bglWsng+Mynd2dbXtiiTD9yxAS6Lt
-	 mrhFqG02FxGBmXZApTRQUTx4LTEDbw3Yp1lnBtCdaJ4j/NgzPrsK0OC4koORJpw9WbJa4
-	 AFEmkulMAL3EvbGeGqVjrvGOQNeAZJte4DFIBcbsItWvwlHr7aS5bbltK5yVgdLPgOBUl
-	 KRQFKmvaUvS9AKGJJTfCb78Kit5Q/tIN/69byHZ9UJ5AmXKAtyMnu893GU+XHCqcxrFk1
-	 LGV6sEs2HjuDLyUVGjaj1HtGR1G09WVJMsm8fSYh5LQNiT37iBSEGiIouwLkpSuioxw==
+	bh=2AhR0cicJfzpklKfCA03JPeN0llr819XE8fFB0cfqOM=;
+	b=SFatL68owTcW5a+ewFr63M9iuwNjRbk+kxMfwcvG0Ev4ad8NTJO2ZGyJrpYzMo/0QMJd
+	 r4+QnJldySJSrMW8NC8+WhX8o8rDcjD1dZgG+ZUgK71m62cky0hpOuwmimGQclgsf/dC5
+	 2yt0aUrIwqhHKLJOYu9CAWWeVArYRgAr5FHRVoCOqo1oOfYiullvgQ0Cp9HmjEwHNfWEx
+	 H4nRQIo7oue94ljAVTGTPLC+O7fp1HqrHK0siV0i5c3xBUFvX1+UxxMAzjn77I9Gm2Nqc
+	 HLTQCM3BHjzU2FEzDEqSH9EtXcCbJQDX9G720QdwM1CzViWm/KycR8YjqP9AMDKwxyg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mythread.it;
 	spf=pass smtp.mailfrom=mythread.it;
-	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=L3Op+E0b;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b="Yi/gzTL6";
 	arc=none smtp.remote-ip=62.149.156.86
 Received: from smtpcmd0986.aruba.it (smtpcmd0986.aruba.it [62.149.156.86])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AAE9606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:16:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AAE9606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B16B606A324
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 09:16:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B16B606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=L3Op+E0b
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=Yi/gzTL6
 Received: from [127.0.0.1] ([79.43.52.162])
 	by Aruba SMTP with ESMTPSA
-	id N5BMx1hYL6q8sN5BRxVoUi; Sat, 31 Oct 2026 10:15:29 +0100
+	id N5BMx1hYL6q8sN5BRxVoVO; Sat, 31 Oct 2026 10:15:30 +0100
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1793438129; bh=8f5UgKMcuAyNs+Cvdxg257LcBIIUIRGaXx1FhL+pExo=;
+	t=1793438130; bh=6bx59o3Z5Zhr3o5yP5KkMPMyyTXDqNwsakUJWRv9Yz4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:To;
-	b=L3Op+E0bmuzmh62bprUycy+hmyE9ns+90bYk8p/StO8duJuCyVZUcMtobcwHntpPa
-	 MNkdt0lxOfcEftt5qBdTNeFK6T7yumG3T7Rexk/2JCpkkoRbnW33B4uYsJk/klGnS/
-	 Dspa0d2JreY1oMiw7CLEm6LNuu1mV6HXR5LDYHP+DOaCHl2deMXQ/pqqs/mH8Mt7qf
-	 /URLx9S209K91RNtW0u+0d1LpwggkndYRtgrcyth3OUH8/RV8RXjmNvHBsCF5wgkq8
-	 XsP9ySU94pcdpkFvhm6Cb4QXRv3Tuxiq5qm874dJbh7k7GF5c0emlA7Pc5TZ0yspsf
-	 H0w0CMovuUwbQ==
+	b=Yi/gzTL61M60I+hjJn3fMJLn6k8UtcrrkwOr15fKf+2cTogglI2isbwxXwiuZgxV9
+	 GvUlR8w4iZkqcfDr6Z//vgTXTePsDa9Qn9qK5MRLoYQKHnTgA/V2uflihto1/JVI1n
+	 diZGsx0OhIBfhPehwaeDkyj5kGJQ2GB2C+sOCd1kQQDEkGaesI9Cbnd0SqjRxr2zTh
+	 M04ZjG82BmKQsxuyyhlt+UuYzKTHcYYSrD1OPQZFfylhthsAHhNaRrVsY5pzqgxHj0
+	 DNjJ+IbMCi4F/kMZwgrMX937vBQUG5aloDylziG9wRO3A/Hc8z/p+sdTsmiEp58ZSS
+	 GmkCc4Nc4HVlg==
 From: Alessio Ferri <alessio.ferri@mythread.it>
-Date: Sat, 31 Oct 2026 10:15:29 +0100
-Subject: [PATCH wireless-next v3 07/10] firmware: bcm47xx_sprom: read
- ledbh4..ledbh15 from NVRAM
+Date: Sat, 31 Oct 2026 10:15:31 +0100
+Subject: [PATCH wireless-next v3 09/10] bcma: add the single-band
+ BCM4352/BCM4360 PCI IDs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,7 +60,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-bcma-ac-rev1-v3-7-1fbe38e8179b@mythread.it>
+Message-Id: <20261031-bcma-ac-rev1-v3-9-1fbe38e8179b@mythread.it>
 References: <20261031-bcma-ac-rev1-v3-0-1fbe38e8179b@mythread.it>
 In-Reply-To: <20261031-bcma-ac-rev1-v3-0-1fbe38e8179b@mythread.it>
 To: =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <zajec5@gmail.com>, 
@@ -69,227 +69,41 @@ Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-mips@vger.kernel.org, Alessio Ferri <alessio.ferri@mythread.it>, 
  b43-dev@lists.infradead.org
 X-Mailer: b4 0.15.2
-X-CMAE-Envelope: MS4xfBquXWVKbtw0SEhOKbdbXouZGKYZ2kXTor0QTiJO8zQvI85TLhqBw8PYg59AlNu1D76ywnY2MifXuPuhC8YHJRxx9Gadh1YXjDH/n70ilvRUd/nX5cgp
- LYOORtmUFcp1/HKwJDjHpM4WIggOKfwQ5MKsUM5uxr+9xszmNkdAjcu0zp/5Mw8LwyPyQVn2YO+689yVat7rW3goCXT0VbKBfdJ7c5Q2z7YyTrLJ9Fl6A0Og
- C0wY2Cx87zgQOYQn4QmwkZkBC+dm+tiRm5ZSDGTJa5miqfLDJQGQ1TiJUY1TApotFzYS22MXgKnD7kdhfXR1bi5PyW6E51WFFrRo7GOkNVA/IEWllvTfPWn5
- +dhg94o/yhFLdqpi1Gb3ZQxqMKuBeO33GWQtQnLuV4O4IFqY2lXyJ3zmcQzUSE8MpdG5z+l3KXxZQd0OWS+TflwWSLEEOw==
+X-CMAE-Envelope: MS4xfPBZNLEo71l/QFE82efaGzWt4iqwpfNEwXROuM2bg59CONH1IJq3AxNNmSxPglw/dZLw03jjAo6BQVJ67qxc0knWYrpo2bXZF0BwhGj3xuE6bWolradr
+ 0XyUXfvGxcNf9qgaIO8aj8Xg940oIeY3xqpjwGQlsUcvBdLIdHFyHxcjs1TAMVxki4ZcivUnFVOeAbf8VcUVzOaJBDQs+hAaDGgo/13vrPztWASl83/LgZlB
+ eFI5HyLFmvlBuApDenByz9pDtmJYuljaqII2+BC0Z8BabjD4+9qQOBLjHZKg/gStorIyM/x8YP+EyAHfunDwz/qEDdOH/obgMxinALeFv5iG92zUow1k/vMG
+ IrfAojJ9yZLxDH88G7pWbt52BiTLMm04bpTud3K6AZL9Nqo3U8g61yIQl2ip6dkHMywCVNkG/JoUh6PPbbag01HeyyXcRw==
 
-Add gpio_ext[] for the LED behaviours of GPIO 4-15 and fill it from
-NVRAM ledbh4..ledbh15.
-
-bcm47xx_fill_sprom() is reached only through the SPROM fallback, so the
-NVRAM of a bcma device with a SPROM of its own is never read. Add
-bcm47xx_sprom_fill_bcma_nvram(), which bcma calls after extracting the
-SPROM, to read the variables the SPROM has no word for on top of it.
-The bcma prefix lookup moves into a helper shared by both paths.
+Bind bcma-pci-bridge to the 2.4 GHz and 5 GHz variants of the BCM4360
+(0x43a1, 0x43a2) and BCM4352 (0x43b2, 0x43b3), next to the dual-band
+0x43a0 and 0x43b1, and name the chip and band of each.
 
 Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
 ---
- drivers/bcma/sprom.c                      |  3 ++
- drivers/firmware/broadcom/bcm47xx_sprom.c | 86 +++++++++++++++++++++++--------
- include/linux/bcm47xx_sprom.h             | 15 ++++++
- include/linux/ssb/ssb.h                   |  1 +
- 4 files changed, 83 insertions(+), 22 deletions(-)
+ drivers/bcma/host_pci.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/bcma/sprom.c b/drivers/bcma/sprom.c
-index d68bc3822..d78615c53 100644
---- a/drivers/bcma/sprom.c
-+++ b/drivers/bcma/sprom.c
-@@ -11,6 +11,7 @@
- 
- #include <linux/bcma/bcma.h>
- #include <linux/bcma/bcma_regs.h>
-+#include <linux/bcm47xx_sprom.h>
- #include <linux/pci.h>
- #include <linux/io.h>
- #include <linux/dma-mapping.h>
-@@ -837,6 +838,8 @@ int bcma_sprom_get(struct bcma_bus *bus)
- 		else
- 			bcma_sprom_extract_r8(bus, sprom);
- 		kfree(sprom);
-+		/* Most hosts have no NVRAM: ignore the result. */
-+		bcm47xx_sprom_fill_bcma_nvram(bus, &bus->sprom);
- 	}
- 
- 	return err;
-diff --git a/drivers/firmware/broadcom/bcm47xx_sprom.c b/drivers/firmware/broadcom/bcm47xx_sprom.c
-index d0303f2ee..46a817d71 100644
---- a/drivers/firmware/broadcom/bcm47xx_sprom.c
-+++ b/drivers/firmware/broadcom/bcm47xx_sprom.c
-@@ -29,6 +29,7 @@
- #include <linux/bcm47xx_nvram.h>
- #include <linux/bcm47xx_sprom.h>
- #include <linux/bcma/bcma.h>
-+#include <linux/err.h>
- #include <linux/etherdevice.h>
- #include <linux/hex.h>
- #include <linux/if_ether.h>
-@@ -204,6 +205,20 @@ static void nvram_read_alpha2(const char *prefix, const char *name,
- 	memcpy(val, buf, 2);
- }
- 
-+/* Variables read from NVRAM whether or not the SPROM itself comes from it. */
-+static void bcm47xx_sprom_fill_nvram_only(struct ssb_sprom *sprom,
-+					  const char *prefix, bool fallback)
-+{
-+	char name[sizeof("ledbh15")];
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(sprom->gpio_ext); i++) {
-+		snprintf(name, sizeof(name), "ledbh%d", i + 4);
-+		nvram_read_u8(prefix, NULL, name, &sprom->gpio_ext[i], 0xff,
-+			      fallback);
-+	}
-+}
-+
- /* This is one-function-only macro, it uses local "sprom" variable! */
- #define ENTRY(_revmask, _type, _prefix, _name, _val, _allset, _fallback) \
- 	if (_revmask & BIT(sprom->revision)) \
-@@ -241,6 +256,8 @@ static void bcm47xx_sprom_fill_auto(struct ssb_sprom *sprom,
- 	ENTRY(0xfffffffe, u8, pre, "ledbh1", gpio1, 0xff, fb);
- 	ENTRY(0xfffffffe, u8, pre, "ledbh2", gpio2, 0xff, fb);
- 	ENTRY(0xfffffffe, u8, pre, "ledbh3", gpio3, 0xff, fb);
-+	if (sprom->revision)
-+		bcm47xx_sprom_fill_nvram_only(sprom, pre, fb);
- 
- 	ENTRY(0x0000070e, u16, pre, "pa0b0", pa0b0, 0, fb);
- 	ENTRY(0x0000070e, u16, pre, "pa0b1", pa0b1, 0, fb);
-@@ -807,45 +824,70 @@ static void bcm47xx_sprom_apply_prefix_alias(char *prefix, size_t prefix_size)
- 	}
- }
- 
--static int bcm47xx_get_sprom_bcma(struct bcma_bus *bus, struct ssb_sprom *out)
-+/*
-+ * The NVRAM prefix of a bcma bus's variables: pci/<bus>/<slot>/ or its
-+ * devpathN alias for a PCI device, sb/<core>/ for the SoC's own core.
-+ * Returns the prefix, NULL for a SoC bus without an 802.11 core, or an
-+ * error pointer for a host type NVRAM knows nothing about. *fallback is
-+ * set when the caller may fall back to unprefixed variables.
-+ */
-+static char *bcm47xx_sprom_bcma_prefix(struct bcma_bus *bus, char *buf,
-+				       size_t size, bool *fallback)
- {
--	struct bcma_boardinfo *binfo = &bus->boardinfo;
- 	struct bcma_device *core;
--	char buf[10];
--	char *prefix;
--	bool fallback = false;
- 
-+	*fallback = false;
- 	switch (bus->hosttype) {
- 	case BCMA_HOSTTYPE_PCI:
--		memset(out, 0, sizeof(struct ssb_sprom));
- 		/* On BCM47XX all PCI buses share the same domain */
- 		if (IS_ENABLED(CONFIG_BCM47XX))
--			snprintf(buf, sizeof(buf), "pci/%u/%u/",
-+			snprintf(buf, size, "pci/%u/%u/",
- 				 bus->host_pci->bus->number + 1,
- 				 PCI_SLOT(bus->host_pci->devfn));
- 		else
--			snprintf(buf, sizeof(buf), "pci/%u/%u/",
-+			snprintf(buf, size, "pci/%u/%u/",
- 				 pci_domain_nr(bus->host_pci->bus) + 1,
- 				 bus->host_pci->bus->number);
--		bcm47xx_sprom_apply_prefix_alias(buf, sizeof(buf));
--		prefix = buf;
--		break;
-+		bcm47xx_sprom_apply_prefix_alias(buf, size);
-+		return buf;
- 	case BCMA_HOSTTYPE_SOC:
--		memset(out, 0, sizeof(struct ssb_sprom));
- 		core = bcma_find_core(bus, BCMA_CORE_80211);
--		if (core) {
--			snprintf(buf, sizeof(buf), "sb/%u/",
--				 core->core_index);
--			prefix = buf;
--			fallback = true;
--		} else {
--			prefix = NULL;
--		}
--		break;
-+		if (!core)
-+			return NULL;
-+		snprintf(buf, size, "sb/%u/", core->core_index);
-+		*fallback = true;
-+		return buf;
- 	default:
-+		return ERR_PTR(-EINVAL);
-+	}
-+}
-+
-+int bcm47xx_sprom_fill_bcma_nvram(struct bcma_bus *bus, struct ssb_sprom *out)
-+{
-+	char buf[10];
-+	char *prefix;
-+	bool fallback;
-+
-+	prefix = bcm47xx_sprom_bcma_prefix(bus, buf, sizeof(buf), &fallback);
-+	if (IS_ERR(prefix))
-+		return PTR_ERR(prefix);
-+	bcm47xx_sprom_fill_nvram_only(out, prefix, fallback);
-+	return 0;
-+}
-+
-+static int bcm47xx_get_sprom_bcma(struct bcma_bus *bus, struct ssb_sprom *out)
-+{
-+	struct bcma_boardinfo *binfo = &bus->boardinfo;
-+	char buf[10];
-+	char *prefix;
-+	bool fallback;
-+
-+	prefix = bcm47xx_sprom_bcma_prefix(bus, buf, sizeof(buf), &fallback);
-+	if (IS_ERR(prefix)) {
- 		pr_warn("Unable to fill SPROM for given bustype.\n");
--		return -EINVAL;
-+		return PTR_ERR(prefix);
- 	}
-+	memset(out, 0, sizeof(struct ssb_sprom));
- 
- 	nvram_read_u16(prefix, NULL, "boardvendor", &binfo->vendor, 0, true);
- 	if (!binfo->vendor)
-diff --git a/include/linux/bcm47xx_sprom.h b/include/linux/bcm47xx_sprom.h
-index 40a7da3ef..47e9922ec 100644
---- a/include/linux/bcm47xx_sprom.h
-+++ b/include/linux/bcm47xx_sprom.h
-@@ -9,6 +9,7 @@
- #include <linux/types.h>
- #include <linux/vmalloc.h>
- 
-+struct bcma_bus;
- struct ssb_sprom;
- 
- #ifdef CONFIG_BCM47XX_SPROM
-@@ -28,4 +29,18 @@ static inline int bcm47xx_sprom_register_fallbacks(void)
- };
- #endif
- 
-+/*
-+ * Fill the NVRAM-only variables of a bcma bus whose SPROM was read from the
-+ * device. Like the SPROM fallback, only with bcma built in.
-+ */
-+#if defined(CONFIG_BCM47XX_SPROM) && IS_BUILTIN(CONFIG_BCMA)
-+int bcm47xx_sprom_fill_bcma_nvram(struct bcma_bus *bus, struct ssb_sprom *out);
-+#else
-+static inline int bcm47xx_sprom_fill_bcma_nvram(struct bcma_bus *bus,
-+						struct ssb_sprom *out)
-+{
-+	return -EOPNOTSUPP;
-+}
-+#endif
-+
- #endif /* __BCM47XX_SPROM_H */
-diff --git a/include/linux/ssb/ssb.h b/include/linux/ssb/ssb.h
-index 49b34c153..c91d47592 100644
---- a/include/linux/ssb/ssb.h
-+++ b/include/linux/ssb/ssb.h
-@@ -76,6 +76,7 @@ struct ssb_sprom {
- 	u8 gpio1;		/* GPIO pin 1 */
- 	u8 gpio2;		/* GPIO pin 2 */
- 	u8 gpio3;		/* GPIO pin 3 */
-+	u8 gpio_ext[12];	/* GPIO pins 4-15, NVRAM ledbh4-15 only */
- 	u8 maxpwr_bg;		/* 2.4GHz Amplifier Max Power (in dBm Q5.2) */
- 	u8 maxpwr_al;		/* 5.2GHz Amplifier Max Power (in dBm Q5.2) */
- 	u8 maxpwr_a;		/* 5.3GHz Amplifier Max Power (in dBm Q5.2) */
+diff --git a/drivers/bcma/host_pci.c b/drivers/bcma/host_pci.c
+index 3dc298506..27f6cc10a 100644
+--- a/drivers/bcma/host_pci.c
++++ b/drivers/bcma/host_pci.c
+@@ -294,10 +294,14 @@ static const struct pci_device_id bcma_pci_bridge_tbl[] = {
+ 	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_BROADCOM, 0x4365, PCI_VENDOR_ID_DELL, 0x0018) },
+ 	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_BROADCOM, 0x4365, PCI_VENDOR_ID_FOXCONN, 0xe092) },
+ 	{ PCI_DEVICE_SUB(PCI_VENDOR_ID_BROADCOM, 0x4365, PCI_VENDOR_ID_HP, 0x804a) },
+-	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43a0) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43a0) },	/* BCM4360 */
++	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43a1) },	/* BCM4360, 2.4 GHz */
++	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43a2) },	/* BCM4360, 5 GHz */
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43a9) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43aa) },
+-	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43b1) },
++	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43b1) },	/* BCM4352 */
++	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43b2) },	/* BCM4352, 2.4 GHz */
++	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x43b3) },	/* BCM4352, 5 GHz */
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 0x4727) },
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 43227) },	/* 0xa8db, BCM43217 (sic!) */
+ 	{ PCI_DEVICE(PCI_VENDOR_ID_BROADCOM, 43228) },	/* 0xa8dc */
 
 -- 
 2.34.1
