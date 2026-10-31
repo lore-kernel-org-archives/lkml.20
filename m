@@ -1,59 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793410821;
-	b=DSkuiUST1cEcWkI7JGL2ynAO497cLQONlmpu4XmJRgL/cbPbAy3DWMa4Z4gzev9Am34F
-	 SyuhXni/6+xqUh+w61Cd2E/JZJ03yULab5m11kubBB6rCjjgDVL4xMYWnBld2gZx/2YKh
-	 mUCFy8EJcFD0gB6uMgV+0ebkdwYh6Vfc+pZA9NWeme2j6fdtaBdosRJ/DwzoZcY8OAB3x
-	 Yxnk0Dxb8tIZ+G3g5CA2CZoRewuqoBNNQO1bvR4TImEXYGJEO6LG/2FDzG6AtCdQka2WP
-	 enuhK4iyHSFh7LyurktQLu4GVT61Fp6/yCmS7SkhPglPDW34iQX7G+d9djkFMciMY2A==
+	t=1793410826;
+	b=ZQ7aSlcm+95NWe1ycMWH4b4JXz0U0ZhNQRrgOGzVlpD1aykrjLWv3DOxgW+5ODp3W4Rg
+	 6f3lvw+wvfOiGSXisXC2JJ6a1755VaLX3Op3+FARFG91yaYAhlE0Q1xF7BhtqfUILVXui
+	 o54/c2woDjLl5mewOgrpL4+2+efEJyEhjCjY2yXTg9cKa/dXAh1VvLE83K5JqxfISbrFA
+	 EgZX06berX+LzhBuu3QvJRVPVMIBl63OvYd6JuOscnKO69d7lN/LAs1lHy94UV6SMAqkl
+	 b5QKZHXX5MS+Dj60yQ3JewtKJH6fjfeklXF7A3l4O1DqTEWNMbw1n0TXm8lmAiNxyRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793410821;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793410826;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=cYECWHK3rCJvgT6Ofm6tWbKtlacbnOfxxCe60el77tE=;
-	b=x/ULNzAZ1h/KZGWCzsplNZHAWLlQZZF8ahvN7Ux3UEnGYbV8jbaK/F6I8RDIgfGnlhLr
-	 xiilMQfpuazXzOtqujWHcHD+z4gHCo8vSgwD6SafcLuqtE9fY9FYQtu6Dlw0ZEJpZXpbc
-	 cNuZ7YWhHZryAXcc54Fr2kuzKMQJFLBw+s4KjY/eFfIO/Ap6WZ6DkNnvBQWYtsYYgpiF2
-	 k45C02mmJnG3BZ6yuAUZDwFxYDxGYoWTDgw785KE9E3//Yg50ZX41rLiQ00NkKACexUFV
-	 SjEbsVmo9H2BeZhM4ZEImZTGNtQojTjm9gK6J9qWEsNFGUNzODeY6TlFHwolvSreKiQ==
+	bh=2t0RcGd/7teWs7LIzlpmlSpF5GPOOwLxfjFfZfOYR+o=;
+	b=AISK3V8WuhENAGwxAFDtRedJQK628tzkyAA9Zo7bo+gFULvSzdaQgXDa3Whqc8BK6AcU
+	 8X6py0QbnqF7UnVeVEO0qTKj9c4/UHwjJQy2EHESWPKkfJhBMK4sGSgOVb05bAEBe6Y5v
+	 OCiezQTrc5dG29QDpz4v7ze9Wi+9/nINg46M1YEE5+4j9WoC/rsSAylRBSHTlz2ZN3W7X
+	 fJ6c4UCQQMPyxNTiu8fwdQmW05IKT1hBHn/RRBCCXXCWN6/WAR0p/FZ0NVOvGXPaZV8tl
+	 LmesgaEyeAx4d425tfvBZ+9mCqGr3qIktuNOAObpld16SF4WlZBTaefW3kB/kMZTBzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BE2Bktj0;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+MbIE1n;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD82606A31E;
-	Sat, 31 Oct 2026 01:40:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5757606A332;
+	Sat, 31 Oct 2026 01:40:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BE2Bktj0
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352511F00A02;
-	Sat, 31 Oct 2026 01:40:20 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R+MbIE1n
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925611F0093A;
+	Sat, 31 Oct 2026 01:40:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793410821;
-	bh=cYECWHK3rCJvgT6Ofm6tWbKtlacbnOfxxCe60el77tE=;
+	s=k20260515; t=1793410826;
+	bh=2t0RcGd/7teWs7LIzlpmlSpF5GPOOwLxfjFfZfOYR+o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BE2Bktj0cqd5hRWFHydln72toMiCH87QG21VifgNn574fQ+tIfJOJ71mBERulGj34
-	 2TNLaf5qMySi6YQTmecWw8M6ZPuLSLKJ9ZWo8GncPkYm9ZiruQ6AniMoUdPLfsjrK6
-	 cWWx46e42jL9WV0fkNspHDtwzFOJjMoZSn4AiFGiy0FfRLkxBXF7vsqhajEJ3NkzOe
-	 p+SXplwa4Fmivws4hVsvVpuppn+K+E7+Azkc/LgpdAFbXyv8Y60u9jDJ5WPufHJg88
-	 jHlu5+obmj/9O8FlD+jFkKaFaIqrnz3TARihHiln+0U1rt+S5J9wLKgjsSWPAQm/lU
-	 +N2DGBNyVSMVA==
+	b=R+MbIE1nUNsZk35w09nru6Ky4tHNsa24llykO0JLApygBbcSPCas9v4Ds5j5aFU1A
+	 /FPb4LPEZSJD9m5JPZ5h6YGf28hrEPBoGAqcR9OpShxRYTy85skiBlzz2Le8X6LXos
+	 7Pk/m3gPAhwnn95qezYbXb08Ka7Aem8oLCemt1+GLM5OU5YPf95diOCmIoat1+BTpt
+	 2zOfY6dtp5q0PicnlQExI5dmlChreWe/LBpZFNLtmbd2H1RYOAH5G3tkyYJJ7CdsiC
+	 qcAjPsAsP5xzOm0+yKOI9yLFoF1E04Psc5wxdhdkQH/TjNiLF6ci/+P/qPLfxwRos7
+	 mbxb6JcWU30vw==
 From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: Hannes Reinecke <hare@suse.com>,
-	Andrew Luebke <andrew.luebke@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	Giuseppe Piscitelli <ooonea@gmail.com>
 Cc: "Martin K . Petersen" <mkp@kernel.org>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
 	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hannes Reinecke <hare@kernel.org>
-Subject: Re: [PATCH v3] scsi: aic79xx: Fix NULL pointer dereference in device reset
-Date: Fri, 30 Oct 2026 21:40:06 -0400
-Message-ID: <179340755629.952351.3503175521575838483.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] scsi: scsi_debug: Drain target cleanup before module exit
+Date: Fri, 30 Oct 2026 21:40:11 -0400
+Message-ID: <179340755630.952351.18201943224015271945.b4-ty@b4>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026172032.749756-1-andrew.luebke@gmail.com>
-References: <20261026172032.749756-1-andrew.luebke@gmail.com>
+In-Reply-To: <20261026202342.668361-1-ooonea@gmail.com>
+References: <20261026202342.668361-1-ooonea@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,23 +64,17 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 10:20:32 -0700, Andrew Luebke wrote:
+On Mon, 26 Oct 2026 21:23:41 +0100, Giuseppe Piscitelli wrote:
 
-> Since commit c67e63800446 ("scsi: aic79xx: Do not reference SCSI command
-> when resetting device") the device reset SCB has no SCSI command, but
-> ahd_linux_dev_reset() still sets its residual, and ahd_abort_scbs(),
-> which completes it, sets its status. Seen on an AIC-7902 when a failing
-> disk triggered a device reset, which killed the SCSI error handler:
-> 
->   BUG: kernel NULL pointer dereference, address: 0000009c
->   EIP: ahd_linux_dev_reset.cold+0xee/0x26e
-> 
-> [...]
+> Target destruction queues cleanup in an exclusive async domain. The
+> module loader's async_synchronize_full() does not wait for exclusive
+> domains. Wait for target cleanup after removing the hosts and before
+> removing the debugfs root and returning from module exit.
 
 Applied to 7.4/scsi-queue, thanks!
 
-[1/1] scsi: aic79xx: Fix NULL pointer dereference in device reset
-      https://git.kernel.org/mkp/scsi/c/f057a8bfeb6f
+[1/1] scsi: scsi_debug: Drain target cleanup before module exit
+      https://git.kernel.org/mkp/scsi/c/34c99ce29939
 
 -- 
 Martin K. Petersen
