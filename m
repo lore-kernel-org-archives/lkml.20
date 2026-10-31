@@ -1,58 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793458992;
-	b=lgkdPB3sJ2DBhqi7b2Cw/9s++3VVoYxaNs1yh4M69WIJlWvceMGA+0Ogqiocahh7xdSj
-	 YAJmZEULKPZbUH52ckLDNQe4a+Z5scrElNr64nnSc2ci6zoTbIkFksxBOqfOJg32SA6Ap
-	 wS4z1pNIfQx9wInzv5AJ7qwrzJrJHV0TKfnPYq3w0C1OJuUbKN8veTbMY5Ucqcq0Yo/jX
-	 mYUFha+bE4wfz+xprYfBsiTJgdSTLMgoucgwS3lvmQzGopV/cYa/NDXUvhUyGjnHvEJQG
-	 X6KHorez10b+1vVbWgiW192NMTkNaYEt7SOSHdkAh23FEWYaRHV0He9nft8uVzMi83Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793458992;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=2uhe0ZTNhDovEz3zv7M2X1cfX3rzZq+Bt1zZDJMVZJk=;
-	b=XvVoH1CXXqOd6WztZbqjvFXqhGQQzctqy9JevvQfXDV6+FQXpPqGtVy0NudbtGaPUtim
-	 5jdiFMKm2QZYt5fOAbewlMyLMvk7qW5n2L/KUNbNyfg/qCH5KGQFcFN6wCmlYFqpqhrIs
-	 zjf+LEiyplxfn9ZwZR7wi3wrpjvvHcmXM88Q0gYwfICQSFfLfOwdyFweHWDNcJiqKUYn0
-	 Wmro4WgLK3pKESvA4N1+RWWW+vxy+jE8yscaqsDd0LHNGKclkphLelnWCenLttDFIvhtb
-	 6jAOXFCJkL0cSCtmc/JY9I059xNx9DEIKV7fdoAvvlxa1mjN+zNO5+QFsCzPkRFlbwg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=QSlnCPcH;
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C7E40606A320;
-	Sat, 31 Oct 2026 15:03:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C7E40606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793459123;
+	b=dP9SUdUoqdUaWgHGfvSDFUG3JXx8MQVFjYcgCNc0WTEcqQCZbtkM10pVwmU10Wn+ufVk
+	 V3BcljRlKZuyccZkx8skI9ewMrwiel1g1HD4UNklFCS4JcPf/2eddYuN43Z6OGJJ5Sixz
+	 3ZGk6AgrJjKFpHZlUXwEqRfA9vFdSGbNFA5j/A/GJGcSHkkgyJXHBX7G05xlRznstzuvJ
+	 8/Fd7mIrAA5IGPRJ5Dblhm8GUieJDHPvoaRCCj2L34FWmcUAZ8h+ONtSSC0nVaMXMQchN
+	 0/ikWFr6XMZFIlpFbE8H6f4H9daihTt3VcOaAY3R2kBNs7wFVCKGYoXLG2ZX+GKFWbQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793459123;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=PCD/gBhQWHOD85GSHzF1y0CMZKDBwCfPG8eOkm8c4Go=;
+	b=ydR60MkIGytbBTsDBe095Hmc/Bv33PTY76Z6rHOgga78t2kTQCX5ioW4UAVj3ZOg/k/t
+	 JBhmkXKYjOkMzH/8GF99z9T4Reho3yvijcWsAzHN0qyuBcfrkBTS+vg0U1mmCrb6jfScE
+	 8K6xTRb/GwHYEhBVQyu9TQJ7rTyBzAA/rX6zcTGTZlU8wooEe9ihTPtpEcGmT16L2Fdhi
+	 kt6kffWg5SGI3/qjllcZqr0X1h9MdY5d24yIXfSDl1yw5bKp/792x4mGcQ73OQmzGBEv5
+	 LINwm2td/990cU30Zyl1BBT4K4aqyhgwBg2lbRT1O0qnappiehyyDei7QIM+8UMWO0g==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsxV+1Bg;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9C9606A31A;
+	Sat, 31 Oct 2026 15:05:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=QSlnCPcH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=2uhe0ZTNhDovEz3zv7M2X1cfX3rzZq+Bt1
-	zZDJMVZJk=; b=QSlnCPcH3sIe30XJPJ9mpC4EXORVN6xIEG6fT7G9UMc7RMX7wA
-	qrFdOrt+TEwRppPRLY83C3BzCxmn22tEIj3Z/ZrceY+gHIEilBCXPSXSI29oSlFj
-	cAm0uJCxRizCBBwXtrsscZU2bPsCNN9B5osXVxSdFmmmROGS86zqgS3gY=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgDHS0ApA+ZqqSNvAA--.5005S5;
-	Sat, 31 Oct 2026 23:03:09 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Rob Clark <robdclark@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/5] drm/msm/dsi: route the bonded command path through host ops
-Date: Sat, 31 Oct 2026 23:03:03 +0800
-Message-ID: <20261031150305.1107572-4-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261031150305.1107572-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YsxV+1Bg
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793459122;
+	b=qDaSeLWStk7PHnm5utACGkvlwzhBWT15Vg4un9XjJVvz0c18TNANZwpEeJHU5UnldVML
+	 /3rvxGFMnVtsJsVG5GRK/lUAP1rvH4Cr6zGGVuNcBgt95nL5pZ6zy8x2NMfmbtFajzWgl
+	 mhqV/BoNXwqUDd19BNjo0gs+O1XgksVyr393CjNJZ90d2pjv9lV7KhjwRTUGgnztSWv3+
+	 ryYulvM31UmINYtcRX+q58YFflQpLncYLdxgE7Rj6W3o7nGx/cNlrgJ2YZNXS/4e/wMjO
+	 8gVgGFQSDGCpT9+K5be7OzYhPGkmeTFGEG4RQ/QysGPzOBHKTmiVGN5NdMv5vc/6AUA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793459122;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=PCD/gBhQWHOD85GSHzF1y0CMZKDBwCfPG8eOkm8c4Go=;
+	b=eE5LicnadHPN7nr7iXdjiGNINNCW8KGxpmNt1r4ORV0JaiGPN5nOl2HQ2e5JwhmdHBiz
+	 gSBhCxVTfTrQUiHZpkgD1pVDNoK1ufQwSkg6eAKfBaDMMv4MTHFPKyEYwrtJOJPZOx9q6
+	 g/Ty5gLevDBthdabMG7Nc7cEvKdjCSwJYTF3a1POpqNRv2tQKxzSRNulm5T8EIyYmBUey
+	 wcTcmFszRnXJ7T7GA5yhPrrnsOWRTNprxPtAeF4F2By9NHeesJsBwQLMQprVUbBMHbUqY
+	 zWunKfPBJl3TqjVC5n+YQ5ZIY+4O4jpntdBEDFsXPV/aMIYjNf17FCSOkcnGcHWvrsg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E8EC61F0093A;
+	Sat, 31 Oct 2026 15:05:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793459122;
+	bh=PCD/gBhQWHOD85GSHzF1y0CMZKDBwCfPG8eOkm8c4Go=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=YsxV+1BgQaDGfWAUf4Pt7xgOXqzASD1WNojRtnwqPVBaWFxthNyFHmaisd7AY/1Uk
+	 3xazw0G0KhJ6ApyoNWpHOL0D16nfBHBOAhl7TtAZ/FsgJTgx2l2j3dB4HsNfZNA7J6
+	 aECKscaIPAyewkACXdsFfK00xvCKsOzEp5JbM7T7/OVzqLFG9S+6E6SkfqMnFx7FM9
+	 y3s+OFswo+5NksjeIb8mIzJwY36116UPCjxtRC9rRYKsvRxXWYvIQvBXzKI8WsmPoB
+	 U0rSyrckTZ6RMT9GhBDEx4aicuW1+3v9PXQ1xW4mwj8W4jiVtX3rTiAMooSfcS1gy3
+	 C8Cmb+iPtR3HQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 6B60945F0B;
+	Sat, 31 Oct 2026 15:05:21 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sat, 31 Oct 2026 16:05:00 +0100
+Subject: [PATCH 03/11] dt-bindings: regulator: qcom,usb-vbus-regulator: Add
+ pmi8998 and pm660
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,397 +83,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgDHS0ApA+ZqqSNvAA--.5005S5
-X-Coremail-Antispam: 1UD129KBjvAXoW3tF18WF48ZFWUCry5uF13twb_yoW8XFyfCo
-	WfX3yDXw1fK3Wqva4kt3WftFnF9F129r9xKrn8Gr4DCa1qqa4DJry3t3y3X3y3Xw1fGa1U
-	X3s7twnrKrW7Cr18n29KB7ZKAUJUUUU8529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
-	AaLaJ3UjIYCTnIWjp_UUUO07k0a2IF6w4kM7kC6x804xWl14x267AKxVW5JVWrJwAFc2x0
-	x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87
-	I2jVAFwI0_JrWl82xGYIkIc2x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY
-	1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20x
-	vEc7CjxVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280
-	aVCY1x0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzV
-	Aqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S
-	6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxkF7I0En4kS14v26r126r1DMxkIec
-	xEwVAFwVW5WwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw
-	1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r
-	4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU
-	vco2UUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARERB2rk8FY0gwAIsR
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-pmi8998-vbus-v1-3-4d805e5a0f27@ixit.cz>
+References: <20261031-pmi8998-vbus-v1-0-4d805e5a0f27@ixit.cz>
+In-Reply-To: <20261031-pmi8998-vbus-v1-0-4d805e5a0f27@ixit.cz>
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, 
+ Robin Snyders <robin@snyders.xyz>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-pm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1294; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=8b76kVmv0SWaU2OFA005s+KLQA5vUoRMBd25Pd9muoU=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq5gOvbY+oPG3hlXZA9XqKAk3Vrm8L+RMaCUlD3
+ mLWP36ir4eJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCauYDrwAKCRBgAj/E00kg
+ cq9cD/49B8I13OS7eo7LRQmzgDIyJRzRCkX+iJZxX+yUi87mXltY84FGkEMBuSSy7LOEhOezFhb
+ MXLl8g4tUGflPLcBWoV2IdaVxV/ieR6x2kh1PYDrSoNqN28Q3qQRagDJx6Gt0ijfgBaEcAU0OmS
+ EfAA6FU73aIassgW7RVWsjpWdNWcH7zkmIrpPCSWc+r8rSYzXxAo6Gtse1yPK+CWQTT/cQmDpHi
+ V7I8X2EtDWoyOhbtRun8S8b7HlJcdi5sYBd7x2mXDoAIPekI0X1iCIloXk1AUqdd4j87O7nuLVX
+ ewFcyKJkzz4dkc9ehH0HcicJh+JDICKR7/dyF66inlJUSrGMXKVYRrBFuVc7uDpRoB+0ec688a1
+ 6BQ782d6oS3611pQTC8bSC0WBot34NnaHW4u6H6nLDnbH2mEFYMa2PjjjzaLIlPFzwMIXhumAKG
+ dmdX0+eGXHEseXY2CTABkYOK6t9fwOvF4R9ewLlSeTlsv9sZN9Rgj60BHrI2TYwgUApSYJC6uVI
+ sAIRJgMH0Z5WF96R8MAIbfPxP2xrpZjegfJxEJT3c2DzHW1ZDjdQNCIx4g4Ncz345+38VaeddwK
+ pNyqz+isUt5wvmaXZTOTyVYROs5tSyNbEZJqv06Z+2jwRTCA1eEj9gao5c9anvpSfPdShtXZW8e
+ LWGJmBuf2z3yv0g==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-The manager called ten separate msm_dsi_host_bonded_* helpers to drive a
-bonded command transaction, so the broadcast engine's shape leaked into
-the manager and every helper needed a cross-file prototype.
+From: David Heidelberg <david@ixit.cz>
 
-Expose the transaction as two host ops instead: .bonded_cmd_xfer runs one
-broadcast command against a peer host and .bonded_wait_video waits for
-the video engine to go idle. The implementation moves into dsi_host.c
-where the rest of the register-level code lives, and the ten helpers
-become file-static there; only the two entry points stay in dsi.h. The
-ops are only populated for the 6G v2.9 generation, which is the one
-SM8750 reports.
+The VBUS register block on the PMI8998 and PM660 PMIC shares the design
+with the PM8150B one. Define corresponding compatible string, having the
+qcom,pm8150b-vbus-reg as a fallback.
 
-The manager still picks the master by link id and the sequencing inside
-the transaction is unchanged, so behaviour is identical.
-
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/msm/dsi/dsi.h         | 20 +++---
- drivers/gpu/drm/msm/dsi/dsi_cfg.c     |  3 +
- drivers/gpu/drm/msm/dsi/dsi_cfg.h     |  8 +++
- drivers/gpu/drm/msm/dsi/dsi_host.c    | 90 +++++++++++++++++++++++----
- drivers/gpu/drm/msm/dsi/dsi_manager.c | 64 ++++---------------
- 5 files changed, 109 insertions(+), 76 deletions(-)
+ .../devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml          | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dsi/dsi.h b/drivers/gpu/drm/msm/dsi/dsi.h
-index 199ec77129..667d233f7b 100644
---- a/drivers/gpu/drm/msm/dsi/dsi.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi.h
-@@ -53,12 +53,15 @@ int msm_dsi_manager_connector_init(struct msm_dsi *msm_dsi,
- int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg);
- int msm_dsi_manager_cmd_xfer_trigger(int id, u32 dma_base, u32 len);
- bool msm_dsi_manager_cmd_failed(void);
-+void msm_dsi_manager_mark_cmd_failed(void);
- int msm_dsi_manager_register(struct msm_dsi *msm_dsi);
- void msm_dsi_manager_unregister(struct msm_dsi *msm_dsi);
- void msm_dsi_manager_tpg_enable(void);
+diff --git a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+index 024b34d0eb1a6..3cdfb556662cb 100644
+--- a/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
++++ b/Documentation/devicetree/bindings/regulator/qcom,usb-vbus-regulator.yaml
+@@ -24,19 +24,21 @@ description: |
+ properties:
+   compatible:
+     oneOf:
+       - enum:
+           - qcom,pm8150b-vbus-reg
+           - qcom,pm4125-vbus-reg
+       - items:
+           - enum:
++              - qcom,pm660-vbus-reg
+               - qcom,pm6150-vbus-reg
+               - qcom,pm7250b-vbus-reg
+               - qcom,pmi632-vbus-reg
++              - qcom,pmi8998-vbus-reg
+           - const: qcom,pm8150b-vbus-reg
  
- /* dsi host */
- struct msm_dsi_host;
-+struct msm_dsi_host_cfg_ops;
-+const struct msm_dsi_host_cfg_ops *msm_dsi_host_get_cfg_ops(struct mipi_dsi_host *host);
- int msm_dsi_host_xfer_prepare(struct mipi_dsi_host *host,
- 					const struct mipi_dsi_msg *msg);
- void msm_dsi_host_xfer_restore(struct mipi_dsi_host *host,
-@@ -67,20 +70,11 @@ int msm_dsi_host_cmd_tx(struct mipi_dsi_host *host,
- 					const struct mipi_dsi_msg *msg);
- int msm_dsi_host_cmd_rx(struct mipi_dsi_host *host,
- 					const struct mipi_dsi_msg *msg);
-+/* bonded command path; registered in struct msm_dsi_host_cfg_ops */
-+int msm_dsi_host_bonded_cmd_xfer(struct mipi_dsi_host *host,
-+				 struct mipi_dsi_host *peer,
-+				 const struct mipi_dsi_msg *msg);
- void msm_dsi_host_bonded_wait_video(struct mipi_dsi_host *host);
--int msm_dsi_host_bonded_xfer_prepare(struct mipi_dsi_host *host);
--void msm_dsi_host_bonded_xfer_restore(struct mipi_dsi_host *host);
--int msm_dsi_host_bonded_cmd_build(struct mipi_dsi_host *host,
--				  const struct mipi_dsi_msg *msg,
--				  u32 *dma_base, u32 *len);
--void msm_dsi_host_bonded_cmd_init_trigger(struct mipi_dsi_host *host);
--void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
--				   const struct mipi_dsi_msg *msg,
--				   u32 dma_base, u32 len, bool master);
--void msm_dsi_host_bonded_cmd_trigger(struct mipi_dsi_host *host);
--int msm_dsi_host_bonded_cmd_arm_master(struct mipi_dsi_host *host);
--int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len);
--int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host);
- void msm_dsi_host_cmd_xfer_config(struct mipi_dsi_host *host,
- 				  bool broadcast, bool master);
- void msm_dsi_host_cmd_xfer_commit(struct mipi_dsi_host *host,
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.c b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-index 640ebe8244..aa44d9fcba 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.c
-@@ -320,6 +320,9 @@ static const struct msm_dsi_host_cfg_ops msm_dsi_6g_v2_9_host_ops = {
- 	.tx_buf_put = dsi_tx_buf_put_6g,
- 	.dma_base_get = dsi_dma_base_get_6g,
- 	.calc_clk_rate = dsi_calc_clk_rate_6g,
-+	/* SM8750 is the bonded part on this generation; see sm8650_dsi_cfg. */
-+	.bonded_cmd_xfer = msm_dsi_host_bonded_cmd_xfer,
-+	.bonded_wait_video = msm_dsi_host_bonded_wait_video,
- };
+   reg:
+     maxItems: 1
+     description: VBUS output base address
  
- static const struct msm_dsi_cfg_handler dsi_cfg_handlers[] = {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_cfg.h b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-index c8813a738b..4ab015fb82 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-+++ b/drivers/gpu/drm/msm/dsi/dsi_cfg.h
-@@ -82,6 +82,14 @@ struct msm_dsi_host_cfg_ops {
- 	void (*tx_buf_put)(struct msm_dsi_host *msm_host);
- 	int (*dma_base_get)(struct msm_dsi_host *msm_host, uint64_t *iova);
- 	int (*calc_clk_rate)(struct msm_dsi_host *msm_host, bool is_bonded_dsi);
-+	/*
-+	 * Bonded command path. Only filled for controllers that implement the
-+	 * broadcast protocol; dsi_manager.c reaches them through these two ops.
-+	 */
-+	int (*bonded_cmd_xfer)(struct mipi_dsi_host *host,
-+			       struct mipi_dsi_host *peer,
-+			       const struct mipi_dsi_msg *msg);
-+	void (*bonded_wait_video)(struct mipi_dsi_host *host);
- };
- 
- struct msm_dsi_cfg_handler {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_host.c b/drivers/gpu/drm/msm/dsi/dsi_host.c
-index a3e9882c22..5df0e775b1 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_host.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_host.c
-@@ -2345,6 +2345,12 @@ void msm_dsi_host_bonded_wait_video(struct mipi_dsi_host *host)
- 	dsi_wait4video_eng_busy(to_msm_dsi_host(host));
- }
- 
-+const struct msm_dsi_host_cfg_ops *
-+msm_dsi_host_get_cfg_ops(struct mipi_dsi_host *host)
-+{
-+	return to_msm_dsi_host(host)->cfg_hnd->ops;
-+}
-+
- static const struct msm_dsi_bonded_cfg *
- dsi_bonded_cfg(struct msm_dsi_host *msm_host)
- {
-@@ -2415,7 +2421,7 @@ static int dsi_cmd_link_clk_set_rate(struct msm_dsi_host *msm_host)
- 	return msm_host->cfg_hnd->ops->link_clk_set_rate(msm_host);
- }
- 
--int msm_dsi_host_bonded_xfer_prepare(struct mipi_dsi_host *host)
-+static int dsi_bonded_xfer_prepare(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
-@@ -2454,7 +2460,7 @@ int msm_dsi_host_bonded_xfer_prepare(struct mipi_dsi_host *host)
- 	return ret;
- }
- 
--void msm_dsi_host_bonded_xfer_restore(struct mipi_dsi_host *host)
-+static void dsi_bonded_xfer_restore(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	const struct msm_dsi_cfg_handler *cfg_hnd = msm_host->cfg_hnd;
-@@ -2474,8 +2480,8 @@ void msm_dsi_host_bonded_xfer_restore(struct mipi_dsi_host *host)
- 	pm_runtime_put_sync(&msm_host->pdev->dev);
- }
- 
--int msm_dsi_host_bonded_cmd_build(struct mipi_dsi_host *host,
--				  const struct mipi_dsi_msg *msg,
-+static int dsi_bonded_cmd_build(struct mipi_dsi_host *host,
-+				const struct mipi_dsi_msg *msg,
- 				  u32 *dma_base, u32 *len)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-@@ -2514,7 +2520,7 @@ int msm_dsi_host_bonded_cmd_build(struct mipi_dsi_host *host,
- 	return 0;
- }
- 
--void msm_dsi_host_bonded_cmd_init_trigger(struct mipi_dsi_host *host)
-+static void dsi_bonded_cmd_init_trigger(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	u32 schedule_line;
-@@ -2549,8 +2555,8 @@ void msm_dsi_host_bonded_cmd_init_trigger(struct mipi_dsi_host *host)
- 	dsi_write(msm_host, REG_DSI_DMA_SCHEDULE_CTRL, val);
- }
- 
--void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
--				   const struct mipi_dsi_msg *msg,
-+static void dsi_bonded_cmd_stage(struct mipi_dsi_host *host,
-+				 const struct mipi_dsi_msg *msg,
- 				   u32 dma_base, u32 len, bool master)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
-@@ -2589,14 +2595,14 @@ void msm_dsi_host_bonded_cmd_stage(struct mipi_dsi_host *host,
- 	dsi_write(msm_host, REG_DSI_DMA_LEN, len & GENMASK(23, 0));
- }
- 
--void msm_dsi_host_bonded_cmd_trigger(struct mipi_dsi_host *host)
-+static void dsi_bonded_cmd_trigger(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 
- 	dsi_write(msm_host, REG_DSI_TRIG_DMA, 1);
- }
- 
--int msm_dsi_host_bonded_cmd_arm_master(struct mipi_dsi_host *host)
-+static int dsi_bonded_cmd_arm_master(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 
-@@ -2609,7 +2615,7 @@ int msm_dsi_host_bonded_cmd_arm_master(struct mipi_dsi_host *host)
- 		0 : -EIO;
- }
- 
--int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
-+static int dsi_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	unsigned long completed;
-@@ -2640,7 +2646,7 @@ int msm_dsi_host_bonded_cmd_wait_master(struct mipi_dsi_host *host, u32 len)
- 	return -ETIMEDOUT;
- }
- 
--int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
-+static int dsi_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
- {
- 	struct msm_dsi_host *msm_host = to_msm_dsi_host(host);
- 	u32 timeout_us = dsi_bonded_cfg(msm_host)->poll_timeout_us;
-@@ -2660,6 +2666,68 @@ int msm_dsi_host_bonded_cmd_poll_slave(struct mipi_dsi_host *host)
- 	return -ETIMEDOUT;
- }
- 
-+int msm_dsi_host_bonded_cmd_xfer(struct mipi_dsi_host *host,
-+				 struct mipi_dsi_host *peer,
-+				 const struct mipi_dsi_msg *msg)
-+{
-+	struct msm_dsi_host *master_dsi = to_msm_dsi_host(host);
-+	u32 dma_base, len;
-+	int master_ret, peer_ret, ret;
-+
-+	if (!peer)
-+		return -ENODEV;
-+
-+	if (msm_dsi_manager_cmd_failed())
-+		return -EIO;
-+
-+	ret = dsi_bonded_xfer_prepare(host);
-+	if (ret)
-+		return ret;
-+	ret = dsi_bonded_xfer_prepare(peer);
-+	if (ret)
-+		goto restore_master;
-+
-+	/* Per-generation: the video engine must be idle before staging. */
-+	master_dsi->cfg_hnd->ops->bonded_wait_video(host);
-+	to_msm_dsi_host(peer)->cfg_hnd->ops->bonded_wait_video(peer);
-+	ret = dsi_bonded_cmd_build(host, msg, &dma_base, &len);
-+	if (ret)
-+		goto restore_pair;
-+	dsi_bonded_cmd_init_trigger(host);
-+	dsi_bonded_cmd_init_trigger(peer);
-+	dsi_bonded_cmd_stage(host, msg, dma_base, len, true);
-+	dsi_bonded_cmd_stage(peer, msg, dma_base, len, false);
-+
-+	/* Flush the packet and both descriptors before starting either engine. */
-+	wmb();
-+	dsi_bonded_cmd_trigger(peer);
-+	master_ret = dsi_bonded_cmd_arm_master(host);
-+	if (!master_ret) {
-+		wmb(); /* Enable the completion interrupt before master kickoff. */
-+		dsi_bonded_cmd_trigger(host);
-+		master_ret = dsi_bonded_cmd_wait_master(host, len);
-+	}
-+	/* Resolve the peer even if the master's completion failed. */
-+	peer_ret = dsi_bonded_cmd_poll_slave(peer);
-+	ret = master_ret < 0 ? master_ret : peer_ret < 0 ? peer_ret : len;
-+	if (ret < 0) {
-+		/* Never reuse a packet buffer while either DMA engine is unresolved. */
-+		msm_dsi_manager_mark_cmd_failed();
-+		dev_err(&master_dsi->pdev->dev,
-+			"bonded command DMA failed: master=%d peer=%d\n",
-+			master_ret, peer_ret);
-+		return ret;
-+	}
-+
-+restore_pair:
-+	dsi_bonded_xfer_restore(host);
-+	dsi_bonded_xfer_restore(peer);
-+	return ret;
-+restore_master:
-+	dsi_bonded_xfer_restore(host);
-+	return ret;
-+}
-+
- int msm_dsi_host_xfer_prepare(struct mipi_dsi_host *host,
- 				const struct mipi_dsi_msg *msg)
- {
-diff --git a/drivers/gpu/drm/msm/dsi/dsi_manager.c b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-index 93d636220b..917e51a73f 100644
---- a/drivers/gpu/drm/msm/dsi/dsi_manager.c
-+++ b/drivers/gpu/drm/msm/dsi/dsi_manager.c
-@@ -11,6 +11,7 @@
- 
- #include "msm_kms.h"
- #include "dsi.h"
-+#include "dsi_cfg.h"
- 
- #define DSI_CLOCK_MASTER	DSI_0
- #define DSI_CLOCK_SLAVE		DSI_1
-@@ -52,6 +53,11 @@ static bool dsi_mgr_uses_bonded_cmd(void)
- 	return msm_dsim_glb.is_sm8750 && IS_BONDED_DSI();
- }
- 
-+void msm_dsi_manager_mark_cmd_failed(void)
-+{
-+	WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
-+}
-+
- bool msm_dsi_manager_cmd_failed(void)
- {
- 	return dsi_mgr_uses_bonded_cmd() &&
-@@ -601,9 +607,7 @@ static bool dsi_mgr_use_bonded_write(const struct mipi_dsi_msg *msg)
- static int dsi_mgr_bonded_cmd_xfer(const struct mipi_dsi_msg *msg)
- {
- 	struct msm_dsi *master_dsi, *slave_dsi;
--	struct mipi_dsi_host *master, *slave;
--	u32 dma_base, len;
--	int master_ret, slave_ret, ret;
-+	const struct msm_dsi_host_cfg_ops *ops;
- 
- 	if (msm_dsim_glb.master_dsi_link_id < 0 ||
- 	    msm_dsim_glb.master_dsi_link_id >= DSI_MAX)
-@@ -613,57 +617,13 @@ static int dsi_mgr_bonded_cmd_xfer(const struct mipi_dsi_msg *msg)
- 	slave_dsi = dsi_mgr_get_other_dsi(msm_dsim_glb.master_dsi_link_id);
- 	if (!master_dsi || !slave_dsi || !master_dsi->host || !slave_dsi->host)
- 		return -ENODEV;
--	master = master_dsi->host;
--	slave = slave_dsi->host;
--
--	if (msm_dsi_manager_cmd_failed())
--		return -EIO;
--
--	ret = msm_dsi_host_bonded_xfer_prepare(master);
--	if (ret)
--		return ret;
--	ret = msm_dsi_host_bonded_xfer_prepare(slave);
--	if (ret)
--		goto restore_master;
- 
--	msm_dsi_host_bonded_wait_video(master);
--	msm_dsi_host_bonded_wait_video(slave);
--	ret = msm_dsi_host_bonded_cmd_build(master, msg, &dma_base, &len);
--	if (ret)
--		goto restore_pair;
--	msm_dsi_host_bonded_cmd_init_trigger(master);
--	msm_dsi_host_bonded_cmd_init_trigger(slave);
--	msm_dsi_host_bonded_cmd_stage(master, msg, dma_base, len, true);
--	msm_dsi_host_bonded_cmd_stage(slave, msg, dma_base, len, false);
--
--	/* Flush the packet and both descriptors before starting either engine. */
--	wmb();
--	msm_dsi_host_bonded_cmd_trigger(slave);
--	master_ret = msm_dsi_host_bonded_cmd_arm_master(master);
--	if (!master_ret) {
--		wmb(); /* Enable the completion interrupt before master kickoff. */
--		msm_dsi_host_bonded_cmd_trigger(master);
--		master_ret = msm_dsi_host_bonded_cmd_wait_master(master, len);
--	}
--	/* Resolve the peer even if the master's completion failed. */
--	slave_ret = msm_dsi_host_bonded_cmd_poll_slave(slave);
--	ret = master_ret < 0 ? master_ret : slave_ret < 0 ? slave_ret : len;
--	if (ret < 0) {
--		/* Never reuse a packet buffer while either DMA engine is unresolved. */
--		WRITE_ONCE(msm_dsim_glb.bonded_cmd_failed, true);
--		dev_err(&master_dsi->pdev->dev,
--			"bonded command DMA failed: master=%d peer=%d\n",
--			master_ret, slave_ret);
--		return ret;
--	}
-+	/* Which hosts run the broadcast engine is per-generation knowledge. */
-+	ops = msm_dsi_host_get_cfg_ops(master_dsi->host);
-+	if (!ops || !ops->bonded_cmd_xfer)
-+		return -EOPNOTSUPP;
- 
--restore_pair:
--	msm_dsi_host_bonded_xfer_restore(master);
--	msm_dsi_host_bonded_xfer_restore(slave);
--	return ret;
--restore_master:
--	msm_dsi_host_bonded_xfer_restore(master);
--	return ret;
-+	return ops->bonded_cmd_xfer(master_dsi->host, slave_dsi->host, msg);
- }
- 
- int msm_dsi_manager_cmd_xfer(int id, const struct mipi_dsi_msg *msg)
+ allOf:
+   - $ref: regulator.yaml#
+
 -- 
-2.53.0
+2.55.0
+
 
