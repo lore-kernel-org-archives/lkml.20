@@ -1,47 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.100
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.111
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793435439;
-	b=v0Caup1Dv2lVDvcaurGV9Iqfbg1ZVC9lwP0faB+Y/D2uo6qL9kdxZC5o76+Gwo1G+Fgm
-	 feI4RW6KtvfJ3fbz9oSK1sEpF3GEBFfSug1beptgjsHmgq1nY5JCe94UP0GbNySf1HRwo
-	 evyEIGzwGqPuju94TeDT78dtSsbkBwtJZZWacXZJSs3ajtXPTDow+x9EA6t/qzvacJvwL
-	 bZsURVQWN6ZHjx2zTv8mxHemfaZCPXOM5YphZ5I+6/DeAhMPP2TbVLZA56nEi8hGEQwcx
-	 ovm9prYz+Y4IQnWwi2HIotyMIHj5l2XtiZm0CBo7P+d4Gk+4L0ZcWgd+a4mDHTu5ZiA==
+	t=1793435450;
+	b=mmF7JNR7dkrCWvIxzHtgT6/gOrRSnHgbOAfTN96vFP1UcjlEC/Yole/pexYL5Zj97Q+3
+	 H+S3QFrnituGhDmqSOGldmmJI7trLn5r2EFUPFtYfUqB92maRCYSNdpGAemrfV9Dzdqro
+	 jz+ZbV85IA0TaVK1lffdKLGA6IyNpayhvuOIvDiw01uSk/bi3q5jUC5cMWSdQBWs/PLXz
+	 WzZA+P2/+vmhU2kluUHdenEZYNMvHSCD+FNgafryk7RRh/Tq39sIoyXmh7CHfvO8Q3aDO
+	 d9FL/sfl+mn00Jb8HjiIUbPnK78rWt/NjV5YkMvnEu/u2Fz74u515/ebORA7Ootd3aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793435439;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793435450;
 	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
 	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=11EZsZQc/6GCS8JBX6hOIFtCcJazynSKhMoTlW4DEkk=;
-	b=3ACJaiMD1vuoGjpFOgmVPNww0zzcYX9ul3YXFW5a0lUlrxr3yZleUNJhymrSXEy2QhJ1
-	 GwJodFdyUSFC8FtStiR0vXhWEyjtCH317Onw1wbqkPyf5jFGgjL/9TnObCPVFO8JTnUzM
-	 dPD3Pcay6nNL1uD2ZrQ/KF5pMuZtvI9TQtNGTo7ON0enZPheS5BHOnnthbYkIkR3TJIjD
-	 2MzWeIaCsPfmWXK29fMgc8+ClawsTFgcDh7mXFdIma0Ooo2u7htn45SHA01dEkGKuyhPr
-	 VFR3Hqrxg7oRcQae7i6y2Md3n49HZ+1udAXLaic+oS1WfWwGg9oNvjAG+xNgyFqJElw==
+	bh=57eOqBZzxslFG3511fl8N/Q8eICKpPDwxcb18ps4Eg4=;
+	b=s17V79SPqgeOPKlQPBu+3NVktIAL7AEu9X/TOMrg9HeeNq9uQH7tcOMqWJETR54BhzEG
+	 sbXkFB5nDM9djoXsrBGASJtVuqLEn/dPR6h+zIlvTYGB2P5aTZWCGZ7oKv2iVeNuKX3xl
+	 bjrnOt0AHi43nUlOvhc7w8+I+DJYYC7qCMwoWdKq6XFwr21T/tRtnr++vPpO72/ZL/zbv
+	 4mGl6cXTPfbA8vdkWCKJaRs0HJVcOmmO/JdiU9c5K9ikUpmtZf88JuRZoODQ3T1Ly9qPA
+	 Q64cKT0X/ORVlhaXkGo+nQuLk58SKYuQLpVrRKdXjEjbrgWzIPIiv3u3uxMJM+qF09g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.alibaba.com;
 	spf=pass smtp.mailfrom=linux.alibaba.com;
-	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Fgf1Ut1M;
-	arc=none smtp.remote-ip=115.124.30.100
-Received: from out30-100.freemail.mail.aliyun.com (out30-100.freemail.mail.aliyun.com [115.124.30.100])
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NrluZY4o;
+	arc=none smtp.remote-ip=115.124.30.111
+Received: from out30-111.freemail.mail.aliyun.com (out30-111.freemail.mail.aliyun.com [115.124.30.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4D860A2603
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:30:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EA4D860A2603
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 009F260A2612
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:30:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 009F260A2612
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Fgf1Ut1M
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=NrluZY4o
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=linux.alibaba.com; s=default;
-	t=1793435437; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=11EZsZQc/6GCS8JBX6hOIFtCcJazynSKhMoTlW4DEkk=;
-	b=Fgf1Ut1M55KuTVDf6TpnEqUbAfHX+vA9opzTWJBniyV7KFaraMzpObO6BoKNKmvVn1ZZQna6Sql1HySydL9w4eploM4+3VQyNSega74z8GxOYuEDTIWn4P+Kxjztreyn0lW7b5SMAzXyIJWhuhcS2Xi+CaQqbVdXAtPAOBwpR28=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045133197;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=29;SR=0;TI=SMTPD_---0XDo-2nW_1793435433;
-Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDo-2nW_1793435433 cluster:ay36)
+	t=1793435441; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=57eOqBZzxslFG3511fl8N/Q8eICKpPDwxcb18ps4Eg4=;
+	b=NrluZY4ojGVfL8C6N1qWbuBwbjgfKY7k4Pgk2SDpZ0Qs730Ypgjwlc7zZ+kFE2tZupEGXgkdYIKxURbunNcnuweYK1SeqmnRcF/izSoxen7amkvfLFD9/YTrc4/sp+1C4FiKE2adf/mWYF0XtlvDOtVCui/U01J1CVrBcOLwtTg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=29;SR=0;TI=SMTPD_---0XDo-2pB_1793435436;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDo-2pB_1793435436 cluster:ay36)
           by smtp.aliyun-inc.com;
-          Sat, 31 Oct 2026 16:30:34 +0800
+          Sat, 31 Oct 2026 16:30:38 +0800
 From: fangyu.yu@linux.alibaba.com
 To: tomasz.jeznach@linux.dev,
 	joro@8bytes.org,
@@ -72,9 +72,9 @@ Cc: fangyu.yu@linux.alibaba.com,
 	linux-riscv@lists.infradead.org,
 	kvm-riscv@lists.infradead.org,
 	Nutty Liu <nutty.liu@hotmail.com>
-Subject: [PATCH v6 08/10] iommu/riscv: Pre-enable GADE for second-stage domains
-Date: Sat, 31 Oct 2026 16:30:12 +0800
-Message-Id: <20261031083014.15040-9-fangyu.yu@linux.alibaba.com>
+Subject: [PATCH v6 10/10] iommu/riscv: Add IOTINVAL.GVMA invalidations
+Date: Sat, 31 Oct 2026 16:30:14 +0800
+Message-Id: <20261031083014.15040-11-fangyu.yu@linux.alibaba.com>
 X-Mailer: git-send-email 2.39.3 (Apple Git-146)
 In-Reply-To: <20261031083014.15040-1-fangyu.yu@linux.alibaba.com>
 References: <20261031083014.15040-1-fangyu.yu@linux.alibaba.com>
@@ -91,46 +91,54 @@ Content-Transfer-Encoding: 8bit
 
 From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-Pre-enable RISCV_IOMMU_DC_TC_GADE in the device context when
-attaching a second-stage domain, if the IOMMU supports AMO_HWAD.
-
-Software pre-populates second-stage page tables with D set, so
-enabling GADE by default does not change normal behavior. When
-dirty tracking is enabled, iommufd clears the pre-set D bits and
-GADE becomes necessary for hardware to update the dirty bit on
-write access.
-
-This avoids toggling GADE dynamically and keeps device context
-setup consistent with second-stage domain attachment.
+Previously, only IOTINVAL.VMA was issued, which is insufficient for
+second-stage address translation consistency.
 
 Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 Reviewed-by: Nutty Liu <nutty.liu@hotmail.com>
 ---
- drivers/iommu/riscv/iommu.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/iommu/riscv/iommu.c | 18 +++++++++++++++---
+ 1 file changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/iommu/riscv/iommu.c b/drivers/iommu/riscv/iommu.c
-index 082f55c44d20..fc7a80393833 100644
+index 9f572baeca74..899b9872ca56 100644
 --- a/drivers/iommu/riscv/iommu.c
 +++ b/drivers/iommu/riscv/iommu.c
-@@ -1237,6 +1237,8 @@ static void riscv_iommu_iodir_update(struct riscv_iommu_device *iommu,
- 	for (i = 0; i < fwspec->num_ids; i++) {
- 		dc = riscv_iommu_get_dc(iommu, fwspec->ids[i]);
- 		tc = READ_ONCE(dc->tc);
-+		tc &= ~RISCV_IOMMU_DC_TC_GADE;
-+		tc |= new_dc->tc & RISCV_IOMMU_DC_TC_GADE;
- 		tc |= new_dc->ta & RISCV_IOMMU_DC_TC_V;
+@@ -831,6 +831,15 @@ static int riscv_iommu_iodir_set_mode(struct riscv_iommu_device *iommu,
+ 	riscv_iommu_cmd_inval_vma(&cmd);
+ 	riscv_iommu_cmd_send(iommu, &cmd);
  
- 		WRITE_ONCE(dc->fsc, new_dc->fsc);
-@@ -1353,6 +1355,8 @@ static int riscv_iommu_attach_paging_domain(struct iommu_domain *iommu_domain,
- 			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_MODE, pt_info.iohgatp_mode) |
- 			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_GSCID, domain->gscid) |
- 			FIELD_PREP(RISCV_IOMMU_DC_IOHGATP_PPN, pt_info.ppn);
-+		if (iommu->caps & RISCV_IOMMU_CAPABILITIES_AMO_HWAD)
-+			dc.tc |= RISCV_IOMMU_DC_TC_GADE;
- 	} else {
- 		if (!riscv_iommu_fsc_supported(iommu, pt_info.fsc_iosatp_mode))
- 			return -ENODEV;
++	/*
++	 * Per the RISC-V IOMMU spec (sec. 5.5), the IOMMU may retain
++	 * cached translations across mode switches. IOTINVAL.VMA only
++	 * covers first-stage leaf PTEs, so use a global IOTINVAL.GVMA
++	 * to flush stale second-stage translations.
++	 */
++	riscv_iommu_cmd_inval_gvma(&cmd);
++	riscv_iommu_cmd_send(iommu, &cmd);
++
+ 	/* IOFENCE.C */
+ 	riscv_iommu_cmd_sync(iommu, RISCV_IOMMU_IOTINVAL_TIMEOUT);
+ 
+@@ -1176,12 +1185,15 @@ static void riscv_iommu_iodir_iotinval(struct riscv_iommu_device *iommu,
+ 		/*
+ 		 * else: IOTINVAL.VMA with GV=1,AV=PSCV=0,and
+ 		 * GSCID=DC.iohgatp.GSCID
+-		 *
++		 */
++		riscv_iommu_cmd_send(iommu, &cmd);
++		/*
+ 		 * IOTINVAL.GVMA with GV=1,AV=0,and
+ 		 * GSCID=DC.iohgatp.GSCID
+-		 * TODO: For now, the Second-Stage feature have not yet been merged,
+-		 * also issue IOTINVAL.GVMA once second-stage support is merged.
+ 		 */
++		riscv_iommu_cmd_inval_gvma(&cmd);
++		riscv_iommu_cmd_inval_set_gscid(&cmd,
++			FIELD_GET(RISCV_IOMMU_DC_IOHGATP_GSCID, iohgatp));
+ 	}
+ 	riscv_iommu_cmd_send(iommu, &cmd);
+ }
 -- 
 2.50.1
 
