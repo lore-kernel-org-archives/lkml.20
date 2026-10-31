@@ -1,45 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.138
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468198;
-	b=nKrr+rC8OLheVofIAESrY+PHzZgT5sdt2P3kTLi5kHMg4G8GH948zpDhlj3L8plFCV8e
-	 X5Y2emJLltLjYdJ5qV1Tj+vQmAzXiDcw3GkYFdu3iKCrtF002tJ4AxBcrAocES7511nLA
-	 f2gBUbYNcNkHJzDItlO78aSZCSPK1sVl04XN60oK8RvYmgUiWuM3aTRzVxIJRtLD0m6Yy
-	 AUdBnHAf7IZDGRuNv4eCk9BPylqemQYu0/C5GL0VGzFWfkUv/8fBm6/0riD4BIL9k6VBz
-	 r1m8EwaXVN37PmUyvNV3+/8oy8DMXKebnjcJHFu0yHe+N8/lS+/PBFP6P8hyxmdxdzQ==
+	t=1793468356;
+	b=q8mHRtAJkJANWpT5Ps0CpukEV/FHJ7RqpyPi2FViv1LEECUKRDp2k+GSwzWG5JVeQh+w
+	 BS0yRgBmyi3hGaqtU7/jnnCZviS/gK1xNX/BWsUVECyoq6+gBRm9eAnnpYSYfLsd/HznH
+	 d0bX+jYTEGTfv+xsDfVvt6BHrsgVYz7+YC4RLktFb1iu5zYjnRpjzBl/hJMTHRmxf/wvF
+	 u/SDMNKUqp37V6ZZdf/xQ8BGiZSs5pLTWrdURs9rx7nLlNbgxVPtXE9rFQ/5Fj0hWwBM7
+	 UvsGkjud0C5YMuc5q+lWCGUcKgaioLejyhMJcX1eOHhpS8Ywon+nZfd+0jDxYZ0txxw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468198;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=A7rYZZhwITcyDhu205txGS/XFBdfhwiSbkwcizPA/fU=;
-	b=vgCf075hzwI2V2ad5GPgpxblBuqy73t5eJuzzh6Zi7cyumfcHTYd0YvhE2QofPaBbjf3
-	 bME55XKs2x37BAzC6aMy0s+OIvF0z+eQ+0qP3gsCG0gxi92FHanYXIwMqa/Uzk2ewtnR6
-	 1GryDRIRAa7KmvWpIjPc7ZiU6i3mpIvNuSZKT16lIcYyVC5N6S4zADAJhN7bDr0ICbS0n
-	 qjv11cwevGCessf1IdmpjwpdKDU8KUkqG56HC5F4Z6wVjhQCFA3MRDWqTRRGYVdO8AnvB
-	 9fjniRgmy7UZIC1P6OKH+qzFQeM1ZnQw3mOiR14uVkOTk4xXaqMPsvEWNXLFBW4pMsQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793468356;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Date:Message-ID:Subject:In-Reply-To:References:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=5RS4/TCOhSiJb1fSn9tcNQ8qqueFM9qglyQ2e/KfPJY=;
+	b=JrtiGbXrsdmYzVMApZQCf8GMbbnRM/zCRhktbKMsf2vS+TYZ7LCL17xxpwtxnWTgKmC8
+	 FeIhFE8IwaMixnjm/hTmR+O3WbldmYCl09z9R5lL0UaZSr9tYT7BeENVu9snE1EylOlKB
+	 brQRNoid9hmIQLqazDdyA20OQSgdyOvTnh6q+LfY1UVOosY4WiGY8ch/jjkjQBaKBy8FB
+	 E50aLuw7Z5+vs87XmRJKUuxCJSFuvao3aaksGXybuHJOsQy94JteBhpPCpmlKR3RGp0ix
+	 TDoiHNCOgOnxbuiHCvjTyTw9hk007f3b0eTOF6Be1k7ockx6FVAis5GuKNixvqan4Vg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="eK/By4OU";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AylsZbl8;
+	arc=none smtp.remote-ip=74.125.229.138
+Received: from mail-dl2-f10.google.com (mail-dl2-f10.google.com [74.125.229.138])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01257606A31A;
-	Sat, 31 Oct 2026 17:36:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0940B606A31E
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:39:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0940B606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eK/By4OU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 548CD1F000C1;
-	Sat, 31 Oct 2026 17:36:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793468197;
-	bh=A7rYZZhwITcyDhu205txGS/XFBdfhwiSbkwcizPA/fU=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=eK/By4OU8NQHwhrsUUc27O6LqNU307PvE+OL2tDL5GoLSSEsyROeB+HzE7qG7M+tp
-	 WmfP2E5ob3kZ87IWbMlUoOCHNJdyK+aoxoAozDCt5PQBwNu5ZF6DtkXzbxkWnL6D4Z
-	 PpvT6tBBynbAzHOah3b6AoPeLgy6ml7rSV3RuCxHq8v01kuvOvDWSSnIsclKBxCPtW
-	 sTe5Tt8jfIVmiyd4xsrEBywOZ14Ppa39r6zOf8LTF1G5HxPiV3gSRQZWThYcbgalUC
-	 ny3eq/DsQDK0Yt3OL1hBnFgZQFPg9kmvku2dbus+EXFww9RtVY0QSkNsc13JWpKrBj
-	 XuqC20JiXCYwg==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=AylsZbl8
+Received: by mail-dl2-f10.google.com with SMTP id a92af1059eb24-14e61bbf1e0so20842c88.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:39:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793468355; x=1794073155; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:message-id:date:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5RS4/TCOhSiJb1fSn9tcNQ8qqueFM9qglyQ2e/KfPJY=;
+        b=AylsZbl8rD/zrNKDrvJnSKn0FCOCurNXnYVPihbd2lSu/OdLgTm6IVDAsekTWCxioF
+         EAiIMkmxAcbysGVh+GzJK5fPmJaTOlJFVfDkHn42S85LoLvm9PO1VKl21FRIl9n8pRhg
+         BrusB0ZG+yGAU+AhRyzbo5FY7gX7DeCM1wZCwUKkHl0Jv3+mifOFQAfzfWd+RbmsJm/e
+         Vep/I5DjYulWWM4KCntGv4D9+Wd9X5xEOknPKleKu3jE36AgAyANSbEHOShTPs2xue/5
+         CTXEIBUQkP/lcJVne52Pvo4jzz4F0pIvdMK9/yyFME9eSFQ8U2gqcfFhTyPnhQBbH7Sg
+         GN+w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793468355; x=1794073155;
+        h=mime-version:content-transfer-encoding:content-type:references
+         :in-reply-to:subject:message-id:date:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5RS4/TCOhSiJb1fSn9tcNQ8qqueFM9qglyQ2e/KfPJY=;
+        b=j2qYI+Al2vSDHvI+YCYuPRAhc9q1M2PPSemooRWECvIobJh1mbhUX8kfPdEky0tAk4
+         UcK2+6FfZELOVAjzgiIb0kgyLSX56oLMjSBXLaH/N8gWuOGW9Dc7tNXbLHNT+OwFFYsx
+         B8z71Fa1k4gFZpAEAq7wqbQant23COzv+ayZx2rAJ28MYHVrppi/BJnslsgba4KewgML
+         HZH1GoXfw//1EQLRJURc3Rm7o+OTE3F61T/utSjYrjmCrTweVCSXr5qiPZCFbcKazzPI
+         7QDe6odeNZsb+4OnqQWMj8SswO7/shmgKvA7JASVbl62qBqXlX/bs4COGmX1SSlWNpUP
+         /Q/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzAO2xfd303nkd+8ittS0rNSP3wP0cWiiTSmChy4TFe88oNyYPNLGih9fjmo8KQxIUVMVNIQfVN13jQd+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKdCgSvjbOecIWkpD7HThgK3p/upCeKg7bZOj0YUyeIIJJptow6
+	Bw+srrNBPfDdnM3TV+iXNDRFQxK4YtFeSQfpsnQSiGmn8nNYJbQ4rywGBsrfBNtFnY8Yde2Q
+X-Gm-Gg: AYBFou15VozNJlVSrH/ahji47aSwM68/PPIE88yFUXDJgq+Gv+0aTmUyK8t1xVsCHxn
+	KDWgYY4/hG7SIw3UXOm6PoSEEdol63Yy8gGjDZuvCEbcGzgRIeS2xCMbprinPFPPzINXxysxVwE
+	8ksiJjURy/0+CKs7igro+C5APgiruhIiUlkIUGze2eB0fdCNh2L8zv6tT0TO3cwnxCV4+v4+Xq2
+	XR2xWD2ft72DKnwS9NPGMvppJafqR6rhEUjA+Z7eUDX7WABWfxGvsm8pBucUat5DTEaHDbSKzB0
+	IfBkpMmdRJVUbhaa5TXG4NZOBUDC73aPNmpSBxwTUW2rvNfdeZxwCLxxSaK46MiOxQb0zUptks4
+	1Mu0XnyMaFo8fRdkuoaAFEX5qK7xrVqES0ZpoKfH/fpcwVYAmJOtKaczPd4I368kL9frl//qf2Y
+	PQQXnUbU2QPwB1WzQup/eVF9xtFZFuH7K5Y4BTD7glFASuXsg7i7Q3ODjvXm6Y+en6JL+4+VpZv
+	WbQhanGfGMdKkI6nEb84Eqmt3ztwmPoyiaTblNmAobIem8QraSGLH0mzHi+BBkhjr16rZVWD7hN
+	dalCANM22HjD/HgyP6Hs8vaDNo5z3K6i979LqnLp8jPO+YfnesynSxs1VbvA2/YD+dD87qa6IsH
+	vfnTJXPOQZhD0HaZQaqFEIyRLNNLOM7T4zw==
+X-Received: by 2002:a05:7022:258f:b0:19e:78fe:9d67 with SMTP id a92af1059eb24-1ac5a680801mr9985603c88.9.1793468354679;
+        Sat, 31 Oct 2026 10:39:14 -0700 (PDT)
+Received: from [192.168.50.20] (n106-71-19-159.sun21.vic.optusnet.com.au. [106.71.19.159])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac194b5437sm19811655c88.13.2026.10.31.10.39.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 10:39:14 -0700 (PDT)
+From: Aveline Noir <jm5905938@gmail.com>
+To: SJ Park <sj@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, damon@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-mm@kvack.org, sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev,
+ Shuah Khan <shuah@kernel.org>, stable@vger.kernel.org
+Date: Sun, 01 Nov 2026 03:34:41 +1100
+Message-ID: <179346448183.4.15545164251841296990@gmail.com>
+Subject:
+ Re: [RFC PATCH] selftests/damon/sysfs_memcg_path_leak: define ksft_skip
+In-Reply-To: <20261031153858.84302-1-sj@kernel.org>
+References: <179342136087.2.16978105493403840270@gmail.com>
+ <20261031153858.84302-1-sj@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,50 +104,23 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/3] phy: qcom: qmp-pcie: Add vdda-refgen supplies
- for Glymur
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261013-phy_refgen_1012-v3-2-f28305289499@oss.qualcomm.com>
-References: <20261013-phy_refgen_1012-v3-0-f28305289499@oss.qualcomm.com>
- <20261013-phy_refgen_1012-v3-2-f28305289499@oss.qualcomm.com>
-Date: Sat, 31 Oct 2026 23:06:26 +0530
-Message-Id: <179346818618.7309.6736144761934692738.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=530; i=mani@kernel.org;
- h=from:subject:message-id; bh=4vJv4VvRn9nmwAnO3sqpule0BEnd6l7ULaD/bgA2Qvo=;
- b=kA0DAAoBVZ8R5v6RzvUByyZiAGrmJx2gSnyZs2kCHDIM3Mcwo54hnPe/+x8mQ71tx1ewV0vEU
- YkBMwQAAQoAHRYhBGelQyqBSMvYpFgnl1WfEeb+kc71BQJq5icdAAoJEFWfEeb+kc71RE8H/jzK
- mHuwXJFNqIEpPTyTmmPe/GwhYsq4MGS5tjIR2d6zx+muon7RT4D6pAEBb7kQQx1BC8P5UHpwefB
- Hu/YFJS+XhvWuU5r/Jm5jzE+ad9AwRyIQrOlSYyRwVUFG6mXKgs6OHYKi/IzHL0DKYBE2YZ7VeX
- R9U9vLz/B0Gvkv2TOh0L9SzYZV1l89oHi00yw+XoQ3dEiPvcW9GLPDjqkaaaoYu902ttts7IsL1
- geydkwncOjSfzhg/HccSGFg32KO8ZJOGAuOk+ba9OufKKDavKRRaBavwfC5aA5vbxG9ucjuIVZs
- Z3pXjyHEQa7SWpCnjJ6DC4IK4+HxeM4L0gBEn8A=
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-13 03:16 -0700, Qiang Yu wrote:
-> The refgen providing reference voltage for PCIe QMP PHY on Glymur requires
-> two power supplies independent from the PHY's core and qref rails. Add
-> support for vdda-refgen0p9 and vdda-refgen1p2 supplies with a dedicated
-> glymur_qmp_phy_vreg_l list.
-> 
-> Update both Gen5x4 and Gen4x2 configurations to use the new supply list.
-> 
-> Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+Hi SJ,
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+On Sat, 31 Oct 2026 08:38:58 -0700 SJ Park wrote:
 
-- Mani
+> Thank you for reviewing, Aveline.
 
+Oh, looks like I forgot that. Thanks for the reminder.
 
+That also gives me an idea: maybe I could build a modular tool to help
+write emails. Building on b4 might be a good starting point.
+
+Tested the non-root skip path on x86-64 Linux with Bash 5.3.20:
+the exit status changed from 0 to 4.
+
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
+
+Thanks,
+Aveline Noir
