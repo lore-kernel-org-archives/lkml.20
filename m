@@ -1,101 +1,103 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793487551;
-	b=JyDxgz2YZ0EUg8NFQJpbbPHnCD3sp8YUUcPC7UiXX/eN0uoZeKIOitFSaud6u95cA0YA
-	 DIDVHHpxNeAsG6wbpW0ajqX1uM4EE37aWakedswh3ONzeI4sM/WxB5XVehlmhHdvzG5BT
-	 Y+rrw66aIAxkRJA3Kfg+CL3s3dGPHXHTyVH1SNzLiS3c0mri5jKKJVMosTVa8S6t7Nq/6
-	 FLtipGezrNSr2h8wdvGC9cwizkhLraZyqtd1SXHrgrRIgpGkIkGKZVXdXpTeRCkjXh8Pf
-	 Ki7QoXGPMagpBc0/43LH9w8eMui28gjAaXEIPNdCcoYBdKHnJq2L3fBvF6VlwP6cYtw==
+	t=1793487559;
+	b=jQzTcSCKkNHzQYMw2+eMCZMqTeQC36UuRXX6aQ5/jBvsGLW/fy2l9kSG/auQPSQRZaOQ
+	 4OecnoPJYh5DOu9ttOs4pnVQ8r5mEu+U5Su+ceZYaQGVpX5pPdxSH8zJk5aTyLAhxDAqR
+	 dHxIT5VkdhNFzU0DGpivcVMSEPJ80BdOEfUP6xzxjwYR+Qqc8FfZ8PD/OJIRJUhTzkqNW
+	 h6vvG0EULtsbF5AgqggG2nd8kLRQdOJWHIhmrCsa12bpMyJCnRHmYa0drAwhCq6EXTCB+
+	 So60omwAoLg4tzWlvBi2yOnDH6niM9vV/9LWbZPmu6sVML8Nlq1rM7YumgPdESVFWqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793487551;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793487559;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 X-Received:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=ms+e+r+XcjJUf10RLONsKRvaYJt9n/+LlWA/9aLUivk=;
-	b=HNBCl9444rEBdr74aLgmu07poG8yg6fNPbVwTDpOIn1zHh3epAxzDQ94ZhtDsciBJkCH
-	 wzgyKlkPEgWtjQAtr+vvIpSdjZjn/ZpSi+acSKhSJNrCREVqvEfm0bKGrdJvCOJtQMrF6
-	 l6mdHE0i51msgL29zAzQnfBeJ0Ez9A1jNYl4uJkn8EkUWws2v8FxWxAumezHsqVCwC4bM
-	 m5v5jsUu5vQObgTv7FCYxvylpD7q1dnTfICeseNKJqjQYB8Sx3tqmajx/fdKqi4PQA+AA
-	 V2TsCnFe39m7PBI+qMQUrXDP7Ddze10H8EwOVyL9Ij6OA9lL0QhVZWVkIfDggDR08ZQ==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=v8ieTUMljOJ7qpikwY+C9+nNipul/W3dfq2M+DvQXoA=;
+	b=KNgKZ6FddVUwqcnRWXxjMClJPse9OpGBCWEbWYcA7cIkuizR8/KJ2CCR/jWRhfFJhavu
+	 2hxhJ1PYs/QXDSv73addzBFm4JdEbjUr27aqkyK77K8U2Ds80YHBa6ZMlLsVY9WWoOiqo
+	 ABPfegEyP7q03/Ggnw6ULVb1viA60kIpu+XX+qn0jObp76MeRjtGErjcGjBlMET7uuyth
+	 A+9+WFYJ45ViF+iXhm8F8knh7PtmI8iN1jw+V2bvbGkivss6VqdS3He6rigj5z3vPcBmN
+	 MS5ZORkCEaWL3aX74R9Lqf8/OizP2MY/1PS90MSUriDHfPuotwmEFm2xyolPG4vRH4Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LNJ8VM5N;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ILyyyXwY;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MW8BT4FC;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=W6ltdRX0;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C21A8606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:59:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C21A8606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE89606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:59:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AE89606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=LNJ8VM5N;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=ILyyyXwY
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=MW8BT4FC;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=W6ltdRX0
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793487549;
+	s=mimecast20190719; t=1793487558;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=ms+e+r+XcjJUf10RLONsKRvaYJt9n/+LlWA/9aLUivk=;
-	b=LNJ8VM5NZwO2oKZIr3J+pShkVDssx/MJcGcBaW0WxjdXMoshYC/eC/Wo0uH6gV4oZpXgwh
-	uXzucY9fRUrtBUjQLJ0KrlCf1iQUr6O7XpmN7Ur/dzOHtkEX2RVj2FgOlad7KhOCU1V8Y9
-	Jb/Oidyt/nftmbvSckhtaR9xTaRAY60=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=v8ieTUMljOJ7qpikwY+C9+nNipul/W3dfq2M+DvQXoA=;
+	b=MW8BT4FC+t7aYQi8S/4tec8Qil6wNTz8CqBJ8vzZKiI08H/9HZLiwONyo4ucpu7p4QFwHk
+	G1rXgdieWpM31yZ3n0Swgl4AqS2YuBceimM660QWHnMx2ah27h5Xy7T3F2J/yEmhDagJrU
+	aQCvYSea7UHLbMSzcV26+wH3M8X2kCw=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-306-b0eZHIefPLasSYe46TaBzg-1; Sat, 31 Oct 2026 18:59:08 -0400
-X-MC-Unique: b0eZHIefPLasSYe46TaBzg-1
-X-Mimecast-MFC-AGG-ID: b0eZHIefPLasSYe46TaBzg_1793487547
-Received: by mail-wm1-f71.google.com with SMTP id 5b1f17b1804b1-4a17741243eso13360325e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:59:07 -0700 (PDT)
+ us-mta-450-oRjFylkkMT6wFmgqhQJZsg-1; Sat, 31 Oct 2026 18:59:16 -0400
+X-MC-Unique: oRjFylkkMT6wFmgqhQJZsg-1
+X-Mimecast-MFC-AGG-ID: oRjFylkkMT6wFmgqhQJZsg_1793487555
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a4654add56so15103465e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 15:59:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793487547; x=1794092347; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ms+e+r+XcjJUf10RLONsKRvaYJt9n/+LlWA/9aLUivk=;
-        b=ILyyyXwYbS/kftSg5E6JaOgozW+o6ASM/HvwsYfYxOzetsw+w5QBWTPW8LN1Tpay5x
-         pgKdP6LK0kQmbyPCoinawtQpD49w2+gKBgUtdyxkofFIouKjMssH4KfkI+0JXp9jxSfC
-         s0LYawqSuoXGkGl1iJcTcd+PpKW2B28yQUBzGFEQow8x9jbwHXQP1SrhCwaA1pOhuZHn
-         tsjeTKXsZYSA9z+bunePZQjbIPKxeyQT66atV+YAwFTMllW8+uSjZ6zQ9fJoJ8hUlW93
-         63IfIc1yI3eJDwxEV+wm0YxBTiNzlnpuuijQh3m08ODBpuT7B+jb/L71adk0lLdmoKPW
-         DK3Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793487547; x=1794092347;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=redhat.com; s=google; t=1793487555; x=1794092355; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ms+e+r+XcjJUf10RLONsKRvaYJt9n/+LlWA/9aLUivk=;
-        b=cHFAOj2tRBh+XmLSCgoU8OtQjYQIMdQivGlTYc98u5wve4qB1LezBmJbOg9BGXJfAs
-         UFQLuA4TiZG9lastOfTo2wlpPLLVrI04EWgPejgf7mBfJz+yCfPjLLYzz8gtSO2aUSiT
-         q/oH65ix7++YeZtGoPBZ2e3fGaYJqa2/8v7j/+g18j5oz43NvFrK/WNJglStigtE88WY
-         zJPS0HEN5v52SjB82d9Ksa3QXTz5d2IWH2YvO3LpF0cQbuv0HJ1lcsM1tcg3d2yQoVjz
-         sZCT5VvxAV21MVx2e6pOT/8T3SRVfW0XexBtWGaT35NWyftdgXQ5IPPEeN/p5pmiewm0
-         rjiQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxOEm6TuwgWuiIyVaV0PUVXXezWHrY7jNjoEG0f3nQ/HO503wqKBzxLXRJpUs3ahA5mxRxbJma14XU9FYg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK4faoUJd02VhBHI9Zkf5dO28GmKG+pAEpVrNFn0zIBwzjHw495
-	UT+NEy7wzw1hBopz7+zgqLSapDnMChqxOcEl2FO7wnXFSpQnb/Of0lInzabaneMZ0LDunkEcNYI
-	MD468VrWnpNzFUIxo6Kt4s1fKeq2xTfh5oSY067KsXLk7hgklmh3mDxf/lsH1t+dkMQ==
-X-Gm-Gg: AYBFou1mHeWHkcMxjdDfiPtUILIOYeSAYiGh1gzbIlujhpVar4L034jBIS5ty3/Bbnb
-	s51AY4HMj1YdCBk4WbnqGyXVyqF10X2kMh/1rgyyKiafqTwhyUgmgUZrFgHw4Ar2CVcjRUQUj9O
-	o0P5LYXIFibxmOsIAQas7hrDPOvs2zmdEv8B1bKsF41sa8BXBc8Kcy41CwLfVhpfgKKfqbFvTOt
-	3AFx8vKGPCcStR20Se72e0BQ2aHyepVuCuxtdj1rMUCVIG06qV+Cg/rvC6aicvbK27iZtRk5T4P
-	1BDwevHbSNgh9Yf7ItVexSzSwl6iG7fsv6KHb0Li7+OocmNaYZvGyQdrLXLM6E3WxIAQVGj9WPt
-	6eXcGzR+7xeXixnA7Kow48V+/uq0UuaOCnLIcwPV2BkCVTp5bVhUbjmeFW96iAYjHYCPuDoPhgY
-	REatLQ3m6ieJIjS7f7lwP1Ws8CSJm56ACrVBJzvvcUyDShqdTjiA==
-X-Received: by 2002:a05:600c:524c:b0:4a1:e6c5:e44c with SMTP id 5b1f17b1804b1-4ac17470f97mr144612685e9.10.1793487546908;
-        Sat, 31 Oct 2026 15:59:06 -0700 (PDT)
-X-Received: by 2002:a05:600c:524c:b0:4a1:e6c5:e44c with SMTP id 5b1f17b1804b1-4ac17470f97mr144612375e9.10.1793487546515;
-        Sat, 31 Oct 2026 15:59:06 -0700 (PDT)
+        bh=v8ieTUMljOJ7qpikwY+C9+nNipul/W3dfq2M+DvQXoA=;
+        b=W6ltdRX0mniN0fXze4habzUxscF21GcoSpJwMaem4wH+C8RrliH9HlV6wTOcTc9OIT
+         P0DAq3P2NDYeb7p/paQP8ibyJstN3toRLFtxPFw3m/y9WC7v+tNfzpRNHNpao1NJeN2n
+         ZVXLOMi7sJAXgFlmEiaoxxQ25krfkWh9nXoG1zpL/fTl0+7BwfoO9sXttuJGAzP+HwTW
+         FojKYy5s+dAIwJwSCL5h49XYEL9JAKWWJZz7Kb0AGlY+7vN3AjVTeV33bDHTmsEpXI9T
+         qkoDW11IUo6sbvv/CxJDH3VXDuw7nEwavw80KkEOmJ5heYEuFepIVqmMd9PZl0X8SAq9
+         gk1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793487555; x=1794092355;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v8ieTUMljOJ7qpikwY+C9+nNipul/W3dfq2M+DvQXoA=;
+        b=Y80wpARygNuiY047vfCO03gBitl0qCowLD0TZkue7WeYKNZ8RcDTguPfp1fGfdbfIx
+         BC7mE5lvDhGNqa9FF6uIvw6v2StIbLYiu8NvpBak/6nQWw9jsXge3FDEB6g60W5+TK5r
+         HSQ+hIpWb5IXKrRe8ymGw31kzai7Xi3ttkozGHt19cq4JrFf83/A9XOLhiFZuzn9Lua7
+         sJ5QuOVc4wl/Ag10ibs4CGT2Tv22tRCMG4h/bCqUsP3GBxDEjuNBdoWgUdIqunPwcioh
+         Fhb1i9H9WVyeZG8pYRy9IBxaVQAhj2azoQQU7h86AsOrX8Fiw/sMDbKko0q+EVXKKdof
+         SwIQ==
+X-Forwarded-Encrypted: i=1; AKwUvByKm3zc7U04yakC7LebhyOh2WwC3hE8i45ogInRdsYLxWiJ4I+uyzWcyzXvHzdJFl1D0TLwBb3dyAYg9G4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5pZoUyuq04g0lpzlxetSVnA9qIJtHN115iTgRxaFbutW4gOcA
+	ZQxtsq1R6emzTvPDl7wPQf7JqeQRIV0P0UrAxc/rb1lFgVVmyElimfmoQP6RspjF9xp3YTuH5BZ
+	5QjgSej9K1FKZ8VZapdMZieFX6B+wiQBbolR2XO3dLTbgpJQRtNykmhyS97Ho3Qnd2A==
+X-Gm-Gg: AYBFou2DvTY/DmsKTkbombYyG4j9bx7VV5ybGPOyMqI8VuaUlzaOaNwlCIwASwbGTJZ
+	ubCsXzp25CXtfyxnRig11Ya6udMTxbIr8P7WK4mbJhRNo21+I1UerSkUSJ2EFCOEFurdI6Pba5L
+	Y3KmHP45NEZQzC3nF1r5SQMC09HYo8eJJKqlzGYgBgIx1InopSctjmo6h5YEQ1CJ9AwsdWhV1tJ
+	tPQbjU7QzAEn1riMb+6DIFeE3FXHNB3fIVb8kdGSB8zS14q2DGe69yIE2adEsyMEaPoulgt9jfr
+	SjJ9ECR6ekioDSYe632hg2Eu5mvuTK+t/DHtJuDH0KH5AuPjRml76J0z0iXTXeR3MCW8zIdwJLc
+	+c0QfjB6OJbteC2KqYIe6eDrQivA+vn2KN0THTXy1J9ChdFAQSztb0iY5g/T8xGBf3ppwZfAX4e
+	i4z4yx3SRfhRoE//etO1DNFyeneqM3YFKl8a7O1pOpT/9yQ3yL1w==
+X-Received: by 2002:a05:600c:3b8f:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4ac16acfdd5mr143439675e9.11.1793487555498;
+        Sat, 31 Oct 2026 15:59:15 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b8f:b0:4a6:42cc:bf66 with SMTP id 5b1f17b1804b1-4ac16acfdd5mr143439425e9.11.1793487555156;
+        Sat, 31 Oct 2026 15:59:15 -0700 (PDT)
 Received: from toolbx.fritz.box (p200300c1df20b900aff65c27eee3dd92.dip0.t-ipconnect.de. [2003:c1:df20:b900:aff6:5c27:eee3:dd92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm204535345e9.12.2026.10.31.15.59.04
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm204535345e9.12.2026.10.31.15.59.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 15:59:05 -0700 (PDT)
+        Sat, 31 Oct 2026 15:59:14 -0700 (PDT)
 From: Sebastian Wick <sebastian.wick@redhat.com>
 To: Louis Chauvet <louis.chauvet@bootlin.com>,
 	Haneen Mohammed <hamohammed.sa@gmail.com>,
@@ -108,10 +110,12 @@ To: Louis Chauvet <louis.chauvet@bootlin.com>,
 	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org
 Cc: Sebastian Wick <sebastian.wick@redhat.com>
-Subject: [PATCH 1/2] drm/vkms: Add drm_dev_enter/exit guards for hot-removable paths
-Date: Sat, 31 Oct 2026 23:58:58 +0100
-Message-ID: <20261031225901.3200167-1-sebastian.wick@redhat.com>
+Subject: [PATCH 2/2] drm/vkms: Use drm_dev_unplug() for ConfigFS device removal
+Date: Sat, 31 Oct 2026 23:58:59 +0100
+Message-ID: <20261031225901.3200167-2-sebastian.wick@redhat.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261031225901.3200167-1-sebastian.wick@redhat.com>
+References: <20261031225901.3200167-1-sebastian.wick@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,153 +127,37 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In preparation for switching to drm_dev_unplug() for ConfigFS device
-removal, add drm_dev_enter()/drm_dev_exit() guards to vkms callbacks
-that can be reached while the device is being torn down.
-drm_dev_unplug() relies on these SRCU guards to wait for in-flight
-operations before proceeding with teardown. Without them,
-synchronize_srcu() completes immediately and the teardown path can race
-with in-flight operations.
+VKMS ConfigFS devices can be disabled while userspace still holds open
+file descriptors. Using drm_dev_unregister() leaves the device in a
+state where ioctls are still accepted but internal locks can contend
+with the teardown path. Specifically, drmModeGetConnector() triggers
+fill_modes which acquires mode_config locks that contend with
+drm_atomic_helper_shutdown().
 
-Guard the following callbacks:
-
- - vkms_connector_detect() and vkms_conn_get_modes(): called from the
-   MODE_GETCONNECTOR ioctl via fill_modes, which holds mode_config.mutex.
-   Without the guard, an in-flight getconnector can hold locks that
-   drm_atomic_helper_shutdown() needs.
-
- - vkms_wb_connector_get_modes(): same fill_modes path for the writeback
-   connector.
-
- - vkms_set_crc_source(): called from the CRC debugfs release path. The
-   debugfs proxy explicitly does not protect the release callback
-   against removal races, so this needs its own guard.
-
-Atomic commit callbacks are intentionally not guarded: they are
-serialized against drm_atomic_helper_shutdown() via modeset ww_mutex
-locks, and must remain functional after unplug so shutdown can disable
-CRTCs.
+Use drm_dev_unplug() instead, which marks the device as unplugged so
+the ioctl layer rejects subsequent calls with -ENODEV. The previous
+commit added drm_dev_enter()/drm_dev_exit() guards to vkms callbacks,
+so synchronize_srcu() in drm_dev_unplug() properly waits for any
+in-flight operations before the teardown proceeds.
 
 Signed-off-by: Sebastian Wick <sebastian.wick@redhat.com>
 ---
- drivers/gpu/drm/vkms/vkms_composer.c  |  8 +++++++-
- drivers/gpu/drm/vkms/vkms_connector.c | 14 +++++++++++++-
- drivers/gpu/drm/vkms/vkms_writeback.c | 13 +++++++++++--
- 3 files changed, 31 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/vkms/vkms_drv.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/vkms_composer.c
-index 0fc915a954ba..e0576edd7168 100644
---- a/drivers/gpu/drm/vkms/vkms_composer.c
-+++ b/drivers/gpu/drm/vkms/vkms_composer.c
-@@ -5,6 +5,7 @@
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_blend.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_colorop.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_fixed.h>
-@@ -731,11 +732,16 @@ int vkms_set_crc_source(struct drm_crtc *crtc, const char *src_name)
- {
- 	struct vkms_output *out = drm_crtc_to_vkms_output(crtc);
- 	bool enabled = false;
--	int ret = 0;
-+	int ret, idx;
-+
-+	if (!drm_dev_enter(crtc->dev, &idx))
-+		return -ENODEV;
+diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+index 5a640b531d88..716f9c966c21 100644
+--- a/drivers/gpu/drm/vkms/vkms_drv.c
++++ b/drivers/gpu/drm/vkms/vkms_drv.c
+@@ -259,7 +259,7 @@ void vkms_destroy(struct vkms_config *config)
  
- 	ret = vkms_crc_parse_source(src_name, &enabled);
+ 	fdev = config->dev->faux_dev;
  
- 	vkms_set_composer(out, enabled);
- 
-+	drm_dev_exit(idx);
-+
- 	return ret;
- }
-diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
-index b0a6b212d3f4..81cd845cf84f 100644
---- a/drivers/gpu/drm/vkms/vkms_connector.c
-+++ b/drivers/gpu/drm/vkms/vkms_connector.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0+
- 
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_managed.h>
- #include <drm/drm_probe_helper.h>
-@@ -16,6 +17,10 @@ static enum drm_connector_status vkms_connector_detect(struct drm_connector *con
- 	struct vkms_connector *vkms_connector;
- 	enum drm_connector_status status;
- 	struct vkms_config_connector *connector_cfg;
-+	int idx;
-+
-+	if (!drm_dev_enter(dev, &idx))
-+		return connector_status_disconnected;
- 
- 	vkms_connector = drm_connector_to_vkms_connector(connector);
- 
-@@ -31,6 +36,8 @@ static enum drm_connector_status vkms_connector_detect(struct drm_connector *con
- 			status = vkms_config_connector_get_status(connector_cfg);
- 	}
- 
-+	drm_dev_exit(idx);
-+
- 	return status;
- }
- 
-@@ -44,12 +51,17 @@ static const struct drm_connector_funcs vkms_connector_funcs = {
- 
- static int vkms_conn_get_modes(struct drm_connector *connector)
- {
--	int count;
-+	int count, idx;
-+
-+	if (!drm_dev_enter(connector->dev, &idx))
-+		return 0;
- 
- 	/* Use the default modes list from DRM */
- 	count = drm_add_modes_noedid(connector, XRES_MAX, YRES_MAX);
- 	drm_set_preferred_mode(connector, XRES_DEF, YRES_DEF);
- 
-+	drm_dev_exit(idx);
-+
- 	return count;
- }
- 
-diff --git a/drivers/gpu/drm/vkms/vkms_writeback.c b/drivers/gpu/drm/vkms/vkms_writeback.c
-index ecf29a2c0c8e..e779ace7b383 100644
---- a/drivers/gpu/drm/vkms/vkms_writeback.c
-+++ b/drivers/gpu/drm/vkms/vkms_writeback.c
-@@ -3,6 +3,7 @@
- #include <linux/iosys-map.h>
- 
- #include <drm/drm_atomic.h>
-+#include <drm/drm_drv.h>
- #include <drm/drm_edid.h>
- #include <drm/drm_fourcc.h>
- #include <drm/drm_writeback.h>
-@@ -67,9 +68,17 @@ static int vkms_wb_atomic_check(struct drm_connector *connector,
- static int vkms_wb_connector_get_modes(struct drm_connector *connector)
- {
- 	struct drm_device *dev = connector->dev;
-+	int count, idx;
- 
--	return drm_add_modes_noedid(connector, dev->mode_config.max_width,
--				    dev->mode_config.max_height);
-+	if (!drm_dev_enter(dev, &idx))
-+		return 0;
-+
-+	count = drm_add_modes_noedid(connector, dev->mode_config.max_width,
-+				     dev->mode_config.max_height);
-+
-+	drm_dev_exit(idx);
-+
-+	return count;
- }
- 
- static int vkms_wb_prepare_job(struct drm_writeback_connector *wb_connector,
+-	drm_dev_unregister(&config->dev->drm);
++	drm_dev_unplug(&config->dev->drm);
+ 	drm_atomic_helper_shutdown(&config->dev->drm);
+ 	devres_release_group(&fdev->dev, NULL);
+ 	faux_device_destroy(fdev);
 -- 
 2.56.0
 
