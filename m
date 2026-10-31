@@ -1,85 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793418150;
-	b=W6meObZ2JnHpbPeSHdbV5sjA7gUo9ge9jGPw0E/BjOOpCkmWVy5wYC5fzfJs4bVlC67p
-	 1xAGP6dchIIQ5S8cX6VdpceC6wA+1LgzMxEfHthk4VDF/F3GxINJvkrDDFenTYZluFfpE
-	 3IbRNXyV040AfVXmTSMja+V9pzzlghd+Tbt9J+KyPdDSKmKcfNiijup3/w62VNJryqVc8
-	 +BSC4P8fyf8l19UBpsYuRS/bBr8NsMrRVRdPuK/kz5KibciN6IVgGaM6zUGjhtRDI80Hm
-	 3aGGTjXdFqEfwrY1i1uToqLOSMKRyHDSGcrGDCRhqgdUdoibOxYFPtAsj/FA2m09F+w==
+	t=1793418187;
+	b=MVRhRQ2ptqEAMrBj7nGc+5LxSoCKOApBSCRSOU3NJXpDE5ULq8nON9mSI9j+V+3RyL2v
+	 v2QUe/11d+sjpRqbfXs6Ka1+NbG8w1swvh/S1cwd6RZHgxGtlo79BIuKD0feX1U0GrSfH
+	 GpQjFqelOc8qZetqvb32lUhE6w7tcQmdRHXsCDiiEuj9Ud3YHrH9dSHfHSgH94HR1fnMB
+	 nzOqvMrHVY2vacjyQsvfDbba101zvUmv2kxuVjF6NLfzq/L+Awljnsv02N156+8I3Icv1
+	 CgaNrp+Z2kOhs6I4WuXGJVI9kZVvynIOFQvujQosy85LJudadObWNrgHxkf+PJ4zG6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793418150;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=Ot9ndK0ejKVXddWQEZ2xSPgFjOHt7YNnn7ck0sFqpGc=;
-	b=ELNotG5b40ExqMIzmI18qDmyDVh00uJbwnCEUA5y5/ZMrnq3DCnzwKgb3visN+UkQ+o3
-	 6eGNqCjMqo+8CL97XCGJy6BGAa+gH6JoCFZxtbJRXhxUyZf/+hFi0T0plQ3Bg3mmoocM7
-	 4VmG/9XMKbWzdgREqwp2m0eK2qnPMFWajFaSVm7VS7PwUW0t8QKX4f0Jjh0juWShGnw4f
-	 jBXHaWavaL1FfwfOPmXaq1gqLCOL0Iwj0OjuZBIHM6Ci3+KW39mMauypqVWrKB1XnzxDW
-	 /le9/0ucsE0wzRmz4xAFCiEQkKrfhVfFdmApD5t0d5fk+xarsaPsBJzhaMLZ1ZpaQ2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793418187;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=102q9G6cPFKImRQX/cKUKNWW5q3IbAFS7rfj1fpw61Q=;
+	b=CpmIfFgGUAS/JLI7IJ0N742Ux7Fku8t5TxEtHINcwndpwtawfiJRx3W+HLxyyhqOWTPA
+	 +FfMaHS0RqQ9NaHJ3V3O9NRgZ4CCqon0CNa0dzb/VNAGWdDooNrm2H2oA2xSWKeyodA9T
+	 f6mqwe63+U8FSeG+YdR1Xy0hYR4DbDPyEFXKxxThcsLrzCHe9e9jtZ5TNZFigjBBceD6L
+	 Gc8Oxj7rSW/M4rU03VvzHTb28RajLCE8SOFVsM2P5FP59Yd2FfAe6ySNROj0b80EnhEIa
+	 xt8VSLxfGYiPIz/iHpf3GWEFsYC4Vje/X6o29I4nJbVzpWY1Autgs1GSElI6JmdJ2bQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iZj+Gxle;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F2B606A320;
-	Sat, 31 Oct 2026 03:42:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36F2B606A320
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	dmarc=pass header.from=mail.ustc.edu.cn;
+	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p8GjMj+e;
+	arc=none smtp.remote-ip=202.38.64.46
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14ECB606A31A;
+	Sat, 31 Oct 2026 03:43:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14ECB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=iZj+Gxle
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793418149; x=1824954149;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=aGlr3qfr6AZBSiPKZMalF/26FFfN/4Og7QmWbsUKYaY=;
-  b=iZj+GxleJQ/t80kZlt4Py+Sv9WKRZgrBIQZTZvQp368KbHLta9HgaBUY
-   j2S1aCYYYlOmjY4luHoZZR6M86rcbJw1g+a5ySg6MdhaI2gB1FcTZmYV+
-   iJdGLitSqKYm5c7BGKHvvuez7VOrtLKsmHW9Q8KAVaJklfiALgJdYZxB2
-   YfmFc159/+mlUb18WU/hnTzuPJATQy7+K0/atGWwa+b6YsHuDKF+ORzkb
-   LDUYnCN7+VmHhcUPs/A0TCe/uF89IZD2IRCGnkWGhw0HyPdjT30rD9fmQ
-   c0ldRKRzlS4Pma2eccemsWgylHSViKViE8Gqi1KWmUdwsBSFROCHTZk4e
-   w==;
-X-CSE-ConnectionGUID: suEEYPoxRdGL3hHxVMGbQQ==
-X-CSE-MsgGUID: oVcnGHnVQ6egT/K/QyFAag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2188811"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2188811"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 20:42:29 -0700
-X-CSE-ConnectionGUID: 1aS14UP0T/aO54Frxa2Eug==
-X-CSE-MsgGUID: GHsu/r0hSAa7KZcwxpde2Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5568194"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 30 Oct 2026 20:42:25 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMzz3-00000000cVO-2SRY;
-	Sat, 31 Oct 2026 03:42:21 +0000
-Date: Sat, 31 Oct 2026 11:41:43 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>, jgg@ziepe.ca,
-	alex@shazbot.org, pbonzini@redhat.com, seanjc@google.com,
-	bhelgaas@google.com, jjohnson@kernel.org
-Cc: oe-kbuild-all@lists.linux.dev, johannes@sipsolutions.net,
-	mani@kernel.org, lpieralisi@kernel.org, kwilczynski@kernel.org,
-	robh@kernel.org, vkuznets@redhat.com, kevin.tian@intel.com,
-	linux-pci@vger.kernel.org, kvm@vger.kernel.org,
-	linux-wireless@vger.kernel.org, ath11k@lists.infradead.org,
-	ath12k@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
-Subject: Re: [PATCH v3 2/8] KVM: add PCI MSI hypercall for VFIO passthrough
-Message-ID: <202610311038.ydvb3F1w-lkp@intel.com>
-References: <20261029163713.1366077-3-jtornosm@redhat.com>
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p8GjMj+e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:MIME-Version:
+	Content-Transfer-Encoding; bh=102q9G6cPFKImRQX/cKUKNWW5q3IbAFS7r
+	fj1fpw61Q=; b=p8GjMj+e/EfEKALvKqgGcCxFuuWfsH4zw/rH/OeK17SR1vszxG
+	E1+uAeaDjNdAv3pYrbAfOW58jHbR+Kd05Uf8VGMVwEEJw+zzJOHEazk11+dP1OQO
+	esr9k9NUFimlGRlZKhZg/qtOKuyMokZnWGnRzBgTZHPfpOFB/xoqydHbg=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXjjLEY+VqGO1sAA--.76S4;
+	Sat, 31 Oct 2026 11:43:02 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org
+Subject: [PATCH v3 2/3] regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
+Date: Sat, 31 Oct 2026 11:42:59 +0800
+Message-ID: <20261031034300.272730-3-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,142 +67,264 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029163713.1366077-3-jtornosm@redhat.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:3pYKCgAXjjLEY+VqGO1sAA--.76S4
+X-Coremail-Antispam: 1UD129KBjvJXoW3JFy5Kw4DWw4rur4DWF1rZwb_yoW3tF4Dpa
+	1DXFZIkr48GFWrWrZ7CFnF93W5Wwn2vw12yryrCw4fZw13tF9rZF9I9FyYyFykGr1kWFyS
+	qas8Ja4UCF4UWa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUP2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
+	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
+	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv
+	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
+	02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE
+	4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI0_Jw0_GFylc2xSY4
+	AK67AK6r48MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
+	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUYbj
+	jPUUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAesc
 
-Hi Jose,
+The WL2868C is an I2C camera power management IC with seven LDOs.
+LDO1 and LDO2 are fed from VIN12 and cover 0.496 V to 1.512 V with a
+7-bit voltage selector; LDO3 and LDO4 share VIN34, and LDO5 to LDO7
+have one input each, covering 1.504 V to 3.544 V with an 8-bit
+selector. All outputs step by 8 mV.
 
-kernel test robot noticed the following build errors:
+Every output is gated by a per-LDO bit in the enable register, and the
+whole chip is additionally gated by the SYS_EN bit in the same
+register. The driver sets SYS_EN together with the LDO bit on enable
+and requires both to read back before reporting the regulator as
+enabled, because no output comes up while SYS_EN is clear. An
+optional active-low RST_N GPIO is released during probe, followed by
+a 1 ms delay for the device to come up, and is asserted again when
+the driver is unbound.
 
-[auto build test ERROR on pci/next]
-[also build test ERROR on pci/for-linus linus/master next-20261030]
-[cannot apply to kvm/queue kvm/next ath/ath-next kvm/linux-next v7.3]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+The device is used on the Lenovo Legion Tab (TB322FC, SM8750): the
+rear camera (samsung,s5kjns) takes DVDD from LDO1, AVDD from LDO4 and
+DOVDD from LDO7, the front camera (galaxycore,gc08a8) takes DVDD from
+LDO2, AVDD from LDO3 and DOVDD from LDO7, and the rear VCM
+(giantec,gt9764) takes VDD from LDO5 and VDDIO from LDO7. The next
+patch wires these supplies up in the board file.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jose-Ignacio-Tornos-Martinez/vfio-add-helper-to-find-PCI-device-by-vendor-device-ID/20261029-173706
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
-patch link:    https://lore.kernel.org/r/20261029163713.1366077-3-jtornosm%40redhat.com
-patch subject: [PATCH v3 2/8] KVM: add PCI MSI hypercall for VFIO passthrough
-config: s390-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311038.ydvb3F1w-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 12.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311038.ydvb3F1w-lkp@intel.com/reproduce)
+Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+---
+ MAINTAINERS                           |   1 +
+ drivers/regulator/Kconfig             |  11 ++
+ drivers/regulator/Makefile            |   1 +
+ drivers/regulator/wl2868c-regulator.c | 155 ++++++++++++++++++++++++++
+ 4 files changed, 168 insertions(+)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311038.ydvb3F1w-lkp@intel.com/
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 632b17b3ea..a334308798 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -29418,6 +29418,7 @@ M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+ L:	linux-kernel@vger.kernel.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
++F:	drivers/regulator/wl2868c-regulator.c
+ 
+ WILOCITY WIL6210 WIRELESS DRIVER
+ L:	linux-wireless@vger.kernel.org
+diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
+index 89789ac7a7..53f5b1527f 100644
+--- a/drivers/regulator/Kconfig
++++ b/drivers/regulator/Kconfig
+@@ -1858,6 +1858,17 @@ config REGULATOR_VQMMC_IPQ4019
+ 	  This driver provides support for the VQMMC LDO I/0
+ 	  voltage regulator of the IPQ4019 SD/EMMC controller.
+ 
++config REGULATOR_WL2868C
++	tristate "Will Semiconductor WL2868C regulator"
++	depends on I2C
++	select REGMAP_I2C
++	help
++	  Support the seven LDO outputs of the Will Semiconductor WL2868C
++	  camera power management IC.
++
++	  To compile this driver as a module, choose M here: the
++	  module will be called wl2868c-regulator.
++
+ config REGULATOR_WM831X
+ 	tristate "Wolfson Microelectronics WM831x PMIC regulators"
+ 	depends on MFD_WM831X
+diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
+index 5a764cec8d..d706959588 100644
+--- a/drivers/regulator/Makefile
++++ b/drivers/regulator/Makefile
+@@ -212,6 +212,7 @@ obj-$(CONFIG_REGULATOR_RZG2L_VBCTRL) += renesas-usb-vbus-regulator.o
+ obj-$(CONFIG_REGULATOR_VCTRL) += vctrl-regulator.o
+ obj-$(CONFIG_REGULATOR_VEXPRESS) += vexpress-regulator.o
+ obj-$(CONFIG_REGULATOR_VQMMC_IPQ4019) += vqmmc-ipq4019-regulator.o
++obj-$(CONFIG_REGULATOR_WL2868C) += wl2868c-regulator.o
+ obj-$(CONFIG_REGULATOR_WM831X) += wm831x-dcdc.o
+ obj-$(CONFIG_REGULATOR_WM831X) += wm831x-isink.o
+ obj-$(CONFIG_REGULATOR_WM831X) += wm831x-ldo.o
+diff --git a/drivers/regulator/wl2868c-regulator.c b/drivers/regulator/wl2868c-regulator.c
+new file mode 100644
+index 0000000000..9c4f4240b1
+--- /dev/null
++++ b/drivers/regulator/wl2868c-regulator.c
+@@ -0,0 +1,155 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Will Semiconductor WL2868C seven-channel camera regulator driver.
++ *
++ * Copyright (C) 2026 Qianhui Xu
++ */
++
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/regmap.h>
++#include <linux/regulator/driver.h>
++
++#define WL2868C_DEVICE_ID		0x00
++#define WL2868C_DEVICE_ID_VALUE		0x82
++#define WL2868C_LDO_ENABLE		0x0e
++#define WL2868C_SYS_ENABLE		BIT(7)
++
++static int wl2868c_enable(struct regulator_dev *rdev)
++{
++	/*
++	 * SYS_EN is the master enable of the chip: no output comes up unless
++	 * it is set together with the per-LDO bit.
++	 */
++	return regmap_update_bits(rdev->regmap, WL2868C_LDO_ENABLE,
++				  WL2868C_SYS_ENABLE | rdev->desc->enable_mask,
++				  WL2868C_SYS_ENABLE | rdev->desc->enable_mask);
++}
++
++static int wl2868c_is_enabled(struct regulator_dev *rdev)
++{
++	unsigned int mask = WL2868C_SYS_ENABLE | rdev->desc->enable_mask;
++	unsigned int value;
++	int ret;
++
++	ret = regmap_read(rdev->regmap, WL2868C_LDO_ENABLE, &value);
++	if (ret)
++		return ret;
++
++	return (value & mask) == mask;
++}
++
++static const struct regulator_ops wl2868c_ops = {
++	.list_voltage = regulator_list_voltage_linear,
++	.map_voltage = regulator_map_voltage_linear,
++	.set_voltage_sel = regulator_set_voltage_sel_regmap,
++	.get_voltage_sel = regulator_get_voltage_sel_regmap,
++	.enable = wl2868c_enable,
++	.disable = regulator_disable_regmap,
++	.is_enabled = wl2868c_is_enabled,
++};
++
++/*
++ * LDO1 and LDO2 have a 7-bit voltage selector, the other five have an 8-bit
++ * one; all of them step by 8 mV.
++ */
++#define WL2868C_LDO(_num, _supply, _min, _n_voltages, _vsel_reg, _mask, _en) { \
++	.name = "ldo" #_num,				\
++	.of_match = "ldo" #_num,			\
++	.regulators_node = "regulators",		\
++	.id = (_num) - 1,				\
++	.type = REGULATOR_VOLTAGE,			\
++	.owner = THIS_MODULE,				\
++	.ops = &wl2868c_ops,				\
++	.supply_name = _supply,				\
++	.min_uV = _min,					\
++	.uV_step = 8000,				\
++	.n_voltages = _n_voltages,			\
++	.vsel_reg = _vsel_reg,				\
++	.vsel_mask = _mask,				\
++	.enable_reg = WL2868C_LDO_ENABLE,		\
++	.enable_mask = _en,				\
++	.enable_time = 150,				\
++}
++
++static const struct regulator_desc wl2868c_regulators[] = {
++	WL2868C_LDO(1, "vin12", 496000, 128, 0x03, 0x7f, BIT(0)),
++	WL2868C_LDO(2, "vin12", 496000, 128, 0x04, 0x7f, BIT(1)),
++	WL2868C_LDO(3, "vin34", 1504000, 256, 0x05, 0xff, BIT(2)),
++	WL2868C_LDO(4, "vin34", 1504000, 256, 0x06, 0xff, BIT(3)),
++	WL2868C_LDO(5, "vin5", 1504000, 256, 0x07, 0xff, BIT(4)),
++	WL2868C_LDO(6, "vin6", 1504000, 256, 0x08, 0xff, BIT(5)),
++	WL2868C_LDO(7, "vin7", 1504000, 256, 0x09, 0xff, BIT(6)),
++};
++
++static const struct regmap_config wl2868c_regmap_config = {
++	.reg_bits = 8,
++	.val_bits = 8,
++	.max_register = 0x25,
++};
++
++static void wl2868c_reset(void *data)
++{
++	gpiod_set_value_cansleep(data, 1);
++}
++
++static int wl2868c_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct regulator_config config = { .dev = dev };
++	struct regulator_dev *rdev;
++	struct gpio_desc *reset;
++	unsigned int id;
++	int ret, i;
++
++	reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
++	if (IS_ERR(reset))
++		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get reset GPIO\n");
++
++	if (reset) {
++		ret = devm_add_action_or_reset(dev, wl2868c_reset, reset);
++		if (ret)
++			return ret;
++		fsleep(1000);
++	}
++
++	config.regmap = devm_regmap_init_i2c(client, &wl2868c_regmap_config);
++	if (IS_ERR(config.regmap))
++		return dev_err_probe(dev, PTR_ERR(config.regmap),
++				     "Failed to create regmap\n");
++
++	ret = regmap_read(config.regmap, WL2868C_DEVICE_ID, &id);
++	if (ret)
++		return dev_err_probe(dev, ret, "Failed to read device ID\n");
++	if (id != WL2868C_DEVICE_ID_VALUE)
++		return dev_err_probe(dev, -ENODEV, "Unexpected device ID: %#x\n", id);
++
++	for (i = 0; i < ARRAY_SIZE(wl2868c_regulators); i++) {
++		rdev = devm_regulator_register(dev, &wl2868c_regulators[i], &config);
++		if (IS_ERR(rdev))
++			return dev_err_probe(dev, PTR_ERR(rdev),
++					     "Failed to register LDO%d\n", i + 1);
++	}
++
++	return 0;
++}
++
++static const struct of_device_id wl2868c_of_match[] = {
++	{ .compatible = "willsemi,wl2868c" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, wl2868c_of_match);
++
++static struct i2c_driver wl2868c_driver = {
++	.driver = {
++		.name = "wl2868c",
++		.of_match_table = wl2868c_of_match,
++	},
++	.probe = wl2868c_probe,
++};
++module_i2c_driver(wl2868c_driver);
++
++MODULE_DESCRIPTION("Will Semiconductor WL2868C regulator driver");
++MODULE_LICENSE("GPL");
+-- 
+2.53.0
 
-All errors (new ones prefixed by >>):
-
-   arch/s390/kvm/arm64/../../../../virt/kvm/vfio.c: In function 'kvm_vfio_pci_msi_alloc':
->> arch/s390/kvm/arm64/../../../../virt/kvm/vfio.c:438:48: error: 'struct irq_data' has no member named 'parent_data'
-     438 |                 for (pos = irqd; pos; pos = pos->parent_data) {
-         |                                                ^~
---
-   arch/s390/kvm/s390/../../../../virt/kvm/vfio.c: In function 'kvm_vfio_pci_msi_alloc':
->> arch/s390/kvm/s390/../../../../virt/kvm/vfio.c:438:48: error: 'struct irq_data' has no member named 'parent_data'
-     438 |                 for (pos = irqd; pos; pos = pos->parent_data) {
-         |                                                ^~
-
-
-vim +438 arch/s390/kvm/arm64/../../../../virt/kvm/vfio.c
-
-   361	
-   362	/**
-   363	 * kvm_vfio_pci_msi_alloc - Get physical MSI address/data for a VFIO device
-   364	 * @kvm: the VM instance
-   365	 * @devid: PCI vendor:device packed as (vendor << 16 | device)
-   366	 * @vector: MSI vector index
-   367	 * @msg: output MSI message (address + data)
-   368	 *
-   369	 * Walks VFIO files attached to this VM, uses vfio_file_find_pci_device()
-   370	 * to find the PCI device matching the given vendor:device ID, and returns
-   371	 * the host's physical MSI address/data for the requested vector.
-   372	 *
-   373	 * Returns 0 on success, negative errno on failure.
-   374	 */
-   375	int kvm_vfio_pci_msi_alloc(struct kvm *kvm, u32 devid,
-   376				     unsigned int vector, struct msi_msg *msg)
-   377	{
-   378		struct kvm_vfio_file *kvf;
-   379		struct kvm_vfio *kv = NULL;
-   380		struct vfio_device *vdev;
-   381		struct kvm_device *dev;
-   382		struct msi_desc *desc;
-   383		struct irq_data *irqd;
-   384		struct pci_dev *pdev;
-   385		u16 vendor = devid >> 16;
-   386		u16 device = devid & 0xffff;
-   387		int irq;
-   388	
-   389		scoped_guard(mutex, &kvm->lock) {
-   390			list_for_each_entry(dev, &kvm->devices, vm_node) {
-   391				if (dev->ops == &kvm_vfio_ops) {
-   392					kv = dev->private;
-   393					break;
-   394				}
-   395			}
-   396		}
-   397	
-   398		if (!kv)
-   399			return -ENODEV;
-   400	
-   401		guard(mutex)(&kv->lock);
-   402	
-   403		vdev = NULL;
-   404		list_for_each_entry(kvf, &kv->file_list, node) {
-   405			vdev = vfio_file_find_pci_device(kvf->file, vendor, device);
-   406			if (vdev)
-   407				break;
-   408		}
-   409	
-   410		if (!vdev)
-   411			return -ENODEV;
-   412	
-   413		pdev = to_pci_dev(vdev->dev);
-   414	
-   415		if (!pdev->msi_enabled && !pdev->msix_enabled) {
-   416			memset(msg, 0, sizeof(*msg));
-   417			return 0;
-   418		}
-   419	
-   420		irq = pci_irq_vector(pdev, vector);
-   421		if (irq <= 0) {
-   422			memset(msg, 0, sizeof(*msg));
-   423			return 0;
-   424		}
-   425	
-   426		irqd = irq_get_irq_data(irq);
-   427		if (!irqd) {
-   428			memset(msg, 0, sizeof(*msg));
-   429			return 0;
-   430		}
-   431	
-   432		desc = irq_get_msi_desc(irq);
-   433		if (desc) {
-   434			*msg = desc->msg;
-   435		} else {
-   436			struct irq_data *pos;
-   437	
- > 438			for (pos = irqd; pos; pos = pos->parent_data) {
-   439				if (pos->chip && pos->chip->irq_compose_msi_msg) {
-   440					pos->chip->irq_compose_msi_msg(pos, msg);
-   441					break;
-   442				}
-   443			}
-   444			if (!pos) {
-   445				memset(msg, 0, sizeof(*msg));
-   446				return 0;
-   447			}
-   448		}
-   449	
-   450		return 0;
-   451	}
-   452	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
