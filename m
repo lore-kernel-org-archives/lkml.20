@@ -1,52 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793426405;
-	b=aRm82sU+bMxtOAnXvly7PRX1BhUw94s3LkGW9KcLp95wcg7/2D4HjHxVx9ymye0IV2eA
-	 ZUmCU2y9F54/bATUbr7s5JtAzgmlu/E4KOEFg8LDa5z992ZMYvCnlmGY2Zt1Iit2tczIX
-	 bTGUHllMzDgrc+W6L3Tqawf0cuzeV/lWtrpfXosTJMMTed3EEBjZQnkD9o8tKHR9IxzD4
-	 5jXFuTrT4GKhe8JbbHrBKUbMJ3hC8bFTlzavxcYDpj1upmG7LCN9rlJILRMlBhSpel00L
-	 zO7u+hCHD2+7JH06psv+iw7nwTnRbExelXiqCN8PIun+mh03o5qLfjE/mXdjRjSV8Ew==
+	t=1793426629;
+	b=zyOS2U4pLWPWlaIHZM8GsVn3hJAV/PCKOUeenIqifvMgM79jdeXe9zovbXpDGgNlJuF5
+	 Ti2BvbbwlFyg8Z/XMg0hbFDir2mzlm4ufgbVoqFA1d6g3J4bEUDFH2PsH8k2fOXaPp8TH
+	 XvS0mB2LvS50LcPD7OgXAatK1CDuFZSNdhKf4OVJha6whzGIuN+zxBmlAbe2Gnx1TXtg5
+	 PJ1O5K10/bYpi61xYu5WX5xU7dot0f//VX3iQ0mFNBASW0sRvHiD+zE/X6DDRHd2QPIZZ
+	 Q9C+ldVR279r1kIi6JSBUpWhySKGDnLAyChulYXPvCo1NxGNAT1DYHf4g6QAXdglpRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793426405;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
-	bh=ZQUUU5NV48jFxmhLwXwoUwGKDKvh6scuO/M6jetNByI=;
-	b=h9wcymJoJMiqIsqC34PWZAIfIzjsookvWjZSKOyEL2TeV3V+wBTFNG3oOCC9kNreyGOi
-	 OCvFFg6KzvUnmUHGTjeAjQP/a/SWHuil9VCxmj+1mvjhwMt44da5OWzjiOf9XGRMDB7R4
-	 Z9gOlxZ1k16Z21jWjg9BWTnN2jdWrkZaRGfjpyCP7hubMHsFsW2d7vHPaU1JHXDgw+N4w
-	 d2DibYTHyJNu7eqUbuP7WZpvdMWCZSKeDr57QQ9WK5p84D/IiKdY50Gv/RXafBPRiVdF2
-	 tmUPylDWr0CsnmTNXv3FoekBE1LjkfGyhROQZvwfm5CXlx1NE9TZt3HzcaMLuZglKyw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793426629;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ZnHzpDNAsYwgZW+/BH7mx2GO7ajwWfSCvotHqaQHR4k=;
+	b=ZEP9FB101WzJx9IsZgMCJpK0k4nxbH2FaY9KTr59E51rzqGvOZxg9042MN/SOZzIaNYm
+	 2Xg11gdrMnmJB7BgF5phjYHpCRLl7Za5Tk8bqAb14fb7IJV0/XFFnOnBDW1Ytx6zfaHSA
+	 mAZNU/sJF3+ZoHUOxRLPCh3Hkm7oBeU4BtRolH2EAebai8B1JysBDaoKflG8hUTYM163P
+	 DKqMGppEdrBHXDj6yCVTMQmxzVdizXMe+ORaFs9KsIU9OZHD+bwgAwVz3/XtWau2MD5dO
+	 NbiYa0MrFgJKp3fg7Yu4sxAMBSKrV+RYEZdkZNWs4fjhYxgZYwfi8I69WN/f8o8Fw/Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nabladev.com;
-	spf=pass smtp.mailfrom=nabladev.com;
-	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=MDYQl4JA;
-	arc=none smtp.remote-ip=178.251.229.89
-Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FukbCKf0;
+	arc=none smtp.remote-ip=74.125.82.180
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EB2606A31A;
-	Sat, 31 Oct 2026 06:00:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51EB2606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20EA606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:03:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C20EA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=MDYQl4JA
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CA32B10C023;
-	Sat, 31 Oct 2026 06:59:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1793426397;
-	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=ZQUUU5NV48jFxmhLwXwoUwGKDKvh6scuO/M6jetNByI=;
-	b=MDYQl4JAL2Ow0vIaYrvXUgbtOXtWCti36l2IM/CQZ57X8mAXKXR1zV9pPAUQN9SAn0GQSN
-	FttlfrEjkoxLdzCBPzvKxrLy53OCXRPJ23us2Hcn4CcbbYUG48gPmGcvJASiuOR/HGsG/K
-	15DtR11ksWAi+c5esj2dPfZ5AKT+Q7tSF0d32pniSfYCsrxkDMy46vBaNG07hEE0repfwX
-	UbMsNaW93y9N6CHWZtAX+L68nftaN9JX0CmUrjMrtIkID3CeS7sZKg16GrQ1+aVfzKzn8f
-	FIG1Whji46nfsixQ26NB91ciyAClw2MslChZCb/M0m1A6NCnl2vNCoavRLMUuA==
-Message-ID: <1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com>
-Date: Sat, 31 Oct 2026 06:59:55 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FukbCKf0
+Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33fb4680717so859372eec.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:03:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793426628; x=1794031428; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZnHzpDNAsYwgZW+/BH7mx2GO7ajwWfSCvotHqaQHR4k=;
+        b=FukbCKf06+gFykKXBYrHgaupwkigiMTsPqp4vmDTtHgqtFGofaur3OblXZYNCzY/Gh
+         r7tm+B5mVs/EI0k1ez/FST6AutKSTauCYHfJPTTHcUHcTDuWKaGIZgsDAWGgi0TYHJ53
+         ++C/tu2yDh6Fi0nUO+9Ax7ya25G3TLN+KNneSQzHNDxr8qgGuYHUrhvs4nlRsdTDlyBo
+         41lY6Ko9POzLise32MxFcxjrsPwlu1ZXEYJslWkWCJDTBbR6q6cq/JmpbW3XV5ou3i3d
+         6/v5EVVufR9aDVlqS21xg6mOAS/z02IoKaIUfjZyQQkGLJ6iWWncNUXB4stZeSuIDL7u
+         hxcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793426628; x=1794031428;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZnHzpDNAsYwgZW+/BH7mx2GO7ajwWfSCvotHqaQHR4k=;
+        b=HLSae7G12hhRRBRY2G5bHA/5MfWVHBuZDDltE5Z+gMThrMnADkOTtTKcWLkB7iAtGA
+         GBCZJl48JZcfAor+oeu6aVD2r0CmGxsu84+5fwIwl46r1twKBk0mBS+c4GB+QTZvFc+9
+         WAx2U47eG+NuGiqLbWs6+UB33BiU/8BlKXf0xAqWyyybFo8hStch9JSzAQxI8/4YanAz
+         Yi71VN+NNB7ZBGJ7yuSHkx5JwgLROdD40qFgC9oH1kmL8yh4+62d002nPe/N3o/28t9o
+         xkzw4bz7BGBG+I3M1m0Q016fCelrIYGNehWYVvF6dxHEWEPBRmLTdHtSCXU064pXo8Wa
+         C+eg==
+X-Forwarded-Encrypted: i=1; AKwUvByodk56o68SAGwi+KOP7jhDIrNovjlyywQBflXlwKiN4rcrmKzIr3NiUYRDpsORVVwX74nQuHpNdLVkzV8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKGA+6ckWFnCmDdSNzxIvN+TDBHBCcVWbPid+Qyj/uGNFAYgQV5
+	4G20kJImOXAALzJ8+gWLC6zWBy7eqEV/J3dFYPzqQSUMFbXTrxrsztGT
+X-Gm-Gg: AYBFou06cneHencVOXBDy0DwEpnyA+a8926dRDG2oYe+w9fZYMEeLcUHVJYYJhJjO1C
+	rFB51Q2m9qKveFjAeQ+ZFBz+y7oLea3M6n4/0cyZI8Rs3yD02UR9/V5kmTASPOYEK8POjzLntf/
+	9edG+5Jh5O55RWwqViTdPno71ZkHwq5mUEY6Jed/bChHeXW1Osnas7AZwiqR409IXwFLTyWSsWf
+	cDduZ/X95mUI9BhzUvIgztPShE8JVPcqv/Xowz2A5kzduVQOvF8HLRXCJMSKwQbgmBkb+YBmJKc
+	RDrNPVgIDrAY0L54lyXyJNVHys8o5pQ+ju9zGScekGyuw3Qy5Ux5zPvQvzqLsraaiJ3Ozg25GKl
+	ZiHfj+Q9nun/buWJ9mPKIzfzzo3huuuxtHespSvNi04YWrgh3L8nc8bi60JoqEK9TefqDPUckJp
+	YnG8134+rek3efxJWo31X9wULMXJtYRPxNIg0CHNPqli5TY4GGi76raVDJ4noLZvOrQIVBBEd1g
+	tVjaxVbrJbvbxtswpacTD/BAhSvKm5mJAe39t4DgjmjfKM87RjiMdJReNUPQqAjEZvPq3X7ahmf
+	mIM1MS/Fk8pC32UUQMtUtsxMO/W5rta/nWZxyWIvkQ1uRwYQ0WJy2/2LwcEjP5XKUq0=
+X-Received: by 2002:a05:693c:65d0:b0:369:f7d2:d7a0 with SMTP id 5a478bee46e88-36a423c5d12mr6714625eec.25.1793426627830;
+        Fri, 30 Oct 2026 23:03:47 -0700 (PDT)
+Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af91bsm13254968eec.8.2026.10.30.23.03.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 23:03:47 -0700 (PDT)
+From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
+	Carlos Song <carlos.song@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-spi@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] spi: imx: Avoid PIO replay after a completed DMA package
+Date: Sat, 31 Oct 2026 15:03:44 +0900
+Message-ID: <20261031060344.94687-1-pocj8ur4in@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,112 +98,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: st: fix arm,smc-id of the SMC watchdog on
- stm32mp2
-To: Alexandre TORGUE <alexandre.torgue@foss.st.com>,
- Mateusz Nowicki <mateusz.nowicki@posteo.net>, mcoquelin.stm32@gmail.com,
- Thomas BOURGOIN <thomas.bourgoin@st.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- lionel.debieve@foss.st.com, amelie.delaunay@foss.st.com,
- patrice.chotard@foss.st.com, devicetree@vger.kernel.org,
- linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- kernel <kernel@dh-electronics.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Fabrice Gasnier <fabrice.gasnier@foss.st.com>,
- Stefano Babic <sbabic@nabladev.com>,
- Etienne Carriere <etienne.carriere@foss.st.com>,
- Arnd Bergmann <arnd@arndb.de>
-References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
- <7ee09655-2fef-4334-b0aa-b56f7ae03f74@foss.st.com>
-Content-Language: en-US
-From: Marek Vasut <marex@nabladev.com>
-In-Reply-To: <7ee09655-2fef-4334-b0aa-b56f7ae03f74@foss.st.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/28/26 10:45 AM, Alexandre TORGUE wrote:
+A transfer can span two DMA packages. If the first package completes but
+preparing the second one fails, the helper sets SPI_TRANS_FAIL_NO_START
+for the second package. The driver treats that flag as applying to the
+whole transfer and retries all of it through PIO, sending the completed
+prefix twice and reporting success.
 
-Hello all,
+Clear NO_START after a failed later package has been unmapped. The driver
+then returns the original error without replaying the transfer. A failure
+in the first package still takes the existing PIO fallback path.
 
-> On 9/7/26 11:14, Mateusz Nowicki wrote:
->> OP-TEE implements the STM32MP2 watchdog SMC service with function ID
->> 0xbc000000 (CFG_WDT_SM_HANDLER_ID), not 0xb200005a. With the current
->> value the arm_smc_wdt probe fails with -EIO and the IWDG started by the
->> bootloader is never refreshed.
->>
->> Fixes: 89fca38168c9 ("arm64: dts: st: add arm-wdt node for watchdog 
->> support on stm32mp251")
->> Fixes: e9b03ef21386 ("arm64: dts: st: introduce stm32mp23 SoCs family")
->> Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
->> ---
->>   arch/arm64/boot/dts/st/stm32mp231.dtsi | 2 +-
->>   arch/arm64/boot/dts/st/stm32mp251.dtsi | 2 +-
->>   2 files changed, 2 insertions(+), 2 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/st/stm32mp231.dtsi b/arch/arm64/boot/ 
->> dts/st/stm32mp231.dtsi
->> index 9e1d240888ff..35e247af957c 100644
->> --- a/arch/arm64/boot/dts/st/stm32mp231.dtsi
->> +++ b/arch/arm64/boot/dts/st/stm32mp231.dtsi
->> @@ -35,7 +35,7 @@ arm-pmu {
->>       arm_wdt: watchdog {
->>           compatible = "arm,smc-wdt";
->> -        arm,smc-id = <0xb200005a>;
->> +        arm,smc-id = <0xbc000000>;
->>           status = "disabled";
->>       };
->> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/ 
->> dts/st/stm32mp251.dtsi
->> index 9c63fdb5a885..2dcbba65e298 100644
->> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
->> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
->> @@ -36,7 +36,7 @@ arm-pmu {
->>       arm_wdt: watchdog {
->>           compatible = "arm,smc-wdt";
->> -        arm,smc-id = <0xb200005a>;
->> +        arm,smc-id = <0xbc000000>;
->>           status = "disabled";
->>       };
-> 
-> Applied on stm32-next.
-Since this change, my STM32MP255C board started rebooting after 32 
-seconds. It turns out, this is caused by an ABI break.
+Fixes: faa8e404ad8e ("spi: imx: support dynamic burst length for ECSPI DMA mode")
+Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+---
+In an arm64 QEMU/KVM kernel, the SPI core and spi-imx driver ran with
+modeled MMIO/FIFO and DMA provider callbacks. A 513-byte transfer
+completed its first 512-byte package; failing RX descriptor preparation
+for the second package made the original driver replay all 513 bytes
+through PIO and report success (1025 bytes in the modeled record). With
+this change it returned -EINVAL after the first 512 bytes and sent no
+PIO bytes. First-package fallback still completed through PIO. No
+physical ECSPI/SDMA device or external slave was tested.
 
-Here is the thing -- old ST downstream fork of OP-TEE OS did expect ARM 
-SMC WDT ID 0xb200005a (that was the ST ecosystem v5), the OP-TEE OS 
-4.0.0 fork seems to have handled both, and the new 4.8.0 fork expects 
-0xbc000000 ID only and does not handle 0xb200005a .
+ drivers/spi/spi-imx.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-At this point, with Linux 6.18 the kernel is trying to trigger the WDT 
-using SMC ID 0xb200005a , which on my machine works (older OP-TEE OS). 
-When I boot linux-next , it is using ID 0xbc000000 and my system reboots 
-after 32 seconds. (not even mainline Linux versions are consistent here 
-now, sigh)
-
-I actually found this behavior the other way around -- while forward 
-porting a system to the new OP-TEE OS 4.8.0 port, which I installed, 
-then booted Linux 6.18.y, machine started rebooting (SMC ID mismatch, 
-new OP-TEE expects 0xbc000000 and linux-stable sends 0xb200005a), so I 
-booted recovery, and ... recovery is also Linux 6.18.y, so I could not 
-recover the machine that way anymore.
-
-Currently, I added [1] to OP-TEE OS as a mitigation of this ABI break, 
-but I don't think everyone can still update their bootloader stack in 
-this way. And with this patch in place (and inconsistency between Linux 
-stable 6.18.y and upcoming 7.4.y) the ABI break will cause some serious 
-mess.
-
-How shall we deal with this ?
-
-Thank you for your help !
-
-[1] 
-https://github.com/STMicroelectronics/optee_os/commit/8450f25923c0c98465decc975f25efed19f82ba0
-
+diff --git a/drivers/spi/spi-imx.c b/drivers/spi/spi-imx.c
+index 79a6c1a60b0a0..eed1936388aa8 100644
+--- a/drivers/spi/spi-imx.c
++++ b/drivers/spi/spi-imx.c
+@@ -1968,6 +1968,9 @@ static int spi_imx_dma_transfer(struct spi_imx_data *spi_imx,
+ 		spi_imx_dma_unmap(spi_imx, &spi_imx->dma_data[i]);
+ 
+ 		if (ret < 0) {
++			/* Earlier packages have already been transferred. */
++			if (i)
++				transfer->error &= ~SPI_TRANS_FAIL_NO_START;
+ 			dev_dbg(spi_imx->dev, "DMA %d transfer not really finish\n", i);
+ 			break;
+ 		}
 -- 
-Best regards,
-Marek Vasut
+2.55.0
+
