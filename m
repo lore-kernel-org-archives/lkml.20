@@ -1,60 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793419922;
-	b=w2ncoGbbVo3/BCR5SXRCFckR4sFTuUrOVkznQt9AyC594T3h1dmGR5cygXgSeAN7DQus
-	 45yk4FPUnYRwZ2ElZb2Q9rmr0nn4c7NMPyw7x3TzYHop/o9M1qfKtTjvfP2KoSXoqWARu
-	 X3YFDl/TF055s2Z6t2mykxKZZuGuCSJ8f5QQzEUgwTii64W046+nYP7cxgZnLYSwxdxke
-	 jcJjrXcTsyrUmbbcePfsN57Q8kcZg/OKC5U6EP50qDZlnIHHLlTjmQMcLfr9LltTt1tAW
-	 y2hakHy0b33TKz8kQeD3sGkyAIuiRlfD8SyBH11iu6z6oH1SlUr31p7sJDt4ItpeRvw==
+	t=1793420011;
+	b=zmugZ1x5HZFIum+ahIqj6xMpIkNRzsrJ/Qa7f05BIn2HBA0TwRX1SepDWSa0R0HDEgVM
+	 XvVyvPDqp9BIKqRmpoj137RW2fZeONjC12S/4DasWh40GW5nEjuoYgzTXFrsIGmfo9H4J
+	 xLgivU3oVkD9s2q9nduVqnQTH8tGhUxw6UPBICSswivZQ07ELzsjKEjoO7mUc3Tie5rxz
+	 A8rmMxVxxUtwQta33PN3DPyBLBhrzRbqP9kcybfY7r0qJGL9ZhG/F1u3jKKY+fj4z31Bx
+	 h3AgNtWe2fOp+uf0PVy3b+VM/g7hvlnFLHw+QOb/CvPpcmvCMz0T7SZ9zgXNr1K+gtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793419922;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=rR1+nm0py6enesUK1Eed+cMszAijCZyZdxvva72C6Yg=;
-	b=0BcnqCm5T754B0DwluYMb1aN1PWCFlQdQQFsVeq2jhXfIar2X5NqCIclU7N2HXYZJN9a
-	 gWeMs2P2KDKkVLXYDruk7VBEbzZZNQm6pfukiGlfgUg1lORB+O9aHTVjiNWfJoQhigBiV
-	 p/mmiZ2GygkIR+h2a9Iknc0xUvpNCl7cg+G2Oj1d0Fv4tbiGsKVBFGa0ilwyts0y+JLzI
-	 VDK64Tz2iIQka4WgiT9gUxaqwRbaIQiZpogdtNNDvFyLP8WlSrbhE9lSxlCvh6IStjpYU
-	 AJ9qjpnbC+f0UWc3HmRqpdm4P6uKyBTk3vsHq/cUcdcbkmaYDqL/4/Eu+CfCg8Iu9rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793420011;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3hdblefE6S5tAiJMj8KJmoICUKdholikSnOmEf5tzMU=;
+	b=X0v/rwl/LIsLamJ1pshdNn66YI2oDkeGBminXiC5f3+GHN4Hb311Aui8qR2h+OqgvA8l
+	 UfUUZrf2brW9QzR1WEkIfw8hXSKGbRlHTTNSz5vswVxwiClEa0H19++P/5eGLZwUjic3N
+	 rpN2gH6QZzWRQHtMbPylwGwXgjje2Vg+EXW135//kJa7CArEt2WAwlwvAWmA92ULhqNr0
+	 fe0jQtEmeXKTqGn0OlKZHe5CnPJmrHeNpuZ4j8xtEJXzFqOsWgotAXdRLzuOawlf4zQ2p
+	 B12tFhWDvRDv0d6miZX8wFF12jW9kaaeWOVHk336WrRhdPK42Ik1i9UefGk20mNhGlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mail.ustc.edu.cn;
-	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b="B/o+imp2";
-	arc=none smtp.remote-ip=202.38.64.46
-Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 387F5606A31D;
-	Sat, 31 Oct 2026 04:11:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 387F5606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4EQdXBN;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F569606A31A;
+	Sat, 31 Oct 2026 04:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=B/o+imp2
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=rR1+nm0py6enesUK1Eed+cMszAijCZyZdx
-	vva72C6Yg=; b=B/o+imp2RkBhAGjXDzqb7UdYHjA1z/rx1iERPkhNToi8qhhsD/
-	6kEMy2fVEvpldX2lxyaT7EkaJzihEBsxHgco5SwvtpxrwXjtJ089/yowyCcjmRMB
-	erKOL/S9NIMx3wvK0BBX0eJGg3vYO0I7yRWvHSXUYjE72qulvQ2pelEw4=
-Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAHjUGKauVqawFtAA--.1802S3;
-	Sat, 31 Oct 2026 12:11:54 +0800 (CST)
-From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	linux-media@vger.kernel.org
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] media: camss: csid: unwind the power-on path through a single error label
-Date: Sat, 31 Oct 2026 12:11:53 +0800
-Message-ID: <20261031041154.308030-2-xiaqinghuan@mail.ustc.edu.cn>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261031041154.308030-1-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261029123107.28705-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261031041154.308030-1-xiaqinghuan@mail.ustc.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=R4EQdXBN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F601F000C1;
+	Sat, 31 Oct 2026 04:13:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793420011;
+	bh=3hdblefE6S5tAiJMj8KJmoICUKdholikSnOmEf5tzMU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=R4EQdXBNX8QLXGc0X8TmBH9Fb9wWbqf+Oyh7f7jwj4AQpxv0TaRTM+7oBwtj9pXcT
+	 kufcOzg4jPz6GRNP+iX6tFOWBfsU1mAYaGgqHYG2KRsiM14/+4ZLjO7CJBikdSMBpJ
+	 wVkiA3Y5wG7dEInpGmZFZ2JLXRYrEJFIGjxAMD5eqBw8yBcxEEyJxPAfr+XSZE/98X
+	 0AwNwjGi479VRMBjZkIVFsZ8kiCCML/MQmWVQtHlS9ylY4ZS1f21kzS1cLumk073Lw
+	 Ve0mbW/MPWGakjeHzDS4YCtvvKb4rP50KyXWyYkP0gtn7AIbRYA/mJFlm4a2Soau1B
+	 EBx8vWbmq8Zmg==
+Date: Fri, 30 Oct 2026 21:13:30 -0700
+From: Kees Cook <kees@kernel.org>
+To: Chris Down <chris@chrisdown.name>
+Cc: Vlastimil Babka <vbabka@kernel.org>, Harry Yoo <harry@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>,
+	David Rientjes <rientjes@google.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Marco Elver <elver@google.com>,
+	GONG Ruiqi <gongruiqi@huaweicloud.com>,
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org,
+	linux-hardening@vger.kernel.org, linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2 1/6] mm/slab: Enable SLAB_FREELIST_HARDENED by default
+Message-ID: <202610302112.453CE16119@keescook>
+References: <cover.1793253633.git.chris@chrisdown.name>
+ <2ba9dc862607d70050bbc86fce0091de2e23c023.1793253633.git.chris@chrisdown.name>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,118 +65,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAHjUGKauVqawFtAA--.1802S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxZFyDXr18ur18XF1rJw1kKrg_yoW5GF4kpr
-	W5XrW7Ar4FqF409rs2ya12qFy5GrZ5Wa4xJF17Ca4Ivw1Fka4ftr48GryYgFykKrZ8Aa1a
-	vrZxtFWUZF1YqaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPFb7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUGwA2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF
-	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcV
-	CY1x0267AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIE
-	c7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I
-	8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCF
-	s4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwIxGrwCY1x0262kKe7AKxVWUAVWUtwCY02Avz4
-	vE14v_Gryl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
-	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
-	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
-	14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
-	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUIUUU
-	UUUUU
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAnsl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <2ba9dc862607d70050bbc86fce0091de2e23c023.1793253633.git.chris@chrisdown.name>
 
-csid_set_power() repeats the same cleanup sequence in every error branch
-and gets it wrong in the first one: when pm_runtime_resume_and_get()
-fails, the parent device reference taken by parent_dev_ops->get() is
-never dropped, so a failing power-on leaks it and the matching VFE stays
-powered.
+On Thu, Oct 29, 2026 at 02:07:22PM +0800, Chris Down wrote:
+> SLAB_FREELIST_HARDENED obfuscates the free pointers stored in free
+> objects, and catches naive double frees and frees to the wrong cache.
+> Most distros already enable it, and with sheaves its cost is small,
+> since the per-cpu fast paths don't touch freelists. Measurements also
+> show this quite clearly [1][2].
+> 
+> So let's just enable it by default. SLAB_BUCKETS defaults to
+> SLAB_FREELIST_HARDENED, so it's now enabled by default too.
+> 
+> Link: https://lore.kernel.org/all/auITixAJMfLtfa7i@chrisdown.name/ [1]
+> Link: https://lore.kernel.org/all/179312451613.474906.1475329637924619088@kernel.org/ [2]
+> Suggested-by: Vlastimil Babka <vbabka@kernel.org>
+> Signed-off-by: Chris Down <chris@chrisdown.name>
 
-Replace the four open-coded unwind blocks with gotos to a shared label
-chain and route the pm_runtime failure through the parent put as well.
-No functional change on the success path.
+Like I've always wanted it. :)
 
-Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
----
- .../media/platform/qcom/camss/camss-csid.c    | 45 +++++++++----------
- 1 file changed, 20 insertions(+), 25 deletions(-)
+Reviewed-by: Kees Cook <kees@kernel.org>
 
-diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
-index 48459b46a9..592c1dfc97 100644
---- a/drivers/media/platform/qcom/camss/camss-csid.c
-+++ b/drivers/media/platform/qcom/camss/camss-csid.c
-@@ -696,44 +696,28 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
- 
- 		ret = pm_runtime_resume_and_get(dev);
- 		if (ret < 0)
--			return ret;
-+			goto put_parent;
- 
- 		ret = regulator_bulk_enable(csid->num_supplies,
- 					    csid->supplies);
--		if (ret < 0) {
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto put_pm;
- 
- 		ret = csid_set_clock_rates(csid);
--		if (ret < 0) {
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_regulators;
- 
- 		ret = camss_enable_clocks(csid->nclocks, csid->clock, dev);
--		if (ret < 0) {
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_regulators;
- 
- 		csid->phy.need_vc_update = true;
- 
- 		enable_irq(csid->irq);
- 
- 		ret = csid->res->hw_ops->reset(csid);
--		if (ret < 0) {
--			disable_irq(csid->irq);
--			camss_disable_clocks(csid->nclocks, csid->clock);
--			regulator_bulk_disable(csid->num_supplies,
--					       csid->supplies);
--			pm_runtime_put_sync(dev);
--			return ret;
--		}
-+		if (ret < 0)
-+			goto disable_clocks;
- 
- 		csid->res->hw_ops->hw_version(csid);
- 	} else {
-@@ -746,6 +730,17 @@ static int csid_set_power(struct v4l2_subdev *sd, int on)
- 	}
- 
- 	return ret;
-+
-+disable_clocks:
-+	disable_irq(csid->irq);
-+	camss_disable_clocks(csid->nclocks, csid->clock);
-+disable_regulators:
-+	regulator_bulk_disable(csid->num_supplies, csid->supplies);
-+put_pm:
-+	pm_runtime_put_sync(dev);
-+put_parent:
-+	csid->res->parent_dev_ops->put(camss, csid->id);
-+	return ret;
- }
- 
- /*
 -- 
-2.53.0
-
+Kees Cook
