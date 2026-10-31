@@ -1,46 +1,46 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.38.64.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793418187;
-	b=MVRhRQ2ptqEAMrBj7nGc+5LxSoCKOApBSCRSOU3NJXpDE5ULq8nON9mSI9j+V+3RyL2v
-	 v2QUe/11d+sjpRqbfXs6Ka1+NbG8w1swvh/S1cwd6RZHgxGtlo79BIuKD0feX1U0GrSfH
-	 GpQjFqelOc8qZetqvb32lUhE6w7tcQmdRHXsCDiiEuj9Ud3YHrH9dSHfHSgH94HR1fnMB
-	 nzOqvMrHVY2vacjyQsvfDbba101zvUmv2kxuVjF6NLfzq/L+Awljnsv02N156+8I3Icv1
-	 CgaNrp+Z2kOhs6I4WuXGJVI9kZVvynIOFQvujQosy85LJudadObWNrgHxkf+PJ4zG6g==
+	t=1793418188;
+	b=1WQmV2wjBPQJ950BT/4IRUjQcbvLN12aCYLBAmd49Z0uewPY7xBba4cqTCCV3iuaxQih
+	 Hc/sE7zhJjTB1QajRSugEBHHnQpWHTvwSXGe9PayXa+OTPAW1BGvLlGNQho3+LE6jkSJE
+	 HWpL4p/TF37CPPLz0VSijkDm65RLCF9IurBsAIKc7qBBPWsCBhBads6E1EO03C1AAYaUw
+	 k2bMSvKYUJtKpa4YgOvmT4riGN2JFBOSm+w9Z3iycCNklTbhgtpkQJBUn5X4p4Z3uvn0F
+	 8tG1MpMxVREw89CQvbj76kp9KBgStMEg97A3zb5nsrncPLbsLmXu0Wl8r6oqydsQiLw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793418187;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793418188;
 	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
 	 X-CM-SenderInfo;
-	bh=102q9G6cPFKImRQX/cKUKNWW5q3IbAFS7rfj1fpw61Q=;
-	b=CpmIfFgGUAS/JLI7IJ0N742Ux7Fku8t5TxEtHINcwndpwtawfiJRx3W+HLxyyhqOWTPA
-	 +FfMaHS0RqQ9NaHJ3V3O9NRgZ4CCqon0CNa0dzb/VNAGWdDooNrm2H2oA2xSWKeyodA9T
-	 f6mqwe63+U8FSeG+YdR1Xy0hYR4DbDPyEFXKxxThcsLrzCHe9e9jtZ5TNZFigjBBceD6L
-	 Gc8Oxj7rSW/M4rU03VvzHTb28RajLCE8SOFVsM2P5FP59Yd2FfAe6ySNROj0b80EnhEIa
-	 xt8VSLxfGYiPIz/iHpf3GWEFsYC4Vje/X6o29I4nJbVzpWY1Autgs1GSElI6JmdJ2bQ==
+	bh=kJ2oBVbBFglV7fHHXzLu0NU7kruSxBj7KzNiA0QCJGw=;
+	b=Udybdt7PaqySvIyk2AJ48MVKeCiPo20Vb/89fX+OJbizlfSoOu07oQkkTxZIgI9v6Ylj
+	 Z4i6qlRNlRWpxCSmC0EEPTwrZ6tG2DPIsLuXBe+RQf5E8r538zci9gQ5D5C5K6ZgXLNi6
+	 saSFEVM2omeCEEG2i9eIBOyYFvvbUJmBj/GrONjEUJrCoz8ZmS8iongQzBx+0HTRBHjRB
+	 6E/E/iGg4ugKJjajVY35CglB/85O0VK1fm63yOnd66/VDACxUsDWZgQ99yWiiNIONFxc3
+	 TTZzXzbUpyO7KoVo3soJnOOLZygMYJaL0gmxFiHKqzBocA6ZrAxcMppn4RhmLrwu9Gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mail.ustc.edu.cn;
 	spf=pass smtp.mailfrom=mail.ustc.edu.cn;
-	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p8GjMj+e;
+	dkim=pass header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ftPKIWAd;
 	arc=none smtp.remote-ip=202.38.64.46
 Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 14ECB606A31A;
-	Sat, 31 Oct 2026 03:43:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14ECB606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id D2953606A31E;
+	Sat, 31 Oct 2026 03:43:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2953606A31E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ustc.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=p8GjMj+e
+	dkim=pass (1024-bit key, unprotected) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=ftPKIWAd
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
 	Message-ID:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=102q9G6cPFKImRQX/cKUKNWW5q3IbAFS7r
-	fj1fpw61Q=; b=p8GjMj+e/EfEKALvKqgGcCxFuuWfsH4zw/rH/OeK17SR1vszxG
-	E1+uAeaDjNdAv3pYrbAfOW58jHbR+Kd05Uf8VGMVwEEJw+zzJOHEazk11+dP1OQO
-	esr9k9NUFimlGRlZKhZg/qtOKuyMokZnWGnRzBgTZHPfpOFB/xoqydHbg=
+	Content-Transfer-Encoding; bh=kJ2oBVbBFglV7fHHXzLu0NU7kruSxBj7Kz
+	NiA0QCJGw=; b=ftPKIWAdGvG131g5EyKtXJwvWmn9uL/2ciIyU9/7Tlry/ZD4Oy
+	UcvjVGK5H5pT6+nj/OttKFL86wuOOTLo3R8zqnsu+8MyRhY2nX1RZDFwrkuiruZ/
+	aJoXElpG9qKDKFLj1Lb8MgdyEV6Cu9do6u44oQfCPItgz85Qq02bLWrLA=
 Received: from xuqianhui.ustc.edu.cn (unknown [114.214.177.113])
-	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXjjLEY+VqGO1sAA--.76S4;
-	Sat, 31 Oct 2026 11:43:02 +0800 (CST)
+	by mailimap2024 (Coremail) with SMTP id 3pYKCgAXjjLEY+VqGO1sAA--.76S5;
+	Sat, 31 Oct 2026 11:43:03 +0800 (CST)
 From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -51,9 +51,9 @@ Cc: Krzysztof Kozlowski <krzk@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v3 2/3] regulator: willsemi,wl2868c: add the WL2868C camera PMIC driver
-Date: Sat, 31 Oct 2026 11:42:59 +0800
-Message-ID: <20261031034300.272730-3-xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v3 3/3] arm64: dts: qcom: sm8750-lenovo-elden: describe the WL2868C regulators
+Date: Sat, 31 Oct 2026 11:43:00 +0800
+Message-ID: <20261031034300.272730-4-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
 References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
@@ -68,13 +68,13 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:3pYKCgAXjjLEY+VqGO1sAA--.76S4
-X-Coremail-Antispam: 1UD129KBjvJXoW3JFy5Kw4DWw4rur4DWF1rZwb_yoW3tF4Dpa
-	1DXFZIkr48GFWrWrZ7CFnF93W5Wwn2vw12yryrCw4fZw13tF9rZF9I9FyYyFykGr1kWFyS
-	qas8Ja4UCF4UWa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUP2b7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
+X-CM-TRANSID:3pYKCgAXjjLEY+VqGO1sAA--.76S5
+X-Coremail-Antispam: 1UD129KBjvJXoWfJw1DGw1UGrW8GFyDWFWruFg_yoWDArWxpa
+	nrZrs5Crn29r1Fgws0qa4IvF13Ww4kCayvkryqgryUCrWF9a4DKa1IvryrWF15Jr48Jw4Y
+	vFsxZr9FyFnFkw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUP2b7Iv0xC_tr1lb4IE77IF4wAFF20E14v26rWj6s0DM7CY07I2
 	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI
-	8067AKxVWUXwA2048vs2IY020Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF
+	8067AKxVWUWwA2048vs2IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF
 	64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8IcV
 	CY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv
 	6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c
@@ -84,247 +84,397 @@ X-Coremail-Antispam: 1UD129KBjvJXoW3JFy5Kw4DWw4rur4DWF1rZwb_yoW3tF4Dpa
 	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
 	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
 	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
-	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IUYbj
-	jPUUUUU==
-X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAesc
+	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8v3
+	85UUUUU==
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiAREQB2rk8FYCLwAfsd
 
-The WL2868C is an I2C camera power management IC with seven LDOs.
-LDO1 and LDO2 are fed from VIN12 and cover 0.496 V to 1.512 V with a
-7-bit voltage selector; LDO3 and LDO4 share VIN34, and LDO5 to LDO7
-have one input each, covering 1.504 V to 3.544 V with an 8-bit
-selector. All outputs step by 8 mV.
+The Lenovo Legion Tab (TB322FC) is an SM8750 tablet. Its camera
+devices are powered by a WL2868C camera PMIC on i2c10: LDO1 feeds the
+rear sensor DVDD, LDO2 the front sensor DVDD, LDO3 the front sensor
+AVDD, LDO4 the rear sensor AVDD, LDO5 the VCM VDD, LDO7 the DOVDD of
+both sensors and the VCM VDDIO, all at fixed voltages including the
+offsets programmed by the stock firmware. LDO6 is not wired out on
+this board.
 
-Every output is gated by a per-LDO bit in the enable register, and the
-whole chip is additionally gated by the SYS_EN bit in the same
-register. The driver sets SYS_EN together with the LDO bit on enable
-and requires both to read back before reporting the regulator as
-enabled, because no output comes up while SYS_EN is clear. An
-optional active-low RST_N GPIO is released during probe, followed by
-a 1 ms delay for the device to come up, and is asserted again when
-the driver is unbound.
+The camera devices hang off the two CCI I2C controllers, which the
+SM8750 dtsi does not describe yet, so add them alongside. The sensors
+are described with their supplies only for now; the CSI endpoints
+will be added together with the camera subsystem.
 
-The device is used on the Lenovo Legion Tab (TB322FC, SM8750): the
-rear camera (samsung,s5kjns) takes DVDD from LDO1, AVDD from LDO4 and
-DOVDD from LDO7, the front camera (galaxycore,gc08a8) takes DVDD from
-LDO2, AVDD from LDO3 and DOVDD from LDO7, and the rear VCM
-(giantec,gt9764) takes VDD from LDO5 and VDDIO from LDO7. The next
-patch wires these supplies up in the board file.
+The board clocks (XO, sleep clock and the two divided CXO derivatives)
+that the SM8750 dtsi consumes are described here, as done on the other
+SM8750 boards, and the board compatible is added to qcom.yaml.
 
 Signed-off-by: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 ---
- MAINTAINERS                           |   1 +
- drivers/regulator/Kconfig             |  11 ++
- drivers/regulator/Makefile            |   1 +
- drivers/regulator/wl2868c-regulator.c | 155 ++++++++++++++++++++++++++
- 4 files changed, 168 insertions(+)
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm8750-lenovo-elden.dts     | 202 ++++++++++++++++++
+ arch/arm64/boot/dts/qcom/sm8750.dtsi          | 112 ++++++++++
+ 4 files changed, 316 insertions(+)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 632b17b3ea..a334308798 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -29418,6 +29418,7 @@ M:	Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
- L:	linux-kernel@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/regulator/willsemi,wl2868c.yaml
-+F:	drivers/regulator/wl2868c-regulator.c
+diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
+index ff8a35df78..41d5e65c4e 100644
+--- a/Documentation/devicetree/bindings/arm/qcom.yaml
++++ b/Documentation/devicetree/bindings/arm/qcom.yaml
+@@ -1168,6 +1168,7 @@ properties:
  
- WILOCITY WIL6210 WIRELESS DRIVER
- L:	linux-wireless@vger.kernel.org
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index 89789ac7a7..53f5b1527f 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1858,6 +1858,17 @@ config REGULATOR_VQMMC_IPQ4019
- 	  This driver provides support for the VQMMC LDO I/0
- 	  voltage regulator of the IPQ4019 SD/EMMC controller.
- 
-+config REGULATOR_WL2868C
-+	tristate "Will Semiconductor WL2868C regulator"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Support the seven LDO outputs of the Will Semiconductor WL2868C
-+	  camera power management IC.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called wl2868c-regulator.
-+
- config REGULATOR_WM831X
- 	tristate "Wolfson Microelectronics WM831x PMIC regulators"
- 	depends on MFD_WM831X
-diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
-index 5a764cec8d..d706959588 100644
---- a/drivers/regulator/Makefile
-+++ b/drivers/regulator/Makefile
-@@ -212,6 +212,7 @@ obj-$(CONFIG_REGULATOR_RZG2L_VBCTRL) += renesas-usb-vbus-regulator.o
- obj-$(CONFIG_REGULATOR_VCTRL) += vctrl-regulator.o
- obj-$(CONFIG_REGULATOR_VEXPRESS) += vexpress-regulator.o
- obj-$(CONFIG_REGULATOR_VQMMC_IPQ4019) += vqmmc-ipq4019-regulator.o
-+obj-$(CONFIG_REGULATOR_WL2868C) += wl2868c-regulator.o
- obj-$(CONFIG_REGULATOR_WM831X) += wm831x-dcdc.o
- obj-$(CONFIG_REGULATOR_WM831X) += wm831x-isink.o
- obj-$(CONFIG_REGULATOR_WM831X) += wm831x-ldo.o
-diff --git a/drivers/regulator/wl2868c-regulator.c b/drivers/regulator/wl2868c-regulator.c
+       - items:
+           - enum:
++              - lenovo,elden
+               - qcom,sm8750-mtp
+               - qcom,sm8750-qrd
+           - const: qcom,sm8750
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 1c86e7e98f..a18fea7beb 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -406,6 +406,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-qrd.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-lenovo-elden.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
 new file mode 100644
-index 0000000000..9c4f4240b1
+index 0000000000..7bbc1986a8
 --- /dev/null
-+++ b/drivers/regulator/wl2868c-regulator.c
-@@ -0,0 +1,155 @@
-+// SPDX-License-Identifier: GPL-2.0-only
++++ b/arch/arm64/boot/dts/qcom/sm8750-lenovo-elden.dts
+@@ -0,0 +1,202 @@
++// SPDX-License-Identifier: BSD-3-Clause
 +/*
-+ * Will Semiconductor WL2868C seven-channel camera regulator driver.
-+ *
-+ * Copyright (C) 2026 Qianhui Xu
++ * Copyright (c) 2026, Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
 + */
 +
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/driver.h>
++/dts-v1/;
 +
-+#define WL2868C_DEVICE_ID		0x00
-+#define WL2868C_DEVICE_ID_VALUE		0x82
-+#define WL2868C_LDO_ENABLE		0x0e
-+#define WL2868C_SYS_ENABLE		BIT(7)
++#include <dt-bindings/gpio/gpio.h>
++#include "sm8750.dtsi"
 +
-+static int wl2868c_enable(struct regulator_dev *rdev)
-+{
-+	/*
-+	 * SYS_EN is the master enable of the chip: no output comes up unless
-+	 * it is set together with the per-LDO bit.
-+	 */
-+	return regmap_update_bits(rdev->regmap, WL2868C_LDO_ENABLE,
-+				  WL2868C_SYS_ENABLE | rdev->desc->enable_mask,
-+				  WL2868C_SYS_ENABLE | rdev->desc->enable_mask);
-+}
++/ {
++	model = "Lenovo Legion Y700 Gen4";
++	compatible = "lenovo,elden", "qcom,sm8750";
++	chassis-type = "tablet";
 +
-+static int wl2868c_is_enabled(struct regulator_dev *rdev)
-+{
-+	unsigned int mask = WL2868C_SYS_ENABLE | rdev->desc->enable_mask;
-+	unsigned int value;
-+	int ret;
++	clocks {
++		xo_board: xo-board {
++			compatible = "fixed-clock";
++			clock-frequency = <76800000>;
++			#clock-cells = <0>;
++		};
 +
-+	ret = regmap_read(rdev->regmap, WL2868C_LDO_ENABLE, &value);
-+	if (ret)
-+		return ret;
++		sleep_clk: sleep-clk {
++			compatible = "fixed-clock";
++			clock-frequency = <32000>;
++			#clock-cells = <0>;
++		};
 +
-+	return (value & mask) == mask;
-+}
++		bi_tcxo_div2: bi-tcxo-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
 +
-+static const struct regulator_ops wl2868c_ops = {
-+	.list_voltage = regulator_list_voltage_linear,
-+	.map_voltage = regulator_map_voltage_linear,
-+	.set_voltage_sel = regulator_set_voltage_sel_regmap,
-+	.get_voltage_sel = regulator_get_voltage_sel_regmap,
-+	.enable = wl2868c_enable,
-+	.disable = regulator_disable_regmap,
-+	.is_enabled = wl2868c_is_enabled,
++			clocks = <&rpmhcc RPMH_CXO_CLK>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++
++		bi_tcxo_ao_div2: bi-tcxo-ao-div2-clk {
++			compatible = "fixed-factor-clock";
++			#clock-cells = <0>;
++
++			clocks = <&rpmhcc RPMH_CXO_CLK_A>;
++			clock-mult = <1>;
++			clock-div = <2>;
++		};
++	};
 +};
 +
-+/*
-+ * LDO1 and LDO2 have a 7-bit voltage selector, the other five have an 8-bit
-+ * one; all of them step by 8 mV.
-+ */
-+#define WL2868C_LDO(_num, _supply, _min, _n_voltages, _vsel_reg, _mask, _en) { \
-+	.name = "ldo" #_num,				\
-+	.of_match = "ldo" #_num,			\
-+	.regulators_node = "regulators",		\
-+	.id = (_num) - 1,				\
-+	.type = REGULATOR_VOLTAGE,			\
-+	.owner = THIS_MODULE,				\
-+	.ops = &wl2868c_ops,				\
-+	.supply_name = _supply,				\
-+	.min_uV = _min,					\
-+	.uV_step = 8000,				\
-+	.n_voltages = _n_voltages,			\
-+	.vsel_reg = _vsel_reg,				\
-+	.vsel_mask = _mask,				\
-+	.enable_reg = WL2868C_LDO_ENABLE,		\
-+	.enable_mask = _en,				\
-+	.enable_time = 150,				\
-+}
-+
-+static const struct regulator_desc wl2868c_regulators[] = {
-+	WL2868C_LDO(1, "vin12", 496000, 128, 0x03, 0x7f, BIT(0)),
-+	WL2868C_LDO(2, "vin12", 496000, 128, 0x04, 0x7f, BIT(1)),
-+	WL2868C_LDO(3, "vin34", 1504000, 256, 0x05, 0xff, BIT(2)),
-+	WL2868C_LDO(4, "vin34", 1504000, 256, 0x06, 0xff, BIT(3)),
-+	WL2868C_LDO(5, "vin5", 1504000, 256, 0x07, 0xff, BIT(4)),
-+	WL2868C_LDO(6, "vin6", 1504000, 256, 0x08, 0xff, BIT(5)),
-+	WL2868C_LDO(7, "vin7", 1504000, 256, 0x09, 0xff, BIT(6)),
++&cci0 {
++	status = "okay";
 +};
 +
-+static const struct regmap_config wl2868c_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0x25,
++&cci0_i2c0 {
++	clock-frequency = <400000>;
++
++	rear_lens: lens@c {
++		compatible = "giantec,gt9764";
++		reg = <0x0c>;
++		vddio-supply = <&camera_ldo7>;
++		vdd-supply = <&camera_ldo5>;
++		giantec,aac-mode = <0x40>;
++		giantec,aac-timing = <0x7c>;
++		settling-time-us = <7000>;
++	};
++
++	rear_camera: camera@56 {
++		compatible = "samsung,s5kjns";
++		reg = <0x56>;
++		clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
++		assigned-clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK3_CLK>;
++		assigned-clock-rates = <19200000>;
++		power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++		reset-gpios = <&tlmm 11 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&rear_camera_default>;
++		dovdd-supply = <&camera_ldo7>;
++		dvdd-supply = <&camera_ldo1>;
++		avdd-supply = <&camera_ldo4>;
++		lens-focus = <&rear_lens>;
++		orientation = <1>;
++		rotation = <90>;
++	};
 +};
 +
-+static void wl2868c_reset(void *data)
-+{
-+	gpiod_set_value_cansleep(data, 1);
-+}
-+
-+static int wl2868c_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct regulator_config config = { .dev = dev };
-+	struct regulator_dev *rdev;
-+	struct gpio_desc *reset;
-+	unsigned int id;
-+	int ret, i;
-+
-+	reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(reset))
-+		return dev_err_probe(dev, PTR_ERR(reset), "Failed to get reset GPIO\n");
-+
-+	if (reset) {
-+		ret = devm_add_action_or_reset(dev, wl2868c_reset, reset);
-+		if (ret)
-+			return ret;
-+		fsleep(1000);
-+	}
-+
-+	config.regmap = devm_regmap_init_i2c(client, &wl2868c_regmap_config);
-+	if (IS_ERR(config.regmap))
-+		return dev_err_probe(dev, PTR_ERR(config.regmap),
-+				     "Failed to create regmap\n");
-+
-+	ret = regmap_read(config.regmap, WL2868C_DEVICE_ID, &id);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to read device ID\n");
-+	if (id != WL2868C_DEVICE_ID_VALUE)
-+		return dev_err_probe(dev, -ENODEV, "Unexpected device ID: %#x\n", id);
-+
-+	for (i = 0; i < ARRAY_SIZE(wl2868c_regulators); i++) {
-+		rdev = devm_regulator_register(dev, &wl2868c_regulators[i], &config);
-+		if (IS_ERR(rdev))
-+			return dev_err_probe(dev, PTR_ERR(rdev),
-+					     "Failed to register LDO%d\n", i + 1);
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id wl2868c_of_match[] = {
-+	{ .compatible = "willsemi,wl2868c" },
-+	{ }
++&cci1 {
++	status = "okay";
 +};
-+MODULE_DEVICE_TABLE(of, wl2868c_of_match);
 +
-+static struct i2c_driver wl2868c_driver = {
-+	.driver = {
-+		.name = "wl2868c",
-+		.of_match_table = wl2868c_of_match,
-+	},
-+	.probe = wl2868c_probe,
++&cci1_i2c0 {
++	clock-frequency = <400000>;
++
++	front_camera: camera@31 {
++		compatible = "galaxycore,gc08a8";
++		reg = <0x31>;
++		clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK4_CLK>;
++		assigned-clocks = <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK4_CLK>;
++		assigned-clock-rates = <19200000>;
++		power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++		reset-gpios = <&tlmm 7 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&front_camera_default>;
++		dovdd-supply = <&camera_ldo7>;
++		dvdd-supply = <&camera_ldo2>;
++		avdd-supply = <&camera_ldo3>;
++		orientation = <0>;
++		rotation = <270>;
++	};
 +};
-+module_i2c_driver(wl2868c_driver);
 +
-+MODULE_DESCRIPTION("Will Semiconductor WL2868C regulator driver");
-+MODULE_LICENSE("GPL");
++&i2c10 {
++	status = "okay";
++
++	pmic@2f {
++		compatible = "willsemi,wl2868c";
++		reg = <0x2f>;
++		reset-gpios = <&tlmm 126 GPIO_ACTIVE_LOW>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&camera_pmic_default>;
++
++		regulators {
++			/* Voltages include the offsets programmed by stock firmware. */
++			camera_ldo1: ldo1 {
++				regulator-name = "camera_ldo1";
++				regulator-min-microvolt = <1128000>;
++				regulator-max-microvolt = <1128000>;
++			};
++
++			camera_ldo2: ldo2 {
++				regulator-name = "camera_ldo2";
++				regulator-min-microvolt = <1288000>;
++				regulator-max-microvolt = <1288000>;
++			};
++
++			camera_ldo3: ldo3 {
++				regulator-name = "camera_ldo3";
++				regulator-min-microvolt = <2816000>;
++				regulator-max-microvolt = <2816000>;
++			};
++
++			camera_ldo4: ldo4 {
++				regulator-name = "camera_ldo4";
++				regulator-min-microvolt = <2824000>;
++				regulator-max-microvolt = <2824000>;
++			};
++
++			camera_ldo5: ldo5 {
++				regulator-name = "camera_ldo5";
++				regulator-min-microvolt = <2808000>;
++				regulator-max-microvolt = <2808000>;
++			};
++
++			/* LDO6 is not wired out on this board. */
++			camera_ldo7: ldo7 {
++				regulator-name = "camera_ldo7";
++				regulator-min-microvolt = <1800000>;
++				regulator-max-microvolt = <1800000>;
++			};
++		};
++	};
++};
++
++&tlmm {
++	gpio-reserved-ranges = <39 1>, <74 1>;
++
++	camera_pmic_default: camera-pmic-default-state {
++		pins = "gpio126";
++		function = "gpio";
++		bias-disable;
++	};
++
++	rear_camera_default: rear-camera-default-state {
++		mclk-pins {
++			pins = "gpio92";
++			function = "cam_mclk";
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		reset-pins {
++			pins = "gpio11";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++
++	front_camera_default: front-camera-default-state {
++		mclk-pins {
++			pins = "gpio93";
++			function = "cam_aon_mclk4";
++			drive-strength = <2>;
++			bias-disable;
++		};
++
++		reset-pins {
++			pins = "gpio7";
++			function = "gpio";
++			drive-strength = <2>;
++			bias-disable;
++		};
++	};
++};
+diff --git a/arch/arm64/boot/dts/qcom/sm8750.dtsi b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+index dd738d13df..60b8f2fb5a 100644
+--- a/arch/arm64/boot/dts/qcom/sm8750.dtsi
++++ b/arch/arm64/boot/dts/qcom/sm8750.dtsi
+@@ -3512,6 +3512,72 @@ camcc: clock-controller@ade0000 {
+ 			#power-domain-cells = <1>;
+ 		};
+ 
++		cci0: cci@ac7b000 {
++			compatible = "qcom,sm8750-cci", "qcom,msm8996-cci";
++			reg = <0x0 0x0ac7b000 0x0 0x1000>;
++			interrupts = <GIC_SPI 426 IRQ_TYPE_EDGE_RISING>;
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
++				 <&camcc CAM_CC_CCI_0_CLK>;
++			clock-names = "ahb", "cci";
++			assigned-clocks = <&camcc CAM_CC_CCI_0_CLK>;
++			assigned-clock-rates = <37500000>;
++			pinctrl-0 = <&cci0_0_default>;
++			pinctrl-1 = <&cci0_0_sleep>;
++			pinctrl-names = "default", "sleep";
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			cci0_i2c0: i2c-bus@0 {
++				reg = <0>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++
++			cci0_i2c1: i2c-bus@1 {
++				status = "disabled";
++				reg = <1>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
++
++		cci1: cci@ac7c000 {
++			compatible = "qcom,sm8750-cci", "qcom,msm8996-cci";
++			reg = <0x0 0x0ac7c000 0x0 0x1000>;
++			interrupts = <GIC_SPI 427 IRQ_TYPE_EDGE_RISING>;
++			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>;
++			clocks = <&camcc CAM_CC_CAM_TOP_AHB_CLK>,
++				 <&camcc CAM_CC_CCI_1_CLK>;
++			clock-names = "ahb", "cci";
++			assigned-clocks = <&camcc CAM_CC_CCI_1_CLK>;
++			assigned-clock-rates = <37500000>;
++			pinctrl-0 = <&cci1_0_default>;
++			pinctrl-1 = <&cci1_0_sleep>;
++			pinctrl-names = "default", "sleep";
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			cci1_i2c0: i2c-bus@0 {
++				reg = <0>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++
++			cci1_i2c1: i2c-bus@1 {
++				status = "disabled";
++				reg = <1>;
++				clock-frequency = <400000>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++			};
++		};
++
+ 		pdc: interrupt-controller@b220000 {
+ 			compatible = "qcom,sm8750-pdc", "qcom,pdc";
+ 			reg = <0x0 0x0b220000 0x0 0x10000>, <0x0 0x164400f0 0x0 0x64>;
+@@ -4090,6 +4156,52 @@ qup_uart15_default: qup-uart15-default-state {
+ 				bias-pull-up;
+ 			};
+ 
++			cci0_0_default: cci0-0-default-state {
++				sda-pins {
++					pins = "gpio113";
++					function = "cci_i2c_sda";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++
++				scl-pins {
++					pins = "gpio114";
++					function = "cci_i2c_scl";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++			};
++
++			cci0_0_sleep: cci0-0-sleep-state {
++				pins = "gpio113", "gpio114";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
++			cci1_0_default: cci1-0-default-state {
++				sda-pins {
++					pins = "gpio117";
++					function = "cci_i2c_sda";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++
++				scl-pins {
++					pins = "gpio118";
++					function = "cci_i2c_scl";
++					drive-strength = <2>;
++					bias-pull-up;
++				};
++			};
++
++			cci1_0_sleep: cci1-0-sleep-state {
++				pins = "gpio117", "gpio118";
++				function = "gpio";
++				drive-strength = <2>;
++				bias-pull-down;
++			};
++
+ 			sdc2_sleep: sdc2-sleep-state {
+ 				clk-pins {
+ 					pins = "sdc2_clk";
 -- 
 2.53.0
 
