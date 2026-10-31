@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.149
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793411203;
-	b=G2gfF+gGhxjB9elGuMO+s+zpfgzjtaYp6p65+1mMQ11kJpPCOnVqsoCUhXd001wWlND6
-	 EGV32e8N8HQybWARkrqjypDQnBb+UEAAx3DTPJsGjhcmsBXk8S+1t1sBIf5ECTSs+ilwi
-	 6s+q/hfXU50jh/xmAaVwiGF5lsnqEU7FhyU7AlAmj/fiHP9KhbuTBXyUqU0kdtIctIvF/
-	 GDcUjwGM0akhbYL2VO0A/k6n/wwiyFd9G5rMPa7K08zd+wHz6QHhG/9ckQ1V3f0nn7xRF
-	 KeoVgoKzAFRuNuEnBt0r3+T23PeclWY6b7PondEDVKgmpiFnaUTK9tXCtZsWlMAPGyQ==
+	t=1793411229;
+	b=c1affsE3jWm4/795PEljgrSMUCvZQZsmQyWVtsm28Wvd5ADZmvLjoZyETzNyuvQCaSHx
+	 UfcKNYhCt5kXMfRc4TN9v9e4YbcbKm+1QsKXdFoW8MJ26Pqg86ZlQDJdp7n/ZnY5sn7Xj
+	 eKR1lhK43oJombHthQ+vZzOIwTYlk8/CBHcWIiF5xSGmNr6pybFN7cjMTH8/7Q6zfAThJ
+	 C0p9W4p4M0LHHXp4WS7wwIWOmBrg4lHVEjjllM9Zxs4RWimMnOdREhMVQQJZIOdb+OvX+
+	 FP6+bH4MNBsTroq+UMDnwpcywdvxOekkaFFu8Pkyu2RBGegYznns0ZPxib9Hs2PA2KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793411203;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Kd14u096JjkPRLaqOkROOBBjpmqH88uswZaEM3ZEqo4=;
-	b=RzQXLYPJRMrG8A8r0k5b/uyRK3ujQsw22ifdow6YG9vuJk5JoVzv0KvO4TPXuLnmLwOs
-	 5DMql5hXiAWgAF0KRFYrY5rDRmtJZPjsdyaq/6zG6JaRwmrCNgsLJNL1/LxVaKDmQ833q
-	 Lfk9gfk5G63kpc8gpG9R/VnF62POuWvuWUmyxouiJqQemEL9R7fYne74gTZ5CqYIJNXsP
-	 jKHBuHZyTDTjg1HNL3yKeT7EvNcI92Qa9R6SUxavVWYtcOuK705TLAKs9BjPJ2nGIp+FX
-	 fVuE4eXaBOqdf3CHUl8ofqORMx4xDjuxlOmrS/rdafM7KoCDsDw2BU83Y2Dwi+Z125Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793411229;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=AYlirVancYMmRVjJDVShp6lZsb2527J0ak94H6cSizE=;
+	b=KXRi+Yj6WAEYkRYG3KP+0kec0VZlH2lZKZEegfx7MKKaRnTyvUSauEVzAyO84lH/7aLo
+	 oflUlFwqcBGP+2Vb55Y+vr04jAMHcUlgEP3JO3SAYZSJ/z9lyUX6Gdr1nBw+BC4Qas3VY
+	 3b22L7oDWpxyV4TUvB57bke00/itHUyXbIi+hyRJfhImAJScvdHf1+eXqxhJnvYcthtsl
+	 Usmw6IyFCopRhYBk9mnuZXpEYt5WO7K7qkVcnPn+slMmUV6c1GhAncw2YhzuCHd/aWxoM
+	 e/cA8gz/P+ltQSNivGQCOEVc03Z74fIqHb9zPCHYoxGf62nL4fH5ndlG37i/Wst5OeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=sCs88WfC;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="oaR/9Pk5";
+	arc=none smtp.remote-ip=95.215.58.149
+Received: from mta1.migadu.com (out-149.mta1.migadu.com [95.215.58.149])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA26606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:46:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEA4606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:47:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FEA4606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=sCs88WfC
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A62B71F000C1;
-	Sat, 31 Oct 2026 01:46:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793411203;
-	bh=Kd14u096JjkPRLaqOkROOBBjpmqH88uswZaEM3ZEqo4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=sCs88WfCWNrd5mwuw/wWOb0uy5CH/M7jz2wxKIMYL11yu4lifwZPkEnqNj+jElaVy
-	 X/1WQZXaJmXMXw3k0G34iqX86NHFwFCDIYExe9Ikt5fRu1g6W3oscaBlZw4DiSoMW5
-	 RN2N2hWVxFS6NAo7CuZXf+ulG4yNc98zUjUunT/k=
-Date: Fri, 30 Oct 2026 18:46:42 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Thorsten Blum <blum@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>,
- x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, "Ahmed S. Darwish"
- <darwi@linutronix.de>, Kevin Brodsky <kevin.brodsky@arm.com>, Andreas
- Larsson <andreas@gaisler.com>, Yeoreum Yun <yeoreum.yun@arm.com>, Tom
- Lendacky <thomas.lendacky@amd.com>, "Ritesh Harjani (IBM)"
- <ritesh.list@gmail.com>, Ingo Molnar <mingo@kernel.org>,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] x86/boot: Fix off-by-one error in
- sme_clear_pgd()
-Message-Id: <20261030184642.3ec0215c9b47e3f3e0dbdbdd@linux-foundation.org>
-In-Reply-To: <20260918142714.242711-2-blum@kernel.org>
-References: <20260918142714.242711-2-blum@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=oaR/9Pk5
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=AYlirVancYMmRVjJDVShp6lZsb2527J0ak94H6cSizE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793411222; v=1; x=1794016022;
+ b=oaR/9Pk5kopXuDFGOADw5cPDH8Yeq4Tq0PC9zZCmeYWgtIkIP6nFWBr2T/b6HDaxKTldYK6D
+ pVJb4K3qheNdEpfyyusTssNM+tD5QtLEKbpFp43OuHwws/sYB0BiZnXS/dFPK6KM90iEL4u0PCV
+ iCIGRF/sxnsFXhzxYHJah06Y=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 6df660725638d07e;
+	Sat, 31 Oct 2026 01:47:01 +0000
+X-Mizu-Trace-ID: 6df660725638d07e
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,37 +57,136 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
+ PUD and PMD tables
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <febf6aeb-82dd-4a98-9a33-0ef321792285@linux.dev>
+Date: Sat, 31 Oct 2026 09:46:37 +0800
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+ SJ Park <sj@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Qi Zheng <qi.zheng@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Lorenzo Stoakes <ljs@kernel.org>,
+ Kairui Song <kasong@tencent.com>,
+ Barry Song <baohua@kernel.org>,
+ Axel Rasmussen <axelrasmussen@google.com>,
+ Yuanchu Xie <yuanchu@google.com>,
+ Wei Xu <weixugc@google.com>,
+ Baoquan He <baoquan.he@linux.dev>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>,
+ Kees Cook <kees@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Jann Horn <jannh@google.com>,
+ Pedro Falcato <pfalcato@suse.de>,
+ Hugh Dickins <hughd@google.com>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ Pratyush Yadav <pratyush@kernel.org>,
+ "Matthew Wilcox (Oracle)" <willy@infradead.org>,
+ Jan Kara <jack@suse.cz>,
+ Zi Yan <ziy@nvidia.com>,
+ Lance Yang <lance.yang@linux.dev>,
+ Rik van Riel <riel@surriel.com>,
+ Harry Yoo <harry@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>,
+ Nico Pache <nico.pache@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>,
+ Dev Jain <dev.jain@arm.com>,
+ Usama Arif <usama.arif@linux.dev>,
+ Kiryl Shutsemau <kas@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ John Hubbard <jhubbard@nvidia.com>,
+ Peter Xu <peterx@redhat.com>,
+ Will Deacon <will@kernel.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Nick Piggin <npiggin@gmail.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Minchan Kim <minchan@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>,
+ Chengming Zhou <chengming.zhou@linux.dev>,
+ Chris Li <chrisl@kernel.org>,
+ Kemeng Shi <shikemeng@huaweicloud.com>,
+ Nhat Pham <nphamcs@gmail.com>,
+ Youngjun Park <youngjun.park@lge.com>,
+ Gregory Price <gourry@gourry.net>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ Rakie Kim <rakie.kim@sk.com>,
+ Ying Huang <ying.huang@linux.alibaba.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ kexec@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org,
+ linux-arch@vger.kernel.org,
+ linux-cxl@vger.kernel.org,
+ Josef Bacik <josef@toxicpanda.com>,
+ stable@vger.kernel.org,
+ Muhammad Usama Anjum <usama.anjum@arm.com>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <6FACF8FF-F943-45C8-BDFD-3AFB5C060E0A@linux.dev>
+References: <20261030002004.154595-1-sj@kernel.org>
+ <6d679adb-a866-4a76-b9ea-3b8c64171fae@kernel.org>
+ <febf6aeb-82dd-4a98-9a33-0ef321792285@linux.dev>
+To: Ridong Chen <ridong.chen@linux.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On Fri, 18 Sep 2026 16:27:13 +0200 Thorsten Blum <blum@kernel.org> wrote:
 
-> The mapping helpers __sme_map_range_pmd() and __sme_map_range_pte(), and
-> therefore sme_encrypt_kernel(), use exclusive end addresses and stop
-> before vaddr reaches vaddr_end.
-> 
-> However, sme_clear_pgd() treats vaddr_end as inclusive when calculating
-> the last PGD entry to clear. If vaddr_end is PGD-aligned, the first PGD
-> entry outside the range is cleared too.
-> 
-> Use vaddr_end - 1 to calculate the last PGD entry within the range.
 
-When fixing a bug, please always fully describe the worst-case
-userspace-visible runtime effects of that bug.
+> On Oct 31, 2026, at 09:41, Ridong Chen <ridong.chen@linux.dev> wrote:
+>=20
+>=20
+>=20
+> On 10/30/2026 6:21 PM, David Hildenbrand (Arm) wrote:
+>> On 10/30/26 01:20, SJ Park wrote:
+>>> 'get_maintainer.pl --nogit --nogit-fallback' suggests adding below =
+recipients.
+>>> But I can show there are already quite a number of recipients, so =
+I'm just
+>>> noting here.
+>>>=20
+>>> - Brian Geffon <bgeffon@google.com>
+>>> - Oleksandr Natalenko <oleksandr@natalenko.name>
+>>> - Steven Barrett <steven@liquorix.net>
+>>> - Yu Zhao <yuzhao@google.com>
+>> The CC list was so long that I limited it to people that area either =
+a reviewer
+>> or a maintainer of code.
+>> MGLRU not having any real maintainer is a big problem; because that =
+maintainer
+>> would know whom to CC.
+> Agreed. FWIW, I think Barry Song and Kairui Song would be good =
+candidates
+> for the maintainer role.
 
-I'm guessing "none known, this is from code inspection"?
++1
 
-Thanks.
+It would be great if they could take this over.
 
-> --- a/arch/x86/boot/startup/sme.c
-> +++ b/arch/x86/boot/startup/sme.c
-> @@ -99,7 +99,7 @@ static void __init sme_clear_pgd(struct sme_populate_pgd_data *ppd)
->  	pgd_t *pgd_p;
->  
->  	pgd_start = ppd->vaddr & PGDIR_MASK;
-> -	pgd_end = ppd->vaddr_end & PGDIR_MASK;
-> +	pgd_end = (ppd->vaddr_end - 1) & PGDIR_MASK;
->  
->  	pgd_size = (((pgd_end - pgd_start) / PGDIR_SIZE) + 1) * sizeof(pgd_t);
->  
+Thanks,
+Muchun
+
+>=20
+> Both of them have been contributing to MGLRU consistently and
+> substantially. Barry is currently working on improving aging and =
+fixing
+> the swappiness-related issues, and Kairui is driving the MGLRU-FG
+> optimization work.
+>=20
+> They have also been active in reviewing MGLRU patches, and their =
+review
+> comments are usually to the point and helpful. They have been looking
+> after this code well, so I think they would be a good fit as
+> maintainers.
+>=20
+> --=20
+> Best regards
+> Ridong
+>=20
+
