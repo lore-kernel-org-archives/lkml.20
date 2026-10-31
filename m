@@ -1,91 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793432886;
-	b=Q177WohDfwKeuqBhIUGs2qX1I7LINGQ2dgr+VmO6tvD88hJilCTBARXoVPbv8xLgMT2d
-	 YQ6lUFCNUiap8YY0Qjy9I7LGf8reYdjlPYvmW6mwL5zdnjQXcSp+gcY+WArseX7BmJ6VB
-	 Wk4b9oQnjEodd7lPPEZ/oovfZqm4BJ81lzMDiyAsRNND/agVoTtKlS+DSGdM0EzHQMDt9
-	 AFJ8+Cn+yymwccJF/IokuJUy7WydaKBXEhp1Bv00GBJORYTFb7sxjgG4c0Z6fhB1Eikow
-	 1R4gzPXTnI5gWUGjAlz+zrEeONbC0axOFprH4H6LUh+Dupp1ZuQvHLeQC3Lgj3e6r+A==
+	t=1793432981;
+	b=au8p9nrz0mGOYdtM+n7WAwv96kdxqGCDsdZ3gDJETzynx6H8F411+acqJVHzt8qr3n0L
+	 kNxY6OPpafbdVfrt0E8nmI963TXG3ynTt4IadTgNsLEQyLyF3CvbaC5isG3z/7NTOfgg3
+	 SHd3ZTmWZp4c2kUwW7yc8s6nzCKRsXfmuLbuqKQX9PzKTtJWmmcQ2SNxkF+3VFjGJ7Oml
+	 6qzl+YQvOpXGvIBUePHJUpqhLYkJfIZUp75dhw75xvNmZyusCCSDretl11PGPFTi/MULD
+	 5BJAEyMNLlhHbsbSyfkXfuOtYcPQVBttTosKkSR6T0zE9JTYNqOcdPFezZuKt/VM5ig==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793432886;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
-	b=02ab0Vtyoq8DwYwm6Uf+lgY0+UnAniydrRPGWrIpCxuILyyNSmf98TUDBFr1UVapsUnZ
-	 91jhtjWgO6u5rQetjdkUEf1Sqr9RU7ATkHX35ffKypZ/pe3JHBawankhvsJ9TRYUVG475
-	 nMO9yOitxsTQCRjErXywBOLlwxZehYZ4F8tchT6T9220SMNyd5CsHF64w1P2t8ensCTZw
-	 Rzm4QL1kXMNdjwPpPNScFBQe6IZS53q9sTnWuJiej/tbsq5Nlpm+yI9vf7bKfuETS4elf
-	 hyV/s6wDA5CX7afAmrjqf0W26FXSnvi0wt40XtIk+sWMT7MxMjMVig05dpZypg7OKEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793432981;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/yrnXSjuGtKvXirNf19gKPohNcjZeXRzs8MVdnL1uJo=;
+	b=5os7RsxyP/ao9Jd0bBa4xBFZ+dVdpQj87gOqdNC5MU0X1J5hcM3MPoFdqL/6rvJC7uuI
+	 Nlf76ChSmyVEBYEX+EnN27zK+ziG+ST2NP1v3gwVViA/0RkfoQn5Ci7uopDzHbTFCWE51
+	 gNQdON2rZXlLJnv7Gz+9kqfP9eSBG0ilAXmG4AJc9tfSemwGed46ceHDh+IsW08ApkGle
+	 uGwAKOA/jYrIkJRRrqlzk/pOfVtnxkrRZCXdOCyUMrIixAu1xkjThGMnioIDbvzBbkFKL
+	 sxfW78sN414bl6TsdThQGxQ5/2q3bPdJrO9UY2bX81c3DlIm66CpWlNCgcYo6qQTSBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=UGq62yiA;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k2DV4TNM;
+	arc=none smtp.remote-ip=95.215.58.125
+Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98826606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:48:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98826606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201B7606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:49:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 201B7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=UGq62yiA
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c4cac7a7d3cso164016466b.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:48:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793432883; x=1794037683; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
-        b=UGq62yiAsCHbZ2NlaDbor4G+IWiwn6vRFyj+sHuuVA39qNZkdJe2rwZ40MRsjUp5gg
-         0vTZzjodRGNv9RYr/oQkNGdOI9zRr9qHmlSjQHrgyeg5ZtB4OPZXCtZg904OxZt1fiIr
-         OeHwh65HO3Epfz8J1veNj7jLg1hbUf0sOhUmA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793432883; x=1794037683;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=74V1NBIGjJhQuSUk1h4e3xvSxs7OjlFC+hpsJiBGmnM=;
-        b=oVanM9SibawKw6l6D0YzZcA9cqdfWQElsaC2KJBB525AkhtjObKZWcwB8IYw1TU9Kr
-         dVUfKN2Rojc2oq8eEICzUhcpvcGk3+RdItuXNT+V4q1IIbkCDbjw54sV0+re6LnZ1UC8
-         CNN5F/5I4oKj4SRz3A5Y973EnJZLGSZzV44e/hg2mkU6NJcpeUwD1TrNRztUMJHY7Ky/
-         E1m3qa32M47CeFsrcRKLC157xWcbk+6pE+WlYiL+Lyq2TYk2jJk4XR+dupqIVAC0rXXT
-         DJ84tIoBK90F9mj7TIePlmeMxKu6KfRKOqMXElBbIgTYo2rJuYxkzUU3CispUB4jaPXj
-         IYAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwvS4umQwBrONIAllkIkG8k8AzoscX42lMDwHQFpu7TWrHjcgiazw8RrKNIxez11jEm2tRIeNinZfVIjLY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJoqACoTdiPIltgj8Ig8MLRsVYx6DdPJH2PAKRh5W8/Q3zaL4/r
-	cl3aCvE294QxBj/vcy9J3tyHrLbEfo+IeFXZkk3mWZNr3sOID9kuRTgevBzMs2KC3G0Aw29NGpk
-	NMqDapzQ=
-X-Gm-Gg: AYBFou1QcngJ9Tmp+lWkFTdqpyxSD+genryVet4PDpG6WkuxwdiIFD/FTVCW+vKvrpW
-	/nh3hLIdd9szLSRmfpM7BWKIzJjIBm/H3a8oSzNnvcQ9VHzrU2tMH9HQZ7qtbQV18WF/HgTeNUA
-	KCPY6WzkhLzah3bKIJ39cdNzO2aVk4JStWxio5AkZZ0ERAXvUMGYV+0lqqbITKshFxkm0z6eMlX
-	ywB4X+Oh6cro6yxjohu5KXyI31HI54Cj4GqMv+kwSkm7fDtVe/PVeL718m3848PUexXRdMz7CTM
-	BZXvNQD3k/zNwLN/HqbIkN1rwYMEZcI/jE8XIH6EFwk1x2toaawXC7vciqGVFRSA6p3PI+IjGI5
-	SKvnU1/k+wA7Cy7bXZJyP4Q/yeJRwbTL2urAdb496J7zi11/NtGTV8QJQyvRJSe89RZV4Bgb8S4
-	fFx/EXdsOzrFgYlZPJ9RIH9hySzAvfpdXmyGeo4YssRBk3VhijXEBj6OroQSV7uTxVlZ7RaEhiE
-	WsHV+MkspepZvGdTdcrlBn71WcU5/S3/TTzH4PyCBrd6AHPJqz6Gs2JTZASw1ERHAgq1gcru+3p
-	Lg6HD+NDcgAic+sVGZATDu3iF3L9DC+h9hTlkJYRHPK3y3NFJx+YrZjAFuUtDATM8zB/rUUs+WC
-	xu4A=
-X-Received: by 2002:a17:907:9693:b0:c49:ca4f:ede6 with SMTP id a640c23a62f3a-c4ca792e78bmr375732566b.2.1793432882802;
-        Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com. [209.85.218.52])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca0fbd6sm779973a12.24.2026.10.31.00.48.02
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c4697404c2bso181848366b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:48:02 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByltuFqThovTn21+WjSFS5kz+k0bt7LZO/QLLQyuGOaHbDQ/s1dnpLgyW/4PCZgs+S0PdxBiVsDPuRpa2o=@vger.kernel.org
-X-Received: by 2002:a17:907:9693:b0:c49:ca4f:ede6 with SMTP id
- a640c23a62f3a-c4ca792e78bmr375730066b.2.1793432881922; Sat, 31 Oct 2026
- 00:48:01 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k2DV4TNM
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2hMyZCs1UGewOfOEo2oSastc/qJPy14To9PU6CeHTdk=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793432978; v=1; x=1794037778;
+ b=k2DV4TNMPKdue/DBAOU7cA9uLmURd3BY5v6y0UkKo/1LnjZyF5jKWpC5kyg5sInIFdiW/AEu
+ CnbFpM0zZMgWnea8Q76MIVqWbrstSK5H/CD46HilBSKHlzQXIXNrAmMI6bvBfc7zSlP78gdkNIr
+ Bzrrc2qmAnyIelevzXHnJn4E=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1faece7cfffda491;
+	Sat, 31 Oct 2026 07:49:37 +0000
+X-Mizu-Trace-ID: 1faece7cfffda491
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <33ce5d90-cc8b-4d21-9838-17db23407e84@linux.dev>
+Date: Sat, 31 Oct 2026 15:49:12 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,63 +58,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
-In-Reply-To: <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sat, 31 Oct 2026 00:47:45 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
-X-Gm-Features: AclHuK-PoafTkfrw-_O-xG5p4dHxh4twzZ1rG1r_WKPFt1VL68cMWA8bARoVDr4
-Message-ID: <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
-Subject: Re: [GIT PULL for v7.4] media updates
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+ Alistair Popple <apopple@nvidia.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
+ Brendan Jackman <brendan.jackman@linux.dev>,
+ Byungchul Park <byungchul@sk.com>, Chengming Zhou
+ <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
+ David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>,
+ Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>,
+ Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>,
+ Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
+ Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>,
+ Kemeng Shi <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
+ Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>,
+ Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
+ Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>,
+ Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
+ Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+ Rakie Kim <rakie.kim@sk.com>, Rik van Riel <riel@surriel.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
+ Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>,
+ Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
+ Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>,
+ Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>,
+ Jason Gunthorpe <jgg@ziepe.ca>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, 26 Oct 2026 at 10:34, Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Sat, 24 Oct 2026 at 06:51, Mauro Carvalho Chehab
-> <mchehab+huawei@kernel.org> wrote:
-> > Sakari Ailus (60):
-> >       media: Don't hide I=C2=B2C or SPI drivers by default
->
-> This needs to be fixed some way.
 
-Btw, there's something else *seriously* wrong with the whole media
-tree in a more fundamental way.
 
-The commit dates on those things are pure garbage, and all over the map.
+On 10/31/26 5:34 AM, David Hildenbrand (Arm) wrote:
+> Hi,
+> 
+> several MM updates:
+> 
+> Make Zi Yan a THP maintainer (thanks for all your hard work over
+> the years and thanks for taking on this responsibility), and perform some
+> MM MAINTAINERS cleanups.
+> 
+> Then, start the next step of the transition from Andrew's MM tree to
+> separate component trees that all get integrated into the mm-next
+> integration tree.
+> 
+> Start routing shmem through mm/core.git, adding me as a maintainer
+> primarily to pick patches.
+> 
+> Then, target the following components for the mm/core.git tree that I
+> (co)maintain:
+> 
+>       - MEMORY MANAGEMENT - BALLOON
+>       - MEMORY MANAGEMENT - CORE
+>       - MEMORY MANAGEMENT - GUP (GET USER PAGES)
+>       - MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+>       - MEMORY MANAGEMENT - MEMORY HOT(UN)PLUG
+>       - MEMORY MANAGEMENT - MIGRATION
+>       - MEMORY MANAGEMENT - NUMA PLACEMENT
+>       - MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
+>       - MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+> 
+> More details in the last patch.
+> 
+> In the upcoming cycles we'll then route more of the other MM components
+> through different trees.
+> 
+> Let's see how this goes, in particular with the continuous stream of
+> fixes. But getting these in in a controlled way has highest priority
+> right now wither way.
+> 
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> David Hildenbrand (Arm) (7):
+>        MAINTAINERS: mention for-next branch in MEMORY MANAGEMENT - MEMORY MAP
+>        MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
+>        MAINTAINERS: add Zi Yan as co-maintainer for MEMORY MANAGEMENT - THP
+>        MAINTAINERS: sort entries in MM sections
+>        MAINTAINERS: add missing files to MM component sections
+>        MAINTAINERS: rename and move MEMORY HOT(UN)PLUG
+>        MAINTAINERS: route more MM changes through mm/core.git
+> 
+>   MAINTAINERS | 165 ++++++++++++++++++++++++++++++++++++++----------------------
+>   1 file changed, 105 insertions(+), 60 deletions(-)
 
-Look at this:
+For this series:
 
-  $ git show -q --pretty=3D'%h %cd %cn' --date=3Dlocal 0d2ca6403186 0d2ca64=
-03186^
-  0d2ca6403186 Tue Sep 15 03:01:28 2026 Sakari Ailus
-  63c578491cb4 Wed Sep 16 14:09:38 2026 Sakari Ailus
+Acked-by: Qi Zheng <qi.zheng@linux.dev>
 
-what that shows is that the commit date of Sakari's commit
-0d2ca6403186 is *before* the commit date of its parent.
+Thanks,
+Qi
 
-That is impossible.
+> 
+> ---
+> 
+> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+> 
+> change-id: 20261029-maintainers-e2699bff7521
+> 
+> --
+> 
+> Cheers,
+> 
+> David
+> 
 
-Unless somebody is playing games with rewriting commit dates or has a
-completely broken machine with dates that are several *days* off,
-because there are 11 commits like this, and the worst is off by three
-days.
-
-Sakari Ailus is commonly - but not always - involved. There's a commit
-sequence by Bryan O'Donoghue where the parent commit is three hours in
-the future from its child.
-
-Time doesn't go backwards. And if you have three hours time difference
-(or three *days*) between different machines, you need to fix your
-machines.
-
-And if people are playing games with commit dates, they need to stop
-doing that. NOW. Because I'm not pulling the media tree until this is
-dealt with.
-
-                 Linus
