@@ -1,57 +1,59 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793410735;
-	b=hylUzcs6B130NFrPZ0Z+uTSmvJXp6cuA63PGhWxUo/ds2qI75cMnZ6qxw5QGDGGJznLI
-	 WezBu1E2cgG7Cj4n0DOLyPRx+75QKe2ee3RGEKE0+b/sgnD0BlTzQpDTDEkfGqJk5un1+
-	 M/pzRJq2KT774RNul2XzhnY+xY2+vw5bXExkWDdIBP86VIOG+ivsmyW9xDsPUt/lqfplX
-	 ZxBiTj6x2ZAZbdysCN10KRr4+NTQeY8SAQmjl6G0Ieue1ekbT9nR8AhCICmh5NWgCQLYa
-	 igE94mtm3ZXLUr11ZTHMPZ4T/HRB59aZA7qEH5UE0TFNwyLXGPbO+eTXGmHYTR0fjtQ==
+	t=1793410821;
+	b=DSkuiUST1cEcWkI7JGL2ynAO497cLQONlmpu4XmJRgL/cbPbAy3DWMa4Z4gzev9Am34F
+	 SyuhXni/6+xqUh+w61Cd2E/JZJ03yULab5m11kubBB6rCjjgDVL4xMYWnBld2gZx/2YKh
+	 mUCFy8EJcFD0gB6uMgV+0ebkdwYh6Vfc+pZA9NWeme2j6fdtaBdosRJ/DwzoZcY8OAB3x
+	 Yxnk0Dxb8tIZ+G3g5CA2CZoRewuqoBNNQO1bvR4TImEXYGJEO6LG/2FDzG6AtCdQka2WP
+	 enuhK4iyHSFh7LyurktQLu4GVT61Fp6/yCmS7SkhPglPDW34iQX7G+d9djkFMciMY2A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793410735;
-	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793410821;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=YF9JeAjw7ywzUc5725kV5oNhe84X6aq4bRPeCdn4wqc=;
-	b=Xah3VRZtQYZYqVFMJ6fx+azpgN6Je11JCUVJwQcUv9dEm3+Gx1qtEo4WQcU50McrULyg
-	 ywGt7MQkcR2Cw89MR4RhymiTc833r93HASaTxtS1qvSEUwFP0MJy+96GqXLAE6fUSxIeJ
-	 1twSwvbiF3eR8+tV/DOChku8+z1s21X664CsdFAP755YwHyhVuHdA0ah0D48Tbzo/ztg0
-	 NiKbjDlDVXlTL06LmyLjguVlHo4Jj6zx4LqbVkRUe1qtq7yf+4UhC24dcFqytn6xVWVgw
-	 T2qQ320swKtrBKLcEYdK6gi3J1MPXLZB5GAX6i6YOL1uxBKLz/anf/L+rOYoF0H2HzQ==
+	bh=cYECWHK3rCJvgT6Ofm6tWbKtlacbnOfxxCe60el77tE=;
+	b=x/ULNzAZ1h/KZGWCzsplNZHAWLlQZZF8ahvN7Ux3UEnGYbV8jbaK/F6I8RDIgfGnlhLr
+	 xiilMQfpuazXzOtqujWHcHD+z4gHCo8vSgwD6SafcLuqtE9fY9FYQtu6Dlw0ZEJpZXpbc
+	 cNuZ7YWhHZryAXcc54Fr2kuzKMQJFLBw+s4KjY/eFfIO/Ap6WZ6DkNnvBQWYtsYYgpiF2
+	 k45C02mmJnG3BZ6yuAUZDwFxYDxGYoWTDgw785KE9E3//Yg50ZX41rLiQ00NkKACexUFV
+	 SjEbsVmo9H2BeZhM4ZEImZTGNtQojTjm9gK6J9qWEsNFGUNzODeY6TlFHwolvSreKiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LT4pTZHV;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BE2Bktj0;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1B28606A31A;
-	Sat, 31 Oct 2026 01:38:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FD82606A31E;
+	Sat, 31 Oct 2026 01:40:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LT4pTZHV
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0709F1F000C1;
-	Sat, 31 Oct 2026 01:38:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BE2Bktj0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 352511F00A02;
+	Sat, 31 Oct 2026 01:40:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793410734;
-	bh=YF9JeAjw7ywzUc5725kV5oNhe84X6aq4bRPeCdn4wqc=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LT4pTZHVscN+EITJPxmbM4Y25TUXjJlFxE8rpz+EmrA4EvFYMBuw3Wnw+209zhHby
-	 yn+/LHmPjpTrI24PCJSEPZi0Jd0kQ4PM35VFOinGZ4e24QUC/km+jHQyNgxK4vpPVp
-	 kRdy9pkgqjfrvRAYdYFZ9esyHscFE8q8EZTtZ4biekypGogqrJDsRhPXldIeCMPKqE
-	 OUjQjhBuawBOKePpETi5oVrpSORg26tYZpp0O9Nj7WBMt7RvlhmSOvEagVy59gVNBw
-	 sSRrdD/PgcqrsvpR6E9xD+RyZ5ekosJbwg+pjHo3LHWJUfnCl3OdFSPB7RfTTw2YVn
-	 nO8b60JDG7a4g==
-Date: Fri, 30 Oct 2026 15:38:53 -1000
-Message-ID: <9a22597fa0533c7f1c1a5afe4553e1c6@kernel.org>
-From: Tejun Heo <tj@kernel.org>
-To: Shaojie Sun <sunshaojie@kylinos.cn>
-Cc: Waiman Long <longman@redhat.com>,
-	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
-	Ridong Chen <ridong.chen@linux.dev>,
-	Johannes Weiner <hannes@cmpxchg.org>, cgroups@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] cgroup/cpuset: Drop redundant no-cpu check in partcmd_update with newmask
-In-Reply-To: <20261030131408.1054507-1-sunshaojie@kylinos.cn>
-References: <20261030131408.1054507-1-sunshaojie@kylinos.cn>
+	s=k20260515; t=1793410821;
+	bh=cYECWHK3rCJvgT6Ofm6tWbKtlacbnOfxxCe60el77tE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BE2Bktj0cqd5hRWFHydln72toMiCH87QG21VifgNn574fQ+tIfJOJ71mBERulGj34
+	 2TNLaf5qMySi6YQTmecWw8M6ZPuLSLKJ9ZWo8GncPkYm9ZiruQ6AniMoUdPLfsjrK6
+	 cWWx46e42jL9WV0fkNspHDtwzFOJjMoZSn4AiFGiy0FfRLkxBXF7vsqhajEJ3NkzOe
+	 p+SXplwa4Fmivws4hVsvVpuppn+K+E7+Azkc/LgpdAFbXyv8Y60u9jDJ5WPufHJg88
+	 jHlu5+obmj/9O8FlD+jFkKaFaIqrnz3TARihHiln+0U1rt+S5J9wLKgjsSWPAQm/lU
+	 +N2DGBNyVSMVA==
+From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
+To: Hannes Reinecke <hare@suse.com>,
+	Andrew Luebke <andrew.luebke@gmail.com>
+Cc: "Martin K . Petersen" <mkp@kernel.org>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hannes Reinecke <hare@kernel.org>
+Subject: Re: [PATCH v3] scsi: aic79xx: Fix NULL pointer dereference in device reset
+Date: Fri, 30 Oct 2026 21:40:06 -0400
+Message-ID: <179340755629.952351.3503175521575838483.b4-ty@b4>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261026172032.749756-1-andrew.luebke@gmail.com>
+References: <20261026172032.749756-1-andrew.luebke@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,14 +63,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Applied to cgroup/for-7.5 with the following tags added:
+On Mon, 26 Oct 2026 10:20:32 -0700, Andrew Luebke wrote:
 
-  Reviewed-by: Waiman Long <longman@redhat.com>
+> Since commit c67e63800446 ("scsi: aic79xx: Do not reference SCSI command
+> when resetting device") the device reset SCB has no SCSI command, but
+> ahd_linux_dev_reset() still sets its residual, and ahd_abort_scbs(),
+> which completes it, sets its status. Seen on an AIC-7902 when a failing
+> disk triggered a device reset, which killed the SCSI error handler:
+> 
+>   BUG: kernel NULL pointer dereference, address: 0000009c
+>   EIP: ahd_linux_dev_reset.cold+0xee/0x26e
+> 
+> [...]
 
-Thanks.
+Applied to 7.4/scsi-queue, thanks!
 
---
-tejun
+[1/1] scsi: aic79xx: Fix NULL pointer dereference in device reset
+      https://git.kernel.org/mkp/scsi/c/f057a8bfeb6f
+
+-- 
+Martin K. Petersen
