@@ -1,101 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793480417;
-	b=IXp6zRw1Vb3mGLHsF6eZzvQvJ8K6MOy0tOgrZokFVpTA5Fd5HK9kP2/AxcOYa4+u5gq0
-	 2HNQX9kL3G9zvRmwCoH3vBAPIREnHJdbgSfIQt997J2OxrE5gmdj0hB+pKo8aiwyUFsl0
-	 T+tvBOdSLCYxOs9XrjyVCUJu5p+JtGpl/1ONOqXXpWFHOgYKZoMC6t6ablHR9clXJrjPH
-	 qQvoSiUaiNEW/kb6KID+7nSYA/85pO/7KF4EnLiih1/VAj7FH69BlveG564T23Szg1wlu
-	 zKD4lYHQo05XvRhmDG9/zYCnZun1PrBdsATlwnHv7Yo4ntchjFCP+6aPc0AUK47Ro2A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793480417;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=y6zIttahEIdYZS9kXDinaAVVA8SQ2nKlICPEN84ZtGw=;
-	b=1MUx5Nkux/wQiA7rZtAcGnxXHgj5Ira72DPlXVMccNFcxaCaH9PrytiKbDAh4oESqRoz
-	 xBim5MenQpnHB6FPd0IWfk7SBonv8qLDofv8xE9nzY4M8RlW4hING1R5kS2240ivJkus4
-	 p6+01IG2kU5Dw1su13hV7KYlGPa+SpU4lz1zmcQ/houSoa50/mCecPxvk8BC3OdyWUftE
-	 slSsAXbhTOumzDFyI4av2go6Cwhv9J+7yIOX63GadUDR6A/w6Tgh/N+bySaKhJvWvf+Iw
-	 NboCi47IJPEXWgke+LnohjrTAfVg9OovEo7lD98Ko/KxfZ7ZHRO8L5K962hMwCSna9Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GY7d3K8n;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.218.52
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793480572;
+	b=AYBRlw0oY86rllT7cEa0Gfk9LDXhNh+QdNrA3PRrPKOwUBXUJaDkvqqlomFoG1oZ3SG/
+	 EdeanGrTSQy3pSmh0X3xKLYG1KCq2lWRSBm1r2qfF/BA2GgYx3iV9qm6lu9sPaEv3WEK6
+	 K9QL1Qu8GQbP+LOERLN2JZ322FCe2Fbt8+Cy/MPFr7vAfaDPweyxEl2bU8Va+yRMw/P+H
+	 iTL5mlTtkGjMUoYXMVpJ+nu30kFufee62nxjnC2ksSmxMOpVTIs/b8uHYS5SkChiLEKn7
+	 8fz37e9NpnnrOoZ3gzWReZLAnnbj8cwCeYsy1NSOkoy2DOOczUv5ZDmSGb7cdwr4fZA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793480572;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=JovmbRKKM9xZ3bzkOvnYz4tRy1n03KhMCiMLiQXxNrY=;
+	b=jQbVjb6R/WtuoqanlHCUszRS7D8Rl94tl5XqQeK8xAspPxU7oxbxLY73rjgLt3GSIa0M
+	 YS0XhP7RPZ3bUU337tnmvHPaalSTi09dti59I3K4RLxPOQvU9HdcR952knB4nT6wdZnnt
+	 ejRBT73iMwmYhfJaHEZLtrSV594iOC4V2KbNOrNF587JUGc+ZIwkH0dV/0KfEHM3w9qC+
+	 XI9rHke5+xmwEMH82OKBsCaiLLTaKNmKDY8n+5G818JWnVZUF04RYIOXzAt2o/J/eomr+
+	 CcAQyVpyIUwxz7bLDAZ4ki5RoLIOzTd6VgIeCzczz/iXESw8P5ybSRNskU/bOHDOwvw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="iaL8/2dm";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D772A606A322
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:00:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D772A606A322
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A82C606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:02:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GY7d3K8n
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c34bff61551so324554366b.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:00:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793480415; cv=none;
-        d=google.com; s=arc-20260327;
-        b=klhPrSp5YqVUXxK5ysTa9ulV4e/R7ynK4ZoMBfhb37wYC8Bj8ygLCVtGuLnMdh5pvq
-         JsT9dI+lgrL48p/IOwbNJM8lKF6GQ5J6+uU7u0VF71lf1dr4dmp9h8qRO8kachqsPD1k
-         xVFhzjgyNvPD9HHe2aDbdoC7qONnlAc0NT8RCfXQ17QgyrJQXaX0bqVs/j/ui7IPfo1m
-         jsZ5d7E7K017b7YU1UzML8kom07AIW/WvXqn3KdyLmL6KA3Guc+j1jAkQnuWEElrWORM
-         UmV84cHFxqdxP1UNyTT3ugT8WsH/u71tMen6vGahNSGrsNewffDoRlBoP/n46YfzKGSK
-         538w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=y6zIttahEIdYZS9kXDinaAVVA8SQ2nKlICPEN84ZtGw=;
-        fh=7XINblB3j/Qntc4MRurruUqvqCqSAShk+4OVx6kIn7Y=;
-        b=iIsCPXIcX1DAXGQDh6foAB7c5C9szNp+X8wBXeDE9Igfjd8faVhHk+8S2le+n+bkBA
-         aqxVhCuYV4P+UdnBXSYaH8WVmJNJhH2yCzMoPc7Qid36esfhR1mV5CCFVhlT4YXClGCa
-         Ix/tbFOBYvD7a1cqUzH7yNN72x8aZ5uJcpUSP8+yi/4G+xPZVzzpeTHpprL0+Af6IMaw
-         qsZsdNtIG6TCdCnKjTmAyCiFHvuV8WK0yrLzpTeOBM5M/NTegJsfzOHh5jnUMYZLKBHm
-         SIcgMfMfr2aCkwvaj0PkF7iZSksgfbcyHCEONKEVv1u6HcANNu2669YwsZIA+B+zjvgf
-         USZw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793480415; x=1794085215; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y6zIttahEIdYZS9kXDinaAVVA8SQ2nKlICPEN84ZtGw=;
-        b=GY7d3K8n6KRu6PVWUS6dUeYg2GJ1ghm6/TO6voYuyVpPjuUBFOK40fAE2Z1EGiZ/60
-         OjBd7Uz3pycJ5ASIr0VItF88b4ImcedUnrb+kdt9ura9MerlNvF6k9ZO7i4L/GjQeIm1
-         yNmsQHmWa057Z2vKw0vVnb0tg29/1FP+JGZCIoCxoNZvcnkIrZGqZhQ64RoivZDQRzMM
-         kjSHKszxefOF8nY5jAoPFCBLKCFy4RGSfMHWNMcxlzEvnC8afi7L1jpMaiYdITqjob5W
-         SXFaJ3VegHF1uZ3YqxoYy5EM602TQt9w8BcUhwmiA5TjO3tXkuH1TVV653B0JIN4DIem
-         B0qw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793480415; x=1794085215;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y6zIttahEIdYZS9kXDinaAVVA8SQ2nKlICPEN84ZtGw=;
-        b=EVm7+0vz/9+rf7nDIGPCt7RbtgRFfwm+FOGGzOjEJDrIqucyHiAaoGiMLVzoOp+xSG
-         ks0tpUBOiFOYUcqpfwPVnHgtT83tYO+rWTIc4mueK++pY9tSZ37quBi53SRn2ifgL67t
-         cVGm6e6ZMsViehqVNrjfc6B+qAd/CJuvh7nqabA4iFT+GKALWsJOEh0ea1w1cvPrnGwL
-         gpd/ql5+KlVRtCy18OQIWagG4TNEkTZShyNORcva0Q8EV9bfdZ9GVLHNtNl1X1CtNHwc
-         TbFBwqleWCEXtDqx4oDOTkltJJKJHybC6+QvfH44YWrsI0Nl2pZwR+FBhJ1BN+aUqo/b
-         4wnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy93M37PL07snl6sb+mwsanFZlavvv4/28pKOFKXz5hinb1d6btMAsTic/akVhUHPAZ9MZZVVcPUzstwtE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL3yPnRqZHXsIIciRc0nS/2aMXg5DHfQcAmGsNtpAURUDWgbtv0
-	ssa8fRAFpv/y0TVTxz3cAH32ur2CDJv8MooUAs0osbhqQXIoIJn9BVLhV4gaeroV/KXnGG2mE5L
-	ETDXswzu7OrYQv5tHRrbYonFowuQU1pk=
-X-Gm-Gg: AYBFou2djMt+WdCYEhXR5duoupTAutXiV3TY56C2qdzpylf0vhHkxyXlCd7vCz1f/yp
-	WV8cWL62cb1EtY7d2aH9ZOruJALSqjyGO8M2AIM6GGr/OdYiz8/P+p5Z719X4j3DvvoH1tCd1KD
-	k9LgrqQrYsDDdNxJd87lIT0qm+okS24Ro22BrOd3Ji9JagnXdIEMviz5/LLFpCOnYbqiPyD8jv9
-	1GmKIbN4JKiMTTdONVKbxcApQW2JPFkQQ4MWVuJxthYYx3nYqB6FU54YhzqT7gxzOclVZi9Wvy/
-	bhyX4Gw6iE3e3/sISQye3ydh8CvoqzUUNmAIm0FJ9e8x3tsSXrwS7DpD9l5BpqgYd/5c9N9sAmN
-	4eVVzctcOfwUmLz/3VexAQ1tP7E0+dxjxUEG3KXmUcsZLnoYuoO+hzjJSrbCvlEkiIKvb/Q2pp1
-	3ZfPu32TQoy/eT42F5g+TKi7Xu5js=
-X-Received: by 2002:a17:907:3da3:b0:c44:3006:5c3 with SMTP id
- a640c23a62f3a-c4ca7aa6b0amr512955766b.28.1793480415077; Sat, 31 Oct 2026
- 14:00:15 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iaL8/2dm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1763D1F00A18
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:02:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793480571;
+	bh=JovmbRKKM9xZ3bzkOvnYz4tRy1n03KhMCiMLiQXxNrY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=iaL8/2dma4L2E5r6CldXJPvKqp8fRpEetqR8UoiqvMhoMOwGzo04tlrKZ3hw8EDxx
+	 cm57XH3+C30FHetLJsF+AU5ydcWWignbnOVFSCy0PIfJwSsEVfg3skS30rwWyifbPv
+	 U2DodA5o6IN77nFMpvde1QBph7M3eFFfIV+uZR5G+3JWsajtB3rmlGcjGU5bJFvyro
+	 wJBN8iIVuhoZKq9Sw6xHp2MABjFjNgMzgfQxODk65Rq7NP58URXO4T3qf/UqfXlamp
+	 MNCknK2zE8IQ2p5CWIYCBUDbnrUU7S4noc9BOPlq+4B1pL2x3E6pFx0OyAuy/R6Qht
+	 ielu/hDoaTKCw==
+Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-917aca1aee5so22500016d6.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:02:51 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxL785vEzoytoURZNfgiMAccFiPnDpmZ859gnKjn89UFg9vuPUkTC/K3IY8sn3pfLVSyMaT/ZHh9hSLzQ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIV/XzB2hpLaiyW3D4wL+BW6UKejWc/8mmPqRjaQtiEPKnDDqRb
+	Wmmog6b2Wku+Is23+S4L4WUedyOLgzqZdpxeIx0L8zTpf+nqQlZ//SIidcYtc9QyWpGRO+8pPpp
+	/zvLRlL6K5kRxNleiHH7rXHVx1pSKFSg=
+X-Received: by 2002:a05:620a:8393:b0:93e:c12c:4416 with SMTP id
+ af79cd13be357-94421805919mr873994685a.82.1793480570337; Sat, 31 Oct 2026
+ 14:02:50 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,41 +59,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031160902.2540710-1-vladurares@gmail.com> <2026103151-sliced-showoff-9b0b@gregkh>
-In-Reply-To: <2026103151-sliced-showoff-9b0b@gregkh>
-From: Vladu Rares <vladurares@gmail.com>
-Date: Sat, 31 Oct 2026 23:00:04 +0200
-X-Gm-Features: AclHuK-cNkd1s3D8PvPfBGonO1MU2Kycb-9kxlB_CZJ_P-vkS65HoDyWknbq4Bo
-Message-ID: <CALr6u6KKcprf6W+MsnPwZu+HOoHfTS3HQs=iMfG1ZVEwkypHoQ@mail.gmail.com>
-Subject: Re: [PATCH] staging: octeon: remove unused cvmx_pko_get_base_queue_per_core()
- stub
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20261031090041.58574-1-ridong.chen@linux.dev> <20261031090041.58574-6-ridong.chen@linux.dev>
+In-Reply-To: <20261031090041.58574-6-ridong.chen@linux.dev>
+From: Barry Song <baohua@kernel.org>
+Date: Sun, 1 Nov 2026 05:02:39 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4yarkUMWjuJ+MVw3EkNDHanDU8_LKk0Td2tO9DJUe2cyw@mail.gmail.com>
+X-Gm-Features: AclHuK_IJBi8BwrNBY8KWJ9NBHd1SSJ62zreD3OjXulz7n9Nc2RkMxdC4i3O-Xc
+Message-ID: <CAGsJ_4yarkUMWjuJ+MVw3EkNDHanDU8_LKk0Td2tO9DJUe2cyw@mail.gmail.com>
+Subject: Re: [PATCH v5 5/6] mm/mglru: add tracepoint for scan_folios()
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Michal Hocko <mhocko@kernel.org>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Shakeel Butt <shakeel.butt@linux.dev>, Dave Chinner <david@fromorbit.com>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Muchun Song <muchun.song@linux.dev>, 
+	Qi Zheng <qi.zheng@linux.dev>, Kairui Song <kasong@tencent.com>, 
+	Axel Rasmussen <axelrasmussen@google.com>, Yuanchu Xie <yuanchu@google.com>, 
+	Wei Xu <weixugc@google.com>, Baoquan He <baoquan.he@linux.dev>, 
+	Baolin Wang <baolin.wang@linux.alibaba.com>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>, 
+	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>, Ridong Chen <chenridong@xiaomi.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, 31 Oct 2026 at 22:31, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
+On Sat, Oct 31, 2026 at 5:01=E2=80=AFPM Ridong Chen <ridong.chen@linux.dev>=
+ wrote:
 >
-> On Sat, Oct 31, 2026 at 04:09:02PM +0000, Rare=C8=99-Mihai Vladu wrote:
-> > cvmx_pko_get_base_queue_per_core() is not used by the driver, so its
-> > stub for COMPILE_TEST builds is never called. Remove it.
-> >
-> > Signed-off-by: Rare=C8=99-Mihai Vladu <vladurares@gmail.com>
+> From: Ridong Chen <chenridong@xiaomi.com>
 >
-> How was this found and tested?
+> MGLRU's scan_folios() emits the classic-LRU tracepoint
+> trace_mm_vmscan_lru_isolate(), which predates MGLRU. It reports the
+> scan/isolate counts and the LRU type, but carries no generation or
+> memcg context, so a trace of an MGLRU run cannot tell which memcg a
+> given scan belongs to, nor how far reclaim has progressed through the
+> generations.
+>
+> Add mm_mglru_scan_folios next to it, reporting the same counters plus
+> nr_sorted (folios moved to a younger generation by sort_folio()) and
+> the context the classic tracepoint lacks: the node id and memcg id of
+> the lruvec, and the max_seq, tier and min_seq of the type being
+> scanned.
+>
+> Now that struct scan_control is visible to the trace header, pass sc,
+> lruvec, type and tier straight in and derive everything else in
+> TP_fast_assign(), so nothing is computed at the call site when the
+> event is disabled. The int fields are grouped at the end of the entry
+> to avoid padding on 64-bit.
+>
+> scan_folios() is the MGLRU-specific layer where folios are actually
+> scanned, so it has no classic-LRU counterpart. The existing tracepoint
+> is left unchanged.
+>
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> ---
 
-I found it by checking every function and macro defined in
-octeon-stubs.h against the rest of the driver with grep. This was the
-only stub with no user. The real cvmx_pko_get_base_queue_per_core() in
-arch/mips is still used there and is not touched.
+Ran a test on this:
 
-octeon-stubs.h is only included from octeon-ethernet.h when
-CONFIG_CAVIUM_OCTEON_SOC is not set, so the change only affects
-COMPILE_TEST builds. I built the driver with COMPILE_TEST on x86_64
-and it builds without warnings.
+/sys/kernel/tracing/events/vmscan/mm_mglru_scan_folios # cat format
+name: mm_mglru_scan_folios
+ID: 491
+format:
+field:unsigned short common_type; offset:0; size:2; signed:0;
+field:unsigned char common_flags; offset:2; size:1; signed:0;
+field:unsigned char common_preempt_count; offset:3; size:1; signed:0;
+field:int common_pid; offset:4; size:4; signed:1;
 
-I can send a v2 with this in the changelog if you want.
+field:u64 memcg_id; offset:8; size:8; signed:0;
+field:unsigned long nr_requested; offset:16; size:8; signed:0;
+field:unsigned long nr_scanned; offset:24; size:8; signed:0;
+field:unsigned long nr_sorted; offset:32; size:8; signed:0;
+field:unsigned long nr_skipped; offset:40; size:8; signed:0;
+field:unsigned long nr_taken; offset:48; size:8; signed:0;
+field:unsigned long max_seq; offset:56; size:8; signed:0;
+field:unsigned long min_seq; offset:64; size:8; signed:0;
+field:int nid; offset:72; size:4; signed:1;
+field:int highest_zoneidx; offset:76; size:4; signed:1;
+field:int order; offset:80; size:4; signed:1;
+field:int lru; offset:84; size:4; signed:1;
+field:int tier; offset:88; size:4; signed:1;
 
-Thanks,
-Rare=C8=99
+print fmt: "nid=3D%d memcg_id=3D%llu classzone=3D%d order=3D%d
+nr_requested=3D%lu nr_scanned=3D%lu nr_sorted=3D%lu nr_skipped=3D%lu
+nr_taken=3D%lu lru=3D%s max_seq=3D%lu tier=3D%d min_seq=3D%lu", REC->nid,
+REC->memcg_id, REC->highest_zoneidx, REC->order, REC->nr_requested,
+REC->nr_scanned, REC->nr_sorted, REC->nr_skipped, REC->nr_taken,
+__print_symbolic(REC->lru, {0, "inactive_anon"}, {1, "active_anon"},
+{2, "inactive_file"}, {3, "active_file"}, {4, "unevictable"}),
+REC->max_seq, REC->tier, REC->min_seq
+
+
+
+~ # echo 1 > /sys/kernel/tracing/events/vmscan/mm_mglru_scan_folios/enable
+~ # ./a.out
+[+] mapped 500 MB at 0xffff9f000000 (128000 pages)
+[+] duration: 60 seconds
+[+] first pass done, start looping writes
+^C
+~ # cat /sys/kernel/tracing/trace | grep mglru_scan_folios | head
+         kswapd0-50      [000] d..1.   650.877105:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D0 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D0
+lru=3Dinactive_anon max_seq=3D3 tier=3D3 min_seq=3D1
+         kswapd0-50      [000] d..1.   650.877686:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D64 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D6=
+4
+lru=3Dinactive_file max_seq=3D3 tier=3D3 min_seq=3D0
+         kswapd0-50      [000] d..1.   650.907558:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D0 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D0
+lru=3Dinactive_anon max_seq=3D3 tier=3D3 min_seq=3D1
+         kswapd0-50      [000] d..1.   650.907729:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D64 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D6=
+4
+lru=3Dinactive_file max_seq=3D3 tier=3D3 min_seq=3D0
+         kswapd0-50      [000] d..1.   650.909040:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D0 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D0
+lru=3Dinactive_anon max_seq=3D3 tier=3D3 min_seq=3D1
+         kswapd0-50      [000] d..1.   650.909198:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D64 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D6=
+4
+lru=3Dinactive_file max_seq=3D3 tier=3D3 min_seq=3D0
+         kswapd0-50      [000] d..1.   650.910520:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D0 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D0
+lru=3Dinactive_anon max_seq=3D3 tier=3D3 min_seq=3D1
+         kswapd0-50      [000] d..1.   650.910710:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D64 nr_sorted=3D4 nr_skipped=3D0 nr_taken=3D6=
+0
+lru=3Dinactive_file max_seq=3D3 tier=3D3 min_seq=3D0
+         kswapd0-50      [000] d..1.   650.911866:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D0 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D0
+lru=3Dinactive_anon max_seq=3D3 tier=3D3 min_seq=3D1
+         kswapd0-50      [000] d..1.   650.911988:
+mm_mglru_scan_folios: nid=3D0 memcg_id=3D1 classzone=3D2 order=3D0
+nr_requested=3D64 nr_scanned=3D66 nr_sorted=3D0 nr_skipped=3D0 nr_taken=3D6=
+6
+lru=3Dinactive_file max_seq=3D3 tier=3D3 min_seq=3D0
+
+The LRU naming feels a bit weird to me. We have
+"inactive_file" and "inactive_anon", but MGLRU doesn't
+have active/inactive lists. I guess it's not a big issue,
+though, since we also use the same names in
+trace_mm_vmscan_lru_isolate() in scan_folios().
+
+For the patch:
+
+Tested-by: Barry Song <baohua@kernel.org>
+Reviewed-by: Barry Song <baohua@kernel.org>
