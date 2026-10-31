@@ -1,58 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.65
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793479949;
-	b=cByjgj3/smGPUYTPNCO5zw34abLVqsnHKz1FaCkt7Po6f8FuxkmDduiQlPHnOtMoJpz3
-	 VOXuwiHVc3q2P26Klf0Baez7DzM1RjYJpYbJ7QapAWLYr7ZM9JoEjD+CR4duCScHl0hN7
-	 OdoaJ5+72U5CYONF6oBXu5gRBIamyH0c9152ywdDeMYU531ujGVonZ5KFEX6UCSHKhX0C
-	 lSKDJXaQkw1k5mP/7hIfqHNr43g8RPoWeDw2XFYG2u6MUTXvGWkORlqVop1blqISh9VaM
-	 1bqk9PqyKlKvoOwT5QWGmvFDbCRviFL/GI3+D23SrOYMWJbI+wy4iuB0yhv+UaNCfgA==
+	t=1793480284;
+	b=EfDknVwmqG1Y1Rk4PtvE6IZTRx3Q1ZvgoIyJ5JOfB7M1dkz1k0o63XCKAgTO3X3MLW8M
+	 z7a/Hy0FY+nBsC7hO+5wbJjbI5/d6gYwA4fBevHOqA8YSJK43A8SU/iE2H3xDy0qc1h8A
+	 mQFVdtVvEgli631zXeJx5wMrNkwzvMceP9yESZ0s06paBcZ6EZ3a4kjLRQrO0uXZFuVjN
+	 98FKNlp6eIZpqdE+0buFe3yJleCZV58vRA3knw/i0ghw2eSdEiw/+NApTQvFo9wmav0+j
+	 7AcKg/A6FkMiHp3u1ueRJlFsY+1AtSV+AKCAJcB2ehmSHb8RxSxM1SkjOBswAJIAHGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793479949;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:To:Cc:
-	 X-Developer-Signature:X-Developer-Key:Autocrypt:OpenPGP;
-	bh=4KZfnZZWUgpacNaNvWb37H6nYeezWlIgqRQQEVtr3Zc=;
-	b=qgV0OQwqb9bKgG0X8iEjqzAttCGMkD/+VZNXzEhQDU+sYfbDsRzwjGbK+EO9vXR77tMm
-	 gNVkHo7kvhqE5NavN/XU80ULEvKZs/U0lsWvWAOw0sGLST/YDpZe2noqap2RKKj/LIpXf
-	 XzuAhCKUZudA9M2DainMCKEoB8dT/k7KW+PrYa1S7qctphLRXsy084sGez8G5n//apMAn
-	 vJhIcsH6hUmZBokgw8ScrqDlD60ur5T+4RVAsw8yOMkEwD/OqoV03KB+tfAWHFEi+J2kA
-	 PclAXygfwWz92/fVqYQ5NYtKJ1h8GBhqom1tN8ji0M4vx+KeIcHO+9/jty6BdUb5ziA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793480284;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
+	 To:Cc:Subject:From:X-Mailer:References:In-Reply-To;
+	bh=Y/LYbbBt7trzTMNEroyzygNAvIrDGCzErGprATR8hIs=;
+	b=xUnh6m4rDjgmoWsqyrqe8s2BdrvixGW+2Dz5gV9r0eaSXoLV6Ot477NGffXFjSMVRjsV
+	 ysdx1ARKBpQJJL6RZasFfZKJkV4HcGE6l05jkxBvXX0T+1bvNpyGobGKmyk+XpUSvnQTW
+	 F/jLEtbmlhoquuNicT9KVnBZaVNDiMbVjxjE2ddSxIdSFkEY/HtXPNuZ422VuTgpfVcfB
+	 0pzVLObfRvuDn8mUpUTWnU34014UUwvOBV+wd3aXfhOXOd2pfMctP8aE3CQF6yib6hewa
+	 Bo5p+yh4jfYt1g17Fm1jHJwz3Fkcxvj7RJaPb9/A3iiykRtTXj26W3yUojoqDsRXhxw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=YoHrchRv;
-	arc=none smtp.remote-ip=185.67.36.65
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vIz5pZpn;
+	arc=none smtp.remote-ip=209.85.210.173
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6136606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:52:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6136606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB691606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB691606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=YoHrchRv
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id A4036240027
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:52:25 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1793479945;
-	bh=4KZfnZZWUgpacNaNvWb37H6nYeezWlIgqRQQEVtr3Zc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:To:Cc:Autocrypt:OpenPGP:From;
-	b=YoHrchRvfgv8ULgnbU9kzaZ4GHaHsxSqfdC1b9VIRQOe+W0EzypBcXbRttoWIMbaZ
-	 9Yta8xAk0nad8Ts6vcefhnIKQCtAv9u4sdGYXgXYnf3rKPl++uRZ1zMKnBa2mjIAny
-	 SyI6ZqipahKd4eO7cYX79U93MH+z369UXbQNwxbJXKVdAuHJJlMTGaF9r4EPXRafOC
-	 wMxjeLvMdsnkxyAe2OwtqgcZvXJMDMpkEpiIoHJYYm40NBfT61YXdpPZGMTnqmcfM/
-	 dwMDKKeUkYPdR8pQkMDtvbC3dVCtyo6idoqvC9bNhNujviKLvostU1SHuZYib/z4c7
-	 zVfN4F+8vqw/g==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jH9Bw4kDFz6txn;
-	Sat, 31 Oct 2026 21:52:24 +0100 (CET)
-From: Markus Probst <markus.probst@posteo.de>
-Date: Sat, 31 Oct 2026 20:52:25 +0000
-Subject: [PATCH RESEND v4] ACPI: SPCR: Support UART clock frequency field
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vIz5pZpn
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8a06454116eso792154b3a.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:58:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793480283; x=1794085083; darn=vger.kernel.org;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y/LYbbBt7trzTMNEroyzygNAvIrDGCzErGprATR8hIs=;
+        b=vIz5pZpn/CV/yT3JZ9+1Z8dTi8d7iNdhPVwu7OHZVUJIqYzO+tijbQDNdD4DTk6NDL
+         Gje9LUAQUA2bhu3AtYBzjfgA+ADNZMmCw75yfHKfhu69QGj8bU74LyR4Rc6mDTEaZ5YE
+         b77vZZqkQqCWM60tqV1LmKF7ixexHIaZDLyG9T6tKaxPpy8oHSZKQMCmPEqOP51FLPgG
+         MT1VRA1zNe9Ww3FN8aLr7AgQ/ivfkQ/d7jYTqRuvitlh05Ebui+s6dpbGoEa8h/sT4G7
+         o3LLNgX4g1GuuFV11VC3Rm8Dxd8h11rh1Pc/HKAxRcc+psyMI20jAACnaB06y8W9RyIJ
+         7rHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793480283; x=1794085083;
+        h=in-reply-to:references:from:subject:cc:to:message-id:date
+         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Y/LYbbBt7trzTMNEroyzygNAvIrDGCzErGprATR8hIs=;
+        b=KnomeHA7UiAOl959yM7BbbBuFMIuEcBRBVvz9LhwNHq2LR/ki83h0j8TBiwBwlvegu
+         92tJHhbb+W42pfkJ4bTontL/iKinf8k1jKMqs6c49R7dLhDsK0VYRn6IhL1TVT6kEw4M
+         xVcyN0kTx3fA3KeSWmkcil9pBWqpCWDjDTCt+7Cvt7zP5kBhmlkjBY7SYGD29YkvTQ/E
+         WLOVs3niruEFmOJS5naDR3kynXyF8khN3TP31qJz/Rddey2fZ7gU7JCEt9G+xygYQ/yh
+         k0pwyQ47ScNfA8Vo4A2lTJLt5BkEif9U2Ee30YuMyPQeyAjf/iA4zONKyhEIoxa8pk7b
+         pwzA==
+X-Forwarded-Encrypted: i=1; AKwUvByrBL/mDBEuVOwNr5lgi9mo2oq8/531UsB/f3DC0PxH6O9zUD7UQxZbXWDm+hUG8HjoLsQmqPMNQt7+/pA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIqt0wmHw0SliqyC5PuIcRLKptPIlo9/BvTe4kkHUZfqg/188ln
+	Xb3Fu9vpUITARP3+Yfy18ahh1fJGPjw0wiM6cV1JRAP2wshc5ykD70BT
+X-Gm-Gg: AYBFou3dz1he0PbTcRA6rkyB5xhnzUUIkDa0n7Z0LjAnIecU5uP1KAbPAGz9jpB41xU
+	9l+gO58y1tQ915+ZKfMKjXqBXrNLjk6CxnERHdPe3ghqVTU5C3XlAP/VQIf0Uedq/kAIk3R0WXy
+	uVdwWL5cB0UBSLvWuLDLoApZvWDE7biWBT0Dmtmwkc+BztPqRTeR2mRfI//BKvZCDDz6bRJySmb
+	pHif9RwU9wM+LlYRNWAfdYiAP8jxE9MOWMqAglcbHuyLrSM+TAiDXK1MSVJNdijdVyUO4NkDgfV
+	QJf0Nbv1XgWRB9TyVlJmRoEcOZq8Lk3BJsk+sAUKj51+9iyo/xIyzjjV4W8q1gpKbKRgs/P3c91
+	jKftZ9uT8jjLkfkrJSkDYys2ealYNYq5102h1khqy1ObR0KQIhg9+VCjZ2lNPIv7/s7nk3byYkX
+	dJsWU+xqNmEk/LzeH6npbN9wpvJ2qH8Dsveb2Yb5wZ+EvTIb/VM8HuLPdokKRA7Tkis496CdjHH
+	0KBY+bWkpJhxR6Yuc+oQ2WVDpuuJqzXNRwJxZwZvUvIB6GrXsDh40hBrRNXckWbCeTc18lWOU4k
+	9jjB3/zZE8Zba1A0E3+6KPUXgItoOVeEfEiFqNG26YX469BAddT1aEKjhg3YcleEBRuBPZpJdLt
+	zv1zOmvQpaEF02lye1baGUBGSLW3eYBha29s/5bNkzifEtGDNoQtEq9I=
+X-Received: by 2002:a17:90b:4a85:b0:3ab:c674:cad1 with SMTP id 98e67ed59e1d1-3ae897994c4mr4981300a91.50.1793480283148;
+        Sat, 31 Oct 2026 13:58:03 -0700 (PDT)
+Received: from localhost ([153.61.198.255])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9426ffsm13250949a91.7.2026.10.31.13.58.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 13:58:02 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,225 +88,44 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-acpi_spcr-v4-1-c14f00a4f33f@posteo.de>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Jiri Slaby <jirislaby@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Len Brown <lenb@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-acpi@vger.kernel.org, Markus Probst <markus.probst@posteo.de>
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6200;
- i=markus.probst@posteo.de; h=from:subject:message-id;
- bh=GF3qJ28po4tzQKhOOmc1ZjYhXtmA/fVN39S6nEBHPRI=;
- b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBq5lT/9e9Wv1jgcQFzLHb76R8d9Cx1gqYAt3AgV
- zAc+lQWQbSJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCauZU/xsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9KPIg/+Ib4CuK7eUQ/ugaSi/2dld/ZMMxa6I9t
- 0XkVCIodTP9jUAcm3paeZ+ZATtXCAqYxdn4jpybl+EQ+TZKGpcH3AK1DIhZhp8DS6YN8Zwe+B+R
- Vj8JeoiiAHPD+EimV0befB+SxNSXNEjg/RMGbENBpgtlcyXqbIhFTKLP6FK6igzz+iDHfouRTo4
- JSbRSAENg075pFmN9XQQT40JqDyebyEvN5hbJR6NXJjUnyNHcwiW9DQerY7xR3EdbjyrwUtjcJj
- MvjZsnLq2bTXwIB5Y+Irrs26gKA2OUc+N25JQBDrvF/7El5Sn5D39gGyTgMynvMM38lqRb0f1VP
- 82cZkne9hdbvZ1VRFEnYTkY4JK/8o2fCWClEnSzgMhFrdvbeKH5hQVP/F7F02db2jF7By4ndTMA
- P8Vo9xF3Zs076+NJkKYg2HLv6sTm49c/Y3dYockjQNntedaAAbFcfeT3hGzcnjHTaHH6wB0T8aU
- OK7rVMz7HeeBwQBa4UK1OtQlGBqZUoq/dm/fHHrQrKAlGkZ4j0dkglD6XhzjrtVEChRn/x3LPR1
- +LPU163vAn6wf31pe9hjj4xQXwh6FulQwomdb1QtzPBkgrMnLUEdyum98YnBw4uWTs1E2a89wNH
- 3hq0wIuIXF/c7l2S5+aP7uXRUs2w3GBjQEvC5yqkRH5DjKpTPTX8=
-X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
- fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
-  keydata=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
-  aBeNN4ijKZchBXHPgVx+YtWRHfcm4l8=
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 31 Oct 2026 20:58:02 +0000
+Message-Id: <DMJBP7BG3GE8.1ZXVVR0YIM9OO@gmail.com>
+To: "Chris Down" <chris@chrisdown.name>
+Cc: "Nuoqi Gui" <gnq25@mails.tsinghua.edu.cn>, "Alexei Starovoitov"
+ <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
+ Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
+ "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
+ <martin.lau@linux.dev>, "Mykyta Yatsenko" <yatsenko@meta.com>, "Shuah Khan"
+ <shuah@kernel.org>, <bpf@vger.kernel.org>,
+ <linux-kselftest@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH bpf 0/2] bpf: Gate dynptr probe-read kfuncs like helpers
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+X-Mailer: aerc 0.20.1-349-gb940a4174a3e-dirty
+References: <20260615-f01-07-dynptr-probe-read-cap-v1-0-e626cd61a381@mails.tsinghua.edu.cn> <DJ9QOWVIXFHR.1S8UL5H0USVCB@gmail.com> <auN_R9gCBqNwEkKV@chrisdown.name>
+In-Reply-To: <auN_R9gCBqNwEkKV@chrisdown.name>
 
-Prior to this patch, we assume the uart clock frequency is 1843200 Hz in
-the early console. This behaviour results in garbage console output if the
-actual uart clock frequency differs.
+On Thu Oct 29, 2026 at 5:15 PM UTC, Chris Down wrote:
+> Hey Alexei,
+>
+> Alexei Starovoitov writes:
+>> It's fine as-is. Won't fix.
+>
+> Could you expand a bit on the lockdown side of this? I ran into the same=
+=20
+> discrepancy independently and was preparing fixes until I found this thre=
+ad=20
+> while looking for prior discussion.
+>
+> The CAP_PERFMON side is now covered by 81c975aae375 ("bpf: Require CAP_PE=
+RFMON=20
+> for kfuncs reading memory"), but the probe_read_kernel helpers still chec=
+k=20
+> LOCKDOWN_BPF_READ_KERNEL while the matching dynptr kfuncs don't. Is that=
+=20
+> intentional?
 
-The UART Clock Frequency field was added in the Microsoft Serial Port
-Console Redirection (SPCR) specification revision 1.08. If present, use it
-to configure the serial port with the correct uart clock frequency.
-Fallback to old behaviour if missing.
-
-Add function `setup_earlycon_with_uartclk` to set uart clock frequency
-while still allowing to reuse the same console string with
-`add_preferred_console`.
-
-Link: https://learn.microsoft.com/en-us/windows-hardware/drivers/serports/serial-port-console-redirection-table
-Signed-off-by: Markus Probst <markus.probst@posteo.de>
----
-Changes in v4:
-- merge patches together
-- rewrite commit message
-- Link to v3: https://patch.msgid.link/20260615-acpi_spcr-v3-0-9a59ebad74ea@posteo.de
-
-Changes in v3:
-- add separate function for earlycon with uartclk
-- Link to v2: https://patch.msgid.link/20260525-acpi_spcr-v2-0-c042089d73ca@posteo.de
-
-Changes in v2:
-- fix uart_clk_freq possibly being interpreted as parity/bits/flow
-- Link to v1: https://patch.msgid.link/20260505-acpi_spcr-v1-1-fd4bc6f4eb53@posteo.de
----
- drivers/acpi/spcr.c           |  3 ++-
- drivers/tty/serial/earlycon.c | 17 ++++++++++++-----
- include/linux/serial_core.h   | 11 +++++++++--
- 3 files changed, 23 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/acpi/spcr.c b/drivers/acpi/spcr.c
-index 73cb933fdc89..c79c809f49d4 100644
---- a/drivers/acpi/spcr.c
-+++ b/drivers/acpi/spcr.c
-@@ -228,7 +228,8 @@ int __init acpi_parse_spcr(bool enable_earlycon, bool enable_console)
- 	pr_info("console: %s\n", opts);
- 
- 	if (enable_earlycon)
--		setup_earlycon(opts);
-+		setup_earlycon_with_uartclk(opts,
-+					    table->header.revision >= 3 ? table->uart_clk_freq : 0);
- 
- 	if (enable_console)
- 		err = add_preferred_console(uart, 0, opts + strlen(uart) + 1);
-diff --git a/drivers/tty/serial/earlycon.c b/drivers/tty/serial/earlycon.c
-index ab9af37f6cda..5a20fe9e3fb6 100644
---- a/drivers/tty/serial/earlycon.c
-+++ b/drivers/tty/serial/earlycon.c
-@@ -135,11 +135,14 @@ static int __init parse_options(struct earlycon_device *device, char *options)
- 	return 0;
- }
- 
--static int __init register_earlycon(char *buf, const struct earlycon_id *match)
-+static int __init register_earlycon(char *buf, unsigned int uart_clk_freq,
-+				    const struct earlycon_id *match)
- {
- 	int err;
- 	struct uart_port *port = &early_console_dev.port;
- 
-+	port->uartclk = uart_clk_freq;
-+
- 	/* On parsing error, pass the options buf to the setup function */
- 	if (buf && !parse_options(&early_console_dev, buf))
- 		buf = NULL;
-@@ -163,8 +166,9 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
- }
- 
- /**
-- *	setup_earlycon - match and register earlycon console
-- *	@buf:	earlycon param string
-+ *	setup_earlycon_with_uartclk - match and register earlycon console
-+ *	@buf:			      earlycon param string
-+ *	@uart_clk_freq:		      uart clock frequency in Hz or 0 for BASE_BAUD*16
-  *
-  *	Registers the earlycon console matching the earlycon specified
-  *	in the param string @buf. Acceptable param strings are of the form
-@@ -177,10 +181,13 @@ static int __init register_earlycon(char *buf, const struct earlycon_id *match)
-  *	<options> string in the 'options' parameter; all other forms set
-  *	the parameter to NULL.
-  *
-+ *	If the uart clock frequency is specified in the 'options' parameter,
-+ *	the value of the param @uart_clk_freq will be ignored.
-+ *
-  *	Returns 0 if an attempt to register the earlycon was made,
-  *	otherwise negative error code
-  */
--int __init setup_earlycon(char *buf)
-+int __init setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
- {
- 	const struct earlycon_id *match;
- 	bool empty_compatible = true;
-@@ -209,7 +216,7 @@ int __init setup_earlycon(char *buf)
- 		} else
- 			buf = NULL;
- 
--		return register_earlycon(buf, match);
-+		return register_earlycon(buf, uart_clk_freq, match);
- 	}
- 
- 	if (empty_compatible) {
-diff --git a/include/linux/serial_core.h b/include/linux/serial_core.h
-index bdc214386e4a..9b2bcd4295a9 100644
---- a/include/linux/serial_core.h
-+++ b/include/linux/serial_core.h
-@@ -1099,11 +1099,18 @@ int of_setup_earlycon(const struct earlycon_id *match, unsigned long node,
- 
- #ifdef CONFIG_SERIAL_EARLYCON
- extern bool earlycon_acpi_spcr_enable __initdata;
--int setup_earlycon(char *buf);
-+int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq);
- #else
- static const bool earlycon_acpi_spcr_enable EARLYCON_USED_OR_UNUSED;
--static inline int setup_earlycon(char *buf) { return 0; }
-+static inline int setup_earlycon_with_uartclk(char *buf, unsigned int uart_clk_freq)
-+{
-+	return 0;
-+}
- #endif
-+static inline int setup_earlycon(char *buf)
-+{
-+	return setup_earlycon_with_uartclk(buf, 0);
-+}
- 
- /* Variant of uart_console_registered() when the console_list_lock is held. */
- static inline bool uart_console_registered_locked(struct uart_port *port)
-
----
-base-commit: 237a1c39e8dfd3e1c6f1f023eea37a48ec04cc63
-change-id: 20260430-acpi_spcr-61902fd923f2
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmqOIQQbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSt08QALWMim65nIIS428BheYg
-aq6BqxDGGqORhlf7aCFGTtNaeNDsu1Tny7sNTe+TEXpKl+AwoFTJ+4+bxl50AYyp
-8Niod0JGjEoxkQKsU/aScvCvEvMuPXOABfUGFtzieNpfswU2n6LHjywy+RP1mTEn
-aPP1arQGGGhe5b5lvolREN0VbGvymtiLr6P+qOhs76ib/dkOegq2/njBX7UlQ7Fy
-dIQo1A/NayUn5F7VWQKUz6ZHLX9bVZYSe2gstKpl5C8Ybwfaj/HgeT1TAdMoQ2K/
-KG0HgcWwIyoIaIms+yED6WSQKJwexx4zn/t2w/Qi2eSVF6WSqNdY3rrHf3sY3luj
-g5wYs2AvNnGjQU6iNGs7DLwwasHgqwZcOwRIdTvY8z3UP5Wpj5y01a+dJJG378zR
-cZhEQUmDn21jBlJvpqSKUoNRZc1L/8uNfQLbnOMVBNOUBXIQ9Z29j2IkqGsYeTG8
-uUndjyA/2SlEU29w2G6/MnJykNiW4oMxryXabXvh8dXc+SPQkUIM71ivo4y2/HgM
-3XGz9l+cgJk61F0oAHtzie7MorsEGVLMA2n4TpibkUCLRIjK3e5QvEBDHZILWHPA
-k2b8dkF2cdu8Q4nbI3PzXUFzuq/rsBpncSvYd/zDQrEMxzhNUVmuX7B9Ws7I0P36
-VKkGQqUFJNNx7LLynD7XaJ7l
-=nupY
------END PGP SIGNATURE-----
--- 
-Markus Probst <markus.probst@posteo.de>
-
+lockdown is a security circus. It was broken from day one. It never worked.
+So all these 'ohh let's fix it' missing the point.
