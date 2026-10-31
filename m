@@ -1,81 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793471422;
-	b=l770Q2ttsxn/cdlKmPVbX3ZyYqOo+OdJFYZd7YnKjgqcWdW07jK2NhiKOjsgZPLdBHVj
-	 Dg41exgJk4lADusWmbhI6Gx6JnGMc/5vTNU7pr3bGN6Epq84swu/UMn9EIkJPC6W+MwK5
-	 EI5eQ/BTc1mrQFO36hUDHw213YUjksN8czPlpYbZwRpLFqJ5S1k3nN27/L1kghpdxfr3w
-	 8Lk/PQHZZgB/J1cvSunMQOcXNWMJfnr0zws2mfY3NwQkRlD0gxO65UbK7ylI82QQIV4nK
-	 aBXJHB8fjyuMDIpiteMNr5pswXeE9tI7Hqguo5UuawsDYeBuyfFfXDMf6+uu0rrDeNw==
+	t=1793471620;
+	b=OVjsBgmzgOb70EutCKKfLnyYh0tUInflfiy7HJq3rIAxiaQSRru00gYQlovZfUzC8yiN
+	 m6Oi3meH3Jd3o6Y4L11gBUzGb/Y6jrqxhIueVV4+yEIMkszO9++VMd/hRP8yTGEP8s5B5
+	 FG3ZiBcEdXHStco3oXNtwLH3iWs1kJ0g4juu+9kjVYmHHKebTag1EftVF17NYMhkLBkrd
+	 8Y26iBJ88AbCDcX3a5YwOU47Tm4MVPcjsXMXisavdSjgFyZQFKRNQza4J6pjb7X1VmhXH
+	 8+XD7U8Svu3ujxjjIOXCAVgNOCIC63IggqSXD65WHMqW5oKMIKygjT1FspADvlJuH8g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793471422;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:From:To:Cc:Subject:
-	 Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AsvtGasltz1LM3kzdXZQA2MXNQaYwUDHmgXhkb7YbX8=;
-	b=2WPJzUQki1Uu1kPEj6pl6MfLcSOIDZmIRwJUR0b9DwkD8aRkNX9dRrS2A37pVT2V4XsK
-	 ZJy30NZ/+nm1sC7ZWS8AWrBCrMKIvUJyZL0I9NGoe0INeHjw1rqqh1PMqIq4sPj1vrGtw
-	 3B1ZvtROUKKi5lZVK4/weS9GbJt6cMfoEIZMqLAD4+FNUf59kdsN9FYBFj8A+QTtQ2O4m
-	 R56d8qAnnVAmtLZTtc79uidrwtbRXx1rFoklQGw4j+KLIMvtT/UDADhI1Ncg0Ona4zTIM
-	 rY1gflVC6UOQf8Z4viUqQUeHni5eIUIbfZ7L4olQ23YUaKj9GeFp1hYcyfeUEPNreEQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793471620;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=gUXelQFoAaI5jynLT5aPVvI7AsH4CRynYyPjzWgjXdA=;
+	b=AyOiORPFu1UanZs1PynYYB50J7By5PKvVGGX03610g041uQJi5eCY/600Ry0cm1N+by4
+	 tvHz66mdz99YXDT0DCCMdANc28XyJFKrqyp7gJ0id7ELjKixhqUqCBxQQ5nBxt4kf6LjC
+	 DUG4860d81PKygXIscH3tBIghtAJ7Ln4xnr2UuR/2nozUHeTX7iSDRi4VEItRjlLRjOWv
+	 lF0Jb9n0+djc97DJ10KcuCdTO3XL9DKZtdLU6KE/vNED8tftup1/sOiSF/I9oE79PhWJ0
+	 63yQjDZlUjDdOo0id95DhF6o+yTxOArC0xAxwF2nOK4ZktN4sFfVwPulzDhVGOHIEmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=posteo.de;
-	spf=pass smtp.mailfrom=posteo.de;
-	dkim=pass header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=YT+f1J7z;
-	arc=none smtp.remote-ip=185.67.36.66
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FQmseRQ/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F086606A329
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:30:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F086606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC9E606A31A;
+	Sat, 31 Oct 2026 18:33:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=posteo.de header.i=@posteo.de header.a=rsa-sha256 header.s=1984.8680eb header.b=YT+f1J7z
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id 8F2D3240152
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:30:12 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1793471412;
-	bh=AsvtGasltz1LM3kzdXZQA2MXNQaYwUDHmgXhkb7YbX8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:From;
-	b=YT+f1J7z7kYPvg742rKyFI4X4/RKAcZ4qB0+QfYoP+jGE0EkT4TyRJEne1lw4qZjq
-	 HdI2H3B90Ryw05rIakGD8HutzQHIGVws2N5ASZqYJKD36NYchkT66rH3kVJ3mDi+le
-	 TJsW9zPNaoz2KOA1ztpxlBwdYaSCjFJngfu+Di878B46YpkhgZWIeuLmWUGfTmSjNJ
-	 jqHrYpPSIdkGw00UUX6P5iKhyfHAu2K+vCgouUFUpYtYCluRa2yEPMpMcK/RE3tJIr
-	 jSmWAAll5bZxIncnUejXjdrWk4wb8tB2GCtVOWro6uSniTrCs4z2BomPLGKLGaXNAq
-	 OrA836lHQJfkA==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4jH62n1RB2z9rxG;
-	Sat, 31 Oct 2026 19:30:09 +0100 (CET)
-From: =?UTF-8?q?Rebecca=20Mara=20M=C3=BCller?= <rebecca.mara@posteo.de>
-To: Denis Benato <denis.benato@linux.dev>
-Cc: Paolo Pisati <p.pisati@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	kernel@lists.opengamingcollective.org,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>,
-	"Luke D . Jones" <luke@ljones.dev>,
-	Mateusz Schwartz <matthew.schwartz@linux.dev>,
-	Denis Benato <benato.denis96@gmail.com>,
-	Jonathan LoBue <jlobue10@gmail.com>,
-	Khamunetri Clark <khamunetriclark@gmail.com>,
-	"Derek J . Clark" <derekjohn.clark@gmail.com>,
-	Joshua Leivenzon <hacker1024@users.sourceforge.net>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Ivan Levchenko <me@livan.pro>,
-	Corentin Chary <corentin.chary@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Subject: Re: [PATCH v12 01/17] HID: asus: size feature reports from the HID report descriptor
-Date: Sat, 31 Oct 2026 18:30:11 +0000
-Message-ID: <20261031182956.2250899-1-rebecca.mara@posteo.de>
-In-Reply-To: <20261031174130.208240-2-denis.benato@linux.dev>
-References: <20261031174130.208240-2-denis.benato@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FQmseRQ/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E11DC1F000C1;
+	Sat, 31 Oct 2026 18:33:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793471619;
+	bh=gUXelQFoAaI5jynLT5aPVvI7AsH4CRynYyPjzWgjXdA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FQmseRQ/55r3aD8bUbHhXMhbIjAQq301If/WSd9+dxS25rJJw3yGCnUKDAEEaIE7x
+	 0eGFWM1fbfy0gYJ0MtZFIqaDeXGXq9ELbUgIRFD5Rv8TdSJvukY2HmH+VNpHwjheLH
+	 wyCOo3mcHHIuDcZENu/bK79hgDW+V339LQLmmPLOyAn6lYY1U8wh7IzS+/OPmn4KsT
+	 J0VPbuwnt4KfRC8pzR6s91z3MgWMoxaBNR5POfn/kKCwlxPUnZl52Ds8mJb8K1g0Zk
+	 imDcyyerGXwK4F4Hax745BrGejU7lYPt+MOanBPUeFuhQgXj3p0TZhyK+InZS6lTDI
+	 4EyWW2Xj6KYag==
+Date: Sat, 31 Oct 2026 18:33:34 +0000
+From: Simon Horman <horms@kernel.org>
+To: =?utf-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>
+Cc: Alexander Duyck <alexanderduyck@fb.com>,
+	Jakub Kicinski <kuba@kernel.org>, kernel-team@meta.com,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org
+Subject: Re: [PATCH net] eth: fbnic: Report the logical RX queue to XDP
+Message-ID: <20261031183334.GX257209@horms.kernel.org>
+References: <20261030141452.1173282-1-bjorn@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,38 +66,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261030141452.1173282-1-bjorn@kernel.org>
 
-Hi Denis,
+On Fri, Oct 30, 2026 at 03:14:50PM +0100, Björn Töpel wrote:
+> fbnic reports queue 0 to XDP on all RX queues. The XDP RX queue is
+> registered with the header buffer queue index, which is always 0,
+> instead of the completion queue index, which is the netdev queue id.
+> 
+> Any XDP program that reads rx_queue_index gets 0 on every queue, so a
+> program that uses the queue id uses the wrong queue. AF_XDP has the
+> same problem: XSKMAP finds the wrong socket, and redirect to a socket
+> on another queue fails.
+> 
+> Triggered on fbnic hardware (50G, firmware 25.08.05-004) with AF_XDP
+> zero-copy: sockets on queues other than 0 got no packets. With this
+> fix, a socket on queue 43, and sockets on four queues at once, get
+> their packets. On the QEMU model with two queues, a kprobe shows 0 and
+> 0 before the fix, and 0 and 1 after it.
+> 
+> Fixes: 894d4a4ea6cb ("eth: fbnic: move xdp_rxq_info_reg() to resource alloc")
+> Signed-off-by: Björn Töpel <bjorn@kernel.org>
 
-as asked in the cover letter, I repeated the Zenbook Duo test on v12.
-Everything that worked with v11 still works.
+Reviewed-by: Simon Horman <horms@kernel.org>
 
-Setup as for v11: hid.git for-next (hid-asus.c f6aa1be09ad5), your
-v12 01-12, then Paolo's v4 1-4 and 6-7, leaving out 5/7, which this
-patch replaces. Your patches applied cleanly, and Paolo's went on top
-of the reworked 01/17 without conflicts (4/7 with the same trivial
-fixup as last time). Built out-of-tree with W=1 against a 7.2.6-based
-distribution kernel, no warnings from hid-asus.c. UX8407AA, my
-userspace workaround stopped.
-
-- Docked (USB, 0b05:1cd7), captured with usbmon while reloading the
-  module and pressing the backlight key: 5 SET and 2 GET, every one of
-  them report 0x5a on interface 4 with wLength 16, all completed with
-  status 0. It is the same sequence as with v11: the handshake and its
-  read-back, the 0x05 function query and its GET, the initial
-  brightness and two changes. The backlight key and Fn+F (platform
-  profile) work.
-- Bluetooth (0b05:1cd8): the backlight key and Fn+F work, no errors
-  in the log.
-- After docking again: the backlight key and Fn+F still work.
-
-Tested-by: Rebecca Mara Müller <rebecca.mara@posteo.de> # UX8407AA
-
-One small thing I noticed while applying: 06/17 adds 14 lines that
-contain only a single space, and git am warns about trailing
-whitespace. checkpatch will probably flag them too.
-
-Thanks,
-Rebecca
