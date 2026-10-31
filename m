@@ -1,80 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793413815;
-	b=rV46JiiYWdjwUAqtteEJuiryJOGqsPSY7A0sNj4Kgzpi40/f6Idw3yaLwfE6q4uKAmWZ
-	 gVmWgpx6OsqUKw5MCd3Md2MESSPXU/qOS3wH6eX1hUrdIE51KwOwM3+5da/OtSw5fO6+H
-	 lFEaTJaO+vcF3Bm4921WMF86DtsZUg6zEQlHDFq8BpC0f1ksmbBHTZ+Ah+mzs9/LgqHGx
-	 Tca43PYomxMfVoGvtvCG5CJtVi7rwBaNn2OUjEcrkzSOYdFj5pNmxggn01a+lDUeKMm/S
-	 cwDB2sNQmqQSjg+SwK/nEcbCg4YYIIScUAhkd+kj74JZ11/qAGswsQF+lHwZdKeNZQw==
+	t=1793414393;
+	b=PRYfC2hWAnQkooM69YgMP2DpzEO51gD/ahtcIFf9x6pCrmdXWlbQ6reuQV4hxp5jsnSR
+	 h9ducU8x2pWT6s/KdndqQ6ALWo4bRu8IRX2lx0v0pH++1uKhKG16Yfm3NQpozsKxYE9ab
+	 KjWFhP7gYOTAQIipMWW6rq6n2CvG0oVKNMKPgHiG7i9nmfRDsRae0nmH58rtuTty3Ce3J
+	 kSZLmkel4K5cr55Z80i+8jVy7uoVrAvwi11+paxJSz+rjiOE25X+BD4jH8DXvljOQgDOB
+	 Q1bUGA9yu5HA2GVTZGOna6WQinNkmWl20rj/lhHnw5J7y4OqnIDmCyp1f1HkUv/eTfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793413815;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=iXEfWoEoCIsoSXFk+YAPuSVr2iL1r/DA8iHiRGeTNng=;
-	b=vlRRa0QwZDciqEj3GK6/AwnbA6zjy8bI9or5P+avhkFnaFHJSPHunKy8avLUGFA654Ur
-	 pBSWY40rMh/gVAcRiQ+JaMDbJ1O8/kcnbtavMAaw14yio4g0dZ60zLll2I3fcI03uJ9MI
-	 sC6s0sjrlvSnFAOyekgV+Ru4QhO4tMDrYZm52/YqDvrugBd4mldVxP4lF7NtCGJi6dfwS
-	 uc4ZZiplyMAYcyp98Od3hwZe9Q7XxN897nAzPAxlX20nhr4nQ5YUglBhCMUr+szf+TRxP
-	 Ou8ZTMWklsW0oDCtyZxSWnvjYTQySMcFC44iYSZrDEG3GYwWXwtXlopQZT/2pZ+SEnw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793414393;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=piM8eBA62VwSbnQR+cjmfd8LxrXIq2seOpkUOZ9qd4E=;
+	b=VOzuwcNzaIDmX9C0DbMqVtud6Hs/xB5A0ZFLBQvFnoAY8X+nQntbYy68BXMitd7D30Cu
+	 52fmsbOffSnP8bmrMHDiqiYXIqFwJeUPo26cPSKeEQRybNIyG07ma9sQVF0iHv9h+4wtU
+	 k9Rtm1AsHAZRAyYL9ZEAlY+pAl1LwzbYXBRXWT7Ob12qRoQjQb+UtAFhdoQ6zClkbw5lf
+	 Ibak9/ks8obaCDAEp46v619t4lDlFts6od8pM46omdai5pwF41fAgam2JmOARt0gM/cDg
+	 0hoNaiPnOezHJTQXchfF5sfqNWmcrqVmKwHFG+8IFurN9vIAlDhvqarpqs5cgBnt5zQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HfWhxp1z;
-	arc=none smtp.remote-ip=192.198.163.11
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LeRni7od;
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F109606A324;
-	Sat, 31 Oct 2026 02:30:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F109606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47930606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47930606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=HfWhxp1z
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793413813; x=1824949813;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=h8PaQbBDKI0jqP5gTeMuq/q/Fqlc1DTYURIQU8hM5M4=;
-  b=HfWhxp1zyAFnHh3W4bzEINkO/PdJgschA+XUlksv8AhlhweMhg4JvKDw
-   hMY6IIqbTtQa8d13U2JNhAPAGOome3LVMeLaNMC85N0D+MeV0HGqfq9lw
-   Hz0WLZqfFj3hoiEgVxYjjF707bJBF5aAJDOL+n6OFjc2S6RN23KPPQ9/L
-   9VbdUk+Kr54w3R6EbDo6j/6yUD9FIh9B5qzqEIvZpOyQxx84n12uDvV9J
-   vhgvnoX5MPerwvDIOuhGCHyYiruusgr3ZAaBh2GozNTykzOpmbhisom6M
-   7Gjx3B7DVQnTElHEl1vVr28WkP5FiJZg6nfbVUnWbmaijuRiPu6PlusFh
-   w==;
-X-CSE-ConnectionGUID: u/x7669GQDuanOi5WRKrug==
-X-CSE-MsgGUID: q5A5tIi4Sfy9ht58+T0yWw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2092824"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2092824"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:30:12 -0700
-X-CSE-ConnectionGUID: +oZpC2cgSoiPM9sOCppUbg==
-X-CSE-MsgGUID: 1+FMKCFgS7KiG4pSqZalyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5667170"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by orviesa006.jf.intel.com with ESMTP; 30 Oct 2026 19:30:11 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMyrA-00000000cSu-38RG;
-	Sat, 31 Oct 2026 02:30:08 +0000
-Date: Sat, 31 Oct 2026 10:29:09 +0800
-From: kernel test robot <lkp@intel.com>
-To: ahmad baghereslami <ahmad.b1995@gmail.com>, dmitry.torokhov@gmail.com
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LeRni7od
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso2243237eec.0
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 19:39:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793414392; x=1794019192; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=piM8eBA62VwSbnQR+cjmfd8LxrXIq2seOpkUOZ9qd4E=;
+        b=LeRni7odaRZoXAvnLaclH4vnpxuCG3bxk+dXiY/g0FKl+yrvI1QqtiRFcLbmej/qaY
+         cQ/L9gPjCJ5UpYHpkZ4tuqu+ZRSMquNWgCXlHGNs+AUKcIdsz/7/FWgZ1fiWvZXHHRrp
+         TxoJyFErfbEwgh09SEPG0hLL2TyGRFpXTPI5FiTQu0QetUbHRyxjn3bf2EUuFkUEGcXM
+         p6+cBjy1K2Iaa3MzBBOdNYsunWrGo+UjowMpsFE5fn3hYzF4gV7ULvruzZHGC7/RyvCk
+         LdyF5FWz5AydyAfYbGndCi/9UiLrpIN2660YYJB8S/WcUcoASvLWssEzz24d49TmNUCa
+         BCcg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793414392; x=1794019192;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=piM8eBA62VwSbnQR+cjmfd8LxrXIq2seOpkUOZ9qd4E=;
+        b=IMDfSZE6350r5Ucp2uCwzu4mzDARsEAFIUI4hgaKxQLcCAlTDJE93hXPs/iDl32Vv4
+         3XyW8YSxsuWtncosAE8ansFZ6atFChnPDoWdRniQrzR2hZieGzPqZXCHlYfLwxnDE0wB
+         24uagOVxRImWuGt+Khfqm5+tkbTd4SyUd19uznPeVJ0SEiVMswb5iRSAIJMjhSi049np
+         6s8P4gxtmIOunQcZ85h910wXBoaWe0ig2442Xr8tluW57zgxeZXWt7bBC8wpzQJI0hgB
+         oB3R2lRphNHPkE5dnDG6dJ/vlm9qR/xZ0wAg1K6XdYwSnkIWr/Db7IjC3oQmCvBrC+lO
+         FzcQ==
+X-Forwarded-Encrypted: i=1; AKwUvByg30fctCOHTu9cbWBwcS2bUFYFUAMfsXax6VeQiGYtXAkzoxBUFPV512Y2Q8d7n+5cDoqht/UZHmnF0i8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJs8hrHcOu3uGQfeWqi95CRRn7lrb+8QXppsWr0cxwOKF310/Om
+	PfIab6W04bZj/bHMHjcD4q7rL98EdsWTLvpwMYgiHMQ8PsHm64fYZu5/
+X-Gm-Gg: AYBFou34JPNE8LKu/Th62a00rKMf87cLW2sgOmZO//9KXRc4zZbQDHhw+ST+E+v1Qpd
+	0FGHYQRxKtDm916iH+4FEyoDeDaaBpXM2xKsihu1kYrdmJLfW4miYrnllH30YElCcil9tsyX98s
+	e/TJQ0iUse1yU9E+N0chl7/RZZdKF+2xgc1zpw03Y098/m6+qVZsUzvFIkbxfAY9TV2kNpYiYWJ
+	QLGY5UTEdVSFRhSI3dK03JJonzy98wgh2e0oIibJRRpuWxrtI/7UkVXDZwq1T2zOLRdbG5IkOsX
+	49yHO6ZSlc9F4spW7wbLZ/PMdGU4qeZafvpEtSJ8XluR0QvYVPkw8AQfjEMcoS6X9Bnl4P0xyBQ
+	vPRIUekwdeTbksq3PsFkKjjDBwRGHUBVLdMGl7ZFfIsKx3g7GkKJfImIzDhUr4eeTyJ7rDnB74b
+	Pa6wldaLV+sQ/9rVWvAoSplJQ/vhnSoJ3YOhJg46p6schBCSDAgLbFugkJT9pYt1ve8xB6jAg3s
+	lU2qDia6r6n+7+GE2hmi1bhBWBRvuz+8DiBuVCX9PDKyb4mY98zQe8IHfNQUCUSXyCY9J95Yau3
+	scGQS3L+T4pEN1SFxG7B3YJHWA==
+X-Received: by 2002:a05:693c:87c6:10b0:367:5e31:ce29 with SMTP id 5a478bee46e88-36a42404ab3mr6235454eec.20.1793414392190;
+        Fri, 30 Oct 2026 19:39:52 -0700 (PDT)
+Received: from spidy ([2401:4900:55af:1de3:e93d:d70:4a7e:784d])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a429000f8sm11231278eec.13.2026.10.30.19.39.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 19:39:51 -0700 (PDT)
+From: Gowtham S Bhushan <gowtham398gs@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: linux-spi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	ahmad baghereslami <ahmad.b1995@gmail.com>
-Subject: Re: [PATCH] Input: synaptics - support the touchpad LED on RMI
- function $30
-Message-ID: <202610311023.UR64jYrp-lkp@intel.com>
-References: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
+	Gowtham S Bhushan <gowtham398gs@gmail.com>,
+	syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
+Subject: [PATCH] spi: core: do not WARN on OOM spi_controller_id_alloc
+Date: Sat, 31 Oct 2026 08:09:42 +0530
+Message-ID: <20261031023942.591298-1-gowtham398gs@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,73 +96,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi ahmad,
+In spi_controller_id_alloc() (drivers/spi/spi.c), idr_alloc()
+can return -ENOMEM when radix tree memory allocation fails 
+under memory pressure or fault injection. The function
+inappropriately invokes WARN(id < 0, "couldn't get idr") on any
+failure rather than handling expected runtime allocation errors silently.
 
-kernel test robot noticed the following build errors:
+Modify the error handling path to only trigger a WARN when the failure
+is due to reasons other than an out-of-memory condition (such as -ENOSPC).
 
-[auto build test ERROR on dtor-input/next]
-[also build test ERROR on dtor-input/for-linus hid/for-next linus/master v7.3 next-20261030]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Reported-by: syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=41172204e7323356ecdb
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Tested-by: syzbot+41172204e7323356ecdb@syzkaller.appspotmail.com
 
-url:    https://github.com/intel-lab-lkp/linux/commits/ahmad-baghereslami/Input-synaptics-support-the-touchpad-LED-on-RMI-function-30/20261030-103821
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
-patch link:    https://lore.kernel.org/r/20261030070821.1716595-1-ahmad.b1995%40gmail.com
-patch subject: [PATCH] Input: synaptics - support the touchpad LED on RMI function $30
-config: um-i386_defconfig (https://download.01.org/0day-ci/archive/20261031/202610311023.UR64jYrp-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311023.UR64jYrp-lkp@intel.com/reproduce)
+Signed-off-by: Gowtham S Bhushan <gowtham398gs@gmail.com>
+---
+ drivers/spi/spi.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610311023.UR64jYrp-lkp@intel.com/
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 40cda0037ea5..a1276d194465 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -3631,8 +3631,17 @@ static int spi_controller_id_alloc(struct spi_controller *ctlr, int start, int e
+ 	mutex_lock(&board_lock);
+ 	id = idr_alloc(&spi_controller_idr, ctlr, start, end, GFP_KERNEL);
+ 	mutex_unlock(&board_lock);
+-	if (WARN(id < 0, "couldn't get idr"))
++
++	/*
++	 * Modify the error handling path to only trigger a WARN when the failure
++	 * is not due to an out-of-memory condition
++	 */
++
++	if (id < 0) {
++		WARN(id != -ENOMEM, "couldn't get idr");
+ 		return id == -ENOSPC ? -EBUSY : id;
++	}
++
+ 	ctlr->bus_num = id;
+ 	return 0;
+ }
+-- 
+2.56.0
 
-All errors (new ones prefixed by >>):
-
-   /usr/bin/ld: drivers/input/mouse/synaptics.o: in function `synaptics_disconnect':
->> drivers/input/mouse/synaptics.c:1678:(.text+0x3ec): undefined reference to `led_classdev_unregister'
-   /usr/bin/ld: drivers/input/mouse/synaptics.o: in function `led_classdev_register':
->> include/linux/leds.h:274:(.text+0x12c9): undefined reference to `led_classdev_register_ext'
-   collect2: error: ld returned 1 exit status
-
-
-vim +1678 drivers/input/mouse/synaptics.c
-
-  1668	
-  1669	PSMOUSE_DEFINE_ATTR(disable_gesture, S_IWUSR | S_IRUGO, NULL,
-  1670			    synaptics_show_disable_gesture,
-  1671			    synaptics_set_disable_gesture);
-  1672	
-  1673	static void synaptics_disconnect(struct psmouse *psmouse)
-  1674	{
-  1675		struct synaptics_data *priv = psmouse->private;
-  1676	
-  1677		if (priv->has_rmi_led)
-> 1678			led_classdev_unregister(&priv->rmi_led);
-  1679	
-  1680		/*
-  1681		 * We might have left a breadcrumb when trying to
-  1682		 * set up SMbus companion.
-  1683		 */
-  1684		psmouse_smbus_cleanup(psmouse);
-  1685	
-  1686		if (!priv->absolute_mode &&
-  1687				SYN_ID_DISGEST_SUPPORTED(priv->info.identity))
-  1688			device_remove_file(&psmouse->ps2dev.serio->dev,
-  1689					   &psmouse_attr_disable_gesture.dattr);
-  1690	
-  1691		synaptics_reset(psmouse);
-  1692		kfree(priv);
-  1693		psmouse->private = NULL;
-  1694	}
-  1695	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
