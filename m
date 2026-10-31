@@ -1,54 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793457459;
-	b=24SJRvMTtXnD42AFOqLBhJnYRrksITKeAaoyYyWZEakwYJoQe42/Tek5W3EsfDP9R5Gr
-	 bFQQ2sxyBYUGoINqg1hTlzXyiGpRq7i5PoNbNnL3elvMpbMWxUHOsFcltNEk3nWSQ88oW
-	 VMZZcMVXFdQAFX1YfNv7GZHKDzsCaPm9Ghl9YmsIhfFtYH5a7d9NnjVdf7nTr6FXPiOU0
-	 VVy4VS8RRJt2+bVyJLzNoxXx5WJjYnLCeF9FZU2FWLqKhX1mgex/qho1hSM6C6zAzgBuS
-	 Gu20fgD7ifY0EC5G+gsdCZ1AOTMvZbZaOmVRK0QMEiREiXy1JdNDwCWmMasNh8+sO3g==
+	t=1793457518;
+	b=xQ+Bmf+69qKPEUsbriKDXrblsCfHpoT96h3s9wxvkMW9gVdTJI468oqhrSRvk8htSo6/
+	 tyZrP0/NUZTYbIk8Cb98fkGCiItuZzZKGjAPmW32e6MTGOqP75/Ytjl4K8+/covXDPrJl
+	 gaykuuNHA6q8PR6q+Q2FCMOr7ctrCcs3a8OqQ2w0qJO55QWUxYdIofhvBt2BK/NYgLajk
+	 0fstwpY61ffA7T9K7quP7tQJMqDkh87nRScDkaeSgYHM80ruRT9xbxLyPXf5zK2hoydBb
+	 WbM2jtmf+X6papVms++vgOlQW3QQlRU3F1Y31PvV07FzzU5ur26bswrLWrgDjPLmPZQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793457459;
-	h=Received:DKIM-Signature:From:To:Cc:In-Reply-To:References:Subject:
-	 Message-Id:Date:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 X-Mailer;
-	bh=com4tf7eNvFeHXYior235CsQNxUcBzH7h9gxsnVNz+M=;
-	b=aQyMIMs3SRE6GtoqSiz89u7FLmZ/Kzq/Xz4NAx083MwyWv2uFDFzGcs7GFWQSO0ckH5K
-	 Lxy/IwbWWn1fuTAy9UZQzfNOi9RCOvD0NNwkz/IJWsUEUaiU97pzHnG5TIdhbRuvMGyyu
-	 NLCe+S+xyQ6XfeYGUhLGjrFU1OjhaUwuMOHjVZp7JwFOCE8cZaIGicPciTrNW3iDDCieI
-	 VeX5jqAqtyJiCl3a1qYHWWO9hDo6p6J9/wU4nE0c9bNsm1nnY+BTz4ltwwrMdENlf0agm
-	 WrRZ+6iVytPpsWlDao8FggwDu5878tR9jdVrg0HhzyBELEy83F3RvQsqqRZZZicC2Sg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793457518;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:Organization;
+	bh=bnsrfRvGRM2qgoxDq8KtlUhs37rsslMeY4OUYqDf+Pc=;
+	b=b+uDzkg4zofOXTLqyhIEEo1SMbqGVwgW0f9f3VcNh5Sq2sEUQSx5jLvLf+nhDDLpJ/Bp
+	 ZP9AoBdDH1RGS1ojQYVTbFLLtvpOhQdUrCSPoKDzpQac1RGL8yKiiId1dQPR84nywhXZ/
+	 yGhRqtaz3xbB69qARi66/DOHrwOfSw4TmzOsdnbIen7mSrzzTcEGR67gA4zUWIE9cEv7G
+	 icame+7TedYAJUgsin9pMjF+P961hwiKndO8QCWaU76xuX73akTF7tJp1fLx29qVIuN/G
+	 Fw4dm64qYDspRYPI27LJjb5HOLySghJQmD12dcB6lGNiL9wkqQRPe5LDaUEqyw0i7Ag==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJp3wVBa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IXWrpn6W;
+	arc=none smtp.remote-ip=192.198.163.19
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCDEA606A31D;
-	Sat, 31 Oct 2026 14:37:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14207606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 14:38:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14207606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iJp3wVBa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC6E1F000C1;
-	Sat, 31 Oct 2026 14:37:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793457458;
-	bh=com4tf7eNvFeHXYior235CsQNxUcBzH7h9gxsnVNz+M=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=iJp3wVBaOg44N1EI4Vv531dL6XN4jIawq+9RY20K53Xh18KmmepPtLtdbyNWonUvG
-	 Y6ETztV4fTbIAErxRu3RksaOL45P4Iy/8eQGaZI/WP5ep0CThSMuD9PVaJh/bzluTP
-	 a36VJ3xwTNeLB9J8ugRpyTpjcP/1K7/5l3OBVzd7kO03qdDxw8jjxnAX6XlewEleGk
-	 5Wzboj89zoo9Gj7RYoURBT5TWBF9P8hz3+kJTs8WLrMp9yhXf0BUNrCeZe8zQv6ZPT
-	 ZAgB2W3cNvpmqGXKTh5OJ7A7bvOe1cxWGqqtE59ypf0oMB75e97NPtpMzFbrS/lInm
-	 Yp8GGV33tXqeg==
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Jianhao Xu <jianhao.xu@seu.edu.cn>
-In-Reply-To: <20261009060155.1162262-1-runyu.xiao@seu.edu.cn>
-References: <20261009060155.1162262-1-runyu.xiao@seu.edu.cn>
-Subject: Re: [PATCH] memory: fsl_ifc: guard optional NAND IRQ cleanup
-Message-Id: <179345745629.29452.3239719918835071572.b4-ty@b4>
-Date: Sat, 31 Oct 2026 15:37:36 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=IXWrpn6W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793457516; x=1824993516;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=mOGtJbZAYHQiSqbGrp4D+HVhIDhcTQHgl9gip1W8AZU=;
+  b=IXWrpn6W7vNkZUoDlbZc0O27qEc1ZdVgbafvBcP5vapVWbRy912/RwRZ
+   i8omSBIIdiGs+Y38J6g2SvGSGqG6hqfbKfLA5QgWHbA66ihLzLlbQhqtO
+   7tw4ciPhKbmqa8XAZmcNiHnxe28Lh3lXwMRqX8T5F+oTULYPHrFQEvFZB
+   7ySr/wvGeBXb5+s/uuZ6iJ4UvviVmu/vvFeqaYKTZQ6Idb3LtrhY0Bhvm
+   cbzTKqM07xgVXMLrbmoMJYj8UIy3G4frVws/pQbcC+X/uva8vruRzoub5
+   zNtShOKHr3j1BTlDKPpDRuXii/B9pgRGnmWRyFhLGmGmAyQhNPQP7wOQb
+   w==;
+X-CSE-ConnectionGUID: 206mPwtoQWGUS01VtflenQ==
+X-CSE-MsgGUID: ej12oNmiRkyQDGcAl62iKQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2308898"
+X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
+   d="scan'208";a="2308898"
+Received: from orviesa006.jf.intel.com ([10.64.159.146])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 07:38:35 -0700
+X-CSE-ConnectionGUID: EO4jmSpvTPKIPl3mo+BHxw==
+X-CSE-MsgGUID: VGkjYBofTQioetwaJ3ILPQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
+   d="scan'208";a="5759414"
+Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.244.127])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 07:38:30 -0700
+Date: Sat, 31 Oct 2026 16:38:27 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Lee Jones <lee@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Thomas Richard <thomas.richard@bootlin.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Andreas Werner <andreas.werner@men.de>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Liviu Dudau <liviu.dudau@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, mfd@lists.linux.dev,
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	Charles Keepax <ckeepax@opensource.cirrus.com>
+Subject: Re: [PATCH v2 1/2] mfd: Constify mfd_cell arrays
+Message-ID: <auX9Yz0txOxbFSSf@ashevche-desk.local>
+References: <20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,27 +95,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030140240.211786-3-krzysztof.kozlowski@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Fri, Oct 30, 2026 at 03:02:41PM +0100, Krzysztof Kozlowski wrote:
+> mfd_add_devices() takes pointer to const, so 'struct mfd_cell' arrays
+> can be constified whenever driver does not modify it in the probe.
 
-On Fri, 09 Oct 2026 14:01:55 +0800, Runyu Xiao wrote:
-> The IFC device tree binding permits a controller to provide only the
-> common interrupt. In that configuration, irq_of_parse_and_map() returns
-> 0 for the optional NAND IRQ and probe skips request_irq(), but both the
-> probe unwind and remove paths still call free_irq() unconditionally.
-> 
-> Guard the NAND IRQ cleanup with a check for a non-zero IRQ.
-> 
-> [...]
+...
 
-Applied, thanks!
+>  drivers/mfd/intel_soc_pmic_bxtwc.c    | 2 +-
+>  drivers/mfd/intel_soc_pmic_chtdc_ti.c | 2 +-
+>  drivers/mfd/intel_soc_pmic_chtwc.c    | 2 +-
+>  drivers/mfd/intel_soc_pmic_crc.c      | 6 +++---
 
-[1/1] memory: fsl_ifc: guard optional NAND IRQ cleanup
-      https://git.kernel.org/krzk/linux-mem-ctrl/c/f3b0ddf7a9a3de5a59ae7e25943d60a924d05b99
+> --- a/drivers/mfd/intel_soc_pmic_bxtwc.c
+> +++ b/drivers/mfd/intel_soc_pmic_bxtwc.c
+> @@ -245,7 +245,7 @@ static const struct resource tmu_resources[] = {
+>  	DEFINE_RES_IRQ_NAMED(BXTWC_TMU_IRQ, "TMU"),
+>  };
+>  
+> -static struct mfd_cell bxt_wc_dev[] = {
+> +static const struct mfd_cell bxt_wc_dev[] = {
+>  	{
+>  		.name = "bxt_wcove_thermal",
+>  		.num_resources = ARRAY_SIZE(thermal_resources),
+> diff --git a/drivers/mfd/intel_soc_pmic_chtdc_ti.c b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+> index 6daf33e07ea0..8412a25d37ff 100644
+> --- a/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+> +++ b/drivers/mfd/intel_soc_pmic_chtdc_ti.c
+> @@ -53,7 +53,7 @@ static const struct resource battery_resources[] = {
+>  	DEFINE_RES_IRQ(CHTDC_TI_CCEOCAL),
+>  };
+>  
+> -static struct mfd_cell chtdc_ti_dev[] = {
+> +static const struct mfd_cell chtdc_ti_dev[] = {
+>  	{
+>  		.name = "chtdc_ti_pwrbtn",
+>  		.num_resources = ARRAY_SIZE(power_button_resources),
+> diff --git a/drivers/mfd/intel_soc_pmic_chtwc.c b/drivers/mfd/intel_soc_pmic_chtwc.c
+> index aa71a7d83fcd..f27985a58c87 100644
+> --- a/drivers/mfd/intel_soc_pmic_chtwc.c
+> +++ b/drivers/mfd/intel_soc_pmic_chtwc.c
+> @@ -50,7 +50,7 @@ static const struct resource cht_wc_ext_charger_resources[] = {
+>  	DEFINE_RES_IRQ(CHT_WC_EXT_CHGR_IRQ),
+>  };
+>  
+> -static struct mfd_cell cht_wc_dev[] = {
+> +static const struct mfd_cell cht_wc_dev[] = {
+>  	{
+>  		.name = "cht_wcove_pwrsrc",
+>  		.num_resources = ARRAY_SIZE(cht_wc_pwrsrc_resources),
+> diff --git a/drivers/mfd/intel_soc_pmic_crc.c b/drivers/mfd/intel_soc_pmic_crc.c
+> index 627a89334908..ce4c9ef59198 100644
+> --- a/drivers/mfd/intel_soc_pmic_crc.c
+> +++ b/drivers/mfd/intel_soc_pmic_crc.c
+> @@ -54,7 +54,7 @@ static const struct resource gpio_resources[] = {
+>  	DEFINE_RES_IRQ_NAMED(CRYSTAL_COVE_IRQ_GPIO, "GPIO"),
+>  };
+>  
+> -static struct mfd_cell crystal_cove_byt_dev[] = {
+> +static const struct mfd_cell crystal_cove_byt_dev[] = {
+>  	{
+>  		.name = "crystal_cove_pwrsrc",
+>  		.num_resources = ARRAY_SIZE(pwrsrc_resources),
+> @@ -93,7 +93,7 @@ static struct mfd_cell crystal_cove_byt_dev[] = {
+>  	},
+>  };
+>  
+> -static struct mfd_cell crystal_cove_cht_dev[] = {
+> +static const struct mfd_cell crystal_cove_cht_dev[] = {
+>  	{
+>  		.name = "crystal_cove_gpio",
+>  		.num_resources = ARRAY_SIZE(gpio_resources),
+> @@ -142,7 +142,7 @@ static struct pwm_lookup crc_pwm_lookup[] = {
+>  
+>  struct crystal_cove_config {
+>  	unsigned long irq_flags;
+> -	struct mfd_cell *cell_dev;
+> +	const struct mfd_cell *cell_dev;
+>  	int n_cell_devs;
+>  	const struct regmap_config *regmap_config;
+>  	const struct regmap_irq_chip *irq_chip;
 
-Best regards,
+I haven't compiled, but I checked the code in the actual drivers and my reading
+confirms that these structures may need to be marked with const qualifier.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com> # Intel SoC PMIC drivers
+
 -- 
-Krzysztof Kozlowski <krzk@kernel.org>
+With Best Regards,
+Andy Shevchenko
+
 
