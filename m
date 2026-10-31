@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793459402;
-	b=XGil1yqZwCcIOyY5Gbyeq7GUZKrMsmTG9VzNjke2Pp/Sk7353i8mCOzvfvQBIop/1nYd
-	 2Vc28Me9LVmisiJ5WF17bq0BY/fKa7XT0lQ17cwKqhYqghV/4cWGWnqZ11NyLdGPy24sd
-	 56s3GqpYCd0gM5Bv7LK+IqYU62vf9lcGGhNuJUA7GYdediFlI+j6wF7kVMJ7LuRzXS7q2
-	 TJ8S0JXxB6ehpk97fmEepX5VNZioP5pF/6mHGG0EHYABb7wIHVejTsujxK7WvPbPuunTX
-	 ReK01/u8uO0l3sBp/oXAMronGbaLjtg6SuNYjK/iKclu1BBCt2wJGJplaFsV3glWWiw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793459402;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=tUdEIw+Gn+fWQ0tHnZvYlvV9bBy5X27vM3HRMicDgjc=;
-	b=jO/xwDToHexuTLHtoZ2gk7FD0qO5IHhhQ/i42tJvpFrkATqHfIQLE2emfPWf4JI6ef1O
-	 4DSp8bsR88kLTJxDJpFIBMw39koW2dGIE3HCIEYe4BqrEwsK75+l5ACyIbZ91MYEzuh+L
-	 gMVn4HqZ9ozDkvjQMPlpOmLlJkQLS6XE5w03xg/NhieZbzg4+KMVhP5ZPie3pdjjqRIai
-	 pM+c2jsHaCPwJJWHIVp6qYelvnF2A4JmAUJHidJfn2+vyk+K8WuJjOC2Nk/Jn7uqFETwN
-	 gBOzOMkOOFcoz6oJ65VPr87EH992DJod0j+aWbc3u94Wa8NbUlkcMD5Vq3R8KTKowYQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9OcB0dc;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793459125;
+	b=PrJ7yn7uaSVzexvMS7psYLXYfjRhPU1RqzCLc/k6p8sqrwJKLcfWvAnO7JmXyk5LdgNL
+	 hBhm20ACHUeOz9O7lmVgXi0Dgc4lxoTue6RGnVf1+HJZHfTwJAgrqYIqf2zdpBrV+9k2P
+	 7BIj3TWf22O02Jqi0WRZwbO1jxaD/XNWTX3h70q1X3h/1H0NDdyelWMk0lwD8ecZBvGiU
+	 goDICXYzB4dEnJcfrKvI8CVSYe9FavH57e/YKu8/Nzg+fTTPHi7S/+L++pje3zt1yR92J
+	 SfrpONly3wB/bkj+iZmJUi5TvitDhdEOEeMqFlxCgPNDjlIDOG2dRBn/mP6pME359ww==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793459125;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GOtB/aqTsvf6bQGU9dL2JqihPsMclbo/24c9lDiPZws=;
+	b=wqc6sN5zJOuhB5TyVXaZpc8ERpv184E+DwHHNwHnkxM9YG4jnbhStpeuohxHxQm7lZfB
+	 ZZ/huPKiVlhgGWalAD/NR2LRxriY/gnZuYknyl4D10l1+YYrAVIadFXShPgiRMh3KSmim
+	 GIHjFKO8wJewzjQrN1F3F2DYXCblOtxY4APyBU/xAw+h0PXe2n8IMCJQbKQ1QOdnPpkBX
+	 H9kAb/Ut3C/TYHIzQKUz+YBByYZ2ku3hqxtOHibvDaisRBUNX1d+B0UxdJqUIhizpHPw7
+	 DMBez9i6kMPiD4+P12y4hPrHQi5r8KIMCgRMl7qnhytqldLVsX9wWWO3aVIibNaBYNA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="PuF/mwd0";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E300606A31A;
-	Sat, 31 Oct 2026 15:10:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04FC360A2609;
+	Sat, 31 Oct 2026 15:05:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D9OcB0dc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5B591F000C1;
-	Sat, 31 Oct 2026 15:10:01 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PuF/mwd0
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793459124;
+	b=biXMQJNcEhWkdYXXx+RXrE+9i40STobhPcui6xIzUAz5A75Rs6EmR9PfKXwZclkh9VD3
+	 a+REpb3SqUPFAKWS1wqOHUNMfgFrj8OCgBmRLC8koTrCxcGN0AkdmsiKSFl1H/X29MXl+
+	 D8DUCk8Vz0GtU0r6wLnAjzUo+sxvDvSCkVzD4dSowXd79hWcau+Krf3mwgkAaUb7aQLK6
+	 m9sy/i3jgcpexajX2lEm78U11u8vkiLZ86h/98ADzmE0LdINyQI+8E4OP1bzQYjy/+Kyh
+	 9xfRLZdLvqccxb7U5/S6mDeSBt5M8RV/HtehpwAwWasULdU8RIz5XKyebsJK3zHYnWg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793459124;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=GOtB/aqTsvf6bQGU9dL2JqihPsMclbo/24c9lDiPZws=;
+	b=eW2EiaeIC+jTJ+0dmowRPSV+JxDKnWfmwov5bEyd2K1H3jdRVa7Dvv/lsesLlL6+pK7k
+	 f8mYZHMrZ/o/dn630TIZGZigiuwfckLt/9x+0FiqcoUiVoLNt778ERp/3w49D36rEIMKj
+	 ux8BpBVr1u+QoGZsvteIkeTxCNKwUhElB2MXjl5wze73P/6wZXSfTlve6vh8LawzNSZdF
+	 mM/OmlEMTGZ3zx3XPZaP9G8LPnPRftwJ0oeioYQN3fHC4eZQiEM1lNtbZxT4PCAWjLhhZ
+	 JMxpdOEFKYyAJ8FasmX4zf/leyWbaTm896IznwtMIotq1Y0lhwZxsU7YxhpV0xU0lWg==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id C07D11F00A1C;
+	Sat, 31 Oct 2026 15:05:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793459402;
-	bh=tUdEIw+Gn+fWQ0tHnZvYlvV9bBy5X27vM3HRMicDgjc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=D9OcB0dcZJ+FlSj7BG1D0EUKb4/fBWom7iWuezRYJYHq+vgG09+o1guJ+AXAQpmSy
-	 8+cFwPo2aaR5vu8L4/MPrBm4G7caFRsZe3vmZX9Am0hx2U9Z8GJ+PTXoXELc10uBm9
-	 c5NgrGdoMtsjdKDVScpcNVpsq5OIYBpsIbuillPkWlqb+P2JSanitm8klgZ/9qRBq0
-	 67FpgdGSGYjVjDRykrr1EwdNCvpWcJV1DMj9OsuzJL+YlYm7+7hMo+eAQ+NFAgqJ0m
-	 hrxfEN/xqjYb2RfU3RCvMpklf/GRp8Pdl8gzs7r0xrPXuv2DsC/7FzQgerw17Fr/0r
-	 Kj5WagX3j8hmQ==
-Subject: Re: [PATCH net v2] net: fix self-deadlock when an upper disables a
- feature of its lower
-From: netdev-bot+sashiko@kernel.org
-To: eva.kurchatova@virtuozzo.com
-Cc: davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, sd@queasysnail.net, cratiu@nvidia.com,
- sdf@fomichev.me, linux-kernel@vger.kernel.org,
- syzbot+c6c86a1c56b5131f2d97@syzkaller.appspotmail.com, netdev@vger.kernel.org
-Date: Sat, 31 Oct 2026 15:10:01 +0000
-Message-ID: <179345940111.3131.17680940160354830709@kernel.org>
-In-Reply-To: <20261027140121.1192299-1-eva.kurchatova@virtuozzo.com>
-References: <20261027140121.1192299-1-eva.kurchatova@virtuozzo.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793459124;
+	bh=GOtB/aqTsvf6bQGU9dL2JqihPsMclbo/24c9lDiPZws=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=PuF/mwd0m6dyAWE2TF2top72KrLwayM7agGbm9d/YLovOcMsxDaw4riGlMoHB9Zzq
+	 9CRlTrUjgPrb1ZE33TGdinukWXaGw3x/s8S2d1xRh224KQrSjOJugGyVgLz3/BVKf7
+	 DAi62+XHibwe/fnsHOofV15VFQY9YBizbdCD5LdC9eskfJVL0RtafNG8mkIi6s+Icr
+	 +lvtmO8S/hvDqaIOP1SD6DgMlQpKbuXuqqxvq4x1R7f9mru5EFLAh0CcgCY5BkIy/b
+	 eITbyxdA7m1mfd28r05B57BmrePQ2X56mVlZotuGfZmEUe4x+n1zaujzW26nNdnbS+
+	 Iw4Esh0alw7WQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 9E9A345F1B;
+	Sat, 31 Oct 2026 15:05:21 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sat, 31 Oct 2026 16:05:04 +0100
+Subject: [PATCH 07/11] arm64: dts: qcom: sdm845-oneplus: Enable vbus
+ support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,118 +83,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-pmi8998-vbus-v1-7-4d805e5a0f27@ixit.cz>
+References: <20261031-pmi8998-vbus-v1-0-4d805e5a0f27@ixit.cz>
+In-Reply-To: <20261031-pmi8998-vbus-v1-0-4d805e5a0f27@ixit.cz>
+To: Alexey Minnekhanov <alexeymin@minlexx.ru>, 
+ Robin Snyders <robin@snyders.xyz>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Sebastian Reichel <sre@kernel.org>
+Cc: Richard Acayan <mailingradian@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ linux-pm@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1021; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=qtK8U0DG1cRkdsACHAr+c1jMalJb+5fDCyLN85kWDvA=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBq5gOvumnNkjX9xEkWmSZ03N2FQLW1h7MKYlPAb
+ XF0klZkU26JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCauYDrwAKCRBgAj/E00kg
+ crq+EACg6Q0/DvGX7+HThl0wRuAbMDl1EQfhjxmcDDlxUq/vORmUwxVfpyUFldpcSFZlBTYlzzW
+ GM8+XbKePDKCY5XXcUZ0JEmUB9b0o6UnnAkvlEzXveYSwwWo2y8FWRDC+GJXBVOVgKTfDNFD4Q1
+ T6ovUgq9h97lesdOLVaQYjHVawqI17yPArry2BNA/nvrlwzTgD+YjnMwFnNQ5draqjOMvwRDvpm
+ jwgD1vFDYv+yvn+4jcQVDR1XdBsNjfvDv5vfyaE55nuXbLiHJZLKNIThMg77B0+WANso1U12UEV
+ 54nTjMg2+m54LvdkDPQ5rWrZ5GG2qo/3K/B+hfGzTza5gL15kDBG3bzm6CJgsdCVcnjA2+clIZf
+ 9XC0mFbJgcUsEFCrWmZyVsqq6NmfB8d+gs7VNY20UmPbg33M0QiVre86+6deTp2K9UjjXFHXNr9
+ e7FzDtNolJ9mhRnrEpJsHb7LYjXKkH6OUKdhguH8FyFaSJNnNx7FJtjFc1p2Lguh38mKpy69U6R
+ mzLn7z0VcR0znXZF+fvx5Yxt7Lt1zGTOOvBNYukCPZKpJ2YLgQzZO43cxadT1NMBHNarRtKxS81
+ DdTWKqYTmB7/MQ1j9E1MnDZm2Qj0Brl5Em0pHY04D8vKyUcWOmklsyVgoerkPntQ+iVdIcnJh3j
+ Vo0GQGrfLh3Kjxw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: David Heidelberg <david@ixit.cz>
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+On this device, vbus was setup and switched off by the charger driver.
+Enable proper driver.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-- [High] When the trylock fails, the patch moves the 'disable features
-  the uppers lack' job into netdev_work, but that worker never holds…
-
---
-
-net: fix self-deadlock when an upper disables a feature of its lower
-
-This patch fixes a self-deadlock in netdev_sync_lower_features() when the
-caller already holds the lower device's instance lock. It now tries to take
-the lock with a trylock, and on failure defers the work to netdev_work as
-NETDEV_WORK_SYNC_UPPERS. netdev_features_change() steals that work and runs
-it inline, and in other cases the worker runs it asynchronously.
-
-Closes: https://lore.kernel.org/all/6a6be82b.77639fcc.3d4fd0.0014.GAE@google.com/
-
-> diff --git a/net/core/netdev_work.c b/net/core/netdev_work.c
-> index 1b11bcbeb196e..3859ca9087584 100644
-> --- a/net/core/netdev_work.c
-> +++ b/net/core/netdev_work.c
-> @@ -117,6 +117,10 @@ __netdev_work_core_cancel(struct net_device *dev, unsigned long mask)
->  static void netdev_work_run(struct net_device *dev, unsigned long events,
->  			    unsigned long core)
->  {
-> +	/* Not gated on presence: the caller used to wait only for the lock */
-> +	if (core & NETDEV_WORK_SYNC_UPPERS)
-> +		netif_sync_upper_disables(dev);
-> +
-
-[Severity: High]
-Does the worker run netif_sync_upper_disables() without RTNL?
-
-netdev_sync_lower_features() only queues NETDEV_WORK_SYNC_UPPERS when
-netdev_need_ops_lock(lower) is true. For those devices, netdev_work_proc()
-takes only the instance lock:
-
-netdev_work_proc()
-    netdev_lock_ops_compat(dev);
-    ...
-    netdev_work_run(dev, events, core);
-
-include/net/netdev_lock.h:netdev_lock_ops_compat() {
-	if (netdev_need_ops_lock(dev))
-		netdev_lock(dev);
-	else
-		rtnl_lock();
-}
-
-With only dev->lock held, netif_sync_upper_disables() then does three
-things.
-
-First, it walks dev->adj_list.upper with netdev_for_each_upper_dev_rcu()
-while holding neither rcu_read_lock() nor RTNL. That should trigger the
-lockdep WARN_ON_ONCE() in netdev_upper_get_next_dev_rcu(). A concurrent
-RTNL-only __netdev_upper_dev_unlink(), for example from macvlan_dellink(),
-can also list_del_rcu() and kfree_rcu() the netdev_adjacent entry while this
-preemptible worker is walking it. Could that lead to a use-after-free of
-the adjacency entry or of the upper device?
-
-Second, it calls __netdev_update_features(dev), which starts with
-ASSERT_RTNL().
-
-Third, it calls netdev_features_change(dev), which reaches
-call_netdevice_notifiers_info(). That function has ASSERT_RTNL() and walks
-the raw notifier chains, which RTNL protects. Handlers such as
-macvlan_device_event() would then call netdev_update_features() on uppers
-that are not ops-locked, without RTNL. This also contradicts the new
-kernel-doc for netdev_features_change(), which says the caller must hold
-RTNL.
-
-The commit message says the work "only runs asynchronously if an unrelated
-task held the lock". Several contexts hold the lower's instance lock
-without RTNL. One is netdev_work_proc() itself, running rx_mode or
-ndo_work for the lower. Another is the netdev-genl ops that take only the
-instance lock.
-
-For example, the worker could be running NETDEV_WORK_RX_MODE for an
-ops-locked lower while an RTNL holder runs TUNSETOFFLOAD on a macvtap on
-top of it. The trylock in netdev_sync_lower_features() then fails and
-SYNC_UPPERS is queued on the lower:
-
-netdev_sync_lower_features()
-    if (netdev_need_ops_lock(lower) && !netdev_trylock(lower)) {
-        __netdev_work_core_sched(lower, NETDEV_WORK_SYNC_UPPERS);
-        continue;
-    }
-
-The later netdev_features_change(upper) only cancels work pending on the
-upper, so nothing steals the lower's job. The worker then runs it while
-holding only lower->lock. Before this patch, this caller blocked on the
-lock and kept RTNL for the whole operation.
-
-Taking rtnl_lock() inside the worker after the instance lock would invert
-the rtnl -> instance lock order. Would this event need to be handled
-differently? One option is to take rtnl_lock() before the instance lock
-for SYNC_UPPERS. Another is to reschedule the work when rtnl_trylock()
-fails.
-
->  	if (!netif_device_present(dev))
->  		return;
->
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+index 1df09da3c4d71..4996ce24fee36 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-oneplus-common.dtsi
+@@ -660,16 +660,23 @@ led-1 {
+ 		color = <LED_COLOR_ID_YELLOW>;
+ 		led-sources = <2>;
+ 		led-max-microamp = <500000>;
+ 		flash-max-microamp = <1500000>;
+ 		flash-max-timeout-us = <1280000>;
+ 	};
+ };
+ 
++&pmi8998_vbus {
++	regulator-min-microamp = <500000>;
++	regulator-max-microamp = <1500000>;
++
++	status = "okay";
++};
++
+ &q6afedai {
+ 	dai@22 {
+ 		reg = <QUATERNARY_MI2S_RX>;
+ 		qcom,sd-lines = <1>;
+ 	};
+ 
+ 	dai@23 {
+ 		reg = <QUATERNARY_MI2S_TX>;
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261027140121.1192299-1-eva.kurchatova%40virtuozzo.com
+2.55.0
+
+
