@@ -1,94 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793426629;
-	b=zyOS2U4pLWPWlaIHZM8GsVn3hJAV/PCKOUeenIqifvMgM79jdeXe9zovbXpDGgNlJuF5
-	 Ti2BvbbwlFyg8Z/XMg0hbFDir2mzlm4ufgbVoqFA1d6g3J4bEUDFH2PsH8k2fOXaPp8TH
-	 XvS0mB2LvS50LcPD7OgXAatK1CDuFZSNdhKf4OVJha6whzGIuN+zxBmlAbe2Gnx1TXtg5
-	 PJ1O5K10/bYpi61xYu5WX5xU7dot0f//VX3iQ0mFNBASW0sRvHiD+zE/X6DDRHd2QPIZZ
-	 Q9C+ldVR279r1kIi6JSBUpWhySKGDnLAyChulYXPvCo1NxGNAT1DYHf4g6QAXdglpRg==
+	t=1793426769;
+	b=vaqN/N4ewGgw+Yf8RM5DQhZiXeNDgxe7qETe1gVvxm8MnLY4CD5UE6bK9P5t37IVHnAa
+	 X1fWKjNdBLkYkYd6VO865ZlTh7XwKjoYzHKTq2WxTPX4nvjYjNbaXxeARxRU2o6Xu1Kj/
+	 nl92Fy6avxmLoUKfhO1vfo8bpTuZnQoN6v8XUnXqjLmBW4uVdEHH5AF/WlYrAtg1z5PH9
+	 fJBEY5csrXPg2jLnU4GleGLuf32yLoSIi2ZxSRa1pZfy9QCr6f6BWfDzUH9/+3ZXPpIR2
+	 VQ2bInYHFzTbFF20HNdDgbCn0r5xL6/G+9qu0uieIhjJMI1ofh8qp2dB2bPSVwy6XKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793426629;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793426769;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ZnHzpDNAsYwgZW+/BH7mx2GO7ajwWfSCvotHqaQHR4k=;
-	b=ZEP9FB101WzJx9IsZgMCJpK0k4nxbH2FaY9KTr59E51rzqGvOZxg9042MN/SOZzIaNYm
-	 2Xg11gdrMnmJB7BgF5phjYHpCRLl7Za5Tk8bqAb14fb7IJV0/XFFnOnBDW1Ytx6zfaHSA
-	 mAZNU/sJF3+ZoHUOxRLPCh3Hkm7oBeU4BtRolH2EAebai8B1JysBDaoKflG8hUTYM163P
-	 DKqMGppEdrBHXDj6yCVTMQmxzVdizXMe+ORaFs9KsIU9OZHD+bwgAwVz3/XtWau2MD5dO
-	 NbiYa0MrFgJKp3fg7Yu4sxAMBSKrV+RYEZdkZNWs4fjhYxgZYwfi8I69WN/f8o8Fw/Q==
+	bh=oz93Axx1rMTC+L2SLi01u9xzZB+E0GNIYflNZoyMX0I=;
+	b=ZjQLYA1f0OiZ0ikXjlFWHQlWaTNNgYExHAIyS0RJDUtPGrIOrwyVaKqlurMDoaTXEGjg
+	 Po8vJ+B348DUd3g0aGdKBCbOgGXoE7QX/9G/7sGwIe1im4ZVJBM/xtWxwWVbQP5o9hB70
+	 /4pT3pM4lff1dWQ6LcvMJE2YnO2nkn9d487JlSSmFXfCEh1s8q7An22HsNFvPKyLCY3H8
+	 +HcSb2WHsR6z3V1N8uvvzmnS9Cqh4oMguuMgvG2JrFjlQkN8NtV5NmdL4mj7toEgpLC/q
+	 AKklHBpD15nik6R3Ql08avMs0FxAlv9xdMfmZy3N+ru2woxit/FdEJd/2sLpS1wTWig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FukbCKf0;
-	arc=none smtp.remote-ip=74.125.82.180
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com [74.125.82.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="WRZrU/57";
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20EA606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:03:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C20EA606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 026D9606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:06:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 026D9606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FukbCKf0
-Received: by mail-dy1-f180.google.com with SMTP id 5a478bee46e88-33fb4680717so859372eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:03:48 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WRZrU/57
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so15233885e9.2
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:06:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793426628; x=1794031428; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793426767; x=1794031567; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZnHzpDNAsYwgZW+/BH7mx2GO7ajwWfSCvotHqaQHR4k=;
-        b=FukbCKf06+gFykKXBYrHgaupwkigiMTsPqp4vmDTtHgqtFGofaur3OblXZYNCzY/Gh
-         r7tm+B5mVs/EI0k1ez/FST6AutKSTauCYHfJPTTHcUHcTDuWKaGIZgsDAWGgi0TYHJ53
-         ++C/tu2yDh6Fi0nUO+9Ax7ya25G3TLN+KNneSQzHNDxr8qgGuYHUrhvs4nlRsdTDlyBo
-         41lY6Ko9POzLise32MxFcxjrsPwlu1ZXEYJslWkWCJDTBbR6q6cq/JmpbW3XV5ou3i3d
-         6/v5EVVufR9aDVlqS21xg6mOAS/z02IoKaIUfjZyQQkGLJ6iWWncNUXB4stZeSuIDL7u
-         hxcA==
+        bh=oz93Axx1rMTC+L2SLi01u9xzZB+E0GNIYflNZoyMX0I=;
+        b=WRZrU/5798CO9ZsQHlh2sO5qSKWmqXyb2VRh1U3V1lkYgcsm1pKpp6E86/7StWKNPi
+         TqQufnkOMAW9I5cTRl6RpJhhI/Pj2QIEcI+Pvx0hfy5lMnrcjAdxeRXlNgrKVTOnrcC8
+         yyzJkLNmsH6xbd3OwZFwSjLslKzX6Gj4UM7Cy6Z18jxhzX9cslbwKbfKuQ3RJsCoNZ6g
+         7ptiTkvWcIMsIdIxs5/8NR6CaxEQh4NtpUJcQjz7+hIrQRCAHDSODT3exzKHniNhjU5j
+         Nh+vQantDuhKtabrOB5j5LTvD1RIQvz8ApdxR7iZViN2wCH/CGrbvEhuz4ZW1O7GWl5m
+         wTeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793426628; x=1794031428;
+        d=1e100.net; s=20260707; t=1793426767; x=1794031567;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZnHzpDNAsYwgZW+/BH7mx2GO7ajwWfSCvotHqaQHR4k=;
-        b=HLSae7G12hhRRBRY2G5bHA/5MfWVHBuZDDltE5Z+gMThrMnADkOTtTKcWLkB7iAtGA
-         GBCZJl48JZcfAor+oeu6aVD2r0CmGxsu84+5fwIwl46r1twKBk0mBS+c4GB+QTZvFc+9
-         WAx2U47eG+NuGiqLbWs6+UB33BiU/8BlKXf0xAqWyyybFo8hStch9JSzAQxI8/4YanAz
-         Yi71VN+NNB7ZBGJ7yuSHkx5JwgLROdD40qFgC9oH1kmL8yh4+62d002nPe/N3o/28t9o
-         xkzw4bz7BGBG+I3M1m0Q016fCelrIYGNehWYVvF6dxHEWEPBRmLTdHtSCXU064pXo8Wa
-         C+eg==
-X-Forwarded-Encrypted: i=1; AKwUvByodk56o68SAGwi+KOP7jhDIrNovjlyywQBflXlwKiN4rcrmKzIr3NiUYRDpsORVVwX74nQuHpNdLVkzV8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKGA+6ckWFnCmDdSNzxIvN+TDBHBCcVWbPid+Qyj/uGNFAYgQV5
-	4G20kJImOXAALzJ8+gWLC6zWBy7eqEV/J3dFYPzqQSUMFbXTrxrsztGT
-X-Gm-Gg: AYBFou06cneHencVOXBDy0DwEpnyA+a8926dRDG2oYe+w9fZYMEeLcUHVJYYJhJjO1C
-	rFB51Q2m9qKveFjAeQ+ZFBz+y7oLea3M6n4/0cyZI8Rs3yD02UR9/V5kmTASPOYEK8POjzLntf/
-	9edG+5Jh5O55RWwqViTdPno71ZkHwq5mUEY6Jed/bChHeXW1Osnas7AZwiqR409IXwFLTyWSsWf
-	cDduZ/X95mUI9BhzUvIgztPShE8JVPcqv/Xowz2A5kzduVQOvF8HLRXCJMSKwQbgmBkb+YBmJKc
-	RDrNPVgIDrAY0L54lyXyJNVHys8o5pQ+ju9zGScekGyuw3Qy5Ux5zPvQvzqLsraaiJ3Ozg25GKl
-	ZiHfj+Q9nun/buWJ9mPKIzfzzo3huuuxtHespSvNi04YWrgh3L8nc8bi60JoqEK9TefqDPUckJp
-	YnG8134+rek3efxJWo31X9wULMXJtYRPxNIg0CHNPqli5TY4GGi76raVDJ4noLZvOrQIVBBEd1g
-	tVjaxVbrJbvbxtswpacTD/BAhSvKm5mJAe39t4DgjmjfKM87RjiMdJReNUPQqAjEZvPq3X7ahmf
-	mIM1MS/Fk8pC32UUQMtUtsxMO/W5rta/nWZxyWIvkQ1uRwYQ0WJy2/2LwcEjP5XKUq0=
-X-Received: by 2002:a05:693c:65d0:b0:369:f7d2:d7a0 with SMTP id 5a478bee46e88-36a423c5d12mr6714625eec.25.1793426627830;
-        Fri, 30 Oct 2026 23:03:47 -0700 (PDT)
-Received: from asahi.tail4da9e3.ts.net ([218.48.198.193])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af91bsm13254968eec.8.2026.10.30.23.03.45
+        bh=oz93Axx1rMTC+L2SLi01u9xzZB+E0GNIYflNZoyMX0I=;
+        b=2oO9Q4ULGJ2E9YoYCKPr11pUdXNtiNwbJdxmiRr3vn6hsrZXJFErCjiEbM2WEnaDVN
+         8nLAyoQlwrqUnsAIsuqPNEPUZGH2+wdYIfdEzceAxsQE8lZlHlojMATVtUmXj086Zmyx
+         atISgpUjbgNJnvzxS7w60B4OfqGgSGsYSt3vbhNsEiaZUyP9WJ0Bt+KYHT1s3JmT18eH
+         LU7TD+rjrZkYSJB9yvHB4YQMACEY6T4Izm5wOW8bYp5t8eNIKuBEm3KEOLhoRzMuGimi
+         bLK8zd+xu7M+7kgaM6hcD7dVVD7yG2GGejoXhGXzqbYdbxgsSJJvt0Ru7bLQHpoRDIB5
+         1G7g==
+X-Forwarded-Encrypted: i=1; AKwUvBxa3qtnMM57JhIOZSeBlCfQQrLJqYzwFTRp1IY5Pg5pLrS8ab140QJ40vJVDkFkpJg8mFOsM5kvQKQzw64=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKh4yMmFWmNGloWlvA8aQieGI6SWhIX1+NzyG0u6KdvlRdoCFrp
+	9xyWyiHRroMkgYfmv+17zU6eR3kLjv7AwkOKPQT9HQswiVOncHg0m+fJ
+X-Gm-Gg: AYBFou2P4pTDfR/kob9HUx8DrEcYscImSvp5dCGnyF7DfkL5I3ytOrRBQO/5QgWErcD
+	JKuHlimaKO3L9Ci8HsocH0o0m57km41eYjRkyRreCB+CnzSLqQGrrWng+c7xyj8RMRquTlHQ751
+	4I9YAMbVQs9bgg6vIij2k1HcEFu6kKFY5H/DsZ8Qgjt9Eh/zQHTx0i/tNXu3JO8rpSYG3HQYeiV
+	3xcL8qXtKdzcXLwQvRnOM9uOR350feuqe12VD41R/DwvnH2mIV2iduPYDvT25REUUc5slkGwEqr
+	8ylhgxAzedQqCm+iopPp1+FjjcUffBswZpcCK9XV0Of/qIr51ys+AkgyNhr0u7AAradS/3k787a
+	7+WrHb1/AzgOf+d813thE31ouxI8dixYoVeAl1R4jVhMGx5SIQt0pAz9f7RNpm0CkOs3prqymH6
+	ITJj4G0tU6DgdrS9YCSlweUulIRpi4AI2AQx/FenW/S3cGhs7D/p+YZts8H8TKfaA1Rip8Mgo6P
+	LEitutBzyvgiHi8ftC4P5pstbFhDzUMzW94p92pB8C2AR6CkPpxh/5dd5oXXM2UGoob/ELsYCun
+	b0eN/KdT0xdSCXkIp/R/NWYUXaGqPEcfJcnQwknAoEXa06gHJvNNKviw89I6rVaneA==
+X-Received: by 2002:a05:600c:1f93:b0:4a5:75d2:c104 with SMTP id 5b1f17b1804b1-4ac17ffa050mr100686095e9.22.1793426767039;
+        Fri, 30 Oct 2026 23:06:07 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4773:6f00:c8d4:ec29:293e:f39])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c0b6sm6658430f8f.41.2026.10.30.23.06.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 23:03:47 -0700 (PDT)
-From: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: "Baek Kyu, Kim" <pocj8ur4in@gmail.com>,
-	Carlos Song <carlos.song@nxp.com>,
-	Frank Li <Frank.Li@nxp.com>,
-	linux-spi@vger.kernel.org,
-	imx@lists.linux.dev,
+        Fri, 30 Oct 2026 23:06:06 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Matteo Croce <mcroce@microsoft.com>,
+	Petr Mladek <pmladek@suse.com>,
+	Bradley Morgan <brads@mainlining.org>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] spi: imx: Avoid PIO replay after a completed DMA package
-Date: Sat, 31 Oct 2026 15:03:44 +0900
-Message-ID: <20261031060344.94687-1-pocj8ur4in@gmail.com>
-X-Mailer: git-send-email 2.55.0
+Subject: [PATCH] reboot: validate reboot CPU against the possible mask
+Date: Sat, 31 Oct 2026 08:06:03 +0200
+Message-ID: <20261031060602.2949895-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,45 +98,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A transfer can span two DMA packages. If the first package completes but
-preparing the second one fails, the helper sets SPI_TRANS_FAIL_NO_START
-for the second package. The driver treats that flag as applying to the
-whole transfer and retries all of it through PIO, sending the completed
-prefix twice and reporting success.
+reboot_setup() and cpu_store() compare the requested CPU ID against
+num_possible_cpus(), which is a count rather than the highest possible
+CPU ID. On sparse masks, this rejects valid high-numbered CPUs and
+accepts impossible CPU IDs.
 
-Clear NO_START after a failed later package has been unmapped. The driver
-then returns the original error without replaying the transfer. A failure
-in the first package still takes the existing PIO fallback path.
+Validate the CPU ID against nr_cpu_ids and cpu_possible() instead.
+Reject negative parsed values before the mask lookup and update the
+error message to avoid assuming contiguous CPU numbering.
 
-Fixes: faa8e404ad8e ("spi: imx: support dynamic burst length for ECSPI DMA mode")
-Signed-off-by: Baek Kyu, Kim <pocj8ur4in@gmail.com>
+On an arm64 QEMU guest with possible CPUs 0,2-3, reboot=s3 selected
+CPU 0 and sysfs rejected CPU 3 with -ERANGE. With the fix, reboot=s3
+selects CPU 3 and sysfs accepts it, while both interfaces reject
+impossible CPU 1.
+
+Fixes: df5b0ab3e08a ("reboot: fix overflow parsing reboot cpu number")
+Fixes: 2c622ed0eaa3 ("reboot: allow to specify reboot mode via sysfs")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
-In an arm64 QEMU/KVM kernel, the SPI core and spi-imx driver ran with
-modeled MMIO/FIFO and DMA provider callbacks. A 513-byte transfer
-completed its first 512-byte package; failing RX descriptor preparation
-for the second package made the original driver replay all 513 bytes
-through PIO and report success (1025 bytes in the modeled record). With
-this change it returned -EINVAL after the first 512 bytes and sent no
-PIO bytes. First-package fallback still completed through PIO. No
-physical ECSPI/SDMA device or external slave was tested.
+ kernel/reboot.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
- drivers/spi/spi-imx.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/spi/spi-imx.c b/drivers/spi/spi-imx.c
-index 79a6c1a60b0a0..eed1936388aa8 100644
---- a/drivers/spi/spi-imx.c
-+++ b/drivers/spi/spi-imx.c
-@@ -1968,6 +1968,9 @@ static int spi_imx_dma_transfer(struct spi_imx_data *spi_imx,
- 		spi_imx_dma_unmap(spi_imx, &spi_imx->dma_data[i]);
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index 9a84401adde5..7b09116376e3 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -1146,10 +1146,9 @@ static int __init reboot_setup(char *str)
+ 			if (isdigit(str[0])) {
+ 				int cpu = simple_strtoul(str, NULL, 0);
  
- 		if (ret < 0) {
-+			/* Earlier packages have already been transferred. */
-+			if (i)
-+				transfer->error &= ~SPI_TRANS_FAIL_NO_START;
- 			dev_dbg(spi_imx->dev, "DMA %d transfer not really finish\n", i);
- 			break;
- 		}
+-				if (cpu >= num_possible_cpus()) {
+-					pr_err("Ignoring the CPU number in reboot= option. "
+-					"CPU %d exceeds possible cpu number %d\n",
+-					cpu, num_possible_cpus());
++				if (cpu < 0 || cpu >= nr_cpu_ids || !cpu_possible(cpu)) {
++					pr_err("Ignoring invalid CPU %d in reboot= option\n",
++					       cpu);
+ 					break;
+ 				}
+ 				reboot_cpu = cpu;
+@@ -1351,7 +1350,7 @@ static ssize_t cpu_store(struct kobject *kobj, struct kobj_attribute *attr,
+ 	if (rc)
+ 		return rc;
+ 
+-	if (cpunum >= num_possible_cpus())
++	if (cpunum >= nr_cpu_ids || !cpu_possible(cpunum))
+ 		return -ERANGE;
+ 
+ 	reboot_default = 0;
+
+base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
 -- 
-2.55.0
+2.43.0
 
