@@ -1,75 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.223
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793428560;
-	b=MGVrXKvbRviViepsvWazGhExWovQCV2v71szaoO4OTeJKSRdr9xxvWoe942v9Hi0iYyn
-	 svXWTQdSLe23Fgzuw8ca+aG68353+FYTQ178Y100tgB4ysuVALQehvR2zmS43K9TEHbM/
-	 /XtGearXlRXdOzGij2+G2hMXsDul5HflMvndZ8XzNIZA1RCpt+priMDm8XQbPHYmc4SuR
-	 IwROQJ3m+vnf0cDBt6mn/GNwAgLTZIJg4ddvt/uIbspWMmwdzJx1kySe0uTq3r3YTIAJ9
-	 /c9ZDlzm14FlXvTPKnxIpa10xD/UCc+tVdD0wUF/z/X6kn78tCCYfARsmyrPTPN2bIg==
+	t=1793428631;
+	b=J9CYnZb2VactXrJLHUAvlRk3kigD4tbpQlAM7M58e3/KTNub3TM9F4TbnJ5fVYzWQ0sp
+	 EB8smt4i7p9qWV5Oi7ga++Ql2v8kfbeEBDR/KnJLUJ4zy0u7fkZN7fxYzqOmhTTWx5JzU
+	 0v/67Dy5VVmeeq9pBEqJ/PxTv+MokU69NHcA7ThlD7XPnm/FRYS/eJL6KzW8fyF4dvk+D
+	 PJf+Byg7sPoVh54iBk/kLotfHZoxLoUVPsofn9vLAYPSWl/768GLO+0DyQc2NMyePb1Cl
+	 5nPGGyaTek8rlR5Mf1Y2RJGcu5pkrnyrfZA5i32Bnn4ausviEf2RU/zGGub6Wo3Msyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793428560;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
-	 Content-Type;
-	bh=kGWpRJfcTL8/co7PFq+A4heuLnWtafuVyZoV9YBbOho=;
-	b=grp5GXkYaXsiydRBSkj4qXXy7n9YgSidn7gaA/i1XetVjlyumXj5+dMGT/Wf8JOlTE73
-	 FLf6c5bi8ZxeHVyzTCdkijtl+t0qqsycXMlYWuTo9G3beDHnSxXirkNtxNrMML65FivBx
-	 zGcXEN01fnAjWcohgRqg/VkGtHQZw1NYMvtcs2Q3Z/uDTQ8N14H5vtHtdKERBsgQ5DT1p
-	 WOfskBSrZVk8Rea+sJ/PcbdjuxHMzZbrctulWXPtP9MKqE38VeZz0TCurJh+PLYCcgraI
-	 ySbRzgdV9GkhVBeocWf3nwZxqPsLx9d2rVonTHd+4VopoRh6O9IswRoWOAWKd0NwWkw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793428631;
+	h=DMARC-Filter:dkim-signature:Received:Received:Received:From:To:CC:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=3ymRFl0qaXCxfTNfFwgMuzZEPH7mvCsZdOs4ll52OHU=;
+	b=CSbX1loLEWc5mxoAXxU3TYGp4wu1rTnh4/J0UcEqTBdXaUS6BQTkFNkWmZsWEuXiBCmD
+	 fsueHHtu3kGWrZZye81enpD3CjW+ecSX7kxOkXIcwNR7AY33ebKXhCm6f7NIsziQFE69s
+	 8XCwBiTtJqxDGEO9RT0Y/nBQjkhqo/bC1RVWILX0ajAY5YQxjaHCSHjHzEA3jmOeaOllt
+	 BlmN1ksMQfNCUTU12siVQVXiN5dgHyl8aCEl4CqNhVkyaCXtuVxNwuYB8KhGDA2rZoCRk
+	 r0BzAXeniIqRiGTzoOCAjSeGqkLUCowprAIzh6qJmzT5a9idJqIlW3XIXzvQq91SOlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--irogers.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PXGn9bxy;
-	arc=none smtp.remote-ip=74.125.82.199
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=huawei.com;
+	spf=pass smtp.mailfrom=huawei.com;
+	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=khJTe145;
+	arc=none smtp.remote-ip=113.46.200.223
+Received: from canpmsgout08.his.huawei.com (canpmsgout08.his.huawei.com [113.46.200.223])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E85E606A33F
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:36:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E85E606A33F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--irogers.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71FC606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:37:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B71FC606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PXGn9bxy
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3552883bd19so5986226eec.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 23:36:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793428559; x=1794033359; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kGWpRJfcTL8/co7PFq+A4heuLnWtafuVyZoV9YBbOho=;
-        b=PXGn9bxyGrPAmNLg8onJWyfNCXOuREyzC6eV4f66vPISuZ8b7pTKpLTq37q9ncSsOA
-         CXIh2xQ5tGuhNir2mt+qo2X5zl/n0pk172I5RPTDyYNhnmwxnDBDS+daAhVBRsuIlbkV
-         3LVS6XGE/PM/gLGCsAHSgn3gm1w6Mknj8ra1UsoADNMo2+8DjA7EcwG7rMxA+VfJ7W19
-         4+OoZ2Oe53kORfoaAVmv3F3zfjcKiCJBfnkQ4FUjhFhjp3TMbb2sEMAGPd8WDsrZ+5wa
-         yl0E9BrcsO0q/WXl0VMK0+QtiTqJZgPbmBVN5BvE6oR/CH4Z/FQ0ZEw9HALsEomAmV5Y
-         nu8Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793428559; x=1794033359;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kGWpRJfcTL8/co7PFq+A4heuLnWtafuVyZoV9YBbOho=;
-        b=tKvI//uzwlMAmEaRqKGZTBqHp3oTkVIPnE6/NBkxlMHYXdhQVkSqkXU1a+EKBPngtr
-         x17wlfdd9IkNC2FM99+LHGrfYFBO9Ukq5iUo6faAHYWhcB5mgzohZPhPduZlqSiNOmUz
-         LqJZNe1rB8xo+XusD04z/yccWtkhKcVKj9gD8nmhZcggp68C9nMiMauKYOjOaHtAj50b
-         +H9l4ye9i6azJr0ixM8Eq7yhvyL1u88CMXaS8iD4thw8XmASWNBhuyU5nCOwsWHD1gV0
-         bm7cOwykSJOi5zqKLup1SDujRmhepo1di5UoataDHXJezGqUTBzNjgV25Ivr6LecU7Az
-         ex3g==
-X-Forwarded-Encrypted: i=1; AKwUvBzvhbke2FiHTQFlsBv+nLbqP0DqJQ88sgpOY/ud4Mc3dUuSN5bHvEy2FmLOGovW1F75xrbeBwrQOZwKpFM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJrvTOr5c2MVR7NifTaqbb77BWKtZ1yd/LI+CTvUs2zFCGyKmGY
-	GvmTIm8aUjzRz2mKK6Ed83xP6mt7P/yqG7JaezUskWC2kQ44lMUtfiYJaxG8TPVntQSxPf7tZC0
-	k657gCN+T6A==
-X-Received: from dycnr20-n1.prod.google.com ([2002:a05:7300:e9d4:10b0:34d:46b2:7513])
- (user=irogers job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:da83:b0:366:83dd:46f3
- with SMTP id 5a478bee46e88-36a423a1f05mr6006405eec.14.1793428558997; Fri, 30
- Oct 2026 23:35:58 -0700 (PDT)
-Date: Fri, 30 Oct 2026 23:35:48 -0700
-In-Reply-To: <20261031063549.1281324-1-irogers@google.com>
+	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=khJTe145
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=3ymRFl0qaXCxfTNfFwgMuzZEPH7mvCsZdOs4ll52OHU=;
+	b=khJTe145GcPI8HwIqPWZCST+votj0BLe26Byl0E3Q6QOAoxrir3nnHYP/m6TSeM38aeFK+eH1
+	SVwIx8kK+sCElfgP+OVBSh/sFp0XMX0K7G9JtxQtqNDWjak6zRGQjt50MNEE1HVOcI3jNBzMQwN
+	EW695MVvvBs7grkFozFFu+Q=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+	by canpmsgout08.his.huawei.com (SkyGuard) with ESMTPS id 4jGpCr5H0DzmV7v;
+	Sat, 31 Oct 2026 14:36:56 +0800 (CST)
+Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
+	by mail.maildlp.com (Postfix) with ESMTPS id D8D5E40586;
+	Sat, 31 Oct 2026 14:37:04 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by kwepemk200008.china.huawei.com
+ (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 31 Oct
+ 2026 14:37:04 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <tony.luck@intel.com>, <reinette.chatre@intel.com>, <Dave.Martin@arm.com>,
+	<james.morse@arm.com>, <babu.moger@amd.com>, <bp@alien8.de>,
+	<tan.shaopeng@fujitsu.com>, <x86@kernel.org>, <linux-kernel@vger.kernel.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v3 2/2] fs/resctrl: Do not allocate a monitor context when releasing limbo RMIDs
+Date: Sat, 31 Oct 2026 14:36:34 +0800
+Message-ID: <20261031063634.1678345-3-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261031063634.1678345-1-ruanjinjie@huawei.com>
+References: <20261031063634.1678345-1-ruanjinjie@huawei.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,297 +70,186 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261031063549.1281324-1-irogers@google.com>
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261031063549.1281324-3-irogers@google.com>
-Subject: [PATCH 2/3] perf symbol-elf: Fix zero-size symbol end calculation
- across .symtab and .dynsym
-From: Ian Rogers <irogers@google.com>
-To: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, 
-	Arnaldo Carvalho de Melo <acme@kernel.org>, Namhyung Kim <namhyung@kernel.org>
-Cc: Jiri Olsa <jolsa@kernel.org>, Adrian Hunter <adrian.hunter@intel.com>, 
-	James Clark <james.clark@linaro.org>, Alireza Haghdoost <haghdoost@uber.com>, 
-	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ian Rogers <irogers@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
+ kwepemk200008.china.huawei.com (7.202.194.74)
 
-When loading symbols from an ELF binary in dso__load_sym(),
-dso__load_sym_internal() can be invoked multiple times: first for
-.symtab (or .gnu_debugdata's .symtab) and then for .dynsym.
+Busy RMIDs of a monitor domain are normally released by the limbo
+handler once their cache occupancy drops below the threshold. When a
+domain goes offline, its busy RMIDs are released without checking
+occupancy, since the domain is going away and the RMIDs would otherwise
+never return to the free list.
 
-Previously, dso__load_sym_internal() ran symbols__fixup_end() and
-symbols__fixup_duplicate() at the end of each individual symbol table
-load. Consequently, a zero-size symbol in .symtab had its end address
-extended to the start of the next .symtab symbol before .dynsym was
-loaded. If an exported function existed only in .dynsym (for example,
-when stripped from .symtab or when using .gnu_debugdata minidebuginfo)
-at an address between the two .symtab symbols, the zero-size .symtab
-symbol overlapped the .dynsym function and samples inside the .dynsym
-function were misattributed to the preceding zero-size symbol.
+On the monitor domain offline path, __check_limbo() allocates
+the monitor context that an occupancy check needs before it scans
+the busy RMIDs, but without using it, and returns early when that
+allocation fails. Then the caller destroys the domain's monitoring state,
+including the bitmap that records which RMIDs are busy, so nothing can
+clear those bits afterwards and the busy counts never reach zero. Those
+RMIDs never return to the free list and, where the RMID depends on
+the CLOSID, the dirty count of their CLOSID never decreases. The allocation
+can also wait for a monitor to become free, which stalls the CPU offline
+path on a context that is not going to be used.
 
-Move symbols__fixup_end(), symbols__fixup_duplicate(), and
-maps__fixup_end() from dso__load_sym_internal() to dso__load_sym() so
-they run once after all symbol tables have been loaded into the DSO, and
-add a unit test in 'perf test symbols' verifying that a zero-size
-.symtab symbol ends at a following .dynsym-only function rather than
-overlapping it.
+Only MPAM systems are affected. An architecture that can always read an
+RMID allocates nothing for the monitor context, so the allocation can
+neither fail nor wait there.
 
-Fixes: 87704345cc60 ("perf symbol-elf: Decode dynsym even if symtab exists")
-Fixes: b10f74308e13 ("perf symbol: Support .gnu_debugdata for symbols")
-Suggested-by: Alireza Haghdoost <haghdoost@uber.com>
-Signed-off-by: Ian Rogers <irogers@google.com>
+Move the release of busy RMIDs into a separate function that does
+not take a monitor context and leave the occupancy check to
+__check_limbo().
+
+Fixes: e557999f80a5 ("x86/resctrl: Allow arch to allocate memory needed in resctrl_arch_rmid_read()")
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: James Morse <james.morse@arm.com>
+Cc: Reinette Chatre <reinette.chatre@intel.com>
+Cc: <stable@vger.kernel.org> # 7.1.x
 ---
- tools/perf/tests/symbols.c   | 169 +++++++++++++++++++++++++++++++++++
- tools/perf/util/symbol-elf.c |  36 ++++----
- 2 files changed, 190 insertions(+), 15 deletions(-)
+ fs/resctrl/internal.h |  2 +-
+ fs/resctrl/monitor.c  | 72 ++++++++++++++++++++++++++++---------------
+ fs/resctrl/rdtgroup.c |  2 +-
+ 3 files changed, 49 insertions(+), 27 deletions(-)
 
-diff --git a/tools/perf/tests/symbols.c b/tools/perf/tests/symbols.c
-index b644d95c6be9..d3180db45ee6 100644
---- a/tools/perf/tests/symbols.c
-+++ b/tools/perf/tests/symbols.c
-@@ -2,8 +2,11 @@
- #include <linux/compiler.h>
- #include <linux/string.h>
- #include <sys/mman.h>
-+#include <elf.h>
- #include <inttypes.h>
- #include <limits.h>
-+#include <stdlib.h>
-+#include <unistd.h>
- #include "debug.h"
- #include "dso.h"
- #include "env.h"
-@@ -308,9 +311,175 @@ static int test__kallsyms_fixup_end(struct test_suite *test __maybe_unused,
- 	return ret;
+diff --git a/fs/resctrl/internal.h b/fs/resctrl/internal.h
+index e62a277dee85..1c85e06f09bf 100644
+--- a/fs/resctrl/internal.h
++++ b/fs/resctrl/internal.h
+@@ -405,7 +405,7 @@ void cqm_handle_limbo(struct work_struct *work);
+ 
+ bool has_busy_rmid(struct rdt_l3_mon_domain *d);
+ 
+-void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free);
++void release_limbo_rmids(struct rdt_l3_mon_domain *d);
+ 
+ void resctrl_file_fflags_init(const char *config, unsigned long fflags);
+ 
+diff --git a/fs/resctrl/monitor.c b/fs/resctrl/monitor.c
+index 88674e28b2f8..2002c4af1a5c 100644
+--- a/fs/resctrl/monitor.c
++++ b/fs/resctrl/monitor.c
+@@ -124,21 +124,45 @@ static void limbo_release_entry(struct rmid_entry *entry)
+ 		closid_num_dirty_rmid[entry->closid]--;
  }
  
-+#ifdef HAVE_LIBELF_SUPPORT
-+static int write_test_elf(int fd)
++/*
++ * Release the RMIDs that are marked as busy for this domain without
++ * checking their LLC occupancy. Cache lines may still be tagged with
++ * these RMIDs and will be accounted to the next user of each RMID.
++ */
++void release_limbo_rmids(struct rdt_l3_mon_domain *d)
 +{
-+	static const char shstrtab[] = "\0.shstrtab\0.text\0.strtab\0.symtab\0.dynsym";
-+	static const char strtab[] = "\0zfun\0efun\0after_fun";
-+	struct {
-+		Elf64_Ehdr ehdr;
-+		Elf64_Shdr shdrs[6];
-+		char shstr[sizeof(shstrtab)];
-+		char str[sizeof(strtab)];
-+		Elf64_Sym symtab[3];
-+		Elf64_Sym dynsym[2];
-+		u8 text[0x60];
-+	} img;
++	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
++	struct rmid_entry *entry;
++	u32 idx, cur_idx = 1;
 +
-+	memset(&img, 0, sizeof(img));
-+	memcpy(img.ehdr.e_ident, ELFMAG, SELFMAG);
-+	img.ehdr.e_ident[EI_CLASS] = ELFCLASS64;
-+#if __BYTE_ORDER__ == __ORDER_BIG_ENDIAN__
-+	img.ehdr.e_ident[EI_DATA] = ELFDATA2MSB;
-+#else
-+	img.ehdr.e_ident[EI_DATA] = ELFDATA2LSB;
-+#endif
-+	img.ehdr.e_ident[EI_VERSION] = EV_CURRENT;
-+	img.ehdr.e_type = ET_DYN;
-+	img.ehdr.e_machine = EM_X86_64;
-+	img.ehdr.e_version = EV_CURRENT;
-+	img.ehdr.e_shoff = offsetof(typeof(img), shdrs);
-+	img.ehdr.e_ehsize = sizeof(Elf64_Ehdr);
-+	img.ehdr.e_shentsize = sizeof(Elf64_Shdr);
-+	img.ehdr.e_shnum = ARRAY_SIZE(img.shdrs);
-+	img.ehdr.e_shstrndx = 1;
++	for (;;) {
++		idx = find_next_bit(d->rmid_busy_llc, idx_limit, cur_idx);
++		if (idx >= idx_limit)
++			break;
 +
-+	memcpy(img.shstr, shstrtab, sizeof(shstrtab));
-+	memcpy(img.str, strtab, sizeof(strtab));
-+
-+	/* Section 1: .shstrtab */
-+	img.shdrs[1].sh_name = 1;
-+	img.shdrs[1].sh_type = SHT_STRTAB;
-+	img.shdrs[1].sh_offset = offsetof(typeof(img), shstr);
-+	img.shdrs[1].sh_size = sizeof(shstrtab);
-+
-+	/* Section 2: .text */
-+	img.shdrs[2].sh_name = 11;
-+	img.shdrs[2].sh_type = SHT_PROGBITS;
-+	img.shdrs[2].sh_flags = SHF_ALLOC | SHF_EXECINSTR;
-+	img.shdrs[2].sh_addr = 0x1000;
-+	img.shdrs[2].sh_offset = offsetof(typeof(img), text);
-+	img.shdrs[2].sh_size = sizeof(img.text);
-+
-+	/* Section 3: .strtab */
-+	img.shdrs[3].sh_name = 17;
-+	img.shdrs[3].sh_type = SHT_STRTAB;
-+	img.shdrs[3].sh_flags = SHF_ALLOC;
-+	img.shdrs[3].sh_offset = offsetof(typeof(img), str);
-+	img.shdrs[3].sh_size = sizeof(strtab);
-+
-+	/*
-+	 * Section 4: .symtab with zero-size zfun at 0x1010 and after_fun at
-+	 * 0x1040, but without efun (simulating objcopy --strip-symbol=efun or
-+	 * .gnu_debugdata minidebuginfo where exported symbols live only in
-+	 * .dynsym).
-+	 */
-+	img.shdrs[4].sh_name = 25;
-+	img.shdrs[4].sh_type = SHT_SYMTAB;
-+	img.shdrs[4].sh_offset = offsetof(typeof(img), symtab);
-+	img.shdrs[4].sh_size = sizeof(img.symtab);
-+	img.shdrs[4].sh_link = 3;
-+	img.shdrs[4].sh_info = 2;
-+	img.shdrs[4].sh_entsize = sizeof(Elf64_Sym);
-+
-+	img.symtab[1].st_name = 1; /* zfun */
-+	img.symtab[1].st_info = ELF64_ST_INFO(STB_LOCAL, STT_FUNC);
-+	img.symtab[1].st_shndx = 2;
-+	img.symtab[1].st_value = 0x1010;
-+	img.symtab[1].st_size = 0;
-+
-+	img.symtab[2].st_name = 11; /* after_fun */
-+	img.symtab[2].st_info = ELF64_ST_INFO(STB_GLOBAL, STT_FUNC);
-+	img.symtab[2].st_shndx = 2;
-+	img.symtab[2].st_value = 0x1040;
-+	img.symtab[2].st_size = 0x10;
-+
-+	/* Section 5: .dynsym with efun at 0x1020..0x1030 */
-+	img.shdrs[5].sh_name = 33;
-+	img.shdrs[5].sh_type = SHT_DYNSYM;
-+	img.shdrs[5].sh_flags = SHF_ALLOC;
-+	img.shdrs[5].sh_offset = offsetof(typeof(img), dynsym);
-+	img.shdrs[5].sh_size = sizeof(img.dynsym);
-+	img.shdrs[5].sh_link = 3;
-+	img.shdrs[5].sh_info = 1;
-+	img.shdrs[5].sh_entsize = sizeof(Elf64_Sym);
-+
-+	img.dynsym[1].st_name = 6; /* efun */
-+	img.dynsym[1].st_info = ELF64_ST_INFO(STB_GLOBAL, STT_FUNC);
-+	img.dynsym[1].st_shndx = 2;
-+	img.dynsym[1].st_value = 0x1020;
-+	img.dynsym[1].st_size = 0x10;
-+
-+	return write(fd, &img, sizeof(img)) == (ssize_t)sizeof(img) ? 0 : -1;
++		entry = __rmid_entry(idx);
++		clear_bit(idx, d->rmid_busy_llc);
++		if (!--entry->busy)
++			limbo_release_entry(entry);
++		cur_idx = idx + 1;
++	}
 +}
 +
-+static int test__elf_symtab_dynsym_fixup_end(struct test_suite *test __maybe_unused,
-+					     int subtest __maybe_unused)
-+{
-+	char tmpfile[] = "/tmp/perf-test-symtab-dynsym-XXXXXX";
-+	struct test_info ti;
-+	struct map *map = NULL;
-+	struct dso *dso;
-+	u64 text_offs;
-+	int fd, ret;
-+
-+	fd = mkstemp(tmpfile);
-+	if (fd < 0)
-+		return TEST_FAIL;
-+
-+	if (write_test_elf(fd)) {
-+		close(fd);
-+		unlink(tmpfile);
-+		return TEST_FAIL;
-+	}
-+	close(fd);
-+
-+	ret = init_test_info(&ti);
-+	if (ret != TEST_OK) {
-+		unlink(tmpfile);
-+		return ret;
-+	}
-+
-+	ret = create_map(&ti, tmpfile, &map);
-+	if (ret != TEST_OK)
-+		goto out_exit;
-+
-+	dso = map__dso(map);
-+	if (dso__load(dso, map) <= 0) {
-+		ret = TEST_FAIL;
-+		goto out_put;
-+	}
-+
-+	/* Verify no overlapping or zero-length symbols exist. */
-+	ret = test_dso(dso);
-+	text_offs = 0x1000 - dso__text_offset(dso);
-+	if (check_symbol(dso, text_offs + 0x14, "zfun", text_offs + 0x20))
-+		ret = TEST_FAIL;
-+	if (check_symbol(dso, text_offs + 0x24, "efun", text_offs + 0x30))
-+		ret = TEST_FAIL;
-+	if (check_symbol(dso, text_offs + 0x44, "after_fun", text_offs + 0x50))
-+		ret = TEST_FAIL;
-+
-+out_put:
-+	map__put(map);
-+out_exit:
-+	exit_test_info(&ti);
-+	unlink(tmpfile);
-+	return ret;
-+}
-+#else
-+static int test__elf_symtab_dynsym_fixup_end(struct test_suite *test __maybe_unused,
-+					     int subtest __maybe_unused)
-+{
-+	return TEST_SKIP;
-+}
-+#endif
-+
- static struct test_case tests__symbols[] = {
- 	TEST_CASE("Symbols", symbols),
- 	TEST_CASE("Kallsyms symbol ends", kallsyms_fixup_end),
-+	TEST_CASE("ELF zero-size symbol end across .symtab and .dynsym",
-+		  elf_symtab_dynsym_fixup_end),
- 	{ .name = NULL, }
- };
+ /*
+  * Check the RMIDs that are marked as busy for this domain. If the
+  * reported LLC occupancy is below the threshold clear the busy bit and
+  * decrement the count. If the busy count gets to zero on an RMID, we
+  * free the RMID
+  */
+-void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
++static void __check_limbo(struct rdt_l3_mon_domain *d)
+ {
+ 	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
+ 	u32 idx_limit = resctrl_arch_system_num_rmid_idx();
+ 	struct rmid_entry *entry;
+-	bool rmid_dirty = true;
+ 	u32 idx, cur_idx = 1;
+ 	void *arch_mon_ctx;
+ 	void *arch_priv;
++	bool rmid_dirty;
+ 	u64 val = 0;
  
-diff --git a/tools/perf/util/symbol-elf.c b/tools/perf/util/symbol-elf.c
-index 1e2716c6af45..77ef5b2dbf32 100644
---- a/tools/perf/util/symbol-elf.c
-+++ b/tools/perf/util/symbol-elf.c
-@@ -1789,21 +1789,6 @@ dso__load_sym_internal(struct dso *dso, struct map *map, struct symsrc *syms_ss,
- 		nr++;
- 	}
- 	dso__put(curr_dso);
+ 	arch_priv = mon_event_all[QOS_L3_OCCUP_EVENT_ID].arch_priv;
+@@ -161,30 +185,28 @@ void __check_limbo(struct rdt_l3_mon_domain *d, bool force_free)
+ 			break;
+ 
+ 		entry = __rmid_entry(idx);
+-		if (!force_free) {
+-			if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
+-						   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
+-						   arch_priv, &val, arch_mon_ctx)) {
+-				rmid_dirty = true;
+-			} else {
+-				rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
 -
--	/*
--	 * For misannotated, zeroed, ASM function sizes.
--	 */
--	if (nr > 0) {
--		symbols__fixup_end(dso__symbols(dso), false);
--		symbols__fixup_duplicate(dso__symbols(dso));
--		if (kmap) {
--			/*
--			 * We need to fixup this here too because we create new
--			 * maps here, for things like vsyscall sections.
--			 */
--			maps__fixup_end(kmaps);
--		}
--	}
- 	return nr;
- out_elf_end:
- 	dso__put(curr_dso);
-@@ -1864,6 +1849,27 @@ int dso__load_sym(struct dso *dso, struct map *map, struct symsrc *syms_ss,
- 		nr += err;
+-				/*
+-				 * x86's CLOSID and RMID are independent numbers,
+-				 * so the entry's CLOSID is an empty CLOSID
+-				 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
+-				 * (PMG) extends the CLOSID (PARTID) space with
+-				 * bits that aren't used to select the configuration.
+-				 * It is thus necessary to track both CLOSID and
+-				 * RMID because there may be dependencies between
+-				 * them on some architectures.
+-				 */
+-				trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
+-							      d->hdr.id, val);
+-			}
++		if (resctrl_arch_rmid_read(r, &d->hdr, entry->closid,
++					   entry->rmid, QOS_L3_OCCUP_EVENT_ID,
++					   arch_priv, &val, arch_mon_ctx)) {
++			rmid_dirty = true;
++		} else {
++			rmid_dirty = (val >= resctrl_rmid_realloc_threshold);
++
++			/*
++			 * x86's CLOSID and RMID are independent numbers,
++			 * so the entry's CLOSID is an empty CLOSID
++			 * (X86_RESCTRL_EMPTY_CLOSID). On Arm the RMID
++			 * (PMG) extends the CLOSID (PARTID) space with
++			 * bits that aren't used to select the configuration.
++			 * It is thus necessary to track both CLOSID and
++			 * RMID because there may be dependencies between
++			 * them on some architectures.
++			 */
++			trace_mon_llc_occupancy_limbo(entry->closid, entry->rmid,
++						      d->hdr.id, val);
+ 		}
+ 
+-		if (force_free || !rmid_dirty) {
++		if (!rmid_dirty) {
+ 			clear_bit(idx, d->rmid_busy_llc);
+ 			if (!--entry->busy)
+ 				limbo_release_entry(entry);
+@@ -843,7 +865,7 @@ void cqm_handle_limbo(struct work_struct *work)
+ 	if (cpumask_empty(&d->hdr.cpu_mask))
+ 		goto out_unlock;
+ 
+-	__check_limbo(d, false);
++	__check_limbo(d);
+ 
+ 	if (has_busy_rmid(d)) {
+ 		d->cqm_work_cpu = cpumask_any_housekeeping(&d->hdr.cpu_mask,
+diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
+index 5dcbb0a964e8..20c800e678d5 100644
+--- a/fs/resctrl/rdtgroup.c
++++ b/fs/resctrl/rdtgroup.c
+@@ -4592,7 +4592,7 @@ void resctrl_offline_mon_domain(struct rdt_resource *r, struct rdt_domain_hdr *h
+ 		 * the RMID as busy creates RMID leaks if the
+ 		 * package never comes back.
+ 		 */
+-		__check_limbo(d, true);
++		release_limbo_rmids(d);
  	}
  
-+	/*
-+	 * For misannotated, zeroed, ASM function sizes. Run after all symbol
-+	 * tables (.symtab, .dynsym, .gnu_debugdata) have been loaded so a
-+	 * zero-size symbol in .symtab ends at the next symbol across all
-+	 * tables rather than overlapping a .dynsym-only function.
-+	 */
-+	if (nr > 0) {
-+		struct kmap *kmap = dso__kernel(dso) ? map__kmap(map) : NULL;
-+		struct maps *kmaps = kmap ? map__kmaps(map) : NULL;
-+
-+		symbols__fixup_end(dso__symbols(dso), false);
-+		symbols__fixup_duplicate(dso__symbols(dso));
-+		if (kmap) {
-+			/*
-+			 * We need to fixup this here too because we create new
-+			 * maps here, for things like vsyscall sections.
-+			 */
-+			maps__fixup_end(kmaps);
-+		}
-+	}
-+
- 	return nr;
- }
- 
+ 	domain_destroy_l3_mon_state(d);
 -- 
-2.56.0.317.g454f8302e1-goog
+2.34.1
 
