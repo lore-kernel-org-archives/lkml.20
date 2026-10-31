@@ -1,120 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.113
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793435030;
-	b=bq26ZeFJ2+rLHTHI+yXtOgz8gNupz6z/SZStnsc3J4utkNwoxbAveGYLsD3MNQISzUxz
-	 50nI5mQJjAWGN7U9W5p3Se1oOn53tc9ssMMZGmtzPW8dvJUD6WJT5Dqk7HP2JKuw9MU29
-	 KKa9c731MAlVFuL4eZpvU4TXOt+F2VX+/TTNpV5vt/2qDqIpG6k0pcShhCM+W0lecO9vm
-	 MFsU7XGAoAjUwcNmP0JLg63ylC2lCdcHd++TYtR3EhB/bHrMP2TDCUgV6gskNiIpergaZ
-	 lx1dpBAy9m01DFnV7hc0x93IM6F6IK2doxYHb/+vADFDu0fYwf+0FdiLXWtYiwWK8Lw==
+	t=1793435435;
+	b=jVIACSPzoNQ9JVTqsxn+i/lQPqn0KrzvqamcaqfbDkGtWZch3tokkZnVBhDWw4pOM8sk
+	 VTH1Qp2gZKUp3pSEwT1ZsHdQ1XKIZNfidGkFX6G0fEhR516MmSDTftzlu6IBRJCqSIelS
+	 1M2Cu3r12ZDPDjUI+SYdUg4KIkELeciPDo7K3B8lzbugq/dALuBq3B4pqTPGaGx5a8ylR
+	 mJ7rc8bSGmVMjcJvup4YjllW8L/e++Tqqp8Rx/nTaweVa3vjsPfjzrHahqkoBoaqFtMHa
+	 9o9N01tEIZj4RevAXyEXP8OLf9EgXvG6phnY4xPY5S9L1JnwDEuIqSMfydpCnHa0Tqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793435030;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Info:X-Authority-Analysis:
-	 X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=QFOpLTe4a0GH6IrBUWG1rlaEM4FZttQUc4FaLGB4FuY=;
-	b=sTP3arTgVf2X5xcFqqWULfllz5TGr7Dwi2V9EAXYsE+hn2h/x0d4mcfDnNktkRLdGUcs
-	 LSzmygRey/bMz940XONrzqVP/PPJTfAfAO7VcmbtJtsdnNjbf2eZfTUmNZxvs9G0FytC7
-	 SnHKZUSqRytFMJ86anPoTWJ8/T/vvRTsV6+vYQ9+Sbxu3gl9Mbi3z/Dtct6gFKgPoxFm0
-	 6SP6zM+KniCQk867OcRVMZ7C5mrIaWieYPPZfmr3oK31GVwkTwIVmmENAzQL2xD8esHuk
-	 e5nWPhNIlPw77oimexJ93ghJJTZEAjZ5I5Q15cdkjsZlPVqq5rv0SLpmquiuL1mPDDA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793435435;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=bHdV+uBKMbmZEFk857VJk5Itb2ycFnnVw8kcF5qHilM=;
+	b=hZgotiZDsBetqAgBwWIhWAzma/6qxV2OFcGDLytCLde8pIBsxJBTLiROaOEMzzvuUYhu
+	 NNBGU+p4g712qHz8c0uYgwzaeIFBx9E11tHhZ/K6+QIQ8CWhuiX5Z21k3WLcm1gyg286L
+	 II3mmHT/eyCj43RrRBxuA9QzsjxECz08IFzHzNkdUQfdJwGcejjtuJsDauXEehT2Vt4qB
+	 7maLe+N/7YPJmFxEayOLN9LizBZaJdkRUp4lxDBxyIS8IgUDMg3mdF5QnCJ6jJygGxkmd
+	 MQhKv4ibpxIMjni2POgeOsIrR0uRkGf6B5kaP1uf0EPwm+1Fd3HfHr/2INt1w49SoKA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jWVWVG+j;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EAGPj+uA;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=vCapseRt;
+	arc=none smtp.remote-ip=115.124.30.113
+Received: from out30-113.freemail.mail.aliyun.com (out30-113.freemail.mail.aliyun.com [115.124.30.113])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F141606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:23:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F141606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3AA1606A327
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:30:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3AA1606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jWVWVG+j;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EAGPj+uA
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69V4a5Z32142556
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:23:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=QFOpLTe4a0GH6IrBUWG1rlaEM4FZttQUc4F
-	aLGB4FuY=; b=jWVWVG+jRk7JaZ/tPBpElR7fJTsO3IJ0QcE9wXVq159UaI7Dyq9
-	OIpPRJt178AqfnV10bSQ5h914cCA7cPI5Gf6QBl8M0B83dSICQjp075NBsAUAbwu
-	RmR9xjU4HmQlUo4DKoBiHsSXTAQqDlEFUCIigfQkxR8xxEqF0AhSuhbWDXCPBr3G
-	jk6W43+ZzBCV3Eob8kuRSuQBTAMKSK8nMqmiqtogv4j7sJYEIPRCvUVGN5xcofZA
-	89QQGriQY8l8IbHwEm5Pem5qGzD8sPSt3qRCI9P7g6nGXaWNjlZpDV/K1wMbjsY3
-	q7wZuP0m+VSHtyCXkb3AWqvHYr6P0wfgKGA==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn61fryph-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 08:23:48 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-35c5aef2a74so6146929eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:23:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793435028; x=1794039828; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QFOpLTe4a0GH6IrBUWG1rlaEM4FZttQUc4FaLGB4FuY=;
-        b=EAGPj+uAtBkGlTE9VjSru5XcqELeettSeimHb9HBNsVJx6EIVBQ6RCoYAMQ3xmVRHG
-         2QhpsiDi1EAQpuz533H6s/EmoOnSvXBwdIWgJBgtkvRdq5nHQAfRb6GuoX3QX0I2TEP3
-         BXsW9mvF68KAlcbLLaBhqTwMeNWkJqR816PwWoXinMMeUQE0zhBVR7b1Y2dZcqnVVeMU
-         Ao01DlGcHd3+s8c/vf/t6MVrL/vmMSiFkbfr+TBlPFD6yVXjLKlOnX48xfNb4UYqGg5e
-         aFREgKzX0i4KQtFaq07DdRAoYpSFXKKPxAw6MwkBRkezWqsAY6EMkQvN8WFd61MGl0R8
-         iPmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793435028; x=1794039828;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QFOpLTe4a0GH6IrBUWG1rlaEM4FZttQUc4FaLGB4FuY=;
-        b=gLELbOuVWD2XeUDkgAtOUrUg292lrLhpISRXzg0oxvXCRLMKjBL4xd1w5hYuznIppv
-         A55QOb6c3jR/iHSlRbDNmEQeO7AvES6HNR55iJ6rFazR6qriEq6Buvkp2XI7PwnrF3rS
-         ozjr5IQSD67CcXBGdeVso7liynpDbGtlYujGEdqHIAKvdB1xOnfYGUvx40gIX6iVkR5v
-         T4RRhzrDhZEPr83WQXiTOrLTgoy1oFc4mx7ESVs/iOj/JwQ+C9hOMyCKZZya8wHN0gVO
-         dc9nrqfB35wjc7AOlyQqNZWcBr19CeMigEFoI4NRlfX+E8XmNalro0g6rsT4RfzDG+jZ
-         7iTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzk1NTdY/nj28Zv8LXMAs4SmWfmA6ssd7BPim9vb2omobOj6fMUXWJj8g0xztYZmbIfltkOsYOZxF5+VIc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJz7qQr7zBzDtcypdgdDfPFPcSGZwHNIKn1ddSO44eZN1K1x3fd
-	vecxjvG/MOLPg5MdMYQgnCCn9AyW5KtIpo0AugfBZ+b4SRnnGo2KHswjqNQgz1DRZU3iFtZL452
-	/dWx0UZ2CCwI5abEaG0A1pTLaAlikvmig/sVZaHhhHpVL6AhDNZR2+3vluusZ93oHAcM=
-X-Gm-Gg: AYBFou2v4dQjmvUnJg0sPj274WCg5KW+DkKgBSTekeYsVGzQvlM8l+1Sb593ZbITAFk
-	gfZJ2zzMpw7/Mv/xRtJXALfF1AOWQPXZ/iLX5vDz8NnMaIjex3MuctZsn4ygVQUB/bjEMGPsYMk
-	CiHZoQHfT64caSWlQ7qGnQthFCPYA+qrMwBAa/nQO3bwrrrhKPv1cCvxYuCvY1WZ/xuCWztQxft
-	u9/rWeyqKJPQ3BHnT57YKrDdgVftUdASGpFzcV7z+hNMsDFpZnvuQxm9xhRIIhiE9EjDg/J2Rne
-	oOW//qtZjgTn0tWZEk5kSbgox/U5HCCDjSXBnwJu6rYGMQI16VbUSniobIejJwiKDlKLRvfsKpY
-	MIZ2b5hEJbc3O4TKEa99n6SyGoS3bTbk+ewS0EsGICiwuv1iHHduJp4s0PoPPa1CLG2QF8MAb7L
-	8F+Emdy1YMTQ+N6IFLseDPrryNgnVFpEyX
-X-Received: by 2002:a05:693c:87d0:20b0:36a:18a:e00f with SMTP id 5a478bee46e88-36a42406487mr7309431eec.34.1793435027965;
-        Sat, 31 Oct 2026 01:23:47 -0700 (PDT)
-X-Received: by 2002:a05:693c:87d0:20b0:36a:18a:e00f with SMTP id 5a478bee46e88-36a42406487mr7309415eec.34.1793435027529;
-        Sat, 31 Oct 2026 01:23:47 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm15329884eec.24.2026.10.31.01.23.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 01:23:47 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Mark Brown <broonie@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
-        Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>,
-        Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-sound@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v3] ASoC: qcom: sc8280xp: Derive TDM channels from DT mask
-Date: Sat, 31 Oct 2026 16:23:18 +0800
-Message-ID: <20261031082318.1146398-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=vCapseRt
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793435426; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=bHdV+uBKMbmZEFk857VJk5Itb2ycFnnVw8kcF5qHilM=;
+	b=vCapseRthEn+lpW/qMBCxKpQUW6kAJOszjON60ngnHOaZicDyB6Z4xCkWmxSrQuPgWbpYSmI2rtF0gUP3gG7BD6vd1enDnCOq/74Txa5YTaWcW6aqp+IuUlZe9TGnReJWYGU4Q0CvEBj/N/eE4UVZEniaiwSqp526JvzczG+vhg=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R111e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=fangyu.yu@linux.alibaba.com;NM=1;PH=DS;RN=28;SR=0;TI=SMTPD_---0XDo-2jU_1793435422;
+Received: from localhost.localdomain(mailfrom:fangyu.yu@linux.alibaba.com fp:SMTPD_---0XDo-2jU_1793435422 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Sat, 31 Oct 2026 16:30:23 +0800
+From: fangyu.yu@linux.alibaba.com
+To: tomasz.jeznach@linux.dev,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	baolu.lu@linux.intel.com,
+	jroedel@suse.de,
+	zong.li@sifive.com,
+	andrew.jones@linux.dev,
+	anup@brainfault.org,
+	jgg@nvidia.com,
+	jgg@ziepe.ca,
+	kevin.tian@intel.com,
+	atish.patra@linux.dev,
+	skhawaja@google.com,
+	vasant.hegde@amd.com,
+	joerg.roedel@amd.com,
+	tanchi25@mails.ucas.ac.cn,
+	gong.shuai@sanechips.com.cn
+Cc: fangyu.yu@linux.alibaba.com,
+	guoren@kernel.org,
+	iommu@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	kvm-riscv@lists.infradead.org
+Subject: [PATCH v6 02/10] iommupt: Add RISC-V Second-stage (iohgatp) page table support
+Date: Sat, 31 Oct 2026 16:30:06 +0800
+Message-Id: <20261031083014.15040-3-fangyu.yu@linux.alibaba.com>
+X-Mailer: git-send-email 2.39.3 (Apple Git-146)
+In-Reply-To: <20261031083014.15040-1-fangyu.yu@linux.alibaba.com>
+References: <20261031083014.15040-1-fangyu.yu@linux.alibaba.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,87 +87,231 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDAzMyBTYWx0ZWRfX2JpOn6tj54rS
- to5p/oOJMlqhIf2zLmb7O3E0xncS0LDZslF5hesnxqIZ+7DBnTHLiHcsrZNArjS+zKoVGSY90La
- oEWi1kYuAc3YVDhmR/H4OFLmXvZHaLM=
-X-Authority-Analysis: v=2.4 cv=V/LoQuni c=1 sm=1 tr=0 ts=6ae5a594 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=IADkTxCLwKcHhP5_0iUA:9 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-GUID: DbHw_AZIkEsuXbsPmsHB3mQwsfPR_yw7
-X-Proofpoint-ORIG-GUID: DbHw_AZIkEsuXbsPmsHB3mQwsfPR_yw7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDAzMyBTYWx0ZWRfX8ZZ/C2a4I855
- EzWcjBcACD0WqYjszBmGRl+59QJ4k+9HN1Bs+y5YpEL1ETX0d8my0fwrS/p8ia7AZZFzMgDJous
- Bi52g4YEkcuiQs0OT7vUj8e9nzjnuTrYBT2aUuKjsdTj4xGLAXfb3SyFTd+VEoyt0Y9AfU04BeY
- 9HNaHK+0mCBXvMXhpWJqNFejWxEI37JimbCpCzTF8WujO2xJhGQpcAwkivznwueY5cG4WSVYCDi
- JKWy8xgLI1QWAPGxN1TkTWa6z91311j84A4YzAI1+kCsx4LRH/wUnT6XMmdSfXJKUtGBLWvMFIl
- udoZ2aESml6FZS88di4t/OE/rGDBsJMPriYoltW6ZrR7+TXF39OuPhHlUJo39z2h3t8la19V04i
- 6qTvFWJmWd2hrPJ8ifZn9UXrxwzn3BpVZ71NwfrgTZ5XkMGrO2ft3BV0BUemTsbLETktk4VQNdK
- iOFxaPopvp4KFuELBHA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-10-31_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 impostorscore=0 priorityscore=1501 bulkscore=0 suspectscore=0
- phishscore=0 spamscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310033
 
-Derive the backend channel count of TDM DAIs from the cpu DAI TDM
-slot mask in the DT, using the same DAI ID ranges and tx/rx mask
-selection as q6tdm_set_tdm_slot(), so the channel count always matches
-the number of slots programmed into the DSP. Each board then gets the
-channel count its dai-link describes, e.g. 4/4 on Nord RRD, 6/4 on
-RIDE. Keep the default of two when the link has no TDM slot
-description, and fail the fixup on an invalid one.
+From: Fangyu Yu <fangyu.yu@linux.alibaba.com>
 
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Add support for Sv39x4/Sv48x4/Sv57x4 Second-stage page tables used by
+the RISC-V IOMMU iohgatp register. The x4 root page table is 16 KiB
+instead of the usual 4 KiB, covering 2 extra GPA bits (hw_max_vasz_lg2
+= 41/50/59).
+
+Signed-off-by: Fangyu Yu <fangyu.yu@linux.alibaba.com>
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 ---
-Changes for v3:
-- Propagate qcom_snd_get_dai_tdm_slots() errors other than -ENOENT
-  instead of silently falling back to two channels (Prasad)
-- Link to v2: https://lore.kernel.org/all/20261029022340.591372-1-shengchao.guo@oss.qualcomm.com/
+ drivers/iommu/generic_pt/fmt/iommu_riscv64.c |   2 +-
+ drivers/iommu/generic_pt/fmt/riscv.h         | 109 +++++++++++++++----
+ include/linux/generic_pt/common.h            |   4 +
+ include/linux/generic_pt/iommu.h             |  11 ++
+ 4 files changed, 102 insertions(+), 24 deletions(-)
 
-Changes for v2:
-- Cover all TDM DAIs (PRIMARY..QUINARY and AIF_TDM ranges), matching
-  q6tdm_set_tdm_slot(), instead of only AIF_TDM_RX_8/TX_8 (Rafi)
-- Link to v1: https://lore.kernel.org/all/20261021025310.2072026-1-shengchao.guo@oss.qualcomm.com/
-
- sound/soc/qcom/sc8280xp.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
-index 9aae6aadd43d..8cc75a7ad866 100644
---- a/sound/soc/qcom/sc8280xp.c
-+++ b/sound/soc/qcom/sc8280xp.c
-@@ -303,6 +303,26 @@ static int sc8280xp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 	channels->min = 2;
- 	channels->max = 2;
- 	switch (cpu_dai->id) {
-+	case PRIMARY_TDM_RX_0 ... QUINARY_TDM_TX_7:
-+	case AIF_TDM_RX_0 ... AIF_TDM_TX_12: {
-+		struct qcom_snd_tdm_slot_cfg cpu_cfg, codec_cfg;
-+		unsigned int mask;
-+		int ret;
+diff --git a/drivers/iommu/generic_pt/fmt/iommu_riscv64.c b/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
+index 1bb74114fb02..fa61839e5599 100644
+--- a/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
++++ b/drivers/iommu/generic_pt/fmt/iommu_riscv64.c
+@@ -8,7 +8,7 @@
+ 	(BIT(PT_FEAT_SIGN_EXTEND) | BIT(PT_FEAT_FLUSH_RANGE) | \
+ 	 BIT(PT_FEAT_RISCV_SVNAPOT_64K) |                      \
+ 	 BIT(PT_FEAT_DETAILED_GATHER) |                        \
+-	 BIT(PT_FEAT_RISCV_SVPBMT))
++	 BIT(PT_FEAT_RISCV_SVPBMT) | BIT(PT_FEAT_RISCV_S2))
+ #define PT_FORCE_ENABLED_FEATURES BIT(PT_FEAT_DETAILED_GATHER)
+ 
+ #include "iommu_template.h"
+diff --git a/drivers/iommu/generic_pt/fmt/riscv.h b/drivers/iommu/generic_pt/fmt/riscv.h
+index ae9a76514416..d4445e463fa9 100644
+--- a/drivers/iommu/generic_pt/fmt/riscv.h
++++ b/drivers/iommu/generic_pt/fmt/riscv.h
+@@ -37,7 +37,16 @@ enum {
+ 	PT_MAX_OUTPUT_ADDRESS_LG2 = 34,
+ 	PT_MAX_TOP_LEVEL = 1,
+ #else
+-	PT_MAX_VA_ADDRESS_LG2 = 57,
++	/*
++	 * PT_MAX_VA_ADDRESS_LG2 is the upper bound accepted by the generic
++	 * pt_iommu_init() range check.  It must cover both first-stage and
++	 * second-stage (G-stage) modes:
++	 *
++	 *   First-stage  (fsc/iosatp): Sv39=39, Sv48=48, Sv57=57
++	 *   Second-stage (iohgatp):    Sv39x4=41, Sv48x4=50, Sv57x4=59
++	 *
++	 */
++	PT_MAX_VA_ADDRESS_LG2 = 59,
+ 	PT_MAX_OUTPUT_ADDRESS_LG2 = 56,
+ 	PT_MAX_TOP_LEVEL = 4,
+ #endif
+@@ -126,6 +135,12 @@ riscvpt_entry_num_contig_lg2(const struct pt_state *pts)
+ 
+ static inline unsigned int riscvpt_num_items_lg2(const struct pt_state *pts)
+ {
++	/*
++	 * It is not allowed to call pt_num_items_lg2() at the top level, this
++	 * API restriction is specifically an optimization avoid overheads
++	 * dealing with concatenated tables here.
++	 */
++	PT_WARN_ON(pts->level == pts->range->top_level);
+ 	return PT_TABLEMEM_LG2SZ - ilog2(sizeof(u64));
+ }
+ #define pt_num_items_lg2 riscvpt_num_items_lg2
+@@ -261,20 +276,41 @@ riscvpt_iommu_fmt_init(struct pt_iommu_riscv_64 *iommu_table,
+ 		       const struct pt_iommu_riscv_64_cfg *cfg)
+ {
+ 	struct pt_riscv *table = &iommu_table->riscv_64pt;
+-
+-	switch (cfg->common.hw_max_vasz_lg2) {
+-	case 39:
+-		pt_top_set_level(&table->common, 2);
+-		break;
+-	case 48:
+-		pt_top_set_level(&table->common, 3);
+-		break;
+-	case 57:
+-		pt_top_set_level(&table->common, 4);
+-		break;
+-	default:
+-		return -EINVAL;
++	unsigned int top_level;
 +
-+		ret = qcom_snd_get_dai_tdm_slots(rtd, &cpu_cfg, &codec_cfg);
-+		if (ret == -ENOENT)
++	if (pt_feature(&table->common, PT_FEAT_RISCV_S2)) {
++		/* Second-stage (iohgatp): Sv39x4 / Sv48x4 / Sv57x4. */
++		switch (cfg->common.hw_max_vasz_lg2) {
++		case 41:
++			top_level = 2;
 +			break;
-+		if (ret)
-+			return ret;
-+
-+		/* Same slot mask selection as q6tdm_set_tdm_slot() */
-+		mask = (cpu_dai->id & 0x1) ? cpu_cfg.tx_mask : cpu_cfg.rx_mask;
-+		if (mask) {
-+			channels->min = hweight32(mask);
-+			channels->max = channels->min;
++		case 50:
++			top_level = 3;
++			break;
++		case 59:
++			top_level = 4;
++			break;
++		default:
++			return -EINVAL;
 +		}
-+		break;
-+	}
- 	case TX_CODEC_DMA_TX_0:
- 	case TX_CODEC_DMA_TX_1:
- 	case TX_CODEC_DMA_TX_2:
++	} else {
++		/* First-stage (fsc/iosatp): Sv39 / Sv48 / Sv57. */
++		switch (cfg->common.hw_max_vasz_lg2) {
++		case 39:
++			top_level = 2;
++			break;
++		case 48:
++			top_level = 3;
++			break;
++		case 57:
++			top_level = 4;
++			break;
++		default:
++			return -EINVAL;
++		}
+ 	}
++
++	pt_top_set_level(&table->common, top_level);
+ 	table->common.max_oasz_lg2 =
+ 		min(PT_MAX_OUTPUT_ADDRESS_LG2, cfg->common.hw_max_oasz_lg2);
+ 	return 0;
+@@ -292,30 +328,57 @@ riscvpt_iommu_fmt_hw_info(struct pt_iommu_riscv_64 *table,
+ 	PT_WARN_ON(top_phys & ~PT_TOP_PHYS_MASK);
+ 
+ 	/*
+-	 * See Table 3. Encodings of iosatp.MODE field" for DC.tx.SXL = 0:
+-	 *  8 = Sv39 = top level 2
+-	 *  9 = Sv38 = top level 3
+-	 *  10 = Sv57 = top level 4
++	 * Both first-stage (fsc/iosatp) and second-stage (iohgatp) share the
++	 * same MODE numeric values for a given top level:
++	 *   top_level 2 -> MODE 8  (Sv39 / Sv39x4)
++	 *   top_level 3 -> MODE 9  (Sv48 / Sv48x4)
++	 *   top_level 4 -> MODE 10 (Sv57 / Sv57x4)
++	 *
++	 * See "Table 3. Encodings of iosatp.MODE field" (DC.tc.SXL = 0) and
++	 * "Table 2. Encoding of iohgatp.MODE field" in the RISC-V IOMMU spec.
+ 	 */
+-	info->fsc_iosatp_mode = top_range->top_level + 6;
++	if (pt_feature(&table->riscv_64pt.common, PT_FEAT_RISCV_S2))
++		info->iohgatp_mode = top_range->top_level + 6;
++	else
++		info->fsc_iosatp_mode = top_range->top_level + 6;
+ }
+ #define pt_iommu_fmt_hw_info riscvpt_iommu_fmt_hw_info
+ 
+ #if defined(GENERIC_PT_KUNIT)
+ static const struct pt_iommu_riscv_64_cfg riscv_64_kunit_fmt_cfgs[] = {
+-	[0] = { .common.features = BIT(PT_FEAT_RISCV_SVNAPOT_64K),
++	/* First-stage (fsc/iosatp): Sv39 / Sv48 / Sv57 */
++	[0] = { .common.features = BIT(PT_FEAT_SIGN_EXTEND) |
++				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
+ 		.common.hw_max_oasz_lg2 = 56,
+ 		.common.hw_max_vasz_lg2 = 39 },
+-	[1] = { .common.features = 0,
++	[1] = { .common.features = BIT(PT_FEAT_SIGN_EXTEND),
+ 		.common.hw_max_oasz_lg2 = 56,
+ 		.common.hw_max_vasz_lg2 = 48 },
+-	[2] = { .common.features = BIT(PT_FEAT_RISCV_SVNAPOT_64K),
++	[2] = { .common.features = BIT(PT_FEAT_SIGN_EXTEND) |
++				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
+ 		.common.hw_max_oasz_lg2 = 56,
+ 		.common.hw_max_vasz_lg2 = 57 },
++	/*
++	 * Second-stage (iohgatp): Sv39x4 / Sv48x4 / Sv57x4.
++	 */
++	[3] = { .common.features = BIT(PT_FEAT_RISCV_S2) |
++				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
++		.common.hw_max_oasz_lg2 = 56,
++		.common.hw_max_vasz_lg2 = 41 },
++	[4] = { .common.features = BIT(PT_FEAT_RISCV_S2),
++		.common.hw_max_oasz_lg2 = 56,
++		.common.hw_max_vasz_lg2 = 50 },
++	[5] = { .common.features = BIT(PT_FEAT_RISCV_S2) |
++				      BIT(PT_FEAT_RISCV_SVNAPOT_64K),
++		.common.hw_max_oasz_lg2 = 56,
++		.common.hw_max_vasz_lg2 = 59 },
+ };
+ #define kunit_fmt_cfgs riscv_64_kunit_fmt_cfgs
++/* Sign extension is only valid for first-stage configs, not S2. */
+ enum {
+-	KUNIT_FMT_FEATURES = BIT(PT_FEAT_RISCV_SVNAPOT_64K),
++	KUNIT_FMT_FEATURES = BIT(PT_FEAT_SIGN_EXTEND) |
++			     BIT(PT_FEAT_RISCV_SVNAPOT_64K) |
++			     BIT(PT_FEAT_RISCV_S2),
+ };
+ #endif
+ 
+diff --git a/include/linux/generic_pt/common.h b/include/linux/generic_pt/common.h
+index 1b39b27f0cfa..a87d8e3dc26d 100644
+--- a/include/linux/generic_pt/common.h
++++ b/include/linux/generic_pt/common.h
+@@ -197,6 +197,10 @@ enum {
+ 	 * Support Svpbmt extension: encode page-based memory type (PBMT) in PTEs.
+ 	 */
+ 	PT_FEAT_RISCV_SVPBMT,
++	/*
++	 * Using second-stage / iohgatp address translation.
++	 */
++	PT_FEAT_RISCV_S2,
+ 
+ };
+ 
+diff --git a/include/linux/generic_pt/iommu.h b/include/linux/generic_pt/iommu.h
+index 13ebb72a67de..59edb5cf9408 100644
+--- a/include/linux/generic_pt/iommu.h
++++ b/include/linux/generic_pt/iommu.h
+@@ -328,7 +328,18 @@ struct pt_iommu_riscv_64_cfg {
+ 
+ struct pt_iommu_riscv_64_hw_info {
+ 	u64 ppn;
++	/*
++	 * First-stage (fsc/iosatp) MODE encoding:
++	 *   8 = Sv39, 9 = Sv48, 10 = Sv57
++	 * Used to program DC.fsc.iosatp.MODE.
++	 */
+ 	u8 fsc_iosatp_mode;
++	/*
++	 * Second-stage (iohgatp) MODE encoding:
++	 *   8 = Sv39x4, 9 = Sv48x4, 10 = Sv57x4
++	 * Used to program DC.iohgatp.MODE.
++	 */
++	u8 iohgatp_mode;
+ };
+ 
+ IOMMU_FORMAT(riscv_64, riscv_64pt);
 -- 
-2.43.0
+2.50.1
 
