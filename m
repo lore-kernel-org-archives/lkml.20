@@ -1,58 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=113.46.200.222
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.19
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793412010;
-	b=Vtq8JyL5Hsru03FsQADVJymqNYGJO7+3ybk20UTvxYO1x4oBxHN+Mv7O/gC3/QlAhDnW
-	 Vom1xIHC+o6Ddot5+jkLA32Ve4vvxHvJEJeuh3dAxMKFCwfqOgGZCslAOxWgGra2BwxTH
-	 zBK1yXg5hXAeTsXtO6ykZD9g4LlRV0PcRDOru56JpOGFOw2h88wdsXdWo5tg6x70ewWdm
-	 gh9+YmaScXSpMAQxgOHN0162cflJrpZonyhD0SCgJ8A24PJglMlwERPnfFpKV/xs584EL
-	 Sj9yXgVIK6bUDDhRXCBAetYQXDIEEP9zC8qV4WWILfH6Y3UdbdeUaedg9ZXgpJRrwtg==
+	t=1793412317;
+	b=FfcpHMrgTGIG/tGcVwR8ZILRNN60rh70spOFJAUXX7NJUfKGKMFJy2uZp5a6Ofqh+JgP
+	 aqzjLIgson0DjzVSLdWRCukD+AgYGLTzYYOGHvX6AXosLyhEIzs8+vI0ivdU9fskRfiMx
+	 5g4N5sZb9IPZ60vsf2Bo9PmZS/TtzQ8T1DCp1BrIHghjFibakzdIHAznr4JYZU1Hd9tfk
+	 cKWhOMfZPTrDDGZ9Wki69DuNSwWE05tkYl8oQmqhbEVToMxxWfLUvnrysMLySo/bL44m9
+	 MW7DYn4kdSdYVEpfVTR9LMBMIRqmPuu/3mbAZ4nmDrNHS3lbhx+CjFvlicN0WtRVbFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793412010;
-	h=DMARC-Filter:dkim-signature:Received:Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:References:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-Originating-IP:
-	 X-ClientProxiedBy;
-	bh=zOEe8PLQN4K7qNjqD6ms1qaRAWIhWTuNuui9A9Hljo4=;
-	b=zXwvW3X2wE2UqI1sNNgKblFskbDVogr9iCKoIjFW8B+67gDV2tGbbBYpnPFRMvV+Dk8+
-	 br0yP8DKcVAX8XItl9NEQ3AWICGlNEPCYgL5ocfhnh/K9XcBndtIe6Vbn3D14evcbviIm
-	 fDiJ8aqaphvIoaSM9hwn6E6lfwSrfFfBwC/JY4dloyLRr/Dzt2YLAgpdqA4jOcFgJA0nv
-	 pqOaD9adoD2jOfOi8Aq5Wia7XkRkQOc/WvSo8i0dZrJG/YP1Xtlv8xEFcu83MjwnK5/w5
-	 6jYKwhHCvHVwsukTzDkoep7BXvXUg8x9zlqX7omLaHknlu9IQIysbN9V+5W51OOOd3A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793412317;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=UlBttvbTfPH6bD8qwAPRvEvBrmgF2s7FgvULNFDejzM=;
+	b=4iYPw+KkNGRqZSl4rXtRVhYqPnfx3RZQMjuVJE3QKGyHXfoNrn6pH/iTF52O6te/CncO
+	 +e8+P2Le2jJg8vKK/AcxgmTeFC7Lj+ZMjaJVbhkS7ucVNbgpeNy6LrcKPPug97UxrByW+
+	 MPKA31N3l6j89vKdcNBCP6BUSeDrD7nc5ymUpuH9SGM7DFkTBMzj0lijje5G7xnChKId2
+	 4swlocQxUbPwWogciGFkfAgSQmrmepDFy9TqIbifxA57zIY516gTjue3GCYhm278SiHCm
+	 2Bnii9Al3zbVL0n8Dlg9AMdMo4kEo/MFLi/dcFzk0s467cRkJxem23nRs6Y8VThQCaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=huawei.com;
-	spf=pass smtp.mailfrom=huawei.com;
-	dkim=pass header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QDGDFZw4;
-	arc=none smtp.remote-ip=113.46.200.222
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr;
+	arc=none smtp.remote-ip=198.175.65.19
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A0B606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 02:00:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54A0B606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56BE7606A31A;
+	Sat, 31 Oct 2026 02:05:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56BE7606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=QDGDFZw4
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=zOEe8PLQN4K7qNjqD6ms1qaRAWIhWTuNuui9A9Hljo4=;
-	b=QDGDFZw4kA5V0eB7p01VrcimtwRHFyKsvQ4we5c74i6mhN1V7Bv+tuXbloCM17DS+d8pvlMLu
-	mved7FVib7+HB/X9o0UB5R4fhwQ3rW7OG4BxU0kO8mMaTcMaTV2lB7sLlQoWcu8tLQdjxtuY1gQ
-	A58HX4f6dMFwmp/+q2DMtjo=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4jGh4D2NkbzLlZ9;
-	Sat, 31 Oct 2026 09:59:56 +0800 (CST)
-Received: from kwepemk200008.china.huawei.com (unknown [7.202.194.74])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7362140586;
-	Sat, 31 Oct 2026 10:00:04 +0800 (CST)
-Received: from [10.67.110.68] (10.67.110.68) by kwepemk200008.china.huawei.com
- (7.202.194.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sat, 31 Oct
- 2026 10:00:03 +0800
-Message-ID: <bec33507-f683-4d52-990c-be520a99f6f1@huawei.com>
-Date: Sat, 31 Oct 2026 10:00:03 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KLrg8JRr
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793412316; x=1824948316;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=rFP0baAiFvMl7x0GJSmUU/DikfJl7LDgkFNhT+TL2Hc=;
+  b=KLrg8JRrl1SoMwcNx0OCYgG/I9AsztINAe6gsGfONLQZ52qcnfpKiTUr
+   vRNrHkjCGdVSEzceaNHV206KcnJYSyM/pnQIJoGa2nGyQh+wOw+mjBQQI
+   rtszkb6lWU+g6jIWAP3wK4hYSWyPyfW9kPIDt8uLqUciXawZR6t658342
+   p04M35eGFcvbNXuWYHyllsBiVP3M7Nk8TW4Cr69hsyL8NMDMYiPVHE0L0
+   c2Z8fNlP20qK5VVu42n1pXD0oNq2UXjkwiSnL7v1v1IDpEQjOFr4tqQD7
+   s3xAIIenj6fub6yYr8ltJkzdL2WnwCwUJFRKpxOkbn9V/jUY05NqiJ64O
+   Q==;
+X-CSE-ConnectionGUID: ErglIwMfTsKL87TGYQRFoA==
+X-CSE-MsgGUID: KXwrt7huRLqxxvi9eRsnVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2210058"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2210058"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 19:05:16 -0700
+X-CSE-ConnectionGUID: rpu8b9TrR9KayjHTgqdWLw==
+X-CSE-MsgGUID: gFTzgCr4SSm7mo8/J3eY3A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5540397"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa004.jf.intel.com with ESMTP; 30 Oct 2026 19:05:10 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xMySw-00000000cRg-0s3X;
+	Sat, 31 Oct 2026 02:05:06 +0000
+Date: Sat, 31 Oct 2026 10:04:26 +0800
+From: kernel test robot <lkp@intel.com>
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sandy Huang <hjc@rock-chips.com>,
+	Heiko =?iso-8859-1?Q?St=FCbner?= <heiko@sntech.de>,
+	Andy Yan <andyshrk@163.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-riscv@lists.infradead.org, Icneowy Zheng <uwu@icenowy.me>,
+	Han Gao <gaohan@iscas.ac.cn>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: Re: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host
+ controller
+Message-ID: <202610311004.6oZFiXBi-lkp@intel.com>
+References: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,156 +105,128 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 RESEND 06/15] fs/resctrl: Unmount resctrl with the CDP
- state it was mounted with
-To: Ben Horgan <ben.horgan@arm.com>, <tony.luck@intel.com>,
-	<reinette.chatre@intel.com>, <Dave.Martin@arm.com>, <james.morse@arm.com>,
-	<babu.moger@amd.com>, <tglx@kernel.org>, <mingo@redhat.com>, <bp@alien8.de>,
-	<dave.hansen@linux.intel.com>, <hpa@zytor.com>, <fenghuay@nvidia.com>,
-	<tan.shaopeng@fujitsu.com>, <zengheng4@huawei.com>, <jic23@kernel.org>,
-	<gshan@redhat.com>, <catalin.marinas@arm.com>, <x86@kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20261020134239.3921377-1-ruanjinjie@huawei.com>
- <20261020134239.3921377-7-ruanjinjie@huawei.com>
- <8f6fdcad-912d-49f6-babe-e428290f0cce@arm.com>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <8f6fdcad-912d-49f6-babe-e428290f0cce@arm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200008.china.huawei.com (7.202.194.74)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f@iscas.ac.cn>
+
+Hi Icenowy,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on c03c1a14507dfaf8b856c2608f9ac216021fc222]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Icenowy-Zheng/dt-bindings-display-bridge-document-TH1520-MIPI-DSI-controller/20261030-154749
+base:   c03c1a14507dfaf8b856c2608f9ac216021fc222
+patch link:    https://lore.kernel.org/r/20261030-th1520-dw-mipi-dsi-v1-3-753f34fd304f%40iscas.ac.cn
+patch subject: [PATCH 3/3] drm/bridge: add TH1520 DesignWare MIPI DSI host controller
+config: arm64-randconfig-1001-20261031 (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project c2ea4440d4b64c148de4fdfca1fc2c437a0701e4)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610311004.6oZFiXBi-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610311004.6oZFiXBi-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:445:22: warning: variable 'ret' is uninitialized when used here [-Wuninitialized]
+     445 |                 dev_err_probe(dev, ret, "Unable to get DSI registers\n");
+         |                                    ^~~
+   drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c:428:12: note: initialize the variable 'ret' to silence this warning
+     428 |         int i, ret;
+         |                   ^
+         |                    = 0
+   1 warning generated.
 
 
+vim +/ret +445 drivers/gpu/drm/bridge/th1520-dw-mipi-dsi.c
 
-在 2026/10/26 23:08, Ben Horgan 写道:
-> Hi Jinjie,
-> 
-> On 20/10/2026 14:42, Jinjie Ruan wrote:
->> From: Zeng Heng <zengheng4@huawei.com>
->>
->> resctrl disables CDP before the control and monitor groups are torn down
->> on unmount. The architecture translates between CLOSID and PARTID using
->> the CDP state, so the RMIDs freed by rmdir_all_sub() and
->> resctrl_fs_teardown() are parsed with the wrong mapping. On arm64 the
->> RMID limbo handler can still be running, and a CLOSID left in the limbo
->> list is re-interpreted with the CDP state of the next mount. Enabling
->> CDP doubles the CLOSID on arm64, which can push the stale value out of
->> range and take an MPAM error interrupt.
->>
->> Disable CDP after the groups have been torn down, so every CLOSID freed
->> on unmount is parsed with the CDP state it was allocated under. Return
->> the RMIDs still in limbo to the free list and stop the worker, so
->> nothing carries over to the next mount.
->>
->> Cc: Tony Luck <tony.luck@intel.com>
->> Cc: Reinette Chatre <reinette.chatre@intel.com>
->> Cc: Dave Martin <Dave.Martin@arm.com>
->> Cc: James Morse <james.morse@arm.com>
->> Cc: Babu Moger <babu.moger@amd.com>
->> Signed-off-by: Zeng Heng <zengheng4@huawei.com>
->> Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
->> ---
->>  fs/resctrl/rdtgroup.c | 46 +++++++++++++++++++++++++++++++++++++++++--
->>  1 file changed, 44 insertions(+), 2 deletions(-)
->>
->> diff --git a/fs/resctrl/rdtgroup.c b/fs/resctrl/rdtgroup.c
->> index 5dcbb0a964e8..40821cf07649 100644
->> --- a/fs/resctrl/rdtgroup.c
->> +++ b/fs/resctrl/rdtgroup.c
->> @@ -3145,6 +3145,41 @@ static void resctrl_fs_teardown(void)
->>  	rdtgroup_destroy_root();
->>  }
->>  
->> +/*
->> + * The RMID limbo handler keeps running after unmount. Any CLOSID still in
->> + * limbo would be re-interpreted with the CDP state of the next mount. MPAM
->> + * doubles CLOSID when CDP is enabled, which can push the stale value out of
->> + * range. Force the limbo list back to the free list before the CLOSID state
->> + * is torn down.
-> 
-> If the limbo list is being emptied then the limbo handler is effectively not being run. This is a
-> reduction of functionality of resctrl. We either need a way to keep it running or rebuild the list
-> at mount. There was some discussion at
-> https://lore.kernel.org/all/20260413085405.1166412-2-zengheng4@huawei.com/
+   420	
+   421	static int th1520_dw_mipi_dsi_probe(struct platform_device *pdev)
+   422	{
+   423		const struct dsi_chip_data *cdata;
+   424		struct device *dev = &pdev->dev;
+   425		struct th1520_dw_mipi_dsi *dsi;
+   426		struct resource *res;
+   427		void __iomem *base;
+   428		int i, ret;
+   429	
+   430		dsi = devm_kzalloc(dev, sizeof(*dsi), GFP_KERNEL);
+   431		if (!dsi)
+   432			return -ENOMEM;
+   433	
+   434		dsi->dev = dev;
+   435	
+   436		dsi->syscon = syscon_regmap_lookup_by_phandle(dev->of_node, "syscon");
+   437		if (IS_ERR(dsi->syscon)) {
+   438			ret = PTR_ERR(dsi->syscon);
+   439			dev_err_probe(dev, ret, "Unable to get system controller regmap\n");
+   440			return ret;
+   441		}
+   442	
+   443		base = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+   444		if (IS_ERR(base)) {
+ > 445			dev_err_probe(dev, ret, "Unable to get DSI registers\n");
+   446			return PTR_ERR(base);
+   447		}
+   448	
+   449		cdata = of_device_get_match_data(dev);
+   450		i = 0;
+   451		while (cdata[i].reg) {
+   452			if (cdata[i].reg == res->start) {
+   453				dsi->cdata = &cdata[i];
+   454				break;
+   455			}
+   456	
+   457			i++;
+   458		}
+   459	
+   460		if (!dsi->cdata) {
+   461			dev_err(dev, "Failed to find chip data for this controller\n");
+   462			return -EINVAL;
+   463		}
+   464	
+   465		dsi->clk_ref = devm_clk_get_enabled(dev, "ref");
+   466		if (IS_ERR(dsi->clk_ref)) {
+   467			ret = PTR_ERR(dsi->clk_ref);
+   468			dev_err_probe(dev, ret, "Unable to get PHY reference clock\n");
+   469			return ret;
+   470		}
+   471	
+   472		dsi->clk_cfg = devm_clk_get_enabled(dev, "phy_cfg");
+   473		if (IS_ERR(dsi->clk_cfg)) {
+   474			ret = PTR_ERR(dsi->clk_cfg);
+   475			dev_err_probe(dev, ret, "Unable to get PHY configuration clock\n");
+   476			return ret;
+   477		}
+   478	
+   479		dsi->clk_pix = devm_clk_get(dev, "pixel");
+   480		if (IS_ERR(dsi->clk_pix)) {
+   481			ret = PTR_ERR(dsi->clk_pix);
+   482			dev_err_probe(dev, ret, "Unable to get PHY pixel clock\n");
+   483			return ret;
+   484		}
+   485	
+   486		dsi->pdata.base = base;
+   487		dsi->pdata.priv_data = dsi;
+   488		dsi->pdata.max_data_lanes = 4;
+   489		dsi->pdata.phy_ops = &th1520_dw_mipi_dsi_phy_ops;
+   490		dsi->pdata.mode_valid = dsi_mode_valid;
+   491	
+   492		platform_set_drvdata(pdev, dsi);
+   493	
+   494		dsi->dmd = dw_mipi_dsi_probe(pdev, &dsi->pdata);
+   495		if (IS_ERR(dsi->dmd)) {
+   496			ret = PTR_ERR(dsi->dmd);
+   497			dev_err_probe(dev, ret, "Failed to initialize mipi dsi host\n");
+   498			return ret;
+   499		}
+   500	
+   501		return 0;
+   502	}
+   503	
 
-Hi Ben,
-
-Thank you for the reminder, will update the patch based on the
-discussion and your new suggestion.
-
-> 
-> This is a fs/resctrl patch that doesn't directly relate with the subject of the series and so
-> unlikely to get much attention from the resctrl maintainers. If you respin I'd suggest posting this
-> separately. I note that Tony Luck has a patch in the same area, [1].
-
-Thank you! I will notice Tony's patch and post next version separately.
-
-> 
-> [1] https://lore.kernel.org/lkml/20260928221509.68002-14-tony.luck@intel.com/
-> 
-> Thanks,
-> 
-> Ben
-> 
->> + */
->> +static void rdt_flush_limbo(void)
->> +{
->> +	struct rdt_resource *r = resctrl_arch_get_resource(RDT_RESOURCE_L3);
->> +	struct rdt_l3_mon_domain *d;
->> +
->> +	if (!IS_ENABLED(CONFIG_RESCTRL_RMID_DEPENDS_ON_CLOSID))
->> +		return;
->> +
->> +	if (!resctrl_is_mon_event_enabled(QOS_L3_OCCUP_EVENT_ID))
->> +		return;
->> +
->> +	list_for_each_entry(d, &r->mon_domains, hdr.list) {
->> +		if (!has_busy_rmid(d))
->> +			continue;
->> +
->> +		/*
->> +		 * The limbo handler acquires rdtgroup_mutex. Release it
->> +		 * here to allow the handler to complete, then reacquire
->> +		 * to maintain lock ordering for __check_limbo().
->> +		 * This matches the pattern used in resctrl_offline_cpu().
->> +		 */
->> +		mutex_unlock(&rdtgroup_mutex);
->> +		cancel_delayed_work_sync(&d->cqm_limbo);
->> +		mutex_lock(&rdtgroup_mutex);
->> +		__check_limbo(d, true);
->> +	}
->> +}
->> +
->>  static void resctrl_unmount(void)
->>  {
->>  	struct rdt_resource *r;
->> @@ -3152,13 +3187,20 @@ static void resctrl_unmount(void)
->>  	cpus_read_lock();
->>  	mutex_lock(&rdtgroup_mutex);
->>  
->> -	rdt_disable_ctx();
->> -
->>  	/* Put everything back to default values. */
->>  	for_each_alloc_capable_rdt_resource(r)
->>  		resctrl_arch_reset_all_ctrls(r);
->>  
->>  	resctrl_fs_teardown();
->> +	rdt_flush_limbo();
->> +
->> +	/*
->> +	 * Clear the CDP state last. free_rmid() translates between CLOSID and
->> +	 * PARTID using the CDP state; clearing it first would make the
->> +	 * translation inconsistent for the RMIDs being torn down.
->> +	 */
->> +	rdt_disable_ctx();
->> +
->>  	if (resctrl_arch_alloc_capable())
->>  		resctrl_arch_disable_alloc();
->>  	if (resctrl_arch_mon_capable())
-> 
-
--- 
-Best regards,
-Jinjie
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
