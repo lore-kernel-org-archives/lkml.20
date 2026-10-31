@@ -1,71 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793408169;
-	b=rC4GZFuhKN+iuR0LGzIapLHuojyUiaE7z1j3iSBdm0JHi/WKjt3uyvWZz2+XK22IQRgo
-	 zGTbVuB9FaX3XoXBSP3Pv/leta87OCfNrM2ZZPp77zZ4J3QZ9GrOpIcX8bnOAYoBgcWsM
-	 iDdxJOnK67FrG0gjsEJP8BBd/PjSmQiFByJrEpiYTDCzhGmTRzaqOlsY8m94iBKkGMw1P
-	 iwD+4lRvNaJ0JF6mJzJ5xFFrY9Ivh0h0RfCDnLRN3CbdWxgSpRfvmiqMRKRHJsQ75h765
-	 MUPRciQiR44NC58P6xiYU8HjJ5YQiJ0k9Pd1ogiVyHkETHSSibrETq8gplK5JUEUJ9Q==
+	t=1793408244;
+	b=nmvO6n5BwwQ7ZgXLwJB3wbsuh1SxTy1RGEykQqqIuGOKziGGQRWwSIiQCRVu4tz1sAY5
+	 NiCaPCP9UoOnsK2oM/5dN5kwdOdo1pjY1rlKyMJTHQIeneVAUFarevasw0kUt+0VSk5sk
+	 ZFDbjTnepodb4m4drJ6GzPbH4tsatTi2lK9a8ZEgmMdSzXk3E8dAVF6IZP6bK+DiLkKL1
+	 toF3TxeFMxaJEAL/t99pvi1dqWXjoxDtD76rVPDbOHzAzMEcdSoHCaxZ0JiBAyB+DcaSg
+	 cO2I3MOeLcTq2bIukgIvmGpaq36tBsOMKlJFI2qwFe4rmLxN0iqCleBU8jka/oSt6uA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793408169;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=NNZ0jWpXyvTAI1fGB9HbbXYilWwVTrHzAZcnT/C24Ac=;
-	b=aeaZIpZj9Dcnjf50Fgr7h9VETg3Kellr/V4p43lI8DgO998DTccrLfh4ocKow77aJjMr
-	 VSLdEwFytwzUN4hqetK5dKOjfoCLE+CBVAHguxh3MAS66JiC0+1vOxHv6gwayvKDVXK7m
-	 /JEsh6/uMkZ1y8sJAlxZUfxCPOrgFYuwFkjQZ50GfrnTF69p9zM7/dGJLSlzEJG04l/vX
-	 46Z9EKi8WJ66noTsU4LktVslkCxZnsRVdmkFDjOqhXtptPCVinHwDnBLlOeAEYMVhrOUu
-	 LwJu9O4e+oQ4aJ/IBmCVrT5h7CvTCaW2xwTyVIOUSIz5ct9Wz/fd4rNoRC0FBQJHzwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793408244;
+	h=Received:DKIM-Signature:To:Cc:Subject:From:In-Reply-To:Message-ID:
+	 References:Date:MIME-Version:Content-Type;
+	bh=1a5ba9El8uBtN9AyapEO4moFvUDWJExS3FAAfaGjoFQ=;
+	b=OS1ZT3lxLN5jgpbY4L2RFLa81Va+GVA+9YSiRQv2ZXGVquOTbGaQvWGmROocZId6mHwi
+	 m9jtynk5D4RzpBUSCySOwUGqO9jvHCGEmSE1Ta97CxvazxI8G5u9JlU03lOR7r3VXk27t
+	 fZopPHU7SdbqtdvYcF0dTZPS64u5b2m1+HUpFR4UpKZGvo0QcOJ6DQmqiepbOGdufNzoD
+	 wGVP4nYMQXG8CTNadYroA9RgrsXFdCaY3wPkVvEh/g0xWTZt2qak7YI4qjY2xe923m92s
+	 vOh88c05U93ZPOHayZBY50CYcGR3HFbk4IAe1IuIZSfJc5cgpG/huYXEsdv2bws0V+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b="RWB/ouch";
-	arc=none smtp.remote-ip=198.137.202.133
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AggrhFrB;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445EF606A31A;
-	Sat, 31 Oct 2026 00:56:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 445EF606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15211606A31A;
+	Sat, 31 Oct 2026 00:57:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=RWB/ouch
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=NNZ0jWpXyvTAI1fGB9HbbXYilWwVTrHzAZcnT/C24Ac=; b=RWB/ouchWeYcNlfYevA/mj7l9N
-	cXBd9jmS0mL/cCVzaorN/VcfjaeExVPwuO0LbceCUiGeqGCEij0CLT5Ovi8h501hFGB70Kh2Ggi3P
-	aapHxvhOQ4B7J0PQn97CMaQwoJZgYWp8wBUwVrAmTxrE5Z9COzjOnpUNnV8NyWpBgpCTCOCnTr6bN
-	6AZsN6OCZl32yis0lLPscYGyMJ5nm3vo+sKP+SvRto8LQam2FWXxXJeERxnAgMQL4AoooO1tIyQFF
-	AXZAU8gYN4FMtVGGhRLtmvP+HZTHXiVAoY5Efs/iYK0KQXINtj/+co/ipfhw5exzZJKYAxdZkhpdy
-	1OlossLw==;
-Received: from [38.23.173.23] (helo=localhost)
-	by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xMxOA-0000000CoBp-1cwP;
-	Sat, 31 Oct 2026 00:56:06 +0000
-Date: Fri, 30 Oct 2026 20:56:03 -0400
-From: "Liam R. Howlett (Google)" <liam@infradead.org>
-To: Uladzislau Rezki <urezki@gmail.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>, 
-	Michal Hocko <mhocko@suse.com>, Baoquan He <bhe@redhat.com>, 
-	Alexander Potapenko <glider@google.com>, Andrey Ryabinin <ryabinin.a.a@gmail.com>, 
-	Marco Elver <elver@google.com>, Michal Hocko <mhocko@kernel.org>, 
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Thomas Graf <tgraf@suug.ch>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	maple-tree@lists.infradead.org, Lorenzo Stoakes <ljs@kernel.org>, Chris Mason <mason@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Ballance <andrewjballance@gmail.com>, 
-	stable@vger.kernel.org, "David Hildenbrand (Arm)" <david@kernel.org>
-Subject: Re: [PATCH 4/4] rhashtable: fix vmalloc() deadlock in atomic rehash
-Message-ID: <urkgmijyytg3rrislm5fdzmfggqavzpiry23f6lpkqonvy2tqx@d56stj3eixfa>
-References: <20261028154218.1668182-1-liam@infradead.org>
- <20261028154218.1668182-5-liam@infradead.org>
- <auKshDXKQXt1kvjy@gondor.apana.org.au>
- <auMbCuecFeRmBFSK@pc636>
- <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AggrhFrB
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CE91F0093A;
+	Sat, 31 Oct 2026 00:57:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793408243;
+	bh=1a5ba9El8uBtN9AyapEO4moFvUDWJExS3FAAfaGjoFQ=;
+	h=To:Cc:Subject:From:In-Reply-To:References:Date;
+	b=AggrhFrBsxok3D29cccMsbgApZLfswqob6dJ3inMlPhvQ5Wxc5qcHH3johwx8NIX8
+	 KZ4g7IDhKabQy0QpG+nrS9C3q6SJIz3OBXa2Nv6BZFkiIvwqfqUL3jfLOPmDtqtXtB
+	 rmD34OgJi+v3pe4yht9pyLnXuQG1tEdpOmsGQfvHWbF+qprsIcDluUjo8eiBhOODbm
+	 aRzCTfAgpNyxnhlIdywLcpiQXRGty5UHH8n8c8o6U2DYoC0/OcLyg+ZKxz6uUeXj89
+	 jDUHadn9TYlbKxcZRjfLIbWb3j5ZGnjiRflGiL9JRAfweLmTIXeu99dBDaFZmXSNpo
+	 0Y06sa4nhwEzg==
+To: vince@palmit.com.au
+Cc: linux-scsi@vger.kernel.org,  sathya.prakash@broadcom.com,
+  sreekanth.reddy@broadcom.com,  suganath-prabu.subramani@broadcom.com,
+  ranjan.kumar@broadcom.com,  James.Bottomley@HansenPartnership.com,
+  mkp@kernel.org,  MPT-FusionLinux.pdl@broadcom.com,
+  linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] scsi: mpt3sas: Register devices during SANITIZE
+From: "Martin K. Petersen" <mkp@kernel.org>
+In-Reply-To: <20261020210856.42835-1-vince@palmit.com.au>
+Message-ID: <yq1y0be3cwt.fsf@mail.kernel.org>
+References: <20261020210856.42835-1-vince@palmit.com.au>
+Date: Fri, 30 Oct 2026 20:57:22 -0400
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,99 +60,20 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <jfvq7vkx73vzp2ukq6nwnb3v3g2ezdcyppba4oa5lpzmz6ls6t@akc46gonndgy>
+Content-Type: text/plain
 
-On 26/10/29 10:54AM, Liam R. Howlett (Google) wrote:
-> 
-> Sorry for missing the ML in my initial email, I missed it from
-> get_maintainers.  I should have really clued in with such a small cc
-> list ;)
-> 
-> On 26/10/29 11:08AM, Uladzislau Rezki wrote:
-> > On Thu, Oct 29, 2026 at 10:16:36AM +0800, Herbert Xu wrote:
-> > > On Wed, Oct 28, 2026 at 11:42:18AM -0400, Liam R. Howlett (Google) wrote:
-> > > >
-> > > > Below, one CPU adds an FDB entry for an RTM_NEWNEIGH netlink request,
-> > > > while another CPU is inside vmalloc() or vfree():
-> > > > 
-> > > >     RTM_NEWNEIGH                      vmalloc() or vfree()
-> > > >     ============                      ====================
-> > > >     spin_lock_bh(&br->hash_lock)
-> > > >                                       spin_lock(&vn->busy.lock)
-> > > >     rhashtable_insert_rehash()
-> > > >       kvmalloc(GFP_ATOMIC)
-> > > >         vmalloc()
-> > > >           spin_lock(&vn->busy.lock)
-> > > >             waits for the other CPU
-> > > >                                       softirq: a frame for the bridge
-> > > >                                         spin_lock(&br->hash_lock)
-> > > >                                           waits for RTM_NEWNEIGH
-> > > 
-> > > I think this is a fundamental bug in the kvmalloc non-blocking
-> > > support patch.  How can it be used at all if it is susceptible
-> > > to such dead-locks?
-> > > 
-> > > And if you can't use it safely why don't we just get rid of the
-> > > broken kvmalloc non-block path and have it always go to kmalloc
-> > > like it did before?
-> > >  
-> > If we have a look at this as we did not have vmalloc() here:
-> > 
-> > 
-> >      RTM_NEWNEIGH                      foo() or ...
-> >      ============                      ====================
-> >      lock_bh(&br->hash_lock)
-> >                                        foo()
-> >                                         lock(B)
-> >      rhashtable_insert_rehash()
-> >          foo()
-> >            lock(B)
-> >              waits for the other CPU
-> >                                        softirq: a frame for the bridge
-> >                                          lock(&br->hash_lock)
-> >                                            waits for RTM_NEWNEIGH
-> > 
-> > Same issue?
-> 
-> Looks like it to me.
-> 
-> > 
-> > I have a question:
-> > 
-> > GFP_ATOMIC/GFP_NOWAIT guarantee they do not sleep. Do they guarantee
-> > not hitting ABBA dead-locks or they are not interrupted?
-> 
-> GFP_ATOMIC and GFP_NOWAIT can be interrupted.  It's more about not
-> waiting for reclaim (kswapd might still run) and GFP_ATOMIC might dip
-> into reserves.
-> 
-> The issue is that kvmalloc() now falls back to vmalloc() for
-> non-blocking flags (I am restating this to make sure I'm not missing
-> something here, please correct me).
-> 
-> So this changes what is called internal to rhastable so it doesn't reach
-> vmalloc(), like before, if the caller cannot block - they go to
-> kmalloc() with the old fall back.
-> 
-> I *think* the question is if the change should be here in the caller,
-> internal to mm, or a new call to opt-in.
-> 
-> Considering this is the only kvmalloc() caller that forwards
-> non-blocking gfp from BH lock + softirq context, I think that it makes
-> sense to do it in the caller.
-> 
-> Given where we are in the release, this fixes a real issue that can
-> happen so maybe we take this now and settle the general handling later?
 
-Hubert, I have another version of this patch set to send out, but this
-particular patch remains the same.
+> A SAS disk being sanitized responds to TEST UNIT READY with NOT READY,
+> ASC 0x04, ASCQ 0x1b. mpt3sas discovery maps this sense to
+> DEVICE_START_UNIT and issues START UNIT repeatedly. The drive stays
+> NOT READY until the sanitize operation completes, causing discovery to
+> exhaust its retry budget and decline SCSI device registration.
+>
+> Allow registration only for the SANITIZE IN PROGRESS sense, so sd/sg
+> can expose the target while retaining its actual NOT READY state. All
+> other sense dispositions are unchanged.
 
-Are you okay with keeping it the way it is for this release?
+Applied to 7.4/scsi-staging, thanks!
 
-I don't want to force your hand but I also don't want to keep a valid
-deadlock scenario in-tree.
-
-Thanks,
-Liam
+-- 
+Martin K. Petersen
