@@ -1,99 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793468406;
-	b=KQXyOmWzAemNq3mH3OfarnOEja7wwHDFcFQJAiQBeTqXYxV98wb6Ss5M8i/B7pDA9Qnq
-	 EeGYAz8Val4s3wLTHt/Wjpp9nVrlEUbIe5RfFQujVdQSaXHg4MxAmome5Hq/JkKeJdeuD
-	 MYPIzCOsVPJgbYDelFXTOYDf6a7H87vaNctVVH+hukLIXQEXPQpB2O6RUMdpIy9Ka1QJx
-	 RorzE81fnMPlUvE4XRntuTLlhwdLmDl06HbRebrPjQIi5Ce064trQz7B8AiIsNcf4lawD
-	 D+m1rw/mQc+cLzPsdgGFjekz5AgLv/YbXxwuA1tNQHbPpbpvsOpQLcCPEbUPEb8RKSg==
+	t=1793468434;
+	b=A0q8R7beusEZTZ0EYWz6fY84YC4QLyMrHRKOQIOmWb4ppvmmAP/QjvfxjXhdJdRrErhl
+	 KdLCJYKrEpJ9fqClX1m9UvWkYABMIYT2p+R8O5s+pA/bMTBAWJuODyai+ZcQ9i7hXUqgE
+	 rI/j6ljaoR3ls5WtgR/sJLtZtITwEID5mawQm2XkqaQvdF/Fx5fHrecpD7s6wrwpUIqIM
+	 8wmltHp40W2Qx7ckdsfVUTH4aglUIyLx46AUs3md8NtxuRWBWcxgwCL8f24qDe0SJdU3s
+	 9cX4XVlqV+CDeDGKGZygAa9frFbA2uEB68Kqdlta2+ADXnP5sN6XTgLqwn1z+DzcYEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793468406;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
-	b=dnbt7xVb7ZXq+VMJ6R8Oh9zHQxfnGgUWoQWy591/kGTkakLAepbbd9WfWvEXUlszrUnp
-	 zNiM/HeTnXBCpu0vAUaS7PpV3gQUfpt1aoYThf9Ze7xybLiGiOOzC0xzf4TraO0+YGmmX
-	 EFcgS4IWjBOaVTBPnCHGJIWjGyORmF3AT5xz3OK9ZMJF6ioeyAeFg4AbzQcjDtXtRJt45
-	 g62nnyekjPQs0XuRu592TUYuc6f2aOKddP31gEniE/JML2fbGTRR4L4gWsrcATxw3YvIE
-	 0BJBxfO5HatGti9brURJzqaFcxhCPQdH48EO0E5UU7MtGzA6Jmjr4VUzjT9QWv0tS9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793468434;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=+7k1NaGz5TOnOiTpgvvEXdv7k27RwmSfbCON8FW0kxw=;
+	b=SxDQRZkKnpexya9mbt4/pkpJBskt459auzH+lbZI1y6SBxm1IDHUeuHA93LVfUQ0ZUI9
+	 lWr3sKRadofcSco3mz4ZWp6RiPmGh993EXYI9iZfxdsuc6AU67awZ5rpQJ+34LahvKFPi
+	 bF5B5K+YTG8WLHXSTTUObTANup+g6SgegrFZobD1kjS0qBpbaQVQmmzrPRLH4elkPcfiA
+	 sPgXWyfCQ6BLP+KPXTNztmFPiJuZIUBRz9gO2eyUCBsCtn+WhYXnuHOG4vP25+XTBU3Ky
+	 LuqEVGdpYF6CvAQcrmyg0popW46uR1gKwGNJ49tVWtikdX8mVUR5XXX4vvsFyUBwu7g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="JGRW/2AM";
-	arc=none smtp.remote-ip=74.125.82.169
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="JDN8500/";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7FF0606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:40:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7FF0606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D359B606A31C;
+	Sat, 31 Oct 2026 17:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=JGRW/2AM
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so3047224eec.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:40:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793468405; x=1794073205; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
-        b=JGRW/2AMeLNySqBe7BDRSGF8sZGlwaRlOclOiqJeJl6Gn6CSX+8lZHX+1zvL1qGGCm
-         WGWgUP1m8VfPe2MSWHHtUqNOqVxwDeWHJkwy3GLSIlOnm6C1fINb47is5eX5lXLvW3PU
-         OHlwOEJRw6uOf/taRkZwpwOHN3bf/P9Th7X4YrEaO1doceMhAhEngG5c8wYLDKFbYhBu
-         g7UngjbOyEdba+Rzo7rnzLRD6hiOwH84SzdDJ4xr3iQo5eGQAh8LPGvLAZhCizOgEbEq
-         7KXgrQhDayXGbFetoF+HFvxTtyh/Zrl/cKdMtljRm0bheY23Un/jpLCIa7whQWD3c/gw
-         whVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793468405; x=1794073205;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h+VQh/AmL38ZCMvqzeydsTBuUNxyHdWMzBjWeSKxMc0=;
-        b=qeYW/JiPZGCPSoptiUQrkLZN/LNK/qsQs1lkbUcx/l4jLq4yVvI1woOizUGvEkMfOs
-         9CMJSH4ZgoYnd8r3GmBNzVZsiwKtj7XBIOs3yytmMqo99s6xVt7t+CzbHWaKzG1z0+nM
-         ms2X1m2MZNp50Zls7m5fg3Fw1hd6OgCHOYPf8gpv1a8GwYPeWmXzQdnyIXD/yglIMwpr
-         9J8zEtjAFFAvzBsj19iHKQe0I3s2dkD4E1fuZuDDsFMOs3XOKd+VozraLPFeRo5NzUri
-         NIPx7lPR/2dPCFJOZt4nPqO4wCllPsXnA/dkrgIKoAeccFji7OY4Ro5VzWEUTASI9f4g
-         mtRg==
-X-Gm-Message-State: AFq9FYJ64elgmKhOK03CZUPQ0DeKHOSiZkgYdkFzYdfG1aX7ZhqXQMMb
-	qJxVXVpmSNZHsaUaRAxqqjTTYpJNS5jpY2CAAHsFIn81U7rduprjrpEl
-X-Gm-Gg: AYBFou3OT+gPTxTb1l/5ajX/0RWySy2seGwlMA54QBPn9BMBX1HMFfFQVo+NpgaiyHQ
-	9p65XKinaSGbS1MzZMf9TkFZTTOnzIBf3fWDqDLKnwA8zw2q+7M5vig9uMxguDS3qFvdUEZCUQ6
-	8yiAzLnVmCXq+8e0yryLVW4B+D3wjAm1zzNTWwfKlbySuW6OihAfOARHZ0pvAfzaNHAJFkCC1id
-	DG7a3U8qE7Rta05ppgLAN/SrCWqPqaGuYU31g8QQ5jzYtURGDIWYumvXjMbUJVKbrJSBTTSEsNk
-	VBsfBLwaAm/QSKPbN7wEBItKAlWSQyNZmfRS3YQ2lsAVe8amo791c8MrmuZ+QoP28isvBZjIaBo
-	0CoMD/KCuz14FxJneuRFPac4V2H5a9YauqHQPKHfvLOkinwpzkz4SXXSbvVaIJAOutwQ23ODpos
-	sQ5/oiL97vNDuodczN77PK/LBFWxod2wZ/0gQbD31gCBAK1fQmOQIfFTm3hmVul33F7s60qKqe5
-	7IDEYb5lN5OmO3F653AR080Ekh6Hz9I4LXtbZnzLhEi+YSWCS9i4+9WD88Ue8OiLcdRh/uPbdp2
-	9VHmQA560tkzZ0lrymnf7L2nH/Ta3s31Cn7vl0qWCXoEtQ==
-X-Received: by 2002:a05:7301:6787:b0:361:306f:c32a with SMTP id 5a478bee46e88-36a42345b05mr10664935eec.11.1793468404548;
-        Sat, 31 Oct 2026 10:40:04 -0700 (PDT)
-Received: from localhost.localdomain ([2406:7400:51:284f:c2b6:f9ff:fe77:10a0])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a96172sm17207026eec.27.2026.10.31.10.39.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 10:40:04 -0700 (PDT)
-From: Amaan Cheval <amaan.cheval@gmail.com>
-To: netdev@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Amaan Cheval <amaan.cheval@gmail.com>,
-	stable@vger.kernel.org,
-	Joshua Washington <joshwash@google.com>,
-	Harshitha Ramamurthy <hramamurthy@google.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Zhiling Zou <zhilinz@nebusec.ai>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	Kuniyuki Iwashima <kuniyu@google.com>
-Subject: [PATCH net] gve: leave refcount headroom in the RX page bias
-Date: Sat, 31 Oct 2026 23:04:43 +0530
-Message-ID: <20261031173449.2439047-1-amaan.cheval@gmail.com>
-X-Mailer: git-send-email 2.49.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JDN8500/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A38571F000C1;
+	Sat, 31 Oct 2026 17:40:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793468433;
+	bh=+7k1NaGz5TOnOiTpgvvEXdv7k27RwmSfbCON8FW0kxw=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=JDN8500/3P01cYmIsV8CpwYjOiXOUz0EXUq3PVUNx3UQEgfh079uahNBYdsdnp7xd
+	 9Z0PxyBRM0ydrsTs18AviGmMAR/WZ2bgPvgHQa5LgMWMQEnJmC2s0GllDuEHOXUG5m
+	 tQG3Q7Fcz7mFT3Xm36W+WChrVIO1gvC1aERSBIc/bUjif+jXwykHli1gmykhSNXjts
+	 h0E9r/kk4a1J3B+/QyTs56S4JwipW8ZK4WahKjbdMLm4uc/L8/T6k/n7Sa/m95XGvP
+	 PTNbkjtJibfDvtEceuvAC6lbElu8kpf35yeFtzfc7hdF3//I9B5z9XYff6hIYLQle+
+	 7m4LvgHHUrtiA==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,161 +49,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] Revert "phy: qcom: qmp-pcie: Skip PHY reset if already
+ up"
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Michael Burch <me@michaelburch.net>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>, 
+ Qiang Yu <qiang.yu@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ regressions@lists.linux.dev
+In-Reply-To: <20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net>
+References: <20261013-qmp-pcie-skip-reset-revert-v1@michaelburch.net>
+Date: Sat, 31 Oct 2026 23:10:21 +0530
+Message-Id: <179346842169.7309.953613001579327741.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2212; i=mani@kernel.org;
+ h=from:subject:message-id; bh=MIzTd1itZPpW7FCl5YwWGtQIeJPAAhpsZ38f5D6eUQU=;
+ b=owGbwMvMwMUYOl/w2b+J574ynlZLYsh6psGZ4fnkq2XWt7t1x7msGUP7WBYY5yqy6uRa+v+1D
+ dVMnDalk9GYhYGRi0FWTJElfamzVqPH6RtLItSnwwxiZQKZwsDFKQATCZrBwTBj5WLWvc4VcisS
+ HaoYj84p8Iyq+C3byiB894p1mfriqZVXfiSpSQv7X9OdwHvsn51Je96ctn+a0XcktNxffSgp4l4
+ o45OS6VmeX/3vQPGjvXY2bJKbMn4fzQuZlvHaxnEzy5ffMQlx84S/JStMvHohTDugymCnh/raSF
+ 9fg2522fs8+5mtn3n9Uwq7dWvBU5kdDxccYJ+0u7lO9a2NuUZm4vP2D2+Y1n223Tmhf1HMLDvXm
+ Plz1Z6wPWMV08l5fOLU0fi4f3/DZBQPmp/mTA8oLw9I1nvQoVq0Uvx6lK6OVzXfid5phXsvu3us
+ U7RMbcjQ4g6dNGcdy1XedSyldpKPyyTP7hRZclvV418VAA==
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-gve's GQI and DQO-QPL RX paths set every RX page's refcount to INT_MAX and
-hand references to the stack by decrementing page_info->pagecnt_bias, to
-avoid an atomic op per packet. This leaves the page no headroom: while a
-fresh page's buffer sits in an skb its refcount is already INT_MAX, so a
-single get_page() from the stack wraps it negative.
+On 2026-10-13 09:22 -0500, Michael Burch wrote:
+> This reverts commit 910b828b22b7b91054b3bd4be676a017444b0e00.
+> 
+> That commit skips the no-csr reset assert/deassert (and the 200-300us
+> settle) whenever the bootloader already brought the PCIe QMP PHY up:
+> 
+>   skip_reset = qmp->skip_init &&
+>                !qphy_checkbits(pcs, cfg->regs[QPHY_PCS_STATUS],
+>                                cfg->phy_status);
+> 
+> and states its own assumption explicitly: "This relies on the assumption
+> that when skip_init is enabled and the PHY is reported as up, the
+> bootloader has already configured the PHY correctly and the link is in a
+> usable state."
+> 
+> That assumption does not hold on the Dell XPS 13 9345 (X1E80100).  UEFI
+> boots from the NVMe behind pcie6a, so the PHY is always already started
+> when Linux takes over, skip_init is true, and the reset is skipped.  The
+> link then never retrains and the root port comes up with no endpoint:
+> 
+>   qcom-pcie 1bf8000.pcie: Device found, but not active
+>   pci 0006:00:00.0: [17cb:0111] type 01 class 0x060400 PCIe Root Port
+>   (no 0006:01:00.0, no nvme at all)
+> 
+> "Device found, but not active" is dw_pcie_wait_for_link() reporting LTSSM
+> stuck in POLL.Active/POLL.Compliance -- receiver detected, training never
+> completes -- so the machine cannot find its root filesystem and drops to
+> a dracut emergency shell.  v7.2 is unaffected because it always performed
+> the reset.
+> 
+> The commit was applied on its own as patch 1/4 of "PCI: qcom: Add link
+> retention support"; 2/4-4/4 have not landed. Without them,
+> qcom_pcie_host_init() still asserts PERST# and resets the controller
+> before qcom_pcie_phy_power_on(), so the link is down while
+> QPHY_PCS_STATUS still reports the bootloader's state, and the skip's
+> precondition never holds. Revert it until the rest of the series lands.
+> 
 
-splice() of received TCP data into a pipe takes such a reference, and the
-onward splice into a socket then fails: skb_splice_from_iter() sees
-page_count() < 1, sendpage_ok() fails and the send returns -EIO (since
-commit 2e910b95329c ("net: Add a function to splice pages into an
-skbuff for MSG_SPLICE_PAGES"))
+Ouch. This dependency should've been mentioned in the cover letter of the
+offending series :/
 
-tee() of the pipe fails with -EFAULT via try_get_page(). On GQI the reuse
-check gve_rx_can_recycle_buffer() also sees page_count() < pagecnt_bias,
-WARNs and calls gve_schedule_reset(), so a task that merely pins a fresh
-RX page (e.g. holds spliced data in an undrained tee() pipe) can reset
-the NIC.
+> Fixes: 910b828b22b7 ("phy: qcom: qmp-pcie: Skip PHY reset if already up")
+> Signed-off-by: Michael Burch <me@michaelburch.net>
 
-Use USHRT_MAX in a u16, as igb, igc, ixgbe, i40e and hns3 do: the bias only
-has to make the per-packet atomic rare so a small value leaves page_count()
-ample headroom below INT_MAX for the stack's references, and the u16 bounds
-it. Refill by adding a fixed batch and setting the bias to it, which keeps
-the rule `references = page_count() - bias` intact.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Reproduced on gVNIC in GQI-QPL mode (GCE n2-standard-8, 6.12), no kernel
-changes needed, with relay.py -- a small splice(2) TCP proxy -- relaying a
-download while the RX ring is refilled with fresh pages:
+- Mani
 
-  ethtool -G eth0 rx 512 && ethtool -G eth0 rx 1024   # fresh RX pages
-  ./relay.py $HOST 8080 &                             # splice()s both ways
-  for i in $(seq 200); do curl -so /dev/null \
-      --connect-to $HOST:80:127.0.0.1:8080 http://$HOST/file; done
-
-Most downloads failed with EIO before the fix (tee() with EFAULT) and all
-completed after it, including with the bias forced to 1. Built allmodconfig
-W=1, no new warnings; no selftests run. relay.py is at the Link below.
-
-This bug was found and fixed with the help of an AI coding assistant
-(Claude Code) over an interactive session; it read the driver and
-splice/pipe code and ran the tests above.
-
-Link: https://github.com/amaanc/kernel-bias
-Fixes: 9b8dd5e5ea48 ("gve: DQO: Add RX path")
-Fixes: 58401b2a46e7 ("gve: Add rx buffer pagecnt bias")
-Fixes: 82fd151d38d9 ("gve: Reduce alloc and copy costs in the GQ rx path")
-Cc: stable@vger.kernel.org
-Signed-off-by: Amaan Cheval <amaan.cheval@gmail.com>
----
- drivers/net/ethernet/google/gve/gve.h                |  2 +-
- .../net/ethernet/google/gve/gve_buffer_mgmt_dqo.c    |  4 ++--
- drivers/net/ethernet/google/gve/gve_rx.c             |  8 ++++----
- drivers/net/ethernet/google/gve/gve_utils.c          | 12 +++---------
- drivers/net/ethernet/google/gve/gve_utils.h          |  8 +++++++-
- 5 files changed, 17 insertions(+), 17 deletions(-)
-
-diff --git a/drivers/net/ethernet/google/gve/gve.h b/drivers/net/ethernet/google/gve/gve.h
-index b7ce6e8632db..18d7edbf4b3b 100644
---- a/drivers/net/ethernet/google/gve/gve.h
-+++ b/drivers/net/ethernet/google/gve/gve.h
-@@ -119,7 +119,7 @@ struct gve_rx_slot_page_info {
- 	void *page_address;
- 	u32 page_offset; /* offset to write to in page */
- 	unsigned int buf_size;
--	int pagecnt_bias; /* expected pagecnt if only the driver has a ref */
-+	u16 pagecnt_bias; /* expected pagecnt if only the driver has a ref */
- 	u16 pad; /* adjustment for rx padding */
- 	u8 can_flip; /* tracks if the networking stack is using the page */
- };
-diff --git a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-index 6880d1531ba5..571f851d6dcd 100644
---- a/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-+++ b/drivers/net/ethernet/google/gve/gve_buffer_mgmt_dqo.c
-@@ -149,8 +149,8 @@ int gve_alloc_qpl_page_dqo(struct gve_rx_ring *rx,
- 	buf_state->last_single_ref_offset = 0;
- 
- 	/* The page already has 1 ref. */
--	page_ref_add(buf_state->page_info.page, INT_MAX - 1);
--	buf_state->page_info.pagecnt_bias = INT_MAX;
-+	page_ref_add(buf_state->page_info.page, GVE_PAGECNT_BIAS - 1);
-+	buf_state->page_info.pagecnt_bias = GVE_PAGECNT_BIAS;
- 
- 	return 0;
- }
-diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
-index 81ea800e66e9..6533fff06155 100644
---- a/drivers/net/ethernet/google/gve/gve_rx.c
-+++ b/drivers/net/ethernet/google/gve/gve_rx.c
-@@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
- 	page_info->buf_size = rx->packet_buffer_size;
- 	*slot_addr = cpu_to_be64(addr);
- 	/* The page already has 1 ref */
--	page_ref_add(page, INT_MAX - 1);
--	page_info->pagecnt_bias = INT_MAX;
-+	page_ref_add(page, GVE_PAGECNT_BIAS - 1);
-+	page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
- }
- 
- static int gve_rx_alloc_buffer(struct gve_priv *priv, struct device *dev,
-@@ -230,8 +230,8 @@ static int gve_rx_prefill_pages(struct gve_rx_ring *rx,
- 			rx->qpl_copy_pool[j].buf_size = rx->packet_buffer_size;
- 
- 			/* The page already has 1 ref. */
--			page_ref_add(page, INT_MAX - 1);
--			rx->qpl_copy_pool[j].pagecnt_bias = INT_MAX;
-+			page_ref_add(page, GVE_PAGECNT_BIAS - 1);
-+			rx->qpl_copy_pool[j].pagecnt_bias = GVE_PAGECNT_BIAS;
- 		}
- 	}
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
-index caed38cd5f2b..cb6fba3122d5 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.c
-+++ b/drivers/net/ethernet/google/gve/gve_utils.c
-@@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
- {
- 	page_info->pagecnt_bias--;
- 	if (page_info->pagecnt_bias == 0) {
--		int pagecount = page_count(page_info->page);
--
--		/* If we have run out of bias - set it back up to INT_MAX
--		 * minus the existing refs.
--		 */
--		page_info->pagecnt_bias = INT_MAX - pagecount;
--
--		/* Set pagecount back up to max. */
--		page_ref_add(page_info->page, INT_MAX - pagecount);
-+		/* Out of bias: take another batch of references. */
-+		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
-+		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
- 	}
- }
- 
-diff --git a/drivers/net/ethernet/google/gve/gve_utils.h b/drivers/net/ethernet/google/gve/gve_utils.h
-index bf2e9a0adb36..316f97607351 100644
---- a/drivers/net/ethernet/google/gve/gve_utils.h
-+++ b/drivers/net/ethernet/google/gve/gve_utils.h
-@@ -25,7 +25,13 @@ struct sk_buff *gve_rx_copy_data(struct net_device *dev, struct napi_struct *nap
- struct sk_buff *gve_rx_copy(struct net_device *dev, struct napi_struct *napi,
- 			    struct gve_rx_slot_page_info *page_info, u16 len);
- 
--/* Decrement pagecnt_bias. Set it back to INT_MAX if it reached zero. */
-+/* Up-front references gve holds on an RX page, so handing a buffer to the
-+ * stack is a pagecnt_bias decrement, not a get_page(). Keep it in a u16 so
-+ * the 32-bit page refcount keeps the headroom every page needs below INT_MAX.
-+ */
-+#define GVE_PAGECNT_BIAS USHRT_MAX
-+
-+/* Decrement pagecnt_bias. Top it up by GVE_PAGECNT_BIAS if it reached zero. */
- void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info);
- 
- void gve_add_napi(struct gve_priv *priv, int ntfy_idx,
-
-base-commit: d8a4f4c59da52b7c31ae337243b8473a19a3f819
--- 
-2.47.3
 
