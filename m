@@ -1,54 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.125
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=212.77.101.12
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793432981;
-	b=au8p9nrz0mGOYdtM+n7WAwv96kdxqGCDsdZ3gDJETzynx6H8F411+acqJVHzt8qr3n0L
-	 kNxY6OPpafbdVfrt0E8nmI963TXG3ynTt4IadTgNsLEQyLyF3CvbaC5isG3z/7NTOfgg3
-	 SHd3ZTmWZp4c2kUwW7yc8s6nzCKRsXfmuLbuqKQX9PzKTtJWmmcQ2SNxkF+3VFjGJ7Oml
-	 6qzl+YQvOpXGvIBUePHJUpqhLYkJfIZUp75dhw75xvNmZyusCCSDretl11PGPFTi/MULD
-	 5BJAEyMNLlhHbsbSyfkXfuOtYcPQVBttTosKkSR6T0zE9JTYNqOcdPFezZuKt/VM5ig==
+	t=1793433057;
+	b=5G9zOYDK7epI/cKN28OXJktZxzv1xS3IdTmtlo5XG3JFVci4JqqY2fG7TDfQSoPxEjEN
+	 aQW/JChmeQmurhSgN2GxYXK9CxnCZHXh5V4gpLsUPMdxVVlZfLf45o7QC7l2JR23yh6v1
+	 3tQja8mcDS8M3JlhSpR2lyvnLx4wiVh81YseH3FFmJ4zuXhMxTqfAtTUIB/QF6yUnJ0a2
+	 yvrAsJ2PSc4m29kTJUs6en1KzKHA70kbPLfohtzvGoJuY8LIGZIDm0pCI7FMOxQY2rf/6
+	 3Aq4L5mHEvcTlyog/LM+8x/rCYjSX+cXi2NhZvMb/VbhtK8Yp7m80fhoTnCqkKs/vwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793432981;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/yrnXSjuGtKvXirNf19gKPohNcjZeXRzs8MVdnL1uJo=;
-	b=5os7RsxyP/ao9Jd0bBa4xBFZ+dVdpQj87gOqdNC5MU0X1J5hcM3MPoFdqL/6rvJC7uuI
-	 Nlf76ChSmyVEBYEX+EnN27zK+ziG+ST2NP1v3gwVViA/0RkfoQn5Ci7uopDzHbTFCWE51
-	 gNQdON2rZXlLJnv7Gz+9kqfP9eSBG0ilAXmG4AJc9tfSemwGed46ceHDh+IsW08ApkGle
-	 uGwAKOA/jYrIkJRRrqlzk/pOfVtnxkrRZCXdOCyUMrIixAu1xkjThGMnioIDbvzBbkFKL
-	 sxfW78sN414bl6TsdThQGxQ5/2q3bPdJrO9UY2bX81c3DlIm66CpWlNCgcYo6qQTSBQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793433057;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-WP-MailID:X-WP-AV:X-WP-SPAM;
+	bh=X8DRIAkCuEwr0UFRSVxQUwx/mwPLWUnxL0jdwqQvjbs=;
+	b=tcsYeeZVhaJ59OeUXDLtwxT55FEozHwnfM4k7S6ganzGoaqJTo15XYqItI1uJ3rWAfsl
+	 uiRpUxUiW78ESw4o/ss5qXnbb2xNLaK56qkDoEnoHyughv5mkuaxWnl5/91AcDqBS+0A/
+	 1MEFcZAF8Zr0t/zYffVDwpqHsZyyj5T5gBpmkbNLOLI13qWjpKtinvD2Z017Axg3xz5WB
+	 93aS4KkxOdrPLWdK93QHhJCqqv6nM/zonF5MeQHatVZbDFckERC9vkg84A936psxKwJ8U
+	 RxtIQssntvJuc5zxbe+ObKrD+TyEfhOPnKtp4njtRhywqdvC/YGg8/UlOZmwlfw02pQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k2DV4TNM;
-	arc=none smtp.remote-ip=95.215.58.125
-Received: from mta1.migadu.com (out-125.mta1.migadu.com [95.215.58.125])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=wp.pl;
+	spf=pass smtp.mailfrom=wp.pl;
+	dkim=pass header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=fRyw+W7V;
+	arc=none smtp.remote-ip=212.77.101.12
+Received: from mx4.wp.pl (mx4.wp.pl [212.77.101.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 201B7606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:49:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 201B7606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF888606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:50:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DF888606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wp.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wp.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=k2DV4TNM
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=2hMyZCs1UGewOfOEo2oSastc/qJPy14To9PU6CeHTdk=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793432978; v=1; x=1794037778;
- b=k2DV4TNMPKdue/DBAOU7cA9uLmURd3BY5v6y0UkKo/1LnjZyF5jKWpC5kyg5sInIFdiW/AEu
- CnbFpM0zZMgWnea8Q76MIVqWbrstSK5H/CD46HilBSKHlzQXIXNrAmMI6bvBfc7zSlP78gdkNIr
- Bzrrc2qmAnyIelevzXHnJn4E=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1faece7cfffda491;
-	Sat, 31 Oct 2026 07:49:37 +0000
-X-Mizu-Trace-ID: 1faece7cfffda491
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <33ce5d90-cc8b-4d21-9838-17db23407e84@linux.dev>
-Date: Sat, 31 Oct 2026 15:49:12 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=wp.pl header.i=@wp.pl header.a=rsa-sha256 header.s=s20261001 header.b=fRyw+W7V
+Received: (wp-smtpd smtp.wp.pl 24790 invoked from network); 31 Oct 2026 08:50:48 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wp.pl; s=s20261001;
+          t=1793433048; bh=X8DRIAkCuEwr0UFRSVxQUwx/mwPLWUnxL0jdwqQvjbs=;
+          h=From:To:Cc:Subject;
+          b=fRyw+W7VZoVbRvrORhxbAt0L9CGh6XvAEo/GfVhht1PsTRzjTaJEhhPMQFEKNAKD6
+           cPuuJ44CYGOI/IMa34XS6sBnjEi/uH/BJm1oGaqbOSaUScqEif03mZL5qr8Xz0dX4K
+           ooSVNFwBKLwgsFQTqas0stVNtA4luZrqPwKm/uv1fjicbDgoyEuZ/baFWBXPVZ5rC7
+           ZitFB/6RwI3cFBusGYLhqsoiXRAo7u+jkjunKCATM4XlQUGBEs0jRt8nRDlS/gqxFu
+           BvQo49GPMEdwzE8Zj6up8ErlrCFD0reYJ/jAybnvPqluorMklKIReodDtaFT7x7jH7
+           t5eu6yqxu2ACg==
+Received: from localhost (77-236-11-144.static.play.pl [77.236.11.144])
+          (envelope-sender <stf_xl@wp.pl>)
+          by smtp.wp.pl (WP-SMTPD) with TLS_AES_256_GCM_SHA384 encrypted SMTP
+          for <apetrozzelli@gmail.com>; 31 Oct 2026 08:50:48 +0100
+Date: Sat, 31 Oct 2026 08:50:47 +0100
+From: Stanislaw Gruszka <stf_xl@wp.pl>
+To: apetrozzelli@gmail.com
+Cc: Johannes Berg <johannes@sipsolutions.net>,
+	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH wireless-next] wifi: rt2x00: rt2800lib: fallback to
+ default RF config when EEPROM_NIC_CONF0 is 0x0000
+Message-ID: <20261031075047.GA30810@wp.pl>
+References: <20261031-fix-rt2800-eeprom-nic-conf0-zero-v1-1-a118ee775fcb@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,121 +65,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
-To: "David Hildenbrand (Arm)" <david@kernel.org>,
- Alistair Popple <apopple@nvidia.com>,
- Andrew Morton <akpm@linux-foundation.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>,
- Baolin Wang <baolin.wang@linux.alibaba.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>,
- Brendan Jackman <brendan.jackman@linux.dev>,
- Byungchul Park <byungchul@sk.com>, Chengming Zhou
- <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
- David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>,
- Dev Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>,
- Hao Li <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>,
- Hugh Dickins <hughd@google.com>, Jann Horn <jannh@google.com>,
- Johannes Weiner <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>,
- Kemeng Shi <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>,
- Lance Yang <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
- Lorenzo Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>,
- Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>,
- Nick Piggin <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>,
- Oscar Salvador <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>,
- Peter Xu <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
- Rakie Kim <rakie.kim@sk.com>, Rik van Riel <riel@surriel.com>,
- Roman Gushchin <roman.gushchin@linux.dev>,
- Ryan Roberts <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>,
- Suren Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>,
- Uladzislau Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>,
- Vlastimil Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>,
- Xu Xin <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>,
- Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>,
- Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031-fix-rt2800-eeprom-nic-conf0-zero-v1-1-a118ee775fcb@gmail.com>
+X-WP-MailID: 1a7291901dc3cb2ef5d7fdb4ff2ff538
+X-WP-AV: skaner antywirusowy Poczty Wirtualnej Polski
+X-WP-SPAM: NO 0000001 [sbLR]                               
 
+Hi
 
+On Sat, Oct 31, 2026 at 12:57:36AM +0100, Alessandro Petrozzelli via B4 Relay wrote:
+> From: Alessandro Petrozzelli <apetrozzelli@gmail.com>
+> 
+> On some Ralink PCI/PCIe wireless cards, such as the AzureWave AW-NE766
+> (Ralink RT2790 / RT2872, PCI ID 1814:0781, subsystem 1814:2790) bundled
+> in the ASUS EeeBox PC B202, reading EEPROM_NIC_CONF0 returns 0x0000
+> instead of 0xffff when the EEPROM word is uninitialized.
+> 
+> Currently, rt2800_validate_eeprom() only triggers the default RF2820
+> (1T2R) configuration fallback when EEPROM_NIC_CONF0 is 0xffff, unlike
+> other EEPROM validation checks in the same function (such as LNA gain
+> fields) which already check for both 0x00 and 0xff. As a result,
+> EEPROM_NIC_CONF0_RF_TYPE remains 0x0000 and rt2800_init_eeprom() aborts
+> device initialization with -ENODEV:
+> 
+>   rt2x00_set_rt: Info - RT chipset 2872, rev 0200 detected
+>   rt2800_init_eeprom: Error - Invalid RF chipset 0x0000 detected
+>   rt2x00lib_probe_dev: Error - Failed to allocate device
 
-On 10/31/26 5:34 AM, David Hildenbrand (Arm) wrote:
-> Hi,
+Please check if your kernel contains:
+
+commit 0a2581cbae9e442835f68d22044157db61cdf54d
+Author: Corentin Labbe <clabbe@baylibre.com>
+Date:   Fri Jul 3 13:49:32 2026 +0000
+
+    wifi: ralink: RT2X00: init EEPROM properly
+
+The problem could be a issue fixed by this commit and 
+other EEPROM values would be read properly.
+
+> Since 0x0000 is never a valid RF_TYPE (valid chipsets start at
+> RF2820 = 0x0001), extend the EEPROM_NIC_CONF0 fallback check to also
+> handle 0x0000 so that these cards initialize and operate properly.
 > 
-> several MM updates:
-> 
-> Make Zi Yan a THP maintainer (thanks for all your hard work over
-> the years and thanks for taking on this responsibility), and perform some
-> MM MAINTAINERS cleanups.
-> 
-> Then, start the next step of the transition from Andrew's MM tree to
-> separate component trees that all get integrated into the mm-next
-> integration tree.
-> 
-> Start routing shmem through mm/core.git, adding me as a maintainer
-> primarily to pick patches.
-> 
-> Then, target the following components for the mm/core.git tree that I
-> (co)maintain:
-> 
->       - MEMORY MANAGEMENT - BALLOON
->       - MEMORY MANAGEMENT - CORE
->       - MEMORY MANAGEMENT - GUP (GET USER PAGES)
->       - MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
->       - MEMORY MANAGEMENT - MEMORY HOT(UN)PLUG
->       - MEMORY MANAGEMENT - MIGRATION
->       - MEMORY MANAGEMENT - NUMA PLACEMENT
->       - MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
->       - MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
-> 
-> More details in the last patch.
-> 
-> In the upcoming cycles we'll then route more of the other MM components
-> through different trees.
-> 
-> Let's see how this goes, in particular with the continuous stream of
-> fixes. But getting these in in a controlled way has highest priority
-> right now wither way.
-> 
-> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Alessandro Petrozzelli <apetrozzelli@gmail.com>
 > ---
-> David Hildenbrand (Arm) (7):
->        MAINTAINERS: mention for-next branch in MEMORY MANAGEMENT - MEMORY MAP
->        MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
->        MAINTAINERS: add Zi Yan as co-maintainer for MEMORY MANAGEMENT - THP
->        MAINTAINERS: sort entries in MM sections
->        MAINTAINERS: add missing files to MM component sections
->        MAINTAINERS: rename and move MEMORY HOT(UN)PLUG
->        MAINTAINERS: route more MM changes through mm/core.git
+>  drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
->   MAINTAINERS | 165 ++++++++++++++++++++++++++++++++++++++----------------------
->   1 file changed, 105 insertions(+), 60 deletions(-)
+> diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> index 2e2e382b6..dda5ba2ad 100644
+> --- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> +++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> @@ -11047,7 +11047,7 @@ static int rt2800_validate_eeprom(struct rt2x00_dev *rt2x00dev)
+>  		return retval;
+>  
+>  	word = rt2800_eeprom_read(rt2x00dev, EEPROM_NIC_CONF0);
+> -	if (word == 0xffff) {
+> +	if (word == 0xffff || word == 0x0000) {
+As you pointed, is safe to have this check since 0 is not valid, so ...
 
-For this series:
+Acked-by: Stanislaw Gruszka <stf_xl@wp.pl>
 
-Acked-by: Qi Zheng <qi.zheng@linux.dev>
-
-Thanks,
-Qi
-
+>  		rt2x00_set_field16(&word, EEPROM_NIC_CONF0_RXPATH, 2);
+>  		rt2x00_set_field16(&word, EEPROM_NIC_CONF0_TXPATH, 1);
+>  		rt2x00_set_field16(&word, EEPROM_NIC_CONF0_RF_TYPE, RF2820);
 > 
 > ---
+> base-commit: 2c50cd5d10e8723797f28c7978f1f61688e0c0d2
+> change-id: 20261031-fix-rt2800-eeprom-nic-conf0-zero-acf88f6ddd60
 > 
-> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+> Best regards,
+> --  
+> Alessandro Petrozzelli <apetrozzelli@gmail.com>
 > 
-> change-id: 20261029-maintainers-e2699bff7521
 > 
-> --
-> 
-> Cheers,
-> 
-> David
-> 
-
