@@ -1,57 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793466986;
-	b=P6Pt4LwzO3c7rqpaCtploE9Rnk0yigJS6SoEC7z9PIDmw8Sj01aSJEovyUjlpSq/Itny
-	 GrK/EPrH/loo04voZkC30sXGZVwT/lxg47W6YnAK5TlUa2waSIYuXVlsIpclVhaA/+rGY
-	 zX9qq3/z70Nf1az3Z/Z40p1ptJZde8cOiw8DcQWs8kFkor7gx1Fa5exph4toGVHvEHG9c
-	 i9Iu4rRXouxExxgy7f9mqnPlCCU9Sf56cb/KFGttXKnGUSbCvEYYYHx/MRS389IEuwAaO
-	 OUxSO0A/YH2yISk5K+FKSxSQKOVuY7BsaPjUi1ZWaJ3rb4a23XxIbxGNu6XiD/lF1Og==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793466986;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=U1Xw4iNZ1++V+yaBJq/cHdN3Ds+0tg3sl1/dR1osbmQ=;
-	b=M3FuMtKi9QTaGiCQC22tp+ebCZafl5v9kzKv9ZIAyAOTTVhzZLkE2cWmY7fI/r6Hl80w
-	 cMEOAuT3DAstC+f5m6f0Fhpkbs222NOYhD9za2EnSKhD/2Qr6ZwnNT/GB0GPPiwZw2LyM
-	 kOKI/NUajiWw9/rNUjJlUAYus2kSi+1/uNc2H5/aJHCLiTJHoOPckr2jn6yzVTIXpuAXQ
-	 LXq8SQq17xYnTXmKP+KbbUO8fWaiJlMumGO4BZk4Sf+OThtK9FaFTV7dkzejbSimms4DD
-	 a2g7+57USuuZD6tdcbOgwTMJLJc2ft+F0KzJ8Bb4zFdA7bHFSYnYBI0pyQLQ0DMXX+Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ACE9D606A31C;
-	Sat, 31 Oct 2026 17:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACE9D606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793467127;
+	b=EF/T57zQQwybMIjHleE4ivmhIdi9UW3tbyxpcmEE1nyTgcKqKumJ2fRrsMgDJIQTp6iW
+	 EvqelTysMl0Kvw+uhIM1lSy/BXDfjVO99+pMNp2DoTX+4YZey3hKTcz8iiU5933x+26nI
+	 CM1UYzmqbn1ewRgcY0YEXj9I1epfLHS8K8lPRBK/ilMw9JfsTKz4DVhrJc4DoVgBhJtYP
+	 LH0OQv7HnhrGO79JNz2kxgwtwZrp18u1B2gM67YwCRbGIqO941hVWOR6YI4BppNjMhFdP
+	 jidTgjyS+g9uKcrKWpX4GL07SEQtdP4flRfbgH2GudXu/MaodWruhSeyfD5xnEPOpSw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793467127;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=V2piie36V2DMo2XoNrsEG9/VSdOmBi+2h4XzPx+NDiw=;
+	b=vqKTSYbSqZlM90dFiBhF0T0N9o+WO3/0HCGjU0SqIm0KACMtA10TrcoMI+Hbw6ym1J+Q
+	 J3zu4Z2n+zDeLYx6OvmqrXH5roSZY9ua2RfWMFEQHHbSTNQ5RM4ELHg7sqyH6Rhz9qkjq
+	 EZx8YNG/tPReR5I9QUBcms+ysOVET2K0ZYFiZ5j1Gwe8QUvBqypWWIkP6g0kZo+KqWFPq
+	 /e/OPuF9ZilCOO57b+eiA+miXyc5u5quJwWx/9y1ZsEN/LJ2MNatZAT2iA8y4rRH7lVOs
+	 uEQrVe9FKx/g/jMfqmcT7VqYUn39R8ONJp+qUea8onbJt9bVB2EMVHZ5niwtMa1Wz1w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="WEM/00ce";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.42
+Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 597D3606A31D
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:18:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 597D3606A31D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WEM/00ce
+Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-483c607ccb4so1052173fac.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:18:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793467126; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sLKGrov4fBfq0OgtpE6x8MvgC/1vcPunh46xMGrZW60L4XG5MedFfA1Y9v2kr1EO5u
+         vEKNj42iInPZOCXWLel7X8k3ypeQdwkUt//AzwSnLMGv4+K9Eww9VmHswK9KeaXSOEsx
+         nHb02k1p3z0UPlynifTK5yyB85ECC2ddt2/ZFh50VIigHN6jHCeZDqfcnGdevqVhEWp7
+         M+CfMIplmswnj79Zsw5Se/Q8Lwg5UjLH4rBKfa7x+wZyizrbfzzfLNIIDZ+YmuEppYGc
+         0BdRZNlzmJdKi6lw/oBScrzRRE1B6CQ7ySPr2fDEcJSX/hBohh/BSoIbaSurYgY9nIeK
+         1+yA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=V2piie36V2DMo2XoNrsEG9/VSdOmBi+2h4XzPx+NDiw=;
+        fh=3I8XUtcidGahkr3nw5tXsIIO+Lrr5Crf7SK3klEhPls=;
+        b=a/5WQa8iiag9IqQbG+NM5FmFP6zpqiNAHPEfd/kmK57nb4jpqlFF1bUlEOf/fQ7BEU
+         Qvpu3BKf1y+xcUcuBqbnkZ9NV0yS6HeeNPAy0roOnj5GbQocWWaoKBYBDoPK+bXFOaBZ
+         2we3Kzs9CxQpYl5bkOtsJbXIg1gAbwoDDDjivLUUWPBHlmJuhqWU9JN4fmaVHdtuR/pr
+         wHygkySvCVmHINGuwjOOoP0pmIzpXtmk5S5ByB5sEyjomdujwUq4yJvcJ5bxk8jMY7ak
+         2Juz7b1LqqYh0OtgdCavG1EMZlRRaNpeueEESJWbcAkcx5ODPNhNCgzVtXQzZe20g4R+
+         sf6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=U1Xw4iNZ1++V+yaBJq/cHdN3Ds+0tg3sl1
-	/dR1osbmQ=; b=3W/dGc5WhirRDclRBZxs+3cmyogfEsxsOW9j4mwO73L17gX2JQ
-	LR13uLu3M/bXwJtwwCG+5cFozUjrHc//96O7BY1x76Z+Rgtj5q58MyTmGOtryckq
-	XEmEzrTEI00sijfzqIecYccJCHpIGCvmztw+w1anSpc8TCy01B650QFL8=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.19])
-	by hzbj-edu-front-3.icoremail.net (Coremail) with UTF8SMTPA id BbQMCkDW2fxcIuZqs94RAQ--.16755S2;
-	Sun, 01 Nov 2026 01:16:13 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] ALSA: usx2y: Release the URBs when the DSP load fails
-Date: Sun,  1 Nov 2026 01:16:12 +0800
-Message-Id: <20261031171612.8148-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <871p95svvd.wl-tiwai@suse.de>
-References: <871p95svvd.wl-tiwai@suse.de>
+        d=gmail.com; s=20260707; t=1793467126; x=1794071926; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V2piie36V2DMo2XoNrsEG9/VSdOmBi+2h4XzPx+NDiw=;
+        b=WEM/00cenIgxMYlUq6BxDQ5kLNUmKT98i9hwk33Snqw8H93oRySaMzGjt7jeAwujfy
+         8EL19gme2yHaw/XuetF9xVqVVJXc+EjLMytTfOcFXFoCKpnT8HS0aDQVXXtU/QY8YxkY
+         KDsnemsHUYDnuNnRkZofC6tUlqKWdICQB4tde8gM7HYGGGi9Gc6/WzkWzhRLMQYlY1//
+         OGZjd1H6l0AXeRiX7S4d9DJAIUE3/USy12y8+ymfvPiLFEtN27UgOyqmnoQhemx03DQy
+         CsrNIHzk/th30zkW376OMF0rK+KKUjfv3IviVEGu3rE20fS8UPh9yk0LYKOFvV3r45tc
+         xMdw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793467126; x=1794071926;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V2piie36V2DMo2XoNrsEG9/VSdOmBi+2h4XzPx+NDiw=;
+        b=xmPcT43YU/tN7dBK7qFcBJkSGIH572VG1jQa2ZbeqmMI+SMVsEGDl5oZ3iTvdoA3dD
+         lVXEUgpgdA1xv2SJElM7CLZ1oGIHUJv8roaqo/XIeHtHq8S5X1WAawwAst001ZEecSGJ
+         +fQSlhpCspdlP4FitefhWVft06206UNhmR5jaDB/lREqHQie8vq9SaP5iFQub7ilhzth
+         rwcMaq52iogQY16sG13LaLbt8dDEAhPOAiJ75tA0jEwbdKDHUZkMJXmJ2Sd9WlCJaSQQ
+         mutyLca4dzTKWzA0rKQE4IYET66L6+DE70+KTn+Z5LBYtf9Y8IzH3G9dIUHGM4CpFegJ
+         9b1w==
+X-Forwarded-Encrypted: i=1; AKwUvBx1J5RX0r7Xo9tOoQL1usX9CzaDiQkNJuyxXLe8Gl7Xl+2FGwRXu2PGBepQBtIu4/rjIzrrZVn8MPOHPu4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJIRYuwAQaopWQIeNDSfch08YitB0O03PNpymmnpFEfrdcPiIgz
+	l1yuu6Mchym7yd+JwwOhgIz+lfAwZ0gP/H4Vij7zC3DyxVSYWFl30fi0o3/5bY6DBZhT9gIKZme
+	PNr/7Sy83AUm7Q99a76CN1u4rbnqNlkc=
+X-Gm-Gg: AYBFou0o4jHiR3ComE6BTwUTQzeT4KHH5F6k/BZrfDudkikcpIddmLh9fni6mSYeAYJ
+	qRp4A8ICGMr0FjT9hHpKJdHaojjnO7C+z7Z9EJ2TTZmN/VKISoFp5nhn/my2mGGIHFsQDW/F1in
+	AtWGjiGrBsGUIMg4yDm1Bvd9Yg35zsGRYGtCyh5NsMulezOZoRgWG4e3ugKu4bxfK7s0kP2Ujdc
+	HHH83JGs1z7TZC0UNcffyN1tHK20Yx6c3iLj0qECvbXDwroTR0vfaaJNAzA4C5LFKuEWfLzitk/
+	bk4kf9tQd2ROziir7KoPpMGk0ZJDc39yf5eHrN1T+yR3XGNC3HgQEyu7xHy42hVMtU8hJKN+7K9
+	ZCkrNuFHbNChamGytP1zc5gPKXBO7GfOELgQOxjSYpS5K/GINQG57wEL2st+CxLQAA9wHBUVx+Z
+	Fib4htMajRagVeA2XJ
+X-Received: by 2002:a05:6870:b2ea:b0:494:abea:ad80 with SMTP id
+ 586e51a60fabf-4a9076e545emr3771958fac.28.1793467126055; Sat, 31 Oct 2026
+ 10:18:46 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,114 +104,91 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BbQMCkDW2fxcIuZqs94RAQ--.16755S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAr1UAr13Kw15tr4fGrW8Crg_yoW5uFyDpr
-	WxWrZ8tryqqr4qqwsrXa1qk3W0ywsYyrW5G3y0yw48Jr17Ar1fC34rXr1q9rsrJrWrCw1F
-	qFyqgrWUWrW5Cw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9Ib7Iv0xC_tr1lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWUJVW8JwA2z4x0Y4vEx4
-	A2jsIEc7CjxVAFwI0_Gr0_Gr1UM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
-	Ij6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4l42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr
-	0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJb
-	IYCTnIWIevJa73UjIFyTuYvjxUIxwIDUUUU
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUDD2rmBFQQiAAAsM
+References: <20261029134752.1299130-1-hjf3108@gmail.com> <20261029134752.1299130-7-hjf3108@gmail.com>
+ <20261030091743.GB27096@wp.pl> <CABOQOSX6mBCtTTg9eJX665t7tj65jo=9hVTgr7pmFRB6csG2Yg@mail.gmail.com>
+ <20261031110608.GD31143@wp.pl>
+In-Reply-To: <20261031110608.GD31143@wp.pl>
+From: Jie Feng <hjf3108@gmail.com>
+Date: Sun, 1 Nov 2026 01:18:09 +0800
+X-Gm-Features: AclHuK-HDTmWcV6TllrWHm2F-CgUI-guMI-8Lmp9oMlILn3GyDSBiaH_UIZRaCU
+Message-ID: <CABOQOSW-4dqo-wfwHcbAK7ECvA+Gc+hKhZjBFckyBRoO0EoB8Q@mail.gmail.com>
+Subject: Re: [PATCH wireless-next 6/8] wifi: rt2800: set the mac80211
+ fast-xmit and aggregation flags
+To: Stanislaw Gruszka <stf_xl@wp.pl>
+Cc: linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Johannes Berg <johannes@sipsolutions.net>
+Content-Type: text/plain; charset="UTF-8"
 
-snd_usx2y_hwdep_dsp_load() sets up the asynchronous sequence URBs and
-the interrupt URB when the FPGA firmware image with index 1 is loaded,
-and then creates the ALSA devices.  If usx2y_in04_init() or
-usx2y_create_alsa_devices() fails, the URBs that were already set up
-are left in place.
+On Sat, 31 Oct 2026 at 19:06, Stanislaw Gruszka <stf_xl@wp.pl> wrote:
+>
+> On Fri, Oct 30, 2026 at 07:33:44PM +0800, Jie Feng wrote:
+> > On Fri, 30 Oct 2026 at 17:17, Stanislaw Gruszka <stf_xl@wp.pl> wrote:
+> > >
+> > > On Thu, Oct 29, 2026 at 09:47:47PM +0800, Ho Jie Feng wrote:
+> > > > Enable AMSDU TX/RX support for this driver, which can increase
+> > > > throughput.
+> > > >
+> > > > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> > > > ---
+> > > >  drivers/net/wireless/ralink/rt2x00/rt2800lib.c | 3 +++
+> > > >  1 file changed, 3 insertions(+)
+> > > >
+> > > > diff --git a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> > > > index 032cd6ac345f0..8b4458a74d33d 100644
+> > > > --- a/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> > > > +++ b/drivers/net/wireless/ralink/rt2x00/rt2800lib.c
+> > > > @@ -11861,6 +11861,9 @@ static int rt2800_probe_hw_mode(struct rt2x00_dev *rt2x00dev)
+> > > >       ieee80211_hw_set(rt2x00dev->hw, SIGNAL_DBM);
+> > > >       ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_PS);
+> > > >       ieee80211_hw_set(rt2x00dev->hw, TX_STATUS_NO_AMPDU_LEN);
+> > > > +     ieee80211_hw_set(rt2x00dev->hw, SUPPORT_FAST_XMIT);
+> > >
+> > > IFICT this flag will not take the effect since we have SUPPORTS_PS.
+> > > Also for WAP3 (802.11w) we fallback to software encryption -
+> > > that will prevent fast xmit as well. To truly enable
+> > Yeah, that is true. I also have a patch that enables hwcrypto in that case.
+>
+> So let's wait until all needed parts will be in tree or posted in the
+> same patchset before advertising the support.
+>
+> > > fast xmit, I think we would need add hardware encryption support for
+> > > WPA3 and also compromise by remove Power Save support (which is disabled by
+> > > default, so that's possibly fine).
+> > I think maybe a more general patch to mac80211 to enable fast-xmit when PS
+> > is disabled and not only checking the feature flag will be better?
+>
+> Sounds like good idea to me, but let check with Johannes (cc-ed).
+The patch might go something like this:
 
-The core keeps the index unloaded when the callback fails, so user
-space may issue the same request again.  The second attempt then enters
-usx2y_async_seq04_init() or usx2y_in04_init() with the URBs still
-allocated and trips WARN_ON(usx2y->as04.buffer) or
-WARN_ON(usx2y->in04_urb).
+Within net/mac80211/tx.c, ieee80211_check_fast_xmit:
+        if (ieee80211_hw_check(&local->hw, SUPPORTS_PS) &&
+            !ieee80211_hw_check(&local->hw, SUPPORTS_DYNAMIC_PS) &&
+-           sdata->vif.type == NL80211_IFTYPE_STATION)
++           sdata->vif.type == NL80211_IFTYPE_STATION &&
+Either:
++           sdata->u.mgd.powersave)
+or this:
++           local->ps_sdata == sdata)
+                goto out;
 
-Release the URBs on these error paths instead.  A retried request then
-starts from a clean state and the assertions keep their meaning.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Co-developed-by: Bin Yu <byu@xidian.edu.cn>
-Signed-off-by: Bin Yu <byu@xidian.edu.cn>
-Co-developed-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: Cheng Wen <wencheng@xidian.edu.cn>
-Signed-off-by: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
----
-v2: release the URBs on the failing paths of snd_usx2y_hwdep_dsp_load()
-    instead of removing the WARN_ON()s, as suggested by Takashi Iwai.
 
- sound/usb/usx2y/usX2Yhwdep.c |  2 ++
- sound/usb/usx2y/usbusx2y.c   | 16 ++++++++++++++++
- sound/usb/usx2y/usbusx2y.h   |  1 +
- 3 files changed, 19 insertions(+)
-
-diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
-index 7f153a2fcdd8..13995e81d2ae 100644
---- a/sound/usb/usx2y/usX2Yhwdep.c
-+++ b/sound/usb/usx2y/usX2Yhwdep.c
-@@ -201,11 +201,13 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
- 		err = usx2y_in04_init(priv);
- 		if (err) {
- 			dev_err(&dev->dev, "usx2y_in04_init error\n");
-+			usx2y_free_urbs(priv);
- 			return err;
- 		}
- 		err = usx2y_create_alsa_devices(hw->card);
- 		if (err) {
- 			dev_err(&dev->dev, "usx2y_create_alsa_devices error %i\n", err);
-+			usx2y_free_urbs(priv);
- 			return err;
- 		}
- 		priv->chip_status |= USX2Y_STAT_CHIP_INIT;
-diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
-index 108f9bddf9aa..8a551abe47dc 100644
---- a/sound/usb/usx2y/usbusx2y.c
-+++ b/sound/usb/usx2y/usbusx2y.c
-@@ -349,6 +349,22 @@ static void usx2y_unlinkseq(struct snd_usx2y_async_seq *s)
- 	s->buffer = NULL;
- }
- 
-+/*
-+ * Release the URBs set up by usx2y_async_seq04_init() and usx2y_in04_init().
-+ * Used when a later step of the DSP loading fails.
-+ */
-+void usx2y_free_urbs(struct usx2ydev *usx2y)
-+{
-+	if (usx2y->in04_urb) {
-+		usb_kill_urb(usx2y->in04_urb);
-+		usb_free_urb(usx2y->in04_urb);
-+		usx2y->in04_urb = NULL;
-+		kfree(usx2y->in04_buf);
-+		usx2y->in04_buf = NULL;
-+	}
-+	usx2y_unlinkseq(&usx2y->as04);
-+}
-+
- static const struct usb_device_id snd_usx2y_usb_id_table[] = {
- 	{
- 		.match_flags =	USB_DEVICE_ID_MATCH_DEVICE,
-diff --git a/sound/usb/usx2y/usbusx2y.h b/sound/usb/usx2y/usbusx2y.h
-index 7b6deed17d4b..e5e26ac8dc04 100644
---- a/sound/usb/usx2y/usbusx2y.h
-+++ b/sound/usb/usx2y/usbusx2y.h
-@@ -110,6 +110,7 @@ int usx2y_audio_create(struct snd_card *card);
- 
- int usx2y_async_seq04_init(struct usx2ydev *usx2y);
- int usx2y_in04_init(struct usx2ydev *usx2y);
-+void usx2y_free_urbs(struct usx2ydev *usx2y);
- 
- #define NAME_ALLCAPS "US-X2Y"
- 
--- 
-2.34.1
-
+> > > > +     ieee80211_hw_set(rt2x00dev->hw, TX_AMSDU);
+> > > > +     ieee80211_hw_set(rt2x00dev->hw, SUPPORTS_AMSDU_IN_AMPDU);
+> > Although I think this flag will still be useful for this patch.
+>
+> AFICT TX_AMSDU require FAST_XMIT. I think we could potentially enable
+> RX SUPPORTS_AMSDU_IN_AMPDU as long all buffer sizes setup by the driver
+> and configured in registers allow handling big enough frames. Though
+> I don't know how much beneficial that would be since we most likely
+> can not configure very large (A)MPDU buffers. Need to check.
+>
+> Regards
+> Stanislaw
+>
+> > > >
+> > > >       /*
+> > > >        * Don't set IEEE80211_HW_HOST_BROADCAST_PS_BUFFERING for USB devices
+> > > > --
+> > > > 2.53.0
+> > > >
