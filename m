@@ -1,96 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793490877;
-	b=sWND3ttHibqpKy4AMju8lnOE/ev1yuVD5++atR+cUms3InR7Zyz8xK2UlOoN/BNDG9+w
-	 mE1VLXD7VoczL04fQJNd1hiVdWZyFLXBduVlmF3Bvtsw5zlLIMjZkaM2dLnDBnkkhmgWL
-	 4tgBqVLSjM46nLoYjzR1cGOS4aiFEwS5KuOTJ2BY+8qeQLNQUwaGfFTeYoHBJ0FuWA/9X
-	 E65Omlzzvy6756xY/yAYIOYW2bxR9XsLOSkoMIUHzg2FO/RZMn3BF1bqcIv7vU1d0E0+u
-	 8KXKMaiHqMqZBymZzZsFoqg53g1mMZYkyyfqTlHproFVZuYlFORWz6PtqToie1Xgeag==
+	t=1793491014;
+	b=ea4+01hYn53cF25HzmrVhv8+d2EiFzDyTS+WCj6WmVxvepnvr9wKCLgRnpkYYxjTShuS
+	 89YuA6Q5jVu9rXxNVVZA7MnJzLKDHjZhBhzmI+uXUGGi7NvFJf/TugKYDlUWpz9mUpcoG
+	 RmWr2ttxyd1l2n27O1MekKrEORqp/gexygZPsFImpIK93TQ8Q9saizi4TbeOWhOslHIdF
+	 bXPXPip5w9e2pHSMOOfdDCgNdHhLF6KEeYnBNyfxvB011lCpW5G04DiZrFweVuJCNhTQm
+	 NKiXY10emKvOTAA82GiMxZ403DCb1Z+Akq/VuPMHf13ZZBPsrAuRz5mIQvv7MAVaqIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793490877;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/O1QuS7+tRKjJCe36mLJ5Gs9QsE8OnsKMAzsZ8ju5JA=;
-	b=jGBvnFmwEkVI04bQRcvCiILzC+P52mRWxN1ql//cNkFJ5DSwIk1eEmv/3/Jlx1v8i4jF
-	 iBobuqk2Njke0qm3tesTLEIXP51T7xnFqIVkKi12OHiLOUqzJw6ZIpe0cwUBtdx+gK2Np
-	 XDdTWdsEyQ/6cX6c/Ixl+mNxeocQwY/PIz1QQMJK0xOdYG5mew4Zx3vCs7tJi+H8jLnuB
-	 dsrDzE8K6nHVtJ0No+m2IYQJIjA1YRgDpt/NlN5bMUlyryDGayAkX95j9yn2H4SqzYAFz
-	 OJ0LkT9mPK19YBpapV0/l+VP39c+09CMgnEAx0xB/giBbL7tBuei9nGzuWw8HI4DDRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793491014;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Xp2Q1Tm8g8ofcTkcO3AHq291Sgn2y+s6CdAIBTqEkXc=;
+	b=J5I3//6dOWmEjo0kEQ6h6Cujyt0C2FcZkmC3BjfVv0JMx+9kxthhFwu1eWJaIgCAnsPY
+	 4yTeQdlHc6IcYCdv9gUrGwv+5te9ev4WRKrimiPMW4m6z7E6qbnZzEu+24oXqy1CT0M3A
+	 +u16E+J1C32AklQdoJDIu69zH0pOZV75dpRRb+5BgfVCblOBHphMm0dQz57QAb6s/QlLd
+	 Iqhc8ymmWCR0c064S9JwFgA+0jFcnGi8aldjI5gLr0xFX0JB+czWEwEjhH1sKXl7wPZBe
+	 115AbBLmDzeHvnR3FezgMlXq2ii3NiYgkOr7wSrn+ttY/tSPZvPiYFYUGyug3ccXerQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eTom9iFn;
-	arc=none smtp.remote-ip=192.198.163.15
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2cZtD9r;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EED0606A31A;
-	Sat, 31 Oct 2026 23:54:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EED0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CA3606A31A;
+	Sat, 31 Oct 2026 23:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=eTom9iFn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793490875; x=1825026875;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=onCPx45jawKu9ge3zeP6P/yMp8qkq874YfzuNRUh1dE=;
-  b=eTom9iFnz2ns+8WlvHLW97FS3h32Kz49d3YGXAlmGS10WvlgOm3fphZi
-   y2R6umxjS3aL0j4Yfcr+4FVTzr5lXJ8EFpo/FyJzDvWuq5UMib48KZ2TR
-   M0vC2PkdBdmAaZMWaZOQ/xana45ieNsk55rWElMDsY1pcOpnFbP0OPPXv
-   h3uTug49/4CnqucSph33IWWaX6zH6B+cTH88suQxzJEH6tXlJeW9+tXFc
-   OPCDlD42Fn/I+hpBdr3+COVFeBHvrCzwsCUMcSRT+T0OdywaT6d/+ZZmj
-   Srd1Ek1tJ/AfTWYbqNgrlYd/GfmFW6jX3yyDY1Uj5Z3aFhT6jr66832P0
-   g==;
-X-CSE-ConnectionGUID: /FCaWxYKSMmeduEKc8Tdxw==
-X-CSE-MsgGUID: fUhshoPWQSyixsMlsg+w5Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2220647"
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="2220647"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 16:54:34 -0700
-X-CSE-ConnectionGUID: V2rALCjrSseDfEOys8L50Q==
-X-CSE-MsgGUID: OZonhpcURWKtmmbCBaLWUQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,188,1787036400"; 
-   d="scan'208";a="6079165"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 31 Oct 2026 16:54:29 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNIu2-00000000dH6-35cm;
-	Sat, 31 Oct 2026 23:54:26 +0000
-Date: Sun, 1 Nov 2026 07:53:27 +0800
-From: kernel test robot <lkp@intel.com>
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-	Imran Shaik <imran.shaik@oss.qualcomm.com>,
-	Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
-	Taniya Das <taniya.das@oss.qualcomm.com>
-Subject: Re: [PATCH v2 03/12] clk: qcom: Add a driver for PDM GP_MN
- fractional clock divider
-Message-ID: <202611010752.aU8NDTD1-lkp@intel.com>
-References: <20261026-b4-pdm_clk_gp_mnd_v2-v2-3-ff8e4bc8d567@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=j2cZtD9r
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 520E61F000C1;
+	Sat, 31 Oct 2026 23:56:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793491013;
+	bh=Xp2Q1Tm8g8ofcTkcO3AHq291Sgn2y+s6CdAIBTqEkXc=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=j2cZtD9rhnCcMtqvFQ4MDB+q4EWdGpBtgn3wICyPacsQ20ImCILL6nUsQXT1CPdzu
+	 TomMbHR5J+HFo4ExFewTJYIk1OymJw3q4MCPSvk+y2iZjuE9AzuoUzxN0pPI5QC3Hb
+	 Nww5IguBza24+VFVnGYIMnUWLpaeVMPq5y3zNEzgb+LDjJ77WkTsSjG6wpXBVA5wpc
+	 7sanif2Q4FZkXJ/2aBlwlgewretV+wdO9NImvihhZnEwl5meTut8ivHRp/dHKm5KAR
+	 kqnf6vfjAS9ddKtbU9jN7J6wd4YScuS2f5soTeYk7wR52x2n81ibu8Yi5LIrWsP1F/
+	 kan2d96hTX4Mw==
+Date: Sat, 31 Oct 2026 23:56:44 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Tristan Madani <tristmd@gmail.com>
+Cc: Kevin Tsai <ktsai@capellamicro.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, David Lechner <dlechner@baylibre.com>, Nuno Sa
+ <nuno.sa@analog.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, Hans de
+ Goede <hdegoede@redhat.com>, Jean-Baptiste Maneyrol
+ <jean-baptiste.maneyrol@tdk.com>, Srinivas Pandruvada
+ <srinivas.pandruvada@linux.intel.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, Tristan Madani
+ <tristan@talencesecurity.com>
+Subject: Re: [PATCH v3 1/2] iio: light: cm32181: validate ACPI object type
+ in cm32181_acpi_get_cpm()
+Message-ID: <20261031235644.226c6a9c@jic23-hlaptop>
+In-Reply-To: <20261029110829.1086835-2-tristmd@gmail.com>
+References: <20261029110829.1086835-1-tristmd@gmail.com>
+	<20261029110829.1086835-2-tristmd@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,33 +67,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-b4-pdm_clk_gp_mnd_v2-v2-3-ff8e4bc8d567@oss.qualcomm.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Taniya,
+On Thu, 29 Oct 2026 11:08:28 +0000
+Tristan Madani <tristmd@gmail.com> wrote:
 
-kernel test robot noticed the following build errors:
+> From: Tristan Madani <tristan@talencesecurity.com>
+> 
+> cm32181_acpi_get_cpm() accesses cpm->package.count and
+> cpm->package.elements without checking that the returned ACPI object
+> is of type ACPI_TYPE_PACKAGE.  If firmware returns a different type,
+> the package union members alias onto unrelated data.
+> 
+> Use acpi_evaluate_object_typed() to request an ACPI_TYPE_PACKAGE
+> directly, so the ACPI core validates the type before returning.
+> Also replace kfree() with ACPI_FREE() for the ACPI-allocated buffer.
+> 
+> Fixes: d34ca613b939 ("iio: light: cm32181: Add support for parsing CPM0 and CPM1 ACPI tables")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+The threading is broken here.  They are in reply to previous version
+which is always a bad idea and not threaded below the cover letter.
 
-[auto build test ERROR on 4eb2586bd40db27d77cc5b724ca9386ed0c71d53]
+Hopefully I picked up the right code.  Applied, but not rushed
+so on the testing branch of iio.git.  These are hardening patches
+against broken firmware rather than fixes, so I've also dropped
+that marking and the +CC stable.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Taniya-Das/dt-bindings-clock-qcom-Add-bindings-for-PDM-GP_MN-clock-divider/20261026-165927
-base:   4eb2586bd40db27d77cc5b724ca9386ed0c71d53
-patch link:    https://lore.kernel.org/r/20261026-b4-pdm_clk_gp_mnd_v2-v2-3-ff8e4bc8d567%40oss.qualcomm.com
-patch subject: [PATCH v2 03/12] clk: qcom: Add a driver for PDM GP_MN fractional clock divider
-config: i386-allmodconfig (https://download.01.org/0day-ci/archive/20261101/202611010752.aU8NDTD1-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261101/202611010752.aU8NDTD1-lkp@intel.com/reproduce)
+Hardening this stuff is good to have though when it doesn't
+add much complexity like this patch.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611010752.aU8NDTD1-lkp@intel.com/
+Thanks,
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+Jonathan
 
->> ERROR: modpost: drivers/clk/qcom/clk-gp-mnd.ko: symbol '__udivdi3' undefined!
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> ---
+>  drivers/iio/light/cm32181.c | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/iio/light/cm32181.c b/drivers/iio/light/cm32181.c
+> index 9df85b3999fa8..a16fc83bcbb08 100644
+> --- a/drivers/iio/light/cm32181.c
+> +++ b/drivers/iio/light/cm32181.c
+> @@ -115,7 +115,8 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
+>  	if (!handle)
+>  		return -ENODEV;
+>  
+> -	status = acpi_evaluate_object(handle, obj_name, NULL, &buffer);
+> +	status = acpi_evaluate_object_typed(handle, obj_name, NULL,
+> +					    &buffer, ACPI_TYPE_PACKAGE);
+>  	if (ACPI_FAILURE(status)) {
+>  		dev_err(dev, "object %s not found\n", obj_name);
+>  		return -ENODEV;
+> @@ -132,7 +133,7 @@ static int cm32181_acpi_get_cpm(struct device *dev, char *obj_name,
+>  		values[i] = elem->integer.value;
+>  	}
+>  
+> -	kfree(buffer.pointer);
+> +	ACPI_FREE(buffer.pointer);
+>  
+>  	return count;
+>  }
+
