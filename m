@@ -1,94 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793471755;
-	b=ZAX9Ft+AfF94oVTmLjU/FmhcVoXRYK9byvj/e8MqaUFF0gI4ysE+Uc87zqu2f4DFA9IJ
-	 N2saIcuIJEMuZH4DEg9PEAQah+LCpt0Xub7nRkqKRa9d49wx3oSGVr6CsY+og8BwbjlDb
-	 2QoqcXqq900hGCGRQfGb00RxFlpUrLS/1lA1xXKxNjkpUrCf93N6qMssebdVni66asHu7
-	 9GEOfGtq9mqiu0FF+Du/8iOfxxg9UWetbqrFd4bbXn934LS22pk46dYmKDJUNM/j2vLEG
-	 8BqzHr8WOGXuymygsJqpwhsGefw/zJFil2HZhxd2bYD22Nup7LTuKtTMRz0d7uUKMBA==
+	t=1793471751;
+	b=TBJP80ubaiuopwlceBr/5hoCgGkKIj/oywEkEPs2U17EMGW0LVnJoOF4I21mgCNpCGv3
+	 yvc5vJxuqsUhjOpAGMsjrDgBI8deTc9kRo/lRMsljqtQHs8/Dl6nbgW5nL4marROpOfDX
+	 Cu3kUrqxqK+dk7h55iiCFGTdgmsStUzcNYUj07QEWOelaLD4YF6pVE7A7rCvUonTjv6Ib
+	 ggyRSBKx3GMzSSNPn5/68lyXcXcr/eKB89cg1aAns2rhH7GoGbUssPInvLFWF9eSV168s
+	 DN/cD6LPG+JDqWKxW6fkaHiNr3cZ0X99rJrMqPWkTpKyfobX5tV/T1TX/knfiM77Plg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793471755;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793471751;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=yN+TG3cll45GlRcOY9f9N+pL2X7AI2IfUU7T9/nu2cA=;
-	b=dZ1wTRzHXCKAYbJN8WGJ8EHAcrmd+8SDBbpo8v5/G8z4MPMFrXFSAI+klzjVWsvMC73/
-	 /hfn03r0MWcCBYvOySG+MW0NFgZ9SbDjpYRVQM/bvqq82qQRenY39QfXj2JTrQESMTBMG
-	 rzhj4Nwqwv+jH4Qb90LdayN26lo8Sg9HOLZHqTtZtj7tpuTUyM2DAZpq3IF157vOXu4B1
-	 7SZ4LMy6ByhqYAWZoH3UI4j+q3JJ3ZQbJNTlNSgEdca9A16ryoruOZP/MdvG6l5s4bSiE
-	 nrsZ7OmpSl987bZ4fxMtCrXNh3MQ9IvIH0Gf7fMPywqI9BN8/McPKVtxHo+y9+lt6fQ==
+	bh=JSWP+8K5x8OQvpScI07jlPc5QtG7BUmJR3OiQnYapBI=;
+	b=kemaQGEZBtn/hcELwWGQQQnNUZB2zKvYEqo2lLw1UzZQugY4gTH9i75LVt5xJ1LEwlkB
+	 UheKXTyUisjQoaJBXDGxX6wUdWEUMg7fl2eIu1ab+Ctd53uVICfk8kjN+6t2Lc8z/6tuo
+	 bJX/MiCP7iVoEuGz64bBJ/zqgtiITkFntPqKW4kvok8TmNVZf1LaC5ipDg5HXiD1cT5tb
+	 j0Zs2pIpmlRCUxkh0Jzvna0bCpVhU4UmZsynq//0/HGiXe9rMLXR68Akf8ycD7ygUAlxA
+	 N0CV18xqSusqAh+KUmRmCDC7Lat7Nwh1cQ4IIata3aVARalUXDSzYMfjUTRfAg45etg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tFXZPhc2;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GY/h5Vxu";
+	arc=none smtp.remote-ip=209.85.128.53
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0684606A322
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:35:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F0684606A322
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6A4606A321
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:35:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE6A4606A321
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=tFXZPhc2
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a2d6d01ecbso11286365e9.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:35:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GY/h5Vxu
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso13214165e9.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793471753; x=1794076553; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793471749; x=1794076549; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yN+TG3cll45GlRcOY9f9N+pL2X7AI2IfUU7T9/nu2cA=;
-        b=tFXZPhc25wDITKGyVPKqC3DzYiaZ+oFIdXG++nD2y/LuWK/g275eSvM+aQ79akTaZD
-         enjN3K5neTOIYTnJADUWlGNL0W6owwNMW7cXUSwFqNEcAdjaKv60zD0wkLZD4PFxBMFr
-         AI+JIaIFkC7G2DPF5FywgNUclcAMPV0uDLRenxuni4WdWUdTnG1Xq6u+d1BdhAN1oX92
-         TOtHZelzqBOTZ7aqhfIUkIAJX4sX4Ug1oPq+gL62IPCy1ZpmWVr1JylYueDR3d1sqT/v
-         ccn/ntkzbwpxROl6AQtCrruY3t6I5snTGU7WW3qn03HBH/8f5+9Mmm0QforKTdwU4R0N
-         voWg==
+        bh=JSWP+8K5x8OQvpScI07jlPc5QtG7BUmJR3OiQnYapBI=;
+        b=GY/h5VxupOjUe7HiUqsjDuG86vdsQtf2I8PDsyeeiyfCElZ8UuZpZ0d1rhkeyGIxh5
+         vkUYDggjh0GZpN8IJ743cizGwowqBKWVdxbboLQWTNN+jzXbDz92J+uZ5WC5y8TESnSs
+         wRaX3TH0ipCOiIbpHrBBgnhtpqQwV4D81kzKE2AyY2TnAMBfQaOioEob7PuamSEdHIlO
+         zPplGiz61RJKLtyjz5bwVwH/3k4th1+CTqDH74LZ6gCLCO/o3t3yLCn+k5aqgA0TUn2M
+         wp0gtAcgJz/wQLl4qIrS2Dva2miqZl9kAQ/0duzGwm/5+xqQBg25vzO5bevuHeHuySfn
+         f3VQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793471753; x=1794076553;
+        d=1e100.net; s=20260707; t=1793471749; x=1794076549;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yN+TG3cll45GlRcOY9f9N+pL2X7AI2IfUU7T9/nu2cA=;
-        b=EKEeMYlNu8hF1FFp3TQju1Ae9LlZIjYNygGXbECZiRzYobL5gHMt0oispDZrD5Zvuo
-         ukEPfKVrFOTqY99VGQAEICSOqRxjHW0TlG0jtbRQn9b2eHAn0LiTj4AUwgnYvmcK3dU3
-         NyII4j9bUBSUF8JrUFKdImzem134AW1srZ3IrQMhhbkOgPM52/30ZyXuf6xfAbaiqn8B
-         xEqhreupdbrOnS+6fDS42hiM/CfsuE6Yg7OZdNyNdOwODWFNjAoglxTlumrw8DOpj/pd
-         wcN8sRIT7ryzh9/QuLMeoWAKt1JkzjxPqPW3inaeH3sNR8lyS9sJ8+1mejmLOdOSkK6c
-         zgeg==
-X-Forwarded-Encrypted: i=1; AKwUvBxWfkou7OIGZnQZsl9dyFtbq0qY8X2ZHo2LS6a+qJvRFtBBA1S4Y8Wd1tBvKA7lBzFwqbfl7dApmwSTReg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKWdXI6f4hvgiLChZQKg7/kw5od973STPysfIkzclHTIgfqcG+1
-	EqnhPCW6wCBn0Hn+FEnfLKkUpaDb2ztkcNAGGJSXPaK8GzzfHCVjmqCDhBH+lAmXSAic/Q==
-X-Gm-Gg: AYBFou2Kq2dgxIvyMT7YVhObUaxN2kQRzIkODnt1UAU5EIAIkFTQt9/cwe1sQXT/GO5
-	QubhNR+/lRabKp4QbU2ttfiJQBDlDXq9+PI+udDvEYv8pfRtqAL40lZiuFEpN7QUhpB4LkPZmG3
-	aKREBbE+U6hRy43Y12TmtWwo7A6F6N91zmG3qZp4EH8coHjKcCkOm8XcJoWCVEUJWP3JQy+aFdd
-	olTjaMLD11XoUqVYPTFK31x+snno9MTAut0ug4/dTAZwJG+MEiwGR9cx2FfComZbevcjtQE+zNi
-	Drz6VfOOBUAh7YjPp8WH1DSoV29PMJbKTW+rYmrDiPKLG0xNV7Gqw95+nH9SLk8BJwPJkug/mNF
-	MKG3mhvuFKsPy36YczeUXogVoUnPEgQAc/YehkT14YXa9arMhYUrHLm0pFzA77R3aVeagHtWY/3
-	NCbMvix+rsvD3TCPk1/Cema4hVgFd2W20Uq4eEv464Cq0edVmtHdRDHxsU9RpgstxBAMdrW9y1M
-	6n0wGMS8nNifLm/9wdyaVgujtDpiJ68kW9XFVPKTbKjHLSHVW/kJnJdyD3kPg3kyrb3CxzYh6Wr
-	6fumUXQSACh9lL7XQoSyu6CLj+wPWMFwHJz9YNrP20YX/zmf8GJkMS6g6lx0nPw8vxhfx2s8J+8
-	Sr4HaPqF9rn6438kJhSw09Nz+Kq+rlkmzlgx49/E4rOOpPyfJ4pkcMLyGThnJ2ZkkKq2RDgwE+3
-	uoG/hPEDTMC8BIQyDeZ8Ywc8U1TZQHSQgO92UwV3WSTeF/+UKAGCsWYJs6n3SbpWdDDQ+ltxcjs
-	BU19js3tlUIkuXDpBu3Ei1g/PjmB6fIBsgkrQ==
-X-Received: by 2002:a05:600c:34d6:b0:4a2:1364:252a with SMTP id 5b1f17b1804b1-4ac150b2192mr132858705e9.3.1793471753435;
-        Sat, 31 Oct 2026 11:35:53 -0700 (PDT)
+        bh=JSWP+8K5x8OQvpScI07jlPc5QtG7BUmJR3OiQnYapBI=;
+        b=qkpiMUitJ2rBR0FO91GqrKrZMgx9wGcMloBu4mkIbaGxlTs1QeDjvD6HucM2IwX/Ja
+         bR9bUGy+UGl3kvpsjf6AbPu2EY6cFubytq5klZ8rqz9v7atsa3oE3XXM1MEmHvTGlPFo
+         Swfxc7fGa6xFAqJRojFXgQFggfuOXf5c6elijwYwYC/+f6C6IcCUraL07oYXdQGWOPCe
+         /zgDY81xvvoZemMhm2s1YO6rv7Og5CF83kUIj94tpUtJtvjmap5S6MYCYFdb0c+wdYXw
+         QYqxyJRjffjZRurDYmLGQALmwBerdCVp95xsBbEIgf5oNJfCdzdfRZqe3n/KQMQn3K3H
+         seug==
+X-Forwarded-Encrypted: i=1; AKwUvByckQ1FGsIcED0s3Kbd9UHMJ8sPfdQ++/maiWaALN3oYM1jJs2iM/gdw4WOYZtz9ib6HjuiDDfa0cuXQTs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLegqiz1gnPjq5PuqMB9X5r4VpW2zKYEaMjQVS3bv/bajcojzrG
+	DwZAkEQgdreXfsFRRyBf2Bzhu0U/L/GqLszP1ZzOYFCFoc8lWeWZNFO8
+X-Gm-Gg: AYBFou3tMUqoY0CitPfTL2zGbBcXtzlU+9uLVB7MpQv9oevgGEyj7HQ5VpJ/e5R9kjK
+	ctabE/7Lt2y666cLGqlT+VU61WGVQARj5JMzqwgIEX7aQ5Oniy2SJc7S3oADz65NNK3lQh9xOdO
+	qUTarHwIvxdaEoPdDAt5j87BLVWXMEoM5NdvDGSD0StpY+/xuEzuSBW4IVG6Jd7Kcm26xUNhgkr
+	ZHLUsuuv272YlympYj+MzO/kmg9E1AzuIbmUMeeOOycOmaMdorvNpshh49UmfZ6sFNnCRU9Ftcy
+	5vw9gyLDmhuRgkm7g2olVZgonLdtM8cOEmftAucbxwobu0d3sQ3V089nQMImghlN7dAmaG3Qnbr
+	zXrt4pFl0UU5FuahfZriP3y5s2Ml6t69pYUILYcs2P8P1Wca3zI4SafTOLuQ5+mZv5bADltNxwK
+	MZ2UowYgLtyx33GqydShKxP1I5PfnwvvRt/F5k/YomXTRdcvglZOnalQXltrwZAgOrGhGa0WGYl
+	TeSBqtppnIiVZhm7tKTMZWKKIalPbk2UPHda7vSjI1bwuxE81ecQMoclz395TAXe300KawZClvB
+	n5G/OUEbQ362/26Ezs0/QvVxpPBdqOhSvoxksT1fCiqAvTmVTPtYRbHTeA+G9RljWx4AexDLsDW
+	ZBCfBqsfg4+3mfkgXMola0taHSXqAMTLF4cqAx9B5hHhBOThCbOGmZ3LoIFhTApHGue9q4NtiPC
+	yLIf6QP13rKj9ZgKMxZ8KPD2D5V4d+iZk5xTAlMAFDiMEsVsanXopWQ+DH04mHW4qPgXzI45qKH
+	XCoDeS3wj48VayR
+X-Received: by 2002:a05:600c:6095:b0:49e:7c8c:361d with SMTP id 5b1f17b1804b1-4ac182dc30fmr122145225e9.22.1793471748993;
+        Sat, 31 Oct 2026 11:35:48 -0700 (PDT)
 Received: from longitude (2a02-8434-fda5-4201-0247-bf06-1f38-d09d.rev.sfr.net. [2a02:8434:fda5:4201:247:bf06:1f38:d09d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm219745075e9.1.2026.10.31.11.35.52
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f3229dbsm219745075e9.1.2026.10.31.11.35.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 11:35:53 -0700 (PDT)
+        Sat, 31 Oct 2026 11:35:48 -0700 (PDT)
 From: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 To: mhiramat@kernel.org
 Cc: rostedt@goodmis.org,
 	linux-trace-kernel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 4/5] tools/bootconfig: Resolve histogram dependencies until no progress is made
-Date: Sat, 31 Oct 2026 19:35:33 +0100
-Message-ID: <cc5b165d95ad5f2083453644f70f8b194874598b.1793471731.git.edumucelli@gmail.com>
+Subject: [PATCH 1/5] tools/bootconfig: Read the documented ftrace.notraces key
+Date: Sat, 31 Oct 2026 19:35:30 +0100
+Message-ID: <41adc1bbe842f6f9240aa877b85d6b0310259743.1793471731.git.edumucelli@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1793471731.git.edumucelli@gmail.com>
 References: <cover.1793471731.git.edumucelli@gmail.com>
@@ -103,48 +103,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The exporter retries unresolved events only three times. A valid chain
-of eight histogram dependencies in reverse traversal order therefore
-exports only four histograms and reports the others as undefined, even
-though all their providers are present.
+The boot-time tracing documentation and trace_boot_set_ftrace_filter()
+use ftrace.notraces for function exclusions. bconf2ftrace.sh instead looks
+up ftrace.notrace, so the documented option produces no writes to
+set_ftrace_notrace. This affects both the root instance and named ones.
 
-Retry while the unresolved event list changes. Stop when all events have
-been exported or a pass makes no progress, preserving the diagnostic for
-missing variables and dependency cycles.
+Read the documented key so that the script applies the same exclusions
+as the in-kernel bootconfig consumer.
 
-Fixes: 2b86062a34a8 ("tools/bootconfig: Add a script to generates bootconfig from ftrace")
+Fixes: 7e66ef0046cc ("tools/bootconfig: Add a script to generate ftrace shell-command from bootconfig")
+Link: https://docs.kernel.org/trace/boottime-trace.html#ftrace-per-instance-options
 Signed-off-by: Eduardo Mucelli Rezende Oliveira <edumucelli@gmail.com>
 ---
-I installed a valid chain of eight dependent histograms in a temporary
-tracefs instance on my Ubuntu machine, running kernel 7.0.0-38-generic,
-with recording disabled.
+I tested the documented ftrace.notraces setting with one and two function
+names in a temporary tracefs instance on my Ubuntu machine, running
+kernel 7.0.0-38-generic, with recording disabled. The original script
+installed neither exclusion; the fixed script installed both exactly.
+Fixture checks also cover the root instance, named instances, arrays,
+an absent setting and the unchanged positive-filter path.
 
-The original exporter emitted only four histograms, so replay restored
-half the configuration. With the fix, all eight were exported in provider
-order and restored correctly. Fixture checks cover shorter and longer
-chains, missing variables and cycles that must stop without looping.
+ tools/bootconfig/scripts/bconf2ftrace.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- tools/bootconfig/scripts/ftrace2bconf.sh | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/tools/bootconfig/scripts/ftrace2bconf.sh b/tools/bootconfig/scripts/ftrace2bconf.sh
-index 8ba1a698611e..b3c976bc98c8 100755
---- a/tools/bootconfig/scripts/ftrace2bconf.sh
-+++ b/tools/bootconfig/scripts/ftrace2bconf.sh
-@@ -203,10 +203,10 @@ event_options() {
- 			per_event_options $INSTANCE/events/$group/$event
- 		done
- 	done
--	retry=0
--	while [ $retry -lt 3 ]; do
-+	while [ "$UNRESOLVED_EVENTS" ]; do
-+		prev_unresolved=$UNRESOLVED_EVENTS
- 		retry_unresolved
--		retry=$((retry + 1))
-+		[ "$prev_unresolved" = "$UNRESOLVED_EVENTS" ] && break
- 	done
- 	if [ "$UNRESOLVED_EVENTS" ]; then
- 		cat 1>&2 << EOF
+diff --git a/tools/bootconfig/scripts/bconf2ftrace.sh b/tools/bootconfig/scripts/bconf2ftrace.sh
+index 7745c97e7abd..e5a833171b57 100755
+--- a/tools/bootconfig/scripts/bconf2ftrace.sh
++++ b/tools/bootconfig/scripts/bconf2ftrace.sh
+@@ -258,7 +258,7 @@ setup_instance() { # [instance]
+ 	set_value_of ${instance}.tracer ${instancedir}/current_tracer
+ 	set_array_of ${instance}.ftrace.filters \
+ 		${instancedir}/set_ftrace_filter
+-	set_array_of ${instance}.ftrace.notrace \
++	set_array_of ${instance}.ftrace.notraces \
+ 		${instancedir}/set_ftrace_notrace
+ 
+ 	if xbc_has_key ${instance}.alloc_snapshot; then
 -- 
 2.53.0
 
