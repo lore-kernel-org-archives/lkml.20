@@ -1,77 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.3
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793409856;
-	b=kZ7taq09e1KHvsl6OO1nM95jeLyo1O52dUgBBAHOD9Ej9ge0SpP4WjUQb5Ii8l8rpdFo
-	 2hw4aVOf++N3lJjl1EuXcVWjGvD0jel14ozsKDAZESYzn0rGrsdLdDqocw+kU/XzQ/VnX
-	 MX1a4MDeZFDwz+so387s4QT2bxgWMCK04DhWS+5XHQyR9LhZ+w0LaIocUxjO2cvLc33Us
-	 8nXSIuz5HfLWcNEksweOR2nJbhNWIYTbA+XyuxIOHSSmq6P9HJhUje2QOi+wUXl4/WASv
-	 wfB0/NQxNATnZp+2e84QdkAIjlqomFzYSVebtQwhpLJ9mbu03XI7U7BloF2K3scWTQg==
+	t=1793410103;
+	b=cIYZyCSXPeSZc+kS0tdDR4zmHrhVZo3loAnuabH9tSSR7lXMpCB4tRlczC+yKfOsxnXy
+	 9boRXRe33JR+LebLg1tmuIda2FOqFZoy13IIGP3zcy7QoX7DvF5A08bGUy4HovtKW3p/X
+	 EHdChp1Fft2DSLQUjpTlvJWLI3f9z8K0NhiHE2pWWvpr4LkEnVwzuTsM7XeSf3tUilnWK
+	 cWtgN3kh5RrPN2Z3Ynwl8GGIPbyiVWJsE56DLyGdqvxdPAgzpvV9YxWvltCrj46/v9W4L
+	 v49zl6dUxVg2tCFTvET5ht4MPknXumiIU5/vqMmXGEwamk5PW2YV3b07G4maj5N8Gcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793409856;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=/bTTjj8n/ts39yLomRcVpuIj0WjaFRlNCsiPPRonh80=;
-	b=XmZIERFst2UAy6rXLRYs7KluRHYzmY3balooVln8Gmeagm66b/hDeLi3Fl4zYYjNPLIE
-	 W7f+p+dmK0QVDm6lBUAM95idofTBCU7jSTqwxAFH/bgROBLgoFUbynfClBmzkpPojkzYE
-	 l7TdX6rV4yGIDENaR+YH3XpW5GzLGEK5LSqWmwEmtILfA5VBcCkFfDeMEZKGIJA2Mb95+
-	 3qNtzZ5sSpjkEpuIpBzzjIfNFjCy8wgKNcRuqaUQkmvV+sArKuT/MbjzYvzmIvEurcbRV
-	 MjH57p9Hp/iG2lNz7w6h/Oh+JqvWArtXihy33u87ImtKTVi7aznG9zUpckdRDCTiZTg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793410103;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=a6ooV5rVY1GQuE6ouKZNNisI0guDE/GpOjIpdYXk4Rs=;
+	b=HoD/nVEWBDGXGLeTmPLijNpU8VL6wpj06rQkdop6Q/SQnwrVqFS73QQFIftQE1LkmQqD
+	 kWqOGomrOOalKbGQQRcfyL8X4V2clG8gbdEEUhvLK++0q+RxNeobTGiw36MO2Li9DC95R
+	 9R/O3k2YDoYBbRJSb2iJRrAsNGRUFNixIEdwBezp0cxOGXaRmdpxmWwUEHq7NT3dYXzEq
+	 Lz4VoS2zh3l3lLfn9DJaIkF3FkINKk7s5ajUeOSMnruSU/TEu3oAiEYnP/OU7wdec8EuG
+	 apCrjrRni7unGqDJqQL3elozcXvzrXMO72VPQiF8g4x+dIvCIoIDS3wEMCfEXnbtDhQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	arc=none smtp.remote-ip=192.198.163.12
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pq9hKRpu;
+	arc=none smtp.remote-ip=91.218.175.3
+Received: from mta0.migadu.com (out-3.mta0.migadu.com [91.218.175.3])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109B0606A31A;
-	Sat, 31 Oct 2026 01:24:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 109B0606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793409847; x=1824945847;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=YUY4SZ+Fxv6EF7SHsc9znE54cxaG4yTMfXDhf7S41o0=;
-  b=LJIMsVt8IJvp+60uuXos4izZxHgUsfZQnop/Ifw1JmR/P1+fXVHxeEyr
-   Vu98gJO+Ci4JPWq2YknZixMiJl0pK3JYk5dwAltThV8kPVSqgsWUhrigz
-   M88Zs3SKyb8QP5J4xNgnRh5T0YNXRGIuuCMdZpYDCq9UaoY1bnA8yLlPb
-   wAzota1WGyiUxmPP0FlvYo9UnNcLnA3MY2w6XxZX9gvSVdzKagdVQY06v
-   w0utLwA7S3xOZw5ARUsj7oDXc4fagF8U8tf+nG/nAThU2Rwa2Nws4IUba
-   VKDXz6H5nogR/u1kXLrRmUbCJPtBHRYFS96SMrhR/NWkOvvOwlwjlsQPL
-   A==;
-X-CSE-ConnectionGUID: cXqIlUJHTzOFMF2e4Pnrmw==
-X-CSE-MsgGUID: Pn2/85yWTlqAQ2IKYsrCEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2071714"
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="2071714"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 18:24:06 -0700
-X-CSE-ConnectionGUID: XPJUpvmdR0Sqa12yYvTrOA==
-X-CSE-MsgGUID: wbKxthZwQamUMnWMhHnqvA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
-   d="scan'208";a="5915287"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 30 Oct 2026 18:24:05 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xMxpC-00000000cQO-3Pry;
-	Sat, 31 Oct 2026 01:24:02 +0000
-Date: Sat, 31 Oct 2026 09:23:38 +0800
-From: kernel test robot <lkp@intel.com>
-To: ahmad baghereslami <ahmad.b1995@gmail.com>, dmitry.torokhov@gmail.com
-Cc: oe-kbuild-all@lists.linux.dev, linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	ahmad baghereslami <ahmad.b1995@gmail.com>
-Subject: Re: [PATCH] Input: synaptics - support the touchpad LED on RMI
- function $30
-Message-ID: <202610310804.T0iDq0C6-lkp@intel.com>
-References: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1DE606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 01:28:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE1DE606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pq9hKRpu
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3UXlybLI0iJDYqrDEMOmBWP5abFQsCQpxQAYz2OkJnc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793410100; v=1; x=1794014900;
+ b=Pq9hKRpuxr+cse55KGlwBn9UFzX5RIiJ1S35PW1gNCjs0PtQj8h6TeVzFoalPYOH9HIbQEbp
+ L2iK2eodgtisxDXfBuuqNCl2dJbsPMaZGJDw3H9zHuZminoWJ4nt2nch5lnWSmU7gGgGQPLNHKl
+ 9agD44Txr2eIAuuH5lPUvoDQ=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 1701bc76d040e0a1;
+	Sat, 31 Oct 2026 01:28:19 +0000
+X-Mizu-Trace-ID: 1701bc76d040e0a1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <84396bab-166b-435f-9663-0aa2939de3fc@linux.dev>
+Date: Sat, 31 Oct 2026 09:28:10 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -81,41 +58,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030070821.1716595-1-ahmad.b1995@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] ppp: remove SC_MUST_COMP
+To: netdev-bot+sashiko@kernel.org
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, leitao@debian.org, norbert@doyensec.com,
+ hataegu0826@gmail.com, paulus@ozlabs.org, Brice.Goglin@ens-lyon.org,
+ akpm@osdl.org, Matt_Domsch@dell.com, linux-ppp@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261029074935.40509-1-qingfang.deng@linux.dev>
+ <179339596607.3131.10030375792154782283@kernel.org>
+Content-Language: en-US
+From: Qingfang Deng <qingfang.deng@linux.dev>
+In-Reply-To: <179339596607.3131.10030375792154782283@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi ahmad,
+On 10/31/2026 5:32 AM, netdev-bot+sashiko@kernel.org wrote:
+> [Severity: Medium]
+> Does the fix need the define to be removed from the UAPI header?
+> 
+> PPPIOCSFLAGS already masks the user value with the kernel-internal
+> SC_FLAG_BITS:
+> 
+> drivers/net/ppp/ppp_generic.c:ppp_ioctl() {
+>      ...
+> 		ppp->flags = val & SC_FLAG_BITS;
+>      ...
+> }
+> 
+> Removing the bit from SC_FLAG_BITS (and SC_MASK), together with the two
+> checks, looks like enough to stop SC_DC_ERROR from being stored as a
+> config flag.
+> 
+> Deleting the define is a separate change at the source level. Userspace
+> that includes <linux/ppp-ioctl.h>, directly or through <linux/if_ppp.h>,
+> and refers to SC_MUST_COMP would no longer build.
+> 
+> The commit message calls the flag unused, but the evidence is that one
+> pppd integration from 2005 never landed upstream. That does not rule out
+> out-of-tree pppd MPPE forks or other daemons that use the name.
+> 
+> With the Fixes: tag pointing at a 2005 commit, this header change will
+> likely be backported to the stable kernel-headers as well.
+> 
+> Would it work to keep the define, with a comment that the kernel ignores
+> it and that it aliases SC_DC_ERROR, while still dropping it from
+> SC_FLAG_BITS and SC_MASK and removing the checks?
 
-kernel test robot noticed the following build errors:
+I found no trace of existing users (searched GitHub). Even _if_ there 
+are any, _and_ SC_MUST_COMP does not alias SC_DC_ERROR, the logic is 
+still flawed - received packets are silently dropped without noticing 
+the userspace.
 
-[auto build test ERROR on dtor-input/next]
-[also build test ERROR on dtor-input/for-linus hid/for-next linus/master v7.3 next-20261029]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/ahmad-baghereslami/Input-synaptics-support-the-touchpad-LED-on-RMI-function-30/20261030-103821
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/dtor/input.git next
-patch link:    https://lore.kernel.org/r/20261030070821.1716595-1-ahmad.b1995%40gmail.com
-patch subject: [PATCH] Input: synaptics - support the touchpad LED on RMI function $30
-config: um-randconfig-1000-20261031 (https://download.01.org/0day-ci/archive/20261031/202610310804.T0iDq0C6-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.4.0-5) 12.4.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261031/202610310804.T0iDq0C6-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610310804.T0iDq0C6-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   /usr/bin/ld: drivers/input/mouse/synaptics.o: in function `synaptics_disconnect':
->> synaptics.c:(.text+0x22dc): undefined reference to `led_classdev_unregister'
-   /usr/bin/ld: drivers/input/mouse/synaptics.o: in function `synaptics_init_ps2':
->> synaptics.c:(.text+0x406d): undefined reference to `led_classdev_register_ext'
-   collect2: error: ld returned 1 exit status
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+If the goal is to prevent the removal from backports, I may split out 
+the removal part into a net-next patch.
