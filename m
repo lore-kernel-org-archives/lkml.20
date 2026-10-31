@@ -1,63 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.99
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=220.197.31.4
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793447161;
-	b=yjhSeBCje5vU/OZ0WfuK6ALpsoTomhtTupdtibrd3TQ30IQvuUNdOH2tR4NY+I5nmxkW
-	 7SdVns06DL5vHrWB1qu2FXvwy3Owc1ntWIQAX/eSGUmuoPjrCPdhZlwt+deC4PUgqeweS
-	 VAhBzxaaJa462n2Z3MZqy5iqRYJPDf+M85jh8n6gjvx1tJfJ5PlPwbLFSbYnh84HPMDjF
-	 WQ00xAabPA+7OezdDNBkoxUlsYmIGR2y/NBKwBgzgsfyT3Eicjf6gd0D3HMWKAyd4D50L
-	 jMiJfcZfaEW1zjqbWSgGo4eFJZNzqESqub/IzVdRI+rQcCE7YcMCSSsPwQnS+3p0Rug==
+	t=1793447170;
+	b=mQH9owjprrWdaPwfrdp+v12uWV0BK5ES59LjOyxGsU27ZpLSkKquFGVB8MK3lmAWdjyq
+	 bBedgBrwbIB8H8o+mg+pVphx17WXEySlA/+i9fdGNMd3oMr0/7JHL4CXcfqedZpMENYdg
+	 DisZ6n/jHj4ByNr3UqpnpEfhhvxg2f98ywYXt1aI66bzruWDYWLe5qp20I2bt0qIb91mW
+	 /9rk6khD5AmcJauhqdJRe0h9cfJMpiw+pPMfFGfhoTehLk2M/zAd3wnx6VI1rOJx+plpU
+	 sYMBOhn1UqkVZRpAoITbbXEnR28F3Z3uX0oijKbvhPg98U9XIYiyTL27Cg+PHxsFdWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793447161;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=fqcMcWI6B4pbneac0+d0du8gjqzWSJbtYahBflLJhA8=;
-	b=Ag6fyHDK9bzJ8nI88AvAvTQR2UaeY2M2OxgFpay+ujjDuAhy2ygvn3KbQZzyoAOHOzAT
-	 roa7SXJ/bOAOFTMIeTrgagNG7ZVmRg5ClDxvQcFK9Scn/ctq9tPelYOXreGkoDaa9wRNM
-	 rAGZ6uo8KTM4SVCn4d0C4tx1/ICWfLec0pJymA06+4ASpP5eaDxrmRjJiH8xIsVF3CmM9
-	 q5QMj2N0H1ZieoVh1355xclHq6eL0lzPkpjubZPVuIRWfj79KmoGEq7VcXg5zVHgrxfak
-	 tYpzUhhKLUW4yN9d7/PNv4dikziii+dyhMx1BKWTGsitxhGdRbQf4MfraAvuYzIBNQw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793447170;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=xO0cCGhtJJTKE9KA2w/8Ef+xGwT5LXqnYvAXTWcz20U=;
+	b=q/3t8Ig8kylaE41kMN3ntJBFMLeafEV8lU06k/19y2DcJpHN8jf8OAnYZUr1HZ85NVuT
+	 7VfEEVD+ZhUYrs//YdCYY1E8GODX0n6nwdhPs84+D91R37s//41TpcVdWIAK5hExdVRTW
+	 jeJPVIl6ARZyv1KlWWl3BzC2DSUtb/0nleCkGxSMzmxt5lcWknhLslx1qfulGdOTotwp0
+	 NnoOY8v2INO42D7NNarqdVSoiKdFerUASlxg1gYdYnp42iIpY7x/oIaLHcUROgyJTi7K1
+	 UgaFZRi8e4i7KU1NUY6V6keF2SksTvQxWqRnbM+aSiszSYJqYV6/QQ1r4U+kXk+b1QA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=huaweicloud.com;
-	spf=pass smtp.mailfrom=huaweicloud.com;
-	arc=none smtp.remote-ip=124.71.93.99
-Received: from dggmsgout11.his.huawei.com (dggmsgout11.his.huawei.com [124.71.93.99])
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TVCAsYTB;
+	arc=none smtp.remote-ip=220.197.31.4
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EACE606A31C;
-	Sat, 31 Oct 2026 11:45:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EACE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
-Received: from mail.maildlp.com (unknown [172.19.163.170])
-	by dggmsgout11.his.huawei.com (SkyGuard) with ESMTP id 4jGx3z3sdfz1c0W7;
-	Sat, 31 Oct 2026 19:45:35 +0800 (CST)
-Received: from mail02.huawei.com (unknown [10.116.40.252])
-	by mail.maildlp.com (Postfix) with ESMTP id DA05D4056B;
-	Sat, 31 Oct 2026 19:45:55 +0800 (CST)
-Received: from huawei.com (unknown [10.67.174.45])
-	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgAnKv3X1OVqfLkHCg--.25404S2;
-	Sat, 31 Oct 2026 19:45:55 +0800 (CST)
-From: Tengda Wu <wutengda@huaweicloud.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Tengda Wu <wutengda@huaweicloud.com>
-Subject: [PATCH] perf/core: Prevent duplicate sigtrap task work enqueue
-Date: Sat, 31 Oct 2026 11:45:20 +0000
-Message-Id: <20261031114520.642476-1-wutengda@huaweicloud.com>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B4DB606A329;
+	Sat, 31 Oct 2026 11:46:07 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1B4DB606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=TVCAsYTB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version:
+	Content-Type:To; bh=xO0cCGhtJJTKE9KA2w/8Ef+xGwT5LXqnYvAXTWcz20U=;
+	b=TVCAsYTBEq3VaZBq4MAB8E/nkGDcT/u8fcDFUTyx3CD4EAQS+MbMqtrLsySalM
+	kMJJsGveDR6dadcKXLlTDBcSPX2BX1f0BEEYyvc7ngBeshagaGs+7iU40rVkfusM
+	y+15KDwhL6i5WmgRz9e63y9IieyPMx3bB8drjrGUSDuk8=
+Received: from 4F-GAME.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3n9Pj1OVqq0aEDw--.53552S2;
+	Sat, 31 Oct 2026 19:45:39 +0800 (CST)
+From: Bob Hui <bg9oxa@163.com>
+Subject: [PATCH v4 0/2] ASoC: es8328: enable capture on the ES8388
+Date: Sat, 31 Oct 2026 19:45:35 +0800
+Message-Id: <20261031-es8328-vol-init-v4-0-5bdc00b25948@163.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,110 +56,116 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_Ch0CgAnKv3X1OVqfLkHCg--.25404S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxWr15JFy8AF48XF1fGrW5GFg_yoW5ZF17pr
-	W3trn8ta1UXrnFqry5tws7Ar18Ww40qan8ArWDCa4SvF1YvF9rXay7W3WYqFW5ArnrAa43
-	Zw4j9rW7C34UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY1x0264kExVAvwVAq07x20xyl42xK82IYc2
-	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
-	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0x
-	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
-	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
-	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU8c_-DUUUU
-X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAN/U5WoC/4XNQQ6CMBCF4auQrq2h09KCK+9hXNB2kBqlhmKjI
+ dzdghuMMS5fMt8/IwnYOwxkl42kx+iC810aYpMR09bdCamzaRPIQbIcBMVQcihp9BfqOjdQWRd
+ gmCorZSxJ6tZj4x5L8XB873DXZzTDnJkvWhcG3z+Xl5HNd7/rkdGcYqMtCIuV5NWeSb41/krmd
+ oSV5uxbQ9KWFToXBqARzafmfzRPWtnKCK1qLdVKT9P0AvjBj506AQAA
+X-Change-ID: 20261024-es8328-vol-init-6a52c17897cd
+To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Bob Hui <bg9oxa@163.com>
+X-Mailer: b4 0.15.2
+X-CM-TRANSID:_____wD3n9Pj1OVqq0aEDw--.53552S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxur45CFWUuF43Jw17uw17ZFb_yoWrtF13pF
+	Z8WFy5Kr1DXr4Iyrsavw47AF95C3yfJF45Za4xKa4jvw45Ww1IyrWfKFy5XF1Uur9Yga42
+	93W2q34UWFWDZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0p_GQ6DUUUUU=
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+QWC72rl1OXmSAAA3B
 
-The sigtrap handling in __perf_event_overflow() checks
-event->pending_work before calling task_work_add(), but only sets
-pending_work after the task work has been queued.
+This series fixes capture on boards built around the ES8388.  That part
+shares the driver with the ES8328, and the two differ in eleven power-on
+register values and in the meaning of bit 7 of DAC Control 21, so the
+driver has to know which part it is talking to before it can set either
+of them up.
 
-This leaves a window where an NMI can interrupt task_work_add()
-and re-enter __perf_event_overflow() for the same event. Since
-pending_work is still zero, the nested invocation can enqueue
-the same pending_task again.
+Changes in v4, addressing the Sashiko bot's suggestions on v3:
 
-The re-entrant call path is:
+- Rebuild the register cache after the reset with regmap_reinit_cache()
+  instead of dropping it.  A drop discarded the defaults this series
+  installs and sent every later read-modify-write to the bus, which this
+  part cannot support: it does not read back reliably.
+- Link to v3: https://patch.msgid.link/20261031-es8328-vol-init-v3-0-7d9c4b7ab67f@163.com
 
-  __perf_event_overflow()
-    task_work_add()
-      kasan_record_aux_stack()
-        <NMI>
-          __perf_event_overflow()
-            task_work_add()
+Changes in v3, addressing the Sashiko bot's suggestions on v2:
 
-The nested invocation can enqueue pending_task before the
-outer invocation does. When the outer invocation resumes, it
-inserts the same task_work entry again, potentially creating
-a cycle in the task work list.
+- Give the variant enum non-zero values, and add an SPI device id table
+  plus the ES8388 entry to the SPI match table.  A zero match-data entry
+  cannot be told apart from "no match data", and with no id table the
+  fallback lookup walked a NULL table, which would fault on an
+  SPI-attached ES8328; an ES8388 behind SPI also resolved to the wrong
+  variant and skipped SLRCK.
+- Drop the register cache after the control port reset.  The cache
+  outlives a component rebind, so it would otherwise describe the values
+  the previous bind left behind instead of the ones the reset restored.
+- Link to v2: https://patch.msgid.link/20261031-es8328-vol-init-v2-0-d15b04c22f4f@163.com
 
-This causes perf_pending_task() to be executed repeatedly
-and leads to unbalanced event reference counting.
+Changes in v2, addressing Mark Brown's review of v1:
 
-Use cmpxchg() to atomically claim pending_work before calling
-task_work_add(). This ensures that only one invocation can
-enqueue the pending_task, even when interrupted by an NMI.
+- Reset the codec at probe time through SCP_RESET, so that the register
+  cache describes a state the hardware is actually in.  SCP_RESET is not
+  self-clearing, so the reference and the VMID settings are written back
+  afterwards.
+- Provide one set of power-on defaults per supported part, taken from the
+  ES8328 datasheet Revision 1.0 and the ES8388 datasheet Revision 5.0,
+  sections 6.1.1 to 6.3.30 in both cases.
+- Look the variant up from the match data in the I2C and SPI glue instead
+  of testing the compatible string, so the lookup also works on ACPI
+  systems.  Both i2c_get_match_data() and spi_get_device_match_data()
+  fall back to the legacy id table, and the I2C id table carries the
+  variant as well.  The driver still has no ACPI HID table, as it never
+  had one.
+- Use a define for the SLRCK bit, and drop the of.h include which is no
+  longer needed.
+- Keep the regmap configuration indentation consistent.
+- Link to v1: https://patch.msgid.link/20261024-es8328-vol-init-v1-0-efbd24de9639@163.com
 
-If task_work_add() fails, clear the pending_work claim so that
-a subsequent overflow can retry.
+The variant plumbing lives in patch 1 because the defaults have to be
+chosen when the regmap is created, which happens in the bus glue before
+the component is probed; patch 2 uses the same variant to decide whether
+SLRCK applies.  Boards with an ES8328 keep the same register values as
+before; the only change for them is the reset at probe time.
 
-Also use READ_ONCE() when checking pending_work in the
-exclude_kernel warning path to avoid an unsynchronized read.
+One observation from bringing this up: this silicon is not fully
+readable.  Registers 0x28 and 0x29 read back as their power-on value
+regardless of what is written, and bit 7 of register 0x01 is not
+implemented, so writing 0xc0 reads back as 0x40.  That is one more reason
+to treat the register cache as the record of what the driver programmed
+rather than reading the state back.
 
-Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
-Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+Testing: on a QuarkPi-CA2 (RK3588S, ES8388) running v7.3, where the codec
+sits on I2C, playback works and capture goes from digital silence to
+working audio.  A register the driver never writes was modified before a
+warm reboot and comes back at its reset value once the driver probes,
+which shows that the reset and not a power cycle restores the state.
+Unbinding and rebinding the sound card while the codec stays bound leaves
+capture working as well, which exercises the cache rebuild above; writing
+0x14 through the I2C bus then leaves the cached value alone while the part
+reports the new one, so the cache is not derived from bus reads.
+
+The SPI glue changes are compile-tested only: this board has no SPI
+wiring for the codec, and the SPI side of the fix came from the Sashiko
+review bot.
+
+Assisted-by: Hermes:deepseek-v4-flash
+Signed-off-by: Bob Hui <bg9oxa@163.com>
 ---
- kernel/events/core.c | 24 +++++++++++++-----------
- 1 file changed, 13 insertions(+), 11 deletions(-)
+Bob Hui (2):
+      ASoC: es8328: reset the codec at probe time
+      ASoC: es8328: set SLRCK for the ES8388
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 457d75ea7142..f1e4e153c49a 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -10925,16 +10925,18 @@ static int __perf_event_overflow(struct perf_event *event,
- 
- 		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
- 
--		if (!event->pending_work &&
--		    !task_work_add(current, &event->pending_task, notify_mode)) {
--			event->pending_work = pending_id;
--			local_inc(&event->ctx->nr_no_switch_fast);
--			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
--
--			event->pending_addr = 0;
--			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
--				event->pending_addr = data->addr;
--
-+		if (cmpxchg(&event->pending_work, 0, pending_id) == 0) {
-+			if (!task_work_add(current, &event->pending_task, notify_mode)) {
-+				event->pending_work = pending_id;
-+				local_inc(&event->ctx->nr_no_switch_fast);
-+				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
-+
-+				event->pending_addr = 0;
-+				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
-+					event->pending_addr = data->addr;
-+			} else {
-+				cmpxchg(&event->pending_work, pending_id, 0);
-+			}
- 		} else if (event->attr.exclude_kernel && valid_sample) {
- 			/*
- 			 * Should not be able to return to user space without
-@@ -10948,7 +10950,7 @@ static int __perf_event_overflow(struct perf_event *event,
- 			 *     To approximate progress (with false negatives),
- 			 *     check 32-bit hash of the current IP.
- 			 */
--			WARN_ON_ONCE(event->pending_work != pending_id);
-+			WARN_ON_ONCE(READ_ONCE(event->pending_work) != pending_id);
- 		}
- 	}
- 
--- 
-2.34.1
+ sound/soc/codecs/es8328-i2c.c |  18 ++--
+ sound/soc/codecs/es8328-spi.c |  20 +++-
+ sound/soc/codecs/es8328.c     | 209 ++++++++++++++++++++++++++++++++++++++++--
+ sound/soc/codecs/es8328.h     |  11 ++-
+ 4 files changed, 241 insertions(+), 17 deletions(-)
+---
+base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+change-id: 20261024-es8328-vol-init-6a52c17897cd
+
+Best regards,
+--  
+Bob Hui <bg9oxa@163.com>
 
