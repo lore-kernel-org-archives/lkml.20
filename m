@@ -1,75 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.151
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793475085;
-	b=uq3n/EVhcaJN439HuxJXqJ7scTp8unV67beFDyGB9y7YT5VPi4l7tjRYlWjdb7C9/EDL
-	 UQV2pg4mlh597Ry5QXGz2akSScaXt+U3Ts5ElCsrnhsrhN3qFMopk9Ml2HFDJZdsM3Up7
-	 vHqiePAvH9VxC76A2C9S+hgqxd+OKkhL/Gd28BCHWp6ba8icv2OFF2kKOmlVHJ3uAuxGb
-	 7uzYQ3i11/MMCwUk7/ON3rw5xdUl3tQWk1hJG89rBsgb8mSb/3NQ8eVS3CWzlBApEn8to
-	 Q0xLAZy9IlPlpRt5XVoxYoOJC+bd++wCYpx+S55CSW6qA1n411QqTXlpBb9ouqPQYMQ==
+	t=1793475126;
+	b=PFkt08NYQ+CnXZLPPH1UiTFMo1N8JKoAnb99G/2L5qEcmlwKzfrgEdRvisegSQGwnJ7X
+	 s4quPBoOWvuWz0SKqWNwCyf8HRXxFMPZi7G9NqeAJ4yzHKr9ZbTj1yTRx0A79LlPLachq
+	 cQIjBDUGX3alM/5AjO+QBxoA4ClDv4eAwjQEVHIrhVnAfcZxf7LUUMl6iByxxJBPyc3Cz
+	 CGex9B6YycycDXU9hIw1y04fulnZ7q4WznkHRmZ5Dnt9WWnZWCETUfwpH7UXYKaNfXehW
+	 Ws7rj6ufH86+gt0Y0WyqG04ctvN3ZeOLHRnJ0k/eh0n0m3ecC1QlgkWDneGzI5KTOxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793475085;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=B/EvEc+3U71IzwH2HcK6Z9ISYDUHNnpY/jZzn50DDTc=;
-	b=Ab3sJCCqY7yAtpIg9kNic7A91geGV/5L50dmxRW9/ftAKTRcMtdnDoPOQ57fDNwuNA3T
-	 Xl1dA7V6pO6u/SscBFAsCELEalRih0HN0wk4Vp0umXHE1l3JF2+io7rOmhRfnzNdI2yqK
-	 3YqqK+Hz3siOpD43B1FFI9qqGFLmng7lLUFAbYPfI6s/rzkBcflpsDQdfRs+KEHKQNGBc
-	 c5+ZDb/lXVi7xSaL/fgGo0PtMC/Ac24IljWNtjHOUTcN9TyR1JMHiaL5tp4Z1Wt6hIJ6a
-	 paqYqMmIYw9rMVjJ/LWRmjsqE0wsVJTsEHb/3yHZp4VqOO46Y71ECt/xTxMBIF2eytQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793475126;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Subject:From:To:Cc:Date:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=LqPdDt5VQv4vWlTmOIPQc4BQmHZm8cy8wBs338iSEeY=;
+	b=0k1/RkHdLDPOF+7EXJaU55MeD+REkq9nupU2tFxtqN8g41cgQ9e0vFzORL9PCAAXz0ec
+	 C/ouMPDPGbC29PsZX5OI4Q4UYH242rqF7/N7Zd3dOvhMXInoy3XmABnOmswRq6/e+hCwQ
+	 pKhXjpCQiXm9yi9MpYSbDvoClmgYTdLHCKNmkSQFAAbcZH5ENTQF46OyCSF8uryt+xpoH
+	 WB3qWQNU16FoY7ny2t/qmAn515jSC06wlTMDsATSp/VHRq+qt5r0ps3dZXRzuahuv74pK
+	 a/MoszQVyd27D26PFVpxGD6Duy2pFEvtsEO45mn1UC8Rj3QsFETzXSU2JvV90pMYqzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=mlCMrPQr;
-	arc=none smtp.remote-ip=80.241.56.151
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DJO53Rpy;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KiOymRsA;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01782606A31A;
-	Sat, 31 Oct 2026 19:31:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 01782606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD93A606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:32:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD93A606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=mlCMrPQr
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4jH7PN2C6dz8smx;
-	Sat, 31 Oct 2026 20:31:20 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793475080;
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=DJO53Rpy;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=KiOymRsA
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793475124;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=B/EvEc+3U71IzwH2HcK6Z9ISYDUHNnpY/jZzn50DDTc=;
-	b=mlCMrPQrdwVLrAYK7atgewqZu5SONcKkuZ3Qshhry2MsQ2dGlgH5Gdi1n2sE9nnJ/MdwBt
-	+C3L8bk+VCz2lNYFBBNOFNVhcoZmSYZiW+LvIyTYM0nw5FdFkAE0mJxtyuwVvw8ckei33L
-	dQ15bwL9n9/8H7SUSO+TntBDyWB4zHSOwGKiRaigun7Czg3Kq9Q3aWpeQj7MhHpLIG8BRu
-	W1FMsDoe/HAurJ7cWOFpOKuFKsHHE2rAoNsjpWY+srHl6RzdXAuxMsoJlJBuwpmWFdACht
-	USvxNKA9h5APoSmfQnK89aXxSscw+x3GbdY86lR0LvMmu6h0w12PC7nWJNpO4A==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: "Ashton A." <me@ashtonantila.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Len Brown <lenb@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	linux-acpi@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ACPI: processor: thermal: Do not leave a stale limit when not throttling
-Date: Sat, 31 Oct 2026 19:31:17 +0000
-Message-ID: <20261031193117.3400172-1-hugo@hsal.es>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261028-acpi-thermal-stale-limit-v1-1-4b0ab3230f01@ashtonantila.com>
-References: <20261028-acpi-thermal-stale-limit-v1-1-4b0ab3230f01@ashtonantila.com>
+	bh=LqPdDt5VQv4vWlTmOIPQc4BQmHZm8cy8wBs338iSEeY=;
+	b=DJO53RpyEiSQqxUJgsroZehLYM/gmk66BPnJSh3mJYoCLzFyB2jmFklenLS499edFLbtF0
+	4sstbhPVbfsfsj7v+mzlLeGyUGoRNgQl/PGkcR9DnQzlEioZunqv07TouOSbQ5Ly/lq52s
+	6q4y3owP3hZj5bgtsoWxovUm5IYOBV4=
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-3-9DS7hRv_NgGpHlKD2POs_A-1; Sat, 31 Oct 2026 15:32:03 -0400
+X-MC-Unique: 9DS7hRv_NgGpHlKD2POs_A-1
+X-Mimecast-MFC-AGG-ID: 9DS7hRv_NgGpHlKD2POs_A_1793475122
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93909014c85so382733885a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:32:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793475122; x=1794079922; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=LqPdDt5VQv4vWlTmOIPQc4BQmHZm8cy8wBs338iSEeY=;
+        b=KiOymRsASOMSimgKgwyUtbMA9yA/NZVruPP7YxTMyS/MmcoulRn28uRxu74ocoiWcN
+         FAnJNHGYlUll2WJcMUh4UUXoIqVJeJbKuT4izNcUFhmEMTQDOvliwh5SmLI0JaUX2ydf
+         VtK1oHJuyVGWREbju4CWmzCsf6JXomkqsdi6h1XSavtZfydywgdHU9sIYjedtp8o+NCZ
+         zHYtKUMjJIeu5e9bgQGV1npGLEX5TDzhZXOEH4CzkOC0H5tLbGL2Iuzdd18HrdRbG9r/
+         yvVK0a8cCVnD7FFKoOLhkKZqwi6/7f4jBQjBlS4zwXiH8B/Hkfnr0M2EI09xRgORczV7
+         jxUw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793475122; x=1794079922;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LqPdDt5VQv4vWlTmOIPQc4BQmHZm8cy8wBs338iSEeY=;
+        b=dbU003FsYyiKyvMdrGFubXusZNJyF1rSUpa50ckLiz3EmWSCjgtOO3Kn59yJ1gvn7g
+         D2J1R8Avw2oXhGbOyVmZAXXo4fYs721h2f4O/eOU/UsU9tYGWNMbu0if/TNSBpYIIUne
+         tTEkCO9DSgTGst59/EjgaIiSxiK6RTK20KjlWQUvlsSOzJc5oJiUtyxqDhrqQWImckn+
+         CUE9jVxCepTtQHaM1hKynuruCgb3c/Tv+aq7ny138cdf5yWkME4DNleP67V4IwBLaaU2
+         zceDFGI+hEbehSlDLgqt4u3eVDn3jw979Ci03allgDQc83U/JExdrIC4liuANf5Ni3Ly
+         vOGw==
+X-Gm-Message-State: AFq9FYJkgW2NR5sTOeVJNJdLdpt2QdEpsvpqc1TTCGp58PANTB8KLVXE
+	HrkzoK0+u/t9IYXRa4ZPiQX/HKje/HPkQwjaykABAdl3YXsde4cOGHw2Y4+vB/7nOOzyDDCQDzw
+	kvlQXsyBYw8C2USHYdYL8rG20HTivmqHMa6u6PuEOqMzZ9juk0yYWOTAblU2qbUKt+Q==
+X-Gm-Gg: AYBFou2VtFNZu4/qxOMfsLJZnLGGrNC7mqgVMR9u741U/s6KM05FTxaSjxFODFkHDRd
+	V8mapsONu9CXO/5txwOi6pNM4V7cotoi3pxtmHa54ximCPAiHo4yv079hPoeSokNIOwbMtjtOb5
+	VCTUh06K99o/4+L7Lg4axBEwsZgap2r87QvzvmZ3F0QYmVqa129GmWZuLwvGsCHuCeD0u2D+5uy
+	v4+Ry1zsLcRMo3SoiZxi8h/l1qan4CN0nTii204SLAzGGG8vAIDLVa7zrMlWXhl15BxuIG0CP40
+	311zPW/7SaGnY97qCVTaew8Em1fUGJsjAG0KlSQraS1MRsOHAK7z2UZfq1Fe9092XAuVTXIWxkd
+	ind/da3KP13a4y3mjaUHMQksCKDJsbJC8UwCkuro/S6tvXrGrmxE6FWIvZe1xIFR/6a60GNHmBb
+	mxoQKuW9lK1sx4Sz2EuMy4eNiOoFf9DtF6x7rxT1lTWnRS/oj6VeTKk9V7Vax8lQvD
+X-Received: by 2002:a05:620a:4627:b0:93f:362a:a893 with SMTP id af79cd13be357-944217ee29amr994958585a.50.1793475122338;
+        Sat, 31 Oct 2026 12:32:02 -0700 (PDT)
+X-Received: by 2002:a05:620a:4627:b0:93f:362a:a893 with SMTP id af79cd13be357-944217ee29amr994956085a.50.1793475121796;
+        Sat, 31 Oct 2026 12:32:01 -0700 (PDT)
+Received: from loberman-thinkpadp1gen5.rmtusma.csb ([47.14.98.102])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425aa8fc9sm440822885a.33.2026.10.31.12.32.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 12:32:00 -0700 (PDT)
+Message-ID: <721baf73d784b73015899bfe0ebca07bd8bf2a69.camel@redhat.com>
+Subject: Re: [PATCH] scsi: scsi_devinfo: return an error when the proc write
+ fails
+From: Laurence Oberman <loberman@redhat.com>
+To: shao.mingyin@zte.com.cn, mkp@kernel.org, 
+	james.bottomley@hansenpartnership.com, linux-scsi@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Date: Sat, 31 Oct 2026 15:31:29 -0400
+In-Reply-To: <20261031222133489hI-BEIDpFMxrtlntnLiFb@zte.com.cn>
+References: <20261031222133489hI-BEIDpFMxrtlntnLiFb@zte.com.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,27 +120,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jH7PN2C6dz8smx
 
-I ran into the same bug on an ASUS ROG Flow X13 (Ryzen 9 5980HS,
-amd-pstate active), whose battery profile turns boost off. I've been
-carrying a similar fix since 2026-10-17 and found this patch while
-reviewing mine before sending it. After boost came back, every policy
-stayed at 3.3 GHz instead of 4.85 GHz until the Processor cooling
-devices were moved to 1 and back to 0. With the fix, all 16 policies
-return to 4.85 GHz. My copy reads reduction_step(cpu) once into a
-local, which I'd suggest if you respin, but it is the same change.
+On Sat, 2026-10-31 at 22:21 +0800, shao.mingyin@zte.com.cn wrote:
+> From: Shao Mingyin <shao.mingyin@zte.com.cn>
+>=20
+> proc_scsi_devinfo_write() calls scsi_dev_info_list_add_str() but
+> ignores
+> its return value, so a write to /proc/scsi/device_info always reports
+> success, even when the string is malformed and no entry was added.=C2=A0
+> Users
+> and scripts then believe that the quirk is in effect.
+>=20
+> scsi_init_devinfo() already checks the return value of the same
+> function
+> and fails the initialization.=C2=A0 Return the parser error, but keep
+> returning
+> the number of bytes written on success: a proc write handler that
+> returns
+> zero for a non-empty write would look like a short write to the
+> caller.
+>=20
+> Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+> ---
+> diff --git a/drivers/scsi/scsi_devinfo.c
+> b/drivers/scsi/scsi_devinfo.c
+> index cfc259fd0141..b1f3bcd739b4 100644
+> --- a/drivers/scsi/scsi_devinfo.c
+> +++ b/drivers/scsi/scsi_devinfo.c
+> @@ -688,6 +688,7 @@ static ssize_t proc_scsi_devinfo_write(struct
+> file *file,
+> =C2=A0{
+> =C2=A0	char *buffer;
+> =C2=A0	ssize_t err =3D length;
+> +	int ret;
+>=20
+> =C2=A0	if (!buf || length>PAGE_SIZE)
+> =C2=A0		return -EINVAL;
+> @@ -706,7 +707,9 @@ static ssize_t proc_scsi_devinfo_write(struct
+> file *file,
+> =C2=A0		goto out;
+> =C2=A0	}
+>=20
+> -	scsi_dev_info_list_add_str(buffer);
+> +	ret =3D scsi_dev_info_list_add_str(buffer);
+> +	if (ret)
+> +		err =3D ret;
+>=20
+> =C2=A0out:
+> =C2=A0	kfree(buffer);
 
-Two additions for the commit message, if you think they help: the
-cpufreq core lowers cpuinfo.max_freq in cpufreq_boost_set_sw() as well,
-so acpi-cpufreq is affected too, and the thermal core writes state 0 at
-zone registration, not only on resume.
+Looks good to me.
 
-Steps above 0 still keep the boost state of when they were set. I'm
-looking at recomputing the limit when boost changes and will send that
-separately as an RFC series.
+Note that a multi-entry write can still partially apply (entries before
+the bad one are added, then -EINVAL is returned), but reporting the
+error is a clear improvement over silent success.
 
-Adding linux-pm, which this didn't go to.
+Reviewed-by: Laurence Oberman <loberman@redhat.com>
 
-Tested-by: Hugo Sales <hugo@hsal.es>
