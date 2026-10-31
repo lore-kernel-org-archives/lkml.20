@@ -1,45 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793454203;
-	b=ZHVLPpPz9qjCDAx14zX0UhEd4DCKc2HsQ4UMaxi2ouPR6Hw+rmrzEkzLFEVkl8RJOFx1
-	 tSHhyOX44fYws/vIgsvw1TGEiM8LQCj6ZoBJ3K6LZiqIcyRl15Zc7Tp9WxXtBjTy4Wjrl
-	 UhKpus5klY93cnok1R82OsgUt2fMfMIGzo/u/m2XWueDYZkfHcIeQKYf2WbJyuFCO6Y0F
-	 bFZM/UpR1Ull7hG6DCVp5ADdaoBGYdGFi7N79j3m239z0oPthWP8eTXJ+k7Z65LMRvQYn
-	 F9LclYphOtOjJ3DpZDd4AE6wnPtH1Z721aEdU7bGk+5dosnhheYE6M7QRWWTeupGJ7g==
+	t=1793454223;
+	b=q8Zhapd3psm1L4u1jwjQYfHRRz2lp459raofgjd8Hme1MJHnO+QnhJ/NawxtD9NA26tN
+	 TN1y2BhTZXt1FbD/7VsdVjPcTG4+pJvI3kZBtxJxCrHPxzz3IFNaFmY9/kmUr+ShlAkIo
+	 9q4eiO1QTxyvXCiSsCYO+ii88x75d6A5zAX0LCUS1+GbJgaAKjH3pqLLGZybvJOiRtfsY
+	 ml9FVg83KDreiWVQsZNUI/3D8nX3d30IuZhZKJ+eWEBR/21AWFZtj3iwleX1SMK0yNpWK
+	 WMriiIO2rajTm9/hOjM/5Xz/O7BZ6tPqPwLQlarUQri4wFqq19QrlExWPtjpbYXEcwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793454203;
-	h=Received:DKIM-Signature:Content-Type:MIME-Version:Message-Id:
-	 In-Reply-To:References:Subject:From:To:Cc:Date;
-	bh=66bgSKb0DOWL4SFUCIicrUlT3Lz+gWTcaaEHqOFnbvs=;
-	b=tmXyMmN07nI19qFjSkZRPkFtJ21mvQpItN9+6EGpzaoDnbOZ3+n24A8K7LqkLJvlFuvL
-	 xORUDDX41U1aoH6UyJd/xrEvv/6syd0JXRfeVQnBcNFbyt0Av8tf7cv0FuhoOnRHquy0Y
-	 U1Hy2704/noaZxZnQSO9g0XbO20ySdzsrrVhWQBKs5EyDgu3yN603cIHq0Pd88GJ0zOnc
-	 uYU82QhuNYTOfrVDjhHGJQujEHg1dWZXRaoqcy+9tO2tJogbv/i5N0M42DbTw+pl7PwsK
-	 002r3xN6LPuGUOD6K/FyFI9UwVpOmd1JgHE/H4EYb2R8V2VYoSeB4pBkTaSgscbj21g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793454223;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 In-Reply-To;
+	bh=P0O29ManTeKtpfhBPE9fT4zh0to6VFIKGUZDe3mDtyg=;
+	b=Q9fMDWXTYrPq+y5JGXuwWt+FlAfO6fNuY0p/HrNVHmoVQEY/JZuWdKjI3LUe5BsEqMif
+	 5PzlKuI9JYttr/aSXyVwl87jIS+VXrL7/FwtbzPnAiUxr0RVirtozVfCbtidm3Ntmxync
+	 8OOqFxvptw9AjmulRm9OlWjqvsMGR2NpLMSnwQ7PlIycYs0Zhi2QeVYQV3/azRDarUF5P
+	 tyCbwcJQAEMc6Gjq9qMKsUFnBXsNy4hXy7PBCjeoqQe0h0N8FS7E2SZjukd/FUXjw8eaq
+	 1X85hPEQYnYb50O+FBLIpoHGCKfoKCRi2SAfBDx9GB+jQCRDWVw2xqhZ4x61xgtDiwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eA0mAa2z;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=lunn.ch;
+	spf=pass smtp.mailfrom=lunn.ch;
+	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gWXg1lSc;
+	arc=none smtp.remote-ip=156.67.10.101
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB4D9606A324;
-	Sat, 31 Oct 2026 13:43:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46547606A31E;
+	Sat, 31 Oct 2026 13:43:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46547606A31E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eA0mAa2z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A481F00919;
-	Sat, 31 Oct 2026 13:43:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793454202;
-	bh=66bgSKb0DOWL4SFUCIicrUlT3Lz+gWTcaaEHqOFnbvs=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date;
-	b=eA0mAa2zpNV970IeSP3nCf8NZ/Lo5128hSuJJkq9RoO5z+Wxup+loZ9BC1MYkevi5
-	 mv+BPh6ZStV+K1XWrSt3U5UbsWDj2vxoGeo52REvpZSywVkspdyMIm+/LMCkHD6qWH
-	 1DQKqgFSRoY1nRQHIJ3AfRZ+FnwETJ+lU1EJDzEUNpKlqF8QjbqzGdtO0Ku7Weqj7P
-	 A2jEbxQgVmXr8hGkohLjyaOMA61/7sa+6ZV/gQxx1XDKAAgJmNN8Fv8DFV383P87ss
-	 mhtKSXYiCSbKdLvvPVkmkpQvGQX5oN/Zbcd6yo9LN6jkAEAGJCunJuG2B+mnE3gUTa
-	 qbtTcU4EqEFZw==
-Content-Type: multipart/mixed; boundary="===============8608813931786842918=="
+	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=gWXg1lSc
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=P0O29ManTeKtpfhBPE9fT4zh0to6VFIKGUZDe3mDtyg=; b=gWXg1lScEuSJcAC4FFWPm8gZ85
+	VTLub86ng2WutlicUJra7WZgCTd3OwapzhfOTBHIyHiwIXIVRfH4R/SOo7E1Ijur4BWR5Jt77CT+6
+	BltnQ8+8oe7LXY6YHrMz9BTz4ZZtMKRYD5jEY/jGeqTUlh0/+BDi173mMngHnLihirSU=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xN9Mk-00DWrK-S4; Sat, 31 Oct 2026 14:43:26 +0100
+Date: Sat, 31 Oct 2026 14:43:26 +0100
+From: Andrew Lunn <andrew@lunn.ch>
+To: Kyle Zeng <kylebot@openai.com>
+Cc: linux-afs@lists.infradead.org, David Howells <dhowells@redhat.com>,
+	Marc Dionne <marc.dionne@auristor.com>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
+Subject: Re: [PATCH] rxrpc: Serialize client connection IDR updates
+Message-ID: <d2f67f23-8535-4965-a9bc-f3fa16149bf8@lunn.ch>
+References: <20261030042129.73690-1-kylebot@openai.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,60 +62,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-Id: <77f8506fd544603f9852ce2dc5b520d69a471ae727537cf4fe3896df90b8e804@mail.kernel.org>
-In-Reply-To: <20261031130959.23472-5-wanjay@amazon.com>
-References: <20261031130959.23472-5-wanjay@amazon.com>
-Subject: Re: [PATCH bpf-next 04/13] bpf: move bpf_get_btf_vmlinux() to btf.c
-From: bot+bpf-ci@kernel.org
-To: wanjay@amazon.com,bpf@vger.kernel.org,ast@kernel.org,daniel@iogearbox.net,andrii@kernel.org,eddyz87@gmail.com,memxor@gmail.com
-Cc: ihor.solodrai@linux.dev,almagui@kernel.org,martin.lau@linux.dev,yonghong.song@linux.dev,jolsa@kernel.org,rostedt@goodmis.org,mhiramat@kernel.org,mathieu.desnoyers@efficios.com,linux-trace-kernel@vger.kernel.org,nathan@kernel.org,nsc@kernel.org,linux-kbuild@vger.kernel.org,arnd@arndb.de,linux-arch@vger.kernel.org,x86@kernel.org,linux-doc@vger.kernel.org,linux-kernel@vger.kernel.org,abuehaze@amazon.com,doebel@amazon.de,mpohlack@amazon.de,jay.wang.upstream@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
-Date: Sat, 31 Oct 2026 13:43:21 +0000 (UTC)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030042129.73690-1-kylebot@openai.com>
 
---===============8608813931786842918==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+On Thu, Oct 29, 2026 at 09:21:29PM -0700, Kyle Zeng wrote:
+> The common connection destructor calls rxrpc_kill_client_conn() for
+> service connections as well as client connections.  A service connection
+> gets its CID from the peer and never owns an entry in local->conn_ids.
+> Its destruction can therefore remove an unrelated client connection.
+> 
+> The final reference can be dropped by the service reaper or a call
+> destruction worker, outside the owning local endpoint's I/O thread.
+> Client connection destruction can also run off-thread, and can remove an
+> ID already released by rxrpc_unbundle_conn().  These writers can race
+> idr_alloc_cyclic(), corrupting the radix tree and its RCU callbacks.  A
+> second removal can also delete a new owner after an ID has been reused.
+> 
+> Only run client cleanup for client connections.  Restore a per-local IDR
+> writer lock and the client-ID ownership flag, clearing the flag under the
+> lock when releasing the ID.  Serialize IDR destruction with the same
+> lock.  This covers deferred final puts without changing connection
+> expiry or the RCU lookup path.
+> 
+> Fixes: 9d35d880e0e4 ("rxrpc: Move client call connection to the I/O thread")
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> ---
+> I have a reproducer for this issue and can share via DM
 
-> bpf: move bpf_get_btf_vmlinux() to btf.c
+Please take a read of
 
-TL;DR: Commit message only: the author's Signed-off-by is behind a
-TODO-NEEDS-IHOR placeholder, so it won't parse as a trailer; most other
-patches in the series have the same placeholder.
+https://www.kernel.org/doc/html/latest/process/maintainer-netdev.html
 
-> bpf: move bpf_get_btf_vmlinux() to btf.c
->
-> Move bpf_get_btf_vmlinux(), bpf_peek_btf_vmlinux() and btf_vmlinux_lock
-> from verifier.c to btf.c, next to btf_parse_vmlinux().
->
-> Parsing the vmlinux BTF on first use (later in this series) makes the
-> accessor apply deferred kfunc, dtor kfunc and struct_ops registrations
-> and kept module BTF under btf_vmlinux_lock.  That state lives in btf.c;
-> with the accessor and its lock there, it can stay static.
->
-> No functional change.
->
-> TODO-NEEDS-IHOR: Signed-off-by: Ihor Solodrai <ihor.solodrai@linux.dev>
-> Signed-off-by: Jay Wang <wanjay@amazon.com>
+You need to set the subject line correctly to indicate the three they
+are applied to.
 
-The author's sign-off is behind a placeholder prefix, so git
-interpret-trailers will read that line as a TODO-NEEDS-IHOR trailer and not
-as a Signed-off-by.  That leaves only the Signed-off-by from Jay Wang in the
-trailer block.
+All the patches you have posted are very likely to be sent to
+/dev/null because of this. It is a good idea to start slow, only one
+patch at a time, and figure out the processes.
 
-Documentation/process/submitting-patches.rst asks for the author's
-Signed-off-by ahead of the sender's.  Should the placeholder line be
-replaced with a real "Signed-off-by: Ihor Solodrai
-<ihor.solodrai@linux.dev>" once the author provides it?
-
-The same placeholder shows up in most of the other commits in this series
-(2a58754b9ead, 32ad8adbb1a8, cc9b43c0e23c, 699a8e9536e8, c97dea7ddbb0,
-38e2751cdb40, 66c4a6a9293d, e46b5971bc91, cae96a9f7395), so those would need
-the same fix.
-
-
----
-AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
-See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
-
-CI run summary: https://github.com/kernel-patches/bpf/actions/runs/41205212136
---===============8608813931786842918==--
+      Andrew
