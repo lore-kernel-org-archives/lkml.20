@@ -1,88 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=111.22.67.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793450652;
-	b=ZdsP0w4bm4HmpJRF+bQM6+F/OVWuHAu27DpzTBtqOHzLE9wR0pxo9TU3RglkUeJ3UCLT
-	 Sva9xDazin1AqqX6czCBkh8sRjhggKRGq7vVJ2PIItLN4GtkT9FowcxZmhw4GOtul4Bwz
-	 ISpLBgSsevfFbiA7z/MIHttvHuGZl830Qk+WFNPbeD5079JQebw3+Q9ILgc/VpY7x/zQ2
-	 4lcJbioEcV9kmchI5qGNNvhKZVOhOA4qvqbEnIBKcHyIVNNE0zQcEPiKZLvVc41Z63fiL
-	 WlLgQhaZZ7I7eo1osODgYzEHUfYuRj0gyGXXVdr47b1B1X1kZLYaDMTaiIfgbTb+4hQ==
+	t=1793450936;
+	b=uFGTbvfGJj+6LP3E+orM1+nIyPcJFr18ApXCt3h2ngGGbrWp6FIDkwdtEoNfpCM+Xx0/
+	 tYwkZfyqWzsIHILZMis+9PIuX4+R/eGWkW3s5a0rbv/h++AhQkE7ONZOQyh9Il7+37uZd
+	 hx5EuS18zYMtU7pZsVAl312ekLM6UN3H+Ntt6ZZXWTSq+HhfkCnT55BXRs2JkcP1qccof
+	 N+EDybsLVJGaQ1TokIuogKQ69akEDXEhbTW8f2NkoLt2GUXh5sWJeUbPde3jAgJ4R3/7j
+	 fmW4DA5zXvwIhG1PYBd9v83y45Xj0fWfwLb+FF2cO4B+u+4KSZbv2OGAEKPs1iNB3qw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793450652;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=qM0g5QCvuJGUtjqSB25y9Tm1UtAHR4vqLa/CLEokVL4=;
-	b=Z3G91Yxn6Zpv9oPP58e+jF6m0xIxRA0hXuREIZUE7QMhbOmUHrYoedDmfeGrhxPRjim2
-	 nxSmbNquL3rB6A3Ehc+DrIKr3dtSCXNQ1LyuxF5iq8RU4As0i1JPPjmKgn3ClcP5zFFfN
-	 c6/QQffR1usErd0DlG+7Kavozab02TxPL0krzdURYVZfouQ5SvjlQ6i5OeD79TebLcdxM
-	 2UQzkNY7t3MvqTsnJQZ+jNfxTBsXjZnARnVQKQ9XpLFX1SPG1fwi0TpwVQ1xAT9y3zLOY
-	 cwA/bHVvZcaV7lccETljpRoZTHx2C6QsNCPaGap2CX5aMEziqHvN9dF4x2QwalipOWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793450936;
+	h=DMARC-Filter:DKIM-Signature:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:
+	 X-RM-TRANSID:X-RM-TagInfo:X-RM-SPAM-FLAG:Received:X-RM-TRANSID:From:
+	 To:Cc:Subject:Date:Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=TH1d29AZCliQEyGyMsOxICcozWzAriuf3DJT8Qo9/dE=;
+	b=E6cY4J29gXkDes7CK/OtotRUc+0yw+T7RRs7DqM9okOdT/piVXmM+2XzkU9SZQAh1PtR
+	 03/5h3q81szPKa/b9d3mEw0n23jb5VUizWvMS7rbjgy490+rF4t5rKr1zDr/7R+UTAnCz
+	 +TMYMC/BzIhhoVKBZZMuJo7MhHIQ0oZKF8qAf7FmbJcH5ZafGkWDKIK4NS6FaHJ6ZVlmb
+	 1KTKnGcNEkOpTG9SDqMoQ/dZshiRLyzZt8xHu6vvaCF22uMpyeogyW25nWM6R5ZbvnBSJ
+	 vwLob3/PatWHchSiwlfjqpNJWFUjrGMrWJi+fjwrR1uksHeRErRebZDUk1SVBp3CL3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5nbvypM;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EAE606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:44:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B0EAE606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	dmarc=pass header.from=cmss.chinamobile.com;
+	spf=pass smtp.mailfrom=cmss.chinamobile.com;
+	dkim=pass header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XGHBFV3u;
+	arc=none smtp.remote-ip=111.22.67.151
+Received: from cmccmta8.chinamobile.com (cmccmta8.chinamobile.com [111.22.67.151])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id E474B606A31A;
+	Sat, 31 Oct 2026 12:48:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E474B606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h5nbvypM
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1b07c3c5fso13884275e9.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 05:44:11 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.a=rsa-sha256 header.s=default header.b=XGHBFV3u
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793450650; x=1794055450; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qM0g5QCvuJGUtjqSB25y9Tm1UtAHR4vqLa/CLEokVL4=;
-        b=h5nbvypM+dxrbPhNFr1VY1VFje1G8a9lHnV2FF0TwZKM8Fg1+yP9mc+nV0FicvDPHW
-         r7D2/WAt7eeH0bbk/OwSaRLBt9y42C4YyzUEMStwwg3EQmIRVuYtcQi7iSEXTBnQAHBD
-         xxDRESwtmZ/vk7J2HDxuK0Wd3+70bUH7A+MFUGo6q+y9RuWtZ78XoRVsJRpFIeZa4x3G
-         29xkGAKo+LdHSoVXTmfT4EY5DbznX1z5ZAAy2hpybtm5x7sreN0Rwl7cTPkUJYhAeZ0Q
-         Tfcg5E17s3xGDp0CnMTxZPvpzKjnp3qzE3D5Rp6lILNemK1woweKiGY6X1YpJhHnpr/q
-         Bhag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793450650; x=1794055450;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qM0g5QCvuJGUtjqSB25y9Tm1UtAHR4vqLa/CLEokVL4=;
-        b=pTBIipB5VOumYWjrKC3W34GqRxSPxCTmZz+3z7kdZHTZGijJrFo8YxJC/XSTbZCvUs
-         RHH1DqTuCEIU0Y18f4z7gTLM5pQf8sQFRL1aYsYG3vmljkXBmNTXloCD1C1Q2zGMRIGs
-         HcctRmAkivMu+eN520EUUfponXUaC82vo740M3dU1hUilXsz6XUGxMedZrwkTfYv3Mli
-         6rS+rWZyZ8qJ+5iJ7eHezEicMha77JFXXsAmqyH25hbffVwPWioG3fZp2c2tJ6CNzEDG
-         F5SdG1T10VqQrDQcz4xtYSKyiu2iLziEpvnHQG1Pd1Ca0io+xqMVtJzWwgItyHeoCJ1A
-         nA8g==
-X-Forwarded-Encrypted: i=1; AKwUvBzoc9foAMWCD8BcM5JRhPb6pafdY6n7/SvzAeHKCA+MtWqjkiZ25Rh6qoRxz0Uop9xX1GNNVQZwW/uSycI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHGTy5eQXzfBqYk8dE8Ev8jhxBU5XckucABTfji5MZ+f2gcdjt
-	ta0Mg7uCTefVuA6io/eH2W0HGzS6w8kbKC6eKwFhGYmrGxp/KVI0Hjcv
-X-Gm-Gg: AYBFou0H8PYjoHotUxmc7PQFYkndhrE1an7Ja37cr8vuHzPpZKYKthh+D5/RC5sX0Ds
-	jP/WUlYGOeKev44++WNknedJg3yKIBcfuzk3vqn/3fyUSGOpOeVTEe0h6QSptw158P0uvto6An4
-	mBnT3I2uum2OIGeM2lbGF0Kpx6477E2keOmaTzSqgSA3VzjEBal9NdtSU6TwIW3U2iuqsDN3DDT
-	NLzlnILZ6G7nNHcmsXDxgfxJbCN3YzYxDZecKXKRGP53CgCIFxLPKZQxWICbZn5ZbPXYOaUl5Re
-	/jdOuYsuhca+xYLreIhvc9+7pyk0EowHLjDv9CEtnBQyXV/j+WHgxAR1b6RgIVApYf6vzN9fI1L
-	IoHu+7alJn3V4DYWJ5UtQECALXTKS3cn9fGyaWW2sd9ke5RXBjWvuISbWxe14h8rjN9RIUg7ch0
-	j3YmWRC/UkZuYX02uN7GdscbmRRscxX6+zBXdrXD4gO+5iY9cFU3bpvk0oePDGBLnUhXkDlPBqp
-	8YxZ9jA3mN/sfzQrx7KYPUXuTNoVVgID19tMzPBuUMj924ULZ7qbLfCGUbghZbQRHFVgmZ4U0x/
-	PeTs6AumhEqTXhoVhvk03xuB
-X-Received: by 2002:a05:600c:8b0a:b0:4a1:742e:3 with SMTP id 5b1f17b1804b1-4ac185bc4a1mr118043085e9.27.1793450649910;
-        Sat, 31 Oct 2026 05:44:09 -0700 (PDT)
-Received: from [192.168.1.22] ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6c76507sm134704015e9.10.2026.10.31.05.44.08
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 05:44:09 -0700 (PDT)
-Message-ID: <bb5eee33-fbdf-4382-83fb-4a8db33ce358@gmail.com>
-Date: Sat, 31 Oct 2026 13:44:08 +0100
+	d=cmss.chinamobile.com; s=default; l=0;
+	h=from:subject:message-id:to:cc:mime-version;
+	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
+	b=XGHBFV3unaR+zfEWoql3mKNAHeMdgzq/ID5A/2fCdC24TJCir09F3qwtA21jA7AoTSvP3q3yc4xq4
+	 iBk/EgDkkJUjasIK8sWuJZV6mI+q1EkFbDpsnefPoBcp3mj0UqDy53XQkBINhhEON29rvf8w+Yw2Ec
+	 OJ9vGx1BscWNGQAQ=
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
+	by rmmx-syy-dmz-app02-12002 (RichMail) with SMTP id 2ee26ae5e3a147f-b6ad3;
+	Sat, 31 Oct 2026 20:48:43 +0800 (CST)
+X-RM-TRANSID:2ee26ae5e3a147f-b6ad3
+X-RM-TagInfo: emlType=0                                       
+X-RM-SPAM-FLAG:00000000
+Received:from [198.18.0.33] (unknown[222.93.19.82])
+	by rmsmtp-syy-appsvr07-12007 (RichMail) with SMTP id 2ee76ae5e3a92f6-838b3;
+	Sat, 31 Oct 2026 20:48:43 +0800 (CST)
+X-RM-TRANSID:2ee76ae5e3a92f6-838b3
+From: Xia Yan <yanxia@cmss.chinamobile.com>
+To: Avi Weiss <thnkslprpt@gmail.com>, netdev@vger.kernel.org
+Cc: "David S. Miller" <davem@davemloft.net>,
+ "Eric Dumazet" <edumazet@kernel.org>, "Jakub Kicinski" <kuba@kernel.org>,
+ "Paolo Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>,
+ "Jason Xing" <kerneljasonxing@gmail.com>,
+ "Willem de Bruijn" <willemb@google.com>,
+ "Mina Almasry" <almasrymina@google.com>, "Josef Bacik" <josef@toxicpanda.com>,
+ "Jiayuan Chen" <jiayuan.chen@linux.dev>,
+ "John Hurley" <john.hurley@netronome.com>,
+ "Cong Wang" <xiyou.wangcong@gmail.com>, linux-kernel@vger.kernel.org,
+ yana06070@163.com
+Subject: Re: [PATCH net] net: skbuff: reject zero MPLS TTL before decrementing
+Date: Sat, 31 Oct 2026 20:48:41 +0800
+Message-ID: <179345092130.132560.5590780813492711780@cmss.chinamobile.com>
+In-Reply-To: <20261031114135.3784868-2-thnkslprpt@gmail.com>
+References: <20261031114135.3784868-2-thnkslprpt@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,60 +78,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] selftests/mm: add a uffd test for re-registering
- during UFFDIO_COPY
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
- David Hildenbrand <david@kernel.org>, Shuah Khan <shuah@kernel.org>,
- Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- linux-kselftest@vger.kernel.org, Muchun Song <muchun.song@linux.dev>,
- Oscar Salvador <osalvador@suse.de>
-References: <20261029221129.89068-1-azpijr@gmail.com>
- <20261029221129.89068-3-azpijr@gmail.com> <auW2RZNy4jgR-ZNU@kernel.org>
-Content-Language: en-US
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-In-Reply-To: <auW2RZNy4jgR-ZNU@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10/31/26 10:35 AM, Mike Rapoport wrote:
-> On Thu, Oct 29, 2026 at 11:11:02PM +0100, Jose A. Perez de Azpillaga wrote:
->> Re-register the destination without WP while a UFFDIO_COPY_MODE_WP copy
->> waits for its source page, then check that the copy fails with -EINVAL
->> and leaves no uffd-wp bit behind. This covers both the hugetlb and the
->> non-hugetlb UFFDIO_COPY retry.
-> 
-> maybe "all memory types"?
+On 10/31/26 11:41, Avi Weiss wrote:
+> skb_mpls_dec_ttl() decrements the u8 TTL before checking whether it
+> expired. An incoming TTL of zero wraps to 255, causing the TC MPLS
+> dec_ttl action to pass an expired packet instead of dropping it.
+>
+> Reject a zero TTL before the decrement while preserving the existing
+> behavior for TTL one and valid TTL values.
 
-yep, that reads better.
+Nice catch. I checked the wraparound against the C promotion and
+conversion rules: with ttl being a u8, a zero TTL on the old path
+decrements to 255 and the packet passes with a revived TTL. The new
+check catches exactly that case, TTL one still returns -EINVAL, and
+values of two and above are unchanged bit for bit.
 
-> 
->> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
->> ---
->>  tools/testing/selftests/mm/uffd-unit-tests.c | 105 +++++++++++++++++++
->>  1 file changed, 105 insertions(+)
->>
->> diff --git a/tools/testing/selftests/mm/uffd-unit-tests.c b/tools/testing/selftests/mm/uffd-unit-tests.c
->> index 2a97ba1d6feb..8a7efaa7b3ac 100644
->> --- a/tools/testing/selftests/mm/uffd-unit-tests.c
->> +++ b/tools/testing/selftests/mm/uffd-unit-tests.c
->> @@ -375,6 +375,104 @@ static void uffd_wp_unpopulated_test(uffd_global_test_opts_t *gopts, uffd_test_a
->>  	uffd_test_pass();
->>  }
->>  
->> +struct wp_copy_args {
->> +	uffd_global_test_opts_t *gopts;
->> +	char *src;
->> +	__s64 copy;
-> 
-> maybe result?
+The only in-tree caller I see is the TC dec_ttl action in
+tcf_mpls_act(), which maps the error to TC_ACT_SHOT, so the rejected
+packet is dropped. mpls_forward() already rejects TTL zero and one
+(`dec.ttl <= 1`), so the two MPLS decrement paths now agree.
 
-sure, will rename it in v2.
+One minor observation, no change requested: `!ttl || !--ttl` is
+equivalent to `ttl <= 1`, the form mpls_forward() uses. Stylistic
+only; the patch is correct as posted.
 
--- 
-cheers,
-jose a. p-a
+Reviewed-by: Xia Yan <yanxia@cmss.chinamobile.com>
+
+
