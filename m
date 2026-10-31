@@ -1,48 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793452910;
-	b=MrqqqupkFkh6/Oa0+/xdiwcndhovbdPJeOWj1Lc7y6JuGjbPduLVQAH1js3YVR/VJei5
-	 2br6Jnuy72zHGeTlGoMpvZHcEUxd87ceL+IvcfMAExvPHuaNKk3fCYeSOInGGcrea4QAh
-	 UUtguKseesLbI8Gp+WlzQ8wmxEuMG1dVpnT2KesL0BJ2T4b8lYbLuesNM47ClM3GtJ9Ue
-	 sAlDNiI92z2lFJLho4vcNuz5vIkcGCHLBWrpffec7Dm/L5DgTIqBe7QmO8IRqnOW24sUj
-	 RQnOlcpCO6Jd8QXrFNOmZOMPLkNVVXRGnUHXML/ec4JZjDwao1Az/SxvpV4SFbDd0IQ==
+	t=1793452993;
+	b=jSKOIbmZqqG/7E8faxTGf2eDUWjt/6qww9mKSEqoG/k6OYHevN29AY+eYWySJWFAnEa9
+	 LpTdP3Rxzjd27ElMiOf0nnqTFAvWOCJi5O/M83JKu6opmpDQwY/N0V5ueX3QPBxXTLcmo
+	 68l8S9xEoj29A1Y1VrBgWkV/BgaUe0EhjutUz8+R974ANfqdmjHT3dhnEKIzBzu7CCAu1
+	 VrF/zRdOvX1RzGzfqxn2LaFlzgW22d7z3EoFsS70UyBhWa+JTCeWK+QuVZ+edqNY1hRY+
+	 qUBe3gUu9tOwSYDD3u6c1l6T2CrR8v3hGBDJcao3YquRAqg9ZIaianZseT9Xe268DyQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793452910;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
-	b=Y7U3B+KzbzsYzzcWY583R5xVtoJ5CJXYQmhLn4Z3/rMRBGv6dt0NQy2sQHP2yHuoKivl
-	 GT9z0K8hn3/Itqv7itVVdqCMYfXn2KBzuh75AmI5xiBbVbvWBwVQ1VBWt2YSwVi8uQWwb
-	 WEZIRwoVBnKDQXVNc51P/mTbQVYfcZXccnUkZstAalfmTOFPoPbiEWECC1ad80LXIaLWI
-	 RDgJJk9xbsrSMsEGXbn/0sFA5EbE4T5e0MD9vo0cwIhCZZCRbUjYgs3bASYaEnqLtIiiS
-	 jxe4eIeheWkvY3hR5dG1uLL0aQRpJUyaTsAimJ7LUrm1zpPXqO0G2jgNXS+C1HXSX/A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793452993;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=4oSUppzxzHF3D+dg1jUudVpg0qnnD2G2Yi8QoIkwJ48=;
+	b=IM8utEA5nSkeEZf5TGlB7umJpZjeE4dfZtsUUo5ha5lno867gd78rrbw1lTyc/nBO4pT
+	 NA0KwxDjn627akJ+jx0TjHZrP1LTOLFSCD26cgE2KN4TJKYsI9Zep0rm3mnhDokr4a4eg
+	 PMyE7Kn/lEZAuYdp8JcOvttyyfLkoJdqM0IGpWTDMz+DZKT4ueIjcLBeqIGLgam8huQLM
+	 Zrr0ta2+a6HsHOuKMrTWf1vcXYJseDv8VY9coGwurQU902n2IfbiPVUFd0r/Fw+RY4ey3
+	 dCAVdHKAFKWGCoOHLVhyxEKJ1eZ73l2wvF4QdWlZWiYzbLyyKDYqTMSkDsssr+QK3iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cgvrcHcv;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LZQ3R96Q;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F9F606A31A;
-	Sat, 31 Oct 2026 13:21:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F73A606A31C
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:23:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2F73A606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZkBgRzIE
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 618321F00919;
-	Sat, 31 Oct 2026 13:21:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793452909;
-	bh=PhhMp9/TOiCG7JAer/L+AFYkRo3zi5cH4WX46oYsUeo=;
-	h=From:Date:Subject:To:Cc;
-	b=ZkBgRzIEkHeFIEu1mBrLS8uCcW/eiV77hYpKgOQEqGa8JuxCDDpwtONKzFMKLIZWQ
-	 ZDcGHuzAN18w/ICIqeC2OI28lVlMy4TtywZSnMdjOhQjCSlDV2bVbLYGQqL/46AX5R
-	 VWvaOxyloIrL5IlyNls7EHZpGbrkAGiEEFWNPaS62hShlFfYl6JRVKGFwkqHOSLtWK
-	 f+cIjTk02/1X1LxYbiWzezfDLyZuBPbm58lsWZawqPEd9a+DGXu0OlXbHPcBp2J4VT
-	 dgmi+KrBHw9uBoO8Q5mZtbT4K66WJceGDICYAHeM2Y3Otx7VA0evWg5rSpfLHeNClw
-	 IFqLnhGEk65FQ==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sat, 31 Oct 2026 15:21:46 +0200
-Subject: [PATCH] LoongArch: restore KFENCE pages through DMW on resume
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cgvrcHcv;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=LZQ3R96Q
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69VD0E281631011
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:23:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=4oSUppzxzHF3D+dg1jUudV
+	pg0qnnD2G2Yi8QoIkwJ48=; b=cgvrcHcvCZNzVtSvV+tBKNVF/ZohKSMCXHsLDR
+	7pMaDiDHuenF92r1ZIXt2wUzDXiBmM1US0Bi3Z0jHukA68ihi/IM2pegxHuG/wAr
+	6pgvlxLpVNP+kNQOTQXOk/kwf35vTEqTxAvbL0XV0iH9+P2v0nplCY1Rp0gd54j/
+	WUdbzCAIwnFcM6bBjWBsaElL2BlbEH3a/MIQvDQgA4ljvQ+83OxMcawZjVGEQytY
+	gHK/mxicw2hpNfILmqLLO4A6JxR7jyaNGShPWHcDaIscJUEYjCXDdpguvCkgBMHO
+	l+sWrMoEuv3prrxvVD52TlMFXilTYbO/AH/7fpyVDH9uALkg==
+Received: from mail-dl1-f71.google.com (mail-dl1-f71.google.com [74.125.82.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn93eh2d0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:23:11 +0000 (GMT)
+Received: by mail-dl1-f71.google.com with SMTP id a92af1059eb24-139b62317d0so1811101c88.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 06:23:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793452991; x=1794057791; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4oSUppzxzHF3D+dg1jUudVpg0qnnD2G2Yi8QoIkwJ48=;
+        b=LZQ3R96QnU+Gi19XZCAZanIqNUuiLezMaVE2deiiYIFJ5SHjkQN2trIpyWarsGnr96
+         R2jDqCeNU+6h4q92jJ3+TgIfgCHEDBTBz428/lFCoIN2wXrRj22JCLKQpxbctxYbNL71
+         Xa4S+qg/7CJVsK3xiX2hxQJi4XOBj6gNxysu3oeB9yKi/3ZpMVHwHmlAl/0SYPq9TFxx
+         MGMdKZCX9suaK+ef1wGwDPZ7JMisVxKkM5+v79E8zX/SACiZFwBdB2Xgj4LFUpJWDh3Q
+         73AvgGtn6AMfiyuXTnrSpHioC2HSZ3GS5kDY7L+oE7P+IniYDuCzsqfQNIUkYjMrxKf3
+         nxpw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793452991; x=1794057791;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4oSUppzxzHF3D+dg1jUudVpg0qnnD2G2Yi8QoIkwJ48=;
+        b=oP063CYJHHYY1/U6Ip9lbUneDB8njvSb/NWXnD9H3ZosYM2LezRTUd5RK4YSOlEN8+
+         gNjgLQOFv3L+Dw8pj051boyyBjUTyGbvuFEXdKBs6e1HOBzsZlNmVdivnQcNJF+ON2HR
+         O77D3Uj89ASV+dI11S5IrKHKD1UOFgfPB7/C7bjbjMuc/sY481EzAC1hG6nvpXSnKvbG
+         evCAC4q3G4s2lstEy4L+AsjsPqcb2f6NzYshNEI9KM+rvSbK0WAuddwM4WM/QrlIOqqv
+         bDDUaNTpQuXEOPQCLsaRrxNBmk6awyQqlupDkLqA00g7F8lDJFUgOFCcY4LApN9h0OjI
+         Buew==
+X-Forwarded-Encrypted: i=1; AKwUvBzpTSto6Kg3SnkJ/UNOkawNfccMoOw9BXkB5ayZhEvGG29Ncpa7SICgR6jgJ6BiPlmzGZZkIcef62TbXZE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK7boMtdQE4bS70dRf5sttsSalRWBO3XwOa/e43+xU6T6ke3Px4
+	tna1AgsQnwZb0nVU0iqyJ+rm00Rri1RenR1o0cTa/JPdGZ/V4/aE/xMOkN1vk+hU9GWYPi3qqo/
+	8cEToRPtSHCdThZUoWz5CcQVuliWdcIZ+altjZoMJdcefX5sOQ6cyYeRFDaTTvYAxxZM=
+X-Gm-Gg: AYBFou2907uL+bU8ZXx0OGZU7N5G2/7aqKYFZuRuw5jYIRBfRWCeQETmyErZ5Fq+fJ3
+	9lrljJH7RqnhlZcTJRX5KpnpNYP4bewmqSb+4E+JmrBu9J8PWYCQQ6Uq22ASWrdRtZj55njOfbo
+	9xuVQgUPEUAkN/fi5NrbOcYT0eWYEuRCaKPq20gUNpJjxhjWXG6hbBUsP8bqnEgUX0ARaMdOUf0
+	4zttwx6E16HHq03RhGaSZXl+gu02sUiZ8JPWfQcnMFzVLPeXbBBNe9Yb1S8tP387q7/p6W9kjCH
+	cW2lJWN4/VoEoXtdVJPIwjAUwZc62AurgySkcf+pUXRXXpxgjINoZI4lyEt0Mi93D5sM5wFqne7
+	hp+0RrdJ8vM6EFGUs6iLZUE0XvDnshI+X5ZDrm4JzV6P/sne3IYrGgO6RoCKOv0tsopMZtdFOsj
+	ZaR+k=
+X-Received: by 2002:a05:701b:4502:10b0:18d:96e8:b913 with SMTP id a92af1059eb24-1ac5f64afcbmr7058774c88.47.1793452991114;
+        Sat, 31 Oct 2026 06:23:11 -0700 (PDT)
+X-Received: by 2002:a05:701b:4502:10b0:18d:96e8:b913 with SMTP id a92af1059eb24-1ac5f64afcbmr7058733c88.47.1793452990367;
+        Sat, 31 Oct 2026 06:23:10 -0700 (PDT)
+Received: from hu-gkohli-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac193b8179sm18234699c88.11.2026.10.31.06.23.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 06:23:09 -0700 (PDT)
+From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+Subject: [PATCH v2 0/6] thermal: Add hardware-binned trip point support
+Date: Sat, 31 Oct 2026 18:52:46 +0530
+Message-Id: <20261031-thermal_bin-v2-0-d76fd073ae98@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,96 +117,158 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261031-fixes-loongarch-v1-1-e0e33e3c008e@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBBFr9LMWmILqU29inEBdIAxCmamGpOmd
- xd0+X7e+xsIMqHAuduA8U1CJVcYDh34ZHNERUtl0L0+Db2eVKAPirqXkqNln1RYzDSOwZh5mKF
- WT8afUqPL9c/ycjf0a7tphrOCyrHNPrWpMEXKx4eVFRn2/Qv0tSeakwAAAA==
-X-Change-ID: 20261027-fixes-loongarch-fd3755f33919
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Mike Rapoport <rppt@kernel.org>, WANG Xuerui <kernel@xen0n.name>, 
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev, 
- stable@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
+X-B4-Tracking: v=1; b=H4sIAKfr5WoC/1XM0QrCIBTG8VcZ5zqHCsvWVe8RI9Sd5YE5S5cUw
+ 3fPdtfNgf+B77dBwkiY4NxsEDFTorDUkIcGrNPLHRmNtUFyeeS9UGx1GL2eb4YWNqEyaMeJo1B
+ QF4+IE7137TrUdpTWED87nsXvuzuCc/nnZME467TsDSo8oe0uIaX2+dKzDd639cBQSvkCfTZIX
+ K0AAAA=
+X-Change-ID: 20260917-thermal_bin-fe7becdf0e17
+To: "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>, Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+        Amit Kucheria <amit.kucheria@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793452983; l=4715;
+ i=gaurav.kohli@oss.qualcomm.com; s=20260302; h=from:subject:message-id;
+ bh=MRemRaOBOzvAS+s91I3hR3FSXCHfN0Am3nSSTty9cbc=;
+ b=Y+4eo6jLmnpvhRPgCYXsO0sY0h6PwZfNKxRNFHd0HoR+PgpiTyd9NwOWHU2fj2AW5kVaV+Wfh
+ ImDebT/ed3pDFmlHJu6sjPOIsUTV5u4Z3aNiv0mayuqPbb7U4n813q4
+X-Developer-Key: i=gaurav.kohli@oss.qualcomm.com; a=ed25519;
+ pk=IdNsqe8rWsF6dbpGHfwPEH9zM0nbOdRH72HxUT9qPak=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDMxMDA1MyBTYWx0ZWRfXxtegQz4xfyec
+ dS0y5d6YNBLlYcNranVd1SD0s1mCYBlhFKY+JmKdxIXakFLuBKjtEICGurVeVWAXQBFPnA8m8tW
+ 2WJSggJ+5KXDczATSigwseKcT4i/o8YonNP0jjxdesGQajbu2mNFuDyZOilK1PERweQrjLpDcjn
+ +X9hmtaAM13F/QqWBOaqDaNaPuBFDmdYRaQ/rx8D3q0ZZmD3D2Oa0KjSiHJbz1pWdAQQxEQJBRD
+ b3Yewilx0a9Vu2qC+Jgbi7SxU5SLg4EBnTM67siBc7sjuZLT+8RMZ5Cie8l9dZTE3wAW0Vgqtjq
+ 3B8/Iem1pp0bQy88ntDiMajJay/O8GGxhnbztFDslJD6FpoOdMleP7Q0ZZvXr0ZX+IaPhqtqkdT
+ gel4TZTEna7MSbZdgEx40fIi9jUY+CQt+adVPhJRkUkJxrPn9F+8VpddmnayqIc83vF7E05S9iV
+ zfxzEgR5DxXVvlOzydg==
+X-Authority-Analysis: v=2.4 cv=FciiV5+6 c=1 sm=1 tr=0 ts=6ae5ebc0 cx=c_pps
+ a=JYo30EpNSr/tUYqK9jHPoA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=OGjWj8McAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CgZP1dY-1rEdhbSE9MUA:9
+ a=QEXdDO2ut3YA:10 a=Fk4IpSoW4aLDllm1B1p-:22 a=UYjydHh6ynBBc6_pBLvz:22
+X-Proofpoint-ORIG-GUID: ri7JNtd-ji3T9ztnaV2fjk8ZkxWxTSjM
+X-Proofpoint-GUID: ri7JNtd-ji3T9ztnaV2fjk8ZkxWxTSjM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDMxMDA1MyBTYWx0ZWRfX0FGLHkHkcU0M
+ PUSKjuUjORm+g4YciCnFgTPVvs+W8K+hBl535CP+pymwssl+08gvhABvjxjGbpuDxNbRfKpM3sr
+ rFW3VTuMWU6oPh5eNmksFvQkxXBdalY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 impostorscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 priorityscore=1501 phishscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2610310053
 
-With KFENCE enabled, resume from hibernation triggers KFENCE reports while
-swsusp_asm_resume() copies the image pages, for example:
+Some SoCs are available in multiple thermal/package bins. The silicon is
+otherwise the same, but the package/bin determines which junction
+temperature limits are valid for a given part. This information is
+programmed in manufacturing fuses and needs to be reflected in the trip
+points used by the kernel.
 
-  BUG: KFENCE: use-after-free write in swsusp_asm_resume+0x20/0x94
+At the moment this is difficult to describe cleanly. Board-specific trip
+overrides can handle individual cases, but they do not describe the real
+hardware property: the limit is selected by SoC fuse state, not by board
+identity. Duplicating thermal zones or adding vendor-specific trip
+properties would also make the binding harder to share across platforms.
 
-  Use-after-free write at 0x00000000a57ee925 (in kfence-#254):
-   swsusp_asm_resume+0x20/0x94
-   hibernation_restore+0x128/0x1a0
-   load_image_and_restore+0x6c/0xc8
-   software_resume+0x240/0x260
-   do_one_initcall+0x68/0x200
-   kernel_init_freeable+0x26c/0x304
-   kernel_init+0x20/0x134
-   ret_from_kernel_thread+0x24/0x1d0
-   ret_from_kernel_thread_asm+0xc/0x98
+This series adds generic hardware-binned trip point support to the
+thermal OF parser, following the same general model as the OPP
+framework's opp-supported-hw property. A thermal sensor driver provides
+the decoded hardware bin when registering a thermal zone, and the OF
+parser uses that information to select the applicable trip data.
 
-During resume from hibernation, the image pages that occupy physical pages
-used by the restore kernel are first loaded into free pages and then, as
-the very last step, swsusp_asm_resume() copies them to their final location
-pointed to by pbe->orig_address, which the hibernation core sets to
-page_address() of the page in the restore kernel.
+Two generic trip-point properties are added:
 
-The early KFENCE pool is allocated from memblock and normally occupies the
-same physical pages in the restore kernel and in the image kernel, so these
-pages are usually copied by swsusp_asm_resume().
+  - thermal-hw-bin:
+      one or more hardware-bin mask groups for which the trip is valid
 
-The KFENCE pool is remapped into the KFENCE area above vm_map_base and
-set_page_address() adjusts page->virtual so that page_address() returns
-the page-table mapped alias rather than the DMW address of the pool pages.
+  - temperature-bin:
+      per-bin trip temperatures, selected by the matching
+      thermal-hw-bin group
 
-Hence, pbe->orig_address of KFENCE pages points to that alias and
-swsusp_asm_resume() writes them through the page tables. But:
+This topic was discussed at the Linux Plumbers Conference Power and
+Thermal Management microconference as "Thermal binning support". The
+discussion covered how to represent SoCs whose valid junction temperature
+limits depend on package/bin characteristics. The approach taken here is
+to keep the DT description generic and let the platform thermal driver
+provide the hardware-specific fuse decoding.
 
-* the copy loop overwrites the kernel page tables, so a TLB refill for the
-  KFENCE alias may use a partially restored page table
-* the KFENCE pool pages that are protected in the restore kernel fault in
-  the middle of the copy
+LPC discussion:
+  https://lpc.events/event/19/contributions/2245/
 
-Convert pbe->orig_address to DMW addresses before starting the copy.
+Slides:
+  https://lpc.events/event/19/contributions/2245/attachments/1885/4034/LPC2025-Thermal-Microconf-Amit-Tj-Thermal-binning.pdf
 
-Fixes: 0ca84aeaee15 ("LoongArch: Make {virt, phys, page, pfn} translation work with KFENCE")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Qualcomm TSENS is added as the first user of the generic support. On
+SC7280/QCM6490-class platforms, TSENS reads the jtag-id and feat-id
+QFPROM cells and maps them to the thermal hardware bin. On
+X1E80100-class platforms, TSENS reads the i-temp QFPROM bit. The decoded
+bin is passed to the thermal OF registration path before trip points are
+parsed.
+
+The DTS patches use the new properties for the affected Kodiak and Hamoa
+thermal zones. For the standard bin the passive trip remains at 95C; for
+the elevated bin it is selected as 105C.
+
+Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 ---
-Reproduced with hibernation in QEMU, the KFENCE reports are gone with
-this patch.
----
- arch/loongarch/power/hibernate.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/arch/loongarch/power/hibernate.c b/arch/loongarch/power/hibernate.c
-index 817270410ef98..ff571ab4e8df9 100644
---- a/arch/loongarch/power/hibernate.c
-+++ b/arch/loongarch/power/hibernate.c
-@@ -59,6 +59,18 @@ extern int swsusp_asm_resume(void);
- 
- int swsusp_arch_resume(void)
- {
-+	struct pbe *pbe;
-+
-+	/*
-+	 * page_address() of KFENCE pages is mapped by page tables that are
-+	 * overwritten during restore and may be protected by KFENCE, copy
-+	 * through DMW instead.
-+	 */
-+	if (IS_ENABLED(CONFIG_KFENCE)) {
-+		for (pbe = restore_pblist; pbe; pbe = pbe->next)
-+			pbe->orig_address = __va(virt_to_phys(pbe->orig_address));
-+	}
-+
- 	/* Avoid TLB mismatch during and after kernel resume */
- 	local_flush_tlb_all();
- 	return swsusp_asm_resume();
+Changes in v2:
+- Format temperature-bin as separate DT cells. (Konrad)
+- Add min/max constraints for temperature-bin entries. (Sashiko)
+- Drop the post-registration hardware-bin API. (Sashiko)
+- Remove CONFIG_THERMAL_BIN and make hardware-bin trip parsing part of
+  the thermal OF registration path. (Sashiko)
+- Keep hardware-bin selection registration-time only through
+  devm_thermal_of_zone_register_with_bin(), because OF trips are parsed
+  synchronously during zone registration. (Sashiko)
+- Propagate -EPROBE_DEFER when TSENS cannot read the hardware-bin nvmem
+  cells yet. (Sashiko)
+- Link to v1: https://lore.kernel.org/r/20261002-thermal_bin-v1-0-5a29be7e8ec5@oss.qualcomm.com
 
 ---
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261027-fixes-loongarch-fd3755f33919
+Amit Kucheria (6):
+      dt-bindings: thermal: thermal-zones: add hardware-binning trip properties
+      thermal: add hardware-binning trip-point filtering support
+      dt-bindings: thermal: qcom-tsens: document qcm6490 tsens
+      thermal: qcom: tsens: add hardware-bin trip-point filtering
+      arm64: dts: qcom: kodiak: use thermal hw-bin trips
+      arm64: dts: qcom: hamoa: add thermal hw-bin support
 
---
-Sincerely yours,
-Mike.
+ .../devicetree/bindings/thermal/qcom-tsens.yaml    |   8 +
+ .../devicetree/bindings/thermal/thermal-zones.yaml |  57 ++++-
+ .../driver-api/thermal/hardware-binning.rst        | 112 +++++++++
+ Documentation/driver-api/thermal/index.rst         |   1 +
+ MAINTAINERS                                        |   1 +
+ arch/arm64/boot/dts/qcom/hamoa-iot-evk.dts         |  66 ------
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |  42 +++-
+ arch/arm64/boot/dts/qcom/kodiak.dtsi               |  58 +++--
+ drivers/thermal/qcom/tsens-v2.c                    |  16 ++
+ drivers/thermal/qcom/tsens.c                       | 190 +++++++++++++++-
+ drivers/thermal/qcom/tsens.h                       |  29 +++
+ drivers/thermal/thermal_of.c                       | 253 +++++++++++++++++++--
+ include/linux/thermal.h                            |  32 +++
+ 13 files changed, 751 insertions(+), 114 deletions(-)
+---
+base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
+change-id: 20260917-thermal_bin-fe7becdf0e17
+
+Best regards,
+-- 
+Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
 
