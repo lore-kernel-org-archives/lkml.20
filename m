@@ -1,103 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793467352;
-	b=Ac2iC0TOqpNIH1cC5rTHZwilYghpFCcxmR5/DisR4tGV0hOKYxgoG5S4g48BNozsvBas
-	 vYmkobSihBrYyCKhPqbrsOLRnUAhwniZ0hZCz/Lzo21h7KMRifdRtI2gwDNTtw2pzxQsY
-	 PSqUECVp/1/TiYvq5/JvMWNQvLXBvitGfYiwtJl92XtAvVhS6t9QBFAeL1ZGbdaKgmnFD
-	 19wz4mIdtT5rg2jWuPa14zxy7k8iiqELcCKSHA9Weal2JW0OpQ9xFBcD9xlYtl0OZGdsR
-	 hfZdU7hUntKysu7/Ra0Q1z9stYeJQfXsCBGZ5aiimSCPoZQ15yUA9+Wm7H7kPxqSarw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793467352;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793467400;
+	b=3nEAfy4A1rIdjrUZ83MWKN/zdiSTfEYlYJcdv27VVDOnjOPPabhZKpwToRF7KNgSiiit
+	 pkBqvjVWOYplEMX1f/HmFVIvnncJ/TCbBXmSQmtUZDigzUyL8AYSu+pRO5jEuemapUAw2
+	 w4AuMB8pAHYIVPBHIF2M3toZIjqEGliR3X6+eJ5VSU4I4AeUQJ90G/CNxfimQWPTuko5e
+	 S833ybQlf93/jIigTPBlozTcRL0hIy8ZLj6EJlAdnY1Vqis9LKOmq/uK2l1x/8cxFCBkn
+	 Rjuw1rVu1evHDYiF+qSG0iDsVY/ULIz0rR58oPVOA7mFyENhuOB1yACiXzCEPmyIeBw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793467400;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=jC8OcSeHRdd3RsVKGpoelDfISX3MVzmR9xKrD5ogJJM=;
-	b=ISxFhFUDvwHjzGjrMqBow5dX503MpgIeLWKLyo7l5HVW3moCPP18mSxjbSlMESZ/fpZ/
-	 LQdarJv1+FaWMjBRD6adwBBNc1raSBZtAlMqtTr0BdXZXx9vR8C0DC30+XuiWc3H+bpvt
-	 wi5AFIzK1/dQwl4d0EV3KGXDuuKeeOyeZHb87EbYSiLOw0fDjxOFUvVKk8tKbdc0ROA0t
-	 5fEbzQSxFM4Co99eO8coAXSRJlTfrTdjmnc/DwIhKgAWjXr2m4frCOI6muLT8vD4SSOx+
-	 kU3b0vVC5JWskV7MpfWJnix+O+ZF3PLfAXa6zehqeLlHlXWKWwDGPnmNOjtZJB+D7XQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=A1b33ZVTzx0TaLrZ9DBFPPcv9iR1/Ri05N+1BlbpIlA=;
+	b=c0yZ0tCPZ1IYdi+Zp663Gw2wzWNYrXrbFBQKRlVqI8Mm/c23sWLADzMnv52UyRzIA+24
+	 JYv2eDsXW1rPCTdKguf8M5eXjWZ9JHMW9io02o7c904V5z3ks9PPcGcgYBVcUBhnY00MQ
+	 8GLVIkUaJHiJB/qPbGFcTceI44lnZaIASjqszqv8T8AkMkexuoT1dVCtlm4GYdplHGtGw
+	 Hqdk0csS/qFGk7JHapI1fB+/DnGyLwNkvMO812o1KQZG/fbMEjhSBv/b9zmXaVOPUfz5Y
+	 u5C52ZDuf0DjxYq1zx2iRI6bXfrnriTjQNI8bG7P0yS9gBeVwSvAFSJpVy8LRvSkSSw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNOMowRp;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YUewY4e0;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.48
+Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE9E606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:22:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AE9E606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40E6606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:23:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C40E6606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VNOMowRp
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4ac95761c85so9991145e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:22:32 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YUewY4e0
+Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-6774639a8a4so1294314d50.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 10:23:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793467399; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qcURcM9DJ1TAvSgJCvrUH3BLjoEwS2w7pZMrASsIN1Fwoxtebg7I+nHgMZt4/tBOmy
+         PoSY+96uJ9VVvA1ZZ2h56kcBg65GFp4M2Yf0XinM+RIkkrfKPnFNdFk+xvZRFBTeJldc
+         Xy1rAVlQd5kdo1sVRU+7CfLiMcczPBtKZyeFGftcaaKGSFcmVVRgIvmJZzluWKP7Wmgw
+         Zwo6CVIqf2Q0do5jxis3tkUxc+qjjgQR1WUWHjA2UmEWy/wJLZpV0ODuNYnHOVdNPjgC
+         tcKBtMy5uBh2s87Ejk+KpO2UL3Xr1FrQRZg3XzeaakKv6lSJukNRx5dmm5yNFmtAhWEM
+         7gxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=A1b33ZVTzx0TaLrZ9DBFPPcv9iR1/Ri05N+1BlbpIlA=;
+        fh=qfYaqRD3MQEXvLeXcZrUPS4dwjbsg2pvwaTepIBjOew=;
+        b=ql/pK+uC7iDIKhPWq8BnFHUe8JGQFSPv60Ti8T3s1aapOb93T1bnRJdb2kLj9y2sZx
+         O6YqcAKXdT9AsvGYJMJq96ruDF/UObrriG/yb7oI7487zUgJRuvbHhe8xNMUGltaU7UO
+         ZbkZenmp/ek1EvXoZsEC5G9p21GEaAT9ZAFXOo9V0JqI/CvkQwOgCQWEJ1BtPWzW5t12
+         Ucwhb5DUriwhIme1ib/wFZZBmuJPDiekXZ2ULOZds/AHZkXTaVIqMUk6mHBvMJanvIKI
+         zBQNYIjcFfU1izcRPrV9dQjBb80h1Yz+2UCD69Mlw2w+ZcXxL9gyq4LGPDqTBPvL+Rdm
+         z7WQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793467351; x=1794072151; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793467399; x=1794072199; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jC8OcSeHRdd3RsVKGpoelDfISX3MVzmR9xKrD5ogJJM=;
-        b=VNOMowRpdd7dZ4omQg/uRfJZqCER0Y9T5v4SO3h5ffrxJCIVO9Ec60GLh8eXGczcir
-         7WrSYNchSOHE2w6UMqQrL3feGtET38O4aluFLsz8vQoJHS6PC5R5R6jrgLT/6QILXfmm
-         KRGiBrZWIOMOiTWP18jlPO1f4lA7hYSVPYylKQFmQ0NqkqBemk3uDA2AJ/sM60k4Wjpn
-         XrGCx0OlrWsgXZv+hr7zsfQZhpd4UsCvPCXkg9GgIZ4b52ktl4BDQMKYX2d2LFs2aO+F
-         rNpH6FYNjaJylqQJQz89SaWgjmp1BssY5jV3SsRa4ErDJlZfUvfFHu30FmSxFjRz1sX2
-         yNAA==
+        bh=A1b33ZVTzx0TaLrZ9DBFPPcv9iR1/Ri05N+1BlbpIlA=;
+        b=YUewY4e0Qg0Rp7kR3KGNUiVeh76yMG1j5TudZFun81QSfG2XXN/Y8/0AQ9X2nNlGs2
+         amfuuxX7v82VU2tfMDe9st4x/fQFbFkomRwsRXo+Pmt1DQ2aTMlSETrFlVHoaQP2iOZ8
+         QtrUZZkAlEXx4sThuQP6JMnurv5/Sw59n0m4A9OjqMduI41rTHybzBzrmcNFOOzFgMym
+         3w51ULYFeWPlh2GKYgGt4BvqCIuU9GdzvDO4pgW48gT9boPXvbk38U+/1i9AaNK4ih1G
+         MS3DfnNf/Amb7WzSfO9HCS6zTNfpQky1OrcKRz7ScGsuoXV4Rbycog2Jo82OabhkK5am
+         EJ4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793467351; x=1794072151;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1793467399; x=1794072199;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jC8OcSeHRdd3RsVKGpoelDfISX3MVzmR9xKrD5ogJJM=;
-        b=rei57J8C35D5rWf+KfMN6MmjVISG0v750EHPE/kO0igOQD4t0EzZE3V1Tcm+QTm/aF
-         MJJjaNkxE36+tz87An1sOEk9EB+1GnOGurj62kIX3gVgi+agbNvnvV6wEopeMRAElYwb
-         4gqFqudgKO9GygEX7LF/xy9J1br21S1tpIiiBLAmj6Hib1edOKNAwqsJQxLdmD0zl5th
-         BPi+MDmXftrrqeFxyr2io/OoT1XQEKLKaECThJ2lKH4JuOrQY5NviuQdbv+SI7H1DA28
-         yaRt3Y+ih9OYeDPj72fdeRs9ngQBiRGmSOU66Z/HwZVAvWnvQA0I8ei/eZBYJGyYH4um
-         JTOA==
-X-Forwarded-Encrypted: i=1; AKwUvBy7df4qH8KeTCKk0/PPmt1/IqCGwbWDqBvQQyUQZxefI0HfWKg9gUfiC3OO9Kt2I6m8TEPs5x08ud8eR/4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIf3Hvvrdy5NcJZwQfAz0pFXOVFG2tUtfJUXfU/n2U1zjugjyHl
-	LadvOAMqOo8c236v8N8ArM7wkPtGVjadDJ4u5rpCMQUus1NJldf1FidT
-X-Gm-Gg: AYBFou1LyDZWXZsIExkIIqWV/3ynNcJYRLIHjd5UJTkUAbyS87Uur0HC9M1X0pWgZfU
-	qSG15+8LFVzSp7omo/bgJIrlaovJaFCp8C0fuWbsWLaDCY+uxhzeVuH7i2mr8id2FlxCzpz6b4P
-	DR6P2wJE8xxf171bG/26NIq1NKFWvkiZiVTNsOftwDe1m8pZqZRljEvFO4wvsC8xdqfJFa56OQV
-	MeR0jut3pQboi/oHN1Jh7qXFT2CfQLwTDxqfVpj8IHlkzTFINOPXkND3UmgKPtxrF3TRGhlX2b3
-	6ciImxJx3SHx0BSav3uHTAXloLugctWmXAoI3u8u55HmNYDIKXNOeeimMDYOr81HCeuFNQBz8zi
-	4ETnVP9F2bY6N33V84i7Fqzos13Ae5E+C4vViYuxEqrOVhXAUqULjt8QNbZDtEkNHDyg6BTgd9O
-	acMxLpKZEsjfjbo9kM4xzX7O0/3Bqrr0s38hoAiLwKj3FNYt6wlSucqrsn5/+C+QvPdB9HsyGB3
-	swjdCRujPMQw6md1Zarv4Tm7vBse/rZeB6z3BJ/zSI0IozBEUC+A1JXvikjjNLc+tw7hRyDOzxS
-	8Uryv+q78zcamTW1eePa7J7mgAwbtKtRU/5H7Vtmsf7bYgHqWOdtHuXAqjMokDr/s1xZyAedfU9
-	mRRbrLCWs43E=
-X-Received: by 2002:a05:600c:6087:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4ac17753befmr127595645e9.15.1793467350501;
-        Sat, 31 Oct 2026 10:22:30 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf60f1114sm153311235e9.7.2026.10.31.10.22.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 10:22:30 -0700 (PDT)
-Date: Sat, 31 Oct 2026 17:22:29 +0000
-From: David Laight <david.laight.linux@gmail.com>
-To: Ian Rogers <irogers@google.com>
-Cc: Alireza Haghdoost <haghdoost@uber.com>, acme@kernel.org,
- namhyung@kernel.org, adrian.hunter@intel.com, james.clark@linaro.org,
- jolsa@kernel.org, linux-kernel@vger.kernel.org,
- linux-perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-Subject: Re: [PATCH v2 00/18] perf symbol: Reference counting, sorted
- arrays, and memory shrinking
-Message-ID: <20261031172229.0d178d73@pumpkin>
-In-Reply-To: <CAP-5=fUJy=fZg3t0z7L=uKVVRjg8OQtCL3KxFR8Mrv-yVCtuzA@mail.gmail.com>
-References: <20260928075237.3055101-1-irogers@google.com>
-	<20261027231513.816148-1-irogers@google.com>
-	<CAP-5=fUpji7seZpsxh0BN05oAA6nMUyM-bNdHBg4YfkeNAT00A@mail.gmail.com>
-	<CA+w=M=TEYScc9rDyzthN75Ym41ATXoNLNu8_yj0dsjymb+m7jA@mail.gmail.com>
-	<CAP-5=fX211V8=NCWyr9btd7=hbBB=oiMDETxCDdVr49idP13Fw@mail.gmail.com>
-	<CAP-5=fUJy=fZg3t0z7L=uKVVRjg8OQtCL3KxFR8Mrv-yVCtuzA@mail.gmail.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=A1b33ZVTzx0TaLrZ9DBFPPcv9iR1/Ri05N+1BlbpIlA=;
+        b=rgsFmqSDdV0r0wS3aEd1tstv/N5OB92mCiD83GlZSedZZdyMME8U5mj1Errv0h/7GJ
+         jpMfvc3uQxDyYvVtEiBxrLaK5pyGPyFzG1oFUB25fUXhniF5JMBVCpF+yQUxtrUFywmX
+         zQGjeKzOib9zCOvVM744wLZyhZZBN+Xqcgeuay6EYkqDjVOFK6xJnxGeHCC391/OLQIV
+         6qLYkCpxAIHFoM1aWQkrkKuHzanfMWxNlA+fpfnXiH8gkkoQ32Yxfmg9NStbngteCK7D
+         3SZ710nuHoDkSMXxrk9XrkViq2wYrV6NSeGovA699QbkBezyMunhA4DvmSC2EuFGwJfh
+         RA3w==
+X-Forwarded-Encrypted: i=1; AKwUvBw8Wg5nVz2APmR2iN8ww6TjZ3TTvQQYYEVrBVFWph7lDt6sKC0KpZSyoOk9iGNmygRrfbER1cX+xr7QtvI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+1CfaMeTMjFIqjmWEMq7UGvHq6CxQ3RJxDu0daOEcfciVG52sV
+	uKtgl7CsCjqOAFDfi84za8I0pZvd8SPCow/pqXvkrlKk3UrWQazHHjtOgOnyEMCIg4krVcO7rpW
+	ZRMz/cgpA9aZY/522V3zdMF/pzQr5lWA=
+X-Gm-Gg: AYBFou3bkH1EApRFi/bSO5WqFJTwwfuqHmBI0B1QCLJFFtB1pScSzGyGBkdUb0I9foa
+	WL+xDHUhHsFdZd01wdzE7YZC4Jkhz49BVp8zcOPNPi3wS7CKeQ9hONuSM0PD/FDu/TIRFp9oHOJ
+	xoh2xO6qXZl/qEPE5oLX0s0kLLi6naevhMGc6HcTIEF601Y4CtVHuDKCh2ulGEgDcXxcQ8gqfhN
+	1yQ4mLVjWcGevcOt7BkEsYDfyN8Vb5DAAsZaopLC9CmYO7AYUNzpsqxRthbZT/uwtBhFMCO4clB
+	GNRX7BYIESINOOGnhCO9hIe3BUqrf/VAGW0QkhRWRG+ks4j0xsgbqQB/TgB7ka3dAjfWOSo4kHc
+	LyxJKI5wCGrpRSAD13zopujcIR0dMB/7TZL9DnHbRhaAaXHvHSXE26YT9Tyrj9iu+k9oAow==
+X-Received: by 2002:a05:690e:e8a:b0:679:a3bc:c23f with SMTP id
+ 956f58d0204a3-67ba4f6d59dmr2990826d50.39.1793467398729; Sat, 31 Oct 2026
+ 10:23:18 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,81 +104,60 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <tencent_C2E4FE9B7C0A05615861782611715EAA9C0A@qq.com>
+ <tencent_7A270291DDE5CD89DAFFE8A745D094D5BD06@qq.com> <20261030134342.GA36226@shredder>
+In-Reply-To: <20261030134342.GA36226@shredder>
+From: Alex Henrie <alexhenrie24@gmail.com>
+Date: Sat, 31 Oct 2026 11:22:00 -0600
+X-Gm-Features: AclHuK9DfpxrKQqMD1cAzl0D1-pn8G11KNdTNUdh2ruOzlesG9RpA1W1wo4hWEQ
+Message-ID: <CAMMLpeRrZ_femp9zvB9wfrdJ+whOh_o91gQmG1nhxJ8PPXCoqg@mail.gmail.com>
+Subject: Re: [PATCH net v3] ipv6: reject wrapped temporary address preferred lifetimes
+To: Ido Schimmel <idosch@nvidia.com>
+Cc: Yingjie Wang <1075151112@qq.com>, netdev@vger.kernel.org, dsahern@kernel.org, 
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, 
+	horms@kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, 30 Oct 2026 10:57:27 -0700
-Ian Rogers <irogers@google.com> wrote:
-
-> To: Alireza Haghdoost <haghdoost@uber.com>
-> Cc: acme@kernel.org, namhyung@kernel.org, adrian.hunter@intel.com,   jame=
-s.clark@linaro.org, jolsa@kernel.org, linux-kernel@vger.kernel.org,   linux=
--perf-users@vger.kernel.org, mingo@redhat.com, peterz@infradead.org
-> Subject: Re: [PATCH v2 00/18] perf symbol: Reference counting, sorted arr=
-ays,  and memory shrinking
-> Date: Fri, 30 Oct 2026 10:57:27 -0700
->=20
-> On Fri, Oct 30, 2026 at 9:10=E2=80=AFAM Ian Rogers <irogers@google.com> w=
-rote:
+On Fri, Oct 30, 2026 at 7:43=E2=80=AFAM Ido Schimmel <idosch@nvidia.com> wr=
+ote:
+>
+> On Fri, Oct 30, 2026 at 03:30:56PM +0800, Yingjie Wang wrote:
+> > ipv6_create_tempaddr() raises a temporary address's preferred lifetime =
+to
+> > regen_advance + age + 1 when the configured lifetime is too short. The
+> > result is stored in a u32, while regen_advance and age are unsigned lon=
+g.
+> > If the sum wraps or is truncated, the stored lifetime can still be less
+> > than or equal to regen_advance + age.
 > >
-> > On Fri, Oct 30, 2026 at 7:02=E2=80=AFAM Alireza Haghdoost <haghdoost@ub=
-er.com> wrote: =20
-> > >
-> > > Hi Ian,
-> > >
-> > > I applied v2 on perf-tools-next e74880764bf9 with the ELF_C_READ_MMAP
-> > > fix and your three fixes, and compared it with the same tree without
-> > > the 18 patches. I posted comments are on the individual patches; this=
- is the
-> > > summary.
-> > >
-> > > On a profile of a large C++ service, about 1M symbols, perf script an=
-d perf r
-> > > eport output is byte-identical and roughly 22-32% faster:
-> > >
-> > > Execution time and peak RSS before and after:
-> > > perf script                                3.3s 334 MiB vs 2.25s 332 =
-MiB
-> > > perf report --sort dso,sym       3.0s 389 MiB vs 2.25s 386 MiB
-> > > perf report --children -g caller 4.6s 706 MiB vs 3.60s 703 MiB
-> > >
-> > > Peak RSS barely moves. sizeof(struct symbol) goes from 48 to 32 bytes,
-> > > but the address array adds a pointer per symbol back, so the net is
-> > > about 8 bytes per symbol before malloc rounding. That is under 1%
-> > > here. =20
+> > addrconf_verify_rtnl() then sees the new address as due for regeneratio=
+n
+> > and creates another one. Temporary addresses are not limited by
+> > max_addresses since commit 4b08a8f1bd8c ("ipv6: remove max_addresses
+> > check from ipv6_create_tempaddr"), so this can cause unbounded address
+> > growth. With dad_transmits set to -1, a baseline kernel reached 2859
+> > loopback addresses in two seconds.
 > >
-> > Thanks for your work and running the numbers! I think we should aim to
-> > land your lazy loading patches ahead of these patches. The merge
-> > conflicts don't look like they'll be too terrible, wdyt?
+> > After storing the adjusted lifetime, verify that it is still greater th=
+an
+> > regen_advance + age. Reject the new address if the check fails.
 > >
-> > Since the merge window for Linux v7.4 is currently open, I don't see
-> > anything landing before November 1st. So I can do a v3 incorporating
-> > your suggestions and rebase it on top of your patches when they land.
-> > I'll work on pulling out the fixes (you highlighted some you thought
-> > were particularly worthwhile) to mail for v7.4 for now. =20
->=20
-> Chatting with Namhyung he mentions having the arrays in the DSOs be a
-> `struct symbol[]` rather than a `struct symbol *[]`, because the
-> number of symbols could be known for a DSO when we load the symbols.
-> Currently this isn't possible because of things like the
-> annotated_symbol that this series turns into a side table. I'm not
-> sure it is possible in general to use an array of symbols, as JIT code
-> may need the symbols array to be realloc-ed and the realloc would
-> potentially invalidate any `symbol *` that had been given out. Maybe
-> we can treat that as a special case. In this scenario, the symbol's
-> lifetime would tie to the DSO's lifetime, allowing us to use the DSO
-> reference count instead of needing one per symbol. It would still be
-> nice to add functions like session__malloc so that we can reduce the
-> memory footprint of a session when memory allocations fail. I still
-> think this is work to land on top of your series.
+> > On an x86-64 KASAN kernel, the normal configuration created three IPv6
+> > addresses. The negative dad_transmits, positive multiplication overflow=
+,
+> > and large retransmission-time cases each left only the loopback and pub=
+lic
+> > addresses. An i386 defconfig and an x86-64 allmodconfig both built
+> > addrconf.o with W=3D1.
+> >
+> > Fixes: f4bcbf360ac8 ("net: ipv6/addrconf: clamp preferred_lft to the mi=
+nimum required")
+> > Cc: stable@vger.kernel.org
+> > Suggested-by: Ido Schimmel <idosch@nvidia.com>
+> > Link: https://lore.kernel.org/netdev/20261029175827.GA1411453@shredder/
+> > Signed-off-by: Yingjie Wang <1075151112@qq.com>
+>
+> Reviewed-by: Ido Schimmel <idosch@nvidia.com>
 
-Could you have two tables, one 'struct symbol []' containing the fixed
-symbols and a second smaller 'struct symbol *[]' containing any extra
-symbols?
-Lookup would require checking both tables - but won't cost much more.
-
-David
-
->=20
-> Thanks,
-> Ian
+Reviewed-by: Alex Henrie <alexhenrie24@gmail.com>
