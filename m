@@ -1,130 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.159
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=124.71.93.99
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793447105;
-	b=MQ3+8yNn2dYyclJq7ILzdAQKuq+gsO2mUFs6x5k6c4MxT4vXT2rLvHtHwnd1CAaZPztX
-	 NxH88NVnidMAccj2yzhLs4sO2oA6nxJb88zBIsA/O4RkcjbI6ZdnXLu7BOtg30pZPkEME
-	 /oCKttFuw6q5e2owwEC1cDUZMmJAxOCDUiQyt7yR3k1Zw/KmTaAxKYMTjmAdMd2Y0JPn6
-	 MAuK7DxfrnkyaugBBsFXumXBh75c8hnTTzaoCfmSRcTZ/1QcVP4UfIfgxSC5ikMDdcem/
-	 oHA+4q0RlCroXTTm7CrKf30ps6K9e3AT+bjFw8Vt7rE72x/GqXQ5BDFYda0g4fSj52A==
+	t=1793447161;
+	b=yjhSeBCje5vU/OZ0WfuK6ALpsoTomhtTupdtibrd3TQ30IQvuUNdOH2tR4NY+I5nmxkW
+	 7SdVns06DL5vHrWB1qu2FXvwy3Owc1ntWIQAX/eSGUmuoPjrCPdhZlwt+deC4PUgqeweS
+	 VAhBzxaaJa462n2Z3MZqy5iqRYJPDf+M85jh8n6gjvx1tJfJ5PlPwbLFSbYnh84HPMDjF
+	 WQ00xAabPA+7OezdDNBkoxUlsYmIGR2y/NBKwBgzgsfyT3Eicjf6gd0D3HMWKAyd4D50L
+	 jMiJfcZfaEW1zjqbWSgGo4eFJZNzqESqub/IzVdRI+rQcCE7YcMCSSsPwQnS+3p0Rug==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793447105;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:Message-Id:To:Cc:Subject:From:In-Reply-To:References:
-	 Mime-Version:Content-Type:Content-Transfer-Encoding;
-	bh=yh5/viyfu5/4siOeSTWNKrs82ssQB+LUPwEsikY9lcE=;
-	b=HHRLrsO2ce3YT0cOXWvjbrkD//IcLoLXtite66NE7t7tcziK3QXwC7yLTXd9c9LT4L9l
-	 PurHJ/CQcRNj0JiSWFGWpOcioB1jKskUdvbV0uhb8W+3MYw8PWUs+yuiAt+/kBKOACLmt
-	 pVHFZUamRom5lTdx8hmimLuxEmTbzOi/GYnQZpDdV9ehZzLNPGN4ZHiN8cYJC8PMfDWPu
-	 musR5MbLobgx088liK81Cv6RG8HCVjsaePwz6NwITvkw2oBfCJWtIw0LTwiB/pyMpp5WN
-	 WDEAz/fv4OVR2jfvTnlI0OQVdbAxIYvXmleXNwKTcK+xtCS9k9bWfg5HhA36Km1rBSg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793447161;
+	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=fqcMcWI6B4pbneac0+d0du8gjqzWSJbtYahBflLJhA8=;
+	b=Ag6fyHDK9bzJ8nI88AvAvTQR2UaeY2M2OxgFpay+ujjDuAhy2ygvn3KbQZzyoAOHOzAT
+	 roa7SXJ/bOAOFTMIeTrgagNG7ZVmRg5ClDxvQcFK9Scn/ctq9tPelYOXreGkoDaa9wRNM
+	 rAGZ6uo8KTM4SVCn4d0C4tx1/ICWfLec0pJymA06+4ASpP5eaDxrmRjJiH8xIsVF3CmM9
+	 q5QMj2N0H1ZieoVh1355xclHq6eL0lzPkpjubZPVuIRWfj79KmoGEq7VcXg5zVHgrxfak
+	 tYpzUhhKLUW4yN9d7/PNv4dikziii+dyhMx1BKWTGsitxhGdRbQf4MfraAvuYzIBNQw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=flapping.org;
-	spf=pass smtp.mailfrom=flapping.org;
-	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=cfvKvvQQ;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZXOkY+BK;
-	arc=none smtp.remote-ip=103.168.172.159
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+	dmarc=none header.from=huaweicloud.com;
+	spf=pass smtp.mailfrom=huaweicloud.com;
+	arc=none smtp.remote-ip=124.71.93.99
+Received: from dggmsgout11.his.huawei.com (dggmsgout11.his.huawei.com [124.71.93.99])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4405B606A31C
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 11:45:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4405B606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=cfvKvvQQ;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ZXOkY+BK
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 8C28E1400213
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 07:45:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Sat, 31 Oct 2026 07:45:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1793447103;
-	 x=1793533503; bh=yh5/viyfu5/4siOeSTWNKrs82ssQB+LUPwEsikY9lcE=; b=
-	cfvKvvQQK0Till+ZvkhKrooF1GFzpPk/cTtcTzL5C42uYaftGbASwExLaMnH2SqE
-	53XYMevv7BltNRV7VHEcNq4zZYwpGtE/bWwZsgHCPEn2oigpnBSYjh+EPdHidMIs
-	FBX7L1xqM0OI7sXBCYrcsvdwmp4AsqwJF8jU3uSqRDvHw8sQntfCGD2TQ52f8Xsk
-	s9mTaJN0jULB6/NVXkzRt+T5Uzaj8N9+fjVFoLmS65CtgSW22tZ1tFa3efw98EuF
-	H87mIrEWu+DTiG5QJj+XrkNjUNA0FkKqmAioTI4JMfFc1jkhk8Mgx6uvU0nF8UB3
-	JrVk/NB0imxkEaLtT0f8SQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793447103; x=
-	1793533503; bh=yh5/viyfu5/4siOeSTWNKrs82ssQB+LUPwEsikY9lcE=; b=Z
-	XOkY+BKfZHTse5dxNa54bPDrR9vMh419do6VV7dAGlC6Q/6+jCMD+HQaRYM/3D6/
-	ehw/Xoshfu6FSzL9sEvSVfDQiXJx+y7VCX5foC+4z+JL0gyGw7W5ATrBigZqxikp
-	iFlTmCReA2UlbkGQ0djdeI+C83HwXOEpGPO8ARX0yueGtMzgwwllZEV0hGNYhzqU
-	c3eskfCbz2WDinXmt+jgzh4GxhyJlwougFkEHsVxFKRjhHgb/rJOZdgSeNwE4nwR
-	+D/dkZLvF9632nZSdl9G83+IPYVnyYtEppo6nhiR2hX9DtsVavVDHsOV1Q/z9DoE
-	XYnnDDPAVd5xCL3H6I3kA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=flapping.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793447103; d=flapping.org;
-	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:tu9cmdMTX47JqD6t5u/15eesYfqNKw5SVaKQaD7b505deHa
-	OmNkOpwZPxJHPh6XE4kqW9gglGQGnG7wM2TuUVxC39w9jthEEPvm6L+HAqfQ3vEH
-	hv5bZ+eZcJZY6tLx03NKp7vHBPiqi+CJ3zOFYcz+Z1XljsNP6bPDBA/HfzMUrwzF
-	dXzEejPu7Uwu2ZPRPtOPGAe5ocsSN7Vt5EQNN4n2eUvpeTKHfS4P8GA9JDu/H7yc
-	ddaIquaxphfv2ZoyaIQb/6qDXBUsYP6Y7qQJoALhDGLuueJcTMBUYKUgNg8bIteh
-	W42nUUbRKj8jSKyP/MUB07aQqaUK5R3u7gfnuYA==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:KXLoH1m/hV1wdE+3oTpYMjEPpvFJYk5uqNHzi4shSqA=:YyWA9MNFewHphcHPyxED9CWS9/SONiVR5GIBBIDtxTo=;
-X-ME-Sender: <xms:v9TlarEctQ-huGeWNrppPKwYyaza21w2Ojw5JUGUKFrXTNYGCcax9Q>
-    <xme:v9TlalyD6qv5t36r7s2n2Fqv1xZlIpRcCPyDh9DJxX-_77lNw2qnnkrS8VF-5IwN8
-    JziAoZV9b8e9lM4Zfy06zwlg2Wdj7_Fp2-oDohU-I9M_5FgNul1pEMb>
-X-ME-Received: <xmr:v9TlatFR_-O6CJYslIWGYvPQXzccM2WHzJtZHn5OUKg22ay3RQA0EKun-L7Ja93olMPwVS2npeK301d0fT8KmM0J>
-X-ME-Proxy-Cause: dmFkZTEZRQ55MN00/HAZ2yP690811VpJh/TI4buxn6M2o3NJe5GvuNqDXbYicOWvZwLzOb
-    e/PEMlu2zxYPd1bx0ooNMwpUS0TPxcwzYtgt9e9SloI/dF0FXE2HTWTmaVLrAN+opzQ3MA
-    N9fFCrr0rPPRJaOZ2jUGi+qSI2xTPDpp8bYwwsy3Yqm8MY4JavcjO0sF4UiCZDUm41M+gy
-    gCu/2VBFATHVcV0EJKNJzzL2fuLWhbl2EGpXaXecQm6JUrTQBuOF4RwxiQfahFAhyBJybg
-    v0Kbdyr8PFkIShXSBd5B++zc6oOsa38ZOTNZk4eGeSWhlNRsXNIGsP4AvFNkKQeC9OeylK
-    FsSxQA5PwNbk04rZdcVTnKKr6sjE7Lt8zgKaoUDtCLgMk+ZWK2C3doYUT/h/E1so9XRRKV
-    1gGSMrSNfn0le57VMnceK1BjzW8c9f0Z82a3r7DM9G12XJtDfmKY7KJJdnKZTs7R8eNumz
-    QCHTKrUF76FcGM2tHGqqW+bNyFL1JbOOGOvkNlmbcYnghrsZQdL5NeMTGX9HJuyUhTLiTz
-    0ZP3XPIuGfRXIsl9YnrmiNJSD84ro3SUVgTXnBvq2OPfJ4g5oqQKosSjKDPOlIxtrfecwB
-    B8Ru6h0xplYIs08HazmRSBG3ud/bTte+wzRJYwDtFMKtGEMbKURVaWyjU9Qw
-X-ME-Proxy: <xmx:v9Tlaqs0KIwHRU9mLi5NOVXDb4VaGfxhYgmN2xU3gPWojxSZxXSqNw>
-    <xmx:v9TlahVn2M5m4y1RxFQLjmTuxAsgsX6GBTbzow17p6bvEMG700O4HQ>
-    <xmx:v9Tlaq7zeq23eCyj2tYhE5kuo27K2uPKifOYwCXNx4dNriboIIzjew>
-    <xmx:v9TlalZ-gSbYk3vQowgasPq_sj12coZfzISKRwz5zB0lD6r0XDqmmg>
-    <xmx:v9TlaiJJD7PBCQ1JQ5_seJXitBfxJqMUQKxheitCtz2DiVgHyaVVSuFa>
-Feedback-ID: i51fe4b43:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 31 Oct 2026 07:44:56 -0400 (EDT)
-Date: Sat, 31 Oct 2026 20:44:53 +0900 (JST)
-Message-Id: <20261031.204453.2065904807866384795.tomo@flapping.org>
-To: chenhan0017.work@gmail.com
-Cc: rust-for-linux@vger.kernel.org, a.hindborg@kernel.org,
- boqun@kernel.org, fujita.tomonori@gmail.com, frederic@kernel.org,
- lyude@redhat.com, tglx@kernel.org, anna-maria@linutronix.de,
- jstultz@google.com, sboyd@kernel.org, ojeda@kernel.org, gary@garyguo.net,
- bjorn3_gh@protonmail.com, lossin@kernel.org, aliceryhl@google.com,
- tmgross@umich.edu, dakr@kernel.org, daniel.almeida@collabora.com,
- tamird@kernel.org, acourbot@nvidia.com, work@onurozkan.dev,
- miguel.ojeda.sandonis@gmail.com, tomo@flapping.org,
- georgeandrout13@gmail.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH v5 2/3] rust: time: make Delta division and remainder
- fail consistently
-From: FUJITA Tomonori <tomo@flapping.org>
-In-Reply-To: <20261031103206.24051-3-chenhan0017.work@gmail.com>
-References: <20261031103206.24051-1-chenhan0017.work@gmail.com>
-	<20261031103206.24051-3-chenhan0017.work@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EACE606A31C;
+	Sat, 31 Oct 2026 11:45:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EACE606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=huaweicloud.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huaweicloud.com
+Received: from mail.maildlp.com (unknown [172.19.163.170])
+	by dggmsgout11.his.huawei.com (SkyGuard) with ESMTP id 4jGx3z3sdfz1c0W7;
+	Sat, 31 Oct 2026 19:45:35 +0800 (CST)
+Received: from mail02.huawei.com (unknown [10.116.40.252])
+	by mail.maildlp.com (Postfix) with ESMTP id DA05D4056B;
+	Sat, 31 Oct 2026 19:45:55 +0800 (CST)
+Received: from huawei.com (unknown [10.67.174.45])
+	by APP3 (Coremail) with UTF8SMTPA id _Ch0CgAnKv3X1OVqfLkHCg--.25404S2;
+	Sat, 31 Oct 2026 19:45:55 +0800 (CST)
+From: Tengda Wu <wutengda@huaweicloud.com>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tengda Wu <wutengda@huaweicloud.com>
+Subject: [PATCH] perf/core: Prevent duplicate sigtrap task work enqueue
+Date: Sat, 31 Oct 2026 11:45:20 +0000
+Message-Id: <20261031114520.642476-1-wutengda@huaweicloud.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -133,33 +66,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: Text/Plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_Ch0CgAnKv3X1OVqfLkHCg--.25404S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr15JFy8AF48XF1fGrW5GFg_yoW5ZF17pr
+	W3trn8ta1UXrnFqry5tws7Ar18Ww40qan8ArWDCa4SvF1YvF9rXay7W3WYqFW5ArnrAa43
+	Zw4j9rW7C34UXFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY1x0264kExVAvwVAq07x20xyl42xK82IYc2
+	Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s02
+	6x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0x
+	vE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE
+	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6x
+	kF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfU8c_-DUUUU
+X-CM-SenderInfo: pzxwv0hjgdqx5xdzvxpfor3voofrz/
 
-On Sat, 31 Oct 2026 18:32:05 +0800
-chenhan <chenhan0017.work@gmail.com> wrote:
+The sigtrap handling in __perf_event_overflow() checks
+event->pending_work before calling task_work_add(), but only sets
+pending_work after the task work has been queued.
 
-> Delta's division and rem_nanos() use Rust operators on 64-bit and C
-> helpers on 32-bit. The report shows that rem_nanos(0) can return 10 for
-> a 10 ns dividend on ARMv7, while the same call panics on x86-64. The
-> i64::MIN / -1 case also differs, and neither API documents these inputs.
-> 
-> Check for zero divisors and i64::MIN with -1 before the architecture-
-> specific code, and document the panic conditions on each method. This
-> matches Rust's signed division and remainder operators, including when
-> overflow checks are disabled. Valid-input results and API signatures
-> are unchanged; invalid inputs now panic on 32-bit too.
-> 
-> No in-tree calls to either API were found at the base commit. The checks
-> stay in the existing methods so the fix does not depend on introducing
-> a math module.
-> 
-> Fixes: 4521438fb076 ("rust: time: Implement basic arithmetic operations for Delta")
-> Reported-by: Georgios Androutsopoulos <georgeandrout13@gmail.com>
-> Closes: https://github.com/Rust-for-Linux/linux/issues/1254
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: chenhan <chenhan0017.work@gmail.com>
+This leaves a window where an NMI can interrupt task_work_add()
+and re-enter __perf_event_overflow() for the same event. Since
+pending_work is still zero, the nested invocation can enqueue
+the same pending_task again.
 
-Reviewed-by: FUJITA Tomonori <fujita.tomonori@gmail.com>
+The re-entrant call path is:
+
+  __perf_event_overflow()
+    task_work_add()
+      kasan_record_aux_stack()
+        <NMI>
+          __perf_event_overflow()
+            task_work_add()
+
+The nested invocation can enqueue pending_task before the
+outer invocation does. When the outer invocation resumes, it
+inserts the same task_work entry again, potentially creating
+a cycle in the task work list.
+
+This causes perf_pending_task() to be executed repeatedly
+and leads to unbalanced event reference counting.
+
+Use cmpxchg() to atomically claim pending_work before calling
+task_work_add(). This ensures that only one invocation can
+enqueue the pending_task, even when interrupted by an NMI.
+
+If task_work_add() fails, clear the pending_work claim so that
+a subsequent overflow can retry.
+
+Also use READ_ONCE() when checking pending_work in the
+exclude_kernel warning path to avoid an unsynchronized read.
+
+Fixes: c5d93d23a260 ("perf: Enqueue SIGTRAP always via task_work.")
+Signed-off-by: Tengda Wu <wutengda@huaweicloud.com>
+---
+ kernel/events/core.c | 24 +++++++++++++-----------
+ 1 file changed, 13 insertions(+), 11 deletions(-)
+
+diff --git a/kernel/events/core.c b/kernel/events/core.c
+index 457d75ea7142..f1e4e153c49a 100644
+--- a/kernel/events/core.c
++++ b/kernel/events/core.c
+@@ -10925,16 +10925,18 @@ static int __perf_event_overflow(struct perf_event *event,
+ 
+ 		notify_mode = in_nmi() ? TWA_NMI_CURRENT : TWA_RESUME;
+ 
+-		if (!event->pending_work &&
+-		    !task_work_add(current, &event->pending_task, notify_mode)) {
+-			event->pending_work = pending_id;
+-			local_inc(&event->ctx->nr_no_switch_fast);
+-			WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
+-
+-			event->pending_addr = 0;
+-			if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
+-				event->pending_addr = data->addr;
+-
++		if (cmpxchg(&event->pending_work, 0, pending_id) == 0) {
++			if (!task_work_add(current, &event->pending_task, notify_mode)) {
++				event->pending_work = pending_id;
++				local_inc(&event->ctx->nr_no_switch_fast);
++				WARN_ON_ONCE(!atomic_long_inc_not_zero(&event->refcount));
++
++				event->pending_addr = 0;
++				if (valid_sample && (data->sample_flags & PERF_SAMPLE_ADDR))
++					event->pending_addr = data->addr;
++			} else {
++				cmpxchg(&event->pending_work, pending_id, 0);
++			}
+ 		} else if (event->attr.exclude_kernel && valid_sample) {
+ 			/*
+ 			 * Should not be able to return to user space without
+@@ -10948,7 +10950,7 @@ static int __perf_event_overflow(struct perf_event *event,
+ 			 *     To approximate progress (with false negatives),
+ 			 *     check 32-bit hash of the current IP.
+ 			 */
+-			WARN_ON_ONCE(event->pending_work != pending_id);
++			WARN_ON_ONCE(READ_ONCE(event->pending_work) != pending_id);
+ 		}
+ 	}
+ 
+-- 
+2.34.1
+
