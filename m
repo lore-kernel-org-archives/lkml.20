@@ -1,56 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793453700;
-	b=3ttc/WNweIoy2Ot+kmm+EFvXBGDH+T1vKqlICVKmviH2HyGBJeJCh7ZUAPJzvQlfnaLf
-	 n4Gx+tp509/t9qpCaqQfI2Xh3UZ5SWVxOoMPDP3zFEVmqMk0p2fnwGEF142c1+q6mOw/d
-	 HvSMNWtD75xB+wBWuI6pKvDXnmS/sZcNvU7KHCujc70BuwAWhuSBbpen9Ukk1uH6r93+6
-	 QdQ9BrBvuQK9pu6AzGL4/1Zv+lZvIcEBR46XX1/PvSPToY6nrm2z0Ck86tohtmIgdhVYf
-	 RygGTeYl5FVALtWn/0Ks1JTiwnaLiIaE7+s+1GjVq5eyOij0GD9DU8JeHV5DT8mXekg==
+	t=1793453727;
+	b=XzAalbGOMxIANE+ZyoWdXC92sYKa/wdHZsKZ2X0ixgU/TnzmkPiIkcezPXWgx87TJOOM
+	 x185Akg44DaqsAlxLRoT23LZoPIRtNoZH8SIFwuH2hoI+Bg2GxdvNcuYLdHgaP5AChKtc
+	 e8iCluXagnlX3NbIL1bDUt2rnqRBRccThGJkx12nss+PoFvbAmV7qod/26j70AzCYhsi8
+	 WCT/2SKYjgkRp3xPHbedEbyWZ6qznAt1YcvoAVKxD6tF5kDCYSVa2TRC20tsdaS7bHeBY
+	 Byx5/XYGxofsjEA34WbDsvqjkut8VqnC9WGI0hl6hdP9/qpatK6SjzPk6KIJDfGaKfA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793453700;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
-	bh=mqE4Fnmiow5t6+cu6uo49UiAA+7UjW5tKC/c/uUhAcI=;
-	b=VKLtLK9t6qcnCrD5m1vb9N5j3wKyKJ+O3NyMcbaMlCsYXgLFCfhpX2tdqQjvNlRKLOOr
-	 UFLxiIRjJbZQmqRnxT9bsGhmh/4qX+L6YDFWfqv26UmqfzrxYb3i7/ty3hBzuEd+qs5Pu
-	 kQfokArnJSVawlEUiCmAVUw27EOnUc9tu7lHxRWrpui1hJ3sE8O2FsglkHTWk+wLJPW8a
-	 6WoeqdsCe3JumqG2+HDC9BdHqT5UQ1H6AgJoIFeEh/LrFfRe98lFJBUzADFRhaLR18ALm
-	 eMr4P6I78NibP+N3iYMF65jy2evemWPRKKUG66esCeoQ4MzO3y5QbRxVIH7spx862uQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793453727;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=qR0DGjbS3VPeXKtuCsRN8V74OoIEh8cWN9/0vorUk0M=;
+	b=bfbMI2xGCkfXvCUgYhkxztkyiYjnuquH+uxeY1ALO1HkJ5fQ2FyQxOaL7zh8hs0ADumI
+	 tZ5HaFU9Wh58IC97wvFL3SUL/rVgLXMUEr52UWG4+DKsC0ClnR8E0433J/LBkt0QoUcdw
+	 0eJM9td8bVcO+b3/1/dv2smKfAAnzuEhN1OiXnqsFZOpkkeluVmBcGu4gh7uk/mYs6mSv
+	 NqZ8ptDmtQXoy8vQIN1DjDEkL8YOSLBG9ONcBR76bl4lgK5jGpstLI8cEf15VX1mmk6uG
+	 zyb5MJLNKyaItLGfH6zGUwnpA8UM/m7kPnYlH6kO0wliUz8jcFFAf+qRk61/LXjOCvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=POS3HJ9E;
-	arc=none smtp.remote-ip=117.135.210.4
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.4])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=iOnYndQv;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9209D606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 13:34:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9209D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 838BA606A31A;
+	Sat, 31 Oct 2026 13:35:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 838BA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=POS3HJ9E
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=mq
-	E4Fnmiow5t6+cu6uo49UiAA+7UjW5tKC/c/uUhAcI=; b=POS3HJ9E3oT+BlYdTF
-	MAM+LRv2alTJNejYr7FaCJ7j+652rLyoyJyDj+3UL51SW0B61PzkotiapzqFI9UT
-	nNLoX2hw2OKN3Z90iFXX4mYdHSvpjLD3qA6fqNedgCzsSS9jO/zu/p1wqehVau6U
-	MnboYD/outQwM4bLHCdOwHhGA=
-Received: from iZbp142fio164970eurit1Z.. (unknown [])
-	by gzsmtp5 (Coremail) with SMTP id QCgvCgBH1Jdp7uVqpZqqDA--.17794S2;
-	Sat, 31 Oct 2026 21:34:33 +0800 (CST)
-From: linfordWu <linfordwu@163.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linfordWu <linfordwu@163.com>
-Subject: [PATCH] staging: vme_user: fix probe error path resource handling
-Date: Sat, 31 Oct 2026 21:34:33 +0800
-Message-ID: <20261031133433.1826133-1-linfordwu@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=iOnYndQv
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C3F3910C1B8;
+	Sat, 31 Oct 2026 14:35:12 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793453715;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=qR0DGjbS3VPeXKtuCsRN8V74OoIEh8cWN9/0vorUk0M=;
+	b=iOnYndQv0hHIs5gUv4GuN2dOQ22WQjGrLex9fKcrvEx9FvgzZ+VNX0qtYcTxY8R24V9jJw
+	921TFtgmDmHC71Ibrtu3HrPYbAJB9ffKfUGlpV3zmoJoMuc3qfln7jekP7qWeTVLaS99ZH
+	nSVNgHKLf1fVDu5UBhDHT9PiCJ4KucP9THD8UIqeMb6c2wPjAELpUJxdlxeivS7CJMHvSO
+	5AMuqPgYn8iWBrNYNgbMvmIK9Dca87GbyIGMK3tc63JtCesHG8gtzUINIQqgbZ4xJdthGN
+	3+T7455CSkL/84iyB74fih+RDb/hR3dH7C2xgaeSto6cvJJFWZi4+fLVfnLV7w==
+Message-ID: <7ff5f937-144b-41fc-ab0d-82271a01dde1@nabladev.com>
+Date: Sat, 31 Oct 2026 14:35:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,74 +56,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:QCgvCgBH1Jdp7uVqpZqqDA--.17794S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Ww4fJw47XFy7tFyxWF18AFb_yoW8uFy3pa
-	naga17Kr1xX34UWrs7Jw47ZFZag3y5XrW8GrW2g3ySqr45t34q9r4Yyry2grs7JrykJF9F
-	qFWqkw17uayrJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pisqXdUUUUU=
-X-CM-SenderInfo: xolqw0pugz3qqrwthudrp/xtbC8QrpiWrl7mol7gAA3b
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: st: fix arm,smc-id of the SMC watchdog on
+ stm32mp2
+To: mateusz.nowicki@posteo.net, Arnd Bergmann <arnd@arndb.de>
+Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas BOURGOIN <thomas.bourgoin@st.com>, Rob Herring <robh@kernel.org>,
+ krzk+dt@kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Lionel DEBIEVE <lionel.debieve@foss.st.com>,
+ Amelie DELAUNAY <amelie.delaunay@foss.st.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel <kernel@dh-electronics.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
+ Fabrice GASNIER <fabrice.gasnier@foss.st.com>,
+ Stefano Babic <sbabic@nabladev.com>,
+ Etienne Carriere <etienne.carriere@foss.st.com>
+References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
+ <7ee09655-2fef-4334-b0aa-b56f7ae03f74@foss.st.com>
+ <1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com>
+ <cbcb8d78-51f3-41ab-80d6-fe3f0623da5c@app.fastmail.com>
+ <f7010f07fdcdb4ff04a0dbfac1cc5421@posteo.net>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <f7010f07fdcdb4ff04a0dbfac1cc5421@posteo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-The probe error paths free the current master or slave resource before
-jumping to cleanup loops that free it again. They also pass NULL
-resources to the VME release helpers when window allocation fails, and
-pass a NULL buffer to vme_free_consistent() when buffer allocation
-fails.
+On 10/31/26 1:00 PM, mateusz.nowicki@posteo.net wrote:
 
-Let the common cleanup paths own all resource releases and guard the
-resource and buffer pointers so each failure path only releases objects
-that were allocated successfully.
+Hello Mateusz,
 
-Signed-off-by: linfordWu <linfordwu@163.com>
----
- drivers/staging/vme_user/vme_user.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+> Marek, would that work for the DHCOS boards? I can send the patch if
+> you tell me which of them ship the old OP-TEE. Your OP-TEE change to
+> accept both IDs is a good mitigation on top of it for anybody who
+> updates the firmware.
 
-diff --git a/drivers/staging/vme_user/vme_user.c b/drivers/staging/vme_user/vme_user.c
-index a472a38ef61..980798ae622 100644
---- a/drivers/staging/vme_user/vme_user.c
-+++ b/drivers/staging/vme_user/vme_user.c
-@@ -616,7 +616,6 @@ static int vme_user_probe(struct vme_dev *vdev)
- 			dev_warn(&vdev->dev,
- 				 "Unable to allocate memory for buffer\n");
- 			image[i].pci_buf = 0;
--			vme_slave_free(image[i].resource);
- 			err = -ENOMEM;
- 			goto err_slave;
- 		}
-@@ -641,7 +640,6 @@ static int vme_user_probe(struct vme_dev *vdev)
- 		image[i].kern_buf = kmalloc(image[i].size_buf, GFP_KERNEL);
- 		if (!image[i].kern_buf) {
- 			err = -ENOMEM;
--			vme_master_free(image[i].resource);
- 			goto err_master;
- 		}
- 	}
-@@ -698,7 +696,8 @@ static int vme_user_probe(struct vme_dev *vdev)
- 	while (i > MASTER_MINOR) {
- 		i--;
- 		kfree(image[i].kern_buf);
--		vme_master_free(image[i].resource);
-+		if (image[i].resource)
-+			vme_master_free(image[i].resource);
- 	}
- 
- 	/*
-@@ -708,9 +707,11 @@ static int vme_user_probe(struct vme_dev *vdev)
- err_slave:
- 	while (i > SLAVE_MINOR) {
- 		i--;
--		vme_free_consistent(image[i].resource, image[i].size_buf,
--				    image[i].kern_buf, image[i].pci_buf);
--		vme_slave_free(image[i].resource);
-+		if (image[i].kern_buf)
-+			vme_free_consistent(image[i].resource, image[i].size_buf,
-+					    image[i].kern_buf, image[i].pci_buf);
-+		if (image[i].resource)
-+			vme_slave_free(image[i].resource);
- 	}
- err_class:
- 	cdev_del(vme_user_cdev);
--- 
-2.43.0
+I do not think revert of this patch is the right approach here. I also 
+do not think patching the arm,smc-id in board DT is the right approach. 
+Both of those, because we do not know which SMC ID is the correct one 
+(we do not know which firmware is running and how it is configured, see 
+the OP-TEE OS CFG_WDT_SM_HANDLER_ID which is user configurable, and as 
+far as I can tell, the SMC ID is not discoverable, or is it?).
 
+But maybe there is some way to probe for the correct ARM SMC WDT ID ? (I 
+do not think we can infer the ID from e.g. OP-TEE OS version, because of 
+the CFG_WDT_SM_HANDLER_ID user configuration).
+
+In case of this SoC, we can mostly assume that the SMC IDs will be one 
+of the two, 0xb200005a or 0xbc000000, so maybe we can extend the SMC WDT 
+driver to support some sort of fallback -- if the primary SMC ID fails 
+as not supported, try the secondary one ?
+
+As for the DHCOS boards, those are evalboards, their bootloader can be 
+easily updated, and they are running recent software more often than 
+not, there this topic is mostly a non-issue. There is however hardware 
+which does have downstream DTs which pull in upstream DTSIs .
