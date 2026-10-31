@@ -1,106 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.17
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793415808;
-	b=34INrVt2bf+zT8M8B9OiP/ERpnVqam1tFTqdH04DwKnY9pr8W7apGVK7e51UlrYOnLkc
-	 LmjaqKKinVsnVIMxr7kUSFs2FgatQzj3kCPCP0x9VBbBDrPK9anzfFAFpXUdglgee3MqC
-	 zZDM3uBiBGnnKpX1RYUZul/7/hwYM34T5yVb6nwA6rI8sU3a7kVxdAuYpn/Zpqbc9lVZX
-	 1Eg9ZqyRxD0WXcYA9RrjMGNtHp3Dus7lApvEF6boUUpKruiPOKVj6KF5Tda++eX2bZCSG
-	 vDGznRS8W7BLmYxAwJHCjssIIcadi6mf/BgYNXn/eJE38WhBWFHufV8/Xg/fIk2Hd6w==
+	t=1793415870;
+	b=V/bfjl2T/ohk5UT5Pt+4Uuf6m1dT4uN2l7whNIm/wSrDeIwOwBW3gxWOD41df8bxpSO/
+	 qBhH+qGXOW175jNcGzQ54m946xDIcYyT4yjhr1cvgppDcY8tjqhhduvkoCjTqVnKkUm5/
+	 ENxc5LUfxLSX88UEXWRFMONOZ8oq2pLFJ1n8wNFGToqCqgnN8+QOaVkCRBM6y3yufxjj/
+	 Jxhk3arQbEuoDXS2ACYljjdYd+dQxJ4QogGX6IgkusgPeO4GADwipBdGigg+yd/EuFpk1
+	 V/PyxmeW19glqJsHpbjHMfIGpD5Py62q8zECRsVtJDPcmCDfEfyu/YFWlqMpbWykiKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793415808;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=CykDRQmyupGap9MJ8JD7H5K9Ycd/s3V7wlgI2ffH55o=;
-	b=nplGp6b7PcHTpDJ0Pb4oer5khDq3ECOftiCSL1uwQlszCKCauaHVAW4qIuR4V9jUW+tf
-	 mSBNehhdFNsJ5K1vNh82STlB/d5rc8QriCBOfeNFsNXeF8l6Fwn88T+t+jipT3JtraWex
-	 mInpZ1PefWZlXVPwH3MMeobzkmFpDmmUs4nPWriZ9/dcLuo7SqaInzCnQCvCXKwC8xFa1
-	 qsf5trdMIGI+s0wLWAduqcTlS/AwolwQwrdpxozxSmdN4KCU1o4SKsLZqCzzHBZQkoEli
-	 ZBiVKxe3wKNEvsqXSNvTO4QPd1nbC4F6kA1JAH5KOcVP9ynyfniWlTgK9VH4zVVqEDQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793415870;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=3YgTZfTBPM4eMDGzEAhi2Dp4kfn7QE5y0ZrKAUvpyTM=;
+	b=uZYpCUd7dNSOc4z4Y74LbBRmCrkZiFk1BfyTRMDhqXV4HrCsrNcHbU/0J8eSiUETmjHG
+	 W9CBIAxUpuNvxRfBFuptGxapYxxi96aSzThpA7Nc9T7dt4B/cl6UWtX0uOLzuAMJexuDb
+	 W7bGRhyNi9yQPzSQqNVgGsWvZC/IPIjs2Qqt1h5B/YF7KGQa2oo4AHCqTrJG/19ZBYUIe
+	 JLKB7tqz0bh9227H9K3aQkiR8sqlR/v9DlGI0ev9FRG+/i3HiynNUJKXFWTyGQHtlB+6k
+	 TLfjSWcjDplji6hNRewOkCihQDAFGVW6snJN2mcTZ0HFcpGixZr3MwNEvr9XowJKZSg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="fbY/DWFs";
-	arc=none smtp.remote-ip=209.85.214.173
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="nTMo/PAz";
+	arc=none smtp.remote-ip=198.175.65.17
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB5C606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 03:03:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB5C606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C958606A31C;
+	Sat, 31 Oct 2026 03:04:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C958606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=fbY/DWFs
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e9f6a16afcso18045ad.1
-        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 20:03:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793415808; x=1794020608; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CykDRQmyupGap9MJ8JD7H5K9Ycd/s3V7wlgI2ffH55o=;
-        b=fbY/DWFshOR+Qk4YSa5bnbgsLqeA3wOLvaoB1liz0pQjjyiEZ63rEoNXs/eFRxMnWW
-         eG0Wy8C+OetD4ESLbiKc8xstEQJiutXddJ5NW3M+3bZKwwgXPaH9cSBM83QZ9qG5FJBg
-         jtEo+DKCysGkRP8fGCN5eDNRSgnhW/WRmEFik7C8RbrQpPb58+DFg+2bOTxFvwICCbOM
-         KZW3J1UyAKzEZKQtEzLk607Wkpa0VjJWO2IqFP4ecNxrX7hSlSl7eay3qwypxG08F3Nx
-         CfPz2ZP7dol0pk7QkkLkCV4gNQ27TNRWFA5JfshSvQxT0QnSPBpIpHDB80O+xj7cipSv
-         kwww==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793415808; x=1794020608;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=CykDRQmyupGap9MJ8JD7H5K9Ycd/s3V7wlgI2ffH55o=;
-        b=2YSNc409k55LboX3XIQx/UQSFaqgFKCFmEZT4/7Ej1G4dx8xzgIU0Ow7QM2+mn3g3b
-         fBA5zGnbo1Ib9ULefz+qM6Y/GVYHeh8spRSD6XGrVWMQg9p1TlS8TEljGTUgYrmz3v2z
-         ++oR8NeJEGatp2BvEHCCaEsVMm96df0vrZOobHDg5s1+Rnl00Bl9srBUg+zNKuSbNvcf
-         GFRoHyOd5otATLNu4/JJEJOVuUDLL2NqxLBtVTWBDxXmj6ymIFlwImFFwiH5Sq5g+rK4
-         YiAQPMUvyKMLRqmzj+4gyVSTszrw9Gj5bBNUJPKjVFoMt9fg4e3q7DDeodmm1ala4oKR
-         ZvKg==
-X-Forwarded-Encrypted: i=1; AKwUvBx9nNvb1noeMUzOGhnxE9r1PGIxj6UzHrD4qKp4rSVFECKO6RTe+KjaS9DQCo0J59qc4RUVUYUAyWg8pI8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLC4gx4M1RDrStgK5cYt9nQ45umnfYj39ifiOS0/ejUOlNbKk0u
-	tvTh+S209VeErAenqTXvlxUSMAlyUbcPKlMqWzOM/KW9XJg1KOFvj58yFqkOTrTjgg==
-X-Gm-Gg: AYBFou2BkT/IP2euvlj0RyrRPm0cMxV+oEoC9v1wKoNk5F72FTaLoGgbcsjWgaK2zaT
-	6IL5S8mUtNHqP2Ga7b1WrQQ5JdWIFuC1wr+b4GMa6YExYM+wi0V2EGLWF5cVno8udOdhd159QrN
-	RwDlSqV/mkcCYoq7ypC+advCKwNtOx4+wQHPEILSJcJXzDPc239MBW2jaSQNU7H+MLUIZgAleH6
-	kXKwJdb1zAKWlmTAnd0swEn57oP0IMgbj8Bm9t+9d49RmMtG+kTC7QT5n+0RXrfctLoNjopjCSQ
-	mOCb4pWVFjkuyoUWMkFz3D0TVY3xLboj2yOUyc6qfGD4jug+hVLE6kk2u1AkrMboHqEjdEFeFAK
-	R0vMz2Li4OPD0cMsDNFqs9PHJLySAZON85Z8Nzn27dyecFT9tRH5nsGqTugUqcP9fj5aeSx7uUX
-	1HXKQYsjUxgwwFxhjwGcQhOuFJfvpkGKCB0ML4ZGgxptocNxI6JqVo6KLFmQ+4dffjw3poK58i2
-	4Eb1EBH0j9dUEY7EnDKofM3oE7868qvjsDeLZezrGBb83XugiEM3EstBxptZZQbguq1XGkQBMMd
-	aX5Jk7aS46DSV+MKzplePgLTsoJaiK+i7VbTQqftDbtQbJS+nzqAJIj9Jq0sHHsnwmNx1gq/LQj
-	yibrcFtAP+IGl8EROFKugtImRxPvg5qzEV/T79fYVzjc=
-X-Received: by 2002:a17:903:2c04:b0:2c9:b404:b55 with SMTP id d9443c01a7336-2eb1b8c1cddmr13716365ad.6.1793415806880;
-        Fri, 30 Oct 2026 20:03:26 -0700 (PDT)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845429e6sm5927972a91.6.2026.10.30.20.03.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 30 Oct 2026 20:03:25 -0700 (PDT)
-Date: Sat, 31 Oct 2026 03:03:21 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Andy Lutomirski <luto@amacapital.net>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Andrew Morton <akpm@linux-foundation.org>, 
-	Hugh Dickins <hughd@google.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
-	Jeff Layton <jlayton@kernel.org>, Chuck Lever <cel@kernel.org>, 
-	Alexander Aring <alex.aring@gmail.com>, Shuah Khan <shuah@kernel.org>, Gerd Hoffmann <kraxel@redhat.com>, 
-	Vivek Kasireddy <vivek.kasireddy@intel.com>, Jeff Xu <jeffxu@google.com>, David Matlack <dmatlack@google.com>, 
-	Pasha Tatashin <tatashin@google.com>, linux-mm@kvack.org, linux-api@vger.kernel.org, 
-	linux-fsdevel@vger.kernel.org, linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] mm/memfd: add F_SEAL_PUNCH_HOLE
-Message-ID: <auVRLPmbWYvMnly-@google.com>
-References: <20261026220546.3114241-1-skhawaja@google.com>
- <d4891333-43ea-4d74-9fb9-6ad8dac1a446@kernel.org>
- <20261030121113.GB3889730@ziepe.ca>
- <2c7aa5c1-3af3-4654-b244-1257d05c9d45@kernel.org>
- <auTR9SnDLsLVmnJ7@google.com>
- <CALCETrV5eqg6d9=+BQhCpRwBNe3aCQiut8vxPBs8b7PToqjaHg@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nTMo/PAz
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793415870; x=1824951870;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=nenY67vOpzs+Xp4QoMffKUCUDUputbOBuu37QyGRUFg=;
+  b=nTMo/PAzAtxBIFq9+ufVFVB1cy62bJDG/tYzu4aHQ9SvXPjeP3kiUnUl
+   5yQhYprJSpkl8Q4tz/9Gmf6KjTXQksIAdCe+L/JQ05zzNoXAJAZQ2kO+9
+   OrHPmg8Jd8Qcf1/MPNK6ZqVvBT+JiJ85LSBVodiZJU1uHS5jTQrDQ3BmK
+   gyU4u+zzh4+8XftUk7x2kgAQ+NU2G33CasHJWOQ0j45dd7lnbdQO+cGQc
+   V/26/DcUbIJNZRXxHY4vx9kxnbJqh4+HOu++doFuJvRFCp6v53zOLUNiQ
+   RorI8ORCJCkzq1NOYoo3QDR3XL294Qk7CgJU5njIULJKP6EFD6ZWQjuqh
+   A==;
+X-CSE-ConnectionGUID: QiBtqF3rRaqB0Sh5lTAAyg==
+X-CSE-MsgGUID: Z2RZUT2vSaicIGrXdcH9sA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11951"; a="2195972"
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="2195972"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 20:04:29 -0700
+X-CSE-ConnectionGUID: hU+Xx/n+Sm6qqo+QmDycWQ==
+X-CSE-MsgGUID: O9ItPWDiTuSaE/mUJW4+nQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,186,1787036400"; 
+   d="scan'208";a="5481030"
+Received: from blu2-mobl.ccr.corp.intel.com (HELO [10.124.249.52]) ([10.124.249.52])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Oct 2026 20:04:24 -0700
+Message-ID: <51b23019-8ac2-4f6b-9be7-29f3635b472e@linux.intel.com>
+Date: Sat, 31 Oct 2026 11:04:22 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,111 +72,136 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Joerg Roedel <joro@8bytes.org>,
+ Will Deacon <will@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+ David Woodhouse <dwmw2@infradead.org>, Robin Murphy <robin.murphy@arm.com>,
+ Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>,
+ Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org,
+ Pratyush Yadav <pratyush@kernel.org>,
+ Pasha Tatashin <pasha.tatashin@soleen.com>,
+ David Matlack <dmatlack@google.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Pranjal Shrivastava <praan@google.com>, Vipin Sharma <vipinsh@google.com>,
+ Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>,
+ John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 05/18] iommu: Implement device and IOMMU HW
+ preservation
+To: Samiullah Khawaja <skhawaja@google.com>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-6-skhawaja@google.com>
+ <df75f891-05a0-4d47-8705-d6a00c81ff97@linux.intel.com>
+ <auTzN4NWuKsBvIZU@google.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <auTzN4NWuKsBvIZU@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CALCETrV5eqg6d9=+BQhCpRwBNe3aCQiut8vxPBs8b7PToqjaHg@mail.gmail.com>
 
-On Fri, Oct 30, 2026 at 03:43:53PM -0700, Andy Lutomirski wrote:
->On Fri, Oct 30, 2026 at 10:40 AM Samiullah Khawaja <skhawaja@google.com> wrote:
+On 10/31/2026 9:45 AM, Samiullah Khawaja wrote:
+>>> +
+>>>  #if IS_ENABLED(CONFIG_IOMMUFD_TEST)
+>>>  void iommu_device_unregister_bus(struct iommu_device *iommu,
+>>>                   const struct bus_type *bus,
+>>> @@ -626,8 +668,8 @@ DEFINE_MUTEX(iommu_probe_device_lock);
+>>>  static int __iommu_probe_device(struct device *dev, struct list_head 
+>>> *group_list)
+>>>  {
+>>> +    struct group_device *gdev, *gdev2;
+>>>      struct iommu_group *group;
+>>> -    struct group_device *gdev;
+>>>      int ret;
+>>>      /*
+>>> @@ -661,6 +703,13 @@ static int __iommu_probe_device(struct device 
+>>> *dev, struct list_head *group_list
+>>>          goto err_put_group;
+>>>      }
+>>> +    for_each_group_device(group, gdev2) {
+>>> +        if (dev_iommu_has_preserved_state(gdev2->dev)) {
+>>> +            ret = -EBUSY;
+>>> +            goto err_free_gdev;
+>>> +        }
+>>> +    }
+>>> +
+>>>      /*
+>>>       * The gdev must be in the list before calling
+>>>       * iommu_setup_default_domain()
+>>> @@ -697,6 +746,7 @@ static int __iommu_probe_device(struct device 
+>>> *dev, struct list_head *group_list
+>>>  err_remove_gdev:
+>>>      list_del(&gdev->list);
+>>> +err_free_gdev:
+>>>      __iommu_group_free_device(group, gdev);
+>>>  err_put_group:
+>>>      iommu_deinit_device(dev);
+>>> @@ -3543,6 +3593,26 @@ bool iommu_group_dma_owner_claimed(struct 
+>>> iommu_group *group)
+>>>  }
+>>>  EXPORT_SYMBOL_GPL(iommu_group_dma_owner_claimed);
+>>> +/**
+>>> + * iommu_group_is_singleton() - Query if group contains exactly one 
+>>> device
+>>> + * @group: The group.
+>>> + *
+>>> + * Return: true if group contains exactly 1 device, false otherwise.
+>>> + */
 >>
->> On Fri, Oct 30, 2026 at 03:39:40PM +0100, David Hildenbrand (Arm) wrote:
->> >On 10/30/26 13:11, Jason Gunthorpe wrote:
->> >> On Fri, Oct 30, 2026 at 11:20:30AM +0100, David Hildenbrand (Arm) wrote:
->> >>> On 10/26/26 23:05, Samiullah Khawaja wrote:
->> >>>> This series introduces F_SEAL_PUNCH_HOLE, a new memfd seal that prevents
->> >>>> holes from being punched into a shmem or hugetlbfs memfd while leaving
->> >>>> the file fully writable.
->> >>>>
->> >>>> Background
->> >>>> ==========
->> >>>>
->> >>>> Drivers such as udmabuf and iommufd (via IOMMU_IOAS_MAP_FILE) use
->> >>>> memfd_pin_folios() to pin the folios backing a memfd and hand them to a
->> >>>> device for DMA. Pinning keeps those folios allocated, but it does not
->> >>>> keep them in the file. If userspace later calls
->> >>>> fallocate(FALLOC_FL_PUNCH_HOLE) or madvise(MADV_REMOVE) on the range,
->> >>>> the folios are dropped from the page cache while the device continues
->> >>>> to use them. The pin holder is never notified, and from that point on
->> >>>> the device and the file silently diverge.
->> >>>
->> >>> We have the exact same situation when userspace maps anonymous folios into vfio
->> >>> and then desides to MADV_DONTNEED the pages. Or any other memory backend that is
->> >>> used for such purposes.
->> >>>
->> >>> User space must not zap/punch things that might be pinned elsewhere.
->> >>>
->> >>> That's not specific to memfd, udmabuf, iommufd or anything else.
->> >>>
->> >>> I don't see a reason to make userspace (that should not shoot itself into the
->> >>> foot) a kernel feature it must activate itself to not shoot itself into the foot.
+>> We discussed this interface before, and the consensus was that such an
+>> interface is not feasible, because the membership of an iommu_group is
+>> not fixed, given the hot-plug support of buses like PCI.
 >>
->> Agreed, for normal use this is userspace's problem. The seal was meant
->> for the kernel to cheaply verify at preserve time that nothing was
->> punched.
->>
->> >>
->> >> The issue is live update doesn't preserve those background punched
->> >> folios and now we have created an UAF attack on the kernel across
->> >> kexec if you don't do something about it.
->> >>
->> >> There was some notion here that with the right sealing flags we could
->> >> tell if everything was 'live update compatible' and then know that
->> >> these attacks are impossible.
->> >Just remember that there was any hole punch and refuse to live update this instance.
->> >
->> >We could likely implement "we saw hole punch on a pinned folio" as well, but I
->> >don't think that's required initially.
->>
->> If I understand correctly, you mean recording on the memfd that a hole
->> punch happened, and refusing the live update if it did? That would work
->> and is much cheaper than what we do today, where iommufd walks all the
->> mapped pages at preserve time. For truncate, the existing F_SEAL_SHRINK
->> is enough or I can record that also on the memfd. I will send patches
->> for this.
->
->This entire situation continues to give me the willies.  After much
->prodding and contemplating (in my own brain), I got a friendly LLM to
->report:
->
->--- begin AI output ---
->
->IOMMU_IOAS_MAP_FILE uses memfd_pin_folios(). Collapse [MADV_COLLAPSE
->or khugepaged] checks the old folio’s reference count, so a pin
->acquired before that check makes collapse fail.
->
->  The problematic interleaving is:
->
->  1. collapse_file() locks and unmaps the old folio, then passes its
->reference-count check (mm/khugepaged.c:2446).
->  2. memfd_pin_folios() (mm/gup.c:3483) obtains the old folio from the
->file’s XArray and pins it, without taking the folio lock.
->  3. Collapse copies the contents and replaces the old cache entries
->with the new huge folio. It does not repeat the reference check or
->freeze the old count.
->  4. IOAS retains the old physical pages; accesses through the file
->use the new folio.
->
->--- end AI output ---
->
->Is this correct?  I haven't personally verified it.  But this whole
+>> I am fine with the usage model of ensuring the iommu group of a
+>> preserved device to be a singleton, but I don't think we even need such
+>> a kAPI. It should be handled case by case.
+> 
+> The iommu_group membership can change, this is why we check it in two
+> places, both under group->mutex:
+> 
+> - During preservation we check that the group is a singleton, and check
+>    again after setting device_ser.
+> - During probe we refuse to add a device to a group that has a preserved
+>    device.
+> 
+> So if a device is added to the group while we are preserving, either the
+> probe fails because the group already has a preserved device, or the
+> preservation fails because the group is no longer a singleton. Could you
+> please elaborate what you mean by handling it case by case?
 
-Yes, I think this is correct. memfd_pin_folios() pins the folios
-directly without taking the folio lock. Other page cache lookups lock
-the folio and recheck folio->mapping, e.g. shmem_get_folio_gfp(). Only
-memfd_pin_folios() misses it.
+I am fine with the singleton-group checking logic you described above,
+but I don't think we need a helper like iommu_group_is_singleton(). It
+drops group->mutex before returning, so its result may already be stale
+when the caller uses it. That makes it easy to misuse in the future.
 
-This scenario is different from punch hole or MADV_DONTNEED where the
-user decides to remove the pinned memory. Here the kernel is removing
-the pinned page without the user knowing. Collapse already checks the
-refcount to avoid this.
+I'd prefer to open-code the check where group->mutex is already held, as
+iommu_attach_device() does today:
 
-The recent fix [1] by Chris already takes the folio lock for !uptodate
-folios. I think we can take the lock unconditionally and recheck
-folio->mapping, that should fix this. I can send a patch for this fix,
-if folks agree.
+int iommu_attach_device(struct iommu_domain *domain, struct device *dev)
+{
+         /* Caller must be a probed driver on dev */
+         struct iommu_group *group = dev->iommu_group;
+         int ret;
 
-[1] https://lore.kernel.org/all/20261029-fixes_core-v2-20-a64ce7f83abb@kernel.org/
+         if (!group)
+                 return -ENODEV;
+
+         /*
+          * Lock the group to make sure the device-count doesn't
+          * change while we are attaching
+          */
+         mutex_lock(&group->mutex);
+         ret = -EINVAL;
+         if (list_count_nodes(&group->devices) != 1)
+                 goto out_unlock;
+
+         ret = __iommu_attach_group(domain, group);
+
+out_unlock:
+         mutex_unlock(&group->mutex);
+         return ret;
+
+}
+EXPORT_SYMBOL_GPL(iommu_attach_device);
 
 Thanks,
-Sami
+baolu
