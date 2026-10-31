@@ -1,71 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.251.234.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793423978;
-	b=dEP72avJ2pPFFdLj6TFdWm5pxm39YJYJKmAL7pBT93URnNJ8x8m6fNlGUkfZnnGglG5D
-	 jLBwri1W5RqOuphf6UgkSz5sGbkf7G6Hub3VTf40IR7lJMS0HMoBuDk8fc3ejnHflTP7B
-	 UbbrL+elqaA1KjVS71WO6iBlFPDNLQEbnh9vc+l+lIZT7lB4UipZIMh0fY2TR3xWlhbWw
-	 yz2muHVq6+Td2qVF5NPHnv/t+RMOc60BtVfxEIRdEs7PgjVoUmQdRT7xO/6ecMSWbic0X
-	 frKHR0Xq8ECv0EOF7bPzJygJDljc8AWT/5DovGoHdDG4dP0kwZG7IWNQqFQcZhcf6Kw==
+	t=1793424091;
+	b=ak7HpP3Ic24Tu3tLGiZf5h364p3UoKHkspXAom4UOHTeGthieFHtmhCKf2kPLvGG1BiT
+	 7Fswj8sijSdeX1IoUF18cLLv3hZY1GGwYCgWDe+yDXWrq8OUsbjGnxUZUKtsTARjc9iYK
+	 ytxyfx5pVc9UwT9n0xvb20KHUNk4LVqSmDo8uwX76bFN6xp5SkAMTq69/MaLrZQQYQpGF
+	 Wjru3Q+lwOKiFt24SSAV9TU2w7yyKisQ5O0M5k8LO6pQCBc8yHJebyxNsfAGt+786ZjbO
+	 sRNPKpRFpPQM2ozC0RtptprqSMTBcdka/zp8uBZXcr+Nn+3TLKXug931uEpw/rdpP7w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793423978;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:In-Reply-To:Message-ID:
-	 References:X-Pmail-ID:From:To:Cc:Subject:Content-Transfer-Encoding:
-	 Date:MIME-Version:Content-Type:Feedback-ID:X-SES-Outgoing;
-	bh=aTrjdhAZkYsM2rcSRWE3MAxfT10HTPL5Pfouv/xeRtw=;
-	b=f0S8nEWynGFyXS922aitM0VPwRqEYJyZxxwLmgj/SDK4JWKiS+1k5xjyWUzqRTyBRD2i
-	 SeDmgCQ59rkHihpPRloDQAgc759es7umptQpkti0fD9tNINorc8oIl0IM7VTjg2GQoCVM
-	 0vn/dywhmqpDRxH5Hal5BtN9wFIOUeKaR3MDRKwkoyylElDmkd5EW+E49aawDdXLtfO5n
-	 u9prep8mwPi42OW+VFjpdqkRLBW4ynVg8Yt0rmVMZyioaiL7q7hJxbamsWuOVnfj1fYFp
-	 4Zc7viSpFVYhCOyyn427lPYdLKwg/kon3bZM0XtB7cOTG33jKzIyZ2A33z9R++KwBzA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793424091;
+	h=Received:DKIM-Signature:Received:Subject:From:In-Reply-To:References:
+	 X-PR-Tracked-List-Id:X-PR-Tracked-Message-Id:X-PR-Tracked-Remote:
+	 X-PR-Tracked-Commit-Id:X-PR-Merge-Tree:X-PR-Merge-Refname:
+	 X-PR-Merge-Commit-Id:Message-Id:Date:To:Cc;
+	bh=P+8vvVVt/SrEKdOymHQWCVEHjlCKQV+GBgTPtVcUZoY=;
+	b=yzeJahYULEzN8/iO9HdglorpixQ8vJiWf8axha0DBs0K5fhxjKshcPB71P/1p6eciSQH
+	 ZUDv8rnpI6Fo+tWr7KFsgNgYd2whBBClq0Deav3VBoiCVYwiIZGz9ULroUhPuqb5SOGjh
+	 Z31ck650RHm4R7J5Jd+byd7kOcE/jAr0ahYsyVZlV+EThq3beBOaOKiiNz1d1+UP0SGMw
+	 GlI7zeCBWTFdvYBRBBUH3stxOQdM4K+ZVnaCwWTuL/v0VkXz8JLquZPrNMpHeGw8jGn1Q
+	 /Y4MYi10VJMmzCMMEJfD2wJRT7cTcW2F1mNX4oTuhnnleIjVKbJcO6gF5Vg/CIrQwbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=brar.si;
-	spf=pass smtp.mailfrom=rsend.brar.si;
-	dkim=pass header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=CPXENnup;
-	dkim=pass header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=ZYZrUUFZ;
-	arc=none smtp.remote-ip=23.251.234.51
-Received: from e234-51.smtp-out.ap-northeast-1.amazonses.com (e234-51.smtp-out.ap-northeast-1.amazonses.com [23.251.234.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZmVvhcjx;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA79C606A31A;
-	Sat, 31 Oct 2026 05:19:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA79C606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=brar.si
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rsend.brar.si
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD4E606A31D;
+	Sat, 31 Oct 2026 05:21:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=brar.si header.i=@brar.si header.a=rsa-sha256 header.s=resend header.b=CPXENnup;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=zh4gjftm6etwoq6afzugpky45synznly header.b=ZYZrUUFZ
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
-	d=brar.si; t=1793423976;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
-	bh=j30RlGk9uaAKzG/CjGIFRv7T5BN+RZPMz5USnZpOEec=;
-	b=CPXENnupum6hY+bn7mN2eUwZvZjAVrC2jL9X/1a2bASFFLwgflzsIgTVuNIfqSeo
-	QsQpq8vxqMnjUNi2azN5fPGi9qBxHl2AtctcBv3pFbMYV3oDSKLpukptIMQ3D+2T6pF
-	NnEYXZ5OxWTUloTydpiAugHL9en1zCLZeNUeScxQ=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
-	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1793423976;
-	h=In-Reply-To:Message-ID:References:From:To:Cc:Subject:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
-	bh=j30RlGk9uaAKzG/CjGIFRv7T5BN+RZPMz5USnZpOEec=;
-	b=ZYZrUUFZmhQR9dWjvM/194DChU2iHD/Hv22UGbmGybqsQf32WvNCUbsLL6V/AWSP
-	Rld517D0varKE4USh6UwebHy9Msu0nR2V5ICIZlxCD+b4Dln9orTpbIucCf4RicFePC
-	O3cODxPnfPP/3T7zeR0YEm+OXov1mViKmWN88uJI=
-In-Reply-To: <b0d99121-06a2-4674-bbc0-0edeb426e072@kernel.org>
-Message-ID: <010601a190662577-fd93bfc1-739a-45ce-9847-727776271c84-000000@ap-northeast-1.amazonses.com>
-References: <20261027-icc-sm7250-v4-0-f9bdaa3c1c7b@brar.si>
- <010601a17d6212dc-ed028a84-ea72-48e7-a4d8-fea315dc42cc-000000@ap-northeast-1.amazonses.com>
- <20261028-classic-sloppy-harrier-72dfcf@quoll>
- <b0d99121-06a2-4674-bbc0-0edeb426e072@kernel.org>
-X-Pmail-ID: <1793423974923.5b783470d46a@brar.si>
-From: Ishu Brar <patches@brar.si>
-To: krzk@kernel.org
-Cc: djakov@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-arm-msm@vger.kernel.org, 
-	linux-pm@vger.kernel.org, konradybcio@kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: interconnect: qcom: Add SM7250
- RPMh NoC
-Content-Transfer-Encoding: 7bit
-Date: Sat, 31 Oct 2026 05:19:35 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZmVvhcjx
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3DD1F00A02;
+	Sat, 31 Oct 2026 05:21:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793424090;
+	bh=P+8vvVVt/SrEKdOymHQWCVEHjlCKQV+GBgTPtVcUZoY=;
+	h=Subject:From:In-Reply-To:References:Date:To:Cc;
+	b=ZmVvhcjxXfoVUL5WynqefI7AgQW7NVbSeP1qMht1nbgxI8tpxsUO3ZuZeuIBkqW4T
+	 VTG5u0vx1xGkDOvwpETm7biCZ5VISEr1UN4L1kVtRR3Q55S86X+g7cgcJcyS5hOA37
+	 YlPJr5mF84PGDg2AesCNQYDFjFkjNxRK/WRh7UZG9a0BvqrBCFgkq8zGmJ7NkSqQ4V
+	 jelV7+DXmYPm+ftF4oW016uayOOH0BxnMbe4Jn7WqLkZWKFI3rLOo6EoOKQD5olvE7
+	 nSX9m3HHXevvOd4AQmosv02a4at7aMlsrvJIoXDChkkXDM0sMcMFHRqOSYPXQjAgq4
+	 P5N9K4A8GJi4A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id AF805380047D;
+	Sat, 31 Oct 2026 05:21:30 +0000 (UTC)
+Subject: Re: [GIT PULL] AppArmor bugfixes for 7.4
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <ca16996b-2917-4869-8e22-e6731804e4e6@canonical.com>
+References: <ca16996b-2917-4869-8e22-e6731804e4e6@canonical.com>
+X-PR-Tracked-List-Id: <linux-security-module.vger.kernel.org>
+X-PR-Tracked-Message-Id: <ca16996b-2917-4869-8e22-e6731804e4e6@canonical.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor tags/apparmor-pr-2026-10-29
+X-PR-Tracked-Commit-Id: ed35bbe7d06e6505401eff3f3c7a36bd1f167a17
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 60aba79a50127e92d8c4a663d35b855e52a9da01
+Message-Id: <179342408918.1961943.8874862562044379333.pr-tracker-bot@kernel.org>
+Date: Sat, 31 Oct 2026 05:21:29 +0000
+To: John Johansen <john.johansen@canonical.com>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, LKLM <linux-kernel@vger.kernel.org>, "open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,35 +67,16 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Feedback-ID: :1.ap-northeast-1.5YL5VvZ+qZ0e19wo5UdMspzrKjMAjMWs/SlfuwHJq77JVCQWpVGwyETo7FaXf+sztO4bYMxF6WHssrYHSY+K7X2T1EZhOskwm44pQQStdKG0Jdj3d5ybzIXFkMTcPBXllY63oWIrFhJN26LFqLzTuHiXuqj9UCHxIuFhxi7IM0GCfceBHtKocmWdFsR9dK9X:1.ap-northeast-1.TOS0vxEE3Ar6ai29fkp2i/jb+l2iigajCGeLfF7S3sk=:AmazonSES
-X-SES-Outgoing: 2026.10.31-23.251.234.51
 
-On Wed, 28 Oct 2026 09:10:21 +0100, Krzysztof Kozlowski wrote:
-> On 28/10/2026 08:59, Krzysztof Kozlowski wrote:
->>> +  clocks:
->>> +    items:
->>> +      - description: aggre UFS PHY AXI clock
->>> +      - description: aggre USB3 PRIM AXI clock
->>> +
->>> +patternProperties:
->>> +  '^interconnect-[0-9]+$':
->> 
->> We actually do not need to enforce -0: '^interconnect(-[0-9]+)?$'
->
-> Actually is this really a pattern? How many children are there?
+The pull request you sent on Fri, 30 Oct 2026 09:46:57 -0700:
 
-No, not a pattern. there is at most one child per provider:
-	aggre2-noc  -> compute-noc
-	gem-noc     -> mc-virt
-	system-noc  -> qup-virt
+> git://git.kernel.org/pub/scm/linux/kernel/git/jj/linux-apparmor tags/apparmor-pr-2026-10-29
 
-The other providers have no child. v5 would replace the pattern with a
-single fixed "interconnect" child node.
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/60aba79a50127e92d8c4a663d35b855e52a9da01
 
-Should the binding also allow the child only under these three
-providers (and "interconnect: false" for the rest), or is the plain
-child node enough?
+Thank you!
 
-Ishu Brar
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
