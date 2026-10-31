@@ -1,100 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793476512;
-	b=zLIfeq2WmroaYQPs6QKigvdwx1Vznvox/3Ae8jFyqFccbCjj5o/srS8g7PwE5TO5KfAY
-	 GkBnJjoBmGtVVaa1u1/QeOIsNAiKPpdKAmdoVrTvxqJH2uiirHPvBIshPaDpGyFe3MMQC
-	 rcWGeNTHHlCVzXkLOt+GZdZca9DqoGOP10S0wbLDhALpFMeLvJ1OGr8Em/KyAdvCyX0pP
-	 tggP3c6Jftd6Cr6oS3cVK5Vca/0MveVIkTyusRmn4zE9cpQb2s48cll8URxWQYw+DMctY
-	 VeeSInSrO8z/a9hOxUTCmVlPvt6gcB/oyB5t6czDWwuD1SbOugyp/7bI8U5KZrPqF1g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793476512;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793476585;
+	b=qp1aZQpTwwNFxIw5IN7PQDMEksJFIcWkWnuh0EAniPYxrSqabB2oNPs/EvzJy0RL5LSj
+	 kaanU4tVPY8EwxAfbLYuCGBMCnbH8NKI39ebPrk8DHc9MifQ7xGNhTQZshsr9SNwpC41u
+	 mYWXLV/4AjDzWKX8ZMH31he7LohxXjd165vWs/5Hk2g9ewYopUWWlr9KtkxHKKmrI/gAD
+	 mKFhaank1rwtb4JP2bk+bY2GOLnGL+VReA1npxb2q7T8VzkGhhlc9J4C8hTwSO/QqNQy2
+	 Wa/7PADETrRr8R6RPhC2oN0Hpmb60jxLJp/M/BMnkiCkz9/dv3+uF7Z0hgLmzb47x7w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793476585;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=5O5IADadRA7OjjYl6cdAuBGkPA4cHFlxrAeTL7mxKBk=;
-	b=sUAoOy7K4673kmtBO7JCrb+Ku4wIja353MHlazaSwLnHBXzT6BhZcU/lxeDOsQyjBQ2t
-	 V6NfkPFg2OppOiAMQfFN/3opznCAnSnjhBIOhPoPwntEHMQuWhTDs7dZJIaHx4eFofp+M
-	 be90K9fs1yQS5Q371h/zG9yUT6tu5djYjmP61UW2sYndH1rGBMZsodlRJuTiZoQ94HfAn
-	 f1FimbRyDm4kGqv9imZvphN9tcLy+V5KTiRYC1yWHbRpJd6moEmJI5YR3UVY176c+CG2u
-	 UoYK9WP/y8qwdTRZO9daa3bsI2xAkrZZkXHrAYOeXRnCmWzxituOq/iCph5uDZhZj+Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bairaktaris.de;
-	spf=pass smtp.mailfrom=bairaktaris.de;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.169
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dwrcbsknGFmVz4+ZF6mDEPtgchjJAiKOuwaGvt8CwOQ=;
+	b=fy8R2n4qlp4cAMNt2+jTORWk/H8Fs6zFBttx77bCdj6M5KIlOR19SX+7tBRyOQIBEU3g
+	 bzZZ/VQL2nwwmwUXTMU22CJHuxbDYhw/d6CyqUV8957SXHwTeSW2YuK1NXswWgFU5f+Yn
+	 /BrGGrEVuTbgI/rwDd6YNktQoOE7u7+9hItaNjN2XH4Kot8Vkr9d7lSakOA18PlLbZFIz
+	 Kw9ny3ZxuY6dn6qjfBPAQhEhueFNSCdQ8pOfk/Vq+vTxWPF9lKdEMRxgxSB3pTTxuIY7I
+	 CnShn1k1KuT871nYX2XIiAb9BGmrO5mhowacDJbySn0ccyb+BOsQTI7X62ET+QVKtTQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqfWuiYY;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5F4606A31D
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:55:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0C5F4606A31D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-8ac8a2ac52bso20510747b3.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:55:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793476511; cv=none;
-        d=google.com; s=arc-20260327;
-        b=WcIfMnhr+DeNz1RFJA4/wNB7jXrKFhFww3OeyL0ObhsOG2RnJ6tngADPtCEfSXa0QS
-         8ZX0ai1RAawZZrysohwGzvwc0Y9Jr5PMzDdccwz0TnT7/dyYs8nLmhynIsPe9lV7IZU8
-         cJQYwI5FoHtTIX9BEhl1swK1UWfsBVYE+oXBtxSzTjcGKl2phz2q5OZ52X+RqyGF+YEp
-         qt+6yJwib1QYAR1MXtf+BVsO2SOhnTsboNMG8HDoDFfSqm26ngZaaX72qNY6tS7F3Nv0
-         yMA0/IuJTTARe6O0Kun9kyvlTprtzPfpdBqR2z5PeCgFXTcRsoX1ihJAEmE6G1446Vyn
-         4IWA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=5O5IADadRA7OjjYl6cdAuBGkPA4cHFlxrAeTL7mxKBk=;
-        fh=E0jYQdVjYNTksfSb33pPnNWONYa2EpMFoA8pnU4UveM=;
-        b=BHnuUSe/Z/64X8gR0ItZt4YkDL30ZBSsCo5m6xSdR8CjI5uZz7iU+6cZb1P/Wf9vT7
-         daN6vKD6prd+nfUm7OaFBT/iKh51ekA+D0WoxI0LWEKJj0R9nuOS0IaXaTRV+TPJCgAs
-         WUqUe1T5H4kjlM3WbCGyeQCfMNgVrqR1ncNyifnk+jiwpgszSNI2GCan6IN5iB6CWMH6
-         D30AaAlb/zlkrKJnrYCKhixsVJ8jydLJOg4TZpVKbFplDcX2Q7n3BDsf7NE/p1/Lug+J
-         Xu8SuU5mqDbfnNfGMYfvxAQ8HV+iDE9V0kaYG+SSHQT9htfeK3Zx4YaH7nnE7m592yGy
-         O1jw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89BB606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:56:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D89BB606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqfWuiYY
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so15404285e9.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:56:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1793476511; x=1794081311; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5O5IADadRA7OjjYl6cdAuBGkPA4cHFlxrAeTL7mxKBk=;
-        b=STiIltO/aqKmnKiUqXHcjXT6P/2qN7QUM0q+/n4EgGThq8OvAxvoQ80ETa9YMtYGjO
-         VX2c8EEV7d8VCgCeuPgqP3pbjamibnVJQTW1fOst0t2iouJACwrAHGTKavgV8n1ZK7Lu
-         iTte4wR+EAOE0Nh1dOrnv8ZEsXgKYQFvEtWqJHeqbOFOIEFQ4I47jRwdWoTHn+Cb7RWT
-         eKgj9UDHraGLjIy/F/ihfoA86jyx7bK6URZkBM/2O7X7mgq/IbwaNx1Wx+Hyj4/aZ27w
-         vo+NjOBzJtAdRBAySh7FM6PRRlaltQWSPh10UxMdqDRaH04TyoJVhfV4CKGgv/Zs6yzE
-         /Sxg==
+        d=gmail.com; s=20260707; t=1793476583; x=1794081383; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dwrcbsknGFmVz4+ZF6mDEPtgchjJAiKOuwaGvt8CwOQ=;
+        b=cqfWuiYYDKmcg1zu/PAZdCgzRi/i9VRR+mMiMAGlbyBGA/DJrK6hm7DpD4BvScsYcV
+         Pc1EzTpWYO7meduCu5DECX7Iw+tdWUoc+jiR0zEDEBU0W7jyknB32GOlZPUQAAMOgcG8
+         UD17vwfsn+TIViRIwHrlCQcbLu5roIv0JiBW1Hl/Km3q3w4eFd4UyVSKNwzNZGazqv2I
+         hcjzNd1shXHFaLiUrONE8Vy9/SOhVUmTAIybR+kAFEie2XjCAeXkRjbN3xnvHTjW/SWS
+         yM99KoZK0UvQHD1RkJDL0DTCEI5WuEDjq4WSDL5ZOsqPSA4D/imPBpOMj24U4curNn8O
+         OIIw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793476511; x=1794081311;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=5O5IADadRA7OjjYl6cdAuBGkPA4cHFlxrAeTL7mxKBk=;
-        b=MezFGf4uvvJXa3W+S6EYq60PaAecy0XqDuVRjywQNRTfojwSgaFFvwmqX4SjoVVH8G
-         jSglSWPSXYIVJiQxtPG6TwbpPDtf6F5W8+34XK2GLyDzcGk+ie2km0QUI4l2TJP0R9JF
-         kXFqgmMQajgbmBEwKfKWhDNSI45hOkvpSZrnhC/fjlof15l7yq13Sw5v50p1kgDpSoJk
-         BpIL9Q4u5zO9J8MXlCY+77CrDK8M+3DW2WjNVfmpecrtT4zCJTKFxzD5HEm9h8wSE7xf
-         PC7dYEp1IH5exxuTCL3CrMYRTkADjrfdWqKvyd6tziR/IPJyXEv8n+uaMNrpXfZawXhE
-         MufA==
-X-Forwarded-Encrypted: i=1; AKwUvBzX79a3SGucKUqxERNGsbCwQbu24HSaN+jK+ftmQBQA/I9NMg3nLzKiFic3Ti/aZ+LFXL2JQGKQHtHI9AQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8RwxOoQ9pek+rJn+t/lDuC+vbRg7fGcEy8zE1qbzc2gwZ1qaqf
-	snUm7s10nbhmdcCFEtJFq5udqPwhImDhFbB7PnEffqVhQxmr/9ZIbMwIVMF5Kb/am8Orf+hGtrl
-	SvaXqcwfVRTDd9mIdkHag31tV0oqgsgJpdxokV/VT
-X-Gm-Gg: AYBFou1zmFwEYuFaVTFQyXpGPgz6+Bl0ygFBkPwVKt6tz2iTTDMTRYfStbEK2+4SDEg
-	+4/CyeU/Lne4Ey2DPXN8eMxW63Gi7fFq3msinFzs8/KqUko1cv3GuutR6IjKPTZFLKiTDzoyX50
-	aKtrSryGb0adQPKtBBzj1GWLoTtCGl0jcwOrgFpPMWcFejpkPr4Rj+ah3gtISUB9TLat7OwNytU
-	o8TfUMu/XCht2iBQ+tAdofV97yA78lFmSEXqv9TiT8JYb3BCNT8DWjaVeeTuWO1N6Ag3AqcgSHh
-	TUAd+jDTgk0+o/OEuGyPrOJaUi4RD6jALQMmWkVG2Igqm1AfJiXFssotZzHXrJtc4RPg+0mrUje
-	RKcIVUpG8KAa1TUdLub0kHMun3n2rbv0JB//zdAVl1sx8qPvff+64L4qcw5189WiurYTmF609nd
-	Lb3qZpeouGUREc3+aAMvMRfARFwParohkcVo+jFK2BnvIE5YBftuZkKngi8r2SN+FTYUBeJyKxl
-	ysjqxtTSxDbvZDO3v85iOrJa9wZDFa35XX4Xv4Z9wAkxqT3KxuiN3bjbVBxR4ro1NbSagwSguVK
-	KDYuCtg6gaI+xNsgqCW6fTyUDXxrXEZsEDjVpZWD450mtXSJpy2BYEWWG85uYCGCpmg5hdVJYQv
-	L23kr4Z04eUOGj4QmkGHCdKtKf9zyTg==
-X-Received: by 2002:a05:690c:6612:b0:8b1:6c4d:6b83 with SMTP id
- 00721157ae682-8b1c6762363mr64199007b3.24.1793476510987; Sat, 31 Oct 2026
- 12:55:10 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793476583; x=1794081383;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dwrcbsknGFmVz4+ZF6mDEPtgchjJAiKOuwaGvt8CwOQ=;
+        b=ywZv/fa+tet9NQQlKhj31p3a1dySTB2wUJ9Sh29XUxQWgyMa1D1bG5K9v0lnxH97SB
+         EZwXBiVg9IKkk8Prft+gIACRz/GVYlnNC0H7gJ8WrqJ7MzvrKCw9rxw/QEaVvwMdK/uP
+         QvQXDM8rO8hRjj/q/moWtqpdMCNp52bVAZ+wGSHE2hIyi/QrnMCYroksHXnHHq9yjs0V
+         DNNrPzwP0wBK5uu8ouJO1d58Z58xLOtn+bjQsAMsMv1Z5oZi8yd57SOdxUYTaNdIs184
+         kSqcS/6FsSbeRETRcVX6EtMAc5UKOPNiASkAep3FZ83gWurWQBk87fAckIDoFJ+gA0t8
+         QMzQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy9CokGdfGMuaa+ZM2lqmlKojmPalvr5e67hJx/WbO9Vi2sPm4NVV8bRbDovjnGUL5mht9yVs+O89gxBOA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxMYtotDssaAmcE6m424cXnKNR9S52b2JhC70xongBlaysNvVk
+	BB6G+wd2qPg+3xO/QQ+HQVD9pVoJbiqjdDmSkJ8ldRQlJbffRH42GUER
+X-Gm-Gg: AYBFou2rXm+0DFk/IG/hcuvPj+x7BK0/sFhoEqcYIdT0dXJJuBdEz3LcrvrFrpZibPE
+	tQdkp00vOcAqtST3vLuuoTqTYam2BBnbedwEVk3Q7CTZm6JQnS+9z/0wTsfBAishdb6EYWx0PPJ
+	hS/LC2YDdeK5S3KCBOJgrU++8E7mL1OqIf2JHl/TEnUD6sbNqBNpB5XBhEnNOMcykeVA95o4at5
+	1wPZtiKcix8g/cVyboLui41XesF7FgRUuQDvu3f/4V2AYSlpgMZBNPwGbKpJUyvc3wXN21+DpMR
+	MjsAaf8PfTlKGV2P+CESponSjuAcyYbGYf3GNSfQ6EaViCcfFLaCfpqk+GorlEjPUlywfsCF0oQ
+	3AHxhMLsQYcJoVr74oxRLlu1WqXETufPUa6Pt775sG/kBrpulpNtpJSp2yri2D8CdOic5k4PYRr
+	eRV6u3NPaPRuEq8GFVwPuo7BqeppHJ/xgMTS/uZArMxstUj8Vtdb6xqZYmUQVJ+viB/2/KoCyjJ
+	jzFoSYbuWk6DoQARegCQLlHqtMjZn5VffkQdQmdkLTM5As3PhNfb28Jg/2PfDNP8pFlykM7X0fq
+	Mx6IwP0+DQTCOT4VyfyDotRRNor3+fJIftY8+1h07qU=
+X-Received: by 2002:a05:600c:3b2a:b0:4a4:3a2d:15da with SMTP id 5b1f17b1804b1-4ac1709a2c3mr128664365e9.15.1793476583039;
+        Sat, 31 Oct 2026 12:56:23 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4773:6f00:661d:f91:664:493c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm11513907f8f.6.2026.10.31.12.56.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 12:56:22 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: tglx@kernel.org
+Cc: radu@rendec.net,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] irqdomain: Preserve reused IRQ descriptors on allocation failure
+Date: Sat, 31 Oct 2026 21:56:19 +0200
+Message-ID: <20261031195618.4167524-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,50 +95,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261027075544.19144-1-julius@bairaktaris.de> <20261027075544.19144-4-julius@bairaktaris.de>
- <7ecbb748-85fd-4a5b-b673-3f29b683e8af@oss.qualcomm.com>
-In-Reply-To: <7ecbb748-85fd-4a5b-b673-3f29b683e8af@oss.qualcomm.com>
-From: Julius Bairaktaris <julius@bairaktaris.de>
-Date: Sat, 31 Oct 2026 19:54:35 +0000
-X-Gm-Features: AclHuK-y6ZcuKV4f5uzsmB8CJRCLAxncnpWnV8eG7gDPJlWCxU7zg7ukuzbMPBc
-Message-ID: <CAC1t37K+SCBFbt03xWrdgreaWctwx5G7uEYfyjRHghztKaWR5w@mail.gmail.com>
-Subject: Re: [PATCH ath-next 3/3] wifi: ath11k: add a module parameter to
- select the hardware mode
-To: jeff.johnson@oss.qualcomm.com
-Cc: jjohnson@kernel.org, ath11k@lists.infradead.org, 
-	linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	baochen.qiang@oss.qualcomm.com, strst.gs@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On 10/28/2026 12:03 PM, Jeff Johnson wrote:
-> Is there a different way?
-> Adding new module params is frowned upon.
-> https://www.google.com/url?q=https://msgid.link/6d553cffcb0ae84e141006ae1430f6f37909ad2b.camel@sipsolutions.net&source=gmail&ust=1793562736182000&sa=E
+When __irq_domain_alloc_irqs() reuses an existing IRQ descriptor,
+irq_domain_alloc_irqs_locked() frees that descriptor if IRQ data or
+hierarchy allocation fails. This removes an IRQ descriptor which was
+allocated before the call.
 
-Yes. Which mode the NBG7815 should run is a property of the board: Zyxel
-specifies it with one 8x8 5 GHz radio and 160 MHz [1], and its board
-data makes the firmware advertise DBS for that. ath11k can then pick the
-mode from the machine compatible, the way
-ath11k_core_usecase_firmware_table[] picks the firmware for WCN6855
-boards since commit c386a2b10689 ("wifi: ath11k: add usecase firmware
-handling based on device compatible").
+Only free descriptors allocated by irq_domain_alloc_irqs_locked().
+Leave reused descriptors intact on failure.
 
-For v2 I would replace 3/3 with a table of hw_rev, compatible and hw
-mode, with one entry:
+Fixes: f8264e34965a ("irqdomain: Introduce new interfaces to support hierarchy irqdomains")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ kernel/irq/irqdomain.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-{ ATH11K_HW_IPQ8074, "zyxel,nbg7815", WMI_HOST_HW_MODE_DBS },
+diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
+index 4fdcb6df5306..494a7982f1ab 100644
+--- a/kernel/irq/irqdomain.c
++++ b/kernel/irq/irqdomain.c
+@@ -1672,7 +1672,8 @@ static int irq_domain_alloc_irqs_locked(struct irq_domain *domain, int irq_base,
+ out_free_irq_data:
+ 	irq_domain_free_irq_data(virq, nr_irqs);
+ out_free_desc:
+-	irq_free_descs(virq, nr_irqs);
++	if (!realloc || irq_base < 0)
++		irq_free_descs(virq, nr_irqs);
+ 	return ret;
+ }
+ 
 
-ath11k_wmi_tlv_hw_mode_caps() takes that mode if the firmware advertises
-it and otherwise keeps today's choice. No parameter and no new binding.
-1/3 and 2/3 stay as they are.
+base-commit: 36aad21d50d1af3f6954bb0c988257a908202477
+-- 
+2.43.0
 
-A property on the wifi node would describe configuration rather than
-hardware, and the series above deprecated firmware-name in favour of
-the table. A runtime switch does not fit either: the mode goes to the
-firmware in WMI_INIT_CMDID and fixes the number of radios ath11k
-registers, one ieee80211_hw each, so changing it means a firmware
-restart and a new set of wiphys.
-
-Does that work for you?
-
-[1] https://download.zyxel.com/Armor_G5_(NBG7815)/datasheet/Armor%20G5%20(NBG7815)_4.pdf
