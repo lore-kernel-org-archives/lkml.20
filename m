@@ -1,106 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793474393;
-	b=AFREPIkZ9ffvgyniX5qbDKWaYVv/WOO9xeY5kmpWTFHzptpAa8tomCct572Zc9Th7+zw
-	 d9qgmQULZq7HOhQlJ6tyqX/1L9VNFmF7NyD+p7bi8oSOiJ8eubzy5e8Ole/yl1oQOUZRA
-	 CAAxz4SNA2uubglGV74GJPgMkRpHk8NNlxBrEQO3DeI5Bk9ZoGUjG53hVO8mb565S91Ew
-	 6YTYTFvrV51yeu+9CzATmt6dGGgZ1QECuRcU7QEBCPwktLYEwC5l0pipSv5wAWy30tuVT
-	 HR/+LrDaFGxOcW6YZTVGTORW1Aef/IUGbp/1UPmBGGGIW6U3c4M2mSCLcQC2OtQqKvA==
+	t=1793474604;
+	b=L/wyNEtTBq1ngSoC+e3YDsQdxZUJSdhV4lzRQeWkWMBxbfH4le6fKh9pS3LsztEXiYw6
+	 H89wA7nkTa4o8nZpu68dSUQJO6OXxPMXwOkytpsykl48kJ0GTt+CKpFZHTUHOA87i0+KL
+	 8vhw5sA6n11VPEUZOX3F5E89mtrX/Gi+/tZLLF9aXry83u6ny5OEj1ZpfO2VfIQBf9n4x
+	 W2z/loMOW7z/bUCdRc5ijpOw6UVKn3WGg8veVVRl1iiDdYx3Moxfh6vD1hlZlsFEhbN2s
+	 VDgjDXy9qVqhjGpjYI/My+z4aEpOkJfjpr97e98DCmXV86W/6GCLmm5LKv4a895Fd7A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793474393;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=FI17lU+UEkaw3gnc3aMhItamMlJeUZRGnzTnl6hwNL4=;
-	b=gmuqAvhAKQqqhTbuSsikmbG3XtnRcsnRpzjos2RMIeeIdXDz3GEhKFW2kDZ5odj8RJsq
-	 ObZEfVkJqgnEEvHOjlUaaAsGWYVK7/UKYMZRVmsigP3SsPUJierCdDOw040Vc1tsPwtod
-	 dM77PxWslOb+dzi+bqKb7DU2MdYIA50qpAXZibtjm7Sa5pzdEJJDvB/065wCnd1VnAr5+
-	 ZWU/RGzcpmxAMhD4/lRKhwzB6LrA9y1HiNzM+i7LodlYPqlTojdiNAh9p7yWC6ihpMvJG
-	 1jMuFZuoxE7K6/D1dxFNMKJGXh8t71vg0oG+6qNxGAuTOKWJkh5OHgRV2JeWM2JO/jQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793474604;
+	h=Received:DKIM-Signature:Message-ID:Subject:From:To:Cc:Date:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
+	 User-Agent:MIME-Version;
+	bh=wiIzSjn+mtGawNfvo8XnzlYZC4Y8Z4jY/HqNPQcZhLE=;
+	b=V5oIZKB0OhxkopMBOdBfcxJ+45Q8PIfM87jkcslXvr/Ro+F3wSY7NDnu9zKmxhwZWPVH
+	 6TfeRskf7MhnNjcitmMwhJNU90u4qamEAtAUkQqhVjaOz5/y15BA+jgv+/cL7OTV9FSWS
+	 8kR+f5QVIePMDwWmRKLuBZtA6CS9HTYljMxso2hagB5IIDMk8EIYaPSSFr2cH6ba4bHl9
+	 1vZqkZBUVZV1Ts3GIDWXPaJEuUPIpJ45smRsdef57hzEbu1lUDegF+QgWlND0h77XmAKk
+	 iRY2tkt8UmATrdGszSXFgXFje3rjSRJTBIDBArwTm/YDwkPwIntWIS438zz41XAPMNA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AQ9L6qY1;
-	arc=none smtp.remote-ip=209.85.214.180
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YczLZU9N;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB94606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:19:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FB94606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CD2606A31A;
+	Sat, 31 Oct 2026 19:23:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=AQ9L6qY1
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so27625ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 12:19:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793474392; x=1794079192; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FI17lU+UEkaw3gnc3aMhItamMlJeUZRGnzTnl6hwNL4=;
-        b=AQ9L6qY10DoFWioK3v4cR1xnHBuarXec5BHFdQbg5mauJv2W8uW6hMdv4MECZCwKwG
-         TNwcJ5SSXjfSELYTUlY6PxcC2/b3uJiOodyavwNJBPKnJWxNXtb6F86um6/vpbmGr5XM
-         +KAEudfowPotOxclYKP2qg+KhPA6es2vOgmejvSRaY7CCK728WbMLm5jA/8pd1laPfcy
-         Oti6dFmbxEqxhpVLlQONdkuAz4paaMcPPfhYz9sIA+EQ6IEE8gbT/9JNKVT6ViVUhder
-         9+hGzkSKyxmkoBGMVhEkOgpn5bQLg/TzIWesI1hu/w54Qojpfa4vb1eAWGKuWmRGEbgK
-         0Ikw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793474392; x=1794079192;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=FI17lU+UEkaw3gnc3aMhItamMlJeUZRGnzTnl6hwNL4=;
-        b=m6ho8GBREngqJFvlvIWCnolYbUOp3YbaHd6aqBAnMPJCD/k5Jzk6bXmWvKPxg71A9G
-         xK5Sa7SVmsEOKLzAQ2sgkcIe0KclAqDT3/bV7bKQCv6NXdsAiEsneD5whnS2/TWZw2wD
-         KClR0aSlOC92hExXzNKTELxiU3rAb3JWZrnb2Lr3bVnRiXuhYdrReSZ3Fs9XY86TLavD
-         OGMWJbzx5Qb1uWjAgC8O+6/1bWAv6BeYYiKyBHFK5Utdok8aBlOTPsfKP7paqQyujBKs
-         WCGki9TiJDDjpJLuzAlz31g/9uEbZHoKG6MgroDEXZetfOH7weLdPAkmxTZ16M534vYa
-         TyAw==
-X-Forwarded-Encrypted: i=1; AKwUvBw32nah80lX29u40HGivPxaqon3Bt6Y2rlR/aMScKmqXA9k0vTTXsa4hvmLPNQeOo2CIjV1IV+8LLZ6u6E=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYFIYGePdBl9BFOCZMmjY0Ldep6YlVDM4+GYxyEZtZrKw4ufnL
-	iayypVlBT7n3wHgWkMQNR9u/XpWsdZInD4EokQpd+LnNuX6ZsZ2TWXHHUuDOeo9knQ==
-X-Gm-Gg: AYBFou0JGRr/3xMsprulFX7tiBgFRNVJc9IK+VaYusk9Vo/2wTC8PEdQ408tncTjYcx
-	dNPtlsdlS+7UHUD8ch1zYgeSwYJ6tTwf1Bps3zPTkegaV2kZUjG2+zZWWKdiB37lVqpQSEdzjxj
-	KRGvgJRN8TQF7AZl8/He2u8Rk8hAcyWduTBg3SYmyLUZGZMpu+ow+KtRmSZOgPAkwx76igS7984
-	YpmotsrgK/4mDisaBTZMGbcy5ToyDGvdvVN+ZFj7dxd+OF9Yq86n9dQV8mCrMDkTBrQDay9Y8vM
-	Yi4H0dtXQ5PRliHXy9WicqmrmokZU2Z7e6YJqUaF9LYjAg1QYOpHzZRMU+ppYpQIa8BLpvhbD6I
-	aHmCbdk5x7ANzQekV/3v9DXaKJ1EoLFWDhXZZu48zo+9ZQSGXFa6WehXhOcmV1uhH757CzAekhd
-	L1KqiAw6yLETkm6aCyWQEzmhuNNU2NSNMIYFN/fgBHVbeywdTelkMHvAEs/soIxO4eQy79TYyoT
-	8nmGxW+BXeit6SNc8HF32al+cCJEf/JRUz+ndYYTUb4TZ5mGmgqDm+BB/BETKAlD+zkRtM7g5kh
-	gK5s/oRnj9/0okmIM6dBQRokxF9lJ9op7dE4ZV9GxxLxOHHAVyfCatXfKMOnc+MTwlLoeldvxBk
-	B2NXdh9QELoVmbetQBEVjSA==
-X-Received: by 2002:a17:903:3c70:b0:2ea:4a1:e8a4 with SMTP id d9443c01a7336-2eb1b8c029emr17343335ad.13.1793474391728;
-        Sat, 31 Oct 2026 12:19:51 -0700 (PDT)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e7d429fsm12698201a91.2.2026.10.31.12.19.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 12:19:49 -0700 (PDT)
-Date: Sat, 31 Oct 2026 19:19:47 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, 
-	Alex Williamson <alex@shazbot.org>, Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Pranjal Shrivastava <praan@google.com>, 
-	Vipin Sharma <vipinsh@google.com>, Ankit Soni <Ankit.Soni@amd.com>, 
-	Nicolin Chen <nicolinc@nvidia.com>, John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 05/18] iommu: Implement device and IOMMU HW
- preservation
-Message-ID: <auYtwy3DjRxq3Upi@google.com>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-6-skhawaja@google.com>
- <df75f891-05a0-4d47-8705-d6a00c81ff97@linux.intel.com>
- <auTzN4NWuKsBvIZU@google.com>
- <38384919-f0e5-4c93-b71b-065b96a74c38@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YczLZU9N
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 216DD1F000C1;
+	Sat, 31 Oct 2026 19:23:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793474603;
+	bh=wiIzSjn+mtGawNfvo8XnzlYZC4Y8Z4jY/HqNPQcZhLE=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YczLZU9NpkjU9wmqof2jos1q9/iRyf8vM+JLnDIj993oHoTpDSuv2SIj4Tc1/UFAZ
+	 ITiFlieiA9eaAF/zw/PpxBHhoUW3SkEO0pjoUhRHVpxKIwE0C/dgqwxM1PqIcrDTJf
+	 Jxf6YMZW2xYYQAo7B2WXCnCyYLxODmzrrMtQoC5ajUdicAYuIdXuUXShpBWnvAT7pq
+	 u7JxXTWMld7l63bJOfhVeSQT2a1N3QgYgvHaO5L04t831wyEIuPRX0Uw9JgbgRGKq/
+	 ntzDE7TSDqSsUFDw/iG5vszYGQ6B2uVr+g3vTv1MK+Jc1+JfaTKXKIjzdao9ju8csi
+	 WT5Bl4r2KeHYg==
+Message-ID: <24b80e47c623063ee9d717ff051a746b9d226a86.camel@kernel.org>
+Subject: Re: [PATCH] net/rds: Do not unpin a page after a failed atomic pin
+From: Allison Henderson <achender@kernel.org>
+To: Kyle Zeng <kylebot@openai.com>, rds-devel@oss.oracle.com
+Cc: netdev@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, outbounddisclosures@openai.com
+Date: Sat, 31 Oct 2026 12:23:21 -0700
+In-Reply-To: <20261030042110.73571-1-kylebot@openai.com>
+References: <20261030042110.73571-1-kylebot@openai.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.52.3-0ubuntu1.1 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,121 +61,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <38384919-f0e5-4c93-b71b-065b96a74c38@linux.intel.com>
 
-On Sat, Oct 31, 2026 at 01:34:00PM +0800, Baolu Lu wrote:
->On 10/31/2026 9:45 AM, Samiullah Khawaja wrote:
->>On Fri, Oct 30, 2026 at 01:12:31PM +0800, Baolu Lu wrote:
->>>On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
->>>>Add IOMMU ops to preserve/unpreserve the device state handled by the
->>>>IOMMU driver. This is IOMMU specific state of the device that needs to
->>>>be preserved for liveupdate. These ops can be implemented by the IOMMU
->>>>drivers that support preservation of devices that have their IOMMU
->>>>domains preserved. During device preservation the state of the
->>>>associated IOMMU is also preserved as dependency.
->>>>
->>>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>>>---
->>>> drivers/iommu/iommu-priv.h       |   2 +
->>>> drivers/iommu/iommu.c            |  72 +++++++++++-
->>>> drivers/iommu/liveupdate.c       | 189 +++++++++++++++++++++++++++++++
->>>> include/linux/iommu-liveupdate.h |  76 +++++++++++++
->>>> include/linux/iommu.h            |  33 ++++++
->>>> 5 files changed, 371 insertions(+), 1 deletion(-)
->>>>
->>>>diff --git a/drivers/iommu/iommu-priv.h b/drivers/iommu/iommu-priv.h
->>>>index 1f9f886b2c10..6b0ef210b32f 100644
->>>>--- a/drivers/iommu/iommu-priv.h
->>>>+++ b/drivers/iommu/iommu-priv.h
->>>>@@ -21,6 +21,8 @@ static inline const struct iommu_ops 
->>>>*dev_iommu_ops(struct device *dev)
->>>> void dev_iommu_free(struct device *dev);
->>>>+bool iommu_group_is_singleton(struct iommu_group *group);
->>>>+
->>>> const struct iommu_ops *iommu_ops_from_fwnode(const struct 
->>>>fwnode_handle *fwnode);
->>>> static inline const struct iommu_ops *iommu_fwspec_ops(struct 
->>>>iommu_fwspec *fwspec)
->>>>diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
->>>>index b486b8bbd1fc..a66363789ca9 100644
->>>>--- a/drivers/iommu/iommu.c
->>>>+++ b/drivers/iommu/iommu.c
->>>>@@ -18,6 +18,7 @@
->>>> #include <linux/errno.h>
->>>> #include <linux/host1x_context_bus.h>
->>>> #include <linux/iommu.h>
->>>>+#include <linux/iommu-liveupdate.h>
->>>> #include <linux/iommufd.h>
->>>> #include <linux/idr.h>
->>>> #include <linux/err.h>
->>>>@@ -328,6 +329,47 @@ void iommu_device_unregister(struct 
->>>>iommu_device *iommu)
->>>> }
->>>> EXPORT_SYMBOL_GPL(iommu_device_unregister);
->>>>+struct iommu_dev_iter {
->>>>+    struct iommu_device *iommu;
->>>>+    iommu_dev_iter_fn fn;
->>>>+};
->>>>+
->>>>+static int _iommu_for_each_dev_cb(struct device *dev, void *data)
->>>>+{
->>>>+    struct iommu_dev_iter *iter = data;
->>>>+
->>>>+    if (dev->iommu && dev->iommu->iommu_dev == iter->iommu)
->>>>+        return iter->fn(dev, iter->iommu);
->>>>+
->>>>+    return 0;
->>>>+}
->>>>+
->>>>+/**
->>>>+ * iommu_for_each_dev() - Iterate over all devices attached to an IOMMU
->>>>+ * @iommu: IOMMU instance
->>>>+ * @fn: Callback to call for each device attached to @iommu
->>>>+ *
->>>>+ * Return: 0 on success, or negative error code.
->>>>+ */
->>>>+int iommu_for_each_dev(struct iommu_device *iommu, 
->>>>iommu_dev_iter_fn fn)
->>>>+{
->>>>+    struct iommu_dev_iter iter = {
->>>>+        .iommu = iommu,
->>>>+        .fn = fn,
->>>>+    };
->>>>+    int ret;
->>>>+
->>>>+    for (int i = 0; i < ARRAY_SIZE(iommu_buses); i++) {
->>>>+        ret = bus_for_each_dev(iommu_buses[i], NULL, &iter,
->>>>+                       _iommu_for_each_dev_cb);
->>>>+        if (ret)
->>>>+            return ret;
->>>>+    }
->>>>+
->>>>+    return 0;
->>>>+}
->>>>+EXPORT_SYMBOL_GPL(iommu_for_each_dev);
->>>
->>>The function has no locking against iommu probe or release, so the
->>>callback can read dev->iommu while it is being freed or before it is
->>>fully set up.
->>
->>It is only called from intel_iommu_shutdown(), which runs after the
->>other CPUs are stopped and interrupts are disabled, so probe and release
->>can't run. I will rename it to iommu_for_each_dev_unsafe(), document
->>that it must only be called at shutdown and drop the export, since the
->>only user is built in.
->
->If it's only intended for the intel iommu driver, then it should be
->open-coded there. There is no need to add an immature interface like
->this to the core. It could be misused in the future.
+On Thu, 2026-10-29 at 21:21 -0700, Kyle Zeng wrote:
+> rds_cmsg_atomic() assumes that a non-NULL output from rds_pin_pages()
+> represents a pin that it owns. However, pin_user_pages_fast() can roll
+> back a fast-GUP pin after racing fork() and then fail in the slow path,
+> for example after a concurrent mprotect(PROT_NONE). The output slot can
+> still contain the already-unpinned page.
+>=20
+> The common error path calls unpin_user_page() on that stale pointer.
+> This can consume another subsystem's pin and allow the page to be
+> freed while it is still in use.
+>=20
+> Clear page when rds_pin_pages() does not return one. The error path
+> continues to release the page on errors after a successful pin, and
+> successful requests retain their existing ownership and behavior. All
+> four RDS atomic ancillary operations share this path.
+>=20
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
 
-Agreed. I will open code it in the VT-d driver in the next revision.
+Hi Kyle,
 
->
->Thanks,
->baolu
+Thanks for the patch, the fix itself looks good to me.  Some things we need
+add to move you forward:  First, your subject line specify which branch the
+patch is applied to.  Since this is a fix for code already in mainline, we=
+=C2=A0
+should target the net tree.  So rebase the patch on the latest net branch a=
+nd
+format the subject line like this:
 
-Thanks,
-Sami
+  [PATCH net v2] net/rds: Do not unpin a page after a failed atomic pin
+
+Also, since this patch is a bug fix, it should cc=C2=A0stable@vger.kernel.o=
+rg and
+carry a fixes tag that identifies which commit the patch is fixing.  For th=
+is
+fix, I think we want 15133f6e67d8:
+
+  Fixes: 15133f6e67d8 ("RDS: Implement atomic operations")
+
+Lastly, remember to add a short change log below the --- line.  Just someth=
+ing
+brief like this:
+
+  v2: Target net, add Fixes and Cc stable tags
+
+
+> ---
+> I have a reproducer for this issue and can share via DM
+
+Thanks, could you post it on-list with the v2?  Either below the --- line o=
+r as
+a reply.  That way others can see and verify the fix too.
+
+Thank you!
+Allison
+
+>=20
+>  net/rds/rdma.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/net/rds/rdma.c b/net/rds/rdma.c
+> index 078090d292fa..71b57abb96c4 100644
+> --- a/net/rds/rdma.c
+> +++ b/net/rds/rdma.c
+> @@ -957,8 +957,11 @@ int rds_cmsg_atomic(struct rds_sock *rs, struct rds_=
+message *rm,
+>  	}
+> =20
+>  	ret =3D rds_pin_pages(args->local_addr, 1, &page, 1);
+> -	if (ret !=3D 1)
+> +	if (ret !=3D 1) {
+> +		/* A failed pin can leave a stale page pointer. */
+> +		page =3D NULL;
+>  		goto err;
+> +	}
+>  	ret =3D 0;
+> =20
+>  	sg_set_page(rm->atomic.op_sg, page, 8, offset_in_page(args->local_addr)=
+);
+>=20
+> base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
+
