@@ -1,112 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793406802;
-	b=IpoCuDUusAIsnn9dR8aEfHhoQTXISGDCCz1+emBxcYJJ/rD4X0R+6+Ef27/zZQcjZpte
-	 2qIXBB5L7h7n93HgatY4wMOYb7ofH/o/iC0rkn+AEPCljP3mwHAJ5Ub4s1TP45HZEkerD
-	 mg/QDprTo9VbTcyfBcnHeTGz5ZycJPS4MYCzCl7vpkbbSRz39IWMfCzd/eiNSMbKdHAE7
-	 8J14fT3WfUB1HgNZ76jY5H1OiVNuSVmcq0M90KeVSX9ztHBTn6zBnMHseH0nDh4SNPipF
-	 hdH7dTDGqAynX4Y3mNUQAS3b5GkroQlD19akQWP/W648wP8QUrko9GtJXtC+8p08KiQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793406802;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:Content-Type:X-EOPAttributedMessage:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=yih6QHYE4DaDHg0Vf0uZHGGyozrwe6Oms167g1kGBBM=;
-	b=JO9vbHA1JR4f5H7UdtJIVMk+ETguUPvDmHntjziYwZdxqfqUiESaMT5Ta11fsZuRTM0s
-	 WgRXAkLxSgV+enVIUTxyvdIc9etuF4DN0V/ZVPejz8QFDO2VcZMmvAjJTvBbnbIljjs9J
-	 C6Dod1669n7B0GrmsFKbhbcd2A4o5Izc9in3K3vq2IH9pOlCLqbLtDLCPlYOoTWFmQooj
-	 +m7Iirn1WlWxtH17Cfq9AYMi4c2IGmTfDrMIMyWpTe5e9s3jI17obN00mdP52NonsNt1d
-	 LqE1id7tcWEyfEDU2jiBbosAgd59ryoHIwG/Rk4fVErAhGBgk9vZ8gmzKKFzRAtqZIg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Pj4NAWOf;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.56.46
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010046.outbound.protection.outlook.com [52.101.56.46])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793406868;
+	b=lqoN2Njq9y3PmPe0Tq/GJvZ3emVsth9nCCZIH063MfrI/VXv+1Wa9bMgjtDGcRQQx2TM
+	 PROAGaLB9zWxJbbpv7zT7zWHtrJofs1caWUm83TX9stUrJxlJGH4XRagNVNX4UReLdhTi
+	 3X+FN0wpNpsU0Sc8PA1twzqbKlkmb6eSLWyLFCuFFlUMQFlRSLaimy5FYvlghVi3b6Ert
+	 pRyAZYwZeKcuVLg3UaU0oPu3s1fr7+qdzC7bH67iDXAJuXnkFE2th4ql7oSx9yo59ARU9
+	 oIF9p8K9rDQ5hUEIuuDoTMwyKmcsk2skAQDznSX3sfMTKRs/HPK1XXi4Hmv2NwOLQoA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793406868;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=lAQsub6pmHls3bP0tt9PGyqlBwOUYsP9EC/vfE7Hwr8=;
+	b=sTi75bwl4I63fr+NljwlT2OLu/sRCEPi7op/3jmpF2BxJRZyuo5QQHrEqodOm4Nf70vP
+	 GAhvhNo3+Hgwi6mRj/nffVNYgyRbMfm7cx+fwleVRHu2rIkJGCsPM5m/cjPINyo3QiH0Y
+	 J9LmEwwIwxW0wp4ivr3oMfy9XXH0b1dznYPqac/4c6Y73nbMBRRk7yaCG+dPSNgaC6Fxl
+	 5DT04PG5qntjgu6mi+0JpGAGMEC/FBLQwgYd0/2Vyw6eBFm+DTSZFbAxNpLlRe5i4BUAB
+	 ivZaAt/U96DAkwbm3x7RJ1RVJqMP6GEi+JyYION903lFndVqFY0ad7gRSnTuRKz0eSQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="YycHXE/k";
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B13D606A31A
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:33:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B13D606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88569606A31A
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 00:34:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88569606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Pj4NAWOf
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=KhMzKwZMKQly6GmYIumdhB25xDVO/pGr8mMMMlkSforA129BbfG7MNhK7VYLsdD/KA9o0YXzMkizR+0revsXhus6vXl7LFPtFB/nqzg4cA64aByFkE1kqzOpN2f4lQNvKnVvE4NIVnyaYv4NV+PPvfN6RjgX4dYwW/bEApdKrelj1F2GnS311cQwflmTtyzc/lwxc49gK6dkq+dKQWeYnlaQtQBg5u/AOX+73m3thVmlnZVVVp7AeJGqnnylCj2gB1fWeB7wLzN1Q3HrW9KVvmhXzljeDLna3azooS8x84FPxUI37qiDJoVYYJt+Won07WiInf57arb+cEK2jvAlmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yih6QHYE4DaDHg0Vf0uZHGGyozrwe6Oms167g1kGBBM=;
- b=U/nf+ZoxSo0YhkhPIuwDOD5oBqSoMluEdhI4cQy0yihGOwGCk7vQPr3Oh2NpVYPklbmAuS3yjqSfcNRQzfhFT0SoNwY9hCQCE2xyi/s7LyKehBzyzqDVAco73HTXilMhe62TMwOlpTvPETcgQ42cwdnsrrqEUWNBVuehuVj6xHIfgrIzBFjpGfSLTZrVUl18DEHUQZ9LyUpUe7QLVCTWz+l+KjGrREeS3TTeWF9Da04rvsyFV+Yy03+1c1MUKHMCcTXFAYMMeAb0Gz/cJiaqS5y9Ya1zV8EQuCPc0tiI3E75YFFS2OyXEljoFpOvrk7tRrlNit3Rtr3nXR6ZGiKcUg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=suse.com smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yih6QHYE4DaDHg0Vf0uZHGGyozrwe6Oms167g1kGBBM=;
- b=Pj4NAWOfGu23NdnrtLCDLiYGgJa10xYwK8hshd3ka3eRY1H58YxmfZgXzfSGmNconrSZ4WSIhMNiDqsREQlqW1bO6cvjRH7zKXhERRowWVFcicy3efYjxdX/2KXao/AZ+W3Cb5uWR37eMSfluT38aD/A6Mvk2z/DyDDBCB3fuHQ=
-Received: from MW4PR03CA0120.namprd03.prod.outlook.com (2603:10b6:303:b7::35)
- by SN7PR12MB8002.namprd12.prod.outlook.com (2603:10b6:806:34b::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.10; Sat, 31 Oct
- 2026 00:33:13 +0000
-Received: from MWH0EPF000D894F.namprd05.prod.outlook.com
- (2603:10b6:303:b7:cafe::63) by MW4PR03CA0120.outlook.office365.com
- (2603:10b6:303:b7::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.9 via Frontend Transport; Sat, 31
- Oct 2026 00:33:12 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- MWH0EPF000D894F.mail.protection.outlook.com (10.167.249.215) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Sat, 31 Oct 2026 00:33:12 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Fri, 30 Oct
- 2026 19:33:12 -0500
-Received: from amd-BIRMANPLUS.mshome.net (10.180.168.240) by
- satlexmb08.amd.com (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53
- via Frontend Transport; Fri, 30 Oct 2026 19:33:10 -0500
-From: Jason Andryuk <jason.andryuk@amd.com>
-To: Juergen Gross <jgross@suse.com>, Ajay Kaher <ajay.kaher@broadcom.com>,
-	Alexey Makhalov <alexey.makhalov@broadcom.com>, "Broadcom internal kernel
- review list" <bcm-kernel-feedback-list@broadcom.com>, Thomas Gleixner
-	<tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov
-	<bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, <x86@kernel.org>,
-	"H. Peter Anvin" <hpa@zytor.com>, Andy Lutomirski <luto@kernel.org>, "Peter
- Zijlstra" <peterz@infradead.org>, Boris Ostrovsky
-	<boris.ostrovsky@oracle.com>, Yazen Ghannam <yazen.ghannam@amd.com>, "Mario
- Limonciello" <mario.limonciello@amd.com>
-CC: Jason Andryuk <jason.andryuk@amd.com>, Sean Christopherson
-	<seanjc@google.com>, Ingo Molnar <mingo@kernel.org>,
-	<virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-	<xen-devel@lists.xenproject.org>
-Subject: [PATCH] x86/paravirt: Add ioremap_verify_range hook and implement it for Xen PV
-Date: Fri, 30 Oct 2026 20:33:08 -0400
-Message-ID: <20261031003309.3751-1-jason.andryuk@amd.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YycHXE/k
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1931ff67a29so521902c88.1
+        for <linux-kernel@vger.kernel.org>; Fri, 30 Oct 2026 17:34:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793406868; x=1794011668; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lAQsub6pmHls3bP0tt9PGyqlBwOUYsP9EC/vfE7Hwr8=;
+        b=YycHXE/kQCeONe5u5VShHK5xy0VoYQSfDziX/pTbHa5PCDO71PBexSxxok9WdIuWbC
+         Z1SUTlz5OxMIGRP5QzMkCspCLshQfsx5Otk46wluTefz5AXSi1J7GaAKfOdswBERl7I8
+         Nb6dUc6cuiwTJfF2Xgz+sKZEUFqDgfus/xGvgWrp95gRe9JLVpRFkDxkup9GUyW7HBBN
+         IoohchD3pXqteRT9FIty4btbFJ3nrqFRK31vfBDOKVrvTUjHy5+Jp9DcQ46J9ADYTTJv
+         2Eyq17sbd3jlneJRjyrE9UY8hT99UP/LS7yle1E6wbV4zBVqLySU3utj/T5lD7qssP12
+         QzMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793406868; x=1794011668;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lAQsub6pmHls3bP0tt9PGyqlBwOUYsP9EC/vfE7Hwr8=;
+        b=ElDcebaceL5og+gAMcQM4ujiSMtpJ3phFe6lEp0zaEZdowQm1D2eCNU/1r7NOvYMq1
+         98dHPhgDfE0YF0wqfkcgcsk/UE1dy55a1K2eTMujBAXunafL8eixqpsnNQ8+cz09f36Q
+         y4EAZxxjwaZxRYS/ehYd7kRKYYRbhyUU69414B8CmQqTmwDNwLarIH22tgXTPV9gIiwZ
+         w+NBfzFIhiURkqJ6rXExAwYgiFr3xsofY55kzSdbEBEFzotF6HszJSJzziEn6D+EzSi4
+         8WnE71RXemMRr6SaSqLgBEIfnZCHo4f2xGrbj4CXgJa703V7UP0oxw2NnW7lHzjTB1kk
+         8uBg==
+X-Forwarded-Encrypted: i=1; AKwUvBz2eH4N7s+8CTmMM5PQwq5bkeHz3DGoqyoBM+H9lrdqJOyWVO8Euwb3hIPhfUPSk/5/Kz48NdPD5RCNid0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLPJxrMKfj7mkil/05chQhURJlCiZxCMNuvvdqx/x4wNh6Gj1oG
+	MXUfa7b6ClrlqIeaPadE+cKvFXnC1TM2EmHGj6PhNIHpY5Mude9MxzpI
+X-Gm-Gg: AYBFou3J+Rua1SlM8YgyXz2NURpg7DuqTZSgDh+2dhiRhudfeAXBU31I0k1ZM5ng8Sx
+	IHjW2BXybwkOcuDRVRCHLxXfYdeaXDHK0JFiPGllJ0Q8aJhCgGAF9LkR/NNIfVEeDVOBY9oseeX
+	kjDZ7DXpErjZkiRv74Oa/KRp5ASi0bbpTXAppXNEC56M+OkoZcVSCi1c3O7RlKHAEvTL69p5bbZ
+	uaZmV9fdjjXFQ7bR945c/+gwvUzLYeS7o9mLsMPOoqeNr84EvfmZ4vWjaoqKyvZ2JQ4Dkq6ZUuo
+	nNgWBJsYdjtXNkq+r5mzFZd3spzm7Vgu/DyUtPyFE4VbYtJMsmUL9cLD0Tla1rdvpqsvFGumgfl
+	B1RThzcBvG2gHFn1Pv2m//MeQZvxN6tR1wllkrb6ZkdG1SZPYbZ+XXWW6Ed7dGKlMfFxjDaue4A
+	Ud5S1DiYSVNsfK2FImT5EBHb4ylyMvGqldwaoRVx9Hr/6TG5grSMZ5y8mnQFjRh8/HUU9YMsEko
+	cS3sOGEvJdUhCZHgDhmxHaDuJBezM93OVExzlmH07/+pqnAWcdAI2tiuCv07kJVKTRYYdultU67
+	/WQTF1e3iCx8oUU75VxRzYtIx2QSn34Z58rlBFgBDgGhUfaYi1Y61aZxxRcnF8Swzqr3xgIfU2w
+	5b5PbYW3jSoHB8j8esP3DPUf+GfNScbnZhiadGv0BoM/x1DaUIbLUgz4E9Tq2ejE1BAs1fnFzsb
+	4omT9s2K4vc3G5EA==
+X-Received: by 2002:a05:693c:639b:20b0:369:f2f4:b227 with SMTP id 5a478bee46e88-36a4238e9e4mr5713485eec.18.1793406867364;
+        Fri, 30 Oct 2026 17:34:27 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.6.151.236])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm11707816eec.3.2026.10.30.17.34.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 30 Oct 2026 17:34:26 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] fbdev: pxafb: initialize IRQ completions before requesting IRQ
+Date: Sat, 31 Oct 2026 08:34:24 +0800
+Message-ID: <20261031003424.1796478-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,192 +98,108 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000D894F:EE_|SN7PR12MB8002:EE_
-X-MS-Office365-Filtering-Correlation-Id: d7fea2ce-8a16-4fb9-77d5-08df36e68c03
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|376014|7416014|36860700016|82310400026|921020|260925022911599003|260925021911599003|260925021311599003|11063799006|56012099006|261009223027099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261022075727099003|261022105027099003|10067099003|18002099003|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	aWk6nQhKji0GcTEmX23tLPr4lYCz4W5jlrdrp2QAHXlkIK4KMFpVZFXdTeVQKmbeBFLCyrSmljHSR7EZmCUkF0HsOnnoUaocL0a+Pf5qPkayCbKfkNcyGB1DxTvws5K7IVX5eig6qTGRhdC5rCV7X9SbhmjSPpefOtXCvvPHRj61GbroMPq+HjMhTL++WH6VQC94VtKNUmhY4vCF06GCLv3BdIaKOLnn3IAAaimUWVDPD2oKYfQarklJVR9UTOOjXEzKflK2PXx5TQAoMoK319mZ2UDcV8xkmXj/u8tbHHSr9U1dY2rJYFesHi/g5Yci1rkjRc779gCqC2IwRgVKJQg3YuRfwfCNrXifytIW2dYsRFiVWGhwxGuw1hyI7U7tfSOdT5makn5MCHYmZY5sOksB7KvIeSUMh9K4eq2i7V0b1QBfqqZtFQ3AtyE9BenyJs8bpBHoMZVayU0f0LGuFmBU3bpXVwKX7ErK9ve7sdOizVc4bMCzRjlygLWAF19hHosXB7rbHWBoKvSfBtcN+0pDXw/tvQ6SXyEK2VFnzCzI+P88nAazNWeioMrem9S2E9DAZy5a9uWoUQjYuA3cmJ9ds51w9lhcI2eXz6ibzaA3Ye2P5KpninpAKtTgbCx7RjI0H1AioRp5WJny7lD6Oo11eAsfBQY9XFyJyxI1SFAypdzqAH0HZb64gGEGvkgXOjXwzJtp5HunXaBhjDvWeA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(36860700016)(82310400026)(921020)(260925022911599003)(260925021911599003)(260925021311599003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	NYRg0/BadDsns6DekT8ePeXb82enHV1ukRb5r52da1kdASpsWvA0mXuU15E3cFx1hHSgRYrqBbIozCDfFHTziJoruYwopYVw6igrGxSTguSTg4Qhfp++W5ZX6aGLuC0/pgqLtQ+iBtmHO5YkGhVIoBvaWaw7w6WiHvXiNrN/+EusxAjBiXA3C6/kS7w4719+P3in2EFe8BHpwuW28TAu8f+k4gXh6RyOukBly+trzlKTHOR2ngP2f8oKbLXLLahsqYlgNl5XEwtP075VkpKDdbax0Vg1ooDjbkQxlczggrJOgYBrocTr7daAbFgiQVr8/25ge/P9ko+YUJH7scHFHDj6Gc6tI+zRGXe84Bbmxq6W4db8aLcxK0XdrHeDBIAuUAUE5j526/zmVlYSPMmfbh6Hz/gqCFe5QDNVSMJIl2jAnmvcsCwd5jh47pJj89aQ
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 31 Oct 2026 00:33:12.8540
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: d7fea2ce-8a16-4fb9-77d5-08df36e68c03
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000D894F.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB8002
 
-Xen PV guests update page tables via hypercalls, and Xen refuses to let a
-domain map machine frames it does not own, such as chipset MMIO in a domU.
-The set_pte() paths ignore the hypercall result, so ioremap() returns a
-mapping whose PTEs are not present.  Accessing the virtual address then
-faults.  This was seen in print_s5_reset_status_mmio() on Xen PV domUs
-on AMD Zen hosts.  The machine address is not accessible by the domU and
-faults on access.
+pxafb_handle_irq() may run before smart-panel and overlay setup.
+Completion objects are uninitialized, and completing them can panic.
 
-Add a pv_mmu_ops hook, ioremap_verify_range, which __ioremap_caller()
-calls after ioremap_page_range().  It defaults to returning success.
-Xen PV implements it by walking the range with lookup_address() and
-failing if any entry is not present, making ioremap() return NULL.
+Move completion setup into a helper called from pxafb_init_fbinfo()
+before devm_request_irq(). Drop the later initialization now that every
+completion is initialized before the handler can run.
 
-This also affects a Xen PV dom0: an ioremap() of a range containing any
-page Xen refuses to map (e.g. MMIO Xen reserves for itself) now fails as
-a whole, rather than succeeding and faulting only when the refused page
-is accessed.  Pages Xen forces read-only are still mapped present and
-are unaffected.
+An early interrupt can also leave a completion count without a waiter.
+Reset command_done and branch_done immediately before starting their
+hardware transactions, so stale counts cannot make later waits succeed
+early.
 
-Fixes: ab8131028710 ("x86/CPU/AMD: Print the reason for the last reset")
-Link: https://lore.kernel.org/xen-devel/20251219010131.12659-1-ariadne@ariadne.space/
-Suggested-by: Sean Christopherson <seanjc@google.com>
-Suggested-by: Borislav Petkov <bp@alien8.de>
-Signed-off-by: Jason Andryuk <jason.andryuk@amd.com>
+Tested an early interrupt through the real handler on ARM QEMU: the
+unpatched path panics in complete(), while the patched path completes
+normally with early=0. A stale-credit replay incorrectly returned
+flush_ret=0 before this change and now returns -ETIMEDOUT twice.
+Normal smart-panel init/flush/timeout/work controls also pass. Main,
+no-smart and genuine-overlay ARM builds pass; strict checkpatch passes.
 ---
- arch/x86/include/asm/paravirt.h       | 10 ++++++++++
- arch/x86/include/asm/paravirt_types.h |  6 ++++++
- arch/x86/kernel/paravirt.c            |  7 +++++++
- arch/x86/mm/ioremap.c                 |  3 +++
- arch/x86/xen/mmu_pv.c                 | 24 ++++++++++++++++++++++++
- 5 files changed, 50 insertions(+)
+ drivers/video/fbdev/pxafb.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/include/asm/paravirt.h b/arch/x86/include/asm/paravirt.h
-index 0591aa38fd85..30cb1d1636e4 100644
---- a/arch/x86/include/asm/paravirt.h
-+++ b/arch/x86/include/asm/paravirt.h
-@@ -495,6 +495,11 @@ static inline void arch_leave_lazy_mmu_mode(void)
- 	arch_flush_lazy_mmu_mode();
+diff --git a/drivers/video/fbdev/pxafb.c b/drivers/video/fbdev/pxafb.c
+index 1b2a16590999..84ef5baaf087 100644
+--- a/drivers/video/fbdev/pxafb.c
++++ b/drivers/video/fbdev/pxafb.c
+@@ -642,6 +642,7 @@ static void overlay1fb_disable(struct pxafb_layer *ofb)
+ 
+ 	lcd_writel(ofb->fbi, LCSR1, LCSR1_BS(1));
+ 	lcd_writel(ofb->fbi, LCCR5, lccr5 & ~LCSR1_BS(1));
++	reinit_completion(&ofb->branch_done);
+ 	lcd_writel(ofb->fbi, FBR1, ofb->fbi->fdadr[DMA_OV1] | 0x3);
+ 
+ 	if (wait_for_completion_timeout(&ofb->branch_done, 1 * HZ) == 0)
+@@ -705,6 +706,7 @@ static void overlay2fb_disable(struct pxafb_layer *ofb)
+ 
+ 	lcd_writel(ofb->fbi, LCSR1, LCSR1_BS(2));
+ 	lcd_writel(ofb->fbi, LCCR5, lccr5 & ~LCSR1_BS(2));
++	reinit_completion(&ofb->branch_done);
+ 	lcd_writel(ofb->fbi, FBR2, ofb->fbi->fdadr[DMA_OV2_Y]  | 0x3);
+ 	lcd_writel(ofb->fbi, FBR3, ofb->fbi->fdadr[DMA_OV2_Cb] | 0x3);
+ 	lcd_writel(ofb->fbi, FBR4, ofb->fbi->fdadr[DMA_OV2_Cr] | 0x3);
+@@ -894,7 +896,6 @@ static void init_pxafb_overlay(struct pxafb_info *fbi, struct pxafb_layer *ofb,
+ 	ofb->ops = &ofb_ops[id];
+ 	ofb->usage = 0;
+ 	ofb->fbi = fbi;
+-	init_completion(&ofb->branch_done);
  }
  
-+static inline int ioremap_verify_range(unsigned long addr, unsigned long size)
-+{
-+	return PVOP_CALL2(int, pv_ops, mmu.ioremap_verify_range, addr, size);
-+}
-+
- static inline void __set_fixmap(unsigned /* enum fixed_addresses */ idx,
- 				phys_addr_t phys, pgprot_t flags)
- {
-@@ -557,6 +562,11 @@ static __always_inline unsigned long arch_local_irq_save(void)
- static inline void paravirt_enter_mmap(struct mm_struct *mm)
- {
- }
-+
-+static inline int ioremap_verify_range(unsigned long addr, unsigned long size)
-+{
-+	return 0;
-+}
- #endif
+ static inline int pxafb_overlay_supported(void)
+@@ -1170,6 +1171,7 @@ int pxafb_smart_flush(struct fb_info *info)
+ 	lcd_writel(fbi, FDADR6, fbi->fdadr[6]);
  
- #ifndef CONFIG_PARAVIRT
-diff --git a/arch/x86/include/asm/paravirt_types.h b/arch/x86/include/asm/paravirt_types.h
-index b4c4a23e77a1..674613301a83 100644
---- a/arch/x86/include/asm/paravirt_types.h
-+++ b/arch/x86/include/asm/paravirt_types.h
-@@ -164,6 +164,12 @@ struct pv_mmu_ops {
+ 	/* begin sending */
++	reinit_completion(&fbi->command_done);
+ 	lcd_writel(fbi, LCCR0, fbi->reg_lccr0 | LCCR0_ENB);
  
- 	void (*lazy_mode_flush)(void);
+ 	if (wait_for_completion_timeout(&fbi->command_done, HZ/2) == 0) {
+@@ -1277,9 +1279,6 @@ static int pxafb_smart_init(struct pxafb_info *fbi)
+ 	fbi->smart_cmds = (uint16_t *) fbi->dma_buff->cmd_buff;
+ 	fbi->n_smart_cmds = 0;
  
-+	/*
-+	 * Verify that an ioremap()ed kernel virtual address range was
-+	 * actually mapped.  Returns 0 on success.
-+	 */
-+	int (*ioremap_verify_range)(unsigned long addr, unsigned long size);
-+
- 	/* dom0 ops */
+-	init_completion(&fbi->command_done);
+-	init_completion(&fbi->refresh_done);
+-
+ 	if (!fbi->inf->smart_update)
+ 		return -EINVAL;
  
- 	/* Sometimes the physical address is a pfn, and sometimes its
-diff --git a/arch/x86/kernel/paravirt.c b/arch/x86/kernel/paravirt.c
-index 00b59d774389..b1bc519c660d 100644
---- a/arch/x86/kernel/paravirt.c
-+++ b/arch/x86/kernel/paravirt.c
-@@ -88,6 +88,11 @@ static noinstr void pv_native_set_debugreg(int regno, unsigned long val)
- {
- 	native_set_debugreg(regno, val);
- }
-+
-+static int native_ioremap_verify_range(unsigned long addr, unsigned long size)
-+{
-+	return 0;
-+}
- #endif
- 
- struct pv_info pv_info = {
-@@ -207,6 +212,8 @@ struct paravirt_patch_template pv_ops = {
- 
- 	.mmu.lazy_mode_flush	= paravirt_nop,
- 
-+	.mmu.ioremap_verify_range	= native_ioremap_verify_range,
-+
- 	.mmu.set_fixmap		= native_set_fixmap,
- #endif /* CONFIG_PARAVIRT_XXL */
- };
-diff --git a/arch/x86/mm/ioremap.c b/arch/x86/mm/ioremap.c
-index 12c8180ca1ba..6b45a7eef593 100644
---- a/arch/x86/mm/ioremap.c
-+++ b/arch/x86/mm/ioremap.c
-@@ -301,6 +301,9 @@ __ioremap_caller(resource_size_t phys_addr, unsigned long size,
- 	if (ioremap_page_range(vaddr, vaddr + size, phys_addr, prot))
- 		goto err_free_area;
- 
-+	if (ioremap_verify_range(vaddr, size))
-+		goto err_free_area;
-+
- 	ret_addr = (void __iomem *) (vaddr + offset);
- 	mmiotrace_ioremap(unaligned_phys_addr, unaligned_size, ret_addr);
- 
-diff --git a/arch/x86/xen/mmu_pv.c b/arch/x86/xen/mmu_pv.c
-index 377c3c0d9f20..e524d318171f 100644
---- a/arch/x86/xen/mmu_pv.c
-+++ b/arch/x86/xen/mmu_pv.c
-@@ -359,6 +359,29 @@ static void xen_set_pte(pte_t *ptep, pte_t pteval)
- 	__xen_set_pte(ptep, pteval);
+@@ -1775,6 +1774,23 @@ static void pxafb_decode_mach_info(struct pxafb_info *fbi,
+ 		fbi->video_mem_size = video_mem_size;
  }
  
-+/*
-+ * PTE updates are made via (possibly batched) hypercalls whose failures
-+ * are not propagated back to the caller.  Xen refuses to let a domain map
-+ * machine frames it does not own (e.g. chipset MMIO in a domU), leaving the
-+ * PTE not present.  Walk the range to make sure every page got mapped.
-+ */
-+static int xen_ioremap_verify_range(unsigned long addr, unsigned long size)
++static void pxafb_init_completions(struct pxafb_info *fbi)
 +{
-+	unsigned long end = addr + size;
-+	unsigned int level;
-+	pte_t *pte;
++#ifdef CONFIG_FB_PXA_OVERLAY
++	int i;
++#endif
 +
-+	while (addr < end) {
-+		pte = lookup_address(addr, &level);
-+		if (!pte || !pte_present(*pte))
-+			return -ENXIO;
-+
-+		addr = (addr & page_level_mask(level)) + page_level_size(level);
-+	}
-+
-+	return 0;
++	init_completion(&fbi->disable_done);
++#ifdef CONFIG_FB_PXA_SMARTPANEL
++	init_completion(&fbi->command_done);
++	init_completion(&fbi->refresh_done);
++#endif
++#ifdef CONFIG_FB_PXA_OVERLAY
++	for (i = 0; i < 2; i++)
++		init_completion(&fbi->overlay[i].branch_done);
++#endif
 +}
 +
- static pte_t xen_ptep_modify_prot_start(struct vm_area_struct *vma,
- 					unsigned long addr, pte_t *ptep)
+ static struct pxafb_info *pxafb_init_fbinfo(struct device *dev,
+ 					    struct pxafb_mach_info *inf)
  {
-@@ -2218,6 +2241,7 @@ void __init xen_init_mmu_ops(void)
- 	pv_ops.mmu.enter_mmap = xen_enter_mmap;
- 	pv_ops.mmu.exit_mmap = xen_exit_mmap;
- 	pv_ops.mmu.lazy_mode_flush = xen_flush_lazy_mmu;
-+	pv_ops.mmu.ioremap_verify_range = xen_ioremap_verify_range;
- 	pv_ops.mmu.set_fixmap = xen_set_fixmap;
+@@ -1831,7 +1847,7 @@ static struct pxafb_info *pxafb_init_fbinfo(struct device *dev,
+ 	init_waitqueue_head(&fbi->ctrlr_wait);
+ 	INIT_WORK(&fbi->task, pxafb_task);
+ 	mutex_init(&fbi->ctrlr_lock);
+-	init_completion(&fbi->disable_done);
++	pxafb_init_completions(fbi);
  
- 	memset(dummy_mapping, 0xff, PAGE_SIZE);
+ 	return fbi;
+ }
 -- 
-2.34.1
+2.56.0
 
