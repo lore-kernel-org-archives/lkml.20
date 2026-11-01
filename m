@@ -1,101 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793552008;
-	b=m5P02i5UWhuoJsMygUAQqsRfsMijnGtn2BfxS/b/7tulFyGw3j8y9hCsKvEZiOEnfx8L
-	 8MbsvSDifg8Ai0pCFzuPnxk6qd4y3DdmM8X++5elHjevTaC1DPrk5b+DtzV2Y5Sp/f8wD
-	 Bd95JhLUaC1sOyXk7lHrzW45ETAOjm0DQ2AKXnSZiKZT9ZrYXHVW3QgPwaTKY8wi3nFF6
-	 6aTDABHOivSEyXV07muDLMf8LGQrqgKD8+HnczQd7UdAiJygT9Dqxr0LYZbYN0vB+s2ZP
-	 5lcNqa09zofakM0l6RZU30c/TR2N5uR06xtFUxG74oFvpvfbG4qejfbBq3yvGZj+iGQ==
+	t=1793552058;
+	b=0Mp420EOkPJHj7IEr1A5Jcj/wzhmbwG2tg28RULEm0pU1UptUJzT26czxipMkWLjZYHC
+	 /5eN8SvNTnioMXjPtfOlsqdD8qZFcSJXGxT/onOVEQr37wzR15srBLSby+KIwyOU29IDj
+	 WVxTnALfCRIeXZ2/VacL8pgTwUHOZaxpdWsn+8ZNkcyIQv02AkJXUjXJqZsMoqSlXcdL0
+	 EtNr8rPxU5hFwZ17l+oc1HteMUZrY2tGXE6Wj5U8B2oxYsR2Eg7fHHgXUchOgg552osAa
+	 4YHy4m6APAc/fCARVQprUf7X2GbyUUFPJ49RiFZWBdUi40LiuxI8gl7jSRrv5Ke3Ddg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793552008;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=XNRrcw/P1Mej9G9gW7ieLo3ycxjD6V+M/Loq7iMzpSU=;
-	b=QPol1KQHNIfKInpJw/m0SSwnJekcUVbxfRE3/nkafOJed+nFVJH+bJR5HgwGrfRso62Y
-	 7dNQdaQrM+W/9TeLe63Vk3uA82dSZ3jESXXJO3ZCzo7bJcAkLE/nnnsJsmX7hi38uk9Xm
-	 E/iUN1Uu4aYrjOQEpVj9y33sCBnrXgIVNWzPrdM2ZVdSs5Titsip5UFBYrG010Ujf/HdF
-	 VerkWWqj/HHr0dS5WMtl1Sh93W6ylatGXMdh96VnrvzK7YL9PawiX3zqiYONnAdxd+DaW
-	 BAwo30lh2eeht86WgrmRzskkqKE1Ftp9DaN1bKcp6EW1RhXjYp5mbgyyDsqLyz0gwCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793552058;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=mYvfifkh2cRh4ADWZM91A6IieNu1Ui2i8vEHoXTtKBg=;
+	b=Efult1THZEzEj7nb7JlG0T9bk6WqagHuMi6OwhRqR/a6Xs54nZRBKUQ0GztFdZ5DAhRu
+	 YCHMMVr1PeJdhm4CjWu6swj9GT86A4krG8lti0ZDT+Ot4857HIkMxxp1EQFJubcn+3pmk
+	 MsVWcGF9EvmckKeMfiMsZDXJHEppZ3chrid8nbnok/UNVooxPEfSWjhOKFGjiMl1At7RF
+	 gIrp0JCvJZv7NVB3u29M9D5qyhoZTyjIuoczhg1+lpB81RPCAUSZvN8o77iek0X1fq5fx
+	 VKeTMFXS8rOqOSeKpwEoo6QvLSHKTsLW6IhTQ0gIZDQV4gQ9+MlA1bKXHeGd9usNq2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=neuQCDqQ;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.160.72
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 181F8606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:53:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 181F8606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=neuQCDqQ
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so20462465e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:53:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793552006; x=1794156806; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XNRrcw/P1Mej9G9gW7ieLo3ycxjD6V+M/Loq7iMzpSU=;
-        b=neuQCDqQPaa064t+uKrbDqWjnAiTz7BKVeAnegSVo5m6qeQA+pTmzLt0qfIq3MMKaC
-         ivoe7dlOsCJ8lb8EXyPGUXqNO8ja/d3xulWEGbxzoqhXyuPohE5CGfbOe9D5eB5qkRK8
-         fqBdcm6i20SaWU6xMbULpXoLaWOoSGBzNxOtf7VWfMDO6MWz3VxwIRoAspJhSdUmuNYZ
-         +MfWfoFKVYPMr7F2gkGAngtR6LSiwHelFprEZm07Pu1MNWLvcPyH24TgB0yth3iT0IgB
-         rhTUYMu5tnp/1NGg+Qb1n+JRkc6UPxTURdtzXBnm5GuUhXq5GsW2RlZux4Nxnv9AQzrv
-         qYIg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809F1606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:54:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 809F1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-492f39f29c4so2707686fac.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:54:18 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793552006; x=1794156806;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XNRrcw/P1Mej9G9gW7ieLo3ycxjD6V+M/Loq7iMzpSU=;
-        b=bwzxNKc/nYL/LJHGUdXEh40tbPAJL2XwUZdDFMWbLLwa/cxN/ygCC11/H0raZwHq+H
-         koT9grhZ6YoVX3On2wX9V36weYjzTINTbW6R6vtXnbIRnGdCf21Zjj6CkUA6JTUX79hI
-         FQtblIxUXBaMRQHE60oiuO5iNNugyR5AAfFlDS78O4TNBorsEVcXyJCctn0Qi8vWgxWn
-         qxFuryQb98dFaIf5jFQbEdN2pxGrbJA9GIxFHT+Qq7yvb9M9hbfy67SvxmDCcL4x/IzO
-         vT/CO16xWinRZ25c77VBgmxNsTiQfzOUQxhRb7myNcyP7IH++3pGUl4ubGoVj7wPSbAI
-         1h6w==
-X-Forwarded-Encrypted: i=1; AKwUvBwAlJzrHw7s2vHTZ8cGV48CPZmkt1HANMUxTL6Af0wIvvYb84vxjpfWRA1YwMjUg7dBYAs5z4Onl35/QGY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/ZssDzSivwYXqP+SgIsFb/5d3Dg3AnJ4bMcPXBSgkQrU9W6s8
-	7UjSnu8jNBtMx2wWVRHAg37TEB71tAdJ2PX1Lj/DTIpLUdtgUSMUMLRB
-X-Gm-Gg: AYBFou03+u9ZSGWCCfv48zGshVrH70HZxfRsurpcCsGDmid+QHY9wmKDsgGf0yAtyzD
-	SH69P/rX8dtXIiUjD8svYGsRKht9Igd7AKPxZEXFvYOELiZWchAV/TiqDOEuW5iibQEmqL2Gp0S
-	Z18syW/dTXtNdBB/OFOwZhB7ulkzslazeDk9/oG8tHVaSkAH4yLEEZR2N+IuO7KKEJKxsTdFGCa
-	ndIXIs2n3BYt4lFL46fUceQdgZOOHKSDbjXF5FJxvQwBB87UOmGuVuUfXDTw3alUF9Jd3XP1ZuY
-	d/ybFOIaPbtaUm9kJGOaAE/EFQElp3FrUXT1XFVRIbj6FT/zG+63Mm39RQfqZtmdd5AoAxts1ML
-	uOPjyK9anwg1TxWHdDtwVeemoaDxnsAdlVAPLGpNPxpCVjRs4TArm2yDnn0u6hHaMuHzxbsedEP
-	V9ETIfVu1jGLr0ld0/qgEjfnj62qhtUimQSMIjvUyWxCoVjv2b1uCyUsCZZs5C6S5W2RmZ0Kub+
-	Lv+RogxAqeX30iP0mls2YXDK4a2LcwLjOV3UmiT3+WAIDm8HzjHRbX4xSsdCGXfwt0m3xCaNyU2
-	obYcQX+f6uxGLWdOtsqrJ9PN+G+OIym4mI3JWcd/uO3BIFvCN0oXzJ6+8d9/TuXf4mvvmI6CFy5
-	Z
-X-Received: by 2002:a05:600c:8b2c:b0:4a7:a5db:a93e with SMTP id 5b1f17b1804b1-4ac150b3dbfmr190239205e9.4.1793552006429;
-        Sun, 01 Nov 2026 08:53:26 -0800 (PST)
-Received: from stjepan-Aspire-F5-573G.tailc0f20e.ts.net ([2a00:1bb8:118:d39e:5058:2b49:7a78:eb6d])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6c76507sm223903095e9.10.2026.11.01.08.53.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:53:26 -0800 (PST)
-From: Stjepan Poljak <stjepan.poljak@gmail.com>
-To: "Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	Jens Axboe <axboe@kernel.dk>
-Cc: Paolo Bonzini <pbonzini@redhat.com>,
-	Stefan Hajnoczi <stefanha@redhat.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
-	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	virtualization@lists.linux.dev,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] virtio_blk: fit max_segments to the virtqueue without indirect descriptors
-Date: Sun,  1 Nov 2026 17:53:07 +0100
-Message-ID: <20261101165307.2557421-3-stjepan.poljak@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101165307.2557421-1-stjepan.poljak@gmail.com>
-References: <20261101165307.2557421-1-stjepan.poljak@gmail.com>
+        d=1e100.net; s=20260707; t=1793552057; x=1794156857;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mYvfifkh2cRh4ADWZM91A6IieNu1Ui2i8vEHoXTtKBg=;
+        b=Ja+7sdhqW7awUZCFFu/shZL6/X93LKtSQp2eSmDYU6pSpDIfv1CNcPWsszdVZflcM8
+         vBte2weidEPLWLNnXwP6YRF9h8ITmapm9uO2SWvNoDbFZ6g+YwrCYWPOvf/WaLaoEbIO
+         Ywv9ve7MsjRQ9UHL8x0FpJeKYCPGC1FAHm+Eb6ISUqsp7PMew5sC3b8zqPk+KY8WQrhN
+         0JBSL7XT7xJJm7RaFNrFJn6wi/sXME9RfaNxYoqw/bElpC/f1VSbQqe/CKxd048nHVkB
+         Rq7+JiN6TNirfVnNGBwZNHg4sOegvMx3lV92zF00K5gGm/o6koLfm1OJsBXfyaFipgDJ
+         ZA4g==
+X-Gm-Message-State: AFq9FYIUctOfNX0cVaocRFwYzmw7zhpAImXxYAO18hKAlGXYhT+I0VMC
+	73X4i2d/LsbEsk2LNtv8/VUlNz08ygwJ/NII0j6RcYPECaLneRtURn52dCyq0K430iNppqEv3pA
+	kkJDZTss6CNyqh3/NKFlwCL68ENwSLqG4Tl1O4eB26iQD5ZwVyMxe/6ERUvQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,61 +57,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:1798:b0:4e5:a74e:d6c0 with SMTP id
+ 5614622812f47-5640dea5592mr5693870b6e.64.1793552057455; Sun, 01 Nov 2026
+ 08:54:17 -0800 (PST)
+Date: Sun, 01 Nov 2026 08:54:17 -0800
+In-Reply-To: <6a830720.dbb3a75c.20434b.005b.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae76eb9.c8ffc79a.e3697.0025.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [serial?] KASAN: slab-use-after-free Read in check_tty_count
+From: syzbot <syzbot+39a2135de1558208d3b3@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-virtblk_read_limits() takes max_segments from the device's seg_max and
-only clamps it to VIRTIO_BLK_MAX_SG_ELEMS - 2, which fits the largest
-virtqueue the spec allows, not the one the device has. Without
-VIRTIO_RING_F_INDIRECT_DESC every segment takes a descriptor in the
-ring, next to the header and the status. A device that offers a seg_max
-above its queue size minus two thus lets the block layer build requests
-that can never be added: virtqueue_add_split() warns that the request
-is larger than the ring and returns -ENOSPC, and the hardware queue is
-stopped to wait for descriptors that even an empty ring does not have.
-The I/O hangs.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Seen with a device that offers seg_max 254 on a 128-entry queue without
-indirect descriptors, where the boot hangs loading /sbin/init:
+***
 
-  WARNING: drivers/virtio/virtio_ring.c:688 at virtqueue_add_split+0x6c0/0x850
-  ...
-   virtqueue_add_sgs+0xd1/0x120
-   virtblk_add_req+0xe2/0x140
-   virtio_queue_rq+0x79/0x1a0
+Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Read in check_tty_count
+Author: varun.singh10011@gmail.com
 
-With seg_max 126 it boots, with 127 it hangs.
-
-Without indirect descriptors, clamp max_segments to the size of the
-smallest virtqueue minus two. The previous commit makes the probe fail
-for a virtqueue smaller than three, so at least one segment is left.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Stjepan Poljak <stjepan.poljak@gmail.com>
----
- drivers/block/virtio_blk.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
-diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index 0a2af22f2365..5f05aaa079c2 100644
---- a/drivers/block/virtio_blk.c
-+++ b/drivers/block/virtio_blk.c
-@@ -1280,6 +1280,16 @@ static int virtblk_read_limits(struct virtio_blk *vblk,
- 	/* Prevent integer overflows and honor max vq size */
- 	sg_elems = min_t(u32, sg_elems, VIRTIO_BLK_MAX_SG_ELEMS - 2);
- 
-+	/*
-+	 * Without indirect descriptors a request takes one ring descriptor
-+	 * per segment, plus one for the header and one for the status, so
-+	 * it has to fit in the smallest of the virtqueues. A larger request
-+	 * would never fit and would wait for ring space forever.
-+	 * virtblk_probe() made sure every virtqueue holds at least three.
-+	 */
-+	if (!virtio_has_feature(vdev, VIRTIO_RING_F_INDIRECT_DESC))
-+		sg_elems = min(sg_elems, virtblk_min_vring_size(vblk) - 2);
-+
- 	/* We can handle whatever the host told us to handle. */
- 	lim->max_segments = sg_elems;
- 
--- 
-2.53.0
-
+#syz test
