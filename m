@@ -1,98 +1,144 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521273;
-	b=MWB8wws0PeGwDy5hcYSBii9dJwCv9+y30w2LE4aFXpqqwObBcYiHKJw2aJ4++QeX6TqA
-	 OW65WSHMJR/ZJ1BsD093CLJA8fyamI0UQXMeDF1h2FTK+CVWRvpaWatAAEW1K7wivckGx
-	 mCiblHktI7hFWXllHvr48R9hPGT0I/tWehJZ3/WWiceQ46tqYi8cu2zlhuaGb90wKsA5Y
-	 ROmA8Wx6ukxcZzuFHBV2Rqt4lpcwElXsJFj7mEfIQ211ONscf/YrVSGqX8jp9rm+8B9qN
-	 SzTx35/o6oAjCeitcUW9x18a2/cEkWGwno1HmdZWER+NtT/iPIig9bKAtwwAgS12HAg==
+	t=1793521401;
+	b=JJK5U1q5OyMaLXYRd4ujpG3PEWXbauaJAJS2Q1omuYqyiVil+2Of4ILea6Uj4cas5RPK
+	 RKAixIW9E6hVFNvT8kTY6furzfjTEV6x8VeJ/lVZoAdsH0mFfGGG5G3K1x7vm3/MZEzpx
+	 XTleI+YcpE79SGSN8sId1gwEZvwrO0OIzywFQCBkhuCAxXtza4fxMo1JLgu6daM1keIHP
+	 Zj/pBYlJGMl02YlOkY98F1/ujQOvagHb7X6YDpLkDtqTx0qreM5UKz1V9hkNn+GG49JQN
+	 QE51viW1M3vy+vkCn61jS/RipC2EjOzjEZ1k5W2SojpCKPMA9VDGUTHosXWyCk8Ci2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521273;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521401;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=7xvuCJgcD9l7E/ovSE3XgN/jPSwiafr1MiTxX4bzF5o=;
-	b=OjiMBxkvVZoZm9eW3PHaO1mjhDFw9q/jX4OUwl1S1fJhYn9CNgU1o3ULwQQExmcMubrV
-	 P1z2pDbLbDMYLJdvM8HmOSE73lDhmkT+QLvWcg2ZZHs8SbPY0+WjXPs7mpTkhpcOq9AYR
-	 NpXF5fVVSH0NnrxUA8yF6qrggfC7cKhA6u1BXTpDG8v2C8vn9SqG1+AWXwlfyf/+9kJuv
-	 Fp4NSSeA2FuYNr4oxKklnsY+x5s4IlGNWzuYpOrlkKa7vxlLwYJpwYzIdGIJfg7EYigEB
-	 omiTgYOcvQdA4JVBfR8Tl+mmpZm2KRzilnFLGcwk36BgT0/ZgWYeCoiIBedNIrWuvcA==
+	bh=MnTtWEka6kutfYJwgJvEjF90nDWSHBdCA9nwS6OCfpo=;
+	b=qbpB2wHZzZ7+TQySiQyKxz6omT44AwrDu1HMTmvAEAuoI0NeQERqjX9At7+QKQ+rgjsk
+	 gjFQl5l+3UIpzc6KwGgSXv5zPMNeZRO24fMxSa11wtTpZXfvSY6+hytAEtj/ysumNSoE+
+	 YjS+7Ok9N2pZWnQ6RCiee0yIu2gn+9FcQvhWsZNQsBmKygR318OZg1XyedREqlCyoF6PI
+	 lSjcvijNpREnqdKkRPenRaas6fLqpl/lsz/gjX+sZB5csHTjwUBax03H987QElC1qtbjT
+	 Qn96mViR5cm0FbzPPMcuJS/Wqc4Ru45pwHxF1zLpNLgf3KHvVzt5TuVY85xmrUfhZOg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NkJZjs/E";
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Rih48zGU;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kElps4Rs;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BB0606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:21:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95BB0606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B1B606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:23:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B1B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NkJZjs/E
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2944425eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:21:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793521271; x=1794126071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7xvuCJgcD9l7E/ovSE3XgN/jPSwiafr1MiTxX4bzF5o=;
-        b=NkJZjs/EMBQbCOIMogkLRABNsWip9qBkrNjQB/a5g26rcPoQDXpdRvjx/2LwgpC+/P
-         qpLlWY6S9cc2G1PJHUZ2uvdPlFRMNXGu/Gbq70dv7cG68VQo0Yzx2REwx+aWWF3WJSJT
-         UD1YOh/j4hhe70lSvxLt5msD1QeWZmeIVnLZ7wJlH1BGYBF9+T3RpT8wWaNcgRTil984
-         8rJWRfJusj04p/47zY5znfEiig2Q8paiT41Xhu66586PldVud/zlYiwE2tbEW27kDahK
-         /JW47NzlINKy49MVj/oMt4DGAQlPvtsYpdjCDKmIkiAiBbaXZsh9p3dF9aeXLcdQMpx8
-         WaBQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793521271; x=1794126071;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7xvuCJgcD9l7E/ovSE3XgN/jPSwiafr1MiTxX4bzF5o=;
-        b=pU58ecHWCLJFcKxy0A8o36fZxYrIAMEik1jTNdLDyp6G7z/DSEyuZuAnnENP6v4JGW
-         /PFEAWJJSEMepvVzPG4VUOVkjrxNBtjhutdpo0+p41u2tcKQPQfahaRY/0QXUHwb4YLz
-         6BvjQEKn/F5m8wwQ/zE6jWQeqgvDZff571hSQKQJ/+3nvWYYD/bbqlxd9MVP6sCagCiv
-         NFxg9amfsWDLJRbFVMbgW9pG+5U85lnHwyY5DmuOOptD5FqxAwQ4W7+XVQru2XidnW5Z
-         VrQ97rWgG6+h4tyr+poPOqdS2ZhOUk52rSbj3pNClduaXxY4Kr4+NclSzUKEiuBrlabt
-         SGQg==
-X-Forwarded-Encrypted: i=1; AKwUvBwdy9HKtkTK2O27XlLSruCw8D4VcCFH3X4v/5aBybEqxZ9IhY+gqkRXgo3txNQgRdXlDzFH9i+NTmWLUUk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/njrfV9tRMpq0juidIBOBej66fxL/+tC1Y8QJccrNqEU8wxVBV
-	Y5j1GLfzq67khKVwn4zDRQkXgxtafBLNYfvzmMokpsLNsWJ/lTeEkzy2
-X-Gm-Gg: AYBFou2U6kIE/SDNT3fA2tJNVpCtGOJEQFjO4eD3E86ztQM98nYj7oo1H4zY1DptXUU
-	pPlfLCCAUb95izqx+4kPd0vfXqF8HryzpnzU/r2ayzdn+5+SVfSvxAyNKCy6BhABWaIuxh8swqc
-	xFL9+O57PNEYsg+gNdYFbCN3Y7JjA8Gc2ZuHVXhhyRJhhLJYO0oylZgrd3dGvRAiX4CZ3EQI2KX
-	6ZrQSDUuzH9KxRxz4jLxX8xnIk11UJlie5qY3JTZqfVVPqszyNTT0G90YyNrAkUurwjpzcMgXTH
-	eFmxXJbVYL5f9jbxlserA5XsYCpfzJk+mAu1mwyQoIqv7GI1d776NQ40U7xWcpx1p4xQUqfvwba
-	gmpY5mpfKTIuOt8P76l2fGL+1Dzfz+XVZTj6RCVdUrk2vHSAtxtm90NMtMEnIE8fo4DhjO3DwUJ
-	lr+sDfwPMBPQENtaVH7dQF5ztPSNTW7xk1wsuQDCVO+xg51r5uKuom4gVKnv/gJmsaJNl7OLGDO
-	D+LJL/aq0HiQRPO3ldXaXXR/BSTsx/DYeTP7W0VppGokbbCzm2moWgV+5sdZHOGBkItXvqF17zT
-	nlwJLvx+Y/qIF9pBoDWzuQNmfL9r
-X-Received: by 2002:a05:693c:895c:10b0:36a:4a08:f0f0 with SMTP id 5a478bee46e88-36a4a08f8a7mr8653024eec.27.1793521271334;
-        Sun, 01 Nov 2026 01:21:11 -0700 (PDT)
-Received: from ubuntu.. ([2405:201:8026:213e:bd68:88be:f3db:8e35])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a98f65sm24114255eec.28.2026.11.01.01.21.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 01:21:10 -0700 (PDT)
-From: mdshahid03@gmail.com
-To: haiyangz@microsoft.com,
-	wei.liu@kernel.org,
-	decui@microsoft.com
-Cc: tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	x86@kernel.org,
-	linux-hyperv@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=Rih48zGU;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=kElps4Rs
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 7D3211400308
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:23:19 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-06.internal (MEProxy); Sun, 01 Nov 2026 03:23:19 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:message-id:mime-version:reply-to:subject
+	:subject:to:to; s=fm1; t=1793521399; x=1793607799; bh=MnTtWEka6k
+	utfYJwgJvEjF90nDWSHBdCA9nwS6OCfpo=; b=Rih48zGUsykjIjP86RVuKFob6A
+	+1VFaTn0Jc2eFltzFUIN/udh7GWPfwJKtw2N7V5RoXyIRD6FlNmR/iqzpdl284Iz
+	5+mNC3F6VGhoL27Tj+Z0JJa3G93tt+UuDYUMUtZFK1//hhuv+TztQQtLzDP/eNz3
+	uef5GWwJSbKOs38b545coHcZzuv5NRDOniiRPDX2LZ4cA/bp6785w86pQVvjiW0t
+	F2epHhfLGWQkKLVMzbWXqE2Zp/UHqhDFmnQHSCb3R2mQOhlnIeSCgj2ZIu+kD/YJ
+	SQ75h1O8Ceaj1vSFW+fJGlYZimr4RoOZVXg+12sBrqUEPoPAKjuFCmF4aWUw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793521399; x=1793607799; bh=MnTtWEka6kutfYJwgJvEjF90nDWSHBdCA9n
+	wS6OCfpo=; b=kElps4Rso5gKnV2hvq4/8UaW+2sWUdsaffunly0bWyyHMH7UvtY
+	qYkhePIxtbvMv9mNDB/Ar0QOp1X00IH49R176azXGS1cyOXCei53JYK6g9n+yB2a
+	TvEYk58PJASCIvUuaalNPuwb7T8dr8JoOIlLDVjdPOKVdMrlG+VhbKaMCkwdIJi2
+	P5L0+pEHV8PAxZ107R15dKWCd9BHyLPqCRqNenXGxJPMBQ9CrCovHmd3CO9U92Ba
+	lbHM951HZJVGby4ZkRWME/WlsocE+M5JqG4FA9Nrn7fEkQiuD+tWNZ27m7HA5MSj
+	reEbGrD1w0nWbAn7sed+iK4hlIPHee3BCfg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793521399; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:rP7CzPqr92kpleyWj1oAW9k+1hf5dyjpWXDiX6lO8z9WbuO
+	OE2so3QlvlkvNP/sxnraxcQIufBRkCeVHuQkac9Z/7P2PVE2E7InR4U+MKNspyJh
+	USMALxT1z5qu233vX3bMF4WkWl1/Y2quDK0aYaNCOwFfwydgfd9jFnuZwc+jz7SO
+	B1ywd/jMg93/iwm4aUAKdXK7fyVVPwOaixN+ZGD9hTAKfAdZEFUQ2WXDNrkHDgJU
+	aCJOP4ctRb/pZyGlmX0Pt9JoEIY335rfhXB6DNhEj9w4YbBATx+fpjKevYn7KN9j
+	5xa4Z0/IgZoQ67Q0F/drHk9mTlav3vgB6+C+h8g==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:JfG/4s9kr5LOw83hfTmWn8bZYCXatqWH/VXHwGE6wmI=:q6Wy4u1BZdM9upooJT5sWtgsT9bGNgvcJ03wEVu4wKY=;
+X-ME-Sender: <xms:9fbmajIbP1mWQ_S5mE2GVdpNbSAinStOUTKUrp6ygqK0WLyW0xvNPg>
+    <xme:9fbmapckX70YdmVsIbFaQDO8HLu-G0_y8Q1f3puDOpmnsMDxfvbmixAMHrxhz83aE
+    71wC0TyIJ_RttXsMalIC-LwbePAqPmBeXjesrnS6dLbTvPbN_h1QA>
+X-ME-Received: <xmr:9fbmaqabaeYvmZdffbKZa-f-qW4N4lpI8_RcuC2fKq-PIzMhkSV0c3WQA_TMgUqhQBb3YOIU>
+X-ME-Proxy-Cause: dmFkZTFtjYId+Bxsf3A2Q2pEfxajwPO86MXAjNaqaO6YP6cpGoebef1Y1F7Vv3E8yXlaBz
+    LitDEEGbKAIbp/lRSbaWfBVFbUmWZYDRQD57U/2OVswLfo6yJVDvSW4CuGxWdiChPoEu0w
+    eljEKlX7TL3JzJHaOTFFrADwBjpEwv3tlFcH1w8qvb7YJT8Z5Cdiqyj/6D2JHUA2cjBPxD
+    m6fvSyozFqx1DV1TOdCngAvShhgXC1PAWWhWRt2ihBgt7NKjhMOnPIARA/0+mf59lmSKB3
+    4vgTL0Bsj9t3KmVW7zqiKaWeEEdNNyRn3f+KtBeoX6SYteOvuwTfw+jjPOSQvuOc5LUjoA
+    j1apwFfmQO4VMCtljUQ/kw+DyO/Ir7B2o1hm2qoV1XKLWZSVCG627jEhaNlS8myYPfckZ1
+    ZeuvLVgfAlHibctijUt8Zz00NuPhsO+ETUA/9B2075fyFxwgX3c8VXbnCEy1njZdHSnK82
+    YO7Be/BCJuToq3CcdBycy1Yv0q5FtAI0umpYY4dl8kaHeAWelocGPzC1xqYum+wtxbfh1K
+    X57jKoAQVpNbtoxlKuFBMMJVpg0qg0MKlX06qUR6XvEfZnumz93Ie4jEB9msEPjgzyGwAN
+    dQY+AjRrrcZB4UePlUKsY2yEk+VW0o5SSTe868A6S0bFHMZQ819qsFfl2CDw
+X-ME-Proxy: <xmx:9fbmapV_A-frZ4p5qmIU23GRvqBH7mFcepbgl_bk1R_8jzRx-oZvLA>
+    <xmx:9fbmaoBNCvKXVXsi4sV87s7GyapToW63FDJNM70bq78k8LcYrTNkeQ>
+    <xmx:9fbmaoCv0_GuaqDLZbk_1a9LA9_IXniN3jQ9EmHXqfypIynaumIBVQ>
+    <xmx:9fbmanrPQ_v4FX_n8uHE51GfMX-y0xaZgitkfFTSqI1aBW9Z7bH64w>
+    <xmx:9_bmavVWyzs52DAMJBR3Hraur7NbEtHbgKEQrSY7m0ND9F6J47IezUX5>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 1 Nov 2026 03:23:09 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Mohammad Shahid <mdshahid03@gmail.com>
-Subject: [PATCH] x86/hyperv: use pointed-to type size for page table offsets
-Date: Sun,  1 Nov 2026 13:50:34 +0530
-Message-ID: <20261101082034.134583-1-mdshahid03@gmail.com>
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: [PATCH v15 00/15] accel/rocket: RK3576 NPU (RKNN) enablement
+Date: Sun,  1 Nov 2026 21:22:52 +1300
+Message-ID: <20261101082307.151957-1-gahing@gahingwoo.com>
 X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -105,53 +151,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mohammad Shahid <mdshahid03@gmail.com>
+This adds the RK3576 NPU to accel/rocket.
 
-The Hyper-V crash trampoline code calculated page table entry
-offsets using sizeof() on pointer variables.
+v15 is v14 rebased onto next-20261030. v14's 12/15 no longer applied
+there, because Sidong Yang's regcmd validation added two defines in the
+spot where 12/15 adds its own. Nothing else changed, and the tags carry
+over.
 
-Use sizeof(*ptr) instead to calculates the size of the
-pointed-to page table entry.
+Leonard Lausen has the series running on a NanoPi M5 and posted a board
+patch on top of it:
+https://lore.kernel.org/all/20261019090348.378183-2-leonard@lausen.nl/
 
-This makes entry size explicit and avoids relying on the
-pointer size matching the page table entry size.
+On Sashiko's two points about v14 9/15, I measured a CM5-IO. U-Boot
+hands over with the NPU domains on, and the power domain driver still
+probes. The NPU QoS is saved before its first power-on, so it is not
+zeroed. The domain whose QoS does get zeroed is the GPU, on mainline
+without this series, and that fix went out on its own:
+https://lore.kernel.org/all/20261101055633.101309-1-gahing@gahingwoo.com/
 
-This issue was reported by Coccinelle script noderef.cocci.
+1/15 is the patch that carries Igor Paunovic's name. It is also part
+of his DVFS series, so whichever lands first, the other drops it.
 
-Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
----
- arch/x86/hyperv/hv_crash.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Ulf offered to take 7, 9 and 10. 1 to 5, 11 and 12 go through accel,
+and 13 to 15 through rockchip. 15/15 needs 9, 10 and 12 to 14 first.
+Without 9, 10 and 13, the ROCK 4D takes an SError at boot when the NPU
+domain powers on.
 
-diff --git a/arch/x86/hyperv/hv_crash.c b/arch/x86/hyperv/hv_crash.c
-index 5ffcc23255de..810eb1a4a0a2 100644
---- a/arch/x86/hyperv/hv_crash.c
-+++ b/arch/x86/hyperv/hv_crash.c
-@@ -512,20 +512,20 @@ static void hv_crash_build_tramp_pt(void)
- 	pte_t *pte;
- 	u64 pa, addr = trampoline_pa;
- 
--	p4d = hv_crash_ptpgs[0] + pgd_index(addr) * sizeof(p4d);
-+	p4d = hv_crash_ptpgs[0] + pgd_index(addr) * sizeof(*p4d);
- 	pa = virt_to_phys(hv_crash_ptpgs[1]);
- 	set_p4d(p4d, __p4d(_PAGE_TABLE | pa));
- 	p4d->p4d &= ~(_PAGE_NX);	/* enable execute */
- 
--	pud = hv_crash_ptpgs[1] + pud_index(addr) * sizeof(pud);
-+	pud = hv_crash_ptpgs[1] + pud_index(addr) * sizeof(*pud);
- 	pa = virt_to_phys(hv_crash_ptpgs[2]);
- 	set_pud(pud, __pud(_PAGE_TABLE | pa));
- 
--	pmd = hv_crash_ptpgs[2] + pmd_index(addr) * sizeof(pmd);
-+	pmd = hv_crash_ptpgs[2] + pmd_index(addr) * sizeof(*pmd);
- 	pa = virt_to_phys(hv_crash_ptpgs[3]);
- 	set_pmd(pmd, __pmd(_PAGE_TABLE | pa));
- 
--	pte = hv_crash_ptpgs[3] + pte_index(addr) * sizeof(pte);
-+	pte = hv_crash_ptpgs[3] + pte_index(addr) * sizeof(*pte);
- 	set_pte(pte, pfn_pte(addr >> PAGE_SHIFT, PAGE_KERNEL_EXEC));
- }
- 
+Link to v14: https://lore.kernel.org/all/20260924102135.92217-1-gahing@gahingwoo.com/
+
+Igor Paunovic (1):
+  accel/rocket: request the core clocks by name
+
+Jiaxing Hu (14):
+  accel/rocket: take the completion register writes under job_lock
+  accel/rocket: wait for a running IRQ handler before resetting a core
+  accel/rocket: let the core suspend after a reset
+  accel/rocket: factor the completion tail out of the IRQ handler
+  dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+  dt-bindings: power: rockchip: allow resets in a power domain node
+  dt-bindings: iommu: rockchip: describe the RK3576 NPU MMU
+  pmdomain: rockchip: add optional per-domain power-on settle delay
+  pmdomain: rockchip: cycle an optional power-domain reset on power-on
+  accel/rocket: select the per-core clock and reset counts from match
+    data
+  accel/rocket: add RK3576 NPU (RKNN) support
+  arm64: dts: rockchip: add NPU core domain clocks and resets to rk3576
+  arm64: dts: rockchip: add NPU (RKNN) nodes to rk3576
+  arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
+
+ .../bindings/iommu/rockchip,iommu.yaml        |  28 ++++
+ .../npu/rockchip,rk3588-rknn-core.yaml        |  47 +++++-
+ .../power/rockchip,power-controller.yaml      |   8 +
+ .../boot/dts/rockchip/rk3576-rock-4d.dts      |  22 +++
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi      |  86 +++++++++-
+ drivers/accel/rocket/rocket_core.c            |  32 +++-
+ drivers/accel/rocket/rocket_core.h            |  11 +-
+ drivers/accel/rocket/rocket_device.c          |   7 +-
+ drivers/accel/rocket/rocket_drv.c             |  42 ++++-
+ drivers/accel/rocket/rocket_drv.h             |   2 +
+ drivers/accel/rocket/rocket_job.c             | 157 +++++++++++++++---
+ drivers/pmdomain/rockchip/pm-domains.c        |  89 +++++++---
+ 12 files changed, 467 insertions(+), 64 deletions(-)
+
+
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
 -- 
 2.43.0
 
