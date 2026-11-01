@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571418;
-	b=mk+JkNac8mFSHzSaWYd+LtYPV1CJcXklq/aK3XGymJw37vbiwcju8gW2CHy/GEMWVc3o
-	 Vx9+CqExau4WJpqDBlBp8neoPs58d/DXN3revNnhX0cJOhjth6iIIpli8eoqj0EKWneZI
-	 ue88tYDm8TSbDRjV31IoqMWacXjXFA7OAv227KONISszctG2Z9oSyzuQn/BRYy4rRqCTl
-	 bTUt8mMU2XDz15Ys0RTTPQdVJlrNxs0Xs9FCi7SdiO4eAVZuxorRKkDG7fqr4s7RBGUHk
-	 1VUfItIAFrZm6v5CISdCOL2pKu6gX1JMw5V8GmFlK38O6jrHZn/Nqrg4MM7U6jDqdEg==
+	t=1793571394;
+	b=vpEvZXUx81vC4up2HEsrlBl/pDUtuQr3mcgSxNWcs1caznYOvniLY98QsT5RQ0cKCcJ1
+	 p7nSSiXroZ4RTNjmZ9dPXfUwwUwaV6yHRaxwuKeSdv7PRaS4opXomPMEm7OPIvstKCXTl
+	 yqMF9Uo2pqlXNAAUMg0pKWJvlNAhmA3zNYwR3aXwAJ06IUpW81h6B/RP8ts437oomrk8d
+	 s9jqaATz5h2USZFBS33GDLwcaZBIYgamLc589bhqorBiNk9DIBwBoAcQFrj8nQ6Ril2Q9
+	 SgX37nyxM+Lb7ArFm+18YShSTuH4JDTGHjrsT+exSArnFij4HzVM7ARzLGjqwYqhSIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571418;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571394;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=K186/SGzGYR4oS1A94dDqqxVbN9s1DtPD9OQEKcxCLA=;
-	b=bNudFhauvtc6devlA7aFhmRg9Axs1V1N3LuKNS3TMNdFTP6obbdjw3xyvi6TlTTsBZvQ
-	 nMLBDIyL27Y+tOPkTyXwI6Ly9TEctJtCWaBk9rsqXx+Z59MJRGEdS8LQMEXcUupZG3cbl
-	 /ElyTkf2MJfVk1qLn9avM11X5HSL6FdjALZLC2bp2/ZZyY4lIW63EoD8GyMq21DPqdyYr
-	 Hv+MKVmao1GkwhacIELU1Iv7bFCCDiYASoIAq5hDoyvI9yhWd5zVSif80v+wykSrpYLfe
-	 5rccZQtIMbvMcbQDETkQEmK0vIckNNxwnXGM7MA7IH9pTrYMkHbDXqGWEQFebr50jOg==
+	bh=vPgja9r0ZoRtHVHcwxsfwm7w5JViho96W46Bm4fLyK8=;
+	b=hq7LL1aQsugMVNjUKy00Zb3ebIojmyYFwCQjRMl9DjqGp54EnBHiHJt7ki/thtruWyiS
+	 tiVdcF0vn3DkyVkiihNdzPk7SrCmRLVEXbVpDxZNCN7cBE+c/logjD1osp1t9IfcVffyb
+	 DCBvlJMLxi+QSpFmzlNRqSX9/mDx7uCncNz8jj1xmdMoBa5n+G/Ce3Wfj/FfsgBrwBVIL
+	 nunE3IsXQbPiXGMi6l41yp/+fbD5AZfdVlo/Th/0WrQbf+Fd+RUd2rWI68j5IVtJ03xc+
+	 4kqYA5VymWLef9BO1hayDxdToAFEoIH1EXMCgFdiPuDShkJBHeAiOptVYHTClp1e5Kg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCn3d1g2;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTSWZ6Dt;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 137526073504
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:16:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8798606E526
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:16:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jCn3d1g2
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37F11F00A15;
-	Sun,  1 Nov 2026 22:16:57 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JTSWZ6Dt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C61881F000C1;
+	Sun,  1 Nov 2026 22:16:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571417;
-	bh=K186/SGzGYR4oS1A94dDqqxVbN9s1DtPD9OQEKcxCLA=;
+	s=k20260515; t=1793571393;
+	bh=vPgja9r0ZoRtHVHcwxsfwm7w5JViho96W46Bm4fLyK8=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=jCn3d1g2f7/1bmyBtViIODuRmCAq9BrODdhxoYZ5fA8VACNdgm7F7V8lBKmjf++ez
-	 YGPKyeDDwmid3J94+0qTNhqSIFehaMhwELfnytjR8yY2SM/8GY+NHgRQElqs4XosEP
-	 /6Hv2ozhKB91YzcVczxhREluOmfrzDWM1W1OffsGr/kqA52k6B2ndkBmJT3Wnw3YOh
-	 hI7HNfui/yXGlmMwMD92yuxaNLeJD4GQVn6oxVPJLe3R8naLM2KKyI43g8ZKpzdIVU
-	 Oki80VuJIXAXRF69NG9x2b1r+OFzhhBAsYMcnLpOB3i+cuJMzXmiswQPov5bIs2l7k
-	 gy5JdTi8LAStw==
+	b=JTSWZ6Dtzs9J0UqHUyPbPEyV//V4NX61L4kzLACDacmhWcsyGwdMTrPVS/Y+naCDj
+	 uDrnMeeGtvuaKOcIsdCDhLA+US0bUAbj23SvZD7syFGKvml6d8ODjUM+tuk1HMnWbT
+	 TZDV8WrLIfX8PEKmrstDDoxT/0+WupCSrWK3FiZr7WRGwQNPaM0q/+5ts6nRY6/53c
+	 SbV7zaoJzrQ0ACFn3mXGCKuNjeE9zh9m2dX/apQ8mMU+RtiqUgY5NU/Pb+f/8H1/xm
+	 JZPP0h3Xc44I3+FudJiqxmEFjp0cdasLgV/Y2y8Q+eUytWemZyuEVZcGyd62rbkMB+
+	 pzWkDECYEExNA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA2A138003B8;
-	Sun,  1 Nov 2026 22:16:57 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA39638003B8;
+	Sun,  1 Nov 2026 22:16:33 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,38 +54,39 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] mailbox: Use named initializers for acpi_device_id
+Subject: Re: [GIT PULL][1/4] RISC-V firmware drivers for v7.4
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357141638.2624073.5068532854637538801.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:56 +0000
-References: <20261015-acpi-mailbox-v1-1-152ba71454ff@thegoodpenguin.co.uk>
-In-Reply-To: <20261015-acpi-mailbox-v1-1-152ba71454ff@thegoodpenguin.co.uk>
-To: Pawel Zalewski <pzalewski@thegoodpenguin.co.uk>
-Cc: linux-riscv@lists.infradead.org, jassisinghbrar@gmail.com,
- rahul@summations.net, anup@brainfault.org, pjw@kernel.org,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ <179357139237.2624073.15165428968109516783.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:32 +0000
+References: <20261013-defame-busload-7eeb111f35ce@spud>
+In-Reply-To: <20261013-defame-busload-7eeb111f35ce@spud>
+To: Conor Dooley <conor@kernel.org>
+Cc: linux-riscv@lists.infradead.org, soc@kernel.org,
  linux-kernel@vger.kernel.org
 
 Hello:
 
-This patch was applied to riscv/linux.git (fixes)
-by Jassi Brar <jassisinghbrar@gmail.com>:
+This pull request was applied to riscv/linux.git (fixes)
+by Alexandre Belloni <alexandre.belloni@bootlin.com>:
 
-On Thu, 15 Oct 2026 13:58:28 +0100 you wrote:
-> Use a designated initializer for the acpi_device_id fields which makes the
-> code more readable and consistent with how lists are initialized in the
-> rest of the kernel code base. Also drop explicitly setting fields to 0
-> where it is redundant.
+On Tue, 13 Oct 2026 16:14:18 +0100 you wrote:
+> Hey folks,
 > 
-> Unify the list terminator to have a single space between the brackets and
-> no trailing comma.
+> Might be my last mini PR here, since the RISC-V SSE driver is coming via
+> the actual RISC-V tree, so there'll almost certainly be a much increased
+> activity here going forwards.
+> 
+> I'm a bit late PR wise (sorry) but I blame conferences and a busy week
+> beforehand for that...
 > 
 > [...]
 
 Here is the summary with links:
-  - mailbox: Use named initializers for acpi_device_id
-    https://git.kernel.org/riscv/c/01a40ad5a968
+  - [GIT,PULL,1/4] RISC-V firmware drivers for v7.4
+    https://git.kernel.org/riscv/c/7c2871861461
+  - [GIT,PULL,2/4] RISC-V misc. devicetrees for v7.4
+    https://git.kernel.org/riscv/c/928fdc6ff69b
 
 You are awesome, thank you!
 -- 
