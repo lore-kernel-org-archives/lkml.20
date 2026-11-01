@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793530638;
-	b=wrZ9ycEfjs3HvTGv/3LpP3ocwoJXLtfa/+Pbky8GpoxQcsWyEIV5p45OpUL43mSjguXc
-	 6s6iQEogiJteYXfX0ppkUSsq5MtaoaqmLcBYrOGg+j7vX6EQCVmrJx/m39UfWrBYduyH6
-	 C2BuXvL2bfTBxDmDQ2SVUP91yhaNuXZPvJn1ZgisS63DGAsF5uBus/UGB7nleZd/b/e9C
-	 kHWvhRPDUwlrFDBn4MsKTeJXgIH2sG3wj6SyuEjELa3j28cHU/B1ct/R4D8pyGaiy4br3
-	 WXduSe3VQ+z5SKHRaLTehz6xwIwtgQdzsHthHEPA1ZUSQz+MqA4e4Zdu55kI7Or3dMg==
+	t=1793530697;
+	b=tlr9WuWhweQeQBSNwCaxK5ntgdrHD4KbgavflPPIFPiqlSF6lqxOI55SsI7Ia9qeeLZL
+	 9oTROsi/PyHNwoP4fZomPb0IKZO5WzECh4LEj2CZg8uGMiOquVSTd4kJ4JrFllpbf7kjP
+	 QImeJ8o9BoSq8yTZzauHqRBQjz1gacOHFIa0YzMLor/9XuBybgq3+jOXrVhO9OL3J6Sku
+	 jjwiz6mHjLKb1w837+4mMHGAVqLc+8z3sYs/DoemkKa+7Il/pjlm3Mm1zGCtoJRJgs+cQ
+	 hhjtbFl8sWuBTXIi0rXYv4ZwW4C+MRfrnI3zEWyRKdExZ2rKuNNjeBS404+cC7yY03A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793530638;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793530697;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=FPyMFEUcKXcYLPj3SZ4RXokmH+ZqUMsZhVs5fGpLBAg=;
-	b=TVXFA40yjdZAftjDFDhD08qN34eL0ohZcuAEbS2ikqyultWSUYWCSQkjMLE9K853HlvE
-	 qAORhgKbTSPZiNdRTXOSL1j5allN9dGPYbqDSyPqJgZo8vvuN0EGF6QmM4TQa4uMFEZZ6
-	 dBsUHHIm7KuPjRe91XgYLv16ndrkFwgUMuhOu8utJRxOFZJ/sbcfJQKuUZyo00S2VVexO
-	 ZOBr1s1RuLEL8qlvPu2ys3Ds3ToeFdd451WRAGoaues2VSl5jNP7sg0W6psbPOCJUiE97
-	 AIgxRVFk439ITG4jvXPZVXibvcodRSAo5lzHhYsLsbD1WmNMils/Hf5Ljzeh6TgwDrA==
+	bh=AjOm5itLLaZPzR/tAo6X/hh5/JJzIWsiJUfZJmio3GM=;
+	b=fuK3m6AW0S5p1Gbv46chwnhrVAHuHbKrvZzROJjALha1gdfgqC7zOUYn82jQQBbhH4hf
+	 WxxCN1XUTjtGGDu/o7EtyjQ077pRSXslgqO5sodPCLdWriQGhaPTF1DOvUwk4nyj5qRkA
+	 52x7k9LOsajV9HuvShhfg7+aSbo+C1WnAecSMKkLs/likMlsmo50DhB6wi3cO4p7rjdgy
+	 /pfdmwRfFPU0mTWAgemTwfI+SM9zwYJOeuGQq08h6TKdRiBjR3qv83LGPrwv8g6lz+md4
+	 bokzfRXMmyOwK/rfC5ZVHt66gWwYY0oMdJckO5MUgqqcQVoHOsgAflYOt2f+E6KPCEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhJKIToR;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h3W+6QOQ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AA8606A324;
-	Sun,  1 Nov 2026 10:57:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87887606A324;
+	Sun,  1 Nov 2026 10:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhJKIToR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806CB1F000C1;
-	Sun,  1 Nov 2026 10:57:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=h3W+6QOQ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DFCB1F000C1;
+	Sun,  1 Nov 2026 10:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793530637;
-	bh=FPyMFEUcKXcYLPj3SZ4RXokmH+ZqUMsZhVs5fGpLBAg=;
+	s=k20260515; t=1793530697;
+	bh=AjOm5itLLaZPzR/tAo6X/hh5/JJzIWsiJUfZJmio3GM=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=KhJKIToRNnVOu/L9DG3QM1hLc9WLvW8m9stIsBLvuOc7epIhoEQeP0k9CodQ8fUWh
-	 5fbfa6lQAUOOyhuUaEGPo/uhTyCOIw5cwBm8gUeZNiLLUZP/QdHrA9ncB1HUK56Pc1
-	 cqRoALNJxCAeVv9BCGcaiTHsv5Qe3OzRAw6vWsvuqhJOBFO9I/tntMSzv5E9+Uwktm
-	 g5A59HsbLd5CQYOtuDDgIWWY/3bBd46FPTLBwutOEDn3uwVg/Im2ZXCdATDMY20kiC
-	 2ZXnYv/XQT+0lbBlzBYsgYE6pR85m2a8+4PnQIWBgfVxDreDgnid1Xcduty2/q/n0L
-	 FZ4XAP5hjYs2A==
+	b=h3W+6QOQFcZc8oDCXkmzOOvczCIlomQUSyFaW86UyrATsUVayqop5U9DYtTNpgLYl
+	 0GwSJSUECuWJNBAEiTElAT8DxKzlbu+QD4qIVVAeOIaRu0RDsPBJSbNYdp4T/ixyW8
+	 11hNt2t8sQwVbGLJAUhf7tCOkcMTRWqAzKw8IElHpPlglQzcDC519pYufEZTdDecj5
+	 nb78H9KBLdorKKLWyJaEtcppiqc6lBJDR/4Zs5pKKlQZ519d2XGskB3OYbZVKS7KHC
+	 wHL87gmzU+5C6maivErEBNTUJuC36gZC67Wd3gWGZkFYTDTW4JuRV71KbvHOkIjxnT
+	 5ONB1dFCWfoog==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,58 +51,41 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 3/9] phy: broadcom: ns-usb3: Coordinate NSP USB2 and
- USB3 initialization
+Subject: Re: [PATCH v18 1/7] phy: rockchip: usbdp: Track PHY power state
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
+To: Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
  Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Alan Stern <stern@rowland.harvard.edu>, 
- =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, 
- Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>, 
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-In-Reply-To: <20261021172819.668120-4-florian.fainelli@broadcom.com>
-References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
- <20261021172819.668120-4-florian.fainelli@broadcom.com>
-Date: Sun, 01 Nov 2026 16:27:10 +0530
-Message-Id: <179353063083.2955.13880869162770253902.b4-reply@b4>
+ Heiko Stuebner <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, 
+ Igor Paunovic <royalnet026@gmail.com>, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-phy@lists.infradead.org, 
+ kernel@collabora.com
+In-Reply-To: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-1-60000d03fca2@collabora.com>
+References: <20261021-b4-rockchip-dwc3-rockchip-glue-v18-0-60000d03fca2@collabora.com>
+ <20261021-b4-rockchip-dwc3-rockchip-glue-v18-1-60000d03fca2@collabora.com>
+Date: Sun, 01 Nov 2026 16:28:11 +0530
+Message-Id: <179353069145.2955.17636062800413643927.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=973; i=mani@kernel.org;
- h=from:subject:message-id; bh=+w89rIM6bdKq6eInREjM4c5sW5jCJpKaaFEeIw3A4uo=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xsI/woMZF2KfXqELf41eLLQMq/1ndO4/13gR
- +SaOxyujKKJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucbCAAKCRBVnxHm/pHO
- 9bVWB/0VV5UADU7HY2QWHmjXlE+zvoi6miokaEvcjgJxr25wBwkn+tJbiDZCVy1hg7yCz07RtRZ
- SRa7IpQNbZ75i3yJRqToR96W4+M5oMLUFEeRT54PVqFQ5UhnBE5/cvWfDgdplWVOAuHZ3ixp3Ol
- I83JY//S1OOpleOLiv6BNg8ZFFPE958hhmkZy6urVhYzAfmqj4tLVbXl6ZlzNWcCFKq3VvPFOtC
- XhmOyWhyNnhNPyG3imyGd7g1REaB4vnFlvZtecmye61hYu/7J+cXHE96v3/G4SqBfyskcii8a2c
- xZRBU3iegVUH76oZA+1rc2MON9DGgn5Is8iwl+8Pr3vyOXMz
+X-Developer-Signature: v=1; a=openpgp-sha256; l=347; i=mani@kernel.org;
+ h=from:subject:message-id; bh=/Xjc4dd3Kn79T6DBExQzfzf3GV15xNS3edAbpVBalow=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xtFkLHGHY4Dte8tp134lDqaZDFBOFkH/LshI
+ aNzuR6MJbOJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucbRQAKCRBVnxHm/pHO
+ 9YcPB/91VG4aHMmJm8c5BSrj/2Xm5CnNIPpgo+RDCVAjvwcxgZHkFiZchWJYqHiQkYrOzz+GaBK
+ ww7Kt2ghLx9mYTOlukkGgWJCkIwZ0WR3BV+/tKUDhrkoSd2w3ZnaUwwChxXo5QAnvhxPALJYdGh
+ Fz6RTAYgBTwUt63C0+me+H/eHO3YEQytHJuFOjqKhiHitY/npIGlJdf/wNHMePklLcUmzLY42UF
+ Pd/ETjFa9Lvlcs0JaPOzk7eYddtKYLLBKox6nLLPWEDvBjqzVlDiKOxEofw/N1ISBI6/qXO605H
+ 143Tw6SaKVNhCGV7BRYx1XALDZ6qIRh9KfKAzBoVBEET6/Jm
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-21 10:28 -0700, Florian Fainelli wrote:
-> The iProc SDK holds both USB2 and USB3 cores in reset while programming
-> the USB3 PLL, then releases USB2 before USB3. It also enables the USB2
-> IDM interface clock. The Northstar Bx initialization used by NSP does
-> not perform the USB2 setup or retain the SDK settling intervals.
+On 2026-10-21 20:05 +0200, Sebastian Reichel wrote:
+> Track PHY state requested by software for DP and USB3 individually
+> in preparation to rework and fix up power state handling.
 > 
-> Implement an NSP variant with the coordinated reset sequence and
-> interface clock enable. Sharing one PHY between the HCDs lets the PHY
-> core serialize and reference-count initialization, preventing a later
-> host probe from resetting an already active USB2 controller.
-> 
-> Retain the downstream delays around reset and MDIO operations, and
-> leave both NSP cores reset if programming fails. Keep existing
-> Northstar Ax and Bx reset behavior unchanged.
-> 
-> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
+> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
