@@ -1,114 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793548490;
-	b=hQ7N2atHTrk5/WrWZAvEIljo95c2l88xpJvuLRzh6bNtKnbaCXHhQgedSdyEf0M1xw+1
-	 1UrrJiq+K+PmPtuRhKWPepQu6/mn7Q8dxW3N5YzvgJaob15wbIKgt2M6fc21H2GSEbHxy
-	 8d3aQ3jIenbUBeUbRegVXSMtKhapSWQbjEaCVz10wi6kTIAIw89hp4G1NWIBImMEuIV5d
-	 Yhz9fTKSd+Dvqc7vmHQrSPVbRjL0g2f7VcI+mpC1A7bNKlTFq3IKF/WG9vPGf7HFkW/Ii
-	 k6v1eK/zx65R4iaPqBi122Td92/U1OWKirufVuJuX6XuuIsvhQ6/sre+ZIFNyqOggRg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793548490;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=ESraT188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=;
-	b=UiB/K60bwqT0ErF01VpmFH+WsBmZKJmusfMNR+e9CAatids386Ax1gO7/wFB7CtsfMkK
-	 lj5QH+UlMIdYJ7/BVtoI6+eJvrGKZK2/RgqU8SR1o1jJwBnu+D8DD1/yh8NZLi7kJJ907
-	 gakRHewqIa8zgJeIcDYOmhQwy1VLNGABXxnQA5zJQ5LJ5+eFhtUIbV2K/zKtRwZ6L1sBT
-	 AkZaXBb/wuqOEzqhZzXN2Ia4KycuolWNjuxUmDmJe1EXHxlKH0sjzUIyeKhpq/OAhgIGJ
-	 MTkugNqjwBV0sQNNHyJbJr+Y8JXW2SEpVENUULhfFZl70sRQn/tN4LlPDmUaU0lEfQg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="P/K5G4Mq";
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=uYDYlGG8;
-	arc=none smtp.remote-ip=148.163.139.74
-Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.121
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793548575;
+	b=tV1/zVjRQAWne600rguo+RmIoVuIGXysCmJ4r1RxDlTCv4v/4kCEYD2P/3LHPS9dMZWl
+	 7f2eVnNbVG3/YpkrpxE9kx2yGyp/oBJ4CcPgdt6cidqK+WmP4T9WUZ/uQgm3PXUtFuiSv
+	 Xo+mTaFmqAJUhAgsugTdhMuzwz0sIy3NN6a3B/r9A5wXqANh6Lts+xA/mHtUpHGslMMoZ
+	 fG5RqXwYkoaRSKZgiEB0t9JUSkib/eYIDKEpy4Vl7uOg4Fxjk99jtIoUfRX6En82YvOam
+	 U6uUUg8j87HNpugp3XB7kRRCDe2PMnV5GTAru2tO7xKtnqHW7vJMbYVJF+3prM/PykA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793548575;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=wtkzzd4QEqE21i/ZUBPYFwY9Y1y2p+vZzIyms7oO+xQ=;
+	b=rQLz0jL7SmqWTGBDzLfVVcRXtj6cSpeyrkQaCg+JDxOJhyDGu9cM9U9Mj6fr3XylIQVN
+	 TUs+7tIgR495mT4R0S6vG7Dbh8u3jhQD/vC2k1ymOkrsFbiwZG+AtKH4niYJ9Dlyz+LBq
+	 /DriEACC1djlNalQXHrIouFyLr1f9ero7Wm/XLAdeL74eKw9mImuHH7PwBqwqjtFh/nYQ
+	 7zg3qG1BPoNWrP2CKeNqkfFxOlqReIrfZSgrVqlxCQdbQFRbonYHGfGn6MruG9mpakewn
+	 23cFS/z/7KKTlV+Kn//PSM/KdI6GXElZvzot9577fvSHM4gaT7zwMvzIiMxPnDVU+7Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=valinux.co.jp;
+	spf=pass smtp.mailfrom=valinux.co.jp;
+	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=TnGenXqW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.121
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021121.outbound.protection.outlook.com [40.107.74.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFE6606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:54:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACFE6606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AE04606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:56:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7AE04606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=P/K5G4Mq;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=uYDYlGG8
-Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
-	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1Fg6HX3751800
-	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 10:54:48 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=ESra
-	T188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=; b=P/K5G4MqEuZj9+6+RC9s
-	jnCwKpynXG5iiq0cGPCeDjgJ54gVhUu9AfrGHD3HwtbCoiAcHToOPbuUz6LWJFTD
-	9FIjOEFgB1+fgFZtNSTc7RfNrR356rGOgHrSdZ5vT3vLxkmoIN4eS/27VThq0Rf6
-	JEbNc+8tuvdUQaAUoabBGaZX4w46BM1trPb+2QQYS2fnJHoorpvX84dR2zD3OLIn
-	l/KRnqYFddnkjJIrglo5U85zxeVyyANYOOiEaj+ILTcfJAqqNNkDRY6eqHecnujN
-	nItLYO7BXQ/j3zV0DNPBftKyL8rj+nSO32tYdtaDouydEVQI6wJwko6Sm2dfMGbh
-	Gw==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hp89qg1fc-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:54:48 -0500 (EST)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5352436cd78so21066211cf.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:54:48 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793548488; x=1794153288; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ESraT188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=;
-        b=uYDYlGG8d/0I6GlyEkyukBYsbOH6CXVC2ZY3iC3EnzdyNYjyc/+kuRT47u29ku7Rvs
-         5ES6/SmPMC3MfNT2XKagvqkiBHwxvoov6x4nWXpvjLKonHVkSstt2qBGnZ5gzJGcDjyS
-         3vw3LJS7s0qQ5zDC/0XMrjV49TfZu8QH7Doqd4R0hVQH+h7rGjdYxtSJn+T6pVISt+Ar
-         tY9flTKjgbe4xgvYnH2p3RL7asolYnpTL4O1wsanqJHkf5SV59MoUSlgieSS154nFqtQ
-         60H+aNH3j7rUj2Lc+IN5JdSj2uIkggM6XwK7ooymh7tyHsTK0sCE3eTPRytTYJswpnit
-         suCg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793548488; x=1794153288;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ESraT188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=;
-        b=g7tfJfNGX9vv9fp3BS8BgCrLngeGfq3oamvrappT1sLb07OS1yhz53gUUAP6NCmHue
-         9WYqAzatkc9i99b0Y0fdVo2wHrZAIvDTvBpEmI4f8RPjgtEWfTQdPkWlzy1Nk4AN1ASV
-         qjQvEKyBkvY37ZAATg5nWCtiZwlxZqeOWBzUdnNJVITqz1wID7345AH5T46O+F7fBG6J
-         LUYAcrnwh7jnX0knCMRCltK/XiQq9HpDea0+cnOfciLnKTovB7pyMOLweL9jyHsn/gQf
-         lv2ZRKaqOZY/ZZ4zUmUH0r35xKtG9qHnffQ2REzUiDXr9zg7YAVn3V1q8LI6F05UeDHr
-         hmpw==
-X-Forwarded-Encrypted: i=1; AKwUvBybylZ9I2t/Miu6/C6HZh/ncghZWz5YD/VA/UqxC2Ny7xtADLXTYRpHoSLdADPJj7O+yipo2HUaWHWxlMY=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ5zgRCiR0wZsbCEbak7Nz3f0IZwcocmtm0rC9sCevCxjS3kebH
-	w+T4XvacnWG9PyNRpt+w0QWOwGysUdyculI9wThC43iBpMtgP2IHf1qHjQba4gBSrye3gGKtbmf
-	9BjK22EyOY9Jcrrx6e6i7BTfnZZRGN3ItX8xPE0TbraTSV/kDHw6OcVvZgiCxug==
-X-Gm-Gg: AYBFou2rwGVT9JNGCOF/FV8+8EES6putm3AA8iTNA+XJNMZ/IiBUwvS6lDid6QwwIRQ
-	38UARPHB5RozBg2YFV/IAK7FGDjCwEzbJot/0oJ0RJ0y7Pi610CzDub2PWOOLcUDrc241EbvS1p
-	9Dp85nTQhwEvRshM1+a+U1JVI10Zc93AT70cFZKfWjQOrDit8pdsXlOnRYJQlyD3meJ9vbzJkx9
-	P70emv2HGfViwpUjpsrLz9ig5q3CX0EI6vFXkb/pkWFLP9G0dtGp0LcLn0p3I4MG5sih9bMYOjI
-	yrrFeN63rQGBxIBYXSgvjBRdSlbC3OHitZCMP2SuA2s+8fjYJ0UuFcnpfR2RQYWvpFimjnfnYY2
-	Uw7sKGO6oSzk7ba6jSkYVv9RlT6Co9S0Jr3qZoSaAnGpg2Iryo9fnG9Voh3Uiwx62IJQvLXRg56
-	cAlPKsu2a6FfEkuqhjJzMis7BOfaO66FWAanACxEjwAQbETDvA9+BcQXIplvmxAK8I52OFvavU8
-	tXVJWKAAgdGtzVEN/XfJwnS4zknrq39Isq4AsK9+COTcxk2/G8quiLxCOQ9pVrL04NzIcd25/7u
-	ky8k3SY5Md/RUrIh9Js=
-X-Received: by 2002:a05:622a:649:b0:536:6946:748c with SMTP id d75a77b69052e-542b771ed82mr132792351cf.53.1793548487887;
-        Sun, 01 Nov 2026 07:54:47 -0800 (PST)
-X-Received: by 2002:a05:622a:649:b0:536:6946:748c with SMTP id d75a77b69052e-542b771ed82mr132791951cf.53.1793548487394;
-        Sun, 01 Nov 2026 07:54:47 -0800 (PST)
-Received: from [192.168.1.187] (ool-18e492e0.dyn.optonline.net. [24.228.146.224])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54311f75fd7sm63339941cf.11.2026.11.01.07.54.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 07:54:47 -0800 (PST)
-Message-ID: <b12ae064-012d-44b9-9d27-461e4af83f3f@columbia.edu>
-Date: Sun, 1 Nov 2026 10:54:46 -0500
+	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=TnGenXqW
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NIfacPdfQrwOp/rFX0taxkpr11SpYpANJZOA+w1S+NyZycIfX2euen79nhvIQCUPltIEsplfqC7MCEn8f4wCb3IbWLlyvk0zZvrNDRlZqxUH8EgafgCgMz/OrViHcrcMLt7jcV3uGlt+Vq0rR8kYydDmipBvkhME6bdBkYovLPBS+Cvpffp26UQpgQpWKPizDooY8iOa8UVNsW8Uwy0HdREEFyOFo/6zz8OOAzzD5vqz9Pki41jLCFpU8xtFWAHLJmjn7Lu9AuOHsI44kDv9cPqz1/F7G4fZyQadeK6nnFjCWC5ZPPCJ2yTZMT3Jiz+lWFSMYKHD34XO370njjN4Rg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=wtkzzd4QEqE21i/ZUBPYFwY9Y1y2p+vZzIyms7oO+xQ=;
+ b=aJKuKjraEXMntwnfJa5AgYk97l4DQhvfH/XdZZb2vn6yDx6bExe+2wUKi6aUWpagaiQpULzOrRHijFETUVPWtErxiZJAAT/8BaDkv0V40NsAQj6FLJW4DIal+rp/JewyFi+XCqMMUDvllfxxK5g7mchWR+d+ikPQ4wcsPx77fNPPKU9Q0E8czuDra73x5gX+trKAwN+H+ip4HCM9xHcyKL8PBk0wXL4UXEIu6jUcSKyJh1Iq/lNz11P22xUHfSLDuiad6Xf9kR5urjfBwxEvDBnO83N8vA28Gv4Io6tJyHRrlyaX+xlPIYaX7pCrVZ5kAZeTtbvUq3gCx7Touj8cPA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=wtkzzd4QEqE21i/ZUBPYFwY9Y1y2p+vZzIyms7oO+xQ=;
+ b=TnGenXqWmtgY5lKMe+ZRptDNZ6s9mJ+ry9Keu4X0JgmsCnBhAGIhRui5e3uJG0Ut9BQ2nb9K6WIXdOfFh8LwRX63M7JhGikI/zP9vFLj3PRIES7+6UCKMdgPmFvVTKUgrzaMzl1V1xqWij8vdvaA1YfXS02+XuT1k3AzT2l6dWQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OS7P286MB6586.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:42d::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sun, 1 Nov
+ 2026 15:56:12 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0569.011; Sun, 1 Nov 2026
+ 15:56:12 +0000
+Date: Mon, 2 Nov 2026 00:56:11 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
+	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@nxp.com>, ntb@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] NTB: epf: propagate MW command errors while
+ status is reliable
+Message-ID: <mcaijcbotkzgqgl3igqvqkkirjr4gczh2crfaban43vqsdestq@54uaohytdycw>
+References: <cover.1793540847.git.thnkslprpt@gmail.com>
+ <62334fd3b8d69fdfdeed268d71f473df45f34556.1793540847.git.thnkslprpt@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <62334fd3b8d69fdfdeed268d71f473df45f34556.1793540847.git.thnkslprpt@gmail.com>
+X-ClientProxiedBy: TYCPR01CA0186.jpnprd01.prod.outlook.com
+ (2603:1096:400:2b0::9) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,79 +98,157 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/swapfile: drop a large unmapped swap-in folio in
- unuse_pte()
-To: Kairui Song <ryncsn@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Cc: Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
-        Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
-        Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
-        David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
-        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
-        stable@vger.kernel.org
-References: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
- <20261030155419.b10056c8fb37bc784b0d2778@linux-foundation.org>
- <CAMgjq7AUvsHVKkHmLzL-KKf+MBed6e4TeVP7jcGMLM22xO+=5g@mail.gmail.com>
-Content-Language: en-US
-From: Mani Tofigh <mt4022@columbia.edu>
-In-Reply-To: <CAMgjq7AUvsHVKkHmLzL-KKf+MBed6e4TeVP7jcGMLM22xO+=5g@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA2MyBTYWx0ZWRfXxQ6sSTIE8xVb
- j/wYneZvWNk23yp6rix3nXkaPl170iUReAOC5rLNtXEuSeKInv8DXzW44iw6K9imyY9AeXdcK6j
- 4V4/4OhVUzYR/yxe/k+dhNyXxgYqjbdiuj3K0afhDDBi1FTLDDsHL9SQ3HcEu109pHEgV+U+tvO
- tnoKIY99O6HAtPOF5pjXYJZ//uTeW/HKDEii2vvarnHp8HwO5M5KBRwCblqCLAUkWd5/RJZ/71J
- r77qAmGmJNZwEAi5FAgBywUUKZX1csRGhGZTJ6nsfRw+zbqb4qk2CsQVrBNjeRy26pYPt6is0kG
- EfPyxV0RsCazoK84ufJZXZjU/1ZGWbyHA6ddi6Fjz0DkKxxqz2bPjej4jHlHMP5ASdo7MpxHKJE
- POhSCFEMws+xvebFZ4W1Wslu0PSL4PBTxRIIuoRP3Wm0q2vDl8kcOOAhMPEaxGfWC+RoImJj/5y
- 1KvuokeqRmtG8C1w7tQ==
-X-Authority-Analysis: v=2.4 cv=ML71C8Zl c=1 sm=1 tr=0 ts=6ae760c8 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FE+fbgsriwsnvVT5CFHM3g==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
- a=Z4Rwk6OoAAAA:8 a=CbAtmpW2TtMjExKzJAEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=HkZW87K1Qel5hWWM3VKY:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA2MyBTYWx0ZWRfX9JwRKYY0GC8n
- vfY0tdOuvqR7t7EvZ27cW4bN2/ewxc3STI44OtA9G0wf+9Xio9gw/LQU/9n08k8TsxWaeVTUhXW
- frsUuh8itzQbuA0OXTOl+JL+3HOvcYaR98GZIH4XvipX/0oAAJ3J
-X-Proofpoint-GUID: 8pa_KWtu8vfW5XyF1UVayx69zdajB-vC
-X-Proofpoint-ORIG-GUID: 8pa_KWtu8vfW5XyF1UVayx69zdajB-vC
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11953
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 bulkscore=10 impostorscore=10 suspectscore=0
- spamscore=0 clxscore=1015 lowpriorityscore=10 adultscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010063
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS7P286MB6586:EE_
+X-MS-Office365-Filtering-Correlation-Id: d1f9cb40-56b5-4aa9-3d40-08df3830a749
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|10070799003|366016|4143699003|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261021135927099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	h0MdAs9Qmdjt87DJ6mE7KfV8+5Ad1+ErrPs7dJeqhGnXFW/ibIhvQnSoMCqad6B4Hrg7kLODDDJBL3d0kA+y/GxtXkiNlZTuV8x/yUrwOPUXGTiapNiVD0xmLlyiuTK9c93vnq4wRPMIRtC8kakEFuJJALHLQk+inmaM7rs6dfrDg5BtHSUH2TAVwhlQxudRQvMeyTh79l2TbKU4UZMawKBXcaDv+G7sk+hzvdWlREmK2f0WwlOVSDla6zNMLiwO049SvfiiChA1ZwPPuk4jaEDhrjWmDNao6DywGyQPKkUpqvAXldCWlKRgVXwXGQ5oKerajhVQy+eEB51qHapjxETwtBfVzNZEivqM0j9Pps8t4oLqUTTzObc6iqMawJnKrgHpP5rJWP++C5sgofAsKw4eSX08D1lxI0UWW2gL+N/gKvCtoFyxEEu43mOtXMlSOIP8y89sICFk2XkQEmPogB+sIboe9iVFPvOTMM8C/NDOC/oSmsskzSKnblPe0qtDwUjKBLKdDF2EXHSXrnrdG/8WFj0lsHjwwa1qgwY6jgzucvNqL/Gq6pwzFk4Vmd2gDM8WJqSpuHeSDRG59L5bclmwf0eZwSGuGaaUfWyPHY+l1SGDukQsmRUG5KImZyLDfpI9TRAamRWDPpPxguIuRGsZT5a3t68EWtN3i7AxxV0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(10070799003)(366016)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021135927099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?I4I7dqucd7OU9tdNL6V5XcYDok+lOzeX/odJi8CSiB/KUH16FoQucyMcHof5?=
+ =?us-ascii?Q?iOp6cekXpYGEY4SUzVIba7fKcPUrI2MzEoxiEBJYo4+xHchU74TZ/6K9o4xK?=
+ =?us-ascii?Q?r4hDY8mXy9wUTN+VNd9mfiOIltWephlkELBN6TrqQOvdrR44p5SIai4dP6O+?=
+ =?us-ascii?Q?QFa/Us3i8CG66qlKlwPGSCFOgUDwAlRFgXrf12gmVaol3DULsY+ezYV/Cnqu?=
+ =?us-ascii?Q?qV47t1i3/QHlcNWScAWBq/mOp1GUUCK8em/FRZ9l1kffL76Jz9tiL4VcAle2?=
+ =?us-ascii?Q?ZcPfQOqyrLZcyqs/Ed0mqF0J244turjuIueAedtrdcC83p+RCyRe6jv9Rpqq?=
+ =?us-ascii?Q?vajaQjj8hGG78qkyL7lIphwn+oLIcFZLu6Qm5nZQXZ6JbG0j2Gw9w0lGJaXb?=
+ =?us-ascii?Q?wRwJGuIRK7H/IlHuR/yKTr54QrFzhG8/jIjwAuRzjR+bGTSP5niOgOWDWMnC?=
+ =?us-ascii?Q?cKEKhPN9bFRMFpjzsbY1LsKJLDD9uGVPEBAyBbMd7dLQQazS00+JN0rwRxO0?=
+ =?us-ascii?Q?FIc8DmfjDAzBVRzWP0bNy36QfxXSgM5YTWj064CzWJtO4NAwGzZlhCFGswIr?=
+ =?us-ascii?Q?MV5zPXqrYY1U9Dvay+qcPZw8cfjFHp+ysRnPA5EVtvMy9XvghBamEZpWHuDe?=
+ =?us-ascii?Q?G0sMDgFL64X4ruRcpOLvtL9cIYGtevTMi2kWq9DxAeV79NRJfgflYI2sDzEC?=
+ =?us-ascii?Q?gXnFEzN+r/KplzYxfxaQ2NhqHFtI1lzYYgYi5e0bJ+9r64i9q9HJcSFBxvPh?=
+ =?us-ascii?Q?xVCAL53gsX3Cu3w/gbrigrTMPREUKB9hyw5R3W4vSzLH6GTbUm8Ndrv640AN?=
+ =?us-ascii?Q?2DhkP1AgiEqVAvE9txXtPIR1JsjBd1F/5KcEpLBxJFLUBZyt9tYyf+P8SAYR?=
+ =?us-ascii?Q?nY0BU9V+QwmvL2HrTU/5GM8nMRbcUrLo6yzRHAd0/QoXYWywTHXsJFmBgPdG?=
+ =?us-ascii?Q?JRvFFpgawF6GMSlaYsLFBQTVC7IH2NfG7kJ590UBW3WljRMPmbr4T0WbKqeb?=
+ =?us-ascii?Q?XV0wug2gHUutt3XLU+QBjWcfIwXbzKAoH10yFD0jY3CNXGLDRaiHEOv47Ym4?=
+ =?us-ascii?Q?fC9KqMN0cN5tItOZzGMez9LsAZEHw/6D42msaIilNW+mJmlBFyD+Yc+AjvEl?=
+ =?us-ascii?Q?hxZ7zD1ybkGFbO7FS8PqnXS2xwK/OI2w9I8dDLnG9AaM5PlAPcpOBJQePH7u?=
+ =?us-ascii?Q?WHyahaxj80jmh+fS9ldznCY3Zq71b1ZRcdjGYHzNKaxNaplDzLXemFdOXWBg?=
+ =?us-ascii?Q?RoDBqZSWWAVUbCvQ78Q0ifguM20EanCPTuqhfoX7Nmj9WWbeCudGW5d06uBZ?=
+ =?us-ascii?Q?RD/lWVFu9/brMeTBlwDsPDd7YW+q6FLfjzio7AYwJix1uNL8PzUNMc6LoGM1?=
+ =?us-ascii?Q?UNiYL6l7Fda4jUqvvD7bd5t+8UgJHvnIjan6YNQ7VTDxzQaigSQPRME1TsVk?=
+ =?us-ascii?Q?nbNlSPhQDBUsoJg+qVXWiNQJZuw22LF/UfqNk0kPux9l9hx9QT24oerDwQoE?=
+ =?us-ascii?Q?HCL+uyKPFvYfUYiNHj/iQcGyKIvCJikwDzpiioBzXf8wLx90V8Gh2o86IG/m?=
+ =?us-ascii?Q?ZI7qqRlEOuU7zZwpIHfURCn73Q2eWhwZs25kBb/sdvSpMEf8UlqHkGc7kfOm?=
+ =?us-ascii?Q?DdDWLcaa3csbamuWmiUOg57Dvz2/r0LkLpLLX8dKRJXScPlm9zUIxK30a5IO?=
+ =?us-ascii?Q?42KQKGF99WslLJH96mHoMp1LErXSBKJ6ZQSqZbkEff63gBRmZ4vv7wH45Hw8?=
+ =?us-ascii?Q?vSjwlVqAQIDsYijKBllrk5JHrQJOk6d98RUdEwEixmse7oQ0iff/?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: d1f9cb40-56b5-4aa9-3d40-08df3830a749
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 15:56:12.6755
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1ahgSE2ym1+NMF9eDegk8KRYW6AxVurF4HOs9CrzcR/gu9OXH9iSKOv0I06IbqN63rtDQnikcwPQRRzJb+yi+A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB6586
 
-On 10/31/26 1:54 AM, Kairui Song wrote:
-> On Sat, Oct 31, 2026 at 6:54 AM Andrew Morton <akpm@linux-foundation.org> wrote:
->> Also, won't this change cause try_to_unuse() to keep spinning away until
->> someone kills it?  Might be better to return -EBUSY and fail the
->> swapoff?
+On Sun, Nov 01, 2026 at 03:57:06PM +0200, Avi Weiss wrote:
+> ntb_epf_mw_set_trans() and ntb_epf_mw_clear_trans() discard command
+> errors even when the endpoint explicitly rejects a request.
 > 
-> It seems fine? The folio is removed from the swap cache, so the next pass
-> will go on. But you're right about the dirty and WARN case, it spins, so
-> maybe:
+> A timed-out command may still complete on the endpoint. Propagating
+> that timeout can cause callers to free DMA buffers before the mapping
+> completes. A late completion may also be mistaken for the result of a
+> subsequent command.
 > 
->     if (unlikely(folio_test_large(folio) && !folio_test_anon(folio))) {
->        if (WARN_ON_ONCE(folio_test_dirty(folio)))
->           return -EBUSY;
->        swap_cache_del_folio(folio);
->        return 0;
->     }
+> Record the first command timeout and propagate MW command errors only
+> while completion status remains reliable. Preserve the original MW
+> success-return behavior after a timeout to avoid releasing buffers
+> based on ambiguous results.
+> 
+> Fixes: 812ce2f8d14e ("NTB: Add support for EPF PCI Non-Transparent Bridge")
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 
+LGTM. I think this is a nice improvement, and the points flagged by Sashiko seem
+to be pre-existing issues.
 
-Right, in the normal case the next pass of try_to_unuse() just swaps the
-entry in as a small folio, so only the dirty case would spin.
+Reviewed-by: Koichiro Den <den@valinux.co.jp>
 
-David suggested a VM_WARN_ON_ONCE() since a dirty folio here would mean
-a bug elsewhere, so for v2 I'm thinking of combining the two.  It'd be
-a VM_WARN_ON_ONCE() for the dirty case, and the folio stays in the swap
-cache with -EBUSY returned.
+Thanks,
+Koichiro
 
-Thanks for taking a look!
-
-Mani
-
-
+> ---
+>  drivers/ntb/hw/epf/ntb_hw_epf.c | 19 ++++++++++++++-----
+>  1 file changed, 14 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/ntb/hw/epf/ntb_hw_epf.c b/drivers/ntb/hw/epf/ntb_hw_epf.c
+> index da7fbe1800656..455bcefc7c13e 100644
+> --- a/drivers/ntb/hw/epf/ntb_hw_epf.c
+> +++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
+> @@ -102,6 +102,7 @@ struct ntb_epf_dev {
+>  	struct device *dev;
+>  	/* Mutex to protect providing commands to NTB EPF */
+>  	struct mutex cmd_lock;
+> +	bool cmd_status_unreliable;
+>  
+>  	const enum pci_barno *barno_map;
+>  
+> @@ -148,6 +149,7 @@ static int ntb_epf_send_command_locked(struct ntb_epf_dev *ndev, u32 command,
+>  			break;
+>  
+>  		if (WARN_ON(timedout)) {
+> +			ndev->cmd_status_unreliable = true;
+>  			ret = -ETIMEDOUT;
+>  			break;
+>  		}
+> @@ -156,6 +158,13 @@ static int ntb_epf_send_command_locked(struct ntb_epf_dev *ndev, u32 command,
+>  	}
+>  
+>  	writew(0, ndev->ctrl_reg + NTB_EPF_CMD_STATUS);
+> +	/*
+> +	 * After a timeout, a status may refer to an earlier command.
+> +	 * MW callers may free buffers on error, so retain old semantics.
+> +	 */
+> +	if (ndev->cmd_status_unreliable &&
+> +	    (command == CMD_CONFIGURE_MW || command == CMD_TEARDOWN_MW))
+> +		ret = 0;
+>  
+>  	return ret;
+>  }
+> @@ -485,7 +494,7 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
+>  	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
+>  	struct device *dev = ndev->dev;
+>  	resource_size_t mw_size;
+> -	int bar;
+> +	int bar, ret;
+>  
+>  	if (pidx != NTB_DEF_PEER_IDX) {
+>  		dev_err(dev, "Unsupported Peer ID %d\n", pidx);
+> @@ -509,19 +518,19 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
+>  	writel(upper_32_bits(addr), ndev->ctrl_reg + NTB_EPF_UPPER_ADDR);
+>  	writel(lower_32_bits(size), ndev->ctrl_reg + NTB_EPF_LOWER_SIZE);
+>  	writel(upper_32_bits(size), ndev->ctrl_reg + NTB_EPF_UPPER_SIZE);
+> -	ntb_epf_send_command_locked(ndev, CMD_CONFIGURE_MW, idx);
+> +	ret = ntb_epf_send_command_locked(ndev, CMD_CONFIGURE_MW, idx);
+>  	mutex_unlock(&ndev->cmd_lock);
+>  
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  static int ntb_epf_mw_clear_trans(struct ntb_dev *ntb, int pidx, int idx)
+>  {
+>  	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
+>  	struct device *dev = ndev->dev;
+> -	int ret = 0;
+> +	int ret;
+>  
+> -	ntb_epf_send_command(ndev, CMD_TEARDOWN_MW, idx);
+> +	ret = ntb_epf_send_command(ndev, CMD_TEARDOWN_MW, idx);
+>  	if (ret)
+>  		dev_err(dev, "Failed to teardown memory window\n");
+>  
+> -- 
+> 2.43.0
+> 
