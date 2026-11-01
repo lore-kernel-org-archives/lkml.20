@@ -1,58 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793539337;
-	b=3s4VVZfbBBzo4sPjp9HEADMAa094rELzg1cYq4n30RCz66dWIP1VIN7N8A6LLOz32Umf
-	 MjRAYpixiFOyZjASh5orXGEH92eh2IWKVCq0b383T3SuePTmFOVZrrzKA3//qgkjrOmw3
-	 CQk4MMWdJonQ1JeWB7CEzTIq6qfFoxpaenAQUCRelJXgEh96YuQELi1CehWOfCk2Ty9Gk
-	 BGQ7ooa+xvgjbFcZYIbcvkzI95OsES++h7e2ER24BEUX+hhR6F7xlrsmX7m+oBUsd9gIo
-	 L6fIGabz4mHZr6Y8CmjvwsfKbQGLLEO+SE3/IIH39NsTA0k/gT1QsNPLrbb1oTdNMpg==
+	t=1793539455;
+	b=KRCm+/p7e9foycZ4PVs1ZmhBE7SNk/xVBX4hMBOaAKw9IecJRIXVFjeyV4onSTZBESJN
+	 cjc5hG8Md/8JsngAy7Tvvrb8EZ0hl6DamGwhZxVxBaZ7hhqUKtSVqAsp8ua/8eB4SN9AN
+	 PRFKkJpovTduU1OdnZv87HIDDhhCpbz3LueJxx2Jr3VJecTK7XWLOtYbtmGqQ4V3ZBlz/
+	 zZSENs8kRHBvyhxFm9PkVh/hj8z8ZK9kap43nbxONegUtRqEkQ2Lr03qWEFLQJkbHWZHT
+	 i9sdSrVqG7Bz8raNMOk+udMWzYAlyVpgdsWGY3fKy3cReEYjAP1pyErOqiihmmHNB8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793539337;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=geaEcMEl+ei9wD9S1s+3XncmzaUwEsl7gr6NPS3NXfE=;
-	b=iMDmGMOX2eYDsyPQAgzJMy5kbc283/k7wswtWJbLy+G8VlbcVD/ADNRArnNLtzqWvEn3
-	 jVJwyE7daeJsU8El5cZ7c5uJN0uEBu5KGTvwDADKpq/292l1sdBTZ7TQtzVWT+z1KaC5U
-	 aCbY3aEO7ExGwckQgMARv3/sSKe0SENEuRZ9VMJwgTeeD7BiYuexqjThLFCSWEAoFY3Gk
-	 FVbzlVM99zEQfVcMGrEjPCGA79QWZfAsLUmolpE/mXfp6aPLNMLfPElQ+ew+p8N46fMhK
-	 xr+sWZX+zSabfaC/wdwQ1YpJA0+N5QjIYVxG9Ng/UbI8pTEOAL38H5DCc0qkrzp3Ytg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793539455;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=LxDX9PzbtJZKyZGuacihFDO/9p8vV6pNspzhtvTNV8o=;
+	b=y0MbFfSqFACeph/wb1qNdJZ/U6pQDQL/nczIrDAzxEbMjo516iALiKxCyvSRQebb8thW
+	 s55QYGT/4X+XKqw1/J2f/lUdgnIq6RkR0WaeHVupb0X6hp0szg6ALlksurbWo/nOmIu2k
+	 PypdzoPiRUL6cQs947aCtaFZ1GVWpAZGU4CkVtlvLbkXbwz0qtebTEsa79vRuHiAO1PEL
+	 QSBppuvap/SEbAgc4ir1LijelYyapH/9Jurd1y0zbqL3UgC49KC0oKw+bgXHhFDy70poO
+	 k4wJpe4LdpZtTQ5hfbbocw48ZGn0Y6gtR0GN77A0qJoMWy+YE6jT2aSxeNmTBdawwgw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cVrvuxww;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=korea.ac.kr;
+	spf=pass smtp.mailfrom=korea.ac.kr;
+	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ClHRboxS;
+	arc=none smtp.remote-ip=209.85.128.170
+Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228C7606A324;
-	Sun,  1 Nov 2026 13:22:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E43606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:24:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14E43606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=cVrvuxww
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 276FE1F000C1;
-	Sun,  1 Nov 2026 13:22:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793539336;
-	bh=geaEcMEl+ei9wD9S1s+3XncmzaUwEsl7gr6NPS3NXfE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cVrvuxww8pnRK8W8x2t2hHp3nWnOObG7ci5vh7APplcjlzy9fqeTywZQJf+Xmu24J
-	 XFRDFRwlcj5L1TgovuM5MJ/rsQAK9Y/dkxsQPRsq3lCJ1yoKJjTldceJSuvSdkxzgn
-	 e37XNI70rypRxMH116kaNz3AUqiNODedec8pJk8Q=
-Date: Sun, 1 Nov 2026 14:22:10 +0100
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, pavel@nabladev.com,
-	f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
-	conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
-	achill@achill.org, sr@sladewatkins.com, linux-tegra@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
-Message-ID: <2026110101-carnivore-harsh-fe38@gregkh>
-References: <20261029073135.159947193@linuxfoundation.org>
- <b85e0697-d669-4b14-859f-52ee295264e4@rnnvmail201.nvidia.com>
- <80816b31-948c-45a8-9f98-4cc55f5bd530@nvidia.com>
- <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
+	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=ClHRboxS
+Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-8b2d149b483so3245237b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:24:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=korea.ac.kr; s=google; t=1793539452; x=1794144252; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LxDX9PzbtJZKyZGuacihFDO/9p8vV6pNspzhtvTNV8o=;
+        b=ClHRboxSUwvo/QXyIGSiQSdWR0vTAmxV0+69T7rAv9c7YDVRHV0ACu3tY+4mjOBwKp
+         Ve5v3MNJEdSzCBccwe6SOkYR8KnEnj3uJ9vIf+4NF3FUQQqOOvg+6b/en98HytGodHZd
+         mi0o0CKDZqUcNaYgghikBJNATc7A/XQj+ePsq1nVWYlm7CbP4qu1Evcowl3GO4l1OnRw
+         O5mZYHoH5c+tY/a1PXst4jw0zM+Y/Ey7gUwdUO/3IaI6DkN8hcKxXnO0bHo/GeKrW8MX
+         qwonO9NILbYTNe/bxS2N2UkJxtnvcOsrZ1KwVKQfBY8bG4zwgmbpbux213k6mQPYAmFS
+         s2uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793539452; x=1794144252;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LxDX9PzbtJZKyZGuacihFDO/9p8vV6pNspzhtvTNV8o=;
+        b=W4oJUo38YG+mPXQPQ3PrKNAcJ55TdUkgJJxi1zzgCZO4kmBiRrVBRMFabQwen/Ttts
+         8qY5UsvkycU9MJP+3zws6/HCwEA+egmdm4ycXrVfImd3Eef6Rumv3FKnNoV4mVQPEwCC
+         ZkJRoo74YoJdapXYqBRZGBNBBuQM5q7PcxP5VrQ+okFcEzIj5LA2cDsC0XwIAVQkDdVe
+         TRtljivvmCNWmlPlf1scOFfAyZyCeP/5dHTzbiab+M97JfNTIZXi1rzq5RY+xH/tu2AH
+         3MncoEexneR3oATxUVJMjveVI1GH/BWv3uT9o54TwLxAEDZ52pPWSMINJnP0QPq3iHjV
+         G2jw==
+X-Forwarded-Encrypted: i=1; AKwUvBxu+mWdxxbXlv+xcU8fH+amfum4EuMj/DPRIhdm2edLRrx2SKQskhxRLebkqGmP0+34pTT+ZWYVGkfQA7o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9a9DGtwSfMR9kkoJ9/Fb5UFIgdcxkFmRKePsOhufdawYQxW/J
+	+vCOS3Ohme+tU4TCsfV2oj+uKrHWz6g8wXQa1DRV63sb1DNzMyidx07BvKrcfxggNA==
+X-Gm-Gg: AYBFou0YPRDs/4NOpw+IioIzKOkS1pingSh/NCDWhaZtEwOcF9oLMC0ZLl+Eyq/wv+L
+	41QYXigJDts3JhGKDR2u8ary4gMg9QeyXfS6IU/HhGkzi6e2zEoxa7jEGvViXI6Sj4VObZhvMmi
+	1Rm+KvJGBOTzSoBBIXUfXx4S4pCMbp7XlWA7Ru5F88d1J4HnU0xhjv1MREDDRnEnCEGNaW/SjNK
+	iaxydF5gz/WjMGzXzT5wFPCUrCuEZvG5Zuc0jdg6nPmHj2NMVkp2gn8wQ4uDnUidNv29P3EQYqM
+	VbCNRfGM0EBgcnLsCopurBqQSIKF3trmqHsKF8+JsteeHnvx3VXDhXUrFg5HyBSBgXvh3twOIuf
+	bJoxtbTJPbvHB+TitkYAA5dHw21/HhxswcvKJpJH1uAiYbT5SOX2SCqGU1Eb2Xymdb+ZTP9q6RE
+	je6ZCC1+8Fte72bwMJ1fmyJyGaYGdI7Rv16LgYTy+EOaUf+4G1dDcPeW6rdYNE4PpLvlKGxkuC4
+	olmyC6BItbK4CYpfbtdbwTkrG6BuvydYuEVP/MB2szWd/3OAvmeJE0z4R9WJcX0hexSl8QvUwh+
+	RkdKGunK8Rn4zElH
+X-Received: by 2002:a05:690c:c4e5:b0:8b0:8b34:ede3 with SMTP id 00721157ae682-8b2b6594f0cmr48287597b3.3.1793539451749;
+        Sun, 01 Nov 2026 05:24:11 -0800 (PST)
+Received: from s2lab05.. ([163.152.163.130])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b704e62esm36685267b3.3.2026.11.01.05.24.08
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 05:24:10 -0800 (PST)
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: Alex Deucher <alexander.deucher@amd.com>,
+	Kenneth Feng <kenneth.feng@amd.com>
+Cc: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Ingyu Jang <ingyujang25@korea.ac.kr>
+Subject: [PATCH v2] drm/amd/pm: remove dead code in smu7_patch_dependency_tables_with_leakage()
+Date: Sun,  1 Nov 2026 22:24:05 +0900
+Message-Id: <20261101132405.1387745-1-ingyujang25@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260114163807.2525868-1-ingyujang25@korea.ac.kr>
+References: <20260114163807.2525868-1-ingyujang25@korea.ac.kr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,69 +103,239 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 02:41:43PM +0000, Jon Hunter wrote:
-> Hi Greg,
-> 
-> On 31/10/2026 09:26, Jon Hunter wrote:
-> 
-> ...
-> 
-> > On 31/10/2026 09:24, Jon Hunter wrote:
-> >> On Thu, 29 Oct 2026 08:33:04 +0100, Greg Kroah-Hartman wrote:
-> >>> This is the start of the stable review cycle for the 6.1.191 release.
-> >>> There are 1879 patches in this series, all will be posted as a response
-> >>> to this one.  If anyone has any issues with these being applied, please
-> >>> let me know.
-> >>>
-> >>> Responses should be made by Sat, 31 Oct 2026 07:28:30 +0000.
-> >>> Anything received after that time might be too late.
-> >>>
-> >>> The whole patch series can be found in one patch at:
-> >>> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.1.191-rc2.gz
-> >>> or in the git tree and branch at:
-> >>> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.1.y
-> >>> and the diffstat can be found below.
-> >>>
-> >>> thanks,
-> >>>
-> >>> greg k-h
-> >>
-> >> Failures detected for Tegra ...
-> >>
-> >> Test results for stable-v6.1:
-> >>     builds:	9 pass, 0 fail
-> >>     boots:	28 pass, 4 fail
-> >>     tests:	83 pass, 7 fail
-> >>
-> >> Linux version:	6.1.191-rc2-g3b00df762ebc
-> >> Boards tested:	tegra20-ventana
-> >>                 tegra30-cardhu-a04
-> >>                 tegra124-jetson-tk1
-> >>                 tegra210-p2371-2180
-> >>                 tegra210-p3450-0000
-> >>                 tegra186-p2771-0000
-> >>                 tegra186-p3509-0000+p3636-0001
-> >>                 tegra194-p2972-0000
-> >>                 tegra194-p3509-0000+p3668-0000
-> >>
-> >> Boot failures:	tegra186-p2771-0000, tegra186-p3509-0000+p3636-0001,
-> >>                 tegra194-p2972-0000, tegra194-p3509-0000+p3668-0000
-> >>
-> >> Test failures:	tegra124-jetson-tk1: pm-system-suspend.sh
-> >>                 tegra20-ventana: pm-system-suspend.sh
-> >>                 tegra30-cardhu-a04: pm-system-suspend.sh
-> > I am looking into the above boot and suspend issues and will let you
-> > know what I find.
-> 
-> Bisecting is pointing to the below commit and reverting it fixes
-> the above issues ...
-> 
-> # first bad commit: [26c5e136ba4e94ad708333c9bd34039a1de397b0] net: stmmac: protect updates of 64-bit statistics counters
+The smu7_patch_*() helpers called in this function only call the void
+smu7_patch_ppt_v0_with_vdd_leakage() and always return 0, so the error
+checks on their return values can never be true.
 
-Thanks, I've reverted that one now.
+Make the helpers and smu7_patch_dependency_tables_with_leakage() return
+void, and remove the dead checks.
 
-greg k-h
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+---
+Changes in v2:
+- Make the smu7_patch_*() helpers and
+  smu7_patch_dependency_tables_with_leakage() return void, as suggested
+  by Alex Deucher.
+- Rebase onto current mainline.
+
+Link to v1: https://lore.kernel.org/all/20260114163807.2525868-1-ingyujang25@korea.ac.kr/
+
+ .../drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c   | 117 +++++-------------
+ 1 file changed, 30 insertions(+), 87 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+index bdf1e489369e6..dafe25b1efb65 100644
+--- a/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
++++ b/drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+@@ -2672,8 +2672,8 @@ static void smu7_patch_ppt_v0_with_vdd_leakage(struct pp_hwmgr *hwmgr,
+ }
+ 
+ 
+-static int smu7_patch_vddc(struct pp_hwmgr *hwmgr,
+-			      struct phm_clock_voltage_dependency_table *tab)
++static void smu7_patch_vddc(struct pp_hwmgr *hwmgr,
++			    struct phm_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2682,12 +2682,10 @@ static int smu7_patch_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 						&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_vddci(struct pp_hwmgr *hwmgr,
+-			       struct phm_clock_voltage_dependency_table *tab)
++static void smu7_patch_vddci(struct pp_hwmgr *hwmgr,
++			     struct phm_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2696,12 +2694,10 @@ static int smu7_patch_vddci(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddci_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_vce_clock_voltage_dependency_table *tab)
++static void smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
++				struct phm_vce_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2710,13 +2706,11 @@ static int smu7_patch_vce_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+ 
+-static int smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_uvd_clock_voltage_dependency_table *tab)
++static void smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
++				struct phm_uvd_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2725,12 +2719,10 @@ static int smu7_patch_uvd_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
+-					 struct phm_phase_shedding_limits_table *tab)
++static void smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
++				       struct phm_phase_shedding_limits_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2739,12 +2731,10 @@ static int smu7_patch_vddc_shed_limit(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].Voltage,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
+-				   struct phm_samu_clock_voltage_dependency_table *tab)
++static void smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
++				 struct phm_samu_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2753,12 +2743,10 @@ static int smu7_patch_samu_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 							&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_acp_clock_voltage_dependency_table *tab)
++static void smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
++				struct phm_acp_clock_voltage_dependency_table *tab)
+ {
+ 	uint16_t i;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2767,12 +2755,10 @@ static int smu7_patch_acp_vddc(struct pp_hwmgr *hwmgr,
+ 		for (i = 0; i < tab->count; i++)
+ 			smu7_patch_ppt_v0_with_vdd_leakage(hwmgr, &tab->entries[i].v,
+ 					&data->vddc_leakage);
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
+-				  struct phm_clock_and_voltage_limits *tab)
++static void smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
++				   struct phm_clock_and_voltage_limits *tab)
+ {
+ 	uint32_t vddc, vddci;
+ 	struct smu7_hwmgr *data = (struct smu7_hwmgr *)(hwmgr->backend);
+@@ -2787,11 +2773,9 @@ static int smu7_patch_limits_vddc(struct pp_hwmgr *hwmgr,
+ 						   &data->vddci_leakage);
+ 		tab->vddci = vddci;
+ 	}
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_table *tab)
++static void smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_table *tab)
+ {
+ 	uint32_t i;
+ 	uint32_t vddc;
+@@ -2804,63 +2788,22 @@ static int smu7_patch_cac_vddc(struct pp_hwmgr *hwmgr, struct phm_cac_leakage_ta
+ 			tab->entries[i].Vddc = (uint16_t)vddc;
+ 		}
+ 	}
+-
+-	return 0;
+ }
+ 
+-static int smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hwmgr)
++static void smu7_patch_dependency_tables_with_leakage(struct pp_hwmgr *hwmgr)
+ {
+-	int tmp;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_display_clock);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dependency_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_shed_limits_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_ac);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_dc);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	tmp = smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
+-	if (tmp)
+-		return -EINVAL;
+-
+-	return 0;
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_sclk);
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_mclk);
++	smu7_patch_vddci(hwmgr, hwmgr->dyn_state.vddci_dependency_on_mclk);
++	smu7_patch_vddc(hwmgr, hwmgr->dyn_state.vddc_dependency_on_display_clock);
++	smu7_patch_vce_vddc(hwmgr, hwmgr->dyn_state.vce_clock_voltage_dependency_table);
++	smu7_patch_uvd_vddc(hwmgr, hwmgr->dyn_state.uvd_clock_voltage_dependency_table);
++	smu7_patch_samu_vddc(hwmgr, hwmgr->dyn_state.samu_clock_voltage_dependency_table);
++	smu7_patch_acp_vddc(hwmgr, hwmgr->dyn_state.acp_clock_voltage_dependency_table);
++	smu7_patch_vddc_shed_limit(hwmgr, hwmgr->dyn_state.vddc_phase_shed_limits_table);
++	smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_ac);
++	smu7_patch_limits_vddc(hwmgr, &hwmgr->dyn_state.max_clock_voltage_on_dc);
++	smu7_patch_cac_vddc(hwmgr, hwmgr->dyn_state.cac_leakage_table);
+ }
+ 
+ 
+-- 
+2.34.1
+
