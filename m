@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576522;
-	b=rYmqDhjM7xcsntw800QnNOiZRWkf4AEfYNeITm65LvxNgXiFAPzd5kES+2Egz2q0UInR
-	 vqy7Plj9WaEoLB5hhrKdEqEWK/M+b6bsAwsCWM0wEjql+VElTTkXG5Cg68bxTzWMTl/kQ
-	 Yt4HPmH7kpKKicJvhpl6eA0Pr0zAS+Q6jXd/cwoDNqKJT5dWUE/fiHL9KNMhYn4f2u04m
-	 lw8vlYLSO/bx+6j4JCTKAk+4XZt/8jZyWtfWRyMxDChHG/X5Vx0KWvOsuVcXaPQ6OJiZD
-	 oziGGMdBbTslFthkVeZH1og+Q3popdK9KTq9IY1c0b3GTdKNBnZJFjzfttNT3TeyIyA==
+	t=1793576683;
+	b=rQXkHv59Xich+aJ3VurX8BX5CfiJh3vCDzuTNMx3wccYEq/p7ctyGQVHSKGYnzDuxxzT
+	 Kj4sbVs3Mi5YRBgQQdkIB/JwoRs89gKaVejPNRKAehMPIfbE+Nze3JlrQtXL4f7f3qSGj
+	 /nYvHbf7lvpSoDK1U3l5J24IAG7/x+FgrLG1ZbsizjFmLvIU+m/6ZSgGGkovI7EPZLKsX
+	 eiuV5W0r3PbAqEzOJsloIXrzY+T90COTBDCHPKEoDMLTNx/6uIW5ikC8sXlac4phnUx5z
+	 D+f91HkXAbvJeg3XvXWqZmueMO6EW/TzFc8hcynSGXWE53oW7wfHL2rY6UMORrvhX8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576522;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793576683;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
+	 References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=C1+SIWfzCXJB1MpMylXxaOBo3TNVuyiUO/P1v/2SLdM=;
-	b=SpNL3RyU3Es3V6iGmN6RHO2pGSs7ylESp8373hOPsZ46uIK/ipwYaH2vPjgeVaFHRaaG
-	 0xyNj49UTpTCZ55lnCtiXsyddRBJiy7/xbz4DCDJkLlJvlvyLoFwtPtrxjw6z+x7HjX8d
-	 T92vZlI+5bhJ8ezf9iPQ54P06uNzowANzBUrk5KDKO1KBfXtQEPoOMjukiZh2O6S4JjM+
-	 K1qg/KHWZ1KF9NTIrRmZPjtGzpnvao42GRLfiXCNd7ssIvLRqACppH1zQGUz8Eqt1VcXp
-	 ZyhoT8Z6s6vVXanJZ+7X5Fqf+pFlrs+6Mo/Ja+Q9puFC8IOyiiwH2XuQnltS+ONK3kA==
+	bh=cmCKtuKWGdM8HNfbRfJhwyASQenO/GwuxXairf/0/u0=;
+	b=TJd7qHc3VhOV3h2G0yxuiywg/k/fXhPLOgx/BVH6AS8CmeDl1YQWLvUuv8Gkf7ACqMO/
+	 lSt5TGb3ZnZCfFl+g6hhReRVE82rf/gf8WlJAKCBTkARMqD0uBQRVJzQBdMPqVkhrlO28
+	 mE+6jIlJhc6HfeC7EW4wgj4wa/pLlGXv7vIaMyjeYXPKN/ng/UJ1vGiUvFaUcUVuB9sgF
+	 87qiUchV3RlMOB17KSijlbsVTmjoeM71PdX8VRsYXFOtqfJ8F0F4cLaTaKZYtpyheM5pi
+	 T/Wg3DCbAng9Td9AnIhnwj9xH1J8KJMohS8ktf52kXjvJ/62n/SrWvh20mTG6Bm7wwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=layalina.io;
-	spf=pass smtp.mailfrom=layalina.io;
-	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Q3H9j9je;
-	arc=none smtp.remote-ip=209.85.128.51
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EInoisVf;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB208606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:42:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB208606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F72606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:44:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F72606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Q3H9j9je
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so18074615e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:42:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EInoisVf
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso24884905e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:44:43 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793576520; x=1794181320; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793576682; x=1794181482; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=C1+SIWfzCXJB1MpMylXxaOBo3TNVuyiUO/P1v/2SLdM=;
-        b=Q3H9j9je1yPbLIVWbR880iwsnG0sVK+LP+AG+6AcdXeCy/kNy93HvwQGA8xsO8q8PT
-         6PfQ7fV4r4qvnOmvAVYI4T3uKape+t24nLMcZYhDg8MiRnQYChDoD2Q2B+ibs7ydle6g
-         DhP0OET5DSiNBHJgx6ngNZ/XGMgi6QqMfXis3hccLK7sOMAn4UalF9Oi06pBAekIUyF8
-         gEX0dUCS/KwiRu6LurM++zqZ2fN4mDu4IzD0ThtWxtPsm08QzLB74Cy4s8f27fb9omoh
-         KB0mgahtcjhoUMbgR7cjcWwZK9KMv1b4G1OELNKhGYpfSfmqiKYoW8psMo6RM1r6CntK
-         0ArA==
+        bh=cmCKtuKWGdM8HNfbRfJhwyASQenO/GwuxXairf/0/u0=;
+        b=EInoisVfS8QOSy4pIAtt5rCQ5V+jvEcqXQAGTVtQcnJDFoJhs87zb4rjsgSCJaR1VP
+         1StuJCPt/GYzXCyAZlBH4EPaUAMnrJSR9UdprLHYTCyy9tP5qTumL9dCtv/zcrl1MXGz
+         IauFjc7OQhgEH5bK/zDdQJnJljB6jRfCp1SGqBKovHGBvuUtu8/PFwJ0jeqIdvA/CxM4
+         dq3kvtbwTKctdLaFUxwLDs/lAc8tucD2AoLsyP8p4fVQl2im4Q3Ux2wRTvEAPO0BS1pG
+         uiNgrIVlxNGWE8x9DnPN9U95Uac+CLg6O39tY82UA8i6yBHhA9aFqEKSzDwdnzREW4cd
+         sBWA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793576520; x=1794181320;
+        d=1e100.net; s=20260707; t=1793576682; x=1794181482;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=C1+SIWfzCXJB1MpMylXxaOBo3TNVuyiUO/P1v/2SLdM=;
-        b=1RVvSHtze+O2xj89lnXVekCYj6L4eNa2RZQ0MJs4m+QwCRF9TLhRFlUuDT15iIDZV6
-         riR5csT56rAeIoeRe+0un/6ZVTucevCcR9giHhVXJ40Mlikn6+aHkobacZBay4luQ2Jh
-         xzTdP4UakKUkytiKIRGcu4F9c+oLzHbqgkKMM/7ajKQVSM12gcVGknVXz8iE0F4OhV71
-         cQ/i9FnS/odXOGfpjxrJrYCLdzPfAMpmqpu91dpKTOonWZ9CgkmRbAUWt4QSHy6dWNSs
-         OKK8aNd9mQZvBUA6eoDQvId4ZrXZQ9NCIjebCzjzzqVLPb0lxoRGpvxqsjxMpqlmn2c8
-         owmA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrN4gY46WEsRbMT9WUZEOWfjTT0riEckGyyDs0/FmJN6ANZt7eHP/K2CfjVpqBhMJhCmo/Qf9lRESO3SU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKgi9GXpP3qQgjsUZIkeRGm6YqaQFuYiT+BOvfO8SWTmKfu/PtQ
-	BXoSDthp9JF5W5e1EF7MGORAVsThwTJJVqazjvuKJ9MgUTI3lLM3zRz/AIS6hZn/pIAc5fGjzap
-	o9HGvoiM=
-X-Gm-Gg: AYBFou1jkh5yuRI92gNoJyzVHwzKtW8JYCZpFcqxlK64FY2i4fhooRGEfAoCor8Fr6y
-	MhX4b1VwQBNfHqVaWugOmqXZfyVhXth87YDGuFXGueSJHEtMKHuyoiO9z6sDirFUCy2II3N8dEz
-	kfEVL8aUXHM5eVVmihLYtQCjvUHXguC0jnWbcqDM7mVzHtVBfgz6OcFDALuRqAXfM7wy16GWW1f
-	9spRNWq7C+2EGLQIfHsYL7OjfRrA4LyOP2gaNwEgcBPFAE1aZ75v9ZcDv7xXn5fQvP9+XFIJX0e
-	GKDZMoBD9lNdSIP0dyn1ENINgEQzcsZDQxjv/qbG7yaY4TMcyeCWgh7Vg+pJPDGrjREzShCalMq
-	eOQKjAJRa5qbjDhXeEmYvhkZsNRpSXL1390lvJ24uzmFSGarMHbNxqJ1p9uwgcKTojkLx3mCY85
-	qBIgQGpWvqDxEYCRKf0G+cGXnmOCxmjRjk1VhZtiHcmy+Q1PjJ/h4EAf2C/b6hcj2txkLSedrB5
-	EijTP3SG7o8MHifuTFyzFFRKV8tAkdP4GQyN8wHdrn7EqP3WR7zBOgm010N4qO/vvygzANkU3Z0
-	zwOU5bMuXUNCymTvq0BCA5XQ/+zXwuWHjZBSC5BVa9YlR3LjO8BrawGp/YjKvw3MDzsbVg7Y7vO
-	dJyIl6gGgu5/Wjql9ko8uBIrLA4WCEoPJX8I=
-X-Received: by 2002:a05:600c:c171:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-4ad739eb30fmr119552675e9.20.1793576520276;
-        Sun, 01 Nov 2026 15:42:00 -0800 (PST)
-Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm193425745e9.4.2026.11.01.15.41.59
+         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cmCKtuKWGdM8HNfbRfJhwyASQenO/GwuxXairf/0/u0=;
+        b=M2kvg5GdcoSdlUgW+m/jSCo1WmahC1bAfxlVxh3QE/CQ4AfcGTzFMH/ekxkWCNNjub
+         jy8km2um+q6aFg/IVrzc2bAewNxPHr2EDdI7rFR6cq7/YeF9NVK/x97HKJdBUZEkXIEn
+         XJuilcAR57OG2mxDyBItnY32J3wpCS/Y8XDtS+cyXPGm3cc3UKlK+Lp3katgoEYjhYb7
+         M+HZI5VnLzTU2AKDu7aMsoRC01kT6z1iHZ9zJrekDjM85uTgu8UyDXek+p/XZvhh7xxT
+         IyFR47QnxMowRZl42cPWpy9CvU5YJMW7+4v1bS35SGdoG9VqMW1fMjKt5YvFcIA2mqqg
+         53Ag==
+X-Forwarded-Encrypted: i=1; AKwUvBzviCggPJ+QEzJP0m7/yGfk0CAM0SlgTbxYOK5oAqEXzz9J5iuNzrFldQ9cVdPt7YsVReKnG7QZezyIF90=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+aZtT52kn2DVcP+M/9WEKEO6BuasBIE3HTmT9F+GHZ1wnGg1Fv
+	TBACybGh3W5Zr03rubIbgg4i6lXTOOR666wZPRIoDMzjZaVYBDAAN3nO
+X-Gm-Gg: AYBFou1W2vxQ1zTwP4lN7lqwIs/PYGTksdVSvISr7sAWPcvDREukt1IEy//hSkaOdaQ
+	CbjMo8lAU0+XW2qcRWmd5gEr1Y//ZzUnQ26+CZp/zhk5RecLTbVH9EEYsH7/PgqbSeKtFvKwVK8
+	2YDKLhWKPLwrPQ+GatHdBtpcmJGaNU9bW0M4rD9kD/DHQrCBsB/uDz+lAjRRolxnByEXBUq5j/L
+	hzIR+NRMLHSU8J+x9AIamSRMcKJjkuJc2IJAEWZeL0yhC9IHCVlIAPyttMfN60V/skuwCEwdAlN
+	4j6s/V8fBtDUwOkhMH7CWJt26Tk3aDYKqysmjQBfaoHqx0In5CXb5ORB68htVCraLahzy5Ejew0
+	L9uau2QpppbUR3psLFX8uz3hxomLgPobm5qWWOwBjAERMSf4CsoKAfYJXlCcrW+YLEPcunlDogq
+	TWteOmMXOzG2xHYFooVYlTSiwlaSHENwRv3vadVW7p8cdRQ/hyPpRlTGLuADLeCSeRbP1Wm945v
+	RF8AXspSE411Karqnz/ed9bSEXX8r3o8jDRea1TJ2C4e12yol/kB53eO+fk7KBTXIHdS1309yVs
+	F00M/Qt/hniMytEDVbsyL0lrsgz7lPsB2F917DxJKrP41JeoQTSg1Gff1Pi6I6+MRJts2X7fUcJ
+	cl/tFcGqV8Bugqnw1dmCY
+X-Received: by 2002:a05:6000:25ee:b0:48e:84b:e83e with SMTP id ffacd0b85a97d-48e6e2bce33mr17685080f8f.1.1793576681677;
+        Sun, 01 Nov 2026 15:44:41 -0800 (PST)
+Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bab1a8sm16553351f8f.57.2026.11.01.15.44.40
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 15:41:59 -0800 (PST)
-Message-ID: <67c159d6-5e19-4873-aadd-e536a12ec3c4@layalina.io>
-Date: Sun, 1 Nov 2026 23:41:58 +0000
+        Sun, 01 Nov 2026 15:44:41 -0800 (PST)
+Sender: Julian Braha <julian.braha@gmail.com>
+Message-ID: <9c21c5f5-355e-4520-b48e-acd355c7fc6d@gmail.com>
+Date: Sun, 1 Nov 2026 23:44:39 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,28 +95,89 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/2] sched/uclamp: Use wrappers instead of open coding
- UCLAMP_FLAG_IDLE
-To: Kayra Cizmeci <kayracizmeci@gmail.com>
-Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Christian Loehle <christian.loehle@arm.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
- linux-kernel@vger.kernel.org
-References: <20261029131354.11030-1-qyousef@layalina.io>
- <20261029131354.11030-3-qyousef@layalina.io>
- <auSuIMloNE_R2T8z@scheduler.schedules>
+Subject: Re: Speed up KConfig - fix hashtable confusion
+To: Linus Torvalds <torvalds@linux-foundation.org>,
+ Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
+ Lorenzo Stoakes <ljs@kernel.org>
+Cc: Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <CAHk-=wi_GuySe0L-uCAM2+nScCLYGBp5BLi6UUPR1gALmNM_3w@mail.gmail.com>
 Content-Language: en-US
-From: Qais Yousef <qyousef@layalina.io>
-In-Reply-To: <auSuIMloNE_R2T8z@scheduler.schedules>
+From: Julian Braha <julianbraha@gmail.com>
+In-Reply-To: <CAHk-=wi_GuySe0L-uCAM2+nScCLYGBp5BLi6UUPR1gALmNM_3w@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/30/26 14:57, Kayra Cizmeci wrote:
+On 11/1/26 20:08, Linus Torvalds wrote:
+> So the Kconfig 'expr_lookup()' function is criminally slow and takes
+> over 10% of the time of "make oldconfig".
 
-> Looks good to me.
+My own pet peeve is the occasional slowdowns in menuconfig search...
 > 
+> The reason is that it's called just a lot, but it *really* doesn't
+> help that the scripting versions of the hashtable functions has not
+> understood the subtler issues of the hashing code that it took from
+> the kernel side, and in the process got things very very wrong.
 > 
-> Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
-Thanks for taking a look!
+> The "hash_32()" function is a perfectly fine hashing function - there
+> are better ones around, but it's fast and "good enough". But when you
+> use it, you need to understand that it puts the significant bits in
+> the *high* bits of the result.
+> 
+> The kernel uses a model where you give it the number of bits you want,
+> and it will pick out those high bits, which makes it all work right.
+> 
+> But the simplified hashtable code for the host code didn't use those
+> high bits of the key. It just did
+> 
+>     (key) % HASH_SIZE(table)
+> 
+> to pick the hash table entry, and that's basically pessimal. When
+> hashing an address that typically has the low bits clear, the low bits
+> of "hash_32()" will *also* be clear. So the hash table ended up being
+> mostly empty! So even though the hash table was sized appropriately,
+> it wasn't being very efficient. And while making the hash table larger
+> mostly hides the problem, it's the wrong solution, because the cache
+> footprint gets worse.
+> 
+> Teach "hash_head()" to use the high bits of the key. Because the users
+> don't pass in the number of bits they want, this is pretty hacky:
+> 
+>     #define HASH_KEY(key,size) \
+>         (unsigned int)((unsigned int)(key)/(0x100000000ull/(size)))
+> 
+> but at least this improves on things.
+
+It would be a bigger change but IMO the host-side implementation should
+not differ much from the kernel's -- like the rest of the data
+structures in scripts/include/. In other words I'd prefer to revert some
+of the "simplifications" that caused this and adjust the callers
+accordingly.
+
+Nathan or Nicolas, do you feel differently? This is also used by some
+other tooling outside Kconfig. If not then I'll send out my version.
+
+> 
+> I also stopped the expr_lookup() key generation from using XOR of two
+> pointers, which I suspect just ended up clearing most of the shared
+> bits. I doubt that makes a difference, but XOR of thigns that may have
+> shared bits really isn't great.
+> 
+> The cost of 'expr_lookup()' drops by a about factor of four on my
+> machine, and it's no longer the hottest function in all of 'make
+> oldconfig'.
+> 
+> No, "make oldconfig" still isn't the fastest thing around, but at
+> least this removes on particularly stupid reason for it being slower
+> than it needs to be.
+> 
+> Somebody needs to double-check this. I don't love my HASH_KEY() macro,
+> but it should work for power-of-2 sizes. And as far as I can tell, all
+> the hash tables are powers of two.
+> 
+> Comments?
+
+Thanks for diagnosing this, Linus
+
+- Julian Braha
+
