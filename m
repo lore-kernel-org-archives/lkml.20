@@ -1,104 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.29.242.92
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793520589;
-	b=bGea0lR3MSV+XnGopOi6rAmAwee77Pm3Y6pVgUSRjhjZ90YDLq6Q22se5nKscPjhVG0A
-	 7HT0Olar4RlTh/yGdnHOppWX0GQ+uAWoOLf5S2pVhH5e9XdJz6PjgCxPvGqtyymENWviY
-	 kqg4msMeADSSP6AxO5ueXmrm9sy6ZjUmBoAIWIpEMthKYH66QMC9ITxWBKpCZ7tNRrYuZ
-	 v5tA0ObVBtJAF5v5oXjXXf4m2CZTqQ9K6b4tR2dxyIzdqKY/we5XfjI99q7cNR0RSF5vn
-	 IpCwJWOwsrZchKhbnrG0jTqP4FxB2clIHpJdDrquHADsnzNHvHSMMnYHoS3HW1HurEA==
+	t=1793520859;
+	b=KbEBUmNodmV1auAP1bv9jtb/SoXQBV/yl8fn8PCgkwCDH8szPnRnH0vc1mC4eIi6V+lI
+	 doFupjfKOWRk0zzMfmMprGQX6VfagjpfiHLZf9hCjKve2Nvpqd045gTw+DqspLtTReeHI
+	 kJXaRRMKt6+vohreckAP1TAY1LVeo3ygVujFf/CSc5Y7NWjS4Wv2HbKfKuOR39IhYaaer
+	 Q92GhPS3s9kem3rZQ0HB/Fe1/MyDPvF8YqMyUv6mJa5RpynR6AaCjl5j+uqOXj1FKaza4
+	 UG5ynSZxrmODaqk9gaL/ieYCeJLD+HzbupmVIJcV/Fx//XA/iRQVMA3KwxsriMmi39g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793520589;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793520859;
+	h=DMARC-Filter:Received:X-Spam-Checker-Version:X-Spam-Level:
+	 X-Spam-Status:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=XWOKTFFVxS0A5ofKInpigKUflYTnFU8Lbq0QpvU93GE=;
-	b=wWUR6Fap6jHNU300JiNFme2be0f9LRHKiZlzm+xbEIrz81BSqh4pa7CdMqztwY8IcijN
-	 5OFOgZZ5hgfzOHx8dBkTvG2nZQ5YRY7STz5c1zS79v3rEsCwvS4Rl/h8upSTs/mf04zrl
-	 Tb1JjIUOIOXO/t/YfaI3KFNgLDP9Yk6Z+DQJDW4H8ePooJGlKMSKljObDh2m9euLYziVj
-	 yNsknaRzMIDM2qR1PO0+4EFvePs/PYh+9uvOjnLmZl3KVenYFHtT1SK98jPtg4n1Rwj7b
-	 w7au8OcGO+fXHaktOcTrdNN8PCc/GyNRKLaZGnCBb6kCoJVZZT+O+cM9AyWmTcybU9g==
+	bh=bjg2r5iqyY0/sXs9xkreviJRMjuIW7sXlMmbMKcCgKI=;
+	b=XoRRdz6qkVzAZJwTzWN+pER7EcK0p9x3qw4Kmuu61sRG63fSt6mNrB6txMEJOfry0qco
+	 flpMqvKCwHHyNILqcdxkTQd+PmPqQH7SBEtHYz23QfZxu2SHm8tRaE7wiDNZK2hUPEx5y
+	 t+LIHc46/zZJLlBEq0+NnkyNkVMBEBrBCCOD1LR6MKkzozCwXVFX8Pr9X5dO4p02hZvaZ
+	 fQsNx12IvOhJ5WKXu+QMod6khUyIasP7AWBo7Q6q35wPw7Gbq7Irxlz0vPKRiuYtuMUi7
+	 ZnJfYkdpHifJLy7yKuEyBs6wGR7gVYsS6en7fkFK8fj7LETevmqFTe+0nIqApZv/x1A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VzUWM04W;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=davidgow.net;
+	spf=pass smtp.mailfrom=davidgow.net;
+	arc=none smtp.remote-ip=203.29.242.92
+Received: from sphereful.davidgow.net (sphereful.davidgow.net [203.29.242.92])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15B4A606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:09:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 15B4A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VzUWM04W
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a18fc7a38so2756819eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:09:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793520588; x=1794125388; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XWOKTFFVxS0A5ofKInpigKUflYTnFU8Lbq0QpvU93GE=;
-        b=VzUWM04W9dh6HotCNJivQl+GQ/Ub5iMlUT+9i60mUUQNlg6AiXKJBAQXvsziY4c4Tq
-         wa0uAKO9W2JD7XpR4mPT9V906eYqYhf54eyYHUfLqpvjOtgOnZJiH8/28obcIf0a8b3U
-         wJulmvpYPwNYTwLy19fqIA55sejEoO9ZIiHbnJk/MNVu7u+nHe4x0UpYKXpbvAcyM1z5
-         IYim4SYKoiMTLO8gtabT2X6ThXdcgYzHYwCaa4j61hFPshQHonWQaSYOwrgH5RWI/Js+
-         jhlaVAHFsDae8N23WALPpwPrrJe86/7KVb/uMfwlDxkKiUA6s7NctalQe5KWUmLJNWLZ
-         43Aw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793520588; x=1794125388;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XWOKTFFVxS0A5ofKInpigKUflYTnFU8Lbq0QpvU93GE=;
-        b=gW7ZHG8i9nbF3jWSseCD7Zc6Z6SeRyl9HcYZfeOIGamVXSVYTgE5+68V1etvjSYnlu
-         UDLzIL6fOuBGL06xUZdoANO+IhDLQ/gXOTGG23hAMCai+gv92iF9Tnw4IQbxnhcPm3Q8
-         NGftKWKiitJ9z/KyKT69KkrCVUgPXnNznY9XvfZopw6FGz2xnAnOmxVmoIazjCgEDE7+
-         Dn4Xj7NPinUFuPVlt7j3IIT+0q8oNC1BzF8uyVCHb+FlzOZRqlbsrTVr6eIlFD2D+3jR
-         juopbi+I4fnNf6d8I97nK4qHcSV4ShQx4waS72pWyyVsI73Y8Tr04CoZSpHtZrEWqd2Q
-         HXKA==
-X-Forwarded-Encrypted: i=1; AKwUvBzKywmV2KglhMucNDldghRKpxJMfVhvIKMpSWxE5jkGp+/PZu9nR44bj52Fz9sYX/GAILfOHW32RymZ4Pk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/cU0gm6Ta8IuRJ92PXbsnC/7qPwXoBkHn40HG8IOzZFw1c3HiS
-	vEsGj4yagSw+N4+uMpoJTZoG36NApqlf5+1Y/t0vGmLGyufeFPWWztg6
-X-Gm-Gg: AYBFou3xLALbmuktOCTsBHeXpv2tePI+ZqzMHJfmml0taTFcYr9oi4LqThYWKLGzOft
-	9198kemZdujfdlwiNFKtB0Ob27YG6DOiUpHCOMuhvTm7qr+j1XH8o3Qn0v22fu3gnQ4i5FN1uh1
-	DsCbX/XVghUsFWvt3ax6z9Is4d9QaWToyHGFf11rZzBuMK3zoA9NS2ScdxYybbey7N6sWiowkUe
-	4aosPNE73XFbg7aQKqPPR1MdU7qqcdxIRYLUi2niNecBQ/nGlg7ZblwM78BBbiPZKF9H/0IZ2os
-	eK2nOGHkrdG+MjFAQ+85kvYpWF5D/w3CtXzeLKl19uK6qycyXPHW4sR0HgkwSdRvwlDby6eoYEw
-	WohUw3yNoTP6kwzytdf5KGmP5KpsYSqXEmOTldMwSbCXvMQINulLvAsxqPeQxpEns15vvruOvhT
-	RyTCtholw5iw8sqEh7EvH5OJhZtjnVmkQaV1O8tqeuqwoWGiw2SK6+ubc6VJKufKJQmsSJwkco2
-	c/3awdzvZd6jcf53cg9Sh/GPQVt49SJFfienRWp9n9aYlAucMaOA7Z9IdKzhnHQ31q+MB3LA26f
-	pXSuro/KIbcGWmUrPjNYrAZ8L+ArpCpAoQowPIWyMO/ZQ8rtE6oMeMaOrIZRDg==
-X-Received: by 2002:a05:7300:f78b:b0:36a:43d:8ef7 with SMTP id 5a478bee46e88-36a423a2da5mr9888263eec.18.1793520587976;
-        Sun, 01 Nov 2026 01:09:47 -0700 (PDT)
-Received: from arch.localdomain ([152.175.67.103])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42aa8999sm27611719eec.29.2026.11.01.01.09.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 01:09:47 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Heiko Stuebner <heiko@sntech.de>
-Cc: linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	jerrysteve1101@gmail.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org
-Subject: [PATCH v3 2/2] ASoC: codecs: add support for Everest ES7202 PDM ADC
-Date: Sun,  1 Nov 2026 16:09:26 +0800
-Message-ID: <20261101080926.267041-3-jerrysteve1101@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3483C606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:14:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3483C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=davidgow.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=davidgow.net
+Received: by sphereful.davidgow.net (Postfix, from userid 119)
+	id 2C09E200A46; Sun,  1 Nov 2026 16:14:10 +0800 (AWST)
+X-Spam-Level: 
+Received: from shelley.lan (unknown [IPv6:2001:8003:8802:7000::41b])
+	by sphereful.davidgow.net (Postfix) with ESMTPSA id 2AE6A200A3D;
+	Sun,  1 Nov 2026 16:14:06 +0800 (AWST)
+From: David Gow <david@davidgow.net>
+To: Jim Cromie <jim.cromie@gmail.com>,
+	"Maciej W . Rozycki" <macro@orcam.me.uk>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Arun Pravin <arunpravin.paneerselvam@amd.com>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>
+Cc: David Gow <david@davidgow.net>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4] drm_buddy: Fix power-of-two rounding errors
+Date: Sun,  1 Nov 2026 16:11:19 +0800
+Message-ID: <20261101081121.3273967-2-david@davidgow.net>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261101080926.267041-1-jerrysteve1101@gmail.com>
-References: <20261101080926.267041-1-jerrysteve1101@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,593 +63,218 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the Everest ES7202, a 2-channel PDM analog-to-digital
-converter controlled over I2C. The device outputs PDM data to the SoC
-PDM controller and is configured through registers for supply voltage,
-analog front-end and per-channel PGA gain.
+The standard roundup_pow_of_two() and rounddown_pow_of_two() macros use
+unsigned long internally, which on 32-bit architectures (such as i386 and
+arm32) is only 32-bit. Similarly, is_power_of_2() operates on an unsigned
+long.
 
-Based on the Rockchip BSP driver[1] by Binyuan Lan <lby@rock-chips.com>
-(committed by Tao Huang <huangtao@rock-chips.com>), originally written
-by David Yang <yangxiaohua@everest-semi.com>.
+drm_test_buddy_alloc_exceeds_max_order() uses these on a u64 value,
+where they silently truncate the 10GB allocation, causing the KUnit tests
+to fail:
+[17:49:27]     # gpu_test_buddy_alloc_exceeds_max_order: EXPECTATION FAILED at drivers/gpu/tests/gpu_buddy_test.c:1540
+[17:49:27]     Expected err == -22, but
+[17:49:27]         err == 0 (0x0)
+[17:49:27]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:973: gpu_buddy_assert(gpu_buddy_block_is_free(mm->roots[i]))
+[17:49:27]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:978: gpu_buddy_assert(mm->avail == mm->size)
+[17:49:27]     # gpu_test_buddy_alloc_exceeds_max_order: drivers/gpu/buddy.c:981: gpu_buddy_assert(!mm->used_scoreboard[i])
+[17:49:27] # gpu_buddy: pass:13 fail:1 skip:0 total:14
 
-[1] https://github.com/rockchip-linux/kernel/blob/develop-6.1/sound/soc/codecs/es7202.c
+Ultimately, the correct fix here is to make the various power-of-two
+functions handle u64 better, but since this is a large treewide change,
+provide u64-specific helpers for the buddy allocator, and use these.
 
-Link: https://archive.org/details/es-7202-ds
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+Also update the page count ('pages') to be a u64 instead of an unsigned
+long, in case this overflows on 32-bit systems. This doesn't actually
+trigger the test failure -- and it's very unlikely a 32-bit system will
+have enough VRAM to need that many pages -- but it's still theoretically
+possible.
+
+Fixes: 14d1b9a6247c ("drm/i915: buddy allocator")
+Co-developed-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: Jim Cromie <jim.cromie@gmail.com>
+Signed-off-by: David Gow <david@davidgow.net>
 ---
- sound/soc/codecs/Kconfig  |  11 ++
- sound/soc/codecs/Makefile |   2 +
- sound/soc/codecs/es7202.c | 373 ++++++++++++++++++++++++++++++++++++++
- sound/soc/codecs/es7202.h | 131 +++++++++++++
- 4 files changed, 517 insertions(+)
- create mode 100644 sound/soc/codecs/es7202.c
- create mode 100644 sound/soc/codecs/es7202.h
 
-diff --git a/sound/soc/codecs/Kconfig b/sound/soc/codecs/Kconfig
-index ba59dabeeccd..40ccdef10e24 100644
---- a/sound/soc/codecs/Kconfig
-+++ b/sound/soc/codecs/Kconfig
-@@ -126,6 +126,7 @@ config SND_SOC_ALL_CODECS
- 	imply SND_SOC_ES9039Q2M
- 	imply SND_SOC_ES9356
- 	imply SND_SOC_ES7134
-+	imply SND_SOC_ES7202
- 	imply SND_SOC_ES7241
- 	imply SND_SOC_FRAMER
- 	imply SND_SOC_FS210X
-@@ -1274,6 +1275,16 @@ config SND_SOC_HDMI_CODEC
- config SND_SOC_ES7134
- 	tristate "Everest Semi ES7134 CODEC"
+This began as a rebase of patch 39 of v12 of this series:
+https://lore.kernel.org/all/20260326185413.1205870-40-jim.cromie@gmail.com/
+previously sent out as v3:
+https://lore.kernel.org/all/20260913084907.520877-2-david@davidgow.net/
+
+However, it's had basically a complete rewrite:
+- The Fixes tag has been updated to point to the original introduction of
+  the buddy allocator. I don't expect this to actually get backported,
+  but that was the commit that introduced the various power_of_two uses.
+- Instead of open-coding the round{up,down}_pow_of_two implementations,
+  we provide our own copies of the functions, adjusted for _u64 support.
+  These will be replaced with a tree-wide implementation in a follow-up.
+  (Thanks, Dave!)
+- The calls to is_power_of_2 are similarly replaced. While these didn't
+  cause the test to fail, they're similarly wrong on 32-bit systems.
+- The 'page' counts are moved from unsigned long to u64, and code is
+  updated accordingly. I think it's incredibly unlikely that we're going
+  to see GPUs with enough memory for more than 2^32 _pages_ on a 32-bit
+  system, but I can't see any reason it shouldn't theoretically work.
+  Let me know if this is a terrible idea, and I'll revert it in the next
+  version.
+
+The test failures can be reproduced with:
+./tools/testing/kunit/kunit.py run --arch i386 gpu_drm_buddy
+
+(or with any other 32-bit arch. For 32-bit UML, use --arch um --kconfig_add CONFIG_64BIT=n)
+
+Cheers,
+-- David
+
+
+---
+ drivers/gpu/buddy.c | 55 ++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 42 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/buddy.c b/drivers/gpu/buddy.c
+index 503f7d5934e4..98764ee786d7 100644
+--- a/drivers/gpu/buddy.c
++++ b/drivers/gpu/buddy.c
+@@ -36,6 +36,35 @@
+ #define gpu_buddy_assert(condition) WARN_ON(!(condition))
+ #endif
  
-+config SND_SOC_ES7202
-+	tristate "Everest Semi ES7202 CODEC"
-+	depends on I2C
-+	select REGMAP_I2C
-+	help
-+	  Enable support for the Everest Semiconductor ES7202, a 2-channel
-+	  PDM analog-to-digital converter controlled over I2C. The device
-+	  outputs PDM data to a SoC PDM controller and is configured through
-+	  registers for supply voltage, analog front-end and PGA gain.
++/**
++ * Implementations of pow_of_2 functions targeting u64:
++ *
++ * The various pow_of_2 functions in log2.h work on longs, which are 32-bit on
++ * 32-bit systems. Since the GPU address space is 64-bit even on systems with
++ * a 32-bit CPU, this causes needless truncation. Work is underway to improve
++ * the general implementations to support 64-bit types on 32-bit systems, but
++ * in the meantime, we implement our own here.
++ */
 +
- config SND_SOC_ES7241
- 	tristate "Everest Semi ES7241 CODEC"
++static __always_inline __attribute_const__
++bool is_power_of_2_u64(u64 n)
++{
++	return n - 1 < (n ^ (n - 1));
++}
++
++static inline __attribute_const__
++u64 roundup_pow_of_two_u64(u64 n)
++{
++	return 1ULL << fls64(n - 1);
++}
++
++static inline __attribute_const__
++u64 rounddown_pow_of_two_u64(u64 n)
++{
++	return 1ULL << (fls64(n) - 1);
++}
++
++
+ static struct kmem_cache *slab_blocks;
+ static struct kmem_cache *slab_extents;
  
-diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 3826f9e4fce8..2a56fad9073a 100644
---- a/sound/soc/codecs/Makefile
-+++ b/sound/soc/codecs/Makefile
-@@ -129,6 +129,7 @@ snd-soc-da732x-y := da732x.o
- snd-soc-da9055-y := da9055.o
- snd-soc-dmic-y := dmic.o
- snd-soc-es7134-y := es7134.o
-+snd-soc-es7202-y := es7202.o
- snd-soc-es7241-y := es7241.o
- snd-soc-es83xx-dsm-common-y := es83xx-dsm-common.o
- snd-soc-es8311-y := es8311.o
-@@ -577,6 +578,7 @@ obj-$(CONFIG_SND_SOC_DA732X)	+= snd-soc-da732x.o
- obj-$(CONFIG_SND_SOC_DA9055)	+= snd-soc-da9055.o
- obj-$(CONFIG_SND_SOC_DMIC)	+= snd-soc-dmic.o
- obj-$(CONFIG_SND_SOC_ES7134)	+= snd-soc-es7134.o
-+obj-$(CONFIG_SND_SOC_ES7202)	+= snd-soc-es7202.o
- obj-$(CONFIG_SND_SOC_ES7241)	+= snd-soc-es7241.o
- obj-$(CONFIG_SND_SOC_ES83XX_DSM_COMMON)    += snd-soc-es83xx-dsm-common.o
- obj-$(CONFIG_SND_SOC_ES8311)    += snd-soc-es8311.o
-diff --git a/sound/soc/codecs/es7202.c b/sound/soc/codecs/es7202.c
-new file mode 100644
-index 000000000000..b652916b4458
---- /dev/null
-+++ b/sound/soc/codecs/es7202.c
-@@ -0,0 +1,373 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+// Copyright (C) 2020 Everest Semiconductor Co Ltd.,
-+// Copyright (C) 2026 Jun Yan <jerrysteve1101@gmail.com>
-+
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <sound/pcm.h>
-+#include <sound/soc.h>
-+#include <sound/soc-dapm.h>
-+#include <sound/tlv.h>
-+#include "es7202.h"
-+
-+/*
-+ * The main supply voltage selects the analog front-end configuration:
-+ * below this threshold the device is configured for 1.8 V, otherwise 3.3 V.
-+ */
-+#define ES7202_SUPPLY_1V8_MAX_UV	1980000
-+#define ES7202_SUPPLY_3V3_DEFAULT_UV	3300000
-+
-+struct es7202_priv {
-+	struct regmap *regmap;
-+	struct regulator *supply;
-+	struct gpio_desc *reset_gpio;
-+	unsigned int supply_uv;
-+};
-+
-+static bool es7202_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case ES7202_RESET:
-+	case ES7202_CHIP_STA:
-+		return true;
-+	default:
-+		return false;
-+	}
-+}
-+
-+static bool es7202_writeable_reg(struct device *dev, unsigned int reg)
-+{
-+	switch (reg) {
-+	case ES7202_DEV_ID1:
-+	case ES7202_DEV_ID0:
-+		return false;
-+	default:
-+		return true;
-+	}
-+}
-+
-+static const struct reg_default es7202_reg_defaults[] = {
-+	{ ES7202_RESET,		0x10 },
-+	{ ES7202_SOFT_MODE,	0x00 },
-+	{ ES7202_CLK_DIV,	0x04 },
-+	{ ES7202_CLK_EN,	0x00 },
-+	{ ES7202_T1_VMID,	0x01 },
-+	{ ES7202_T2_VMID,	0x18 },
-+	{ ES7202_PDM_INF_CTL,	0x30 },
-+	{ ES7202_MISC_CTL,	0x02 },
-+	{ ES7202_ANALOG_EN,	0xff },
-+	{ ES7202_BIAS_VMID,	0x0c },
-+	{ ES7202_PGA1_BIAS,	0x55 },
-+	{ ES7202_PGA2_BIAS,	0x55 },
-+	{ ES7202_MOD1_BIAS,	0x8c },
-+	{ ES7202_MOD2_BIAS,	0x33 },
-+	{ ES7202_VREFP_BIAS,	0x33 },
-+	{ ES7202_VMMOD_BIAS,	0x33 },
-+	{ ES7202_MODS_BIAS,	0x44 },
-+	{ ES7202_ANALOG_LP1,	0x00 },
-+	{ ES7202_ANALOG_LP2,	0x00 },
-+	{ ES7202_ANALOG_MISC1,	0x00 },
-+	{ ES7202_ANALOG_MISC2,	0xf8 },
-+	{ ES7202_PGA1,		0x18 },
-+	{ ES7202_PGA2,		0x18 },
-+};
-+
-+static const struct regmap_config es7202_regmap = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.use_single_read = true,
-+	.use_single_write = true,
-+	.max_register = ES7202_DEV_ID0,
-+	.reg_defaults = es7202_reg_defaults,
-+	.num_reg_defaults = ARRAY_SIZE(es7202_reg_defaults),
-+	.writeable_reg = es7202_writeable_reg,
-+	.volatile_reg = es7202_volatile_reg,
-+	.cache_type = REGCACHE_MAPLE,
-+};
-+
-+/*
-+ * PGA gain per the datasheet: code 0 is 0 dB, codes 1..10 step +3 dB from
-+ * 2.25 dB, and codes 11 and 12 are 30.75 dB and 32.25 dB respectively.  As
-+ * the steps are not uniform, a linear TLV (the vendor driver's
-+ * DECLARE_TLV_DB_SCALE(mic_boost_tlv, 0, 300, 0)) would misreport the gain,
-+ * so use a piecewise range matching the datasheet instead.
-+ */
-+static const DECLARE_TLV_DB_RANGE(mic_boost_tlv,
-+	0, 0, TLV_DB_SCALE_ITEM(0, 0, 0),
-+	1, 10, TLV_DB_SCALE_ITEM(225, 300, 0),
-+	11, 11, TLV_DB_SCALE_ITEM(3075, 0, 0),
-+	12, 12, TLV_DB_SCALE_ITEM(3225, 0, 0),
-+);
-+
-+static const struct snd_kcontrol_new es7202_controls[] = {
-+	SOC_SINGLE_TLV("PGA1 Capture Volume", ES7202_PGA1, 0, 0x0c, 0,
-+		       mic_boost_tlv),
-+	SOC_SINGLE_TLV("PGA2 Capture Volume", ES7202_PGA2, 0, 0x0c, 0,
-+		       mic_boost_tlv),
-+};
-+
-+static const struct snd_soc_dapm_widget es7202_dapm_widgets[] = {
-+	SND_SOC_DAPM_INPUT("MIC1"),
-+	SND_SOC_DAPM_INPUT("MIC2"),
-+	SND_SOC_DAPM_ADC("ADC", "Capture", SND_SOC_NOPM, 0, 0),
-+};
-+
-+static const struct snd_soc_dapm_route es7202_dapm_routes[] = {
-+	{ "ADC", NULL, "MIC1" },
-+	{ "ADC", NULL, "MIC2" },
-+};
-+
-+static int es7202_mute_pdm(struct es7202_priv *es7202, bool mute)
-+{
-+	return regmap_update_bits(es7202->regmap, ES7202_PDM_INF_CTL,
-+				  ES7202_PDM_INF_CTL_MUTE,
-+				  mute ? ES7202_PDM_INF_CTL_MUTE : 0);
-+}
-+
-+static int es7202_hw_init(struct es7202_priv *es7202)
-+{
-+	struct regmap *regmap = es7202->regmap;
-+	bool is_1v8 = es7202->supply_uv > 0 &&
-+		      es7202->supply_uv <= ES7202_SUPPLY_1V8_MAX_UV;
-+	/*
-+	 * Power-up sequence from the vendor driver.
-+	 * The analog front-end is configured for the actual supply voltage
-+	 * (1.8 V vs 3.3 V) and the analog blocks are ramped out of
-+	 * power-down in stages.
-+	 */
-+	const struct reg_sequence init_seq[] = {
-+		{ ES7202_SOFT_MODE,	ES7202_MODE_SOFT_MODE_SEL },
-+		{ ES7202_ANALOG_MISC1,	ES7202_ANALOG_MISC1_OFFSETSEL1 |
-+					(is_1v8 ? 0 : ES7202_ANALOG_MISC1_SUPPLYSEL) },
-+
-+		/* analog on, rest powered down */
-+		{ ES7202_ANALOG_EN,	ES7202_ANALOG_EN_PDN_ADCVREFGEN |
-+					ES7202_ANALOG_EN_MODTOP1_RST |
-+					ES7202_ANALOG_EN_MODTOP2_RST |
-+					ES7202_ANALOG_EN_PDN_MOD1 |
-+					ES7202_ANALOG_EN_PDN_MOD2 |
-+					ES7202_ANALOG_EN_PDN_PGA1 |
-+					ES7202_ANALOG_EN_PDN_PGA2 },
-+
-+		{ ES7202_BIAS_VMID,	FIELD_PREP(ES7202_BIAS_ADCBIAS_SWH1, 3) |
-+					ES7202_BIAS_ENDITHER |
-+					FIELD_PREP(ES7202_BIAS_VMIDSEL, 3) },
-+
-+		/* VREFGEN on; 3.3 V also drops MODTOP reset */
-+		{ ES7202_ANALOG_EN,	is_1v8 ?
-+					(ES7202_ANALOG_EN_MODTOP1_RST |
-+					 ES7202_ANALOG_EN_MODTOP2_RST |
-+					 ES7202_ANALOG_EN_PDN_MOD1 |
-+					 ES7202_ANALOG_EN_PDN_MOD2 |
-+					 ES7202_ANALOG_EN_PDN_PGA1 |
-+					 ES7202_ANALOG_EN_PDN_PGA2) :
-+					(ES7202_ANALOG_EN_PDN_MOD1 |
-+					 ES7202_ANALOG_EN_PDN_MOD2 |
-+					 ES7202_ANALOG_EN_PDN_PGA1 |
-+					 ES7202_ANALOG_EN_PDN_PGA2) },
-+
-+		{ ES7202_ANALOG_EN,	0 },
-+		{ ES7202_MOD1_BIAS,	FIELD_PREP(ES7202_MOD1_BIAS_SW0, 5) |
-+					FIELD_PREP(ES7202_MOD1_BIAS_SW1, 8) },
-+		{ ES7202_CLK_DIV,	FIELD_PREP(ES7202_CLK_DIV_MCLK_DIV, 1) },
-+		{ ES7202_T2_VMID,	0x01 },
-+		{ ES7202_MISC_CTL,	ES7202_MISC_DSM_DITHER_ON },
-+		{ ES7202_RESET,		ES7202_RESET_CSM_ON },
-+		{ ES7202_CLK_EN,	ES7202_CLK_ANA_CLK_ON | ES7202_CLK_MCLK_ON },
-+		{ ES7202_BIAS_VMID,	FIELD_PREP(ES7202_BIAS_ADCBIAS_SWH1, 3) |
-+					ES7202_BIAS_ENDITHER |
-+					FIELD_PREP(ES7202_BIAS_VMIDSEL, 2) },
-+
-+		/* keep the PDM outputs muted until a capture stream starts */
-+		{ ES7202_PDM_INF_CTL,	ES7202_PDM_NEG_DATA_VALID |
-+					ES7202_PDM_POS_DATA_VALID |
-+					ES7202_PDM_INF_CTL_MUTE },
-+	};
-+	return regmap_multi_reg_write(regmap, init_seq, ARRAY_SIZE(init_seq));
-+}
-+
-+static int es7202_mute_stream(struct snd_soc_dai *dai, int mute, int stream)
-+{
-+	struct snd_soc_component *component = dai->component;
-+	struct es7202_priv *es7202 = snd_soc_component_get_drvdata(component);
-+
-+	if (stream == SNDRV_PCM_STREAM_PLAYBACK)
-+		return 0;
-+
-+	return es7202_mute_pdm(es7202, mute);
-+}
-+
-+static const struct snd_soc_dai_ops es7202_dai_ops = {
-+	.mute_stream = es7202_mute_stream,
-+};
-+
-+static struct snd_soc_dai_driver es7202_dai = {
-+	.name = "es7202-hifi",
-+	.capture = {
-+		.stream_name	= "Capture",
-+		.channels_min	= 1,
-+		.channels_max	= 2,
-+		.rates		= SNDRV_PCM_RATE_8000_96000,
-+		.formats	= SNDRV_PCM_FMTBIT_S16_LE,
-+	},
-+	.ops = &es7202_dai_ops,
-+};
-+
-+static int es7202_suspend(struct snd_soc_component *component)
-+{
-+	struct es7202_priv *es7202 = snd_soc_component_get_drvdata(component);
-+
-+	return es7202_mute_pdm(es7202, true);
-+}
-+
-+static int es7202_resume(struct snd_soc_component *component)
-+{
-+	struct es7202_priv *es7202 = snd_soc_component_get_drvdata(component);
-+	int ret;
-+
-+	/* re-run the power-up sequence to bring the analog front-end back up */
-+	ret = es7202_hw_init(es7202);
-+	if (ret)
-+		return ret;
-+
-+	regcache_mark_dirty(es7202->regmap);
-+	return regcache_sync(es7202->regmap);
-+}
-+
-+static const struct snd_soc_component_driver es7202_component_driver = {
-+	.controls		= es7202_controls,
-+	.num_controls		= ARRAY_SIZE(es7202_controls),
-+	.dapm_widgets		= es7202_dapm_widgets,
-+	.num_dapm_widgets	= ARRAY_SIZE(es7202_dapm_widgets),
-+	.dapm_routes		= es7202_dapm_routes,
-+	.num_dapm_routes	= ARRAY_SIZE(es7202_dapm_routes),
-+	.suspend		= es7202_suspend,
-+	.resume			= es7202_resume,
-+	.idle_bias_on		= 1,
-+	.endianness		= 1,
-+};
-+
-+static void es7202_disable_supply(void *data)
-+{
-+	regulator_disable(data);
-+}
-+
-+static int es7202_i2c_probe(struct i2c_client *i2c)
-+{
-+	struct device *dev = &i2c->dev;
-+	struct es7202_priv *es7202;
-+	unsigned int id1, id0, device_id;
-+	int ret;
-+	int voltage;
-+
-+	es7202 = devm_kzalloc(dev, sizeof(*es7202), GFP_KERNEL);
-+	if (!es7202)
-+		return -ENOMEM;
-+
-+	i2c_set_clientdata(i2c, es7202);
-+
-+	es7202->regmap = devm_regmap_init_i2c(i2c, &es7202_regmap);
-+	if (IS_ERR(es7202->regmap))
-+		return dev_err_probe(dev, PTR_ERR(es7202->regmap),
-+				     "failed to init regmap\n");
-+
-+	es7202->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-+						     GPIOD_OUT_HIGH);
-+	if (IS_ERR(es7202->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(es7202->reset_gpio),
-+				     "failed to get reset gpio\n");
-+
-+	es7202->supply = devm_regulator_get(dev, "vdd");
-+	if (IS_ERR(es7202->supply))
-+		return dev_err_probe(dev, PTR_ERR(es7202->supply),
-+				     "failed to get supply\n");
-+
-+	ret = regulator_enable(es7202->supply);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to enable supply\n");
-+
-+	ret = devm_add_action_or_reset(dev, es7202_disable_supply, es7202->supply);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "failed to add supply disable action\n");
-+
-+	voltage = regulator_get_voltage(es7202->supply);
-+	if (voltage < 0)
-+		es7202->supply_uv = ES7202_SUPPLY_3V3_DEFAULT_UV;
-+	else
-+		es7202->supply_uv = voltage;
-+
-+	/* take the device out of reset */
-+	gpiod_set_value_cansleep(es7202->reset_gpio, 0);
-+	usleep_range(1000, 2000);
-+
-+	/* verify the chip is present by reading its device id */
-+	ret = regmap_read(es7202->regmap, ES7202_DEV_ID1, &id1);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to read device id\n");
-+	ret = regmap_read(es7202->regmap, ES7202_DEV_ID0, &id0);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to read device id\n");
-+
-+	device_id = (id1 << 8) | id0;
-+	if (device_id != ES7202_DEVICE_ID)
-+		return dev_err_probe(dev, -ENODEV,
-+				     "unexpected device id 0x%04x, expected 0x%04x\n",
-+				     device_id, ES7202_DEVICE_ID);
-+
-+	ret = es7202_hw_init(es7202);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init device\n");
-+
-+	return devm_snd_soc_register_component(dev, &es7202_component_driver,
-+					       &es7202_dai, 1);
-+}
-+
-+static void es7202_i2c_remove(struct i2c_client *i2c)
-+{
-+	struct es7202_priv *es7202 = i2c_get_clientdata(i2c);
-+
-+	es7202_mute_pdm(es7202, true);
-+}
-+
-+static void es7202_i2c_shutdown(struct i2c_client *i2c)
-+{
-+	struct es7202_priv *es7202 = i2c_get_clientdata(i2c);
-+
-+	es7202_mute_pdm(es7202, true);
-+}
-+
-+static const struct of_device_id es7202_of_match[] = {
-+	{ .compatible = "everest,es7202" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, es7202_of_match);
-+
-+static const struct i2c_device_id es7202_i2c_id[] = {
-+	{ "es7202" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, es7202_i2c_id);
-+
-+static struct i2c_driver es7202_i2c_driver = {
-+	.driver = {
-+		.name		= "es7202",
-+		.of_match_table	= es7202_of_match,
-+	},
-+	.probe		= es7202_i2c_probe,
-+	.remove		= es7202_i2c_remove,
-+	.shutdown	= es7202_i2c_shutdown,
-+	.id_table	= es7202_i2c_id,
-+};
-+module_i2c_driver(es7202_i2c_driver);
-+
-+MODULE_DESCRIPTION("Everest Semi ES7202 PDM ADC ALSA SoC Codec Driver");
-+MODULE_AUTHOR("David Yang <yangxiaohua@everest-semi.com>");
-+MODULE_AUTHOR("Jun Yan <jerrysteve1101@gmail.com>");
-+MODULE_LICENSE("GPL");
-diff --git a/sound/soc/codecs/es7202.h b/sound/soc/codecs/es7202.h
-new file mode 100644
-index 000000000000..f268722febcc
---- /dev/null
-+++ b/sound/soc/codecs/es7202.h
-@@ -0,0 +1,131 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (C) 2020 Everest Semiconductor Co Ltd.,
-+ * Copyright (C) 2026 Jun Yan <jerrysteve1101@gmail.com>
-+ */
-+
-+#ifndef _ES7202_H
-+#define _ES7202_H
-+
-+#include <linux/bits.h>
-+
-+/* Register addresses */
-+#define ES7202_RESET		0x00
-+#define ES7202_SOFT_MODE	0x01
-+#define ES7202_CLK_DIV		0x02
-+#define ES7202_CLK_EN		0x03
-+#define ES7202_T1_VMID		0x04
-+#define ES7202_T2_VMID		0x05
-+#define ES7202_CHIP_STA		0x06
-+#define ES7202_PDM_INF_CTL	0x07
-+#define ES7202_MISC_CTL		0x08
-+#define ES7202_ANALOG_EN	0x10
-+#define ES7202_BIAS_VMID	0x11
-+#define ES7202_PGA1_BIAS	0x12
-+#define ES7202_PGA2_BIAS	0x13
-+#define ES7202_MOD1_BIAS	0x14
-+#define ES7202_MOD2_BIAS	0x15
-+#define ES7202_VREFP_BIAS	0x16
-+#define ES7202_VMMOD_BIAS	0x17
-+#define ES7202_MODS_BIAS	0x18
-+#define ES7202_ANALOG_LP1	0x19
-+#define ES7202_ANALOG_LP2	0x1a
-+#define ES7202_ANALOG_MISC1	0x1b
-+#define ES7202_ANALOG_MISC2	0x1c
-+#define ES7202_PGA1		0x1d
-+#define ES7202_PGA2		0x1e
-+#define ES7202_DEV_ID1		0xfd
-+#define ES7202_DEV_ID0		0xfe
-+
-+#define ES7202_DEVICE_ID		0x7201
-+
-+#define ES7202_RESET_RST_REGS		BIT(5)
-+#define ES7202_RESET_RST_DIG		BIT(4)
-+#define ES7202_RESET_SEQ_DIS		BIT(1)
-+#define ES7202_RESET_CSM_ON		BIT(0)
-+
-+#define ES7202_MODE_SOFT_MODE_SEL	BIT(0)
-+
-+#define ES7202_CLK_DIV_MCLK_DIV		GENMASK(3, 0)	/* 0/1 = /16 ... 15 = /240 */
-+
-+#define ES7202_CLK_MCLK_INVERT		BIT(2)
-+#define ES7202_CLK_ANA_CLK_ON		BIT(1)
-+#define ES7202_CLK_MCLK_ON		BIT(0)
-+
-+#define ES7202_CHIP_STA_CSM_STATE	GENMASK(5, 4)
-+#define ES7202_CHIP_STA_FORCE_CSM	GENMASK(2, 0)
-+
-+#define ES7202_PDM_NEG_DATA_VALID	BIT(5)
-+#define ES7202_PDM_POS_DATA_VALID	BIT(4)
-+#define ES7202_PDM_CHN_CROSS		BIT(3)
-+#define ES7202_PDM_IF_DLY		BIT(2)
-+#define ES7202_PDM_DATA2_MUTE		BIT(1)
-+#define ES7202_PDM_DATA1_MUTE		BIT(0)
-+#define ES7202_PDM_INF_CTL_MUTE		(ES7202_PDM_DATA2_MUTE | \
-+					 ES7202_PDM_DATA1_MUTE)
-+
-+#define ES7202_MISC_CLKDET_RST_DIS	BIT(2)
-+#define ES7202_MISC_DSM_DITHER_ON	BIT(1)
-+#define ES7202_MISC_PDN_CLKDET		BIT(0)
-+
-+#define ES7202_ANALOG_EN_PDN_ANA	BIT(7)
-+#define ES7202_ANALOG_EN_PDN_ADCVREFGEN	BIT(6)
-+#define ES7202_ANALOG_EN_MODTOP1_RST	BIT(5)
-+#define ES7202_ANALOG_EN_MODTOP2_RST	BIT(4)
-+#define ES7202_ANALOG_EN_PDN_MOD1	BIT(3)
-+#define ES7202_ANALOG_EN_PDN_MOD2	BIT(2)
-+#define ES7202_ANALOG_EN_PDN_PGA1	BIT(1)
-+#define ES7202_ANALOG_EN_PDN_PGA2	BIT(0)
-+
-+#define ES7202_BIAS_ADCBIAS_SWH0	GENMASK(7, 6)
-+#define ES7202_BIAS_ENDITHER		BIT(5)
-+#define ES7202_BIAS_ADCBIAS_SWH1	GENMASK(3, 2)
-+#define ES7202_BIAS_VMIDSEL		GENMASK(1, 0)	/* 0 = off, 1 = 50k, 2 = 500k, 3 = 5k */
-+
-+/* bias levels 0x12-0x18 (SW0 for 1.8 V, SW1 for 3.3 V) */
-+#define ES7202_PGA1_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_PGA1_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_PGA2_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_PGA2_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_MOD1_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_MOD1_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_MOD2_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_MOD2_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_VREFP_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_VREFP_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_VMMOD_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_VMMOD_BIAS_SW1		GENMASK(3, 0)
-+#define ES7202_MODS_BIAS_SW0		GENMASK(7, 4)
-+#define ES7202_MODS_BIAS_SW1		GENMASK(3, 0)
-+
-+#define ES7202_LP1_LP_VRP		BIT(7)
-+#define ES7202_LP1_LP_VRPOUT		BIT(6)
-+#define ES7202_LP1_LP_VMMOD1		BIT(5)
-+#define ES7202_LP1_LP_VMMOD2		BIT(4)
-+#define ES7202_LP1_LP_MODS1		BIT(3)
-+#define ES7202_LP1_LP_MODS2		BIT(2)
-+#define ES7202_LP1_LP_MODI1		BIT(1)
-+#define ES7202_LP1_LP_MODI2		BIT(0)
-+
-+#define ES7202_LP2_LP_PGA1		BIT(5)
-+#define ES7202_LP2_LP_PGA2		BIT(4)
-+#define ES7202_LP2_PDN_DETCT		BIT(3)
-+
-+#define ES7202_ANALOG_MISC1_OFFSETSEL1	BIT(6)
-+#define ES7202_ANALOG_MISC1_OFFSETSEL0	BIT(5)
-+#define ES7202_ANALOG_MISC1_SUPPLYSEL	BIT(4)	/* 0 = 1.8 V, 1 = 3.3 V */
-+#define ES7202_ANALOG_MISC1_DITHERSEL	GENMASK(2, 0)
-+
-+#define ES7202_ANALOG_MISC2_VX2OFF_SW0	BIT(7)
-+#define ES7202_ANALOG_MISC2_VX1SEL_SW0	BIT(6)
-+#define ES7202_ANALOG_MISC2_VMIDLOW_SW0	GENMASK(5, 4)
-+#define ES7202_ANALOG_MISC2_VX2OFF_SW1	BIT(3)
-+#define ES7202_ANALOG_MISC2_VX1SEL_SW1	BIT(2)
-+#define ES7202_ANALOG_MISC2_VMIDLOW_SW1	GENMASK(1, 0)
-+
-+#define ES7202_PGA_SELMIC1		BIT(4)
-+#define ES7202_PGA_MIC1_GAIN		GENMASK(3, 0)
-+#define ES7202_PGA_SELMIC2		BIT(4)
-+#define ES7202_PGA_MIC2_GAIN		GENMASK(3, 0)
-+
-+#endif
+@@ -414,7 +443,7 @@ gpu_dirty_tracker_find(struct gpu_dirty_tracker *dirty_tracker,
+ 	struct gpu_dirty_extent *root_extent;
+ 	struct rb_node *parent;
+ 
+-	if (!min_size || !is_power_of_2(min_size))
++	if (!min_size || !is_power_of_2_u64(min_size))
+ 		return NULL;
+ 
+ 	if (!rb)
+@@ -864,7 +893,7 @@ int gpu_buddy_init(struct gpu_buddy *mm, u64 size, u64 chunk_size)
+ 	if (chunk_size < SZ_4K)
+ 		return -EINVAL;
+ 
+-	if (!is_power_of_2(chunk_size))
++	if (!is_power_of_2_u64(chunk_size))
+ 		return -EINVAL;
+ 
+ 	size = round_down(size, chunk_size);
+@@ -1465,7 +1494,7 @@ alloc_from_freetree(struct gpu_buddy *mm,
+ static bool
+ gpu_buddy_can_offset_align(u64 size, u64 min_block_size)
+ {
+-	return size < min_block_size && is_power_of_2(size);
++	return size < min_block_size && is_power_of_2_u64(size);
+ }
+ 
+ static bool gpu_buddy_subtree_can_satisfy(struct rb_node *node,
+@@ -1519,12 +1548,12 @@ gpu_buddy_offset_aligned_allocation(struct gpu_buddy *mm,
+ {
+ 	struct gpu_buddy_block *block = NULL;
+ 	unsigned int order, tmp, alignment;
+-	unsigned long pages;
++	u64 pages;
+ 	int err;
+ 
+ 	alignment = ilog2(min_block_size);
+ 	pages = size >> ilog2(mm->chunk_size);
+-	order = fls(pages) - 1;
++	order = fls64(pages) - 1;
+ 
+ 	/*
+ 	 * Offset-aligned allocation is a strict address-placement policy: the
+@@ -1708,14 +1737,14 @@ static int __alloc_contig_try_harder(struct gpu_buddy *mm,
+ 	struct gpu_buddy_block *block;
+ 	struct rb_root *root;
+ 	struct rb_node *iter;
+-	unsigned long pages;
++	u64 pages;
+ 	unsigned int order;
+ 	u64 modify_size;
+ 	int err;
+ 
+-	modify_size = rounddown_pow_of_two(size);
++	modify_size = rounddown_pow_of_two_u64(size);
+ 	pages = modify_size >> ilog2(mm->chunk_size);
+-	order = fls(pages) - 1;
++	order = fls64(pages) - 1;
+ 	if (order == 0)
+ 		return -ENOSPC;
+ 
+@@ -1970,7 +1999,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 	u64 original_size, original_min_size;
+ 	unsigned int min_order, order;
+ 	LIST_HEAD(allocated);
+-	unsigned long pages;
++	u64 pages;
+ 	int err;
+ 
+ 	gpu_buddy_driver_lock_held(mm);
+@@ -1981,7 +2010,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 	if (min_block_size < mm->chunk_size)
+ 		return -EINVAL;
+ 
+-	if (!is_power_of_2(min_block_size))
++	if (!is_power_of_2_u64(min_block_size))
+ 		return -EINVAL;
+ 
+ 	if (!IS_ALIGNED(start | end | size, mm->chunk_size))
+@@ -2006,7 +2035,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 
+ 	/* Roundup the size to power of 2 */
+ 	if (flags & GPU_BUDDY_CONTIGUOUS_ALLOCATION) {
+-		size = roundup_pow_of_two(size);
++		size = roundup_pow_of_two_u64(size);
+ 		min_block_size = size;
+ 		/*
+ 		 * Normalize the requested size to min_block_size for regular allocations.
+@@ -2017,7 +2046,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 	}
+ 
+ 	pages = size >> ilog2(mm->chunk_size);
+-	order = fls(pages) - 1;
++	order = fls64(pages) - 1;
+ 	min_order = ilog2(min_block_size) - ilog2(mm->chunk_size);
+ 
+ 	if (order > mm->max_order || size > mm->size) {
+@@ -2031,7 +2060,7 @@ int gpu_buddy_alloc_blocks(struct gpu_buddy *mm,
+ 	}
+ 
+ 	do {
+-		order = min(order, (unsigned int)fls(pages) - 1);
++		order = min(order, (unsigned int)fls64(pages) - 1);
+ 		BUG_ON(order > mm->max_order);
+ 		/*
+ 		 * Regular allocations must not allocate blocks smaller than min_block_size.
 -- 
 2.56.0
 
