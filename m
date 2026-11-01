@@ -1,89 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793492575;
-	b=vYch6ccDYUZSCYNqN2RUj6rvspNhbnmCl4uJ5HJoxcsFpM5JwbjZHibAFz7Uuq4TSUHF
-	 pbLjKbjTmj9S5yQioS+WlgUaM0Q0fkxVETILmRqjGad5kBW/gyXWNR4xXRd04av8HyUe5
-	 AyMimb34sBXgrvOStMUzxPyPHHes4blS+uHlLHvEPfYUn3qS4Q6VwSCQoRSEvEgLG+1PP
-	 YvcrMCIgIVeu6YFa8349IsqV3PK4PNWM69M3YiEz6avU8aGAZhZOR/4BgL8e3p2l21IhX
-	 F8/Lcwop1xfFcn3hBP2i8eT/zXXcSNHr1awsAX0Fnx50x91yalfVS/V1exKBtb+E+Rw==
+	t=1793492672;
+	b=gT20KA0ut9OExKiZ77qjcr6rf79+3lTSt75/5pnB/8AtnZbmRb/eRLS+/z7JWBWzDsiL
+	 eJ2t3c53w+DJ2mAJyknyGGetmXpnHDKHu5oSHbgq9YVSy45b4nkHXQZhbSqxziHaGacba
+	 DoT4qJpAUR/eDbA582AbU8oO0lqcIRE42MyA0PCu0UOr0iGYaaTuX9GgWvn1RYQuFMxPl
+	 i/udwaJu2q7493HzUV8h5ESl21hyUSWRTOPefkUeLO6BlbBS2W6GLkbmjSf6ps3RpyMj1
+	 88KEt8MewU+a1aHcPKBq1VIP/6FUvX9016CJE3E2ajB9oaQAI8G4cFzc5+xFopVjCYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793492575;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=iAN+RZ2zas5JcAoGByv9N9iIw6NxJqE3IMnDqczyNyA=;
-	b=c1u3xI9DHNGpuY4vtgOInrg6+KGUduhfDmFhNtfjErRndUVDzpdRv2iwbUb0Rl1KHfmS
-	 w/uDnGHtirEm4Y3MecexhadeR3CKPgkOA1KbJszrLBii48xCUFblnldWhop17+hBnsTW2
-	 KkDR2FHUilAgVaN1MLOZo8R1aSVFMWQepF4ufZo4mdVaJ7YYV3ujFkmha19cPfyMz7xoV
-	 yiGn0YB0krVrWi/m6qsfC/Q7ZUgdxb+k39rnphpahNRqZIvGR+6yvBd3yKHaC8y0K4IP0
-	 +RDNbt3pMgtsrlzDBmJVSVUWgqLxvsnENvNO+R1t4o/wzwbDozdD+4fLNkjjmJmH+QA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793492672;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=MH1M6eFfGW0Z+XwFusM64ori/whPIcIiOb6x6N6fzJI=;
+	b=3eNlOYYOJv8Uy/TyDmmZNMu7oiQrd2zDCM/HaRCkUahXfTcnnYZxEnzGC11kq60EgtfY
+	 WBwYpZr2/LBi46doAJTU3wH8gRNNTzTi5pw4Xcd9HMFpGPBNYC5qUQ+OL+VTxDh5I4Eag
+	 L0aWNyTLgEz92MEevvim917HgqMdBFOJ+Cl49opqb9jsHUmVG/xwTXROLjlTxKimyXRWw
+	 WhMDUva7sZBXUlz4H3oPZdo6M/P9tMVE2sfXs8JmMHiCkB4iR1evMKyMGz4mHsRA3Ubdv
+	 2C7mMuxvuMyRKASdC/DRB6iCvGlmcapTtRps4bUv3u6j27v8WpSa9wUk1Z7vR7vFHeA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRDT07mR;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4816606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 00:22:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E4816606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XRDT07mR
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49d05d51553so11125655e9.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:22:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793492573; x=1794097373; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iAN+RZ2zas5JcAoGByv9N9iIw6NxJqE3IMnDqczyNyA=;
-        b=XRDT07mRCG9RNIpM5bctTBceffAp3019d+hei9C7tnKJpaNPPxD/qr6t6M+SxfpduJ
-         rdywQZdXbPl7nkwiCaknejdW2ta/fJm05+r77hhCSqk4CSG6yShVVh4DVmXgm20rnJwQ
-         PQ8u8/tyB2TbLxiUatPFJVWVk39LHs6t4F8g9nPiqrl1ILGS8PqiQXeuDH4jcRBhBB/Q
-         x4+hwcnckUVse1dz71DaHql5Gs6smof4MF5w8h+lV/GgsIcvp+XU2+sl5Ji8pY18eIDl
-         PffQu2Bh4A8S6WA0rVhbADrj7gGiSe3NNNZrrPTKJao1/xFo9oeyilC6xr/6NvLuqcJL
-         vvJQ==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2F2606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 00:24:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F2F2606A31C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5640a2d9708so2750450b6e.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:24:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793492573; x=1794097373;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iAN+RZ2zas5JcAoGByv9N9iIw6NxJqE3IMnDqczyNyA=;
-        b=KRXvNdOyGDvjmjSwvbPks8BS56OTjPJHCsOTZDuMQP6ggSc2TJblPh4TVS5ny4CbqU
-         k4C37ZDoxw/Suw6VJMggvpmkH5kszY/wnQBBa2MquEeu0CDeoxoG9smgzB26BBAn4sJI
-         qkC0v6a2m+b2n+7onH0HGlLpbotjK1jlx5Is47PgZM3I59PD6uj9KQUOc+C1ajPe9scn
-         o81Cf4yYgykyqyS7MWwU8FQ0mRk4A1iIRSonKOD9jVvnT9h+19RGyBcTRdhJ35B/NTqU
-         YHrUNLb1ScuAzWVx5I8XD+tZO2591yHBZxDfMOCsh0JC9xT1VqtYsqBMvov2f5+fJiGi
-         neOg==
-X-Gm-Message-State: AFq9FYIK7cCHm1QmwT2sGJNVyVhm+QFGgMwo8IOjjsyCqzbLUy1ZzL4V
-	VxHtn+r6haQgfRJ+AXDfPCNjZ9wmMQjQPO60Jkfft9GsX1xfhQxcivRp
-X-Gm-Gg: AYBFou2Pqgmpu/Y9EC70Ee8bvMgx83WVHp58J6NyUOOKaMDnx4yg5mu2v1e759nZisX
-	YaX2ZtegnZrCl+8+e7Oqm3PVfn5637H6fdFEKSCPhN9tS8B+0Fn/mbtwut88hncHVn2J8ZdqvnF
-	P8YbDCWsquwqRaFJ8RXOdn0alz2P/HpiDUU+icAo+VrPP59yoTQdaQfK20WVw15d+UkjB5QN++X
-	9uO5jsM5zHiKT8T/5ouPvQTb/uaIJDdbzN7P8YsgoxcZLf0Np8hK/oFw3ikQOmEjdYd5F/nBglF
-	C2UX4SwynOWg7qEolF4gLC6tpqgkyJqoNe7k+O2TA+UzwLXIxC2MmwUEAd3hnvVUTKQSwh95mud
-	OLoa9le8abhpVJQB2LVvOkNAgtlPXT/X5hTdejiYWTi04rO82acn3/HdKWHe/47bGhiy3HO6y9Q
-	vd9VLHtXxda/8GDWe+TD7zzJxjTG4H9krPpf5y4x2R64C+N/6dJOKECTuDwqe7rjmvFCfVnqFcO
-	UBIbK2I6U5kXmX8nNe9O5gJvDSISwhiySywaaSrszkhPXZN6ELUFY8Uwp4Dd6D2w8kimTXFhAgj
-	mJl72yVTHtHrb4yIcKWGIeWkx/eJaqDGTi78uqhH7iTYzw==
-X-Received: by 2002:a05:600c:3b88:b0:4a1:cf60:dcc3 with SMTP id 5b1f17b1804b1-4ac187a6ffcmr147069015e9.29.1793492573258;
-        Sat, 31 Oct 2026 17:22:53 -0700 (PDT)
-Received: from infinity ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aab10sm159019305e9.9.2026.10.31.17.22.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 17:22:52 -0700 (PDT)
-From: koraynilay <koray.fra@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	ntfs3@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org,
-	koraynilay <koray.fra@gmail.com>
-Subject: [PATCH] ntfs3: set .getattr in ntfs_link_inode_operations
-Date: Sun,  1 Nov 2026 01:22:24 +0100
-Message-ID: <20261101002224.677245-1-koray.fra@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1793492671; x=1794097471;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MH1M6eFfGW0Z+XwFusM64ori/whPIcIiOb6x6N6fzJI=;
+        b=d1TskxOHXirXzbj0Vi36cTDqUjAjdaY0Ta5GhkOv1jeKPJh+VWEUHXAT+oIY/F8wrw
+         CS7AuBlimSR6soIYgQjz4p/K2qDih7VGHhwlvOIACKLT6civ5olYxFqv3l1+KNFxs3Zw
+         eJuZ6x74KxM1tg3SAbSBxZkdrEfV2fVjv/5W7LGas+IxvFoVlVaGwInRIILUXJeYGmtx
+         S7mkrDStGWbEVsMr5Dj3ceSjGZYkuHXp/WQ1ohDwqGSZjVCIYbhdmE3ayPQDv6WEOEds
+         raSQ3LmqtlzeY5YGgLxUbyK5viZy989CT4dfRVeWrCioMn2lXsB9tP6zwTwVQHay+Sv0
+         lByQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwvBtUQPtHtuINLUOE6fxMRxyaU7xljkH1Nnb7HZEAKUbJtkolwrHr2Wk8lGpDif5nUb4e11ULJOpOAMyQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhK5SUmUZJtfCxcq1MpkkVwaI8FpiWp885BAY4CHhRoABGfZot
+	B87mFYe3YbTk5fdMUEmcdHyQzcEa71YSNaT7OIiVaHGsBilfXUoGR6xajCHEr2/qAVlgle/chfH
+	N2a+p2BQRx8BWc14potMvu7xiEKkDim3PTw6xM8ZXcVhjgV02I7AELW5pohc=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,39 +58,129 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:88cb:b0:564:3fe1:2fad with SMTP id
+ 5614622812f47-5643fe14a80mr140828b6e.42.1793492671534; Sat, 31 Oct 2026
+ 17:24:31 -0700 (PDT)
+Date: Sat, 31 Oct 2026 17:24:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae686bf.64e51036.15cf6a.0004.GAE@google.com>
+Subject: [syzbot] [driver-core?] [fs?] kernel BUG in sysfs_break_active_protection
+From: syzbot <syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com>
+To: dakr@kernel.org, driver-core@lists.linux.dev, 
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-When running stat (or calling statx() with AT_SYMLINK_NOFOLLOW) on a
-symlink, ntfs3 doesn't report btime, cluster size or any other file
-attribute because it falls back to generic_fillattr() without populating
-those fields.
+Hello,
 
-Fix this by setting ntfs_link_inode_operations.getattr to
-ntfs_getattr().
+syzbot found the following issue on:
 
-Fixes: 82cae269cfa9530 ("fs/ntfs3: Add initialization of super block")
-Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
-Signed-off-by: koraynilay <koray.fra@gmail.com>
+HEAD commit:    7649ba73f9e7 Add linux-next specific files for 20261030
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=139805f1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=82467d52d846ff27
+dashboard link: https://syzkaller.appspot.com/bug?extid=dcad997ed2b5bd95cc5e
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10a82cb1580000
+
+AI-generated root cause summary:
+In md_attr_store(), writing "clear" to array_state invokes
+sysfs_break_active_protection() prior to acquiring all_mddevs_lock and
+validating the device via mddev_get(). Since sysfs writes only hold kernfs
+active references rather than a kobject reference, a concurrent deletion or
+teardown of the mddev can drop the final reference on mddev->kobj, reducing
+kobj->kref to zero before kernfs removal drains pending active accesses. Calling
+sysfs_break_active_protection() then executes kobject_get() on the zero-refcount
+object, triggering a refcount use-after-free saturation/BUG and potentially
+corrupting memory or crashing the kernel.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=dcad997ed2b5bd95cc5e
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com
+
+refcount_t: addition on 0; use-after-free.
+------------[ cut here ]------------
+kernel BUG at lib/refcount.c:34!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 1 UID: 0 PID: 6056 Comm: syz-executor398 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
+RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
+Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 e7 44 51 fd e9 5d ff ff ff e8 dd 23 da fc 48 c7 c7 e0 a3 8c 8c e8 a1 d1 38 fc 90 <0f> 0b e8 c9 23 da fc 48 c7 c7 60 a4 8c 8c e8 8d d1 38 fc 90 0f 0b
+RSP: 0018:ffffc90002e5fb78 EFLAGS: 00010246
+RAX: 000000000000002a RBX: 0000000000000002 RCX: 4550039d880cf800
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffff9014c84b R09: 1ffffffff2029909
+R10: dffffc0000000000 R11: fffffbfff202990a R12: dffffc0000000000
+R13: 1ffffffff22654c6 R14: ffff88807c40e128 R15: dffffc0000000000
+FS:  00007f63dcdeb6c0(0000) GS:ffff88812350b000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000055b9ba686138 CR3: 0000000074ef4000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __refcount_add include/linux/refcount.h:-1 [inline]
+ __refcount_inc include/linux/refcount.h:366 [inline]
+ refcount_inc include/linux/refcount.h:383 [inline]
+ kref_get include/linux/kref.h:45 [inline]
+ kobject_get+0xfa/0x120 lib/kobject.c:643
+ sysfs_break_active_protection+0x28/0xa0 fs/sysfs/file.c:471
+ md_attr_store+0x28f/0x640 drivers/md/md.c:6167
+ kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_pwrite64 fs/read_write.c:1504 [inline]
+ __do_sys_pwrite64 fs/read_write.c:1512 [inline]
+ __se_sys_pwrite64 fs/read_write.c:1509 [inline]
+ __x64_sys_pwrite64+0x210/0x2c0 fs/read_write.c:1509
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f63de64ba9e
+Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
+RSP: 002b:00007f63dcdeb0f8 EFLAGS: 00000246 ORIG_RAX: 0000000000000012
+RAX: ffffffffffffffda RBX: 00007f63dcdeb6c0 RCX: 00007f63de64ba9e
+RDX: 0000000000000005 RSI: 00007f63de69003a RDI: 0000000000000006
+RBP: 0000000000000006 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007f63de69003a
+R13: 0000000000000003 R14: 00007f63de6c3100 R15: 00007f63de6c4b4c
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
+Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 e7 44 51 fd e9 5d ff ff ff e8 dd 23 da fc 48 c7 c7 e0 a3 8c 8c e8 a1 d1 38 fc 90 <0f> 0b e8 c9 23 da fc 48 c7 c7 60 a4 8c 8c e8 8d d1 38 fc 90 0f 0b
+RSP: 0018:ffffc90002e5fb78 EFLAGS: 00010246
+RAX: 000000000000002a RBX: 0000000000000002 RCX: 4550039d880cf800
+RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
+RBP: 0000000000000000 R08: ffffffff9014c84b R09: 1ffffffff2029909
+R10: dffffc0000000000 R11: fffffbfff202990a R12: dffffc0000000000
+R13: 1ffffffff22654c6 R14: ffff88807c40e128 R15: dffffc0000000000
+FS:  00007f63dcdeb6c0(0000) GS:ffff88812350b000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f94a870e7d0 CR3: 0000000074ef4000 CR4: 00000000003526f0
+
+
 ---
-Thanks
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
- fs/ntfs3/inode.c | 1 +
- 1 file changed, 1 insertion(+)
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
-diff --git a/fs/ntfs3/inode.c b/fs/ntfs3/inode.c
-index 8adbdf1a7d11..0cc46c184ac6 100644
---- a/fs/ntfs3/inode.c
-+++ b/fs/ntfs3/inode.c
-@@ -2316,6 +2316,7 @@ static const char *ntfs_get_link(struct dentry *de, struct inode *inode,
- const struct inode_operations ntfs_link_inode_operations = {
- 	.get_link	= ntfs_get_link,
- 	.setattr	= ntfs_setattr,
-+	.getattr	= ntfs_getattr,
- 	.listxattr	= ntfs_listxattr,
- 	.fileattr_get	= ntfs_fileattr_get,
- 	.fileattr_set	= ntfs_fileattr_set,
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-base-commit: ee1cb3443cff5a800948b662756f75b17ca63fe2
--- 
-2.56.0
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
