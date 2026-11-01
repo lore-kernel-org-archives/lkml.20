@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.94
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793533413;
-	b=aElV5muzSkqpWgC0amx9BMw7uqvOlSAvfEtenGOwoMByYQdWo3YiRZnaPbW6Ob41CM7b
-	 Xy5eK7eda8gQo6ff6ryE2GrA3JORBNOShyCyjEXw2JUducCkRSbJUHjoKPxQGx+oB4BtI
-	 o+HwwmE0C1lZqwz+D0Pz1uyxEi4ibnYFC4rUT/FSzhxqvCN7ZlfY0HfmaLQ71UDS1vG3R
-	 xKtHsNZC6a819mfqoWVfVYON5mjfYA7jYKYYVjwVg9LRjH9ykUbbXOwD0gHlv32XQuc8x
-	 wKJzti/DyXR6+8V9tpIvCUEeJPfLX3DdVy+nJMnc8BfCk73wlza0cd8vq8G9lDUuZxw==
+	t=1793533421;
+	b=SH0QzXvTLEkWE9c19A9p/ra7xiGwdIXYsR9dwUFkzuwLrENqNbmQZXWwyPYaAMjcwkOb
+	 XB9IeNQR5Amf/KJ30pnO2tog4ALb8utfHAeFIA5VAMI+fAb2M636kTb6od8JZmtjRoLqu
+	 5Hih5YcTMFycchtuMQQQqocVTY1a7KR/ewL1531WPUgZqMmuz0Q3nSdP69Xw78ge4Omb+
+	 R/UntBMq/AUtZQqOxCNp0vJdlVzwckKd5Nxvh0149+0Ki8hvjwoYo+/vsTysVK+x0HcaL
+	 cgMHl7S5WSIIY147mN+/vLxCny9/J6YIva8KUxWjB1AVDa+n0rwHOk4FxQRIDg94YPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793533413;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793533421;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=k03DturYFPchgQIyDX1b2ykePOY+3A3usQcgDXb+QGA=;
-	b=dQyEAEjGpHigJsIY7FxXsFU9ilogMh30Oa3JaLG6kz81keq7DRcD5SB452pZL9nqqII5
-	 i+u6fAevFkXPoHvjl0f2KHIhZo/5bQsonOsEQBR/mO2Cspq2hR3kiDtU0nS98zn+hN6dW
-	 DIi4KBBAWn0aX8LyzkCviCQiqk3g2qbCQNErHdLDjws0poTojKVrxamJh1wCPy4YBxFe5
-	 w8qGkDQLQek/4tuJDmTPugTrGWavOCOqp/RaJ+voyw+0wZ9pi1yx8z3IADx1hJy22oWJ2
-	 0cLa64+oFwtNzEooob+Qj/FRyxj5UJ+sLQ+WzBqzqdTRp52MXvgo/4aSMZwS/YQHMLw==
+	bh=2NNqnX5JtAH/rh3gL2YNYcQ4TYrngNuEYIZY89xW46s=;
+	b=Bkdgt9M0IVWit/MmiQxHHiMWBMkIgOtBUN/kKyZD6n57qWdgLs/hkUKi5i9pEwiXvThc
+	 E/9V+1sPnBFiWKTfsMrA9Rx/+2N6l2Yf4ogaam6d7j0qfxsumjADpRacRPCVx06ybjq1e
+	 IuM3VKy3qZTMHyAr6KwA2yyIlWW833EaN0wwVZf2nHbEjEBVQSAdx11Q/sfZrzUFZedIl
+	 E5MFgw6coQ6puHJBDINYnmPjgaKOaIulDq5JUxvqyKDO+EUwVYXo7DA7pf3I55SxHajnP
+	 04xFPVgzmAHXGbnY1EkDB+alQvfBtJ/IT8XYKI1wlc7kYPgVrR+5hmbYSBsELmU7wRg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bVa9oJga;
-	arc=none smtp.remote-ip=95.215.58.134
-Received: from mta1.migadu.com (out-134.mta1.migadu.com [95.215.58.134])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evhcN5rC;
+	arc=none smtp.remote-ip=91.218.175.94
+Received: from mta0.migadu.com (out-94.mta0.migadu.com [91.218.175.94])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14578606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:43:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 14578606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F99606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:43:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 80F99606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bVa9oJga
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=evhcN5rC
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=t7DCjAKm9g2Tplz78gGmplW61TMN9ozyCJpzorNdG6w=;
+DKIM-Signature: a=rsa-sha256; bh=fDtXUi/ByUpoaM0U/cHBiVo6C1In1CKG6bTlc6gYAWk=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793533410; v=1; x=1794138210;
- b=bVa9oJgaYHTkylMKSgrFIju3z0FpcEZ1bWGh6l4SERYiRul9ZPM40VZ70xx6US4SDJqB0wBI
- xdZwdZZRJCRErBwNyrjlFzBQUNFTMdz/MW7SsvlY73HtUISfgFXSwXQ3TR2E0ZmIjSYzCeEy9de
- i0LVrBorYb7jygKUZMGzonug=
+ t=1793533418; v=1; x=1794138218;
+ b=evhcN5rCKTmVFalWuONolaWEBIlt8WfQG/nqyvNCZjidNjUDJDbVhoBkIpTmljobdKr00gOh
+ OIQgvTVjUPFmsiQnDjJLVD3D+mbwRxfNebbuPA43zqGQh1vLTFB/ZAy7EqA1R6CcOTfR9sYMPIc
+ wzhVN0jzsBqhZ1Ahc2bolm7w=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a9c5b284b38d2954;
-	Sun, 01 Nov 2026 11:43:30 +0000
-X-Mizu-Trace-ID: a9c5b284b38d2954
+Received: by smtp.migadu.com with ESMTPS id 2decbc861848a5f9;
+	Sun, 01 Nov 2026 11:43:38 +0000
+X-Mizu-Trace-ID: 2decbc861848a5f9
 X-Migadu-Flow: FLOW_OUT
 From: Ridong Chen <ridong.chen@linux.dev>
 To: Waiman Long <longman@redhat.com>,
@@ -58,9 +58,9 @@ Cc: Guopeng Zhang <guopeng.zhang@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Chen Ridong <chenridong@huawei.com>,
 	Ridong Chen <chenridong@xiaomi.com>
-Subject: [RFC PATCH -v4 08/22] cpuset: use partition_disable() for remote partition disablement
-Date: Sun,  1 Nov 2026 19:41:52 +0800
-Message-Id: <20261101114206.2434398-9-ridong.chen@linux.dev>
+Subject: [RFC PATCH -v4 09/22] cpuset: use partition_update() for remote partition update
+Date: Sun,  1 Nov 2026 19:41:53 +0800
+Message-Id: <20261101114206.2434398-10-ridong.chen@linux.dev>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261101114206.2434398-1-ridong.chen@linux.dev>
 References: <20261101114206.2434398-1-ridong.chen@linux.dev>
@@ -77,51 +77,71 @@ Content-Transfer-Encoding: 8bit
 
 From: Chen Ridong <chenridong@huawei.com>
 
-Now that the partition_disable() helper is available, replace the
-existing implementation for remote partition disablement with this
-centralized function to unify the disablement logic.
+Now that the partition_update() helper is available, use it to replace
+the existing remote partition update logic. This unifies the update
+path through a single centralized function.
 
 Signed-off-by: Chen Ridong <chenridong@huawei.com>
 Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 ---
- kernel/cgroup/cpuset.c | 17 ++++-------------
- 1 file changed, 4 insertions(+), 13 deletions(-)
+ kernel/cgroup/cpuset.c | 24 ++++--------------------
+ 1 file changed, 4 insertions(+), 20 deletions(-)
 
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index d7f9f6e1fa3c..9a683e6ef0be 100644
+index 9a683e6ef0be..ef162935ba5a 100644
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
-@@ -1915,6 +1915,8 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
-  */
- static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
+@@ -1950,7 +1950,6 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
+ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+ 			       struct cpumask *excpus, struct tmpmasks *tmp)
  {
-+	int new_prs;
-+
- 	WARN_ON_ONCE(!is_remote_partition(cs));
+-	bool adding, deleting;
+ 	int prs = cs->partition_root_state;
+ 
+ 	if (WARN_ON_ONCE(!is_remote_partition(cs)))
+@@ -1963,15 +1962,15 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+ 		goto invalidate;
+ 	}
+ 
+-	adding   = cpumask_andnot(tmp->addmask, excpus, cs->effective_xcpus);
+-	deleting = cpumask_andnot(tmp->delmask, cs->effective_xcpus, excpus);
++	cpumask_andnot(tmp->addmask, excpus, cs->effective_xcpus);
++	cpumask_andnot(tmp->delmask, cs->effective_xcpus, excpus);
+ 
  	/*
- 	 * When a CPU is offlined, top_cpuset may end up with no available CPUs,
-@@ -1925,19 +1927,8 @@ static void remote_partition_disable(struct cpuset *cs, struct tmpmasks *tmp)
- 	WARN_ON_ONCE(!cpumask_subset(cs->effective_xcpus, subpartitions_cpus) &&
- 		     !cpumask_empty(subpartitions_cpus));
+ 	 * Additions of remote CPUs is only allowed if those CPUs are
+ 	 * not allocated to other partitions and there are effective_cpus
+ 	 * left in the top cpuset.
+ 	 */
+-	if (adding) {
++	if (!cpumask_empty(tmp->addmask)) {
+ 		WARN_ON_ONCE(cpumask_intersects(tmp->addmask, subpartitions_cpus));
+ 		if (!capable(CAP_SYS_ADMIN))
+ 			WRITE_ONCE(cs->prs_err, PERR_ACCESS);
+@@ -1986,22 +1985,7 @@ static void remote_cpus_update(struct cpuset *cs, struct cpumask *xcpus,
+ 	}
  
+ 	cs->remote_partition_updating = true;
 -	spin_lock_irq(&callback_lock);
--	cs->remote_partition = false;
--	partition_xcpus_del(cs->partition_root_state, NULL, cs->effective_xcpus);
--	if (cs->prs_err)
--		cs->partition_root_state = -cs->partition_root_state;
--	else
--		cs->partition_root_state = PRS_MEMBER;
--
--	/* effective_xcpus may need to be changed */
--	compute_excpus(cs, cs->effective_xcpus);
--	reset_partition_data(cs);
+-	if (adding)
+-		partition_xcpus_add(prs, NULL, tmp->addmask);
+-	if (deleting)
+-		partition_xcpus_del(prs, NULL, tmp->delmask);
+-	/*
+-	 * Need to update effective_xcpus and exclusive_cpus now as
+-	 * update_sibling_cpumasks() below may iterate back to the same cs.
+-	 */
+-	cpumask_copy(cs->effective_xcpus, excpus);
+-	if (xcpus)
+-		cpumask_copy(cs->exclusive_cpus, xcpus);
 -	spin_unlock_irq(&callback_lock);
--	cpuset_force_rebuild();
-+	new_prs = cs->prs_err ? -cs->partition_root_state : PRS_MEMBER;
-+	partition_disable(cs, NULL, new_prs, cs->prs_err);
- 
+-	if (adding || deleting)
+-		cpuset_force_rebuild();
+-
++	partition_update(cs, prs, xcpus, excpus, tmp);
  	/*
  	 * Propagate changes in top_cpuset's effective_cpus down the hierarchy.
+ 	 */
 -- 
 2.34.1
 
