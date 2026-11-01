@@ -1,104 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793570104;
-	b=agkb1XjnA1PPxckTmgm4h04ujQQs1GircjiqZGRSjWO0o6F2hx9MRVxClW0LggtR2Y/B
-	 Xj8X4uOqh6Fxiy8X/2bgzdZhEkbkP+TVEZc9Tq+viSsbzmuWmWEHLvTS0ZtyFL6zmdw2C
-	 j4mihf1/W4/MU2mfp/YZapZvzU/L4CY5/38DZ1qDvzZKNaIPD9NhQyLQvl+PD9cN0IO10
-	 wfkQlECOW/HVBYCa7dRyjtHDpDHuFF+H+vaFEr4s6YzRxmE2Tw2XTzQdIvs0c/txy2cN9
-	 s8u/czzf7Rzu/MMCor/+P2p3WHiV0nzVAa6gUzk6bOCK1g9iZ3XFsVkvhQgqm6dCi4A==
+	t=1793570183;
+	b=TH2DlsLygVraRQTpIo0jJmM6tTB/M1eT0N0xwPxzJaVo62gsTXLXhegGJnWVcxDLqgki
+	 D++72U+rItdcDn8qs0ho1Hn8Bgq014HmtXXKbCRRZ9gj9SNFfnHrw0prLK4OTSnSxQf32
+	 X28tVy4TW9KSgN3jJmQL1s/Guud+z6keTUcwEofICZQ63KQCyAtIW/2sy58YKn6NWwU1z
+	 50kW8jiZDpxD33Xj3mHi/kPT2/YxcRpu0SuKF/8zMM73wizNZZ3PsplY4VFtIn7yOqa3C
+	 2MpKFrTPNBdeyOl0kawgWa1xJ+zk9IBgyq2sxU+7iZ6xg15qRJOGoBTP2iJWGyhLUQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793570104;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=pH9FDk8PhOZqTZYMJF9VQ6qq2IvSDAE/glr1M5Bsspg=;
-	b=gQ8zdLN/s2SdFInbyqdGMQk/1nGuY5Si5KFnPH+P5LpTU9zNTzuJdUN0NfAGuea45AQo
-	 mmlm7Cxy/sNOi6GUL80r6LvRpF8Dtry5UkZ53H/B9ylSy5qQyuHOVC3qFY/0bOBlTe22k
-	 yseABNZsmXKgbuvWVgmyVj0xAIBVNj9p57i1smutVhC47ddY2KmBMVUK8mi24kB4jesSz
-	 1kAKiImvq2fQKKmnU1ZoGMhVWYcc8GAOAV8s3NvckqzosgMmEpAacSZFRPFYIO31ZNTNo
-	 VDdNyewna2rvmJHopwtmmX6cix/TaQGrXKovPgZIR7NFl+Z1bIak7ss43mhDeBokKVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793570183;
+	h=Received:DKIM-Signature:Mime-Version:Content-Transfer-Encoding:
+	 Content-Type:Date:Message-Id:Subject:Cc:To:From:References:
+	 In-Reply-To;
+	bh=VxgpRvMbcv6qJeLeo7B48rUim7UFlkQ3LNiC3OI9B+I=;
+	b=TX4Crc2MO/Y2zDJqZOj44krmEkmFo+++L5xtM5CUFjiqSYejDK3v12QkQZCFTCVpq8me
+	 2ezTuAOSxfkzbZJdueS9TojPHNEANa6pI/rYGVPmdPdzSd/2iL/pW/G3sLIXjOiEfxgKh
+	 grSEYgp3vR7VK/RxbGVdNDfVzdd0NcnHqbFNhxQP+/6bUZS91rLr0Vci1VVsZHVMnMGbu
+	 ouamJPyQxwoLUpepoRXkBe7fCEL9bOXUIjEcCTYDMPKimwPXDeb1Hvecyl5gfUGsIansT
+	 ayDRXYYGSCrcXNJxQboYnlO+NrdiHHy9u4fkii18uiYNDQQ9D5Xz8YI3UHAlFjTUK9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j+FXc7WF;
-	arc=none smtp.remote-ip=209.85.214.172
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LoZVBlK8;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468D5606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:55:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 468D5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11C41606A326;
+	Sun,  1 Nov 2026 21:56:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j+FXc7WF
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9f6a16afcso49895ad.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 13:55:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793570103; x=1794174903; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pH9FDk8PhOZqTZYMJF9VQ6qq2IvSDAE/glr1M5Bsspg=;
-        b=j+FXc7WF2tc/q+FDraof7I5PXE7mWvegDk35vKR6yJdBzaqZwXq1Y+RLxm+NggLFLk
-         a001Bggd0PEjPnb0AZgNacCaj5N6ZIZZtj1uDWD5ckFDbVtYDkyibr4NmK/9I/gimj7z
-         DCkKYWH7tlacnHknyNYYgRxnVPqDF0diR5avPgNkfZeWmyxCaDZo/cp/hpHQ6nwOZL+V
-         PmiumL7AvZTRTQuUY0KxpFw/81M7ZumljMfAcLKENMWkVSRTCIMDZ7zEJZVhiHS7DWcm
-         UN7ieMK1lBJA/6HpfDTNKCzD89Nad0Q+nkMTCjU3vN2rgZCPNcwbYQ0ueADhovAIdjco
-         QTNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793570103; x=1794174903;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pH9FDk8PhOZqTZYMJF9VQ6qq2IvSDAE/glr1M5Bsspg=;
-        b=LNBPP1cCCgRNH/tThV7i1FbTnomw8dbY+vDWhh7QxXFGOfc3PugX9mFMAUYgxfztrK
-         rJrOmEx4Me2BMKEnGoOLWZakJDoDZqG6vJG1M/1eXQz+R/J2AcPI6Ste3TctcFKsnb0O
-         e8ElPitViXs+Tb+wdLJHEAfTIHIeZxsVxMqrT8jq2kvrFVu8LWEzKqhm5+y1N2bfqkiI
-         Ukq13TozfoU29Hn+Er0V0Dh1b7h5P+MyxjPEh/jqRkTR46mLdX0Nwevi9rZ//RDJ8JwD
-         wTBhk1V+t8Fa6eHKZH8mv3oPgZYq7ZrZlekKl2gYaMSSOsQsCQD24tHdOQNAI4lQyc8h
-         SxHw==
-X-Forwarded-Encrypted: i=1; AKwUvBy/utpuFx1hNXI85uVwA6/9VNvRKxwVZe5gulsGV3fiWlfagYUQ/mpR0lOQO8rIpyy7ViozOAqlhB6ZCOc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+QJ6tsUv+JT2YSDFD3ZWF0QL1nk2j+NCzSDJAED8vKK5pFwe8V
-	W7hXWKEK5xCQQxGgtOk4obQXuu4CP3uQqB5CWhPGhrsWHufGM7GHN9YMckm+XcmDOA==
-X-Gm-Gg: AYBFou1D/FwkFO5Q5syPjHykQ8sB9H//2dejpfQxCZGMY/ExkYX3id4Jh3JicpNh7Nc
-	evS1JVr3eDZYe4KJa+E2i6w+HWlZX+ytsWipJ94qxQTXHgjQtwWIBaW//BQ4NWJ0fdKJp/ubHEB
-	LHFdAOStDdEqJfEZqTvYvaZy8ARPx9PdRVEG61LRyCnFeSw/1rqrWLQzpiw1axC+d7/Ufa23g77
-	ilCxV7RAoHXPCi5qoElscqlu2AEOFtVz/doZspS+mChCGTvRqVcI1CNqKFPtnFdnoI17pZAxG7p
-	gTd2WIdcgmL6xmWYwf6Mmb6n0ypwfSJHmcP5QtRx4cyJLBMsDdcedpGP8z9yTkJ1SbfsI0Sp4d1
-	KAcEM1mHtaiokQFE6rCzvixBuXG0GbaAe0aEWV+lWntfH5Uq/om2YttHCoB5bp0GrkCCKva8pXD
-	FkaaT8oSK0Nyhm7TIYv2w2Xc7hZHteJwjEZ74q91mLiHXykduDSw7N+7WAgpe52z1lJrOdBQuoJ
-	+YdZCqodGtv6U7azm7uUw1c8o3kE03mCPFKVD3nE88yodpwlREc9jCSNXX8D/cr8IIuB2/X+l95
-	SFAtEZob1c5j+SKoLMuNm7u+ZCrjPmW/ptsRW5IxpIMbX9tUx00Vt015mMLCxbQJKCYtDuc0+Ww
-	dRFI3UketjwqrEZw/aF2RVRuPGdQ9Uyd9Xrn6ruH8jA==
-X-Received: by 2002:a17:902:e5cb:b0:2ea:1fa0:8068 with SMTP id d9443c01a7336-2eb1ecbd412mr17712775ad.16.1793570101892;
-        Sun, 01 Nov 2026 13:55:01 -0800 (PST)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9bc6f7sm15137855a91.16.2026.11.01.13.54.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 13:55:00 -0800 (PST)
-Date: Sun, 1 Nov 2026 21:54:57 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Baolu Lu <baolu.lu@linux.intel.com>
-Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
-	Pranjal Shrivastava <praan@google.com>, Robin Murphy <robin.murphy@arm.com>, 
-	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, 
-	Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
-	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma <vipinsh@google.com>, 
-	Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>, 
-	John Starks <dev@jstarks.net>
-Subject: Re: [PATCH v6 17/18] vfio/pci: Preserve the iommufd state of the
- vfio cdev
-Message-ID: <aubO8llyTiUc38u2@google.com>
-References: <20261025021930.674647-1-skhawaja@google.com>
- <20261025021930.674647-18-skhawaja@google.com>
- <2574cbc8-8c2b-4458-9fcd-b077190084a3@linux.intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LoZVBlK8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65A791F000C1;
+	Sun,  1 Nov 2026 21:56:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793570182;
+	bh=VxgpRvMbcv6qJeLeo7B48rUim7UFlkQ3LNiC3OI9B+I=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=LoZVBlK8XCaJk3d32r0MVm5RQFpUMuSJJGLmsbYPAcLzGHUbutg7uxgpx9HHCyK0W
+	 en8oFH7CakHWCg3wpTAmPWorHWFe6LiK4WDriI/5hXk79VrhU89dwSKTmXgf2u2/ZL
+	 ViccSxD02cjorYLb+ui/yLKsf6/3R6pOSYvtm2WKyI3O+6Z3mNKDQ5ebEDhemJyBs8
+	 4UBAnHWF/DJhZ3RlJcD1Aapqo1Wnob67F3ddRRSs8f5XvklRava/tpSpKADb/gq2fH
+	 XH0k0r6erMN3oO6vbMZ0s+5RM+7IH9o2G++5F3VKMN2SYGDQo82+NbGxb6WoLkIzS1
+	 fGimYWiFm1s/A==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,133 +48,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <2574cbc8-8c2b-4458-9fcd-b077190084a3@linux.intel.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 01 Nov 2026 22:56:18 +0100
+Message-Id: <DMK7KD9A3LR1.25UWRP5SLKQDD@kernel.org>
+Subject: Re: [PATCH] firmware_loader: Expose requested firmware names as
+ sysfs entries
+Cc: <linux-kernel@vger.kernel.org>, "Maxime Ripard" <mripard@kernel.org>,
+ "Dave Airlie" <airlied@redhat.com>, "Peter Robinson"
+ <pbrobinson@gmail.com>, "Hans de Goede" <johannes.goede@oss.qualcomm.com>,
+ "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>, "Luis Chamberlain"
+ <mcgrof@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, "Russ Weight"
+ <russ.weight@linux.dev>, <driver-core@lists.linux.dev>,
+ <clabbe@baylibre.com>
+To: "Javier Martinez Canillas" <javierm@redhat.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261017142826.2668881-1-javierm@redhat.com>
+In-Reply-To: <20261017142826.2668881-1-javierm@redhat.com>
 
-On Sat, Oct 31, 2026 at 01:56:12PM +0800, Baolu Lu wrote:
->On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
->>If the vfio cdev is attached to an iommufd, preserve the state of the
->>attached iommufd also. Basically preserve the iommu specific state of
->>the device and also the attach iommu HW unit.
->>
->>Once the device and its iommufd attachment is preserved, it cannot be
->>detached or attached to another IOAS until it is unpreserved.
->>
->>Reviewed-by: Pranjal Shrivastava <praan@google.com>
->>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
->>---
->>  drivers/vfio/device_cdev.c             | 10 +++++++++
->>  drivers/vfio/pci/vfio_pci_liveupdate.c | 28 ++++++++++++++++++++++++--
->>  2 files changed, 36 insertions(+), 2 deletions(-)
->>
->>diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
->>index b818aab92f76..4eb7ffd489bd 100644
->>--- a/drivers/vfio/device_cdev.c
->>+++ b/drivers/vfio/device_cdev.c
->>@@ -284,6 +284,11 @@ int vfio_df_ioctl_attach_pt(struct vfio_device_file *df,
->>  	}
->>  	mutex_lock(&device->dev_set->lock);
->>+	if (iommufd_device_is_preserved(device->iommufd_device)) {
->>+		ret = -EBUSY;
->>+		goto out_unlock;
->>+	}
->>+
->>  	if (attach.flags & VFIO_DEVICE_ATTACH_PASID)
->>  		ret = device->ops->pasid_attach_ioas(device,
->>  						     attach.pasid,
->>@@ -342,6 +347,11 @@ int vfio_df_ioctl_detach_pt(struct vfio_device_file *df,
->>  	}
->>  	mutex_lock(&device->dev_set->lock);
->>+	if (iommufd_device_is_preserved(device->iommufd_device)) {
->>+		mutex_unlock(&device->dev_set->lock);
->>+		return -EBUSY;
->>+	}
->>+
->>  	if (detach.flags & VFIO_DEVICE_DETACH_PASID)
->>  		device->ops->pasid_detach_ioas(device, detach.pasid);
->>  	else
->>diff --git a/drivers/vfio/pci/vfio_pci_liveupdate.c b/drivers/vfio/pci/vfio_pci_liveupdate.c
->>index f0ea37d98696..fb2141ee8942 100644
->>--- a/drivers/vfio/pci/vfio_pci_liveupdate.c
->>+++ b/drivers/vfio/pci/vfio_pci_liveupdate.c
->>@@ -106,6 +106,7 @@
->>  #include <linux/errno.h>
->>  #include <linux/file.h>
->>+#include <linux/iommufd.h>
->>  #include <linux/kexec_handover.h>
->>  #include <linux/kho/abi/vfio_pci.h>
->>  #include <linux/liveupdate.h>
->>@@ -114,6 +115,8 @@
->>  #include "vfio_pci_priv.h"
->>+MODULE_IMPORT_NS("IOMMUFD");
->>+
->>  static bool vfio_pci_liveupdate_can_preserve(struct liveupdate_file_handler *handler,
->>  					     struct file *file)
->>  {
->>@@ -154,15 +157,25 @@ static int vfio_pci_liveupdate_preserve(struct liveupdate_file_op_args *args)
->>  	struct vfio_pci_core_device_ser *ser;
->>  	struct vfio_pci_core_device *vdev;
->>  	struct pci_dev *pdev;
->>-	int ret;
->>+	u64 iommufd_token;
->>+	int ret = 0;
->
->nit: no need to initialize ret.
+(Cc: Corentin)
 
-I will fix this.
+On Sat Oct 17, 2026 at 4:27 PM CEST, Javier Martinez Canillas wrote:
+> Most initramfs image creation tools (e.g., dracut or initramfs-tools) hav=
+e
+> options to create initramfs images that are either generic or tailored to
+> a running system. For example, dracut has the --host-only option for this=
+.
 >
->>  	vdev = container_of(device, struct vfio_pci_core_device, vdev);
->>  	pdev = vdev->pdev;
->>-	ret = pci_liveupdate_preserve(pdev);
->>+	mutex_lock(&device->dev_set->lock);
->>+	ret = iommufd_device_preserve(args->session,
->>+				      device->iommufd_device,
->>+				      &iommufd_token);
->>+	mutex_unlock(&device->dev_set->lock);
->>+
->>  	if (ret)
->>  		return ret;
->>+	ret = pci_liveupdate_preserve(pdev);
->>+	if (ret)
->>+		goto err_iommufd_unpreserve;
->>+
->>  	ser = kho_alloc_preserve(sizeof(*ser));
->>  	if (IS_ERR(ser)) {
->>  		ret = PTR_ERR(ser);
->>@@ -177,6 +190,12 @@ static int vfio_pci_liveupdate_preserve(struct liveupdate_file_op_args *args)
->>  err_unpreserve:
->>  	pci_liveupdate_unpreserve(pdev);
->>+
->>+err_iommufd_unpreserve:
->>+	mutex_lock(&device->dev_set->lock);
->>+	iommufd_device_unpreserve(args->session,
->>+				  device->iommufd_device);
->>+	mutex_unlock(&device->dev_set->lock);
->>  	return ret;
->>  }
->>@@ -184,6 +203,11 @@ static void vfio_pci_liveupdate_unpreserve(struct liveupdate_file_op_args *args)
->>  {
->>  	struct vfio_device *device = vfio_device_from_file(args->file);
->>+	mutex_lock(&device->dev_set->lock);
->>+	iommufd_device_unpreserve(args->session,
->>+				  device->iommufd_device);
->>+	mutex_unlock(&device->dev_set->lock);
->>+
->>  	pci_liveupdate_unpreserve(to_pci_dev(device->dev));
->>  	kho_unpreserve_free(phys_to_virt(args->serialized_data));
->>  }
+> That option allows to have a smaller initramfs image which only contains =
+a
+> sub-set of the kernel modules, libraries, binaries and configuration data=
+.
 >
->Unpreservation isn't the exact reverse of preservation. Anything special
->here?
+> One thing that can't be queried in a running system is the set of firmwar=
+e
+> names that were requested by the kernel to support the different devices.
+>
+> Let's expose this information as sysfs entries to allow initramfs creatio=
+n
+> tools to determine the set of firmware names that are needed by a system.
+>
+> On an AM625 BeaglePlay board, the following will be exposed through sysfs=
+:
+>
+>   $ grep -H . /sys/class/firmware/requested*
+>   /sys/class/firmware/requested0:powervr/rogue_33.15.11.3_v1.fw
+>   /sys/class/firmware/requested1:ath3k-1.fw
+>   /sys/class/firmware/requested2:regulatory.db
+>   /sys/class/firmware/requested3:regulatory.db.p7s
+>   /sys/class/firmware/requested4:ti-connectivity/wl1271-nvs.bin
+>   /sys/class/firmware/requested5:ti-connectivity/wl18xx-conf.bin
+>   /sys/class/firmware/requested6:ti-connectivity/wl18xx-fw-4.bin
+>
+> Signed-off-by: Javier Martinez Canillas <javierm@redhat.com>
 
-Nothing special. I will make it the exact reverse of preserve.
+This was discussed before in [1]. I rejected it back then because userspace=
+ can
+already collect this information through existing interfaces.
 
->
->Otherwise, this patch looks good to me,
->
->Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
+However, I can see how having a queryable history could simplify automated
+tooling like dracut. Has this been discussed with the dracut maintainers, a=
+nd is
+there a concrete plan to use this interface?
 
-Thanks for the review,
-Sami
+[1] https://lore.kernel.org/all/20260715131325.26099-1-clabbe@baylibre.com/
