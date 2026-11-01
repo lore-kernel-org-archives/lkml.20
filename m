@@ -1,86 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793546733;
-	b=XzSwaYF7M6R/OH+RbK0sUdtqUklUxZLvzAXoMMwQnzN6lajk12pe+cCnZNvUN2PeLO1j
-	 tU/HdWQ+GNfZT0c2eLn/tIbSysn8Kj1thTfHYEUhNx1oBuB7SfJwgZ56lEc/9BNDtcm3/
-	 O9Advd2xgh9bisC1Md/6QTZ5aH9KpjiPDe0BYll4W2YWuULsUHcIUwKMJ7MWZcwym5ZqA
-	 CCl8Aojr7BRKLym+NiGHlmHVpR/k05i0jvdpe9ehOytnPaW2hc4P2jsTjb1Qh/dGTpN+T
-	 VLmkBuY4rnY6RSkp1R5L+UdbC5bt5donSbvo5QZkxASk4BH4pfcY2s7EUXs43dDhN9A==
+	t=1793546859;
+	b=EenUFDkwRPaoNdbyfgwJgDMteiw4kNaih9IyOoSPIGJGA0QGHA4YQ5HJ21eYCCbzUPPX
+	 c8FKUQZ4N4LscaT06gH8/f/LAtEY4XNR0UZFDCJR8t0jWhFv7do+cpjlH5BcJ89TY9AJh
+	 TfshYZ6A0toxVYtcTLca1Uxg7FEgYXXl03Jpz0TnQ54lhgSACWYde4ocMgKTht6DOuzzR
+	 Bkfx5hYYiN+obIoTcqX/P3G7VEiO4Qlz/+p+i22u2FkcvkWc077JvqtJUsV9Q+j2K+Uqt
+	 RYaEx3jeXK/tM/SWGE0iAY0sVuqiGibktIvdpTnvtZrKPaUqcyxStk3CIsfurojEzRQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793546733;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793546859;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:From:Date:Subject:To:Cc;
-	bh=0v0stUZN3ZL7HM38zY+SltnrcUBbWB8aAKMU/nF0ov4=;
-	b=KQ6VbYDJ3rCTsTrnNsG/SRpksuKIYBVu4dmfsaOkdZup0c4dmvcTncuY+Fi2o4h4i3QM
-	 vayzk3p9uP/662EGcMRIBozdTByYJyJbFPLnGTm8xdRb7iWdIMmzeLCeTdC6b83Dt/nlH
-	 ulp8lUINvS+bd43XKgdYYLZMQuq6cExja8KUfgJMrFOXkxcjSezI6EoUQ9DYTOJPPSlFs
-	 ozQFlhdPGsSv89myjrnQv2Whad4JPWOoIxLlbswsIEnUcPkX7mN2sqXZG/LdRS0vgwvm7
-	 joPybY5ACerT7rztYQfZCnG8eoeraYb8M7jprsWulr6V4aZ4hasibKaneDAQ0qLhlsQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=+bKr/RFDIZ8ixgTkWUWiPbn716+CDJnqMbdyJznVXpM=;
+	b=yRuj2QuUJiVjdN12GoeKhAyvUX1ziId/5Ay+lcywx2JW1b6spFQUApQw7pla2gIUyg6a
+	 aHZsXeG8BkW0ruc1IpkxXUTm3koWNyX2xk/eBeBg6KWgjYH/DCB7bCbYF5CtF3DLGjj7z
+	 TIMeFI/hg3hC5qSM7pXduHy5bJByXXivjt6eQNSPU5v/86WtzOtjnQar7ui5bc+5Bm+de
+	 mJUf/DpXV1IaHgrxHfYHtluB9UEALtib6JQilJILK2bGzNQoPSpFtogtvQRfH/fG7YMSq
+	 AxAQBpkYfpRaAUEwLxWtBbEF3Iu1zWhGL667aIjqgJ8RGeSnRh/5RvHK/Qe2bZlPlfA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sH+DtX0O;
-	arc=none smtp.remote-ip=209.85.214.179
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	dmarc=pass header.from=furiosa.ai;
+	spf=none smtp.mailfrom=furiosa.ai;
+	dkim=pass header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=FDLxk9tm;
+	arc=none smtp.remote-ip=209.85.216.45
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75713606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:25:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75713606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C827A606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:27:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C827A606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=furiosa.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=furiosa.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sH+DtX0O
-Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2e940d5d2beso7934285ad.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:25:33 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=furiosa.ai header.i=@furiosa.ai header.a=rsa-sha256 header.s=google header.b=FDLxk9tm
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3ac6794fe45so1621146a91.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:27:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793546733; x=1794151533; darn=vger.kernel.org;
-        h=cc:to:subject:date:from:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0v0stUZN3ZL7HM38zY+SltnrcUBbWB8aAKMU/nF0ov4=;
-        b=sH+DtX0OE3nlIYCD00DrlytcGgeOGYJ/X9cV8BTx6iWMwuS/BHAbBgTN2VWtP6JnUA
-         EYuy3XN9bxRy5VpHPDakfzR1DfsVj5DVCVtsPx3clvBjQ+6+HSzwtz0pMObcrTEUrJQL
-         SzY4Hp2xY+fCPYwExhlRnF2DsUZmJ22RUUWJbL9Noi4V31b0AWLXvvVtGrPKbU2h+yrB
-         ex/DYSDU36rh2oqJ85pDVYeq1L9nhHMPcHiuBew4pFuNpX4Ywb2yc80qAAL1knZVRCxj
-         19/GI5XLguI1tlMu4pMyuRHpwQqkyic5HL4y8BO+hjEwhS0rdD06SJ9HxYIRj2n9vV9T
-         ssUw==
+        d=furiosa.ai; s=google; t=1793546858; x=1794151658; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+bKr/RFDIZ8ixgTkWUWiPbn716+CDJnqMbdyJznVXpM=;
+        b=FDLxk9tm6RqiUxsDdmXi9xJvbebk5yMD0ZyWuSZh1rENmrorQLB01Ib46YmleF0uqf
+         0DIJ0B+zx/kuNz3M1g2u23on4+LmgYSQfDxxf9/bBdCVbY7tW89G0MOcO4RRhOTcYVZ8
+         I4xDjdbzywGVv0luoxBJhNo0sROA29oNJ4eeU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793546733; x=1794151533;
-        h=cc:to:subject:date:from:message-id:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0v0stUZN3ZL7HM38zY+SltnrcUBbWB8aAKMU/nF0ov4=;
-        b=V8nZhnyxXk3VrGAmhrd7gNdP5Eq8Mp21kn8GJt4aB37zRVqWLmqdlDuWtQQ92N86eL
-         1eyorE29T0j4a5OeWFTFQsJJh19x2qSRJdPIPhTUlnYXiUti29mqTifLD2G5nYgXAlHZ
-         cdU0oAXc0jhpabwrEpVOT9+fqlxntQz9dIMuuvbm1kx0oGqq9fLqvwKGNNsiZYvKRWKq
-         2EMHq5uTpyfA8ZRt+oVTdWDIWlLDVnuZWTjxDQSJKfr5PeIro8Cj5D7uM4XxNfXVzQHi
-         TninAlyiCaKr9H8/+ycWqg6fFXuVRwOJjJSGneZmKSoeb46/9qG/nW/Hsq1BIp+i1KsX
-         Votw==
-X-Forwarded-Encrypted: i=1; AKwUvBwE1ishZSGb5R0IMWSaMA7FZja2nzq19AzBcG1lWnZgXy7ddoyKmq1P4qYn5AV1H+AxefK6Cg8ZPMDZC+U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/+mBUAAo4PoFyMWyAl51gjQj+rLIRHBxpEWPlyMycv7ib/ot3+
-	DnQS3V5mK0mCLVdi3qYMjHvLBTsrxyWv6MxTqg9A9MKXkRfPBax2i2r5g8HM0Prr
-X-Gm-Gg: AYBFou2lQCdiM9YI052srhJN2qz7QfK25mznwlqtrr/W5Xo3eDfk9D+qK75GiXFxIsl
-	5Xp/ne7tge1QyoRNnK4tC1VbwKf5jii0CP1TLMHc5w7OQLfccegleME5GhfoVTdIup44c/cvjzx
-	Rj6BFE2bFuih4SUXKkiyho8HPrhrNAyAdy1lLZCL8kWigfZaPfMg1yeLtw2HOSMNvPWn0lUCMG2
-	IZ0I3x2/EIeDcXYQbSSB1l9eUWBGMzyEkLppWZmlUbIaNwIRBOu/K43C4f2/RJJ8Yb2LAJRcDDs
-	6C5G4qM43Hc7hD5QnjryDuS9tHVY1nSr+04+tOdhFtwsFimaIQynncPZZzzrdItoSRl65uV1xgs
-	prOIqmYoaIfBfOc/+zsiG9RCDiEMKOl69/drwjJP5+t2RszoHxIcXzIGWMfwbO3ZgLRC0amsFQY
-	GbapgwNE44aY7o5HMqfT+FIbKyKxQ9orwbwU7Cb7db+dJkQ2Rr8wGaqLoTiDlOUYRTj7WADWe04
-	PO3eRMHHc0qEy+BIOc+EkT3FEp/kOF6zscz7lIAN2g05pHptfyLAqVYoQ3zgl73pTWLXnvIcLf+
-	ogH4mSNkbpmmtlNN2m3ymY2en+0=
-X-Received: by 2002:a17:903:2442:b0:2e2:c90f:968c with SMTP id d9443c01a7336-2eb3646a99fmr67950175ad.44.1793546732104;
-        Sun, 01 Nov 2026 07:25:32 -0800 (PST)
-Received: from [127.0.1.1] ([240e:b8f:977f:f400:ec2a:b15e:fef8:70a])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39266f42sm18747375ad.40.2026.11.01.07.25.26
+        d=1e100.net; s=20260707; t=1793546858; x=1794151658;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+bKr/RFDIZ8ixgTkWUWiPbn716+CDJnqMbdyJznVXpM=;
+        b=L6CP4vOm+fV+75ipziMKppPhiphsaXOygLJpCORw5ibReWKwOUH6m3ZMRarVdqK79d
+         N7beTYLeNHvljkmkzlNExjD2g5U5qAOrUXnz6Q9uJpukSqomxwB6eiGOZhI6gZM16BPb
+         Sj0O6EfNcBK3RSXmoUZAmK+FknF7w2nlm0wk14PS2uxAwrCLxpm35YJCVFosEbq9M4Cu
+         LDr+rE08uFS6TH8gItAh37kfm1+iY3jdWFGkeLI8HLvyIfOMgD1MRg/zM8OnXtyw1RYs
+         606aSNIt31yCS3hxP8RL634dbI5c5bQHgAP0hkbFF7hb3NsOzSmzeZmn3DenLNURl6Ii
+         TtYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwAt7ptSP9fsvjdv8I63CkHLtwb5gCyWR1u85R1DNWYGEZ306vZAm7ynuzX4BgaCWnAYRkGCdSFvc41zec=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dTqkPhZtKKxTjeZ1W4ZeRKNkTTCxmQ8gOE2iGl2RLf8XN+fiY
+	IqBtNrLG00XOOUXH3YaYnWssWfKMctF6tJ0lR53+y26yGjt8IsoZeYfGOaKmsbIchLg=
+X-Gm-Gg: AYBFou3mp81bUrwD2JZJkgPH2lOB5vGPtfiHySHY/csvt5A2dabbUkX79qfkwG3cUk+
+	BFEXUHVa4lZrXzcxCvcQ2kB+Dw7m7yUwixpjqY/RW0juH4n1tEwia2hq3vFBFhgIBKiy27mvbGr
+	5G1Uk4Eg+3Ged1uP27Rult2dCwSyVbozcD70Gi17VJcG1a9ZZTL5PTJd2RgjDqEcSYIJzJ+Xfag
+	1tUpUxPJ4maOTm0NBAtR3+mnpJhB2AssADV2FVgtTa/ZjjeyLncGjCBpKdBHuwqlG155ScLM6eA
+	kcl/eUWCaJ7RGXD1rGo9iZvocTwN7tVRV2W3m5d8AMGmfqBYGGtT0RoAoxJ0PvP/jHswfmQoC5P
+	z+q6Oevlo5aYIPatVxRVa2N56JhJxHU2o0gkhiyM73yuimx/PQ9GvBDsnm+aJSJ7j2/6Ohyncbf
+	LC00ixti9hAGmPOxRYLkJs6pfRjKHStXXwySUvZOY1FLcyL6z6AR55gut0Ows2D+3/YcZe0eXKU
+	LfPcWFzOh8AmWlR3Il+hBCl5awjGhaZMwHvBX4gPJwloloOB8MLwHPS9ymcwOleKHn3yGU/5NIN
+	RtNyUjipq/7s5R6IrlNvJEmAhtTT+NQjXBGxtlXYV0H1Cnndeq5T
+X-Received: by 2002:a17:90b:4f87:b0:3a7:b260:9ccc with SMTP id 98e67ed59e1d1-3ae8985d7cbmr6338462a91.65.1793546858125;
+        Sun, 01 Nov 2026 07:27:38 -0800 (PST)
+Received: from rock-5b-plus ([61.83.209.48])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae880b1f71sm5956284a91.4.2026.11.01.07.27.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 07:25:29 -0800 (PST)
-Message-ID: <6ae759e9.4b0417f2.1062f7.b196@mx.google.com>
-From: Liang Haowen <nbg2974@gmail.com>
-Date: Sun, 1 Nov 2026 23:40:00 +0800
-Subject: [PATCH v2] HID: add driver for EWEADN G5 mice
-To: linux-input@vger.kernel.org
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, linux-kernel@vger.kernel.org
+        Sun, 01 Nov 2026 07:27:37 -0800 (PST)
+From: Sidong Yang <sidong.yang@furiosa.ai>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	Oded Gabbay <ogabbay@kernel.org>
+Cc: Gyeyoung Baek <gye976@gmail.com>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Sidong Yang <sidong.yang@furiosa.ai>
+Subject: [PATCH v2] accel/rocket: Report per-core engine usage through fdinfo
+Date: Mon,  2 Nov 2026 00:27:23 +0900
+Message-ID: <20261101152723.1430312-1-sidong.yang@furiosa.ai>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,224 +93,269 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-EWEADN G5 mice (YJX-CHIP receivers 0xa8a5:2255, replacement units
-and the wired mouse 0xa8a4:2255) send motion and buttons in a
-9-byte vendor report on interface 0. The report descriptor the
-firmware ships does not describe that data: the 0xa8a5 receivers
-declare vendor usages with no mouse mapping, and the 0xa8a4 units
-declare a standard mouse report the firmware then does not send.
-Either way the stock input path produces no pointer events, and
-there is no Linux driver from the vendor.
+There is no way to tell how much of the NPU a client uses, or whether its
+jobs reach more than one core. Implement the DRM usage stats: account the
+time each job occupies a core and report it per client as
+drm-engine-npu<n>, along with drm_show_memory_stats() for the BOs.
 
-The report itself is a plain mouse report: buttons, int16 dx and
-dy, an int8 wheel. Replace the descriptor at parse time with one
-that describes exactly that report, so hid-core can parse the
-frames with no custom event handling. The keyboard and
-vendor-configuration interfaces bind to this driver too and keep
-their own descriptors untouched.
+Jobs can outlive the file that submitted them, so the counters are
+refcounted and each job holds a reference. The time covers the whole
+period a job owns a core, so it also includes handling the completion
+interrupt and the gaps between the tasks of a multi-task job.
 
-Both device IDs bind with the fixed-up descriptor, and motion
-events flow through the stock input path. This also makes the
-userspace relay used until now (github.com/NB-Group/g5moused)
-unnecessary.
+The array is sized by rdev->max_cores, the number of core slots, not by
+the number of cores bound when the file is opened. A core can still be
+probing while a client opens the device, and the IRQ handler indexes the
+array with core->index, which stays valid when a core is unbound. A slot
+with no core bound reads as zero.
 
-Cc: Jiri Kosina <jikos@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>
-Cc: linux-input@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Liang Haowen <nbg2974@gmail.com>
+For example, teflon running a model two operations deep 3001 times gives:
+
+  drm-engine-npu0:	22719385 ns
+  drm-engine-npu1:	23345296 ns
+  drm-engine-npu2:	0 ns
+
+The NPU is busy 15.6% of the wall clock time and one core is never used.
+
+Signed-off-by: Sidong Yang <sidong.yang@furiosa.ai>
 ---
-Changes in v2, from the review of v1:
+v2: Size the per-core counters by rdev->max_cores, the number of core
+    slots, instead of the number of cores bound when the file is opened.
+    Sashiko reported the out-of-bounds read and Gyeyoung Baek reproduced
+    it with KASAN.
 
-- Bind all interfaces of the composite device instead of returning
-  -ENODEV for the non-mouse ones: hid-generic steps aside for any
-  registered driver whose id_table matches, so rejecting them left
-  the keyboard and vendor-configuration interfaces with no driver
-  at all. Only the mouse interface gets the fixed-up descriptor
-  now; the others keep their own.
+    This depends on commit 6eff1d69dae8 ("accel/rocket: search every core
+    slot when a core is removed"), which added rdev->max_cores. It is in
+    mainline through drm-misc-fixes but not yet in drm-misc-next.
 
-- Guard the USB interface lookup with hid_is_usb(): a virtual HID
-  device created through /dev/uhid can claim BUS_USB with matching
-  vendor and product IDs, and casting its parent would dereference
-  memory that is not a usb_interface.
+Link to v1: https://lore.kernel.org/all/20261031083642.1076356-1-sidong.yang@furiosa.ai/
 
-- Use the USB_VENDOR_ID_YJXCHIP macro for the original receiver.
----
- drivers/hid/Kconfig      |   9 +++
- drivers/hid/Makefile     |   1 +
- drivers/hid/hid-eweadn.c | 129 +++++++++++++++++++++++++++++++++++++++
- 3 files changed, 139 insertions(+)
- create mode 100644 drivers/hid/hid-eweadn.c
+ drivers/accel/rocket/rocket_drv.c | 60 +++++++++++++++++++++++++++++--
+ drivers/accel/rocket/rocket_drv.h | 14 ++++++++
+ drivers/accel/rocket/rocket_job.c |  7 ++++
+ drivers/accel/rocket/rocket_job.h |  4 +++
+ 4 files changed, 83 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 2481bc0..3946f75 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -380,6 +380,15 @@ config HID_EVISION
- 	applying customization using userspace programs.
- 	Support for some EVision devices requiring report descriptor fixups.
+diff --git a/drivers/accel/rocket/rocket_drv.c b/drivers/accel/rocket/rocket_drv.c
+index 2bcfe4ab3c68..58a486206565 100644
+--- a/drivers/accel/rocket/rocket_drv.c
++++ b/drivers/accel/rocket/rocket_drv.c
+@@ -3,8 +3,10 @@
  
-+config HID_EWEADN
-+	tristate "EWEADN G5 mice support"
-+	depends on USB_HID
-+	help
-+	Support for EWEADN G5 wireless mice (YJX-CHIP 0xa8a5:2255 receivers,
-+	0xa8a4 replacement units and the wired mouse). The stock report
-+	descriptor does not describe the reports the firmware sends, so
-+	the pointer is dead without this fixup.
-+
- config HID_EZKEY
- 	tristate "Ezkey BTC 8193 keyboard"
- 	help
-diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index 43a8eb0..2db5b5d 100644
---- a/drivers/hid/Makefile
-+++ b/drivers/hid/Makefile
-@@ -51,6 +51,7 @@ obj-$(CONFIG_HID_ELAN)		+= hid-elan.o
- obj-$(CONFIG_HID_ELECOM)	+= hid-elecom.o
- obj-$(CONFIG_HID_ELO)		+= hid-elo.o
- obj-$(CONFIG_HID_EVISION)	+= hid-evision.o
-+obj-$(CONFIG_HID_EWEADN)	+= hid-eweadn.o
- obj-$(CONFIG_HID_EZKEY)		+= hid-ezkey.o
- obj-$(CONFIG_HID_FT260)		+= hid-ft260.o
- obj-$(CONFIG_HID_GEMBIRD)	+= hid-gembird.o
-diff --git a/drivers/hid/hid-eweadn.c b/drivers/hid/hid-eweadn.c
-new file mode 100644
-index 0000000..79a9a15
---- /dev/null
-+++ b/drivers/hid/hid-eweadn.c
-@@ -0,0 +1,129 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * HID driver for EWEADN G5 mice (YJX-CHIP a8a5:2255 / a8a4:2255).
-+ *
-+ * The mouse reports motion and buttons in a vendor-defined report
-+ * (id 0x02) on interface 0. The report descriptor the firmware
-+ * ships does not describe that data: the original 0xa8a5 receivers
-+ * declare vendor usages with no mouse mapping, and the 0xa8a4 units
-+ * declare a standard mouse report that the firmware then does not
-+ * send. Either way the stock input path produces no pointer events.
-+ * The report itself is a plain mouse report:
-+ *
-+ *   [1] buttons, 5 bits
-+ *   [2] unused
-+ *   [3] dx, int16 LE
-+ *   [5] dy, int16 LE
-+ *   [7] wheel, int8
-+ *   [8] unused
-+ *
-+ * The descriptor below describes exactly that report, so hid-core
-+ * can parse the frames without any custom event handling. The
-+ * keyboard and vendor-configuration interfaces bind to this driver
-+ * too and keep their own descriptors untouched.
-+ *
-+ * 0xa8a5 is the original receiver, 0xa8a4 the replacement units
-+ * first seen in October 2026 and the mouse itself on its USB cable.
-+ */
-+
-+#include <linux/hid.h>
-+#include <linux/module.h>
-+#include <linux/usb.h>
-+
-+static __u8 eweadn_rdesc[] = {
-+	0x05, 0x01,		/* Usage Page (Generic Desktop) */
-+	0x09, 0x02,		/* Usage (Mouse) */
-+	0xA1, 0x01,		/* Collection (Application) */
-+	0x85, 0x02,		/*   Report ID (2) */
-+	0x09, 0x01,		/*   Usage (Pointer) */
-+	0xA1, 0x00,		/*   Collection (Physical) */
-+	0x05, 0x09,		/*     Usage Page (Button) */
-+	0x19, 0x01,		/*     Usage Minimum (1) */
-+	0x29, 0x05,		/*     Usage Maximum (5) */
-+	0x15, 0x00,		/*     Logical Minimum (0) */
-+	0x25, 0x01,		/*     Logical Maximum (1) */
-+	0x75, 0x01,		/*     Report Size (1) */
-+	0x95, 0x05,		/*     Report Count (5) */
-+	0x81, 0x02,		/*     Input (Data,Var,Abs) */
-+	0x95, 0x0B,		/*     Report Count (11), padding to byte */
-+	0x81, 0x03,		/*     Input (Cnst,Var,Abs) */
-+	0x05, 0x01,		/*     Usage Page (Generic Desktop) */
-+	0x09, 0x30,		/*     Usage (X) */
-+	0x09, 0x31,		/*     Usage (Y) */
-+	0x16, 0x00, 0x80,	/*     Logical Minimum (-32768) */
-+	0x26, 0xFF, 0x7F,	/*     Logical Maximum (32767) */
-+	0x75, 0x10,		/*     Report Size (16) */
-+	0x95, 0x02,		/*     Report Count (2) */
-+	0x81, 0x06,		/*     Input (Data,Var,Rel) */
-+	0x09, 0x38,		/*     Usage (Wheel) */
-+	0x15, 0x81,		/*     Logical Minimum (-127) */
-+	0x25, 0x7F,		/*     Logical Maximum (127) */
-+	0x75, 0x08,		/*     Report Size (8) */
-+	0x95, 0x01,		/*     Report Count (1) */
-+	0x81, 0x06,		/*     Input (Data,Var,Rel) */
-+	0x95, 0x01,		/*     Report Count (1), trailing pad */
-+	0x81, 0x03,		/*     Input (Cnst,Var,Abs) */
-+	0xC0,			/*   End Collection */
-+	0xC0,			/* End Collection */
-+};
-+
-+static const __u8 *eweadn_report_fixup(struct hid_device *hdev, __u8 *rdesc,
-+				       unsigned int *rsize)
+ #include <drm/drm_accel.h>
+ #include <drm/drm_drv.h>
++#include <drm/drm_file.h>
+ #include <drm/drm_gem.h>
+ #include <drm/drm_ioctl.h>
++#include <drm/drm_print.h>
+ #include <drm/rocket_accel.h>
+ #include <linux/clk.h>
+ #include <linux/err.h>
+@@ -68,6 +70,25 @@ rocket_iommu_domain_put(struct rocket_iommu_domain *domain)
+ 	kref_put(&domain->kref, rocket_iommu_domain_destroy);
+ }
+ 
++static void
++rocket_engine_usage_destroy(struct kref *kref)
 +{
-+	struct usb_interface *intf;
++	kfree(container_of(kref, struct rocket_engine_usage, kref));
++}
 +
-+	if (!hid_is_usb(hdev))
-+		return rdesc;
++struct rocket_engine_usage *
++rocket_engine_usage_get(struct rocket_file_priv *rocket_priv)
++{
++	kref_get(&rocket_priv->engine_usage->kref);
++	return rocket_priv->engine_usage;
++}
++
++void
++rocket_engine_usage_put(struct rocket_engine_usage *usage)
++{
++	kref_put(&usage->kref, rocket_engine_usage_destroy);
++}
++
+ static int
+ rocket_open(struct drm_device *dev, struct drm_file *file)
+ {
+@@ -86,10 +107,19 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 	}
+ 
+ 	rocket_priv->rdev = rdev;
++
++	rocket_priv->engine_usage = kzalloc_flex(*rocket_priv->engine_usage,
++						 elapsed_ns, rdev->max_cores);
++	if (!rocket_priv->engine_usage) {
++		ret = -ENOMEM;
++		goto err_free;
++	}
++	kref_init(&rocket_priv->engine_usage->kref);
++
+ 	rocket_priv->domain = rocket_iommu_domain_create(rdev->cores[0].dev);
+ 	if (IS_ERR(rocket_priv->domain)) {
+ 		ret = PTR_ERR(rocket_priv->domain);
+-		goto err_free;
++		goto err_put_engine_usage;
+ 	}
+ 
+ 	file->driver_priv = rocket_priv;
+@@ -109,6 +139,8 @@ rocket_open(struct drm_device *dev, struct drm_file *file)
+ 	mutex_destroy(&rocket_priv->mm_lock);
+ 	drm_mm_takedown(&rocket_priv->mm);
+ 	rocket_iommu_domain_put(rocket_priv->domain);
++err_put_engine_usage:
++	rocket_engine_usage_put(rocket_priv->engine_usage);
+ err_free:
+ 	kfree(rocket_priv);
+ err_put_mod:
+@@ -125,6 +157,7 @@ rocket_postclose(struct drm_device *dev, struct drm_file *file)
+ 	mutex_destroy(&rocket_priv->mm_lock);
+ 	drm_mm_takedown(&rocket_priv->mm);
+ 	rocket_iommu_domain_put(rocket_priv->domain);
++	rocket_engine_usage_put(rocket_priv->engine_usage);
+ 	kfree(rocket_priv);
+ 	module_put(THIS_MODULE);
+ }
+@@ -139,7 +172,29 @@ static const struct drm_ioctl_desc rocket_drm_driver_ioctls[] = {
+ 	ROCKET_IOCTL(FINI_BO, fini_bo),
+ };
+ 
+-DEFINE_DRM_ACCEL_FOPS(rocket_accel_driver_fops);
++static void rocket_show_fdinfo(struct drm_printer *p, struct drm_file *file)
++{
++	struct rocket_device *rdev = to_rocket_device(file->minor->dev);
++	struct rocket_file_priv *rocket_priv = file->driver_priv;
++	unsigned int core;
 +
 +	/*
-+	 * Only the mouse interface carries the vendor report; the
-+	 * keyboard and vendor-configuration interfaces keep their
-+	 * own descriptors.
++	 * These are estimates: the time is taken around the whole period a job
++	 * occupies a core, so it also covers handling the completion interrupt
++	 * and, for a job made of several tasks, the gaps between them.
 +	 */
-+	intf = to_usb_interface(hdev->dev.parent);
-+	if (intf->cur_altsetting->desc.bInterfaceNumber != 0)
-+		return rdesc;
++	for (core = 0; core < rdev->max_cores; core++)
++		drm_printf(p, "drm-engine-npu%u:\t%llu ns\n", core,
++			   rocket_priv->engine_usage->elapsed_ns[core]);
 +
-+	hid_info(hdev, "fixing up EWEADN G5 mouse report descriptor\n");
-+	*rsize = sizeof(eweadn_rdesc);
-+	return eweadn_rdesc;
++	drm_show_memory_stats(p, file);
 +}
 +
-+static int eweadn_probe(struct hid_device *hdev,
-+			const struct hid_device_id *id)
-+{
-+	int ret;
-+
-+	ret = hid_parse(hdev);
-+	if (ret) {
-+		hid_err(hdev, "parse failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	ret = hid_hw_start(hdev, HID_CONNECT_DEFAULT);
-+	if (ret) {
-+		hid_err(hdev, "hw start failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static const struct hid_device_id eweadn_devices[] = {
-+	{ HID_USB_DEVICE(USB_VENDOR_ID_YJXCHIP, USB_DEVICE_ID_YJXCHIP_MOUSE) },
-+	{ HID_USB_DEVICE(0xa8a4, 0x2255) },	/* replacement unit, wired mouse */
-+	{ }
++static const struct file_operations rocket_accel_driver_fops = {
++	.owner = THIS_MODULE,
++	DRM_ACCEL_FOPS,
++	.show_fdinfo = drm_show_fdinfo,
 +};
-+MODULE_DEVICE_TABLE(hid, eweadn_devices);
-+
-+static struct hid_driver eweadn_driver = {
-+	.name = "eweadn",
-+	.id_table = eweadn_devices,
-+	.report_fixup = eweadn_report_fixup,
-+	.probe = eweadn_probe,
+ 
+ /*
+  * Rocket driver version:
+@@ -150,6 +205,7 @@ static const struct drm_driver rocket_drm_driver = {
+ 	.open			= rocket_open,
+ 	.postclose		= rocket_postclose,
+ 	.gem_create_object	= rocket_gem_create_object,
++	.show_fdinfo		= rocket_show_fdinfo,
+ 	.ioctls			= rocket_drm_driver_ioctls,
+ 	.num_ioctls		= ARRAY_SIZE(rocket_drm_driver_ioctls),
+ 	.fops			= &rocket_accel_driver_fops,
+diff --git a/drivers/accel/rocket/rocket_drv.h b/drivers/accel/rocket/rocket_drv.h
+index 2c673bb99ccc..eff5c2ac54d1 100644
+--- a/drivers/accel/rocket/rocket_drv.h
++++ b/drivers/accel/rocket/rocket_drv.h
+@@ -16,6 +16,15 @@ struct rocket_iommu_domain {
+ 	struct kref kref;
+ };
+ 
++/*
++ * Time each core has spent running a client's jobs, in nanoseconds, indexed by
++ * core. Jobs hold a reference, as they can outlive the file that submitted them.
++ */
++struct rocket_engine_usage {
++	struct kref kref;
++	u64 elapsed_ns[];
 +};
-+module_hid_driver(eweadn_driver);
 +
-+MODULE_AUTHOR("Liang Haowen <nbg2974@gmail.com>");
-+MODULE_DESCRIPTION("HID driver for EWEADN G5 mice");
-+MODULE_LICENSE("GPL");
--- 
-2.55.0
+ struct rocket_file_priv {
+ 	struct rocket_device *rdev;
+ 
+@@ -24,9 +33,14 @@ struct rocket_file_priv {
+ 	struct mutex mm_lock;
+ 
+ 	struct drm_sched_entity sched_entity;
++
++	struct rocket_engine_usage *engine_usage;
+ };
+ 
+ struct rocket_iommu_domain *rocket_iommu_domain_get(struct rocket_file_priv *rocket_priv);
+ void rocket_iommu_domain_put(struct rocket_iommu_domain *domain);
+ 
++struct rocket_engine_usage *rocket_engine_usage_get(struct rocket_file_priv *rocket_priv);
++void rocket_engine_usage_put(struct rocket_engine_usage *usage);
++
+ #endif
+diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
+index ce994748dd5d..c0ffbccfb6cc 100644
+--- a/drivers/accel/rocket/rocket_job.c
++++ b/drivers/accel/rocket/rocket_job.c
+@@ -13,6 +13,7 @@
+ #include <linux/iommu.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/sched/clock.h>
+ 
+ #include "rocket_core.h"
+ #include "rocket_device.h"
+@@ -265,6 +266,7 @@ static void rocket_job_cleanup(struct kref *ref)
+ 	unsigned int i;
+ 
+ 	rocket_iommu_domain_put(job->domain);
++	rocket_engine_usage_put(job->engine_usage);
+ 
+ 	dma_fence_put(job->done_fence);
+ 	dma_fence_put(job->inference_done_fence);
+@@ -351,6 +353,7 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
+ 
+ 	scoped_guard(mutex, &core->job_lock) {
+ 		core->in_flight_job = job;
++		job->start_ns = local_clock();
+ 		rocket_job_hw_submit(core, job);
+ 	}
+ 
+@@ -379,6 +382,9 @@ static void rocket_job_handle_irq(struct rocket_core *core)
+ 				return;
+ 			}
+ 
++			core->in_flight_job->engine_usage->elapsed_ns[core->index] +=
++				local_clock() - core->in_flight_job->start_ns;
++
+ 			iommu_detach_group(NULL, iommu_group_get(core->dev));
+ 			dma_fence_signal(core->in_flight_job->done_fence);
+ 			pm_runtime_put_autosuspend(core->dev);
+@@ -587,6 +593,7 @@ static int rocket_ioctl_submit_job(struct drm_device *dev, struct drm_file *file
+ 
+ 	rjob->rdev = rdev;
+ 	rjob->domain = rocket_iommu_domain_get(file_priv);
++	rjob->engine_usage = rocket_engine_usage_get(file_priv);
+ 
+ 	ret = drm_sched_job_init(&rjob->base,
+ 				 &file_priv->sched_entity,
+diff --git a/drivers/accel/rocket/rocket_job.h b/drivers/accel/rocket/rocket_job.h
+index 4ae00feec3b9..14aa78aebc99 100644
+--- a/drivers/accel/rocket/rocket_job.h
++++ b/drivers/accel/rocket/rocket_job.h
+@@ -38,6 +38,10 @@ struct rocket_job {
+ 
+ 	struct rocket_iommu_domain *domain;
+ 
++	/* When the job was handed to a core, and where to account the time */
++	u64 start_ns;
++	struct rocket_engine_usage *engine_usage;
++
+ 	struct kref refcount;
+ };
+ 
 
+base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
+prerequisite-patch-id: 519bcdfdde80d902309c8346f749ebc4bb6b29c0
+-- 
+2.53.0
 
