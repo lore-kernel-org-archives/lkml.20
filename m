@@ -1,88 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793530022;
-	b=ycy+DUuPozXXEPkz2oLP5vaRhuU+bnPGMmhFIC1GWkirHHN9lAHKRNfsFFW9rwB8pZ+U
-	 WGZnPsdNbDPTSO9YXLASUR4lqQYX5Rmlf9yP7I1K7HT1o4NvMWtofZT4Jq+gnditzL3Ua
-	 UnGtuvzSSP2ozhRWNL1APewZ4TqKoTkTy+kUSdR+urRi4DSF2m6fIoqSFGO6mXDFRiIXW
-	 J77g3lhSnXnTsWhtkM/p5pzC5XI08qBJGY/lIDFwch6tYjTFLAsqCyZVcDroDE+rRxm18
-	 wsarpccvOAQGGIgMJlTRNqTZQernxmG6QEkg5N/dRPFi3Gj7BquzVvbCPBczDpMPw4g==
+	t=1793530031;
+	b=gG8VF0Myly1iM9WofvK31nT7ogdbP32rLcrujjXt0oB1imK7j8fiY68LAFFn0CPuFGYU
+	 d4B3yExNDpP2DtTkU/ptlDG0BqE3+zdne0f+W826LIL4fkFNaQEA8Xmu52EPTDl+5yLtH
+	 0VTyRv3PBQC16On6RESdmAQJuA1/RpCS0SA2TfXb1d5DIc/uKQGJ6rHyCv3wL3I1zggAi
+	 ZjeqD+KHl7t0si/b0Ij+2Kcs2O1IGdjuY1dIL5jXH5d1iI3x+luoDzbwCUjHPvayCj2M1
+	 WzRYY2ozUPJ40Hk2NMlFByII/zikQz09JEKiGE6uScTHh+Q/g2DF5yEPurSaB9OpN/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793530022;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793530031;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=hqMFp7OoaihnU8SvIdhdeXnsjyjS2fMQMMOIfDJThPc=;
-	b=ewWkCcEzusJhElzLWuMgEZMEdHO/pYqhmoyJCwVFrmH/MuSPlzx/b7/a+8svztveRMHd
-	 CC2eGxONlO0umzrpYlL0aXDbdX1iHhD5FzFlAtRETxzvf3embUhol+7In7H8UyHssKmox
-	 6nymbLILow4YggH6uDXYzPS1AxbRdr/CFU5x8+dSmG9INwd0NQXCAlt85vSY87IvPP7sC
-	 Bz4mTGKea96QHm9/8WRv1UJd6o7on5iWV4pgfwLlm2bvFFSrb2j8/Pje2K3/ruSuG+nCa
-	 Y2RiXPVy4yEW4fdBtIprPByB7t3IVphOuIj8JMqbgdL1OO9c+ZjTh4K/i1sgBOs0hXA==
+	bh=i+tGExvsLQMos73zJAXbiW+8Oyn+dJjevDARLNaWL/Q=;
+	b=KMyrcO/gZhIdH2MPRI1RVNzD+27tV3iBx/SrR2xZ+vb1rGT/54DB1YRSEIBOMUHoe3RT
+	 kJ5b1KX2UP2cEYl9adPtfkQXJmOdOMgCW5ttaW/4fSVupoBdg0QrfNPbxWsfgKF26LdMI
+	 Qzk7woI3QvvG1H2x4bzpjf+jJmQhD0ZrCRhWQ+IkHQRCK13t+xdCOI4gJWBr/UhFyoz01
+	 UVEE9jPoFVge6beZI1Rzin9G9EXD9Fp/5QhYMpnXXUVzaArjSf8w/HWvXJcPoq8FqzQxx
+	 RME0VCQJuwtvtej6vQ5MMOF2FxISHfW0ODmTe0wZ3ihHvEonpKPokcfk6971pe7GmUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dMyzMMgo;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0pMF00oJ;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 159FC606A334
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:47:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 159FC606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AA5606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:47:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 07AA5606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dMyzMMgo
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a4dc547987so10475145e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:47:01 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0pMF00oJ
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so26846905e9.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:47:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793530020; x=1794134820; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793530028; x=1794134828; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hqMFp7OoaihnU8SvIdhdeXnsjyjS2fMQMMOIfDJThPc=;
-        b=dMyzMMgoxz7oJACKph8xEWuaqrJKYCGA9WlXHE/rkVINGGmcpWoadzTxxGpjROCj8y
-         m0o5xGih1eEtO7+IydlNA6ibzyL3dnkR9y5pGuNn4W/3MuOLzLrlRTswTRGPHwUuQ33P
-         wxjiRMozLBjqwe5Ayk1dydUutBzLTPRMwjB6eEKu/vTNcNatIZ8gAJMmFa+etbwFwjLf
-         NjWmXTdy5RIfpfj76FlRgqqRII4zS1j1AJkhlh+ehpej7x4SJrpAi67Dl3hv1pHytrTV
-         KEoNeZJwAyM0koJaEVsl6TpYOBp5hQVNuOClY/A8qCEBZnvnSW4dXWMjFFVMD/2UScLc
-         sehg==
+        bh=i+tGExvsLQMos73zJAXbiW+8Oyn+dJjevDARLNaWL/Q=;
+        b=0pMF00oJ0TJFm1D78GNc6EB/G/VxzgICoCuLAgZD2LePQYx36FPTqyOonV/DfNBD7n
+         uLKxvgvCt0TrClL2+p6qOY+Bx0ECM17gO1aTTxYh25DBecAahl1qi1/TDY8HWEY3rVtv
+         hNHPYwtIJmiT/dXg74K2u/oqOUp8VZSsX0QzWYBfvG0sPCi8BUFPNJgypHaI6eQY/z0P
+         RKmkapfgdXi7jigtfBZXCpfgA2fExrdRuFkRFX9NkRI00s3iBrls11sU2ZIMLM6obcv4
+         XOIpeVR/8vxBBufyZ82qlQAEkNx92AjqNrA4L83NiejVgu+KtuF7WH1Fp1DGwa9hkc5o
+         loCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793530020; x=1794134820;
+        d=1e100.net; s=20260707; t=1793530028; x=1794134828;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hqMFp7OoaihnU8SvIdhdeXnsjyjS2fMQMMOIfDJThPc=;
-        b=e+ZzexDPhYrHfx7eFX8mWGwngHeC31HppKZ16YxOi088v/lfw/APz41Y4D1R4Bt+3d
-         uWHXT6MlNZ6SHB0HLqEgWelIsx9SC/YkknuFJm3f3l21J9GN0OzgfuMiaWAya0BaEk1L
-         af4788tFafarnAdGG1nIO5ROQPRTjJR8FTt1bWu/BSgFtbip7YMjkEaH+oX7Im+I7XGj
-         FjkwqhL28U6FQeFc+2sytO3Q0imRSpG28WOukfATfBn6gssjRuYQTl7KZmHggFu9aZ2p
-         momfPD07M9N07gAVrJnbOmukh/tUi/8tWwI+btCyCPS7f0ZqgzhBMS9kaaBsNlGqPYMT
-         iXAQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx0PHOr+I79EmeMihyqb5uk1HHXNoXVt2juNnls7XwTRULaYBvFxZ7BYJuTkozJB1k1ogpFlMAPn2ufffk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL+ZG7WakKr8TKTRB3ValXSupLEY+N87+Nq0I/EMqxM9d6mWZCs
-	9l6QTqPLxHrW3Ka3yu1cHKrWuEJwVCryqD7eXmdSfb5QAduCqINE4pc4
-X-Gm-Gg: AYBFou1wg9U8MXOQymm3dRlIyQfMDRCKPBRx1Hvef2xl94u6d//PJ57kaSnJm3o/hcY
-	7fnKXLL4AnbmrcxHczHTwfzfMGGZ5BBdIgsoxUmgKCIlb0hN2hXO+GntQ8LbLY5HcTGwI6pNS5H
-	sZvKGQh+J0AF1fp7XQcm8yM/aee6LgV9oMSKBT+/qOr5L6r9nZKEQOSZW3nQcFp6ErBbWuvMvPX
-	e5J3QD9GR8DhlmglrL+IK5atrcQtI3QHdiS2X0fWyUpcFYd8UzPdvDH1pCBFTBY1SFeiHRG9nsz
-	4+x4VDFRehSRwRjTbwOkmfrXmqgi+u+rlLd0GN/r7gdz8k6TztWRBbVX8kKs05N11LB+0DRo9IN
-	OFaF4O0HlTGXh2ZDjq2/TH06EZjqDetpshEl13oQYefhpHL6TQvSDyu1E/LmP6HGkw8UpXrHxim
-	1lY7U0xHoMTjss3Y9OHMjo0MBIpHYy1Aoha2VIm+iiCTmH0KKHCrzEBDJpX+OV8iQ9e7J1f90q+
-	gt6GJGrxzZwEPkoLBjZqwxfx9PWBQpDmOW12mPxrIzoyWRBIUsDggc98Iz56uqL8BOVN8Xn8l/+
-	zX5QC37dihm+9nk0kHzq+B5T/cw=
-X-Received: by 2002:a05:600c:1f93:b0:4a0:1fb9:2f51 with SMTP id 5b1f17b1804b1-4ac182dbc34mr156760555e9.14.1793530020382;
-        Sun, 01 Nov 2026 02:47:00 -0800 (PST)
+        bh=i+tGExvsLQMos73zJAXbiW+8Oyn+dJjevDARLNaWL/Q=;
+        b=1NfC6Ve8iWfXCFom9eJYNLakqfCsTd6JgrKmRMkJC2XLBU7m14nunV7aurDdLxKlal
+         fj0YdfWqPIFY7oQpj/1R5v8sOuOPGVsi7KekrDXhodD/NRdmoUXiOSXVGiWFV3z0FBng
+         SFH/erI671N4qkI8ywisdCJoqobOIQmR3kMhQMV4SiqjT7gqbhedHatTd3EodXiZqv+t
+         U2av6uFeEQQynNex83SMtHUcBW+pTBjBePgHa0/jaeTqivTTkK5YiTUctC4NDuynxtcE
+         ocQ0WC4LEoeb9Nx2XP2BYp4fP6tp35r997AzO9xBTp1jx5/CNnn7VbwQJPZg3q9yD9mD
+         8Jlg==
+X-Forwarded-Encrypted: i=1; AKwUvBzJEFzqwMHTEzHpFqmb2yU3tDrb8JLiguXUvx4Hdf5IdYNf5O52Oz0SWM5DraMlqRDsrgPp8RTtZGlUfv4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWnF2inEaTQj5PWeB9mDV9haCrR3SMgOp7jy3CPrs3NaQvzkq5
+	3TcawNScFWMuaOqLpKiHet3L7qy6SpoclKOf/ZI8YimGmiQyf3OTzi7qQhHA4++1xhU=
+X-Gm-Gg: AYBFou3bFMFanJdUP5Nk/QxgpFN/VFfYnHwfBeoXq4iQa8vXuw/kJyqyJrvnCJPB/+P
+	SCy/WNhNFJ2QKCiiTwokAS/wUVOjkdQTuxk0QIiCPc1QD/5BmANI7xzmFZdLIqOH4fHbQv+GTCW
+	C2h62xFX1hGOolgwHs5PnFraBzFwHGdsJKjR84/0j7GXFCb5zRM8W61yJ+ZWXZ/6+kIHoYs7dWO
+	ys7ayLns59O9kXBQU0nXf0+bckqES6gZwIslwH9WivO/SrUorYxOYZA7WF8/jGQpS1+QFXWMcQl
+	CYuuoKQPPrPfruvrmGLM2qFhBqimKgw2A4WayqhfZ4scZSBPBN4WNluO2M2dUWRrHsVCgRsXCOz
+	6Oi3b3nMhWmrO++z2pd35nVa7rR8B6HrCXhor9r+S4xwCqsjEPA9ZQlfuGDODpHBrj7z28e3wIX
+	9X/ui4l5F6PkWZK/M5lnMU9N24IqI489e5hWNVhwQiCu3A7XEJXtOm3BaiMloYQYlaXX8WaeOFG
+	y2g6xyllIVq0IJLjz53zfLGBcdq8JKGfiSa227wF8Awj1uqx44fl+wqXlE6z2GfaSMNJqC0jbaK
+	WMoxlq3joVEErtYB53i8xNP/Jdc=
+X-Received: by 2002:a05:600c:37c8:b0:4a2:18c4:61a5 with SMTP id 5b1f17b1804b1-4ac16acd93cmr169842665e9.6.1793530028408;
+        Sun, 01 Nov 2026 02:47:08 -0800 (PST)
 Received: from [127.0.1.1] ([85.105.252.11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f322c46sm255602715e9.2.2026.11.01.02.46.57
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7f322c46sm255602715e9.2.2026.11.01.02.47.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 02:47:00 -0800 (PST)
+        Sun, 01 Nov 2026 02:47:08 -0800 (PST)
 From: Bartu Alev <bartualev@gmail.com>
-Date: Sun, 01 Nov 2026 13:46:42 +0300
-Subject: [PATCH 2/7] Documentation: ABI: document the ASUS custom fan curve
- attributes
+Date: Sun, 01 Nov 2026 13:46:44 +0300
+Subject: [PATCH 4/7] platform/x86: asus-wmi: read the firmware fan floor
+ tables
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-asus-fan-floors-v4-v1-2-b8d1c31a99a9@gmail.com>
+Message-Id: <20261101-asus-fan-floors-v4-v1-4-b8d1c31a99a9@gmail.com>
 References: <20261101-asus-fan-floors-v4-v1-0-b8d1c31a99a9@gmail.com>
 In-Reply-To: <20261101-asus-fan-floors-v4-v1-0-b8d1c31a99a9@gmail.com>
 To: Corentin Chary <corentin.chary@gmail.com>, 
@@ -106,90 +106,318 @@ Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-api@vger.kernel.org, Bartu Alev <bartualev@gmail.com>
 X-Mailer: b4 0.15.2
 
-asus-wmi has exposed custom fan curve attributes since 5.17 for CPU
-and GPU fans, and since 6.6 for the mid fan, but the sysfs ABI was
-never documented.  Document the existing attributes before adding the
-firmware fan floor tables.
+On some ASUS laptops, the embedded controller enforces minimum fan
+duties on top of custom fan curves written via CPU_FAN_CURVE
+(0x00110024), GPU_FAN_CURVE (0x00110025), and the mid fan curve
+methods. The floors are exposed via read-only DSTS methods 0x00110026,
+0x00110027, and 0x00110033.
 
-This includes several embedded controller quirks: point Z is limited
-to the temperature decade [30 + 10 * (Z - 1), 39 + 10 * (Z - 1)]
-degrees Celsius, the EC clamps uploaded thresholds to that decade
-while reads return the raw byte written, fan speeds step without
-interpolation, and downward transitions use 5 degrees Celsius of
-hysteresis.
+The floor table is indexed by curve point: entry i (0-based, sysfs
+point i + 1) provides the minimum duty for that point. The EC maps
+each point to a temperature decade [30 + 10 * i, 39 + 10 * i] degrees
+Celsius, stepping between points with 5 degrees Celsius of hysteresis
+without interpolation on TUF series.
+
+EC firmware dumps from an FA507 show floor tables of {0, 0, 0, 0, 25,
+48, 58, 74}% for the CPU fan and {0, 0, 0, 0, 26, 57, 68, 91}% for the
+GPU fan, verified via live DSTS reads on an FA507NV.
+
+Read the tables at probe and refresh them after power profile changes
+or curve resets, as the EC can reload defaults when operating modes
+change.  Profile switches did not alter table bytes on the FA507, so
+this refresh is precautionary.
+
+Export the floors without altering user curves, rejecting replies
+shorter than eight bytes or containing values exceeding 100%.  If a
+table contains decreasing values along its points, warn once but still
+export it so userspace can inspect what firmware enforces.  When
+firmware returns 0xFFFFFFFE, mark the table unsupported for that fan
+to avoid repeating failed WMI calls on future refreshes; unreadable
+tables remain zeroed.
+
+Protect the cached floor tables with a mutex against concurrent sysfs
+reads.
+
+Also fix the stale comment claiming that firmware interpolates between
+curve points.
 
 Signed-off-by: Bartu Alev <bartualev@gmail.com>
 ---
- Documentation/ABI/testing/sysfs-platform-asus-wmi | 59 +++++++++++++++++++++++
- 1 file changed, 59 insertions(+)
+ drivers/platform/x86/asus-wmi.c | 170 ++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 165 insertions(+), 5 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-platform-asus-wmi b/Documentation/ABI/testing/sysfs-platform-asus-wmi
-index f9825c6150b5c..775ea88625c0d 100644
---- a/Documentation/ABI/testing/sysfs-platform-asus-wmi
-+++ b/Documentation/ABI/testing/sysfs-platform-asus-wmi
-@@ -238,3 +238,62 @@ Description:
- 		Set if the MCU can go in to low-power mode on system sleep
- 			* 0 - False,
- 			* 1 - True
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index c55f469cb03dc..b6541183d4568 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -239,6 +239,10 @@ struct fan_curve_data {
+ 	u32 device_id;
+ 	u8 temps[FAN_CURVE_POINTS];
+ 	u8 percents[FAN_CURVE_POINTS];
++	/* EC minimum duty per point, pwm 0-255, not percent */
++	u8 floors[FAN_CURVE_POINTS];
++	bool floors_valid;
++	bool floors_unsupported;
+ };
+ 
+ struct asus_wmi {
+@@ -320,6 +324,9 @@ struct asus_wmi {
+ 	bool gpu_fan_curve_available;
+ 	bool mid_fan_curve_available;
+ 	struct fan_curve_data custom_fan_curves[3];
++	/* protects custom_fan_curves[].floors */
++	struct mutex fan_curve_lock;
++	struct device *fan_curve_hwmon;
+ 
+ 	struct device *ppdev;
+ 
+@@ -466,7 +473,8 @@ static int asus_wmi_evaluate_method5(u32 method_id,
+  * means that the method called is unsupported.
+  */
+ static int asus_wmi_evaluate_method_buf(u32 method_id,
+-		u32 arg0, u32 arg1, u8 *ret_buffer, size_t size)
++		u32 arg0, u32 arg1, u8 *ret_buffer, size_t size,
++		size_t *ret_len)
+ {
+ 	struct bios_args args = {
+ 		.arg0 = arg0,
+@@ -479,6 +487,9 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
+ 	union acpi_object *obj;
+ 	int err = 0;
+ 
++	if (ret_len)
++		*ret_len = 0;
 +
-+What:		/sys/class/hwmon/hwmonX/pwm[12]_enable
-+Date:		Oct 2026
-+KernelVersion:	5.17
-+Contact:	Luke D. Jones <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, Bartu Alev <bartualev@gmail.com>
-+Description:
-+		Enable or disable the custom fan curve of the CPU fan (pwm1)
-+		or the GPU fan (pwm2).  Reads return 1 while the custom curve
-+		is enabled and 2 while the firmware controls the fan.  Writes:
+ 	status = asus_wmi_evaluate_method_locked(method_id, &input, &output);
+ 
+ 	pr_debug("%s called (0x%08x) with args: 0x%08x, 0x%08x\n",
+@@ -503,6 +514,8 @@ static int asus_wmi_evaluate_method_buf(u32 method_id,
+ 		}
+ 
+ 		memcpy(ret_buffer, obj->buffer.pointer, obj->buffer.length);
++		if (ret_len)
++			*ret_len = obj->buffer.length;
+ 		break;
+ 	case ACPI_TYPE_INTEGER:
+ 		err = (u32)obj->integer.value;
+@@ -3631,7 +3644,7 @@ static int fan_curve_get_factory_default(struct asus_wmi *asus, u32 fan_dev)
+ 		mode = 2;
+ 
+ 	err = asus_wmi_evaluate_method_buf(asus->dsts_id, fan_dev, mode, buf,
+-					   FAN_CURVE_BUF_LEN);
++					   FAN_CURVE_BUF_LEN, NULL);
+ 	if (err) {
+ 		pr_warn("%s (0x%08x) failed: %d\n", __func__, fan_dev, err);
+ 		return err;
+@@ -3651,7 +3664,136 @@ static int fan_curve_get_factory_default(struct asus_wmi *asus, u32 fan_dev)
+ 	return 0;
+ }
+ 
+-/* Check if capability exists, and populate defaults */
++/*
++ * Read the firmware fan floor table. The EC enforces a minimum duty per
++ * curve point on top of the custom curve. Reading is best effort: at
++ * probe time a failed read leaves the table zeroed and invalid, and a
++ * failed refresh keeps the last table that was read.
++ */
++static int fan_curve_load_floors(struct asus_wmi *asus, u32 fan_dev)
++{
++	struct fan_curve_data *curves;
++	u8 buf[FAN_CURVE_BUF_LEN] = {};
++	size_t len;
++	int err, fan_idx, i;
 +
-+		    * 1 - enable the stored curve,
-+		    * 2 - disable the curve and let the firmware control the
-+		      fan again,
-+		    * 3 - reset the stored curve to the firmware defaults and
-+		      disable it.
++	switch (fan_dev) {
++	case ASUS_WMI_DEVID_CPU_FAN_CURVE:
++		fan_idx = FAN_CURVE_DEV_CPU;
++		fan_dev = ASUS_WMI_DEVID_CPU_FAN_FLOOR;
++		break;
++	case ASUS_WMI_DEVID_GPU_FAN_CURVE:
++		fan_idx = FAN_CURVE_DEV_GPU;
++		fan_dev = ASUS_WMI_DEVID_GPU_FAN_FLOOR;
++		break;
++	case ASUS_WMI_DEVID_MID_FAN_CURVE:
++		fan_idx = FAN_CURVE_DEV_MID;
++		fan_dev = ASUS_WMI_DEVID_MID_FAN_FLOOR;
++		break;
++	default:
++		return -EOPNOTSUPP;
++	}
 +
-+		Enabling validates the curve: temperatures and duties must
-+		not decrease from point to point, otherwise the write fails
-+		with -EINVAL and the curve stays disabled.  Writing any
-+		writable pwmY_auto_pointZ_temp or pwmY_auto_pointZ_pwm
-+		attribute disables the curve, so a changed curve has to be
-+		enabled again.
++	curves = &asus->custom_fan_curves[fan_idx];
++	if (curves->floors_unsupported)
++		return -ENODEV;
 +
-+What:		/sys/class/hwmon/hwmonX/pwm3_enable
-+Date:		Oct 2026
-+KernelVersion:	6.6
-+Contact:	Luke D. Jones <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, Bartu Alev <bartualev@gmail.com>
-+Description:
-+		Same as pwm1_enable and pwm2_enable, for the mid fan (pwm3)
-+		of laptops whose firmware exposes a third fan curve.
++	err = asus_wmi_evaluate_method_buf(asus->dsts_id, fan_dev, 0, buf,
++					   FAN_CURVE_BUF_LEN, &len);
++	if (err) {
++		pr_debug("%s (0x%08x) failed: %d\n", __func__, fan_dev, err);
++		/* 0xFFFFFFFE means the firmware has no such method */
++		if (err == -ENODEV)
++			curves->floors_unsupported = true;
++		return err;
++	}
 +
-+What:		/sys/class/hwmon/hwmonX/pwm[12]_auto_point[1-8]_temp
-+What:		/sys/class/hwmon/hwmonX/pwm[12]_auto_point[1-8]_pwm
-+Date:		Oct 2026
-+KernelVersion:	5.17
-+Contact:	Luke D. Jones <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, Bartu Alev <bartualev@gmail.com>
-+Description:
-+		One point of the custom fan curve of the CPU fan (pwm1) or
-+		the GPU fan (pwm2).  _temp is the temperature threshold of the
-+		point in degrees Celsius, _pwm is its duty in pwm units
-+		(0-255); the driver scales the duty to the percentage the
-+		firmware expects when the curve is enabled.
++	if (len < FAN_CURVE_POINTS) {
++		pr_debug("%s (0x%08x): short reply of %zu bytes\n",
++			 __func__, fan_dev, len);
++		return -ENODATA;
++	}
 +
-+		The embedded controller binds point Z (Z = 1..8) to the
-+		temperature decade [30 + 10 * (Z - 1), 39 + 10 * (Z - 1)]
-+		degrees Celsius and silently clamps the threshold into that
-+		decade when the curve is applied, while reads return the
-+		value that was written.  On TUF series, the controller steps
-+		from one point to the next without interpolating, and a point
-+		is left downwards with 5 degrees Celsius of hysteresis.
++	/* A percentage above 100 would overflow the pwm scale below */
++	for (i = 0; i < FAN_CURVE_POINTS; i++) {
++		if (buf[i] > 100) {
++			pr_debug("%s (0x%08x): implausible floor table\n",
++				 __func__, fan_dev);
++			return -EINVAL;
++		}
++	}
 +
-+What:		/sys/class/hwmon/hwmonX/pwm3_auto_point[1-8]_temp
-+What:		/sys/class/hwmon/hwmonX/pwm3_auto_point[1-8]_pwm
-+Date:		Oct 2026
-+KernelVersion:	6.6
-+Contact:	Luke D. Jones <luke@ljones.dev>, Denis Benato <denis.benato@linux.dev>, Bartu Alev <bartualev@gmail.com>
-+Description:
-+		Same as the pwm1 and pwm2 curve points, for the mid fan
-+		(pwm3) of laptops whose firmware exposes a third fan curve.
++	/*
++	 * The floors observed so far do not decrease along the points, but
++	 * that is only proven on the FA507.  Do not reject a table that
++	 * does: the values are still usable as per-point minimums, and
++	 * hiding them would leave userspace no way to see what the
++	 * firmware enforces.
++	 */
++	for (i = 1; i < FAN_CURVE_POINTS; i++) {
++		if (buf[i] < buf[i - 1]) {
++			dev_warn_once(&asus->platform_device->dev,
++				      "fan curve (0x%08x): floor table decreases at point %d\n",
++				      fan_dev, i + 1);
++			break;
++		}
++	}
++
++	guard(mutex)(&asus->fan_curve_lock);
++	for (i = 0; i < FAN_CURVE_POINTS; i++)
++		curves->floors[i] = DIV_ROUND_UP(255 * buf[i], 100);
++	curves->floors_valid = true;
++
++	return 0;
++}
++
++static void fan_curve_notify_floors(struct asus_wmi *asus)
++{
++	struct device *hwmon = asus->fan_curve_hwmon;
++	bool valid[ARRAY_SIZE(asus->custom_fan_curves)];
++	char name[32];
++	int fan, point;
++
++	if (!hwmon)
++		return;
++
++	scoped_guard(mutex, &asus->fan_curve_lock) {
++		for (fan = 0; fan < ARRAY_SIZE(valid); fan++)
++			valid[fan] = asus->custom_fan_curves[fan].floors_valid;
++	}
++
++	for (fan = 0; fan < ARRAY_SIZE(valid); fan++) {
++		if (!valid[fan])
++			continue;
++
++		for (point = 0; point < FAN_CURVE_POINTS; point++) {
++			snprintf(name, sizeof(name),
++				 "pwm%d_auto_point%d_floor_pwm",
++				 fan + 1, point + 1);
++			sysfs_notify(&hwmon->kobj, NULL, name);
++		}
++	}
++}
++
++/*
++ * The EC re-runs its defaults reload when the mode byte it keys on
++ * changes, which a thermal profile switch can do.  Re-read the tables
++ * so that the exported values follow the firmware; on the FA507 the
++ * tables are profile independent, so this is defensive.
++ */
++static void fan_curve_refresh_floors(struct asus_wmi *asus)
++{
++	if (asus->cpu_fan_curve_available)
++		fan_curve_load_floors(asus, ASUS_WMI_DEVID_CPU_FAN_CURVE);
++	if (asus->gpu_fan_curve_available)
++		fan_curve_load_floors(asus, ASUS_WMI_DEVID_GPU_FAN_CURVE);
++	if (asus->mid_fan_curve_available)
++		fan_curve_load_floors(asus, ASUS_WMI_DEVID_MID_FAN_CURVE);
++
++	fan_curve_notify_floors(asus);
++}
++
++/* Check if the capability exists, populate its defaults and read its floor table */
+ static int fan_curve_check_present(struct asus_wmi *asus, bool *available,
+ 				   u32 fan_dev)
+ {
+@@ -3668,6 +3810,16 @@ static int fan_curve_check_present(struct asus_wmi *asus, bool *available,
+ 	}
+ 
+ 	*available = true;
++
++	err = fan_curve_load_floors(asus, fan_dev);
++	if (err == -ENODEV)
++		dev_dbg(&asus->platform_device->dev,
++			"fan curve (0x%08x): no floor table\n", fan_dev);
++	else if (err)
++		dev_warn(&asus->platform_device->dev,
++			 "fan curve (0x%08x): unusable floor table (%d)\n",
++			 fan_dev, err);
++
+ 	return 0;
+ }
+ 
+@@ -3738,8 +3890,9 @@ static int fan_curve_write(struct asus_wmi *asus,
+ }
+ 
+ /*
+- * A fan curve is a set of points the firmware interpolates between, so it
+- * only makes sense if neither temperature nor PWM ever decreases along it.
++ * A fan curve is a set of points the firmware steps through, without
++ * interpolating between them, so it only makes sense if neither temperature
++ * nor PWM ever decreases along it.
+  */
+ static int fan_curve_validate(struct device *dev, struct fan_curve_data *data)
+ {
+@@ -3870,6 +4023,7 @@ static ssize_t fan_curve_enable_store(struct device *dev,
+ 			err = asus_fan_set_auto(asus);
+ 			if (err)
+ 				return err;
++			fan_curve_refresh_floors(asus);
+ 		} else {
+ 			/* Safeguard against fautly ACPI tables */
+ 			err = fan_curve_get_factory_default(asus, data->device_id);
+@@ -3878,6 +4032,7 @@ static ssize_t fan_curve_enable_store(struct device *dev,
+ 			err = fan_curve_write(asus, data);
+ 			if (err)
+ 				return err;
++			fan_curve_refresh_floors(asus);
+ 		}
+ 	}
+ 	return count;
+@@ -4125,6 +4280,8 @@ static int asus_wmi_custom_fan_curve_init(struct asus_wmi *asus)
+ 		return PTR_ERR(hwmon);
+ 	}
+ 
++	asus->fan_curve_hwmon = hwmon;
++
+ 	return 0;
+ }
+ 
+@@ -4195,6 +4352,8 @@ static int throttle_thermal_policy_write(struct asus_wmi *asus)
+ 	if (asus->mid_fan_curve_available)
+ 		asus->custom_fan_curves[FAN_CURVE_DEV_MID].enabled = false;
+ 
++	fan_curve_refresh_floors(asus);
++
+ 	return 0;
+ }
+ 
+@@ -5202,6 +5361,7 @@ static int asus_wmi_add(struct platform_device *pdev)
+ 	asus->platform_device = pdev;
+ 	wdrv->platform_device = pdev;
+ 	platform_set_drvdata(asus->platform_device, asus);
++	mutex_init(&asus->fan_curve_lock);
+ 
+ 	if (wdrv->detect_quirks)
+ 		wdrv->detect_quirks(asus->driver);
 
 -- 
 2.56.0
