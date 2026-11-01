@@ -1,58 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793503948;
-	b=eD5p8UoDYSPkXxMinBskVw1u1RMH4lLy/W7+Ah6dvJnP6rhUMV6KQ88l8Y//f37Xb7om
-	 tQ+QqsJRM8oRzYY01RwzVFhL1XCSKaJJ6yxtZRXeUnfq/eHEweq29ddoXLYbgtvZhrKHl
-	 gNeI9ul7dMWYFzl2swnKoCexHlxBI19qUejDY7HDDqUFM+ulM6yDdWwSqGgF87apE/oO3
-	 Jy69MQi8yprffbJ5DJxUuipzmFCsZOeey7jt9maxfS/hlRm+esQf5wOFPmJcSh3Lxi8Iq
-	 vkHhs9bqp+l3vkzyfPqSTGxjaPJWTiYAdISGQErdHFxVfiGlpYqQ4HbiMT4LgRvA1xQ==
+	t=1793504038;
+	b=qiNx3bCqLgHaYaj39xfKFEWZ3tEMRDyDZ8b6r41SOnSaVr/AlOSbp+XhnB1PSs/VD8Uc
+	 Sfh1Tr24w6K/z0TKy1n7+yszN1v1n8usx9QXKXe/MRkPBbnBADmWCD5+EkEwKD2aR2e0z
+	 wNeHnHx9N47Wq3keigkDCJpWHYyoCtQYFaK8Thu7R2mszbXunvLElMCm71eQdJz4OjrkW
+	 R2FPu6c8vqvGkDT9TgbEKrLFl55+lqikvHJ/DWoRL/YifLBHmksXvN/nEOk09mzitcAdF
+	 6h58//NQQ4yfdqVFjetCIyIm70gqDsp/BtERlQH+pab8kqUWKv64yZPKXdFKqUPvthw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793503948;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793504038;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=D9kj5Dm9+ryU73BM0Hu1CqoHmwpHuXGCrVhVWrv+Z24=;
-	b=weiySbXeKfKyJNRRfNZMn7s5gSiZuElD2QIa3wSPgi1q7gJd3UX+TGb3eL8EaI/Mal/p
-	 QyVC9EQdiQh8QoBFOJ201Up1/WawUj+GHs1nM0zHegVdrKQNGX3l5KkgvvhWEq4kvHgFZ
-	 ShCKfUgRiMEPpsFSF5kI7L4KtSpThFXRKhASQKfxLhzrjFc6d+hToiOlZb0GEUJQ2CLZM
-	 aW2+Av3aQw2Fne7sHJxrUhI8DkufSGtsLe3/geZUwBsq3gYME4eHbrNm+wZb0mgGAfzwR
-	 j0HnopctjcY2QtnYrcagBMYTzeqZLwb7ewOTh3mp5wJEZVuF0Nax1bTbJj/YGi9NzbA==
+	bh=Q2OCBr9ePU4KjYZvGBV1w7V+MKN0AZH7BV6n3kb8ObM=;
+	b=sIMCWc/Q+XNPBd1SkHKAU6FzeAPySHdzGWgxnyjyZmRSuLfe8eFNTjWkGPHtZNk0ckzC
+	 wftRcFXEQR+w6Wd1eLYHVhnGw/60TqY4bjr+5/NviBEeeLfYWIu9NVZGzbyqVpsZd64gM
+	 cmn6spw1yiFz0Vxhwhq4qYfyGHsyZE2xXmPKGINeqAU+wxspVI36Q1VvM9uT/8OkQDwgD
+	 4Dl48NSbTkiboQHEG+z62QFXSRaGCDqzNx3QZwCPjjqyRnnh/yblllVuZEfjmQUqmy2gL
+	 w0YsPPFbUluZQ4aRwWvVdn21yTMoPpRT9e8XHV3nOOlAjq98y2zOkNsbcClLvfJpYfQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr8i4UKs;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQESkylB;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B522606A324;
-	Sun,  1 Nov 2026 03:32:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CDC606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:33:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83CDC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gr8i4UKs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD051F00919;
-	Sun,  1 Nov 2026 03:32:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793503947;
-	bh=D9kj5Dm9+ryU73BM0Hu1CqoHmwpHuXGCrVhVWrv+Z24=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=gr8i4UKsYE4YTOkaq/SIu3w3gh61/AwmmGJP3zYi/Map3n9Sy2t1CUkvq9OS8vUvF
-	 eGp9vos2tj8xvdzvaNQ+6ZIGf73PuxDb4+oo3MBAxR6kBM5CwIfqmf16paithlU6gc
-	 SZ81pR454Sv0Pz5QiRDpsWMkzJt0ac4822/Nrzvc2B81YdV9GVrw4nbgDkwfRwIy+s
-	 0LQGLeFsIuiB97ViK1uSe4lMr6+bDGzU5NgaQaD3+tiOUw+2wCIQk2uughetD4+PRJ
-	 bNtNwdDcSiSHy6grFrSPrrQ6XK6kkqLqGsxbz00DnfnJcvBTpGPo74NFIGgujtZwB/
-	 FoZZPU2ON/giA==
-Date: Sun, 1 Nov 2026 03:32:20 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <crofts@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH] iio: update email for Joshua Crofts
-Message-ID: <20261101033220.1e966e0d@jic23-hlaptop>
-In-Reply-To: <20261027124602.1533-1-crofts@kernel.org>
-References: <20261027124602.1533-1-crofts@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQESkylB
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so2645535eec.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:33:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793504037; x=1794108837; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q2OCBr9ePU4KjYZvGBV1w7V+MKN0AZH7BV6n3kb8ObM=;
+        b=SQESkylBMjK20XVQFW0H/wphPMhUgfgfgxrMne2n7F3px41nA6gQnmiBf4yj0yEaTj
+         3wm5JBP5iNCqwrvgC6FMswh7RHB3dOjoa/r25kcFhEk7hxS16BFd0sK/g39it4EWOuNv
+         MrGEiVVghp9q9oSWe+UMwwYDFRg4H8uwP+Hbl5Br5IW8paUI6CQtBA9XkVOfJBhyy4bD
+         tIv1aF53e8oTJzpbOoqUYuvwax/5A/ieQsmzZp9N6yRXAPoQ0p1yaMpBZVwAI67MLrbi
+         JzmPQmJPu3atgupnZfmX7oz64g0Tb5gqHRrFIfOIJZr7bNJgBgWiRsdrAkkJXfFUljW0
+         tnOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793504037; x=1794108837;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q2OCBr9ePU4KjYZvGBV1w7V+MKN0AZH7BV6n3kb8ObM=;
+        b=oIKZvh7WASM133lUoIFBsdGow0Ml9k7G16rt0+lqId9NikkS8U9kiT1UlhomiLpmqj
+         7VtgqeAZSD/YGzsLBgEuyfIPXaC1bm46Fbi6H7DpJmOmDHcLTuBnRvIBatXNPriXLbwk
+         lX/jTvCu9JkYcPjYkwGmokZAwhfPGNwuNoeqTZnp57zytsm2fwyt1RLQp3WieNOwecQo
+         gRQ3vLkhTtY6GMiZA+oAJN8vxF02U1Bi4rYaF9qu0IMtTCOqXIojS6yWL5HjPVXlSUiT
+         5OPLQEjhqRFUbVjJB94bnv48E98ipnKUQXRIqmIHSa92wxZZdrTgNBuMxter93ivAooF
+         SD2w==
+X-Forwarded-Encrypted: i=1; AKwUvBwiHa/gHmdaexrr9plEPBrfhN+3nlVB9MID3ljjlnKldW2nMcPeqhTaf+Jc79JeTD/939USxhB8tzdt8To=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Bkqdq+TK0z7V0vgOxI9b+Lg1bhjZVpHQnRxsLlOmVLuoK3mEg
+	xuIRKRA9Kk6NK3YJ3NF5fzYkEzfd6Yxz1hroX9T7xpisfSrTNmUUbiUY
+X-Gm-Gg: AYBFou1aYQuYJUtDJRaBPUS9RvHFyjbwO0cWFJxSkL6d/HEI/A2pzIGFOUTK6XG6veq
+	Dst4fb/PawPi6c8WgRwaT/m2ma+PFQW/UM6T6pCJjyG7+bFlGBFHgCevdzPwHobuYRIan/QP8ZZ
+	xiXjsbcv2hupdUwNYLAmds56aiQH8bw+hMcQvhWhWh4rhrat0HS4hHzdOXqtT/tuSOUSSixLPjg
+	IP+cNk6tlsaZnOuLLpTAb4VxGzp876310BqwslAFmdMkYKj/pVMo38vV606cxVybUiXdFpqs5rH
+	R1Y2rn52jopnXpMrpeAR/1T8AYY4q4CySxzRTQS7zrIy6g+aQqKJL6Dz7nRo3Jkwj6HSUAuWbg5
+	tk34qu2Bn+dMUow29SFKVVG22MnyLqWik4zR5wS9Efh4jI6ZDmYL62jL8OB0LxDcfDl1z9g1bj3
+	35UIQZePYpBun43An7RCkS/YqzHcBWg81bmfLARponayue6JICJFnZbzVdNNy9uhBvH5+3gpQnG
+	TgLZGR5NhKzh+VVdXRL+YvtHmluixRRob1QvvuPqX4KWN9sUNJV7WzuvIvGuatkL0n2j73oMZuZ
+	MNWkIfZGyGUwRzPVhH5UvJVg4FugSXick0cs0LTck23GiCJ4z+n7zQ==
+X-Received: by 2002:a05:7300:6d22:b0:36a:13e1:c889 with SMTP id 5a478bee46e88-36a425e10f8mr15242134eec.36.1793504037532;
+        Sat, 31 Oct 2026 20:33:57 -0700 (PDT)
+Received: from LAPTOP-LJ15R92N.localdomain ([49.43.7.230])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a5fb97sm24731461eec.23.2026.10.31.20.33.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 20:33:57 -0700 (PDT)
+From: Akshat Rawat <akshatrawat095@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>
+Cc: Griffin Kroah-Hartman <griffin@kroah.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Akshat Rawat <akshatrawat095@gmail.com>
+Subject: [PATCH] leds: class-flash: use sysfs_emit() instead of sprintf()
+Date: Sun,  1 Nov 2026 03:34:27 +0000
+Message-ID: <20261101033427.442-1-akshatrawat095@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,14 +97,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Tue, 27 Oct 2026 12:46:02 +0000
-Joshua Crofts <crofts@kernel.org> wrote:
+Use sysfs_emit() instead of sprintf() in sysfs show callbacks
+(flash_brightness_show, max_flash_brightness_show, flash_strobe_show,
+flash_timeout_show, and max_flash_timeout_show) to conform to the
+recommended sysfs attribute formatting guidelines in
+Documentation/filesystems/sysfs.rst.
 
-> I'd like to use my kernel.org email going forward.
-> 
-> Signed-off-by: Joshua Crofts <crofts@kernel.org>
-Applied.
+Signed-off-by: Akshat Rawat <akshatrawat095@gmail.com>
+---
+ drivers/leds/led-class-flash.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
+index 181dfd49c6ad..a1bf70d6e47c 100644
+--- a/drivers/leds/led-class-flash.c
++++ b/drivers/leds/led-class-flash.c
+@@ -71,7 +71,7 @@ static ssize_t flash_brightness_show(struct device *dev,
+ 	/* no lock needed for this */
+ 	led_update_flash_brightness(fled_cdev);
+ 
+-	return sprintf(buf, "%u\n", fled_cdev->brightness.val);
++	return sysfs_emit(buf, "%u\n", fled_cdev->brightness.val);
+ }
+ static DEVICE_ATTR_RW(flash_brightness);
+ 
+@@ -81,7 +81,7 @@ static ssize_t max_flash_brightness_show(struct device *dev,
+ 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+ 	struct led_classdev_flash *fled_cdev = lcdev_to_flcdev(led_cdev);
+ 
+-	return sprintf(buf, "%u\n", fled_cdev->brightness.max);
++	return sysfs_emit(buf, "%u\n", fled_cdev->brightness.max);
+ }
+ static DEVICE_ATTR_RO(max_flash_brightness);
+ 
+@@ -129,7 +129,7 @@ static ssize_t flash_strobe_show(struct device *dev,
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	return sprintf(buf, "%u\n", state);
++	return sysfs_emit(buf, "%u\n", state);
+ }
+ static DEVICE_ATTR_RW(flash_strobe);
+ 
+@@ -168,7 +168,7 @@ static ssize_t flash_timeout_show(struct device *dev,
+ 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+ 	struct led_classdev_flash *fled_cdev = lcdev_to_flcdev(led_cdev);
+ 
+-	return sprintf(buf, "%u\n", fled_cdev->timeout.val);
++	return sysfs_emit(buf, "%u\n", fled_cdev->timeout.val);
+ }
+ static DEVICE_ATTR_RW(flash_timeout);
+ 
+@@ -178,7 +178,7 @@ static ssize_t max_flash_timeout_show(struct device *dev,
+ 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
+ 	struct led_classdev_flash *fled_cdev = lcdev_to_flcdev(led_cdev);
+ 
+-	return sprintf(buf, "%u\n", fled_cdev->timeout.max);
++	return sysfs_emit(buf, "%u\n", fled_cdev->timeout.max);
+ }
+ static DEVICE_ATTR_RO(max_flash_timeout);
+ 
+-- 
+2.56.0.windows.4
 
