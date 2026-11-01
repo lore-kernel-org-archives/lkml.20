@@ -1,105 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793552644;
-	b=MbBOHjCrnOFC2yhTIQ7bi7G+RCbX9UDUh9qla3vuYrW3zdscASeWipOBR9d8hbZWC8cS
-	 0AqBcjTySWhM3Dp28KLHx4Yecvi0nVuxzDm0nvFHBhLDlNLqMRfc5vND1KSpDl7VT9Fy0
-	 G56bPfzkV4jxUFSiuZyZkgCFRzE3V7OHcUrvf0Xk5aKtoIbM3yCzV+2H5zveDOUpGdOux
-	 EPyUN3LUT2y0W8ksO21GLRT9tWfTtfWtCIHRLvy34VxWkDY1xRBI1olBfEVsMpfQ5+IiS
-	 hmc53rK3cAs3AdSytTDlWVgUze9liPFfGIDO07BZOn9lVu5TVfiKnnP9v4vY6/zxk0w==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793552644;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=wz41j4zEOzVaV5OmMHgkOlnT8oYTQIPs1Ouv8G5yhhA=;
-	b=jew+rpH9fUkJBuaQDq3SK+BFWj4JWBPmwEv+2bCON30qYf5soMwHFDxeUMzzUtyGZr+y
-	 PNKmsIFz6GzqR8DzCLhNxJhhUVPT5+0qi2OfnHQf5++fsgtyE6WCuwK4kbF8SzIQCuh+W
-	 VBgvOfQ4eyjsLlZ6vpwWvaBIcEpJf0JH8D0XX/IVZp16R9OhXjrRQXWnqJ3K2gHiq+K4I
-	 lbYnx0E8C2+jxDxi706HBk/WLFizVfEFDQH2hBI3Mv4HmAq2yTV6AcmTB6NfCCcDqPpYW
-	 UzpR0mpMuVi8lVG9zPPkkdvZD3qMZtFHEn71lAeUHno32gGtW6BbLVcyF4AtdiJfR3A==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zsTqLzrF;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793552695;
+	b=UjMQUDi6uI6X5JZTO4f+XzhhVEEUI8/EtEAZ0Nbyfz8Libo/GBkblNxPmf8Fmao/DHOe
+	 4JKH7+qvoskzZGxuqLD7+tPzO12r34AU6zEfiVxNNa7bqWmsw1mPtZVvN6jwBmhY260VR
+	 XERqRa6renXfH3CIdGyVSrs/VWD8Pkz4UJQvkR9GududzsltXYz7sGQ2lNu3ySwZHKXBP
+	 54nrrFeEFMbB9cM8RKBbbyjF/zn5r6dPyvyMz5NpEpfJTS3gQK1PtapzjaCHQ9kzSq8qL
+	 gxNcun084M1gX+RFka77UedAdHqCBmTg8Qec9Z7vsKIRqM3HONOuMwsp7xNpgK/jHFA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793552695;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=6ZhjtEGoIXYajBUtxBWTOChkOo/ZSi2InW/pWlQIKSo=;
+	b=wihNlad/cf9uSRFI97deQpdbMMzHRpXBF6MYzokiE2N581DkSUUQPeMt4x8mVNeOteFV
+	 Zt863EmN2L8Yb5mgmAIB48D40LLHjPXQtquvpkWo/iWQ1DtPcgKHGRMRTVBYSDJkpJC8G
+	 uW/naWKYm3MCXhpImXN/esGTorVWQveEk77pI3P6DEI4iFA82OXyK0zJ93VSDDDsfNRes
+	 2mEF6jg5RWCNXkJuRLShuUvvIeHW1EsGY7V5hQs3qWg1xuAUTBpYhRdwBSBVBmnghdz77
+	 XjmZrMAMrZ45LFpmGP7BWb3xOdT87FLusOhsF+vrYN/0PvnwyuizuBZo87QsGwDoMXA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVSQsGrN;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25DA606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:04:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVSQsGrN
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793552694;
+	b=rVfBmOhOupH6jF2EvJZWbDIs237Ru4q7O0UDATYK+t9EGk9n9tKmV3KtRZlNFyjQ1cbj
+	 15VLd9c2mmEZrOs4ociSU89cG/6iLCQ7ty2oyYs8mNBOExgvlVgoI1kmVX+FuXv3yYzln
+	 KBHjgc3enqJnIRNGwndv1q2VxTZvJBkYJlZ//RBXXbbpt4gmALnwjA6EfpN0znoDADT9v
+	 PbZL1rEVSHNsaCUwKWAc+zZeKt0Ckv0SuTBrTBy/p/vTnrRyD+hZEln/gkmVlNoqeSJNI
+	 5tXGLvC2uIVf60gaJP4bs/wL2u/FfkwQkMuk/9iyrIWhrFDGsBz/qmi+cN6hg6+ypnA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793552694;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=6ZhjtEGoIXYajBUtxBWTOChkOo/ZSi2InW/pWlQIKSo=;
+	b=BzhdjxU2JsMC5nYhku9+3u6jOa8u0EP5NlsTtXuZ22VndSDDMD4vMzy/HNeoHEOmC7Sf
+	 N4Ty7a+gYVAYatLqOFV12/PXWIrAMcpnGh7+OKKl2zTsUkAlfwWP5O6ihpK3wKzvWDXUM
+	 qIRmScJ6W/xnxnLxDkICihTWKatRynGSAB01JaNbaNnlQZJ6ZoddlAngbt8HtPKnSfWK1
+	 lSwKxgvrKMfD0gkRDy/XXIo3hrz+nW7bm9TowA7w7W3lT2GQfJO9mJePMyG2aDjCRnjyc
+	 e2mXb6SBS1qLeH/2DBSJ135aexexcQ3czza8T/y3JpmpIf0KyaZM9jZjepLLECgSCHw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B141606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:04:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B141606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zsTqLzrF
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4afe2d546f9so5859845e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:04:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793552643; x=1794157443; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wz41j4zEOzVaV5OmMHgkOlnT8oYTQIPs1Ouv8G5yhhA=;
-        b=zsTqLzrFXBMEAnagbRLsMaksARQDFY7D7hjrr+cUlhpnCrrl8I5XNUm9u+t+pYY52n
-         o34uRnqzlN5Ew/rFP6p37K5KyFM92nNkxp62PIZzz5eyu+pqNIs2vW/pTy2kGSmGROk8
-         QeoHfd8OFr17zeRZWN5lnYlNAxLLG/caZGUZMTHGrlBrTOh5y+DU5y0gN5NC61TvaWiy
-         seS9XkdUdFWDqBnoO0HuLD/M06flgZaXxZYzSQLvGRWu4oV3+ftXoc/TCSoSWaMi7Pks
-         QvffWBvVba6sP+8BE69CA+SRbS9Q90b+ffjMgpwbxdTA7zDcqzPNLpuVGmouZ9OL15Xx
-         hy5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793552643; x=1794157443;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wz41j4zEOzVaV5OmMHgkOlnT8oYTQIPs1Ouv8G5yhhA=;
-        b=GkYWSbiliPS2nvDCG1XygfPZ+mnFPgyMQA+pR6fi4lJ/mPqoJiE8GKFL8IUHmchTwt
-         pezKUl/JA0Be1LMeDWyDqOaE5gita3OgyYjGkk7w41rKRXqf1KBtGbPuPBvEIgD++/1w
-         4wiIu1tryHT5i5Md+VCmntbkLd2LTpg+RQ1ImFDwKupL9tFsRjewRh91Yeh+oIaIoq5i
-         Ac/iop1h3feUU/cOOUlbsEosT+WuR32QKNm3ICJebqWbUBGnIDyLV0DjsL3lXqb8VSot
-         Mj+ObN8/gR53Z+I2FewmmMM8WveI3IoCeFyBxcP06kqMrkebrBE3iEjRxd/nHkcmkiCo
-         PieA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCZx63EwVpWcKJyhm1BC04bqsLEUQfEPnycSSszwbOJ4ADA5RpksyZ6a/qRLBePCSto+/HFGjYGX+LIAk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYItf8jXeGqXX7IFQvWyiw/E7BhSihkJ88NSc0cgmzQykBERyE3C
-	4XhbilDzuUU85om9oTa02JHVsMphUp43wfsq3V64J+J5etgCg8hx6k/x
-X-Gm-Gg: AYBFou1M8ooZt+f/fvHKaUOZDDaYJx0uT459hEG/0eF/A057Ro98MdtFlwIk4EtE/SU
-	H6E7dFks5/GjJGRPZvV2JOUXpE+jUDsKVH22m7WhHZNHfh0tvmI+Z57HGbh0UBiwTrRp5VS2MGs
-	XVc31LhooRmsJqvf0ZEKMICadXXdRUXNcrNsJhq5kDwOud1DbxMO/XYVhNfiH9CRRyu1QMGW+9w
-	HpzNoGL8EagjGhOdWTPsvR03tifcRmw9lFmsiM20oHS4Bvf8O4Zx0SDm0PXv9nmYbjci96njG/U
-	d+XdyjlfiDAFbHIX+1T6//5qOB2Y0sQAXFSDOExA4ueY1VoW1mMXU3S5h9kmTEhXt4+KDaM0e2L
-	szjvdXg068k49Oz2MsvXrngM38HmXBu6o+O8ovgs4gOmb1ObOQQzmcSsh0Hi0r1Z39KpIbms6un
-	3dZhuoncujJlwlkNkmR5HX5DHz4CLHL8DjLIenyDqRsxGSx6NnKlsA2Hn3psQc4oYD7ZkaKeqT8
-	635y5DW4OEizaPEdWIy4XWwA2k3SVKIOOFiJ8yOd155uYXDA2JdOan+YS0zii5iU82mkNtkfEdC
-	I05LJioyoQdNRP3SpgaFm7JTnPoZYGjA4Z2pCOAM1ph/ZEYQZ47M+wc0
-X-Received: by 2002:a05:600c:46d1:b0:4a1:df52:3e36 with SMTP id 5b1f17b1804b1-4ac17b2cdc2mr184677635e9.27.1793552642439;
-        Sun, 01 Nov 2026 09:04:02 -0800 (PST)
-Received: from localhost ([188.24.195.19])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7815fsm15409766f8f.22.2026.11.01.09.04.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 09:04:01 -0800 (PST)
-From: Viorel Cernateanu <vrilutza@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: Alexander Potapenko <glider@google.com>,
- Ilya Leoshkevich <iii@linux.ibm.com>, Marco Elver <elver@google.com>,
- Dmitry Vyukov <dvyukov@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, Andrew Morton <akpm@linux-foundation.org>,
- Kees Cook <kees@kernel.org>, Borislav Petkov <bp@suse.de>,
- kasan-dev@googlegroups.com, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] x86/kmsan: Fix CPU entry area metadata lookup
-Date: Sun, 01 Nov 2026 19:00:05 +0200
-Message-ID:
- <179355240547.499486.15939101750691972500.kmsan-v2-reply@gmail.com>
-In-Reply-To: <20261027162614.GB1779021@noisy.programming.kicks-ass.net>
-References: <20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com>
- <20261006-kmsan-serie-v1-1-07fa860ef3de@gmail.com>
- <CAG_fn=X=edvfVtq35i7baEKems+ahRb87LY66xLwGLvW9BLZdg@mail.gmail.com>
- <20261027162614.GB1779021@noisy.programming.kicks-ass.net>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	by smtp.kernel.org (Postfix) with ESMTPS id 9CF031F000C1;
+	Sun,  1 Nov 2026 17:04:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793552694;
+	bh=6ZhjtEGoIXYajBUtxBWTOChkOo/ZSi2InW/pWlQIKSo=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=QVSQsGrNCtJXqcbIhhCWw6UEOCLVTwgs9/s0cslmMr8i5e6dMZhci/aXJHcWYi15P
+	 GnLO8fQi/qvc5Ox/Lb73WXPS1d0hFbX73vCFzBTuj9zyIBR4Bm4NJlm/R9F2Ib16Pr
+	 LkzGqtLTzgAiXYlyraOsMC70xCbXVkTfZjqQ8ZHroHQO+XiamzZ3x38ZEeZ0xKKKY4
+	 f5xwqqv0M3IYLtdRAHytNgEPjWWMwf59Ju3fTna9NkLlLpuP2I4Dxhxqmg4kobOfLj
+	 33diIx+T3VoMu+zCbSamo7PuX7M4J2fIpZ4tiLAhwllAm0ebKUDxo368AUTwH51wAo
+	 Ren/Lp8Dwn2rg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id ECC1846203;
+	Sun,  1 Nov 2026 17:04:52 +0000 (UTC)
+From: Viorel Cernateanu via B4 Relay <devnull+vrilutza.gmail.com@kernel.org>
+Subject: [PATCH v2 0/4] x86/kmsan: Fix two bugs in the metadata lookup
+Date: Sun, 01 Nov 2026 19:04:35 +0200
+Message-Id: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,34 +83,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OwQ6CMAyGX4XsbE03EhRPvofh0I0CUxlkw0Ulv
+ LsMrh6/9v+/dhaBveUgLtksPEcb7OBWUIdMmI5cy2DrlYVCVUjEAh59IAdbCzjPEVHLsjQs1sb
+ oubHvzXardg4vfWczJUVKaAoM2pMzXRrtGk1fgqjSvrNhGvxneyfK5Pl/OUpAwFND5wK5yWu+t
+ j3Z59EMvaiWZfkBwydlCdgAAAA=
+X-Change-ID: 20261006-kmsan-serie-e33000b199ce
+To: Dave Hansen <dave.hansen@linux.intel.com>, 
+ Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
+ "H. Peter Anvin" <hpa@zytor.com>, Alexander Potapenko <glider@google.com>, 
+ Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
+ Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
+ Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
+ Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
+ Baoquan He <baoquan.he@linux.dev>, 
+ Baolin Wang <baolin.wang@linux.alibaba.com>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>
+Cc: Borislav Petkov <bp@suse.de>, linux-kernel@vger.kernel.org, 
+ kasan-dev@googlegroups.com, linux-mm@kvack.org, 
+ Ilya Leoshkevich <iii@linux.ibm.com>, 
+ Viorel Cernateanu <vrilutza@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793552692; l=3024;
+ i=vrilutza@gmail.com; s=lenovo-20261005; h=from:subject:message-id;
+ bh=70IlPx1AKJ8+cqwvWRwobdqND9Oht8b+HJuyYoNKqmg=;
+ b=FdDO8TSJQ+sj2UKnZMnNeYqMDmWCZVcKj/oNKlP7ur1VuKC10ya7OWVdZ7KEcPuzmH5QOLV9D
+ REcYDbXZA/nDm+/qM0rMMa8PViACooI+H01bEDMiM1InW/oheZrWwAo
+X-Developer-Key: i=vrilutza@gmail.com; a=ed25519;
+ pk=HttZd2ffphVYTK/pvlflateaij8E4SdPd6Y+xDQMqDU=
+X-Endpoint-Received: by B4 Relay for vrilutza@gmail.com/lenovo-20261005
+ with auth_id=1115
+X-Original-From: Viorel Cernateanu <vrilutza@gmail.com>
+Reply-To: vrilutza@gmail.com
 
-Thanks, Alexander and Peter.
+Two fixes for the KMSAN metadata lookup on x86, found while running
+KMSAN kernels with KASLR and with CONFIG_DEBUG_PREEMPT.
 
-I've reworked v2 to keep the CPU entry areas in CPU order when KMSAN
-is enabled. This allows the metadata lookup to identify the CPU directly,
-without adding a per-CPU search. Only CPU entry area randomization is
-disabled; kernel text randomization remains enabled.
+Patches 1 and 2 fix the CPU lookup for addresses in the CPU entry area.
+With KASLR, the lookup treats a randomized slot as a CPU number. With
+the areas in CPU order, it still attributes the last page of each CPU's
+area to the next CPU.
 
-The one-page offset error still needs a separate fix. The lookup now
-uses CPU_ENTRY_AREA_PER_CPU rather than CPU_ENTRY_AREA_BASE, excludes
-the IDT page, and checks that the calculated CPU is possible before
-accessing its per-CPU data.
+Patches 3 and 4 fix a recursion with CONFIG_DEBUG_PREEMPT: the metadata
+lookup ends up in the instrumented preempt_count_add(), and the kernel
+hangs right after KMSAN is enabled. Patch 3 factors __pfn_valid() out
+of pfn_valid() so that patch 4 can use it.
 
-I've split the changes into four patches:
-
-1. Disable CPU entry area randomization with KMSAN.
-2. Correct the base used to calculate the CPU in the metadata lookup.
-3. Factor __pfn_valid() out of pfn_valid(), with the caller responsible
-   for RCU-sched read-side protection.
-4. Use __pfn_valid() and the notrace preemption helpers in
-   kmsan_virt_addr_valid() to avoid recursion through instrumented code.
-
-This reuses the existing PFN validation rather than maintaining a
-separate copy. One consequence of the refactoring is that pfn_valid()
-also holds the RCU-sched read lock during its initial range checks,
-which previously ran before acquiring it.
-
-I tested the cumulative series against the same unpatched base:
+I tested the cumulative series with the v1 configurations, against the
+same unpatched base:
 
 - QEMU reproduces the GDT lookup failure and the metadata boundary
   failures on the base. The corresponding tests pass with v2, including
@@ -144,29 +145,49 @@ I tested the cumulative series against the same unpatched base:
 - With CONFIG_DEBUG_PREEMPT, the base hangs immediately after KMSAN
   starts. The candidate completes all six boots, three with KASLR and
   three without.
-- On the Ivy Bridge laptop, the candidate boots with KASLR using a
+- On an Ivy Bridge laptop, the candidate boots with KASLR using a
   minimal init, and the GDT and metadata tests pass on all four CPUs.
 - An x86_64_defconfig build without KMSAN boots to init.
 
 I have not tested CONFIG_DEBUG_LOCK_ALLOC or measured the performance
 difference.
 
-On s390, kmsan_virt_addr_valid() still calls preempt_disable() and
-reaches pfn_valid() through virt_addr_valid(). This series does not
-change the architecture-specific s390 code, but it does refactor the
-generic pfn_valid() implementation used by that path.
-
-I also cross-compiled the selected KMSAN and memory-management
-objects for s390 on both the base and v2, using identical
-configurations with CONFIG_KMSAN=y and CONFIG_DEBUG_PREEMPT=y.
-Both object builds completed without compiler diagnostics.
-
-This does not cover linking or booting an s390 kernel. With
+s390's kmsan_virt_addr_valid() also calls preempt_disable() and reaches
+pfn_valid() through virt_addr_valid(). This series does not change the
+s390 code, but patch 3 refactors the generic pfn_valid() used on that
+path. With an s390 defconfig plus KMSAN and CONFIG_DEBUG_PREEMPT, I
+only compiled mm/kmsan/, arch/s390/mm/ and a few mm objects that use
+pfn_valid(), with no warnings before or after the series. With
 CONFIG_DEBUG_PREEMPT, the s390 metadata lookup still calls
-preempt_count_add(); I have not validated that path at runtime.
+preempt_count_add(). I have not built a full s390 kernel or run it.
 
-Ilya, could you review the helper's requirements from the s390 side
-and advise whether the corresponding architecture-specific change
-should accompany this series?
+---
+Changes in v2:
+- Keep the CPU entry areas in CPU order with KMSAN instead of searching
+  all possible CPUs on each lookup (Alexander, Peter).
+- Move the one-page offset fix into its own patch.
+- Factor __pfn_valid() out of pfn_valid() instead of adding a KMSAN
+  copy of it (Alexander).
+- Rebase onto current mainline.
+- Link to v1: https://patch.msgid.link/20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com
 
-I'll send the revised series separately.
+---
+Viorel Cernateanu (4):
+      x86/mm: Don't randomize the CPU entry area with KMSAN
+      x86/kmsan: Use the per-CPU area base for metadata lookup
+      mm: Factor __pfn_valid() out of pfn_valid()
+      x86/kmsan: Don't call instrumented code from kmsan_virt_addr_valid()
+
+ arch/x86/include/asm/kmsan.h | 31 +++++++++++++++++++------------
+ arch/x86/mm/cpu_entry_area.c |  6 +++++-
+ include/linux/mmzone.h       | 42 +++++++++++++++++++++++++-----------------
+ 3 files changed, 49 insertions(+), 30 deletions(-)
+---
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+change-id: 20261006-kmsan-serie-e33000b199ce
+
+Best regards,
+--  
+Viorel Cernateanu <vrilutza@gmail.com>
+
+
