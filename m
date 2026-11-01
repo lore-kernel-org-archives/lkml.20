@@ -1,55 +1,55 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793567022;
-	b=cu7MXITGxQV9RgptdLAtNE1S60Vyd0dslbvZ3nkA2aRZ8YaRifQM2DLTIMBC+eyACofn
-	 kL4deJl6fVlscnrOul5byZlCpFVzytgiXztdMbMfaGjaBjcLLebwhdZ2gHmhj4I1uFN2H
-	 5g3iFiCQ5a5BJNwyx//tQCJ311tw3m4c8/JFYIJFXHUkmiPn/bMwcEq5DtwMkdRoQQDoX
-	 yH1BUKHxdSoVlsEJmWSjuyI0BMv163omQzH6h5L1Dq1MP2WCe7A2LQFxmoOdl+XZCdKea
-	 uSShAyQtk9sRQ1ixJCwseAblhDf42eb9WMd1hp8Su4JOAGZgd5yJ6MYBTycIHEln+7g==
+	t=1793567238;
+	b=pbJbWed1kiq5dZv89UJIzFei+3eqMhLE6FpsG33lBhVrH+Bh/m6FwT8c8UHEOMGQgDj7
+	 kgfxCzeat9u1bTpCgiwvoyyLwtiCauMPB9+P8NDBqEhQAqdy1ycf0IKhvBknntYyI4E6x
+	 eoxZz5gBEJBfIde0BC389I3mRmQxgd++RuPPQVAK5CWDHi1n8/IAk7wxG1sPG2swwIqzE
+	 BATUbCYzAB3ucAs/AOczmxrZLFy4X10jz/8jTVQjhuC4FShnuOdLZ60Z3/B3PfgtBuPD5
+	 4Xm+3vOS0l/dBmN2rmqTq0Pysdjspwx8HXBOw8wNt9RM2FGyfbauXer8ElYcPY7QXtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793567022;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793567238;
 	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
 	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
 	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
 	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=L1KaEDjFsWvGvMrTGkRaCJc21/TfVIdv9OIWGbl/AE8=;
-	b=esvERFfOMFsqbDeUQtYM1m9wD5OJe3Li/b9DNwdCmuko2A3nXy1Vo6EM0PqM4sI362Zi
-	 XWMNjrvtMBQGSJRYThN2+u0GBgGwlVBUX5ijA0zBDz0DrAfXQnKrT1eI7NRyrau2KS9HV
-	 I4dmoL5KiVbr3NE8k8KvCnmJsmx/OMCLAeacNn7xrvws44sIFQJgJ6I+Ptr5Tevriq+vN
-	 8naCf4Ln2EMoHeOyGztuN8Gt7nhMb0JbR49e6LZ+SFKPEl1J6o3lYwis1vT9++6Bk5xmZ
-	 yrwyzHBk9krsHz/65INSmOGG/RP9ALickzqemax1k57r41HsxHiZ9beXOOIPWhvUtNQ==
+	bh=uBtK4Uii2Z/syuVxoiWD5aDotjazeSSHixcnfiiNqGs=;
+	b=CHJdpBbKG1IPS6x8X40+QPiGhUI3CbZ07GxBdTlR/qTkL7O/1FjytioYfk0CL3idd/Pu
+	 0X7+L5zBAkDxfxiOttCBZfVNlH8iT6W72h9eur3cNc7wN3Fb0xL8TzNH2KkSV6X39ii90
+	 DGXmfLcwf/Y1joNpHdbXc4BzeJODK5XwL6If/CDyBqrFh34KL1WpN2lncqmHSgZLMSCPX
+	 fgw7xSl0H2R1jpnr19041DrNaWRVLgmfPsgScwMYiaoFE3iBvCmGBF5fK2fnPlpx6dCdR
+	 MjYzwt04rAYr8tgWoDv7L+ZujteWYTfEwO+yJ5DTutHt8wK+44F8inDmz4teVipJU2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dar2SFo3;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkSf1Zmn;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5E0606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83A5606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:07:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dar2SFo3
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF5201F0093A
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:03:41 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UkSf1Zmn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7169C1F00A27
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:07:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793567021;
-	bh=L1KaEDjFsWvGvMrTGkRaCJc21/TfVIdv9OIWGbl/AE8=;
+	s=k20260515; t=1793567237;
+	bh=uBtK4Uii2Z/syuVxoiWD5aDotjazeSSHixcnfiiNqGs=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Dar2SFo3WrBnMjg/Wi9AxrLDYq9DWwa7uJBUlcAQLwyr70WFSaNbTQl75OPMmNglW
-	 MeKaqhOFSQ2JzeiCtwoEDa+GDXV/xWfqogeX7NISoEzCF68cp+2j6T6L7eJjejoq/c
-	 emu5q3LK9Jy8kBAdtrHSrXAq6E+fjWFMHnoY/Ov2DIkW2a95Y9Bwl3YoxX1V6XP5AE
-	 iIdgIQgoirvdxK9JDo9d1YeAVkhS8BAkI1bG0USpIIcudnqjt1yqvVgI1ElrliLWbB
-	 /GeWDTbuJGOGuPKIEe/8q2NKEbUaLYR5p/x6Gnt9wDvuqu21p61WPh53jrrSiZoJJw
-	 134escY1GMp9Q==
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-945ae2daa66so70936985a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 13:03:41 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBxHfvYAcai8iPGgX2RxhPvrMZ40BKfClkXuvR76OB0D7R5oUTZrJGckB0mEHUBS7lb0v4oiVCBX40WZqOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKhRr0vFWDE0KZMUnr2pa6ChrDvv15WwewzG9ahq3JGNnNuxZt
-	sciAfk2/zCJfF06UcZtFXFaZQXkSb4uVh/II9IwfPAuywho4IvLHWv276sSXjR9gFNfw81ZvcFJ
-	sDJn5oEiUUEp/tBWST2Pnv7wOMvcFfoo=
-X-Received: by 2002:a05:620a:2806:b0:93f:5892:e5fd with SMTP id
- af79cd13be357-94421585e50mr1455648685a.1.1793567021240; Sun, 01 Nov 2026
- 13:03:41 -0800 (PST)
+	b=UkSf1Zmnp1uyNO50H1VYvb3iB4ZDRd8wGoFOrJrwYZqw00pRSHWM8+PJc4/YovtRU
+	 PsmfuCx1bT0MPZ2sQyIh66wgZYOFZK67li56HxijDNOL5r9d/V7Dl0wh2j/OlPZ0WH
+	 iOFRwTb3/en71nrtIFF3rJ9fVCCGzCF85hf7NRP+Z7ywgWLGKPdt14/UUJEtGOBeha
+	 eSSy1YnuX/HHWDe+G6VeKhj1JTee8ap+6y4CMEwj44pyyBvaqdWvzZZMFdz0x7Rh0c
+	 b1k4tz532PgYeCUtCjILwWjHerrGaBcm/0AdUxZUuLeHmAS7c/8cDz4BpdGbP7y4tK
+	 EquQO09hI/t9A==
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93f1e5d7450so224460485a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 13:07:17 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBwxnkKqBBV0iX9yTNcB+77mfibj9mZSHynR4wiU7Ux3vmdq23/bKv/4L/Cn49WWXoUXkZVImx+QnJqGEwk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/c63hxLcVKGVHZtxtL0RMyIUkPzQRu8E7etCGqStTZ4AU5BV6
+	dNKpxS9aldQaOCysZ4zAxgafxjSe32uTkYHJ2vxX4pxIOgZagx71xeCG5iXfK7GpdAL9cGms+1X
+	XSibKGrrLK4SFrmQwcTyOXGXSJpSPBAU=
+X-Received: by 2002:a05:620a:688e:b0:93e:c12c:4412 with SMTP id
+ af79cd13be357-944217f079dmr1343599285a.78.1793567236722; Sun, 01 Nov 2026
+ 13:07:16 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,48 +59,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261012205447.2717801-1-max.kellermann@ionos.com> <20261012205447.2717801-3-max.kellermann@ionos.com>
-In-Reply-To: <20261012205447.2717801-3-max.kellermann@ionos.com>
+References: <20261012205447.2717801-1-max.kellermann@ionos.com>
+ <20261012205447.2717801-2-max.kellermann@ionos.com> <7037ee68-5dcb-46ed-a73f-ed6ea58915f4@paulmck-laptop>
+In-Reply-To: <7037ee68-5dcb-46ed-a73f-ed6ea58915f4@paulmck-laptop>
 From: Barry Song <baohua@kernel.org>
-Date: Mon, 2 Nov 2026 05:03:30 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4zQh9HrvgaqD32_A=bSdqmPqP4oV_SxMXMEDBrHe4jjhg@mail.gmail.com>
-X-Gm-Features: AclHuK8OqXgKSVdL2WuIVJgz5P-HEa2lSTPqglBGQNxXGO5x-V4zhAlTU4Zabl8
-Message-ID: <CAGsJ_4zQh9HrvgaqD32_A=bSdqmPqP4oV_SxMXMEDBrHe4jjhg@mail.gmail.com>
-Subject: Re: [PATCH 2/5] mm/vmscan: move code to lru_gen_{add,del}_memcg()
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: akpm@linux-foundation.org, kasong@tencent.com, qi.zheng@linux.dev, 
-	shakeel.butt@linux.dev, axelrasmussen@google.com, yuanchu@google.com, 
-	weixugc@google.com, baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, 
-	david@kernel.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Date: Mon, 2 Nov 2026 05:07:05 +0800
+X-Gmail-Original-Message-ID: <CAGsJ_4znEifrb_5vVbkVENmTdVLeGgOyfaYqptNXk15kQ6xr-Q@mail.gmail.com>
+X-Gm-Features: AclHuK_GLhoQTQql-sHZc5DrMSM4g6S1w1l6RaNWA69ZyNHwnlgREaXUECvpfuY
+Message-ID: <CAGsJ_4znEifrb_5vVbkVENmTdVLeGgOyfaYqptNXk15kQ6xr-Q@mail.gmail.com>
+Subject: Re: [PATCH 1/5] include/linux/rculist_nulls: add hlist_nulls_add_behind_rcu()
+To: paulmck@kernel.org
+Cc: Max Kellermann <max.kellermann@ionos.com>, akpm@linux-foundation.org, kasong@tencent.com, 
+	qi.zheng@linux.dev, shakeel.butt@linux.dev, axelrasmussen@google.com, 
+	yuanchu@google.com, weixugc@google.com, baoquan.he@linux.dev, 
+	baolin.wang@linux.alibaba.com, david@kernel.org, ljs@kernel.org, 
+	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
+	mhocko@suse.com, hannes@cmpxchg.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, rcu@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 4:55=E2=80=AFAM Max Kellermann <max.kellermann@iono=
-s.com> wrote:
+On Thu, Oct 15, 2026 at 7:58=E2=80=AFAM Paul E. McKenney <paulmck@kernel.or=
+g> wrote:
 >
-> Preparation for the following patch that adds tail caching.
+> On Mon, Oct 12, 2026 at 10:54:43PM +0200, Max Kellermann wrote:
+> > Move some code from hlist_nulls_add_tail_rcu() to the new function
+> > hlist_nulls_add_behind_rcu() for callers that already know the last
+> > node of an `hlist_nulls` list, to allow constant-time appends.
+> >
+> > Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
 >
-> For simplicity, hlist_nulls_del_init_rcu() is now always used, which
-> is also valid during rotation, because the entry is immediately
-> reinserted under `memcg_lru.lock`.
+> I am assuming that this commit should take the same path as the rest
+> of them.  So:
+
+I guess it would still go through Andrew's mm tree.
+
 >
-> Signed-off-by: Max Kellermann <max.kellermann@ionos.com>
-> ---
->  mm/vmscan.c | 36 ++++++++++++++++++++++++++++--------
->  1 file changed, 28 insertions(+), 8 deletions(-)
+> Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
+>
 
-[...]
-> +       lru_gen_del_memcg(&pgdat->memcg_lru, &lruvec->lrugen, old);
-> +       lru_gen_add_memcg(&pgdat->memcg_lru, &lruvec->lrugen, new, bin,
-> +                         op =3D=3D MEMCG_LRU_HEAD || op =3D=3D MEMCG_LRU=
-_OLD);
-
-T.J. series[1] removed MEMCG_LRU_OLD, i guess you will need some rebase.
-
-[1] https://lore.kernel.org/linux-mm/20261028010611.3929937-1-tjmercier@goo=
-gle.com/
-
-Best,
-Barry
++1
+Reviewed-by: Barry Song <baohua@kernel.org>
