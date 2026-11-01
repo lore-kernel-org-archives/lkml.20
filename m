@@ -1,72 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793557833;
-	b=oYsd2uxTanheoPZ8zD1nbMxGN5sXOq/RaLWyuGT705celbRxRCcHh58n4f+vUtL8wZll
-	 pf16t9GrXaijeMIMHm0q8+vZmwGMlxK9IulsDz4cl6Yrw0fsiuY0LIaWuJ1QhCWNHE0z5
-	 iCFOa93m8UW5qOHz/GLoaTY87fVZGnXW8k4tykHSJjcnW/qkhxnNzsX3/J/B4A9Mc/4za
-	 bShd35iS6LgzqimTFRMi4Af+TeGnbdOdJV4VPFA2QDKdoWq/Mda5dl0zRfCeTLvRwR8L/
-	 Az3gmx/95XMQlSkfKDQEcZ0UBDQk5UCQbqHiJ/qQQUKagGoJXWIRvbs8GT3Ltc4t0Kw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793557833;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=1EJPeAiMC+CVyLboONMl65c6BTsg62mSg/tek3nQToU=;
-	b=LqK43VJbnKYobHBclbFRNfYiQjHud8LcYL3ZBN+KisZ/BbTXgZ/rNduNHpdZZCcQQnwJ
-	 pYIVUxhb9FqEStsTrHyF8AiHjgjKhw/ldBDzE4Imn2qNmmz6Ps5k/qxngeTaRnVgHEP86
-	 HTjMBjf/5c9i3h6edArtdlEvcIvNTC+qIIjpHRNLcGQAeDTKfZ6Ffae96yX2NLbSLwTM/
-	 mXd8i55o8fpLv6q20i2pu7ul9IzxHWncXzkkoNZhcA3I8pbLIaxyukeJZ+7XDjJdmp44l
-	 gkQbsxhD0/vwx4HYpB4mUmX0dgXBHgnVKKVEH+wgNkY1ew48SfflSRY1uDgW1ePQong==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZAve3unZ;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793557891;
+	b=0yKwpUQZ/5KvUfgA37cZ/SRKWw1CmAzWjX6uG/fd1j6c3ixq6yW5IFCZIIG6wIuCzJDR
+	 Esw31oXv/vUj3p8x7xztZed6erj941wTyEVtqOt8nK0jisHNCxhmgByi/tdaOQtkqo0i0
+	 xp4NlO12CYunu3ly+Q9nCzzC1nRuMLuG5rQ9oHCab2KkVfm4O/M8saIVv/cr1iAAH2f3+
+	 i5q1hLSZq7TrxhoLzA8KSVhUmeXGwTEyYfDRkQghZVhnooSEESTejFbpo4mIBx/+aVrdA
+	 UpdbiUCSgaJ/kr72fIwv1gNR44R8X5HOVPbgTdTA/x6gZujUZPTNNbOQ409Gyu04Ryw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793557891;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=tVpS7upRTy3Zlaor6N/9+WDmU5lrwMQoo7X+ts+rJnQ=;
+	b=KM8Wgw+hDvuFQgXuqLpFfHKvlBDTCwB5Phg/yGYF+UQAxLXTfnsdIG0V3GS/pQ2G3Lcl
+	 gor8A6ku6+qUbJRql2AyUo9o3z6YWGRyfhSVmv/62MnwKVhTSaSSikJCD1BUV2lwHgTcR
+	 zgTkGRxNGicl2vSW6Zv673BQFfnTTTffPJZxBSgQ2gYjwVlIiKss54USYVtfC/R0J8CnF
+	 T0UzvNMcvPasl6p4q2qK6z0Mk0x61Vy4nTxHozaK7L7L+gFSi82SUhk2IjedDA7z2PnFS
+	 zMKEkWfLIhM/NXvkEzNntynDCfKh7MKmFtYgbAZezuUPJ2MA9vxgLwmLQrC1tik6RSw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h3iFtlg9;
+	arc=none smtp.remote-ip=74.125.82.175
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7B45606A326;
-	Sun,  1 Nov 2026 18:30:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B7B45606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D040B606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:31:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D040B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=ZAve3unZ
-ARC-Seal: i=1; a=rsa-sha256; t=1793557797; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=MRDnTZU6o/vK/aj95qvvVBS4MMlJu6zfEIYBNp9WhnBMcOsPR4rE2fpheCUNYrnc2C4sUEXpVfi8IfMCQXAz5cwE24NhGc3pa0R9xRnMuCAvbZJ0aZncYkU9IBdN1BqHi+8VNrFDiPatOIWvAaf7+dMxBnmjgJ3GQyoh1Go4Npk=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793557797; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=1EJPeAiMC+CVyLboONMl65c6BTsg62mSg/tek3nQToU=; 
-	b=Zt1VnZmot4tSHULSVhgCz4pzimkB2r+JzsJvwTyJdbOjuVKGNg038qOxVSfsXJcYVt0zTuHq4qIHpQSjDMdrF/izxdEj2xZk0gdQ5qE0mk2qTI20tXNpiJblJRTGAJIPFJuvsYj4mvuMbFl5O6dIzVNjiMesXeIxV1oseKk/9wo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=ZAve3unZT4kq8cHmKLnaPf1QjiaTDQdaL+jAynC8djDH2UcKLjuvOgFQweI3JzNttac8BlNPG1KgbrSNBPbqyjJc6Y3LBZIad0RonWir+4Vi7FuE1cY3pJJyUVlVHW+jyE2RPD4zDpjLmdSsgqKKyQAOQu8ppeXtcIrXvUaPKGPy6f5Hm849/25mHAguODi/jsB2Ct9i1bXLc8Y0mhYfr5K09k4eLLTckOpT1I8kE8t8aH4ISEj/Rptopvte4EuSYGq5wsnrjgpT7xXH1Pkv3braezDlsBZYFWJeWkzNCZhLYY22Bd96gc6V6OKv4Z6AKC6EKmuLw3bzATUUQyzyeQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=1EJPeAiMC+CVyLboONMl65c6BTsg62mSg/tek3nQToU=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793557795752456.46629151756554;
-	Sun, 1 Nov 2026 10:29:55 -0800 (PST)
-Message-ID: <9b8b8c7308163c4adac8f97912d666d1b6854ffc.camel@rong.moe>
-Subject: Re: [RFC PATCH 1/1] platform/x86: thinkpad_acpi: Add support for
- auto keyboard backlight
-From: Rong Zhang <i@rong.moe>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
- <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
- <hmh@hmh.eng.br>
-Cc: Griffin Kroah-Hartman <griffin@kroah.com>, 
-	ibm-acpi-devel@lists.sourceforge.net, Lee Jones <lee@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, Pavel Machek	
- <pavel@kernel.org>, platform-driver-x86@vger.kernel.org,
- vishnuocv@gmail.com, 	vsankar@lenovo.com
-In-Reply-To: <20261101100123.28749-2-kmatzkaczor244@gmail.com>
-References: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
-	 <20261101100123.28749-2-kmatzkaczor244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 02 Nov 2026 02:24:49 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h3iFtlg9
+Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535a54bed9so3500656eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:31:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793557890; x=1794162690; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tVpS7upRTy3Zlaor6N/9+WDmU5lrwMQoo7X+ts+rJnQ=;
+        b=h3iFtlg9Cnrr3CnFGFTpfSH2PhV+h/idG5/NPVBMzZmVM1aIvk3f1FVA9AaigPoNXq
+         PdMsnzEKXmVtQ848MPqOhwfCE6W5nuOXuCGdOXaGmcw9cmQYT2ADdS+8P6T79dre33yx
+         2nr9b5zE4UnQAJmOgnk6MqoCv6XObwM4x7EuPdsx8pvS+t0H8vB9QKG2u8VrcbooGssA
+         vb8EIjW8ihuTGeWb+Bd43WD4ZKkfjlzboens3OB2o2Rp5StgO9Sl9q1DPQNMyCPsGboa
+         RfTn4d3osJMfBLaUfIPBvy4+SYyLHZbG7fgVslxaxSYmBHbjz/ba95QTWzz7BqR2SjzS
+         F22Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793557890; x=1794162690;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tVpS7upRTy3Zlaor6N/9+WDmU5lrwMQoo7X+ts+rJnQ=;
+        b=TdWEr4YwQ79Mc2jtpbMZOWP5rO6Grvmj62r4eOOdsbuxvIA+EMPPTXAUyrKhBXijaM
+         Ezs0HjpSQkxUo77kR9bQxvZeLuEYOiA2XQuDAisOMzne86tz3FMEeXwwF5txW7Fo1TGa
+         8931W8IsZWpTM9QtNXVHE2U0fwUJJYlrogQg7le0V5+FYGhJDWjSKPRnp42HViFE43JP
+         JWUBXGS/r1VhXpyEu46NjBtSa7uIEW8K4UQ47Qj+Lf2d5tNP8N97TlenTL18VMxM7B0X
+         +Xj4He+3AFHRSQM7N/rYmtfxxw6oCxq3SbhIxs+iwPdiWNLaQXnSgBRLAMCyWAvQkr/z
+         MKlw==
+X-Forwarded-Encrypted: i=1; AKwUvBzVhVYTIDMfmA95937aFg/gjZ+CeNOkGyLGUaVi5HHbBNJkISqfQCLFvHx1zLiENc54n6TfC5MMEvdMoVg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/r7XlLNudPYFbIQt0vx0JMinqvwGjfdiz3rgsXPbBkxTMpru2c
+	yYT0L7hLSvUe9W6z6nUcokqlfas8qgQUhPvWIQl1JBPf8fMsO3wSMaZ/
+X-Gm-Gg: AYBFou239OdJK+M9QmC3yhykyRzmVNQ3UyWY7g5VAKoISdFHxNhkw1+n7fCUZ7yTIKv
+	Z5IRoP3UqIiwUa5iK1jEO7vjAA4AK0JVuSyRiroJFqesUiIp9P0TtyhNRvIvMKKQWiUuNVOCJV6
+	DjobQI46d7mkDvDWlTVXru4QYHzFXxYeIpMOzqeB6DEwd0FZOPqQcov0xtGkY4DQGjD7sraFJ/r
+	xoG+xUadtzD1o7omecw9+el95JSU6pScJQrySquWuQOfujELUe9kPt93Uh+iTtemLki1pxUW35e
+	xBL0HToeqiacAT4haT7O1sG6IMMzZ3iZa5VOjU0F+/3yPjJrQcYfIE2uLA+SBc1h1WwgPyGzlN1
+	azsrgOKdmbleXj3nHXQeWiv+YnzE+aQQkOZuCPVYYdxWnvYWtR35uM7z5T5UIS0bhaZokiA5qOl
+	7JNp9YWFIC7pCeQafq5xyyDXmE/AXNxBU+x0hZy8gecmwRBS9jD0l1q/8dLpDwGYbwLjYJqB600
+	C37jLtfshtDtx5+VyUCtjxMObf5EWxd9YJ/OIKW4YXUbCaU8yc7Pa5hZl+yTckR6cntkr81pjM5
+	oiAcFwBKbGtYBFP2oDBVrPpt4A==
+X-Received: by 2002:a05:7300:6d22:b0:36a:13e1:c889 with SMTP id 5a478bee46e88-36a425e10f8mr19307844eec.36.1793557889821;
+        Sun, 01 Nov 2026 10:31:29 -0800 (PST)
+Received: from lion.. ([166.1.190.168])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6f7f9sm34627741eec.25.2026.11.01.10.31.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 10:31:29 -0800 (PST)
+From: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>
+Cc: Neal Cardwell <ncardwell@google.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Matthieu Baerts <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Geliang Tang <geliang@kernel.org>,
+	netdev@vger.kernel.org,
+	mptcp@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Tong Liu <lyutoon@gmail.com>,
+	Qi Tang <tpluszz77@gmail.com>
+Subject: [PATCH net v2] tcp: restore IPv6 af_ops on disconnect of a v4-mapped socket
+Date: Sun,  1 Nov 2026 13:27:36 -0500
+Message-Id: <20261101182736.430733-1-zhiyuzhang999@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,249 +106,150 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.56.2-10+b1 
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Hi Qiling
+From: Eric Dumazet <edumazet@kernel.org>
 
-On Sun, 2026-11-01 at 18:01 +0800, Qiling Zhu wrote:
-> Recent ThinkPads with an ambient light sensor (ALS) support an auto mode
-> for the keyboard backlight: the EC controls the backlight according to
-> ambient light. The mode is EC keyboard backlight level 3, in addition to
-> the two fixed brightness levels currently exposed by the driver, and is
-> currently reachable only through the Fn+Space shortcut, which is handled
-> directly by the firmware.
->=20
-> Wire the auto mode up as a private hardware control trigger, named
-> "tpacpi-kbd-auto", on top of the LED hw control trigger framework:
->=20
->   - selecting the trigger writes level 3 (activate); the offloaded state
->     is derived from the current EC level
->   - when Fn+Space cycles into or out of auto mode, the driver notifies
->     the LED core about the hardware-initiated hardware control
->     transition, so the trigger state (shown bracketed in the trigger
->     sysfs attribute) follows along
->   - if the hardware is already in auto mode at driver initialization,
->     the trigger is set as the default one
->=20
-> Deliberately unchanged:
->=20
->   - max_brightness stays 2, auto mode is not multiplexed into the
->     brightness value
->   - writing 3 to /proc/acpi/ibm/kbdlight keeps returning -EINVAL, while
->     reads keep reporting the current EC level verbatim (including 3)
->   - module unload still turns the keyboard backlight off
->=20
-> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
-> ---
->=20
-> Note: Documentation/admin-guide/laptops/thinkpad-acpi.rst has no kbdlight
-> section at all, so there is no in-tree documentation to update; the
-> userspace-facing semantics of hardware control triggers are documented
-> in Documentation/leds/leds-class.rst.
->=20
-> Open questions (details in the cover letter): whether a MLCG capability
-> bit indicates auto mode support, and the EC behavior on ALS-less models
-> when asked for level 3.
->=20
->  drivers/platform/x86/lenovo/Kconfig         |   1 +
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 104 ++++++++++++++++----
->  2 files changed, 88 insertions(+), 17 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/lenovo/Kconfig b/drivers/platform/x86/l=
-enovo/Kconfig
-> index 516594993..74fc66a44 100644
-> --- a/drivers/platform/x86/lenovo/Kconfig
-> +++ b/drivers/platform/x86/lenovo/Kconfig
-> @@ -75,6 +75,7 @@ config THINKPAD_ACPI
->  	depends on RFKILL || RFKILL =3D n
->  	depends on ACPI_VIDEO || ACPI_VIDEO =3D n
->  	depends on BACKLIGHT_CLASS_DEVICE
-> +	depends on LEDS_TRIGGERS_HW_CHANGED
+A successful connect() of an IPv6 socket to a v4-mapped address switches
+icsk_af_ops, sk_backlog_rcv and af_specific to their IPv4-mapped variants.
+These are only restored if the connect() fails.
 
-Nah. No driver should depend on or select LEDS_TRIGGERS_HW_CHANGED.
-Everything still works without it.
+After connect(AF_UNSPEC), the socket can be reused for listen() or for a
+native IPv6 connect while still using the mapped handlers. IPv6 packets
+processed from the socket backlog are then handled by tcp_v4_do_rcv().
+tcp_v4_send_reset() and tcp_v4_send_ack() interpret
+TCP_SKB_CB(skb)->header.h6 as IPv4 options, and __ip_options_echo() can
+overflow its 40-byte destination buffer.
 
-That's also why no driver depends on or selects
-LEDS_BRIGHTNESS_HW_CHANGED.
+Commit 8cc3aef0cb19 ("tcp: Do not allow buggy transitions between ehash
+and lhash2.") prevents listen() after connect(AF_UNSPEC), but a native IPv6
+connect is still allowed.
 
-Both options are only enabled if a user (or a distribution) opts into it
-while configuring Kconfig options.
+Add tcp_v6_disconnect() to restore the IPv6 handlers when a v4-mapped
+socket is disconnected, and use the same helper in the connect error path.
 
->  	depends on I2C
->  	depends on DRM
->  	select ACPI_PLATFORM_PROFILE
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
-rm/x86/lenovo/thinkpad_acpi.c
-> index 4f81855ad..cd5c17d5f 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -5102,6 +5102,9 @@ static struct ibm_struct video_driver_data =3D {
->   * Keyboard backlight subdriver
->   */
-> =20
-> +/* EC level that selects ALS-controlled auto mode for the keyboard backl=
-ight */
-> +#define TPACPI_KBD_LIGHT_AUTO_LEVEL	3
-> +
->  static enum led_brightness kbdlight_brightness;
->  static DEFINE_MUTEX(kbdlight_mutex);
-> =20
-> @@ -5197,13 +5200,33 @@ static enum led_brightness kbdlight_sysfs_get(str=
-uct led_classdev *led_cdev)
->  	return level;
->  }
-> =20
-> +static struct led_hw_trigger_type kbdlight_auto_trigger_type;
-> +
-> +static int kbdlight_auto_trigger_activate(struct led_classdev *led_cdev)
-> +{
-> +	return kbdlight_set_level(TPACPI_KBD_LIGHT_AUTO_LEVEL);
-> +}
-> +
-> +static bool kbdlight_auto_trigger_hw_offloaded(struct led_classdev *led_=
-cdev)
-> +{
-> +	return kbdlight_get_level() =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
-> +}
-> +
-> +static struct led_trigger kbdlight_auto_trigger =3D {
-> +	.name		=3D "tpacpi-kbd-auto",
-> +	.trigger_type	=3D &kbdlight_auto_trigger_type,
-> +	.activate	=3D kbdlight_auto_trigger_activate,
-> +	.hw_offloaded	=3D kbdlight_auto_trigger_hw_offloaded,
-> +};
-> +
->  static struct tpacpi_led_classdev tpacpi_led_kbdlight =3D {
->  	.led_classdev =3D {
->  		.name		=3D "tpacpi::kbd_backlight",
->  		.max_brightness	=3D 2,
-> -		.flags		=3D LED_BRIGHT_HW_CHANGED,
-> +		.flags		=3D LED_BRIGHT_HW_CHANGED | LED_TRIG_HW_CHANGED,
->  		.brightness_set_blocking =3D &kbdlight_sysfs_set,
->  		.brightness_get	=3D &kbdlight_sysfs_get,
-> +		.trigger_type	=3D &kbdlight_auto_trigger_type,
->  	}
->  };
-> =20
-> @@ -5224,6 +5247,26 @@ static int __init kbdlight_init(struct ibm_init_st=
-ruct *iibm)
->  	kbdlight_brightness =3D kbdlight_sysfs_get(NULL);
->  	tp_features.kbdlight =3D 1;
-> =20
-> +	/*
-> +	 * Register the auto-mode trigger before the LED classdev: if the
-> +	 * hardware is already in auto mode, the trigger can then be set as
-> +	 * the default one and gets activated during LED classdev
-> +	 * registration.
-> +	 */
-> +	rc =3D devm_led_trigger_register(&tpacpi_pdev->dev,
-> +				       &kbdlight_auto_trigger);
-> +	if (rc) {
-> +		tp_features.kbdlight =3D 0;
-> +		return rc;
-> +	}
-> +
-> +	tpacpi_led_kbdlight.led_classdev.hw_control_trigger =3D
-> +		kbdlight_auto_trigger.name;
-> +
-> +	if (kbdlight_brightness =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
-> +		tpacpi_led_kbdlight.led_classdev.default_trigger =3D
-> +			kbdlight_auto_trigger.name;
-> +
->  	rc =3D led_classdev_register(&tpacpi_pdev->dev,
->  				   &tpacpi_led_kbdlight.led_classdev);
->  	if (rc < 0) {
-> @@ -5313,6 +5356,47 @@ static void kbdlight_resume(void)
->  	led_classdev_resume(&tpacpi_led_kbdlight.led_classdev);
->  }
-> =20
-> +/* Notify the LED core when the hardware cycles into or out of auto mode=
-. */
-> +static void kbdlight_notify_hw_control(struct led_classdev *led_cdev,
-> +				       int old_level, int new_level)
-> +{
-> +	bool was_auto =3D old_level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
-> +	bool is_auto =3D new_level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
-> +
-> +	if (is_auto !=3D was_auto)
-> +		led_trigger_notify_hw_control_changed(led_cdev, is_auto);
-> +}
-> +
-> +/*
-> + * The EC cycles the keyboard backlight level (and auto mode) itself on
-> + * Fn+Space; check the current level and update the LED core state.
-> + */
-> +static void kbdlight_notify_change(void)
-> +{
-> +	struct led_classdev *led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
-> +	enum led_brightness brightness;
-> +
-> +	guard(mutex)(&kbdlight_mutex);
-> +
-> +	/*
-> +	 * Check the brightness actually changed, setting the brightness
-> +	 * through kbdlight_set_level() also triggers this event.
-> +	 */
-> +	brightness =3D kbdlight_sysfs_get(NULL);
-> +	if (kbdlight_brightness =3D=3D brightness)
-> +		return;
-> +
-> +	/*
-> +	 * Calling kbdlight_notify_hw_control() is safe while holding
-> +	 * kbdlight_mutex: the notification is only queued, and the worker
-> +	 * re-acquires the mutex (if at all) after this critical section has
-> +	 * been left.
-> +	 */
-> +	kbdlight_notify_hw_control(led_cdev, kbdlight_brightness, brightness);
-> +	kbdlight_brightness =3D brightness;
-> +	led_classdev_notify_brightness_hw_changed(led_cdev, brightness);
+MPTCP subflows override sk_prot, and two teardown paths call
+tcp_disconnect() directly. Route those calls through the protocol-specific
+disconnect operation so IPv6 MPTCP subflows receive the same restoration.
 
-Don't pass TPACPI_KBD_LIGHT_AUTO_LEVEL to
-led_classdev_notify_brightness_hw_changed(). Please pass 0 instead.
+Tested with TCP and MPTCP by reconnecting an AF_INET6 socket from a
+v4-mapped peer to a native IPv6 peer after connect(AF_UNSPEC).
 
-> +}
-> +
->  static struct ibm_struct kbdlight_driver_data =3D {
->  	.name =3D "kbdlight",
->  	.read =3D kbdlight_read,
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: Tong Liu <lyutoon@gmail.com>
+Reported-by: Qi Tang <tpluszz77@gmail.com>
+Closes: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=a3+jUHtPohxbra8gox+aYAfWathJnn-J+Q@mail.gmail.com/
+Link: https://lore.kernel.org/netdev/CAL4WiiqFJpmcV4=TWRpukCq6q=-729658FwGvieNcPXe97kLvQ@mail.gmail.com/
+Signed-off-by: Eric Dumazet <edumazet@kernel.org>
+Co-developed-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+---
+Changes in v2:
+- Drop redundant Reported-by tag.
+- Drop the unrelated watch_queue patch link.
+- Add Kuniyuki's Reviewed-by tag.
+- No code changes.
 
-I guess kbdlight_write() would need to call kbdlight_notify_hw_control()
-to update the trigger's state as well.
+v1: https://lore.kernel.org/r/20261030032314.1978575-1-zhiyuzhang999@gmail.com/
 
-Meanwhile, kbdlight_suspend() and kbdlight_resume() will override the
-trigger.
+ net/ipv6/tcp_ipv6.c  | 37 ++++++++++++++++++++++++++++---------
+ net/mptcp/protocol.c |  4 ++--
+ 2 files changed, 30 insertions(+), 11 deletions(-)
 
-> @@ -11581,22 +11665,8 @@ static bool tpacpi_driver_event(const unsigned i=
-nt hkey_event)
->  		/* Key events are suppressed by default hotkey_user_mask */
->  		return false;
->  	case TP_HKEY_EV_KBD_LIGHT:
-> -		if (tp_features.kbdlight) {
-> -			enum led_brightness brightness;
-> -
-> -			guard(mutex)(&kbdlight_mutex);
-> -
-> -			/*
-> -			 * Check the brightness actually changed, setting the brightness
-> -			 * through kbdlight_set_level() also triggers this event.
-> -			 */
-> -			brightness =3D kbdlight_sysfs_get(NULL);
-> -			if (kbdlight_brightness !=3D brightness) {
-> -				kbdlight_brightness =3D brightness;
-> -				led_classdev_notify_brightness_hw_changed(
-> -					&tpacpi_led_kbdlight.led_classdev, brightness);
-> -			}
-> -		}
-> +		if (tp_features.kbdlight)
-> +			kbdlight_notify_change();
+diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+index e006a30360ea..a93410aab66e 100644
+--- a/net/ipv6/tcp_ipv6.c
++++ b/net/ipv6/tcp_ipv6.c
+@@ -130,6 +130,19 @@ static int tcp_v6_pre_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 	return BPF_CGROUP_RUN_PROG_INET6_CONNECT(sk, uaddr, &addr_len);
+ }
+ 
++/* Undo the v4-mapped setup done by tcp_v6_connect(). */
++static void tcp_v6_restore_af_ops(struct sock *sk)
++{
++	/* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
++	WRITE_ONCE(inet_csk(sk)->icsk_af_ops, &ipv6_specific);
++	if (sk_is_mptcp(sk))
++		mptcpv6_handle_mapped(sk, false);
++	sk->sk_backlog_rcv = tcp_v6_do_rcv;
++#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
++	tcp_sk(sk)->af_specific = &tcp_sock_ipv6_specific;
++#endif
++}
++
+ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 			  int addr_len)
+ {
+@@ -243,14 +256,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+ 
+ 		if (err) {
+ 			icsk->icsk_ext_hdr_len = exthdrlen;
+-			/* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
+-			WRITE_ONCE(icsk->icsk_af_ops, &ipv6_specific);
+-			if (sk_is_mptcp(sk))
+-				mptcpv6_handle_mapped(sk, false);
+-			sk->sk_backlog_rcv = tcp_v6_do_rcv;
+-#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
+-			tp->af_specific = &tcp_sock_ipv6_specific;
+-#endif
++			tcp_v6_restore_af_ops(sk);
+ 			goto failure;
+ 		}
+ 		np->saddr = sk->sk_v6_rcv_saddr;
+@@ -2093,6 +2099,19 @@ static int tcp_v6_init_sock(struct sock *sk)
+ 	return 0;
+ }
+ 
++static int tcp_v6_disconnect(struct sock *sk, int flags)
++{
++	int ret = tcp_disconnect(sk, flags);
++
++	/* A socket used for a v4-mapped connection must not keep IPv4
++	 * handlers when it is reused for listen() or a native IPv6 connect().
++	 */
++	if (sk->sk_backlog_rcv == tcp_v4_do_rcv)
++		tcp_v6_restore_af_ops(sk);
++
++	return ret;
++}
++
+ #ifdef CONFIG_PROC_FS
+ /* Proc filesystem TCPv6 sock list dumping. */
+ static void get_openreq6(struct seq_file *seq,
+@@ -2283,7 +2302,7 @@ struct proto tcpv6_prot = {
+ 	.close			= tcp_close,
+ 	.pre_connect		= tcp_v6_pre_connect,
+ 	.connect		= tcp_v6_connect,
+-	.disconnect		= tcp_disconnect,
++	.disconnect		= tcp_v6_disconnect,
+ 	.accept			= inet_csk_accept,
+ 	.ioctl			= tcp_ioctl,
+ 	.init			= tcp_v6_init_sock,
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 7a22e9388e0e..fdfbc7de2ec0 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -2608,7 +2608,7 @@ static void __mptcp_subflow_disconnect(struct sock *ssk,
+ 		/* The MPTCP code never wait on the subflow sockets, TCP-level
+ 		 * disconnect should never fail
+ 		 */
+-		WARN_ON_ONCE(tcp_disconnect(ssk, 0));
++		WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, 0));
+ 		mptcp_subflow_ctx_reset(subflow);
+ 	} else {
+ 		tcp_shutdown(ssk, SEND_SHUTDOWN);
+@@ -3287,7 +3287,7 @@ void mptcp_subflow_shutdown(struct sock *sk, struct sock *ssk, int how)
+ 			break;
+ 		fallthrough;
+ 	case TCP_SYN_SENT:
+-		WARN_ON_ONCE(tcp_disconnect(ssk, O_NONBLOCK));
++		WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, O_NONBLOCK));
+ 		break;
+ 	default:
+ 		if (__mptcp_check_fallback(mptcp_sk(sk))) {
 
-Please split pure refactor (moving existing code) and feature additions
-into two patches.
+base-commit: 5838f10563d58afca6711edb5e4eda968ca181d9
+-- 
+2.34.1
 
-Thanks,
-Rong
-
->  		/* Key events are suppressed by default hotkey_user_mask */
->  		return false;
->  	case TP_HKEY_EV_DFR_CHANGE_ROW:
