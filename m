@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571437;
-	b=UfqzCGMarXV1qhzK/6afm2YhcA14JEma5T3W6lj73EJpIh395k6pSGKrkvHMOsJECab3
-	 YPtQfNaA4DejtwymwQdlNDlBnSw5efFNW2Vgw82LLrJTvfcvjTc9+NlxcTPMOLI4e95VL
-	 YPcvKnZbZLGOwI1RPiQwuQKPt092Be1JKRQQslBQXTLYqScy3OvEdGZcJ896bBi2rJ/X3
-	 X34drF1hT12duqGbn1uag1ZkkY5xJixXZW51uDBYfOu+WknX/oTGszkFo1Lr2bbNcEDWF
-	 0x0JVVRe6/hQ7IatFnuTi+hNVMhd2LawYwSbJVcR/q8PzF4BvLuz2L0TVt/7owaTs3Q==
+	t=1793571413;
+	b=cJPAGDYjUH4c07YBMp0DN1q/ojiasoRfOZrLUWWPuh4tZukwHQ/6DOtrDy8wuwYPttdD
+	 F0qbvwWikO8ibilOxrdTNIdsGairSv1zEF1lsPgREUoYvoTzPkwrUYz0d3ysNbUbJNrnk
+	 pcsRqEF7QIfdZ5+wrYoWUuU0kAHHw1lJ0NuiqqFOdDWgsYoOnaKDa7R65KnK9lG/c+XEA
+	 eiiRGffrolsYGH/8ES4liB3IauzXkLt9H4zb1HDtP+ZZ61eTUUiQ7Xjjuxpky2OP+qLBz
+	 0JBNkXfOeue0Q7wIPH5IOxLYPnsS3z0WxieThUplJcFuwQYrcn3PAKKJ9VuvroMo2Aw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571437;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571413;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=V96lGwQwQmY9ownZq1Q75CdhNhmGv+8yLE3JYgrASiM=;
-	b=q8yFGFcJvrm5twyQ4QfpaZ7glKWtpNPGIC/Vxxh70RBplLVl69whZNZixDmEELpEBzzw
-	 iglGGKCQitGHa04SuF2Ed529w9496Ryd4n/KUfWH9vZ4psVCrtezEpu3pUEkt2k7EE7ny
-	 jvaFEZX81bcRs/6Tyq+WW5A0Xhh+aOzW1R4L0+4YRb7jUCa7HEZCIrFmNZEYOWP2U8nmn
-	 yLxAWQcINIZVW/o5+CcEIbYamMJ2gndnCwYqApRK7tSbJWnyEfci4lux2a4E9M4eBXYd7
-	 da6YTOIjleCl+v1xWfuxET1PPZvxNQ9PoCORdk1xK/exLN7dp/gpH+G+1NLsT9Og+Yw==
+	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
+	b=IB4MAXBiR8FZLnTWT74oxcqdFffLdHisVk64rJZPzITvlq+ErT1YNoTVWDBG59FLK+Xg
+	 ymHdw72JcBr3NxhDvgHuWw68TlyTFXim+zj8lqhj9kXJOB4Ojbg9ocrdKlCbRJysqmAc5
+	 TOtw6E08FcV/10k8Gg76Ijzd0KQTMizA01ckh3FM6uf+o99MEhM2aSLbO2ncDntACgcC1
+	 iWeOKQfMB1ZnYf0sRUDoowwzvyxnayYHQxnXaOqueFbfev3Til0WO/wd3RbBD9bDVH3dL
+	 lJmQBfSR068Sty/39RzImkTHQXTZrkqN6be4GQKMMyuSyKiN1p/tBYcojzIgAUjjZPA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlwVJc2S;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAE46075772;
-	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52EB6072170;
+	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlwVJc2S
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159F41F00A16;
-	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499EC1F00919;
+	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571437;
-	bh=V96lGwQwQmY9ownZq1Q75CdhNhmGv+8yLE3JYgrASiM=;
+	s=k20260515; t=1793571413;
+	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=MlwVJc2SRLjk+rxKbOxp9tf4nzhdr9onLCTP2HLl5zTBQOiHXXA+GFydsaVMi5W2P
-	 JBZ9w3HOiskfEd0RqvW648TC4LTAeoRnr0gN4lhW7JYZeWbfVgixO8rsWkmt0+uR0S
-	 42G/D31sR+AI/6oma4rKjzuzBBq7YlpMKLd+zsNWQOpTXInxWl7KUOocRV68W4z5Fj
-	 Wc8Qmp1gzoTlRBHnlRH4v7Yz8t/h83QJ0jDrpStFmCn7YAiNBOjP9GLbBBLQlVHpzx
-	 ySzfZvJMC/w9DkTPvDwFbRM3Om4djHzgDuXhzm+inIjR+kpvU3S9cawnQfclA3HsdR
-	 yHNmymPDOy74g==
+	b=e7A8CvgsLR+P85In/cqf5teG1i56/z+xxZn3GQOfofjUdlB2fVQynrtbr2W1/1aqe
+	 +4KwOpykFZFbAMOaM2gd0eUFvVGzdZY7aoLUiuVvDUu6K7o5K8USTQ2HqAAFzrsFrr
+	 DPtQmC7Yg02AxB2O9kokMig4jAaS+86VYzru+qxDqTWNMOSwJQzaLkdk0YMWA6tKYm
+	 ++ViQCAvb7sEJHHdUuce9ru34+IY9z5wFevuJnHNlmu/3GQKuNXnqg1yF8GEE8JRVA
+	 MwJYfEpe7fXfDWwyzFoGuRZNcKwUbIW2Xx9lsxy7wL5JanRHWBJckgHxMcV5blV7BQ
+	 Y72Cn2H9f5T5Q==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0B96A38003B8;
-	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401C038003B8;
+	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,42 +54,47 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] riscv: dts: spacemit: set console baud rate on
- OrangePi
- RV2
+Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357143579.2624073.15759180385936074030.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:17:15 +0000
-References: <20260929120227.1791356-1-jberring@redhat.com>
-In-Reply-To: <20260929120227.1791356-1-jberring@redhat.com>
-To: Jennifer Berringer <jberring@redhat.com>
-Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, dlan@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, hendrik.hamerlinck@hammernet.be,
- devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org, legoll@online.fr
+ <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:51 +0000
+References: <20260810030714.48100-1-hal.feng@starfivetech.com>
+In-Reply-To: <20260810030714.48100-1-hal.feng@starfivetech.com>
+To: Hal Feng <hal.feng@starfivetech.com>
+Cc: linux-riscv@lists.infradead.org, ukleinek@kernel.org,
+ p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor@kernel.org, emil.renner.berthing@canonical.com, palmer@dabbelt.com,
+ pjw@kernel.org, aou@eecs.berkeley.edu, linux-pwm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 
 Hello:
 
-This patch was applied to riscv/linux.git (fixes)
-by Yixun Lan <dlan@kernel.org>:
+This series was applied to riscv/linux.git (fixes)
+by Conor Dooley <conor.dooley@microchip.com>:
 
-On Tue, 29 Sep 2026 08:02:27 -0400 you wrote:
-> Set the baud rate to 115200, matching what is used by U-Boot on this
-> platform so that the console is usable even when console options are not
-> specified in cmdline.
+On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
+> Add OpenCores PTC PWM driver which is used in StarFive
+> JH7100/JH7110/JHB100 SoC.
 > 
-> Fixes: bab8dea259100 ("riscv: dts: spacemit: Add OrangePi RV2 board device tree")
-> Tested-by: Vincent Legoll <legoll@online.fr>
-> Reviewed-by: Yixun Lan <dlan@kernel.org>
-> Signed-off-by: Jennifer Berringer <jberring@redhat.com>
+> I will maintain this pwm module in place of William.
+> 
+> Changes since v21:
+> - Allow non-zero duty cycles shorter than one clock tick to round down to
+>   zero.
+> - Drop the .free() callback to preserve the PWM hardware state after
+>   pwm_put().
+> - Update the comment.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2] riscv: dts: spacemit: set console baud rate on OrangePi RV2
-    https://git.kernel.org/riscv/c/789eed2d8bfa
+  - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
+    (no matching commit)
+  - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
+    https://git.kernel.org/riscv/c/2186ec5f59c2
+  - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
+    (no matching commit)
 
 You are awesome, thank you!
 -- 
