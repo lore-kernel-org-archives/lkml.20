@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571348;
-	b=5pYlQaheKFytzw2S0EmLh1+PKhfCd7J37LWzORcmMtu4BOEklj8vXObsL1Jpt6kEVcjn
-	 TmlrvDJxc6jmVaWGVTAlMhm1KR/iClIrAXmgjNDKC6BlId0/Iv1t3wb/8K2Fpketab0XO
-	 n5LOt0kM/S2Hke6sQ7qtvPNGuHOTwtM/i1SRTXmgQ6qMwZC8hDK6J1NBUsmBbGghY1gwj
-	 vm+Tgo6oUaVm6CXYlV+iiEaJQs0yhvLdbDU0wW11BiR6Tno4IxOyNZ0goRHTvEXZkBDEC
-	 5rezJDmG92KlJYNE6V3io6bHoFfyaz2KP8gdo5t+zHmU+CIk8/1NPs+nwyJyiZDYG3Q==
+	t=1793571352;
+	b=gdvD1n1up4EcxCO7Pc7FLMECin1dEJCrQdN4GVAf6/EfLIy8jG6kWnOlUtqANmOVJg4m
+	 s2Pyqm0/db/39rbLHYyiPBS0YcE3S1flAb1FYV03gPxf3IYcIbqtVb6rtu/dwjaxleAU4
+	 M8/LOBfotZ1w6yY/TWFCPK3wYUBYpKKHkLk2uj3W8/zEtx6OpD0f58s6eEADzpGeiB5M/
+	 zhdRb3+VYtnzSrp92ZzkqXu7VikUFftOeDWibmVTBilvfwl51PuO6hZ0eHeQ71SifTfpl
+	 7BX9ghu/M2/gST9PgEshmuC5yx14dOCpHIUfK4Zjv6R5vZG8RVFXbsbGf/On4DqfkYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571348;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571352;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=JvZMrkFAj4cuxDxTXvU7TjTIfCCUoa7HG949wcMrARU=;
-	b=vSlbz2KhGW2KFuHgjN3/CWgq8p/pFWTcwFJZfKU6rHCKSRzitJA2zbng6pw4o4DE1u3D
-	 UJhHNvgjfn9YP9owdkyvTHyBq2QtHXbDV67ju3zQ3f+3+gqso2hxlsERxhk6MUBDRvgXU
-	 FLdEmZKawiLEnMgbxIgIOQCc36mkizLg+Ok69OU0Zs6kcZl/7Ty4S9gmBsO58FmZHrcXQ
-	 JIjuH0CAMK1o6J8zPeS7hKduSZPo0umHtHNH5q6zg4O+V2ojHqzGpoxUN8onfKA9TYj5P
-	 S/h1F4xZwX/wCEIqtY8lAF1T9RAxSuSLXtn/ScrfbxtGNdPQgi7+8QnFpKTF4YPFiWw==
+	bh=FccY8w4XVKmL62rTrNsIiuAmg2iirAJ9NTvcPUeI7l0=;
+	b=LcCzOHw4GP/PgSh+vq3JXemzRqiyEDIRPY7UjryLRbtJKZ8cAanK7B9+xZNO+6tt2X9w
+	 ewe/M0RGRvN/mU+tq1iQPqCRCgiktSTehhC8zeep8QxQmd2MK2t6oDh28zckLTh83tYDu
+	 XXyV/mTo/S3eCv9IngCE5dv9dcc/WGJ29ObbS8JQIudYmWK30LnB4ap7DNLMH98cRLtWj
+	 NGl4Gs/RP7TO8AAQsfOgYTNXM/axEsQqGXVld1w+kIbzqrWYuZjWaR9R7CCE7Thw4+LMR
+	 TNlz2rCxswITgMzwSSPpa8wwL2jY4Y/NQKKlA1ZDk/G/ZwQaqkadYALhbAmPQjzAtpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsgCfXK1;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+V9Dv3q;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8CF3606A324;
-	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5BA60A260E;
+	Sun,  1 Nov 2026 22:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lsgCfXK1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D9391F00A17;
-	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K+V9Dv3q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B0951F00A23;
+	Sun,  1 Nov 2026 22:15:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571347;
-	bh=JvZMrkFAj4cuxDxTXvU7TjTIfCCUoa7HG949wcMrARU=;
+	s=k20260515; t=1793571351;
+	bh=FccY8w4XVKmL62rTrNsIiuAmg2iirAJ9NTvcPUeI7l0=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lsgCfXK18Oengq3LRjoYkZPO+6SC8jlVqgMOxGhbYf6DhhJ7gJLlBe7Y6Ani1CP1q
-	 YTl8YzcQmWJpIiYoIDW7/60MUvIeQoGBoRLzYrHbzc/ybAqIrb8JDl5cW4++mQVvJP
-	 rRl0pi4jare82zWO8nIdn4//CFelRizT0b2aO6WZojStQm+YFdDbl43GlRLD7vdnWz
-	 Lc/MQ2ywPVXyfom7ekn/7yiwaRBvBIOk3IjqGYO5XX1ai9sAcfjDz/mHemiW88S92d
-	 3tCwt2f3YzCmtXLFF3ypGGLgnusjSEhmEIowD33VhD/raZLHOZaZkap2soMP0zEtvC
-	 17MpR+vLbQXIw==
+	b=K+V9Dv3qcTj5160hj+SlEd6bb36GPd0hfxFxqjLqYo66VpB8oCIm4PuHm9pjlid/h
+	 xICIzZcud0NUgf8UqhSDgZUnCOe+E4H24SE9jF1p7O4fFeppaF6xJ19c2x3GponAYK
+	 zBB0xnPMXK3KXJyJgXpeecppENU8uStUTuAYpN58z1zi5XdcZnpfMOTU/Sjz04mpNh
+	 EBDswN/2U3tv2zVNouRalxGVIPr45mrQWsWqgkUoAJAzcLHlFn+u4O5aPuxyp1V9hh
+	 nqI9MBjEMOeTC+Cpzk8pdEQbjpMVozvCH8kCeYtfZV/f7RAOqeoEUa4gaQ0O3fobrF
+	 9dSJrBw8PPsVQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0318238003B8;
-	Sun,  1 Nov 2026 22:15:47 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D3DF38003B8;
+	Sun,  1 Nov 2026 22:15:51 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,46 +54,68 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 0/4] riscv: dts: thead: Add Milk-V Meles support
+Subject: Re: [PATCH net-next v16 0/7] net: stmmac: qcom-ethqos: add support
+ for
+ SCMI power domains
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357134580.2624073.9566786925548319371.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:15:45 +0000
-References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
-In-Reply-To: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
-To: Han Gao <gaohan@iscas.ac.cn>
-Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, jszhang@kernel.org, fustini@kernel.org,
- guoren@kernel.org, wefu@redhat.com, rabenda.cn@gmail.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+ <179357135004.2624073.6498267080189807632.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:15:50 +0000
+References: <20261014-qcom-sa8255p-emac-v16-0-0266c2ead980@oss.qualcomm.com>
+In-Reply-To: <20261014-qcom-sa8255p-emac-v16-0-0266c2ead980@oss.qualcomm.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: linux-riscv@lists.infradead.org, andersson@kernel.org,
+ konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+ kuba@kernel.org, pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+ alexandre.torgue@foss.st.com, vkoul@kernel.org, peppe.cavallaro@st.com,
+ wens@kernel.org, jernej.skrabec@gmail.com, neil.armstrong@linaro.org,
+ khilman@baylibre.com, jbrunet@baylibre.com, shawnguo@kernel.org,
+ festevam@gmail.com, jan.petrous@oss.nxp.com, s32@nxp.com,
+ mohd.anwar@oss.qualcomm.com, romain.gantois@bootlin.com,
+ geert+renesas@glider.be, magnus.damm@gmail.com, mripard@kernel.org,
+ christophe.roullier@foss.st.com, brgl@kernel.org, edumazet@kernel.org,
+ radu@rendec.net, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, dfustini@tenstorrent.com,
+ linux-sunxi@lists.linux.dev, linux-amlogic@lists.infradead.org,
+ linux-mips@vger.kernel.org, imx@lists.linux.dev,
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ sophgo@lists.linux.dev, bartosz.golaszewski@linaro.org,
+ sashiko-bot@kernel.org, martin.blumenstingl@googlemail.com,
+ krzysztof.kozlowski@oss.qualcomm.com, prabhakar.mahadev-lad.rj@bp.renesas.com
 
 Hello:
 
 This series was applied to riscv/linux.git (fixes)
-by Drew Fustini <fustini@kernel.org>:
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Thu, 01 Oct 2026 15:44:09 +0800 you wrote:
-> Milk-V Meles is a single-board computer powered by T-HEAD's TH1520
-> SoC with four C910 RISC-V cores. Add the board compatible and device
-> tree for the Milk-V Meles.
+On Wed, 14 Oct 2026 14:36:39 +0200 you wrote:
+> Add support for the firmware-managed variant of the DesignWare MAC on
+> the sa8255p platform. This series contains new DT bindings and driver
+> changes required to support the MAC in the STMMAC driver.
 > 
-> Enable UART0, eMMC, microSD, Gigabit Ethernet and the PWM fan, and
-> name the GPIO lines exposed on the 40-pin header. Add AP6256 Wi-Fi
-> support over SDIO and enable HDMI output through the DC8200 display
-> controller and DW-HDMI transmitter.
+> It also reorganizes the ethqos code quite a bit to make the introduction
+> of power domains into the driver a bit easier on the eye.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2,1/4] dt-bindings: riscv: thead: add Milk-V Meles
-    https://git.kernel.org/riscv/c/2c8613ec65f4
-  - [v2,2/4] riscv: dts: thead: add Milk-V Meles
-    https://git.kernel.org/riscv/c/8360e1bcc246
-  - [v2,3/4] riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
-    https://git.kernel.org/riscv/c/a7f2539005c4
-  - [v2,4/4] riscv: dts: thead: enable HDMI on Milk-V Meles
-    https://git.kernel.org/riscv/c/d43b33e0253c
+  - [net-next,v16,1/7] net: stmmac: dwmac4: don't program the 1us tick counter without a CSR clock
+    https://git.kernel.org/riscv/c/d09d7b8e86e5
+  - [net-next,v16,2/7] dt-bindings: net: qcom: document the ethqos device for SCMI-based systems
+    https://git.kernel.org/riscv/c/534198a05d92
+  - [net-next,v16,3/7] net: stmmac: qcom-ethqos: set serdes mode before powerup
+    https://git.kernel.org/riscv/c/7af44cb9e447
+  - [net-next,v16,4/7] net: stmmac: qcom-ethqos: update phy_mode to the resolved interface in mac_finish()
+    https://git.kernel.org/riscv/c/05b3ea7346e3
+  - [net-next,v16,5/7] net: stmmac: qcom-ethqos: reuse the address of ethqos_emac_driver_data
+    https://git.kernel.org/riscv/c/92719abd6378
+  - [net-next,v16,6/7] net: stmmac: qcom-ethqos: factor out linux-level setup into a separate function
+    https://git.kernel.org/riscv/c/acf1e3db9151
+  - [net-next,v16,7/7] net: stmmac: qcom-ethqos: add support for sa8255p
+    https://git.kernel.org/riscv/c/bb3183e1c938
 
 You are awesome, thank you!
 -- 
