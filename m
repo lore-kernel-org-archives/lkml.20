@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793492672;
-	b=gT20KA0ut9OExKiZ77qjcr6rf79+3lTSt75/5pnB/8AtnZbmRb/eRLS+/z7JWBWzDsiL
-	 eJ2t3c53w+DJ2mAJyknyGGetmXpnHDKHu5oSHbgq9YVSy45b4nkHXQZhbSqxziHaGacba
-	 DoT4qJpAUR/eDbA582AbU8oO0lqcIRE42MyA0PCu0UOr0iGYaaTuX9GgWvn1RYQuFMxPl
-	 i/udwaJu2q7493HzUV8h5ESl21hyUSWRTOPefkUeLO6BlbBS2W6GLkbmjSf6ps3RpyMj1
-	 88KEt8MewU+a1aHcPKBq1VIP/6FUvX9016CJE3E2ajB9oaQAI8G4cFzc5+xFopVjCYA==
+	t=1793492766;
+	b=4zb3SSiolmZvAsEnyRQ3QB+ykiBBmmuk2zZ8gXIjanOJP9PGVAkax9TdZjaOEVg4NMnc
+	 mMKJU0HLD4qkeae8MCwacXW4afX1s1ljSSgoGMDXQMbTj2/OdT3qDuV4qd7peUFvu1Bja
+	 tJIKpnzaV92AmhhX/0XJ0F2zh95rQZOhBtch3dCkw6j6wRsZTiaIPOnLwwzZ2AvjU0Jk2
+	 w1FFj1UuURpUSVtGZLimqdx3c6e/O6YuJaRstyf6+NopEKJxy2l26Pp6chW7M7/dEX0Y+
+	 2rSOQEJaxfAVKt8fr8FT1aM9eiFco1BiNPLlAED1ZQsY1PhoHun2xfoqG1TRNnMikMw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793492672;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=MH1M6eFfGW0Z+XwFusM64ori/whPIcIiOb6x6N6fzJI=;
-	b=3eNlOYYOJv8Uy/TyDmmZNMu7oiQrd2zDCM/HaRCkUahXfTcnnYZxEnzGC11kq60EgtfY
-	 WBwYpZr2/LBi46doAJTU3wH8gRNNTzTi5pw4Xcd9HMFpGPBNYC5qUQ+OL+VTxDh5I4Eag
-	 L0aWNyTLgEz92MEevvim917HgqMdBFOJ+Cl49opqb9jsHUmVG/xwTXROLjlTxKimyXRWw
-	 WhMDUva7sZBXUlz4H3oPZdo6M/P9tMVE2sfXs8JmMHiCkB4iR1evMKyMGz4mHsRA3Ubdv
-	 2C7mMuxvuMyRKASdC/DRB6iCvGlmcapTtRps4bUv3u6j27v8WpSa9wUk1Z7vR7vFHeA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793492766;
+	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
+	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=ZTxLH/Jv5PE3QbDmOL5+wvTdcO4ZN8shYf7rQSNl+Gg=;
+	b=iR6ylxt0y+vhb08zR1cLao3lZ7ASJwqbkOu1DQOx4kQJHop4jON/EtV24fUEtpMNLv93
+	 IQHBqC9NowudqSH2Di5ehWtxkTQnGK2XM6IZoMotl7g62+1m1C6vlvUps+jx6Ky6IcppJ
+	 rS1NMVmAU760KCtV8OguU6ZpgdQM52wq+h8tjWZDM/CGNaAWzfZXhFHY0RY5xg9pEtJm6
+	 wft9aRrqN9rkvgOOeJ2NWwZQ9NWzbK9HvqNSYsV93DIS+Jp1cvhTkYzKZmnIRO+q9EAHG
+	 il3Cq4KBtvP7ELqhRvV0MpoNkZ78rtpnb77fZPcctNC7NABtArX81qMGIqAN1bNcL4w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhUkAg8g;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F2F2606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 00:24:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7F2F2606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-5640a2d9708so2750450b6e.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:24:32 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793492671; x=1794097471;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MH1M6eFfGW0Z+XwFusM64ori/whPIcIiOb6x6N6fzJI=;
-        b=d1TskxOHXirXzbj0Vi36cTDqUjAjdaY0Ta5GhkOv1jeKPJh+VWEUHXAT+oIY/F8wrw
-         CS7AuBlimSR6soIYgQjz4p/K2qDih7VGHhwlvOIACKLT6civ5olYxFqv3l1+KNFxs3Zw
-         eJuZ6x74KxM1tg3SAbSBxZkdrEfV2fVjv/5W7LGas+IxvFoVlVaGwInRIILUXJeYGmtx
-         S7mkrDStGWbEVsMr5Dj3ceSjGZYkuHXp/WQ1ohDwqGSZjVCIYbhdmE3ayPQDv6WEOEds
-         raSQ3LmqtlzeY5YGgLxUbyK5viZy989CT4dfRVeWrCioMn2lXsB9tP6zwTwVQHay+Sv0
-         lByQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwvBtUQPtHtuINLUOE6fxMRxyaU7xljkH1Nnb7HZEAKUbJtkolwrHr2Wk8lGpDif5nUb4e11ULJOpOAMyQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJhK5SUmUZJtfCxcq1MpkkVwaI8FpiWp885BAY4CHhRoABGfZot
-	B87mFYe3YbTk5fdMUEmcdHyQzcEa71YSNaT7OIiVaHGsBilfXUoGR6xajCHEr2/qAVlgle/chfH
-	N2a+p2BQRx8BWc14potMvu7xiEKkDim3PTw6xM8ZXcVhjgV02I7AELW5pohc=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AA4606A31A;
+	Sun,  1 Nov 2026 00:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhUkAg8g
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EECE1F00919;
+	Sun,  1 Nov 2026 00:26:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793492765;
+	bh=ZTxLH/Jv5PE3QbDmOL5+wvTdcO4ZN8shYf7rQSNl+Gg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YhUkAg8gq4+Z+IOMQdJNRbwn4aGJN5TuF1WxFf6E5C7maZwg6mRv/bR1wiAeMXoD+
+	 9AULeNGycFkeenjeqpYts4WAdQ3D2wf6dAfpV9qlNFw6rzo/3HhNH+Bn8MabDui3Qu
+	 4tnL2FbuHd4R1AntZNRJO2YPiK4UEcjLNFZYkwXKxP2rX4zgOXFMfR7j7RcWwZ7gKn
+	 NM+Dav0g4IwuJpQPiqmOT+uBolhcVhcfFDdYmnYhg27KyS2yn1bBlsvAFESw5vzK62
+	 bObd0fbWiY+yZZMLgdTfB0AaK2daGUn3z+rZMurD1aCSM/cdC2Sejr4OhHSVn3CzMy
+	 WSAoVnpeZGQhQ==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 475FDF40066;
+	Sat, 31 Oct 2026 20:26:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Sat, 31 Oct 2026 20:26:04 -0400
+X-ME-Sender: <xms:HIfmaiE8QTnvaYsTx6wGB1aweEeeBfu7RS-Ab4bZgG_JufVJtyyj7A>
+    <xme:HIfmahsqq1wsofYfLE5Afs-KLn5T4uw1d69MaNm_DRCMsuIGnmqL8zq73UbfkHV0D
+    mO9Nr17Ql1HdYQHks5KgMyKMRfPFLROry4rtI0d0ozPbyiwLz0dmQ>
+X-ME-Received: <xmr:HIfmaoLoBPOv2yEv3N3aPIo1rqDZTEZVfH5nkdIhMLSqK_LmKTUPsU52ERntEgOuGvhsIS51v4p3OofmCMP23aBkitrKBRxu>
+X-ME-Proxy-Cause: dmFkZTGFcRsnq5CozJj+s6dHqAcfqpKsZpe8KYvLtP31zGx4RGgZ57uSlT50gepXDrJuTQ
+    8A9B1z9vQGVs6LklPJEJFXKxPM1t+3Uc65ubU5Rs89q1Xm7WvkcgOKUN9wJs81oI8ymp7D
+    vIFP9MqTitH2T3eBQAHtOribawiA6YxULHKa5zpv5Tb5fXh8LbUATjVmF12F9dCmB6Otmp
+    WWVvRxlVObkXhA+2TL55oSlr8iVpr7tLnsIXAcysRWq7wZGyyZwPcP5TRd66wOMETFtssK
+    uEMqotOuT3FARnYoCcaQ/XCMB7mZqo4KaTcKBPmkQxbk5eGUdqxkrUFtRN9jeVfhDuSkfF
+    QYjeCMN0gS/x4LY+aWyfVW9pr4YpjgEZHGuP8yVLQvtVFKi0vbcxyAz5okiGTBZupyD+97
+    tu74nO5XGMGL1BzqR+HyZagaB3LAPUI3ZC0lS3BACBukWucMw9fF0y/yfz792AuS7sneka
+    9QCtRmYIsq0UEc8oKlSLDNQkTpgFSqrdLP6jgZhaQog70I0pIo/shEduuiMrTq/XAg7JpY
+    wcftukz51TeBGSMXm8nreBA/paoAPuWa3/bMDJk4B5rYxKkQqlflR6UXaOKom6ajVSy2Nh
+    F9CAIlgYJ8quEajR0yuEqbK8+DS1bFMHVT/Ev4vbAJ9J5lMKGNzrXtAtDZ6A
+X-ME-Proxy: <xmx:HIfmavNhL7Z_b8mzgVx7GbtfAqVfxAiGMxxIIslI9UgvCRbOHiMn_w>
+    <xmx:HIfmagYo-zOLKTcb8_wZSem9CBj5HQmzXHBMpNx6Kx0i1PwgX8DQxg>
+    <xmx:HIfmarwifKvLSRllwOF0MW7TUrl8YmTZ90ghv6L8wosGJFDwAfukJg>
+    <xmx:HIfmasG_GRfh8S5qK0S3-5u_9bAwmlCf_Fq0KsUHA7nxWCcirNfRew>
+    <xmx:HIfmamq8-7mvjWAshYCfxuqr-A-fzpHrNwetqBVF_N8MeDtFHITWesTm>
+Feedback-ID: i8dbe485b:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 31 Oct 2026 20:26:03 -0400 (EDT)
+Date: Sat, 31 Oct 2026 17:26:02 -0700
+From: Boqun Feng <boqun@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Philipp Stanner <phasta@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
+	Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>,
+	Lyude Paul <lyude@redhat.com>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v4] rust: sync: Accept errors for Lock payload data
+Message-ID: <auaHGpX2jG_PNcmm@tardis.local>
+References: <20261022160725.2215244-2-phasta@kernel.org>
+ <20261031191344.2913779-1-aliceryhl@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,129 +100,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:88cb:b0:564:3fe1:2fad with SMTP id
- 5614622812f47-5643fe14a80mr140828b6e.42.1793492671534; Sat, 31 Oct 2026
- 17:24:31 -0700 (PDT)
-Date: Sat, 31 Oct 2026 17:24:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae686bf.64e51036.15cf6a.0004.GAE@google.com>
-Subject: [syzbot] [driver-core?] [fs?] kernel BUG in sysfs_break_active_protection
-From: syzbot <syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com>
-To: dakr@kernel.org, driver-core@lists.linux.dev, 
-	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031191344.2913779-1-aliceryhl@google.com>
 
-Hello,
+On Sat, Oct 31, 2026 at 07:13:44PM +0000, Alice Ryhl wrote:
+> On Thu, Oct 22, 2026 at 06:07:26PM +0200, Philipp Stanner wrote:
+> > The `Lock` baseclass currently does not allow for fallible user-data.
+> > This can cause conflicts when used with other primitives, for example
+> > when a lock shall be pin-initialized with payload data that is fallible.
+> > 
+> > Add support for the lock base class so that it works with
+> > try_pin_init!(). Adjust spinlock and mutex accordingly.
+> > 
+> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> 
+> Boqun, are you ok with merging this through drm-rust-next for JobQueue, once
+> we get Gary's reviewed-by?
+> 
 
-syzbot found the following issue on:
+Yes ;-)
 
-HEAD commit:    7649ba73f9e7 Add linux-next specific files for 20261030
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=139805f1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=82467d52d846ff27
-dashboard link: https://syzkaller.appspot.com/bug?extid=dcad997ed2b5bd95cc5e
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=10a82cb1580000
+Regards,
+Boqun
 
-AI-generated root cause summary:
-In md_attr_store(), writing "clear" to array_state invokes
-sysfs_break_active_protection() prior to acquiring all_mddevs_lock and
-validating the device via mddev_get(). Since sysfs writes only hold kernfs
-active references rather than a kobject reference, a concurrent deletion or
-teardown of the mddev can drop the final reference on mddev->kobj, reducing
-kobj->kref to zero before kernfs removal drains pending active accesses. Calling
-sysfs_break_active_protection() then executes kobject_get() on the zero-refcount
-object, triggering a refcount use-after-free saturation/BUG and potentially
-corrupting memory or crashing the kernel.
-
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=dcad997ed2b5bd95cc5e
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com
-
-refcount_t: addition on 0; use-after-free.
-------------[ cut here ]------------
-kernel BUG at lib/refcount.c:34!
-Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
-CPU: 1 UID: 0 PID: 6056 Comm: syz-executor398 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
-RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
-Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 e7 44 51 fd e9 5d ff ff ff e8 dd 23 da fc 48 c7 c7 e0 a3 8c 8c e8 a1 d1 38 fc 90 <0f> 0b e8 c9 23 da fc 48 c7 c7 60 a4 8c 8c e8 8d d1 38 fc 90 0f 0b
-RSP: 0018:ffffc90002e5fb78 EFLAGS: 00010246
-RAX: 000000000000002a RBX: 0000000000000002 RCX: 4550039d880cf800
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffff9014c84b R09: 1ffffffff2029909
-R10: dffffc0000000000 R11: fffffbfff202990a R12: dffffc0000000000
-R13: 1ffffffff22654c6 R14: ffff88807c40e128 R15: dffffc0000000000
-FS:  00007f63dcdeb6c0(0000) GS:ffff88812350b000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055b9ba686138 CR3: 0000000074ef4000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- __refcount_add include/linux/refcount.h:-1 [inline]
- __refcount_inc include/linux/refcount.h:366 [inline]
- refcount_inc include/linux/refcount.h:383 [inline]
- kref_get include/linux/kref.h:45 [inline]
- kobject_get+0xfa/0x120 lib/kobject.c:643
- sysfs_break_active_protection+0x28/0xa0 fs/sysfs/file.c:471
- md_attr_store+0x28f/0x640 drivers/md/md.c:6167
- kernfs_fop_write_iter+0x3a4/0x540 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x612/0xba0 fs/read_write.c:687
- ksys_pwrite64 fs/read_write.c:1504 [inline]
- __do_sys_pwrite64 fs/read_write.c:1512 [inline]
- __se_sys_pwrite64 fs/read_write.c:1509 [inline]
- __x64_sys_pwrite64+0x210/0x2c0 fs/read_write.c:1509
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f63de64ba9e
-Code: 08 0f 85 f5 e2 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 90 41 57 41 56 4d 89 c6 41 55 4d 89 cd 41 54 55 53 48 83 ec 08
-RSP: 002b:00007f63dcdeb0f8 EFLAGS: 00000246 ORIG_RAX: 0000000000000012
-RAX: ffffffffffffffda RBX: 00007f63dcdeb6c0 RCX: 00007f63de64ba9e
-RDX: 0000000000000005 RSI: 00007f63de69003a RDI: 0000000000000006
-RBP: 0000000000000006 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 00007f63de69003a
-R13: 0000000000000003 R14: 00007f63de6c3100 R15: 00007f63de6c4b4c
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:refcount_warn_saturate+0xf0/0x110 lib/refcount.c:34
-Code: 80 c1 03 38 c1 0f 8c 6a ff ff ff 4c 89 f7 e8 e7 44 51 fd e9 5d ff ff ff e8 dd 23 da fc 48 c7 c7 e0 a3 8c 8c e8 a1 d1 38 fc 90 <0f> 0b e8 c9 23 da fc 48 c7 c7 60 a4 8c 8c e8 8d d1 38 fc 90 0f 0b
-RSP: 0018:ffffc90002e5fb78 EFLAGS: 00010246
-RAX: 000000000000002a RBX: 0000000000000002 RCX: 4550039d880cf800
-RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000000000
-RBP: 0000000000000000 R08: ffffffff9014c84b R09: 1ffffffff2029909
-R10: dffffc0000000000 R11: fffffbfff202990a R12: dffffc0000000000
-R13: 1ffffffff22654c6 R14: ffff88807c40e128 R15: dffffc0000000000
-FS:  00007f63dcdeb6c0(0000) GS:ffff88812350b000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f94a870e7d0 CR3: 0000000074ef4000 CR4: 00000000003526f0
-
-
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
