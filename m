@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499234;
-	b=bJJc4Apct72zvBcGxS3lMaYQMMcLQk6538/RRU+Gkrun6TeryoRCpvMjgIdy43W2hj3x
-	 sIgybQgmzOw/ToC5Lew7xClm+/3xDuN3o8ApcYBrPyt16BEgpQnjwGxAwQlVXimJEy+3U
-	 k3jwLUKgxhH3ES5oOVqtYtUkG7Kyk4iBURpN8HHSuUbj8JEeXdgbhwelc2whF+vPGr9bz
-	 tFQZx0vPLKz6Psn/OafGJ3+GsOb/UVUJXDYCp+9iH0067NpOCyCVk0Q2ps/fce1UZzgc8
-	 VjQFmQkyvhE8dqCz1C7K/iNhg+Kk3WfTGD1nWy8IvAQP1Pkr/WsfdEkFQnI5aFybjdA==
+	t=1793499230;
+	b=nRhqO4WRuQUUaiq7zA6WaNLV/n7xTBuFjG7BEHlbii8m3J76wkh/T1/Bm3AtLdFk5r/N
+	 24WznUt1IO5t41UN91wt7hlJhg8OJEo5meG54nqc0FczHuZjTk05kwDBX5LBX5lFEPfwt
+	 Ub/ohxcJezo/YjHLh34fkrvLtbWjekZy+3rOIIVyKEz5Fc7c0mt6RqFRU71Px38bfB2RL
+	 mBQ3szbq9m09Tg3xNrK/soeaq5QcgpczBTbvXanP+I8ZeMiE4uCZkwM3U6NXzSQRGu4C7
+	 tsdJeijEJAuaJQO3Htz200vDeFy3uL/9On+PNcVzDqZxfneLBL+Bn8liRZqP4QX3Jew==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499234;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499230;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=IX83IRV13zUjxpE8+UB16/ReS4it9bdD0etB9Kv5xx4=;
-	b=25GmCLTrt78UY0s90l6VmYR+/+DPHt6oDPV/ETFy7D2LVz7UsdsdtFrt5ncdFrvds3Uc
-	 GCxs9QyDLp/o1zLXHWcoMy9LdqUBzNGVur3p5h3izVTebiNVbFkBaqpbeKGNiaHcPylqn
-	 ioHu2E00iPKVsDP6BZuOE7rsEA4l5xBUkAIZ7Feeu8l7rUxctkrSqKCI2GQ1AwEeg2Cqk
-	 f4ZfvMcElT/p/s/Bi9cYwqpfOkU10SBgXdsD/ebpWekBnl7DWEakpvSNnHY9swAqRgH8G
-	 KZRwO6W+BRI0sBrA1zoFpfknPKO4Q/BvoCGZJNkpSaBT6Iee2JXxoAD5dj+4oHfajSQ==
+	bh=vO0BDg/8068w2sWF8c7lp9ZJV9hDUZO1hrE8aPsToAA=;
+	b=QmsXsJGdrXjo5QdkLp3k7Ki0KKWZaOLcJb3oeNgXi/5+h3XcLX75s8xlolIUeadwn/lH
+	 aRXSJnv95SZvO5HYM2y0/plQU1kpNjIrL0HUpvK8oqs4K05BxmSpqi4ZDM71vYDr+WFm3
+	 jaMSFB/cbCErov0tf8VBOWTInB8jD7YMH6rLfrYyn9F5U+zoaoRGHMf9D05LfMJxd7Qe8
+	 NFA+53I8ICAUOycdnaRGvrpp3go+TLNrsxbyHHt51i5BS5YFCBds7yLmihr5Zzxmf48ri
+	 aSxI5Xlt+sCmuxpDepzspanLr9NKVqG+rJppo3eM38P69WVIUSlCa3djg50ib9P21qw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=O23ACsgn;
-	arc=none smtp.remote-ip=209.85.222.180
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=GNmjsmd8;
+	arc=none smtp.remote-ip=209.85.222.174
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com [209.85.222.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D64C606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:13:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D64C606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902C8606A32D
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:13:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 902C8606A32D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=O23ACsgn
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-93ece7a73b9so258162985a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:13:54 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=GNmjsmd8
+Received: by mail-qk1-f174.google.com with SMTP id af79cd13be357-93e63ee7b4cso195624685a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:13:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793499233; x=1794104033; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1793499228; x=1794104028; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=IX83IRV13zUjxpE8+UB16/ReS4it9bdD0etB9Kv5xx4=;
-        b=O23ACsgndry4YA9wKXjSwIMGPt9b/CC2wNGJAACC21fdenDx6Kjve0LIwwU2MweSGw
-         T10decsrXvUbsgheMEPjL+/2u7BqU/zmPGtoFdLviCMTbeAEqNMAxOfAMSyrbQuGYrOU
-         d4MC05i940M0JmuSFgmFI4KSuPXDlOxKi8D2VFi8AERvbUBEw3MXbv+ngrggbUugxR+J
-         QNMMIQ9Si8K02YQRunNiV2TmUEOyQ4qI/sMlJurICLWYABWcJ2dtJnHdBYFy0jhqxX+j
-         6VlXStC9zGUsXkyyZdpbwL7e+YuT8MpyIsEcK4IFr5O5Yu6Wttm/7dvmIRD2StEfk8W5
-         5ViQ==
+        bh=vO0BDg/8068w2sWF8c7lp9ZJV9hDUZO1hrE8aPsToAA=;
+        b=GNmjsmd8iGlfyBA1iasvKglTU/FEUH1bUdSpfcXjk1tMl+SxkcJZjHg4tkHHvtroeP
+         0vmUBDD+pG3IoM8tTP/kFrZxaC0s8cUzTxo5yBRThneKxH0gnUJRuD7/hIu0/Wu2El0D
+         7lT+8XCqhgSs/DpjBGyS43yWOWDCiDaKvjvIv9ED1kB1vIYk8iJZ9uh80JZHQs/SjscJ
+         p55ebujVQf7xav0vx7NwkgNmZlyZ/HcGv7aT9uFs1cO0vshiYyhjahKpjjUDRGAsR4Zk
+         tmGC8v7U6q1cIm1mAzQ9Oe+1AwiXqjESmHz8O4BI+CyrRHs/Bss37DFXx+Nly4ed906T
+         um/g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793499233; x=1794104033;
+        d=1e100.net; s=20260707; t=1793499228; x=1794104028;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IX83IRV13zUjxpE8+UB16/ReS4it9bdD0etB9Kv5xx4=;
-        b=ZQrMYCAGU4oSGDmvGqnN7bicn0P00mM4zLqxHYyd29w0H2yd7iKAibsUDjB2yEbjNb
-         IlJzoK1Jd6gZsvKQDv0DoSvYMhXA4/Y8g0TNHi1EafcPFVE8274pqu7ELM4t0HBzFZBZ
-         jc8cZMtPnx0u0CwH0/0xKRSomHEJLKQELVaRTpuU//IGsijWW5XBjzSASW5JB5UCg5mM
-         S1PKIyHMjMC7flI04YF6UqrBldqgIT249ltwtkhMX29XLq3dWmphQlGJ2f6uwF7pNyP1
-         AS6MBTTmN3RM5OzTJaPhOumjU+T4GCN8BJKrJA/sObbZVWBC2B6LatKPbSTblq2ukYnR
-         DKuA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSzR98W7dSJIMRtQ7/uDLTsDMYw+CKWx8nHBP6+zMjEAtcAbedGudN2v7334zS1thBaCLYnspOaLvqk40=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3Vgffcs7m90I7CqwDRwoNaJOPtguVHFWWuIeofXO2GVxeNvsU
-	EHmCi/5netDXBBg75+dKPam26LiVsooVEe6ZM95GBm3iu42g6Rg1D+WD9uE3pJ2dzus=
-X-Gm-Gg: AYBFou0n+eFWyBhium9uNJIVK6Wv0bvVS/HwlGhK+nS2lAIrWIFIvMqcHFwT9M4M+Rr
-	31NGMK8GhqDk1vpNDUHJJoqery8KrLKPF2EzJsNs5fdQtTgn55czzVwZK/q8Rrevgzvj8w1f0p5
-	HnKaD2+G23odIPaYPBjTWCHZn3275J/fW09c1KX+RM2eAzq9LRlRdy5cGAqMPd/QQc9MGDOmdyu
-	0JuC0Hoi94ojy88Ns7FD65HKobr5umOt2gDHK7r4S1qYW5K0wqIQwRnKttDgWFrf33WQEH0B+HD
-	7rGNLdRV4AlFRZl+R7csol6zSgOi/AGmSeoQP9ZrOmgYcpZ3a01LmhPnPG2tXlkhghAY/TSTxDj
-	hkw2IHc+o7Gzjc2SS4yHc+ah50kI5SwHBXJ2d0h3QuBOvJEYhY6Zqz/yIyg10FqiKjHAI5q0Od1
-	1kKCmzYMab3DIiBfUhg2KHApOR1XZPTOVkbHsierqC+45lvBhMD/zKGrKYWrfG76dlsL5L6VPrI
-	my5VAKx74nxhxgCgPZdqJyo2SVwQ2Tr+ZB2Ler2tPsdrO6djPsn3xMMGZWZAzgc3RfaVrJgEpHF
-	lj9u4uApCfnmVLAElbCj4gZ6nmJWlZ8DBKav5p3vNkf2jEsZ+89k0CjHGZ31DZ/2avp0MOw3fAv
-	hH7ARuN1poA==
-X-Received: by 2002:a05:620a:3703:b0:93f:3120:6c84 with SMTP id af79cd13be357-9442173fc02mr1051691885a.36.1793499233173;
-        Sat, 31 Oct 2026 19:13:53 -0700 (PDT)
+        bh=vO0BDg/8068w2sWF8c7lp9ZJV9hDUZO1hrE8aPsToAA=;
+        b=v/dQ61Wb6Fp65u+B5xVUO7KHeTUPsbCyCD45/04xMg1T2ELYEe+pLXUfGi+wG/Cw5U
+         COKuCV0wlBQqp+Xaku8aBFNA07mmfPTNiWHqEzBHc4xMqE6Pnw6/0udQlbKVMyA/3xG6
+         HK63TBdasEOFpsQjasyQn6NJZ7nxgAQWhhtJRrqprTD5hHxSHaZCX8zx7TQBA+pSmHWk
+         MDCF97XLFvKpjliaZGlKToWVt3DQvFcDiNoIYgvtSsCt7QQFJwC29Fklw0DiM0ODcGyv
+         ziJLX2/LEalVhVjlLUMO24QopTF3G789qAvqXDsEd6/lfHZilUkgmggjwAHu8YzusY9d
+         VOWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByM9Zm1kohMB/udIjav8DRDUGOxDipmfubpyiHLBRvIJqZ2pJCdc1fGjtobW/MNWaAFc2Nb8phv7CxnkjI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK6FlrOWiV4ebcB8ltYOU5zb1F15t2S3Qvz2wJg6RmJci+tVqWY
+	LUqvCsDjJXF6mwhomvVOKL6VnPnJFpr6sE2jFPF4Q3BCYJ29Pz6pxh4+ZzGUJgpNNR0=
+X-Gm-Gg: AYBFou23hLJyG67YbaYyQLT3wMMAyQZ0gIzAroa1i1LoQGnEswEBQxdjjRj/jFwUqw1
+	fD0oSwuDJUmDEmPdf+IsMowyH3lt+VygOIWOpFEkTQEAN7TsMEJfIixJm61m5ZRhoqHAzhbJbiU
+	YU+dSjE5u1iTBTdI+a/HskIeK29bgFXbvGA622/8rTfbEzVuw18+5+ryKY3uNTZ8NICIKc3z+cW
+	QO6qEd1pxvl1NYwD9ZJjB3EXHlEAP489IcGi2UFVR7ZOa1bwvwHBHfg/zOfMhmQZuZVThu4tFJw
+	vdOd3h5SD9LZQ1ZCOGjan4ZsNMQd6bjciVvdiUyXL7ZjL0K9EO1erC/sJHDIPU3ZaY5eNfBo8nq
+	hLGQaCtkM/gC7OvdrDohG3OVbfy9Gg/5s4/sRgYipoErSe6fd7XSW6jT3ln+iyaMVAIhhYH91UG
+	VSLQ7rLRBOuWEQwAqElnw2ogFqN09ZajgQADvl9F6Rh0WruGs6Z/N2ma/kDcYHG8xLN+zILSpmk
+	dR2Cvsu0ZNOK3kYLr1k5E12A0F0K9YZxb6CsH31QzYp8LonMySKe+FNuothcAIguKSZ0sdefQoP
+	G0ItsIKTYDYrj69aMxl7o5jtzxQsgvZ2FSgyZnuRyMTLukQEgND/hhw9Fa3EY38TFXhkk1XKhFP
+	qA50CvdnmPQ==
+X-Received: by 2002:a05:620a:2a01:b0:93e:c12c:f136 with SMTP id af79cd13be357-94421824e76mr1073212985a.81.1793499228208;
+        Sat, 31 Oct 2026 19:13:48 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425858552sm498131985a.18.2026.10.31.19.13.52
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425858552sm498131985a.18.2026.10.31.19.13.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 19:13:52 -0700 (PDT)
+        Sat, 31 Oct 2026 19:13:47 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-trace-kernel@vger.kernel.org,
@@ -125,9 +125,9 @@ Cc: linux-trace-kernel@vger.kernel.org,
 	mgorman@techsingularity.net,
 	anshuman.khandual@arm.com,
 	stable@vger.kernel.org
-Subject: [PATCH v5 04/12] mm/page_alloc: detect zonelist rebuilds from memory hot-add
-Date: Sat, 31 Oct 2026 22:13:32 -0400
-Message-ID: <20261101021340.2251928-5-gourry@gourry.net>
+Subject: [PATCH v5 01/12] mm/page_alloc: reset can_retry_reserves when the slowpath restarts
+Date: Sat, 31 Oct 2026 22:13:29 -0400
+Message-ID: <20261101021340.2251928-2-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261101021340.2251928-1-gourry@gourry.net>
 References: <20261101021340.2251928-1-gourry@gourry.net>
@@ -142,57 +142,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The zonelist_update_seq retry was limited to CONFIG_MEMORY_HOTREMOVE,
-presumably because only hot-remove takes zones out of a zonelist.
+Commit 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath()
+flow") retries an allocation once with reserve_flags when the caller
+becomes eligible for reserves, guarded by can_retry_reserves.
 
-However, build_zonerefs_node() rewrites the zonelists in place, so
-onlining the first block of a zone shifts the entries that follow it
-in every zonelist containing that zone.  This can cause a spurious
-allocation failure for a __GFP_THISNODE caller.
+A restart after a cpuset update or a zonelist rebuild retries with
+can_retry_reserves already set to false, so a caller that cannot
+reclaim (GFP_NOWAIT | __GFP_MEMALLOC), fails without trying reserves.
 
-For a node with only ZONE_NORMAL, onlining its first ZONE_MOVABLE block
-rewrites the node's ZONELIST_NOFALLBACK list as:
+Reset can_retry_reserves on restart. Only a cpuset or zonelist change
+restarts the slowpath, so the retry still runs at most once per change.
 
-  [NORMAL, NULL] -> [MOVABLE, NULL] -> [MOVABLE, NORMAL, NULL]
+With a kprobe helping to make the race deterministic, an allocation
+can be made to return NULL. With this patch the allocation will succeed.
 
-A concurrent GFP_KERNEL | __GFP_THISNODE allocation can observe the
-intermediate list, skip ZONE_MOVABLE, and find no eligible zone. With
-CONFIG_MEMORY_HOTREMOVE=n, check_retry_zonelist() returns 0 and the
-allocation fails even though the node has free ZONE_NORMAL memory.
-
-Gate the sequence checks on CONFIG_MEMORY_HOTPLUG, which covers every
-configuration that rebuilds zonelists after boot.
-
-Fixes: 3d36424b3b58 ("mm/page_alloc: fix race condition between build_all_zonelists and page allocation")
+Fixes: 2c4c3e29897d ("mm/page_alloc: simplify __alloc_pages_slowpath() flow")
 Cc: stable@vger.kernel.org
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- mm/page_alloc.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ mm/page_alloc.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index e14d550d4128..11be12b443ad 100644
+index a8cac5e01066..f1048168c90c 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -4404,7 +4404,7 @@ static DEFINE_SEQLOCK(zonelist_update_seq);
+@@ -4783,7 +4783,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	unsigned int zonelist_iter_cookie;
+ 	int reserve_flags;
+ 	bool compact_first = false;
+-	bool can_retry_reserves = true;
++	bool can_retry_reserves;
+ 	unsigned long alloc_start_time = jiffies;
  
- static unsigned int zonelist_iter_begin(void)
- {
--	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
-+	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
- 		return read_seqbegin(&zonelist_update_seq);
+ 	if (unlikely(nofail)) {
+@@ -4805,6 +4805,7 @@ __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
+ 	no_progress_loops = 0;
+ 	compact_result = COMPACT_SKIPPED;
+ 	compact_priority = DEF_COMPACT_PRIORITY;
++	can_retry_reserves = true;
+ 	cpuset_mems_cookie = read_mems_allowed_begin();
+ 	zonelist_iter_cookie = zonelist_iter_begin();
  
- 	return 0;
-@@ -4412,7 +4412,7 @@ static unsigned int zonelist_iter_begin(void)
- 
- static unsigned int check_retry_zonelist(unsigned int seq)
- {
--	if (IS_ENABLED(CONFIG_MEMORY_HOTREMOVE))
-+	if (IS_ENABLED(CONFIG_MEMORY_HOTPLUG))
- 		return read_seqretry(&zonelist_update_seq, seq);
- 
- 	return seq;
 -- 
 2.56.0
 
