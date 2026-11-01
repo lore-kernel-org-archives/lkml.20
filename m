@@ -1,58 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793553400;
-	b=IME3IP+v+HUALA6KN0//DgtHv3D+FacJXaiECdDi5WoW0RDC6G+s2TcpQ0FCJB9kbkYy
-	 T0YKX5+vOISac0nUsVySQTi9OWdG1B0OMTYFxKTZqdBpO5lSO7dJksSfKJxDts4KSC7O5
-	 tJi0yy6nb2pbYIJaI3jIPsDT6l1+vNcNAy758h5L/x07AtHYL5AOi9ZAlCQ9ydfENrcIS
-	 c/Tx94gjKfHNq9JjmXzl+4wRt2yh0U1wJt1Hc5/vs4LjzaVNmOgMb5ApbVlOpF6nrxzfU
-	 u7LhECgcD6avLKoPOrKGNHPPMkFjqjeByRq2rOM1FhZg0/JsCIpDk3I7csaHq/dke+w==
+	t=1793553399;
+	b=Jl4neQCVdKoBDqUYfi9y4ELq8mtKWXHg/siQi2G1o13V262B2rAiVrd9ra4yzrI4Kf94
+	 9fFansHOVfS2zjc5H6T60Ak1211BSpQHbdujPXUQ222YAltaHoRmkfT+aiOsW/mxaxvj+
+	 cHR3OIo2BUL2h0c97q34L+/7vhtMLIDYQxeVo18LsWlnWhrzcXFDO0g5JOq9W0N8CldOD
+	 MDluPANKzFoAcD+DkkaOc/miSzqPf4iLzyR//BJakFC1LDxe2x/tj5G0SPS2seJxsB5rU
+	 bpXVLP9c+6ry4yBIOTPxXO9IxSK4egdJbgKjNwIHdq0Slb+2reo7PpbCk8iJNMywP9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793553400;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793553399;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=3UDKAp2uds0+N1mENd7M+9zX167leKiazEipp95Aa0Y=;
-	b=xeyR4TVbZb3w/ILcAy4KUNzFtXQtqNOM6bSkiOSMlD6WAOWInC4DSPPnItoqkTTeXW4B
-	 IQ+M0Cbe9bwfZpSs+msFJm1QC8jkF5SmogLAfOYjaxs3uismTziwd3ebvdF0AfboMYBqj
-	 +1NALQYgASxumon6BRH8nBdvvwzX0d0SQAkSNl+vosEjMxHrc/yrEWzInmsTld8Ruppj5
-	 BUrbst9i6N+cRy1yv0OMceDLhT4P79BaaXgloAJmCd+R1RP9KP+YIYJe8+8lGRom3hEkm
-	 EH0A8KhmCLmXMYMvinDsKFCv9g4j2q1CtHXdzqNbUo4fnFcofCllMdkHPSKoPhSN41A==
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=9FIAjLQl49vWGxEAT5mry9z/qprr2ACY4K70jv59AGk=;
+	b=O4MQ5rn3x2xlx2NGSNp0kj9YxCVD0JZtmfAC9bEW/us4iRBt+el2bNmUQSvJzblfUccX
+	 Vtqr8yPoemDXBPz6VYhXwUQMNSwcUNUBIOwhUkQ+mZ7ZSd2/ZLyjUM2zVA+eC2kKA1cQr
+	 3TlwW9e5OcGOEH36kflW5D3OK/QTDwIgfod4RPn1tif1PXfRFzuf8Zpf/kn8UFodZBAZF
+	 gyjw2smm+H4gSlXI0wHYSqhTBRRFZqT7DGZkgYI3Kp/dsoRbEUNsMuF+7VnBdCxcY9uie
+	 hDanhS/tFYZ+HCLiD28wQKq5wymbzgbP7BucJmPfqPM8Pt91gQrxgKsGgqR2u9VfMug==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0IMbOAc;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCdRHVbT;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FA5606A329;
-	Sun,  1 Nov 2026 17:16:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6033606A325;
+	Sun,  1 Nov 2026 17:16:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m0IMbOAc
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1503F1F00A1A;
-	Sun,  1 Nov 2026 17:16:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCdRHVbT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183001F00A16;
+	Sun,  1 Nov 2026 17:16:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793553400;
-	bh=3UDKAp2uds0+N1mENd7M+9zX167leKiazEipp95Aa0Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m0IMbOAcMMiKvuFVTPYx+cflpos0ecUDnB1EYU6un5dMopyB01p6xMV4xOJ+dF/sf
-	 cJVxsAwMJnhtM5u705PX/HFQJklyi0WRsCXChlo3oxCqqKNxFyDMyGqKO/zv4XIvjF
-	 Pneh15gdgH5LcrpPtdtFkLkVaIpKZ+yFTO/wvxcHt52ib+8FzC6Q6Di6FbUSvlvyry
-	 U6qnkTXCUxOvAc47JyOro8hDTEUgfoa4fxw9rcAgl40FXw7A2K9ODApmyCROJJKNRP
-	 l9uQHGmiOktl3Vr2vVI8v6xNnjG3Ne5/JI4NAkjnT53zHKjVzXBRq6EUEJ1S9qRn9z
-	 rsTBFf7wt96aA==
+	s=k20260515; t=1793553398;
+	bh=9FIAjLQl49vWGxEAT5mry9z/qprr2ACY4K70jv59AGk=;
+	h=From:To:Cc:Subject:Date;
+	b=fCdRHVbTv7LssVGIaJeoJS4MdHHPVs9+iHHW6hyzu5w1w5Y6o/UDhYyRW/dIRklP9
+	 yloZkzUlKQldmVHFvh4o+n7mfWqaz62e9lKgkuexu1b9ipH+ZqMRB6rqXgRC5x7yAe
+	 vA3CNOrQ2yJK06fJl5IqTJCn2RvN+cRDMKFTtCU7ZhDQQfDH0C4ajQ3pbjnr+ImD5R
+	 qZ5Zug2sS3UiFx76sr4iyehCTX/8KgHXuWNED2zVWRsyhX1aB6dI7oRiqNNLFMkJBG
+	 +fOxNd4LC0QPoGfYKDnnKwAT1tAvtgJKUNVDYSYY2EoWU8vUvV3YoOVLizt4+qB/gf
+	 YLJxAyXuWkD5g==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Shuah Khan <shuah@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v2 6/6] selftests/damon: remove unused imports of os and sys modules
-Date: Sun,  1 Nov 2026 09:16:29 -0800
-Message-ID: <20261101171630.81477-7-sj@kernel.org>
+Subject: [RFC PATCH v2 0/6] mm/damon: misc improvements/cleanups for core, vaddr, sysfs and tests
+Date: Sun,  1 Nov 2026 09:16:23 -0800
+Message-ID: <20261101171630.81477-1-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261101171630.81477-1-sj@kernel.org>
-References: <20261101171630.81477-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,41 +63,43 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sysfs_no_op_commit_break.py imports 'sys' module but never uses it.
-sysfs_update_schemes_tried_regions_hang imports 'time' module but never
-uses it.  Remove the unnecessary imports.
+Refactor code, optimize code speed, and add missing feature supports on
+various areas of DAMON.
 
-The issue is found using flake8.
+Optimize the efficiency of vaddr damos_migrate action under filter
+failures with patch 1.  Use damos->last_applied on damos_migrate action
+in vaddr and support sz_filter_passed for damos_migrate action in vaddr,
+respectively with patch 2 and 3.  Drop a redundant and racy quota goal
+target value validation in sysfs, in favor of that in the core layer,
+with patch 4.  Drop unused variables and imports from selftests with
+patch 5 and 6.
 
-Signed-off-by: SJ Park <sj@kernel.org>
----
- tools/testing/selftests/damon/sysfs_no_op_commit_break.py        | 1 -
- .../selftests/damon/sysfs_update_schemes_tried_regions_hang.py   | 1 -
- 2 files changed, 2 deletions(-)
+Changes from RFC
+- RFC: https://lore.kernel.org/20261031202614.96036-1-sj@kernel.org
+- Drop charge_target_from fixup consolidation.
+- Add a patch for using last_applied on vaddr migrate action.
+- Add missed damos_va_migrate_private->sz_filter_passed setup.
+- Fix wrong commit message for unused imports removal.
 
-diff --git a/tools/testing/selftests/damon/sysfs_no_op_commit_break.py b/tools/testing/selftests/damon/sysfs_no_op_commit_break.py
-index 81774ddc55ac4..5664f75186bac 100755
---- a/tools/testing/selftests/damon/sysfs_no_op_commit_break.py
-+++ b/tools/testing/selftests/damon/sysfs_no_op_commit_break.py
-@@ -4,7 +4,6 @@
- import json
- import os
- import subprocess
--import sys
- 
- import _damon_sysfs
- 
-diff --git a/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py b/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py
-index 625761c243b58..326a14f040534 100755
---- a/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py
-+++ b/tools/testing/selftests/damon/sysfs_update_schemes_tried_regions_hang.py
-@@ -4,7 +4,6 @@
- import os
- import subprocess
- import sys
--import time
- 
- sys.path.append(os.path.dirname(os.path.abspath(__file__)))
- import _damon_sysfs
+SJ Park (6):
+  mm/damon/vaddr: advance migration attempt in folio level for filter
+    out
+  mm/damon/vaddr: use damos->last_applied for migrate action
+  mm/damon/vaddr: implement sz_filter_passed for migrate_{hot,cold}
+    action
+  mm/damon/sysfs-schemes: drop redundant and racy zero target_value
+    check
+  selftests/damon/damos_apply_interval: remove unused variables
+  selftests/damon: remove unused imports of os and sys modules
+
+ mm/damon/sysfs-schemes.c                      |  3 --
+ mm/damon/vaddr.c                              | 28 +++++++++++--------
+ .../selftests/damon/damos_apply_interval.py   |  2 --
+ .../damon/sysfs_no_op_commit_break.py         |  1 -
+ ...sysfs_update_schemes_tried_regions_hang.py |  1 -
+ 5 files changed, 17 insertions(+), 18 deletions(-)
+
+
+base-commit: 807c0ce92f8424fbb7eb13e7ea48746f68b24dca
 -- 
 2.47.3
