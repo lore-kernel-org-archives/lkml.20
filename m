@@ -1,113 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793498253;
-	b=OWjHeshGaVIFIb2I+CGT/Ip3IinYxJcBAg7+cOJ0Zk/8omp6FpdCrlC3S5YgxyQ6DThm
-	 Yei5U570hGjf7XNwvKIX04d59WbDks+m8AmGjl6TUh0t8WAS0GV4ZvaloDxnHuSVur46+
-	 N/BxiwJHbvQWHhp2T8C1WzTY9KLZoT2GXuDDPnZys3y0GsL/2myA/bfiyF0B3K0eHXxH4
-	 czzDQx66c0YZaw1hYC80Io5sAeRuqsk8KTOD/umpSYsdQnUx60bWpS5BMU1f1wzE4a/dL
-	 +etMWzyOy1O9qIVnHjBRcYJfK0KcfunVAlN3XkNYoGm7+M8q9NwQn8ULD2jY431bfIA==
+	t=1793498312;
+	b=FCaVAfR9U9IANGHWZynGZOjjmGeGj+ny1aYm2Sf9epfKzFNGXrUMSnjnbjSRSDadYxzi
+	 94yK+coWrKBw9UzjasZr86LIPf5aslJ/FoKxTyyfBk2c/89QxIhN0H+K4ZpISq19aVfq5
+	 cskl89GU+Gq7+ZyqjSLN29TtMQg+g9DHJODFT9mwd4uiIBKfX66Br3u0Hz5sjWq5w5LTL
+	 jJKL3YC9BePU7N329U6a6Dyn31QYCWegbosz9PvzBmAr1/G057qMi0lLcGW04nHKEU9hI
+	 LKL9pCmnuigFZiZp1K++xNdpcedoP0eedo73HD/JPMpnmFbafyn2pTWKrjQYWcLu5Tw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793498253;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=p8gqfUFSv+Rji6NVZjPl0fEsf893Obde69tyzuNJ1VA=;
-	b=LB6tEqN1g6r5De6ZA0Hm47sRUy/7rbL3R8AztqFpYiSYA2WA6wtcV8axiuZfPmqq2fZ2
-	 OZBH754NajTjFKcs1Ln9Kq9+1ZEjpc7MCb95GiOzqLF4PWsvYgqd7e9q9JRBt/76jsRm2
-	 4w8vVK0naHWAqTXV4YBlcDCapcz4xYTPIW39XssL8WpT2HiSxAXd1UFs/lEy6neFQl9Zz
-	 1tLbqH7Gi7/COdthKBv5femmfueLReyfFX7JTkRDSly0Mg9wBlekf3lQaL/v/awIT/xML
-	 dFnrT8EXWr65u7mCX7tKu1HUlBXFoJWn+mYzcaMeJFSksdcYwc5Dd3MvZI13hyV7cAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793498312;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=9vSZLsyhSYt+F+Q2kf88Wa5aKGMcjvWJAR2b3rMf3yY=;
+	b=cURcQW07wINZaQqh3QBJ1xVOr4OsnDa5Xt5Sejd6A8h5QBCUqPopS57Bz1KAbdz6dN0J
+	 Sg4qNn2EUE2stcEmmR5pegLnpZD0qABbrDR25K0BkgNO0u+QAFClAb5/3sgmanN29nDSj
+	 tkcF93k0abo/9jchrYkOQNN1u2KZZsnVhvHumJfDgOObH5HSa68yJZT4wvs0VR99o75BG
+	 C2nbzbOFiFh+WMm8vCfvTCr/W4l6ZeqpFAJ9n8FIUQshHrbjOVr6dnlX8j3fJM/DOYaat
+	 Zp1fVACbDEkwjGIBvCuU/Ccz/2jKlGLDbhPKeRKTmi/N1cenacvhMrbZW1hMOQg0ldg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FyEr0mg5;
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMM65WKV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA9D460A261A
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:57:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA9D460A261A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58DE1606A324;
+	Sun,  1 Nov 2026 01:58:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FyEr0mg5
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so19809335e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:57:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793498251; x=1794103051; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=p8gqfUFSv+Rji6NVZjPl0fEsf893Obde69tyzuNJ1VA=;
-        b=FyEr0mg5qfm+AS19Djqfasj9/qCbMdjarJt1OOKZwZ2DFTLKgN6I7WvSBds+QF4GA+
-         HidC8Eq5Nx+K9pCCoQ6iDVlchrI07WQOgx0xyjLjiu00rlWKJORa4NXpgvJ8WPaDxTLG
-         eeCaxTUpHF4bKWY1K/tgEzcUUbylAy9SV6Mpbza8P69uZCFf+lJhIRaEOMY1s0cT7OMt
-         uyDMFk5RV28BywX9FVaa9WZvGmgVDM0BbHPrDVd7W4Snr3XoDvwD4I5HUa8s0QRg7Nvg
-         Ddzgrp54zc+XOnaVrcKafgDR3MZ/5D/LAPBpX1JdlwNWypMoQvdnjnafvMzb5YcE4aEi
-         5Y9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793498251; x=1794103051;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=p8gqfUFSv+Rji6NVZjPl0fEsf893Obde69tyzuNJ1VA=;
-        b=LLGOVb1Niau2wPR2+XhBMp2GnWX4q0qQ3vVeRKO7LHJ8eF/axeRBYWMwKyN52jYAh+
-         3UmL0G2NZot2uZxWQCrF9CFeNc7dLm4TCoFqzpdE2rpxYuoLaWqLMl8dS+bGHmCyWeq9
-         HLLPXzz+2QtQDNVuYKpCBh550GZAndehIrnHysI5ekhkek0+4Qw3rGNmyYW5RnOVqVqR
-         PkfJw2HPmsvZeCMD4HMG5l1QfTIeA6Y1Q9d6f6uEnY6QXEHH9bAgnX9ypg5ul0lFFPeh
-         FbngEm8DAw7K45SyPF08yysmMFBVOqLfGpvQJq3gyL2rRdIGAd4QzGc/JzBSXrc6gByo
-         D1aQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqkdJ22AblaTIx0c+BXB211xqIx12D3c0MFlGbWpLwZijGR/e6R61epUQT8UB+iuyUjobhtO7Y1wTSi9Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMKHMIcgl6oo51kxAE/tTn06R49p5lV+RM6KH2RinSbIRkecYJ
-	ooskCelZz2xyz1Ni+8N25F3sj3uamng1GFdhmpjdvIi9XnrDURrk9usF
-X-Gm-Gg: AYBFou0MeAKkUlvNmUrxgUXZJ06mLVTqZRyqycznLzfnCKnioVJvOIjqj4+LR8hDh+j
-	uhb/ysvdGR0SlV5yzu4b2b4c1DfQI6ruW7KSRcEDYfGJ9CafinxcU9QDNalFLYe20ZnCSEbi/In
-	DpdpfvtbEpMRfTWTB0TQFLdNm8p3xLsgSUzmsTwcSxydMlI0KTN7zeF66unY4vahgOOuaNCwujb
-	hdY4ktUOYQm1cslw41yfh9EInrfjubxtLgSvo/jaoDZ2fx7pNI0asAnzPe4c3olJENY06/6DOwd
-	yyvckjaOUxRWKGBkS7EE0/h2pVXH9XSCRbdPKymKW+ki/Sdf4iJli6TqSPl4L9iE1JvclN1OiFz
-	HXiuYYt8ChAbg29tHULyFAbaj9UMEBrJdtmE+DbcWBlnmkI0xDWiPzE9VD8ztvfij8Opmmu+Cds
-	lMdxnrNVt0bKT12q2TiX1gvZHDWIeoVmRXfE+ltya3pJjzSa2uk8iJU52KLOa3LH8jo85zlN+nt
-	JkFAGzj9E0+cnbl5LZS+3x1fZOjTpa7ZLgGgDbJdiqrw5lWFwugLweFGVSJnYehKv80LXec41Si
-	ptTJiiohmYpmNidZwSu0zbz/
-X-Received: by 2002:a05:600c:4fd4:b0:4a1:e250:b191 with SMTP id 5b1f17b1804b1-4ac180f2ff3mr144286495e9.17.1793498251133;
-        Sat, 31 Oct 2026 18:57:31 -0700 (PDT)
-Received: from infinity ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81b7fe80sm273532835e9.11.2026.10.31.18.57.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 18:57:29 -0700 (PDT)
-From: koraynilay <koray.fra@gmail.com>
-To: David Sterba <dsterba@suse.com>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sungjong Seo <sj1557.seo@samsung.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
-Cc: Chris Mason <mason@kernel.org>,
-	Jan Kara <jack@suse.cz>,
-	Yuezhang Mo <yuezhang.mo@sony.com>,
-	Chuck Lever <cel@kernel.org>,
-	"Darrick J . Wong" <djwong@kernel.org>,
-	Sean Smith <defendthedisabled@gmail.com>,
-	Andrey Albershteyn <aalbersh@kernel.org>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Amir Goldstein <amir73il@gmail.com>,
-	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
-	linux-btrfs@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	exfat@lists.linux.dev,
-	ntfs3@lists.linux.dev,
-	linux-api@vger.kernel.org,
-	koraynilay <koray.fra@gmail.com>
-Subject: [RFC PATCH v3 4/5] exfat: make crtime user-settable using ptime
-Date: Sun,  1 Nov 2026 02:55:50 +0100
-Message-ID: <20261101015551.786044-5-koray.fra@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261101015551.786044-1-koray.fra@gmail.com>
-References: <20261101015551.786044-1-koray.fra@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IMM65WKV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60F651F000C1;
+	Sun,  1 Nov 2026 01:58:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793498311;
+	bh=9vSZLsyhSYt+F+Q2kf88Wa5aKGMcjvWJAR2b3rMf3yY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IMM65WKVDHDB1r8POHrabcAQGRQJK2lcNAvogctKzHGK+3dXwj3uZl+lVlmClWv8d
+	 ZdfEtP6RB2g/poXw8dZC38lVgY7DuXMu3SRoLBoiOqLNLEv4YxFyYs4+ho0kljIkPb
+	 5+JXNeFcZMpUQCVSrrg5I/wCwB9gzpC+cPzrCwm90QIoivNb6LtHQqXm41LPxU1Sbl
+	 gax3KXgDDrTSM0y1tFl2ziX3C5LggtVId2qM6IMgnVXSO8FtKz/uOZorD/vtvL1L/+
+	 GHK35OmQIvlDHLCBZTVyoJEgqR8Oro5fQGC1Oxvq9xcayK1micJOyBTeEgGNLnZFQW
+	 A6cE1sCAggw6w==
+Date: Sat, 31 Oct 2026 18:58:29 -0700
+From: Namhyung Kim <namhyung@kernel.org>
+To: Ian Rogers <irogers@google.com>
+Cc: haghdoost@uber.com, Peter Zijlstra <peterz@infradead.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	James Clark <james.clark@linaro.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Andrii Nakryiko <andriin@fb.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 4/5] perf script: Add --lazy-load-symbols to load
+ symbol names lazily
+Message-ID: <auacxQZKtlFa9Pc3@z2>
+References: <20261028-perf-symbol-memory-send-v6-0-7e90415f0101@uber.com>
+ <20261028-perf-symbol-memory-send-v6-4-7e90415f0101@uber.com>
+ <CAP-5=fU9Du9cCge2aTm10ejtwBKX1THQpm=h7EMR=WVQLww6DA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,125 +69,273 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAP-5=fU9Du9cCge2aTm10ejtwBKX1THQpm=h7EMR=WVQLww6DA@mail.gmail.com>
 
-Since exFAT supports user-settable file creation timestamps, map
-provenance time (ptime) to exFAT file creation time (crtime) using the
-newly introduced ptime API (in commit "vfs: add provenance time
-(ptime)").
+On Fri, Oct 30, 2026 at 08:55:55AM -0700, Ian Rogers wrote:
+> On Wed, Oct 28, 2026 at 4:42 PM Alireza Haghdoost via B4 Relay
+> <devnull+haghdoost.uber.com@kernel.org> wrote:
+> >
+> > From: Alireza Haghdoost <haghdoost@uber.com>
+> >
+> > This patch adds the --lazy-load-symbols option to perf script. With this
+> > option, perf reads the name of a userspace ELF symbol only when a lookup
+> > returns the symbol. Eager loading remains the default.
+> >
+> > perf script loads the ELF symbol table of every DSO that appears in a
+> > sample and keeps each symbol, with its demangled name, until exit. Most
+> > of those symbols are never sampled, and their names take most of the
+> > memory. On a large profile this makes symbol loading the main memory
+> > cost of perf script, and in a memory-constrained cgroup an OOM kill.
+> >
+> > With the option, the loader still creates every symbol, so end fixup,
+> > duplicate selection, PLT synthesis and IFUNC marking work as before. But
+> > it keeps the file offset of each name instead of copying and demangling
+> > the name.
+> >
+> > The name pointer and the offset share a union in struct symbol, and
+> > SYMBOL_FLAG_LAZY_NAME says which one it holds. The dso__find_symbol*()
+> > functions, dso__first_symbol() and dso__last_symbol() load the name of
+> > the symbol they return, and code that walks the symbols of a DSO gets
+> > them with dso__named_symbols(), which loads every name. So does
+> > dso__sort_by_name() before it builds the name-sorted array. A symbol
+> > whose name cannot be read is named "[unknown]" instead of being deleted,
+> > since address lookups search the symbol tree without the DSO lock. Address
+> > lookups return NULL for it, so perf script prints it as an address
+> > without a symbol.
+> >
+> > During loading, perf reads only the names that it needs:
+> >
+> > - the names of aliases that duplicate selection can tell apart only by
+> >   name,
+> > - the names of IFUNC symbols, which PLT synthesis uses to name the
+> >   IRELATIVE slots.
+> >
+> > The loader also skips a .dynsym entry that copies a lazy .symtab symbol.
+> > Duplicate selection would drop the entry, but only after it reads both
+> > names, and most exported symbols are such copies.
+> >
+> > Other names are read with pread() from the file that dso__get_filename()
+> > returns for dso__symtab_type(). The file is open only while perf reads
+> > the names, so no descriptor stays open per DSO.
+> >
+> > The kernel, modules, PPC64 .opd and .gnu_debugdata, whose symbol table
+> > is a temporary file, still load names eagerly.
+> >
+> > On a perf script run over a 45,073-sample callchain profile of a large
+> > C++ service, where eager loading creates about 1M symbols, lazy loading
+> > reduces max RSS from 341 MiB to 154 MiB and time from 3.2 to 1.5
+> > seconds, with identical output.
+> >
+> > Signed-off-by: Alireza Haghdoost <haghdoost@uber.com>
+> > ---
+> >  tools/perf/Documentation/perf-script.txt |   7 +
+> >  tools/perf/builtin-script.c              |   2 +
+> >  tools/perf/ui/browsers/map.c             |   2 +-
+> >  tools/perf/util/dso.c                    |   2 +-
+> >  tools/perf/util/dso.h                    |   3 +-
+> >  tools/perf/util/symbol-elf.c             | 251 +++++++++++++++++++++++++++++--
+> >  tools/perf/util/symbol-minimal.c         |   6 +
+> >  tools/perf/util/symbol.c                 | 113 +++++++++++++-
+> >  tools/perf/util/symbol.h                 |  29 +++-
+> >  tools/perf/util/symbol_conf.h            |   1 +
+> >  10 files changed, 393 insertions(+), 23 deletions(-)
+> >
+> > diff --git a/tools/perf/Documentation/perf-script.txt b/tools/perf/Documentation/perf-script.txt
+> > index f0228e784ced..57b3533e6c2a 100644
+> > --- a/tools/perf/Documentation/perf-script.txt
+> > +++ b/tools/perf/Documentation/perf-script.txt
+> > @@ -343,6 +343,13 @@ include::itrace.txt[]
+> >
+> >          Default: 127
+> >
+> > +--lazy-load-symbols::
+> > +       Read and demangle userspace ELF symbol names only when perf needs
+> > +       them. By default, perf reads every symbol name from each binary
+> > +       referenced by a sample. This option reduces memory use and usually
+> > +       improves performance when samples reference only a small fraction
+> > +       of a large binary's symbols.
+> > +
+> 
+> Won't it also improve performance if you say link against a library
+> but then only use a portion of that library's contents? I'm thinking
+> this option should really be the default, requiring people to opt out.
+> I may even be tempted to hide this flag so that we have the option
+> later of just always using lazy loading. Since the flag isn't a huge
+> cost in the code, and non-lazy loading is needed in other contexts,
+> perhaps we can make the lazy loading the default behavior and have the
+> flag here be say, "--eager-loading" ?
 
-To do this, implement exfat_fileattr_set(), set .fileattr_set to it for
-both file_inode and dir_inode operations and update exfat_fileattr_get()
-and exfat_getattr().
+Agreed on making it default.  I'm not sure what's the case that needs
+eager loading.  We can change the code to load all symbols just before
+it (oh, it seems the patch already handles the cases) then no option
+would be needed. :)
 
-The timestamp is now retrievable by using file_getattr() or statx(), and
-is settable by using file_setattr() with the FS_XFLAG_PTIME flag.
+> 
+> >  --ns::
+> >         Use 9 decimal places when displaying time (i.e. show the nanoseconds)
+> >
+> > diff --git a/tools/perf/builtin-script.c b/tools/perf/builtin-script.c
+> > index b6691ebb1b4e..88aaf9cfd132 100644
+> > --- a/tools/perf/builtin-script.c
+> > +++ b/tools/perf/builtin-script.c
+> > @@ -4287,6 +4287,8 @@ int cmd_script(int argc, const char **argv)
+> >                      "Set the maximum stack depth when parsing the callchain, "
+> >                      "anything beyond the specified depth will be ignored. "
+> >                      "Default: kernel.perf_event_max_stack or " __stringify(PERF_MAX_STACK_DEPTH)),
+> > +       OPT_BOOLEAN(0, "lazy-load-symbols", &symbol_conf.lazy_load_symbols,
+> > +                   "Read symbol names only when they are needed"),
+> >         OPT_BOOLEAN(0, "reltime", &reltime, "Show time stamps relative to start"),
+> >         OPT_BOOLEAN(0, "deltatime", &deltatime, "Show time stamps relative to previous event"),
+> >         OPT_BOOLEAN('I', "show-info", &show_full_info,
+> > diff --git a/tools/perf/ui/browsers/map.c b/tools/perf/ui/browsers/map.c
+> > index 075a575cdc5d..ef8f75699a07 100644
+> > --- a/tools/perf/ui/browsers/map.c
+> > +++ b/tools/perf/ui/browsers/map.c
+> > @@ -108,7 +108,7 @@ int map__browse(struct map *map)
+> >  {
+> >         struct map_browser mb = {
+> >                 .b = {
+> > -                       .entries = dso__symbols(map__dso(map)),
+> > +                       .entries = dso__named_symbols(map__dso(map)),
+> >                         .refresh = ui_browser__rb_tree_refresh,
+> >                         .seek    = ui_browser__rb_tree_seek,
+> >                         .write   = map_browser__write,
+> > diff --git a/tools/perf/util/dso.c b/tools/perf/util/dso.c
+> > index ce98613868e7..f41abf442476 100644
+> > --- a/tools/perf/util/dso.c
+> > +++ b/tools/perf/util/dso.c
+> > @@ -2013,7 +2013,7 @@ size_t dso__fprintf(struct dso *dso, FILE *fp)
+> >         ret += fprintf(fp, "%sloaded, ", dso__loaded(dso) ? "" : "NOT ");
+> >         ret += dso__fprintf_buildid(dso, fp);
+> >         ret += fprintf(fp, ")\n");
+> > -       for (nd = rb_first_cached(dso__symbols(dso)); nd; nd = rb_next(nd)) {
+> > +       for (nd = rb_first_cached(dso__named_symbols(dso)); nd; nd = rb_next(nd)) {
+> >                 struct symbol *pos = rb_entry(nd, struct symbol, rb_node);
+> >                 ret += symbol__fprintf(pos, fp);
+> >         }
+> > diff --git a/tools/perf/util/dso.h b/tools/perf/util/dso.h
+> > index 3329f417810c..4a60c883cc37 100644
+> > --- a/tools/perf/util/dso.h
+> > +++ b/tools/perf/util/dso.h
+> > @@ -369,7 +369,7 @@ int dso_id__cmp(const struct dso_id *a, const struct dso_id *b);
+> >   * @n: the 'struct rb_node *' to use as a temporary storage
+> >   */
+> >  #define dso__for_each_symbol(dso, pos, n)      \
+> > -       symbols__for_each_entry(dso__symbols(dso), pos, n)
+> > +       symbols__for_each_entry(dso__named_symbols(dso), pos, n)
+> >
+> >  static inline void *dso__a2l(const struct dso *dso)
+> >  {
+> > @@ -831,6 +831,7 @@ char *dso__filename_with_chroot(const struct dso *dso, const char *filename);
+> >  bool dso__sorted_by_name(const struct dso *dso);
+> >  void dso__set_sorted_by_name(struct dso *dso);
+> >  void dso__sort_by_name(struct dso *dso);
+> > +struct rb_root_cached *dso__named_symbols(struct dso *dso);
+> >
+> >  int dso__swap_init(struct dso *dso, unsigned char eidata);
+> >
+> > diff --git a/tools/perf/util/symbol-elf.c b/tools/perf/util/symbol-elf.c
+> > index 1e2716c6af45..bce6c6aef20c 100644
+> > --- a/tools/perf/util/symbol-elf.c
+> > +++ b/tools/perf/util/symbol-elf.c
+> > @@ -17,6 +17,7 @@
+> >  #include "machine.h"
+> >  #include "vdso.h"
+> >  #include "debug.h"
+> > +#include "namespaces.h"
+> >  #include "util/copyfile.h"
+> >  #include <linux/ctype.h>
+> >  #include <linux/kernel.h>
+> > @@ -348,7 +349,7 @@ static bool get_ifunc_name(Elf *elf, struct dso *dso, GElf_Ehdr *ehdr,
+> >
+> >         addr -= phdr.p_vaddr - phdr.p_offset;
+> >
+> > -       sym = dso__find_symbol_nocache(dso, addr);
+> > +       sym = symbols__find(dso__symbols(dso), addr);
+> >
+> >         /* Expecting the address to be an IFUNC or IFUNC alias */
+> >         if (!sym || sym->start != addr ||
+> > @@ -629,7 +630,7 @@ int dso__synthesize_plt_symbols(struct dso *dso, struct symsrc *ss)
+> >          * by symbols__fixup_end() to overlap .plt. Truncate it before adding
+> >          * a symbol for .plt header.
+> >          */
+> > -       f = dso__find_symbol_nocache(dso, shdr_plt.sh_offset);
+> > +       f = symbols__find(dso__symbols(dso), shdr_plt.sh_offset);
+> >         if (f && f->start < shdr_plt.sh_offset && f->end > shdr_plt.sh_offset)
+> >                 f->end = shdr_plt.sh_offset;
+> >
+> > @@ -1516,6 +1517,190 @@ static int dso__process_kernel_symbol(struct dso *dso, struct map *map,
+> >         return 0;
+> >  }
+> >
+> > +static DEFINE_MUTEX(lazy_names_lock);
+> 
+> I'm curious if this is global just to avoid the expense of a mutex per
+> symbol or it needs to be global? We have
+> tools/perf/util/sharded_mutex.h as a way of doing a cheaper per object
+> mutex, but perhaps the dso__lock works?
 
-Assisted-by: Gemini:3.8-flash-high antigravity-cli-1.4.7
-Signed-off-by: koraynilay <koray.fra@gmail.com>
----
- fs/exfat/exfat_fs.h |  2 ++
- fs/exfat/file.c     | 36 +++++++++++++++++++++++++++++++++++-
- fs/exfat/namei.c    |  1 +
- 3 files changed, 38 insertions(+), 1 deletion(-)
+Probably.  dso__load() already takes the dso lock.
 
-diff --git a/fs/exfat/exfat_fs.h b/fs/exfat/exfat_fs.h
-index eee573d1697c..aff96afa258a 100644
---- a/fs/exfat/exfat_fs.h
-+++ b/fs/exfat/exfat_fs.h
-@@ -619,6 +619,8 @@ int exfat_getattr(const struct mnt_idmap *idmap, const struct path *path,
- 		  unsigned int query_flags);
- struct file_kattr;
- int exfat_fileattr_get(struct dentry *dentry, struct file_kattr *fa);
-+int exfat_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
-+		       struct file_kattr *fa);
- int exfat_file_fsync(struct file *file, loff_t start, loff_t end, int datasync);
- long exfat_ioctl(struct file *filp, unsigned int cmd, unsigned long arg);
- long exfat_compat_ioctl(struct file *filp, unsigned int cmd,
-diff --git a/fs/exfat/file.c b/fs/exfat/file.c
-index 1386149916bb..70e226cb4ab7 100644
---- a/fs/exfat/file.c
-+++ b/fs/exfat/file.c
-@@ -384,15 +384,20 @@ int exfat_getattr(const struct mnt_idmap *idmap, const struct path *path,
- 
- 	generic_fillattr(idmap, request_mask, inode, stat);
- 	exfat_truncate_atime(&stat->atime);
--	stat->result_mask |= STATX_BTIME;
-+	stat->result_mask |= (STATX_BTIME | STATX_PTIME);
- 	stat->btime.tv_sec = ei->i_crtime.tv_sec;
- 	stat->btime.tv_nsec = ei->i_crtime.tv_nsec;
-+	stat->ptime.tv_sec = ei->i_crtime.tv_sec;
-+	stat->ptime.tv_nsec = ei->i_crtime.tv_nsec;
- 	stat->blksize = EXFAT_SB(inode->i_sb)->cluster_size;
- 	return 0;
- }
- 
- int exfat_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
- {
-+	struct inode *inode = d_backing_inode(dentry);
-+	struct exfat_inode_info *ei = EXFAT_I(inode);
-+
- 	/*
- 	 * exFAT compares filenames through an upcase table, so lookup
- 	 * is always case-insensitive. Long names are stored in UTF-16
-@@ -400,6 +405,11 @@ int exfat_fileattr_get(struct dentry *dentry, struct file_kattr *fa)
- 	 */
- 	fa->fsx_xflags |= FS_XFLAG_CASEFOLD;
- 	fa->flags |= FS_CASEFOLD_FL;
-+
-+	fa->fsx_ptime.tv_sec = ei->i_crtime.tv_sec;
-+	fa->fsx_ptime.tv_nsec = ei->i_crtime.tv_nsec;
-+	fa->fsx_xflags |= FS_XFLAG_PTIME;
-+
- 	return 0;
- }
- 
-@@ -485,6 +495,29 @@ int exfat_setattr(const struct mnt_idmap *idmap, struct dentry *dentry,
- 	return error;
- }
- 
-+int exfat_fileattr_set(const struct mnt_idmap *idmap, struct dentry *dentry,
-+		      struct file_kattr *fa)
-+{
-+	struct inode *inode = d_backing_inode(dentry);
-+	struct exfat_inode_info *ei = EXFAT_I(inode);
-+
-+	if (fileattr_has_fsx_mask(fa, FS_XFLAG_PTIME))
-+		return -EOPNOTSUPP;
-+
-+	if (fa->flags & ~FS_CASEFOLD_FL)
-+		return -EOPNOTSUPP;
-+
-+	if (fa->fsx_xflags & FS_XFLAG_PTIME) {
-+		ei->i_crtime.tv_sec = fa->fsx_ptime.tv_sec;
-+		ei->i_crtime.tv_nsec = fa->fsx_ptime.tv_nsec;
-+	}
-+
-+	inode_set_ctime_current(inode);
-+	mark_inode_dirty(inode);
-+
-+	return 0;
-+}
-+
- /*
-  * modified ioctls from fat/file.c by Welmer Almesberger
-  */
-@@ -1110,4 +1143,5 @@ const struct inode_operations exfat_file_inode_operations = {
- 	.setattr	= exfat_setattr,
- 	.getattr	= exfat_getattr,
- 	.fileattr_get	= exfat_fileattr_get,
-+	.fileattr_set	= exfat_fileattr_set,
- };
-diff --git a/fs/exfat/namei.c b/fs/exfat/namei.c
-index 68ddb9c5504f..15ec7f1942c8 100644
---- a/fs/exfat/namei.c
-+++ b/fs/exfat/namei.c
-@@ -1349,4 +1349,5 @@ const struct inode_operations exfat_dir_inode_operations = {
- 	.setattr	= exfat_setattr,
- 	.getattr	= exfat_getattr,
- 	.fileattr_get	= exfat_fileattr_get,
-+	.fileattr_set	= exfat_fileattr_set,
- };
--- 
-2.56.0
+> 
+> > +
+> > +static char *read_name_at(int fd, u64 off)
+> > +{
+> > +       char small[256], *buf = NULL, *tmp;
+> > +       size_t size = sizeof(small);
+> > +       ssize_t n = pread(fd, small, size, off);
+> > +
+> > +       if (n > 0 && memchr(small, '\0', n))
+> > +               return strdup(small);
+> > +
+> > +       while (n == (ssize_t)size) {
+> > +               size *= 2;
+> > +               tmp = realloc(buf, size);
+> > +               if (!tmp)
+> > +                       break;
+> > +               buf = tmp;
+> > +               n = pread(fd, buf, size, off);
+> > +               if (n > 0 && memchr(buf, '\0', n))
+> > +                       return buf;
+> > +       }
+> > +       free(buf);
+> > +       return NULL;
+> > +}
+> > +
+> > +static int load_symbol_names(struct dso *dso, int fd, struct symbol **syms, size_t nr)
+> > +{
+> > +       int err = 0;
+> > +
+> > +       for (size_t i = 0; i < nr; i++) {
+> > +               char *name, *demangled;
+> > +
+> > +               if (!symbol__has_lazy_name(syms[i]))
+> > +                       continue;
 
+Nit: I'm hesitate to argue about naming, but it seems a bit confusing.
+Why does it skip to load when it doesn't have a (lazy) name?  Probably
+symbol__needs_lazy_name() would be a little better...?
+
+Thanks,
+Namhyung
+
+
+> > +               name = read_name_at(fd, syms[i]->name_off);
+> > +               if (!name) {
+> > +                       pr_debug("%s: cannot read the symbol name at %#" PRIx64 "\n",
+> > +                                dso__long_name(dso), syms[i]->name_off);
+> > +                       err = -1;
+> > +                       continue;
+> > +               }
+> > +               demangled = dso__demangle_sym(dso, /*kmodule=*/0, name);
+> > +               if (demangled) {
+> > +                       free(name);
+> > +                       name = demangled;
+> > +               }
+> > +               symbol__set_lazy_name(syms[i], name);
+> > +       }
+> > +       return err;
+> > +}
