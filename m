@@ -1,78 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793540135;
-	b=gPDAqpBRFnTD7hFA0NTBQiemZjFhZPlZ0h9KUxAuytbPQGwzKcAnLOK/kH2cQPvzc99Y
-	 8lc7Vd1UvQtxpWEDcY8NsIyHWq9FHR5NeHIwkjLuSCS9KeTceWxTTF75YpNgJZKanqw4q
-	 veadUiG344544zsoezYWGMP//43EUATqWOUJVG1EjbDs9i12QW4CvuUr7qhV4NS/ENLP1
-	 LU2Kg4erisXFjBaYxuQmdJi1vPa/Foe9cUcZC7co1t03v8cdw6dQHoIos1qbDe/6LfEGA
-	 sjZ3erKM7w7al529fKEuFUGjQ3Q15405ACvrBmZ6spil2F+4ga+uisOiXp785ADNmfw==
+	b=gM4VuN9pl3cSFN26ga4QXw+hQK0R4YBpJp8DMF2ldepRp40Iv9nzeGlEfFbZ6AESfgJB
+	 iApk4cxKRUg/h6qYE9sRCxM/VfFYu0F/G6u3xliKIhhQbVI7UT5b5CmjevjdiK9NUQN3u
+	 JY5bDd1Plo+XLk9ww07SHm9460jmZM+tLcdFL54IbRZlmsb6pZMcclcrGNa0SVlqklgGl
+	 ENZJLLvNiNGiGlTk+RIiG0JPM52yO2Esnw2vYcRGPtlf1d+wEvpRKzV9xrmwz7gduPHdg
+	 wOSDD5ebRXRs7DdQUL8JiwRDBAPvsxnd8QwUs6etqQf1GwBan2Ct7TXUR5iB0JzObUw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793540135;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4qEGrfial3d8eZGApdMDGhFV5rb/ELjCCG6fHhOpnOQ=;
-	b=2Dh1bzANYxHjbSfDIwcMuBwW1oeSi2MQ76ZYW8YOlt88C0sdhoLfEPi5PzpURRln5br1
-	 tXLcQQ/a7ozkHnb3jbRF6ezwFafFl17slqwcbzQKcQ3uSJXHe1zjlzLTipeMboFWw0694
-	 wjuw6Eq6J0zl9zCR4g28OEfrpZcnILSjL4Oh49G+OlUzVtbEWvlBucEcHcHJgbzKbesz7
-	 VL0uqunwOnZ9J6YaHtxZjWae7mi8PfdZWWMtTI7q6yKH3YE/jlpl3VziZtmHkg+tnqAbh
-	 xGsw3BGk91CYDOp+TlCRlAYRdoJ+mQUuJ3kbW/urws8r2w3vn1hD/o0xqxgOeRBGW0w==
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=2j0aw3/fwYjSaUMy9PnObd47hX5Q/nwFx1rM+QDf2+8=;
+	b=HxlGi1woyc7+wfFALHerxuKdSsxf6qMYJAGqJvjjGw0KBAgp1Du98d5hkNGYXmSHcg89
+	 tBZrQHIChiCdquwbYtsKWvtIUhHJWgQsnOnIfYSJbSwJL4W81UvdmILQDgZP1WT+uGsp2
+	 QCznegb1Tr8OnZWRvKG0lAvPPmqO9HxuXN/YXknmoby59sazdgU7hxtJCS4RJyEJUL/9z
+	 c1x0Ohtwc9s6nk1S5IX65aJNVigaZKHK0idlxAO4iIifCfmQVPZdI0Q38dz22HZbfE0Pg
+	 COGipM3I9W7SV+td7yW2E9ViT4+prYksYNZkUV6w6uG4Bd4N7tBvl8uN926ZLSzXNAA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArehMx9K;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JCYwvM+A;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC51606A325;
-	Sun,  1 Nov 2026 13:35:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A036606A32F;
+	Sun,  1 Nov 2026 13:35:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ArehMx9K
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JCYwvM+A
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793540134;
-	b=1VibUrp7guCfLHkf3ibSBskhRcp0O8T0J8RIbovN5oYbhOaEcXB/yyHfp5jP2p4MNKoH
-	 FB1PV4Ap8I/Nb3HtRk3nRDtkUMacJ27b7u29Q5zoQEsYzgtKTSCJB4fwjBeSrpTIf8A3r
-	 ZIL5Ts92739Kkn5jpD47oJvcyQItCb2kKB/53HkAex2/seB4bnGzEDWMmoyqYGmJI5bjA
-	 rF7tS6j637BmoOte5sK1zaoQEZLGkRDz3A1XcxLGWrlI7xBMjwK8mRwGmEvYJSGJUZnU2
-	 chWUfb+CF7I8Spffd637e39lAe4pGDrpNx57dMdcuK+sAkiUmBRASH6En/dWuIFVVhQ==
+	t=1793540135;
+	b=g+N8uNK4pW2uEsDKruX9CgdrnilbDpfUYvqNDEnjh1NKcCsMHUn5k0x85H1bovMW+sX7
+	 EbrmfAI7+fK1VMwoaD5/HHwXR8c2qh6LlvYR2tMMEQjsT+lCShnV7gQZuLKV0+rejv75l
+	 /drE90Z8dcTL3MrKOWI/D2qcrB0+0/MyRzmNXE8PPOr37+IqphmA9NQPXQNPF6tbtUN8O
+	 WQKbEx4IAgdlwLbpA8X0EFKDeRzK7oWXr34cUDBPPUfxKaOMXdZMgM7Ht5Ws1HDSR0Xqu
+	 10/nBIdQjWZ6ZSDk/xIzTvLTg0QEg8Kn2xNDNarqNKBke6/imVrdzIo1HUXOMHZ6Qeg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793540134;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=4qEGrfial3d8eZGApdMDGhFV5rb/ELjCCG6fHhOpnOQ=;
-	b=vuo63auuB2x5DvHk6/g30bAcXMZFCeN6wyAoOoX7tjOTl+pzTkJAlnUO8wABEHTn94qO
-	 mfarDWHnbZBWnNxn2pJU4fCzxYNkO7D2xUmRsBzBMyp/5beNeAC5Ce+H1A6P4KP70YGaU
-	 bddKNbC5B2fvT85AJHrAX/Ery0SUJITo4iigJpn3OBJWIlxTsfKKCxzy74LvqQvYIq3PS
-	 aAdmHH8VfJi1i0Drt3bJJNc+LEK20fK9tkfEkSN99nKkQ8TSQDBsSoq73XIX7M8Drs1OK
-	 J/jP3oQxhM7xS4E0JGi0lIrXlRDaGZNPMODEaDLdJZwolNWnSuyi/QWrC79WuBcQ5eQ==
+	c=relaxed/relaxed; t=1793540135;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=2j0aw3/fwYjSaUMy9PnObd47hX5Q/nwFx1rM+QDf2+8=;
+	b=mRtji1W0ELRncsyerfOhI0KlgdcmUhGwcMNzwILxhNhywD+8eA6qEPrCpBqaF7geM0zc
+	 m0a5Kx9uyVbF3klrAT+FXgGk5tyC9EmOVAIqtEZWQRyrEKQcXM3sMLA7lOLcEWzZPzdEZ
+	 q8vtjnK+JgHurq5aJxlaVuIzqngngdBYJ94AuClQcMpV1/YSoA9n4/hiB1usNc7CyV97X
+	 nR6oNw46q4a/SLeJhUhnMX1gNQpPzOctJJ3sNLC2mxZDZmFkJ2gdCZgMfB33RuW2eLVL9
+	 llBlvz9pPsE47mo3kD6/z8tdptw/saeuU+MWYCBYsUXWcv/ubI6w7mHp1tYiANLYiSg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 8EE0E1F0093A;
+	by smtp.kernel.org (Postfix) with ESMTPS id 8ECA51F000C1;
 	Sun,  1 Nov 2026 13:35:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793540134;
-	bh=4qEGrfial3d8eZGApdMDGhFV5rb/ELjCCG6fHhOpnOQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=ArehMx9KPDh6FCXwPjFi42DnEp7zKoh9iyEFpHXV3A/AKKOoht5CBh3vW+XfajY1P
-	 fN2r8ktRhfFRMWhlGnLQc71auVvdeeR3/NsHoQa8yXJFiOwy3rF8TJVPvcoXtdhRiI
-	 uBuQ9cHGA/YKPw8/rF6SZkH/GL7z1fl0N/D2KL/QD3D7w2X9uNdRTNZkkIzqlamGYI
-	 UrPZDEiQDuFVPQFVziGDpNQNREQYqJNBP/UEPeZZMuAFx5UOZN4P44GKjefGY0vD7u
-	 tCRcRwuiheyKaICsUrWFlAwAHnSelFFrpfTSU5T8uw5Nl/vd218FOJknQLoBJRshG1
-	 YP4yo69vgbt5A==
+	s=k20260515; t=1793540135;
+	bh=2j0aw3/fwYjSaUMy9PnObd47hX5Q/nwFx1rM+QDf2+8=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=JCYwvM+AD0MYSuKs1MXKPTSh7etkftipl4iZ4IRRh1sIoUTpk9teFcPWj/3hBQz6j
+	 bSZNTCuNT+6nVESMe1stUW0mlPyYhQi9tsg14znp8R3IQvrZ1BIPFKzHtXd3cNCZ32
+	 glBrj4uz8kKoIJxsW6ncnGEuJM/mvhHD/dsSWRBgd2XlB8g23v0l5lxvFmW/8dBY86
+	 hVxMrwAcqmDNQysG87pmcg+y5vGivhGkor9MfoceSI6UI/s2vRk4+uaSDyh8AG69bc
+	 m1MV5N2Ga0TgBQHqcjvnsw0HM6PLKf2hv6JM6CBGfAobixRK9c7fTO7GCQuwb0LiqD
+	 bJ12VT6/DAl1A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id F1ACF460F1;
+	by lkml.kernel.org (Postfix) with ESMTP id E1CF84617F;
 	Sun,  1 Nov 2026 13:35:32 +0000 (UTC)
 From: Han Gao via B4 Relay <devnull+gaohan.iscas.ac.cn@kernel.org>
-Date: Sun, 01 Nov 2026 21:35:31 +0800
-Subject: [PATCH 1/2] dt-bindings: timer: add the FU740 CLINT
+Subject: [PATCH 0/2] riscv: dts: sifive: Add the missing FU740 CLINT
+Date: Sun, 01 Nov 2026 21:35:30 +0800
+Message-Id: <20261101-b4-sifive-fu740-clint-v1-0-b4821199a733@iscas.ac.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,9 +84,11 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-b4-sifive-fu740-clint-v1-1-b4821199a733@iscas.ac.cn>
-References: <20261101-b4-sifive-fu740-clint-v1-0-b4821199a733@iscas.ac.cn>
-In-Reply-To: <20261101-b4-sifive-fu740-clint-v1-0-b4821199a733@iscas.ac.cn>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACNA52oC/x3MwQrCMAyA4VcZORtoarHOV5EdZk00IJ00WxHK3
+ n3F43f4/wbGRdngNjQoXNV0yR10GiC95/xi1Gc3eOcvRI7wEdBUtDLKFoPD9NG8Yhqj52uQM0W
+ C3n4Li/7+3/u07wddh7XwZwAAAA==
+X-Change-ID: 20261101-b4-sifive-fu740-clint-c972e84f3171
 To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
  Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -99,42 +102,37 @@ Cc: Yao Zi <me@ziyao.cc>, Jiaxun Yang <jiaxun.yang@flygoat.com>,
  devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
  Han Gao <gaohan@iscas.ac.cn>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793540132; l=1006;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793540132; l=659;
  i=gaohan@iscas.ac.cn; s=20261021; h=from:subject:message-id;
- bh=VwCnzE/4MZz2gbGvZGs9P9obrlQjk7zxT+DpHDQL0Gg=;
- b=nICmxnHvq/ap74lRCP7Vd3qaf3i6Oa2kxxw4daKe6HXHkRD+6qk7p3gq2AizwI5a3zXQybX5L
- NEEGeCPbiMwBpYAeRsQnKtZYJGJa1lRSlirw+HfHIg6nwZ8jKxtIKTF
+ bh=zbiSOQWLdGE5tt0JW6MLdKrOIrFoJPTWAw/TL/wVUds=;
+ b=HiUmzTmHTD+hCzm1soKt+gVyAuz6OzLSGaBME2Y8KVey3oK63FqARxKpGB4WVNO4kQgONpIw/
+ g6yZvvpQZPXAnV4tdPN6zzPRMc/F2GB0hcJjkJ6stm1a9txHQFvLPij
 X-Developer-Key: i=gaohan@iscas.ac.cn; a=ed25519;
  pk=J8WHEK3filS86QaCaIHDGafqhxKyQ4K7+vFgRirTIiY=
 X-Endpoint-Received: by B4 Relay for gaohan@iscas.ac.cn/20261021 with
  auth_id=1262
 X-Original-From: Han Gao <gaohan@iscas.ac.cn>
 Reply-To: gaohan@iscas.ac.cn
-Content-Transfer-Encoding: 7bit
 
-From: Han Gao <gaohan@iscas.ac.cn>
-
-Document the FU740 CLINT compatible.
+coreboot and U-Boot already describe the FU740 CLINT for OpenSBI.
+Add the missing node to the Linux device tree and document its
+compatible.
 
 Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- Documentation/devicetree/bindings/timer/sifive,clint.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Han Gao (2):
+      dt-bindings: timer: add the FU740 CLINT
+      riscv: dts: sifive: describe the FU740 CLINT
 
-diff --git a/Documentation/devicetree/bindings/timer/sifive,clint.yaml b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-index d53f52e80d887b40c0d20049d86867c8a5b6fae2..13a8638f6b08e87bff3e37f947b0fe5458ebb38d 100644
---- a/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-+++ b/Documentation/devicetree/bindings/timer/sifive,clint.yaml
-@@ -33,6 +33,7 @@ properties:
-               - eswin,eic7700-clint     # ESWIN EIC7700
-               - microchip,pic64gx-clint # Microchip PIC64GX
-               - sifive,fu540-c000-clint # SiFive FU540
-+              - sifive,fu740-c000-clint # SiFive FU740
-               - spacemit,k1-clint       # SpacemiT K1
-               - starfive,jh7100-clint   # StarFive JH7100
-               - starfive,jh7110-clint   # StarFive JH7110
+ Documentation/devicetree/bindings/timer/sifive,clint.yaml |  1 +
+ arch/riscv/boot/dts/sifive/fu740-c000.dtsi                | 11 +++++++++++
+ 2 files changed, 12 insertions(+)
+---
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+change-id: 20261101-b4-sifive-fu740-clint-c972e84f3171
 
+Best regards,
 -- 
-2.47.3
+Han Gao <gaohan@iscas.ac.cn>
 
 
