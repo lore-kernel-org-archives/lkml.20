@@ -1,94 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793537857;
-	b=o6ASu8SGYbzIIjWp0BKmwoXZvt5MiSYzO6UR7+6klVVvhwysD+mmYQLcQgktXaW8zUvh
-	 Cjw4JBYbqsIHLODBPHMRk9oC6jZiHmJahB/47Ci/L7P4gdj7u/1IMJ800oYshqAI3aPLO
-	 V7LcpK1b1f2x0sn/aEOA94QeRSCWdXJba8iy3QqgJ+GnKajPh18J5XPdsfKsgqAG/HmzY
-	 BkTT6lxaEaZHAUV3LkxIopZL2jdgY0uFZLfCD6C/L2iLzlMk0SviE+FJ/zdeWBXQKkVN7
-	 mDpwD1JYWvqH2hegzJwwujOC/xQ/XXTsUPAwRVomRy13Zjb1B3V3pK+YGPSYlRkoD7Q==
+	t=1793537938;
+	b=XcmRUlswD18n2JlZMJbjH7qY/ZQSMWIB42rJa1gS3jH+xkYXcUlsW1gaU0fnse799f4B
+	 ZfLuH0C5aYGFVCAEqOh4TliUCaPJyqkf162WxH5mppnT/GJdagk6uFbNvP5lGIKeFWwBw
+	 fU3XUl83UN8u07i7C5JgsMD5KzaF8PwlQU4boUr48bIGuK04SObwZwIrntPPm31YzOQ4/
+	 OD0eJ88yMQe7qoLMLZMFMZPWVMdCmacImsgtX3kMQPcv4BTrMGGoPIAC7wWXHr359Chvn
+	 MVFphXShW3iJuhvKNOrzw7RJUkncYRooXli5EiFehwZAT1T2j8222ci2hj0cphd4KKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793537857;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793537938;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CfVTzZ3V32lHVKoOGse9NLw4u5NZ8GkugNXlom4S+B0=;
-	b=xCLfIJaXY9N8SDSG282JuSCfwsbYt3fHeYvOL5S3BxtY8XgFvP1K3JE2mvlfp0HTYJE7
-	 rIQ6o9CSxfax8mckozjtdxFZ5BNjHfOoHuNWb/T4PfOwX2p8ERZgpk/oM9K2ksVxyjgh5
-	 iORF/iK+TQi9PAPVOMW2bmSeU6cBbE4zCtNfAKda4kwWDa9xukdZro0GGHbLucar7LXBo
-	 0w8PNqIkfHNnyXCHIQf4nVySMRquwB+oyssK+xEXZce7aoJj0mKxkExl6NuvL8dr17Bi1
-	 vDYlEFTvZ4k6XihfDAw1Rbecwy1dgIWMz6gHhyr8vg5zdgBnaTa8gyazwhlQ1BXQo7w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=f1wYtROk1JVShHemw1ffijHkVNneua03omMSYk9W4/I=;
+	b=fgM6QFqEZ6R8aIfYBtXmTwlQgk7uAGx8j2pB0moKPDZJjx0Dp+nVz4057dWlKH02ddm3
+	 y0g3N+d2eXH1gJ++ySJFUz4Pdiujw9WEwoWL3+9TKVx82c8i39+LbtalEPXQsia1acoFe
+	 du5kCwOzsw9qBAMV3eF4R67WAKQXrLn/lCfEXbpA4+8tUPry1g8Bl0s3ty0rSPGf63wP6
+	 gL1bgkEqX7lGI2N58VJ9zhl35X9P2HtfNbR4tRp+HlJ4wURgk5K7TIVN16nQM6DDCMuTR
+	 8108BBBb088bqGWdM8oZ0y846shWjk67IH+v9WwwWNQ1CpogX1P+cCvW3PobSTHRdzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRd9PeAG;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c4pwIr2c;
+	arc=none smtp.remote-ip=74.125.229.133
+Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE75C606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:57:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE75C606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2542606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:58:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2542606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wRd9PeAG
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so23351185e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 04:57:36 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c4pwIr2c
+Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso818704c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 04:58:57 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793537855; x=1794142655; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=CfVTzZ3V32lHVKoOGse9NLw4u5NZ8GkugNXlom4S+B0=;
-        b=wRd9PeAGDNu4HYaj86oZWrxlQJGYtVcvxZtho0H+ysJz9EqFEOZ7X/al3mVFYXd9+s
-         htRkAD/r51ArqUwpfazFo0BOql/cYM+74On7zFmHG7pL2vOrllzwa1P4nPklmNxQi8XX
-         9jMIR/GCnPxkjv5cFnldEJ2hdHPJ7gsnW5dIA0zcPV8VVVB2Rozhw2M97n+POZDixy8P
-         SpLgcW5pFpamxD/L9H/q3VCcJ5B43PZpUuWXCPbcYNekRuUv9MEi9JVJsc0uxIahSxTN
-         Wh8SsmWKAl5tdDAILA9j1roJFK1uksslGY9/BTsbJQztWGAzEopLQn7cHeHgtWO76VTF
-         8rMA==
+        d=gmail.com; s=20260707; t=1793537937; x=1794142737; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f1wYtROk1JVShHemw1ffijHkVNneua03omMSYk9W4/I=;
+        b=c4pwIr2c/emHOXEN40E5IfXyk15GzTXOji9PPET9yj5joQViGOmQyWLaslV86a+Psh
+         hGUdIRE+IFYyukG3ODs21A6x95+aPn7RPYAkOsJxL2jqp5l/Qx3IO4J35R1ebSmkIZnw
+         ICmUgPqFQ1fe0uodhPooU4v1VLnaUT5K6ZG7luXyQKLZYYdcoA46amImiVcmWDgAnROe
+         5Tan64D4AqK4ovvD7KHGgOatNu/SnRinAvmBZvRH6tGOFyvoYsdvQo6s3kcPXBgF4Pc2
+         J3tlT9p24l6NdW4BjheFQ7jHPYxiEWRoydftP5FAkE2bzEyx6mQYgYirVuKxlcGfFrtr
+         lbgQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793537855; x=1794142655;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CfVTzZ3V32lHVKoOGse9NLw4u5NZ8GkugNXlom4S+B0=;
-        b=mljHk4ZlB1DBPq0weC+EXkXl9uKspuoZ4yeoi/TYQM9IPBUzlv8IDSfY6Y87QZKpaX
-         G4/DhVVBae0+CtnaZf/25IhT8BMb4NWaNhlh5A+xgQwIN3GdVHW0qsN3ia6U75SoK+rr
-         c4AniVuWZOfTPye76lonyJgtc9mmkETh81DNk53PK+C60WutADRSORYNu8CNdqUK/FS/
-         6aLzBaCixCHTKSAkR/c/hKLyJuyeI/E82ahkRgQiEc5I8YyXVXiT4QoJCnVEZa9WaXj3
-         1w1baem5h4RDQjJ8ERBdKcSXiQxZxTQuJIEXCbcQ+ezGgrcOczDZhQ5N8fQlXlTmQbIK
-         pUzw==
-X-Forwarded-Encrypted: i=1; AKwUvBzlDfCRIYHRg6GbxauVWLZG1CnmwXPZwbqmLGoNf9Mu8KKjQrrpIqzFpORJ8F/GcvFxNIfIBAoa+/vApFM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzRw3t8PozIJLKuowxOmr2eL+JyFRRQCfMNWGrS1gYdrMvWhot
-	gVT3prnSyn1HAF3G7XshVIrC+ME1EOHOdtz600act3Vq38jToO7q+Lg=
-X-Gm-Gg: AYBFou1DHDUqVtXIqG8nF2BOtPUZj8KBd1WgUnogKrCY7C+ApJmgsSMlk7GV8DmbM7m
-	/nA2fmzcDdBJoUchblVqO35a7puv+ranoaoNZ+lJMEa1dpqseAbjoRXyU1YailXSwh23uCFf4J0
-	apCV74xWaECzubK95CStE03Y06hTDisialupKRxHL29ZkZw/RP3HrHMKBwX63utqAOqX3t9f1HB
-	49pmU4/YwPwsoiVNtvnK1GFYBsANL2QnNGXV6ZRLfWRaZy2xsjb6c8fRVdwEEezXU9T0k3/pApN
-	/umHmr4JEKhZSZuE2YmkGqGcJ9dVGNSz9Ly6q0XJt7Fw8UqbNdm6yYyXJOl0fT7QTZKQScW7HXx
-	IgxM3WjTae5a1YT/ji/299+NETF4J7gL7lvJA9F4iO0Q/tAqmwdA5IsTC+rTE0Fct20XDGmqhdX
-	grfxQgQkIFobtYdjA3a8NgglQCU/4bIa3DLOQP6vPD0Hwo8ySCAyefnKk2ZeF6WqZIq8VggDK9f
-	i1tEYkwkTazNY6/SILjRaI1g+hF4vnqukOUFvDMw1AOhzaHTUe0otnc4/gmRn3c3kK/+FrHeby0
-	6lwFwVJXWl+/
-X-Received: by 2002:a05:600c:848c:b0:4a6:42cc:bf65 with SMTP id 5b1f17b1804b1-4ac1709b206mr183360695e9.17.1793537854992;
-        Sun, 01 Nov 2026 04:57:34 -0800 (PST)
-Received: from p183 ([46.53.134.95])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm273172295e9.4.2026.11.01.04.57.34
+        d=1e100.net; s=20260707; t=1793537937; x=1794142737;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f1wYtROk1JVShHemw1ffijHkVNneua03omMSYk9W4/I=;
+        b=R5tsH9Mci83JgBNzVk52vNOcKN3mDIvzDtj5Tul2/BSRllTXmmZNLfo9KpQ3Y5kuAv
+         VL1jz2mOvo9iP5jOVgVjxBslwGH+1GIxXRec3l+ruDwOevdrsFEiaTSocPfXfvE227WR
+         Q7eIN1KdGZxwP7ofug6RH+P4tWII+lZBnwmLxa5Co8Vy9HJyk3ezT5E9qLajwwOlrd/J
+         gAxOfJGGQMp9KkQY5MGtV7gIw+Cat/+Jt+VlLG43Ud1zPF72GwPWXX8oXhik+73NlMdS
+         l7z/fwJbbS+r77se5jJQJFNeZF4LCaZE9CNghw5KIsvPOqKLuMlyVKMtkOT0LPsJPfYv
+         iboQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwprX/Dh08aEU1rfFK+YMLh3dmUMbfKx6HGD/oqiclQpvJ9EGw2U2L5o0WS/ZGlW/w8an2W0ezSR4wbzkM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaLWVeYgN/c28xBxrhiZOcf2DwGe3as39exWRRyFkuB48GUAi1
+	qus1yxm3HVOUheoj25SuqZxXwJH+SKJvLS5bqmdwRIGRhM4uv85go5I/
+X-Gm-Gg: AYBFou3Ugj02mjorMICu1Mo+NegF4hsJ0liGYZhjugZEpKXU04jR3M9dXAqpT/W1Y/G
+	jDj1ifr1k30XiBAUX0fjvxNnyjC+fFvWBvIaFKtHPE1TE1TyMxoLo0827vPH0JgFDWM02w3tE4C
+	HN15pFvstztcn+8M4iFizaAyvzaNqylILFa7N/4ZknbV1bwOQe/yRqcj4U/SWtQBEWFOH65CJja
+	YAoTgPQsuJxStf54hoc4uwtUYM8wgNOOW6KCM5qpA3dj1yOi7OBSMm9Cb638f7hofiqDxPHaF+x
+	I5A3+kuRwf7eDGmaBRhxtKMhWrGt6XKIxiCw1AsOc4ueWQbzU53a1zsdkJ5DIZq2Wt5FIR1H3HI
+	CHVz4b/obiREQPsuHX3H0HaGUEh0Rnz1QZBskgiuY2mklqMVFOefpnYh7VTUsrSchPCA9xxRCGT
+	6S0oggAhJFe/xD473APZ9iaCYQNaDnZ1jNbtp93LfZulsg9BAIg2R8qZajPWraPKHL0BqpBHjhI
+	GREWc9M07kO9SWxMZkXGe8yGZI5RnNuctfNRiRw6m+FMS8YreVlztqMsUl5AzpRweV1kom+JOYN
+	LEBkpNBhkACJIAtrKvhFZxM/ZpuMQ5WgNyJjLkBbugCXFSo7MZn4Hhya
+X-Received: by 2002:a05:7022:7e0c:b0:147:a685:9125 with SMTP id a92af1059eb24-1ac574556abmr11534422c88.2.1793537936546;
+        Sun, 01 Nov 2026 04:58:56 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a13652csm27433334c88.17.2026.11.01.04.58.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 04:57:34 -0800 (PST)
-Date: Sun, 1 Nov 2026 15:57:32 +0300
-From: Alexey Dobriyan <adobriyan@gmail.com>
-To: Drif Abdelmalek Mohamed Said <drifabdelmalekmohamedsaid@gmail.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] selftests/proc: proc-empty-vm: wait for child's SIGSEGV
- instead of sleep(1)
-Message-ID: <65faff9e-5c1b-42d1-a450-b9c66b08ba25@p183>
-References: <20261023183434.9109-1-drifabdelmalekmohamedsaid@gmail.com>
+        Sun, 01 Nov 2026 04:58:56 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: tytso@mit.edu
+Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
+	Baokun Li <libaokun@linux.alibaba.com>,
+	Jan Kara <jack@suse.cz>,
+	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
+	Ritesh Harjani <ritesh.list@gmail.com>,
+	Zhang Yi <yi.zhang@huawei.com>,
+	linux-ext4@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] ext4: report sub-block project quotas in statfs
+Date: Sun,  1 Nov 2026 12:58:47 +0000
+Message-ID: <20261101125847.54531-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,38 +101,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261023183434.9109-1-drifabdelmalekmohamedsaid@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 07:34:33PM +0100, Drif Abdelmalek Mohamed Said wrote:
-> The test had a TODO asking for a reliable way to know when the child's
-> munmap() has finished, and used sleep(1) in the meantime.
-> 
-> Unmapping the whole address space leaves the child with no code to run,
-> so it segfaults. Since it is traced, the SIGSEGV stop is reported to
-> the parent through waitpid(), which is exactly the signal the TODO
-> wanted. Wait for it there and drop the sleep and the TODO.
-> 
-> The stop is now consumed up front, so SIGKILL the child before the
-> final reap.
+ext4_statfs_project() converts the selected space limit from bytes to
+filesystem blocks before checking whether it is nonzero. A nonzero quota
+smaller than one block therefore skips the project space adjustments.
 
-OK I recall what's going on here.
+For example, a valid 1 KiB hard limit on a 4 KiB-block filesystem leaves
+statvfs() and df reporting the underlying filesystem's space, even when
+unprivileged data allocation fails with EDQUOT.
 
-The only thing to worry is child pid reuse but child is under ptrace
-so it should be fine.
+Test the byte limit before converting it to filesystem blocks. The
+resulting zero block limit then clamps the project space statistics to
+zero. Keep the existing rounding and the rule that a zero byte limit
+means no quota.
 
-Reviewed-by: Alexey Dobriyan <adobriyan@gmail.com>
+Fixes: 689c958cbe6b ("ext4: add project quota support")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+---
+ fs/ext4/super.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +		for (;;) {
-> +			p = waitpid(pid, &wstatus, 0);
-> +			if (p == -1 && errno == EINTR)
-> +				continue;
-> +			break;
-> +		}
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 9cae52471dee..91c1a54730f6 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -7001,11 +7001,11 @@ static int ext4_statfs_project(struct super_block *sb,
+ 
+ 	limit = min_not_zero(dquot->dq_dqb.dqb_bsoftlimit,
+ 			     dquot->dq_dqb.dqb_bhardlimit);
+-	limit >>= sb->s_blocksize_bits;
+ 
+ 	if (limit) {
+ 		uint64_t	remaining = 0;
+ 
++		limit >>= sb->s_blocksize_bits;
+ 		curblock = (dquot->dq_dqb.dqb_curspace +
+ 			    dquot->dq_dqb.dqb_rsvspace) >> sb->s_blocksize_bits;
+ 		if (limit > curblock)
+-- 
+2.43.0
 
-do/while EINTR loops are shorter:
-
-	do {
-		rv = f();
-	} while (rv == -1 && errno == EINTR);
