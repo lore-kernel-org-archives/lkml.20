@@ -1,64 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571394;
-	b=pAMhfXDuUMDs6jrf6U5J40iMMhl3jxYgxXjxMKW3wNd/LWCPmXpmjmsVdPTAqT0BTO7Y
-	 sh1EkSMoJqd+x3Ym9d0riZeO2Y4CTgwQpjlEbHdxrwOUmrLN0UlDrsiewbbF2Z+vIuNb/
-	 HjJvqfAKQYDJ3h85hpfhScH3waPGgqxvXuLTK+dTMhDub2wduLhqLvfsG8cpmzz7ngZPd
-	 wIApwWiEeeFZEXoyJAWD3z8t30kZje3OPhhrHsqPdKe9oFJkWGF6FZQ79ScxHCFDi315m
-	 28AbA2xtJkg0d1c1UvnAtpIbeSq1c0sq9iOkZaMWN4tmrd6RZER80altHUZTHGlJ6FA==
+	t=1793571361;
+	b=vtf7L4uFu9Aeh3+/ncS2ZvaLkIXfSrm3nXXR5keJci0V25itsrl8by/fQr22hBk+HwKG
+	 D2ariMmE7LLzJIxF7UTps+ODowUdKkhf8w4/Zh8afjMNk1f2jOoJAdpGZLrjl2m60KCRK
+	 QXVvYKSv8z+gbyYkld5xhKi9JFiGkWWTbc1FuR1Yp0nx/HY4cUdLBuXIF9rFXKXJp+pb9
+	 dA0gZ42KFWMv5xgcoi77lnb4u5JBFdJlqqtEkhm7fRyKWlPty4/jUjRn7EJElNt/fzGPK
+	 RMxbQ4R0cA1B7+1nt5awJrkVL3y1GXi8cUTzJd+z7AlFjkKtZcrG2tXnFEBMQ5NENzA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571394;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Qn7fQ/WuImtrNrwAytucTquNZwzb54Hg+kTqL7gmoxA=;
-	b=2d2zIOMwiPM50Igi98P1nclxoffbJS7Zb2hGy/4LxXJWBdURVZ4LelIZycnKoYtzDvTC
-	 r77WhL10rWZf/zpjPBClytqO0UvZ995XpPLdFioIDzvJYR9VfmewnTtaIGVm4gyDnL7/G
-	 fsj5cUIIKLovLWzAtjbwPZER5MChT0ZnflDsf1yqqZYXu3/VltLWTjoYqhhgO4RU/Vz5u
-	 jjebjCk+jT4+b0pVxlsCHeDr6EpsyLsHIkIeV1ZJ9UmhhjjEtEidR+LZGKa/8GTYEtB4i
-	 0QTTjexaJaz1m/VArM/A73We9pGhFPUJaSqvms3YImIGDma3bn8oM1MC/RQGbILu7/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571361;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=HaiWGXBSErIs4k623zp/ao2jxpqugtsdrB7YWP808LA=;
+	b=Wrd9T666hYxzSYkZLmHTOZrp+wU7onJCNH8YC9YQXJlpYjLf0plJ+gYTXQ3KIxfr7AS7
+	 Luj/2jZQqDXpc1PnhYxmBAlddZflV1ODmDw2mm0/hF78veFB5FJ9qU/oNVPaKF1Uk58Hb
+	 UNCZxWa4rbwvKk7Rg9oDMc2gA2l1e08CJuznZNswG/x/kdyiju0hzpxGjgurpvAyXKS4M
+	 QaJvwdwsuOqcD0UonXv0GwPF0TYX1AUUxmeET9DPKITei1lj5sPrf7kpzHCBbKXQ39EEd
+	 zkcX7zNgGrX1g3Id8LlGiiJ7NR5fytTEQJtZzc41ZXhqCH1Cw+N4PXvj7tt8EB3VKxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=CzSGUltm;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAAdBT7L;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E46606E52D;
-	Sun,  1 Nov 2026 22:16:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E46606E52D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE48360A3809;
+	Sun,  1 Nov 2026 22:16:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=CzSGUltm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Qn7fQ/WuImtrNrwAytucTquNZwzb54Hg+kTqL7gmoxA=; b=CzSGUltm5eVCpsFPFpmu2teIl3
-	pCCMuFhCNrt+jIs3tl/m6p6bsKexs5jU+KZXxFoHk+VMixs2F7PSs7ERSo0OdxI6mmcBihNNpszOA
-	eEnDAr+4TQQq6moGFkH+fiowTYy9fClKD5apbLYn1gAqKSei+2Nl4wXJn85Fsfeq8fJ34XQX//4L+
-	78dfJKDe9z03KVOuvYbaiolk9YeRGKInlvAjzyxnRPrk3LwYZoV00c8kzdXRg9GjohkCpUOea+OVu
-	gYAkoGEh9HzwVemNyAhhLVDq5U7WbD5onv1uAWhqz/l7t+AQaZwVnC4gad6Ctg/KGvU6vAVl3qxJY
-	HfyBLkHA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Shawn Lin <shawn.lin@rock-chips.com>,
-	Leonard Lausen <leonard@lausen.nl>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
-Date: Sun,  1 Nov 2026 23:16:11 +0100
-Message-ID: <179357136492.4108155.17814114343295841881.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261026070821.324094-1-leonard@lausen.nl>
-References: <20261026070821.324094-1-leonard@lausen.nl>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FAAdBT7L
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8696C1F00A1C;
+	Sun,  1 Nov 2026 22:16:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571360;
+	bh=HaiWGXBSErIs4k623zp/ao2jxpqugtsdrB7YWP808LA=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=FAAdBT7LZWiow3HSB73F5Qhg5zJ4bgGnyl5I+sKWixLnuLEnazBGZUb7DEaISTEla
+	 qe/iCgNu3IWYoqR8SbhcXtxfwtEdmS1g7OEnNehNWyv1HwaIunuanbKSKU9I2D9804
+	 BHEX5zq0gvX9Aecn4T2zogxgL85S9U4X2WFfZlfs9/IgihuioIbqltE86ZToOaByPM
+	 obMmIepdSuAjBbB1svcQhSFrU6dJ0xWCWSpw2aWHF21z+Xi43M/wSTWwLMNYpMkGaE
+	 hduuGgX4/nKfy4nKPmB8nxGmWLraXzAoYd/KgSDQw51qZ6nF7OQ2QyIE2PTUMOfUXD
+	 Cw7cwVyQPSv8Q==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D2E438003B8;
+	Sun,  1 Nov 2026 22:16:00 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,28 +53,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3 0/2] riscv: dts: sophgo: Milk-V Duo 256M ethernet
+ support
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357135904.2624073.18131553531055071528.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:15:59 +0000
+References: <20261005093749.645014-1-chenyou910331@gmail.com>
+In-Reply-To: <20261005093749.645014-1-chenyou910331@gmail.com>
+To: Chen-Yu Yeh <chenyou910331@gmail.com>
+Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, chen.wang@linux.dev, inochiama@gmail.com,
+ pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ hfranco@baylibre.com, looong.bin@gmail.com, stavinsky@gmail.com,
+ josh.milas@gmail.com, devicetree@vger.kernel.org, sophgo@lists.linux.dev,
+ linux-kernel@vger.kernel.org
 
+Hello:
 
-On Mon, 26 Oct 2026 07:06:50 +0000, Leonard Lausen wrote:
-> The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
-> RTL8822CS-based AC200. The SDIO controller is disabled and the module's
-> power sequence is not described, preventing the card from enumerating.
+This series was applied to riscv/linux.git (fixes)
+by Inochi Amaoto <inochiama@gmail.com>:
+
+On Mon,  5 Oct 2026 17:37:47 +0800 you wrote:
+> The Milk-V Duo 256M has no Ethernet connector of its own; the SG2002's
+> internal PHY is only usable through the optional USB & Ethernet IO
+> board. This series adds an overlay for that board and fixes the name of
+> the internal PHY node it exposes.
 > 
-> Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
-> and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
-> 200 ms power-on delay used by the vendor device tree, and the external
-> 32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
-> suspend as required by the rtw88 SDIO driver.
+> Changes in v3:
+>  - Rename the PHY node to ethernet-phy@1, as the commit message already
+>    said; v2 only changed the unit address (sashiko-bot). dtbs_check now
+>    validates the node against ethernet-phy.yaml, with no new warnings.
+>  - Drop the blank line in the trailer block of 2/2 (Hiago)
+>  - Collect Hiago's Reviewed-by
+>  - Keep Inochi's Reviewed-by on 2/2, since the only change is the node
+>    name
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [v3,1/2] riscv: dts: sophgo: add Milk-V Duo 256M ethernet support overlay
+    https://git.kernel.org/riscv/c/627e4e43e555
+  - [v3,2/2] riscv: dts: sophgo: cv180x: Fix internal ephy node name
+    https://git.kernel.org/riscv/c/673f8e66d5ed
 
-[1/1] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
-      commit: 2712e8fa4d1108b33ce3a49c9459d9b88489f639
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
