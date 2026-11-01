@@ -1,79 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793509563;
-	b=OBIbDin0SNOeCd7crzgZrSoouW8YgJRQVUPpnezlIQDvgkkoJENsCbP017fkrcUZItiV
-	 rpE8ShM28Opfx6Lfcnkbd4HPRhd7m8vRLteNgeHeeTF6Loo2yaw0WMTbhe00DoH3FaHPd
-	 Fy349XjN3yL2ALGXpHPj0CcjvV1JhyRRVG3OTIsJaY0pkx19WfHyqbUg1ZId/GVlGNJcj
-	 307zCntdAarpaic0LdaC7C6pwrONUrhUInzMrITEoo6VYBJvglz4UACqtvn92myL+2Nr8
-	 H7WZXJHOT+/IugQGomASwNz4JCT+vVyfYTLVwVUTsD4O0GA7tlvrVZLohoX3d9XSpzQ==
+	t=1793510811;
+	b=A6GbFFzt0iASjrmfLihhZ4ss3hfnNqWU0V0YvYDl0AwceGnboS9WJoLPhdvIzZgtunTe
+	 CU91k8xdpqd6pwTgiShm7AsIN8UgTbHqLyFmJrnHFI6ADBJJD9/ZMPo9p1+LYS5zf/fey
+	 lfsXCT5jfBj5Pdmpo4VU6yAupMqz3BHZ5cSW+emsgE20hBr2p5pSvxOWYNqxnhduxYpxn
+	 VXPPB/STHKsBp2Wwl+uPAC2XjqxgtCypQWC6aDyXHBi2oMZ+HzZwP3bZsLcGI5Bcbka6g
+	 /1LOvwQTpja9hqHWlpmocJXJmfUlRjpPFYfF2XiJ1qrncZQVhsYlRCYy/7w2L/ya1hQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793509563;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=oKt03IBoj025m7//QTcbRHFKe7Z2qoFZaKWmpUpZm2s=;
-	b=0FZkJQGcBuJu/SEG75QbNpo5jACM4qPbvyeYU9UZXDnXohvwhUSBuN7/z62Ox/SxOve3
-	 ZV+IDrBpL7UfhlCc5szMnloOsmg603XRKPXPx/3waeHR6RR1la2bQ3z21MERMX//LDnBI
-	 ZtaMi3ff0mqScWHnknP4/zRpLgeuIGATbjG02Q0DiVAuGBz6C/QrFjeY49num3Fx+MSXA
-	 sycTpQAoTNmysxhlQrS9dH+ORQPaVC5xVC6S1WU4UIVxzGZKvk3qyufe/c3xBZOHkutjM
-	 0/U64Hd2pnv3eiNHqCrszI6PHsatoDkTFypjxklddPzrxhoYUffYpYo1t3sKStD8Dww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793510811;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=gM3q15/BMiP6EHVsNFcvdv86I1H+gIVZ8AKY9O890iw=;
+	b=tXNEh88p+GWeX3CCex0d5lr7KsLEDfa86YibOQSZKz3OzWdho0OvslidN0iVdxXCeuyK
+	 EwCxWAsbpKaDNiX035Zh0eHeAnUXcSKUsbZquslIr3/cMH/kXdcek1yerl+zt7qluoQah
+	 cWyFJ3RKwYyrLQweRuoBAB1/FcQdTEBer7Y5zCD9ezDmFIXkTpHvmb2rk29vbhM3z6Pit
+	 Jr0pR6JH61q8TZ9r2G0oOOZMCTS1j8JYmsDfpmgJ3BXWL0u8vL9hNV/FI+52ndow9maNa
+	 YPR3cKWgcgHHwECxMXyydVJ+YR7b74KhW3wX8A6NVUPDo7hpbTIjAlLAqe2A9+sAOQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Wi6VUG/e";
-	arc=none smtp.remote-ip=198.175.65.14
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB45606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 05:06:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EB45606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wi6VUG/e
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793509561; x=1825045561;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6HCXN7YioSzOzhr/4EO5NIRQku4j7L9Jr8wKtgoLglA=;
-  b=Wi6VUG/ermI4EqM+edbv1oTfrCn9Qn2SkxWbjPB9HVnAmJFVbAD9Pem+
-   XIMEVPfdGjoimHIgS42rexw93kGdfg3r5CzfQY89tY2QYMZUb9Y0Mm/tz
-   A6H60MorjQjen0s/ZLX+cYbXFg2Pzi4gbWEtixP4e3moNPqJbC/EnpdGf
-   /Uydv8JI/jUWjAstMeAsQCKT2GVsniUd8SHmX8Uxuz5ZDV/rgkDi81WXq
-   6rCme1vu45xE0gesUvm5EXLyTO2g0INsKVNHxgWNn2uZPDCwI5/BXUWB2
-   bHdk5zcZqgPkkl3TbY7V5UPOq2ME844hcV72Y1dqAlpHY975IGTF1hF2D
-   Q==;
-X-CSE-ConnectionGUID: gooeEcBOTOOyfH5GC2eJ4g==
-X-CSE-MsgGUID: auM09aFrReColUADeNAFHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2103800"
-X-IronPort-AV: E=Sophos;i="6.27,189,1787036400"; 
-   d="scan'208";a="2103800"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 22:06:01 -0700
-X-CSE-ConnectionGUID: dKH/iTkPRkKQyZlw/QZq3Q==
-X-CSE-MsgGUID: w8aILaraR9iujBxEWgLFag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,189,1787036400"; 
-   d="scan'208";a="6114101"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa009.fm.intel.com with ESMTP; 31 Oct 2026 22:05:58 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNNlT-00000000dRc-3bGh;
-	Sun, 01 Nov 2026 05:05:55 +0000
-Date: Sun, 1 Nov 2026 13:05:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Jenhao Chen <jenhaochen@google.com>, Nick Terrell <terrelln@fb.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
-	Minchan Kim <minchan@kernel.org>, Martin Liu <liumartin@google.com>,
-	Ben Wei <benwei@google.com>, Jenhao Chen <jenhaochen@google.com>
-Subject: Re: [PATCH] zstd: Build with -O3 and use shift mask on arm64
-Message-ID: <202611011223.PoKyD37Y-lkp@intel.com>
-References: <20261030121633.258612-1-jenhaochen@google.com>
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6D590606A324;
+	Sun,  1 Nov 2026 05:26:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D590606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-ID:In-Reply-To:References:Content-Type:
+	Content-Transfer-Encoding:MIME-Version; bh=gM3q15/BMiP6EHVsNFcvd
+	v86I1H+gIVZ8AKY9O890iw=; b=DcTmpEt6tu5MPIYYUmzCQvTDZfthEoxo2ZpI8
+	5oir9rrGWoNToWurvWVNwEHj68b2fO49plEFm06tsK1eBQSEp8w5vbFJAzpvvYq5
+	GO03IoZaqsQMupFzAc05qgb3jOj/TFbGiOSvCnEOS2+l7XVIFEU0l+SIczKEfSPx
+	zWHv6E=
+Received: from [127.0.1.1] (unknown [113.200.174.23])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkD2FPuEzeZq_Z0UAQ--.15833S2;
+	Sun, 01 Nov 2026 13:26:30 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: Thangaraj Samynathan <Thangaraj.S@microchip.com>,
+ UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Russell King <linux@armlinux.org.uk>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org,
+ Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
+Subject:
+ Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop phylink
+Date: Sun, 01 Nov 2026 13:26:28 +0800
+Message-ID: <179351078879.2591.15287457752530436149@stu.xidian.edu.cn>
+In-Reply-To: <e71cccdf-59e5-407c-b536-9dd47a49b0a7@lunn.ch>
+References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
+ <e71cccdf-59e5-407c-b536-9dd47a49b0a7@lunn.ch>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,37 +65,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261030121633.258612-1-jenhaochen@google.com>
+X-CM-TRANSID:BrQMCkD2FPuEzeZq_Z0UAQ--.15833S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uw4UCFWktr1UGF4xGr4UArb_yoW8Jw45pa
+	s8ta97Wr4vyw1S93s5ZF1UZw15AFnrZrW3Cr90grWrX345try7Jw40qFykZF1akrsxA342
+	vr13CayUuFZ5J3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9Cb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I
+	8E87Iv6xkF7I0E14v26r4UJVWxJr1lnxkEFVAIw20F6cxK64vIFxWle2I262IYc4CY6c8I
+	j28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr
+	4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE
+	14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2
+	IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxK
+	x2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI
+	0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07b5sj8UUUUU=
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUED2rmBFRXBAAAsA
 
-Hi Jenhao,
+Hi Andrew,
 
-kernel test robot noticed the following build errors:
+Yes, I did, but it ended up at the bottom of my reply to the sashiko-bot
+review, which was not the right place for it. Here it is directly.
 
-[auto build test ERROR on akpm-mm/mm-nonmm-unstable]
-[also build test ERROR on linus/master v7.3 next-20261030]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+e110bc825897 is the commit that introduced the call which warns. Before
+it, lan78xx_disconnect() did:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Jenhao-Chen/zstd-Build-with-O3-and-use-shift-mask-on-arm64/20261030-121633
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-nonmm-unstable
-patch link:    https://lore.kernel.org/r/20261030121633.258612-1-jenhaochen%40google.com
-patch subject: [PATCH] zstd: Build with -O3 and use shift mask on arm64
-config: nios2-randconfig-1000-20261101 (https://download.01.org/0day-ci/archive/20261101/202611011223.PoKyD37Y-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261101/202611011223.PoKyD37Y-lkp@intel.com/reproduce)
+	unregister_netdev(net);
+	...
+	phydev = net->phydev;
+	phy_disconnect(net->phydev);
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202611011223.PoKyD37Y-lkp@intel.com/
+and phy_stop() only existed in lan78xx_stop(), guarded by
+"if (net->phydev)". So disconnect never called phy_stop() on a PHY that
+had not been started, and the warning was not reachable from this path.
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+e110bc825897 converted the driver to phylink: it moved
+unregister_netdev() after the phylink teardown and added an
+unconditional phylink_stop() before phylink_disconnect_phy(). Since
+phylink_stop() reaches phy_stop(), which warns unless the PHY is at
+least PHY_UP, unplugging before ifup started producing "called from
+state READY".
 
->> ERROR: modpost: lib/zstd/zstd_compress.ko: symbol '__divsi3_table' undefined!
+	git log -S'phylink_stop(dev->phylink)' -- drivers/net/usb/lan78xx.c
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+returns e110bc825897 and nothing else apart from my own change, so that
+line has not been touched since it was added.
+
+This is also why v2 puts unregister_netdev() back in front: it restores
+the pre-conversion ordering, so an interface that was never started is
+not stopped at all, and a running one is stopped by lan78xx_stop().
+
+Thanks,
+YuanZhe
+
