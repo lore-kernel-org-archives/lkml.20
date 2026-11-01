@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571397;
-	b=wiuo4hT/jsuELLDA/HHx2EePHnFI0jHp4JRKdldxbNKwPtjASd3jGgQ/UaOmB9OP5FY+
-	 t7QyY+AaEWY8wNUlmUtPQBiAp1hL/nnEPEYcLqXHP4o1gLurEt6/s/RlVKKIUN1t4qU3u
-	 hFlA8HHhPhiQKpF6pnQUP7za68do2YmvBThFDSz7IrTEms0A/lMT1MD2oLscqhQZbY/MU
-	 rZeduSj6qlRT7H6X3KXZJxs90A70YNotcys+FehF+Y7v6CFLMRiSk4unNPxl5PejZkrMQ
-	 Rlcwk0U3YkKcv1xcjygCT1Jp52eJsaWwdQLepmkDhaugNTsQdww7rKmblHKRidn7U3g==
+	t=1793571390;
+	b=dDntn0GPp56wng/7NI+SDjvfMd0Bibb8r1v2jtp3gMH/vB90ip42yjBsZ+l+hh7rWIWG
+	 PrGYug4/ElbOL2VeOj9waEQZiGZGs6XleAAmC97y02dCHX/fgblpBHsSj3nvWm3U0WRMP
+	 L0fcRODuZtyo4kZGdmcEA3I9S6JcCtiGWfa+yCKvtmBLbSEQeyhGMj8dL/LgVWvIy9q1Z
+	 dryMFFzPGvotrkCmt/gYJ7Ml3FQAtlkfqZi4DoVFwxg/spCp2ZVFuA1+lNuglqu6ZK8wL
+	 SsMTdxrW6Cn0aw//oVPlkIP3Khzm60hsv9c+uuBLP+xnuzkr0GehN903wH1u+edWxwg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571397;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571390;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=4/be1ZrHaJFMLso5b5pIRzsIB4FCGWBb23W7/vuRdXI=;
-	b=qo3IV134Bcm+I8+zc4ZCUSujBztmJviHea2m8ARxXsopcayPIsTJdTJp70bFOCnn5SpJ
-	 yqbawCK5HAnwtnYrC5e+cfCT8Lfdmg3RVvzSWJASUTyudKYViBtWvLOb7IvjX0p1dvVIp
-	 KdGwjuCHTwHBA2MKcQhdZ/ZOsY1EzBtWF2Vu0Jo4aNPvuqhl/rcC/0+U8tU77gxifjuiy
-	 ug97SZ3/qlHuRxSJw526qnmxGsRMQ7uspkNRzdd6HmeSZwe1Ew3fOBXh3EktDND8monaq
-	 gPfZXry2aPGLy8JJTL61176vSwFuCSTG+Fcnbl5ttq0wNLb7tILQ8TILvPv0ooYi5Qw==
+	bh=kd1+6McIMPpXCjM/eK1XnUd0MHKq5CNasIzBEPub8/I=;
+	b=qq9D7pfpH65u+G4zyWKzEOHW0THcah1m7sen2xw/kdvl+6r0gTm8spq5x1EprwywyTfC
+	 EBcAkRK4cI/KbThDdjZvaaDxBCdVYmy7c7Z/GLm0tmSURAkOzAekejMG0UZtRNHAOxv1K
+	 6/Hn4h2BzfQhhVbiC6vlHNkv7grx4zmNantIeINkYFCur+rhAPeM7BkWkZBpM3tLH9iUB
+	 H2F5qXS98pFn0ujQAKOF92gJb8hFSI3dVeNWsTYcguQrn3mwj1ZREBrUvBRn0MTsok5fD
+	 yg2zd1iZxNr+O+Kr0EYzHKv5+6PaBvJdZjPlAKAaxTfoYMzfhnQ4pjuhNJNp+gNVXcQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQucWQ4l;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUlLLBZ6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 353D3606ECCD;
-	Sun,  1 Nov 2026 22:16:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF6560A2630;
+	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HQucWQ4l
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C27321F000C1;
-	Sun,  1 Nov 2026 22:16:36 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUlLLBZ6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79751F0093A;
+	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571396;
-	bh=4/be1ZrHaJFMLso5b5pIRzsIB4FCGWBb23W7/vuRdXI=;
+	s=k20260515; t=1793571389;
+	bh=kd1+6McIMPpXCjM/eK1XnUd0MHKq5CNasIzBEPub8/I=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=HQucWQ4ltkOJetKmKDw0fBX4T/NcSVy2UOVZe7RE1BwoXyWPf4E+/+gI+fAAt/JJ8
-	 XvnAvlkVpHmaZwe2CkSSxrjlpxUMcvBv82b05B78RIRAqfrqqyr9ppNrPQ/3LQXQ3p
-	 65OBUP/u9uuvV7XCxzRlSspAaNxGpU0Q0sHJ735yBY4yibdr1EqLZBrkPMGiiT4tgL
-	 SxFqb33KkpO0owBrNtnC9lQHkQN3H4JPArw5MdGK09LdsxcosEr3bUHemz2nulD/43
-	 jdW4qdmRNg1G1OIpVGTw1S0sfdK80uKuz5GLwlTQJ7dSi4uTaPjf58zu8xJVzFs5Lw
-	 Z8SscnFcSUaiw==
+	b=YUlLLBZ6pm30l0+huWgQS5KFcpacV3sIViYlLlgtZBTFchxrnyS8Bp46ptx800GpH
+	 ms0tcCCwnBu8jhUpAixHI2ZMpbJ4BXne5Su4dMXO/7bUCVl9AQVIuUBLP4vl7wQZgv
+	 rZUklVe7MxMb57TOckoPSQz/SDQn9b5pexQYQ6rnr5y2PQEq0m0iBuIwllJyuFYCPt
+	 FgWrKGlFZ3mCBkOH5hjwzxX8senRjOfUuL2jk1ZgZ27JyA3nz0QEa+hdXnKH2Ks7cd
+	 yjsnEcGAfd78jUx35wSizQNDIH/DFAduRns5hrtdjcBw963LMRfCTmY/LrgNPoYmff
+	 gPp6G7yyQ4ZFA==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA42C38003B8;
-	Sun,  1 Nov 2026 22:16:36 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA1F138003B8;
+	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,39 +54,36 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for
- OrangePi
+Subject: Re: [PATCH V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357139529.2624073.3641099794462777978.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:35 +0000
-References: <20261006100000.548264-1-amadeus@jmu.edu.cn>
-In-Reply-To: <20261006100000.548264-1-amadeus@jmu.edu.cn>
-To: Chukun Pan <amadeus@jmu.edu.cn>
-Cc: linux-riscv@lists.infradead.org, dlan@kernel.org, robh@kernel.org,
- pjw@kernel.org, aou@eecs.berkeley.edu, alex@ghiti.fr, palmer@dabbelt.com,
- conor+dt@kernel.org, krzk+dt@kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, spacemit@lists.linux.dev
+ <179357138858.2624073.15621784518365922237.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:28 +0000
+References: <20260817033038.2286436-1-guoren@kernel.org>
+In-Reply-To: <20260817033038.2286436-1-guoren@kernel.org>
+To: Guo Ren <guoren@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ dlan@kernel.org, devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+ junhui.liu@pigmoral.tech, stable@vger.kernel.org, docular.xu@gmail.com
 
 Hello:
 
 This patch was applied to riscv/linux.git (fixes)
 by Yixun Lan <dlan@kernel.org>:
 
-On Tue,  6 Oct 2026 18:00:00 +0800 you wrote:
-> The EEPROM on the OrangePi R2S and RV2 stores the MAC address.
-> Assign it to Ethernet, with ethernet1 having a MAC offset of 1.
+On Mon, 17 Aug 2026 03:30:38 +0000 you wrote:
+> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
 > 
-> Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
-> ---
-> Changes in v2:
->   Remove Ethernet alias changes.
+> The initial K3 device tree used generic/placeholder values for the
+> IMSIC guest configuration:
+> 
+>   riscv,num-guest-ids    = <511>;
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2,1/1] riscv: dts: spacemit: set ETH MAC from eeprom for OrangePi
-    https://git.kernel.org/riscv/c/d05c62364960
+  - [V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
+    https://git.kernel.org/riscv/c/69f95409f005
 
 You are awesome, thank you!
 -- 
