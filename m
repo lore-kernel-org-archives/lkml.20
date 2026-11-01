@@ -1,74 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.17
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.251.229.89
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793511371;
-	b=niVseSD9KvDNlNk5eogrtxQml2IJes+w8JNyb47OQ4lEZVg0ZojdoR1CbhA9tamTEdzE
-	 ppwfIqQqLZBajLHhZyhxFYBkW1O1vaJFKhmJpGqScd39bfn5G2vZSkTNKycOxwKHooru1
-	 dzTMUJupe9yzyJvvFXjNNRReuD97XGadIliq434eTNyqhqBLAc/H3Zv25oDEOz3pF4QFb
-	 TjPdBFXIl0NtWXP8so4k4gSYeFzP6BNxdKnk6I8mxmfy+wCdjx5LbScL4F4Z1U6bryAh9
-	 CPnTsxIN8sF/TV1e+jNOKdDZt1kawcy6mqqm09558NI7UVhAWxSuB0p9AUhT4JUkHgg==
+	t=1793511590;
+	b=SlYUDT0u1eIH6WLwhdRVPEoHKZPsJ+wrr9k8DcF6wch71OSFb6jzxpVFOvH0+95sG5jy
+	 HjrKjXeKB4ucbQRhKDU1KO0Z+puDJQHg86+aUXoxvFllbT7FyE7V67wcMCza1jjBQsXig
+	 FU2CBoaxXSnYq0IUPeKi9Uux5CrrM1X/DhhfI/gBjZcYgxjvcjo6NPoJvH/XmskW6U4ZS
+	 rneNDHCcSEzG3E6sO3AQbBKNRPti/1m3Q4OR1hqCYnnMdLITZt+pILm7b2yo+zY/N70ML
+	 huuHvCSB+AUY8IcsfMCr9WBcJHd9fWMHjusZ5ssIyC2z3Nwht0o7EVNto32Ee5UXVaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793511371;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Rspamd-Server:X-Rspamd-Queue-Id:
-	 X-Stat-Signature:X-Spam-Status:X-Session-Marker:X-Session-ID:X-HE-Tag:
-	 X-HE-Meta;
-	bh=+pWCWfDAqIjrylvpr4u1LEX57uVzt1KlThKiOI2rJYI=;
-	b=Hnv0Yep5JZAwl/8T29YCOPipOX9wkEFAke1EKpw+RyIjpCnRCGpTczu7V27KCaS9ipGA
-	 juFsG2ur8jYiuxf+JUBU99WV5j0WiitjQVN0Ibmmw4pH0UtyBn5cNOckCQgb561Ds4Gte
-	 Ylnvp4CE9OdXDtj2JrWzwr1XGfPIWDBUmVqur7Ziqj9wgyiInZ9PXMgRYCHYTeLJBQU/I
-	 304qEfIirnBE6uC/1x977O1vEcWqJg7euMhFqLSoQZ/3hBIzQO3+vM4fwczO2BpA/4VtP
-	 TloIh3l267CnnYMH1RURvmVFDSuDWdKlZGvlFMMe6Vvt9asVw5EvTHxoRQaphjKyzqA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793511590;
+	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=3un5P10sk8oK9XNXAXKYVD1iFuz81kb645oZObRJaFk=;
+	b=DXgEEtawvXQNilUs6PlkYPqCNU8QBbKCP/3TfNQhlZBAV95TXpLs7l+QXYa0Lm0NCA6j
+	 6Xs8dpc6PvNUkzsIaDeWY45+tx9BZIDNB9Qka5GmjKQYNPLlTWLrFsxUqnC3xP05LVege
+	 620qSiISHwR9OJtPupcu6l5D7lNRclxwZtQeCDxx6qzYBE1R9Ho+PjggoV2wbTSFyieVF
+	 6iyNCDRXrI+UtfL1NsdZ8sbiOk4Fk84Kt5Ac8xHIP/W1zvwgyUtrFH6pn7gce1sUSeWrA
+	 aNJfhVpE6jaOdcC5R6YylQdu36MdmgHnBQiEx1fQymiVZ/crtvUsTqQz8EDdIZ5jcfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.17
-Received: from relay.hostedemail.com (smtprelay0017.hostedemail.com [216.40.44.17])
+	dmarc=pass header.from=nabladev.com;
+	spf=pass smtp.mailfrom=nabladev.com;
+	dkim=pass header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Aj02QdpK;
+	arc=none smtp.remote-ip=178.251.229.89
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED8AF606A324;
-	Sun,  1 Nov 2026 05:36:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED8AF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf13.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay06.hostedemail.com (Postfix) with ESMTP id 4D09AA8003;
-	Sun,  1 Nov 2026 05:36:03 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf13.hostedemail.com (Postfix) with ESMTPA id B736420011;
-	Sun,  1 Nov 2026 05:35:58 +0000 (UTC)
-Message-ID: <b700f0fb96b9454287850f7aa54d876b709cadb0.camel@perches.com>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-From: Joe Perches <joe@perches.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe	
- <rick.p.edgecombe@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
- Krzysztof Kozlowski	 <krzk@kernel.org>, Biju Das
- <biju.das.jz@bp.renesas.com>, "biju.das.au"	 <biju.das.au@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>,
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "linux-serial@vger.kernel.org"	 <linux-serial@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org"	 <linux-renesas-soc@vger.kernel.org>,
- "x86@kernel.org" <x86@kernel.org>,  "linux-coco@lists.linux.dev"	
- <linux-coco@lists.linux.dev>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
- Au Dang <au.dang.jx@renesas.com>
-Date: Sat, 31 Oct 2026 22:35:57 -0700
-In-Reply-To: <20261101014710.GEauaaHoYk5TzRpGBQ@fat_crate.local>
-References: <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
-	 <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
-	 <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
-	 <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
-	 <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
-	 <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
-	 <20261031202741.GAauZPPfNDpQLSmIZD@fat_crate.local>
-	 <94f0ab99b5c9072ce7c026672f704b2987db427f.camel@perches.com>
-	 <20261031235958.GDauaA_pScrsk2xYUF@fat_crate.local>
-	 <5ad69a1167fddc7caf1eb73e439765116db1ce17.camel@perches.com>
-	 <20261101014710.GEauaaHoYk5TzRpGBQ@fat_crate.local>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2318606A324;
+	Sun,  1 Nov 2026 05:39:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2318606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=nabladev.com header.i=@nabladev.com header.a=rsa-sha256 header.s=dkim header.b=Aj02QdpK
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2F216FFABF;
+	Sun, 01 Nov 2026 06:39:41 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1793511583;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=3un5P10sk8oK9XNXAXKYVD1iFuz81kb645oZObRJaFk=;
+	b=Aj02QdpK3pB0SUgQXrZjdhCvnMas32aLG8WPYEZPq2FW2yz1nj0HIVs5QrIjXzk7RJa3i3
+	zhcaZKDqFVpF4eslHEYaoSREa+Zij4XxxgrxxlIlMbbhJor0J+SWRgce7eFOU6OyPrqUPT
+	rKlTjzVOQ0J6a9jUlhJkbtZXLZXg+Z+4wnWNRz89W6nsp/NCQLeXOyKU/d6G4e8ekxOJ3j
+	o9pRG48ScVy/2jfji9i8gVsSgjUBzVUum84T/eXVKFhWlrnw0tajmbnegiV1a8WXW+fqXk
+	tAKiClc9d5jpym3WeA6KMNEEjEs84oZjmS0ri4GUDzXqnx1dYrCcJsZKGclhhg==
+Message-ID: <3237f9e2-6c80-4adf-ae4f-65f8998ef4eb@nabladev.com>
+Date: Sun, 1 Nov 2026 05:47:21 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,54 +56,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: B736420011
-X-Stat-Signature: e73htcat4cfmq1bd9tqjwg4q4cxft3m6
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX19Rajxre7ooLNqKMlwzOUy+DZakmZXRay8=
-X-HE-Tag: 1793511358-759391
-X-HE-Meta: U2FsdGVkX18TMu8OWhRhoWPs8GNuf4n7s1uAz0w71THVvFlmi64sJ0RcrA4aAqt0aEKE/NzR+i5GBBGiQ3ltlZtdbgl+BRAyk8I2bJfgcLzJZ7vKZIpVOJRFiQ5Qekug2lhT6kcWltzi5UKl5wV8OevmPAacL1Aq0kXFzjQSPmVwXtyeUtWvWkWZo4yZ7+Ffum9/ABA+MVn+J1j7emWejLe5XbC5LYKlM9IAaozuh9wwg78uQVdvWyn2JHvOhiwzo22eN/qVO2UH9N1uRS7ZSUANOIzq9abnLdH/dOIr9wqB96kr3M2li7j6dPY8/P8R
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: st: fix arm,smc-id of the SMC watchdog on
+ stm32mp2
+To: mateusz.nowicki@posteo.net
+Cc: Arnd Bergmann <arnd@arndb.de>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Thomas BOURGOIN <thomas.bourgoin@st.com>, Rob Herring <robh@kernel.org>,
+ krzk+dt@kernel.org, Conor Dooley <conor+dt@kernel.org>,
+ Lionel DEBIEVE <lionel.debieve@foss.st.com>,
+ Amelie DELAUNAY <amelie.delaunay@foss.st.com>,
+ Patrice Chotard <patrice.chotard@foss.st.com>, devicetree@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel <kernel@dh-electronics.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ "laurent.pinchart" <laurent.pinchart@ideasonboard.com>,
+ Fabrice GASNIER <fabrice.gasnier@foss.st.com>,
+ Stefano Babic <sbabic@nabladev.com>,
+ Etienne Carriere <etienne.carriere@foss.st.com>
+References: <20260907091400.55954-1-mateusz.nowicki@posteo.net>
+ <7ee09655-2fef-4334-b0aa-b56f7ae03f74@foss.st.com>
+ <1b14e1e4-962f-4391-91fd-b09143641643@nabladev.com>
+ <cbcb8d78-51f3-41ab-80d6-fe3f0623da5c@app.fastmail.com>
+ <f7010f07fdcdb4ff04a0dbfac1cc5421@posteo.net>
+ <7ff5f937-144b-41fc-ab0d-82271a01dde1@nabladev.com>
+ <799394b5ac7067cd2bb2e06117e53ec3@posteo.net>
+Content-Language: en-US
+From: Marek Vasut <marex@nabladev.com>
+In-Reply-To: <799394b5ac7067cd2bb2e06117e53ec3@posteo.net>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, 2026-10-31 at 18:47 -0700, Borislav Petkov wrote:
-> On Sat, Oct 31, 2026 at 05:38:46PM -0700, Joe Perches wrote:
-> > On Sat, 2026-10-31 at 16:59 -0700, Borislav Petkov wrote:
-> > > On Sat, Oct 31, 2026 at 03:52:50PM -0700, Joe Perches wrote:
-> > > > Please add a wildcard * at the end
-> > >=20
-> > > I will, once the rationale is clear and documented so that people kno=
-w what to
-> > > do in the future.
-> >=20
-> > MAINTAINERS currently has:
-> >=20
-> > 	F: *Files* and directories wildcard patterns.
-> > 	   A trailing slash includes all files and subdirectory files.
-> > 	   F:	drivers/net/	all files in and below drivers/net
-> > 	   F:	drivers/net/*	all files in drivers/net, but not below
-> > 	   F:	*/net/*		all files in "any top level directory"/net
-> > 	   F:	fs/**/*foo*.c	all *foo*.c files in any subdirectory of fs
->=20
-> 	   F:  drivers/net/foo  everything under drivers/net/ which starts
-> 	   with "foo"
->=20
+On 10/31/26 9:59 PM, mateusz.nowicki@posteo.net wrote:
 
-No.  The intent is to match typical file matching patterns.
+Hello Mateusz,
 
-For instance:
+>> But maybe there is some way to probe for the correct ARM SMC WDT ID ?
+> 
+> I agree, the ID is not discoverable. A revert or a board override
+> would not help firmware built with a custom CFG_WDT_SM_HANDLER_ID
+> either. Sorry for the trouble on your board.
+> 
+> I like the fallback idea. My suggestion:
+> 
+> - arm,smc-id becomes a list of IDs.
+> - The driver tries them in order until SMCWD_INIT succeeds.
+> - The SoC dtsi lists <0xbc000000 0xb200005a>.
+> - Boards with a custom ID override the list.
+> - Older kernels read only the first cell, so nothing breaks there.
 
-This does not match anything
+Yes, that sound good.
 
-$ git ls-files -- 'Kcon'
-$
+> Trying a wrong ID is harmless.
 
-but this does
+That is not exactly accurate. The wrong ID might be populated by some 
+other service, and invoking that might have unexpected consequences. But 
+I do admit that such a thing is unlikely.
 
-$ git ls-files -- 'Kconfig'
-Kconfig
-$
-
-and so does this
-
-$ git ls-files -- 'Kconf*'
-Kconfig
-$
+> Old and new firmware both just return
+> an error for an ID they do not know, as your two cases and my DK show.
+> 
+> One catch: OP-TEE answers an unknown call with 0xFFFFFFFF in w0, and
+> smcwd_call() compares a0 with PSCI_RET_NOT_SUPPORTED as a 64-bit
+> value. The driver gets -EIO, not -ENODEV, so the fallback should move
+> to the next ID on any error.
+> 
+> If you and the watchdog maintainers are fine with this, I can send
+> the binding and driver patches.
+It sounds nice to me, thank you !
