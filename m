@@ -1,61 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793504266;
-	b=RO/VJASb3exxiCPT46vyCUF0tNtpBv0UkmJ4qsNywI3IgfT2nNJ9lxLhcbGLl7egnrm4
-	 O21kY20NObGc+yQRqVrXKzZGh49DGrlKoUSeI58MihtR0WIs2Vh9fDtI134Cw97hgY8JP
-	 qjmpldrie35mJxNyGiUpX/Y6fsWJHnvjmg/IrqPFt5DYUNX1fi+d0tfM+RK+klevl9JqU
-	 SoPGgbGPDTzaeAi6ZUB8KMpQtJAiTSVCrWhv2TDHj7KKiZsWu4n2q1uQJ9f6UihJ8zV4c
-	 6bUREv5rvumDP+IqLhlBDrcsnzZbRJ2J5QeFAX1HF/+7HCdLa8py2u1gTnsVZLxSyng==
+	t=1793504684;
+	b=XIk0YinmQo9ThYhrkQA53qSpbPpmXNjDjhdC+bjWqiW3UkDoSLZbQ1x/KHCjthrCzjof
+	 EaCkXy8jpffLAKWFtKS7iiYbCVLXaUZoHu3naQflo+ZNhWVsbG6DqGsDMXAw5MBzOZe58
+	 h2l/RG+x3xL+Fs42aHi+Rn8c9XjQRzatXy85dbFN+lANAeWAWsw3CyHq9yfDuHS1lroh4
+	 orDuD85Mb7IieYVk3IzqN5vvozeHTPoYO4jnEXHMlWkkS0UjwW4PQfIdswJFuKgGGDnug
+	 md5/Aw9+fP5k/64+s0/eHT17Zpk6Q5qXDtmBqpCfW6OT997Xi0fPdBk3HhHTmrW/ldw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793504266;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CuLpQP3tJdYbac4mzK5XgcCvQDNF7znqOKkjorpQFLM=;
-	b=S8AC2e9jkCq8hH2eMSNpwjSrJh89cHKse2E3YeQ4TfHANYMHcNKNiN/LLMafFIUDZEdH
-	 /3TyY68xbJm+MkRfIb4/s1cA0+5ejAg3ehxQCQ4OVZYuxzzD8lx/SPYQDXTGgNkBqLbd0
-	 UgfSO1Cp59F2X9Dlywb893BOJqbTUABoAixGNgZNgYRlbNY4VWCG/euM6hV4PLa9Lgsbz
-	 UasjdPMM6J//bj2ly8LTLhQHDiYkmMZGOsU6VNQ54Z+ml1acQCTcU+5GPyQQFTadIUT4D
-	 HWepfjVe/Jyvu88RfCxvz9q9iYO412wuee6mnk6/YgpWN4e442HtIEMlfge/K+Oft8w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793504684;
+	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
+	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
+	 References:In-Reply-To:Accept-Language:Content-Language:
+	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
+	bh=3NX0nEmrDMRcK2qb2zALY4YGB6wA9H4jDy5kL7Ko/AI=;
+	b=e8Z45N8bFodeLytWF4HD8q7VjaSpFFAxPDU+SDZ3ijxIcNPPAN1sshDdpIcfenFP6veT
+	 fc56QX7AfqxjS+gczf6Y6PYLuhYm9jdgqdFgxd5ZBYLLrSZW9V+OmOlrSsOOzTYU/Iz4d
+	 BqbQxvOk5AWmVcY6f5lGJeZPlRFGBdXg7Dpi0s5UTpkBXKSzvCh/RkbBH7t3WMoVwsp5S
+	 zjK10dl5HSUcYs2asLNxs2OBh3FQLFh3pdisVLK3zVcQClKNkLjcMNDMrmRsy5N9zPbKR
+	 CteM/nXCggx+3qDnRI5mmIWNyO1jNj+g2tmy+K/i7PAO/fvTUXMOiTFYAzdvAYiYW5A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOmEag9j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=realtek.com;
+	spf=pass smtp.mailfrom=realtek.com;
+	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VxHqxSNA;
+	arc=none smtp.remote-ip=211.75.126.72
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B00606A325;
-	Sun,  1 Nov 2026 03:37:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D58606A324;
+	Sun,  1 Nov 2026 03:44:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6D58606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOmEag9j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C751F000C1;
-	Sun,  1 Nov 2026 03:37:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793504265;
-	bh=CuLpQP3tJdYbac4mzK5XgcCvQDNF7znqOKkjorpQFLM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XOmEag9jSHXWLR84xw/yjGsa6YpgkCdu1c4/X4ScLwkjOnEGEDbvF8HPMK2iQZ5kh
-	 aVUQ2jYBBRaxpRrvIEGruaC1ZVdH+uWhvPxeDPtWVNK0imS+CIJ71JKAy+VExBPe21
-	 sbw89wV8HTFz1E462O/I6TqIkxc/MkiMfoT+lguJ7lU6PsPYsYs30YK1S/sdCkcKBC
-	 OCDPnWbdhkszDwrR3hU1cTKZA7UipzISCQlTXm/16/PHQjDgnBCaR6ucDApmvv+ZGf
-	 lqHCgnlnjVJVo0t+hQ40dqskXXtpohlMezAKsNeN8lA0L8ZheQkJJ0AU+dUmJaK9jW
-	 d1CRAReERyQ+A==
-Date: Sun, 1 Nov 2026 03:37:37 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Daniel Schaefer via B4 Relay <devnull+dhs.frame.work@kernel.org>
-Cc: dhs@frame.work, Jiri Kosina <jikos@kernel.org>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, srinivas pandruvada
- <srinivas.pandruvada@intel.com>, linux-input@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Sven
- =?UTF-8?B?VmFpbmvDvGxh?= <sven@xn--vainkla-r2a.ee>
-Subject: Re: [PATCH] iio: light: hid-sensor-als: Don't read past the end of
- short fields
-Message-ID: <20261101033737.6c613263@jic23-hlaptop>
-In-Reply-To: <20261027-iio-als-overread-v1-1-e47e2706368b@frame.work>
-References: <20261027-iio-als-overread-v1-1-e47e2706368b@frame.work>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VxHqxSNA
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A13iDiM51007663, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1793504653; bh=3NX0nEmrDMRcK2qb2zALY4YGB6wA9H4jDy5kL7Ko/AI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=VxHqxSNAppv6MRhiJStSxpK+ZjDKRQgNW0I3nrWmExg31gs0Q0KJ0zfsOt6Oky+CY
+	 yNgB2NYliPx0RK8G+01qt/S1i/znBkNx/DMKacFoOX4ey9DYrgLh/3Xmya/Px5Mz4E
+	 ZMJzO02hEsYgSP27HFCkYSlq6p/oQv+xwVOM7TK3yVaZVNksMaVw9bapwAAVHhxvrF
+	 SvQILInGL3T09pr4DHhq6IQYyN8XPPjZb1apEqsIQqjwBrwWVJAn+we54CanPAjYjB
+	 a+2k3AtgwWjvxaPqrY9eVL/J4Jm9Kb0FDaMyk6Dy34yCOO7eF7wuoZKgy4Yldvy1Z4
+	 38c7mu9LAhAAw==
+Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A13iDiM51007663
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Sun, 1 Nov 2026 11:44:13 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Sun, 1 Nov 2026 11:44:13 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
+ 15.02.2562.056; Sun, 1 Nov 2026 11:44:13 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Ho Jie Feng <hjf3108@gmail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, "Kalle
+ Valo" <kvalo@kernel.org>, neo_jou <neo_jou@realtek.com>, Hans Ulli Kroll
+	<linux@ulli-kroll.de>, Sascha Hauer <s.hauer@pengutronix.de>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
+ aggregation buffer as a frame
+Thread-Topic: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
+ aggregation buffer as a frame
+Thread-Index: AQHdaI9vizk2vXuz70+nFp0lnrRycrcYkErA
+Date: Sun, 1 Nov 2026 03:44:13 +0000
+Message-ID: <2d53d5420be945fc9bdfbea5542b61db@realtek.com>
+References: <20261030165451.365591-1-hjf3108@gmail.com>
+In-Reply-To: <20261030165451.365591-1-hjf3108@gmail.com>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,84 +84,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Tue, 27 Oct 2026 18:58:39 +0800
-Daniel Schaefer via B4 Relay <devnull+dhs.frame.work@kernel.org> wrote:
+Ho Jie Feng <hjf3108@gmail.com> wrote:
+> When rtw_usb_tx_agg_skb() has more than one frame queued, it copies them
+> into a new buffer. That buffer was also handed to mac80211, as one
+> additional TX completion.
+>=20
+> Report TX status only for the original frames, and free the aggregate
+> buffer without passing it to mac80211.
 
-> From: Daniel Schaefer <dhs@frame.work>
->=20
-> Reports are not guaranteed to be 4 bytes.
-> On color ALS sensors there are fields that can be shorter than 4 bytes:
-> 16-bit illuminance, color temperature and chromaticity x/y.
->=20
-> I don't have such a sensor right now, but I have emulated one in
-> firmware. With this patch, no garbage data is read from the next report:
->=20
->   before: 05dc02bc 05dc02bc 190005dc 0ce41900 00000ce4
->   after:  000002bc 000002bc 000005dc 00001900 00000ce4
->=20
-> Same fix as commit ad02ca57e44e ("iio: hid-sensor-prox: Add support for
-> 16-bit report size").
->=20
-> Fixes: ed5514c925a0 ("iio: hid-sensors: Added ALS")
-> Signed-off-by: Daniel Schaefer <dhs@frame.work>
-Hi Daniel,
+The rtw_usb_write_port() might be failed and call ieee80211_purge_tx_queue(=
+)
+to purge txcb->tx_ack_queue list. Should we check if the tail skb of
+txcb->tx_ack_queue (or just check skb_head) is drv_frame=3Dtrue?
 
-Seems in line with the referenced commit and to make sense to me.
-So I'll pick this up now - however still time for more reviews as
-I'll need to rebase on rc1 anyway in the next few days.
-
-Applied to the fixes-togreg branch of iio.git
-
-Thanks,
-
-Jonathan
-
-> ---
-> Tested on an emulated sensor with 2 byte reports that is correctly recogn=
-ized
-> by Windows.
+> @@ -431,6 +436,9 @@ static bool rtw_usb_tx_agg_skb(struct rtw_usb *rtwusb=
+, struct sk_buff_head *list
+>                 goto queue;
+>         }
 >=20
-> Cc: Sven Vaink=C3=BCla <sven@xn--vainkla-r2a.ee>
-> ---
->  drivers/iio/light/hid-sensor-als.c | 16 +++++++++++++++-
->  1 file changed, 15 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/iio/light/hid-sensor-als.c b/drivers/iio/light/hid-s=
-ensor-als.c
-> index 929343e42d83..00dfc2037c19 100644
-> --- a/drivers/iio/light/hid-sensor-als.c
-> +++ b/drivers/iio/light/hid-sensor-als.c
-> @@ -267,7 +267,21 @@ static int als_capture_sample(struct hid_sensor_hub_=
-device *hsdev,
->  	struct iio_dev *indio_dev =3D platform_get_drvdata(priv);
->  	struct als_state *als_state =3D iio_priv(indio_dev);
->  	int ret =3D -EINVAL;
-> -	u32 sample_data =3D *(u32 *)raw_data;
-> +	u32 sample_data;
+> +       /* report TX status only for the original frames */
+> +       rtw_usb_get_tx_data(skb_head)->drv_frame =3D true;
+
+If we can just check drv_frame by skb_head, just declare a local
+   struct rtw_usb_tx_data *skb_head_tx_data.
+
 > +
-> +	switch (raw_len) {
-> +	case 1:
-> +		sample_data =3D *(u8 *)raw_data;
-> +		break;
-> +	case 2:
-> +		sample_data =3D *(u16 *)raw_data;
-> +		break;
-> +	default:
-> +		if (raw_len < sizeof(u32))
-> +			return -EINVAL;
-> +		sample_data =3D *(u32 *)raw_data;
-> +		break;
-> +	}
-> =20
->  	switch (usage_id) {
->  	case HID_USAGE_SENSOR_LIGHT_ILLUM:
->=20
-> ---
-> base-commit: 09f742b49cb2728086d78be2b0b35e4d1d71fc85
-> change-id: 20261027-iio-als-overread-c9e538fa61fa
->=20
-> Best regards,
+>         while (skb_iter) {
+>                 unsigned long flags;
+>
+
 
