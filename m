@@ -1,51 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793526688;
-	b=AfG+PRZI1TRyHOkVT/w2sbzxtthivFurRjngqGtXc+nzqg97VMeD5p5vTMWn6vODve37
-	 VgYiBxVjwqdEoegTC0c2UzAYEMxJkfmyLXPjbOn6iM12WwjU0N0YGasQfHsgqI5LRUKU0
-	 T9Rj0x4/95zHapExCEv0NcKUTlWqglibe855gcpYYVFWpUM3WC8U61RkqkQavd/wVzT/b
-	 4cYCVkAI0v3pTpZWXuYg14zDWHKaPnUBtxcDqavfq2hmeaRWOu7IztxlCX80jWzXMorTq
-	 0r4jADXQsnFgYpmbtskUN9migUJ1kYKuwK01nBryWmXkywYw7vVR3GGSSlRd3YGE1fw==
+	t=1793526975;
+	b=WSvNzll2wt2HtjVcqscEGeYAviu1DyRDk4O9bSwsNgj1FSHXE9g8DFVjJ+a/f/daXZ1t
+	 nNnrIAGmwD8OIVkuEdGlz+uoXJHjPSncxBQ5pUTNULA0AIv3SR8UJBQuOjAY/x/LeEMPj
+	 FDtjUOp1/Zv1tMV0D6OyZNl7Mnm3JNW7sj/5wLEeVqpWLmoip7XN54MySQXH217q5gT9M
+	 eGpwrZIGpYRFYTyWM7liZnZTh+ZCjd3aLZx9OETOUkHsX+lFOKy6b772Iew9sRY03fzGY
+	 qQ28xR40gVDlO68kZEzuxN36EEZUWp+y3jPs5FOOoSZxOgjhZEx15LLp1aIRMiysTHg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793526688;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793526975;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=42mltXfOHa8qQEgF7vx2IvMlukJoJC4Ac1VKSCu6M58=;
-	b=VqF5BxO4E+qRMrqkBda+O/LjB0z/+8Uw7JJzZ5lQByyjcYdFPmGSMJLunhgsqVjkt9g4
-	 XMychcenWXkfTOJvRWQoZ1UcHPgm+aoy2bphEKAta5qvmvNjxTbr1wqVRmeze2RLS8Bg2
-	 6gvmv+hNpn6qHXn/SOyrV+CqX3g5gdDmbCE+atCMWJIC77dIIEtahWYuCb3BoIGLNt2I8
-	 aq3mVX60VyUpC1UTOlLy3WjK17NlrY97933+L41LmGqBY/WfXN9LsF2RDzX8f7GxPzuwe
-	 dZQ0FHWRzZY3ozRyXwUSFzFj9mU/IEs0aCGUDrT0LbQIDtQ1z13UbTxKCHzjbOyIDDA==
+	bh=NH5p8XFReWk5OnsBbt0kkc9aNsHf1J+jU8MERKjpPV8=;
+	b=IisLQJ3actJsxCjOlfdFMWbMEmNV8g5DXGl10OqIzWD5ZOrg/3t1XV61kP21ps0j/r5y
+	 eMR6ap9N9szWSQ/G3NQYYydynNphbGMcEgzNn4m49rQ3A6KN85fkm32rkUwRZBr8nXLM0
+	 EAyP53BhvzsxMRm57OOYRT25m5+Q26JAeya2X25eKdd9cz7QRB85M0W3U6/2ugthHG/zl
+	 kz4GHha+RyqXHGUPC2R374qtoKK7taqGnLW2DJtqneI8aACZzbzlM1zXkPNAEI5rcPeO4
+	 nM6PgSfgtLs/P9CJ/VMonSQe040REOh4Z3LJjssL3gaCmo/9buhD8MmBXXKsIm0HcrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	arc=none smtp.remote-ip=95.215.58.53
-Received: from mta1.migadu.com (out-53.mta1.migadu.com [95.215.58.53])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OiuZ2k8N;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFC8606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:51:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AFC8606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=+LcOo+yzU61N5f/ovbIqmgFP1ag60jqXkCX/q1zSclw=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793526680; v=1; x=1794131480;
- b=Q34tkcKlbgVeEA19/oLfRhDgHn0n51q7h03Zi8nXZlWgq7chnBC8JxMgHoF3yzURkNd8r7Kq
- ZMOiKmnnKFcY00XKrM8yYOFkwYcoJ2KQtjfGIbBcb9qCWv579aNLAirrAVEuJpTzt+HOqAlzKab
- 3Gu78SHHJJKCK5M/wwMhy+GY=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a8b3a4003f078db1;
-	Sun, 01 Nov 2026 09:51:20 +0000
-X-Mizu-Trace-ID: a8b3a4003f078db1
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <7ce7a3c9-0e2f-4f01-a29c-f589f03f581c@linux.dev>
-Date: Sun, 1 Nov 2026 17:51:13 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB12606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:56:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB12606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OiuZ2k8N
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so16180905e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:56:15 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793526974; x=1794131774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NH5p8XFReWk5OnsBbt0kkc9aNsHf1J+jU8MERKjpPV8=;
+        b=OiuZ2k8Nty9QXiv+hK5g5xqHwKvyHYAWajfx/ogxddLunB9wAG86yk4xr25486eIz1
+         AanCsVh9mi6Rvj4x2ObUibUjDrveJjXVpQoeqJIqbFTgpnKh5Pym+1qmukG4yIQflwOd
+         Jm3zTLFzuQBujsOW4uTUrx5oHyDQ2BKeRPkspC+9JKjTPz/hYT7G1jdRg5xmmeHMSJih
+         8FTgn6VhpiBCaTGYpBFl2nt1+6BJ2IAKTstGB3NEltPh4MxRZDBw+xRVyFpGRZgHvyiK
+         K47PYnV8xvLK/7EGDF2GLF7lQydGvngFE82N0vTfmVcl0hfrBQqdP3hNP3mRyTA0jNo/
+         vypQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793526974; x=1794131774;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NH5p8XFReWk5OnsBbt0kkc9aNsHf1J+jU8MERKjpPV8=;
+        b=JV4T11MG9ImCyRi8joNcorQ2aZEIwzkFkWUO4flqfwY8YLSfLdZY83PpKRqyGVc3p8
+         8WkBPD+y+VOpALdmxsC8GXZKEmXJRRwAfaAsww+kBDML6Ni0wJ3WPLvgVzJQCQ4/gchq
+         WcqgmVxf1LIP6d2CRvDFCDlZmrCnezFSobq1sCh6NsNzDKocfL6Wh2rclV0Pp7zjo3bj
+         zE4ySjLDaRCof1gXYTOi2lHUWMqj1iyrbHhcPaTelECbamD+k93pIR/yzNJJ4HYf+74z
+         8Xpfgu3AC6lP4v1Zzh+mziTVOLnI2m9F+pYmjJ+kG2+QwFfdP0xfz45zaKV56nVS2bPi
+         LdJg==
+X-Forwarded-Encrypted: i=1; AKwUvBwATYhJMx2582aTd7YyA3q7+7STu+xb4Oba/uqghbGU5uxg6lkJLyE59YX0mrjuUtsq1cK63MvrtwDPWpk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJC5rV9CtktnDLojM2cntueL7/gZPGrAmNnWtHAPlyNq9S9b3Um
+	F/jzpcekbwlb+Gs4y4rFwPAsjBgk7tWNY8bDQ2tHL3qUHwo6D7SyFhze
+X-Gm-Gg: AYBFou0nQuFGyzcMTWiddDfHbmjmq9m8lWCoNnOdWlN8K237aZzS4lE4QjuTOHGIW06
+	B1Sb0cyFnyftT97tYlehcanaFzK688iQhzM1pbW+xw43pJMfEw0hpRTVIUgNmSEA9TxdSoBWCHe
+	elorRIAoueKWb9zGQbqNgZsLsY+ZnovXz6q0vKtLJr39qj9z7c1enlEOZue8Ikxt5CKIBFlpZU/
+	us+iRXs54vnrb//aIRqlLIdAzqBAJlwuyramVHBdrrVIUCSASqb/vj4SUt3Uv1dNx0Rrf0+enmd
+	Zoo4vk3HZvWVG8VDWSRs7aQYmQxPe+95Ch6LU1M9yYAC7TzKox75sXUIpFcdRftzxFjAa5jDbYb
+	O0XNVKeFC9oCVf0inPT3FsMx0kaXF8KblSmatjMWRv9+xZicC2D01EVN3RGIn1hMutoQEWg1n8o
+	DcM5sBHQHZbS1iViMVAu8MnyK2uc5Zwafi1tEAmikKRO4sJieLAaSPxkm6kxKuxXGZU0rp//W8G
+	62+Sz6oOO67ULegBYOD3aPFOvhFIhvzUXXZ5O6L8/1vg0jvS3pnRmRWobw9E7ijox4ja+BGOXLr
+	3ZBDWLHUuVACyf7NQi58z2w2
+X-Received: by 2002:a05:600c:8706:b0:4a1:e0d5:293e with SMTP id 5b1f17b1804b1-4ac1765d3ddmr174291005e9.21.1793526973501;
+        Sun, 01 Nov 2026 01:56:13 -0800 (PST)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aa704sm179893505e9.8.2026.11.01.01.56.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 01:56:13 -0800 (PST)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	kernel test robot <lkp@intel.com>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	llvm@lists.linux.dev
+Subject: [PATCH] clocksource/drivers/timer-mediatek: Fix "no-cfi indirect call" warning
+Date: Sun,  1 Nov 2026 10:55:31 +0100
+Message-ID: <20261101095538.1046918-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,49 +105,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [syzbot] [net?] BUG: unable to handle kernel paging request in
- nsim_drv_port_add (2)
-To: syzbot <syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- syzkaller-bugs@googlegroups.com, stitch@zju.edu.cn
-References: <6ae6e3d1.7fe51036.1ecf7.0016.GAE@google.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <6ae6e3d1.7fe51036.1ecf7.0016.GAE@google.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+After converting the driver to OF probing, kernel-test-robot reported the
+following new warning:
 
-On 11/1/26 3:01 PM, syzbot wrote:
-> Hello,
->
-> syzbot found the following issue on:
->
-> HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
-> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-> console output: https://syzkaller.appspot.com/x/log.txt?x=1332b159580000
-> kernel config:  https://syzkaller.appspot.com/x/.config?x=dc4462df6d1062fe
-> dashboard link: https://syzkaller.appspot.com/bug?extid=b3fca27eb4005f0111f4
-> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1194b795580000
->
-> AI-generated root cause summary:
-> In netdevsim, sysfs device attributes such as 'new_port' and 'del_port' are
-> exposed at the device level on nsim_bus_dev without holding device_lock or
-> checking if the driver is bound. An access via sysfs after the driver has been
-> unbound, after a failed probe, or concurrently with device removal finds drvdata
-> set to NULL; passing this NULL pointer to priv_to_devlink() computes a negative
-> offset from NULL, triggering a kernel page fault crash when attempting to
-> acquire devlink->lock.
->
-> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=b3fca27eb4005f0111f4
+vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi indirect call!
 
+This occurs because of_device_get_match_data() returns NULL when
+CONFIG_OF is disabled, which results in LLVM dropping the kCFI setup
+since it knows that there is no valid target for this call. Adding a
+check for a NULL timer_init avoids the warning and it makes the probe
+more robust since of_device_get_match_data() could return NULL even
+when CONFIG_OF=y.
 
-This looks like the same issue Jiacheng's pending patch addresses,
+Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610290223.iOEGeDs2-lkp@intel.com/
+Suggested-by: Nathan Chancellor <nathan@kernel.org>
+Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+---
+ drivers/clocksource/timer-mediatek.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-new_port/del_port don't take device_lock nor check drvdata, so a write
-after unbind hits a NULL nsim_dev:
-
-https://lore.kernel.org/netdev/20261012135941.78329-1-stitch@zju.edu.cn/
-
+diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
+index 842d6ee4259e..e772f5fe8742 100644
+--- a/drivers/clocksource/timer-mediatek.c
++++ b/drivers/clocksource/timer-mediatek.c
+@@ -353,6 +353,9 @@ static int mtk_timer_probe(struct platform_device *pdev)
+ 	int (*timer_init)(struct platform_device *pdev);
+ 
+ 	timer_init = of_device_get_match_data(&pdev->dev);
++	if (!timer_init)
++		return -ENODEV;
++
+ 	return timer_init(pdev);
+ }
+ 
+-- 
+2.43.0
 
