@@ -1,64 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793522198;
-	b=TBRYMAqWeMkULLhiuBeZPM2/v9A8ryM9snvSGM10/wUuQKlQeT29/WNAydUfvvEwbv52
-	 EtZynCuix5UHnUU9K/MGw0fUI2+FxLQOyZHTabiUSgPQPWaWUuQwcbrk3GP/t60XDlco2
-	 CZ0ITZ6ch/foKXaRhO+sRIJIoBYqbn36HdyAVXxpnIQtvq1tUPnkxwIh//wJPBlGCxCiD
-	 mJ9PRGAceTFiySD3TLqmi700j0VO28oTsHc8X74LTsQUMiZFVhpn33V541NIamVZc/Eq9
-	 dpnQxbBSUL2qBkspZb8c0ttNPWzJpqlhiEGS6fThzq7flwaXv29f5rTJxerH3pS2JuQ==
+	t=1793522254;
+	b=Ol7O+rvi7Y3uplI3ESoUORlCwmdgPxJ5H2Qlq0C7CsKxJptiwAbOUnZ3YwesPbn1t3e9
+	 q8K3oYR3uhI9eaXMRBrN4G84ljRSrgMpqeBWUeWzOXFjO4Vh+occb6785SV4jdZQObOg6
+	 IF+sMkkgq+jLi5jWaQOZqUXhEwU5w1WDwnKZC3Mw0Xjj8D2Xk5rEAXwwofTiIimK0T6+s
+	 mL6kS17eB8eS/t17/alJwHw8aHWxkASXLh0Xl17bqzhUyN6qkiAwYpbxQqUwOPraiRsf0
+	 1TXQ3Ap1oV1KN+CK4LEve+W4sekpu173FeHR3Le+TUlzROIsscEWnJ0ACm0sixAqhOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793522198;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=MT/gtzRgjYEkyY6o8rD+a9NlNn+Ql+jmRXlXyRDFw3c=;
-	b=eXej2f+AIiXmpor6+43pIzvlCPeXHfKQX2mQLXBdCSVhM0lQN8Sx07NTrvepTGJDdEIf
-	 QV02ikCfwd6Jt9DPxkDeJZUPCZV97hLmrwlz9Mu0/yDAj4HnKW+uWrlS8mzxwGaNTENo+
-	 RlpL0uh0JrMuVvtQ1N+q8twhS6zoromD7PEpSCWWA8KrXGxQnE4xd9QPaHlbTsPQSycyP
-	 EENJQShNYPkHUIl2PVmI5wXsHcoYeYqX9fkzcsr5wcE8GY9Q4ChfU5NQ4XdoI/MCAd8ge
-	 6LxpZkr+W8D38pIE484NHDmD0UgyE4XcNfNW6frSD9M7yIIU+ZuNtvUYKw1KujRVb2g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793522254;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=wvB6Mil27Jukwo5CBMy0VZwog/P7C0KUcWgk2WEkyME=;
+	b=LbyxrVCcqN1qt9fsNb8VBHgV2BEh3336ReTZtmBDmK3QKJMeb39LKSvwzj4XQJfnZe0e
+	 bvLILGHTFV8+C67mJMYDd5Ys7puz+ROV27TwJQoSMWYntoVxCJgln9QFSDt2Vt5OzR31E
+	 8ym/AOqjqXX0B90+zOMCecaFRqPfeTggfYndDNDW/jKP27HuwfqPexR436yvtbWYLevSo
+	 QxFFc4lsQhyuzw45t3ZIZLDZUBrH7jpZ99Of3PFxsWSmCQB1Lbkf1hfrZgecVIxYHc9tc
+	 OCVQj3fd+VtngOo7tWcjoyitpiUp/xVOIUQAip9f2Dq+hzr33cSo4WJr4drgjjKZ9ow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ixL6rJwo;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30B9606A332;
-	Sun,  1 Nov 2026 08:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ixL6rJwo
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5BC1F000C1;
-	Sun,  1 Nov 2026 08:36:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793522197;
-	bh=MT/gtzRgjYEkyY6o8rD+a9NlNn+Ql+jmRXlXyRDFw3c=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ixL6rJwoLi1sArTn5kZcpt3DMW9Lk+ki5C3O9dEAIRUQDZJxL0VxJSAusN+4bZ/sT
-	 84j4GjZ3bKs6XQf54grlolngo8bNrjE8R3dpdDql6h6bDkVA9D5EJW5S4v5U3OVQyX
-	 3ypGJIitutZ/YGDVUti9I3PkdlcaS3VZOg30PrG1DClSzUY0MC9Y2gmxyNlhtdQHoG
-	 bEXGzQNcpcAUEglf1o3I8VhF2nPnRrpSGsZ2vaspNkyrO1QaeYGlH5fDu4nKjnkPk3
-	 dCLGiFnT16+oRDxUK5cwuRpBRkJDN3AmwQCdJdIUSid5KZjR0D4XlliKQvl6rlhcO0
-	 w+XW3eAV9HfLg==
-Subject: Re: [PATCH net v4 4/5] net: phy: stop postponing PHY interrupts when
- a PHY PM callback fails
-From: netdev-bot+sashiko@kernel.org
-To: iav@iav.lv
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- maxime.chevallier@bootlin.com, lukas@wunner.de, rafael.j.wysocki@intel.com,
- wei.fang@nxp.com, niklas.soderlund@ragnatech.se, paul@pbarker.dev,
- florian.fainelli@broadcom.com, opendmb@gmail.com, Thangaraj.S@microchip.com,
- shenwei.wang@nxp.com, netdev@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 01 Nov 2026 08:36:36 +0000
-Message-ID: <179352219604.3131.6703522094615416778@kernel.org>
-In-Reply-To: <20261031-b4-phylib-mac-pm-irq-v3-v4-4-5ba23b3ff9a4@iav.lv>
-References: <20261031-b4-phylib-mac-pm-irq-v3-v4-4-5ba23b3ff9a4@iav.lv>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21EB9606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:37:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 21EB9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4cc89e86e4dso3217973b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:37:33 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793522252; x=1794127052;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wvB6Mil27Jukwo5CBMy0VZwog/P7C0KUcWgk2WEkyME=;
+        b=pfVTgei8HACcFqeDPL4GK32NnvIrPfw+YIHsYSYCRbNL5FXTiIfcvoB7T5aJ31sJdp
+         x5KCSYPKih/ojxpbEAf+e5Oj3r1SOg7i9XDfymhBW9JYJxzzClBZng/q6kXvL3AK6xKd
+         bIucjyVChVOpwoKSMcSuUqCfgaEacrT+yfYZsK8U10Izp3EYp0mD/OBW8dJk5Ogihi+U
+         IUd+Xp1BfKgu9zwY2sw2UC71uEs3qZRmo2x8Kb1sL49Wc0N55bH7LuJZxga6/gu8Tt6z
+         iOwDtE1GfmgHBYS7cNNWbZhoi81w9xpBNjL9eV/wz3ub351yI30Vdo4V8ZjNWdckcDY2
+         t2eA==
+X-Gm-Message-State: AFq9FYIIplUt5HU5pTVS7krTGfjVXrWzBQBfAJNvZ+e8ly69NzDFo3Dj
+	YmkEiChBpMJn/6KUnAJTeJATv922GWirsLwAVCXiDBQ7k3QQOkVypgjp0ivyhBU7K3JJv1amugP
+	D4/Dej3zrBneREYch7/sbVTzX+Sk9A67EHtVQ8DfLCT7dzT6wU6Bh+StnfWY=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,170 +57,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-Received: by 2002:a05:6808:1b24:b0:4d6:9355:7547 with SMTP id
+ 5614622812f47-5640decc9e0mr4372029b6e.66.1793522252705; Sun, 01 Nov 2026
+ 01:37:32 -0700 (PDT)
+Date: Sun, 01 Nov 2026 01:37:32 -0700
+In-Reply-To: <6ae48a2b.6713f5d0.92cad.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae6fa4c.7fe51036.1ecf7.001c.GAE@google.com>
+Subject: Forwarded: [PATCH] ieee802154: nl-mac: validate device pointers
+ before dereference
+From: syzbot <syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+***
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Subject: [PATCH] ieee802154: nl-mac: validate device pointers before dereference
+Author: skalpesh942@gmail.com
 
-- [Medium] Interrupt storm and WARN flood when a PHY PM callback fails
-  because MDIO access is broken, which can then disable the shared IRQ…
-- [Low] Comments that say interrupt handling is postponed 'until the PHY
-  has resumed' are now wrong on the failure paths.
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
 
---
+A virtual network device (such as a TUN interface) can have its link
+type set to ARPHRD_IEEE802154 via ioctl(tun_fd, TUNSETLINK,
+ARPHRD_IEEE802154). However, such devices do not have an IEEE 802.15.4
+private context allocated (dev->ieee802154_ptr is NULL) and do not
+register MAC operations (dev->ml_priv / ieee802154_mlme_ops(dev) is NULL).
 
-net: phy: stop postponing PHY interrupts when a PHY PM callback fails
+When dumping security keys via IEEE802154_LLSEC_LIST_KEY,
+ieee802154_llsec_dump_table() iterates through all net devices and
+dereferences data.ops->llsec assuming that any ARPHRD_IEEE802154 device
+has valid mlme ops. Because data.ops is NULL, this causes an immediate
+null-pointer dereference / General Protection Fault:
 
-This patch changes mdio_bus_phy_suspend() so that a failed phy_suspend()
-undoes the interrupt postponement and restarts the state machine. It also
-changes mdio_bus_phy_resume() so that a failed phy_init_hw() or
-phy_resume() reruns the postponed PHY interrupt. Before this, the function
-returned with the line still disabled.
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
+  RIP: 0010:ieee802154_llsec_dump_table+0x204/0x5d0
+  Call Trace:
+   <TASK>
+   genl_dumpit+0x125/0x230 net/netlink/genetlink.c:1026
+   netlink_dump+0x53b/0xd00 net/netlink/af_netlink.c:2351
+   __netlink_dump_start+0x6d6/0x990 net/netlink/af_netlink.c:2466
 
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index ef5e1cd3a8319..390069ec13cac 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
+Similarly, ieee802154_dump_iface() and ieee802154_nl_get_dev() assume
+that ARPHRD_IEEE802154 devices have valid dev->ieee802154_ptr and
+ieee802154_mlme_ops(dev) pointers.
 
-[ ... ]
+Fix this by ensuring dev->ieee802154_ptr and ieee802154_mlme_ops(dev)
+are non-NULL before proceeding in ieee802154_nl_get_dev(),
+ieee802154_dump_iface(), and ieee802154_llsec_dump_table().
 
-> @@ -383,9 +384,20 @@ static __maybe_unused int mdio_bus_phy_suspend(struct device *dev)
->  	if (!mdio_bus_phy_may_suspend(phydev))
->  		return 0;
->  
-> +	ret = phy_suspend(phydev);
-> +	if (ret) {
-> +		/* The PM core skips the resume callback of a device whose
-> +		 * suspend callback failed.
-> +		 */
-> +		mdio_bus_phy_resume_irq(phydev);
-> +		if (phy_uses_state_machine(phydev))
-> +			phy_start_machine(phydev);
-> +		return ret;
-> +	}
-> +
->  	phydev->suspended_by_mdio_bus = 1;
->  
-> -	return phy_suspend(phydev);
-> +	return 0;
->  }
+Fixes: 3e9c156e2c21 ("ieee802154: add netlink interfaces for llsec")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
+---
+ net/ieee802154/nl-mac.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-[ ... ]
-
-> @@ -411,11 +423,11 @@ static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
->  
->  	ret = phy_init_hw(phydev);
->  	if (ret < 0)
-> -		return ret;
-> +		goto err_resume_irq;
->  
->  	ret = phy_resume(phydev);
->  	if (ret < 0)
-> -		return ret;
-> +		goto err_resume_irq;
->  no_resume:
->  	mdio_bus_phy_resume_irq(phydev);
->  
-> @@ -423,6 +435,10 @@ static __maybe_unused int mdio_bus_phy_resume(struct device *dev)
->  		phy_start_machine(phydev);
->  
->  	return 0;
-> +
-> +err_resume_irq:
-> +	mdio_bus_phy_resume_irq(phydev);
-> +	return ret;
-
-[Severity: Medium]
-Can this cause an interrupt storm when phy_init_hw() or phy_resume() fails
-because the PHY can't be reached over MDIO?
-
-Suppose a postponed interrupt set irq_rerun during the sleep transition.
-mdio_bus_phy_resume_irq() then re-enables the line and wakes the thread. It
-does not check whether the PHY can be accessed:
-
-drivers/net/phy/phy_device.c:mdio_bus_phy_resume_irq() {
-    ...
-	if (atomic_xchg(&phydev->irq_rerun, 0)) {
-		enable_irq(phydev->irq);
-		irq_wake_thread(phydev->irq, phydev);
-	}
-    ...
-}
-
-irq_suspended is now clear, so phy_interrupt() calls
-drv->handle_interrupt(). If the MDIO read fails, a typical handler can't
-acknowledge the source:
-
-drivers/net/phy/micrel.c:kszphy_handle_interrupt() {
-	irq_status = phy_read(phydev, MII_KSZPHY_INTCS);
-	if (irq_status < 0) {
-		phy_error(phydev);
-		return IRQ_NONE;
-	}
-    ...
-}
-
-dp83848_handle_interrupt() does the same thing. phy_error() is an
-unconditional WARN_ON(1) followed by phy_process_error(). That only sets
-PHY_ERROR and triggers the state machine. It does not mask the interrupt in
-the PHY and does not free the IRQ.
-
-The line is requested with IRQF_ONESHOT | IRQF_SHARED. If the PHY is still
-powered and keeps its level INT_N asserted, the line fires again as soon as
-the thread finishes.
-
-Would each pass then cost a failed MDIO transaction and a full WARN
-backtrace? That would repeat until the spurious IRQ detector disables the
-line for every sharer. With panic_on_warn set, the first rerun would panic.
-
-The rollback in mdio_bus_phy_suspend() above takes the same path when
-drv->suspend() fails on an MDIO error.
-
-Before this patch, the line just stayed disabled in this case. The commit
-message says:
-
-    ... which gives the line back to the other users of a
-    shared line. A handler that then cannot read the PHY reports it through
-    phy_error(), as most PHY drivers do on any MDIO error.
-
-Can other users of a shared line actually get it back if the PHY's own
-interrupt source can't be acknowledged? Whether INT_N stays asserted while
-MDIO fails depends on the hardware. Nothing on this path guards against it,
-though.
-
-[Severity: Low]
-This isn't a bug, but several comments still say the postponed interrupt is
-handled only once the PHY has resumed. On the new failure paths, the
-postponement ends even though the PHY never resumed:
-
-drivers/net/phy/phy.c:phy_interrupt():
-	/* Wakeup interrupts may occur during a system sleep transition.
-	 * Postpone handling until the PHY has resumed.
-	 */
-
-drivers/net/phy/phy_device.c, above mdio_bus_phy_suspend_irq():
-/* Wakeup interrupts may occur during the system sleep transition when
- * the PHY is inaccessible. Set flag to postpone handling until the PHY
- * has resumed. Wait for concurrent interrupt handler to complete.
- */
-
-include/linux/phy.h, struct phy_device kernel-doc:
- * @irq_suspended: Flag indicating PHY is suspended and therefore interrupt
- *                 handling shall be postponed until PHY has resumed
-
-A later patch in the series, "net: phy: postpone PHY interrupts during
-sleep with MAC-managed PM", changes the phy.h kernel-doc to "postponed
-until mdio_bus_phy_resume()". The comments in phy.c and phy_device.c are
-still unchanged at the end of the series.
-
-Should those two comments be updated as well?
-
+diff --git a/net/ieee802154/nl-mac.c b/net/ieee802154/nl-mac.c
+index 74ef0a310af..1acde5af4b5 100644
+--- a/net/ieee802154/nl-mac.c
++++ b/net/ieee802154/nl-mac.c
+@@ -162,7 +162,8 @@ static struct net_device *ieee802154_nl_get_dev(struct genl_info *info)
+ 	if (!dev)
+ 		return NULL;
+ 
+-	if (dev->type != ARPHRD_IEEE802154) {
++	if (dev->type != ARPHRD_IEEE802154 || !dev->ieee802154_ptr ||
++	    !ieee802154_mlme_ops(dev)) {
+ 		dev_put(dev);
+ 		return NULL;
+ 	}
+@@ -437,7 +438,8 @@ int ieee802154_dump_iface(struct sk_buff *skb, struct netlink_callback *cb)
+ 
+ 	idx = 0;
+ 	for_each_netdev(net, dev) {
+-		if (idx < s_idx || dev->type != ARPHRD_IEEE802154)
++		if (idx < s_idx || dev->type != ARPHRD_IEEE802154 ||
++		    !dev->ieee802154_ptr || !ieee802154_mlme_ops(dev))
+ 			goto cont;
+ 
+ 		if (ieee802154_nl_fill_iface(skb, NETLINK_CB(cb->skb).portid,
+@@ -771,7 +773,8 @@ ieee802154_llsec_dump_table(struct sk_buff *skb, struct netlink_callback *cb,
+ 	int rc;
+ 
+ 	for_each_netdev(net, dev) {
+-		if (idx < first_dev || dev->type != ARPHRD_IEEE802154)
++		if (idx < first_dev || dev->type != ARPHRD_IEEE802154 ||
++		    !dev->ieee802154_ptr || !ieee802154_mlme_ops(dev))
+ 			goto skip;
+ 
+ 		data.ops = ieee802154_mlme_ops(dev);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031-b4-phylib-mac-pm-irq-v3-v4-0-5ba23b3ff9a4%40iav.lv
