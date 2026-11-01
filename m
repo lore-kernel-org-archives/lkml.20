@@ -1,63 +1,51 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793491101;
-	b=EzfeJjAiiiCmvPNFkGwSHZo9cihCwzZM0vmQDBz9Z2wAPqQgqPQ7KQcZ4nL7eY3vjcA2
-	 nPzIVWHVTt1n3klz9LbLdav8WLHSJbGAuEfQT0uP7vnjwypFvr5eOMJ66emlysebPngyI
-	 GZgBxp1q2slPEd0DVQTt/yrXxLTfwcqjclI2NbnuoUjrIGcfCf+NCa4LzsWRpreo2Bznb
-	 oM4znYhwe4Of7XtUkoRPIokhbTUHcSCPXgqDklY9nGsYRMW8iblPbqS3LNaWUJWJulhCm
-	 HDfJpZ6TEn8EwYf7nGa9CeMhRIIDtpIwprRneASbcXbiX8DmsFXjjn7qyYYW9g/zqIQ==
+	t=1793491214;
+	b=NhZCCU111GZN7AERA7+NX9mRY3bW/v7aHL2UEdCqOg+4WVIJgf0I0l++/guKLTW3bWef
+	 TltLA5qY2ts4S5wiFJvty/cI+jBMVL/CxvOhiK8GMqcQzpQEHM4HoFgafjjeKgkvxMJvV
+	 TUdAS8jhHEOuKOtGKp5ctauFsZQN6wkwpEZ9lEh+u3u0YYdZGUYIayUrFDOScpAYHytSc
+	 5Vt+4bLLLat/ytLLOPfuaUJBvzktY1WGrl5AAhBEgWEX3WE88+FarMpp+pskU1OTQ8j+9
+	 KoyNKhaOiug37sWoxkZIs+JaKABqOQfR0UhNIVE+isZrL3O4iuHifYyrpwe8TJ69P9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793491101;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=6V0NiExjKiMGJ5h/1WwCW23VisWqxFUm51w7ztl/rtw=;
-	b=f1Fu5ckbutAMohD33pQt5+MtsRlwP+v5MwWA9FYVLuYQLXncRjK45tT32SwHLegviP8B
-	 5XY532mGHzJCtoFpliZJ8mRtCBUhJXe/7dOf5vdocOT2GStaw3X6lg2ZZgOi2l4cR1EyX
-	 WHvXVoGEhyfpFZMchQungIFg4UaHO7j2QBgcVNmO0b6QxcG+7q43upCyGio+5uvG84z5N
-	 FewQmvWNhtOLy/wkbExND9EGF9whrgZwckfqw7ilFzxKaHn2KrpZEKS5ESR1dg/D2igFA
-	 58qLIh8CBDxudLV+DlBkI3mqDrfB4c+78zH/MyFjCyltMYfet3I9qbIyQS4h1UNAW0g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793491214;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=ipbSCeqsv5rcmRmVjNWozKtLW2tqkGo29kydVBpqVm0=;
+	b=aX1873bM7N4ZWGzPbo2Q08nbp0qmY2TBMJRoysW0u19lB61PzmWZqsA1PiCoh1S/k0ot
+	 1HRJn5jdTYGyadJ8h5OzJSDfZarkjuLLsGu7DjlENRjp+g/ZEy7q7AIG1M+joMArW23zp
+	 fXotb9ehy2BJpg52YIs08YuMigYGI3ORXYHpjz8nNXxf5PsCfTs/CIV6gcpaXsujrm301
+	 HhAleKDMqVrYjoTqh+HpDGQ0NLPQRG04R56JJhyj6VxTgPdAb8J+9Kw/nMm+WXbbwc60+
+	 BdbU423Nk8lLURCCB+yW/q1J8PumCaEkeJYCH70dXkYWBXRVJrZQ+E+/hnOkNQvU1Cw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="cVnD0I/9";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQnU9Abp;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08C5606A31A;
-	Sat, 31 Oct 2026 23:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CBDC606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 00:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cVnD0I/9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A50E11F000C1;
-	Sat, 31 Oct 2026 23:58:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RQnU9Abp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 852C21F000C1;
+	Sun,  1 Nov 2026 00:00:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793491100;
-	bh=6V0NiExjKiMGJ5h/1WwCW23VisWqxFUm51w7ztl/rtw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cVnD0I/925gFCOJnVBwIxkZZegH1NRZRU1VUlRVXvS37S8KkDDShwleVoT+PlUwcj
-	 LsyCOGO2YsjHP3pZwxLlQFHmt3Iecy605KhGnarPeNvdwfezWKHIq622wCKlmb0RtO
-	 cApZpSoZLOQM0CTiTd9SlSS78sclPU34sZnG8TJhFreAzUwwY8n3JCO7MZ7PmeMgUK
-	 4eq7A6+HHo1uUmX6U3Zl9fZ4wKpYhlNantSso2zNMALQhHud3S4KH1HktQ1luVbU+n
-	 BlkP4UpKQV2/3TL/GLa1kCXEHajYtyHH7Rol1IEK4F3PjE17UCQzkcTb4WnmuLxD2/
-	 TnLd1R5eWQEYA==
-Date: Sat, 31 Oct 2026 23:58:15 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Kevin Tsai <ktsai@capellamicro.com>, Lars-Peter Clausen
- <lars@metafoo.de>, David Lechner <dlechner@baylibre.com>, Nuno Sa
- <nuno.sa@analog.com>, Andy Shevchenko <andy.shevchenko@gmail.com>, Hans de
- Goede <hdegoede@redhat.com>, Jean-Baptiste Maneyrol
- <jean-baptiste.maneyrol@tdk.com>, Srinivas Pandruvada
- <srinivas.pandruvada@linux.intel.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, Tristan Madani
- <tristan@talencesecurity.com>
-Subject: Re: [PATCH v3 2/2] iio: imu: inv_mpu6050: validate ACPI object
- types in asus_acpi_get_sensor_info()
-Message-ID: <20261031235815.4805cf65@jic23-hlaptop>
-In-Reply-To: <20261029110829.1086835-3-tristmd@gmail.com>
-References: <20261029110829.1086835-1-tristmd@gmail.com>
-	<20261029110829.1086835-3-tristmd@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793491213;
+	bh=ipbSCeqsv5rcmRmVjNWozKtLW2tqkGo29kydVBpqVm0=;
+	h=From:To:Cc:Subject:Date;
+	b=RQnU9AbprTVdQ20yL0RkWd13+WFyfU9c2kj602b+GbVTdrLNJd5fEyOSJzWvq+mgd
+	 KSzXcIeV1/D9u/PZ7S5Mk9dTaWDsBgw5KZ/yBMOU5jxJ3TddgzDDjtfFnkWf09UENb
+	 FaN9Dsk6IU087BI1SX4jFxoXdyUtxEjWLkH+MuBrHl1l7VeVcxSwFaE8myMo79kKJM
+	 UF/tNwUpWa42Yd+Et+oKjrqD6JvIx1+9hyFNCFhKVKtmjMONOcQo3jbUL0RcwdZJ9g
+	 MK35LuNzxmuZXvGcjRppaffMlw3pSzBO6wYVzFTQtBQsRXZbXPofKVUb8u8cmdeKKe
+	 AVbQOYm7EHBUA==
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Avi Weiss <thnkslprpt@gmail.com>, Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, linux-kernel@vger.kernel.org
+Subject: [GIT PULL] bootconfig: Fixes for v7.4-rc1
+Date: Sun, 01 Nov 2026 09:00:10 +0900
+Message-ID: <undine-1793491210495917491-179269aed50bb5fc@undined.local>
+X-Mailer: UndineD 0.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,31 +55,80 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026 11:08:29 +0000
-Tristan Madani <tristmd@gmail.com> wrote:
+Linus,
 
-> From: Tristan Madani <tristan@talencesecurity.com>
-> 
-> asus_acpi_get_sensor_info() iterates through a nested ACPI package
-> structure without checking types at either level.  The outer object
-> returned by acpi_evaluate_object() and each inner element must be
-> validated as ACPI_TYPE_PACKAGE before accessing their package.count
-> and package.elements members.
-> 
-> Use acpi_evaluate_object_typed() to validate the outer object type
-> at evaluation time.  Add a type check for each inner element before
-> accessing its package contents.  Also replace kfree() with
-> ACPI_FREE() for the ACPI-allocated buffer.
-> 
-> Fixes: a35c5d1aa96a ("iio: imu: inv_mpu6050: Create mux clients for ACPI")
-> Cc: stable@vger.kernel.org
-As with the previous.  Hardening against buggy firmware isn't
-a fix. It is however nice to have so with those tags dropped
-I've applied this to the testing branch of iio.git
+Bootconfig fixes for v7.4-rc1:
 
-Thanks,
+- init/bootconfig: Pass init arguments in documented order
+  Parse extra_init_args before command-line init arguments in
+  start_kernel(). This ensures command-line options take precedence over
+  bootconfig, matching the documented order and saved command line.
 
-Jonathan
+
+Please pull the latest bootconfig-fixes-v7.4-rc1 tree, which can be found at:
+
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/trace/linux-trace.git
+bootconfig-fixes-v7.4-rc1
+
+Tag SHA1: 3f9fe3c18f3bbbbf8b7ef9111d133051f9d7d890
+Head SHA1: 278b2abf660a3e0991eb9f16f11bd9e9514a286d
+
+
+Avi Weiss (1):
+      init/bootconfig: pass init arguments in documented order
+
+----
+ init/main.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+---------------------------
+commit 278b2abf660a3e0991eb9f16f11bd9e9514a286d
+Author: Avi Weiss <thnkslprpt@gmail.com>
+Date:   Tue Oct 27 09:37:20 2026 +0200
+
+    init/bootconfig: pass init arguments in documented order
+    
+    start_kernel() appends command-line init arguments before
+    bootconfig init arguments, while setup_command_line()
+    places them in the opposite order. As a result, the
+    arguments passed to init do not match the saved command
+    line, reversing the intended precedence of options.
+    
+    Parse extra_init_args before after_dashes so command-line
+    init arguments are passed last.
+    
+    Link: https://lore.kernel.org/all/20261027073719.4010659-2-thnkslprpt@gmail.com/
+    
+    Fixes: b66fbbe8d482 ("init/bootconfig: Reorder init parameter from bootconfig and cmdline")
+    Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+    Cc: stable@vger.kernel.org
+    Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+diff --git a/init/main.c b/init/main.c
+index 31f2bf54976a..4efcb9956c39 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -1028,12 +1028,12 @@ void start_kernel(void)
+ 				  __stop___param - __start___param,
+ 				  -1, -1, NULL, &unknown_bootoption);
+ 	print_unknown_bootoptions();
+-	if (!IS_ERR_OR_NULL(after_dashes))
+-		parse_args("Setting init args", after_dashes, NULL, 0, -1, -1,
+-			   NULL, set_init_arg);
+ 	if (extra_init_args)
+ 		parse_args("Setting extra init args", extra_init_args,
+ 			   NULL, 0, -1, -1, NULL, set_init_arg);
++	if (!IS_ERR_OR_NULL(after_dashes))
++		parse_args("Setting init args", after_dashes, NULL, 0, -1, -1,
++			   NULL, set_init_arg);
+ 
+ 	/* Architectural and non-timekeeping rng init, before allocator init */
+ 	random_init_early(command_line);
+
+-- 
+Masami Hiramatsu (Google) <mhiramat@kernel.org>
+
+
