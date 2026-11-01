@@ -1,61 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577187;
-	b=SKmft+HeCH1GwLDKBDj0PNlmFfkKhouPx87HPctFjXanveejTf3PVDD/h4Uxbllei7B+
-	 1o3eIzSfD2oWOXLv0qnEs1uBQcuXCMsOzItwHmmsRAQa/uTgjDFx+vu1LzEiILGsI35f3
-	 lG8Epbdy3+9JY+aVsMjkQYkFQU5oO7mAWjwQ3Q2n2IMmw1Zkpb/YUbwjENyTXxDIZM2G3
-	 zfxmtLJB/vwSUs7WNDpagkdEMWHGMquZSpCmjq0qrk82QCy0WtHlG3geFnnOz2CHZNN05
-	 9c+ylwdqK7wvsx4qti7dnRP5y6/SHmCnGC33hZjeXUwDu5ix+8P10PFK/2mudu/w28Q==
+	t=1793577275;
+	b=lJIA3nmMrIhK7Ba/CdUV2KoUxLZqVfzhsBjwsOH5PaT4QX8NwRLX++1TCf3jAw3YdL0M
+	 +91gbzlESUW5p23sX+a5wTARBeb8dCqwtZC8aSJM6uwc6TUVOPT1t1cTUyqY9ar3nbnCV
+	 bSJPOeEB+h8VKwd7FncTDwDpe5MHSBd3P/PsxoHy0xgysjwf7SU4A12FNZTPbjYs42d0p
+	 1Kvu4cFvuh61hLpREcSITVwuuqJOfH8Zb9AxnN8i80f80wj/+ZpsrXx8iv5N4x1GID3qc
+	 IqRW/zjqCNDybgozbCuQrD1OyMHfBafOuBRV5GYBP2rw4oqqnbivwsNfU1GMV/gYtng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577187;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+FdbV1fygpkQa5AYOrs49bje7EWIBa53juEdskXuHwU=;
-	b=N4FybAT/B7TUSeh5ARJW/QoiM19YVIg/v2gYNJHgVrBkfVSjlCCl96cPlHywiekPCbHY
-	 pkD8oiz4S9uGHAeEF8nwkQfu0WsB+EuwQMpKsq4hvarTLNI/aU+QbyXktM01tOFUk6dXq
-	 lftq5HQyq88r+rYCLe1YT3HccT74QkP+T2BE0C+k7k7WDc3XO3HDFnFDGN0aTD1dhk9HW
-	 Wxme6eNHI7PCIf9G4vD9nXoWRCzE4POAI2RIRTM0HfXBxm6e6DEijfwWDvqTojpaYfUvs
-	 TZ2mQvUmRgbK2RGiND+uQHgdPbxXvKa3YeRvqN7fvNpXLrieLelfdJ+M2k1gmiSER2Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577275;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Date:From:To:cc:Subject:Message-ID:
+	 MIME-Version:Content-Type;
+	bh=BlqBpaBiBIH3lx9LCXT9bYsm6eEmk51QgXtyvSdnxRE=;
+	b=h43EjAOp0pgeE64SWk0rjp3umKQFCI3qfzDR0ehVdDJ+ow3ulEBGgYIVGNcrSL9WdBRe
+	 +YX+8DaaUOPZ9TA3qqf3NyWLT6ozq7grUW+hVbvuXCLCKJjpvQAR1xPnfCWVRbzVon3Fj
+	 dqxm6ABJZkvaVDgJA8T8V8BLvCvh0BVLd965p2E5Tlhu7dtLcA/C+eFMzeuokpDHNN4ap
+	 RX3OyjcF2hA2eU9fuqc31ANg3xu//x4srZTA25mu2Y9jpf/XcVFMe3Rp8REYst+U0ZRca
+	 bJbiI+ohGaIivHjm7aAlHXYDlKcCDg7zBIX+DRWu7z4F/I3zCSuGOZANIT3jap6+XUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPmoTco4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b="hXM26/to";
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4D2606A324;
-	Sun,  1 Nov 2026 23:53:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0120606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:54:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0120606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPmoTco4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785891F000C1;
-	Sun,  1 Nov 2026 23:53:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793577186;
-	bh=+FdbV1fygpkQa5AYOrs49bje7EWIBa53juEdskXuHwU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WPmoTco4mk4LgWTTkVTV2hDqSITZ518aq3iHHoMFevxLyCh6xCDcBiL/ge82h347W
-	 usFpr9+SgHiuFrYPzA6XxL9Sr21lWT6t+pIIyrBEHhoQgf4rA77XYoGLv7ayfLfcHu
-	 9+fYC6kndRxa/UBm2istlaUjrOWIUfoNquMq9dielufemC0GeaOlTIoW5sI1Y1HUL2
-	 gyNY02y5mYc5lrC7NgOHZ1zIOPVroOYr3tJzb8KdjD5o9E/u/46UzkwJlk+vM/YdlL
-	 41lO4lNPnyNJxW4LKExWDoswQYB7EGTxPzI852RaupVVBAqXqjkm46GBm+olVztdm2
-	 6i8uL06R50hcA==
-Date: Sun, 1 Nov 2026 23:52:59 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, Conall O'Griofa
- <conall.ogriofa@amd.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Michal Simek <michal.simek@amd.com>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, stable@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: xilinx-ams: fix out-of-bounds accesses
- when parsing channels
-Message-ID: <20261101235259.27b3b43c@jic23-hlaptop>
-In-Reply-To: <20261023185652.195025-1-kapoorarnav43@gmail.com>
-References: <20261023185652.195025-1-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=hXM26/to
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=BlqBpaBiBIH3lx9LCXT9bYsm6eEmk51QgXtyvSdnxRE=;
+  b=hXM26/toW/dGBf8YdPcVB8v1CmTt3tQYL4Nk9ZIAB+Wd1KIRUgXXbIDR
+   Q9NVch7ziYUX8zSunSDAB6W1Ua9j+0DtBRbG6QTmfYxNqx8z/5IUU+cAB
+   VFttaM4t7h0nCnn23XD6dymTUMC4rxVY3iG1TX9n7wU0vGhfi0Q4cSFnf
+   4=;
+X-CSE-ConnectionGUID: 7Vm0An2ETui3fCCnKWyczw==
+X-CSE-MsgGUID: E/l8+JRzSWC0WBlBdEXO9g==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,190,1787004000"; 
+   d="scan'208";a="303236812"
+Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 00:54:32 +0100
+Date: Mon, 2 Nov 2026 00:54:31 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+cc: Andrew Morton <akpm@linux-foundation.org>, 
+    Linux Memory Management List <linux-mm@kvack.org>, 
+    Suren Baghdasaryan <surenb@google.com>, linux-kernel@vger.kernel.org, 
+    oe-kbuild-all@lists.linux.dev
+Subject: drivers/hwtracing/stm/core.c:509:8-24: WARNING: stm_fops: .write()
+ has stream semantic; safe to change nonseekable_open -> stream_open. (fwd)
+Message-ID: <f887f7b3-b72c-99d2-8dbf-96cbd83774bf@inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,183 +67,91 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sat, 24 Oct 2026 00:26:48 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+just forwarding.  I don't know anything about this issue.
 
-> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
-> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
-> channel specs and lets ams_init_module() fill them for the AMS node and
-> each of its children, without telling it how much room is left.
-> 
-> For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
-> "channel@N" child after the 10 fixed PL channels. The binding allows
-> reg values 20..50, so a PL node can have up to 31 such children, i.e.
-> up to 41 PL channels, while only 31 are budgeted for it. Together with
-> the 13 PS and 7 AMS control channels, this writes past the end of the
-> buffer. Since the modules are filled in device tree order, the fixed
-> channel blocks copied after the PL node can overflow as well.
-> 
-> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
-> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
-> far out of bounds.
-> 
-> Pass the remaining capacity down to ams_init_module() and
-> ams_get_ext_chan() and fail with -ENOSPC when a module does not fit,
-> instead of writing past the buffer. Also reject reg values below 20, as
-> the binding requires.
-> 
-> Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
-AMD Xilinx folk, please take a look at this one.
+julia
 
-Thanks,
+---------- Forwarded message ----------
+Date: Mon, 02 Nov 2026 00:48:49 +0100
+From: kernel test robot <lkp@intel.com>
+To: oe-kbuild@lists.linux.dev
+Cc: lkp@intel.com, Julia Lawall <julia.lawall@inria.fr>
+Subject: drivers/hwtracing/stm/core.c:509:8-24: WARNING: stm_fops: .write() has
+    stream semantic; safe to change nonseekable_open -> stream_open.
 
-Jonathan
+BCC: lkp@intel.com
+CC: oe-kbuild-all@lists.linux.dev
+CC: linux-kernel@vger.kernel.org
+TO: "Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+CC: Andrew Morton <akpm@linux-foundation.org>
+CC: Linux Memory Management List <linux-mm@kvack.org>
+CC: Suren Baghdasaryan <surenb@google.com>
 
-> ---
-> Changes in v2:
-> - Fix the truncated subject line (Andy)
-> - Drop the paragraph about an earlier report, I could not find that
->   thread again to reference it properly
-> - Pass the remaining capacity as unsigned int and drop the casts (Andy)
-> - Keep the ams_get_ext_chan() call on one line (Andy)
-> - Rebase on fixes-togreg
-> - Drop the bouncing @xilinx.com and @huawei.com addresses from Cc
-> 
-> v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
-> 
-> Compile-tested only (W=1); I don't have ZynqMP hardware.
-> 
->  drivers/iio/adc/xilinx-ams.c | 54 ++++++++++++++++++++++++++++--------
->  1 file changed, 43 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
-> index 158e6133abf5..7f0f7778d6aa 100644
-> --- a/drivers/iio/adc/xilinx-ams.c
-> +++ b/drivers/iio/adc/xilinx-ams.c
-> @@ -144,7 +144,14 @@
->  #define AMS_PL_CSTS_ACCESS_MASK		BIT(1)
->  
->  #define AMS_PL_MAX_FIXED_CHANNEL	10
-> -#define AMS_PL_MAX_EXT_CHANNEL		20
-> +/*
-> + * The external PL channels are addressed by their channel number. The
-> + * binding allows the range from AMS_PL_EXT_CHANNEL_MIN to
-> + * AMS_PL_EXT_CHANNEL_MAX. AMS_PL_EXT_CHANNEL_MIN maps onto the first
-> + * ams_pl_channels[] entry, AMS_PL_EXT_CHANNEL_MAX onto the last one.
-> + */
-> +#define AMS_PL_EXT_CHANNEL_MIN		20
-> +#define AMS_PL_EXT_CHANNEL_MAX		50
->  
->  #define AMS_INIT_POLL_TIME_US		200
->  #define AMS_INIT_TIMEOUT_US		10000
-> @@ -1142,20 +1149,31 @@ static const struct iio_chan_spec ams_ctrl_channels[] = {
->  };
->  
->  static int ams_get_ext_chan(struct fwnode_handle *chan_node,
-> -			    struct iio_chan_spec *channels, int num_channels)
-> +			    struct iio_chan_spec *channels, int num_channels,
-> +			    unsigned int max_channels)
->  {
->  	struct iio_chan_spec *chan;
-> -	struct fwnode_handle *child;
->  	unsigned int reg, ext_chan;
->  	int ret;
->  
-> -	fwnode_for_each_child_node(chan_node, child) {
-> +	fwnode_for_each_child_node_scoped(chan_node, child) {
->  		ret = fwnode_property_read_u32(child, "reg", &reg);
-> -		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
-> +		if (ret)
-> +			continue;
-> +
-> +		/*
-> +		 * Anything outside of the range of channel numbers allowed
-> +		 * by the binding is not a valid channel.
-> +		 */
-> +		if (reg < AMS_PL_EXT_CHANNEL_MIN ||
-> +		    reg > AMS_PL_EXT_CHANNEL_MAX)
->  			continue;
->  
-> +		if (num_channels >= max_channels)
-> +			return -ENOSPC;
-> +
->  		chan = &channels[num_channels];
-> -		ext_chan = reg + AMS_PL_MAX_FIXED_CHANNEL - 30;
-> +		ext_chan = reg - AMS_PL_EXT_CHANNEL_MIN;
->  		memcpy(chan, &ams_pl_channels[ext_chan], sizeof(*channels));
->  
->  		if (fwnode_property_read_bool(child, "xlnx,bipolar"))
-> @@ -1183,7 +1201,8 @@ static void ams_iounmap_pl(void *data)
->  
->  static int ams_init_module(struct iio_dev *indio_dev,
->  			   struct fwnode_handle *fwnode,
-> -			   struct iio_chan_spec *channels)
-> +			   struct iio_chan_spec *channels,
-> +			   unsigned int max_channels)
->  {
->  	struct device *dev = indio_dev->dev.parent;
->  	struct ams *ams = iio_priv(indio_dev);
-> @@ -1191,6 +1210,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
->  	int ret;
->  
->  	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
-> +		if (max_channels < ARRAY_SIZE(ams_ps_channels))
-> +			return -ENOSPC;
-> +
->  		ams->ps_base = fwnode_iomap(fwnode, 0);
->  		if (!ams->ps_base)
->  			return -ENXIO;
-> @@ -1202,6 +1224,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
->  		memcpy(channels, ams_ps_channels, sizeof(ams_ps_channels));
->  		num_channels = ARRAY_SIZE(ams_ps_channels);
->  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
-> +		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
-> +			return -ENOSPC;
-> +
->  		ams->pl_base = fwnode_iomap(fwnode, 0);
->  		if (!ams->pl_base)
->  			return -ENXIO;
-> @@ -1213,9 +1238,14 @@ static int ams_init_module(struct iio_dev *indio_dev,
->  		/* Copy only first 10 fix channels */
->  		memcpy(channels, ams_pl_channels, AMS_PL_MAX_FIXED_CHANNEL * sizeof(*channels));
->  		num_channels += AMS_PL_MAX_FIXED_CHANNEL;
-> -		num_channels = ams_get_ext_chan(fwnode, channels,
-> -						num_channels);
-> +		ret = ams_get_ext_chan(fwnode, channels, num_channels, max_channels);
-> +		if (ret < 0)
-> +			return ret;
-> +		num_channels = ret;
->  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
-> +		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
-> +			return -ENOSPC;
-> +
->  		/* add AMS channels to iio device channels */
->  		memcpy(channels, ams_ctrl_channels, sizeof(ams_ctrl_channels));
->  		num_channels += ARRAY_SIZE(ams_ctrl_channels);
-> @@ -1245,7 +1275,7 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
->  		return -ENOMEM;
->  
->  	if (fwnode_device_is_available(fwnode)) {
-> -		ret = ams_init_module(indio_dev, fwnode, ams_channels);
-> +		ret = ams_init_module(indio_dev, fwnode, ams_channels, ams_size);
->  		if (ret < 0)
->  			return ret;
->  
-> @@ -1253,7 +1283,9 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
->  	}
->  
->  	device_for_each_child_node_scoped(dev, child) {
-> -		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
-> +		ret = ams_init_module(indio_dev, child,
-> +				      ams_channels + num_channels,
-> +				      ams_size - num_channels);
->  		if (ret < 0)
->  			return ret;
->  
-> 
-> base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+commit: b0085cb94d2477787f4197a3000e33aabf3d48fc stm: replace deprecated mmap hook with mmap_prepare
+date:   7 months ago
+:::::: branch date: 2 hours ago
+:::::: commit date: 7 months ago
+config: mips-randconfig-r2106-20261101 (https://download.01.org/0day-ci/archive/20261102/202611020009.xkUfJUpm-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 8f6b51ca8bab1d49006ddaa042bc7e4e7306975d)
 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: b0085cb94d24 ("stm: replace deprecated mmap hook with mmap_prepare")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Julia Lawall <julia.lawall@inria.fr>
+| Closes: https://lore.kernel.org/r/202611020009.xkUfJUpm-lkp@intel.com/
+
+cocci warnings: (new ones prefixed by >>)
+>> drivers/hwtracing/stm/core.c:509:8-24: WARNING: stm_fops: .write() has stream semantic; safe to change nonseekable_open -> stream_open.
+
+vim +509 drivers/hwtracing/stm/core.c
+
+c7fd62bc69d022 Alexander Shishkin 2018-10-05  484
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  485  static int stm_char_open(struct inode *inode, struct file *file)
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  486  {
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  487  	struct stm_file *stmf;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  488  	struct device *dev;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  489  	unsigned int major = imajor(inode);
+a0ebf519b8a266 Johan Hovold       2016-11-18  490  	int err = -ENOMEM;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  491
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  492  	dev = class_find_device(&stm_class, NULL, &major, major_match);
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  493  	if (!dev)
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  494  		return -ENODEV;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  495
+bf4afc53b77aea Linus Torvalds     2026-02-21  496  	stmf = kzalloc_obj(*stmf);
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  497  	if (!stmf)
+a0ebf519b8a266 Johan Hovold       2016-11-18  498  		goto err_put_device;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  499
+a0ebf519b8a266 Johan Hovold       2016-11-18  500  	err = -ENODEV;
+cde4ad8368840e Alexander Shishkin 2016-02-15  501  	stm_output_init(&stmf->output);
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  502  	stmf->stm = to_stm_device(dev);
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  503
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  504  	if (!try_module_get(stmf->stm->owner))
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  505  		goto err_free;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  506
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  507  	file->private_data = stmf;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  508
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22 @509  	return nonseekable_open(inode, file);
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  510
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  511  err_free:
+a0ebf519b8a266 Johan Hovold       2016-11-18  512  	kfree(stmf);
+a0ebf519b8a266 Johan Hovold       2016-11-18  513  err_put_device:
+f7c81c7176c72c Alexander Shishkin 2016-02-15  514  	/* matches class_find_device() above */
+f7c81c7176c72c Alexander Shishkin 2016-02-15  515  	put_device(dev);
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  516
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  517  	return err;
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  518  }
+7bd1d4093c2fa3 Alexander Shishkin 2015-09-22  519
+
+:::::: The code at line 509 was first introduced by commit
+:::::: 7bd1d4093c2fa37d1ecab05da3c9d48ea2af2264 stm class: Introduce an abstraction for System Trace Module devices
+
+:::::: TO: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+:::::: CC: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
