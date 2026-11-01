@@ -1,99 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.12.242.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793524348;
-	b=L7yYPpFhg1AMkDjfbyp0SIFU0/a3n+glfGtMOqXeBY9UbZyWW225LQqmUOk1z/E+4StX
-	 RofpRsaRyTk80YsGJloreZcvK3EyAZyap4WqCrghoHjw6cuxcuwoW10ID2/z12C0WP2NV
-	 eDd+9eyFS3D3X9GwV315aRkb9P/3v6seFPWy+WaihXiI+Aszb08Lm7QQeBkMtpXvktR/3
-	 Yxa93UumzoYuhGTxByuzMl4V+QFfEA5MwGoPjvehON/hA6+AWv05tgjeomUsFgvQf3n4m
-	 SljfeklPBE7npZOu0thkfVvlVfH72C9MFkMYiqpPKvQIOM/s9kynjdcH4LSRpSGOfcg==
+	t=1793524520;
+	b=C5LSO1r5RkKY+6qyUZJekffnJ+5bctaTEXew5u9omOvaYtaxdYP9PD1hv24gPFhkRZbL
+	 BWLBr5hLc83t7H+Nhxe2lcsi/QGl9lyEAsk+2bOSY50IiZl1/YvvRYwC42eB6TMCh4h+x
+	 /Ut/Cd+xwP5nFpv76Gc8zP0xeXyGtz8aBL7iH0Sp1pod3MlV83YvmF4C9CRYejTO9wL83
+	 UVBgz0GaWk0teySag1I8s95PLG3MrD+BhDgYxDFpsANWJKlqOy3I8i+eD7ei4lSCFBzVy
+	 k/UlY/8PHn4tNH+8Jm5Ei2oJfGlleXjguNzvcBTsFx5aNma/UdBkfDBwzkaD1I6fVAA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793524348;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=3ysPIyTHoA/9Jg4MEjHSr/SQZx/nE08X6Q8EzC88lqo=;
-	b=UPAaNqRAoMqTkKy8Ki3dCzoOf5NFGr6LU1JyEBcsoK42UwobyANzjpvVKg1Yq2VbK+qz
-	 wme8uwhYgyecqJgsLHCgFN1tmvxhTVRC1KJ+/Cn5PwjsxaAKFXNW7YkMtgsXPyMn8BovL
-	 qX8DpJIFzS0fUUJJ4aVmqW3+pYWniOrQFnD5eqSwoJotc0n+nprTcdkD3cuv36/ie7+DY
-	 ZgfDrW/wEE9qO8DLbeijOH2MTg0JzgXliV0uJBk0lgQhYfY0RQ8N5ZVorddxurbN3Vgps
-	 V0/h92sWOf+YEZjz2+BqCNnMdResL72l8rCmI+thcQO9fW7UGmrMDPSDtgDMwG7o4+Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793524520;
+	h=DMARC-Filter:Received:DKIM-Signature:X-ME-Helo:X-ME-Auth:X-ME-Date:
+	 X-ME-IP:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=hpAYGvjX3DPYXJqhuECAIb7VRmhCJAkGQrZ4pOyjybg=;
+	b=Uigd/Wv4/gNLE2OFkUx5vLjvGiFSmaO4SsCcPhQwTM3F6MSQi8cODqTcuRM/Zp9YMDXt
+	 hYiKtlGsHWLOoqrlTS4Udx2l0L5/ewQV5siJrGoCS9PGuQ316ZW5C3tUnywCcAsDmKHN2
+	 FW6WPYw04DEZZTmhxllssqQW36oVmC21GeR++rzq57/oZT9q2wV7Km+If8UrtFF7m5G+S
+	 if130L4m7paT4Bhqo+isMdvr6YXC1FpzwfyxlKrfeNjI3OnQIdmzVLFhXNe3f7coVrWpu
+	 24x3BTwt6yHEhRIWfqGpC4Aht/thQ5wqEK/Ro+I9wn7G1B2u1OQ8n7fG82etn1nX3nw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puwyvf3q;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+	dmarc=pass header.from=wanadoo.fr;
+	spf=pass smtp.mailfrom=wanadoo.fr;
+	dkim=pass header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=d7ywW8Tr;
+	arc=none smtp.remote-ip=80.12.242.13
+Received: from smtp.smtpout.orange.fr (smtp-13.smtpout.orange.fr [80.12.242.13])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC627606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:12:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC627606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F286606A324;
+	Sun,  1 Nov 2026 09:15:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F286606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puwyvf3q
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35c76e9614aso2941711eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:12:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793524347; x=1794129147; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3ysPIyTHoA/9Jg4MEjHSr/SQZx/nE08X6Q8EzC88lqo=;
-        b=puwyvf3qlFZ5aOotS6Fv74jcQIT5BCHjlUVjgKKARno+rxWB9U4MIbPywKVmbOy5ib
-         MPcMbRF2foR/UqCcX3VN+CIR4q6fCNXEx8Qu7LCPu864hBm2fT7JlZWFBKLUjn9VW3p9
-         OEfKu78cHecd6Fbo9xvEgqmsasteThfGAI9TwqVfmMTlw8cExiD5RCU8jNlIcEvmhZ/C
-         qn+9Dk4+70eNz1u2x5qZ26FcTd1OKNWXDK7QV23p00ZwkCB2NewG+vxVTFLU0TNSw8Ai
-         zGMFPKZ7ndIknLst9kZ1Ojy8c6pt/SypNNb5C8at0XmDKtG5jd9j2FWWc0zsIZw1IxeT
-         vILg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793524347; x=1794129147;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3ysPIyTHoA/9Jg4MEjHSr/SQZx/nE08X6Q8EzC88lqo=;
-        b=ggvoUo4SPWHwIjG1FBPC1HL8NsZpMO5EZCY2Ld+KFvLP+Kpcofr4Au7iM4sWWpXUge
-         /GYl9IveYRCdl0r919yJNPgXdjgmlFcl972ZfFj4DFDQM2D59DnTuQ/dyQqazNrpTHSW
-         V6WdgX0bDftqEi9QWSPnSEeoT/8OcAc8XJfr4bK5q8n97iSfQtwufABlc2MhhO41RAi/
-         snNRhRHvNNNRIjWuU80WXTr2uVtDMk2OzeX4RUeXCAn40d72PsFaHPbUEQztK+4rGXVR
-         q2z//c2n/vxCk2VN2BWHoKfyjLBGk64c7xKiZpO5w72GJfp+sDOfl8P/eavKEMOoUfig
-         lmCg==
-X-Forwarded-Encrypted: i=1; AKwUvBzKEL3kWU+qwS6EXKR/v8SktsYFZfc1oCSnexzVmVcEgUPAAnjyKvxmBsqFl7UEx8+4SqOADRXj6S6si4E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9DUtQyE4C9dDdufTnnkG3RaJdWVB3p9Yy2WW6yUWFOg75HEwOq
-	lY3zK734QM70AfXl9qjXfLzOGkDHMxYnutTNgGZ68bwA5PJqTPx2szvm2aa4hfIg
-X-Gm-Gg: AYBFou3Q4n0+ts8+wDXpKnGye+heEkECI4gq7ERiNm6YK8zIZB+zJnou2V77SUV7xkc
-	SoDPjyq+t0AB+qGNWkk03QlTYXAvotDESYlpP2kEWEqt/D5XaUO3nyB+eDIVMweFTzM+uqc0NSF
-	OoOKc6MeYk3aB6woOufpGNax4qxXy79u8xiuJmPMzYa16JRziYD5ipHuTO1LrlDcZdI53aq44YB
-	4GJCDI1NQQzP1BxyWdJPk8bXLu1xUqyOLtAdMOVa96Mir/Zij31dgNKpMVURbktYYaVBaaVXV1C
-	/i56t90Wpk2x7pRxGsyLxezLE+qrrttRwWV5QFZKcxO9qQpddDAQUoRTcsLNgLIS8t9lNzmvNkp
-	A8jUWDcEoD5u0vVJdsKgEIW2lg1usEI07+48wbXCB3+lUijnpsWkh66pFeE9YTfJkBk6MP9Cv9Y
-	xpjS4w17tnCC7W5rGjdEnsAMbTHoEv4Rm43gxJUQSm9Tx5Ve2cmuVUwmDdGjhcBACqpydI1/l4M
-	gta3BYKJ7A8Mg5B+T67OBx/xibkL31T9W3jbViEXiUtQDxENN5XfHoYF7PzYm0xuH423BMXQzm5
-	EMONrQE0JniuMOMciaMrPxqgKzWytsTzqEcXEsFXbNrVeK4Klg7HS6MBIMTcaz6qxxGD
-X-Received: by 2002:a05:7300:cb0b:b0:354:1db3:674e with SMTP id 5a478bee46e88-36a42330b9fmr13797488eec.6.1793524346880;
-        Sun, 01 Nov 2026 01:12:26 -0800 (PST)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm27037797eec.3.2026.11.01.01.12.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 01:12:26 -0800 (PST)
-From: Cheng Yongkang <teel4res@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Hongren Zheng <i@zenithal.me>,
-	Sung Byeongchan <tjdqudcks0424@naver.com>
-Subject: Re: [PATCH v2] usb: usbfs: clamp actual_length to transfer_buffer_length
-Date: Sun,  1 Nov 2026 01:09:46 -0800
-Message-Id: <20261101090946.1963739-1-teel4res@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <2026110138-kettle-daredevil-ceb5@gregkh>
-References: <20261101070651.1846947-1-teel4res@gmail.com> <2026110138-kettle-daredevil-ceb5@gregkh>
+	dkim=pass (2048-bit key, unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=d7ywW8Tr
+Received: from fedora.home ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
+	by smtp.orange.fr with ESMTPSA
+	id NRegxTj34LDKZNRehxO0lB; Sun, 01 Nov 2026 10:15:11 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
+	s=t20230301; t=1793524511;
+	bh=hpAYGvjX3DPYXJqhuECAIb7VRmhCJAkGQrZ4pOyjybg=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=d7ywW8TrPZ9b3rPZx6fzmwfoG/zazFagDyJsftf0yS5MI6jCc2vmAlLYKPt+LrNDl
+	 dot0II+ClwEcsWr4AZy4Pg0hDEYRzvdLCzmeJ9r8KNiAnWhIRPn55BR3vaCssaf9FO
+	 dYVek7MU0aBcUKFEhPaMijokzyFrWFmBn7a0zzwiAMrGLakO/x/JwzCBPKCbHKTr8J
+	 cUhSKNhAYg3ydCq1QYZr7lRAOnqZPXRCwss/V3Er0ul1VI7AHaYyn1K90qOM1+KMBB
+	 rNwt9LRrrSLKjH3Sjy4I45SYQkxl5AY92P8DW22Lry4lW1PJ1qsAE/zIB8EutpqhvS
+	 mGr8Jv/p6tKdg==
+X-ME-Helo: fedora.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sun, 01 Nov 2026 10:15:11 +0100
+X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	kernel-janitors@vger.kernel.org,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	linux-pm@vger.kernel.org
+Subject: [PATCH] powercap: dtpm: Constify some structures
+Date: Sun,  1 Nov 2026 10:15:06 +0100
+Message-ID: <a4737f7c69e044d35348c1e9c7f69f229070d29b.1793524483.git.christophe.jaillet@wanadoo.fr>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,34 +70,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Greg,
+'struct powercap_zone_constraint_ops', 'struct powercap_zone_ops' and the
+'dtpm_node_callback_t' array are not modified in this driver.
 
-Agreed, that is where the bug is, so please drop this patch.
+Constifying these structures moves some data to a read-only section, so
+increases overall security, especially when the structure holds some
+function pointers.
 
-That was in fact the first fix: patch 1/2 of my original series cleared
-actual_length in vhci when usbip_recv_xbuff() fails:
+On a x86_64, with allmodconfig:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  22049	   7736	    128	  29913	   74d9	drivers/powercap/dtpm.o
 
-https://lore.kernel.org/linux-usb/179328314074.648427.388274461758949120@gmail.com/
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  22273	   7512	    128	  29913	   74d9	drivers/powercap/dtpm.o
 
-I withdrew it only because Sung Byeongchan had posted the same one-liner
-three weeks earlier:
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+---
+Compile tested only.
+---
+ drivers/powercap/dtpm.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-https://lore.kernel.org/linux-usb/20261009122636.642575-1-tjdqudcks0424@naver.com/
+diff --git a/drivers/powercap/dtpm.c b/drivers/powercap/dtpm.c
+index b7a65e543f19..3413318401fc 100644
+--- a/drivers/powercap/dtpm.c
++++ b/drivers/powercap/dtpm.c
+@@ -296,7 +296,7 @@ static int get_max_power_uw(struct powercap_zone *pcz, int id, u64 *max_power)
+ 	return 0;
+ }
+ 
+-static struct powercap_zone_constraint_ops constraint_ops = {
++static const struct powercap_zone_constraint_ops constraint_ops = {
+ 	.set_power_limit_uw = set_power_limit_uw,
+ 	.get_power_limit_uw = get_power_limit_uw,
+ 	.set_time_window_us = set_time_window_us,
+@@ -305,7 +305,7 @@ static struct powercap_zone_constraint_ops constraint_ops = {
+ 	.get_name = get_constraint_name,
+ };
+ 
+-static struct powercap_zone_ops zone_ops = {
++static const struct powercap_zone_ops zone_ops = {
+ 	.get_max_power_range_uw = get_max_power_range_uw,
+ 	.get_power_uw = get_power_uw,
+ 	.release = dtpm_release_zone,
+@@ -470,7 +470,7 @@ static struct dtpm *dtpm_setup_dt(const struct dtpm_node *hierarchy,
+ 
+ typedef struct dtpm * (*dtpm_node_callback_t)(const struct dtpm_node *, struct dtpm *);
+ 
+-static dtpm_node_callback_t dtpm_node_callback[] = {
++static const dtpm_node_callback_t dtpm_node_callback[] = {
+ 	[DTPM_NODE_VIRTUAL] = dtpm_setup_virtual,
+ 	[DTPM_NODE_DT] = dtpm_setup_dt,
+ };
+-- 
+2.56.0
 
-That patch has been waiting since, with an open question from Shuah.
-Its review had also already pointed out the case it misses: a returned
-length with the top bit set is read into an int in usbip_recv_xbuff(),
-takes the size <= 0 early return, and the URB is given back with that
-length anyway:
-
-https://lore.kernel.org/linux-usb/sashiko-outbox-165560@kernel.org/
-
-Rejecting any actual_length larger than transfer_buffer_length in
-vhci_recv_ret_submit() covers both. I can send that, or Sung can fold
-it into his patch, whichever you and Shuah prefer.
-
-Thanks,
-Cheng Yongkang
