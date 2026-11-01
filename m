@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793540620;
-	b=VNtQWFy0M1Ff9kK54hu20FF0ABkUBOANnGfHBV0wcCaSYkpXm9D4OOuDxyBI8qNtP5wG
-	 GHet26RhABmBJOpQq1Z8xeasfb/tuWPbIUfxWd695ETD4NH/N5n20Mutu6OtNDz89et4Q
-	 gF5NALIKeHIRDIFa8n7QoIqJ9fzf7UJUbTg7lOsi3WsispqCD3vaiDh+6Iy0BM32Pf7xr
-	 z3Skx/yOw/d0pmigmmHTuLVKQcpuEhr6grKROR0gBqZdDtNTtll5QOWt6WMvHlAYmI7YN
-	 ZzsmVYaTZK1eWHFFCEwXjMkB713XXXX3ewgxJphFHgy9siUIxWlHpCdH47PPNIlEjPQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793540620;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793540937;
+	b=F8bNREcWQLU36b9Odohpn0Eoc4PNGYW/BH0F7c+HkWc94LPEnzn5HtrcuYVY32JF6gmK
+	 ht2OU8wAj14jVTYNruMNM6drvBlgOBcfSbn35loP5gKZ55PMiLgel1pkRkd5cLKYLJlFj
+	 VEWZEcdaSn5pq5VhXauytIwo0EF2lJK6A2lU4R9gDp/1Miur4reevBu3CFTAxgWz8PJm3
+	 GOz3bGwi6PwmCt/aWN2FL+r5EugpLxpNwZ8lsgQ2vpJY1H0W1GUFqPutceI/JCULsOsaI
+	 NX04bEymsZw9yvNAG7+d4Vzl+IZqKojvN0raSnA+yzZwJ1Kj6B4nw6v+/e3NbEMcYaA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793540937;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=sf2fWx8SkwotfgOzFNKCbxbo9iqhQM6sIeyQ7Y70Yyo=;
+	b=axF/Cz2has4g60YR0CWjZ5RE3W2NTyeQrCP5FCa4HSHeaaOPWfCKEjOJztHbw/+lCsMa
+	 jTifu6eeOCZmRFN82XuHw7V0uoq9/GO929IiBf2xdHB0m6bgZ0oBKVCrEf+WXmAJuKXqN
+	 pMnyIMb4FV5PMzRUBkYQyWoqPtWDJTQGNadw4WxT4YvVRxRsqmFUHI49ZubicNvNtvOX7
+	 j0YlBX/uuX0SSxIkPs+zpXUIWKEzaBx45U3RrB+KVpGmbQal/c5wt0gaA0F1XmoPE/eYM
+	 VyJ8eZLuGYOrCNdVkeSV0f8g2PoJn3jO3sNgj3iB2lLT9k2Poytw0XPw5FnDbZfG+LA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYNSQwiF;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B69B1606A324;
+	Sun,  1 Nov 2026 13:48:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JYNSQwiF
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793540936;
+	b=T7w5Tyrc4K2ozr+FIjIIs/M0hh8V6ZxF74cBo4nIbrWyV+zCDaOeb9Xe66Vj+8EcIbaH
+	 JSMJtyJ9Tr15rozd/NsorloxK0u77LR4e7XEdQIWtmAr5UsvNXD4vczyO3crg7gkuM5Qu
+	 0bRsR93y5EKHDmy/vLgroN+DYlRtQLYR2UqNJOHvg4U1toN2z4biKqvqh9Ib71t43GqE2
+	 i2gKqIQ3v+MBP9AqO866HRYqaqOluAlBK3PYQdFRk2wfuwdGzDmzHuilGaO5P2G3wSkvH
+	 r/oUomCfY/x2vW/E3nZ7q7p+9jNlVdUHzSQj4dZ6xvDlHiiIel7Il0NC6KdS4UpvXkw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793540936;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
 	 Content-Transfer-Encoding;
-	bh=4661m1xYP/jYEqHVXb2ZQHfA5Qdo4lmezgeOZnGqpSk=;
-	b=BhCDoC4CvFrvODfVz/sJhh9Vo3U1DRAjD/miK6TzZlkFNAD4+d7JY4cEV1yKoNcGcflU
-	 SFhRV0O16pzuYVCkwvmdfXACUt4h6H4LR6bspeG4/oQf+nNq5Mhn74K6Qn98jLUwJXHHX
-	 lRKEA36K5vwWVAKx+HPvgC2Yr2JgrJJ6hDIKGTurvlpM5sbQA2yb2xD6/OXUHxVaf/hiO
-	 92ds7LMrF9PCgqNioZsg7cTxphVgpILvw3fDQnG1zbqVdABzK+4zb0vYWyBQ4aLiUQAD0
-	 GHcCNzfkz+PdmTdfV/E4N0+RBOHZOQW1hwoXXPotgNV9sJvDkrxt1AW8afWpq3oKv0Q==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eisKOQnv;
-	arc=none smtp.remote-ip=74.125.82.170
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	bh=sf2fWx8SkwotfgOzFNKCbxbo9iqhQM6sIeyQ7Y70Yyo=;
+	b=KzdZvJkw3lHyXXQ9suzwBLrH27njJ6wenmxO1B/Z4KhbFSHkCN+hD4kkWfbqrwiVDBFe
+	 OYRdchiQA8SDWwgeqhMBQ+JmhVBbLXDS11lydbJ5ybok28l5jrG+MRdv63zH8H+1K2TUa
+	 Ytka778SLzAl9oUmFmTWZf0KRjY8bcaKbpz1x8766sLyVYd/pahA62NMGHQO/UqjX9wSZ
+	 yeGY3SyJH+JaY40DJHhmOHbYPO6cNNEypt67n20yFfl+Od8AbiYs453jhU1+Q6NUtJ3uL
+	 TLE1Qtb97lW5cCvHyLfAqVAytpxIBDBcg7m0yunslUePp4A3lhehGfrSeXjQY/EBXKA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB27606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:43:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB27606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=eisKOQnv
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35b2c599f43so2934612eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:43:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793540619; x=1794145419; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4661m1xYP/jYEqHVXb2ZQHfA5Qdo4lmezgeOZnGqpSk=;
-        b=eisKOQnvuhXLkFpTLtfmv29J4yIGP8l4y+CQnaDOTYY+ApcPlAkuI9OJbUqcBQazqM
-         NGKpVY58FJd5KtwXwV7vqzHGC7Uo4fowQnAu3w/XfTq+YOj43laEFWiU+x7+QQJrrUnk
-         ye8hz1U6Iku+8wJ1xBbiyyHtexPJdqQZOK879xmHeNb57yMpvfk3+HLNqqrN+EykPeoV
-         Wk2BJwPkiZLUgeSLbvOAzK/ACa0oMRLy9GyCam3o3wLPUcvAjt26bMx+3j1LiuzRcSL1
-         s6V1qqbVh//JrZi9xQb9lRm7UZFDEj2rMGSt3HNn321OUSHU4oTY51y0E4MAm5DjeN9k
-         YTVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793540619; x=1794145419;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4661m1xYP/jYEqHVXb2ZQHfA5Qdo4lmezgeOZnGqpSk=;
-        b=nOUNmZ/AGhRHaXmrsYceR71pShsf2NmWae0/EM4L8QeMN4ZqEhkGPAy1cZ+IZrTozB
-         IH9VeDHjnLHRQiOdCWpUayYmZEJWJ2ADcmte+VSgwotRyMJZ8cZIF8ZcMgD1E5qTFiPm
-         H5uVO1zK4iD4MIyHxOSCf2LjnzDC17Z5879t5z8gclOksLx+6CGXkVIwNhiGkTY/asuj
-         shc1hB3fRsRCgO17z+ahrAw478XtvMR59R/NIRgz5ZehgzMFkDlGgnJHxxm1BmgcKXWy
-         l8Lb5hI0t81SRm95UOS4FWZ5Ro4CxnhnXfgfeCW3r7DbWLhZHcwBPqxFUSADVgwRLp7i
-         IzlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxdzNXnSj2GjTzPhx0dzUbonJPgHlrgeuI6Aa0UvrRziftuNX03qPf8OvpbY2LBde47AOuaT4TARK4XjyA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9qH/NuJUUXzrzy1XLSZhzt8ZOfY9/BMyAL8Y9UzRhl9/z2Hebj
-	vZPOupF0828RVccGNTIyq+LNp9dyM12rUL9LgcuQct91DYkgpdqRFu06
-X-Gm-Gg: AYBFou1cD0yFr9Pjg7g25qzjMQ2vOTHJdYxG93oTJXJIECjt811nlPXFXAaTSrU0sG0
-	iDb+NczMBGIwQsPFBNjOWXywTlDX3t5LsuqvxLRGPw5F3PkWEChgZCE6DibsN21wNMDiuZPBduc
-	n48aZxQg+ZGTQKyiqCk0ePScUqirV65gr91Qata4kZoLragksoqLZxDIMJhOYxXsxqP85f23MH1
-	zuKQBTbizUUSUqoQ6tyzivEeQInYFPXxHfD0GwgdsD+y1gq+MyY/rx4rcss2XFYarTZI6RfrA7D
-	RY8QMBuFALpkWLJDae9bdI9SP0FLz/YVsSx8Yy17dMTcPqYyQ1PLVC2zm4tfuby74wJXJYeQjaQ
-	2sblaFCGQOV7mrXpcqlgRPOhBjZPNrSpBhYpOjzLagimCYuxARVcgOPW6KfmtUoIwX3W+rwEzpM
-	mCNtM8qSp4SusJE73JyFW906FLG72j3iD6ipNwhBWwd7KMrLYH0fOCSFNtCNeEI4jsAcd2WpXpU
-	w4W4Ruc4XiC6jw3go+gqg65bmxGkOTNT+8kSmijOXFqqLOHrG/kF+bZLXdrM5u29hI/XXhT5RMl
-	//41OZbRJLvRsYF+QHxHFVhZ8ifHuud8jGxLFSzx/u/B9A==
-X-Received: by 2002:a05:7301:7306:b0:366:2893:7421 with SMTP id 5a478bee46e88-36a4235f6aemr11038645eec.10.1793540618755;
-        Sun, 01 Nov 2026 05:43:38 -0800 (PST)
-Received: from KRHW1CJW23 ([139.177.225.243])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a98f65sm26717779eec.28.2026.11.01.05.43.33
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 01 Nov 2026 05:43:38 -0800 (PST)
-From: Zhao Li <enderaoelyther@gmail.com>
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: Luka Gejak <luka.gejak@linux.dev>,
-	neo_jou <neo_jou@realtek.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Kalle Valo <kvalo@kernel.org>,
-	Hans Ulli Kroll <linux@ulli-kroll.de>,
-	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] wifi: rtw88: usb: stop RX work before unregistering hardware
-Date: Sun,  1 Nov 2026 21:43:15 +0800
-Message-ID: <20261101134314.39340-2-enderaoelyther@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	by smtp.kernel.org (Postfix) with ESMTPS id B936F1F000C1;
+	Sun,  1 Nov 2026 13:48:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793540936;
+	bh=sf2fWx8SkwotfgOzFNKCbxbo9iqhQM6sIeyQ7Y70Yyo=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=JYNSQwiFGZz73IBHMo4DK3+cb8IZRdzBWiN79Be3d8ZytFx3Qe7HYmGZuNmKT4xTI
+	 b4vxmDyQNJRS7V3T6g2kWrsqogi6aLac0Wjee7UnYdy3SP0k9QJhn5M7hYhshotcOj
+	 SrrdAKwvRvOapBPmBdt+hQcbuM+LPlaaf6H8C5wIYvglMDw/vHC6IIC0ClC+ZzI7p8
+	 IHAF8UGehrfkXGPIbJWLBLrQO9db6KGmTIujtMFDuomZGUM0+ptHCx8uGhBt8o0GVK
+	 H/7KaQgLauMGx77Eiq1awMnWrN8azaLHdb0lP2GuXv4K1yd4HE+f/B0x6tpVX7Sikp
+	 G0UeSscAoxXJw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1FD6646188;
+	Sun,  1 Nov 2026 13:48:55 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Sun, 01 Nov 2026 13:48:55 +0000
+Subject: [PATCH v3] hugetlbfs: move hugetlbfs_free_inode tracepoint to
+ ->destroy_inode()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,57 +83,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261101-b4-hugetlbfs-trace-v3-1-051b716f490f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAEZD52oC/32NQQ6CMBBFr0Jm7ZiWViWuvIdh0ZahnQQoaZFoC
+ He3cgCX7yX//Q0yJaYM92qDRCtnjlMBdarABTN5Qu4KQy3qqxRKotUYXp6WwfYZl2QcodLSKtU
+ Ye7lZKMM5Uc/vI/psCwfOS0yf42OVP/s3t0qUqMk1naiNEs49/Gh4OLs4Qrvv+xflPZQgtAAAA
+ A==
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>
+Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
+ Hongbo Li <lihongbo22@huawei.com>, linux-fsdevel@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com, 
+ stable@vger.kernel.org, Joas Antonio dos Santos <joasantonio108@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793540934; l=4610;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=hsjYpEEpLfY06mwC5K6ZIdgYdPIvwZSlg1C/xa03vNE=;
+ b=BmXuNSntQmCrvn/OtUUWVl3EBh3PNxguI3icnBQ5TGmrSpMuwaATN0T3mCF81AKlpCxVZw1sq
+ LQgetf/RxWvDBb/SVzvpMm/Au532FAPkGM0YXtOvySgToUd5LBN8AyV
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Disconnecting an rtw88 USB device while RX traffic is active can leave
-the RX worker running after mac80211 hardware is unregistered. A firmware
-event can then queue C2H work onto a destroyed workqueue.
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-rtw_usb_disconnect() kills the RX URBs but does not cancel rx_work,
-which their completions may already have queued. rxwq is destroyed only
-after rtw_unregister_hw().
+hugetlbfs_free_inode() calls trace_hugetlbfs_free_inode(), and the
+hugetlbfs__inode event class records inode->i_sb->s_dev.  ->free_inode()
+runs from an RCU callback (destroy_inode() queues i_callback() with
+call_rcu()), and Documentation/filesystems/porting.rst says that this
+callback "is *NOT* ordered wrt superblock destruction; as the matter of
+fact, the superblock and all associated structures might be already
+gone".  put_super() frees the superblock with call_rcu() followed by a
+workqueue item (destroy_super_rcu() -> destroy_super_work()).  syzbot
+hit this with the event enabled:
 
-Cancel rx_work synchronously after killing the RX URBs. Only a
-successful RX completion queues rx_work, and no RX URB can be
-resubmitted at this point: rtw88 does not set soft_unbind, so the USB
-core disables the endpoints before it calls rtw_usb_disconnect().
+  BUG: KASAN: slab-use-after-free in trace_event_raw_event_hugetlbfs__inode+0x45b/0x4c0 include/trace/events/hugetlbfs.h:36
+  Read of size 4 at addr ffff888038850010 by task syz-executor952/6134
+   hugetlbfs_free_inode+0x15e/0x1f0 fs/hugetlbfs/inode.c:1182
+   i_callback+0x46/0x80 fs/inode.c:317
+   rcu_do_batch kernel/rcu/tree.c:2650 [inline]
+   rcu_core+0x5f0/0x1220 kernel/rcu/tree.c:2919
+  Allocated by task 6134:
+   alloc_super fs/super.c:326 [inline]
+   sget_fc+0x1ba/0x1f60 fs/super.c:874
+   hugetlbfs_get_tree+0x1e7/0x2b0 fs/hugetlbfs/inode.c:1431
+  Freed by task 855:
+   kfree+0x22b/0x6d0 mm/slub.c:6923
+   process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
 
-LLM assistance was used to find the bug and review.
+Emit the event from hugetlbfs_destroy_inode() instead.  destroy_inode()
+calls ->destroy_inode() synchronously, before it queues the RCU
+callback, while the superblock is still alive; hugetlbfs_destroy_inode()
+already dereferences inode->i_sb there.  ->free_inode() is left with
+only the kmem_cache_free().
 
-Fixes: a82dfd33d123 ("wifi: rtw88: Add common USB chip support")
+Since the event no longer fires from ->free_inode(), rename it to
+hugetlbfs_destroy_inode so that its name matches where it is emitted,
+as suggested by David and Muchun.
+
+Found by syzbot; analysed and tested with the syzbot C reproducer on an
+arm64 KASAN kernel.
+
+Fixes: 014ad7c42a69 ("hugetlbfs: use tracepoints in hugetlbfs functions.")
+Reported-by: syzbot+91e1fc35f51774c479b2@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6ae27525.5451848c.f7707.0001.GAE@google.com/
+Suggested-by: David Hildenbrand <david@kernel.org>
+Suggested-by: Muchun Song <muchun.song@linux.dev>
 Cc: stable@vger.kernel.org
-Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
 ---
-Changes in v2:
-- Drop disable_work_sync(&rtwusb->rx_urb_work): the endpoints are
-  already disabled, so rx_urb_work cannot restart a killed URB (Luka)
-- Correct the commit message accordingly
-- Drop the 3e3aa566dd18 Fixes tag and the stable backport note; the
-  patch now applies unchanged to 6.6.y and later
+Andrew, this replaces
+hugetlbfs-emit-hugetlbfs_free_inode-from-destroy_inode.patch in
+mm-hotfixes-unstable.
 
-v1: https://lore.kernel.org/r/20261028141904.8707-1-enderaoelyther@gmail.com
+Tested with the syzbot C reproducer (adjusted for the new event name)
+on an arm64 KASAN kernel: no splat in 3 of 3 boots, and
+hugetlbfs_destroy_inode events are recorded.
 
-Validation: A W=1 build of usb.o passed. Not reproduced; rtw88 USB
-hardware was unavailable.
-Sparse C=2 and Smatch introduced no new diagnostics.
+Tool-use note: the analysis and testing were done with help from an
+LLM-based assistant; I reviewed the change and ran the tests myself.
+---
+Changes in v3:
+- Rename the tracepoint to hugetlbfs_destroy_inode in the same patch,
+  so its name matches where it now fires (David, Muchun).
+- v2 was the resend with the Assisted-by trailer dropped; it should
+  have been marked v2 in the subject, sorry about that.
+- Link to v2: https://lore.kernel.org/r/20261031-b4-hugetlbfs-trace-v1-1-4ec8d02a30cc@gmail.com
+---
+ fs/hugetlbfs/inode.c             | 6 +++++-
+ include/trace/events/hugetlbfs.h | 2 +-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
- drivers/net/wireless/realtek/rtw88/usb.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/wireless/realtek/rtw88/usb.c b/drivers/net/wireless/realtek/rtw88/usb.c
-index 64e1c3420e0a..56ca4496b2e6 100644
---- a/drivers/net/wireless/realtek/rtw88/usb.c
-+++ b/drivers/net/wireless/realtek/rtw88/usb.c
-@@ -1371,6 +1371,7 @@ void rtw_usb_disconnect(struct usb_interface *intf)
- 	rtwusb = rtw_get_usb_priv(rtwdev);
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44e..095b7fceee 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -1179,12 +1179,16 @@ static struct inode *hugetlbfs_alloc_inode(struct super_block *sb)
  
- 	rtw_usb_cancel_rx_bufs(rtwusb);
-+	cancel_work_sync(&rtwusb->rx_work);
+ static void hugetlbfs_free_inode(struct inode *inode)
+ {
+-	trace_hugetlbfs_free_inode(inode);
+ 	kmem_cache_free(hugetlbfs_inode_cachep, HUGETLBFS_I(inode));
+ }
  
- 	rtw_unregister_hw(rtwdev, hw);
- 	rtw_usb_deinit_tx(rtwdev);
+ static void hugetlbfs_destroy_inode(struct inode *inode)
+ {
++	/*
++	 * Not in ->free_inode(): that runs from an RCU callback, when the
++	 * superblock the event reads may already be freed.
++	 */
++	trace_hugetlbfs_destroy_inode(inode);
+ 	hugetlbfs_inc_free_inodes(HUGETLBFS_SB(inode->i_sb));
+ }
+ 
+diff --git a/include/trace/events/hugetlbfs.h b/include/trace/events/hugetlbfs.h
+index 8ba72c1d4f..a7932e0db0 100644
+--- a/include/trace/events/hugetlbfs.h
++++ b/include/trace/events/hugetlbfs.h
+@@ -72,7 +72,7 @@ DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_evict_inode,
+ 	TP_ARGS(inode)
+ );
+ 
+-DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_free_inode,
++DEFINE_EVENT(hugetlbfs__inode, hugetlbfs_destroy_inode,
+ 
+ 	TP_PROTO(struct inode *inode),
+ 
 
-base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+---
+base-commit: c339f4010dea8b0d754f84ace70cd1b089878ef8
+change-id: 20261031-b4-hugetlbfs-trace-341b338ab57b
+
+Best regards,
 -- 
-2.56.0
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
 
