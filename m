@@ -1,100 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793561696;
-	b=mihAXjIrlb1itKiwF4waWs+ceWPPaFAzMAZgm3aYdx+FjhLEYGGCQlQ/Vb8Qw7iro0io
-	 u9zNeSW2bWqK5oeDfD/6wbCe69XPUpe1/oDGBPJYhJLWSGaPmGKmrwyREbBm2QzVuDoh3
-	 u+8y7eB4L+LOxIX6dvTwyYe1/jCXnlb7FD0GXyH0KB4yOZe+U6GLl3mNYjIBGuD1mXrl6
-	 pZMALPdRzpP2C6vAFYi8iezz3aeGUzIjMuQWW8xaLquyi6V5X3u21AZ3bODDlI7ciIXTW
-	 RlBW+89KN8omX91ECmbkbbaMMHiFx7/ISFL+CEzsPV10pbjjlGZgoSZzhTQbuSzxAag==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561696;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:MIME-Version:from:In-Reply-To:References:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-	b=uwFeI43aspoBke31p4VNMrHM3Py61P/tccxSwXhtcocketZcJfQZfpWmlu1TKD1qPEwt
-	 bKHQugs6PvqDMhLtHgUZht5wpSkDwY7fym0+rg1Qt+r+2u2Nmc4xtHrNdHfCpXOYYBRqE
-	 sFwu0X26h0BU7odN9JISv/iHUi1m4VeWk8i6kK15hspeSaWZCcCmbJ1VLlmHbKolQTNoW
-	 Tnq1q73Hnah/P6UJPbrw03JyDeHAHKL7lWue2sl9DBhPgwVH20UNDWx54hhVp2Um3QHYM
-	 RJBe2qVuHxWu/2MurvRivgYfByEwC8FI/ee62CzxFFDUE4peJKcatH+gMCaRt5Py5XQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Lfqcc5GG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793561907;
+	b=xgvonbEgcrPsPa+wVZRc7j2xSYb7KwFwHI2EuPUj1D68n4C+VJqYvyuag9YNc3x+PrBn
+	 4/RbOU2lhXT1QemrbPiN9YSCA+JW9Aww/kYk5PZFhLjwd+WUKcsJ7Xp98bTsOPaea3clQ
+	 hYixyC9SNXTRCOvGzOU7me0BkhextxS/qIfczMEj36pqkVORF+02fO9PQL9CMSh2kN9nW
+	 IjzBBkC6tQNX1dGUAlmLl/Y7RH1VM0Aj/0qzo3OP7jT+X5nSQXXyFGNcZrzrPevZU1ImF
+	 aNvCDM+dwBiwCbNqwmAiILN1Q2CpTMgmWvQ8PejSaRzghBy+sj8Az4f4cSN8Fugss5w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561907;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ez6Bkf9/WC3Za/o0PdW3/MlWlWsnBJkg+tGwbJAmeGk=;
+	b=KqX0jRN1dyn/ql5HZHz/Z1V4vk8tli+KG0JVAhv19zmVS/Y3btuCDQ1R1cJ3ocJKP9NS
+	 7Jl8ptRsmSK0O71rXD/h5/Sw+HJu5f/aRcPrKsHSUXru9cNsVPuo/6OLuu2FETYaCPWI0
+	 aQGfo8HzXWiOB/HVrFnzsfeT92jmDB+459zuGJo624FuDDTmRChOY5sjX6LwCYRFaJupi
+	 YEbYAfWHyBCzyGXKvJrlUq/Psctd7tesySpu7c8WqO0/XdwRVAhTHpWrFWKKgVzjHxBqu
+	 +MJ62z0/jdrkpMVB5furDl8r/JLawE6Q5BcHQmxuA2ucRbrBfN+zaOR9rQxwHmp4Ixg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=i7Z2H+xT;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F0B606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:34:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8F0B606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54017606A326;
+	Sun,  1 Nov 2026 19:38:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 54017606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Lfqcc5GG
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b4a13789b0so3192931a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:34:55 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793561694; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Hd9ulfsjRgq1dYMqsQXlFsQEpWsfmnWRVIX2Y6sYgEEEK3nQyHjU0+5Qvfg9GPJjlZ
-         mlNsdxjeOM1BzZJciDacApNuVcBUE1dHl+jbSTtd0A9Y7ZEgPgxPfVrFDDs7pekQZdpB
-         f4VEYT/LXzox9yit/Yuc69FvcMUmERr85/V28HB/soEFEHwN4w8QTW+ZTjXBtvbGoVl4
-         Za8r5Cc3IUq/JUeAr3LyOn/5P0rYzmcm7BQLItwnP0uwnzVKamcWxqDWWkORxPXGXlva
-         GIDf50FvhhyW2BnEjjxbz0JcSkqFRDYAVsj3MxLE6QReAtsdfWSiVi9Cg+xERcUPm1MN
-         lg9A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:references:in-reply-to:from
-         :mime-version:dkim-signature;
-        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-        fh=YQWzNR6QRNugeOpuDI/znfnkVPxIT5eVvhviwSAIniw=;
-        b=LUH4bafjw3/lLAFkZA9zZz+ERZ5uBUFaBDLC67eOj2FvvmxhdRLZTuZIULkSiuSv+e
-         7ZgwvQIalEjcbn1RywCXd6r3FEetSxlF+P4vPnZQnL6ng/DVbpfSGrG14nrdG29OWdMl
-         bUnVqJRxA2Wi60YibzklFmpGo5iBd31bg5UcHFoK1ekDjObURGy1iAWPuQoEWaKWnzh/
-         K/3XwsjBoabnwYdJ0nsNlj3/tT2EPKvwDy978lPxjZeaGA5vETmR5zUzXEntErLjAYoT
-         gjTUSqtGs/j43Dmceh4WYJONUTELy8MdNrGMBzW9xiMnz1NgRDhPJkZszWXRG90Q/ZAo
-         Vjew==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793561694; x=1794166494; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-        b=Lfqcc5GG/SwjR7rhF6i9wN+51zewpGS58ukrmB9LGRdbbpKdip3M+YroJNl6U5AaZ4
-         rF//L/DV6VSxmy/1UQsFeJhmoDWwkPFReDLBiC+oRpU55av1FrMnZVBw20fY7l4UynL3
-         HVfRKiNvpd9FUkbDQyR76hW+g1Owj32N3MUEU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793561694; x=1794166494;
-        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
-        b=IgutjEYbL0X0Z1Jz20CfH1TVYbOLG/RqJNSFTWgtxuZ/f6McHK2mv+QwaxOalfL7zR
-         HaUrYS0/9h0q1NoKwLFuuHP4WATknVBn+kEIneUQTYjRBzLwobgkmYJKC5hVIOq/bCoc
-         wfrSaKnU9DpXzQ30cOR1WvZlklStYt8p4QvM3rJkGK7o4LIMaasz9y97bLJfmIkOK0Ki
-         daFc0PEb9SqGs4D1GIjU6nCLsgXSdMytn2iIMasoaDMlvchCYICgLMr94Zh4gyUidOAG
-         waNh/alTXJpq8kR5b0jAk7SjwMgnBaJjTy8a/bp3W1dorPeFzh0Y2w+wrnOhA6GJ+iGy
-         SAnA==
-X-Forwarded-Encrypted: i=1; AKwUvBw6Ip6LnD4K6eLQVkjFMWie3QQtRZZYlbDSwTrvDN4cIZXLwKOBrGVzSa5ep2mfyJktSFkoTasRoz8rSnY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/NKhQ1nRm9wuraTBzuFfHAUauZBC/NNJnw5AavsC/TFFxl8X36
-	IKGicoIgCnqN+TmSfe43bUMIokFENtX/99b4crGx9InCNtaeMkbXy6XM9ABE/hIpl330e4NtEr5
-	K+4MeQMTtLcvPtta0b0iBgtvIMefVk1eLa9cEIlB/
-X-Gm-Gg: AYBFou3RsFPgV6B7y6NNi+0Kkt6Doin6mhvI2ZVUKxJp8hB8nPwoy7tlu9141JkVkBL
-	WtOC0a5Z++PnsMUwKKrmkKGh5X0Fk9z/kPyx0aYlWCugZMKU1/Hl3Y/58YIHDI0PiocDEdaYFI7
-	mFzNkWDZGbmR6+oNxZ3o4Uzi3Kr/r3TM8KKtttz/iwfap9hGmuX4/nGIK8vlP9WB6ZP0N9qKxXW
-	gTnUcqHLvch7ds+8eBFQEu1RhlUbZovtQ1Y+ODZ7dNPoD57wIDB1RSKP07Y5h5u+sX4kJYb0/Ep
-	ALL0wTlH/8lLQvme9+PlxT0PIgV8ZQVga5KpbcZ/jqmyI/aD8cYy5kL+cSyfBKfX0RGPFop0sEJ
-	YyHN/V7uooq51BPtCB8D93lX79fZ7Ow+GAsRQCxWnJIBy84jpbVu+Ngt07/e7x1w9xEnOdV95
-X-Received: by 2002:aa7:da45:0:b0:6b3:e89b:128f with SMTP id
- 4fb4d7f45d1cf-6b4d4d6d938mr4052419a12.9.1793561694122; Sun, 01 Nov 2026
- 11:34:54 -0800 (PST)
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 1 Nov 2026 11:34:51 -0800
-Received: from 415065739583 named unknown by gmailapi.google.com with
- HTTPREST; Sun, 1 Nov 2026 11:34:38 -0800
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=i7Z2H+xT
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9B27B40E03BE;
+	Sun,  1 Nov 2026 19:38:23 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id UL-MMPvpERf2; Sun,  1 Nov 2026 19:38:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793561900; bh=ez6Bkf9/WC3Za/o0PdW3/MlWlWsnBJkg+tGwbJAmeGk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=i7Z2H+xTqyNuxqm05hjQjcp6Mq2bH7nG/iMIBCpAvzqncAwHgQyN5L6fF9VL2v9rn
+	 FHw3rEroBmeuudqE+CvHXJYfiKrtIWbGCtN5KxIxP/MsNF5XJK5VY2lrdROwpdUs3n
+	 QxZtD5WLD9baF7Q/AcALPFG0nVdOVo4n6GjYOequfA/DVZw85FN/wetquBBMSRMO6/
+	 RtDDsz+8xtVEd+AXnNpqNShZMFrD+DGjHQumwAt6hLRrLd/uHXcojcQI6HQHew2K4p
+	 VS7IAAcMR5jEviCV56y+3m2nFMzBw3M+9JcGWTXD04dnnS3I3idmBWML4Ou9n44cqZ
+	 HD4XfpDnsit3CR57RDbWSJHEtxhuPFAGwIQ764gYPyO0RggXhAfLEVH5nj9IrNWd53
+	 AjQl4hCU36niq0hq4AgTZgKoTj65AT6Q63LY6m3PCsDDY978fSoXhrVH+JELt5ZX7H
+	 fk3csKaUk202O2lRCX/cCWS/VKh26iUNybkxjfwXDHDrErQfA+y7350puPFEvvfjBr
+	 0t9vE9Oe5T6fV1ohfku62IaafN2DIBMPaRR8/CCS2PgURvGkCx10gohi0mpvvdI4vt
+	 9KLPE24m3ykGum2Y0ZvNVA1qJD7dVnesVZG0uhtNErtLxU1IqFpE1kcdNfPZvwsV9w
+	 jDnGJPwjIlpwRI1sF4GgfJ8U=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BFAC440E0299;
+	Sun,  1 Nov 2026 19:38:02 +0000 (UTC)
+Date: Sun, 1 Nov 2026 11:37:59 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Joe Perches <joe@perches.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	"biju.das.au" <biju.das.au@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	Au Dang <au.dang.jx@renesas.com>
+Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
+Message-ID: <20261101193759.GBaueVF-1a0H8BDmZ2@fat_crate.local>
+References: <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
+ <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
+ <20261031202741.GAauZPPfNDpQLSmIZD@fat_crate.local>
+ <94f0ab99b5c9072ce7c026672f704b2987db427f.camel@perches.com>
+ <20261031235958.GDauaA_pScrsk2xYUF@fat_crate.local>
+ <5ad69a1167fddc7caf1eb73e439765116db1ce17.camel@perches.com>
+ <20261101014710.GEauaaHoYk5TzRpGBQ@fat_crate.local>
+ <b700f0fb96b9454287850f7aa54d876b709cadb0.camel@perches.com>
+ <20261101185452.GAaueK_PzlK68DsmRz@fat_crate.local>
+ <44db8c930587810e902dcb36b5a0718a52eb94fc.camel@perches.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,92 +102,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-from: Simon Glass <sjg@chromium.org>
-In-Reply-To: <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
-References: <20261020153652.2907186-1-dianders@chromium.org>
- <CAFLszTgzpQ-donjjtcPwy5T3pfWg_u83QMh0GcdpY2JCq_s75w@mail.gmail.com> <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
-Date: Sun, 1 Nov 2026 11:34:51 -0800
-X-Gm-Features: AclHuK-OENc2MfogrHTK6nr_VXdYPKQaHTgRVjZY6Us3vAfjaHxM1Qejmm0CbCs
-Message-ID: <CAFLszTh8geCqamVZwO00fx6t8SDfVHCFP1Fx9PnA2x9TosDKqg@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
-To: Doug Anderson <dianders@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
-	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Jones <andrew.jones@linux.dev>, 
-	Bjorn Andersson <andersson@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	David Sterba <dsterba@suse.com>, Gary Guo <gary@garyguo.net>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Luis Augenstein <luis.augenstein@tngtech.com>, 
-	Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nick Terrell <terrelln@fb.com>, 
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	cros-qcom-dts-watchers@chromium.org, linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <44db8c930587810e902dcb36b5a0718a52eb94fc.camel@perches.com>
 
-Hi Doug,
+On Sun, Nov 01, 2026 at 10:59:24AM -0800, Joe Perches wrote:
+> Not completely no.
 
-Doug Anderson <dianders@chromium.org> wrote:
+Well, whatever you do, this needs some documentation so that it is perfectly
+clear to people using patterns.
 
-> Putting the metadata in the configuration's `description` property came
-> out of discussions with Michal Simek at LPC 2026 (where Xilinx/AMD
-> already uses configuration descriptions for similar board matching).
+Something perhaps like this below. You probably can come up with a better
+formulation - my only angle is to make this as easier and as clear to users of
+the pattern stuff as possible.
 
-Thanks for the background. The Xilinx case is a bit different, though:
-the same project writes the string (the binman .dts) and parses it
-(board.c), so it can change both sides together. Here the kernel would
-write the string and the Pixel bootloader and outside packaging tools
-would parse it. That makes it a cross-project ABI, and I'd rather that
-ABI were typed properties than an unwritten string format.
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 015cf66afb96..59bbf779958f 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -30,13 +30,16 @@ Descriptions of section entries and preferred order
+        See Documentation/maintainer/maintainer-entry-profile.rst for details.
+ 	T: *SCM* tree type and location.
+ 	   Type is one of: git, hg, quilt, stgit, topgit
+-	F: *Files* and directories wildcard patterns.
++	F: *Files* and directories wildcard patterns. The matching strategy
++	mimicks git's pathspec shell glob patterns with some exceptions.
+ 	   A trailing slash includes all files and subdirectory files.
+ 	   F:	drivers/net/	all files in and below drivers/net
+ 	   F:	drivers/net/*	all files in drivers/net, but not below
+ 	   F:	*/net/*		all files in "any top level directory"/net
+ 	   F:	fs/**/*foo*.c	all *foo*.c files in any subdirectory of fs
+-	   One pattern per line.  Multiple F: lines acceptable.
++	   One pattern per line.  Multiple F: lines acceptable. One way to
++	   verify the pattern is using something like
++	   git ls-files -- <pattern>
+ 	X: *Excluded* files and directories that are NOT maintained, same
+ 	   rules as F:. Files exclusions are tested before file matches.
+ 	   Can be useful for excluding a specific subdirectory, for instance:
 
-> The proposal I've tried to push a few times is that it's OK that
-> different loaders have different types of information available
-> to them, but people don't like that. They want a universal standard,
-> which nobody can come up with.
+-- 
+Regards/Gruss,
+    Boris.
 
-I agree with you here. We don't need a universal set. I've sent a
-proposed spec change [1] which lets a configuration node hold one or
-more match sub-nodes. Each one names its scheme with a vendor-prefixed
-compatible string and carries the properties that scheme defines, for
-example:
-
-    conf-1 {
-        compatible = "google,lga-...";
-        ...
-        match-1 {
-            compatible = "google,board-id";
-            board-id = <...>;
-            board-rev = <...>;
-            soc-id = <...>;
-            soc-rev = <...>;
-        };
-    };
-
-Trogdor would use its own scheme (board name as a string, rev and SKU
-as u32), and Michal's loader could do the same. Each loader still gets
-what it needs, the types are explicit, and nobody has to parse
-'description'. Please can you take a look and comment there? If it
-works for you, you can point to it in v2.
-
-> Should I give it a shot for v2?
-
-Yes please. The DTB list already reaches make_fit.py from the Makefile
-through the @file argument, so the new file only has to say which DTBs
-to include and what metadata each one gets. We'll need a simple
-per-platform file next to the .dts files, passed with a new option
-through FIT_EXTRA_ARGS
-
-Running fdtfactor can then be another make_fit.py option, like --decompose-dtbs
-
-[1] https://github.com/open-source-firmware/flat-image-tree/pull/66
-
-Regards,
-Simon
+https://people.kernel.org/tglx/notes-about-netiquette
