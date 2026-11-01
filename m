@@ -1,59 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576500;
-	b=Afy7gphgsN2DM87eWuQD7B5/2e04gWJSYFx3AA8T/AbSr1XHzdncxRROoRy6qPlVOU+7
-	 b+a5DQkLJV2KWYcgVP93PU41cgdR6tMCPsKAVuiLLH1Q5sYpOyXs+gbw9Z9M0yyDZbrYO
-	 lNNgwr5WNqxKoJBYOjRJlhb6jZ04y+ZICgMX9M3EoqQt0PQ404DKdVJCPeT3UxgHrzXXk
-	 16FDUOMBNU4gV0iXil+W3w+frzHp9aSpQ+RLuQOCelkTisa1XWncTTPakvhcKbLsOTaef
-	 ire3HinuIhUWS55LLpKGI2EPuq7KQE0QqUn3JcQfi+WroHg4oTrdO0X5jaUmWRDNwDw==
+	t=1793576522;
+	b=rYmqDhjM7xcsntw800QnNOiZRWkf4AEfYNeITm65LvxNgXiFAPzd5kES+2Egz2q0UInR
+	 vqy7Plj9WaEoLB5hhrKdEqEWK/M+b6bsAwsCWM0wEjql+VElTTkXG5Cg68bxTzWMTl/kQ
+	 Yt4HPmH7kpKKicJvhpl6eA0Pr0zAS+Q6jXd/cwoDNqKJT5dWUE/fiHL9KNMhYn4f2u04m
+	 lw8vlYLSO/bx+6j4JCTKAk+4XZt/8jZyWtfWRyMxDChHG/X5Vx0KWvOsuVcXaPQ6OJiZD
+	 oziGGMdBbTslFthkVeZH1og+Q3popdK9KTq9IY1c0b3GTdKNBnZJFjzfttNT3TeyIyA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576500;
-	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
-	 X-Forward-Email-Sender:X-Forward-Email-Version:
-	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
-	 X-Report-Abuse-To:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
-	 Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=ypPd9unCPRKnmOOEGLs6Sx0KOiFfY8/EXgl2Ea6FLkQ=;
-	b=cxuAfd8vMqCPsSUYPE921IJY5c9CGiCAuABe+f4p6sAC3193JN7DJLNV77+iQ+5LivPo
-	 kQFkoqgqy4yAoAJOwDD+S0ZH2emZGXRD32pRvV5iWKw7RwZj8Rv9nezeOmgYzcm48b/aI
-	 SwpsowpDEhrCp9UHTNtHzDM88V8qYrDPv9syrJPpaW6mPWXbjcIp6hG0/VLeLP17rEuNG
-	 WitNCSQmQbCR6v3iKyk0RTCgDPlCn9oNHHfhMjn/WAQoI6mnKiNa65oz389153KU9jaHp
-	 Yfqu12zHLV8zbu4Ar30UQrTjzWZF0LoljTYoau4kCsnszRDOkMEr4yaHu2KPaOj/7hw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793576522;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=C1+SIWfzCXJB1MpMylXxaOBo3TNVuyiUO/P1v/2SLdM=;
+	b=SpNL3RyU3Es3V6iGmN6RHO2pGSs7ylESp8373hOPsZ46uIK/ipwYaH2vPjgeVaFHRaaG
+	 0xyNj49UTpTCZ55lnCtiXsyddRBJiy7/xbz4DCDJkLlJvlvyLoFwtPtrxjw6z+x7HjX8d
+	 T92vZlI+5bhJ8ezf9iPQ54P06uNzowANzBUrk5KDKO1KBfXtQEPoOMjukiZh2O6S4JjM+
+	 K1qg/KHWZ1KF9NTIrRmZPjtGzpnvao42GRLfiXCNd7ssIvLRqACppH1zQGUz8Eqt1VcXp
+	 ZyhoT8Z6s6vVXanJZ+7X5Fqf+pFlrs+6Mo/Ja+Q9puFC8IOyiiwH2XuQnltS+ONK3kA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ovn.org;
-	spf=pass smtp.mailfrom=fe-bounces.ovn.org;
-	dkim=pass header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=M270NjMN;
-	arc=none smtp.remote-ip=121.127.44.66
-Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Q3H9j9je;
+	arc=none smtp.remote-ip=209.85.128.51
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A084606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:41:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A084606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB208606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:42:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB208606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=M270NjMN
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
- h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
- Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
- s=fe-13eddc7e57; t=1793576493;
- bh=ypPd9unCPRKnmOOEGLs6Sx0KOiFfY8/EXgl2Ea6FLkQ=;
- b=M270NjMNAc0gvat/qEzauixY8hdqnEQSVTgr9UEEAbAsOPSF//zf5Ebfz1rDqIBqHRINgyDhj
- 3hKhmsidSMrgbWs6QJQ4idJNuD3jlsL37u9mGFnduxRU+Ce2Viu9iA4Ch4H2bmC0moi55c8jS+T
- WKJrAapECqtt/jdMbOXTmK4=
-X-Forward-Email-ID: 6ae7ce297155658d66b80d68
-X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
- 121.127.44.66
-X-Forward-Email-Version: 2.18.12
-X-Forward-Email-Website: https://forwardemail.net
-X-Complaints-To: abuse@forwardemail.net
-X-Report-Abuse: abuse@forwardemail.net
-X-Report-Abuse-To: abuse@forwardemail.net
-Message-ID: <c4c0c187-1c8b-49ab-978a-815c599b4b4c@ovn.org>
-Date: Mon, 2 Nov 2026 00:41:24 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=Q3H9j9je
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so18074615e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:42:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793576520; x=1794181320; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C1+SIWfzCXJB1MpMylXxaOBo3TNVuyiUO/P1v/2SLdM=;
+        b=Q3H9j9je1yPbLIVWbR880iwsnG0sVK+LP+AG+6AcdXeCy/kNy93HvwQGA8xsO8q8PT
+         6PfQ7fV4r4qvnOmvAVYI4T3uKape+t24nLMcZYhDg8MiRnQYChDoD2Q2B+ibs7ydle6g
+         DhP0OET5DSiNBHJgx6ngNZ/XGMgi6QqMfXis3hccLK7sOMAn4UalF9Oi06pBAekIUyF8
+         gEX0dUCS/KwiRu6LurM++zqZ2fN4mDu4IzD0ThtWxtPsm08QzLB74Cy4s8f27fb9omoh
+         KB0mgahtcjhoUMbgR7cjcWwZK9KMv1b4G1OELNKhGYpfSfmqiKYoW8psMo6RM1r6CntK
+         0ArA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793576520; x=1794181320;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C1+SIWfzCXJB1MpMylXxaOBo3TNVuyiUO/P1v/2SLdM=;
+        b=1RVvSHtze+O2xj89lnXVekCYj6L4eNa2RZQ0MJs4m+QwCRF9TLhRFlUuDT15iIDZV6
+         riR5csT56rAeIoeRe+0un/6ZVTucevCcR9giHhVXJ40Mlikn6+aHkobacZBay4luQ2Jh
+         xzTdP4UakKUkytiKIRGcu4F9c+oLzHbqgkKMM/7ajKQVSM12gcVGknVXz8iE0F4OhV71
+         cQ/i9FnS/odXOGfpjxrJrYCLdzPfAMpmqpu91dpKTOonWZ9CgkmRbAUWt4QSHy6dWNSs
+         OKK8aNd9mQZvBUA6eoDQvId4ZrXZQ9NCIjebCzjzzqVLPb0lxoRGpvxqsjxMpqlmn2c8
+         owmA==
+X-Forwarded-Encrypted: i=1; AKwUvBwrN4gY46WEsRbMT9WUZEOWfjTT0riEckGyyDs0/FmJN6ANZt7eHP/K2CfjVpqBhMJhCmo/Qf9lRESO3SU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgi9GXpP3qQgjsUZIkeRGm6YqaQFuYiT+BOvfO8SWTmKfu/PtQ
+	BXoSDthp9JF5W5e1EF7MGORAVsThwTJJVqazjvuKJ9MgUTI3lLM3zRz/AIS6hZn/pIAc5fGjzap
+	o9HGvoiM=
+X-Gm-Gg: AYBFou1jkh5yuRI92gNoJyzVHwzKtW8JYCZpFcqxlK64FY2i4fhooRGEfAoCor8Fr6y
+	MhX4b1VwQBNfHqVaWugOmqXZfyVhXth87YDGuFXGueSJHEtMKHuyoiO9z6sDirFUCy2II3N8dEz
+	kfEVL8aUXHM5eVVmihLYtQCjvUHXguC0jnWbcqDM7mVzHtVBfgz6OcFDALuRqAXfM7wy16GWW1f
+	9spRNWq7C+2EGLQIfHsYL7OjfRrA4LyOP2gaNwEgcBPFAE1aZ75v9ZcDv7xXn5fQvP9+XFIJX0e
+	GKDZMoBD9lNdSIP0dyn1ENINgEQzcsZDQxjv/qbG7yaY4TMcyeCWgh7Vg+pJPDGrjREzShCalMq
+	eOQKjAJRa5qbjDhXeEmYvhkZsNRpSXL1390lvJ24uzmFSGarMHbNxqJ1p9uwgcKTojkLx3mCY85
+	qBIgQGpWvqDxEYCRKf0G+cGXnmOCxmjRjk1VhZtiHcmy+Q1PjJ/h4EAf2C/b6hcj2txkLSedrB5
+	EijTP3SG7o8MHifuTFyzFFRKV8tAkdP4GQyN8wHdrn7EqP3WR7zBOgm010N4qO/vvygzANkU3Z0
+	zwOU5bMuXUNCymTvq0BCA5XQ/+zXwuWHjZBSC5BVa9YlR3LjO8BrawGp/YjKvw3MDzsbVg7Y7vO
+	dJyIl6gGgu5/Wjql9ko8uBIrLA4WCEoPJX8I=
+X-Received: by 2002:a05:600c:c171:b0:49c:fa20:cbfd with SMTP id 5b1f17b1804b1-4ad739eb30fmr119552675e9.20.1793576520276;
+        Sun, 01 Nov 2026 15:42:00 -0800 (PST)
+Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b286a0sm193425745e9.4.2026.11.01.15.41.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 15:41:59 -0800 (PST)
+Message-ID: <67c159d6-5e19-4873-aadd-e536a12ec3c4@layalina.io>
+Date: Sun, 1 Nov 2026 23:41:58 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,136 +95,28 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] openvswitch: advance by the real header length in
- get_ipv6_ext_hdrs()
-To: Joas Antonio dos Santos <joasantonio108@gmail.com>,
- Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
- Ilya Maximets <i.maximets@ovn.org>
-Cc: "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
- netdev@vger.kernel.org, dev@openvswitch.org, linux-kernel@vger.kernel.org
-References: <179328922134.76862.10417963652853801970@gmail.com>
+Subject: Re: [PATCH v4 2/2] sched/uclamp: Use wrappers instead of open coding
+ UCLAMP_FLAG_IDLE
+To: Kayra Cizmeci <kayracizmeci@gmail.com>
+Cc: Ingo Molnar <mingo@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ Christian Loehle <christian.loehle@arm.com>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+ linux-kernel@vger.kernel.org
+References: <20261029131354.11030-1-qyousef@layalina.io>
+ <20261029131354.11030-3-qyousef@layalina.io>
+ <auSuIMloNE_R2T8z@scheduler.schedules>
 Content-Language: en-US
-From: Ilya Maximets <i.maximets@ovn.org>
-Autocrypt: addr=i.maximets@ovn.org; keydata=
- xsFNBF77bOMBEADVZQ4iajIECGfH3hpQMQjhIQlyKX4hIB3OccKl5XvB/JqVPJWuZQRuqNQG
- /B70MP6km95KnWLZ4H1/5YOJK2l7VN7nO+tyF+I+srcKq8Ai6S3vyiP9zPCrZkYvhqChNOCF
- pNqdWBEmTvLZeVPmfdrjmzCLXVLi5De9HpIZQFg/Ztgj1AZENNQjYjtDdObMHuJQNJ6ubPIW
- cvOOn4WBr8NsP4a2OuHSTdVyAJwcDhu+WrS/Bj3KlQXIdPv3Zm5x9u/56NmCn1tSkLrEgi0i
- /nJNeH5QhPdYGtNzPixKgPmCKz54/LDxU61AmBvyRve+U80ukS+5vWk8zvnCGvL0ms7kx5sA
- tETpbKEV3d7CB3sQEym8B8gl0Ux9KzGp5lbhxxO995KWzZWWokVUcevGBKsAx4a/C0wTVOpP
- FbQsq6xEpTKBZwlCpxyJi3/PbZQJ95T8Uw6tlJkPmNx8CasiqNy2872gD1nN/WOP8m+cIQNu
- o6NOiz6VzNcowhEihE8Nkw9V+zfCxC8SzSBuYCiVX6FpgKzY/Tx+v2uO4f/8FoZj2trzXdLk
- BaIiyqnE0mtmTQE8jRa29qdh+s5DNArYAchJdeKuLQYnxy+9U1SMMzJoNUX5uRy6/3KrMoC/
- 7zhn44x77gSoe7XVM6mr/mK+ViVB7v9JfqlZuiHDkJnS3yxKPwARAQABzSJJbHlhIE1heGlt
- ZXRzIDxpLm1heGltZXRzQG92bi5vcmc+wsGUBBMBCAA+AhsDBQsJCAcCBhUKCQgLAgQWAgMB
- Ah4BAheAFiEEh+ma1RKWrHCY821auffsd8gpv5YFAmfB9JAFCQyI7q0ACgkQuffsd8gpv5YQ
- og/8DXt1UOznvjdXRHVydbU6Ws+1iUrxlwnFH4WckoFgH4jAabt25yTa1Z4YX8Vz0mbRhTPX
- M/j1uORyObLem3of4YCd4ymh7nSu++KdKnNsZVHxMcoiic9ILPIaWYa8kTvyIDT2AEVfn9M+
- vskM0yDbKa6TAHgr/0jCxbS+mvN0ZzDuR/LHTgy3e58097SWJohj0h3Dpu+XfuNiZCLCZ1/G
- AbBCPMw+r7baH/0evkX33RCBZwvh6tKu+rCatVGk72qRYNLCwF0YcGuNBsJiN9Aa/7ipkrA7
- Xp7YvY3Y1OrKnQfdjp3mSXmknqPtwqnWzXvdfkWkZKShu0xSk+AjdFWCV3NOzQaH3CJ67NXm
- aPjJCIykoTOoQ7eEP6+m3WcgpRVkn9bGK9ng03MLSymTPmdINhC5pjOqBP7hLqYi89GN0MIT
- Ly2zD4m/8T8wPV9yo7GRk4kkwD0yN05PV2IzJECdOXSSStsf5JWObTwzhKyXJxQE+Kb67Wwa
- LYJgltFjpByF5GEO4Xe7iYTjwEoSSOfaR0kokUVM9pxIkZlzG1mwiytPadBt+VcmPQWcO5pi
- WxUI7biRYt4aLriuKeRpk94ai9+52KAk7Lz3KUWoyRwdZINqkI/aDZL6meWmcrOJWCUMW73e
- 4cMqK5XFnGqolhK4RQu+8IHkSXtmWui7LUeEvO/OwU0EXvts4wEQANCXyDOic0j2QKeyj/ga
- OD1oKl44JQfOgcyLVDZGYyEnyl6b/tV1mNb57y/YQYr33fwMS1hMj9eqY6tlMTNz+ciGZZWV
- YkPNHA+aFuPTzCLrapLiz829M5LctB2448bsgxFq0TPrr5KYx6AkuWzOVq/X5wYEM6djbWLc
- VWgJ3o0QBOI4/uB89xTf7mgcIcbwEf6yb/86Cs+jaHcUtJcLsVuzW5RVMVf9F+Sf/b98Lzrr
- 2/mIB7clOXZJSgtV79Alxym4H0cEZabwiXnigjjsLsp4ojhGgakgCwftLkhAnQT3oBLH/6ix
- 87ahawG3qlyIB8ZZKHsvTxbWte6c6xE5dmmLIDN44SajAdmjt1i7SbAwFIFjuFJGpsnfdQv1
- OiIVzJ44kdRJG8kQWPPua/k+AtwJt/gjCxv5p8sKVXTNtIP/sd3EMs2xwbF8McebLE9JCDQ1
- RXVHceAmPWVCq3WrFuX9dSlgf3RWTqNiWZC0a8Hn6fNDp26TzLbdo9mnxbU4I/3BbcAJZI9p
- 9ELaE9rw3LU8esKqRIfaZqPtrdm1C+e5gZa2gkmEzG+WEsS0MKtJyOFnuglGl1ZBxR1uFvbU
- VXhewCNoviXxkkPk/DanIgYB1nUtkPC+BHkJJYCyf9Kfl33s/bai34aaxkGXqpKv+CInARg3
- fCikcHzYYWKaXS6HABEBAAHCwXwEGAEIACYCGwwWIQSH6ZrVEpascJjzbVq59+x3yCm/lgUC
- Z8H0qQUJDIjuxgAKCRC59+x3yCm/loAdD/wJCOhPp9711J18B9c4f+eNAk5vrC9Cj3RyOusH
- Hebb9HtSFm155Zz3xiizw70MSyOVikjbTocFAJo5VhkyuN0QJIP678SWzriwym+EG0B5P97h
- FSLBlRsTi4KD8f1Ll3OT03lD3o/5Qt37zFgD4mCD6OxAShPxhI3gkVHBuA0GxF01MadJEjMu
- jWgZoj75rCLG9sC6L4r28GEGqUFlTKjseYehLw0s3iR53LxS7HfJVHcFBX3rUcKFJBhuO6Ha
- /GggRvTbn3PXxR5UIgiBMjUlqxzYH4fe7pYR7z1m4nQcaFWW+JhY/BYHJyMGLfnqTn1FsIwP
- dbhEjYbFnJE9Vzvf+RJcRQVyLDn/TfWbETf0bLGHeF2GUPvNXYEu7oKddvnUvJK5U/BuwQXy
- TRFbae4Ie96QMcPBL9ZLX8M2K4XUydZBeHw+9lP1J6NJrQiX7MzexpkKNy4ukDzPrRE/ruui
- yWOKeCw9bCZX4a/uFw77TZMEq3upjeq21oi6NMTwvvWWMYuEKNi0340yZRrBdcDhbXkl9x/o
- skB2IbnvSB8iikbPng1ihCTXpA2yxioUQ96Akb+WEGopPWzlxTTK+T03G2ljOtspjZXKuywV
- Wu/eHyqHMyTu8UVcMRR44ki8wam0LMs+fH4dRxw5ck69AkV+JsYQVfI7tdOu7+r465LUfg==
-In-Reply-To: <179328922134.76862.10417963652853801970@gmail.com>
+From: Qais Yousef <qyousef@layalina.io>
+In-Reply-To: <auSuIMloNE_R2T8z@scheduler.schedules>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/29/26 4:53 PM, Joas Antonio dos Santos wrote:
-> get_ipv6_ext_hdrs() walks the IPv6 extension header chain to fill
-> key->ipv6.exthdrs, but advances to the next header with ipv6_optlen()
-> whatever the current header is.  That is only right for Hop-by-Hop,
-> Destination Options and Routing headers:
-> 
->  - an Authentication Header is ((hdrlen + 2) << 2) bytes long
->    (ipv6_authlen()), so with hdrlen = 4 the walk skips 40 bytes instead
->    of 24 and reads the next "header" from the ICV and payload;
-> 
->  - a Fragment header is always 8 bytes, and the byte read as hdrlen is
->    its Reserved field, which the sender controls and receivers ignore,
->    so a non-zero value makes the walk skip up to 2048 bytes and miss
->    the headers that follow.
-> 
-> In both cases the OFPIEH12_* bits stored in key->ipv6.exthdrs depend on
-> bytes chosen by the sender rather than on the headers that are actually
-> present: payload bytes that look like another AH or a Hop-by-Hop header
-> add OFPIEH12_UNREP/OFPIEH12_UNSEQ, and real headers after a Fragment
-> header can go unreported.  Flows that match on OVS_KEY_ATTR_IPV6_EXTHDRS
-> then classify such packets wrongly.  There is no memory safety issue,
-> skb_header_pointer() bounds every read.
-> 
-> Advance by sizeof(struct frag_hdr) for Fragment headers and by
-> ipv6_authlen() for AH, as ipv6_find_hdr() does.
-> 
-> Fixes: 28a3f0601727 ("net: openvswitch: IPv6: Add IPv6 extension header support")
-> Link: https://lore.kernel.org/all/178905555085.219967.6617611783437228045@kernel.org/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
-> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
+On 10/30/26 14:57, Kayra Cizmeci wrote:
 
-The tag is no longer needed.  And it has a wrong format anyway.
-
-> ---
-> Found while going through the pre-existing issues the Sashiko review of
-> "openvswitch: fix wrong flag value in get_ipv6_ext_hdrs()" pointed out
-> (Link above); Eelco mentioned putting them on his todo list, and I did
-> not find a fix for this part in net, net-next or on the list.  Happy to
-> drop this if a fix is already in flight.
+> Looks good to me.
 > 
-> Tested by building get_ipv6_ext_hdrs() before and after this patch in a
-> userspace harness (skb_header_pointer() replaced by a bounds-checked
-> memcpy from a buffer) and feeding it crafted packets:
 > 
->   AH(hdrlen=4) + DSTOPTS + TCP, payload mimicking AH at old offset
->     before: AUTH DEST UNREP UNSEQ      after: AUTH DEST UNSEQ
->   FRAG(Reserved=0xff) + DSTOPTS + ROUTING + TCP
->     before: DEST FRAG UNSEQ            after: DEST FRAG ROUTER UNSEQ
->   FRAG(Reserved=0) + ROUTING + TCP, HOP + DST + ROUTING + TCP
->     unchanged
-> 
-> net/openvswitch/ builds cleanly with W=1 (arm64, net/main 94cea342e891).
-> I did not test it on a live datapath.
-> 
->  net/openvswitch/flow.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/net/openvswitch/flow.c b/net/openvswitch/flow.c
-> index 1c4f3a079..a1c60d2f5 100644
-> --- a/net/openvswitch/flow.c
-> +++ b/net/openvswitch/flow.c
-> @@ -372,8 +372,13 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
->  		hp = skb_header_pointer(skb, start, sizeof(_hdr), &_hdr);
->  		if (!hp)
->  			break;
-> +		if (next_type == IPPROTO_FRAGMENT)
-> +			start += sizeof(struct frag_hdr);
-
-Should we also stop it's not a first fragment?  There is no actual
-next header after the fragment one if it's not the first.  Otherwise,
-the patch seems incomplete.
-
-Best regards, Ilya Maximets.
+> Reviewed-by: Kayra Cizmeci <kayracizmeci@gmail.com>
+Thanks for taking a look!
