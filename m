@@ -1,91 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793516738;
-	b=21yxuuy1Bq2pWois++vlv5/iAnduQ7i8iczOF2I/jBVJ7no0Djz9m/4yK+AoAEzJuElD
-	 eItel8uP81jwkzjfSxtd4teb6m5Ce56DAcZHDx/w9AeAgUxz8HLw2/rs+ruobdaewBhEc
-	 b4Ib3Mil5jHTYh7u5WdiQ3+a9ci5jISM/ywbcIQqpKYCgm0aZH6xm5oltdq/78OT848Jj
-	 aqzUKvy8TP1JmVWpQ8Jj0IepkhAWnX27eaOzke8DOrnSK8BkNysI0sVxDEssXGAMhJT6a
-	 I7Hp/qjzkAl6B94+YxDf0JxIjYnAhtRqd4IkqAeamWLL5A8YYiXYIPUvSayBxIhEMOg==
+	t=1793516821;
+	b=Lq0mqnuV4KfqBSmsdyWV74ne9z1KlScH1rcyZD0tF5KyiHdcunC+A0UIShaYVZZkcGmH
+	 mr/d4O31GRXkNr4NOjpMbVuclSuS0zoRUVvFCi8SEVu6d2aU4T74oPqjSfh5/qqQZoXH4
+	 RlDsd/9i35pt3L765uvaCaPBknVzHlODfUbPLnrL88x1HQMDG5B4fqk5QU9Fkcp/vjNI0
+	 gfGynqQOS8t+jj9c8XSa0BwwN+LM7KjivO8o3dj5sz6SFXtYHSg254eDuN2lcBbBOgHzg
+	 SulgyaClv4R+2hriCE6lbdgIIdD4GaczBmbiog5UjZT2CoBMuIYtFWpIIUre34PJKgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793516738;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793516821;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=xXObFxvyVf638rF8Lwj1qoYtZtoDvpGbdlBiWuPOAow=;
-	b=Ihg/p+drTAJ5lyTQagGzslTD2cdqaRHrTwh8RDj7Fc5kPFk8qIdWTmXQp6MWXL/b7vhN
-	 0cgVKl7pYnOYhh3u/KSDZbbd6RbLkrI6L1ZlGey9sCDaHsuP81NFV3X0EnIsEkgUj4CG6
-	 ngNK7awjzxmicK8dQt59uovSeIOW5qz8x1xrezDu3bBkaDK4bvVyD+G3XWbkIF5BZUW0B
-	 cEap7KttCp2/8ZIaY3HdLBw16Bdily1/Ey794kapPiwzHXrWSkFWip8SUWIBClyI8Cffg
-	 /FQMOXKLqZH+0aou4PudZrFBBwUtdsT/IPf4Vs1z06J1bchBjgdfCkvKkriiqvj6cHA==
+	bh=mFt6fGnh/wAL9vMX1ZE2GCohPi4lZBYlsen3hpgedRU=;
+	b=fYYiZuAueYET6DbcC25UzZdt6nn0foRipT2W/zde9MdDyqsF9Km1HJXplC81KJdYN6T/
+	 /v403H2JpWFpBVt5O3Br7bJZTNy9DGO8Vz67rfILfQE7f3pUuxa59t5ASaeBNv1ay9lsg
+	 AQqC4pFfNepTFg9l0QbodpX3omrp3kvI7U75m/+8ywckX2NaYUJ7l12eRuGPivfgIP5Fy
+	 djrhjH+/Lc32y16BpoiUC77PSK6Ts7ZaeFAR86B6EGto1g50BMHFgFEjdv2R+nA7YFTdQ
+	 vA3s4VYVaipz+K5MHuoERoL38YXyvnHQarLsAbuQ9A+A1WjW/iVO/GxkpbP2kLIeJLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a9ky0HVc;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WrP3Z5c0;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23161606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:05:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23161606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE8A0606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:07:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EE8A0606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=a9ky0HVc
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a9a8d6cea8so25735275e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:05:37 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WrP3Z5c0
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-36a18fc7a38so2695696eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:07:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793516736; x=1794121536; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793516820; x=1794121620; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xXObFxvyVf638rF8Lwj1qoYtZtoDvpGbdlBiWuPOAow=;
-        b=a9ky0HVc/Kqk2Pf7E3jPBge1cZyVSmvG7vCDgL333pHwk6Ne6OKWikq6zr8hUeUaep
-         19g6O9XrwqKo5n3yy+6MvRrydpgYQOEhQZdT4INArkLsB/WGU1Vkkeevjxe/KUIp180E
-         FsX6emNjX9ov0RsIxofIs4S03kWvSzsodo1zxwR4bAKXTod4yX8BLz3xDeTl1hy2y2kn
-         uHw0ewOJbAtKZOLVWkA+wAAmhvyQOCBsYJvO5BKB1GggBOftGcSzPU2rhYIxvDWOe55+
-         so/SAsO65sM6m5QKLJ6bHl7nnY5lU9rIhehy+brZdyKkv2sXiGs88UmbvhZhwnpcFxxR
-         +FEg==
+        bh=mFt6fGnh/wAL9vMX1ZE2GCohPi4lZBYlsen3hpgedRU=;
+        b=WrP3Z5c0WIDja8/FWc2pYZbtMRealbAkM4qt9EbzKfKVucEkvBTDGnalr9uCuCY3lk
+         paNq8B9Ypp5XHuPTzr3Z+5NPI3msLEGzO6viDsh5+HNLuligNmwFeZuZFC+NrRu5fwYt
+         OXBzNtQ/pqYdIKsWEb+vzpru3HkcVnpoP2Hi1e0mRzANd79H5+l2DUi16LTAli/MH8AS
+         MJyqVzl+0BnYq37dxhkE0jM47LTtsbQMpO52KJpDwyIkW2p6hCJGbL5wMd2AXVs8iaxz
+         JizN4nwgc7prvmXFnUhBr3ZV7PbO5lrQ15bXBcBHub8VAF22OxqYPEa5RW2ZPYazL+g/
+         eWgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793516736; x=1794121536;
+        d=1e100.net; s=20260707; t=1793516820; x=1794121620;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xXObFxvyVf638rF8Lwj1qoYtZtoDvpGbdlBiWuPOAow=;
-        b=aTFQyEmM1xPKbAaufUvAl+zRVGXjpgSpYlf2gVe93Fvmji5boC8/f3YLjQmCd0MtL/
-         KNBbILwLItR1EgCOPZQ/y93IbAc5c/ErYoQGMTNti0V/UthCEJXu38r+q6C43gkB83wx
-         51m6Jicx5AmzuE0n2iB/d93xJD6Ke3YciDLmtIGKFM6upMdItVaimUwn3D2h/KH+h5/L
-         3d/PKKQXX725g2JMj3K/SErqEAx3HYPEBvv6p0I+Omu2SCYzKBVBrbW/6ETfAeKUnGYx
-         Mide1f03uLzhdD6CeFAC4VpR7AB5MAqrndAJHA7XKf5q35UOjoHieDHsrTIgR1X2rhRz
-         fnlA==
-X-Forwarded-Encrypted: i=1; AKwUvByEGGXGtOwD6RFuwpM6E3x/rV1jQ7DX1u5CpBlNRp5oIApT6D9/ykwxYbg0gB3FMtLjgZx+DEtr2nzfcFA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL9H0PnYVuReuyuavccgou0VKYK0lzUJBPYHLqH0mG21cRhfoqw
-	/Bjye2jxSaiEz+zfRWh03nOdKMseYMSFC6jPK75L482kzq304GJL4jGT
-X-Gm-Gg: AYBFou00MIDSM0OTcNFtRwPCmf6YIn3SnucBZt/UUPAi0530+fw4OQZDtI2dkwQgGc1
-	aF2wcsmhbdKqzPxkKCJ0XtpdOvDCoHU8o0xVPMghnV6F3M45QMxFLiHmb92BKOnYPuWrGZUCkX9
-	EscF7okgLVxNZ6NVHZO0Gg7FL6EGd94HapXJlJ0VasaOnBpr4nwGGhOdyU9Y+Ycf4+Xuoj+v+Du
-	rmKsRvDFdSquOhoGdkZtBMtd8K1pgOuXAwy41E4uZZ/ElNkCl9nf4ccAlrik5i8OAU8lfSsDDng
-	VmXcC86wbnI3ch6gt5pS0EDSKckuzLjzVinOsE1X0oISU3t0nf1k60vLhT3/k38/Q2DXc03tusg
-	cGNVyWNOnyo07UwWR77telreZObqxCp70luhOIXFUVjh3VLQ27Nt55VUA8P5uw1nKjv9JATW/AT
-	elkqg9XsAd2RnJRE8xw+g9jBRk/Q1yFHrI51ZG/Flr0ikG+ts0xYPzsJ2t8dO40ysMkJqde3i4w
-	G6lv7jSlOCsOJo1MMvbvycay1ApzG/e744J2xY1plhXwrmHlENk3ZTJU9OSlfRJVBZWXdqHH7Om
-	fXiN5nxCdCVg96CWAzesFkaCpml4a8zWQEmVQ5w7UiU4aw==
-X-Received: by 2002:a05:600c:5246:b0:4a2:1960:6fa with SMTP id 5b1f17b1804b1-4ac16acd947mr163406115e9.4.1793516736270;
-        Sun, 01 Nov 2026 00:05:36 -0700 (PDT)
-Received: from localhost.localdomain ([2a06:c701:4773:6f00:1f0e:d397:58dc:8e89])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0a762bc1sm82006195e9.4.2026.11.01.00.05.34
+        bh=mFt6fGnh/wAL9vMX1ZE2GCohPi4lZBYlsen3hpgedRU=;
+        b=dk2G+UAs952SjyDYRjQMr9uZucwI82FDKjY1cS6hw8+YNt4SVM4L+idyECDxMmevsg
+         gv7y1vCCndkfBxZdac+22qV5jQKRhVfaYhNDhelp5fG+KDkawv6ddC3ZWbaTfEF1RiIR
+         g5YulUFYF2L9HkFpVc2LQydsjKIGl+fTOfn7aNar0b44bMmxLDOlKMEZPP0F9CMq4T5C
+         IJWfA5UCESgpq0waNgDrrPR0WOnmqwulex5o/MzVS7br2VMQYv3/nhLBk1PhWcp3qFFW
+         pxAVeraHlxY3P/ePVugese7fa3f5epOtJ/KzJ/oGDviZDHh4Q4flCSClYZd4Ayb3bsNi
+         KT7A==
+X-Forwarded-Encrypted: i=1; AKwUvByu9HfQPjUR+5subdqiw4x2LRyrLi4B7HF+XsBwXZEhf9Snb5bv+4GOkwBXNsgL5kwN6j786HaPQVdsUFg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ISZkzAuqRkk8VCeS0e24QACFiWiFE1uDNVMo76W2TwpwSNigi
+	JKp97Jnk8n5nWpvMtyT62WHyju+Q1VLxSWH2r4DACR/O7i6XM4O+U0w2
+X-Gm-Gg: AYBFou0VMNvVmQLh0Jtsav+skPBf7qHmcLt2DdIyZqRgMrSYTDtefUpUkTgUFCPRpVE
+	tRUJYRZIEJyuIeFAkqgqJJsRbitS5jpAW+8LsTM+3BfJdSLK2xMN60+f/IvR3fGsjJRw3CoMl2l
+	0Z2AxkmSsngeELeHTfkshZORwXe4Uu+1PUz0sCYoMwickiQByIrJq8RpFp4shDdNFRO0RpDmrsk
+	fIQk+eyLJrA5vPUf3zQXNhkqZe+MeHxeku3IxQdcCgkRvwkfsj40VTxw5TRI0N/WTSWjKYIUi1s
+	XUehEvzA7suJR1KUvW3wsmYyGNrp4+/2kak64gtlVm1Tt/i1fQxcs+t5hv8LVg9HYZoEmS/IbPH
+	ZnNks3+O/e5a4Ji9vy1B/pFs+yC+myC6y8BqV5nuXZ0xYiBBXKaAY+PQ9M7Bp/4GjEPObHMj/98
+	sNwxapgKPdu8z68mNamzke+RfifrGBZj9RzjfwMwo6kuk+ZnBkKqnGZPPQ94jkJ413cyAP5/Wj9
+	XrHs+OXSr4OzAfvjUhGmaMrhpjNKcyUeR4dVLZSO0Pkwi/gsB1Jw+/3kGALN3z8e1ChWG+XY7b5
+	SPKG4wPStwFCTPXzb+3uDB7zQANMkdrLokUCRc+0k7XMilbyu6WGQd68O0tuvO+/h98C
+X-Received: by 2002:a05:7300:6ca2:b0:366:fabf:6273 with SMTP id 5a478bee46e88-36a423e35famr15750922eec.22.1793516820039;
+        Sun, 01 Nov 2026 00:07:00 -0700 (PDT)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm25922591eec.3.2026.11.01.00.06.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 00:05:35 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: tglx@kernel.org
-Cc: radu@rendec.net,
+        Sun, 01 Nov 2026 00:06:59 -0700 (PDT)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] genirq: Avoid signed shift when probing IRQ 31
-Date: Sun,  1 Nov 2026 09:05:32 +0200
-Message-ID: <20261101070531.192212-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	stable@vger.kernel.org,
+	Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Hongren Zheng <i@zenithal.me>,
+	Sung Byeongchan <tjdqudcks0424@naver.com>,
+	Cheng Yongkang <teel4res@gmail.com>
+Subject: [PATCH v2] usb: usbfs: clamp actual_length to transfer_buffer_length
+Date: Sun,  1 Nov 2026 00:06:51 -0700
+Message-Id: <20261101070651.1846947-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,33 +103,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-probe_irq_on() uses a signed int literal to set bits in an unsigned
-long mask. For IRQ 31, the shift results in undefined behavior and
-can set bits 32-63 on 64-bit systems.
+usbfs uses urb->actual_length from the host controller driver without
+checking it against the buffer it allocated. For a completed
+non-isochronous IN URB, processcompl() and processcompl_compat() copy
+that many bytes to userspace and report the same value, and
+async_completed() passes it to snoop_urb_data() when usbfs_snoop is
+enabled.
 
-Use UL suffix - promote to unsigned long so we set only the intended
-IRQ bit. Current in-tree callers do not appear to use the affected
-upper bits, but better to clean it up now for future correctness
-and safety.
+With USB/IP, the value comes from the remote peer. If the peer returns
+actual_length=88 for a 24-byte control-IN transfer, usbip_recv_xbuff()
+rejects the length, but VHCI still gives back the URB with -EPROTO and
+actual_length=88. usbfs copies data from failed URBs too, since they
+can carry valid partial data, so reaping the URB reads past the buffer:
 
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+  BUG: KASAN: slab-out-of-bounds in _copy_to_user
+   copy_urb_data_to_user
+
+With usbfs_snoop enabled, hex_dump_to_buffer() reads past the buffer
+earlier, when the URB completes.
+
+Clamp urb->actual_length in async_completed() while holding ps->lock,
+before the completion is snooped or can be reaped. The copy, the
+reported length and the snoop dump then stay within
+transfer_buffer_length.
+
+Tested on usb-linus e971f4f365ba with KASAN, using a synthetic USB/IP
+peer that returns 88 bytes for a 24-byte control-IN transfer. Without
+this change, reaping the URB hits the report above, and with
+usbfs_snoop enabled the completion hits it in hex_dump_to_buffer().
+With it, the URB is reaped with -EPROTO and actual_length=24 in both
+cases. Full and short control-IN and control-OUT transfers through
+usbfs still work.
+
+Fixes: 0880aef49e40a ("USB: usbfs_snoop: add data logging back in")
+Fixes: d4a4683ca054e ("USB: usbfs: only copy the actual data received")
+Cc: stable@vger.kernel.org
+Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
 ---
- kernel/irq/autoprobe.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v2:
+- Clamp urb->actual_length in async_completed() instead of only the
+  copy length in copy_urb_data_to_user(), so the reported length and
+  the snoop dump are bounded too, as pointed out in review [2].
+- Fix the Fixes tags; v1 named a later scatter-gather refactor.
+- Send separately. The USB/IP patch in v1 duplicates Sung Byeongchan's
+  earlier submission [1], which covers only the VHCI receive-failure
+  path, so usbfs still needs its own bound.
 
-diff --git a/kernel/irq/autoprobe.c b/kernel/irq/autoprobe.c
-index d0af8a8b3ae67..a46376373b3ea 100644
---- a/kernel/irq/autoprobe.c
-+++ b/kernel/irq/autoprobe.c
-@@ -88,7 +88,7 @@ unsigned long probe_irq_on(void)
- 				desc->istate &= ~IRQS_AUTODETECT;
- 				irq_shutdown_and_deactivate(desc);
- 			} else if (i < 32) {
--				mask |= 1 << i;
-+				mask |= 1UL << i;
- 			}
- 		}
- 	}
+v1: https://lore.kernel.org/linux-usb/179328314074.648427.8187049654053191605@gmail.com/
+[1]: https://lore.kernel.org/linux-usb/20261009122636.642575-1-tjdqudcks0424@naver.com/
+[2]: https://lore.kernel.org/linux-usb/sashiko-outbox-189547@kernel.org/
+
+ drivers/usb/core/devio.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/usb/core/devio.c b/drivers/usb/core/devio.c
+index 101cb9425..7319e8b98 100644
+--- a/drivers/usb/core/devio.c
++++ b/drivers/usb/core/devio.c
+@@ -633,6 +633,8 @@ static void async_completed(struct urb *urb)
+ 	spin_lock_irqsave(&ps->lock, flags);
+ 	list_move_tail(&as->asynclist, &ps->async_completed);
+ 	as->status = urb->status;
++	if (urb->actual_length > urb->transfer_buffer_length)
++		urb->actual_length = urb->transfer_buffer_length;
+ 	signr = as->signr;
+ 	if (signr) {
+ 		errno = as->status;
+
+base-commit: e971f4f365bad51d01bc90db55b56fdb3124f963
 -- 
-2.43.0
+2.34.1
 
