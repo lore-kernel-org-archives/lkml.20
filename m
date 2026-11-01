@@ -1,59 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793541342;
-	b=AVaVcQV9ACY/oufdV0Qp8P8S2KF5wAm6TATpUGzBu2BhXzadZYREnaT2VdEoVGzezeIB
-	 HFEHGlMJmnsNRxmGsyM1t/rphY7BDbk8OD6wapPMk1TH8w9yS0oBLY1bzRxsdTrjiPTdY
-	 wruxnqozXxsiISxevNdj9mZHpQOc7UXzy5AGF1jGLfQk8McyhE4qdXsRhwPfHjFbw4jXA
-	 NZw1619WM5zXe0RxFs6aC7XbN1xRqVco4S39RTyaNkjwLxhs1tHPDUxXxu7gOHksnpQfu
-	 WwTcV2E29+irLGEVXmfTZZZ0Iwdodpa17nt9l0bYeTOZ7MC0E0141msM17pluV+z1sw==
+	t=1793541431;
+	b=o6IWs3Xg6wzYHCC1uVrxsXFHE6iUbya8DckwsC/GwOOj/5hcQ2jRhY1Pw6cBpQy6S4lh
+	 7Gl4JLM8DupTKJc2m78ShO9pibuwQnkaWfU28/waAsk1ZZW5C2TJB0nhOb8wjd+C2Vw0Y
+	 A7b9Mshbu2w494FuphI4WETqpWafo1Ck7U+r3GTi07YIamt7vA8T+NV08kDC9LIiwTaLQ
+	 Vm/0alSuJUIrr1QLUku7Z9zy5J+utzxBqNkUTbMOPB4B0xLq1xBda8BTKjYtsATMEv/K2
+	 LWrAnIrkRsvI/bOk3xF/LCg7mGtKuo7io7kaBvgtVaCj6Q0zJ2/Sz3znlAvgYtydjLA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793541342;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=SFHUxyTe9QZ6LESJxwmHaoYtyHUY8quRXCEk8ZG4ceE=;
-	b=kSd7D6U3Pci8oKuMGPAR5u4sMr5NkNmYGjAgYO297tcqYtnIHcwlz0LaywjN/ndxIwqX
-	 ra16jgH0GkFZBKsK920VBuugD4lyy9hSeinHo6IrvsPbsHMVMbcmavWNUcvS22NNByBTi
-	 3pNal1FuW3bxVOP99Cq1uxUumFWVju/64F6dR1lS5xXpj6fVxkPltuje83QS4RpWiFSy7
-	 NIS5DKuQucDGevxMM3D83IdOi4Z+rR8QjOiHYJ5pVw1Y9v3U01KcZKdwi8KRyC6okPdNA
-	 nPeGLNUftCi3YdkBiSlXYMeMgMAnqLE10BGewdpQL6zMunDnGtpwfrnGyz0+3nno33A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793541431;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=1SdeQqahsjgj2IdvxOoLp/IQmogG4OUQWGtiQmCdE7I=;
+	b=tDkXTXeaP8ot4ZjRogwvWF2lMYq4m0onWJzol+c9hBd2XcrdKUHe49YUi/25J1qMRtwu
+	 5BxOMU5m+C18GES2TOcZowGY4j9db2VV3pEc0Ankh/tMnloQ5NB/Z6v/Tq2UXR3Q4RaN0
+	 jkdN/WTtIkXmD8tuWFgONnFbrfz6Q7ABQO/3aLF6qX32lH40gA/N+7F3RRtudvwf7ek7v
+	 hBWOSk0AnlGZOiVmSRjZcKGqGC6ilFdv5JiyjSHCK6M6kj61LRMFum5D0Du0Bo417Ww7c
+	 pCmeBei7OTiUQJ2hyvJrNl1/OGYGe8OJ+PI8zDj6FdCkm6PQJj7XTE88k5llz4mHF9A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOqYYifb;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YNNn+yfS;
+	arc=none smtp.remote-ip=209.85.128.48
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E43E606A324;
-	Sun,  1 Nov 2026 13:55:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B805606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:57:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3B805606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOqYYifb
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 397501F000C1;
-	Sun,  1 Nov 2026 13:55:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793541341;
-	bh=SFHUxyTe9QZ6LESJxwmHaoYtyHUY8quRXCEk8ZG4ceE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=XOqYYifb+aU+6Q2BqUqC6mJWjn1JXYRoHvgYSH8TPexTqRZkyTU1faOTb+gp5vLNL
-	 Ypw5/RI/sVh4Ngr4QA7nadA808wuD7nZ1+eG6hM4EhpZoQM0GO4TfiF0LsEYuv2hzH
-	 kwGy98TwemCgg3jXfjwqp9E6/1gOULZRJAusOkiAH3yJ9cTGaxALmy2EdObstxAFGs
-	 AUkBeQVT9/amP1V348eGBCTjnbrO29Dt+w8FvYXVowtmeacqEnpI6lFTkhPwE/8bto
-	 nE3grNhHiTKC4/JM3TZiF8WalCl8yBM2hDSHyTW5jZHtnOVTxbhas2doLhszlsj7KL
-	 bbAsFokwsR27A==
-Subject: Re: [PATCH net] net: parse the eighth nested VLAN tag
-From: netdev-bot+sashiko@kernel.org
-To: thnkslprpt@gmail.com
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, willemb@google.com,
- kerneljasonxing@gmail.com, almasrymina@google.com, josef@toxicpanda.com,
- jiayuan.chen@linux.dev, toke@toke.dk, linux-kernel@vger.kernel.org
-Date: Sun, 01 Nov 2026 13:55:40 +0000
-Message-ID: <179354134078.3131.9650678574145259725@kernel.org>
-In-Reply-To: <20261031135507.3970551-2-thnkslprpt@gmail.com>
-References: <20261031135507.3970551-2-thnkslprpt@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YNNn+yfS
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so16764485e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:57:09 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793541428; x=1794146228; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1SdeQqahsjgj2IdvxOoLp/IQmogG4OUQWGtiQmCdE7I=;
+        b=YNNn+yfSDu9KwB2t1WyLpUPEGTS4YVSnbznVuzhNLYn7/r08GcRtQ3FkH7/YVpMXfL
+         2vhnX9InUJ2YQul+dwSyZ0MBRf4EK/cO4tstwz5uw/8V36w6QWVmh+WNZ7nLeDqWXLik
+         qCJXb3/G9cDXUkdTl40BP/1zCsho1nUmO+LDc/nC6vQbdKqKLDMS9iTpVaa8En0Yu/oy
+         efYhSL8ctBqN4iARkib/DTJAciwVGZ3jVwtp6KLI1LkyCTwRM2v2p48wr4eUu+DDglHF
+         AxfwQOZhYdf9ub38EeCdFnhGV6dMyhENvc9tlsSo91gxEYVLWFNoA96YUGuXMv3BwVKa
+         0dvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793541428; x=1794146228;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1SdeQqahsjgj2IdvxOoLp/IQmogG4OUQWGtiQmCdE7I=;
+        b=s3p3D5rE7wvjhKKQAYjI05421sqLrtmyX21yc4QAHFV2l7WuIlJuth+U9Hu39bNbzp
+         RHauv8YxHHZ4pk/JDMqHDTqC6niYSKk4jFSo8teq/RX1puU2a/4MUnYC6FQSsJdIlN6s
+         d70uNGip1pKR2aLvqpBmfDXmBodJ3RkwP8HrEMDCBc+/FaFLqQoOlf6mdjXvQYPc0f4E
+         Rhysvd9TWHq0e8d/KvRk7Bkne4ML8R8AGi7GiMtj8c8uGRoqAzVvcaO0rSXfAf2H7cgi
+         mIkEugsifYr3HWYa+RdV6SMhFdyB9OWy8HwpERPdNX40fEtEnXCIVd+Hq/2OONjSyMda
+         7C1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxtmOayI60rnt34GnLPrm9VGQBPPQenq57Dm/ZvTL8m82/VCRCLMwowoYdjW7g2LbFjMavlOpDACBqzHyQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK1iDPQTC7mauOS/R+hiqXzubAZaqfCPdORrylG81sScK9bNqyh
+	WSoYQ2d9i3LWpyWG78b7u2Ko2UwY3UL2Z62t27QBGYRZaWpofqf2Z9x7
+X-Gm-Gg: AYBFou1BNYFCJNt/X5HaNVRBJZ4RiiFa9q+kqOxS/PGphiK0o4Ud2n9CDBP+HE4Ls7L
+	oFsx/4hyeBoV4d/iBHsvVL9cSOa8B9SmDd942OeiytWWrcBYFzCrSAFX3TLnBi/QghYzkY4Iivo
+	axPeJEWyGAV1FexPZhEOZkhHtGVciQinxs8t4Ynaw/armrJePXejooQYEIJJdwxR2DxPecy0KBq
+	C69ZXjfSDokcNmsUojVOWWihYodZjZdaRLGqIMi/Qc98n6AMAV93VKhUC6IOjykCC9SpsDWPbGJ
+	zMVOCvHJkqwnAGJWVXBm6AAN4ugdZtbMmvh3UcXE6iLXi6XxmgIv+Koad2OHFQUzoD0DfQrR93M
+	k42F85y0xleATiEXSdAD0scecHguph35QiKwrfwId4ppWOfjaZh6FtLtSVAlUfm5FCLM87yHyOy
+	c9t9xUNlLJKiZmwXuofrArIuoP4E2Avgpb6XYOt6+G4D4UJT60jvXJ//fvr8GdILZLgPXsTK0BD
+	2NC6QRzeqpg1Bh/3KzHFj535UIyRw/csltJ2b/v9AqoVnTuTiNsA8P6vM9Rv3Z8nTjbUOWhmIIo
+	i2hCrvNKRV09YXVR97H5KGlUhCgdEBZWq5t2NA==
+X-Received: by 2002:a05:600c:1c0f:b0:4a2:150f:1601 with SMTP id 5b1f17b1804b1-4ac1709a7bdmr174788285e9.12.1793541428376;
+        Sun, 01 Nov 2026 05:57:08 -0800 (PST)
+Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:9c55:89d4:b00d:2bbe])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b789ecsm13856454f8f.29.2026.11.01.05.57.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 05:57:07 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: Jon Mason <jdmason@kudzu.us>
+Cc: Dave Jiang <dave.jiang@intel.com>,
+	Allen Hubbe <allenbh@gmail.com>,
+	Koichiro Den <den@valinux.co.jp>,
+	Frank Li <Frank.Li@nxp.com>,
+	ntb@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH v2 0/2] NTB: epf: serialize MW setup and report reliable errors
+Date: Sun,  1 Nov 2026 15:57:04 +0200
+Message-ID: <cover.1793540847.git.thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,108 +99,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+This series fixes two related NTB EPF memory-window issues.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+The first patch serializes shared MW parameter writes with command
+submission, preventing concurrent setups from using each other's
+DMA addresses.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The second patch propagates definite endpoint command errors while
+completion status can still be associated with the current command.
 
-- [High] The patch fixes the counter only when mac_len is 0 or covers the
-  first VLAN header.
+Changes since v1:
 
---
+- koichiro pointed out that an endpoint may complete CONFIGURE_MW after
+the host times out. Propagating -ETIMEDOUT can cause clients to free
+DMA memory while the endpoint is still configuring the mapping.
 
-net: parse the eighth nested VLAN tag
+Returning success only for the timed-out command avoids that immediate
+regression, but was insufficient in the end b/c a late error from 
+command A may be observed during command B. Returning that stale error
+can cause B's buffer to be freed before B completes.
 
-This commit changes the parse_depth check in __vlan_get_protocol_offset()
-from a pre-decrement to a post-decrement. The goal is for a packet with
-eight nested VLAN tags to return the encapsulated EtherType instead of 0,
-while a ninth tag is still rejected.
+The second patch records whether any command has timed out and
+preserves the original MW return behavior thereafter.
 
-> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
-> index 48f6764117243..b10ce1d46674b 100644
-> --- a/net/core/skbuff.c
-> +++ b/net/core/skbuff.c
-> @@ -7703,7 +7703,7 @@ struct vlan_type_depth __vlan_get_protocol_offset(const struct sk_buff *skb,
->  
->  		vh = skb_header_pointer(skb, mac_offset + vlan_depth,
->  					sizeof(vhdr), &vhdr);
-> -		if (unlikely(!vh || !--parse_depth))
-> +		if (unlikely(!vh || !parse_depth--))
->  			return (struct vlan_type_depth) { 0 };
+The first patch also prevents a pre-timeout regression: without
+parameter serialization, propagating an explicit rejection from one
+setup can release memory referenced by another concurrent setup.
 
-[Severity: High]
-Does this allow eight nested tags for every value of skb->mac_len?
+v1: https://lists.openwall.net/linux-kernel/2026/10/27/2144
+Review: https://lists.openwall.net/linux-kernel/2026/10/28/466
 
-parse_depth goes down once per loop pass, not once per VLAN header that is
-actually parsed. What the first pass reads depends on where the loop
-starts:
+Avi Weiss (2):
+  NTB: epf: serialize memory window parameter writes
+  NTB: epf: propagate MW command errors while status is reliable
 
-net/core/skbuff.c:__vlan_get_protocol_offset() {
-    ...
-	if (vlan_depth) {
-		if (WARN_ON_ONCE(vlan_depth < VLAN_HLEN))
-			return (struct vlan_type_depth) { 0 };
-		vlan_depth -= VLAN_HLEN;
-	} else {
-		vlan_depth = ETH_HLEN;
-	}
-    ...
-}
+ drivers/ntb/hw/epf/ntb_hw_epf.c | 37 ++++++++++++++++++++++++++-------
+ 1 file changed, 29 insertions(+), 8 deletions(-)
 
-With mac_len == 0 or mac_len == ETH_HLEN + VLAN_HLEN, the first pass
-parses the first tag, and eight tags now work.
 
-With mac_len == ETH_HLEN and the first tag still in-band, vlan_depth
-starts at 10. The first pass reads the last two bytes of the source MAC as
-the TCI and the outer TPID as h_vlan_encapsulated_proto. That only re-reads
-the type that was passed in.
-
-Eight in-band tags then take nine passes. The ninth pass sees
-parse_depth == 0 and returns { 0 }, which is the result the commit message
-says is fixed.
-
-The egress path on a device without VLAN TX offload seems to produce this
-state:
-
-validate_xmit_vlan()
-  __vlan_hwaccel_push_inside()
-    vlan_insert_tag_set_proto()
-      __vlan_insert_inner_tag()
-
-__vlan_insert_inner_tag() pushes the hwaccel tag inline and moves
-skb->mac_header, but it does not update skb->mac_len:
-
-	skb_push(skb, VLAN_HLEN);
-	...
-	if (skb_mac_header_was_set(skb))
-		skb->mac_header -= VLAN_HLEN;
-
-A forwarded skb that arrived with mac_len == ETH_HLEN keeps that value. A
-later vlan_get_protocol() call, such as one in a driver's xmit checksum
-path, would then still get 0 for a frame with eight tags.
-
-On the plain RX path (skb_vlan_untag() followed by skb_reset_mac_len()),
-the extra pass happens to line up with the stripped hwaccel tag, so eight
-tags still work there.
-
-Could parse_depth be decremented only for passes that parse a real VLAN
-header? Alternatively, the start offset could be chosen so that every pass
-parses one.
-
-If the current behaviour is kept, should the commit message and the
-VLAN_MAX_DEPTH comment mention that the result depends on mac_len? The two
-texts in question are "allowing eight nested tags while continuing to
-reject a ninth" and "Max. number of nested VLAN tags parsed".
-
->  
->  		type = vh->h_vlan_encapsulated_proto;
-
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031135507.3970551-2-thnkslprpt%40gmail.com
+2.43.0
+
