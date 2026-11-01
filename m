@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793500258;
-	b=nOY/GiDDLbhrov/KhqSoujqnW8I75sLS6M67i/OI7ZCgjLdpQHprPxJFxmUZZCB62vq6
-	 dLuv+kfQMUc3j/CR80OIKooyXyY2omouokYODYlbNGCw2nwHSYKUqT/U3yasAikYBuupV
-	 +3/M9C7QrZaijcDSFJ/Tb0ipuvv4TAP9iqWMQrh0HOtPVQfoofxYHnxKQSq+8MI8THMfk
-	 tgJ9DrOUufZyPhxtBm6Ptg7knDjJgKJ2lxfeNlL0WD0Hg4v7IL9d89KSkLDTCqPK4uo7n
-	 2/hP8ILGVoEhmtyLHtotW8lqxRVGAY19tkZtp00MC6kLF16UG3azXbuUzL3XpGptXIQ==
+	t=1793500372;
+	b=I0tIMEu/1/xnPy36Y9vnuOaSIQ+kRrUJDf4IVXmc+lwgvpqY2/4v3ufYJPghtu0wyub8
+	 woN292hVOHZ4tKvb0dANLvYOppokUFb8deN++9sr5qdeKHqdFSUCFGGpNEEL7iIj0XIIU
+	 Jp5Ddj4itw8fJGTCyJU2JWI6lugwZkFmh/1my4EmCdLJtsVk2PtdBg1rhqwi9qxc5S5b1
+	 e0mzRitmC9Z+eJqZTDBM1xPlMzilB5h9WPmmSHluivIY4EVKY21tdw5vf3ih0BmARd4wu
+	 uqXARfHlm3BKNsTMBgf0X8RvkA2gBDkvcXbycBUcYtpaBcSAhEpxenn1e9eeerebw9w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793500258;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793500372;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Av/AZx/+hbd/epNN4JJOs8spD71iHEi1GvauWh/m9P8=;
-	b=SWuDZNdLR+aMHa/At1Ty0Gj+2MUafR6DkLNAC/EtalmdJ+dvQ+rLGZuo+comO1MKybDp
-	 nAZIV/Vm/XYaJFeYh2znn/7a1K/ILcx+0ksqEMiHSNDVeay2jZzf97KGUj1BaObvB6E7g
-	 zoPd5nKYhCEa7BpBwJp/GUfX+V3nIcYFOe3GD0aDpjaLaL2y04fI7XpQhmvk2GTaH05lQ
-	 6heHR7+4UuRI1NkDfI8UeXNMLWpdiv3YNFngbX8xCyZIeVJwGyS8USlinoiOe1VMTVGXu
-	 vdhgd3fscsj+t6CPTW1rJ9uaeeaJoeooS050Qa2T87jTtzswqgjNATwnjyiAhB20qkw==
+	bh=io1h8wzcadpTDuoB7GZuwOI3LJnSvjgks0Q8JaPUBzs=;
+	b=Y5fYktT0pTQ/JLP1nlCcrpK2DeYy6JGt9DvnWtmNBoML/2HZ2ah6Md4thj7sUxAPjzTp
+	 gRUh6o/ri9x4kUZBbpe2zhfPlWSr41JU9VJ4lAPixHQarRoiIVvi9UhHx4Zpcdn5QDAkp
+	 8meX7HGI/zpZ6gqyX9hJgXDefkAyWQj54YMyBO/54WYOv+994juy1gY2nwEY2ZRpcaA8D
+	 whigxi14i4ZSZlehhncmmNdaDE3vluX2oO/XBXRc07j4mAOi0VDk2tQkbQGfa7hf5vkUk
+	 jg6T9Umw1RfcbZCAxrMlaZ/CK334UFT+d2rZ06tmaYouzZvALmFKSmadaB/eAaSbxfA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ok2oMrG6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfKBJ6I1;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133F4606A324;
-	Sun,  1 Nov 2026 02:30:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42CEB606A325;
+	Sun,  1 Nov 2026 02:32:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ok2oMrG6
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mfKBJ6I1
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793500257;
-	b=zA4N53CkZlEYr1KvM2suW5fUtKpyPuN0JX/N/Zbu7sQyw1EOrSTBU9c/OcRDpH8OFIGF
-	 Oey3JFNA2ip6HhqIA/0JO1LqhmfkXfYb/8RP7nG7jQA4XnR/J8wZYzDhmKO0JRk2m4Umg
-	 y3iycGEqezip5TqoZDE2haxMnZ5Bt8yi8tVstZyczX5LrK3vQFQKjHkkTY5tzO93ZYfpi
-	 Tw3rPcLpScXGCsad/1xdaqugFRObcWvoBfhvxOCrR5zscP2SKSZT8X+jOfHUGZyGQ3meo
-	 +ppDyLR8CGaW1aJq8U1Jht+YgVuB83UtszxGht5SHL3QZzVb1XjVJZXLkq3zTBSkJzA==
+	t=1793500371;
+	b=QtXT1zE5+3DDdh4Zn2Ma4SJYYZpC7ZZiduS+6VLTXvyf9Sig8Z8T/L2JHPIf3aS5rJP+
+	 0KezN3M6YGDMBlRaE2NuoJEleDO6xew38xJTlUCMkA9FWiU+ruqAbt23CLoyMoZjb/n1O
+	 Xxqx1SInTIouhzR4L5wO78CaZYbTxkkWaRm5HVC7cMwseGDflJcXWVRG9jwxDfgRLacoE
+	 b/MAL0n62mWEJGeqPZiPfXbOGQkk3lH7DmpZWchu5inBXhCLgk/TK9uBIVnhGBL9SDHhn
+	 0KIWIElUBV9tr62vKUOQVqR0Gb/Fupr+pDJU+3Oy0ISFeyEut87l2ISFUYNxSHH5s1Q==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793500257;
+	c=relaxed/relaxed; t=1793500371;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=Av/AZx/+hbd/epNN4JJOs8spD71iHEi1GvauWh/m9P8=;
-	b=XFnv6AS+WPCEBZd57mLd1GLj9qcEdd7wxD/FrrfEZLSSexEFkkCGfvP39ifCvFTBa4o3
-	 WoWEc7nLNM3cdW4idJ2DtVK7i3FVLArGABHwwF9iDl2UM7HomrDkVCgTFiHGL0Ewr4vOe
-	 lY4vYdW04JPNkSH2efbLMbPVpbwFiH9GjG4Wmaq0mIk8CAju+vu8uKetH/guJYYibe9dd
-	 4ElETqvcMM3J8WOEhVUyarTpvUZte2lhOAQyrRcXzppNSDuWFrlGCiEZ9EmaQla4K+Kan
-	 1969f1gyc6EA0prWXm+AGEK1/kvDOYE7fKBJyWeYpMl/M4kmpA2M/tP6Cnrxvl5EXyQ==
+	bh=io1h8wzcadpTDuoB7GZuwOI3LJnSvjgks0Q8JaPUBzs=;
+	b=CVSNWgsl6G1Ma40U3jqrwDTDKhW8Z/tCNLNVFa+Ol0wIieqHx/B/0nCPfKzeaudXySbB
+	 WFzLUWFGTS1XOYjgTid3Ixtqk43wTmE6FackoTmDojb8/Vs3+PCDjuKDXTX7BbRx2RVEr
+	 9A83EAFmJBcitsN2zE9BshScd+BdavUIQ+T38qNliE1v8JAkTLPVG6QPjujr5hVUmlY/m
+	 GgyFP+2iLzDUmQVMMhnMo50rWV6fzPpAQAaH7AG+LRNbGPa0A5r5EiktkrcSXGqQzLZMS
+	 PFY5BumuLPXMizzr2gug9Cc/zgqd8AbeWc3bUvbxc2A8m/HY3X0WwXE0oFe0JAUSQMw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 0B7EB1F00919;
-	Sun,  1 Nov 2026 02:30:57 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 58B371F00919;
+	Sun,  1 Nov 2026 02:32:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793500257;
-	bh=Av/AZx/+hbd/epNN4JJOs8spD71iHEi1GvauWh/m9P8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=ok2oMrG6eftGOhRimh3x6jwoxHdFt4h78EoK2X4i5hI1+7R83grX9e7LR6VwOQyzN
-	 /YgJO8ccurJebZzh0DS0SwYDvUlv6rJnOmmGZvNfs8HjRb10/CtRO/PMI3uxLDFJ+/
-	 PJ5I7W3KcQVMx74r8dhJRy3GgdcCxzkxYXN4Dh30rNzRy5/8chS7sscbvW3FFHDRYT
-	 CUq0GQaCmK7gRDeWVUz5brC6tBV3FgihmP/e/2VB3G2c3f74aAO7qZmu6NCk8OP+Nc
-	 GvokKoaD31rDMySVtIk6vFCIgox8132oPraBRijt159EESJaBrYlLSC58/IOKFxuwx
-	 584gT3ffeRodw==
+	s=k20260515; t=1793500371;
+	bh=io1h8wzcadpTDuoB7GZuwOI3LJnSvjgks0Q8JaPUBzs=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=mfKBJ6I1FAU8XZeMwh5G2zP7Qjs2zfCNFfEOoEZyGNxXYCk2P4dECTjVbtbeHEsdz
+	 HGmKWRveiDgdaAf2yX+eVo0PcLnZn4sviJIEaSR7OINeJqu5lBFW9ixmQP1CMkcFRj
+	 4BBEUe2JVNTK2g+GtrshxMW58xu3GqK2b8W14TieON6hepGVRaxEZwCvIJKskPMSXt
+	 nnLJnxjIcr/ctiQiCJ2U8769o+qwobYVRBv4k3Ijeq0h0QKjNz+DTIpBKh0UXt19Yo
+	 t65bYxo+pAQnRtuiHPBDjA2V8Pazyq3NEtBYh/T+tgPgn/LuBf8RIBjX3XQKtpu5Rx
+	 T2iCDeJVf8zGA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 8BEDD46037;
-	Sun,  1 Nov 2026 02:30:56 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id DA0834605B;
+	Sun,  1 Nov 2026 02:32:50 +0000 (UTC)
 From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Sat, 31 Oct 2026 23:30:55 -0300
-Subject: [PATCH] drm/msm/a5xx: Write CP_RB_WPTR under the ring's
- preempt_lock
+Date: Sat, 31 Oct 2026 23:32:50 -0300
+Subject: [PATCH 1/2] drm/msm: Report no GPU time for a submit killed by
+ hangcheck
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,11 +84,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261031-a5xx-wptr-lock-v1-1-fa7d7b9a7fbe@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5EMBCA4VeROZvEtKmDV9k4UFMGQVq7moh31
- +X4Hf7/hMBeOECVneD5J0HWJYHyDOzQLD2jdMmgClVSoQkbEyMe2+5xXu2ExrRkSGvlrIMUbZ6
- dxGf4qV+Hbzuy3f8XuK4bHMQP9nIAAAA=
-X-Change-ID: 20261031-a5xx-wptr-lock-55b151332fcf
+Message-Id: <20261031-a5xx-submit-stats-v1-1-16a67ac96edd@gmail.com>
+References: <20261031-a5xx-submit-stats-v1-0-16a67ac96edd@gmail.com>
+In-Reply-To: <20261031-a5xx-submit-stats-v1-0-16a67ac96edd@gmail.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
  Konrad Dybcio <konradybcio@kernel.org>, 
  Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
@@ -102,11 +100,11 @@ Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Fabricio Akio <fabricioakio@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793500256; l=3913;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793500370; l=2799;
  i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=SUNATcfAyOfKteGeuYntWXBBaaQFnfxYwXjBjp6a+vU=;
- b=ZMKnqzhG6IvyxdK/sCwhtNHfQiyo+Tuzwg7/AsYhB8BROSd9CZjCN4WCviZhiZo7TMnoFkvci
- T5kHFg5BUdxDhvD0Tc0/R4AjvSBNoSiRgbkW89xgsE+Now3SbyqgGRt
+ bh=XiTCuVQ2SVXzVV9gUfwhSNVnytDNQZiKRQ8ZI2IW92k=;
+ b=cPMkjXaKMy9W6RniiDq9tmz9FCrvwjT09MF7QD6Laqc6C/gY1veoNzfm5kP0HChlmkatlVxxw
+ mlVCjpZb7uJBCmzscdggw8yOnjQVgLHgnJRdWjr2I8EP6hUtTw367QO
 X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
  pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
 X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
@@ -117,92 +115,76 @@ Content-Transfer-Encoding: 7bit
 
 From: Fabricio Akio <fabricioakio@gmail.com>
 
-CP_RB_WPTR tells the CP how far the ring has been filled. Two functions
-write it: a5xx_flush(), after a submit is added to the ring, and
-update_wptr(), which a5xx_preempt_trigger() calls from the IRQ handler
-each time a submit completes, whenever there is more than one ring,
-even when no ring switch follows. Both read the ring's wptr holding
-ring->preempt_lock, but write the register after releasing it, so the
-two writes can land in the wrong order:
+recover_worker() advances the fence over the submit it treats as hung
+and retires it through retire_submit(), which computes its elapsed time
+and cycles from the stats slot the CP writes after the submit's IBs.
+That submit may not have written its end stamps, leaving an older
+submit's or zero; the subtraction then wraps, and about 3 years of GPU
+time is added to the context's fdinfo drm-engine-gpu and reported in
+msm_gpu_submit_retired.
 
-  CPU A, IRQ:   update_wptr() reads wptr N
-  CPU B, flush: a5xx_flush() reads wptr N+1, writes N+1
-  CPU A, IRQ:   update_wptr() writes N
+Set the end stamps of the submit the fence is advanced over to its
+start stamps, so that it reports no time. Do it after the GPU is reset,
+when the CP can no longer write the slot.
 
-CP_RB_WPTR then points behind the last submit. If the CP has already
-read past N, it treats the ring as nearly full and executes the
-commands left over from its previous pass through the ring. This shows
-up as CP opcode errors, and the old submits write old fences, so the
-fence in memptrs goes backwards. Recovery then finds no submit to
-blame and does not reset the GPU, which stays hung until reboot.
-
-Write the register before releasing the lock in both places, so the
-last value written is always the newest, as a6xx_flush() does.
-
-Fixes: b1fc2839d2f9 ("drm/msm: Implement preemption for A5XX targets")
+Fixes: 4241db42e474 ("drm/msm/gpu: Add trace events for tracking GPU submissions")
 Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
-Tested on A508 (SDM630), with piglit's texelfetch tests run in
-parallel: CP opcode errors in each of seven one-minute runs, the
-seventh ending in a hang that never recovers; with this, none in 25.
-
-The downstream driver writes the register holding the ring's
-preempt_lock in both of its places:
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno_ringbuffer.c#L104
-https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno_a5xx_preempt.c#L25
+Charging the time until the failed submit was retired, as panfrost
+does, would need the stamps' counter read at recovery, and that
+differs by generation: a6xx stamps CP_ALWAYS_ON_CONTEXT while its
+get_timestamp() reads another counter, and a2xx/a3xx have none. So
+this reports zero.
 ---
- drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 10 +++++++---
- drivers/gpu/drm/msm/adreno/a5xx_preempt.c |  3 +--
- 2 files changed, 8 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/msm/msm_gpu.c | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-index 16c7335c4b1f..63b313328979 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
-@@ -53,14 +53,18 @@ void a5xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
- 	/* Make sure to wrap wptr if we need to */
- 	wptr = get_wptr(ring);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 0c2c35636251..40d658a63540 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -468,9 +468,11 @@ static void recover_worker(struct kthread_work *work)
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_gem_submit *submit;
+ 	struct msm_ringbuffer *cur_ring = gpu->funcs->active_ring(gpu);
++	volatile struct msm_gpu_submit_stats *stats;
+ 	char *comm = NULL, *cmd = NULL;
+ 	unsigned int noreclaim_flag;
+ 	struct task_struct *task;
++	uint32_t hung_fence = 0;
+ 	int i;
  
--	spin_unlock_irqrestore(&ring->preempt_lock, flags);
--
- 	/* Make sure everything is posted before making a decision */
- 	mb();
+ 	mutex_lock(&gpu->lock);
+@@ -548,8 +550,10 @@ static void recover_worker(struct kthread_work *work)
+ 		 * For the current (faulting?) ring/submit advance the fence by
+ 		 * one more to clear the faulting submit
+ 		 */
+-		if (ring == cur_ring)
++		if (ring == cur_ring) {
+ 			ring->memptrs->fence = ++fence;
++			hung_fence = fence;
++		}
  
--	/* Update HW if this is the current ring and we are not in preempt */
+ 		msm_update_fence(ring->fctx, fence);
+ 	}
+@@ -558,6 +562,15 @@ static void recover_worker(struct kthread_work *work)
+ 
+ 	gpu->funcs->recover(gpu);
+ 
 +	/*
-+	 * Update HW if this is the current ring and we are not in preempt.
-+	 * Under the lock, so that update_wptr() cannot write an older wptr
-+	 * after this one.
++	 * The submit retired in place of completing may not have written its
++	 * end stamps, leaving an older submit's or zero.  Now that the GPU is
++	 * reset, set them to its start stamps, so that it reports no time.
 +	 */
- 	if (a5xx_gpu->cur_ring == ring && !a5xx_in_preempt(a5xx_gpu))
- 		gpu_write(gpu, REG_A5XX_CP_RB_WPTR, wptr);
++	stats = &cur_ring->memptrs->stats[hung_fence % MSM_GPU_SUBMIT_STATS_COUNT];
++	stats->alwayson_end = stats->alwayson_start;
++	stats->cpcycles_end = stats->cpcycles_start;
 +
-+	spin_unlock_irqrestore(&ring->preempt_lock, flags);
- }
+ 	/* retire completed submits, plus the one that hung: */
+ 	retire_submits(gpu);
  
- static void a5xx_submit_in_rb(struct msm_gpu *gpu, struct msm_gem_submit *submit)
-diff --git a/drivers/gpu/drm/msm/adreno/a5xx_preempt.c b/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
-index e4924b5e1c48..0deac58bc22e 100644
---- a/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
-+++ b/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
-@@ -47,9 +47,8 @@ static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
- 
- 	spin_lock_irqsave(&ring->preempt_lock, flags);
- 	wptr = get_wptr(ring);
--	spin_unlock_irqrestore(&ring->preempt_lock, flags);
--
- 	gpu_write(gpu, REG_A5XX_CP_RB_WPTR, wptr);
-+	spin_unlock_irqrestore(&ring->preempt_lock, flags);
- }
- 
- /* Return the highest priority ringbuffer with something in it */
 
----
-base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
-change-id: 20261031-a5xx-wptr-lock-55b151332fcf
-
-Best regards,
---  
-Fabricio Akio <fabricioakio@gmail.com>
+-- 
+2.56.0
 
 
