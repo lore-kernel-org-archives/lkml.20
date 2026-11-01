@@ -1,93 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.115
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793548390;
-	b=YU8zyGAOQRKBhz2Xq5dkm+mkiADHZFbNhdAekLR9xAfbMRo56x8jAEr9u3igWb3dkrB+
-	 Zfl5gEPumV3qlQYERhj2f59l4udL4WO6S571JIBvzam3BimCx9TesJeqONBKfBBsGV/Rl
-	 tmccZeY2PlGXUA23bdBwAo3XICvEyBDrHcx6xeQjGTSUHInZOSQiw3F6snGhLJxGdtHfD
-	 hCefIbNd7lDlJUowOQQ0Zh6GXLGjVD1g1Udzie99bLCmrO2mjWBazjF77x2WvCdN4Q8Q8
-	 IQPcWBcP7Kh0XfjCguKw36m5Y3ujy7zUumNfH2ejQngruk2KWbuEBJr7y0PWMxqIUyQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793548390;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=SvIzipj9NDM+Qu79Ax9OQzf1OHDMMvrAXAiRhPhywSk=;
-	b=FKizrH6qYOYNotbScgXA6b9XMgNx59M6g2f4VwdbVsyaY2tCmd+EVx8GWHV4I4uotsJh
-	 iWEMFahLbPs1FGNBCdTIN0WbpR9IWkVreIMiHuaB00t3J8bzcgomt8Mhypch1Rnr8b1KL
-	 xy/YrrGMVMp35CPcBndS4i0uNcOWZ1ugnjh0uF8pjBoGvsiU+8xwaqeKsjf9P61uakCUC
-	 dKcoQGi2BJaQ9yGuGCDtKEJ4emdlLU57QlBuoZ1igQI1m1yLuTVkogp2yCwYsHJ1n97/h
-	 CEqRQHLB64I9iI1/Yyq4h243AbZirFRfD5F2spn6kbT+MLRHSSBLkxGiKr3IY2WsExw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=valinux.co.jp;
-	spf=pass smtp.mailfrom=valinux.co.jp;
-	dkim=pass header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=NRayFw3S;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.74.115
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11021115.outbound.protection.outlook.com [40.107.74.115])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793548490;
+	b=hQ7N2atHTrk5/WrWZAvEIljo95c2l88xpJvuLRzh6bNtKnbaCXHhQgedSdyEf0M1xw+1
+	 1UrrJiq+K+PmPtuRhKWPepQu6/mn7Q8dxW3N5YzvgJaob15wbIKgt2M6fc21H2GSEbHxy
+	 8d3aQ3jIenbUBeUbRegVXSMtKhapSWQbjEaCVz10wi6kTIAIw89hp4G1NWIBImMEuIV5d
+	 Yhz9fTKSd+Dvqc7vmHQrSPVbRjL0g2f7VcI+mpC1A7bNKlTFq3IKF/WG9vPGf7HFkW/Ii
+	 k6v1eK/zx65R4iaPqBi122Td92/U1OWKirufVuJuX6XuuIsvhQ6/sre+ZIFNyqOggRg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793548490;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-Spam-Details-Enc:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=ESraT188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=;
+	b=UiB/K60bwqT0ErF01VpmFH+WsBmZKJmusfMNR+e9CAatids386Ax1gO7/wFB7CtsfMkK
+	 lj5QH+UlMIdYJ7/BVtoI6+eJvrGKZK2/RgqU8SR1o1jJwBnu+D8DD1/yh8NZLi7kJJ907
+	 gakRHewqIa8zgJeIcDYOmhQwy1VLNGABXxnQA5zJQ5LJ5+eFhtUIbV2K/zKtRwZ6L1sBT
+	 AkZaXBb/wuqOEzqhZzXN2Ia4KycuolWNjuxUmDmJe1EXHxlKH0sjzUIyeKhpq/OAhgIGJ
+	 MTkugNqjwBV0sQNNHyJbJr+Y8JXW2SEpVENUULhfFZl70sRQn/tN4LlPDmUaU0lEfQg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b="P/K5G4Mq";
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=uYDYlGG8;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9243D606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:53:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9243D606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACFE6606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:54:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACFE6606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=valinux.co.jp header.i=@valinux.co.jp header.a=rsa-sha256 header.s=selector1 header.b=NRayFw3S
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=is+I9j9P2AHkC5tFMAsZ1qvVw/uFfm4HAnUbhh4JuU/g8T7ExATE2Ax3xJECDun879wWOEhma1WcU1T2aO6XyiU7O406KXJ7ZcgD6fsjhn6tyn12zuD++ZvSnCSImhCCP1JQOaB/S4oB664oj6XtDm3/iRlvbk1gAOoYGVYt5kty19GWJDRkaZDiNucuZKT0KkvHgIGHVrCok65nZa10mT3u9JnG1YRbtjD7uenoxg5UdQBqdCAjLLQ4qh7jWnueF9HFV4CMQUaP5QtfA1AsbuJ5Pq7Nh3AHQ0lyN0BxJdCO3SDEqagwBJGB+YqhlYCHkfrlWMcx3b394joyO+mvoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=SvIzipj9NDM+Qu79Ax9OQzf1OHDMMvrAXAiRhPhywSk=;
- b=ox1Uhw/vd0JDLK5/SvQSROQk7tSevUc+bfI/almsdJZhXSlA3G20BPcETDbTcsch265lidlYxYP0ITHi44vX/ddPRYXcHDV7wxU+jiuq2/L3KkRIMsgbw+imDwUSSkcoEB6GxBbRRodxR/JTRBboBWsaGbwN2dcQ5zik5SwScUZvMCUls+hyNENNB+3BczB2LZS3hv7NobxepB6jZZbOGen/rul5nv+gm602HT5MxCNSKE6E/gh4+2HrUwwQMD9lp9zMZfZVosdyjwvK0fNkcvnRGpcIkewoIx9+iDrUVakmBgoYZGggZgnIGIFTqv6ceDpo0sFqfNKSy3FGmHyBuw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=SvIzipj9NDM+Qu79Ax9OQzf1OHDMMvrAXAiRhPhywSk=;
- b=NRayFw3SjEctvD2Zq5qycpLhots9o0vmacADK1w6XEWhyNMlgeHezLuKn2wvocRgsQFGkujj/FRnkeo0ME3mzYC3IZqfeI0rxRE70HF5wDoDbYE5gowS82orwXbBYUFdq3Wz204Iyb2vtj6CbUOrb80H1QQV8j1PQBKUUXlKLZs=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by OS7P286MB6586.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:42d::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sun, 1 Nov
- 2026 15:53:06 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0569.011; Sun, 1 Nov 2026
- 15:53:05 +0000
-Date: Mon, 2 Nov 2026 00:53:04 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: Jon Mason <jdmason@kudzu.us>, Dave Jiang <dave.jiang@intel.com>, 
-	Allen Hubbe <allenbh@gmail.com>, Frank Li <Frank.Li@nxp.com>, ntb@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] NTB: epf: serialize memory window parameter writes
-Message-ID: <y7wl4wp3my2vwkyolstz2qndurn2idm2jkxfdcmpao2pydll6u@45sh5nckkxjx>
-References: <cover.1793540847.git.thnkslprpt@gmail.com>
- <eeb0cfec451d748b2f997c16a0a3a2afb56569e9.1793540847.git.thnkslprpt@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <eeb0cfec451d748b2f997c16a0a3a2afb56569e9.1793540847.git.thnkslprpt@gmail.com>
-X-ClientProxiedBy: TY4P286CA0058.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:371::16) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=P/K5G4Mq;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=uYDYlGG8
+Received: from pps.filterd (m0167073.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1Fg6HX3751800
+	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 10:54:48 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=ESra
+	T188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=; b=P/K5G4MqEuZj9+6+RC9s
+	jnCwKpynXG5iiq0cGPCeDjgJ54gVhUu9AfrGHD3HwtbCoiAcHToOPbuUz6LWJFTD
+	9FIjOEFgB1+fgFZtNSTc7RfNrR356rGOgHrSdZ5vT3vLxkmoIN4eS/27VThq0Rf6
+	JEbNc+8tuvdUQaAUoabBGaZX4w46BM1trPb+2QQYS2fnJHoorpvX84dR2zD3OLIn
+	l/KRnqYFddnkjJIrglo5U85zxeVyyANYOOiEaj+ILTcfJAqqNNkDRY6eqHecnujN
+	nItLYO7BXQ/j3zV0DNPBftKyL8rj+nSO32tYdtaDouydEVQI6wJwko6Sm2dfMGbh
+	Gw==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hp89qg1fc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:54:48 -0500 (EST)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5352436cd78so21066211cf.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:54:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=columbia.edu; s=lionmail; t=1793548488; x=1794153288; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ESraT188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=;
+        b=uYDYlGG8d/0I6GlyEkyukBYsbOH6CXVC2ZY3iC3EnzdyNYjyc/+kuRT47u29ku7Rvs
+         5ES6/SmPMC3MfNT2XKagvqkiBHwxvoov6x4nWXpvjLKonHVkSstt2qBGnZ5gzJGcDjyS
+         3vw3LJS7s0qQ5zDC/0XMrjV49TfZu8QH7Doqd4R0hVQH+h7rGjdYxtSJn+T6pVISt+Ar
+         tY9flTKjgbe4xgvYnH2p3RL7asolYnpTL4O1wsanqJHkf5SV59MoUSlgieSS154nFqtQ
+         60H+aNH3j7rUj2Lc+IN5JdSj2uIkggM6XwK7ooymh7tyHsTK0sCE3eTPRytTYJswpnit
+         suCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793548488; x=1794153288;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ESraT188hHqeA/eG2HAU4aWg3ncS/DlKucSFgZXYCzQ=;
+        b=g7tfJfNGX9vv9fp3BS8BgCrLngeGfq3oamvrappT1sLb07OS1yhz53gUUAP6NCmHue
+         9WYqAzatkc9i99b0Y0fdVo2wHrZAIvDTvBpEmI4f8RPjgtEWfTQdPkWlzy1Nk4AN1ASV
+         qjQvEKyBkvY37ZAATg5nWCtiZwlxZqeOWBzUdnNJVITqz1wID7345AH5T46O+F7fBG6J
+         LUYAcrnwh7jnX0knCMRCltK/XiQq9HpDea0+cnOfciLnKTovB7pyMOLweL9jyHsn/gQf
+         lv2ZRKaqOZY/ZZ4zUmUH0r35xKtG9qHnffQ2REzUiDXr9zg7YAVn3V1q8LI6F05UeDHr
+         hmpw==
+X-Forwarded-Encrypted: i=1; AKwUvBybylZ9I2t/Miu6/C6HZh/ncghZWz5YD/VA/UqxC2Ny7xtADLXTYRpHoSLdADPJj7O+yipo2HUaWHWxlMY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ5zgRCiR0wZsbCEbak7Nz3f0IZwcocmtm0rC9sCevCxjS3kebH
+	w+T4XvacnWG9PyNRpt+w0QWOwGysUdyculI9wThC43iBpMtgP2IHf1qHjQba4gBSrye3gGKtbmf
+	9BjK22EyOY9Jcrrx6e6i7BTfnZZRGN3ItX8xPE0TbraTSV/kDHw6OcVvZgiCxug==
+X-Gm-Gg: AYBFou2rwGVT9JNGCOF/FV8+8EES6putm3AA8iTNA+XJNMZ/IiBUwvS6lDid6QwwIRQ
+	38UARPHB5RozBg2YFV/IAK7FGDjCwEzbJot/0oJ0RJ0y7Pi610CzDub2PWOOLcUDrc241EbvS1p
+	9Dp85nTQhwEvRshM1+a+U1JVI10Zc93AT70cFZKfWjQOrDit8pdsXlOnRYJQlyD3meJ9vbzJkx9
+	P70emv2HGfViwpUjpsrLz9ig5q3CX0EI6vFXkb/pkWFLP9G0dtGp0LcLn0p3I4MG5sih9bMYOjI
+	yrrFeN63rQGBxIBYXSgvjBRdSlbC3OHitZCMP2SuA2s+8fjYJ0UuFcnpfR2RQYWvpFimjnfnYY2
+	Uw7sKGO6oSzk7ba6jSkYVv9RlT6Co9S0Jr3qZoSaAnGpg2Iryo9fnG9Voh3Uiwx62IJQvLXRg56
+	cAlPKsu2a6FfEkuqhjJzMis7BOfaO66FWAanACxEjwAQbETDvA9+BcQXIplvmxAK8I52OFvavU8
+	tXVJWKAAgdGtzVEN/XfJwnS4zknrq39Isq4AsK9+COTcxk2/G8quiLxCOQ9pVrL04NzIcd25/7u
+	ky8k3SY5Md/RUrIh9Js=
+X-Received: by 2002:a05:622a:649:b0:536:6946:748c with SMTP id d75a77b69052e-542b771ed82mr132792351cf.53.1793548487887;
+        Sun, 01 Nov 2026 07:54:47 -0800 (PST)
+X-Received: by 2002:a05:622a:649:b0:536:6946:748c with SMTP id d75a77b69052e-542b771ed82mr132791951cf.53.1793548487394;
+        Sun, 01 Nov 2026 07:54:47 -0800 (PST)
+Received: from [192.168.1.187] (ool-18e492e0.dyn.optonline.net. [24.228.146.224])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-54311f75fd7sm63339941cf.11.2026.11.01.07.54.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 07:54:47 -0800 (PST)
+Message-ID: <b12ae064-012d-44b9-9d27-461e4af83f3f@columbia.edu>
+Date: Sun, 1 Nov 2026 10:54:46 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,135 +118,79 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS7P286MB6586:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cc458e7-3729-480b-792f-08df383037dd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|10070799003|366016|4143699003|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261026121527099003|261026140227099003|261022105027099003|10067099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	Spk5BWHHLW+fTK1I0Fba70R+0sr8XYVpAGmZZeD3QuGEgDQbxCe+8kTGjinZw/8E3j6AkaCzPHgy53SrEPs3XKD9kRe5ax1rIK2qCtkmwd2bbvjBvncusoxgrq1NVIEOy4XWSowvPmc/MGl4KrUjbZnMx3gFaULq2rIn8CJTXITVSWBhYSJD39+E47R8phpP/sSGuFFb6qlQJl6I5sA4mKJpX9CJD2FnpLIQrrgl3uftoQ70DNHJBwo83Gafk6IqJ1XbyChXsx7aO+3sLxhdJx5hVMX4HJF0QW86kmHvCdWq62jA1/XXfzw0cwaCCAJKXfeS+6hfV20Zbg1EeqaEeHMsjeqoWnbm07+s05VgaqzbuQhKiizCKLVGaQtHvHFlBr7VYf++EWBkUuXi/aUMFcaB7lUhurUFi7tURrQn1D8JYBvVmQXi94xMYuhfPf6CTVnv5lUq54blu9cBiRv63aouSKwOv5UGM7meXxZihwloIuQ3FZ0wY65JR714wZzVY2kNpWxfKZKE8d0SBULGEUtzVa65Xulk+ZlrqtqXn/P8ali9XLZn+gs0aKqBkUQqdBIt0vDP5crfx24ZgFshUyqUdQEFJNTY5xH0yguGYUUMYukPHk7cjXk6qtclfZPluppRMMHpY81MdrsX8omwCcx6Pp69qvuiNFr1nuFwMyA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(10070799003)(366016)(4143699003)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026121527099003)(261026140227099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?UFmq6COQLnwZ8i51iOjkbTJQWnij60kIyTVc50UKXOjtrz1oSlywbauHfgoa?=
- =?us-ascii?Q?5cGPQLV/w/VPwfoVz+KI5gfZcEv5hhwci0ylaCAJDFAeuGJDQpam6c+6GV/w?=
- =?us-ascii?Q?FmXeSDl7xjkYFPuC3HJziWm5qOdv8dZl0ABu0Q5a+S576w6UXsQgByMVngZR?=
- =?us-ascii?Q?KOoK9+O8swx2/RQHY2tlovPAsPIUKZqMZBlfFlBYawYEODZGLBqz0p18bIhN?=
- =?us-ascii?Q?L0L94savAi7uinL8a4/ngD5zSrX1Q1sISPPfsXkNuoDzkTzQsk3GqmAV+tS0?=
- =?us-ascii?Q?wexD1S36hfbS8wwkk9e+rm9U+yIACLrQR7d3lj20HVo5809eXgKitaHCvgLC?=
- =?us-ascii?Q?HFaSS9033yQAOi7YuMsYRH1am9pZEn5raJ6aNCkHKGbI9q9GKpsVsc8wgOTx?=
- =?us-ascii?Q?UvGPjuc0sC8+Kgqa53Pf1gYIN5c8t5dei4A0p3iHCDBARHEsES4D3SDVXpuY?=
- =?us-ascii?Q?3dfsw65A74yj9CsN7IzBbSMvCds6e45OdvYDOLdoY4fry1nlZnB0/Ud7Qagh?=
- =?us-ascii?Q?PhWZmDSsOQq4EbpG85k5IBTjanzZBnpP4wvewtGOjHZsh3xUxlhJjujcBRnp?=
- =?us-ascii?Q?s9fhHzCVcKF2wLq99SUB8jcJsvRYZwlk1DXuY+tMEunJL+l/BPdm4YfhYq9h?=
- =?us-ascii?Q?DdGFe08KBtqGP9oCSei/VucvLLKCzMflReBWXo3emebRsdIQR6whBkjvCV5B?=
- =?us-ascii?Q?7+poHvYhf326i2SGlzB8T6QolpckT6siH0hJKgG0zWHYfii1cuVb3uKhV/mX?=
- =?us-ascii?Q?xKwDGO+cfwDAkDUFIbl7NhRE/GBQx6WgfQJgZsNlBwzwiFIg53bVaDkcM24q?=
- =?us-ascii?Q?0Lg+Lh9AHiteMTqcB5bbJnKl/dkVYauCglWDoE9WsS8Iflpx7y3tcUruBKHt?=
- =?us-ascii?Q?NAYr2HKXiFvfnR/KkZ5v79AqFAm/bybmtPy/xB3NRn59E7oblFnaKtQ03O2c?=
- =?us-ascii?Q?qIkAAjvkICH7p5NaPj7wqvxPH+JSO+LChxxXfbGl/l3yVd9dys093c7xP/kw?=
- =?us-ascii?Q?pn/rR4lovsXIflH2yCztmHlRtoOGOESoGZ6FjTwZz/o3/kCfoLt67Rtm65Aj?=
- =?us-ascii?Q?QD3mbnrQbGJAHrS6KhiZHowdPAc5cSqbqqR5UADOZfF5mgJafYMbQxbqBjS1?=
- =?us-ascii?Q?RvTB2fTMP1Mf14FFOJ3OJyA2oW+pz8Lj/tsku8zqLVmKpmwWGj6V/6BoZu0G?=
- =?us-ascii?Q?JdzfU7FcsqYaynHYYKoQET08IBJYX3F9++4q8kGyDYeKtBPx1kONJoiMdue+?=
- =?us-ascii?Q?TDZyu137eOeWpC5JdvK7EVlYbEEwVh9PjBsbic9Fi7ZOL6FmgGwePHiHKBqj?=
- =?us-ascii?Q?NV5bTNp3KISRqTuIvKSZXH33isw7Mal6ADmOPX63iFJIZy4KCxcBTkxe3xdR?=
- =?us-ascii?Q?cyCSh21zkrLklFKLMvLkq4PRgM9KGLu05k0C+/gLqLKgwR8ROpxNvKMa2IhT?=
- =?us-ascii?Q?4lK51JYSNrdWvJuM4JQ6Tj5bSrUX+KXYDEnAzBKtQOZFCdYhG8P2avc5oP8e?=
- =?us-ascii?Q?j5vo4HWqhdgtPPgcgL4n5lm7iLW0sr3HHyJ99mvgoDhgX8IvEqOA51HsQ7Aj?=
- =?us-ascii?Q?ZOjyyFJDhk94n2WLKdljfK06KbZgcYBqmJiXdUdfQtl62qYXW7z/33d9kLgG?=
- =?us-ascii?Q?0Xf3/GwyIiJLCG3wf82sYQ6K1ECDl2RyObXSgZz+1rZdD+LlfKLEwln/JxZ4?=
- =?us-ascii?Q?3PxZNHIMs44GOb4o1Nu80yNtXVXkEGz0UY62/jQOT3oeDN0DnRnkqphK+829?=
- =?us-ascii?Q?OlMD4FvmPXjL7Oe51gtBoSX7Z0GYaE2gJDGzYaVOgVsL8/+gDuJV?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cc458e7-3729-480b-792f-08df383037dd
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 15:53:05.8487
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: F267kOIf8dLMpPKrmLoTvdXThlHF4Mztye3QPFzlKR4BIJSUnbges5eVJWmVRVC1yzJSq0xMR+uK6eSHimu9DQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB6586
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/swapfile: drop a large unmapped swap-in folio in
+ unuse_pte()
+To: Kairui Song <ryncsn@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
+Cc: Chris Li <chrisl@kernel.org>, Kemeng Shi <shikemeng@huaweicloud.com>,
+        Nhat Pham <nphamcs@gmail.com>, Baoquan He <baoquan.he@linux.dev>,
+        Barry Song <baohua@kernel.org>, Youngjun Park <youngjun.park@lge.com>,
+        David Hildenbrand <david@kernel.org>, linux-mm@kvack.org,
+        linux-kernel@vger.kernel.org, tz2294@columbia.edu,
+        stable@vger.kernel.org
+References: <20261030-swapin-large-unmapped-v1-1-41e4ae378e6c@columbia.edu>
+ <20261030155419.b10056c8fb37bc784b0d2778@linux-foundation.org>
+ <CAMgjq7AUvsHVKkHmLzL-KKf+MBed6e4TeVP7jcGMLM22xO+=5g@mail.gmail.com>
+Content-Language: en-US
+From: Mani Tofigh <mt4022@columbia.edu>
+In-Reply-To: <CAMgjq7AUvsHVKkHmLzL-KKf+MBed6e4TeVP7jcGMLM22xO+=5g@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA2MyBTYWx0ZWRfXxQ6sSTIE8xVb
+ j/wYneZvWNk23yp6rix3nXkaPl170iUReAOC5rLNtXEuSeKInv8DXzW44iw6K9imyY9AeXdcK6j
+ 4V4/4OhVUzYR/yxe/k+dhNyXxgYqjbdiuj3K0afhDDBi1FTLDDsHL9SQ3HcEu109pHEgV+U+tvO
+ tnoKIY99O6HAtPOF5pjXYJZ//uTeW/HKDEii2vvarnHp8HwO5M5KBRwCblqCLAUkWd5/RJZ/71J
+ r77qAmGmJNZwEAi5FAgBywUUKZX1csRGhGZTJ6nsfRw+zbqb4qk2CsQVrBNjeRy26pYPt6is0kG
+ EfPyxV0RsCazoK84ufJZXZjU/1ZGWbyHA6ddi6Fjz0DkKxxqz2bPjej4jHlHMP5ASdo7MpxHKJE
+ POhSCFEMws+xvebFZ4W1Wslu0PSL4PBTxRIIuoRP3Wm0q2vDl8kcOOAhMPEaxGfWC+RoImJj/5y
+ 1KvuokeqRmtG8C1w7tQ==
+X-Authority-Analysis: v=2.4 cv=ML71C8Zl c=1 sm=1 tr=0 ts=6ae760c8 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=FE+fbgsriwsnvVT5CFHM3g==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=jHxIr1HyPKZ_Q5_91PL3:22
+ a=Z4Rwk6OoAAAA:8 a=CbAtmpW2TtMjExKzJAEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22 a=HkZW87K1Qel5hWWM3VKY:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA2MyBTYWx0ZWRfX9JwRKYY0GC8n
+ vfY0tdOuvqR7t7EvZ27cW4bN2/ewxc3STI44OtA9G0wf+9Xio9gw/LQU/9n08k8TsxWaeVTUhXW
+ frsUuh8itzQbuA0OXTOl+JL+3HOvcYaR98GZIH4XvipX/0oAAJ3J
+X-Proofpoint-GUID: 8pa_KWtu8vfW5XyF1UVayx69zdajB-vC
+X-Proofpoint-ORIG-GUID: 8pa_KWtu8vfW5XyF1UVayx69zdajB-vC
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11953
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 bulkscore=10 impostorscore=10 suspectscore=0
+ spamscore=0 clxscore=1015 lowpriorityscore=10 adultscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010063
 
-On Sun, Nov 01, 2026 at 03:57:05PM +0200, Avi Weiss wrote:
-> ntb_epf_mw_set_trans() writes the address and size to shared control
-> registers before ntb_epf_send_command() acquires cmd_lock. Concurrent
-> memory window setup requests can overwrite each other's parameters,
-> causing one window to use another's DMA address.
+On 10/31/26 1:54 AM, Kairui Song wrote:
+> On Sat, Oct 31, 2026 at 6:54 AM Andrew Morton <akpm@linux-foundation.org> wrote:
+>> Also, won't this change cause try_to_unuse() to keep spinning away until
+>> someone kills it?  Might be better to return -EBUSY and fail the
+>> swapoff?
 > 
-> Hold cmd_lock across the parameter writes and command submission.
-> Use a locked command helper to preserve the existing serialization
-> for other command callers.
+> It seems fine? The folio is removed from the swap cache, so the next pass
+> will go on. But you're right about the dirty and WARN case, it spins, so
+> maybe:
 > 
-> Fixes: 812ce2f8d14e ("NTB: Add support for EPF PCI Non-Transparent Bridge")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+>     if (unlikely(folio_test_large(folio) && !folio_test_anon(folio))) {
+>        if (WARN_ON_ONCE(folio_test_dirty(folio)))
+>           return -EBUSY;
+>        swap_cache_del_folio(folio);
+>        return 0;
+>     }
 
-Reviewed-by: Koichiro Den <den@valinux.co.jp>
 
-> ---
->  drivers/ntb/hw/epf/ntb_hw_epf.c | 20 ++++++++++++++++----
->  1 file changed, 16 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/ntb/hw/epf/ntb_hw_epf.c b/drivers/ntb/hw/epf/ntb_hw_epf.c
-> index c47607d4f8a7f..da7fbe1800656 100644
-> --- a/drivers/ntb/hw/epf/ntb_hw_epf.c
-> +++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
-> @@ -123,15 +123,14 @@ struct ntb_epf_dev {
->  
->  #define ntb_ndev(__ntb) container_of(__ntb, struct ntb_epf_dev, ntb)
->  
-> -static int ntb_epf_send_command(struct ntb_epf_dev *ndev, u32 command,
-> -				u32 argument)
-> +static int ntb_epf_send_command_locked(struct ntb_epf_dev *ndev, u32 command,
-> +				       u32 argument)
->  {
->  	ktime_t timeout;
->  	bool timedout;
->  	int ret = 0;
->  	u32 status;
->  
-> -	mutex_lock(&ndev->cmd_lock);
->  	writel(argument, ndev->ctrl_reg + NTB_EPF_ARGUMENT);
->  	writel(command, ndev->ctrl_reg + NTB_EPF_COMMAND);
->  
-> @@ -157,6 +156,17 @@ static int ntb_epf_send_command(struct ntb_epf_dev *ndev, u32 command,
->  	}
->  
->  	writew(0, ndev->ctrl_reg + NTB_EPF_CMD_STATUS);
-> +
-> +	return ret;
-> +}
-> +
-> +static int ntb_epf_send_command(struct ntb_epf_dev *ndev, u32 command,
-> +				u32 argument)
-> +{
-> +	int ret;
-> +
-> +	mutex_lock(&ndev->cmd_lock);
-> +	ret = ntb_epf_send_command_locked(ndev, command, argument);
->  	mutex_unlock(&ndev->cmd_lock);
->  
->  	return ret;
-> @@ -494,11 +504,13 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
->  		return -EINVAL;
->  	}
->  
-> +	mutex_lock(&ndev->cmd_lock);
->  	writel(lower_32_bits(addr), ndev->ctrl_reg + NTB_EPF_LOWER_ADDR);
->  	writel(upper_32_bits(addr), ndev->ctrl_reg + NTB_EPF_UPPER_ADDR);
->  	writel(lower_32_bits(size), ndev->ctrl_reg + NTB_EPF_LOWER_SIZE);
->  	writel(upper_32_bits(size), ndev->ctrl_reg + NTB_EPF_UPPER_SIZE);
-> -	ntb_epf_send_command(ndev, CMD_CONFIGURE_MW, idx);
-> +	ntb_epf_send_command_locked(ndev, CMD_CONFIGURE_MW, idx);
-> +	mutex_unlock(&ndev->cmd_lock);
->  
->  	return 0;
->  }
-> -- 
-> 2.43.0
-> 
+Right, in the normal case the next pass of try_to_unuse() just swaps the
+entry in as a small folio, so only the dirty case would spin.
+
+David suggested a VM_WARN_ON_ONCE() since a dirty folio here would mean
+a bug elsewhere, so for v2 I'm thinking of combining the two.  It'd be
+a VM_WARN_ON_ONCE() for the dirty case, and the folio stays in the swap
+cache with -EBUSY returned.
+
+Thanks for taking a look!
+
+Mani
+
+
