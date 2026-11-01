@@ -1,53 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793524324;
-	b=lffE46qV0hIha3FxgpqgyoQq8CCgLLUm24yKnGUKCMnWSr8TRcvkLPROKUp3MkUcJThK
-	 4fthV0m6C7kfsdmmsKuFP7wAt2pV6g+7PuvowrOIJZF8/eNGKyTNMcyFclOc6wahcQ1p3
-	 nP4ZQxYjsiqclApJ/7R0TvRA4dqrO1T1VSXReUqiQprivPKbgEluwXKcJJcUeozp6l/rF
-	 rZVtqjwdbk2bnYC57mysUTM73RX4lhSZPNdodTsI204b6i1zy4w0AzPlGGo1chHJVLBnJ
-	 CJ5uv2KA92LNnUYrpXuCf08J880ggnDfTPZz7yY15kGKdqAQBdcsAFY7B1AO3g4zTgA==
+	t=1793524348;
+	b=L7yYPpFhg1AMkDjfbyp0SIFU0/a3n+glfGtMOqXeBY9UbZyWW225LQqmUOk1z/E+4StX
+	 RofpRsaRyTk80YsGJloreZcvK3EyAZyap4WqCrghoHjw6cuxcuwoW10ID2/z12C0WP2NV
+	 eDd+9eyFS3D3X9GwV315aRkb9P/3v6seFPWy+WaihXiI+Aszb08Lm7QQeBkMtpXvktR/3
+	 Yxa93UumzoYuhGTxByuzMl4V+QFfEA5MwGoPjvehON/hA6+AWv05tgjeomUsFgvQf3n4m
+	 SljfeklPBE7npZOu0thkfVvlVfH72C9MFkMYiqpPKvQIOM/s9kynjdcH4LSRpSGOfcg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793524324;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=B4jYGvBjrkkRPEzGAwhU8lHH1H2le5DfdgmQdfjw784=;
-	b=Gt7C5s2iCkEAPyl/2bhsMmU5eEyUtU/CZ+DT2yHfLMlt6+1yA8CfxdGYubHiqo+CXZxY
-	 gXtMgrL2yn8EUzr+/ww/eGbYWDrEYV3c+qrMU7ayr3TLqnErTmGg7vapaKSb7PAIO51Xd
-	 k9gxPAw/Z0YvW0wI1cS3YFk5pQch7n8SjSr/7T5AocS4r1TxxDogT92VU7qCMborREZuz
-	 mXavAHIouTIF2tb9Mvv4rYbzLmNi7m+y1xdk2GiIYpKL9Oyvmedzt2biNBGn/KZLfTHGz
-	 M/GAvbETpGu2knuvhB0qa7PkdazsFkdWUi+8AV/i7sKV6PiMeXgvoTn9jHToirBVYVw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793524348;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=3ysPIyTHoA/9Jg4MEjHSr/SQZx/nE08X6Q8EzC88lqo=;
+	b=UPAaNqRAoMqTkKy8Ki3dCzoOf5NFGr6LU1JyEBcsoK42UwobyANzjpvVKg1Yq2VbK+qz
+	 wme8uwhYgyecqJgsLHCgFN1tmvxhTVRC1KJ+/Cn5PwjsxaAKFXNW7YkMtgsXPyMn8BovL
+	 qX8DpJIFzS0fUUJJ4aVmqW3+pYWniOrQFnD5eqSwoJotc0n+nprTcdkD3cuv36/ie7+DY
+	 ZgfDrW/wEE9qO8DLbeijOH2MTg0JzgXliV0uJBk0lgQhYfY0RQ8N5ZVorddxurbN3Vgps
+	 V0/h92sWOf+YEZjz2+BqCNnMdResL72l8rCmI+thcQO9fW7UGmrMDPSDtgDMwG7o4+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puwyvf3q;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92BE7606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:12:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92BE7606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-8468290b866so3069054a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:12:03 -0800 (PST)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC627606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:12:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DC627606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=puwyvf3q
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-35c76e9614aso2941711eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:12:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793524347; x=1794129147; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3ysPIyTHoA/9Jg4MEjHSr/SQZx/nE08X6Q8EzC88lqo=;
+        b=puwyvf3qlFZ5aOotS6Fv74jcQIT5BCHjlUVjgKKARno+rxWB9U4MIbPywKVmbOy5ib
+         MPcMbRF2foR/UqCcX3VN+CIR4q6fCNXEx8Qu7LCPu864hBm2fT7JlZWFBKLUjn9VW3p9
+         OEfKu78cHecd6Fbo9xvEgqmsasteThfGAI9TwqVfmMTlw8cExiD5RCU8jNlIcEvmhZ/C
+         qn+9Dk4+70eNz1u2x5qZ26FcTd1OKNWXDK7QV23p00ZwkCB2NewG+vxVTFLU0TNSw8Ai
+         zGMFPKZ7ndIknLst9kZ1Ojy8c6pt/SypNNb5C8at0XmDKtG5jd9j2FWWc0zsIZw1IxeT
+         vILg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793524323; x=1794129123;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=B4jYGvBjrkkRPEzGAwhU8lHH1H2le5DfdgmQdfjw784=;
-        b=L4tD1uZfWPe+XQNnVHmSWZ1pbS0PGBO9wL+bCJxomaR+fxMxorEbbebGgHqykjiVTx
-         76gw49w6PXwS9zprWWmw2uU/P/4wI357r+KIpwN0dVRXJEz1krwlmnqx5qaeua5WTkqE
-         SIL2Pguh76rrzjojpUnMaC/5aYFe1O2o8+oXMh2okwRLAKLm6cNIaqpp0/3HIW4lu6DL
-         qGYG6BsJtLurzmxoeJSM7ZMOf8BG5+mPIFWjcdc7gMp9W+3yXTn6y7ydUO2Nrf0zMY2a
-         Mpvl/Q+R+XZs9lwnrktJgwslMLuThHVP+f0/lnueFRjlVxDOP1Ed3+JYKkDdYCyP5X0g
-         j1ZQ==
-X-Gm-Message-State: AFq9FYKWDmPPC57lguF5H6T2kio8IYQljlaRtk1i79+mmiVdhe2yx2rW
-	dDL5A9Stbw++3mxXdaOiJxF5MieCzOLIxF0mK0x74JD8W/O0+tQ04khtLwuYjct154IAxzlm43w
-	Z7BzbZiNELNx0lDaBvBTSgO4EtWlVqojtC6MXOeJ48Rmh6nqEFoAJE1k5UoI=
+        d=1e100.net; s=20260707; t=1793524347; x=1794129147;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3ysPIyTHoA/9Jg4MEjHSr/SQZx/nE08X6Q8EzC88lqo=;
+        b=ggvoUo4SPWHwIjG1FBPC1HL8NsZpMO5EZCY2Ld+KFvLP+Kpcofr4Au7iM4sWWpXUge
+         /GYl9IveYRCdl0r919yJNPgXdjgmlFcl972ZfFj4DFDQM2D59DnTuQ/dyQqazNrpTHSW
+         V6WdgX0bDftqEi9QWSPnSEeoT/8OcAc8XJfr4bK5q8n97iSfQtwufABlc2MhhO41RAi/
+         snNRhRHvNNNRIjWuU80WXTr2uVtDMk2OzeX4RUeXCAn40d72PsFaHPbUEQztK+4rGXVR
+         q2z//c2n/vxCk2VN2BWHoKfyjLBGk64c7xKiZpO5w72GJfp+sDOfl8P/eavKEMOoUfig
+         lmCg==
+X-Forwarded-Encrypted: i=1; AKwUvBzKEL3kWU+qwS6EXKR/v8SktsYFZfc1oCSnexzVmVcEgUPAAnjyKvxmBsqFl7UEx8+4SqOADRXj6S6si4E=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9DUtQyE4C9dDdufTnnkG3RaJdWVB3p9Yy2WW6yUWFOg75HEwOq
+	lY3zK734QM70AfXl9qjXfLzOGkDHMxYnutTNgGZ68bwA5PJqTPx2szvm2aa4hfIg
+X-Gm-Gg: AYBFou3Q4n0+ts8+wDXpKnGye+heEkECI4gq7ERiNm6YK8zIZB+zJnou2V77SUV7xkc
+	SoDPjyq+t0AB+qGNWkk03QlTYXAvotDESYlpP2kEWEqt/D5XaUO3nyB+eDIVMweFTzM+uqc0NSF
+	OoOKc6MeYk3aB6woOufpGNax4qxXy79u8xiuJmPMzYa16JRziYD5ipHuTO1LrlDcZdI53aq44YB
+	4GJCDI1NQQzP1BxyWdJPk8bXLu1xUqyOLtAdMOVa96Mir/Zij31dgNKpMVURbktYYaVBaaVXV1C
+	/i56t90Wpk2x7pRxGsyLxezLE+qrrttRwWV5QFZKcxO9qQpddDAQUoRTcsLNgLIS8t9lNzmvNkp
+	A8jUWDcEoD5u0vVJdsKgEIW2lg1usEI07+48wbXCB3+lUijnpsWkh66pFeE9YTfJkBk6MP9Cv9Y
+	xpjS4w17tnCC7W5rGjdEnsAMbTHoEv4Rm43gxJUQSm9Tx5Ve2cmuVUwmDdGjhcBACqpydI1/l4M
+	gta3BYKJ7A8Mg5B+T67OBx/xibkL31T9W3jbViEXiUtQDxENN5XfHoYF7PzYm0xuH423BMXQzm5
+	EMONrQE0JniuMOMciaMrPxqgKzWytsTzqEcXEsFXbNrVeK4Klg7HS6MBIMTcaz6qxxGD
+X-Received: by 2002:a05:7300:cb0b:b0:354:1db3:674e with SMTP id 5a478bee46e88-36a42330b9fmr13797488eec.6.1793524346880;
+        Sun, 01 Nov 2026 01:12:26 -0800 (PST)
+Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm27037797eec.3.2026.11.01.01.12.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 01:12:26 -0800 (PST)
+From: Cheng Yongkang <teel4res@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Hongren Zheng <i@zenithal.me>,
+	Sung Byeongchan <tjdqudcks0424@naver.com>
+Subject: Re: [PATCH v2] usb: usbfs: clamp actual_length to transfer_buffer_length
+Date: Sun,  1 Nov 2026 01:09:46 -0800
+Message-Id: <20261101090946.1963739-1-teel4res@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <2026110138-kettle-daredevil-ceb5@gregkh>
+References: <20261101070651.1846947-1-teel4res@gmail.com> <2026110138-kettle-daredevil-ceb5@gregkh>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,36 +103,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:16a6:b0:4cb:f21c:a79f with SMTP id
- 5614622812f47-5640df8d97bmr4407253b6e.39.1793524323227; Sun, 01 Nov 2026
- 01:12:03 -0800 (PST)
-Date: Sun, 01 Nov 2026 01:12:03 -0800
-In-Reply-To: <20261101083427.1241563-1-skalpesh942@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae70263.2ce51036.253fae.0002.GAE@google.com>
-Subject: Re: [syzbot] [wpan?] general protection fault in ieee802154_llsec_dump_table
- (2)
-From: syzbot <syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, skalpesh942@gmail.com, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Hi Greg,
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Agreed, that is where the bug is, so please drop this patch.
 
-Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
-Tested-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+That was in fact the first fix: patch 1/2 of my original series cleared
+actual_length in vhci when usbip_recv_xbuff() fails:
 
-Tested on:
+https://lore.kernel.org/linux-usb/179328314074.648427.388274461758949120@gmail.com/
 
-commit:         cbbddb6b Merge tag 'power-utilities-2026.10.31' of git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12cf4959580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=37ec6334ca3b8e94
-dashboard link: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=135ff981580000
+I withdrew it only because Sung Byeongchan had posted the same one-liner
+three weeks earlier:
 
-Note: testing is done by a robot and is best-effort only.
+https://lore.kernel.org/linux-usb/20261009122636.642575-1-tjdqudcks0424@naver.com/
+
+That patch has been waiting since, with an open question from Shuah.
+Its review had also already pointed out the case it misses: a returned
+length with the top bit set is read into an int in usbip_recv_xbuff(),
+takes the size <= 0 early return, and the URB is given back with that
+length anyway:
+
+https://lore.kernel.org/linux-usb/sashiko-outbox-165560@kernel.org/
+
+Rejecting any actual_length larger than transfer_buffer_length in
+vhci_recv_ret_submit() covers both. I can send that, or Sung can fold
+it into his patch, whichever you and Shuah prefer.
+
+Thanks,
+Cheng Yongkang
