@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793515091;
-	b=UK+jLwsYPw+Ex6iG8ZVC9GRcP6xJuqnJRcOf39VdAkrsdLRQLZ4AIAOccPTEygydjbFB
-	 dHYHj2wj/fqKyks6Us0ftR9n1M0TelcMb4MBZnw6BhWjiWjFvvhlvu8jfWwOaI+1bZGsu
-	 nq4PQgN6arLBpAyWPj0KqDlBb/F41cFRN+TIhHLZ6DRiCivFwr/xzNL6gY3/hxa+KreSS
-	 AYwK4M4D5hlWxjKcMl3a8pRSAfcUw0+qzb5/DwpVImY7/TeGtA1XTbgqnszUHhR6DU+1H
-	 hXsfe8oK+gJITvuQ4IeFfUa/ADz2lSNevO8+iYllN7+9SDnZ0MKt449BImM/sG56BQA==
+	t=1793515095;
+	b=e9D7mUWUQlZcG9c98RsW3XqnEiSY7uhv6VKgzZgTpTJdQLXvir5QS0aBTYc+N6huPKEJ
+	 75YvSYW1t0RgrtzmCtbBHQ3I6+QLujZOuQWJ9PK9ndSuVQ8fhCTstK2H+rmYl5mb3t8TV
+	 gCjpQA2csVP0OdjXy3tWWki2muBlWWLsLHJx9o0iLz037T9x9Bes2F6Bx15X0iuI3353V
+	 z3AHmz6YO2zaYP0vklbTPYFKg01hHF351+HrwoZ/ReA1vFZ8+pe4lYK2qqkDMcHrV4ndF
+	 TUafUdvRZ3z5pD/u1rYdp3GnpvEy+Owict10EkeGbTXh6vpuj3CeOfsCK9No0HSgfgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793515091;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793515095;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=14x9vk9vqr2toSJvl/cMga8+z/V3rFoujSUlXXEXROg=;
-	b=Il1WGLgnEjSOqv5nsw8ndtz81Cw9XmLHvpnrcFEN47JjAhP8ZRWpN55NIyc6E1oHo65U
-	 hcxNR0FRuba4scIye4fK1hqROCEucA5xy/Pc5jFUvIJnxxd76r8gkhFc1bq9JIcd/8sP+
-	 /bspGGKcaa+8m5qHWsJsmaqd7QfiADpu6MeLLp7LW5v1+H+KJPri77CylFowUfMdpEXeB
-	 wRATt+UeG8ElM968OsbtoRQy2WJ6D9KlXAqG0zoOIIMHaB06ZNY2PTsfxJ/GvY4GPAJeH
-	 gwurwsoqCfQ0Cm2dN5d0lMhqFX6wrRkcd9b+cj1EzYJg8GUT61r1Qq/S6fOUJ8kOMTA==
+	bh=RWO+QUyZGGT9JFrisetKTbapr5TrQxiyv48XC9q2SJk=;
+	b=0oxmiXEm+L8ji8iMIEpfZqFwvgmJqR7zm3UfUq8NW+yVlo4nNO5IRYxD7PXaXpLy3+2C
+	 4XTWm0QGIfkdlni/CfXe4ypp8Q3JaH6yrZiyLMp8Y2o1GvgUCTXkA9cNfnwqk28CKQdKM
+	 x2hvr6vLxdEqt/BMY7qaco+egbj71aANSSaUAwGMVkzqfgxwTYUWJjZGQqsUtk7+XCabd
+	 RhCVrqv1f8uZTZmvtOby7vpnVskSZzVVnD4aG+cpPJvD0APE8PkjY2i/odT91BoPyGGA5
+	 1ZxiuSkpMp0wfirGwBQcZLg4l/vU7C+4FdrwQFTgZlqQOsp9PsHCKTsPpXPo8MWN/pw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jaKbRs8q;
-	arc=none smtp.remote-ip=209.85.215.171
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRNw301s;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5537F606A32C
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:38:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5537F606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5EDB606A336
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:38:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5EDB606A336
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jaKbRs8q
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cd3310348d2so1239137a12.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 23:38:11 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NRNw301s
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3acdcfa2bd3so1606527a91.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 23:38:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793515091; x=1794119891; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793515094; x=1794119894; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=14x9vk9vqr2toSJvl/cMga8+z/V3rFoujSUlXXEXROg=;
-        b=jaKbRs8qDefvyjJnGr4taFgormkQZjV9UOuZ5l57Dggjjs0zqQPWuFXSxxxays//UZ
-         6UNPEhubBJoB28MYY+j7JRhufn7fO2HisNV6L7NbTWTVDwAk1y34KPmA+BkGAS8/RrM/
-         tc4WKkGrXYn2p0a/rpKX6eqMXbZqAbnK5okTpm9TJXAegQrRiOmG8uvEkDzOhNWhK7x4
-         TCr36tWRlgJUF0AZ/AmiUF7El0gVn4tRzDje30WD28aE5N6csGwP2uENypBdTRe66Sf8
-         jL9wPcGtiiF+M0vFE9u605IRqlsh3TdidX23X6r2QBhhBqKfJE+Q82hsdaM6dgl/DTgS
-         9Xsw==
+        bh=RWO+QUyZGGT9JFrisetKTbapr5TrQxiyv48XC9q2SJk=;
+        b=NRNw301s7/fyH0SOi6Xnd1gRIt61R/gpMLNfP/dtdxe7cN54Yt03X48wbjZh9GWkdb
+         UGIXoTe1KlKn7LTMuo3zIhA5tMAzmFpiO3RdmD+JygbFJfOUNBIf0SK2pBTtXoZDjz+P
+         LLA6XX1Y8+D0GMixI5NLTS6Qr+4r/ZOYC2wG/xqJOLzO10n7OYXDpGoBN/fq56flFDlD
+         a+JrQB2b752icPtg6zmV63j3gy3DSni2aHGauyt7ZKdKraDsVcOx4UhQRc8pqr0OFIrw
+         SlPdiqtZA/o/5Mvgl4MWqXhl5++nDh4AxTEmpAqRv/C9YVjh0CyOxmxT34l9aTnvIc0T
+         2GEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793515091; x=1794119891;
+        d=1e100.net; s=20260707; t=1793515094; x=1794119894;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=14x9vk9vqr2toSJvl/cMga8+z/V3rFoujSUlXXEXROg=;
-        b=hs77c475J+FwWvPy5CrCb6k3+OSit4GfbwfR+0CosPsILFXsKhZFZ1novrluqLcxPV
-         M0HLe3/85VPwF+l0X6ddJP/Vvr+ZjjveXhul9acS66SKvqIuljas64g5XvcrDMH4nMbH
-         NtxztGx8GFtisQUyO4+8mHtK29AYggAoOAFGiIdtfRRfFHQQrnwi+SiYoGcOC3yJTQ6p
-         /seQGWA7HGxKvI0RJOu0gWJf2si/6cZAGapEG6s/WRJeHkOiAvMSau9WclOOR95ZRqkc
-         x9aBKBZUpUtm3ASzuxL8rBHqMCBbqxXjTPHaRIkTjDL7d9zeuQbQ/dcBAADi5JjmjUTN
-         UDRA==
-X-Forwarded-Encrypted: i=1; AKwUvBwLXGghuFxncgHixnwMMbG1uiYoFt2SPNAm0GovfoqWy5vqKCuVEWGmuDzVo7lVGKYpGG6tUMbzchuHajM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYImWpbRZcDakMzStr4My3yJp9Mrp+h0bZU8kQ1uIw6Da2S0Ilsj
-	tzxVYbZkiaDOFTiQP/7qWG8xVFbruLJhbF2aQZGnHmY8yfi4V+bFac7H
-X-Gm-Gg: AYBFou3b1qAYkioMnMles5N3Io1tNFMCzbPxUISwVKe3DKo3MNuhhG1P9pCznU5duqk
-	G8bOfO9bPo9wIov6RQwote8dC1lfEvuDHQi1F1fcQQiM+dDeY3tFMjExqSBR1+iCveASZHK8KuQ
-	DiELt6UA90OBsyAXxP1yZi82TIepL0XEMHk/kqlvPZ8LmRLOzJRvZkTd3YrxeyLH5Nriew229a2
-	k686Zv1TtLA7My1DyW9EJziefAL1Vj0XfCuTr8DMBySfDsgoAcEVr3hfW09MxnkcnjUu0cVUBvp
-	qqAtx1WdYoHj9/uasl9hVA+mJgIeT4jz1l4tE89JbI3ywdPX2ypZGgUwKPlnOfoATokcUTe85aR
-	7+mQZbyCzuz4E34HiZlv5+hPSz5u2572Oiqi9uo7S1lnMaF3Ecwld/yEH4NMO1255MZOWsjI8VJ
-	IK6IqLsr+FyMFkx0lfGJZvIPV7VTcYi0VH5f7ssUHrNTsPu+eHmainxKLidftyEyyMV2Hou11X8
-	5/qyqhSr0clqDvJGPXmlQUw7F/mZgKJHjjesDjb9JnpJ4CAconiMeBijqGGlX9RIkjAwkaPaIAI
-	MJijUwUi4nVtS3DqUTssXIbXN7fuZsTzh0xtZFEAqwfBt0c=
-X-Received: by 2002:a17:90b:4c4c:b0:3a6:d2ac:74ce with SMTP id 98e67ed59e1d1-3ae8972b662mr3606936a91.19.1793515090638;
-        Sat, 31 Oct 2026 23:38:10 -0700 (PDT)
+        bh=RWO+QUyZGGT9JFrisetKTbapr5TrQxiyv48XC9q2SJk=;
+        b=KeCLtD2aM1squSxvQQ07hwiOJH0bSkOePW80vaF2aoO97Ivlg8CL3sjIRXjTsPA7wK
+         KDBh8bR2EvWBvgP3ECigj6yr7jGF7JhrNvjMZTB+aw/NH+kE6wvZoWk2TpigUm69vp56
+         IrB3UHw7sYK0RFGDzN6ZcFSvKEOZamwvc2u3Bl5/lnNLk7gPZoAhJ4zaluFYjvQydj9L
+         SRj4MUjgYROB4OLP5KyiECKEfWqTHgrVfgNMsvxmlZX9clIJKRsH0+D/X/JYaGY/k6+A
+         prsYUz9LSiNLKiV61HDwJF00SAn4M3Q55i4t9eCFLoj0cDIdcYFguwx5/DgCjnypNJiJ
+         t66g==
+X-Forwarded-Encrypted: i=1; AKwUvBzfQUn+LGy4Kra3sFBvmmI8LxiGYzUE8Gqtomwd7jIXMOaxizJpBzAbGsMrkedm+hFDMJ38D7MNffAq3z8=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9qR/6xpfE8E86RUM8aH6dRoI+RkSTP1w4Tnxv97FPyD+Sv7aPH
+	sy9e8/y1UldYkw7Q87sd6mDdBKR7qnC+9r9z67ryu5Mb/NrUNqHma38s
+X-Gm-Gg: AYBFou3QeVAE2GraZ0FjRrVMzppY8CC8mDjbOmrKl3huNbLhUy/BgCXhy4Z34QJO0QJ
+	WHlQqkEfMYw4ZBivnaHmntB2hi5aXPd9zz5r1VU+RT1bi4BxITD4WnJIbi8XFQPY1gzyneGfYVO
+	U//+kg+a8UDIAhkK86BRnIuXH9v/1qYfy1AYeFGRK8uBZ/osTPk3eouucwyysKTNqPgbqzblvE1
+	wTQyW/dyBOPCr8V8l+ugzvNp01KyUgM8h/X75nxeHaXhsKgDI5mtaxTYb7h3HCOgr7PqShZQIeS
+	YsHXFBc91JjNp7/Iyl1sKMlRCZV/Ln3LfoZKpouqV/ccTAMgGpwoJu4P94hsRCAYkXw5eph/muP
+	SOY2qh8Hbia6mkDuUOXQjDP4BfPMZ7zNt+a8NSp3/yMsyAVJJiISCosrSXdsAhdlJqJVxefSesN
+	rLk/ipduR26algSke7iFYsjosdtjhvReM1GoTa2/Fgj0HfSt626wY3tndoZ4cb2rGiEZySKoqPQ
+	5VNT1tpP+9kucnCLSZRZ74lgnRr1tqlRgLr2Xa8WXCFKzDGaF/ElMPFdPZr222yzdiS5yzI+7sq
+	yP4rDwVzSIQ6wRTMy+dXxvvyNWAjDRATijtlj2migOW8z+0=
+X-Received: by 2002:a17:90b:1b0f:b0:3ac:9f24:44be with SMTP id 98e67ed59e1d1-3ae897f55e5mr6520493a91.29.1793515094108;
+        Sat, 31 Oct 2026 23:38:14 -0700 (PDT)
 Received: from ubuntu24.vpn.host.chaitin.net ([124.77.157.93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e949077sm14036712a91.9.2026.10.31.23.38.07
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e949077sm14036712a91.9.2026.10.31.23.38.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 23:38:09 -0700 (PDT)
+        Sat, 31 Oct 2026 23:38:13 -0700 (PDT)
 From: BeaCox <0xbeac@gmail.com>
 To: Ketan Mukadam <ketan.mukadam@broadcom.com>,
 	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
@@ -85,9 +85,9 @@ To: Ketan Mukadam <ketan.mukadam@broadcom.com>,
 Cc: linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [RFC PATCH 1/2] scsi: be2iscsi: validate vendor request and payload lengths
-Date: Sun,  1 Nov 2026 14:37:53 +0800
-Message-ID: <20261101063754.89598-2-0xbeac@gmail.com>
+Subject: [RFC PATCH 2/2] scsi: be2iscsi: bound the WRITE_FLASH copy to the DMA buffer
+Date: Sun,  1 Nov 2026 14:37:54 +0800
+Message-ID: <20261101063754.89598-3-0xbeac@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261101063754.89598-1-0xbeac@gmail.com>
 References: <20261101063754.89598-1-0xbeac@gmail.com>
@@ -102,17 +102,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-mgmt_vendor_specific_fw_cmd() reads vendor_cmd[0..4], but the iSCSI
-BSG transport accepts vendor requests containing only msgcode and
-vendor_id. Reject requests shorter than the five command words before
-accessing those fields.
+The WRITE_FLASH command derives an offset from vendor_cmd[2..4] and
+copies the request payload to nonemb_cmd->va + offset. The allocation
+contains only request_payload.payload_len bytes, so a nonzero offset
+can place the copy beyond the allocation.
 
-The DMA buffer is allocated using request_payload.payload_len. Require
-space for be_bsg_vendor_cmd before writing its fields or command header.
+Check the offset and remaining space before forming the destination.
+Bound the copy length by both request_len and the payload length,
+matching the existing scatterlist copy limit. This keeps requests with
+request_len larger than payload_len valid when the actual copy fits.
 
-Keep nonemb_cmd->size initialized before returning an error because
-beiscsi_bsg_request() uses it to free the DMA allocation. Return zero,
-the failure sentinel expected by that caller.
+Keep the existing u16 offset interpretation; this change bounds the
+memory access rather than changing the firmware command format.
 
 The analysis, draft and validation were assisted by OpenAI Codex.
 
@@ -120,40 +121,42 @@ Fixes: ffce3e2e8ce4 ("[SCSI] be2iscsi: Adding bsg interface for be2iscsi")
 Cc: stable@vger.kernel.org
 Signed-off-by: BeaCox <0xbeac@gmail.com>
 ---
-Testing: x86_64 object builds with gcc 13.3 and W=1 for the first patch
-and the complete series. A userspace harness extracts the actual driver
-function and uses hardware stubs with ASan/UBSan. It detects out-of-bounds
-accesses in the original function and passes 2593 boundary cases with
-both patches applied, including error cleanup and lock balance.
-
-This is function-level testing, not a kernel/BSG reproducer or HBA test.
-No be2iscsi HBA or firmware operation was exercised. The BSG entry point
-requires CAP_SYS_RAWIO; no unprivileged exploit is claimed. The local
-harness can be shared privately on request.
-
- drivers/scsi/be2iscsi/be_mgmt.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/scsi/be2iscsi/be_mgmt.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/be2iscsi/be_mgmt.c b/drivers/scsi/be2iscsi/be_mgmt.c
-index b1cba986f0..3b8551a1f0 100644
+index 3b8551a1f0..1b95161cf0 100644
 --- a/drivers/scsi/be2iscsi/be_mgmt.c
 +++ b/drivers/scsi/be2iscsi/be_mgmt.c
-@@ -43,6 +43,15 @@ unsigned int mgmt_vendor_specific_fw_cmd(struct be_ctrl_info *ctrl,
+@@ -41,6 +41,7 @@ unsigned int mgmt_vendor_specific_fw_cmd(struct be_ctrl_info *ctrl,
+ 	struct iscsi_bsg_request *bsg_req = job->request;
+ 	struct be_bsg_vendor_cmd *req = nonemb_cmd->va;
  	unsigned short region, sector_size, sector, offset;
++	unsigned int len;
  
  	nonemb_cmd->size = job->request_payload.payload_len;
-+	if (job->request_len <
-+	    offsetof(struct iscsi_bsg_request,
-+		     rqst_data.h_vendor.vendor_cmd) + 5 * sizeof(__u32) ||
-+	    nonemb_cmd->size < sizeof(*req)) {
-+		beiscsi_log(phba, KERN_WARNING, BEISCSI_LOG_CONFIG,
-+			    "BG_%d : Invalid vendor request or payload length\n");
-+		return 0;
-+	}
-+
- 	memset(nonemb_cmd->va, 0, nonemb_cmd->size);
- 	region =  bsg_req->rqst_data.h_vendor.vendor_cmd[1];
- 	sector_size =  bsg_req->rqst_data.h_vendor.vendor_cmd[2];
+ 	if (job->request_len <
+@@ -66,11 +67,19 @@ unsigned int mgmt_vendor_specific_fw_cmd(struct be_ctrl_info *ctrl,
+ 	switch (bsg_req->rqst_data.h_vendor.vendor_cmd[0]) {
+ 	case BEISCSI_WRITE_FLASH:
+ 		offset = sector * sector_size + offset;
++		len = min(job->request_len, nonemb_cmd->size);
++		if (offset > nonemb_cmd->size ||
++		    len > nonemb_cmd->size - offset) {
++			beiscsi_log(phba, KERN_WARNING, BEISCSI_LOG_CONFIG,
++				    "BG_%d : WRITE_FLASH copy exceeds DMA buffer\n");
++			mutex_unlock(&ctrl->mbox_lock);
++			return 0;
++		}
+ 		be_cmd_hdr_prepare(&req->hdr, CMD_SUBSYSTEM_ISCSI,
+ 				   OPCODE_COMMON_WRITE_FLASH, sizeof(*req));
+ 		sg_copy_to_buffer(job->request_payload.sg_list,
+ 				  job->request_payload.sg_cnt,
+-				  nonemb_cmd->va + offset, job->request_len);
++				  nonemb_cmd->va + offset, len);
+ 		break;
+ 	case BEISCSI_READ_FLASH:
+ 		be_cmd_hdr_prepare(&req->hdr, CMD_SUBSYSTEM_ISCSI,
 -- 
 2.43.0
 
