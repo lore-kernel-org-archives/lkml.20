@@ -1,81 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.169
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793496512;
-	b=az48cMPB11vjrFUc5C5ZMM10A5BjpJ/9/1XP5jl6Mns716/aqi67Bj+oTo5Yv6jAeXkj
-	 WRVCwT249jegdAFISXFNNmOvHQkdqMt8bhoelSLUmOnn9fEinADE26F/NscTxc2cEHQ/n
-	 npDkyo8Idth3ajJmBrcWL7TgAmm1r1hdCVCR0v9KDXZap6W8pETAOrX1n10L9yN8qVZs0
-	 vx+kmY7Vu+/bm9f4jNTuhAaf2xvW9rZWZQRry9lKLvX1cjXh978/5jvGxXIPJb9/wjP0j
-	 X2zV1STXbBuxWP9BA8WUwCjTmodwH3kB3yEuS5lmyAGEgEN69Pa4UEfaYrYjguQLA5g==
+	t=1793496647;
+	b=I4rbJZbZNWF1Fx1ZDU4iHlcL4H818jhy+maDTqg6yMBK3yEuW5BWU27PRmsAzwC6Vos1
+	 Sp4AdnuVVBPOSu4n+bG17xEfVqJp09i1M+zCR3LHt3L9pxzm2iAOcT5/Uz+hMH+7wJz6R
+	 G5q1tt+ebJq/wTFG80aqg2TaaeT0XorlRGGuGbeja8pMe/qW8CZ/or5Qoptpc0+nx1YQt
+	 O6LCdGfE5HVVhXggs+cqtHnwuwYpKjyALpaqxeK/GnleO5utt/1RDVMHULLIVzqlbdj6L
+	 vAOdpukXrChB4bPmXHUthvsDUf1+IKnLO8Mhe0cZEVnO6AU+hkxq3n8vaMxnuOEAeSQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793496512;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9jxnaJU/GpcwWRWB/sWaXu2IklLN1zFRwShITZdyTMA=;
-	b=acxSgF52fE1oPbtaNMxO1iHJS0P/3mStBgPTCIUau318Cl1Cg+515xK0dfAciVJhGQ4p
-	 361oJ/haGkNLKzuO+RjOL7qj5tFv2SyBgFI7frrZpFTbiuGA0vx58poNNGaTtzedTdH7o
-	 JAfN6mStnf1EQA0T6jpsbn7xWHq4lFhS+0fhC3CyQJ9rTKogzy9q5t5F6GjllCJkQgW1S
-	 SMQWcFnDbBu/lFZmiJp4e+eaKdGJOExu6qjCAvJRJIfJQdz2E4s8tcW+NmNDAfEAJV8oj
-	 3zVbkWgebGEe9lJ7HREokQP4gxo787gYGF8R8e3L4h3ioztk2JVFFcC5vlhKTN8CLTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793496647;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
+	 References:Content-Transfer-Encoding:MIME-Version;
+	bh=HKpTgsAdietgImbWPM33Hs3sIvDzrbl29q+l/XmMzoc=;
+	b=vtGG79LrD+23C96SiQb0Xrby2ZtwvSW5xh1IwlkuIn6aIEd46bL56y+VXqzoBnqoBl8q
+	 kwd3DN/X0NW1DTx9B0VugcGKoyvEh+XpsSjl41NOOIbKLQU1uQOPhy24VmfpyjYl0QSeZ
+	 3jEvKSnqM7EQCU9rtyJ26hcKuCUBm3v4qQ7PPlPnRRuc9L9nNbbQaSl2RPEL6z+C6UznZ
+	 R3xVDE0ggr8Y9vJf+RPQ6Hhx5ShY1YzvsZXXkeErPlKCT3dnO8u/MGJda/2H0V7k2Onbm
+	 UnH86nmJ7FC4bqTWuJBgMWA0uVOORDPURfCcEUOixgUvVKL6CbIQvOk3s9Dp0aS3XlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DlUf8b/P";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BTG+RZM2;
+	arc=none smtp.remote-ip=209.85.214.169
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB697606A31A;
-	Sun,  1 Nov 2026 01:28:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 168B2606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:30:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 168B2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DlUf8b/P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310021F00A02;
-	Sun,  1 Nov 2026 01:28:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793496511;
-	bh=9jxnaJU/GpcwWRWB/sWaXu2IklLN1zFRwShITZdyTMA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DlUf8b/PjEZiH1rlFlhKz5afZUFvN3eB3xktIUb6mPXEXJc5nQw0YPKctxh3sUYb0
-	 GAy9//9SZsye80mhB5yHFC2sMSHdbDF2VJhrkVF/xvtJExFSlVUkaixESAMNZ3yTGq
-	 9IhnPp4IUYV9niMYchq4IdNft1SaAyiH60qUwBGWPOMtdc/LYdWJLs6TqdKJAachtX
-	 +CLTYQmulxXH8ZaNJf3wxMiQU6jwPtY+YaTSxK1Tr52PcGpKri+z/3MTZFrLXQcD+e
-	 VcTK7AE9owFIVm09wDwr+wn+fnr4M30yXt96j4Cl5+kB/DAt2P4Uy1h2AoKlnWSnP4
-	 7ZwP0gffUx1aQ==
-Date: Sun, 1 Nov 2026 01:28:12 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
- <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
- <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown
- <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
- <brgl@kernel.org>, Sven Peter <sven@kernel.org>, Janne Grunau
- <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Guenter Roeck
- <linux@roeck-us.net>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin
- Kroah-Hartman <griffin@kroah.com>, Hans de Goede <hansg@kernel.org>, Ilpo
- =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Sebastian Reichel
- <sre@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Wim
- Van Sebroeck <wim@linux-watchdog.org>, Jarkko Sakkinen <jarkko@kernel.org>,
- Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
- Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
- <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
- <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
- linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org,
- asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
- linux-leds@vger.kernel.org, mfd@lists.linux.dev,
- platform-driver-x86@vger.kernel.org, linux-pm@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org,
- linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
- linux-security-module@vger.kernel.org
-Subject: Re: [RFC PATCH 04/14] iio/light: add new driver for macsmc
-Message-ID: <20261101012812.3661789c@jic23-hlaptop>
-In-Reply-To: <20261029085504.3547-5-atharvatiwarilinuxdev@gmail.com>
-References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
-	<20261029085504.3547-5-atharvatiwarilinuxdev@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BTG+RZM2
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2e977109392so12929655ad.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:30:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793496646; x=1794101446; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HKpTgsAdietgImbWPM33Hs3sIvDzrbl29q+l/XmMzoc=;
+        b=BTG+RZM2xdbQ1q707/pPe1Q7+sBufQLL/wOMexWBWzDWtLevA4L8vRmK26LT2AHamY
+         cIzAVZTBuqn1rXHupAwaEOnQcbqlerPMsi3EB98YF0YD0+VtCtTyy0VQrcGXpw/fnBik
+         eH5yGVldbfawrH6cpOQT194fLr9WVkwg2zhxXkqF159mwVJCt5D+Opp3cg5TBZiQNDBI
+         EI5H11dxfspvci5DgyIozxTWsYt0sQwssEzoc2ywqz+7mvR7xCW2cPAft4GJj8Rp4R+U
+         Q+gy1AJ3Ro4JqIL7b5VvcwxiJKp8Wy2k/OHib11NqVFkfhUInQ1hL6kWZ0swIH5oCSfA
+         E7rQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793496646; x=1794101446;
+        h=mime-version:content-transfer-encoding:references:in-reply-to
+         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HKpTgsAdietgImbWPM33Hs3sIvDzrbl29q+l/XmMzoc=;
+        b=EPxGk1ooEskYrrs6/hUi3dBvIlWggpQv0jL0hYgHELm2hNs2xpeLr6TLRTSLgpkPuj
+         YhNsnfFzWzRTOPM4w5t3N93a0/FIFbLlANrnbBSzcgahD8tWEa4keRKKKIHbK1f/JRwG
+         5iOtfir2h+PP9+AOV/D0JkGEG+/WA7MwONQlYqwCAshqgYSJP5n7GVOA580yYqaJkyZQ
+         MMt6gAoNu1dlwPZvG0MlZVNjC16lYKGHE/+PTAJW3zR/23u6bubDk56mLhTSnYN7NRqy
+         tILQFSqOQodzjv/DlXTk/hkObth0SFJGuadXvWm7NOberqUrmGGVSN30Vu0375I5S+pD
+         WiKw==
+X-Forwarded-Encrypted: i=1; AKwUvBzd8iLzey/Dd7mmUTMtwR2TvEHzSaKPbxpGuzovQyDazH3NyhOk64PXNucURBThffx43c3VRX9wYNL7O0M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9usSH2zn8Py9oiiH1WEAfjAXKHRuLooU1gOg4MixwuxeS8q/ux
+	4sBz0O7gLCLbYXf/wPyPfHWaz5RKNzyDv9NTxrAjDAdyDug2+4sTJjnf
+X-Gm-Gg: AYBFou0xGOdRYC/YtFnG6ukZiNOX0qM2EnhXgK0YOJ9iptpZqDVb24pqAwnH3+hyGbg
+	oUkAw/knG3kZuClt775eHuldb120+7CQsmIobuoM10S5gwusJPxQ7rMN//FzVCNQCHJKLfZ0o0A
+	5obonqdNsLTaSpY+AKsovw3h9bAL6hbouMQ6JNTgW9iUuPJuSv+fdqTvSKlDKS5X+dwjHEUiZ9g
+	pU7FKy8CnY0aS66LRYBcGAdE5xpHEioG2hMNQXxil2mRgSGCUOirFudSroQBkew7e5SrgyBw+tt
+	OHKkfWQ/BlzoexRAjmBd72OPHM+a4yWRvwszsJw6Xxu4A0DSl/NbiiyhFoPwMPZFUiK9Sd/RgiT
+	N9LeaO1xdMe8pFCq4DCqFhIWNbrwggUUeT8baa+MfjzWIC6m30ecJ0PQgFiSQpjpyDQBxrKxhke
+	VVhcKtjipf3OweIch3jRNicCbGCR7KRPXBoByKwHiLdMkldauzWhKEAPYCCCz9q9Cq0fRcbnK0h
+	Z7P9hIfRUHjbo3TZhE8fEaOL90Roh33VXmlbBGlqGrSST29U3RkKqiSLDyDfpfuA2cJ5YVPw856
+	gmSSxF24/8IuVndz34V0EjKFGdslWNz+odc7b4MmakIfRJxPbrlP4qCUUf8p2za4TGixzCaJxHb
+	gKQgzNcdN5GMAo2pLAMM6Ano/VRjxmxw24FA=
+X-Received: by 2002:a17:90b:5145:b0:3ac:9706:772c with SMTP id 98e67ed59e1d1-3ae8984cefamr5674017a91.60.1793496646286;
+        Sat, 31 Oct 2026 18:30:46 -0700 (PDT)
+Received: from localhost ([153.61.198.254])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84577911sm8943687a91.7.2026.10.31.18.30.44
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 31 Oct 2026 18:30:45 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 01 Nov 2026 01:30:44 +0000
+Message-Id: <DMJHI077QR5H.5KF9WFI089UJ@gmail.com>
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Josef Bacik" <josef@toxicpanda.com>, "Paul E. McKenney"
+ <paulmck@kernel.org>, "Frederic Weisbecker" <frederic@kernel.org>, "Steven
+ Rostedt" <rostedt@goodmis.org>
+Cc: "Boqun Feng" <boqun@kernel.org>, "Masami Hiramatsu"
+ <mhiramat@kernel.org>, "Mark Rutland" <mark.rutland@arm.com>, "Peter
+ Zijlstra" <peterz@infradead.org>, "Thomas Gleixner" <tglx@kernel.org>,
+ "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii Nakryiko"
+ <andrii@kernel.org>, "Puranjay Mohan" <puranjay@kernel.org>,
+ <rcu@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <linux-trace-kernel@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v6 00/14] rcu-tasks: build Tasks RCU on Tasks Trace
+ readers in trampolines
+In-Reply-To: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
+References: <20260929-b4-rcu-tasks-preempt-qs-v6-0-c111ee02caca@toxicpanda.com>
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,265 +109,259 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Thu, 29 Oct 2026 04:52:01 -0400
-Atharva Tiwari <atharvatiwarilinuxdev@gmail.com> wrote:
+On Tue, Sep 29, 2026 at 10:07 AM Josef Bacik <josef@toxicpanda.com> wrote:
+>                    Graviton4                  Xeon 8375C
+>                    base   series   C          base   series   C
+>   nothing          87.0    87.8   87.7        70.3    70.5   69.8
+>   function tracer 103.7   105.6  105.9        87.2    88.0   88.2
+>   kprobe event    215.5   215.6  216.4       119.9   123.2  124.7
+>   fentry          101.3   109.7  111.3        77.0    77.9   78.3
+>   fexit           118.8   136.2  139.3        78.4    80.7   80.5
+>   fentry+fexit    134.1   151.0  154.5        83.2    85.6   85.5
 
-> Add a driver for the ambient light sensors, exposed through
-> the standard IIO interface with left and right channels.
-> 
-> This replaces the light sensor support in applesmc.
-> 
-> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-Hi Atharva,
+On Graviton4, on top of the bare syscall:
 
-Given I'm generally in favour of bringing the overall
-driver to modern standard subsystems, I'll just do a quick
-review of the actual code in the IIO drivers.
+                  today      the series adds
+  fentry          14.3 ns     8.4 ns
+  fexit           31.8 ns    17.4 ns
+  fentry+fexit    47.1 ns    16.9 ns
 
-Various comments inline.
+Every fentry and fexit prog pays that on every call :(
+while synchronize_rcu_tasks() is rare.
 
-thanks,
+> mutex, and the hung task detector panicked the machine. The kprobe jump
+> optimizer is worse in principle: it does synchronize_rcu_tasks() under
+> kprobe_mutex, text_mutex and cpus_read_lock(), so one long-running
+> kthread can stall static key updates and CPU hotplug for its whole run.
 
-Jonathan
+Not anymore.
 
-> diff --git a/drivers/iio/light/macsmc-light.c b/drivers/iio/light/macsmc-light.c
-> new file mode 100644
-> index 000000000..9d4532b34
-> --- /dev/null
-> +++ b/drivers/iio/light/macsmc-light.c
-> @@ -0,0 +1,189 @@
-> +// SPDX-License-Identifier: GPL-2.0 OR MIT
-> +/*
-> + * Apple SMC Light Sensor Driver
-> + *
-> + * Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
-> + *
-> + * Based on drivers/hwmom/applesmc.c:
-> + * Copyright (C) 2007 Nicolas Boichat <nicolas@boichat.ch>
-> + * Copyright (C) 2010 Henrik Rydberg <rydberg@euromail.se>
-> + */
-> +
-> +#include <linux/iio/events.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/byteorder/generic.h>
-> +#include <linux/mfd/macsmc.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/unaligned.h>
-Give these a sanity check against other drivers
-and what is used. For instance I'd expect the notifier chain
-header.  For IIO we follow IWYU roughly for all files.
-I don't want to assume what is in mfd/macsmc.h given
-that may change in subtle ways in future.
+  who waits for Tasks RCU     how                      locks in the wait
+  kprobe optimizer            call_rcu_tasks()         none
+  bpf detach on x86           call_rcu_tasks()         none
+  bpf image and prog free     call_rcu_tasks()         none
+  ftrace_shutdown() of a      synchronize_rcu_tasks()  ftrace_lock and
+  dynamic ftrace_ops                                   what the caller has
 
-> +
-> +enum {
-> +	LEFT_LIGHT = 0,
-> +	RIGHT_LIGHT
-Add trailing comma. Whilst that may always be the last value
-it's not a terminating style entry so we tend to assume
-maybe one day something will come after it.
+The first row is
+commit 06e0d3b89da1 ("kprobes: Make optprobe optimizer multi-generational and asynchronous").
+The second row is
+commit 424f6a361096 ("bpf,x86: Use single ftrace_ops for direct calls").
+bpf on arm64 still allocates ftrace_ops per trampoline.
+That's the last row.
 
-> +};
-> +
-> +struct macsmc_light {
-> +	struct apple_smc *smc;
-> +	struct notifier_block nb;
-> +	struct iio_dev *indio_dev;
-> +	u8 size;
-Size of what? Can we have a more informative name?
-> +};
-> +
-> +static int macsmc_light_read_raw(struct iio_dev *indio_dev,
-> +		const struct iio_chan_spec *chan,
-> +		int *val, int *val2, long mask)
-> +
-> +{
-> +	struct macsmc_light *drv = iio_priv(indio_dev);
-> +	u8 buffer[10];
-> +	int ret;
-> +
-> +	if (mask != IIO_CHAN_INFO_RAW)
-> +		return -EINVAL;
-> +
-> +	switch (chan->channel) {
-> +	case LEFT_LIGHT:
-> +		ret = apple_smc_read(drv->smc, SMC_KEY(ALV0), buffer, drv->size);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		if (drv->size == 10)
-> +			*val = be16_to_cpu(get_unaligned_be16(buffer + 6)) >> 10;
+Another idea...
+livepatch had the same problem with PREEMPT_LAZY.
+commit 676e8cf70cb0 ("sched,livepatch: Untangle cond_resched() and live-patching")
+solved it with a stack walk of prev in __schedule().
+can we do the same for a holdout task ?
+A preempted task is in a quiescent state when its stack trace is
+reliable and has no address in a trampoline.
+On x86 ORC unwinds through the interrupt frame.
+bpf_has_frame_pointer() makes it reliable through progs and trampolines.
 
-odd.... You only pull 4 bits from the buffer and they are all in one byte.
-Why can't you do that without this dance via big endian conversions? 
-Also get_unaligned_be16() got you a value in cpu endian. If this were a
-big endian CPU be16_to_cpu() would be a noop, but it's not. So this just
-undid the endian handling and we are back to whatever the buffer ordering is.
+                                   series              stack walk
+  cost in a trampoline             0.8 to 17.4 ns      none
+  copies of rcu_read_lock_trace()  6                   none
+  hook in the irq exit path        yes                 no
+  return thunks, __bhi_args        listed by hand      return address is
+                                                       on the stack
+  register_ftrace_direct() users   must take a reader  as-is
+  implementations of Tasks RCU     2                   1
+  scan of the task list            only for kprobes    as today
 
-> +		else
-> +			*val = buffer[2];
-> +
-> +		break;
-> +	case RIGHT_LIGHT:
-> +		if (drv->size == 10) {
-> +			*val = 0;
-> +			break;
-> +		}
-> +		ret = apple_smc_read(drv->smc, SMC_KEY(ALV1), buffer, drv->size);
-> +		if (ret < 0)
-> +			return ret;
-> +
-> +		*val = buffer[2];
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	return IIO_VAL_INT;
-> +}
-> +
-> +static int macsmc_light_event(struct notifier_block *nb, unsigned long event, void *data)
-> +{
-> +	struct macsmc_light *drv = container_of(nb, struct macsmc_light, nb);
-	struct iio_dev indio_dev = drv->indio_dev;
+Then no need for patches 2, 3 and 6-13, rcu_tasks_irq_ip,
+rcu_tasks_wait_irq_preempted(), etc.
 
-> +	s64 timestamp = iio_get_time_ns(drv->indio_dev);
-> +
-> +	/* check if event is for us */
-> +	if (event != 0x2A)
+  not in the diff            what it needs
+  kprobe jump window         kprobe_in_optimized_region() of patch 4 in
+                             rcu_tasks_stack_entry()
+  trampolines in modules     the flag of patch 5 in the same place
+  fexit on a long function   the task in it stays a holdout, like today
+  nohz_full                  resched_cpu() for a running holdout
+  rcutorture                 a reader that the walk can see
+  arm64                      see below
 
-Give that a define in some common header...
+arm64 is the hard part. arch_stack_walk_reliable() stops at an exception
+boundary, because LR can be live there. So a task that an irq preempted
+is never clean. A false positive is fine for this check. The walk can
+report regs->pc and regs->regs[30] and go on with the frame records.
+Mark has to say whether that is enough.
 
-> +		return NOTIFY_DONE;
-> +
-> +	iio_push_event(drv->indio_dev,
-> +		IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
-> +				LEFT_LIGHT,
-> +				IIO_EV_TYPE_CHANGE,
-> +				IIO_EV_DIR_EITHER),
-> +		timestamp);
+Patch 1 is useful on its own. It removes two smp_mb() from every
+sleepable prog. Pls send it separately.
 
-	iio_push_event(indio_dev,
-		       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, LEFT_LIGHT,
-					    IIO_EV_TYPE_CHANGE,
-					    IIO_EV_DIR_EITHER),
-		       timestamp);
+Something like this
 
-> +
-> +	if (drv->size != 10) {
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 15fd9ec..83cb440 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -288,6 +288,7 @@ config X86
+ 	select MMU_GATHER_RCU_TABLE_FREE
+ 	select MMU_GATHER_MERGE_VMAS
+ 	select HAVE_POSIX_CPU_TIMERS_TASK_WORK
++	select HAVE_RCU_TASKS_STACK_QS		if UNWINDER_ORC && DYNAMIC_FTRACE
+ 	select HAVE_REGS_AND_STACK_ACCESS_API
+ 	select HAVE_RELIABLE_STACKTRACE		if UNWINDER_ORC || STACK_VALIDATION
+ 	select HAVE_FUNCTION_ARG_ACCESS_API
+diff --git a/arch/x86/kernel/ftrace.c b/arch/x86/kernel/ftrace.c
+index 17d6edf..a3a33e9 100644
+--- a/arch/x86/kernel/ftrace.c
++++ b/arch/x86/kernel/ftrace.c
+@@ -275,6 +275,21 @@ static inline void tramp_free(void *tramp)
+ 	execmem_free(tramp);
+ }
 
-Why is size relevant? I'd add a comment, or a flag that names
-what that means.  I guess we have one signal for one or two
-sensors depending on what is present?  Then you are correct
-to just signal them both.
++#ifdef CONFIG_TASKS_RCU_STACK_QS
++extern void ftrace_static_tramp_end(void);
++
++/*
++ * ftrace_caller(), ftrace_regs_caller() and return_to_handler() keep the
++ * address of ftrace_ops, of a direct trampoline or of the caller in a register.
++ * The unwinder does not see it.
++ */
++bool arch_rcu_tasks_trampoline_text(unsigned long addr)
++{
++	return addr >= (unsigned long)ftrace_caller &&
++	       addr < (unsigned long)ftrace_static_tramp_end;
++}
++#endif
++
+ /* Defined as markers to the end of the ftrace default trampolines */
+ extern void ftrace_regs_caller_end(void);
+ extern void ftrace_caller_end(void);
+diff --git a/arch/x86/kernel/ftrace_64.S b/arch/x86/kernel/ftrace_64.S
+index 62c1c93..c0e8c50 100644
+--- a/arch/x86/kernel/ftrace_64.S
++++ b/arch/x86/kernel/ftrace_64.S
+@@ -403,3 +403,9 @@ SYM_CODE_START(return_to_handler)
+ 		    X86_FEATURE_CALL_DEPTH
+ SYM_CODE_END(return_to_handler)
+ #endif
++
++/* See arch_rcu_tasks_trampoline_text() */
++SYM_CODE_START_NOALIGN(ftrace_static_tramp_end)
++	UNWIND_HINT_UNDEFINED
++	ANNOTATE_NOENDBR
++SYM_CODE_END(ftrace_static_tramp_end)
+diff --git a/include/linux/rcupdate.h b/include/linux/rcupdate.h
+index 44c07a6..2eb88c6 100644
+--- a/include/linux/rcupdate.h
++++ b/include/linux/rcupdate.h
+@@ -180,9 +180,16 @@ static inline void rcu_nocb_flush_deferred_wakeup(void) { }
+ #ifdef CONFIG_TASKS_RCU_GENERIC
 
-> +		iio_push_event(drv->indio_dev,
-> +			IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
-> +					RIGHT_LIGHT,
-> +					IIO_EV_TYPE_CHANGE,
-> +					IIO_EV_DIR_EITHER),
-> +				timestamp);
-> +	}
-> +
-> +	return NOTIFY_OK;
-> +}
-> +
-> +static void macsmc_light_unregister_notifier(void *data)
-> +{
-> +	struct macsmc_light *drv = data;
-> +
-> +	blocking_notifier_chain_unregister(drv->smc->event_handlers,
-> +					   &drv->nb);
-> +}
-> +
-> +static const struct iio_event_spec macsmc_light_events[] = {
-> +	{
-> +		.type = IIO_EV_TYPE_CHANGE,
-> +		.dir = IIO_EV_DIR_EITHER,
-> +		.mask_separate = BIT(IIO_EV_INFO_ENABLE),
-> +	},
-> +};
-> +
-> +static const struct iio_chan_spec macsmc_light_channels[] = {
-> +	{
-> +		.type = IIO_LIGHT,
-> +		.channel = LEFT_LIGHT,
-> +		.extend_name = "left",
+ # ifdef CONFIG_TASKS_RCU
++#  ifdef CONFIG_TASKS_RCU_STACK_QS
++bool rcu_tasks_preempted_qs(struct task_struct *t);
++bool arch_rcu_tasks_trampoline_text(unsigned long addr);
++#  else
++static inline bool rcu_tasks_preempted_qs(struct task_struct *t) { return false; }
++#  endif
+ # define rcu_tasks_classic_qs(t, preempt)				\
+ 	do {								\
+-		if (!(preempt) && READ_ONCE((t)->rcu_tasks_holdout))	\
++		if (READ_ONCE((t)->rcu_tasks_holdout) &&		\
++		    (!(preempt) || rcu_tasks_preempted_qs(t)))		\
+ 			WRITE_ONCE((t)->rcu_tasks_holdout, false);	\
+ 	} while (0)
+ void call_rcu_tasks(struct rcu_head *head, rcu_callback_t func);
+diff --git a/kernel/rcu/Kconfig b/kernel/rcu/Kconfig
+index 332df7a..93a6a83 100644
+--- a/kernel/rcu/Kconfig
++++ b/kernel/rcu/Kconfig
+@@ -107,6 +107,20 @@ config TASKS_RCU
+ 	default NEED_TASKS_RCU && PREEMPTION
+ 	select IRQ_WORK
 
-No to extend_name.  That's a piece of ancient bad design (was mind
-so I can be rude ;).  Use the read_label callback and provide labels
-for the channels to indicate the equivalent info.
++config HAVE_RCU_TASKS_STACK_QS
++	bool
++	help
++	  Select this if arch_stack_walk_reliable() can walk the stack of
++	  a task that was preempted by an interrupt, and if
++	  arch_rcu_tasks_trampoline_text() reports the kernel text that
++	  keeps the address of a trampoline or of ftrace_ops in a register.
++
++config TASKS_RCU_STACK_QS
++	def_bool TASKS_RCU && HAVE_RCU_TASKS_STACK_QS && HAVE_RELIABLE_STACKTRACE
++	help
++	  A preempted task is in a Tasks RCU quiescent state when its stack
++	  has no address in a trampoline.
++
+ config FORCE_TASKS_RUDE_RCU
+ 	bool "Force selection of Tasks Rude RCU"
+ 	depends on RCU_EXPERT
+diff --git a/kernel/rcu/tasks.h b/kernel/rcu/tasks.h
+index 6272953..69f7aef 100644
+--- a/kernel/rcu/tasks.h
++++ b/kernel/rcu/tasks.h
+@@ -1089,6 +1089,44 @@ static void rcu_tasks_postscan(struct list_head *hop)
+ 		timer_delete_sync(&tasks_rcu_exit_stall_timer);
+ }
 
-The extend_name thing makes a mess for standard userspace by putting
-free form text into the middle of file names.  Userspace folk
-objected rather strongly to that a long time back :(
++#ifdef CONFIG_TASKS_RCU_STACK_QS
++/*
++ * Tasks RCU protects the text outside of the kernel and of the modules
++ * (ftrace and bpf trampolines, optprobe slots) and what the arch adds.
++ */
++static bool rcu_tasks_stack_entry(void *cookie, unsigned long addr)
++{
++	if (core_kernel_text(addr))
++		return !arch_rcu_tasks_trampoline_text(addr);
++	return is_module_text_address(addr);
++}
++
++static int rcu_tasks_stack_is_clean(struct task_struct *t, void *arg)
++{
++	if (t != current && task_curr(t))
++		return 0;
++	return !arch_stack_walk_reliable(rcu_tasks_stack_entry, NULL, t);
++}
++
++/*
++ * A preempted task is in a quiescent state when its stack trace is reliable
++ * and has no address in the protected text.  __schedule() asks for current.
++ * The grace-period kthread asks for a task that waits on a runqueue.
++ */
++bool rcu_tasks_preempted_qs(struct task_struct *t)
++{
++	bool ret;
++
++	if (t == current)
++		return rcu_tasks_stack_is_clean(t, NULL);
++	if (!try_get_task_stack(t))
++		return false;
++	ret = task_call_func(t, rcu_tasks_stack_is_clean, NULL);
++	put_task_stack(t);
++	return ret;
++}
++#endif
++
+ /* See if tasks are still holding out, complain if so. */
+ static void check_holdout_task(struct task_struct *t,
+ 			       bool needreport, bool *firstreport)
+@@ -1098,6 +1136,7 @@ static void check_holdout_task(struct task_struct *t,
+ 	if (!READ_ONCE(t->rcu_tasks_holdout) ||
+ 	    t->rcu_tasks_nvcsw != READ_ONCE(t->nvcsw) ||
+ 	    !rcu_tasks_is_holdout(t) ||
++	    rcu_tasks_preempted_qs(t) ||
+ 	    (IS_ENABLED(CONFIG_NO_HZ_FULL) &&
+ 	     !is_idle_task(t) && READ_ONCE(t->rcu_tasks_idle_cpu) >= 0)) {
+ 		WRITE_ONCE(t->rcu_tasks_holdout, false);
+diff --git a/kernel/rcu/update.c b/kernel/rcu/update.c
+index b62735a..a21b76f 100644
+--- a/kernel/rcu/update.c
++++ b/kernel/rcu/update.c
+@@ -25,6 +25,8 @@
+ #include <linux/interrupt.h>
+ #include <linux/sched/signal.h>
+ #include <linux/sched/debug.h>
++#include <linux/sched/task_stack.h>
++#include <linux/stacktrace.h>
+ #include <linux/torture.h>
+ #include <linux/atomic.h>
+ #include <linux/bitops.h>
 
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> +		.event_spec = macsmc_light_events,
-> +		.num_event_specs = ARRAY_SIZE(macsmc_light_events),
-> +	},
-> +	{
-> +		.type = IIO_LIGHT,
-> +		.channel = RIGHT_LIGHT,
-> +		.extend_name = "right",
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
-> +		.event_spec = macsmc_light_events,
-> +		.num_event_specs = ARRAY_SIZE(macsmc_light_events),
-> +	},
-> +};
-> +
-> +static const struct iio_info macsmc_light_info = {
-> +	.read_raw = macsmc_light_read_raw,
-> +};
-> +
-> +static int macsmc_light_probe(struct platform_device *pdev)
-> +{
-
-There are enough uses of pdev->dev in here that I'd introduce
-	struct device *dev = &pdev->dev;
-as the dev to use for devm calls.
-
-> +	struct iio_dev *indio_dev;
-> +	struct macsmc_light *drv;
-> +	struct apple_smc_key_info info;
-> +	int ret;
-> +
-> +	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*drv));
-> +	if (!indio_dev)
-> +		return -ENOMEM;
-> +
-> +	drv = iio_priv(indio_dev);
-> +	drv->smc = dev_get_drvdata(pdev->dev.parent);
-> +
-> +	ret = apple_smc_get_key_info(drv->smc, SMC_KEY(ALV0), &info);
-> +	if (ret < 0)
-> +		return -ENODEV;
-> +
-> +	drv->size = info.size;
-> +	drv->indio_dev = indio_dev;
-> +	drv->nb.notifier_call = macsmc_light_event;
-> +	ret = blocking_notifier_chain_register(drv->smc->event_handlers, &drv->nb);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = devm_add_action_or_reset(&pdev->dev, macsmc_light_unregister_notifier, drv);
-
-I wonder how many users there would be a devm_blocking_notifier_chain_register()
-as it could be done more elegantly than this by stashing everything needed for
-the unregister call.  Perhaps not something for this patch set though.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	indio_dev->name = "macsmc-light";
-> +	indio_dev->modes = INDIO_DIRECT_MODE;
-> +	indio_dev->info = &macsmc_light_info;
-> +	indio_dev->channels = macsmc_light_channels;
-> +	indio_dev->num_channels = ARRAY_SIZE(macsmc_light_channels);
-> +
-> +	return devm_iio_device_register(&pdev->dev, indio_dev);
-> +}
-
+pw-bot: cr
