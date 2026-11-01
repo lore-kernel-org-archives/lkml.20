@@ -1,102 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793528746;
-	b=rXXyco+mOgyxC412Ss0kZNVEo1TSQEHnX5HauDzBN3zUSE+3vEJkvpx0rp0siQsQ3Cv2
-	 QB0XCGn7BUAP3q81l0K9w8Y4ibFII1RRFNyux9Bw7bcHFr7PZ8j3Cb4HyMs8i9VFHVN/r
-	 9KHYx4NMFKexQpgG7p9ClmidUu9GSAq3Beq1SlF71NiLeK3eKAQHjcr9ZfdZLzv07hdo2
-	 F8YO1tUbS14RVQnquUh52zYQ2JFwDMeXY6v3JY6SOc/ZA++OsbWBHp1EHTan/BEaCvv8r
-	 AU/woZ83v3GU7dIs4gU2Sy7t+md7tOLvMbUFxInwNp11Dv6/zHZ3qSH9GjRMKbqS2CA==
+	t=1793528865;
+	b=j+HPMew8Oij+zFJyGuP6NmekBGB+I/iGpuJ78mk8EZ0JCo1g9+HYYzNOYceoQMdnJ83g
+	 dB8ayDWa7zFDKbVrBiF63ALNixwRpNTDXLOUoVVgwdnBJQ2ZZC1jQScX/ynlBDIrtbop6
+	 /q16BymVQswohLtGrmKkEfRBw34eX1UguOkWytHJqEg36qqll9ooQqJPZTQ1KMz6e0fRM
+	 H0PXx3DBQyWliYdlTVKHFRYD9DJAJzP8vKBkygyXA8fad5U/Zap2rpf0B5bf+oedsvrqb
+	 lNC+kZejFDnOn7cbw7pETUZ50cOjI9pIV4VrMb947N+GMpd/giOKVaUyhI/cZVIgfng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793528746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528865;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=0WNWdAH/5+xVZy8kDLSNEMLIm1NWHJIuWvqvMrdiB/Q=;
-	b=CvPqJjaTotgEZK8aip/7J8tmbbzQdZYbMItWP1Fz7l6MsCp54TkoAnwC6bfI5ZFE+XHr
-	 s0JxU4qTI1r0ofno+iyvip5OUDQgwVo1rquRw5elDWEm2e8zUU2Q5/KTynMRCTu9nxhb5
-	 eIWFTFB2ru2yOtBCE5ZDpYEnVa3QuzdbTnTtQTQ2b38skb8zXBVK624neMNnIFDbr/LnS
-	 o1bkxSzhNEJ+Ta3x0dL3KoM9Rmu4RlIYi2Kk84vJ18yrOhkaRaxgz5r/XaF6UXlMWPBVR
-	 9s47ZFDqS7+q7p9QsEZ0cvsoQ6DSXgCi3JlXsNPUvI7LjC/jvdgQwIWJuFwK3Fsh1OQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GAbxTLtn8KLNWZOq5PdgC059WvyP0mvclyC7teVViSU=;
+	b=bIbzLWEtKBmRVTlDkGBV5OBs2dRFgj9dONouyrNDO909dNDPzaQWih+UjAjxnq2yLcBe
+	 uMYhSDSNptBjaWL1EQxCk1BwrJrtfBCDRiEP1Z+8FblyrLs4SVuJS4AXqIL+f2fMj+R1D
+	 rZOy6EEpG6a9gWWQNvUm4FKpkHE0a1VWBqFYyGhRlfyHwn9wxf0FIfQrXo+0E/HX+kDKn
+	 KEo6sYWcc+WCqtM96GuF22ztr2PnOc5BDp022s8IXOZVXDXSmLKe+lq7taC+qzI4prQyV
+	 nSruuYMzPps596LhrOPffhzBc7Nu+0FOPksCdn7UytwBeR9Wr8FQwAOtb4JfoMqMF8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5CTssnI;
-	arc=none smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
+	dmarc=pass header.from=luxonis.com;
+	spf=pass smtp.mailfrom=luxonis.com;
+	dkim=pass header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=QwTr8sUv;
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23E5606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:25:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E23E5606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C43A606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:27:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4C43A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=luxonis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=luxonis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5CTssnI
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15943c9c005so301369c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:25:45 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=luxonis.com header.i=@luxonis.com header.a=rsa-sha256 header.s=google header.b=QwTr8sUv
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48e47347279so1169264f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:27:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793528745; x=1794133545; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0WNWdAH/5+xVZy8kDLSNEMLIm1NWHJIuWvqvMrdiB/Q=;
-        b=b5CTssnInoLalaKG7mYWQqQTj1jvMnkisvs/9OXE7YcgV8rSQXzSYMWHGzE32E0naq
-         uuGrTZrCiikAdzdZalQzj6MC/nMR23/yWzhtoSyeoIB6zbZQSjMeSeWI3dySdGPDQktN
-         U5FDt0JZVis38IaTzwGZMt2QI59/fkREzd891W+FshvnRCZc+++7Vj73NrbTUTToSqai
-         45m7K0KBeViVkwkCGehTfm5gEh8wlsARcYxvbf1jcp3rKX1GrVYN9R/S+/7JW9xiQ/I8
-         nx/NvYJTrpDm2x2ToMPjVz9w4dEgKDxQxRfCT2YbysMkVQbaDfDgEjKP1n/g+0sYE4fY
-         kuAw==
+        d=luxonis.com; s=google; t=1793528863; x=1794133663; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GAbxTLtn8KLNWZOq5PdgC059WvyP0mvclyC7teVViSU=;
+        b=QwTr8sUv/KGodkbL1m2zWyQ3JuqhHoYSM4qSetyyOTxnNv2im5wD3XXg3GAg8BJz9s
+         12ykLdCsjW/71rZYQTVdeCkwweBxODh9VoLAo4VSoKvm2BZ0xSo5i0NHP8gf3kguLn79
+         AXoNVZHpJTbErtL1kC6iENjo2pqZXXW13IlW4gQKsrSkPSlkIT1xprLFPFMU1TLXYF3L
+         8tTZNnAlfWkaix5mBzqDdKcuRRvx0VQ+V6abrAI+Tm/s5Eae7UjZx4HDhd92Oq8EIMNM
+         bUUD9+76Tbi7oTN/6KbVsuIkzil6O6aoP5e435fWlnhSEc6avM6xEgR/uLV6pPpRXA7L
+         tOTQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793528745; x=1794133545;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0WNWdAH/5+xVZy8kDLSNEMLIm1NWHJIuWvqvMrdiB/Q=;
-        b=GDFK72sEfwYaXHa4IJR4405k9N+EYYc5XM5eKM5YuRxfVy/kYjO3XQ1iNdcO7dGgua
-         jVIYAi3sWeXWdTVRSjq1hAohEXHhzseNPNaQpZY6Jb4Kv7OqjSf137CQf50raT7I0twQ
-         IrB8Ffw6RifP6ivEXx5pJLvC0r6PhQR0QsRRHInU3oqw/FdxmV3AgLGFcIkJKlafnevf
-         7ki6kuF+oxkkxhXnhV61IrmO4qb5UxeXbeaqRshmdJfeHnDXS8ivu3FvNiHIEgvWntnr
-         QjLE4+RJHQMbnzRcNC4Y/Wumvw67Mn0999cBTOsmjTC/qhs6kN7LvNwqz815rsaYehqg
-         PsOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxtnzgNwj3bNP9nJfm+qS87QO+t0k6nvQX0pBWSLLrZRQ7tAnSI38B915eKYNfqp00F38FhTtNQedjZMEM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLTHHY5vW7qjzQZYbAag7+d9MO1ceMPOSTC7joAoljwuZnO+yF6
-	ZCRC7x5B90WWY0xmSKt3FxjhHPFc0227iux4VQngiGun3u47R3g66vgq
-X-Gm-Gg: AYBFou0oOAFaGODRsHqHe94TbvIJ2sw419jHVBA+RRhIh7bu4k2GT6Ab2pp6u+RTbbd
-	rGJ9JMwWBJU6dbPXSQjAb7e/0BJigbWWKy/Izjz3NPAG+WYJl86s5bN35Ws4AoYaAYWaTOe71L+
-	EsZO2s9uba8XosaSCqCGrLbvm7cUVt6Pdnd7YvrEpjwEFyNhSxi9PjOOzrxs4lvMuQLur2Js3cO
-	34bVq9z59k9W/Ozu3DZb25HVKlartY/qPv83YS8TgpoibLj3xinFA+Qq3+l4e0FFYRiZDR7kJtu
-	4vFjcjMhlmgc+nWdbMZVoxkwaKd//Q57zGKtaE+td743GPRTUlw0lf0+7mxDF+2Rb0wPUNTg8+H
-	1M9PQdUnjvVmCBC/w2CtWdkhpkTJP6sj8PCKiHo97IjIBYYKR87VBO8ndN8l4U4LYH9IkQaqoXP
-	pr3lOJLkixeQXf4iPwEsmtf4Z9w8nThVmHsu+pRTUDalpVS+6KXD9scCLUachMDT/Lpcz8SHAJx
-	4KBfQxiO34XnL9seFAHSlN1QZOTNsTTR2przQa1VGEQ+OQOQofPs44+wQbCY637VQr62L798/nV
-	2EEi3QeEl3EnyamB9hNneGike2j8h+HbECQl4eV9vBC1961pIA6RClK/mPeWgq2yaIHA2dJmJ91
-	xDSKs1ogVdXqgZP0cWQE3+OOWwmjaVAOuM9YAleCeu3wU9GUrGmszh/yUatlTm8GgHdX5GGi5Kr
-	x2TiS6lP44lQOm7DWt9Qt+yxOuZIrHe+v+4qa4a5p4AyW3qqRKu2X9/UaqgdpytcD4
-X-Received: by 2002:a05:701b:4244:10b0:188:ed6d:ebc9 with SMTP id a92af1059eb24-1ac5e6f5225mr10635487c88.38.1793528745096;
-        Sun, 01 Nov 2026 02:25:45 -0800 (PST)
-Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm6767163c88.9.2026.11.01.02.25.41
+        d=1e100.net; s=20260707; t=1793528863; x=1794133663;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GAbxTLtn8KLNWZOq5PdgC059WvyP0mvclyC7teVViSU=;
+        b=QkmtXNKxxOSuZE+bx9fioY8tlv3fvRffl8WftwfG7kokI8BjaTVFa3H8IJyDOMOkxy
+         zspIf87y6m5wRPzwEZar7O8RTCmhWQ8onvnl4kgyKKd8a/D7VZqBzkaAn3BLRW8izl0z
+         PSRdJuxCTDKZhtWFwdeow5mta+dodaHIfKGmMFrnJQpivAUYu2ca7Vt4J4oyVUzqWWzI
+         WeVzUvtrOPYugS4UagnDmPdBQZuNViBt2kix2DOdJwVOaKEbXFpuY3YHgWi8BbIdta4d
+         M0ID5N27CeNyatftitm9Jni002qdbCIZYkqZKgo2DpYQfdCJGbS2wKmQ1nVo/OLdH31V
+         LH5g==
+X-Forwarded-Encrypted: i=1; AKwUvBx2Rf8LwFxKMnvYB0lbmIOuh67PqbuymZ0JiASVpyWvN9D06F9kllt3PT2dpwcpQ+1LZBs9qqLLlotzKVw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9vEsy7NQxReCioeiRDtbx8i7dgAHhmRtYCAkBqelt6BpHRv7MY
+	OvbaxjH97fwBp4BP906tu54V6y//cCxIpEW3iiH4GIYsHZnyAmJB3jdX0H3BTR9EGhs=
+X-Gm-Gg: AYBFou0iMy4TkZLWvppVdYhefhu/flblUDhj7Yy98mClBcmociK67rv6bGXMs+d5urS
+	x5L32AsjG39Iw1nii+tI0cqO4T7PdhlLvWDA7EH/Rktp0kN0N8z509knN0PdZ6PqRaa1oPi9jpC
+	GPF50qU4okHfBW3vUJPUm5vdaBDH+iCw3N35mUKlWVD/F/rPXEqPMJuICkokPj44ZDtd0Kok9qd
+	4hNhhCwxFtXCagBFFkLpICgTE4MlnCi9OsBOaD9Z9ysG9m65c9ChcBXk0LUGCwtqJr1d+QX+fnh
+	R9p/7rKGZS4LMdYXqrUqhunl5WptjWjtqcoVHgtxXh/Bg/28pjKtJa66a8VQwZ0h7RfroUd2AjS
+	jGzlDt+atJ4Qn8zqu2vxN4LoC9ciNx/lexRguOtYtq8d6I8yLYYBlmHUsuHecP5Dr9XjHk+oN8E
+	YM3QQSHm3YtcN46lswuRUYrgU/fX/BzE2r9ghBG6RlxWJrZEROgNp+gGjhBDZ1xhlKDWHbhpBH0
+	W5i2DPwG0IipwleQuEV2MKCmk8iMmvm4rgAkphTw41fEKJd15/diXF34bAO2BxnIMX7oc8yE4TM
+	WYtFR8EQH9z1Ws+dHUmANJQsdtOW2iYAJuPhb1G3hwEKEUHvJd5uOfeLgogqbXtmkGD0MpI=
+X-Received: by 2002:a05:6000:4909:b0:48e:7eeb:4634 with SMTP id ffacd0b85a97d-48e7eeb466emr5258359f8f.49.1793528862631;
+        Sun, 01 Nov 2026 02:27:42 -0800 (PST)
+Received: from JureBuildPC (46-150-36-237.static.telemach.net. [46.150.36.237])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b80306sm14521191f8f.33.2026.11.01.02.27.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 02:25:44 -0800 (PST)
-From: Arnav Kapoor <kapoorarnav43@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@intel.com>,
-	Gwendal Grignou <gwendal@chromium.org>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	linux-iio@vger.kernel.org,
+        Sun, 01 Nov 2026 02:27:42 -0800 (PST)
+From: Jure Rebernik <jure.rebernik@luxonis.com>
+To: Heiner Kallweit <hkallweit1@gmail.com>,
+	nic_swsd@realtek.com,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	linux-kernel@vger.kernel.org,
-	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH v4 3/3] iio: proximity: sx9360: keep the IRQ balanced across suspend and resume
-Date: Sun,  1 Nov 2026 15:55:04 +0530
-Message-ID: <20261101102518.22757-4-kapoorarnav43@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101102518.22757-1-kapoorarnav43@gmail.com>
-References: <20261101102518.22757-1-kapoorarnav43@gmail.com>
+	stable@vger.kernel.org,
+	Jure Rebernik <jure.rebernik@luxonis.com>
+Subject: [PATCH net] r8169: enable the RxOverflow interrupt again
+Date: Sun,  1 Nov 2026 11:27:20 +0100
+Message-ID: <20261101102720.702600-1-jure.rebernik@luxonis.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,76 +104,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sx9360_suspend() disables the interrupt first and returns with it still
-disabled if a register access fails. Resume isn't called after a failed
-suspend, so the interrupt is never enabled again. sx9360_resume() also
-returns without enabling it on error.
+Commit 6994520a3328 ("r8169: disable interrupt source RxOverflow")
+removed RxOverflow (RxDescUnavail in the vendor driver) from the
+interrupt mask on the grounds that NAPI is scheduled anyway when the
+chip runs out of RX descriptors. On RTL8125B that does not hold.
 
-Make the two mirror images: disable the interrupt as the last step of
-suspend and enable it as the first step of resume, before anything can
-fail. The driver works without an interrupt line, so skip both calls
-when client->irq is 0, as sx_common already does.
+When the RTL8125B runs out of RX descriptors it sets RxOverflow and
+stops receiving. It does not start again when the driver returns
+descriptors to it, only when RxOverflow is cleared in IntrStatus.
+rtl8169_interrupt() clears only the bits it read on entry. If the ring
+fills while NAPI runs with the interrupt mask cleared, RxOverflow is
+set after that read and stays set: NAPI empties the ring, unmasks the
+interrupts and completes, the stopped receiver raises no RxOK, and
+RxOverflow is no longer an interrupt source. Reception stays stopped,
+and every frame is counted in rx_missed, until another event such as
+TxOK makes the handler clear all status bits.
 
-Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
-Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+This was observed on a machine in real use: an RTL8125B (XID 641) on
+the PCIe bus of an arm64 Qualcomm QCS8550, running v7.2.6. With UDP
+at 800 Mbit/s inbound and nothing sent by the host, reception stopped
+for seconds in 13 of 20 30 s runs, losing 5% to 31% of the datagrams,
+and a single transmitted packet restarted it. To confirm the cause,
+a debugfs dump added to a test build of the driver showed, during each
+stop, IntrMask 0x2f, IntrStatus 0x50, NAPI idle and all 256 RX
+descriptors owned by the NIC. Writing only RxOverflow to IntrStatus
+from user space, through the sysfs PCI resource mapping and with
+nothing transmitted, restarted reception in 17 of 17 stops.
+Reproducing the stall itself needs no kernel modification.
+
+With this change backported to v7.2.6, 0 of 20 runs stopped and the
+worst run lost 0.03%, on two RTL8125B boards. It was build-tested,
+not run, on this tree, where the single-vector path RTL8125B uses
+is the same as in v7.2. The multi-vector mapping used by RTL8127 is
+not changed and was not tested.
+
+Restore the mask of the chips that had RxOverflow before that commit.
+Only RTL8125B was tested.
+
+The investigation was done with an AI coding assistant (Claude Code):
+it wrote the HIL test scripts, the debugfs instrumentation and the
+register tools used above, proposed this change and drafted this
+changelog. I reviewed the change and the evidence, and the test
+results above come from runs on our hardware.
+
+Fixes: 6994520a3328 ("r8169: disable interrupt source RxOverflow")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jure Rebernik <jure.rebernik@luxonis.com>
 ---
- drivers/iio/proximity/sx9360.c | 30 +++++++++++++++++-------------
- 1 file changed, 17 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
-index ed83d809ecf5..f89c556e0989 100644
---- a/drivers/iio/proximity/sx9360.c
-+++ b/drivers/iio/proximity/sx9360.c
-@@ -797,8 +797,6 @@ static int sx9360_suspend(struct device *dev)
- 	unsigned int regval;
- 	int ret;
+Notes:
+    This restores RxOverflow for every chip that had it before 6994520a3328,
+    but I could only test RTL8125B. If you prefer, I can send a v2 that sets
+    it for the RTL8125 family only (rtl_is_8125()).
+
+ drivers/net/ethernet/realtek/r8169_main.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/realtek/r8169_main.c b/drivers/net/ethernet/realtek/r8169_main.c
+index cd4ebc654dd0..62709160d354 100644
+--- a/drivers/net/ethernet/realtek/r8169_main.c
++++ b/drivers/net/ethernet/realtek/r8169_main.c
+@@ -6086,7 +6086,9 @@ static void rtl_set_irq_mask(struct rtl8169_private *tp)
+ 		tp->irq_mask = RxOK | RxErr | TxOK | TxErr | LinkChg;
  
--	disable_irq_nosync(data->client->irq);
--
- 	guard(mutex)(&data->mutex);
- 	ret = regmap_read(data->regmap, SX9360_REG_GNRL_CTRL0, &regval);
- 	if (ret < 0)
-@@ -809,23 +807,29 @@ static int sx9360_suspend(struct device *dev)
- 
- 
- 	/* Disable all phases, send the device to sleep. */
--	return regmap_write(data->regmap, SX9360_REG_GNRL_CTRL0, 0);
-+	ret = regmap_write(data->regmap, SX9360_REG_GNRL_CTRL0, 0);
-+	if (ret)
-+		return ret;
-+
-+	/* Last, as resume isn't called if suspend fails. */
-+	if (data->client->irq)
-+		disable_irq_nosync(data->client->irq);
-+
-+	return 0;
+ 		if (tp->mac_version <= RTL_GIGA_MAC_VER_06)
+-			tp->irq_mask |= SYSErr | RxFIFOOver;
++			tp->irq_mask |= SYSErr | RxOverflow | RxFIFOOver;
++		else
++			tp->irq_mask |= RxOverflow;
+ 	}
  }
  
- static int sx9360_resume(struct device *dev)
- {
- 	struct sx_common_data *data = iio_priv(dev_get_drvdata(dev));
- 
--	scoped_guard(mutex, &data->mutex) {
--		int ret = regmap_update_bits(data->regmap,
--					     SX9360_REG_GNRL_CTRL0,
--					     SX9360_REG_GNRL_CTRL0_PHEN_MASK,
--					     data->suspend_ctrl);
--		if (ret)
--			return ret;
--	}
--	enable_irq(data->client->irq);
--	return 0;
-+	if (data->client->irq)
-+		enable_irq(data->client->irq);
-+
-+	guard(mutex)(&data->mutex);
-+
-+	return regmap_update_bits(data->regmap, SX9360_REG_GNRL_CTRL0,
-+				  SX9360_REG_GNRL_CTRL0_PHEN_MASK,
-+				  data->suspend_ctrl);
- }
- 
- static DEFINE_SIMPLE_DEV_PM_OPS(sx9360_pm_ops, sx9360_suspend, sx9360_resume);
 -- 
-2.53.0
+2.39.5
 
