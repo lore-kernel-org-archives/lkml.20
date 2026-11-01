@@ -1,47 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.232
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793516113;
-	b=49PKDGD0vwnoWg/vADHz7vxHCzoFMkojABZg37Xh+yZW5XRL+jrV+XtpQWfUnP7Cnr8m
-	 ZPfAEqTeSlvkMz1dF78+zq5o9Z/WWRkNxH3tatt1R1qK3GF4jY5atwnmH+I5xqBYmBP3b
-	 Y6CKp6ApZUY1u3kjFjYsBUSg/3Z2J32qAG4vu6uwr4nJ8nzUhEpdPpa0wlFlZfndivd+g
-	 InRE9m4VtN3hMfpeYZMcvkS4umuxj0BXrMypIr4dzLL3JLCVIz6oaIncEMOBfJp99fyVL
-	 7QD6c458Mk0RSUTUI6XtSvykHv+IxkYGys7QQrGrW9F2gVQih1WiDauPwE5GbL0GcDQ==
+	t=1793516194;
+	b=zBmbieBbC4Av9nVlS9gRBy18jSjPfAepHFnoRBxjqYZl7LeiuzY/y+dHOHI1Mrbxx1Qc
+	 gFCdUuLMjkBTEgPIPz/APQFT0PGh+BQNwU3O99/Vg8Lai4FOThgSgRx47c8T8YbPaPSDo
+	 32mBPPaw5hY4TSlgTFWlly9xK1VEK7ki0gLgQlr4IgFdmwnc9xe6erBjXaWvu5NUBJlho
+	 rGANQbiaG/TvtwhfKqjRFMMDGout6PHv2/Z5en9yTgCgD/MjClkrRAn8QfHhKAzumOqBQ
+	 yqUkRsm6XTkSJEMcRG/f7ADn/DO1nNotMp9akhrN2BbR96oRU82LDIx9TdMK3AVLabA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793516113;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:References:Content-Language:From:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=/CKMfN/Si2/MEVvjJNq4BneqQPomvixJjOeTTGaMj7g=;
-	b=rEQSfedjPZYOG124BhpCTo1+GAxjDwcL0qibCZlT2XROgW18TKO20t2gWAiAh5l2STz/
-	 zzy7bMhzBK1IRgmYlPua636cZdMFDI7bZf8Q8AY+Wmu2IjvfCb6qJ6IaLVQC3KMjvmIZ6
-	 bW5hrBWkqpPgCW3wpCtUelc7CCtCyOS+Pds8gvZLHR0I1Mtxmm1mJtws7iSRyZsjHBN+m
-	 cxCPhJJsV9AF308drnIFCfTv9Aput8PxukfNMgF6ptkdc1g0vY6Vs3ErUgQQChozGxKAv
-	 sK1iClSmWbHBnIzuIv9NsaWbWA5XjWCg5Syg+KhwWpX4QOjA9lHZbrJ6MpumGD+/pUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793516194;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=v4B3Z+vyjFOZ3NXznu3UfBs3xYEdHpd7Ad18VpZadd8=;
+	b=Fwc97SExDi84WdMAhPjl0Nfawucu8ostCAr7/0J12B4oCOZFIGAYTmHld4R5KUrXnt0A
+	 Sc/4Q6lxZ/sJaURCx/pqaz3bwC1gh/DZ1AlhsE3K19OTNSrAlfJoCnaW3YQsXuKRbwo1m
+	 c9bY4xYN0uNKJHZiKe9jYawQgcDziUzxCILehXnoEqTODbIiG4kjlHwL3+cbq6WCuqh5Z
+	 2WlqE0KgSvPdlsr2aDlIhJW2f3oBC9DJ3XJkLZgVCqr+apHM+dAx5LgVxOhq/qorVA+Yo
+	 I23fE+eLS98jrUu0Oamey4UPYBpDKOhCK9/U72Dsyk5hQVh41wh15z01zouoRdPCShQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNmpdYnP;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ida8RXck;
+	arc=none smtp.remote-ip=95.215.58.232
+Received: from mta1.migadu.com (out-232.mta1.migadu.com [95.215.58.232])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2A6606A324;
-	Sun,  1 Nov 2026 06:55:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45EDA606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:56:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45EDA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MNmpdYnP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CE121F000C1;
-	Sun,  1 Nov 2026 06:55:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793516112;
-	bh=/CKMfN/Si2/MEVvjJNq4BneqQPomvixJjOeTTGaMj7g=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=MNmpdYnP8TP4JE8vbUYIdIM5RyMZz69DBcL0ha3TXCQ+QdUHHqB4BnBPRKEbKDMOz
-	 fJidJZtowX9mzBRcmp2jnSiFpbXzUevNmSZma9aALdWXj/TbQwtqDbI6B67oyj2Rah
-	 fK+92Jo6jc5IO6uA6ZQ7nWW6+x53mzwsrXaiayo5QvFbInMRjDzF2+ZDsJ9r3EHwON
-	 3w1L0b9H047IxD9WsN36c6jkIWmlIGXkfqTxVtEHMmF3HlKJNDd0a+89iA6Lc8+qFg
-	 kl1OBkkN0JibBLjyhr3UQV1CYXVHPcy01L9VrnK4cBoBbzCXGqFH01RMLUq2QuNpCk
-	 eNaRggcXTKuLQ==
-Message-ID: <0f0cb164-8871-4030-8430-b41dc7dc37c2@kernel.org>
-Date: Sun, 1 Nov 2026 07:55:09 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Ida8RXck
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ZcO999B06qC4lUge9AN7c8raiSfFZnUwVxvBJv+yD9A=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793516191; v=1; x=1794120991;
+ b=Ida8RXcklakI58X5J5aWwWR3xSschDfni6YJ2+mEMKDUt/9qPBeXoYw7VCfe4nlSngI9KVbf
+ mPaihqGsN01rwX7Rnq25/qST/RzSaTQKY6Ge/WGFqxUG5QN4ZSrlnBFESMUkO6MWYH/PNzI8yOa
+ CMnMLO1bzHo7OVDoUA33ey14=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 12acc32e1bb7e80e;
+	Sun, 01 Nov 2026 06:56:31 +0000
+X-Mizu-Trace-ID: 12acc32e1bb7e80e
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,88 +57,124 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] tty: serial: mvebu-uart: use device_get_match_data()
-To: Bramwel Barack <bramwelbarack89@gmail.com>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
- <pali@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "open list:TTY LAYER AND SERIAL DRIVERS" <linux-kernel@vger.kernel.org>,
- "open list:TTY LAYER AND SERIAL DRIVERS" <linux-serial@vger.kernel.org>
-References: <20261030183332.23834-1-bramwelbarack89@gmail.com>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <20261030183332.23834-1-bramwelbarack89@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 02/12] mm: hugetlb_vmemmap: unify
+ VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <86d9a986-58ea-44f5-a8af-514abff12c2a@linux.dev>
+Date: Sun, 1 Nov 2026 14:56:15 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <99503D05-0C4D-45E4-B5D6-EDD927838935@linux.dev>
+References: <20261020115306.813483-1-songmuchun@bytedance.com>
+ <20261020115824.823278-1-songmuchun@bytedance.com>
+ <86d9a986-58ea-44f5-a8af-514abff12c2a@linux.dev>
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-On 30. 10. 26, 19:33, Bramwel Barack wrote:
-> Modernize the driver by replacing the legacy of_match_device() call
-> with the modern device_get_match_data() helper API. This cleans up
-> the boilerplate code by extracting the match driver data configuration
-> directly.
-> 
-> Consequently, drop the explicit inclusions of <linux/of_device.h> and
-> <linux/of_platform.h> as they are no longer required by the driver.
-> This allows us to also remove a now-redundant forward declaration and
->   drop the problematic of_match_ptr() macro wrapper.
-...
-> diff --git a/drivers/tty/serial/mvebu-uart.c b/drivers/tty/serial/mvebu-uart.c
-> index 33ea496c93b2..1e980dd26465 100644
-> --- a/drivers/tty/serial/mvebu-uart.c
-> +++ b/drivers/tty/serial/mvebu-uart.c
-...
-> @@ -919,7 +914,7 @@ static int mvebu_uart_probe(struct platform_device *pdev)
->   		return -ENOMEM;
->   
->   	/* Get controller data depending on the compatible string */
-> -	mvuart->data = (struct mvebu_uart_driver_data *)match->data;
-> +	mvuart->data = (struct mvebu_uart_driver_data *)device_get_match_data(&pdev->dev);
 
-Perhaps remove the cast too?
 
-thanks,
--- 
-js
-suse labs
+> On Nov 1, 2026, at 14:22, Qi Zheng <qi.zheng@linux.dev> wrote:
+>=20
+>=20
+>=20
+> On 10/20/26 7:58 PM, Muchun Song wrote:
+>> VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
+>> describe fully independent choices. A split-only walk can defer the
+>> PMD-split flush to a later global flush, and a remap-only walk can
+>> defer the final remap flush. However, when a PMD split is followed
+>> by PTE remapping, the split flush must happen before the PTEs are
+>> changed, because stale large-page translations must not overlap with
+>> new small-page translations that map different physical pages.
+>> Replace the two flags with a single VMEMMAP_REMAP_NO_TLB_FLUSH flag.
+>> Keep split-only walks able to defer the flush, but force the split
+>> flush whenever a remap_pte callback is present. Callers that batch
+>> HVO work can still defer the final remap flush and issue their own
+>> global flush.
+>> Current callers keep the same flushing behavior.
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>>  mm/hugetlb_vmemmap.c | 15 +++++++++------
+>>  1 file changed, 9 insertions(+), 6 deletions(-)
+>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>> index 1105aa925acc..8b3abb562599 100644
+>> --- a/mm/hugetlb_vmemmap.c
+>> +++ b/mm/hugetlb_vmemmap.c
+>> @@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
+>>  	struct list_head	*vmemmap_pages;
+>>    -/* Skip the TLB flush when we split the PMD */
+>> -#define VMEMMAP_SPLIT_NO_TLB_FLUSH	BIT(0)
+>> -/* Skip the TLB flush when we remap the PTE */
+>> -#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(1)
+>> +/* Skip the TLB flush while updating the vmemmap page tables. */
+>> +#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(0)
+>=20
+> Since this flag is now also used by the split-only path, the
+> VMEMMAP_REMAP_NO_TLB_FLUSH name is somewhat misleading. Moreover, the
+> flag does not suppress every TLB flush, as the PMD-split flush is =
+still
+> mandatory when remapping follows.
+
+Yeah, good point.
+
+>=20
+> Would VMEMMAP_DEFER_TLB_FLUSH better describe its semantics? It
+
+I think so.
+
+> indicates that flushes which can be safely batched are deferred, =
+without
+> implying that all TLB flushes are skipped.
+
+I'll change it along side with the comment to:
+
+  /* Defer safely batchable TLB flushes to the caller. */
+  #define VMEMMAP_DEFER_TLB_FLUSH       BIT(0)
+
+Thanks.
+
+>=20
+> Thanks,
+> Qi
+>=20
+>>  	unsigned long		flags;
+>>  };
+>>  @@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct =
+page *head, unsigned long start,
+>>  		/* Make pte visible before pmd. See comment in =
+pmd_install(). */
+>>  		smp_wmb();
+>>  		pmd_populate_kernel(&init_mm, pmd, pgtable);
+>> -		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
+>> +		/*
+>> +		 * Modern MMUs allow overlapping TLB entries with =
+different mapping
+>> +		 * granularities only if they map the same physical =
+address. So
+>> +		 * remapping must not proceed without first flushing the =
+TLB.
+>> +		 */
+>> +		if (walk->remap_pte || !(walk->flags & =
+VMEMMAP_REMAP_NO_TLB_FLUSH))
+>>  			flush_tlb_kernel_range(start, start + PMD_SIZE);
+>>  	} else {
+>>  		pte_free_kernel(&init_mm, pgtable);
+>> @@ -272,7 +275,7 @@ static int vmemmap_remap_split(unsigned long =
+start, unsigned long end)
+>>  {
+>>  	struct vmemmap_remap_walk walk =3D {
+>>  		.remap_pte	=3D NULL,
+>> -		.flags		=3D VMEMMAP_SPLIT_NO_TLB_FLUSH,
+>> +		.flags		=3D VMEMMAP_REMAP_NO_TLB_FLUSH,
+>>  	};
+>>    	return vmemmap_remap_range(start, end, &walk);
+>=20
+
