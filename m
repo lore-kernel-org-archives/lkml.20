@@ -1,93 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793504038;
-	b=qiNx3bCqLgHaYaj39xfKFEWZ3tEMRDyDZ8b6r41SOnSaVr/AlOSbp+XhnB1PSs/VD8Uc
-	 Sfh1Tr24w6K/z0TKy1n7+yszN1v1n8usx9QXKXe/MRkPBbnBADmWCD5+EkEwKD2aR2e0z
-	 wNeHnHx9N47Wq3keigkDCJpWHYyoCtQYFaK8Thu7R2mszbXunvLElMCm71eQdJz4OjrkW
-	 R2FPu6c8vqvGkDT9TgbEKrLFl55+lqikvHJ/DWoRL/YifLBHmksXvN/nEOk09mzitcAdF
-	 6h58//NQQ4yfdqVFjetCIyIm70gqDsp/BtERlQH+pab8kqUWKv64yZPKXdFKqUPvthw==
+	t=1793504247;
+	b=5RA75oom/RgfBCUOGsBThvHK5RA/LyoP9jXM+X7L5gbt7KoUFZxWg2LcR0TX/3+dhiB+
+	 YMpPPB0X5rornpuRq68TIWQfp/qK1Shhmp+FOn5uBvbocwqt1cT0QykXslrkJWHtJFPTL
+	 +apZZadUKKHvl4NVmmbrRQq1DYUgxcXh77qZ6hCybB7unBLMwsTycAgvGXl6ithvUXKR3
+	 yYUpjZ+9xYNKdMAPuHeap+6DN9VMnlNZOjyHhfb6fmV3qboiX8Xps0IEhZ1U+4y7OuB3w
+	 vieyo6N634o88vkllaxmZBUitdB3SPcIvdSrjCGxVOKLPocXTR29+fnW0hV/yJ20/3w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793504038;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793504247;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=Q2OCBr9ePU4KjYZvGBV1w7V+MKN0AZH7BV6n3kb8ObM=;
-	b=sIMCWc/Q+XNPBd1SkHKAU6FzeAPySHdzGWgxnyjyZmRSuLfe8eFNTjWkGPHtZNk0ckzC
-	 wftRcFXEQR+w6Wd1eLYHVhnGw/60TqY4bjr+5/NviBEeeLfYWIu9NVZGzbyqVpsZd64gM
-	 cmn6spw1yiFz0Vxhwhq4qYfyGHsyZE2xXmPKGINeqAU+wxspVI36Q1VvM9uT/8OkQDwgD
-	 4Dl48NSbTkiboQHEG+z62QFXSRaGCDqzNx3QZwCPjjqyRnnh/yblllVuZEfjmQUqmy2gL
-	 w0YsPPFbUluZQ4aRwWvVdn21yTMoPpRT9e8XHV3nOOlAjq98y2zOkNsbcClLvfJpYfQ==
+	bh=G1tFTKUBc2+iGTzDECw5/2ac1gX4DuSirPbto9t/U2Y=;
+	b=34sZ2kSb3FuDGq7U+y9TkwWwesJYlD+nG3KrRCp5CKv3IvU5amxkhbyg6sYdHZlHEn6q
+	 0YyrbaqR7fmqoiqCU0RZCyP7wSFrFGrBH9PosrPBkVL+/xKMpgVrZEy3MzD96NgGBGQ09
+	 jxmS583phawRskaBtapVFImzvPvGXfn186JjS2abvPTDNVjSZDabr8j9WwSfmq1J0afcs
+	 DglE10OpK89ekvDtKxJIkagYdaEjBHs5e+JVmugpa3+E30TCSbktDlr98aRNN+It3Sj0r
+	 F4To1zIol/smC4+nibYISC1A6YqtV3WlVmOenm8uqB7IomrLfj1ev5ErCF6c86uQ3BQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQESkylB;
-	arc=none smtp.remote-ip=74.125.82.172
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zZL999tf;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CDC606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:33:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 83CDC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CD6606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:37:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SQESkylB
-Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3550c917fd3so2645535eec.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:33:58 -0700 (PDT)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zZL999tf
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819E81F000C1;
+	Sun,  1 Nov 2026 03:37:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793504037; x=1794108837; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Q2OCBr9ePU4KjYZvGBV1w7V+MKN0AZH7BV6n3kb8ObM=;
-        b=SQESkylBMjK20XVQFW0H/wphPMhUgfgfgxrMne2n7F3px41nA6gQnmiBf4yj0yEaTj
-         3wm5JBP5iNCqwrvgC6FMswh7RHB3dOjoa/r25kcFhEk7hxS16BFd0sK/g39it4EWOuNv
-         MrGEiVVghp9q9oSWe+UMwwYDFRg4H8uwP+Hbl5Br5IW8paUI6CQtBA9XkVOfJBhyy4bD
-         tIv1aF53e8oTJzpbOoqUYuvwax/5A/ieQsmzZp9N6yRXAPoQ0p1yaMpBZVwAI67MLrbi
-         JzmPQmJPu3atgupnZfmX7oz64g0Tb5gqHRrFIfOIJZr7bNJgBgWiRsdrAkkJXfFUljW0
-         tnOw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793504037; x=1794108837;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Q2OCBr9ePU4KjYZvGBV1w7V+MKN0AZH7BV6n3kb8ObM=;
-        b=oIKZvh7WASM133lUoIFBsdGow0Ml9k7G16rt0+lqId9NikkS8U9kiT1UlhomiLpmqj
-         7VtgqeAZSD/YGzsLBgEuyfIPXaC1bm46Fbi6H7DpJmOmDHcLTuBnRvIBatXNPriXLbwk
-         lX/jTvCu9JkYcPjYkwGmokZAwhfPGNwuNoeqTZnp57zytsm2fwyt1RLQp3WieNOwecQo
-         gRQ3vLkhTtY6GMiZA+oAJN8vxF02U1Bi4rYaF9qu0IMtTCOqXIojS6yWL5HjPVXlSUiT
-         5OPLQEjhqRFUbVjJB94bnv48E98ipnKUQXRIqmIHSa92wxZZdrTgNBuMxter93ivAooF
-         SD2w==
-X-Forwarded-Encrypted: i=1; AKwUvBwiHa/gHmdaexrr9plEPBrfhN+3nlVB9MID3ljjlnKldW2nMcPeqhTaf+Jc79JeTD/939USxhB8tzdt8To=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Bkqdq+TK0z7V0vgOxI9b+Lg1bhjZVpHQnRxsLlOmVLuoK3mEg
-	xuIRKRA9Kk6NK3YJ3NF5fzYkEzfd6Yxz1hroX9T7xpisfSrTNmUUbiUY
-X-Gm-Gg: AYBFou1aYQuYJUtDJRaBPUS9RvHFyjbwO0cWFJxSkL6d/HEI/A2pzIGFOUTK6XG6veq
-	Dst4fb/PawPi6c8WgRwaT/m2ma+PFQW/UM6T6pCJjyG7+bFlGBFHgCevdzPwHobuYRIan/QP8ZZ
-	xiXjsbcv2hupdUwNYLAmds56aiQH8bw+hMcQvhWhWh4rhrat0HS4hHzdOXqtT/tuSOUSSixLPjg
-	IP+cNk6tlsaZnOuLLpTAb4VxGzp876310BqwslAFmdMkYKj/pVMo38vV606cxVybUiXdFpqs5rH
-	R1Y2rn52jopnXpMrpeAR/1T8AYY4q4CySxzRTQS7zrIy6g+aQqKJL6Dz7nRo3Jkwj6HSUAuWbg5
-	tk34qu2Bn+dMUow29SFKVVG22MnyLqWik4zR5wS9Efh4jI6ZDmYL62jL8OB0LxDcfDl1z9g1bj3
-	35UIQZePYpBun43An7RCkS/YqzHcBWg81bmfLARponayue6JICJFnZbzVdNNy9uhBvH5+3gpQnG
-	TgLZGR5NhKzh+VVdXRL+YvtHmluixRRob1QvvuPqX4KWN9sUNJV7WzuvIvGuatkL0n2j73oMZuZ
-	MNWkIfZGyGUwRzPVhH5UvJVg4FugSXick0cs0LTck23GiCJ4z+n7zQ==
-X-Received: by 2002:a05:7300:6d22:b0:36a:13e1:c889 with SMTP id 5a478bee46e88-36a425e10f8mr15242134eec.36.1793504037532;
-        Sat, 31 Oct 2026 20:33:57 -0700 (PDT)
-Received: from LAPTOP-LJ15R92N.localdomain ([49.43.7.230])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a5fb97sm24731461eec.23.2026.10.31.20.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 20:33:57 -0700 (PDT)
-From: Akshat Rawat <akshatrawat095@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>
-Cc: Griffin Kroah-Hartman <griffin@kroah.com>,
-	linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Akshat Rawat <akshatrawat095@gmail.com>
-Subject: [PATCH] leds: class-flash: use sysfs_emit() instead of sprintf()
-Date: Sun,  1 Nov 2026 03:34:27 +0000
-Message-ID: <20261101033427.442-1-akshatrawat095@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	d=linux-foundation.org; s=korg; t=1793504247;
+	bh=G1tFTKUBc2+iGTzDECw5/2ac1gX4DuSirPbto9t/U2Y=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=zZL999tfH5pFUtNBJCiS+dMlFz/f55Px5Ti43L4BhkNaNVNvh4gL4E5fm/H6iX/sN
+	 e4OQBFW9YQokq1GITbuOg5IiDSWQwEzR0cYXgAyrjSHJbldG6XHhunQI5RRPvH5LLW
+	 aLuLItcYuIdPHDek/9Dugywk9o/MRbE6Pjp5apwQ=
+Date: Sat, 31 Oct 2026 20:37:26 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Ren Wei <n05ec@lzu.edu.cn>
+Cc: linux-kernel@vger.kernel.org, david@kernel.org, arnd@arndb.de,
+ ljs@kernel.org, kees@kernel.org, schuster.simon@siemens-energy.com,
+ yuantan098@gmail.com, yifanwucs@gmail.com, tomapufckgml@gmail.com,
+ bird@lzu.edu.cn, caoruide123@gmail.com, enjou1224z@gmail.com, Manfred
+ Spraul <manfred@colorfullife.com>, Davidlohr Bueso <dave@stgolabs.net>
+Subject: Re: [PATCH 1/1] ipc: sem: fix used_sems overflow in newary()
+Message-Id: <20261031203726.2dca9645bd13ac9c18248380@linux-foundation.org>
+In-Reply-To: <849fb1fdecd1cc241fd5b032602dbffa90f9dd93.1778477179.git.caoruide123@gmail.com>
+References: <cover.1778477179.git.caoruide123@gmail.com>
+	<849fb1fdecd1cc241fd5b032602dbffa90f9dd93.1778477179.git.caoruide123@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,69 +59,98 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Use sysfs_emit() instead of sprintf() in sysfs show callbacks
-(flash_brightness_show, max_flash_brightness_show, flash_strobe_show,
-flash_timeout_show, and max_flash_timeout_show) to conform to the
-recommended sysfs attribute formatting guidelines in
-Documentation/filesystems/sysfs.rst.
+> On Mon, 11 May 2026 18:42:53 +0800 Ren Wei <n05ec@lzu.edu.cn> wrote:
 
-Signed-off-by: Akshat Rawat <akshatrawat095@gmail.com>
----
- drivers/leds/led-class-flash.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+Slight delay, sorry!
 
-diff --git a/drivers/leds/led-class-flash.c b/drivers/leds/led-class-flash.c
-index 181dfd49c6ad..a1bf70d6e47c 100644
---- a/drivers/leds/led-class-flash.c
-+++ b/drivers/leds/led-class-flash.c
-@@ -71,7 +71,7 @@ static ssize_t flash_brightness_show(struct device *dev,
- 	/* no lock needed for this */
- 	led_update_flash_brightness(fled_cdev);
- 
--	return sprintf(buf, "%u\n", fled_cdev->brightness.val);
-+	return sysfs_emit(buf, "%u\n", fled_cdev->brightness.val);
- }
- static DEVICE_ATTR_RW(flash_brightness);
- 
-@@ -81,7 +81,7 @@ static ssize_t max_flash_brightness_show(struct device *dev,
- 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
- 	struct led_classdev_flash *fled_cdev = lcdev_to_flcdev(led_cdev);
- 
--	return sprintf(buf, "%u\n", fled_cdev->brightness.max);
-+	return sysfs_emit(buf, "%u\n", fled_cdev->brightness.max);
- }
- static DEVICE_ATTR_RO(max_flash_brightness);
- 
-@@ -129,7 +129,7 @@ static ssize_t flash_strobe_show(struct device *dev,
- 	if (ret < 0)
- 		return ret;
- 
--	return sprintf(buf, "%u\n", state);
-+	return sysfs_emit(buf, "%u\n", state);
- }
- static DEVICE_ATTR_RW(flash_strobe);
- 
-@@ -168,7 +168,7 @@ static ssize_t flash_timeout_show(struct device *dev,
- 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
- 	struct led_classdev_flash *fled_cdev = lcdev_to_flcdev(led_cdev);
- 
--	return sprintf(buf, "%u\n", fled_cdev->timeout.val);
-+	return sysfs_emit(buf, "%u\n", fled_cdev->timeout.val);
- }
- static DEVICE_ATTR_RW(flash_timeout);
- 
-@@ -178,7 +178,7 @@ static ssize_t max_flash_timeout_show(struct device *dev,
- 	struct led_classdev *led_cdev = dev_get_drvdata(dev);
- 	struct led_classdev_flash *fled_cdev = lcdev_to_flcdev(led_cdev);
- 
--	return sprintf(buf, "%u\n", fled_cdev->timeout.max);
-+	return sysfs_emit(buf, "%u\n", fled_cdev->timeout.max);
- }
- static DEVICE_ATTR_RO(max_flash_timeout);
- 
--- 
-2.56.0.windows.4
+> From: Ruide Cao <caoruide123@gmail.com>
+> 
+> newary() checks namespace-wide semaphore usage before creating a new
+> array, but the current accounting uses a plain signed addition.
+> 
+> If the accumulated semaphore count overflows, the limit check can fail
+> open and allow allocations past sc_semmns, breaking namespace semaphore
+> resource enforcement and potentially leading to resource exhaustion.
+> 
+> Fix this by using check_add_overflow() before comparing the new total
+> against sc_semmns, and reject overflow the same way as a true limit
+> exceed.
 
+LLM review tells me
+
+: The fix looks correct. The existing writer lock covers the check and
+: the later used_sems increment, so that increment needs no further
+: change.
+
+and
+
+: Please qualify the changelog. Default SEMMNS and SEMMSL cannot trigger
+: this overflow. It requires raised limits and substantial existing
+: allocations: sem_alloc() separately bounds each array's size, so one
+: enormous request isn't sufficient to demonstrate a successful bypass.
+:
+: With sufficient memory, semget() can then succeed instead of returning
+: ENOSPC, exceed the namespace quota and wrap the semaphore usage reported
+: by SEM_INFO negative. Additional allocations can increase memory
+: pressure.
+
+So I propose this changelog.  Please check:
+
+: newary() checks the namespace-wide semaphore limit using a signed
+: addition of used_sems and nsems. If that addition overflows, the
+: comparison can fail to reject a request which exceeds sc_semmns.
+: 
+: The default semaphore limits cannot trigger this overflow. It requires
+: raised limits and substantial existing allocations. sem_alloc()
+: separately bounds each array's allocation size, so a single enormous
+: request is insufficient to demonstrate a successful quota bypass.
+: 
+: With enough memory, semget() can succeed instead of returning ENOSPC,
+: allowing allocations beyond the namespace semaphore quota and increasing
+: memory pressure. The wrapped used_sems count can also cause SEM_INFO to
+: report a negative semaphore usage count.
+: 
+: Use check_add_overflow() before comparing the new total against
+: sc_semmns, rejecting overflow with ENOSPC. The existing writer lock
+: covers both the check and the later accounting update.
+
+
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Cc: stable@kernel.org
+> Reported-by: Yuan Tan <yuantan098@gmail.com>
+> Reported-by: Yifan Wu <yifanwucs@gmail.com>
+> Reported-by: Juefei Pu <tomapufckgml@gmail.com>
+> Reported-by: Xin Liu <bird@lzu.edu.cn>
+> Signed-off-by: Ruide Cao <caoruide123@gmail.com>
+> Tested-by: Ren Wei <enjou1224z@gmail.com>
+> Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
+> ---
+>  ipc/sem.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/ipc/sem.c b/ipc/sem.c
+> index 6cdf862b1f5c..00c45de33c46 100644
+> --- a/ipc/sem.c
+> +++ b/ipc/sem.c
+> @@ -535,11 +535,13 @@ static int newary(struct ipc_namespace *ns, struct ipc_params *params)
+>  	key_t key = params->key;
+>  	int nsems = params->u.nsems;
+>  	int semflg = params->flg;
+> +	int total_sems;
+>  	int i;
+>  
+>  	if (!nsems)
+>  		return -EINVAL;
+> -	if (ns->used_sems + nsems > ns->sc_semmns)
+> +	if (check_add_overflow(ns->used_sems, nsems, &total_sems) ||
+> +	    total_sems > ns->sc_semmns)
+>  		return -ENOSPC;
+>  
+>  	sma = sem_alloc(nsems);
+> -- 
+> 2.34.1
+> 
