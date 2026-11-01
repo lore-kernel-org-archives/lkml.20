@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793541433;
-	b=nynsfw0wyJwnjuOiQuSwR9q4UwoFr/8ayQ/mSllikJFG16lMQZS6IkZQyoEMqmxtUa+3
-	 ErW+uhx29e6vbguNKW1o3Xt0x3TQuautgvLZsjdDJN8QztAgf3Jufs2eniDB4JAzBCP62
-	 5TR8VkyQr2oDPkOBCJWfzVNkOxuZBk44wLg9FDNcD/qcFddypduqjEDGhmt0bFgoDayGb
-	 Rt9KchkG/aKlvoY8T3ITOPcUH4T+RpH3q6zrO8BxsOBXvqBPADcRKFDRuA+1h0H6S5fXM
-	 SHobITsEOKuVZSsC4IsJAYQBgOf2Qlyu3yu22GO2uV3/Wjesi+KoUflHt83KyC8oRZg==
+	t=1793541435;
+	b=USh9DTJW2PFQwcHdkpi0C/dshtOV5QP3HRlWbd2/tyE1zQ31BBv1e/RjZrgu7Pgi5FAP
+	 Zb8J1NweK541MgngQ4WqOWO8i1F6S0IWLy7xLi1cNWFGg7im/zANJsg95e/QuDE62Uj7E
+	 HzmyN17WSXPT7qHKSSUUPjnI+kA/dWPAz/9pVySkb6P/BaB3L3ufFbdVghc4xS1zHP0Q6
+	 z/FLP/ae2iJaBNXRNaRrVRYokVjIqcbLVUGvH/pISt9Bld5I+SFNl7BL8h3lznRA8KDNi
+	 XUfLilSTJLpWjtITCcgPRm32ViAPjg3llVfu58FyCw49cStvgW+uxMm3GQ5pSW7sCKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793541433;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793541435;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=jl1CsF9NMZircnSwAYemIaX1sWHDdB1YRVfnBFy5nVA=;
-	b=KtW8y5ztYZvm2PGQOiaL+UcKRM+PqmzMxoJd+x3bgOlBS7YFHvGVnI7UvJeEgfdklsnA
-	 NrFyrvPgGMtw1xa9ZvCm/kbW/Mtadld7F+cvc/2D4UXgEsVmCBqhvpx3hEnLvkbCN0ChZ
-	 LSZ36Ne0RGOKlCcZxC5BshrpfVKPP6d+9xohulGJgx8Z2HeODZPMM03TNRhM0Tx6jvGT0
-	 e0zl/JR3cFMwTkdUh0a3Jz6t3bNui3UDuzlH6Vi7jNvg7m0I+cji/6UOD4Zus0/3fGQ6z
-	 iYfg6e7yv3fQlsQEz9Q66YYCnoUIJg2FoEgeIU8uK4s6yFwv8JKP6wK0DtnFR+b7cKQ==
+	bh=Av2lRHeonZp+yqJTEDLWyK1iTAVf1prXux4FrMXUUmk=;
+	b=ft0LbNlZT09ucDl6cDvpAewly9Wr4DNn/+lkKrolGq1E4C1qZskmWrc5FCrTHufKRUeW
+	 8ywFt/jt6ayNirTsjbt3hINreUtsPZ/BmBZsH2ya6rx1mlCABXE76ZYXPWeZmXoRvLQP3
+	 vPQWWnD9E1U4Nd/q+uZR49vdyhgE18JoycEVJ5Tyn6VsKTVuiibj3UrlJ5hxnGsyasobl
+	 QihkHs5EfwetGQyrtr4InzZZ3szuBBtkGW8NoKFTTVY5J9jsPebfH3p6KP/Pr/wOCRmdA
+	 uswZoacH/JRHEL+L+zayL4OeXtxmeqQKCMQ70iT9J1YymFFovF3rWbceWOwZjGedvCw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DCW2iAr9;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kpvCcELo;
+	arc=none smtp.remote-ip=209.85.221.45
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08F4D606A336
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:57:12 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 08F4D606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D550606A330
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:57:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1D550606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DCW2iAr9
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e0d1c095dso1055759f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:57:12 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kpvCcELo
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48dfc0421d9so1803176f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:57:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793541431; x=1794146231; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793541433; x=1794146233; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jl1CsF9NMZircnSwAYemIaX1sWHDdB1YRVfnBFy5nVA=;
-        b=DCW2iAr9pveRgGBm1fPspT78eBs0vJbllx09Cgcx/eVXPBdkpCWAIkPpPPw1wlNf8Z
-         C0r3WKJ8SAZEXOuSdqD7g2UbMRdCyH3YOTdfXUo+vghYW8C6HdMjw+e44LzcdzcZA41U
-         aEyNX9+UOTjhMAR/hWtcik56Uj1wrlw3j7lcAtR8cG5+iA2tzI5TZUu91pARVbDsK/qI
-         U8fiUtQEQsYATSbQAQfZsXUqS0oh/WQhuul1jYwiWRXfccuXUIMN2bDqvQUYBRdOomfd
-         nX2bXXE43Q0FvMvDeOwqyjB7v3KIQfnyg/dL/Qi7DRu7CpRf+GxgtPlfEa1uNv8nj5M+
-         iFvQ==
+        bh=Av2lRHeonZp+yqJTEDLWyK1iTAVf1prXux4FrMXUUmk=;
+        b=kpvCcELolWKyz7orObe+JQqernuSpoQ5Ny2vq827dOLXA1XJXegvAQWPgJ9zuLnKYT
+         8fAsI3KVYJppf7jgdQpsN9P2+yYDUNQJ3CBz8ruYSxCT2iKKExvDahhqOcsW5Txqmxvq
+         6MR4GKbVhTHg1VvArvK6h/s1h/6oQTr7zyClITEhnPqnV3BVrGf2fkoJC9nXZp3UwizF
+         nSLNoVlBbIDWKSKeaJBJ7Ld+3il+0o5iXFHPXeroNISxednfgC1C0cIwnvxxh3HWLkH6
+         iGNrtmpIvQVRETcffOis/RAjmiLCuoXis0SycrFUn/hs8QabI05c1S/QJJrtwzzviK30
+         4hYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793541431; x=1794146231;
+        d=1e100.net; s=20260707; t=1793541433; x=1794146233;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jl1CsF9NMZircnSwAYemIaX1sWHDdB1YRVfnBFy5nVA=;
-        b=Rs4Zz0KZlPBgeGPQU4VTgQsANFXzIoberwMXvysOkPC2xmaNe4lk2PMgk0kt2Jgj7+
-         Kpf+x/AMTRosnUbYR+pE8eHYOWjEQQYs91ELOWh6hXunZDEia6yjzq/lz6WEOZTGrlcS
-         1ub8Y8V30/hTBVEDXjYIv/76zFhoc0aNY9hHG7Ouza4io0nZCHSkP/mi5t7A84jCU7C2
-         RSP5hw6veATeDjz16prERFbCdVDrChrwGtz84hggtoj0iKxeNAWcksE+N+kuAJEenYNx
-         s6KECDw+dt+5d/IM7YLPDj00htSUG80Va41bzb0j8ZqirVF02GiOGDwdGKxQaT68F//t
-         OF3w==
-X-Forwarded-Encrypted: i=1; AKwUvBx8wX20jI803NfDGGFqVBFSjzA2I9gPfrmTHKyoANQB1oZComPM1wO3dcnVDSUqtLHaW5DGOAuGuczG4vk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z816+ke4e6Y8jfO0j9Ij7TO8je6+P/5DS6eICgL///kbZV/cdzI
-	Z4T4L3MZxj6ipdxoPeOmlVEwhxOFPimUHc3hqbld2L7LKK70IvWAv/Et
-X-Gm-Gg: AYBFou0np060wWPJKzWm0ttP3PS5CXZXaOm338G1VlDArcLsxKgS+mGIZG2+d1/lxiR
-	KqNVqc6iSSM2yHZCfrB5RcBJV4g9F1PbDfYuVhFZcycIvbZcb30+GqZ0Cpx13Kwf3iXnCPzTDot
-	bZOzkTO7zvl/Y4mza3UE3wA2g0WRhsoloH4dtQIgvTM6CDJp7n0bkZ++m8TimQXE9Mm2Mxv7YN5
-	jgmPsBDeGM2RIX3eB36HWN0k4DqrMuDH1Pmj+F7AtMLThHCtfs/uelZEhl++7bo9kvdGhf+vl4Z
-	EOK5wkvLyhdhrAGAcD4v3Ulf3/+EUnVeNmqbB7iJYWDWR6aEmcM9KNfamEK5TR4lwMJgZbvWFL9
-	YdoZCTew7monw0xqkJJ7HjhwpKpzYwzk8yRQ+ynqOCWIstiey5IR4TjnZk8WwQk4VA5aoqELD/D
-	E6FWugWJ40Fdf0+kdr/Z4DsQouD/xWzp9kqFCO2zsTXGzOU7WRFzCINg+DrOLWx4ueMekCSpLHN
-	IFtshlWqM9QIN3fp/ZM15T6mLYQb7SLhbYGFk1QcRTbUyvodYN6c4KCOFPl8q4W5L0ycIdZNqk2
-	Mi/W/MRPxR9qxm1KoJbXmGs1pn0FWNDgfKEk
-X-Received: by 2002:a5d:6f0e:0:b0:48a:ef5c:fc2c with SMTP id ffacd0b85a97d-48e6e515db3mr17552899f8f.48.1793541431219;
-        Sun, 01 Nov 2026 05:57:11 -0800 (PST)
+        bh=Av2lRHeonZp+yqJTEDLWyK1iTAVf1prXux4FrMXUUmk=;
+        b=VJAfsf2DeimPnVFjFe/ct9u6VhB8qsTULhh4ZlcQy/J6g/thAA6McIU+tSlTQGKCaI
+         ClbouPD+2gs6u6QHMn2CPRT78RZi4DkNS/PCXeqiJ6kBNDKyWvwRWQ32VvpTFg1+cNXe
+         obXwIObcoMsCQrAJcGssPuwu8iNj3Vjfr4oNPZLIAgTR/v+HqxdZyZ+USk0D4pUWxH4h
+         Pn8gglKG1gMUZpXOHakrpG56Tteyr0va/50wyr9NVLj2/z8Sjk26OBhq26PmF/XashAL
+         pmpAIAR4gxVaNOLu6fPI3WP5MbvMM2Y6OcxEsBMbSGbsMTSOk4NpmNtutuYHbPpqkSFQ
+         /P5w==
+X-Forwarded-Encrypted: i=1; AKwUvBzqVkDCcteYI/x6WOCmGxra3yOWtKNH7ObcHS/DeDvzR/aR3phaXxQhhc4aGDpc1ufajGpgWD6BGB3h2Sk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+lya3HmKJutDG61XP9JytJOOmW19PM6p3Vvq/0MaEJC33T9QZ8
+	M+VoeBBsYNeM2ZIQ7nHFNYOV0kDaOKmbG6XDQGhjkSRqEGR+cltMwrZU
+X-Gm-Gg: AYBFou10nONa1MIWPogVrtEbA+13LzuzbfgxO1t69ZL+efrrrF+0jNGDTGU3TeHpGmK
+	2K5VSZaQoupAhyeJ7dGTYlxEk074VZ1Rf6VBfdV8mTiMg/8DNnTBuf7fJ05n3wICMa9d8W4IN9E
+	sNINt165wUy2yAJL9iCeoSCeZDHCzfeC2M3PCFzmJWkKeerCGeTtTpHI5MsupzHChNYvFfcr0OG
+	feTdLUJ9HSi453XAua8+zrus31QpzyCma1X17iJOOIwKeGMjwxXlprdcv0jDbeetkgGi7mhXT7A
+	PGcAsOt09LvNGDCTYv78yx2t88RXviznvh0WkZgxFbSfG001E8B1LS4A1BBYsCawTjWIWEDVX1C
+	qWCXlLwyscCqBr/SDaH+lyXYcbSyid5h4Tov9Hp32mrI0elT2VUVv1WQD6hftFFKqSIR9ky9/+G
+	hBqiqIIJxMgwNYOGAXqDptKMDtvvszxIyQhq1gUaucaSlDQU66mJUeJT+X+SLm1GWXrVPhbQWwB
+	ZY8Y+lS4MPJeq/MkvoBx08CQuzOQVtdHFzB/XJ/A++0q+LsRRvZ0LC1ic04Ym/a6pvnsaoHYqTj
+	wRJh7tvSGnxIKdrvr1Wzv55b2vUK7GPj2Ck1
+X-Received: by 2002:a05:6000:2603:b0:48e:6852:aea0 with SMTP id ffacd0b85a97d-48e6e526830mr16658272f8f.48.1793541433562;
+        Sun, 01 Nov 2026 05:57:13 -0800 (PST)
 Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:9c55:89d4:b00d:2bbe])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b789ecsm13856454f8f.29.2026.11.01.05.57.09
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b789ecsm13856454f8f.29.2026.11.01.05.57.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 05:57:10 -0800 (PST)
+        Sun, 01 Nov 2026 05:57:13 -0800 (PST)
 From: Avi Weiss <thnkslprpt@gmail.com>
 To: Jon Mason <jdmason@kudzu.us>
 Cc: Dave Jiang <dave.jiang@intel.com>,
@@ -87,9 +87,9 @@ Cc: Dave Jiang <dave.jiang@intel.com>,
 	ntb@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH v2 1/2] NTB: epf: serialize memory window parameter writes
-Date: Sun,  1 Nov 2026 15:57:05 +0200
-Message-ID: <eeb0cfec451d748b2f997c16a0a3a2afb56569e9.1793540847.git.thnkslprpt@gmail.com>
+Subject: [PATCH v2 2/2] NTB: epf: propagate MW command errors while status is reliable
+Date: Sun,  1 Nov 2026 15:57:06 +0200
+Message-ID: <62334fd3b8d69fdfdeed268d71f473df45f34556.1793540847.git.thnkslprpt@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <cover.1793540847.git.thnkslprpt@gmail.com>
 References: <cover.1793540847.git.thnkslprpt@gmail.com>
@@ -104,76 +104,92 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntb_epf_mw_set_trans() writes the address and size to shared control
-registers before ntb_epf_send_command() acquires cmd_lock. Concurrent
-memory window setup requests can overwrite each other's parameters,
-causing one window to use another's DMA address.
+ntb_epf_mw_set_trans() and ntb_epf_mw_clear_trans() discard command
+errors even when the endpoint explicitly rejects a request.
 
-Hold cmd_lock across the parameter writes and command submission.
-Use a locked command helper to preserve the existing serialization
-for other command callers.
+A timed-out command may still complete on the endpoint. Propagating
+that timeout can cause callers to free DMA buffers before the mapping
+completes. A late completion may also be mistaken for the result of a
+subsequent command.
+
+Record the first command timeout and propagate MW command errors only
+while completion status remains reliable. Preserve the original MW
+success-return behavior after a timeout to avoid releasing buffers
+based on ambiguous results.
 
 Fixes: 812ce2f8d14e ("NTB: Add support for EPF PCI Non-Transparent Bridge")
 Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- drivers/ntb/hw/epf/ntb_hw_epf.c | 20 ++++++++++++++++----
- 1 file changed, 16 insertions(+), 4 deletions(-)
+ drivers/ntb/hw/epf/ntb_hw_epf.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/ntb/hw/epf/ntb_hw_epf.c b/drivers/ntb/hw/epf/ntb_hw_epf.c
-index c47607d4f8a7f..da7fbe1800656 100644
+index da7fbe1800656..455bcefc7c13e 100644
 --- a/drivers/ntb/hw/epf/ntb_hw_epf.c
 +++ b/drivers/ntb/hw/epf/ntb_hw_epf.c
-@@ -123,15 +123,14 @@ struct ntb_epf_dev {
+@@ -102,6 +102,7 @@ struct ntb_epf_dev {
+ 	struct device *dev;
+ 	/* Mutex to protect providing commands to NTB EPF */
+ 	struct mutex cmd_lock;
++	bool cmd_status_unreliable;
  
- #define ntb_ndev(__ntb) container_of(__ntb, struct ntb_epf_dev, ntb)
+ 	const enum pci_barno *barno_map;
  
--static int ntb_epf_send_command(struct ntb_epf_dev *ndev, u32 command,
--				u32 argument)
-+static int ntb_epf_send_command_locked(struct ntb_epf_dev *ndev, u32 command,
-+				       u32 argument)
- {
- 	ktime_t timeout;
- 	bool timedout;
- 	int ret = 0;
- 	u32 status;
+@@ -148,6 +149,7 @@ static int ntb_epf_send_command_locked(struct ntb_epf_dev *ndev, u32 command,
+ 			break;
  
--	mutex_lock(&ndev->cmd_lock);
- 	writel(argument, ndev->ctrl_reg + NTB_EPF_ARGUMENT);
- 	writel(command, ndev->ctrl_reg + NTB_EPF_COMMAND);
- 
-@@ -157,6 +156,17 @@ static int ntb_epf_send_command(struct ntb_epf_dev *ndev, u32 command,
+ 		if (WARN_ON(timedout)) {
++			ndev->cmd_status_unreliable = true;
+ 			ret = -ETIMEDOUT;
+ 			break;
+ 		}
+@@ -156,6 +158,13 @@ static int ntb_epf_send_command_locked(struct ntb_epf_dev *ndev, u32 command,
  	}
  
  	writew(0, ndev->ctrl_reg + NTB_EPF_CMD_STATUS);
-+
-+	return ret;
-+}
-+
-+static int ntb_epf_send_command(struct ntb_epf_dev *ndev, u32 command,
-+				u32 argument)
-+{
-+	int ret;
-+
-+	mutex_lock(&ndev->cmd_lock);
-+	ret = ntb_epf_send_command_locked(ndev, command, argument);
- 	mutex_unlock(&ndev->cmd_lock);
++	/*
++	 * After a timeout, a status may refer to an earlier command.
++	 * MW callers may free buffers on error, so retain old semantics.
++	 */
++	if (ndev->cmd_status_unreliable &&
++	    (command == CMD_CONFIGURE_MW || command == CMD_TEARDOWN_MW))
++		ret = 0;
  
  	return ret;
-@@ -494,11 +504,13 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
- 		return -EINVAL;
- 	}
+ }
+@@ -485,7 +494,7 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
+ 	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
+ 	struct device *dev = ndev->dev;
+ 	resource_size_t mw_size;
+-	int bar;
++	int bar, ret;
  
-+	mutex_lock(&ndev->cmd_lock);
- 	writel(lower_32_bits(addr), ndev->ctrl_reg + NTB_EPF_LOWER_ADDR);
+ 	if (pidx != NTB_DEF_PEER_IDX) {
+ 		dev_err(dev, "Unsupported Peer ID %d\n", pidx);
+@@ -509,19 +518,19 @@ static int ntb_epf_mw_set_trans(struct ntb_dev *ntb, int pidx, int idx,
  	writel(upper_32_bits(addr), ndev->ctrl_reg + NTB_EPF_UPPER_ADDR);
  	writel(lower_32_bits(size), ndev->ctrl_reg + NTB_EPF_LOWER_SIZE);
  	writel(upper_32_bits(size), ndev->ctrl_reg + NTB_EPF_UPPER_SIZE);
--	ntb_epf_send_command(ndev, CMD_CONFIGURE_MW, idx);
-+	ntb_epf_send_command_locked(ndev, CMD_CONFIGURE_MW, idx);
-+	mutex_unlock(&ndev->cmd_lock);
+-	ntb_epf_send_command_locked(ndev, CMD_CONFIGURE_MW, idx);
++	ret = ntb_epf_send_command_locked(ndev, CMD_CONFIGURE_MW, idx);
+ 	mutex_unlock(&ndev->cmd_lock);
  
- 	return 0;
+-	return 0;
++	return ret;
  }
+ 
+ static int ntb_epf_mw_clear_trans(struct ntb_dev *ntb, int pidx, int idx)
+ {
+ 	struct ntb_epf_dev *ndev = ntb_ndev(ntb);
+ 	struct device *dev = ndev->dev;
+-	int ret = 0;
++	int ret;
+ 
+-	ntb_epf_send_command(ndev, CMD_TEARDOWN_MW, idx);
++	ret = ntb_epf_send_command(ndev, CMD_TEARDOWN_MW, idx);
+ 	if (ret)
+ 		dev_err(dev, "Failed to teardown memory window\n");
+ 
 -- 
 2.43.0
 
