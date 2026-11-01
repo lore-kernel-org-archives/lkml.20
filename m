@@ -1,61 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499075;
-	b=vVOjDd5ghnEfohwO7bq2ih6gTPbLZABmWWv6Rg7cvmwNX8/HsnPvAbRityjjSTD7HVsx
-	 uMnuJ5KqEmzskZcr75NDSbtYyKv19iaWA3CFM37g/oEMVAsKDcapKD7Ux+jXdSNA46JB7
-	 MZNsBPDPBIEFrDHxtgF2XYV+wgtK4NKUxPsOdYpK6Smq5q731bndG3gXhZ7h2qTr+SwDU
-	 HSYreob9ywM7iNYoa+xeBgQ/DzYu+DJ6Fa344P/g7kEZ+/RxmTzC7LSeNEPVgQBu2tnxw
-	 yYHS1+hDpHO5qoVkRwveZjLwNJo7q5vTEbNFwnsRaGNM12UZNC8fK4uxub/JjU18l3g==
+	t=1793499206;
+	b=4otDHk6XbLvx2J8lnHgVvc9mRKMeotC0UUNvVYoqGhiVgSD5+mRGNDb+iBm8ojHxpLC6
+	 hMBd/+NsZDnQxE4ULG7HlshV1KB/X6bb6GGmByqjYg0tokxNED7DYEuBdhL897CQ5v0ED
+	 DH+HH/vCoSqdM2iYwmAKiXgH79Ly1p//BYofip5I9rnhnANFqpBhlN8shrjsrXog0qiEu
+	 NZduSoDtnIZRV+t31adcx6f0WWg9TH2D4AUsyJPMJ+XlTJiEy/VTyCNGS8TyNs/dKBnsD
+	 IFqjY8mI4Uj0k3oLzAgdAKDj2zin3/vsiEdVvyYCH4goRDGhdjekjjvJC1AUxT6PmiA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499075;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Je1hEFupyVknre7flundp6Auvep7hdapJqk9LTTSHEo=;
-	b=JI3mt5D8XMstZRl+/6Vcj/55D3ELPri96xzcZmEPxnElFBKexjaeoFf1f0Vq+9BWNuc2
-	 FRqfBYyZZvc5LlAKMqKqGT5MmRnJ1uPGhnQ5wCZ4N/blUdPRTTomu/nVUMfKyl2UEhg7+
-	 3vfMwUl7Tdp299A7yqPMv9+pM3mw0ig4rBMU9MUYhcDX14UGHvhR1DZHP+f7a/fckOV1N
-	 CI/Q4fOQFm/wzaav/ByKEHujujk0YeMuZc9uKQ+7eRUy0xUJuY0pk6eeZD4ZNts5GkxKc
-	 mZVvZSA6AQlMuz9Ukr6pxQm2ZWioRAes2wEVikmbwmfpv19WSxk0dL96+XoSuQIZaCg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499206;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Cc:Subject:To:References:Content-Language:
+	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=Guk8hOxSxZsVVyDu6dmZjVN3ruStpWgA4u4UsRW4Y0o=;
+	b=OODZwmWGNXaXA7raEI9tfOJUQ2sn+6kjjUcVa5KbRRT9iCViKy2aHQqcg18OIkIIVXiF
+	 O2VJSPz39VWUKLBTNb8aabIE9KBRH7B5NDGLXFVMBupRRqFjPgfP0SkJG+6hs6cOypkVL
+	 A8OoJnxECH6eW0idkn3QN7Hz9rB/fxxfiwiL+gOa4JcgaNSgzG7MGWzJPBjnpFxSBkDoa
+	 KfQ6i6LklQ+pPxLxTihqU+RcLCNYh38ftPCmuBddCW7oc3f1uDlr7pzmLxediJS6AVQwd
+	 r8AE9xpJ9a5yq3XfMdW2mGnNitJUxa6SNz95J9NkXkw2waQWwNiJ+pk5huOI5FyBopw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEr1kp+C;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BO4qeyBo;
+	arc=none smtp.remote-ip=192.198.163.18
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C439C606A324;
-	Sun,  1 Nov 2026 02:11:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98FF9606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:13:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98FF9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OEr1kp+C
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DCB71F000C1;
-	Sun,  1 Nov 2026 02:11:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793499074;
-	bh=Je1hEFupyVknre7flundp6Auvep7hdapJqk9LTTSHEo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=OEr1kp+CkEPQpDdI2L0cP3/O58VH94S4bWjcsJ5wtMewA+Q3xsGqhkBr40JjZsmbc
-	 9FORUd8n/LaVhIQtjXb05bOSSzOtiLvRZo5sFbYB16dIZAehQEdRdxWleSOGDPFZLL
-	 wgDhvLtIdYNaUCdpiS0gQYsA1Fxdhk7u8c6tbwD3ucg1OIyj/XeawUXHcePzs6QCLT
-	 9/opQ3MSywDou8vV+G10AsYIi/iyg2CjuItpl8pyVVZh3PpH0/AgI9cpxeVJhZo7xA
-	 8MQ9m2oW47IyFf21z3XrQhAFvOnrBDesSSi996lSk0gFu6OHVU+XZdG+ca4X0IsE3L
-	 S7uP6DgXrmhAw==
-Date: Sun, 1 Nov 2026 02:11:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Josef Bacik <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable <stable@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, "Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The
- Capable Hub)" <u.kleine-koenig@baylibre.com>, Siratul Islam
- <email@sirat.me>, Matti Vaittinen <mazziesaccount@gmail.com>, Biju Das
- <biju.das.jz@bp.renesas.com>, Stephen Boyd <swboyd@chromium.org>
-Subject: Re: [PATCH 15/15] iio: sx9310: use the data of the I2C table
-Message-ID: <20261101021109.59b2cffc@jic23-hlaptop>
-In-Reply-To: <20261027-llm-char-misc-iio-v1-15-0d818334f6c7@linuxfoundation.org>
-References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
-	<20261027-llm-char-misc-iio-v1-15-0d818334f6c7@linuxfoundation.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=BO4qeyBo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793499206; x=1825035206;
+  h=message-id:date:mime-version:cc:subject:to:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=QR9k1q5311EW/AfCDkoFYdwYVJyyH8f3uvJGyNJPUw8=;
+  b=BO4qeyBoAUgDVJc79j8TojQ3PsENhWXOotngB5MDYEU05qQNTOUuDENW
+   SdvYnXdLelAKsxF9UlHpkT/cBcnoeabL9A7nfg57GVR5lptD2VlL1yaGh
+   Xv9p0+Czl8jV9j5BUnhhu/lfw2IM8MRX9HzUOfKAqSZtiUN28V4W2mLWK
+   TWgDczQ+1vrqC6XfDr6H5nrORM6ENKHtlsGxO+FxGWbs4AbYJII0qVOTG
+   Y59TXhrIv/YDr18Nq2xCp2ouwB2mp0ltES4a4V16RQPykecB3DS2IuAWY
+   LBWLdm/ZKbq6d8KKkHjMiZdPTQGFApFenPxo61aqTWRrgFxog4K4E0iGq
+   w==;
+X-CSE-ConnectionGUID: gEiZ2P7SSiKrEQWf5vru1A==
+X-CSE-MsgGUID: NdW4CmqrQ46ELcIAoSOplw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2252716"
+X-IronPort-AV: E=Sophos;i="6.27,189,1787036400"; 
+   d="scan'208";a="2252716"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 19:13:25 -0700
+X-CSE-ConnectionGUID: z6/eXgFfRZmxTEcwmpXpew==
+X-CSE-MsgGUID: AfEumrtbTcqAmATvoou2gA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,189,1787036400"; 
+   d="scan'208";a="5631974"
+Received: from unknown (HELO [10.238.0.90]) ([10.238.0.90])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 19:13:23 -0700
+Message-ID: <762aa8ba-8e4a-420f-81d6-607c79d9363a@linux.intel.com>
+Date: Sun, 1 Nov 2026 10:13:20 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,68 +72,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: baolu.lu@linux.intel.com, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>,
+ Jean-Philippe Brucker <jpb@kernel.org>, Yi Liu <yi.l.liu@intel.com>,
+ iommu@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/4] iommu: Unpublish the attach handle before the
+ PASID detach callback
+To: Nicolin Chen <nicolinc@nvidia.com>, joro@8bytes.org,
+ Jason Gunthorpe <jgg@nvidia.com>
+References: <cover.1790718296.git.nicolinc@nvidia.com>
+ <3d6731c5c3502380b4de3c90a1f6ba5547f0dd85.1790718296.git.nicolinc@nvidia.com>
+Content-Language: en-US
+From: Baolu Lu <baolu.lu@linux.intel.com>
+In-Reply-To: <3d6731c5c3502380b4de3c90a1f6ba5547f0dd85.1790718296.git.nicolinc@nvidia.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Tue, 27 Oct 2026 17:19:19 +0100
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
+On 9/30/2026 5:51 AM, Nicolin Chen wrote:
+> iommu_detach_device_pasid() erases the group->pasid_array entry only once
+> __iommu_remove_group_pasid() has returned, so the detaching handle stays
+> visible to iommu_attach_handle_get() for the whole of that callback, and
+> the caller frees it as soon as the detach returns.
+> 
+> Erase the entry ahead of the callback, for the same reason the group path
+> does: a fault raised in the meantime must not resolve to a domain that is
+> on its way out.
+> 
+> Fixes: 16603704559c ("iommu: Add attach/detach_dev_pasid iommu interfaces")
+> Cc:stable@vger.kernel.org
+> Assisted-by: LLM
 
-> From: Josef Bacik <josef@toxicpanda.com>
->=20
-> sx9310_check_whoami() takes the chip information from
-> device_get_match_data(), which only looks at the OF and ACPI tables, and
-> dereferences it. For a client which was bound through the i2c_device_id
-> table, for instance one created with
->=20
->   echo sx9310 0x28 > /sys/bus/i2c/devices/i2c-1/new_device
->=20
-> it returns NULL, and the kernel oopses as soon as something at that addre=
-ss
-> answers the read of the WHOAMI register.
->=20
-> The I2C table has the same pointers. Use i2c_get_match_data(), which falls
-> back to it.
->=20
-> Fixes: 21fd3b1373f6 ("iio: proximity: sx9310: Convert enum->pointer for m=
-atch data table")
-> Cc: stable <stable@kernel.org>
-> Cc: Jonathan Cameron <jic23@kernel.org>
-> Cc: David Lechner <dlechner@baylibre.com>
-> Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
-> Cc: Andy Shevchenko <andy@kernel.org>
-> Cc: "Uwe Kleine-K=C3=B6nig (The Capable Hub)" <u.kleine-koenig@baylibre.c=
-om>
-> Cc: Siratul Islam <email@sirat.me>
-> Cc: Matti Vaittinen <mazziesaccount@gmail.com>
-> Cc: Biju Das <biju.das.jz@bp.renesas.com>
-> Cc: Stephen Boyd <swboyd@chromium.org>
-Applied to the fixes-togreg branch (I'll rebase and send a pull
-for that after rc1), though I pruned most of these out to reduce noise
-in the git log
+ditto
 
-Thanks,
-
-Jonathan
-
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> Signed-off-by: Nicolin Chen<nicolinc@nvidia.com>
 > ---
->  drivers/iio/proximity/sx9310.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx931=
-0.c
-> index 79ba46d8a0aa..2585b9c6fb69 100644
-> --- a/drivers/iio/proximity/sx9310.c
-> +++ b/drivers/iio/proximity/sx9310.c
-> @@ -891,7 +891,7 @@ static int sx9310_check_whoami(struct device *dev,
->  	if (ret)
->  		return ret;
-> =20
-> -	ddata =3D device_get_match_data(dev);
-> +	ddata =3D i2c_get_match_data(data->client);
->  	if (ddata->whoami !=3D whoami)
->  		return -ENODEV;
-> =20
->=20
+>   drivers/iommu/iommu.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+> index a062a84686c29..19b880d23314b 100644
+> --- a/drivers/iommu/iommu.c
+> +++ b/drivers/iommu/iommu.c
+> @@ -3818,8 +3818,12 @@ void iommu_detach_device_pasid(struct iommu_domain *domain, struct device *dev,
+>   	struct iommu_group *group = dev->iommu_group;
+>   
+>   	mutex_lock(&group->mutex);
+> -	__iommu_remove_group_pasid(group, pasid, domain);
+> +	/*
+> +	 * Unpublish the handle first, so it would not resolve to the detaching
+> +	 * domain once the driver is detaching it.
+> +	 */
+>   	xa_erase(&group->pasid_array, pasid);
+> +	__iommu_remove_group_pasid(group, pasid, domain);
+>   	mutex_unlock(&group->mutex);
+>   }
+>   EXPORT_SYMBOL_GPL(iommu_detach_device_pasid);
 
+Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
