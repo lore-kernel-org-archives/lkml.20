@@ -1,90 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576683;
-	b=rQXkHv59Xich+aJ3VurX8BX5CfiJh3vCDzuTNMx3wccYEq/p7ctyGQVHSKGYnzDuxxzT
-	 Kj4sbVs3Mi5YRBgQQdkIB/JwoRs89gKaVejPNRKAehMPIfbE+Nze3JlrQtXL4f7f3qSGj
-	 /nYvHbf7lvpSoDK1U3l5J24IAG7/x+FgrLG1ZbsizjFmLvIU+m/6ZSgGGkovI7EPZLKsX
-	 eiuV5W0r3PbAqEzOJsloIXrzY+T90COTBDCHPKEoDMLTNx/6uIW5ikC8sXlac4phnUx5z
-	 D+f91HkXAbvJeg3XvXWqZmueMO6EW/TzFc8hcynSGXWE53oW7wfHL2rY6UMORrvhX8A==
+	t=1793576775;
+	b=PFFUI7irKs0+agbLeOfMRT1ykyam2lIM8zL0I7BKC8IZAxZXghR2iK5YpDD4mN8rMmJ/
+	 gi/Tm9hYxKTPMlkQp/hg3ZyV9RcLUZD1B8z16PbHnQiOBfNIuN9SIqDajDUPQWkeHYW9/
+	 dPU4SEab/h5jqkBBVu41dDlyQ6cKyCLBYKF+KhZ+o26epWG6tp3p15/Y4MfWviZP7qSmM
+	 kISBUW3Aihkk8+AIwfgU5b64fSeKyDmZteY7fQNMMLDy3/fdHgXM5BuJIZuWjNBulAmma
+	 maam0Aqn3UxV7fjYra+v6W1Z7R7Ak1W1smQjiCgZt6Vopoe38aFpLmk0iQ3Q/xSULgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576683;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Sender:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cmCKtuKWGdM8HNfbRfJhwyASQenO/GwuxXairf/0/u0=;
-	b=TJd7qHc3VhOV3h2G0yxuiywg/k/fXhPLOgx/BVH6AS8CmeDl1YQWLvUuv8Gkf7ACqMO/
-	 lSt5TGb3ZnZCfFl+g6hhReRVE82rf/gf8WlJAKCBTkARMqD0uBQRVJzQBdMPqVkhrlO28
-	 mE+6jIlJhc6HfeC7EW4wgj4wa/pLlGXv7vIaMyjeYXPKN/ng/UJ1vGiUvFaUcUVuB9sgF
-	 87qiUchV3RlMOB17KSijlbsVTmjoeM71PdX8VRsYXFOtqfJ8F0F4cLaTaKZYtpyheM5pi
-	 T/Wg3DCbAng9Td9AnIhnwj9xH1J8KJMohS8ktf52kXjvJ/62n/SrWvh20mTG6Bm7wwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793576775;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
+	 References:MIME-Version:Content-Type;
+	bh=8aR/Q5PsF/c9O1qTdyE8liCK5k1Cui/KktdW5caPo2M=;
+	b=FEx4w1UxBKUFjV3GIlZmJqfwP683NrAilm2k79HVuVUjtSSGjG35RmAIW3a65tZYXpQK
+	 4GL0z0Q4NlDtLE9BS3rKT0Ed2HzassrQx5CsxXgnTgeRqSHw7PsiftyyECAgByh2BMNzJ
+	 hcWNqYlTNoq9/SoFYNW8gI9Hb8gZTZ4hTxx1nlVcIkj+pqvx+6J96cd0tWq7EQjzCsnfs
+	 ml9oKA+CYppSHzyo4+9uZmBDKIa3PGxu65FMRCtML0TbxEfRhaI69bilMXy1wLJd/dJcW
+	 gNZ8fB95Jxde/TZe1Yd4mt1bkJS1swAaNSxhwtrsORAleUEY9s2C398Nd5mvzRKNB7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EInoisVf;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=rJpaFDt8;
+	arc=none smtp.remote-ip=192.134.164.83
+Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F72606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:44:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63F72606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0746606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:46:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0746606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EInoisVf
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso24884905e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:44:43 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=rJpaFDt8
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793576682; x=1794181482; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cmCKtuKWGdM8HNfbRfJhwyASQenO/GwuxXairf/0/u0=;
-        b=EInoisVfS8QOSy4pIAtt5rCQ5V+jvEcqXQAGTVtQcnJDFoJhs87zb4rjsgSCJaR1VP
-         1StuJCPt/GYzXCyAZlBH4EPaUAMnrJSR9UdprLHYTCyy9tP5qTumL9dCtv/zcrl1MXGz
-         IauFjc7OQhgEH5bK/zDdQJnJljB6jRfCp1SGqBKovHGBvuUtu8/PFwJ0jeqIdvA/CxM4
-         dq3kvtbwTKctdLaFUxwLDs/lAc8tucD2AoLsyP8p4fVQl2im4Q3Ux2wRTvEAPO0BS1pG
-         uiNgrIVlxNGWE8x9DnPN9U95Uac+CLg6O39tY82UA8i6yBHhA9aFqEKSzDwdnzREW4cd
-         sBWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793576682; x=1794181482;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=cmCKtuKWGdM8HNfbRfJhwyASQenO/GwuxXairf/0/u0=;
-        b=M2kvg5GdcoSdlUgW+m/jSCo1WmahC1bAfxlVxh3QE/CQ4AfcGTzFMH/ekxkWCNNjub
-         jy8km2um+q6aFg/IVrzc2bAewNxPHr2EDdI7rFR6cq7/YeF9NVK/x97HKJdBUZEkXIEn
-         XJuilcAR57OG2mxDyBItnY32J3wpCS/Y8XDtS+cyXPGm3cc3UKlK+Lp3katgoEYjhYb7
-         M+HZI5VnLzTU2AKDu7aMsoRC01kT6z1iHZ9zJrekDjM85uTgu8UyDXek+p/XZvhh7xxT
-         IyFR47QnxMowRZl42cPWpy9CvU5YJMW7+4v1bS35SGdoG9VqMW1fMjKt5YvFcIA2mqqg
-         53Ag==
-X-Forwarded-Encrypted: i=1; AKwUvBzviCggPJ+QEzJP0m7/yGfk0CAM0SlgTbxYOK5oAqEXzz9J5iuNzrFldQ9cVdPt7YsVReKnG7QZezyIF90=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+aZtT52kn2DVcP+M/9WEKEO6BuasBIE3HTmT9F+GHZ1wnGg1Fv
-	TBACybGh3W5Zr03rubIbgg4i6lXTOOR666wZPRIoDMzjZaVYBDAAN3nO
-X-Gm-Gg: AYBFou1W2vxQ1zTwP4lN7lqwIs/PYGTksdVSvISr7sAWPcvDREukt1IEy//hSkaOdaQ
-	CbjMo8lAU0+XW2qcRWmd5gEr1Y//ZzUnQ26+CZp/zhk5RecLTbVH9EEYsH7/PgqbSeKtFvKwVK8
-	2YDKLhWKPLwrPQ+GatHdBtpcmJGaNU9bW0M4rD9kD/DHQrCBsB/uDz+lAjRRolxnByEXBUq5j/L
-	hzIR+NRMLHSU8J+x9AIamSRMcKJjkuJc2IJAEWZeL0yhC9IHCVlIAPyttMfN60V/skuwCEwdAlN
-	4j6s/V8fBtDUwOkhMH7CWJt26Tk3aDYKqysmjQBfaoHqx0In5CXb5ORB68htVCraLahzy5Ejew0
-	L9uau2QpppbUR3psLFX8uz3hxomLgPobm5qWWOwBjAERMSf4CsoKAfYJXlCcrW+YLEPcunlDogq
-	TWteOmMXOzG2xHYFooVYlTSiwlaSHENwRv3vadVW7p8cdRQ/hyPpRlTGLuADLeCSeRbP1Wm945v
-	RF8AXspSE411Karqnz/ed9bSEXX8r3o8jDRea1TJ2C4e12yol/kB53eO+fk7KBTXIHdS1309yVs
-	F00M/Qt/hniMytEDVbsyL0lrsgz7lPsB2F917DxJKrP41JeoQTSg1Gff1Pi6I6+MRJts2X7fUcJ
-	cl/tFcGqV8Bugqnw1dmCY
-X-Received: by 2002:a05:6000:25ee:b0:48e:84b:e83e with SMTP id ffacd0b85a97d-48e6e2bce33mr17685080f8f.1.1793576681677;
-        Sun, 01 Nov 2026 15:44:41 -0800 (PST)
-Received: from [10.128.10.232] (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bab1a8sm16553351f8f.57.2026.11.01.15.44.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 15:44:41 -0800 (PST)
-Sender: Julian Braha <julian.braha@gmail.com>
-Message-ID: <9c21c5f5-355e-4520-b48e-acd355c7fc6d@gmail.com>
-Date: Sun, 1 Nov 2026 23:44:39 +0000
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=8aR/Q5PsF/c9O1qTdyE8liCK5k1Cui/KktdW5caPo2M=;
+  b=rJpaFDt8CBLPZ2EzSZI1WVMTSip4mmcG7Gi7TuCF05cMZyP7WilYhJKm
+   HFuBmeEV5ozh3dfQzqxqy+7ephibI4nowq4m/D5Pp0emHQ+mTfMuXPUzD
+   y5ZbSS3Txax4vKv5uds4vB32JrG9BF9QlJNmSr0qBQnoLkTYpARM9Lko3
+   A=;
+X-CSE-ConnectionGUID: MdCRj7cTQXusdfFCArcjZQ==
+X-CSE-MsgGUID: TrVOdOn7S8W4EUWF2CuJnw==
+Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,190,1787004000"; 
+   d="scan'208";a="303236459"
+Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
+  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 00:46:11 +0100
+Date: Mon, 2 Nov 2026 00:46:11 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Ella Ma <alansnape3058@gmail.com>
+cc: cocci@inria.fr, linux-kernel@vger.kernel.org, nicolas.palix@imag.fr
+Subject: Re: [PATCH v3] coccinelle: free: add a checker for `__cleanup(kfree)`
+ usage
+In-Reply-To: <20261016135718.ab5322cdyozostuj@ptb-02009389.paris.inria.fr>
+Message-ID: <cd96489d-e980-c4a-9990-7a96e8b31ea@inria.fr>
+References: <ec578f57-a7f5-7afc-ec2-9156c336187@inria.fr> <20261007164316.15102-1-alansnape3058@gmail.com> <f635d9fd-8dd5-47f-7996-239bc74bd828@inria.fr> <20261016135718.ab5322cdyozostuj@ptb-02009389.paris.inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,90 +66,224 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: Speed up KConfig - fix hashtable confusion
-To: Linus Torvalds <torvalds@linux-foundation.org>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Lorenzo Stoakes <ljs@kernel.org>
-Cc: Linux Kbuild mailing list <linux-kbuild@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-References: <CAHk-=wi_GuySe0L-uCAM2+nScCLYGBp5BLi6UUPR1gALmNM_3w@mail.gmail.com>
-Content-Language: en-US
-From: Julian Braha <julianbraha@gmail.com>
-In-Reply-To: <CAHk-=wi_GuySe0L-uCAM2+nScCLYGBp5BLi6UUPR1gALmNM_3w@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 11/1/26 20:08, Linus Torvalds wrote:
-> So the Kconfig 'expr_lookup()' function is criminally slow and takes
-> over 10% of the time of "make oldconfig".
 
-My own pet peeve is the occasional slowdowns in menuconfig search...
-> 
-> The reason is that it's called just a lot, but it *really* doesn't
-> help that the scripting versions of the hashtable functions has not
-> understood the subtler issues of the hashing code that it took from
-> the kernel side, and in the process got things very very wrong.
-> 
-> The "hash_32()" function is a perfectly fine hashing function - there
-> are better ones around, but it's fast and "good enough". But when you
-> use it, you need to understand that it puts the significant bits in
-> the *high* bits of the result.
-> 
-> The kernel uses a model where you give it the number of bits you want,
-> and it will pick out those high bits, which makes it all work right.
-> 
-> But the simplified hashtable code for the host code didn't use those
-> high bits of the key. It just did
-> 
->     (key) % HASH_SIZE(table)
-> 
-> to pick the hash table entry, and that's basically pessimal. When
-> hashing an address that typically has the low bits clear, the low bits
-> of "hash_32()" will *also* be clear. So the hash table ended up being
-> mostly empty! So even though the hash table was sized appropriately,
-> it wasn't being very efficient. And while making the hash table larger
-> mostly hides the problem, it's the wrong solution, because the cache
-> footprint gets worse.
-> 
-> Teach "hash_head()" to use the high bits of the key. Because the users
-> don't pass in the number of bits they want, this is pretty hacky:
-> 
->     #define HASH_KEY(key,size) \
->         (unsigned int)((unsigned int)(key)/(0x100000000ull/(size)))
-> 
-> but at least this improves on things.
 
-It would be a bigger change but IMO the host-side implementation should
-not differ much from the kernel's -- like the rest of the data
-structures in scripts/include/. In other words I'd prefer to revert some
-of the "simplifications" that caused this and adjust the callers
-accordingly.
+On Fri, 16 Oct 2026, Ella Ma wrote:
 
-Nathan or Nicolas, do you feel differently? This is also used by some
-other tooling outside Kconfig. If not then I'll send out my version.
+> On Wed, Oct 07, 2026 at 08:27:33PM +0200, Julia Lawall wrote:
+> >
+> >
+> > On Wed, 7 Oct 2026, Ella Ma wrote:
+> >
+> > > Using __cleanup(kfree) will pass the stack address of the annotated
+> > > local variable to kfree functions. This will lead to invalid
+> > > deallocation issues. Inspired by CVE-2026-45959 and similar bugs
+> > > recently detected.
+> > >
+> > > Signed-off-by: Ella Ma <alansnape3058@gmail.com>
+> > > ---
+> > >
+> > > Changes in v2:
+> > > - Add virtual rules `report` and `org` as suggested by Sashiko
+> > > - Remove `kvfree_sensitive` from rule `cleanup` as suggested by Sashiko
+> > > - Add `free_percpu` to rule `free`
+> > > - Add `kfree_const` to rule `cleanup`
+> > >
+> > > Changes in v3:
+> > > - Edit the error messages to clarify the reasons and results
 
-> 
-> I also stopped the expr_lookup() key generation from using XOR of two
-> pointers, which I suspect just ended up clearing most of the shared
-> bits. I doubt that makes a difference, but XOR of thigns that may have
-> shared bits really isn't great.
-> 
-> The cost of 'expr_lookup()' drops by a about factor of four on my
-> machine, and it's no longer the hottest function in all of 'make
-> oldconfig'.
-> 
-> No, "make oldconfig" still isn't the fastest thing around, but at
-> least this removes on particularly stupid reason for it being slower
-> than it needs to be.
-> 
-> Somebody needs to double-check this. I don't love my HASH_KEY() macro,
-> but it should work for power-of-2 sizes. And as far as I can tell, all
-> the hash tables are powers of two.
-> 
-> Comments?
+I applied this, but I changed the first error message to:
 
-Thanks for diagnosing this, Linus
+"ERROR: __cleanup({n}) will cause an invalid free: the stack address of
+the annotated variable will be passed to {n}; declare the variable using
+__free({n}) to cause the pointee to be freed"
 
-- Julian Braha
+The original message made it look like one should use __free when calling
+kfree.
 
+Furthermore, there is one report in the kernel for this case.  It would be
+worth fixing it or checking whether it is dead code (it's immediately
+under an ifdef).
+
+julia
+
+
+> > >
+> > >  scripts/coccinelle/free/cleanup-free.cocci | 112 +++++++++++++++++++++
+> > >  1 file changed, 112 insertions(+)
+> > >  create mode 100644 scripts/coccinelle/free/cleanup-free.cocci
+> > >
+> > > diff --git a/scripts/coccinelle/free/cleanup-free.cocci b/scripts/coccinelle/free/cleanup-free.cocci
+> > > new file mode 100644
+> > > index 000000000000..48e47ed2186a
+> > > --- /dev/null
+> > > +++ b/scripts/coccinelle/free/cleanup-free.cocci
+> > > @@ -0,0 +1,112 @@
+> > > +// SPDX-License-Identifier: GPL-2.0-only
+> > > +///
+> > > +/// Find __cleanup(kfree)
+> > > +/// Using __cleanup(kfree) will pass the stack address of the annotated
+> > > +/// local variable to kfree, causing an invalid free.
+> > > +/// I.e., `T v __cleanup(kfree);` --> `kfree(&v);`
+> > > +/// Such usage is impossible to be correct.
+> > > +///
+> > > +// Confidence: High
+> > > +// Copyright: (C) 2026 Ella Ma
+> > > +// Options: --no-includes --include-headers
+> > > +
+> > > +virtual report
+> > > +virtual org
+> > > +
+> > > +// Suggesting using __free for the functions with a DEFINE_FREE definition.
+> > > +// Update this list when new DEFINE_FREE definitions are added.
+> > > +@free@
+> > > +attribute name __cleanup;
+> > > +symbol kfree, kfree_sensitive, kvfree, kvfree_atomic, free_percpu;
+> > > +type T;
+> > > +identifier v, n;
+> > > +position p;
+> > > +@@
+> > > +
+> > > +(
+> > > +  T v __cleanup@p(
+> > > +(
+> > > +  n
+> > > +&
+> > > +(
+> > > +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
+> > > +)
+> > > +)
+> > > +  );
+> > > +|
+> > > +  T v __cleanup@p(
+> > > +(
+> > > +  n
+> > > +&
+> > > +(
+> > > +  kfree \| kfree_sensitive \| kvfree \| kvfree_atomic \| free_percpu
+> > > +)
+> > > +)
+> > > +  ) = ...;
+> > > +)
+> > > +
+> > > +@script:python depends on report@
+> > > +p << free.p;
+> > > +n << free.n;
+> > > +@@
+> > > +
+> > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
+> > > +coccilib.report.print_report(p[0], msg)
+> > > +
+> > > +@script:python depends on org@
+> > > +p << free.p;
+> > > +n << free.n;
+> > > +@@
+> > > +
+> > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}; use __free({n}) to free the pointee"
+> > > +coccilib.org.print_todo(p[0], msg)
+> > > +
+> > > +
+> > > +// Reporting __cleanup usage for the functions without a DEFINE_FREE definition.
+> > > +// The following list only contains frequently used functions. Supplement it if
+> > > +// necessary.
+> > > +@cleanup@
+> > > +attribute name __cleanup;
+> > > +symbol vfree, vfree_atomic, kfree_const;
+> > > +type T;
+> > > +identifier v, n;
+> > > +position p;
+> > > +@@
+> > > +
+> > > +(
+> > > +  T v __cleanup@p(
+> > > +(
+> > > +  n
+> > > +&
+> > > +(
+> > > +  vfree \| vfree_atomic \| kfree_const
+> > > +)
+> > > +)
+> > > +  );
+> > > +|
+> > > +  T v __cleanup@p(
+> > > +(
+> > > +  n
+> > > +&
+> > > +(
+> > > +  vfree \| vfree_atomic \| kfree_const
+> > > +)
+> > > +)
+> > > +  ) = ...;
+> > > +)
+> > > +
+> > > +@script:python depends on report@
+> > > +p << cleanup.p;
+> > > +n << cleanup.n;
+> > > +@@
+> > > +
+> > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
+> > > +coccilib.report.print_report(p[0], msg)
+> >
+> > Hello, this is more words, but is not what I was hoping for.  You explain
+> > the effect, but not the cause.  And to fix the bug with confidence the
+> > reader wants to know the cause.  Here I would have expected something like
+> > "__cleanup usage for a function without a DEFINE_FREE definition. This will cause an invalid free"
+>
+> Do you mean only the second rule needs a refinement, or both rules?
+>
+> ==> __cleanup vs __free, both rules:
+>
+> Using DEFINE_FREE declarer only defines a forwarding function that can
+> be annotated to a local variable via __free attribute. Defining such a
+> function with DEFINE_FREE will not automatically make __cleanup correct.
+> User still need to use __free instead.
+>
+> FYI: __cleanup will pass the stack address to the annotated function
+> directly; while __free will first call the forwarding function defined
+> with DEFINE_FREE, and then the forwarding function will correctly pass
+> the pointee address to the annotated function.
+>
+> ==> Only the second rule:
+>
+> Yes. For the functions without a forwarding function definition, one of
+> the root cause is lacking the definition. But I am not sure whether this
+> semantic patch should suggest adding one.  As these free functions are
+> all those frequently used, perhaps the DEFINE_FREE definition should be
+> added to the corresponding public header files.  Or, do you mean this
+> semantic rule only needs to report this missing, and the users will add
+> them where they think is good?
+>
+> Besides, after adding a definition, the current error message will
+> become misleading, as there are no rules to search for existing
+> DEFINE_FREE definitions in the code base. Do you think it is necessary
+> for this semantic patch to search for the corresponding DEFINE_FREE
+> definitions first and then generate the error message accordingly?
+>
+> I.e.,
+> with DEFINE_FREE:
+> requiring replacing __cleanup with __free.
+> without DEFINE_FREE:
+> reporting missing DEFINE_FREE and also requiring replacing __cleanup
+> with __free.
+>
+> ella
+>
+> >
+> > julia
+> >
+> >
+> > > +
+> > > +@script:python depends on org@
+> > > +p << cleanup.p;
+> > > +n << cleanup.n;
+> > > +@@
+> > > +
+> > > +msg = f"ERROR: __cleanup({n}) will cause an invalid free: the stack address of the annotated variable will be passed to {n}"
+> > > +coccilib.org.print_todo(p[0], msg)
+> > > --
+> > > 2.34.1
+> > >
+> > >
+>
