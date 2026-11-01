@@ -1,63 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793575246;
-	b=Ss6+ovC2iSuUspEcybBHXQ+YE9atSt5C5tBiiCttn0WVUz2SGxckMupSIegDE5pJGsGr
-	 O/in78n8yj+7StWDmN8sd4t97v7xINQpDQSwL38/IISxpZaqQ3+FRP+8Us/TsqURxBomE
-	 neCT9F/d51O8GtO6XwNGHvrWnd9LXUheesGQP8VQtNPxe8jypMVmQFDSg7dAg6xr++rvV
-	 F78iqmJkQLlM3+F4ZxSRq3r0KjUddkvJtdAbk2GnI5v0D7vbSkJkx5EpX0fv/rQUUEhGe
-	 dszsZjEIyNUlryRoBI0j1WxzoL8LS8fJ4ZTZ2mLc+IkxozyP6X1Z1aZIX5NL9zwTZsw==
+	t=1793575312;
+	b=VNKn8+PVJCIx+iO3Z8IBwqcqd8yIjmPXxo2xtqZOPZKVV+KYSKLWQ8MmWFvEnFK23hXu
+	 mumoGZ9LJpGcXDHJz6gYTpWV/yyXInVvKRDZTCJ2ta3aoSi9rkFZ/mv7DZpRsmzhbLMoR
+	 dP7MNAuSOlI4ZERW1jC3cT9b9NP+4QbOaZTOuYBG5mU0ca3mXjOClN5bdo9lyg//btOp0
+	 f2vwFR8irS9UejJvZXbZw8+bPQ6RiBxh1ItoTmoYQCsdSeMJVDjwARBA87Jn143kAF3Mb
+	 jeg5i1BvN5MfWWU0JKxYHFcg2qR3ZzP6XCLypKqT1eAIxVQFnwlFn6NSZ9GT9TYgIIw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793575246;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Date:From:To:cc:Subject:Message-ID:
-	 MIME-Version:Content-Type;
-	bh=DN2qS6zGxd+41Wpysh4jKjE7aUcT+0wcXmczyVLoNZ4=;
-	b=5GWhE7ue37X1Td+KOqDUAu5S+M6v40Sfs9KmNOXWxaFLfQTug0Kd32OFNdxuMwUrbj8Q
-	 shswomLKpA2IZqQUENoxi7SyK/wq8ryCQnhXRwNwjcIa1ayrzkHB8NrEEfxumgpafz6xj
-	 8NodESEaq5aFaO4r27b6i+QSjVUkGtXiHBEbOdTYvIRmZ0y1uQWeZ6n4a6zOp9QwWLaZk
-	 jFrDMeU414D6Ab/JFsh4qGje+gKduigzuLO7+nQAv82NSlvQ1gXQb20bbcNCtZ7/CKTO+
-	 v73A+xtaC5664yjj/4HBGTDC/U+6e+Y5YhAU4gHkvNGIBHwpCJwroa1U8z9XlQbRfbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575312;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=Dk72iN7SVxUD+KiFtk3ED/m2rnC0xL8gpFKUthTaqew=;
+	b=0ovNf7yGABPZwfuHqt9GWKOSftAi/dQ1hZ3w13ztqeJ2TegGblD+yjan9GTmI0ZEBU6u
+	 IDm5pxPgbdGYJ7xmuXjMW2pQ3hXuytA5ckCA5Q1oTYZ+ylDjd0V8rsVJbvEPdbmB/q+YJ
+	 yxK89Yn2iz64QSGgnw+rlWSn9GQEm6sQUHT7HoEBYMQmda62vh4OML0+Lzi1CNbp1W4xa
+	 gLZRu1XI0bsLbKZQ502PbkFGOTSGlvXFAU0tEsvyT7lK6mzMgOfA19OgqK/bhfz/7313z
+	 6cIJAbBhbly0kFrb43FOZFRBsnhUycVPeLCeTN05hXyK7IrOTEC65S+eDajeYM9SFMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inria.fr;
-	spf=pass smtp.mailfrom=inria.fr;
-	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=sur1vkFH;
-	arc=none smtp.remote-ip=192.134.164.104
-Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcPWCVl4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D2B606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:20:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31D2B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E87606A324;
+	Sun,  1 Nov 2026 23:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=sur1vkFH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=DN2qS6zGxd+41Wpysh4jKjE7aUcT+0wcXmczyVLoNZ4=;
-  b=sur1vkFHUFM4tdopFk453RMy0yzNeGFzo15QkmRsOjong5vtylwkc2Mg
-   b2acZclxfvTsSwhszQpKDwTsQT97YcvS3/d27hRinjCiHZvg3c02W3BXH
-   ViK4uQdDW8dFQnry4i8jpSmnV9m8yI6ot/dBYRKFVWnDv6msSPNJop3Tc
-   k=;
-X-CSE-ConnectionGUID: seC/1H/YRD2C1QvPGX9PXw==
-X-CSE-MsgGUID: 4emA+J89SAm/t9cYuuNo8g==
-Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,190,1787004000"; 
-   d="scan'208";a="161430623"
-Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
-  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 00:20:41 +0100
-Date: Mon, 2 Nov 2026 00:20:41 +0100 (CET)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Pasha Tatashin <pasha.tatashin@soleen.com>
-cc: Andrew Morton <akpm@linux-foundation.org>, 
-    Linux Memory Management List <linux-mm@kvack.org>, 
-    "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
-    Pratyush Yadav <pratyush@kernel.org>, linux-kernel@vger.kernel.org, 
-    oe-kbuild-all@lists.linux.de
-Subject: kernel/liveupdate/luo_file.c:558:5-13: ERROR: invalid reference to
- the index variable of the iterator on line 553 (fwd)
-Message-ID: <a1b79e2b-e960-b6de-9139-fbbd13bfb2b3@inria.fr>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcPWCVl4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9F51F00919;
+	Sun,  1 Nov 2026 23:21:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793575311;
+	bh=Dk72iN7SVxUD+KiFtk3ED/m2rnC0xL8gpFKUthTaqew=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bcPWCVl4m4dl6rBvpQ5YYD26P8ZH6xm9Nx8NuFtIgnHX5QJfES6cAt2qzqYAHWQT6
+	 LpfeWojwQSv6R+i+1rZjoY9SSg5PYjam+msSPwBXzwL8ZGb+n+OHhlTr2qFnq6Ypt7
+	 GR8Xtci6SZiyml/TDAO02G3UASFlZQrGCGCdnMEzpFYsIhJPoLRGczDOZbfhM+EGiJ
+	 2hE6d7xVnm6pgnrvYDR9Z4X7zn5MJEJA3AkQ5Qgv+I16QOwPnhqwlKu5ZN1ZIr1e7+
+	 8lq9yb1mPIVDcBCWyx86lVQM0/CIRFS5tkFM52LnOraRGYgYxM36rFfJcgqqDEKinz
+	 naKb829A7V4Iw==
+Date: Sun, 1 Nov 2026 15:21:49 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Jarkko Sakkinen <jarkko@kernel.org>
+Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
+	Linus Torvalds <torvalds@linux-foundation.org>,
+	Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:ASYMMETRIC KEYS" <linux-crypto@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
+Subject: Re: [PATCH v4 2/3] KEYS: Replace assoc_array with rhashtable
+Message-ID: <20261101232149.GC2689@quark>
+References: <20261029232437.2581640-1-jarkko@kernel.org>
+ <20261029232437.2581640-3-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,122 +65,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261029232437.2581640-3-jarkko@kernel.org>
 
-luo_file may point to something random if the break in the
-list_for_each_entry is not taken.
+On Fri, Oct 30, 2026 at 01:24:10AM +0200, Jarkko Sakkinen wrote:
+> It is the sole user of this data structure,
+> which has during the age of LLMs transformed into a maintenance nightmare.
 
-julia
+As I said on v3, this probably should be reworded to be more specific.
+Otherwise it sounds subjective, and it may become a weird Phoronix
+headline like "Linux awakens from associative array nightmare".
+See the sentence I suggested at
+https://lore.kernel.org/keyrings/20261027012952.GC2395@quark/
 
----------- Forwarded message ----------
-Date: Mon, 02 Nov 2026 00:06:55 +0100
-From: kernel test robot <lkp@intel.com>
-To: oe-kbuild@lists.linux.dev
-Cc: lkp@intel.com, Julia Lawall <julia.lawall@inria.fr>
-Subject: kernel/liveupdate/luo_file.c:558:5-13: ERROR: invalid reference to the
-    index variable of the iterator on line 553
+> assoc_array is replaced with three new data types:
 
-BCC: lkp@intel.com
-CC: oe-kbuild-all@lists.linux.dev
-CC: linux-kernel@vger.kernel.org
-TO: Pasha Tatashin <pasha.tatashin@soleen.com>
-CC: Andrew Morton <akpm@linux-foundation.org>
-CC: Linux Memory Management List <linux-mm@kvack.org>
-CC: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-CC: Pratyush Yadav <pratyush@kernel.org>
+Well, 'struct keyring_edit' is the odd one out, since it replaces
+'struct assoc_array_edit', not 'struct assoc_array'.  It is also
+temporary transactional state.
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
-head:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
-commit: 7c722a7f44e0c1f9714084152226bc7bd644b7e3 liveupdate: luo_file: implement file systems callbacks
-date:   11 months ago
-:::::: branch date: 2 hours ago
-:::::: commit date: 11 months ago
-config: x86_64-randconfig-2103-20261101 (https://download.01.org/0day-ci/archive/20261101/202611012349.RESCKElP-lkp@intel.com/config)
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+It would be clearer to say that the replacement for 'struct assoc_array'
+is 'struct keyring_index'.  Then describe what that contains (which
+would include mentioning 'struct keyring_link').
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Fixes: 7c722a7f44e0 ("liveupdate: luo_file: implement file systems callbacks")
-| Reported-by: kernel test robot <lkp@intel.com>
-| Reported-by: Julia Lawall <julia.lawall@inria.fr>
-| Closes: https://lore.kernel.org/r/202611012349.RESCKElP-lkp@intel.com/
+It would also be worth mentioning explicitly that this is a significant
+negative diff in the keyrings subsystem, since correctly integrating
+with assoc_array was quite complex.
 
-cocci warnings: (new ones prefixed by >>)
->> kernel/liveupdate/luo_file.c:558:5-13: ERROR: invalid reference to the index variable of the iterator on line 553
+Overall I suggest de-emphasizing the rhashtable in the commit message
+slightly, given that it's just one piece of the new implementation.
+After all, it could have been a basic custom hashtable instead, and
+other high-level details of this commit would still be the same.
 
-vim +558 kernel/liveupdate/luo_file.c
+> Jhashes used by rhashtable are rehashed from the SipHash digests of the
+> search keys and links.
 
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  517
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  518  /**
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  519   * luo_retrieve_file - Restores a preserved file from a file_set by its token.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  520   * @file_set: The file_set from which to retrieve the file.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  521   * @token:    The unique token identifying the file to be restored.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  522   * @filep:    Output parameter; on success, this is populated with a pointer
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  523   *            to the newly retrieved 'struct file'.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  524   *
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  525   * This function is the primary mechanism for recreating a file in the new
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  526   * kernel after a live update. It searches the file_set's list of deserialized
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  527   * files for an entry matching the provided @token.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  528   *
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  529   * The operation is idempotent: if a file has already been successfully
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  530   * retrieved, this function will simply return a pointer to the existing
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  531   * 'struct file' and report success without re-executing the retrieve
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  532   * operation. This is handled by checking the 'retrieved' flag under a lock.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  533   *
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  534   * File retrieval can happen in any order; it is not bound by the order of
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  535   * preservation.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  536   *
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  537   * Context: Can be called from an ioctl or other in-kernel code in the new
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  538   *          kernel.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  539   * Return: 0 on success. Returns a negative errno on failure:
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  540   *         -ENOENT if no file with the matching token is found.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  541   *         Any error code returned by the handler's .retrieve() op.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  542   */
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  543  int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  544  		      struct file **filep)
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  545  {
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  546  	struct liveupdate_file_op_args args = {0};
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  547  	struct luo_file *luo_file;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  548  	int err;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  549
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  550  	if (list_empty(&file_set->files_list))
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  551  		return -ENOENT;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  552
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25 @553  	list_for_each_entry(luo_file, &file_set->files_list, list) {
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  554  		if (luo_file->token == token)
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  555  			break;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  556  	}
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  557
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25 @558  	if (luo_file->token != token)
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  559  		return -ENOENT;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  560
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  561  	guard(mutex)(&luo_file->mutex);
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  562  	if (luo_file->retrieved) {
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  563  		/*
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  564  		 * Someone is asking for this file again, so get a reference
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  565  		 * for them.
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  566  		 */
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  567  		get_file(luo_file->file);
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  568  		*filep = luo_file->file;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  569  		return 0;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  570  	}
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  571
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  572  	args.handler = luo_file->fh;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  573  	args.serialized_data = luo_file->serialized_data;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  574  	err = luo_file->fh->ops->retrieve(&args);
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  575  	if (!err) {
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  576  		luo_file->file = args.file;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  577
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  578  		/* Get reference so we can keep this file in LUO until finish */
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  579  		get_file(luo_file->file);
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  580  		*filep = luo_file->file;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  581  		luo_file->retrieved = true;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  582  	}
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  583
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  584  	return err;
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  585  }
-7c722a7f44e0c1 Pasha Tatashin 2025-11-25  586
+The commit message should mention explicitly whether there are any
+userspace-visible behavior changes or not.
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+KEYCTL_READ now outputs in insertion order, not hash order, right?  And
+likewise for the search order of sibling keyrings.  Those differences
+should be fine, but they should be mentioned.  Any other changes?
+
+> -/*
+> - * Hash a key type, domain and description.  KEYCTL_READ exposes the tree's
+> - * traversal order, so no part of the index may contain kernel addresses.
+> + * Hash a key type, domain and description.
+>   */
+>  static void hash_key_type_and_desc(struct keyring_index_key *index_key)
+>  {
+> -	const unsigned level_shift = ASSOC_ARRAY_LEVEL_STEP;
+> -	const unsigned long fan_mask = ASSOC_ARRAY_FAN_MASK;
+>  	static siphash_key_t hash_key __read_mostly;
+> -	unsigned long hash;
+>  	u64 acc;
+>  
+>  	get_random_once(&hash_key, sizeof(hash_key));
+>  	acc = siphash(index_key->description, index_key->desc_len, &hash_key);
+> -	acc = siphash_3u64(index_key->type_id, index_key->domain_id, acc,
+> -			   &hash_key);
+> -
+> -	/* Fold the hash down to 32 bits if need be. */
+> -	hash = acc;
+> -	if (ASSOC_ARRAY_KEY_CHUNK_SIZE == 32)
+> -		hash ^= acc >> 32;
+> -
+> -	/* Squidge all the keyrings into a separate part of the tree to
+> -	 * ordinary keys by making sure the lowest level segment in the hash is
+> -	 * zero for keyrings and non-zero otherwise.
+> -	 */
+> -	if (index_key->type != &key_type_keyring && (hash & fan_mask) == 0)
+> -		hash |= (hash >> (ASSOC_ARRAY_KEY_CHUNK_SIZE - level_shift)) | 1;
+> -	else if (index_key->type == &key_type_keyring && (hash & fan_mask) != 0)
+> -		hash = (hash + (hash << level_shift)) & ~fan_mask;
+> -	index_key->hash = hash;
+> +	index_key->hash = siphash_3u64((uintptr_t)index_key->type,
+> +				       (uintptr_t)index_key->domain_tag,
+> +				       acc, &hash_key);
+
+There should be a comment here that explains why it's safe to hash the
+pointers and truncate the hash value.  It is clear to me but will not be
+to others.  Here is what I suggested on v1:
+
+        /*
+         * Compute a SipHash value of the description, type pointer, and domain
+         * tag pointer using a per-boot random key.
+         *
+         * Note that using the pointers as input to the hash is safe, since
+         * SipHash is a cryptographically secure pseudorandom function.  Thus
+         * the hash values don't leak any information about the pointers.
+         *
+         * Similarly, truncating the SipHash values to the required 32 bits is
+         * also safe.  No "folding" step is needed.
+         */
+
+Side note: keyring.c now uses jhash as well, so it should include
+<linux/jhash.h> explicitly rather than rely on transitive inclusion.
+
+- Eric
