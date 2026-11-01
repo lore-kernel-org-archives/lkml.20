@@ -1,100 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793530588;
-	b=RKIvHmIEBGHlVxc7k4VboqzF7dQVSapyr61IvhGDBkFhMqZ6HswOXjdBsPPMnAd5j1X7
-	 Ukbh1ZDWd9MQa2NU+n4LHZp5fS5NKwzMmSrRttdJtq6lkdkf56ZTH1v7LEkgAoZYCVHMi
-	 zYoueNN8cmmuRujMM7JGsz12rjzU4cqk+JzAli50CITA4xdhvxgejtXYpNiAdPLq6bDcL
-	 jqQ6PlqnhERZCIx3c3Pw8bjLtW3NaHcI1vMKrBe5zRyWqVnQmCZeNuwletcBg++FN5mMr
-	 xHCvcbHO3lmJVVrHhbj4Zrs1AB9TByFNCWe7td95fJUxMI769r8UtDjB17GAoCNGmsg==
+	t=1793530638;
+	b=wrZ9ycEfjs3HvTGv/3LpP3ocwoJXLtfa/+Pbky8GpoxQcsWyEIV5p45OpUL43mSjguXc
+	 6s6iQEogiJteYXfX0ppkUSsq5MtaoaqmLcBYrOGg+j7vX6EQCVmrJx/m39UfWrBYduyH6
+	 C2BuXvL2bfTBxDmDQ2SVUP91yhaNuXZPvJn1ZgisS63DGAsF5uBus/UGB7nleZd/b/e9C
+	 kHWvhRPDUwlrFDBn4MsKTeJXgIH2sG3wj6SyuEjELa3j28cHU/B1ct/R4D8pyGaiy4br3
+	 WXduSe3VQ+z5SKHRaLTehz6xwIwtgQdzsHthHEPA1ZUSQz+MqA4e4Zdu55kI7Or3dMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793530588;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=IaPEFj9f1Egxu858cRUniTuz6CxllUIciOWlHqTg4Jk=;
-	b=OtJd3unpa4pYuSmizsH6LWw2FboFG77BLrM0M+EO0nt8nhGRzNoaHrVwl1VrkWYDUVC4
-	 Y+1px5mekjRlxxV/Gof2bkpI6Iw3/Yz7dVKSLVIcEFqvkeD7DdhMXXMRqLoLkYWpoRKf6
-	 79WlUbtL5vuavgpgi+F3q47Hw5u6Gj8Hmjl7tL2itLdzPboJG0NUEl2B3Sfp7JNqz8Jop
-	 tYFzy28erEXj8DMdvWGWOhFilkhigXbMP9oy17uUR9WizfoTNACNp6/zzLbbrNcFthCJw
-	 ygKqPRNlFBG4zHrLwLke/JaRPUgGtk5BYJHarhaulZ9Chwb4t6fxrTnwoDVXzbF4BJw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793530638;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=FPyMFEUcKXcYLPj3SZ4RXokmH+ZqUMsZhVs5fGpLBAg=;
+	b=TVXFA40yjdZAftjDFDhD08qN34eL0ohZcuAEbS2ikqyultWSUYWCSQkjMLE9K853HlvE
+	 qAORhgKbTSPZiNdRTXOSL1j5allN9dGPYbqDSyPqJgZo8vvuN0EGF6QmM4TQa4uMFEZZ6
+	 dBsUHHIm7KuPjRe91XgYLv16ndrkFwgUMuhOu8utJRxOFZJ/sbcfJQKuUZyo00S2VVexO
+	 ZOBr1s1RuLEL8qlvPu2ys3Ds3ToeFdd451WRAGoaues2VSl5jNP7sg0W6psbPOCJUiE97
+	 AIgxRVFk439ITG4jvXPZVXibvcodRSAo5lzHhYsLsbD1WmNMils/Hf5Ljzeh6TgwDrA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRvWi9G3;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhJKIToR;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E45606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:56:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35E45606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AA8606A324;
+	Sun,  1 Nov 2026 10:57:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=sRvWi9G3
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-33fb4680717so2706908eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:56:27 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793530587; x=1794135387; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IaPEFj9f1Egxu858cRUniTuz6CxllUIciOWlHqTg4Jk=;
-        b=sRvWi9G3GlbEiuE/IwPiDqaspOqyMuib+beHwvy8q+05xUVGrB1i+im4MlQcInspT4
-         PfMvRpn3IvcO/oG1RUIcvA7hC9rVn7T3QxwUeTB1gQajxdig2OpSYj4Js5n+p9a1o3Zh
-         qO/SmqS8m+z0/TyalflAdzTFBQowKPtiniOqFNJWv6WJYNtK1RhNuw7+o6uHjOayF5y7
-         MuXGytZzSs46//cC8MvAZUqnkvRAyx3bVVJXf44fFoyyrE2i/gFokl8NAxkmiX9AKsKP
-         rj9MTKgQJgbjFhrTK2rUQTsnzxhxlozNv2NEUKqH2yedm5eZZw0Lw8yylYQQ6k39K2RH
-         mAPQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793530587; x=1794135387;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IaPEFj9f1Egxu858cRUniTuz6CxllUIciOWlHqTg4Jk=;
-        b=PGo5paVM54T7OGpD/8gZtcxpUCeojR6KX/u9muM3JoGth3VHu4+BL/oB7TmjkcyfZf
-         +bkwW6h4+OFPgxoqyx1dsEuAugwFzm372NYZC4/T1qNUkoOrvuW+aMMxcoCUo98MWoEL
-         3aj1ciFhA7mc6BXjF7El/ncQif5HrTdrQCfQ38XcR49h4pZL4MS7hWtKkMn4Sz0SnJs8
-         poU/5PbLtFNBi2uMHIs+2XrxjWGiGty77d0HhlOGDojgdUM4Iy1JmkaCpNJ3Kns6ofB0
-         Q3xV7q7Nv1YRB3ETklKH2z9UkeOT5Vo89vTFGbmEUX4ofQWj/VV5k8CnrZSkyqmqi7G6
-         0S1w==
-X-Forwarded-Encrypted: i=1; AKwUvBzxfjY/+qiXdaAOZD3L7nodGW+IhCQxfnH5w+0NTVI71MmkITsZovpgQEFD+qFbBN+o3fg7dNZu+tqdj9E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/l+hmUfi5xlWFKesAOPsD7joGRp72ZAuDD4E/ThrhgfUIc2ZsO
-	sS13T06KbdedIj7Xct7WujfosiTr4KlLQbW5018rVgjDtPBmFuY5wsyb
-X-Gm-Gg: AYBFou0V3HzhIVhF67KZcdfHeHm5tRQJC14+UBMbGQ98Vla/pN7a8IdvXvfz5PzVget
-	0I0T51GXeiVsepjMguioEK1dtE4ezZt3jQ4JBjSOSDvkfwTZbb1sjuLM7K9q96ddEkvnULGnHkz
-	WDZE+iIj8vvLkuBJtBx7+IVErIcz7EGO2G/rpNbpBAY7YlARXMvM0lNbA/EZ+XDuf1b/MM2TE50
-	6DNhnjUn4vimU0f2r3t4HADC9+6HlHcWAupvZ+d/kdlCHxr2w1Md6cOMPCHrHQxhCcKqtZxVdIf
-	Hy9HRps8O9A/sqHFIs2iJkCatyhF3f64yQVQJDKldiCjOj0cQRfVePiPG8/KPjfrGN/6MTm6ZRW
-	x+zg3VPD493Lpj+a5dKvLEA5xAEdzScc5t5F7Hb6sws0COe+MzMZ2KcLXN0vH9o2Agqa2HSVpvU
-	EFU1xvLfTngqJrlwpMF6JJHP7As8mvnolfkXptdDx8G67OCZveq5Owif79XDT61R9fphHEvli3S
-	iZLy/usLzoINO/qGNz0WsA0GvJpuS6VEMrwvErDDHnwCB/dN/j/LHKr1AFdu7TaxaNX2cTueNxt
-	SjRcrA0qgvnYZxI2WoDrydzIfUV3eJusy2uEr18qVMTI47XVrz9ATYKEwfEOUUmjVsEfF4eeW7S
-	67v0Fa7Hofc1sEID+GZz1DMUXa+5ToXuRr/hUBpV8SZOughML68BPgk9usn/ufUeQZvEXWmWpH3
-	Tq
-X-Received: by 2002:a05:693c:880e:10b0:369:779c:6e0b with SMTP id 5a478bee46e88-36a4241bcc0mr11972021eec.36.1793530586957;
-        Sun, 01 Nov 2026 02:56:26 -0800 (PST)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:8e3f:ca13:23cc:b148])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4239ca82sm25088155eec.0.2026.11.01.02.56.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 02:56:25 -0800 (PST)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: jgg@ziepe.ca,
-	leon@kernel.org
-Cc: metze@samba.org,
-	stfrench@microsoft.com,
-	xiongweimin@kylinos.cn,
-	yanjun.zhu@linux.dev,
-	ammrat13@gmail.com,
-	linux-rdma@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
-Subject: [PATCH] RDMA/cma: Don't warn when device removal races with rdma_resolve_addr()
-Date: Sun,  1 Nov 2026 16:26:15 +0530
-Message-ID: <20261101105615.20253-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KhJKIToR
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 806CB1F000C1;
+	Sun,  1 Nov 2026 10:57:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793530637;
+	bh=FPyMFEUcKXcYLPj3SZ4RXokmH+ZqUMsZhVs5fGpLBAg=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=KhJKIToRNnVOu/L9DG3QM1hLc9WLvW8m9stIsBLvuOc7epIhoEQeP0k9CodQ8fUWh
+	 5fbfa6lQAUOOyhuUaEGPo/uhTyCOIw5cwBm8gUeZNiLLUZP/QdHrA9ncB1HUK56Pc1
+	 cqRoALNJxCAeVv9BCGcaiTHsv5Qe3OzRAw6vWsvuqhJOBFO9I/tntMSzv5E9+Uwktm
+	 g5A59HsbLd5CQYOtuDDgIWWY/3bBd46FPTLBwutOEDn3uwVg/Im2ZXCdATDMY20kiC
+	 2ZXnYv/XQT+0lbBlzBYsgYE6pR85m2a8+4PnQIWBgfVxDreDgnid1Xcduty2/q/n0L
+	 FZ4XAP5hjYs2A==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,58 +49,63 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 3/9] phy: broadcom: ns-usb3: Coordinate NSP USB2 and
+ USB3 initialization
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Alan Stern <stern@rowland.harvard.edu>, 
+ =?utf-8?q?Rafa=C5=82_Mi=C5=82ecki?= <rafal@milecki.pl>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, 
+ Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+In-Reply-To: <20261021172819.668120-4-florian.fainelli@broadcom.com>
+References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
+ <20261021172819.668120-4-florian.fainelli@broadcom.com>
+Date: Sun, 01 Nov 2026 16:27:10 +0530
+Message-Id: <179353063083.2955.13880869162770253902.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=973; i=mani@kernel.org;
+ h=from:subject:message-id; bh=+w89rIM6bdKq6eInREjM4c5sW5jCJpKaaFEeIw3A4uo=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xsI/woMZF2KfXqELf41eLLQMq/1ndO4/13gR
+ +SaOxyujKKJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucbCAAKCRBVnxHm/pHO
+ 9bVWB/0VV5UADU7HY2QWHmjXlE+zvoi6miokaEvcjgJxr25wBwkn+tJbiDZCVy1hg7yCz07RtRZ
+ SRa7IpQNbZ75i3yJRqToR96W4+M5oMLUFEeRT54PVqFQ5UhnBE5/cvWfDgdplWVOAuHZ3ixp3Ol
+ I83JY//S1OOpleOLiv6BNg8ZFFPE958hhmkZy6urVhYzAfmqj4tLVbXl6ZlzNWcCFKq3VvPFOtC
+ XhmOyWhyNnhNPyG3imyGd7g1REaB4vnFlvZtecmye61hYu/7J+cXHE96v3/G4SqBfyskcii8a2c
+ xZRBU3iegVUH76oZA+1rc2MON9DGgn5Is8iwl+8Pr3vyOXMz
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-rdma_resolve_addr() on an unbound ID (RDMA_CM_IDLE) first binds it with
-cma_bind_addr() and then moves it from RDMA_CM_ADDR_BOUND to
-RDMA_CM_ADDR_QUERY with a second cma_comp_exch(). These are two
-separate steps. Once the ID is bound it is attached to the device, so
-cma_send_device_removal_put() can find it and set RDMA_CM_DEVICE_REMOVAL
-before the second step runs. The exchange then fails and hits the
-WARN_ON() added by the commit below.
+On 2026-10-21 10:28 -0700, Florian Fainelli wrote:
+> The iProc SDK holds both USB2 and USB3 cores in reset while programming
+> the USB3 PLL, then releases USB2 before USB3. It also enables the USB2
+> IDM interface clock. The Northstar Bx initialization used by NSP does
+> not perform the USB2 setup or retain the SDK settling intervals.
+> 
+> Implement an NSP variant with the coordinated reset sequence and
+> interface clock enable. Sharing one PHY between the HCDs lets the PHY
+> core serialize and reference-count initialization, preventing a later
+> host probe from resetting an already active USB2 controller.
+> 
+> Retain the downstream delays around reset and MDIO operations, and
+> leave both NSP cores reset if programming fails. Keep existing
+> Northstar Ax and Bx reset behavior unchanged.
+> 
+> Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
 
-syzbot triggers this with RDS over rxe, where rds_connect_worker()
-calls rdma_resolve_addr() while the rxe device is being deleted:
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-  WARNING: drivers/infiniband/core/cma.c:4120 at resolve_prepare_src
-  Call Trace:
-   rdma_resolve_addr
-   rds_ib_conn_path_connect
-   rds_connect_worker
+- Mani
 
-This is a valid race and not a kernel bug. If removal wins before the
-bind, cma_bind_addr() already fails and the error is returned to the
-caller, and err_state in the same function already ignores a failed
-state exchange. The caller gets -EINVAL, and RDS destroys the ID on any
-error from rdma_resolve_addr(), so nothing is leaked.
-
-Drop the WARN_ON() and keep returning -EINVAL, and document in a comment
-that the state may change because of device removal.
-
-Reported-by: syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6699995b421c8ec7d2fe
-Fixes: 732d41c545bb ("RDMA/cma: Make the locking for automatic state transition more clear")
-Tested-by: syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/infiniband/core/cma.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/infiniband/core/cma.c b/drivers/infiniband/core/cma.c
-index 337a49d1acf7..46741c1fd34b 100644
---- a/drivers/infiniband/core/cma.c
-+++ b/drivers/infiniband/core/cma.c
-@@ -4117,8 +4117,8 @@ static int resolve_prepare_src(struct rdma_id_private *id_priv,
- 		ret = cma_bind_addr(&id_priv->id, src_addr, dst_addr);
- 		if (ret)
- 			return ret;
--		if (WARN_ON(!cma_comp_exch(id_priv, RDMA_CM_ADDR_BOUND,
--					   RDMA_CM_ADDR_QUERY)))
-+		if (!cma_comp_exch(id_priv, RDMA_CM_ADDR_BOUND,
-+				   RDMA_CM_ADDR_QUERY))
- 			return -EINVAL;
- 
- 	} else {
--- 
-2.43.0
 
