@@ -1,48 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576368;
-	b=G0zpc70CkouTnaR1gwXgIFSgHlxuLOYyjAITRvU7ANLgHM19ygR546U1ChT6w6I0n1Y4
-	 LK5zbFLBqXc29ocZyoijez30MNpAAJVUePiG/FUc06GoPnkqDi4RZnON98CH1RPbE8xLb
-	 /ww2UEaMYVSfRwZqnx4n3LG/l4qm2+SKnJSKvpy0E5QyF9VfjEZtegrcQc2dR0wY/XUb2
-	 j1wFg5zp2EdtaDBo6CX/kIjaW1S5BA1bOsM5AUBx1NjcFrpZn4fzv/L5TV4D/RK3tHiiz
-	 rL4nz10XJNLEgM3oVWGQ7yZMkEdUGZfNzbUbE/M5hSwHCScgpCDd/yvLuBfrObU9E1w==
+	t=1793576429;
+	b=uawwwH9eNN3fZfsnJ54vTRW7XWveFGcqX4nlTr/m9AZpkmBP347SLkNpVm3Sp//wb5+b
+	 3bCqpMiRMnjkrz2zQmg+g1xj9FwUDLquqEUSIiBYLE62Z8fSOcjjlJxdKCSKTwimss3l9
+	 6XdX03u2jWexCWvOTc8ZFXcpxonoCu65DRmb+ck/HK7mmiq2i4KLqvMQ2GxbWv6SkBqJu
+	 7V23nFIZ+UA15tPm0J3fkGDxVTHaLv8e/sXRaort5IQaJBfa3foCwVn0pkx803Fx+GGla
+	 9b6IakXA6n979B1ggi29vCKRaagTtTqSNpz5HMwFTBuRM2X6qT4HWq9Ss+iIXjAmN8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576368;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=Q5JNKCwvfIl1wXozL7u+neqgmd50Qxk2iwM31esSMlc=;
-	b=V/5IHmRdJK5cQMvkqHD8bYALE9l4am4Ueu4xZqhDb8oct4fZK1tcPbjuPt9WHI8LjxyM
-	 55kKOc8RLTCca38e1++nQyWwJomXb39QfZnDTL65wO7t48SS0Rzp49HmC2Pxm30OJO3RG
-	 H3ARWnaayBGKKc9pOPbtWMvB2iIREVdilp5mvr406oSJp+N5y30U2s3uJYpxFJ5j22Bf+
-	 LenleXvZMuR7CCUKLeki8mNticDhxkhM2FhpVO5IYiXQP98ASGbOxecnQyuX9aPbCWf82
-	 ydKlUg0+yN+DQw8W+Tv7dlszsvhqUpEmzNaQ8/sBZxEg6xZClv7ZBN53O1506iPgV+g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793576429;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=3eD7IFMtpN6nJKjfqgZB3Oa32c8tF4+kKEbpHerQics=;
+	b=RepmqKLvmRvpsEV1BK7s50lBynYw3KAlKDWcuxjVZ1oLBW1ITEPSZ38BKhr85DwgWGyk
+	 zPIkt0UN2cGVYJVL3fAna6NWzK3jchf5e54PEG5YwSX+w5SeMT4wzBg5MA3CuozGGytOw
+	 rEbW2bbyEsQn0q35kiQAS60bb2WMUGfJSRO+3k+3sC4fOegpjJERbUD02MqS+qmqKH7CG
+	 41DWRPhPzn/933rGnMuzg830e6mo4Y4aRLH2FX3mbzKu4NTNHYs9JgzS6b3o0AsHHZdqQ
+	 ronZ4oJcbco9+4P9E6R4LTQz1dmtDFsoxVB/404KOMgDr+I3aIjtr0L++XIfQqCEbMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cX9PI0CZ;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUUh6Kew;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45EDC606A327;
-	Sun,  1 Nov 2026 23:39:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0B6606A32D;
+	Sun,  1 Nov 2026 23:40:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cX9PI0CZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDFFB1F000C1;
-	Sun,  1 Nov 2026 23:39:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iUUh6Kew
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AE671F000C1;
+	Sun,  1 Nov 2026 23:40:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793576368;
-	bh=Q5JNKCwvfIl1wXozL7u+neqgmd50Qxk2iwM31esSMlc=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=cX9PI0CZcjICKKnMCUa5jh4oLTuQjEXgzcXNTWdoFglI792LafFDR+D4Rhxc3jGHk
-	 +AyFYwh4RezpZSNdeH75+g66LfhnjiHwyl5lk3yLH4VtiaRLSjO2z+gHOzbnLbKPRn
-	 QccPB/PHyP1yp/pV0TWKWBJ4MCdrnxyOzxAL54L4FiF38MIdfyNYiGmUo2LdT2cVC0
-	 cqznffCjvVbG7N0HKKQ029dJwxcoQ1bFHOT8Z4MzOEPdfSRD79xw56vsl8J2cVf08b
-	 dyjI/Egk69CAePSa6nLOuVAL+lj2fTapp9Xy2raEe8nPzWk0qx1uyGMtLs7jXuBX8O
-	 8XMkzmo8LMXkw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id 577B820F63A0;
-	Sun, 01 Nov 2026 23:39:25 +0000 (GMT)
+	s=k20260515; t=1793576428;
+	bh=3eD7IFMtpN6nJKjfqgZB3Oa32c8tF4+kKEbpHerQics=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=iUUh6KewOgb3ZIJkUgwgn+qwmqS9ptkxoe0wGb4ouxV7LF5TdOrn3s/3y6FrlFK7C
+	 idOu6uWj05h+gLAPhma9VjptaJfgBwsXHSoHkB2efg65UALHFS2fxai7M8nQgPaVMU
+	 gV0LyTmwU+uFkkWXIdNOnkv9E2KaX8CRb9Duw9tINYO7RzTZTA3NsauuQcUgsHLlyl
+	 myIF74WMs8/fAbjMT/fWBU6yUMVRX4t5L7NaUhPTNA8Sn2DIyFQMh24pCkEbYi5hmU
+	 rDZRg5Lzw2hCuL9Ue7ivrKtviOrLniWgk1XLzjhZ15rPP1qWeY0vC+0KRB6TdOuzub
+	 eMmpXpPLy6aPg==
+Date: Sun, 1 Nov 2026 23:40:22 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: Arnav Kapoor <kapoorarnav43@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, Rodrigo Alencar
+ <rodrigo.alencar@analog.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: core: fix signed integer overflow in
+ iio_str_to_fixpoint()
+Message-ID: <20261101234022.6e094a05@jic23-hlaptop>
+In-Reply-To: <atsgYaApZPg_3Z1N@nsa>
+References: <20261022140353.24213-1-kapoorarnav43@gmail.com>
+	<atsgYaApZPg_3Z1N@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,37 +64,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] ASoC: qcom: qdsp6: fix device_node leak when parsing
- "iommus" phandle
-From: Mark Brown <broonie@kernel.org>
-To: Selby Mashiki <mashikiselby@gmail.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261025190340.449613-1-mashikiselby@gmail.com>
-References: <20261025190340.449613-1-mashikiselby@gmail.com>
-Date: Sun, 01 Nov 2026 23:39:22 +0000
-Message-Id: <179357636299.1716893.5266083194003598259.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=356; i=broonie@kernel.org;
- h=from:subject:message-id; bh=xJXHAEaMrD7QUxGGvMCAcch2qte5IjifZkbGrlkI5eE=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKen1177IpgpOi8+yL3v1z4t+xWx9KASfMuz18tmGEbM
- Udxjs1Xpo5SFgYxLgZZMUWWuCzul/Ulr9fwHVzYBjOHlQlkCAMXpwBM5NJ5hv+ui11f+njMKAxn
- +6h/9ausgSu35to/+z3me37kjWtlWdvK8D+o7Eb8xc9FirskmfTdj/+2mz0//myk3u0DH2Qc9f7
- 8PsIHAA==
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> q6asm_dai_probe(), q6apm_dai_probe(), and q6usb_component_probe() call
-> of_parse_phandle_with_fixed_args() to parse the "iommus" property and
-> extract the stream ID from args.args[0], but never release the reference
-> acquired on args.np.
+On Fri, 23 Oct 2026 09:53:36 +0100
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-This doesn't apply against current code, please check and resend.
+> On Thu, Oct 22, 2026 at 07:33:51PM +0530, Arnav Kapoor wrote:
+> > __iio_str_to_fixpoint() accumulates the integer part of the parsed numb=
+er
+> > into an int. Feeding it a string with more digits than an int can hold
+> > overflows that variable, which is undefined behaviour.
+> >=20
+> > The parser is reachable from userspace via the writable IIO channel
+> > attributes, for example the "sampling_frequency" or "in_voltage_scale"
+> > ones, and via the exported iio_str_to_fixpoint() helper used by a
+> > number of IIO drivers. A user writing a long enough string therefore
+> > triggers a signed integer overflow.
+> >=20
+> > Use check_mul_overflow() and check_add_overflow() to accumulate the
+> > integer part and return -ERANGE when it does not fit into an int. The
+> > sign is applied while accumulating, so INT_MIN can still be parsed.
+> >=20
+> > Fixes: 6807d7211327 ("iio: Factor out fixed point number parsing into i=
+ts own function")
+> > Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+> > --- =20
+>=20
+> LGTM (maybe a Cc to stable next time but Jonathan typically takes care
+> of that),
+>=20
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
 
--- 
-Mark Brown <broonie@kernel.org>
+In in two minds about this.  It is preventing unintuitive behaviour but
+we shouldn't have any cases that crash or anything like that.
+
+Given the code in question is likely to be replaced shortly anyway
+by Rodrigo's rework applying this for backporting purposes makes me nervous
+even though it looks fine. I also don't want to delay Rodrigo's work
+by having this go in via a different branch.
+
+So perhaps the worst possible compromise.  Applied to the testing branch
+of iio.git (which I'll rebase on rc1 shortly) and marked for stable.
+
+Rodrigo, you are going to need to rebase your series on top of this.
+
+Thanks
+
+Jonathan
+
+
+
+>=20
+> > Changes in v2:
+> > - Use check_mul_overflow()/check_add_overflow() instead of open-coded
+> >   s64 accumulation and limits (Andy)
+> > - Apply the sign while accumulating so INT_MIN needs no special case
+> > - Drop the unrelated parenthesis change and the explicit casts (Andy)
+> > - Add Fixes tag (Andy)
+> > - Fix the truncated subject line
+> > - No KUnit tests for the current parser, as it is replaced by the
+> >   E notation series (Rodrigo)
+> >=20
+> > The fractional part is left as is: with the fract_mult values used in
+> > tree (at most 10^8) it cannot exceed 999999999.
+> >=20
+> > Tested with a userspace harness built with -fsanitize=3Dundefined on
+> > inputs including "2147483647", "2147483648", "-2147483648",
+> > "-2147483649", "99999999999999999999", "-0.5" and "12.345\n".
+> > All inputs that fit into an int parse exactly as before. Compile-tested
+> > in tree with W=3D1. Applies to both togreg and fixes-togreg.
+> >=20
+> > v1: https://lore.kernel.org/all/20261021225306.623361-1-kapoorarnav43@g=
+mail.com/
+> >=20
+> >  drivers/iio/industrialio-core.c | 16 +++++++++-------
+> >  1 file changed, 9 insertions(+), 7 deletions(-)
+> >=20
+> > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio=
+-core.c
+> > index d73f2541375f..f3bf17c13cea 100644
+> > --- a/drivers/iio/industrialio-core.c
+> > +++ b/drivers/iio/industrialio-core.c
+> > @@ -25,6 +25,7 @@
+> >  #include <linux/math64.h>
+> >  #include <linux/module.h>
+> >  #include <linux/mutex.h>
+> > +#include <linux/overflow.h>
+> >  #include <linux/poll.h>
+> >  #include <linux/property.h>
+> >  #include <linux/sched.h>
+> > @@ -1027,7 +1028,12 @@ static int __iio_str_to_fixpoint(const char *str=
+, int fract_mult,
+> >  	while (*str) {
+> >  		if ('0' <=3D *str && *str <=3D '9') {
+> >  			if (integer_part) {
+> > -				i =3D i * 10 + *str - '0';
+> > +				int digit =3D *str - '0';
+> > +
+> > +				/* Accumulate with the sign applied so INT_MIN fits */
+> > +				if (check_mul_overflow(i, 10, &i) ||
+> > +				    check_add_overflow(i, negative ? -digit : digit, &i))
+> > +					return -ERANGE;
+> >  			} else {
+> >  				f +=3D fract_mult * (*str - '0');
+> >  				fract_mult /=3D 10;
+> > @@ -1052,12 +1058,8 @@ static int __iio_str_to_fixpoint(const char *str=
+, int fract_mult,
+> >  		str++;
+> >  	}
+> > =20
+> > -	if (negative) {
+> > -		if (i)
+> > -			i =3D -i;
+> > -		else
+> > -			f =3D -f;
+> > -	}
+> > +	if (negative && !i)
+> > +		f =3D -f;
+> > =20
+> >  	*integer =3D i;
+> >  	*fract =3D f;
+> >=20
+> > base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+> > --=20
+> > 2.53.0
+> >  =20
+
