@@ -1,78 +1,125 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.161
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793559503;
-	b=YchAbP3iWyELlTt4/7Q1LWzVIg6MFrr4S6RtVd5tbVYVxh8Qsm2hJPDj8e+sYSNR+68Y
-	 nm8wiEZ1fdNQq4bcE/2Ime8S/664yKnS9N/chfBor0TXwNSX9fXRQkb5NyaKw3E8o3hPj
-	 Mad+VdmIT2UF+mH9s+6mXFx8vEXgsV4/Fou43N+Dgb7pLxyGfwOgmdE/7kqrGoEzqqSZ7
-	 FEGtSxEp4ZCiap+rXkntpvSgeai+q+7YPwr9rjdJkW00owUeJDfZso62xsT/3DDLbRFt2
-	 VzI9AY85qfOY/QdzrnQkXVMiqM6Bddr5gteg2ZNmw7yzqGWEpkdohbo2DBTFWMfJq0Q==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793559503;
-	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=cRlY9PvrLu6yok7ISbu9LgYDjesp7+jnlD6ofkXCI4M=;
-	b=UYk9Kiq4+XTaWmP8tniw6R6hi6Co0p150JmOhA60EcmHRVPE83qC1Qy/+BCj7HEU9z34
-	 wF0RynHkHqrN2JYvErJgVtJPxDjyOcFb5ql6kavKHe6gYN7swYetjZ2QSSlfkpzSDBzBe
-	 hRdSOHKRnIAvE5R7kEPD6892wyyHy6WelneBcUjcBnFoJ6FCp4sal/0eNHdlExTBtK/d1
-	 ggeegtwRP2rSRH2EnncOESAue+MFl/aAjEcujHGWFb2dnC1sV0XpmkAxC78jSIThk3NCx
-	 W1pncKdKhSlLKi7OtX7CdcmeuPuhHn6zPKiBVIH1v/irsR4blPrq1i/wTmzQ/KLQ1fg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hsal.es;
-	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=A7iKlyER;
-	arc=none smtp.remote-ip=80.241.56.161
-Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793559577;
+	b=GDbDSqp45JNq2o7E4JYmFspDg787ZfbQtM1x8kQH5Egb8Upwm0BBeDzP9UieJ5nRFl+c
+	 xH3Z1L3hGPAeF0EFTeQPLXeHZeNtaS3OEhDQ9fDA83GcDfIGy1MEV4m+HLwuZp4MejGjE
+	 hj0f0TDT0fc4pcevj2gv28pD+EahCTLp8l+QtRcBgmfTj006K/eLakH8fEL/20M89lb3Q
+	 D5mmmv1ijexTEZy8Nl48pMtRc91SWDhJGxl9lM3KmKUAYzzXHkwMbF6FXIjjT2+GBQ6R7
+	 xD2W8gUMpH3UHRGDXdtMxiT5+3Ql1cC0MBmggm9AEXtK8+PbFZUO5BFBC9/cxA+CngQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793559577;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:MIME-Version:
+	 References:In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
+	 Cc:Content-Type:Content-Transfer-Encoding:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
+	bh=8kTeAGzekm/MJUppeDHNBzSirJscu8UDoZqPjNsLkRE=;
+	b=GVv1HJRcIpgNR+seGnvdYRTlFrHV8OfylK0JyrrRC3Ifu8BMPs75Ke8ukyC/CSBZ+xcd
+	 pp+JX9jsIunu1rVHd53bMNi48uzbFZjmfzsdIaIl25eKrYW+khYNfp4x5Oya4bw0xp70Z
+	 uaTYTW0O9Ho96qTzy9wsXo2wYyGgMMp4d5vnDzlOKxLkClwPmVW/wAX3PyPbyhumsGoCf
+	 aaAqvaGDHva0G3PbTYfDTTnLvpE5bihjabc3PqhKs2HIvK7tjW1DIiPFFgFxU5Fi+r4bW
+	 TnWhMqoU2sQ2tGsd6w12GILPqilxFAA8Lkirftnh55QqkawwsVfZ9ICl74VP32hWFSQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SAmfCABj;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SeKfTpZm;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9017160A261F;
-	Sun,  1 Nov 2026 18:58:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9017160A261F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C343A606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:59:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C343A606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=A7iKlyER
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jHkcl2nR2zKn2J;
-	Sun, 01 Nov 2026 19:58:15 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793559495;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=cRlY9PvrLu6yok7ISbu9LgYDjesp7+jnlD6ofkXCI4M=;
-	b=A7iKlyERAei+nc2Ikga3bSALxpdcNSAWy+OLnI12AVkXwa+Ss5crJCkUvcHLMCbCvW9sZQ
-	7Vw5UHMbzJ12gXBlm1X5KxSKWfsxggLi2z880caltmo6JxuTmO9IUuoB5EsMsbJYrEeI0g
-	h+leV4P+G945JIYjjTuUVujWD4AanjzWoEnVhh4a9GAoJnp78EyUyxJmFdv2zpbvqF1riq
-	SAWu18QW9zRuHfct8RxvqcfZea6hTtAy+iPf0A7Gish6L/R519YKNSQppcjpWrY179yqYh
-	W/sjrOqnd0NswxY97mkChrgBHgbntDQrlrtzYl4/VXFVs+/x16gxeyPdomuQAg==
-Authentication-Results: outgoing_mbo_mout;
-	dkim=none;
-	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
-From: Hugo Sales <hugo@hsal.es>
-To: "Rafael J. Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: Len Brown <lenb@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	"Ashton A." <me@ashtonantila.com>,
-	linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 4/4] ACPI: processor: thermal: Recompute the frequency cap when boost changes
-Date: Sun,  1 Nov 2026 18:58:07 +0000
-Message-ID: <20261101185807.112449-5-hugo@hsal.es>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261101185807.112449-1-hugo@hsal.es>
-References: <20261101185807.112449-1-hugo@hsal.es>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=SAmfCABj;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=SeKfTpZm
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1HQH0w2044125
+	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 18:59:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8kTeAGzekm/MJUppeDHNBzSirJscu8UDoZqPjNsLkRE=; b=SAmfCABjNQFoKphV
+	DZwIecNBfi8PYDTr3vAhvoLFxDFDTtK47A4iihTcrhvOU6RUlIb75niU40uP4kKL
+	SewEiMx8hh738FzyxDQwMVK9APwWL+sF9oIzi7Ahnq5qZy7Da4roq7XvouEn/Ai2
+	EWxVEfOoeWZP8uWUIrNvMGtcjSVS6P4tuwO4wMSLY5bnS8rhg7E6Ylgx98IK1nvm
+	zK639rkoUhB3I2K1F4r+PDX18499zzInxgGH+/RQxNzvIrF6TvwaKF+Mw958ltcp
+	SXYwROjk2AFhTvuj3kQcM/Z55LwVA8e/80B6HFJMdSWa2M76OgnQuTU+8QUdIUXO
+	Dnt4lQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7wxm133-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:59:35 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-934963b2bc0so470349785a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:59:35 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793559575; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MAmpmbyo8sJIFRhfHocERxEnS2oUHz3f2pjpNDxwHuY1NnLRisqU6tXy4X0+KPia+1
+         iZ+XBHI1jJH0yOjFvieBf0q/Ih+EEkJaIWSK+ilUd79HrmXEu6Js52VXtq6dZgTSQ7Uf
+         0xcpslpQFKvRWGE/v82TPkp5sroiJjRJXdEQoCyZFTMDijMuPYX3Ko1xwO/HxZTYPWfs
+         HbaCGsAnw7HDVc32hfUV/SjuB/AhO2QcCaOBTDuaLWlw8ryEEg57T2SG70MTnTT5ezbU
+         dJ4CMyv//dDCEVbTBPZvpcuaYjo8rrzxeVOcV/oNXJYmnfDGT+9FRpexJn23nIDVs/55
+         xioQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=8kTeAGzekm/MJUppeDHNBzSirJscu8UDoZqPjNsLkRE=;
+        fh=H03BnDrT/pFReXhcRulsMDeyLSEsD4DnCwdKnOWtJN0=;
+        b=MGqgfUhSYAD234sPRspUrQsT7B4GDxfyg103xcAOhvlgiy46Dx65v1A1dH5H6SgZp4
+         9BZ0jrSjdJRqMptxJ2rR6RMsPcnp5xSu4SG4/e71RTBNpRigftv2UrOhviTFLkFNnuyK
+         YrQ4h2VJmLyuYv84LXWna3NTSw6FiJnlLy1h1vaROEN/ecah2LlBw5MDjYxeyL8XQs5i
+         EF1s8YGKQ46At1XsZVT8g4zJiMjT4wwVX85wHvoml7zmkk5g3fx9u6h9JPFMSjZHdvah
+         8pzajLQb7kRzIlbgsLcJHlSKbR84s8AYYiY9z1QntwAiZ/1LV57qQy17iEVxVeuqveQ+
+         iEUQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793559575; x=1794164375; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=8kTeAGzekm/MJUppeDHNBzSirJscu8UDoZqPjNsLkRE=;
+        b=SeKfTpZmnD1EUY9d45HnJXozHdeS3MHwgJVNqo0+mfMtphR9H3dS5xC7G2yToLfrkk
+         q6S49GXAvxmifL8AwYe5OM0yrnqErhZ5azVeVK3oMiUk2Vcoy5/HqpysLxbgGa4+Zb/r
+         T4Fh52To1zPG0koVdcoIn9CUmSdut5wg9f6DTGio2g1SnUWvsYZSi/nC4F5or1IIXp8b
+         GTh4Wqd4ZlakqqvuuagHqBqp7nHQux0g9i84Wc88cpwFYRqX4mW4ET0jzbotN/EYDJ5w
+         YYsOOoqhVhU55myn30IRmnAZBZx6SoiRIw/eb80lNNk+1Cup3D6YPYOtKhFQGYZbndcH
+         e+2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793559575; x=1794164375;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8kTeAGzekm/MJUppeDHNBzSirJscu8UDoZqPjNsLkRE=;
+        b=eTTXwc6C6/PxUXDLyCWqo63PXjndM8UDwMfPgnjkwf0xWeoYhKB6BT7EPqfj7ibjDR
+         P7zDZ1PD0EfQerPMOcbg0kzxWb439PAPQGH4xow9u00jBqG64jLcbfdlOkLvBScD0Wf7
+         6oPwKhq6LwOm+tTjFrke/PGK3Pe9quDZrbOycH5lw8t2iOt5Oux7kUCSEHTTBTAVrbjX
+         FmgVLMkCwzhfBkVlHii2hxki/j/1sk4+ZIH2vO9Y8vwYuBbZUrABiVA3Ql6C9seUxAYg
+         XbuGq5CsG0rL+zFMpGdo5m5Lz5K+DjQla/wVpapjizlpel8UxRlXF8mFETUt5jwzy1z6
+         coCA==
+X-Forwarded-Encrypted: i=1; AKwUvBzAG8YbM8z0ffn+M0xb056yzoAJfrVqPjnwPuYy0pvDFPYYf1fv+xMmsUa3w9p4X4+AG3WKjzH6SnJJYSg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7Eg+mZE19Aj5g7dJsjY5PZl3wqvEYW+h9bijZ55YRj67AqENp
+	/+ztyafuOcR7etVE3+mmPqAG2NM/0qXtvj46I8oEt6lsFwjvxMZeMNV4T+V5TAKlg8WMlPpQhsT
+	sqpndhx0u2jeV1efu8SouFGFCkPcDX2RZ8iDClYzJ0YTik6yVuKu57oM8RmlZD7CTEDweGheg4Q
+	f3fz7ZbRM0OrCAEv8sro3bDYy6R8OuVOLqTiASuxi2fg==
+X-Gm-Gg: AYBFou26Y4S4duDiw9AkP3nUoVkZpUAVmxlQtgQVmhzMi5KIDzRJb2beDwd9SPzAsB4
+	Ra7NjXhPGbd5dN18r3SK4qvQAjmK0dqrCqq5QykfLI7gcPN4GmdqTLdUUKNxpO2WSN+w1faODQ5
+	C2z0vqBM+pVgvCBySxM+rBUiGZI1yF1K7l4DM/NZRynJw9qLCOmNZoPbl/4iLSWe5XhWFGqe5pq
+	ge7fEFRUCAZPMHPpms2rphsxEyMLL/OVS4cj3SzXOrkmtAJwdPziDQNdDFn2BM3fT0SCBLm7zKv
+	Vmxj0waHx2VI5rum8rx9AZY5NmBr
+X-Received: by 2002:a05:620a:808d:b0:93e:e531:b78d with SMTP id af79cd13be357-944214cb80amr1355910985a.7.1793559574832;
+        Sun, 01 Nov 2026 10:59:34 -0800 (PST)
+X-Received: by 2002:a05:620a:808d:b0:93e:e531:b78d with SMTP id
+ af79cd13be357-944214cb80amr1355909085a.7.1793559574364; Sun, 01 Nov 2026
+ 10:59:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,186 +129,143 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jHkcl2nR2zKn2J
+References: <20261101030902.1387122-1-shengchao.guo@oss.qualcomm.com> <20261101173256.5ad42925@jic23-hlaptop>
+In-Reply-To: <20261101173256.5ad42925@jic23-hlaptop>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Sun, 1 Nov 2026 19:59:23 +0100
+X-Gm-Features: AclHuK_y-XxcZzWJ7IkifUD6NDu71IxST9CH5U17suAkwJv0PiDsP7l0eUD4YmM
+Message-ID: <CAFEp6-27XLrb56XpnnSLxkRXzQzugvXPzsDt_OshR5EmhC8Kzw@mail.gmail.com>
+Subject: Re: [PATCH] iio: adc: qcom-spmi-adc5-gen3: Reuse IIO device ID for
+ ADC_TM aux device
+To: Jonathan Cameron <jic23@kernel.org>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: David Lechner <dlechner@baylibre.com>,
+        =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: RE-Z1KSckVOli4BkA9Vk5weq3mACNEMR
+X-Proofpoint-ORIG-GUID: RE-Z1KSckVOli4BkA9Vk5weq3mACNEMR
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA3NSBTYWx0ZWRfX6kLbGnoo3xGi
+ geOyljKiRpRcFj+LxYDCLy9TasuYtdmrAulMT7setHF91DliSHzz5jqFgTeaKNkkwgO4qQJoOak
+ gBrOB6erKTftNm7LbIqfnGSgDP3iSr8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA3NSBTYWx0ZWRfX7BQPr06yHUSf
+ nNE0/ejhreQcNf81Y4y7ul0MZi6xPoAh+mBj9P/Iqz1SkNUpDgLymYIlUqXsyL7ZswGhknUl2cO
+ 9tYg0oimBkKQRzcSqUEXj2qljWvAgDFfJcbYmwGHTHsRJ0dKzquA2ZtW6JRuQAuTxhjKfZwaQMm
+ z7Aa5w1HSlkbMfF4gTkii9EFP2G+o5/zkGPuuHI80ijjiNdIPFupg5A2Z4+ucgG1I35f827Au5f
+ V0IX8Z4gvkau66MqO+RqNAAQIbA0LejzE+BsDEH9cvUeOwxiybwrm1Og08O/zOk5r5mdgL9T9Y0
+ KOY1Hcc7k0fEnR0AC4Ev1ipHUKVMpRYCuVrdUf+uHj0/uD0p9yBXwDNKWyViQ5R2fPPKY2upeFM
+ +1BRFFth7jrKqiO40oi3O20dWOX56cpdvjjAjHKUBURNCOFwTkhb/HbZxYnMN4dfq9gGw5j0rr+
+ tCxZcxCrOTtjXm+evdw==
+X-Authority-Analysis: v=2.4 cv=JLquIMKb c=1 sm=1 tr=0 ts=6ae78c17 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=hw_--xrD18hxE5MXGX4A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-01_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 malwarescore=0 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010075
 
-thermal_req is a fixed fraction of policy->cpuinfo.max_freq, computed
-only when the cooling state is written, so it keeps the boost state of
-that moment. That includes step 0, which caps at cpuinfo.max_freq
-itself. The ACPI thermal zone writes step 0 on every resume, so if boost
-was off at suspend, turning it on after resume leaves the CPUs at their
-base clock
+Hi Jonathan,
 
-Recompute the cap on CPUFREQ_UPDATE_CPUINFO, as the CPUFREQ_ADJUST
-notifier did before d15ce412737a, with the step each CPU's request was
-last set to
+On Sun, Nov 1, 2026 at 6:33=E2=80=AFPM Jonathan Cameron <jic23@kernel.org> =
+wrote:
+>
+> On Sun,  1 Nov 2026 11:09:02 +0800
+> Shawn Guo <shengchao.guo@oss.qualcomm.com> wrote:
+>
+> > From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> >
+> > adc5_gen3_add_aux_tm_device() never sets the auxiliary device id, so
+> > every ADC5 Gen3 instance with at least one qcom,adc-tm channel tries
+> > to register the same device name. With ADC_TM channels on more than
+> > one PMIC, the second instance to probe fails:
+> >
+> >   sysfs: cannot create duplicate filename '/bus/auxiliary/devices/qcom_=
+spmi_adc5_gen3.adc5_tm_gen3.0'
+> >   ...
+> >   auxiliary qcom_spmi_adc5_gen3.adc5_tm_gen3.0: adding auxiliary device=
+ failed!: -17
+> >   qcom-spmi-adc5-gen3 c400000.spmi:pmic@8:adc@7200: error -EEXIST: Fail=
+ed to add auxiliary TM device
+> >
+> > The ADC probe then fails as a whole, so that PMIC loses both its IIO
+> > channels and its thermal zones. This shows up on Nord, which has
+> > thermistor channels on two PMAU0102 PMICs.
+> >
+> > Each ADC instance already has a unique IIO device ID. Use it as the
+> > auxiliary device id instead of allocating one from a separate driver-wi=
+de
+> > IDA, which removes the custom ID allocation and release handling. The
+> > ADC_TM driver matches on the device name only, so the instance number
+> > does not affect binding.
+> >
+> > Fixes: baff45179e90 ("iio: adc: Add support for QCOM PMIC5 Gen3 ADC")
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+>
+> Applied.  Given the slightly odd nature of this series, Loic can you conf=
+irm
+> you are fine with having the authorship + Sign off.   Given alternative
+> would have been Shawn having that and Shawn sent this, the attribution
+> seems fine to me - but best to check!
 
-Fixes: d15ce412737a ("ACPI: cpufreq: Switch to QoS requests instead of cpufreq notifier")
-Link: https://lore.kernel.org/all/20261028-acpi-thermal-stale-limit-v1-1-4b0ab3230f01@ashtonantila.com/
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=221795
-Signed-off-by: Hugo Sales <hugo@hsal.es>
----
-This is an alternative to Ashton's one-line fix linked above, which
-stops step 0 from setting a cap. Here step 0 still sets one, at
-cpuinfo.max_freq, and it is recomputed with the other steps when boost
-changes
+Yes I'm fine with this, thanks for the squash Shawn!
 
-The step is kept per CPU because reduction_step()'s per-package slot
-moves when the first CPU of the package goes offline
+Regards,
+Loic
 
-A new mutex serializes the recompute with cpufreq_set_cur_state() and
-with adding and removing thermal_req. Boost can be toggled while a
-policy is being removed, and a cooling state write that read the old
-cpuinfo.max_freq must not overwrite the recomputed cap
----
- drivers/acpi/processor_driver.c  |  2 ++
- drivers/acpi/processor_thermal.c | 48 +++++++++++++++++++++++++++++---
- include/acpi/processor.h         |  4 +++
- 3 files changed, 50 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/acpi/processor_driver.c b/drivers/acpi/processor_driver.c
-index bdd1529d79f03..c3929425a88b6 100644
---- a/drivers/acpi/processor_driver.c
-+++ b/drivers/acpi/processor_driver.c
-@@ -221,6 +221,8 @@ static int acpi_processor_notifier(struct notifier_block *nb,
- 	} else if (event == CPUFREQ_REMOVE_POLICY) {
- 		acpi_processor_ppc_exit(policy);
- 		acpi_thermal_cpufreq_exit(policy);
-+	} else if (event == CPUFREQ_UPDATE_CPUINFO) {
-+		acpi_thermal_cpufreq_update(policy);
- 	}
- 
- 	return 0;
-diff --git a/drivers/acpi/processor_thermal.c b/drivers/acpi/processor_thermal.c
-index 25c4b0ad64e36..8b1a3cb004571 100644
---- a/drivers/acpi/processor_thermal.c
-+++ b/drivers/acpi/processor_thermal.c
-@@ -14,6 +14,7 @@
- #include <linux/init.h>
- #include <linux/cpufreq.h>
- #include <linux/acpi.h>
-+#include <linux/mutex.h>
- #include <acpi/processor.h>
- #include <linux/uaccess.h>
- 
-@@ -40,6 +41,16 @@ static int cpufreq_thermal_max_step __read_mostly = 3;
- static int cpufreq_thermal_reduction_pctg __read_mostly = 20;
- 
- static DEFINE_PER_CPU(unsigned int, cpufreq_thermal_reduction_step);
-+/* The step each CPU's thermal_req was last set to */
-+static DEFINE_PER_CPU(unsigned int, cpufreq_thermal_req_step);
-+
-+/*
-+ * Serializes adding, updating and removing thermal_req, and the step saved
-+ * with it, so recomputing the cap after a boost change can't race a cooling
-+ * state write. It nests inside policy->rwsem and the cooling device lock,
-+ * so take neither while holding it
-+ */
-+static DEFINE_MUTEX(cpufreq_thermal_lock);
- 
- #define reduction_step(cpu) \
- 	per_cpu(cpufreq_thermal_reduction_step, phys_package_first_cpu(cpu))
-@@ -95,6 +106,8 @@ static void cpufreq_update_thermal_req(struct cpufreq_policy *policy,
- 	unsigned long max_freq;
- 	int ret;
- 
-+	lockdep_assert_held(&cpufreq_thermal_lock);
-+
- 	max_freq = (policy->cpuinfo.max_freq *
- 		(100 - step * cpufreq_thermal_reduction_pctg)) / 100;
- 
-@@ -102,7 +115,10 @@ static void cpufreq_update_thermal_req(struct cpufreq_policy *policy,
- 	if (ret < 0) {
- 		pr_warn("Failed to update thermal freq constraint: CPU%d (%d)\n",
- 			pr->id, ret);
-+		return;
- 	}
-+
-+	per_cpu(cpufreq_thermal_req_step, pr->id) = step;
- }
- 
- static bool cpufreq_update_thermal_limit(unsigned int cpu, struct acpi_processor *pr)
-@@ -124,6 +140,8 @@ static int cpufreq_set_cur_state(unsigned int cpu, int state)
- 	if (!cpu_has_cpufreq(cpu))
- 		return 0;
- 
-+	guard(mutex)(&cpufreq_thermal_lock);
-+
- 	reduction_step(cpu) = state;
- 
- 	/*
-@@ -177,9 +195,13 @@ void acpi_thermal_cpufreq_init(struct cpufreq_policy *policy)
- 		if (!pr)
- 			continue;
- 
--		ret = freq_qos_add_request(&policy->constraints,
--					   &pr->thermal_req,
--					   FREQ_QOS_MAX, INT_MAX);
-+		scoped_guard(mutex, &cpufreq_thermal_lock) {
-+			ret = freq_qos_add_request(&policy->constraints,
-+						   &pr->thermal_req,
-+						   FREQ_QOS_MAX, INT_MAX);
-+			if (ret >= 0)
-+				per_cpu(cpufreq_thermal_req_step, cpu) = 0;
-+		}
- 		if (ret < 0) {
- 			pr_err("Failed to add freq constraint for CPU%d (%d)\n",
- 			       cpu, ret);
-@@ -190,6 +212,23 @@ void acpi_thermal_cpufreq_init(struct cpufreq_policy *policy)
- 	}
- }
- 
-+void acpi_thermal_cpufreq_update(struct cpufreq_policy *policy)
-+{
-+	unsigned int cpu;
-+
-+	guard(mutex)(&cpufreq_thermal_lock);
-+
-+	for_each_cpu(cpu, policy->related_cpus) {
-+		struct acpi_processor *pr = per_cpu(processors, cpu);
-+
-+		if (!pr || !freq_qos_request_active(&pr->thermal_req))
-+			continue;
-+
-+		cpufreq_update_thermal_req(policy, pr,
-+					   per_cpu(cpufreq_thermal_req_step, cpu));
-+	}
-+}
-+
- void acpi_thermal_cpufreq_exit(struct cpufreq_policy *policy)
- {
- 	unsigned int cpu;
-@@ -200,7 +239,8 @@ void acpi_thermal_cpufreq_exit(struct cpufreq_policy *policy)
- 		if (!pr)
- 			continue;
- 
--		freq_qos_remove_request(&pr->thermal_req);
-+		scoped_guard(mutex, &cpufreq_thermal_lock)
-+			freq_qos_remove_request(&pr->thermal_req);
- 
- 		thermal_cooling_device_update(pr->cdev);
- 	}
-diff --git a/include/acpi/processor.h b/include/acpi/processor.h
-index b5447af4d40b4..ccd5ac6acb57e 100644
---- a/include/acpi/processor.h
-+++ b/include/acpi/processor.h
-@@ -432,12 +432,16 @@ void acpi_processor_thermal_exit(struct acpi_processor *pr);
- extern const struct thermal_cooling_device_ops processor_cooling_ops;
- #ifdef CONFIG_CPU_FREQ
- void acpi_thermal_cpufreq_init(struct cpufreq_policy *policy);
-+void acpi_thermal_cpufreq_update(struct cpufreq_policy *policy);
- void acpi_thermal_cpufreq_exit(struct cpufreq_policy *policy);
- #else
- static inline void acpi_thermal_cpufreq_init(struct cpufreq_policy *policy)
- {
- 	return;
- }
-+
-+static inline void acpi_thermal_cpufreq_update(struct cpufreq_policy *policy) { }
-+
- static inline void acpi_thermal_cpufreq_exit(struct cpufreq_policy *policy)
- {
- 	return;
--- 
-2.56.0
-
+>
+> Thanks,
+>
+> Jonathan
+>
+> > ---
+> > This is the squashed version as requsted by Jonathan at:
+> > https://lore.kernel.org/all/20261101020047.66034613@jic23-hlaptop/
+> >
+> >  drivers/iio/adc/qcom-spmi-adc5-gen3.c | 5 +++--
+> >  1 file changed, 3 insertions(+), 2 deletions(-)
+> >
+> > diff --git a/drivers/iio/adc/qcom-spmi-adc5-gen3.c b/drivers/iio/adc/qc=
+om-spmi-adc5-gen3.c
+> > index c68c6c5f6aca..a23eb5c9096d 100644
+> > --- a/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+> > +++ b/drivers/iio/adc/qcom-spmi-adc5-gen3.c
+> > @@ -610,7 +610,7 @@ static void adc5_gen3_delete_aux(void *data)
+> >
+> >  static void adc5_gen3_aux_device_release(struct device *dev) {}
+> >
+> > -static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc)
+> > +static int adc5_gen3_add_aux_tm_device(struct adc5_chip *adc, int id)
+> >  {
+> >       struct tm5_aux_dev_wrapper *aux_device;
+> >       int i, ret, i_tm =3D 0;
+> > @@ -620,6 +620,7 @@ static int adc5_gen3_add_aux_tm_device(struct adc5_=
+chip *adc)
+> >               return -ENOMEM;
+> >
+> >       aux_device->aux_dev.name =3D "adc5_tm_gen3";
+> > +     aux_device->aux_dev.id =3D id;
+> >       aux_device->aux_dev.dev.parent =3D adc->dev;
+> >       aux_device->aux_dev.dev.release =3D adc5_gen3_aux_device_release;
+> >
+> > @@ -799,7 +800,7 @@ static int adc5_gen3_probe(struct platform_device *=
+pdev)
+> >               return ret;
+> >
+> >       if (adc->n_tm_channels > 0) {
+> > -             ret =3D adc5_gen3_add_aux_tm_device(adc);
+> > +             ret =3D adc5_gen3_add_aux_tm_device(adc, iio_device_id(in=
+dio_dev));
+> >               if (ret)
+> >                       dev_err_probe(dev, ret,
+> >                                     "Failed to add auxiliary TM device\=
+n");
+>
