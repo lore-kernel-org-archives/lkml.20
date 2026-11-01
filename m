@@ -1,97 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.133
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.21.23.139
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793537938;
-	b=XcmRUlswD18n2JlZMJbjH7qY/ZQSMWIB42rJa1gS3jH+xkYXcUlsW1gaU0fnse799f4B
-	 ZfLuH0C5aYGFVCAEqOh4TliUCaPJyqkf162WxH5mppnT/GJdagk6uFbNvP5lGIKeFWwBw
-	 fU3XUl83UN8u07i7C5JgsMD5KzaF8PwlQU4boUr48bIGuK04SObwZwIrntPPm31YzOQ4/
-	 OD0eJ88yMQe7qoLMLZMFMZPWVMdCmacImsgtX3kMQPcv4BTrMGGoPIAC7wWXHr359Chvn
-	 MVFphXShW3iJuhvKNOrzw7RJUkncYRooXli5EiFehwZAT1T2j8222ci2hj0cphd4KKw==
+	t=1793537941;
+	b=opaMsTxOxgjLMfrKc8tIBPX+eQo1A8rwzPdF0ZRdjRnJknmDkJrAzD2KYDeneukkZioy
+	 sEafqW4Q4cqM1n+PwYnmj5Bb6VNrK00/R4TsJrO2703Xdf5C8VROAAUY/JbNy7awDli5b
+	 leNdufkYNl0TfA6Bfm+AxX0dxtXVdIYH8abgBz41EBZAE68WVR0rRYwlWlBSFpFA70Mzw
+	 7emTCtj4Kt19dm8yBjgWTY/AZZo/tJN/5/8FlsSGdM+OVlK90pPRUv690F0DhiPX8k0pa
+	 ImTaq1IB2Mo5/STHedFAdL84DyDJuP4/dO0aZ31KtbOi1WpWX4Ea2Iun7v3f80BoWeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793537938;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=f1wYtROk1JVShHemw1ffijHkVNneua03omMSYk9W4/I=;
-	b=fgM6QFqEZ6R8aIfYBtXmTwlQgk7uAGx8j2pB0moKPDZJjx0Dp+nVz4057dWlKH02ddm3
-	 y0g3N+d2eXH1gJ++ySJFUz4Pdiujw9WEwoWL3+9TKVx82c8i39+LbtalEPXQsia1acoFe
-	 du5kCwOzsw9qBAMV3eF4R67WAKQXrLn/lCfEXbpA4+8tUPry1g8Bl0s3ty0rSPGf63wP6
-	 gL1bgkEqX7lGI2N58VJ9zhl35X9P2HtfNbR4tRp+HlJ4wURgk5K7TIVN16nQM6DDCMuTR
-	 8108BBBb088bqGWdM8oZ0y846shWjk67IH+v9WwwWNQ1CpogX1P+cCvW3PobSTHRdzw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793537941;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:From:
+	 To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Transfer-Encoding;
+	bh=42uUpwxeFlIt+oVlZYyg3MehKD4BJExenLU7k+2MNBE=;
+	b=k696wgEWk9whM+oyAYbTM+MZE+Jg3v9SZY8Jk2Opwusg2IF4OScjC/g85T+BEG1x8wXw
+	 Nxl/MPHBSZSDclZkqL5wcnU8Oj1VQ6dROsHArsxkI/TqW7nh1mXHpNxZcenAS/sHhOCWj
+	 /KjrPj60ZzV81iNTDvEEYo7L+SgPGvZX4xN5NTSfw7T3RkTUyq1FcjMpuurJulcYLY5xz
+	 A63dR+fLm5EB0o3D0EmzB9cTz4kFpD/ZxV0prXx9YtZb7dMv8zLqZbqW/iuImmB3uM4Ee
+	 6obLnMMnztP9TssNcbijgzyKsQ+AuNH5pri7r9DJic2fJBFCstrIsumnOrl9W3rsaDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c4pwIr2c;
-	arc=none smtp.remote-ip=74.125.229.133
-Received: from mail-dl2-f5.google.com (mail-dl2-f5.google.com [74.125.229.133])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=disroot.org;
+	spf=pass smtp.mailfrom=disroot.org;
+	dkim=pass header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=Zbq8qJbI;
+	arc=none smtp.remote-ip=178.21.23.139
+Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2542606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:58:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A2542606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F7E1606A329;
+	Sun,  1 Nov 2026 12:59:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6F7E1606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=c4pwIr2c
-Received: by mail-dl2-f5.google.com with SMTP id a92af1059eb24-1ac216daf7dso818704c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 04:58:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793537937; x=1794142737; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f1wYtROk1JVShHemw1ffijHkVNneua03omMSYk9W4/I=;
-        b=c4pwIr2c/emHOXEN40E5IfXyk15GzTXOji9PPET9yj5joQViGOmQyWLaslV86a+Psh
-         hGUdIRE+IFYyukG3ODs21A6x95+aPn7RPYAkOsJxL2jqp5l/Qx3IO4J35R1ebSmkIZnw
-         ICmUgPqFQ1fe0uodhPooU4v1VLnaUT5K6ZG7luXyQKLZYYdcoA46amImiVcmWDgAnROe
-         5Tan64D4AqK4ovvD7KHGgOatNu/SnRinAvmBZvRH6tGOFyvoYsdvQo6s3kcPXBgF4Pc2
-         J3tlT9p24l6NdW4BjheFQ7jHPYxiEWRoydftP5FAkE2bzEyx6mQYgYirVuKxlcGfFrtr
-         lbgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793537937; x=1794142737;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f1wYtROk1JVShHemw1ffijHkVNneua03omMSYk9W4/I=;
-        b=R5tsH9Mci83JgBNzVk52vNOcKN3mDIvzDtj5Tul2/BSRllTXmmZNLfo9KpQ3Y5kuAv
-         VL1jz2mOvo9iP5jOVgVjxBslwGH+1GIxXRec3l+ruDwOevdrsFEiaTSocPfXfvE227WR
-         Q7eIN1KdGZxwP7ofug6RH+P4tWII+lZBnwmLxa5Co8Vy9HJyk3ezT5E9qLajwwOlrd/J
-         gAxOfJGGQMp9KkQY5MGtV7gIw+Cat/+Jt+VlLG43Ud1zPF72GwPWXX8oXhik+73NlMdS
-         l7z/fwJbbS+r77se5jJQJFNeZF4LCaZE9CNghw5KIsvPOqKLuMlyVKMtkOT0LPsJPfYv
-         iboQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwprX/Dh08aEU1rfFK+YMLh3dmUMbfKx6HGD/oqiclQpvJ9EGw2U2L5o0WS/ZGlW/w8an2W0ezSR4wbzkM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKaLWVeYgN/c28xBxrhiZOcf2DwGe3as39exWRRyFkuB48GUAi1
-	qus1yxm3HVOUheoj25SuqZxXwJH+SKJvLS5bqmdwRIGRhM4uv85go5I/
-X-Gm-Gg: AYBFou3Ugj02mjorMICu1Mo+NegF4hsJ0liGYZhjugZEpKXU04jR3M9dXAqpT/W1Y/G
-	jDj1ifr1k30XiBAUX0fjvxNnyjC+fFvWBvIaFKtHPE1TE1TyMxoLo0827vPH0JgFDWM02w3tE4C
-	HN15pFvstztcn+8M4iFizaAyvzaNqylILFa7N/4ZknbV1bwOQe/yRqcj4U/SWtQBEWFOH65CJja
-	YAoTgPQsuJxStf54hoc4uwtUYM8wgNOOW6KCM5qpA3dj1yOi7OBSMm9Cb638f7hofiqDxPHaF+x
-	I5A3+kuRwf7eDGmaBRhxtKMhWrGt6XKIxiCw1AsOc4ueWQbzU53a1zsdkJ5DIZq2Wt5FIR1H3HI
-	CHVz4b/obiREQPsuHX3H0HaGUEh0Rnz1QZBskgiuY2mklqMVFOefpnYh7VTUsrSchPCA9xxRCGT
-	6S0oggAhJFe/xD473APZ9iaCYQNaDnZ1jNbtp93LfZulsg9BAIg2R8qZajPWraPKHL0BqpBHjhI
-	GREWc9M07kO9SWxMZkXGe8yGZI5RnNuctfNRiRw6m+FMS8YreVlztqMsUl5AzpRweV1kom+JOYN
-	LEBkpNBhkACJIAtrKvhFZxM/ZpuMQ5WgNyJjLkBbugCXFSo7MZn4Hhya
-X-Received: by 2002:a05:7022:7e0c:b0:147:a685:9125 with SMTP id a92af1059eb24-1ac574556abmr11534422c88.2.1793537936546;
-        Sun, 01 Nov 2026 04:58:56 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a13652csm27433334c88.17.2026.11.01.04.58.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 04:58:56 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: tytso@mit.edu
-Cc: Andreas Dilger <adilger.kernel@dilger.ca>,
-	Baokun Li <libaokun@linux.alibaba.com>,
-	Jan Kara <jack@suse.cz>,
-	Ojaswin Mujoo <ojaswin@linux.ibm.com>,
-	Ritesh Harjani <ritesh.list@gmail.com>,
-	Zhang Yi <yi.zhang@huawei.com>,
-	linux-ext4@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=disroot.org header.i=@disroot.org header.a=rsa-sha256 header.s=mail header.b=Zbq8qJbI
+Received: from mail01.layka.lan (localhost [127.0.0.1])
+	by disroot.org (Postfix) with ESMTP id 70E3D80710;
+	Sun, 01 Nov 2026 13:58:53 +0100 (CET)
+X-Virus-Scanned: SPAM Filter at disroot.org
+Received: from layka.disroot.org ([127.0.0.1])
+ by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
+ id Esdo88_qE1eM; Sun,  1 Nov 2026 13:58:52 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
+	t=1793537932; bh=6sl3s0b1KzqpQad7r6W0dlFWZcquTtdY7WN+602Jpg4=;
+	h=From:To:Cc:Subject:Date;
+	b=Zbq8qJbIWzsun0y2XIFeg7/KX+NbKsNCqrjoDxGmkBzL4fwlXZVeSG+/CGbMdWyKs
+	 pfUex37BHb4Q9aF/J5BgZ1USh/HD16pG7nXrSOBD84txLi6RgyqiWJNLMCI2XJA2Eh
+	 AAAKLLYhMkyuD6LS+hpnAz675iNkC7fKpauVqQALKcDdH0USzWDGOX1EWGiznQh3kI
+	 eEeClwNexVxFEpGaEdaxwVG/80XA9hrRIZjQ8jbqRCHlcawFQx4W/rGv2d/HDwx7Il
+	 pwKXkr8bD2DardiPhwDEvtgW/L6NEr/rAPDnnhGvr/RnSXaql8MXJH6RVTjMKmXG4N
+	 spEZQ3H9wql+A==
+From: Florian Maurer <fmaurer@disroot.org>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: Florian Maurer <fmaurer@disroot.org>,
+	ath11k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] ext4: report sub-block project quotas in statfs
-Date: Sun,  1 Nov 2026 12:58:47 +0000
-Message-ID: <20261101125847.54531-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Julius Bairaktaris <julius@bairaktaris.de>,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>
+Subject: [PATCH ath-next 0/3] wifi: ath11k: more firmware crash recovery fixes for AHB
+Date: Sun,  1 Nov 2026 12:58:00 +0000
+Message-ID: <cover.1793531790.git.fmaurer@disroot.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,42 +72,59 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ext4_statfs_project() converts the selected space limit from bytes to
-filesystem blocks before checking whether it is nonzero. A nonzero quota
-smaller than one block therefore skips the project space adjustments.
+Three patches on top of Julius Bairaktaris' "wifi: ath11k: firmware crash
+recovery fixes" v2 [1], for firmware crash recovery on IPQ8074 (AHB).
 
-For example, a valid 1 KiB hard limit on a 4 KiB-block filesystem leaves
-statvfs() and df reporting the underlying filesystem's space, even when
-unprivileged data allocation fails with EDQUOT.
+Patch 1 keeps the ext IRQs from being disabled twice when a recovery
+follows a failed one. With 2/5 and 3/5 of [1] a failed recovery is
+recoverable, but without this patch TX completions stop afterwards.
 
-Test the byte limit before converting it to filesystem blocks. The
-resulting zero block limit then clamps the project space statistics to
-zero. Keep the existing rounding and the rule that a zero byte limit
-means no quota.
+Patch 2 turns the "select RPMSG" of ATH11K_AHB into a dependency, which
+patch 3 needs to depend on QCOM_RPROC_COMMON without a recursive
+Kconfig dependency.
 
-Fixes: 689c958cbe6b ("ext4: add project quota support")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/ext4/super.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Patch 3 stops TX before remoteproc resets WCSS on a firmware crash.
+Today a TX in that window ends in an asynchronous SError and a kernel
+panic. It depends on 4/5 of [1].
 
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 9cae52471dee..91c1a54730f6 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -7001,11 +7001,11 @@ static int ext4_statfs_project(struct super_block *sb,
- 
- 	limit = min_not_zero(dquot->dq_dqb.dqb_bsoftlimit,
- 			     dquot->dq_dqb.dqb_bhardlimit);
--	limit >>= sb->s_blocksize_bits;
- 
- 	if (limit) {
- 		uint64_t	remaining = 0;
- 
-+		limit >>= sb->s_blocksize_bits;
- 		curblock = (dquot->dq_dqb.dqb_curspace +
- 			    dquot->dq_dqb.dqb_rsvspace) >> sb->s_blocksize_bits;
- 		if (limit > curblock)
+Patches 1 and 3 were tested on a Xiaomi AX3600 (IPQ8074,
+WLAN.HK.2.9.0.1-02146) together with [1], backported to
+backports-6.18.55 (OpenWrt 25.12), with real firmware asserts under AP
+and mesh load, with simulated crashes, and with a forced failed
+recovery followed by another crash.
+
+Not covered yet, both to be addressed separately:
+- A second firmware crash 10-20 ms after the firmware is up again can
+  make the QMI firmware start fail before the CE pipes are set up
+  again; the next recovery then dereferences the cleared srngs in
+  ath11k_ce_cleanup_pipes(). This is not caused by these patches; I'm
+  reporting it in the thread of [1].
+- A crash within the few milliseconds before the restart work clears
+  ATH11K_FLAG_CRASH_FLUSH (see patch 3).
+
+[1] https://lore.kernel.org/linux-wireless/20261018210153.1925962-1-julius@bairaktaris.de/
+
+Florian Maurer (3):
+  wifi: ath11k: don't disable ext IRQs twice
+  wifi: ath11k: depend on RPMSG instead of selecting it
+  wifi: ath11k: ahb: stop TX before WCSS is reset on a firmware crash
+
+ drivers/net/wireless/ath/ath11k/Kconfig |  3 +-
+ drivers/net/wireless/ath/ath11k/ahb.c   | 63 ++++++++++++++++++++++++-
+ drivers/net/wireless/ath/ath11k/ahb.h   |  2 +
+ drivers/net/wireless/ath/ath11k/ce.c    |  7 +++
+ drivers/net/wireless/ath/ath11k/core.c  |  1 +
+ drivers/net/wireless/ath/ath11k/hw.h    |  1 +
+ drivers/net/wireless/ath/ath11k/pcic.c  |  4 +-
+ 7 files changed, 76 insertions(+), 5 deletions(-)
+
+
+base-commit: 7b14c8f4a9615579b09cbcdc4515b65ae6124753
+prerequisite-patch-id: cd9f2849ade92e165f15fe3f887edabd1d06b6e8
+prerequisite-patch-id: 3c9ba2aec0d93942448aba1dc5d26b632d519e5a
+prerequisite-patch-id: 9a833c602db147b490fba6df590eeea3847f4877
+prerequisite-patch-id: 6fd3e11242fb3ead65751e3cd9972c4d7c63f989
+prerequisite-patch-id: 01e149ed860e5e40e79725580548ce4034f344b2
 -- 
-2.43.0
+2.47.3
 
