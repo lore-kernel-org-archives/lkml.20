@@ -1,92 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793528205;
-	b=ph0ykG5rSinh9Oo304P5JJG2dhQ7IZuNz6/kUvUYYaSAreOIEvmKcQEtRjTKyMjMs7sN
-	 SS3jP5fr0X9XjWLYEijDS4gMz5d61FUQeaPDF190V3jTFWxzpEz8mIpedw10J+uYKW8Zn
-	 dhDej+WPS5kPJTBzo3rfr3evl4GF2RLzWciuW7TcvfC6Im/tJ5dXJ/CFDiX6s0gsKO5kA
-	 laHivZYLRwDrBgf/ZguGU5442nzj5ClB65jpeLKy0xJ/a78fhRknjjIMGrhYLGqREQcTo
-	 YC8bG1FO++NQS8IVJ97WlwVqjkcm9O0h+FOrqMX89nAVOcnRi+rkQGgaFGZeVMI2uqw==
+	t=1793528434;
+	b=XqZoxU7rcaJ9KbY71LnrRRCYj9xw8AOkWXSEjDkwH8/9MerUFYu3a7CHHhAS7DAqT5oS
+	 m63jmfeAKXzr+7VSi0vTTdA0UR1HpCCkSFKhD4qtRcGv5chbQzQ0dLZKHiD+C6NTqVts/
+	 K3qGp4VS3+ZFmFsrp0KEF/eYGg4CPt/8cszxezTon+V51m51L+2JTGd1FhP2Sncjiy7na
+	 h6JVUhXevgRyGz1tWOCbr4aBNDsr0crLfmicxZKHo7M/8KOd/cuequgoX7X61SgkBb86T
+	 b5Thc4LnN2xBimhe2Wn4SFwfxAiEpi1uzd2MBPgEgspuqvRRbtpW5nuPQJezqn5MPCA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793528205;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=d59qLAsdq07SLmevmGEU48uYx2yFSZTX+xDbdu0iQws=;
-	b=WHmK5bsUkgwx6h6A/2XWHoOrv8Uz+O9NmTl8q/cfToPjl136Ms1O1yXSx2Pon+5ufNyF
-	 sFxAcGYnqzUtw1abpjbjVbub2Q0yN0SVvmfx9164gK+YozvCXwvrmXXksl3Xvu2OHOB9+
-	 SE8+Y+xHQh9P1z/uj+cWN22Ah/OeeIxKWCkp1pRL+rOqFKA+ZrNvbeQsJqUq1mxrvQ0O9
-	 PCH12v47xEU093Y+kBrfnD2MSU7WZ3euuAOR+lVSzrj3P4NN0sas2eKi+NhGOlpUbOys5
-	 eYsm3Jqif1ThwR6ov+0FFEk+FDEd4iPxIlJURzi4sdNPUxrm84asZWc7spED9iStluw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528434;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=TkstfqMwLVi3O9Geq9Sw8ekLhOvsr3GA+4QG8GJigxk=;
+	b=Eck2fKXltsZ3QqnwcuvaiYtCyFSOC61tOFGtki7rDGpE8c6Z7qa5a/4ghsvPZEAPv6X5
+	 W7c1iujtml14/nigWomINJCkEvuL4bM1u5v4lgasI4+9Lyl5xwTG2SBq6pv+n111wzSX0
+	 eWVMrys59hfxp40X7W74cUqW33TFq4KCuFGl/mtUb+sTMY5gWtQGJZ8dQ4Up9he4bPM1+
+	 hCkCJbGagfcGu4qVygLAw8DYwarU7qk279M+ZMPQLnLdHEX35ZnYOvCyFbX7XMrVlh++E
+	 jcppaYOBd8uy3301PMfb5BMh3/pd2Ozf/WeC6Eb+GKqoSuJw6OFd3s+QIAfTWMMQZwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lc5qMSPj;
-	arc=none smtp.remote-ip=209.85.221.52
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+nHu0+b;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8838F606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8838F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DAE606A324;
+	Sun,  1 Nov 2026 10:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Lc5qMSPj
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48df0fa43c5so1098583f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:16:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793528204; x=1794133004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=d59qLAsdq07SLmevmGEU48uYx2yFSZTX+xDbdu0iQws=;
-        b=Lc5qMSPj688u/x27RlQpP6i9PtZ+d4aoBZktA1fcoFWFyCnyzK0iJWivoB3Kb8ajwW
-         GCwcNHwzEo5nRFasFc/FMLIO68TO47O2b1Ph3GEJEq8JWnsQmxXqKYQCSSnwnxz84D3y
-         Bxbnd+orKOn8sKCp8gEhP7Zl0YHFjwWwSJajU3UTCi8chzioHZLff2EJvgT/6Awck1gd
-         /x4Z3MB1hgT7O0JqzxdyHiErZvyrFna5kQVzNk3sk3eSEBr+sup0a3SfAys73IRcX4VF
-         G/+8hcR9m4hjMIUgyWC+AKLW7yEZRVYvJB+DsFVZO0JP8lj78A7XrxJg2/uG1/lERYVp
-         8IIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793528204; x=1794133004;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=d59qLAsdq07SLmevmGEU48uYx2yFSZTX+xDbdu0iQws=;
-        b=xbCNJ5hE4FV8nG/u+DcfUZeGiZd/vO3e0FHRXF1AvKF/ipwKpi8zsLwBhhDQQkDTBu
-         gkaBwnQP5t7sFiCBq9J/bcvn1+0LwhHZxM6B1Q3zNC6sSNhkedbpqhBalhNbtKFC0z2h
-         fm5HXiB9+X//IyB5AT2mC7q0g7rWqqvKecRDhf6612LebxbVkztD4BHIuRlFel3xLYO0
-         yWYyOMpAh6580BD36AJwd97JRzSdMS1w/sMJTVazsOoF8js4cdpvvzM63S6lXNBy1qyg
-         5HrKMzOLztvLQX6OqzNz7aZekjt1BHfqPQanhnM1O7ChrUwGxc9JkC3jJN6UQbMO3vYQ
-         a2jg==
-X-Forwarded-Encrypted: i=1; AKwUvBxBI61v50bi3hoNgMkPvo/2rUtClUcrg7MOzMKYXvTMTCxdAs26IKOMTKMN6KlMsZMYdBTX+iEO9qRjLnc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8hnnSZX1ENqWqcmwN4Z0EuwVI67zaTsgtM/7mfGeC3kR4vaMfY
-	JPV1dcYOYIXzwgyBcWtRUEZdQ11TOxA3/aeu0Im0JNhX91WUN0xOAiiP
-X-Gm-Gg: AYBFou2Up2FLj3whevwZk0YDy0l9BFF8ss6vv0kA/WjFpupOrwvT99lZK7HIGlNZee6
-	qND2MTwG0Vb+BmBsnZBrUpiwO6mLpUPOM1Uy4xvC5xVYZVkMcIveYU0u4vMGr7nVVCWhppVOGKM
-	E3cRyyWh5B3F7soN0KozWGMBjg7kAYUHJEdoYSWdeD4uMeqn7fg1Vps9h+5rOfOTrVMwcrQvabz
-	oi7nDgTvcFupvngR1w6tAuQOUAZ6LJCnlnefywfSD1zSJQBL6rpyofVPcD4ZfksWMT6s4o3yPg6
-	rBLGnr5LQEHJA0VCOJh9BEBfnSUYsxZrWl2AIatVehNA22XGbw55OQUxYpQk8mGC6JIN6PedpNl
-	XzPiiuHvc9voJTTwxVrb5eyyQSzrNs0XRclMOrFgC9z4UHwHOR/+Zp264JDBs+no2DDvu/YkhL4
-	Nd9AEP+Spqnn3CsivjvvpGMDjX3ERglcjZrM58pGqyl27wfos522627RV3f2I5YEcTV3APRJHpI
-	8hL11/MZIyZzsvoC6O5dd1/19dMcOjHpHa0do60BRSz+DlTJy7igQFRu7JK0eEyTUgVbMa80nlo
-	eiqys1surKu9Zp4v1jeJO7PHi7eofnIqXQ==
-X-Received: by 2002:a5d:59c3:0:b0:48e:76ab:78f3 with SMTP id ffacd0b85a97d-48e76ab7f04mr9789052f8f.15.1793528203654;
-        Sun, 01 Nov 2026 02:16:43 -0800 (PST)
-Received: from thinkpad.lan ([2a06:c701:4773:6f00:2aec:42c1:9c3d:e009])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b789ecsm12978706f8f.29.2026.11.01.02.16.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 02:16:43 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: tglx@kernel.org
-Cc: radu@rendec.net,
-	maz@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH v2] genirq: Resend pending interrupts after handle_simple_irq()
-Date: Sun,  1 Nov 2026 12:16:35 +0200
-Message-ID: <20261101101635.270221-1-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P+nHu0+b
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 25F161F000C1;
+	Sun,  1 Nov 2026 10:20:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793528433;
+	bh=TkstfqMwLVi3O9Geq9Sw8ekLhOvsr3GA+4QG8GJigxk=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=P+nHu0+b5rfK+aXhEmjWLD8w8GrD3O3uu18WH0lMRQ4sUXSIdqTNP9iyJ4GuAkxUh
+	 OKppBIwkP5yaYkwup61QUAjbSRjAMdhnenQgRgWsuJiR1aVU4LO4Dvy2nevN6kSeIG
+	 1XAY+SExgSVwzuL6Xkr5HF1msUj9+Q1xUCdw1TKVCPfa23YqGqSVMpuMZVc9bPv+O5
+	 1ERct4siCLQ0LN4Byw825y83ABAnHVSCDOiUbrhEotRJ3e5weoovsQ05jWmnCrk3uf
+	 f6zXV6ZyTRm4AAGnXNfbEhQOhCmH2xe68DRySVRK2+/kJLyGnDw1U9SCg9S14pydmd
+	 mlZU1AD5kDDCw==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,47 +49,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v4 2/2] phy: airoha: add support for AN7583 Gen3 PCIe
+ PHY driver
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261016071225.2092-3-ansuelsmth@gmail.com>
+References: <20261016071225.2092-1-ansuelsmth@gmail.com>
+ <20261016071225.2092-3-ansuelsmth@gmail.com>
+Date: Sun, 01 Nov 2026 15:50:23 +0530
+Message-Id: <179352842351.2955.1473721252992943972.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=476; i=mani@kernel.org;
+ h=from:subject:message-id; bh=QM9ES64G5eMGECElOm5ezgzKCyheAyccn8+aOEbI0Fg=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xJuJhIJL80l+IydUaS6U2TPqyRHet4HuM9ew
+ Y8yUhlL8CyJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucSbgAKCRBVnxHm/pHO
+ 9cm3B/4lSOxWPTXOja4ew2u8cVg06zJcuAYJtyd1F8s+DgKJYRb/B1bbKu46J6EBaFvhD8dkusG
+ pcCDP0OrFyTRKlw+FiuRDAMAgLJNCcm++Wl/D5OwNZc8AV2u4FBl0ODdi2Q3AmcA0Fg2bL+jHRT
+ aqfRlc9I7f/RIp9Y/EA2vjkpNSQhwwBV7oKkUIZHM7+4AOx6z/btmXejbTjP+489QOMsQX/h8wb
+ zRTi3PsLctWQXlGFphkM/6sxo69nFcwSxtLyYtGKa81zp/QBkNrXkFU57WcNLtSwsDFltQ5/bFo
+ QvqNmaZFUdzw09RtlMFijjORR3sArnDcZMpHn7SSgJV2pxoq
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Commit 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an
-in-progress interrupt") sets IRQS_PENDING when an interrupt arrives
-while another CPU is handling the IRQ. However, handle_simple_irq()
-does not check for the pending interrupt after the initial handling
-completes, so no resend is requested and the interrupt remains pending
-without being signalled.
+On 2026-10-16 09:12 +0200, Christian Marangi wrote:
+> Add support for AN7583 PCIe PHY driver. This is required to make the
+> Gen3 PCIe port present on the Airoha AN7583 SoC correctly work.
+> 
+> A different setup is needed compared to Airoha EN7581 where the
+> calibration process and the register map greatly changed.
+> 
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
 
-Check IRQS_PENDING after handle_irq_event() and request a resend, as
-handle_fasteoi_irq() already does.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Fixes: 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an in-progress interrupt")
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
-Changes in v2:
-  - clarify commit message - mainly that the interrupt remains pending 
-    and resend signalling is missing, as pointed out by Marc Zyngier.
+- Mani
 
-Related 2025 patch/review:
-  https://lore.kernel.org/r/20250708173404.1278635-2-maz@kernel.org
-
- kernel/irq/chip.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
-index de754db414d1..4a131dd72196 100644
---- a/kernel/irq/chip.c
-+++ b/kernel/irq/chip.c
-@@ -626,6 +626,8 @@ void handle_simple_irq(struct irq_desc *desc)
- 
- 	kstat_incr_irqs_this_cpu(desc);
- 	handle_irq_event(desc);
-+	if (unlikely(desc->istate & IRQS_PENDING))
-+		check_irq_resend(desc, false);
- }
- EXPORT_SYMBOL_GPL(handle_simple_irq);
- 
-
-base-commit: e9954f3fbddd25e1a01b7e5a0b72fb8b564204e0
--- 
-2.53.0
 
