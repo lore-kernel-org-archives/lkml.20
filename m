@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571383;
-	b=qTk6wXAbJytwNNaH3qZa9q6X45H97lzumhfY9XDT3E5It+B9UN5DZiok7tjJsMkUs2PN
-	 4ZeVGp28TRZ0mlHt1/rQfwbqdMzkuBep4D1V1ur/VuQeL/dN0kF92Eaz8yioJTVigC5g4
-	 EuTcGrcMX6BQNE+T64/co+Sr6T2kIxB+Nkbg/+sJnECmM+QceU1w/0Irp1nowcwD0C8dU
-	 TY3kZ20Bbsjb1zNh68gBYwJhl8RmqEhE/USwts/oeAEQXYpn9BbeZZk/1QQ+G/nxU7XJc
-	 piRDCu6dHoWO6/dPp7okSNTJyiKaixL4inaOFzCrcijxW7Cdt44AliVGNSMpnVly3VA==
+	t=1793571389;
+	b=KlChszm/K62e57J1AZnXDygGELmbkk2n44glte+hMN+fWiM+Tzb+MGAqkmhqxCISrroe
+	 snubfPG8XQTKhEfpTGs8lacbK4V2IrWVu/QHbJKwS2cpAVdLVUxiDqgia+PjWE+Pb7D37
+	 7nK9iQz6WgrhyqV1kuPg3hDuR7iJkjtu0uCc6HO11/sgIY6bXQzOooCAxTnIdPLow64se
+	 hs7Nm4V9ZQ9u+tbGp8woykYDJ78kOeJIouES4saxKE7VH8hpSMeJpzEjaAzgQRmGJ/yI1
+	 5qO2ZzEtEK/9ooi1Dy9YrrRHQRtNN3ZvGMkyNzEQCu/G/11LsAUlD7hghQIQOEehKHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571383;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571389;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=nBsBcIeqHzTwHRwp6mbkSbzQ3uarBYC6aAPPLwIw/OY=;
-	b=E9BrpNY7+Jy02GXzYOSHpbw+yI9xz//GqFPlQvm4+jk2yIqjjE+AecgxRPWFtZgRfECd
-	 Unm1yJFZsi/CVmFpO649xf7m3/L3ksjRf8pYMqAVie6NPXEFPs+cnoD/oNww/wY7f8+2M
-	 sskr5THUxpenFu0mvGDU4Kd6jMNwQhSVNGN5dm1IuOdxXY3cUWFb2IcTL33A9LhWiW3qo
-	 Ga03NLawnztUI0nm5Cgb8l+fV5eB5fFxcfAcbplddmHafFOJU279/9WhqM3/mRWIVxjRs
-	 1Ql1gaz8V95FaQh7tJBHhIE4n+49gO4iRuees7EoUFWfXUino6kiEeSkoP47/BHRb/Q==
+	bh=mYyAayRoZikGuVa2eTY9XdZusf49iXjgOkDtLITdEgk=;
+	b=FgXzY4f8kmJMV/cQGdc9Cg0ROkjCM0dUdUm8XYFeWYO38kDjAv/UDT0FjvaaaaBhsb0V
+	 wpHrV7NY/ReJQgTY9bO1rlUFw7zdaVTrh4jmRbqzXENywvq+wsMjZDyOs5O0ysHcUpr9J
+	 C8ZOeLFuo/3CKtV/NPYEqqARRAAWnq4L6uuVG/p7eTqgTosA+K8UoFB6ycl0ZueEK+KbU
+	 KDkwC1YMW5rSEoASKjY8Re/uJSk0ikZwvpGqlUWzeAvjAtnMeznDJoK48HJpVCUFgOYwO
+	 kkodGwj5NqE+jqJswUwItzcBNOVNsBNQC38IOik4aJ3MQAj3hdraRiXlce/BL9dSBGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge8BG+tp;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXLfuPXP;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5012A606B9E8;
-	Sun,  1 Nov 2026 22:16:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42C8606D137;
+	Sun,  1 Nov 2026 22:16:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ge8BG+tp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55C31F00919;
-	Sun,  1 Nov 2026 22:16:22 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mXLfuPXP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5FE1F00919;
+	Sun,  1 Nov 2026 22:16:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571382;
-	bh=nBsBcIeqHzTwHRwp6mbkSbzQ3uarBYC6aAPPLwIw/OY=;
+	s=k20260515; t=1793571388;
+	bh=mYyAayRoZikGuVa2eTY9XdZusf49iXjgOkDtLITdEgk=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ge8BG+tpekAEo+TZQBgfvGTUGoOFRmuU0sqtbDWsBG1E1UTg6b6J4VfGfd1nqF6Z3
-	 dxC7UhyiuirH66kwoe6ZI2qNpzGHPuX1TBFNPb8GqXg1qOAm0/ttZHT9HosQHtZslN
-	 woMOtTaVXoa+A7tit4xlZnferQ0ALwKyjKubejIZumpnFlfQ57e5/xfu57Txo3PjF1
-	 xErzRFsTYOfQQ6ie+PDBvSFDcBMJBHtcGvirHE49cePICxmiiKRheaTMIGUH9csnus
-	 ZfNKmVre6h+JiizjeTSaE/VZJvWIINzapMcyCqc/+GWYS8ZWV2ONnMz3chGRKabrrj
-	 6oAV13ouliW4g==
+	b=mXLfuPXPchjyCsKqUUn6GfbB242wECSzlW5Nl5mVJ6Zte83mHJNI4R4d8xkp7uYcd
+	 PsMB2hamerPq2dnWXNyCSG+wGVJoxOanUM42cDhwQZm6qnyCUjMMHEM/aieCRaZXTY
+	 YZ6bc9U50iXAKJ6034iAZfuM4+M84BeH8T0pGIdkGJ0NIMUEZ1bKDwpu6Qimh7lTAM
+	 tuhkR19/h7UrSYSq4bb66U5CX6UY/m+upd5rhiqJyHWOwF8yMk8WPOWyXOG1GECtPq
+	 WPFZslCedVeFfgCdotFp5j/booJbOqPkd8OugZblxDJ9R1gbY68KHhHXNfQ9JRpvCq
+	 9YL+YH3CTO18w==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA3C938003B8;
-	Sun,  1 Nov 2026 22:16:22 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 873E338003B8;
+	Sun,  1 Nov 2026 22:16:28 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,43 +54,40 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [RESEND PATCH bpf-next 0/2] riscv,
- bpf: Support indirect calls to bpf subprogs (callx)
+Subject: Re: [PATCH v2 0/2] phy: spacemit: fix and enable the K1 USB 2.0 PHY
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357138129.2624073.3730426403768307422.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:21 +0000
-References: <20260930064928.1909085-1-pulehui@huaweicloud.com>
-In-Reply-To: <20260930064928.1909085-1-pulehui@huaweicloud.com>
-To: Pu Lehui <pulehui@huaweicloud.com>
-Cc: linux-riscv@lists.infradead.org, bjorn@kernel.org, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org, ast@kernel.org, daniel@iogearbox.net,
- andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com, martin.lau@linux.dev,
- song@kernel.org, yonghong.song@linux.dev, jolsa@kernel.org,
- emil@etsalapatis.com, ihor.solodrai@linux.dev, puranjay@kernel.org,
- pjw@kernel.org, palmer@dabbelt.com, alex@ghiti.fr, pulehui@huawei.com
+ <179357138729.2624073.17557863773534626721.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:27 +0000
+References: <20260825065007.69353-1-bbanelli@gmail.com>
+In-Reply-To: <20260825065007.69353-1-bbanelli@gmail.com>
+To: Bruno Banelli <bbanelli@gmail.com>
+Cc: linux-riscv@lists.infradead.org, vkoul@kernel.org,
+ neil.armstrong@linaro.org, dlan@kernel.org, huang.ze@linux.dev,
+ elder@riscstar.com, linux-phy@lists.infradead.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org
 
 Hello:
 
 This series was applied to riscv/linux.git (fixes)
-by Alexei Starovoitov <ast@kernel.org>:
+by Vinod Koul <vkoul@kernel.org>:
 
-On Wed, 30 Sep 2026 06:49:26 +0000 you wrote:
-> From: Pu Lehui <pulehui@huawei.com>
+On Tue, 25 Aug 2026 08:50:05 +0200 you wrote:
+> v1 was a single patch adding "default ARCH_SPACEMIT" to
+> PHY_SPACEMIT_K1_USB2.  Automated review pointed out two pre-existing
+> Kconfig problems in the same entry, and that change makes them easier
+> to hit: enabling the symbol by default means configurations that would
+> previously have left it off will now build the driver.
 > 
-> This series implements support for indirect calls to bpf subprogs on
-> riscv64 and enables the corresponding selftests.
-> 
-> Meanwhile, this series also resolves the test_verifier failures
-> previously captured by riscv-bpf-daily due to missing callx support [0].
+> So fix the dependencies first, then enable it by default.
 > 
 > [...]
 
 Here is the summary with links:
-  - [RESEND,bpf-next,1/2] riscv, bpf: Support indirect calls to bpf subprogs (callx)
-    https://git.kernel.org/riscv/c/1cec0b70fdc6
-  - [RESEND,bpf-next,2/2] selftests/bpf: Enable callx related testcases for RV64
-    https://git.kernel.org/riscv/c/530dfafc6107
+  - [v2,1/2] phy: spacemit: fix K1 USB 2.0 PHY Kconfig dependencies
+    https://git.kernel.org/riscv/c/882af55e42a4
+  - [v2,2/2] phy: spacemit: enable K1 USB 2.0 PHY by default on ARCH_SPACEMIT
+    https://git.kernel.org/riscv/c/392101240b22
 
 You are awesome, thank you!
 -- 
