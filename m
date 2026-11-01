@@ -1,61 +1,86 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.136
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793575312;
-	b=VNKn8+PVJCIx+iO3Z8IBwqcqd8yIjmPXxo2xtqZOPZKVV+KYSKLWQ8MmWFvEnFK23hXu
-	 mumoGZ9LJpGcXDHJz6gYTpWV/yyXInVvKRDZTCJ2ta3aoSi9rkFZ/mv7DZpRsmzhbLMoR
-	 dP7MNAuSOlI4ZERW1jC3cT9b9NP+4QbOaZTOuYBG5mU0ca3mXjOClN5bdo9lyg//btOp0
-	 f2vwFR8irS9UejJvZXbZw8+bPQ6RiBxh1ItoTmoYQCsdSeMJVDjwARBA87Jn143kAF3Mb
-	 jeg5i1BvN5MfWWU0JKxYHFcg2qR3ZzP6XCLypKqT1eAIxVQFnwlFn6NSZ9GT9TYgIIw==
+	t=1793575332;
+	b=X5vDqZFJ4KU9Z1q+k3WjCg+Qwo4wLheIQb1+kJkQb18jIx1hM/W9Jpefk9FDUsENhS4j
+	 lAL322fSWn5SB6EB1Qx+Ws+0EIY6kY76Z7fPsVswIo66Vbam/rIb1AUCYJgWH1aIX0Amk
+	 lxVrMv8Oq7aEx6xsqtip25Qqwf8gvsDg0HZHhxz3sFy3tDQw+O+8u3xbIYIByoo1RxhO1
+	 9yx6B9g/rqOjbVByY7u1JHuQaSmT22ZEc/gvIjF+K2XNLORIeQDzRDLEcXmvwR8LcO72g
+	 cIZppMaMWsLVZ7IJfNSfn5PbC25wpTmxDtxyEM+DmEp9lMmxjMdFfkSPxvA7INcIYKA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793575312;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=Dk72iN7SVxUD+KiFtk3ED/m2rnC0xL8gpFKUthTaqew=;
-	b=0ovNf7yGABPZwfuHqt9GWKOSftAi/dQ1hZ3w13ztqeJ2TegGblD+yjan9GTmI0ZEBU6u
-	 IDm5pxPgbdGYJ7xmuXjMW2pQ3hXuytA5ckCA5Q1oTYZ+ylDjd0V8rsVJbvEPdbmB/q+YJ
-	 yxK89Yn2iz64QSGgnw+rlWSn9GQEm6sQUHT7HoEBYMQmda62vh4OML0+Lzi1CNbp1W4xa
-	 gLZRu1XI0bsLbKZQ502PbkFGOTSGlvXFAU0tEsvyT7lK6mzMgOfA19OgqK/bhfz/7313z
-	 6cIJAbBhbly0kFrb43FOZFRBsnhUycVPeLCeTN05hXyK7IrOTEC65S+eDajeYM9SFMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575332;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Content-Language:To:Cc:From:
+	 Subject:Content-Type:Content-Transfer-Encoding;
+	bh=K4MSO6pcyXAftScjjOcAhCdWHBG+owT/f6hFef1DRbg=;
+	b=pk1GibDt7LExBDxjCgV5127fLRERG5tX0oHUWYB5+zFQ7ySGL2l1FNS6J4pRfida6YbO
+	 JSg8LY9feTnMQ/UlIu5DpcnQMtcWxIqeCEUGrd2DicArYcYCGx4hrW+jLTvTIYrE/Lo/x
+	 kLHUuXpsRYW4ImvIjS3FJ/IQxp35TkG1dvWA6S6TWcVkz9QuEYsEeldUgC9qRv4tKQ2x0
+	 opaNEwd6/ctICE4qDcv8wOhQh9heIhLabP/Q9OLmoWk0Qy14w4/eCPGTKgVGVgYTsw2ka
+	 84Y+ucV7q6z65slqSu+hbtH6iS3Jk6QB+Y68yYDzY4nFOmZvBvfP9iRBlTEG3IU3hFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcPWCVl4;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lUktLfXx;
+	arc=none smtp.remote-ip=74.125.225.136
+Received: from mail-wm2-f8.google.com (mail-wm2-f8.google.com [74.125.225.136])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E87606A324;
-	Sun,  1 Nov 2026 23:21:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B424E606A32E
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:22:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B424E606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bcPWCVl4
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE9F51F00919;
-	Sun,  1 Nov 2026 23:21:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793575311;
-	bh=Dk72iN7SVxUD+KiFtk3ED/m2rnC0xL8gpFKUthTaqew=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bcPWCVl4m4dl6rBvpQ5YYD26P8ZH6xm9Nx8NuFtIgnHX5QJfES6cAt2qzqYAHWQT6
-	 LpfeWojwQSv6R+i+1rZjoY9SSg5PYjam+msSPwBXzwL8ZGb+n+OHhlTr2qFnq6Ypt7
-	 GR8Xtci6SZiyml/TDAO02G3UASFlZQrGCGCdnMEzpFYsIhJPoLRGczDOZbfhM+EGiJ
-	 2hE6d7xVnm6pgnrvYDR9Z4X7zn5MJEJA3AkQ5Qgv+I16QOwPnhqwlKu5ZN1ZIr1e7+
-	 8lq9yb1mPIVDcBCWyx86lVQM0/CIRFS5tkFM52LnOraRGYgYxM36rFfJcgqqDEKinz
-	 naKb829A7V4Iw==
-Date: Sun, 1 Nov 2026 15:21:49 -0800
-From: Eric Biggers <ebiggers@kernel.org>
-To: Jarkko Sakkinen <jarkko@kernel.org>
-Cc: David Howells <dhowells@redhat.com>, keyrings@vger.kernel.org,
-	Linus Torvalds <torvalds@linux-foundation.org>,
-	Lukas Wunner <lukas@wunner.de>, Ignat Korchagin <ignat@linux.win>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	"open list:ASYMMETRIC KEYS" <linux-crypto@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>
-Subject: Re: [PATCH v4 2/3] KEYS: Replace assoc_array with rhashtable
-Message-ID: <20261101232149.GC2689@quark>
-References: <20261029232437.2581640-1-jarkko@kernel.org>
- <20261029232437.2581640-3-jarkko@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=lUktLfXx
+Received: by mail-wm2-f8.google.com with SMTP id 5b1f17b1804b1-4a77811be24so14481865e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:22:11 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793575330; x=1794180130; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=K4MSO6pcyXAftScjjOcAhCdWHBG+owT/f6hFef1DRbg=;
+        b=lUktLfXxZcnq43AsThU2sU9/MXaXPTkr/o4HlhnqXcibSPn4aapPw7uXq9V284o/c8
+         UAxMpVErCk0g4NgKqrhFNHlabB/AEqk0LNNCJQKynPmGNOJ/TvI/6hwQkQCPzJg0+p4Z
+         +5HJ78XzxbP5D/mbuyOHrBdEzwHtyLRXQ4rc65wlcKj9h2CyRit8xpDO43buEWmg6K1y
+         x5N5mH5c/DidgtSNFoCHe5+gvGqV1w94nYe8HvCXs7Lc+HdeUmqnzqQvIJhJ1e8oD3zk
+         HcvcRxpfaSu9T4wfq2KmWq9uBHzqqsD44xEgXKWwe5xpztUA3m+ztPbi2Km/HEdKDXOK
+         sTRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793575330; x=1794180130;
+        h=content-transfer-encoding:content-type:subject:from:cc:to
+         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=K4MSO6pcyXAftScjjOcAhCdWHBG+owT/f6hFef1DRbg=;
+        b=b7ZSh9w5gfR8SKd7n+KA6/JqFxpcqLw2ceAcjcZKeYfeXtXv35K4KCtXz0cjMUtsM7
+         iQEIpoFBMYvKPlcElhP6Z+SARAFb+BPGpo2U92HCDCc5P/uZ6agQhPpR37wLg1OBnEAq
+         XGn6OQq85bfAGgs9W+5Y+KL5tXEKyt7/bCC8oV1prFDluYl2wUSnqvx00c+llOmp7Z58
+         3dxBJkj3WQHmsDEGG1ne2qH73HPSmphAdec+svyjmQQpoR4k3WAK4v9StHXE72MlNRFB
+         vQ0Mt2R+BURASd1lAEsXidQ6x3uEhiUPnl1Z5P2kCByq38kLk6NgAvqt7BBJNu1OB1/R
+         bPcw==
+X-Forwarded-Encrypted: i=1; AKwUvByDhjueBjbA+dlFoUrKTRCa8Q0Rn5OO9aisYq2f7i1ILN9w4ivb22TZWfB0WZXuc+9ydGp35akT0j8SpMU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLxyBZ+8AzpCP2OPECF/xFW3piAwOOPAWKbjOE47Sf2fXKw72V4
+	roicaJ8kidfrjimkfp/Lu3S4ikDcJbu96MH+8wBXsZiu84aKwiJPMtS+
+X-Gm-Gg: AYBFou15HKEy1Q4xGs/wA2KyFhRu0maydjmXV526qJ9+p77polJGaR0eZ3R+kQ/LxVE
+	q/m6rySfDafukJsHjFTBqh6IejhSu+ijr/g6gKQti/CLk+tRca2186x1ii0xTfkTLbYhuD08HXo
+	Qe9z50JvHTGW3kI/OOkDGdhWEHKShzznZMH8J+0Lzq3WoYmNxezGaC/lAU0TjAOyZO+LKtYzNlm
+	S9M6oP3EPyTN16mEeJ90UP58GuicveX6S34tGFTQiFqt/LvwPS2Kq1e9pjY2nlDjjE/HH7mNybC
+	oSEhzID0r8GqyOahcOauR6MQ2clcNMZzbOqJIESxoh0BzSbJ5ctTQL+fPjQJV2Zmy6KtCNPEY0C
+	VelX0DRlGPhqToS38BZuAkcV7H+GZH6lh7OthjW3e47ty6cPXj84vxFOe0sQH/MjEvVJYT8RixM
+	iIKOG/uT6fzWHVdLpjVCNcqeEF/J/lcouHQWt3TZB+yASl2FKWi+ya//+4TpWsCpQ4QBbAnwPaX
+	iv5ds9OPDL47q9sMADxs08NwThK4DgR9+vJm0m+G2a3HIFKwTwS6AM3aMF2W8qZPlRzwQ2lHgZj
+	JzorYxaFnv0eNZOJFwOK/IoXmJfnQ8vE1g==
+X-Received: by 2002:a05:600c:198c:b0:4a2:5ca:767f with SMTP id 5b1f17b1804b1-4ac151a9a36mr202114225e9.4.1793575329980;
+        Sun, 01 Nov 2026 15:22:09 -0800 (PST)
+Received: from [192.168.1.7] ([31.94.68.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm367155575e9.3.2026.11.01.15.22.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 15:22:09 -0800 (PST)
+Message-ID: <9c9310ca-9c2a-4aa3-b03c-83fbaf17710b@gmail.com>
+Date: Sun, 1 Nov 2026 23:22:08 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,102 +90,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261029232437.2581640-3-jarkko@kernel.org>
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: amd-gfx@lists.freedesktop.org
+Cc: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Mario Limonciello <mario.limonciello@amd.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Richard Lane <richardlanedev@gmail.com>
+From: Richard Lane <richardlanedev@gmail.com>
+Subject: [PATCH v2 0/3] drm/amd: Enable 2x1 tiled display support on Apple 5K
+ iMacs
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 30, 2026 at 01:24:10AM +0200, Jarkko Sakkinen wrote:
-> It is the sole user of this data structure,
-> which has during the age of LLMs transformed into a maintenance nightmare.
+Hi folks,
 
-As I said on v3, this probably should be reworded to be more specific.
-Otherwise it sounds subjective, and it may become a weird Phoronix
-headline like "Linux awakens from associative array nightmare".
-See the sentence I suggested at
-https://lore.kernel.org/keyrings/20261027012952.GC2395@quark/
+Apple 27" 5K iMacs (2014-2019, iMac15,1 through Polaris-based iMac19,1)
+drive their internal 5120x2880 panel as a 2x1 tiled display using two
+2560x2880 streams over an internal eDP root link and a secondary DP
+link.
 
-> assoc_array is replaced with three new data types:
+At boot, the Apple EFI firmware initializes only a single 2560x2880 pipe
+and leaves the secondary DP tile unlatched with HPD deasserted. Because
+the secondary tile reports HPD low and requires a vendor-specific DPCD
+handshake before it responds as a DisplayPort sink, amdgpu currently
+fails to detect the second tile, leaving Linux limited to single-tile
+resolutions.
 
-Well, 'struct keyring_edit' is the odd one out, since it replaces
-'struct assoc_array_edit', not 'struct assoc_array'.  It is also
-temporary transactional state.
+This series enables full 5120x2880 dual-tile operation on DCE < 12 Apple
+5K iMacs so that the internal 5K panel behaves like a standard DisplayID
+tiled monitor:
 
-It would be clearer to say that the replacement for 'struct assoc_array'
-is 'struct keyring_index'.  Then describe what that contains (which
-would include mentioning 'struct keyring_link').
+1. Calculate the pre-OS framebuffer reservation in GMC v7 and v8 using
+   mmGRPH_PITCH and the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
+   vram_start so the full [3 MiB, 59.25 MiB) Apple EFI scanout surface
+   is preserved during boot handover without vendor-specific quirks.
+2. Point the secondary DP link to the root eDP link via an EDID quirk on
+   DCE < 12 (covering iMac15,1, iMac17,1, iMac18,3, and Polaris-based
+   iMac19,1), latch the secondary tile via DPCD 0x4F1 on the root eDP
+   link, write the 3-byte Boot Camp source table (0x310) on the
+   secondary link, keep the secondary tile out of D3 power-down, and
+   unlatch the TCON back to single-pipe mode on suspend/shutdown. Once
+   unlocked, DRM's DisplayID parser populates has_tile, tile_group, and
+   tile_is_single_monitor on both connectors natively. (DCE >= 12
+   support for Vega-equipped iMac19,1, iMacPro1,1, and 2020 iMac20,x is
+   noted as TODO.)
+3. Report all_displays_in_sync = true to PowerPlay after
+   dc_commit_streams() whenever all active streams are synchronized into
+   a single timing group by program_timing_sync()
+   (timing_sync_info.group_size == params.stream_count), allowing SMU7
+   to downclock MCLK at idle without modeset underflows.
 
-It would also be worth mentioning explicitly that this is a significant
-negative diff in the keyrings subsystem, since correctly integrating
-with assoc_array was quite complex.
+Changes in v2:
+- Patch 1: Replaced the hardcoded 64 MiB Apple quirk in amdgpu_gmc.c
+  with a generic calculation in gmc_v7_0_get_vbios_fb_size() and
+  gmc_v8_0_get_vbios_fb_size() using mmGRPH_PITCH and
+  mmGRPH_PRIMARY_SURFACE_ADDRESS.
+- Patch 2: Dropped the DRM_MODE_CONNECTOR_eDP override in
+  amdgpu_dm_connector.c in favor of DRM's native DisplayID tile
+  properties (has_tile, tile_group, tile_is_single_monitor).
+  Renamed tiled_peer to apple_5k_peer and set it only on the secondary
+  DP link, removing dm_helpers_wire_tiled_peer(),
+  dc_link_is_apple_5k_secondary(), and inline explanatory comments.
+- Patch 3: Made the PowerPlay sync check generic for any combination of
+  synchronized displays by checking timing_sync_info.group_size ==
+  params.stream_count instead of tiled_peer.
 
-Overall I suggest de-emphasizing the rhashtable in the commit message
-slightly, given that it's just one piece of the new implementation.
-After all, it could have been a basic custom hashtable instead, and
-other high-level details of this commit would still be the same.
+Regards,
+Richard
 
-> Jhashes used by rhashtable are rehashed from the SipHash digests of the
-> search keys and links.
+Richard Lane (3):
+  drm/amdgpu: use pitch and surface offset for GMC v7/v8 fb size
+  drm/amd/display: unlock secondary tile on Apple 5K iMac panels
+  drm/amd/display: report synced displays to PowerPlay for MCLK switch
 
-The commit message should mention explicitly whether there are any
-userspace-visible behavior changes or not.
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  8 +++--
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  8 +++--
+ .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 29 +++++++++++++++++++
+ .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 22 ++++++++++++++
+ drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
+ .../drm/amd/display/dc/link/link_detection.c  |  7 ++++-
+ .../dc/link/protocols/link_dp_capability.c    |  4 +++
+ .../display/dc/link/protocols/link_dp_phy.c   |  3 ++
+ 8 files changed, 75 insertions(+), 7 deletions(-)
 
-KEYCTL_READ now outputs in insertion order, not hash order, right?  And
-likewise for the search order of sibling keyrings.  Those differences
-should be fine, but they should be mentioned.  Any other changes?
-
-> -/*
-> - * Hash a key type, domain and description.  KEYCTL_READ exposes the tree's
-> - * traversal order, so no part of the index may contain kernel addresses.
-> + * Hash a key type, domain and description.
->   */
->  static void hash_key_type_and_desc(struct keyring_index_key *index_key)
->  {
-> -	const unsigned level_shift = ASSOC_ARRAY_LEVEL_STEP;
-> -	const unsigned long fan_mask = ASSOC_ARRAY_FAN_MASK;
->  	static siphash_key_t hash_key __read_mostly;
-> -	unsigned long hash;
->  	u64 acc;
->  
->  	get_random_once(&hash_key, sizeof(hash_key));
->  	acc = siphash(index_key->description, index_key->desc_len, &hash_key);
-> -	acc = siphash_3u64(index_key->type_id, index_key->domain_id, acc,
-> -			   &hash_key);
-> -
-> -	/* Fold the hash down to 32 bits if need be. */
-> -	hash = acc;
-> -	if (ASSOC_ARRAY_KEY_CHUNK_SIZE == 32)
-> -		hash ^= acc >> 32;
-> -
-> -	/* Squidge all the keyrings into a separate part of the tree to
-> -	 * ordinary keys by making sure the lowest level segment in the hash is
-> -	 * zero for keyrings and non-zero otherwise.
-> -	 */
-> -	if (index_key->type != &key_type_keyring && (hash & fan_mask) == 0)
-> -		hash |= (hash >> (ASSOC_ARRAY_KEY_CHUNK_SIZE - level_shift)) | 1;
-> -	else if (index_key->type == &key_type_keyring && (hash & fan_mask) != 0)
-> -		hash = (hash + (hash << level_shift)) & ~fan_mask;
-> -	index_key->hash = hash;
-> +	index_key->hash = siphash_3u64((uintptr_t)index_key->type,
-> +				       (uintptr_t)index_key->domain_tag,
-> +				       acc, &hash_key);
-
-There should be a comment here that explains why it's safe to hash the
-pointers and truncate the hash value.  It is clear to me but will not be
-to others.  Here is what I suggested on v1:
-
-        /*
-         * Compute a SipHash value of the description, type pointer, and domain
-         * tag pointer using a per-boot random key.
-         *
-         * Note that using the pointers as input to the hash is safe, since
-         * SipHash is a cryptographically secure pseudorandom function.  Thus
-         * the hash values don't leak any information about the pointers.
-         *
-         * Similarly, truncating the SipHash values to the required 32 bits is
-         * also safe.  No "folding" step is needed.
-         */
-
-Side note: keyring.c now uses jhash as well, so it should include
-<linux/jhash.h> explicitly rather than rely on transitive inclusion.
-
-- Eric
+-- 
+2.55.0
