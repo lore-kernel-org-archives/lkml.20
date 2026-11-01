@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571384;
-	b=Aow9Q90PLIwamOmUouhnslMHkkyKn90O1Lgxx5ngmAxmCPecp6028GvAFpHxihpTWqFr
-	 kTxkmi0Bq6hYSve62a52usAmlXfEoyeZAsy3CYDDjHdmYA/2MgR7EQrMR2fmwsxxTdhK1
-	 V83Axy6iO+4WEv2ITyGJ4O10EX6Wa5ZVA3+K/BW6AlGXT3J14dmlN1COHaQoq6VVt2kCp
-	 zrip+/mMj6JalgwK4yTL4AcbOZFY5C/SO47KVr2PSAG8EB8H85N+MUwPoqpq3wwX8oZUO
-	 5KGL23wH70MS1VZ9WasJgtUnqoDtrz/csYpPbNspYdTIl6ilcjTYI735oJfM0Ct7tjw==
+	t=1793571356;
+	b=0oL3r30Y4NzRmJJdREHrR39IVJHdwFdO3k9vEUaGi4rZw6gT2X0JhW+Mel/8l0lq2OFm
+	 KTrxjBSaF7N+jMqjSTqdNEnQmp/Ahp4xm8/1zn88RptQjx86Y+MRTYBoA7M481wRdWtsA
+	 vJ+v5KPIjKtoyUtBMlaUORtyyN/hAaojijTXpOInH+Rz/Vx1qnd/EiG7wysg7lOWT3GOC
+	 27HA8QiRNlraSloHGWJeK0l3ndl9oYpMep2+OC+EFWEZ1TebTJje5PvmJNNXnPIyoI+J0
+	 9Y1ttTk4PrIj+9njH9yXfrErVKm0wlMK3rflYg5WfUJ/yvwWltXUklI3VXo6p/vW8mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571384;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571356;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=gmi5uewuXMed4CloBbecG8Sst+u3j+UWzS8NSli01pM=;
-	b=czskDJuZ370M+g6A9dLKFIXYuyoCJUidynEoTiTCklvQdgEf/K/JNfzcBBLl+ytEqc77
-	 hqGChtwX1D7dFSTLgIZOlbtemYjJZQnhckb0k6xc9HHtH62no/gmCI+4G0eZou9l7ViND
-	 c/W4e0HM4VBKP8bdUyDLBMboB4s5tD3LJMuN15vjSJ0uOB4je28P9uZvs9bxkF3/iEvS7
-	 ihT/N23IIKU/vtfUlJINhvezqT54Ig55sCOt489srOiEwluy+FFCdriPbVsf36c2tL/2H
-	 7PPpc/ZCWs0Y/hi5Tloi35t9tEhX3Wz4VRrCrWSF5pW4pmJEfpinY02RVqhgqjharfA==
+	bh=/rAbfbo0sbqC0IaBa1BlKo2l+kbF0qrFhj597CNVJsw=;
+	b=Lv3M/zpyCU3ppzc9x8eNGThN66THldbsYb77q0qJZzDBqoZdxW6OdSZGnueeOD6yJTSE
+	 OE4o4+tQm2i/s8v7tA0yl0EE4Mz3r9CXLszq2NQBMuErEJWYRfbUvOvvYBbtPV2wCpeil
+	 xnBACAJyEqjaE44GsHnH6djAG2UFrxouFz6E4F3No1xN/6IiD4eKpC2rn+shgscvSrqc5
+	 q4B6LoKEk3l+m254aIPQtlkL9MWMpCdrOrHstmevF9oxrfh5/WC1azDOLofMrEK1v4DI3
+	 PrxgkNRKOLwfDVz5zlP/YQ+dQse5J+scq3GhhBqaTDAcobpb78kFRqKWSKnTwtYOG3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nf3L9ctJ;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=TuQNWuUN;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF3E606B9F3;
-	Sun,  1 Nov 2026 22:16:23 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AAF3E606B9F3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52451606A33E;
+	Sun,  1 Nov 2026 22:15:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52451606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=nf3L9ctJ
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=TuQNWuUN
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=gmi5uewuXMed4CloBbecG8Sst+u3j+UWzS8NSli01pM=; b=nf3L9ctJZheEiENewBWgF4O7d4
-	w0woJPQP2GTmpWl74VRcox9MjZ2Deb0eqUSRtStoHXGL9DhHxYq/zlQ0L1r4t9itNO+dCC0ZdsZ8n
-	W+9LJEcSSTVgssUnhNQiuK0NPTpjWQ4Nbv3mOzBC/MVuPYSf+pJvnH3bjamx7eHC6ePCrl6WXPiic
-	+lj8Zub9f/PBFK9xwwmUasaTIwJhyjq4gviI/ZIo2RtaslKRJ/ANY3i8hKlbIV47ivDGORK6jO5XC
-	ys8iroOQVCQIM2Wvc1Yj/kQFog6AZUqcQjtAQ623egtCoMp0dq8k7xjmlKYynPNJqpmIm3gT6/YAQ
-	OsCudwrA==;
+	bh=/rAbfbo0sbqC0IaBa1BlKo2l+kbF0qrFhj597CNVJsw=; b=TuQNWuUNzCW8lMfyzUY6T/5Ggu
+	P85UjS1z5Ss/B5adnOY+BkFcLgtqEkuf7HHZMLWTX4y2P/WbcaPxvsemvwkdaP53jYKdu/QfWEouM
+	JX8hgVJWbC+Fw1rNnUav7G0IDtgcuNxOPcOQGr6+sCckggx0fIhFNBA0kxioK+rQRMX4wVvaf8apn
+	9mn7nDlVEOo6mZAznz/mCwVrjsJ6WaRTDFLBpDVmXUJfAC0kyCdE/M2rBMw52ZA/RXNtUFEWbFfEr
+	ZXHE785PZrk5SQszDTEgChlVfv9F46qFMnZ5O8xD83qEb2KvwqUeX4puFoKY9ndsTYj3C4Uf38zAe
+	JKwnlxcw==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Igor Velkov <iav@iav.lv>
 Cc: Heiko Stuebner <heiko@sntech.de>,
@@ -52,12 +52,12 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the GPU to Kobol Helios64
-Date: Sun,  1 Nov 2026 23:16:06 +0100
-Message-ID: <179357136494.4108155.12651749876898512929.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the buzzer to Kobol Helios64
+Date: Sun,  1 Nov 2026 23:15:23 +0100
+Message-ID: <179357131397.4107717.15989067428088831380.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
-References: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
+In-Reply-To: <20261010-b4-helios64-beeper-v1-1-6235643158cf@iav.lv>
+References: <20261010-b4-helios64-beeper-v1-1-6235643158cf@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,16 +71,15 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sun, 11 Oct 2026 00:53:01 +0300, Igor Velkov wrote:
-> The GPU core of Helios64 is supplied by U12, a Silergy SYR838 on i2c0
-> at 0x41, with its VSEL pin on GPU_SLEEP_H (GPIO1_B6). Describe it as
-> silergy,syr828, the way vdd_cpu_b (a SYR837) is described as
-> silergy,syr827, and enable the GPU.
+On Sat, 10 Oct 2026 23:00:16 +0300, Igor Velkov wrote:
+> Helios64 has a 2-pin header, P4, for an external buzzer: pin 1 is 5 V,
+> pin 2 is switched to ground by a MOSFET driven from GPIO4_D3
+> (BUZZER_ON), active high. Describe it as a gpio-beeper.
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: Add the GPU to Kobol Helios64
-      commit: fb33952897e8a998bf026fee7f184b474a8381f1
+[1/1] arm64: dts: rockchip: Add the buzzer to Kobol Helios64
+      commit: 1f8c17240e23a37072793267cbb64587f24d4f2f
 
 Best regards,
 -- 
