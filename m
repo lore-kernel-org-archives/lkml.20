@@ -1,75 +1,146 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793493536;
-	b=ZFEPbtTw6ASbBap0DUeuBXZeeJnOjRAR14ZxpkwtjyN1bojYmRkUcw5o4raepMGiREqa
-	 kh+cjaAKozEYRkXC3/uorFSDGPiaHmsq8vkxEhns8/4Kqp9DTxzy5ILGyMS6GfIsQpHqd
-	 flKSwy6PVBRYxpRraEreiBaoiDQeajAgTRr+Cc7l7Apd15+g4R1F8l9nmYLBsnuvnPYPa
-	 SC6Yl7L0UCosBIIwMrkAasoHWuhJsQCXSjkcP0uhbbwSQ++T7jbp4tC9GwlGPqeOAuP9Q
-	 K6+FQ/8wHGLdBBNM8DLLKTOXK409rMk3XZ296hTm8aMdid7ypGHzJPOjQ0IUzJZXLrA==
+	t=1793493545;
+	b=OoMSDALjTk8McBNThZvGzA+ldNlV2sQ2Iq2cBfK7PHFpXathhPKTtTMGQexhoHQTz+fD
+	 1UeNocYO8dT5NOSk79/EDRBxSJsv5ffPHhZWTSp8EgC6nrFwfz1tcxrYc74XpFfxtm3ID
+	 /AZnlV1ZLfKJKXYfcHOdeZBMD5uPkIg8UHz/0PTmuzahR2YS9GaXo45ualR2q6LnnBiTn
+	 b5gUCnWb+u+Juv9kYs+UIEzVnf8gXLURpnORVyDj3wew3Hqb1YLLMyI+zMvkYQC0y4yQZ
+	 B1hixrQvleRPIITwbSVKoiJVAdh0Jrk/Z2t9U1BOvh+fjmM/gh6XCJ4NTA8G1DeUFOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793493536;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:
-	 User-Agent:MIME-Version:X-Spam-Status:X-Rspamd-Server:
-	 X-Stat-Signature:X-Rspamd-Queue-Id:X-Session-Marker:X-Session-ID:
-	 X-HE-Tag:X-HE-Meta;
-	bh=2NTztGF26GvKO0/bkQXKVX509oc+Xe4ciubHbw6x/mU=;
-	b=2xox3gKJy8zLDudyD369102Uwe/U51/UamSLWenUxhTvyf8dSsZdqNvehVzRdvcbs9Y1
-	 7jAq//+8zL/6mDmmNeOYWERGTQLGvzklZoyarF2G4t22vZnvcZgsapjEPVFIS11a4ES6Y
-	 l6Tt/1Ldy2nW4Sjx3orgtIvoOsExU80xiOn69hfusre2AoXlp7R+DCZuJKBGrYqPj4pzx
-	 cbnB8zNi4MvWP82ATxUKRPvsHiNfEmWGSU1U2zr10kz+JUj8zSEWCk9oyntpIksJPEZiY
-	 sLZrlIQzYDTxKJf7nNovX6DpIPPwMFQzmDIObRlS2wPpkV1jd+Z3LGWQdVgC3Dp0HZw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793493545;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:Autocrypt:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version;
+	bh=pn5P7ttPR95Kyhm5wG9WHU65Xv11dOaCkmGNVaM06ik=;
+	b=3/APFwwjjnxqw4jCv9DKf4m6aumawA/OaugJS4e1IFWk12sjbt+L10SDybSZEI9CXPVF
+	 eKZdGIZwxud+yRwIMmUjlC4uzu7d13Ntt4RJX3cGuVb3ZhmHkCkt+6K9nSFDucq/t4SuO
+	 klBC/V+J2uKFSrXilgQJ+dk6iS8qjYpVl75nApUyEnKPgyDgVCwIgE3Qs2H2QkZp7azNk
+	 peL1Myth2r7yIQPAZDX/7ycam2jJa8Uo5hy4JSa9oRO4vw/2awy3q/b52NGz9wgt0adH6
+	 ucCvHji0FATli0FNp/XOtM+Ug53kGd/+x9I1hGiroxEd5Sq+3oCObSH+y0HKQLG/BnA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=dubeyko.com;
+	spf=pass smtp.mailfrom=dubeyko.com;
+	dkim=pass header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=d0vep8HK;
+	arc=none smtp.remote-ip=74.125.224.52
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90076606A31C;
-	Sun,  1 Nov 2026 00:38:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 90076606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf07.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay04.hostedemail.com (Postfix) with ESMTP id 5A9021A0838;
-	Sun,  1 Nov 2026 00:38:53 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf07.hostedemail.com (Postfix) with ESMTPA id C226E2002C;
-	Sun,  1 Nov 2026 00:38:47 +0000 (UTC)
-Message-ID: <5ad69a1167fddc7caf1eb73e439765116db1ce17.camel@perches.com>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-From: Joe Perches <joe@perches.com>
-To: Borislav Petkov <bp@alien8.de>
-Cc: Kiryl Shutsemau <kas@kernel.org>, Rick Edgecombe	
- <rick.p.edgecombe@intel.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
- Krzysztof Kozlowski	 <krzk@kernel.org>, Biju Das
- <biju.das.jz@bp.renesas.com>, "biju.das.au"	 <biju.das.au@gmail.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>,
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "linux-serial@vger.kernel.org"	 <linux-serial@vger.kernel.org>,
- "linux-renesas-soc@vger.kernel.org"	 <linux-renesas-soc@vger.kernel.org>,
- "x86@kernel.org" <x86@kernel.org>,  "linux-coco@lists.linux.dev"	
- <linux-coco@lists.linux.dev>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
- Au Dang <au.dang.jx@renesas.com>
-Date: Sat, 31 Oct 2026 17:38:46 -0700
-In-Reply-To: <20261031235958.GDauaA_pScrsk2xYUF@fat_crate.local>
-References: 
-	<TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-	 <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org>
-	 <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
-	 <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
-	 <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
-	 <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
-	 <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
-	 <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
-	 <20261031202741.GAauZPPfNDpQLSmIZD@fat_crate.local>
-	 <94f0ab99b5c9072ce7c026672f704b2987db427f.camel@perches.com>
-	 <20261031235958.GDauaA_pScrsk2xYUF@fat_crate.local>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3DC2606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 00:39:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3DC2606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=dubeyko-com.20260707.gappssmtp.com header.i=@dubeyko-com.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=d0vep8HK
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6768403e9bbso1609017d50.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 17:39:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20260707.gappssmtp.com; s=20260707; t=1793493544; x=1794098344; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=pn5P7ttPR95Kyhm5wG9WHU65Xv11dOaCkmGNVaM06ik=;
+        b=d0vep8HKObnTFnsR66HLeDGvpM8oCn4wNkX8DxHRa03Am5jzyCOWSZJ1etN1i4TQwB
+         vAmXEVbz/7pYacqJmHGiHs4FdnoIJ5qdcwlwCUHxccsJduj0Q1F2OFnz65yIakwa8rec
+         OUHffZOE+HheJ4H10jq0VeGvp2NjofhSsMssgjDF2PETojMXsvBcNNLwDr+CaZzVeuOM
+         zYpTfwHomcJZLtWHYWooQd4JDmH52wIqkZprgh6NQ4wQontan1zxpwEbZBbaK3g3OMTy
+         B8n9MtxF+Ckup/QFjyiYUxSGpI8YwKjxmporzVfYct2LEgOfNLyN3pPK32jFEw1IfCBb
+         aXeQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793493544; x=1794098344;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pn5P7ttPR95Kyhm5wG9WHU65Xv11dOaCkmGNVaM06ik=;
+        b=CyYdkK1NbxcubbMzjRMFeGCS1AuB53LHe6ntKXvaBr0FkKjbrhM8QlmxnyBz7ZsmXk
+         ZHIm2onzfQLYjYhbmeP1L8iJyt3BaXOR9e3ti/LICVuArTUobmUNiAUFX3fuQiPd49Da
+         xfiC7fNkA/jJdx/p4TKA9FJiCqzPjZM78G83A4fnKYOARPMfs7tOJLqIYIK/DiQNCZ8H
+         swJGy+3wud7+1tn0bsdQIN4Dzc2OZrZDa0wyyHcN14wVUDKE0dnPpqsdIIvaW+2lJG3w
+         ucn04oLM6ryWPk6Eqb3Ey0RH5RfAIuoeThsnKYWG9wtvUe4qaztG3n111P7QHq68Fa8I
+         pJbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzCrWbXIQ+boC3/IHWM0OppHpyjYY1jIVv+hBcjGa0AAoYkXHvHONMGd7kLte0+SLd/kN8KXrDnNuxLG0k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8DID86xBDju7nnEVRuZ0Kp8XpPjTS32TdXwtODhDXKDdupQdeM
+	oE4FyyZnvR49VU4u2DgeUOXT0LiVY9M42WRXad6RsRouRrbMAx22980EWmd2X4zK45IGETMv5q5
+	NNbhvcok=
+X-Gm-Gg: AYBFou3RJDagKjZK/ME8hd5xyykWFrSigy6pwNJ366BufQzFGh3lh8D5SADEBzaLYpx
+	eawNhzUsY+fj/JPnMps/KrIwNABbOLsd2hbDMxSDQ1sBS0EetIyd0COk9r6ZFhmK0P4dEfUkQqP
+	Dn4oVXDiwwWbWYdo+0m/pjin4IKbaC2qRwVNHdhhl8LNQBzVRL2qCjrdz7zlQ9Tt1iAwQALC+Th
+	pvWFCybz3RpkxltrfiFEzv0CnYO4xC1arrttFNEeQjkvvs6sLp7qTDOZ+p5VT8In+nOOnCI8VJC
+	OUz0fINTXAm/nknh1hDdCzkebnX3VXFjP2b8zrFE50Z4EDRvh9bk4mmksgkmYhJF8TqjKCOWjWx
+	crFTMf/60AztFhmU6h6EqTiyxF5ddW3PpMQbkHoaHYVm5SoJ0GrEgLftahwHYRnAV7wX31pSqgz
+	GjYMtbaPyDwB3VrzjjInPBnQ1wKo3krlDlZWAZme6VZURQ5R2BEa9qiub8jPu2iInOoyvx7ijHW
+	/S39sQWvbMOWFfJF+mV7rfvUC8XoFRcmal9z3Z+cXzySoYL9vtnpSpeE8A2lKkYNsICbmAJ5Z/e
+	qTPDP/rwE1RSp2tYHLnu0ctoYnjyfIkKePF0OIkoQ90WK560hYhktxy7JNHJrKJKOsGOOluQfYY
+	5KF/wLIuSItrE2G48LJurW5LUp53zqazs7jNLxoGzuAglJuAf+hsrv83H7NRvkGUWoZX8EHybm+
+	B7oR5iUim5gOusl1f8aaA=
+X-Received: by 2002:a05:690e:11c9:b0:677:c78b:f5c1 with SMTP id 956f58d0204a3-67ba4c80ea3mr5137552d50.4.1793493543967;
+        Sat, 31 Oct 2026 17:39:03 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:6f84:fe3e:51d2:f3cd? ([2600:1700:6476:1430:6f84:fe3e:51d2:f3cd])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf27263csm2233760d50.4.2026.10.31.17.39.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 17:39:02 -0700 (PDT)
+Message-ID: <7526dbc0d720a2d13b8a1d9cb7ac8357648ed6d4.camel@dubeyko.com>
+Subject: Re: [PATCH v7] hfsplus: fix null-ptr-deref by creating hidden dir
+ on remount rw
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Joas Antonio dos Santos <joasantonio108@gmail.com>, Deepanshu Kartikey
+	 <kartikey406@gmail.com>, glaubitz@physik.fu-berlin.de, frank.li@vivo.com
+Cc: linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	syzbot+c0ba772a362e70937dfb@syzkaller.appspotmail.com
+Date: Sat, 31 Oct 2026 17:39:00 -0700
+In-Reply-To: <179340981245.8403.4135841764755575334@gmail.com>
+References: <20260717135706.42918-1-kartikey406@gmail.com>
+	 <179340981245.8403.4135841764755575334@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,29 +150,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout06
-X-Stat-Signature: 9qg86nfazz3m68n631948ftn5cfi9j79
-X-Rspamd-Queue-Id: C226E2002C
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1/+wDw/0eI1zwSzjIvGXZ69wAnTk9DXqaY=
-X-HE-Tag: 1793493527-313710
-X-HE-Meta: U2FsdGVkX184D06UuHRutAh3RSj4qWrKeaNZYoK4fFL5V54we/zJTGTNU2Bd0MrOnqvxigZeYWqTot/MAgciRnJwE1ziXvp8eFCNc0jJoz/UFHBmQw0oubQKIvPxZ8U+b/dvE5D38uE7wHuFJPikNZQxI8VELGE3VXX5TS+1wN4pHmCJD+7s/jwR5lXHmSmcWchV3mgaIg0mhkqZhi5pX1k7Y5O5R64/ZUhzkC96ssaR9suqXEsRzGoRBxDGi2WAg+g/baYHKX1QnAjmrqz4Gb+HzqcN3qj2yloee9UC5dyC5jfEC8JOeLXPQ/efJCn1
 
-On Sat, 2026-10-31 at 16:59 -0700, Borislav Petkov wrote:
-> On Sat, Oct 31, 2026 at 03:52:50PM -0700, Joe Perches wrote:
-> > Please add a wildcard * at the end
+On Fri, 2026-10-30 at 22:23 -0300, Joas Antonio dos Santos wrote:
+> On Fri, 17 Jul 2026 19:27:06 +0530, Deepanshu Kartikey wrote:
+> > hfsplus_reconfigure() does not create the hidden directory when
+> > remounting from read-only to read-write, leaving sbi->hidden_dir
+> > as NULL.
 >=20
-> I will, once the rationale is clear and documented so that people know wh=
-at to
-> do in the future.
+> I independently reproduced the syzbot null-ptr-deref and confirm the
+> root cause: on a read-only mount of a volume whose on-disk "HFS+
+> Private
+> Data" directory is absent, sbi->hidden_dir stays NULL (it is created
+> only in hfsplus_fill_super() under !sb_rdonly). After a remount,rw,
+> hfsplus_unlink() -> hfsplus_cat_write_inode(sbi->hidden_dir)
+> dereferences
+> the NULL inode (inode->i_sb) during rename -- the reported crash in
+> the
+> [0x28-0x2f] range.
+>=20
+> I applied v7 on c339f4010 and tested on arm64 with KASAN, using the
+> crafted image from the syzbot reproducer and the equivalent sequence
+> (mount -o ro -> mount -o remount,rw -> rename): without the patch
+> this
+> oopses in hfsplus_cat_write_inode; with v7 the remount,rw creates the
+> hidden directory, the rename succeeds, and the KASAN splat is gone. A
+> normal read-write mount + rename is unaffected.
+>=20
+> Tested-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+>=20
 
-MAINTAINERS currently has:
+I've reworked the v7 of the patch addressing my concerns and comments.
+I will apply the v8 of the patch on HFS/HFS+ tree (for-next branch)
+when 7.4-rc1 will be released.
 
-	F: *Files* and directories wildcard patterns.
-	   A trailing slash includes all files and subdirectory files.
-	   F:	drivers/net/	all files in and below drivers/net
-	   F:	drivers/net/*	all files in drivers/net, but not below
-	   F:	*/net/*		all files in "any top level directory"/net
-	   F:	fs/**/*foo*.c	all *foo*.c files in any subdirectory of fs
-
-How would you make that clearer?
+Thanks,
+Slava.
