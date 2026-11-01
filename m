@@ -1,60 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793547519;
-	b=A5rRhm3QJoSs6f4r/Jj93esEdK7IneS29sglo9P8VboMzUrJmXLS5wNKYV22hFYAInWF
-	 QeaS//hN8xwQN/RIjarHnEiRxP9eVHs8CQGJ4q7pRMzTXyeK81JS4OAlgVzrkBdMmeFDn
-	 JpzHiH2XhiXzxm+movAKbmpRMtvpzLbRSqX235PRyt8/5lO28JYNQ6V1rub83XXera1bv
-	 pnWAQLseUQdn40lrUJ69kwoq+7rmlaeNYjuGPnoi2tJjZBdAvZYZ2xaQGMmUV5kZ7SFkq
-	 vHD0vCFTLlVZgch8Cn9gVfxry6HSuVBZnmwglANA7btO1yLQcIbTq7DhNgnZV/9i8EA==
+	t=1793547527;
+	b=l/3zuJckxErFoqwBDSFiEi6/Xis9ZMSYWM/ht3JK4j8WX4BZaLLiSGoV0F23V1DTBN4K
+	 rOqGVlEzsOqrd1bKC7GrNLRnay9pa0Rh3wcMQa/eJGfIv5nzCraSbnFHdZc3DwtgJHUOP
+	 xnjEE0tBd9GVN/asPJpjPaUVrIPJfGvVKM2RUOJWDtw+scX+JCok+kCoQ6t8prChJOF/E
+	 f4Ij7mqzP7hCNqYcxPaecVeBlJpMlr/7RyKoCh4JbHj9HbRhPR5AT6IQwD7hXkDhffwRk
+	 7o0fRWVMk5DAT3TA/RgJeu57rTgfFJZrdAd59CEvie0wMSuf8Eq5KBObYzJQ3Rb6fuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793547519;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+nlXZpj0iGB+6zl5ihr7+xk+fdVSweEY0gKqQhLDg9U=;
-	b=ki2HjdX+OVnR4H0axDABYqIkdQpPkBlqOrr27+1mQU4lzotCTwajKPggTd3NeZf+wfwv
-	 UjNWBOPy9uRV3ujuFBGVn3EWOfTubZJZgQ9Brb8NO0Ges/Qao4JoQgWnnf75v3LBZO/ZV
-	 sS7tVZGZB1brR3Sd6Uq3kihyIGy4YEDPnV3d6V5V7ZqJHHb5Zghco2gZ5081RSeLX8gBK
-	 Po0nDwjJGgHjJi6698+a2arZrp8cdnDUjKNG10vB8g4sajTHo0ZFVcpKVxfaR2PwLleZl
-	 CUUzhFyK9GeI+N44bPqu/Gfm68Q8+Fl4jUvow1Te+QxB4tj7maK8vLmOIqxhB0Vo5Bg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793547527;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=y4TC5oAYHs7m0oof9CZGtZfqTYpKndLI+6fmGJ2s+hM=;
+	b=MUZ8yROAqpgZ1Mk+LJBcYN4f1/lyB6Z0kwM/kjjy3Nb8Jp8jet0PPd/kOIoO4V7UvVf9
+	 PqSPZ4H5VzwlqAIAc7yNQqKIkd5RX9z7fll+KkBjGXHiwVOQnxC9auBBBmdXz16cg/i/t
+	 TtuDW7/5YRDvC1l8+oQEUJNhR14lmbUZQBqEcNIWcr3qdtoVJnvHe2iOssh1EN+2+Ox0G
+	 swwS9GTggTSuoXNRjLtj5GJkHdDRrSjSchcP02XuJ6+jjGD8AX3Iy22A3qwvTtDph9fzI
+	 wrCx1cR/ViPaubaihU1eZMWd7WFLg4ZjYW+z6PnKANzeDo9P281C2de0WiIjZKsGiWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b="qZ/K3+35";
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=bK12eE5Q;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IXDSYuIt;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD31606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:38:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AD31606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434EE606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:38:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 434EE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=qZ/K3+35;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=bK12eE5Q
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793547498; bh=+nlXZpj0iGB+6zl5ihr7+xk
-	+fdVSweEY0gKqQhLDg9U=; b=qZ/K3+35ceNRo0t6/18qDWKrEXURcKizLJfaUZkDIxqtkYkj+p
-	Get60UQhGKBlj8jrXSeLIGyT9avHRZ8JEJXCDCTSmlsWMF4MxBV2IDYs7QNpnkeySEO07V+1OvZ
-	HQJx4SbTZyz/BNcfYKM/rrVeUt42kCHzco7YFYP0qKwuYeDNcE0iYDiYT5FlloAa6K/dgOlCMsn
-	yXoozVpo69d2SsypNtBkYx3a0CzpdVQJ5ehMQ29gyzZpFT59W7m8LUj7rTf653T/S35jlF6t2vt
-	Ssros/VRYmS0jUNyjbjNm5fqUt/mAJQ5yQjhB94NkENbzGgeBMO603cTc3Qis8LDiow==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793547498; bh=+nlXZpj0iGB+6zl5ihr7+xk
-	+fdVSweEY0gKqQhLDg9U=; b=bK12eE5QFUXYZghV36hGz46Wajk7vSBU6i/+lCfumfb4n7yo8Y
-	SwomYAp5Qw6aVh0/XkeCgrHyMEx9vXhGX/DQ==;
-Date: Sun, 01 Nov 2026 15:38:16 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: lauserve@gmail.com
-CC: akpm@linux-foundation.org, brauner@kernel.org, jannh@google.com,
- laurijssen@protonmail.com, linux-kernel@vger.kernel.org, pjw@kernel.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH=5D_add_setutsname_to_reuse_?=
- =?US-ASCII?Q?code_in_setdomainname_and_sethostname?=
-In-Reply-To: <20261101071227.14893-1-laurijssen@protonmail.com>
-Message-ID: <AE97EF84-F9EB-403E-B2A5-E75A4C329179@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=IXDSYuIt
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8a086f5d91aso2981373b3a.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:38:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793547526; x=1794152326; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y4TC5oAYHs7m0oof9CZGtZfqTYpKndLI+6fmGJ2s+hM=;
+        b=IXDSYuItLSaxnqoVKukX0g47XLtbVnvRRKeef741LJLA3gTWZekxiQWzrut+TAsEhI
+         hnaY320n0OSq8F5KtdsNBqWfI6pkeIuWA9XZuH9j6wlhUKNXAM3ibQXXXF7a+i938pXA
+         XfWjw1L+BXduRDlWdKhHhW7MUUfpF76l4/Vvv5HethbpMxIlX9MC0t+8Snn1pv83VhOW
+         jCAB0lePRXG9MfCOiq63h+bJo+UzzeCob17be2J86uFN8TyUbJrBZCVdL4fNtqbfxPIZ
+         Z87yveRZw24RXbb1jSaXFAtWiZSlDr/S8gy/8WtV6TvrBjYQcHtr5jd6+1nH88Jazsag
+         OdpQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793547526; x=1794152326;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=y4TC5oAYHs7m0oof9CZGtZfqTYpKndLI+6fmGJ2s+hM=;
+        b=g44h6YNXxuhvEHsFoENtYZWaSNSvhz+YN9unYRw6WgTRrpQeXEhY2x/xm860W443OR
+         XP2aK+TiQm2kcymGiXdUQ+tV+73AqW6qip7clFF4rVzoib7CBFVvr117JTN+nRTWBe6N
+         DY/46DUy0chSvmgrIw8Pr+hdUHw/QIUEgA5W5aLJYXv/YfAk+d9mqmsV8yDJ+QbSx9hT
+         5zp6VV3XyLYgJx5pj6F43yl4vEyqLFn4PwTisxQhvwatNV2g6PRSRG10sdowAOIzbQUR
+         6nMHjDO93xAuFcf2RoBjyIjv04SYc2rymj9V6AwP/Y1PMxkHSmGyk1s7g5uIWyfq7eZs
+         yWIw==
+X-Forwarded-Encrypted: i=1; AKwUvBwy4DyS2weOGV3xk8tsOM7Rpp8r2q9Yg1CvhN7XEOh3Jg0p8hCvhWxA5IoqO79LUSZnOexAuPQL7D9P0QI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqxbNq4EEhFp9KM1XslrTov1GmXgi1Nlew7/TJOL4LsaCbppRW
+	jmKkTibI+zGY/zUydMRU4PI6lQ2a9bDmyawb/dK+GrKQ/SzHswwwu3LsrR6YwApqa2RD2cqKFhB
+	cSYirBg==
+X-Received: from pfnj8.prod.google.com ([2002:aa7:83c8:0:b0:8a6:c8f0:ec6d])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:2e8f:b0:8a0:1c79:b442
+ with SMTP id d2e1a72fcca58-8a9b69872fbmr7076112b3a.0.1793547526202; Sun, 01
+ Nov 2026 07:38:46 -0800 (PST)
+Date: Sun, 1 Nov 2026 15:38:45 +0000
+In-Reply-To: <0b1a91e7fa0de128c6e2bd3ae2f5c960a5c0f883.1793444262.git.thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,115 +77,72 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+References: <0b1a91e7fa0de128c6e2bd3ae2f5c960a5c0f883.1793444262.git.thnkslprpt@gmail.com>
+Message-ID: <audZ1egS6dmi9ZfE@google.com>
+Subject: Re: [PATCH net 1/2] net: check the sendmsg LSM hook for every batched message
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, pabeni@redhat.com, 
+	willemb@google.com, davem@davemloft.net, kuba@kernel.org, horms@kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-> +static int setutsname(char __user *name, int len, enum uts_proc uts_proc,
-> +		      char (*field)[__NEW_UTS_LEN + 1],
-> +		      int fieldlen)
+On Sat, 31 Oct 2026 13:08:40 +0200, Avi Weiss wrote:
+> sendmmsg() skips security_socket_sendmsg() when two consecutive
+> messages have the same explicit destination address. The comparison
+> does not account for the message size, so a BPF LSM policy that denies
+> large sends can be bypassed by placing an allowed message first.
 
-If we pass uts_proc, why do we also need field? Nothing keeps them in sync.
-UTS_PROC_HOSTNAME paired with &u->domainname still writes where you wanted,
-it just notifies the wrong sysctl poll, and the compiler says nothing about
-it. Both callsites are right today so its not a bug, its a shape I would
-rather not have in the tree. The enum already names the two writable
-fields,
-so let the helper pick the field from it. fieldlen can go too, the array in
-the parameter list already says 65, so sizeof(*field) is the whole field. I
-built that bit standalone to be sure, it gives 65.
+What is the real use case ?
 
-Diff on top of your patch, it applies clean and builds here:
-
-diff --git a/kernel/sys.c b/kernel/sys.c
-index 3a4e483..f957871 100644
---- a/kernel/sys.c
-+++ b/kernel/sys.c
-@@ -1419,9 +1419,7 @@ SYSCALL_DEFINE1(olduname, struct oldold_utsname __user *, name)
- }
- #endif
- 
--static int setutsname(char __user *name, int len, enum uts_proc uts_proc,
--		      char (*field)[__NEW_UTS_LEN + 1],
--		      int fieldlen)
-+static int setutsname(char __user *name, int len, enum uts_proc proc)
- {
- 	int errno;
- 	char tmp[__NEW_UTS_LEN];
-@@ -1433,13 +1431,17 @@ static int setutsname(char __user *name, int len, enum uts_proc uts_proc,
- 		return -EINVAL;
- 	errno = -EFAULT;
- 	if (!copy_from_user(tmp, name, len)) {
-+		struct new_utsname *u;
-+		char *field;
-+
- 		add_device_randomness(tmp, len);
- 		down_write(&uts_sem);
--		memcpy(*field, tmp, len);
--		memset(*field + len, 0, fieldlen - len);
--
-+		u = utsname();
-+		field = proc == UTS_PROC_HOSTNAME ? u->nodename : u->domainname;
-+		memcpy(field, tmp, len);
-+		memset(field + len, 0, sizeof_field(struct new_utsname, nodename) - len);
- 		errno = 0;
--		uts_proc_notify(uts_proc);
-+		uts_proc_notify(proc);
- 		up_write(&uts_sem);
- 	}
- 	return errno;
-@@ -1447,10 +1449,7 @@ static int setutsname(char __user *name, int len, enum uts_proc uts_proc,
- 
- SYSCALL_DEFINE2(sethostname, char __user *, name, int, len)
- {
--	// utsname() always returns a valid pointer to the current utsname structure.
--	struct new_utsname *u = utsname();
--
--	return setutsname(name, len, UTS_PROC_HOSTNAME, &u->nodename, sizeof(u->nodename));
-+	return setutsname(name, len, UTS_PROC_HOSTNAME);
- }
- 
- #ifdef __ARCH_WANT_SYS_GETHOSTNAME
-@@ -1483,10 +1482,7 @@ SYSCALL_DEFINE2(gethostname, char __user *, name, int, len)
-  */
- SYSCALL_DEFINE2(setdomainname, char __user *, name, int, len)
- {
--	// utsname() always returns a valid pointer to the current utsname structure.
--	struct new_utsname *u = utsname();
--
--	return setutsname(name, len, UTS_PROC_DOMAINNAME, &u->domainname, sizeof(u->domainname));
-+	return setutsname(name, len, UTS_PROC_DOMAINNAME);
- }
- 
- /* make sure you are allowed to change @tsk limits before calling this */
-
-Then both syscalls are a one line return, 12 added lines against your 18.
-If
-you would rather the other procs be loud instead of silently taken as
-domainname, make it a switch with WARN_ON_ONCE(1) in the default, I'd take
-either form.
+or is this something just flagged by AI ?
 
 
-> +	// utsname() always returns a valid pointer to the current utsname structure.
-> +	struct new_utsname *u = utsname();
+> 
+> Use __sock_sendmsg() for the cached-destination case as well, so that
+> every message undergoes the LSM check. Keep the remainder of the
+> address-caching logic unchanged in this minimal correction.
+> 
+> Fixes: 228e548e6020 ("net: Add sendmmsg socket system call")
 
-I dont think reading utsname() outside the lock is unsafe, current owns its
-nsproxy and nothing else can move uts_ns under it. But the hoist buys
-nothing and it is a change your changelog does not mention: uts_sem used to
-cover the call. Keeping it next to the memcpy means there is nothing to
-explain. The comment restates the line it sits on and it appears twice, so
-the diff drops it. Also kernel/sys.c has no // comments of its own, the
-single // in it is the SPDX line, so it reads new for this file either way.
-Anything that isnt needed, goes.
+This is net-next material.
 
-If you want more of a cleanup, the /proc/sys/kernel/
-hostname writers in kernel/utsname_sysctl.c buffer, call
-add_device_randomness(), take uts_sem and memcpy, so they are a third copy
-of this. Not the same though, they write all 65 bytes rather than len plus
-the zero fill, so afaics your patch doesn't try to cover them and that is
-fine. But that file has had "Should this be in kernel/sys.c ????" sitting
-over proc_do_uts_string() since 2007, so if you want the bigger version of
-this cleanup, that is where the shared helper goes.
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
+
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> ---
+>  net/socket.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/net/socket.c b/net/socket.c
+> index 2e3b5737c481..c2a85224ab55 100644
+> --- a/net/socket.c
+> +++ b/net/socket.c
+> @@ -2709,7 +2709,7 @@ static int ____sys_sendmsg(struct socket *sock, struct msghdr *msg_sys,
+
+ 	/*
+ 	 * If this is sendmmsg() and current destination address is same as
+ 	 * previously succeeded address, omit asking LSM's decision.
+ 	 * used_address->name_len is initialized to UINT_MAX so that the first
+ 	 * destination address never matches.
+ 	 */
+
+The comment here is stale.
+
+ 	if (used_address && msg_sys->msg_name &&
+
+>  	    used_address->name_len == msg_sys->msg_namelen &&
+>  	    !memcmp(&used_address->name, msg_sys->msg_name,
+>  		    used_address->name_len)) {
+
+Also, used_address, etc is no longer needed.
+
+
+> -		err = sock_sendmsg_nosec(sock, msg_sys);
+> +		err = __sock_sendmsg(sock, msg_sys);
+>  		goto out_freectl;
+>  	}
+>  	err = __sock_sendmsg(sock, msg_sys);
+> -- 
+> 2.43.0
+> 
