@@ -1,100 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793573527;
-	b=bzqh60J5Amx/EZllmB/oKpg1ACHA0ulYW+KFGv9oXWOK3iGMaALY7ssYN2U+908IADF5
-	 681pvg5EMiA4HIb8tqjIsGvhCfN72YqKZjZRmC9cTOM2FWDIhnFteizgUhhqUn9Zb7keV
-	 ztQP/xJereGH7WBP/K/sduRfJJ0UwHZBBTGnquZ2JPkS973tISB9WQpeDhwRwXeNRtwfv
-	 DL/F1o1rCMZolr/txcYtgboFSE7dCgO1G+bKHbK8s+R1nZGMJluOKYSceWbLpM1CqC8qr
-	 akM29ivmaTGLD5YlmZyVlAI5OemFSsS/rtTVqtKoa/mBAZxb2iksuSDV8N0BKxeR0Pg==
+	t=1793573536;
+	b=y7rv0swd8llzI0VcfccZ61V9NiSr0TTg1mW/g10Z1qTnczalVGM05H2F8MKOtZrpMYAQ
+	 XHM9Agvll05SUwEYvsVs8oEFZp8ovdyDzX9A9+AjMhTptuD7VXmTNjpI4QXKaT0rNq0IF
+	 N3dbwaBvCEX+vO1HB9OaU7pWVBcV0oZcjlF8ORD95YT57YwPD54LsBGUhDS7+v6r+SQP9
+	 3cayVMT8DA+yCfWivqwez54FcQ6/HfcUoMzL3X67vPMlB3nhFE+hZ6iOu/22y1tmC2ofP
+	 X6Eo0d9q7q1AnkyoZ95TNUGyVkL0CRlwmB4Qu8mIvu6hrcCKxI+7dq44wWl0uFLaMRw==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793573527;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793573536;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
-	b=Yg5JazVYHluPp10eaASYUwNU6cvcVi2DxJBAL7MfsFh/9XIsN6mBwF1uoMREM351vsz/
-	 6LoQOJnG9SMP6zhUcBW9FkLXiY/NaYleP0k8uSHnN00k70tzHqanrgbwX9lbXDmqCtSsT
-	 Fd3WSfbwmv3ey7lK2WjQvY4VNm8MkhDofE35+VSaMfTpwcRCSqUc4XsUu3blEmUoa2tm5
-	 nwLCAcOqVToEasYevUKfzXYysrLjRRd2EoAuspHM9raxFJU1O1VfVToxUdyjhuVQ+gff6
-	 DJmrsh7cIFhCRiYkUOI8d0L6tbp+49rcpD0bqIysbWOSBOQa/LPUUfOPbK2+xlJIFsg==
+	bh=eu5PeOoH37NAfd6nk+CLB2nF31owU+T7GEbEN3ieYFk=;
+	b=PWxWGFSqCfUGLbXp4qfkdMVRvZ//ZdNveoojsOpqn7/B2nokMXsJLrnydMvwmLXnokIz
+	 rNikE7XeiDA2Ufero01wpBPYh1xFAOmIWFwUHUA1zEb6TrMSLWClfJejo+B3LsyMt4Qh3
+	 QANMIySNgNxBofo41vcCUD3af2Fd68W8eadoCqG9R2gY+sNAAB0YHNs0rLrEaqJu9Z7qS
+	 J0f0EkPDvZLgLsFK3s0oI5yZuKywXtrANCuX2+BuJm15mIhstKEj/TCBk00/Ry2o/LgVn
+	 n/eFKyLM0LLmtypkgBJf2HCvedPlndS1mFThrHvWGCYflCfJOfFkOuv0mkQ1lm/C4Nw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=googlemail.com;
 	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=KZ68MGIt;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=bGeXE1lu;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.53
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E45606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:52:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23E45606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32AD606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:52:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E32AD606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=KZ68MGIt
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67a2efec15cso2089384d50.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:52:06 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793573526; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=bGeXE1lu
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-679a2b5fe87so1975384d50.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:52:15 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793573535; cv=none;
         d=google.com; s=arc-20260327;
-        b=RljHPSQmWGgA7kp0eeAV8/mA+q21qRG2+7b+VAiRjHZEpCAc53GqVi1hLMpd3zwhnZ
-         RMPWl69e67xDbLNS2YK0DMuJ8Y/hRcvmpNXcDOOvPRnVAIx9y1H1OKHRCzDvI8tvvRmE
-         o183UzeB18WlKlhoE7V2MyrsuN5yQPSSrNOwgb4mxQ/k4EOrLvJPV70dYvPKl8tSboVt
-         wwygP17qj8j/qnFcyQ/kKZN8KmhDNllFc2wlvEOtpXokzvEeRYXcRUC5Q3Fu+c1PlmGw
-         XyPNEJHari8iLLSsQweJDqZIh3dj91bODs6g05PN0lS9c7FZxT9sX8xQtRRZeK0icgug
-         45pg==
+        b=iD2D7OuPOSed0Ad08vSNeqBCHZH+bEKmYblQdTFBXNRta9AvmhC0h5RVamZYRUq2/0
+         h6STd8m90OXw61GUT5wWdzb5V0NBOHaXg34VS2XHzekGWO6QYiZyHnyhIDCaZWkd1g+2
+         Q/wO3bM0r0ouna3fhjUDinJAAI2X3puPA8up/RPmm6R3Yl9BiFrurBNJr7SCIT8J6ggj
+         N/gxVccEBlfU7s6hQYPpciM/j0Hs7hgvUD0xzvmT+HJC+EsbI5BRAImKGHBZXaBIIXxB
+         uYZbX8ppeNULRAFofVOqORpGKt1wb25HDUN4rNs9zrvjbecjRlZYvBiYoierLzqyTrq6
+         wFdA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
-        fh=UFCRoGSOVKM+ol605Q65X9RHaGkKH6Zvm846ouRImPE=;
-        b=EW7GZG4dWCroTdrYlEbN0WNCboWPbbHUFA0dsx3RblT1VS72HWr9aXDLuQl1bsYHxR
-         SrbjmhBDGYNYSpfcuPV0YgqD528cxodbh+sFKUFxvdHCFHxGgUdq/fN/2e20Y96cLll0
-         Px8yafsUIG7sN1z1Lzh56ABVBP5912xYkTG03KhRv3KAFJv6gmaDYu6NQO7fAbd2nCi5
-         dykzI9noLhl16Et6ypKUH3cyJ/gavX22QzB+4soGaDv9KLsfmV+McqGbViIJzIR17kqj
-         DrmORRRanllVxCMcgi3MRGdoX5b+4sXIRnep43ZYJy6gOmW3CIH8MrjBVydc0useHH7A
-         gshg==;
+        bh=eu5PeOoH37NAfd6nk+CLB2nF31owU+T7GEbEN3ieYFk=;
+        fh=tqmBFwRuOhsdz9HTHkUWCYjAgLFdExMb1KgLkN4ewO4=;
+        b=Fg5h8F6+pxMhX3fqY01As76cTDQyAHQBRRYqS4+b+X9+0iT2CNYLoO/jJF8gc4zTzi
+         1aYN5QCVtan865yUU9F4EyFhD3woxy0kJltRnh9C8yJsCOIKbzX4qeL3JpL/HQSHlaRf
+         mxvDIgdJOk+cs3H65tJ+/l3My1WPmTo8z+n2SbCcXHFZG+BjeJJpCTJH3rLWy1moJlDi
+         hfU/UKxml59FhRUpcVr7ra7aAXNzej2Qg4sEdDiwmZDqovpgn6aMd0/Gb6/eZjAFQRId
+         xDrb7lThqocpBHS9BO33uijceRFH1/jZs9WwNPK700mtko55a33Lnx+XPawcQGznrZXK
+         8ItQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1793573526; x=1794178326; darn=vger.kernel.org;
+        d=googlemail.com; s=20260707; t=1793573535; x=1794178335; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
-        b=KZ68MGItEmtYSfdv3J5fm/2IoBnChVUSeKbq2Pa66qGPTCPZjw3TnNDR7b/HHfTnOI
-         ZSBqujYvLhZYxAyeD7AOQlWvl2xFdw7h5YJjYkR/NPjxhHERs2SmsKmpXIVnrPT4zSPg
-         q2Ia8TIOxDqtwOhukNHLVzi51sI/YjxQCjWW2edbHWxYb6U9wnMm+E2pZpD4SE59rzRL
-         /6ygKXGOOPT09kBvGn9s7JyMMiYKF8/BEANC3gI5wCCHaOEjUK1RbKZJ9aql47PupZTh
-         SxgglZnclSCWdppYicxZ/COEGDmi9VA3TnJnENbWlAKvgs3NxWelCFEKOE6eb1X67v0S
-         KLjA==
+        bh=eu5PeOoH37NAfd6nk+CLB2nF31owU+T7GEbEN3ieYFk=;
+        b=bGeXE1luiCMw3bBTfuupe0ogYgEZmQtxfeFDub8NbPQ7t8tAUp+zRTbt2l1fcRm3yM
+         RymSZLhps++0mmDisypaK5p7TbhwcOmQIZXxMuMqFFqK5l0ILxH6ekoFjNOCVIyigd7C
+         zRCdfMEK+xwcztJE/K/QieA0ZraLeNQy40BBCv867SwcGxHp23rXuzm6ze/Vm4aZPyq/
+         rVP5S4L5x+UefHxWgSfWRA9az620uOZKtHoWdzKFatJwZB1ubvExY/LylSy0t3ayqDsF
+         LQvGtI5vQ0fz/82RXsN5PULk2l3FjB6n9nEsEvtqCFentKRUIzZiDeEQH18s/BUEEvOz
+         2rSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793573526; x=1794178326;
+        d=1e100.net; s=20260707; t=1793573535; x=1794178335;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
-        b=z5ibFarRfmNcl0BdRJe3Q5GHX3qec+c3QbGpKOe2ZlhrJnozdUm+EsUq/217Tefki4
-         7fCEMmq7Rbsc1edww6qVtgNRZFGVFEWKSaXtY4yV2SyZ1AY1Vz0L1NlziSjK8k2onOia
-         toA3PnScwjrICOrDmH4xNHbCRk8jZBE2J3yktBEW/deIliCK0Pm28qfT22SYCggv1Tqs
-         94EZ9wVfNzdaVD7jbyVvqDsv2iOa1uSxXqOvdqOorb2WtFIArEjJzC1cPq/xZ1LJFaBp
-         FgrJBZIVfyNMaDGlVAS+fL65jkh5boyhBg8GpUeOdp6K0EWmbDqUjIjlivFPkNZi/TN8
-         B8DQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz1pifLv483t95FtgFgrx3hh+G4+Dz1KzO5bXLZLmiLx0LALbNnEG4nq7GseTVjlLBzIqDirqsp2DT/jHA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/EHhfGLOAjIMUNbEbiU/YpO2gLrpQ/wH+nZMjVlliHUEeS7KpN
-	JtYNM18zHjhaRd6fDnAt0fgO4JDo8IJp/tZlW6HkjjfmTtQR46wtCSLLfUhT26JVKyJX4kvYfrM
-	qU8zEGKGXu9fYYlQnMh8+DriU/tdOzEA=
-X-Gm-Gg: AYBFou2Gwl94/bg16DqnVe1P8yQ7IW3pKfbpx53BvXQa6F0v//7i/s3cMTV0/v4qzOf
-	7LxtuuAcfpbQa5aXWD5grjtRnyo0R6vzLDZ5C3tanyOLZU6gDUS9RP+uddgwrOSwWawXWJyP8DI
-	kScBc1+gNVqL9LAEUv0MKbyus28qolHS46IisQBFrmbUtBcDItubPuHN2l37uk02oFh9Bq+g7Pb
-	r4bFtPwIdMRdSGJs1R936K6yq2WUZgXXw7cK7r3L4Pie51szyn6PGXFuw2xPO+mptMGqvhOOsNX
-	dmNMES2bZut4F+UD/jPLNiNrC25Y9gYO3wmMSY0WNbsoa4MLjYS+d4VKBgeaqGrbaZ2DJYsU7SX
-	7KDiBxqQ/XHaPxLT8objPe9VzldrvnjiXEeCI9XNXiDyPoLMC60i1XdVso8RSIeSeT55YIQ==
-X-Received: by 2002:a05:690e:d8b:b0:679:c17e:407a with SMTP id
- 956f58d0204a3-67a8d6465a6mr9056359d50.49.1793573526001; Sun, 01 Nov 2026
- 14:52:06 -0800 (PST)
+        bh=eu5PeOoH37NAfd6nk+CLB2nF31owU+T7GEbEN3ieYFk=;
+        b=iInBZODUWOo2NpaS7XNucJ680RXCzr+DdhQNCzzlr4zpF9mRdvmP4CEBUWkvEY5dhv
+         /xMWOrVckqis/5WbtgMLlDLiVUcB55yhrVyFeYFqLEjkDd1GI7EA3i+fLfWiZtqpS6sT
+         oaW+vUNT/Q775t7vVswIx1Lgc43+35bpCbgXHBeS69vApeFIybMW5Mq3k1Wom6pFoDrv
+         J+k6QatmNs/ixC4AcCqMPyzJBFjhNTVkLR8mQncfKzVmWoVkaPhvy2B4tTJL955oaIJl
+         FYjhD1/tRYO44bVdaLFq5EZOR3eaHdiUpJFc4NXlA09YA1FNco171e7pQib4YJmFtz9Z
+         KEpw==
+X-Forwarded-Encrypted: i=1; AKwUvBykPY5se2AzSPmDlCvZ4JdKXe//NxkcvsJkAJMaH643BbFdky5f+z2JrtUTkEJ4PjCwKdyHswmJFoxzBmM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9nVSYZntGHwoEahF6SDkjKY3lK6lii5pXQOoG6anlP2ENi6xeL
+	SSYf0GsnTHhm85AnI9A4Bkm1c9E99Tb3laLKEsUiPCHSqrg/8kQCx+JNBsbyulOcBt+4TTkQMYT
+	l1VMkPhl4G++en4nHOQcuNx+udGI8ye0=
+X-Gm-Gg: AYBFou2dlbGMJgHmwe4bG08foJX93R6r/+9ZaxAEOaRiMGpJ68h44ircZ6hDIpAnNdz
+	KzUbH3z6y53HdjJ2t8wcC91yIInPpgyC38pskqlzHYEBU3iPglwvJc00rTLWpBdUBkD2m8gNyDa
+	HYY+ioHJL7sqJ6r0GZqhoW8c2q9ME9GnlILWOfvnyEUf1r/4zX+BGsU3x3PjMMZXNrjvQ24Mekp
+	72ChUSQozAENNLpijV/myZd022eaqAEdCsqHa+26VBge3c0ZccOQZSlmGAipHPVDeyusURaHPH7
+	yyUbCuT/5vcWTMUoWbp5kiyMOjeQQEb/9Xur7vN4oBy2GQfoZRp8cTwPnWas7Nh7zCXFLmRRAWm
+	R5N3jME7I2aTJcJ2CFkwofx6Hxkv986uwsRMf9SkjGlsgLZ64DGPiTzq4QFw8jDxWvHdEHA==
+X-Received: by 2002:a05:690e:b8d:b0:679:98dc:b39c with SMTP id
+ 956f58d0204a3-67ba501901amr5094827d50.125.1793573534917; Sun, 01 Nov 2026
+ 14:52:14 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,111 +104,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
- <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
- <at7lXEqds7ukoR2V@vireshk-B250M-D3H> <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
- <at8WfX_G0tfTlFrm@vireshk-B250M-D3H> <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
- <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com> <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
-In-Reply-To: <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
+References: <20261031200925.3364-1-yuanzhenpeng210@gmail.com>
+ <CAFBinCBo0C=KABcg5ueDTRSJhF9vmWnPwYHbaMGTOYppOsabwA@mail.gmail.com>
+ <CAEDN0nDjYLE5hy7gVLQ3hv1WESVJQWgc7T_8aLqzRui036A-_A@mail.gmail.com> <CAEDN0nBEK5PvkV-eC11XHYG04Occgs6o9_9K67OZn+xtkh68yQ@mail.gmail.com>
+In-Reply-To: <CAEDN0nBEK5PvkV-eC11XHYG04Occgs6o9_9K67OZn+xtkh68yQ@mail.gmail.com>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 1 Nov 2026 23:51:55 +0100
-X-Gm-Features: AclHuK_A-gwxcDtkBYM_gQIRYpVip7Aj0wblI5gGxYX_krXiPxYiKaGZaOCuxQI
-Message-ID: <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
-Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
-To: Chuan Liu <chuan.liu@amlogic.com>
-Cc: Christian Hewitt <christianshewitt@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, christian.koever-draxl@student.uibk.ac.at, 
-	neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com, 
-	khilman@baylibre.com, rafael@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, 
-	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+Date: Sun, 1 Nov 2026 23:52:04 +0100
+X-Gm-Features: AclHuK-R3xNv9qpm1VWMmHjI05K4ugJP9l_pkjDrq2qiEZoGQf-7YzD1L0LqP9c
+Message-ID: <CAFBinCCxfp65Fe0D1UnupghgiOkTB0-m=+L0kNSOUm7DzRFKcQ@mail.gmail.com>
+Subject: Re: [RFC PATCH] mmc: meson-mx-sdhc: add DMA bounce buffer support
+To: HELPMEEADICE <yuanzhenpeng210@gmail.com>
+Cc: linux-mmc@vger.kernel.org, ulfh@kernel.org, neil.armstrong@linaro.org, 
+	khilman@baylibre.com, jbrunet@baylibre.com, linux-amlogic@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Chuan,
+Hi,
 
-On Thu, Oct 29, 2026 at 6:30=E2=80=AFAM Chuan Liu <chuan.liu@amlogic.com> w=
-rote:
-[...]
-> Regarding the concern I mentioned above about supporting a unified
-> cpufreq driver across S4, C3, T7, ..., A9, let me explain it in more deta=
-il:
->     - These SoCs fall into several hardware architecture categories, and
-> I'm wondering whether we could take all of them into consideration and
-> implement them in a single amlogic-cpufreq.c, for example:
-I think the main question here is: how much code is shared between
-various SoC generations.
+On Sun, Nov 1, 2026 at 9:55=E2=80=AFAM HELPMEEADICE <yuanzhenpeng210@gmail.=
+com> wrote:
+>
+> Hi Martin,
+>
+> Thank you again for your feedback!
+>
+> I've completed the comparison between the original driver,
+> MMC_CAP2_MERGE_CAPABLE, and the 128 KiB bounce buffer implementation
+> on my Xunlei OneCloud (Amlogic S805).
+>
+> The results show that MMC_CAP2_MERGE_CAPABLE alone does not improve
+> performance on this platform.
+>
+> Runtime instrumentation confirmed that:
+>
+> - dma_get_merge_boundary() returns 0.
+> - host->can_dma_map_merge remains 0.
+I see, so that will prevent it from doing anything.
 
->       * S4/C3: 1 * cluster
->       * T7: 2 * clusters
->       * S7/S7D/S6: 1 * cluster + DSU
->       * A9: 2 * clusters + DSU (the 2 clusters share one DSU)
->     - For different hardware architectures, the resources that the
-> cpufreq driver has to manage also differ and are coupled with each
-> other, for example:
->       * S7/S7D/S6: the CPUs and the DSU share a single power rail, and
-> the DSU frequency scales proportionally with the CPU frequency
-> (typically dsu_clk =3D cpu_clk * 80%)
->       * A9: the resources that A9 needs to manage are relatively more
-> complicated ...
->     - Optimizing the cpufreq transition latency:
->       * Clock latency: for most S4/C3/T7 customers, the released bl31.bin
-> only supports configuring the CPU clock through SMCs with discrete clock
-> rates. Frequent set_rate()/set_parent() calls in the kernel would result
-> in a relatively large clock latency, and would cause the sugov thread to
-> consume too much CPU time, hurting scheduling performance.
-We also support a few more SoC generations upstream:
-- Meson8/8b/8m2 (32-bit ARM Cortex-A5/A9) where we need to reparent
-the CPU clock to XTAL for stable operating during clock changes (which
-should go into a cpufreq driver that implements target_intermediate).
-There's no secure monitor or firmware involved for CPU clocks.
-- GXBB/GXL/GXM use SCPI firmware CPU clock control so to my knowledge
-we're good with what we have (meaning: no custom cpufreq driver
-needed)
-- G12A single cluster, no DSU: needs a cpufreq driver that implements
-target_intermediate (currently it's managed on clock driver side in
-kernel space, no firmware involved)
-- G12B multi cluster, no DSU: needs a cpufreq driver that implements
-target_intermediate (currently it's managed on clock driver side in
-kernel space, no firmware involved)
-- SM1 single cluster and DSU: needs a cpufreq driver that implements
-target_intermediate (currently it's managed on clock driver side in
-kernel space, no firmware involved)
-
-[...]
-> The amlogic-cpufreq.c as implemented here can indeed cover the case of a
-> single cluster with no shared resources, such as S4/C3/T7. However, for
-> the upcoming SoCs where multiple clusters share resources, it may not be
-> sufficient to cover: for example, on S7/S7D/S6 the CPUs and the DSU
-> share one regulator; on A9 the two clusters share the dsu_clk, and the
-> sharing relationships among cpu_reg, cpu_sram_reg, dsu_reg and
-> dsu_sram_reg are even more complicated. For such cases, extending the
-> current amlogic-cpufreq.c would be rather difficult, so we would like to
-> make an overall evaluation.
-I think you're making a good point why it's fine to have multiple
-cpufreq drivers for Amlogic SoCs.
-My suggestion instead is to name the driver in this series
-amlogic-s4-cpufreq (or similar). From what I understand C3 support
-(maybe also T7?) can be easily added to the same driver.
-For the 32-bit SoCs I'm planning to implement amlogic-meson8-cpufreq.
-I don't know how relevant DSU is on SM1, depending on how tricky it is
-support may either go into amlogic-meson8-cpufreq or (a new)
-amlogic-meson-g12a-cpufreq.
-And for the newer SoCs like S7/S7D/S6/A9/... I trust your instinct on
-whether they should be in one driver or multiple.
-
-> We have done a lot of optimization on these issues from both the
-> hardware and software sides, and we would like the cpufreq driver we
-> submit upstream to cover these optimizations as much as possible. For
-> example, the bl31.bin for S4/C3/T7 has already been released, and
-> updating bl31.bin may cause extra trouble for customers, so we would
-> also like to balance this and see how to minimize the impact.
-I agree. I my opinion it would be best to allow the OS (in this case:
-Linux) to manage clocks so (closed source) firmware binary blob
-updates cannot cause any trouble.
+> - The block queue's max_segments remains 1.
+> - The merge-only variant behaves essentially the same as the original dri=
+ver.
+>
+> Here are the sequential read results (MiB/s, mean of 5 runs):
+>
+>                  Baseline   Merge-only   Bounce
+>     4 KiB          11.81       12.20      13.01
+>    64 KiB          12.88       12.80      57.52
+>   128 KiB          12.97       12.80      67.68
+>     1 MiB          13.11       13.05      69.43
+>
+> The bounce buffer improves sequential read throughput by up to 5.3x
+> and sequential write throughput by up to 2.1x.
+Let's wait for Ulf's feedback in the next few days if it's something
+that should go into MMC core (either by default or opt-in) or if we
+should keep it driver specific.
 
 
 Best regards,
