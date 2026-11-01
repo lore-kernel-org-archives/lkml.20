@@ -1,57 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793516872;
-	b=he0xyynj15+afDkh4R8aytowmmIIjh59FmH0vqyYVyaMOUmUDD9ged7EITnWpuWsVPpU
-	 MJJZl3MITlfazu2gK7zaw2O3giY/m51EmsRNeh49oAJJcxhF5jwmw6ERAMLFjgoS1R0gk
-	 6Z5amf2p1OhqH6cfCdmyqg+Nhxs1WVBynX3lN9hAb12CwCx9tS3u52cPREf0c5Xb4Kqqi
-	 cS9GNhcp04DNPuTLXVIFQNPiRw1+nyon6CmR/1cdJiP1rJcJoRl/cKx/0fKqpavs+XOyb
-	 WM1oUdm5YdFmcFAPvhFyVfPxCU3UkMi9aIzgQ1TNux9fQraG4aU48A/MW5d57F8lGQQ==
+	t=1793516922;
+	b=HKh9SR54JDOg81+S0xC67kEtagAzZN0c73S2ps3xF9JY0uSXQQqOBtXICMkBJaWS5Fpr
+	 0p8da5JOtTFFZZUnkIIyQgz/l3LXuKvWW17ZoK5p8OOJVGWU2obOAgYzDNRlHdQihMAgU
+	 EilICF+iQw2RY30bpmyjZDtVBOvLcZS/Df2c45Ltmji+hNskg1BCLBZcrDdDxHRvwsU5o
+	 iU28lWOiX1pZJ1jRgXkkHwsBWrrxFb2AsmVruqs1YFqLJHZTvsMKLumD3xKrwqZzh8ELc
+	 Bv9167g5hV+IzG5DS0AFhWH6yww+NLw2amsqVlaNmJESlse0Rh+NyHcpurlX/5rqS+A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793516872;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 MIME-Version:Content-Type:Content-Disposition;
-	bh=AT8gcl6fMCEUtNq2tHaXBeodJpdeUB0r97Dq8y85SxE=;
-	b=uFFv7sTSFyAr0/Ohwq8189gwgmNv1U9WU2KBovdDxOfoRHljfoQ37ODhqlOpGxwodlzQ
-	 a6jry2QSq9w+78GXqUdB+b9ZWXd3qblWQ1rDUMCC4XUzyMLUHv8AAt1YZkpM+l3gJ8dig
-	 lFgFaOclzJMhNq46m/SGeJHRJfD3qHudrMuIdU4WDpQW8WJ8AkyWBHXXRKmtuQqownCPU
-	 5NVjtAcHHHMY1vmNm/QbhUYfWaDeZt1T/kZ55+EBWkPGgLhCkhozoL53xo5i/WRSUhy/E
-	 M6zx3KrEqt4eEgipRArF1XlbsFepLkK00x4Os8BNvYrIFCm1nXt2vSHtMT9Hno+phyQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793516922;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=jkyFPxHdMr8VD/svuO9SwwzAL9XDCMj3MbQCES3rGok=;
+	b=XKRMQ2M+J3ZKWznS1UZN+4v7V3GOKwje7DnmU6dob61CeLx2mu13IBAI+7IFYRkmv+L3
+	 hb3IvpWf0gavnm1A5U+ASbxjAt56nOxCsUAv8CtNDlJTE2FUGMVGODLYdj/m8TGZuFlVI
+	 C61S4Lv9/ecqC5RGzCQjBrccsTtqCyfdlInsyPQIZHOIgqGyFT77EdjZB5FfCMJ3EpUdb
+	 xJVjQ+tHZIeNk3ef52KxZC4W5Npu7GPDZh3migJv5ovqdcqnbhQMzFBNMLBXfzPdv17S8
+	 jZ3+bioe/x4oO+zMheBsu7s1zpskt6v0Ocvad4gL+Jpygjh52cQypLySnQKECxZuaaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SavHoC6g;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="KMKXHJm/";
+	arc=none smtp.remote-ip=95.215.58.50
+Received: from mta1.migadu.com (out-50.mta1.migadu.com [95.215.58.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0314606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:07:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C23A606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:08:40 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C23A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SavHoC6g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B4751F000C1;
-	Sun,  1 Nov 2026 07:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793516871;
-	bh=AT8gcl6fMCEUtNq2tHaXBeodJpdeUB0r97Dq8y85SxE=;
-	h=Date:From:To:Cc:Subject;
-	b=SavHoC6gHlsThH6jOUm/vqruthTYlLPJFHbp+ySqQwQdVaFQTbNYDoBBSBBi6uCl6
-	 dBKUxHHKMq703VWbacPRU/jsGBLMknoiAdM4QqRvbhemp+4a36E5qBtsQkYpyCagJR
-	 HUFRUZ/ZiaN6UTPVpkdqeTg0Pfe6v2xqa3DGP62KPoKe0pYdYYhALxaMS09iDu1OYg
-	 nWgEXdow8/REtg3b6ZWZNxFlm73897JRDFhjf3JzoTJ18jalQeiSYI+D1DUxIYYb2+
-	 PHLSpP0Z+PjaeB23XuUY/2k6Fv9ixyxXFACMoqgfJQfena87kSeJvw9pCuT7NTPqyU
-	 b5/dhStYs/Nkw==
-Date: Sun, 1 Nov 2026 08:07:46 +0100
-From: Ingo Molnar <mingo@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org, Peter Zijlstra <peterz@infradead.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Juri Lelli <juri.lelli@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, Mel Gorman <mgorman@suse.de>,
-	Tejun Heo <tj@kernel.org>, Valentin Schneider <vschneid@redhat.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>
-Subject: [GIT PULL] scheduler fix
-Message-ID: <aublQi32yfcCKZ98@gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=KMKXHJm/
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=237fh+P6+tsOas/EETdM8oy9lOZa3289Iwq/LFSdwHQ=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793516919; v=1; x=1794121719;
+ b=KMKXHJm/a59z+4diB0DgMxWfGBs9ql+WELEuvIAPDc32JjEjbPIoMdYHw9IOo0jSgMC2TldQ
+ jKlIZCuMGA0JHrN3qmur6hig6fOYl45r8ZnEWhhBOY4HCA4VzYAv23ov4484M5r8Gmhum0hfPjs
+ hCpeY1g1KUV1GdrCxva5Q6F8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 64230bdbd9a72431;
+	Sun, 01 Nov 2026 07:08:39 +0000
+X-Mizu-Trace-ID: 64230bdbd9a72431
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <2f429ff5-76bf-48e4-b6ac-3db0b9bac498@linux.dev>
+Date: Sun, 1 Nov 2026 15:08:32 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,30 +58,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Linus,
-
-Please pull the latest sched/urgent Git tree from:
-
-   git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched-urgent-2026-11-01
-
-for you to fetch changes up to b327e63683a2b894b500027375342c25222b58ef:
-
-Scheduler fix:
-
- - Fix a false positive cputime related warning in kcpustat_dyntick_stop()
-   that can trigger sporadically after a clocksource switch (Stian Halseth)
-
- Thanks,
-
-	Ingo
-
------------------->
-Stian Halseth (1):
-      sched/cputime: Don't warn when the tick period starts after idle exit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 09/12] mm: hugetlb_vmemmap: make vmemmap optimization
+ folio-oriented
+To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
+ <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>, James Houghton
+ <jthoughton@google.com>, David Hildenbrand <david@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261020115306.813483-1-songmuchun@bytedance.com>
+ <20261020115824.823278-1-songmuchun@bytedance.com>
+ <20261020115824.823278-8-songmuchun@bytedance.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20261020115824.823278-8-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
 
- kernel/sched/cputime.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+
+On 10/20/26 7:58 PM, Muchun Song wrote:
+> Vmemmap optimization operates on one folio at a time, but the current
+> interface exposes a raw address range and requires the HugeTLB caller to
+> prepare part of the operation.  This splits the common mechanism across
+> layers and obscures its natural unit of work.
+> 
+> Make the folio the unit of vmemmap optimization and move the common
+> mechanics behind a folio-oriented interface.  This keeps HugeTLB-specific]
+
+This makes the interface much more solid. Nice cleanup!
+
+> eligibility and state in the caller while making the remapping code
+> applicable to any eligible folio.
+> 
+> No functional change intended.
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+>   mm/hugetlb_vmemmap.c | 67 ++++++++++++++++++++------------------------
+>   1 file changed, 31 insertions(+), 36 deletions(-)
+> 
+
+Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+
+Thanks,
+Qi
+
