@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793517382;
-	b=FaQotR9bOWX6mKcO4asP9jRK3l1eJkgllnxOOyk3gwoVe4Jt0iBZRNr5XhjvsIQwpqZ9
-	 JhwbJpfnfLVVTg7URb7z6vFjh1SmwvZVDSkCGkk6Hyis1e8/p3mt2d+wHdzZ92qIP7ZnV
-	 n3YOPPrjCii7Gvp2gS690NqpjtaFBSLICYluwfW8RxsgAb5Pi0teDK/wtUc28IcM2mWFF
-	 Kptii3PtR8wDvmzu0JyNulejyCmi6eEG6EFufqG5lC+UB0pfId3k6gL4sOBkaXy1NNtJ7
-	 Yn+1gN28O7Mmfec/XFol90ztOg4y+7rpJg92xCIF5W4PhBvjn4QDbhsoyCMjt6ie/Vg==
+	t=1793517409;
+	b=eo6w4IQqeEVKShmhsQtE/OehvuGlXw91Grs1OFH16IADpjEUAB1MEt/FhS+d0A1iuB2L
+	 dLGtyS49Wu5oVmL44U6bVCsBfiD1x4Bo30K8AyTY1fXXAkgZuXEfeCif++KpaYe1vrB7+
+	 Zz7GJp8fPMG8gGQjAe/x2CXsCrGsVfmJ4sRkzJZKG1Fy7H3MrMuSkaVgjydZ3sfIIXOw5
+	 53UFTmzgJJM5EWgl1O7M6H1r/bGvbh57vlVlPWlshL4/4/7hpWWCgXcx5ANSlObHRDPoQ
+	 56moDjHZ9alqYHGEOqa0+jBOXG48sCBtGGFM6ghnyKxNWv0QwLqJVDmcSopIxID4GmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793517382;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sKUtUKSAT7N9lWEULtTe5OHLm/0QKeLXLq/cuehm0hY=;
-	b=HBGHa8G4MObvUi5t9Wj98+dv3Seasgkf+mqc0T2OfiAYfP4n+2DKKxHnBhIlLoWwYiO1
-	 69raQEgXaRuT6A1WJO7RCG5rECoO8lz+oRcJRMCoSStwjve8kuBrNnQ7byjFNJYmFINzW
-	 zFONUsSknxLIzPhmz8sf2QFFC/sf4B7E772ocVuV8xaDP6nu+XvyBdIRWo1YdGBODdkGp
-	 uyg8IuwGA8fElnE1cyEMlMpu/9L0gt7xS1sri2WmHmlxSQy1Sl2xfxTRQPYPIAK/HWk8n
-	 QUqHA3tmxyeeG+XNnqoCVe+NmtvOi6k+qxtO3wN3gJQQTtX0SNXbEAaasNoL5Q9yrNg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793517409;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=mYvfifkh2cRh4ADWZM91A6IieNu1Ui2i8vEHoXTtKBg=;
+	b=otQ54w+6LHjc7piYr3LP4cFNiXuJsFE60VDnFKOjXSdN71jpEa4CRyAE/C/JkSigUuoq
+	 NbBM6gy+wwNrH7lkbl5fJJoTPWDKqTCLVKLykfyktV/LQCskkQYMpi5jiI6C5nPF99dXO
+	 wYpYBqkxUZhuOeklwVcAtnaDE22cswHxrigTWrSwgR7CDg36KdJZL52MWQpx8Y9iXhUUz
+	 ImJcrv8hfQKUoBluPe4d8lg6doIDhUQAB8QXkqYq3wxlMY7CH64M+CroQ8Bo32/cGhked
+	 5zfFbPPjeAXR89JkFj57x0u1YufYM8EC/DlnJagnHDopjHfWnyghCHFuYObB0W//6DQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LH6zBUF5;
-	arc=none smtp.remote-ip=91.218.175.34
-Received: from mta0.migadu.com (out-34.mta0.migadu.com [91.218.175.34])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45B86606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:16:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45B86606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LH6zBUF5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=kHUvHYnw2dekg8CUjBUhuxM8s0SCtb5RHv0FpAGfgMc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793517377; v=1; x=1794122177;
- b=LH6zBUF5EdvcDy4FlVd/3Q5UigVrRVxhrnhHOqrazo9ldwqMs9obVky87NL6QenKubvhrI6q
- XMj3bb2b2YjNvk0CTEXFPZLQAaKmniolyu8Akifd0u0A92dWuwIDu0goFqmfLXuNds+0D3GofNF
- uuMft3H07+IoN39TmjwhZuRs=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 3d2700dedfd938b8;
-	Sun, 01 Nov 2026 07:16:17 +0000
-X-Mizu-Trace-ID: 3d2700dedfd938b8
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <fe601caa-3676-4623-b77c-35930a6f65e6@linux.dev>
-Date: Sun, 1 Nov 2026 15:16:09 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D369B606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:16:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D369B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4fb73e868aaso3433281b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:16:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793517408; x=1794122208;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mYvfifkh2cRh4ADWZM91A6IieNu1Ui2i8vEHoXTtKBg=;
+        b=WJGWsn29Prgg1AXSn19tkuO+ELeI0OkvX6474F6RlGrHz99lgsEcecg+tiO0OHcHL1
+         6guuFk9dBO52Rf7OGU2Q5QVnvxNyQMRcSGX//kH19kpoWP2BD+u20SW5NugN2NWnRBej
+         a1JGmEFoFBMvoxVSQnYhO2pvQvO6CWmngD63cvW1iD6KDM/h2yDMng+46VjzXmKjOXQY
+         MYkUN+bOFT3WWbRcsLXEaV1h4ltxWxwvAW4m+CU318K5cLDHsbWODQaxv2NRpJFXM3UL
+         ub7goYaS/gjoWHaNLgdC6EtSeBCpaJp6fTK49xdwLU/vO3KKaBhP6EI7OKeUSRG1HI1s
+         n47A==
+X-Gm-Message-State: AFq9FYI7necanuNcrY5+loZ3zgdu+otLKTS0cmIX5iflGlit0NNWDkLH
+	5g14hKi7rUVzxnVWQEuZKaaryJ/N54qREqz9i99/wIN6Kfyo3N08+GuELJK+Km5VDcqUMlcGSss
+	zj2NHYARBKzNXrByto2XdFhWZHCZpCKv/Kk9zR16/PvvUE40JZXzOuBS+Udg=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,43 +57,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 11/12] mm: hugetlb_vmemmap: unify vmemmap range
- restoration
-To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
- <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, James Houghton
- <jthoughton@google.com>, David Hildenbrand <david@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261020115306.813483-1-songmuchun@bytedance.com>
- <20261020115824.823278-1-songmuchun@bytedance.com>
- <20261020115824.823278-10-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261020115824.823278-10-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:3c48:b0:4f4:d7:b16d with SMTP id
+ 5614622812f47-5640de8713amr4420838b6e.60.1793517407906; Sun, 01 Nov 2026
+ 00:16:47 -0700 (PDT)
+Date: Sun, 01 Nov 2026 00:16:47 -0700
+In-Reply-To: <6a830720.dbb3a75c.20434b.005b.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae6e75f.67782f90.13afb0.0055.GAE@google.com>
+Subject: Forwarded: Re: [syzbot] [serial?] KASAN: slab-use-after-free Read in check_tty_count
+From: syzbot <syzbot+39a2135de1558208d3b3@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org, syzkaller-bugs@googlegroups.com.
 
+***
 
-On 10/20/26 7:58 PM, Muchun Song wrote:
-> Restoring an optimized folio and rolling back a partial optimization
-> both restore a vmemmap range, but the operation is currently implemented
-> separately in each path.
-> 
-> Use a single range-restoration path for both cases, making rollback an
-> explicit bounded form of normal restoration.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->   mm/hugetlb_vmemmap.c | 33 ++++++++++++++-------------------
->   1 file changed, 14 insertions(+), 19 deletions(-)
+Subject: Re: [syzbot] [serial?] KASAN: slab-use-after-free Read in check_tty_count
+Author: varun.singh10011@gmail.com
 
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
-
-Thanks,
-Qi
-
+#syz test
