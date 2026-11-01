@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571379;
-	b=Hmugc6sfBAeev6U/zp6ztg5EZeb1w3OLWl2CzBE3eBu6EF5ZovvsuKql0+KfcJWkjjGa
-	 u1QsB3i5zxDMhA8wCJv7yTupqHnDfPAGK0/8/IItx0umyJNWdPCakVVe8fWtN1APio88Q
-	 wMh1YNo8rtZytHL+goKk8L9e93QLcO2/a6/uOlxh63glx14BzEFX81xJbhAXOXgkMi8Zj
-	 731/J2vzGeqmS6Skdta1SKjrijM9rzcFkwyXG3gu/YZN3kzJ4iCVKP4V31dP2KmqfAYXc
-	 Z2GntEbowxdPfiX/CKcUAPXtnJ/+zUCMNkuc8PsugK6oGsop5JTwXj6BG1hF4xVAJcA==
+	t=1793571384;
+	b=HxXsRHguqk/N1zmjHtQF8brF+ytjBMbF/MNF8IIMo/Zr0KHiz3TycMyJE7AlUAEjd1tH
+	 U5WTPx9CY5ps5zm00Vng98NQxUvUba6gg71nXHevz9qurLSCWPWqbwGBYu4Fmjb5r9Uf2
+	 BAcPlja3lJZ5FHdVTpGXlr3swt8AQN1Xf2H7CsFnZufxte4am+VHOJ/2yyBbufeMzPb7d
+	 Stlo6z9KyxEowlfJuvbzm8lReADMrdBep0F2r9xMuiKYeKaSeZYCJ6MS8mHem5GhEGzoj
+	 nEflue7HYp1LoNtkM3HoBf0Q/1E3U8jSg4h0MIsEeXK+J5OvDSicJhJUu184myFVyvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571379;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=/5lqkhXjPOMaaYwItfh5U9VLYOPhSKVw3/zHayeWQek=;
-	b=YR/J5jxY6x8hWyXQSAMydszHX76bnlGO3kCq+Un+hQ/xr5grWuFe3FDAhwMOkpNopfBI
-	 pl1Nv5HHXVuDhzYBzbhf9Uf3NrS4ddlaSXUImQtBJpuSsGmbHCxzmogyYcoEsoVxJ6EaL
-	 GA5siLCFllx/bQAFQYN/z4zQNnvBA1KtGV6WIjp9D3Oec+SPXGhrp1hD0aQsO+C/pW9lL
-	 9vChwwVs39oFdr1bWNFJronjHTtAcze+77rBBt2hJtI/7MW9m7u/djQcSXIVAYMY7xXyQ
-	 sUETSisskQBLn0RDaL8grURFRX8am1rBJ3ogd4kLha9wJjP3BEjaE9YjpAtxdf+GZkA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571384;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=fIWdtQoZgU+HOxQ8xPE7U0OO9UgX4aiH7YmUwuj+ArM=;
+	b=VmHxHZ/zmtAdzs1rB3wOYJphZRDFv1fpd0ZkEK63IXOREEPApzocwCeLGDiSzELhXdK1
+	 Y/nxkRlQC9/DcD1XORkhKlaP7UAi386EqzVPJ71BwMh/Z9qCfamRbQzz/CU5s/goOSfFm
+	 eBqsjXRJ2OPCQABdOjLHJhL3kXGN4wFE2L8lXmcyxL5hV9hJ/naik/04e9sHZghszZmfE
+	 B7lPfA2+Vh7a8eAhxQ6jbmqf8sw/26g/bdbxecHwMFM+B1ESRq9h2aFHC9zAf/MyVo9AR
+	 8N+hUny/XLIpAE7JQBWPakEgEtSYxXAwAyvMKLNCWNAT9P8/C+yX1afLq0SbH7OZUwA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DFmTlMB+;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E03HRJiW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222D9606A6ED;
-	Sun,  1 Nov 2026 22:16:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 222D9606A6ED
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B681606C6CC;
+	Sun,  1 Nov 2026 22:16:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DFmTlMB+
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=/5lqkhXjPOMaaYwItfh5U9VLYOPhSKVw3/zHayeWQek=; b=DFmTlMB+u5KACGAPOZfSN+xwXk
-	gvM5TbEwpGVgGhejDSm2o4DjxMmcMHL9x5/ou8jWCSCj8HqvUlIetE2ZaUlCjANI27A2MGi+OiqzN
-	VTX9gfXQtXBJZSCCqCS+snckWHSFt8YE+4k1oeQ6KaMOyNRzfVTIAIg3YOLQz1Xkxs+gBRj+3DIxF
-	FDeXoTMbqAxhksIaxc1A8kY13ZWwxNC3NGXgz8+nKAJbmyrkLUo28czjRzceeuFVNsuMuVeneEEp9
-	pxe5ZpMygdN0kQiB1eBSDGWJqPLoBt0gUhpxmOntg/24ATVD7OpcJ3q//EUWSrlZoBgF9ccN/6m3e
-	vp4/czgA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	Dennis Gilmore <dennis@ausil.us>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Alexey Charkov <alchark@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH] arm64: dts: rockchip: Fix adc-keys wiring for Orange Pi 5 family
-Date: Sun,  1 Nov 2026 23:16:04 +0100
-Message-ID: <179357136490.4108155.2920979357901660151.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261012033929.2317231-1-dennis@ausil.us>
-References: <20261012033929.2317231-1-dennis@ausil.us>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=E03HRJiW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 494FC1F00A1D;
+	Sun,  1 Nov 2026 22:16:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571384;
+	bh=fIWdtQoZgU+HOxQ8xPE7U0OO9UgX4aiH7YmUwuj+ArM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=E03HRJiWMH7vhzLjAIAvdkSug+FbE0oqKaLpUuUiovEpCVsAAnofPD2ZY4nGlMBTL
+	 MsomjHvrrseLRoGulL364cZHAd+rEebKk9OGO0M3Q5qd1LCM/2qapQHY82ORqPwvup
+	 Eied/++HJpf91kTVLQ/Y4v2gvHTP9zUVoXb1bLDUS3++xUel388+HfAtrZWOjcOWak
+	 de1VDzkC8toobp3DO+dh3bv2XFf7GLPh0eoW8E636a86a1F4GSPJUpoPPW+ATwW6WP
+	 Yr2425Y6oR9vAaDACt9obbh8LjTJJ72SqGEaCC1uV5jD403ArDE6DLYdYhk0joVtl2
+	 jfN5uoZ0iDBEQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4020938003B8;
+	Sun,  1 Nov 2026 22:16:24 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,29 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH] serial: sifive: fix off-by-one in console port bounds
+ check
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357138279.2624073.12379269503301547375.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:22 +0000
+References: <20260827014524.19375-1-min_halo@163.com>
+In-Reply-To: <20260827014524.19375-1-min_halo@163.com>
+To: Zongmin Zhou <min_halo@163.com>
+Cc: linux-riscv@lists.infradead.org, gregkh@linuxfoundation.org,
+ jirislaby@kernel.org, pjw@kernel.org, samuel.holland@sifive.com,
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org,
+ zhouzongmin@kylinos.cn
 
+Hello:
 
-On Sun, 11 Oct 2026 22:39:29 -0500, Dennis Gilmore wrote:
-> When working on u-boot for the Orange Pi 5 Pro it was called out that
-> the Pro does not have a recovery button and was missing the definition
-> for the maskrom button.
+This patch was applied to riscv/linux.git (fixes)
+by Greg Kroah-Hartman <gregkh@linuxfoundation.org>:
+
+On Thu, 27 Aug 2026 09:45:24 +0800 you wrote:
+> From: Zongmin Zhou <zhouzongmin@kylinos.cn>
 > 
-> The shared rk3588s-orangepi-5.dtsi describes a "Recovery" adc-keys
-> button on SARADC channel 1. This is correct for the Orange Pi 5 and
-> 5B, but the Orange Pi 5 Pro schematic shows channel 1 is pulled up
-> with no button ever wired to it, so the key can never be pressed.
-> Each board's schematic also shows SARADC channel 0 is connected to
-> a real, populated Maskrom button, but no board described it.
+> sifive_serial_console_ports[] is sized SIFIVE_SERIAL_MAX_PORTS (8), so
+> valid indices are 0..7. The bounds check in sifive_serial_probe() uses
+> "id > SIFIVE_SERIAL_MAX_PORTS", which lets id == 8 pass and causes an
+> out-of-bounds write in __ssp_add_console_port() through
+> sifive_serial_console_ports[ssp->port.line].
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - serial: sifive: fix off-by-one in console port bounds check
+    https://git.kernel.org/riscv/c/bf961847813d
 
-[1/1] arm64: dts: rockchip: Fix adc-keys wiring for Orange Pi 5 family
-      commit: 591ff7dda0603cf21cfe3bfd7d9b1d10be8154c1
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
