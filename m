@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793561391;
-	b=Djen4KtJG1GIsuyPEqhufxsiEMvAYFED6li+HJc5khPoMIvyQt5U2Kenbs1nquMavvJH
-	 p/6uzybIYIuIR15cXebyyRmlyt9w6MZyisB3LWi2sETWeYFFWuV/GXA3ZEUbh504rSEWY
-	 nh5gsMzMhreDD3wBGglRAjSdjsZ2e9VSfkGrKU6dES8AtvLlj5lNfRkXHA+UadVLyKda0
-	 ihNiDLWQ5cf+tbpTb6So6LR0YastrWQesgVdkWCCP3hgWijvNUjdfpm9GBkjToCK+0kej
-	 sf4aHj5RJA2i9TkDNVJwELbl5HQiN/MDbvrLejlLySAYbKDKwS0eRrhH7u88F+wBfWw==
+	t=1793561396;
+	b=LMqlnyJKj6F14q9GYSDV8XDsRXEd6QsbZVWEH/q+urIvEIIfdcQG86/u7WhKVizX3liM
+	 GBmCBq7zQyn33Sb4BOp6E0Nsz0xSSMdA1K7UBhpEcHmW2NDWg6nC5qUGvF3lKZ6kLdSII
+	 mHFVGCg0vbg8TRjE0u78rUvRMz1ZD3MLDqymQ89ZjG6h5cVIRFKVvJ3pqJNO5+bAmORVl
+	 Fc1JpKs6kD+K+slQ44rtJFmUk5Q1S03YhCmgK/SEdD/MfHNqM5Ghx7avHg8/Rk5Lfigj5
+	 3VdwGVl56UCOu/dQX7nzqh8LumKvQZLCbsWT3lMwpYMEZxjsZDpagETPL5RND3I0AKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561391;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561396;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=O6UlseroD4jG2dHId972eYhTZmtxZYuBjJ9VhYkAhAo=;
-	b=OS5E1s5G+5zRduQ+j73/eb8qDVKCqtVpC1Giz9R46THub1Hqid71XjWayYD0ICrqbs7X
-	 ZGVHoHdXkB2nSPX1l/2GmZXUBh/qpZqTZswNsAzZTZu1Rdaid/bMozs9J7pg/d+MjJ9p0
-	 pNLXN3b1rcaN0F5iC2XTP6zHcsbbnkmw2cIIn1RYgDYmjglpPf5OFoRQ71x1coFL83Aec
-	 fKPu9u/APojgSA3RHURNhClZzuuBFQPbzJECCLf3OJ8IdvaaJoluZ/fr6/he1qZWuPBVt
-	 nBjNFnHXTlrVv30vyTK1jn0jLvEIb8V9W/PEECTLM4RyWvROPZ4g/83vOwsEWputlMw==
+	bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
+	b=GDOxtpZSJbPrpHqJsEZKkFuZSrvlWjMbj8bAmmSVw5Ee5nOIsFgYI8wKWUfMDgXjD7c8
+	 GgeQ6xeGkUvsQ9k1MO/axvmnKL699FrvBxkk/Ye+77ds+fIyJpZczZ3dbLFikvkundCvl
+	 LjKt3WstWo7QhgApZiY5DEg1SAalWkQQK/qyBzgALwSZm97VzyPjLm7Yjl294LVDY2zhJ
+	 GtpMwCq5rik5P41Fj7SZlpcXw5GuLg9e7gmvmU3f+pdGBjaT0NQxksKpgN2TRTyB72xlt
+	 WyUkyYUL+ZnUOe1ptpKgKXlh9xRMBAzJD0HAcKVnsGbmjbr6LEMex/SSpq3fZI24k+w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Sr2/Jnxy";
-	arc=none smtp.remote-ip=74.125.229.137
-Received: from mail-dl2-f9.google.com (mail-dl2-f9.google.com [74.125.229.137])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DXExrATK;
+	arc=none smtp.remote-ip=74.125.229.7
+Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CBB3606A331
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:29:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CBB3606A331
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25193606A33C
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:29:54 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25193606A33C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sr2/Jnxy
-Received: by mail-dl2-f9.google.com with SMTP id a92af1059eb24-19305bcb6d5so598374c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:29:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DXExrATK
+Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-369f126a526so3125860eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:29:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793561390; x=1794166190; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793561394; x=1794166194; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O6UlseroD4jG2dHId972eYhTZmtxZYuBjJ9VhYkAhAo=;
-        b=Sr2/Jnxy4GKof3nFeFm9KBFBYre4/9SAFGqRylDoBzNrjjOt8itmHG5gZof712DddK
-         eBWZIrjBKRxEBQ4+5IPrD3deYro/ZpZWR5Fn2UHaUZz3Kac3nkZ/FObqC/wL+xhEyWvN
-         2rmbYY8pxEEwfYbKZTxKcgP8w5PCAO10RK/3hGnrbhomkQhr2LWoIzPEgd9MIBM3QTl/
-         SiyiozoXip3ImU8fq4it1FVnLsMWXw6BCYIigV3BLF2BD3fZzYkUQ62Hp98tredjixM0
-         AuMXry4ZXZR8om+k/58LEG14+Di8nxwFsFGzOgoZaLaABlurhS/SXbCww1cb/d9J/xJS
-         ohaw==
+        bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
+        b=DXExrATKhuv2WetJguNn6T+WIyLaHJQ0dzD4VYgImnZt3ZlQUYnYIQSPTA/j5JbPMw
+         9kJfqbPAujFTCGQ4RM7W3G3MwPztfRW/t00V0E+Jy7wU7rDRaAY6rJaY1jgZ2ypTgu3A
+         5eBTeZlT13S3IHbV3RU/p7KjD47jw6mRGiDBhvioib3fPSPl4q5Tbyoz/EPVHII2yYG9
+         w7haRqtHVQvihwGlXhv8sB4IFMfR50bUeNxYAXk3kf4SXTkW45GDup9xMcGcSgDLbpp5
+         QCMY4gDVkUiWm8N4aGC9N90dgJIKpSnU0h6CgvuUelmg9xtw1Feab32eSKvJQoTo/bIi
+         byeQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793561390; x=1794166190;
+        d=1e100.net; s=20260707; t=1793561394; x=1794166194;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O6UlseroD4jG2dHId972eYhTZmtxZYuBjJ9VhYkAhAo=;
-        b=cnjGIqqW/HY5Bdnx/4SVrTG5WTWpgfmKLZvXsMofyFyiHAZiCECrEO0BCFQy2RJYkJ
-         KXWkwkd8S31zR6ZOUDVIZr9oAn5z8SyWRMNE0gz+CiHGWEy1TQRNfYJ9RAVtqFMZs2BM
-         kHKsH424gu9kCNtDM0ODxVXFJ+0d2Cu1yDC2sfPTr//aes29pAaPnR+hjhKuNK91cHgZ
-         T3WY+wnok1uL+j0dzftp/iVBXxP1Rc+j2PrEIHlgCnUU2bOOOfLLa3M9EqnoN+AR0lBE
-         xz+cHfbC6ZiMG6ie6xWS0Tuoou+eMyFMfJvCxOnzPam7TZEGGtF60hLipZEU2RFzJB2k
-         bgCA==
-X-Forwarded-Encrypted: i=1; AKwUvBwV+JXCNEwv6xHUkiyBWvmaZTH+qjqA0Kn7sqyUPFqNWOMQyrRMzX2GpBH44UIiswxJ76bU69fmhuRVdXU=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/q05hfrfQF174Q4t6Y2tDLQkc+Gm/QJHrmSQRFjOTX5TxNyWF4
-	0Fs127+EDPp8urW6aDf6KMmqa7fRBbnz443rnX1t6kFrJxYvrIxDo3hk
-X-Gm-Gg: AYBFou2QtBZgZcZJlhCsDGnYolbEt4uhKYlexBBkeHtU4LG6HwMM0Kd3JmoiU9Z0jmo
-	2AGDLng8bQFRyvv6gBxgHtR9EFeEYGnQleejE+kmXqpiUaGyvxHfxfLzjiQXNBdXujv1GxYofCs
-	Ty0tR8xThI+5OwxKAEyIqX6B0yluDubdXmWT8UcSu8ikcys4Q18dQJfmUKgjcgloZdxml32o8xT
-	+Eeqb3It/XMr39gei+0nvWUVT6XYxkz6M78h2VmzQXM51IJRMQqhqFIjf5lCP3g5lqzYzU7DYgi
-	oxQUj6haWU54P+osg9CTAdHw2utflIB5ARhee/a07odzS2+Sw9z2C4XzkWycoAhrlkEA93/F5i1
-	+tcbaNhDNImIur0LuJ85qSRnzfc4Zw8HQe/bz1b1zRtwhKuUAuIO4SFyvyGFt8GTbQhl2PhIkwC
-	TLEib/ebYhOrx77E03p6XPPeZcQCQCSv1k6cdqt9zBzBmgwSx8c02jvfHhaHp8Vn6lAJD8z25Cr
-	N5WpHOyfeahRtFs7RXhqPH1AhTYEwOal9RTa5WTzgcc13NHWrPvo3mZgmFb1B6vFvLkta/AoKN5
-	+uHq4BGzuH8+n6dfgaw1gYFP4Kih
-X-Received: by 2002:a05:7301:1828:b0:36a:10d:afab with SMTP id 5a478bee46e88-36a42423d10mr13381248eec.25.1793561389745;
-        Sun, 01 Nov 2026 11:29:49 -0800 (PST)
+        bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
+        b=dxyzSFY1tR6qNh7v6kSal++K/BF/Wn6OP3wm9iwfqU7PeGQDdq9gDlf2w0IFUTbL9/
+         423NnWtJTjfJyPWFD3fwnwLwA7oHjUdJStDEq18hP2O02vxOQDLl4jGC3aLVLD/7OP3z
+         YeDZycQhV63ZNEP3YZjxBw6zVA3+SR1dM7NvYBY73O1tCjsnO04Wd/tDNhS9D/a8XcRa
+         C5ixyEiRkE+ahSf6nMRyDn8mk1uPieYW2UBlzhcFtzRuapax0j/M14zPDdvcm1Mbgu1M
+         7TOp8c3jEo5lapU50fY97obbFbgrQlc8tGFnA1w6Eao76rkn0K9DVrwfhXVbkuu+r3Ef
+         O5GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy1yZFZ4MLQDiLw+9+IK8xaOMU0J6OyNUaKxBfWLm9Jl9w1DEyKDTQVb9HyfqcxhZ7XLY0gjlEwDhzsvgY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/xR15e7UF93zCgoA1ivTyRvrKnLoShjrkueFEUIDuA69bPtFc9
+	aha1DXuiFmwQ/w0WfHSps3/AGzNmeo7zcRDDxpRcD5HEGLxflSHObW+n
+X-Gm-Gg: AYBFou0LASKi2h40GXcHO++sgVDM0gDN7IXQn7/kyHGG6bqwQlYQSfoU33xnhIEnCYk
+	TljgphEnMsS/GQvI4Pq5I62pSTPZQ45T8pAFClx4jLd2Dsv4JQswFOFpPBWtSl3K16WYTnqfp94
+	UETBqSG88qp0mchoxxpPg02qRq6FWr65slw3nDWlOkVQiArN8Rc50Fepfo2FHMbBcaCXvMtckmC
+	PshdjLwWg/qxpynmJPV+X78dkKmIGEBbWU4sbEIaGJJzgVGavVaFDuLj5v137vXb1KFjvOLfQY8
+	wnm+h9ziD8ux3blLsPQ6pm7y3BOciBCNPARpTG8VyTHM7b+QNaptUctPa7HDZuchmPA+xwtEFRS
+	5f0zOFdwJA9HOvTqe+dukhzTQinQrQBgP3BYKUAlojjgmqc7fqM+WufWarwL2I2thBiyZAVADWi
+	jy+H86/vG9gz/XzGH+bILt5szoDyaZX+uwYb0jAO+nM+7O5BuFEYr6Tdwcf5MnLeA9+o7edT9/j
+	83lURFRyySGmUCpYs2T81xsgshN4Byu7otH1Ia4XGO7TM7mjAQEa3bCIA4UXTNPjR71Y1HPV8Wj
+	rxXatLUvnnEnI659kGLoatHe4lg=
+X-Received: by 2002:a05:7301:710f:b0:359:2edc:e1d8 with SMTP id 5a478bee46e88-36a422039fbmr11538413eec.5.1793561393990;
+        Sun, 01 Nov 2026 11:29:53 -0800 (PST)
 Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm31471861eec.7.2026.11.01.11.29.46
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm31471861eec.7.2026.11.01.11.29.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 11:29:49 -0800 (PST)
+        Sun, 01 Nov 2026 11:29:53 -0800 (PST)
 From: Coia Prant <coiaprant@gmail.com>
 To: Heiko Stuebner <heiko@sntech.de>
 Cc: Rob Herring <robh@kernel.org>,
@@ -91,10 +91,11 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH 4/5] arm64: dts: rockchip: fix GMAC clock parent on Photonicat
-Date: Mon,  2 Nov 2026 03:28:06 +0800
-Message-ID: <20261101192807.897562-5-coiaprant@gmail.com>
+	Coia Prant <coiaprant@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 5/5] arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
+Date: Mon,  2 Nov 2026 03:28:07 +0800
+Message-ID: <20261101192807.897562-6-coiaprant@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261101192807.897562-1-coiaprant@gmail.com>
 References: <20261101192807.897562-1-coiaprant@gmail.com>
@@ -109,35 +110,75 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The RGMII WAN port on the Ariaboard Photonicat uses SCLK_GMAC1 as the
-GMAC main clock and SCLK_GMAC1_RX_TX as the RGMII speed clock. Only the
-parent of SCLK_GMAC1_RX_TX is set, so SCLK_GMAC1 keeps whatever parent
-the bootloader or the hardware reset left.
+When the Ariaboard Photonicat runs on battery, the USB port has no power
+output and attached devices are not detected. With the external supply
+connected, the same port works fine. The root cause is that the
+regulator feeding usb2phy0_otg (vcc5v0_usb30_otg0) is only available
+from the external DC input, and there is no 5V rail for the USB PHY
+when the board is powered from the battery.
 
-Set the parent of SCLK_GMAC1 to CLK_MAC1_2TOP explicitly, so the GMAC
-main clock always uses the internal source and does not depend on the
-bootloader state. The rate assignment is unchanged: SCLK_GMAC1_RX_TX
-keeps its rate unset, SCLK_GMAC1 stays at 125 MHz.
+Add a vcc5v0_usb30_otg0_boost regulator, gated by vcc5v0_usb30_otg0,
+and switch usb2phy0_otg to use it as its phy-supply. The boost converter
+is enabled through GPIO4_D2 and generates the 5V USB VBUS from the
+vccin_5v rail. Note that vccin_5v is the actual energy source, while
+vcc5v0_usb30_otg0 gates the path; vin-supply is modelled on the gate so
+the regulator core enables it before the boost.
 
+This restores USB host functionality on battery power, matching the
+vendor firmware behaviour.
+
+Link: https://github.com/immortalwrt/immortalwrt/issues/1534
 Fixes: ba124e06ce7b ("arm64: dts: rockchip: add dts for Ariaboard Photonicat RK3568")
+Cc: stable@vger.kernel.org
 Signed-off-by: Coia Prant <coiaprant@gmail.com>
 ---
- arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../boot/dts/rockchip/rk3568-photonicat.dts   | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-index b719d5b661c43..7e0a2ab829209 100644
+index 7e0a2ab829209..bcdfe76000c46 100644
 --- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
 +++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-@@ -285,7 +285,7 @@ &gmac0 {
- /* Motorcomm YT8521SC WAN port */
- &gmac1 {
- 	assigned-clocks = <&cru SCLK_GMAC1_RX_TX>, <&cru SCLK_GMAC1>;
--	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>;
-+	assigned-clock-parents = <&cru SCLK_GMAC1_RGMII_SPEED>, <&cru CLK_MAC1_2TOP>;
- 	assigned-clock-rates = <0>, <125000000>;
- 	clock_in_out = "output";
- 	phy-handle = <&rgmii_phy>;
+@@ -151,6 +151,19 @@ vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
+ 		vin-supply = <&vccin_5v>;
+ 	};
+ 
++	/* actually fed by vccin_5v, dependent on vcc5v0_usb30_otg0 */
++	vcc5v0_usb30_otg0_boost: regulator-vcc5v0-boost {
++		compatible = "regulator-fixed";
++		enable-active-high;
++		gpio = <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&vcc5v0_boost_en>;
++		regulator-name = "vcc5v0_boost";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		vin-supply = <&vcc5v0_usb30_otg0>;
++	};
++
+ 	vccin_5v: regulator-vccin-5v {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vccin_5v";
+@@ -460,6 +473,10 @@ rf_pwr_en: rf-pwr-en {
+ 		usb_host_pwren_h: usb-host-pwren-h {
+ 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
+ 		};
++
++		vcc5v0_boost_en: vcc5v0-boost-en {
++			rockchip,pins = <4 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
+ 	};
+ 
+ 	wifi {
+@@ -617,7 +634,7 @@ &usb2phy0_host {
+ };
+ 
+ &usb2phy0_otg {
+-	phy-supply = <&vcc5v0_usb30_otg0>;
++	phy-supply = <&vcc5v0_usb30_otg0_boost>;
+ 	status = "okay";
+ };
+ 
 -- 
 2.47.3
 
