@@ -1,103 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793495332;
-	b=YzaaT+7BmlfHCTR0w1hscH4XrN57mQbfMKXhddpwzjfYn2tUZVoF3to56YJrQsoPQxbp
-	 YQnKNF4QBL1PggSh3siBL6Gx/yKdd3HQHNViUDLi4nxZ554BumHI5bJHgg+wfbBBcwbtw
-	 VfqYq7TITdPeMPDCBmGkK6xCA08vUw4GeYBk7vkVN+p0cm3iEQlrUiDzOglEmoUDIpLZ9
-	 SF+yn6aOktNgNHqoBiFPxhmdnM+YhfYl4USYM1kfcZsJZNBlUPj5q3P2d2z+k8Ft+zja2
-	 6nBvpJk9/IU6S5mH0ZTSP4NXuo3yepTFIUczsJKQvgwYIA5KMI3GXAAMD2P4j33XUSA==
+	t=1793495690;
+	b=SmTxDGfleCKfd5l72Wlxo0Lx0/04Kg4cArXG41rmNbG3ptWc7aK3DijKPfHE+QYGlPSl
+	 QPjyVYdW7xZzF3y67QtrDyYonepYBHaHFoEWKe9t36OYMX0UXX9nudff9WHg6cp439fhw
+	 AFCgUSJg4SLWuhEZfGMiTGCWj6QrmVny4M3glSedulCvpHnC2OlU2YRpcXeYNdSzU8bSF
+	 KH9oilaaXDDFrPclx+fkLzvbZQMpNwRoP2/aem7riy0qLOKu8qCqSVF4dOc/zvuDFha26
+	 JBrP6o+xwN58FPIp1xiiriFht7sCAJS1WhUnIwhsRk8h4f7qjoC5LfNSWmDuEm4/19A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793495332;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793495690;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:From:To:Cc:Subject:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=uv9lU22wY5Li5XWaCJ5Mf/m4BXD9e1KZu/Goj17mV78=;
-	b=YBL1bASMchWFqYIbotiYPI8KAaaBkvIDmKrEAScHZgQuHyE//xaTIMVRQxTBwK1OocUm
-	 QELv/tqN3uwahfVxIPjDSo1OdjZghz+LTL/qTkmRiCP3FBT9a4ZQgt0FBEc6lC1j9NKah
-	 CqZxlanIDaDgKfwR61pPrj5ZBiIWShqwf87vGyUOl1mUQJk28vGN/Wo9UUI6+ocDMRtNy
-	 t3DpZzMfu90MCq+LN8A7e7hrICz/pLHpyTK8qtpo1ioMchnOMA/fOz+1NIwM7WQQ0vagv
-	 x+Byt/OSzAHCDPrzah6tbceKXcc1EWrUHwA0WYehzJRkcLdQL05q76U2L71WHs/0h5A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=wGXYQaxTBIJGlm9+hLcQgGKVY+JNn5AF36EC8fQCfG8=;
+	b=Xhb3kdjA6q6qZ7UWZll1JT2q19o0VrC2gvsWzCurbMJOcXy/3r3AQvDpWIMTjh4jXEvk
+	 3tTabnr9JTfRoXZKu2zqbTx8Sm7QhmdSzM6lEQTt4cmV/rIMZTR4SZVTikZW6m/e54on4
+	 jbv/G82tzDE8O14m/23rZimjqtFMXsYSAn/wxSon+raCLhf3gTZB2md5d+U4S7nmDt5m9
+	 KBKp6+C+nOi+VMr8vTo4nSvMZcWCpKsNJFGSzOUVG0VRpPn8v2EU33r5ZuRSgNidPT80U
+	 R/1VQYHpp/kzhPVE6UnEkjxhGlqYSB5v/jodjTU5YDAtc9VxgZYDB/jpgXRwIMvCLkQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aSy124s6;
-	arc=none smtp.remote-ip=209.85.215.180
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QKPpFN3Y;
+	arc=none smtp.remote-ip=74.125.227.8
+Received: from mail-vs2-f8.google.com (mail-vs2-f8.google.com [74.125.227.8])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EFAF606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:08:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EFAF606A31A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1565606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:14:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1565606A31A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aSy124s6
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc4aa18f9afso774978a12.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:08:52 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QKPpFN3Y
+Received: by mail-vs2-f8.google.com with SMTP id ada2fe7eead31-7bd9610c0e8so250249137.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:14:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793495332; x=1794100132; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uv9lU22wY5Li5XWaCJ5Mf/m4BXD9e1KZu/Goj17mV78=;
-        b=aSy124s6ewkwhPx5n4VnBBEYmGR2oVcg+ff/bSdlZVi3O4jIuNhZTE1+OUK3mUs/Mm
-         tKYmabGfoY+kOkSUsLhGPTWiHGaB+YNtInEZzMQXFkdvynVe+E/C/SvLq/RkajE3ciun
-         OUIDrIZVpj5eHH3swWbEI5+3ZxatucCevLvFsfC0j08/JzveIZmWJMWvMHdiC9mq/gdQ
-         3KTC21ZcgX4gJwHQPrSergjyipfMzc9R5ZcwbAzbk5b0Z/KK7EcUaGGRuVpGNHxEjwGI
-         xEYZw0y/Fuc4zj45ZOp8rpGFhwrSTz5GI8bQIT5bOD86b9mCzPz8M9xoKzXjnTmOw+Sl
-         j1kw==
+        d=gmail.com; s=20260707; t=1793495688; x=1794100488; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wGXYQaxTBIJGlm9+hLcQgGKVY+JNn5AF36EC8fQCfG8=;
+        b=QKPpFN3Y+AhEglAUz9IZ8qnqEpUE15Tm3mKculKM+LuNYTate02/Hz3MimTtDkSd4F
+         bQMqUhVsx6YrKSzbD9yyybdjk+FETcusYv4xI4szV0yQbV4REVpLXILxY00EuA70+PwJ
+         47Ivp2TwxkVeOnK9w7Tqti46/3+4EOHMj5CBVX7G3hErP8BnLBImewlfm3GnIh3u9PxL
+         /BATcxnlxvW+F0LG9rpEWExF82XUuAHI/HMrIozGEz7LxKzBewzSAG4D/HUvV7OWxZCm
+         501xz6/xstu/KyYYu22x7QjYE3Dzd/yHT1hQ1fORFYc5L5aVx86PRuqaPeC9GZmijjak
+         gAMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793495332; x=1794100132;
-        h=mime-version:content-transfer-encoding:references:in-reply-to
-         :subject:cc:to:from:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uv9lU22wY5Li5XWaCJ5Mf/m4BXD9e1KZu/Goj17mV78=;
-        b=03p8H2Tis7ricGY5n0fk1sHQhHeisMSrXx6tQSQmorqLDs5SzMnMuWLzC9I3XvQE0f
-         YNx0+US1aiaNWZcUM1k7lihA5hD8PxxaGJpIxxJVyH6rz2KlbbqNCyxTNJ0GwYSFFJJN
-         bdqr/OzbDVciVKTxXD7J4+kI/X8lrcms0vbMkRJOxc2WE+3RG0xlw4XiLwVL0vG5oMTR
-         yymxCxvkvkP2Zj0cdpRyGW85cqmA71QA8Gr4vNIyWcA1s4my3vtsdAPKd5dbVVcaii01
-         Fz6Uouy93uGGLAYkxd3capZAGbJcz7/BpY9fH0WC8598yyx/nrKD3OZtBNZaW+cHamB4
-         qtbw==
-X-Forwarded-Encrypted: i=1; AKwUvBxJqhXljegoV9BmH4ElXtP/YJ4kdXgoBKj3Tir2qkUWm5LdtJ9u9lGTKEOyzwzWOK5MTiJwINb8z1AO8MQ=@vger.kernel.org
-X-Gm-Message-State: APuU4Z80Bk+Agm3lM8iEkksdCKysaDi96IC+Ji2jgl2okN3Ghn6qd6mj
-	tlo6aEjC+2XCji3VtN1i4Ksp3J/driJizEf8ugz8pZnvpPnTBusYeqZZ
-X-Gm-Gg: AYBFou117sU9lQDm7YBxpkQFEdmYeg9VYgMFpYGzaZoGOe4asyrOxSscRwbvYkfK9O9
-	6LkEWyLe3Ky29CmfgZFYYAGzrjNK7B4ryY6qqf4qpbOspFBWleAv9B2EYMDqLCgzojcCTDES1oZ
-	L3Jrd1a5NH/j85JwGtDsC+oaM/wY6hyrHhCQks5xQRcElmsJKcPyQdIf+FN/DnS6m+fizRWzlJj
-	L7FkUV9SjhaGX/XnQM2lTf65pjXgKOzQVlj1b/6MaOgG1G2mct5gjm9oY7wTSyOVpz2YYJ4RqHr
-	h6iprDcnSSmb5JuogxNZ07vKkhGLuMXzUVweT2tT2ffdKX5/MTuhfd3j9356pFYaezL9OcjOr8E
-	jEoFP7sY+ei1gjY4/ax4W1lcJPwPoOAr5ufgzKuUgZ4zvKlsOBBxoeIGp0usjR/ENyvyuOn0y+v
-	DRY8MIHFUIqvQQpy377oh+u8rMBd8obzP23taSLb++mHsOHzugz9ICuLhHCo5F+3XX2VxGvzvQz
-	n7xCXtaQMKMVZ88XoCcsCjxCgyZOqs8EZvWMAlA2n1d3hCxyZIQxKIPHibzamr28THxdBk8Fj/2
-	oLrqe/XQ096qoZkSkQ49gbLKP+fvZna8Uk0kpcCkEwhzAhhgJmds/GUyg3AhurdgO2dFam9oPpx
-	x9Hht7He4/GoB0FOtvQNQihYUskJShyNbrA==
-X-Received: by 2002:a17:90b:3b51:b0:39e:6795:f7da with SMTP id 98e67ed59e1d1-3ae897c7d22mr5481949a91.19.1793495331839;
-        Sat, 31 Oct 2026 18:08:51 -0700 (PDT)
-Received: from localhost ([153.61.198.244])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e8fba61sm13130591a91.6.2026.10.31.18.08.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 18:08:51 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 01 Nov 2026 01:08:50 +0000
-Message-Id: <DMJH18O0LW66.2X5ZLK1R332QH@gmail.com>
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Henry Martin" <bsdhenrymartin@gmail.com>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "John Fastabend" <john.fastabend@gmail.com>,
- "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
- <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
- KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
- Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>
-Cc: <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] bpf: fix out-of-bounds frame access for async
- callback stack args
-In-Reply-To: <20261027154553.1043567-1-bsdhenrymartin@gmail.com>
-References: <20261027154553.1043567-1-bsdhenrymartin@gmail.com>
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1793495688; x=1794100488;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wGXYQaxTBIJGlm9+hLcQgGKVY+JNn5AF36EC8fQCfG8=;
+        b=v7A15cFKEh4NGY+B273ih2LSjHQh/WSAMxYnRHgtuHV56LkpArQQizf/bjdewPbnTE
+         0ZGv2BK6op9VW9CaiS4BVaMhjRFwNfuffd216rfgOZRV6urxjgDo4MMmQFUYDnP8yFSR
+         hcfL3JE7+agwhgBQN/9FJj2MUJxEVwXCoWYlwQCJMEZrYYkUzjZUxBm4LuM6YNWqW30V
+         8fdbJLRbzP2pQdIabOhQOH2TovMKRIo5lxgMzG5QJV+YjDYcyAKOO7ytEK6ayDo1n71J
+         TpBSRQQz2IQ11y35hItdo9dn1+1d2pRZ0WxFuoE+EAeMUFlIW5mwd7FrrfiZLoHL59vz
+         r24A==
+X-Forwarded-Encrypted: i=1; AKwUvByX2Qmob9Ur8LWt9nKQB99YTKz5VvY0qqOy8AUCGaq+BmySQwDf7ZRW6R3O4SrUJVu5RKMHUwIWV1QrBJ8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIudvGjFRDd5oP1efI9dKSsg6XzmjsFgm2Rar2I6njx9Mwo9pyE
+	s+Sfs9B5biJFyy5l2NZbBHoBRsdl7bgf66oyrtQ3YPEECyWZ1Yjq2XkU
+X-Gm-Gg: AYBFou1p1O/PxzTkVA25nBaKlThuCDAncdYXrRkQ1uCHY3w5w8asxQFpma2NN8SfmSO
+	enus7nB7knkJguyN5bhQlqNQJc+FQJkcWJEyje0iDF7+Ssf/i3uPWCe9Ujdj3xsV/lulrXOOJpy
+	rr42+c5wJb4jrpLjV3mgGOEN4klL/aXQTYJR2Q0+PFu67QDXyRv8dVUaQIkti8xov3jt4Gs/02X
+	h9Vj0YNSvNBcNOQhdRWbkrGjZnGYt5dCbXh9Ll6eXEH130I9NzQnO3gd5U/h6tO8HjQDZv3ltNU
+	FcbvcV4vVZ30Gf9BWjkj6eZ99U3YeQrXFANwyEev8yW4JlcFokxL4ziOEbmzxLG/kkmimNck49d
+	8C1X8NGniVE0di/JOWtRF46bFJHV+MzsxKyQSkxdG/1L6Cu1y8eYhGa5xKtWKtc0PJuTjCBaONq
+	wz6cJq5YdMTB5GuntP1jPxUNLR+gGT6tAfa3mAhUniqiqQMGbqhkQZB0TlFwK+0DrtAXGDTlGNZ
+	mqeBg0t6IgcNpgvFiaRuFs1dRQUut6VLrv4PBe6GdwKrjQMSGDqMmxe2Ct+BWTWbuUOSu/zBqdD
+	xrQhOjSIdNem1Xlqr9Ov1cZ/C5RZRzAi60F3DHvP
+X-Received: by 2002:a05:6102:50a5:b0:7bb:64cc:1362 with SMTP id ada2fe7eead31-7d072c2b96amr1629507137.6.1793495688605;
+        Sat, 31 Oct 2026 18:14:48 -0700 (PDT)
+Received: from linuxmint.. ([2802:8010:9a2b:a201:7173:4fe:efa8:f823])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7d07738ebf2sm6893584137.1.2026.10.31.18.14.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 18:14:47 -0700 (PDT)
+From: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
+To: jikos@kernel.org,
+	bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
+Subject: [PATCH] HID: wacom: replace sprintf calls with sysfs_emit calls in wacom_sys.c
+Date: Sat, 31 Oct 2026 22:14:39 -0300
+Message-ID: <20261101011439.261812-1-nehuenlian.kernel@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,14 +96,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 27, 2026 at 08:45 AM Henry Martin <bsdhenrymartin@gmail.com> wrote:
-> Kernel helpers pass at most five callback arguments, all in
-> registers, so an incoming stack argument load can never be valid in
-> a callback frame.  Reject such loads when the current frame has no
-> caller (curframe == 0) or is a callback frame (state->in_callback_fn).
+Replace 'sprintf' calls with safer 'sysfs_emit' calls in wacom_sys.c, also
+include the header '<linux/sysfs.h>'. No functional changes.
 
-It's fixed already.
-commit 90aedf8854c0 ("bpf: Validate stack arg reads against caller state")
+Signed-off-by: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
+---
+ drivers/hid/wacom_sys.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-pw-bot: cr
+diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
+index 628372ab818a..bb51ea4b34f8 100644
+--- a/drivers/hid/wacom_sys.c
++++ b/drivers/hid/wacom_sys.c
+@@ -6,6 +6,7 @@
+ #include "wacom_wac.h"
+ #include "wacom.h"
+ #include <linux/input/mt.h>
++#include <linux/sysfs.h>
+ 
+ #define WAC_MSG_RETRIES		5
+ #define WAC_CMD_RETRIES		10
+@@ -1838,7 +1839,7 @@ static int __wacom_initialize_battery(struct wacom *wacom,
+ 	bat_desc->properties = wacom_battery_props;
+ 	bat_desc->num_properties = ARRAY_SIZE(wacom_battery_props);
+ 	bat_desc->get_property = wacom_battery_get_property;
+-	sprintf(battery->bat_name, "wacom_battery_%ld", n);
++	sysfs_emit(battery->bat_name, "wacom_battery_%ld", n);
+ 	bat_desc->name = battery->bat_name;
+ 	bat_desc->type = POWER_SUPPLY_TYPE_BATTERY;
+ 	bat_desc->use_for_apm = 0;
+@@ -1928,7 +1929,7 @@ static ssize_t wacom_show_remote_mode(struct kobject *kobj,
+ 	u8 mode;
+ 
+ 	mode = wacom->led.groups[index].select;
+-	return sprintf(buf, "%d\n", mode < 3 ? mode : -1);
++	return sysfs_emit(buf, "%d\n", mode < 3 ? mode : -1);
+ }
+ 
+ #define DEVICE_EKR_ATTR_GROUP(SET_ID)					\
+-- 
+2.43.0
+
