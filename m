@@ -1,23 +1,23 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793557530;
-	b=tU2rHh4aF86+ajC25994xPKPiOkuhl5v0f+roqDis+Z9nrMMUuesUGD6bKx/wsUkTn6F
-	 sHH9Vis9bk3y877M+GonOCrTh7CfWK8fbL5Fn0oty5GswW5MJFRakqv8a1Yt3oTBO5SAY
-	 jLru8tGSaNILjAku6naE9ImMfZDOlrFd1i2bL1Zuqp7kx09wuq1k1TVU8sVWcvnIGs7Tx
-	 NtIf35rKwxSIvE8wjTaOqxiyCePALYV0zkX23wckrfRfD6iwOTHJ6Hywj9nWntqgHMaRa
-	 R9zA6fuc2+6uQ/Gr1qSwXczTW9ui103RjhYrssBNUjF4ZJaLWIntsyyyKZmluLvsyhQ==
+	b=l8H+kftBtlJ9Ck4bdFtXYbpbUm653fbMiBYcbCqb0g1muLLaqE0KncEWWBjNU5l6T+0t
+	 D0MteRfxb3FWSdcB9LccrG7E5/Fo0QeuTq2UM+mWicC8YbIdH5ccd9Hlftq4deTYz1Z8w
+	 RY+DAxsj0tWEjAVy5DhMXGee+t6ouzRT21N4M0/q9/8DfbfygPoDelhsFlaw6mFt1hGlT
+	 yhltPL6aRni98l8XIs/Ud+cTvcYKD2zV5p+/cvTV+AWnttGe2OF6YW++nERUW2QyDZ1lj
+	 zHfjA/hDTm700NaXc3ocMeciUBds1txoS9qGcRAuEYTRLYwI2yHq1kuTApg0ZSs7E/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793557530;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=CMF+rDxX3I6Jh93CcarKiFP3ZLIidiAmOkST9zJjDqc=;
-	b=FjbtsWbYkgSGxTzfEX+OnQ0ZX+ZBsqN3cK7gxzRTxsHmdMAgyrz6vsNfsaIMz4KSfSn1
-	 XNRSWw4Y/NX/BJCkt+7aryV7VQhYEhWsFaqwiIpUzP9woFVfQs/a5JFkx4vx3vpdS8t5b
-	 I1tkh7DkGds2cdIyrxsEbc96zs0pUeajtsN9cCMRZK5wyKAHF6le9/AkpO8smTHz6tkXx
-	 Jj2zApcKq2rPNn3l4XdREGO97csqTWghw2ZcjRyUXWX2mMCMUrAu/JKsWlILCOYTczFQI
-	 OPmaME2wT3gKcjS+pNok9yZgkxUZV6H/06hwll75T8qn5vVOvvG1O52GW6+bDC0AriA==
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=YlgnKU2M9F6XavLQeW9oq1oj0gNtN8PMPAnq00uylBA=;
+	b=By7eQtanl9BiApifB3gj4piv+Qcncfn/ySNPB5TNeO385Y5FWbEc1w41sUKTz9oRLL5U
+	 Zw9nHFSYDsbM0bhOxNLgb54PQOKyM4H3kK/aaWDAZ5RpUV8wX57VjGBieFTKgqcznIFTn
+	 vNbSASj1D59jJyt7BP6wXdles7c63Uml5sMoxbqrDBVchHb6DWu1i8C/++DQ4ge+/dtl0
+	 dYMefPdHEorLmbAA0nCOKMZ92nfWRlhKYizjyvxhc5x//c7FEDlUUTI7LP/aFD6vFhgGN
+	 O1WET01wo7NS561/IggQriERs8kfSX/uBj7fAO6eXmr8a5u5CZD1cZz4DNiOw5SbThg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
@@ -26,28 +26,29 @@ Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.19
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6517C606A339
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:25:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6517C606A339
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3E2606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:25:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AD3E2606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4e778acdbc6so4011197b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:25:30 -0800 (PST)
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5587351d419so1765114b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:25:29 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793557529; x=1794162329;
+        d=1e100.net; s=20260707; t=1793557528; x=1794162328;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CMF+rDxX3I6Jh93CcarKiFP3ZLIidiAmOkST9zJjDqc=;
-        b=wKN3lr50nEIcItJnmx4X7M2uk0J+LRAgRZa9BYOMLzk8g/qcZ+1lskRIuDJC/f5PBl
-         GTXsM1E5OJBAlTD9md+vFl2rE5H6AjhPgfboQKHfI/N0R6hyFaAzZR9kl2hNMCghdY75
-         Ehutnc8M52985N1kkCK9rneZe8fy8vzwJhgLqUzyjVnFuVhRIHvkllqnAa7fYkkEkbSN
-         /0ubm3SbAJoRKpZxNaD3HKen53VGmoZfEi4NGo7jOL3bWp7pKO2U7TCUDaDJ+0QcIXqo
-         d4/oOyxO8bXC43zTZjL96nP+mWaN2Nx8jjQY1z2PSJFwpw4HKW1+DgHANfeEIMXXnMVY
-         T5Nw==
-X-Gm-Message-State: AFq9FYIdLZBnTZc3OmzWcDl4lSNH0KhbpBjiR6rKCOm6QCzzjcEP/k2w
-	TWR+1PilsTwBIsEUZOVdclRVbRHtXD+uO7glm+O4AUoOgtr/ayLG44oEMLvDOX0DXl/N3A+khie
-	E4z+oZ1gP7qpqz2OlMzidUGbiEWx/b8AxFQ6x3IBOBJLsWnAVXEFgMbdKAJQ=
+        bh=YlgnKU2M9F6XavLQeW9oq1oj0gNtN8PMPAnq00uylBA=;
+        b=hXQ7w5xoYVVmEqfo6qhhvrPDuTWwI5o1QsBoKL8fem8MZ9wJMp4JuBn5i58XY/s3o+
+         HN41GbiSDWRS+LhMRRMSTt9VlxKlbSpCg7Wi66oOLBqH1ZPdF1ezFWAZWdyd8m6/Qx+p
+         MH+xTub4nebe3qOYE9s9xAguDYzUVIElE0/tOM24wn+juwzA9yJ03kVfFSNKhjuUb62b
+         KvF2IMWrjkbZT5BOht5SdotUKINWqlpOu27easEpV/jNHEGRmu4AegXPiC181shV0bMY
+         kLw9ILGh4mZr/bwjTXTqQJbO3qyhWn0I+apdJZONEVsWDrptjqOkFFsO35MWw4zbFE3p
+         XTQg==
+X-Forwarded-Encrypted: i=1; AKwUvBw6uAVNH12hCJBLcf42AXs0JMOvyEwZflF6ZGZIFkEteCLyySmFVl2+7QrtIQ9rFsNd3GX7NhL8NGqmjfQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrMMYLGFSZs0scCUrVzq3eeFcywXHP+9GGlGmK0sWdXY4Ry+bB
+	me3y60XhOGazrMh0wYuRNyLz4+cPHLSXeIIzR1mlt/vkhtktnvWevDYwVqz+rUK1iGnrm3Moup8
+	5EjJ21FvuRZQ9j7FltEaeC624YhpYWC3yy9w1cAm9C3HHjF2NG1skiFbPqj0=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,16 +58,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1244:b0:510:7dc8:5ff7 with SMTP id
- 5614622812f47-5640deea651mr5941698b6e.19.1793557529004; Sun, 01 Nov 2026
- 10:25:29 -0800 (PST)
+X-Received: by 2002:a05:6808:f13:b0:4e4:627a:e094 with SMTP id
+ 5614622812f47-5640dc2c8a7mr5312584b6e.11.1793557528715; Sun, 01 Nov 2026
+ 10:25:28 -0800 (PST)
 Date: Sun, 01 Nov 2026 10:25:28 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae78418.6552420f.2a0efc.005c.GAE@google.com>
-Subject: [syzbot] [mm?] general protection fault in validate_mm (2)
-From: syzbot <syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+Message-ID: <6ae78418.6552420f.2a0efc.005b.GAE@google.com>
+Subject: [syzbot] [dm?] BUG: unable to handle kernel NULL pointer dereference
+ in dm_bufio_client_create
+From: syzbot <syzbot+41e0d7cdfb1ecfc4a007@syzkaller.appspotmail.com>
+To: agk@redhat.com, bmarzins@redhat.com, dm-devel@lists.linux.dev, 
+	linux-kernel@vger.kernel.org, mpatocka@redhat.com, snitzer@kernel.org, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
@@ -74,99 +77,153 @@ Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=12b81cb1580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=bd712e5dbce1d1a0
-dashboard link: https://syzkaller.appspot.com/bug?extid=10e72ea5747737bcd2ad
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12a58f95580000
+HEAD commit:    abf8c33470f7 Merge tag 'spi-fix-v7.4-merge-window' of git:..
+git tree:       https://kernel.googlesource.com/pub/scm/linux/kernel/git/torvalds/linux master
+console output: https://syzkaller.appspot.com/x/log.txt?x=1578f6ea580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b38f05ed2b645c41
+dashboard link: https://syzkaller.appspot.com/bug?extid=41e0d7cdfb1ecfc4a007
+compiler:       arm-linux-gnueabi-gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: arm
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=12fc4be0580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=134c528d580000
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/98a89b9f34e4/non_bootable_disk-abf8c334.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/dc6a6b2fa900/vmlinux-abf8c334.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/a24896395af6/zImage-abf8c334.xz
 
 AI-generated root cause summary:
-In validate_mm() (mm/vma.c), struct anon_vma *anon_vma = vma->anon_vma caches
-the anon_vma pointer at the beginning of the VMA iteration loop. In
-vms_complete_munmap_vmas(), mm->mmap_lock is downgraded to a read lock before
-validate_mm() is called, allowing a concurrent page fault on another thread to
-populate vma->anon_vma via __anon_vma_prepare(). When this race occurs,
-vma_has_anon_rmap(vma) evaluates to true by re-reading vma->anon_vma, but
-anon_vma_lock_read(anon_vma) is invoked with the stale NULL local variable,
-resulting in an unhandled NULL-pointer dereference and kernel crash.
+In drivers/md/dm-thin.c, pool_ctr() attempts to ensure metadata and data devices
+are distinct by checking strcmp(argv[0], argv[1]), which fails when different
+path strings resolve to the same device. When the pool is created with read_only
+mode, dm_get_device() opens the metadata device as read-only, and the subsequent
+open of the data device as read-write invokes upgrade_mode() in
+drivers/md/dm-table.c, which frees the old table device via
+dm_put_table_device(). This leaves metadata_dev as a dangling pointer
+(use-after-free); when metadata_dev->bdev is subsequently read as NULL from the
+freed slab entry and passed to dm_bufio_client_create(), dereferencing
+bdev->bd_dev causes an immediate kernel NULL pointer dereference.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=10e72ea5747737bcd2ad
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=41e0d7cdfb1ecfc4a007
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com
+Reported-by: syzbot+41e0d7cdfb1ecfc4a007@syzkaller.appspotmail.com
 
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-CPU: 0 UID: 0 PID: 6142 Comm: syz-executor263 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:anon_vma_lock_read mm/internal.h:315 [inline]
-RIP: 0010:validate_mm+0x3d4/0x780 mm/vma.c:707
-Code: d2 e0 98 ff 48 89 df e8 5a 10 f1 ff c6 05 db a8 dd 0f 01 90 0f 0b 90 e9 04 fd ff ff e8 b5 e0 98 ff 48 8b 44 24 08 48 c1 e8 03 <80> 3c 28 00 0f 85 25 03 00 00 48 8b 44 24 08 4c 8d 63 30 48 8b 00
-RSP: 0018:ffffc900040d7870 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffff88806b186000 RCX: 0000000000000000
-RDX: ffff888000794b00 RSI: ffffffff8274c56b RDI: 0000000000000005
-RBP: dffffc0000000000 R08: 0000000000000000 R09: 0000000000000001
-R10: ffff88806b186083 R11: 0000000000000001 R12: ffff88806b186010
-R13: ffff88806b186040 R14: 0000000000000001 R15: 000000000000003d
-FS:  0000000000000000(0000) GS:ffff888095281000(0063) knlGS:000000005727b3c0
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7f72000 CR3: 000000004e463000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- vms_complete_munmap_vmas+0x83b/0xdf0 mm/vma.c:1437
- do_vmi_align_munmap+0x44f/0x5f0 mm/vma.c:1677
- do_vmi_munmap+0x1f8/0x410 mm/vma.c:1725
- __vm_munmap+0x196/0x3c0 mm/vma.c:3562
- __do_sys_munmap mm/mmap.c:1094 [inline]
- __se_sys_munmap mm/mmap.c:1091 [inline]
- __ia32_sys_munmap+0x57/0x80 mm/mmap.c:1091
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x14b/0x8c0 arch/x86/entry/syscall_32.c:282
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:307
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7eaafbc
-Code: d2 74 05 c1 e8 0c 89 02 8b 5d fc 31 c0 c9 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 2e 8d b4 26 00 00 00 00 8d b4 26 00 00 00 00 58 b8
-RSP: 002b:00000000ff8ab10c EFLAGS: 00000296 ORIG_RAX: 000000000000005b
-RAX: ffffffffffffffda RBX: 0000000020088000 RCX: 0000000000001000
-RDX: 00000000f7f70ff4 RSI: 00000000000000fb RDI: 0000000000000040
-RBP: 00000000ff8ab168 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
+8<--- cut here ---
+Unable to handle kernel NULL pointer dereference at virtual address 00000024 when read
+[00000024] *pgd=86ce2003, *pmd=df568003
+Internal error: Oops: 205 [#1] SMP ARM
 Modules linked in:
+CPU: 0 UID: 0 PID: 4130 Comm: syz.2.17 Not tainted syzkaller #0 PREEMPT 
+Hardware name: ARM-Versatile Express
+PC is at dm_bufio_client_create+0x298/0x5fc drivers/md/dm-bufio.c:2585
+LR is at __raw_spin_unlock_irqrestore include/linux/spinlock_api_smp.h:211 [inline]
+LR is at _raw_spin_unlock_irqrestore+0x30/0x54 kernel/locking/spinlock.c:221
+pc : [<812f4044>]    lr : [<81c19680>]    psr: 60000013
+sp : df9f1b30  ip : df9f1aa8  fp : df9f1bd4
+r10: 00000000  r9 : df9f1b48  r8 : 837359c4
+r7 : 83735984  r6 : 8633b638  r5 : 00000000  r4 : 8633b600
+r3 : 00000000  r2 : 00000000  r1 : ffc00000  r0 : 00000000
+Flags: nZCv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment user
+Control: 30c5387d  Table: 86a96cc0  DAC: fffffffd
+Register r0 information: NULL pointer
+Register r1 information: non-paged memory
+Register r2 information: NULL pointer
+Register r3 information: NULL pointer
+Register r4 information: slab kmalloc-512 start 8633b600 pointer offset 0 size 512
+Register r5 information: NULL pointer
+Register r6 information: slab kmalloc-512 start 8633b600 pointer offset 56 size 512
+Register r7 information: non-slab/vmalloc memory
+Register r8 information: non-slab/vmalloc memory
+Register r9 information: 2-page vmalloc region starting at 0xdf9f0000 allocated at kernel_clone+0xc4/0x440 kernel/fork.c:2784
+Register r10 information: NULL pointer
+Register r11 information: 2-page vmalloc region starting at 0xdf9f0000 allocated at kernel_clone+0xc4/0x440 kernel/fork.c:2784
+Register r12 information: 2-page vmalloc region starting at 0xdf9f0000 allocated at kernel_clone+0xc4/0x440 kernel/fork.c:2784
+Process syz.2.17 (pid: 4130, stack limit = 0xdf9f0000)
+Stack: (0xdf9f1b30 to 0xdf9f2000)
+1b20:                                     00000001 00000000 00001fff 00000006
+1b40: 00000000 00000008 00000008 00000000 00000000 00000000 00000000 00000000
+1b60: 00000000 625f6d64 6f696675 6675625f 2d726566 00312d38 00000000 00000000
+1b80: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1ba0: 00000000 5d3b91d7 80579764 863f8c80 00000000 00001000 00000006 00000000
+1bc0: 00000000 00000800 df9f1c0c df9f1bd8 8130d108 812f3db8 8130d020 8130d03c
+1be0: 00000000 868f1040 00000000 868f0c00 00000000 00000000 00000000 00000000
+1c00: df9f1c34 df9f1c10 81329660 8130d0a4 868f1040 8276076c 826a9678 00000000
+1c20: 83735a70 00000000 df9f1cb4 df9f1c38 81322274 813295d4 00000000 00000000
+1c40: 835c30a0 863f87c0 8417c000 86852000 83735a60 00000003 863f894c 00000800
+1c60: 863f87cc 00000000 00000014 00000000 812e5f44 00000000 00000007 00000000
+1c80: 863f8858 5d3b91d7 00000000 863c7180 868f1040 00000000 00000000 00000800
+1ca0: 00000000 00000000 df9f1d0c df9f1cb8 812e623c 81321df0 00000008 df9f1d2c
+1cc0: 868f1040 00000000 85b2db60 85b2db50 df9f1d0c 00000006 863f8840 5d3b91d7
+1ce0: 86852000 0000006f 85b2db38 85b2db60 85b2da00 00000000 85b2dba8 86852000
+1d00: df9f1d64 df9f1d10 812ec884 812e60b0 00000800 00000000 85b2db60 85b2da00
+1d20: 812eabcc 863c7180 00000000 863c7180 00000000 5d3b91d7 df9f1d54 812ec740
+1d40: 85b2da00 200006c0 863f0e80 00000009 000001a8 000001a8 df9f1f04 df9f1d68
+1d60: 812eaa04 812ec74c df9f1e74 81ee19d4 8259d20c 8088542c 81ee1718 00000077
+1d80: 85b2db31 b5403587 00000000 00000000 00000001 00000000 00000004 00000032
+1da0: 00000000 000001a8 00000138 00000001 00000000 00020000 00000000 00000000
+1dc0: 0000f800 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1de0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1e00: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1e20: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1e40: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1e60: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1e80: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1ea0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+1ec0: 00000000 00000000 00000000 00000000 00000003 5d3b91d7 df9f1ef4 00000000
+1ee0: 863f0e80 c138fd09 200006c0 863f0e80 00000003 84d3be80 df9f1f14 df9f1f08
+1f00: 812eaf64 812ea79c df9f1fa4 df9f1f18 805f2e84 812eaf60 df9f1f4c df9f1f28
+1f20: 8035d380 8036088c ffffffff 81c0c4c0 df9f1f54 df9f1f40 8025cbac 00000001
+1f40: df9f1fa4 df9f1f50 8035dc54 8035d1f8 00000000 00000001 ffffffff 8341a10c
+1f60: 00000000 00000000 00000000 00000000 00000000 5d3b91d7 df9f1fac 00000000
+1f80: 00000000 00356310 00000036 8020029c 84d3be80 00000036 00000000 df9f1fa8
+1fa0: 80200060 805f2c4c 00000000 00000000 00000003 c138fd09 200006c0 00000000
+1fc0: 00000000 00000000 00356310 00000036 003562d8 00000000 00000008 00000000
+1fe0: 7ecaa7a0 7ecaa790 0001903c 00130cf0 60000010 00000003 00000000 00000000
+Call trace: 
+[<812f3dac>] (dm_bufio_client_create) from [<8130d108>] (dm_block_manager_create+0x70/0xb0 drivers/md/persistent-data/dm-block-manager.c:397)
+ r10:00000800 r9:00000000 r8:00000000 r7:00000006 r6:00001000 r5:00000000
+ r4:863f8c80
+[<8130d098>] (dm_block_manager_create) from [<81329660>] (__create_persistent_data_objects drivers/md/dm-thin-metadata.c:791 [inline])
+[<8130d098>] (dm_block_manager_create) from [<81329660>] (dm_pool_metadata_open+0x98/0x15c drivers/md/dm-thin-metadata.c:980)
+ r8:00000000 r7:00000000 r6:00000000 r5:00000000 r4:868f0c00
+[<813295c8>] (dm_pool_metadata_open) from [<81322274>] (pool_create drivers/md/dm-thin.c:2946 [inline])
+[<813295c8>] (dm_pool_metadata_open) from [<81322274>] (__pool_find drivers/md/dm-thin.c:3113 [inline])
+[<813295c8>] (dm_pool_metadata_open) from [<81322274>] (pool_ctr+0x490/0xa64 drivers/md/dm-thin.c:3363)
+ r9:00000000 r8:83735a70 r7:00000000 r6:826a9678 r5:8276076c r4:868f1040
+[<81321de4>] (pool_ctr) from [<812e623c>] (dm_table_add_target+0x198/0x3bc drivers/md/dm-table.c:749)
+ r10:00000000 r9:00000000 r8:00000800 r7:00000000 r6:00000000 r5:868f1040
+ r4:863c7180
+[<812e60a4>] (dm_table_add_target) from [<812ec884>] (populate_table drivers/md/dm-ioctl.c:1602 [inline])
+[<812e60a4>] (dm_table_add_target) from [<812ec884>] (table_load+0x144/0x3d4 drivers/md/dm-ioctl.c:1645)
+ r10:86852000 r9:85b2dba8 r8:00000000 r7:85b2da00 r6:85b2db60 r5:85b2db38
+ r4:0000006f
+[<812ec740>] (table_load) from [<812eaa04>] (ctl_ioctl+0x274/0x7c4 drivers/md/dm-ioctl.c:2221)
+ r10:000001a8 r9:000001a8 r8:00000009 r7:863f0e80 r6:200006c0 r5:85b2da00
+ r4:812ec740
+[<812ea790>] (ctl_ioctl) from [<812eaf64>] (dm_ctl_ioctl+0x10/0x14 drivers/md/dm-ioctl.c:2243)
+ r10:84d3be80 r9:00000003 r8:863f0e80 r7:200006c0 r6:c138fd09 r5:863f0e80
+ r4:00000000
+[<812eaf54>] (dm_ctl_ioctl) from [<805f2e84>] (vfs_ioctl fs/ioctl.c:51 [inline])
+[<812eaf54>] (dm_ctl_ioctl) from [<805f2e84>] (do_vfs_ioctl fs/ioctl.c:551 [inline])
+[<812eaf54>] (dm_ctl_ioctl) from [<805f2e84>] (__do_sys_ioctl fs/ioctl.c:595 [inline])
+[<812eaf54>] (dm_ctl_ioctl) from [<805f2e84>] (sys_ioctl+0x244/0xb5c fs/ioctl.c:583)
+[<805f2c40>] (sys_ioctl) from [<80200060>] (ret_fast_syscall+0x0/0x1c arch/arm/mm/proc-v7.S:67)
+Exception stack(0xdf9f1fa8 to 0xdf9f1ff0)
+1fa0:                   00000000 00000000 00000003 c138fd09 200006c0 00000000
+1fc0: 00000000 00000000 00356310 00000036 003562d8 00000000 00000008 00000000
+1fe0: 7ecaa7a0 7ecaa790 0001903c 00130cf0
+ r10:00000036 r9:84d3be80 r8:8020029c r7:00000036 r6:00356310 r5:00000000
+ r4:00000000
+Code: e3a05000 e3a01000 e34f1fc0 e1a00005 (e5932024) 
 ---[ end trace 0000000000000000 ]---
-RIP: 0010:anon_vma_lock_read mm/internal.h:315 [inline]
-RIP: 0010:validate_mm+0x3d4/0x780 mm/vma.c:707
-Code: d2 e0 98 ff 48 89 df e8 5a 10 f1 ff c6 05 db a8 dd 0f 01 90 0f 0b 90 e9 04 fd ff ff e8 b5 e0 98 ff 48 8b 44 24 08 48 c1 e8 03 <80> 3c 28 00 0f 85 25 03 00 00 48 8b 44 24 08 4c 8d 63 30 48 8b 00
-RSP: 0018:ffffc900040d7870 EFLAGS: 00010246
-RAX: 0000000000000000 RBX: ffff88806b186000 RCX: 0000000000000000
-RDX: ffff888000794b00 RSI: ffffffff8274c56b RDI: 0000000000000005
-RBP: dffffc0000000000 R08: 0000000000000000 R09: 0000000000000001
-R10: ffff88806b186083 R11: 0000000000000001 R12: ffff88806b186010
-R13: ffff88806b186040 R14: 0000000000000001 R15: 000000000000003d
-FS:  0000000000000000(0000) GS:ffff888095281000(0063) knlGS:000000005727b3c0
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7f72000 CR3: 000000004e463000 CR4: 0000000000352ef0
 ----------------
-Code disassembly (best guess), 4 bytes skipped:
-   0:	48 89 df             	mov    %rbx,%rdi
-   3:	e8 5a 10 f1 ff       	call   0xfff11062
-   8:	c6 05 db a8 dd 0f 01 	movb   $0x1,0xfdda8db(%rip)        # 0xfdda8ea
-   f:	90                   	nop
-  10:	0f 0b                	ud2
-  12:	90                   	nop
-  13:	e9 04 fd ff ff       	jmp    0xfffffd1c
-  18:	e8 b5 e0 98 ff       	call   0xff98e0d2
-  1d:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
-  22:	48 c1 e8 03          	shr    $0x3,%rax
-* 26:	80 3c 28 00          	cmpb   $0x0,(%rax,%rbp,1) <-- trapping instruction
-  2a:	0f 85 25 03 00 00    	jne    0x355
-  30:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
-  35:	4c 8d 63 30          	lea    0x30(%rbx),%r12
-  39:	48 8b 00             	mov    (%rax),%rax
+Code disassembly (best guess):
+   0:	e3a05000 	mov	r5, #0
+   4:	e3a01000 	mov	r1, #0
+   8:	e34f1fc0 	movt	r1, #65472	@ 0xffc0
+   c:	e1a00005 	mov	r0, r5
+* 10:	e5932024 	ldr	r2, [r3, #36]	@ 0x24 <-- trapping instruction
 
 
 ---
