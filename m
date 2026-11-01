@@ -1,76 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793535524;
-	b=Kekej1idBENg/Y2GRmxgyNikS3fUijv2ELvKv4BaWLPWimoSVXy8HhiF9pVOeQwyNny/
-	 tacHOKb5z5A8TXU1Ui9Cswe2cmt+vA+kHy4JRWRs6BDUKLcKj7WlX0YWxMoP1SHW7/9Ok
-	 /n1lSdVLH4EtYt6QRSKFa0VzeC8glAnuLG44L07SRmT9PDPMk5SC9GMNXYXkImMKG07gm
-	 pjigsAjRFTDPncwZIDSy8Vzh0ePVTlEWZgRP/KXzK19mX2JElmfiC1LgT5rPgv9iLgayG
-	 my5iw0Vcl9HlULbUG1xNEGHgmsK6x7Vvu5AOklSER5Rp4R0XussW10ItQKFGcMeeX3w==
+	t=1793535696;
+	b=puizY6mRAb/4UdFx20slomgMuzwuhiK4RNV9D53kJETJJsr4po5Yvms5mhUhZxaBdg72
+	 dC5SOv6B/F1r5q7oGXi0FSSyof8UoaXC2N+nvaAs4CajtR8oArhq7CCOWcdgZ8k5lItd8
+	 NzULPjqBAn4NS/Z0xttZ4kuOqDlCCu6kSoXkrzX+P3Z/s/8tzRyLs+yFSvOLGPRldVlCN
+	 Y12fz3F5cCLixl0sI8Q02u3JzOi4TUqNu0TlhCUObG9cR3FU57F8vH+4yp1flyp8X9bfW
+	 aZ/+hulGLd4PlkLFg+6MjgZYNRlBk0TIicR0iujca//g9TTMW1cyoguOPHtP75pnL8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793535524;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
-	 Cc:Subject:Message-ID:User-Agent;
-	bh=1mSn0UJFueTtA/HEJ7YdR4yTB0DtlZnYMAr2+J0vYm4=;
-	b=B8J0wmf9iHGoKlUtsVdj8TxI8FCHI6GBz1FmsMEryxV0TwLiAgnArzZ168iSpNRouDRP
-	 jlN16I5Zh6dKdlDgCPzeBC6LF+48ZHDZecNaANaP+qdnK99o98tBt2bWJSbBSk9EyQ/S4
-	 85ERP1WQ6WpjqniBKafTBhsWZInoVvV9B9gLXl2T+jKocQcUu7QA2Y2OnWcWwBPyHnAcQ
-	 2RyRBV+pMwl80Y62sy4BWJQPvKmqJfg/nlWVK8os34dypmYwyvMwIlvtHW+AJ5bQ+fYcC
-	 qYyMoEbBr0K9NyOssbUfFS41EGyGWeIY18fuVNKmXZv+2zvD4oL+MupqweDIhSI2wNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793535696;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=17cJmiuUCova0Iydm9bRMkHrls1dA/n7JgpWCE9LeH4=;
+	b=vTJnI0hkUsXlZvLtEtUREAedGd75wb0zGGR95O8TnuiBEZXF6IBqPljgHAXNkLWPQ187
+	 47FzLX/EwGAHklrwF7Tg3npCl2wNc+jVrPSi+9v4odsS8Ck98lBeoiHnFfTdeHIKE7xwf
+	 GLgy1fyoCU+juLoIjBQXzB+0H9NndS+KVvR3ydVPhGHHmdRgC0jGemwN6MRkWGxfWQXZr
+	 MeCcvhIZMgF1aVOxYsvRzNOu7xjhXdSeg4JNgsFgl4bmklrkuoWq/xrb3C+T+3gvKsQKC
+	 vWnNG6N+JYHuEbagoqna2GUbcCnLR7dEiheWiUZ6Ja//XNjWv7Evnzj+5CAc4gOFY6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PrJleK6N;
-	arc=none smtp.remote-ip=198.175.65.15
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q6VaBw/x";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36458606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:18:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36458606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D92C606A324;
+	Sun,  1 Nov 2026 12:21:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PrJleK6N
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793535523; x=1825071523;
-  h=date:from:to:cc:subject:message-id;
-  bh=TrHJ6lcqc8F044agPTjIVa11kYDz/QmwFmyxUQ99Gp0=;
-  b=PrJleK6NSstCbSJ57a4l+bnM7jyyfD8EWOKy7nyzU3CW5ivpK48a69Ar
-   6oeO/d+aSEjTGcuLFe76ZwJiMBGrdFr1zpBQUuYi4YfNA7CHiVPYo+7FJ
-   IKKV4Q6V8WO3kXzwOvhlpKEyWnWEq+BhrR+cd86tL07G0Ew8/dtFG4XCP
-   zkRY318X8FCUwcuQKP4l0R/HYF6YWZs1CnDZW4BSA3M9OowWjzkuKFYmQ
-   fLybE7y9NE2KUSJQTL27Z0pnuI1s4M/qtKZxibZIU2gPn1OMENa7UiZlS
-   RipacjfnrWJ3Qd+AVd2oYgcVGMVkt7cpsqfH+il18RkQI8ieXspxIecWJ
-   A==;
-X-CSE-ConnectionGUID: D+C1jRL2RMe1zD+OKp/yxQ==
-X-CSE-MsgGUID: mhaLWkA4Q5W2rZBawXmn/w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2242741"
-X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
-   d="scan'208";a="2242741"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 04:18:42 -0800
-X-CSE-ConnectionGUID: ybB+8fSESNa3sdkk5VZH7w==
-X-CSE-MsgGUID: zbhL8z2jR+G8oTReWpLIKA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
-   d="scan'208";a="6192100"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa008.fm.intel.com with ESMTP; 01 Nov 2026 04:18:40 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xNUWE-00000000dl4-1PFw;
-	Sun, 01 Nov 2026 12:18:38 +0000
-Date: Sun, 01 Nov 2026 20:18:10 +0800
-From: kernel test robot <lkp@intel.com>
-To: "x86-ml" <x86@kernel.org>
-Cc: linux-kernel@vger.kernel.org
-Subject: [tip:sched:urgent] BUILD SUCCESS
- b327e63683a2b894b500027375342c25222b58ef
-Message-ID: <20261101201809.TXvcs8g7-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6VaBw/x
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14B11F000C1;
+	Sun,  1 Nov 2026 12:21:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793535695;
+	bh=17cJmiuUCova0Iydm9bRMkHrls1dA/n7JgpWCE9LeH4=;
+	h=From:To:Cc:Subject:Date;
+	b=Q6VaBw/xwt3xjJKiOpVuAXS/HZYicUcZ9H9vsya1+Lus391pN5d+STWxoXdmnWaxp
+	 FlMYGMIQlds8dXjXjKgZfai04vxCe+tryERfYXX61dArhe6rIDhAXKAbADRtLwQ4Rh
+	 jSiXkHoP+/05wp8sjGbVI1cOUiMHvefjWJHeVLi3jE/2ySAs4KOmmesMP7rswti4yL
+	 MrFDPtW1sAnHaYX5jLQcT4PlDYqx9mQr+2oDBY44Dwf0BZXytQlTPrnYOMncNdiaKq
+	 BRNGhjsq9iPcQ6pll4HpcEtsPlj7PsLnW7CqBR43PqAH8w0w7DI1t2jtgs66CJqS10
+	 ETs+PQZQq1Oiw==
+From: Danilo Krummrich <dakr@kernel.org>
+To: robh@kernel.org,
+	saravanak@kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Danilo Krummrich <dakr@kernel.org>
+Subject: [PATCH] of: unittest: Remove refcount underflow tests
+Date: Sun,  1 Nov 2026 13:19:29 +0100
+Message-ID: <20261101122128.2124348-1-dakr@kernel.org>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,62 +57,105 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-tree/branch: https://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched/urgent
-branch HEAD: b327e63683a2b894b500027375342c25222b58ef  sched/cputime: Don't warn when the tick period starts after idle exit
+With CONFIG_OF_UNITTEST=y and CONFIG_BUG_ON_DATA_CORRUPTION=y, the
+machine no longer boots after commit 5b5224220747 ("refcount: Use
+CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
 
-elapsed time: 262m
+of_unittest_lifecycle() deliberately calls of_node_put() after the
+node's reference count has reached zero. The test expects a warning and
+continues to check that a subsequent put does not produce another
+warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
+triggers BUG() instead. This panics the kernel during boot:
 
-configs tested: 42
-configs skipped: 1
+	kernel BUG at lib/refcount.c:37!
+	Oops: invalid opcode: 0000 [#1] SMP NOPTI
+	CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N  7.3.0+ #14 PREEMPT(full)
+	RIP: 0010:refcount_warn_saturate+0x89/0x90
+	Call Trace:
+	 of_unittest_lifecycle+0x158/0x310
+	 of_unittest+0x105/0x130
+	 do_one_initcall+0x127/0x350
+	 do_initcall_level+0x7c/0xe0
+	 do_initcalls+0x59/0xa0
+	 kernel_init_freeable+0x118/0x1a0
+	 kernel_init+0x1f/0x140
+	Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+Remove the refcount underflow tests, which exercise the refcount
+implementation rather than OF-specific behavior.
 
-tested configs:
-alpha                     allnoconfig    gcc-16.2.0
-arc                       allnoconfig    gcc-16.2.0
-arm                       allnoconfig    clang-17
-arm               aspeed_g5_defconfig    gcc-16.2.0
-arm                   h3600_defconfig    gcc-16.2.0
-arm               omap2plus_defconfig    gcc-16.2.0
-arm64                     allnoconfig    gcc-16.2.0
-csky                      allnoconfig    gcc-16.2.0
-hexagon                   allnoconfig    clang-24
-i386                      allnoconfig    gcc-14
-loongarch                 allnoconfig    clang-20
-m68k                     allmodconfig    gcc-16.2.0
-m68k                      allnoconfig    gcc-16.2.0
-microblaze                allnoconfig    gcc-16.2.0
-mips                      allnoconfig    gcc-16.2.0
-nios2                     allnoconfig    gcc-11.5.0
-openrisc                  allnoconfig    gcc-16.2.0
-openrisc                    defconfig    gcc-16.2.0
-parisc                    allnoconfig    gcc-16.2.0
-parisc                      defconfig    gcc-16.2.0
-powerpc                   allnoconfig    gcc-16.2.0
-powerpc             asp8347_defconfig    clang-24
-powerpc           motionpro_defconfig    clang-24
-riscv                    alldefconfig    gcc-16.2.0
-riscv                     allnoconfig    gcc-16.2.0
-riscv                       defconfig    clang-24
-s390                      allnoconfig    clang-24
-s390                        defconfig    clang-18
-sh                        allnoconfig    gcc-16.2.0
-sh          sh7785lcr_32bit_defconfig    gcc-16.2.0
-sparc                     allnoconfig    gcc-16.2.0
-sparc                       defconfig    gcc-16.2.0
-sparc        randconfig-1000-20261101    gcc-16.2.0
-sparc        randconfig-1001-20261101    gcc-8.5.0
-sparc               sparc32_defconfig    gcc-16.2.0
-sparc64      randconfig-1000-20261101    gcc-9.5.0
-um                        allnoconfig    clang-17
-um           randconfig-1000-20261101    clang-22
-um           randconfig-1001-20261101    clang-18
-x86_64                    allnoconfig    clang-22
-xtensa                    allnoconfig    gcc-16.2.0
-xtensa       randconfig-1001-20261101    gcc-8.5.0
+Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors")
+Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+---
+ drivers/of/unittest.c | 43 -------------------------------------------
+ 1 file changed, 43 deletions(-)
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index e255f54f4d76..03fc941c0995 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -3678,9 +3678,6 @@ static void __init of_unittest_lifecycle(void)
+ 	 * - Decrementing refcount to zero via of_node_put() should cause the
+ 	 *   attempt to free the node memory by of_node_release() to fail
+ 	 *   because the node is not a dynamic node.
+-	 *
+-	 * - Decrementing refcount past zero should result in additional
+-	 *   errors reported.
+ 	 */
+ 
+ 	np = of_find_node_by_path(refcount_path);
+@@ -3714,46 +3711,6 @@ static void __init of_unittest_lifecycle(void)
+ 
+ 	EXPECT_END(KERN_INFO, "OF: ERROR: of_node_release() detected bad of_node_put() on /testcase-data/refcount-node");
+ 
+-
+-	/*
+-	 * expect stack trace for subsequent of_node_put():
+-	 *   __refcount_sub_and_test() calls:
+-	 *   refcount_warn_saturate(r, REFCOUNT_SUB_UAF)
+-	 *
+-	 * Not capturing entire WARN_ONCE() trace with EXPECT_*(), just
+-	 * the first three lines, and the last line.
+-	 */
+-	EXPECT_BEGIN(KERN_INFO, "------------[ cut here ]------------");
+-	EXPECT_BEGIN(KERN_INFO, "WARNING: <<all>>");
+-	EXPECT_BEGIN(KERN_INFO, "refcount_t: underflow; use-after-free.");
+-	EXPECT_BEGIN(KERN_INFO, "---[ end trace <<int>> ]---");
+-
+-	/* refcount is now zero, this should fail */
+-	unittest(1, "/testcase-data/refcount-node is zero");
+-	of_node_put(np);
+-
+-	EXPECT_END(KERN_INFO, "---[ end trace <<int>> ]---");
+-	EXPECT_END(KERN_INFO, "refcount_t: underflow; use-after-free.");
+-	EXPECT_END(KERN_INFO, "WARNING: <<all>>");
+-	EXPECT_END(KERN_INFO, "------------[ cut here ]------------");
+-
+-	/*
+-	 * Q. do we expect to get yet another warning?
+-	 * A. no, the WARNING is from WARN_ONCE()
+-	 */
+-	EXPECT_NOT_BEGIN(KERN_INFO, "------------[ cut here ]------------");
+-	EXPECT_NOT_BEGIN(KERN_INFO, "WARNING: <<all>>");
+-	EXPECT_NOT_BEGIN(KERN_INFO, "refcount_t: underflow; use-after-free.");
+-	EXPECT_NOT_BEGIN(KERN_INFO, "---[ end trace <<int>> ]---");
+-
+-	unittest(1, "/testcase-data/refcount-node is zero, second time");
+-	of_node_put(np);
+-
+-	EXPECT_NOT_END(KERN_INFO, "---[ end trace <<int>> ]---");
+-	EXPECT_NOT_END(KERN_INFO, "refcount_t: underflow; use-after-free.");
+-	EXPECT_NOT_END(KERN_INFO, "WARNING: <<all>>");
+-	EXPECT_NOT_END(KERN_INFO, "------------[ cut here ]------------");
+-
+ 	/*
+ 	 * refcount of zero will trigger stack traces from any further
+ 	 * attempt to of_node_get() node "refcount-node". One example of
+
+base-commit: a287f97d4256b5f5527f5b5a54f8ada55e1482c7
+-- 
+2.56.0
+
