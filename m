@@ -1,106 +1,112 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.139.74
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793559481;
-	b=MvEmpaPXlnNARhgUOw+8mS+Va2vwPS3JFJpHrmUED2JpM7hwBfvA7ABPhi2f05q9o8Sd
-	 dY34dAp+rurMxCZdqpzav9EJeXr/mbzm9IOWnBUjP1xf0f5tfZHLLNk6ZNQfOCYWy6HCm
-	 hb+jfYEvvBAnRcbxpdgpUe9lNyCuZptCemsy8ONF6u4Ls6rjdYWoc9hrqPK3kC8dhW33y
-	 AwycvFG1KrnePmEXaEtfEcBTWep5FGvCpCEXdwopjozsWsf6O3BInkLDSnO4xoa06uCtI
-	 tF9vH6Aiv8usTLDOqupXdaSV3FntN+b3qp1FqOchDzoN306fqKeFwdXxXbRhUx/hWgA==
+	t=1793559484;
+	b=sJFk2xU+/USyfQpsQuXhPpGwqg1VllYLLcKsD7PoRbcmAs7NEmQk45VogZVpUysY/tB/
+	 28sOe4IKZXs2oj4wl1qJxrBjqLx/ErWn/D/z4LPhrFecOs/98HfWZQCMjSNpe2gtXdsGZ
+	 l9k3K38WkWj2Wq0KlIEbKW9etaaFRP3xup7739XW4SMYW7hKnhHOJIhFWGKcB04tauunc
+	 XnrnyEpk+s8sYOPotyqVBHCxtgTkssbod/Tc3oonGWd2ed0smfnGwHq5H6XukEgL2uLZR
+	 JYZ7E+5HHH5PeQ1y09JDaKPWRWYs23lEH0D8U4DKL+1Gr2NEhnT87HlnH4vxF8mhx+w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793559481;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding;
-	bh=RP3amBCbWCHexvLAy7PHwYgRb/mrpAsaRdOM3wl/80Q=;
-	b=sPeAtwiScmzFOzDItPUZtgqA9e2z6d040OxU0S4LwA/hLazNYg+b8Q19usKfNmUf4y4B
-	 BoVPfAlmAFufnAStTKyIfLTDO6rtsWQEn6AqrH39LdWPKS8bNcqUY4ygLLRB07XjMFPs/
-	 lzqt1P8nOkNsZvmrrkY31Dk4w+El9BheyrKTF1+UhGnQm7gA1QzOKp0htq4eDCd8dfcH/
-	 /xaz/4THrZdk/LYImuD/CXR9B1eFZqtu/VbKAOYeWRlwPTz1VbAFIeleiIAtBCCjRnEyp
-	 JmFCRe14mII+8X8DALLdum+n4kuHLbK+cqGsZaoLCGKPbzxsae0MF391EhYW3Hifszw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793559484;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-GUID:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=CXYY2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=;
+	b=WJcj/40JuSfPk65YJX/XaMd254dgqPrGytP7NlyF3yBRIOgfKgM7Runw6/dM6n/haCl0
+	 SnHEj6z5PWndJzgkUYetx6E0rl6gxzYczhCJar1vR6maBExhyZViXDePBh+WI0fXMQL7t
+	 ZIDcd6OvEmVytYyqM5NVxVhrsuw2mgxcc2L2JCG5SLzm0S2SfamidU4lx9nzZMmg+Ezd8
+	 cnBaE1m7Vp/Qf3YI/4+DCmEZjymO1IwXMl/jQxd92P2/ZzW0HRrMLyiwm7IkqP58DTZgE
+	 YKwVMWwjiKY8wUHQWyFfgv/Ig/U323ECJ1OzlfAGj8XJ7jMM3c+NvJyM7wG+kd7qxIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E4vny+3I;
-	arc=none smtp.remote-ip=209.85.128.180
-Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=columbia.edu;
+	spf=pass smtp.mailfrom=columbia.edu;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=WSYejO69;
+	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=i1WVUosU;
+	arc=none smtp.remote-ip=148.163.139.74
+Received: from mx0b-00364e01.pphosted.com (mx0b-00364e01.pphosted.com [148.163.139.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4825A60A2613
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:57:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4825A60A2613
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5332260A2628
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:58:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5332260A2628
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E4vny+3I
-Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8b2d149693fso5007107b3.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:57:59 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=WSYejO69;
+	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=i1WVUosU
+Received: from pps.filterd (m0167077.ppops.net [127.0.0.1])
+	by mx0b-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1DSfaP2915245
+	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 13:58:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps01; bh=CXYY
+	2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=; b=WSYejO69CfdNT81DJFNR
+	cTmv2KRMB2Od6Hr6tPG8f678k8F9kgVny2jDKBb7rzPcX8OzDcQ+Q/nHuHfrLMBE
+	Wuvye5NceqxWELSLKYTzrwKWhInhEq2ZXZiJjH7TiVJP+RrydeRait9QXjJrohcn
+	IazreHB5Ht8aD5qiFeapcTqQhP211JwT3xRQ+WQkTye4Izdv+tuDejCl1m2eL13x
+	+UV70Q0BlGM7Qt9pKdSq4W3CqfSrDl24yloIiDMU1BmVJG5/YcMYV/Xi5lp0QBRn
+	4g5Tnui1BW2bPVelveiAE51q0wprWe7sX0wMBqJ6dvkasteXLlVlFjeLZWPU7bol
+	tg==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0b-00364e01.pphosted.com (PPS) with ESMTPS id 4hnwtt32hb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 13:58:01 -0500 (EST)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb71b1443so486081285a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:58:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793559478; x=1794164278; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RP3amBCbWCHexvLAy7PHwYgRb/mrpAsaRdOM3wl/80Q=;
-        b=E4vny+3I7CwAUFIQlsRmQqgEiGFSY9sVX2XkI5N1WUW2pomA7KHlciYM9kRRXA4v91
-         sgsioHN/ktvHdQShDWg8N8s0fPgjTtCN5GAjJ15sl9JUDHHWeG9vsk3/1ak7CRtNfV7J
-         fDJiAwoMgmsbq3arSXDlwpPJLLWcU/0584zB2mIVlVy+7OzvixhyPxBrGTKIEIpu5AuF
-         3v6VSPWy1bwaSMZAxCwlonCPuP5p+44p7oPcAYJGPjZEt6SrIlK3UAFNjKKoONLp7D1P
-         iJyQDd0eM+/0YrlDkh2MM7SSppmzpPXQ0SkPsr4aCZU9+HIo5cbUWNwFGqQa5iqY8tOP
-         P18w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793559478; x=1794164278;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=columbia.edu; s=lionmail; t=1793559481; x=1794164281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=RP3amBCbWCHexvLAy7PHwYgRb/mrpAsaRdOM3wl/80Q=;
-        b=NSq7F8I53AAf3yTSwWE2E0+c4OTQSJlTlyjUHVEowWdNl/yfapeqxi5InVBf9z3qlw
-         ZizDEVC6bHJdqpNKim+kTaqT0Et3AXHxV2EPNVLRRrP8rsK2v+GsOwBq4GtdOPXrioM8
-         HuUgVzChuuBxaiNfb11uAm70z90QgL5TVyaUgENNt6ov2rhE9qMw2EuRydpgQktvK/66
-         hOU+syE6Ky73pQo/6SrkXgbL92j/8XfqCt0ehxH3POGFWFKoirmj6RRyLZYeF9uV5ZKq
-         FcJAcrXbSJ2VBXBmJSJ5jM4jqi3dJGbEh0Ea7mb+P56DKB2sEKu3iQg5uuoCQhq90/wF
-         luRA==
-X-Forwarded-Encrypted: i=1; AKwUvBwO8AG17KCY7GUFdbIJTud1PEBTWR5FT/rTMl9PfLA8vs2YEuHr5TQXSCz+Gk4DL8DSAkhuJCiC5l90zmo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/K8VD+wKpEaXJo0gnDPq2iUXOECc2tAUJK8EWU0vb+yYVJwDvv
-	UWLUnRDR+c1wdrvVYxzMBC165lnrc2TECiCtpWRDCsKBf53VXdt2Gv695GvbmgL5
-X-Gm-Gg: AYBFou1VuaGRCueIrVelUCv6w7wiUbcNtarLbqreGk8m9gSPkq1gQZWyYL8kmTPii4b
-	MelXCEfoe4cB6RsZ6R1AfQr6p5OaXa4fh9tDt9S/2yygJEGzwTs7uZ8q9k8bWpfBWDiTsONsGIi
-	A9qB4gCctsMuqTN4t3adjcDMJR+abYcI2Mnal8FQU5yLWkXfBc1OXqv3IjOZ6QCuW9FsKyKozs+
-	OXVFbvim9ZvWvUP8MIGi6+akIQI+plMvnytcJQCBnmtOZurSKsvcNX+b16e4YhzRiFb/RkdycbU
-	atxsiUAXpDGfZzcFD1nJINz0kMrO1BfLMKOmkYopCyv/KfnRnPI4B6fyZyeOszee7K2Gc73FtlB
-	O6CnpVCSIe71cvS1jbgwi7KafcOHz0vt4m21C+5jM2FCjR4aWyzrMqlP3tBE/zH3G2qTIgn+SA7
-	uUXRnqX++NNVFIAzY5pgye2obnYW8v/Na0u7vpAQw+2+CYzNTkexNuvG+i3MmNDd53c+xVR2DVq
-	s6TOnOGtVjeqh/Fx2iFmcqxj++SibhM/YLc2rxG3xgO1ddPs4xBjn3UJap/bi0+MQFrneKwXtm7
-	9ybceUAVKO4aGGEHyssAjiLzlEWG61XoVPEo1NoeG3bs2V+M7rgJSnOZziu2oNl4Qsk=
-X-Received: by 2002:a05:690c:f06:b0:8a8:909b:5c61 with SMTP id 00721157ae682-8b2b672383bmr45947527b3.19.1793559478059;
-        Sun, 01 Nov 2026 10:57:58 -0800 (PST)
-Received: from hp ([71.12.40.102])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b716d420sm40869397b3.33.2026.11.01.10.57.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 10:57:57 -0800 (PST)
-From: Tim Michals <tcmichals@gmail.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen-Yu Tsai <wens@csie.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: linux-sunxi@lists.linux.dev,
-	linux-remoteproc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Tim Michals <tcmichals@gmail.com>
-Subject: [PATCH v3 7/7] remoteproc: sunxi: Add KUnit tests
-Date: Sun,  1 Nov 2026 12:57:35 -0600
-Message-ID: <20261101185735.762559-8-tcmichals@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101185735.762559-1-tcmichals@gmail.com>
-References: <20261101185735.762559-1-tcmichals@gmail.com>
+        bh=CXYY2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=;
+        b=i1WVUosUK+tKdPcwdvkB8p8ZsQvohzdzyFrUraXdDbEUo/GBwHzZFlm/pN2ozsMog+
+         /IO/jLYPgXsTUuWDefz4vlq21tHjFWxHifdIGbyUlOVrzNUS58zS5A9pRg4TA+TjPWqn
+         j5JRsLbXHLmA2UfmdM+xpaSC2q9sC8cCfTurFXpKBBKf60Ck+0IZfJVADIahWuEEUPP+
+         ScmyPErtn0Nrx2PEIoerPVNEd26I8OgC83u93rNsmfsxI6fY0OLcDDfIG0eEIJK9B7xP
+         MEPlPcRYb2uK0AeAKuRBfL7XdQZhZxJ1IDQ/pz3fy+sJjxheOYGMb+ReHVUoetW6Twbe
+         Gbqg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793559481; x=1794164281;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CXYY2davx3hhXmREYRpR7y9c/hR6BJTh9T5lsz/xFXw=;
+        b=C30LHaoR7w/fLDbBen0R6QHStqCxU3tzGsebj9gPkA2fFptFnMWuB12nvscifLSbtY
+         6diuQ1sxbhXyLMZSJn4ffSRNQOC+qj4Rp5ckNP2GCXLeiHFWKvPjXPErgmqH1LkBcLbf
+         ECjXlBkGaQSf0kAt99/nN35XHFV9497aZEaDWTYPpuf8wHW+fXVVXWZwFQRz7d444m4L
+         5wbR2Dcp7iAUfr3IdB3S0t5QNPyX8E62xz0ukwOLNqI2hgjQUn1E6Rlpii/xOSpoNJ+0
+         R4Nx0HYuCoOTAqakkOD4Ftx6i17JDSXtIQlvEceHsGWitdCZQSXQIEX908gFVGYTFL48
+         cRCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw9P0Pl6lz+WsIboVHni/+fRRd2VhpMCcbUWOFs+rnUWXj1D/yRU94uFHgI5GGrfrH/jsKpNv/xz9jYK2o=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIQSyVicES33GMWGZC6B1uWIeg92wVeoUXPJAWC9WMPesM9iz3p
+	VNxeSH5FOzQvst3sL2C1ZBgtyRPw5PwX0HHZxh8Po/CJJh9OgcIMtQoEd6HPM2N04dnoa3DrMsu
+	oTec/GWYs2mIwfqVRMklCIaHUzMEaBIF/Eex1zKq68CtXHR99f0Rr4O8o2gpb2g==
+X-Gm-Gg: AYBFou2L7W9ZBgLGJzcS4WUPRub+HvMtHLmasdbUMYq5Ynk+38YxZDasV8MyvFNlDfM
+	DC1dkQOWYwJ5sBKo34x/W+kOlTznkNvAEPCKs2vsg1nfPaRBqg9LhgFeF7Q9Kex+mMVB9Hs76vH
+	rWgFHTAzKz/9q0fHkgTrp1GH+e/sLPFMeeCFA/gOPNEI+RmZzvNLCH4Q2nWnN3DoHnNA0epHzH2
+	k4A/HUlc8Rhban8jXhcaACPpEq9WchA5/RXj7h2jSOlIG6fTEsPS2xEeAgas3qsldTUq7S/Cqs0
+	CA9T7g+Bawus5jBwa03SuuZoa4XpDLq+GhB2YVHy2hLBG8dTjI6B2G34yATx0+hgBhQjXovlOYy
+	ncRQoZqaEjWz45Pcwir+Rh5Z4gc7Z+SmmWC1lGX7SlHbb06JK6DEZvzaMwEuKJfQrTvjGNApxja
+	IBFYclKKY43tp8LZ5iW+q1OFHW+Tbv5IanioI=
+X-Received: by 2002:a05:620a:468a:b0:93c:8544:6ad8 with SMTP id af79cd13be357-94421747024mr1398579085a.28.1793559481405;
+        Sun, 01 Nov 2026 10:58:01 -0800 (PST)
+X-Received: by 2002:a05:620a:468a:b0:93c:8544:6ad8 with SMTP id af79cd13be357-94421747024mr1398575885a.28.1793559480868;
+        Sun, 01 Nov 2026 10:58:00 -0800 (PST)
+Received: from ?IPV6:2a00:a040:199:85d9:400f:a731:3a5c:25b9? ([2a00:a040:199:85d9:400f:a731:3a5c:25b9])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aa704sm205875525e9.8.2026.11.01.10.57.57
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 10:57:59 -0800 (PST)
+Message-ID: <b8847a58-1c43-46a8-823a-4ad7a14c8f93@columbia.edu>
+Date: Sun, 1 Nov 2026 20:57:56 +0200
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,1414 +116,171 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] mm/memory-failure: fix folio refcount leak and
+ min_order_for_split() locking
+To: "David Hildenbrand (Arm)" <david@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Lorenzo Stoakes <ljs@kernel.org>, Zi Yan <ziy@nvidia.com>,
+        Baolin Wang <baolin.wang@linux.alibaba.com>,
+        "Liam R. Howlett" <liam@infradead.org>,
+        Ryan Roberts <ryan.roberts@arm.com>, Dev Jain <dev.jain@arm.com>,
+        Barry Song <baohua@kernel.org>, Lance Yang <lance.yang@linux.dev>,
+        Usama Arif <usama.arif@linux.dev>, Miaohe Lin <linmiaohe@huawei.com>,
+        Naoya Horiguchi
+ <nao.horiguchi@gmail.com>,
+        Wei Yang <richard.weiyang@gmail.com>,
+        Nico Pache <nico.pache@linux.dev>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+        Luis Chamberlain <mcgrof@kernel.org>,
+        Li Youhong <liyouhong@kylinos.cn>, stable@vger.kernel.org
+References: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
+Content-Language: en-US
+From: Tal Zussman <tz2294@columbia.edu>
+In-Reply-To: <20261030-try_to_split_thp_page-v2-1-c957c9b42eab@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: KekHOHIzRFispZyCVzoqfKyLG6HEE5sT
+X-Proofpoint-ORIG-GUID: KekHOHIzRFispZyCVzoqfKyLG6HEE5sT
+X-Authority-Analysis: v=2.4 cv=RsRQvymK c=1 sm=1 tr=0 ts=6ae78bba cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=QOCMdifcju39GKoXhKua:22
+ a=VwQbUJbxAAAA:8 a=Byx-y9mGAAAA:8 a=Ikd4Dj_1AAAA:8 a=SRrdq9N9AAAA:8
+ a=i0EeH86SAAAA:8 a=ZVJNLgniXcJRS-GVAekA:9 a=QEXdDO2ut3YA:10
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA3NSBTYWx0ZWRfX90C8cJiW4++1
+ fv/R4kHjVDCAxNqB5+I7qgCNvILu+0au7eSHgulximfsJIrAtMvGVkhukFuUF2IiJ0G41joXwsD
+ m6ij2ZEQSrzLo+HV62z/z4/svKdMs0bmieughJmmU6Ac+z/v5PsL
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA3NSBTYWx0ZWRfX/EX1Ie42Sm81
+ M4jKegiI1bqSYmoy6yjnNFIHwOwRZKKrw7yuVMhc70k4CxGRkK1SRKCW1zlIFi/9K7kVgmoS2k8
+ 1LT/i5mxWbkQiAUzEg9QZ07YkE7KGRLNPoWeDANt9oNK8ZBWDwYTauDRadXKN8YZn7wmR8ok4XX
+ f36t30Sisd/rHqjrsOQmTanHL/06lt36Os/QFVI48HAc8JsqVMTgLOunz3zC+mrRQHNjWjOSUxu
+ 5AVdQ0Xp78nbTKMdgAec8M7bu0GfMZJJVonQSKmioQqwPqXoRXEqWWHngDg664Tss7K+4yUBrTd
+ VNuYyIQbBD3mj26gi75IjreqXQIK7sCJcQtdJBWwckeAojkp2PvgnVdTdA/qmjYGFRDsIhUmzgQ
+ 6NYdzTHmGkOjLsH2XZLJj9rx2HLrsFqvm3Y3QYsAG/csw6TCQA/eAZE3WKmOAUm3r0vsIAY3Bms
+ 8dC9eRZ4+rJkitzThiA==
+X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11953
+ signatures=596817
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=10 suspectscore=0 lowpriorityscore=10 impostorscore=10 adultscore=0
+ phishscore=0 clxscore=1015 spamscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010075
 
-Add 26 KUnit tests for the sunxi remoteproc driver: translation of both
-SRAM windows by core and host address, their edges (the windows are
-adjacent, and an access may not straddle them), rejection of zero
-length, overflowing da + len and addresses near SRAM that are not E906
-SRAM, DRAM and trace left to the core's carveout lookup, boot address
-programming and the rejection of addresses above 32 bits, the remap bit
-(leaving the DSP's bit alone) and SRAM clearing, the reset and clock
-order of .prepare(), .start(), .stop() and .unprepare(), every
-.prepare() failure unwound (one parameterised test per step, and a
-power domain that does not power up), a core reset that fails in
-.start(), the crash interrupt armed only while the core runs, the crash
-handler through a real threaded interrupt, the firmware machine check,
-.parse_fw() with no, a rejected and a valid resource table and the
-memory it registers across two boots, a kick queued behind another
-keeping its payload, the mailbox receive callback deferring to the
-workqueue, and the work servicing every vring.
+On 10/30/26 6:29 PM, David Hildenbrand (Arm) wrote:
+> hwpoison code can end up calling min_order_for_split() without holding
+> the folio lock. There isn't really something that would prevent
+> concurrent folio split. Consequently folio->mapping can get set to
+> NULL after checking for "!folio->mapping", and if the compiler
+> reloads folio->mapping, mapping_min_folio_order() would try to
+> dereference NULL.
+> 
+> While very unlikely to happen in practice, let's just enforce that
+> min_order_for_split() is called with the folio lock held. We can
+> significantly cleanup the calling hwpoison code, and just get rid
+> of try_to_split_thp_page() to hold the folio lock for a bit longer.
+> 
+> Just work on folios now, which further cleans up the code. We just
+> have to be careful about doing the page_folio() after splitting, which
+> we have to do already either way. Do not change the way we split for
+> now, this needs more thought and should be done separately.
+> 
+> Cleaning this up we fix another issue: in soft_offline_in_use_page(), we
+> would currently have leaked a folio reference.
+> 
+> In min_order_for_split(), document and assert that we need the folio lock.
+> Drop the questionable VM_BUG_ON_PAGE(!page_count(p), p) check entirely.
+> 
+> While updating the comment in soft_offline_in_use_page(), just drop the
+> "NOTE" part that does not add any value to current code.
+> 
+> The folio->mapping problem was identified by Sashiko, and Li Youhong
+> reported it by sending a proposal fix.
+> 
+> This likely does not really warrant CCing stable, but I expect little
+> conflicts when doing the backport, so let's just CC stable because of
+> the refcount leak.
+> 
+> Reported-by: Li Youhong <liyouhong@kylinos.cn>
+> Closes: https://lore.kernel.org/r/20260804035828.2684059-1-dayou5941@163.com
+> Fixes: 689b8986776c ("mm/memory-failure: improve large block size folio handling")
+> Acked-by: Usama Arif <usama.arif@linux.dev>
+> Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> Reviewed-by: Zi Yan <ziy@nvidia.com>
+> Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+> Acked-by: Miaohe Lin <linmiaohe@huawei.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 
-Register and SRAM access is redirected with KUnit static stubs to fake
-buffers; fake clocks and a fake reset controller on a software node
-stand in for the hardware, so the tests run on any architecture.
+I managed to trigger a UAF via folio->mapping due to the race with truncation
+that this patch fixes (KASAN output below). Soft offline is preempted inside
+min_order_for_split() after it's loaded folio->mapping. The file is then
+unlinked and closed, the inode is freed after an RCU grace period, and the
+subsequent mapping->flags read hits the freed shmem inode.
 
-Signed-off-by: Tim Michals <tcmichals@gmail.com>
----
-Changes in v3:
-- Moved after the drivers
-- depends on SUNXI_REMOTEPROC (Sashiko)
-- Register and SRAM access goes through KUnit static stubs, no readl()
-  on plain memory, so no architecture restriction and no endianness
-  issue (Sashiko); depends on COMMON_CLK and RESET_CONTROLLER for the
-  fake clocks and reset controller
-- File named sunxi_rproc_kunit.c (kunit/style.rst)
-- The kick_msg test is replaced by one that queues a kick behind
-  another and checks the payload when it is sent (Sashiko)
-- New tests: DRAM left to the core carveouts, addresses near SRAM that
-  are not E906 SRAM, both window edges, remap bit 0 (DSP) preserved,
-  boot address rejected before STA_ADD is written, receive callback
-  deferring to the workqueue, every prepare() failure unwound, reset
-  and clock order, crash interrupt arming and handler, machine check,
-  parse_fw(), the vring work
-- Duplicate tests merged
----
- drivers/remoteproc/Kconfig             |   15 +
- drivers/remoteproc/Makefile            |    1 +
- drivers/remoteproc/sunxi_rproc_kunit.c | 1314 ++++++++++++++++++++++++
- 3 files changed, 1330 insertions(+)
- create mode 100644 drivers/remoteproc/sunxi_rproc_kunit.c
+As noted, the potential folio->mapping NULL dereference is dependent on
+compiler codegen. x86 GCC and Clang only load folio->mapping once on the
+versions I tested, so I couldn't trigger it.
 
-diff --git a/drivers/remoteproc/Kconfig b/drivers/remoteproc/Kconfig
-index d2929a3290c3..6516e272689e 100644
---- a/drivers/remoteproc/Kconfig
-+++ b/drivers/remoteproc/Kconfig
-@@ -348,6 +348,21 @@ config SUNXI_REMOTEPROC
- 	  To compile this driver as a module, choose M here: the module will
- 	  be called sunxi_rproc.
- 
-+config SUNXI_REMOTEPROC_KUNIT_TEST
-+	tristate "KUnit tests for Allwinner sunxi remoteproc" if !KUNIT_ALL_TESTS
-+	depends on SUNXI_REMOTEPROC && KUNIT && COMMON_CLK && RESET_CONTROLLER
-+	default KUNIT_ALL_TESTS
-+	help
-+	  KUnit tests for the Allwinner sunxi_rproc driver: da_to_va()
-+	  address translation for both SRAM spaces and DRAM carveouts,
-+	  prepare()/unprepare() (reset and clock order, every failure
-+	  unwound, remap bit, SRAM clear), start()/stop() (boot address,
-+	  crash interrupt), the crash handler, parse_fw() (resource table,
-+	  carveouts, crash dump segments), kicks, and the vring
-+	  notifications. Fake clocks and a fake reset controller stand in
-+	  for the hardware.
-+	  Say Y here to run these tests during boot or via kunit.py.
-+
- config TI_K3_DSP_REMOTEPROC
- 	tristate "TI K3 DSP remoteproc support"
- 	depends on ARCH_K3 || COMPILE_TEST
-diff --git a/drivers/remoteproc/Makefile b/drivers/remoteproc/Makefile
-index bf8c96f69a05..33fa226f26e3 100644
---- a/drivers/remoteproc/Makefile
-+++ b/drivers/remoteproc/Makefile
-@@ -38,6 +38,7 @@ obj-$(CONFIG_ST_REMOTEPROC)		+= st_remoteproc.o
- obj-$(CONFIG_ST_SLIM_REMOTEPROC)	+= st_slim_rproc.o
- obj-$(CONFIG_STM32_RPROC)		+= stm32_rproc.o
- obj-$(CONFIG_SUNXI_REMOTEPROC)		+= sunxi_rproc.o
-+obj-$(CONFIG_SUNXI_REMOTEPROC_KUNIT_TEST)	+= sunxi_rproc_kunit.o
- obj-$(CONFIG_TI_K3_DSP_REMOTEPROC)	+= ti_k3_dsp_remoteproc.o ti_k3_common.o
- obj-$(CONFIG_TI_K3_M4_REMOTEPROC)	+= ti_k3_m4_remoteproc.o ti_k3_common.o
- obj-$(CONFIG_TI_K3_R5_REMOTEPROC)	+= ti_k3_r5_remoteproc.o ti_k3_common.o
-diff --git a/drivers/remoteproc/sunxi_rproc_kunit.c b/drivers/remoteproc/sunxi_rproc_kunit.c
-new file mode 100644
-index 000000000000..0931564dc22b
---- /dev/null
-+++ b/drivers/remoteproc/sunxi_rproc_kunit.c
-@@ -0,0 +1,1314 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * KUnit tests for the Allwinner XuanTie E906 remoteproc driver (sunxi_rproc.c)
-+ *
-+ * Covers:
-+ *  - da_to_va() translation of both SRAM windows, their bounds, overflow
-+ *    and zero-length handling, and that DRAM is left to the core carveouts
-+ *  - start()/stop(): STA_ADD programming, bootaddr validation, the core
-+ *    reset and the crash interrupt armed only while the core runs
-+ *  - the crash handler: disarms the line it was armed on, never twice,
-+ *    and reports the crash to the core
-+ *  - prepare()/unprepare(): reset and clock order, every failure unwound,
-+ *    remap bit, SRAM clearing
-+ *  - sanity_check(): only 32-bit RISC-V firmware
-+ *  - parse_fw(): firmware with and without a resource table; carveouts and
-+ *    crash dump segments registered for every boot and released by the core
-+ *  - kick(): one immutable payload per vring, valid while queued, and a
-+ *    full mailbox queue
-+ *  - mailbox rx callback deferring to the workqueue, and the work notifying
-+ *    every vring in rproc->notifyids
-+ *
-+ * Register and SRAM access is redirected (KUnit static stubs) to buffers in
-+ * the test context, so the tests run on any architecture, UML included.
-+ *
-+ * Copyright (C) 2026 Tim Michals <tcmichals@gmail.com>
-+ */
-+
-+#include <kunit/clk.h>
-+#include <kunit/device.h>
-+#include <kunit/static_stub.h>
-+#include <kunit/test.h>
-+#include <linux/clk-provider.h>
-+#include <linux/elf.h>
-+#include <linux/firmware.h>
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/irq.h>
-+#include <linux/irqdesc.h>
-+#include <linux/mailbox_controller.h>
-+#include <linux/pm_domain.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/remoteproc.h>
-+#include <linux/reset.h>
-+#include <linux/reset-controller.h>
-+#include <linux/sched.h>
-+#include <linux/sched/task_stack.h>
-+#include <linux/slab.h>
-+#include <linux/workqueue.h>
-+#include "remoteproc_internal.h"
-+#include "sunxi_rproc.h"
-+
-+/*
-+ * Fake VA addresses — sentinel pointers used to verify base + offset arithmetic
-+ * without requiring real ioremap MMIO allocations.
-+ */
-+#define FAKE_SRAM_PTR	((void *)0xA0000000UL)
-+#define FAKE_SRAM1_PTR	((void *)0xB0000000UL)
-+#define FAKE_SRAM_VA	((void __force __iomem *)FAKE_SRAM_PTR)
-+#define FAKE_SRAM1_VA	((void __force __iomem *)FAKE_SRAM1_PTR)
-+#define FAKE_DRAM_VA	((void *)0xC0000000UL)
-+#define FAKE_TRACE_VA	((void *)0xD0000000UL)
-+
-+/* Remap register bit 0 belongs to the HiFi4 DSP: the driver leaves it alone */
-+#define REMAP_DSP_BIT		BIT(0)
-+
-+/* Standard A527 hardware parameters */
-+#define A527_SRAM_PHYS		SUN55I_SRAM_SPACE0_SYS
-+#define A527_SRAM_SIZE		SUN55I_SRAM_SPACE0_SIZE
-+#define A527_SRAM1_PHYS		SUN55I_SRAM_SPACE1_SYS
-+#define A527_SRAM1_SIZE		SUN55I_SRAM_SPACE1_SIZE
-+#define A527_DRAM_PHYS		0x48000000ULL
-+#define A527_DRAM_SIZE		0x100000	/* 1 MB */
-+#define A527_TRACE_PHYS		0x50000000ULL
-+#define A527_TRACE_SIZE		0x1000		/* 4 KB */
-+
-+struct test_context {
-+	struct rproc rproc;
-+	struct sunxi_rproc priv;
-+	u32 mock_cfg_regs[0x400 / 4];
-+	u32 mock_remap_reg;
-+	u8 mock_sram_buf[1024];
-+	u8 mock_sram1_buf[1024];
-+	struct rproc *vq_rproc;
-+	int notified[4];
-+	int nr_notified;
-+	bool notify_in_kworker;
-+	void *kick_data[4];
-+	int kick_count;
-+};
-+
-+/* The test context owns every buffer the driver may access as MMIO */
-+static void *mock_mmio(void __iomem *addr, size_t len)
-+{
-+	struct test_context *ctx = kunit_get_current_test()->priv;
-+	void *p = (__force void *)addr;
-+	void *bufs[][2] = {
-+		{ ctx->mock_cfg_regs, ctx->mock_cfg_regs + ARRAY_SIZE(ctx->mock_cfg_regs) },
-+		{ &ctx->mock_remap_reg, &ctx->mock_remap_reg + 1 },
-+		{ ctx->mock_sram_buf, ctx->mock_sram_buf + sizeof(ctx->mock_sram_buf) },
-+		{ ctx->mock_sram1_buf, ctx->mock_sram1_buf + sizeof(ctx->mock_sram1_buf) },
-+	};
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(bufs); i++)
-+		if (p >= bufs[i][0] && p + len <= bufs[i][1])
-+			return p;
-+	KUNIT_FAIL(kunit_get_current_test(), "MMIO access outside the mock buffers");
-+	return NULL;
-+}
-+
-+static u32 mock_readl(void __iomem *addr)
-+{
-+	u32 *r = mock_mmio(addr, sizeof(*r));
-+
-+	return r ? *r : 0;
-+}
-+
-+static void mock_writel(u32 val, void __iomem *addr)
-+{
-+	u32 *r = mock_mmio(addr, sizeof(*r));
-+
-+	if (r)
-+		*r = val;
-+}
-+
-+static void mock_memset_io(void __iomem *addr, int val, size_t len)
-+{
-+	void *p = mock_mmio(addr, len);
-+
-+	if (p)
-+		memset(p, val, len);
-+}
-+
-+/* What rproc_resource_cleanup() frees after a run, for the fake rproc */
-+static void free_carveouts(struct rproc *rproc)
-+{
-+	struct rproc_mem_entry *entry, *tmp;
-+
-+	list_for_each_entry_safe(entry, tmp, &rproc->carveouts, node) {
-+		list_del(&entry->node);
-+		kfree(entry);
-+	}
-+}
-+
-+static void mock_rproc_cleanup(void *data)
-+{
-+	struct rproc *rproc = data;
-+
-+	free_carveouts(rproc);
-+	rproc_coredump_cleanup(rproc);
-+	kfree(rproc->cached_table);
-+}
-+
-+static void mock_rproc_free(void *rproc)
-+{
-+	rproc_free(rproc);
-+}
-+
-+/* A real rproc, for code that needs the core's state: freed after the test */
-+static struct rproc *mock_real_rproc(struct kunit *test, struct test_context *ctx)
-+{
-+	struct rproc *rproc;
-+
-+	rproc = rproc_alloc(ctx->priv.dev, "sunxi-rproc-test", &sunxi_rproc_ops,
-+			    NULL, sizeof(struct sunxi_rproc));
-+	KUNIT_ASSERT_NOT_NULL(test, rproc);
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, mock_rproc_free, rproc), 0);
-+	return rproc;
-+}
-+
-+static struct test_context *create_test_ctx(struct kunit *test)
-+{
-+	struct test_context *ctx;
-+
-+	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx);
-+
-+	test->priv = ctx;
-+	kunit_activate_static_stub(test, sunxi_rproc_readl, mock_readl);
-+	kunit_activate_static_stub(test, sunxi_rproc_writel, mock_writel);
-+	kunit_activate_static_stub(test, sunxi_rproc_memset_io, mock_memset_io);
-+
-+	ctx->rproc.priv = &ctx->priv;
-+	ctx->priv.rproc = &ctx->rproc;
-+	INIT_LIST_HEAD(&ctx->rproc.carveouts);
-+	INIT_LIST_HEAD(&ctx->rproc.dump_segments);
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, mock_rproc_cleanup, &ctx->rproc), 0);
-+
-+	/* prepare()/unprepare() take a runtime PM reference on the device */
-+	ctx->priv.dev = kunit_device_register(test, "sunxi-rproc-test");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->priv.dev);
-+	pm_runtime_no_callbacks(ctx->priv.dev);
-+	KUNIT_ASSERT_EQ(test, devm_pm_runtime_enable(ctx->priv.dev), 0);
-+
-+	ctx->priv.sram0_va = FAKE_SRAM_VA;
-+	ctx->priv.sram0_phys = A527_SRAM_PHYS;
-+	ctx->priv.sram0_size = A527_SRAM_SIZE;
-+
-+	ctx->priv.sram1_va = FAKE_SRAM1_VA;
-+	ctx->priv.sram1_phys = A527_SRAM1_PHYS;
-+	ctx->priv.sram1_size = A527_SRAM1_SIZE;
-+
-+	ctx->priv.cfg = &sun55i_riscv_cfg;
-+
-+	return ctx;
-+}
-+
-+/* ==================== da_to_va: SRAM windows ==================== */
-+
-+static void test_da_to_va_zero_length_returns_null(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+
-+	KUNIT_EXPECT_NULL(test,
-+			  sunxi_rproc_da_to_va(&ctx->rproc,
-+					       SUN55I_E906_SRAM_SPACE0_DA, 0, NULL));
-+}
-+
-+/* A crafted ELF segment must not wrap da + len past U64_MAX */
-+static void test_da_to_va_rejects_overflow(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(&ctx->rproc, U64_MAX - 0x10, 0x20, NULL));
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(&ctx->rproc, U64_MAX, 1, NULL));
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(&ctx->rproc, SUN55I_E906_SRAM_SPACE0_DA,
-+						     (size_t)-1, NULL));
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(&ctx->rproc, SUN55I_E906_SRAM_SPACE1_DA,
-+						     (size_t)-16, NULL));
-+}
-+
-+/* Each window is reached by its core address and by its host address */
-+static void expect_window(struct kunit *test, struct test_context *ctx, u64 da, void *base)
-+{
-+	bool is_iomem = false;
-+
-+	KUNIT_EXPECT_PTR_EQ(test, sunxi_rproc_da_to_va(&ctx->rproc, da, 0x100, &is_iomem), base);
-+	KUNIT_EXPECT_TRUE(test, is_iomem);
-+	KUNIT_EXPECT_PTR_EQ(test, sunxi_rproc_da_to_va(&ctx->rproc, da + 0x1000, 0x100, NULL),
-+			    base + 0x1000);
-+}
-+
-+static void test_da_to_va_sram_space0(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+
-+	expect_window(test, ctx, SUN55I_E906_SRAM_SPACE0_DA, FAKE_SRAM_PTR);
-+	expect_window(test, ctx, A527_SRAM_PHYS, FAKE_SRAM_PTR);
-+}
-+
-+static void test_da_to_va_sram_space1(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+
-+	expect_window(test, ctx, SUN55I_E906_SRAM_SPACE1_DA, FAKE_SRAM1_PTR);
-+	expect_window(test, ctx, A527_SRAM1_PHYS, FAKE_SRAM1_PTR);
-+}
-+
-+/*
-+ * The two windows are adjacent in the core's address space: space 0 ends at
-+ * 0x3fffffff and space 1 starts at 0x40000000. Each edge byte resolves to its
-+ * own window, an access may not straddle the two, and nothing resolves below
-+ * space 0 or above space 1.
-+ */
-+static void test_da_to_va_sram_bounds(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct rproc *rproc = &ctx->rproc;
-+	u64 s0_end = SUN55I_E906_SRAM_SPACE0_DA + A527_SRAM_SIZE;
-+	u64 s1_end = SUN55I_E906_SRAM_SPACE1_DA + A527_SRAM1_SIZE;
-+
-+	KUNIT_ASSERT_EQ(test, s0_end, (u64)SUN55I_E906_SRAM_SPACE1_DA);
-+
-+	KUNIT_EXPECT_NULL(test,
-+			  sunxi_rproc_da_to_va(rproc, SUN55I_E906_SRAM_SPACE0_DA - 1, 1, NULL));
-+	KUNIT_EXPECT_PTR_EQ(test, sunxi_rproc_da_to_va(rproc, s0_end - 1, 1, NULL),
-+			    FAKE_SRAM_PTR + A527_SRAM_SIZE - 1);
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(rproc, s0_end - 1, 2, NULL));
-+	KUNIT_EXPECT_PTR_EQ(test, sunxi_rproc_da_to_va(rproc, SUN55I_E906_SRAM_SPACE1_DA, 1, NULL),
-+			    FAKE_SRAM1_PTR);
-+	KUNIT_EXPECT_PTR_EQ(test, sunxi_rproc_da_to_va(rproc, s1_end - 1, 1, NULL),
-+			    FAKE_SRAM1_PTR + A527_SRAM1_SIZE - 1);
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(rproc, s1_end - 1, 2, NULL));
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(rproc, s1_end, 1, NULL));
-+}
-+
-+/* Addresses that look close to SRAM but are not E906 SRAM */
-+static void test_da_to_va_rejects_non_sram(struct kunit *test)
-+{
-+	static const u64 not_sram[] = {
-+		0x3ff80000,	/* not an E906 SRAM alias */
-+		0x00020000,	/* HiFi4 DSP RAM */
-+		0x40040000,	/* start of the E906's 1:1 DRAM view */
-+		0x10000000,
-+		0x60000000,
-+	};
-+	struct test_context *ctx = create_test_ctx(test);
-+	int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(not_sram); i++)
-+		KUNIT_EXPECT_NULL_MSG(test,
-+				      sunxi_rproc_da_to_va(&ctx->rproc, not_sram[i], 0x100, NULL),
-+				      "da 0x%llx", not_sram[i]);
-+}
-+
-+static void test_da_to_va_unmapped_regions_return_null(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct rproc *rproc = &ctx->rproc;
-+	u64 da0 = SUN55I_E906_SRAM_SPACE0_DA;
-+	bool is_iomem = false;
-+
-+	ctx->priv.sram0_va = NULL;
-+	ctx->priv.sram1_va = NULL;
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(rproc, da0, 0x100, &is_iomem));
-+	/* Nothing returned, so nothing reported about it either */
-+	KUNIT_EXPECT_FALSE(test, is_iomem);
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(rproc, A527_SRAM_PHYS, 0x100, NULL));
-+	KUNIT_EXPECT_NULL(test,
-+			  sunxi_rproc_da_to_va(rproc, SUN55I_E906_SRAM_SPACE1_DA, 0x100, NULL));
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(rproc, A527_SRAM1_PHYS, 0x100, NULL));
-+}
-+
-+/* ==================== da_to_va: DRAM & Trace ==================== */
-+
-+/*
-+ * DRAM (firmware code/data, trace, vrings) is not in the ATT: the driver op
-+ * returns NULL and the remoteproc core resolves it from the carveout list.
-+ * This is the path the ELF loader takes for segments linked into DRAM.
-+ */
-+static void add_dram_carveout(struct kunit *test, struct test_context *ctx,
-+			      void *va, u64 phys, size_t size, const char *name)
-+{
-+	struct rproc_mem_entry *mem;
-+
-+	mem = rproc_mem_entry_init(ctx->priv.dev, va, (dma_addr_t)phys, size,
-+				   (u32)phys, NULL, NULL, "%s", name);
-+	KUNIT_ASSERT_NOT_NULL(test, mem);
-+	rproc_add_carveout(&ctx->rproc, mem);
-+}
-+
-+static void test_rproc_da_to_va_dram_carveout(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	bool is_iomem = true;
-+	void *va;
-+
-+	/* rproc->ops is not const: give the core a writable copy */
-+	ctx->rproc.ops = kunit_kzalloc(test, sizeof(*ctx->rproc.ops), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->rproc.ops);
-+	*ctx->rproc.ops = sunxi_rproc_ops;
-+	add_dram_carveout(test, ctx, FAKE_DRAM_VA, A527_DRAM_PHYS, A527_DRAM_SIZE, "dram");
-+	add_dram_carveout(test, ctx, FAKE_TRACE_VA, A527_TRACE_PHYS, A527_TRACE_SIZE, "trace");
-+
-+	/* The driver op leaves DRAM to the core */
-+	KUNIT_EXPECT_NULL(test, sunxi_rproc_da_to_va(&ctx->rproc, A527_DRAM_PHYS, 0x100, NULL));
-+
-+	/* A firmware segment linked into DRAM */
-+	va = rproc_da_to_va(&ctx->rproc, A527_DRAM_PHYS + 0x1000, 0x100, &is_iomem);
-+	KUNIT_EXPECT_PTR_EQ(test, va, FAKE_DRAM_VA + 0x1000);
-+	KUNIT_EXPECT_FALSE(test, is_iomem);
-+
-+	/* Last byte of DRAM resolves; one byte beyond does not */
-+	va = rproc_da_to_va(&ctx->rproc, A527_DRAM_PHYS + A527_DRAM_SIZE - 1, 1, NULL);
-+	KUNIT_EXPECT_PTR_EQ(test, va, FAKE_DRAM_VA + A527_DRAM_SIZE - 1);
-+	KUNIT_EXPECT_NULL(test, rproc_da_to_va(&ctx->rproc,
-+					       A527_DRAM_PHYS + A527_DRAM_SIZE - 1, 2, NULL));
-+
-+	/* Trace buffer */
-+	va = rproc_da_to_va(&ctx->rproc, A527_TRACE_PHYS, 0x100, NULL);
-+	KUNIT_EXPECT_PTR_EQ(test, va, FAKE_TRACE_VA);
-+
-+	/* SRAM still goes through the driver's ATT */
-+	va = rproc_da_to_va(&ctx->rproc, SUN55I_E906_SRAM_SPACE0_DA, 0x100, &is_iomem);
-+	KUNIT_EXPECT_PTR_EQ(test, va, FAKE_SRAM_PTR);
-+	KUNIT_EXPECT_TRUE(test, is_iomem);
-+}
-+
-+/* ==================== Lifecycle: start ==================== */
-+
-+/*
-+ * start(), prepare() and unprepare() access CFG, REMAP and both SRAMs
-+ * unconditionally (all four are required resources), so point them at real
-+ * buffers instead of the fake translation-test pointers.
-+ */
-+static void use_mmio_mocks(struct test_context *ctx)
-+{
-+	ctx->priv.cfg_va = (void __iomem *)ctx->mock_cfg_regs;
-+	ctx->priv.remap_va = (void __iomem *)&ctx->mock_remap_reg;
-+	ctx->priv.sram0_va = (void __iomem *)ctx->mock_sram_buf;
-+	ctx->priv.sram0_size = sizeof(ctx->mock_sram_buf);
-+	ctx->priv.sram1_va = (void __iomem *)ctx->mock_sram1_buf;
-+	ctx->priv.sram1_size = sizeof(ctx->mock_sram1_buf);
-+}
-+
-+static void test_start_bootaddr_programming(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	int ret;
-+
-+	use_mmio_mocks(ctx);
-+	ctx->rproc.bootaddr = 0x40014000;
-+
-+	ret = sunxi_rproc_start(&ctx->rproc);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	/* Check that bootaddr was written to STA_ADD_REG (offset 0x204) */
-+	KUNIT_EXPECT_EQ(test, ctx->mock_cfg_regs[SUN55I_E906_STA_ADD_REG / 4], 0x40014000U);
-+}
-+
-+static void test_start_rejects_bootaddr_overflow(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	int ret;
-+
-+	use_mmio_mocks(ctx);
-+	ctx->mock_cfg_regs[SUN55I_E906_STA_ADD_REG / 4] = SUN55I_E906_SRAM_SPACE0_DA;
-+
-+	/* Addresses beyond 32-bit range are invalid for 32-bit XuanTie E906 */
-+	ctx->rproc.bootaddr = 0x100000000ULL;
-+
-+	ret = sunxi_rproc_start(&ctx->rproc);
-+	KUNIT_EXPECT_EQ(test, ret, -EINVAL);
-+
-+	/* Rejected before STA_ADD is touched */
-+	KUNIT_EXPECT_EQ(test, ctx->mock_cfg_regs[SUN55I_E906_STA_ADD_REG / 4],
-+			(u32)SUN55I_E906_SRAM_SPACE0_DA);
-+}
-+
-+/* ==================== Lifecycle: prepare & unprepare ==================== */
-+
-+static void test_prepare_and_unprepare_remap(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	int ret;
-+
-+	use_mmio_mocks(ctx);
-+
-+	/* Bit 0 belongs to the DSP (reset value 1): only bit 1 may change */
-+	ctx->mock_remap_reg = REMAP_DSP_BIT;
-+
-+	/* prepare() should set SUNXI_REMAP_SRAMA3_2_BIT (bit 1) */
-+	ret = sunxi_rproc_prepare(&ctx->rproc);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, ctx->mock_remap_reg,
-+			REMAP_DSP_BIT | SUNXI_REMAP_SRAMA3_2_BIT);
-+
-+	/* unprepare() should clear SUNXI_REMAP_SRAMA3_2_BIT */
-+	ret = sunxi_rproc_unprepare(&ctx->rproc);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+	KUNIT_EXPECT_EQ(test, ctx->mock_remap_reg, REMAP_DSP_BIT);
-+}
-+
-+static void test_prepare_clears_sram(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	int i, ret;
-+
-+	use_mmio_mocks(ctx);
-+	memset(ctx->mock_sram_buf, 0xAA, sizeof(ctx->mock_sram_buf));
-+	memset(ctx->mock_sram1_buf, 0x55, sizeof(ctx->mock_sram1_buf));
-+
-+	ret = sunxi_rproc_prepare(&ctx->rproc);
-+	KUNIT_EXPECT_EQ(test, ret, 0);
-+
-+	/* Both SRAM buffers must be cleanly zeroed to prevent stale data / ECC faults */
-+	for (i = 0; i < sizeof(ctx->mock_sram_buf); i++)
-+		KUNIT_EXPECT_EQ(test, ctx->mock_sram_buf[i], 0);
-+
-+	for (i = 0; i < sizeof(ctx->mock_sram1_buf); i++)
-+		KUNIT_EXPECT_EQ(test, ctx->mock_sram1_buf[i], 0);
-+
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_unprepare(&ctx->rproc), 0);
-+}
-+
-+/* ==================== kick ==================== */
-+
-+static int kick_send_data(struct mbox_chan *chan, void *data)
-+{
-+	struct test_context *ctx = chan->con_priv;
-+
-+	if (ctx->kick_count < ARRAY_SIZE(ctx->kick_data))
-+		ctx->kick_data[ctx->kick_count] = data;
-+	ctx->kick_count++;
-+	return 0;
-+}
-+
-+static const struct mbox_chan_ops kick_chan_ops = {
-+	.send_data = kick_send_data,
-+};
-+
-+/*
-+ * The mailbox core keeps the message pointer while a previous request is
-+ * active and passes it to the controller later. A kick queued behind another
-+ * one must still carry its own vring index when it is finally sent.
-+ */
-+static void test_kick_payload_outlives_call(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct mbox_controller *ctrl;
-+	struct mbox_chan *chan;
-+	int i;
-+
-+	ctrl = kunit_kzalloc(test, sizeof(*ctrl), GFP_KERNEL);
-+	chan = kunit_kzalloc(test, sizeof(*chan), GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, ctrl);
-+	KUNIT_ASSERT_NOT_NULL(test, chan);
-+
-+	ctrl->dev = ctx->priv.dev;
-+	ctrl->ops = &kick_chan_ops;
-+	spin_lock_init(&chan->lock);
-+	chan->mbox = ctrl;
-+	chan->cl = &ctx->priv.cl;
-+	chan->con_priv = ctx;
-+	chan->active_req = MBOX_NO_MSG;
-+	/* The test completes each request itself */
-+	chan->txdone_method = MBOX_TXDONE_BY_ACK;
-+	ctx->priv.mbox_chan = chan;
-+
-+	/* vring 0 goes out at once; vring 1 is queued behind it */
-+	sunxi_rproc_kick(&ctx->rproc, 0);
-+	sunxi_rproc_kick(&ctx->rproc, 1);
-+	KUNIT_ASSERT_EQ(test, ctx->kick_count, 1);
-+
-+	/* Completing vring 0 sends the queued kick */
-+	mbox_client_txdone(chan, 0);
-+	KUNIT_ASSERT_EQ(test, ctx->kick_count, 2);
-+	mbox_client_txdone(chan, 0);
-+
-+	KUNIT_EXPECT_EQ(test, *(u32 *)ctx->kick_data[0], 0U);
-+	KUNIT_EXPECT_EQ(test, *(u32 *)ctx->kick_data[1], 1U);
-+	KUNIT_EXPECT_FALSE(test, object_is_on_stack(ctx->kick_data[0]));
-+	KUNIT_EXPECT_FALSE(test, object_is_on_stack(ctx->kick_data[1]));
-+
-+	/* A vring without a payload is refused, not sent as another vring */
-+	sunxi_rproc_kick(&ctx->rproc, 2);
-+	sunxi_rproc_kick(&ctx->rproc, -1);
-+	KUNIT_EXPECT_EQ(test, ctx->kick_count, 2);
-+
-+	/* A full mailbox queue: the kick is dropped with an error, not blocked */
-+	chan->active_req = (void *)&ctx->kick_count;
-+	for (i = 0; i < MBOX_TX_QUEUE_LEN; i++)
-+		sunxi_rproc_kick(&ctx->rproc, i & 1);
-+	KUNIT_EXPECT_EQ(test, chan->msg_count, (unsigned int)MBOX_TX_QUEUE_LEN);
-+	sunxi_rproc_kick(&ctx->rproc, 0);
-+	KUNIT_EXPECT_EQ(test, chan->msg_count, (unsigned int)MBOX_TX_QUEUE_LEN);
-+	KUNIT_EXPECT_EQ(test, ctx->kick_count, 2);
-+
-+	/* No mailbox channel: kick is a no-op */
-+	ctx->priv.mbox_chan = NULL;
-+	sunxi_rproc_kick(&ctx->rproc, 0);
-+	KUNIT_EXPECT_EQ(test, ctx->kick_count, 2);
-+}
-+
-+/* ==================== Mailbox rx callback ==================== */
-+
-+/*
-+ * The mailbox rx callback runs in hardirq context, and the rpmsg receive
-+ * path takes mutexes. The callback must only queue the vring work, and the
-+ * work must run in a kworker (regression test for calling
-+ * rproc_vq_interrupt() from the callback).
-+ */
-+static void rx_work_probe_fn(struct work_struct *work)
-+{
-+	struct test_context *ctx = container_of(work, struct test_context, priv.vq_work);
-+
-+	ctx->nr_notified++;
-+	ctx->notify_in_kworker = !!(current->flags & PF_WQ_WORKER);
-+}
-+
-+static void test_rx_callback_defers_to_workqueue(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+
-+	ctx->priv.workqueue = alloc_ordered_workqueue("sunxi-rproc-test", WQ_HIGHPRI);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->priv.workqueue);
-+	INIT_WORK(&ctx->priv.vq_work, rx_work_probe_fn);
-+
-+	local_irq_disable();
-+	sunxi_rproc_mb_rx_callback(&ctx->priv.cl, NULL);
-+	local_irq_enable();
-+
-+	flush_workqueue(ctx->priv.workqueue);
-+	destroy_workqueue(ctx->priv.workqueue);
-+
-+	KUNIT_EXPECT_EQ(test, ctx->nr_notified, 1);
-+	KUNIT_EXPECT_TRUE(test, ctx->notify_in_kworker);
-+}
-+
-+/*
-+ * One channel carries every notification, so the driver's work checks every
-+ * vring in rproc->notifyids (regression test for servicing only vrings 0 and
-+ * 1). Only the per-vring notification is stubbed; the stub follows the test
-+ * task, so the work function is called here rather than from a kworker.
-+ */
-+static int mock_vq_notify(int id, void *ptr, void *data)
-+{
-+	struct test_context *ctx = kunit_get_current_test()->priv;
-+
-+	if (ctx->nr_notified < ARRAY_SIZE(ctx->notified))
-+		ctx->notified[ctx->nr_notified] = id;
-+	ctx->nr_notified++;
-+	KUNIT_EXPECT_PTR_EQ(kunit_get_current_test(), data, (void *)ctx->vq_rproc);
-+	return 0;
-+}
-+
-+static void test_vq_work_notifies_every_vring(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	static int vring[3];
-+	struct rproc *rproc;
-+	int i;
-+
-+	/* A real rproc, so its notify ID table is set up as the core does */
-+	rproc = mock_real_rproc(test, ctx);
-+	ctx->priv.rproc = rproc;
-+	ctx->vq_rproc = rproc;
-+
-+	kunit_activate_static_stub(test, sunxi_rproc_vq_notify, mock_vq_notify);
-+	for (i = 0; i < ARRAY_SIZE(vring); i++)
-+		KUNIT_ASSERT_EQ(test, idr_alloc(&rproc->notifyids, &vring[i], 0, 0,
-+						GFP_KERNEL), i);
-+
-+	sunxi_rproc_vq_work(&ctx->priv.vq_work);
-+
-+	KUNIT_ASSERT_EQ(test, ctx->nr_notified, 3);
-+	for (i = 0; i < 3; i++)
-+		KUNIT_EXPECT_EQ(test, ctx->notified[i], i);
-+}
-+
-+/*
-+ * Without a stub the notification reaches the core: a notify ID with no vring
-+ * is ignored there. A real rproc, so the core's vring lookup is initialised.
-+ */
-+static void test_vq_notify_unknown_vring(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_vq_notify(5, NULL, mock_real_rproc(test, ctx)), 0);
-+}
-+
-+/* ==================== Lifecycle: stop and the crash interrupt ==================== */
-+
-+static void mock_free_irq_desc(void *irq)
-+{
-+	irq_free_desc((unsigned long)irq);
-+}
-+
-+static void mock_free_crash_irq(void *data)
-+{
-+	struct test_context *ctx = data;
-+
-+	free_irq(ctx->priv.crash_irq, &ctx->priv);
-+}
-+
-+/* A crash line on the dummy chip, requested like probe() does: not enabled */
-+static int mock_crash_line(struct kunit *test, struct test_context *ctx)
-+{
-+	int irq = irq_alloc_desc(NUMA_NO_NODE);
-+
-+	KUNIT_ASSERT_GE(test, irq, 0);
-+	irq_set_chip_and_handler(irq, &dummy_irq_chip, handle_simple_irq);
-+	/* Some architectures (arm, powerpc) mark new descriptors unrequestable */
-+	irq_clear_status_flags(irq, IRQ_NOREQUEST | IRQ_NOPROBE);
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, mock_free_irq_desc,
-+							(void *)(unsigned long)irq), 0);
-+	KUNIT_ASSERT_EQ(test, request_threaded_irq(irq, NULL, sunxi_rproc_crash_handler,
-+						   IRQF_ONESHOT | IRQF_NO_AUTOEN,
-+						   "sunxi-rproc-test-crash", &ctx->priv), 0);
-+	ctx->priv.crash_irq = irq;
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, mock_free_crash_irq, ctx), 0);
-+	return irq;
-+}
-+
-+static bool crash_irq_enabled(int irq)
-+{
-+	return !irqd_irq_disabled(irq_get_irq_data(irq));
-+}
-+
-+/* Disable depth; irq_to_desc() is not exported, so go through the irq_data */
-+static unsigned int crash_irq_depth(int irq)
-+{
-+	return container_of(irq_get_irq_data(irq), struct irq_desc, irq_data)->depth;
-+}
-+
-+static void test_start_stop_arm_crash_irq(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	int irq;
-+
-+	use_mmio_mocks(ctx);
-+	irq = mock_crash_line(test, ctx);
-+	KUNIT_EXPECT_FALSE(test, crash_irq_enabled(irq));
-+
-+	/* Armed once the core runs; a second start() does not enable it twice */
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_start(&ctx->rproc), 0);
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_start(&ctx->rproc), 0);
-+	KUNIT_EXPECT_TRUE(test, crash_irq_enabled(irq));
-+	KUNIT_EXPECT_EQ(test, crash_irq_depth(irq), 0U);
-+
-+	/* stop() disarms it; a second stop() does not disable it twice */
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.stop(&ctx->rproc), 0);
-+	KUNIT_EXPECT_FALSE(test, crash_irq_enabled(irq));
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.stop(&ctx->rproc), 0);
-+	KUNIT_EXPECT_EQ(test, crash_irq_depth(irq), 1U);
-+
-+	/* And arms it again on the next start() */
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_start(&ctx->rproc), 0);
-+	KUNIT_EXPECT_TRUE(test, crash_irq_enabled(irq));
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.stop(&ctx->rproc), 0);
-+}
-+
-+static void test_stop_without_crash_irq(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+
-+	use_mmio_mocks(ctx);
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_start(&ctx->rproc), 0);
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.stop(&ctx->rproc), 0);
-+	KUNIT_EXPECT_FALSE(test, test_bit(SUNXI_RPROC_CRASH_IRQ_ARMED, &ctx->priv.flags));
-+}
-+
-+/* Fire the crash line and wait for its threaded handler */
-+static void fire_crash_irq(struct kunit *test, int irq)
-+{
-+	KUNIT_ASSERT_EQ(test, generic_handle_irq_safe(irq), 0);
-+	synchronize_irq(irq);
-+}
-+
-+static void test_crash_handler_disarms_and_reports(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct rproc *rproc = mock_real_rproc(test, ctx);
-+	int irq;
-+
-+	use_mmio_mocks(ctx);
-+	irq = mock_crash_line(test, ctx);
-+
-+	/* The crash is reported to a running core; no recovery in a test */
-+	ctx->priv.rproc = rproc;
-+	rproc->state = RPROC_RUNNING;
-+	rproc->recovery_disabled = true;
-+
-+	/* Armed by start(): the handler masks the line until the next start() */
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_start(&ctx->rproc), 0);
-+	fire_crash_irq(test, irq);
-+	flush_work(&rproc->crash_handler);
-+	KUNIT_EXPECT_FALSE(test, test_bit(SUNXI_RPROC_CRASH_IRQ_ARMED, &ctx->priv.flags));
-+	KUNIT_EXPECT_FALSE(test, crash_irq_enabled(irq));
-+	KUNIT_EXPECT_EQ(test, crash_irq_depth(irq), 1U);
-+	KUNIT_EXPECT_EQ(test, rproc->state, RPROC_CRASHED);
-+	KUNIT_EXPECT_EQ(test, rproc->crash_cnt, 1U);
-+
-+	/* stop() of the crashed core leaves the line masked once */
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.stop(&ctx->rproc), 0);
-+	KUNIT_EXPECT_EQ(test, crash_irq_depth(irq), 1U);
-+
-+	/*
-+	 * A crash racing stop(): stop() has disarmed the line and disables it
-+	 * itself, so the handler must not disable it a second time.
-+	 */
-+	rproc->state = RPROC_RUNNING;
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_start(&ctx->rproc), 0);
-+	clear_bit(SUNXI_RPROC_CRASH_IRQ_ARMED, &ctx->priv.flags);
-+	fire_crash_irq(test, irq);
-+	flush_work(&rproc->crash_handler);
-+	KUNIT_EXPECT_EQ(test, crash_irq_depth(irq), 0U);
-+	KUNIT_EXPECT_EQ(test, rproc->crash_cnt, 2U);
-+	disable_irq(irq);
-+}
-+
-+/* ==================== prepare/start with real clocks and resets ==================== */
-+
-+/*
-+ * Fake providers behind the real clock and reset frameworks: a reset
-+ * controller on a software node, and clocks registered through the KUnit
-+ * clock helpers. Any reset line or clock can be made to fail, so every step
-+ * of prepare() and its unwinding is exercised.
-+ */
-+enum { RST_CFG, RST_CORE, RST_SRAM, RST_DEBUG, NR_RST };
-+enum { CLK_BUS, CLK_SRAM, CLK_CORE, NR_CLK };
-+
-+struct mock_providers {
-+	struct reset_controller_dev rcdev;
-+	bool asserted[NR_RST];
-+	unsigned long fail_rst;		/* BIT(id): assert and deassert fail */
-+	char log[32];			/* "A1D0..." in call order */
-+	int log_len;
-+	struct mock_clk {
-+		struct clk_hw hw;
-+		struct mock_providers *mp;
-+		bool fail;
-+	} clk[NR_CLK];
-+};
-+
-+static void mock_log(struct mock_providers *mp, char op, unsigned long id)
-+{
-+	if (mp->log_len < sizeof(mp->log) - 2) {
-+		mp->log[mp->log_len++] = op;
-+		mp->log[mp->log_len++] = '0' + id;
-+	}
-+}
-+
-+static int mock_rst_assert(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	struct mock_providers *mp = container_of(rcdev, struct mock_providers, rcdev);
-+
-+	if (mp->fail_rst & BIT(id))
-+		return -EIO;
-+	mock_log(mp, 'A', id);
-+	mp->asserted[id] = true;
-+	return 0;
-+}
-+
-+static int mock_rst_deassert(struct reset_controller_dev *rcdev, unsigned long id)
-+{
-+	struct mock_providers *mp = container_of(rcdev, struct mock_providers, rcdev);
-+
-+	if (mp->fail_rst & BIT(id))
-+		return -EIO;
-+	mock_log(mp, 'D', id);
-+	mp->asserted[id] = false;
-+	return 0;
-+}
-+
-+static const struct reset_control_ops mock_rst_ops = {
-+	.assert = mock_rst_assert,
-+	.deassert = mock_rst_deassert,
-+};
-+
-+static int mock_clk_prepare(struct clk_hw *hw)
-+{
-+	struct mock_clk *c = container_of(hw, struct mock_clk, hw);
-+
-+	if (c->fail)
-+		return -EIO;
-+	mock_log(c->mp, 'C', c - c->mp->clk);
-+	return 0;
-+}
-+
-+static const struct clk_ops mock_clk_ops = {
-+	.prepare = mock_clk_prepare,
-+};
-+
-+static const struct software_node mock_rst_node = {
-+	.name = "sunxi-rproc-test-rst",
-+	.properties = (const struct property_entry[]) {
-+		PROPERTY_ENTRY_U32("#reset-cells", 1),
-+		{ }
-+	},
-+};
-+
-+static const struct software_node_ref_args mock_rst_refs[] = {
-+	SOFTWARE_NODE_REFERENCE(&mock_rst_node, RST_CFG),
-+	SOFTWARE_NODE_REFERENCE(&mock_rst_node, RST_CORE),
-+	SOFTWARE_NODE_REFERENCE(&mock_rst_node, RST_SRAM),
-+	SOFTWARE_NODE_REFERENCE(&mock_rst_node, RST_DEBUG),
-+};
-+
-+static const char * const mock_rst_names[] = { "cfg", "core", "sram", "debug" };
-+
-+static const struct software_node mock_rproc_node = {
-+	.name = "sunxi-rproc-test-rproc",
-+	.properties = (const struct property_entry[]) {
-+		PROPERTY_ENTRY_REF_ARRAY("resets", mock_rst_refs),
-+		PROPERTY_ENTRY_STRING_ARRAY("reset-names", mock_rst_names),
-+		{ }
-+	},
-+};
-+
-+static void mock_remove_swnode(void *dev)
-+{
-+	device_remove_software_node(dev);
-+}
-+
-+static struct device *mock_swnode_device(struct kunit *test, const char *name,
-+					 const struct software_node *node)
-+{
-+	struct device *dev = kunit_device_register(test, name);
-+
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, dev);
-+	KUNIT_ASSERT_EQ(test, device_add_software_node(dev, node), 0);
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, mock_remove_swnode, dev), 0);
-+	return dev;
-+}
-+
-+static struct mock_providers *use_mock_providers(struct kunit *test, struct test_context *ctx)
-+{
-+	static const char * const clk_names[NR_CLK] = { "bus", "sram", "core" };
-+	struct mock_providers *mp = kunit_kzalloc(test, sizeof(*mp), GFP_KERNEL);
-+	struct device *rst_dev, *dev;
-+	struct clk *clks[NR_CLK];
-+	int i;
-+
-+	KUNIT_ASSERT_NOT_NULL(test, mp);
-+	use_mmio_mocks(ctx);
-+
-+	/* The reset controller; every line starts asserted */
-+	rst_dev = mock_swnode_device(test, "sunxi-rproc-test-rcdev", &mock_rst_node);
-+	mp->rcdev.ops = &mock_rst_ops;
-+	mp->rcdev.owner = THIS_MODULE;
-+	mp->rcdev.dev = rst_dev;
-+	mp->rcdev.nr_resets = NR_RST;
-+	for (i = 0; i < NR_RST; i++)
-+		mp->asserted[i] = true;
-+	KUNIT_ASSERT_EQ(test, devm_reset_controller_register(rst_dev, &mp->rcdev), 0);
-+
-+	/* The remote processor device, with runtime PM like probe() sets up */
-+	dev = mock_swnode_device(test, "sunxi-rproc-test-dev", &mock_rproc_node);
-+	pm_runtime_no_callbacks(dev);
-+	KUNIT_ASSERT_EQ(test, devm_pm_runtime_enable(dev), 0);
-+	ctx->priv.dev = dev;
-+
-+	ctx->priv.rst_cfg = devm_reset_control_get_exclusive(dev, "cfg");
-+	ctx->priv.rst_core = devm_reset_control_get_exclusive(dev, "core");
-+	ctx->priv.rst_sram = devm_reset_control_get_exclusive(dev, "sram");
-+	ctx->priv.rst_debug = devm_reset_control_get_exclusive(dev, "debug");
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->priv.rst_cfg);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->priv.rst_core);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->priv.rst_sram);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, ctx->priv.rst_debug);
-+
-+	/* Clock names are global: a test may set up several providers */
-+	for (i = 0; i < NR_CLK; i++) {
-+		static atomic_t seq = ATOMIC_INIT(0);
-+		char *name = kunit_kzalloc(test, 48, GFP_KERNEL);
-+		struct clk_init_data init = {
-+			.name = name,
-+			.ops = &mock_clk_ops,
-+		};
-+
-+		KUNIT_ASSERT_NOT_NULL(test, name);
-+		snprintf(name, 48, "sunxi-rproc-test-%s-%d", clk_names[i],
-+			 atomic_inc_return(&seq));
-+
-+		mp->clk[i].mp = mp;
-+		mp->clk[i].hw.init = &init;
-+		KUNIT_ASSERT_EQ(test, clk_hw_register_kunit(test, NULL, &mp->clk[i].hw), 0);
-+		clks[i] = clk_hw_get_clk_kunit(test, &mp->clk[i].hw, clk_names[i]);
-+		KUNIT_ASSERT_NOT_ERR_OR_NULL(test, clks[i]);
-+	}
-+	ctx->priv.clk_bus = clks[CLK_BUS];
-+	ctx->priv.clk_sram = clks[CLK_SRAM];
-+	ctx->priv.clk_core = clks[CLK_CORE];
-+
-+	return mp;
-+}
-+
-+/* Everything as before prepare(): resets asserted, clocks off, no PM reference */
-+static void expect_powered_off(struct kunit *test, struct test_context *ctx,
-+			       struct mock_providers *mp, bool core_held)
-+{
-+	int i;
-+
-+	KUNIT_EXPECT_TRUE(test, mp->asserted[RST_CFG]);
-+	KUNIT_EXPECT_TRUE(test, mp->asserted[RST_SRAM]);
-+	KUNIT_EXPECT_TRUE(test, mp->asserted[RST_DEBUG]);
-+	KUNIT_EXPECT_EQ(test, mp->asserted[RST_CORE], core_held);
-+	for (i = 0; i < NR_CLK; i++)
-+		KUNIT_EXPECT_FALSE_MSG(test, clk_hw_is_prepared(&mp->clk[i].hw), "clock %d", i);
-+	KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 0);
-+}
-+
-+static void test_prepare_unprepare_order(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct mock_providers *mp = use_mock_providers(test, ctx);
-+	int i;
-+
-+	/* The core is held first, then cfg, SRAM and debug are released, then the clocks */
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_prepare(&ctx->rproc), 0);
-+	KUNIT_EXPECT_STREQ(test, mp->log, "A1D0D2D3C0C1C2");
-+	KUNIT_EXPECT_TRUE(test, mp->asserted[RST_CORE]);
-+	for (i = 0; i < NR_CLK; i++)
-+		KUNIT_EXPECT_TRUE(test, clk_hw_is_prepared(&mp->clk[i].hw));
-+	KUNIT_EXPECT_EQ(test, atomic_read(&ctx->priv.dev->power.usage_count), 1);
-+
-+	/* start() releases the core; stop() holds it again */
-+	ctx->rproc.bootaddr = SUN55I_E906_SRAM_SPACE0_DA;
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_start(&ctx->rproc), 0);
-+	KUNIT_EXPECT_FALSE(test, mp->asserted[RST_CORE]);
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_ops.stop(&ctx->rproc), 0);
-+	KUNIT_EXPECT_TRUE(test, mp->asserted[RST_CORE]);
-+
-+	KUNIT_ASSERT_EQ(test, sunxi_rproc_unprepare(&ctx->rproc), 0);
-+	expect_powered_off(test, ctx, mp, true);
-+}
-+
-+struct prepare_fail_case {
-+	const char *step;
-+	int rst;	/* reset line that fails, or -1 */
-+	int clk;	/* clock that fails, or -1 */
-+};
-+
-+static const struct prepare_fail_case prepare_fail_cases[] = {
-+	{ "assert core",	RST_CORE,	-1 },
-+	{ "deassert cfg",	RST_CFG,	-1 },
-+	{ "deassert sram",	RST_SRAM,	-1 },
-+	{ "deassert debug",	RST_DEBUG,	-1 },
-+	{ "bus clock",		-1,		CLK_BUS },
-+	{ "sram clock",		-1,		CLK_SRAM },
-+	{ "core clock",		-1,		CLK_CORE },
-+};
-+
-+static void prepare_fail_desc(const struct prepare_fail_case *c, char *desc)
-+{
-+	strscpy(desc, c->step, KUNIT_PARAM_DESC_SIZE);
-+}
-+
-+KUNIT_ARRAY_PARAM(prepare_fail, prepare_fail_cases, prepare_fail_desc);
-+
-+/* Each step of prepare() fails in turn; every earlier step is undone */
-+static void test_prepare_unwinds_failure(struct kunit *test)
-+{
-+	const struct prepare_fail_case *c = test->param_value;
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct mock_providers *mp = use_mock_providers(test, ctx);
-+
-+	ctx->mock_remap_reg = REMAP_DSP_BIT;
-+
-+	if (c->rst >= 0)
-+		mp->fail_rst = BIT(c->rst);
-+	if (c->clk >= 0)
-+		mp->clk[c->clk].fail = true;
-+
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_prepare(&ctx->rproc), -EIO);
-+	expect_powered_off(test, ctx, mp, true);
-+	KUNIT_EXPECT_EQ(test, ctx->mock_remap_reg, REMAP_DSP_BIT);
-+}
-+
-+static void test_start_core_reset_failure(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct mock_providers *mp = use_mock_providers(test, ctx);
-+	int irq = mock_crash_line(test, ctx);
-+
-+	mp->fail_rst = BIT(RST_CORE);
-+	ctx->rproc.bootaddr = SUN55I_E906_SRAM_SPACE0_DA;
-+
-+	/* The core stays held and the crash interrupt stays off */
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_start(&ctx->rproc), -EIO);
-+	KUNIT_EXPECT_TRUE(test, mp->asserted[RST_CORE]);
-+	KUNIT_EXPECT_FALSE(test, crash_irq_enabled(irq));
-+}
-+
-+/* ==================== prepare: power-up failure ==================== */
-+
-+static int mock_runtime_resume_fails(struct device *dev)
-+{
-+	return -EIO;
-+}
-+
-+static struct dev_pm_domain mock_failing_pm_domain = {
-+	.ops = { .runtime_resume = mock_runtime_resume_fails },
-+};
-+
-+static void mock_release_dev(struct device *dev)
-+{
-+	kfree(dev);
-+}
-+
-+static void mock_remove_pd_dev(void *data)
-+{
-+	struct device *dev = data;
-+
-+	pm_runtime_disable(dev);
-+	dev_pm_domain_set(dev, NULL);
-+	device_unregister(dev);
-+}
-+
-+/*
-+ * A device whose power domain refuses to power up. A PM domain may only be
-+ * set on a device no driver is bound to, so not a KUnit device.
-+ */
-+static struct device *mock_failing_pd_device(struct kunit *test)
-+{
-+	struct device *dev = kzalloc(sizeof(*dev), GFP_KERNEL);
-+
-+	KUNIT_ASSERT_NOT_NULL(test, dev);
-+	device_initialize(dev);
-+	dev->release = mock_release_dev;
-+	if (dev_set_name(dev, "sunxi-rproc-test-pd") || device_add(dev)) {
-+		put_device(dev);
-+		KUNIT_FAIL_AND_ABORT(test, "cannot add the device");
-+	}
-+	dev_pm_domain_set(dev, &mock_failing_pm_domain);
-+	pm_runtime_enable(dev);
-+	KUNIT_ASSERT_EQ(test, kunit_add_action_or_reset(test, mock_remove_pd_dev, dev), 0);
-+	return dev;
-+}
-+
-+static void test_prepare_power_up_failure(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct device *dev;
-+
-+	use_mmio_mocks(ctx);
-+	ctx->mock_remap_reg = REMAP_DSP_BIT;
-+
-+	dev = mock_failing_pd_device(test);
-+	ctx->priv.dev = dev;
-+
-+	/* Nothing is touched */
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_prepare(&ctx->rproc), -EIO);
-+	KUNIT_EXPECT_EQ(test, ctx->mock_remap_reg, REMAP_DSP_BIT);
-+	KUNIT_EXPECT_EQ(test, atomic_read(&dev->power.usage_count), 0);
-+}
-+
-+/* ==================== parse_fw ==================== */
-+
-+/* A minimal ELF32 file with a section header table and an optional table */
-+struct mock_elf {
-+	struct elf32_hdr ehdr;
-+	struct elf32_shdr shdr[3];
-+	char shstrtab[32];
-+	struct resource_table table;
-+} __packed;
-+
-+static void mock_elf_init(struct mock_elf *elf, bool with_table, u32 ver)
-+{
-+	static const char names[] = "\0.resource_table\0.shstrtab";
-+
-+	memset(elf, 0, sizeof(*elf));
-+	memcpy(elf->ehdr.e_ident, ELFMAG, SELFMAG);
-+	elf->ehdr.e_ident[EI_CLASS] = ELFCLASS32;
-+	elf->ehdr.e_ident[EI_DATA] = IS_ENABLED(CONFIG_CPU_BIG_ENDIAN) ? ELFDATA2MSB : ELFDATA2LSB;
-+	elf->ehdr.e_machine = EM_RISCV;
-+	/* One program header, so the core's sanity check accepts the file */
-+	elf->ehdr.e_phoff = offsetof(struct mock_elf, shdr);
-+	elf->ehdr.e_phnum = 1;
-+	elf->ehdr.e_shoff = offsetof(struct mock_elf, shdr);
-+	elf->ehdr.e_shentsize = sizeof(struct elf32_shdr);
-+	elf->ehdr.e_shnum = 3;
-+	elf->ehdr.e_shstrndx = 2;
-+	memcpy(elf->shstrtab, names, sizeof(names));
-+
-+	/* Section 1: the resource table, or an unrelated name */
-+	elf->shdr[1].sh_name = with_table ? 1 : 17;
-+	elf->shdr[1].sh_offset = offsetof(struct mock_elf, table);
-+	elf->shdr[1].sh_size = sizeof(elf->table);
-+	elf->table.ver = ver;
-+
-+	/* Section 2: the section name table */
-+	elf->shdr[2].sh_name = 17;
-+	elf->shdr[2].sh_offset = offsetof(struct mock_elf, shstrtab);
-+	elf->shdr[2].sh_size = sizeof(names);
-+}
-+
-+/* Only 32-bit RISC-V firmware is loaded into the E906's memory */
-+static void test_sanity_check_machine(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct mock_elf *elf = kunit_kzalloc(test, sizeof(*elf), GFP_KERNEL);
-+	struct firmware fw = { .size = sizeof(*elf) };
-+
-+	KUNIT_ASSERT_NOT_NULL(test, elf);
-+	fw.data = (const u8 *)elf;
-+
-+	mock_elf_init(elf, false, 1);
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.sanity_check(&ctx->rproc, &fw), 0);
-+
-+	elf->ehdr.e_machine = EM_ARM;
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.sanity_check(&ctx->rproc, &fw), -EINVAL);
-+
-+	/* What the core itself rejects stays rejected */
-+	mock_elf_init(elf, false, 1);
-+	elf->ehdr.e_ident[EI_MAG0] = 0;
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.sanity_check(&ctx->rproc, &fw), -EINVAL);
-+}
-+
-+static void test_parse_fw_resource_table(struct kunit *test)
-+{
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct mock_elf *elf = kunit_kzalloc(test, sizeof(*elf), GFP_KERNEL);
-+	struct firmware fw = { .size = sizeof(*elf) };
-+
-+	KUNIT_ASSERT_NOT_NULL(test, elf);
-+	fw.data = (const u8 *)elf;
-+
-+	/* No resource table: the firmware runs without vrings */
-+	mock_elf_init(elf, false, 1);
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.parse_fw(&ctx->rproc, &fw), 0);
-+	KUNIT_EXPECT_NULL(test, ctx->rproc.table_ptr);
-+
-+	/* A table the core rejects is handled the same way (stm32 does too) */
-+	mock_elf_init(elf, true, 2);
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.parse_fw(&ctx->rproc, &fw), 0);
-+	KUNIT_EXPECT_NULL(test, ctx->rproc.table_ptr);
-+
-+	/* A valid table is cached for the core */
-+	mock_elf_init(elf, true, 1);
-+	KUNIT_EXPECT_EQ(test, sunxi_rproc_ops.parse_fw(&ctx->rproc, &fw), 0);
-+	KUNIT_ASSERT_NOT_NULL(test, ctx->rproc.table_ptr);
-+	KUNIT_EXPECT_EQ(test, ctx->rproc.table_ptr->ver, 1U);
-+}
-+
-+/*
-+ * parse_fw() registers the memory regions as carveouts and adds the crash
-+ * dump segments: both SRAMs by the core's addresses, then each region that is
-+ * not on an SRAM. The core frees both after every run, so they are added
-+ * again on the next boot.
-+ */
-+static void test_parse_fw_registers_memory(struct kunit *test)
-+{
-+	static const struct {
-+		dma_addr_t da;
-+		size_t size;
-+	} want[] = {
-+		{ SUN55I_E906_SRAM_SPACE0_DA, A527_SRAM_SIZE },
-+		{ SUN55I_E906_SRAM_SPACE1_DA, A527_SRAM1_SIZE },
-+		{ A527_DRAM_PHYS, A527_DRAM_SIZE },
-+	};
-+	struct test_context *ctx = create_test_ctx(test);
-+	struct mock_elf *elf = kunit_kzalloc(test, sizeof(*elf), GFP_KERNEL);
-+	struct firmware fw = { .size = sizeof(*elf) };
-+	struct rproc *rproc = mock_real_rproc(test, ctx);
-+	struct rproc_dump_segment *seg;
-+	struct rproc_mem_entry *mem;
-+	int boot, n;
-+
-+	KUNIT_ASSERT_NOT_NULL(test, elf);
-+	fw.data = (const u8 *)elf;
-+	mock_elf_init(elf, false, 1);
-+
-+	rproc->priv = &ctx->priv;
-+	ctx->priv.rproc = rproc;
-+	ctx->priv.num_rmem = 2;
-+	ctx->priv.rmem[0].name = "vram";	/* a pool on SRAM: already dumped */
-+	ctx->priv.rmem[0].va = FAKE_SRAM1_PTR;
-+	ctx->priv.rmem[0].phys = A527_SRAM1_PHYS;
-+	ctx->priv.rmem[0].size = 0x1000;
-+	ctx->priv.rmem[0].is_iomem = true;
-+	ctx->priv.rmem[1].name = "dram";
-+	ctx->priv.rmem[1].va = FAKE_DRAM_VA;
-+	ctx->priv.rmem[1].phys = A527_DRAM_PHYS;
-+	ctx->priv.rmem[1].size = A527_DRAM_SIZE;
-+
-+	for (boot = 0; boot < 2; boot++) {
-+		KUNIT_ASSERT_EQ(test, sunxi_rproc_ops.parse_fw(rproc, &fw), 0);
-+
-+		n = 0;
-+		list_for_each_entry(mem, &rproc->carveouts, node) {
-+			KUNIT_ASSERT_LT(test, n, 2);
-+			KUNIT_EXPECT_STREQ(test, mem->name, ctx->priv.rmem[n].name);
-+			KUNIT_EXPECT_EQ(test, mem->da, (u32)ctx->priv.rmem[n].phys);
-+			KUNIT_EXPECT_EQ(test, mem->is_iomem, ctx->priv.rmem[n].is_iomem);
-+			n++;
-+		}
-+		KUNIT_EXPECT_EQ_MSG(test, n, 2, "boot %d", boot);
-+
-+		n = 0;
-+		list_for_each_entry(seg, &rproc->dump_segments, node) {
-+			KUNIT_ASSERT_LT(test, n, (int)ARRAY_SIZE(want));
-+			KUNIT_EXPECT_EQ_MSG(test, seg->da, want[n].da, "segment %d", n);
-+			KUNIT_EXPECT_EQ_MSG(test, seg->size, want[n].size, "segment %d", n);
-+			n++;
-+		}
-+		KUNIT_EXPECT_EQ_MSG(test, n, (int)ARRAY_SIZE(want), "boot %d", boot);
-+
-+		/* The core's cleanup after a run */
-+		rproc_resource_cleanup(rproc);
-+		KUNIT_EXPECT_TRUE(test, list_empty(&rproc->carveouts));
-+		KUNIT_EXPECT_TRUE(test, list_empty(&rproc->dump_segments));
-+	}
-+}
-+
-+static struct kunit_case sunxi_rproc_test_cases[] = {
-+	/* da_to_va: SRAM windows */
-+	KUNIT_CASE(test_da_to_va_zero_length_returns_null),
-+	KUNIT_CASE(test_da_to_va_rejects_overflow),
-+	KUNIT_CASE(test_da_to_va_sram_space0),
-+	KUNIT_CASE(test_da_to_va_sram_space1),
-+	KUNIT_CASE(test_da_to_va_sram_bounds),
-+	KUNIT_CASE(test_da_to_va_rejects_non_sram),
-+	KUNIT_CASE(test_da_to_va_unmapped_regions_return_null),
-+	/* da_to_va: DRAM and trace through the core */
-+	KUNIT_CASE(test_rproc_da_to_va_dram_carveout),
-+	/* Lifecycle: start */
-+	KUNIT_CASE(test_start_bootaddr_programming),
-+	KUNIT_CASE(test_start_rejects_bootaddr_overflow),
-+	KUNIT_CASE(test_start_stop_arm_crash_irq),
-+	KUNIT_CASE(test_stop_without_crash_irq),
-+	KUNIT_CASE(test_crash_handler_disarms_and_reports),
-+	/* Lifecycle: prepare and unprepare */
-+	KUNIT_CASE(test_prepare_and_unprepare_remap),
-+	KUNIT_CASE(test_prepare_clears_sram),
-+	KUNIT_CASE(test_prepare_power_up_failure),
-+	KUNIT_CASE(test_prepare_unprepare_order),
-+	KUNIT_CASE_PARAM(test_prepare_unwinds_failure, prepare_fail_gen_params),
-+	KUNIT_CASE(test_start_core_reset_failure),
-+	/* Firmware */
-+	KUNIT_CASE(test_sanity_check_machine),
-+	KUNIT_CASE(test_parse_fw_resource_table),
-+	KUNIT_CASE(test_parse_fw_registers_memory),
-+	/* kick and mailbox rx callback */
-+	KUNIT_CASE(test_kick_payload_outlives_call),
-+	KUNIT_CASE(test_rx_callback_defers_to_workqueue),
-+	KUNIT_CASE(test_vq_work_notifies_every_vring),
-+	KUNIT_CASE(test_vq_notify_unknown_vring),
-+	{}
-+};
-+
-+static struct kunit_suite sunxi_rproc_test_suite = {
-+	.name = "sunxi_rproc",
-+	.test_cases = sunxi_rproc_test_cases,
-+};
-+
-+kunit_test_suite(sunxi_rproc_test_suite);
-+
-+MODULE_IMPORT_NS("EXPORTED_FOR_KUNIT_TESTING");
-+MODULE_AUTHOR("Tim Michals <tcmichals@gmail.com>");
-+MODULE_DESCRIPTION("KUnit tests for Allwinner sunxi remoteproc driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+The above UAF was very, very hard to trigger, but it's less theoretical
+than the NULL deref issue, so I think the Cc: stable is justified :)
 
+Reviewed-by: Tal Zussman <tz2294@columbia.edu>
+Tested-by: Tal Zussman <tz2294@columbia.edu>
+
+KASAN splat:
+
+BUG: KASAN: slab-use-after-free in min_order_for_split+0x78/0x80
+Read of size 8 at addr ffff888114bce3d8 by task mfsplit/230
+
+CPU: 0 UID: 0 PID: 230 Comm: mfsplit Not tainted 7.3.0-virtme #1 PREEMPT(lazy)
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0x66/0xa0
+ print_report+0xd0/0x630
+ kasan_report+0xe4/0x120
+ min_order_for_split+0x78/0x80
+ soft_offline_page+0x900/0xc70
+ soft_offline_page_store+0xa0/0x100
+ kernfs_fop_write_iter+0x2f5/0x4a0
+ vfs_write+0x60f/0x1100
+ __x64_sys_pwrite64+0x18a/0x1f0
+ do_syscall_64+0xfa/0x5e0
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+ </TASK>
+
+Allocated by task 229:
+ kmem_cache_alloc_lru_noprof+0x1e0/0x5b0
+ shmem_alloc_inode+0x21/0x40
+ alloc_inode+0x5f/0x1f0
+ new_inode+0x18/0x180
+ __shmem_get_inode+0x173/0xdf0
+ shmem_mknod+0xcb/0x240
+ lookup_open+0xbb7/0x1760
+ path_openat+0xc8b/0x1dd0
+ do_file_open+0x1d2/0x400
+ do_sys_openat2+0x126/0x170
+ __x64_sys_openat+0x122/0x1e0
+
+Freed by task 231:
+ kmem_cache_free+0x29c/0x610
+ rcu_core+0x691/0x1de0
+ handle_softirqs+0x204/0x8e0
+ __irq_exit_rcu+0x153/0x1e0
+ irq_exit_rcu+0xe/0x20
+ sysvec_apic_timer_interrupt+0x3e/0x80
+
+Last potentially related work creation:
+ __call_rcu_common.constprop.0+0x80/0x270
+ evict+0x4da/0x910
+ dentry_kill+0x1f1/0xa90
+ dput.part.0+0xa0/0x180
+ __fput+0x42a/0xaa0
+ fput_close_sync+0xe7/0x1a0
+ __x64_sys_close+0x7d/0xd0
+
+The buggy address belongs to the object at ffff888114bcdf80
+ which belongs to the cache shmem_inode_cache of size 1400
+The buggy address is located 1112 bytes inside of
+ freed 1400-byte region [ffff888114bcdf80, ffff888114bce4f8)
