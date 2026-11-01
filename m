@@ -1,100 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793563473;
-	b=fUDABzHwsS5wvgE0MC6WxQHvKHU54k7aO08evnD0sHzyhz2gIuwT5qxAX0uWRX8nN1Pa
-	 2UO8h/T2k5zqbRuoMjxnL0QzNHn46xrPu6/CswEhQDxxiRaynNuP0XjehDJiR3PJyUzfj
-	 59WRThuVnMwvCslgM9QlGjfPcaA3kDoPX76D7asrG/vnUTcadxDsOyPooDEuFS60aG3T/
-	 M++qsUHLMiV6q5/FHEM0YBxQG2vJ3suOjdUuuwJDD6SXzR2GACUw5vnTettcYFCrBzDl1
-	 dkoTkCZIjQNk1ItCvgrx5xRReo5veFPSG3zcfIwB01+o1NU3IRrXckPwn5oQzWmdbQg==
+	t=1793563653;
+	b=MHXLCvenpDcp69XhQbEqPrJa5BwrT/D6IHFlJR3aGDDnVqsX9BHf0sHhxEscwjZcqNIa
+	 efbznmTtK92nNOgPHLlNunzwHsnOgoXdfBo12C+Gft81xkc8fCkLbm5bhfLeyprjidaLQ
+	 TZyHXUr4Zaz4K0CyIj2ii+JHNoLGOF4aK0rhBi7JNa+rft5hiu45EjtQsmUu2MDyHRIiF
+	 mj61CL1mTKOk7I6OCcJwYYF8XQxqYXJH8FoL9QVw30cMOsE3YDSI99gPdGIO3ie6lZPpB
+	 Yj8kPJA+N70MhxGy/dh/ZjblSctD3dkpexyR0Qq8+m7yJp20U6LmGG6PesKy3IYGj0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793563473;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793563653;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=EADMVsLqtl7UawIMCnC7ocVxqfEpyyxisoL1Jal/32g=;
-	b=yB/CWcsQWQm5aCqpK/CoQTs8+EFV9k14otOkyZeYr2rmvnH11+jhCfetAWl9Ok9Psn1s
-	 Ds+cBHiJ0qBLYEIqvpsInvTtOBmYCsSYOlc4qYJtvy2ujmE4+7s2l46URXnoO3kVmlVQx
-	 rUHlS5oYqrjGiyozyWQx4XVDIx1y/OVsWoZq4rTkfSiQAG7tpKJRcPi3Dn+CAy/f7httW
-	 pyC0yECj4A+kgPr0TiQWb1QZD62WWLS+9tF6z5N+uiA3Mben6CtGAEL2NHe5HBhBikisN
-	 fCbVcFiYBTytLep4EDGlQ+tD5O1ELzbgI6G/At/fuaXqY8dTE1fJlqGqTHI+UVd6hdg==
+	bh=26V9a9aMGmLVeqkqAbfZgzyyhjfF3Os6qezAyBkdxJI=;
+	b=gky12uHuEnRvkm2sldCKcz/3WAvL2qLA9wk+rp1c9w1eNlmt4hwz9lob38ESZ5Fd1qDC
+	 XHk/4wHGDTq/5oZ2jI8RPjQvj38tktqn8vEnoThZar1LlFTgbgqqNqhpDkkZGWWXOguVU
+	 f+H94ekAMZ1MfjNumKbLThL/6yj9L5gQQUHirJBLBa2yoYmhQL1KYfpdvOqT9a+cROVVw
+	 JouTKHc1ngIB5swZCK1PxSVTstqDD5R2V8B5n1piyO1kZnVGPYjWJBx0sVKT19Ra0iK9G
+	 bZodRwim8lMgec9XJ4wd8Esm6h6hKveQCwuwKfJED+EMsrufwlpXHK+JrLSxRFdEETg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=keqaWim8;
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H97WD1p6;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87D97606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:04:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 87D97606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36B30606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:07:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36B30606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=keqaWim8
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a0f27c9f4so4369487eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:04:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H97WD1p6
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a315ed211so2875272eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:07:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793563472; x=1794168272; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793563652; x=1794168452; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EADMVsLqtl7UawIMCnC7ocVxqfEpyyxisoL1Jal/32g=;
-        b=keqaWim8Z+plEZRczNczH3dBEsZWWAvymJHfCJOLq/iPBAquMhNqrlZY+CNJOtxfPr
-         743LFjt3d2Ip9mSUFxSLL7GN8NyTiCcFqBDZuMLKsBcu2IyYDMDu61md08pgYkLjVA0L
-         jXSe9HsLLy9rOuMR02+YxZ5iGlL9VvHR1MLnoN3UIaQEl+VrCF3FQIbRcDDZENa2NDiy
-         HnvDlqnY28G+H0h+KijN3RE2PJkxL/4rX2CCNCig59JWVtIA6oQE/kPVhje0mF9aiZ2e
-         ic3Kegw7gsSPHF1AwF5lxU9Ys/IxjzDOxRkzLJO4qaBJrFahzO9X+d0BOowgUBGFC9W0
-         5Fiw==
+        bh=26V9a9aMGmLVeqkqAbfZgzyyhjfF3Os6qezAyBkdxJI=;
+        b=H97WD1p6d5/EVI7F57TkMr97HS82HTIdDZuh7Sw77hyT1l6Vq6Ethtfh77aGCKH1NH
+         goxg0jFmw02vjTXGwFkETieEgB11VZliuMuh9DddXIYEr7DLKfns7FPqTNWmyeNZgf16
+         Lntlkx+e1ARIHqW4vzzcFHuaqHuPUb2QUgk+gFJz2igoO8hdbLpHwuElOf4JbiMr14Bs
+         +ThgFK3bZz4Jz3+d/buaomWz5TKVZqNTk1ZaGPSXOz1yEfQgWTQ2GH2G0vxyD1Hxvy9Y
+         9k268S6SvWRKCp+Ve4cwabuwZNryq3EVV1AzznMKJ4bHxTzV9pRNqvVJL0REvxZ6qO0f
+         brsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793563472; x=1794168272;
+        d=1e100.net; s=20260707; t=1793563652; x=1794168452;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EADMVsLqtl7UawIMCnC7ocVxqfEpyyxisoL1Jal/32g=;
-        b=2q/w0O67Pb6k/LAmobmREbRGY/IcA1TUDVPW/NIq8anv1UHXqMR3GKTdM8HiOTdRPM
-         O3JLSMfQ/3xOrnxeceOl+4MCKb7cqMS6fwKAIEb8aPugVoyvb+/D7HeftlBzRol1lAdx
-         XE3DQhrrlc//3xA8GfP0R3hpd88ZSDmADztk7uaePIJVs9OTrv4PYPayGWUMIRxtF6g/
-         4QMLbKFCX0bTBONhkAuVerHLgNoUi7tfb5LYV6q1tVUjmpYWSzseAi9N8JlQXnfxGfjC
-         mQn3PDnVyqMo240PzY3b1S12AWsH5Ci4/RpQ7TY5wsuoCSgur/Gz6MKe4vzpAxw5R8KE
-         0/iA==
-X-Forwarded-Encrypted: i=1; AKwUvBwuPe38hJiPxMGfy3xxKinCbUbv428oHZm9fP3s/AJNEX/U9nlWLlzMCeAB73LrIppEd/W74UZMDthfc7Q=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8cOQmkgwu5Mx1RDdl4jC8y5+h1oi3eo1mfH3opOYMj5B7UHxRb
-	JcXthuRLl4MjweFd/k53Di6ZP6hQ6JhLaC367ABjIJapPeE3D8Ay7Sm4
-X-Gm-Gg: AYBFou0hTNEgSme/MtnwkqJiHkv40SccLuwt3UbBjec/Pnp0pqrMfoYeRFR+Rh2FXrZ
-	kvbylsaRilhD3+EL1CL/wiE37EwAa29QonLRsc1kq51uuOIytnKpbp8rOB3E7ReCD6Zvi/zBYD9
-	56fZjuJjU/2Zwg0XTyqiZvZlL3WbIdfP7CHl+XHXAaUS+bmnLOutM0QCQkdvaS9RbvZEM/PGvgv
-	tTNiMBd2jMZ63/H07oeAHxEKkBEVEhsshn87gB1ZAS/3fk35LMuLAxSpJ5/sn/2JAqThBT/T93D
-	g+kBQVykwTeYwPAIyZMy1oDTSHPiLqJPjiAPsYb8ClIRJFNuWPo4QZZXz25pkBy7ut/4ppdERig
-	T+kAfPNK8O6LEL10sxvbzAh16joeZ/t6szdpiUw+dxnf8SXRrbL/EmpjQvJu0N65xVZyym0asGZ
-	mW8wQRbzwq/tjNZCUTuXQF7hv3Ezgn7C5Gi2IISQ8h0NvwtSqwtmetkMRzulpFaV6LENy9+Mdqs
-	FdwoQ4tiopwBIf3tl6iGBwAiBVeXOZ90dJeqc6qSjNYxvega3Wxcvz7fkDc0p4K6x+kVXedvQlO
-	3nvX6iHXIiy3a/yzXEJLTtPtkmItMbCkfDYRbkOPuj1LNtoQwx+HlmxRYGVE2ddk2wq5NabhXaP
-	Djrez7Q0aj1a6pKvKOZfZTACv7dxwdcFHOROXqPkhhKiHrI/OzMLjxkOETPpfRlu2p8GmxpN9Ss
-	9LcA==
-X-Received: by 2002:a05:7301:6787:b0:361:306f:c32a with SMTP id 5a478bee46e88-36a42345b05mr16145992eec.11.1793563471296;
-        Sun, 01 Nov 2026 12:04:31 -0800 (PST)
-Received: from ryzen.lan ([2601:644:8000:37f::e34])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a98f65sm29251211eec.28.2026.11.01.12.04.29
+        bh=26V9a9aMGmLVeqkqAbfZgzyyhjfF3Os6qezAyBkdxJI=;
+        b=uVhIGo2ua5LAiYOjaVfq7ISklSmBZCdHrdtR/r/Ho/linclH/uajFH+b6I2S/jIXHh
+         Ox5vy2L2C6DiybFzaGp1fEcvi3TMJuI+VBkmivQ/I2hNXkkbPIx7z3vEDQHoUvOzg1Q3
+         NAQuA+INlHYRrIi57VbNQNTPPAb4ZLUXbtEn2CXdWnxOKx3/No/JMnvl3g9f7y6fafzY
+         I42cLvawzwchJHb7ozFUm7zvdB9GHcfM9+BlJ4fm+qiQ9WhuU+YbQXXKn/2k1qBXmjSd
+         Wo9wOUFUoohiOW1X1ZounMp3xscfaIPVgODCfxE4U3VwJ40wTs65l8ZkO+TtgZT6SKOu
+         V6aA==
+X-Forwarded-Encrypted: i=1; AKwUvByRixdw+zYZzjzDCzeuXEp2kqlIbL5D1gjGEtZ3zYFazQ5xpwAj1atDJeJIyzqV/IGFNgoPiUIR254EAJk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/ySqED1DineD2mb1n88HP/HmKPOnn07DAo8xRSdvvxKejot0B3
+	Muakivv9U5adWVsn1UFyOV91I22RUSNTgWB3XTxwZV0LFq05N/a8lPTBFCf+Nw==
+X-Gm-Gg: AYBFou30tk/ep7COpNoXGoTVXNuJ7+kA0wzSPpa1FvSR9t14DuxZxRnadBdlQ/ORKyo
+	xOwcY2TNXL0jBtP+hwlX+Kht2PEtMt5ktG1hXbCaOhHQhft5DekLL5wKUmu/t0MuIbtCX57raGN
+	oFo7Sd61clhRxUSvFiFJ7OA9jHcIvRdGxW6lMbypaBB5svwC9hZM+zJugGIHdKrHcJUDpuqnSK2
+	G/RFRwHHSGHGXac6ohpv7FjXl93S6s7xE8YPm+gBmskavR2cYloDJzqiswDrF5NybHcOYH6HiXy
+	7Y4jLrZBi3wcvMgQbbXGg9Zze9vBsUA5wsdgdSrViRoQxsCKEIe9F76CIbQbPpsrIrHrYKO1hfG
+	4eACJmTqeV9dfrOP+gnTef/tz4fXErgb54e1IAqDV90wgE9MvIYOQ9eArTl28RdciBnqrN6wTIa
+	FkpmJO0hzzU54C5/Nx5GipO0DYjjzth2Jwn4ig9rbQDHVVqnd+Lxf7aYipdudP/Hl/hCxfjo/gn
+	I2Lo5lZJmMGESk4Aicoth5YaeUUnuD3rh+3HW8Z+gHnK36WN1xxrg76Sufb+cWeeVtHxzHqOMK8
+	VI4pULVOzBr0RxWrT6NOmC5JcpDJOWAHScydZtynz/C01P8Xt8htm5EboCpsL49+dW5bnS+Ng7p
+	YfXnlIp6ZI9s=
+X-Received: by 2002:a05:7301:4290:b0:35e:af84:bf1e with SMTP id 5a478bee46e88-36a4238989dmr12095636eec.7.1793563652095;
+        Sun, 01 Nov 2026 12:07:32 -0800 (PST)
+Received: from pranith.org (c-67-164-4-239.hsd1.ca.comcast.net. [67.164.4.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm35052920eec.26.2026.11.01.12.07.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 12:04:30 -0800 (PST)
-From: Rosen Penev <rosenp@gmail.com>
-To: nouveau@lists.freedesktop.org
-Cc: Lyude Paul <lyude@redhat.com>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Ben Skeggs <bskeggs@redhat.com>,
-	dri-devel@lists.freedesktop.org (open list:DRM DRIVER FOR NVIDIA GEFORCE/QUADRO GPUS),
+        Sun, 01 Nov 2026 12:07:31 -0800 (PST)
+From: Pranith Kumar <bobby.prani@gmail.com>
+To: Christian Brauner <brauner@kernel.org>,
 	linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH] drm/nouveau/nvkm: clear use.enabled when subdev init fails
-Date: Sun,  1 Nov 2026 12:04:28 -0800
-Message-ID: <20261101200428.16959-1-rosenp@gmail.com>
-X-Mailer: git-send-email 2.56.0
+Cc: Mateusz Guzik <mjguzik@gmail.com>,
+	viro@zeniv.linux.org.uk,
+	jack@suse.cz,
+	linux-kernel@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [RFC PATCH] file: Use release ordering in file_ref_put()
+Date: Sun,  1 Nov 2026 12:07:28 -0800
+Message-ID: <20261101200729.2872806-1-bobby.prani@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,56 +101,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Kepler boards without the video decode falcon firmware installed
-(msvld/mspdec/msppp), every other VA-API decode attempt binds to an
-engine with no ucode loaded. The submitted work never completes, which
-leads to a context switch timeout, a channel recovery that cannot reset
-the engine, and eviction waits on fences that never signal. The process
-ends up stuck in D state, or killed by SIGBUS when it touches a buffer
-evicted after the wait times out:
+file_ref_put() uses a fully ordered atomic decrement for every put,
+although it only requires release ordering for the decrement.
+Acquire ordering is needed only when the caller may destroy the file.
+On that path, __file_ref_put() already executes
+smp_acquire__after_ctrl_dep() after successfully changing the count
+to FILE_REF_DEAD.
 
-  msvld: unable to load firmware data
-  msvld: init failed, -19
-  fifo: SCHED_ERROR 0a [CTXSW_TIMEOUT]
-  vo[5444]: channel 14 killed!
-  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:117 at nvkm_runl_rc+0x2a4/0x3b0 [nouveau]
-  [TTM] Buffer eviction failed
-  WARNING: drivers/gpu/drm/nouveau/nouveau_bo.c:1092 at nouveau_bo_move_ntfy.part.0+0x9b/0x100 [nouveau]
+Use atomic_long_dec_return_release() for the common decrement. On
+arm64 LSE this changes the fput() instruction from LDADDAL to LDADDL,
+so subsequent independent loads need not wait for an acquire that
+the common path does not require.
 
-Tracing nvkm_subdev_ref() and nvkm_subdev_init_() shows the pattern:
-a reference taken with enabled=0 runs nvkm_falcon_init(), which
-returns -ENODEV; the next reference sees enabled=1 and succeeds
-without running it.
+A pipe workload that performs 20,000 write/read pairs while a sleeping
+helper keeps the file table shared runs in 2.92% fewer cycles with
+this change.
 
-Clear use.enabled when init() fails, so that every later reference
-retries init and fails cleanly.  The other readers of use.enabled are
-fini() handlers that use it to skip teardown, which they now also do
-after a failed init().
-
-On a GK107 (Quadro K1100M) without video firmware, playing H.264 with
-mpv --hwdec=auto: without this patch the GPU channel is killed within a
-minute and mpv hangs; with it, VA-API decoder creation fails, mpv falls
-back to software decoding, and no faults are logged.
-
-Fixes: 8478cd5a740a ("drm/nouveau/nvkm: add locking to subdev/engine init paths")
-Cc: stable@vger.kernel.org
-Signed-off-by: Rosen Penev <rosenp@gmail.com>
+Signed-off-by: Pranith Kumar <bobby.prani@gmail.com>
 ---
- drivers/gpu/drm/nouveau/nvkm/core/subdev.c | 1 +
- 1 file changed, 1 insertion(+)
+ include/linux/file_ref.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-index aab5a73f467a..ff6858f5e5d3 100644
---- a/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/core/subdev.c
-@@ -157,6 +157,7 @@ nvkm_subdev_init_(struct nvkm_subdev *subdev)
- 		ret = subdev->func->init(subdev);
- 		if (ret) {
- 			nvkm_error(subdev, "init failed, %d\n", ret);
-+			subdev->use.enabled = false;
- 			return ret;
- 		}
- 	}
+diff --git a/include/linux/file_ref.h b/include/linux/file_ref.h
+index 31551e4cb8f3..a5e262d7083c 100644
+--- a/include/linux/file_ref.h
++++ b/include/linux/file_ref.h
+@@ -154,7 +154,7 @@ static __always_inline __must_check bool file_ref_put(file_ref_t *ref)
+ 	 * fails then we need to handle the last reference drop and
+ 	 * cases inside the saturation and dead zones.
+ 	 */
+-	cnt = atomic_long_dec_return(&ref->refcnt);
++	cnt = atomic_long_dec_return_release(&ref->refcnt);
+ 	if (cnt >= 0)
+ 		return false;
+ 	return __file_ref_put(ref, cnt);
 -- 
-2.56.0
+2.47.3
 
