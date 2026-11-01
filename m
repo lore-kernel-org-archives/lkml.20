@@ -1,79 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793552696;
-	b=BQ0Qdn50THPoEmfKDeKD9OlYPCtWrjXLMr+kPgGQo+yVcnJzLR3hTwA4+Y+Y0kHeo+5K
-	 2eLJEckNcr6/znIc576mRYsFL3X7aliHz3l1tJeaVcY9PRuwN0C+Srhjt7mjmAtcHV3vZ
-	 0ygOKzfV/AiSavPfeFqnrW0S8HNXIvcDqHRZyZWK13RboAhKzJ8ORWieJ7AGBHJYglbwo
-	 /U+5VZWI11VD4vYmjzKuGXaAdScdozf/skLaxTeKDz62L1llhCtCwaX+eBpk+CDXTk1co
-	 HYWpr9Q2z6ceCYowMhuXeIehnxVncfPzwyWnz1YHT4sM6nMYUofWRsZY6TE21Pug80g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793552696;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jaNvTICrxB6ZQEsCT6rQeT4YxzmEYHhNdvsA+92xchk=;
-	b=oa3bBGSHj8INQI44lf7H54aTbab38PGtktaU0bsAcqzF8pNAf7ERzHNbUpGkJo8gBQ4/
-	 AZO3TzTWu00pKi4XGVp6mRm7mSNMShZQNosUGjN3BqlaYZNfJZ3HgfyDmVoDEhO3YR16G
-	 kf+Jo10muwFeqX653sVY7ScojzljwYrlksU1U45lRGAqIy2iWqgRaZ6FFUbyqvTGTbADX
-	 +4854S7b5nV8Hf2Yc4HVYZt4l/h/1nQuQwxxp1ZY+lmDdiLHth0tIqptXZODJZwf0xC5K
-	 /6NRzsbl4bMRUFvVBBgvf2OAOyBIt88Mdwm9KBmRnArgt4Bk9kPhEtdG97XY9e6oBaA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="AeIt+nB/";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12049606A335
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:04:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AeIt+nB/
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793552696;
-	b=w092sqlrhiZMVihGoz/UO1ubiJCDDdh/MTLSc5i2Kp/NakQjOfzbm7/jmaaSmL+dQ1pj
-	 Yambc+Hkdo1/1QC58lGxIE1w4a2t9Th3QSJoyw+kcGxwcCWJgMkyKAK3vKGDXd6wCtUEe
-	 OZOIzJ4nKH3c8wVYCCd3LW1gmZnNS0/SBgNvc4WCROaQLE2EO8bRBJ6Now0x6Of6424vP
-	 fViL8lW7eVfcIdiFi4d6MDv4wM06S4VnhifP02LuFpqyE0hJ4h7+LCwc9wfX8XZ4z5Z/S
-	 Zrt5knujBBXjh2/LW5VkN4aEuKL02xC8UfLeluD6WFJ7BKi5oxDroFqsadrN1Fi00xA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793552696;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=jaNvTICrxB6ZQEsCT6rQeT4YxzmEYHhNdvsA+92xchk=;
-	b=0/toclBpVbmWX6OxMQfE7RSpZaB8xVkCAxH+HQWHYK9gQF2C8bY9k7GPJUhZtoeRwM1P
-	 DbHtwNrp0i3Bevp4Z/F1cI4Bz7uMVmWIwLVnQfJkL0XiyMYVGj2YA/bY7y2XvN2B6V9My
-	 Ex0vaE6S/zHuVbzcv0qhD7oOJ6/d87YiPCHIQi04kqeZMfiws1TmYADNkLujaLKwxM3IJ
-	 1P0X3+y5NURgM4537HtsZKGT61D3So5HzopwsLoQ2+bTfp0nHp+5cN/ANbDgsFbABovio
-	 v7X12ELOfQJUZP7i4fBVHH1d5XYhVMClPgrnzTAsk+JMXPiXuUKpGDOodqMFQdn4h/A==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793552749;
+	b=SoopnudkAaJKgSfPRnnieE0n3SZLL1f0GbxtTb+5q7P7zNNN8TGS+o9EtUqaH8g646x3
+	 vXhtaBMRU6vYLBQiAwxR3bd8eZbeQlTxZeDvHZnGpqFyvJxq2f8ns305Ibho2Zh+xE8Iz
+	 F3XbqKsfCK36YiUBjxTYFzIMI2Zd9JmHVp7xDQi+lvTv6pF9ONGFIX4SSu+UtLdWbjutt
+	 wu6a0tAmnwhTAz+vTIpymlZb331RLqsTxkAp0DV2lGfsCz3dZFg3ndZ1pNeyjZa8h+W8O
+	 xDwInwcKrHyhw5hly0rdomrsC7ViATPzATI57hegEjwlH3CyFnh16zolLBG2MFX9wTQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793552749;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=WGp4jy0/mnk88TT9DGzx5ZXJaAepnvlzTn4tFZXcRUQ=;
+	b=V2J5mGgN6s4zw3hx8PVJqeXZXilbY0SSOTNlL+aTjS9RfQzGm/TvAEiLVr5uuu+DNV7y
+	 Ci4vCBVRTjBWwvref5RvcIKmGe9bXt3WfW0KUj7Dn1nlvshwQUQdyxnCVrT2oeTqLiopC
+	 tzs3eMM9gW7xnCdIXdYV1/eKDNlZGOGpto80CsowBwIRzP1dTHaVqMaPgt+KsgtooBcvy
+	 t37zI82KGy8w5ECLvTHnPaVMRB9qf5EjdqIobKZ7LdNVWmWHyjF8d8Q+QnNpuMqqnKv08
+	 GmNPzL3vxj39hHZRddzeV0Tphl0E2p3RlWY21ld1zItsmgbp6/5ly9EHp5om4WQo9dw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Z5BYZyEe;
+	arc=none smtp.remote-ip=209.85.208.51
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id BB5041F00A15;
-	Sun,  1 Nov 2026 17:04:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793552695;
-	bh=jaNvTICrxB6ZQEsCT6rQeT4YxzmEYHhNdvsA+92xchk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=AeIt+nB/z8mBm3H46VKVIg8qKaltx/qyuOTWtYLjPDXVasRaZ4oa+wVdrFdiWeFn4
-	 HlzAAoynzqLDGcT6RYyffn/L+aL21Coi+TxYvXAqAFPzY1bn5jxQrKHfzAJz8yxL1E
-	 DLl6I5V/39TtJFSd9xvoZgM8Niull69kVQTUnf0X87gkBCFQKnlpXsrkTTemE7YYZk
-	 wpGiYZTZVtgN4YUOoBb+60BZquUWxoRmebSjI/EOqXN6nUmJiaekUq+U6XjIlbPfeZ
-	 SEiCKvZbzgeJclrdn7PxAwFar8Eqn2PLFBk5eBSzyHJUqdMqw0+wxLaLpR/6qse9LU
-	 H3odTY/aPiZkA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 3E25F4620F;
-	Sun,  1 Nov 2026 17:04:53 +0000 (UTC)
-From: Viorel Cernateanu via B4 Relay <devnull+vrilutza.gmail.com@kernel.org>
-Date: Sun, 01 Nov 2026 19:04:39 +0200
-Subject: [PATCH v2 4/4] x86/kmsan: Don't call instrumented code from
- kmsan_virt_addr_valid()
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DBF1606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:05:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3DBF1606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=Z5BYZyEe
+Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6b3dd83e779so3955951a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:05:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linux-foundation.org; s=google; t=1793552746; x=1794157546; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WGp4jy0/mnk88TT9DGzx5ZXJaAepnvlzTn4tFZXcRUQ=;
+        b=Z5BYZyEeTmuMSDHQvXppeyFakK9w+gHg3pVD2wgA/AQ8I14M/yjbNnvwPBu/MKtu/P
+         7t0f183O9E/rnWYIDCR4DePHOpackA9HIMFYgj948YKB4xB/DqhlXl8hJ3+mDvENkikF
+         RK3qqE4gygB+Pg4sm0GnTDvu1WtJMZcamqYwk=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793552746; x=1794157546;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WGp4jy0/mnk88TT9DGzx5ZXJaAepnvlzTn4tFZXcRUQ=;
+        b=ywirBJiUpCvyn83UHX84QCXNCPVXlPWUGiGynSrqjesFZ/XLLT1/wN8sYQ2Z9DYNG4
+         ZNTO+3CCskK0Tz4tGa8Jn4myV0evvMLSLHJwToSDcM+pW1LAhbTj9KQFlpTky2tWcyJS
+         BT8wMOMmEQLgsU7AISJcBKgh+57NfGZvc3V/cLIvkf5D04f3iEIhcVv3wk0YoTBxGSat
+         JaeLZIEWUPh59x97MAje3PkTNDv3Win8sqRfgmN0rOKUFKuWZo/K31caF89LK3CFymGi
+         yGLYVwJt3Nkp1pVo5t4lNVBe9lB34g8U5cJVUwklZzH6fBLg1czJC9zgRkXekfmirwHc
+         ypyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHgEGNfgBtwCKq9Z+mXVnqMkLXCXdcDQjJt8a1j4HV6g/D60B5kXdBV6dOk6PdOfHU4+5mEzloZ4UXdVA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Q1AF/evVQxMi9hmvRj/Nz5lO9U2SbI6kvxfljuFf2Xjwrklz7
+	YHKomiMKBzcYCkdbWj0X7B5+W+5z8ShJHZWU52A7cI+rPec9jKr5iuZ6aBqkdyLhn8u2VyHr2Yj
+	NonWewyg=
+X-Gm-Gg: AYBFou2UwzRYQrZNDEiNMB6ALl1gUC6i0hlJhK2BzfanzURBhrhvMIv+Cj9vLA5RvNm
+	G+0lcNQYasE1l30JxBcKTRH7oEjFOI7B/qi0MP159nMpJQY6ms1LP3qHmx4DtfTUxAgjHTpZsMe
+	mUas2ocdBz2ZIHYKY/LxGyAVDeDrlYA8rGJhVxEKZzaKAJxz8XeD7aIGr+Ir0dNro4zCCb9u7wQ
+	oTjargHqoQw3NnyKO9DkOv8kXgxsHO925V9Ot+pzMde+pJbcb1nJ3BxxDufjMVCRybKb/+7BM0n
+	viM3GlJw9bV2zHXOvql5lXXYI9v2Z00f0jII2eQWbR6aF17tdszJRkdfABUNvobXNb6Eba4Dp+W
+	eh8WA+IZvzcGgq/gv8xrCwXbVN7DMCsz9pCpvN9uNkfY7eeYAJtJauTIz7UTGC1wnQ60AJGbybp
+	euFJQk1xFZH6XYPw0f2v7PlgwL7wKGuMf2c/3fbxuDrtT+q26s3buh9El5HhIO1gWXK1kwhbINT
+	Q0xIVxx/Q8wC/uoFtsljQ46OP8ZuZCGruix/krwLUxaBEO7JE73Ow4qdwWHLXB/2VDDGvc+7Bgf
+	/XJsjhSBddfYbDbyj55D9sfioHZSusa1R6lszZDnR7pN9yg65s5lYpvjSdCQcPSzzXBu4XJnljT
+	xlA==
+X-Received: by 2002:aa7:c2c9:0:b0:6aa:a33a:2762 with SMTP id 4fb4d7f45d1cf-6b4d3377817mr3923738a12.2.1793552746489;
+        Sun, 01 Nov 2026 09:05:46 -0800 (PST)
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com. [209.85.218.42])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca21356sm2341969a12.35.2026.11.01.09.05.45
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 09:05:45 -0800 (PST)
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c4cb6834eaaso269087666b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:05:45 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBz+62yYZSGSgDYM08faLcbyrDYtIr6mAlo7CGSnugbXe7xXSom28O+3njeH1kzGpS+Q8TEqJV7ppjdSo50=@vger.kernel.org
+X-Received: by 2002:a17:907:d91:b0:c41:44f2:f7d2 with SMTP id
+ a640c23a62f3a-c4ca7a4ff1amr616714766b.24.1793552745656; Sun, 01 Nov 2026
+ 09:05:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,105 +94,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-kmsan-serie-v2-4-f97f66dc57ef@gmail.com>
-References: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
-In-Reply-To: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
-To: Dave Hansen <dave.hansen@linux.intel.com>, 
- Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
- Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
- Borislav Petkov <bp@alien8.de>, x86@kernel.org, 
- "H. Peter Anvin" <hpa@zytor.com>, Alexander Potapenko <glider@google.com>, 
- Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
- Andrew Morton <akpm@linux-foundation.org>, Kairui Song <kasong@tencent.com>, 
- Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
- Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
- Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
- Baoquan He <baoquan.he@linux.dev>, 
- Baolin Wang <baolin.wang@linux.alibaba.com>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Kees Cook <kees@kernel.org>
-Cc: Borislav Petkov <bp@suse.de>, linux-kernel@vger.kernel.org, 
- kasan-dev@googlegroups.com, linux-mm@kvack.org, 
- Ilya Leoshkevich <iii@linux.ibm.com>, 
- Viorel Cernateanu <vrilutza@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793552692; l=2610;
- i=vrilutza@gmail.com; s=lenovo-20261005; h=from:subject:message-id;
- bh=4lXdVBpJSiUWkUV4FYeTn6HuAjrb93rQ9oQKVwzlb6A=;
- b=o1OjIlZvUzgJ+zlmu7Rc0edi0aBd0UOWa/X09z9NOQ1Xbdz5UwRFALG2LG7nc3rQ/JH/tX7Ot
- u/YA3JxtV/ZB3DyUgm46sTQ12cCCQq2/9XlO0o6B9q31clwrM1b0+oi
-X-Developer-Key: i=vrilutza@gmail.com; a=ed25519;
- pk=HttZd2ffphVYTK/pvlflateaij8E4SdPd6Y+xDQMqDU=
-X-Endpoint-Received: by B4 Relay for vrilutza@gmail.com/lenovo-20261005
- with auth_id=1115
-X-Original-From: Viorel Cernateanu <vrilutza@gmail.com>
-Reply-To: vrilutza@gmail.com
-Content-Transfer-Encoding: 7bit
+References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
+ <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
+ <CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com> <20261101084528.53a1e83e@foz.lan>
+In-Reply-To: <20261101084528.53a1e83e@foz.lan>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 1 Nov 2026 09:05:29 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wifT3KtYFGxKBTcvOhXZ=Et6vMas95Y5LTCfqvYq6ic_A@mail.gmail.com>
+X-Gm-Features: AclHuK8EIYK57ipaNaIf8oLyMNo-kh7kxRzYHxcOr1tewjlRB074sPPF9NpHMOU
+Message-ID: <CAHk-=wifT3KtYFGxKBTcvOhXZ=Et6vMas95Y5LTCfqvYq6ic_A@mail.gmail.com>
+Subject: Re: [GIT PULL for v7.4] media updates
+To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>, 
+	Linux Media Mailing List <linux-media@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Ricardo Ribalda <ribalda@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-From: Viorel Cernateanu <vrilutza@gmail.com>
+On Sun, 1 Nov 2026 at 00:45, Mauro Carvalho Chehab
+<mchehab+huawei@kernel.org> wrote:
+>
+> We opted to do that instead of using merges, as sometimes we're
+> picking very small merge requests with just one patch or two.
 
-With CONFIG_DEBUG_PREEMPT enabled, a KMSAN kernel hangs during boot
-immediately after KMSAN is enabled.
+So that appears similar to what github does by default, and I don't
+hate the workflow for your kind of setup. I agree that it would
+otherwise result in lots of pointless merges for small individual
+commits that make it hard to see the big picture.
 
-kmsan_virt_addr_valid() calls preempt_disable() and pfn_valid(), which
-in turn calls rcu_read_lock_sched(). With CONFIG_DEBUG_PREEMPT, these
-paths call the instrumented preempt_count_add(). Its instrumentation
-requests metadata and re-enters kmsan_virt_addr_valid(), causing
-recursion.
+But I *do* hate how the commit times go bust.
 
-Use preempt_disable_notrace() and __pfn_valid() to validate the PFN
-without entering those instrumented helpers. Disabling preemption
-provides the RCU-sched read-side protection required by __pfn_valid().
+So _please_ stop the commit time rewriting. It's really wrong. The're
+a *reason* there is a separate author date and commit date, and the
+commit date should be the time of the actual commit, not the time of
+some *other* commit that does not exist any more.
 
-Use preempt_enable_no_resched_notrace() on exit to avoid both
-instrumentation and a reschedule from the metadata lookup.
+I have no idea who controls that 'marge-bot' thing, but it needs
+fixing and until it is fixed please stop using it.
 
-Fixes: f6564fce256a ("mm, kmsan: fix infinite recursion due to RCU critical section")
-Link: https://lore.kernel.org/20240308043448.masllzeqwht45d4j@M910t
-Suggested-by: Alexander Potapenko <glider@google.com>
-Signed-off-by: Viorel Cernateanu <vrilutza@gmail.com>
----
- arch/x86/include/asm/kmsan.h | 17 ++++++++++-------
- 1 file changed, 10 insertions(+), 7 deletions(-)
-
-diff --git a/arch/x86/include/asm/kmsan.h b/arch/x86/include/asm/kmsan.h
-index c6715b2db0dc..e36df95439df 100644
---- a/arch/x86/include/asm/kmsan.h
-+++ b/arch/x86/include/asm/kmsan.h
-@@ -85,18 +85,21 @@ static inline bool kmsan_virt_addr_valid(void *addr)
- 	}
- 
- 	/*
--	 * pfn_valid() relies on RCU, and may call into the scheduler on exiting
--	 * the critical section. However, this would result in recursion with
--	 * KMSAN. Therefore, disable preemption here, and re-enable preemption
--	 * below while suppressing reschedules to avoid recursion.
-+	 * pfn_valid() takes rcu_read_lock_sched(), which can call instrumented
-+	 * code (preempt_count_add() with CONFIG_DEBUG_PREEMPT, lock_acquire()
-+	 * with CONFIG_DEBUG_LOCK_ALLOC). That code looks up metadata itself and
-+	 * would recurse here. Disable preemption with the notrace helpers
-+	 * instead, which keeps this an RCU-sched read-side critical section,
-+	 * and re-enable it without a reschedule to avoid entering the scheduler
-+	 * from the metadata lookup.
- 	 *
- 	 * Note, this sacrifices occasionally breaking scheduling guarantees.
- 	 * Although, a kernel compiled with KMSAN has already given up on any
- 	 * performance guarantees due to being heavily instrumented.
- 	 */
--	preempt_disable();
--	ret = pfn_valid(x >> PAGE_SHIFT);
--	preempt_enable_no_resched();
-+	preempt_disable_notrace();
-+	ret = __pfn_valid(x >> PAGE_SHIFT);
-+	preempt_enable_no_resched_notrace();
- 
- 	return ret;
- }
-
--- 
-2.53.0
-
-
+                 Linus
