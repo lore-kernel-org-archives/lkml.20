@@ -1,49 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793550926;
-	b=lzdnp09o8nwLndLLgEKP3Ia1+Ilvh7I8rJvtUlIbKXDyg/R5WeK8Z+UzTb1CP87rrBlo
-	 6eLA+xe1pEUzoLLtCpBqe+aebJbwklqZIIzJcC5Qe72mWr/4Mnp28treTQ+kGvwO3hoc7
-	 l+N/izHpkuM6maZoOGheT9lLgGRFOxMMySvQsRzcLCtxAZ01LvNWzOuYhLHf5WlHOkCwj
-	 0d6eoYr9yAivHCpQuwSa7r2uIPRhPEHprsf39w+wCpEY5mIXLSHlVYIIdKaVfFK2i/buu
-	 PeHzqnyfTpzYz69/oQawwkmE09GIkTF7DayoK1JbSkDiEp2YpI9SHFvAmipgpIgQo3g==
+	t=1793551201;
+	b=qzBLhuajuKLnNsvKk8kHL6T/VKKSzSfmdxwZYtbdv1KINM0wmDD6d3/dITM8sYrS3S9/
+	 sBn5KgNiCInjF5KjlL/Bd4uRD1BMogOTMN3XrY9f4mDJF5Osbpt+glVfPAMcaC2jE9TUU
+	 lJ5xHJEvRi587I/m4GFG8cz9Q6DYUDuzIWUfqNFE4V8Z6JJWoAkZ0c+g+vxYAFjtjnK+E
+	 YjesE4t4QNIBsL50+z72Xa3SUZeFfsFu68e+Pd7b1keXU+jP20/Yr6nlKWPcsUXckR1M5
+	 IxjgCXEoXTnX4ur23Xgp1l9c4aeHukkFQ4vaxtDOfMEnxcmahKTnxjo8HLRYML2e9Xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793550926;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=3x8oCRFRszEq/Mgj7LYVJrisRBnIHOK0MAHeiUidi/U=;
-	b=x8XApQwqGCI7+8nqP1cnBw99bvvuFnCfHfhk9OZidfi1N0/BjKMHFJKMbTIXfZJRqbh6
-	 PCHYIzXArEB5uUWghkbh2cnyPrNe/TgsrkY4eyUgIBWokzq2Jgz1YPjl8k9weNN2d7sQ8
-	 UzblPx2mORccqxlUYqYkDkxJ0W3qjxNTc8eZizne/AN1m6XlvTMIll+TeOH9iZ14CYqTv
-	 +eCTDERUlHZC+G2vezwkFXWQssPhSB+0r1RgQ4wIBdfhcLBc55UWbWs2xSAE+aLnBPK2N
-	 eBLJKy4j6HDLrOi9O3g3VUBOULL48Gdg0wuhKbOdhQysy2nOSHJFVxdirPdvFnCLfEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793551201;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=F+i9PR+PBpSj4Tps17fWo1rOr4JAq4SBNabInQeoHBU=;
+	b=16HEOlxzbHNhKPg+AbIv/uaJ6/gQnxlQne3+SX9EDK1M+WFukSL8shy/Nzv43HfVnjb/
+	 62vycZljBeNb/GWBWauuwvA6MwLxEVD9uicwlkDucnUWO0lWqvfYONYX6PwVNwTt9uOpD
+	 tg2zxdQ63sZgUuyQQO/9RI0WSIXaiSn/toHW0/bW59ACNje+oh7L6wphGzyyztLKkgtAM
+	 247IRY1fO0BkYt4+lrJWPKKCUvw41ge3M7/Fdd8m3yt+my8osK+ScvSsgCLlftwDxJcEO
+	 6JUE8pJ6E/WJb9wf4dQyyZrxvae0zcsPcvWioFvarUIVRyRjJDDTiNAiA3ycyVCOLZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MW7y6eVm;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iVYTzpSR;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88163606A329;
-	Sun,  1 Nov 2026 16:35:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 118C8606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:40:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 118C8606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MW7y6eVm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2021F00919;
-	Sun,  1 Nov 2026 16:35:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793550926;
-	bh=3x8oCRFRszEq/Mgj7LYVJrisRBnIHOK0MAHeiUidi/U=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=MW7y6eVmJ/5BQ2b6bdHTHfO68F/8BO7ev4sibK7Mfs8jCUEbSemQgDc0mTspF1mJ/
-	 7KP20anDE+Z6Nnl+9gkUVS8XzZmSPrnVA2gYhl8TCBEjhMZHKs+drq1mv6MLeYQQhC
-	 j2XRX/q/tFJBpSbjLhwU8y5Tf8stdsxQ44Rn/F4GdEXqq6dSR0E0HdkG9Tv0Sge/E/
-	 LUciTRMA9J9ZXmWpIkcF9RhokZd5R1s+sB4IywUSGEbnEiiG7RHG12AkBNuw8ho4wZ
-	 fkUPTJFIF92M3wRHhfVn5z+8Oao4mvUQCZhfnStstzluEa/X7qYIEtGSQK+ENp6hpT
-	 O9BKIGXuxrdRA==
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Date: Sun, 01 Nov 2026 17:34:48 +0100
-Subject: [PATCH 1/2] MAINTAINERS: add Johannes as the page allocator
- co-maintainer
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iVYTzpSR
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a210470b49so17604435e9.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:40:00 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793551199; x=1794155999; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F+i9PR+PBpSj4Tps17fWo1rOr4JAq4SBNabInQeoHBU=;
+        b=iVYTzpSRRjcJVWroB+3J3QWauF821nPsqHtRRVEzJ17fc2EhPiPRnvhG+8Wyn4mIIG
+         OqgZ5BA9uAUtfqoI+4+05beWLyW0/u2I5BTU066ncmvNE9V/VrW/nqANs1DM2Z8zHsLB
+         EZuDSE8DUOWeu1KUYIyZuqFCR2ro0sRcPu3fSsuTk3x2MjX99SaJfLWpWLb91hzo3VwL
+         lIolwNOLuHNMpnE2NO94E2hcUEzpLvkk2znTN6RiXh0U8tUssg6BBdtLlfBrf7rPuptR
+         vA+UTIvDaFtH/8YMPDWgVqOVX6FNRLOl2aralPJ3sxTimL6oIfjpaS5bnxeztAqjO1lA
+         SFbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793551199; x=1794155999;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F+i9PR+PBpSj4Tps17fWo1rOr4JAq4SBNabInQeoHBU=;
+        b=CkmR4r5qP+Nh5DDLc3dPxYUBsPC84tAut/k+3BuNnyscthqc4hzjxWL6x95rqvw3Tw
+         oqttApdUyeKdwHxhUl0ssnYsEquuthE/NUckBHXPdOxt1FgQF3oOK5n29bPiLWDA/9L4
+         R8jixe4/jbVcoC/vvS5kRUdErXugSsHrgAxLX6XkeU0B7Aar8e28JQ2lHwYvdgk5NQj6
+         HL60o+Dwqjt5ugjjDkSG9BqWbME2N65g1sWzmySA+yUZOKKAMQ/rdqNTGE4eM2hhYW56
+         /50PFigXE/Am/lD9tgDM+x6iniDrX4Upmdzf9ZvynFF3DaFg78BNDhXmuKRlp41+3fn9
+         s/Vw==
+X-Forwarded-Encrypted: i=1; AKwUvBzF2ZdqnTSuk88a4H4t+SmNA8UWnCAYlaxFwR/HvJXi/CKtOgVTR+2brHYrQO8vYGK96XcFTszlWEmMdlI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKLOxaeSj+98WxTalPHHAimmIswG1ihSQAqfV8rNQQXoU4JoIU0
+	kn1mn22Fs8B3MHBWN6sHb7da+/mcRIN9mkh01aX1lnTVXyaCIXLZbt1k
+X-Gm-Gg: AYBFou0znIYa7ENGMS/DHjWb58Gfi8cm1kRI8sW0iDUhy4ussZFxJmzuER6H2Y25EN3
+	9Je/KN0Tle3XhQC6UTIjyf2G8rcezNw+8imAdUeHUN3USCUowX2zQAA2bvHttRGtPXB9jmeQ1cr
+	L2/xO9Phhex+PQnPHe5vZJJm+Ty2hm88CTWpeqRuwgnKVa3ihPVc/e8s9opKRAd8FU0wlsITamE
+	REOR9E/ctb5PrJD/DrL6Z49GPUJ7KUXpjvAUp/BAblpMuALLwij5JJdjuMNVjBQGbibEoGh13uF
+	5WAhU8qy0qLiH/zDw5LHUewYTyAthdwrOt5wbHdkqEIxsKQzyD72o3OGUQ9f69WF/U8VleaN1qv
+	A3OYiaufECAVQUmuF3MiSIXBiKOTXEYCFjJJy9nYiv0CYMvhLIKY4IQXKUhqNW5wS5/6vPjcPBn
+	Vg8q4utWlwBHuUyvDAKFP99+laxwED+586mngrYUJYiIU9pBwhZcE5Xc6YK2zihs9srVHeCbBAX
+	3tD9B2wU+3HX8d2DEcme/KLc2kUy1Fc2Bn0fQv4cvXFtOlFxGDrX8fIDpI+8vlmSooJA9MutSM/
+	G7pUQjcfBaC5Gse8X26xNSDlF7Lj9A==
+X-Received: by 2002:a05:600c:46d1:b0:4a3:59c9:a754 with SMTP id 5b1f17b1804b1-4ac187a72f4mr178469025e9.22.1793551199147;
+        Sun, 01 Nov 2026 08:39:59 -0800 (PST)
+Received: from LAPTOP-AVI.. ([213.137.66.46])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm16923539f8f.6.2026.11.01.08.39.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 08:39:58 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: jstultz@google.com,
+	tglx@kernel.org
+Cc: sboyd@kernel.org,
+	mlichvar@redhat.com,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] alarmtimer: Preserve rearmed alarms during callback expiry
+Date: Sun,  1 Nov 2026 18:39:55 +0200
+Message-ID: <20261101163954.767646-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,80 +97,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-maint-page_alloc-update-v1-1-27e8c246b13d@kernel.org>
-References: <20261101-maint-page_alloc-update-v1-0-27e8c246b13d@kernel.org>
-In-Reply-To: <20261101-maint-page_alloc-update-v1-0-27e8c246b13d@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>, 
- Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
- Roman Gushchin <roman.gushchin@linux.dev>, 
- Johannes Weiner <hannes@cmpxchg.org>, 
- Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
- Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
- Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, 
- Gregory Price <gourry@gourry.net>, linux-mm@kvack.org, 
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org, 
- "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1599; i=vbabka@kernel.org;
- h=from:subject:message-id; bh=ZGfKSf7whFZ9UN/85d/sfF5g2ZOOiNMW9NElTJJp5oA=;
- b=owGbwMvMwMG4+8GG0kuuHbMYT6slMWQ9z7KXP2x4Sv6Snu8ln4zbZ07XXS/oevDk1K8LqyIeP
- 2J8o6VT3snoz8LAyMFgKabIUr37hKPoTGWPaR6+H2EGsTKBTJEWaWAAAhYGvtzEvFIjHSM9U21D
- PUMgQ8eIgYtTAKY6ei/7//QGvquMAmxXX/tsZhS4bLVxBetFQ6/PR1utO6em8zRY3F+83DemNfD
- c/AM+j1a/F8j+yiZpZLpGasPBo0Fbz19p6Xs0u+KNctctpayFJ1k2cdlqxK1OLw6rfTdN4V/Lug
- tTi+UfTiid6Ciylrl0nrn3nyod2XNPn2YcP1qxxcRXwkXusKCGX+A5yWgtba2+VVNiA5uNt/d7p
- 9l5PtwwY/0M02qf2H/e+1/NKjD9x8y5ZPXXH8J1Z+bLXJ69Snfzh8ut9/LfxB5v7px3P+vIutcG
- oRHFDoG/re3af5T9+bfJOWD+pYlFarftuNmeu22PrRXkySk9F+XGdekWX/3n/pXdv+694Kvuco3
- okDYWAAA=
-X-Developer-Key: i=vbabka@kernel.org; a=openpgp;
- fpr=A940D434992C2E8E99103D50224FA7E7CC82A664
+Content-Transfer-Encoding: 8bit
 
-Johannes is a long-time expert and reviewer for the page allocator and
-has agreed to step up to a co-maintainer role, so do that. Thanks!
+An alarm can be rearmed while its previous hrtimer callback is still
+running. alarmtimer_fired() then dequeues the newly armed alarm, so
+alarmtimer_suspend() no longer sees the wakeup even though the hrtimer
+remains queued.
 
-Additionally, page allocator is joining the MM transition, following the
-MM core updates from David [1].
+Only dequeue the alarm if the hrtimer is no longer queued.
 
-Patches will be collected in the mm/page_alloc git tree and integrated
-via the mm/linux integration tree. To signify the change from Andrew's
-mm tree, remove Andrew as M: - get_maintainers will continue CCing him
-on most patches via the catch-all MM entry. David prefers not being
-added for mail volume reasons.
-
-[1] https://lore.kernel.org/all/20261030-maintainers-v1-7-97278f8a5f54@kernel.org/
-
-Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+Fixes: dae373be9fec ("alarmtimer: Use hrtimer per-alarm instead of per-base")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
- MAINTAINERS | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/time/alarmtimer.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b68bc3626709..d7cfb28a9029 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -17720,15 +17720,15 @@ F:	include/uapi/linux/oom.h
- F:	mm/oom_kill.c
+diff --git a/kernel/time/alarmtimer.c b/kernel/time/alarmtimer.c
+index ea5be5870e515..bf77af5e32c22 100644
+--- a/kernel/time/alarmtimer.c
++++ b/kernel/time/alarmtimer.c
+@@ -189,7 +189,8 @@ static enum hrtimer_restart alarmtimer_fired(struct hrtimer *timer)
+ 	struct alarm_base *base = &alarm_bases[alarm->type];
  
- MEMORY MANAGEMENT - PAGE ALLOCATOR
--M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Vlastimil Babka <vbabka@kernel.org>
-+M:	Johannes Weiner <hannes@cmpxchg.org>
- R:	Suren Baghdasaryan <surenb@google.com>
- R:	Michal Hocko <mhocko@suse.com>
- R:	Brendan Jackman <brendan.jackman@linux.dev>
--R:	Johannes Weiner <hannes@cmpxchg.org>
- R:	Zi Yan <ziy@nvidia.com>
- L:	linux-mm@kvack.org
- S:	Maintained
-+T:	git git://git.kernel.org/pub/scm/linux/kernel/git/mm/page_alloc.git page_alloc/for-next
- F:	include/linux/compaction.h
- F:	include/linux/gfp.h
- F:	include/linux/page-isolation.h
+ 	scoped_guard(spinlock_irqsave, &base->lock)
+-		alarmtimer_dequeue(base, alarm);
++		if (!hrtimer_is_queued(timer))
++			alarmtimer_dequeue(base, alarm);
+ 
+ 	if (alarm->function)
+ 		alarm->function(alarm, base->get_ktime());
 
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
 -- 
-2.56.0
+2.43.0
 
