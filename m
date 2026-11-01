@@ -1,149 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521560;
-	b=xiFbd9wPvWb/BTDCuck/s3DpxuBTcU42bQ50uXphhkV8Ob57mQjlYsrbXgJgCFsaHbR9
-	 JZwf3Co+sQiPyABpBs4Meex7G3z7EitOM468cbLdarTRvgGOoSWYP8ikOoany9dnXJxdk
-	 eye+q+dQpjLSYuOsLguOafkUV2YejHVl8qphkLQ768hUqdMrx+qwFha/T4Klitd7h0vAn
-	 /gIcmg2dmR+pNxOJVgEJpn6Oxa2cjU7M3R6sDPk7EaPV1ypGDNHKi+Q1UPCw7bLFfs724
-	 KvQC8Q0ZsTOzFrMT0APZsXg7i/UI+NT52uUqbAc2AcpYHNlyOo6wiKYzruC2NA2PUoA==
+	t=1793521577;
+	b=zUQdvcuGZq1sIiycozTYE3cSPtqN1/GdW5NmObeB+xxdPsdaMv47rVHPhKU/kRJekDam
+	 ZbW0r3GaGkAivmZDo7bipRFKsCtutHX8XaGCv8eEYe01DTVlbreI2NufcAZY6hae0AQHB
+	 +knuXVQdJNfokwZ3cSvipUBCsq3IE5IrS28O9RbAMB7nQ8Nlv85uu1Ron99/sinS3YwfJ
+	 4VO7JFCOHUbikZ3xlDrFbqOwQMY8KcXNJcIPmf4Dp7Y3shR4PzkW/O0LWQpZIB7HT3G8S
+	 KacSLfFx2C+1fyvqeIRocXtbcvPSNcI2VLIraY7hU/BGJIXEhUtihThLIxdQLEcROjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521560;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=2zyzlQZVxKaIY0yOEUymbeRyYHxqKX5mByILgxzc0jg=;
-	b=ByE4ixrBbrz8eC0+xhEmfYeknwrGAkJPWvhJbyQnpg+5s4tvmuiSZ1aKWysYPwck5PHo
-	 3ibjE/Nlp8Ap74MMhrGffLqkqqcNi39QoT4ahS/uM3n2kHh+XWgTihO23CEr2OupBW1V3
-	 Wy8o5BhJ2ypJZ+gzhRIgKqrPVnmK751e4eEs2s6QA4L7q+gohkBLz8pR+T9I/27Mp+ZRI
-	 IfGj5+NN2OUZ1sRfNt6K7dqwLblhyPrRSMHiCdIbryFYdsNVXWaPF5bTqRR993CuKYDCp
-	 jubfJwMFD7leB9oY4/MkYQsOfzdPhfEJ2sDoX8D2I/UEuzmAAOrtU8Mt3FkF/R3AkoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521577;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=KNsJBBBgsxOmM1zuQK6aYuVr+p7Ctuqp4i+1aNHodeQ=;
+	b=bwstfatkOP/xtKTSlsXqg8J5Qnpj5ePUImFKBkxhzXhBRWd8xHeHocmgN9vPFY6w3J20
+	 P47pC2ou/fue0UwVO7AOGLsjwmDWxdlimj1aQ27nNJNFFQH7yogvXMiv6Agef0IsylCrG
+	 ulH/dJzeMvRQ36HP+KS72umQI9hHhgEMY8n2W+02fiZST6/kUIYnchw3fUmBZRKJ6ebEb
+	 7fnyGddL5RC6nuhsW+vUkFxZBWB3oSGQT5A9hzT1unii0VvQ7dqyCWxfSw69qGdq1un24
+	 FlBko5+67ndG+HjN11LCmUo5q6P4zgK7+4fGJ7WY+WnSBldy7bGGbny9HF0Hr8eT2gg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gahingwoo.com;
-	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=OTpDs1e6;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=H40mRjH3;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvIAQjUJ;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2445F606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:25:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2445F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F210606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:26:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=OTpDs1e6;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=H40mRjH3
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfout.phl.internal (Postfix) with ESMTP id 513EBEC06AC
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:25:59 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Sun, 01 Nov 2026 03:25:59 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793521558; x=
-	1793607958; bh=2zyzlQZVxKaIY0yOEUymbeRyYHxqKX5mByILgxzc0jg=; b=O
-	TpDs1e66qboqgxG2PpC16j2sH7TJddbo+oVPEpaRSHVhke3x8rRlmt4ycjx2R7dY
-	/69lyaSpRTAsqFoQwBaW9mPW6jcusRd3aF8upzuJ9K6kHQ+PyrhZYq6wUsF/Wu8e
-	ZS4xVSbT0GjLtXbfXNpnsh9zwz1vIwxFuRMplbkPlSHyhrSGsCdzb2Dgc+hHumep
-	r9DhNLBfFA3qAwym6jjttL07IQ9E2j1P8cBaz3AI6X41WZDI8fKCr6iYkel2jQdD
-	MTocZAlEsEkHjLZI0enuODUjZ/VRVCOFymLpl1ox7Xxi3L9S2n+t/97++/FO1hsm
-	Ge/cSWrJsJOTWtFe8vIDA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1793521558; x=1793607958; bh=2
-	zyzlQZVxKaIY0yOEUymbeRyYHxqKX5mByILgxzc0jg=; b=H40mRjH3c0gCWrEa2
-	ZcN6DKuy5m+/f3cp+iLyt37jF1O4+mR6K4ASY7c3fsRQE5GgW41wu9hywDxNpZDO
-	Xo8oxi2DTsQTZBHWBP7c5gB6shFXnI3Y1hrb+CP2DrItG7us2bp04RQqyYk5/3gx
-	evDH44u9VE03Z3pTZ2mfKZzMgZJDleJ0fsDrH3++cdFlxyXZoLVbkH4eBrhP2vEp
-	BqFovapOWK277RrJmOS+tviulbq1vyF/51LHrlrBtQTFFtkJ675B/HvopAbyLNAk
-	3Kw3wvO7dS7tkBSI2omvUvdJVFkCktPVigfO+GzD+201SYtkSw0RtbjWpymaGw4s
-	+MlEw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793521558; d=gahingwoo.com;
-	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:JRH0f3KSpc+9PSlvV8PerkhaCBKUMgYFsRah0nGKNvc4G9P
-	duLgucBfYxofcDfKwqtfLJggZwZFJ1Bdot0LTy5yCGsF81qB3YoRvfnkPGjlx6UU
-	SFfTcULxnhRuMdjpdVdG57Y54a4tp/FlzWXHNEuiNi3eZ7y3LH34NWbAUmQMJsiN
-	HM509K9mww6c3G0j7iJ1VMS2Jfc2ayrvcLiTFiRsLMSRB93+3wwhAjFE/ciBLS88
-	UpRitR8L0Weflieew1QCjXfRV1Y4PJ3OstKYOXVywXK4rOSBWgog3K77cSBlY/dJ
-	poC7hpM6u/AzGGRHjxtArzDsGbkKXlHP1dkl3tw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:wv/eGDeElSENTGA8Ghx+iULvw+yggP6rkdnx5gKwE3g=:lsPRW5tbvjV1yB2K11YVzDhVzncaGOx91nla6MReLdw=;
-X-ME-Sender: <xms:lvfmasrw7k8yaVKHeIUXNTqL-SMeEiOd4l2tWchfSFh9zGXbws60PQ>
-    <xme:lvfmak-mQ3jm6UQKwItz2aTDrt-nnpoMXb7djmqVRZpWuB-o8I5luVdQ8BeJ50re-
-    LsHErccyN4cwKeTjb7kjvFuNrVl0J_RXTclRRQPgREEsZluOt_iyO3H>
-X-ME-Received: <xmr:lvfmav4m4Ou89MxTcoRt5HJBrRJRbdlErDs4v_jRxEbpFdpuHyHDrgwZI1TyLdPCSHJcweyM>
-X-ME-Proxy-Cause: dmFkZTEio0HITRPU8VpT4PebgbYf+HqQTVmTBwoXIcaWhSPJQuOpCGNL4Feyfw1mm6jNto
-    aCqGt+GjGmHddQdDYMsFOcBW2fd2wbE1C2hSqpUPgYFBCtzpG0VAhrL+r+dSJb3xHPmeXu
-    bbiU80H+3s8diofjGu9JFbSOoisVQrvN3eDU6svi49hrmcI63rUfSkuUe5+aUvGFuszdig
-    Qnc72eHSOddgDW0HvcKHXNvldok2Sz2296F+6Jr1XxRzNWV9h54MRHCMGFMHXdGms8Xsm1
-    Bk/Rw1sBqh58/z5F2FEqlRBvxPnvur8T5rxLVrR8npGrMSSnol3N1co7aLduCklPXA/va/
-    YXTHoUsCnKY9azuEaJJ5cCfMAuVhudV4dodqOzomVIYegi3ufkxBF55rrFoq3iaq6LHP33
-    T76ZGeyGkijxFWxFlKRfgjr4wSs8XktqK9Cmvzz6H8XrlQbewx5zl72aflAIu/xJmUigHe
-    ihwQFF+zsQXm5SSJ7HLlnBh5Kz2GDn0QnNv3awq93FX17kx4AxbOt97kEUTVKpXIVoXzrT
-    xIXSHsKBUmxXWaF7TwhMQP2jYb2EtSIjvqSLK9L+56g8vFQOYlJ8YJwAmO1+lut35s9urn
-    QvjPedj4/VeZ9I8NgTPNqwLUBD/0eyh+oDkjX0x/7kEUCaaYL9QzhA12nA4A
-X-ME-Proxy: <xmx:lvfmag3kzYBO9WRsiDPs1ACndkAeqVnYC2zDsUlRioWhP2-sZPpzXw>
-    <xmx:lvfmapjkGvKVYjvQfdTwGLhPQ62aXV3SiAYxBQ8ES1P_HdZZl8eyvw>
-    <xmx:lvfmariUw_ppVMna6bgM_sYzZep3I-FyI8HA-J2lnXjfB91kZhx7bw>
-    <xmx:lvfmalK4-DC1STWBHZWukQl1gPsGcWwbudOWBVlx-nTZY2ajX8FAeA>
-    <xmx:lvfmam3Tn_xs7OPK_vb-d-tEDN15IQfKJm_Q4C2HTj2qrjyPjgnNri8T>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 03:25:50 -0500 (EST)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v15 15/15] arm64: dts: rockchip: enable the NPU on rk3576-rock-4d
-Date: Sun,  1 Nov 2026 21:23:07 +1300
-Message-ID: <20261101082307.151957-16-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
-References: <20261101082307.151957-1-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kvIAQjUJ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBFC61F000C1;
+	Sun,  1 Nov 2026 08:26:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793521577;
+	bh=KNsJBBBgsxOmM1zuQK6aYuVr+p7Ctuqp4i+1aNHodeQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kvIAQjUJHsI2zMo7gCLMkjddDhJaogUsYHfyK6mHjWnhUcES37ve1U4Ic7IntD1U+
+	 nTBKCw0GRaIlUlxkfIWAbPLhLL4E1tFR7FSouSxfzbgcf1kyHwjZQZ5dI81SqJARPU
+	 MRFf1k+zG7GrX9S8aNvONy+Otf6y9QlbVM5m9Edqg7NhKfsoL5150rljpLjmWyg6oE
+	 dstM+toHdhCMY4PI6FwbIR1rTcmH4CGZA4Kd4c94+YOAds5JGP9YFtDLjWul0wgKf0
+	 Ur5vkZpRkyaLhfGCGiMI3E+su8K9kwua03lApNoIh9tBl8gQ2VGTLr8gDFqS+GWX+q
+	 sDa92PtrmDtMA==
+Date: Sun, 1 Nov 2026 10:26:11 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Tal Zussman <tz2294@columbia.edu>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Peter Xu <peterx@redhat.com>,
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] mm/userfaultfd: store the child's new uffd context in
+ the wait queue entry
+Message-ID: <aub3o-i3h2OVcWM-@kernel.org>
+References: <20261031-uffd-fork-ctx-v1-1-a837fd576ffc@columbia.edu>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -153,56 +57,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261031-uffd-fork-ctx-v1-1-a837fd576ffc@columbia.edu>
 
-Enable both NPU cores and their IOMMUs on the ROCK 4D, and make vdd_npu_s0
-the NPU domain's supply so the rail is switched with the domain.
+On Sat, Oct 31, 2026 at 11:47:48AM -0400, Tal Zussman wrote:
+> A UFFD_EVENT_FORK message cannot carry the child's fd when it is queued,
+> because the fd has to be installed in the fd table of whichever task
+> reads the event. The forking task has to hand the reader the new context
+> itself. It does that by casting the child's userfaultfd_ctx pointer into
+> the arg.reserved.reserved1 field of the UAPI struct uffd_msg, which the
+> readers cast back.
+> 
+> That temporarily puts a kernel pointer in a struct that is copied to
+> userspace, and results in ugly casts when passing the uffd context
+> around. While resolve_userfault_fork() currently zeroes reserved1 before
+> it is exposed to userspace, this unnecessarily risks leaking a kernel
+> pointer to userspace if future modifications are buggy.
+> 
+> Store the fork_ctx pointer in struct userfaultfd_wait_queue instead,
+> which is kernel-internal and passed around anyway. The casts and the
+> zeroing go away, at the (negligible) cost of 8 more bytes on the
+> stack.
+> 
+> No functional change.
+> 
+> Signed-off-by: Tal Zussman <tz2294@columbia.edu>
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
----
- .../boot/dts/rockchip/rk3576-rock-4d.dts      | 22 +++++++++++++++++++
- 1 file changed, 22 insertions(+)
+Reviewed-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-index f068794e48d4..72b251d396fe 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-rock-4d.dts
-@@ -722,6 +722,10 @@ &pcie0 {
- 	status = "okay";
- };
- 
-+&pd_npu {
-+	domain-supply = <&vdd_npu_s0>;
-+};
-+
- &pinctrl {
- 	hdmi {
- 		hdmi_tx_on_h: hdmi-tx-on-h {
-@@ -779,6 +783,24 @@ wifi_en_h: wifi-en-h {
- 	};
- };
- 
-+&rknn_core_0 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_0 {
-+	status = "okay";
-+};
-+
-+&rknn_core_1 {
-+	npu-supply = <&vdd_npu_s0>;
-+	status = "okay";
-+};
-+
-+&rknn_mmu_1 {
-+	status = "okay";
-+};
-+
- &sai6 {
- 	status = "okay";
- };
+> ---
+>  mm/userfaultfd.c | 19 ++++++-------------
+>  1 file changed, 6 insertions(+), 13 deletions(-)
+
 -- 
-2.43.0
-
+Sincerely yours,
+Mike.
