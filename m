@@ -1,83 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793551476;
-	b=Vg9cTEYnx+m82YPGVOpnX/047o4OotsJnkdiQsIZkZqxKMVnzGYm7lnc7bd3p2pm8Exi
-	 noppsS0D+2AZX9ZGaPr+McKuaNog45OOBkafHtqsGv0e/wO8NxeoDidTiVQ6MyFUajiwb
-	 iAoBJJCv4QGxdYjMcqh7mTvJzWVihkdbLISS6S0LYh0uJN7nJfxtdXBRbbw3aYfhx1IY0
-	 MLXeDcdcVSrsn+pbRoCgc5xlwHFti+wjijjPzaWTosS5xEU/0NGs77rEA6P7fMoVr6qjL
-	 oXMu/LXK82cUXUN52lBF76FwUcJhpos7EDQdMJjxb7cWNOlVlXj4yThZd8J6hetRZeQ==
+	t=1793551492;
+	b=1chCQMldaIOuWvMsEHoo/cJA4cywcISm3CgpKWVWnJBNgEcHj1Y2h7Kqo6/xNqqvP6Nf
+	 qKWIA5YVWtSZlE53CnOHyqrkUsLQpm2JsLhzUGh4CiB4XdojvjgmEkDg8im1UEiXrhJ+7
+	 8iUKJiPbFqVui2mk41EZp/aD/iMbM9NxZhCOmCl5e+1Sk/PMUoj8ZAqdPalnd+jo0ikY/
+	 KrqBYit7svLu4rI68iaQE0sa952HREEG1sMm3CsY+nyZ1UaI1m0FH3ZbSyZmnSbr+juIV
+	 FSGi80q3N+7Yy/ttaMJcIcVdb5fsdeWSwMdtp7HIqzomm+rX3AyA4q3y1MTFAf5c8vw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793551476;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793551492;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=9aOJYyjhEG5QFHqOyuUpkNt3Bv7NGCpLH14WnNP73X8=;
-	b=dW9lQzmYyAi9pHFw2v3p0mTkqBoIsDme02on87KvJ0Lam0qC+6rBQ66PC9PythdHbmcj
-	 s3IilAB6rU2PaOZfP4zXCUxgYzMZYNTwNBSq9T70Sz0yT83rIuYDbK8GLcyjDJ6RgppId
-	 Z2oIpUNUiTkBBnZjILBrCxNVI34CaPrquEGn9439nxvznJhTdqSGC41cKDdKAwTH/N2V7
-	 YhC0um+Ol4cochAIPAOSsIjorUF2ctQPE7Wg4LLk7O3XnPuveFeg3P0UEc9xji7lpE9oX
-	 TFsKzJw39SwHwOfDAs6yf4fxaYo1vOnFFJyjlTKwcOm4HDFSWSZwR84rxd6BGRcvaZQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=U2u6JPtaLF5iMQqC/jieagySVrkOfItQa7rqdEpvsOI=;
+	b=Pwn8zjdMcLk0ykucrbW4Dq/IEHf+GpPNZlKXhan2BTgFN+tMbG3gRQWubmsDRTEZ5+E7
+	 QdNQOs3mDqu9+6u75M7ZzDUGw1d1lmGyuajZqb702Do40YDeqVq66AujlNLxmRB+94eyt
+	 ganv/ckqUlXnRZe7rLR8sxa0ErSBdecjs3BQwzQ3tkgP0MokzlGocd21UFB8LUC0VqqUe
+	 UURVY1WFB77EUDaR4REdUjTywthFG/7XACO+S+51g7b3Kgi5dNiyFjVglLTGAyHFBCJq4
+	 guxse+8zLVXNwAX79qiSG1vcTJDVTulfzz3HYVeKVP3olO0DOLIiT42ZMyW2e8yRMOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xOGeyGay;
-	arc=none smtp.remote-ip=74.125.82.177
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+5xjkRq;
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F172B606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:44:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F172B606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5ED606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:44:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D5ED606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xOGeyGay
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-369fc2e984fso224840eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:44:35 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=H+5xjkRq
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-36a6b774d12so21515eec.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:44:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793551475; x=1794156275; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9aOJYyjhEG5QFHqOyuUpkNt3Bv7NGCpLH14WnNP73X8=;
-        b=xOGeyGayz+OGSJ8gV4I/TWxWvQCCci5c+IIYaLYByXD40JdHHQaHh7waRJMx9bS8KT
-         EpSI2pUC/3Eom9ha2HzT93PYvx1H+KwVOay2FMwM5g1S3u9a4voF/6D+Iswqeu/gEcaw
-         uZzqwerwT/yAOaVKubuoZ/9tjjFVrAJDp2qVEzZ7MA5Q8M1bh7g1k+wd829I136G2lbv
-         5KzFXI9srPzM4C5a/3bdk1+UaF8TQehtBNtjXf8809SH7LIQ3AAVaz89lkqrAewzQX8o
-         LhCuj0O3CiyU3aB914iMT+WXx9k0ipK1Fcz800O/PGgzsmLq4wFtzBf9EZvNjWxsC0Jd
-         b5QA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793551475; x=1794156275;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20260707; t=1793551491; x=1794156291; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=9aOJYyjhEG5QFHqOyuUpkNt3Bv7NGCpLH14WnNP73X8=;
-        b=cmClDemRtCBjWUixeCkXRHra+Tj1hm+cXxHJj52VvXG3MKRpfc341W/iPJXp6elpK0
-         uQ/lxHg2VelnrNVk86Apt60S8h5IJBn3RQDEcG63BD3nNG8QQ31mBvrS6cs2lp90jx+e
-         U65JPy1thm+WJ5H3qPK2p8e4B0u9YqxCCBG/9O23+GECaiAAooXbbYyvWVq8O1bUJPfN
-         ZJgjD1kLWjN/nIJMTugyMfTukO7Uc1a0s31pdzjkb6sqMoj4nzpZGq+XvJxmHBP1gAbq
-         2lhjdFXPVeQqnMl8jErl0bOklaZQohuGQuf6mKy0JMltUje2aipfUQdSTZjykFrZBn/j
-         ScPQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy7qHrUYitNCzdHXX6XX7RZ2WSszB2PJLI7xzXegIiQ9FmdvuJKaOn660ZLc+I67w2k2uF5/HYsuWXfrb4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9NmHLhMfSFaU28kx0lp11akA4Dpm3Yjm9SKlBH4FEwnqxNQtPC
-	aI1U1ghzncA3jdvAhyv94CjR5zDYpYNHSP9UwQZOZP9FBjCcZGY8ftf7
-X-Gm-Gg: AYBFou0JhuEBHvzXvxGkF5ia4ssv0eGSYWDvyg8FvPEXLHLktYvue1kOwr4Ujl0Ql6Y
-	YB9S5dvYUHz3NSCSTL9dGRVyCXg7NssF9uQQH4RJ3C0G9z5MNbiEyikVO5vRw9TILDmtQUISuTQ
-	/aI53vMe0WtlPl3zjPI06uaLpd2cNOJ+HQoR8m7lA6I2kIvuz8WspdjCuh5sXbz0ZQpo2zx1N2x
-	mFHMs8fMjazdcuUYSKGDjl1qzZEJpiBIwc8XzI6cxVoUw5MWxNH8Pi6GcGf1cJ+vNBVlUeQZi9y
-	4pr2h2BrJiq2ET/6cYDmaDvKKfWdIB6vzUc5Z0ZVO6fu3axSLGygN3hSLZ6YhsAF5rXrf+GH2XS
-	Xkxz98ccdxj48/bt373SxTvgj8x0NQuEW2+ZAYUSvu6s7nkpKvZcQh8LYdu4yDHWspW3RtoCVjR
-	erP4eW20tTrGTns+wSiPgAJ5PWeqkBSh4tRQ5dwBfdzcc0RkLfZ/Ospdd2IPTeZb5VRZN9+aG1k
-	gXsE38crShCaVtAZzxyoYhY8B/yMWv5M/cXUIpqMo3Y6eRh9PA3XIf50rheo7Cnoxp7ElFtpNZn
-	XAIoNd3c/EKpZ9pq8+hSsQs7BXWoWnPLENcVwT49wfNvb38Bgvg=
-X-Received: by 2002:a05:7300:ae18:b0:36a:13fd:b5c with SMTP id 5a478bee46e88-36a4235ceddmr15771035eec.2.1793551474787;
-        Sun, 01 Nov 2026 08:44:34 -0800 (PST)
+        bh=U2u6JPtaLF5iMQqC/jieagySVrkOfItQa7rqdEpvsOI=;
+        b=H+5xjkRqOlQ+gTIg+ylrbrHOHBoG0TexZC1ZdxZ0cV58+hgewBHW1VqBhjs2749Cv1
+         IndwgJl3odHdVnm99BMjz3v8kwlG8O8yyqZl07YuXvQjYuaJ937Xph18fT3qjoonuFbE
+         BeoU2fI1jFAh9e3pSt5uEW5imsMSxdxYzOrQP+f1EoNKDTOsXsry5cjIUxA6mLtvuaCp
+         ePCzx2FjeiBOp2ilMQ3aYg27EpkOXCtXKuJcVdAzWLAAcweVK6zfWGURjrdFKhmVj9vj
+         jPVQhtrX9CS/+fKeUafXuUOomK995Y0nZb4V1Rh97VnpP8uQuZYaoyKwzxlhqreBQCF/
+         iGQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793551491; x=1794156291;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=U2u6JPtaLF5iMQqC/jieagySVrkOfItQa7rqdEpvsOI=;
+        b=UojnfYyQxzVPiCvXwZZX1J7Mj64K6catEd35kBVLvzLoxZiKhyLpGt0QcP1ND5KMzR
+         moMNfX3Tsa74ct7e63bXMg9gZwY1Oyu0g+Iz+H66O0qcVrfwfxFyM9hVw/Lfj2csyIEP
+         e3NYJs3s5lerd7Z6qaeHimeFUDXR55Hi6hx+fQYXFvzwMF9ka+b2bCmckyN6n6yyTl0f
+         tOaslPYKUj6ZqSkcU1mbVPUF3yhxWti7dBn5pvEadLNQ+ao6mmG7xGwQyr5shyZcRPHx
+         8mrpxNyJxxI7rPO2SmTiR2F6S6mAHwjZGOQFM5s55EKXAS3ny+iYte+LyCHH6BZ9KebR
+         0OSQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfuO1bEdbmuA8g/THry0gzOnnQt1jfnEVYMnrLeFZzYXFICMjj536/sb00W9Bbaz/qyGFVXR74vosqSXY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLqGWedmmsYmN6U3L4IRm38YOYu8KOhDbFltmJ+T2+oExKADjjE
+	rw9IDnfK43EUXHzAscFOhQHtD7e8SgQ3nrpS7EXPBTKEHiO1bylIp+r0
+X-Gm-Gg: AYBFou2PMyTKbRxa8zPFEKIg8BohcZ5Z0L8WgY1dEJQ5KPOuPoLDDRr5EJj6B5yiGG/
+	IA6dLPTOT0V0PCYg6/4mXZHvm2R0EFPcrY8lCMo76GeYsARcXC/Uc0PWxcDskcrXSfEro6R6uTd
+	Pxy1zx+/jt0oa7yj3+iZ02+/xypOw/QqZkBF7Fg2BcSagbkqtodxPfBd8rx3V+ri4+AYTIFiDXM
+	xRNjrCqbC+SicFBPhCQKMI9nCqwAjEnoL/f5utq5MVcICprCYixUEUH4gVZlNQ8ral3hLLNWJB1
+	4rqzWuVt5fiH7RmC1D1xIBl+ZFQcNnUHqRLeSFpM4WPRiZQKNnX2Sm9fR3WM0SG+5G/UAW6pukd
+	VlmW8TSQ6IMaHf72pWmEn6btAKSsQpVt1SO/34Vl+CN7wtM1Qa5ad4YYsCqSvjvdHBSvKD5Vaof
+	Ia9Cg/Y8Co1nA7BiM4qB/iHfURbgR5dltmgiJA4tRvG6lNx88NTj2IX4Du+ew58DVOXf5zSdDG0
+	LfeR+0sCUovZT9PVOkfHBNS3wCvDPVZ2NL1UdrFu+s8Rv+EE4RBZVNnTErGYqqYLNleTfGvO+FB
+	Pb6AqysfE9BbNSmarQOF6DVm86c9g/EpHllTIdtBebWZl9bA7g==
+X-Received: by 2002:a05:7300:d090:b0:36a:e7a:e89 with SMTP id 5a478bee46e88-36a4239cc86mr18575735eec.2.1793551491118;
+        Sun, 01 Nov 2026 08:44:51 -0800 (PST)
 Received: from lima-buntos-dev.. ([218.239.109.48])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm35700172eec.1.2026.11.01.08.44.32
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm35700172eec.1.2026.11.01.08.44.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:44:34 -0800 (PST)
+        Sun, 01 Nov 2026 08:44:50 -0800 (PST)
 From: =?UTF-8?q?GIBEOM=20LEE=20=28=EC=9D=B4=EA=B8=B0=EB=B2=94=29?= <rtx4060@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -87,10 +88,12 @@ Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org,
 	=?UTF-8?q?GIBEOM=20LEE=20=28=EC=9D=B4=EA=B8=B0=EB=B2=94=29?= <rtx4060@gmail.com>
-Subject: [PATCH 0/2] regulator: mt6363: Fix the regmap value width and the VSRAM LDO registers
-Date: Mon,  2 Nov 2026 01:44:02 +0900
-Message-ID: <20261101164405.1743177-1-rtx4060@gmail.com>
+Subject: [PATCH 1/2] regulator: mt6363: Use 8-bit regmap values
+Date: Mon,  2 Nov 2026 01:44:03 +0900
+Message-ID: <20261101164405.1743177-2-rtx4060@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261101164405.1743177-1-rtx4060@gmail.com>
+References: <20261101164405.1743177-1-rtx4060@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,48 +106,54 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-These patches fix two problems in the MT6363 regulator driver that can be
-seen from the code. They are on top of regulator for-next, where the driver
-is the same as in master and v7.2.12.
+The registers of the MT6363 are 8 bits wide, but the regmap has 16-bit
+values. On SPMI that makes every access two bytes long: a read also returns
+the next register in the upper byte, and a write also writes the next
+register, with 0 or with what a read-modify-write found there.
 
-Patch 1: the registers have 8 bits but the regmap has 16-bit values, so
-every write also writes the next register. For example, disabling one of
-VS2 and VBUCK1-7 also disables VS1, VS3 and VSRAM_{DIGRF,MDFE,MODEM}. The
-MT6373 driver on the list has 16-bit values too, so its next version will
-want the same change.
+The next register is rarely related to the one the driver means, so this
+goes wrong in several places:
 
-Patch 2: VSRAM_{CPUB,CPUM,CPUL,APU} use the enable and low power registers
-of the BUCK1 group instead of their own, so disabling one of them disables
-VS1.
+ - mt6363_vreg_disable_setclr() writes the mask to the CLR register and 0
+   to the one after it. For VS2 and VBUCK1-7 that is the enable register of
+   VS1, VS3 and VSRAM_{DIGRF,MDFE,MODEM}, so disabling any of them disables
+   those five as well. For those five it is the low power register of VS2
+   and VBUCK1-7.
+ - mt6363_regulator_set_load() zeroes the register after OP_CFG and the one
+   after the third OP_EN register.
+ - A read-modify-write of the low power register of a buck writes back to
+   its SET register what it read from it. If SET reads like the register
+   itself, that sets again the bit that was just cleared.
+ - TOP_TRAP is read together with MISC_TOP_INT_CON0, so the VEMC voltage
+   callbacks fail with -EINVAL once a MISC interrupt is enabled.
+ - regmap_bulk_write() takes a number of registers. The sizeof() of the u16
+   keys of TMA and BUCK_TOP asks for two 16-bit registers, so it reads past
+   the key on the stack and writes that to the two registers after the key.
 
-Testing: none of this has run on hardware, because the bootloader of my
-board (Lenovo TB375FC, MT6897) is still locked. Each patch builds with W=1.
-The driver file also ran unchanged in user space, against a model of the
-registers made from MediaTek's header and driver, before and after the
-patches:
+MediaTek's regulator driver uses the regmap of their MFD driver, which has
+8-bit values (mt6363-regulator.c and mtk-spmi-pmic.c in the OnePlus MT6897
+kernel, OnePlusOSS android_kernel_modules_and_devicetree_oneplus_mt6897,
+branch oneplus/mt6897_b_16.0.0_oneplus_pad). With 8-bit values one access
+is one register, and the sizeof() of the keys is the right number of
+registers.
 
- - 16 of the 33 checks of the model fail before and pass after. The 9 that
-   still fail are about the VEMC voltage callbacks and the overcurrent
-   handling, for which I have fixes that I would like to test first.
- - ASan reports a stack buffer overflow in the BUCK_TOP key write before
-   patch 1, and nothing after it.
- - The resolved table of the 35 rails differs from MediaTek's driver in 8
-   entries before patch 2, and in none after it.
+Fixes: 3c36965df808 ("regulator: Add support for MediaTek MT6363 SPMI PMIC Regulators")
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: GIBEOM LEE (이기범) <rtx4060@gmail.com>
+---
+ drivers/regulator/mt6363-regulator.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-The model comes from MediaTek's sources, so it does not show how the chip
-really behaves. A Tested-by from anyone with an MT8196 or MT6991 board would
-be very welcome.
-
-How this was made: Claude (claude-opus-5-5, an AI coding assistant) found
-both problems while comparing the driver with MediaTek's driver in the
-OnePlus MT6897 kernel, during a longer session of porting mainline Linux to
-this tablet. It wrote the patches, their changelogs and this letter, and it
-ran the checks above. I reviewed the result before signing off.
-
-GIBEOM LEE (이기범) (2):
-  regulator: mt6363: Use 8-bit regmap values
-  regulator: mt6363: Fix the registers of the VSRAM CPU and APU LDOs
-
- drivers/regulator/mt6363-regulator.c | 27 +++++++++++++++------------
- 1 file changed, 15 insertions(+), 12 deletions(-)
-
+diff --git a/drivers/regulator/mt6363-regulator.c b/drivers/regulator/mt6363-regulator.c
+index aa6a8eb..cc2e841 100644
+--- a/drivers/regulator/mt6363-regulator.c
++++ b/drivers/regulator/mt6363-regulator.c
+@@ -811,7 +811,7 @@ static struct regmap *mt6363_spmi_register_regmap(struct device *dev)
+ {
+ 	struct regmap_config mt6363_regmap_config = {
+ 		.reg_bits = 16,
+-		.val_bits = 16,
++		.val_bits = 8,
+ 		.max_register = 0x1f90,
+ 		.fast_io = true,
+ 	};
