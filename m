@@ -1,105 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793496489;
-	b=TKDVPfy29YNSFbqmg6z9AxRbdKTrCocdg3EoYLIVmh9imncU43cUuCaFVLvNmtdTNix/
-	 XquDthG7bXZsTLI3RDF2m2XiDAHbmfkVklSk1vlCHlVi5pHzAywgz67O+B4T9StKoVK2F
-	 f+ZdRhpq9rakWZfTt0nn239bI7r6xZk0cUJUC9BKBkk6ZZxvDviu5+1wK5lCzInpZe7wD
-	 AbiUIP5cOdUKZkX3u+4z0PeYwlg89NFZJCB69dyVLMAYicA9imBLXlb+y2WIqjZPEHGm1
-	 kLvus4IAXOuAHg0FaxDkesOVg3mltCcwVjLwQsZ+pRDW+1cV4e5ZXz4OMN+HT0jNtjA==
+	t=1793496512;
+	b=az48cMPB11vjrFUc5C5ZMM10A5BjpJ/9/1XP5jl6Mns716/aqi67Bj+oTo5Yv6jAeXkj
+	 WRVCwT249jegdAFISXFNNmOvHQkdqMt8bhoelSLUmOnn9fEinADE26F/NscTxc2cEHQ/n
+	 npDkyo8Idth3ajJmBrcWL7TgAmm1r1hdCVCR0v9KDXZap6W8pETAOrX1n10L9yN8qVZs0
+	 vx+kmY7Vu+/bm9f4jNTuhAaf2xvW9rZWZQRry9lKLvX1cjXh978/5jvGxXIPJb9/wjP0j
+	 X2zV1STXbBuxWP9BA8WUwCjTmodwH3kB3yEuS5lmyAGEgEN69Pa4UEfaYrYjguQLA5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793496489;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Content-Type:Date:Message-Id:Subject:From:To:Cc:In-Reply-To:
-	 References:Content-Transfer-Encoding:MIME-Version;
-	bh=7LrPxy9BAKXEpY6N5O++ZaxG2WFSWYtlj7o2XKSx/mA=;
-	b=XqTssfshePMg6MvY9LFtQPJj8WSv5av6tWZwZh1ZSfQV5VvPJ8vkgZa4pSTbsQtvYOQN
-	 UK8yKh22OvHZ7lRe336f3hGexa+92gHwO3eixfNxtQ3rPN7g26JmK+pMC6PiGU5I94shB
-	 SsOleFpZipoGYxwH3KQEuXBQuQPqIBMTP/ujjbG7SDaK4lX/Jnv+p9SwQNheocs+aPrXW
-	 gB5Wn8WPurW2aS1ajTUxh60bFZE+XFWplh3ny8V+1Sjtm/JAeB7KKeVgTufZqug/KQpEm
-	 3+B0JGN0FqSatoXGLyhWK4Vi22/XI3D8Hzeof5rLSdnq0JDCOKxqoWLQwXhOYoc6jEw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793496512;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=9jxnaJU/GpcwWRWB/sWaXu2IklLN1zFRwShITZdyTMA=;
+	b=acxSgF52fE1oPbtaNMxO1iHJS0P/3mStBgPTCIUau318Cl1Cg+515xK0dfAciVJhGQ4p
+	 361oJ/haGkNLKzuO+RjOL7qj5tFv2SyBgFI7frrZpFTbiuGA0vx58poNNGaTtzedTdH7o
+	 JAfN6mStnf1EQA0T6jpsbn7xWHq4lFhS+0fhC3CyQJ9rTKogzy9q5t5F6GjllCJkQgW1S
+	 SMQWcFnDbBu/lFZmiJp4e+eaKdGJOExu6qjCAvJRJIfJQdz2E4s8tcW+NmNDAfEAJV8oj
+	 3zVbkWgebGEe9lJ7HREokQP4gxo787gYGF8R8e3L4h3ioztk2JVFFcC5vlhKTN8CLTw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e7QGLOUt;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="DlUf8b/P";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2D57606A31C
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:28:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C2D57606A31C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB697606A31A;
+	Sun,  1 Nov 2026 01:28:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e7QGLOUt
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ea7190aea1so9036655ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:28:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793496488; x=1794101288; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7LrPxy9BAKXEpY6N5O++ZaxG2WFSWYtlj7o2XKSx/mA=;
-        b=e7QGLOUt1jxbs51TNaA0p1UUxmGARGoDenhBRBvjutBP0RHrN3UgwV4ztk4nScfO2I
-         CE0Khf/XsabYm+Az0Fh2deLwMw4WrujKvXwboO7GN+8g/mw3DBwk3vAe2ccjnq0v0y8K
-         m1GbyoFMkINnRyNsmQx2GyNiWksPqWZd8cZg21VJhUR9Utr5VjzGL0yU4w6zsqwVVekr
-         8JaIez//EUyXR/rRBaNHY3y98GohEKGOtA09sJN19Od5PNGhCKHglo8MNnVhwLeIJXHS
-         1ll7DAejSrLUJGKn2R8vIExPLwpt9dh6o+h4OeI4WLiPUCWOy2DmJbDq1x39rNKV0usU
-         QgEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793496488; x=1794101288;
-        h=mime-version:content-transfer-encoding:references:in-reply-to:cc:to
-         :from:subject:message-id:date:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7LrPxy9BAKXEpY6N5O++ZaxG2WFSWYtlj7o2XKSx/mA=;
-        b=bTgBIs/JPRhY1eyRs9PH+dM8iI4FVC8OY/tZ1wvUuiX3HCIpiw279na8pmcFFkygL4
-         EyoJnB22G6VkQ+EeH0KusuLgtFE4J7Kh/hycmDdrLViyls+CncwcND5vLJt2eiLFgG7y
-         gFhBNsnErVKoiQ/bOmJBLvshkM8QxP0Tjdg7rtakUqRB4tR+pRsCzGMSHBfVe2+MlsE5
-         P+dj/ug3ICUwyn9Nyif7y7hcjCmZWcCbJx9vNIyqx13q5cy+SWHDU2vFt9EeNN1R3GeL
-         tVgG1fwnWgEaN5mjlWxINft9E5lHtgQumj7caPv55bQ2PduLWUs31qr1pB6Z28jCWFVZ
-         AryA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiQffynZ44nNlOdk2e8A8RvxCLAHSR5SGaQJ7U4kymrynvgsyIjvyv+wn2sH1YDor9qyVFUwINuWOU5j8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/UKMQIJm4tQEnY3YeZ5y+ii2760ft29Fu+Cuk08qGQzg+XAqT7
-	w3l93rEbNNEsWqFfYzQBNjsAWZn9n9+4h8bjZM2tiWa4crOmRzV1Mada
-X-Gm-Gg: AYBFou0M1SwW/Bfd+PPkCg6MpUIU7jOVVXklLkWcQYBBKz0FUV67xs5NKxMQSa3Zw1/
-	MSUMAlMk1YBRaaQNa+pExxILFV/ApityNVrZTwGJG7zjK7pf+As/D4pk6Ylv4XnUcMWheRNJ/yu
-	Y03caBrhw22ivzCVgv5K4KQZ2oL0NsLmmk2A/kqwSCyNzwu+e1HOWi3XkiCYg4QrbQXAp79gN/v
-	GqXK6wQ517JF2IHoNqDlVtwPNr7E9wRw/BPsbnlQHq2ifQaYWppa1sgtxfbKIg0gZ/YOgTQCE4U
-	7TeMPbS72dCSTfm32DwqM36wYVW1z3seTc5Wh+L6qYaZ7TKV6wymsCT4FIEmEC9Ck5fGhb4Op52
-	NoAwJ8L8kbzaYkSHm5A8KNkaHwnXjee972f8wSzTjGk0iIymhgqx5C2PsjfFTFOQq0rLAKoLRJD
-	N8jnmWd95bpRnjgdtAw4mPNVRwjzN9EgpoXq08U5aV/8MKvAkuufceZvraBM9tiByh7QI2b1wnS
-	WY4lGt2hggX8ItBc+Yuj7Fg7K7jUds8o32oLVbjq9Q0+uplag1eNRK49LOSIkD1cbd1uzR3VnQb
-	9eeMoF/BuK3GKvFCEsdjevbzXkNeH4/c8xL5AHCIhlJCx1Jd29m2I0l4PLbAyxYmnhpiR1YNLf8
-	xZLOzN4kGecXbALmn4/EGLBjmWE3lyWeIBg==
-X-Received: by 2002:a17:902:d585:b0:2e8:422e:19c5 with SMTP id d9443c01a7336-2eb3647c0b4mr52613375ad.55.1793496488003;
-        Sat, 31 Oct 2026 18:28:08 -0700 (PDT)
-Received: from localhost ([153.61.198.248])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2eb39298329sm16832345ad.61.2026.10.31.18.28.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 31 Oct 2026 18:28:07 -0700 (PDT)
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 01 Nov 2026 01:28:06 +0000
-Message-Id: <DMJHFZPKETD8.PUM30IJH9D66@gmail.com>
-Subject: Re: [PATCH bpf-next 2/3] bpf, sockmap: Restrict iter-context
- sockmap updates to iter/sockmap
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Michal Luczaj" <mhal@rbox.co>, "Daniel Borkmann"
- <daniel@iogearbox.net>, "Andrii Nakryiko" <andrii@kernel.org>, "Eduard
- Zingerman" <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi"
- <memxor@gmail.com>, "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu"
- <song@kernel.org>, "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa"
- <jolsa@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>, "Ihor
- Solodrai" <ihor.solodrai@linux.dev>, "Shuah Khan" <shuah@kernel.org>, "John
- Fastabend" <john.fastabend@gmail.com>, "Lorenz Bauer" <lmb@cloudflare.com>
-Cc: <bpf@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, "Sashiko" <sashiko-bot@kernel.org>, "Jakub
- Sitnicki" <jakub@cloudflare.com>
-In-Reply-To: <0bcebb4f-4b36-4f8e-a3cd-1eb0455081a8@rbox.co>
-References: <20261016-sockmap-update-limit-iter-v1-0-23fa946db59e@rbox.co> <20261016-sockmap-update-limit-iter-v1-2-23fa946db59e@rbox.co> <DM6O08VBRY20.1PFUYACCZ38JL@gmail.com> <a9ba4549-4bae-4516-85ef-ee38f13551cd@rbox.co> <DM92JCFA4X4U.30MTDH0KCPTJ@gmail.com> <0bcebb4f-4b36-4f8e-a3cd-1eb0455081a8@rbox.co>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DlUf8b/P
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 310021F00A02;
+	Sun,  1 Nov 2026 01:28:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793496511;
+	bh=9jxnaJU/GpcwWRWB/sWaXu2IklLN1zFRwShITZdyTMA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DlUf8b/PjEZiH1rlFlhKz5afZUFvN3eB3xktIUb6mPXEXJc5nQw0YPKctxh3sUYb0
+	 GAy9//9SZsye80mhB5yHFC2sMSHdbDF2VJhrkVF/xvtJExFSlVUkaixESAMNZ3yTGq
+	 9IhnPp4IUYV9niMYchq4IdNft1SaAyiH60qUwBGWPOMtdc/LYdWJLs6TqdKJAachtX
+	 +CLTYQmulxXH8ZaNJf3wxMiQU6jwPtY+YaTSxK1Tr52PcGpKri+z/3MTZFrLXQcD+e
+	 VcTK7AE9owFIVm09wDwr+wn+fnr4M30yXt96j4Cl5+kB/DAt2P4Uy1h2AoKlnWSnP4
+	 7ZwP0gffUx1aQ==
+Date: Sun, 1 Nov 2026 01:28:12 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown
+ <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Sven Peter <sven@kernel.org>, Janne Grunau
+ <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Guenter Roeck
+ <linux@roeck-us.net>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin
+ Kroah-Hartman <griffin@kroah.com>, Hans de Goede <hansg@kernel.org>, Ilpo
+ =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Sebastian Reichel
+ <sre@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Wim
+ Van Sebroeck <wim@linux-watchdog.org>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
+ <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
+ <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-leds@vger.kernel.org, mfd@lists.linux.dev,
+ platform-driver-x86@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+Subject: Re: [RFC PATCH 04/14] iio/light: add new driver for macsmc
+Message-ID: <20261101012812.3661789c@jic23-hlaptop>
+In-Reply-To: <20261029085504.3547-5-atharvatiwarilinuxdev@gmail.com>
+References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+	<20261029085504.3547-5-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -109,28 +85,265 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Oct 21, 2026 at 04:12 AM Michal Luczaj <mhal@rbox.co> wrote:
+On Thu, 29 Oct 2026 04:52:01 -0400
+Atharva Tiwari <atharvatiwarilinuxdev@gmail.com> wrote:
 
-sorry for delay.
+> Add a driver for the ambient light sensors, exposed through
+> the standard IIO interface with left and right channels.
+> 
+> This replaces the light sensor support in applesmc.
+> 
+> Signed-off-by: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Hi Atharva,
 
-> But, if I understand correctly, the removal of plain PTR_TO_BTF_ID will
-> make pointers like `peer` inaccessible to helpers. And we just accept progs
-> have to deal with potentially stale data, e.g. the value of sk_shutdown.
+Given I'm generally in favour of bringing the overall
+driver to modern standard subsystems, I'll just do a quick
+review of the actual code in the IIO drivers.
 
-Right. Then the lock can go.
+Various comments inline.
 
-> Ah, sure. So the same bit for unix_reg_info left for later?
+thanks,
 
-Yes. iter/unix cannot update sockmap after this patch.
+Jonathan
 
-> I've noticed commit 7cc639dc45c5 ("bpf: Don't take an extension for an
-> iterator program") got merged. Should I post v2 with the env->prog->type
-> check dropped or you guys don't want to restrict iters anymore?
+> diff --git a/drivers/iio/light/macsmc-light.c b/drivers/iio/light/macsmc-light.c
+> new file mode 100644
+> index 000000000..9d4532b34
+> --- /dev/null
+> +++ b/drivers/iio/light/macsmc-light.c
+> @@ -0,0 +1,189 @@
+> +// SPDX-License-Identifier: GPL-2.0 OR MIT
+> +/*
+> + * Apple SMC Light Sensor Driver
+> + *
+> + * Copyright (C) 2026 Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+> + *
+> + * Based on drivers/hwmom/applesmc.c:
+> + * Copyright (C) 2007 Nicolas Boichat <nicolas@boichat.ch>
+> + * Copyright (C) 2010 Henrik Rydberg <rydberg@euromail.se>
+> + */
+> +
+> +#include <linux/iio/events.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/byteorder/generic.h>
+> +#include <linux/mfd/macsmc.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/unaligned.h>
+Give these a sanity check against other drivers
+and what is used. For instance I'd expect the notifier chain
+header.  For IIO we follow IWYU roughly for all files.
+I don't want to assume what is in mfd/macsmc.h given
+that may change in subtle ways in future.
 
-The former. We still want it.
-bpf-next doesn't close during merge window. Only people that
-can process patches get busier.
-Pls send the PTR_TRUSTED part in v2.
+> +
+> +enum {
+> +	LEFT_LIGHT = 0,
+> +	RIGHT_LIGHT
+Add trailing comma. Whilst that may always be the last value
+it's not a terminating style entry so we tend to assume
+maybe one day something will come after it.
 
-I'd also limit tracing_iter_filter() to iter/tcp and iter/udp.
+> +};
+> +
+> +struct macsmc_light {
+> +	struct apple_smc *smc;
+> +	struct notifier_block nb;
+> +	struct iio_dev *indio_dev;
+> +	u8 size;
+Size of what? Can we have a more informative name?
+> +};
+> +
+> +static int macsmc_light_read_raw(struct iio_dev *indio_dev,
+> +		const struct iio_chan_spec *chan,
+> +		int *val, int *val2, long mask)
+> +
+> +{
+> +	struct macsmc_light *drv = iio_priv(indio_dev);
+> +	u8 buffer[10];
+> +	int ret;
+> +
+> +	if (mask != IIO_CHAN_INFO_RAW)
+> +		return -EINVAL;
+> +
+> +	switch (chan->channel) {
+> +	case LEFT_LIGHT:
+> +		ret = apple_smc_read(drv->smc, SMC_KEY(ALV0), buffer, drv->size);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		if (drv->size == 10)
+> +			*val = be16_to_cpu(get_unaligned_be16(buffer + 6)) >> 10;
+
+odd.... You only pull 4 bits from the buffer and they are all in one byte.
+Why can't you do that without this dance via big endian conversions? 
+Also get_unaligned_be16() got you a value in cpu endian. If this were a
+big endian CPU be16_to_cpu() would be a noop, but it's not. So this just
+undid the endian handling and we are back to whatever the buffer ordering is.
+
+> +		else
+> +			*val = buffer[2];
+> +
+> +		break;
+> +	case RIGHT_LIGHT:
+> +		if (drv->size == 10) {
+> +			*val = 0;
+> +			break;
+> +		}
+> +		ret = apple_smc_read(drv->smc, SMC_KEY(ALV1), buffer, drv->size);
+> +		if (ret < 0)
+> +			return ret;
+> +
+> +		*val = buffer[2];
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	return IIO_VAL_INT;
+> +}
+> +
+> +static int macsmc_light_event(struct notifier_block *nb, unsigned long event, void *data)
+> +{
+> +	struct macsmc_light *drv = container_of(nb, struct macsmc_light, nb);
+	struct iio_dev indio_dev = drv->indio_dev;
+
+> +	s64 timestamp = iio_get_time_ns(drv->indio_dev);
+> +
+> +	/* check if event is for us */
+> +	if (event != 0x2A)
+
+Give that a define in some common header...
+
+> +		return NOTIFY_DONE;
+> +
+> +	iio_push_event(drv->indio_dev,
+> +		IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
+> +				LEFT_LIGHT,
+> +				IIO_EV_TYPE_CHANGE,
+> +				IIO_EV_DIR_EITHER),
+> +		timestamp);
+
+	iio_push_event(indio_dev,
+		       IIO_UNMOD_EVENT_CODE(IIO_LIGHT, LEFT_LIGHT,
+					    IIO_EV_TYPE_CHANGE,
+					    IIO_EV_DIR_EITHER),
+		       timestamp);
+
+> +
+> +	if (drv->size != 10) {
+
+Why is size relevant? I'd add a comment, or a flag that names
+what that means.  I guess we have one signal for one or two
+sensors depending on what is present?  Then you are correct
+to just signal them both.
+
+> +		iio_push_event(drv->indio_dev,
+> +			IIO_UNMOD_EVENT_CODE(IIO_LIGHT,
+> +					RIGHT_LIGHT,
+> +					IIO_EV_TYPE_CHANGE,
+> +					IIO_EV_DIR_EITHER),
+> +				timestamp);
+> +	}
+> +
+> +	return NOTIFY_OK;
+> +}
+> +
+> +static void macsmc_light_unregister_notifier(void *data)
+> +{
+> +	struct macsmc_light *drv = data;
+> +
+> +	blocking_notifier_chain_unregister(drv->smc->event_handlers,
+> +					   &drv->nb);
+> +}
+> +
+> +static const struct iio_event_spec macsmc_light_events[] = {
+> +	{
+> +		.type = IIO_EV_TYPE_CHANGE,
+> +		.dir = IIO_EV_DIR_EITHER,
+> +		.mask_separate = BIT(IIO_EV_INFO_ENABLE),
+> +	},
+> +};
+> +
+> +static const struct iio_chan_spec macsmc_light_channels[] = {
+> +	{
+> +		.type = IIO_LIGHT,
+> +		.channel = LEFT_LIGHT,
+> +		.extend_name = "left",
+
+No to extend_name.  That's a piece of ancient bad design (was mind
+so I can be rude ;).  Use the read_label callback and provide labels
+for the channels to indicate the equivalent info.
+
+The extend_name thing makes a mess for standard userspace by putting
+free form text into the middle of file names.  Userspace folk
+objected rather strongly to that a long time back :(
+
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
+> +		.event_spec = macsmc_light_events,
+> +		.num_event_specs = ARRAY_SIZE(macsmc_light_events),
+> +	},
+> +	{
+> +		.type = IIO_LIGHT,
+> +		.channel = RIGHT_LIGHT,
+> +		.extend_name = "right",
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),
+> +		.event_spec = macsmc_light_events,
+> +		.num_event_specs = ARRAY_SIZE(macsmc_light_events),
+> +	},
+> +};
+> +
+> +static const struct iio_info macsmc_light_info = {
+> +	.read_raw = macsmc_light_read_raw,
+> +};
+> +
+> +static int macsmc_light_probe(struct platform_device *pdev)
+> +{
+
+There are enough uses of pdev->dev in here that I'd introduce
+	struct device *dev = &pdev->dev;
+as the dev to use for devm calls.
+
+> +	struct iio_dev *indio_dev;
+> +	struct macsmc_light *drv;
+> +	struct apple_smc_key_info info;
+> +	int ret;
+> +
+> +	indio_dev = devm_iio_device_alloc(&pdev->dev, sizeof(*drv));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	drv = iio_priv(indio_dev);
+> +	drv->smc = dev_get_drvdata(pdev->dev.parent);
+> +
+> +	ret = apple_smc_get_key_info(drv->smc, SMC_KEY(ALV0), &info);
+> +	if (ret < 0)
+> +		return -ENODEV;
+> +
+> +	drv->size = info.size;
+> +	drv->indio_dev = indio_dev;
+> +	drv->nb.notifier_call = macsmc_light_event;
+> +	ret = blocking_notifier_chain_register(drv->smc->event_handlers, &drv->nb);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(&pdev->dev, macsmc_light_unregister_notifier, drv);
+
+I wonder how many users there would be a devm_blocking_notifier_chain_register()
+as it could be done more elegantly than this by stashing everything needed for
+the unregister call.  Perhaps not something for this patch set though.
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	indio_dev->name = "macsmc-light";
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->info = &macsmc_light_info;
+> +	indio_dev->channels = macsmc_light_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(macsmc_light_channels);
+> +
+> +	return devm_iio_device_register(&pdev->dev, indio_dev);
+> +}
+
