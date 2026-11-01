@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571390;
-	b=dDntn0GPp56wng/7NI+SDjvfMd0Bibb8r1v2jtp3gMH/vB90ip42yjBsZ+l+hh7rWIWG
-	 PrGYug4/ElbOL2VeOj9waEQZiGZGs6XleAAmC97y02dCHX/fgblpBHsSj3nvWm3U0WRMP
-	 L0fcRODuZtyo4kZGdmcEA3I9S6JcCtiGWfa+yCKvtmBLbSEQeyhGMj8dL/LgVWvIy9q1Z
-	 dryMFFzPGvotrkCmt/gYJ7Ml3FQAtlkfqZi4DoVFwxg/spCp2ZVFuA1+lNuglqu6ZK8wL
-	 SsMTdxrW6Cn0aw//oVPlkIP3Khzm60hsv9c+uuBLP+xnuzkr0GehN903wH1u+edWxwg==
+	t=1793571367;
+	b=g47Uq3GVWwQ4zo/MbzX84eY/cUDcBMx5J3Fnoq4ovIzFT0v4ZDbC9TBIJga1pJTt9c73
+	 WpvFFbqO3nWUzF/HQCUgXybJowz9VW8nlv4wcoZCCz85CFV67ChEU5kyMF9JdtfujwKwS
+	 R4SOdfCY3BgQOhqzY0qT1CH8kohROYY5J27D4ptDGGEiKUo/1OUDvm/uw+RwPWjyKzhcb
+	 SRn+tWonDDeEa4KOYTpkt1CILOux8fzHFNDrNAxnAiP2ozEos6R9USRc9Uhw6wxTT5MAs
+	 +Wm82b7apRpAT1HRESTUy3g6PxXdpN/KyeHPvxYK7SYBYSL2GYM88/a1fd0BStW+yng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571390;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571367;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=kd1+6McIMPpXCjM/eK1XnUd0MHKq5CNasIzBEPub8/I=;
-	b=qq9D7pfpH65u+G4zyWKzEOHW0THcah1m7sen2xw/kdvl+6r0gTm8spq5x1EprwywyTfC
-	 EBcAkRK4cI/KbThDdjZvaaDxBCdVYmy7c7Z/GLm0tmSURAkOzAekejMG0UZtRNHAOxv1K
-	 6/Hn4h2BzfQhhVbiC6vlHNkv7grx4zmNantIeINkYFCur+rhAPeM7BkWkZBpM3tLH9iUB
-	 H2F5qXS98pFn0ujQAKOF92gJb8hFSI3dVeNWsTYcguQrn3mwj1ZREBrUvBRn0MTsok5fD
-	 yg2zd1iZxNr+O+Kr0EYzHKv5+6PaBvJdZjPlAKAaxTfoYMzfhnQ4pjuhNJNp+gNVXcQ==
+	bh=yOwhJ8iDL21N2rFwqgTxPabO0jpqD6bOtJ0oq4rMTEY=;
+	b=ZhXvBunfW7jzqkbEP9N46zwUYqp6JSeJXcNMVrIxpMLKi3mLpgRLcPfMDUuUxTvN/AKF
+	 rLOkX05iqBNKgiH25VDArFQAL69JUO7N/GRj2aqBq7EqUuSCy5jQxmIDHWbvcTy2GhfIo
+	 yJW+e4qwXlorarOG2vnZxxLFjN7Y1QN4wXY+mwh2PQjKhc/GRpWVpC/y9ixckMHeBA7Fj
+	 CSa5ATKIEvzN1qKc0vLM3u7nQ0nm/9Go2mBKsWBzZX/MtsfYcPbK0XLsrFnhcWhW0mOcH
+	 cWRD/HtFdM0ykvup1ZimGevNl3mhvMRmUj+n+zA0u2Bdc8oPmTwce/kVbW6cU4n0yyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUlLLBZ6;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q0LE7Vcw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEF6560A2630;
-	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0132260A2621
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:16:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YUlLLBZ6
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79751F0093A;
-	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q0LE7Vcw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85CD31F00A1A;
+	Sun,  1 Nov 2026 22:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571389;
-	bh=kd1+6McIMPpXCjM/eK1XnUd0MHKq5CNasIzBEPub8/I=;
+	s=k20260515; t=1793571366;
+	bh=yOwhJ8iDL21N2rFwqgTxPabO0jpqD6bOtJ0oq4rMTEY=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=YUlLLBZ6pm30l0+huWgQS5KFcpacV3sIViYlLlgtZBTFchxrnyS8Bp46ptx800GpH
-	 ms0tcCCwnBu8jhUpAixHI2ZMpbJ4BXne5Su4dMXO/7bUCVl9AQVIuUBLP4vl7wQZgv
-	 rZUklVe7MxMb57TOckoPSQz/SDQn9b5pexQYQ6rnr5y2PQEq0m0iBuIwllJyuFYCPt
-	 FgWrKGlFZ3mCBkOH5hjwzxX8senRjOfUuL2jk1ZgZ27JyA3nz0QEa+hdXnKH2Ks7cd
-	 yjsnEcGAfd78jUx35wSizQNDIH/DFAduRns5hrtdjcBw963LMRfCTmY/LrgNPoYmff
-	 gPp6G7yyQ4ZFA==
+	b=Q0LE7VcwB0OXK/2Y6z32l5qP7D/ewhp+oWwewGqagBkD7PA3oBQEfvIAFSIg0j0Hm
+	 YwanWNzZMBC2YMXUDPJ+xa/rIhgppb+7fmRQATIZWZMKSfCDr90GE1TkQs1SvJAwuW
+	 BLtcRrtwquF1DU2Y0/QIxvAA8JAZhBDTyXKvDPm87PAgQPRatk2uz0Si9f4C5Ht7LH
+	 a8fYyF3qPbauZcAZwd2htXK3GZk/fAYy/yCkMCwCmfqDR1mwFieGqtn/HM3d0l/BZk
+	 rJpovg0xI5deH3U7urjuBM5a3GSiFdwOH9b1RTXB8f63s+Cjgx68nWhP1BbRAW4d/t
+	 7dXIE8mxGhQFw==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA1F138003B8;
-	Sun,  1 Nov 2026 22:16:29 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D29D38003B8;
+	Sun,  1 Nov 2026 22:16:06 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,36 +54,37 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
+Subject: Re: [PATCH v2] irqchip/sifive-plic: Avoid signed shift in interrupt
+ enable mask
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357138858.2624073.15621784518365922237.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:28 +0000
-References: <20260817033038.2286436-1-guoren@kernel.org>
-In-Reply-To: <20260817033038.2286436-1-guoren@kernel.org>
-To: Guo Ren <guoren@kernel.org>
-Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
- dlan@kernel.org, devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- junhui.liu@pigmoral.tech, stable@vger.kernel.org, docular.xu@gmail.com
+ <179357136504.2624073.16513286116615894552.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:05 +0000
+References: <caplitmus-rv.v2.plic.87a8fc444de44e109889ba28703c76f3@163.com>
+In-Reply-To: <caplitmus-rv.v2.plic.87a8fc444de44e109889ba28703c76f3@163.com>
+To: Pengpeng Hou <hppiscas@163.com>
+Cc: linux-riscv@lists.infradead.org, radu@rendec.net, tglx@kernel.org,
+ cmirabil@redhat.com, linux-kernel@vger.kernel.org, lzampier@redhat.com,
+ pjw@kernel.org, samuel.holland@sifive.com
 
 Hello:
 
 This patch was applied to riscv/linux.git (fixes)
-by Yixun Lan <dlan@kernel.org>:
+by Thomas Gleixner <tglx@kernel.org>:
 
-On Mon, 17 Aug 2026 03:30:38 +0000 you wrote:
-> From: "GUO Ren (XuanTie)" <guoren@kernel.org>
+On Sun, 20 Sep 2026 21:06:53 +0800 you wrote:
+> __plic_toggle() builds a 32-bit interrupt enable mask using a signed
+> integer literal. A valid interrupt selecting bit 31 evaluates 1 << 31,
+> which shifts a signed int into its sign bit.
 > 
-> The initial K3 device tree used generic/placeholder values for the
-> IMSIC guest configuration:
-> 
->   riscv,num-guest-ids    = <511>;
+> Use BIT(), matching the equivalent mask construction in plic_irq_eoi().
+> The resulting mask remains representable in u32 on both RV32 and RV64.
 > 
 > [...]
 
 Here is the summary with links:
-  - [V2] riscv: dts: spacemit: k3: fix IMSIC num-guest-ids
-    https://git.kernel.org/riscv/c/69f95409f005
+  - [v2] irqchip/sifive-plic: Avoid signed shift in interrupt enable mask
+    https://git.kernel.org/riscv/c/0f214e5bbee5
 
 You are awesome, thank you!
 -- 
