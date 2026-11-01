@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793546907;
-	b=TmUqaCZ96JJWT2aWXJIIrdquFR/+juAst4XAM0cjUieH1obkjsDsCKpPXDEn4ZkThBi7
-	 qh3Cvxg+203udoDmdrTWDhbWkkNiV0BejlaxduG6ZY+/3HTHJVvwxM7rVfuSWlb4+YxwY
-	 qsRrOrVPv4Joak6GjDmalinDq4apoMjpKA1h9SxhLM9XEC9QV8nLbvkdQhLdo121W5yNo
-	 AKWJ3wimRo0xZGkB1jhZHQi0ebmN7QeeZRVTV11qsO22USHkArT08Hd2dYk2ngXEqcaEg
-	 ZfFWTyTTrCVzGqk0En928Oko2aXv3Fk4L25Ug/RONZk3dzMJ2WlTIqgLpZ2KAIGTQOw==
+	t=1793546911;
+	b=LDj899LMTxV8/JBGcKy3tUEfmwSlbAXffBfUEgbCAH1+AzJ123vg3LB92FjWtDXoxJB0
+	 9RTbqLeW8KexO0+8i2mioSAa8hIUvUPDQtihtlZLwWaygmQvG267fepAp9w3J/JWRvvsY
+	 geMPSRfe++5kk0lQJSs5Xr4YB6aVtF7mmnoJSlTD8ifK3Fxk0GhkDF3sDdVxfEg4Ci1GD
+	 DNrMxHwCzxLt2oNyDrfEx6lxv8K3dsVUaQPbgf52mlxiJ2Yy086rocvQAx1BqzkqhpbWx
+	 RkAgxMzWu6sBkFDRl8FE+p0uMqZCqm098b8MJhRGnw7ATGu69Yju5h9NlawhER8IZ4g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793546907;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793546911;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=WmpZZXMsdqMV2V4eNDvwbvfcyiTszzMT6zcGXuns9Y8=;
-	b=VSU8khULP9SpV2xjs+kHp2Sjrfgt8zQYuU9S9M6mWGCrecnVHz7au+Orb6nvMyXenmfO
-	 NVSuudshnCAgnr99R0oYjxA9mEdgP1OcYA3NHlUn3qTut3BrOwqp0GVuH1x+CMoSTSMxh
-	 nFGqEuWO5p8D50UxFEhAvoXFU+GbVUlHFLOZXUdWlJJby54yiJQQBHiD0NgzpJs71bsZz
-	 e9uRjnwNRNWi7qT0N1Y0vxwBdtCstuS1ACXTVygj8pfAvzkEK1CgLNbNd4XVS8w/du4VJ
-	 28Tjaz3J5BM34uEZpODbkrGFyPBT0M9wZJaVdvhIVgCUV5lv5oOtouIAa5d3mf+4yGg==
+	bh=TeZ6IgkzEeK3FNGEWnZ121HpRlWxGruZFzuJFvAehYc=;
+	b=FvShEe6OxUf7vEhcwjEw+J8LlJ+fyH/SERoMByxtJ93ueE93op4P2G/bFcrj4EAWbVqL
+	 EdtU7KtuNPxCedoaJz7TQq0MSJRJFVuEjmFp3vE0X1Z6+VVTAywfMJj3huhl6XOYEAITq
+	 QnzbDQoIADGqVsK1xcJBP2JfkRhLgw1FNx5THYmuj+Ds9skZTWiL6A202ckJ0m2eqW94l
+	 rMnTC2re3lN2NHlCTdQqVtqH0kNJbsg9R1jeiUhvgcfr2KqFVWnWEr38haeLAAtJ6C8/j
+	 uRfJxeMKeDrNMAnDBuSEqo6Xe208+SfUEgRcIzyuVB7mHh22tyT7t7yPZT1WbnGFP5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IF1ScSna;
-	arc=none smtp.remote-ip=74.125.82.51
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="l9LyW/vr";
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BC9606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:28:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5BC9606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62D6B606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:28:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62D6B606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IF1ScSna
-Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-14394530ec6so2706945c88.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:28:26 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=l9LyW/vr
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1a8cc11ac42so1792222c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:28:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793546906; x=1794151706; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793546910; x=1794151710; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WmpZZXMsdqMV2V4eNDvwbvfcyiTszzMT6zcGXuns9Y8=;
-        b=IF1ScSnajZK18C8SfEjLv3QvNFkS/82W3LVUwM0NV0XGmqT3Dmr/PIXQPmVjeCIAtO
-         +1OEwVeF2s2TGP3wfhDg9ki0KgGGVr0yxubd1zvguVcNVxKhprNp8E8lt4yNnA23nFaH
-         rpGcTcyb5cJ+dD/Nv+ftrE2BrYCsCwnL4xpShNzn6zV0SBVBf+fj4ZwCHeH314whEu1y
-         Oc8X1Ne0Y+4Tv2s72yFY03yYh+VlVeAJ6di1n0ZUytM+DE6v2/1M4Kz2A8LVeaW+UT9J
-         kh1zXIZlKS5iMvDubw9knHthqHhZ3oj8cj/QH0mzCCfusaRCMhILMqmYvbZOD6DG6kAy
-         qp1A==
+        bh=TeZ6IgkzEeK3FNGEWnZ121HpRlWxGruZFzuJFvAehYc=;
+        b=l9LyW/vrgM4MLfWz3YFU35M51oG1fpFusvhPGrpPe+xrj6gqzejB+gREyg8Mx+7DY0
+         b35n2Xyn2CTmP61Xsy3QBJdqlUI8LA8IHuIs/CP2Ecn1YvCn3a8sbOfvEb0e0Mq9wg/y
+         2E+AZodoEbrIORCIV4XJslQXTOCIjQZQNnZlGHWvKWL8X+eAn02SDWjP+QSfSeaGX1L8
+         CjCgKc57A/VifhPpIYaCBTHTSIy9Tl6WSpeNgORFIZ4q1ePz4R8owu6cPJGVBIMmf2ZF
+         +c9zu005BRbIUBjHFCW/LC8aAKTfNg5DnwP+YahogIQVLIFvCCbQxi1ARXgOqjq/wrhL
+         ij7Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793546906; x=1794151706;
+        d=1e100.net; s=20260707; t=1793546910; x=1794151710;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WmpZZXMsdqMV2V4eNDvwbvfcyiTszzMT6zcGXuns9Y8=;
-        b=yDkkMLo+NsH3z4xbq2JXnwUOc0ENpLkSfeDGbhTwa6SPH4Y4N/fjIsJdeFymGkLdyU
-         mh6VzD3XVuEEOLajW44NoFlpZpn+pmryoKqdl5jT74uzRaNKHcg22xdMVcHkSrq/Eyr5
-         gXKPaW8ChGXJH+WvfVvEswaWAE1VJNNybm17wBSl+XOvVAaBnrRuY7rghR0wMogIBoRn
-         I0CsEr76eVMoiRMYRFbs5ha65Roi8ch6NSfQZSuJUr9is2wb1+nmki6CmOYzmHb52zld
-         fHKSehWhnH0crXoEIdXnaYBdZaYN1S2iUrOtJxOx9bM3oP/IbVBw0fi6Fg747mbdwdgZ
-         WrRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwehYfubmapkfBlzjqF3wkYfq0jjerpsOLpkwfYfe/+OtUKXycD7thIFeTyJC7fhotvyrfZuO0TdyLnwOA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKrPzubbwf9/PM6DXulxfQu0ZAKoxPoSf8VZxjz5rB4+l66k7qx
-	bhGIYhWRkOpYc42kFqYmmTaOW8oNkx6h+OTX7H6Ow51e72ecqkR76E4c
-X-Gm-Gg: AYBFou3/d1svpxgIjkSL90skWVpf5myJxF3QAjVaw+74n0E+jYFfvt6+xqNUrapMsVN
-	/PYY5OaK7c/RlbOMTWmvjn3GsL5CsnKAZnLIuJ0sfxbjRuBkkPpb5oEEYigbNsl+crzZym3HszR
-	wQvNYscxptYJpEZzNOmREs8kST7UJ6ggdcHlov6ofXESUxuCOfMLOz7YlmtmMX6iu0BWj4AP13S
-	OFVppSwP194XhOilH4TFOrU0eOl4yaik+1iM8Mr9BdTJ2TeKWS8M/cpG/mjHiTczNKNBNDb+Lu2
-	TB32JwCCfRE1p+EXeN93gnJTtThfBWyTP4wREMjksm4ohUCDs9F2eyXeMQ5OjGpFkR6evDrQWSD
-	QvEU8UxoCaBwo6QQYK0yiZhMog36RNXeZFO1J2srKNqZ5y1H9aiq7USY67Y1n5Lv4CLK++liDIr
-	oXX8BuERlcFLViSMMSISk9w60mB7JFsnfDfPfB9zgHMzdxIoQ+XNO6xOGzQoRiRt/eZJQK5wMSq
-	c0WAHX1GnzmMxzKzCt/BVA+SdK6TG9sYpqigoWuP3rkgoNNMPfWet70eyNwPr0fzFn5yW5PR7bq
-	0zUocRitgI1BVDhp9h1Rxh7/Ax1YHqYmybhbA2Zd41Ya+6khOrmNcx0=
-X-Received: by 2002:a05:701b:2086:20b0:153:3c50:ab85 with SMTP id a92af1059eb24-1ac5cb1c5fbmr12526852c88.12.1793546905701;
-        Sun, 01 Nov 2026 07:28:25 -0800 (PST)
+        bh=TeZ6IgkzEeK3FNGEWnZ121HpRlWxGruZFzuJFvAehYc=;
+        b=cEOwgW2v7Uv+1PTR+dz1fiXsqEaEv1+KDflqkhqH0nOU+KPWrgQMJDRmK/kd7z1Q5e
+         VnOKNiwtEOhRPCnQxnUpX5d0TQMow51cyHhwxdR0jA4favIykGwVypBaO/z+oSuuSTsO
+         ERZTZNt1vc+96AOiphJUAEu/miFvx6lPLzupNdeyPsJs/ulV/WBxWiWP4wpt05/rBwQb
+         L9y4ADutoidq7KbKOxqRymXT8GvOUZOzxVzD92QmoLZyk9ewe9Ei6C/50L6C0Sic8a0j
+         +I7tNvgOXr6zN4k8Bx67K6o+fjhQ45mYhBmLIFUtGRRkgVH04agSJNs0BfDV8sj+rIcN
+         uBrQ==
+X-Forwarded-Encrypted: i=1; AKwUvByljlC5mCDMpkwep9DHzriTUoLdnbGUCa3g1tRXYx0mBRSSfXjtY7XH5S8Cae0k1YP5q3TLMfOI63IryGc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtTa0X46m1CjDSf5hRmEpBBHeEmoaMLPsJWEAFTC12sc6dF6qr
+	BLQOavdk4ioGyDijpoWWcQLHJt0F3gtFPZlq3vqEkc2N/QMqvI0pd0HO
+X-Gm-Gg: AYBFou3pKSFJatHxE/Do1DAbPGKg85pHLBnIHihQx7JWz60YiBcIshfRURvxfm+MZWV
+	/ivX0lZ3jBST0lJ/hiXsUclNZbt8Mm5Ip23Xu1xfBoAjjB3VpGeQSW8yHJk7IcjjljiP+FAvkWl
+	TK6dIuZHuiJ2E6SlowRV3NWmvH4BkhbDuZ5gOJHBHjcI5TnvHlcod9nuG4QzVePd8/aWklcjIPi
+	2CzGg6JQnZiWVeSBKL7PoFXL+sfJY/BfWXJ/Xl1cXpqGVA5h2UwJLNLjvrKVyJ2Nf9hzOkeO9rx
+	7j3TJEuTXqCBdk9NQnssd7R/bCXqpli7SifJsieiTaFqaSvAyMIDUqRHpDWz5lMWdVQmNwY7SJm
+	DXZp9F01jkWfg0l9RmuB79GF+bSu+qYu7+TxVhygvBHCPSHpJpPXXpn1YlcB7yDyU1WJtv3rZwY
+	qlWWN2Dh1Gq2m1M7FGukLZ5nAWuUFy3pRm8IdfJC7SWQy0ifCW/A6esSTgXxKoE/JribKFs4uqr
+	rzVyISQxCJa73MX10Z8QWFV42amEtdpULHdxSkowGYWvIPFUTLd68iylcrelE5Zqq84y9AkZ7SC
+	rK94vf/SM+BdDX95mCc2xuC6qV5WG1rnqQ==
+X-Received: by 2002:a05:701b:4590:20b0:193:5449:b889 with SMTP id a92af1059eb24-1ac6088a33amr10627985c88.45.1793546910336;
+        Sun, 01 Nov 2026 07:28:30 -0800 (PST)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm24862665c88.8.2026.11.01.07.28.21
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm24862665c88.8.2026.11.01.07.28.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 07:28:25 -0800 (PST)
+        Sun, 01 Nov 2026 07:28:29 -0800 (PST)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -90,9 +90,9 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Anushree Mathur <anushree.mathur@linux.ibm.com>,
 	Harsh Prateek Bora <harshpb@linux.ibm.com>,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCHv3 1/7] KVM: PPC: Book3S HV: Read EX_DSISR as a 32-bit field on guest exit
-Date: Sun,  1 Nov 2026 20:58:06 +0530
-Message-Id: <4e883269c887f68f4d9d54f2675799df147a5db5.1793546707.git.ritesh.list@gmail.com>
+Subject: [PATCHv3 2/7] KVM: PPC: Book3S: Don't call __ffs() on an empty pending_exceptions bitmap
+Date: Sun,  1 Nov 2026 20:58:07 +0530
+Message-Id: <aa74d5ca5ad53a2fa03a7224126f28899ca9b308.1793546707.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <cover.1793546707.git.ritesh.list@gmail.com>
 References: <cover.1793546707.git.ritesh.list@gmail.com>
@@ -107,73 +107,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-kvmhv_vcpu_entry_p9() recovers the guest fault state from the paca
-exception save area with
+This problem was caught when running KVM PPC selftests on big-endian.
+__ffs() doc clearly says:
+  "Undefined if no bit exists, so code should check against 0 first"
 
-	vcpu->arch.fault_dsisr = exsave[EX_DSISR/sizeof(u64)];
+This cause KVM to deliever an arbitary interrupt to the guest and was
+causing guest to hang up while running these selftests.
 
-but EX_DSISR is not a doubleword. It is a 32-bit field at offset 48 that
-shares a doubleword with EX_CCR at offset 52 and the exception entry in
-exceptions-64s.S stores it accordingly. For e.g.
+On checking further - GCC was emitting 0 in this case, which caused
+System Reset in guest while running kvm selftests.
 
-	stw	r10,IAREA+EX_DSISR(r13)
+Use find_first_bit() instead, which reads the word once and returns the
+bitmap size when no bit is set, instead of reading *pending twice
+thereby causing TOCTOU as pointed by Sashiko.
 
-This issue was caught when running kvm selftests on big-endian, where
-this read would land in the high half and the truncation yields EX_CCR
-instead - KVM acts on the guest's condition register as if it were
-HDSISR.
-
-The result is that every HDSI on a big-endian host is evaluated against a
-bogus fault status i.e. it fails with below error:
-
-	KVM: Got radix HV page fault with DSISR=84004840
-
-Let's fix this by reading this field at it's natural width.
-
-Fixes: 89d35b239101 ("KVM: PPC: Book3S HV P9: Implement the rest of the P9 path in C")
 Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
 ---
- arch/powerpc/kvm/book3s_hv_p9_entry.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ arch/powerpc/kvm/book3s.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/powerpc/kvm/book3s_hv_p9_entry.c b/arch/powerpc/kvm/book3s_hv_p9_entry.c
-index 34bc0a8a1288..16aa8582b888 100644
---- a/arch/powerpc/kvm/book3s_hv_p9_entry.c
-+++ b/arch/powerpc/kvm/book3s_hv_p9_entry.c
-@@ -529,6 +529,15 @@ unsigned long kvmppc_msr_hard_disable_set_facilities(struct kvm_vcpu *vcpu, unsi
- }
- EXPORT_SYMBOL_GPL(kvmppc_msr_hard_disable_set_facilities);
- 
-+/*
-+ * EX_DSISR is a 32-bit field that shares a doubleword with EX_CCR.
-+ * Small helper for reading it back at its natural width.
-+ */
-+static u32 exsave_dsisr(u64 *exsave)
-+{
-+	return *(u32 *)((void *)exsave + EX_DSISR);
-+}
-+
- int kvmhv_vcpu_entry_p9(struct kvm_vcpu *vcpu, u64 time_limit, unsigned long lpcr, u64 *tb)
- {
- 	struct p9_host_os_sprs host_os_sprs;
-@@ -770,7 +779,7 @@ int kvmhv_vcpu_entry_p9(struct kvm_vcpu *vcpu, u64 time_limit, unsigned long lpc
- 
- 	if (unlikely(trap == BOOK3S_INTERRUPT_MACHINE_CHECK)) {
- 		vcpu->arch.fault_dar = exsave[EX_DAR/sizeof(u64)];
--		vcpu->arch.fault_dsisr = exsave[EX_DSISR/sizeof(u64)];
-+		vcpu->arch.fault_dsisr = exsave_dsisr(exsave);
- 		kvmppc_realmode_machine_check(vcpu);
- 
- 	} else if (unlikely(trap == BOOK3S_INTERRUPT_HMI)) {
-@@ -781,7 +790,7 @@ int kvmhv_vcpu_entry_p9(struct kvm_vcpu *vcpu, u64 time_limit, unsigned long lpc
- 
- 	} else if (trap == BOOK3S_INTERRUPT_H_DATA_STORAGE) {
- 		vcpu->arch.fault_dar = exsave[EX_DAR/sizeof(u64)];
--		vcpu->arch.fault_dsisr = exsave[EX_DSISR/sizeof(u64)];
-+		vcpu->arch.fault_dsisr = exsave_dsisr(exsave);
- 		vcpu->arch.fault_gpa = mfspr(SPRN_ASDR);
- 
- 	} else if (trap == BOOK3S_INTERRUPT_H_INST_STORAGE) {
+diff --git a/arch/powerpc/kvm/book3s.c b/arch/powerpc/kvm/book3s.c
+index 2efbe05caed7..5de4b6e86656 100644
+--- a/arch/powerpc/kvm/book3s.c
++++ b/arch/powerpc/kvm/book3s.c
+@@ -401,7 +401,7 @@ int kvmppc_core_prepare_to_enter(struct kvm_vcpu *vcpu)
+ 	if (vcpu->arch.pending_exceptions)
+ 		printk(KERN_EMERG "KVM: Check pending: %lx\n", vcpu->arch.pending_exceptions);
+ #endif
+-	priority = __ffs(*pending);
++	priority = find_first_bit(pending, BITS_PER_BYTE * sizeof(*pending));
+ 	while (priority < BOOK3S_IRQPRIO_MAX) {
+ 		if (kvmppc_book3s_irqprio_deliver(vcpu, priority) &&
+ 		    clear_irqprio(vcpu, priority)) {
 -- 
 2.39.5
 
