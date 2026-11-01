@@ -1,61 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793551959;
-	b=JmaTjcaTquAn9otW4cqFUzy+Hi/yZV7uGPeiM36+SxJ5oO5wEEnW9sALCbkWcZZ/RsFN
-	 e+joYzcm1ST5pn8FewMWQgKAitOqIeI8g3JzwcfclfPzAMo2XKKYDhrkwojM7Hji01UOy
-	 UNwwu5Z/+MIf0NFCAQOqrpElHlCwug1xV2CdIzDeUK8PTjui7rXWpSgiobPNb/hGQABEG
-	 JeeHTC0wUH5qMd1++kYjnHRtCg1zQL7/NVE7+rEesV2PZeZsK+VNybpbOUoFUykdHR7tt
-	 t81QJfwmbuLkJcp+iBDBQzIdUEMX8Q88D1uYn2gX804uipuI+3DGUm7BMoEag8mGT3g==
+	t=1793552003;
+	b=rJ/I/aUjRcwmE0e/p16EL7dZvLQiVIpmqYjDisKJhtDYeTOSuGy5QRf4h99+rWlG2Agx
+	 VgvT/j5YaHotwcYEybKfkfrImNMjXS7q9ivBjr2KYPD5XJg0I9rn6r1BbBcn46TfE95fk
+	 5kGf+KS+oHj7EqWE5HRqLlDxx8RWzFc6gi4enpPkLfYd+oLBb2/4Iwbl9IfMNcmV1Mrp+
+	 CcmnDsC2GyAYVGJGriSD37y8biCluEOQLO/N1boOiorCr0dowj0s/CXE1AgcrCXHF/I/8
+	 DlhdiODKr4p8WfPVxgjVlKQRTSn2bamJ5g0677GQ/yx3PrMSeuBiLX3cPYVume/wLXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793551959;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=m4Jbx6Bfo1ddm8Iqy1wqgq9WiTU/MIHTtxEsKpTryfA=;
-	b=d0adHRxCSvBJ/fQ8nkVkzIqEN+WEP0tZutVfYQoBw9qgVtjm/Sa/Sn91ypqqsWkmcexL
-	 B9fYS6CQczDrvVtVttec+WQUSUZxhxlQL000f7kHydbiAbbLNujt/jo5ibnQ8yp6Q5m07
-	 doU9eNW5S/hQ8gJLPAsOmccuB/rrCMoyyCotq8IICD/c3lngjBzoK2SiS0t8y1uxs4hNE
-	 qAYRqh0/wmFb6jH17kLTzVDGEZzIRe6Le8NbxPDvfOHPfe5ZrOUv11fLJAxZjrtA0mz79
-	 2dXdT9USfG9uOxAfCxHOrBQezHyEMjWVqlgBNE6yNbDu25VlfSO9Xgy0m8NjkpFu3vw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793552003;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=097R5J/xw41Xh61+p10blxCYZ8kZHC4U5wK3EMQFzX0=;
+	b=Uc0/a0n+xMHzrr5ThTm/AQywf7h5tX3nYAvysNTtwY+PdrRaHbRMogksepM77OXllSW7
+	 9eqvwGMhR6ahquGxZFFeoM8EGnqAVzg1TWf3Z2mG7qv15l4WBPYplydxfCO1pCCzJqgBF
+	 fIo39AuAn4PNKINV7PmpZ8U3QbgJChN5TCmV5UkyRAXfzPcnBUMggG1ZnwUN8l6TD3o/1
+	 frtoeffTnfk+eS11AW/BI+8g5It1DZvB8KnvkorpOBirqLXyETAuxzAojH9S5WPCXbUbM
+	 wcc+/VSj4ZDN6YjeTdciJS1/oEBvsJRg9wM/zbN9czZkn20A4xWU9Ueg1F3IF8dcUkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhoXEZxD;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TTz5lG2E;
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EE7606A324;
-	Sun,  1 Nov 2026 16:52:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18640606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:53:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 18640606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhoXEZxD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1931F000C1;
-	Sun,  1 Nov 2026 16:52:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793551958;
-	bh=m4Jbx6Bfo1ddm8Iqy1wqgq9WiTU/MIHTtxEsKpTryfA=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=UhoXEZxD/lABF3hCCh1uoq03tqfOlcwp5FcWDndtpoLX9o68BYueCl75NL12l7+kA
-	 g8PcKwKSKdbw9zDNvrBUbIM6Rc934HZM2xbmgR/Dt2U5DnWK3r0OwK38puq+IDqSq0
-	 uLm26hUiP54VANmDk5jvuO529HkhKtQ6KATB+n2bmnyHxhLxsxKUsLoUUEZ2nzzLep
-	 KFkg9Oh3T4aJi5y/PVUvmzN8WdY6GR7kQKg4Uwifvhqv7hVMANoRWwFtOCFma1FCev
-	 CDamEpBMxJhvBooj5kY7BKQszBTH4hUcak+QqjqfFEuYppjLklzOVWEGQCHSsIqpJb
-	 skmxTLlYV0lPA==
-Subject:
- Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop phylink
-From: netdev-bot+sashiko@kernel.org
-To: 25031212351@stu.xidian.edu.cn
-Cc: Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
- netdev@vger.kernel.org, linux-usb@vger.kernel.org,
- linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, linux@armlinux.org.uk,
- o.rempel@pengutronix.de, stable@vger.kernel.org, byu@xidian.edu.cn,
- wencheng@xidian.edu.cn, kuba@kernel.org
-Date: Sun, 01 Nov 2026 16:52:37 +0000
-Message-ID: <179355195704.3131.3408534065723152966@kernel.org>
-In-Reply-To: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
-References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TTz5lG2E
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so19178715e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:53:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793552001; x=1794156801; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=097R5J/xw41Xh61+p10blxCYZ8kZHC4U5wK3EMQFzX0=;
+        b=TTz5lG2Epant/Yj5Vni5mrCXHG2XP2etVYJSUaKB1IRtqly+mrc2LroXVTxBD+QYWd
+         ePbN/gZtjhWOxI2bUX1ADzpXvAijeWD0zf4N7q/mhVX8ImQXn5TCWXJTp8CzV3BF1Ppc
+         I0wXCAAJJW1UNIEFiumsUsXs6tpD51vpU5qCDEg/cbWKv22GSwCpSTFpgyiOkDokoq42
+         q/EztiRRvmH87DDsjPtGg75sU8XkMfbtowiCOWnaqvE1Ri+1TtFXRfuTA1YVIVhwjIFr
+         Bxetfet3sG3ERoOr6rIamvQUlESEDOqD28LZqNe4FXYxH7MtwjIpPjGerf4VnIqxUVG3
+         2a9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793552001; x=1794156801;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=097R5J/xw41Xh61+p10blxCYZ8kZHC4U5wK3EMQFzX0=;
+        b=gAsJPELn++71EuSvsZTT34u4QXTU77TBkt4k5BLV4LDlFILYnSPPjzeYx4yon+zfpb
+         ZOIcdwlO8tP3j2zjcY3GZVQM3hjEfZbzz+IaKx6+lkyvyvVtiDoLWuw7TxKLzR8hAHCu
+         ma6LqYVqnBzhXwqBr89wi8bzvjZO6Y+XGq2GLW4HwNCKZ7uNA+gFHNfHreyR/rHFvniP
+         4bGyyI0BwRt27sVsS5ME3/1v6CAwBC5k/yoMF42h9jXEc3CGWmGQWZfxqtaB16NyjK0H
+         OUprlZ4acdLbTI5GKViMyN5gSe79cY43mAvn2Z27E+kI4I9lIDxqklHY1acTfr7dIYTl
+         nilA==
+X-Forwarded-Encrypted: i=1; AKwUvBwIHVERMoCic+BkmYJITNke9zleSnqKDTkru2A3gwe7UfXctR781ippMsKdC6ruOPsKlXrqEjkgceoDMCs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLR1PXaO5XgH2I8LoaZK0pg3wTgsZYfWg35MGn4MHVNveJbGtNZ
+	txll2bYBDhrHBNMmlSqHTRhNEQ+xdFD9zvrQic14BYCbE6buLFuLhtld
+X-Gm-Gg: AYBFou0oIhxg1nRrxxz5l2w6SZ/qJJ8jx1wqugRMYhmTBrVwbprnIYIteQRp9RIZlaV
+	Esk2wjnj8Xu/3ImV4MZqigKTQ79Zk2DeL6AX+uZTAVeiMxFKe+EZWcmM6R3SYxp5IUw6MlfzFou
+	VYGbJymJOC6RqMRu7SCZk0hOdsNXP0dH1lqyCF1KF/P8BLSjMIB6BNnl12GvbGSvIYGMjsdUwZ1
+	JW0kIwzt3weDjpEp/G8TJBS7vEPRzSlN9KoVN+7oUVmb2K4qv9RgYqcihDBeK5pMWLGMeSgBPzX
+	HA8psKKQUf49OOPxGvfnuQ3qm8yujo3YnB56kwQjyl9vlb6y8UqjDn8ZXVywBH6iIGdHUxd2+J1
+	kciZRu/4I+F/2QiucUh38H+8I7y2+zy0+oXLUz4AdrPkslLY+eGZnEP9U/gQLA5orCFp6hVGzrN
+	9DiIy+hMqfSADDi3mDXl+xU+HKX9FXDUIwc0s9UQG0XcVbSdy+oTGL9fEd+lhRz2n9oNYNOjRgt
+	D87U1vigr+E0BodWe3v2vV5Nc/MyWvgcIDhZtGKj5Ui8NexqE/+yzp88jE5PoZgzh7FCFhFz/2P
+	m4fTCi9sGpI5/HVTGTFIDfUELV8DWpp6EO6W+Z8WIPnU3dE6ZaORfU9k2pGxqBlRhZe5tt00Pzp
+	v
+X-Received: by 2002:a05:600c:3f0a:b0:4a3:7344:13b4 with SMTP id 5b1f17b1804b1-4ac1709a2d0mr182481895e9.14.1793552001474;
+        Sun, 01 Nov 2026 08:53:21 -0800 (PST)
+Received: from stjepan-Aspire-F5-573G.tailc0f20e.ts.net ([2a00:1bb8:118:d39e:5058:2b49:7a78:eb6d])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf6c76507sm223903095e9.10.2026.11.01.08.53.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 08:53:21 -0800 (PST)
+From: Stjepan Poljak <stjepan.poljak@gmail.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Paolo Bonzini <pbonzini@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	virtualization@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/2] virtio_blk: fit requests to virtqueues without indirect descriptors
+Date: Sun,  1 Nov 2026 17:53:05 +0100
+Message-ID: <20261101165307.2557421-1-stjepan.poljak@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,177 +102,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+A virtio-blk device without VIRTIO_RING_F_INDIRECT_DESC needs one ring
+descriptor per segment of a request, plus one for the header and one for
+the status. virtio_blk takes max_segments from the device's seg_max
+without checking that against the size of the virtqueues, so a device
+that offers a seg_max above its queue size minus two gets requests that
+can never be added to the ring. virtqueue_add_split() warns, returns
+-ENOSPC, and the request waits for ring space forever. A virtqueue with
+fewer than three descriptors cannot hold any request, and depending on
+the queue depth the probe then either fails without saying why or hangs
+on the first I/O.
 
-Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
+I ran into this while writing the virtio-blk device of Hearth, a small
+KVM-based VMM, with queue sizes and seg_max values like these:
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+  virtqueue  seg_max  queue_depth  before                    after
+  ---------  -------  -----------  ------------------------  -------------------
+  128        126      default      boots                     boots
+  128        127      default      WARN, hangs loading init  boots, 126 segments
+  128        254      default      WARN, hangs loading init  boots, 126 segments
+  1          -        default      -EINVAL, no reason given  -EINVAL, message
+  1          -        128          WARN, hangs on first I/O  -EINVAL, message
 
-- [Medium] The reordered disconnect still calls phy_stop() on a halted
-  PHY after a normal system suspend/resume of an open interface.
+where the message is "virtqueue size 1 is too small for a request". A
+virtqueue of 2 is rejected the same way, with either queue depth.
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but lan78xx has an
-  AB-BA lock inversion between dev->dev_mutex and rtnl_mutex.
-- [Low] This problem wasn't introduced by this patch, but lan78xx_stop()
-  uses timer_pending() to decide whether to synchronize with the…
+Patch 1 checks the virtqueue sizes in virtblk_probe(), before the queue
+depth is derived from them, and fails the probe with a reason when one
+is too small for a request, whatever the queue depth: the last two rows
+and the virtqueue of 2. Patch 2 then clamps max_segments to the smallest
+virtqueue minus two when indirect descriptors are not negotiated: the
+seg_max rows.
 
---
+The seg_max case also reproduces with QEMU, which with seg-max-adjust=off
+offers seg_max 126 whatever the queue size:
 
-net: usb: lan78xx: let unregister_netdev() stop phylink
+  -device virtio-blk-pci,drive=d0,indirect_desc=off,queue-size=64,seg-max-adjust=off
 
-This patch reorders lan78xx_disconnect() so that unregister_netdev() runs
-first and phylink_disconnect_phy() runs after it. The explicit
-phylink_stop() call is dropped, so that phylink is only stopped through
-lan78xx_stop() when the interface is running. The aim is to avoid the
-phy_stop() "called from state READY/HALTED" warning on unplug.
+Before the series this warns and hangs loading init, after it the guest
+boots with 62 segments. With QEMU's defaults nothing changes.
 
-> diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
-> index 181e8c087655c..4780aef87736e 100644
-> --- a/drivers/net/usb/lan78xx.c
-> +++ b/drivers/net/usb/lan78xx.c
-> @@ -4593,13 +4593,12 @@ static void lan78xx_disconnect(struct usb_interface *intf)
->
->  	net = dev->net;
->
-> +	unregister_netdev(net);
-> +
+The seg_max cases were tested by booting a busybox guest that reads its
+disk with O_DIRECT in 1 MiB blocks, the others by looking at the probe
+messages, on v7.3-19954-gcbbddb6b08cc, x86_64.
 
-[Severity: Medium]
-The commit message says the interface is "stopped exactly once and only
-while it is running". Does that still hold after a normal system suspend
-and resume of an open interface?
+These patches were written with the help of an AI assistant, as the
+Assisted-by tags say. I reviewed and tested them, and I can answer for
+every line.
 
-Consider this sequence:
+Stjepan Poljak (2):
+  virtio_blk: fail the probe when a virtqueue is too small for a request
+  virtio_blk: fit max_segments to the virtqueue without indirect
+    descriptors
 
-ifup
-  lan78xx_open()
-    phylink_start()
-
-system suspend
-  lan78xx_suspend()
-    phylink_suspend(dev->phylink, false)
-      phylink_stop()
-        phy_stop()      /* PHY now PHY_HALTED, IFF_UP still set */
-
-lan78xx_phylink_mac_ops has no .mac_set_wol, so mac_wol is false and
-phylink_suspend() goes through phylink_stop().
-
-normal (non-reset) resume
-  lan78xx_resume()      /* no phylink_resume() or phylink_start() */
-
-phylink_resume() is only called from lan78xx_reset_resume(). Because
-pc->mac_managed_pm = true, phylib does not restart the PHY either.
-
-unplug
-  lan78xx_disconnect()
-    unregister_netdev()
-      dev_close()
-        lan78xx_stop()
-          phylink_stop()
-            phy_stop()
-
-That reaches this check in phy_stop() with the state HALTED:
-
-	if (!phy_is_started(phydev) && phydev->state != PHY_DOWN &&
-	    phydev->state != PHY_ERROR) {
-		WARN(1, "called from state %s\n",
-
-Before this patch the warning fired twice in this sequence. Now it fires
-once.
-
-The same gap also leaves the link down after such a resume, and a plain
-ifdown afterwards hits the same warning.
-
-Would it make sense to also restart phylink on the normal resume path in
-lan78xx_resume(), in addition to this reordering?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the commit message relies on
-lan78xx_stop() taking dev->dev_mutex under RTNL via unregister_netdev().
-Is there a lock order inversion between dev->dev_mutex and rtnl_mutex?
-
-lan78xx_open() and lan78xx_stop() run as ndo_open/ndo_stop with RTNL
-already held by __dev_open()/__dev_close_many(), and then take dev_mutex:
-
-  rtnl_mutex -> dev->dev_mutex
-
-lan78xx_suspend() does the reverse for an open interface:
-
-	mutex_lock(&dev->dev_mutex);
-	...
-		rtnl_lock();
-		phylink_suspend(dev->phylink, false);
-		rtnl_unlock();
-
-  dev->dev_mutex -> rtnl_mutex
-
-The rtnl_lock() block in lan78xx_suspend() came in with e110bc825897, the
-commit named in the Fixes tag.
-
-With CONFIG_PROVE_LOCKING, ifup followed by a system suspend with the
-interface open looks like it would produce a circular locking dependency
-report.
-
-A real deadlock would need a non-frozen context holding RTNL to call
-ndo_open/ndo_stop on this device while lan78xx_suspend() holds dev_mutex.
-One example is netns teardown in cleanup_net() moving the device back to
-init_net, which goes through dev_close() and then lan78xx_stop().
-
-[Severity: Low]
-This is a pre-existing issue, but lan78xx_stop() is now the only place
-that stops a running interface on disconnect. lan78xx_stop() uses
-timer_pending() to decide whether to synchronize with the stat_monitor
-timer:
-
-	if (timer_pending(&dev->stat_monitor))
-		timer_delete_sync(&dev->stat_monitor);
-	...
-	clear_bit(EVENT_STAT_UPDATE, &dev->flags);
-
-	cancel_delayed_work_sync(&dev->wq);
-
-Can the stats timer be re-armed after ifdown?
-
-If lan78xx_delayedwork() has already passed test_bit(EVENT_STAT_UPDATE)
-and is inside lan78xx_update_stats(), the timer is not pending, so the
-sync delete is skipped. cancel_delayed_work_sync() then waits for the
-work, and the work finishes with:
-
-		mod_timer(&dev->stat_monitor,
-			  jiffies + (STAT_UPDATE_TIMER * dev->delta));
-
-lan78xx_delayedwork() has no EVENT_DEV_OPEN check. So the timer and work
-keep cycling while the interface is down, autoresuming the device and
-issuing USB stats reads.
-
-The same thing can happen when lan78xx_stat_monitor() is already running
-on another CPU. Its lan78xx_defer_kevent(dev, EVENT_STAT_UPDATE) can land
-after the clear_bit() or after cancel_delayed_work_sync().
-
-An unconditional timer_delete_sync() would not cover the first case on
-its own. The work would also need to be cancelled before the timer is
-shut down.
-
-On disconnect, timer_shutdown_sync(), EVENT_DEV_DISCONNECT and the
-cancel_delayed_work_sync() in lan78xx_disconnect() still clean this up.
-
->  	rtnl_lock();
-> -	phylink_stop(dev->phylink);
->  	phylink_disconnect_phy(dev->phylink);
->  	rtnl_unlock();
->
-> -	unregister_netdev(net);
-> -
->  	timer_shutdown_sync(&dev->stat_monitor);
->  	set_bit(EVENT_DEV_DISCONNECT, &dev->flags);
->  	cancel_delayed_work_sync(&dev->wq);
+ drivers/block/virtio_blk.c | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031165213.2738-1-25031212351%40stu.xidian.edu.cn
+2.53.0
+
