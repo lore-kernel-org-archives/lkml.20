@@ -1,96 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793492766;
-	b=4zb3SSiolmZvAsEnyRQ3QB+ykiBBmmuk2zZ8gXIjanOJP9PGVAkax9TdZjaOEVg4NMnc
-	 mMKJU0HLD4qkeae8MCwacXW4afX1s1ljSSgoGMDXQMbTj2/OdT3qDuV4qd7peUFvu1Bja
-	 tJIKpnzaV92AmhhX/0XJ0F2zh95rQZOhBtch3dCkw6j6wRsZTiaIPOnLwwzZ2AvjU0Jk2
-	 w1FFj1UuURpUSVtGZLimqdx3c6e/O6YuJaRstyf6+NopEKJxy2l26Pp6chW7M7/dEX0Y+
-	 2rSOQEJaxfAVKt8fr8FT1aM9eiFco1BiNPLlAED1ZQsY1PhoHun2xfoqG1TRNnMikMw==
+	t=1793492819;
+	b=1IUm5hcf2agbmkCKTDf7f9lknO7sz+iLel6J6jqS3Ccjw0vrbCTN5Bbyh3O6OTLJ1/xP
+	 hiidEQSTzgIUkj8md95TaeTwcQ/ZXmvnjx6fc/xKNhmnaLH6DvyIvud1fsblhfbQdJl+C
+	 98e453t0sJb6ZNX8hTA1vk9PHCyhXYY8eamZl+vUCq2JhX/XX3NniNo8HIjGXVzSckKGR
+	 OYQqdTIy3sOlyCEIgRbfTPB4PqNeAh3e6rIr5br/jYjuHbyS2eT3EOhWJMiEXbIKbcK+Y
+	 4vAT3DpU24w4RWY11r6wCU6zKwRgnbh5rBrVwyLoudA0WLZac4Pd8nUGVxGwqb6txrw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793492766;
-	h=Received:DKIM-Signature:Received:Received:X-ME-Sender:X-ME-Received:
-	 X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=ZTxLH/Jv5PE3QbDmOL5+wvTdcO4ZN8shYf7rQSNl+Gg=;
-	b=iR6ylxt0y+vhb08zR1cLao3lZ7ASJwqbkOu1DQOx4kQJHop4jON/EtV24fUEtpMNLv93
-	 IQHBqC9NowudqSH2Di5ehWtxkTQnGK2XM6IZoMotl7g62+1m1C6vlvUps+jx6Ky6IcppJ
-	 rS1NMVmAU760KCtV8OguU6ZpgdQM52wq+h8tjWZDM/CGNaAWzfZXhFHY0RY5xg9pEtJm6
-	 wft9aRrqN9rkvgOOeJ2NWwZQ9NWzbK9HvqNSYsV93DIS+Jp1cvhTkYzKZmnIRO+q9EAHG
-	 il3Cq4KBtvP7ELqhRvV0MpoNkZ78rtpnb77fZPcctNC7NABtArX81qMGIqAN1bNcL4w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793492819;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:From:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=LC77J+RN6Dhy59laDBKh+N+IhdE7yeQVClWRQIT4qUg=;
+	b=2qKfWxZiuxJKw07FI1ZM9X494aSG5yhlYvjWjgtSBSaj6Ipc5pZ1l8aV5TDFmHyZaC5L
+	 Dy9sH1xpT5LYu0OlA979BV81KbdevoLEg7iXZnFzdpX4vFjDZk35l4r0Sql5DaAvhlXZM
+	 Ozt2s8cma9sOiMMg+BAXD1BL6VUZlJAs1xCUIdx+sTIfhGydTycncwAfF/N5euaWX6qJH
+	 S0JaNqAoJGZHVnWWNzyKV4oC6NT8YQhaaz/GVk8VKRhI8wceL2mMdGP7sOY/wvomFSscv
+	 TothxhvjEIXVFFeAIHMKjOwMonfveZYMWAQ7sGbBI8FgejDfG5RelEsT5ovef9RUiMA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhUkAg8g;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LSJi3sDz;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AA4606A31A;
-	Sun,  1 Nov 2026 00:26:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF55606A31A;
+	Sun,  1 Nov 2026 00:26:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YhUkAg8g
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EECE1F00919;
-	Sun,  1 Nov 2026 00:26:04 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LSJi3sDz
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9621F000C1;
+	Sun,  1 Nov 2026 00:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793492765;
-	bh=ZTxLH/Jv5PE3QbDmOL5+wvTdcO4ZN8shYf7rQSNl+Gg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YhUkAg8gq4+Z+IOMQdJNRbwn4aGJN5TuF1WxFf6E5C7maZwg6mRv/bR1wiAeMXoD+
-	 9AULeNGycFkeenjeqpYts4WAdQ3D2wf6dAfpV9qlNFw6rzo/3HhNH+Bn8MabDui3Qu
-	 4tnL2FbuHd4R1AntZNRJO2YPiK4UEcjLNFZYkwXKxP2rX4zgOXFMfR7j7RcWwZ7gKn
-	 NM+Dav0g4IwuJpQPiqmOT+uBolhcVhcfFDdYmnYhg27KyS2yn1bBlsvAFESw5vzK62
-	 bObd0fbWiY+yZZMLgdTfB0AaK2daGUn3z+rZMurD1aCSM/cdC2Sejr4OhHSVn3CzMy
-	 WSAoVnpeZGQhQ==
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfauth.phl.internal (Postfix) with ESMTP id 475FDF40066;
-	Sat, 31 Oct 2026 20:26:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Sat, 31 Oct 2026 20:26:04 -0400
-X-ME-Sender: <xms:HIfmaiE8QTnvaYsTx6wGB1aweEeeBfu7RS-Ab4bZgG_JufVJtyyj7A>
-    <xme:HIfmahsqq1wsofYfLE5Afs-KLn5T4uw1d69MaNm_DRCMsuIGnmqL8zq73UbfkHV0D
-    mO9Nr17Ql1HdYQHks5KgMyKMRfPFLROry4rtI0d0ozPbyiwLz0dmQ>
-X-ME-Received: <xmr:HIfmaoLoBPOv2yEv3N3aPIo1rqDZTEZVfH5nkdIhMLSqK_LmKTUPsU52ERntEgOuGvhsIS51v4p3OofmCMP23aBkitrKBRxu>
-X-ME-Proxy-Cause: dmFkZTGFcRsnq5CozJj+s6dHqAcfqpKsZpe8KYvLtP31zGx4RGgZ57uSlT50gepXDrJuTQ
-    8A9B1z9vQGVs6LklPJEJFXKxPM1t+3Uc65ubU5Rs89q1Xm7WvkcgOKUN9wJs81oI8ymp7D
-    vIFP9MqTitH2T3eBQAHtOribawiA6YxULHKa5zpv5Tb5fXh8LbUATjVmF12F9dCmB6Otmp
-    WWVvRxlVObkXhA+2TL55oSlr8iVpr7tLnsIXAcysRWq7wZGyyZwPcP5TRd66wOMETFtssK
-    uEMqotOuT3FARnYoCcaQ/XCMB7mZqo4KaTcKBPmkQxbk5eGUdqxkrUFtRN9jeVfhDuSkfF
-    QYjeCMN0gS/x4LY+aWyfVW9pr4YpjgEZHGuP8yVLQvtVFKi0vbcxyAz5okiGTBZupyD+97
-    tu74nO5XGMGL1BzqR+HyZagaB3LAPUI3ZC0lS3BACBukWucMw9fF0y/yfz792AuS7sneka
-    9QCtRmYIsq0UEc8oKlSLDNQkTpgFSqrdLP6jgZhaQog70I0pIo/shEduuiMrTq/XAg7JpY
-    wcftukz51TeBGSMXm8nreBA/paoAPuWa3/bMDJk4B5rYxKkQqlflR6UXaOKom6ajVSy2Nh
-    F9CAIlgYJ8quEajR0yuEqbK8+DS1bFMHVT/Ev4vbAJ9J5lMKGNzrXtAtDZ6A
-X-ME-Proxy: <xmx:HIfmavNhL7Z_b8mzgVx7GbtfAqVfxAiGMxxIIslI9UgvCRbOHiMn_w>
-    <xmx:HIfmagYo-zOLKTcb8_wZSem9CBj5HQmzXHBMpNx6Kx0i1PwgX8DQxg>
-    <xmx:HIfmarwifKvLSRllwOF0MW7TUrl8YmTZ90ghv6L8wosGJFDwAfukJg>
-    <xmx:HIfmasG_GRfh8S5qK0S3-5u_9bAwmlCf_Fq0KsUHA7nxWCcirNfRew>
-    <xmx:HIfmamq8-7mvjWAshYCfxuqr-A-fzpHrNwetqBVF_N8MeDtFHITWesTm>
-Feedback-ID: i8dbe485b:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 31 Oct 2026 20:26:03 -0400 (EDT)
-Date: Sat, 31 Oct 2026 17:26:02 -0700
-From: Boqun Feng <boqun@kernel.org>
-To: Alice Ryhl <aliceryhl@google.com>
-Cc: Philipp Stanner <phasta@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>, Will Deacon <will@kernel.org>,
-	Waiman Long <longman@redhat.com>, Gary Guo <gary@garyguo.net>,
-	Lyude Paul <lyude@redhat.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	=?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Tamir Duberstein <tamird@kernel.org>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Subject: Re: [PATCH v4] rust: sync: Accept errors for Lock payload data
-Message-ID: <auaHGpX2jG_PNcmm@tardis.local>
-References: <20261022160725.2215244-2-phasta@kernel.org>
- <20261031191344.2913779-1-aliceryhl@google.com>
+	s=k20260515; t=1793492818;
+	bh=LC77J+RN6Dhy59laDBKh+N+IhdE7yeQVClWRQIT4qUg=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=LSJi3sDzqNH53xwgmCQVRjs5P3KxhDowBzhYuUU8msQ2AgB7lpotYxsHRrJG0iClj
+	 kpIrcXC40v6h63d1PdapIP12ArfdiJoWwpWDXHQdq1no5M4gvXZ0KVb1XNuiiAzYu3
+	 7GzqVw2Pcn1U1Xz+6nbGQwhOSWakM7WMwGBaWsl0hqb34ftplQn7PLgeKJqsCD/XNW
+	 t3n1MCHTs76kO1sksUX6LYr948fLQUWPWTcEIgxOf/3lq2NM/mgiXEsL4sbiIBLwpB
+	 KX6+RWCZD+IEqyN0t4epgjEdQspqh8J59zPctS4a5HZB/Owc8dTCb/rOIVtS1AqPO0
+	 aIxSiDg5CFOUw==
+Message-ID: <e9f9ac85-442a-4bcc-8ec6-a03a6519178d@kernel.org>
+Date: Sat, 31 Oct 2026 17:26:55 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -100,28 +51,81 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031191344.2913779-1-aliceryhl@google.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nios2: ksyms: Declare __mulsi3 export
+From: Vineet Gupta <vgupta@kernel.org>
+To: Arnd Bergmann <arnd@arndb.de>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+ Dinh Nguyen <dinguyen@kernel.org>,
+ "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
+ Ley Foon Tan <lftan@altera.com>
+Cc: linux-kernel@vger.kernel.org, kernel test robot <lkp@intel.com>,
+ linux-snps-arc@lists.infradead.org, linux-parisc@vger.kernel.org,
+ "linux-openrisc@vger.kernel.org" <linux-openrisc@vger.kernel.org>
+References: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
+ <47eb6b48-d664-440f-84b6-ba09f34d5e08@app.fastmail.com>
+ <3175caa0-9f49-465d-959e-6b6c9bbb4f01@kernel.org>
+Content-Language: en-US
+In-Reply-To: <3175caa0-9f49-465d-959e-6b6c9bbb4f01@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 07:13:44PM +0000, Alice Ryhl wrote:
-> On Thu, Oct 22, 2026 at 06:07:26PM +0200, Philipp Stanner wrote:
-> > The `Lock` baseclass currently does not allow for fallible user-data.
-> > This can cause conflicts when used with other primitives, for example
-> > when a lock shall be pin-initialized with payload data that is fallible.
-> > 
-> > Add support for the lock base class so that it works with
-> > try_pin_init!(). Adjust spinlock and mutex accordingly.
-> > 
-> > Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> 
-> Boqun, are you ok with merging this through drm-rust-next for JobQueue, once
-> we get Gary's reviewed-by?
-> 
+On 10/31/26 16:57, Vineet Gupta wrote:
+>> * no generic implementation in kernel, need to copy from
+>>     libgcc/lib1funcs.S code:
+>>
+>> === __divsi3 ===
+>> arch/arc/kernel/arcksyms.c
+>> arch/nios2/kernel/nios2_ksyms.c
+>> arch/openrisc/kernel/or32_ksyms.c
+>> -> arch/arm/lib/lib1funcs.S
+>>      arch/m68k/lib/divsi3.S
+>>      arch/microblaze/lib/divsi3.S
+>>      arch/xtensa/lib/divsi3.S
+>> === __modsi3 ===
+>> arch/arc/kernel/arcksyms.c
+>> arch/nios2/kernel/nios2_ksyms.c
+>> arch/openrisc/kernel/or32_ksyms.c
+>> -> arch/m68k/lib/modsi3.S
+>>      arch/microblaze/lib/modsi3.S
+>>      arch/xtensa/lib/modsi3.S
+>> === __udivsi3 ===
+>> arch/arc/kernel/arcksyms.c
+>> arch/nios2/kernel/nios2_ksyms.c
+>> arch/openrisc/kernel/or32_ksyms.c
+>> -> arch/arm/lib/lib1funcs.S
+>>      arch/m68k/lib/udivsi3.S
+>>      arch/microblaze/lib/udivsi3.S
+>>      arch/sh/lib/udivsi3.S
+>>      arch/xtensa/lib/udivsi3.S
+>> === __umodsi3 ===
+>> arch/arc/kernel/arcksyms.c
+>> arch/nios2/kernel/nios2_ksyms.c
+>> arch/openrisc/kernel/or32_ksyms.c
+>> -> arch/arm/lib/lib1funcs.S
+>>      arch/m68k/lib/umodsi3.S
+>>      arch/microblaze/lib/umodsi3.S
+>>      arch/xtensa/lib/umodsi3.S
+> ARCv2 has hardware divide so these are not needed, but ARC700 doesn't
+> and there's a ton of calls for those.
+>
+> ┌───────────┬───────┬───────────┐
+> │  routine  │ calls │ functions │
+> ├───────────┼───────┼───────────┤
+> │ __udivsi3 │ 415   │ 238       │
+> ├───────────┼───────┼───────────┤
+> │ __umodsi3 │ 203   │ 131       │
+> ├───────────┼───────┼───────────┤
+> │ __divsi3  │ 77    │ 57        │
+> ├───────────┼───────┼───────────┤
+> │ __modsi3  │ 41    │ 33        │
+> └───────────┴───────┴───────────┘
+>
+> I can take a stab at providing the generic libgcc implementation in
+> lib/* but I only expect the arches using libgcc version to switch.
 
-Yes ;-)
+It seems there 4 are always needed together or not at all.
+Do we want 4 Kconfig gates or just one will suffice ?
 
-Regards,
-Boqun
-
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
+Thx,
+-Vineet
