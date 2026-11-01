@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793536281;
-	b=AlxSevU07Q+LHVMQZrIIpEjJuEatoggoKisl6c5n+zKfshGQUUZJ2z1/lK6pCTXklC8b
-	 oPXpAZFdiiG2zgf8dVdsE370+3acnx9wIuiwt+YeKztaAQ3/4zIV11pZ3WHRRdTxxbdGv
-	 l91vSAY9wkBLsjZ3cfEYh9B/GNhqX7nX2rU1xkT4hb9BnYono6CSybkGjTfUxhe93+eRM
-	 YwrwW74egdoEGs55u2RLnnnGlunxkR+VSILA9SfBp1a8xn2M4wjizRv0Qp46u7VsbDOfV
-	 uERhpJpfFnmMf2P9cOgNdJyliYUGHQVp4rfKY+as0MUSCrsMvRcDy5PHJafA0XzWK1A==
+	t=1793536451;
+	b=AHJI7RztTLKN7osQ7P77Go7s4RPcauOZManzA58jRVfgcgtlfzX63B8TaKiocjCumd01
+	 W4HAGREftt8tf4iasbNCTarcYGkTKLzIVnuq7/lM/wFe6r64LXLN7HWio3T0D64IV+g0H
+	 agZlN/PYWYKgfD4vNJ807L6cn1519WCWSNvxzlZJvLC2Iati56SMcGZD0sgAp8aLUNR8k
+	 vED5ScvWdC6+9RdP+fG900vaQKOteIC5cP9BZv2qsStTmobhJgmTMgy11oI7sSxJ5MR+Q
+	 jQC8oYKiAXtTGihFKwpJEy5OGXy6UWt8y7wSV1DjgvTZVypuFuO2A6xD3ZQ74AxQR8A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793536281;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Cc:Content-Type;
-	bh=mpG7rekE9P1Lsc2DlbgAaKzCw23xHmyFFTEJHmMozf4=;
-	b=2FDmF+NPRllHQcA3+QD5wuwPx/hQm2LGZP3RF0i/63uFBgvPC4z8JJhflgmheXIVms7u
-	 SefQUhEuizvHzfCnl8gNwl+lwl5w/3HoPiWdRIdVI75rXmp4VNKwT1TbVvT3ppAnUfDus
-	 I8EBjiN8pXe2Jz6lruF5tzuTgxbTR4IImtMmQOu7+1mG57/BDhanX7RF3xJtdp15ECMSj
-	 bKKv9qQP92AOBVlP2asROyFGioRGxBt9zWBAx6KjOwJMsscDAi3fZzcqHWSmmuR+zCTeV
-	 2Vo9MTS25CmOxR8pUedQWOIYQKj+MSCfM1qx0gkImdrKqxFq1+MwZeWAWUtuh8D37lw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793536451;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=fl1ojHUVhKRdRlP5kOmsIh8NvLRrp6z5vcbdxXBbvG8=;
+	b=gZcqvpOsmnA61tfesDYGkTaVug3dxJpRdDet33FgVFCqfNzqcDLNInVDEoI5tIx8FGZw
+	 9w8//aOCsWc8w8keI353Q6K62o6M9lrpbY1L7dB4Gdwkdv5SvSRMj7t+xsqySbWY/sY9g
+	 QuRHUaLg8wzn4OjuqzNL2LEzUbDtgAt/UrgTn/zZ2OayYWm+zRRgT6z11zA6VN8QxS29T
+	 HYnxVGk43qUxCTluRU7yX/Ept3h7xFP4ZPU/K6JYsrZDtwm9zMZjPsXwMvFBZz9tTZeJM
+	 z9XyJDEPDSFDQZOZlMFZdBpRYSRavTl1CAKkr2APHK99cz8iKhXwR4frGlxJJxSA92g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.197
-Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0763606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:31:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0763606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBFA2606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:34:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBFA2606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4f8281066c4so2996363b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 04:31:20 -0800 (PST)
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4cbf700ddccso1969894b6e.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 04:34:10 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793536280; x=1794141080;
-        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+        d=1e100.net; s=20260707; t=1793536450; x=1794141250;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
          :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=mpG7rekE9P1Lsc2DlbgAaKzCw23xHmyFFTEJHmMozf4=;
-        b=Ko0ZrvqagSRkg+fMsKN2cqdKA5bs3xrVJUQPGj4DtBrndiFE5OSyuh9hAFRwoYkolg
-         pK5+uOg75UjG/zfKim9a0BoqKwBVum8E4lnx4SS4FimYqwb3jSHhnOoVrELB4MNPBLC3
-         4XWm7GBnmdy0ZINxvVmGX/ZLadKKfe6aD0tewD2aDxf3/bZi7C2xxY4u0UHiA2/KcrXx
-         08whFNgWnzVtET1UFkqRtYploXM0L+X3LjJAoy4EJKYFD48+5URw1J4x9KR+kB5FPVW3
-         Ael6EsYHU+gBtATfcqAdGjwOPETnpLKgIvhRPMt7sPQ5LrAvvsk/G3ijosUNnN8t4KMA
-         5F2w==
-X-Forwarded-Encrypted: i=1; AKwUvBx8Gl+nNuXTaZ1YoqRAqU1/rbZfJZSf0kQv0T5y3t7izbfCqiil6Eb7NgY5K0hr6tkY/b71QZXWK0BkjJk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKEzumZkNfZjwtNNRDSnLoflBGgRMvVLrRjqx7Cwz7G+GDE+3r6
-	vwOrqrbfaoqPrhqps/5QxekJf9OYR3tL5mrsChPj95dwP2jEhAlwyBHxAtTjI3UAUMBOObMyUjw
-	MTPijcwdZPvjd0SOZkolx6T+cXmaqaq+XQAx84+aEX/Wg6UUPtCsjLMVxrM8=
+        bh=fl1ojHUVhKRdRlP5kOmsIh8NvLRrp6z5vcbdxXBbvG8=;
+        b=qMCyUXxCkhOXhJnT2uGZGIh4IA0y6A6kelDTCRiQIrmc2bAv1lbQ3HkjUjqet3ml0a
+         IfbHU0sblOTaw72wAU0fKgFtupgdFl8loZwI6HyTJ8azgKKP+PDtBlxb7vlBNK5klbCC
+         plRfmUqctm32sdl11vGZIOv0CQRMEatDWJO8jOTlrW63dA7qQjjXpc9RdI9urUixnInA
+         ZPiPQEcjAbzMuWzT/rE0/gaRCN0g+TNIbKl0nIut/jBOPXi2J5qBt0fZlTFWWIaorDKH
+         kYl9QTCI+Zol7mbFqeWcecGz+xcZ/DpUZEuVjely4PsIAkTNPvgCuAnKUlCA131rKW2G
+         DfvQ==
+X-Gm-Message-State: AFq9FYJ4ErNsN4Y2s2mlRwk1l6ngL83rWp74T9rXBYV/U4S+2rC8obga
+	BVT+qNdLtLQp3VbS5skzIr6pGpPXiJX9Z5y/kPpFFaor2voTHWfdt06mgffZAs+WawCih8f6hEI
+	nc4j17cY+4MpRNRfN9BjFNhxLgHyQ8ny/XPP8TaiEYFQkuIk17Q/gtgdX2nE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,27 +57,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:bd1:b0:4ca:8d6f:4258 with SMTP id
- 5614622812f47-5640de8c633mr4713639b6e.37.1793536279887; Sun, 01 Nov 2026
- 04:31:19 -0800 (PST)
-Date: Sun, 01 Nov 2026 04:31:19 -0800
-In-Reply-To: <CAGUpAYkgbVV3Y1XJdQyv_GY7T0pSvaC909ct0fWs3sSXFWs9CQ@mail.gmail.com>
+X-Received: by 2002:a05:6808:148c:b0:4f3:e98f:fa19 with SMTP id
+ 5614622812f47-5640de79cb8mr4709382b6e.61.1793536449960; Sun, 01 Nov 2026
+ 04:34:09 -0800 (PST)
+Date: Sun, 01 Nov 2026 04:34:09 -0800
+In-Reply-To: <6ae686bf.64e51036.15cf6a.0004.GAE@google.com>
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae73117.c8ffc79a.e3697.0022.GAE@google.com>
-Subject: Re: kernel BUG in sysfs_break_active_protection
+Message-ID: <6ae731c1.64e51036.15cf6a.000a.GAE@google.com>
+Subject: Forwarded: kernel BUG in sysfs_break_active_protection
 From: syzbot <syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com>
-To: sajal2005gupta@gmail.com
-Cc: sajal2005gupta@gmail.com, syzkaller-bugs@googlegroups.com, 
-	linux-kernel@vger.kernel.org
+To: linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-> #syz test: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-I've failed to parse your command.
-Did you perhaps forget to provide the branch name, or added an extra ':'?
-Please use one of the two supported formats:
-1. #syz test
-2. #syz test: repo branch-or-commit-hash
-Note the lack of ':' in option 1.
+***
 
+Subject: kernel BUG in sysfs_break_active_protection
+Author: sajal2005gupta@gmail.com
+
+#syz test: git://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
