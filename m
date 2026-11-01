@@ -1,110 +1,110 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793531432;
-	b=Z7jKeWwtVKuoXxXuHZa4LzIMaeYnXq7HKWWMsLs0b6coBmG38JDlkgqk07vyggnkvCR9
-	 /SSlRceCSqq9jQfwjqB2C/GVZ4dtVfyg6Q4BRtdTl5GPq8kS967rv1+rVh5IwVrBlpEZ2
-	 KQAQc8cay1cBmMzaOj3KtwhJBRY3127jAwNni1O1Y0NFQjS4AM/lQ4m++RKsj7z9l7TXf
-	 AEoqF2sUUcmav2yEJ1/WXgLmjixr3GAr0PnMEr0o+r4e4DPd/C5tTw2Awa1ieze5TKpra
-	 FFTMYvuNPS/IaRzQaBRA5FJdsheGkSofaKw2a3mGCBWEjtM0JameS3BjMI18XgEEJ/Q==
+	t=1793532015;
+	b=myAbCtsl8aNcvNcE2coAsXx4yzIJwRlNR/daO3yH1Q2DgHsH0mN1oDurG/i4MMUl16No
+	 g3+MmN8wfmo5VA8x9UMsN9LrGVRlukTVVHOmYCt+XiTLTyJs7Yku7qet0HigTHjPIZUut
+	 v6qk8lXo7RsUjE26mFU5Nk1tZSngSC0QgynDPTXsX36ZhZ6GoIeBbadypALmtiNmgT8J+
+	 DlXlq+SOtbVHCk4tlRn5yhIW/dwL0vafZn2Hqg2kQS9cb8xUSkWlqZJXztZKfkQeKfWDt
+	 5JbONNjYOHPsPvZSMYQ72BR62TzqnMFoQ8HRhVsYv7/Sfk0s/0p7+chO2Py7B6PtIwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793531432;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793532015;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
 	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
 	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=4wfpv+QTFOtinTEPJMT8d2lisDokEK4BkxqjtCTUaKw=;
-	b=47VGQa6GSBmUW+MDkdsKkrq/RpJ6mqDhcdd9e//4uar9kfFwl+1JwjZQJZS00t6yleUP
-	 CzhEkT4XvJbUxG/FeSRmV+OQYldv3gQAWb6nRC7wOupats5LFK7dK915jd/LYKlRrGQDU
-	 PpyYp1K6rQiA/DQi7C2sEkOti0aE/6Du6jkWFTxPJX/miclH+0JyuI7nVSQydTokeR1ZB
-	 NdQqJdZ14AiT5Ic9eXBIkjQWJz+70x8x6yCN6BYNtsp75A52CpbCGuOy/L6iHmNDuKGTH
-	 mdFhLQr+jUjI6mJdgNjSci6wxJZkMoJ4qOlRR806XqPSOkoaV6wK1l0hcU2XxrXb1jQ==
+	bh=AR7KeiImAKAGT3RDLJDFL80BXJiLYwayh2zGhuN99is=;
+	b=X/G+PN+L7wi3LJU+TDUxX6fUQyEu2zgiaor3he2ldHhUM/AAZccxUE/gFrd27dQySDEL
+	 vEG1ABQ+pN5Zewok6GyqTnyFn4o0WMqDQkvHfGJBJMtRfWSDAnskill2vwhp2sDSLDlEX
+	 Wj+F0HxIynjn+1lc2VkoTPCbkQMeoOFuRPw5tqvSt2Kte2OcRg8+i1iioZsDrYXGI/9xo
+	 F7dAJpUDrra+QGogX9cT1f+BYNoyynCxlnna9rGoW4Tp4/q39kD11nXWD3+u/YOQo04xm
+	 jRId5wWK3IVWWuk9JYBCOVhDenLP690FubiFBTZ1LKDxGdy1oc+kPlJTNxKqelELC/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arndb.de;
 	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=EKEgsdW1;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YfeVPFHS;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=JP7risWM;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wqG4Mz8E;
 	arc=none smtp.remote-ip=103.168.172.158
 Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED7E606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:10:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ED7E606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EFC3606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:20:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EFC3606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=EKEgsdW1;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YfeVPFHS
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=JP7risWM;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=wqG4Mz8E
 Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 91EE2140022B
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:10:30 -0500 (EST)
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 288D51400227
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:20:14 -0500 (EST)
 Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sun, 01 Nov 2026 06:10:30 -0500
+  by ams-compute-02.internal (MEProxy); Sun, 01 Nov 2026 06:20:14 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793531426;
-	 x=1793617826; bh=4wfpv+QTFOtinTEPJMT8d2lisDokEK4BkxqjtCTUaKw=; b=
-	EKEgsdW1SfyxgrDSqbPy62abe6+yBX+vL8a+2UTU1LI0NXk3+oTaS6avYxMslK0q
-	hD3tRCq6YVfuB8k/7VCiSZEh8QwckekW94EGnruDIdvufsRWFDTepijIPuNrCzLV
-	DVnQ3CMYpZuLAbHq5wf7HijEUnm1YbWV8SMIaVs+liNJT6U9WSi1i3G3Q5auBNIt
-	e6w7QQDPuAyjHO83x7ztImfj0rBttm8KYodZ99NyC3Upd9h9hX8qzrQ+tebUqMir
-	IMWjfaCAgAw3EN6uLyXuUVcTQE/+husMVqkdtUxz2+idrsk31Tr9MyMm8XFuVEWA
-	d8lktoXhCdH1z8uqytMqHw==
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793532010;
+	 x=1793618410; bh=AR7KeiImAKAGT3RDLJDFL80BXJiLYwayh2zGhuN99is=; b=
+	JP7risWM7s9MnW3Or9CymgnEBFHHKx33AO6ub0Egl+9bYXYLoKEWaJIV4XsG+D69
+	zAl/v4ezObtaIJ0GGR9oDOF2ULiCNfExwTe9ilo5EZC2fxIHnV1/wHlvTPMKuPHv
+	1XjOE4xiPWozQ5BvbsxsTk8yQQq/pQ4G+IdcTgQAgaGghCkPOkFuGfH/WpavHRcH
+	L/E+bZREdMarNtf3Cq8HXb5T0R2g9IJqiFvz0IR0EnraBo+t9JtpClOy5ED5gxmI
+	mdkBSzb22GL6wkPP41h87J0R4iNhJe2/Hq3UV19axR/QVc6br2tUvyt8W6ej/K6R
+	4suxBFjMxZ8c5hfgbeGLFA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793531426; x=
-	1793617826; bh=4wfpv+QTFOtinTEPJMT8d2lisDokEK4BkxqjtCTUaKw=; b=Y
-	feVPFHSXQ2Wa9yVx3P2SOgI7aWm+6qiGZoLObH40GRMXWrDCH/OP1fbDCqKQB8tM
-	m5J6WHkhcOxWe2Grnv4SlUrdMekD9yY2ArzwI43YkiBpDpijgF42Lj3fb5kACDpj
-	EaB94J+9Go38aF7zdzRbe+Gn+A1tKT1JBm5GvNBtjdVBeNkyRJJf+0e0wCE7x4em
-	NWw/2RM8uztmwbHdJyVb6lSrddIPxSNDE4a99N7/hmOj81l2NVlEW+TOfZ/QM4zg
-	JYRb+qER1rBvnOHHcypuE8Iufg5u21jWYORbdtvU6hVoYt+YorUQPt9vNHLOkG4P
-	ipkEdAvx775JkdeMQOsoQ==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793532010; x=
+	1793618410; bh=AR7KeiImAKAGT3RDLJDFL80BXJiLYwayh2zGhuN99is=; b=w
+	qG4Mz8E1BsqlHQ7YpmTnVyAme4pUKy1G9pCZwIivw4tVSZsgvJzAZJo/5+19pA0r
+	tdsXjSLAb6HqcuNOLNxjKKiz6uiaNw8Rh2eAPxcW15YuOHOF1r5REjjwNQ2MlrUB
+	bASxkeYAHDD65ZsD1agpI+oAc32SUvaDF8V0MW3X+Jemb/iEQ1R1IhcAqNKrpPYs
+	FbkkMsaIQfuxWsKbo198TlfQxhGPiBQSvEkBgQ7uaKOMLUnmguLiNJqFexTFnCxE
+	B3e4pgvfoyr+OyYKMfTSFckuAgmGaTgcEYYizv/CHjbdotN2D7xgEhca7/NsapeS
+	QzwqCARqoot3GqC0R7HyQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793531426; d=arndb.de;
+DKIM2-Signature: i=1; m=1; t=1793532010; d=arndb.de;
 	mf=PGFybmRAYXJuZGIuZGU+;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:FZ7bFDjIGuB/eRcZG+Kp1Kex/TmHoxW/F31dFsaQSwsnVGI
-	S3rCjxwpoGOLg/cKNUwQH2seoZ1yTD/vxoyWvj1BNj53/IGcEaTaguHU+xb2GV8Z
-	leGZHMJGHe5ju1wHbhNoF2TCdpcOLOUbS8A+0QNgMOSFT/d+nfYrv5ULPI78D3Nh
-	Iyc4VXZGDAPdDedMsL56uexIc6VUcn2lS28OM1IfKznhxCCnOyx5PfH6QBPJ7Krt
-	oq63wDtaZl9Yu+uEdVCLrJXbiQ7Aje7P8SK+dF4hmiI9jVkoFG7+HblABz3pSQM1
-	BLSO27SQ/vfkdoJvew59wN24uvkErUj/eVCN97Q==;
+	s=fm2:rsa-sha256:Q46GhZDfkBt6+PPkLybkjhiIMReKMmoYBEMO488Q9AEitDl
+	PxLcAq4GhdMdkmPUemxbXVFPnScvveA8FzuGGnkg72tSpab8Hfm6A+FJNmcPAVhV
+	ghiAWHtoviBcHcSNnTfTxxPoHmXt6bnmjlxPerzYGo7GVkmhBSmv1g9/gAgyHztl
+	D8Kll6sLfzvMvmHeBhHiAbhZO1nIgtddvdDOBTE0eAbvDgroNroRO/6P1y5aZt9I
+	PXizwdrvNYtityzI8LBqPrtTZaBSkvPPSGFJ+0BDXIVUZk1rsY1+z8oOIJd2gsg2
+	Nn0K/wZjn6x3zkr6OomjHud/no8qZyNAE1pSJCg==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:FDA21DrBgrzqdaomdKVLZobssXJHwAfVxzSxQkSif5Y=:baVa2LtZmCenyZV/2WeRHNZ/OkEdZPERVqPYiPWE0pE=;
-X-ME-Sender: <xms:Hx7narBXHcHcMiYGvSnv_DkH6BCsOwWvL-_K9ae1w0mN7mwySCRrQg>
-    <xme:Hx7nasVJFejhn9XWQe2GeXmKbNk_wJH_bLzPzYji1RQPfqYMPpu9sx_7iKmpEB0uA
-    HqK_nnOHZUNcCdwhnaGpLK4TBD7m2eeANcUJIGVf8SS8r5qKLLYLdo>
-X-ME-Proxy-Cause: dmFkZTFysQRqxqvi0Wb9oWm4wruPAg1gWPeP99tcZEkNI3yxqU343EAQO2QcxMdNR8VWCi
-    l6cZlJq2fU2vqsUmRqQmQqGu5Z5VFEOwmSomr6ENeL9mWh7UpbltslPJNnqEhkTmMvkXHo
-    L4f4QMBZrIBi9bh0/DZ43DXc8eLec4y/7XkmT64KS3mY+3B/K4KBHcqKup+Bog3XZNARY4
-    z/WkR56BmAlS35cY7G094YUf2tjFYccIb40rkzexho6b506uXU3NHCMJdvxV/m0KmPx2YT
-    AW2ilBV6xD2RNKbgsUSEdIqOLvyVHuywb/hJ0+rptlsF7vHaqWv+g9ftHmTtcvmMGf0os8
-    95oMGI5e3yW006P3n7JB5yMeQtWYhYHfUC6N6D78xwZKqWON129r5yp28eoY1Vd5KM9hQh
-    T4PK8RjYQx+Oiacd7QceLJzWAqc65MLUu1Da90d5b4M+RcbFVhzLS8Npra/UzOzImA53Lr
-    /kXqJWS7m2TOOjyzDOwB+/j2E4NqCLxGHszuz14N+gW/JcpjqzOiZUEqZsrv2sH+isWgAz
-    e95+BKpxp1SJgdZvaDDtIbL0tlVSBYZbkN9EpcOoPK/Rp7svBFzv1tS7ckaHD+7bVvkrN+
-    0DLxmvvVA4lQ+VPwns3W5ApBLAJkDOshDhlRJH+1VRecGtZ91j3c28m0b6Ew
-X-ME-Proxy: <xmx:IB7nai-FL20ZyyPTM4c5Ty0swO0GPno4UDXOdsfQTK1txrjdz1Po5w>
-    <xmx:IB7nanqkxMXV1851nhVBB3GfPGTdSsi3tBB10ytauak_45qcrl48Mg>
-    <xmx:IB7nasTTd84biTLVWzJYJsjNndvQ5xzN2AR6lY19q8xLft5bZ5DwTw>
-    <xmx:IB7naqP4mNORn8_XLi8QuJQVOJKda2ao13bmwWB5ENn5HWNoVqV6xw>
-    <xmx:Ih7nagQrHVSJIoEpQ8YSiNcHvwobPTBrJlAH3bBifFFW3JuwThm5Tb-X>
+Message-Instance: m=1; h=sha256:xvWc2I2uWzxz9a+9OTFmKblJ1M8ZKEA+BnLF6s+JzKw=:DCU0XSxu0Cgb71JY/lQBbLj5A5ApBrrzZ4yZzi2QJx4=;
+X-ME-Sender: <xms:ZiDnav1EgjBw1vmjlVMR8OBojQev_7I5SI7OAEc9ib4et0jFZgxkgQ>
+    <xme:ZiDnao6BPYzg-vs7a5Sl4rIx7zTt8iTxYd_dQBkk_Puhc4I96r1MnXV8PdyzVI8d1
+    OnsSOk1psHYHAexqLB3bfBiFpZp2BbKjPWGDO4d7TCZDqUXyyeCX2U>
+X-ME-Proxy-Cause: dmFkZTGwXwjaijkdfwdLTDS1rJfoLQWQwx/OAGcc1wJWXzOV1LlplydKYfLs7sS3u2ic62
+    CzmXdvRhZjRZGtDfGhtKARvLCtcOHzTxamYAY1vpeT9vjCt7kBSjW/vpGBUUmizvEJGKq6
+    HkqF3xMdewiKgZlnnl159Lr7mHqRKTudhZbE10HWQVv9w5n7RlQsBFoq6w7bB+eewqatia
+    yVvCxIbIwQoFkA0HtrFVYZqQFw9H0MbHp9asXu+PqBTYcgfs5J8p38Ocb45DoWEUi37MwQ
+    ziM//GXR0xixs0EBHrvoPsgRCYRgU839aioly6QJeQyTomb68QuPIpfSity3TpmwqTfbaI
+    2y+LmdhzM3COgeiwVX+NmpxPzJj+RhgZyOYhGXNVmou9eSv6fAShKmECpOkqi2xxvw5aED
+    IoUMsdghLUhudH7svI8U1TIQNe0AH0XIB7qihGZmpGiLRr2x8mqP5BdD/QOoKyzu0t+44L
+    epiU4YyDc/6XkrZ9asaxajrCZVp88aZL1BEdpGae9/m/6vjI1bO0qcZ4I1g21VwjAl075E
+    QaWF93GgVAys865KPRuVkLZ5fqYnWVuwg+cA37f3+6MC2qRMaVYf5hbd/sYzMix+EtVlFv
+    tgvydwvzd0deBidGeCtVKLwCKMmyiM2Zv1CAQEDJol5zA2r8BCOPFoJafibg
+X-ME-Proxy: <xmx:aCDnamhQRRW-WDDutkfIUPCZQ745GOmpL73CXqDz-sWy-p-8HmF_dQ>
+    <xmx:aCDnalQyGQfYGuTceXkZbnpyTZ8MQwN7AWil1l_HxjQCukF9_HHtVw>
+    <xmx:aCDnanYpsN2BqzYLxyh0eeTaYWvKA-P15XCLiNPCto35y7DzJY1mfQ>
+    <xmx:aCDnaiR-7ixKbfrozu8dLm6X-FjV1ykjEG6A3ZMF3hO_KhjsX66zkA>
+    <xmx:aiDnap1ZTCnpGIGIlvPNOcPfDRyFa5joBTHsjpiOBEvtWZzjVcm0n1tA>
 Feedback-ID: i56a14606:Fastmail
 Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id E53DE32A009C; Sun,  1 Nov 2026 06:10:22 -0500 (EST)
+	id E548E32A0093; Sun,  1 Nov 2026 06:20:05 -0500 (EST)
 X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -115,54 +115,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Ap4PcZ20AeuN
-Date: Sun, 01 Nov 2026 12:09:47 +0100
+X-ThreadId: A2HaaWELKR9F
+Date: Sun, 01 Nov 2026 12:19:34 +0100
 From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Vineet Gupta" <vgupta@kernel.org>, "Sasha Levin" <sashal@kernel.org>,
- linux-snps-arc@lists.infradead.org
-Cc: "Andrii Nakryiko" <andrii@kernel.org>,
- "Ilya Leoshkevich" <iii@linux.ibm.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>
-Message-Id: <8b4688ca-db5c-4122-b616-8e3964e403f8@app.fastmail.com>
-In-Reply-To: <09db4d22-2836-4656-8c6a-a7e5377710fb@kernel.org>
-References: <20261015154044.4058618-1-sashal@kernel.org>
- <09db4d22-2836-4656-8c6a-a7e5377710fb@kernel.org>
-Subject: Re: [PATCH] ARC: Strip libgcc debug information when generating BTF
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+To: "Vineet Gupta" <vgupta@kernel.org>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
+ "Dinh Nguyen" <dinguyen@kernel.org>,
+ "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>,
+ "Ley Foon Tan" <lftan@altera.com>
+Cc: linux-kernel@vger.kernel.org, "kernel test robot" <lkp@intel.com>,
+ linux-snps-arc@lists.infradead.org, linux-parisc@vger.kernel.org,
+ "linux-openrisc@vger.kernel.org" <linux-openrisc@vger.kernel.org>
+Message-Id: <cf2a83ea-5e5a-42c2-905b-199a43b6341a@app.fastmail.com>
+In-Reply-To: <e9f9ac85-442a-4bcc-8ec6-a03a6519178d@kernel.org>
+References: <20261019-nios2-mulsi3-v1-1-4fd75b1bacef@linutronix.de>
+ <47eb6b48-d664-440f-84b6-ba09f34d5e08@app.fastmail.com>
+ <3175caa0-9f49-465d-959e-6b6c9bbb4f01@kernel.org>
+ <e9f9ac85-442a-4bcc-8ec6-a03a6519178d@kernel.org>
+Subject: Re: [PATCH] nios2: ksyms: Declare __mulsi3 export
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 1, 2026, at 02:04, Vineet Gupta wrote:
-> On 10/15/26 08:40, Sasha Levin wrote:
+On Sun, Nov 1, 2026, at 01:26, Vineet Gupta wrote:
+> On 10/31/26 16:57, Vineet Gupta wrote:
 
->> diff --git a/arch/arc/lib/Makefile b/arch/arc/lib/Makefile
->> index 30158ae69fd4a..2807ee24f27e6 100644
->> --- a/arch/arc/lib/Makefile
->> +++ b/arch/arc/lib/Makefile
->> @@ -13,3 +13,11 @@ lib-$(CONFIG_ISA_ARCV2)		+=memcpy-archs-unaligned.o
->>   else
->>   lib-$(CONFIG_ISA_ARCV2)		+=memcpy-archs.o
->>   endif
->> +
->> +# libgcc can contain complex floating-point debug types unsupported by BTF.
->> +# Strip only the debug information from a local copy of the selected archive.
->> +always-$(CONFIG_DEBUG_INFO_BTF) += libgcc.a
->> +OBJCOPYFLAGS_libgcc.a := --strip-debug
->> +
->> +$(obj)/libgcc.a: $(LIBGCC) FORCE
->> +	$(call if_changed,objcopy)
+>>
+>> =E2=94=8C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=AC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=90
+>> =E2=94=82=C2=A0 routine=C2=A0 =E2=94=82 calls =E2=94=82 functions =E2=
+=94=82
+>> =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=A4
+>> =E2=94=82 __udivsi3 =E2=94=82 415=C2=A0 =C2=A0=E2=94=82 238=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0=E2=94=82
+>> =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=A4
+>> =E2=94=82 __umodsi3 =E2=94=82 203=C2=A0 =C2=A0=E2=94=82 131=C2=A0 =C2=
+=A0 =C2=A0 =C2=A0=E2=94=82
+>> =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=A4
+>> =E2=94=82 __divsi3=C2=A0 =E2=94=82 77=C2=A0 =C2=A0 =E2=94=82 57=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =E2=94=82
+>> =E2=94=9C=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=BC=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=A4
+>> =E2=94=82 __modsi3=C2=A0 =E2=94=82 41=C2=A0 =C2=A0 =E2=94=82 33=C2=A0=
+ =C2=A0 =C2=A0 =C2=A0 =E2=94=82
+>> =E2=94=94=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=B4=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=80=E2=94=
+=80=E2=94=98
+>>
+>> I can take a stab at providing the generic libgcc implementation in
+>> lib/* but I only expect the arches using libgcc version to switch.
 >
-> I'm working on getting rid of libgcc linking for ARC.
-> This requires adding some GENERIC_LIB_* routines, but as part of that 
-> series I'll propose a revert of this and then the dropping the first link.
-> Don't intend to revert this per se, but revert just makes it cleaner.
+> It seems there 4 are always needed together or not at all.
+> Do we want 4 Kconfig gates or just one will suffice ?
 
-Have you seen Simon's series?
+Either way is fine for me. Simon did separate symbols in his
+nios2 patch[1], and I don't mind staying with that version
+unless someone else feels strongly about it.
 
-https://lore.kernel.org/all/20261030-nios2-remove-usage-of-libgcc-v1-3-4e341c66082e@siemens-energy.com/
-
-I hope there is some overlap with what you need for arc in the
-lib/*.c functions. I can take both through the asm-generic tree
-to reduce the dependencies if that helps.
+I would however like to have separate patches to add lib/divmul.c
+and lib/mulsi3.c, and then patches on top that start using these
+from nios2 and arc.
 
      Arnd
+
+[1] https://lore.kernel.org/all/20261030-nios2-remove-usage-of-libgcc-v1=
+-3-4e341c66082e@siemens-energy.com/
