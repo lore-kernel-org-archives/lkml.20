@@ -1,79 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793558394;
-	b=fESnG8icgx2xnwPce1Y/Ib7vTl48cyUdvwppBr+lvcpoyBSOMtp5WzS6rp0KBtiXWCIb
-	 pJ5Jrjw2UcQ2imaAeMkzMMUN9XSL6ne2ISYhoQDhYOFFBv1cfUOutWXNXLnLwejbtNk2j
-	 iRKN0lzQU77ASkFTd2mZd373GVgi6pvw/pD+VG7HuioVDCTSISchbnZxfvN1NdwQ4DsLK
-	 PsUOZTXqKlfCP8mJI0EeJEpoVOY+o+aVnBDGL47+fbAjIEapGr39a0AY6BIuwV5fWiXDD
-	 t7IxDpaf1FTGFDPji2O9NrbOHqD2YHmpPBjifiSPEAmJzABGiKTCdbCbjIPeIfpDUHw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793558394;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K8p0/by7agCfj7cfrjXSzQBtR85LBTs3B+zqPUaeaN4=;
-	b=1eLiaDQxiGKHDfEpOj/zFPVlM5/gyd83t1CX2+c2qnz/6FU5m56xW7DJCKBAQeivvPVD
-	 rESqbK5xcO/oXIZigRetFjF/eygu9ucrxK7EBopeiDHbzH7sguJ8EbRoxFbrQZBMCtNjZ
-	 xp0NjToodyWkqCBFru6oNPOijRfk4JOUPbX3b7IktB7BZ24WXCG+xjPiWSmRg4XayA5Yj
-	 jpIbiKvQxYmguN3N1zOGxTNmxdrz9P5RmXNSwDT3qjaqZPIjAFqe4IVaAm3j5MQss2HMV
-	 pijlcLAhp+Np/T33k8z2AG8fpfgnhyJ+am3/a4WcECIZCJVXOOaS6cb6btm2Mlgf/1w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ99QUOe;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19D5B606A324;
-	Sun,  1 Nov 2026 18:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OZ99QUOe
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793558393;
-	b=p3rsiFaq997RU8zq6h0mnR5tr7kKz9axw4YOpZgMqU8YQWwcQP15rvWh5Ql4W8/DZvp0
-	 4AEWs7tKHnomNzwl+/zs3t5kp3aUazWUiCiXxnyu6iMmJE9MdG9uFsAIezEDEdpSF07mW
-	 B1FA+/G/W/qZGawcpCQKYh/82u5JCYBW3fbXmDWjqwN/GTXjnOB4nCC3Ib6FyQ85voRWI
-	 TqSWlZ3OctdwGJG0Baz0VsE3ZD6yNkCh1lMe0b3e1SSK6+ZEQUaYwOxCnVKB5rxQbH/Wm
-	 IjBg6xq9GOMgMznED7cq2Q1cgM0oCVRaof/MrT2UbrnF1f4nzsBXG6pLCaJ2o6t9+6A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793558393;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=K8p0/by7agCfj7cfrjXSzQBtR85LBTs3B+zqPUaeaN4=;
-	b=yfCXEi525eQiAig+Li288e0X9qL4wlvlfwCmO0sTdFR4pqhebxfq1SORxtcQ6aOhRSOJ
-	 u4wOCU+wQ6a9F/OzCEgwcS2ZcalBW214GCTOE0ZXzDlLtopUXHpGb0/4j0cN2rAfAjk7a
-	 Jh455YEmFyNxg9wBlmKEnrAhf78C29gyKZsjUFIGkgZlsJdGrzDf9oisI792dV4y2gTrk
-	 U217LjYT1SglvqE7gW+j7e8uR007UbCpXKQhmSEZaq0S6r99dUd4R4JcZlAJV4CM7GAVn
-	 0S0NlzSQJGH3BTcRmV7njp93ZhcWGxDcJNYG8FqMDdUauGQt14Daf+t62ByFJ/OK+HQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793558971;
+	b=ej7M7sehu7htEymLiXHoJ3oSFgI1JSqnNZd/AqjDvl2kxT+RKAtEXCm4WpeH/Ez/1g/5
+	 zawWw6GJdDY0fXYocjUA04qFxXUlmaIUWf1+HAAREZI/wKVS5f8ZNaGsbsA2nV1GbUHOi
+	 uCzTi0HiGdVGUmYKvgl6fBHA1oewg1F0Mnk08IMqqp35jPmtt+7/Sph7K4QZee1inAcB0
+	 k7mRtD+XHiW2FyaglBaaHivqrfPXJ61ObHsGPQOm29V6rxI+UkdwI7WLgQc/RBHTUokd7
+	 JTWFhbFq/mq8awKDpIFw0qNmWSQFM2xTPe2e5TizgP1h3NVyNp48PLGX8eOFI9Ftj/w==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793558971;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=i4kMYe4pF05BAeSRiIgaVbEHMlhyZzqAIkz58RqSejo=;
+	b=D6TgKGYGsjbmabIIfWTuM/pEFh7fQihEDM7894MIZGTS70gaEe9/aZWL8/z+D2m5WOns
+	 pn4EAIVt74PJBBf+2YqF6pxNdZyol4WL+w3vjGyKoOTsq1/4pkuaeHOMe1pxywDlB2je0
+	 WGejSsta0s/fp2xRA79htTAzc6cNtIvBAF4tDBnnCuf/SGRgHDShFQtPe6RmuN7gWRrFD
+	 TjSN43X5jCjyORcRb7qOeT48XX8o90fNvuHTEZfXAIvdnt866QCxd9LVbRqgso/h78SQY
+	 SIhUrmPR9zOBtt4eOgurSxGKv+v8e/L1yBFHLSnPzalZTKLBqGsx5bDXM8SiznT1Pgg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="T1Lt0/8s";
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 369451F000C1;
-	Sun,  1 Nov 2026 18:39:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793558393;
-	bh=K8p0/by7agCfj7cfrjXSzQBtR85LBTs3B+zqPUaeaN4=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=OZ99QUOeUvolgMglKWLyMkeX1Uza6gSgu+VRTrnIH4tpfkwKeJZyA5ZTxv/DaY0SG
-	 xumiDWc8gn130x0gcK/AjOll+BLGZSWSKkHj6U221RE2oeOSw99sJpfXDvg7ZISYNk
-	 a+RO4G6ybOuEJz6EGOoDiDiDLH8mLDpWI6FIJ7qmkLgQ2t4zJwhyhu+vb8TUY5d9Yu
-	 CSh4ThVB8fYQY1Fsb1wBj7Oh3sVrjLOAKezC1vJWEPAU0S9bGuycBWy36bcBwZhWq+
-	 fvAZpRcdytNlESvgl2fYRoTst1NNekgLjuGQXfMQAlEPjm90BABED1e8tDaw9XXTP0
-	 wXrJVcu+K0KwA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id A2FFB46228;
-	Sun,  1 Nov 2026 18:39:52 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Sun, 01 Nov 2026 13:39:52 -0500
-Subject: [PATCH] btrfs: fix bio counter and bioc leak when async
- checksumming fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFF0606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:49:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CFF0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T1Lt0/8s
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e0d1da913so1704106f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:49:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793558969; x=1794163769; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i4kMYe4pF05BAeSRiIgaVbEHMlhyZzqAIkz58RqSejo=;
+        b=T1Lt0/8sM6vsdHVtQUrrSjN+N+RGfd7oTw/E7Iem+qy3KEkUIPeeqSSNSFbKnZ2xWA
+         gP/NJs9vEK0U1VSFD1vACyL62pGU+rvu7Tgzc08NI2GYp5APsDw7XQIu/XC8yOW0I7cf
+         zqR2oxVp3FXmzSpPedq7wro6heKXVbnxubEjVnVnauasf9M4RLRAY87NZR5sVnm1Hupm
+         oCMvcBmGfXi2tA2qJhRtG7YAYZKsvq4j5k2MBzw8NZZozEHTxDyyLypNZs8DdcL2mzCr
+         3yTzJQ8JCh22d5NUpgB4CVuknomiJM0oB5kOZkCQLUElyv26pTWmIMbFUUkUwa/l9hPo
+         BdEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793558969; x=1794163769;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i4kMYe4pF05BAeSRiIgaVbEHMlhyZzqAIkz58RqSejo=;
+        b=WQvagFVnH2Axfc3kwlm3yqVQVt1PNNksrj9eiBScMwnFsLiuq+zYtn5iB4KOKqHi49
+         Uc4FLf8dCHIiUklKgC1F9OqKfjn5OlIBZk3K1V1aVsuD0eZugFfmEtHnjg4t4UoKYssL
+         UWG8rAUD7agKGfF7orIUTIe/XVuP3DgbweFvHW3XD76AN4rsaKcHwr4Zdj88w03mXqyZ
+         qzzgJItTBvSLjc/AyQbLdhN+TFGwl7jxNPWCm4afT/asotOiFrjz9YEFi9HLl5t6dAGt
+         TWHMyj8nq0+AXQU4agbyh/AAGn6EPXJcMOqeEkotXVnXGF7tBt3hV4Ji8bWhATjM8O3r
+         oFNg==
+X-Forwarded-Encrypted: i=1; AKwUvBwos7SowGWGm9SHduUbN27T1g/w7CQpm9oW4Zs2MT6xKAS4Tw9XJu0WbN9yCqFyWQo5ef/xQauxJsnypzE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9zNZCeVVfHiSTpopXl8MmXklnvBDXEnL+U0nEJ0F8z0HS7QMTx
+	uV39P1rW39PMtKD3zkU16RrNOJhI0SpYxeJ4DDNUjAzehGwDV1sBt+k=
+X-Gm-Gg: AYBFou0MX+9/xCQ0IKg2Xos/emq48/8aUlS6oZJ42wl3GHnz13H9S0KTWD21Js6D8hb
+	Po1cs5URPE7tfPJTZ8sqoCpOy3RYeTHaNUafNTEQpFY+Mhu6p+GZyCAIoTtzagPxwNWYX7Fm3/8
+	eKSSAr9IguMrEPxuWJ5emqOW+1uA2M0UpsBfHGB40M3qfXU4kG/gUGnYCv9qA/DDznKqqHWzvu9
+	ceEI07kFBSaOHVI0JToQ0B92m6mGUQK+RvKlkO43VgKkIPEKHkX/2pyJL8+TSw2w8G8fE7ccJ3U
+	C9kXA3+/uLM2dj6rV2Y7+ku02w8F70iyK04k6PrzDIxC6g6nicyqvhrt39Jeqwe8wGAyZgSCRFN
+	g69ggjRQiYzKrwP9vOcZzI7PQe5iR79+6OtFckc/oEF/uNUip7rjZ+TPdRrSS4Soej4obQFZ7y/
+	zB1EQPVdYE1GBj+1xGxuBJzc9Ir4seaEwOi3XOc8PhFYpJ4z6d6/nVfHahCdWq73dEcF6GFsuF5
+	WVez2VXUN/J4Q7lDvHCaR69wmp4Ht8rVsZfLWV7psF+05XTUFZWpEy+zswHZZS2UMxMBonM8/qV
+	6jJ0bRfans3RzD/ci2nSEwkZ19m3UAghUT/FCW6ZM52W5Eiz7v+eALj/kcOOwzBgGaSYiIxaO+X
+	472a0a0HRN7TfHgQzjkLjG9+kzk1Gh7ipWEvb4w==
+X-Received: by 2002:a05:6000:4012:b0:48e:678d:396e with SMTP id ffacd0b85a97d-48e678d39eemr26985417f8f.9.1793558968758;
+        Sun, 01 Nov 2026 10:49:28 -0800 (PST)
+Received: from localhost.localdomain ([81.199.56.166])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7270asm15530548f8f.11.2026.11.01.10.49.26
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 01 Nov 2026 10:49:28 -0800 (PST)
+From: amit <amittibi123@gmail.com>
+To: andy@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	amit <amittibi123@gmail.com>
+Subject: [PATCH] staging: fbtft: remove unused ssbuf member
+Date: Sun,  1 Nov 2026 20:49:15 +0200
+Message-ID: <20261101184915.33899-1-amittibi123@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,93 +99,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-btrfs-async-csum-leak-v1-1-feafe7ae61e9@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CMBBA0auQWTtJW6IkXoWwKMNUB6SaDhAI4
- e5WXL7F/zsoJ2GFe7FD4kVU3jHDXgqgp48PRumywRl3s6Y02E4pKHrdIiHpPOKL/YC2qlwXrsF
- Q6SC3n8RB1vNbN3/r3PZM028Gx/EFeGIUMnkAAAA=
-X-Change-ID: 20261030-btrfs-async-csum-leak-1772df5f0c32
-To: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>
-Cc: Qu Wenruo <wqu@suse.com>, Christoph Hellwig <hch@lst.de>, 
- Josef Bacik <josef@toxicpanda.com>, 
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
- linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
- tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793558392; l=2369;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=mGiLrTH5AqlN5JS+ipDmST7KGFMjGScKRUdjepxjagw=;
- b=i817B+Hk0R44YFLbkmJkWr40ppVxvcWEv5xLvPF4pmkmoUO7WZFnyFJg6PlLMqTOdsEBNgl+w
- BTgE7frgH3tA9Dg6T79LE7JgyO6ikbL2mpIpYqeONCt8vUgikFsn3XI
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+The ssbuf member is documented as unused and has no
+users in the FBTFT driver. Remove the unused member
+and its kerneldoc entry.
 
-A single failed checksum allocation can make a later device replace
-hang forever.  btrfs_submit_chunk() takes a dev-replace bio counter
-reference and a bioc before it hands a write to the checksum worker.
-If the checksum fails there (eg its allocation fails),
-run_one_async_done() ends the bio but drops neither.  The counter then
-never gets back to zero and the next replace waits for it:
-
-  [    8.369171] BTRFS info (device ram0): dev_replace from /dev/ram0 (devid 1) to /dev/ram1 finished
-  [   41.534247] INFO: task btrfscsum:80 blocked for more than 20 seconds.
-  [   41.534391]  btrfs_rm_dev_replace_blocked+0x135/0x180
-  [   41.534463]  btrfs_dev_replace_finishing+0xefe/0x13b0
-
-Put the bioc and drop the counter in that error branch as the
-synchronous error path does.  Also put the bioc on the synchronous
-path, which only drops the counter.  With the fix, the replace
-finishes.
-
-This bug was identified and confirmed with the help of fault-injection
-testing on a deterministic hypervisor currently under development.  The
-C reproducer below however hits it within about 35s.
-
-Fixes: f8a53bb58ec7 ("btrfs: handle checksum generation in the storage layer")
-Cc: stable@vger.kernel.org # 6.6+
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Assisted-by: LLM
+Signed-off-by: amit <amittibi123@gmail.com>
 ---
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/btrfscsum.c
----
- fs/btrfs/bio.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/staging/fbtft/fbtft.h | 2 --
+ 1 file changed, 2 deletions(-)
 
-diff --git a/fs/btrfs/bio.c b/fs/btrfs/bio.c
-index 2c6234f6182f..a508f4abd3a3 100644
---- a/fs/btrfs/bio.c
-+++ b/fs/btrfs/bio.c
-@@ -624,6 +624,8 @@ static void run_one_async_done(struct btrfs_work *work, bool do_free)
- 
- 	/* If an error occurred we just want to clean up the bio and move on. */
- 	if (bio->bi_status) {
-+		btrfs_put_bioc(async->bioc);
-+		btrfs_bio_counter_dec(async->bbio->inode->root->fs_info);
- 		btrfs_bio_end_io(async->bbio, bio->bi_status);
- 		return;
- 	}
-@@ -822,6 +824,7 @@ static bool btrfs_submit_chunk(struct btrfs_bio *bbio, int mirror_num)
- 	return map_length == length;
- 
- fail:
-+	btrfs_put_bioc(bioc);
- 	btrfs_bio_counter_dec(fs_info);
- 	/*
- 	 * We have split the original bbio, now we have to end both the current
-
----
-base-commit: 5e6c45aaaf93343c7f8a1cde9797080238af5c1b
-change-id: 20261030-btrfs-async-csum-leak-1772df5f0c32
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
+index 40a7567df..3b58bb9d7 100644
+--- a/drivers/staging/fbtft/fbtft.h
++++ b/drivers/staging/fbtft/fbtft.h
+@@ -155,7 +155,6 @@ struct fbtft_platform_data {
+  * @pdev: Set if it is a platform device
+  * @info: Pointer to framebuffer fb_info structure
+  * @pdata: Pointer to platform data
+- * @ssbuf: Not used
+  * @pseudo_palette: Used by fb_set_colreg()
+  * @txbuf.buf: Transmit buffer
+  * @txbuf.len: Transmit buffer length
+@@ -192,7 +191,6 @@ struct fbtft_par {
+ 	struct platform_device *pdev;
+ 	struct fb_info *info;
+ 	struct fbtft_platform_data *pdata;
+-	u16 *ssbuf;
+ 	u32 pseudo_palette[16];
+ 	struct {
+ 		void *buf;
+-- 
+2.54.0
 
