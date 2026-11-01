@@ -1,81 +1,132 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793565030;
-	b=BS2ywFk9K9sahC2s8XWa5+3TX7vqfChq79IqTpBGzBG95f6gabEOzkEa/gxp17wd1MZj
-	 KWP1beT5iHSwfpSQ4DWbODvwErz4Df1nnvLrQUxwAe+mWd8aeXz9yd/vMqhbN+C5wiiUD
-	 2/WREJa+AYpg44zdWh61Va3K0UhLetTnbgIQd86bpAQ1ty+CgufMTZjWkdcxhHuxzV+yh
-	 79BUIeUfv5N0Iu55VKrWpbYgDDEbh6/kU1sIhCNJyWwb68eMRgpR0jJk3yD5EhERAD/Km
-	 nRSfI3Y9LfEtuW5HMiZwGhzY4nfCZ/dferwvdA7CqX0kjiPjviQNrCwQ0m+XoxoNoYw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793565030;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0PsO3+ixebAi2GeHvElphzKqyCrNVa40RrCbCBR6aoo=;
-	b=VRLeyv4F/a6pwiY4ImxmXTI4otF5PBkbQeKWTO6V4SQJLyMisHQA78QPgYHpct1EH+G3
-	 PNFFTOgMoqVuZEz63vnFjaLB/xgnEDhqThg/ZP69T7CFV6S1R2xPrY8ARgkJ1DEjMQXaH
-	 akRO4Nyd5RhuQDGlqpbmXw+dm1GDkB1FUxLYAOlTk3bYkVhJ/jvhqMfQlOTzP+F+BQbIi
-	 o+xrMrLTu7Poug4Psx7xxHTA+5DZ76r17Usye/gKfSCnWey4EjDekcTCL+gqCHZs++5Ke
-	 OWbQ6GlyI0mavwg/j56McfVuA0SXG4TAjxBgKPXbwNfFWk88rhM697nADex45k/YtvQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="FNhsqH/I";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793565059;
+	b=rtavNCIjrw6LKVGd2+03iQsrjlhvn2drRp8kJUI45ZFawVM/JUqjdEfrywJbCezHkYpz
+	 ZdT4UXiei8f/gtV+CmKEY7rpYVy+qCAnYhb4o3jV/LeoX5216WezjRxApWUXzYSQo82Rp
+	 6hAT4W1LMPYhHHo0UO+BoWLEn+fMY/IfzK9MErdwGPJEadct92hYla87lzDq7W7gDCOJH
+	 fJcx3NrXjCnvD2nXSddWtmw7u/6Yv1JnYWTn2nkAc/oK4t3srHIIjy2P2MGif+jONUlOi
+	 I27dPkfYbdQVJB7a8qJplY2P2sHhT46jj89HKReV07pnBEjG7T37ZSJNFDDT7Y6kUPw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793565059;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
+	 DKIM-Signature:Received:Received:Message-ID:Date:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-TrafficTypeDiagnostic:X-MS-PublicTrafficType:client-request-id:
+	 request-id:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:
+	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
+	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc;
+	bh=ZvtuOXLGSjYegesbfPnc3dDsHUot8rMO7TeXd5Kw0AE=;
+	b=o65APugDruzOuZab4vp08MX9myGipQnD/kiNoR9C5MdvzlOrmiCV2v48+Zf1lvaCiu4p
+	 EspSU/Ykw4SoXb6viR0p4bOYlYfA0VX0F85NL+6CeNdsqNpl9qEtFhWyaN88oNFIHtr7m
+	 4XSZ6ZafT0Qe1uEh02GIfjlsBzdLNbtXVsLkIHA+CMBCkOnY8mDeCJ4lHMuTDsLToHmSb
+	 uHg7jc3kbvo5V6h7XqLWHdy9fCOfSH/p/fnk/OKULkc2qGWOTvzlShpUnoBlz85NZL6E+
+	 KMkGgBMaQfVI03Aw6Kr2lDI+RA14TVp7NgDJI7pynTMhdPHcFd/uWdJItZ8lhwPweew==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oracle.com;
+	spf=pass smtp.mailfrom=oracle.com;
+	dkim=pass header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b="mi/z5isN";
+	dkim=pass header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=0EQUQ8Hi;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=205.220.165.32
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D38606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:30:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53776606A324;
+	Sun,  1 Nov 2026 20:30:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53776606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FNhsqH/I
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072E81F000C1;
-	Sun,  1 Nov 2026 20:30:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=oracle.com header.i=@oracle.com header.a=rsa-sha256 header.s=corp-2025-04-25 header.b=mi/z5isN;
+	dkim=pass (1024-bit key, unprotected) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-oracle-onmicrosoft-com header.b=0EQUQ8Hi
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1K28Mi2874947;
+	Sun, 1 Nov 2026 20:30:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=ZvtuOXLGSjYegesbfPnc3dDsHUot8rMO7TeXd5Kw0AE=; b=
+	mi/z5isNhEsF+Xgf2qhMvIMFQ4EeuZxSImoHo05xrTVhn668H9msy9K/gT3SD0vH
+	DgLvKdsgr2Of2SHi7XpFQAjspySNqtOtw9cP7N4xZoLy0+9ZqrxnLQjRLipGYk8B
+	q6Wt7SlzHWpv8GUFtoGdECW3mrqZW/yD1loXgxRaP8weT1cmunHJ//Ejj/ANrhsn
+	VmYNGhErNwqrtLPo1+XhHLHixPswbq/TcCM2kmzHkQfin//+6+uUmlv4zGYiFBJv
+	O2URh4Zq52XBwlpNzSGl/yBhWx5mOvFqM3KgXezb/Am7E+aZmZLVGjwiL7FhA1Jq
+	+E0S5ME+8y55NYw3URgknA==
+Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4hn6x011nt-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=OK);
+	Sun, 01 Nov 2026 20:30:30 +0000 (GMT)
+Received: from pps.filterd (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1KI7s31436524;
+	Sun, 1 Nov 2026 20:30:30 GMT
+Received: from byapr05cu005.outbound.protection.outlook.com (mail-westusazon11010070.outbound.protection.outlook.com [52.101.85.70])
+	by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id 4hp6ffwp3f-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=FAIL);
+	Sun, 01 Nov 2026 20:30:30 +0000 (GMT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pWLNcjskj2zQqoVsCuJ1cmq7thtFXlPXJGcadjQ88ttQ+IuiMMg1XCh2sF1GkWij/fKGNjSGX0UpTXFSq686ej0ePb4lySUdXVtAxJ2qQFpbDJVXRliu0+1S+ypaGpBW/RPZaDDFGeTPl8lrC7aD4J8awyZf/hUZgc+bdLGElHItpV5Doab/ElPKxdSQeIkXNF+Rf3nu8ih/AQJBafhW/Cblb2a8O63q0XddzBXDst4aUTlp73bKXuZBVewfZN8h+XBPp53/WynzZEILxw3A9L9eRB6COk+vn2vkimwqK9BYevfs1b6naLMhRsOLoA/0uMVsY1byJkeA4nFZYe789w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ZvtuOXLGSjYegesbfPnc3dDsHUot8rMO7TeXd5Kw0AE=;
+ b=EgH9poW48nWNyLbU1dJHTvlNIvG/GMseHgVMWv2f/5EY3Wkp7rf5FxVIYTgSoXaqd9zk2/OE3LO7uJQqM9k8XH/2vGf6YzZaUU5msnYW5ZpkQRL7AzdC0iA3milQsz/3H1LJorRdPnl0WW2KrnHoq+WRHwR6iL4eU87khkGNBRGyTH7KknyrNb/UTbwjHE3ESxaeTfAVp/FlrfIAYOoMKSazK5JE1d5Bd10uBCa70F9jNYuq74bEOnQ8asKCRfiUaLjY20AEhlQukHX/u+JGJeHJxtJRoQ7i8mpzmM2xJGSMDJFjisCBICl3lGtBc+/plqvKKZZJRkyGJPQOujrHwQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793565027;
-	bh=0PsO3+ixebAi2GeHvElphzKqyCrNVa40RrCbCBR6aoo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FNhsqH/IpagTug6CeKHflu48Fz4ATDd8wChHmLe8njQ5/+03LK+0tBXDoXTa3Th2V
-	 hIQBaVlVLG/Gz8HmFg1wV+7NB1ZXY309bBipBw2p+lGIo8IP6VBNnVVTudel8rHFiU
-	 QvTJv97xdnj8Qc6yj2VnFTQFBzF35zYwOsQvWOxM=
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ZvtuOXLGSjYegesbfPnc3dDsHUot8rMO7TeXd5Kw0AE=;
+ b=0EQUQ8HiNleS2f/B6yYu4xVzsi4ht5vLVzjwhW46i6dH/u7m609cyVwaQJdLOMLzXpuHctXm6lxoQah9dOqgRL8dzsHK0xAtDKEX0eNMauvz9N8gELrFA4uXe84KKIAFz73NZW/T1akmYqAeK1l8ffviHuGG0ZJghnJ35RvFkjE=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oracle.com;
+Received: from CO1PR10MB5506.namprd10.prod.outlook.com (2603:10b6:303:161::7)
+ by DS0PR10MB7936.namprd10.prod.outlook.com with HTTP via P2P; Sun, 1 Nov 2026
+ 20:30:27 +0000
+Received: from CO1PR10MB5506.namprd10.prod.outlook.com
+ ([fe80::da72:a0a9:5f18:cda4]) by CO1PR10MB5506.namprd10.prod.outlook.com
+ ([fe80::da72:a0a9:5f18:cda4%6]) with mapi id 15.21.0546.017; Sun, 1 Nov 2026
+ 20:30:27 +0000
+Message-ID: <eba55a4f-458e-47bc-be53-e72fcdb03f08@oracle.com>
 Date: Sun, 1 Nov 2026 12:30:25 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Alistair Popple <apopple@nvidia.com>, "Aneesh Kumar K.V"
- <aneesh.kumar@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
- Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Brendan
- Jackman <brendan.jackman@linux.dev>, Byungchul Park <byungchul@sk.com>,
- Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
- Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
- David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>, Dev
- Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, Hao Li
- <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Hugh Dickins
- <hughd@google.com>, Jann Horn <jannh@google.com>, Johannes Weiner
- <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>, Joshua Hahn
- <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>, Kemeng Shi
- <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>, Lance Yang
- <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo
- Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Miaohe
- Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Naoya Horiguchi
- <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Nick Piggin
- <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>, Oscar Salvador
- <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>, Peter Xu
- <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Qi Zheng
- <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, Rik van Riel
- <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, Ryan Roberts
- <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, Suren
- Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau
- Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>, Vlastimil
- Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, Xu Xin
- <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, Youngjun
- Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, Jason Gunthorpe
- <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
-Message-Id: <20261101123025.4d8133d5321820f2202c8f1a@linux-foundation.org>
-In-Reply-To: <1c46e678-1da8-473d-960e-5aa22d4d7e73@kernel.org>
-References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
-	<1c46e678-1da8-473d-960e-5aa22d4d7e73@kernel.org>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [BUG REPORT] KVM: x86: Keep kvmclock_offset monotonic across
+ same-host pause/resume
+To: "Chenzhendong (alex)" <alex.chen@huawei.com>,
+        Sean Christopherson <seanjc@google.com>,
+        Paolo Bonzini
+ <pbonzini@redhat.com>,
+        "kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Cc: luolongmin <luolongmin@huawei.com>,
+        "wangyanan (Y)"
+ <wangyanan55@huawei.com>,
+        David Woodhouse <dwmw2@infradead.org>
+References: <e99489abf983494d888f04bb0f901e06@huawei.com>
+Content-Language: en-US
+From: Dongli Zhang <dongli.zhang@oracle.com>
+In-Reply-To: <e99489abf983494d888f04bb0f901e06@huawei.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: PH8PR07CA0031.namprd07.prod.outlook.com
+ (2603:10b6:510:2cf::11) To CO1PR10MB5506.namprd10.prod.outlook.com
+ (2603:10b6:303:161::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,306 +135,256 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+X-MS-TrafficTypeDiagnostic: CO1PR10MB5506:EE_|DS0PR10MB7936:EE_
+X-MS-PublicTrafficType: Email
+client-request-id: ef5c4b15-14ba-40c5-abde-c624cd47a66b
+request-id: 9420a6fc-a672-41be-a5d0-08df3856f6f1
+X-MS-Office365-Filtering-Correlation-Id: 9420a6fc-a672-41be-a5d0-08df3856f6f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261021135927099003|261026121527099003|261026140227099003|261022075727099003|261022105027099003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	OcoVexVrW5EREzYcoChRKS5rRO5Yv86KTpvc286r9SNBNSKY4+0r2HbVZeuZn3P+z4niIZqMeP1MVHdxyXU3YCUJKM0LUyuVy4QvwS98mmi81l5DxnQ8nTdAT2h8WOIXmR0GC1kKfAHjVNQHRZWQX40rvbu2d+3Zhpt+ZgFL4oVCMN31bIyju5yWvPq2ddgyaP6DpeAUiOygluqh8/N5lxa6tsC7TPNn3TxLiIfd5Nb702NKfZ4mvgDgkgiKee0H76feSIjx+siCWKJuSo7hmL3W/oevHPbxbQUlTKD1ZS/K4wWwRmAUHXAFI5EYI63zJQec8shD6+LGAAg1O9QGcoolSKBpz9QKG5HlgkkJhkUVVv7pq0iK7782JkE2vE1uTVrVA+KSMqsN9OU21ZkoFzsdE9tyr3/gkJufnlKRs0xldEvYDbkd6Slg4O5oMA7UtnhIeyASP0oAu6VfyF7NtekLI/rl266yKnLrzb8vvtGrIw6j6AaNB7QnSJo5AEr6AhD/qz/yUv7/6SCIH5cXpcxcTWvEMgdBbIatI1v5OEUtsJI1Xr1GkmSX0h0uAVZD0ZqLvzS2ePV/C1RJBmpdTTXOu4tdentAdolzaD4geV1P2qXUttOXNJTd7lrODP/B
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021135927099003)(261026121527099003)(261026140227099003)(261022075727099003)(261022105027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?MVZuZit2MGVZSGhZYTNFM2NjVmJGTUo2eWx2VlYzM1ZuUkk2WXViaDJKRzF3?=
+ =?utf-8?B?SDNJRVB0eUs0UXB0SDc5K3duSjVGUDhRdmI3RTY0Tm5GU3ViM1FpdkJnMTBD?=
+ =?utf-8?B?WkQ5YnhXRnhoK3ZySjNZS2twTnJaR0hUazhNZk1TZ0pDVklVc1RqVThMMVF0?=
+ =?utf-8?B?U2txMEVXWmsyYi85ODRWZjdBZXpITGordjU1MlFBa1paejZqaG1jeDF6M3lW?=
+ =?utf-8?B?Y2FRcUh2RkIrSkR3M2p3Wms2UENkYjYrSTlKbmdpVHNBWG9EMDVCN3RnNi82?=
+ =?utf-8?B?VlZ1bHBmT3JPSkFSbDNWQ2FtY2JRRitMRUp2dUhDNU1MUXIxN3UwM3lnenFP?=
+ =?utf-8?B?Q3JKSU1mZW02c1IwZ2JsNTNuUmw3RS9TeXF3WjZYT2ptOUtiSy90Z3lLR1Fn?=
+ =?utf-8?B?NUplVW5CdnFacUxFZzBXcTVuTjRKeVRBMmlYelk5eTJDei8xUnExdDYvMlg4?=
+ =?utf-8?B?bmZIaEpBQnM3TjNtbFJoZm9ib3Fwc3AwZ2JKTGxPck5nbFBpZGlHSXR0MHhq?=
+ =?utf-8?B?ajR6TE5hNVlzRU0vUGpldGI0VDh2ZFk4dFdaSjQ3YVErTnhwY1FWNE15bzNY?=
+ =?utf-8?B?dC9lbmw5RGN1YjVqcWhLSEZYeHorZEJGVnFrQ0ZqVzl5eU5vQitqTDYrWG9u?=
+ =?utf-8?B?OGdnd1NnNVpMMXcvTjUyYkZVaXVJNEpKVkJrTFovRC9xNWtXUE5tUHRYVE5F?=
+ =?utf-8?B?MzZQdWU4RmN6dVFiZjk0T0oxOEQzNDF2UTBXQWNxVVFLY2xkNkNuOENtZ0NB?=
+ =?utf-8?B?eDhiOWxVd0kwUU5VMEp0N0ozUFl5MVdBTXBqS1FueFZrakNPQnB5SkUvZ1FB?=
+ =?utf-8?B?NDBqMmwrd2hiWTNWeTljOWJDaDhoNnhYQUVVL0hXU0t4Z2FOQTFSV1ZKM25t?=
+ =?utf-8?B?Rm5Wdi9BaXJ1S1hEME43bm5LbTkzK3pKVHdYeGtEK2FScHVPSExqUUlDUjRL?=
+ =?utf-8?B?QU56eTFjSkFZbzc4TGJvblQ3SmRNTFFYODRCWlZQWWxoOWg1dHJXYWU5QkVw?=
+ =?utf-8?B?VU96U2Z4VUNYRnFvV3dyaUlTTTZwS1cza3lrNTZITXh0UUFIRVlZZlZOWFVk?=
+ =?utf-8?B?eWJick1oM0ZQZWF5Wmo2ZURONXE4a0ZieDREbjRhNnRRb2h6cmQrWk9VOUc1?=
+ =?utf-8?B?cTlVeWltdG9zSkdjd0RLei9wVVRET0hTSlVOUjhKRFU1enNuNWpEcWZQeEFx?=
+ =?utf-8?B?RUtuU0dEcWtjWWc5eTd1VVpITDcwelRiU1J4czB1cTZYMFFXMkh1Nk5DWWhU?=
+ =?utf-8?B?M3F1T2lDNFRIQWMvQ0s2cFJkVkRLc2xsWkx5c1hpVURLYi9WdlFrTGk0WFlY?=
+ =?utf-8?B?dTJlcDZyV1N4UDF0ODdvSG9mUGNVNjRURGNLcm1yYVdveENJNXJlaGgwb1JH?=
+ =?utf-8?B?emJKZEw1NUs2WC9CMVp1elYrdSs0enBFRkhua1JKbjk2TlM4WEYzbkVCQ2lk?=
+ =?utf-8?B?L3hVcnpWaUI2V0RqNDFtOUhGRTBQTVFPTlBSTEQrNE1TWDEreGJTdEU2VXA2?=
+ =?utf-8?B?TlZ6Z1F4K1J0UEJFOG5uTFpTd2loeW9YS3RqYkRvMkw4M01WLzk4cmhydVoz?=
+ =?utf-8?B?elZDOEs2N2sxUXh4cTB6YnRlcERKTXFhTFh0enlLTU41OXJmdG1SVnpJQVVv?=
+ =?utf-8?B?Y1M0UkVOaHJxdjl4YVJXdUZDYTQwSWhvRmZmcThSTmNMV05vNGJQcEwyY3Fi?=
+ =?utf-8?B?TXp6TTlNTG5GR3ZDM09kU3BIVjNZd0JMT09NeTcwMTVla29lSWxnN2thRHJ3?=
+ =?utf-8?B?SUZzK3UvK2FwamRYbXRVQTNVbWlINVlwV3N4emVBUU9QTXhXdys5M3lvMW9i?=
+ =?utf-8?B?aTY2UUFRM0twa2J5cUJycGU5MlpySFdSUG9LWVVjTy9UQnh3TW5DamhhKzA1?=
+ =?utf-8?B?VGpaS1ViSmJMY3RhRFNaNGRkQTVKQXl3OVB5TkNENjNXRjFpNFUzd0ZzMDAx?=
+ =?utf-8?B?cVc0VWxkcE8wRW5jcmlrSy9TUWxVQTJuL2UvaitVUHRNSS8zRzVSa1ZOWklP?=
+ =?utf-8?B?RGVkb1NWSjhEUHdvZ2MrNlFDdmxGNys0bGlySVhOcmxOMmV1RFQvalZlVVFN?=
+ =?utf-8?B?UFArbURNdmUxYmt4aWc3TVhtcGs1Vzh5ZCtGeXVTU0JFUVJXZyswUFkyU2Jn?=
+ =?utf-8?B?bXJGY3RiTS9UMGdSOWhOa0w0K0hVN2hPL3ppd3FHMDJjSVpIU05XOXdnZ01X?=
+ =?utf-8?B?NGZWOEM4MzNsY2c2QW51Znp1UGhzN09Dc2NwM2V1SG5vbWpDZnc2Qm16cFZK?=
+ =?utf-8?B?OS9yR21mVHViOTNZdWVjVlkyUzBHNlJOeXN5RkpnR2UrMmlpUytuSmZ0elZW?=
+ =?utf-8?B?a004NkN5Q3VnWGFkYkxPbjdIWHZqSlQ5YmQzNGUwN2wrb3dLUzVVdz09?=
+X-Exchange-RoutingPolicyChecked:
+	50ADlzYlg8MXzY0ReLVjqCYoQm+0FrbQC62ozyL02kocQQGqrQy1svIvsn1Elw4PdKY0kIUDtI1CBVSp51nmFoMP0ZGogrlbFifMrppnAGZBhiq3kYBgOg6j+6oQyPQwKbxckflW7ewPQI6YRWziIP7NARpdUsqhnCDENiSCNXEeuewi6wkZ16MsjXtlgzxvlCS9vZ33kh1Z07xfnY1oDS+FWiM0D1RZLbs9WPdckU+c8cPEcPF97jvB2Wuy3qIPEQkw4TvVmHY0CVBsUVkspMSIAtm0xMGnx988RKI/WgyhAdN1GDzAbGUe/X3ioEgr/FlmQoUofRJnJAFyRz1ytA==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	PQuO+a3p6tBZH1pVMcvV+ISDVMSNHP2JqrUCREIc8YQGTA6B8n3N6KZt1IxVpAYPLLjY/h8z2Z723ahgZor2lSGbYuCYoFnsYDEXJglodQcFcsxtwxr3j+6QFny/Inh3CA2AVWh5jdhUMFyUET0Jv88G6VvWKUDSGKC515nzRdS0IOMMH8dg/gnJvoDP8uMhYstD9KuZ8YwMKgZX2e5wZPbwrzvA0wvMHeogYaBrCWFmhQyZcItoxOgf+njF6E6DbozVq/J5jHLx/Ah75QR7i4YLHN4C3vYe/+/hraFajkNLxDFwBUazSstVz9b0rXsEK3zqsUfnMIJ7d3zKDhfs7ZWK5ABsllZtCYMSH1D0Z5gLBPefutLZ8ct+ZbAWl7952siGPg2BYQyoZ/eS4EUY+KoOj6bPC9iRfVI0tFP4eJUB6VqpptvwRxDXPWQN1l8HyBdNL6uznFmBFHQ1feivFZt2zYg2+F+j/NZMalRzBbyPx7zaO5tyFfylz/65gkWK5VdmdZloIG/dsT9b4Je5eOdXGOyrDx9448RUafoEPQhXCm7XjHe5V+FlNlU2tFP5wxMVrn75MoZLia5GyFsu5rCsnFDw3TbUwOtiINeog8Q=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9420a6fc-a672-41be-a5d0-08df3856f6f1
+X-MS-Exchange-CrossTenant-AuthSource: CO1PR10MB5506.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 20:30:27.2239
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +nWXQkQtT6gDNE5gxqjxAUxESqF3IHViee/HPBv1p6qR0k3cMtLV0isSWkkQ3uLiGGMbngw6X+RQqQioCXd0bg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7936
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-01_07,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=100
+ suspectscore=0 malwarescore=0 lowpriorityscore=0 mlxlogscore=-999
+ adultscore=0 spamscore=100 phishscore=0 mlxscore=100 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611010080
+X-Proofpoint-GUID: 3GRCqAzL_BD1sbag6oP2Ncr-CaZRvs4D
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA4MSBTYWx0ZWRfXwAqRxYXHPu0e
+ sh404CJzbtzSr58tA1OgHxlUh0uTU4TCJ6S9es3pxKkZFChnje0V9cXc4IlUF+ZFSVzLnEQ1YY1
+ yZd1peO2vuH2qtPYr+HzysQmAt/RBoWoe1uVdoHTtkApQQqCZWto
+X-Proofpoint-ORIG-GUID: 3GRCqAzL_BD1sbag6oP2Ncr-CaZRvs4D
+X-Authority-Analysis: v=2.4 cv=J6g/fwnS c=1 sm=1 tr=0 ts=6ae7a166 b=1 cx=c_pps
+ a=WeWmnZmh0fydH62SvGsd2A==:117 a=WeWmnZmh0fydH62SvGsd2A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=VwQbUJbxAAAA:8
+ a=JfrnYn6hAAAA:8 a=yPCof4ZbAAAA:8 a=i0EeH86SAAAA:8 a=-TDe8IugaqCPtgTXhe4A:9
+ a=QEXdDO2ut3YA:10 a=WmVTiCyuxqgg3mnwYu6p:22 a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA4MSBTYWx0ZWRfX4GW8PR5E77A7
+ f7W5g9cStKgy0LWWtMXmITIq++y9eE5CNELuhujO79HepyfjN1jCp4RnSyc0Wy1k2BO7gjlI6py
+ T2wvKOTafI8ldRaaRaJqdhGlX4SpSgpPRteVLw0rfc+x1gIcIOfRHkayn6aB+O2zKclCuv1SoBG
+ 7qYYZgo4wvtuakYIUfhAGmuJ6wYOrdF/a4f3gBjeQ5WTIM4ofH1f8dlEbjojrKL5uOHflY7qKyG
+ l0Oh579wVFLi28TSeSHLsL/f75D0UW3+k82katR4Ir3moxYKIdPt2/z2CGT86fB11DwbX8slb2F
+ tmKQCeIoS3OYwhCU8zdLesf1qeH7asNCvSRmaf4cDT6N4tyzKghiAS6ZSdnm0ppuL3obQKdq/Fu
+ F93HcxOnemgFBAtjBr4vmZwsUoZ5Xhq4H0Do7mXADL65uSog3IO0piodhq/CVl6p+Mm12AuNhFs
+ MfQ9AnzoKcYSrsK+u3A==
 
-On Sun, 1 Nov 2026 14:33:57 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
++ David.
 
-> On 10/30/26 22:34, David Hildenbrand (Arm) wrote:
-> > Hi,
-> > 
-> > several MM updates:
-> > 
+FYI there were some prior discussions related to this topic.
+
+David has a patch at KVM to enhance the KVM API to resolve the issue. It is
+still not in mainline.
+
+[PATCH v7 31/36] KVM: x86: Add KVM_[GS]ET_CLOCK_GUEST for accurate KVM clock
+migration
+https://lore.kernel.org/all/20260728144954.355376-32-dwmw2@infradead.org
+
+I used to try to enhance from QEMU side to avoid clock drift while accounting
+for downtime.
+
+[PATCH 1/1] target/i386/kvm: account blackout downtime for kvm-clock and guest TSC
+https://lore.kernel.org/qemu-devel/20251009095831.46297-1-dongli.zhang@oracle.com
+
+Here is my RCA about forward drift and backward drift from another perspective.
+
+https://lore.kernel.org/all/935312be-9a86-49fd-8bb4-2c998a68e2df@oracle.com
+
+
+On Sun, Nov 1, 2026 8:19:14AM -0800, Chenzhendong (alex) wrote:
+> Hi,
 > 
-> @Andrew, should I pick these or do you want to route them through your tree?
+> While testing storage snapshots that suspend and resume a VM on the same
+> host (vm_stop -> snapshot -> vm_start), we observed that the guest
+> CLOCK_MONOTONIC jumps *backward* by the freeze duration after every
+> resume.
+> 
+> The problem
+> -----------
+> 
+> On a same-host pause/resume cycle, QEMU saves the kvmclock value at the
+> freeze instant (T1) via KVM_GET_CLOCK in vm_stop, and feeds it back via
+> KVM_SET_CLOCK in vm_start (T2 = T1 + freeze_duration).
+> 
+> kvm_vm_ioctl_set_clock() recomputes the offset unconditionally:
+> 
+>     kvmclock_offset = data.clock - now_raw_ns
+> 
+> with now_raw_ns sampled at T2. Since
+> 
+>     data.clock  = now_raw_ns(T1) + old_kvmclock_offset
+> 
+> this gives
+> 
+>     new_offset  = old_kvmclock_offset - freeze_duration
+> 
+> i.e. the offset is pulled back by the freeze duration.
+> 
+> The guest computes CLOCK_MONOTONIC from the pvclock page as:
+> 
+>     CLOCK_MONOTONIC = system_time + (rdtsc - tsc_timestamp) * mult >> shift
 
-I'll grab for now, thanks.  As a hotfix.
+CLOCK_MONOTONIC and kvm-clock are different topics.
 
-Because I'm whacking away at MAINTAINERS at present.  First step is to
-consistently name the components, below.
+I would suggest here use kvm-clock or PV clock.
 
-This is a two-patch series.  The first renames components so everything
-starts with "^MEMORY MANAGEMENT", leaving MAIINTAINERS incorrectly
-sorted.  The second patch only moves things around, to restore the
-alphasorting.
+> 
+> where system_time = kernel_ns + kvmclock_offset is filled by the host at
+> each vCPU entry. After resume the host re-samples tsc_timestamp, so the
+> (rdtsc - tsc_timestamp) term starts growing normally again and never
+> goes backward. The only term that can shrink is system_time: because
+> kvmclock_offset was pulled back by freeze_duration, the new system_time
+> is freeze_duration smaller than the value the guest last observed before
+> the freeze. The guest's next clock_gettime(CLOCK_MONOTONIC) therefore
+> reads a value freeze_duration smaller than before the freeze -- a
+> backward jump, violating the invariant that CLOCK_MONOTONIC never goes
+> backward.
+> 
+> The fix
+> -------
+> 
+> Only allow kvmclock_offset to move forward (or stay the same). If the
 
-So people only need look at the first patch.  Please review that.
+Ideally, neither forward nor backward drift is appreciated.
 
-After this I'll have it identify the various files under include/linux,
-mm/ and lib/ which can fairly be described as "mm".  That's looking
-like about 50 files at this time.
+Thank you very much!
 
-mm stuff:
-
-include/linux/gfp_api.h
-include/linux/mmu_context.h
-include/linux/node.h
-include/linux/pgtable_api.h
-include/linux/pti.h
-include/linux/rodata_test.h
-
-shared-with-other-subsystems stuff:
-
-include/linux/buffer_head.h
-include/linux/bvec.h
-include/linux/crash_reserve.h
-include/linux/dma-buf-io.h
-include/linux/dma-buf-mapping.h
-include/linux/dma-direction.h
-include/linux/elf-randomize.h
-include/linux/fault-inject-usercopy.h
-include/linux/fault-inject.h
-include/linux/firmware-map.h
-include/linux/flex_proportions.h
-include/linux/folio_queue.h
-include/linux/fs_api.h
-include/linux/genalloc.h
-include/linux/interval_tree.h
-include/linux/interval_tree_generic.h
-include/linux/io-mapping.h
-include/linux/io-pgtable.h
-include/linux/io.h
-include/linux/iommu-debug-pagealloc.h
-include/linux/iommu-helper.h
-include/linux/ioport.h
-include/linux/iov_iter.h
-include/linux/iova_bitmap.h
-include/linux/kho_radix_tree.h
-include/linux/mem_encrypt.h
-include/linux/memregion.h
-include/linux/mpage.h
-include/linux/ndctl.h
-include/linux/poison.h
-include/linux/radix-tree.h
-include/linux/ramfs.h
-include/linux/rbtree.h
-include/linux/rbtree_augmented.h
-include/linux/rbtree_types.h
-include/linux/scatterlist.h
-include/linux/sched/numa_balancing.h
-include/linux/set_memory.h
-include/linux/shm.h
-include/linux/stackdepot.h
-include/linux/uaccess.h
-include/linux/vmcore_info.h
-lib/tests/kunit_iov_iter.c
-
-Then I shall have it ensure that all these not-yet-covered files are
-entered in the appropriate place under an MM component.  This may
-require creation of new components for the purpose, tbd.
-
-After that I needs to have it cover Documentation/
-
-After that I need to have it whack away at selftests, shudder.
+Dongli Zhang
 
 
-
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: MAINTAINERS: use a common prefix for MM components
-Date: Sun, 01 Nov 2026 12:13:07 -0800
-
-Several MM component entries still use standalone headings, so searching
-for headings beginning with "MEMORY MANAGEMENT" misses them.
-
-Give these 18 entries the common "MEMORY MANAGEMENT - " prefix.  Leave
-them in place for now so that the renames can be reviewed separately
-from the subsequent alphabetical sorting.
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-
----
-
- MAINTAINERS |   36 ++++++++++++++++++------------------
- 1 file changed, 18 insertions(+), 18 deletions(-)
-
---- a/MAINTAINERS~maintainers-use-a-common-prefix-for-mm-components
-+++ a/MAINTAINERS
-@@ -6816,7 +6816,7 @@ T:	git https://gitlab.freedesktop.org/dr
- F:	include/linux/cgroup_dmem.h
- F:	kernel/cgroup/dmem.c
- 
--CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)
-+MEMORY MANAGEMENT - MEMORY RESOURCE CONTROLLER (MEMCG)
- M:	Johannes Weiner <hannes@cmpxchg.org>
- M:	Michal Hocko <mhocko@kernel.org>
- M:	Roman Gushchin <roman.gushchin@linux.dev>
-@@ -7322,7 +7322,7 @@ S:	Maintained
- W:	https://docs.dasharo.com/
- F:	drivers/platform/x86/dasharo-acpi.c
- 
--DAMON
-+MEMORY MANAGEMENT - DAMON
- M:	SJ Park <sj@kernel.org>
- L:	damon@lists.linux.dev
- L:	linux-mm@kvack.org
-@@ -12164,7 +12164,7 @@ S:	Maintained
- F:	Documentation/ABI/testing/debugfs-hisi-zip
- F:	drivers/crypto/hisilicon/zip/
- 
--HMM - Heterogeneous Memory Management
-+MEMORY MANAGEMENT - HMM (Heterogeneous Memory Management)
- M:	Jason Gunthorpe <jgg@nvidia.com>
- M:	Leon Romanovsky <leonro@nvidia.com>
- L:	linux-mm@kvack.org
-@@ -12328,7 +12328,7 @@ F:	drivers/power/supply/huawei-gaokun-ba
- F:	drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c
- F:	include/linux/platform_data/huawei-gaokun-ec.h
- 
--HUGETLB SUBSYSTEM
-+MEMORY MANAGEMENT - HUGETLB
- M:	Muchun Song <muchun.song@linux.dev>
- M:	Oscar Salvador <osalvador@suse.de>
- R:	David Hildenbrand <david@kernel.org>
-@@ -12362,7 +12362,7 @@ W:	https://linuxtv.org
- T:	git git://linuxtv.org/media.git
- F:	drivers/media/platform/st/sti/hva
- 
--HWPOISON MEMORY FAILURE HANDLING
-+MEMORY MANAGEMENT - HWPOISON MEMORY FAILURE HANDLING
- M:	Miaohe Lin <linmiaohe@huawei.com>
- R:	Naoya Horiguchi <nao.horiguchi@gmail.com>
- L:	linux-mm@kvack.org
-@@ -17370,7 +17370,7 @@ F:	arch/*/include/asm/sync_core.h
- F:	include/uapi/linux/membarrier.h
- F:	kernel/sched/membarrier.c
- 
--MEMBLOCK AND MEMORY MANAGEMENT INITIALIZATION
-+MEMORY MANAGEMENT - MEMBLOCK AND INITIALIZATION
- M:	Mike Rapoport <rppt@kernel.org>
- L:	linux-mm@kvack.org
- S:	Maintained
-@@ -17879,7 +17879,7 @@ F:	rust/kernel/mm.rs
- F:	rust/kernel/mm/
- F:	rust/kernel/page.rs
- 
--MEMORY MAPPING
-+MEMORY MANAGEMENT - MEMORY MAPPING
- M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Liam R. Howlett <liam@infradead.org>
- M:	Lorenzo Stoakes <ljs@kernel.org>
-@@ -17916,7 +17916,7 @@ F:	mm/vma_internal.h
- F:	tools/testing/selftests/mm/merge.c
- F:	tools/testing/vma/
- 
--MEMORY MAPPING - LOCKING
-+MEMORY MANAGEMENT - MEMORY MAPPING - LOCKING
- M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Suren Baghdasaryan <surenb@google.com>
- M:	Liam R. Howlett <liam@infradead.org>
-@@ -17932,7 +17932,7 @@ F:	include/linux/mmap_lock.h
- F:	include/trace/events/mmap_lock.h
- F:	mm/mmap_lock.c
- 
--MEMORY MAPPING - MADVISE (MEMORY ADVICE)
-+MEMORY MANAGEMENT - MEMORY MAPPING - MADVISE (MEMORY ADVICE)
- M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Liam R. Howlett <liam@infradead.org>
- M:	Lorenzo Stoakes <ljs@kernel.org>
-@@ -18728,7 +18728,7 @@ S:	Maintained
- F:	drivers/phy/marvell/phy-mmp3-usb.c
- F:	drivers/phy/marvell/phy-pxa-usb.c
- 
--MMU GATHER AND TLB INVALIDATION
-+MEMORY MANAGEMENT - MMU GATHER AND TLB INVALIDATION
- M:	Will Deacon <will@kernel.org>
- M:	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
- M:	Andrew Morton <akpm@linux-foundation.org>
-@@ -21113,7 +21113,7 @@ F:	Documentation/core-api/padata.rst
- F:	include/linux/padata.h
- F:	kernel/padata.c
- 
--PAGE CACHE
-+MEMORY MANAGEMENT - PAGE CACHE
- M:	Matthew Wilcox (Oracle) <willy@infradead.org>
- M:	Jan Kara <jack@suse.cz>
- L:	linux-fsdevel@vger.kernel.org
-@@ -21142,7 +21142,7 @@ F:	include/net/page_pool/
- F:	include/trace/events/page_pool.h
- F:	net/core/page_pool.c
- 
--PAGE TABLE CHECK
-+MEMORY MANAGEMENT - PAGE TABLE CHECK
- M:	Pasha Tatashin <pasha.tatashin@soleen.com>
- M:	Andrew Morton <akpm@linux-foundation.org>
- L:	linux-mm@kvack.org
-@@ -21829,7 +21829,7 @@ S:	Maintained
- F:	Documentation/networking/device_drivers/ethernet/pensando/ionic.rst
- F:	drivers/net/ethernet/pensando/
- 
--PER-CPU MEMORY ALLOCATOR
-+MEMORY MANAGEMENT - PER-CPU MEMORY ALLOCATOR
- M:	Dennis Zhou <dennis@kernel.org>
- M:	Tejun Heo <tj@kernel.org>
- M:	Christoph Lameter <cl@gentwo.org>
-@@ -25539,7 +25539,7 @@ T:	git git://linuxtv.org/media.git
- F:	drivers/media/i2c/rj54n1cb0c.c
- F:	include/media/i2c/rj54n1cb0c.h
- 
--SHRINKER
-+MEMORY MANAGEMENT - SHRINKER
- M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Dave Chinner <david@fromorbit.com>
- R:	Qi Zheng <qi.zheng@linux.dev>
-@@ -25775,7 +25775,7 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/nvmem/layouts/kontron,sl28-vpd.yaml
- F:	drivers/nvmem/layouts/sl28vpd.c
- 
--SLAB ALLOCATOR
-+MEMORY MANAGEMENT - SLAB ALLOCATOR
- M:	Vlastimil Babka <vbabka@kernel.org>
- M:	Harry Yoo <harry@kernel.org>
- M:	Andrew Morton <akpm@linux-foundation.org>
-@@ -29831,7 +29831,7 @@ F:	net/vmw_vsock/
- F:	tools/testing/selftests/vsock/
- F:	tools/testing/vsock/
- 
--VMALLOC
-+MEMORY MANAGEMENT - VMALLOC
- M:	Andrew Morton <akpm@linux-foundation.org>
- M:	Uladzislau Rezki <urezki@gmail.com>
- L:	linux-mm@kvack.org
-@@ -30864,7 +30864,7 @@ M:	"Maciej W. Rozycki" <macro@orcam.me.u
- S:	Maintained
- F:	drivers/tty/serial/zs.*
- 
--ZSMALLOC COMPRESSED SLAB MEMORY ALLOCATOR
-+MEMORY MANAGEMENT - ZSMALLOC COMPRESSED SLAB MEMORY ALLOCATOR
- M:	Minchan Kim <minchan@kernel.org>
- M:	Sergey Senozhatsky <senozhatsky@chromium.org>
- L:	linux-mm@kvack.org
-@@ -30887,7 +30887,7 @@ F:	lib/zstd/
- N:	zstd
- K:	zstd
- 
--ZSWAP COMPRESSED SWAP CACHING
-+MEMORY MANAGEMENT - ZSWAP COMPRESSED SWAP CACHING
- M:	Johannes Weiner <hannes@cmpxchg.org>
- M:	Yosry Ahmed <yosry@kernel.org>
- M:	Nhat Pham <nphamcs@gmail.com>
-_
-
-
-
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: MAINTAINERS: sort component entries alphabetically
-Date: Sun, 01 Nov 2026 12:13:07 -0800
-
-Sort the component entries alphabetically, keeping the introductory
-text at the start and THE REST at the end.  This groups the renamed MM
-entries together and corrects existing ordering inconsistencies.
-
-Move complete entries without changing their contents or the order of
-lines within them.
-
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-
-
----
-
- MAINTAINERS | 3252 +++++++++++++++++++++++++-------------------------
- 1 file changed, 1626 insertions(+), 1626 deletions(-)
-
-[enormous and utterly boring patch elided]
+> newly computed offset would be smaller than the current one, keep the
+> current value, so the guest clock keeps running forward and the freeze
+> duration is simply skipped from the guest's perspective -- which is the
+> expected behavior for a same-host pause/resume. This is a pure monotonic
+> protection with no time threshold; the normal forward path (guest boot,
+> KVM_CLOCK_REALTIME, cross-host migration toward a later destination host
+> clock) is unaffected.
+> 
+>     old_off = ka->kvmclock_offset;
+>     new_off = data.clock - now_raw_ns;
+>     if (new_off >= old_off)
+>             ka->kvmclock_offset = new_off;
+> 
+> Test
+> ----
+> 
+> Inside the guest, pin a vCPU and call clock_gettime(CLOCK_MONOTONIC)
+> twice in a row, flagging any backward step. Over 50 snapshot
+> suspend/resume cycles the backward-step counter stays at 0 with this
+> patch, while the unpatched kernel reports a backward jump on every cycle
+> (measured freeze duration 27-36 ms).
+> 
+> To the best of our knowledge this scenario is not handled upstream. Any
+> feedback on whether monotonic protection is the right approach (vs. e.g.
+> teaching QEMU to feed a post-resume clock) would be much appreciated.
+> 
+> Signed-off-by: <Alex Chen> <alex.chen@huawei.com>
+> ---
+>  arch/x86/kvm/x86.c | 19 ++++++++++++++++++++-
+>  1 file changed, 18 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+> index 7a0d0e8e5c1f..000000000000 100644
+> --- a/arch/x86/kvm/x86.c
+> +++ b/arch/x86/kvm/x86.c
+> @@ -XXXX,XX +XXXX,XX @@ static int kvm_vm_ioctl_set_clock(struct kvm *kvm, void __user *argp)
+>  	struct kvm_arch *ka = &kvm->arch;
+>  	struct kvm_clock_data data;
+>  	u64 now_raw_ns;
+> +	s64 old_off, new_off;
+>  	...
+>  	if (ka->use_master_clock)
+>  		now_raw_ns = ka->master_kernel_ns;
+>  	else
+>  		now_raw_ns = get_kvmclock_base_ns();
+> -	ka->kvmclock_offset = data.clock - now_raw_ns;
+> +
+> +	/*
+> +	 * Monotonic protection: data.clock is the kvmclock value userspace
+> +	 * saved at vm_stop (freeze instant); now_raw_ns is sampled at resume.
+> +	 * The naive kvmclock_offset = data.clock - now_raw_ns pulls the
+> +	 * offset back to the freeze instant, which makes pvti.system_time =
+> +	 * kernel_ns + kvmclock_offset jump backward by the freeze duration ->
+> +	 * guest vDSO CLOCK_MONOTONIC goes backward.
+> +	 *
+> +	 * Only allow kvmclock_offset to move forward (or stay). If the new
+> +	 * offset would shrink, keep the old one so the guest clock keeps
+> +	 * running forward (the freeze duration is simply skipped from the
+> +	 * guest's perspective, which is the desired behavior for a same-host
+> +	 * pause/resume). Pure monotonic protection, no time threshold.
+> +	 */
+> +	old_off = ka->kvmclock_offset;
+> +	new_off = data.clock - now_raw_ns;
+> +	if (new_off >= old_off)
+> +		ka->kvmclock_offset = new_off;
+>  	kvm_end_pvclock_update(kvm);
+> 
+> 
 
