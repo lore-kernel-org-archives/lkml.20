@@ -1,47 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793556692;
-	b=Vthgl0wXch71HvBBBoQLHjnCorIfoqXCFMt8cWxmt2dh4i36swpdz7fkugoxJ/HwTPch
-	 vgdumPevDTu27Giqt+topCL6aYpuKWq9LWTPFV1KbU8Ys8TMCrU9JFeEQ4tG6S6Kc3XQm
-	 coEJ2wzeZSHctYamEypoKQNFsuQPuddny6Vsj4CUYhpEzgudAM4YbNQiUzx1FvkKsBmQy
-	 Z+X0gVw2gizbadqokxAOLLCcpslwJQ02uV1QmTQkbdrQBmnV3D4wcAyYHRhiTU9P6k4kq
-	 LeG72SZte8mTmhHDWqdftq0k02zyXxssULAt5VfL9SayAPmJe7SxZeDR6F+Eu0xjXYQ==
+	t=1793557154;
+	b=XcBoUk2hDYDeBns51pKJyVOemqPDVlJxCF2QPMaCsgoODYwjfZgwosVFihkhovsFXjRE
+	 ER0LO37FwcDYKjQGLGbhlTE0VsZgryV+HJEj10jG2S1B5kiVRFPzERE0Mya/h9r7A1UMg
+	 couy2tlFkb6jLq2lPid+piXwlZF0r6eWlNo2ExcF1Z5fhxhtF8il992dpqfCU/QKOedi0
+	 LB61cueceOKmRChyTNb0dd1Me61WspsJeZ4kyZ8bFn/ZLVBX/DeBUVObdxEjyX99X9T5G
+	 Kt7xY/AcdsMo1lNzdox9JBHFD7IR+ysfVup9fCPbChaLToBE61j0VycOqFzEU4Pe1EA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556692;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Zk/xFJUvpptQoHdHEaeuVhwsJCx4lSLvvDbqB+bW+vw=;
-	b=jOr1YPTK24BCOZkpmjiYX1aoRLf4ASNoWMW/76OLMce65hddiEb+jBWZzKrybooSAHsz
-	 j9imSmK1c6hRi9PQEvtf/KvPmk0sFS1mGuI8ZccYAZSPG//8EM9/u1MjPLJt28BH6uuMQ
-	 8oOJCRdKapAn0PFI3LQS33nbYlHCqORkXB03nYHyO60TPODXN6ov0U5QcnILLh1wMqemz
-	 pZnf6b16oo6/w45hkYT39mRsrYSeZdEd0pGZDSF+XvqjH9o7O5Q+6PsDKWeRJ0737WGOp
-	 Ttg/ePvqrLG41NHwRF4rpB+5fcAy0epeEAG3CNr60HagSt00n6030b46MxWhlE9KqWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793557154;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Aftig2Ne/3CxSWuKKfD95dH4T81sYzdzYxbLhLJC1hI=;
+	b=hsWCZsZhVCb+khQCc1R2R7tShVycTVu+k0oUn+wXbiNRQlyW0Ogmqe0NEECP0Y+BzMPI
+	 n5vH+4n9lPxgVJBVG1UwP/oj934TC7Rs01EX0Q+GABz5BtYiUie2RtwcmYjDGsedrH5B+
+	 EOnB364wofwtN4Ne/iyQhktY2KOU7PlfPl6CgZxVm6lEgy30JNwjx+dyKCLk1YYZO+Hta
+	 ZlEx9ldCII1mw/+7xwbXSrf7HZ84Ug13fvFBcMMBkF4SZ6r9hJGrsoY7UnE+qUotAsxeB
+	 gi16MixX3JSKmIWmF6nRdj98gRQTA3UE/7z6RBKDKdtEM4AcV6MydPvbYhjnf9R9Gvg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtxP6fXD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhMLtvVC;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F035A606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:11:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D08606A325;
+	Sun,  1 Nov 2026 18:19:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HtxP6fXD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E04E51F000C1;
-	Sun,  1 Nov 2026 18:11:28 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GhMLtvVC
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C8301F000C1;
+	Sun,  1 Nov 2026 18:19:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793556691;
-	bh=Zk/xFJUvpptQoHdHEaeuVhwsJCx4lSLvvDbqB+bW+vw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HtxP6fXDfmT0rvIllJX1TjxmAptTL1keHNyLrhMec4tzYta4xCLHG7DmeCk0NIBEM
-	 duYQoZDCEXKk89Du3QYSNf08uDk25WuEy+vhOOLIiTIHk87Y4ZEzkVvUBWi3MlJvbF
-	 i1avA+rgj0Krl7GCfOYJtue+Hrkbl327CPRmEcJ35wGae6M/H+hpvQgc3YCn19z+ly
-	 CCL/+yMTtzKawo6mK6xLYfDr+IPTO2Niqeh23lTW1jEj7VgitWX13fsIMYFTUhsGBP
-	 12CVBI15ZGEeuRlQiV41Svp7z0U+4ZDTdGZPZzFbx4GCi0G0YUDvFmWS7Hdg3hYIvI
-	 qA6MDmn+i6nkA==
-Message-ID: <79820b33-7e74-4e12-926f-1e03987d7bda@kernel.org>
-Date: Sun, 1 Nov 2026 19:11:25 +0100
+	s=k20260515; t=1793557153;
+	bh=Aftig2Ne/3CxSWuKKfD95dH4T81sYzdzYxbLhLJC1hI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GhMLtvVCJPf/sZKo0J2zfkg1OzOJgOYVnjkCfiGTGzVpAslztG0KTsclnh3sEsUJT
+	 WZu9P5Ta3xVBztTYoV8KqxYgEJSHRrd5Gk8dpFAvGc8JSQaj9Z1ACgmcrSOwe0pj3J
+	 K0piCcSM2VVjd/JypHXnXX4dqAjud9XNdhZNxCTzsPWzeqVz8X+E4kXzSa1BCc0JqS
+	 VN9lRG7ey+hNaZM4SBsGcD/2+/5Hvm58EfeX/Y/tKlyPD7QF1v/qw5/YKfld0UuGsb
+	 I/UfYG1oILMJsV7N1SDplDExWn3yH2kwu+3CKDsBFgzMFlGo/RBsJu3Sx+x2BSwCUk
+	 8MODb0i8URwPw==
+Subject: Re: [PATCH net] gve: leave refcount headroom in the RX page bias
+From: netdev-bot+sashiko@kernel.org
+To: amaan.cheval@gmail.com
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, joshwash@google.com, hramamurthy@google.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, zhilinz@nebusec.ai,
+ jiayuan.chen@linux.dev, kuniyu@google.com
+Date: Sun, 01 Nov 2026 18:19:12 +0000
+Message-ID: <179355715214.3131.12199411268855919850@kernel.org>
+In-Reply-To: <20261031173449.2439047-1-amaan.cheval@gmail.com>
+References: <20261031173449.2439047-1-amaan.cheval@gmail.com>
+X-sashiko-severity: Critical
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,130 +64,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/ksm: avoid anon_vma UAF during page merging
-To: Zhao Gongyi <zhaogongyi@bytedance.com>, akpm@linux-foundation.org
-Cc: xu.xin@linux.dev, chengming.zhou@linux.dev, aarcange@redhat.com,
- riel@redhat.com, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- "Lorenzo Stoakes (Arm)" <ljs@kernel.org>
-References: <20261031182256.40205-1-zhaogongyi@bytedance.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20261031182256.40205-1-zhaogongyi@bytedance.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 10/31/26 19:22, Zhao Gongyi wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Hi,
+Critical: 1 · High: 0 · Medium: 0 (1) · Low: 0
 
-thanks for the report! CCing Lorenzo.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-> KASAN reports a use-after-free in page_address_in_vma() while ksmd
-> merges pages. ksmd keeps a folio reference across an mmap_lock drop,
-> during which mremap() can remove its last mapping and free its
-> anon_vma. page_address_in_vma() then dereferences the stale pointer
-> from folio->mapping.
+- [Critical] This patch moves gve's RX page bias from INT_MAX to
+  USHRT_MAX, but keeps the old refill rule in gve_dec_pagecnt_bias()…
 
-Do you have a link to the report or the actual KASAN report?
+Pre-existing issues:
+- [Medium] This problem wasn't introduced by this patch, but in
+  gve_rx_copy_to_pool() (drivers/net/ethernet/google/gve/gve_rx.c) the…
 
-> 
-> KSM needs only a candidate address. write_protect_page() checks that
-> the PTE maps the folio, and replace_page() verifies the saved PTE
-> before replacing it. Compute the candidate from the folio index and
-> VMA instead of dereferencing the folio-side anon_vma. Reject KSM
-> folios because their page index is not meaningful.
-> 
-> Fixes: 21d0d443cdc1 ("rmap: resurrect page_address_in_vma anon_vma check")
-> Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
-> ---
-> Testing:
->   Unpatched mm-new: fixed-pool KSM/mremap reproduced the KASAN UAF.
->   Patched mm-new: the same workload ran for 12 minutes without KASAN,
->   BUG or WARNING; fork/COW KSM smoke passed.
-> 
->  mm/ksm.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
-> 
-> diff --git a/mm/ksm.c b/mm/ksm.c
-> index d6f736a..f8af5ee 100644
-> --- a/mm/ksm.c
-> +++ b/mm/ksm.c
-> @@ -1307,7 +1307,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
->  	if (WARN_ON_ONCE(folio_test_large(folio)))
->  		return err;
->  
-> -	pvmw.address = page_address_in_vma(folio, folio_page(folio, 0), vma);
-> +	pvmw.address = vma_anon_address(vma, folio_pgoff(folio), 1);
->  	if (pvmw.address == -EFAULT)
->  		goto out;
->  
-> @@ -1408,7 +1408,7 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
->  	int err = -EFAULT;
->  	struct mmu_notifier_range range;
->  
-> -	addr = page_address_in_vma(folio, page, vma);
-> +	addr = vma_anon_address(vma, page_pgoff(folio, page), 1);
->  	if (addr == -EFAULT)
->  		goto out;
->  
-> @@ -1515,7 +1515,7 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
->  	if (page == kpage)			/* ksm page forked */
->  		return 0;
->  
-> -	if (!folio_test_anon(folio))
-> +	if (!folio_test_anon(folio) || folio_test_ksm(folio))
->  		goto out;
->  
->  	/*
-> base-commit: 243e8cdab64129d6207c398f8cf5fbb1962ff7e1
+--
 
+gve: leave refcount headroom in the RX page bias
+
+This patch changes the GQI and DQO-QPL RX page bias from INT_MAX to
+USHRT_MAX and stores pagecnt_bias in a u16. A get_page() from the stack
+therefore no longer wraps the page refcount negative.
+gve_dec_pagecnt_bias() now adds a fixed batch of GVE_PAGECNT_BIAS
+references when the bias reaches zero.
+
+Link: https://github.com/amaanc/kernel-bias
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_rx.c b/drivers/net/ethernet/google/gve/gve_rx.c
+> index 81ea800e66e94..6533fff061555 100644
+> --- a/drivers/net/ethernet/google/gve/gve_rx.c
+> +++ b/drivers/net/ethernet/google/gve/gve_rx.c
+> @@ -152,8 +152,8 @@ static void gve_setup_rx_buffer(struct gve_rx_ring *rx,
+>  	page_info->buf_size = rx->packet_buffer_size;
+>  	*slot_addr = cpu_to_be64(addr);
+>  	/* The page already has 1 ref */
+> -	page_ref_add(page, INT_MAX - 1);
+> -	page_info->pagecnt_bias = INT_MAX;
+> +	page_ref_add(page, GVE_PAGECNT_BIAS - 1);
+> +	page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
+>  }
+
+[Severity: Medium]
+This is a pre-existing issue and was not introduced by this patch. While
+looking at the GQI-QPL copy pool, does gve_rx_copy_to_pool() leak the
+fallback page?
+
+drivers/net/ethernet/google/gve/gve_rx.c:gve_rx_copy_to_pool() {
+    ...
+		page = alloc_page(GFP_ATOMIC);
+		if (!page)
+			return NULL;
+
+		alloc_page_info.page = page;
+    ...
+		skb = gve_rx_add_frags(napi, &alloc_page_info,
+				       PAGE_SIZE,
+				       len, ctx);
+    ...
+		return skb;
+    ...
+}
+
+gve_rx_add_frags() can return NULL before skb_add_rx_frag() attaches
+the page:
+
+		skb = napi_get_frags(napi);
+		if (unlikely(!skb))
+			return NULL;
+    ...
+			skb = napi_alloc_skb(napi, 0);
+			if (!skb)
+				return NULL;
+
+In that case the only pointer to the page is in the stack-local
+alloc_page_info. gve_rx_copy_to_pool() then returns NULL without calling
+put_page(page).
+
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/google/gve/gve_utils.c b/drivers/net/ethernet/google/gve/gve_utils.c
+> index caed38cd5f2b3..cb6fba3122d5b 100644
+> --- a/drivers/net/ethernet/google/gve/gve_utils.c
+> +++ b/drivers/net/ethernet/google/gve/gve_utils.c
+> @@ -93,15 +93,9 @@ void gve_dec_pagecnt_bias(struct gve_rx_slot_page_info *page_info)
+>  {
+>  	page_info->pagecnt_bias--;
+>  	if (page_info->pagecnt_bias == 0) {
+> -		int pagecount = page_count(page_info->page);
+> -
+> -		/* If we have run out of bias - set it back up to INT_MAX
+> -		 * minus the existing refs.
+> -		 */
+> -		page_info->pagecnt_bias = INT_MAX - pagecount;
+> -
+> -		/* Set pagecount back up to max. */
+> -		page_ref_add(page_info->page, INT_MAX - pagecount);
+> +		/* Out of bias: take another batch of references. */
+> +		page_info->pagecnt_bias = GVE_PAGECNT_BIAS;
+> +		page_ref_add(page_info->page, GVE_PAGECNT_BIAS);
+>  	}
+>  }
+
+[Severity: Critical]
+Can this page_ref_add() run on a QPL page that has already been freed?
+
+The top-up only happens once the bias has reached zero, which is after
+the last driver-held reference was handed off. igb, one of the drivers
+the commit message cites, refills while the bias is still 1, before the
+handoff:
+
+drivers/net/ethernet/intel/igb/igb_main.c:igb_can_reuse_rx_page() {
+    ...
+	if (unlikely(pagecnt_bias == 1)) {
+		page_ref_add(page, USHRT_MAX - 1);
+		rx_buffer->pagecnt_bias = USHRT_MAX;
+	}
+    ...
+}
+
+On DQO-QPL, gve_xdp_done_dqo() calls xdp_do_redirect() first and only
+then drops the bias:
+
+	case XDP_REDIRECT:
+		err = xdp_do_redirect(priv->dev, xdp, xprog);
+		if (unlikely(err))
+			goto err;
+		gve_reuse_buffer(rx, buf_state);
+
+gve_reg_xdp_info() registers MEM_TYPE_PAGE_SHARED for QPL queues. With
+an AF_XDP socket in copy mode, the redirect target returns the buffer
+before xdp_do_redirect() comes back to the driver:
+
+gve_xdp_done_dqo()
+  xdp_do_redirect()
+    __xsk_map_redirect()
+      xsk_rcv()
+        xdp_return_buff()        /* MEM_TYPE_PAGE_SHARED */
+          page_frag_free()
+            put_page_testzero() -> free_frozen_pages()
+  gve_reuse_buffer()
+    gve_dec_pagecnt_bias()
+      page_ref_add()             /* page already freed */
+
+Each redirect lowers page_count and pagecnt_bias by one together. After
+65534 redirects from one QPL page, both are 1, and the remaining
+reference is the QPL's own base reference. The next redirect frees the
+page in page_frag_free(), even though the page is still registered with
+the NIC and still listed in qpl->pages[].
+
+gve_dec_pagecnt_bias() then sets the bias to 65535 and adds references
+to the freed page. The device keeps DMA-ing received packets into it,
+and the driver keeps handing it to XDP and to skbs.
+
+Nothing appears to block this setup. gve_verify_xdp_configuration() does
+not reject DQO-QPL, and dev_xdp_attach() does not check xdp_features.
+
+The same ordering problem existed with INT_MAX, but then it took about
+2^31 handoffs per page. With USHRT_MAX it takes 65535, which sustained
+traffic can reach quickly.
+
+Should the refill happen at pagecnt_bias == 1, before the buffer is
+handed off, as igb does?
 
 -- 
-Cheers,
-
-David
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031173449.2439047-1-amaan.cheval%40gmail.com
