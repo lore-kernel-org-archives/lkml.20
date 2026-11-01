@@ -1,95 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793551381;
-	b=MahuZzgkqgrGFyqGxP0bCXEgeGCHGP3ht2FUbkWkdzxtUEG+OmZXF0rveZSXLCH5DduF
-	 CUx1w0tJNqs+RHH9HBvE+2KFu4VT2rNrx6Aw+O11rTIO8RgwgraxY0JvEuXum2e+K5JIN
-	 AjRs1V3xgBn9WW0qlu++PhrS9J/k0ErzX5ryEU6SBfkJQoBZWQZatfXsbY3gTBq1kDVRn
-	 yLUfTiRTCGGN+Ggx97ZAXtjjmB9cQnuyAn1KTOC0mlybUeImsFleRCeUlcNvl+BWC0rX5
-	 4G5z/u33bWFzQtX6uVBiDLHYltrHjuUgEpxzFdtG9+KzGncTkjuCE5qIYkv+JitKPaw==
+	t=1793551476;
+	b=Vg9cTEYnx+m82YPGVOpnX/047o4OotsJnkdiQsIZkZqxKMVnzGYm7lnc7bd3p2pm8Exi
+	 noppsS0D+2AZX9ZGaPr+McKuaNog45OOBkafHtqsGv0e/wO8NxeoDidTiVQ6MyFUajiwb
+	 iAoBJJCv4QGxdYjMcqh7mTvJzWVihkdbLISS6S0LYh0uJN7nJfxtdXBRbbw3aYfhx1IY0
+	 MLXeDcdcVSrsn+pbRoCgc5xlwHFti+wjijjPzaWTosS5xEU/0NGs77rEA6P7fMoVr6qjL
+	 oXMu/LXK82cUXUN52lBF76FwUcJhpos7EDQdMJjxb7cWNOlVlXj4yThZd8J6hetRZeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793551381;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793551476;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=nqSPqL8yjaU09QPPfgAWe8HPn4ku6hVjF8Y+SAe+d9U=;
-	b=dlDQtUcI2+kIcQ4fdpgz0QUMjwi+lCq6pvmGr+262OcWkCrPtJ1/boHCSfwqjglltdo+
-	 h1giOPAz5UB91luGvvWKK+675cAjNGWnXG/9JKTDGM7AYVSY2I9R5FLaV/uquYR6NMcBt
-	 Qri96HMcri9kV8CtqltWU73ZZ+EgD/dqLPGJaFYmvH/jYICbs2H7nxC2HgQv2Z/AigBHI
-	 zHTS6MT+su4/BW/N0DtNVVH4tEwpoM8louNttqPAiFy/KZAc6xoaESyz9fr3Y8p6P6XLA
-	 +WMgYJEDC5rbeRHEPZ4HfUt/zBhB0Xp2tCf1swy/VVsdy0sCWF31zWTAIPGRreOHfzA==
+	bh=9aOJYyjhEG5QFHqOyuUpkNt3Bv7NGCpLH14WnNP73X8=;
+	b=dW9lQzmYyAi9pHFw2v3p0mTkqBoIsDme02on87KvJ0Lam0qC+6rBQ66PC9PythdHbmcj
+	 s3IilAB6rU2PaOZfP4zXCUxgYzMZYNTwNBSq9T70Sz0yT83rIuYDbK8GLcyjDJ6RgppId
+	 Z2oIpUNUiTkBBnZjILBrCxNVI34CaPrquEGn9439nxvznJhTdqSGC41cKDdKAwTH/N2V7
+	 YhC0um+Ol4cochAIPAOSsIjorUF2ctQPE7Wg4LLk7O3XnPuveFeg3P0UEc9xji7lpE9oX
+	 TFsKzJw39SwHwOfDAs6yf4fxaYo1vOnFFJyjlTKwcOm4HDFSWSZwR84rxd6BGRcvaZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bairaktaris.de;
-	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=ler5jBfN;
-	arc=none smtp.remote-ip=209.85.208.42
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xOGeyGay;
+	arc=none smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E65A606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:43:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E65A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F172B606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:44:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F172B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=ler5jBfN
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so3631773a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:43:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xOGeyGay
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-369fc2e984fso224840eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:44:35 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1793551379; x=1794156179; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nqSPqL8yjaU09QPPfgAWe8HPn4ku6hVjF8Y+SAe+d9U=;
-        b=ler5jBfNdB0+YhpwAf2om5N9kE/dn47PDFSiVVPhQqJwi4Q+kCy4Kel5oKcffZbjXj
-         8d/KArdqZZTK1mEjFsT3NGlYGWjyl79+cmny5A07lzUhLUrMEuCfmRVvYGPcHQu/6Tq4
-         u9IPpfztx1NRxf2rWEE+5GjV56pyBSjEWO8HgC91POIXQjK8YSdt8Qdjb0+LcTDmf63w
-         QtWMO/A4suz4wBqwwIlZEBZPKZDT8us88rOD4EGE/DZpG9lTuzeZz5lC3MLdvmNx6HYm
-         YfKTi7lZa0e/TAoKT1Kk8yTR47CExXw4cqvt7SZtJfj+mQA3EJdwhrRI0Pm/N3cpwBFU
-         9lUA==
+        d=gmail.com; s=20260707; t=1793551475; x=1794156275; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9aOJYyjhEG5QFHqOyuUpkNt3Bv7NGCpLH14WnNP73X8=;
+        b=xOGeyGayz+OGSJ8gV4I/TWxWvQCCci5c+IIYaLYByXD40JdHHQaHh7waRJMx9bS8KT
+         EpSI2pUC/3Eom9ha2HzT93PYvx1H+KwVOay2FMwM5g1S3u9a4voF/6D+Iswqeu/gEcaw
+         uZzqwerwT/yAOaVKubuoZ/9tjjFVrAJDp2qVEzZ7MA5Q8M1bh7g1k+wd829I136G2lbv
+         5KzFXI9srPzM4C5a/3bdk1+UaF8TQehtBNtjXf8809SH7LIQ3AAVaz89lkqrAewzQX8o
+         LhCuj0O3CiyU3aB914iMT+WXx9k0ipK1Fcz800O/PGgzsmLq4wFtzBf9EZvNjWxsC0Jd
+         b5QA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793551379; x=1794156179;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nqSPqL8yjaU09QPPfgAWe8HPn4ku6hVjF8Y+SAe+d9U=;
-        b=dhA6l93asNE/1M43B7V5wGLwbaKsHWGhsuZHaXqzce1ZL98L/N55r/bNyp86sbHcwQ
-         JmBiKMrCz7QtNEm0HhT1aPmp3EUcIQ8FXtK0jWSjRLaO6L0Ryq/MAuPxU5fCWytPqAaz
-         fh40c88yiJqJBQfBOfzHhMiEwZeAW7Pg6L6cbf6Gm1mxRUAiNc4ZlyLNimuOZSeQQ6BX
-         uvstolBb9pN5Y3Ywn13DqFnfuwt6kFzzUX46H+nVy0nbpVeikuT5QXRl1f7zwRTTcpOZ
-         RdDyKffpcnhQf0wTFe72zUYeGf3T+aK0/1AvTJgXm0MjqKkbq1baVLGBwXwDzSHqoMou
-         22dA==
-X-Forwarded-Encrypted: i=1; AKwUvByT83zMd5FuDfr7Qc03hv9fb08ri8+TzimYykkvk6vBkTEtPgbUqsLMAp9NlbXWq247qT3H69OOrQtOt6A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9UjJIDfTx3kUrdehEFC0PIj+6meO7cRm57FSQ3SfY0of1Jalhl
-	8ccx8LDvTw0OhM1LruZlC/TMTYjq8kO4IbCEK8C2cC+YkI7IFhlBvqRPJdrbPnBfiQ==
-X-Gm-Gg: AYBFou3qDH8S6Wn0IqBl14dpSwSiXKlmip0VzBmY8eNHGv8TNzPVjnRdKct5/Tyirfp
-	sWUNVG4Y5SD5vWusIsO0bz25EG/+77iOeSxgvSPn4U9fYNhd8IM5c7j3peRImXTzjg3ztP1oK07
-	vUjYKNrvEKCFuD5PYIhwX+hWuVFDj4iBOzk570nEA8rkK37UV58sEyaI2d1vnu9ENJ/GPYS4UwB
-	KQMdE9NybFwRlVbXaJalKUNRmqFlBQPwUfvZ1aY3lrHraUSkim/jybr4nf0mKopR0PnsG6G14a2
-	vvzEjoKp4IsLZIjSOuaJuQrpqgzEZBmfSOzJ6Bfa6TiXG0uhg/0B0DrsTbvVP1nkygl0yoKeGJB
-	dcxuc5b/mMVyDUgb4kajwizjyeOrjRTOHaHZC1Ajuj+D9RlX29yXBdRTDMdkMaj60NCaZSJPNtH
-	9ltYf/drygG3ppriHPHRz1VZryTMKUSnqDlPdjuJZGEbRC7ZCGb7x4LVbk+pp1tfL2w7coYdxXP
-	QT85kGdDIrLZLtvZIJftrSUaMgVC72kkkr5rcMb4PTtyCnSd+1JgRiXpChYDj/3VC7/WnywrGQP
-	ME5UqwRr0vhiHJ0KuQrTG9rtKppiDue10asW6iHAipFVs59G+wBvooyDJRAvLoPgiITwyxpAVJ9
-	hQ3Quz8TohtTMh0Ts/KiVAu1wiOKN/gZlnOekzl2LEOvav4ehcTVm7dLfqTSx25xASONpEGikuH
-	iZP/emhnfBpLnxEwuSHoY21DXZo/0H9lkK4Ynox+Y2ciyaGXyc9l/qC49FxdYeka1URJ0ZO4YFD
-	3dJgqWYN36ATCnYovrXnk8Ms9oOc1GhXNISZEKt3q1ztmugNxJZKPQYzjD1Oq4h
-X-Received: by 2002:a05:6402:d0d:b0:6b4:1d53:5185 with SMTP id 4fb4d7f45d1cf-6b4d467ca70mr5007157a12.16.1793551379106;
-        Sun, 01 Nov 2026 08:42:59 -0800 (PST)
-Received: from Desktop ([217.26.238.154])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec91e2f2sm2261112a12.0.2026.11.01.08.42.57
+        d=1e100.net; s=20260707; t=1793551475; x=1794156275;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9aOJYyjhEG5QFHqOyuUpkNt3Bv7NGCpLH14WnNP73X8=;
+        b=cmClDemRtCBjWUixeCkXRHra+Tj1hm+cXxHJj52VvXG3MKRpfc341W/iPJXp6elpK0
+         uQ/lxHg2VelnrNVk86Apt60S8h5IJBn3RQDEcG63BD3nNG8QQ31mBvrS6cs2lp90jx+e
+         U65JPy1thm+WJ5H3qPK2p8e4B0u9YqxCCBG/9O23+GECaiAAooXbbYyvWVq8O1bUJPfN
+         ZJgjD1kLWjN/nIJMTugyMfTukO7Uc1a0s31pdzjkb6sqMoj4nzpZGq+XvJxmHBP1gAbq
+         2lhjdFXPVeQqnMl8jErl0bOklaZQohuGQuf6mKy0JMltUje2aipfUQdSTZjykFrZBn/j
+         ScPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy7qHrUYitNCzdHXX6XX7RZ2WSszB2PJLI7xzXegIiQ9FmdvuJKaOn660ZLc+I67w2k2uF5/HYsuWXfrb4=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9NmHLhMfSFaU28kx0lp11akA4Dpm3Yjm9SKlBH4FEwnqxNQtPC
+	aI1U1ghzncA3jdvAhyv94CjR5zDYpYNHSP9UwQZOZP9FBjCcZGY8ftf7
+X-Gm-Gg: AYBFou0JhuEBHvzXvxGkF5ia4ssv0eGSYWDvyg8FvPEXLHLktYvue1kOwr4Ujl0Ql6Y
+	YB9S5dvYUHz3NSCSTL9dGRVyCXg7NssF9uQQH4RJ3C0G9z5MNbiEyikVO5vRw9TILDmtQUISuTQ
+	/aI53vMe0WtlPl3zjPI06uaLpd2cNOJ+HQoR8m7lA6I2kIvuz8WspdjCuh5sXbz0ZQpo2zx1N2x
+	mFHMs8fMjazdcuUYSKGDjl1qzZEJpiBIwc8XzI6cxVoUw5MWxNH8Pi6GcGf1cJ+vNBVlUeQZi9y
+	4pr2h2BrJiq2ET/6cYDmaDvKKfWdIB6vzUc5Z0ZVO6fu3axSLGygN3hSLZ6YhsAF5rXrf+GH2XS
+	Xkxz98ccdxj48/bt373SxTvgj8x0NQuEW2+ZAYUSvu6s7nkpKvZcQh8LYdu4yDHWspW3RtoCVjR
+	erP4eW20tTrGTns+wSiPgAJ5PWeqkBSh4tRQ5dwBfdzcc0RkLfZ/Ospdd2IPTeZb5VRZN9+aG1k
+	gXsE38crShCaVtAZzxyoYhY8B/yMWv5M/cXUIpqMo3Y6eRh9PA3XIf50rheo7Cnoxp7ElFtpNZn
+	XAIoNd3c/EKpZ9pq8+hSsQs7BXWoWnPLENcVwT49wfNvb38Bgvg=
+X-Received: by 2002:a05:7300:ae18:b0:36a:13fd:b5c with SMTP id 5a478bee46e88-36a4235ceddmr15771035eec.2.1793551474787;
+        Sun, 01 Nov 2026 08:44:34 -0800 (PST)
+Received: from lima-buntos-dev.. ([218.239.109.48])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a426681aesm35700172eec.1.2026.11.01.08.44.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:42:57 -0800 (PST)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: ath10k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
+        Sun, 01 Nov 2026 08:44:34 -0800 (PST)
+From: =?UTF-8?q?GIBEOM=20LEE=20=28=EC=9D=B4=EA=B8=B0=EB=B2=94=29?= <rtx4060@gmail.com>
+To: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>
+Cc: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
 	linux-kernel@vger.kernel.org,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Subject: [PATCH ath-next] wifi: ath10k: spread the PCI copy engine interrupts over the CPUs
-Date: Sun,  1 Nov 2026 17:42:47 +0100
-Message-ID: <20261101164247.258200-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	=?UTF-8?q?GIBEOM=20LEE=20=28=EC=9D=B4=EA=B8=B0=EB=B2=94=29?= <rtx4060@gmail.com>
+Subject: [PATCH 0/2] regulator: mt6363: Fix the regmap value width and the VSRAM LDO registers
+Date: Mon,  2 Nov 2026 01:44:02 +0900
+Message-ID: <20261101164405.1743177-1-rtx4060@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,184 +100,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The PCI ath10k devices are capable of multiple MSI. The QCA9889 of a
-Xiaomi AX3600 advertises 8 vectors in its MSI capability (Multiple
-Message Capable 3) and, when granted all of them, raises the firmware
-interrupt and each copy engine on its own vector, the layout ath10k
-used until commit cfe9011a05a8 ("ath10k: remove MSI range support").
-Since then ath10k asks for one vector, so all its copy engine
-interrupts and the NAPI they schedule run on one CPU.
+These patches fix two problems in the MT6363 regulator driver that can be
+seen from the code. They are on top of regulator for-next, where the driver
+is the same as in master and v7.2.12.
 
-Ask for as many MSI vectors as the device offers and spread them over
-the CPUs, starting each further device on the next CPU. Every vector
-keeps the shared handler, which schedules the NAPI that services all
-copy engines, so the copy engine to vector mapping does not matter for
-correctness. With one vector nothing changes.
+Patch 1: the registers have 8 bits but the regmap has 16-bit values, so
+every write also writes the next register. For example, disabling one of
+VS2 and VBUCK1-7 also disables VS1, VS3 and VSRAM_{DIGRF,MDFE,MODEM}. The
+MT6373 driver on the list has 16-bit values too, so its next version will
+want the same change.
 
-On the AX3600, with a station uploading 87-88 Mbit/s over the QCA9889,
-the HTT copy engine raised 36891-37590 interrupts in 14 s on vector 6
-and the WMI and HTC ones 165-313 each on vectors 2-4. The receive
-softirq moved from CPU0 (21-25%) to CPU2 (21-35%), with CPU0 at 1-3%.
-Measured with idle-priority spinners, the CPU time of the whole system
-stayed within the run-to-run spread: 25-42% of four CPUs against 22-34%
-uploading, 14-35% against 10-37% downloading (3 runs each). A firmware
-crash forced through debugfs recovered as without the change.
+Patch 2: VSRAM_{CPUB,CPUM,CPUL,APU} use the enable and low power registers
+of the BUCK1 group instead of their own, so disabling one of them disables
+VS1.
 
-Tested-on: QCA9887 hw1.0 PCI 10.2.4-1.0-00047
+Testing: none of this has run on hardware, because the bootloader of my
+board (Lenovo TB375FC, MT6897) is still locked. Each patch builds with W=1.
+The driver file also ran unchanged in user space, against a model of the
+registers made from MediaTek's header and driver, before and after the
+patches:
 
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
----
-Tested on OpenWrt's ath10k (Linux 6.18 with backports 7.2) and on
-ath10k-ct with the same change, where the DesignWare PCIe MSI of the
-IPQ8074 lets each vector run on its own CPU since commit eaf290c404f7c
-("PCI: dwc: Enable MSI affinity support").
+ - 16 of the 33 checks of the model fail before and pass after. The 9 that
+   still fail are about the VEMC voltage callbacks and the overcurrent
+   handling, for which I have fixes that I would like to test first.
+ - ASan reports a stack buffer overflow in the BUCK_TOP key write before
+   patch 1, and nothing after it.
+ - The resolved table of the 35 rails differs from MediaTek's driver in 8
+   entries before patch 2, and in none after it.
 
-I used Claude (Anthropic) to help write this patch.
+The model comes from MediaTek's sources, so it does not show how the chip
+really behaves. A Tested-by from anyone with an MT8196 or MT6991 board would
+be very welcome.
 
- drivers/net/wireless/ath/ath10k/pci.c | 64 +++++++++++++++++++++------
- drivers/net/wireless/ath/ath10k/pci.h |  3 ++
- 2 files changed, 54 insertions(+), 13 deletions(-)
+How this was made: Claude (claude-opus-5-5, an AI coding assistant) found
+both problems while comparing the driver with MediaTek's driver in the
+OnePlus MT6897 kernel, during a longer session of porting mainline Linux to
+this tablet. It wrote the patches, their changelogs and this letter, and it
+ran the checks above. I reviewed the result before signing off.
 
-diff --git a/drivers/net/wireless/ath/ath10k/pci.c b/drivers/net/wireless/ath/ath10k/pci.c
-index 335bc7c488..4de789cd06 100644
---- a/drivers/net/wireless/ath/ath10k/pci.c
-+++ b/drivers/net/wireless/ath/ath10k/pci.c
-@@ -38,6 +38,9 @@ MODULE_PARM_DESC(irq_mode, "0: auto, 1: legacy, 2: msi (default: 0)");
- module_param_named(reset_mode, ath10k_pci_reset_mode, uint, 0644);
- MODULE_PARM_DESC(reset_mode, "0: auto, 1: warm only (default: 0)");
- 
-+/* Spreads the interrupts of each further device from the next CPU on */
-+static atomic_t ath10k_pci_num_devs = ATOMIC_INIT(0);
-+
- /* how long wait to wait for target to initialise, in ms */
- #define ATH10K_PCI_TARGET_WAIT 3000
- #define ATH10K_PCI_NUM_WARM_RESET_ATTEMPTS 3
-@@ -1943,8 +1946,10 @@ static void ath10k_pci_irq_disable(struct ath10k *ar)
- static void ath10k_pci_irq_sync(struct ath10k *ar)
- {
- 	struct ath10k_pci *ar_pci = ath10k_pci_priv(ar);
-+	int i;
- 
--	synchronize_irq(ar_pci->pdev->irq);
-+	for (i = 0; i < ar_pci->num_irqs; i++)
-+		synchronize_irq(pci_irq_vector(ar_pci->pdev, i));
- }
- 
- static void ath10k_pci_irq_enable(struct ath10k *ar)
-@@ -3164,18 +3169,42 @@ static int ath10k_pci_napi_poll(struct napi_struct *ctx, int budget)
- static int ath10k_pci_request_irq_msi(struct ath10k *ar)
- {
- 	struct ath10k_pci *ar_pci = ath10k_pci_priv(ar);
--	int ret;
-+	int cpu_offset, cpu, irq, ret, i;
- 
--	ret = request_irq(ar_pci->pdev->irq,
--			  ath10k_pci_interrupt_handler,
--			  IRQF_SHARED, "ath10k_pci", ar);
--	if (ret) {
--		ath10k_warn(ar, "failed to request MSI irq %d: %d\n",
--			    ar_pci->pdev->irq, ret);
--		return ret;
-+	/* With several vectors the device raises the firmware interrupt and
-+	 * each copy engine on its own one. Each vector schedules the same
-+	 * NAPI, so they only differ in where it runs: spread them over the
-+	 * CPUs, from a different CPU for each device.
-+	 */
-+	cpu_offset = atomic_fetch_inc(&ath10k_pci_num_devs);
-+
-+	for (i = 0; i < ar_pci->num_irqs; i++) {
-+		irq = pci_irq_vector(ar_pci->pdev, i);
-+		ret = request_irq(irq, ath10k_pci_interrupt_handler,
-+				  IRQF_SHARED, "ath10k_pci", ar);
-+		if (ret) {
-+			ath10k_warn(ar, "failed to request MSI irq %d: %d\n",
-+				    irq, ret);
-+			goto err_free;
-+		}
-+
-+		if (ar_pci->num_irqs > 1) {
-+			cpu = cpumask_local_spread(i + cpu_offset,
-+						   dev_to_node(ar_pci->dev));
-+			irq_set_affinity_and_hint(irq, cpumask_of(cpu));
-+		}
- 	}
- 
- 	return 0;
-+
-+err_free:
-+	while (--i >= 0) {
-+		irq = pci_irq_vector(ar_pci->pdev, i);
-+		irq_update_affinity_hint(irq, NULL);
-+		free_irq(irq, ar);
-+	}
-+
-+	return ret;
- }
- 
- static int ath10k_pci_request_irq_intx(struct ath10k *ar)
-@@ -3212,8 +3241,13 @@ static int ath10k_pci_request_irq(struct ath10k *ar)
- static void ath10k_pci_free_irq(struct ath10k *ar)
- {
- 	struct ath10k_pci *ar_pci = ath10k_pci_priv(ar);
-+	int irq, i;
- 
--	free_irq(ar_pci->pdev->irq, ar);
-+	for (i = 0; i < ar_pci->num_irqs; i++) {
-+		irq = pci_irq_vector(ar_pci->pdev, i);
-+		irq_update_affinity_hint(irq, NULL);
-+		free_irq(irq, ar);
-+	}
- }
- 
- void ath10k_pci_init_napi(struct ath10k *ar)
-@@ -3235,9 +3269,12 @@ static int ath10k_pci_init_irq(struct ath10k *ar)
- 	/* Try MSI */
- 	if (ath10k_pci_irq_mode != ATH10K_PCI_IRQ_INTX) {
- 		ar_pci->oper_irq_mode = ATH10K_PCI_IRQ_MSI;
--		ret = pci_enable_msi(ar_pci->pdev);
--		if (ret == 0)
-+		ret = pci_alloc_irq_vectors(ar_pci->pdev, 1, CE_COUNT_MAX + 1,
-+					    PCI_IRQ_MSI);
-+		if (ret > 0) {
-+			ar_pci->num_irqs = ret;
- 			return 0;
-+		}
- 
- 		/* MHI failed, try legacy irq next */
- 	}
-@@ -3252,6 +3289,7 @@ static int ath10k_pci_init_irq(struct ath10k *ar)
- 	 * synchronization checking.
- 	 */
- 	ar_pci->oper_irq_mode = ATH10K_PCI_IRQ_INTX;
-+	ar_pci->num_irqs = 1;
- 
- 	ath10k_pci_write32(ar, SOC_CORE_BASE_ADDRESS + PCIE_INTR_ENABLE_ADDRESS,
- 			   PCIE_INTR_FIRMWARE_MASK | PCIE_INTR_CE_MASK_ALL);
-@@ -3274,7 +3312,7 @@ static int ath10k_pci_deinit_irq(struct ath10k *ar)
- 		ath10k_pci_deinit_irq_intx(ar);
- 		break;
- 	default:
--		pci_disable_msi(ar_pci->pdev);
-+		pci_free_irq_vectors(ar_pci->pdev);
- 		break;
- 	}
- 
-diff --git a/drivers/net/wireless/ath/ath10k/pci.h b/drivers/net/wireless/ath/ath10k/pci.h
-index d114778edb..252044dd63 100644
---- a/drivers/net/wireless/ath/ath10k/pci.h
-+++ b/drivers/net/wireless/ath/ath10k/pci.h
-@@ -115,6 +115,9 @@ struct ath10k_pci {
- 	/* Operating interrupt mode */
- 	enum ath10k_pci_irq_mode oper_irq_mode;
- 
-+	/* Number of MSI vectors, or 1 for INTx */
-+	int num_irqs;
-+
- 	struct ath10k_pci_pipe pipe_info[CE_COUNT_MAX];
- 
- 	/* Copy Engine used for Diagnostic Accesses */
--- 
-2.53.0
+GIBEOM LEE (이기범) (2):
+  regulator: mt6363: Use 8-bit regmap values
+  regulator: mt6363: Fix the registers of the VSRAM CPU and APU LDOs
+
+ drivers/regulator/mt6363-regulator.c | 27 +++++++++++++++------------
+ 1 file changed, 15 insertions(+), 12 deletions(-)
 
