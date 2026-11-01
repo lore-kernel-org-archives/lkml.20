@@ -1,86 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793555892;
-	b=FXIcFh7dOmBvLkccW6Pmtfk9UNfYtnbK2nFMIYfF7USaK2GOjNjmgWTIdZjYXK+JpG44
-	 tqyZ0MOuwDi/WYZxJq2vyrGUGsUtRFafjL2GebWj4/sufLRJsJBbyPOS6g+vpKQG2jOz/
-	 d08Nm6+1MdAl4XDfljYFpgteSVYmPyBNOrbjeYKAN+utLcDzRv7EtRP6sfdU3WPwggRhZ
-	 gt3pmB2dbX842tC4cXpO8qbDFq+1x+3GWd36mGLP3BDbxJG2s/y43YRQSG4BX8G3FL/JH
-	 VKpfCGNTp1Hz0GdDcZARYpLUn5L45Fh2eEljXH2E7aR2A95SjzD1/7WJ45Hy9hXQgLg==
+	t=1793556020;
+	b=b1DG9/e624T5L2GM4hNXfsxrFW2S+Qffi7vEnWTZZF2ySoKB8ZOoWc1NSQveqQxGewl/
+	 j1QH29oT/MTO4TtuoZKdK5WoIn33+d8DCIV+zV5FJsT2E418UFfBZdfUrB6/xd1WKmJMP
+	 Y68k5T4oYVa4kEoBm742wam5j71nnkJDCaOlzrr2JDbY4nfwX1qG8UvOeoZ/GtK7JnM7Z
+	 5HMPCfnnovQ2Q9vvf9BsXRPuevWaL1f+qVViUNIoOPiw+tQVABatiWvVjucwk+pAsvWii
+	 OtHAc7GVssquWHQrfze8K/7/8m8Rm19q+vGop8kWMNa5CjU19xT2vs11d0dnWdPyXnQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793555892;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:References:
-	 Date:Message-ID:MIME-Version:Content-Type;
-	bh=+7HwRXGWtYS3xmU+Z46/w0lVl31Dl0sZcMyXjmUDfIs=;
-	b=e5Xj0w/BMboK2HQTrlV3GC9nl6B4wY2eIhjnYKaxYXq6FcqHV6g/4o/4sNm7Yk8pIt1P
-	 GubvDHoF3P9IfIZ64kH/SrqXU+FvyHXCkHkydGw4xIZVnM3zDZaDNVHLokOm3NLlUV5tz
-	 aj4+LvcdpZFGZawmh6JY5Sc8UMl8DTlgnC93b6QJ43JQmcZCXaa6LIvDPp3rJjDHQ9p1g
-	 0TPGTX3jwWN/n+YsCLlKSua75jB7b+KM3N/9V45vjViVZa2NwK1GRGCfVyEyuhkhDNWdl
-	 O1P/fPfVoq1Z7ZkCr6dgNpsYtUuNmhKMMMu5ivftXcMwLcIVwKssjyXi+rzxGn1H6MQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556020;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=GKME2n5l9JpnC5UjER0UuCGrO/DweG8b5PbwFPOpgjA=;
+	b=oBxeS5RrMsPgGCsNIo9+IHrBt1b91LSUueSGpNmfKvCDEqNKeSpEhLV5MndhxICvLl/X
+	 Z4QsGAS/7Z7SijPvQI2nXn9dkAeYbrdlkUdEy5vn1wzgYeUnXbBUwBYd//xoRX8YHAmC+
+	 HFryB1XK2C2usvDtX0qmBboj4qxoEXF2kprL83SJi1nIw1Mu0P/6/LSCAV7bDbntRKQLt
+	 abXtKaKbuLyj5VNYqUlAa6IIwniRm2AGDVbqAPa1qLktGotfYCRCliqAKK2I4IlSPELYD
+	 CHM60i8rIln4hqL486FnumBGphJW1WqzTkQygpV0syBm0dhXHnJ3sFq8MNq4XK3745w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkpyzqH8;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yJaZYiC0;
+	arc=none smtp.remote-ip=209.85.214.173
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 155C7606A338;
-	Sun,  1 Nov 2026 17:58:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B69B606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:00:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8B69B606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FkpyzqH8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 388A21F00A17;
-	Sun,  1 Nov 2026 17:58:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793555891;
-	bh=+7HwRXGWtYS3xmU+Z46/w0lVl31Dl0sZcMyXjmUDfIs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=FkpyzqH892Y24Bf4MzJaxg0GENU+W3h1HrKoje37+gLiStKVwoHULfobDtcxPd97k
-	 O7yDPvc5mWSjJBu8vqqdIiJljIIY/6Z6d8PFXXCg74LTEn4DannL5V6rcy3NiVl7Cu
-	 DnutKq7d2bLfY2EkKJcg1fiS7Qvebb0UQQu9SHDSugPX5Tba1NEXcVGdUEzB6sw+y5
-	 V2z/p2t+EDUDEUhm+YjJeNELsgmzPgXTja1HpGoACFV2HxgapWeRjmaKUW4P/rTSol
-	 vGE0a3SiPbMJFefI/JNfVFZ/R4iCFJ+Rd4uFfOaqAIzWd7mtslcqNYqP4841tBmpOx
-	 x3REifKbTPuGQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: "H. Peter Anvin" <hpa@zytor.com>, Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>
-Cc: LKML <linux-kernel@vger.kernel.org>, Peter Zijlstra
- <peterz@infradead.org>, Michael Ellerman <mpe@ellerman.id.au>, Shrikanth
- Hegde <sshegde@linux.ibm.com>, linuxppc-dev@lists.ozlabs.org, Kees Cook
- <kees@kernel.org>, Huacai Chen <chenhuacai@kernel.org>,
- loongarch@lists.linux.dev, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, linux-riscv@lists.infradead.org, Sven Schnelle
- <svens@linux.ibm.com>, linux-s390@vger.kernel.org, x86@kernel.org, Mark
- Rutland <mark.rutland@arm.com>, Jinjie Ruan <ruanjinjie@huawei.com>, Andy
- Lutomirski <luto@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Richard
- Henderson <richard.henderson@linaro.org>, Russell King
- <linux@armlinux.org.uk>, Catalin Marinas <catalin.marinas@arm.com>, Guo
- Ren <guoren@kernel.org>, Geert Uytterhoeven <geert@linux-m68k.org>, Thomas
- Bogendoerfer <tsbogend@alpha.franken.de>, Helge Deller <deller@gmx.de>,
- Yoshinori Sato <ysato@users.sourceforge.jp>, Richard Weinberger
- <richard@nod.at>, Chris Zankel <chris@zankel.net>,
- linux-arm-kernel@lists.infradead.org, linux-alpha@vger.kernel.org,
- linux-csky@vger.kernel.org, linux-m68k@vger.kernel.org,
- linux-mips@vger.kernel.org, linux-parisc@vger.kernel.org,
- linux-sh@vger.kernel.org, linux-um@lists.infradead.org, Arnd Bergmann
- <arnd@arndb.de>, Vineet Gupta <vgupta@kernel.org>, Will Deacon
- <will@kernel.org>, Brian Cain <bcain@kernel.org>, Michal Simek
- <monstr@monstr.eu>, Dinh Nguyen <dinguyen@kernel.org>, "David S. Miller"
- <davem@davemloft.net>, Andreas Larsson <andreas@gaisler.com>,
- linux-snps-arc@lists.infradead.org, linux-hexagon@vger.kernel.org,
- linux-openrisc@vger.kernel.org, sparclinux@vger.kernel.org,
- linux-arch@vger.kernel.org, Michal =?utf-8?Q?Such=C3=A1nek?=
- <msuchanek@suse.de>, Jonathan
- Corbet <corbet@lwn.net>, linux-doc@vger.kernel.org
-Subject: [PATCH V2] x86/entry: Fix ptrace regression
-In-Reply-To: <87mrrvxaty.ffs@fw13>
-References: <20260707181957.433213175@kernel.org>
- <20260707190254.493733289@kernel.org>
- <20261022142425.3Wx-RrU5@linutronix.de> <87fqxx1r80.ffs@fw13>
- <87cxt11ktr.ffs@fw13> <1149A39E-BEBA-46EA-94F4-4DFFC4733EF5@zytor.com>
- <871p9g1s3w.ffs@fw13> <87y0boze95.ffs@fw13>
- <C6D7BF04-4CF7-48D1-93B5-E80D52C2617D@zytor.com> <87se1wyvs8.ffs@fw13>
- <87mrrvxaty.ffs@fw13>
-Date: Sun, 01 Nov 2026 18:58:08 +0100
-Message-ID: <87ecd4xwlr.ffs@fw13>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yJaZYiC0
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2e831e86ebfso12929725ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:00:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793556020; x=1794160820; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=GKME2n5l9JpnC5UjER0UuCGrO/DweG8b5PbwFPOpgjA=;
+        b=yJaZYiC0Vsfx2ERFj9pV6vZyJ7bGdGf55j/WEpTd9+QBUIoS5pSWRXvbtgeQeAV9M9
+         rMT7MbyXQ50xXulNXBeowo+f8myApFglo+uQ2EX3oEqXiBHtE/MXjUegIireTMD5583K
+         80VCgtk0GeXue4eJD2+cIuEUUH3KSXUFNcvQ3zBNe8tKmT0BdgebD4b2WUDNGcC59HPP
+         3z2vefF+t842JVps2tpXh5jPvQLPibZ/gkAXZWEMEiREv4zxwj4WBcOGtF3auudPW0Ta
+         ICXEieDOc0qJ9VvvYaLgZY+n50nr1yqHfjjBRZAJbr9SysML78YlG8TGJZ+J6XHgvSP7
+         eHTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793556020; x=1794160820;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=GKME2n5l9JpnC5UjER0UuCGrO/DweG8b5PbwFPOpgjA=;
+        b=qBnpy80her+33i78I9L+pCpfRfDZw6S/d0gyPX+dV0kkijytsSoKF+lUy+32Ghv2kU
+         uM2G6q6Y9sqQ+VqFtSFC2+FQKgRuJPZj91lwE/DdWfiex6gx0gm2wLKxuoRyEwfV24fe
+         q6ejnJ1Q6mL5jo75WknZFFszp5s7XwymCj6+Gl9mZJ+Xf3FIRKuBi10+bmG22TpSzDBq
+         7BWZnlx2Mgld6W7LRso1AEdwciJL+zO0VLmSYWE9i1ZfOKrazN9OiulL8jZwOY5QDsHF
+         nnYyC+eAzSu94E5GWc4qldjEk6B1i1wIzFCGYep7fatE2BWZAIM/c5x4ZOM6CCF2TMos
+         +d0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzOJZymkANCpfzXeGfmKNAcuKB8cp63Yz4uEUkVr6DkB03nc1CVmju7jn7B6cRuHfqLm3bNK6fvWQ8TmtQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z95wn66kUy3OQwOu+kJuwrRvfzhy0IHH9IdetRgtpPSQQ7HcU5f
+	jA5Uo4ubn5akCy8lDCcL2MM4IgfJDUt6n6lkiVTgY8glvg0Dihhml8NskQqNj3I81ME=
+X-Gm-Gg: AYBFou0AXZBviEoJIU9qt1gDphSsnNXnRhdfmhRZJelp+p9lrWjuQ0qZEpAhoBh6vHH
+	haBvrgFLvJpbJ3P03yI6YIomxZOHuXqBfZGW1juDMX5wizDq7oyKp1+ykvNkFYMgdvHDPgcrOO5
+	7RymNtDFUPnTD6LJtf+M9lqfHISHVPmzZ/uy+/uItR2H3tFlY2hiJ+ZcYHqh6fY88VWsrRRmZha
+	c1u0lJw16xryUKWMyRPT72BV/+V8xG+xv/QkDd5uVflN3QzdCEfNm1c+DM30XebWNY3uweR3DBl
+	elFHuISuMe+pKQEah9vGKTBwlhuXdOLyqwQnhQtSZqswq9SLthNgM+/TbLrziDc9ghcxk5IyfpA
+	/vN5hY1G8TtDqL1LsQN9WaIJKHQx/4A68RVomwi81PvM6anL5y0pC4/2paYlWW0nDqTrx1RFW6v
+	P5DbA0gFWXZIWnmwP6LekPTH0Tl74I0Kj2btp8X5mEQ7GB8gK8GPglNFlpbrkZnleSaQH2XrP1r
+	6PDyDJvpOzmDojMCyC3EHM1Bw630iyUQ8h+G8pvP+LSirBGkmZ65rgNRkN5jXEIJTB0sIaQy/MF
+	zLoRzRV5HT+IUcTNC0/Iyw==
+X-Received: by 2002:a17:90b:52c6:b0:3ab:be66:ddc7 with SMTP id 98e67ed59e1d1-3ae897ccab8mr7985472a91.10.1793556019773;
+        Sun, 01 Nov 2026 10:00:19 -0800 (PST)
+Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e949077sm15194159a91.9.2026.11.01.10.00.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 10:00:18 -0800 (PST)
+From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sean Paul <sean@poorly.run>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Connor Abbott <cwabbott0@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+Subject: [PATCH 0/4] drm/msm: fix GPU recovery deadlocks, add a8xx crash dumps
+Date: Mon,  2 Nov 2026 01:55:49 +0800
+Message-ID: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -90,87 +107,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-The recent rework of the syscall entry code missed the historical detail of
-the abuse of syscall number -1L to abort a syscall and keep modifications
-by tracers to the return value, while a rewrite of the syscall number to an
-invalid value undoes eventual tracer modification to the return value and
-overwrite it with -ENOSYS.
+On an Adreno 830 (SM8750, OnePlus Pad 3), GMU wedges sometimes left the
+screen frozen until a reboot. The wedge itself is a separate, still open
+issue; this series fixes the recovery side, which should clear a wedge
+but could deadlock instead, and adds the crash dumps a8xx was missing.
 
-Restore the original behaviour.
+Patch 1: if a CP page fault arrives while recover_worker() holds
+gpu->lock, the fault handler reinitializes fault_coredump_done and then
+waits for gpu->lock, while recovery's GMU waits (HFI and OOB) wait on
+that completion forever. Recovery now skips the wait, and the fault
+handler skips the capture, while recovery is running. On the A830,
+3 of 3 recoveries that took such a fault hung before this; with it,
+3 natural ones all completed.
 
-Fixes: 1b1f3b3e1b39 ("x86/entry: Get rid of the sys_ni_syscall() indirection")
-Reported-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Cc: stable@vger.kernel.org
-Closes: https://lore.kernel.org/all/20261022142425.3Wx-RrU5@linutronix.de
----
-V2: Add the missing -1 check in the 32bit path - sashiko
----
- arch/x86/entry/syscall_32.c |    4 ++++
- arch/x86/entry/syscall_64.c |   26 ++++++++++++++++++++++----
- 2 files changed, 26 insertions(+), 4 deletions(-)
+Patch 2: when devcoredump is disabled or can't allocate,
+dev_coredumpm() frees the dump synchronously, and msm's free callback
+takes gpu->lock, which the capture path already holds. The put now runs
+from a work item.
 
---- a/arch/x86/entry/syscall_32.c
-+++ b/arch/x86/entry/syscall_32.c
-@@ -77,6 +77,10 @@ static __always_inline void do_syscall_3
- 	if (likely(nr < IA32_NR_syscalls)) {
- 		nr = array_index_nospec(nr, IA32_NR_syscalls);
- 		regs->ax = ia32_sys_call(regs, (unsigned int)nr);
-+	} else {
-+		/* See comment in do_syscall_64() */
-+		if (nr != -1UL) {
-+			regs->ax = -ENOSYS;
- 	}
- }
- 
---- a/arch/x86/entry/syscall_64.c
-+++ b/arch/x86/entry/syscall_64.c
-@@ -64,15 +64,20 @@ static __always_inline bool do_syscall_x
- 	return false;
- }
- 
--static __always_inline void do_syscall_x32(struct pt_regs *regs, unsigned long nr)
-+static __always_inline bool do_syscall_x32(struct pt_regs *regs, unsigned long nr)
- {
-+	if (!IS_ENABLED(CONFIG_X86_X32_ABI))
-+		return false;
-+
- 	/* Adjust the starting offset of the table */
- 	nr -= __X32_SYSCALL_BIT;
- 
--	if (IS_ENABLED(CONFIG_X86_X32_ABI) && likely(nr < X32_NR_syscalls)) {
-+	if (likely(nr < X32_NR_syscalls)) {
- 		nr = array_index_nospec(nr, X32_NR_syscalls);
- 		regs->ax = x32_sys_call(regs, (unsigned int)nr);
-+		return true;
- 	}
-+	return false;
- }
- 
- /* Returns true to return using SYSRET, or false to use IRET */
-@@ -81,8 +86,21 @@ static __always_inline void do_syscall_x
- 	if (likely(syscall_enter_from_user_mode_randomize_stack(regs, &nr))) {
- 		instrumentation_begin();
- 
--		if (!do_syscall_x64(regs, nr))
--			do_syscall_x32(regs, nr);
-+		if (unlikely(!do_syscall_x64(regs, nr))) {
-+			/*
-+			 * The special treatment of syscall number -1 is a
-+			 * historical bogosity as the original code used -1 to
-+			 * indicate syscall abort, which is not distinguishable
-+			 * from a syscall which is invoked with syscall number
-+			 * -1. The historic behavior is to keep the return value
-+			 * in regs->ax unmodified in that case, which means it's
-+			 * either the preset value -ENOSYS or a value which was
-+			 * written by a tracer. If the syscall number is invalid
-+			 * but not -1 then overwrite any tracer modification.
-+			 */
-+			if (!do_syscall_x32(regs, nr) && nr != -1L)
-+				regs->ax = -ENOSYS;
-+		}
- 
- 		instrumentation_end();
- 	}
+Patch 3: a8xx had no gpu_state_get, so it never produced a
+devcoredump. It now takes a memory-only one (rings, GMU log/HFI/debug,
+HFI history), without reading any register, since the GMU may be wedged
+and GX off. The GMU part is a pure move shared with a6xx/a7xx.
+
+Patch 4: adreno_show_object() ascii85-encodes buffers in place on first
+show, without a lock, so two readers of one devcoredump can double-free
+a buffer (free_large_kmalloc "Not a kmalloc allocation" warnings).
+Rendering is now serialized.
+
+Patches 1, 2 and 4 carry Fixes: tags and Cc: stable.
+
+Testing, all on the A830 with the series on a 7.3-rc5 based tree. It
+is based on msm-next, where drivers/gpu/drm/msm builds W=1-clean:
+ - IGT msm_recovery gpu-fault: 6/6 recover, each with a complete
+   devcoredump; with /sys/class/devcoredump/disabled set, it recovers
+   instead of hanging.
+ - Natural GMU wedges during Bluetooth audio playback: 8 in about
+   47 minutes, 3 with a CP page fault during recovery, all recovered in
+   about 0.15 s, no hung tasks, dumps saved.
+ - Two concurrent devcoredump readers: 16 kvfree warnings in one boot
+   before patch 4, none after.
+
+a6xx/a7xx: build and pure-move review only for patch 3, I have no such
+hardware. Tested-by welcome.
+
+Not addressed here: msm never calls dev_coredump_put() on unbind, so a
+devcoredump still registered then can call the free callback after the
+GPU is gone. That predates this series.
+
+The fault_coredump_done wait was introduced in the review at:
+Link: https://lore.kernel.org/all/CACu1E7EApr6Ne3XxFv4cUa2JuwNW2kfo1c5wSsAUN78iWyQ2sg@mail.gmail.com/
+
+Nico Angelo Dela Cruz (4):
+  drm/msm: don't wait for a fault devcoredump during GPU recovery
+  drm/msm: free the crash state asynchronously
+  drm/msm/a8xx: add a memory-only GPU crash state
+  drm/msm: serialize devcoredump reads of the crash state
+
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c       |  7 ++-
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  7 +++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 47 ++++++++++++++++-----
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c       |  7 ++-
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c     |  3 +-
+ drivers/gpu/drm/msm/msm_gpu.c               | 33 ++++++++++++++-
+ drivers/gpu/drm/msm/msm_gpu.h               | 23 ++++++++++
+ 8 files changed, 112 insertions(+), 16 deletions(-)
+
+
+base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
+-- 
+2.53.0
+
