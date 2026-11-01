@@ -1,95 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.8
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793512120;
-	b=jVg7Tzu1Q6aSv43Fos7c9AxVl9mrqd5vYX3EuGpS0swzMnypPyRtowC+CTlrc913R7k0
-	 G6Rd58o0WKjjJsxAE++NWq+45RUHlPWxg2ZmbmydxvD9MLH15XsZz/QdVWQGcXdreVxh6
-	 04YwMJX9F38TNZNFquzVISw2J4MW4AhBzsoeK180dU2FNirx40ikW+s+WCIWtBKhwQ2/3
-	 FKpIOPNYruua5lPavGZ90Bi8hjPR9HJsLc+9qMaZMMSTaOLlMBmjI8aU6fb6efrQzm6SG
-	 0qm2QV0NBNm73Aeih/6dD/F47gTJNYLjnH5VQawmQdq2ibuLvp4xRzfZCpIubR1QxEw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793512120;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793512133;
+	b=5Err8PwS8cOMxs7PheL7hDM910+fC0pDdowQh9Zj7LWgfsvVQQc9VMAbGcYWe4uZeDMT
+	 Y/1vm+eRj/S/DUJImXd1OorKRQge0JwAyIDV8CqqmAx6ARvpvFDsTwpxmddAJK0UHQU6P
+	 SAJ3MDzI1jTsDYz+p4Lgu43HL7lCmzr3eFzux87F9J/RboGXyREYXsXYtR+eQq1ynnhlF
+	 ZYb1SIxIQLrD0kqLrqsmNXwbdO1D21VLMTPrgQBpI2eiGQ1XtzQEMMnIstZ/uETR4zMqS
+	 5BWgj7t0RN+m0NgRt/8gPR7nM6NG3BtHtakzIUgT/4g6/n2zJZxBBsoxO7lAtEpkQQw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793512133;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=BQb0A5w/TIxC6lzjJIWIQRoZPxtk3+ao0g+gODR3ezM=;
-	b=GoApQYxVpkraC/RX0Kf9womDqk5cv7P53V0GX9WcaRZXZaVnwXfZXyXJVE0H3GYilaiD
-	 NiZLF/uH96UUtQ3SEtxVatZgm3+UaIukWAm61NMVzdXvkSuBtsSY6KSJM8ijfNujOTq5U
-	 8eIS0+R3L/lxLTWpxGyWtIsRekJ3OiKFwZ1LAlxqPKtQdplJ75fZ1h0Z4wxO134GOqGKs
-	 oM+LizeMDPKl2XkSNPm+Y/nPlJvc8avOxnARZJWc+CfIMiDaRvLSUwALWCAsJTz/4d9Al
-	 G98HFG4tLBGYiXZsPW4WYRytpsYn4kjI5a/Pt2WoM7moFsO4Gn/Pce4BUwy76FNgTAg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=EGfxVHVkcrYrQKGYWR3trZufepOrJ+7eV2izdTVo0N0=;
+	b=ccRwJVC1/V13nh8Oxtw20TU0pRnr2pY/MQYqC4AkLAtuzZKADEqPCbihO0mtyx5xDQcz
+	 TbuI2lc9Kp5Po2s0NbpfD9DgHNfO8rJXBWCBowzdZAsGkzBolh3RHTodF2z/7GAeM+s0C
+	 5s4ANbxceU8ZCDi0l5VtT89BwFRx3NVAbAYV5f6RrPZuxJs4/XKiz+GLDWLP2cJKoKT3S
+	 wvzPbenwiB1Eb5jHcBMg+nT+VjVuBcPhrh5CVumCjBa5vhdUp2RPFIp0sbA9SxmiXJoC3
+	 iqtzor61Lc2HFaFVDwkis4BZJpiqZnrUfQWKYhwnP74RaI4MSUPBriFO7wtMbBXJ6ZA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZOl9pIRg;
-	arc=none smtp.remote-ip=74.125.227.8
-Received: from mail-vs2-f8.google.com (mail-vs2-f8.google.com [74.125.227.8])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weyO2K2Z;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.51
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A135606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 05:48:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A135606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE9BA606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 05:48:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE9BA606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZOl9pIRg
-Received: by mail-vs2-f8.google.com with SMTP id ada2fe7eead31-7cc2f11026cso635733137.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:48:40 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=weyO2K2Z
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5bfa686881fso1604755e87.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:48:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1793512131; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TK0kD4DdO79nvYYtd8ptD5+Dxo5EBpXDXCyxbfiV11v6BxZkqAo6++jZIN9WKZLFdP
+         MhMtdZcgO4Hmhb/9hYhnyPZI6vg5IA4SCqVTRP5FV1xervQEJKHh1fnqHUe/KpT8mriA
+         ZLfdKd/9LceBIbbKZxkLfafXt5AKm2rGqJU8VGrAgNbM0f2M0XvpRJtyfYD9saBbsrJ0
+         zQNH/sm6dcNTdqcVp/8wyVTNvEzW5fZ0N6XZHIYstri4viZlP9DhNJKHgH5BOc5ueKVb
+         GZJZYaX4xEQOK1nNAs4sjsrSUUhNWwcvEFE3aeLM+YpqoW8cPsBhi28cHk0wJYr8ze3R
+         98Lw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=EGfxVHVkcrYrQKGYWR3trZufepOrJ+7eV2izdTVo0N0=;
+        fh=zZRutXZUI1ZS/FiSSoaGWX9Hw2hgjqs1Njqmir7+RPU=;
+        b=jawQ0DPz6chNJSflOqt909ioiyPFwcQ80X0G+raKl35HYsWQvsA83/T4+DDUQ9bRUL
+         bIa7TY7bAsiw+lTo0CFTrUi8AoWflvIAUQ95jcXnoG6he1ZKlyG/j27tAAkjQeLXq22q
+         iEaVhGIks67kxoaxYK8CWXYZb5U52d8x2jcvG8LyAdSpD2jHe90FAKt13jokilbP16cE
+         DF/BelnuIpbVeafjcj6jetUBxaJAJmZ7K9G2E7i2L2qi6Jew+pTBK6bZ6P5yihL0JOmz
+         xfqpLHRGiPjfjF0yGvcnGoURKeERQ7Ck8QtMMOBAhplWb3pT76ccjXanJO7mn6rtEdII
+         wMRQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793512119; x=1794116919; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BQb0A5w/TIxC6lzjJIWIQRoZPxtk3+ao0g+gODR3ezM=;
-        b=ZOl9pIRgZ2gEt1igLhIQtZ+2nDEKeKhEjIQQOmGCNyeQa5gB+pzfXlpYmlS2L4OhsX
-         DnZtYAcxB/UMQt0p5n/zXDqgVZ89TrGN+xIBnz4cjPH7zMzf4H9rSeYhttSF1Lcidryx
-         eAtSNDOglJXpE3dv2TisasVYYW7zVpEQVEaxe2B/WtfaiYtDIIBzExEx8p/sRIGdxFaa
-         H4fGGg/auZNOXMD39WOYNJH0QptTMB6pwR75+vhc/PPg9N3ztgFOH8TT3YovHyTefrXD
-         Y3O2kV8Fv0Gomyej0dsnY0tDGeq6BHwgDDYmJeiXDZj0FySxzZ84OXVaBiMoBXEj7b2N
-         TICw==
+        d=gmail.com; s=20260707; t=1793512131; x=1794116931; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=EGfxVHVkcrYrQKGYWR3trZufepOrJ+7eV2izdTVo0N0=;
+        b=weyO2K2Z3b0LzD/hEyODcUaTMjso5EY+pHzgpgsO36+Go7wri9KGFzwbOpt11QlPm2
+         hM6VRrvJCFcWqLlRbdvtdLrcIYxwb1is/W2btLLeBpycRVMvHNZbAnya2ep3XFu7aQHp
+         tr2F1uocntttl9YlKlF6ntEWPU/tKGg+OIUkiDbF+AutxMPipzwlq+Ki0KkZRJU0bWo5
+         yal59Z9UAq/4hrOU00lGv0fUtxZ3/op2fEx+6Vk9zJlgyxOAYmvwVQGH+7vACMaGArG7
+         4TVwXsSvd9lVy+56qYxm0lfSpTgf9Qllc7GxU4poZR+lZM95d7xWc4aNnJqwwVpoJqMk
+         QpQg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793512119; x=1794116919;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BQb0A5w/TIxC6lzjJIWIQRoZPxtk3+ao0g+gODR3ezM=;
-        b=c4jaaxDyx31+NfbdQGUnpNUBM49PW+cSZ0qANm/PK9sxZi1+qJ6L+QAjTxaltBtMqj
-         /IAzFGYhTLZUTE74go29xuRHaw4nXWE9iCjXnZV9hDHI2jO49eFa74x3tynZwzuqQP7N
-         FQMJUlSfPBNjY8w9qTib34MEE6Bwdj7Y+7fJ+fYq9vd/5ih3YR1ZcnXqMzpQVHA5shOl
-         oHl1E/S3qDwi5PNyl11seFDssJsMJ0RnhzhvLytAFX656y6LMn+VaUKhJ8Z7CJMvmrZD
-         RUAm6BkniVcIG/2+DoZ1ePaDvfgqMTz8hzMwbE+kwx61uzEe35erkMvXNT6leUJ6oUHB
-         5UFA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZ/MBXbTdhXQs9jswe4hqwf5HLKFEFeOdZG9XrmGNtcqX6DEzLY/F6G9/DmYLh0zw64BXld+9CaagZ+9M=@vger.kernel.org
-X-Gm-Message-State: AFq9FYI+YPtdUDrPPlfQ7yZwcDvhJcoJz+8dfV2OWkJRH0bYomqUdQ83
-	zLkRym8ZQxGmibsrWbVNSSZz67T1gixEUwPDNpHFV0KDog4PCFxxk/Y8
-X-Gm-Gg: AYBFou2Xz6wsaGh6qBVBXsB8h1K3H63Il1HB8Xsp2zdlyioLbU/SsMG8OAy5W83heNf
-	x5rT29FE6WW66Di1KouTGIb0qzWSVI3dvIRwf3HCqIY7J3q6uNHyKYx+shFc87APYY1pOMrV888
-	X9oWJvNno2vJSrTFYt2Im/aNJZq3VX57ob+GnIxIxUg0JdWjP9M6275IuiGHckkocDwxZWbPhHL
-	A/j/B61wBMpGsWn6TzsIjScOPUNQ2l8ZHPi9uQL5HbX0X5/Q5ViAFmn2vWhcP7JwauY0TU6Gukt
-	QC9tMsxwsdRPlYFeGTHDwoqxXZbEvglDE78qvWC8t4DccpE5f/8z15mGLlyJ0vZl8wJpeNtKbor
-	Pgk85KrJx8UFNY3K7NZC8a7DjM81vwRyAsZUOVtIkSGH8xG9OuVcYtY2wpscQpETJQyPCvd7osF
-	LPEUis3iSljiUVehPJIzKryVTitaD/oeIimS3DmocopyOjsYh2FSO6QEF0H4YY0Bq+kVwKXFTif
-	117xycuag53nRoXb0wc0WWyNMp+7hgw1ryloipWFtjsOjZqtKt+SWzXuZEFX2h1bS4XaUEilIiO
-	Pz9IFpS0Pjq87E0gjui+wCHuxb+4s4uzPjL7u0w=
-X-Received: by 2002:a05:6102:5712:b0:7c3:881f:b620 with SMTP id ada2fe7eead31-7d072c56c97mr2848817137.21.1793512119388;
-        Sat, 31 Oct 2026 22:48:39 -0700 (PDT)
-Received: from linuxmint.. ([2802:8010:9a2b:a201:7173:4fe:efa8:f823])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-992ee41f108sm8591353241.7.2026.10.31.22.48.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 22:48:38 -0700 (PDT)
-From: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
-To: jikos@kernel.org,
-	bentiss@kernel.org
-Cc: linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
-Subject: [PATCH v2] HID: wacom: replace sprintf calls with safer alternatives
-Date: Sun,  1 Nov 2026 02:48:30 -0300
-Message-ID: <20261101054830.291749-1-nehuenlian.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101011439.261812-1-nehuenlian.kernel@gmail.com>
-References: <20261101011439.261812-1-nehuenlian.kernel@gmail.com>
+        d=1e100.net; s=20260707; t=1793512131; x=1794116931;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=EGfxVHVkcrYrQKGYWR3trZufepOrJ+7eV2izdTVo0N0=;
+        b=wXpHCv8ND7rEPdUowv4F9WiDiQDbLgqqxds/9k2FtCE+rmra0x2CFu7qNzYOa2PSad
+         9jQHkylQ+gnLzxIA+5Gs1MMkU7jnfM3cBqlMPWE1FsOM+LCQoLV+nhGN+Wzuw9k3sWxM
+         BqYRVVc66Xr+r+zF26+a0wUPswwpFjA+T35/jiq/d/1+Ez/2XijvbXGb7MCh9+4cJAh8
+         XiBBMNUT0+p8DF3ZqVKp675eOgN/47+suGh5zcKjFvJSgG6jVva7KoJeFZiSFaox+Mp3
+         qNTRs6rMd9hhxDYfuXU8zqsYz4d9z2vXsdfte2u9NWXEO1kS4BT6AXGRcChDFK4GbYkh
+         bPAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxHyjMLWDPmuu4Z0CoBoV17/XqTd3wSp+20C2tVxmij9kMquLV5MUikouG5yo0q3kkNPHrxptods4eckuM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/gD0nLUBb5zNNXXnwTITmnnrfvpTtOBRWjon5PtctKA9DjTMv
+	pGPWocWIzFnJc54x7AbMxHmyGopQkGRBEQEMyHzfmrNMT9kyztHm9XWbjQ2pW7+frFch6nIBEzx
+	m7QJ6Hux22L6W7hA/sSmyNqM6tOzJs88=
+X-Gm-Gg: AYBFou3hJNTr2G+9T3V7oCVrplVnJZPWDqANGgm8gBm3f+aBY42tFH2j+VVdp5boe9w
+	XzB3O8jdZFdiqwb4Mif864qgwYmOE0WTXBMZ+VHojAKynYRtBUP75VcJRLqgfEI6wS1Gc5SEuBV
+	lblwdW36S11RGmI+d31fDuXLns8USaWD2bQlfKnQB9Xppal8qrCbjtzWhbPHSQoGFprobWWGEQZ
+	i6tFb4mlTxwtBTBwaFFUUKbAzErfbkwFlSLSu0vtxzQ9CRO/y64QOEv/EMyhM4zVfo6uEDQRuRG
+	usC0uYupXLy8bhQRdGPtJ6zB9W0A6XaTKJb6BHeW5y5/py1q8N53VEVwI4uSTQaDWv0oa3Y5rFv
+	ZvOxgvyb/0UNM0SzwEIy+Il/ZaCDSfAjmlDWGxHEoo14ZBqspQZtH87N2RbEWtL4etQWe5eS/wx
+	vaWHluOErD9lTO91+Tjk0dsebzFQzeQ7GXcVIaLkdd27QeHqY9cQs=
+X-Received: by 2002:a05:6512:1252:b0:5bf:d938:b808 with SMTP id
+ 2adb3069b0e04-5bfd954bb21mr2075584e87.1.1793512130701; Sat, 31 Oct 2026
+ 22:48:50 -0700 (PDT)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,50 +105,72 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261031133455.3070233-2-rsalvaterra@gmail.com>
+In-Reply-To: <20261031133455.3070233-2-rsalvaterra@gmail.com>
+From: Jason Xing <kerneljasonxing@gmail.com>
+Date: Sun, 1 Nov 2026 13:48:13 +0800
+X-Gm-Features: AclHuK9Oijgn2EhPzsnGywVMmHQSWFg3blfXJ7nFJaMnQXGzRvyU2SOiQm3Go7g
+Message-ID: <CAL+tcoB6vg+-w1JZdND_cTN_zPeh76_+-W_NU34jkunJUFwrrA@mail.gmail.com>
+Subject: Re: [PATCH] tg3: make depend on ZONE_DMA
+To: Rui Salvaterra <rsalvaterra@gmail.com>
+Cc: pavan.chebbi@broadcom.com, michael.chan@broadcom.com, 
+	andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org, 
+	pabeni@redhat.com, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Replace sprintf() calls with sysfs_emit() and snprintf() calls in
-wacom_sys.c, which are safer and avoid buffer overflows.
-Also include the header '<linux/sysfs.h>'
+On Sat, Oct 31, 2026 at 9:36=E2=80=AFPM Rui Salvaterra <rsalvaterra@gmail.c=
+om> wrote:
+>
+> Since 614f4d166eee, on systems with ZONE_DMA unavailable, the Tigon3 driv=
+er
+> fails to initialize, at least on systems with BCM57766 controllers. On a =
+late
+> 2012 Mac Mini:
+>
+> [    1.226623] tg3 0000:01:00.0: Unable to obtain 64 bit DMA for consiste=
+nt allocations
+> [    1.226718] tg3 0000:01:00.0: probe with driver tg3 failed with error =
+-5
+>
+> Fixes: 614f4d166eee "tg3: Set coherent DMA mask bits to 31 for BCM57766 c=
+hipsets"
 
-Signed-off-by: Nehuen Lian Bova <nehuenlian.kernel@gmail.com>
----
-Changes in v2:
-- Use snprintf() instead of sysfs_emit() in __wacom_initialize_battery()
-  as suggested by Sashiko bot.
- drivers/hid/wacom_sys.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+The format is not right. And please target net branch if it's a fix by
+changing your title to ']PATCH net]'.
 
-diff --git a/drivers/hid/wacom_sys.c b/drivers/hid/wacom_sys.c
-index 628372ab818a..bb5bb9c15f93 100644
---- a/drivers/hid/wacom_sys.c
-+++ b/drivers/hid/wacom_sys.c
-@@ -6,6 +6,7 @@
- #include "wacom_wac.h"
- #include "wacom.h"
- #include <linux/input/mt.h>
-+#include <linux/sysfs.h>
- 
- #define WAC_MSG_RETRIES		5
- #define WAC_CMD_RETRIES		10
-@@ -1838,7 +1839,7 @@ static int __wacom_initialize_battery(struct wacom *wacom,
- 	bat_desc->properties = wacom_battery_props;
- 	bat_desc->num_properties = ARRAY_SIZE(wacom_battery_props);
- 	bat_desc->get_property = wacom_battery_get_property;
--	sprintf(battery->bat_name, "wacom_battery_%ld", n);
-+	snprintf(battery->bat_name, "wacom_battery_%ld", n);
- 	bat_desc->name = battery->bat_name;
- 	bat_desc->type = POWER_SUPPLY_TYPE_BATTERY;
- 	bat_desc->use_for_apm = 0;
-@@ -1928,7 +1929,7 @@ static ssize_t wacom_show_remote_mode(struct kobject *kobj,
- 	u8 mode;
- 
- 	mode = wacom->led.groups[index].select;
--	return sprintf(buf, "%d\n", mode < 3 ? mode : -1);
-+	return sysfs_emit(buf, "%d\n", mode < 3 ? mode : -1);
- }
- 
- #define DEVICE_EKR_ATTR_GROUP(SET_ID)					\
--- 
-2.43.0
+>
+> Cc: stable@vger.kernel.org
+>
+> Signed-off-by: Rui Salvaterra <rsalvaterra@gmail.com>
+> ---
+>  drivers/net/ethernet/broadcom/Kconfig | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/net/ethernet/broadcom/Kconfig b/drivers/net/ethernet=
+/broadcom/Kconfig
+> index f0bac0dd1439..c9875daa043b 100644
+> --- a/drivers/net/ethernet/broadcom/Kconfig
+> +++ b/drivers/net/ethernet/broadcom/Kconfig
+> @@ -124,6 +124,7 @@ config TIGON3
+>         tristate "Broadcom Tigon3 support"
+>         depends on PCI
+>         depends on PTP_1588_CLOCK_OPTIONAL
+> +       depends on ZONE_DMA
 
+Did you verify it possibly affects those kernels without DMA config?
+
+The blamed patch seems correct, so I think you need to root cause it
+instead of adding a global dependency here.
+
+Thanks,
+Jason
+
+>         select CRC32
+>         select PHYLIB
+>         help
+> --
+> 2.55.0
+>
+>
