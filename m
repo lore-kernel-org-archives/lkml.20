@@ -1,54 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.71
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793523123;
-	b=c/kn2Q9mtPCLgpaRURHpStYhl0PDx16w1qHCyfTy+Ixa2BXQFH2hIndCW2bf1wAMAo/y
-	 P/VD932jVX6csvxHPpaSIyiVVCnYSdICK3kWC0HvC2Ggi3up6X6S0QC1rBZMLCWRHqt50
-	 GKp+geJRc3WDgtjCDLYMhfOZDvSY52ylNnsrJpTbsn8KtfEgA0c/ZMMROHV6sHvkMGf/h
-	 LtfmlWDGCmypgvGZTQG4wGdALUtF1SbEYT8HVk0hBwH0NI7Ce7ko0bP3/JdMeNxyWtJsK
-	 DdGbJFRR9auAGhzdQzMf3GFtYalR4m40ArZqlgnv8y92RpgYd15Q4tZgPA7XCRyYMBw==
+	t=1793523151;
+	b=wVZJBfKx5aKx+Oc/fKFjMO1spGkPUwM1ULNR+RcWsAI7GtsDk9eX7BdP464O7WOSzP9L
+	 oGU6r+5I9dkW+3l+/FPAc3MTZY9HN1ABJL38cQ1dRwCxlZcf9RdzjJciQk/AtizKFGNyd
+	 RDawZxgZ9WYQnis8+SANZVzER19LxqxKx+er04Mn3NYDZOsecxwC4QN6OmFRoB54HvLRx
+	 jovfRtePuOZdMNmkKUw0HbCgO56GiaUS9kQR3x2Cg67JeQWbooj3nx/mIfiav1JgmImOG
+	 uEFOjE70FrFVs8t7AjwaMO9zJHw8ZJ3PjHjhSeu05lpBM55m8ED9Zq+AHg3x8B3kMZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793523123;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=nkThGeIo/7jEtdUtpDk14Ce9JFe6Dx3bh7Lnx+1w1wQ=;
-	b=oq+/uhtOtvyyT/S8rbJi5iomeGmgLxMehBC4pKctzIg/wnoEng8oJpayILikT99H+V7z
-	 R9Stk3VAKOWLyHJF0zmDmJkDbiW2dfXXbCXLjHNTSLvTB8GJyibnhiWZiJpCYQN4imLEz
-	 fu4d1wsC6gZ8RZBUjmENTDoJ0RxOBYAep4orjFNIWONHWAbGH8UfeS1FioUnA0FYnDE4m
-	 S7Ae6JWBSJI4LtWAiJZGnKwg+wsKzWT1mH8UwRPImzJnzO8LwNGBtvz188tbtzXnMmBfm
-	 PgK8eHr8BFxvIDMo2/kfbmq1JY2sjSLIHdsdyfohOLgJB1N5sAztFNZ4MFAgqCJMtuA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793523151;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=/sz+0vnC4+5RTFAXS0JKLy80J3yhuDkLqCPBEfCzcc4=;
+	b=Qoffv3J2ObjaRbinVVEFpMK114XKG0sN0+9rGacyXPIO99+Yu8hRiui0J85zko/vOL/5
+	 iEJluGhGwSKw6Gz6XvsmIWgxo0xsUd9UTQmOuWlmtLeI6gEnaBn5m+Q2xknDYRgD7/XN8
+	 phSHpd//QZdUwiy+wVZZsXNsD84t4AVwA6rvZlKVnR8Gpz9oJi3yM3MPRYVn6HEzvG0KO
+	 GHwBRlAsQjoPNagZdANZG6QshKLU313UeAipljCGK3iFpPjKP7tOHR0ujzvyyDsPbMbQA
+	 4Lr4VEz2C0NGIX76w68SLzXN/dcQsFUxodd/jAD9Hg38UZaaLbJDTrkTFZ7uZYZZo+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.210.71
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com [209.85.210.71])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LeBlWQcp;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CF9A606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:52:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6CF9A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f71.google.com with SMTP id 46e09a7af769-83c2311eb1dso3717791a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:52:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793523122; x=1794127922;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nkThGeIo/7jEtdUtpDk14Ce9JFe6Dx3bh7Lnx+1w1wQ=;
-        b=dJl9ufQ6YYTlEq6PM8HptONjs+BZMkv2AaXIQk+GBbYOuX++kvVXhAk9ckDjsxW4DH
-         ztQxg5EgCZDh9yzWyzT+x97bthIb/aCxAxIdsUCyHoSRFTj79nm7BlRKhiED0QCJFQdY
-         M7wV5kGk9tbPtgNq129piZaUo1q6T8f35c84199vpSq3giIgWXriwRTVmFXJwOsnanom
-         Zwyoq2lp++RuqWUBBel+kMR+eIurp9FXDx0UkDEzBtvqA/Iil7Udp8az7F06NEcA4BF2
-         5O/CuY+7bv/PkBxgdSt+sCv/xgAGMTphamyk727xk+xzzyOcnszZlhMtuXYqJT9517XU
-         tCkQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSWKFBeQ/Q6CsWyT/yGtvE5l2+zPrx151xkyEWkOHNrlImpspzouT+WeQoeY+SFMVmmv74dlcw5vAqUUI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIRMWgd+lXYlMOinRSRVdWKLMSUuxTnr8efs3wkMrHwFoXxKePy
-	CBORL2x5v0tC+rXik7WoHylw8eUnev5Eai+dnG0DLGqxoriZfIBrc4WGUPBHOdFgCTExc24FG/8
-	sjRqqO0JIKjY7xjksiR5nF0chCaBfkqTKlhUf9KbMvKFHeSfn3ND1wsvttII=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65F75606A32D;
+	Sun,  1 Nov 2026 08:52:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=LeBlWQcp
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BB6C1F000C1;
+	Sun,  1 Nov 2026 08:52:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793523149;
+	bh=/sz+0vnC4+5RTFAXS0JKLy80J3yhuDkLqCPBEfCzcc4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LeBlWQcp+pFagfSEjKhAgrQb8EFutNQ5G8HvL0vRQDI95UfoEGpy677ipSk5eu6SA
+	 3jpuVCcYjYsEqDz1k1kO+YDI91KUA8fZTu2p2B9Gku2l0mmFePjG8Gt0IvxMric69L
+	 t7QvDXEGwV9Ryr1DmT+yqzVjPWhB7ubn+DCxFWdM=
+Date: Sun, 1 Nov 2026 09:52:22 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Cheng Yongkang <teel4res@gmail.com>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Hongren Zheng <i@zenithal.me>,
+	Sung Byeongchan <tjdqudcks0424@naver.com>
+Subject: Re: [PATCH v2] usb: usbfs: clamp actual_length to
+ transfer_buffer_length
+Message-ID: <2026110138-kettle-daredevil-ceb5@gregkh>
+References: <20261101070651.1846947-1-teel4res@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,35 +59,33 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:2396:b0:53f:3c0e:c74b with SMTP id
- 5614622812f47-5640d91a298mr5116120b6e.9.1793523122167; Sun, 01 Nov 2026
- 01:52:02 -0700 (PDT)
-Date: Sun, 01 Nov 2026 01:52:02 -0700
-In-Reply-To: <20261101081710.19095-1-kartikey406@gmail.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae6fdb2.7fe51036.1ecf7.001e.GAE@google.com>
-Subject: Re: [syzbot] [rdma?] WARNING in rdma_resolve_addr
-From: syzbot <syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com>
-To: kartikey406@gmail.com, linux-kernel@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101070651.1846947-1-teel4res@gmail.com>
 
-Hello,
+On Sun, Nov 01, 2026 at 12:06:51AM -0700, Cheng Yongkang wrote:
+> usbfs uses urb->actual_length from the host controller driver without
+> checking it against the buffer it allocated. For a completed
+> non-isochronous IN URB, processcompl() and processcompl_compat() copy
+> that many bytes to userspace and report the same value, and
+> async_completed() passes it to snoop_urb_data() when usbfs_snoop is
+> enabled.
+> 
+> With USB/IP, the value comes from the remote peer. If the peer returns
+> actual_length=88 for a 24-byte control-IN transfer, usbip_recv_xbuff()
+> rejects the length, but VHCI still gives back the URB with -EPROTO and
+> actual_length=88. usbfs copies data from failed URBs too, since they
+> can carry valid partial data, so reaping the URB reads past the buffer:
+> 
+>   BUG: KASAN: slab-out-of-bounds in _copy_to_user
+>    copy_urb_data_to_user
+> 
+> With usbfs_snoop enabled, hex_dump_to_buffer() reads past the buffer
+> earlier, when the URB completes.
 
-syzbot has tested the proposed patch and the reproducer did not trigger any issue:
+Why not fix this properly in usbip so that all drivers don't have to do
+this type of check as well?  That's where the "bug" is, if any.
 
-Reported-by: syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
-Tested-by: syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
+thanks,
 
-Tested on:
-
-commit:         cbbddb6b Merge tag 'power-utilities-2026.10.31' of git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=1688cbe0580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=37ec6334ca3b8e94
-dashboard link: https://syzkaller.appspot.com/bug?extid=6699995b421c8ec7d2fe
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-patch:          https://syzkaller.appspot.com/x/patch.diff?x=134b662d580000
-
-Note: testing is done by a robot and is best-effort only.
+greg k-h
