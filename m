@@ -1,90 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.26.1.71
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571135;
-	b=Cpd5L3pc5gD1161ZzCOHOLnDcXkjpkIFXVTMBEXuuI88eVnJFKIBZ16kt8f8j3eT5Gn9
-	 RI7jnNAZLypqpV4jj7uOAPpiMyImZF/CyZg6mDLG6EHogj+ndiPrq4rF4CzNpShp6ZERT
-	 h942uH3ySEWM2YdVKfeNfsOXWxFduJCsaj7XI8aKHiJ0EAvbZUMype9ft2PLraRAD5tSN
-	 oK+siw0PkWUMzFunaXV5ZkfiLxjGrBixW97qh3sBaXOzf99S/mOPyLG3v9+XKYhLabfFX
-	 637PCeLW5dpFETrIwlUSRpk+Di9fVedLCPtmUbhjYVAM5jGHxrB0mewZmvxk7OeIOmA==
+	t=1793571153;
+	b=F+F2EYfO38vBzu4b8SIUKpxXSY8Yjrel7sT+oenptoM1uSlfHuRjabA+O1tXxbjIpqhd
+	 dzqHaHVQoHexTTfKUjQ9pgTJji5tUUm5rjUE5TLdrUeEf5XHutL3V9w8h/igZSBi0uK8W
+	 Uj6pJn6mqNjAXMrfXiW3sM2/57J6KPYRPov79iMurVsIX9ACskfXbEJLdC65tx3SrZSPL
+	 rBIqRFpWuvis+2gJMe/IKbZBZPc4DjXRi4efZJfHJwooM4az4I1cxfhLQYpa3q/0Ab+AB
+	 bvqUP+OEAbwrW1Smuf55jqa3bAmmoZaEejffdULUhjmvU5HdivNc9j8NjXL7ane/VWg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571135;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
-	b=Hpc2zMsRMA5OxFEOGep94YNWN0H2yWUs9G49cQ4FHcUAiX649C0AGa4bcpWgJ8CqW89X
-	 Y1stsjBGBZ2LkeEV1RgSrjAjlsulu0DJdGcvY/plZOJ5aPLgUrva27/Vt6Q4uP7rj4EMt
-	 tL1AucYqONrRfYMaKHGnQPmyzWc+G8nPBZU65B5dQLQGBAtNwyMqHItDbZwmUoVALyfhS
-	 NugvQIk+Ue6uaILt2qUkPyRYwt6uGKuLRlKqTNAKZ5op13W/w+hZo+ZY5FvEvk4a+4iJp
-	 oU0bnFwpzXawI6XHudv7CvMeaiesHq3h0Sz4BlHGZy1tZTgjpLKvgs5Tk5BkGCc8X7w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571153;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Received:X-Farcaster-Flow-ID:Received:Received:
+	 From:To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type:X-Originating-IP:
+	 X-ClientProxiedBy;
+	bh=O1xTtR8bYZgc9ttKCOcN7tWHfrNZC+O68gXNav3eZMg=;
+	b=gEg9aBjNV5F2/0Jzp5M1KGz78Gw8AFYF0qdpPhKmS0bKwyYPT1DspniQ095eP667N1Lb
+	 e45/WgGtAljhMgBIaX/xJ8LpuffAOgpPWA3WuIsxKZRkKvBvvdX6GKHks/4hYT69BtnTt
+	 d2A4N1e/9dxQnQ8QrKdH9KqooKlcnLi9mUq2Dmr94XX8G9fCG6M6GK8wlekK9XPZk8M0C
+	 pr2VPfN+jkMj+l48BuFd8B2mZ2uzW7kJ1slmXABYuI779Ajx7lc257Ksi5GPunhNClkSo
+	 Mop3YvajbEbIyT1sYLZttykt81Am3yyaly9lA7Rwaj7DRmAoZi+LkukPoIlnk0caMnw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iIwzR4es;
-	arc=none smtp.remote-ip=209.85.208.170
-Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=amazon.de;
+	spf=pass smtp.mailfrom=amazon.de;
+	dkim=pass header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=T5GPnble;
+	arc=none smtp.remote-ip=52.26.1.71
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357E6606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:12:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 357E6606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4232C606A326;
+	Sun,  1 Nov 2026 22:12:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4232C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iIwzR4es
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a75f960be3so22133821fa.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:12:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=amazon.de header.i=@amazon.de header.a=rsa-sha256 header.s=amazoncorp2 header.b=T5GPnble
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793571133; x=1794175933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
-        b=iIwzR4esjbGPsi11cntQtTj5Uz9VKLU2MFEAWleX1YLFT/TihdkwcjouHk97FPK3U9
-         AOggF/CWuhdCGsklyfyAvfE+Bsi+f+E8zW/L+5EmmaZs3mpdOTNViWis6rEQdaWJYNE7
-         mnkuccILEMkAns7PDA+9U5/xN5/xOJMIz9cO8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793571133; x=1794175933;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
-        b=Z+deff7Ey3gaOh5SEia7eIWKrnux+cyN1Mag+0Pj0sMLMFwOydfSgEWe3l3gRwhsa4
-         kU20Z5pTUc7fxxaTqnNO+XCrPWdDXZRCMqGwpwayWZS1EGEatbxfdTnChbRg4MPKnOcd
-         7Qmg1RIoOPHL9V560sT8/eNQX+hie9zF9dZmGIBjZhDqHnD+nY3IusCA7svqGwzuRPfj
-         jFp9XpL8RdYJv3NdFOTtyGzBjrU8a+iL+ir+Ot1EmUK+pXyWpe6OpDwVYGO7pmarRuID
-         LV34n6HMyV98tCz6UHeCXFJI4AH4QH/GMv6gOzvQc3ribS5gxtP4aTvP1DNA2MesHls7
-         6lgw==
-X-Forwarded-Encrypted: i=1; AKwUvByCgmH2ugnw7dG7FR+oqvJ/JvacRb35JnpkF12XPHBr+fuggOdeQ5Xnq0wobFa/0jnhnn5N+W4p9jFlESk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8PUOOIePpQUogeSkS9yuVAqNi+Dpiw8G80ya98Bf2IKFVoRSCa
-	gK/PRIPtl7E2+1UnYiOQ4S+/31edG6r6OppNMmnTr24hHCIChVV9JhC+CLrImnsJy+xmZLyqe+g
-	ZJJM9DZ0J
-X-Gm-Gg: AYBFou1Hnlaeafdxcvzdmk0K3u/KlknJBduuRF/x25gKBs+CUYpew+9r4OFQxtBRi9J
-	omE10TLKI7kRjwlDLxxWIaKarp7QgQ93nHFiGGOEfFsnPACnjuqhpTlqVaQgAYWH4NJbi7+bX2u
-	D+gYkRLlJfAMzKidaZRn+Rd1qISNIlfYHKBBFJJ5z3swvVDGu1AdxjO4OuDvXa7eObbERiyn45A
-	V14HNwwWxin67PxczGli2YqBTGI5QQQ60ihsoS9GdX+rMTKMLH9b/imeMLWliMQNu3KrnOzryTF
-	NNpsTfLS96gCBCohjL/J+iUIoIODCRvhjKF2+5F6auW/2BXS/wUQCtQFHxZRjyf5tYO4LlziQH8
-	ItcmTyBy+URSP3H3VUaalF0goKVN+sSzYH/I+cPVQU2xVxvSwnKPunnjtvti/rVvT/RFiimnZ5I
-	GrfCUaF4rSe8RNi4ImGqay7kGANbEer5hThPNLCBtVFnQsCAaM9Cj+RNK/ylD76lHaHioK2TSwK
-	GDv0yKuINVx/a+YwjvO7S0+nQ3P0ChsjEDfcHrCLLfgycbT/7RAGVcIa06mKSirT7suBDC9Me79
-	TXlOhvQs4T1IgcbtNcjBtORrLJpZ/pvWWXeH+Lrd1zVXl2wEwj4zZAsUfA8MZ4vczm2GKJg=
-X-Received: by 2002:a05:6512:131e:b0:5bf:cabe:23b6 with SMTP id 2adb3069b0e04-5bfd9569866mr2650721e87.33.1793571133418;
-        Sun, 01 Nov 2026 14:12:13 -0800 (PST)
-Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com. [209.85.208.175])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074673asm1331528e87.68.2026.11.01.14.12.13
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 14:12:13 -0800 (PST)
-Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a75f960be3so22133741fa.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:12:13 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByXuvT5wIzMe8KUfU64ZeO2ZvBHhYhJKdr+PBRvD5BEdCVhqMoVIcK5JjRey6tFcecAR304cgK2LgADX68=@vger.kernel.org
-X-Received: by 2002:a05:6000:46da:b0:48e:73dd:855a with SMTP id
- ffacd0b85a97d-48e73dd874bmr11427269f8f.51.1793570749483; Sun, 01 Nov 2026
- 14:05:49 -0800 (PST)
+  d=amazon.de; i=@amazon.de; q=dns/txt; s=amazoncorp2;
+  t=1793571153; x=1825107153;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=O1xTtR8bYZgc9ttKCOcN7tWHfrNZC+O68gXNav3eZMg=;
+  b=T5GPnbledqpuAqSGV2CG64tuhs/dth6/0M6je66HX2rgpX2J/zCMCqD5
+   ZuR87SZMJD0p5KF/tgEP3wWEPwfTGN+OvuCumI68y+5wvpB/XHN2QyCLr
+   WNyYGdwe502OnLjH4+Uegis4JX3wa/yjOdtZvqh9bp3bZ9GzpY9RbPqMD
+   CX69vookRtBZtD97lNCvtnLNUdu8x5NbGRtiqnuQH8JVXLVDY3qKOLAkp
+   e/UpaoNs2AEmL6Ixqvgd3yhHhAiechATFlQp6/rM3Ij/QxIJxeo0E5cKK
+   /WjqtrL52Q6ge5imkX4XO0B+q2KE0q9eTfYDGVjb5M3ptObJ0l4EGJMOs
+   A==;
+X-CSE-ConnectionGUID: 0ho+LU4oR2WGGz7NnctnkA==
+X-CSE-MsgGUID: xOBQIBMTQxGYPYUKY6Ck6Q==
+X-IronPort-AV: E=Sophos;i="6.27,190,1787011200"; 
+   d="scan'208";a="32853302"
+Received: from ip-10-5-0-115.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.0.115])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 22:12:30 +0000
+Received: from EX19MTAUWB002.ant.amazon.com [205.251.233.111:23905]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.65:2525] with esmtp (Farcaster)
+ id aa741cc0-9725-44bf-b19c-348e2cc752b1; Sun, 1 Nov 2026 22:12:30 +0000 (UTC)
+X-Farcaster-Flow-ID: aa741cc0-9725-44bf-b19c-348e2cc752b1
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWB002.ant.amazon.com (10.250.64.231) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Sun, 1 Nov 2026 22:12:29 +0000
+Received: from dev-dsk-araoof-1b-23e02486.eu-west-1.amazon.com (10.253.65.187)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.56;
+ Sun, 1 Nov 2026 22:12:27 +0000
+From: Ahmed Abdelraoof <araoof@amazon.de>
+To: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
+	Juri Lelli <juri.lelli@redhat.com>, Vincent Guittot
+	<vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+	Steven Rostedt <rostedt@goodmis.org>, Ben Segall <bsegall@google.com>, "Mel
+ Gorman" <mgorman@suse.de>, Valentin Schneider <vschneid@redhat.com>, "K
+ Prateek Nayak" <kprateek.nayak@amd.com>, "Vineeth Pillai (Microsoft)"
+	<vineethrp@gmail.com>, Josh Don <joshdon@google.com>
+CC: Ahmed Abdelraoof <araoof@amazon.com>, <stable@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH] sched/core: keep offline cpus out of core-wide selections
+Date: Sun, 1 Nov 2026 22:12:18 +0000
+Message-ID: <20261101221219.118052-1-araoof@amazon.de>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,74 +88,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-11-dianders@chromium.org> <CAFLszTgXZ8fcHuMbMAorsDaebj43gU47bS48pO8dKtnL0JF+Fw@mail.gmail.com>
-In-Reply-To: <CAFLszTgXZ8fcHuMbMAorsDaebj43gU47bS48pO8dKtnL0JF+Fw@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Sun, 1 Nov 2026 14:05:37 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=XG-YHW2__uxUdJr4vC3e_mW=P==F0JUvkeepXqmKMSNQ@mail.gmail.com>
-X-Gm-Features: AclHuK_naoI8TgiOEvg2nlmaOCNYlC5UGiEf6u-6ngKNFsppEgRdoP0YA4HjfTs
-Message-ID: <CAD=FV=XG-YHW2__uxUdJr4vC3e_mW=P==F0JUvkeepXqmKMSNQ@mail.gmail.com>
-Subject: Re: [PATCH v2 10/10] fdtfactor: Add compiled FIT image factoring support
-To: Simon Glass <sjg@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
-	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Devicetree@vger.kernel.org, David Gibson <david@gibson.dropbear.id.au>, 
-	Tudor Ambarus <tudor.ambarus@linaro.org>, linux-kernel@vger.kernel.org, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC001.ant.amazon.com (10.13.139.241) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-Hi Simon,
+From: Ahmed Abdelraoof <araoof@amazon.com>
 
-On Fri, Oct 30, 2026 at 5:23=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
-e:
->
-> On Wed, 28 Oct 2026 at 15:56, Douglas Anderson <dianders@chromium.org> wr=
-ote:
-> >
-> > Add `-F`/`--fit`, `--outfile`, and `--single-base-dtb` to `fdtfactor` s=
-o
-> > it can directly factor `/images/fdt-*` blobs inside a compiled U-Boot /
-> > ChromeOS Flattened Image Tree (FIT) image.
-> ...
-> > Assisted-by: Gemini:gemini-3-pro [edid_decode] [gerrit_and_build_artifa=
-cts] [gsheets_gdocs_cli]
-> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
-> > ---
-> >
-> > Changes in v2:
-> > - Moved FIT image factoring into its own patch.
-> > - Replaced external `fdtget`/`fdtput` subprocess calls with `NodeTree`.
-> > - Added FIT `hash*` recalculation (`crc32`, `sha1`, `sha256`, etc.) and
-> >   rejected signed FIT images (`signature*` subnodes) and external-data
-> >   FIT images (`data-offset` / `data-position`).
-> > - Preserved per-group compression (`lz4`, `lzma`, `xz`, `gzip`) on
-> >   factored FIT `fdt-base-*` and `fdt-*` nodes.
-> >
-> >  README.md                 |  19 +++
-> >  fdtfactor                 | 408 +++++++++++++++++++++++++++++++++++++-
-> >  tests/fdtfactor_lz4.its   |  83 ++++++++
-> >  tests/fdtfactor_other1.dts|  21 ++
-> >  tests/fdtfactor_other2.dts|  21 ++
-> >  tests/fdtfactor_test.its  |  83 ++++++++
-> >  tests/run_tests.sh        | 156 +++++++++++++++
-> >  7 files changed, 789 insertions(+), 2 deletions(-)
-> >  create mode 100644 tests/fdtfactor_lz4.its
-> >  create mode 100644 tests/fdtfactor_other1.dts
-> >  create mode 100644 tests/fdtfactor_other2.dts
-> >  create mode 100644 tests/fdtfactor_test.its
->
-> Reviewed-by: Simon Glass <sjg@chromium.org>
->
-> BTW, 'FIT image' actually means an image in a FIT, so I think you
-> should try to call the whole thing a 'FIT' instead.
+During CPU hotplug in start_secondary(), the incoming CPU joins the
+core-scheduling sibling sets by calling set_cpu_sibling_map() from
+ap_starting(). Next, it runs notify_cpu_starting(), where
+sched_core_cpu_starting() points the CPU's rq->core at the group's
+leader. Finally, the CPU is set online via set_cpu_online().
 
-Done. Updated the commit message, `README.md`, `fdtfactor`, and tests to
-refer to the container as a "FIT" rather than a "FIT image".
+This creates a narrow race leading to potentially silent corruptions: an
+online CPU o performs a core-wide selection via pick_next_task() and
+encounters an incoming CPU i that has joined the sibling set but has not
+yet pointed its rq->core at the group's leader. o calls pick_task() on
+i's runqueue and sets i's rq->core_pick while holding only o's rq lock,
+which is not the lock serializing i's runqueue.
 
+The same window has another ordering that leads to crashes. o can
+complete the first walk of the sibling set before i joins it, leaving
+i's rq->core_pick NULL. If set_cpu_sibling_map() then publishes i
+before o starts the second walk, that walk visits i, reads the NULL
+rq->core_pick and passes it to cookie_equals(), which dereferences
+it, leading to crashes.
 
--Doug
+Skip offline CPUs during the initial core-wide pick. Use the resulting
+non-NULL rq->core_pick values to identify participants in the later
+passes as online mask can change between walks.
+
+Opportunistically also, exclude offline CPUs from the single-pass
+forced-idle accounting.
+
+Fixes: 539f65125d20 ("sched: Add core wide task selection and scheduling")
+Fixes: bc9ffef31bf5 ("sched/core: Simplify core-wide task selection")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ahmed Abdelraoof <araoof@amazon.com>
+---
+ kernel/sched/core.c       | 12 ++++++++++++
+ kernel/sched/core_sched.c |  2 +-
+ 2 files changed, 13 insertions(+), 1 deletion(-)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+index d7c3b43158de..f55f6a0befcc 100644
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -6413,6 +6413,9 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	 */
+ 	max = NULL;
+ 	for_each_cpu_wrap(i, smt_mask, cpu) {
++		if (!cpu_online(i))
++			continue;
++
+ 		rq_i = cpu_rq(i);
+ 
+ 		/*
+@@ -6448,6 +6451,8 @@ pick_next_task(struct rq *rq, struct rq_flags *rf)
+ 	for_each_cpu(i, smt_mask) {
+ 		rq_i = cpu_rq(i);
+ 		p = rq_i->core_pick;
++		if (!p)
++			continue;
+ 
+ 		if (!cookie_equals(p, cookie)) {
+ 			p = NULL;
+@@ -6760,6 +6765,13 @@ static inline void sched_core_cpu_dying(unsigned int cpu)
+ 
+ 	if (rq->core != rq)
+ 		rq->core = rq;
++
++	/*
++	 * Core-wide selections skip offline siblings and rely on a NULL
++	 * core_pick to tell them apart from participants.
++	 */
++	rq->core_pick = NULL;
++	rq->core_dl_server = NULL;
+ }
+ 
+ #else /* !CONFIG_SCHED_CORE: */
+diff --git a/kernel/sched/core_sched.c b/kernel/sched/core_sched.c
+index 43e0bde3038e..1efde88da76e 100644
+--- a/kernel/sched/core_sched.c
++++ b/kernel/sched/core_sched.c
+@@ -273,7 +273,7 @@ void __sched_core_account_forceidle(struct rq *rq)
+ 		delta = div_u64(delta, rq->core->core_forceidle_occupation);
+ 	}
+ 
+-	for_each_cpu(i, smt_mask) {
++	for_each_cpu_and(i, smt_mask, cpu_online_mask) {
+ 		rq_i = cpu_rq(i);
+ 		p = rq_i->core_pick ?: rq_i->curr;
+ 
+-- 
+2.47.3
+
