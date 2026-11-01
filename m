@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
 	t=1793552695;
-	b=UjMQUDi6uI6X5JZTO4f+XzhhVEEUI8/EtEAZ0Nbyfz8Libo/GBkblNxPmf8Fmao/DHOe
-	 4JKH7+qvoskzZGxuqLD7+tPzO12r34AU6zEfiVxNNa7bqWmsw1mPtZVvN6jwBmhY260VR
-	 XERqRa6renXfH3CIdGyVSrs/VWD8Pkz4UJQvkR9GududzsltXYz7sGQ2lNu3ySwZHKXBP
-	 54nrrFeEFMbB9cM8RKBbbyjF/zn5r6dPyvyMz5NpEpfJTS3gQK1PtapzjaCHQ9kzSq8qL
-	 gxNcun084M1gX+RFka77UedAdHqCBmTg8Qec9Z7vsKIRqM3HONOuMwsp7xNpgK/jHFA==
+	b=cqDU6REpWlLuTSf5KIQo928xCsFZDVd/rdT9IEE/Y7bO5yy+qtohiWshagz8OK+wxyzg
+	 QaowfoajuFEedvIspMkshZt1oZ/N+uYa/HQlKA0PyuN3cRmFtKW6+vLihwY6mQ90ELKiQ
+	 TngmHX2Pdhu8QLzarzMB/kRxRCxfR/tpDDN2OjhizenczsG2H31ldPGCoasrCXq5oOvCT
+	 k3tR+aTcELZP74rutY6o9NuosJI9z6f8uvwRorlZeiUjSPBeD15offF/0bPPu/1UqHNVm
+	 c9RZDYbgpV07gDtPZfJ2NBM3cwoenQPX5AtR3bQGMesAnriiLsg/s8YZAjX4oGI09wg==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793552695;
-	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Endpoint-Received:X-Original-From:Reply-To;
-	bh=6ZhjtEGoIXYajBUtxBWTOChkOo/ZSi2InW/pWlQIKSo=;
-	b=wihNlad/cf9uSRFI97deQpdbMMzHRpXBF6MYzokiE2N581DkSUUQPeMt4x8mVNeOteFV
-	 Zt863EmN2L8Yb5mgmAIB48D40LLHjPXQtquvpkWo/iWQ1DtPcgKHGRMRTVBYSDJkpJC8G
-	 uW/naWKYm3MCXhpImXN/esGTorVWQveEk77pI3P6DEI4iFA82OXyK0zJ93VSDDDsfNRes
-	 2mEF6jg5RWCNXkJuRLShuUvvIeHW1EsGY7V5hQs3qWg1xuAUTBpYhRdwBSBVBmnghdz77
-	 XjmZrMAMrZ45LFpmGP7BWb3xOdT87FLusOhsF+vrYN/0PvnwyuizuBZo87QsGwDoMXA==
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/x/wiZazHW4/ffi1+IFEOVxN+Fc8NZQPK12ktyLeSjw=;
+	b=efIXqbg8FCc6qC4AZU7AWUhZ/lDaU19fRTL1fyYPaanJ8G8RlQS1syD6ZiGEC7slnpiS
+	 cWdl4thTTBJzW8BrkspS7tGIrVsp1qtsmQkDsVI+tp7hUwkvzflu1iYfN1vyWJJ36VwHm
+	 a41Kt4HGAxXGHB26Qeko3OzvPPQgWIoFIpGkeg8+BYCL711QjU1BmbDPu2kIPiuEOQ9vn
+	 yxg+9uMYEAXENUv7Y4hWQojhl1tpWmn3/OjYKjZMJGwugdK7uymZ2K9BoLKqd+EDZxXCN
+	 k/KQ4QLVrE5KriiJ4qc1f1zE221XePxew4+7H2J7uy+EZaEnKrUjFCZcjouvRqMb+8Q==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVSQsGrN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mL+W0iwj;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C25DA606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:04:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFD5606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QVSQsGrN
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mL+W0iwj
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
 	t=1793552694;
-	b=rVfBmOhOupH6jF2EvJZWbDIs237Ru4q7O0UDATYK+t9EGk9n9tKmV3KtRZlNFyjQ1cbj
-	 15VLd9c2mmEZrOs4ociSU89cG/6iLCQ7ty2oyYs8mNBOExgvlVgoI1kmVX+FuXv3yYzln
-	 KBHjgc3enqJnIRNGwndv1q2VxTZvJBkYJlZ//RBXXbbpt4gmALnwjA6EfpN0znoDADT9v
-	 PbZL1rEVSHNsaCUwKWAc+zZeKt0Ckv0SuTBrTBy/p/vTnrRyD+hZEln/gkmVlNoqeSJNI
-	 5tXGLvC2uIVf60gaJP4bs/wL2u/FfkwQkMuk/9iyrIWhrFDGsBz/qmi+cN6hg6+ypnA==
+	b=jblMK7gODO78ltyl6FMSpxc8gVFT+AESY7FQCrA8+/bKj78QK+wI2GcXGKCgkrAI4GuF
+	 +TNh6uvg93ULqUu7OalPoWzUD63BNofd30bhasCUVXx/xpxeIVOxzGZW56JTep2ajnZCI
+	 lwWoEz+M2YICvucDmxWJHmnSEXb5gtBPfhoFuLbYQqHOOZYhRy3uZJeedwAoGDVaJ+WO8
+	 GXXmgX9QWlUHycu5y9W0kP3VzY2Xq6uZsPzk8Cq95WtbsqhbiySL40oHNiSucE6RFQWwH
+	 Wf0y9gy1vrJKvDvgs8UQYcj/69Zy4++kB7lMLYPL5OEzoTQ+jFFnncOFj9CMVKtAGeQ==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
 	c=relaxed/relaxed; t=1793552694;
-	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
-	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To;
-	bh=6ZhjtEGoIXYajBUtxBWTOChkOo/ZSi2InW/pWlQIKSo=;
-	b=BzhdjxU2JsMC5nYhku9+3u6jOa8u0EP5NlsTtXuZ22VndSDDMD4vMzy/HNeoHEOmC7Sf
-	 N4Ty7a+gYVAYatLqOFV12/PXWIrAMcpnGh7+OKKl2zTsUkAlfwWP5O6ihpK3wKzvWDXUM
-	 qIRmScJ6W/xnxnLxDkICihTWKatRynGSAB01JaNbaNnlQZJ6ZoddlAngbt8HtPKnSfWK1
-	 lSwKxgvrKMfD0gkRDy/XXIo3hrz+nW7bm9TowA7w7W3lT2GQfJO9mJePMyG2aDjCRnjyc
-	 e2mXb6SBS1qLeH/2DBSJ135aexexcQ3czza8T/y3JpmpIf0KyaZM9jZjepLLECgSCHw==
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=/x/wiZazHW4/ffi1+IFEOVxN+Fc8NZQPK12ktyLeSjw=;
+	b=eMQNcjvPAfaW1xbzVnYERHCbHSWOMmRJvRRDCe8j5eXE9LF9Kam12Gd/AZ6+6dxFumik
+	 UhSQC1ji+fVdRXLCWERNfkViQ9clAWkBCvxC5LAx6qkZ61p55/8nZeNhi4v+2rhdSbLYL
+	 EIYjPuhxxBKPVk6RGX5dg3nQoEangLyMnYznCR3S2NDuAIdf5wuG1ZHCsRIBLz5fnAp6n
+	 32spjuJavigP0X2cwyv9VTwSZvp6yNwsaJZwW0RJXwljDCKgj1oRv828DxNcy1wg0OFUk
+	 tJ/BSwhivTC8t0cLC/nBCohEeVmbxSt3+gxo0njIHyoTiI2AU9Deb/Rs7NVEhT+Baew==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9CF031F000C1;
+	by smtp.kernel.org (Postfix) with ESMTPS id AE16F1F00A02;
 	Sun,  1 Nov 2026 17:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1793552694;
-	bh=6ZhjtEGoIXYajBUtxBWTOChkOo/ZSi2InW/pWlQIKSo=;
-	h=From:Subject:Date:To:Cc:Reply-To;
-	b=QVSQsGrNCtJXqcbIhhCWw6UEOCLVTwgs9/s0cslmMr8i5e6dMZhci/aXJHcWYi15P
-	 GnLO8fQi/qvc5Ox/Lb73WXPS1d0hFbX73vCFzBTuj9zyIBR4Bm4NJlm/R9F2Ib16Pr
-	 LkzGqtLTzgAiXYlyraOsMC70xCbXVkTfZjqQ8ZHroHQO+XiamzZ3x38ZEeZ0xKKKY4
-	 f5xwqqv0M3IYLtdRAHytNgEPjWWMwf59Ju3fTna9NkLlLpuP2I4Dxhxqmg4kobOfLj
-	 33diIx+T3VoMu+zCbSamo7PuX7M4J2fIpZ4tiLAhwllAm0ebKUDxo368AUTwH51wAo
-	 Ren/Lp8Dwn2rg==
+	bh=/x/wiZazHW4/ffi1+IFEOVxN+Fc8NZQPK12ktyLeSjw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=mL+W0iwj7lkIQNQPBWZJQsIWGywKDFKyQjpS8bh6tvatlMSRkeMTXW4IyQ83n2JMA
+	 Il/zHMg0gEnBv7M4DNP9XoljuBYxNMqJyloI2kCiwfxl6C8b5dLzMTiKKYSD3F+aMB
+	 B3JPVlcIPkNm6QLC310Izf1WMA2jKZtr0hMF5cMlec6Pbtuymn27zsbz0ia6tXfnVl
+	 aiCLC36+YfkgIPKvAWRr9gcjFFQ1gty10nqZwtdq+8qTtK6tVPc6D2+o4dOxz6Bj6s
+	 yXtf94zlb0WxbPD+oNpp/qJUuIPiMm1JpPALHeeLRRHuIHzboFCJsZmx+sJRRsKS8N
+	 Wac39gbjinHQg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id ECC1846203;
-	Sun,  1 Nov 2026 17:04:52 +0000 (UTC)
+	by lkml.kernel.org (Postfix) with ESMTP id 30AEE4620B;
+	Sun,  1 Nov 2026 17:04:53 +0000 (UTC)
 From: Viorel Cernateanu via B4 Relay <devnull+vrilutza.gmail.com@kernel.org>
-Subject: [PATCH v2 0/4] x86/kmsan: Fix two bugs in the metadata lookup
-Date: Sun, 01 Nov 2026 19:04:35 +0200
-Message-Id: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
+Date: Sun, 01 Nov 2026 19:04:38 +0200
+Subject: [PATCH v2 3/4] mm: Factor __pfn_valid() out of pfn_valid()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,12 +83,9 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22OwQ6CMAyGX4XsbE03EhRPvofh0I0CUxlkw0Ulv
- LsMrh6/9v+/dhaBveUgLtksPEcb7OBWUIdMmI5cy2DrlYVCVUjEAh59IAdbCzjPEVHLsjQs1sb
- oubHvzXardg4vfWczJUVKaAoM2pMzXRrtGk1fgqjSvrNhGvxneyfK5Pl/OUpAwFND5wK5yWu+t
- j3Z59EMvaiWZfkBwydlCdgAAAA=
-X-Change-ID: 20261006-kmsan-serie-e33000b199ce
+Message-Id: <20261101-kmsan-serie-v2-3-f97f66dc57ef@gmail.com>
+References: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
+In-Reply-To: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
 To: Dave Hansen <dave.hansen@linux.intel.com>, 
  Andy Lutomirski <luto@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
  Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
@@ -111,83 +107,112 @@ Cc: Borislav Petkov <bp@suse.de>, linux-kernel@vger.kernel.org,
  Ilya Leoshkevich <iii@linux.ibm.com>, 
  Viorel Cernateanu <vrilutza@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793552692; l=3024;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793552692; l=3241;
  i=vrilutza@gmail.com; s=lenovo-20261005; h=from:subject:message-id;
- bh=70IlPx1AKJ8+cqwvWRwobdqND9Oht8b+HJuyYoNKqmg=;
- b=FdDO8TSJQ+sj2UKnZMnNeYqMDmWCZVcKj/oNKlP7ur1VuKC10ya7OWVdZ7KEcPuzmH5QOLV9D
- REcYDbXZA/nDm+/qM0rMMa8PViACooI+H01bEDMiM1InW/oheZrWwAo
+ bh=dsg65O1UX/YgTMqtnmluSfWLq95yf8DD327IK6k7U4k=;
+ b=TEbLB8WV9dS41IpUSxXS+cmQiZqUbRgRqNwMEIswcGyuuFjl7gBgh/jU/GoafzgI93HvfF4qB
+ ZRiBLb6tGcFCgF7stfJjEwxtZdf3wGeWLfE2On3O5wDgjsAMVjkGMp4
 X-Developer-Key: i=vrilutza@gmail.com; a=ed25519;
  pk=HttZd2ffphVYTK/pvlflateaij8E4SdPd6Y+xDQMqDU=
 X-Endpoint-Received: by B4 Relay for vrilutza@gmail.com/lenovo-20261005
  with auth_id=1115
 X-Original-From: Viorel Cernateanu <vrilutza@gmail.com>
 Reply-To: vrilutza@gmail.com
+Content-Transfer-Encoding: 7bit
 
-Two fixes for the KMSAN metadata lookup on x86, found while running
-KMSAN kernels with KASLR and with CONFIG_DEBUG_PREEMPT.
+From: Viorel Cernateanu <vrilutza@gmail.com>
 
-Patches 1 and 2 fix the CPU lookup for addresses in the CPU entry area.
-With KASLR, the lookup treats a randomized slot as a CPU number. With
-the areas in CPU order, it still attributes the last page of each CPU's
-area to the next CPU.
+KMSAN needs to validate a PFN during metadata lookup without entering
+instrumented code. Calling pfn_valid() also calls
+rcu_read_lock_sched(), which can enter instrumented code and recurse
+into the metadata lookup.
 
-Patches 3 and 4 fix a recursion with CONFIG_DEBUG_PREEMPT: the metadata
-lookup ends up in the instrumented preempt_count_add(), and the kernel
-hangs right after KMSAN is enabled. Patch 3 factors __pfn_valid() out
-of pfn_valid() so that patch 4 can use it.
+Extract the PFN checks into __pfn_valid(), whose caller must already
+be in an RCU-sched read-side critical section. Keep pfn_valid() as
+the wrapper that acquires and releases that protection.
 
-I tested the cumulative series with the v1 configurations, against the
-same unpatched base:
+This lets KMSAN reuse the existing PFN validation while providing
+the required protection without instrumented helpers.
 
-- QEMU reproduces the GDT lookup failure and the metadata boundary
-  failures on the base. The corresponding tests pass with v2, including
-  the metadata tests with and without KASLR.
-- With CONFIG_DEBUG_PREEMPT, the base hangs immediately after KMSAN
-  starts. The candidate completes all six boots, three with KASLR and
-  three without.
-- On an Ivy Bridge laptop, the candidate boots with KASLR using a
-  minimal init, and the GDT and metadata tests pass on all four CPUs.
-- An x86_64_defconfig build without KMSAN boots to init.
+The wrapper now also holds the RCU-sched read lock during the
+initial range checks, which previously ran before acquiring it.
 
-I have not tested CONFIG_DEBUG_LOCK_ALLOC or measured the performance
-difference.
-
-s390's kmsan_virt_addr_valid() also calls preempt_disable() and reaches
-pfn_valid() through virt_addr_valid(). This series does not change the
-s390 code, but patch 3 refactors the generic pfn_valid() used on that
-path. With an s390 defconfig plus KMSAN and CONFIG_DEBUG_PREEMPT, I
-only compiled mm/kmsan/, arch/s390/mm/ and a few mm objects that use
-pfn_valid(), with no warnings before or after the series. With
-CONFIG_DEBUG_PREEMPT, the s390 metadata lookup still calls
-preempt_count_add(). I have not built a full s390 kernel or run it.
-
+Suggested-by: Alexander Potapenko <glider@google.com>
+Signed-off-by: Viorel Cernateanu <vrilutza@gmail.com>
 ---
-Changes in v2:
-- Keep the CPU entry areas in CPU order with KMSAN instead of searching
-  all possible CPUs on each lookup (Alexander, Peter).
-- Move the one-page offset fix into its own patch.
-- Factor __pfn_valid() out of pfn_valid() instead of adding a KMSAN
-  copy of it (Alexander).
-- Rebase onto current mainline.
-- Link to v1: https://patch.msgid.link/20261006-kmsan-serie-v1-0-07fa860ef3de@gmail.com
+ include/linux/mmzone.h | 42 +++++++++++++++++++++++++-----------------
+ 1 file changed, 25 insertions(+), 17 deletions(-)
 
----
-Viorel Cernateanu (4):
-      x86/mm: Don't randomize the CPU entry area with KMSAN
-      x86/kmsan: Use the per-CPU area base for metadata lookup
-      mm: Factor __pfn_valid() out of pfn_valid()
-      x86/kmsan: Don't call instrumented code from kmsan_virt_addr_valid()
+diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
+index ecd1ebd49756..819042264088 100644
+--- a/include/linux/mmzone.h
++++ b/include/linux/mmzone.h
+@@ -2266,21 +2266,13 @@ static inline bool pfn_section_first_valid(struct mem_section *ms, unsigned long
+ #endif
+ 
+ #ifndef CONFIG_HAVE_ARCH_PFN_VALID
+-/**
+- * pfn_valid - check if there is a valid memory map entry for a PFN
+- * @pfn: the page frame number to check
+- *
+- * Check if there is a valid memory map entry aka struct page for the @pfn.
+- * Note, that availability of the memory map entry does not imply that
+- * there is actual usable memory at that @pfn. The struct page may
+- * represent a hole or an unusable page frame.
+- *
+- * Return: 1 for PFNs that have memory map entries and 0 otherwise
++/*
++ * Like pfn_valid(), but the caller must be in an RCU-sched read-side critical
++ * section, for example by disabling preemption.
+  */
+-static inline int pfn_valid(unsigned long pfn)
++static inline int __pfn_valid(unsigned long pfn)
+ {
+ 	struct mem_section *ms;
+-	int ret;
+ 
+ 	/*
+ 	 * Ensure the upper PAGE_SHIFT bits are clear in the
+@@ -2294,16 +2286,32 @@ static inline int pfn_valid(unsigned long pfn)
+ 	if (pfn_to_section_nr(pfn) >= NR_MEM_SECTIONS)
+ 		return 0;
+ 	ms = __pfn_to_section(pfn);
+-	rcu_read_lock_sched();
+-	if (!valid_section(ms)) {
+-		rcu_read_unlock_sched();
++	if (!valid_section(ms))
+ 		return 0;
+-	}
+ 	/*
+ 	 * Traditionally early sections always returned pfn_valid() for
+ 	 * the entire section-sized span.
+ 	 */
+-	ret = early_section(ms) || pfn_section_valid(ms, pfn);
++	return early_section(ms) || pfn_section_valid(ms, pfn);
++}
++
++/**
++ * pfn_valid - check if there is a valid memory map entry for a PFN
++ * @pfn: the page frame number to check
++ *
++ * Check if there is a valid memory map entry aka struct page for the @pfn.
++ * Note, that availability of the memory map entry does not imply that
++ * there is actual usable memory at that @pfn. The struct page may
++ * represent a hole or an unusable page frame.
++ *
++ * Return: 1 for PFNs that have memory map entries and 0 otherwise
++ */
++static inline int pfn_valid(unsigned long pfn)
++{
++	int ret;
++
++	rcu_read_lock_sched();
++	ret = __pfn_valid(pfn);
+ 	rcu_read_unlock_sched();
+ 
+ 	return ret;
 
- arch/x86/include/asm/kmsan.h | 31 +++++++++++++++++++------------
- arch/x86/mm/cpu_entry_area.c |  6 +++++-
- include/linux/mmzone.h       | 42 +++++++++++++++++++++++++-----------------
- 3 files changed, 49 insertions(+), 30 deletions(-)
----
-base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
-change-id: 20261006-kmsan-serie-e33000b199ce
-
-Best regards,
---  
-Viorel Cernateanu <vrilutza@gmail.com>
+-- 
+2.53.0
 
 
