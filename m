@@ -1,82 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793546902;
-	b=yEBOV4vMrdZLGmsbodg/AX0vRPhvExTA/3yEnhrR3pQDDLq+lmmzWR5lcaB5n3ndf2t/
-	 p5A9OX3krLBb2qPhNm/i1F/8ZXYQPElhwH2briICBZKqNXOWFBnLz8Ka7Eey31e1LBwFh
-	 vsNziRUDhtU2LRp7y//W1KETxgDGC657NZJ1kxl/Oj4G1NGn/AMToIOmEEnZrBg7dk4CY
-	 l/nB6M8/6w/EtwXEOohsUP0vjVWopXOUlBXb4BN5TuFV7BYB3gKEs1s2zhfA8e8oNK7Li
-	 x/lVfteKc47QS4Wp9MlmHLyZJsq+X0tQbzN4eRY7ZMYXmUjJCqslLvRRnTSnulyjuTQ==
+	t=1793546907;
+	b=TmUqaCZ96JJWT2aWXJIIrdquFR/+juAst4XAM0cjUieH1obkjsDsCKpPXDEn4ZkThBi7
+	 qh3Cvxg+203udoDmdrTWDhbWkkNiV0BejlaxduG6ZY+/3HTHJVvwxM7rVfuSWlb4+YxwY
+	 qsRrOrVPv4Joak6GjDmalinDq4apoMjpKA1h9SxhLM9XEC9QV8nLbvkdQhLdo121W5yNo
+	 AKWJ3wimRo0xZGkB1jhZHQi0ebmN7QeeZRVTV11qsO22USHkArT08Hd2dYk2ngXEqcaEg
+	 ZfFWTyTTrCVzGqk0En928Oko2aXv3Fk4L25Ug/RONZk3dzMJ2WlTIqgLpZ2KAIGTQOw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793546902;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793546907;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=BWV1IinUG0DTVwsnY8AqH4VfOLB1w3rql3cUkwGyNXA=;
-	b=OlaFHBTwwQ2j6pwpAn0e8tnpOd5WIt1w+0a+Vl79LCas+TMXSqaWtW6oFHnfvsMq+p1N
-	 sc9+uEQVoEso7c/MBj+a+ObJVS1VTEjcyBVB2AYsdfCz6sSQUcFLuYC6AqsjodN1jZsF/
-	 ikNiYpIKcaqFtraVY3AKgkdz7Z2iH3OmiHK7PsErzq0HhnvuPns28842aajPgM1I6GQAi
-	 WGaaEdI4l5lrlaXMKs5JMd5J+GaU1rCXNNVPYkl8B3tSuu8QyUgB7AjD0DBOsKYCNEnSt
-	 eYq5j9clZ/kwheOm2NI7BOtvdod3L3gfcIeCHy5Ai4+W2I35DKfcdbSUKIhU1Q/yVfQ==
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=WmpZZXMsdqMV2V4eNDvwbvfcyiTszzMT6zcGXuns9Y8=;
+	b=VSU8khULP9SpV2xjs+kHp2Sjrfgt8zQYuU9S9M6mWGCrecnVHz7au+Orb6nvMyXenmfO
+	 NVSuudshnCAgnr99R0oYjxA9mEdgP1OcYA3NHlUn3qTut3BrOwqp0GVuH1x+CMoSTSMxh
+	 nFGqEuWO5p8D50UxFEhAvoXFU+GbVUlHFLOZXUdWlJJby54yiJQQBHiD0NgzpJs71bsZz
+	 e9uRjnwNRNWi7qT0N1Y0vxwBdtCstuS1ACXTVygj8pfAvzkEK1CgLNbNd4XVS8w/du4VJ
+	 28Tjaz3J5BM34uEZpODbkrGFyPBT0M9wZJaVdvhIVgCUV5lv5oOtouIAa5d3mf+4yGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pv2ur5Vb;
-	arc=none smtp.remote-ip=74.125.82.181
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IF1ScSna;
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06331606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:28:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06331606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BC9606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:28:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D5BC9606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Pv2ur5Vb
-Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-353804b591eso3890570eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:28:21 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=IF1ScSna
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-14394530ec6so2706945c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:28:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793546901; x=1794151701; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BWV1IinUG0DTVwsnY8AqH4VfOLB1w3rql3cUkwGyNXA=;
-        b=Pv2ur5VbbQHTbEUxBye4Ps/lC9cz0ihpSDIvmymLusoZe7zA+A5HL/0yNrAxOiHa88
-         dYl1Yor2Q2SsjEWVd5ywSyp7VSOEWwYrHKfZJ2T0vYZXJHWaecQy59bRkYYb5dVp/hQc
-         1uS3X4dGkIMKV/D897p6Zs0W4HfMd2r6VxzmOOVUOvoM0O5WpyQFVOXak0Uq0HNE6ER9
-         wlHORKwLtmgQpGkwlQ5XG6KIy4S5fG+ZVN0GcRvjQ++imLT5SlrMF8Nl1wNfRQOeTnuu
-         tfUu3KuUqAVZpNTyDuhDxSR72qQyaBK0Cu/XLgcxzf5OmRMGZFZP68o/pGuz/IGTJYiH
-         +8Vw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793546901; x=1794151701;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793546906; x=1794151706; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BWV1IinUG0DTVwsnY8AqH4VfOLB1w3rql3cUkwGyNXA=;
-        b=yi/EVGUIweRG5s2/SWn6dijADIL6KjejI5KGQJC3aRKI/m3vu4zhobrytI7F5OMwgm
-         +0HvnnkH73fbw3C4v1/u/iUsWiD3FiXwYWwP5Gq4Sn5lDoD9kcT0UZ58XdLfU2Ww+Xe1
-         KaJoaaw6dgZu/DfVpL961OmEIXzGSpgKtT5BBQfSoSpjSNrKbLkiO20L74otmqe7/Ebo
-         /nmFOaHkU1SsL4qYrlboHOWbPc5s3gquxkPPdxBa8odiASblnfmAAEe5eFZc7N+IDUZ4
-         hcLBhAODV/elbm7MtIY6i8jVrWQcRK46iD9IhzxAMWvGQBauKw42V4ObhxdvvvfNvRbJ
-         DdcQ==
-X-Forwarded-Encrypted: i=1; AKwUvByiWiIfQfQd9CvJMdEilAhkf1xouDZTJbRVvxIsdWtGq2lsGuuCWwxHXnd0S3FMTKQpCjh/C3VIdvPTHIU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQ4z4Phqcmmcj8BXpWkk5kJs3W2Ja88XQeVSTFewM1IWgFmh0e
-	wVRt/GKn3PpwV7FkRJP7UnMr61+IXquxgpo1LPhY4Bg89kCrA5mo3Rul
-X-Gm-Gg: AYBFou0eo43iQtWh8pthDerP89U8FPJOQrvlHn315lZd892lPsKgajSRsrJX2uQyAlD
-	DV+e42+SL7kLvuxXHFeC9Rkap9BLrC3d3HGRj3whjbzjjVchumDa053hBiQsMOrspxXWFe2Kocm
-	SE1RV89Pz3sVRpGeJdcYK5uzXOfqF3waH6Ufn/PIuqxm3CuCI1oXswrFhkl0i8P/O6fPMxrjmel
-	U1VHpt9XTa1aAj7UaR+JbA8bO7yCO3f7ucZ7bLM48VpWWInKCXUrWjCCt+6YLmAcFuXpVQpE653
-	qvQTo/VN5Vo+0lQ1xYyvYpHOJ+3LSjpLvQ5Vl2dta32gC4SHefMy0DzpkeRf6CSv3KfkH33X91U
-	v6q6/6Z0TIY3uBnY/1SGTtESC8ETBw5fxXBaUHTy+pLmXvUSLmL7Y527k79xkOIx1jW86fzzGvd
-	uX78j57wDGKrHr8lH8PQz6q3ZN9fF60tdsC52eAvpdheCjXm7int/b9kAD0HAD51FkD8waioovB
-	1JJGMgSWKfOAezT7XKZwuAozCRvsWcSZkqM/H9vIMl/VpXYunGu55/kX6neTxXeWdV5xPSOPkld
-	BQ5XeNYDKap0HtQA2Ra1qERZWfEpwIqsEw==
-X-Received: by 2002:a05:701b:4248:20b0:191:3c:aae7 with SMTP id a92af1059eb24-1ac5c64cb0emr12048606c88.26.1793546901052;
-        Sun, 01 Nov 2026 07:28:21 -0800 (PST)
+        bh=WmpZZXMsdqMV2V4eNDvwbvfcyiTszzMT6zcGXuns9Y8=;
+        b=IF1ScSnajZK18C8SfEjLv3QvNFkS/82W3LVUwM0NV0XGmqT3Dmr/PIXQPmVjeCIAtO
+         +1OEwVeF2s2TGP3wfhDg9ki0KgGGVr0yxubd1zvguVcNVxKhprNp8E8lt4yNnA23nFaH
+         rpGcTcyb5cJ+dD/Nv+ftrE2BrYCsCwnL4xpShNzn6zV0SBVBf+fj4ZwCHeH314whEu1y
+         Oc8X1Ne0Y+4Tv2s72yFY03yYh+VlVeAJ6di1n0ZUytM+DE6v2/1M4Kz2A8LVeaW+UT9J
+         kh1zXIZlKS5iMvDubw9knHthqHhZ3oj8cj/QH0mzCCfusaRCMhILMqmYvbZOD6DG6kAy
+         qp1A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793546906; x=1794151706;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WmpZZXMsdqMV2V4eNDvwbvfcyiTszzMT6zcGXuns9Y8=;
+        b=yDkkMLo+NsH3z4xbq2JXnwUOc0ENpLkSfeDGbhTwa6SPH4Y4N/fjIsJdeFymGkLdyU
+         mh6VzD3XVuEEOLajW44NoFlpZpn+pmryoKqdl5jT74uzRaNKHcg22xdMVcHkSrq/Eyr5
+         gXKPaW8ChGXJH+WvfVvEswaWAE1VJNNybm17wBSl+XOvVAaBnrRuY7rghR0wMogIBoRn
+         I0CsEr76eVMoiRMYRFbs5ha65Roi8ch6NSfQZSuJUr9is2wb1+nmki6CmOYzmHb52zld
+         fHKSehWhnH0crXoEIdXnaYBdZaYN1S2iUrOtJxOx9bM3oP/IbVBw0fi6Fg747mbdwdgZ
+         WrRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwehYfubmapkfBlzjqF3wkYfq0jjerpsOLpkwfYfe/+OtUKXycD7thIFeTyJC7fhotvyrfZuO0TdyLnwOA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrPzubbwf9/PM6DXulxfQu0ZAKoxPoSf8VZxjz5rB4+l66k7qx
+	bhGIYhWRkOpYc42kFqYmmTaOW8oNkx6h+OTX7H6Ow51e72ecqkR76E4c
+X-Gm-Gg: AYBFou3/d1svpxgIjkSL90skWVpf5myJxF3QAjVaw+74n0E+jYFfvt6+xqNUrapMsVN
+	/PYY5OaK7c/RlbOMTWmvjn3GsL5CsnKAZnLIuJ0sfxbjRuBkkPpb5oEEYigbNsl+crzZym3HszR
+	wQvNYscxptYJpEZzNOmREs8kST7UJ6ggdcHlov6ofXESUxuCOfMLOz7YlmtmMX6iu0BWj4AP13S
+	OFVppSwP194XhOilH4TFOrU0eOl4yaik+1iM8Mr9BdTJ2TeKWS8M/cpG/mjHiTczNKNBNDb+Lu2
+	TB32JwCCfRE1p+EXeN93gnJTtThfBWyTP4wREMjksm4ohUCDs9F2eyXeMQ5OjGpFkR6evDrQWSD
+	QvEU8UxoCaBwo6QQYK0yiZhMog36RNXeZFO1J2srKNqZ5y1H9aiq7USY67Y1n5Lv4CLK++liDIr
+	oXX8BuERlcFLViSMMSISk9w60mB7JFsnfDfPfB9zgHMzdxIoQ+XNO6xOGzQoRiRt/eZJQK5wMSq
+	c0WAHX1GnzmMxzKzCt/BVA+SdK6TG9sYpqigoWuP3rkgoNNMPfWet70eyNwPr0fzFn5yW5PR7bq
+	0zUocRitgI1BVDhp9h1Rxh7/Ax1YHqYmybhbA2Zd41Ya+6khOrmNcx0=
+X-Received: by 2002:a05:701b:2086:20b0:153:3c50:ab85 with SMTP id a92af1059eb24-1ac5cb1c5fbmr12526852c88.12.1793546905701;
+        Sun, 01 Nov 2026 07:28:25 -0800 (PST)
 Received: from pve-server.rlab ([49.205.216.49])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm24862665c88.8.2026.11.01.07.28.16
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac18458e07sm24862665c88.8.2026.11.01.07.28.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 07:28:20 -0800 (PST)
+        Sun, 01 Nov 2026 07:28:25 -0800 (PST)
 From: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
 To: linuxppc-dev@lists.ozlabs.org
 Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
@@ -89,10 +90,12 @@ Cc: Madhavan Srinivasan <maddy@linux.ibm.com>,
 	Anushree Mathur <anushree.mathur@linux.ibm.com>,
 	Harsh Prateek Bora <harshpb@linux.ibm.com>,
 	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>
-Subject: [PATCHv3 0/7] KVM: PPC: Misc fixes and nestedv2 vCPU limit fixes
-Date: Sun,  1 Nov 2026 20:58:05 +0530
-Message-Id: <cover.1793546707.git.ritesh.list@gmail.com>
+Subject: [PATCHv3 1/7] KVM: PPC: Book3S HV: Read EX_DSISR as a 32-bit field on guest exit
+Date: Sun,  1 Nov 2026 20:58:06 +0530
+Message-Id: <4e883269c887f68f4d9d54f2675799df147a5db5.1793546707.git.ritesh.list@gmail.com>
 X-Mailer: git-send-email 2.39.5
+In-Reply-To: <cover.1793546707.git.ritesh.list@gmail.com>
+References: <cover.1793546707.git.ritesh.list@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,47 +107,73 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-v2 -> v3:
-=========
-- Fixed logic bug in patch-2 & patch-6.
-  (realized after sending + sashiko caught this as well).
+kvmhv_vcpu_entry_p9() recovers the guest fault state from the paca
+exception save area with
 
-RFC -> v2:
-=========
-- Addressed sashiko review comments
-  - added patch-3 to address similar __ffs(0) problem on booke
-  - fixed build issues in patch-4
-  - added patch-5 to reject vcpu ids beyond the PAPR limit
-- Few more patches were added. Few of them were reported by Sashiko and few
-  others were caught while doing vcpu create path code walkthrough
+	vcpu->arch.fault_dsisr = exsave[EX_DSISR/sizeof(u64)];
 
-Most of these issues were identified while adding kvm powerpc selftests
-infrastructure support [1] (which is now merged upstream). Patch-1 and Patch-2
-were identified while running the selftests on Qemu+TCG+powernv+BE, while
-Patch-4 can also be reproduced on a real pseries LPAR with nestedv2
-capabilities.
+but EX_DSISR is not a doubleword. It is a 32-bit field at offset 48 that
+shares a doubleword with EX_CCR at offset 52 and the exception entry in
+exceptions-64s.S stores it accordingly. For e.g.
 
-[1]: https://lore.kernel.org/linuxppc-dev/179211526968.809012.4905747914183363587.b4-ty@b4/
-[RFC]: https://lore.kernel.org/linuxppc-dev/cover.1789099725.git.ritesh.list@gmail.com/
+	stw	r10,IAREA+EX_DSISR(r13)
 
+This issue was caught when running kvm selftests on big-endian, where
+this read would land in the high half and the truncation yields EX_CCR
+instead - KVM acts on the guest's condition register as if it were
+HDSISR.
 
-Ritesh Harjani (IBM) (7):
-  KVM: PPC: Book3S HV: Read EX_DSISR as a 32-bit field on guest exit
-  KVM: PPC: Book3S: Don't call __ffs() on an empty pending_exceptions bitmap
-  KVM: PPC: BookE: Don't call __ffs() on an empty pending_exceptions bitmap
-  KVM: PPC: Book3S HV nestedv2: cap max vcpus to PAPR limit
-  KVM: PPC: Book3S HV nestedv2: reject vCPU ids beyond the PAPR limit
-  KVM: PPC: Book3S HV: Fix error handling during vcore create
-  KVM: PPC: Book3s: nestedv2: Free the guest state buffers if vcpu create fails
+The result is that every HDSI on a big-endian host is evaluated against a
+bogus fault status i.e. it fails with below error:
 
- arch/powerpc/include/asm/kvm_host.h   |  1 +
- arch/powerpc/kvm/book3s.c             |  2 +-
- arch/powerpc/kvm/book3s_hv.c          | 15 ++++++++++-----
+	KVM: Got radix HV page fault with DSISR=84004840
+
+Let's fix this by reading this field at it's natural width.
+
+Fixes: 89d35b239101 ("KVM: PPC: Book3S HV P9: Implement the rest of the P9 path in C")
+Signed-off-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
+---
  arch/powerpc/kvm/book3s_hv_p9_entry.c | 13 +++++++++++--
- arch/powerpc/kvm/booke.c              |  2 +-
- arch/powerpc/kvm/powerpc.c            |  9 +++++++++
- 6 files changed, 33 insertions(+), 9 deletions(-)
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
---
+diff --git a/arch/powerpc/kvm/book3s_hv_p9_entry.c b/arch/powerpc/kvm/book3s_hv_p9_entry.c
+index 34bc0a8a1288..16aa8582b888 100644
+--- a/arch/powerpc/kvm/book3s_hv_p9_entry.c
++++ b/arch/powerpc/kvm/book3s_hv_p9_entry.c
+@@ -529,6 +529,15 @@ unsigned long kvmppc_msr_hard_disable_set_facilities(struct kvm_vcpu *vcpu, unsi
+ }
+ EXPORT_SYMBOL_GPL(kvmppc_msr_hard_disable_set_facilities);
+ 
++/*
++ * EX_DSISR is a 32-bit field that shares a doubleword with EX_CCR.
++ * Small helper for reading it back at its natural width.
++ */
++static u32 exsave_dsisr(u64 *exsave)
++{
++	return *(u32 *)((void *)exsave + EX_DSISR);
++}
++
+ int kvmhv_vcpu_entry_p9(struct kvm_vcpu *vcpu, u64 time_limit, unsigned long lpcr, u64 *tb)
+ {
+ 	struct p9_host_os_sprs host_os_sprs;
+@@ -770,7 +779,7 @@ int kvmhv_vcpu_entry_p9(struct kvm_vcpu *vcpu, u64 time_limit, unsigned long lpc
+ 
+ 	if (unlikely(trap == BOOK3S_INTERRUPT_MACHINE_CHECK)) {
+ 		vcpu->arch.fault_dar = exsave[EX_DAR/sizeof(u64)];
+-		vcpu->arch.fault_dsisr = exsave[EX_DSISR/sizeof(u64)];
++		vcpu->arch.fault_dsisr = exsave_dsisr(exsave);
+ 		kvmppc_realmode_machine_check(vcpu);
+ 
+ 	} else if (unlikely(trap == BOOK3S_INTERRUPT_HMI)) {
+@@ -781,7 +790,7 @@ int kvmhv_vcpu_entry_p9(struct kvm_vcpu *vcpu, u64 time_limit, unsigned long lpc
+ 
+ 	} else if (trap == BOOK3S_INTERRUPT_H_DATA_STORAGE) {
+ 		vcpu->arch.fault_dar = exsave[EX_DAR/sizeof(u64)];
+-		vcpu->arch.fault_dsisr = exsave[EX_DSISR/sizeof(u64)];
++		vcpu->arch.fault_dsisr = exsave_dsisr(exsave);
+ 		vcpu->arch.fault_gpa = mfspr(SPRN_ASDR);
+ 
+ 	} else if (trap == BOOK3S_INTERRUPT_H_INST_STORAGE) {
+-- 
 2.39.5
 
