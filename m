@@ -1,49 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793572784;
-	b=dU57yKR6644+J7wceOpMPMmG1taiWk9CDB41kjMQKe5CeFHQ23tivcJB1Y+uW0L6TDDL
-	 jsRR0KQdHcEgdA/BvKXfCZtTrsMSXyPAPi27lUl/NcS7dkfc1tlhY5BcJV+FB3ptSV51X
-	 uvh7XDk0Z3W2vA2uPLtMrAShc/Z2HywwfSDLLLIFdwWlbkafGhbscBzyKyDzZFRSDQs5H
-	 62cAKqXZvELW6sY1rp121lvUlJdkFVpp7DiuV8Bonfc2BhsrQ8+f3afCwyMQwJG49dn4h
-	 Qhy5eh7dIwuFDCakpekF4leGgUPvvERAUqv2wRz4DUQKBBJ9f/vKzSvaGB70fz/UaQA==
+	t=1793572814;
+	b=1CTaElcUMW2Nt+QfVthcwrKCIgG2j2UsWNTMZtb3MYG7QQShPXlQuB+YWlEp+kJ25h4m
+	 /D0SqelbMjh3GVAUSlx8fOCt2lLF4cO6+P0DNIhM15YyvksmXnEq5q4dMqTjPTL9nj7EJ
+	 ZYEOjgJiT7MroGKrKxN7Tp9B6dhEFiMS8bnU6lcIwMJyNsL9ZLabWUXLEvfjLBU+YsDiu
+	 kgkBfNe2/vDzfd/i+t2+ogOb7cv93Dr15jbJaN1ojufgGhcqQBUSCuv1u07bjvYebJKiA
+	 EhSDS3ZAcXRlgAhlLUFwNktIlyboCdAC0cgg1bKetJl/V2O80cCl6FOZe6t+uIJva8w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793572784;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=SZ7d8iHBSE3Yrx5Iw+4Dii899rcTylqgfWPZIDQ/CMs=;
-	b=G9B7jABU8h5n2wOROJkqeEuqdcX1eqGjFFD+1rCbggJDiwbGy0zU0eV2vM3pvFyZUJnm
-	 zwp/7FCjE3XyeqAn7Cv8BR+Qb+Uo8V1+EN5YTyk+d7RRlagWr8boWU/0FKiWgwAjNq7u/
-	 ueXfyhBY+T1UoDfkphTm4zxEJuMWJH8C3xxHXOxkJZOCH7XlZZZUoJiX0WRPJELHfhkxP
-	 gaP/BdzluNB0amrUxtkk/tNREdsVudRQ3O2EvcSc6CFY1UnbwUq4I6YMZ0qY5CRlFkb2S
-	 nRpBECVhOlwKyZudeF1yPZiu1Uv4V6ognmW5+P6kcpFYZsGwmLFOLES3LtD/rxMUE/Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793572814;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zz0SgYmzMlFmYbvywWRdsNJhbZCdEWF94qrr5u2SZBg=;
+	b=ACQUwOqsV761a94dVloihopGM3hvLP3X78ox9zceDWCFFiYYsKlERvETX/9FbDJxBG8m
+	 IyIkPJ+EMZWThrWLQ49ikQ2yrdrbzkutpRNzffl3GEvlW054Sj/v/zLYguELfNQT5nxR2
+	 lt6Kufc1i5BF18sNOIN5HEaueCn4bzeMjjw1+VA2I84RVGI9zV7tMMwxr064Nn9dzuE5M
+	 XU8RLel86Rf24m6P5nzGZOXdKyLAHGc7izrYG9TJVXwiKuk2IDn5J0ebqs21TBxraY97y
+	 3voLK2JaZ1PQC3Vdma8IcihRlwrZRtPQrNRzmegYaHfOYhNbMaFGu60wwoUoLT04cNw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mc7t9jVP;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GEB8z/uT";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1890B606A32E
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:39:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAD2606A326;
+	Sun,  1 Nov 2026 22:40:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mc7t9jVP
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CB701F00A15;
-	Sun,  1 Nov 2026 22:39:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GEB8z/uT
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB1F1F000C1;
+	Sun,  1 Nov 2026 22:40:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793572783;
-	bh=SZ7d8iHBSE3Yrx5Iw+4Dii899rcTylqgfWPZIDQ/CMs=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mc7t9jVPyyVRk4QaAxMEqk0zFAoyH1m8YULkAjdOI3SGmUZC7CcIPQUNMCgVa+rlQ
-	 22sNRm4GON533GT/4FNSWlOIg0iKvcs8eDcEiSEIxNVbb8dwyByIrQhzFkM+NHTQBr
-	 J47+zxDbQPIarTuU5uGwkyAJmEGEfsHb7Itd5Rl+PfhnihPW9PSpeasYGxaL48Ceut
-	 172Q2ODXoJnaqeVkBDKJzsnTsT8EomkIDstmtL3RLyIyCuxJSUKxCJR469nndqn0JC
-	 jGhRyfinP+7E4u3I8oLSNA3mnqQ1hoJTq5MF8y5KvJ78a6SRNh9/w3MSBY6TdAxWR/
-	 GempdmlBSsiQw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4023B391AF9C;
-	Sun,  1 Nov 2026 22:39:43 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793572814;
+	bh=zz0SgYmzMlFmYbvywWRdsNJhbZCdEWF94qrr5u2SZBg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GEB8z/uTQp1CRy8jvIiM4D3Tva+bUAi1CqUQ0LJdgHgywDg9ZzPO89IQ2YwunLrrF
+	 nBWDsAqeAwEYkB46xe1aKwLJX3/z+lQNcuikoGXr/s7iAD/tMEsGz8yow3dfHuxrSA
+	 jnGt1Trhrslmy3Pc6x/bog8KFbtwtcoqyubFtmRqiGv80+Gwjww9G6Gh7JWHk/XVul
+	 U510JibNyuI59Yw4IYoDvfGa1iqvUs4M4UtTRoV9PXYmpYrevq+Me1QZEwWFijEypH
+	 yHCbYQo8ScidZSHAePpYaXp8w68yVMG8ulLtKqFEFBBP626Y0Gup3lDRAV8OO0hQt/
+	 86TTR7aRak/TA==
+Date: Sun, 1 Nov 2026 15:40:08 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, kernel test robot <lkp@intel.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev
+Subject: Re: [PATCH] clocksource/drivers/timer-mediatek: Fix "no-cfi indirect
+ call" warning
+Message-ID: <20261101224008.GA910831@ax162>
+References: <20261101095538.1046918-1-l.scorcia@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,40 +64,53 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [GIT PULL] RISC-V updates for v7.4
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357278179.2624073.8401504518480908201.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:39:41 +0000
-References: <7cd0fc49-0592-2030-17bc-83edd5003817@kernel.org>
-In-Reply-To: <7cd0fc49-0592-2030-17bc-83edd5003817@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>
-Cc: linux-riscv@lists.infradead.org, torvalds@linux-foundation.org,
- linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101095538.1046918-1-l.scorcia@gmail.com>
 
-Hello:
-
-This pull request was applied to riscv/linux.git (for-next)
-by Linus Torvalds <torvalds@linux-foundation.org>:
-
-On Wed, 28 Oct 2026 21:32:56 -0600 (MDT) you wrote:
-> Linus,
+On Sun, Nov 01, 2026 at 10:55:31AM +0100, Luca Leonardo Scorcia wrote:
+> After converting the driver to OF probing, kernel-test-robot reported the
+> following new warning:
 > 
-> Please pull these RISC-V updates for v7.4.  These are mostly
-> optimizations, fixes, and preparation for work that we're planning for
-> v7.5 - there's not much in terms of new features this time.
+> vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi indirect call!
 > 
+> This occurs because of_device_get_match_data() returns NULL when
+> CONFIG_OF is disabled, which results in LLVM dropping the kCFI setup
+> since it knows that there is no valid target for this call. Adding a
+> check for a NULL timer_init avoids the warning and it makes the probe
+> more robust since of_device_get_match_data() could return NULL even
+> when CONFIG_OF=y.
 > 
-> [...]
+> Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
+> Reported-by: kernel test robot <lkp@intel.com>
+> Closes: https://lore.kernel.org/oe-kbuild-all/202610290223.iOEGeDs2-lkp@intel.com/
+> Suggested-by: Nathan Chancellor <nathan@kernel.org>
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 
-Here is the summary with links:
-  - [GIT,PULL] RISC-V updates for v7.4
-    https://git.kernel.org/riscv/c/1b8b67503725
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
 
-You are awesome, thank you!
+> ---
+>  drivers/clocksource/timer-mediatek.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
+> index 842d6ee4259e..e772f5fe8742 100644
+> --- a/drivers/clocksource/timer-mediatek.c
+> +++ b/drivers/clocksource/timer-mediatek.c
+> @@ -353,6 +353,9 @@ static int mtk_timer_probe(struct platform_device *pdev)
+>  	int (*timer_init)(struct platform_device *pdev);
+>  
+>  	timer_init = of_device_get_match_data(&pdev->dev);
+> +	if (!timer_init)
+> +		return -ENODEV;
+> +
+>  	return timer_init(pdev);
+>  }
+>  
+> -- 
+> 2.43.0
+> 
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Cheers,
+Nathan
