@@ -1,56 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.119
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793554918;
-	b=CSa4vra+dkq5oGJgidERkNIAM8SiADSyB1xdP7w8i8dUjJPn9ZsUmJeXiQYH4BJ2Txh1
-	 0b7CwA6GCpriMD6JMMFg6+6nvm9ggr9OCy84UDcxb0ZDkfPVCwEnvMiPHxeoDQ4AvqDyV
-	 Ubvx4CcOpFjf2xGiu//aHdAwW98BEey6/bOXqipf6fA5y6uWWlgwCCGRHaNTj3tUdQUZw
-	 cnUoWrxafSxrXW7RkWeywguO6LQGlVXfrmLvaYUndsuwyyo2bs9fcx+dOG+LA5jaFaJ9i
-	 A1ktGwYfmw8d0cHCJKS/zRtGKLpyY0r+D0xF2CzzSGDWpLhYF2PlJLuhJUBLJ89aFpA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793554918;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=8438jsf3QT9VtFkzrb12f+H+cN7Ey1QqbV6/wYwmkds=;
-	b=CDqNCgH07OpleY/BKUiksSyY98dy+SPjzCseGSL9VEVRTSetaSRYATCL5L77s6sy3Rl5
-	 86aq64PcsHiNWVfm1UIJnHtQtIpbfp0ll4LUe/QoykYoOf/Jzs5tulb+I7eh0bxguB9DM
-	 G4LKHW3ZUBB+CUkji7f3gb+DVzWSr+zp+k/I0FwcDrdKhWveD9lj+C0a/NTee9KuaKHpF
-	 bo0mNWHArIxECZP71OLVAaFnUmxphM185XsmEdUy8QhgvmwJc4jAWrtRVA+CglXGUuMxP
-	 QYoS5IUJpweJ9BUQv3CsyUyeRTzklGJsniAQ4DPsguWVm+dQ14+AdrT2lx6Y35qWbmQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=qV9G+mGj;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.119
-Received: from sender6-pp-f119.zoho.com (sender6-pp-f119.zoho.com [165.173.180.119])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793554904;
+	b=SFcwy2jEsARiNLPLxYlP3Rg2gFTsbbdyspw62F6RhqmUcpFadizBpYRRTeMtMkwN/xxk
+	 CLMuCn0n2K67u0zCOlEuJ9DvrVkg6w7s/dWLDdNFIks7Kq/5U06rx9BxLRMciho6soBzD
+	 hZ6cpoD4DkKkjBV10VfRFOcj5qhg8Se2nH8wn9gDFBvtk2oJIUaSNEbi5rIIvDQI+xIue
+	 8HGW9i67XAYPdoVJWHo6xhQxacfda6mJv2dpWcdrG1rJLa9Go4BZPs6Z58KgKG2VJn/h8
+	 XIliGcTNSs+cF9uiWhC66SIqIXFaYzfzVhr+A6EinDpa4IoI65kIMR3eqsUxeGfRGSA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793554904;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ZSWxv+vsV3OMpY3UoOnjoLymmnb2qgFdGAgFrnTm7wA=;
+	b=Eyw4mGTtswy/zrClQGxgdABNragC/b2R1eatdgIDp7gV+z7rjUwQS/6x1oKZJ5KPuvKG
+	 jdDLJEUiIGQBmdvI5qWrffjhUWfe1lrl0hvb+A63I1N7CZWylqRqgUQYLwkBHSX3DdaQ+
+	 qoZokFHAX9HzwIYrwHIn+WwbOJyBVjrduYV7z7SwGyDveeVd3MZvEjwIAr5mm2oY7xAMT
+	 IPGiF5uohXUlInJoENRGQoES6wX4vBgqupP68RuqQOnr961G2989eq+s4J53YbPzyafwd
+	 G7TZnjHur01jZAwsav/WPWBsjVIw6CI5Gd6LtNaIEsKi3SeFtPvzwKwTb7Q/MpblIcQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJYf1Zmh;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F1F9606A325;
-	Sun,  1 Nov 2026 17:41:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F1F9606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3ED606A32C;
+	Sun,  1 Nov 2026 17:41:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=qV9G+mGj
-ARC-Seal: i=1; a=rsa-sha256; t=1793554894; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=dXnqOGYrctB7ZAsoZlAvSnbb+rx+E18DeEaQMjQUSSKxcrryI5TPTdgfuVRqmp9sXM2tauiwrSPos7a6+D8YILyIXUlgwlG69KvLyjQLFjsUjGGMnKSFmOX0xeR60PK2D2f/+EvIKpzx2PmPBQDh9R8uaLhGFggji1NDLiKYjvg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793554894; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=8438jsf3QT9VtFkzrb12f+H+cN7Ey1QqbV6/wYwmkds=; 
-	b=c7WEbsgOo1rPz32JSO7GfeULkXiOlx7iBDLjQSuVknp8xYj5CdYUIRxUmm7QlFYQFiV8xemvdpjGRQ6ero2kihLEc3/b3/83QJZwbJ6eiRktglm48HXM9+ntliWd4ubwkl0hjHMFl9UvizIAWar33IjysGLinz14D9yMMjIJc/M=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=qV9G+mGjUTkrxfdvBBU3xyeG6ZS76njUAC7p7TsTa0XtCtQW7rzDy4/Lv9k1LkcTgCzppYmgxlHuSXADZz+fI4DYosmOgf5MSaIs+dRmmGfM5gdHUfwAHhJekYY/6oP5iRN90biIJS7cZhU102nRYqs/ZqyyQ3ijhZhUgbrkIQDzXgN5qwk2dV/7CLFDfXw7J9Y9CH2UcmHpZuktLLb3Y450g18Qu1EvIvUUrV676ZJz1y6DaqQMXy0ByC4ETvvUWiBkmdvWwr/JOrafWOf/pR+g+NvPWk+lrmhobx96TJRzpS0NZ5dwZs0JeS/4kJE3IfVuwtM7xPVYXZB6Yw8yNg==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=8438jsf3QT9VtFkzrb12f+H+cN7Ey1QqbV6/wYwmkds=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793554892470729.2178634737209;
-	Sun, 1 Nov 2026 09:41:32 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 02 Nov 2026 01:41:19 +0800
-Subject: [PATCH 2/9] HID: haptic: Get rid of input_ff_destroy() in error
- paths
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJYf1Zmh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D3961F000C1;
+	Sun,  1 Nov 2026 17:41:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793554903;
+	bh=ZSWxv+vsV3OMpY3UoOnjoLymmnb2qgFdGAgFrnTm7wA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hJYf1Zmh2Yx9+qETVYUi6n/ZBYeFIK+4QJnS6Yn2Q23NGW/MPESWC54jo5Qhioi75
+	 MUZ8ia1LeX5PcscI6EVBgWu6xB0lxUn4sJWDCBuFrF6rAZXzX6uVI+OQMp9xKZl1a7
+	 1OePawjs35W9cDvd3BoBLEg9CBB99xp/FHEtSMfS0qgcqSoZrQGFn3EA8UmhU8yUGf
+	 7uUNVXsuZUAiXu05o5VLCGqPFaJCMkW0YkpIBHVvv4XOyJ0ZOQERDfqw3qiBcVCCdM
+	 O9SsPRB4aZ5MrJ2trR2gfUgDyhEp+rGAK3kehDgRLYeZniN6LkFz7SB9G/MLGwMvjN
+	 ixQGjVXexQeNw==
+Date: Sun, 1 Nov 2026 17:41:40 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
+ Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
+ =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
+ <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
+ Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
+ <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 2/2] iio: light: ltr501: Add support for the
+ LTR-659PS-01 proximity sensor
+Message-ID: <20261101174140.4d11fdfc@jic23-hlaptop>
+In-Reply-To: <20261101141507.119186-3-clamor95@gmail.com>
+References: <20261101141507.119186-1-clamor95@gmail.com>
+	<20261101141507.119186-3-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,139 +70,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-hid-haptic-kmod-v1-2-a3de5626dade@rong.moe>
-References: <20261102-hid-haptic-kmod-v1-0-a3de5626dade@rong.moe>
-In-Reply-To: <20261102-hid-haptic-kmod-v1-0-a3de5626dade@rong.moe>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Jonathan Denose <jdenose@google.com>, Angela Czubak <aczubak@google.com>, 
- Henrik Rydberg <rydberg@bitmath.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-6be7c
-X-ZohoMailClient: External
 
-It's painful to have error paths after calling input_ff_create(),
-because input_ff_destroy() frees too much things but does not restore
-some other things.
+On Sun,  1 Nov 2026 16:15:07 +0200
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-On get_device failure, the module's bail-out path calls module_put()
-right before hid_haptic_destroy() calling it again, causing refcount
-underflow.
+> Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+> nearly identical to the LTR-559ALS-01, but omits all elements related to
+> ambient light sensing (Even the regmap is identical, but ALS registers are
+> marked as reserved and interactions with them are discouraged).
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Hi Svyatoslav,
 
-Besides, every error path calling input_ff_destroy() frees ff->private,
-while the others don't. This divergence has caused quite a lot of
-trouble.
+Various more general comments on the driver in here. Only real request
+is to not copy the rather ugly existing indentation for new code.
 
-Get the module and the device beforehand, so that there is no error path
-after input_ff_create(), eliminating the call to input_ff_destroy(). In
-this manner, we don't need to restore dev->flush and dev->event either.
+If nothing else comes up in review, I can just tidy that up whilst applying.
+For now I'm going to leave this on list to give others time to take a
+look.
 
-Fixes: 344ff3584957 ("HID: haptic: initialize haptic device")
-Signed-off-by: Rong Zhang <i@rong.moe>
----
- drivers/hid/hid-haptic.c | 40 +++++++++++++++++-----------------------
- 1 file changed, 17 insertions(+), 23 deletions(-)
+Thanks,
 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index 133cf2dcd4ac..9cbacc827dc9 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -386,9 +386,6 @@ static void hid_haptic_destroy(struct ff_device *ff)
- 	destroy_workqueue(haptic->wq);
- 	haptic->wq = NULL;
- 
--	if (hdev)
--		put_device(&hdev->dev);
--
- 	kfree(haptic->stop_effect.report_buf);
- 	haptic->stop_effect.report_buf = NULL;
- 
-@@ -405,6 +402,9 @@ static void hid_haptic_destroy(struct ff_device *ff)
- 	kfree(haptic->hid_usage_map);
- 	haptic->hid_usage_map = NULL;
- 
-+	if (hdev)
-+		put_device(&hdev->dev);
-+
- 	module_put(THIS_MODULE);
- }
- 
-@@ -417,8 +417,16 @@ int hid_haptic_init(struct hid_device *hdev,
- 	struct ff_haptic_effect stop_effect = {
- 		.hid_usage = HID_HP_WAVEFORMSTOP & HID_USAGE,
- 	};
--	int (*flush)(struct input_dev *dev, struct file *file);
--	int (*event)(struct input_dev *dev, unsigned int type, unsigned int code, int value);
-+
-+	if (!try_module_get(THIS_MODULE)) {
-+		dev_err(&hdev->dev, "Failed to increase module count.\n");
-+		return -ENXIO;
-+	}
-+	if (!get_device(&hdev->dev)) {
-+		dev_err(&hdev->dev, "Failed to get hdev device.\n");
-+		ret = -ENXIO;
-+		goto exit;
-+	}
- 
- 	haptic->hdev = hdev;
- 	haptic->max_waveform_id = max(2u, haptic->max_waveform_id);
-@@ -428,7 +436,7 @@ int hid_haptic_init(struct hid_device *hdev,
- 					sizeof(u16), GFP_KERNEL);
- 	if (!haptic->hid_usage_map) {
- 		ret = -ENOMEM;
--		goto exit;
-+		goto put_device;
- 	}
- 	haptic->duration_map = kcalloc(haptic->max_duration_id + 1,
- 				       sizeof(u32), GFP_KERNEL);
-@@ -496,8 +504,6 @@ int hid_haptic_init(struct hid_device *hdev,
- 
- 	input_set_capability(dev, EV_FF, FF_HAPTIC);
- 
--	flush = dev->flush;
--	event = dev->event;
- 	ret = input_ff_create(dev, FF_MAX_EFFECTS);
- 	if (ret) {
- 		dev_err(&hdev->dev, "Failed to create ff device.\n");
-@@ -510,23 +516,8 @@ int hid_haptic_init(struct hid_device *hdev,
- 	ff->playback = hid_haptic_playback;
- 	ff->erase = hid_haptic_erase;
- 	ff->destroy = hid_haptic_destroy;
--	if (!try_module_get(THIS_MODULE)) {
--		dev_err(&hdev->dev, "Failed to increase module count.\n");
--		goto input_free;
--	}
--	if (!get_device(&hdev->dev)) {
--		dev_err(&hdev->dev, "Failed to get hdev device.\n");
--		module_put(THIS_MODULE);
--		goto input_free;
--	}
- 	return 0;
- 
--input_free:
--	input_ff_destroy(dev);
--	/* Restore dev flush and event */
--	dev->flush = flush;
--	dev->event = event;
--	return ret;
- reset_evbit:
- 	__clear_bit(EV_FF, dev->evbit);
- 	destroy_workqueue(haptic->wq);
-@@ -545,7 +536,10 @@ int hid_haptic_init(struct hid_device *hdev,
- usage_map:
- 	kfree(haptic->hid_usage_map);
- 	haptic->hid_usage_map = NULL;
-+put_device:
-+	put_device(&hdev->dev);
- exit:
-+	module_put(THIS_MODULE);
- 	return ret;
- }
- EXPORT_SYMBOL_GPL(hid_haptic_init);
+Jonathan
 
--- 
-2.55.0
+> ---
+>  drivers/iio/light/ltr501.c | 58 ++++++++++++++++++++++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+> 
+> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> index 302be2fc314c5..5cc1141322ad5 100644
+> --- a/drivers/iio/light/ltr501.c
+> +++ b/drivers/iio/light/ltr501.c
+> @@ -96,6 +96,7 @@ enum {
+>  	ltr329,
+>  	ltr501,
+>  	ltr559,
+> +	ltr659,
+>  };
+>  
+>  struct ltr501_gain {
+> @@ -649,6 +650,26 @@ static const struct iio_chan_spec ltr301_channels[] = {
+>  	IIO_CHAN_SOFT_TIMESTAMP(2),
+>  };
+>  
+> +static const struct iio_chan_spec ltr659_channels[] = {
+> +	{
+> +		.type = IIO_PROXIMITY,
+> +		.address = LTR501_PS_DATA,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +		.scan_index = 0,
+> +		.scan_type = {
+> +			.sign = 'u',
+> +			.realbits = 11,
+> +			.storagebits = 16,
+> +			.endianness = IIO_CPU,
+> +		},
+> +		.event_spec = ltr501_pxs_event_spec,
+> +		.num_event_specs = ARRAY_SIZE(ltr501_pxs_event_spec),
+> +		.ext_info = ltr501_ext_info,
+> +	},
+> +	IIO_CHAN_SOFT_TIMESTAMP(1),
+> +};
+> +
+>  static int ltr501_read_info_raw(struct ltr501_data *data,
+>  				struct iio_chan_spec const *chan,
+>  				int *val)
+> @@ -1178,6 +1199,12 @@ static struct attribute *ltr301_attributes[] = {
+>  	NULL
+>  };
+>  
+> +static struct attribute *ltr659_attributes[] = {
+> +	&iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
+> +	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
+> +	NULL
+> +};
+Not something I'm going to ask for as part of this series, but
+if anyone working with this driver has time it would be good to
+move the available handling over to the read_avail() callback
+and masks.  This is an old driver and so far not been converted
+to that newer infrastructure.
+
+> +
+>  static const struct attribute_group ltr501_attribute_group = {
+>  	.attrs = ltr501_attributes,
+>  };
+> @@ -1186,6 +1213,10 @@ static const struct attribute_group ltr301_attribute_group = {
+>  	.attrs = ltr301_attributes,
+>  };
+>  
+> +static const struct attribute_group ltr659_attribute_group = {
+> +	.attrs = ltr659_attributes,
+> +};
+> +
+>  static const struct iio_info ltr501_info_no_irq = {
+>  	.read_raw = ltr501_read_raw,
+>  	.write_raw = ltr501_write_raw,
+> @@ -1218,6 +1249,22 @@ static const struct iio_info ltr301_info = {
+>  	.write_event_config	= &ltr501_write_event_config,
+>  };
+>  
+> +static const struct iio_info ltr659_info_no_irq = {
+> +	.read_raw = ltr501_read_raw,
+> +	.write_raw = ltr501_write_raw,
+> +	.attrs = &ltr659_attribute_group,
+> +};
+> +
+> +static const struct iio_info ltr659_info = {
+> +	.read_raw = ltr501_read_raw,
+> +	.write_raw = ltr501_write_raw,
+> +	.attrs = &ltr659_attribute_group,
+> +	.read_event_value	= &ltr501_read_event,
+> +	.write_event_value	= &ltr501_write_event,
+> +	.read_event_config	= &ltr501_read_event_config,
+> +	.write_event_config	= &ltr501_write_event_config,
+
+The indenting of the existing structure is weird and could do with a tidy up.
+I'd suggest just dropping any attempt to force alignment.  As is shown
+here, doing that tends to lead to inconsistency over time as a driver
+evolves.
+
+> +};
+> +
+>  static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+>  	[ltr301] = {
+>  		.partid = 0x08,
+> @@ -1283,6 +1330,15 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
+>  		.channels = ltr501_channels,
+>  		.no_channels = ARRAY_SIZE(ltr501_channels),
+>  	},
+
+Another nice to have but not a request for this series.
+Would be good to move away from handling these as an array with the enum
+value in the firmware tables. That scales badly and runs into NULL check
+problems when we use the generic firmware accessors (which we should really
+be using here). i2c_get_match_data().  The standard way to do this
+today is to use separate named structures and put pointers to those in the
+tables.
+
+> +	[ltr659] = {
+> +		.partid = 0x09,
+> +		.ps_gain = ltr559_ps_gain_tbl,
+> +		.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
+> +		.info = &ltr659_info,
+> +		.info_no_irq = &ltr659_info_no_irq,
+> +		.channels = ltr659_channels,
+> +		.no_channels = ARRAY_SIZE(ltr659_channels),
+> +	},
+>  };
+>  
+>  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
+> @@ -1635,6 +1691,7 @@ static const struct i2c_device_id ltr501_id[] = {
+>  	{ .name = "ltr329", .driver_data = ltr329 },
+>  	{ .name = "ltr501", .driver_data = ltr501 },
+>  	{ .name = "ltr559", .driver_data = ltr559 },
+> +	{ .name = "ltr659", .driver_data = ltr659 },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(i2c, ltr501_id);
+> @@ -1645,6 +1702,7 @@ static const struct of_device_id ltr501_of_match[] = {
+>  	{ .compatible = "liteon,ltr329", },
+>  	{ .compatible = "liteon,ltr501", },
+>  	{ .compatible = "liteon,ltr559", },
+> +	{ .compatible = "liteon,ltr659", },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, ltr501_of_match);
 
