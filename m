@@ -1,111 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793562366;
-	b=gLE89hHaLpzFFTjGPE64+q11CSTXAG43cK5SrjtPTY6CDKo3jrYw5+sa/IdULa+V2szW
-	 K6MvDsJ8qBjOpAyde/owj3FJGKVp0KalYfRRqTG6qQSx4B/ocO9S4Ly5lYwUnGDoBPe0W
-	 jc3BSdElIMEfw6KxdNySqKTtKj7fYvO7UzUUvkew47lTk/DSmWQl1GEPX4t8W0rHL2FDf
-	 yX/+ly9GpMhj4cR28TS9LWvDGtF3jRdMn+cxSDm52UVOl56IGl4vPXh1oF921mrxLNJS1
-	 yTOe5YccRrjrx2LVgniIO0FuwX5zDX2XuWtQaumD3/EXSNKzY/yj9RToQWKvx+3w+IA==
+	t=1793562537;
+	b=lCRGqZgsX4sn/uLpqQB0Te8FjpXaaKXX98klO3K1CbLsaf828uZivP0ANuQDU2D6UcTJ
+	 lwinl1iSi3rBQi1GA7f5/k9UISACCG5IlGnsRL81o9P40mETx9t4q3eap/O+LK5rdHGRn
+	 J2h10hWaKn7VKYYPtSlnpDD+/XwvG+77phQwl29dysYgza6pZNlHHqLvixF2RKZ8Yj+od
+	 izwh1IVj5Mp/0XlFquhH5o5Fan2kUnNUQmafAgGISwfgsy+N7/ZTYkDR+s/HvP3z9XnQH
+	 P340v23ZnzcEcl3DW+6u6c7OOZmkgV/qoWdBr4ZBYWwAdAkRZyRKguWzWzQt4E/P1oQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793562366;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=XL5M91BSp4AAft2kzoFv3DfkIiGz5Ajg83L723WR2fE=;
-	b=OQ0gBT9xrbcAa1o5lu/egONOIHfpfFrfzzA/9/hTNit4kD3ZphHgr2c5srIFiponaksi
-	 5UoFtH5P3av0kQ60kg9kqnARpDsXPOd5AJY8kR1agR8Ta24uYvEJ0sy9YjGW0leXdbD5i
-	 z7Rqu3bzJAVWO2KUIcwWXNzzYVHeptbBdZ5kbizlDlK/Va+eos1rOnoA8hAzWMf4vFEip
-	 5KXfg/pAfwapCgjvm4hF/bQN3PZ9h0qkGFfi8iBvdRypSVgLb2OeLCUmEr9I+RLfXTxs2
-	 UDumZ7E31T1Sg9bPPTWpyfl/D+g9Iq9hkgMuIlIHTSSdT+smuJnnIRC5V5MAoCPS42w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793562537;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LEeoRplq5LZHzrY456oul/d2PVq9rdUpin7S14J3okI=;
+	b=KskTQp0vHEommMdT/vgSo1M7kUwKsWKBBjY5QfNECWs12N1MlTdlwLmWKHfmLQpIj/mP
+	 fv+Yq53lacjqAYiTBxQIO+C1Th82g1HUW0axp3bQ0+XC3Q7GlayNkUxpcy3mSrautF2Ol
+	 o1PIWt4rA2EkADpbbGZZ6s6wYb/hN66k8mnWAFDJJwQMQXmYYSaak50q1VvzVa42IuZkQ
+	 2/1ypWM57Q/mGvJWT2rlrqPwpjO4OSpd52oQ9CwwyC9KXkFY7vFegZ1a6wKZehVSADhiX
+	 Ksx91YHianfG2D5p5idoOQB4tr2SWq9Z5loKXFJByA4A52TbqscvEshEImFYUb8vOZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=arndb.de;
-	spf=pass smtp.mailfrom=arndb.de;
-	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b="bAfiBn4/";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YPYNbiub;
-	arc=none smtp.remote-ip=103.168.172.156
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFU9xYmU;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BF4606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 44BF4606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B58606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:48:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3B58606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=bAfiBn4/;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YPYNbiub
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6524B1400191
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:46:00 -0500 (EST)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sun, 01 Nov 2026 14:46:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1793562356;
-	 x=1793648756; bh=XL5M91BSp4AAft2kzoFv3DfkIiGz5Ajg83L723WR2fE=; b=
-	bAfiBn4/DIWkqkQUxxg3Tb6y6cbChQkhNKMFK2D+c36GSOmOwIaPPbVjyHkoUVxe
-	cw5hEPANRwox8+VRg2f2eefII3zuGpi3hp0abQINTTvQe4vxQi5y1eU6rHRmKHIS
-	KIr/1ztd/JTeAHPYVI6RLYmrHcN4yiG1ir3LTH/vS6k2YjyF8yFDWrzkP1YGlw5z
-	gbTB8Rz5a9ppKzgkyH2thLCN2+A1BV2I7h6D2aZB5CoEQl3QJH7/aR+yyMr6aa0q
-	GzmGAZkWympkTgEKSV5qhN99bp4fcSd8vAjc2pfKC9QG+Kv/5RfktQJGErRj+upN
-	QgHgSpywnT34pW1MwS61rA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793562356; x=
-	1793648756; bh=XL5M91BSp4AAft2kzoFv3DfkIiGz5Ajg83L723WR2fE=; b=Y
-	PYNbiubSn9MMP7KHrFPAFbQdJe4c633qAnayf25nYCPf1XFHu0du+xdRcUqj3snn
-	T/O/9PiWYbcrQRLh+/e0+DAKW1RqMpNUl4D7Ki4ZhxPDfHl66qcJuvgeHR1h+qC5
-	38SOO3PY9S7xYqsb+a1HMbpn3MR2o45WD9SQEcZE1rznMQGHOouUMOmuChZso0Xh
-	qtBkDu/uih9L2BAdIrNiWH2d+LmkIEloth5M7dO0C/dDiAMPV8kjKSNcnwhFHppC
-	hTg8X59vdkuM7atxM8js0NjwfkcyjMRxDelV7CHXIcVjxCywI1PpbQ+AjN/dqEOR
-	83fiOpf+m3KwHffWHj3iA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793562356; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:Z41yYKMOiIh2zGcEpOe0scxh6W7fcf0G80S5ARW/ny0UeyO
-	hhADCtQKrFqQXGb8kdP1zoE2+ZUjS3F5nvRpYQ2dou+Tz2Zl1YJnDVlTcDESyW4l
-	KMn1Za2+5VdltvjXhCeq0TNnSN1WlzZMREwXt+Rl3YKJbCaXEcdB/DkjWwx0P6Vs
-	lEJzcK6FF7sW9X/fg2dRY6577RXlKPfYsneTS+Ci0/POI8Z5z0tuUdUU8YjS+82j
-	o88hfbVGBgCcnUPS7ZP8ST/L1rmDyEV73OCVkLyBRN/Um02c9f+zfLQO16Qkk/+J
-	2LxcVjnOK8JDM3z1iExUJ9pu6WJFUBnBkeDO8Aw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:tVKU6x6Hpa8+j/X/xHhKxol+ZR0276eFx2r5IaeIxmo=:ZpJZa0RF5+QGwaEdzSO/cu72cdWSAvwHkZvNhEgoujY=;
-X-ME-Sender: <xms:8ZbnakOYMSWEsemSaXapmHpnCu8zpieg9UREQTFgsISEI1EEmAcDRw>
-    <xme:8ZbnalzaPLidekYo8i2rtkboUsFHjK1HMZs78tIHTpRFAWeG-1q2JnnM0Nup4bz88
-    J7cJ7j4OqxJE0UEwdXCBLENyIyETJEm3jU2GRTjwP7w2F8UliBJo_33>
-X-ME-Proxy-Cause: dmFkZTEU6JWhB3TLYMF5uFOSIuMrIcUT4lNAjQf/JM331pvv5qvR9X6bo/nK3gvmMufUr8
-    ybDW9jtvmnTebXBKKdu54eJi4GQfSFqLaH367aaiCzgmaVkk5XA//fR0IiLK45NZGijfLS
-    uoiIh9Db9QWnUcd3Q4a/JpTUzEHrccxJbjPp85ONjf7V1BrGYZ+MTvSP6YsAJRaldDWgcd
-    AwroZy6sM1MSBdIsgagOAcgPNkU/c2OPjnl15tP0WqSdrESw/OYpdiMsZXzPqUdidI2wtn
-    vNbhI9SqayT5bgxtEpTlIOCzgRp+ByStLKNVCBaaCD5nF0D7zLBLzak92KsoCPiYmjw2Es
-    TPsptJo/RsTMuz2LgskRrlQaHduYmvylhsC7iyzw5Nx/7Is8kYL2HD0lR7zTM7fys/mm4e
-    OctzPUlFL0uXC2wL7OCE+QAsajvIGQ5Z0LGbkZ+2KcanlpcLJ2iECD6DzpQIMNqa6yKHsy
-    x3or2AOE1pSyYZLW3PzkkS51wH2bTLLK+G2kMng4mkrlKAYsQbJjZiLEY0RmhI3BL0E94i
-    zGM9xdtGecwftNRzOIY6A8Ftp40QTNlbuADg2B46Y+TKL9A/gxqHwl6OAjWV2BIVM+c2yk
-    gXtLhHdfAHvqlHUvFRy6JiZzrsPRTr2lBAo0N45K/KBmXpL8zrtTCjOHBYbg
-X-ME-Proxy: <xmx:8pbnahowgsz2IBXOvVWPZYZqY3N-HSFfjxWXXtJ9QAmsp5Bl2ktqjQ>
-    <xmx:8pbnaomMKvw67cfG-LK7uBWv0uNZ-WWSFTAQEA7ip8tYwtbdx04iHA>
-    <xmx:8pbnaiccLXbUFszydGtXNuGom6OPXBdQwyDgy_IK1QnzAh58a1e5gw>
-    <xmx:8pbnasq8FbDc4HFxbLBxfXTGL96aTU0bf5zt3rmL9pf4czWhiZ2QJw>
-    <xmx:9JbnatMbgZ5ZcuUtu58AWpli_b72R8SkwkCwzLvsgC1rmzKbtMIHQ_C7>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 1557532A0093; Sun,  1 Nov 2026 14:45:53 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QFU9xYmU
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so14772655e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:48:56 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793562535; x=1794167335; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LEeoRplq5LZHzrY456oul/d2PVq9rdUpin7S14J3okI=;
+        b=QFU9xYmU/L6N9hQKi7stq4UplEV/6r8zefAQp+PjuqRIJisR17AK7U1OftGHMnipEq
+         Cl2TA31hOOdiNuVoE7wM+G2S2OJB/QfdSJMfMMG00WQC21DeHkRX4qmiF0pSaXWUdBRx
+         Odyq4C5zX7+skq9S6qgpXHuIMwgklqwk9GGkSzz3XgIV+KPY0pp+eIf6Q4000DNIaoAt
+         4Oe7KScLKAl/8JkSW5Iyg+oB4TIv17aLhFn2MBhqf1wsCr2+uaIF4mlpVUdlfez68SQZ
+         huJzDB83aaTWCtZT50/xAWnTyVPT1rK8FadaAjbuB35XCZe10eOeqo0wgX0bfmj3NUrJ
+         LCFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793562535; x=1794167335;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LEeoRplq5LZHzrY456oul/d2PVq9rdUpin7S14J3okI=;
+        b=G8/7d3B3D9Y8yBQ1A78I5WXuGb5LBgHPW78toUUk5/sda+chlBy9DRAc7sbt7ZaqX9
+         5mAzn2VjQFK/WoBTiVtHejNjXmWa7DYx34wpf1/f9YZg1rFk7hpEgh0lmucS+DlAhP7F
+         DWr7hzmJIA5LL+H+TvXrYbHTVX2G9wm4xdo8i6rhyzZGqVimoB0UnX02kY/3Jjxg9AjK
+         emNBeW2pxJIZESLC4sdFhfte/Q5SBG1zvC2dvR+iuENbEELtV38Dt4Ghu5Vp0nDfgkAj
+         FKWHQcCKhdZOfyqLzpSYJE6ye7FakCz8UyqjzKLogFD/D49xtuiU/3wpWhzS8lqzu0A7
+         S1sQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwz3nZbyqe05HBwp+laTISv2glUA2ViNFMBisP489kPM8i7grEIiAclV25JN0v0n9pbdq9da2p2U25Yj2k=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK11MIgNBCbHB9PgjYuHytdPLnn/renj/W7zw+fyidxWNHg+1PF
+	tqh58zBxx8U+OoqaTW0mOZwTUPvHe2K1H2wIyLGub8yWaGMybfQszZ/b
+X-Gm-Gg: AYBFou1p9fxTz0QKZH+A0wX3co8ngGbflOixm8b3fHlekdEZcdjKCvanZ+0gSbXSKWB
+	u6D/PQSLHVG0vwDQB727WFSdex2NjXLUKwbRbdr5gBTlsgnaH5YfjSP6QEAU8yg3yzNGyWYJjXa
+	8dv5yiJqOtqMCJAFsE469iZAGVKyNqLUwbm908ZA+fMSVGx+clz34AaOVsBT1uJLK+jgWkxZtP9
+	gIEzBhfOCV/Gz20uMZsNmXnq0C7YdOUcAafHCw4SsxcbvJYCqaYqmcAMIaOUF2E51rnKsiKSq2c
+	znx4j110eEK7KO11ZCAgPgaffv+/vGuG7YpgOdVpqxbwywpiS3dfF2R0j+U7mjhkxpeSZ3inRtV
+	DMp7ByJyck5P6QgzuZmWtUHnxOHV0MojZPgeHxrgSEDFgE9eIJiOxyGTkjCalcEqXZLnNDlbZY6
+	AM8PsHJQCicipw+8/OogKFEYdCgR1nni2x88rHQObOsPxiGEa19mzw23LojPiiTlmPGdpQBxEBM
+	I0uidGsNWxXk7dSVJtLMmQaFFt+m1SAc2X2Yu+PJ/QNOekw2RWSLc9TOwXyR1/vs7uYckYffYZI
+	Uzs8ginhRrgfRg6GJd0ZslZRt3SOW2DTYkeDyN7ObX8=
+X-Received: by 2002:a05:600c:198e:b0:4a0:2488:71cc with SMTP id 5b1f17b1804b1-4ac1932a23fmr194625525e9.32.1793562534985;
+        Sun, 01 Nov 2026 11:48:54 -0800 (PST)
+Received: from cachyos-x8664.hgw.local ([78.182.223.63])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa8213ead6sm296179535e9.14.2026.11.01.11.48.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 11:48:54 -0800 (PST)
+From: Muhammed Sariyildiz <asiyee994@gmail.com>
+To: shuah@kernel.org
+Cc: linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] selftests/ipc: Use IPC_STAT to get queue information
+Date: Sun,  1 Nov 2026 22:48:14 +0300
+Message-ID: <20261101194814.188536-1-asiyee994@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,46 +94,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Ap4PcZ20AeuN
-Date: Sun, 01 Nov 2026 20:45:32 +0100
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Vineet Gupta" <vgupta@kernel.org>, "Sasha Levin" <sashal@kernel.org>,
- linux-snps-arc@lists.infradead.org
-Cc: "Andrii Nakryiko" <andrii@kernel.org>,
- "Ilya Leoshkevich" <iii@linux.ibm.com>, bpf@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>
-Message-Id: <ca697a3c-fee0-40a9-98e6-12e24febb3b7@app.fastmail.com>
-In-Reply-To: <7de128f0-4f17-4a33-9a7a-14d5bbf62e64@kernel.org>
-References: <20261015154044.4058618-1-sashal@kernel.org>
- <09db4d22-2836-4656-8c6a-a7e5377710fb@kernel.org>
- <8b4688ca-db5c-4122-b616-8e3964e403f8@app.fastmail.com>
- <7de128f0-4f17-4a33-9a7a-14d5bbf62e64@kernel.org>
-Subject: Re: [PATCH] ARC: Strip libgcc debug information when generating BTF
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 1, 2026, at 19:38, Vineet Gupta wrote:
-> On 11/1/26 03:09, Arnd Bergmann wrote:
->>> I'm working on getting rid of libgcc linking for ARC.
->>
->> I hope there is some overlap with what you need for arc in the
->> lib/*.c functions. I can take both through the asm-generic tree
->> to reduce the dependencies if that helps.
->
-> Oh that fits the bill perfectly. Mine also switched the others (with 
-> build test using their cross tool-chains).
-> Anyhow I'll wait for that to land. Would this need to wait full cycle ? 
-> If it can land in 7.4-rcX, I can hold off my existing patches for 
-> switching to current in-tree lib/* to also use the new ones and be done 
-> with libgcc.
+dump_queue() finds the message queue's stats by brute-forcing kernel
+indexes 0..255 with MSG_STAT and comparing the returned identifier with
+msgque->msq_id. This misses queues whose index is 256 or larger, and if
+no match is found the loop ends and the code goes on using a stale
+or uninitialized struct msqid_ds.
 
-If you need this to fix the regression, I think it's fine to merge
-the shared lib/*.c files for for 7.4 along with whatever you need on
-top. I suspect though based on Sasha's patch, the only thing we
-actually need is to stop exporting the floating point functions
-so the types don't leak into btf. If you can verify that this
-is the case, I would do the full conversion for both nios2
-and arc in 7.5.
+The identifier is already known, so query it directly with IPC_STAT.
+This removes the loop and reports a failure if the queue cannot be
+queried.
 
-     Arnd
+Signed-off-by: Muhammed Sariyildiz <asiyee994@gmail.com>
+---
+ tools/testing/selftests/ipc/msgque.c | 18 +++++-------------
+ 1 file changed, 5 insertions(+), 13 deletions(-)
+
+diff --git a/tools/testing/selftests/ipc/msgque.c b/tools/testing/selftests/ipc/msgque.c
+index 4b4c1ab..f4168c7 100644
+--- a/tools/testing/selftests/ipc/msgque.c
++++ b/tools/testing/selftests/ipc/msgque.c
+@@ -130,21 +130,13 @@ err:
+ int dump_queue(struct msgque_data *msgque)
+ {
+ 	struct msqid_ds ds;
+-	int kern_id;
+ 	int i, ret;
+ 
+-	for (kern_id = 0; kern_id < 256; kern_id++) {
+-		ret = msgctl(kern_id, MSG_STAT, &ds);
+-		if (ret < 0) {
+-			if (errno == EINVAL)
+-				continue;
+-			ksft_test_result_fail("Failed to get stats for IPC queue with id %d\n",
+-					kern_id);
+-			return -errno;
+-		}
+-
+-		if (ret == msgque->msq_id)
+-			break;
++	ret = msgctl(msgque->msq_id, IPC_STAT, &ds);
++	if (ret < 0) {
++		ksft_test_result_fail("Failed to get stats for IPC queue with id %d\n",
++				      msgque->msq_id);
++		return -errno;
+ 	}
+ 
+ 	msgque->messages = malloc(sizeof(struct msg1) * ds.msg_qnum);
+-- 
+2.47.3
+
