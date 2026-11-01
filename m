@@ -1,44 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=210.79.60.93
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.158
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793531412;
-	b=lNlkqgyrSMIzgfa1DEKGmkv0CH7GF08nukw3p3n9iu4u+LbOAN/t8lyLhAD1oOMgt5sE
-	 x6tRKvZ0n98yHxKYiZ1a1oMiZloLZq9iZPECeGz1iFeiCiG6dGRYvSjqDKFM2mkpZxEjv
-	 uK6tyJYHd0L+Y3pPFqpypARsvukBhxQnSY7U7oWMK4+yLobSHML4rQ2sg2zWNdOo+uNDx
-	 TaRCx1KAr1nQNxekqvM1HiqzwG3O7oNcippTweEDpYu5K1ldY5A9m3qDN2GywBLb3s/Vz
-	 CGtlfnD1tciUzBgMGCgqV100Nz+dvs01PpV6beG2uF07c7sEtG4fE/TONoOzndWkVRQ==
+	t=1793531432;
+	b=Z7jKeWwtVKuoXxXuHZa4LzIMaeYnXq7HKWWMsLs0b6coBmG38JDlkgqk07vyggnkvCR9
+	 /SSlRceCSqq9jQfwjqB2C/GVZ4dtVfyg6Q4BRtdTl5GPq8kS967rv1+rVh5IwVrBlpEZ2
+	 KQAQc8cay1cBmMzaOj3KtwhJBRY3127jAwNni1O1Y0NFQjS4AM/lQ4m++RKsj7z9l7TXf
+	 AEoqF2sUUcmav2yEJ1/WXgLmjixr3GAr0PnMEr0o+r4e4DPd/C5tTw2Awa1ieze5TKpra
+	 FFTMYvuNPS/IaRzQaBRA5FJdsheGkSofaKw2a3mGCBWEjtM0JameS3BjMI18XgEEJ/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793531412;
-	h=DMARC-Filter:Received:Message-ID:Date:MIME-Version:User-Agent:Cc:
-	 Subject:To:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:X-HM-Spam-Status:
-	 DKIM-Signature;
-	bh=o4gG/i3absZUKyk5WqO7dZSC3KzKqyXdlnRQkR3arf0=;
-	b=tc/LgU3NAaFvKCLb6AqtvK60SduJyes27rUDuTzzorpCrSgZhd16lUl9hY8b/aj+a556
-	 g5k8h/Q/yay1y1tA+EqVIDtjraZzjEZ+EjXcBk6LqMXEmFGO1SFiNarkbT4EoTbd1DzxU
-	 ZaI4OAy0mnKecTaMaBo0LriO4U9Q2iK7zMGNKKUN6ba98th4tJpfo/+fPzlhbM48R8+/E
-	 +RlUJOm00Gzwq+TvPCFWV6lavLBkHHIt5iKwtwo+fbh+ajoHYT+qvP/XhvDkh/YhMUkf0
-	 c0m0Di9taf5Bv6lhtgXApGqMC2ww33CA3oHte1Ow8QZEJz5x2WdZKAuwa7OYX5srZbQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793531432;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=4wfpv+QTFOtinTEPJMT8d2lisDokEK4BkxqjtCTUaKw=;
+	b=47VGQa6GSBmUW+MDkdsKkrq/RpJ6mqDhcdd9e//4uar9kfFwl+1JwjZQJZS00t6yleUP
+	 CzhEkT4XvJbUxG/FeSRmV+OQYldv3gQAWb6nRC7wOupats5LFK7dK915jd/LYKlRrGQDU
+	 PpyYp1K6rQiA/DQi7C2sEkOti0aE/6Du6jkWFTxPJX/miclH+0JyuI7nVSQydTokeR1ZB
+	 NdQqJdZ14AiT5Ic9eXBIkjQWJz+70x8x6yCN6BYNtsp75A52CpbCGuOy/L6iHmNDuKGTH
+	 mdFhLQr+jUjI6mJdgNjSci6wxJZkMoJ4qOlRR806XqPSOkoaV6wK1l0hcU2XxrXb1jQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rock-chips.com;
-	spf=pass smtp.mailfrom=rock-chips.com;
-	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Y34JQihT;
-	arc=none smtp.remote-ip=210.79.60.93
-Received: from mail-m6093.netease.com (mail-m6093.netease.com [210.79.60.93])
+	dmarc=pass header.from=arndb.de;
+	spf=pass smtp.mailfrom=arndb.de;
+	dkim=pass header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=EKEgsdW1;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YfeVPFHS;
+	arc=none smtp.remote-ip=103.168.172.158
+Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF92606A325;
-	Sun,  1 Nov 2026 11:10:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EF92606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED7E606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:10:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6ED7E606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Y34JQihT
-Received: from [172.16.12.48] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5310d4819;
-	Sun, 1 Nov 2026 19:09:59 +0800 (GMT+08:00)
-Message-ID: <d419faee-354a-4712-b047-d88fa4cab37d@rock-chips.com>
-Date: Sun, 1 Nov 2026 19:09:57 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=arndb.de header.i=@arndb.de header.a=rsa-sha256 header.s=fm2 header.b=EKEgsdW1;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=YfeVPFHS
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 91EE2140022B
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:10:30 -0500 (EST)
+Received: from ams-imap-03 ([10.64.2.23])
+  by ams-compute-02.internal (MEProxy); Sun, 01 Nov 2026 06:10:30 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793531426;
+	 x=1793617826; bh=4wfpv+QTFOtinTEPJMT8d2lisDokEK4BkxqjtCTUaKw=; b=
+	EKEgsdW1SfyxgrDSqbPy62abe6+yBX+vL8a+2UTU1LI0NXk3+oTaS6avYxMslK0q
+	hD3tRCq6YVfuB8k/7VCiSZEh8QwckekW94EGnruDIdvufsRWFDTepijIPuNrCzLV
+	DVnQ3CMYpZuLAbHq5wf7HijEUnm1YbWV8SMIaVs+liNJT6U9WSi1i3G3Q5auBNIt
+	e6w7QQDPuAyjHO83x7ztImfj0rBttm8KYodZ99NyC3Upd9h9hX8qzrQ+tebUqMir
+	IMWjfaCAgAw3EN6uLyXuUVcTQE/+husMVqkdtUxz2+idrsk31Tr9MyMm8XFuVEWA
+	d8lktoXhCdH1z8uqytMqHw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793531426; x=
+	1793617826; bh=4wfpv+QTFOtinTEPJMT8d2lisDokEK4BkxqjtCTUaKw=; b=Y
+	feVPFHSXQ2Wa9yVx3P2SOgI7aWm+6qiGZoLObH40GRMXWrDCH/OP1fbDCqKQB8tM
+	m5J6WHkhcOxWe2Grnv4SlUrdMekD9yY2ArzwI43YkiBpDpijgF42Lj3fb5kACDpj
+	EaB94J+9Go38aF7zdzRbe+Gn+A1tKT1JBm5GvNBtjdVBeNkyRJJf+0e0wCE7x4em
+	NWw/2RM8uztmwbHdJyVb6lSrddIPxSNDE4a99N7/hmOj81l2NVlEW+TOfZ/QM4zg
+	JYRb+qER1rBvnOHHcypuE8Iufg5u21jWYORbdtvU6hVoYt+YorUQPt9vNHLOkG4P
+	ipkEdAvx775JkdeMQOsoQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=arndb.de a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793531426; d=arndb.de;
+	mf=PGFybmRAYXJuZGIuZGU+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:FZ7bFDjIGuB/eRcZG+Kp1Kex/TmHoxW/F31dFsaQSwsnVGI
+	S3rCjxwpoGOLg/cKNUwQH2seoZ1yTD/vxoyWvj1BNj53/IGcEaTaguHU+xb2GV8Z
+	leGZHMJGHe5ju1wHbhNoF2TCdpcOLOUbS8A+0QNgMOSFT/d+nfYrv5ULPI78D3Nh
+	Iyc4VXZGDAPdDedMsL56uexIc6VUcn2lS28OM1IfKznhxCCnOyx5PfH6QBPJ7Krt
+	oq63wDtaZl9Yu+uEdVCLrJXbiQ7Aje7P8SK+dF4hmiI9jVkoFG7+HblABz3pSQM1
+	BLSO27SQ/vfkdoJvew59wN24uvkErUj/eVCN97Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:FDA21DrBgrzqdaomdKVLZobssXJHwAfVxzSxQkSif5Y=:baVa2LtZmCenyZV/2WeRHNZ/OkEdZPERVqPYiPWE0pE=;
+X-ME-Sender: <xms:Hx7narBXHcHcMiYGvSnv_DkH6BCsOwWvL-_K9ae1w0mN7mwySCRrQg>
+    <xme:Hx7nasVJFejhn9XWQe2GeXmKbNk_wJH_bLzPzYji1RQPfqYMPpu9sx_7iKmpEB0uA
+    HqK_nnOHZUNcCdwhnaGpLK4TBD7m2eeANcUJIGVf8SS8r5qKLLYLdo>
+X-ME-Proxy-Cause: dmFkZTFysQRqxqvi0Wb9oWm4wruPAg1gWPeP99tcZEkNI3yxqU343EAQO2QcxMdNR8VWCi
+    l6cZlJq2fU2vqsUmRqQmQqGu5Z5VFEOwmSomr6ENeL9mWh7UpbltslPJNnqEhkTmMvkXHo
+    L4f4QMBZrIBi9bh0/DZ43DXc8eLec4y/7XkmT64KS3mY+3B/K4KBHcqKup+Bog3XZNARY4
+    z/WkR56BmAlS35cY7G094YUf2tjFYccIb40rkzexho6b506uXU3NHCMJdvxV/m0KmPx2YT
+    AW2ilBV6xD2RNKbgsUSEdIqOLvyVHuywb/hJ0+rptlsF7vHaqWv+g9ftHmTtcvmMGf0os8
+    95oMGI5e3yW006P3n7JB5yMeQtWYhYHfUC6N6D78xwZKqWON129r5yp28eoY1Vd5KM9hQh
+    T4PK8RjYQx+Oiacd7QceLJzWAqc65MLUu1Da90d5b4M+RcbFVhzLS8Npra/UzOzImA53Lr
+    /kXqJWS7m2TOOjyzDOwB+/j2E4NqCLxGHszuz14N+gW/JcpjqzOiZUEqZsrv2sH+isWgAz
+    e95+BKpxp1SJgdZvaDDtIbL0tlVSBYZbkN9EpcOoPK/Rp7svBFzv1tS7ckaHD+7bVvkrN+
+    0DLxmvvVA4lQ+VPwns3W5ApBLAJkDOshDhlRJH+1VRecGtZ91j3c28m0b6Ew
+X-ME-Proxy: <xmx:IB7nai-FL20ZyyPTM4c5Ty0swO0GPno4UDXOdsfQTK1txrjdz1Po5w>
+    <xmx:IB7nanqkxMXV1851nhVBB3GfPGTdSsi3tBB10ytauak_45qcrl48Mg>
+    <xmx:IB7nasTTd84biTLVWzJYJsjNndvQ5xzN2AR6lY19q8xLft5bZ5DwTw>
+    <xmx:IB7naqP4mNORn8_XLi8QuJQVOJKda2ao13bmwWB5ENn5HWNoVqV6xw>
+    <xmx:Ih7nagQrHVSJIoEpQ8YSiNcHvwobPTBrJlAH3bBifFFW3JuwThm5Tb-X>
+Feedback-ID: i56a14606:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id E53DE32A009C; Sun,  1 Nov 2026 06:10:22 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -48,89 +115,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Cc: shawn.lin@rock-chips.com, sebastian.reichel@collabora.com,
- finley.xiao@rock-chips.com, zhangqing@rock-chips.com,
- linux-pm@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] pmdomain: rockchip: do not restore QoS that was never
- saved
-To: Jiaxing Hu <gahing@gahingwoo.com>, ulfh@kernel.org, heiko@sntech.de
-References: <20261101055633.101309-1-gahing@gahingwoo.com>
-From: Shawn Lin <shawn.lin@rock-chips.com>
-In-Reply-To: <20261101055633.101309-1-gahing@gahingwoo.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa196cd4d2e03a4kunm5d7bf15e34a8a1
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGB1OVkNIShpMTEtOHh0eTVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
-	9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Y34JQihTJ4/ryrn8Fe/mVgqrbxNaBqNU/IPUejG0cY4zW/MkLr6rkK5xwbtsL1z7KLzuFS/S1szB5Dx0HhjbJlQdBh2Th8g0WgJdAGk0fjHumW/0U6M1WWzIq8+6J/ZSWvPo0/9+m0Vsf0jT8a+yVG1G4nmhLIUZvhQiIoUjX6c=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
-	bh=o4gG/i3absZUKyk5WqO7dZSC3KzKqyXdlnRQkR3arf0=;
-	h=date:mime-version:subject:message-id:from;
+X-ThreadId: Ap4PcZ20AeuN
+Date: Sun, 01 Nov 2026 12:09:47 +0100
+From: "Arnd Bergmann" <arnd@arndb.de>
+To: "Vineet Gupta" <vgupta@kernel.org>, "Sasha Levin" <sashal@kernel.org>,
+ linux-snps-arc@lists.infradead.org
+Cc: "Andrii Nakryiko" <andrii@kernel.org>,
+ "Ilya Leoshkevich" <iii@linux.ibm.com>, bpf@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ "schuster.simon@siemens-energy.com" <schuster.simon@siemens-energy.com>
+Message-Id: <8b4688ca-db5c-4122-b616-8e3964e403f8@app.fastmail.com>
+In-Reply-To: <09db4d22-2836-4656-8c6a-a7e5377710fb@kernel.org>
+References: <20261015154044.4058618-1-sashal@kernel.org>
+ <09db4d22-2836-4656-8c6a-a7e5377710fb@kernel.org>
+Subject: Re: [PATCH] ARC: Strip libgcc debug information when generating BTF
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-在 2026/11/01 星期日 13:56, Jiaxing Hu 写道:
-> rockchip_pmu_restore_qos() writes back what rockchip_pmu_save_qos() read
-> on the last power-off. A domain that was off when it was registered has
-> not been powered off by the driver yet, so on its first power-on the
-> restore writes the zeroed save array over the QoS reset values.
-> 
-> On RK3576 this is the GPU on every boot. Read back after the restore, its
-> QoS is all zeros; with this patch it keeps the values it powers up with,
-> priority 0x101, mode 3, bandwidth 0x80 and saturation 8.
-> 
+On Sun, Nov 1, 2026, at 02:04, Vineet Gupta wrote:
+> On 10/15/26 08:40, Sasha Levin wrote:
 
-Thanks for the patch. LGTM,
+>> diff --git a/arch/arc/lib/Makefile b/arch/arc/lib/Makefile
+>> index 30158ae69fd4a..2807ee24f27e6 100644
+>> --- a/arch/arc/lib/Makefile
+>> +++ b/arch/arc/lib/Makefile
+>> @@ -13,3 +13,11 @@ lib-$(CONFIG_ISA_ARCV2)		+=memcpy-archs-unaligned.o
+>>   else
+>>   lib-$(CONFIG_ISA_ARCV2)		+=memcpy-archs.o
+>>   endif
+>> +
+>> +# libgcc can contain complex floating-point debug types unsupported by BTF.
+>> +# Strip only the debug information from a local copy of the selected archive.
+>> +always-$(CONFIG_DEBUG_INFO_BTF) += libgcc.a
+>> +OBJCOPYFLAGS_libgcc.a := --strip-debug
+>> +
+>> +$(obj)/libgcc.a: $(LIBGCC) FORCE
+>> +	$(call if_changed,objcopy)
+>
+> I'm working on getting rid of libgcc linking for ARC.
+> This requires adding some GENERIC_LIB_* routines, but as part of that 
+> series I'll propose a revert of this and then the dropping the first link.
+> Don't intend to revert this per se, but revert just makes it cleaner.
 
-Reviewed-by: Shawn Lin <shawn.lin@rock-chips.com>
+Have you seen Simon's series?
 
-> Only restore after a save. Rockchip's own driver does the same with an
-> is_qos_saved flag.
-> 
-> Fixes: 074c6a422d86 ("soc: rockchip: power-domain: support qos save and restore")
-> Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-> ---
->   drivers/pmdomain/rockchip/pm-domains.c | 10 ++++++++++
->   1 file changed, 10 insertions(+)
-> 
-> diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-> index db3879846db6..d1c025bdaa08 100644
-> --- a/drivers/pmdomain/rockchip/pm-domains.c
-> +++ b/drivers/pmdomain/rockchip/pm-domains.c
-> @@ -97,6 +97,7 @@ struct rockchip_pm_domain {
->   	int num_qos;
->   	struct regmap **qos_regmap;
->   	u32 *qos_save_regs[MAX_QOS_REGS_NUM];
-> +	bool qos_saved;
->   	int num_clks;
->   	struct clk_bulk_data *clks;
->   	struct device_node *node;
-> @@ -474,6 +475,7 @@ static int rockchip_pmu_save_qos(struct rockchip_pm_domain *pd)
->   			    QOS_EXTCONTROL,
->   			    &pd->qos_save_regs[4][i]);
->   	}
-> +	pd->qos_saved = true;
->   	return 0;
->   }
->   
-> @@ -481,6 +483,14 @@ static int rockchip_pmu_restore_qos(struct rockchip_pm_domain *pd)
->   {
->   	int i;
->   
-> +	/*
-> +	 * A domain that was off when it was registered has nothing saved yet,
-> +	 * and writing the zeroed array would replace the reset values the QoS
-> +	 * registers came up with.
-> +	 */
-> +	if (!pd->qos_saved)
-> +		return 0;
-> +
->   	for (i = 0; i < pd->num_qos; i++) {
->   		regmap_write(pd->qos_regmap[i],
->   			     QOS_PRIORITY,
-> 
-> base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+https://lore.kernel.org/all/20261030-nios2-remove-usage-of-libgcc-v1-3-4e341c66082e@siemens-energy.com/
 
+I hope there is some overlap with what you need for arc in the
+lib/*.c functions. I can take both through the asm-generic tree
+to reduce the dependencies if that helps.
+
+     Arnd
