@@ -1,60 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499926;
-	b=VvyEQ9Bm0d+WhgS5e/zIn3zRfTeJPQY9f+Sf95v+BWr4ERa0eQbZI5vsyvw2xHERu/iC
-	 v5QH0/b6HDxQ07gnxaql6Du1wmc1Ykz4eE++mmW0JzU1DmHBnr6pprfAwY0Fc8Qx7ny3o
-	 lPi71UGbT3h9YMWZsx4YaQx068TWFnNDSQ6lgojHbcWV2lg1Ocg3eJY4xrugxQPES3LsL
-	 KrMichyv374jdnEjkygrUSUJq9AhNxK35TCR/xu8TvRifUSDe/bovbsn6rFbjMGe73jCS
-	 95u2wAXZb+EJvErreH3ZRg9vc0FiY+Lc18CJod9OW71SQd0uyb2tyzdBKC0jgELe8YA==
+	t=1793499977;
+	b=DcqqjpEsjhlYTQrvN6MOdt/vOgYECzS9ajdAatcFYKPF4fbs5fGN4o5lNpE35cJOAXKB
+	 0WOOcwEkhJz7GktN+ceDZQrgg6Cg16bVmaK4+i3G5KYmLJyBB9BoBYO2U0iE+loaIkQHJ
+	 P49zuvIGVQ/m8kooB5x9EuT2dWPjQC9fKpy9o/UaO9SsdAUvwKR3lnnByuUUgBM5daQq+
+	 NTKpsoJRy4NwVxxi0LRHJZRs7jAP4sXrxk3fcJx11JPp0Mlxq2QkoI+mWIZ2GQ+V5GEQd
+	 uep/mso3WYCE/RW4EAznQ/n4wlqf6jEDIRyTyjIY9+xRdk2MMYKEPohQ8QnwRw+vQ/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499926;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=myvjcuz215/LP7voEFRNC685vsIgpbLmNooviClWzRA=;
-	b=1l6NtAdrRWHm8oJE0mQFQa7o9V8hqxM4ZigQxRdpfvOFb4rWFkz1rUdvP8Ef6LKG8HMA
-	 CtIvZb9NWKBPdZL6ntw9w+WF7hAZMeQX02ITWWaaVaNI+DXxLBHPMaI4NL5iMxNSOaDkx
-	 Cfo3ID+0Skrnau1hGL3v35KNbqw38jdUhs3blQgfSUHLS+YAMsJMVHrDCo9nTDg7ceCKG
-	 dTPPySoO4To/LkeO7U7bNBVO6CoAtS5KTfbUngDyzLvAyFI2oQriiurCZLZRK3lEGKFpF
-	 VRq1zS+6snHNZvu0WuD4/l5dpgwOA3MhVlCpRh2u0CM3zqv243woLXgjuiOdR5OILWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499977;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=RgceOe+o9SSPiUOOX+dafdP5lR0/MnDvLfVzpqJudMk=;
+	b=5gi6+7XJiDqARgpbgJjSiY/M0VOiTz0MhhRByyaxzaXZbRUONOZSFutr5rnT+5G7Nx7w
+	 AVHB0zUZ7S1kZT5trosGtvvTj2nMXMnIOgOvL7QPH8ghiyx3DjcU++gto0vKMo2cCS4xQ
+	 Imv/FTpAuZHbw7uGFaXPF9XHRML+KDLi3O4wi0KZMPkGri5Hd9PgmqbSkPLcEjPwztQKF
+	 cQOkP2KFq/9U7/pfNBEF2lwBNYo/ZgssdcEEZRpL1KaFbLKO1s0tBK0Pd1gIED7gjpdOX
+	 kQFptT7X/eO3i0WGVzw81C8QNIpGdbP1KHpH++yzYHD7sprDrZ4xpfvtM4qo9ATYJdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCyOENOa;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPpnjRGA;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DBB606A329;
-	Sun,  1 Nov 2026 02:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B18606A324;
+	Sun,  1 Nov 2026 02:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCyOENOa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FAF51F000C1;
-	Sun,  1 Nov 2026 02:25:25 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPpnjRGA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4301F000C1;
+	Sun,  1 Nov 2026 02:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793499926;
-	bh=myvjcuz215/LP7voEFRNC685vsIgpbLmNooviClWzRA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KCyOENOaUM/Sr4yXfJCh/TmtbbNYSMJ28y/BbEt3h7HawjKW14QkfopuIfo8JOmwJ
-	 a1QwR7yxekv/byfE+6+8HefJvlibmL1I3INoxJN0mFRTOKrrovy8tJm5PBzJ6RJrG6
-	 r5hCRmgrxfx73Y/fK/jjggYq04g2nClhfvjZbOuAV1lPSishtr8v6vFOwA0dUY+W0K
-	 Qsxzh9SymcBIjHhJipJeNG/C6XgYaRBou0piFSBP3xA1xxkRq5khy3JD1t+kWFudU3
-	 WHvF126Z9KTHkem6FgBmD0HhE638Z5NV4U4VHCZp3fR+KRNcmeoKugZHH8Nf2YXnva
-	 p8Qy+hYwaKIKA==
-From: Sasha Levin <sashal@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Ricardo Ribalda <ribalda@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Linux Media Mailing List <linux-media@vger.kernel.org>,
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Subject: Re: [GIT PULL for v7.4] media updates
-Date: Sat, 31 Oct 2026 22:25:23 -0400
-Message-ID: <20261101022524.1005227-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
-References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com> <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com> <CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
+	s=k20260515; t=1793499976;
+	bh=RgceOe+o9SSPiUOOX+dafdP5lR0/MnDvLfVzpqJudMk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=PPpnjRGAfXGfaPE3Att3cIu4zMErP49vpC+K0MmV4tY5IM1Sq6WNQi7Nnbk3CkxQG
+	 adn8bUCv11RoHi16xoXaJnSJw1R+JfXq6+z38WN2f3hKWpyV4Ql7BoMbAUyygHNk8o
+	 33XAlrduzgkfFqqzRnXfrRhx64oayR0DxJaegTL5+2UX6do32x41EE5LjIcQuB9Iee
+	 pnM5zIV4McL0x5h6tXp9jMjniRaM1j6YVBbvmfl68s62y2WacHVerra1I1x2KfgCWX
+	 tcBsqYx5EebuTXdviI2lpOakQ+OBOpiCxzozmIy733Htpo1IOTsl+RI21LKyxoaTnB
+	 mF2eLB/HIpXyA==
+Date: Sun, 1 Nov 2026 02:26:08 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josef Bacik
+ <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable <stable@kernel.org>, Ramona Gradinariu
+ <ramona.gradinariu@analog.com>, Antoniu Miclaus
+ <antoniu.miclaus@analog.com>, Michael Hennerich
+ <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
+ Shevchenko <andy@kernel.org>
+Subject: Re: [PATCH 04/15] iio: accel: adxl380: don't stay in standby on
+ -EINVAL
+Message-ID: <20261101022608.0196b0ef@jic23-hlaptop>
+In-Reply-To: <auHIJRLqIm97GrEG@nsa>
+References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
+	<20261027-llm-char-misc-iio-v1-4-0d818334f6c7@linuxfoundation.org>
+	<auHIJRLqIm97GrEG@nsa>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,50 +67,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 31, 2026 at 02:14:37PM -0700, Linus Torvalds wrote:
-> It actually broke git this merge window. See
->
->    https://lore.kernel.org/all/20261031065525.19883-2-torvalds@kernel.org/
+On Wed, 28 Oct 2026 10:02:36 +0000
+Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
 
-I was curious which 283 commits describe was overcounting. Funny
-enough, they all come from bpf-next-7.3 rather than media, and their
-dates seem to make sense.
+> On Tue, Oct 27, 2026 at 05:19:08PM +0100, Greg Kroah-Hartman wrote:
+> > From: Josef Bacik <josef@toxicpanda.com>
+> >=20
+> > adxl380_set_act_inact_threshold() puts the sensor into standby, writes =
+the
+> > threshold and switches the measurement on again.  A threshold above 819=
+1 is
+> > refused in between, and the sensor stays in standby: no samples and no
+> > events until the next write that succeeds.
+> >=20
+> > adxl380_set_range() has the same problem and a worse one.  It rescales =
+both
+> > thresholds for the new range.  If one no longer fits it returns -EINVAL
+> > with the sensor in standby, the new range in the chip, the old one in
+> > st->range and rescaled thresholds in the driver's state: from the next
+> > successful write on the samples are reported with the wrong scale.
+> >=20
+> > Switch the measurement on again if the threshold is refused.  In
+> > adxl380_set_range() see whether the thresholds fit before anything is
+> > changed.
+> >=20
+> > Fixes: df36de13677a ("iio: accel: add ADXL380 driver")
+> > Cc: stable <stable@kernel.org>
+> > Cc: Ramona Gradinariu <ramona.gradinariu@analog.com>
+> > Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>
+> > Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
+> > Cc: Michael Hennerich <Michael.Hennerich@analog.com>
+> > Cc: David Lechner <dlechner@baylibre.com>
+> > Cc: Andy Shevchenko <andy@kernel.org>
+> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> > --- =20
+>=20
+> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
+Applied to the fixes-togreg branch of iio.git
 
-A bpf series went in with five commits in the same second. A bpf-next-7.4
-series without a base-commit then got applied on top of the middle of that run:
+thanks
 
-  bd2466ed8fc2 ("bpf: Roll back stream capacity when allocation fails")
-
-sits on
-
-  af22d273aa1f ("bpf, arm64: Fix exception table metadata for arena load-acquire")
-
-The media dates seem to come from tooling too: The media CI merges MRs with
-Marge-bot, a GitLab merge bot, which rebases each one onto next using
---keep-committers [1]. That copies the original committer date onto every
-rebased commit, so an MR landing after a newer one ends up older than its new
-parent.
-
-GitLab shows the same pattern for all the commits you found: the copy each
-committer pushed sits on an older parent with the same committer date, and the
-rebased branch that landed was pushed by marge-bot. For your example, Sakari
-pushed the alvium fix on top of
-
-  b38d06ad1e13 ("media: ipu6: Fix up missing IWYU issue")
-
-His MR with
-
-  63c578491cb4 ("media: sun6i-csi: bridge: Use V4L2 subdev active state")
-
-merged at 22:10 UTC on Sep 16, and at 22:11 marge-bot pushed the alvium
-MR rebased on top of it, still dated Sep 15.
-
-So in both cases it's the tooling being funny.
-
-[1] https://gitlab.com/marge-org/marge-bot/-/commit/3fb8ab74b8781505530c21a28ac08080bc7deedb
-
--- 
-Thanks,
-Sasha
+J
