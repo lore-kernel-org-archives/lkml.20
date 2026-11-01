@@ -1,60 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793544328;
-	b=sgnyHga4rRvWH7OpodD+RmKB6Gb83mKtKkxJCWREuugO9JNX0VsLVaunTcHLo528xdda
-	 i+UpN5tIKJEtsmWKlrKvdytGtwANyBgmw6r/hXgbKt4AQVpYwXu21vKv0YtML1bjRvdaK
-	 aTjmRLB35PzQVm5592SURMZ2p3G4xxUksIYP4Ps4/by01v+Y7utbFHPbUAb1IZ5Mom+IS
-	 fgL74tgEd4ODU6VYLV9P19cwZPgeLb0AvW9aD1kPQ7UvpepnJTGMIpN+YS/dEr3sjkjFr
-	 rDMTwsAuyOnZosKaovyxGXOwL9/FpwxarAjzzAgqjaGYy6vm4q5EzX4UiIhER/KjfWg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793544328;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=44s04JgPecTtm6NhDjYX2WlJHWZ2E+d8hRSUAWRiAAQ=;
-	b=LYfR6lTqy+tOi9LiBYXBqS6mbx1Gzk35O639LEZo8LrUVvMRRJdX2tuoY6wcKqzHzybx
-	 WBnmZ2N96G089u1fRu5ViZMq/kmmYGE4x6LBbcaYq+SJSes42RAYzDISP02B+KsiQYrts
-	 WZfVAA+EfWWIosA5KgM5D4euhgiWLTxXft2d3GcqDA5X62qy5qdYe2vP9i+jYXR6J1x+6
-	 rlmgeG2Lfpw/hDq0RFAEDyHyzCqK3sdoPbicJ4mMlsdDCY1kqBaZDln1aBBIhOQtJkH1+
-	 Yr/0O42r9VijqVTWzRLBP72WpyStQ/8WzFU2caDuzklqzaCtds6GF8gHn3g6hEmSgZw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBWLt1AF;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793544378;
+	b=S/WMrZ2tSuaS+gsR7/9W/Jz38nl6lGK0ypwKhpqzscvMqO+s8HWfTWZvKd4EILTNwY1P
+	 7rUSwEpef2UaCD8WeUq+GSUPOE7jkkihwTqiIb1Onch+hBekzo2ykbomtoG5NSsiTvW/R
+	 gHOR5mQV37sOtT2pdct95xDTvVeKs3khRuVS/qjx5PmH7chTK3rjV8RT9U0vVeQkl589T
+	 5Fmb7roLWNhhP7RSQKOJkcB6C1lny6lDw7oJv4Ye6qLoOtNkC/VZdCRmbgEDed1WYfSgC
+	 Ctn9KS6/LdXbpG75QyKWPajiBCWIkb3wDLF5Mhu/F7McAikol/oUSJ0f8xlqL+F9EEw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793544378;
+	h=Received:DKIM-Signature:Received:From:Subject:Date:Message-Id:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Endpoint-Received:X-Original-From:Reply-To;
+	bh=qLvnDgA84z9nfP6NpzSUeIPvKSq/UfkpF+aJ8OXFSTM=;
+	b=X5ADI/GR99iqYNZZy3yNNksqgI3BFTPzS3BkdEJZdxVrYgzXMncqfpZ0GVdN7EV4dC/q
+	 MrYp4v3P+PpcUhnXqErI8GrwKrQVxYoBrZE68vAmkV0MYzwgytzPuBe2e6TW4mkL0EnEe
+	 kkguUr/llWGyv5Y9YRaFzYpd1/Smakqg/W1UbeYSKTAMQnctWkc96rDv0VVRJcIm099oV
+	 ShvmwXDsbBabmPo2OfRa9uaNwz2y27h07TiNYbVYkGth8SKnCIERR5Lg621qFO3gVyi4k
+	 cMZRG30PP5fF+gu4vFMacuuant6p+86TAEAC2Qg9yeTcF42e6Ze4XF8i4WvDJW+e2IA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=muKB4dQQ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BF6606A325;
-	Sun,  1 Nov 2026 14:45:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 906E1606A325;
+	Sun,  1 Nov 2026 14:46:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MBWLt1AF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E851B1F000C1;
-	Sun,  1 Nov 2026 14:45:26 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=muKB4dQQ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793544377;
+	b=PbhxnzjYkXI5YilhyRElFZqRvdZmayZifJ12RRg7i0kUFWQlMsrBrzDx8knBxh1oRnPm
+	 lWAF9ehFE87QLoJJDRM+rx7apV3mmppqZIlpoJ2jTGTkdoJ0zbABYIkosCrqKaUElFzPA
+	 UBKVWv5aNXLQMZBsIHauszMQ7gl5CtodlQGNblqMPfQvTXwQol1+H0EVdV1tSd+6ihgGg
+	 4o+O1rFxG+ag0YillChOP9Avl+vKIsGaB5xehYBFOv1QQ/yYXif65yBPeLiy81DSPjqNs
+	 g2AjTXPFawYypF2ofpqiaWS5ek+SPfyrCQ3i/CoK8z3xUiVm16SIBz5dHozimZjELPw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793544377;
+	h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To;
+	bh=qLvnDgA84z9nfP6NpzSUeIPvKSq/UfkpF+aJ8OXFSTM=;
+	b=BzjvDXLWXy0SK5MsPWVlKtcXttl7t81VGw3nHXFaQnswkvynmcOG9Pqys3L2sYXEOq2V
+	 tNoD2g53NyVHaw7RVVcPNeFYZszo8SLKdlGNJLPE65AsCWjS2wL/I8Sy/viMTH8xh8r3W
+	 JPkVs0QRHG1yP76jrIknVLaHCR4XT7BaVzpxPhd9NT8TyhcSR6VqZ/Jl2QW8pePVChDWe
+	 /78Jf2XPxTvrsyo159eIKAJe9nDtvqWCSVID2HQElGWXUZILzY3k4FCDWXVphTkPGcdJL
+	 YwTvOQLIXYRQk5Q3Hd438YTL1eOj2ml2OxmNvuzHXPGB673IlGrR4IEj4EpvXd8a57w==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id A7B141F000C1;
+	Sun,  1 Nov 2026 14:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793544327;
-	bh=44s04JgPecTtm6NhDjYX2WlJHWZ2E+d8hRSUAWRiAAQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MBWLt1AFnyDdYSwLLQ/T3kR47lm5EWNitJQwhPQ7IygtOyWnbbCrCNnyqc606rFj0
-	 8Y9Pi7zipDkNKoopHJtxJtFo85ePgz3XOzX3f2U3qWFOPtFhRKJgA4lJnsOx/PzLIW
-	 eG2opP5MH9zd0UWSYxW1I8/mZa030UoKrVvYVUj+jmzV4VrjNlhEdK/hhYyuZyorL8
-	 X4Jpuhd01xfcaj1RgBxWgmKBD16GZRlxLYIszJ7lHN4ybPy/AAJFWg+WilMZ7g0wcL
-	 VQfwcQ4ufT2EHtx9jZkK4DPc8c+qjf2bJ6ujjzSpQmqV7tUcHE8m6tYjSkIiw//Ccj
-	 j7oRyLHYSYFWw==
-Subject: Re: [PATCH ipsec] xfrm: use software GSO for inner tunnels without
- crypto offload
-From: netdev-bot+sashiko@kernel.org
-To: usmanmalik@engineer.com
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- cratiu@nvidia.com, leon@kernel.org, stable@vger.kernel.org
-Date: Sun, 01 Nov 2026 14:45:26 +0000
-Message-ID: <179354432643.3131.245171497251536441@kernel.org>
-In-Reply-To: <20261028-xfrm-inner-gso-v1-1-1908f0eb7313@engineer.com>
-References: <20261028-xfrm-inner-gso-v1-1-1908f0eb7313@engineer.com>
-X-sashiko-severity: Critical
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1793544377;
+	bh=qLvnDgA84z9nfP6NpzSUeIPvKSq/UfkpF+aJ8OXFSTM=;
+	h=From:Subject:Date:To:Cc:Reply-To;
+	b=muKB4dQQKHmL7Z4TegJ/hU7ExzkXKevW7wNogk1g3JM5gDeatqgVbQjn+/lxHn7ci
+	 fiiQav5gEss0vkS0X/B7qawlPb/ufyLk5Mamt0RopDYQqEfJdYagvwuKbkrbUCakg7
+	 XWcO0qW4+jkup88OTCNfXZW4LLbJN3jt++CBLYk+L2a8o/kkE+bCZbAhbM1qxsWOG8
+	 ojtksQfTdcIZF782OD2gKbjkiw2ZR+YwGhD3dWPCenY9tfOWIPu6wCLuNpA0NL4dr3
+	 QCYq0E3a5enSv9iuBFnVVuz5MdI2BtszXHrgg4SYw2wMwNSOXURYmxFW1MiAawM/HV
+	 LqDFXb78Q57Mg==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 3A336461B2;
+	Sun,  1 Nov 2026 14:46:16 +0000 (UTC)
+From: Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Subject: [PATCH 0/2] iio: light: Add Capella CM3217 ambient light sensor
+Date: Sun, 01 Nov 2026 15:46:05 +0100
+Message-Id: <20261101-upstream-iio-cm3217-v1-0-5e1724cae7b7@tsv-stahl-riesa.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,189 +83,87 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMSwqDQBBF0a1IjVPQ1RqFbCVkoO1TK+CHLg0Bc
+ e92zPAM7t3JEBVGj2yniI+azlOC3DIKQz31YG2TyTtfijjhbbE1oh5ZdeYw5l4qRt5JEYqqdLh
+ TKpeITr/X9fn627bmjbD+VnQcJzWhECt3AAAA
+X-Change-ID: 20261101-upstream-iio-cm3217-e3f14c4760e5
+To: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, 
+ =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
+ Andy Shevchenko <andy@kernel.org>, Kevin Tsai <ktsai@capellamicro.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793544375; l=2609;
+ i=admin@tsv-stahl-riesa.de; s=20261020; h=from:subject:message-id;
+ bh=Mo11z19nSNgy7ItXum4iHRm9VY1mxiDs5BKUIlg3N3U=;
+ b=In/ftypgqPOxyWxJtKXzOYdb9VGTNhF6O8/9pTpkdSVPeWMohPHjNQKkRYp4JGpvcpMFDVtsN
+ cL2ad1JrZrZBZDnsH1YWBNUGaGwUEE6oOLlLvvA/xrRUWOUJ3wJssc4
+X-Developer-Key: i=admin@tsv-stahl-riesa.de; a=ed25519;
+ pk=D+v6EloYcEY9PIUHFyTM5sqcGIU/fIXzLUdkR8vjAtk=
+X-Endpoint-Received: by B4 Relay for admin@tsv-stahl-riesa.de/20261020 with
+ auth_id=1251
+X-Original-From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+Reply-To: admin@tsv-stahl-riesa.de
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The Capella CM3217 is a small ambient light sensor without registers.
+NVIDIA used it in the Tegra Note 7 and the Shield Tablet. Mainline has
+no driver for it: cm32181 and cm3232 expect registers and an ID, the
+CM3217 has neither.
 
-Critical: 1 · High: 0 · Medium: 0 (1) · Low: 0 (1)
+Patch 1 adds the binding, patch 2 the driver with raw value, scale and
+integration time. The datasheet is not public, so the bit fields come
+from NVIDIA's downstream drivers and the scale from Capella's published
+detection range. Patch 2 explains both.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Tested on a Tegra Note 7 (P1640) with v7.3 and the driver built as a
+module, the device created through new_device. In room light all 32
+combinations of integration time and scale gave the same illuminance
+within the count resolution (6.0 to 7.3 lux), and the first read after
+each change matched the second one. The raw counts scale linearly with
+both fields. Svyatoslav Ryhel also tried it on the P1988 variant of the
+Tegra Note 7.
 
-- [Critical] The patch sends more traffic into xfrm_output_gso(), and on
-  that path AES-GCM IVs can repeat.
+Probing through the device tree works with the real supply (vdd_dev,
+Palmas LDO6), and unloading and reloading the module twice brought the
+device back each time. Next to a phone light sensor the readings were
+about 7 to 20 times lower. NVIDIA's Android HAL for this tablet
+multiplies the count by 2.1505 at the same 2 T/100 ms setting, which is
+7.2 times the scale here, so most of that is the dark cover window. With
+that factor the tablet was within 15 % of the phone in bright light but
+a factor of three lower in dim room light; I could not tell whether that
+was my setup.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but transport-
-  mode SAs that have a crypto offload device (x->xso.dev != NULL) still…
-- [Low] This problem wasn't introduced by this patch, but xfrm_output()
-  reads x->xso.dev with plain, unmarked loads: in xfrm_dev_offload_ok()…
+The device tree node for the Tegra Note 7 will follow with Svyatoslav's
+tegratab series.
 
---
+Tool use (see Documentation/process/generated-content.rst): this series
+was prepared with an LLM coding assistant (Claude Code). It read the
+NVIDIA downstream drivers and Capella's product data, wrote the driver,
+the binding and the texts from my instructions, and ran the build and
+binding checks. I reviewed the code and ran the tests on the device.
 
-xfrm: use software GSO for inner tunnels without crypto offload
+---
+Patrick Fischer (2):
+      dt-bindings: iio: light: Add Capella CM3217
+      iio: light: Add Capella CM3217 ambient light sensor driver
 
-This commit changes xfrm_output() to use xfrm_output_gso() for GSO
-packets with skb->inner_protocol set. Before, that only happened in
-tunnel mode. Now it also happens when the SA has no offload device. The
-goal is to stop the SKB_GSO_ESP path from producing malformed ESP packets
-for ipip/ip6tnl traffic over transport-mode software SAs when
-esp4_offload/esp6_offload are loaded.
+ .../bindings/iio/light/capella,cm3217.yaml         |  45 +++
+ drivers/iio/light/Kconfig                          |  10 +
+ drivers/iio/light/Makefile                         |   1 +
+ drivers/iio/light/cm3217.c                         | 383 +++++++++++++++++++++
+ 4 files changed, 439 insertions(+)
+---
+base-commit: 137ca6e5de3bd4e1056877d0b82214e82143efa7
+change-id: 20261101-upstream-iio-cm3217-e3f14c4760e5
 
-> diff --git a/net/xfrm/xfrm_output.c b/net/xfrm/xfrm_output.c
-> index e305ba32e356b..c370d28a83f50 100644
-> --- a/net/xfrm/xfrm_output.c
-> +++ b/net/xfrm/xfrm_output.c
-> @@ -808,7 +808,8 @@ int xfrm_output(struct sock *sk, struct sk_buff *skb)
->  		skb->encapsulation = 1;
->  
->  		if (skb_is_gso(skb)) {
-> -			if (skb->inner_protocol && x->props.mode == XFRM_MODE_TUNNEL)
-> +			if (skb->inner_protocol &&
-> +			    (x->props.mode == XFRM_MODE_TUNNEL || !x->xso.dev))
->  				return xfrm_output_gso(net, sk, skb);
+Best regards,
+--  
+Patrick Fischer <admin@tsv-stahl-riesa.de>
 
-[Severity: Critical]
-Can this cause AES-GCM IV reuse for the transport-mode software SA
-traffic that this change sends to xfrm_output_gso()?
 
-Before this point, xfrm_output() has attached a sec_path with
-sp->olen = 1, so the skb carries an xfrm_offload. xfrm_output_gso() then
-calls skb_gso_segment(). In skb_segment()->__copy_skb_header(),
-__skb_ext_copy() only takes a reference on the extension:
-
-include/linux/skbuff.h:__skb_ext_copy() {
-	...
-		refcount_inc(&ext->refcnt);
-		dst->extensions = ext;
-	...
-}
-
-So all segments seem to share one struct xfrm_offload.
-
-For each segment, xfrm_output2()->...->xfrm_replay_overflow_offload()
-writes to that shared xo:
-
-net/xfrm/xfrm_replay.c:xfrm_replay_overflow_offload() {
-	...
-		if (!skb_is_gso(skb)) {
-			XFRM_SKB_CB(skb)->seq.output.low = ++oseq;
-			xo->seq.low = oseq;
-	...
-}
-
-The XFRM_SKB_CB() copy belongs to each skb, but xo->seq.low is in the
-shared extension.
-
-Encryption happens later, at qdisc dequeue time, in
-validate_xmit_skb()->validate_xmit_xfrm()->esp_xmit(). That code reads
-the shared value:
-
-net/ipv4/esp4_offload.c:esp_xmit() {
-	...
-	seq = xo->seq.low;
-	...
-	esp.seqno = cpu_to_be64(seq + ((u64)xo->seq.hi << 32));
-	...
-}
-
-XFRM_GSO_SEGMENT is not set on this path, so nothing advances
-xo->seq.low per segment. esp_output_tail() then copies esp->seqno into
-the AEAD IV. esp6_xmit() does the same.
-
-Segments can wait in the qdisc while the xfrm_output_gso() loop keeps
-running. For example, dequeue_skb() returns nothing while a
-TCQ_F_ONETXQUEUE txq is stopped by BQL or a full ring, or another CPU
-may already be running the qdisc. In that case, won't later segments
-overwrite xo->seq.low before the earlier ones are encrypted?
-
-Each packet would still have a distinct esph->seq_no on the wire, but
-the explicit IVs would be the same. That is GCM nonce reuse under one
-key. The receiver takes the IV from the packet, so decryption still
-succeeds and nothing reports the problem.
-
-veth is noqueue, so in the test setup validate_xmit_skb() runs before
-the next segment's xfrm_output_one(). That would hide this.
-
-Tunnel-mode software SAs already use this mechanism today. In the base
-tree, however, these transport-mode packets, including the vxlan and
-geneve traffic that worked, went down the SKB_GSO_ESP path. There,
-xo->seq.low advances per segment within one validate_xmit_xfrm() call,
-on an extension owned by a single GSO skb.
-
-Could the sec_path be unshared per segment, or the IV be taken from the
-per-skb XFRM_SKB_CB() sequence? Another option would be to fix
-xfrm{4,6}_transport_gso_segment() instead of rerouting these packets.
-
-[Severity: Low]
-This is a pre-existing issue, but x->xso.dev is read here with a plain
-load, and xfrm_dev_state_free() can clear it at the same time:
-
-net/xfrm/xfrm_state.c:xfrm_dev_state_free() {
-	...
-		WRITE_ONCE(xso->dev, NULL);
-		xso->type = XFRM_DEV_OFFLOAD_UNSPECIFIED;
-		netdev_put(dev, &xso->dev_tracker);
-	...
-}
-
-The new !x->xso.dev test is only used as a boolean, and either value
-leads to a valid path. At worst it is a data race that KCSAN can see,
-like the one already in xfrm_dev_offload_ok():
-
-	struct net_device *dev = x->xso.dev;
-
-Further down in xfrm_output(), the check-then-dereference also uses two
-plain loads. This patch does not touch it:
-
-	if (x->xso.dev && x->xso.dev->features & NETIF_F_HW_ESP_TX_CSUM)
-
-Would it make sense to read x->xso.dev once with READ_ONCE() into a
-local variable and use that for these checks?
-
->  
->  			skb_shinfo(skb)->gso_type |= SKB_GSO_ESP;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but transport-mode SAs with
-a crypto offload device (x->xso.dev != NULL) still set SKB_GSO_ESP here
-for packets with skb->inner_protocol set.
-
-The commit message says:
-
-  "An SA with crypto offload that falls back to software
-  segmentation in validate_xmit_xfrm() takes the same path."
-
-Is the reroute/overflow fallback in validate_xmit_xfrm() the only way to
-get there? validate_xmit_skb() also does this:
-
-net/core/dev.c:validate_xmit_skb() {
-	...
-	if (netif_needs_gso(skb, features)) {
-		struct sk_buff *segs;
-
-		segs = skb_gso_segment(skb, features);
-	...
-}
-
-That runs whenever the device's hw_enc_features don't cover the whole
-gso_type, for example SKB_GSO_ESP | SKB_GSO_IPXIP4. The call chain would
-then be:
-
-skb_gso_segment()
-  esp4_gso_segment()
-    xfrm4_transport_gso_segment()
-      inet_gso_segment()   /* inner IPIP, transport header at inner L4 */
-
-followed by validate_xmit_xfrm()->__xfrm_transport_prep()->esp_xmit().
-That writes the ESP header 4 bytes into the inner IP header, which is
-the same malformed layout the commit message describes.
-xfrm6_transport_gso_segment() has the same limitation.
-
-Could the commit message mention this fallback as well?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028-xfrm-inner-gso-v1-1-1908f0eb7313%40engineer.com
