@@ -1,49 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571436;
-	b=3UpPkgsXZ2az22Vd+xbGnlr8YE3bTfnoJVJ956FyfqE5sqPuqMSTo8ixVZz526HC6Yzp
-	 zJI0C10qHiPBb2+aRXqgbY9LDBCvvjttQfwFYZnpWahVYNyqMqDoRgkd7oED2NRDgEtQQ
-	 SS5OyMvv3MDI1FzACXHubeo89p6B+HvMV2Wh6vX0uuez/4CliIVrPJefr4Gf8nZswlqxy
-	 D61CjtWmjj2mPGcenHebJlnZKZqh7d8/K3zp82TtnpoOzozWOmNYAPgcggi96JmjPf5kO
-	 5en3HFo6P8CTPa50z19e9E1kDqFhfC4kCA1gVewMo7PyphGBxq1QIeCzbdLotExccJQ==
+	t=1793571416;
+	b=UL51JpAIZP45WT+kWZF/hkJf+VBenycCwACHntaxHj2IUdaM5bdjjVoTcTe2y4fG+rXz
+	 CxuAbsZRhToGjuU0bg3trWG/2CM3+0CsTTvz/d3UOuA0WKegkbMedUCM540i6vz34UC1S
+	 vMKDML0LU/2bS8vmqW20jO/Ne77d094/HbJSlPrRGTUPGrG+f6u87V5ClAOm5MoSjqv9p
+	 ZJC/V4rtSZLAsArp4WR8+KY01VMo0U6wPMqJElqJBXR/xQ6mIl7Uiawm6/tKOJTtBdNXI
+	 bRIs/gDBQOlbun9bDCyPiXvE4s56UypYATFN7M2171bkOMPip0pJiF43cZHodi0m3qg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571436;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=W3SseAUw1Adaw7R24q7ka5OACCTvGj4w3HZoU07C3lM=;
-	b=IeH4Rh/gk0fIMLgx7WWXCOx6dDX8uDZFnDKGlcyHJ+kO8v+qX5vGiSq5aLKoQkdqkW2K
-	 P/tVFV9iWdxSFER0/qMhIit5ZgChpyZO85UD6qHZWoEB22SIub/7eGFKk4biM2z1lydvv
-	 euCmx+CTOcP0/eJ6b3qfNuQWpKdoTVlU7B4jFxbVqrn74c6WK/69pPfljKLB5Y7NidJ68
-	 9T2CRBGsth+EOioDwON7ExnbhgTW3aVSd7pkbDg9vv0aLir5jfTXKyFMUZS6nBLlNCSzc
-	 B6mqXdqPa9gkTfqHEHsy5D6FKtEWH0M7hHo9OcgeOIUnXDIJno2xu1drB1CT9MYEcBA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571416;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=oih8i0WIyQznYHZo2vL+7dttn3r29EGnZfW+AikIH9c=;
+	b=bNCDASCMtMPatgN2fOHRFSvC/deGPaSFJUWJSAYxzGhikAGJ9V2AqNiZDYlInZgOprRe
+	 wcgyTZl7hk70sudVQUwrGWo/mZi4ooLHbwopvgvKA/HExepdKD6WjaxnlIoBqFos6kjKZ
+	 MEASVP7Bcx6N9odx8sSWwpNtP5ZOQkQPva1Htp2vd6bkHT+CFfFrb9+5QwoXkrbX3EzMz
+	 siT1VCmdAkJOlD2KfUA6fRgbzZL6afzenGy7dp59o7j/XaMIJtere2SfxW6LiAGYkylI8
+	 FtWRgmVIowZP9rEaDSoWq1RZuFjUQ9hTyU/Zy4NipjKD3Ds5BQmHVL67WaO6u9219OA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mU2smauH;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=pBxPxn5n;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E79A36075760
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:17:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803F16072B25;
+	Sun,  1 Nov 2026 22:16:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 803F16072B25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mU2smauH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C42D91F000C1;
-	Sun,  1 Nov 2026 22:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571435;
-	bh=W3SseAUw1Adaw7R24q7ka5OACCTvGj4w3HZoU07C3lM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=mU2smauHsTpSk4e8o5VKlerWwdMjuW2RmdR8AA+TXE/q8eg2LBHimTGFzN+bxJWlF
-	 k1bkTo89sPzE5TbPsJzPK3mhefVdXN4tiDH8cHAZpDwp4trNnwoRf66/XiGfVmJpwC
-	 s3FuzrojyaL2b2uP62vOSTQd+4TqGoon2EIkdmJ/DIgzCjuikMm4iZU7A8taIufZAa
-	 N01ab3ILH0PGIjJ4Mdar7ihYBy8vUwmsGmbKTgipSbuuljgnYErIeQJNZKrQB2iU5r
-	 JjXniizbRhbYDeCQ1+jOWUNY1MKLKwokkcdJwAfDMFedOaRs9IWoD8nlMMQIqTzYZv
-	 pcASdvIycRRyw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA38438003B8;
-	Sun,  1 Nov 2026 22:17:15 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=pBxPxn5n
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=oih8i0WIyQznYHZo2vL+7dttn3r29EGnZfW+AikIH9c=; b=pBxPxn5nRbIjhCTk7PI7SrOmJu
+	Ylf9GViTlBEPjuBEOaX0EInTxAW0Wv7HF0sVeRO8u4+ncCOm32vxLsUTy4DcL6PKMBgZ5JqymDISt
+	h0hXNPaQIFDUWKUgwpXX/DP7lufM+EATMu010sf0oJ10ry6wUZw6hLXDlC0V5x97+nWjJcjsFXNUF
+	TQ8c0gm+aGhMC73ON4aVBJfTFUzEf60B0k6F1HMbHL7a9ZSW57iz4L3oqXy04Vn5TrSJidDHrwDRY
+	jnKCU1mJsx8qGlZc5ZHtu+dRjEukt3vb4tLKJBbYHbRFtL0EPNDTQ+GN9aoQTMVDBIzJlt+gqu15R
+	kGxOJPlA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: linux-rockchip@lists.infradead.org,
+	Jianfeng Liu <liujianfeng1994@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Quentin Schulz <quentin.schulz@cherry.de>,
+	Alexey Charkov <alchark@gmail.com>,
+	Amin Gattout <amin.gattout@gmail.com>,
+	Chris Morgan <macromorgan@hotmail.com>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
+	Coia Prant <coiaprant@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	FUKAUMI Naoki <naoki@radxa.com>,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
+	Michael Riesch <michael.riesch@collabora.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
+Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: Add ArmSoM Sige7s support
+Date: Sun,  1 Nov 2026 23:16:34 +0100
+Message-ID: <179357139346.4108484.5874650464024401479.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261029082541.469999-1-liujianfeng1994@gmail.com>
+References: <20261029082541.469999-1-liujianfeng1994@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,40 +79,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [GIT PULL] RISC-V updates for v7.4
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357143430.2624073.14407284284401354103.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:17:14 +0000
-References: <7cd0fc49-0592-2030-17bc-83edd5003817@kernel.org>
-In-Reply-To: <7cd0fc49-0592-2030-17bc-83edd5003817@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>
-Cc: linux-riscv@lists.infradead.org, torvalds@linux-foundation.org,
- linux-kernel@vger.kernel.org
 
-Hello:
 
-This pull request was applied to riscv/linux.git (fixes)
-by Linus Torvalds <torvalds@linux-foundation.org>:
-
-On Wed, 28 Oct 2026 21:32:56 -0600 (MDT) you wrote:
-> Linus,
+On Thu, 29 Oct 2026 16:25:19 +0800, Jianfeng Liu wrote:
+> Add support for the ArmSoM Sige7s, an RK3588S-based single-board computer.
+> ArmSoM confirmed that it purchased the CoolPi 4B hardware design and made
+> no hardware modifications for the Sige7s.
 > 
-> Please pull these RISC-V updates for v7.4.  These are mostly
-> optimizations, fixes, and preparation for work that we're planning for
-> v7.5 - there's not much in terms of new features this time.
-> 
+> Keep a distinct model and compatible so Linux identifies the board under
+> its marketed name, including when a kernel-provided DTB replaces the
+> firmware-provided DTB. Retain coolpi,pi-4b as a fallback compatible.
 > 
 > [...]
 
-Here is the summary with links:
-  - [GIT,PULL] RISC-V updates for v7.4
-    https://git.kernel.org/riscv/c/1b8b67503725
+Applied, thanks!
 
-You are awesome, thank you!
+[1/2] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
+      commit: 3a1d774014392d4f5f83ed73c2237b3c4a9f525a
+[2/2] arm64: dts: rockchip: Add ArmSoM Sige7s board
+      commit: 718ce9703d90c061e2574d11b8e5e8a50c089243
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
