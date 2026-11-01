@@ -1,63 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499977;
-	b=DcqqjpEsjhlYTQrvN6MOdt/vOgYECzS9ajdAatcFYKPF4fbs5fGN4o5lNpE35cJOAXKB
-	 0WOOcwEkhJz7GktN+ceDZQrgg6Cg16bVmaK4+i3G5KYmLJyBB9BoBYO2U0iE+loaIkQHJ
-	 P49zuvIGVQ/m8kooB5x9EuT2dWPjQC9fKpy9o/UaO9SsdAUvwKR3lnnByuUUgBM5daQq+
-	 NTKpsoJRy4NwVxxi0LRHJZRs7jAP4sXrxk3fcJx11JPp0Mlxq2QkoI+mWIZ2GQ+V5GEQd
-	 uep/mso3WYCE/RW4EAznQ/n4wlqf6jEDIRyTyjIY9+xRdk2MMYKEPohQ8QnwRw+vQ/g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499977;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=RgceOe+o9SSPiUOOX+dafdP5lR0/MnDvLfVzpqJudMk=;
-	b=5gi6+7XJiDqARgpbgJjSiY/M0VOiTz0MhhRByyaxzaXZbRUONOZSFutr5rnT+5G7Nx7w
-	 AVHB0zUZ7S1kZT5trosGtvvTj2nMXMnIOgOvL7QPH8ghiyx3DjcU++gto0vKMo2cCS4xQ
-	 Imv/FTpAuZHbw7uGFaXPF9XHRML+KDLi3O4wi0KZMPkGri5Hd9PgmqbSkPLcEjPwztQKF
-	 cQOkP2KFq/9U7/pfNBEF2lwBNYo/ZgssdcEEZRpL1KaFbLKO1s0tBK0Pd1gIED7gjpdOX
-	 kQFptT7X/eO3i0WGVzw81C8QNIpGdbP1KHpH++yzYHD7sprDrZ4xpfvtM4qo9ATYJdA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPpnjRGA;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793500258;
+	b=nOY/GiDDLbhrov/KhqSoujqnW8I75sLS6M67i/OI7ZCgjLdpQHprPxJFxmUZZCB62vq6
+	 dLuv+kfQMUc3j/CR80OIKooyXyY2omouokYODYlbNGCw2nwHSYKUqT/U3yasAikYBuupV
+	 +3/M9C7QrZaijcDSFJ/Tb0ipuvv4TAP9iqWMQrh0HOtPVQfoofxYHnxKQSq+8MI8THMfk
+	 tgJ9DrOUufZyPhxtBm6Ptg7knDjJgKJ2lxfeNlL0WD0Hg4v7IL9d89KSkLDTCqPK4uo7n
+	 2/hP8ILGVoEhmtyLHtotW8lqxRVGAY19tkZtp00MC6kLF16UG3azXbuUzL3XpGptXIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793500258;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Av/AZx/+hbd/epNN4JJOs8spD71iHEi1GvauWh/m9P8=;
+	b=SWuDZNdLR+aMHa/At1Ty0Gj+2MUafR6DkLNAC/EtalmdJ+dvQ+rLGZuo+comO1MKybDp
+	 nAZIV/Vm/XYaJFeYh2znn/7a1K/ILcx+0ksqEMiHSNDVeay2jZzf97KGUj1BaObvB6E7g
+	 zoPd5nKYhCEa7BpBwJp/GUfX+V3nIcYFOe3GD0aDpjaLaL2y04fI7XpQhmvk2GTaH05lQ
+	 6heHR7+4UuRI1NkDfI8UeXNMLWpdiv3YNFngbX8xCyZIeVJwGyS8USlinoiOe1VMTVGXu
+	 vdhgd3fscsj+t6CPTW1rJ9uaeeaJoeooS050Qa2T87jTtzswqgjNATwnjyiAhB20qkw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ok2oMrG6;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B18606A324;
-	Sun,  1 Nov 2026 02:26:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133F4606A324;
+	Sun,  1 Nov 2026 02:30:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PPpnjRGA
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E4301F000C1;
-	Sun,  1 Nov 2026 02:26:13 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ok2oMrG6
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793500257;
+	b=zA4N53CkZlEYr1KvM2suW5fUtKpyPuN0JX/N/Zbu7sQyw1EOrSTBU9c/OcRDpH8OFIGF
+	 Oey3JFNA2ip6HhqIA/0JO1LqhmfkXfYb/8RP7nG7jQA4XnR/J8wZYzDhmKO0JRk2m4Umg
+	 y3iycGEqezip5TqoZDE2haxMnZ5Bt8yi8tVstZyczX5LrK3vQFQKjHkkTY5tzO93ZYfpi
+	 Tw3rPcLpScXGCsad/1xdaqugFRObcWvoBfhvxOCrR5zscP2SKSZT8X+jOfHUGZyGQ3meo
+	 +ppDyLR8CGaW1aJq8U1Jht+YgVuB83UtszxGht5SHL3QZzVb1XjVJZXLkq3zTBSkJzA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793500257;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=Av/AZx/+hbd/epNN4JJOs8spD71iHEi1GvauWh/m9P8=;
+	b=XFnv6AS+WPCEBZd57mLd1GLj9qcEdd7wxD/FrrfEZLSSexEFkkCGfvP39ifCvFTBa4o3
+	 WoWEc7nLNM3cdW4idJ2DtVK7i3FVLArGABHwwF9iDl2UM7HomrDkVCgTFiHGL0Ewr4vOe
+	 lY4vYdW04JPNkSH2efbLMbPVpbwFiH9GjG4Wmaq0mIk8CAju+vu8uKetH/guJYYibe9dd
+	 4ElETqvcMM3J8WOEhVUyarTpvUZte2lhOAQyrRcXzppNSDuWFrlGCiEZ9EmaQla4K+Kan
+	 1969f1gyc6EA0prWXm+AGEK1/kvDOYE7fKBJyWeYpMl/M4kmpA2M/tP6Cnrxvl5EXyQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 0B7EB1F00919;
+	Sun,  1 Nov 2026 02:30:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793499976;
-	bh=RgceOe+o9SSPiUOOX+dafdP5lR0/MnDvLfVzpqJudMk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=PPpnjRGAfXGfaPE3Att3cIu4zMErP49vpC+K0MmV4tY5IM1Sq6WNQi7Nnbk3CkxQG
-	 adn8bUCv11RoHi16xoXaJnSJw1R+JfXq6+z38WN2f3hKWpyV4Ql7BoMbAUyygHNk8o
-	 33XAlrduzgkfFqqzRnXfrRhx64oayR0DxJaegTL5+2UX6do32x41EE5LjIcQuB9Iee
-	 pnM5zIV4McL0x5h6tXp9jMjniRaM1j6YVBbvmfl68s62y2WacHVerra1I1x2KfgCWX
-	 tcBsqYx5EebuTXdviI2lpOakQ+OBOpiCxzozmIy733Htpo1IOTsl+RI21LKyxoaTnB
-	 mF2eLB/HIpXyA==
-Date: Sun, 1 Nov 2026 02:26:08 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josef Bacik
- <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable <stable@kernel.org>, Ramona Gradinariu
- <ramona.gradinariu@analog.com>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>, Michael Hennerich
- <Michael.Hennerich@analog.com>, David Lechner <dlechner@baylibre.com>, Andy
- Shevchenko <andy@kernel.org>
-Subject: Re: [PATCH 04/15] iio: accel: adxl380: don't stay in standby on
- -EINVAL
-Message-ID: <20261101022608.0196b0ef@jic23-hlaptop>
-In-Reply-To: <auHIJRLqIm97GrEG@nsa>
-References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
-	<20261027-llm-char-misc-iio-v1-4-0d818334f6c7@linuxfoundation.org>
-	<auHIJRLqIm97GrEG@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793500257;
+	bh=Av/AZx/+hbd/epNN4JJOs8spD71iHEi1GvauWh/m9P8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=ok2oMrG6eftGOhRimh3x6jwoxHdFt4h78EoK2X4i5hI1+7R83grX9e7LR6VwOQyzN
+	 /YgJO8ccurJebZzh0DS0SwYDvUlv6rJnOmmGZvNfs8HjRb10/CtRO/PMI3uxLDFJ+/
+	 PJ5I7W3KcQVMx74r8dhJRy3GgdcCxzkxYXN4Dh30rNzRy5/8chS7sscbvW3FFHDRYT
+	 CUq0GQaCmK7gRDeWVUz5brC6tBV3FgihmP/e/2VB3G2c3f74aAO7qZmu6NCk8OP+Nc
+	 GvokKoaD31rDMySVtIk6vFCIgox8132oPraBRijt159EESJaBrYlLSC58/IOKFxuwx
+	 584gT3ffeRodw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 8BEDD46037;
+	Sun,  1 Nov 2026 02:30:56 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Sat, 31 Oct 2026 23:30:55 -0300
+Subject: [PATCH] drm/msm/a5xx: Write CP_RB_WPTR under the ring's
+ preempt_lock
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,48 +83,126 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261031-a5xx-wptr-lock-v1-1-fa7d7b9a7fbe@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5EMBCA4VeROZvEtKmDV9k4UFMGQVq7moh31
+ +X4Hf7/hMBeOECVneD5J0HWJYHyDOzQLD2jdMmgClVSoQkbEyMe2+5xXu2ExrRkSGvlrIMUbZ6
+ dxGf4qV+Hbzuy3f8XuK4bHMQP9nIAAAA=
+X-Change-ID: 20261031-a5xx-wptr-lock-55b151332fcf
+To: Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Jordan Crouse <jordan@cosmicpenguin.net>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793500256; l=3913;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=SUNATcfAyOfKteGeuYntWXBBaaQFnfxYwXjBjp6a+vU=;
+ b=ZMKnqzhG6IvyxdK/sCwhtNHfQiyo+Tuzwg7/AsYhB8BROSd9CZjCN4WCviZhiZo7TMnoFkvci
+ T5kHFg5BUdxDhvD0Tc0/R4AjvSBNoSiRgbkW89xgsE+Now3SbyqgGRt
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Wed, 28 Oct 2026 10:02:36 +0000
-Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-> On Tue, Oct 27, 2026 at 05:19:08PM +0100, Greg Kroah-Hartman wrote:
-> > From: Josef Bacik <josef@toxicpanda.com>
-> >=20
-> > adxl380_set_act_inact_threshold() puts the sensor into standby, writes =
-the
-> > threshold and switches the measurement on again.  A threshold above 819=
-1 is
-> > refused in between, and the sensor stays in standby: no samples and no
-> > events until the next write that succeeds.
-> >=20
-> > adxl380_set_range() has the same problem and a worse one.  It rescales =
-both
-> > thresholds for the new range.  If one no longer fits it returns -EINVAL
-> > with the sensor in standby, the new range in the chip, the old one in
-> > st->range and rescaled thresholds in the driver's state: from the next
-> > successful write on the samples are reported with the wrong scale.
-> >=20
-> > Switch the measurement on again if the threshold is refused.  In
-> > adxl380_set_range() see whether the thresholds fit before anything is
-> > changed.
-> >=20
-> > Fixes: df36de13677a ("iio: accel: add ADXL380 driver")
-> > Cc: stable <stable@kernel.org>
-> > Cc: Ramona Gradinariu <ramona.gradinariu@analog.com>
-> > Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> > Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
-> > Cc: Michael Hennerich <Michael.Hennerich@analog.com>
-> > Cc: David Lechner <dlechner@baylibre.com>
-> > Cc: Andy Shevchenko <andy@kernel.org>
-> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > --- =20
->=20
-> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
-Applied to the fixes-togreg branch of iio.git
+CP_RB_WPTR tells the CP how far the ring has been filled. Two functions
+write it: a5xx_flush(), after a submit is added to the ring, and
+update_wptr(), which a5xx_preempt_trigger() calls from the IRQ handler
+each time a submit completes, whenever there is more than one ring,
+even when no ring switch follows. Both read the ring's wptr holding
+ring->preempt_lock, but write the register after releasing it, so the
+two writes can land in the wrong order:
 
-thanks
+  CPU A, IRQ:   update_wptr() reads wptr N
+  CPU B, flush: a5xx_flush() reads wptr N+1, writes N+1
+  CPU A, IRQ:   update_wptr() writes N
 
-J
+CP_RB_WPTR then points behind the last submit. If the CP has already
+read past N, it treats the ring as nearly full and executes the
+commands left over from its previous pass through the ring. This shows
+up as CP opcode errors, and the old submits write old fences, so the
+fence in memptrs goes backwards. Recovery then finds no submit to
+blame and does not reset the GPU, which stays hung until reboot.
+
+Write the register before releasing the lock in both places, so the
+last value written is always the newest, as a6xx_flush() does.
+
+Fixes: b1fc2839d2f9 ("drm/msm: Implement preemption for A5XX targets")
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
+---
+Tested on A508 (SDM630), with piglit's texelfetch tests run in
+parallel: CP opcode errors in each of seven one-minute runs, the
+seventh ending in a hang that never recovers; with this, none in 25.
+
+The downstream driver writes the register holding the ring's
+preempt_lock in both of its places:
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno_ringbuffer.c#L104
+https://github.com/LineageOS/android_kernel_motorola_msm8998/blob/ce9ea8f125c7302ae9b2fec84f23a69271e957c3/drivers/gpu/msm/adreno_a5xx_preempt.c#L25
+---
+ drivers/gpu/drm/msm/adreno/a5xx_gpu.c     | 10 +++++++---
+ drivers/gpu/drm/msm/adreno/a5xx_preempt.c |  3 +--
+ 2 files changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+index 16c7335c4b1f..63b313328979 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_gpu.c
+@@ -53,14 +53,18 @@ void a5xx_flush(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
+ 	/* Make sure to wrap wptr if we need to */
+ 	wptr = get_wptr(ring);
+ 
+-	spin_unlock_irqrestore(&ring->preempt_lock, flags);
+-
+ 	/* Make sure everything is posted before making a decision */
+ 	mb();
+ 
+-	/* Update HW if this is the current ring and we are not in preempt */
++	/*
++	 * Update HW if this is the current ring and we are not in preempt.
++	 * Under the lock, so that update_wptr() cannot write an older wptr
++	 * after this one.
++	 */
+ 	if (a5xx_gpu->cur_ring == ring && !a5xx_in_preempt(a5xx_gpu))
+ 		gpu_write(gpu, REG_A5XX_CP_RB_WPTR, wptr);
++
++	spin_unlock_irqrestore(&ring->preempt_lock, flags);
+ }
+ 
+ static void a5xx_submit_in_rb(struct msm_gpu *gpu, struct msm_gem_submit *submit)
+diff --git a/drivers/gpu/drm/msm/adreno/a5xx_preempt.c b/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
+index e4924b5e1c48..0deac58bc22e 100644
+--- a/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
++++ b/drivers/gpu/drm/msm/adreno/a5xx_preempt.c
+@@ -47,9 +47,8 @@ static inline void update_wptr(struct msm_gpu *gpu, struct msm_ringbuffer *ring)
+ 
+ 	spin_lock_irqsave(&ring->preempt_lock, flags);
+ 	wptr = get_wptr(ring);
+-	spin_unlock_irqrestore(&ring->preempt_lock, flags);
+-
+ 	gpu_write(gpu, REG_A5XX_CP_RB_WPTR, wptr);
++	spin_unlock_irqrestore(&ring->preempt_lock, flags);
+ }
+ 
+ /* Return the highest priority ringbuffer with something in it */
+
+---
+base-commit: a39c950806213f6861d00f90729acaaa21f2d95a
+change-id: 20261031-a5xx-wptr-lock-55b151332fcf
+
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
+
+
