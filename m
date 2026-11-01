@@ -1,49 +1,150 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.156
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521449;
-	b=K7bnXh1ZHudN9gu3j11sB8QXFbw0kaVk++HMI6ZyG3GpAPJxpsmyOWBV9peEJXi77Rnq
-	 zjGrVa/csgJD9PXQlym/TI54k7NH7QBmNAtXKMeIbAnDhMWNAyhChV6HYNE/PmI5Wx9lo
-	 NQT16HqbvmCncjPN/r24LEsqyEH/a5MhLxWD6DXMjeXNDbEpSqGzVGk5jc3mwzdo2Z92N
-	 jvpFu+m27otow4vchGQA640VcvIdup8fPhJDlZ+z/oyuAWbWyWTti7OBqGe0gxvZw9Iv1
-	 9I4r2qREyIazAC5uP4tsAVyfFaF3La+23GmyicvtynpvbCx2Zr3UASTYWiJQZtXExdw==
+	t=1793521463;
+	b=ObCjhn+gzV/GyGgy+sK9zk5yUiVrN9iHqMgp9ZVbc8LdNO2xwcsPFyRfNhZAyncmVWBR
+	 f/4nxXtqsZ0h7gRAYStL2m/9kNgGjUwvO//2VWnrDIQ0PfMV5bOnDqGFRLbMjGkIdHr/5
+	 x4oTQfpwR+aJGpSG5tAz9lAvt8E8LA913KsG4P7OSFRf3CS8wWLseo+0FO7jTuXxzmF9N
+	 G/yd2NeeP987wnnF40+RU12cvk8xx1BTGkSBwaDExEommjJXAfWjGxzaIxw4Nx59Kd3oR
+	 5FoT9seEakWSYZd8hN4QLAIk0dHcEb/145t8CxHyUJDktaKdwuGFvzACDD5+7KE31rw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521449;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
-	 X-Mailer;
-	bh=zr2bACuemphecdv4BzIcfo+dhb7hRoM9xEUnWOT8OQY=;
-	b=roi8ErohpQ85RO6eMxEHVzgtn1aMkHF8iPyroB9I4BsAN96KQVHRkfyUjXcyfQrwrgf5
-	 x2KgrOGqQooe+nt/OjxcRbLQ3NHRpkAx6NswZSVw2piRsNUNtiRWqupZ892l0CWGd7IDf
-	 UJTvJ1hySmSiL6ETSxrA1izMZSNwZsgQmQc1TrFD7uYVzkjT8CszJDaPJkjRQszT4tBNL
-	 OZIs7ahuqh9g1vVC89lgmf4CmY5VqeScj0l75tRJurF69CC6JDUIObRxHjZeVLWD2QYi4
-	 VKRXVPyC0eaPfE/Bhz6FSoTwSJovKitZ9xcE1FTjsYMMDFvLx+Lws1ce9tEP83QLUWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521463;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=Xj9axg9dYLGo8p01aLCCgHl7zzs0dRi/f+h5LP9McgI=;
+	b=kOWF9Mo4JFg12rrAv8Xy7H4gfTviyEahqTCgFy2ofTCLwDKR2vZWkEfpNOFXADUxfZ5r
+	 TCBJB8GHR8LWefWgQtgWwyGXf8RuiL88CKNaRUO5+LiF7Jt+Qes8g0PBBoLIBfhQtv7ig
+	 T45rvi3KIJmvydhoz4qZjTYpWLSahy6AJDCif5YyBWYhNkFyuzf+CHTOLChFBrBVqP1gO
+	 GtVXsVaJA1lruGLLUocdzWZhBGR9mvAQaIpt5sfMM1528B5OTnW+QojuLIKoEzWYyEQTP
+	 D4N7jN1uQzRRHEnShRmF3qV3hzp61EoQrhwLFh/5UfCfvsBulJyjYreJk4re4FthETg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=atDDT426;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=gahingwoo.com;
+	spf=pass smtp.mailfrom=gahingwoo.com;
+	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=ZUE2kLUh;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=yA0iizie;
+	arc=none smtp.remote-ip=103.168.172.156
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514C3606A324;
-	Sun,  1 Nov 2026 08:24:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBB6606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:24:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3FBB6606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=atDDT426
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1299B1F00A15;
-	Sun,  1 Nov 2026 08:24:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793521448;
-	bh=zr2bACuemphecdv4BzIcfo+dhb7hRoM9xEUnWOT8OQY=;
-	h=From:Date:Subject:To:Cc;
-	b=atDDT4264LDfkryxKKZT+rFaN0zTUANFgOlvsFn/u8QwzMOE/ykAwQl7QyTmcqKJQ
-	 P8GY+B7tcEeM0uKHOwqIWyHy9uGOCKS0OVLzcyAHYohKCz371SMt6mzOChngqDk2Y9
-	 nM4/NLkAE+NWUF0d2RKqedXyYuL2LQFRwdOUMprkldxG1AKxEdzZP3SoebBcKQuQx/
-	 uV12oPvGNBzx+KBVq68cege5ZOn+WMrNiBD+UYCpFoNLaf8OuS0bpB7CVy7/b/Iz+j
-	 csaxQyQskRuil6fxX5wvMakqCkv0dzHHjhbBYg9aOl76VL0RcME0P596SMDNEuc+bU
-	 +K4wr1Dce2HbA==
-From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
-Date: Sun, 01 Nov 2026 10:24:02 +0200
-Subject: [PATCH] mm/vma: undo userfaultfd unmap preparation when unmapping
- fails
+	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=ZUE2kLUh;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=yA0iizie
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 895EB140030E
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:24:21 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-06.internal (MEProxy); Sun, 01 Nov 2026 03:24:21 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1793521461; x=
+	1793607861; bh=Xj9axg9dYLGo8p01aLCCgHl7zzs0dRi/f+h5LP9McgI=; b=Z
+	UE2kLUhu+f0h4zzJ7dQNeGGmU6x0eCmvflkfG8hlr4R+lO5kUaYpg1scaSJLQaTf
+	u9dBXckKhipYFpy5Xry4XzDCgFoseELeenqYN0NwsqfkgPn+97HjYpMDySAqd1Lg
+	ahxW9fRQ5R5YMdfx2CCjngo88MuczShDgw+62LvXZrFXDOfGjcY+CQ/OENHNcfGe
+	L5YsMkAwsFCZ+5ykEIF/wSoX91EbXO98M1kwf706z7tPbeeusGrGY72ZYLJS/QWZ
+	uk0y206WG0075IyUoX/0SvlZs60vA1UL30zLZjnpq//GUXB/4uqZofwRUMtOIApz
+	RgSC4ZSaiGQjcO6xnH2ug==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1793521461; x=1793607861; bh=X
+	j9axg9dYLGo8p01aLCCgHl7zzs0dRi/f+h5LP9McgI=; b=yA0iizieupE0/Rl/N
+	QNS3w5eyyCQa2OOnOgJjfo6uOya3dZ+YvoIC+y91f+hC/P7kqlvZ/oOok5wtI6k1
+	cCzVNArcZUvhkV0Q1NS0kF7YvePCWe/5iGBxSh67+utZpZ6107eDd7GudFlvOk9Z
+	kPMv10hPCnmWEIo+pkCSUK3GKY0o6SEP+FvBCLfDszbGm9iXB4BZev1RyzRYuFcq
+	2RXmVSjM0hOJcVBBYbKotRxv0T40pBnqe5JnkxRbC02wnelIq6TjoOWfM4AjvK3M
+	hQ6UlOngvpvDwpPhaPrkFCnBdRwx9DOjqGKuv72SFJKUfZs3ziQ42YhgI6v2q1hu
+	4fgcA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=gahingwoo.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793521461; d=gahingwoo.com;
+	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:sBuTj65zYgoB4Vlv5kYpE13516pFIVlzfuU0n5W7IF+mVVU
+	AnXNXjQuDlfy7eRnwQ7sxHyGj1A/XxUazpoEFyXsvf3TVMRyIHYWKAPbtWOpgaU9
+	g7L+9YtIT+Af2ISxeivcc/7eA6tw2DtO7tXu8b58RwFsJh8vzAeSAL6V+efNRlA6
+	dqHgKh+pbVhU+1yxWhr8PV0vQKyspEHu5jH8/CTUu4T0WzpEPvnzGdHVcuuga4Az
+	pabFAaIEsN/WFwqNrR3m1jaBeRwylz/Xz6GY9XdfhrgtYKP3KauQTqtIlU3p1x64
+	MBrjZzGhqcVnffSRAKHFnq1cuWjwxAJX2OQRdbQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:/cR+SVB5SQ0kGP0/C0/QK06xN+k1K/x4EQfQy/b1HSY=:4Xq95QJdIqCjB39RLzyySSIteLteH9r9uz6l54PwLfw=;
+X-ME-Sender: <xms:NffmappYiiEfk4kfjkeNmrE3x9bbwYjo8qJ1BS2hvxfVLSeTq3BWfw>
+    <xme:NffmapTQGRvTElT2d0EPyQjKzgY25MzyOou17JuLGt-pT7K1Mq9znNiujCs5YGg6y
+    sU03Im7CXxLEKsNibXsCP2LqVvFo7AkuioOY8-a2wzUBv4TH44N4A>
+X-ME-Received: <xmr:NffmatlYCyvECxQvyETkXjlReYmwPXTBB_Zwh99ir20A-fFxy3a3zK2VpGW6H5YiHO_PwUYi>
+X-ME-Proxy-Cause: dmFkZTGZ556hZr4OQNVERo9rUYXTF10cGGQBi7vLn3VnSr966c7BEZC28LhiqgFQ0DLnXR
+    bnYwdeOAqs5QxBVuvkRL+ZwpHs/blmZG2wUWUiNLZ7HENeZpMSZpencZWiEx1r/ZYZ/gaT
+    5aRTZsrFo+PnzxoJMR1ENyaKg8E7fhdgt1B6kN2BycVkXJHEJTKc3jHTPe6IjiylVhuTTD
+    rIDq43QCU8cfWL1yKlOgbv7lVceHpNeuB46oYLXbGuG53l6HRsNNJeQwVLCejjdSqA3oLJ
+    mySu3UERpxtLqccEHJ3QQ08pgTmGPEw/h/+EEsPDgBAlHAn17s6eZ3ZSMRh5fpdn/9Y7MW
+    A4rXUGboymQeYRhevUsMu99pylgnR1ci1qPeAm1i9ilW2KXn+HDY/CMMKnD405vPZSMIAh
+    ES4PMdqvNXQ7QUwxpvmakX14ML6/VWcidwIGbtd5Z36B8pG7IVS/WskaIVqL021NAJxc2B
+    /rfw9y47objWwdzSCmJ70FIOgJGSAqR9mntmLWHfzhbdquX0VmYu0VURVrFw2PA8bwIFvh
+    p/JyHLmDqKNUc+pdg4V8gmSCK//MVTL30Lbg6qyUA9FhG3bmA2/MWiurCN/6R3QJ0QTe1i
+    sucgcgOKk16/auPcTGxxu9BmGIQVE1RnosKooRtX8cizl+Tvru/4UwWmSG6A
+X-ME-Proxy: <xmx:NffmatGW220jToEwOhR7lCy7bcaAo0LH2mLgSm1MRCCuN3-Fj9D7zA>
+    <xmx:Nffmagm1kmBFVt9bJp6ZmEDIHeeR-WHXun76PHDhcv23TnKn69DJsA>
+    <xmx:NffmasSr-IKyDYvzy1vq30ODzQqhhzHDD5Dgk_G6fGtCxuSYwdgxGQ>
+    <xmx:Nffmal6FwYnZffS2k_QoX8ZcBMdo5cI06LhkartZ9s68737wETpKkg>
+    <xmx:NffmavXEdFxjRyf7BP8FK3c75DIi3NBZDtANZ4DUTD5ql7SR9v2HcMji>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 1 Nov 2026 03:24:13 -0500 (EST)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: tomeu@tomeuvizoso.net,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	joro@8bytes.org,
+	will@kernel.org,
+	robin.murphy@arm.com,
+	ulfh@kernel.org,
+	p.zabel@pengutronix.de,
+	ogabbay@kernel.org,
+	zhangqing@rock-chips.com
+Cc: royalnet026@gmail.com,
+	abel.vesa@oss.qualcomm.com,
+	sebastian.reichel@collabora.com,
+	sidong.yang@furiosa.ai,
+	u.kleine-koenig@baylibre.com,
+	chaoyi.chen@rock-chips.com,
+	diederik@cknow-tech.com,
+	alchark@flipper.net,
+	leonard@lausen.nl,
+	jeff.hugo@oss.qualcomm.com,
+	rfoss@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-rockchip@lists.infradead.org,
+	iommu@lists.linux.dev,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v15 06/15] dt-bindings: npu: rockchip: add rockchip,rk3576-rknn-core
+Date: Sun,  1 Nov 2026 21:22:58 +1300
+Message-ID: <20261101082307.151957-7-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
+References: <20261101082307.151957-1-gahing@gahingwoo.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,222 +154,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-uffd-unmap-abort-v1-1-1588d7a7c61a@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMzQrCMBCEX6Xs2aCNRcRXEQ+7ycZG3KTkpwil7
- 26ihzl8w8y3QebkOcNt2CDx6rOPocF4GMDMGJ6svG0M+qQvY4uqzllVg+CikGIqSo9uulpj8Ew
- TtNuS2PnPT3l//DlXerEp3dMXhJkVJQxm7pVILHIUadZckN4M+/4FD4NrW5gAAAA=
-X-Change-ID: 20261026-uffd-unmap-abort-21f48dcca3b4
-To: Andrew Morton <akpm@linux-foundation.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
- Noah Weinberger <NoahWeinberger2003@proton.me>, 
- Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
- Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org, 
- linux-mm@kvack.org, stable@vger.kernel.org
-X-Mailer: b4 0.16.1-dev
+Content-Transfer-Encoding: 8bit
 
-vms_gather_munmap_vmas() collects VMAs to unmap and calls
-userfaultfd_unmap_prep() for each of these VMAs. This takes a reference
-to the userfaultfd context, raises ctx->mmap_changing and queues an
-UFFD_EVENT_UNMAP on the caller's list.
+The RK3576 NPU has two cores of the RKNN block this binding describes, with
+two extra CBUF clocks, two power domains per core, one reset instead of
+two, and no SRAM supply. Widen the properties and pin each SoC to its own
+shape in allOf; sram-supply stays required for RK3588.
 
-If gathering fails half way, e.g. because one of the VMAs is sealed, or
-the operation fails after the VMAs were gathered, the original mappings
-stay intact but the queued events remain on the list.
-
-Depending on the caller they are either delivered although nothing was
-unmapped (munmap(), mremap(), mmap(MAP_FIXED)), or silently dropped
-(brk()). In the latter case the userfaultfd context and the mm_struct it
-pins are leaked and mmap_changing is never lowered, so UFFDIO_COPY,
-UFFDIO_ZEROPAGE and all other ioctls that check mmap_changing fail with
--EAGAIN forever.
-
-With mseal() this is trivially triggered by an unprivileged process.
-
-Collect the events in do_vmi_align_munmap() on a local list and splice
-it to the caller's list only when the unmap completes, because mremap()
-may already have events for earlier unmaps on that list.
-
-Drop the pending events with a new userfaultfd_unmap_abort() helper when
-do_vmi_align_munmap() or __mmap_setup() fail.
-
-Fixes: 65ac132027a88 ("userfaultfd: fix regression in userfaultfd_unmap_prep()")
-Reported-by: Noah Weinberger <NoahWeinberger2003@proton.me>
-Cc: stable@vger.kernel.org
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
-Noah reported off-list that when an operation that unmaps memory fails
-half way, some UFFD_EVENT_UNMAP events might already be queued for it.
-These events are either delivered although nothing was unmapped, or
-leaked together with the userfaultfd context and the mm_struct it pins.
+ .../npu/rockchip,rk3588-rknn-core.yaml        | 47 +++++++++++++++++--
+ 1 file changed, 44 insertions(+), 3 deletions(-)
 
-With mseal() this is trivially triggered by an unprivileged process.
----
- include/linux/userfaultfd_k.h     |  5 +++++
- mm/userfaultfd.c                  | 19 +++++++++++++++++++
- mm/vma.c                          | 28 +++++++++++++++++++++++-----
- tools/testing/vma/include/stubs.h |  4 ++++
- 4 files changed, 51 insertions(+), 5 deletions(-)
-
-diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
-index ebd86677b052d..5857ff0542905 100644
---- a/include/linux/userfaultfd_k.h
-+++ b/include/linux/userfaultfd_k.h
-@@ -279,6 +279,7 @@ extern int userfaultfd_unmap_prep(struct vm_area_struct *vma,
- 		unsigned long start, unsigned long end, struct list_head *uf);
- extern void userfaultfd_unmap_complete(struct mm_struct *mm,
- 				       struct list_head *uf);
-+void userfaultfd_unmap_abort(struct list_head *uf);
- extern bool userfaultfd_wp_unpopulated(struct vm_area_struct *vma);
- extern bool userfaultfd_wp_async(struct vm_area_struct *vma);
- extern bool userfaultfd_rwp_async(struct vm_area_struct *vma);
-@@ -445,6 +446,10 @@ static inline void userfaultfd_unmap_complete(struct mm_struct *mm,
- {
- }
+diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+index caca2a4903cd..3b611b64c8aa 100644
+--- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
++++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+@@ -21,6 +21,7 @@ properties:
  
-+static inline void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+}
+   compatible:
+     enum:
++      - rockchip,rk3576-rknn-core
+       - rockchip,rk3588-rknn-core
+ 
+   reg:
+@@ -33,14 +34,18 @@ properties:
+       - const: core # Main NPU core processing unit registers
+ 
+   clocks:
+-    maxItems: 4
++    minItems: 4
++    maxItems: 6
+ 
+   clock-names:
++    minItems: 4
+     items:
+       - const: aclk
+       - const: hclk
+       - const: npu
+       - const: pclk
++      - const: aclk_cbuf
++      - const: hclk_cbuf
+ 
+   interrupts:
+     maxItems: 1
+@@ -51,12 +56,15 @@ properties:
+   npu-supply: true
+ 
+   power-domains:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
+ 
+   resets:
++    minItems: 1
+     maxItems: 2
+ 
+   reset-names:
++    minItems: 1
+     items:
+       - const: srst_a
+       - const: srst_h
+@@ -75,7 +83,40 @@ required:
+   - resets
+   - reset-names
+   - npu-supply
+-  - sram-supply
 +
- static inline bool uffd_disable_fault_around(struct vm_area_struct *vma)
- {
- 	return false;
-diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
-index 3b71712edab4c..15d2422345705 100644
---- a/mm/userfaultfd.c
-+++ b/mm/userfaultfd.c
-@@ -3295,6 +3295,25 @@ void userfaultfd_unmap_complete(struct mm_struct *mm, struct list_head *uf)
- 	}
- }
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: rockchip,rk3588-rknn-core
++    then:
++      properties:
++        clocks:
++          maxItems: 4
++        clock-names:
++          maxItems: 4
++        power-domains:
++          maxItems: 1
++        resets:
++          minItems: 2
++        reset-names:
++          minItems: 2
++      required:
++        - sram-supply
++    else:
++      properties:
++        clocks:
++          minItems: 6
++        clock-names:
++          minItems: 6
++        power-domains:
++          minItems: 2
++        resets:
++          maxItems: 1
++        reset-names:
++          maxItems: 1
++        sram-supply: false
  
-+void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+	struct userfaultfd_unmap_ctx *unmap_ctx, *n;
-+
-+	if (!uf)
-+		return;
-+
-+	list_for_each_entry_safe(unmap_ctx, n, uf, list) {
-+		struct userfaultfd_ctx *ctx = unmap_ctx->ctx;
-+
-+		atomic_dec(&ctx->mmap_changing);
-+		VM_WARN_ON_ONCE(atomic_read(&ctx->mmap_changing) < 0);
-+		userfaultfd_ctx_put(ctx);
-+
-+		list_del(&unmap_ctx->list);
-+		kfree(unmap_ctx);
-+	}
-+}
-+
- static int userfaultfd_release(struct inode *inode, struct file *file)
- {
- 	struct userfaultfd_ctx *ctx = file->private_data;
-diff --git a/mm/vma.c b/mm/vma.c
-index d416ba58eb4c2..4672d420521e3 100644
---- a/mm/vma.c
-+++ b/mm/vma.c
-@@ -1675,9 +1675,18 @@ int do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 	mt_init_flags(&mt_detach, vmi->mas.tree->ma_flags & MT_FLAGS_LOCK_MASK);
- 	mt_on_stack(mt_detach);
- 	struct vma_munmap_struct vms;
-+	struct list_head *uf_unmaps;
-+	LIST_HEAD(uf_new_unmaps);
- 	int error;
+ additionalProperties: false
  
--	init_vma_munmap(&vms, vmi, vma, start, end, uf, unlock);
-+	/*
-+	 * @uf may already hold events of earlier successful unmaps, e.g. in
-+	 * mremap().
-+	 * Collect new events on a separate list so they can be dropped if this
-+	 * unmap fails, and splice them into @uf on success.
-+	 */
-+	uf_unmaps = uf ? &uf_new_unmaps : NULL;
-+	init_vma_munmap(&vms, vmi, vma, start, end, uf_unmaps, unlock);
- 	error = vms_gather_munmap_vmas(&vms, &mas_detach);
- 	if (error)
- 		goto gather_failed;
-@@ -1687,12 +1696,15 @@ int do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
- 		goto clear_tree_failed;
- 
- 	/* Point of no return */
-+	if (uf)
-+		list_splice_tail(&uf_new_unmaps, uf);
- 	vms_complete_munmap_vmas(&vms, &mas_detach);
- 	return 0;
- 
- clear_tree_failed:
- 	reattach_vmas(&mas_detach);
- gather_failed:
-+	userfaultfd_unmap_abort(&uf_new_unmaps);
- 	validate_mm(mm);
- 	return error;
- }
-@@ -2581,7 +2593,7 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 		if (error) {
- 			/* On error VMAs will already have been reattached. */
- 			vms->nr_pages = 0;
--			return error;
-+			goto abort_unmaps;
- 		}
- 
- 		map->next = vms->next;
-@@ -2591,8 +2603,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 	}
- 
- 	/* Check against address space limit. */
--	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages))
--		return -ENOMEM;
-+	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages)) {
-+		error = -ENOMEM;
-+		goto abort_unmaps;
-+	}
- 
- 	/* Private writable mapping: check memory availability. */
- 	if (accountable_mapping(map)) {
-@@ -2602,7 +2616,7 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 		if (uncharged) {
- 			error = security_vm_enough_memory_mm(map->mm, uncharged);
- 			if (error)
--				return error;
-+				goto abort_unmaps;
- 		}
- 
- 		/* Our new mapping owns the entire charge now. */
-@@ -2621,6 +2635,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
- 
- 	set_desc_from_map(desc, map);
- 	return 0;
-+
-+abort_unmaps:
-+	userfaultfd_unmap_abort(uf);
-+	return error;
- }
- 
- static bool map_same_file(struct mmap_state *map)
-diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
-index 8d030a3ace848..9f5b8e996abf6 100644
---- a/tools/testing/vma/include/stubs.h
-+++ b/tools/testing/vma/include/stubs.h
-@@ -148,6 +148,10 @@ static inline int userfaultfd_unmap_prep(struct vm_area_struct *vma,
- 	return 0;
- }
- 
-+static inline void userfaultfd_unmap_abort(struct list_head *uf)
-+{
-+}
-+
- static inline void mmap_write_downgrade(struct mm_struct *mm)
- {
- }
-
----
-base-commit: b61fa14ce6bcbba2cb9a96feea31b760226d6b43
-change-id: 20261026-uffd-unmap-abort-21f48dcca3b4
-
---
-Sincerely yours,
-Mike.
+-- 
+2.43.0
 
