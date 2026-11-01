@@ -1,79 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793548798;
-	b=V4D+/7pok4gFZKiFSPxSytL8r8GFfM4zJ7bGXCRFmwEppJMwBLbzN/i4s50rT9zOekVY
-	 n22KlsRypJyWoirtVSpfA92lQqzl50M1Vuz9VnogkIrprgR7kgB/76dUVObn0uUq8UxhA
-	 2UT9y1n8QtxF13b8mMzdzCD6GEIEmizeM/gsOKK+aL0b+F7TBodeWuTbJ+0YArNhVmWkk
-	 phlhJycCVcT+00fMLZ3QFTatEvxOqWKo9ZxfN9g+U5ynTZuUcLfFOKbahMbxCAuv2xt7E
-	 CSUGv/rUd7997rBPzRzDjvgIRCszr5rdP2PqI1gMhussO/v5xxPQ024Ik6RLvs5/nLQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793548798;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=rSXU4MdQ526YDwpFQqmQayTOK2c15g71hi0jEnqqt1k=;
-	b=SF5rMknHQ/8rtn/Ipz10lLiTOiNJBEteBaXreSmYlHgO7dpRDOhAo0RgXA+no4szXOVo
-	 7wGvWMSYHn4E3bPOojbZ/apI0lUnChTKQBd9aQ/UzM2rmDq2j+a44dn6TpM3kMLK+cZmy
-	 teQz4SlXaWni33oXexuOGGi2cXM80bgBg7ATl0l+bnhK22VxeDn5gw5L2MtKdMLMzOrG5
-	 fsEiikRy8lTPcq5+P+N7z2yfAcsDQz7E1ffKCeQzZs8wO+mlCn1t7xeGFjl2XDcqLlTbO
-	 rJVj5R5Yhrb3WZyz4VNU7SsqRskakySeuARdGSMUgrkKxpiU7dyZzxr2cvEhW7d0ORA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIltwHE7;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2F0606A324;
-	Sun,  1 Nov 2026 15:59:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JIltwHE7
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793548798;
-	b=Pk9196040DLrjqR/1GRCXe03ZYBu9/u663vs11Ux8KjjQ0xD4FgEfeBrn9m+6q6gavn/
-	 lUhdPNByOKY1VRx20lRciYVCJfM+EeT+y0TeNgyzkf8NSJxeKo69YU5myhN7AZmqWB8B0
-	 KbyFZgvYuKWt4hgfEawQ6e8i++lSGnqNeOHbdYU6r0VtsFNHE/zjEHdHAbnapwq2ilT0r
-	 wuHLy9jTd+G/IAXb7FZE5OHyTFyKQoXEsJGRl9CPztzUSjv7qGp6EaxWBvJvaWzfqikoZ
-	 bs3NvKJC3GFdX0Bl7uX5Jwu/3USwPySHL/O6hcdSDMd64ydZh3CKvVVprUDvQ32C9zw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793548798;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=rSXU4MdQ526YDwpFQqmQayTOK2c15g71hi0jEnqqt1k=;
-	b=B/Y+BSKH6mSTDsBGjWgAY47rfP2h5EnGfIn6jXobnWwHY1DxuFy4W9eN+MSw2dzgKzpO
-	 9DDGqpjvwyGNAO/kIC6jA7C/3o9nhZ7oxZNOLNLZZcOz/q7r39FSNgCqbd5MOfDZNbsde
-	 HZCrvvXFynh7+1QjoNizvE/1a9EYgM7lK6Pl3V+RbfLgj5umNmvHORsdTdk6CkZcsbQdB
-	 50HuYq3sHuExy/7IJc86tJ8Lkji2N3mnyWnwp3/pNWyNYsRdCQqOpfIFc1G1oNLeULSLz
-	 vYk9lwImyfrEZzUJ2BfVcFWF5xt6+YDy31HlkAlUNMGGUWoVrcsrdt9XKpSbered14w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793548839;
+	b=mPlG9wQubDJn5Lk0gzjIEjGp+FPEm2e2Tgi9v74SZS36QY1oEE5OhVYhghD9E6oPGaCx
+	 qh25+ScmaZ3iFuv2fE8qdlpcl7bb/UhJXmryVVzKO+n3dHwlcsiuezdQz9MJURoOW2yQG
+	 TPcGEzYwQjsbIaF05Cq7YjfH8dYNKNUAY2vZAYAxyRFL00oKjyjDinA7NuBbZlHr8XAaZ
+	 fB8X2XPhEnGWPmGiYa7JiFzTgSgoR+966DqLnAThCb0us4tw9x1VAIz9BrXXWRcHoRP6+
+	 8Yr/wiEfNJRosTYXwrkJZZAJ5TRJwu4TVvqwh8zD38Kv+g4Brsf8fZGwpnl+DjJETRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793548839;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=UhXEfhl/pFR08gfk1jrd02f01IjoE2CLAVLpgU6OHQ4=;
+	b=Ixl5hAcGDZpdDd7j2uxBqxxMPwabT1X/S5Iv4Hikg/zsXU3HR5M1rRNUs9SZw+aP/IlJ
+	 yspzh0hgq6g4NmL8Fgjp09iemj0bCOOl+RYcmhjfRBAcvb7Bx19dcPiGQcG8LBV0d6F9v
+	 hZeHzv4/MK1utiO65SyIJBx+mcgwIEY0MKQfLPkn6XPRTMueeT0jJV86BSQc542YieqFb
+	 sd5AlHO1GrTvenyXJxbjk+QHsbIjd09hsfvSBY/sTGNUCnqktWKwq4LbpsZQbLS50PG1g
+	 0hryYkrEAlmKpsVuH+BN9pxRexJgILcjYP3uGYp4vzntVjn92xZ3HW+M/nVzez7tF9w==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 750931F000C1;
-	Sun,  1 Nov 2026 15:59:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793548797;
-	bh=rSXU4MdQ526YDwpFQqmQayTOK2c15g71hi0jEnqqt1k=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=JIltwHE7SI6ouhYgSjhCFz4VL7YEzP+uv0OB7CP2S6FJ2EqATSXMRX5X9nOH4VP0W
-	 iA+UpQNBb+u0JyMt6ze4eXIFn6XfjElXJ4mFueKRi2X6oAStGnok5L80QyIuc+AmhE
-	 uwrxDynhF/4Qw49bgTBDVp8Py9Avt7fDsMEadcXoMwAXTOSi24wXJgrnBnJEKU3dDY
-	 NGXI2IjaSKEhmKAtcXukoYuLpyiIqPFukk07ZLjQVDrzCFqowpS0XzKwWP6qxP1txb
-	 zZfPW1vomDrv+LYxbDDLlXMGIqrLc41hvMzFugWeGGDeWBrEg490Qw0vW77aRWTmeV
-	 rNMNGJiON6WRg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id C5F14461D4;
-	Sun,  1 Nov 2026 15:59:56 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Sun, 01 Nov 2026 16:59:41 +0100
-Subject: [PATCH] arm64: dts: freescale: lx2160a-nbxv3: fix 1588 and id line
- names
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 362BD606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:00:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 362BD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4d2f0f77124so2608887b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:00:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793548838; x=1794153638;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UhXEfhl/pFR08gfk1jrd02f01IjoE2CLAVLpgU6OHQ4=;
+        b=x/E91xc92oiY9qSmdB2ZdRAfPesdqt8SclZ6a1JA6mwpNO2se0xiUhVEeggDe0gruS
+         J6M384sVOHDLo8G6ABpo9RhaTGm2SB5yydQ4appdRkh0b6q+SGJRPJ79RL5cOOUVEl/9
+         0kXC2J5cCJv+kyfwxfATOJDD7vQUXEoqGqqDKbLBNVrOJvXZ3u0mbHkAi6ZyJKGimTB/
+         TFyw53LPdySG048oqUkJOJjZvzmp+F+6XA7s3xVfFBqeSmefU/12oJpmIZFttMx4erjg
+         JwLNCdeLtalhl08iJa0NStcf9kuTmi2PyQmxFlNYhU6BHvmplacTJZKMa6t5YNCiImcs
+         FW8g==
+X-Forwarded-Encrypted: i=1; AKwUvBxURrEivZLakhOXFj30bUrHlpj6wh5NyndpIGHg5E3d73Bbvwth6uF916lz12/FUw7u7qENHlxwr4DRdLg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK4NSTRpe5QiIw4kOwh80y85JYpxrbENUXGnQZr2CX/VdD10C/n
+	O4EDLsaImIeOLaR0u/dre9lfktNvr48yxRmzmmzBLdi/yAi0rM4BMTrubtdImfOiGno37PzTxjy
+	iWzGRbNBjBWjtBP2VgI0hzdrQhyV68ZPWSRV8+yH/bLZiTREawLH2Xk0aWsE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,103 +58,281 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-for-upstream-nbxv3-dts-line-names-v1-1-7c8eecb2da9f@free.fr>
-X-B4-Tracking: v=1; b=H4sIAOxh52oC/x3NQQqDQAxA0atI1g1MRivYq5QuZmqsAY2SWBHEu
- 3fo8m3+P8HZhB0e1QnGu7gsWkC3Ct5j0g+j9MUQQ2yJAuGwGH5X34zTjJqPvcZ+c5xEGTXN7Nj
- VmSKle26aAKWzGg9y/B/P13X9AHbiLQZzAAAA
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vincent Jardin <vjardin@free.fr>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793548796; l=2193;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=ISKcvjfV02vWOp4oL9uUzMIK04tsXq8YeCeMJLgxIRQ=;
- b=ZpoRWP4cOckBlkls/HAiGexv6R8q/Ujap61DCpqzW7toDGxkec9a0p0haztMsR1/0Wrm0qOy1
- TMyw/wzpTv/Ds+8XHmoHyhh6EriJoQdy8mNOryfZrfYMnO+gR86BtjP
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:1b26:b0:563:e8b6:c5d5 with SMTP id
+ 5614622812f47-5640dde7ff7mr4588371b6e.44.1793548838261; Sun, 01 Nov 2026
+ 08:00:38 -0800 (PST)
+Date: Sun, 01 Nov 2026 08:00:38 -0800
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae76226.e91b1aea.38328a.0003.GAE@google.com>
+Subject: [syzbot] [virt?] BUG: soft lockup in mac80211_hwsim_beacon (3)
+From: syzbot <syzbot+a009aa73657fb9a84de5@syzkaller.appspotmail.com>
+To: ajay.kaher@broadcom.com, alexey.makhalov@broadcom.com, 
+	bcm-kernel-feedback-list@broadcom.com, bp@alien8.de, 
+	dave.hansen@linux.intel.com, hpa@zytor.com, jgross@suse.com, 
+	linux-kernel@vger.kernel.org, mingo@redhat.com, 
+	syzkaller-bugs@googlegroups.com, tglx@kernel.org, 
+	virtualization@lists.linux.dev, x86@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Vincent Jardin <vjardin@free.fr>
+Hello,
 
-Let's properly support 1588 on this board and fix the names.
+syzbot found the following issue on:
 
-Fixes: 565b6713a460 ("arm64: dts: freescale: add Nodebox v3 CPU Module")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
+HEAD commit:    4235cb24ec1e Merge tag 'vfs-7.2-rc5.fixes' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12f3a7b1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b7079b368dcec295
+dashboard link: https://syzkaller.appspot.com/bug?extid=a009aa73657fb9a84de5
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/efc7b2f0cdd3/disk-4235cb24.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/bd4a09c82e14/vmlinux-4235cb24.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/7a0b50818a22/bzImage-4235cb24.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+a009aa73657fb9a84de5@syzkaller.appspotmail.com
+
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+sched: DL replenish lagged too much
+watchdog: BUG: soft lockup - CPU#0 stuck for 220s! [kworker/u8:4:58]
+Modules linked in:
+irq event stamp: 252177
+hardirqs last  enabled at (252176): [<ffffffff81b76dff>] kvm_wait arch/x86/kernel/kvm.c:1096 [inline]
+hardirqs last  enabled at (252176): [<ffffffff81b76dff>] kvm_wait+0x11f/0x160 arch/x86/kernel/kvm.c:1078
+hardirqs last disabled at (252177): [<ffffffff8bb9a31e>] sysvec_apic_timer_interrupt+0xe/0xc0 arch/x86/kernel/apic/apic.c:1062
+softirqs last  enabled at (158208): [<ffffffff81c8d222>] __do_softirq kernel/softirq.c:656 [inline]
+softirqs last  enabled at (158208): [<ffffffff81c8d222>] invoke_softirq kernel/softirq.c:496 [inline]
+softirqs last  enabled at (158208): [<ffffffff81c8d222>] __irq_exit_rcu+0x162/0x210 kernel/softirq.c:735
+softirqs last disabled at (158217): [<ffffffff81c8d222>] __do_softirq kernel/softirq.c:656 [inline]
+softirqs last disabled at (158217): [<ffffffff81c8d222>] invoke_softirq kernel/softirq.c:496 [inline]
+softirqs last disabled at (158217): [<ffffffff81c8d222>] __irq_exit_rcu+0x162/0x210 kernel/softirq.c:735
+CPU: 0 UID: 0 PID: 58 Comm: kworker/u8:4 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Workqueue: writeback wb_workfn (flush-8:0)
+RIP: 0010:pv_native_safe_halt+0xf/0x20 arch/x86/kernel/paravirt.c:64
+Code: 66 8d 02 e9 8e 98 56 f5 0f 1f 00 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 f3 0f 1e fa 66 90 0f 00 2d c3 de 11 00 fb f4 <e9> 67 98 56 f5 66 2e 0f 1f 84 00 00 00 00 00 66 90 90 90 90 90 90
+RSP: 0018:ffffc90000007970 EFLAGS: 00000252
+RAX: 000000000003d910 RBX: 0000000000000003 RCX: 0000000000000004
+RDX: 0000000000000000 RSI: ffffffff8e1a9f82 RDI: ffffffff8c400980
+RBP: ffffffff8ffb6540 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000003
+R13: 0000000000000003 R14: ffff8880b843c600 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888123dde000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 000000110c35a1d7 CR3: 000000005a286000 CR4: 0000000000350ef0
+Call Trace:
+ <IRQ>
+ arch_safe_halt arch/x86/include/asm/paravirt.h:62 [inline]
+ kvm_wait arch/x86/kernel/kvm.c:1096 [inline]
+ kvm_wait+0x124/0x160 arch/x86/kernel/kvm.c:1078
+ pv_wait arch/x86/include/asm/paravirt-spinlock.h:83 [inline]
+ pv_wait_head_or_lock kernel/locking/qspinlock_paravirt.h:466 [inline]
+ __pv_queued_spin_lock_slowpath+0x4b0/0xc00 kernel/locking/qspinlock.c:325
+ pv_queued_spin_lock_slowpath arch/x86/include/asm/paravirt-spinlock.h:35 [inline]
+ queued_spin_lock_slowpath arch/x86/include/asm/paravirt-spinlock.h:66 [inline]
+ queued_spin_lock include/asm-generic/qspinlock.h:114 [inline]
+ do_raw_spin_lock+0x1e0/0x260 kernel/locking/spinlock_debug.c:116
+ spin_lock include/linux/spinlock.h:342 [inline]
+ mac80211_hwsim_tx_frame_no_nl+0x745/0x1830 drivers/net/wireless/virtual/mac80211_hwsim_main.c:1963
+ mac80211_hwsim_tx_frame+0x1b7/0x250 drivers/net/wireless/virtual/mac80211_hwsim_main.c:2417
+ __mac80211_hwsim_beacon_tx drivers/net/wireless/virtual/mac80211_hwsim_main.c:2430 [inline]
+ mac80211_hwsim_beacon_tx+0x56c/0xa00 drivers/net/wireless/virtual/mac80211_hwsim_main.c:2493
+ __iterate_interfaces+0x2e6/0x650 net/mac80211/util.c:775
+ ieee80211_iterate_active_interfaces_atomic+0x71/0x1b0 net/mac80211/util.c:811
+ mac80211_hwsim_beacon+0xe5/0x2a0 drivers/net/wireless/virtual/mac80211_hwsim_main.c:2525
+ __run_hrtimer kernel/time/hrtimer.c:2032 [inline]
+ __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2096
+ hrtimer_run_softirq+0x17d/0x2c0 kernel/time/hrtimer.c:2113
+ handle_softirqs+0x1ea/0x9b0 kernel/softirq.c:622
+ __do_softirq kernel/softirq.c:656 [inline]
+ invoke_softirq kernel/softirq.c:496 [inline]
+ __irq_exit_rcu+0x162/0x210 kernel/softirq.c:735
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:752
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:csd_lock_wait kernel/smp.c:342 [inline]
+RIP: 0010:smp_call_function_many_cond+0x58e/0x1870 kernel/smp.c:912
+Code: b8 00 00 00 00 00 fc ff df 48 8b 54 24 08 49 89 d5 49 89 d4 49 c1 ed 03 41 83 e4 07 49 01 c5 41 83 c4 03 e8 54 99 0c 00 f3 90 <41> 0f b6 45 00 41 38 c4 7c 08 84 c0 0f 85 a8 10 00 00 8b 45 08 31
+RSP: 0018:ffffc900015f6848 EFLAGS: 00000293
+RAX: 0000000000000000 RBX: 0000000000000001 RCX: ffffffff81fda5f2
+RDX: ffff88801e725d00 RSI: ffffffff81fda5cc RDI: ffff88801e725d00
+RBP: ffff8880b8541380 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000003
+R13: ffffed10170a8271 R14: 0000000000000001 R15: ffff8880b843c9c0
+ on_each_cpu_cond_mask+0x40/0x90 kernel/smp.c:1077
+ __flush_tlb_multi arch/x86/include/asm/paravirt.h:46 [inline]
+ flush_tlb_multi arch/x86/mm/tlb.c:1361 [inline]
+ flush_tlb_mm_range+0x45f/0x16f0 arch/x86/mm/tlb.c:1451
+ flush_tlb_page arch/x86/include/asm/tlbflush.h:345 [inline]
+ ptep_clear_flush+0x148/0x170 mm/pgtable-generic.c:104
+ page_vma_mkclean_one.constprop.0+0x3a2/0x7b0 mm/rmap.c:1138
+ page_mkclean_one+0x1cd/0x2b0 mm/rmap.c:1186
+ __rmap_walk_file+0x383/0x680 mm/rmap.c:3064
+ rmap_walk_file+0x1d8/0x2a0 mm/rmap.c:3097
+ rmap_walk mm/rmap.c:3108 [inline]
+ folio_mkclean+0x2af/0x4e0 mm/rmap.c:1218
+ folio_clear_dirty_for_io+0x1ba/0x960 mm/page-writeback.c:2909
+ mpage_submit_folio+0x84/0x330 fs/ext4/inode.c:2085
+ mpage_map_and_submit_buffers+0x5f2/0xb50 fs/ext4/inode.c:2347
+ mpage_map_and_submit_extent fs/ext4/inode.c:2537 [inline]
+ ext4_do_writepages+0x23a4/0x3ed0 fs/ext4/inode.c:2949
+ ext4_writepages+0x347/0x750 fs/ext4/inode.c:3043
+ do_writepages+0x278/0x600 mm/page-writeback.c:2571
+ __writeback_single_inode+0x164/0x1300 fs/fs-writeback.c:1787
+ writeback_sb_inodes+0x766/0x1c50 fs/fs-writeback.c:2079
+ __writeback_inodes_wb+0xf8/0x2d0 fs/fs-writeback.c:2155
+ wb_writeback+0x6f6/0xb50 fs/fs-writeback.c:2266
+ wb_check_old_data_flush fs/fs-writeback.c:2370 [inline]
+ wb_do_writeback fs/fs-writeback.c:2449 [inline]
+ wb_workfn+0x93f/0xc80 fs/fs-writeback.c:2477
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Sending NMI from CPU 0 to CPUs 1:
+NMI backtrace for cpu 1
+CPU: 1 UID: 0 PID: 5624 Comm: syz-executor Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+RIP: 0010:mark_lock+0x76/0xa20 kernel/locking/lockdep.c:4774
+Code: a3 05 4e 3e 85 14 73 5b 48 8d 04 80 48 8d 04 80 48 8d 04 c5 e0 ed 6a 96 4c 89 f1 48 23 48 60 0f 84 03 03 00 00 b8 01 00 00 00 <48> 8b 54 24 68 65 48 2b 15 45 74 7e 12 0f 85 ea 07 00 00 48 8d 65
+RSP: 0018:ffffc90000a08010 EFLAGS: 00000002
+RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000001
+RDX: 0000000000000000 RSI: ffff8880355d4b30 RDI: ffff8880355d3e00
+RBP: ffffc90000a080b0 R08: 0000000000000001 R09: 0000000000000003
+R10: 000000000000000a R11: 000000000000000a R12: ffff8880355d4b30
+R13: ffff8880355d3e00 R14: 0000000000000001 R15: 0000000000000001
+FS:  0000555590080500(0000) GS:ffff888123ede000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f8aabb556b8 CR3: 000000005a278000 CR4: 0000000000350ef0
+Call Trace:
+ <IRQ>
+ mark_usage kernel/locking/lockdep.c:4639 [inline]
+ __lock_acquire+0x10a8/0x1a40 kernel/locking/lockdep.c:5191
+ lock_acquire kernel/locking/lockdep.c:5868 [inline]
+ lock_acquire+0x1b9/0x370 kernel/locking/lockdep.c:5825
+ __raw_spin_lock include/linux/spinlock_api_smp.h:158 [inline]
+ _raw_spin_lock+0x2e/0x40 kernel/locking/spinlock.c:158
+ spin_lock include/linux/spinlock.h:342 [inline]
+ advance_sched+0xe5/0xd20 net/sched/sch_taprio.c:930
+ __run_hrtimer kernel/time/hrtimer.c:2032 [inline]
+ __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2096
+ hrtimer_interrupt+0x3e5/0x940 kernel/time/hrtimer.c:2215
+ local_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1051 [inline]
+ __sysvec_apic_timer_interrupt+0x109/0x470 arch/x86/kernel/apic/apic.c:1068
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0x51/0xc0 arch/x86/kernel/apic/apic.c:1062
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:lock_acquire+0x5e/0x370 kernel/locking/lockdep.c:5872
+Code: 05 fb 4d 7e 12 83 f8 07 0f 87 da 00 00 00 48 0f a3 05 86 cc 3c 0f 0f 82 ac 02 00 00 8b 35 2e 00 3d 0f 85 f6 0f 85 c7 00 00 00 <48> 8b 44 24 30 65 48 2b 05 9d 4d 7e 12 0f 85 ec 02 00 00 48 83 c4
+RSP: 0018:ffffc90000a084e0 EFLAGS: 00000206
+RAX: 0000000000000046 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: 0000000000000000 RSI: ffffffff8e1840ee RDI: ffffffff8c400980
+RBP: ffffffff8ebe8180 R08: 00000000cda50cb6 R09: 0000000000000007
+R10: 0000000000000200 R11: 0000000000000000 R12: 0000000000000002
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ rcu_lock_acquire include/linux/rcupdate.h:300 [inline]
+ rcu_read_lock include/linux/rcupdate.h:840 [inline]
+ class_rcu_constructor include/linux/rcupdate.h:1183 [inline]
+ unwind_next_frame+0xd1/0x2090 arch/x86/kernel/unwind_orc.c:495
+ __unwind_start+0x3cd/0x7e0 arch/x86/kernel/unwind_orc.c:787
+ unwind_start arch/x86/include/asm/unwind.h:64 [inline]
+ arch_stack_walk+0x73/0xf0 arch/x86/kernel/stacktrace.c:24
+ stack_trace_save+0x8e/0xc0 kernel/stacktrace.c:122
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ unpoison_slab_object mm/kasan/common.c:340 [inline]
+ __kasan_slab_alloc+0x89/0x90 mm/kasan/common.c:366
+ kasan_slab_alloc include/linux/kasan.h:253 [inline]
+ slab_post_alloc_hook mm/slub.c:4584 [inline]
+ slab_alloc_node mm/slub.c:4917 [inline]
+ kmem_cache_alloc_node_noprof+0x27d/0x6b0 mm/slub.c:4989
+ kmalloc_reserve+0x148/0x350 net/core/skbuff.c:615
+ __alloc_skb+0x185/0x710 net/core/skbuff.c:715
+ skb_copy+0x1ca/0x3a0 net/core/skbuff.c:2185
+ mac80211_hwsim_tx_frame_no_nl+0xc7f/0x1830 drivers/net/wireless/virtual/mac80211_hwsim_main.c:2020
+ mac80211_hwsim_tx_frame+0x1b7/0x250 drivers/net/wireless/virtual/mac80211_hwsim_main.c:2417
+ __mac80211_hwsim_beacon_tx drivers/net/wireless/virtual/mac80211_hwsim_main.c:2430 [inline]
+ mac80211_hwsim_beacon_tx+0x56c/0xa00 drivers/net/wireless/virtual/mac80211_hwsim_main.c:2493
+ __iterate_interfaces+0x2e6/0x650 net/mac80211/util.c:775
+ ieee80211_iterate_active_interfaces_atomic+0x71/0x1b0 net/mac80211/util.c:811
+ mac80211_hwsim_beacon+0xe5/0x2a0 drivers/net/wireless/virtual/mac80211_hwsim_main.c:2525
+ __run_hrtimer kernel/time/hrtimer.c:2032 [inline]
+ __hrtimer_run_queues+0x462/0x9c0 kernel/time/hrtimer.c:2096
+ hrtimer_run_softirq+0x17d/0x2c0 kernel/time/hrtimer.c:2113
+ handle_softirqs+0x1ea/0x9b0 kernel/softirq.c:622
+ __do_softirq kernel/softirq.c:656 [inline]
+ invoke_softirq kernel/softirq.c:496 [inline]
+ __irq_exit_rcu+0x162/0x210 kernel/softirq.c:735
+ irq_exit_rcu+0x9/0x30 kernel/softirq.c:752
+ instr_sysvec_apic_timer_interrupt arch/x86/kernel/apic/apic.c:1062 [inline]
+ sysvec_apic_timer_interrupt+0xa3/0xc0 arch/x86/kernel/apic/apic.c:1062
+ </IRQ>
+ <TASK>
+ asm_sysvec_apic_timer_interrupt+0x1a/0x20 arch/x86/include/asm/idtentry.h:674
+RIP: 0010:__folio_rmap_sanity_checks include/linux/rmap.h:335 [inline]
+RIP: 0010:__folio_dup_file_rmap include/linux/rmap.h:498 [inline]
+RIP: 0010:folio_dup_file_rmap_pte include/linux/rmap.h:544 [inline]
+RIP: 0010:copy_present_ptes mm/memory.c:1192 [inline]
+RIP: 0010:copy_pte_range mm/memory.c:1320 [inline]
+RIP: 0010:copy_pmd_range mm/memory.c:1408 [inline]
+RIP: 0010:copy_pud_range mm/memory.c:1445 [inline]
+RIP: 0010:copy_p4d_range mm/memory.c:1469 [inline]
+RIP: 0010:copy_page_range+0x1d2c/0x5b20 mm/memory.c:1555
+Code: 90 0f 0b 90 e9 3e 15 00 00 e8 90 fe aa ff bd 00 10 00 00 83 44 24 38 01 bb 08 00 00 00 e9 e5 fd ff ff e8 77 fe aa ff 44 89 ee <bf> f4 00 00 00 e8 da f8 aa ff 41 81 fd f4 00 00 00 0f 84 61 25 00
+RSP: 0018:ffffc90002f37548 EFLAGS: 00000293
+RAX: 0000000000000000 RBX: ffffea00015f8680 RCX: ffffffff825f3643
+RDX: ffff8880355d3e00 RSI: 0000000000000000 RDI: ffff8880355d3e00
+RBP: ffffea00015f86b4 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: ffffea00015f8698
+R13: 0000000000000000 R14: ffff88805a29c098 R15: ffffea00015f8680
+ dup_mmap+0xd44/0x21b0 mm/mmap.c:1840
+ dup_mm kernel/fork.c:1543 [inline]
+ copy_mm kernel/fork.c:1595 [inline]
+ copy_process+0x4588/0x8030 kernel/fork.c:2289
+ kernel_clone+0x176/0x9d0 kernel/fork.c:2748
+ __do_sys_clone+0xd9/0x120 kernel/fork.c:2889
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f8aaadc6912
+Code: 89 e7 e8 71 8b f7 ff 45 31 c0 31 d2 31 f6 64 48 8b 04 25 10 00 00 00 bf 11 00 20 01 4c 8d 90 d0 02 00 00 b8 38 00 00 00 0f 05 <48> 3d 00 f0 ff ff 77 66 89 c5 85 c0 75 3b 64 48 8b 04 25 10 00 00
+RSP: 002b:00007ffdc2535310 EFLAGS: 00000246 ORIG_RAX: 0000000000000038
+RAX: ffffffffffffffda RBX: 00007ffdc2535310 RCX: 00007f8aaadc6912
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000001200011
+RBP: 00007ffdc253549c R08: 0000000000000000 R09: 0000000000000001
+R10: 00005555900807d0 R11: 0000000000000246 R12: 0000000000000001
+R13: 00000000000927c0 R14: 000000000001a791 R15: 00007ffdc25354f0
+ </TASK>
+
+
 ---
- .../boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi      | 22 ++++++++++------------
- 1 file changed, 10 insertions(+), 12 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-index 9c5588a75cdd..5591ae262707 100644
---- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-@@ -169,7 +169,6 @@ &gpio1 {
- 
- 	status = "okay";
- 
--	/* Platform reset, no consumer node: released at boot */
- 	pltrst-hog {
- 		gpio-hog;
- 		gpios = <29 GPIO_ACTIVE_LOW>;
-@@ -206,9 +205,9 @@ &gpio3 {
- 		"altfn:ec1-rxd1", "altfn:ec1-rxd0",
- 		"altfn:ec1-rx-clk", "altfn:ec1-rx-dv",
- 		"", "",
--		"ptp-refclk-in",
-+		"altfn:tsec1588-clk-out",
- 		"", "", "", "", "", "", "", "",
--		"u1700-zl30733-pps-out",
-+		"altfn:tsec1588-trig-in1",
- 		"",
- 		"ethsw-mdio-en",
- 		"usb1-oc#",	/* USB1_PWRFAULT and USB2_PWRFAULT pads: one wired-OR net */
-@@ -247,21 +246,20 @@ eeprom@52 {
- 		pagesize = <32>;
- 	};
- 
--	/* Board ID straps */
- 	gpio@74 {
- 		compatible = "ti,tca9539";
- 		reg = <0x74>;
- 		#gpio-cells = <2>;
- 		gpio-controller;
- 		gpio-line-names =
--			"boardid-0x0001", "boardid-0x0002",
--			"boardid-0x0004", "boardid-0x0008",
--			"boardid-0x0010", "boardid-0x0020",
--			"boardid-0x0040", "boardid-0x0080",
--			"boardid-0x0100", "boardid-0x0200",
--			"boardid-0x0400", "boardid-0x0800",
--			"boardid-0x1000", "boardid-0x2000",
--			"boardid-0x4000", "boardid-0x8000";
-+			"boardid-0x01", "boardid-0x02",
-+			"boardid-0x04", "boardid-0x08",
-+			"boardid-0x10", "boardid-0x20",
-+			"boardid-0x40", "boardid-0x80",
-+			"test-mode-tp1500",
-+			"gnd-p11", "gnd-p12", "gnd-p13",
-+			"gnd-p14", "gnd-p15", "gnd-p16",
-+			"gnd-p17";
- 	};
- 
- 	u800: gpio@75 {
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
----
-base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
-change-id: 20261101-for-upstream-nbxv3-dts-line-names-93b121a5b440
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
 
+If you want to undo deduplication, reply with:
+#syz undup
