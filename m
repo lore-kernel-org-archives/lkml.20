@@ -1,53 +1,45 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793529353;
-	b=GEkY2s0IzD9MxxFc97n+SvQqYJOnS9fR3EG1VyL5rff5nQ55n+lv57rIEYW2xGNKZIV/
-	 Qb3+k5U3vWAtT4YJGHGk9H9L8Vx5Mt4whmNuX5dNjLHQCRx/ISaZ3d1xeZogGEOUQj7wN
-	 tnqVkOjBot3M3IhdYZJvd7SRigFWjPBSCj+qOXoCtGsy96fBuD7pQpg7yKKrFQ3W++UF2
-	 AMvpeMrZzthnfWla6PnR5i5NAbixwedj5b02z7VW0gTGKZmVZnF3U+LQV5K7SrstDCSSL
-	 bb+isBWeOTwVZuABjjA8MVXU+yOMc2/8+Tb/6mnZn5CYtccOw5HT0BzhhE6zioCDsSQ==
+	t=1793529455;
+	b=xjCiW97Njpy3DcY85jGO4b5WoIsDGcElTab6+wPLRYj64O+SgTqQv7g5CzpyH+CXNynJ
+	 MFzPM0yZmnb2fGoDoKu6oEI69+eXIrXZbXVmOICQ6HZZNw/rJ25faDKHlLtZ6k4q1XtD4
+	 IfWbZoJRBXUfNyuFionUaho9LCvvEcqV6ARIF1uxh2zlJdLFuIPnh6zdzXXz/B+G49QLv
+	 IptUWxINkFQ/RtmR2HPNx018OWUkQikCJgu6NIcESGkll9dVr2FeC/zlofgMGEEohVzI9
+	 I04kzR+ryyW7tBeLzsHWvlultIrWJCfNK2uUJPN5mGSIhK7spzk3knrkJfdCxVUf2Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793529353;
-	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
-	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version:
-	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Stat-Signature:X-Spam-Status:
-	 X-Session-Marker:X-Session-ID:X-HE-Tag:X-HE-Meta;
-	bh=lr29LKj7jm7xrhBm1kvzir943FoFGYbdRXMWRa/z/8g=;
-	b=b0iJ+jFgy3Y2shzdvUHNxHCwgb++TuNxwco772C2xAOYA4umh01Mp2682DtlYQdEaHo2
-	 MJMLoseeG1PbUSvXO0maZSbYd7PYl+4B1btY8QLDXy44Z9IUlFcVI8hvHFdwSSQ+JniKS
-	 FeOHTvpZbVQAE3vPas7GxIGC83QTENcrPWLQiDUY+SfMMuEQCW/EfoVrXWmPKQ5gaMuDS
-	 VGLnTJ8oJXwL6sC31JJE9pAit8ieds4zARtdDFq4I/8QIDvnKgby5pyWDCFVA8/VDA0Vs
-	 SuH0gyxqh0yy2jMinUOqp53InZ9Y2rt9c23MZsKP2GpEcUDalehOYI8gmOFOlMWkfpQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793529455;
+	h=Received:DKIM-Signature:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
+	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=jHWBeLP/Q/20y/m58MMxm+0+YIuZL+2NrT3hIUTG1tU=;
+	b=5t263TqG2yw5nNaCBvXMc2ySKbNIyHn98j8UOJ9xT8s3ZLYYb1rPLnp/dJ3lqK7De7JQ
+	 OE4elC8mR0Mhb/pciXRFfvKhn64GubqxOMaOCZD8Pkw5N+cMu+UueWvaruGCmVW2Ci+0Q
+	 mPDe+rBLL4wfKuOEnDKa4FY/7wTk9T+iT16avg6/fIffciPBWZ6/A93JOqZ+tYA2jejWm
+	 WgCzCbq0MPGCzDD1OL0oX3l0+SReheBgSbJ/uB8KRzeVciGYFLOrwj4WNgLpQa6ZUUgp1
+	 mzxcWmtJomJe4sgzCANpUoUUpYDrOVQAtf5iTqzkum2+xqiUPh5rurbr7CesgQV1Rng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=perches.com;
-	spf=pass smtp.mailfrom=perches.com;
-	arc=none smtp.remote-ip=216.40.44.15
-Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqy5TWMW;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AFF7606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:35:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3AFF7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
-Received: from omf15.hostedemail.com (lb01a-stub [10.200.18.249])
-	by unirelay01.hostedemail.com (Postfix) with ESMTP id 55FB21C4474;
-	Sun,  1 Nov 2026 10:35:50 +0000 (UTC)
-Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf15.hostedemail.com (Postfix) with ESMTPA id 020121A;
-	Sun,  1 Nov 2026 10:35:47 +0000 (UTC)
-Message-ID: <9b55b3e3269ef43ede64fff34f42121f7aa47979.camel@perches.com>
-Subject: [resend PATCH] coccinelle: Add devm_kmalloc_objs conversion script
-From: Joe Perches <joe@perches.com>
-To: Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, 
- Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Kees Cook <kees@kernel.org>, driver-core@lists.linux.dev, Julia Lawall	
- <Julia.Lawall@inria.fr>, Nicolas Palix <nicolas.palix@imag.fr>,
- cocci@inria.fr
-Date: Sun, 01 Nov 2026 02:35:46 -0800
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23F1E606A324;
+	Sun,  1 Nov 2026 10:37:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iqy5TWMW
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 061731F000C1;
+	Sun,  1 Nov 2026 10:37:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793529454;
+	bh=jHWBeLP/Q/20y/m58MMxm+0+YIuZL+2NrT3hIUTG1tU=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=iqy5TWMWazbPl7SxBRqAChBstT3tUuXPbTDG+WlSRHva+1JJ4mRZOpF4seTRef+bO
+	 wapS/SuHBBqf3ttWyWePSwFeo/8Q4NWv9nTGK15ZFUdYujUv0cpUJ2lmZNBA+I9t6w
+	 pjdzSP2AngS+SQLjhqL0W3Cq7A7JBD5r2MmYL+OzXM73pDUPStFig56zuQPaw6x7v/
+	 La2KEn6gRNNsimrp7cvl9vvohuS0z8DNHzk4njqfMbwWh6KCk8HjHkJR2UF0pUOZmq
+	 KpdyBeL0yZkNTKS+YLhon81q4s3GWrApWxZnNNRKlur6/wiHiaSoZE/L+AM0u4boJA
+	 gf/gUgcWmdY5A==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,199 +49,114 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Rspamd-Server: rspamout03
-X-Rspamd-Queue-Id: 020121A
-X-Stat-Signature: wgijqpyekkg9ojk3istbf14hpw4us5qt
-X-Session-Marker: 6A6F6540706572636865732E636F6D
-X-Session-ID: U2FsdGVkX1/CuLGSxAJF5y4MHlonP5ikbskV72/ZZM8=
-X-HE-Tag: 1793529347-718889
-X-HE-Meta: U2FsdGVkX1/yk6OTOzTW8KwYYkxvqFINixk1dvu/iIHmosmBasoCT/OuDz7qkFXOOnrtJHvqrkMzc1tTaKl4rZEdFM1hTRtsVrvecp5/rhBaLVraYV2JW6r8Y3hzkrj/qGO0+xZUS6Zy0mDsBmEIUkI6p6GxiWPLR3L4wXBO5P/OpCpDKBA97a6EvZYzgPvAJhir8v4NckP7mcNCqZMJuUhJuLqi8WIOx9R9gFmVddM0luEm/nWHPHUBozPV6r9WwfdS4StBR3Md/udxLkdX1lZdU0PjS5TbfZjyKMh4qvJ5cx76kp51VGO8mL63fJ40zI6Ai+viegBOhQQwbEgGeoh3qo3pNVOCrP/Ns93C2AuSfkZA/jRAAdusQcWjcyTC
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v9 4/6] phy: realtek: usb2: introduce reset controller
+ struct
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Rustam Adilov <adilov@disroot.org>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Stanley Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Michael Zavertkin <misha.zavertkin@mail.ru>
+In-Reply-To: <20261016180314.31760-5-adilov@disroot.org>
+References: <20261016180314.31760-1-adilov@disroot.org>
+ <20261016180314.31760-5-adilov@disroot.org>
+Date: Sun, 01 Nov 2026 16:07:28 +0530
+Message-Id: <179352944875.2955.10382814832002747329.b4-reply@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2521; i=mani@kernel.org;
+ h=from:subject:message-id; bh=ZKu3n39MIK3Aq79uiN81QL3iHJlyeNqsbbmw8kK2ats=;
+ b=owGbwMvMwMUYOl/w2b+J574ynlZLYsh6LpY92YdLcc7Jqfbhm3iC358J9uE1a957+NKx7sbQh
+ 1Hf5z5M7GQ0ZmFg5GKQFVNkSV/qrNXocfrGkgj16TCDWJlApjBwcQrARETZ2H8xB7wR8zb69TS2
+ oGq9Rvcn7dayKL42j/z6/zJKCbtkpyZ4bPgtEbbwyssza07aTjh98jnvYrejSx93fmkqNf5aJxN
+ l6bOv5d+X3uv57T6lK5zr71zbd7vh0enG8hLbxN06xz6Y+8YEihdtVlsfxKf4QHg1k4pTg431C/
+ P2WR6vVvcn1SXs1m3nq/oSmH4+Lz76QUDicvdSppAl7jPyvZmC/qS8O1JzccqB1f8Fkx2Sp61x9
+ tf6qr2cxX3G5OIIMa7COUEZfZnf1dwWKAmbfOVptK1aqP8qRZLVYr/iwr0dpWpKxufv1eitXGB/
+ xdmu12h+abuWtcr6tcaLTOMD6qwXHL5tkVYa25x0z+cqAA==
+X-Developer-Key: i=mani@kernel.org; a=openpgp;
+ fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-Like commit bdc5071d7f7b ("coccinelle: Add kmalloc_objs conversion script")
-with commit 1c7bbaeed110 ("coccinelle: kmalloc_obj: Remove default GFP_KERN=
-EL arg")
+On 2026-10-16 23:03 +0500, Rustam Adilov wrote:
+> In RTL9607C, there is so called "IP Enable Controller" which resemble
+> reset controller with reset lines and is used for various things like
+> USB, PCIE, GMAC and such.
+> 
+> Introduce the reset_control struct to this driver to handle deasserting
+> usb2 phy reset line.
+> 
+> Make use of the function devm_reset_control_get_optional_exclusive()
+> function to get the reset controller and since existing RTD SoCs don't
+> specify the resets we can have a cleaner code.
+> 
+> Since the vendor usb driver developed by Realtek doesn't assert the reset
+> line (or in their case clear the register bit), we can reasonably assume
+> reset_control_assert is not needed here.
+> 
+> Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
+> Signed-off-by: Rustam Adilov <adilov@disroot.org>
+> ---
+>  drivers/phy/realtek/phy-rtk-usb2.c | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
+> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
+> index 5e483c853f02..2ddad7be7353 100644
+> --- a/drivers/phy/realtek/phy-rtk-usb2.c
+> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
+> @@ -17,6 +17,7 @@
+>  #include <linux/sys_soc.h>
+>  #include <linux/mfd/syscon.h>
+>  #include <linux/phy/phy.h>
+> +#include <linux/reset.h>
+>  #include <linux/usb.h>
+>  
+>  /* GUSB2PHYACCn register */
+> @@ -128,6 +129,7 @@ struct rtk_phy {
+>  	struct phy_cfg *phy_cfg;
+>  	int num_phy;
+>  	struct phy_parameter *phy_parameter;
+> +	struct reset_control *phy_rst;
+>  
+>  	struct dentry *debug_dir;
+>  };
+> @@ -676,6 +678,15 @@ static int rtk_phy_init(struct phy *phy)
+>  	if (!rtk_phy)
+>  		return -EINVAL;
+>  
+> +	if (rtk_phy->phy_rst) {
+> +		ret = reset_control_deassert(rtk_phy->phy_rst);
+> +
 
-Finds and converts sized devm_kmalloc-family of allocations into the typed
-devm_kmalloc_obj-family of allocations.
+Stray newline.
 
-Signed-off-by: Joe Perches <joe@perches.com>
----
+> +		if (ret)
+> +			return ret;
+> +
+> +		usleep_range(5000, 6000);
 
-Maybe this might be useful to run and apply just prior to some -rc1
+Do you really need this range or a fixed msleep() will work?
 
-This script would change more than 8000 instances in more than
-5000 files in Linus' current master.
+> +	}
+> +
+>  	for (i = 0; i < rtk_phy->num_phy; i++)
+>  		ret = do_rtk_phy_init(rtk_phy, i);
+>  
+> @@ -1055,6 +1066,11 @@ static int rtk_usb2phy_probe(struct platform_device *pdev)
+>  
+>  	rtk_phy->num_phy = phy_cfg->num_phy;
+>  
+> +	rtk_phy->phy_rst = devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(rtk_phy->phy_rst))
+> +		return dev_err_probe(dev, PTR_ERR(rtk_phy->phy_rst),
+> +				     "usb2 phy reset is not working\n");
 
-$ spatch -D patch --very-quiet --cocci-file ./scripts/coccinelle/api/devm_k=
-malloc_objs.cocci \
-    --include-headers-for-types --all-includes --include-headers --keep-com=
-ments \
-    -I ./arch/x86/include -I ./arch/x86/include/generated -I ./include \
-    -I ./arch/x86/include/uapi -I ./arch/x86/include/generated/uapi -I ./in=
-clude/uapi \
-    -I ./include/generated/uapi --include ./include/linux/compiler-version.=
-h \
-    --include ./include/linux/kconfig.h .
+Error message doesn't seem right.
 
-Lightly tested but directly copied and modified to update the devm_ uses
+- Mani
 
-Its been a bit.
-Any comments or negatives about using or running this script?
 
- .../coccinelle/api/devm_kmalloc_objs.cocci    | 136 ++++++++++++++++++
- 1 file changed, 136 insertions(+)
- create mode 100644 scripts/coccinelle/api/devm_kmalloc_objs.cocci
-
-diff --git a/scripts/coccinelle/api/devm_kmalloc_objs.cocci b/scripts/cocci=
-nelle/api/devm_kmalloc_objs.cocci
-new file mode 100644
-index 0000000000000..322f79a2d9654
---- /dev/null
-+++ b/scripts/coccinelle/api/devm_kmalloc_objs.cocci
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/// Use devm_kmalloc_obj family of macros for allocations
-+///
-+// Confidence: High
-+// Options: --include-headers-for-types --all-includes --include-headers -=
--keep-comments
-+
-+virtual patch
-+
-+@initialize:python@
-+@@
-+import sys
-+
-+def alloc_array(name):
-+	func =3D "FAILED_RENAME"
-+	if name =3D=3D "devm_kmalloc_array":
-+		func =3D "devm_kmalloc_objs"
-+	elif name =3D=3D "devm_kvmalloc_array":
-+		func =3D "devm_kvmalloc_objs"
-+	elif name =3D=3D "devm_kcalloc":
-+		func =3D "devm_kzalloc_objs"
-+	elif name =3D=3D "devm_kvcalloc":
-+		func =3D "devm_kvzalloc_objs"
-+	else:
-+		print(f"Unknown transform for {name}", file=3Dsys.stderr)
-+	return func
-+
-+// This excludes anything that is assigning to or from integral types or
-+// string literals. Everything else gets the sizeof() extracted for the
-+// kmalloc_obj() type/var argument. sizeof(void *) is also excluded becaus=
-e
-+// it will need case-by-case double-checking to make sure the right type i=
-s
-+// being assigned.
-+@direct depends on patch && !(file in "tools") && !(file in "samples")@
-+typedef u8, u16, u32, u64;
-+typedef __u8, __u16, __u32, __u64;
-+typedef uint8_t, uint16_t, uint32_t, uint64_t;
-+typedef uchar, ushort, uint, ulong;
-+typedef __le16, __le32, __le64;
-+typedef __be16, __be32, __be64;
-+typedef wchar_t;
-+type INTEGRAL =3D {u8,__u8,uint8_t,char,unsigned char,uchar,wchar_t,
-+		 u16,__u16,uint16_t,unsigned short,ushort,
-+		 u32,__u32,uint32_t,unsigned int,uint,
-+		 u64,__u64,uint64_t,unsigned long,ulong,
-+		 __le16,__le32,__le64,__be16,__be32,__be64};
-+char [] STRING;
-+INTEGRAL *BYTES;
-+INTEGRAL **BYTES_PTRS;
-+type TYPE;
-+expression VAR;
-+expression GFP;
-+expression COUNT;
-+expression FLEX;
-+expression E;
-+expression DEV;
-+identifier ALLOC =3D~ "^devm_kv?[mz]alloc$";
-+fresh identifier ALLOC_OBJ =3D ALLOC ## "_obj";
-+fresh identifier ALLOC_FLEX =3D ALLOC ## "_flex";
-+identifier ALLOC_ARRAY =3D {devm_kmalloc_array,devm_kvmalloc_array,devm_kc=
-alloc,devm_kvcalloc};
-+fresh identifier ALLOC_OBJS =3D script:python(ALLOC_ARRAY) { alloc_array(A=
-LLOC_ARRAY) };
-+@@
-+
-+(
-+-	VAR =3D ALLOC(DEV,(sizeof(*VAR)), GFP)
-++	VAR =3D ALLOC_OBJ(DEV,*VAR, GFP)
-+|
-+	ALLOC(DEV,(\(sizeof(STRING)\|sizeof(INTEGRAL)\|sizeof(INTEGRAL *)\)), GFP=
-)
-+|
-+	BYTES =3D ALLOC(DEV,(sizeof(E)), GFP)
-+|
-+	BYTES =3D ALLOC(DEV,(sizeof(TYPE)), GFP)
-+|
-+	BYTES_PTRS =3D ALLOC(DEV,(sizeof(E)), GFP)
-+|
-+	BYTES_PTRS =3D ALLOC(DEV,(sizeof(TYPE)), GFP)
-+|
-+	ALLOC(DEV,(sizeof(void *)), GFP)
-+|
-+-	ALLOC(DEV,(sizeof(E)), GFP)
-++	ALLOC_OBJ(DEV, E, GFP)
-+|
-+-	ALLOC(DEV,(sizeof(TYPE)), GFP)
-++	ALLOC_OBJ(DEV,TYPE, GFP)
-+|
-+	ALLOC_ARRAY(DEV,COUNT, (\(sizeof(STRING)\|sizeof(INTEGRAL)\|sizeof(INTEGR=
-AL *)\)), GFP)
-+|
-+	BYTES =3D ALLOC_ARRAY(DEV, COUNT, (sizeof(E)), GFP)
-+|
-+	BYTES =3D ALLOC_ARRAY(DEV,COUNT, (sizeof(TYPE)), GFP)
-+|
-+	BYTES_PTRS =3D ALLOC_ARRAY(DEV, COUNT, (sizeof(E)), GFP)
-+|
-+	BYTES_PTRS =3D ALLOC_ARRAY(DEV, COUNT, (sizeof(TYPE)), GFP)
-+|
-+	ALLOC_ARRAY(DEV, (\(sizeof(STRING)\|sizeof(INTEGRAL)\|sizeof(INTEGRAL *)\=
-)), COUNT, GFP)
-+|
-+	BYTES =3D ALLOC_ARRAY(DEV, (sizeof(E)), COUNT, GFP)
-+|
-+	BYTES =3D ALLOC_ARRAY(DEV, (sizeof(TYPE)), COUNT, GFP)
-+|
-+	BYTES_PTRS =3D ALLOC_ARRAY(DEV, (sizeof(E)), COUNT, GFP)
-+|
-+	BYTES_PTRS =3D ALLOC_ARRAY(DEV, (sizeof(TYPE)), COUNT, GFP)
-+|
-+	ALLOC_ARRAY(DEV, COUNT, (sizeof(void *)), GFP)
-+|
-+	ALLOC_ARRAY(DEV, (sizeof(void *)), COUNT, GFP)
-+|
-+-	ALLOC_ARRAY(DEV, COUNT, (sizeof(E)), GFP)
-++	ALLOC_OBJS(DEV, E, COUNT, GFP)
-+|
-+-	ALLOC_ARRAY(DEV, COUNT, (sizeof(TYPE)), GFP)
-++	ALLOC_OBJS(DEV, TYPE, COUNT, GFP)
-+|
-+-	ALLOC_ARRAY(DEV, (sizeof(E)), COUNT, GFP)
-++	ALLOC_OBJS(DEV, E, COUNT, GFP)
-+|
-+-	ALLOC_ARRAY(DEV, (sizeof(TYPE)), COUNT, GFP)
-++	ALLOC_OBJS(DEV, TYPE, COUNT, GFP)
-+|
-+-	ALLOC(DEV, struct_size(VAR, FLEX, COUNT), GFP)
-++	ALLOC_FLEX(DEV, *VAR, FLEX, COUNT, GFP)
-+|
-+-	ALLOC(DEV, struct_size_t(TYPE, FLEX, COUNT), GFP)
-++	ALLOC_FLEX(DEV, TYPE, FLEX, COUNT, GFP)
-+)
-+
-+@drop_gfp_kernel depends on patch && !(file in "tools") && !(file in "samp=
-les")@
-+identifier ALLOC =3D {devm_kmalloc_obj,devm_kmalloc_objs,devm_kmalloc_flex=
-,
-+		    devm_kzalloc_obj,devm_kzalloc_objs,devm_kzalloc_flex,
-+		    devm_kvmalloc_obj,devm_kvmalloc_objs,devm_kvmalloc_flex,
-+		    devm_kvzalloc_obj,devm_kvzalloc_objs,devm_kvzalloc_flex};
-+@@
-+
-+	ALLOC(...
-+-		 , GFP_KERNEL
-+	     )
