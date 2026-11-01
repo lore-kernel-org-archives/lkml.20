@@ -1,49 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571378;
-	b=Oz9RqCpW0gtrrpceKHeOfSRNc4Ejs4mrmit3FVEOm7w8qTLgJaOC0p2hMCJGvxLrSBDn
-	 kD3eLKUeFZeG+1Zx0zwEura3cZCEmVqSYTuV3giUN9sOOvmSW7/855gPj7JHcfpbJVkoM
-	 DQLAHZAuZ6aSopRcC7fMjyndR32jzdWd1Z0Eus9+aU/p6Wu/DKPVt7ngCeSFUp0o8bIK6
-	 KUToHW+AFyYG6m2HDrYW6QiZDqdh2/qcqFGtT7j1ckai42TP9NxkX/FAMsqBzMum1XPew
-	 SLJaYeJHWE5RR8mgzmlHvaVwRieC5Jc1AWv6I6GtJEA7iDTkUEiBkcc1tNgSht2NNcA==
+	t=1793571379;
+	b=Hmugc6sfBAeev6U/zp6ztg5EZeb1w3OLWl2CzBE3eBu6EF5ZovvsuKql0+KfcJWkjjGa
+	 u1QsB3i5zxDMhA8wCJv7yTupqHnDfPAGK0/8/IItx0umyJNWdPCakVVe8fWtN1APio88Q
+	 wMh1YNo8rtZytHL+goKk8L9e93QLcO2/a6/uOlxh63glx14BzEFX81xJbhAXOXgkMi8Zj
+	 731/J2vzGeqmS6Skdta1SKjrijM9rzcFkwyXG3gu/YZN3kzJ4iCVKP4V31dP2KmqfAYXc
+	 Z2GntEbowxdPfiX/CKcUAPXtnJ/+zUCMNkuc8PsugK6oGsop5JTwXj6BG1hF4xVAJcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571378;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=M/w8YBijKICyv173+X+mvFtJwUapRf2FeO+G+UMwaco=;
-	b=yLVqnBIjvbkzP89FNlVinE5Ruz8FUGF6P17e6gN3OA2g8x2iS+/i+p8nBctfFKUaKBYz
-	 kau+W8nbxcturkTyeTh7/+iaG131Wys0iS7SifySxTexNboGfgvG8lsC8XhXtpAClB4Rg
-	 J7ua8vBSF92HeTO6ZZ4CsejoGEvFu++A+WK7iNo7DU/gQU03IidEVHl4cV4B4u7GtOUqp
-	 OYGsWRbB7VaQnwmbaAhInAjpCSpTypXEwoS7rT2+ENVqA/OTS+lawPjPXMxI7fMVjUAkT
-	 hdWo2nEYHlNCmVGWYR54XazcLl1dxlD4UqXJEfAHq96fkh16BvKqlXpC9ZDMtGTvzhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571379;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=/5lqkhXjPOMaaYwItfh5U9VLYOPhSKVw3/zHayeWQek=;
+	b=YR/J5jxY6x8hWyXQSAMydszHX76bnlGO3kCq+Un+hQ/xr5grWuFe3FDAhwMOkpNopfBI
+	 pl1Nv5HHXVuDhzYBzbhf9Uf3NrS4ddlaSXUImQtBJpuSsGmbHCxzmogyYcoEsoVxJ6EaL
+	 GA5siLCFllx/bQAFQYN/z4zQNnvBA1KtGV6WIjp9D3Oec+SPXGhrp1hD0aQsO+C/pW9lL
+	 9vChwwVs39oFdr1bWNFJronjHTtAcze+77rBBt2hJtI/7MW9m7u/djQcSXIVAYMY7xXyQ
+	 sUETSisskQBLn0RDaL8grURFRX8am1rBJ3ogd4kLha9wJjP3BEjaE9YjpAtxdf+GZkA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMnj3hsa;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DFmTlMB+;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71746606A6D7
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:16:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222D9606A6ED;
+	Sun,  1 Nov 2026 22:16:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 222D9606A6ED
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BMnj3hsa
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A73C1F01579;
-	Sun,  1 Nov 2026 22:16:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571378;
-	bh=M/w8YBijKICyv173+X+mvFtJwUapRf2FeO+G+UMwaco=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=BMnj3hsa46AOqOrQT2/Y5wnpFmHLimlftjstHkzvdSw4htP6NG1zM6u+BhYbp/VSw
-	 V5PrPc96aMRY3rTe9PQZsWwTmTWqR/mlfrx4McZOajiVeNk2NGFUAf1cYOQ9LM65Hf
-	 XbR9n3ByPX5BH9mYn+4glr0tKySkevcoSkHXJm9jO7oIPfR8EooJzqaRfzBNoqkGSI
-	 2cA0HdfDULemdO0DZjp8DSGx9LhU5cEuU2CjkjAMOcxQUf7eBKp1YIkf9orV7pRmyn
-	 X5NtSU7OSuOd2h+SAf43OmCudbnuM0+XhxatsNeadDNyJQ6abRx09/ufB13bh8EdU+
-	 wR+OqXJKjJTbg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401E838003B8;
-	Sun,  1 Nov 2026 22:16:18 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=DFmTlMB+
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=/5lqkhXjPOMaaYwItfh5U9VLYOPhSKVw3/zHayeWQek=; b=DFmTlMB+u5KACGAPOZfSN+xwXk
+	gvM5TbEwpGVgGhejDSm2o4DjxMmcMHL9x5/ou8jWCSCj8HqvUlIetE2ZaUlCjANI27A2MGi+OiqzN
+	VTX9gfXQtXBJZSCCqCS+snckWHSFt8YE+4k1oeQ6KaMOyNRzfVTIAIg3YOLQz1Xkxs+gBRj+3DIxF
+	FDeXoTMbqAxhksIaxc1A8kY13ZWwxNC3NGXgz8+nKAJbmyrkLUo28czjRzceeuFVNsuMuVeneEEp9
+	pxe5ZpMygdN0kQiB1eBSDGWJqPLoBt0gUhpxmOntg/24ATVD7OpcJ3q//EUWSrlZoBgF9ccN/6m3e
+	vp4/czgA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Dennis Gilmore <dennis@ausil.us>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Alexey Charkov <alchark@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] arm64: dts: rockchip: Fix adc-keys wiring for Orange Pi 5 family
+Date: Sun,  1 Nov 2026 23:16:04 +0100
+Message-ID: <179357136490.4108155.2920979357901660151.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261012033929.2317231-1-dennis@ausil.us>
+References: <20261012033929.2317231-1-dennis@ausil.us>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,43 +69,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] irqchip: riscv-imsic: Expose the fwnode via the global
- config
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357137690.2624073.10590886013198507782.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:16 +0000
-References: <20261002120417.2708979-1-prajwal.n@oss.qualcomm.com>
-In-Reply-To: <20261002120417.2708979-1-prajwal.n@oss.qualcomm.com>
-To: Prajwal N <prajwal.n@oss.qualcomm.com>
-Cc: linux-riscv@lists.infradead.org, anup@brainfault.org, tglx@kernel.org,
- radu@rendec.net, pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
- alex@ghiti.fr, linux-kernel@vger.kernel.org, prajwal.n.oss@gmail.com
 
-Hello:
 
-This patch was applied to riscv/linux.git (fixes)
-by Thomas Gleixner <tglx@kernel.org>:
-
-On Fri,  2 Oct 2026 17:34:17 +0530 you wrote:
-> The fwnode describes a global property of the IMSIC interrupt
-> controller that is equally relevant to external consumers of
-> imsic_global_config as it is to the imsic_priv itself.
+On Sun, 11 Oct 2026 22:39:29 -0500, Dennis Gilmore wrote:
+> When working on u-boot for the Orange Pi 5 Pro it was called out that
+> the Pro does not have a recovery button and was missing the definition
+> for the maskrom button.
 > 
-> Keeping it in imsic_priv forces the external drivers to access
-> the private structure rather than using the already exported
-> imsic_get_global_config() interface.
+> The shared rk3588s-orangepi-5.dtsi describes a "Recovery" adc-keys
+> button on SARADC channel 1. This is correct for the Orange Pi 5 and
+> 5B, but the Orange Pi 5 Pro schematic shows channel 1 is pulled up
+> with no button ever wired to it, so the key can never be pressed.
+> Each board's schematic also shows SARADC channel 0 is connected to
+> a real, populated Maskrom button, but no board described it.
 > 
 > [...]
 
-Here is the summary with links:
-  - irqchip: riscv-imsic: Expose the fwnode via the global config
-    https://git.kernel.org/riscv/c/ff6f8cd2919b
+Applied, thanks!
 
-You are awesome, thank you!
+[1/1] arm64: dts: rockchip: Fix adc-keys wiring for Orange Pi 5 family
+      commit: 591ff7dda0603cf21cfe3bfd7d9b1d10be8154c1
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
