@@ -1,53 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793516499;
-	b=P7bSpXCQkTddHGtGkQnNK65WYRxWJX103IdMXaEY5C3LCHbtL6jsdyL9R1wFlIdgL7bp
-	 sAuj4TFdjvyeVAsqc0U2Zhi/D64LkJIdhmTinLaeeSdNalY2Oz6BS88jUxhaqj2cD0qzL
-	 CmLc5+0RPJPwUgJswPbRRrG6MRLfEIO6mDfO9I43Ekxu3obkuTVT1/LORzQaFgf+COl4k
-	 p/Kuy6SUoZYC9p1jCPefn1l1TO8IRzqVLhPNHKdzNzrwcf91ZFYhVAy1b7xpNvOqYFkxS
-	 oxKo53oHRoty2wBAGNN6t+f/11Irf5V+7hEFNdG63uVvYwiStNPr3TclF8G7lOzDF7Q==
+	t=1793516524;
+	b=riTPbrmrispDJlqMxXYHIgIZV1KjZfvFSNAXy8l85bFOgTJlQGrl9gb+bDhOC5YE/IFd
+	 EJ1f3c80TqUjXE75uwrc75KqvLSKY6ctZ83kiihy3KqxCPqEXgOwpJ/brd6vgrRMBHy84
+	 bS0FiSKJel+hdyikAoS2OVG479b7j52/M+2VYtvunZn1xwHA5jo/Upsy5ZKXaQQkYxt2S
+	 cM9/HoQ+ZgnM1YCXbnI447m6Mssk6vbv/WigsgshMk/pni2RxDUEFTJtS27KJDhI3N0x+
+	 o4VpXHm5ujJ8LMp4E0paDgQCLqCGXDImXRMcLA1X7POVIRBzkSu6enN0wi/jIqd4Hcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793516499;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
-	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
-	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
-	 Content-Type;
-	bh=nwyjgMoIeiZH8BYwHTrFRoSQQGuNp+c9mZ0aAo5uTqA=;
-	b=1jNUFTb6Ffj6TnBmJcGu5FUt5NWghBLPw7OIy+sV0YZWQcDlasxz2IFQ9rFpmjmf6bS1
-	 68b/fn4h9mEY7EEN6TmhdBzJCYXaMUkM7msUt6P9gBJGgBKA2HVp8FFTwa4utzPSmiTtp
-	 a9OCuLDlt9DRHWiknjjfpoS8IalIk1Teb3FOHoxzSkIyEOKMvgIM5d7/pUVGUBQukohZs
-	 2GZs83UA8wDXY1g1hTUJ1ejGhtquIKfb9lekSxmG3ZwtjBNoifzZXQIt9L5p4ZCnHyewW
-	 XWKZU9l3i3/5T2wmagHBYfycAIxkwNAbx022pDQ91XQpcWS0yl7jhWmFMgtNN4X6EPA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793516524;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=VoA8ZatI3XBB1U2/SoghhJIwCX1MF+HDGH5+WILuFZE=;
+	b=TRthOWpcarSJ8gK+ncXRgmX379XTSEC3Ikk2e6L0uhtgGBKt5sORiRuIi6BQpMwFJCT3
+	 8kQEyPGAsCiGe0ses0glOnG9N/shvdzaZ1PUOcX8dQ4kn8tpsf61KMB1RI1Z0cI2eHeVl
+	 pwYxA1s8md61KMRxn7f/7AFh7zE7ec5eUqtevfLgIAaFmGXIimRKS+Ofg11XaKg1n0JC4
+	 sb6icnJGwmCxygj++C9Iu2xRTxXKYS1iYeWVCYNMJQ2pacmoAl/tHCZfbaal/2FXx/6XO
+	 j+diy1mUefuUDSMnERTEFmKJu7rjaG5CLuHfE5lrvFs0m6gvZaarn7wLqS+W4JVcPVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=fail header.from=syzkaller.appspotmail.com;
-	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.198
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kA7pPlvQ;
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24AC606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:01:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24AC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4f9b643ae53so1784777b6e.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:01:38 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB9F606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:02:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9DB9F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kA7pPlvQ
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-1438d9363fbso1499664c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:02:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793516523; x=1794121323; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VoA8ZatI3XBB1U2/SoghhJIwCX1MF+HDGH5+WILuFZE=;
+        b=kA7pPlvQhwhKLULELE5/CBmTp6vqr0g/M9TexM2LeVp9dPO9ABH1M4zgdyHVVZbk6N
+         qTEgz50ffPFUotLCboKfkUH7o+y4+6IzZitVvgh7aoC/G46G/KCoEjjlmUTUEUW/q2VY
+         bo5xHEwakLulV4Brp1f+dgtaSQJPfIeR/9SVaYbbwFZLkbANlLT1QIU6UMYepxMJXF7c
+         gFl2G2bLcC+vX/Qmyl38sRA3cpGG3ItG9cmgVnMrQXZRu2gvoi8guvfhWGeF+ZEoyY1r
+         SiHje3WV1sJz6C5EvKz1YEZqNRtKdfFbaOQ09I+jPjdFXPJfx4FQV+shoQJ1nhAHJZEq
+         yKdQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793516498; x=1794121298;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=nwyjgMoIeiZH8BYwHTrFRoSQQGuNp+c9mZ0aAo5uTqA=;
-        b=itj0ZUBDPfn7RKNLhdD2kGk+enCP+CZ1FO9va//XzAcdS0+Zvn9D7omYdCyyNiXi13
-         SB+Th+zaM642cKTx6SvXFheBsVyG5v44RudHYURZeAOhj/p9jIegAil0pcvMwE0KN7Ua
-         dUe8xP1vkUyD995TQFmYTzUjq8AOrfNiN+Siu6FEWIYEPfB2WbRNEIaG/aWkxCY6uNdg
-         4t7EixDgjKDsc/Ln3eMyJh9pS6L9lVySOf7FG9Ty4sDt0oeUZCP57DCbSF1VNZCCmKai
-         JaIKS2JTgGsgfA5qlOBxmtAnuoZx9BPakPFuGz4G0peX7lOcVjwXiWHLui+J9wjKEL0Y
-         +eHg==
-X-Gm-Message-State: AFq9FYJfsmzT3JM4U7zLq2z46crRfQr+mA2Id+v+WfREvzLfMAEFm+G9
-	+44pjhYhmve52RuC9Id7jCY3izjgd+9cMvh9lbb0z4Vq5ox+ShViaP/JBzWeh+/1RHiFFlKBbz4
-	kobYQQf/BhRds4kl3oG95JoslmjF5vjvWzhfkr0Xnp1hHHoPKRn1jHfNQnU4=
+        d=1e100.net; s=20260707; t=1793516523; x=1794121323;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VoA8ZatI3XBB1U2/SoghhJIwCX1MF+HDGH5+WILuFZE=;
+        b=RLB73fTg/4wqwAdiUUwGQXVLLbomEf6SwSSJCZLaq9SE6uj9jEvdSXfg5J6kkY3KEA
+         cYg32/3PiPz0ekMEBzd3305oKfYPAe4M+9Kb5d8nnh+hXBzpO5vShg+t9pRjHuE4fNnx
+         B1/Ip/mDC1EWcD79IZgpREj0PFggSeXln9nwepgM41VUXwK733H1CSbmWcG1IRdohrPM
+         +m/bd68LZ+RwuNPZTB+C9keZlF646grmtBTiHEe2N0f6bmaKbcmBecfnWMf0JiGMqPn2
+         /3/aAzHzXdX7KTOgylIdSlmVy05H7+19XidGjNNBqMX2aisYtxcINe7esxi+E1c4wwHr
+         ZCMw==
+X-Forwarded-Encrypted: i=1; AKwUvBxMt4UHQha65MRKUWYM/AYUDdA+auwZnQmT2KNbBXfZbvBCHtxNEkhs68qu3sPsth519WbciQrHXR5xqoQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIygW2oqU5n8RjqQAj0KNztln42GFSPhP3AuO5ES962+p1Y7wo5
+	MCDmYe67iXGgywdhhn6MQxNVHsowZEdjt6D1imL88Ach8wmt1Kh9rYlu
+X-Gm-Gg: AYBFou27IJSbyY4akZZ80wLWaCD76qRWEiAyTK3Blr0i4gYEeijG5/cn6BfSokBW1/G
+	MvuhoyU2bWDEXU1CerAzoXWXgl0ZcsTxEVD09bLv7hSU5o8uDP0WRUWtQksBFC1a3ghlC0Go2Z8
+	XzMvn0BpaOgw/fvp8th+JfGhH1Zredel0980jydqoIveg/Ep205FN8pyLTz0BOAS0N8xqu9Ifp/
+	vhpFWD4nJTm13JiP123/rmCpGaFUI8PFT/Mt9D0dl+5FcIPuBzvbZFq/zDITMCexn5GQ9rYNrlk
+	C0+JXKM4awxbg1/8gJxe7Nv14DaffrRsXbE/74wiO3BnYKw9mQGja7da4V4LtKXFEJ6+8BNHa3G
+	E7W0d7r/DbzloMoMF7LuIBAdCveTNggXJWjTVQOjRrVUyaZJMKy0gMP3XDoEWl4vAG5DVO+t0Hu
+	QNu9WuMT4usQOSgV0knKEk8/AJoTOsVC1+T/YoupcIPguzkANCwPsDgxC34oGPqPcSsbudSKe1j
+	bMnclER/6mufHHQXHsuyiEfRU17MW+lMbZJKFaj1EoITEebRTMJOpg55bzuy+irpQt3ye5LhFQ+
+	4YFq2fUHt5uV+gBcHpEp+kk2YHWFzXkca2lR9Db+89ra2KpcXAoxpg==
+X-Received: by 2002:a05:7022:7f02:b0:156:d588:c881 with SMTP id a92af1059eb24-1a9420e36c4mr14043652c88.2.1793516522423;
+        Sun, 01 Nov 2026 00:02:02 -0700 (PDT)
+Received: from localhost.localdomain ([103.178.205.181])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854d925sm38735421c88.7.2026.11.01.00.01.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 00:02:01 -0700 (PDT)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: sergio.paracuellos@gmail.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	robh@kernel.org,
+	bhelgaas@google.com,
+	matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	p.zabel@pengutronix.de
+Cc: linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+Subject: [PATCH] PCI: mt7621: Fix reset control leak on PHY initialization failure
+Date: Sun,  1 Nov 2026 07:01:21 +0000
+Message-ID: <20261101070121.2714-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,143 +105,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:199a:b0:4f7:a3f2:d8b4 with SMTP id
- 5614622812f47-5640de44246mr4227384b6e.65.1793516497844; Sun, 01 Nov 2026
- 00:01:37 -0700 (PDT)
-Date: Sun, 01 Nov 2026 00:01:37 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae6e3d1.7fe51036.1ecf7.0016.GAE@google.com>
-Subject: [syzbot] [net?] BUG: unable to handle kernel paging request in
- nsim_drv_port_add (2)
-From: syzbot <syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+The PCIe port initialization code acquires a reset control handle using
+of_reset_control_get_exclusive(). However, when PHY initialization or
+power-on fails, the port is removed from the PCIe port list without
+releasing the acquired reset control handle.
 
-syzbot found the following issue on:
+Since the reset control cleanup iterates over the remaining ports in
+the list, the removed port's reset control handle is never released.
 
-HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=1332b159580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=dc4462df6d1062fe
-dashboard link: https://syzkaller.appspot.com/bug?extid=b3fca27eb4005f0111f4
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1194b795580000
+Call reset_control_put() before removing the failed port from the list
+to ensure that the reset control resource is properly released.
 
-AI-generated root cause summary:
-In netdevsim, sysfs device attributes such as 'new_port' and 'del_port' are
-exposed at the device level on nsim_bus_dev without holding device_lock or
-checking if the driver is bound. An access via sysfs after the driver has been
-unbound, after a failed probe, or concurrently with device removal finds drvdata
-set to NULL; passing this NULL pointer to priv_to_devlink() computes a negative
-offset from NULL, triggering a kernel page fault crash when attempting to
-acquire devlink->lock.
+Fixes a resource leak on PCIe PHY initialization failure.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=b3fca27eb4005f0111f4
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com
-
-BUG: unable to handle page fault for address: fffffffffffffeb0
-#PF: supervisor read access in kernel mode
-#PF: error_code(0x0000) - not-present page
-PGD f1b3067 P4D f1b3067 PUD f1b5067 PMD 0 
-Oops: Oops: 0000 [#1] SMP KASAN PTI
-CPU: 0 UID: 0 PID: 6031 Comm: syz-executor405 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/15/2026
-RIP: 0010:__lock_acquire+0x41/0x2de0 kernel/locking/lockdep.c:5140
-Code: 2d 12 48 89 84 24 e0 00 00 00 65 48 8b 05 0f e3 2d 12 48 89 44 24 08 45 31 f6 83 3d 28 dc 32 0f 00 0f 84 90 14 00 00 48 89 fb <48> 8b 07 48 3d a0 69 92 94 0f 84 7e 14 00 00 45 89 cd 89 cd 41 89
-RSP: 0018:ffffc900046978d8 EFLAGS: 00010002
-RAX: ffff88801ff11f40 RBX: fffffffffffffeb0 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: fffffffffffffeb0
-RBP: ffff88801ff11f40 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000100 R11: 0000000000000007 R12: fffffffffffffeb0
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000246
-FS:  000055558a5ef400(0000) GS:ffff888124716000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: fffffffffffffeb0 CR3: 00000000452a0000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- lock_acquire+0x115/0x350 kernel/locking/lockdep.c:5942
- __mutex_lock_common kernel/locking/rtmutex_api.c:561 [inline]
- mutex_lock_nested+0x55/0x1d0 kernel/locking/rtmutex_api.c:580
- nsim_drv_port_add+0x5a/0x140 drivers/net/netdevsim/dev.c:1760
- new_port_store+0x1a5/0x280 drivers/net/netdevsim/bus.c:96
- kernfs_fop_write_iter+0x3a5/0x540 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x61e/0xbb0 fs/read_write.c:687
- ksys_write+0x156/0x270 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7efc00506777
-Code: 48 89 fa 4c 89 df e8 58 1c 00 00 8b 93 08 03 00 00 59 5e 48 83 f8 fc 74 1a 5b c3 0f 1f 84 00 00 00 00 00 48 8b 44 24 10 0f 05 <5b> c3 0f 1f 80 00 00 00 00 83 e2 39 83 fa 08 75 de e8 23 ff ff ff
-RSP: 002b:00007fff1f51a010 EFLAGS: 00000202 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 000055558a5ef400 RCX: 00007efc00506777
-RDX: 0000000000000002 RSI: 00007efc005586de RDI: 0000000000000003
-RBP: 0000000000000004 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000202 R12: 00007fff1f51a228
-R13: 0000000000000002 R14: 00007efc005825a0 R15: 0000000000000002
- </TASK>
-Modules linked in:
-CR2: fffffffffffffeb0
----[ end trace 0000000000000000 ]---
-RIP: 0010:__lock_acquire+0x41/0x2de0 kernel/locking/lockdep.c:5140
-Code: 2d 12 48 89 84 24 e0 00 00 00 65 48 8b 05 0f e3 2d 12 48 89 44 24 08 45 31 f6 83 3d 28 dc 32 0f 00 0f 84 90 14 00 00 48 89 fb <48> 8b 07 48 3d a0 69 92 94 0f 84 7e 14 00 00 45 89 cd 89 cd 41 89
-RSP: 0018:ffffc900046978d8 EFLAGS: 00010002
-RAX: ffff88801ff11f40 RBX: fffffffffffffeb0 RCX: 0000000000000000
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: fffffffffffffeb0
-RBP: ffff88801ff11f40 R08: 0000000000000001 R09: 0000000000000000
-R10: 0000000000000100 R11: 0000000000000007 R12: fffffffffffffeb0
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000246
-FS:  000055558a5ef400(0000) GS:ffff888124716000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: fffffffffffffeb0 CR3: 00000000452a0000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	2d 12 48 89 84       	sub    $0x84894812,%eax
-   5:	24 e0                	and    $0xe0,%al
-   7:	00 00                	add    %al,(%rax)
-   9:	00 65 48             	add    %ah,0x48(%rbp)
-   c:	8b 05 0f e3 2d 12    	mov    0x122de30f(%rip),%eax        # 0x122de321
-  12:	48 89 44 24 08       	mov    %rax,0x8(%rsp)
-  17:	45 31 f6             	xor    %r14d,%r14d
-  1a:	83 3d 28 dc 32 0f 00 	cmpl   $0x0,0xf32dc28(%rip)        # 0xf32dc49
-  21:	0f 84 90 14 00 00    	je     0x14b7
-  27:	48 89 fb             	mov    %rdi,%rbx
-* 2a:	48 8b 07             	mov    (%rdi),%rax <-- trapping instruction
-  2d:	48 3d a0 69 92 94    	cmp    $0xffffffff949269a0,%rax
-  33:	0f 84 7e 14 00 00    	je     0x14b7
-  39:	45 89 cd             	mov    %r9d,%r13d
-  3c:	89 cd                	mov    %ecx,%ebp
-  3e:	41                   	rex.B
-  3f:	89                   	.byte 0x89
-
-
+Signed-off-by: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+ drivers/pci/controller/pcie-mt7621.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+diff --git a/drivers/pci/controller/pcie-mt7621.c b/drivers/pci/controller/pcie-mt7621.c
+index 01ead2f92e87..1dcaa2829609 100644
+--- a/drivers/pci/controller/pcie-mt7621.c
++++ b/drivers/pci/controller/pcie-mt7621.c
+@@ -361,6 +361,7 @@ static int mt7621_pcie_init_ports(struct mt7621_pcie *pcie)
+ 		err = mt7621_pcie_init_port(port);
+ 		if (err) {
+ 			dev_err(dev, "initializing port %d failed\n", slot);
++			reset_control_put(port->pcie_rst);
+ 			list_del(&port->list);
+ 		}
+ 	}
+-- 
+2.55.0
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
