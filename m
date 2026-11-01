@@ -1,55 +1,136 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.151
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793575954;
-	b=rdNcRpuCJWS1k323qpjdKwilm8yBeaskGTC+4twBAMzax1VbnoJFtWVEQVjdITCYInqQ
-	 2E9rqNcj3xfwhlCDgWk/qL2TFovQ4UAI1B+gi1bdHYxiLhmk1Sm3yDq6pbXs+fV3zprlK
-	 nXYmQcbVPRIJxJFx5g51Aq6NTeBXCVRQMUDTIXlstHEpfBh33PuNWHFSsOOFbrE5Ap6gA
-	 Nv3WpfazUJRKob5IN5W/HDqMw2Tb0C6Hz+8IdgdhPZCvza1l9T8x+E4RD4hZerMVA3KX5
-	 ymBnHwh2KnC5loQC7Nvz8ShYwdCDLwYKF70Gob/kp88+2h3W6Dqfme08SjRJtjnidjg==
+	t=1793575984;
+	b=2ckMqeaGkaupL9OhlMLKKLwZM35/TZlv0fGSdsdrL5BLZ1G4MPGoCjL+r1sGDEMqaXqX
+	 5k2ggUW2nuXZ1wCEm4g8RCWb52jhsLTdDhQt6WC1nk0DQVWPX+9BoEr9AQ9lmAgi8gncZ
+	 IwRBHJo7jtXKrFP+EQfgZ6iTN8cPvrMX+Fhscrn2rjRUh+cxg9QV9zpnOZjesgNy9XHUi
+	 IeoiHsjGZWVdt+bdMdig/D3Cd7tsTEhWp7I9aJ/4tFfe5RqBgGdC4uTcSpvAszIVKGz9n
+	 76DG0JnOCzcQm6EIl++da9/VP8u3vA5tVy9+YxXbfMdGxQTaw+e3G6PsZ1DV+hZRTgA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793575954;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=2GtmFZ7xWwQq6dRQZhCqbwo+SpVMLcGB28JetKkGRSc=;
-	b=UfH0EOjKdBs23g9tSv9VumxZ52obFBa3YLDE2yIMicWcSEDr6Hmqx3+1TNTVfUH+tBOB
-	 20HVHlHyDXUK4BXeqDivNPBmrSqRrNW/7ujlFX2SQzMrJTK2xuooVRmekMBNmAjPxLNl9
-	 hUxEUiMt1CvgpjtJOIP+jLFKdKGuCFq31d1UqBDGrMduNYBzi/HVIbEHdOrjlV4mkYRMB
-	 kejK312/C05WK8FF9/4ADpv584un1kW4SoTrHeopHaVkTTL2kJiO1A0Bs5NGx81lMYthU
-	 MIcwaF52qfu4/kOncndtPl/TB21TiQJ4McdjTmw1IbJG2oxS9xc4SOxEP6Z15JqJ2vg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575984;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=QSLh3tDgf+UO2VbPvGHueD1hNyph2JTi/4qbDhaCBDw=;
+	b=jxuxnXRDkAHGJDzxktKah3zdjHV5BqQ2Zn9wLYiFfUTrFEbl9q2haKuuhpGo4YlSm29i
+	 XL+W5ORHr+zFezEdmw38mhXHDtX20rbHBl4gx2pFArq2LfqpAS27lt3RRFM9ddpxY9RO3
+	 mdOlSaJON4CyAvXdKgdkZ4Fh1lnh50eO+sjCYZXExeLYZ7dlI13xlEF2fLg4dnddNcK6S
+	 ttViIxh5WBzBhZdEasRQ1oC3K/xlNtsAYatngctVxjT6wi79z4WEX0580AiNVi8poQl/S
+	 ylvfYU5OdJqutMatgVeV+CDAjKCH5Y1Ma9jCBqlTHdaYEZQ24jijh5G4Qw+p+Y4ZGlw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=erebion.eu;
-	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b="R/Er9F7g";
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=OeqsczqF;
-	arc=none smtp.remote-ip=142.132.183.134
-Received: from erebion.eu (erebion.eu [142.132.183.134])
+	dmarc=none header.from=flapping.org;
+	spf=pass smtp.mailfrom=flapping.org;
+	dkim=pass header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=WHz69DzH;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WoSpoV++;
+	arc=none smtp.remote-ip=103.168.172.151
+Received: from fout-a8-smtp.messagingengine.com (fout-a8-smtp.messagingengine.com [103.168.172.151])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55185606A32E;
-	Sun,  1 Nov 2026 23:32:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55185606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A43B606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:33:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7A43B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=flapping.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flapping.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=R/Er9F7g;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=OeqsczqF
-DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1793575934; bh=2GtmFZ7xWwQq6dRQZhCqbwo
-	+SpVMLcGB28JetKkGRSc=; b=R/Er9F7ga2WmJE38cc39HlXBT9SoFF43jahOiS0hXtXdTo9qVP
-	clx0SvqS08Oc5LwbjPJgW65Y6IpZmhAu5cAw==;
-DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1793575934; bh=2GtmFZ7xWwQq6dRQZhCqbwo
-	+SpVMLcGB28JetKkGRSc=; b=OeqsczqFZAisTCrTBexaNGNcc+leXrlRSmw7YnowX0yiQHdVju
-	zAT+Kb/3huQwGhuWrYuSJWNZNgdKx9ZvsTblQfN1N0sbVqu1D032DiO/e09xoI5n+i2OjbLaYwS
-	UR35FPkdOfvUIltRZJe/5Cifg/yqrk+AFBQTNfaFoTJfKm3GC4+4yftaoo2hh9zOpwV++RnB7mb
-	FlX6STMegqqrRUMSXvs6ZYYZQXk+5mz/CooTTElGT/q4vCm+iwgtJdTdv20Wd9Cb2Gebx/rCTv8
-	eWsVRt/AYoUaSgaQF7Ijniq7Z/QJ4jUTtaP4djZK7n923WGz++1CpxFrrQnQZaGrpaA==;
-From: erebion <erebion@erebion.eu>
-Date: Mon, 02 Nov 2026 00:32:12 +0100
-Subject: [PATCH v3 08/12] arm64: dts: qcom: sm6350-lena: Enable PMK8350
+	dkim=pass (2048-bit key, unprotected) header.d=flapping.org header.i=@flapping.org header.a=rsa-sha256 header.s=fm1 header.b=WHz69DzH;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=WoSpoV++
+Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
+	by mailfout.phl.internal (Postfix) with ESMTP id AD836EC0662
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:33:02 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-01.internal (MEProxy); Sun, 01 Nov 2026 18:33:02 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=flapping.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to; s=fm1; t=1793575982; x=1793662382; bh=QSLh3tDgf+UO2VbPvGHue
+	D1hNyph2JTi/4qbDhaCBDw=; b=WHz69DzH+gBfjU0x++/09HHhzNepZk3oKEJ/M
+	hA4A6nXcnHcYIJbDGcvoTAvtBhMzN6wam7ozzlsbPh8Wk4iuZEQlO/oW9Ep/gE73
+	EyE5kyMXUxpblZfIOqaLSmvU3CKKEOLNa6tromXRbR2t2gMS9xKtHUVaRrj6VzGL
+	VgTJq3FFrJZuZt3VYiny/TIyfvflu3+VhHZkULXlN9VP1t9kLn23RuXKNboJ9wf7
+	hpLjM5fFWNoNxpAIN330vHY7IIYfsBFvCVvMH5r0qjbyL8EvwRfKLtKaPxmNyHL3
+	lvsByHEi7JyldbgVfLavzPI1IHzkRtKVgagEWmzl0T17Re+GQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
+	1793575982; x=1793662382; bh=QSLh3tDgf+UO2VbPvGHueD1hNyph2JTi/4q
+	bDhaCBDw=; b=WoSpoV++cIMpLUnfyBWaoVKDMsO8Gv4fUL0m1e+lnlzD/dJ7Jgz
+	a67gh+G/dlceffmtEqhyw7cwSkn/1AA4RSFlMTy8Z5bWaKXE/XlzyOOkSpNegpRY
+	mxi3QpHmKfWMBU2wcQ7m+29P13zBu3snRRseqLqHouZI8VQ9v2L07U0GX2/AF9ne
+	rRu3jGw5TEJ/NIoDWkWX7xtRHBqKQ78Efw9K7X01eAjsNtAEFlsNrfY0m3NqeyiA
+	Gi91/23Vh6KOcRsAYn15OKra4qFX4/zITDwo7QW8wiHJE/136Yyb+TciXJX0s5zm
+	4/YFu+uH2gXPy/NMDr1OEALPcJlhg7mTOGg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=flapping.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793575982; d=flapping.org;
+	mf=PHRvbW9AZmxhcHBpbmcub3JnPg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm1:rsa-sha256:m5GBHUnMGZFqpvTyMMDAmLFiklioKk5Zk3WWeTqYBQJATje
+	6IavvocdJPuv9MrsyTPy/+zc+P1adGCAEuYUEkHXkEeC3il7x8FrNTJdyXOdqWAt
+	LnxapD5si85hFxsCtsUWCNjyb45dYvupnTBz88EufYkGUSB1LebfE8kIW1RSa82k
+	nbanotqluzCoRWCpCMOkvlQAL/MSWMP8+o/mfB7SZb2QZaCNi1fBGeiobHY4riNO
+	ytfOtwumjLuvZ4bhfXbBGu+NJYANZKlqDF6L6L6822sVZY3RDuuzZczg/F4mRjrP
+	tZVmgmf88okIO2jA8TTVhPbTJLUKbBEolZjIb7Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=9;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	message-id,mime-version,subject,to;
+Message-Instance: m=1; h=sha256:ZMJbov8JuNSIqCHKXpucecxq3AQucTYHUURh31DVQlo=:l0dmLBO2hFFplbUBvVLQcMNvCDDH0si9qJ44zyYnnlU=;
+X-ME-Sender: <xms:LcznaiQMzwtXnpV3h4MMKgNDkUAg7-AvE2eBnfVQtai6FYSRtL8KGA>
+    <xme:LcznapE0EhOiBY_7eGf3GsNP2TU0EkDb4iT4YDzRMaltg55N3wZNbxHpOa7TNXlO6
+    HA3UnSSEo5vrteHrsmaOHKclflb68XCuc3jXnWXP318PEfuVl4Vh96m>
+X-ME-Received: <xmr:Lcznakes1UjcXHp1P5OllDFrgvdS9ZaVw6DuUOgiJZvEybXgDYWoUmKKlL4XGYHpqWE-iZXAbwCpAxofVc8>
+X-ME-Proxy-Cause: dmFkZTFpN6cLuvQKoAKCx5jz9voSAJeR9s7tpZ9sxXPKgVaVrUL8JZW/cW3sWX51kAxmWN
+    CUKFe+OsJK0mC5ws13OYOpN8CgDgPqNZ5bsgPBeCgq57LsYKOheODPq6tG7uOuFWsC2jA8
+    xMbqyccghezmyZRVZv0dQJBPYtlFpAu6fowqjeWqjdY/hdM1obSKLSpRspNtqjPpgD0l/T
+    DIqJSqsU7csgSwosPXNsQCMXgfYFCoxoXpLNRlfPKuQyk2qR8BCoSKm/WfFhQZ0xDy9zuW
+    zegaptOJyYvWLDEMrz2Y3yPG9ygGs3rCoOIPKDiLLu/LaxvtLG+LYEQob4q7XJawP/8iR8
+    4XhLWyQKU9L4iiEDAe3MTV4xaN5xEnrbVor//8TBV94eh7M1aj5j1QBM4GbEtG2Hi3dlxL
+    slNFjNqA7OXIjgIwE4gGsVbDLf9T66KjTiqhdpZcbfL8U99UD3cSFTvt9bbHtFJ3hD3iIB
+    aHf0mX0zrnFrGXqxylwE0mLqQQ7Y5SKsOOHb2DDTUyEYp6s4SQ98JmipHOBHprvptOgbFp
+    kvF1H78p5vWIhPc7g0SSZDvluNU0B+JpLOtYsk+csHG1UpyRD0zp5fFTp3+fqE+G1th9HT
+    Kayn0A18QXl8MO46v8ehKHv8l+wULZx1IPESfVynMWgjgIy2MnK5qZUZ52HA
+X-ME-Proxy: <xmx:LcznagvM8QmMbuNZNsvpdCyiSofzw6xBVhVaKpxG2mqzfT_BZIcziA>
+    <xmx:Lcznaidgj2NH0nrJsIiXpCqqi5ixBGSUR56gjQuMMZDAFQ3iWoq7dw>
+    <xmx:LcznasrBz8WLSLxXse11-BMWBxkuRWrT1jJSVzKRFa2CTSF584H_kQ>
+    <xmx:Lcznao9Ch4iY5jH7SdwF4jlIXBET08KPRKQe01COHgYnid5S9QOhBw>
+    <xmx:LsznagwOdPhpce0ZRVhfBpKIsKtvZi2zTfYauEqgOIxeROnzFIRAiwZg>
+Feedback-ID: i51fe4b43:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 1 Nov 2026 18:32:56 -0500 (EST)
+From: FUJITA Tomonori <tomo@flapping.org>
+To: a.hindborg@kernel.org,
+	anna-maria@linutronix.de,
+	frederic@kernel.org,
+	gary@garyguo.net,
+	ojeda@kernel.org,
+	tglx@kernel.org
+Cc: acourbot@nvidia.com,
+	aliceryhl@google.com,
+	bjorn3_gh@protonmail.com,
+	boqun@kernel.org,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	jstultz@google.com,
+	lossin@kernel.org,
+	lyude@redhat.com,
+	sboyd@kernel.org,
+	tamird@kernel.org,
+	tmgross@umich.edu,
+	work@onurozkan.dev,
+	linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>
+Subject: [PATCH v1 0/2] hrtimer: Add hrtimer_forward_safe_from_callback()
+Date: Mon,  2 Nov 2026 08:28:27 +0900
+Message-ID: <20261101232829.593680-1-tomo@flapping.org>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,98 +140,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-pdx213-upstream-3-v3-8-cdc3be96d257@erebion.eu>
-References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
-In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- erebion <erebion@erebion.eu>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1771;
- i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=q8CHITpuG6dimI2YJFcYYf/S+Li18m5ZX944pKg4gus=;
- b=DRIodFQq77fmzNnyzVgRanHwwDSThUoy0N8XBwzXK2NF21K3kqR+yAFP60RoYf11J1t5kb9JX
- gl5mA7+UO+xBebHE1cDweQZySOyK/LhVcFp39bOEDhvGbe6hVP57+rz
-X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
- pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Configure and enable nodes for PMK8350 on the Xperia 10 III.
+From: FUJITA Tomonori <fujita.tomonori@gmail.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: erebion <erebion@erebion.eu>
----
- .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 30 ++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+Safe Rust code can arm a timer while its callback is running, so the
+Rust abstraction cannot offer hrtimer_forward() from the callback as a
+safe API.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 61e191133cb4f..246a290e44f77 100644
---- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-+++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -8,7 +8,11 @@
- #define PM7250B_SID 2
- #define PM7250B_SID1 3
- 
-+/* PMK8350 (in reality a PMK8003) is configured to use SID6 instead of 0 */
-+#define PMK8350_SID 6
-+
- #include <dt-bindings/firmware/qcom,scm.h>
-+#include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
-@@ -16,6 +20,7 @@
- #include "pm6150l.dtsi"
- #include "pm6350.dtsi"
- #include "pm7250b.dtsi"
-+#include "pmk8350.dtsi"
- 
- / {
- 	model = "Sony Xperia 10 III";
-@@ -431,6 +436,31 @@ &pm7250b_vbus {
- 	status = "okay";
- };
- 
-+&pmk8350_adc_tm {
-+	status = "okay";
-+
-+	xo-therm@0 {
-+		reg = <0>;
-+		io-channels = <&pmk8350_vadc PMK8350_ADC7_AMUX_THM1_100K_PU>;
-+		qcom,hw-settle-time-us = <200>;
-+		qcom,ratiometric;
-+	};
-+};
-+
-+&pmk8350_rtc {
-+	status = "okay";
-+};
-+
-+&pmk8350_vadc {
-+	channel@644 {
-+		reg = <PMK8350_ADC7_AMUX_THM1_100K_PU>;
-+		label = "xo_therm";
-+		qcom,ratiometric;
-+		qcom,hw-settle-time = <200>;
-+		qcom,pre-scaling = <1 1>;
-+	};
-+};
-+
- &qupv3_id_0 {
- 	status = "okay";
- };
+Thomas suggested a helper that does the check and the update with the
+base lock held [1]. Patch 1 adds it. Patch 2 makes the Rust callback
+context use it.
 
+The helper is not Rust specific. As Thomas noted, it can be used for
+i915_pmu too. null_blk can use it as well. I can send those
+conversions after the helper is merged.
+
+[1] https://lore.kernel.org/all/877bk3ixp5.ffs@fw13/
+
+
+FUJITA Tomonori (2):
+  hrtimer: Add hrtimer_forward_safe_from_callback()
+  rust: hrtimer: Use hrtimer_forward_safe_from_callback()
+
+ include/linux/hrtimer.h     |  4 ++++
+ kernel/time/hrtimer.c       | 30 ++++++++++++++++++++++++++++++
+ rust/kernel/time/hrtimer.rs | 25 ++++++++++++++++++-------
+ 3 files changed, 52 insertions(+), 7 deletions(-)
+
+
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
 -- 
-2.53.0
+2.43.0
 
