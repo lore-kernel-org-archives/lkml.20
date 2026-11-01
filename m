@@ -1,98 +1,148 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.34
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.66.6
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793529703;
-	b=lboME8rUScXqvEuQBBQmHZ9uM675gIqwW5p+v6jWRnhyL7xUVsLm0dqSlJ/RlsQJ2zYX
-	 UPyK3AE5gxCcykATZ7jWTcaM2Sj283UgWVXTqh2YT1YOsd2jmSafFWsty6ZSjdiSqQPau
-	 fA9H11tcQBT3Sr40aiH6EH/REre6GHecwxBwoScxe8s9BepOFQ2b7Pevfw8lnBfhvHhJq
-	 qVurZS5VAg9RKmKS23JkE9aHPkRMsOFYxnwp+4Ts9TkL1VuOzn9TlbQyAFHp+of1+hp+k
-	 GTjCn/3cHckXtAIpGR5+tzvmTuKESgecu14v8ut01y6B9KdUbz0+EKYbSQK1XJeJZJA==
+	t=1793529707;
+	b=Ye/FTrw7okOjKSohmteVIs0kriNGriq2F8bDViwY7+56fXgluEIBy5OpqaJBSlrHNwDx
+	 yCtVAcHrapl0hrkJX+0uYOh/vBLArnY1c02x2MNBi9LJGpZcSa3hULn1VE41IKkYpC3Qd
+	 Zw+1sWFzFDsRbJaWK4b4H0it51lVJcQ4W13Fmo7D1RxOdvtajtem4JOfhCdu4MEX+Lo8S
+	 1XErc6Ceqa7I+DcI07HxmkeBFMpTOX2m4dQemm0UcePIzKAZojb3o/qPnu/1106E0UHyH
+	 GJqioCzXUvJuFlvBxrsecpOufCDCjpSP63erNtqCKvAoLHAR6aCRnxgM3wDy69uksHA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793529703;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793529707;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:CC:Subject:
+	 Thread-Topic:Thread-Index:Date:Message-ID:Accept-Language:
+	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:
+	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
+	 x-ms-office365-filtering-correlation-id:x-microsoft-antispam:
+	 x-microsoft-antispam-message-info:
+	 x-ms-exchange-antispam-messagedata-chunkcount:
+	 x-ms-exchange-antispam-messagedata-0:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-AuthAs:X-MS-Exchange-CrossTenant-AuthSource:
+	 X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
 	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-CrossTenant-originalarrivaltime:
+	 X-MS-Exchange-CrossTenant-fromentityheader:
+	 X-MS-Exchange-CrossTenant-id:
+	 X-MS-Exchange-CrossTenant-rms-persistedconsumerorg:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Xit8D5MjK+x61ju7BRNSSGUolMqHAK831XSJsrg0uHw=;
-	b=y/dnAeRXQuQyAXDNtM+uElnP1SlAOoTctAbD06s5x7p4/00/O0txhVz0vWiAj/1b6vYh
-	 LDNIJV1I4Y7rU6S3lXDCQXQAChH0nvXyzwzGW3Y0sRqX2Q4JAofUN/bNgnClE1FQZ2QCm
-	 TIii8as1YmQl3U7ckFnihKhoQDleQl2Fcj05R/L0+0xhmooE9xjHwy39MmH4wAm2NDnf5
-	 fk7C/heTRMyJ13im8JTCO7O1WG10G+lqUDbHpjQ2KogrUUcM67uRc9w02RNE06fqGHIr5
-	 jl82u/zHsvfeKBOK1f9gw2dEwzxBdy2sOJHuPSEZnPQyG6tIucfyRFXguEnJx1Pp6zA==
+	bh=8+IhlP58nSglicUeSCO44NdiLaSIJUd3Ipf739ZZ9gw=;
+	b=x39RCF3xXTTY/HrxvJTkhF0dygdD8jbbyjNfdxNxjfxgjwCYafR/XVMcQGOQlfQQL2+6
+	 ZjKkKTcdupdf/U5vUbqqWV3C4Sjmui2CoWbSW0QPVTvSY/YEbUi3S0gjYRDlDokBd2agO
+	 OkNxjS0uTuyx7IWvIsXJ+JdCpWe5wYXGu1K8VMzmNmgvnFHtosdZZgbxsEPzrSlhYcRrR
+	 ebLA+y0KtUZGUbed5tuqGaj6ASS5zuyWrmUThlkROemsH/aOEe4vsi3afhkmlW3YDZbH7
+	 ouaUHwmakUG/IoqaFUs5T4dVfd3yX+v5GZ4MqZiKJ1Fy32eFb48PppIDdyCRFLkPVyQ==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dwAUMl08;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.34
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012034.outbound.protection.outlook.com [40.107.200.34])
+	dmarc=pass header.from=outlook.com;
+	spf=pass smtp.mailfrom=outlook.com;
+	dkim=pass header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=L9tzhG1Q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.103.66.6
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazolkn19010006.outbound.protection.outlook.com [52.103.66.6])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5792F606A324;
-	Sun,  1 Nov 2026 10:41:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5792F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB36606A330;
+	Sun,  1 Nov 2026 10:41:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1BB36606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dwAUMl08
+	dkim=pass (2048-bit key, unprotected) header.d=outlook.com header.i=@outlook.com header.a=rsa-sha256 header.s=selector1 header.b=L9tzhG1Q
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jRVc6QgH78q5j7qNg3mNpiFGm7RiIORegO2DRMTsPnIG93pe1BHHPm2qwclFe0TTYd/OjWZvEMuSj3ERYXabldEMQ21xmz2n967ojNPShHZJBZNxqLY1dtLLc42KHFO8MsQJCLgwYhnR4UqkHxCfbRm3W1IffM7TLL3kdcOqG6hywEfIEScuK8M2jhmnYfF7oLg83DMFZIHqpDeBgoRxPlNFG05QlJZnEXXzrzlSq7DtSzmHSx5WvHFcGB/p4bsPa7Yyo7ipgRkd2pPt96GONEKw7yprOSWg9LVFbxcxgd8HGrS6rHlLAtp3+XxcwiF0z0E8HyfX6Or7fg7IDu780w==
+ b=wYWX/DpF6H93TUC7bJ+K0PBzd4bNTodf5N66d1BH8IlcntbxC++wZ857IM1oSC4WOV4J9A2UKky3J/lee8Zs74O8E4SmTpr6oggiWK1yPhz+NHAoGsyd6HKfz4PkxY3pJ7ouCRD7+ZVssyXXtKp5sB7i/KPmEOO8d8hYkJ4xtCdFAGkMyD7RxVHWaslUfuh6MxNcdGr22qn4aPIJ0iyGLNUuMG/03/6elmbiihIJOIZP749GEbKocwf8VX2iMEEHr3yDKQWLgvo3yXYkjVWH6UnOg3A3B4DvTGDFov5P1IOD8bSAyZEnXmgI1xPkFzL+7TjmdCop/UpkUwml7Ikfrw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Xit8D5MjK+x61ju7BRNSSGUolMqHAK831XSJsrg0uHw=;
- b=riqUnYAQ4amCWGUGk5TEb2S/AOotrrlmuIJ8ISaRVB2dxZSc/ZTt1S9WSBpWSdzS/7ea/7tWe98y4DdXtRGGM0f+BaGxCsLjtMAx4R5AU/mEmY6ygehc6V+vLV8oGd/sgZ1SkxuwZ97luUzJQsu09535teURC0TVABgquaiBRqCFZmHipok+BMe1qpDjc9Uu46DxYDcF6mz3ZPfn+c0rqjE68x2QA18qY9zkv7xGRHj6Hg51wrZqwVz+X0fScMbZJBpCDvyC/mQNAyfQMEkDeXozGJsxDt52UquqUxiMH9fs5PnWMSSodbtaCyuw8MuNRqUMbgy0laJWk5YEQaDyqw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ bh=8+IhlP58nSglicUeSCO44NdiLaSIJUd3Ipf739ZZ9gw=;
+ b=GyaFbwnTgt8QD2cH3+N3nwg5KBiGNx263xzcUlAwrPoFiaXm/gKPfNdTnz5aLS21sYPZFacxxSNnt9BicnhMVQU+0PLacFr7fJXXNTsqkL78FAM+3jT4G1by21sUx6kDGcsk8nd44VMzVKoenMhK180AbK887wNxUluhWZ3MRGOcKfPG/LzMYunJHtKTunvRpbPLsERZfgGSIaS1CGNRSnMlkARKSLLx+T9ta2uMoyjO9F2A2gB+qQgLQk3XUzE9WhsO5/ybU074AuUGUUqqhsd/ogg1jkaVoNqY2VObZHv72mlAF+kmNHNSy+oGxqS7Y2z0VcfL2V9TaZt5wYrW8w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Xit8D5MjK+x61ju7BRNSSGUolMqHAK831XSJsrg0uHw=;
- b=dwAUMl08URAk5JP/tkWGMhg3OX7Fj5Eus8e+tTVJG11c5JtOAPuJVfzOq+b9yCA/OcSeeeTiwLQV2pyJ/XhMfkBx0aO+OmAsusRwGHZ90BQkGPH9ouk4GkjYK9guny5xxAA/Zaxsyd0kSz70v/nJvC1yIfLAybsl0y/vLQjbp2eLqbV+Voy0K+GgcYc2SLuBEj1BfPUVV8Bo4/aeNq+2zuFF3PDdjDoWvJcJgGZ1lzfJwGAWFl/xj2tEb9cM98fFgDwKWXbuqGkOTRB+ymTzLnvjkKlYChmgl8Y7yh2iI57SK2BxmqgsfrMEaOa+ua8eJ2EZ/FFLMUWGktlSZ/DQRA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15) by CY3PR12MB9701.namprd12.prod.outlook.com
- (2603:10b6:930:103::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sun, 1 Nov
- 2026 10:41:39 +0000
-Received: from IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
- ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0569.011; Sun, 1 Nov 2026
- 10:41:38 +0000
-Message-ID: <53ba3677-af71-4d8e-b445-39e08eea8b2d@nvidia.com>
-Date: Sun, 1 Nov 2026 12:41:32 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v1] net/mlx5e: kTLS, Fix missing error unwind when
- enabling RX offload
-To: Simon Horman <horms@kernel.org>, Xuanqiang Luo <xuanqiang.luo@linux.dev>
-Cc: netdev@vger.kernel.org, saeedm@nvidia.com, leon@kernel.org,
- tariqt@nvidia.com, mbloch@nvidia.com, borisp@nvidia.com, witu@nvidia.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, linux-rdma@vger.kernel.org,
- linux-kernel@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>
-References: <20261026095346.1212609-1-xuanqiang.luo@linux.dev>
- <20261029134019.GG257209@horms.kernel.org>
+ bh=8+IhlP58nSglicUeSCO44NdiLaSIJUd3Ipf739ZZ9gw=;
+ b=L9tzhG1Q3DoUjJmZNoIplAOEwi76zn2xh0yy1hZxV+QUdiOZbtnrAaYwaGagR+JnEZo4sPIoUcV+vAcZhuWYXb9ZzNdZqUF36qyDZ6L3xT81oocpg1JISruhfcM3MnbDl6jSlD9TYznkL1xUmM7ndYsq34xuRqydcqU+mLC0ZaDAb3rphwfPI9sRvFcAS3niGtDgztsDjqkvrwFI3FAgzJ35C4LwysLKOtO4DqN6K4PM2E5X1eo8XIXMXNyb4XjYibrIDIS6NN1edxN7W+iOF2TLsALqHzrXGuAfca9nwlQMSldNrnuO4oxXnbijPCrhwBV4efW51fYBvwCbaxNZIg==
+Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
+ (2603:1096:403:403::19) by OS3PR01MB8778.jpnprd01.prod.outlook.com
+ (2603:1096:604:17f::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Sun, 1 Nov
+ 2026 10:41:42 +0000
+Received: from TY7PR01MB804852.jpnprd01.prod.outlook.com
+ ([fe80::4c0d:ea93:5322:ee61]) by TY7PR01MB804852.jpnprd01.prod.outlook.com
+ ([fe80::4c0d:ea93:5322:ee61%3]) with mapi id 15.21.0569.010; Sun, 1 Nov 2026
+ 10:41:42 +0000
+From: Zou Jianqiang <jq.zou@outlook.com>
+To: Benjamin Herrenschmidt <benh@kernel.crashing.org>, Helge Deller
+	<deller@gmx.de>
+CC: "linux-fbdev@vger.kernel.org" <linux-fbdev@vger.kernel.org>,
+	"dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"byu@xidian.edu.cn" <byu@xidian.edu.cn>, "25181214217@stu.xidian.edu.cn"
+	<25181214217@stu.xidian.edu.cn>, ONE Zeroiser <zeroisere@outlook.com>
+Subject: [PATCH] fbdev: radeonfb: reject a zero pixclock in
+ radeonfb_check_var()
+Thread-Topic: [PATCH] fbdev: radeonfb: reject a zero pixclock in
+ radeonfb_check_var()
+Thread-Index: AQHdae2VyPYCB5Gy402pFQiZY1Ht2A==
+Date: Sun, 1 Nov 2026 10:41:42 +0000
+Message-ID: <20261101104107.33909-1-jq.zou@outlook.com>
+Accept-Language: zh-CN, en-US
 Content-Language: en-US
-From: Tariq Toukan <tariqt@nvidia.com>
-In-Reply-To: <20261029134019.GG257209@horms.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TL2P290CA0019.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::14) To IA4PR12MB932075.namprd12.prod.outlook.com
- (2603:10b6:207:12d::15)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY7PR01MB804852:EE_|OS3PR01MB8778:EE_
+x-ms-office365-filtering-correlation-id: dca00217-f73e-4ea5-0250-08df3804b7b8
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|31061999003|15080799012|41001999006|39105399006|24021099003|38102599003|22121099003|12121999013|8062599012|8060799015|19110799012|4140399003|25010399006|26104999009|3412199025|440099028|102099032|40105399003;
+x-microsoft-antispam-message-info:
+ =?iso-8859-1?Q?xNVhB/VW/X0olUHVyMsnv1xgTurLYWBnTdy0AgrM5CGZxX1bUopfmjSN9M?=
+ =?iso-8859-1?Q?R7Y1QZhwueL5RZfp3s2Wffu2yp0E3kBdpRy9Xwa0NTtyQYSomve4NpbIh/?=
+ =?iso-8859-1?Q?YgqbvJU89wx8DsHg18MgJyqYOZOX0wCDJcujtrUn/09WCiFoZr1GWFN4I9?=
+ =?iso-8859-1?Q?8f3tnh+85bPfLGvsdYDX9dkZTb/AEaYKX403e5MiwSixkakNNARHrCv+Bi?=
+ =?iso-8859-1?Q?2qgNA3jx+2uNENdaPUoPSFJAcJxxQwpKY7LrKMXnike1WByzxozvpN2/0h?=
+ =?iso-8859-1?Q?eKrd82vpcFekL1+A4fYMNnBchGsAMDbkwtXpsXMvzctQ7BQD8O7HUP5QOK?=
+ =?iso-8859-1?Q?nWCCTmqkPGUv7uMiEo7jFt7mdHd7iUiWY5aH/dBDXW+g4UBoaO49rbwGz6?=
+ =?iso-8859-1?Q?k1nFC45X+0pjaC4ZBgqbqWd67zBfcWbyHjx3QeobJ3gn/Rb0z2sB7fmKbu?=
+ =?iso-8859-1?Q?dwO0IRtGCVfGFke1+1HYu1aKgs5MOQuQbx7BPDUP9JPBuJCH4FLJh+Daea?=
+ =?iso-8859-1?Q?LxfbYzppwhFlK5Wu0lX0lQOVySel8TUS8aWhzXfy59r1FN5ik9XzcMQziM?=
+ =?iso-8859-1?Q?cEfw9P/1xdm8txg5wJLVyLl8zqhr1lxl6nU2jpTFQPZKHTKtHhjOSAqwry?=
+ =?iso-8859-1?Q?NCtFurobkwn9yuL5XJGHtqh29mRxZjbzgM7b7jaWJ17o40h871+Ju4jqK6?=
+ =?iso-8859-1?Q?qgTwC3SliwcTJL6SAWDZOy92aq5Ijvo/lFy/o0xk12ylxCoBhgmMsAgsVK?=
+ =?iso-8859-1?Q?YsKod7bhxeZCYh7JGP9Tu4rYTiLM/r636mafl6wT+MkaqovuUgYYqnD2o5?=
+ =?iso-8859-1?Q?RxyCMuM/UNhQ/gP1UWAkboqDSufTjcwXgDmqBV+acM4lXtuoWX59X+zFPg?=
+ =?iso-8859-1?Q?YZucbsX3IhIpI3vPV+3og7mJMAtCNByVfPevOqd7XLufzaC0axcMU2OmhT?=
+ =?iso-8859-1?Q?cz7wSTZhGmHwTU05Xx6sSQpyw7Qc3f4aOLwKpEMGS/o6qi6bhyZvBkOgxe?=
+ =?iso-8859-1?Q?BTBRFth/ouVWz5OVLoq8ORX8NhTVOmfLTAQ2FxTWPXi9gs+muJAe8gtf32?=
+ =?iso-8859-1?Q?9lkfDNSjDqfyVYDScm0ieZ9uaD0kn1ddmG4lkwNKQ6Ab?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?I9VOleJ5TJJepU6yzlSyw/PZvSDBVWpdb276fERe7DONs0t9BBe35jl1nX?=
+ =?iso-8859-1?Q?+SB/aRSKHQl3v5wjTlQ+EYMr/vXYJoowUfTp5Z6yNDsSJ+uMnbffsL+efM?=
+ =?iso-8859-1?Q?6O4BtpP2neo+TAAPEDYO234UdaLrAom+fzCuXnkj6yltmVaKWfJXE/WQXe?=
+ =?iso-8859-1?Q?sYwjI0xPXTL/PXYOzVtoevRPklxZO8JZUTNTr/jQT+twJAlUGzvKGtC1lp?=
+ =?iso-8859-1?Q?nMKbGGipSGUSoCz3GZCj9TB/I9So9/f7vICZ0CXnMe9qF12e3YUzxnU11g?=
+ =?iso-8859-1?Q?V2WBRPWs9NLHX/tqvCwd+JCG8ChrRr049MlHQRW+RXpLr1cSi49i+XbGjp?=
+ =?iso-8859-1?Q?OBwmUwQc3U3s2yvgjtzcqYAjXv7fcyeAqvRHR+zO8bm7Fhwb2hYCE6khvR?=
+ =?iso-8859-1?Q?aQlS+jKkQ6rVcB2AnPKSwYW2ZY65iOqFx4RGtp+anc/R9pXQHv4xmDI5QR?=
+ =?iso-8859-1?Q?UsfCtaJKSbz57hh2sPO4rkW9wVawE8za6jqNmteTbXwIWSneg32yB/VHNT?=
+ =?iso-8859-1?Q?5SXShQynmEN+PeRN59HNrUSICDbfJaaDrjGTOjHg3PFGy4Dr6mWWkQzm+Z?=
+ =?iso-8859-1?Q?cdB/mUMT9kn3HpCSsTTgl2+z4o6DQACTAO8XtgvUzq3LJ85XeOU97krz5j?=
+ =?iso-8859-1?Q?AUfycrhDE1uSKNO4oFGWQ4JslDqD/2Erltl3OZLNPRSeKbRCmUdrte1+e6?=
+ =?iso-8859-1?Q?4g8iUA93fs5gWp8rA9+jdweQbXG3+DqvBqhioNWGhV11gF9TZCKYDDuBmI?=
+ =?iso-8859-1?Q?qpUtiZng4WVndu9IkO0xddJzikNFdRJhN3CjHFP6vKJGSW6a8a8uidL/Mn?=
+ =?iso-8859-1?Q?WzYh3LyIqYdeWRsEFounprtK8GoLldiHIId29+GkKHXSO2dehvVrIQH/MQ?=
+ =?iso-8859-1?Q?R//o5apX/ert7gnnIb0upQAxnmXZKOlBKCtSlj/QJ3ZlluHWPzmn7+5SXN?=
+ =?iso-8859-1?Q?2hUg0lyxGTHH23fEn/SSD/HhRZgBSj1txxwkkH06MWHY2zF3tpDvOCsqaM?=
+ =?iso-8859-1?Q?u/EERiwgMwmIYkpi46T2h8J8SPXJ6xA9TJslhoCJ5+Ztex3b7OHMG1DraW?=
+ =?iso-8859-1?Q?6l6SFA+1cN+0n8astAI+XfvEF49zisX1GQ0zxcCPUmj5aQZrfNMLNbkoVV?=
+ =?iso-8859-1?Q?OPs0IOV0AhOXBOUSkfs3JDUI/tAPIsDU1jr3Nd3tsN5g5Kop1Th5SiLwZD?=
+ =?iso-8859-1?Q?9mNQZz9c0BAaGUQE9jPwUBMts8KOp7ZJSAXgBxm6fRUXxd0w8hEMpLLOB8?=
+ =?iso-8859-1?Q?Tz0nNj7LYcVRgfGiYY0DWLlCmR+vL986bQG+GU7c70trqi/ANfb0WzJ9VD?=
+ =?iso-8859-1?Q?GPbNYr10AZaO87rrHFDgAL2PHZWVUuqDIO0mtZc1KGbMFsw22VW39nML8B?=
+ =?iso-8859-1?Q?uSiVzWcz+nGZZCe0gqRLybTOWU++WU3aNbgzhL2yhX6EX+PSiVgJO0tyNn?=
+ =?iso-8859-1?Q?+QUT6wxl99O3DBLF?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,172 +152,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|CY3PR12MB9701:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7d8e1df3-ab36-48b2-b18f-08df3804b5a6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|6133799003|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261021123027099003|261021121427099003|261026121527099003|261022075727099003|261021135927099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003;
-X-Microsoft-Antispam-Message-Info:
-	iXHwgjpNNFRE2P+EjeWb3wNjXXrX+N88lotN4c/8lfpqHLkZkb+B1ITKPpjGa57M+T1zlnfNSR5HWAVfHeKKh/RtP/em3aQ4qAYRfxQPD1E80ZxEgpqqaq99ceAtLLB7ZiLttYpLz5+DuypdPfiodiuc76LsTw0/axjvsX8/kudpqn3lGlTrHGbdAxwTFoDqSOoevUn9OWZT5qYLuxn63jc8u8326bBnI3/ny8dyjEwSespByFiWgA49WDGy0foQJFc0YPgp9UtpHfuAuFIekFckEegp9wvup1Jkd954BgnedtYMnJ9VJmLir6bo3k7h5v7YFRj6qorzsuDGim0RqIlwAbHhtd1CS6czAYEWyztn2MH4trFlWB9Txxt9NheYbGzrQBHAsWUiXjT8vWV7UnQF1zGMSaGr5hb0HoMXIlDaR067VtwgRWz7knAgBiMfcL9gyYX2xUqBhIdAHA093LdQJnGqyf9yPR6JvIbVmlZ1ffm0fJcYyORddkLBPx77JpX9zSMWVsCGEkHUg2/9aq7apo90Hlxs9rD6Xo5M4f0ua1MlUy6bSR+q8QOpzfRr1ve/TpPK132bbB66RJ7U9c0iLXev9dOdcmAcrAMvCubcPQFvCWIvyno27B4CFzvIsFMsFaT4gsbZdNKo5IQhMILdHy69gIqQHgDCOQ8xuV8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261021123027099003)(261021121427099003)(261026121527099003)(261022075727099003)(261021135927099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cEVSNENFMEJnanNlK1htQzhjUWN3bElvWEx6WlNBMDFFRFJJZG9jU3NvU09r?=
- =?utf-8?B?dFk5Ri9lTXYyTFdUVHpYL1REeFJnZUw4TFZXZi9ZTTFPbjRUeXY0U0Y0NXRZ?=
- =?utf-8?B?U1JzZHpGVHl0UGZCWWxQZGpWWHNJVC8wNzB0Vk1aaFR1YUNZRzBrZHJjZU1p?=
- =?utf-8?B?QkhBQU4zWGpWcjdHTUNSeVlBaFpkdEZzV2hXS1BweUFoMVlmSlBrMnlXVUVV?=
- =?utf-8?B?VjRpbmVYOUZOMlpqMzJ2K1BlU1padmJNbHJKM3RGV25icVQwSWVFdzRZZ291?=
- =?utf-8?B?bk92MHlZT0x4NitOMkxZcGI0aWF1dnBjcXpBS3VTWjZ2RllFTkUzWFZ5SHZW?=
- =?utf-8?B?WXBZd1BEeEZydGVXSXdNUWZlL1pmYW9BbEk5TGdWakdWR3AxcVNBU0pEdHRL?=
- =?utf-8?B?cytySCtaa0dCakNkQm16cXlVM2tFaHZmcTNSNHBUTEVNU3VuQVBMSldFT3Fv?=
- =?utf-8?B?cGdVbXFDL2MvU0dOYnZ4cnA0VmV2MWJudXIvVE85WnZBRFlxWkxkQlFBd242?=
- =?utf-8?B?TUtzVUtzUnFKVlJmZkc5aitOZ0k5OW84NjY2OFU0dm9uNlVjL2xrZjR1ekJG?=
- =?utf-8?B?bnNaVXVDMHN6dWl5Sm1tOUs0NkxWQStuK0p6TkRjbFQzRHIzRXgvdkN3L1NZ?=
- =?utf-8?B?ZEtuNVl6d2hKa2VnckE2cVRjd0czNzFmV01jb0Z0R05KdXAvVVVJOTNsZk9q?=
- =?utf-8?B?bGMrSmUvVnF5RG9EeHdIYzNWZ00zMUViVG5ib3E1UWxlVXcvQzNIdWp3Mm5r?=
- =?utf-8?B?OHEzNzhUWExQZHVxMER6d1FEOHJ4N0pxZklNTzhZWU5mREM4d25HaXFpZDhB?=
- =?utf-8?B?dW9jUHdtZVl0MkIwN1NmOEp6bjFtWWF6WnJMRWVqYXg2VHVDQzM5bnpLejJs?=
- =?utf-8?B?MXFNejJQSVJTQk40MWgxN2IzS2lQQTNuRHdHRXBlYVpITDJVYmNGOEhKdW11?=
- =?utf-8?B?bkhUMlpHR3l1TW9JVUZkUzNTS3hwcnN0Ykh6S1RTMkNPYXdXaXBmNFd2QUpl?=
- =?utf-8?B?c2NTTktvMTdtaGJDQWRwbDkvMHUrSGlPd3I2RVVhRHhLZmZEK3p6c01TMXhv?=
- =?utf-8?B?MzJ4Y25OZGl1TkN0ZXRKT29Ua2dPM3dkN3VLSitaK3RieDdpK2UvMnlGWHlB?=
- =?utf-8?B?REpPakF0blhpK1hzQWxla2Ixb0tZTlVzZzgxU2hvWktqUW56WGd0empvYm5j?=
- =?utf-8?B?VnJvb25CLzk3SGlpTThYV3BJdlRzNkJCSjFGMGtNZm5YSHQvdHdjRThja0kr?=
- =?utf-8?B?c0h4TmVPbytTUS96QVBjcnBaVEt1QitEdWc2bnVkbW8wNy9BNmtmemRZaytx?=
- =?utf-8?B?VXFZc2NDOFhpdVp0bFM1MzZZNmx2cUJ3OXM4K2ZSWEh3RldpVXUvbGMxekdX?=
- =?utf-8?B?bDNmaFRaQjg3RS9aRXVNV0tlTzVYK3JYdXlaTFByTUNHaDlvV09RVlg2cUhY?=
- =?utf-8?B?SzBudDEvL0grcWVuUVNLenp0ejd0MGJiMjdqb2NuVFJ3ZzVRSU84bGZtSE5j?=
- =?utf-8?B?VDFadmRhK1ZwdlNRN1Bja1RFNDNxcFJqUzFsWitjWEpPMjllRzd3Y3RzSlZF?=
- =?utf-8?B?N0FGcGVwcE1PSWQ0eDErMUp6cWVNN1dwcGRvQlFGT2xQblRvN2s3VFFHZEhF?=
- =?utf-8?B?MkJvMVVUQmdLbXBBQ1NQeG14Z21MbDRLUDRTNldORUFmNjRFRE5xVHdTUWhu?=
- =?utf-8?B?NEtCUVlGc2FpOVdiWFJEdnRtQTBIanpDUWNla01MYWkvem5ESktKejhrMDVO?=
- =?utf-8?B?UnRzSEFvcVVuUVZWVzJnNU9mWEVLNkdKbjFEOUhUdFUxK2xEZXJmVHhUc3VW?=
- =?utf-8?B?Tkl0WWZBVk1qVjNXY0NHdWExVklaZTZVNmNFYVd6Z0U1R29naGNKblQ5Ui9I?=
- =?utf-8?B?MmlHV2FoUEJwNnl0UGptdzdlRXN6WHJaV0NkT0xYSk5FZU1UR3JQTTNoM0Vu?=
- =?utf-8?B?aEFPYXNkOStaM1VlUHo1Tlp6THVMZzdDcmUzU3RDSkkrZG5QSUh1MzZFUnRz?=
- =?utf-8?B?OWk1NXdUWlpWMGpQMmJpL2tiOUVmNlQ5bVVkZndrYVhRc2I4M1c5Q1hsaERz?=
- =?utf-8?B?V3pUV2N6bVptaU5xbncyMUxIY3c0UHA1WElQdGNXZldXd0hSVyt2emErVUc2?=
- =?utf-8?B?NW1ZVmRIOUZzVWNOa2lHREtTbTcxZjc2NHc3T3ZuOTNlajhKeHpmeVVtS2ZJ?=
- =?utf-8?B?ZVZ6dThOR09xc051RFRZTDhSUlIrQkhuamNiWHppOHkwQ2V3elFPWFN3Tm80?=
- =?utf-8?B?dW54ZG1SRnp6OWFKMXZuMjJ6RWliRERGNmIrVk5VWmRBbWVmY3hTZERTbm5k?=
- =?utf-8?B?Ni9KaVF4aFNSMWxUTHcvS0FkdzhWZWZicmlzYm9nV09kNGd3VDUrZz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7d8e1df3-ab36-48b2-b18f-08df3804b5a6
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
+X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 10:41:38.9414
+X-MS-Exchange-CrossTenant-AuthSource: TY7PR01MB804852.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: dca00217-f73e-4ea5-0250-08df3804b7b8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Nov 2026 10:41:42.2701
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5qxFoP/jDhTjDjw7H4E9kWyuTqN8R12nDpsIPoJQ2yDBBaCYzb/4ewMHZziB8nfX9kGiLUYcvkfTPmM+ai1+uw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9701
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB8778
 
-
-
-On 29/10/2026 15:40, Simon Horman wrote:
-> On Mon, Oct 26, 2026 at 06:53:46PM +0900, Xuanqiang Luo wrote:
->> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->>
->> Since commit abed42f9cd80 ("net/mlx5e: Conditionally create async
->> ICOSQ"), the async ICOSQ is only created when an XDP program is attached
->> or priv->ktls_rx_was_enabled is set. When TLS RX offload is enabled for
->> the first time, mlx5e_ktls_set_feature_rx() sets the flag and reopens
->> the channels so that they get the queue, but it ignores the return value
->> of mlx5e_safe_reopen_channels().
->>
->> If the reopen fails, mlx5e_safe_switch_params() keeps the old channels,
->> which have no async ICOSQ, while NETIF_F_HW_TLS_RX is still reported as
->> enabled. The next offloaded RX connection then dereferences the NULL
->> c->async_icosq in post_rx_param_wqes(). Enabling the feature again does
->> not help, as the flag is already set and the reopen is skipped.
->>
->> Propagate the error, clear the flag and destroy the accel TCP flow
->> tables again, so that the feature stays disabled and the next attempt
->> retries the reopen.
->>
->> Fixes: abed42f9cd80 ("net/mlx5e: Conditionally create async ICOSQ")
->> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
->> ---
->> Found by code inspection while backporting commit abed42f9cd80 to a
->> downstream kernel. I do not have a crypto-enabled ConnectX NIC, so the
->> failure has not been reproduced and the fix is only compile-tested.
->>
->> The crash itself is the one described in the changelog of abed42f9cd80
->> ("async ICOSQ allocation is not triggered, causing a NULL pointer
->> crash"). This patch only covers the case where the reopen that should
->> create the queue fails. ktls.c is also the only caller that ignores the
->> return value of mlx5e_safe_reopen_channels(); the callers in health.c
->> and reporter_tx.c check it.
->>
->>   drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c | 6 +++++-
->>   1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> I agree that a minimal approach to addressing this problem is appropriate
-> for net.
-> 
-
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
-
-
-> Reviewed-by: Simon Horman <horms@kernel.org>
-> 
-> However, I do think the logic of this function is becoming somewhat
-> convoluted and would benefit from:
-> 
-> 1. Handling error paths in conditionals while leaving
->     the main thread of execution unconditional.
-> 
-> 2. Use goto for unwind.
-> 
-> This is approach is complicated by the function needing to
-> handle the enable condition. But at any rate, maybe a follow-up patch do do
-> something like this would be worthwhile?
-> 
-
-Agree.
-
-> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
-> index 3cc1213c2f68..0f5dcd1b822e 100644
-> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
-> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
-> @@ -137,19 +137,22 @@ int mlx5e_ktls_set_feature_rx(struct net_device *netdev, bool enable)
->   	mutex_lock(&priv->state_lock);
->   	if (enable) {
->   		err = mlx5e_accel_fs_tcp_create(priv->fs);
-> -		if (!err && !priv->ktls_rx_was_enabled) {
-> -			priv->ktls_rx_was_enabled = true;
-> -			err = mlx5e_safe_reopen_channels(priv);
-> -			if (err) {
-> -				priv->ktls_rx_was_enabled = false;
-> -				mlx5e_accel_fs_tcp_destroy(priv->fs);
-> -			}
-> +		if (err || priv->ktls_rx_was_enabled)
-> +			goto out_unlock;
-> +
-> +		priv->ktls_rx_was_enabled = true;
-> +		err = mlx5e_safe_reopen_channels(priv);
-> +		if (err) {
-> +			priv->ktls_rx_was_enabled = false;
-> +			enable = false;
->   		}
-> -	} else {
-> -		mlx5e_accel_fs_tcp_destroy(priv->fs);
->   	}
-> -	mutex_unlock(&priv->state_lock);
->   
-> +	if (!enable)
-> +		mlx5e_accel_fs_tcp_destroy(priv->fs);
-> +
-> +out_unlock:
-> +	mutex_unlock(&priv->state_lock);
->   	return err;
->   }
->   
-> 
-> ...
-
-Makes sense.
+From: Jianqiang Zou <jq.zou@outlook.com>=0A=
+=0A=
+radeonfb_set_par() derives the dot clock from the user supplied=0A=
+struct fb_var_screeninfo:=0A=
+=0A=
+	dotClock =3D 1000000000 / pixClock;=0A=
+=0A=
+where pixClock is copied from mode->pixclock.  A zero pixclock=0A=
+bypasses the existing validation and makes the kernel divide by zero=0A=
+in radeonfb_set_par().=0A=
+=0A=
+The driver does have a check for this: fb_validate_mode() returns=0A=
+-EINVAL when pixclock is 0, but radeon_match_mode() only calls it when=0A=
+the output has no scaler and an EDID-derived mode database is=0A=
+available:=0A=
+=0A=
+	if (has_rmx =3D=3D 0 && rinfo->mon1_modedb)=0A=
+		if (fb_validate_mode(...))=0A=
+			return -EINVAL;=0A=
+=0A=
+mon1_modedb is only filled in when an EDID is read, so when no=0A=
+EDID-derived mode database is available the validation is skipped and=0A=
+the invalid mode reaches radeonfb_set_par().=0A=
+=0A=
+Reject a zero pixclock in radeonfb_check_var() before matching the=0A=
+mode.  fb_set_var() calls it on the FBIOPUT_VSCREENINFO path before=0A=
+->fb_set_par(), so the invalid value is rejected before the mode is=0A=
+applied.  This is the same check other fbdev drivers use (i740fb,=0A=
+arkfb, s3fb).=0A=
+=0A=
+Reproduced on Linux 7.3.0 using a custom QEMU PCI stub device with=0A=
+vendor/device ID 1002:5955; no physical Radeon hardware was used.  A=0A=
+single FBIOPUT_VSCREENINFO with pixclock =3D 0 is enough to trigger the=0A=
+divide error.=0A=
+=0A=
+Signed-off-by: Jianqiang Zou <jq.zou@outlook.com>=0A=
+---=0A=
+ drivers/video/fbdev/aty/radeon_base.c | 3 +++=0A=
+ 1 file changed, 3 insertions(+)=0A=
+=0A=
+diff --git a/drivers/video/fbdev/aty/radeon_base.c b/drivers/video/fbdev/at=
+y/radeon_base.c=0A=
+index b6b058cee..a69e58914 100644=0A=
+--- a/drivers/video/fbdev/aty/radeon_base.c=0A=
++++ b/drivers/video/fbdev/aty/radeon_base.c=0A=
+@@ -836,6 +836,9 @@ static int radeonfb_check_var (struct fb_var_screeninfo=
+ *var, struct fb_info *in=0A=
+         int nom, den;=0A=
+ 	unsigned int pitch;=0A=
+ =0A=
++	if (!var->pixclock)=0A=
++		return -EINVAL;=0A=
++=0A=
+ 	if (radeon_match_mode(rinfo, &v, var))=0A=
+ 		return -EINVAL;=0A=
+ =0A=
+-- =0A=
+2.43.0=0A=
+=0A=
