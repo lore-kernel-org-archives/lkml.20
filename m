@@ -1,56 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793554574;
-	b=nyjUOOeBhH+prgqnnheL5AS6+NOCWKyYZAQL7kZWDu4TwrsiqJOe3yPccLOBTrBJrDbg
-	 jelXVhchNQl6PgWMkJtDEM0936bhYJw/ChIAowWDrjpZWL6fXG/MnV6fvzhd6yIkNF0Rw
-	 IpeyppjsWiQzBHchWBlqGLyDrglA0WxrdwkpW8I0yXtv5VW5DiDwcbmn6yJpra0Zsf4eQ
-	 oRmG/M/TMgBRVlrR6DkxOw6o025cdA9mhVuXYYQRNzXgydjMI7EXlNAjh2BF7EjnGNtYn
-	 6bN6pT0MbBKIIpVycf9pjLKd9JCyt1u/HuZT7+bUGmmobRvI+1aRZj1y/MNZMtWn7Yw==
+	t=1793554594;
+	b=B19kqWP6LRDhFCAqTll3dVCFQpLLR+yH6h2voA4lRYqIwzWoPj9ECTtlTlvpnc0tnQWi
+	 vWwnIQ81NamzCRxkkNxyDe44Vl63wEulI6qJTY+E55WdIsav/WOK/81dnde2DeMsDCwJu
+	 HKH9pCaQvjwmzcGVY4TcTUT5TPEnANxY+oul6WKnHX33b6sBOkKkzsz9GYMFAm1CvwPXa
+	 1b2o0Rm5gsZKKB+4Q3qxHL6fdDEj0bjRaE/HMRf/GeynxhNhd0isLv/bbp/+1ec1HoKYL
+	 x2KHl4pSoJfGR/xRklQ1zC/96xaZeXimI5V1R6vQAgnXG821DASBDVQrTjHnzeS9HkA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793554574;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=rzer3B3b6Mhvp+GybdMNJdIQ2GgHJgSS34HUoJp83Cs=;
-	b=PlxSSsyp+V/ASrm7EdvRUZE4cL//5L7bUTfZ8tEE1/E/vDgmZZ3l7GPPhMzGXGiF8TJG
-	 4TCDoxgfl7qFo/NVHb3VeiBg53NRHbR/6ne0IncTPyfZJeFkVh3fvbAvOuRWD/xyfNG88
-	 TCetLNeCtCXVsxK9Kg+XVUY6cT36UbKRbcUwK7VjuqoReyvBeQ+KeFuCMObnA0L1uo1ql
-	 gY4ZhmI+s0EghU1mjRmsXzRoxUTJiWx9kRvhl6t3Bi82A1cN/n/R2dTmS6BKbfNm1xx/s
-	 feebMe+P+p8sh412coIp4pKHn/wixyDPgZJFIXJLzcp/JeX0lB+PKr9HJsYXUAteqdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793554594;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zLkUAhIEsQVw9J8rJCtMxwzX85X0dmlthSr43BAfg5E=;
+	b=sncgp4eAMFBcnvYlp50/4GfKUYGqW7+KnwCm75xN9QFwFdUMLCNUML2rHUD7zzWWblRA
+	 omBOAT1mZo0ZcRXm7uCb7Ud7GKEjToEP7ItUuJuNAj2IBPJ4/NjDBKCix8Ka8qjbtC1CK
+	 cTtODMuda0TXcdSuhdP00u7jIYlX/RpwR3A0HqdU6AIYCTkxkVhaYXFeP3nLYu/hm8ekP
+	 LELW8qGiUyyvAUR+9c0hNOUyG+M4GRIUZAKCKkT13OaDgVXWZIPBl8kjohQzaLoJrft6E
+	 pAV2OCzdlBtbEDxQcep379dKWh06GZlIJedDVD0mpBmQnVrAmdeqO9ShcfUL51lAF7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dU9atTTc;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SzgqRipu;
+	arc=none smtp.remote-ip=209.85.210.52
+Received: from mail-ot1-f52.google.com (mail-ot1-f52.google.com [209.85.210.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 999D7606A324;
-	Sun,  1 Nov 2026 17:36:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3ADF606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:36:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3ADF606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dU9atTTc
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id E3FDF1F000C1;
-	Sun,  1 Nov 2026 17:36:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793554573;
-	bh=rzer3B3b6Mhvp+GybdMNJdIQ2GgHJgSS34HUoJp83Cs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dU9atTTcRVppUutzqwf0Wy1Jg0Ii0uNkHItuf5h1IByp/k0Wohn3zwcFFKhrROIRh
-	 rUdX5b1VCG2qV5e29ZKcuoIh4TTZRdJQPhbv0GzZReK/NRwtw+GmYWHTWYcQxZPlib
-	 MFM0gtC/TX1kebtC5lUwHqtcz1M+djtdRu3MCuwFeqEQnig+GCgDKzminyzgumG10R
-	 WX5MBqREs0OVoXUoVIC1im09FYdUTudD6XSBopbW9tzwiQAL+l/BN1qjinDuWTdjnz
-	 jqyfLfH3k5fHhNQ0rLY6Jg3yp5osB9uuW5p7t7zxfMkJ6iZteYdKz1WumG8zkF6ebN
-	 RM5IyDfDO1c9g==
-Date: Sun, 1 Nov 2026 19:36:10 +0200
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: =?utf-8?B?6ZOu?= <fengaojigui88@gmail.com>,
-	Stefan Berger <stefanb@linux.ibm.com>
-Cc: peterhuewe@gmx.de, Jason Gunthorpe <jgg@ziepe.ca>,
-	linux-integrity@vger.kernel.org, syzkaller@googlegroups.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [BUG] tpm: prolonged stall in vtpm_proxy_fops_release() on Linux
- 7.3
-Message-ID: <aud4isATIt0JOOL_@kernel.org>
-References: <CAO-4RZ2EzuShr1dNEQt+CEjqan8SSyD=-E9g6RW1oocah+chcQ@mail.gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=SzgqRipu
+Received: by mail-ot1-f52.google.com with SMTP id 46e09a7af769-84e513877a3so2118756a34.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:36:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793554593; x=1794159393; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zLkUAhIEsQVw9J8rJCtMxwzX85X0dmlthSr43BAfg5E=;
+        b=SzgqRipuguqYiIXBRiB+lMRexNXZaczFHHpt/kApHrj9nen69jjpBXL4iqh6ilLKae
+         G5Bx1YLd6nNG7jLd/9oc4ZXTJSsmcrOGTc+vLkVpu4V/ZBqMujPeVXsAzUI8k51BYtOp
+         4TspU5f4r3pEEIlWhS3kdmyf0bAVgD+paFbE19MSzBEXYe/s/4pCTSg9rOuUU8DayLPl
+         mMz/7xI/qzI0ukIX36JzywdHeS6o+vyLC9025aoROXtBfwNAuvVNdD+FYr1PMhFuSAlA
+         qtoAUavBsA7PSdkmdticnXDL3s1A2BnVjZtni1TgnuTH4CP1fWaxwPbMxZb/yapgrNPt
+         /4jg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793554593; x=1794159393;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zLkUAhIEsQVw9J8rJCtMxwzX85X0dmlthSr43BAfg5E=;
+        b=YZtvLYy7orJKTkCn0VOsPRtc3XEIuqthoWBysO4+eQY0ukkBgFe00Dktp74SvL1mHa
+         MjBSh51za9sF5DiCAPOk/hPKc/opa2KUaceT3WXp3ptbZgu0zdrEzXKW0BrUXUiPO+qX
+         EWhJ37RjzZaUVaX1uuhgW2vRxEWzxA2nLIX2qVVHYCySDsu9y6mEcgQ3Zr61wvIQdBIB
+         z1ffixKozFV2bbILBFD2IECcpucT17bV2lmbbnZxmmTTLSj51qEIhDvrjvt/aq8zGeP4
+         2Axca3kuEXUk4eB0lZ3sYbLKVsoThFDPUYYZBVdXltDHIhUW+Hmtw4GnkAJI8dOSTSSk
+         bRXg==
+X-Forwarded-Encrypted: i=1; AKwUvByFQVEVB8pCu97d7OrKaigQvrwmT6x7ZmOIyofZmrb7RFZZK19CNLwrUl0br7FI1DiaV01AwbxPOOdU2v8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKto4gab1iyh6Zs/7Nmq6HF4VkqgQy1w8Zhw6OwiD2EKD5O3xH1
+	r9hStf/qsO/sOW78eXxc0HvEQ0dvX4WJO7WMdHwVRWnfI9x6d0ZHYrT5
+X-Gm-Gg: AYBFou0yklvQgjOL4aW8B1zCOmL86EYzJE1fbyMf2VOHCUqKrfIxkGZ31mZHiXxoUR4
+	HCTeBzSLac6VacEmZFD5/LZjNSFXk5+ps92T/sn4AKQsHSbiQQEqGQl5Si1I/cu3QNHR5b/MltO
+	5wMuBIox8NqjyZ3eNmYeuLFfIuOZkiBlC0L4AXNSp9V38YskI7fNC6Yg8hOX86CI6OdHVt1FbUn
+	C0Fl4iHjJi7n9MLDZZ0zYgKHo+XN0Ei/ePF0rV36lSTj0FhUOaO3iJov/IRd14B9x2OESgiAsKr
+	NNjbuY3UeevxNhoouUNJMHqT4aylYi7pGiuWsVyI0Mth36WYo2HolG5ACEcuHgGZkioJIE0xkVr
+	FB7+oxxTskm5N8OB2Hn+uT9J6tWPSHLwiGPQMtW0e6QmWGRDKoV+2zUa8MmeVfpTO/YPKBflXqd
+	xF8eKhMaO3cG2LRulueheGXYLUkBObg6DpM2vJUVSdU9CadUaaJbah1YQw80v0J81s6X09/28X5
+	JVSEqmfK8+MqUJtFR0MibM7oo9OWiKRIxo71dV5mpkS9eEZ/oOVCLld9psUK3LM97JPblKPSxlP
+	EbRjeYAizhADm64HU5q15Z5jFsnSMKSj8YvQEtpkJEdJjw==
+X-Received: by 2002:a05:6830:2308:b0:7f9:555:1df0 with SMTP id 46e09a7af769-85d364cabf7mr3558785a34.12.1793554592650;
+        Sun, 01 Nov 2026 09:36:32 -0800 (PST)
+Received: from localhost.localdomain ([2600:1702:4ff0:baa0:5054:ff:fe3d:4ddb])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d3545b875sm7340271a34.5.2026.11.01.09.36.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 09:36:31 -0800 (PST)
+From: Will Porter <mrwillporter@gmail.com>
+To: Christian Ruppert <arc@gmx.li>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Neil Andrews <neil@androos.io>
+Subject: Re: [RFC PATCH 00/11] Re: ALSA: usb-audio: Audient iD14 MkI vendor controls
+Date: Sun,  1 Nov 2026 11:35:57 -0600
+Message-ID: <20261101173557.221869-1-mrwillporter@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261101000013.11880-1-arc@gmx.li>
+References: <20261101000013.11880-1-arc@gmx.li>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,235 +100,395 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAO-4RZ2EzuShr1dNEQt+CEjqan8SSyD=-E9g6RW1oocah+chcQ@mail.gmail.com>
 
-On Sun, Nov 01, 2026 at 09:22:30AM +0800, 铮 wrote:
-> Hi Peter, Jarkko and Jason,
+Hi Christian,
 
-Adding Stefan. 
+Thanks for the RFC, and for splitting it into small patches. It made
+the review easy, and the cover letter answers my three questions.
 
-> 
-> I observed a task hang in vtpm_proxy_fops_release() while fuzzing the
-> vTPM proxy with syzkaller. I reproduced it on Linux 7.3.0: the campaign
-> observed the hang 4 times; replaying the stored sequence reproduced it
-> once in an automated replay and three times in manual replays. In every
-> case a process is blocked for 143+ seconds in
-> vtpm_proxy_fops_release() -> vtpm_proxy_work_stop() -> flush_work(),
-> while at the same time the sysrq-t dumps show a chip-register work
-> (vtpm_proxy_work -> tpm_chip_register() -> tpm_chip_start() ->
-> vtpm_proxy_request_locality()) running on the tpm-vtpm workqueue plus a
-> backlog of further queued chip-register works. Which queued work the
-> blocked release is waiting for is unconfirmed. All logs end while the
-> task is still blocked, so I cannot say how long the stall ultimately
-> lasts; I am not claiming a permanent deadlock.
-> 
-> Environment
-> -----------
-> - Kernel: 7.3.0-kernsight-kasan #1 SMP PREEMPT_DYNAMIC, built 2026-10-20,
->   x86_64. Vanilla 7.3.0 source tarball (sha256
->   87363c24f10e06321eb362765521094e94471f6bff8bce2d6b3e40f39f004953),
->   built with KASAN/KCOV. No TPM changes were made for this testing
->   (drivers/char/tpm/ matches vanilla apart from build artifacts).
-> - Guest: QEMU/KVM, 4 vCPU, 6 GiB, 8 scratch virtio disks, 2 NVDIMM/pmem
->   devices, 2 NUMA nodes (the syzkaller standard environment). A fresh VM
->   was used for every reproduction run.
-> - Syzkaller: revision 853b104bb454141a5b0fc0e4218ec78e9f34ffb1+
->   (2026-09-18). The "+" denotes local KernSight integration changes
->   (seed ordering/state feedback: pkg/kernsight, prog/kernsight_*,
->   syz-manager/kernsight_*, pkg/execbackend, snapshot support in vm/qemu).
->   They do not change the TPM syscall descriptions or the executor
->   semantics.
-> - Reproduction: the campaign observed the hang 4 times; replaying the
->   stored programs reproduced it once in an automated replay, three
->   times as a single 50-program sequence, and once with the two-step
->   form above (one of the manual replays is captured only as a sysrq-t
->   dump). Four runs on a bare fresh VM with a *different kernel command
->   line* and without the scratch/pmem/NUMA layout recorded no hang --
->   since the command line differs as well, these runs cannot attribute
->   the effect to the device layout.
-> 
-> Kernel command line (full text in the repository, cmdline/cmdline-7.3.txt):
->   root=/dev/sda console=ttyS0 fstab=no rw earlyprintk=serial net.ifnames=0
->   oops=panic panic_on_warn=1 panic=86400 hung_task_panic=1 softlockup_panic=1
->   nmi_watchdog=panic ... page_owner=on secretmem.enable=1
->   dummy_hcd.num=16 max_loop=32 nbd.nbds_max=32 kunit.autorun=0
->   (for the live-inspection runs, hung_task_panic=0 was used instead; see
->   cmdline/cmdline-7.3-retest.txt)
-> 
-> Reproduction
-> ------------
-> Two equivalent ways are verified; the two-step form is the simplest.
-> 
-> From the host:
-> 
->   scp syz-execprog syz-executor repro.priming.prog repro.prog root@guest:/tmp/
->   ssh root@guest
->   cd /tmp && chmod +x syz-execprog syz-executor
-> 
-> Step 1 -- run the state-construction sequence (49 programs) once:
-> 
->   ./syz-execprog -executor=/tmp/syz-executor -procs=1 -repeat=1
-> /tmp/repro.priming.prog
-> 
-> It runs for ~20 s and exits normally. When its executor process exits,
-> the vtpm fds it holds are released and the release path hangs: the
-> hung-task monitor reports at t≈267 s (logs/serial-twostep.log):
-> 
->   INFO: task syz.0.33:10843 blocked for more than 143 seconds.
->         Blocked by coredump.
-> 
-> while `ps` shows `kworker/X:Y+tpm-vtpm` and the executor task both in
-> state D (sysrq-t dump: logs/dmesg-sysrq-twostep.txt), and the serial log
-> shows `tpm tpm1/tpm2: Operation Timed out` while the release is blocked.
-> Step 2 -- optionally run the crashing testcase afterwards
-> (./syz-execprog ... /tmp/repro.prog); on the already-blocked VM it
-> simply runs and exits.
-> 
-> The single-file form replays the state construction and the crashing
-> testcase as one 50-program sequence (logs/execprog-verify4.out:
-> "parsed 50 programs"):
-> 
->   ./syz-execprog -executor=/tmp/syz-executor -procs=1 -repeat=1
-> /tmp/repro.kernsight.prog
-> 
-> In both forms programs run sequentially (procs=1, repeat=1,
-> sandbox=none), but a program can leave asynchronous kernel-side work
-> behind. The sequence creates several vTPM proxy devices and
-> closes/exits over them. The hang appears when a closing task's release
-> path races a still-running or queued chip-register work. The
-> hung-task monitor then reports (t≈480 s in logs/serial-verify4.log):
-> 
->   INFO: task syz.0.33:10857 blocked for more than 143 seconds.
->         Not tainted 7.3.0-kernsight-kasan #1
->         Blocked by coredump.
->   task:syz.0.33        state:D stack:26264 pid:10857 tgid:10857 ppid:10246
->   Call Trace:
->    <TASK>
->    __schedule+0x134d/0x6880
->    schedule_timeout+0x24a/0x290
->    __wait_for_common+0x1d3/0x4e0
->    __flush_work+0x6ab/0xd90
->    vtpm_proxy_work_stop     drivers/char/tpm/tpm_vtpm_proxy.c:470 [inline]
->    vtpm_proxy_delete_device drivers/char/tpm/tpm_vtpm_proxy.c:590 [inline]
->    vtpm_proxy_fops_release+0xa8/0x1d0 drivers/char/tpm/tpm_vtpm_proxy.c:239
->    __fput+0x408/0xb60
->    task_work_run+0x170/0x260
->    do_exit+0x90c/0x2b60
->    ...
-> 
->   Showing all locks held in the system:
->    locks held by kworker/3:2/1235: 2, on CPU#3:
->     #0: ff110000267a8540 ((wq_completion)tpm-vtpm){+.+.}-{0:0}
->     #1: ffa0000006cafd08 ((work_completion)(&proxy_dev->work)){+.+.}-{0:0}
-> 
-> While the task was blocked I captured full task dumps with
-> `echo t > /proc/sysrq-trigger` (hung_task_panic=0 variant; three dumps
-> included). In the first dump the kworker running a vtpm_proxy_work is
-> itself blocked in the transmit loop:
-> 
->   task:kworker/2:3     state:D stack:24648 pid:9703
->   Workqueue: tpm-vtpm vtpm_proxy_work
->   Call Trace:
->    <TASK>
->    schedule+0xec/0x2d0
->    schedule_hrtimeout_range_clock+0x11d/0x310
->    usleep_range_state+0x178/0x220
->    ? vtpm_proxy_tpm_req_canceled
->    tpm_transmit+0x4bf/0xb90
->    tpm_transmit_cmd+0x62/0x1f0
->    vtpm_proxy_request_locality+0x140/0x280
->    tpm_chip_start+0x18f/0x340
->    tpm_chip_bootstrap+0x80/0x1c0
->    tpm_chip_register+0x27/0x4d0
->    vtpm_proxy_work+0x41/0x100
->    process_one_work+0xa9c/0x1dc0
->    ...
-> 
-> All three dumps also show that the tpm-vtpm workqueue carries a backlog
-> of further chip-register works behind the running one
-> (logs/dmesg-sysrq-verify3.txt):
-> 
->   workqueue tpm-vtpm: flags=0x40108
->     pwq 6: cpus=1 node=0 active=1 refcnt=33
->       in-flight: 24:vtpm_proxy_work for 75s
->       inactive: 4*vtpm_proxy_work BAR(10837), 26*vtpm_proxy_work
-> 
-> (logs/dmesg-sysrq-verify4.txt: in-flight for 109 s,
-> inactive: 29*vtpm_proxy_work BAR(10857).) With this backlog I cannot
-> tell which specific queued work the blocked release is waiting for; the
-> running work shown in the stacks may or may not be that one.
-> 
-> While the release was blocked, the serial log shows
-> "tpm tpm3: Operation Timed out" / "tpm tpm31: Operation Timed out"
-> lines. All included logs end while the task is still blocked, so I have
-> no log evidence of the release completing; I have also not established
-> an upper bound for the stall.
-> 
-> Two entry paths were observed for the blocked release:
-> - process exit: do_exit() -> task_work_run() -> __fput()
->   (campaign reports, the automated reproduction, dmesg-sysrq-verify4.txt)
-> - close_range() returning to user space: task_work_run() -> __fput()
->   (dmesg-sysrq-verify3.txt)
-> 
-> The minimized single-program testcase does not reproduce the hang; the
-> full 50-program sequence above is the reproducer. I have not isolated
-> which preceding operations or timing conditions are required.
-> 
-> Question
-> --------
-> vtpm_proxy_tpm_req_canceled() already exists and the driver marks the
-> device as being torn down before flush_work(); from the captured dumps
-> I cannot tell why the wait nevertheless persists for minutes. Should
-> the release path be bounded, or should the in-flight chip-register work
-> be ended more promptly once the proxy is being torn down? I am happy to
-> test proposed patches.
-> 
-> Materials (the reproducer, the sysrq-t task dumps, full serial logs,
-> the syz-execprog output, kernel config, command lines, a sha256 manifest,
-> and a verify.sh that re-checks the numbers quoted here):
->   https://github.com/Zheng-zheng-codes/vtpm-proxy-release-hang-repro
+I compiled mixer_audient.c after each patch with W=1, out of tree
+against a 7.2 kernel's headers: no warnings. checkpatch --strict
+gives only CHECK-level style notes. I can't test on an EVO, so the
+points below come from reading the code.
 
-Thanks for making it public on one go. Here it is the best pick.
+1. Patch 10, cache index
 
-> 
-> Repository contents
-> -------------------
->   repro/repro.priming.prog           state-construction sequence (49 programs)
->   repro/repro.prog                   crashing testcase (use after the
-> priming run)
->   repro/repro.kernsight.prog         single-file form (50 programs)
->   logs/vtpm-sysrq-t-all-tasks.txt    sysrq-t dump: kworker stack +
-> backlog (run 1)
->   logs/dmesg-sysrq-verify3.txt       sysrq-t dump: backlog,
-> close_range entry path
->   logs/dmesg-sysrq-verify4.txt       sysrq-t dump: backlog, do_exit entry path
->   logs/serial-7.3-auto-repro.log     automated state-primed reproduction
->   logs/serial-7.3-manual-repro.log   manual replay, run 1
->   logs/serial-verify4.log            manual replay, run 2 (serial)
->   logs/serial-twostep.log            two-step reproduction (serial)
->   logs/execprog-twostep-step1.out    two-step step 1 output ("parsed
-> 49 programs")
->   logs/dmesg-sysrq-twostep.txt       two-step sysrq-t dump
->   logs/execprog-verify4.out          run 2 syz-execprog stdout
-> ("parsed 50 programs")
->   logs/serial-7.3-bare-no-trigger-*.log  4 bare-VM runs (no hang recorded)
->   logs/report-7.3-*.txt, log-7.3-*.txt   the 4 campaign instances
->   logs/crash-title.txt               crash title
->   kernel/kernel-7.3.config           kernel configuration
->   cmdline/cmdline-7.3.txt            kernel command line (syzkaller
-> standard set)
->   cmdline/cmdline-7.3-retest.txt     verification variant (hung_task_panic=0)
->   verify.sh                          re-checks the numbers quoted in this mail
->   MANIFEST.sha256                    sha256 of every file (except itself)
-> 
-> I am happy to provide additional information and test proposed patches.
-> 
-> Best regards,
-> Zheng Zheng
+The cache has hwchannels entries, and the probe fills it by element
+index (cache[i]). But get, put and the INIT_HW write index it by device
+channel:
 
-Thank you for reporting this.
+    *value = cache[cidx];    /* cidx = val_offs + i */
+    cache[cidx] = value;
 
-Br, Jarkko
+So a nonzero val_offs can access past the allocation. On the EVO4,
+"Mic 2 Capture Volume" (val_offs 2) uses cache[2] and cache[3] of a
+2-entry array, and "Loopback Right Capture Volume" uses cache[10] and
+cache[11]. Those rows would also show other memory, not the value read
+at probe. On the iD14 the last matrix element would use cache[54] and
+cache[55].
+
+Would indexing relative to the element fix it? The diff at the end of
+this mail passes the cache entry of channel i instead of the array, so
+that raw_get_one() and raw_set_one() never see cidx for the cache.
+
+2. Probe-time USB errors now fail the whole card
+
+With patch 10 the EVO matrix is read at probe, and with INIT_HW a
+control is written at probe. If one of those transfers fails,
+snd_audient_controls_create() returns the error, snd_usb_create_mixer()
+fails, and the card does not register. As far as I can see,
+QUIRK_FLAG_IGNORE_CTL_ERROR does not suppress errors returned by
+snd_usb_mixer_apply_create_quirk(). Before this series the quirk sent no
+USB traffic at probe, so this is new.
+
+Could we keep the card registering after a failed probe transfer, while
+keeping the cache entry invalid until a transfer succeeds?
+
+To save a round, I wrote it out; the diff is at the end of this mail, on
+top of your series. Please change or drop anything that doesn't fit your
+plans.
+
+It gives each cache entry a valid flag, set when a transfer confirms the
+value (a read, or a write that succeeded). A failed probe transfer logs
+a warning and keeps the control with an invalid entry. For a cached
+write-only control, get still succeeds after a failed probe write, so
+that failure alone does not stop alsactl store: boolean and integer
+controls return their minimum, and my enum type reports "Unknown". A
+readable control retries the GET and returns an error if that retry
+fails. Since a get can now fill the cache, the callbacks take
+mixer->lock. Control allocation and registration errors still fail the
+probe. It contains the point 1 fix as well, since both change the same
+cache code.
+
+On the iD14 I tested it with a test-only control that the device
+refuses (polarity on Digi 3). The card registered, the log showed one
+warning for that control, and get returned off. A put returned -EPIPE;
+a subsequent get still returned off.
+
+3. Smaller points
+
+- Patch 05: would sign_extend32(buf, 8 * ctype->len - 1) work in
+  place of the shift pair?
+- Patch 05: the buffers mix u32/s32 with cpu_to_le32()/le32_to_cpu().
+  Would __le32 buffers keep sparse quiet?
+- Patch 05: the transfer buffer is 4 bytes on the stack, but nothing
+  checks the table's len. Could snd_audient_add_ctrl() return -EINVAL
+  unless 1 <= len <= 4?
+- Patch 09: with FORCE_SET, a put of the cached value still writes
+  (good) but also reports a change, so each alsactl restore sends a
+  change event for every such control. Could it write but return 0
+  when the cache already holds the value?
+- Patch 11: a device with no matrix list would dereference NULL in the
+  loop. Would a check on info->matrix_names be worth adding?
+- Patch 01: FYI, the file header still says "Audient EVO driver for
+  ALSA".
+
+4. iD14 tables on top
+
+I built the iD14 tables on your series, with the cache fix applied.
+On an iD14 MkI they passed control read and write checks, the range
+checks and a loopback test of the matrix crosspoints. The crosspoints
+also kept their values across a module reload and were read back into
+the cache.
+
+On top of your patches I needed three generic additions:
+
+- a step size for integer types (res): the iD14 level controls use
+  s16 in 1/256 dB; I expose them in whole-dB steps, matching the
+  volume knob. The control counts steps from min, as the generic USB
+  mixer does with the RANGE resolution;
+- an enumerated type with a value list, plus one extra last item that
+  a get shows for a device value outside the list;
+- a per-device create hook, for the FU 12 control that does not fit
+  the tables (in the same patch as that control).
+
+The matrix uses your loop as it is: with 2 channels per element and the
+names in the order Mic 1 Main, Mic 1 Cue, Mic 2 Main, ..., element n
+starts at CN 2 * n, which is input * 4 + output on the iD14. Does that
+fit what you had in mind?
+
+5. Next steps
+
+Would you prefer to incorporate these changes in an RFC v2, or shall I
+fold them into the relevant patches when I carry your series, with
+notes in the commit messages?
+
+Thanks,
+Will
+
+-- >8 --
+From: Will Porter <mrwillporter@gmail.com>
+Subject: [RFC PATCH] ALSA: mixer_audient: Fix cache indexing and probe error handling
+
+The cache has hwchannels entries, but get, put and the INIT_HW write
+indexed it with the device channel (val_offs + i). Pass the entry of
+element channel i instead.
+
+A failed probe transfer made snd_audient_controls_create() fail, so
+the card did not register. Give each cache entry a valid flag, set
+when a transfer confirms the value: a read, or a write that
+succeeded. A failed probe transfer logs a warning and leaves the entry
+invalid. A readable control then reads the device on its next get,
+and returns an error if that read fails; a write-only (FORCE_SET)
+control shows its minimum until a put succeeds. CACHE | FORCE_SET
+without INIT_HW keeps the earlier behaviour: the init value is
+assumed, without a transfer.
+
+A get can now fill the cache, and the control core runs gets in
+parallel, so the callbacks take mixer->lock around the transfers and
+the cache.
+
+Control allocation and registration errors still fail the probe.
+
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Will Porter <mrwillporter@gmail.com>
+---
+Proposed changes to patches 08 and 10.
+
+diff --git a/sound/usb/mixer_audient.c b/sound/usb/mixer_audient.c
+index 30f2f20..ef8fcdf 100644
+--- a/sound/usb/mixer_audient.c
++++ b/sound/usb/mixer_audient.c
+@@ -210,6 +210,26 @@ static inline u16 snd_audient_kctl_channels(struct snd_kcontrol *kctl)
+ 	return info->channels;
+ }
+ 
++/*
++ * A cached value is valid once a transfer confirmed it: a read, or a write
++ * that succeeded. A probe transfer that fails leaves it invalid. CACHE |
++ * FORCE_SET without INIT_HW keeps the earlier behaviour: the init value is
++ * assumed, without a transfer.
++ */
++struct snd_audient_cache_entry {
++	u32 value;
++	bool valid;
++};
++
++/* Cache entry of element channel i, or NULL for an uncached control. */
++static inline struct snd_audient_cache_entry *
++snd_audient_cache_slot(struct usb_mixer_elem_info *elem, unsigned int i)
++{
++	struct snd_audient_cache_entry *const cache = elem->private_data;
++
++	return cache ? cache + i : NULL;
++}
++
+ 
+ #define AUDIENT_REQTYPE_SET (USB_DIR_OUT | USB_TYPE_CLASS \
+ 					 | USB_RECIP_INTERFACE)
+@@ -259,18 +279,25 @@ static inline int snd_audient_set_cur(struct usb_mixer_interface *mixer,
+ 
+ static int snd_audient_raw_get_one(struct usb_mixer_interface *const mixer,
+ 			const struct snd_audient_ctrl_type *const ctype,
+-			const u32 *const cache,
++			struct snd_audient_cache_entry *const slot,
+ 			const u8 cidx, u32 *const value)
+ {
+ 	int ret;
+ 	s32 buf = 0;
+ 
+-	if (cache) {
+-		*value = cache[cidx];
++	if (slot && slot->valid) {
++		*value = slot->value;
+ 
+ 		return ctype->len;
+ 	}
+ 
++	/*
++	 * Cached FORCE_SET controls are treated as write-only: an invalid
++	 * cache entry does not trigger a GET.
++	 */
++	if (slot && (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET))
++		return -ENODATA;
++
+ 	ret = snd_audient_get_cur(mixer, ctype, cidx, &buf);
+ 	if (ret < 0)
+ 		return ret;
+@@ -285,12 +312,18 @@ static int snd_audient_raw_get_one(struct usb_mixer_interface *const mixer,
+ 
+ 	*value = buf;
+ 
++	if (slot) {
++		slot->value = buf;
++		slot->valid = true;
++	}
++
+ 	return ret;
+ }
+ 
+ static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
+ 			const struct snd_audient_ctrl_type *const ctype,
+-			u32 *const cache, const u8 cidx, const u32 value,
++			struct snd_audient_cache_entry *const slot,
++			const u8 cidx, const u32 value,
+ 			bool force)
+ {
+ 	int ret;
+@@ -299,7 +332,7 @@ static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
+ 	if ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET) || force) {
+ 		buf = !value;		/* just make it different */
+ 	} else {
+-		ret = snd_audient_raw_get_one(mixer, ctype, cache, cidx, &buf);
++		ret = snd_audient_raw_get_one(mixer, ctype, slot, cidx, &buf);
+ 		if (ret < 0)
+ 			return ret;
+ 	}
+@@ -310,8 +343,10 @@ static int snd_audient_raw_set_one(struct usb_mixer_interface *const mixer,
+ 		if (ret < 0)
+ 			return ret;
+ 
+-		if (cache)
+-			cache[cidx] = value;
++		if (slot) {
++			slot->value = value;
++			slot->valid = true;
++		}
+ 
+ 		return 1;
+ 	}
+@@ -337,14 +372,18 @@ static int snd_ctl_audient_boolean_get(struct snd_kcontrol *kctl,
+ 	CLASS(snd_usb_lock, pm)(mixer->chip);
+ 	if (pm.err < 0)
+ 		return pm.err;
++	/* serializes the transfers and the cache, also between gets */
++	guard(mutex)(&mixer->lock);
+ 
+ 	for (i = 0; i < hwchan; i++) {
+ 		u32 buf;
+ 		int ret;
+ 
+-		ret = snd_audient_raw_get_one(mixer, ctype, elem->private_data,
++		ret = snd_audient_raw_get_one(mixer, ctype, snd_audient_cache_slot(elem, i),
+ 					      base + i, &buf);
+-		if (ret < 0)
++		if (ret == -ENODATA)	/* unknown write-only value: off */
++			buf = ctype->min.integer;
++		else if (ret < 0)
+ 			return ret;
+ 
+ 		ctl_val->value.integer.value[i] = (buf == ctype->min.integer)
+@@ -374,13 +413,15 @@ static int snd_ctl_audient_boolean_set(struct snd_kcontrol *kctl,
+ 	CLASS(snd_usb_lock, pm)(mixer->chip);
+ 	if (pm.err < 0)
+ 		return pm.err;
++	/* serializes the transfers and the cache, also between gets */
++	guard(mutex)(&mixer->lock);
+ 
+ 	for (i = 0; i < hwchan; i++) {
+ 		u32 buf = ctl_val->value.integer.value[i] ? ctype->max.integer
+ 							  : ctype->min.integer;
+ 		int ret;
+ 
+-		ret = snd_audient_raw_set_one(mixer, ctype, elem->private_data,
++		ret = snd_audient_raw_set_one(mixer, ctype, snd_audient_cache_slot(elem, i),
+ 					      base + i, buf, false);
+ 		if (ret < 0)
+ 			return ret;
+@@ -409,14 +450,18 @@ static int snd_ctl_audient_integer_get(struct snd_kcontrol *kctl,
+ 	CLASS(snd_usb_lock, pm)(mixer->chip);
+ 	if (pm.err < 0)
+ 		return pm.err;
++	/* serializes the transfers and the cache, also between gets */
++	guard(mutex)(&mixer->lock);
+ 
+ 	for (i = 0; i < hwchan; i++) {
+ 		s32 val;
+ 		int ret;
+ 
+-		ret = snd_audient_raw_get_one(mixer, ctype, elem->private_data,
++		ret = snd_audient_raw_get_one(mixer, ctype, snd_audient_cache_slot(elem, i),
+ 					      base + i, &val);
+-		if (ret < 0)
++		if (ret == -ENODATA)	/* unknown write-only value: minimum */
++			val = ctype->min.integer;
++		else if (ret < 0)
+ 			return ret;
+ 
+ 		if (val < ctype->min.integer)
+@@ -458,12 +503,14 @@ static int snd_ctl_audient_integer_set(struct snd_kcontrol *kctl,
+ 	CLASS(snd_usb_lock, pm)(mixer->chip);
+ 	if (pm.err < 0)
+ 		return pm.err;
++	/* serializes the transfers and the cache, also between gets */
++	guard(mutex)(&mixer->lock);
+ 
+ 	for (i = 0; i < hwchan; i++) {
+ 		s32 val = ctl_val->value.integer.value[i];
+ 		int ret;
+ 
+-		ret = snd_audient_raw_set_one(mixer, ctype, elem->private_data,
++		ret = snd_audient_raw_set_one(mixer, ctype, snd_audient_cache_slot(elem, i),
+ 					      base + i, val, false);
+ 		if (ret < 0)
+ 			return ret;
+@@ -534,7 +581,8 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
+ 
+ 	elem = kzalloc(sizeof(*elem)
+ 		       + ((ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
+-			  ? (sizeof(u32) * ctrl->hwchannels)
++			  ? (sizeof(struct snd_audient_cache_entry)
++			     * ctrl->hwchannels)
+ 			  : 0),
+ 		       GFP_KERNEL);
+ 	if (!elem)
+@@ -546,33 +594,44 @@ static int snd_audient_add_ctrl(struct usb_mixer_interface *mixer,
+ 	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_CACHE)
+ 		elem->private_data = elem + 1;
+ 
++	/*
++	 * A failed probe transfer must not fail the card: warn and keep the
++	 * control. Its cache entry stays invalid, so a readable control reads
++	 * the device again on its next get, and a write-only control shows an
++	 * unknown value until a put succeeds.
++	 */
+ 	if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_INIT_HW) {
+ 		int i;
+ 
+ 		for (i = 0; i < ctrl->hwchannels; i++) {
+ 			ret = snd_audient_raw_set_one(mixer, ctype,
+-						      elem->private_data,
++						      snd_audient_cache_slot(elem, i),
+ 						      ctrl->val_offs + i,
+ 						      ctype->init, true);
+ 			if (ret < 0)
+-				goto free_elem;
++				usb_audio_warn(mixer->chip,
++					       "%s: cannot set channel %d (%d)\n",
++					       ctrl->name, i, ret);
+ 		}
+ 	} else if (elem->private_data) {
+-		u32 *const cache = elem->private_data;
++		struct snd_audient_cache_entry *const cache = elem->private_data;
+ 		int i;
+ 
+-		if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET)
+-			for (i = 0; i < ctrl->hwchannels; i++)
+-				cache[i] = ctype->init;
+-		else
+-			for (i = 0; i < ctrl->hwchannels; i++) {
+-				ret = snd_audient_raw_get_one(
+-							mixer, ctype, NULL,
+-							ctrl->val_offs + i,
+-							cache + i);
+-				if (ret < 0)
+-					goto free_elem;
++		for (i = 0; i < ctrl->hwchannels; i++) {
++			if (ctype->flags & SND_AUDIENT_CTYPE_FLAGS_FORCE_SET) {
++				cache[i].value = ctype->init;
++				cache[i].valid = true;
++				continue;
+ 			}
++
++			ret = snd_audient_raw_get_one(mixer, ctype, cache + i,
++						      ctrl->val_offs + i,
++						      &cache[i].value);
++			if (ret < 0)
++				usb_audio_warn(mixer->chip,
++					       "%s: cannot read channel %d (%d)\n",
++					       ctrl->name, i, ret);
++		}
+ 	}
+ 
+ 	kctl = snd_ctl_new1(&knew, elem);
