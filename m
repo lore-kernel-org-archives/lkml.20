@@ -1,48 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577397;
-	b=x4mpvuOTudjM0dJrCBb7HX3Nzt3iGnZRQPJJkBZKvsmWYTOtZhdI/5FTbxdtGFtdu0Ib
-	 jSCqgLTREybZBxO3Prbzyvf0rdgfuMOc+wMrhU0qQpxiCDj94MVflRKmGoEsnuaPzXg01
-	 R+C+AKZoveYHGWkwTmBqKbQpjscBc2zPhzuCm1/veUzB42XRLOFhugDxdzkQrqnbbc6Up
-	 l6h2L07WiSf4vVAR3ngWu6BXlCeZn10zMoOr28gxLFYNpylRlF/HqCDTE8pZpvLXE+dsx
-	 AuYu2uqLdU4c60suYxdpIkh21Xaf02ByPSR3PBoXM7enkqat/VlrDGfWZapd2ZhQOVA==
+	t=1793577545;
+	b=csT1zoEF6B3ea+dnU9WbkSY1dF4wVCZwhXijW/fABFY39zdKTkXySbBpSiM/kKFmmp3X
+	 GfJaTWFzzzLUGZNjh7qFF/GwzCoU1yY6AXApikZrIh0I3EdNFR7SDBEEFfD9/zf8F3Qhh
+	 vtSYXtUHDTbsikRR5t4nF9Q7O9WZb07wiCI3o2KwpGuPcmHRbloTv37mDUsVsodTsRI/9
+	 cvcBRF6fGFJ/4SYS6VGHBbDYEK/U+HmbVW03iCYH5+iW0TbrgYEDZezyY5bxZZ6dOhMIO
+	 yJM3VhogjCULwhykSnQyOPD1jpBTStNuaMP9n/+VSZCQR5DUwbMcGdkVuZ3hp5/3suw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577397;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=+AAZ+EVzgHbvUtqw5ySjJ+voYqrjmDiN/ge+wXZic4g=;
-	b=DmuPVf2CssR7r1yPSeBmWmyS7cDowqzU5fgAMUqRtt8vAXw2gqaJ7nLMEfzIVrwUdvLO
-	 XJzPqZD2O/1G5yMppyqrAazrB6yjt5Bjt1wPg0AUwx1sQ1cPPFvM7ekSXoJf22vmP8ECx
-	 oPR6dWLPPswXalhYHWsVoj5p8ArpaojRNnjri2AeumB3ePVTz0VaX2jWrnsnmTMXlGIxI
-	 1b1wEsIMU+7DibLAwDb/3wXpz86GO8Rzmxg3fOwMCtiZz3BQE7c/po5cUVypUUND57G4u
-	 aQGLvgyhpiFmQRnlHVDnIlIRdVbwgPjDravmdiabrc7OuHdT9bFapWD2bfTIHHBPXWA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577545;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=jh1fZf1WMpFl+qFotAlD4ZYQpf446WysxTR0+g8y2sA=;
+	b=pgPLMBCWXES9439NaLNZJSFXTGjvPavqRocnTtMgYiExbO4WtHd5Z9jBqJmjHV9uElBb
+	 lw+L32f7CT21+3m6NJeQpXkSj5Iyuj+xhI6mwW+RQ/mlihxY+PqfO5TzbZ1OE9Nsn/FuI
+	 ghqHC331BXCfpugHmQQZ3pK/3esyCntPc7KjjC6LHU1ncrmjIAX8CWBRPtSBp2qHrKTk2
+	 NVjNfjR7FekUc+Hhivaj3a6m7ig9x6FDIEWG1zbs8Gts2YGiiJJzZoCHl3SFLJKJvZ5ye
+	 bdJ8BWdOqd/U+UXOG2JJ+A7M+rgo4y9iInWwl+ciew4F514d5lRBStoMvgEz8FkGD7A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7W6LA7N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C358606A324;
-	Sun,  1 Nov 2026 23:56:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d7W6LA7N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C3C11F000C1;
-	Sun,  1 Nov 2026 23:56:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793577397;
-	bh=+AAZ+EVzgHbvUtqw5ySjJ+voYqrjmDiN/ge+wXZic4g=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=d7W6LA7NOHh53J9ApT5nBM3eF8JJJ+9ADWgqq3AuElOWEzPhhyLdimZht6FVdhgA6
-	 ps7YmlBr+ZZ/lMtFrqLIjV2RmlkhfoxNO80/V5wNsN9AHkFTVl1K97/IuLqCbrBUbL
-	 oo93ovmtO5Qe2uvU0DZA+yRWvsn62XFPZ8SIbFLHXIIGymaE1b41TdPOF1rezA8I6c
-	 W0/KIzQMI+aWNAAdcHcXvEfnpTrsBqPx8lIUDCfHWp+VvmvTPlHwDaecWgK8pDTKGS
-	 /ejwnlbAxitGYCYQUOeqYkpYWWMHgspNfXw1cHARkFp9hqE2TkbxkowLMgcj3bz9zO
-	 JEOojoLiBgfkw==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id E91D021426FE;
-	Sun, 01 Nov 2026 23:56:34 +0000 (GMT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52FE9606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:59:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52FE9606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-5640a2d9708so3473674b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:59:05 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793577544; x=1794182344;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=jh1fZf1WMpFl+qFotAlD4ZYQpf446WysxTR0+g8y2sA=;
+        b=NKc3dXOPyjyRP5eHaKaorekQdsRZzl2gj12xY0hg7TPbyfKIejPshnM6adB+cLqddt
+         hFnLAFpwFAhhkegImyuCww2Lc3WLacL+lWlL01zhXIvdTKrmnrOxzfTT3H2E3H+5Fh0+
+         a2lZBcGODYNZRCK/FGVl54tQ+kerlmxu0TtA3Uca4NkL0NwMoEv1vqV/baw9yf48RkSR
+         st3OXvOyujl5VkPhQ0kksaDClz6Ib/ecuLI61VMUiCJ1wtxeC+T9wsdqmDChhNFtIwoL
+         +O5Wgx+JD0E/xyoB/BbY+Xt/xej35vj+orVGqe+Dv/8lwZaeXWjy4DHk6RVkxAhtXHIp
+         iZSQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHyYWZCVHtc1diBEgEkTGNVcvrL+qo6K/y0RXUSq3qieuR8CUp6+4m8BX9TMzBLdTukRdz3YV23e9/lAE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaaqEmJy3CxVNPFQvU1iOTUmbwFlbuWCQaGZ6sT20C1aGnkK9Y
+	YSQHb1gBIcOc10jR64ktAqbd1+fcncYUl+amaKfYEaHUABb36l4eP1IYrAuQWnJ1GZBXkfqGgDG
+	MCBiwfEJp5ks6GRxz3BggwTYvvmkw1nSA4mFARAXjpsReZqfnDgwOSHZ4TYg=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,39 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] ASoC: mediatek: mt2701: join the IRQ before managed
- cleanup
-From: Mark Brown <broonie@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
- Ijae Kim <ae878000@gmail.com>
-In-Reply-To: <gm-top10-20261015191529-g154-c729db287fde@mhun512.gmail.com>
-References: <gm-top10-20261015191529-g154-c729db287fde@mhun512.gmail.com>
-Date: Sun, 01 Nov 2026 23:56:33 +0000
-Message-Id: <179357739313.1716893.14542829236371668404.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=340; i=broonie@kernel.org;
- h=from:subject:message-id; bh=7pcJBRynPms1NcRxsn5UpS1LOfo/KsWlsoodRvRXnSU=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKeX9xUtkxh3ok+w0OHn2bvkzJXsju6vevTpj2b9v9a9
- 9Rx59b5FR2lLAxiXAyyYooscVncL+tLXq/hO7iwDWYOKxPIEAYuTgGYSM8Vhr/Ssw9PirQxiVSN
- W7In75dI4LuMC3Nq5nevnVOqdbfUcdYjhv/Rf6Ye2yvYJXeZxffcY4ag/QceH3xvM+WB3smXdo1
- Jnx7zAQA=
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+X-Received: by 2002:a05:6808:c3d5:b0:53d:c86f:d332 with SMTP id
+ 5614622812f47-5640ddf9e52mr5937770b6e.22.1793577544347; Sun, 01 Nov 2026
+ 15:59:04 -0800 (PST)
+Date: Sun, 01 Nov 2026 15:59:04 -0800
+In-Reply-To: <20261101203618.146-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae7d248.7fe51036.1ecf7.0031.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] KASAN: slab-use-after-free Read in v4l2_device_disconnect
+From: syzbot <syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com>
+To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-> The IRQ is published before the handler's arrays, regmap and clock state
-> are ready. Remove drops the PM reference before managed IRQ release, so
-> a handler may also overlap clock shutdown or subsequent resource
-> cleanup.
+Hello,
 
-This doesn't apply against current code, please check and resend.
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
--- 
-Mark Brown <broonie@kernel.org>
+Reported-by: syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com
+Tested-by: syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com
+
+Tested on:
+
+commit:         6628e7d4 Linux 7.4-rc1
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=17327a2d580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=1d2c97eac7d33533
+dashboard link: https://syzkaller.appspot.com/bug?extid=1e71765881a6fc43185f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=14fdb5e1580000
+
+Note: testing is done by a robot and is best-effort only.
