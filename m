@@ -1,107 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793556343;
-	b=QJc79OSTJRiO0xv/XIEq/oC+NPEhAwuuqwKlyN4PYyyaMP9tPnhAL4A/WXg88M09L0+h
-	 h4YcUQrHQ8cTdj7SCvNibP84xOCWYkGszbdiMYZ7nCjpg8BvYLJpi+Imb9FhSr1cR3JOr
-	 IC9auZmszEsimkKhzIecMuyyGVzXm63xv1vg6L33uQJv/w4x9+VYPfn55MiTLHsXmKpWl
-	 /1RLmnO4tDZ13ZqcLdk5dwxD4O2PO5t8HO12cSAAMXmtgt2S0oB+VCZaaRi39llZoVPW4
-	 Jacgn4u8oHfgsupbhVcbnCiwUND1KJB0ZKNbMpLtGzzlyE1LxjifcnZovFlsM1N5Taw==
+	t=1793556408;
+	b=htwGCe7DuwwObu47lEpNVPjj71XagpLDepDhVCF7GasdlcXa6OxsGhps4MGX8JGlAHg8
+	 cbNzCAlYCZF0wRtgk6w+eBvckqfoR5LqjUwRAhJOupL+Rjc5ZtEXZOb4o28gjBQ8Lh5sv
+	 nvRvWpRUG8euadbloFjA5P9nlqOCgqDynSIvdC/SdjHqM+2NL6FwcGeIzIvPuHJw2IJM4
+	 1YABsz06bP8PlSJ0shtcspRR1Lbe9UH9kXKdJvHomeKCDAONATLeor9STlngov9dGgzCK
+	 /NRvBxZ8FAlITV+ONaL74gxm0+qpugr891gneyqrfHABeHmZghf/xANTvIu+K8S75gg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556343;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
-	b=CcfDxF/K31TvwJltodelRwiWilNPumQbbme7QlGUqnbrKP2qZJuPHMy5jcn+GIP8DFXr
-	 WkBApSToTkAyJCampbmBbHGke0S4OY47epwSPSz7XQ3+uvI2pABsLbmqWYbl0rMojvqA+
-	 V6l4/oXcEpmNaZjJBPal3D4dKHY4Yb0m48VwdJ6TNyywehmR39qL3yhKYhe/YRj4h3Oly
-	 eirNYr9zCx3UP1396UKY2K31izlu8W0kgXkrZULI5VG6fZ1sgNMME1smb1pTll4bFG0QP
-	 pjtEiAYQgu53IZrI32EM99j6IDw/DvYlWskX4AgS2PYQlCoqdazuUTL9g1bHi/4PV9A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556408;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=HxzxY68LFgsEqhESPA9sAtt7IItE63uFTt9H+9KAsqY=;
+	b=z0SdfiVaX5TqPtThS8hSddjruqfypxizo8g8rnPm/6D5DxoM9A6Ws6B5oTwkBphQlN9Y
+	 0EosLe2Ql9qcCuPrvjWtx3/7/Yo6XslyMT+Fhe4141FvWy+BavA68rCB5GXzyApHy7tOj
+	 Xejqdbw0xCIGEi2tmbDpiurj+bQ8ydd+dm78yFICHVA1AXOWujHaoFDQVJEFJArM/lqS4
+	 RItGBtP+g/0GVRgI8Zp7BryvHOeXSOg7CH+WZHJdGIYIUVJSRyqvQ/S7yolXIqeDNSEDr
+	 2ZTXqkwjELhzyQDVgxatyfOanTrIQWElmm8XwLaCKrxzIO/htgHH+59w4BKHEhDsU7Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bidSSP03;
-	arc=none smtp.remote-ip=209.85.210.170
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87YTrAl;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BBFA606A329
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:05:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7BBFA606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD9F2606A324;
+	Sun,  1 Nov 2026 18:06:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bidSSP03
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8a06cc097c7so1548120b3a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:05:43 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793556343; x=1794161143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
-        b=bidSSP03obNuDoC07GZcasZYOz1qc2TFNIOGi8OCFFs6elFzrTRBTNpDPm3/wlcwq+
-         ZjhG83xHea7YSiCuBjODLd0bFgDHwRsmYj1fkQgM9Rkzfn9oKrJFQchAECzLAVZmO3dn
-         KCUo1b8GanmcWIQoccM8tD1WYT0iXhJ+MpKeCLlXkgQ6JBs32SahI4R7EHDMvyWTFWZx
-         jFWaLW/OMpUFRZxlwl/EnS7p6Xzydd7ps2lXQsdC9X5vIMYXSF1AjyKlmsknBykm/2Cn
-         3ieR0TfANAnWHIiHG/2vjKF/r/oKwa0XR4W69fPhi8t9nC0/1NhLc4ZjFlKXh6ZDC0gR
-         V7LA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793556343; x=1794161143;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xkS6xbmE+ewGMYaLKZHzgOXG3y/RT/Y6ukuGmQk4oP0=;
-        b=Q8ths7KAj8LaNFmzjljCgZwY4Uk8BFm+CABOriVXDCTLUq+qUGhjFyBATOW5Cwq45+
-         a4t9uk/hxTud+ntdw2MK7hdX2bYgoLyjegqqrNnWqSeLm4Pz1ZSJgwjX4vG/OmKONDcj
-         xC5EEH3w7qVBnFA1e0WkRO99alLRQzlywl74q4TW6hG0qiSRj7CjIAOvDJwdQQ8XKovN
-         3wKOxf6EMKl6lrxlXNPKa4ikv8udh9PlKLqBRcnRGpxIejuJWjtbOe9Kuw5bUUTCnXm1
-         ARy261CyH7O8U93B+7gViP8pcMhXCfny0xm7VVQlpt85ViZ6pDqbGmfwAX/zec+u3Xvt
-         4iuA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFfZQ0HD5gVDedsGb/XrgMlIoX/d6UA7Y85yBKMJWB0QWU1NFs6aILswi1JuvEmLuxRHs2G4repSklj1Y=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLqr5kWT6Bb4EhKUX/C6Slyexn5LgfiWcCdiXEmRviMAAtVBXID
-	RmTkXOSQr4P/v8QPEt6PgUeIq2vZBBHmPfEBAvGjvIEY2QY1Q3dvXcJU
-X-Gm-Gg: AYBFou1P4gUtqpWR2c9ML0UEoKrV1c/W6RGiNQYWfJhbNapPMKUJCdZFcQR8FaWvbA0
-	Cm2EQ7K00iBjyC1SUy0lVwXDkrjW2/+n7ehyuWiGvRbN1wZG34yCmoyTFK6Ij/A7GiXze8r4rc+
-	F6WjES2ky9eQlBkqU4ELjPhdKIG7PiaBZZXInGWEvP5kL6kS4wejuVOUR0PmZNtX/hY8/IH/Kvv
-	P3TVz0+JNh92CjA36R6RPPT6IC+aweQZwAGuUAwNDfqJFFP/3qoCriJ+N/ChUs8AUaZ4HxbAHBD
-	NHisx/xNO/zlm7UKyfjA/YsMlGPuEFKczxVG0AALe+nh/L+kZoKfisG3heVgtXhJuKntpPBkfef
-	PWDJbWrv1uwsaYTtE1oyI/P0T1f2Jx411CSv5AUZCYH1YBs1B61O6TetP5wQSdFkh1woXIi/Qr1
-	q9paaX1vtoyuWBhkmpA42h0u+bFn9+S1GVLOc9oWmdLkfI5Z1TvlIgTtt5iIuZdGqJXqoc39dp3
-	rI5qyfAb6p6okYsJYjcMIvUx/CViUynvLiHlbLYtcPm65cOFbItQvU+4jRI1nVzIaWFzyvOjZvJ
-	Gdqxt7gc/xzdln8+0fBwjwU=
-X-Received: by 2002:a05:6a00:181b:b0:89d:eb23:4e83 with SMTP id d2e1a72fcca58-8a9beb67de4mr6450461b3a.30.1793556342787;
-        Sun, 01 Nov 2026 10:05:42 -0800 (PST)
-Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8ac269b8805sm446544b3a.44.2026.11.01.10.05.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 10:05:42 -0800 (PST)
-From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sean Paul <sean@poorly.run>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Connor Abbott <cwabbott0@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] drm/msm: serialize devcoredump reads of the crash state
-Date: Mon,  2 Nov 2026 02:05:08 +0800
-Message-ID: <20261101180508.66598-2-nicoangelodelacruz@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
-References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P87YTrAl
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114FE1F00919;
+	Sun,  1 Nov 2026 18:06:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793556407;
+	bh=HxzxY68LFgsEqhESPA9sAtt7IItE63uFTt9H+9KAsqY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=P87YTrAlXtY6yTL6IVaei3/kaOV+qmy3YbWBNzzuWpy6WjTbgurONXks1pqV4mNXE
+	 sjx+eMH2lRrqVYZ3Qey6G/C2wLfO0ioCJT1AB6p9lfed1xj8TuR5exgKhAS34ch0DQ
+	 7ZeOyfroZovcW2qm7NL284hQ0fA9Dk8ZvfaThRbuetPVLL47299bI/PRTcyp+YpRXy
+	 hoDmoM1ZYfLiuJxS2JLxvOWieRcYZd8nDP3siIJvITvLQm1HSbHbFEJwIQOUei5CtQ
+	 iJ6LnvDsJn7n/zsjHQBQALkhshFdyERjBQEZgyz+yHA3R82UEVDQx6BGLRd64Bd/qP
+	 mQpNUJyNXD1eA==
+Date: Sun, 1 Nov 2026 18:06:42 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Patrick Fischer via B4 Relay
+ <devnull+admin.tsv-stahl-riesa.de@kernel.org>
+Cc: admin@tsv-stahl-riesa.de, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Kevin Tsai
+ <ktsai@capellamicro.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: light: Add Capella CM3217 ambient light sensor
+ driver
+Message-ID: <20261101180642.1768c3f2@jic23-hlaptop>
+In-Reply-To: <20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
+References: <20261101-upstream-iio-cm3217-v1-0-5e1724cae7b7@tsv-stahl-riesa.de>
+	<20261101-upstream-iio-cm3217-v1-2-5e1724cae7b7@tsv-stahl-riesa.de>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,109 +67,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-adreno_show_object() converts each captured buffer to ascii85 the
-first time the crash state is shown, in place: it checks *encoded,
-replaces *ptr with the encoded copy and kvfree()s the raw buffer.
-msm_gpu_devcoredump_read() only takes gpu->lock around the reference
-get, and every read() of the devcoredump renders the whole state
-again, so two processes reading the same devcoredump at once can both
-see *encoded == false and both free the same buffer, or print a
-buffer the other one just freed:
+On Sun, 01 Nov 2026 15:46:07 +0100
+Patrick Fischer via B4 Relay <devnull+admin.tsv-stahl-riesa.de@kernel.org> wrote:
 
-  WARNING: mm/slub.c:6733 at free_large_kmalloc+0xb0/0xf8
-   kvfree+0x44/0x60
-   adreno_show_object+0x190/0x240
-   adreno_show+0x1d0/0x438
-   a6xx_show+0x68/0xbd0
-   msm_gpu_devcoredump_read+0x144/0x1f8
-   devcd_data_read+0x34/0x48
-  page dumped because: Not a kmalloc allocation
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> 
+> The CM3217 has no registers and no ID. Writing a byte to address 0x10
+> or 0x11 sets command byte 1 or 2, reading a byte from 0x10 or 0x11
+> returns the high or low byte of the 16-bit light count.
+> 
+> Command byte 1 holds the shutdown bit and the IT_T field (1/2 T, 1 T,
+> 2 T or 4 T), command byte 2 the FD_IT field (800 ms down to 66 ms). The
+> count scales linearly with both. The driver exposes FD_IT as the
+> integration time and IT_T through the scale, so the scale list offers
+> four ranges for each integration time.
+> 
+> The datasheet is not public. The bit fields, the reserved bits that are
+> written as 1 and the startup setting of 2 T and 100 ms come from NVIDIA's
+> downstream drivers for the Tegra Note 7 (drivers/staging/iio/light/
+> cm3217.c in the 3.4 and 3.10 kernels). For the resolution, Capella
+> gives a range of 0.01875 to 119156 lux. The driver takes 0.01875 lux
+> per count at 4 T and 800 ms. This matches both the upper end (65535
+> counts at 1/2 T and 66 ms) and the 0.3 lux per count that the NVIDIA
+> 3.4 driver uses at 2 T and 100 ms.
+> 
+> The sensor has no data-ready flag, and a new setting only takes effect
+> when the conversion in progress ends. A conversion takes IT_T times
+> FD_IT, up to 3.2 s. Leaving shutdown starts a new one at once, so the
+> driver passes through shutdown on every change and waits one conversion
+> period plus a margin before it reads the count. The timing was measured
+> on a Tegra Note 7.
 
-The dump also changes length between reads, so a reader can get a
-short copy that ends at a page boundary.
+I don't think we have a current active Capella Micro developer on the
+list as it's been a while since I heard from Kevin Tsai who contributed
+drivers for them, so your approach of using the vendor driver as a
+guide is probably the best we can do.
 
-Seen on an Adreno 830 with IGT's msm_recovery reading the devcoredump
-while a udev helper copied it out: 16 such warnings in one boot, none
-with this patch.
+> 
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+A few comments inline.
 
-Add a mutex to struct msm_gpu and hold it while the state is
-rendered. Only one crash state exists at a time, so a per-GPU lock is
-enough. gpu->lock isn't used because a devcoredump reader would then
-hold up recovery and fault capture for as long as it takes to render
-the dump. The new lock is taken after msm_gpu_crashstate_get() and
-dropped before msm_gpu_crashstate_put(), so it never nests with
-gpu->lock, and it is taken interruptibly so a reader waiting behind
-a slow render can be killed.
+If it is really hard to precompute all the available values, then
+we can probably get away with not doing so.  I don't think it is
+though and picking between precomputed sets is both cleaner and avoids
+a race if we ever get light driver inkernel consumers.
 
-Fixes: 1df4289d5b23 ("drm/msm: Optimize adreno_show_object()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
----
- drivers/gpu/drm/msm/msm_gpu.c | 10 ++++++++++
- drivers/gpu/drm/msm/msm_gpu.h |  8 ++++++++
- 2 files changed, 18 insertions(+)
+Thanks
 
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index fded78fdb..428dc9666 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -191,11 +191,18 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
- 	struct drm_print_iterator iter;
- 	struct drm_printer p;
- 	struct msm_gpu_state *state;
-+	int ret;
- 
- 	state = msm_gpu_crashstate_get(gpu);
- 	if (!state)
- 		return 0;
- 
-+	ret = mutex_lock_interruptible(&gpu->crashstate_show_lock);
-+	if (ret) {
-+		msm_gpu_crashstate_put(gpu);
-+		return ret;
-+	}
-+
- 	iter.data = buffer;
- 	iter.offset = 0;
- 	iter.start = offset;
-@@ -214,6 +221,8 @@ static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
- 
- 	gpu->funcs->show(gpu, state, &p);
- 
-+	mutex_unlock(&gpu->crashstate_show_lock);
-+
- 	msm_gpu_crashstate_put(gpu);
- 
- 	return count - iter.remain;
-@@ -914,6 +923,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	gpu->funcs = funcs;
- 	gpu->name = name;
- 	INIT_WORK(&gpu->crashstate_free_work, msm_gpu_crashstate_free_worker);
-+	mutex_init(&gpu->crashstate_show_lock);
- 
- 	gpu->worker = kthread_run_worker(0, "gpu-worker");
- 	if (IS_ERR(gpu->worker)) {
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index db9e11e7f..9b683973b 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -264,6 +264,14 @@ struct msm_gpu {
- 	 */
- 	struct work_struct crashstate_free_work;
- 
-+	/**
-+	 * @crashstate_show_lock: serializes rendering of @crashstate for the
-+	 * devcoredump.  The show functions convert captured buffers to ascii85
-+	 * in place on first use (see adreno_show_object()), so concurrent
-+	 * readers of the same dump must not render it at the same time.
-+	 */
-+	struct mutex crashstate_show_lock;
-+
- 	/**
- 	 * @recovery_in_progress: true while recover_worker() holds @lock, so
- 	 * that fault capture and GMU waits don't wait on a fault devcoredump
--- 
-2.53.0
+Jonathan
+
+> diff --git a/drivers/iio/light/cm3217.c b/drivers/iio/light/cm3217.c
+> new file mode 100644
+> index 000000000000..9e0e9afee092
+> --- /dev/null
+> +++ b/drivers/iio/light/cm3217.c
+> @@ -0,0 +1,383 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Capella CM3217 ambient light sensor driver
+> + *
+> + * The CM3217 has no registers. It answers on two fixed I2C addresses:
+> + * writing a byte to 0x10 or 0x11 sets command byte 1 or 2, reading a byte
+> + * from 0x10 or 0x11 returns the MSB or LSB of the 16-bit light count.
+> + *
+> + * Copyright (C) 2026 Patrick Fischer <admin@tsv-stahl-riesa.de>
+> + */
+> +
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/device.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/ktime.h>
+> +#include <linux/math64.h>
+> +#include <linux/module.h>
+> +#include <linux/mutex.h>
+> +#include <linux/pm.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/types.h>
+> +#include <linux/units.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+> +#define CM3217_ADDR_CMD2_LSB	0x11
+> +
+> +#define CM3217_CMD1_RSVD	BIT(5)		/* reserved, set to 1 */
+> +#define CM3217_CMD1_IT_T	GENMASK(3, 2)	/* 1/2 T, 1 T, 2 T, 4 T */
+> +#define CM3217_CMD1_WDM		BIT(1)		/* set to 1 like the vendor driver */
+> +#define CM3217_CMD1_SD		BIT(0)		/* shutdown when set */
+> +
+> +#define CM3217_CMD2_FD_IT	GENMASK(7, 5)
+> +
+> +#define CM3217_IT_T_2T		2
+> +#define CM3217_FD_IT_100MS	5
+> +
+> +/* 0.01875 lux per count at 4 T and 800 ms, the finest resolution */
+> +#define CM3217_NLUX_MS		15000000000ULL
+
+Use a muiltiplier for that definition. Various ones in units.h.
+I haven't figured out what makes sense, but that is too many 
+zeros to eyeball!
+
+> +
+> +#define CM3217_MARGIN_MS	10
+
+
+> +
+> +static unsigned int cm3217_conv_ms(struct cm3217_data *data)
+> +	__must_hold(&data->lock)
+> +{
+> +	unsigned int fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+> +	unsigned int it_t = FIELD_GET(CM3217_CMD1_IT_T, data->cmd1);
+> +
+> +	return (cm3217_fd_it_ms[fd_it] << it_t) / 2;
+> +}
+> +
+> +static void cm3217_update_scale_avail(struct cm3217_data *data)
+There are some unfortunately complex race conditions around
+read_avail where a consumer driver (iio/inkern.c) can hold a pointer to the
+array and there is no visibility in the consumer of the fact the
+data might be changing under it. The concern isn't so much getting
+wrong values as getting torn ones as the writes are occuring. 
+There have been a few goes at solving the race generically but none
+have landed yet.  Generally avoiding that sort of handoff of
+dynamic data is a nice to have and often easy enough to do.
+
+I'm not that concerned for a light sensor as we have no consumers
+in upstream anyway, but how bad would it be to precompute all possible
+tables at probe time or even at compile time, and then just pick between them?
+
+> +	__must_hold(&data->lock)
+> +{
+> +	unsigned int fd_it = FIELD_GET(CM3217_CMD2_FD_IT, data->cmd2);
+> +	unsigned int i;
+> +	u32 rem;
+> +	u64 nlux;
+> +
+> +	for (i = 0; i < ARRAY_SIZE(data->scale_avail); i++) {
+Might as well do
+
+	for (unsigned int i = 0; .. {
+	
+
+> +		nlux = div_u64(CM3217_NLUX_MS << (3 - i), cm3217_fd_it_ms[fd_it]);
+> +		data->scale_avail[i][0] = div_u64_rem(nlux, NANO, &rem);
+> +		data->scale_avail[i][1] = rem;
+> +	}
+> +}
+
+
+
+> +
+> +static int cm3217_suspend(struct device *dev)
+> +{
+> +	struct cm3217_data *data = iio_priv(dev_get_drvdata(dev));
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	return i2c_smbus_write_byte(data->client, data->cmd1 | CM3217_CMD1_SD);
+
+Given this lines up with the power off callback above and the start of
+the write_cmd() sequence, maybe have a little helper to put this write
+command in just one place?
+
+> +}
+> +
+> +static int cm3217_resume(struct device *dev)
+> +{
+> +	struct cm3217_data *data = iio_priv(dev_get_drvdata(dev));
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	return cm3217_write_cmd(data, data->cmd1, data->cmd2);
+> +}
+
+> 
 
