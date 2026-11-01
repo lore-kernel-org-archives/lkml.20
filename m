@@ -1,109 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793519163;
-	b=IduMn9aau28HieehsCv4uc2UxnJIVloNk8bNdeyrUC45cYEiXiyxmponDzWRK73udX1/
-	 njXVj1Ms41StAst8dFqEnjRxf+u5LQPXaqbDO7SYid7dw5NJz19lJgwBYl+uKY2Wyjm5d
-	 afPLYjEcvRPWn8wVAcnSwlDqNDy+dX9EimEFVg/iejaErNSlpgqKDnxsLd2E3CW7toGke
-	 hXmsgnwbZIO3bO3wkHknCvHdBD/CAXgCiTbcfYI/7VL8Tu+g6VsZLQflcIbRusni5Wnp9
-	 BNTgKwly/TFba03b3UBHU6KZzqrwesBU95qStHUj41cLrlIPYtBuwVCWPcLvPkVKnRA==
+	t=1793519589;
+	b=odkp9i7xjivtpLijt8Id2dmUjco6bmOouWXOcBdc683xFoqgZYSWeakNNqb1n0xPMPXL
+	 M7U26c8I1Kb6NvWUATp9AZPwShOywJYERBEbbFcxwjIfgNzEfGuYBIoYeYITSHhOOV/Tr
+	 012EEQhsSuC+/BIp6bjGnQjBc7NaY2culb3jbI9NQgqArv2X0pOBTzywjTC9yWsrP3Ts4
+	 WaSoRjv7wo39orNukqK0C7TTrfz37iB2VnEEk0DtOluKcJIA2jTJauDjiMtlUwF/b/49f
+	 ngaAD9V+U5+nX40YPLWfw32yjxaBCDZgMGf9671BK+ALLzu2BzPJtb7odYQWLzLc0gQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793519163;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793519589;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=SAR00vszMy7Oo8d4FC1bVF4Fi2pxCcoHYlztJt6Lr9s=;
-	b=f70YZTDN7YP0cgIlVnyIxSyL9hzcWL7lOY2VRv0an5cPIeZawIaOSPXKEjHwhnJb1Tfs
-	 GxYoKxsYbV/APW2n+RvpU+xnOlOpZAjYICndDUwq8j+P0MWgqA5fjxydLcj3qRJS8A0EB
-	 whQ5FBDXRkNXYvaDQ64wiZ3p6/Eoesap9UpnkjL6hSlT1XtOqknYBzrjOYd4+st8wVfeS
-	 4myXA12Dv6YgUgU7gl/FxsC5mo6McByL/YqH2ojjdu7UwqoQGnb/4/WONovN/VvcJv/92
-	 0ezKNqJPg6p7eLqscAYJxEvbvM++oGmFm09Dt4d9dQhJIkSFSLS4Z1SUyv7KrRqrmLQ==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
+	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=OuHPb5BnUNYHQ7S5xQzTpeXYGXd1c8j2VbkTuL8vhYQ=;
+	b=4KVNRgjrFUDyiky8P6P9Gwrnj+sEeXHeU9k1XAG/zrK0Ou0mmftjDmagL069sKmKDr4U
+	 pWNZb1hofuRH9vqKzk/yeWZo/rqgn92yU8IxrmrdJVnzdeqPPBX7y7GSVyP2QvltzqvY8
+	 UZ1Qhr1DzX2OgLUrtXXustMvy28AJOayL+5HO6P9/zTCAGUCBcG3Q2O2edTRrtCq/5KM3
+	 z29yetCdW7cS+Ryvh1okwW2LnK6Gv9ncDLCTpdxdQXhaJGVv6/lQd8w2dLyJ6QIIXJQw2
+	 SyfH4WxbZGxf5VRaddYNdjM631IQ7HpIPhHbvQPSuKcIJcJaFjsIkCHOSPA2IsBauoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="VRK6u/rG";
-	arc=none smtp.remote-ip=74.125.82.174
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--sgzhang.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=T5AkWNou;
+	arc=none smtp.remote-ip=209.85.216.69
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830AC606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:46:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 830AC606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6BC2606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:53:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B6BC2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--sgzhang.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRK6u/rG
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so2500054eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:46:03 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=T5AkWNou
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3adad90c894so2285707a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:53:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793519162; x=1794123962; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SAR00vszMy7Oo8d4FC1bVF4Fi2pxCcoHYlztJt6Lr9s=;
-        b=VRK6u/rGWl+iWQBWtPoSfwsH4iYy/wckEhB4cNLAeRElbupKkNN6SFHTATwzvhkoCC
-         j+aeCJ3s4CUCUG8nZxCzuQCjitQCYD0NljeYZq3pKGDld+7dm+Kr6sOzXv2Pb+lHuvIu
-         ywTWGHkvUJdVo5PYCIhFjPpOqPnl1BDgyFcWpgeBMiZHvBU7UfnyjF0csD3fy+u3wz8u
-         e6Z5J7+1tR4vfUAL6YDsyAXJLIXUHmHXaRATLoHLbEWocm4CdM5K7pmTsEM/LYAy4JWb
-         kr19gZFthfT+5QNjKVO0aAlDSEoP8j9tFURACZyLhSKrtUyUeTJ3Hff018ljzysZiALR
-         O03Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793519162; x=1794123962;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=google.com; s=20260707; t=1793519588; x=1794124388; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SAR00vszMy7Oo8d4FC1bVF4Fi2pxCcoHYlztJt6Lr9s=;
-        b=Eq6Zw0Ezrnt+71C8nLF+4XvEYLEHYLm7JIupGb8cd6Xj7fHZzBjJGbi/K7MZxhLDDo
-         xpBmnn1KBkhgtiR12/P2yRYlxIuVBIpn8Qr9Za680lm4s7iOnbDfXIA3qwLjAeJqb9ZT
-         9glru2Z6kMkvIgRujMeKrUuK/6EWA1VplyTAWqAEPBp5ZpmhJb3xT1OsnXvyKyrB12y7
-         5IA1A2tw0d/ZfRQql1shSxF5c5v7xoWJULiZ0aCnJJ5u8gxBM4piEwGZfbo3vZu5yrzB
-         usxGqsiOQFfpQXOdly5DR06UZDdee+AT1J/4Vje1l3+/MkRArCuzMilCfTD11/6mC2ii
-         KJ2g==
-X-Forwarded-Encrypted: i=1; AKwUvBwDkuIIXgz/iHUE0/bC1PIUz4g8SPdpcIeUylj2rVxJmOP06fIh+pfU1MzTfRDAqoR0OgjqOE9aY9yPqmA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+XOrfj2hSDtWeW4j0ejjfmUtrMiIqaKFZSQcBnjU87gFOaiZiK
-	9Rv4zAWsflKFTPym+i7l4wjElZe0v0VhnSriuJ85nj+PiUycMIKp8EFI
-X-Gm-Gg: AYBFou0AxTVyOVDSNr5FV1StFdf2YO7U+2uXWv4joGelLfKBqMai3pFPnWMvvwWFVMW
-	yQHpJEqN/8WC9/QzdrYQfjreBnOT0zDao1rBwPo+J8bzHqOhIaTl/6tyYE8oTkrpWHxGjYmrWbN
-	rlqfm7s9D3VA2nqo+J8D1jx1KGew3BqWKYQHPWYLee63zh23zuf4+pUJ7mcONlOMB1stI2ZJhx7
-	KA6+z92xnpTfdmPmZvY3AZr6MsIt9X6fP5q45AShFoUBWt0XvfsEOTkfDGAzP42g2JBOwR4e+xh
-	wy5lv7VSb6u4BEFAkW2ExXyA9lBr5geHg1hpat5VhdhHEQ5va4PLng0noy+CwrojjOja1cN+sTC
-	DGX7Ush2r0h92tTr7Bt7rDc0G6yJP/HhA7KB6DQUQTLZXcYjquWixXxesdVOB34ZsjhzkCOSn6w
-	ErD0lM+0R7edVqDvNnAzO1ZzawRKy4N3BS4aj7exbCvcN1J7M1fFZC9+ADBdtrVRRPUmjNgGeOD
-	pbUvX2/Z11R+Of7x21HEEXFLVgBOLEQ5HTbsAO7xPcq+poFtkYcZ3WE11JF8OgiO3AfcKvCuX/I
-	qDKtyvCZR/lZ7/oAiGPC3PiN8WOp94K8tYraq6Dl
-X-Received: by 2002:a05:7300:fe86:b0:35c:85fa:5a68 with SMTP id 5a478bee46e88-36a42400c6amr10962673eec.31.1793519162483;
-        Sun, 01 Nov 2026 00:46:02 -0700 (PDT)
-Received: from arch.localdomain ([152.175.67.103])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42662f23sm28414684eec.2.2026.11.01.00.45.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 00:46:02 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: jerrysteve1101@gmail.com
-Cc: Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	damon.ding@rock-chips.com,
-	dri-devel@lists.freedesktop.org,
-	heiko@sntech.de,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	luca.ceresoli@bootlin.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v2 RESEND] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
-Date: Sun,  1 Nov 2026 15:45:51 +0800
-Message-ID: <20261101074551.263631-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013134659.335829-1-jerrysteve1101@gmail.com>
-References: <20261013134659.335829-1-jerrysteve1101@gmail.com>
+        bh=OuHPb5BnUNYHQ7S5xQzTpeXYGXd1c8j2VbkTuL8vhYQ=;
+        b=T5AkWNouwodDcP4IB/ERF7vG+QYJ998+5MCCQmxB2ZGHS6tXoBOmjNdbUv4FKUM3D8
+         5G9NLLyDQG6+I012g77byWxcIe8w/De1g73KAmFICtWBcN9KWmo2OdD/hIbLa+Ne/jOk
+         AJSqikeX4CCx8IdCyajGJtTV3oTlRy0n1qKC4anRFY7SIjLn5gqpXxd2kdP+9hkYtUTl
+         u9ej/hvWYRPxNSYs68mx0GJHBlMnhiR55cTBh9Jzuo25vW//NasU389GrAw3mbg6WHFu
+         btuISQbbuZVbuJWDosHDCU+vQaOQ5GD5S/ZGTVeIP2ybT7hvxC4Vmg/VNIIGLeyoesXX
+         0CkQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793519588; x=1794124388;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OuHPb5BnUNYHQ7S5xQzTpeXYGXd1c8j2VbkTuL8vhYQ=;
+        b=d9VuxsnDwmzlO808cE4M5/YU//ZhCUKOnsKL8QyhGn4DF/eaAqy4MX4UR1FqYIt6rY
+         NyZQUtVcTLYAXj3zq1F+oL0KgL9m/Ba/1noCWF0CMTtFhWuvnf3Q9706HaQKfOJaY2eJ
+         1x3KGDNzfxSMGcLEXHeuN/bkbjyWGUa5mVjXazEceOnT6zoMnH5ici/hu0OER7i8OjFP
+         AdukKgDT4E6gkk9ZKGSgSVQxlmZmukcR85TuTqCcp9hj65ZIg090cDWRv3vkGXlvXmoU
+         fu1NsSlTGL7TgLLR0RfKC7rhmUJLVmFGAYAnpeDOvM2wzOka08iN9i63yye+wuGqDgEx
+         Kd2g==
+X-Forwarded-Encrypted: i=1; AKwUvBw5eSjp7wAcHsoqmDqTJAX278KMAOjrDNtAjiEZjOV/NHcZxK38qC8eatR/fhrpdw0ISx2ESU0QlpnH97k=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/bAN8NL+dnrhmie0mQ600ud1E7vf01Z6GU6we+sm55UMC5/nvI
+	SEeQ9DV/KCG88lIE1G2RlKCUDIueINvxxrXV/R2E76tDxN86TFcFbo8szZaXrwva7V2PSdl3WEf
+	efmhONMtssQ==
+X-Received: from pjyt8.prod.google.com ([2002:a17:90a:e508:b0:3ae:7abe:56ae])
+ (user=sgzhang job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90a:e70c:b0:3ab:2737:3393
+ with SMTP id 98e67ed59e1d1-3ae89835d94mr5728121a91.40.1793519587822; Sun, 01
+ Nov 2026 00:53:07 -0700 (PDT)
+Date: Sun,  1 Nov 2026 00:51:45 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,20 +75,107 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261101075145.698399-1-sgzhang@google.com>
+Subject: [PATCH net] net: count last skb of each sk_backlog pass in __release_sock()
+From: Ray Zhang <sgzhang@google.com>
+To: netdev@vger.kernel.org
+Cc: Eric Dumazet <edumazet@kernel.org>, Kuniyuki Iwashima <kuniyu@google.com>, 
+	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
+	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
+	David Decotigny <decot@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Ray Zhang <sgzhang@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi all,
+Running 500 concurrent TCPv6 streams (neper "tcp_stream -6 -T 1 -F 500")
+on a 2-core Cortex-A53 (CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN)
+triggers resched_latency_warn() in __release_sock():
 
-Gentle ping - three weeks on the list without comments:
+  [ 3655.311821] sched: CPU 0 need_resched set for > 100006892 ns (100 ticks) without schedule
+  [ 3655.311889] Call trace:
+  ...
+  [ 3655.311944]  resched_latency_warn+0x7c/0x88
+  [ 3655.311958]  sched_tick+0x1c0/0x418
+  ...
+  [ 3655.312578]  net_rx_action+0x238/0x438
+  ...
+  [ 3655.312641]  do_softirq+0x4c/0x90
+  [ 3655.312651]  __local_bh_enable_ip+0x84/0x90
+  [ 3655.312663]  local_bh_enable+0x1c/0x28
+  [ 3655.312674]  __dev_queue_xmit+0x4a8/0xb00
+  ...
+  [ 3655.312782]  tcp_v6_do_rcv+0x240/0x5f8
+  [ 3655.312793]  __release_sock+0x9c/0x188
+  [ 3655.312806]  release_sock+0x150/0x168
+  [ 3655.312817]  tcp_sendmsg+0x4c/0x70
 
-https://lore.kernel.org/dri-devel/20261013134659.335829-1-jerrysteve1101@gmail.com/
+__release_sock() can loop past 100 ms without calling cond_resched():
 
-It makes the DP PHY optional, as needed by the RK3288/RK3399 built-in
-PHY, and drops the misleading "no DP phy configured" error at probe.  It
-has a Reviewed-by from Damon Ding and applies cleanly on drm-next.
+- Each outer-loop pass drains sk_backlog, but "if (!skb) break;" runs
+  before "++nb", so a pass of B skbs only adds B - 1 to nb (0 for 1 skb).
+- With 500 TCPv6 streams and NAPI sharing two Cortex-A53 cores, runnable
+  tasks keep TIF_NEED_RESCHED set on CPU 0.
+- During spin_unlock_bh() and TX softirqs (__dev_queue_xmit() ->
+  local_bh_enable()), tcp_add_backlog() coalesces arriving pure ACKs into
+  a single tail skb.
+- Repeated 1-skb passes never advance nb or call cond_resched(),
+  triggering resched_latency_warn() after 100 ticks.
 
-Anything else you would like changed, or can it be picked up?
+Restore the do-while loop and drop "if (!skb) break;" so every skb
+increments nb across passes and calls cond_resched() every 16 skbs.
 
-Thanks,
-Jun Yan
+Reproduced the issue and verified the fix on two 2-core Cortex-A53 hosts
+(CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN, latency_warn_once=0) with
+a userspace reproducer over /dev/net/tun:
+
+- CPU 0 runs a TCPv6 sender and a second runnable task while CPU 1 writes
+  pure ACKs to /dev/net/tun (~30k TCPBacklogCoalesce/run), sustaining
+  1-skb sk_backlog refills in __release_sock() for ~400 ms (ftrace).
+- Before: CPU 0 stayed unscheduled in __release_sock(), hitting
+  resched_latency_warn() 293 and 275 times on the two hosts (> 100.9 ms).
+- After: cond_resched() yielded CPU 0 inside __release_sock(), with
+  0 resched_latency_warn() hits on both hosts.
+- Also observed no regression with the workload from
+  commit 16c610162d1f ("net: call cond_resched() less often in
+  __release_sock()"), "super_netperf 4 -H srv -T,10 -l 3000 &".
+
+Fixes: 16c610162d1f ("net: call cond_resched() less often in __release_sock()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ray Zhang <sgzhang@google.com>
+---
+ net/core/sock.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/net/core/sock.c b/net/core/sock.c
+index e7405be8941f..e2401d735c5a 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -3333,7 +3333,7 @@ void __release_sock(struct sock *sk)
+ 
+ 		spin_unlock_bh(&sk->sk_lock.slock);
+ 
+-		while (1) {
++		do {
+ 			next = skb->next;
+ 			prefetch(next);
+ 			DEBUG_NET_WARN_ON_ONCE(skb_dst_is_noref(skb));
+@@ -3341,12 +3341,10 @@ void __release_sock(struct sock *sk)
+ 			sk_backlog_rcv(sk, skb);
+ 
+ 			skb = next;
+-			if (!skb)
+-				break;
+ 
+ 			if (!(++nb & 15))
+ 				cond_resched();
+-		}
++		} while (skb);
+ 
+ 		spin_lock_bh(&sk->sk_lock.slock);
+ 	}
+
+base-commit: cb284914e749388eef402938bdb3115fe1f6d337
+-- 
+2.56.0.317.g454f8302e1-goog
+
