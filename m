@@ -1,87 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=23.83.218.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.188
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793565704;
-	b=fqa/6bP9GwfbLaRDsN9B/wqwPNcqwbgUubK36KkRrzHm2g02woeWdaVELv6G/nl3bZZA
-	 kbtCYt/9QGY1g4YmdGDOHJEG/YghLr3CnDawz7GtAi3qvi7rF+Zn90nwb2ZDxLRkGRvfh
-	 3cJdIlglytxzrLvr3KKn3wKObP3j2tz2I126KF7+23BcrOlFIROn2BZYZ6OHCbWoXNAcn
-	 MaAvxY5UmW88LFdzUgrC6WVkpdfP7Tx3JczIH45H6S1waiAc7WtciFt44EIG5Mg6bkNED
-	 RdOmosUL5ntAL38gPtLqllNUuo9QcOzgqz8EtH1qJ6EQAy04g8bYJsxdnuIrQ2sgOfw==
+	t=1793566034;
+	b=ZeRBXCIl+JW4G8vB1XEfak3dq4gOaDGH1PePFgkwT2nmWWfVjGuAcuK+UwoQLbvgFe6g
+	 upvWMhoRoPdT2pGvwu4Yo+f38F28q25vYVKCzfzOng1LHRs4qWhyUC4N1KptSCtOT+FuY
+	 YtOHCC09y4AnJccdfmjTuRp0J/fMJmkrma2g+x85nXVRK774RRC5wypwUlh5b8SsWXrMj
+	 t2ZoE21qbXAlKCX5D+j21pCixffDLCQzUG3YtAAo76sOZ34yjo+tC14JruPc5y02SJj9L
+	 PqgSVnVC5MEdxEnzjK8CGnxfSxW3cVZiolTYizKUQ+4pWJkfDAf/9gdnZPi8kwB+lqg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793565704;
-	h=DMARC-Filter:X-Sender-Id:Received:Received:X-Sender-Id:X-MC-Relay:
-	 X-MailChannels-SenderId:X-MailChannels-Auth-Id:X-Unite-Industry:
-	 X-MC-Loop-Signature:X-MC-Ingress-Time:Received:Received:
-	 DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:User-Agent;
-	bh=OE+bhGYt+JzO0So7FuaUclK5Zg9NdzaN4nwwSetcWfg=;
-	b=fsdKIGM7qJq+vmUeVKT6X15p6oAb6zS9RRHjPB4YB+0xl+wM37ZwSmbXe8UqAE+WinIj
-	 SBsZeCNAUyI2Mr6AqZ1qWyseZvpwIrfkMp3N5NwXyUYTdhcyH+46KU5FFnB/6AETgBxys
-	 R0FvJst63uLyPcwLsuorMYQLhw4rG4DzDY/OpClNRWva/el1u5rP9SbFZPVD7lq1PtZND
-	 9zIrNSQBWw3YnMYoxkJlLuVdVePfWpOuujiUMZD72pOYE1r29coDgSrB255iJ8q9YmBXQ
-	 u/m58JCk/HnhtIGOBktOW2QZyxLKBmAIuAJ1FZqDrsY5VSH4be6FfiGCTzoCYguqhKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793566034;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:MIME-Version:Date:Content-Type:
+	 Content-Transfer-Encoding:From:Message-ID:TLS-Required:Subject:To:Cc:
+	 In-Reply-To:References;
+	bh=u8s1oV2mp7KQi58uDDM1sqtCguGeqDCosYDKttk0a9E=;
+	b=m2kqS7S0tgsbPjyGFlivjgJQ8m9GLbO19ZlhB+RL6OWmrJjRCYO8IAL/GpXW4Sq+a0ff
+	 fHR8FDFokKW2hB7CxyGgnb36HYP/Pa9UNsrWJZizCWsYJimzlC9RefTZIz7OnW0ToR6c3
+	 8MUlvotB8N4bULlQmekbVXchH6ls/o9c+OejSuWLw9vDEjqVUAlLMlsCJlGrcL+zlb9E+
+	 yKOhfypbdQiNL57rI3JPyTpoZyw7MF6ZV1nM4b8BvuG8GyOJit/BPiwp9CTsF2N/hJwJF
+	 BeRECMk+3GudxO6vOhn2zzt5V3PQJvszRrJJNdepldEKAkWfxoHpwZrAeptM0dVYngw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=stgolabs.net;
-	spf=fail smtp.mailfrom=stgolabs.net;
-	dkim=pass header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b="Up/Ir8lW";
-	arc=none smtp.remote-ip=23.83.218.252
-Received: from rusty.tulip.relay.mailchannels.net (rusty.tulip.relay.mailchannels.net [23.83.218.252])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DJXoEUSO;
+	arc=none smtp.remote-ip=91.218.175.188
+Received: from mta0.migadu.com (out-188.mta0.migadu.com [91.218.175.188])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02A4606A324;
-	Sun,  1 Nov 2026 20:41:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E02A4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stgolabs.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=stgolabs.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE430606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:47:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AE430606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=stgolabs.net header.i=@stgolabs.net header.a=rsa-sha256 header.s=dreamhost header.b=Up/Ir8lW
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 20438800379;
-	Sun, 01 Nov 2026 20:41:37 +0000 (UTC)
-Received: from pdx1-sub0-mail-a223.dreamhost.com (100-99-198-86.trex-nlb.outbound.svc.cluster.local [100.99.198.86])
-	(Authenticated sender: dreamhost)
-	by relay.mailchannels.net (Postfix) with ESMTPA id A69258015A5;
-	Sun, 01 Nov 2026 20:41:36 +0000 (UTC)
-X-Sender-Id: dreamhost|x-authsender|dave@stgolabs.net
-X-MC-Relay: Neutral
-X-MailChannels-SenderId: dreamhost|x-authsender|dave@stgolabs.net
-X-MailChannels-Auth-Id: dreamhost
-X-Unite-Industry: 7b97c46a0a41dca9_1793565696913_1501605269
-X-MC-Loop-Signature: 1793565696913:402893550
-X-MC-Ingress-Time: 1793565696913
-Received: from pdx1-sub0-mail-a223.dreamhost.com (pop.dreamhost.com
- [64.90.62.162])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.99.198.86 (trex/8.0.2);
-	Sun, 01 Nov 2026 20:41:36 +0000
-Received: from offworld (unknown [76.167.199.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: dave@stgolabs.net)
-	by pdx1-sub0-mail-a223.dreamhost.com (Postfix) with ESMTPSA id 4jHmw00cqxz2l;
-	Sun,  1 Nov 2026 12:41:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=stgolabs.net;
-	s=dreamhost; t=1793565696;
-	bh=OE+bhGYt+JzO0So7FuaUclK5Zg9NdzaN4nwwSetcWfg=;
-	h=Date:From:To:Cc:Subject:Content-Type;
-	b=Up/Ir8lWN2rQMEREb9m8BT2/Gff98v+2nGsl/cgAZDz2ChIuaiEd4bTTPDvBe/QB0
-	 QxEyaJ36JbtlQ0ka7IDCx3eXbPi/qG060lQR68Iay9DYJdQu03Nm4Pt/Zu0KGQcWhW
-	 DnRqYDM35R4J3nDd2A8Wi0vSH1rscsPKh9WheC0MnnfoYpMmIrTkOwMzA7oJNZZrOC
-	 TMjjj1MVanaxk3siDJMOoBD25qNQqvqsYkGH+0cr+aK+2EafwC4l1wUTwELekoJCxy
-	 rbfAVT/CQa2kBGMf7TACJonfhoQEWxFss23zvnJUEoHn88/xc6CtvixKj9fEa1Oz8T
-	 kq6lPZdYOcFIQ==
-Date: Sun, 1 Nov 2026 12:41:32 -0800
-From: Davidlohr Bueso <dave@stgolabs.net>
-To: netdev-bot+sinfo@kernel.org
-Cc: jk@codeconstruct.com.au, matt@codeconstruct.com.au, kuba@kernel.org,
-	pabeni@redhat.com, anisa.su@samsung.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mctp: accept MSG_CMSG_COMPAT in recvmsg
-Message-ID: <20261101204132.eifrbvmpjjktdkno@offworld>
-References: <20261101200331.1956836-1-dave@stgolabs.net>
- <179356374166.3286.2383588037768263377@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=DJXoEUSO
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=qovG99sxmf29ePlCaMr3QlSqBKy0IioT2VfVp35BzR0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793566028; v=1; x=1794170828;
+ b=DJXoEUSOnfT/jJp/HgDXGrGHZj8YmIyliUKGliu/ydashmUvAiKGxU0s0ktV3C/C4TkngEEA
+ NmjOwWj6B5KlKMVxBcp2pfbmzKlhsNw7f1FHfLBmKJEycb/a/7qrdxPJGr5gXs1vIWOvEc3i3/g
+ gmTQhBHGnDa2UIX9d0jD/CU8=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 08bfa2a181e29235;
+	Sun, 01 Nov 2026 20:47:07 +0000
+X-Mizu-Trace-ID: 08bfa2a181e29235
+X-Migadu-Flow: FLOW_OUT
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,31 +56,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <179356374166.3286.2383588037768263377@kernel.org>
-User-Agent: NeoMutt/20220429
+Date: Sun, 01 Nov 2026 20:47:07 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Shakeel Butt" <shakeel.butt@linux.dev>
+Message-ID: <689163a4fbb7a7079d8a68db9888f06566f0728e@linux.dev>
+TLS-Required: No
+Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
+To: "David Hildenbrand (Arm)" <david@kernel.org>, "Alistair Popple"
+ <apopple@nvidia.com>, "Andrew Morton" <akpm@linux-foundation.org>,
+ "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, "Baolin Wang"
+ <baolin.wang@linux.alibaba.com>, "Baoquan He" <baoquan.he@linux.dev>,
+ "Barry Song" <baohua@kernel.org>, "Brendan Jackman"
+ <brendan.jackman@linux.dev>, "Byungchul Park" <byungchul@sk.com>,
+ "Chengming Zhou" <chengming.zhou@linux.dev>, "Chris Li"
+ <chrisl@kernel.org>, "Christoph Lameter" <cl@gentwo.org>, "Dave Chinner"
+ <david@fromorbit.com>, "David Rientjes" <rientjes@google.com>, "Dennis
+ Zhou" <dennis@kernel.org>, "Dev Jain" <dev.jain@arm.com>, "Gregory Price"
+ <gourry@gourry.net>, "Hao Li" <hao.li@linux.dev>, "Harry Yoo"
+ <harry@kernel.org>, "Hugh Dickins" <hughd@google.com>, "Jann Horn"
+ <jannh@google.com>, "Johannes Weiner" <hannes@cmpxchg.org>, "John
+ Hubbard" <jhubbard@nvidia.com>, "Joshua Hahn" <joshua.hahnjy@gmail.com>,
+ "Kairui Song" <kasong@tencent.com>, "Kemeng Shi"
+ <shikemeng@huaweicloud.com>, "Kiryl Shutsemau" <kas@kernel.org>, "Lance
+ Yang" <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>,
+ "Lorenzo Stoakes" <ljs@kernel.org>, "Matthew Brost"
+ <matthew.brost@intel.com>, "Miaohe Lin" <linmiaohe@huawei.com>, "Michal
+ Hocko" <mhocko@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Muchun
+ Song" <muchun.song@linux.dev>, "Naoya Horiguchi"
+ <nao.horiguchi@gmail.com>, "Nhat Pham" <nphamcs@gmail.com>, "Nick Piggin"
+ <npiggin@gmail.com>, "Nico Pache" <nico.pache@linux.dev>, "Oscar
+ Salvador" <osalvador@suse.de>, "Pedro Falcato" <pfalcato@suse.de>, "Peter
+ Xu" <peterx@redhat.com>, "Peter Zijlstra" <peterz@infradead.org>, "Qi
+ Zheng" <qi.zheng@linux.dev>, "Rakie Kim" <rakie.kim@sk.com>, "Rik van
+ Riel" <riel@surriel.com>, "Roman Gushchin" <roman.gushchin@linux.dev>,
+ "Ryan Roberts" <ryan.roberts@arm.com>, "Suren Baghdasaryan"
+ <surenb@google.com>, "Tejun Heo" <tj@kernel.org>, "Uladzislau Rezki"
+ <urezki@gmail.com>, "Usama Arif" <usama.arif@linux.dev>, "Vlastimil
+ Babka" <vbabka@kernel.org>, "Will Deacon" <will@kernel.org>, "Xu Xin"
+ <xu.xin@linux.dev>, "Ying Huang" <ying.huang@linux.alibaba.com>,
+ "Youngjun Park" <youngjun.park@lge.com>, "Zi Yan" <ziy@nvidia.com>,
+ "Jason Gunthorpe" <jgg@ziepe.ca>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, "David Hildenbrand
+ (Arm)" <david@kernel.org>
+In-Reply-To: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
 
-On Sun, 01 Nov 2026, netdev-bot+sinfo@kernel.org wrote:
+October 30, 2026 at 2:34 PM, "David Hildenbrand (Arm)" <david@kernel.org =
+mailto:david@kernel.org?to=3D%22David%20Hildenbrand%20(Arm)%22%20%3Cdavid=
+%40kernel.org%3E > wrote:
 
->Hi!
->
->This is an automated message. This series looks like a fix, but its
->commit messages seem to be missing some information:
->
-> - How the issue was discovered, e.g. hit in production, hit during
->   development, syzbot report, manual code inspection, LLM or static
->   analysis tool scan.
->
->Please do not repost the series just to address the above. Instead,
->reply to this email with the missing information, so that reviewers
->can take it into account. If the series needs another revision for
->other reasons, please include the information in the commit messages
->then.
 
-This is not a random fix, I actually ran into this while testing 32-bit
-support for libcxlmi: https://github.com/computexpresslink/libcxlmi/pull/62
+>=20
+>=20Hi,
+>=20
+>=20several MM updates:
+>=20
+>=20Make Zi Yan a THP maintainer (thanks for all your hard work over
+> the years and thanks for taking on this responsibility), and perform so=
+me
+> MM MAINTAINERS cleanups.
+>=20
+>=20Then, start the next step of the transition from Andrew's MM tree to
+> separate component trees that all get integrated into the mm-next
+> integration tree.
+>=20
+>=20Start routing shmem through mm/core.git, adding me as a maintainer
+> primarily to pick patches.
+>=20
+>=20Then, target the following components for the mm/core.git tree that I
+> (co)maintain:
+>=20
+>=20 - MEMORY MANAGEMENT - BALLOON
+>  - MEMORY MANAGEMENT - CORE
+>  - MEMORY MANAGEMENT - GUP (GET USER PAGES)
+>  - MEMORY MANAGEMENT - KSM (Kernel Samepage Merging)
+>  - MEMORY MANAGEMENT - MEMORY HOT(UN)PLUG
+>  - MEMORY MANAGEMENT - MIGRATION
+>  - MEMORY MANAGEMENT - NUMA PLACEMENT
+>  - MEMORY MANAGEMENT - RMAP (REVERSE MAPPING)
+>  - MEMORY MANAGEMENT - THP (TRANSPARENT HUGE PAGE)
+>=20
+>=20More details in the last patch.
+>=20
+>=20In the upcoming cycles we'll then route more of the other MM componen=
+ts
+> through different trees.
+>=20
+>=20Let's see how this goes, in particular with the continuous stream of
+> fixes. But getting these in in a controlled way has highest priority
+> right now wither way.
+>=20
+>=20Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+> David Hildenbrand (Arm) (7):
+>  MAINTAINERS: mention for-next branch in MEMORY MANAGEMENT - MEMORY MAP
+>  MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
+>  MAINTAINERS: add Zi Yan as co-maintainer for MEMORY MANAGEMENT - THP
+>  MAINTAINERS: sort entries in MM sections
+>  MAINTAINERS: add missing files to MM component sections
+>  MAINTAINERS: rename and move MEMORY HOT(UN)PLUG
+>  MAINTAINERS: route more MM changes through mm/core.git
 
->
->The evaluation is done by an LLM so it may be wrong, if you think
->that is the case please reply and explain.
+For the whole series:
+
+Acked-by: Shakeel Butt <shakeel.butt@linux.dev>
