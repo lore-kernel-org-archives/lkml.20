@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.178
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.173
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499247;
-	b=ixs7n2WwrfPOslGADOhTxl3YGZHRkt/tn80bbdRKUxfF4zOBWrEqdrZx7flxUZeLV6OY
-	 7Ks8GhFQzRLrPDGwQQXwEtn7bdaBTmgHFWpXkWxZhKGf0Kn2m3CR5xXZ9Ypf61TDKdQEB
-	 5+AkD1BGZzilgujuqSeuMbD8BqTWfPA09EbVZDlvCiy9a58objJcHcg1Yd64fU0rljWDN
-	 sFTJ8BIyeC9nkGcpOSLy4t34BBBY8DC0/HpvEn8GmRPcY9+LqUNtgqjjAMhfJI2ezfrxl
-	 ZjabhQZFnhAtZ/boTK1OGXOzdOTDUP+rsVMsK4oem/fEMj+ZKe9dhMRL3Wr7Likqzdw==
+	t=1793499237;
+	b=YA6dbwzLnkYmMx0AzEyAmYmsFiirUq3TI5ylMte/BX48pfWCtb0xdqyqW522GBdUSp0Z
+	 lFbRx+cBKs0FWuYwSFEBUoBY78fJuvtqC397Sei+GDqaJ6r1cboIi/qAtrVelAIEkXd3Y
+	 mXetloOC0zHxgOnHSu/DjQT3CVeK9bMcY5WLXWeZhcw9VhUkujYMAkIaVKu2ocygVZYQG
+	 wI5bELypOzCEj/qHVsVk6LFdy0SXD3mgTj+a+/6kbF0wUAXs1OQYKEOZesAsqTuvANEsw
+	 FfI7vF7U0v8E6HcGcGUZX4Nh2S0HfWJhtSQ5TnfFc1h/AxjaWRqGaNfHDmVVJ9xhUfg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499247;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499237;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=8AqB+6Y6YIFn0HjqudvdVztXfdpwTD/bMBAeQqpR7bQ=;
-	b=N4ExQSBYZWe+ndkNIh5OxCF0rQ+tcD/w4Zznf9rfKAaBwu8Kd4tE0dcIbQkvpQXQX0s5
-	 Zyr4Qqz/oGI16SmjIT1fui0CqzYSN8ykbDBTgiJDc+ptWYSvJRgEjj1zfNt8OrCg9Sy+8
-	 LprsOF5gzqK+ih4YvwbHOLuPUcdTCNUBTNfARVKyOkL6A3j/MqD8cfU36EDvQePEr4vlS
-	 S0b1jcNAxWegErM447bxPVgTGhYxpSDcM6TkV22c6NvQ6cG8R9REq9D2ABLLuuyFTMKIt
-	 DqCAImV1jTjUvxMO26/9a6jTrlLdi1Esdql4O8XiEoMDKYkGaSSrrJ2CpglGB8ivd9A==
+	bh=KAOVkIrNNyhi9D/V3dLJ+NSr5WjrzmwZ1Aks/FNVQtc=;
+	b=WQHpMmnpNLfq1Wq0myDQ0pUXg8uQFQj/iFd9fmysg6tEauebpemTylRqX6dTHo4U5PP3
+	 8M44bh02fEHoTaKWhttMXyQUzo2Cxij4iq+XR9dBMXNhDvPkMGUmPX4VdSbQl9qStF8eu
+	 DalWleFw332ukGQKy1ZlT0S12gmLma7uvvR7F2aQEw/XrZZtcNMGHki+tkFqUJSsAnLRi
+	 UR5TytwW+B6oigAP/bD6LVO1UBheABYIY842AEfNCL/VkLHZ1crx/wQhRtMD0goS+vbH5
+	 HzfqZcEkxm0q6zyLVLx0kNDcZbIE5DduDNTFAjff5BHT7cOhm1PVNSvduxdhifq9Lxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=gourry.net;
 	spf=pass smtp.mailfrom=gourry.net;
-	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=e1uprEda;
-	arc=none smtp.remote-ip=209.85.222.178
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+	dkim=pass header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=GQZwPZut;
+	arc=none smtp.remote-ip=209.85.222.173
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com [209.85.222.173])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE28C606A336
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:14:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE28C606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AB3606A33E
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:13:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 78AB3606A33E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=e1uprEda
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e7ad9f78dso243515485a.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:14:06 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gourry.net header.i=@gourry.net header.a=rsa-sha256 header.s=google header.b=GQZwPZut
+Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-945ae2daa3eso39835885a.0
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:13:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1793499246; x=1794104046; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1793499231; x=1794104031; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8AqB+6Y6YIFn0HjqudvdVztXfdpwTD/bMBAeQqpR7bQ=;
-        b=e1uprEdaqqiQA9+e2NMUujr/+0J/tLKyuPof7IdUsWRkmSUrnjpcANC78AA/1V59Ni
-         Sk+lzR4jYGuSBcTOyp///c6mHM0r737liT5T6jIE5Gg/mSVWq8cez3etq7eYAFVDQIyM
-         Jfa2Z7IPtMI4qLCJQpoZ6Kj1ViXx7vt8lDFXnChzFtPM3ZQyL1CeryEwDWgGqH3Junne
-         +CrWCxItVxvGKFcydmyv6CtmrQO2XDjUn+EcdNDDSbNlatjzGbPiVM0W6La8oVbcWHiK
-         7lfmxkLO6Ek8ZdKkTsn8iz5BSxeMXIlFilw2J5I8a9CSAIkc4D2ujRIS79EsZpgxx//a
-         8WbA==
+        bh=KAOVkIrNNyhi9D/V3dLJ+NSr5WjrzmwZ1Aks/FNVQtc=;
+        b=GQZwPZut1+f0LNuk58xvNeHpw5iZVxdxph21KZg7S3cQYqlDaYoC2soU2pe5O0tbrr
+         ZM77qC5FcogyagTiVBGGa20b5p+8WvYkrdxZAWuUpyvziaCPjLrF2Zc7+ltF/e99szjW
+         IB0LdH3ROzeg288FHmXf23WAI83PduKfy/e2rBeeEQLjyTEmaqMfECko8xjHJnRjkx9m
+         MK/ALbLe8W5W8N14SARnsl8bpxsWg2BRRsVPQXFdsk9cwlLQ+GoFtOeM5yqPuMOBJOO4
+         crUFvgoV5iOdeGERJZGRRNcww1RBUg63cGdm1q3rd5lQFfoHAgV6sVQKxU8yU8MMdtHT
+         upHQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793499246; x=1794104046;
+        d=1e100.net; s=20260707; t=1793499231; x=1794104031;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8AqB+6Y6YIFn0HjqudvdVztXfdpwTD/bMBAeQqpR7bQ=;
-        b=yAm+iOaovuHV3JXFhhrRfs2uoBE2NiLHFwGej0heFj7ezJLIJMvbwMQs5MpEN/ItTh
-         EAcWzDHep0Zftl/MZbqR1iVo/X5077NjuDLIx4A/Qv7Um/JP8f/vD1dhksqMTdF4EqFp
-         l09yLLtqHkqrsUFecD4rcNAgUpv6U63P6tLh2XqvEkuA4hBYhUqxcg23cKwSw/HP2ddm
-         Wlxyb4UcNihNf77gtkMSVmKSO1WMy9KvPZx+N2qt83jdtRzPjY7QXiWwnrRwcUUJOD+u
-         e6gKatUli7buvxhu49g4yDqRy4QXJ17Fz0t632tIbKDr+FhYj7s+ynNUtXNG6zEKMCqm
-         lLMw==
-X-Forwarded-Encrypted: i=1; AKwUvBz16kqZnmBR7akl93ddiLiNvQ+Sn73zyVJpUzcRYIhiEnVfYtISdE24p4KnH/Qe81A3UNBRI7tkk5s3Rlc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVGZ0NIYVr9uARWkZRmjuyTKFSIKQ8Ti+8N8lBsJO13ES7fyGb
-	pNbAiWMMq46pyWKbZ+wpzpntTdaG/1vM070f6qaxv5S1PYqaamPqbtM2/IWTsuJz5Vw=
-X-Gm-Gg: AYBFou1bdhOPghwX1kb1StshBsucFR5J/B1vgOdxw1StCpttHBBfdgG2hfGVzg1YE24
-	1q9d1YA9jO1hTA1EGEQgqbXi1MeHgDPTE2xpVuJDWEOMm7TOicny5kERY63lvcDbzj5At9s7w6U
-	B3gNMG1iLToBsqdg2o4i6ZOtuleSIWmAGgS2zTeCufwqmVHFq7pzTyoCrkbdb2uIHqsLvHKSJtg
-	6U9NwOibqdiBcoBHlosuR1g43MV2CWd9ad/akv2EAQfeEksIoUYOZMmMVg3QeIXSLBwmixVvcDj
-	Oq42zhuS3vlrBIfNPme+rY4wwbJNi1KatGehxyiILnj0Gix3RvEc+GGtXJ8JM7AAHYWfLhiirSO
-	1+gViODHGhirpxiZG1BTZhMpZUjMN2SO3Gabj7wDPe72mxGHp6XyDJmUZnA7nYrnuJOxkfL0p2Z
-	qKA7Xu3Gla0urhhCHe9tuDJquBxEwb6l6/vCH15Mg72utoe8Iynw/p6/Wi2Ev1JoG+MzxR4CVfV
-	+m09Yg8vd7DpeSRcozXtpArpzf46u6XobY2KSoRcpGvczA/2V6hPVOHjFOShgY0PPdXmcMr7InA
-	Pqjfd/TJUsO1lewudeMRWZx3siEDnnKHM2cL96fAgy05szrqtNKRDHfkV4XJFjqc2fE91LbiSl9
-	7rGswuSe1hg==
-X-Received: by 2002:a05:620a:461e:b0:93f:707f:28d2 with SMTP id af79cd13be357-94421712d14mr1095889185a.26.1793499245855;
-        Sat, 31 Oct 2026 19:14:05 -0700 (PDT)
+        bh=KAOVkIrNNyhi9D/V3dLJ+NSr5WjrzmwZ1Aks/FNVQtc=;
+        b=N48EzHWUo7++F5mVHijJjpa3NfimumG2qI3NGP56XKcNDb8IbC53DuseW6DtZPFU+9
+         uWAO7BnmvkjTkj6ncBao3FIcj7nOFxeEbB99si5btJEAJ/r1ExdSI72QGqOzosTvMuzG
+         PdocZTu5+Sn9NkmomDinVQUAZeol1rV7dtDjxCZAmpkW9HCje3fT2ICgytADpmfnNLkm
+         /7TceqTQtA0HBH9//TfLr1982zV3HfitafvWHTE2Uvr89RpndYtw3RifwwDiPV/10CRu
+         f6k75etqMdT/6/HDvCZ9qPeHClB776KqXs63dzSzd+abEPETAX1qsG3glDRgBhHpkvRF
+         DZ5g==
+X-Forwarded-Encrypted: i=1; AKwUvBz3h3DZsKrxDqMPu8CMhZOUw5hsI3pm0jQ6UFHu4X5ZwBYwaXBhxlpovJXoKb815MYC2NqsyuE3KruScNs=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKL1uOtUu/1MHL2RdS48cDjKi0r+z1pUABpx5Xomh0TpWgkfXw3
+	k+U5w37WoDACGhAI3HfNmfaoBfi2AuwsfEsoPzZ1quDVJkMZ6QGcWuPMXysFU1p/C5g=
+X-Gm-Gg: AYBFou1C/0kwROMhsK56RYWx1mBEv5Lt57+s3icejNqqcaRDS7BU34/kfvn8AcJv5nC
+	xeqqft1lqDe3iQQBL8vqLveVk2ZuFWrJnPIwy6N4MVV2tH79TZKhKZBz8Je0TgPb2E34WpZ8Yoo
+	ZARymwFNWPuCEo4day98ZnEYyeXMSetsQS4Twoi0SpykwIHMWFfXT4hWPVljISFAuwRUIdyVZQb
+	gXzRF04u34nSo/pcsOk+rBc5eVT2CQd4OHod7hBt1e2nAnzl+fmxkNlYohHcShgbRnsdwLjmZk5
+	hfHtTFK0LpUg6v467tuAek/EyVQ6AT+tgu0Z0tQGp4rJ2zi7wPtBZAnGdhyFxwf4jQtoAFjXWE/
+	zfnRT0ZkMfz0MWeaVDj5IcJV7/HmmRKqsydAByWAB0o3KXo8AvwEIVu/o4gMYPjYu+UTnlO4fD1
+	ZyFdhp+SqVesvslYw+EOmsLd44uM9fEnUScVYZAUX+VcSbCKKkp6OKl1GFsBCHjJUMlyQFtCNUQ
+	711q+itpDrKZrO6Im+jx9WHDaRx9PG0xWXm1Cbpx5bB5HNx4ZKRvFsSYijf713T4BIWNFzydMSZ
+	P0p/WiOuk0E+X4mG53w1B828TOgVMNHuajxR54ona5+ynKN9kTLUJ8+Khsaa2L9wPBg2EAKM3l0
+	GSKS4AuTSJA==
+X-Received: by 2002:a05:620a:254a:b0:93e:6325:ae6d with SMTP id af79cd13be357-9442175ae31mr1053484485a.40.1793499231477;
+        Sat, 31 Oct 2026 19:13:51 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425858552sm498131985a.18.2026.10.31.19.14.04
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425858552sm498131985a.18.2026.10.31.19.13.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 19:14:05 -0700 (PDT)
+        Sat, 31 Oct 2026 19:13:51 -0700 (PDT)
 From: "Gregory Price (Meta)" <gourry@gourry.net>
 To: linux-mm@kvack.org
 Cc: linux-trace-kernel@vger.kernel.org,
@@ -123,10 +123,12 @@ Cc: linux-trace-kernel@vger.kernel.org,
 	Bessel.Wang@huawei.com,
 	jiang.liu@huawei.com,
 	mgorman@techsingularity.net,
-	anshuman.khandual@arm.com
-Subject: [PATCH v5 12/12] mm/mmzone: remove zonelist_node_idx()
-Date: Sat, 31 Oct 2026 22:13:40 -0400
-Message-ID: <20261101021340.2251928-13-gourry@gourry.net>
+	anshuman.khandual@arm.com,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v5 03/12] mm, page_alloc: pass zone pointer to trace_reclaim_retry_zone
+Date: Sat, 31 Oct 2026 22:13:31 -0400
+Message-ID: <20261101021340.2251928-4-gourry@gourry.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261101021340.2251928-1-gourry@gourry.net>
 References: <20261101021340.2251928-1-gourry@gourry.net>
@@ -141,80 +143,79 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-zonelist_node_idx() looks like it returns a field of the zoneref, as
-zonelist_zone_idx() does, but it loads the zone from the slot again.
+From: Josef Bacik <josef@toxicpanda.com>
 
-Memory hotplug rewrites zonelists in place, so a caller that has already
-checked the slot can get a different zone, or the NULL terminator, from
-that second load.
+should_reclaim_retry() walks a zonelist and passes the zoneref pointer
+to the reclaim_retry_zone tracepoint, which loads the zone from the
+entry again to find the node.
 
-__next_zones_zonelist() and mempolicy_slab_node() had this bug.
+Memory hotplug rebuilds the zonelists in place while allocations are
+under way. When a zone in front of the zoneref entry has become empty,
+the entries move up, and this one can be the end marker by the time the
+tracepoint looks at it. zonelist_node_idx() then dereferences a NULL
+zone. Short of that, the event can name another zone than the one its
+numbers belong to.
 
-Remove the helper and open-code it in its two remaining callers, neither
-of which can race with a rebuild.  local_memory_node() runs either inside
-__build_all_zonelists() or during CPU bring-up, which holds
-cpu_hotplug_lock for write and so excludes mem_hotplug_begin().
+Pass the zone pointer instead of the zoneref pointer.
 
-The lookup in mpol_misplaced() is unreachable: it needs a policy with
-MPOL_F_MOF but not MPOL_F_MORON, and nothing sets one without the other.
-
+Fixes: d379f01de095 ("oom, trace: add oom detection tracepoints")
+Cc: <stable@vger.kernel.org>
+Assisted-by: LLM
+Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
 Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 ---
- include/linux/mmzone.h | 6 ------
- mm/mempolicy.c         | 2 +-
- mm/page_alloc.c        | 2 +-
- 3 files changed, 2 insertions(+), 8 deletions(-)
+ include/trace/events/oom.h | 8 ++++----
+ mm/page_alloc.c            | 2 +-
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 4bc2318ac37f..72ffb2959c4f 100644
---- a/include/linux/mmzone.h
-+++ b/include/linux/mmzone.h
-@@ -1439,7 +1439,6 @@ struct zoneref {
-  *
-  * zonelist_zone()	- Return the struct zone * for an entry in _zonerefs
-  * zonelist_zone_idx()	- Return the index of the zone for an entry
-- * zonelist_node_idx()	- Return the index of the node for an entry
-  */
- struct zonelist {
- 	struct zoneref _zonerefs[MAX_ZONES_PER_ZONELIST + 1];
-@@ -1864,11 +1863,6 @@ static inline int zonelist_zone_idx(const struct zoneref *zoneref)
- 	return zoneref->zone_idx;
- }
+diff --git a/include/trace/events/oom.h b/include/trace/events/oom.h
+index 9f0a5d1482c4..cbcf6fe4cc61 100644
+--- a/include/trace/events/oom.h
++++ b/include/trace/events/oom.h
+@@ -33,7 +33,7 @@ TRACE_EVENT(oom_score_adj_update,
  
--static inline int zonelist_node_idx(const struct zoneref *zoneref)
--{
--	return zone_to_nid(zoneref->zone);
--}
--
- struct zoneref *__next_zones_zonelist(struct zoneref *z,
- 					enum zone_type highest_zoneidx,
- 					const nodemask_t *nodes);
-diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index cd63c3e2c029..267576054980 100644
---- a/mm/mempolicy.c
-+++ b/mm/mempolicy.c
-@@ -3087,7 +3087,7 @@ int mpol_misplaced(struct folio *folio, struct vm_fault *vmf,
- 				node_zonelist(thisnid, GFP_HIGHUSER),
- 				gfp_zone(GFP_HIGHUSER),
- 				&pol->nodes);
--		polnid = zonelist_node_idx(z);
-+		polnid = zone_to_nid(zonelist_zone(z));
- 		break;
+ TRACE_EVENT(reclaim_retry_zone,
  
- 	default:
+-	TP_PROTO(struct zoneref *zoneref,
++	TP_PROTO(struct zone *zone,
+ 		int order,
+ 		unsigned long reclaimable,
+ 		unsigned long available,
+@@ -41,7 +41,7 @@ TRACE_EVENT(reclaim_retry_zone,
+ 		int no_progress_loops,
+ 		bool wmark_check),
+ 
+-	TP_ARGS(zoneref, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
++	TP_ARGS(zone, order, reclaimable, available, min_wmark, no_progress_loops, wmark_check),
+ 
+ 	TP_STRUCT__entry(
+ 		__field(	int, node)
+@@ -55,8 +55,8 @@ TRACE_EVENT(reclaim_retry_zone,
+ 	),
+ 
+ 	TP_fast_assign(
+-		__entry->node = zonelist_node_idx(zoneref);
+-		__entry->zone_idx = zonelist_zone_idx(zoneref);
++		__entry->node = zone_to_nid(zone);
++		__entry->zone_idx = zone_idx(zone);
+ 		__entry->order = order;
+ 		__entry->reclaimable = reclaimable;
+ 		__entry->available = available;
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 91ad979409e5..81c1de714658 100644
+index 1850a41f24f7..e14d550d4128 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -5973,7 +5973,7 @@ int local_memory_node(int node)
- 	z = first_zones_zonelist(node_zonelist(node, GFP_KERNEL),
- 				   gfp_zone(GFP_KERNEL),
- 				   NULL);
--	return zonelist_node_idx(z);
-+	return zone_to_nid(zonelist_zone(z));
- }
- #endif
- 
+@@ -4670,7 +4670,7 @@ should_reclaim_retry(gfp_t gfp_mask, unsigned order,
+ 		 */
+ 		wmark = __zone_watermark_ok(zone, order, min_wmark,
+ 				ac->highest_zoneidx, alloc_flags, available);
+-		trace_reclaim_retry_zone(z, order, reclaimable,
++		trace_reclaim_retry_zone(zone, order, reclaimable,
+ 				available, min_wmark, *no_progress_loops, wmark);
+ 		if (wmark) {
+ 			ret = true;
 -- 
 2.56.0
 
