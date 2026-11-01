@@ -1,93 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.225
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793561110;
-	b=4rx/ASz0eMFQh2S/Bp7w1OO9tFIpoj6T+B7SF4jKEn+qAncwD0s97XGl8Y8GKXg8WQGt
-	 xTVoJh/G4UGWlE8SES9R3P1OqdO4uSHl7sgpF3HAGwZApe94OHr9OOixygeTUzmbuZnMX
-	 UOWavg+lcI96LDZnFoIoutmRogzLKL/nslOM1x/thKKsbeZVIxaEZtdvcOQl8YTnsLq4Y
-	 Xh0usvkgxW1lQId5jXRbIA+LUOM13UQdF1YMFRHGiqtCoDlaVSbRjEnFHwr2iYXN5OP3p
-	 O3uAsVPBEUglCnLHl3JdOgkcNfbx5WEREl4avtsPyaH6NsO5eosWYECpMPIR9fj8z4Q==
+	t=1793561248;
+	b=BLIWAICjX4vSiVdxz+Qwe9niOOtbF5AqRZ37mCwSBoC+JKHZUZjOr6CvOP11eOk3qq/X
+	 r5lfa/Y4v8mQdEjC03YhtAO9LOz9p6YANs6pLjD9sqjufOXLP0oGf7ROZ0Fz+ahxyisFx
+	 nQzFpAvnL3eEefz+zEryrswAHy/K208+P9itbcOzZYc8yliQm41bZVghBSN6PHk55zEH6
+	 8FBiax2GZL/9PiXJ7/oPwnzKEnbEmdn3oTRuu4VMqfFccPgQftUC1ULxbIf2bRKOcAycK
+	 cy5ANgBCn+fWwRSO44mEpLlDTgVZj/Ktd02jhFBGHA91OQfeGKaQdgzz63xIAp+1K7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561110;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=xXV71PcODW6FyL159mGZh1/JIAVBGIw9B7bUXiNfwTI=;
-	b=Y0KCSDnnLYupqBKHKYgCtd49GXjQ+ctWgtfJtYcoOMRmGyQ4jM/qVk/ZiButl+EEYFUE
-	 7etwuCFPFRxyF0SwEcWmW2NQomnJ61/j12B9lXccdj7zgS8M+Ro824w2E5aZhetRtqpnG
-	 R+jcUChUL3zSZekThdgXjpimpM28foLm5mvuZEcQtU9GJMT8xbWdLWaGi7AqYw9fA848E
-	 qpZKIcWXIFTaxxWeHfe7lJ/44ok0AQA6bdLgpju/HhtEZZ9MPQeuHUowC4ESiw5czxSrT
-	 MPjhed61mj0tqx1U2KbS9y3SYH4mbEFA4vkBPS8d1z6oXcjR7b9TOcUD2Y7Ond5JlAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561248;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:X-Relaying-Domain:
+	 X-CFilter-Loop:Received:DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Received:X-Received:Received:Message-ID:Date:MIME-Version:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-DetectorID-Processed;
+	bh=FBzaqWRuYJDOcynWW1oUqzv1XeYY64zxgMqREXlXnBE=;
+	b=vhPakmPrk7yQ5Prhl8MvRxPJFSwLRtGCuk/DSdDnCvBll+Xag4aERJwYlHDjt63sKycg
+	 TZH+OB3PK5oGRlgO1GBU7LiHYc+RfpWnWaaQ2iEXyYPW1KN5auhBwCDxNDb055vjZi7oH
+	 LHur/MTkViGFr8LgYoqI7dzYgZmtfio6CD0PP+jXRDMBMSQUsuEFFuvmxjE7hoJOe7r7s
+	 009WpcaOQlawaCmi4Vg2pDrxSqla/s6ZowGXxYgkUmGCY/iMt2oL3EolgAZwOUrYbYGW8
+	 N4Jl6xxvtnB+y6ZAU5KizL8SZ+kwQ33oldKUbxvs5P50QAzGKqxHG2W+sbVqAe1iCmw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MGBKXP9I;
-	arc=none smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	dmarc=pass header.from=broadcom.com;
+	spf=fail smtp.mailfrom=broadcom.com;
+	dkim=pass header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=DhrvIh21;
+	arc=none smtp.remote-ip=209.85.215.225
+Received: from mail-pg1-f225.google.com (mail-pg1-f225.google.com [209.85.215.225])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F8EE606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:25:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F8EE606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDB5606A329
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:27:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3CDB5606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MGBKXP9I
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8ad98c3fb15so19082967b3.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:25:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793561109; x=1794165909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xXV71PcODW6FyL159mGZh1/JIAVBGIw9B7bUXiNfwTI=;
-        b=MGBKXP9I7UoSqv3lSgZIQdK3vGpqts+w+Ei2ixXGxRZ+rZfTZKcjYZsaHLRktxU7c0
-         DR7AP7vVOqdGd6FTlK66g3jSONNRBnAcW+hZX3FhX0dbiF71VoxL2HcOn68SA0bwrgmI
-         HEuH1xrbZM1y/GAhwDQbvg5RCK4cPY069AsSPHzMsAkfrBL2cvontgYWstyFJcD4gpiX
-         8P/XyBa0oVOQ2WSxmWEE+WbwYRTwM9OGLSBYZIHcarQN0oRe8QmIcToMRvOPstTk+vjy
-         +C/BWw/McX4V0JImSVOex9i1qosn9K+JMpwkB+FcNsxIb5hEE+cvMPYmbnX6fMUwWKz6
-         nZhg==
+	dkim=pass (1024-bit key, unprotected) header.d=broadcom.com header.i=@broadcom.com header.a=rsa-sha256 header.s=google header.b=DhrvIh21
+Received: by mail-pg1-f225.google.com with SMTP id 41be03b00d2f7-cdb2893531bso133640a12.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:27:28 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793561109; x=1794165909;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xXV71PcODW6FyL159mGZh1/JIAVBGIw9B7bUXiNfwTI=;
-        b=pV8Dass4B0G2xQcoDS3lc2jFvjfqQxFfw8/rF0HKXshVZ9cED7x8lL7so+jupyD9Jp
-         1/O81/2cK8gpR0BxA31ERy0zhLQlUQM9FLlisWlraH1uVzr3ujHAz4ctyCQutJQfH9mA
-         6Lk3OPbBO+NtK6tMyxc1+9p+3iX3TT64QDqoxFvkrwTWhknSW4whZneWGAIqKGzq+AN3
-         M0u8SZj9RKtrvYKviP78+dsab1nQiaNSPod/mbhsdRGLpldHBwU6a8LEds3gcAoSyDd8
-         zq8KKT+aW4niTlmOF1iBT64qdlPiLRRh+CffRlVBa90ryr/acmnEO18F+y/krnK2+Lab
-         wnzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwVHIo+4PtUdqHGm7o2sXXBn2FircQ4w5PcmgVRi6I27EdYv26WOCV/uEXFBGs9UnbU7R8gacentWDbCc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/pH8c30AJ0VWCq4+TX2tp+3tfghhFvJuT51QoojuqMIP46rPpu
-	Y66dcbSoGW53gTSzcXxfsnmZoZBecu8lHILVmc6SdoMDdYEARcxhD4pH
-X-Gm-Gg: AYBFou3RkQ9qWS7/s7j76fiT7bOkJFP9fwAOU0XpQsQoGpNBJYhAsNuTbkREi2Wv2ue
-	czQnjFwZxbAjY3ZJXplJGal7/jl2P+uDFpqz6xwt7an/WThYN4ZXVN+d3tMOxZKEEz1kZcCCfkm
-	qduNCz14fgAszdDsl6XBiwMczasGtexzQ2I+P0CJbQi+5w13Mmav93lEEbcFBQxTNf8OR4JqBF6
-	oY0s/JwRhClhRl1VaMkkUSTwTpJOOR03a5vQkL6eoaCZZ4ZeaX6Ziclqwk4tF2izZSJD57Aqxlo
-	SI1Kscz6W+siGaKY5ApNP2Iw+ttQoyxY0rG9qb/1G0ses0ePUDk9TxX+FcFvC8wdN3T3ZorqMyt
-	ksuVChMu4mCkNwm/rtkRbGLSNp9RBBLsLE/ThDUjjRtULkr6a+uYubtaZdIrgM2FX+3X0fyKylb
-	U5o2C5Jyky3B97tGOTg5FSFQnI3lq2yPbZoBB843hsScMMKO3ZVmWY1H4yoy1HaphVZxOIiZd09
-	hM5TqXvDa+9eUyJYkN4O4LiqHwk1raFGNKEXZ5wiFgudb8JwK1cz+ihHlXwRM+WLv4BMo6Bcncl
-	yzM/qAMOcl+UJnP3jzKKcG1cW3M5tlNVK8odazc=
-X-Received: by 2002:a05:690c:fd3:b0:8b0:76e5:ecf0 with SMTP id 00721157ae682-8b2b65ba33emr54625067b3.4.1793561108916;
-        Sun, 01 Nov 2026 11:25:08 -0800 (PST)
-Received: from acer-pcaldeira.lan ([191.23.85.25])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b7165abesm40430797b3.32.2026.11.01.11.25.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 11:25:08 -0800 (PST)
-From: Pedro Caldeira <pdrocaldeira@gmail.com>
-To: "Lee, Chun-Yi" <jlee@suse.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: Pedro Caldeira <pdrocaldeira@gmail.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] platform/x86: acer-wmi: Keep Bluetooth powered on Aspire E5-573
-Date: Sun,  1 Nov 2026 16:24:44 -0300
-Message-ID: <20261101192446.5615-1-pdrocaldeira@gmail.com>
-X-Mailer: git-send-email 2.56.0
+        d=1e100.net; s=20260707; t=1793561247; x=1794166047;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:dkim-signature:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=FBzaqWRuYJDOcynWW1oUqzv1XeYY64zxgMqREXlXnBE=;
+        b=mJbraoIeW5gYxAsfwkv7cllQso0OcE6eZoc6DcHFF5iGHlnEZp8Y3o727zFiCoV4nk
+         +BlbFj4wKkxJhvpBpJ1Xqv7cNLlmfFRty2f9vIkIPcLjghdYCMlZYHmKBQTNkeoSUKOG
+         Ka/khazWnqWhZfj8MycJXIqOf7YQfRHhCjmsM6L/F61M1DSQcyLM84hVQ9I8Lk8WzaLG
+         SYuahgWDc1H1JoFIfxmUjpzfmA98ZhH6hG4Ro1aXRnb+G7LAqB07YYIJ+BR4RseCWX4b
+         jg+xX/9hz8UdyQhDcbh1hsrxAOTkhU0WuKRIWMe2WXm0m92V+E2t+kd9rMsytVFtJGYi
+         99fQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw6VhG5NMxf2XBv8oitsgKrgTzCEq9eVESkHNAVbeQuaD9PUs1pAoWev7hrzY91nHzrcVqqBR32zuRwzhc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8Ah/D4zi+gw3x/HlBQ79Psm5WxdejYKrLb/6XNJZ+3iuxeFnu4
+	pyfWAtiE9yB3QencA48oxEMxISpcyfqVQNWgD5b6U+m3PwfbfmbOVhB5ZySlRAqHPEK7JUSUDYs
+	17/d6IoDverSRsKKqA5xiNbaQmf17ALOvUDt+kwA7H54DS9S2Vvj5RrugyCRTvfhUZJKW1ihupY
+	GkYPNyX9g2DGH2svaMpuTvndKuCyRohdbomJhcSmzBDZE0wP3TjLmXlM0EUbSNinajapIh+okEH
+	f1xym/6xPAYzmHYuA3L7Cw=
+X-Gm-Gg: AYBFou1bN5GpiAGsC563C0qa5M6k6swyX/9xRPIcis2mUjZuceWnA3ktTR5YlIHmTfZ
+	aFPVoNjjCQXZlllmYLVCkNq5RStBtkKrSgPFNdXazsCczFqD77h/uFvDBCwT2pQpuR1qo/0RqRA
+	eq6CEies6Sm57vBpkMa/Jz/7UUkBNF1huLUGnhcovgT58N1xt3yHybII13G3WGYKk/mkD34gual
+	AMo0LqNQ3ua/7i89d2dIuWeHI0c6lslf4w1i6lHiBQDf9my+gp9RYI0mW1oRDBz+LSbpojDpz5S
+	5+oqPPOpaMRRwWZfAEUDcqrLl6FSOFHSs+lOTcTvYBanMOcENwAApB+Ezvn+BPEXltKOvXVpM5L
+	Yf9fPaw9NMzjHKqlwuRMQizypuFWkQRutIxoPRm8XMeh8jzazgZ8QDn6FmT/9xcnC7Esai5MUT7
+	mP9B+ECQL8caHFSKW9fGlQjJJkh6uKVH4Kac3DpdQ=
+X-Received: by 2002:a17:90b:2549:b0:3ac:4e18:238e with SMTP id 98e67ed59e1d1-3ae89847e94mr6228392a91.46.1793561247478;
+        Sun, 01 Nov 2026 11:27:27 -0800 (PST)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-28.dlp.protect.broadcom.com. [144.49.247.28])
+        by smtp-relay.gmail.com with ESMTPS id 98e67ed59e1d1-3ae6e88749csm8588189a91.7.2026.11.01.11.27.25
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sun, 01 Nov 2026 11:27:27 -0800 (PST)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ej1-f72.google.com with SMTP id a640c23a62f3a-c4322d31021so114725866b.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:27:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1793561244; x=1794166044; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FBzaqWRuYJDOcynWW1oUqzv1XeYY64zxgMqREXlXnBE=;
+        b=DhrvIh21w1XzU5LgWa9mrFLSjCH/FjS5+8gKwe4Xa4Diyaen3FJnosCbGfUO+p07SW
+         ijy1U2WlmTouxOa58w/1JLPLZaQi6XCay+WFJIpK3ADbMZZHVTP7o/aFW322QNLLsCut
+         PzU4LFIRWv4FO1Qsoa4/m6FSNeRi8OeOtvc/c=
+X-Forwarded-Encrypted: i=1; AKwUvBzdHSkMzUlhLtjERO30zlIJD45+VrSaBCW6s6ipZjiSZNYQwiWsSroA8H4WTCVVETXR+wi+JPBMYzGcgoo=@vger.kernel.org
+X-Received: by 2002:a17:907:86a4:b0:c46:9d7b:37d with SMTP id a640c23a62f3a-c4ca7a4b544mr641619466b.17.1793561244349;
+        Sun, 01 Nov 2026 11:27:24 -0800 (PST)
+X-Received: by 2002:a17:907:86a4:b0:c46:9d7b:37d with SMTP id a640c23a62f3a-c4ca7a4b544mr641618066b.17.1793561243910;
+        Sun, 01 Nov 2026 11:27:23 -0800 (PST)
+Received: from [192.168.178.26] (f215227.upc-f.chello.nl. [80.56.215.227])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc1920csm303460866b.5.2026.11.01.11.27.22
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 11:27:22 -0800 (PST)
+Message-ID: <d78cbbd2-601a-4cf1-800f-3be57a2b7de2@broadcom.com>
+Date: Sun, 1 Nov 2026 20:27:22 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,95 +105,56 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 00/13] wifi: brcmfmac: Add BCM4388 support
+To: michael.reeves077@gmail.com, Pieter-Paul Giesberts
+ <pieterpg@broadcom.com>, "Franky Lin (Zhenhui)" <frankyl@broadcom.com>,
+ Mathy Vanhoef <vanhoefm@gmail.com>, Kalle Valo <kvalo@kernel.org>,
+ Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Cc: linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
+ brcm80211-dev-list.pdl@broadcom.com, asahi@lists.linux.dev,
+ Hector Martin <marcan@marcan.st>, Daniel Berlin <dberlin@dberlin.org>,
+ Janne Grunau <j@jannau.net>, linux-kernel@vger.kernel.org,
+ Hante Meuleman <meuleman@broadcom.com>, linux-hardening@vger.kernel.org,
+ Peter Robinson <pbrobinson@gmail.com>,
+ Izabela Bakollari <ibakolla@redhat.com>
+References: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
+Content-Language: en-US
+From: Arend van Spriel <arend.vanspriel@broadcom.com>
+In-Reply-To: <20260925-brcm4388-submit-v1-0-b5cbc2cde2fb@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
-The SMBIOS type AAh table of the Aspire E5-573 reports a communication
-button bitmap of 0x1 (WiFi only), although the laptop has internal
-Bluetooth.
++ Peter, Izabela
 
-wmid3_set_device_status() reads the device states using this bitmap and
-writes the result back, which loses the Bluetooth bit. Any write to the
-acer-wireless rfkill device therefore powers Bluetooth off, even if the
-WiFi state does not change. Userspace does such writes during boot, and
-Bluetooth cannot be turned back on as it has no rfkill device.
+On 25/09/2026 15:43, Michael Reeves via B4 Relay wrote:
+> The Broadcom BCM4388 chipset requires new PCIe initialization and
+> firmware interfaces. Add support for these interfaces to brcmfmac to
+> enable basic station operation.
+> 
+> This series adds:
+> - Signed firmware loading and mailbox transport
+> - Fixes for chip identification and firmware capability matching
+> - Versioned scan and join requests, and extended PMK payloads
+> - Updated event mask handling
+> 
+> These changes include work by Hector Martin and Daniel Berlin from Asahi
+> Linux, refactored where needed for upstream inclusion.
+> 
+> The series provides basic station support only. 6 GHz support is planned
+> for a follow-up patchset after this lands. The driver retains legacy
+> interfaces for older firmware.
+> 
+> Tested on an Apple M3 MacBook Air (J613):
+> - Device boot and network scanning
+> - 5 GHz WPA2-PSK association and DHCP
+> - Bidirectional TCP traffic
 
-Add a quirk that adds Bluetooth to the bitmap and to the capabilities.
+Finally got some time to get this series tested on my setup. The patches 
+generally look good. So far no regressions observed. It would be good if 
+some more people could test this series on their equipment. I will do 
+some more testing and wait some days.
 
-Tested on BIOS V1.37 with an Intel 8260 card (USB 8087:0a2b) replacing
-the original one: Bluetooth survives boot and acer-wireless writes, and
-the new acer-bluetooth rfkill device blocks and unblocks it.
-
-Fixes: 1d1fc8a75fec ("acer-wmi: replaced the hard coded bitmap by the communication devices bitmap from SMBIOS")
-Assisted-by: LLM
-Signed-off-by: Pedro Caldeira <pdrocaldeira@gmail.com>
----
-Reproducer without this patch:
-
-  # rfkill unblock <index of acer-wireless>
-  usb 1-5: USB disconnect, device number 6
-
-Runtime-tested with the same change on v7.2.11; only build-tested on
-for-next. Not tested with the laptop's original card.
-
-https://bugzilla.kernel.org/show_bug.cgi?id=190641 reports the same
-symptom on an E5-573G with its original card. I left that model out
-because I have no hardware to test it.
-
- drivers/platform/x86/acer-wmi.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
-index 3a018fdf5..60028fe9f 100644
---- a/drivers/platform/x86/acer-wmi.c
-+++ b/drivers/platform/x86/acer-wmi.c
-@@ -406,6 +406,7 @@ struct quirk_entry {
- 	bool hwmon;
- 	bool platform_profile;
- 	bool pwm;
-+	bool commun_bluetooth;
- };
- 
- static struct quirk_entry *quirks;
-@@ -430,6 +431,11 @@ static void __init set_quirks(void)
- 
- 	if (quirks->pwm)
- 		interface->capability |= ACER_CAP_PWM;
-+
-+	if (quirks->commun_bluetooth) {
-+		commun_func_bitmap |= ACER_WMID3_GDS_BLUETOOTH;
-+		interface->capability |= ACER_CAP_BLUETOOTH;
-+	}
- }
- 
- static int __init dmi_matched(const struct dmi_system_id *dmi)
-@@ -454,6 +460,11 @@ static struct quirk_entry quirk_acer_aspire_1520 = {
- 	.brightness = -1,
- };
- 
-+/* The type AAh table omits the internal Bluetooth device */
-+static struct quirk_entry quirk_acer_aspire_e5_573 = {
-+	.commun_bluetooth = true,
-+};
-+
- static struct quirk_entry quirk_acer_aspire_a315_58g = {
- 	.hwmon = true,
- };
-@@ -663,6 +674,15 @@ static const struct dmi_system_id acer_quirks[] __initconst = {
- 		},
- 		.driver_data = &quirk_acer_aspire_a315_58g,
- 	},
-+	{
-+		.callback = dmi_matched,
-+		.ident = "Acer Aspire E5-573",
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Acer"),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Aspire E5-573"),
-+		},
-+		.driver_data = &quirk_acer_aspire_e5_573,
-+	},
- 	{
- 		.callback = dmi_matched,
- 		.ident = "Acer TravelMate 2490",
--- 
-2.56.0
-
+Regards,
+Arend
