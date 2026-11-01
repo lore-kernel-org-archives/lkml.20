@@ -1,91 +1,91 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793553718;
-	b=D+JnquEk10ALmvFCQbHF3m09vgs0YBIkhe9MUkhUg8g4LTZhQsED3el9OkMaEoAt1cf8
-	 DXgF/VR0ax7A8wfV8XNnuscL/R2qKvD+0q6UsJ0hzayMO42ilSXXRYpUI3c7KseE4luEN
-	 r1ARGX8EVo3Gkt//EozFZCkmjzyKQLZg51fq3zHbMt56XAl8wqyZLJS3XkGuvqa1oIeVn
-	 pgPKzzGD7cHbnlg95mu4hKkiCxBuSZi/s9CuFdYyVpJbwdOyp8nKTyAvLEAGHNtlLOJso
-	 Ba4BxbsXLDsroI8CyDlvOV8XwXEgLbRjAmjJQUxqwwzrzqZrrk5zdJdn7OYVXMuE1gw==
+	b=dU1P79lZ1iWDPtwVwLucC75Kt1U8WCtvf1nh+gyVTa7Wgm6rxwIMDw3ZH2TwkzAcaf7p
+	 XUyKmzghKSfT5yvacowX2b9hNB3q0pZflFrwHv1XxE3cq5fXqmAhT7ylmqQ3mklVm6eSD
+	 D4J0BrgjcIPGRCf0iMotcoQCx8FHRXbeGMVHS/RVuLvT8+3fVVGRDTRVTQ0jAmgog0cPF
+	 jSacHaLTGewtzKw/oF87Fqjp6ryt1hcdIL37DhNlb1QvNdGc5h+oj4R5p/NRuywLPvlsB
+	 tMlt9/BwX4yKzkWKtJJR3WEMiGkUU73Rh5If7tJSj86+Xv1sBq1c2k8ungS7QoNcDxg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793553718;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=XwQq4VnLXbeP8zDqe6ljK7RGgnNSD2hLCp0cnoXnZkY=;
-	b=j10Ov8W2PdI5Ip9eiH7BflrrHjtib65S2eQ9UOlFLd/Ev9Cts2g7ATfVzV4qjvJmfQA1
-	 ztwx4gAmvrDIcORD/jUSOfhxwim9voW8MamDReA4KI8G73uPCl6DZvvhsuIUMP/vkpxU6
-	 5vWzLsZB/g7V8Duewwz1mmrfEge5EQayP64MAMDjNWCiHsumTw405pdd/hGjhKXHXnHD2
-	 UQSox86aEg61NDWe9b2gvQopPkrGg0kqcK0GBiQU5d0gnGq31CCppLOPL48sKuLIMCsjx
-	 QMYFARlVpAPxVe0y28FBc+IwHJwK6wqT4wtM8iw3fmi2t58VkTeJIqcVn1bKkM6D5/g==
+	bh=cPGQwf1ObFoYgjtiWhEowvS7SFovmImP8POBo6vs5as=;
+	b=NXx7XWU+Crm6L3Pvs0Fc5zM283VKe94GaCTdW6xtKMYAZJLpbTr0l88wjh3dqVeq9i1L
+	 /r4MNlaVIBWpz524MWYgs25mjHNlXfJjl0PmCEBDjDg/GlQGfPF8+AJzTsOHVHwE9oq2q
+	 1yGALFahoyCmglXaCQsNQ83q6Wku6HPXOI92gynyLHevZf+IRf1Hd6PjLeOV8JnC3l+Ml
+	 3RvkDi9/+4HjriA95gAi+BFBXEQNrE67rzueLNsdvd+IEg2YCfsn9C7J0B3NAKCtFiYex
+	 96K3ObKVLskR0L0BDhob6hU/q0iOthCOksIZemHz9HqYh3isxgY0BfFB9fzmcDoFOOA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=korea.ac.kr;
 	spf=pass smtp.mailfrom=korea.ac.kr;
-	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=lNAliZbR;
+	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=dB9F4pMd;
 	arc=none smtp.remote-ip=209.85.128.175
 Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92800606A336
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:21:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92800606A336
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F38DF606A32C
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:21:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F38DF606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=lNAliZbR
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8ab432273c5so19145207b3.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:21:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=dB9F4pMd
+Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-8b0cf2c0785so17431587b3.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:21:56 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=korea.ac.kr; s=google; t=1793553712; x=1794158512; darn=vger.kernel.org;
+        d=korea.ac.kr; s=google; t=1793553716; x=1794158516; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=XwQq4VnLXbeP8zDqe6ljK7RGgnNSD2hLCp0cnoXnZkY=;
-        b=lNAliZbRZepolAFL5w1/QzHVy1Hhc9QMo3Swv1kkIP5kH6VbR1UQyQOiTDRbp4nMVv
-         hqdn1Z3Pz3Upf8Sku8O36Wx0l8NoZSIUQvQyBSodxisxbBYQk8ZQ9WhdlGhtZrV7deis
-         XgkWHuIhVWXN9SLQFREMoGPVw/pxsPppgBUoUORl1uPw54YClUxBXjN30g8MrFwaBUkj
-         6hPTS8Baj0NOEnMnPDzDSpUFyuhwiecTjzhX42XeQyfxTKWIckn3NdliXEKzN4bL6TnR
-         Zr8YlEZKrHW2pt5ihR15c2//cwtPd3h8MW1yMl3TWa1+TAFXAIB6BQZcQnfM9po65yhR
-         x0ew==
+        bh=cPGQwf1ObFoYgjtiWhEowvS7SFovmImP8POBo6vs5as=;
+        b=dB9F4pMd6Au4NpDgXLrOdMXuhYHWIgmuywaKglaRDzikSOqUGu/fOzrphcj8Gy4pSe
+         iNlXOINeGQjo3gCyPEN4585GpDYPEAPZL4tTzy3MCKIT0l2EznJzYfjVAUr2HqbOSUdu
+         Y54XlN5t8v+UmmOurbsLgaMoi9zfSq9JNyXi04CT/CCljR65OgB0SXONbzGUYI6s1UED
+         cK267BK1JtssyyT+ErzXVD1n/2QmMXF/rcKXhG5zJ1WPnr2ajce+3sDLQtK3mNz11Tn+
+         D/7G3IaKyYpSbo1iLLRS58x18yWC75kPZV05lWu7567r3vHDlAB1w1+dWiWbBnpRJQEV
+         nfDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793553712; x=1794158512;
+        d=1e100.net; s=20260707; t=1793553716; x=1794158516;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XwQq4VnLXbeP8zDqe6ljK7RGgnNSD2hLCp0cnoXnZkY=;
-        b=Hl4Pkbn0kLNy4Aig0fX14BOHoOGl/3xjOWMQwdhYbTSOdzAWRr7ceFb6bI07hqIaa0
-         3fiJ+x6CzvWILZyJZ7FilYxR9Q0kxvxIFPFw5XTr5hBpVmihMKUcxiuwHf5eDsx65dTI
-         3/2NhHh8yMzb03G9j7eeztnTwhJq1AMWBQihsv/cSKDfO8Q9PrYaVpUhWapVZjw4nDKu
-         21gCas4bpIp0TLdIg7677yvR+99Ar6aj8nNsTwBsvEVLJ9LDT1rgxSkPWrzwT8a1ubBC
-         lTRQNhrqAI/eIEghbzgC1ReTvswlV7W9BS1qFpYclgG5MZjLRD8rbn2+YtGJwVeqgCGS
-         RqSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzK2Mp5oRrsI/Udfsrg2gAHO0q+ZtXChTXaL5dOamHhyHHseyObDuMi7BL8k3RPxpXJvt4dyxA/Du4KzbY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/FJo2ZyCpQK4yhFJdLymJvWrWn3nph+mcDPP6S+YpJsJPBH2oz
-	n7hcFP3CQCOfl9W/FhYKAwaq4HQTqGWM2Ksrk0JBwBq/rJK9fM/o9p6k0ZlJwlWkoQ==
-X-Gm-Gg: AYBFou1VA49tpxYu/QvQNCAAlCbT0v5clwie7MKv2o4NTiA4Gy8vnLHMatuyQ5sazpq
-	YE9daG8u0+UoaVze5F10onHWoJGJeZQfiMj7Cl4xXsG09rkyT0SwizQOfO7AELgOhKHsJAg+0Yy
-	O1XNb/Yn2sD14tjAkWfjSJV/DmzzbVJeZN7rN07AIsCGS0Tl22RRB65NuXh0DdZrWwRS4nsuvLx
-	JhT5zIiWLq2SoUuC8FGmzq7DLaBnU3IWfrU6hnXZG13lb4INMOI1mujcaqvuIvQ98sGEqMRSnnB
-	AEHoqKTOrlGwVzPEIRKKfDllxELvWxoEzDtligAzA1kO4pNLQILVIXPcnJEKExv0Awxf1m+uGAb
-	9Wqsl1/61nOJ89JA3u3xCdLJddmSUR7BkAkVLybVdhpq4edlijDeAKd7u+lscZjfqmGXyYLCtLn
-	pFYThlsAFmmg9eBa6u82BoHn57oioLWEfhatylIA3emWC3YipsFpZ8Pl7H6PgA2ueoTkZYylZqA
-	KtVAHLCLl/JxspvgBUBBWlVuw4YAuUfcJM4EZrVXmHtP7x5h6EPxrAbvLMxachS5Jfb2Do=
-X-Received: by 2002:a05:690c:9d:b0:8ab:485b:9be4 with SMTP id 00721157ae682-8b2b6431e64mr58964837b3.0.1793553712575;
-        Sun, 01 Nov 2026 09:21:52 -0800 (PST)
+        bh=cPGQwf1ObFoYgjtiWhEowvS7SFovmImP8POBo6vs5as=;
+        b=L8Wf53aruL8J15IDYyVha20gcvxbJ6ZGRz09pycbrOmcfRnhPHW8NfeQ/L0t6lCsV0
+         39rjC0RuzwPHBjhoObyi+IFTWMbnLAS/h9YCw62PoVxSIF2SQc55Q8x4Ct0APfW4yvG2
+         i8u5F6s6QI6NSwdSRJ6Tr4TJOQ8xlsLWWzRmrF30BFiV3z7mgLQ84X1xj2Nl1SbS6dbQ
+         S55B+33dvJ1RAtrzzMK/eL3/YpDryro87NtMm7e0B1kmL1mIIh35TXA5jGiQXmMF5/05
+         WENP3v0WHjz/rsT/rez7L0bfyidn0srHSHBA/M7dWolgZWCGKAaq61DMyVvxIQHmy/ni
+         LbRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBygNjBwyH2xeqTl7/znCToUt+Sq35M7ai9LgYXG5j0MlJn+vswW0JYUgC3XtEESWTxrR6uBZzY1ow9J+Ew=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/FKcGSZAZIVAoyJ+4liZBC9IsuFRfAL12EH+IXNNebdkf8RSRR
+	5xx72HcPPcarZzGReQL4rYbw7riQskoxCvj6YnpgKkma7zabQVQn/C6/lZTou9rv3g==
+X-Gm-Gg: AYBFou0su9H+S+C0Or4kLvdAgSFNVesdxfsHXhNyFaroEV6yPhpWVElcJOX2qpcOYeA
+	EFk53QW+KgptqT+hHu5jfkAxHUk45nsKpYlQ10MgF9mS0fJPEvDwRvP+F9OpL2VXClOh0suWXih
+	K8PqELVDNQb1xIBRpPT3jcamro/a+hbBnING3zZ6fHqu2ZxqSpt9ORdcl0OqxwloiCYyTmPPh6u
+	9EOKi/BqeG6KzEdFN3wKmbGuEVykCPCgmqObt6KGvPKU1UZaNNwcg1jfKC0e5DPZy3G1vOYstUe
+	wSzRjMpQbO21KQ664VsNOr2R08MnfEuM29v45RLwFxsac6HpSlmw8sr6de0a7hrd9RqUVRNrygH
+	BswUpRjuuw7iwQi7KHGVAx9DS+RFG4WV3qJxuX8Yj1h2IXzJgmJO2+4+ZIsHEiZhd3hkCJE5wVQ
+	YQYM2xYGYgQfe4KzUaPKIW7jY+vMj+GMZnuEj+2sjhnw8wudkix9g8DPBAXhq5s/nEpGyOTGccE
+	18qHOCqu152AIQeJZfmobPTnS8+2O1vNhmAekqLkOIp+oBBrU3mKBrgEejG/u12fc6V0yc=
+X-Received: by 2002:a05:690c:8007:10b0:8b0:8e22:d937 with SMTP id 00721157ae682-8b2b66c7923mr29268157b3.33.1793553716082;
+        Sun, 01 Nov 2026 09:21:56 -0800 (PST)
 Received: from s2lab05.. ([163.152.163.130])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b714bd40sm39086837b3.16.2026.11.01.09.21.49
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b714bd40sm39086837b3.16.2026.11.01.09.21.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 09:21:51 -0800 (PST)
+        Sun, 01 Nov 2026 09:21:55 -0800 (PST)
 From: Ingyu Jang <ingyujang25@korea.ac.kr>
 To: Takashi Iwai <tiwai@suse.com>,
 	Jaroslav Kysela <perex@perex.cz>
 Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ingyu Jang <ingyujang25@korea.ac.kr>
-Subject: [PATCH 4/5] ALSA: vx222: Make put_xilinx_data() return void
-Date: Mon,  2 Nov 2026 02:21:33 +0900
-Message-Id: <20261101172134.3451066-5-ingyujang25@korea.ac.kr>
+Subject: [PATCH 5/5] ALSA: ali5451: Make snd_ali_reset_5451() return void
+Date: Mon,  2 Nov 2026 02:21:34 +0900
+Message-Id: <20261101172134.3451066-6-ingyujang25@korea.ac.kr>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261101172134.3451066-1-ingyujang25@korea.ac.kr>
 References: <20261101172134.3451066-1-ingyujang25@korea.ac.kr>
@@ -100,48 +100,56 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-put_xilinx_data() always returns 0, so the error check on its return
-value in vx2_load_xilinx_binary() never triggers.
+snd_ali_reset_5451() always returns 0, as a reset timeout is treated as
+non-fatal, so the error check in snd_ali_chip_init() never triggers.
 
 Change the function's return type to void and remove the dead check.
 
 Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
 ---
- sound/pci/vx222/vx222_ops.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ sound/pci/ali5451/ali5451.c | 10 +++-------
+ 1 file changed, 3 insertions(+), 7 deletions(-)
 
-diff --git a/sound/pci/vx222/vx222_ops.c b/sound/pci/vx222/vx222_ops.c
-index 40f3716c478f4..348666b422f5c 100644
---- a/sound/pci/vx222/vx222_ops.c
-+++ b/sound/pci/vx222/vx222_ops.c
-@@ -321,7 +321,8 @@ static void vx2_dma_read(struct vx_core *chip, struct snd_pcm_runtime *runtime,
- /*
-  * transfer counts bits to PLX
+diff --git a/sound/pci/ali5451/ali5451.c b/sound/pci/ali5451/ali5451.c
+index 8295eee9b977f..b86b921296427 100644
+--- a/sound/pci/ali5451/ali5451.c
++++ b/sound/pci/ali5451/ali5451.c
+@@ -414,7 +414,7 @@ static unsigned short snd_ali_codec_read(struct snd_ac97 *ac97,
+  *	AC97 Reset
   */
--static int put_xilinx_data(struct vx_core *chip, unsigned int port, unsigned int counts, unsigned char data)
-+static void put_xilinx_data(struct vx_core *chip, unsigned int port,
-+			    unsigned int counts, unsigned char data)
- {
- 	unsigned int i;
  
-@@ -347,7 +348,6 @@ static int put_xilinx_data(struct vx_core *chip, unsigned int port, unsigned int
- 		vx2_inl(chip, port);
- 		udelay(1);
+-static int snd_ali_reset_5451(struct snd_ali *codec)
++static void snd_ali_reset_5451(struct snd_ali *codec)
+ {
+ 	struct pci_dev *pci_dev;
+ 	unsigned short wCount, wReg;
+@@ -442,13 +442,12 @@ static int snd_ali_reset_5451(struct snd_ali *codec)
+ 	while(wCount--) {
+ 		wReg = snd_ali_codec_peek(codec, 0, AC97_POWERDOWN);
+ 		if ((wReg & 0x000f) == 0x000f)
+-			return 0;
++			return;
+ 		mdelay(5);
  	}
+ 
+ 	/* non-fatal if you have a non PM capable codec */
+ 	/* dev_warn(codec->card->dev, "ali5451: reset time out\n"); */
 -	return 0;
  }
  
  /*
-@@ -374,8 +374,7 @@ static int vx2_load_xilinx_binary(struct vx_core *chip, const struct firmware *x
+@@ -1901,10 +1900,7 @@ static int snd_ali_chip_init(struct snd_ali *codec)
  
- 	image = xilinx->data;
- 	for (i = 0; i < xilinx->size; i++, image++) {
--		if (put_xilinx_data(chip, port, 8, *image) < 0)
--			return -EINVAL;
-+		put_xilinx_data(chip, port, 8, *image);
- 		/* don't take too much time in this loop... */
- 		cond_resched();
- 	}
+ 	dev_dbg(codec->card->dev, "chip initializing ...\n");
+ 
+-	if (snd_ali_reset_5451(codec)) {
+-		dev_err(codec->card->dev, "ali_chip_init: reset 5451 error.\n");
+-		return -1;
+-	}
++	snd_ali_reset_5451(codec);
+ 
+ 	if (codec->revision == ALI_5451_V02) {
+         	pci_dev = codec->pci_m1533;
 -- 
 2.34.1
 
