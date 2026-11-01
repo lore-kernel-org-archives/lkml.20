@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.7
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793561396;
-	b=LMqlnyJKj6F14q9GYSDV8XDsRXEd6QsbZVWEH/q+urIvEIIfdcQG86/u7WhKVizX3liM
-	 GBmCBq7zQyn33Sb4BOp6E0Nsz0xSSMdA1K7UBhpEcHmW2NDWg6nC5qUGvF3lKZ6kLdSII
-	 mHFVGCg0vbg8TRjE0u78rUvRMz1ZD3MLDqymQ89ZjG6h5cVIRFKVvJ3pqJNO5+bAmORVl
-	 Fc1JpKs6kD+K+slQ44rtJFmUk5Q1S03YhCmgK/SEdD/MfHNqM5Ghx7avHg8/Rk5Lfigj5
-	 3VdwGVl56UCOu/dQX7nzqh8LumKvQZLCbsWT3lMwpYMEZxjsZDpagETPL5RND3I0AKw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561396;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793561696;
+	b=mihAXjIrlb1itKiwF4waWs+ceWPPaFAzMAZgm3aYdx+FjhLEYGGCQlQ/Vb8Qw7iro0io
+	 u9zNeSW2bWqK5oeDfD/6wbCe69XPUpe1/oDGBPJYhJLWSGaPmGKmrwyREbBm2QzVuDoh3
+	 u+8y7eB4L+LOxIX6dvTwyYe1/jCXnlb7FD0GXyH0KB4yOZe+U6GLl3mNYjIBGuD1mXrl6
+	 pZMALPdRzpP2C6vAFYi8iezz3aeGUzIjMuQWW8xaLquyi6V5X3u21AZ3bODDlI7ciIXTW
+	 RlBW+89KN8omX91ECmbkbbaMMHiFx7/ISFL+CEzsPV10pbjjlGZgoSZzhTQbuSzxAag==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561696;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
-	b=GDOxtpZSJbPrpHqJsEZKkFuZSrvlWjMbj8bAmmSVw5Ee5nOIsFgYI8wKWUfMDgXjD7c8
-	 GgeQ6xeGkUvsQ9k1MO/axvmnKL699FrvBxkk/Ye+77ds+fIyJpZczZ3dbLFikvkundCvl
-	 LjKt3WstWo7QhgApZiY5DEg1SAalWkQQK/qyBzgALwSZm97VzyPjLm7Yjl294LVDY2zhJ
-	 GtpMwCq5rik5P41Fj7SZlpcXw5GuLg9e7gmvmU3f+pdGBjaT0NQxksKpgN2TRTyB72xlt
-	 WyUkyYUL+ZnUOe1ptpKgKXlh9xRMBAzJD0HAcKVnsGbmjbr6LEMex/SSpq3fZI24k+w==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DXExrATK;
-	arc=none smtp.remote-ip=74.125.229.7
-Received: from mail-dy2-f7.google.com (mail-dy2-f7.google.com [74.125.229.7])
+	 Received:MIME-Version:from:In-Reply-To:References:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
+	b=uwFeI43aspoBke31p4VNMrHM3Py61P/tccxSwXhtcocketZcJfQZfpWmlu1TKD1qPEwt
+	 bKHQugs6PvqDMhLtHgUZht5wpSkDwY7fym0+rg1Qt+r+2u2Nmc4xtHrNdHfCpXOYYBRqE
+	 sFwu0X26h0BU7odN9JISv/iHUi1m4VeWk8i6kK15hspeSaWZCcCmbJ1VLlmHbKolQTNoW
+	 Tnq1q73Hnah/P6UJPbrw03JyDeHAHKL7lWue2sl9DBhPgwVH20UNDWx54hhVp2Um3QHYM
+	 RJBe2qVuHxWu/2MurvRivgYfByEwC8FI/ee62CzxFFDUE4peJKcatH+gMCaRt5Py5XQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Lfqcc5GG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25193606A33C
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:29:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 25193606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F0B606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:34:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8F0B606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DXExrATK
-Received: by mail-dy2-f7.google.com with SMTP id 5a478bee46e88-369f126a526so3125860eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:29:54 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Lfqcc5GG
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b4a13789b0so3192931a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:34:55 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793561694; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Hd9ulfsjRgq1dYMqsQXlFsQEpWsfmnWRVIX2Y6sYgEEEK3nQyHjU0+5Qvfg9GPJjlZ
+         mlNsdxjeOM1BzZJciDacApNuVcBUE1dHl+jbSTtd0A9Y7ZEgPgxPfVrFDDs7pekQZdpB
+         f4VEYT/LXzox9yit/Yuc69FvcMUmERr85/V28HB/soEFEHwN4w8QTW+ZTjXBtvbGoVl4
+         Za8r5Cc3IUq/JUeAr3LyOn/5P0rYzmcm7BQLItwnP0uwnzVKamcWxqDWWkORxPXGXlva
+         GIDf50FvhhyW2BnEjjxbz0JcSkqFRDYAVsj3MxLE6QReAtsdfWSiVi9Cg+xERcUPm1MN
+         lg9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:references:in-reply-to:from
+         :mime-version:dkim-signature;
+        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
+        fh=YQWzNR6QRNugeOpuDI/znfnkVPxIT5eVvhviwSAIniw=;
+        b=LUH4bafjw3/lLAFkZA9zZz+ERZ5uBUFaBDLC67eOj2FvvmxhdRLZTuZIULkSiuSv+e
+         7ZgwvQIalEjcbn1RywCXd6r3FEetSxlF+P4vPnZQnL6ng/DVbpfSGrG14nrdG29OWdMl
+         bUnVqJRxA2Wi60YibzklFmpGo5iBd31bg5UcHFoK1ekDjObURGy1iAWPuQoEWaKWnzh/
+         K/3XwsjBoabnwYdJ0nsNlj3/tT2EPKvwDy978lPxjZeaGA5vETmR5zUzXEntErLjAYoT
+         gjTUSqtGs/j43Dmceh4WYJONUTELy8MdNrGMBzW9xiMnz1NgRDhPJkZszWXRG90Q/ZAo
+         Vjew==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793561394; x=1794166194; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
-        b=DXExrATKhuv2WetJguNn6T+WIyLaHJQ0dzD4VYgImnZt3ZlQUYnYIQSPTA/j5JbPMw
-         9kJfqbPAujFTCGQ4RM7W3G3MwPztfRW/t00V0E+Jy7wU7rDRaAY6rJaY1jgZ2ypTgu3A
-         5eBTeZlT13S3IHbV3RU/p7KjD47jw6mRGiDBhvioib3fPSPl4q5Tbyoz/EPVHII2yYG9
-         w7haRqtHVQvihwGlXhv8sB4IFMfR50bUeNxYAXk3kf4SXTkW45GDup9xMcGcSgDLbpp5
-         QCMY4gDVkUiWm8N4aGC9N90dgJIKpSnU0h6CgvuUelmg9xtw1Feab32eSKvJQoTo/bIi
-         byeQ==
+        d=chromium.org; s=google; t=1793561694; x=1794166494; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
+        b=Lfqcc5GG/SwjR7rhF6i9wN+51zewpGS58ukrmB9LGRdbbpKdip3M+YroJNl6U5AaZ4
+         rF//L/DV6VSxmy/1UQsFeJhmoDWwkPFReDLBiC+oRpU55av1FrMnZVBw20fY7l4UynL3
+         HVfRKiNvpd9FUkbDQyR76hW+g1Owj32N3MUEU=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793561394; x=1794166194;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AmWM5i5bcYLOfgd6JgqgudQuIbo9gKLsDd/ijE1n9kA=;
-        b=dxyzSFY1tR6qNh7v6kSal++K/BF/Wn6OP3wm9iwfqU7PeGQDdq9gDlf2w0IFUTbL9/
-         423NnWtJTjfJyPWFD3fwnwLwA7oHjUdJStDEq18hP2O02vxOQDLl4jGC3aLVLD/7OP3z
-         YeDZycQhV63ZNEP3YZjxBw6zVA3+SR1dM7NvYBY73O1tCjsnO04Wd/tDNhS9D/a8XcRa
-         C5ixyEiRkE+ahSf6nMRyDn8mk1uPieYW2UBlzhcFtzRuapax0j/M14zPDdvcm1Mbgu1M
-         7TOp8c3jEo5lapU50fY97obbFbgrQlc8tGFnA1w6Eao76rkn0K9DVrwfhXVbkuu+r3Ef
-         O5GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy1yZFZ4MLQDiLw+9+IK8xaOMU0J6OyNUaKxBfWLm9Jl9w1DEyKDTQVb9HyfqcxhZ7XLY0gjlEwDhzsvgY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/xR15e7UF93zCgoA1ivTyRvrKnLoShjrkueFEUIDuA69bPtFc9
-	aha1DXuiFmwQ/w0WfHSps3/AGzNmeo7zcRDDxpRcD5HEGLxflSHObW+n
-X-Gm-Gg: AYBFou0LASKi2h40GXcHO++sgVDM0gDN7IXQn7/kyHGG6bqwQlYQSfoU33xnhIEnCYk
-	TljgphEnMsS/GQvI4Pq5I62pSTPZQ45T8pAFClx4jLd2Dsv4JQswFOFpPBWtSl3K16WYTnqfp94
-	UETBqSG88qp0mchoxxpPg02qRq6FWr65slw3nDWlOkVQiArN8Rc50Fepfo2FHMbBcaCXvMtckmC
-	PshdjLwWg/qxpynmJPV+X78dkKmIGEBbWU4sbEIaGJJzgVGavVaFDuLj5v137vXb1KFjvOLfQY8
-	wnm+h9ziD8ux3blLsPQ6pm7y3BOciBCNPARpTG8VyTHM7b+QNaptUctPa7HDZuchmPA+xwtEFRS
-	5f0zOFdwJA9HOvTqe+dukhzTQinQrQBgP3BYKUAlojjgmqc7fqM+WufWarwL2I2thBiyZAVADWi
-	jy+H86/vG9gz/XzGH+bILt5szoDyaZX+uwYb0jAO+nM+7O5BuFEYr6Tdwcf5MnLeA9+o7edT9/j
-	83lURFRyySGmUCpYs2T81xsgshN4Byu7otH1Ia4XGO7TM7mjAQEa3bCIA4UXTNPjR71Y1HPV8Wj
-	rxXatLUvnnEnI659kGLoatHe4lg=
-X-Received: by 2002:a05:7301:710f:b0:359:2edc:e1d8 with SMTP id 5a478bee46e88-36a422039fbmr11538413eec.5.1793561393990;
-        Sun, 01 Nov 2026 11:29:53 -0800 (PST)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428af1dfsm31471861eec.7.2026.11.01.11.29.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 11:29:53 -0800 (PST)
-From: Coia Prant <coiaprant@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Frank Wunderlich <frank-w@public-files.de>,
-	Peter Geis <pgwipeout@gmail.com>,
-	Junhao Xie <bigfoot@classfun.cn>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 5/5] arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
-Date: Mon,  2 Nov 2026 03:28:07 +0800
-Message-ID: <20261101192807.897562-6-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261101192807.897562-1-coiaprant@gmail.com>
-References: <20261101192807.897562-1-coiaprant@gmail.com>
+        d=1e100.net; s=20260707; t=1793561694; x=1794166494;
+        h=content-type:cc:to:subject:message-id:date:references:in-reply-to
+         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wdJlAy0M0lu3nCDv3njq9XZb0WjIsN4409XaMh24jfs=;
+        b=IgutjEYbL0X0Z1Jz20CfH1TVYbOLG/RqJNSFTWgtxuZ/f6McHK2mv+QwaxOalfL7zR
+         HaUrYS0/9h0q1NoKwLFuuHP4WATknVBn+kEIneUQTYjRBzLwobgkmYJKC5hVIOq/bCoc
+         wfrSaKnU9DpXzQ30cOR1WvZlklStYt8p4QvM3rJkGK7o4LIMaasz9y97bLJfmIkOK0Ki
+         daFc0PEb9SqGs4D1GIjU6nCLsgXSdMytn2iIMasoaDMlvchCYICgLMr94Zh4gyUidOAG
+         waNh/alTXJpq8kR5b0jAk7SjwMgnBaJjTy8a/bp3W1dorPeFzh0Y2w+wrnOhA6GJ+iGy
+         SAnA==
+X-Forwarded-Encrypted: i=1; AKwUvBw6Ip6LnD4K6eLQVkjFMWie3QQtRZZYlbDSwTrvDN4cIZXLwKOBrGVzSa5ep2mfyJktSFkoTasRoz8rSnY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/NKhQ1nRm9wuraTBzuFfHAUauZBC/NNJnw5AavsC/TFFxl8X36
+	IKGicoIgCnqN+TmSfe43bUMIokFENtX/99b4crGx9InCNtaeMkbXy6XM9ABE/hIpl330e4NtEr5
+	K+4MeQMTtLcvPtta0b0iBgtvIMefVk1eLa9cEIlB/
+X-Gm-Gg: AYBFou3RsFPgV6B7y6NNi+0Kkt6Doin6mhvI2ZVUKxJp8hB8nPwoy7tlu9141JkVkBL
+	WtOC0a5Z++PnsMUwKKrmkKGh5X0Fk9z/kPyx0aYlWCugZMKU1/Hl3Y/58YIHDI0PiocDEdaYFI7
+	mFzNkWDZGbmR6+oNxZ3o4Uzi3Kr/r3TM8KKtttz/iwfap9hGmuX4/nGIK8vlP9WB6ZP0N9qKxXW
+	gTnUcqHLvch7ds+8eBFQEu1RhlUbZovtQ1Y+ODZ7dNPoD57wIDB1RSKP07Y5h5u+sX4kJYb0/Ep
+	ALL0wTlH/8lLQvme9+PlxT0PIgV8ZQVga5KpbcZ/jqmyI/aD8cYy5kL+cSyfBKfX0RGPFop0sEJ
+	YyHN/V7uooq51BPtCB8D93lX79fZ7Ow+GAsRQCxWnJIBy84jpbVu+Ngt07/e7x1w9xEnOdV95
+X-Received: by 2002:aa7:da45:0:b0:6b3:e89b:128f with SMTP id
+ 4fb4d7f45d1cf-6b4d4d6d938mr4052419a12.9.1793561694122; Sun, 01 Nov 2026
+ 11:34:54 -0800 (PST)
+Received: from 415065739583 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 1 Nov 2026 11:34:51 -0800
+Received: from 415065739583 named unknown by gmailapi.google.com with
+ HTTPREST; Sun, 1 Nov 2026 11:34:38 -0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,77 +104,92 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+from: Simon Glass <sjg@chromium.org>
+In-Reply-To: <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
+References: <20261020153652.2907186-1-dianders@chromium.org>
+ <CAFLszTgzpQ-donjjtcPwy5T3pfWg_u83QMh0GcdpY2JCq_s75w@mail.gmail.com> <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com>
+Date: Sun, 1 Nov 2026 11:34:51 -0800
+X-Gm-Features: AclHuK-OENc2MfogrHTK6nr_VXdYPKQaHTgRVjZY6Us3vAfjaHxM1Qejmm0CbCs
+Message-ID: <CAFLszTh8geCqamVZwO00fx6t8SDfVHCFP1Fx9PnA2x9TosDKqg@mail.gmail.com>
+Subject: Re: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
+To: Doug Anderson <dianders@chromium.org>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
+	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
+	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
+	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Andrew Jones <andrew.jones@linux.dev>, 
+	Bjorn Andersson <andersson@kernel.org>, Breno Leitao <leitao@debian.org>, 
+	David Sterba <dsterba@suse.com>, Gary Guo <gary@garyguo.net>, 
+	Josh Poimboeuf <jpoimboe@kernel.org>, Luis Augenstein <luis.augenstein@tngtech.com>, 
+	Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>, 
+	Masahiro Yamada <masahiroy@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nick Terrell <terrelln@fb.com>, 
+	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>, 
+	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
+	cros-qcom-dts-watchers@chromium.org, linux-samsung-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-When the Ariaboard Photonicat runs on battery, the USB port has no power
-output and attached devices are not detected. With the external supply
-connected, the same port works fine. The root cause is that the
-regulator feeding usb2phy0_otg (vcc5v0_usb30_otg0) is only available
-from the external DC input, and there is no 5V rail for the USB PHY
-when the board is powered from the battery.
+Hi Doug,
 
-Add a vcc5v0_usb30_otg0_boost regulator, gated by vcc5v0_usb30_otg0,
-and switch usb2phy0_otg to use it as its phy-supply. The boost converter
-is enabled through GPIO4_D2 and generates the 5V USB VBUS from the
-vccin_5v rail. Note that vccin_5v is the actual energy source, while
-vcc5v0_usb30_otg0 gates the path; vin-supply is modelled on the gate so
-the regulator core enables it before the boost.
+Doug Anderson <dianders@chromium.org> wrote:
 
-This restores USB host functionality on battery power, matching the
-vendor firmware behaviour.
+> Putting the metadata in the configuration's `description` property came
+> out of discussions with Michal Simek at LPC 2026 (where Xilinx/AMD
+> already uses configuration descriptions for similar board matching).
 
-Link: https://github.com/immortalwrt/immortalwrt/issues/1534
-Fixes: ba124e06ce7b ("arm64: dts: rockchip: add dts for Ariaboard Photonicat RK3568")
-Cc: stable@vger.kernel.org
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- .../boot/dts/rockchip/rk3568-photonicat.dts   | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+Thanks for the background. The Xilinx case is a bit different, though:
+the same project writes the string (the binman .dts) and parses it
+(board.c), so it can change both sides together. Here the kernel would
+write the string and the Pixel bootloader and outside packaging tools
+would parse it. That makes it a cross-project ABI, and I'd rather that
+ABI were typed properties than an unwritten string format.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-index 7e0a2ab829209..bcdfe76000c46 100644
---- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-@@ -151,6 +151,19 @@ vcc5v0_usb30_otg0: regulator-vcc5v0-usb30-otg0 {
- 		vin-supply = <&vccin_5v>;
- 	};
- 
-+	/* actually fed by vccin_5v, dependent on vcc5v0_usb30_otg0 */
-+	vcc5v0_usb30_otg0_boost: regulator-vcc5v0-boost {
-+		compatible = "regulator-fixed";
-+		enable-active-high;
-+		gpio = <&gpio4 RK_PD2 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&vcc5v0_boost_en>;
-+		regulator-name = "vcc5v0_boost";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&vcc5v0_usb30_otg0>;
-+	};
-+
- 	vccin_5v: regulator-vccin-5v {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vccin_5v";
-@@ -460,6 +473,10 @@ rf_pwr_en: rf-pwr-en {
- 		usb_host_pwren_h: usb-host-pwren-h {
- 			rockchip,pins = <0 RK_PA5 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
-+
-+		vcc5v0_boost_en: vcc5v0-boost-en {
-+			rockchip,pins = <4 RK_PD2 RK_FUNC_GPIO &pcfg_pull_none>;
-+		};
- 	};
- 
- 	wifi {
-@@ -617,7 +634,7 @@ &usb2phy0_host {
- };
- 
- &usb2phy0_otg {
--	phy-supply = <&vcc5v0_usb30_otg0>;
-+	phy-supply = <&vcc5v0_usb30_otg0_boost>;
- 	status = "okay";
- };
- 
--- 
-2.47.3
+> The proposal I've tried to push a few times is that it's OK that
+> different loaders have different types of information available
+> to them, but people don't like that. They want a universal standard,
+> which nobody can come up with.
 
+I agree with you here. We don't need a universal set. I've sent a
+proposed spec change [1] which lets a configuration node hold one or
+more match sub-nodes. Each one names its scheme with a vendor-prefixed
+compatible string and carries the properties that scheme defines, for
+example:
+
+    conf-1 {
+        compatible = "google,lga-...";
+        ...
+        match-1 {
+            compatible = "google,board-id";
+            board-id = <...>;
+            board-rev = <...>;
+            soc-id = <...>;
+            soc-rev = <...>;
+        };
+    };
+
+Trogdor would use its own scheme (board name as a string, rev and SKU
+as u32), and Michal's loader could do the same. Each loader still gets
+what it needs, the types are explicit, and nobody has to parse
+'description'. Please can you take a look and comment there? If it
+works for you, you can point to it in v2.
+
+> Should I give it a shot for v2?
+
+Yes please. The DTB list already reaches make_fit.py from the Makefile
+through the @file argument, so the new file only has to say which DTBs
+to include and what metadata each one gets. We'll need a simple
+per-platform file next to the .dts files, passed with a new option
+through FIT_EXTRA_ARGS
+
+Running fdtfactor can then be another make_fit.py option, like --decompose-dtbs
+
+[1] https://github.com/open-source-firmware/flat-image-tree/pull/66
+
+Regards,
+Simon
