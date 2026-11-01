@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.160
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793515314;
-	b=h8weCOrfA2O90o2Cp6qup11VTDpuahl3EjywsaqPp4Umv5mKMzPrKsLSaQFLudi/m77W
-	 N6NFkWhu2vL9iIyub8dav7xrgWcnGLNpbSw1L1RpjvSqnwIhY7n4H0e/b0nvq4d+dpDZ2
-	 jT/8NBBd5L/9Za5h14ys4vx0trMSiQAIcQo+c5iLjmy/qZi6DBR5lqB3yZBgivL7OPyuJ
-	 55Zc6dRcXjDd3uDNZCHmL4JyFWLa+JTw1OfOzavuKUde+w+Gr3htUXkhQAcDfv6rBTmCC
-	 L52k5Zdx+qOptRmRwvoMQkJJj/48OzhP+ggWGvACC8Dx17Yd4meJpfCS4KnSZVAaUSQ==
+	t=1793515351;
+	b=U9bgxysEFzxDjEKMl3e+crgb4aqeArzsWHIH3mUC4qD0QX79DFPySuZxj9wcGMscKh0D
+	 JK9c+dehSiuHx16+BmeIQBNSqAnc9Az1/neAvj96raQVlLJYQlGk+OBboZvj7MsRs3qMA
+	 QbB/kamFYD6lNEesR2xkVLVWVpQljrMOIduKnAnRtfPWIX1jd58nzOYbQu0+I7KzEFyd8
+	 QlutUO1cho7SrM1aZY6g+3iW2/00Ea5lSBAHI7qyQs6G/hdQU/wtOpqt1KqVxfXPxyQSB
+	 fEdhVce1NKrHl3F5KJHbEbzs/3qPTbkJ08eIGMo8gtRSs52xYLwvkbccOoKTAGh9XjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793515314;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=sNHJ5c2IaTn4fBsjDeRFPYb3MZ2fhYgpYQHFen2RsV4=;
-	b=Bg2WXDebGvUmKwYOnHS1uudo3jPK8HipWFYhWY3fQbwqEkT97mpUz9oiaLQ/VVaEzA0r
-	 pXET+aSjgXF/qGxLyyV2ef1KLIRu4O/AoG12gmIKiLK8zdwZvQbeYla7X/NI33sLz6Z7O
-	 9ekFGe3imISY9Y3sNX/HQ8j3QZobuj1eIZlbDQwc1/ZSB47xhNWWIkavXEox+Bf2k/vH6
-	 6m7c56wdOYqCHZj4p72gHIVhe9EIt797Bx8uqQ+bfFaG3Ebt0UZ36yklWnJilIpwLzIIm
-	 DF562BQfVQP0ZTs4w8IaFUZd4455ORjtZZnhaLC/er0jh708s5Bt0pKCBOETBzBztqQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793515351;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=fWPBh4xlXvHa2PfIk2O3jnTg7iaOCA9kUP9jRVQ5YkU=;
+	b=OrhRbzkQ6A9rJrUD3uVuY/I6fE45O6J6m/hZHW4V8SwSdHxi1CYU6NS+STbQMBPT7NNS
+	 wD+SHQMF1t316OwkWQqI336hN37qpHO+MhvF5WG7QpmK4boozRJUOa946DZk537itTUFQ
+	 foyTtul9zDWO9NOL0Jek3tS6xCI70Ov+2DD4cYoCOD9yitlBG2/Avv/OiK+TzFgkwzQOg
+	 gnhsq0AXiA2qtUkuVwxYokLhK7LZSIoOsvB/tgoIYLVP+wVKsRiZixF63xtjHFPoFcia6
+	 tABjnuLzL55nvAxpIX7K/vlX5cLmRU8bv3pgL6PPa7w+DSr+zXvsPCGOzSdAYPb2Fow==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWMKvNLM;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JB0ZOzkr;
+	arc=none smtp.remote-ip=95.215.58.160
+Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC55606A324;
-	Sun,  1 Nov 2026 06:41:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92250606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:42:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92250606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jWMKvNLM
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E19551F000C1;
-	Sun,  1 Nov 2026 06:41:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793515313;
-	bh=sNHJ5c2IaTn4fBsjDeRFPYb3MZ2fhYgpYQHFen2RsV4=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jWMKvNLML2PHnG0zTANlE8EEHvZVwcBAk6LfMZ4H50y6NlYY+enhiZc5v5mZwpjE4
-	 T4JXWmCjR8koJuh2c+ZsxSMxDQAPW6qcwUVMCXx2KFexrcx9+isVujI+6WGt+EUB89
-	 j0Nnm81nwxminp97CLXdcXKiwg06ZQQfDeAcEUY+lFLjKcdRCj6f2Bpn6opu0XUrlO
-	 /LWJo16YtAQ3Felve8O/GyjTw68xJLrywsm1BwbkDntd5aHYtka9tCMA696OvQuEsh
-	 /2peaZK9Pz1zMcKAgNyGbewM+hquDH5dnVhMuuP4ymPMtFrsCvLFciTWQg8MZLTqII
-	 7iGQgpLignYzg==
-Subject: Re: [PATCH net v3 1/2] sfc: fix use-after-free of filter_work in
- efx_realloc_channels()
-From: netdev-bot+sashiko@kernel.org
-To: congei42@163.com
-Cc: netdev@vger.kernel.org, ecree.xilinx@gmail.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
- kees@kernel.org, linux-net-drivers@amd.com, linux-kernel@vger.kernel.org
-Date: Sun, 01 Nov 2026 06:41:52 +0000
-Message-ID: <179351531244.3131.14224078514634412496@kernel.org>
-In-Reply-To: <20261031063823.876645-2-congei42@163.com>
-References: <20261031063823.876645-2-congei42@163.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=JB0ZOzkr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=Xl9e7alOwd/kiUgVOqOJ845lSSz3tfs5SaPASXGt7kg=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793515348; v=1; x=1794120148;
+ b=JB0ZOzkr9yBqzyGeHjJkHQyDVZmJtGcrtMU5ckKpJ/45p6f47rU81ZuYt4Zx3eXcAbI1XnC5
+ n+a10glpaCyhCjPBPaljZrdGw7nHg/X43qT5LA+Z3i3NDtU3Wg5/2dXTbMunmtjUT/oL3m/XSGB
+ dW72FeU8bExF8q1SYhikXu5g=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 48526ceea99b9bcd;
+	Sun, 01 Nov 2026 06:42:28 +0000
+X-Mizu-Trace-ID: 48526ceea99b9bcd
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,168 +57,161 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.100.1.1.12\))
+Subject: Re: [PATCH 03/12] mm: hugetlb_vmemmap: simplify vmemmap head page
+ handling
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <587556c5-389f-4616-99f9-f0216b72f112@linux.dev>
+Date: Sun, 1 Nov 2026 14:42:07 +0800
+Cc: Muchun Song <songmuchun@bytedance.com>,
+ Oscar Salvador <osalvador@suse.de>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Lance Yang <lance.yang@linux.dev>,
+ James Houghton <jthoughton@google.com>,
+ David Hildenbrand <david@kernel.org>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <2D520BF9-F46D-4652-B155-DACEF486B473@linux.dev>
+References: <20261020115306.813483-1-songmuchun@bytedance.com>
+ <20261020115824.823278-1-songmuchun@bytedance.com>
+ <20261020115824.823278-2-songmuchun@bytedance.com>
+ <587556c5-389f-4616-99f9-f0216b72f112@linux.dev>
+To: Qi Zheng <qi.zheng@linux.dev>
+X-Mailer: Apple Mail (2.3901.100.1.1.12)
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+> On Nov 1, 2026, at 14:31, Qi Zheng <qi.zheng@linux.dev> wrote:
+>=20
+>=20
+>=20
+> On 10/20/26 7:58 PM, Muchun Song wrote:
+>> The new head page is already tracked on the vmemmap page list before
+>> remapping starts.  Passing it separately gives the remap walker two
+>> ways to refer to the same page and unnecessarily complicates its
+>> interface.
+>> Use the page list as the single handoff mechanism for the head page,
+>> removing the redundant state from the walker.
+>> No functional change intended.
+>> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+>> ---
+>>  mm/hugetlb_vmemmap.c | 17 +++++++----------
+>>  1 file changed, 7 insertions(+), 10 deletions(-)
+>> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+>> index 8b3abb562599..164e93e980bf 100644
+>> --- a/mm/hugetlb_vmemmap.c
+>> +++ b/mm/hugetlb_vmemmap.c
+>> @@ -25,7 +25,6 @@
+>>   *
+>>   * @remap_pte:		called for each lowest-level entry =
+(PTE).
+>>   * @nr_walked:		the number of walked pte.
+>> - * @vmemmap_head:	the page to be installed as first in the vmemmap =
+range
+>>   * @vmemmap_tail:	the page to be installed as non-first in the =
+vmemmap range
+>>   * @vmemmap_pages:	the list head of the vmemmap pages that can be =
+freed
+>>   *			or is mapped from.
+>=20
+> The @vmemmap_pages description may need updating as well. After this
 
-- [High] Applied alone, the patch "sfc: fix use-after-free of filter_work
-  in efx_realloc_channels()" only cancels channel->filter_work in the…
-- [Medium] Applied alone, the patch "sfc: fix use-after-free of
-  filter_work in efx_realloc_channels()" leaves the old channels' aRFS…
+Yes, the comment is out of date even without this patch.
 
---
+> change, the list is no longer only an output list for pages to be =
+freed;
+> its first entry is also consumed as the new head backing page. It =
+would
+> be helpful to document this input contract explicitly.
 
-sfc: fix use-after-free of filter_work in efx_realloc_channels()
+But I can fix this in this along the way.
 
-This adds efx_free_channel(), which cancels the per-channel aRFS expiry
-work synchronously before freeing a channel. It is used in
-efx_realloc_channels() and efx_fini_channels(), and the expiry work is
-re-armed at the common exit of efx_realloc_channels() for channels that
-still have filters. The same changes are applied to Siena.
+>=20
+> Other than that, once Lance's comment is addressed:
+>=20
+> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
 
-Link: https://lore.kernel.org/netdev/179310908138.3134.11515982039281965575@kernel.org/
+Thanks.
 
-> diff --git a/drivers/net/ethernet/sfc/efx_channels.c b/drivers/net/ethernet/sfc/efx_channels.c
-> index f4dc3f3f4416c..44943345fa87a 100644
-> --- a/drivers/net/ethernet/sfc/efx_channels.c
-> +++ b/drivers/net/ethernet/sfc/efx_channels.c
-> @@ -561,6 +561,14 @@ static struct efx_channel *efx_alloc_channel(struct efx_nic *efx, int i)
->  	return channel;
->  }
->  
-> +static void efx_free_channel(struct efx_channel *channel)
-> +{
-> +#ifdef CONFIG_RFS_ACCEL
-> +	cancel_delayed_work_sync(&channel->filter_work);
-> +#endif
-> +	kfree(channel);
-> +}
+>=20
+> Thanks,
+> Qi
+>=20
+>> @@ -37,7 +36,6 @@ struct vmemmap_remap_walk {
+>>  					     struct vmemmap_remap_walk =
+*walk);
+>>    	unsigned long		nr_walked;
+>> -	struct page		*vmemmap_head;
+>>  	struct page		*vmemmap_tail;
+>>  	struct list_head	*vmemmap_pages;
+>>  @@ -208,10 +206,13 @@ static void vmemmap_remap_pte(pte_t *pte, =
+unsigned long addr,
+>>  	pte_t entry;
+>>    	/* Remapping the head page requires r/w */
+>> -	if (unlikely(walk->nr_walked =3D=3D 0 && walk->vmemmap_head)) {
+>> +	if (unlikely(walk->nr_walked =3D=3D 0)) {
+>> +		struct page *head;
+>> +
+>>  		VM_WARN_ON_ONCE(!PageHead((const struct page *)addr));
+>>  -		list_del(&walk->vmemmap_head->lru);
+>> +		head =3D list_first_entry(walk->vmemmap_pages, struct =
+page, lru);
+>> +		list_del(&head->lru);
+>>    		/*
+>>  		 * Makes sure that preceding stores to the page contents =
+from
+>> @@ -220,7 +221,7 @@ static void vmemmap_remap_pte(pte_t *pte, =
+unsigned long addr,
+>>  		 */
+>>  		smp_wmb();
+>>  -		entry =3D mk_pte(walk->vmemmap_head, PAGE_KERNEL);
+>> +		entry =3D mk_pte(head, PAGE_KERNEL);
+>>  	} else {
+>>  		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
+>>  @@ -289,7 +290,6 @@ static int vmemmap_remap_split(unsigned long =
+start, unsigned long end)
+>>   *		to remap.
+>>   * @end:	end address of the vmemmap virtual address range that we =
+want to
+>>   *		remap.
+>> - * @vmemmap_head: the page to be installed as first in the vmemmap =
+range
+>>   * @vmemmap_tail: the page to be installed as non-first in the =
+vmemmap range
+>>   * @vmemmap_pages: list to deposit vmemmap pages to be freed.  It is =
+callers
+>>   *		responsibility to free pages.
+>> @@ -298,7 +298,6 @@ static int vmemmap_remap_split(unsigned long =
+start, unsigned long end)
+>>   * Return: %0 on success, negative error code otherwise.
+>>   */
+>>  static int vmemmap_remap_free(unsigned long start, unsigned long =
+end,
+>> -			      struct page *vmemmap_head,
+>>  			      struct page *vmemmap_tail,
+>>  			      struct list_head *vmemmap_pages,
+>>  			      unsigned long flags)
+>> @@ -306,7 +305,6 @@ static int vmemmap_remap_free(unsigned long =
+start, unsigned long end,
+>>  	int ret;
+>>  	struct vmemmap_remap_walk walk =3D {
+>>  		.remap_pte	=3D vmemmap_remap_pte,
+>> -		.vmemmap_head	=3D vmemmap_head,
+>>  		.vmemmap_tail	=3D vmemmap_tail,
+>>  		.vmemmap_pages	=3D vmemmap_pages,
+>>  		.flags		=3D flags,
+>> @@ -547,8 +545,7 @@ static int __hugetlb_vmemmap_optimize_folio(const =
+struct hstate *h,
+>>  	 * they can be freed by the caller.
+>>  	 */
+>>  	ret =3D vmemmap_remap_free(vmemmap_start, vmemmap_end,
+>> -				 vmemmap_head, vmemmap_tail,
+>> -				 vmemmap_pages, flags);
+>> +				 vmemmap_tail, vmemmap_pages, flags);
+>>  out:
+>>  	if (ret)
+>>  		folio_clear_hugetlb_vmemmap_optimized(folio);
+>=20
 
-[Severity: High]
-Is waiting for filter_work enough before this kfree()? The per-NIC aRFS
-insertion works in efx->rps_slot[] can also hold a pointer to this
-channel. efx_filter_rfs() queues them with schedule_work().
-
-efx_filter_rfs_work() in rx_common.c looks up the channel when it
-starts. It then sleeps in the MCDI insert before it touches the channel:
-
-drivers/net/ethernet/sfc/rx_common.c:efx_filter_rfs_work() {
-    struct efx_channel *channel = efx_get_channel(efx, req->rxq_index);
-    ...
-    rc = efx->type->filter_insert(efx, &req->spec, true);
-    ...
-    if (rc >= 0) {
-        mutex_lock(&efx->rps_mutex);
-        if (channel->rps_flow_id[rc] == RPS_FLOW_ID_INVALID)
-            channel->rfs_filter_count++;
-        ...
-        channel->n_rfs_succeeded++;
-    } else {
-        ...
-        channel->n_rfs_failed++;
-        ...
-        __efx_filter_rfs_expire(channel, min(channel->rfs_filter_count,
-                                             100u));
-    }
-    ...
-}
-
-None of efx_device_detach_sync(), efx_stop_all() or
-efx_soft_disable_interrupts() flushes these works.
-
-Can efx_realloc_channels() call efx_free_channel() on an old channel
-while one of these works is still blocked in filter_insert()? If so, the
-work writes into the freed channel when it resumes.
-
-The failure path also runs an expiry pass on the freed channel, which is
-the problem this patch is meant to close. Siena has the same pattern, in
-its efx_filter_rfs_work() and efx_siena_realloc_channels().
-
-The next patch in this series, "sfc: quiesce aRFS work before copying
-channels in efx_realloc_channels()", appears to fix this:
-
-  - It adds a netif_device_present() check to efx_filter_rfs() and
-    efx_siena_filter_rfs().
-  - It adds efx_filter_rfs_flush(), which calls synchronize_net() and
-    then flush_work() on each rps_slot[].work. This runs before the
-    channels are copied.
-
-Could that be folded into this patch so it is correct on its own?
-
-[ ... ]
-
-> @@ -898,10 +906,21 @@ int efx_realloc_channels(struct efx_nic *efx, u32 rxq_entries, u32 txq_entries)
->  		if (channel && channel->type->copy) {
->  			efx_fini_napi_channel(channel);
->  			efx_remove_channel(channel);
-> -			kfree(channel);
-> +			efx_free_channel(channel);
->  		}
->  	}
->  
-> +#ifdef CONFIG_RFS_ACCEL
-> +	/* Re-arm the expiry work on the channels now in use: the copies on
-> +	 * success, the originals after a rollback.  The copies inherit the
-> +	 * aRFS filters, so they must inherit the expiry too, or a channel
-> +	 * that gets no further NAPI polls would never expire its filters.
-> +	 */
-> +	efx_for_each_channel(channel, efx)
-> +		if (channel->rfs_filter_count)
-> +			schedule_delayed_work(&channel->filter_work, 30 * HZ);
-> +#endif
-
-[Severity: Medium]
-Can the rfs_filter_count checked here be stale on the copies?
-
-The copies come from efx_copy_channel(). It does a plain struct copy
-without taking rps_mutex:
-
-drivers/net/ethernet/sfc/efx_channels.c:efx_copy_channel() {
-    ...
-    *channel = *old_channel;
-    ...
-}
-
-This copies rfs_filter_count, rfs_expire_index and rfs_last_expiry. The
-copy also shares the rps_flow_id pointer with the old channel.
-
-With this patch, the old channel's filter_work is only cancelled in
-efx_free_channel(), in the out: loop above. By then the clone, the swap
-and efx_probe_channel() on every copy have already run.
-
-Until that cancel, __efx_filter_rfs_expire() and efx_filter_rfs_work()
-can still update old->rfs_filter_count and the shared rps_flow_id[]
-under rps_mutex:
-
-drivers/net/ethernet/sfc/rx_common.c:__efx_filter_rfs_expire() {
-    ...
-    channel->rps_flow_id[index] = RPS_FLOW_ID_INVALID;
-    channel->rfs_filter_count--;
-    ...
-}
-
-So the copy's count could be too high after an expiry on the old
-channel. It could also be too low after an insertion, and later wrap.
-
-Suppose a copy's count ends up at 0 while rps_flow_id[] still holds
-valid entries. Would this loop skip that channel, so its filters never
-expire? That seems to be the case this block was added for.
-efx_siena_realloc_channels() has the same ordering.
-
-The next patch in this series, "sfc: quiesce aRFS work before copying
-channels in efx_realloc_channels()", seems to fix this too. Before the
-clone loop, it calls efx_filter_rfs_flush() and then
-cancel_delayed_work_sync() on each channel's filter_work. It does this
-in both efx_realloc_channels() and efx_siena_realloc_channels().
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031063823.876645-1-congei42%40163.com
