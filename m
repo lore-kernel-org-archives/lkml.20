@@ -1,97 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793555066;
-	b=mNpwgiDnPZv3CsSnxuFthIUI76NueCbFDUbZnNsz5jUL9svWnQdUK48b/rBzherGn7Bx
-	 drwmjI5lS/LHXiBEKO51a4uQKcW6Hj9eSRCdz3bar5Pj1muwoEvA0JiW3AZ+21ePi9vYw
-	 BmKleb7dL513it9GRdyx2MhbIK3sh4MOIMoj7VdhICbd3yxHbFoNpNX9jy5e7N8Nae3X8
-	 +f3IznRjCep8Yem0PY8RbFWr10DX9fpzBXlyrCms2Lryw/kCKJa6nUUwF9yDziBDvRh3D
-	 OR60h+5hxHy2jfCzbpfFlhcPfl/TZpz29FMh+iynBrvtmbTiwik9Nu7WTSAK6LhF+ig==
+	t=1793555068;
+	b=23tloMY1tEGhu/XPWLKx+7eW7XCVpDEpx1dWnTzraVDMFSBsD08uvo20YtcYxielykyO
+	 KZfCo9IVyx33YD/aPsYeeQHaadQF6j9Fdy7Lk1V5/VHjONHlqIw6j2Psol0EKiHnvPMgM
+	 ueILwR+hf3Vqi+G6Nd2wiKAe7NP2TQdCdnCRZS3bVNGZwmLRPUip76uxF3a0WHg88swW9
+	 +MtUrp89DyO3/LLlR79CBCCe9TFyLI0xa9OdGI+DEOhxyiFjZpiFAJmuVXxQ+oij8w56o
+	 IDLYwAhCGALfxuZls16buW8pofikwamxbZA9ZQnn5LRFEldjud9ELF76YwwGcOt7HJw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793555066;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793555068;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
+	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=9O61ATkKp+DlIEXsj3DD0qBP/WN9VXV3+UsO1P4gT6Q=;
-	b=E01UzprjdFINREUJcdmBARW5rA3JEKkCX0T4ZRVNB6UL9SDAre1CDEfnW+CN+tT37FxD
-	 KjavHQdYnqQ/fFKZ4XZfG60fbUP2ufIO/aKyNwgTy9QX3VD/4PZ0yRt65NTQZptcJeK7A
-	 No4yL46wLgbkiEiWIdPoOVRoqdQUFVh5f5prvas2Veo3nZ0gv19SZejS7dGO66LOWmQn4
-	 kleK3eyVGUb5VahZl9HdGLaR+fiYW6IePibr0GtgAzJyKfHEhut7kzcxUBauQJgy5C23s
-	 4sYvEuMmFSg5X1rEXhOJSbJ8EmYAKGnNkcgVNUD1T4B8b9PhMcuiIkeSg6mAiYFiCxw==
+	bh=XNm3LmvLDAoOMp150KbZwglunPFF846Cqv2g3FpPcDc=;
+	b=ml1roDbPf1qeNOpmDbadvhof9ZfpFEcGbRzMQ79EjeUdMPzDGjHTqmEGiFA/G/c7Ft+7
+	 ClspSO2t+qZ1Ist4KrsG2rWCSaYdXwPUMBb6Hr+GBpIcZ1kWxJKZGR48WW33DreJWMAfv
+	 rWVePROoGmzktVRYphAtuof8uwKINhI0FOnvi6EplxlGckfOrYMM1QAKV2gOlkQVGj0c6
+	 BzfiHylKNYeVFxM0sLS8zlSG9C7jiPvkokz+qr6+pkpLxaegJLZ3vsMQr2HHMSihO9adR
+	 mGlLTopDvhLOCkvJbF23WkIQqGMMmrk+fW02zKwzJnkr+Goy/Gij1SkJc85XeS0DEjw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bairaktaris.de;
-	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b="Axr6b2C/";
-	arc=none smtp.remote-ip=209.85.208.46
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b="g8/vnQvF";
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lQAOWYS6;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE38606A32E
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:44:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE38606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C45E0606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:44:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C45E0606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=Axr6b2C/
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so3027695a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:44:25 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g8/vnQvF;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=lQAOWYS6
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793555066;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=XNm3LmvLDAoOMp150KbZwglunPFF846Cqv2g3FpPcDc=;
+	b=g8/vnQvFv50i+CMcblbld3jryx3EYs3qIdXFcNq2qte75gjL1QVPnYB9iYtagZrB2J8/kL
+	Zs+CHB1IG7T3WRAqEnz7BgVzIVCv3hrFKxSSMEa1eSZWD8rSAZuRbaz6B8OfgBcy9hp04D
+	YSSkrDNc0RZIrqY16fy7n2CpqxLvkm4=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-384-MJC2Dt4HMmCwUbA4QblhLw-1; Sun, 01 Nov 2026 12:44:23 -0500
+X-MC-Unique: MJC2Dt4HMmCwUbA4QblhLw-1
+X-Mimecast-MFC-AGG-ID: MJC2Dt4HMmCwUbA4QblhLw_1793555062
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48dfdc0f491so1213526f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:44:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1793555064; x=1794159864; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9O61ATkKp+DlIEXsj3DD0qBP/WN9VXV3+UsO1P4gT6Q=;
-        b=Axr6b2C/htBA5mpk/A7z04dUTzsIIuRRDwi1GBxebzzC2Wr8Mj+BOuS4O5dONN1yZ2
-         fFczSqudfLWZpQS4yaHhhl47jufjbZ8fOSmRGeFpwJRAtxXn1mgKHJaoap+PZ+OdrrXH
-         +Yzt71aga+okNJ4AK4sp85zltvrNWePW7mgBlscR+SoTIjkq3HGj0JigZytcBsRjbvqx
-         AEuM+XMtdwPKbx7s1FsLoW8NA9vOqey8NOgImB0T1spm4yeIzoXsBr81NrITfTjGd4jp
-         QmHObgnt4Rs8ZrcJvOxldrUdxupBDSvPe/dAiFWyAKsFWM7aTAXx0HjTZhypALvYtOSP
-         Lcig==
+        d=redhat.com; s=google; t=1793555062; x=1794159862; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XNm3LmvLDAoOMp150KbZwglunPFF846Cqv2g3FpPcDc=;
+        b=lQAOWYS6S+5Yf9TTn5qo1vLRs/TKvPqiCoXOqp5mNMeDDCFVPvK+Ms8pruPNkilKOk
+         XKyiuEGS2IYRBo6rqQIQrPCZnX9wlUSHhQmSoRMub96VP3zDcsoqk8M7zS1zQQzipL7T
+         T37Qk2PXzQ1gjvJ4MOzQhEMEua8/epD5iax13CfLh30QdzNx2wyDkkyurqP1y71z5hfg
+         ENIJJK/0K8LlR76g1BQr+JKqMgO7gX3ra6jqb2jjqR9ySdDs9+4zAnzyf2Z1XZDjyDux
+         Cdiqb+GFdiTpSjuZjpbSy+6CvJPxbpsCZ5gktrNlcn8qdm82zHYOF7i0B6bXqfJU/Yzp
+         /smA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793555064; x=1794159864;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793555062; x=1794159862;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9O61ATkKp+DlIEXsj3DD0qBP/WN9VXV3+UsO1P4gT6Q=;
-        b=IBhsaPWQnLNxwGiMmwVE+gb0nCIQ1N+4QwMlspRBepab/AJQWLAzAQaV11h3r4ojiV
-         LXtnjlw1ioJaM3SyfDSaWhndcWUunqFpNYz/M+m4tfC4gB7XBnZfXwa6dQpKqGIRa6Mk
-         gZetP+84KyWLHPJN7KewvEFEVbTre63iw8sYjWu+nmmLHn/ZJWBmXwts5nmDkRbGSxaD
-         xfKd8Y0kf8McYsBrYlJcj0lQo+c3TfUF53dAM34jYCBj1rmar0cV76jEjqw4TjjzEtqx
-         H4+LMJdQ05Gn82FqbRkmck4ZsmHB/m8LY6XsWC7PApHjI2I6j5XCz04ZfHWD31vjoan0
-         6wKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0kswVs5Nave+Lj7MKiqIiXsynS2XQfb3jbgPAmGiXbA5rua5rxl8ujxM9+Nu42sZexrgVkzLnrNRv0mk=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/Gjrz67mYJdN4wL19Oz4PkTyWuy9iskSyKB6GIv9jr17pKMlfB
-	qd2h3EH/fH6jSgO3SX/FV6rm7c5NodHzW6XR2ji37NwSbTpovlxW4iSPFq5EZyS2Np8UeUf6ipD
-	s8ktsrSri
-X-Gm-Gg: AYBFou1pniu8Bpgq+dBCezVzubfRKE/sBFnMS4jd4RKXZQzzBXSU8aIquvBgybY9Hfj
-	BdSN3kR55tNs0tMsgZzL1Ksod7b+yQHjaloc22m7fuPet27ePoMjFqP9KId7M0B2qVcZRBro0Jc
-	A21t50/bzOs+tnWC0YO7Jt9W4SJO++F3M6LR96Yl8EmmRhzXPA3/gcyG1Te89+b/JlXE9gbTXuZ
-	Ez7G7qVtRIfoK5zj/Q/PAweRudWnZsITBfrVgcw0ufAGkjeGiAWfDQFos5KHc5S9yFA4RCO5XK+
-	VFMX/AGfZxPhQrqzM8HpHeztLMJvJvfqPGIuQuZSUVlcMwfp30lzg+xV7M/8gIOrgwUDzet4r0n
-	ifyRjZyiD76z8iB4a56iCiHiM1C9M0riu1s8J4Dzjwa+woFUk2tvbxjWMT53mQW+LnC1x43pVt+
-	AvDbVXF8bhtkuCDKReY/vItzZlzmGeM7J4mESIMBlwAiv2l7nuoZSDYjzaKUtafGfHOI8RYc64H
-	lZMABzU8DUY8rnpbYs5Hjqb98Sdee1tdEVlLsoYwC5uGQ9a8FHPvx2hHpNlcL1jrySv1rd9cai1
-	RO+HshTNOkqMH+wQXcgi6b8xyG42Qw8f/BNcIIIjl/AwXJag5EAxF9cme7jizHNNa/M/a0kqK2q
-	kBwxfnoUx4+0qcBBBUbrJeT4qfULIEPQzpAhsY+IHAkX5u5mQ6Bz5qoN8V7e0+ej7C+5Ql/+V8m
-	l/yMh+7IEisTvW17bwNVBQfqLaHp+QtoJSK1RJODOAf8RaA+yaCVWMv6t4RzatA98vqE9kui/Nx
-	B8Ud4izb8TPtjk3aAMYbKmsHuqbmq45T+yEpNfYA7EIE9GIEGyqAzDYtqhEfuDxmTy4FPwzZrs6
-	nCKAaCwQq6Yst1CgrAA=
-X-Received: by 2002:a05:6402:1d51:b0:6ab:7700:9371 with SMTP id 4fb4d7f45d1cf-6b4d468b63cmr5289419a12.25.1793555063954;
-        Sun, 01 Nov 2026 09:44:23 -0800 (PST)
-Received: from Desktop (p54aff7cf.dip0.t-ipconnect.de. [84.175.247.207])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca21356sm2369094a12.35.2026.11.01.09.44.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 09:44:23 -0800 (PST)
-From: Julius Bairaktaris <julius@bairaktaris.de>
-To: Jeff Johnson <jjohnson@kernel.org>
-Cc: ath11k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Baochen Qiang <baochen.qiang@oss.qualcomm.com>
-Subject: [PATCH ath-next] wifi: ath11k: do not fail down transitions of the station state
-Date: Sun,  1 Nov 2026 18:44:22 +0100
-Message-ID: <20261101174422.1275413-1-julius@bairaktaris.de>
-X-Mailer: git-send-email 2.53.0
+        bh=XNm3LmvLDAoOMp150KbZwglunPFF846Cqv2g3FpPcDc=;
+        b=LY3/3PYT9LIQKpGNPprFM9V/9Olq/iIOf7UYGP35pUr+7enbnHma9BZLIst+LGQ++F
+         QYsJQNe4dDyl88nv1Qw1x7IwkCc7PKoJgg61DSvIq/AdAJb1F7ZME68zURZPj3rEGs4P
+         jXmeq7YWMiSV3a0v0dwgx+tR4onVf23edQRFsDxlCBR2nYFgdrp1JKR19WUHgwisBdSv
+         de1sxlAdPiVGScCNc6l/fayAtx0a6pkivKkseIEJT0krVG9Q1iNC7hQKAyh2BTAYYt6d
+         W1fSj77kY9l1audGXBQZAu/x4aJx2idmHd4U4CuNamdNU10GtlY8ABbcWNqxneHPeeEi
+         qsbw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6WLf9X2VQCBI8MBkajtJzuLOdsRsNFxZAKZYUDwEq8iu7o60TO3svNiFHCFoT0qHJWLjl8i09zlJfdSI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRo8f46NNB43hh6s8dbtB9JYgiBZKLkyi9k0jDmTx7VZYg2U7X
+	iwlALQTIKO9Ufisi6/XKOsbpZUcWJ3+IX+h8h3DSscsL5gml++7+jtEavQ5zt8s5f/Py6IRWbeT
+	Z85E1uptpWVe3/GMCfluLtVv1riEomN5WdtItKugJ/6F+PR/xly0k6tVmcNDEIZ7oZjLJLBNkeg
+	==
+X-Gm-Gg: AYBFou0oLUe89sfep9R29Dk+yHN0cRJJewO3dn/z04RE0UzY6c9XVC3TIy1lR5G7yyu
+	Fr38ML2mSasx+To0zx53KBBUZbNtZL/100E84OwpXuGmbUCTF+P/XCbO0jVu/8PV4/iEJNnO67k
+	D8Yw9sddws9kQrZabQ39tRgMOeCyrNw/Ot8N8lOFOL9jwLY7WNfTxqd4MmCRemh9TiC5ghtTbUa
+	PenOHUhMaycXZxcY3BAKkjJ7KG5Nw3z9lRYitugVv+l6vXnFLgt7Xeh3RhqNNe9EYHw8h8snJGG
+	TbXmc6l6gH7Mfd5IIj/jU8TyS0Cu6ljlr3JT8KbiHOXNgld2wPn0k5jA3CO3ujAvemtG5HIlMml
+	dZtwAiiGmRiN4pQPWKz504Hp/RbGEmxXzUWAAA0nGOVwSaU431A9m8aXePj2HY1ElyQaR+hwDT2
+	7ZsoQ/0WlrnJwFI+ljQfKgU9d9Sz1KxXOWCvB1e/bmJ/0=
+X-Received: by 2002:a05:600c:1f93:b0:4a1:7e76:d02f with SMTP id 5b1f17b1804b1-4ac180f299emr171019035e9.14.1793555062124;
+        Sun, 01 Nov 2026 09:44:22 -0800 (PST)
+X-Received: by 2002:a05:600c:1f93:b0:4a1:7e76:d02f with SMTP id 5b1f17b1804b1-4ac180f299emr171018685e9.14.1793555061751;
+        Sun, 01 Nov 2026 09:44:21 -0800 (PST)
+Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf751c2d2sm233727495e9.15.2026.11.01.09.44.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 09:44:21 -0800 (PST)
+Message-ID: <ce0bdf39-d514-42ba-bbc4-066054737944@redhat.com>
+Date: Sun, 1 Nov 2026 18:44:19 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,57 +113,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] net/rds: Do not unpin a page after a failed atomic pin
+To: Kyle Zeng <kylebot@openai.com>, rds-devel@oss.oracle.com
+Cc: Allison Henderson <achender@kernel.org>, netdev@vger.kernel.org,
+ linux-rdma@vger.kernel.org, linux-kernel@vger.kernel.org,
+ outbounddisclosures@openai.com
+References: <20261030042110.73571-1-kylebot@openai.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20261030042110.73571-1-kylebot@openai.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-mac80211 requires sta_state to succeed for down transitions and warns
-when the driver returns an error for one. ath11k returns the result of
-WMI commands for ASSOC -> AUTH and NONE -> NOTEXIST, and these fail
-with -ESHUTDOWN while the firmware is down. A station removed during a
-firmware crash then triggers, for the disassociation:
+On 10/30/26 05:21, Kyle Zeng wrote:
+> rds_cmsg_atomic() assumes that a non-NULL output from rds_pin_pages()
+> represents a pin that it owns. However, pin_user_pages_fast() can roll
+> back a fast-GUP pin after racing fork() and then fail in the slow path,
+> for example after a concurrent mprotect(PROT_NONE). The output slot can
+> still contain the already-unpinned page.
+> 
+> The common error path calls unpin_user_page() on that stale pointer.
+> This can consume another subsystem's pin and allow the page to be
+> freed while it is still in use.
+> 
+> Clear page when rds_pin_pages() does not return one. The error path
+> continues to release the page on errors after a successful pin, and
+> successful requests retain their existing ownership and behavior. All
+> four RDS atomic ancillary operations share this path.
+> 
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+Picking this patch randomly.
 
-  Driver is not allowed to fail if the sta_state is transitioning down the list: -108
-  WARNING: CPU: 1 PID: 5952 at net/mac80211/sta_info.c:1561 ieee80211_sta_eosp+0x119c/0x1668 [mac80211]
+Please slow down a bit: you have already a dozen standalone patches in flight.
 
-and for the removal:
+Note that that 15 patches limits apply to patches tied in a single series, having more
+than a couple of series in flight is quite unusual. Having more than an handful is putting
+quite a bit of pressure on the maintainers.
 
-  WARNING: CPU: 2 PID: 2080 at net/mac80211/sta_info.c:1652 sta_set_sinfo+0x1118/0x1144 [mac80211]
-  Call trace:
-   sta_set_sinfo+0x1118/0x1144 [mac80211] (P)
-   sta_info_destroy_addr_bss+0x34/0x48 [mac80211]
-   ieee80211_del_station+0x1c/0x54 [mac80211]
-   nl80211_del_station+0xf4/0x174 [cfg80211]
+Thanks,
 
-Both paths already warn about the failure, and the removal releases the
-host state of the station either way. Return success for every down
-transition.
-
-Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.12-01460-QCAHKSWPL_SILICONZ-1
-
-Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
-Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
----
-ath10k and ath12k return the same errors for these transitions.
-
-I used Claude (Anthropic) to help write this patch.
-
- drivers/net/wireless/ath/ath11k/mac.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
-index 1a237adaa37d1..e5bab84a36bbd 100644
---- a/drivers/net/wireless/ath/ath11k/mac.c
-+++ b/drivers/net/wireless/ath/ath11k/mac.c
-@@ -10074,6 +10074,10 @@ static int ath11k_mac_op_sta_state(struct ieee80211_hw *hw,
- 				    sta->addr);
- 	}
- 
-+	/* mac80211 does not let a down transition fail */
-+	if (new_state < old_state)
-+		ret = 0;
-+
- 	mutex_unlock(&ar->conf_mutex);
- 	return ret;
- }
--- 
-2.53.0
+Paolo
 
