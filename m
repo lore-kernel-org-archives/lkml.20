@@ -1,72 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.200
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793547908;
-	b=KK04w+VBz6uYaU0BNLV1GWTxcTIi3eBvagY/XssquZJnUJF3yqkj1w7JaWhnZqvH0rj3
-	 Fc2j72ua9RuHL+kJAFVBdWgxJzciZUfh0GmgdAh35Ey1gN3jzcCE6LyP/RrO8H/mZ9zmw
-	 05nFXiomJhIFwrKEyl4LpH3QSLZKaAhKSw4YomirX0MjPSG1/QEcjzWAgIYYQDLd0f+3o
-	 gLfOSSycHLcVT/1QPtz9FkI7cgPYjT71tdfaA0VKddS8M3CFWpSN67tRqF4Rsr1XGVIgh
-	 5+fQkwrR4yBw/7hrrZVVcEUm5OI8LagbhwkDY1DSiy+G/GbekQEJEqVZNn5QFz6oiwQ==
+	t=1793547914;
+	b=pC6/2DrFujCqZTCuPUKrx7b21T1cPQQtk4VzXZ9wz48rwe0GzvhI3z/9JBbqlnYaXd+G
+	 96CzThluyXHsW/MQ595IvX7MOQAZ/IlpRYH3BFOJI/11k2Je/sAP7JaEBwzMTvXKW/CQH
+	 dbIL9/nfVfTlI7FnHFBZr4diZYnaem/ahZUfRuLEr7CZiOjhGEY4+8agmTAVXOB7FSEo1
+	 y4pFUaUUlTJorBFAwL8KDKV6s2lRCc4nGdxmxDFitDmZfCbXsiB85Mfaa51jFJvhhwWlr
+	 zb4mkIYKy0vgzXk3BSoFcYV3ObMkwsB0QnVwtkN2rMjuyeDyIsSRCg/zESdv5g9473A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793547908;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=YMgsbDyfk5xc2AQfHD/KzZ6mFWECrL7raaZo0D0MYyc=;
-	b=XZjalw+YrGuu+RG6WqZpp84rZqPaFc3gD1D8FtBe8g7Amk7Ri88m5VCb4/KVssNa+p/U
-	 LkYIDZZUyBpoiYPjINSgwzajUBgZJWBD/GlrvdfrQZZW3UmLCJE8SFE83xEMOMJPNYs1c
-	 GbDkunZjTAQsXCLmrpPXGm5jynyDqwsKgqFbS6n06gCPWYOAeYKNimBxmooi8hivtwrmf
-	 kBn9iy6GJCDxGR5HbHtDSURnt8PHDiSaEdsqMJjkjN35PwtyqntovAPsGMb8/MJr29QJv
-	 O3Gn/ghYZqcJQa0S3zZFa4fWunKIPoCh5EPactaIHf8SAN6DxRvcpYh50kYkKPv6lTw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793547914;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XRjT3VTaajCcFZPeCpCf01Ut57mwJ2M6igg0J48VnJ8=;
+	b=VZaTkT5xhIjyLVWTTW+nrnkoPs7/wPg0a2hLts5lyBAgSxwLuGGyjESXh3MvG/Wd/3z9
+	 A8mngo1i5857yIjCY26w2heMgtuQr1v2odF4tSLRLPOz5S5sOOB5l874utpNq77tf3YFX
+	 UeFSfPiAzJYj20VrR4LE7YBw3Ejof0NySBeW6pHcS/0ud7VjkN0fHX2ji8TN/ePjDGI84
+	 8xbYI7MW0PoBMuuIKHBcz9P+nZsWbYuEYu2XGGkgIt58QWOhqqo4XlKhjTr60F7Yfj56b
+	 XG5rs48WLpxmeLgZSvj5ar2pLDuFhR8h9eKzzV0ruHoONQd6hw0GEcPBtumPocHwKdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--surenb.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BEVTmJjR;
-	arc=none smtp.remote-ip=74.125.82.200
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wzaesWCw;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B5C2606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:45:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6B5C2606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--surenb.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A2B606A335
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:45:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=BEVTmJjR
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33c35f5ca6cso5360510eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:45:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793547907; x=1794152707; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YMgsbDyfk5xc2AQfHD/KzZ6mFWECrL7raaZo0D0MYyc=;
-        b=BEVTmJjR/as07qvcR1T/vZWhaWcscpoDqcGov0FMdGPyaWajqgDfFO8hdnXIv6fx74
-         cIinwpA5oUxrq78By2lw2Uoyb/g29H6H6YE8+KqRYRnk6HEYSarb6e0+VMWyc8i1Ivbs
-         h59MD7YgnCMSc3/DjQak+FzpgTZRKpAzTluP0nKB+OJzM8pPlVhyuJ0FiaW8+BBtP3rW
-         7x0uJBxEqge5R17kahvQ/tdQEzebTDmsD2Fbbg81Sb5MrGk9/ONJQn/agoWMetdPqrtn
-         r5aKQicLlFyy35H/7vwaaPeCJRuiB3EqpQjLOgPk/y2+5IK9+PyVzDygwqfoHI6TNhyX
-         D+jQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793547907; x=1794152707;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YMgsbDyfk5xc2AQfHD/KzZ6mFWECrL7raaZo0D0MYyc=;
-        b=KhOchCTrIGb2oVomlKp+TcIPFPK0v0hUW0nXw6cA9bFYI6JwT2TbfyQD0pJr5dTpZ/
-         kd60+6SxuJXeslgvvxIwz1ru5poMNS/WbUziS6HjdNIRJ+Eenzw9o+hueALW2NXDXozj
-         wIc2Duecj2FZ5vQb7V1Upe+RBskdO+GCgcS1a4vUToyHAP6yQFUn/wxD2fs0z5Hyja5x
-         zasAzOpiEilVYnxp4fhRjuZWmgBw3Ubkq/xN9o5QlYvlMjE9EfHxUK2WRHiZ23GdL9BR
-         +blRyQPKEdw0pF/gTH5o5F8TQhlkGZt8gCG62+KgLeOuk6SqpS47e/fMQsbXNRBNrpkY
-         jcpA==
-X-Forwarded-Encrypted: i=1; AKwUvBxxx4by2cldY9OW8ZgwcVd2GrhSYb9IcE+UMmcOnRZLrcghoobCywdqcwsNDYwjmP/c8VpVy6wM/oH+16E=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8952hez9pVeL4utmIbPjP3I4JEbu4lPDh6u2WcvTP5TSUZsHKv
-	2Uf5v4PqZ08zDLcwKv3CZg/TS5PBGVBlhPNxtRItiu1epHdanwNKuPZTRbZLGYP1F64ghwU8KJd
-	0iv2mcQ==
-X-Received: from dybhy42.prod.google.com ([2002:a05:7301:42a:b0:347:7fea:9fec])
- (user=surenb job=prod-delivery.src-stubby-dispatcher) by 2002:a05:7301:6183:20b0:36a:1089:9836
- with SMTP id 5a478bee46e88-36a423c8988mr10973150eec.15.1793547906897; Sun, 01
- Nov 2026 07:45:06 -0800 (PST)
-Date: Sun,  1 Nov 2026 07:45:03 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=wzaesWCw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66EE1F00A1C;
+	Sun,  1 Nov 2026 15:45:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1793547913;
+	bh=XRjT3VTaajCcFZPeCpCf01Ut57mwJ2M6igg0J48VnJ8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=wzaesWCwtNN+1lDB+NECUNruInoXf1olvVq7w7oRkQdrsaqmAJk8SqwE4+ABxXcYp
+	 UxY2Rsl/neti8u+M+Nq07S3hcH/vard+9ooq4n0XtQnlS0QFZWlZN6x0l4ms9GAEPg
+	 a7QHQ3PAKLGekODnN+nTUbGriXwuyylJlPzydu9Y=
+Date: Sun, 1 Nov 2026 16:45:06 +0100
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Alexander Usyskin <alexander.usyskin@intel.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, linux-kernel@vger.kernel.org,
+	Menachem Adin <menachem.adin@intel.com>
+Subject: Re: [PATCH char-misc-next] mei: bail out if no matching hbm request
+ found
+Message-ID: <2026110108-unnerve-transfer-3d5c@gregkh>
+References: <20261101-bail_out_on_nonexisting_hbm-v1-1-ec1eb6aa5547@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,195 +53,26 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261101154503.3203036-1-surenb@google.com>
-Subject: [PATCH v2 1/1] selftests/proc: use RSS in /proc/pid/smaps_rollup
- tearing tests
-From: Suren Baghdasaryan <surenb@google.com>
-To: akpm@linux-foundation.org
-Cc: david@kernel.org, ljs@kernel.org, jannh@google.com, liam@infradead.org, 
-	willy@infradead.org, paulmck@kernel.org, pfalcato@suse.de, 
-	usama.arif@linux.dev, vbabka@kernel.org, linux-fsdevel@vger.kernel.org, 
-	yi1.lai@intel.com, oe-lkp@lists.linux.dev, lkp@intel.com, 
-	linux-kernel@vger.kernel.org, Suren Baghdasaryan <surenb@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101-bail_out_on_nonexisting_hbm-v1-1-ec1eb6aa5547@intel.com>
 
-Pss metrics can be affected by map count even if VMA tree stays unchanged,
-therefore tests checking VMA tree integrity can't use them. Use Rss instead
-and pre-populate the VMAs so that Rss changes if a VMA gets skipped or
-double-counted.
+On Sun, Nov 01, 2026 at 04:32:06PM +0200, Alexander Usyskin wrote:
+> Umatched HBM client response acts on wrong client
+> as last traversed client is used.
 
-To ensure all test VMAs are populated with anonymous pages, remain
-mergeable across VMA operations, and do not have their Rss changed by
-memory reclaim:
-- Toggle PROT_EXEC instead of PROT_WRITE between adjacent test VMAs so
-  all test VMAs remain writable and MAP_POPULATE faults in anonymous pages
-  (rather than the shared zero page, which is not accounted in Rss).
-- Use mprotect() instead of mmap(..., MAP_FIXED) in split_vma() and
-  merge_vma() so the first page of the split VMA stays resident.
-  mprotect(..., PROT_NONE) splits the VMA without unmapping the first page
-  (pte_present() remains true for PAGE_NONE PTEs), and
-  mprotect(..., self->mod_info->prot) merges it back. Both parts of the
-  split VMA retain their non-zero Rss.
-- Lock all present pages in the child with mlockall(MCL_CURRENT |
-  MCL_FUTURE | MCL_ONFAULT) so memory pressure cannot reclaim pages and
-  alter Rss during the test.
-- In remap_vma(), unlock next_addr before mremap(..., MREMAP_DONTUNMAP)
-  so next_addr is not split, use mmap(..., MAP_FIXED) in patch_vma() to
-  merge the middle VMA back into addr, and exclude smaps_rollup tests
-  from test_maps_tearing_from_remap since remapping moves and unmaps the
-  page from next_addr.
+Odd line wrapping :)
 
-Fixes: ca5480fb53fa ("selftests/proc: add /proc/pid/smaps_rollup tearing tests")
-Reported-by: kernel test robot <yi1.lai@intel.com>
-Closes: https://lore.kernel.org/oe-lkp/202610271934.fd287c3f-lkp@intel.com
-Signed-off-by: Suren Baghdasaryan <surenb@google.com>
----
-Changes from v1 [1]:
-- fixed the way the odd VMAs are populated to avoid mapping zero pages
-- used mprotect for splitting/merging VMAs to prevent split_vma() from
-  unmapping and freeing the first page
-- mlock all areas to keep Rss unchanged under memory pressure,
-  per Pedro Falcato
-- exclude smaps_rollup tests from test_maps_tearing_from_remap because
-  remapping a populated VMA affects Rss metric
+> Fill cl pointer only when match is found and add debug print
+> for that edge case.
+> 
+> Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
 
-[1] https://lore.kernel.org/all/20261028051312.1505295-1-surenb@google.com/
+Does this need a Fixes and cc: stable tag, as it fixes a real issue
+seen, or is it just a "handle the error path if it ever happens to be
+hit" type of change for 7.5-rc1?
 
- tools/testing/selftests/proc/proc-maps-race.c | 53 ++++++++++---------
- 1 file changed, 27 insertions(+), 26 deletions(-)
+thanks,
 
-diff --git a/tools/testing/selftests/proc/proc-maps-race.c b/tools/testing/selftests/proc/proc-maps-race.c
-index bf4c5073f6fc..6025aea68190 100644
---- a/tools/testing/selftests/proc/proc-maps-race.c
-+++ b/tools/testing/selftests/proc/proc-maps-race.c
-@@ -528,13 +528,10 @@ static bool compare_smaps_rollup(FIXTURE_DATA(proc_maps_race) *self,
- 		struct smaps_rollup_stats *actual)
- {
- 	/*
--	 * Clean/dirty metrics might change but Pss-related ones
--	 * should stay constant.
-+	 * Clean/dirty metrics might change. Pss depends on map count and might
-+	 * change as well. Rss should stay constant.
- 	 */
--	if (cmp_smaps_rollup_stat(expected, actual, Pss) &&
--	    cmp_smaps_rollup_stat(expected, actual, Pss_Anon) &&
--	    cmp_smaps_rollup_stat(expected, actual, Pss_File) &&
--	    cmp_smaps_rollup_stat(expected, actual, Pss_Shmem))
-+	if (cmp_smaps_rollup_stat(expected, actual, Rss))
- 		return true;
- 
- 	print_smaps_rollup_stats("Expected stats:", self, expected);
-@@ -637,14 +634,13 @@ static bool query_addr_at(int maps_fd, void *addr,
- static inline bool split_vma(FIXTURE_DATA(proc_maps_race) *self)
- {
- 	/* PROT_NONE differs from both readable neighbors. */
--	return mmap(self->mod_info->addr, self->page_size, PROT_NONE,
--		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0) != MAP_FAILED;
-+	return mprotect(self->mod_info->addr, self->page_size, PROT_NONE) == 0;
- }
- 
- static inline bool merge_vma(FIXTURE_DATA(proc_maps_race) *self)
- {
--	return mmap(self->mod_info->addr, self->page_size, self->mod_info->prot,
--		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0) != MAP_FAILED;
-+	return mprotect(self->mod_info->addr, self->page_size,
-+			self->mod_info->prot) == 0;
- }
- 
- static inline bool check_split_result(struct line_content *mod_last_line,
-@@ -681,6 +677,12 @@ static inline bool check_shrink_result(struct line_content *mod_last_line,
- 
- static inline bool remap_vma(FIXTURE_DATA(proc_maps_race) *self)
- {
-+	/*
-+	 * Unlock next_addr so MREMAP_DONTUNMAP does not split it.
-+	 */
-+	if (munlock(self->mod_info->next_addr, self->page_size * 3) != 0)
-+		return false;
-+
- 	/*
- 	 * Remap the last page of the next vma into the middle of the vma.
- 	 * This splits the current vma and the first and middle parts (the
-@@ -694,8 +696,9 @@ static inline bool remap_vma(FIXTURE_DATA(proc_maps_race) *self)
- 
- static inline bool patch_vma(FIXTURE_DATA(proc_maps_race) *self)
- {
--	return mprotect(self->mod_info->addr + self->page_size, self->page_size,
--			self->mod_info->prot) == 0;
-+	return mmap(self->mod_info->addr + self->page_size, self->page_size,
-+		    self->mod_info->prot,
-+		    MAP_PRIVATE | MAP_ANONYMOUS | MAP_FIXED, -1, 0) != MAP_FAILED;
- }
- 
- static inline bool check_remap_result(struct line_content *mod_last_line,
-@@ -759,11 +762,17 @@ FIXTURE_SETUP(proc_maps_race)
- 
- 		for (i = 0; i < mod_info->vma_count; i++) {
- 			mod_info->child_mapped_addr[i] = mmap(NULL, self->page_size * 3, prot,
--					MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-+					MAP_PRIVATE | MAP_ANONYMOUS | MAP_POPULATE, -1, 0);
- 			ASSERT_NE(mod_info->child_mapped_addr[i], MAP_FAILED);
- 			/* change protection in adjacent maps to prevent merging */
--			prot ^= PROT_WRITE;
-+			prot ^= PROT_EXEC;
- 		}
-+		/*
-+		 * Lock all present pages in memory so memory reclaim cannot
-+		 * change RSS during the test, and use MCL_ONFAULT so
-+		 * mremap() expansion does not populate new pages.
-+		 */
-+		ASSERT_EQ(mlockall(MCL_CURRENT | MCL_FUTURE | MCL_ONFAULT), 0);
- 		signal_state(mod_info, CHILD_READY);
- 		wait_for_state(mod_info, PARENT_READY);
- 		while (true) {
-@@ -833,10 +842,10 @@ FIXTURE_SETUP(proc_maps_race)
- 	for (int i = 0; i < mod_info->vma_count; i++) {
- 		if (mod_info->child_mapped_addr[i] == (void *)self->last_line.start_addr) {
- 			mod_info->addr = mod_info->child_mapped_addr[i];
--			mod_info->prot = PROT_READ;
--			/* Even VMAs have write permission */
--			if ((i % 2) == 0)
--				mod_info->prot |= PROT_WRITE;
-+			mod_info->prot = PROT_READ | PROT_WRITE;
-+			/* Odd VMAs have exec permission */
-+			if ((i % 2) != 0)
-+				mod_info->prot |= PROT_EXEC;
- 		} else if (mod_info->child_mapped_addr[i] == (void *)self->first_line.start_addr) {
- 			mod_info->next_addr = mod_info->child_mapped_addr[i];
- 		}
-@@ -1066,7 +1075,6 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
- 	struct line_content remapped_first_line;
- 	struct line_content restored_last_line;
- 	struct line_content restored_first_line;
--	struct smaps_rollup_stats orig_stats;
- 
- 	wait_for_state(mod_info, SETUP_READY);
- 
-@@ -1080,8 +1088,6 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
- 	report_test_start("Tearing from remap", self->verbose);
- 	ASSERT_TRUE(capture_mod_pattern(self, &remapped_last_line, &remapped_first_line,
- 					&restored_last_line, &restored_first_line));
--	if (self->maps_file == SMAPS)
--		ASSERT_TRUE(parse_smaps_rollup(self, &orig_stats));
- 
- 	/* Now start concurrent modifications for self->duration_sec */
- 	signal_state(mod_info, TEST_READY);
-@@ -1134,11 +1140,6 @@ TEST_F(proc_maps_race, test_maps_tearing_from_remap)
- 				     vma_end - vma_start == self->page_size * 3) ||
- 				    (vma_start == self->last_line.start_addr + self->page_size &&
- 				     vma_end - vma_start == self->page_size));
--		} else {
--			struct smaps_rollup_stats stats;
--
--			ASSERT_TRUE(parse_smaps_rollup(self, &stats));
--			ASSERT_TRUE(compare_smaps_rollup(self, &orig_stats, &stats));
- 		}
- 		clock_gettime(CLOCK_MONOTONIC_COARSE, &end_ts);
- 		end_test_iteration(&end_ts, self->verbose);
-
-base-commit: b61fa14ce6bcbba2cb9a96feea31b760226d6b43
--- 
-2.56.0.317.g454f8302e1-goog
-
+greg k-h
