@@ -1,75 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571416;
-	b=UL51JpAIZP45WT+kWZF/hkJf+VBenycCwACHntaxHj2IUdaM5bdjjVoTcTe2y4fG+rXz
-	 CxuAbsZRhToGjuU0bg3trWG/2CM3+0CsTTvz/d3UOuA0WKegkbMedUCM540i6vz34UC1S
-	 vMKDML0LU/2bS8vmqW20jO/Ne77d094/HbJSlPrRGTUPGrG+f6u87V5ClAOm5MoSjqv9p
-	 ZJC/V4rtSZLAsArp4WR8+KY01VMo0U6wPMqJElqJBXR/xQ6mIl7Uiawm6/tKOJTtBdNXI
-	 bRIs/gDBQOlbun9bDCyPiXvE4s56UypYATFN7M2171bkOMPip0pJiF43cZHodi0m3qg==
+	t=1793571437;
+	b=UfqzCGMarXV1qhzK/6afm2YhcA14JEma5T3W6lj73EJpIh395k6pSGKrkvHMOsJECab3
+	 YPtQfNaA4DejtwymwQdlNDlBnSw5efFNW2Vgw82LLrJTvfcvjTc9+NlxcTPMOLI4e95VL
+	 YPcvKnZbZLGOwI1RPiQwuQKPt092Be1JKRQQslBQXTLYqScy3OvEdGZcJ896bBi2rJ/X3
+	 X34drF1hT12duqGbn1uag1ZkkY5xJixXZW51uDBYfOu+WknX/oTGszkFo1Lr2bbNcEDWF
+	 0x0JVVRe6/hQ7IatFnuTi+hNVMhd2LawYwSbJVcR/q8PzF4BvLuz2L0TVt/7owaTs3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571416;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=oih8i0WIyQznYHZo2vL+7dttn3r29EGnZfW+AikIH9c=;
-	b=bNCDASCMtMPatgN2fOHRFSvC/deGPaSFJUWJSAYxzGhikAGJ9V2AqNiZDYlInZgOprRe
-	 wcgyTZl7hk70sudVQUwrGWo/mZi4ooLHbwopvgvKA/HExepdKD6WjaxnlIoBqFos6kjKZ
-	 MEASVP7Bcx6N9odx8sSWwpNtP5ZOQkQPva1Htp2vd6bkHT+CFfFrb9+5QwoXkrbX3EzMz
-	 siT1VCmdAkJOlD2KfUA6fRgbzZL6afzenGy7dp59o7j/XaMIJtere2SfxW6LiAGYkylI8
-	 FtWRgmVIowZP9rEaDSoWq1RZuFjUQ9hTyU/Zy4NipjKD3Ds5BQmHVL67WaO6u9219OA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571437;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=V96lGwQwQmY9ownZq1Q75CdhNhmGv+8yLE3JYgrASiM=;
+	b=q8yFGFcJvrm5twyQ4QfpaZ7glKWtpNPGIC/Vxxh70RBplLVl69whZNZixDmEELpEBzzw
+	 iglGGKCQitGHa04SuF2Ed529w9496Ryd4n/KUfWH9vZ4psVCrtezEpu3pUEkt2k7EE7ny
+	 jvaFEZX81bcRs/6Tyq+WW5A0Xhh+aOzW1R4L0+4YRb7jUCa7HEZCIrFmNZEYOWP2U8nmn
+	 yLxAWQcINIZVW/o5+CcEIbYamMJ2gndnCwYqApRK7tSbJWnyEfci4lux2a4E9M4eBXYd7
+	 da6YTOIjleCl+v1xWfuxET1PPZvxNQ9PoCORdk1xK/exLN7dp/gpH+G+1NLsT9Og+Yw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=pBxPxn5n;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlwVJc2S;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 803F16072B25;
-	Sun,  1 Nov 2026 22:16:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 803F16072B25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAE46075772;
+	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=pBxPxn5n
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=oih8i0WIyQznYHZo2vL+7dttn3r29EGnZfW+AikIH9c=; b=pBxPxn5nRbIjhCTk7PI7SrOmJu
-	Ylf9GViTlBEPjuBEOaX0EInTxAW0Wv7HF0sVeRO8u4+ncCOm32vxLsUTy4DcL6PKMBgZ5JqymDISt
-	h0hXNPaQIFDUWKUgwpXX/DP7lufM+EATMu010sf0oJ10ry6wUZw6hLXDlC0V5x97+nWjJcjsFXNUF
-	TQ8c0gm+aGhMC73ON4aVBJfTFUzEf60B0k6F1HMbHL7a9ZSW57iz4L3oqXy04Vn5TrSJidDHrwDRY
-	jnKCU1mJsx8qGlZc5ZHtu+dRjEukt3vb4tLKJBbYHbRFtL0EPNDTQ+GN9aoQTMVDBIzJlt+gqu15R
-	kGxOJPlA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: linux-rockchip@lists.infradead.org,
-	Jianfeng Liu <liujianfeng1994@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Quentin Schulz <quentin.schulz@cherry.de>,
-	Alexey Charkov <alchark@gmail.com>,
-	Amin Gattout <amin.gattout@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Coia Prant <coiaprant@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	FUKAUMI Naoki <naoki@radxa.com>,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?=E5=AE=89=E5=AE=B9?= <HystericalDragons@proton.me>
-Subject: Re: [PATCH v2 0/2] arm64: dts: rockchip: Add ArmSoM Sige7s support
-Date: Sun,  1 Nov 2026 23:16:34 +0100
-Message-ID: <179357139346.4108484.5874650464024401479.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261029082541.469999-1-liujianfeng1994@gmail.com>
-References: <20261029082541.469999-1-liujianfeng1994@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MlwVJc2S
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 159F41F00A16;
+	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571437;
+	bh=V96lGwQwQmY9ownZq1Q75CdhNhmGv+8yLE3JYgrASiM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=MlwVJc2SRLjk+rxKbOxp9tf4nzhdr9onLCTP2HLl5zTBQOiHXXA+GFydsaVMi5W2P
+	 JBZ9w3HOiskfEd0RqvW648TC4LTAeoRnr0gN4lhW7JYZeWbfVgixO8rsWkmt0+uR0S
+	 42G/D31sR+AI/6oma4rKjzuzBBq7YlpMKLd+zsNWQOpTXInxWl7KUOocRV68W4z5Fj
+	 Wc8Qmp1gzoTlRBHnlRH4v7Yz8t/h83QJ0jDrpStFmCn7YAiNBOjP9GLbBBLQlVHpzx
+	 ySzfZvJMC/w9DkTPvDwFbRM3Om4djHzgDuXhzm+inIjR+kpvU3S9cawnQfclA3HsdR
+	 yHNmymPDOy74g==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0B96A38003B8;
+	Sun,  1 Nov 2026 22:17:17 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,28 +53,47 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2] riscv: dts: spacemit: set console baud rate on
+ OrangePi
+ RV2
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357143579.2624073.15759180385936074030.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:17:15 +0000
+References: <20260929120227.1791356-1-jberring@redhat.com>
+In-Reply-To: <20260929120227.1791356-1-jberring@redhat.com>
+To: Jennifer Berringer <jberring@redhat.com>
+Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dlan@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, hendrik.hamerlinck@hammernet.be,
+ devicetree@vger.kernel.org, spacemit@lists.linux.dev,
+ linux-kernel@vger.kernel.org, legoll@online.fr
 
+Hello:
 
-On Thu, 29 Oct 2026 16:25:19 +0800, Jianfeng Liu wrote:
-> Add support for the ArmSoM Sige7s, an RK3588S-based single-board computer.
-> ArmSoM confirmed that it purchased the CoolPi 4B hardware design and made
-> no hardware modifications for the Sige7s.
+This patch was applied to riscv/linux.git (fixes)
+by Yixun Lan <dlan@kernel.org>:
+
+On Tue, 29 Sep 2026 08:02:27 -0400 you wrote:
+> Set the baud rate to 115200, matching what is used by U-Boot on this
+> platform so that the console is usable even when console options are not
+> specified in cmdline.
 > 
-> Keep a distinct model and compatible so Linux identifies the board under
-> its marketed name, including when a kernel-provided DTB replaces the
-> firmware-provided DTB. Retain coolpi,pi-4b as a fallback compatible.
+> Fixes: bab8dea259100 ("riscv: dts: spacemit: Add OrangePi RV2 board device tree")
+> Tested-by: Vincent Legoll <legoll@online.fr>
+> Reviewed-by: Yixun Lan <dlan@kernel.org>
+> Signed-off-by: Jennifer Berringer <jberring@redhat.com>
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [v2] riscv: dts: spacemit: set console baud rate on OrangePi RV2
+    https://git.kernel.org/riscv/c/789eed2d8bfa
 
-[1/2] dt-bindings: arm: rockchip: Add ArmSoM Sige7s
-      commit: 3a1d774014392d4f5f83ed73c2237b3c4a9f525a
-[2/2] arm64: dts: rockchip: Add ArmSoM Sige7s board
-      commit: 718ce9703d90c061e2574d11b8e5e8a50c089243
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
