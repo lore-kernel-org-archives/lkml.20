@@ -1,66 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571392;
-	b=FoRkPkJYlcGSYi+VZFPuzekRlaLwWLvKLYgnMMVnA6x3TjTfplkPT2j4CzV7eITjxnyV
-	 ciZ6krGCKjD/kiB18N8gek9jC3B5hN0fKtxPvf8YletKFmB4ZWKYZuiw1NZGanAdYJYLu
-	 OSGqP8SEb65xEQJQif98ob5wiUGqJdk5S0aKWf4gNYbGuw/q23RTs11e0VuyinfsdNVOJ
-	 cCVWNWavsNLs2QVJ9IDd7eKkB2cvVRLKW41PTilfJjYTRUM3DObmFVADzG6YlVYR6YZLN
-	 xVe33ht82Xqja7mxA2A6KS39fN2JJo1C97ElzbCZ95Op7Zehii/T+xReLP2Z+hk8Plg==
+	t=1793571387;
+	b=aOpAXfgqaB/+MCgPUjjzUhHoVpVfpDFdC3PtvZXwyDa1ZrfV7KUn7aoZ9oSgD4Z8CA/Q
+	 +Mte1GOu1i7lrLzKOm3EaJKCiw6I41HLqm+7THiIYOlUmCYgaVD+isb9f9QOvpZwrEkN7
+	 /0AbJZrCim461wn8hHC0y9A41LQmxbZ1LMy+PdO//4JJjz9SEqHQf6SLsivkP1WRoABwQ
+	 DNG5khuqmw1AUEb74PW+TQdvylJLnBuh3roaXn2mYGgwJWxWjWnp74fy4cyi7LOEJildV
+	 f47Q6AAImlS4YPuNGbXEmi7/gv2cE85QXPMyW8ngqY0ttR/Oz1kAncrpMwmWmoEduPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571392;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=LKx3D3L8i20KkgdM053WRZoZcyEWptAt+bunmlcQ35w=;
-	b=ZaBQqFtxZKRj26k/OjRc/lbbRYQ1oncndx038JsNK0VswzznGvEwfbe/irQ/RAGK+4UZ
-	 1AZBcZ6CrNRWNRCwkdXdcmuDc8aU82n64fgSYL0rQTiESn1Fa+bF6OzM1SXA3k4rh5z7z
-	 1ue0Ex8HXcIBRhewRQzsRcYeiSYqAVFezf2+NKA3xLZlKXtNZ+N/df5ge1Nr/PTA8UBKp
-	 tkJRNdd/yd90WU7LbJyJiRwvUVv0BwBGhg5nFkIuKohO4eGZW52cb/F3g1EYyVJBXImbu
-	 y2gXW0ChmoZH1cWejcAR6VafurTgLVZcUAikWeCmIHGM6fVu0WfPfr48jPpXVJ7iYWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571387;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=rAJ8RZ06DBUIxOai16Zk+EZsC0WH9KSq0EKHRtQp2Go=;
+	b=pnc+6vb7ukNCD9tz3GYMshGUZlo/Qd0JFG8kFRcEHRy0au44kUwD7//shBBwcFCZbuMU
+	 VXvGdh00QwiYlH/wW59z9Sf92gPP6BYnzIQwceV5kxfHTTTjWtO5LZHVKLgeymqGaL8HG
+	 ZXz/733nP0DXtyNd3jlptWQ1tXdssdDxy8zABhc77v7uej5HjqvKFCrv3oSUEIlL+5ctb
+	 1t7UYHx0yuwgYjfLtGHMVgZZmcxgQoJh7RQ+f6WW1U0pYxGMrJLVvJDJnlOc/oZia+2JB
+	 i6gtBU8Ft6m+/HUZu+fNUx/3MCz/Lqq+zaoPNMzU+HT+k8kvt9F5XfD9N9j2KvH763g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=waKZaezF;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNxYgn1c;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AD73606DB64;
-	Sun,  1 Nov 2026 22:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8AD73606DB64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72372606D12B;
+	Sun,  1 Nov 2026 22:16:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=waKZaezF
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=LKx3D3L8i20KkgdM053WRZoZcyEWptAt+bunmlcQ35w=; b=waKZaezFft+W4+DVAkBekptegW
-	UnVtPxS4CWRmPMUfT3usNMXRPi8pgRhKiYrCC2qldwTF6kvbPud9Rv7dp711s66/Cn4JMTgHi4jE/
-	Dan6sZi23Dgp9BRiTCR7QsGIrt1bO0O/kbzrt5213L9azRmU/aVc4z29eJoGXc9mYP/AOEd2P5Hti
-	8HVpHlQ8NcnOSef9F2acRL0TLvgmxMqtbSeCZ2Nw5bKT7LAO1hk036BgG7raWsIcnEKJJVWnIefEE
-	cagbA2Zxzi5h0KO962bVDJQPnzq6Vpv5qsRfmX0xor0slj/x1u/uwVDKKkJaw262eKa9Xvs0FTML2
-	lMCkZ8Yw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Jean Delvare <jdelvare@suse.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Igor Velkov <iav@iav.lv>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: (subset) [PATCH 0/2] Label the fans on Kobol Helios64
-Date: Sun,  1 Nov 2026 23:16:05 +0100
-Message-ID: <179357136496.4108155.6955639670454082907.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
-References: <20261018-helios64-fan-label-v1-0-69a3f96d4efa@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNxYgn1c
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5F71F00A24;
+	Sun,  1 Nov 2026 22:16:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571387;
+	bh=rAJ8RZ06DBUIxOai16Zk+EZsC0WH9KSq0EKHRtQp2Go=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=XNxYgn1cUplcs7rMKZov+gVfZttekYqS9yQpibvTc0mS2GfcQ6qWF/XvEAF0BQrr9
+	 78IOIiwVcitvPD3bCArlgVMVvVX8S7U31tAShHABo3SesCDuJWDNifsIDdXVK4uUH+
+	 h2FEWa6InFp/DtcXtMNv4GnbPi9toKoUpfyXZPmdetpom7ggOyX3/PBjJ3VkFBPvb6
+	 FXOH562IuRe9Ck6rt9dRTMD7hZTKgUTodyDzqDid1RP5KPf35gW3EWpqNJyIVwN1+v
+	 yoDAuy54ujFR8gtcI7VTMGgepWJrnXj6dNDcTxPk6Fl0xpb3H4ffIZqyH0RnRVm+qs
+	 hGKI/CcgZurhw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 405F738003B8;
+	Sun,  1 Nov 2026 22:16:27 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,36 +53,48 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v3] riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357138580.2624073.12710670293488013963.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:25 +0000
+References: <20260915-kx-i2s-dts-v3-1-cf0b90882a97@linux.spacemit.com>
+In-Reply-To: <20260915-kx-i2s-dts-v3-1-cf0b90882a97@linux.spacemit.com>
+To: Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: linux-riscv@lists.infradead.org, lgirdwood@gmail.com, broonie@kernel.org,
+ perex@perex.cz, tiwai@suse.com, dlan@kernel.org,
+ weijinmei@linux.spacemit.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, linux-sound@vger.kernel.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, arnd@arndb.de
 
+Hello:
 
-On Sun, 18 Oct 2026 07:54:58 +0300, Igor Velkov wrote:
-> Helios64 has two identical PWM fans, and userspace can tell them apart
-> only by their platform device names. Patch 1 makes pwm-fan.yaml
-> reference fan-common.yaml, as Rob suggested, which also allows label;
-> the hwmon core already exposes it as the label attribute. Patch 2 names
-> the fans after their headers, P6 and P7.
+This patch was applied to riscv/linux.git (fixes)
+by Yixun Lan <dlan@kernel.org>:
+
+On Tue, 15 Sep 2026 11:23:16 +0800 you wrote:
+> Add the six SSPA-based I2S controller nodes for the K3 SoC.
 > 
-> To: Guenter Roeck <linux@roeck-us.net>
-> To: Jean Delvare <jdelvare@suse.com>
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Heiko Stuebner <heiko@sntech.de>
-> Cc: linux-hwmon@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-rockchip@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
+> i2s0 and i2s2-i2s5 each have a dedicated per-controller sysclk
+> divider, so they use the published 7-clock layout (sysclk, bclk, bus,
+> func, sysclk_div, c_sysclk, c_bclk).
+> 
+> i2s1 uses 6 clocks (sysclk, bclk, bus, func, c_sysclk, c_bclk) because
+> its sysclk is driven directly by a DDN (ISCCR0) and has no separate
+> divider stage.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [v3] riscv: dts: spacemit: k3: add i2s0-i2s5 nodes
+    https://git.kernel.org/riscv/c/c37ee906b45b
 
-[2/2] arm64: dts: rockchip: Label the fans on Kobol Helios64
-      commit: f80a26e10a39dd51061513db96fb525244e5e890
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
