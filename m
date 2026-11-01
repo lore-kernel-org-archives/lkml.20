@@ -1,99 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521074;
-	b=zWNGTGf4To1/Nd8VtQfdSi+mg3dOto4EZPxpQO8bvIW71kYWD3ysciIJtoz7SJA1+oH3
-	 LAAKJJXJZZ5ftbb3dIX9WFroVi+v86jGIhfcgm/rN9odKlWFCPYqDDFCdHAlK/VWrbgmf
-	 yd1LKZoSSROLpwV+Ply5MTPirVyGbJN5F+8ifkDZt1PcU+DUeVzGzWyQiCr1D1EBjyh+y
-	 mXbd+5QDLv/A8PALvRVGS8IGYMpWyke3D+Rs+xUcn0u9IlBPN5MaBFx2dLjLUROOedJDB
-	 dLp0MtijyL2iWcGwW96FmIFKavVvvXvc21TkmQzzVIvboljuZ0LuH0xMBp8YU1ZkVJA==
+	t=1793521273;
+	b=MWB8wws0PeGwDy5hcYSBii9dJwCv9+y30w2LE4aFXpqqwObBcYiHKJw2aJ4++QeX6TqA
+	 OW65WSHMJR/ZJ1BsD093CLJA8fyamI0UQXMeDF1h2FTK+CVWRvpaWatAAEW1K7wivckGx
+	 mCiblHktI7hFWXllHvr48R9hPGT0I/tWehJZ3/WWiceQ46tqYi8cu2zlhuaGb90wKsA5Y
+	 ROmA8Wx6ukxcZzuFHBV2Rqt4lpcwElXsJFj7mEfIQ211ONscf/YrVSGqX8jp9rm+8B9qN
+	 SzTx35/o6oAjCeitcUW9x18a2/cEkWGwno1HmdZWER+NtT/iPIig9bKAtwwAgS12HAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521074;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521273;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=QcfjJsTF/PzZsq0pp89MIFI9OrI6d1YbyNN4vvIC+34=;
-	b=fxdyHj9/c8f6wz1b9bGU/3ZRjysYoIg07+nJhoUf9/tMP6zHjx2bWao2+7k8koZuU+PJ
-	 hDHxWW4+cQ8R1CzvvUiMh6vJevbwt69R5MHYW9SfZcLoItKg47KktjMGfhTE6xbF2FWDw
-	 nabr/4Qp/MmbhIo1WXLJTcpsbcEWAggXtD8BaESu18kGEP+D8U5TR1HNphWE83Jd9Lecv
-	 RXyeLtNO+1RUCa8McwyV3EyvgJsFoLTMV0cSSrezZDlWjfLbtBWIY6+PM0nbPNXkyXqRm
-	 gR0KfSj438G1JFJ5jgJbeAVkMCXP/NOQlhvvt0nQ1K6n1Kr0Nptn0UgovqC0PYr89ng==
+	bh=7xvuCJgcD9l7E/ovSE3XgN/jPSwiafr1MiTxX4bzF5o=;
+	b=OjiMBxkvVZoZm9eW3PHaO1mjhDFw9q/jX4OUwl1S1fJhYn9CNgU1o3ULwQQExmcMubrV
+	 P1z2pDbLbDMYLJdvM8HmOSE73lDhmkT+QLvWcg2ZZHs8SbPY0+WjXPs7mpTkhpcOq9AYR
+	 NpXF5fVVSH0NnrxUA8yF6qrggfC7cKhA6u1BXTpDG8v2C8vn9SqG1+AWXwlfyf/+9kJuv
+	 Fp4NSSeA2FuYNr4oxKklnsY+x5s4IlGNWzuYpOrlkKa7vxlLwYJpwYzIdGIJfg7EYigEB
+	 omiTgYOcvQdA4JVBfR8Tl+mmpZm2KRzilnFLGcwk36BgT0/ZgWYeCoiIBedNIrWuvcA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e8e8M3op;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="NkJZjs/E";
+	arc=none smtp.remote-ip=74.125.82.181
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AC0D606A334
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:17:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4AC0D606A334
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95BB0606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:21:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 95BB0606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e8e8M3op
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso1299518a91.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:17:53 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NkJZjs/E
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-3535bf8b3e0so2944425eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:21:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793521072; x=1794125872; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QcfjJsTF/PzZsq0pp89MIFI9OrI6d1YbyNN4vvIC+34=;
-        b=e8e8M3oplfgu5sCEqtHoHQEyAn0EuYk2yBGHdapnBg0ZMprlQ4nqm1ZwDPbBKayJab
-         s0cqprNNEPneFYAXDPQ4XFvisR13ReC11uu4CmlWz1sBAlue+bi72FRuCAj9R0n3V/fK
-         B0IeyTADL1R0Xi4WAaN/gSLCn6xasCwYjByONBsRo8tgdP9wHHCNRtBfv4PpXkASbTeV
-         433cAL1np3FyKbFdZibworL1HTNwbh4l4fCgQJc11ahxKh2Gi+4uQsjWYjYPVTutAi5Z
-         33boMkwOZQbpz6fRDCW7gXEzF/7CuoOMNyPV2H1nJuxGBMTA4UvBxzmpF4LexK8m6Mmj
-         7jDw==
+        d=gmail.com; s=20260707; t=1793521271; x=1794126071; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7xvuCJgcD9l7E/ovSE3XgN/jPSwiafr1MiTxX4bzF5o=;
+        b=NkJZjs/EMBQbCOIMogkLRABNsWip9qBkrNjQB/a5g26rcPoQDXpdRvjx/2LwgpC+/P
+         qpLlWY6S9cc2G1PJHUZ2uvdPlFRMNXGu/Gbq70dv7cG68VQo0Yzx2REwx+aWWF3WJSJT
+         UD1YOh/j4hhe70lSvxLt5msD1QeWZmeIVnLZ7wJlH1BGYBF9+T3RpT8wWaNcgRTil984
+         8rJWRfJusj04p/47zY5znfEiig2Q8paiT41Xhu66586PldVud/zlYiwE2tbEW27kDahK
+         /JW47NzlINKy49MVj/oMt4DGAQlPvtsYpdjCDKmIkiAiBbaXZsh9p3dF9aeXLcdQMpx8
+         WaBQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793521072; x=1794125872;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QcfjJsTF/PzZsq0pp89MIFI9OrI6d1YbyNN4vvIC+34=;
-        b=pBV3og/KfKCbSt1iIsE1vX3NpiMw68bw1E/RsT4zzWapv8Ppe077lEzcSqN25Gn3wM
-         o0K7xD/QNMtvl9dc7Xi9yHDZN9K5jtCAczBek1GxV2MHjbJXS3+hcO5NP5hwiLRRkfHg
-         rduJPHkOW2ZjOmWi4TzJ/Hj1akk7nTO/r4ayI0dGoDVZqci/R9TZx0stuOHKvbbkNyEe
-         b3hD+4TOKFf4G6v77s2I9kAjruUdmvlqcZwaJdnZoxuszEzfcyYrOIKtZQeWoXpKyMN7
-         a1wTE3Dr1BJAorU7gVV7rmMhzy+AJhmB3d0dc8q9g9ExGoRas7mM6fSYOZEozD8JCUu3
-         kRAw==
-X-Gm-Message-State: APuU4Z/e6yd9EBTqc9fgi2R4M6+Hn10nfQhdG3R/3A9Gz0IYmSyETnxg
-	3WvSdWaRURBnIEW4Kxz6YU0rMYNkbHe7DhcdZtT9XDX2gHd3K9xHbBzigXF/D26j
-X-Gm-Gg: AYBFou0282cuQZB5yP8LK6doLiqmRrVzSw66u38DOTpUlAabSLSUAPY/czHWFnYJgo7
-	Ge4FcTYW9IC4hPyT0otoIt9syaOhPwTeZRo/PBuxwSSxR4lOpNzSEVjdb3Jp/s/NMxx+/1TvfDD
-	tRM27VWjTVI19Ia4jSFKaT+uiWt3XPrOyOuMnpT7mKDGoI5fLY496GYrkGGQrAMZUQkiD4O8UOA
-	kyCTA6oiMF8xX4Py8yZktiKYL2eXE53XDM8xo8viOFjXK4unWcNG6pA+hMQ5+jpUe0EL6YglMvu
-	xcd7JQvB13pUbuIw7wm8VRbM8GgIFtcg9svJ1k1dsnx13gB/ChSXzwxK2BlSNwLeDeYAXtruF4J
-	R1SlMjbFYvXPM9O54+p5sDk3YbqSDIsd9/uTt6vZCQPexe0fBG0l0AavkZJWX/i5iY2Nkc7eiO3
-	AYMMcEha5Sq9S3NAkjUsZP/ZfK8NaOMmLXK6lG2aVFxHOEerLqRCOepaplrS9lkXvyHpFvLjhzz
-	8DfJ1kgXVJnrTadXG4TrTBRsWMJmxn6ygMUamnUSnKGZJYbpT7E6PobgffB3nFZcXkF3JEsNzGx
-	2VDQ0i5M7T7g+GIlazfrloOSbGeH5215/Nw0GswhDqre1Nr4nt0gvyVJj48LppIMiyfQjozLb6T
-	N8w==
-X-Received: by 2002:a17:90b:17c1:b0:3ac:9706:7739 with SMTP id 98e67ed59e1d1-3ae89724dfcmr5080442a91.17.1793521072372;
-        Sun, 01 Nov 2026 01:17:52 -0700 (PDT)
-Received: from LDYT9Q2G2M ([2a09:bac5:cad2:3228::4ff:28])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84596e3bsm10011455a91.9.2026.11.01.01.17.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 01 Nov 2026 01:17:51 -0700 (PDT)
-From: Zhiqi Zhang <zhiqizhangg@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-kernel@vger.kernel.org,
-	kunit-dev@googlegroups.com,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Finke Lennart <lfinke@student.ethz.ch>,
-	netfilter-devel@vger.kernel.org,
-	Jamal Hadi Salim <jhs@mojatatu.com>,
-	Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org
-Subject: [PATCH v2 2/2] lib/ts_fsm: add KUnit coverage for exported patterns
-Date: Sun,  1 Nov 2026 16:17:36 +0800
-Message-ID: <20261101081736.51803-3-zhiqizhangg@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261101081736.51803-1-zhiqizhangg@gmail.com>
-References: <20261101081736.51803-1-zhiqizhangg@gmail.com>
+        d=1e100.net; s=20260707; t=1793521271; x=1794126071;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7xvuCJgcD9l7E/ovSE3XgN/jPSwiafr1MiTxX4bzF5o=;
+        b=pU58ecHWCLJFcKxy0A8o36fZxYrIAMEik1jTNdLDyp6G7z/DSEyuZuAnnENP6v4JGW
+         /PFEAWJJSEMepvVzPG4VUOVkjrxNBtjhutdpo0+p41u2tcKQPQfahaRY/0QXUHwb4YLz
+         6BvjQEKn/F5m8wwQ/zE6jWQeqgvDZff571hSQKQJ/+3nvWYYD/bbqlxd9MVP6sCagCiv
+         NFxg9amfsWDLJRbFVMbgW9pG+5U85lnHwyY5DmuOOptD5FqxAwQ4W7+XVQru2XidnW5Z
+         VrQ97rWgG6+h4tyr+poPOqdS2ZhOUk52rSbj3pNClduaXxY4Kr4+NclSzUKEiuBrlabt
+         SGQg==
+X-Forwarded-Encrypted: i=1; AKwUvBwdy9HKtkTK2O27XlLSruCw8D4VcCFH3X4v/5aBybEqxZ9IhY+gqkRXgo3txNQgRdXlDzFH9i+NTmWLUUk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/njrfV9tRMpq0juidIBOBej66fxL/+tC1Y8QJccrNqEU8wxVBV
+	Y5j1GLfzq67khKVwn4zDRQkXgxtafBLNYfvzmMokpsLNsWJ/lTeEkzy2
+X-Gm-Gg: AYBFou2U6kIE/SDNT3fA2tJNVpCtGOJEQFjO4eD3E86ztQM98nYj7oo1H4zY1DptXUU
+	pPlfLCCAUb95izqx+4kPd0vfXqF8HryzpnzU/r2ayzdn+5+SVfSvxAyNKCy6BhABWaIuxh8swqc
+	xFL9+O57PNEYsg+gNdYFbCN3Y7JjA8Gc2ZuHVXhhyRJhhLJYO0oylZgrd3dGvRAiX4CZ3EQI2KX
+	6ZrQSDUuzH9KxRxz4jLxX8xnIk11UJlie5qY3JTZqfVVPqszyNTT0G90YyNrAkUurwjpzcMgXTH
+	eFmxXJbVYL5f9jbxlserA5XsYCpfzJk+mAu1mwyQoIqv7GI1d776NQ40U7xWcpx1p4xQUqfvwba
+	gmpY5mpfKTIuOt8P76l2fGL+1Dzfz+XVZTj6RCVdUrk2vHSAtxtm90NMtMEnIE8fo4DhjO3DwUJ
+	lr+sDfwPMBPQENtaVH7dQF5ztPSNTW7xk1wsuQDCVO+xg51r5uKuom4gVKnv/gJmsaJNl7OLGDO
+	D+LJL/aq0HiQRPO3ldXaXXR/BSTsx/DYeTP7W0VppGokbbCzm2moWgV+5sdZHOGBkItXvqF17zT
+	nlwJLvx+Y/qIF9pBoDWzuQNmfL9r
+X-Received: by 2002:a05:693c:895c:10b0:36a:4a08:f0f0 with SMTP id 5a478bee46e88-36a4a08f8a7mr8653024eec.27.1793521271334;
+        Sun, 01 Nov 2026 01:21:11 -0700 (PDT)
+Received: from ubuntu.. ([2405:201:8026:213e:bd68:88be:f3db:8e35])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a98f65sm24114255eec.28.2026.11.01.01.21.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 01:21:10 -0700 (PDT)
+From: mdshahid03@gmail.com
+To: haiyangz@microsoft.com,
+	wei.liu@kernel.org,
+	decui@microsoft.com
+Cc: tglx@kernel.org,
+	mingo@redhat.com,
+	bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	x86@kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mohammad Shahid <mdshahid03@gmail.com>
+Subject: [PATCH] x86/hyperv: use pointed-to type size for page table offsets
+Date: Sun,  1 Nov 2026 13:50:34 +0530
+Message-ID: <20261101082034.134583-1-mdshahid03@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,207 +105,53 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add regression coverage for exporting an FSM pattern and preparing another
-configuration from it. Check all 14 public token types with positive and
-negative matching examples, and a sequence containing a repeated class.
+From: Mohammad Shahid <mdshahid03@gmail.com>
 
-Compare the exported bytes with the input pattern as well as checking
-matching behaviour. Verify that the original configuration remains usable
-after exporting and recreating the pattern. Register cleanup actions so
-that early assertion failures still destroy the configurations.
+The Hyper-V crash trampoline code calculated page table entry
+offsets using sizeof() on pointer variables.
 
-OpenAI Codex drafted these tests and the changelog and drove the recorded
-automated validation.
+Use sizeof(*ptr) instead to calculates the size of the
+pointed-to page table entry.
 
-Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
+This makes entry size explicit and avoids relying on the
+pointer size matching the page table entry size.
+
+This issue was reported by Coccinelle script noderef.cocci.
+
+Signed-off-by: Mohammad Shahid <mdshahid03@gmail.com>
 ---
- lib/Kconfig.debug                |  14 ++++
- lib/tests/Makefile               |   1 +
- lib/tests/textsearch_fsm_kunit.c | 138 +++++++++++++++++++++++++++++++
- 3 files changed, 153 insertions(+)
- create mode 100644 lib/tests/textsearch_fsm_kunit.c
+ arch/x86/hyperv/hv_crash.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
-index 2d22638ec..416d033b0 100644
---- a/lib/Kconfig.debug
-+++ b/lib/Kconfig.debug
-@@ -2531,6 +2531,20 @@ config STRING_HELPERS_KUNIT_TEST
- 	depends on KUNIT
- 	default KUNIT_ALL_TESTS
+diff --git a/arch/x86/hyperv/hv_crash.c b/arch/x86/hyperv/hv_crash.c
+index 5ffcc23255de..810eb1a4a0a2 100644
+--- a/arch/x86/hyperv/hv_crash.c
++++ b/arch/x86/hyperv/hv_crash.c
+@@ -512,20 +512,20 @@ static void hv_crash_build_tramp_pt(void)
+ 	pte_t *pte;
+ 	u64 pa, addr = trampoline_pa;
  
-+config TEXTSEARCH_FSM_KUNIT_TEST
-+	tristate "KUnit tests for FSM text search" if !KUNIT_ALL_TESTS
-+	depends on KUNIT
-+	select TEXTSEARCH
-+	select TEXTSEARCH_FSM
-+	default KUNIT_ALL_TESTS
-+	help
-+	  Test that exporting and recreating an FSM text search configuration
-+	  preserves its matching behaviour. Exercise each public token type
-+	  and a sequence of tokens with a repeated character class. Check
-+	  that exporting also leaves the original configuration usable.
-+
-+	  If unsure, say N.
-+
- config STRING_KUNIT_BENCH
-        bool "Benchmark string functions at runtime"
-        depends on STRING_KUNIT_TEST
-diff --git a/lib/tests/Makefile b/lib/tests/Makefile
-index df0537e1b..fa47ef5d3 100644
---- a/lib/tests/Makefile
-+++ b/lib/tests/Makefile
-@@ -54,6 +54,7 @@ CFLAGS_stackinit_kunit.o += $(call cc-disable-warning, switch-unreachable)
- obj-$(CONFIG_STACKINIT_KUNIT_TEST) += stackinit_kunit.o
- obj-$(CONFIG_STRING_KUNIT_TEST) += string_kunit.o
- obj-$(CONFIG_STRING_HELPERS_KUNIT_TEST) += string_helpers_kunit.o
-+obj-$(CONFIG_TEXTSEARCH_FSM_KUNIT_TEST) += textsearch_fsm_kunit.o
- obj-$(CONFIG_USERCOPY_KUNIT_TEST) += usercopy_kunit.o
- obj-$(CONFIG_UTIL_MACROS_KUNIT) += util_macros_kunit.o
- obj-$(CONFIG_RATELIMIT_KUNIT_TEST) += test_ratelimit.o
-diff --git a/lib/tests/textsearch_fsm_kunit.c b/lib/tests/textsearch_fsm_kunit.c
-new file mode 100644
-index 000000000..6cb173b97
---- /dev/null
-+++ b/lib/tests/textsearch_fsm_kunit.c
-@@ -0,0 +1,138 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/* Tests for exporting and recreating FSM text search configurations. */
-+
-+#include <kunit/test.h>
-+#include <linux/limits.h>
-+#include <linux/module.h>
-+#include <linux/string.h>
-+#include <linux/textsearch.h>
-+#include <linux/textsearch_fsm.h>
-+
-+struct fsm_test_case {
-+	const char *name;
-+	u16 type;
-+	const char *match;
-+	const char *miss;
-+};
-+
-+static const struct fsm_test_case fsm_test_cases[] = {
-+	{ "specific", TS_FSM_SPECIFIC, "x", "y" },
-+	{ "wildcard", TS_FSM_WILDCARD, "A", "" },
-+	{ "digit", TS_FSM_DIGIT, "7", "A" },
-+	{ "xdigit", TS_FSM_XDIGIT, "f", "g" },
-+	{ "print", TS_FSM_PRINT, "A", "\n" },
-+	{ "alpha", TS_FSM_ALPHA, "A", "7" },
-+	{ "alnum", TS_FSM_ALNUM, "7", "!" },
-+	{ "ascii", TS_FSM_ASCII, "A", "\200" },
-+	{ "cntrl", TS_FSM_CNTRL, "\n", "A" },
-+	{ "graph", TS_FSM_GRAPH, "!", " " },
-+	{ "lower", TS_FSM_LOWER, "a", "A" },
-+	{ "upper", TS_FSM_UPPER, "A", "a" },
-+	{ "punct", TS_FSM_PUNCT, "!", "A" },
-+	{ "space", TS_FSM_SPACE, " ", "A" },
-+};
-+
-+static void fsm_case_to_desc(const struct fsm_test_case *params, char *desc)
-+{
-+	snprintf(desc, KUNIT_PARAM_DESC_SIZE, "%s", params->name);
-+}
-+
-+KUNIT_ARRAY_PARAM(fsm, fsm_test_cases, fsm_case_to_desc);
-+
-+static void fsm_destroy_config(void *conf)
-+{
-+	textsearch_destroy(conf);
-+}
-+
-+static void fsm_expect_matches(struct kunit *test, struct ts_config *conf,
-+			       const struct fsm_test_case *params)
-+{
-+	struct ts_state state = {};
-+	unsigned int pos;
-+
-+	pos = textsearch_find_continuous(conf, &state, params->match,
-+					 strlen(params->match));
-+	KUNIT_EXPECT_EQ(test, pos, 0U);
-+	pos = textsearch_find_continuous(conf, &state, params->miss,
-+					 strlen(params->miss));
-+	KUNIT_EXPECT_EQ(test, pos, UINT_MAX);
-+}
-+
-+static void fsm_check_roundtrip(struct kunit *test,
-+				const struct ts_fsm_token *pattern,
-+				unsigned int len,
-+				const struct fsm_test_case *params)
-+{
-+	struct ts_fsm_token *exported;
-+	struct ts_config *conf, *recreated;
-+	int err;
-+
-+	conf = textsearch_prepare("fsm", pattern, len, GFP_KERNEL, TS_AUTOLOAD);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conf);
-+	err = kunit_add_action_or_reset(test, fsm_destroy_config, conf);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	fsm_expect_matches(test, conf, params);
-+
-+	KUNIT_ASSERT_EQ(test, textsearch_get_pattern_len(conf), len);
-+	exported = kunit_kmalloc(test, len, GFP_KERNEL);
-+	KUNIT_ASSERT_NOT_NULL(test, exported);
-+	memcpy(exported, textsearch_get_pattern(conf), len);
-+	KUNIT_EXPECT_MEMEQ(test, exported, pattern, len);
-+
-+	/* Exporting a pattern must preserve the existing search behaviour. */
-+	fsm_expect_matches(test, conf, params);
-+
-+	recreated = textsearch_prepare("fsm", exported, len, GFP_KERNEL,
-+				       TS_AUTOLOAD);
-+	KUNIT_ASSERT_NOT_ERR_OR_NULL_MSG(test, recreated,
-+					 "exported token: type=%u recur=%u value=%u",
-+					 exported->type, exported->recur,
-+					 exported->value);
-+	err = kunit_add_action_or_reset(test, fsm_destroy_config, recreated);
-+	KUNIT_ASSERT_EQ(test, err, 0);
-+	fsm_expect_matches(test, recreated, params);
-+	fsm_expect_matches(test, conf, params);
-+}
-+
-+static void fsm_test_pattern_roundtrip(struct kunit *test)
-+{
-+	const struct fsm_test_case *params = test->param_value;
-+	struct ts_fsm_token pattern = {
-+		.type = params->type,
-+		.recur = TS_FSM_SINGLE,
-+		.value = 'x',
-+	};
-+
-+	fsm_check_roundtrip(test, &pattern, sizeof(pattern), params);
-+}
-+
-+static void fsm_test_sequence_roundtrip(struct kunit *test)
-+{
-+	static const struct ts_fsm_token pattern[] = {
-+		{ TS_FSM_DIGIT, TS_FSM_MULTI, 0 },
-+		{ TS_FSM_SPECIFIC, TS_FSM_SINGLE, ':' },
-+		{ TS_FSM_UPPER, TS_FSM_SINGLE, 0 },
-+	};
-+	static const struct fsm_test_case params = {
-+		.match = "77:A",
-+		.miss = "77:a",
-+	};
-+
-+	fsm_check_roundtrip(test, pattern, sizeof(pattern), &params);
-+}
-+
-+static struct kunit_case fsm_kunit_test_cases[] = {
-+	KUNIT_CASE_PARAM(fsm_test_pattern_roundtrip, fsm_gen_params),
-+	KUNIT_CASE(fsm_test_sequence_roundtrip),
-+	{}
-+};
-+
-+static struct kunit_suite fsm_test_suite = {
-+	.name = "textsearch-fsm",
-+	.test_cases = fsm_kunit_test_cases,
-+};
-+
-+kunit_test_suite(fsm_test_suite);
-+
-+MODULE_DESCRIPTION("FSM text search configuration tests");
-+MODULE_LICENSE("GPL");
+-	p4d = hv_crash_ptpgs[0] + pgd_index(addr) * sizeof(p4d);
++	p4d = hv_crash_ptpgs[0] + pgd_index(addr) * sizeof(*p4d);
+ 	pa = virt_to_phys(hv_crash_ptpgs[1]);
+ 	set_p4d(p4d, __p4d(_PAGE_TABLE | pa));
+ 	p4d->p4d &= ~(_PAGE_NX);	/* enable execute */
+ 
+-	pud = hv_crash_ptpgs[1] + pud_index(addr) * sizeof(pud);
++	pud = hv_crash_ptpgs[1] + pud_index(addr) * sizeof(*pud);
+ 	pa = virt_to_phys(hv_crash_ptpgs[2]);
+ 	set_pud(pud, __pud(_PAGE_TABLE | pa));
+ 
+-	pmd = hv_crash_ptpgs[2] + pmd_index(addr) * sizeof(pmd);
++	pmd = hv_crash_ptpgs[2] + pmd_index(addr) * sizeof(*pmd);
+ 	pa = virt_to_phys(hv_crash_ptpgs[3]);
+ 	set_pmd(pmd, __pmd(_PAGE_TABLE | pa));
+ 
+-	pte = hv_crash_ptpgs[3] + pte_index(addr) * sizeof(pte);
++	pte = hv_crash_ptpgs[3] + pte_index(addr) * sizeof(*pte);
+ 	set_pte(pte, pfn_pte(addr >> PAGE_SHIFT, PAGE_KERNEL_EXEC));
+ }
+ 
 -- 
-2.54.0 (Apple Git-157)
+2.43.0
 
