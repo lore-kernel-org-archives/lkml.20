@@ -1,81 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793570600;
-	b=HCBKE5sVnH9i+SJBbWkUc+IInkpMgqAEaYziOAw+z6fzX0edikm3tH6yqNK2pcyXC/Ry
-	 PTtbLI9mq8AbA2ZEOz1n+RnVpM5jIUkvwcahE2ovVgajMzYyD0sE8QegzPDmdgpve9cTY
-	 3Qd3bv8MS6V2K2ThKDVVDcF05tyVqfHIJM9eYog3b6kEY5LOjjiIcOwMoMYZJHHm332XD
-	 FKtmJB4SY/P9jCWX7yDzwvRRJuPNDmHVn9S8gMVv1x1RP7fMwAzZdjq/UeNXoWHHIEEfb
-	 GnDn1Lj2qP2BJweu4+pztPfXBpzoPbsBHt38hzccwDOrFwUGhvAvOPafepo/SXG0g4A==
+	t=1793570608;
+	b=2Tr7Ec57rY3IJtl7K/ViuxMeDpTE6eQwiREMiqIpzEtc7OY1G1A0DUTq1IzYPWEiqZLO
+	 vMrLmCyz6n2jYVKcCC/xb6rYAQpS7yG3uDS/AuDQi2tZjoqH3D3ia+ZrIWYI42hZlLxkw
+	 cIByhC/3F1GKVQyEP7WgELeh0mzVZXwqsSY0dFEYB03CAvIk01vEwIiwssd0PXnlhE+AI
+	 ETW2SXfp4ZXmygz0W/muRLo9rBl4JpQQCArOVbRUrAAta+YYzNfzVni/tOrAn1x6MqfSp
+	 FcvIn8Zqoj/n0AtuajjTNEZSAiE7vpvLY9HFRYss0n2uJx6bo5Q2j3R5Rc7j6KIKrmw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793570600;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793570608;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=4hG4fKw7cC0NAeH3NsejqIZl8bPYg06/Pu9wVWraTy8=;
-	b=bMKZQNGMDjHGA1lTswy8T0f4s8MhqVbC2VmG23sfglGE9KTfIseDMK9lfGWYNbpD1TZs
-	 D5haoBpXX+wAom5zY2WSj8YtgCjTPcwJ8jabzCUWVVPV9egfzLN+vxokNMUrnOqBQ2oTz
-	 fQrWFKMXZHRHfpfn2Eswe1O4FM1fMmhqG/zaK2d6ujdZPOO0Y8xaunvSZHQT3C8OEz8X0
-	 Xhz+GXDDap1uttGJmAfKo5u++XilD2j3wFAQv5iTxN4sW2p9cCbIgG+P5NdPqQaEis0e4
-	 yromH92YsNj9qiOgDvsDyr9rm7hR9vHMqMKQt0YIiJQBQDl7imAA8jbVKj83zaF9s4A==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=z5HwIFPda1w4a8mgq8cAR9fw2WdrV327kIQbUNNoV+Y=;
+	b=r0OI5VAULKTn0nKP2fXGEd1jn/QQXRzUCrMy1Cu5VxSyAH3PjlJkY5kLI0skPbgNx1TG
+	 mog51aCNTyc7dsO1APJonqR7KostjBDutz4iqWuhN1RnTlM28OqPfpA0cDdONr//bPZ4a
+	 2tdI7q+aSetT1yEkbwmxEPKoKbx93J9z3lQc4ei45aD8fhfDvGp19QGwORoKbwvE3++Km
+	 2I0sd1epB4TmqfdM6Xo2wSy8I9betbUAwdBmQEXvpxh76L8L/lNYPE+0Ft2e6nLVq7p2F
+	 2tAqGS4wQHvLwQ8L1MOxv9cHSsrm6aKjAyUZGYSOsM2tL2Lid0Np/at+CwXCLJFzoQQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=a+0TULw1;
-	arc=none smtp.remote-ip=74.125.82.48
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Oh0Wa4AK;
+	arc=none smtp.remote-ip=74.125.82.45
+Received: from mail-dl1-f45.google.com (mail-dl1-f45.google.com [74.125.82.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B603606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B603606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1F03606A332
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:03:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F1F03606A332
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=a+0TULw1
-Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1ae18eb9b69so1392949c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:03:19 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Oh0Wa4AK
+Received: by mail-dl1-f45.google.com with SMTP id a92af1059eb24-1931ff67a29so3964731c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:03:27 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793570598; x=1794175398; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4hG4fKw7cC0NAeH3NsejqIZl8bPYg06/Pu9wVWraTy8=;
-        b=a+0TULw1nP7U2ouxKQC54XbdJawkaPk6rweilLhaVaN9DhLh1Eel6OvsHQSGfwGBS3
-         6uoDJ8jLl4ELSSF/GX35DHv5QlbU4VOKXLNId5WD2tQuv8gGkmeX64yIAy3GARiJB3QQ
-         TI/mxceSSBoLkz4M91FWDWbSKURYXzieGnNvg=
+        d=chromium.org; s=google; t=1793570607; x=1794175407; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z5HwIFPda1w4a8mgq8cAR9fw2WdrV327kIQbUNNoV+Y=;
+        b=Oh0Wa4AKdc7iROHr31BGwvbHlO/NJGLhoESDgT8sSOB1NzFqWpVVXTVzj14BuO/uJI
+         +X4kINBdEpOUfCF78tdKmT14rd91xZBfOIUPjcUumd+9eere6w3TiR5SYooBNMS7mxGc
+         omaDkWqfjFwf9/yzSfoiurmYaGttHpgVpBK1E=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793570598; x=1794175398;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4hG4fKw7cC0NAeH3NsejqIZl8bPYg06/Pu9wVWraTy8=;
-        b=emfGqpmWlrrkARxVXn//HvQ/JnlaJRQU4IrURPCV5Jj5wDX7XutovbgNu1dzK98dWK
-         2bYBJkVSqQvCiCrqZxg3l2vomoq/6xvYdRQcG2DdwlZXXlO5PtbEXFBr/omA9uGdXYPI
-         jJ7z69mFDyMx8d1mFEPeC74I/5yhTdlkOwhy80bNUX2Dan49DJ/q/SjIhChmsP+vsLzo
-         EDF+WsTvwvDbIpDjJ/r5jMcjaThfbKKwdUkGok5qldfRAjGUZz1+yh8K9sHXBIaH8A9N
-         H2YaJfDDpzyxRvtAGHlsBQlUiT5bAb9xIZJl06XH8WwtYecS/92njKijEO4aciOPbqaO
-         hdvA==
-X-Forwarded-Encrypted: i=1; AKwUvBzJTwEXocorjRkA3LLZAgbN/SQXvTlVSxE7LCElEI3YnckLHKt45NVrQWgVXXbPoGv+iF1udC2RtjD7tUQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIge9RE1AbzvYN9zEf7bRrXtMtYLXfKwBfjPAPP+JKhSnuA+vU/
-	2a6cx4NfUQRJKqe9m9e26otVjQhB7bgDOiES0FAZKKIIOMErZ5GEjiKvtUteds7ogA==
-X-Gm-Gg: AYBFou1DmJl9N+sVWH8EiKGQSy95yCr3PJaPyUoT6gR7FWD1ZPvzBjAi8hYfeaeH+hz
-	KewUBzDOJE1ZVntvFSHFClxebrIDavsIGxrSVGsMp45WfpTATg4RgxMEQjbc408JqIza/gjOePQ
-	ZvJVr47E5j85g+/axCDUdbppGGp0SoLBHO5Ak/AptWkkQOj+0VRgLewGCPkTAdLVsyRtPebr/gJ
-	ij2EnuAyO5K704yyzHpLi5VhbdyEzpHgzj0VO2tOFzp/DEBrpWPMj/Me7F4GxgOvozAeUXs1NSK
-	B+gBvWOMLTklqy8+syGGMOYxJ/GsXOmfLOjpJufpQMkvW5Q1+q8zoNDgB+zWHXKgFDL7F8IF/TT
-	kY7muAqS58sODAakes5JK0FIfv8jWp7u5/9mRQXr3p4HMeSYlxlgPnwaKPwmyGyT95IrgpreFa3
-	VdRUMS8hf+97RhL526uLvu1tHXvogcIqxKw+IrBJozK0vhQOMHLuoSDbCCtJ8o3GAlCDIsPXPU3
-	x9KCzhr5zczcsijnX7flfMN8u+UqzfZoHk11cOByB4Fy9yhQK5JTUdIFmveKvwSYb7r6f5cVX5A
-	OJw5mjE/UgRQaRmXgKcle45PT2ZuM48Fa01bwL8UJOE4m4dv/k2BldDh6oTGYhTofoTFa3GvUsU
-	RdiJ7Zl+BTfU4wQ==
-X-Received: by 2002:a05:7022:3c87:b0:1ad:4ef5:ffed with SMTP id a92af1059eb24-1aea05f4bcfmr6889093c88.38.1793570598083;
-        Sun, 01 Nov 2026 14:03:18 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793570607; x=1794175407;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z5HwIFPda1w4a8mgq8cAR9fw2WdrV327kIQbUNNoV+Y=;
+        b=vazct+rMxK83bxAlsn7m+tsPUl8Zo8wOcFdhhuDoIZ7KXwBQqXMSofVUCqj9Ds0wyU
+         BDiSy29JFOeP50DQmMD6zmmYlHQ861yDzBrgLQWC3043yuQfpZemIvBCwq3Y0JLqNnSc
+         45/mg53OVsPRhGnGeU4qHVFcIGdwTjNPOr2+CYdzm8NSk+zeHnicDSxPAu1lKANgLUTq
+         +PnNnUN+TyfC5nctXi+glUVghACE0a/WBAZ8sfQcteQ6TUJGc1DmkcaQcZmKKRtFrRW/
+         qxafP6pSi5vVzZFALdfE3hNx01Piu/OPJIMC8ipzyM+tiXLLHcaC3hxsY5Yp0FO4S0wv
+         2lKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzkR/vS/yiD2nAJUq0gYlWXvGTxeSBzN9LHFrGtptXKjXpv8RxZLpZ4qJXD390LgjIHj0LMYE+tIRxzeWI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKKo9BaWHnBw+uy55C5DXtISVAHFrgDBSGZg/Q/C9E39vOZSfYI
+	rbHMXwLVsQymTwButVAIcRqoptsuSyYY3TmIz/mgmnP8SZeFdvsJCSz2/6a0JcVv6g==
+X-Gm-Gg: AYBFou3aH5h9AUoyrAlFnZkuwP4qHo51K2sjmNS8X+a9ttDtSzDL8IV7h+9y1nTyLjL
+	E/MSWU2BxjuoJAvBgtf7w0/2+lSjuS2XedIDZl6kD87GpadPr1pSfJr2lUBSI1gu+jw0fToLYQI
+	tr9kUmNYl3iaoATXh9nFWpX/iJNZ5tqaqDlSTxBKfQlaFWGcuI2jRuYjFfjN3s6X+NWVeKAcqxm
+	pueFRAhf5dmA5M97MC/ScZhiPC41P05SgTGvKJXFGJZ6S3A5jxU44cZApqmfw6l4ny55phA6zeK
+	FMRK/4QmZBdB0rf5xMVDnVsAPt6Mj/+/IKgLfbaOvux0byzKAtgCvX8/DC9wKDf0vqeR9QueSUr
+	odzklIIEQapttQNjKjQ7XJhPmVx6/64Pp/yjCzrLnAJKSYm5FnThzaOLzq4S50FUeSpmkQUjEFl
+	WQQ6IIkZGPObH2YBN6OaJe4c4aN6Esf28YME54QHSSVJ0HddB7Nt2EfvHCMBZh2FxjWv4f2lFql
+	T0g7TyolgKgmRz+7Ur5jczzIprxIL1j/286QFigyJuDkI7Nvru4UDkj/WGAGBc/KXX+iCGPuoao
+	new4fb3PhHQo3i7SGtSc5fOC5r4uTYN2Lxu0j7oBoYx2WlQI6iWn1ErEXutwCHfPtxfuCTAfuDi
+	H/WxLBCB9olzDHA==
+X-Received: by 2002:a05:701b:4348:b0:196:d6e1:108b with SMTP id a92af1059eb24-1aed79b3f6amr8350791c88.10.1793570606920;
+        Sun, 01 Nov 2026 14:03:26 -0800 (PST)
 Received: from dianders.sjc.corp.google.com ([2a00:79e0:2e7c:8:cbd8:5ca8:653a:11f9])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm11097266c88.9.2026.11.01.14.03.14
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm11097266c88.9.2026.11.01.14.03.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 14:03:15 -0800 (PST)
+        Sun, 01 Nov 2026 14:03:22 -0800 (PST)
 From: Douglas Anderson <dianders@chromium.org>
 To: Devicetree-compiler@vger.kernel.org,
 	Rob Herring <robh@kernel.org>,
@@ -94,10 +94,12 @@ Cc: Peter Griffin <peter.griffin@linaro.org>,
 	=?UTF-8?q?Andr=C3=A9=20Draszik?= <andre.draszik@linaro.org>,
 	David Gibson <david@gibson.dropbear.id.au>,
 	Douglas Anderson <dianders@chromium.org>
-Subject: [PATCH v3 00/15] fdtfactor: Introduce fdtfactor to auto-factor overlays
-Date: Sun,  1 Nov 2026 14:01:07 -0800
-Message-ID: <20261101220224.1436242-1-dianders@chromium.org>
+Subject: [PATCH v3 02/15] libfdt: overlay: Drop redundant *sep != ':' checks after memchr()
+Date: Sun,  1 Nov 2026 14:01:09 -0800
+Message-ID: <20261101220224.1436242-3-dianders@chromium.org>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+In-Reply-To: <20261101220224.1436242-1-dianders@chromium.org>
+References: <20261101220224.1436242-1-dianders@chromium.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,331 +109,46 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+In `overlay_fixup_phandle()`, `sep` is obtained via `memchr(..., ':',
+...)`. When `sep` is non-NULL, `*sep` is guaranteed to be `':'`, so the
+`|| *sep != ':'` checks are redundant. Drop them.
 
-Devicetree overlays exist at both the source level (via `/include/` and
-`.dtsi` files) and the binary level (where a compiled `.dtbo` overlay is
-applied to a "base" `.dtb` at runtime to add or modify nodes).
-
-Binary `.dtbo` overlays were created by transcribing source-level
-overlay semantics to `.dtb` blobs to serve two main use cases:
-
-1. Supporting add-on boards (like "hats" on a dev board), where a base
-   board's `.dtb` is combined with an add-on board's `.dtbo` at boot or
-   runtime (a use case that Hervé Codina's upcoming "addons" work aims
-   to model more cleanly).
-
-2. Allowing constrained bootloaders or firmware images to support a
-   "family" of similar boards in a space-efficient way without shipping
-   a full `.dtb` for every variant. In upstream Linux, for example,
-   there are 47 distinct sc7180-trogdor boards supported. At the source
-   level these boards share common `.dtsi` files, but we still compile
-   (and ship) 47 separate full `.dtb` blobs. Binary devicetree overlays
-   can make this much more efficient by factoring the common bits into a
-   single base `.dtb` and representing each of the 47 boards as a small
-   `.dtbo` overlay.
-
-Even though `.dtbo` overlay semantics are a natural fit for case #2
-(since they derive from source-level `.dts` overlays, which were
-designed for board/SoC families), upstream Linux has mostly reserved
-compiled `.dtso` -> `.dtbo` overlays for case #1. Many Android phones
-attempt to use `.dtso` overlays for case #2 by describing the SoC as the
-base devicetree and describing boards in `.dtso` overlays, but forcing
-the binary base/overlay split into the source files has drawbacks: there
-is still lots of duplication between board overlays, and upstream
-reception towards structuring board source files this way has been
-lukewarm [1].
-
-This patch series introduces a tool to decouple binary `.dtbo`
-generation from `.dts` source structure. The idea (suggested by Konrad
-Dybcio at LPC) is to continue to represent all the boards in a family as
-normal standalone device trees in source code (using `.dtsi` includes as
-makes sense for human readability). Then, after building the full `.dtb`
-blobs, `fdtfactor` automatically factors them into a common base `.dtb`
-and a set of per-board `.dtbo` overlays.
-
-This tool has quite a few advantages over other solutions:
-1. No change to the way device trees are stored / arranged upstream.
-2. No need to deal with some of the awkwardness / limitations of
-   overlays.
-3. Better savings than just a simple partitioning, like between SoC and
-   boards.
-
-I've used this tool to reduce sc7180-trogdor device tree files (which
-are stored lz4 compressed) from 1.71 MB to 213 KB, an 87.5% savings.
-
-To compare against the manual SoC-base + board-overlay split used by
-downstream Android kernels, I also tested `fdtfactor -S` on the
-downstream Pixel 10 family device trees (29 physical hardware board
-variants: 27 phone variants across Pixel 10, Pixel 10 Pro, and Pixel 10
-Pro XL plus 2 socketed dev board variants) by combining the downstream
-base + overlays into full board DTBs and re-factoring them with
-`fdtfactor -S`:
-
-* Just B0 silicon (29 boards):
-  - Full unfactored DTBs (29 `.dtb`s): 26.30 MB uncompressed (5.28 MB
-    lz4)
-  - Downstream manual SoC base (`lga-b0.dtb`) + 29 board `.dtbo`s:
-    8.06 MB uncompressed (1.66 MB lz4)
-  - Auto-factored with `fdtfactor -S` (1 `base.dtb` + 29 `.dtbo`s):
-    3.27 MB uncompressed (668 KB lz4) -- 2.48x smaller than the manual
-    SoC split (and 3.68x smaller across the 27 phone boards alone, where
-    average overlay size drops from 252 KB to 44 KB uncompressed, or
-    52 KB to 9.1 KB lz4).
-
-* Both A0 and B0 SoC steppings:
-  In practice, phone Proto boards (8 variants) only ever use A0 silicon,
-  phone EVT1.1+ boards (15 variants) only ever use B0 silicon, and only
-  phone EVT1 boards (4 variants) and the socketed dev boards (2
-  variants) can have either A0 or B0 silicon -- giving 35 realistic
-  (board, stepping) combinations (14 A0 + 21 B0), compared to 58 for a
-  naive 29 x 2 cross-product:
-  - Full unfactored DTBs (35 `.dtb`s): 31.71 MB uncompressed (6.37 MB
-    lz4)
-  - Downstream manual split (2 SoC bases `lga-a0.dtb` + `lga-b0.dtb` +
-    29 board `.dtbo`s): 8.78 MB uncompressed (1.79 MB lz4)
-  - Auto-factored with `fdtfactor -S` (1 shared `base.dtb` + 35
-    `.dtbo`s): 4.00 MB uncompressed (855 KB lz4). This could likely be
-    improved more with multiple levels of overlays, but we're already
-    2x smaller than what downstream is doing today.
-
-NOTE: on Chromebooks like sc7180-trogdor, using overlays like this is
-an optimization. On Android phones like Pixel 10, the bootloader logic
-bakes in the need for overlays. Specifically, if we want to be able to
-build a single image that supports multiple boards and have the
-bootloader auto-construct the right devicetree, we need the boards to be
-represented by overlays. This fdtfactor tool can make that a reality.
-
-The fdtfactor tool can either work directly on a set of compiled
-devicetree files or it can work on a FIT (flattened image tree) file.
-The idea is that you'd create the FIT file containing all of the
-duplicated devicetree files and then fdtfactor would "optimize" them.
-
-Before introducing `fdtfactor` itself, the series starts with a few
-preparatory patches: adding a `DeviceTree` live-tree abstraction in
-`devicetree.py`, and teaching `libfdt`'s `fdt_overlay_apply()` to update
-`/__local_fixups__` on the base tree so overlays can be applied in
-multiple stages.
-
-I'll freely admit that the patches in this series were pretty heavily
-vibe coded. I'll not pretend that I have a deep understanding of the
-intricacies of how overlays are implemented. That being said:
-* I've spent quite a bit of time reviewing the code from a high-level
-  perspective: confirming that functions are well documented, well
-  structured, and make sense.
-* I believe that what the tool is doing and how the tool is used make
-  sense.
-* I have had quite a number of internal "the AI reviews the AI" rounds
-  to the point of diminishing returns.
-At this point, I'm not embarrassed to put my name behind this. While I
-won't promise that there are zero cases of the AI doing something really
-stupid, I'd be willing to bet that the end result is better (and cleaner
-/ better structured) than what I would have coded up if I had spent a
-few weeks doing this on my own.
-
-[1] https://lore.kernel.org/all/20251114-elite-refined-yak-bf9e64@kuoka/
-
-v1: https://lore.kernel.org/r/20261015182221.2931742-1-dianders@chromium.org
-v2: https://lore.kernel.org/r/20261028215600.1713475-1-dianders@chromium.org
+Assisted-by: Gemini:gemini-pro-prerelease
+Signed-off-by: Douglas Anderson <dianders@chromium.org>
+---
 
 Changes in v3:
-- Split the fixup offset overflow fix and fdt_wip.c bounds check out of
-  "libfdt: overlay: Prepare fixup and fragment path helpers for reuse"
-  into a standalone bugfix patch with dedicated tests (Simon Glass)
-- Add a comment explaining why an initial ASCII digit check is needed
-  before strtoul() (David Gibson)
 - Split the removal of redundant *sep != ':' checks out of "libfdt:
   overlay: Prepare fixup and fragment path helpers for reuse" into a
   standalone patch
-- New follow-up patch for already-applied commit 6b0371afc532
-  ("pylibfdt: Add subnode/property iterators and get_mem_rsv_list()")
-  clarifying iterator docstrings and testing negative offsets (Simon
-  Glass, David Gibson)
-- Split Property.as_str() and Property.as_stringlist() empty-property
-  handling into a standalone patch and add direct Property unit tests
-  (Simon Glass, David Gibson)
-- New patch adding Fdt.set_boot_cpuid_phys() to pylibfdt (Simon Glass)
-- New patch in v3 to support copying Property instances in DeviceTree
-  (Simon Glass)
-- Move NodeTree out of pylibfdt/libfdt.i into a new devicetree.py module
-  and rename it to DeviceTree (David Gibson)
-- Store libfdt.Property objects in self.props instead of raw bytes
-  (David Gibson)
-- Return a packed libfdt.Fdt object from flatten() instead of raw bytes
-  and use fdt.set_boot_cpuid_phys() (David Gibson, Simon Glass)
-- Raise ValueError in unflatten() on duplicate property or sibling
-  subnode names (Simon Glass)
-- Document in overlay_parse_fixup_entry()'s comment that @valuep and
-  @lenp are advanced past the consumed entry (David Gibson)
-- Return 1 (under __overlay__), 0 (not under __overlay__), or
-  -FDT_ERR_BADVALUE from overlay_split_fragment_path() instead of taking
-  a bool *is_overlayp out-parameter (David Gibson)
-- Move the fixup offset overflow fix into its own standalone patch at
-  the start of the series (Simon Glass)
-- Move the removal of the redundant *sep != ':' checks into its own
-  standalone patch
-- Reject paths ending with a trailing slash ("/<frag>/__overlay__/") in
-  overlay_split_fragment_path() (David Gibson)
-- Split constifying fdto in overlay_apply_node() out of "libfdt:
-  overlay: Update base /__local_fixups__ on apply" into a standalone
-  patch (David Gibson)
-- Move constifying fdto in overlay_apply_node() into a standalone
-  preparatory patch (David Gibson)
-- Gate `/__local_fixups__` handling behind a 3-state compile-time
-  `FDT_OVERLAY_LOCAL_FIXUPS` flag (`0=ignore`, `1=strip`, `2=update`),
-  defaulting to `0` (`IGNORE`) in `libfdt_internal.h` for embedded
-  builds and `2` (`UPDATE`) in Meson/Make desktop builds (Simon Glass,
-  David Gibson)
-- Rewrite commit message in the present tense with motivation up front,
-  and update `fdt_overlay_apply()` documentation in `libfdt/libfdt.h`
-  (Simon Glass)
-- Require a strict relative path in `overlay_create_path()` and return
-  `-FDT_ERR_BADOVERLAY` on empty path components or trailing `'/'`
-  (David Gibson)
-- Eliminate the 256-byte `namebuf` limit in
-  `overlay_fragment_local_fixups()` by re-reading the node name from the
-  shifted ancestor offset after `fdt_add_subnode_namelen()` (David
-  Gibson, Simon Glass)
-- Return `-FDT_ERR_BADVALUE` instead of `-FDT_ERR_BADSTRUCTURE` in
-  `overlay_add_local_fixup_offset()` when an existing
-  `/__local_fixups__` property length is not a multiple of 4 (David
-  Gibson, Simon Glass)
-- Drop redundant `overlay_validate_local_fixups()` pre-pass and inline
-  single-use helpers (Simon Glass)
-- Update fdtfactor to use devicetree.DeviceTree and a FactoredTree
-  subclass initializing self.phandle and self.fixups in __init__()
-  (David Gibson, Simon Glass)
-- Rename -b/--base-dtb to --output-base-dtb to avoid confusion with an
-  input base DTB (David Gibson)
-- Move the test rejecting input DTBs lacking /__local_fixups__ from the
-  -S patch into this base patch (Simon Glass)
-- Include both non--S (932 KB) and -S (634 KB) Trogdor size numbers in
-  the commit message to show the savings of -S itself (Simon Glass)
-- Pass -S to the negative test verifying that inputs lacking
-  /__local_fixups__ are still rejected when -S is used, and move the
-  non--S rejection test to the base fdtfactor patch (Simon Glass)
-- Update for -b/--base-dtb rename to --output-base-dtb (David Gibson)
-- Drop "pylibfdt: Fix FdtSw.as_fdt() when buffer is nearly full" and
-  "pylibfdt: Add subnode/property iterators and get_mem_rsv_list()"
-  (applied upstream by David Gibson)
-- Split fixup offset overflow fix, redundant memchr() check cleanup,
-  iterator docstring/test follow-up, Property.as_str()/as_stringlist()
-  empty-property handling, Fdt.set_boot_cpuid_phys(),
-  Property.__copy__()/__deepcopy__(), and overlay_apply_node() const
-  fdto into standalone patches (David Gibson, Simon Glass)
-- Move NodeTree into a new devicetree.py module as DeviceTree (David
-  Gibson)
-- Gate fdt_overlay_apply() /__local_fixups__ handling behind a 3-state
-  compile-time FDT_OVERLAY_LOCAL_FIXUPS option (Simon Glass, David
-  Gibson)
-- Use "FIT" instead of "FIT image" in documentation, comments, and
-  commit messages (Simon Glass)
-- Update for DeviceTree and --output-base-dtb (Simon Glass, David
-  Gibson)
 
-Changes in v2:
-- Split live tree representation out of fdtfactor (David Gibson)
-- New patch factoring out overlay_parse_fixup_entry() and
-  overlay_split_fragment_path() helpers in libfdt/fdt_overlay.c
-- New patch generalizing overlay_split_fragment_path() for
-  non-NUL-terminated paths in libfdt/fdt_overlay.c
-- New patch updating base /__local_fixups__ in libfdt
-  fdt_overlay_apply() instead of stripping /__local_fixups__ by default
-  (David Gibson)
-- Preserve /__local_fixups__ on base.dtb by default (David Gibson)
-- Store parsed trees directly in NodeTree with node.phandle and
-  node.fixups attributes instead of parallel dicts (David Gibson)
-- Extract phandles in a separate pass after unflattening and reject
-  legacy linux,phandle properties (David Gibson)
-- Exclude non-root common phandle nodes lacking a common symbol from
-  base.dtb instead of synthesizing __fdtfactor_ph_* symbols (David
-  Gibson)
-- Drop -q/--quiet, rename -v/--verbose to -s/--stats, and move tests to
-  a dedicated fdtfactor test suite (David Gibson)
-- Split -S/--strip-local-fixups into a separate opt-in patch (David
-  Gibson)
-- Add --base-compression to explicitly control base.dtb compression
-  while documenting auto-detection from --base-dtb's filename suffix
-  (David Gibson)
-- Support legacy LZ4 frames (lz4 -l) and use CRC32 check for XZ outputs
-  (Simon Glass)
-- Drop "tests: Fix Python test environment setup in meson.build"
-  (applied upstream by David Gibson)
-- Clarify source-level (.dts/.dtsi) vs. binary-level (.dtb/.dtbo)
-  overlay history in cover letter (David Gibson)
-- Add Pixel 10 (Tensor G5) base + overlay comparison numbers to cover
-  letter (Simon Glass)
-- Rename -f/--fit and -F/--fit-out to -F/--fit and --outfile and clarify
-  FIT mode in the --help description (David Gibson, Simon Glass)
-- Reject signed FIT images with signature* subnodes (Simon Glass)
-- Use '<base-node-name>.dtb' for FIT base FDT descriptions instead of
-  common-prefix heuristics (Simon Glass)
-- Compare FIT group node overlap against the group's common node set
-  instead of only the first entry (Simon Glass)
-- Document in README.md that U-Boot's boot_get_fdt_fit() currently
-  requires FIT overlays to be uncompressed (Simon Glass)
+ libfdt/fdt_overlay.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Douglas Anderson (15):
-  libfdt: overlay: Fix out-of-bounds write on bad fixup offset
-  libfdt: overlay: Drop redundant *sep != ':' checks after memchr()
-  pylibfdt: Clarify iterator docstrings and test negative offsets
-  pylibfdt: Handle empty properties in as_str() and as_stringlist()
-  pylibfdt: Add Fdt.set_boot_cpuid_phys()
-  pylibfdt: Support copy.copy() and copy.deepcopy() on Property
-  devicetree: Add DeviceTree live tree representation
-  libfdt: overlay: Factor out fixup and fragment path parsing helpers
-  libfdt: overlay: Prepare fragment path helper for reuse
-  libfdt: overlay: Make fdto const in overlay_apply_node()
-  libfdt: overlay: Update base /__local_fixups__ on apply
-  fdtfactor: Add tool to split DTBs into a base DTB and overlays
-  fdtfactor: Add -S/--strip-local-fixups option
-  fdtfactor: Support compressed DTB inputs and outputs
-  fdtfactor: Add compiled FIT factoring support
-
- Makefile                                   |    8 +-
- README.md                                  |   74 +
- devicetree.py                              |  276 ++++
- fdtfactor                                  | 1659 ++++++++++++++++++++
- libfdt/fdt_overlay.c                       |  778 ++++++++-
- libfdt/fdt_wip.c                           |    7 +-
- libfdt/libfdt.h                            |    7 +
- libfdt/libfdt_internal.h                   |   21 +
- meson.build                                |    7 +
- meson_options.txt                          |    2 +
- pylibfdt/libfdt.i                          |   27 +-
- tests/Makefile.tests                       |    7 +-
- tests/fdtfactor_board1.dts                 |   38 +
- tests/fdtfactor_board2.dts                 |   36 +
- tests/fdtfactor_board3.dts                 |   34 +
- tests/fdtfactor_board3_shifted.dts         |   34 +
- tests/fdtfactor_lz4.its                    |  109 ++
- tests/fdtfactor_other1.dts                 |   33 +
- tests/fdtfactor_other2.dts                 |   33 +
- tests/fdtfactor_test.its                   |  109 ++
- tests/meson.build                          |    4 +-
- tests/overlay.c                            |   80 +
- tests/overlay_bad_fixup_negative_index.dts |    9 +
- tests/overlay_bad_fixup_overflow_index.dts |    9 +
- tests/pylibfdt_tests.py                    |   97 ++
- tests/run_tests.sh                         |  347 +++-
- tests/setprop_inplace.c                    |    8 +
- tests/testutils.sh                         |    1 +
- 28 files changed, 3760 insertions(+), 94 deletions(-)
- create mode 100644 devicetree.py
- create mode 100755 fdtfactor
- create mode 100644 tests/fdtfactor_board1.dts
- create mode 100644 tests/fdtfactor_board2.dts
- create mode 100644 tests/fdtfactor_board3.dts
- create mode 100644 tests/fdtfactor_board3_shifted.dts
- create mode 100644 tests/fdtfactor_lz4.its
- create mode 100644 tests/fdtfactor_other1.dts
- create mode 100644 tests/fdtfactor_other2.dts
- create mode 100644 tests/fdtfactor_test.its
- create mode 100644 tests/overlay_bad_fixup_negative_index.dts
- create mode 100644 tests/overlay_bad_fixup_overflow_index.dts
-
+diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+index c6dc4774cff3..8d96428af04f 100644
+--- a/libfdt/fdt_overlay.c
++++ b/libfdt/fdt_overlay.c
+@@ -432,7 +432,7 @@ static int overlay_fixup_phandle(void *fdt, void *fdto, int symbols_off,
+ 
+ 		path = fixup_str;
+ 		sep = memchr(fixup_str, ':', fixup_len);
+-		if (!sep || *sep != ':')
++		if (!sep)
+ 			return -FDT_ERR_BADOVERLAY;
+ 
+ 		path_len = sep - path;
+@@ -442,7 +442,7 @@ static int overlay_fixup_phandle(void *fdt, void *fdto, int symbols_off,
+ 		fixup_len -= path_len + 1;
+ 		name = sep + 1;
+ 		sep = memchr(name, ':', fixup_len);
+-		if (!sep || *sep != ':')
++		if (!sep)
+ 			return -FDT_ERR_BADOVERLAY;
+ 
+ 		name_len = sep - name;
 -- 
 2.56.0.317.g454f8302e1-goog
 
