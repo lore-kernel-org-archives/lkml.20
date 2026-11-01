@@ -1,111 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793573451;
-	b=TmV4Sej6qC2On67e48lgHEY9Hat/KuSiefCK2mIemBfBUitP+8jnnQo1Ax86uNwZwo+4
-	 FzecQmcq8xQ+hfuJGhP3SohmCD6R3bnpXYL5kQkSjqQDKgnG3SqolwZ/w5Sw52dgkDIZQ
-	 D4gd/aIScWCrszyCJRbBZnP6pjAG/KV4npBwzwqyw+jfE/1l+/ZP4KkxSM27Byjo8Risr
-	 6XlrKPb+6E69x+BR5MMc57joorXfrH4Whc8GcKHWmYAmdcqviiaQXhw6b6mzTojuwYYqK
-	 zI9QRueyuK8UDykSzIqqu+k27AXkaeIUZUos958uNIiW3C1Xtn80/o66IyhB5ROILdw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793573451;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
-	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
-	 References:Subject:Content-Type:Content-Transfer-Encoding;
-	bh=Y0qvq6mmMLgTfpxELoghMFTbhqnb2nmeoC+hPsWafsY=;
-	b=KP5Dr/9eq6182yva7nmrlNf/aA/bHTuRiQJCZ9C+Ro27NSbIDmekuWcENH0F69TTrKBe
-	 duwFkl0mS//DwBcWmKffcuvqerE/nbMX3wzLEGpZicd/Y9AU9NNt+rC4rF8RFRie1FNAY
-	 W72ptYYApBMGi2BfkRdakMGQYbcFBRhoE1y1e482wa50397PxP2vwJQHrUNKjJKqq/jxU
-	 i0zr3ua2sSnAEZcckPr9/P379Q/BDuWGtinS27miGgm0Qqy5o26jrp9f0aow9NuotIECr
-	 ei/egndkddg+0Ovdu5vOe5hffGpzj2AUr4qer31yGqwDvy7zeTmAzBzNEjp+KHFi1AA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=squebb.ca;
-	spf=pass smtp.mailfrom=squebb.ca;
-	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm3 header.b=lTkm1dFE;
-	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=O3G8MzPt;
-	arc=none smtp.remote-ip=202.12.124.159
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793573527;
+	b=bzqh60J5Amx/EZllmB/oKpg1ACHA0ulYW+KFGv9oXWOK3iGMaALY7ssYN2U+908IADF5
+	 681pvg5EMiA4HIb8tqjIsGvhCfN72YqKZjZRmC9cTOM2FWDIhnFteizgUhhqUn9Zb7keV
+	 ztQP/xJereGH7WBP/K/sduRfJJ0UwHZBBTGnquZ2JPkS973tISB9WQpeDhwRwXeNRtwfv
+	 DL/F1o1rCMZolr/txcYtgboFSE7dCgO1G+bKHbK8s+R1nZGMJluOKYSceWbLpM1CqC8qr
+	 akM29ivmaTGLD5YlmZyVlAI5OemFSsS/rtTVqtKoa/mBAZxb2iksuSDV8N0BKxeR0Pg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793573527;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
+	b=Yg5JazVYHluPp10eaASYUwNU6cvcVi2DxJBAL7MfsFh/9XIsN6mBwF1uoMREM351vsz/
+	 6LoQOJnG9SMP6zhUcBW9FkLXiY/NaYleP0k8uSHnN00k70tzHqanrgbwX9lbXDmqCtSsT
+	 Fd3WSfbwmv3ey7lK2WjQvY4VNm8MkhDofE35+VSaMfTpwcRCSqUc4XsUu3blEmUoa2tm5
+	 nwLCAcOqVToEasYevUKfzXYysrLjRRd2EoAuspHM9raxFJU1O1VfVToxUdyjhuVQ+gff6
+	 DJmrsh7cIFhCRiYkUOI8d0L6tbp+49rcpD0bqIysbWOSBOQa/LPUUfOPbK2+xlJIFsg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=googlemail.com;
+	spf=pass smtp.mailfrom=googlemail.com;
+	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=KZ68MGIt;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.54
+Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7B0606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:50:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D7B0606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23E45606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:52:06 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 23E45606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm3 header.b=lTkm1dFE;
-	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=O3G8MzPt
-Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 12BC47A01B9
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:50:49 -0500 (EST)
-Received: from stl-imap-02 ([10.204.2.93])
-  by stl-compute-04.internal (MEProxy); Sun, 01 Nov 2026 17:50:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1793573448;
-	 x=1793659848; bh=Y0qvq6mmMLgTfpxELoghMFTbhqnb2nmeoC+hPsWafsY=; b=
-	lTkm1dFEizaTZ/AGpa6zxjy6SPQmIMWJj6mzMbOYl6EWjCSSbHytQZed7uVxK7kJ
-	nr/clt36gCe2DWVu/Id0ZmLTjTafZikPuTDe/57uDKjvJxUTmlKr4TvTa3By4iro
-	4BPeVKvkS/6MGmwbsW84zEfKwATJMQjlVEDLtz11GVTEn4E6vmxpNiCfCzR8Oukl
-	ikR9dLxrQcHLQyrn4KuyiO920/5UpxxPugi6YjMXmBHG1RL4Nn1RSSDua/TzTsCl
-	DxX/kdzzg9/eiyt4i0c+iq0VIj1srhPTyLPDU8F59Y+9e1jl00FKWG25zWZus1Xs
-	EZkxAFdde1J2XAk1XwFU1Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793573448; x=
-	1793659848; bh=Y0qvq6mmMLgTfpxELoghMFTbhqnb2nmeoC+hPsWafsY=; b=O
-	3G8MzPtlWB6Luxqh7Y/OlUo/HeBlLkyrvwBLGICreCc8iF/mj9mcXoRPI4/kyBFC
-	vISiqkERWV7W89Ga2MSRaOdaEs70QDiCVVHvA8H5HLovQZEH/SuJ/rrbpmLKkcQG
-	xNyLIKSUjq+BDaAckaPw6n4uu5srd//UVYsndgXgLbKHe7ySxMVZ4eBSyYUTQzev
-	ZhDJT1pu1MXdV1hD9iPIHBU4Q9h1R0tX+r0ro/rKyJGDy5evIG253fN+9YG1pXNw
-	THA/H1RfGhpkrBfnS5J8m5BhDQCYQvEao4AAMuxNp02sya66gho2SuRtskUzcLux
-	4K7+X4VFcTBnkl6UdYKIg==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=squebb.ca a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793573448; d=squebb.ca;
-	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm3:rsa-sha256:HVzCu4JUIUyucsf5wDVkGjoUSo2tkPBKH8cllnE10tKNgDJ
-	m5fjBH25Z9xxW8kzy/4TiI28HWYmXObVOz3GwuXmKq97E4o0tzNRMiJr9h8amSga
-	l5uujNyAWIRHJJ16HwWxGcBWGdODl/sIIZXtWYqaDdOqN1p02a3gZKfJGZxw83gv
-	zQj62fqdpn6SgqlY01ABxjmq0kyQejTTqc4fFggiAG4Fzm9JvUKRjcDEq3SvaTM0
-	bt7C1k97P2woQ5Bd2mVqHwNZJHCPV2m6yLN4wSRNMFHzyB0ZYVWVoegoy/QEa+up
-	qckD3OFEDkULDPn6W7okUeNOP/5JObHJH2kS/MQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:h1r7H1JmIfKs7ynKY6TwBeMNMKAvDQv09HIHvnvOfX0=:XruLzfUNKPyOXJRr85//uKUxn9BcK/EXau0HHFWfJxo=;
-X-ME-Sender: <xms:R8Lnakzn82T8yz7mB-5eDN02nrgUjlImqj0EDaHSuLpiXCwksgNo3Q>
-    <xme:R8LnajGXRhuAH6XOZMwFvaScZdFQkk_-KUSEH3kVwC1hKDzTyE2bOU14vj_U9Ltct
-    Y2X2MqHCwCYc2tiu-axhrrGZh3_GEifjUgHI7siMAJ4AfzADzilSTDI>
-X-ME-Proxy-Cause: dmFkZTFhUdMH7Nnrx9Bw1Nr4mn/JQ1i/DNqh8HAW2MnBgUaKdagA+LJo+7SK1W3NY8aKJ/
-    2BiXK4wA186bBde+9EXRCVCdxaBMobjctDZ5ibYacY7jGUko/ulxToRAH7UJNKzWw0TO2M
-    qz6RHR2ZtLDoMzKKun+jEP7M8bbMV7upnPMU8iHqcfdl0S2jERJ1crS57OKVya+OQkywHC
-    Cxp0TskD+1mqkTHm27iebRu4QTiLbPKp7IXi4aQlfe/nTXNW5iY0ZUxMvbdN3yVu8hAYH3
-    iusBLKW7iPRMjxL5BK+iirsDnWbADeGQ55OQf/drmXTIigpZUriEEhEGl3NnFIKOBuDDXG
-    B8AzAlGxxUDLOmMy6unXETyYJjLhQVei56+6w1jkYYfL6za5ntBUHvL9slAV1REnyEnVBc
-    nZfKu+GRIgWHeU7yw/10dZCCT2tZ787ITQBEl9+XA7khTXv1+IK8b2GcB52qGPwlI0qxos
-    PYdFFZueH83NLSbeVK7Sn2SP+lp7H+0ZSWA1yTAIOo2JHTmtqADaaYG32x4CJqPGqcwe+5
-    Jj3c5VoPbPQ1NCLXoc1yWP+apNTDgNAlsZVRchwm/mcnrWsehoYWybA0Ad2Shlef6Y8JEv
-    vozuE6IeXKTJ2/4JysXtmO/AWux4GkVnKNuSkUfWSNaNr1V1IwUoqUAsFhNw
-X-ME-Proxy: <xmx:R8LnaqvsSn-60AWTcfEja23CPkP1VL6IEZLeoFX86-SU9G8oLqiIYw>
-    <xmx:R8LnakYcuQhyuT_YSH1h_uzmb7yLKlEqBbpC4SQ1APjryYQjMaO9Lw>
-    <xmx:R8LnaqAdQEySL8B24lQkRrMurqf6WjwS8K4zliaEDiru34ls41z8QA>
-    <xmx:R8Lnak8TDDPDOMdROg9mjtdEuEXrwWy5Qn9Y73TAJGUEO4A0hYor2Q>
-    <xmx:SMLnatc0APAyOsELPl4NTI7a0HcNPawCrmoU-mMQQWTimCRnEcocIHwc>
-Feedback-ID: ibe194615:Fastmail
-Received: by mailuser.stl.internal (Postfix, from userid 501)
-	id 6F6372C00082; Sun,  1 Nov 2026 17:50:47 -0500 (EST)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=KZ68MGIt
+Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-67a2efec15cso2089384d50.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:52:06 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793573526; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RljHPSQmWGgA7kp0eeAV8/mA+q21qRG2+7b+VAiRjHZEpCAc53GqVi1hLMpd3zwhnZ
+         RMPWl69e67xDbLNS2YK0DMuJ8Y/hRcvmpNXcDOOvPRnVAIx9y1H1OKHRCzDvI8tvvRmE
+         o183UzeB18WlKlhoE7V2MyrsuN5yQPSSrNOwgb4mxQ/k4EOrLvJPV70dYvPKl8tSboVt
+         wwygP17qj8j/qnFcyQ/kKZN8KmhDNllFc2wlvEOtpXokzvEeRYXcRUC5Q3Fu+c1PlmGw
+         XyPNEJHari8iLLSsQweJDqZIh3dj91bODs6g05PN0lS9c7FZxT9sX8xQtRRZeK0icgug
+         45pg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
+        fh=UFCRoGSOVKM+ol605Q65X9RHaGkKH6Zvm846ouRImPE=;
+        b=EW7GZG4dWCroTdrYlEbN0WNCboWPbbHUFA0dsx3RblT1VS72HWr9aXDLuQl1bsYHxR
+         SrbjmhBDGYNYSpfcuPV0YgqD528cxodbh+sFKUFxvdHCFHxGgUdq/fN/2e20Y96cLll0
+         Px8yafsUIG7sN1z1Lzh56ABVBP5912xYkTG03KhRv3KAFJv6gmaDYu6NQO7fAbd2nCi5
+         dykzI9noLhl16Et6ypKUH3cyJ/gavX22QzB+4soGaDv9KLsfmV+McqGbViIJzIR17kqj
+         DrmORRRanllVxCMcgi3MRGdoX5b+4sXIRnep43ZYJy6gOmW3CIH8MrjBVydc0useHH7A
+         gshg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20260707; t=1793573526; x=1794178326; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
+        b=KZ68MGItEmtYSfdv3J5fm/2IoBnChVUSeKbq2Pa66qGPTCPZjw3TnNDR7b/HHfTnOI
+         ZSBqujYvLhZYxAyeD7AOQlWvl2xFdw7h5YJjYkR/NPjxhHERs2SmsKmpXIVnrPT4zSPg
+         q2Ia8TIOxDqtwOhukNHLVzi51sI/YjxQCjWW2edbHWxYb6U9wnMm+E2pZpD4SE59rzRL
+         /6ygKXGOOPT09kBvGn9s7JyMMiYKF8/BEANC3gI5wCCHaOEjUK1RbKZJ9aql47PupZTh
+         SxgglZnclSCWdppYicxZ/COEGDmi9VA3TnJnENbWlAKvgs3NxWelCFEKOE6eb1X67v0S
+         KLjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793573526; x=1794178326;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wOzU4J0to3q5u75B4/uwG0UTHx1qIwAg/dSoR7NVoag=;
+        b=z5ibFarRfmNcl0BdRJe3Q5GHX3qec+c3QbGpKOe2ZlhrJnozdUm+EsUq/217Tefki4
+         7fCEMmq7Rbsc1edww6qVtgNRZFGVFEWKSaXtY4yV2SyZ1AY1Vz0L1NlziSjK8k2onOia
+         toA3PnScwjrICOrDmH4xNHbCRk8jZBE2J3yktBEW/deIliCK0Pm28qfT22SYCggv1Tqs
+         94EZ9wVfNzdaVD7jbyVvqDsv2iOa1uSxXqOvdqOorb2WtFIArEjJzC1cPq/xZ1LJFaBp
+         FgrJBZIVfyNMaDGlVAS+fL65jkh5boyhBg8GpUeOdp6K0EWmbDqUjIjlivFPkNZi/TN8
+         B8DQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1pifLv483t95FtgFgrx3hh+G4+Dz1KzO5bXLZLmiLx0LALbNnEG4nq7GseTVjlLBzIqDirqsp2DT/jHA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/EHhfGLOAjIMUNbEbiU/YpO2gLrpQ/wH+nZMjVlliHUEeS7KpN
+	JtYNM18zHjhaRd6fDnAt0fgO4JDo8IJp/tZlW6HkjjfmTtQR46wtCSLLfUhT26JVKyJX4kvYfrM
+	qU8zEGKGXu9fYYlQnMh8+DriU/tdOzEA=
+X-Gm-Gg: AYBFou2Gwl94/bg16DqnVe1P8yQ7IW3pKfbpx53BvXQa6F0v//7i/s3cMTV0/v4qzOf
+	7LxtuuAcfpbQa5aXWD5grjtRnyo0R6vzLDZ5C3tanyOLZU6gDUS9RP+uddgwrOSwWawXWJyP8DI
+	kScBc1+gNVqL9LAEUv0MKbyus28qolHS46IisQBFrmbUtBcDItubPuHN2l37uk02oFh9Bq+g7Pb
+	r4bFtPwIdMRdSGJs1R936K6yq2WUZgXXw7cK7r3L4Pie51szyn6PGXFuw2xPO+mptMGqvhOOsNX
+	dmNMES2bZut4F+UD/jPLNiNrC25Y9gYO3wmMSY0WNbsoa4MLjYS+d4VKBgeaqGrbaZ2DJYsU7SX
+	7KDiBxqQ/XHaPxLT8objPe9VzldrvnjiXEeCI9XNXiDyPoLMC60i1XdVso8RSIeSeT55YIQ==
+X-Received: by 2002:a05:690e:d8b:b0:679:c17e:407a with SMTP id
+ 956f58d0204a3-67a8d6465a6mr9056359d50.49.1793573526001; Sun, 01 Nov 2026
+ 14:52:06 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,132 +104,112 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-ThreadId: Aq9FyiwXssPF
-Date: Sun, 01 Nov 2026 17:50:27 -0500
-From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
-To: kernel@resetko.pl, "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
- "Greg KH" <gregkh@linuxfoundation.org>, "Guenter Roeck" <linux@roeck-us.net>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Daniel Dev" <daniel.dev@noex.uk>, stable@vger.kernel.org
-Message-Id: <8d0c94b6-8fd0-4fde-8af5-ade15e142a0e@app.fastmail.com>
-In-Reply-To: <20261031-ucsi-lenovo-t14g2a-v1-1-183751e63c02@resetko.pl>
-References: <20261031-ucsi-lenovo-t14g2a-v1-1-183751e63c02@resetko.pl>
-Subject: Re: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.0 on Lenovo ThinkPad T14 Gen
- 2a
-Content-Type: text/plain; charset=utf-8
+References: <20261025192219.209137-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192219.209137-5-christian.koever-draxl@student.uibk.ac.at>
+ <at7lXEqds7ukoR2V@vireshk-B250M-D3H> <1jbj8gkff1.fsf@starbuckisacylon.baylibre.com>
+ <at8WfX_G0tfTlFrm@vireshk-B250M-D3H> <9556e959-daf3-4c85-8794-9613e7e7a9ae@gmail.com>
+ <A45EC676-5B14-4932-A4CF-87ED3B71108D@gmail.com> <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
+In-Reply-To: <4a51e879-708c-49dc-a08a-3f64eeec8bbf@amlogic.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 1 Nov 2026 23:51:55 +0100
+X-Gm-Features: AclHuK_A-gwxcDtkBYM_gQIRYpVip7Aj0wblI5gGxYX_krXiPxYiKaGZaOCuxQI
+Message-ID: <CAFBinCBkJJeRPKLFBA9KYjwXMxFjow_NOtvFoKRQdxD=rOPW3w@mail.gmail.com>
+Subject: Re: [PATCH 4/4] cpufreq: add an Amlogic speed-bin driver
+To: Chuan Liu <chuan.liu@amlogic.com>
+Cc: Christian Hewitt <christianshewitt@gmail.com>, Viresh Kumar <viresh.kumar@linaro.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, christian.koever-draxl@student.uibk.ac.at, 
+	neil.armstrong@linaro.org, sboyd@kernel.org, bmasney+clk@redhat.com, 
+	khilman@baylibre.com, rafael@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-kernel@vger.kernel.org, 
+	linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-pm@vger.kernel.org, 
+	devicetree@vger.kernel.org, 
+	=?UTF-8?B?Q2hyaXN0aWFuIFN0ZWZhbiBLw7Z2w6lyLURyYXhs?= <ckoever@outlook.de>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Stanislaw,
+Hi Chuan,
 
-On Sat, Oct 31, 2026, at 5:40 PM, Stanis=C5=82aw Titenko via B4 Relay wr=
-ote:
-> From: Stanis=C5=82aw Titenko <kernel@resetko.pl>
->
-> The Lenovo ThinkPad T14 Gen 2a exposes a functional UCSI ACPI PPM but
-> the firmware leaves the VERSION field of the UCSI mailbox at zero.
->
-> ucsi_register() rejects a zero version with -ENODEV, leaving the
-> system without registered USB Type-C connectors. Without an OPM, the
-> embedded controller does not complete DisplayPort Alternate Mode setup
-> when a USB-C dock or monitor that supplies power is connected after
-> boot, so the display stays dark while USB and charging work.
->
-> The mailbox uses the 48-byte UCSI 1.x layout, and the PPM works
-> correctly when UCSI 1.0 is assumed.
->
-> Add a DMI-specific UCSI operation for the ThinkPad T14 Gen 2a that
-> substitutes UCSI 1.0 only when firmware reports a zero version.
-> Preserve any valid non-zero firmware version.
->
-> Tested on a ThinkPad T14 Gen 2a with BIOS 1.33 (R1MET63W): both
-> Type-C connectors register, and plugging and replugging a USB-C
-> monitor with an integrated hub and power delivery brings up
-> DisplayPort Alternate Mode each time.
->
-> Reported-by: Daniel Dev <daniel.dev@noex.uk>
-> Closes:=20
-> https://lore.kernel.org/linux-usb/b1Wn_eFvTFShGbd970WWl4CWhge_6P2x7Wb6=
-rab3QHNlE4OJ4p__O-QN3B6I-308ftr5oV5Zr7vywA0vdvmtNw6E0YJnVM2ek_5DcFnkXB0=3D=
-@noex.uk/
-> Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
-> Cc: stable@vger.kernel.org
-> Assisted-by: pi:claude-opus-5-5
-> Signed-off-by: Stanis=C5=82aw Titenko <kernel@resetko.pl>
+On Thu, Oct 29, 2026 at 6:30=E2=80=AFAM Chuan Liu <chuan.liu@amlogic.com> w=
+rote:
+[...]
+> Regarding the concern I mentioned above about supporting a unified
+> cpufreq driver across S4, C3, T7, ..., A9, let me explain it in more deta=
+il:
+>     - These SoCs fall into several hardware architecture categories, and
+> I'm wondering whether we could take all of them into consideration and
+> implement them in a single amlogic-cpufreq.c, for example:
+I think the main question here is: how much code is shared between
+various SoC generations.
 
-This platform was Linux certified so let me see if I can get the FW team=
- to look at it (it is an older platform, but it looks like it's still un=
-der support)
-I don't have this HW myself, so I'll need to ask the team in Japan to re=
-produce the issue. My personal preference would be to try and get the FW=
- fixed first and do the quirk if for some reason that isn't possible.
+>       * S4/C3: 1 * cluster
+>       * T7: 2 * clusters
+>       * S7/S7D/S6: 1 * cluster + DSU
+>       * A9: 2 * clusters + DSU (the 2 clusters share one DSU)
+>     - For different hardware architectures, the resources that the
+> cpufreq driver has to manage also differ and are coupled with each
+> other, for example:
+>       * S7/S7D/S6: the CPUs and the DSU share a single power rail, and
+> the DSU frequency scales proportionally with the CPU frequency
+> (typically dsu_clk =3D cpu_clk * 80%)
+>       * A9: the resources that A9 needs to manage are relatively more
+> complicated ...
+>     - Optimizing the cpufreq transition latency:
+>       * Clock latency: for most S4/C3/T7 customers, the released bl31.bin
+> only supports configuring the CPU clock through SMCs with discrete clock
+> rates. Frequent set_rate()/set_parent() calls in the kernel would result
+> in a relatively large clock latency, and would cause the sugov thread to
+> consume too much CPU time, hurting scheduling performance.
+We also support a few more SoC generations upstream:
+- Meson8/8b/8m2 (32-bit ARM Cortex-A5/A9) where we need to reparent
+the CPU clock to XTAL for stable operating during clock changes (which
+should go into a cpufreq driver that implements target_intermediate).
+There's no secure monitor or firmware involved for CPU clocks.
+- GXBB/GXL/GXM use SCPI firmware CPU clock control so to my knowledge
+we're good with what we have (meaning: no custom cpufreq driver
+needed)
+- G12A single cluster, no DSU: needs a cpufreq driver that implements
+target_intermediate (currently it's managed on clock driver side in
+kernel space, no firmware involved)
+- G12B multi cluster, no DSU: needs a cpufreq driver that implements
+target_intermediate (currently it's managed on clock driver side in
+kernel space, no firmware involved)
+- SM1 single cluster and DSU: needs a cpufreq driver that implements
+target_intermediate (currently it's managed on clock driver side in
+kernel space, no firmware involved)
 
-> ---
->  drivers/usb/typec/ucsi/ucsi_acpi.c | 34=20
-> ++++++++++++++++++++++++++++++++++
->  1 file changed, 34 insertions(+)
->
-> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c=20
-> b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> index 5697ccc24ec3..33747e24353f 100644
-> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
-> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
-> @@ -148,6 +148,33 @@ static const struct ucsi_operations ucsi_acer_ops=20
-> =3D {
->  	.async_control =3D ucsi_acpi_async_control
->  };
->=20
-> +static int ucsi_lenovo_read_version(struct ucsi *ucsi, u16 *version)
-> +{
-> +	struct ucsi_acpi *ua =3D ucsi_get_drvdata(ucsi);
-> +	int ret;
-> +
-> +	ret =3D ucsi_acpi_read_version(ucsi, version);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (!*version) {
-> +		dev_warn(ua->dev, "UCSI version is zero, assuming 1.0\n");
-> +		*version =3D UCSI_VERSION_1_0;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static const struct ucsi_operations ucsi_lenovo_ops =3D {
-> +	.read_version =3D ucsi_lenovo_read_version,
-> +	.read_cci =3D ucsi_acpi_read_cci,
-> +	.poll_cci =3D ucsi_acpi_poll_cci,
-> +	.read_message_in =3D ucsi_acpi_read_message_in,
-> +	.write_message_out =3D ucsi_acpi_write_message_out,
-> +	.sync_control =3D ucsi_sync_control_common,
-> +	.async_control =3D ucsi_acpi_async_control
-> +};
-> +
->  static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32=
- *cci,
->  				  void *val, size_t len, void *msg_out,
->  				  size_t msg_out_size)
-> @@ -196,6 +223,13 @@ static const struct dmi_system_id ucsi_acpi_quirk=
-s[] =3D {
->  		},
->  		.driver_data =3D (void *)&ucsi_acer_ops,
->  	},
-> +	{
-> +		.matches =3D {
-> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
-> +			DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad T14 Gen 2a"),
-> +		},
-> +		.driver_data =3D (void *)&ucsi_lenovo_ops,
-> +	},
->  	{
->  		.matches =3D {
->  			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
->
+[...]
+> The amlogic-cpufreq.c as implemented here can indeed cover the case of a
+> single cluster with no shared resources, such as S4/C3/T7. However, for
+> the upcoming SoCs where multiple clusters share resources, it may not be
+> sufficient to cover: for example, on S7/S7D/S6 the CPUs and the DSU
+> share one regulator; on A9 the two clusters share the dsu_clk, and the
+> sharing relationships among cpu_reg, cpu_sram_reg, dsu_reg and
+> dsu_sram_reg are even more complicated. For such cases, extending the
+> current amlogic-cpufreq.c would be rather difficult, so we would like to
+> make an overall evaluation.
+I think you're making a good point why it's fine to have multiple
+cpufreq drivers for Amlogic SoCs.
+My suggestion instead is to name the driver in this series
+amlogic-s4-cpufreq (or similar). From what I understand C3 support
+(maybe also T7?) can be easily added to the same driver.
+For the 32-bit SoCs I'm planning to implement amlogic-meson8-cpufreq.
+I don't know how relevant DSU is on SM1, depending on how tricky it is
+support may either go into amlogic-meson8-cpufreq or (a new)
+amlogic-meson-g12a-cpufreq.
+And for the newer SoCs like S7/S7D/S6/A9/... I trust your instinct on
+whether they should be in one driver or multiple.
 
-1) Couldn't you just reuse the ucsi_acer_ops quirk?
+> We have done a lot of optimization on these issues from both the
+> hardware and software sides, and we would like the cpufreq driver we
+> submit upstream to cover these optimizations as much as possible. For
+> example, the bl31.bin for S4/C3/T7 has already been released, and
+> updating bl31.bin may cause extra trouble for customers, so we would
+> also like to balance this and see how to minimize the impact.
+I agree. I my opinion it would be best to allow the OS (in this case:
+Linux) to manage clocks so (closed source) firmware binary blob
+updates cannot cause any trouble.
 
-2) Better to use DMI_BOARD_NAME for the DMI match. For the T14 G2 AMD th=
-ere are two possible matches - "20XK" and "20XL".
 
-Thanks
-Mark
+Best regards,
+Martin
