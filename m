@@ -1,47 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793532478;
-	b=rha6pGlynO9MxNqBVdcJDaXoxubGcrqZuJrlY7rTeq3iDm6eleRJUMSbxprwO0OSxxKb
-	 jCQrMf0X4tOOo2fQHWX/irilxJCDJa/KUGTpcpEtLMEATfvY3Ax3xCh6k7RfiMmpjpvn/
-	 kXermCCDs+9KLm/1qjGTgWXSNQYb6uFHmI33QnH21qiE30oFZ7qcMzLtwPS/igFWn3bF9
-	 R99Ap+YTEyRySur29xBtrNpw5Xy+19cDzfyeb+bmDwgJMg2dIBjT6jHdV4kLNWv/DbdYI
-	 meFUJC5jItBVWLR7V/RHQurTR2KGSo3Uhp57+y4Z68rp7Twda3cq5adSS8/F67H1aPA==
+	t=1793532632;
+	b=4CAZdsKjGgwPmxiMBvV98fuWf61YWP6zCpx9r04hE1oS7XoNNbtZ/F5QraEnFWFoqYbT
+	 x+hYoeYGehY0sLZnNswntE+A463Fa71n3Cy0/IzkukB47QqKdYJ5Y985i+MwDW1j7jvsr
+	 OhHDGYKrdud8JC30X+UTjesGgNO448cKgkJxrpZb40iCzbKeYX0JuEmpoym+1RZsAkOJH
+	 oeVKXwakykab5loV2bBEJhtq6kYAsiKfT/2EXDcV4NKYU29+CCOLdcway2qNScYxDS+la
+	 +SXS8dNhdG1F+78ySf2xntvkW5Mvd8a3Gklzi3Ze+XOJVB3eoqQ9Yvb8ixxIXnP1cIA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793532478;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=siqR+D9HkbI6+sWgtn1cpXSgsKhOnoez6zawNDWUpYc=;
-	b=cOw1AaZ6bk2HNwyQhCHAaJoyAMs6VV3H8cpdbyc/CgiqABlhoOjHkdYSuTIdnJv404Uk
-	 9lzPvVM3sjJNb7M8bOgg8it3llEOXTbDuW+MCRKEnY5eWAIB6/UpEuz5xU4Oxg0ZgiSIG
-	 jXCdf17SKNnnN7JODBecpsx/dOkyJmubksFStT0o69T+pkVhewThudfotX3af0/VaybEx
-	 TbU6A3BfQ22FugzZwtCkQV8s0eheTd0URDd9W9ohXKcfe/LwL5J5VxS2oMLvGt4aYlYKR
-	 dzCYTonNlJ8+tGZbJMfbmGyMNQUwzAg2kRaNI4cMUhiReSm/wQHFbXBvvGIbJ22TlJA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793532632;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=QKR+8PYQn0QJC3PYuH+CNGQV8EHuF+fb3PL5Dw961vg=;
+	b=RHcDU9I4PGaYLnpfxFaRUr5AH/0z3oVZSxNXzm7YJ+sC2IsGdgrI696CGoNFVnJTx/As
+	 izeYag296/Nu/uyjJVmHd6GMCAL4AYvcmrlnseBRsaJ8mSay20J7rQw2iJO+YZdIb7zbX
+	 Vtnn2GBb2+0okEsmZOmR8e4sEZtsaScrQwUtCGQxmoi4GHPmYNaB89WCQmA51cHPT3zyG
+	 NhSKaX78EAuCDS+d75pd/j86eaqz2nGQsO4sKm5ymWTtflnmaDAEl9dV7oHaXMy1yDYCu
+	 +fLJwndqSzOxiQj3TMjT8Wa8wc57jo+FP7qCNzeVGY6VrkMhrrNoh4cRt+a4hTv/Bew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cB1Hk1sN;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mF7XePRw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C980606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:27:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E583606A324;
+	Sun,  1 Nov 2026 11:30:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cB1Hk1sN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8D21F000C1;
-	Sun,  1 Nov 2026 11:27:55 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mF7XePRw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F223D1F00919;
+	Sun,  1 Nov 2026 11:30:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793532477;
-	bh=siqR+D9HkbI6+sWgtn1cpXSgsKhOnoez6zawNDWUpYc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=cB1Hk1sNxBlDNzC+BygHOB0Weos2tKXuaBV7tar8GHJCQwSgp7IrGYkNyisex/DRq
-	 t7Li6T/8l0AKgO40Fa74Y2rf1MxMOkB8zgqocDos5g2HK/eYCUsX+natjhHWWftQBm
-	 gNb9g9xFCbHCfK5QLbTwAuhl0NlQR+08yqhhHJUFLv2wmP7p0r1ZEBi8Co4xzUc4uE
-	 bL4VPOSSbvEz6NvYiKJPexnRAJtX2ByTA17NccAaXfAxkTjqzrNcSF2eE6Mx/rUXBu
-	 9UOW65ULWO9Tz+fWc0bFzyttc+kFbhFo14mwaYoWQk9QzEGULqH1fDwHwByRAlooYX
-	 +2zKpBltKmxZg==
-Message-ID: <bfaee19b-355c-4ada-b1d9-f95b4f1fe272@kernel.org>
-Date: Sun, 1 Nov 2026 12:27:54 +0100
+	s=k20260515; t=1793532631;
+	bh=QKR+8PYQn0QJC3PYuH+CNGQV8EHuF+fb3PL5Dw961vg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=mF7XePRwJmAXD1IHvhoY/4aUME4xWQP9Ugvff8Oroc9ikZ9vVtXz4c+ZQDCvYsoLT
+	 KAJtmcU4zGXYfhEvMrja8QQmZM3f2i4JJSC1cl5atwrUwZimsYu8/1RtLme4sPCIDb
+	 fBsLUn+md9QacA6C4Y5kxJdhOSkeLnaySObzW6uUDRX7j0P0o3cClbkSg1Ws7qARj7
+	 yuOoi8hpmO+/t92HGADdQBKd4WSTbKTlNsD3b6kP44OsY0y+5ulDuBqPENyylTIChb
+	 qfHHUnBWbpCC1CwbpPl21qunheFy/KS/HEIxAPESTwZtDF2P3XIPh8aV/9VdBA5Tej
+	 Ew1UJcMt/xtXg==
+Subject: Re: [PATCH net v5 2/2] vxlan: reject VNI add when the default fdb
+ entry is nexthop-backed
+From: netdev-bot+sashiko@kernel.org
+To: bsdhenrymartin@gmail.com
+Cc: idosch@nvidia.com, i.maximets@ovn.org, davem@davemloft.net,
+ kuba@kernel.org, edumazet@kernel.org, pabeni@redhat.com, andrew@lunn.ch,
+ horms@kernel.org, kuniyu@google.com, petrm@nvidia.com, ferruh.yigit@amd.com,
+ atenart@redhat.com, qotmddnjs@gmail.com, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Sun, 01 Nov 2026 11:30:30 +0000
+Message-ID: <179353263054.3131.3806722064671880892@kernel.org>
+In-Reply-To: <20261028111626.3460759-2-bsdhenrymartin@gmail.com>
+References: <20261028111626.3460759-2-bsdhenrymartin@gmail.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,66 +65,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] x86: Make processor vendor selection available
- without EXPERT
-To: Borislav Petkov <bp@alien8.de>, Vincent Mailhol <mailhol@kernel.org>
-Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, linux-kernel@vger.kernel.org
-References: <20261031-processor_select_is_not_an_expert_feature-v1-0-6227bdbbe5a9@kernel.org>
- <20261031214351.GCauZhF1l6ENBfLKIS@fat_crate.local>
-From: Vincent Mailhol <mailhol@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=mailhol@kernel.org; keydata=
- xjMEZluomRYJKwYBBAHaRw8BAQdAf+/PnQvy9LCWNSJLbhc+AOUsR2cNVonvxhDk/KcW7FvN
- JFZpbmNlbnQgTWFpbGhvbCA8bWFpbGhvbEBrZXJuZWwub3JnPsKZBBMWCgBBAhsDBQsJCAcC
- AiICBhUKCQgLAgQWAgMBAh4HAheAFiEE7Y9wBXTmfyDldOjiq1/riG27mcIFAmrTM8wFCR1O
- HxcACgkQq1/riG27mcJ2KAEAhG19xBSkjiA9dtatvq2WJnGaes4SUmY+LSn7dh1Lf7YBAIwB
- lsMMmigMTk3Qgwymg1nT+Z8z1Owc/TGtRlo4ZcwMzjgEZx4y8xIKKwYBBAGXVQEFAQEHQJrb
- YZzu0JG5w8gxE6EtQe6LmxKMqP6EyR33sA+BR9pLAwEIB8J+BBgWCgAmAhsMFiEE7Y9wBXTm
- fyDldOjiq1/riG27mcIFAmrTNKcFCRUFdT0ACgkQq1/riG27mcLEVwD/VmnQtTf6yhowaIFj
- AjUtwiyQz9ja4NRu9GOvz/pb2L8A/3QcADR0dcxADGsmOiBpN2M9KI7nqdNIq3VPM/3/5fcB
-In-Reply-To: <20261031214351.GCauZhF1l6ENBfLKIS@fat_crate.local>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 31/10/2026 at 22:43, Borislav Petkov wrote:
-> On Sat, Oct 31, 2026 at 08:51:48AM +0100, Vincent Mailhol wrote:
->> Restricting a kernel build to a known CPU vendor currently requires
->> enabling EXPERT.
->>
->> Make PROCESSOR_SELECT available without EXPERT. It remains disabled by
->> default, preserving support for all applicable CPU vendors in existing
->> configurations.
-> 
-> What I am not seeing is git archeology about why it is behind EXPERT and
-> whether that reason is or is not valid anymore.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-PROCESSOR_SELECT was introduced in 2008 by commit 8d02c2110b3f ("x86:
-configuration options to compile out x86 CPU support code"). At that
-time, it was gated by CONFIG_EMBEDDED with space savings given as the
-main motivation. In the thread [1], Bodo pointed out that this wasn't
-specific to embedded systems but his comment didn't get any replies.
+Low priority / nit picks for your consideration:
 
-Commit 6a108a14fa35 ("kconfig: rename CONFIG_EMBEDDED to
-CONFIG_EXPERT") then did a treewide renaming. The commit explains that
-EMBEDDED already covered nonstandard configurations beyond embedded
-systems but does not give a PROCESSOR_SELECT-specific rationale.
+- [Low] The series order leaves a bisect window, and nothing protects the
+  stable backport.
+- [Low] The commit message gets the order of operations in
+  vxlan_vni_add() wrong.
 
-Beyond Bodo's unanswered comment, I did not find further discussion of
-the relevance of PROCESSOR_SELECT for non-embedded machines or the
-Kconfig user experience. The main point I am raising in this series is
-how easily users should be able to disable all the features specific
-to CPU vendors they do not need. I think this aspect deserves further
-discussion.
+--
 
-Finally, the size savings have changed since 2008. As reported in my
-tests, an AMD-only build reduces vmlinux.o size by 8.88%. What used to
-be a micro-optimization back then now has a much bigger impact.
+vxlan: reject VNI add when the default fdb entry is nexthop-backed
 
-[1] https://lore.kernel.org/all/E1KRp7q-0001pd-61@be1.7eggert.dyndns.org/
+This commit adds vxlan_fdb_entry_nh_backed() and calls it from
+vxlan_vni_add(). A VNI add with a group, or with a device default remote,
+is now rejected when the all-zeros fdb entry for that VNI is backed by a
+nexthop. The check runs before the VNI is installed, so a later
+-EOPNOTSUPP from vxlan_fdb_update_existing() can no longer leave the VNI
+half-installed.
 
+> vxlan_vni_add() installs the new VNI - hash table insert, group list,
+> socket attach and the RTM_NEWTUNNEL notification - before calling
+> vxlan_vni_update_group(), which in turn calls
+> vxlan_update_default_fdb_entry() to store the group (or the device's
+> default remote) into the all-zeros fdb entry of that VNI.
 
-Yours sincerely,
-Vincent Mailhol
+[Severity: Low]
+Does this ordering match vxlan_vni_add()? In the code, the notification
+goes out after vxlan_vni_update_group() returns, and it goes out whatever
+the return value is:
+
+	err = vxlan_vni_update_group(vxlan, vninode, group, true, &changed,
+				     extack);
+
+	vxlan_vnifilter_notify(vxlan, vninode, RTM_NEWTUNNEL);
+
+	return err;
+
+The end state described later in the message is accurate: the VNI is
+installed and announced despite the error. But it is announced after the
+failed update, not before it.
+
+Could this paragraph be reworded to match?
+
+> diff --git a/drivers/net/vxlan/vxlan_vnifilter.c b/drivers/net/vxlan/vxlan_vnifilter.c
+> index 124ba47758e91..07e17f4b93530 100644
+> --- a/drivers/net/vxlan/vxlan_vnifilter.c
+> +++ b/drivers/net/vxlan/vxlan_vnifilter.c
+> @@ -837,6 +837,20 @@ static int vxlan_vni_add(struct vxlan_dev *vxlan,
+>  		return err;
+>  	}
+>  
+> +	/* A default fdb entry that is backed by a nexthop group can
+> +	 * never take a remote; reject before the VNI is installed,
+> +	 * otherwise a failure in vxlan_vni_update_group() would leave
+> +	 * the VNI half-installed.
+> +	 */
+> +	if ((group && !vxlan_addr_any(group)) ||
+> +	    !vxlan_addr_any(&cfg->remote_ip)) {
+> +		if (vxlan_fdb_entry_nh_backed(vxlan, all_zeros_mac, v)) {
+> +			NL_SET_ERR_MSG(extack,
+> +				       "Cannot add a remote to a nexthop fdb entry");
+> +			return -EOPNOTSUPP;
+> +		}
+> +	}
+
+[Severity: Low]
+Does the series order leave a bisect window between this patch and the
+earlier "vxlan: reject adding a remote to a nexthop fdb entry"?
+
+That earlier patch adds this check to vxlan_fdb_update_existing():
+
+	if (rcu_access_pointer(f->nh) &&
+	    (flags & NLM_F_APPEND) &&
+	    (is_multicast_ether_addr(f->key.eth_addr) ||
+	     is_zero_ether_addr(f->key.eth_addr))) {
+		NL_SET_ERR_MSG(extack,
+			       "Cannot add a remote to a nexthop fdb entry");
+		return -EOPNOTSUPP;
+	}
+
+With only that patch applied, a sequence like this:
+
+  bridge fdb add 00:00:00:00:00:00 dev vx0 nhid X self permanent src_vni N
+  bridge vni add dev vx0 vni N group G
+
+goes through this path:
+
+vxlan_vni_add()
+  vxlan_vni_update_group()
+    vxlan_update_default_fdb_entry()
+      vxlan_fdb_update()
+        vxlan_fdb_update_existing() returns -EOPNOTSUPP
+
+By then the VNI is already in the hash table and the group list, and
+RTM_NEWTUNNEL is still sent. That is the half-installed state this patch
+is meant to prevent. Leaving out the group has the same effect when the
+device has a default remote. Before the earlier patch, the same request
+succeeded and appended a stray remote.
+
+Both patches carry Cc: stable and the same Fixes: tag, but neither one
+records the dependency.
+
+The earlier patch only touches vxlan_fdb_update_existing(), so it will
+probably apply cleanly to older trees. This patch was reworked in v5 for
+the RCU conversion of vxlan->cfg (the local cfg from
+rtnl_dereference(vxlan->cfg)), so its context is unlikely to apply there.
+
+Could stable end up taking the earlier patch on its own? This guard does
+not depend on the earlier patch, so would it make sense to put it first
+in the series, or to squash the two?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028111626.3460759-1-bsdhenrymartin%40gmail.com
