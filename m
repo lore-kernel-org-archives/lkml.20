@@ -1,95 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=31.154.135.10
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793565581;
-	b=14wqe4rjOjp6Y946OSomOdqoPcEacJFurduWfO0ce4CyWnClo6fBLyGKOBPQGFYoCJmH
-	 gWlMSJZ1foauDz/H97dSd54nUgKDD+yePHgs9JgmMgs3uKr2pi7Luqma3j5tpv1gj4Z0I
-	 oVWQ5khXHXcc1P+qudhOuGRlCl4nCumNrnGtcf0Mdkfrb+c2/zK/semJEgRbPpg7+FTdH
-	 a5zR3x/XE9U+Zl8OBzjVrahCA10bsPtyuum1bbikFzIQV7cpjcrxgf20gZjZ//cb5E36y
-	 s3v8eBkSbiZbLtfSaCoHYAfG1xJ7769zqn5a+q3+q60xaSOoYpMBmR4QfXSR4GydpUw==
+	t=1793565593;
+	b=kdG13YVfkXTtBWzqp6rC4jAcH3VXkN5zdaS6AwaNEEpAL6udXi9KLRqtBC0XLX+Ck3U1
+	 JW4UNoLBkvF3cL6riZvAdNKFbBsoiDhTg53dZe5s9CkZBILk3SuBgjCOkRAxocLN4V65k
+	 XBoBUKTFuqxrlF0cEZPW3gysVt62HFxW7tRtNfUePMyBPQSW2LZyIYshG/fA0kRzu3Whx
+	 FDjGemRyeRmhTsH0KZDVW3fjUlQBuIh8I6cAxk3NXJvRy/0z2s+On4r9gvp+IjVIz+l84
+	 5Ru+CloukWJ+sow0NNqsX0GTaELq2k0JQvnjvdvV9raAUVSFvjjjoP1uoi29lLVqyVA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793565581;
-	h=DMARC-Filter:Received:Received:Received:Received:Received:
-	 DKIM-Filter:DKIM-Signature:X-Virus-Scanned:Received:Received:From:To:
-	 Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=YO6H2ereBIPQT3H5CjVg3doxANGZzHdBKwqRwpNWnWw=;
-	b=MxBPpe4ebqYkUQhNkr3LUHt9fspX8f5cmcgGjDSsISofPF4mruVQ+ZlYPmHmDgy+pMFw
-	 14GxP/xERrMETRzKeRK2MIRQVPV+zc6KO6zLc5l+HZrcXczRjYTrkTcZQckLua8mRuXS5
-	 Tk1tpqbKUY8JeFh5uHY/yidelphSLIZXotMZAb2sKAwSD2CNes0uamaxyn6VmtvEGTpWV
-	 4m/1CYEIkGBAX34N7tg3NpBmSlOdhTR/iuJUTVmNpNFBBOJhMMnCaLAfKHiqB4g9B0J5x
-	 RxXTVBlDcSLPmveWUpgGFRnS2jSOBEFcoSLYnzoTSxjGtxmQ2+Ut+TruPVS2I4GLsjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793565593;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=sy1SXxSh8A2I8IELMo6BxSYib7WbescqXfqsguSzEWA=;
+	b=vsaQe31bXOkSNeq7Ek8be0m7LovE0CU4OzrnDUfcOtzkFNzOtxXXNsGCw2Rp2p6PzlpW
+	 s8yAeW5hPMEPUnuEej5P6ma8XCcmgl64jr3uKuU8bFSZFgLEOi+WFFeRbriobSVmi45Ft
+	 VSjalcJjouChhISuV2nrMrGmxgeBlLoolyA4kVbp1InC96hXI6EBm+uIZYT50qmWfg06B
+	 m5pydp1bCN1TptWGZNe8BjH7CKNWy3Jnmq2jwh5woOPys77hWMYVPEwomQhoatniTILr+
+	 EXP/bIvrSgPxdNnlH1gXYRTMP34aRfXzpc5detE1DjKcspsldQ9uvN9Hq+9jfsSIlgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inango-systems.com;
-	spf=pass smtp.mailfrom=inango-systems.com;
-	dkim=pass header.d=inango-systems.com header.i=@inango-systems.com header.a=rsa-sha256 header.s=45A440E0-D841-11E8-B985-5FCC721607E0 header.b=rYRZSZTU;
-	arc=none smtp.remote-ip=31.154.135.10
-Received: from ksserv.inango.com (ksserv.inango.com [31.154.135.10])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.198
+Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7956F606A324;
-	Sun,  1 Nov 2026 20:39:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7956F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=inango-systems.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inango-systems.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=inango-systems.com header.i=@inango-systems.com header.a=rsa-sha256 header.s=45A440E0-D841-11E8-B985-5FCC721607E0 header.b=rYRZSZTU
-Received: from ksserv.inango.com (localhost [127.0.0.1])
-	by ksserv.inango.com (Proxmox) with ESMTP id 903BF22979;
-	Sun,  1 Nov 2026 22:39:38 +0200 (IST)
-Received: from mail.inango-systems.com (unknown [192.168.70.50])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ksserv.inango.com (Proxmox) with ESMTPS id 4CBBF229FE;
-	Sun,  1 Nov 2026 22:39:38 +0200 (IST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.inango-systems.com (Postfix) with ESMTP id AC725D645B3;
-	Sun,  1 Nov 2026 22:39:27 +0200 (IST)
-Received: from mail.inango-systems.com ([127.0.0.1])
- by localhost (mail.inango-systems.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id yjTvLRz2TfHy; Sun,  1 Nov 2026 22:39:27 +0200 (IST)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.inango-systems.com (Postfix) with ESMTP id 7A0D9D645A5;
-	Sun,  1 Nov 2026 22:39:27 +0200 (IST)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.inango-systems.com 7A0D9D645A5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=inango-systems.com;
-	s=45A440E0-D841-11E8-B985-5FCC721607E0; t=1793565567;
-	bh=YO6H2ereBIPQT3H5CjVg3doxANGZzHdBKwqRwpNWnWw=;
-	h=From:To:Date:Message-ID:MIME-Version;
-	b=rYRZSZTUiNA89wc5RLZFYc04pyxOA+JBvYzt7/cXDNRvS6SFPI8JQqNCS+4yOY6Cn
-	 n7htdp9gkrRiOz4KFNbi308eTeRej391v/GO8/sltYA+OpijznYJWZCifCi+1ef9UJ
-	 W1HQ6FkQMgCVmTukuRXdJ0YrVWwyUlk0opTPFyeTiYJ58TlowiCer4x3UguCVdQSS0
-	 2oMpqMN/MeUbUE33fYJwkIvm7DDsjKGPU20n2AwvWrkLLaeX+ItD98z9Mf2dboBx3/
-	 TefiHnXRJtcEd4/E/ro3JzOW/FktElftfZqbBh9G47lRRqfblQbIRGb0c3UOY1BHdd
-	 LYuQ6q98jkxSg==
-X-Virus-Scanned: amavis at inango-systems.com
-Received: from mail.inango-systems.com ([127.0.0.1])
- by localhost (mail.inango-systems.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id 5Q_g32nLDp1E; Sun,  1 Nov 2026 22:39:27 +0200 (IST)
-Received: from steamdeck.inango.loc (unknown [193.37.156.111])
-	by mail.inango-systems.com (Postfix) with ESMTPSA id 68DCED645B3;
-	Sun,  1 Nov 2026 22:39:04 +0200 (IST)
-From: Nikolai Merinov <n.merinov@inango-systems.com>
-To: netfilter-devel@vger.kernel.org
-Cc: netdev@vger.kernel.org,
-	coreteam@netfilter.org,
-	linux-kernel@vger.kernel.org,
-	Simon Horman <horms@kernel.org>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
-	Florian Westphal <fw@strlen.de>,
-	Phil Sutter <phil@nwl.cc>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Nikolai Merinov <n.merinov@inango-systems.com>
-Subject: [PATCH 3/3] netfilter: ip6t_NPT: Adding conntrack compatibility to NPT sessions
-Date: Mon,  2 Nov 2026 00:37:16 +0400
-Message-ID: <20261101203716.269343-4-n.merinov@inango-systems.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261101203716.269343-1-n.merinov@inango-systems.com>
-References: <20261101203716.269343-1-n.merinov@inango-systems.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211BB606A32D
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:39:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 211BB606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4a41f46d629so4108130b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:39:52 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793565592; x=1794170392;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sy1SXxSh8A2I8IELMo6BxSYib7WbescqXfqsguSzEWA=;
+        b=SjtjWc0sEhpMOwig2yh6bLpaxjD/NPOBHV+GTfR2wX4aAOe0JqnYjsv3AiAkpAi2uk
+         1LdE9TeQbLysow3yLEC98zVZ1FzaNlte/dCpwIyJplkOcZ+luH+jgsDdtmEklCiuCj00
+         MrUGVvc9M9PATpDesu4PIQGroU2UWatlEO3RaxcS4yDSZ8E26l7GwEKcQT3LX/6bUcjG
+         PzleIfhtzHfGS3QyVgd7WWPeRVgFCTuCzX9lN9G4nkmBDpOchk4C+H8asdgtRHQXxfGi
+         aeKMGyuNg+zKgxAZVLWtoQLBcydktTvEw51y35VUNfJDTt3qbL7FBpnunui0rBlL3Ymk
+         AqMw==
+X-Gm-Message-State: AFq9FYIFYjb6k67MTtEZw0XQwC6dk40XNaErxrcLZRQ7SEZCY0nPkvnZ
+	VyCwHSZSjbraabEayp52ISd66kmVecgwsncOdBq+tBcM5oAeGpzmdOGQ4+kDdz93mqer/8oMOBB
+	1nhi/B8onojW97FEla7KPkD5iBRWdpPszMLGSoYGEImkTvQg204tHLqG/zGE=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,109 +57,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
+X-Received: by 2002:a05:6808:124d:b0:4d6:9153:295e with SMTP id
+ 5614622812f47-5640de4bb51mr5656858b6e.47.1793565592238; Sun, 01 Nov 2026
+ 12:39:52 -0800 (PST)
+Date: Sun, 01 Nov 2026 12:39:52 -0800
+In-Reply-To: <6ad958f5.16f08417.1cb7b7.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae7a398.67782f90.13afb0.009a.GAE@google.com>
+Subject: Forwarded: [PATCH] media: em28xx: fix v4l2 use-after-free after
+ failed init
+From: syzbot <syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Andrey Kuznetsov <a.kuznetsov@inango-systems.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-The ip6t_NPT was implemented without connection tracking support and
-official netfilter documentation for libip6t_DNPT recommends to use
-NOTRACK target to disable connection tracking for translated
-flow. Such solution blocks possibility to use the NPTv6 implementation
-on systems with stateful IPv6 firewall.
+***
 
-Add function that alters conntrack reply tuple for expected replies in
-both SNPT and DNPT targets. Add optional dependency on NF_CONNTRACK.
+Subject: [PATCH] media: em28xx: fix v4l2 use-after-free after failed init
+Author: drifabdelmalekmohamedsaid@gmail.com
 
-Co-developed-by: Andrey Erokhin <a.erokhin@inango-systems.com>
-Signed-off-by: Andrey Erokhin <a.erokhin@inango-systems.com>
-Signed-off-by: Andrey Kuznetsov <a.kuznetsov@inango-systems.com>
-Co-developed-by: Nikolai Merinov <n.merinov@inango-systems.com>
-Signed-off-by: Nikolai Merinov <n.merinov@inango-systems.com>
+#syz test
 ---
- net/ipv6/netfilter/Kconfig    |  1 +
- net/ipv6/netfilter/ip6t_NPT.c | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 31 insertions(+)
+ drivers/media/usb/em28xx/em28xx-video.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
 
-diff --git a/net/ipv6/netfilter/Kconfig b/net/ipv6/netfilter/Kconfig
-index 81daf82ddc2d..f5fa62541db8 100644
---- a/net/ipv6/netfilter/Kconfig
-+++ b/net/ipv6/netfilter/Kconfig
-@@ -290,6 +290,7 @@ config IP6_NF_TARGET_MASQUERADE
- config IP6_NF_TARGET_NPT
- 	tristate "NPT (Network Prefix translation) target support"
- 	depends on IP6_NF_NAT || NFT_COMPAT
-+	depends on NF_CONNTRACK || !NF_CONNTRACK
- 	help
- 	  This option adds the `SNPT' and `DNPT' target, which perform
- 	  stateless IPv6-to-IPv6 Network Prefix Translation per RFC 6296.
-diff --git a/net/ipv6/netfilter/ip6t_NPT.c b/net/ipv6/netfilter/ip6t_NPT.=
-c
-index d8cc0cc0339e..6ffe53a9572b 100644
---- a/net/ipv6/netfilter/ip6t_NPT.c
-+++ b/net/ipv6/netfilter/ip6t_NPT.c
-@@ -12,6 +12,10 @@
- #include <linux/netfilter_ipv6/ip6t_NPT.h>
- #include <linux/netfilter/x_tables.h>
-=20
-+#if IS_ENABLED(CONFIG_NF_CONNTRACK)
-+#include <net/netfilter/nf_conntrack.h>
-+#endif
-+
- static int ip6t_npt_checkentry(const struct xt_tgchk_param *par)
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d486..924a3f7977c9 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2414,7 +2414,7 @@ static int em28xx_v4l2_open(struct file *filp)
+  */
+ static int em28xx_v4l2_fini(struct em28xx *dev)
  {
- 	struct ip6t_npt_tginfo *npt =3D par->targinfo;
-@@ -121,6 +125,30 @@ static struct ipv6hdr *icmpv6_bounced_ipv6hdr(struct=
- sk_buff *skb,
- 				  _bounced_hdr);
- }
-=20
-+static void ip6t_npt_ct(struct sk_buff *skb, const struct xt_action_para=
-m *par)
-+{
-+#if IS_ENABLED(CONFIG_NF_CONNTRACK)
-+	struct nf_conn *ct;
-+	enum ip_conntrack_info ctinfo;
-+	struct nf_conntrack_tuple new_tuple;
-+
-+	ct =3D nf_ct_get(skb, &ctinfo);
-+
-+	if (!ct || nf_ct_is_confirmed(ct) || nf_ct_is_dying(ct))
-+		return;
-+
-+	new_tuple =3D ct->tuplehash[IP_CT_DIR_REPLY].tuple;
-+
-+	if (xt_hooknum(par) =3D=3D NF_INET_PRE_ROUTING ||
-+	    xt_hooknum(par) =3D=3D NF_INET_LOCAL_OUT)
-+		new_tuple.src.u3 =3D (union nf_inet_addr)ipv6_hdr(skb)->daddr;
-+	else
-+		new_tuple.dst.u3 =3D (union nf_inet_addr)ipv6_hdr(skb)->saddr;
-+
-+	nf_conntrack_alter_reply(ct, &new_tuple);
-+#endif
-+}
-+
- static unsigned int
- ip6t_snpt_tg(struct sk_buff *skb, const struct xt_action_param *par)
- {
-@@ -151,6 +179,7 @@ ip6t_snpt_tg(struct sk_buff *skb, const struct xt_act=
-ion_param *par)
- 			ip6t_npt_map_pfx(npt, &bounced_hdr->daddr);
+-	struct em28xx_v4l2 *v4l2 = dev->v4l2;
++	struct em28xx_v4l2 *v4l2;
+ 
+ 	if (dev->is_audio_only) {
+ 		/* Shouldn't initialize IR for this interface */
+@@ -2426,13 +2426,17 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		return 0;
  	}
-=20
-+	ip6t_npt_ct(skb, par);
- 	return XT_CONTINUE;
- }
-=20
-@@ -184,6 +213,7 @@ ip6t_dnpt_tg(struct sk_buff *skb, const struct xt_act=
-ion_param *par)
- 			ip6t_npt_map_pfx(npt, &bounced_hdr->saddr);
+ 
+-	if (!v4l2)
+-		return 0;
+-
+ 	dev_info(&dev->intf->dev, "Closing video extension\n");
+ 
+ 	mutex_lock(&dev->lock);
+ 
++	/* matches em28xx_v4l2_init error paths */
++	v4l2 = dev->v4l2;
++	if (!v4l2){
++		mutex_unlock(&dev->lock);
++		return 0;
++	}
++
+ 	v4l2_device_disconnect(&v4l2->v4l2_dev);
+ 
+ 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
+@@ -3129,6 +3133,9 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
  	}
-=20
-+	ip6t_npt_ct(skb, par);
- 	return XT_CONTINUE;
- }
-=20
---=20
-2.55.0
-
+ 
++	/* matches check in em28xx_v4l2_fini (under the same lock) */
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+-- 
+2.43.0
 
