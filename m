@@ -1,124 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793569658;
-	b=CXCHb43N2HmPLvWPjmU1vt4vts7ASS3pBGdOyvqBWzL6J4+GBGDmTGdv95P3P+W92+xy
-	 XTTn7FGqTHcF6D0hHkUKNg0zz+vb32YYwssWWzqtCPCE6JD4HqN0c4JxoWQ8TUdtp+RZW
-	 ejCbEQqwXBX0nKKiCOh5M+vOOddzWAvgBxxjh/vHUA1yBfo5pLCeZ7UXDAjYG5mUENFfp
-	 88FzWXcOvJBp7CQg+Irn1saQzDnnMq5zWlsela74E2Zd6KsW55PUKsK2Ad5o2KB8W+ldt
-	 VfXZh7BIqCK7iIDQlsPeS43BlxyF4/NwL4wKCkjVcpyA6tBjsNxgxzHv0CKCEJ1oQ6w==
+	t=1793569849;
+	b=fX6rbibF8KxNx6kVMv4gd57MJMXPRBMJkm1yhOnvNn2DIZWvnigSutiS9PPJG1+4SGy0
+	 IE9Is3QaEYD6rXQ7VYJf1KmIReyNhrElxVb+Xp3rhvlY70MIYQuSNGeCc0vtrMf31o8Ph
+	 co3Klof3+elEqdtANaRHhA1jFO+fC4HKSkk/7wCyQL7DOqNSHEt5/ibnE7p8PUI81kAkc
+	 MQZFyRI9yqwQW+h/X/B9Moc3GNJIro21JDylBk4t6OO7MSYaUYHBk4g2fWCSpDDCESmGm
+	 GMH4Rth/LIz5MVsIanvwqxTl1hGOJS7IWowWL4ILtSkBCmAKfMq1ucC1FAf8f4RnryQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793569658;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=TfQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=;
-	b=OnRbGSaAfgJW8sa1nONfRyrpVrvNWrHd6c51qTotql9QCGGhMjFPz7SRpopzLHK0FKAa
-	 j9ZoE1srLTMFYO2RpWLaDGgKjuKHFNrw7Wr+Z9nv8q4IlOClq2lyVfA8ZUyra+G/jdPzj
-	 GDG0LmxQzM3/N4mQLrVc+QUl256aLRU4mmc0a/9xcKVdaEEa+Lfgg/QBtexLZd9iacB9z
-	 /M6nlhlKkVdRJJBs2ByP97xVJnBRGYolhDpOHlR6PYWxGkedfmDWMuVny895l3xR7pXu0
-	 P5323yv0Zh/YDdr1LodHoS2CT4CACx7nasXuYbOoQMw/p/hCHSIVkQ+t/3TR0mAQY9Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793569849;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=1rpLIWcyWHAMoTm8HDUZRR/yftBEok5XqQa7jTiyf8Q=;
+	b=4H/nft48HpgMvex0YGh6YvbDX4bgLNG/Vyz3Arwje8py3j9jA2SVZslvLadRCvxqvM2E
+	 bmVmwRmVvUDaia7sypfdl78owLTsnbpfSf69h155rCzL46RgEskUnr2MCd2m1y7e20zgt
+	 a35vy0rPzJzA/O0AxSFFNHCohRCsZdJV6+gczXePFbkxyfnpnjqYc3Yw9Et8Vp3jMNWE1
+	 2FyDM6FjjAQBqbWCN5/Xkf3XLtIYTn/QFSqRRGdjOCuRk0squz1jkUklrDb3nUy//iZU2
+	 tOWDA3DY5BdecIMjPs5JgmNGlxtxpfcnhzYvJbC350qP/uUcASNCkF/MvTCZy6j9HMw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=fastmail.org;
-	spf=pass smtp.mailfrom=fastmail.org;
-	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b="OAgnY/1L";
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NFjlWA8Q;
-	arc=none smtp.remote-ip=202.12.124.144
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fbwn3Tr+;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0656606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:47:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0656606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7D9606A324;
+	Sun,  1 Nov 2026 21:50:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=OAgnY/1L;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NFjlWA8Q
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 34BA01D001C4
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:47:37 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-03.internal (MEProxy); Sun, 01 Nov 2026 16:47:37 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1793569656; x=
-	1793656056; bh=TfQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=; b=O
-	AgnY/1LXV2bgTsNbzOulc6cfzZFWwN/yAb0gpnYH/RVgsPjYNOayHJLjOGSUV923
-	y/e3e2xwlTnNZW3rTYXu5F0b+UDTr+1vqY4QgGR2sMlhrliyVE6MFaXh/l69a0/H
-	rK/9W5qr1SlAP1zlRINdc9v4490Pi5c+1UUhwRZQp6kVGjEg/sFImlhgbO19uHDX
-	QiQCpkqdcoI5rk2+6A9w4nK+ajlOY/DVs07qB3P9+a4S/m3xfRd90zEtosTpQKAM
-	8l9X7vDUEO7RLJOEbl8C3a0MlovhhLa/7HHZAKH99FNYf3zFvpEWn0NNWr/XQDGk
-	KaZKUnjNuP/ZO1cyeOj0w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1793569656; x=1793656056; bh=T
-	fQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=; b=NFjlWA8QRwwHP2TOp
-	chRteRFIsiiRVV0GBUzNQmy9UeUzIxGJ71VOul4WSakbZlpf0/ovy4I8JuRiwYzt
-	uIzwjAJuSpnT8CAP2bbCHek+VcPQfW0XhWhCLJfemzEtLrAaWw1w9OaNva3nx/lU
-	sK3PzglpcksS3eOUvnOOkSSGRs5+ZnjFJHhpWZJkhXjTR2CeAKwyz6Rx8wcKz/xO
-	/yQKY44DM9UzveT8Fex6dZa/qWmJmvAgiuQ7iOPW111Fm5Aopm0k6CxBhUNtFWu3
-	/NMQ9r/U1/X7oly7EEne/1BHEgymxS/wabdcIlk1GyvMb12bTlNQGFLS6SaQQrqj
-	UivfA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=fastmail.org a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793569656; d=fastmail.org;
-	mf=PGljYkBmYXN0bWFpbC5vcmc+;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:C2hIlo/akGwwJfyY3Wn2A253cin535mTWsDW46YeX7Itp51
-	Y5BbxWr1LEGe+kQCS0xfMVsnlGtPApuzELfwPhTIr9Nwaqcnzz9CnPRkuGl2/6F8
-	YuWkkYRcKZ4AW5BxIGUJjEcZs3JXUzPF2cBaCCi3+WqNCvLwc381rxQbuiTTv3OC
-	xNjRqrkmRlcij3pEsSoRLW0CipthFTAFIWV5YPwQukelVO05uyuHi6Euo6LdmDsw
-	UA+bHmtunkOcvrC+R0za52TXsu+q44t05Y2y0lDGDmulXWPO+m6HwsWxZy4i/y0F
-	f435Jh13tqkq1vGaC9c2yGVeLPZHiqUmb2bzYsg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:p/o4aGb9mNGCizzP1jh+fyrKnTQL0euSFdWfqc2dNEo=:TfQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=;
-X-ME-Sender: <xms:eLPnam4QIAbRp4ohE-gwHvTeVsaHMfihbfDs5rvsGOs5imhQjJcLxA>
-    <xme:eLPnapNCv9cUEU8-Tj9Pj4lu70itkDCFt6HDM8qTpLmqMpCOJNqDRJAZqbtm5qsj8
-    DgRCSsLHMwoVaR6tadB7Pshc0ubrxGWa6X1GkyN8XAGAaz4_TY1zg>
-X-ME-Received: <xmr:eLPnass5OfJo43pgatwwnrwxXL13p4kfyoGz70_-1yrAMPxh-ZJSXuwC0FUwy4G8>
-X-ME-Proxy-Cause: dmFkZTGn2xXB2HLZ4YG+2m4cCu3T+TF8EMbT2RfZDXxvr8XeapbMGc2tt2OmjZApSH7Bs5
-    6STFEuwR4yMzUkRBosK2ckc1pIkAVcyDj01QKJ8lHtpexEdF+jfqTD61/Dm3HQFJGPwRd+
-    2BBqeeFvlhNGTAAZsK24h+tqccnSZHyidJb+fOoCkpMcZc//joLmaOK2V8Yis+pllG9TtR
-    fuOCK/BrhK+CtNBdut/bqICydSt6NWd38Tr0W0Fq6EAawrB66Nw6MMeUnEBsSK0z/NVlDb
-    ieZodpSyaYccqAUNi0tKlPo4aZJ9aB/EVoOSzRW+ztLK9HsCZpxEbRj6bbSMYTNq2OhmNW
-    2J3RapX7ljOcb4TpqsegIrHbflCvSsP6ffJh9ErghEcSB1A0Og2H+3Nez7QPjqEncx0NIC
-    /yqadKg6YzFelYwPT5HBDsYBulBjPSFEbr5e8GdEJNM6g+FexhEFI+x7NojRFXyed15c94
-    OTmdwRF6JF3ew/HO34j194xMeNEINc6qpQcS6UJqcctJ2/WmVjhuNnytCJ0pkd6Uos6RvD
-    EVUZ0vMjOxFzWRc7JQGTGUns69IhE1t+nhdtgjYNp6MQbStyTfdV+x73u1vWpkulhEHs/0
-    ycg2qNlPjbWhfwZlzBePSriuaCwwK5fwCfm7J5OJd5nDkIdAOq51wbRdpuEA
-X-ME-Proxy: <xmx:eLPnakYcnmz5_M9Q0HCYEd4IQv5CUkYLvGy3N4rfjTe_h6iOro2u2A>
-    <xmx:eLPnamxkSR-d3qBA_M42aMaoIsf_wnHh9H8ai7cSpVgsX7RxlabYTQ>
-    <xmx:eLPnakjO1nzBd9FKpBE-B6PtBs6e8Z12Zxkp1swB_XRaAK7TnN8KiQ>
-    <xmx:eLPnaqlgbqpusqygZAidgkLTYteHgveJhkjy4-oooaO4rpkjFGqWUA>
-    <xmx:eLPnanUHYjEmpDekA7MhOdZ6XT0JA3ztCCq1ld9hQLA5Hh4Ecp8DTQFF>
-Feedback-ID: ib53e4b78:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 16:47:35 -0500 (EST)
-From: Ian Bridges <icb@fastmail.org>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Tom Talpey <tom@talpey.com>,
-	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
-	linux-cifs@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] ksmbd: fix DACL evaluation for denies and guest sessions
-Date: Sun,  1 Nov 2026 15:47:19 -0600
-Message-ID: <20261101214719.732224-1-icb@fastmail.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <CAKYAXd_S5aDNPXTjmkfHG55SvzgCGuYn0ZGfgOesoSB0moMHRA@mail.gmail.com>
-References: <20261030020523.302085-1-icb@fastmail.org> <CAKYAXd_S5aDNPXTjmkfHG55SvzgCGuYn0ZGfgOesoSB0moMHRA@mail.gmail.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fbwn3Tr+
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8C01F00A02;
+	Sun,  1 Nov 2026 21:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793569848;
+	bh=1rpLIWcyWHAMoTm8HDUZRR/yftBEok5XqQa7jTiyf8Q=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Fbwn3Tr+FrE2+twWvc96h6eL4CmfV+55YRhlwCU67jh+2ijXjc+sS1d6Vs72iSVnt
+	 9pThhklCkVEpSZevtZfIcg1fa6R/6r51jf56V4MNhNwT1CtWLVsdiI92zpPMX2BsIT
+	 tczuWds92tQZEf8i+WAhNaHBo8mIGCmU9QZMuCAM=
+Date: Sun, 1 Nov 2026 13:50:47 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Max Kellermann <max.kellermann@ionos.com>
+Cc: Ridong Chen <ridong.chen@linux.dev>, kasong@tencent.com,
+ qi.zheng@linux.dev, shakeel.butt@linux.dev, baohua@kernel.org,
+ axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
+ baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, david@kernel.org,
+ ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
+ surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, rcu@vger.kernel.org
+Subject: Re: [PATCH 3/5] mm/mglru: cache the last memcg node, make tail
+ insertion constant time
+Message-Id: <20261101135047.61fc3f209b3235ed6fc96183@linux-foundation.org>
+In-Reply-To: <CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
+References: <20261012205447.2717801-1-max.kellermann@ionos.com>
+	<20261012205447.2717801-4-max.kellermann@ionos.com>
+	<a64f6a98-de70-4004-aac0-312cb05aaf92@linux.dev>
+	<CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -127,19 +64,40 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Namjae,
+On Wed, 14 Oct 2026 05:58:28 +0200 Max Kellermann <max.kellermann@ionos.com> wrote:
 
-Please drop this series.
+> On Wed, Oct 14, 2026 at 5:31 AM Ridong Chen <ridong.chen@linux.dev> wrote:
+> > I've also submitted an RFC patch that addresses this issue.
+> 
+> Oh, interesting!  I did not know but your patch, but it looks very
+> similar to mine (but without the hlist_nulls refactoring so yours
+> comes with some code duplicating the hlist_nulls header).
+> 
+> Too bad your RFC went nowhere, that would have saved us from a
+> production incident...  Anyway, even if neither gets merged, I'll keep
+> my patches on our internal kernel fork, because they do help a lot
+> with our workload.
 
-Your point on 2/2 was right. Working through it and Sashiko's comments
-showed that the series depends on other issues that need to be fixed
-first.
+hm, this was a bit of a fail, sorry about that.
 
-I will send patches for those issues, then resend fixes for these bugs
-once those patches are merged.
+We had a fairly modest RFC-stage patch which would have addressed the
+issues you've encountered in 6.18.x.  That got waylaid into more
+ambitious re-engineering project which wouldn't have been backportable
+and now this series which also won't be backportable.
 
-Thanks for the review,
-Ian
+So.  Can someone please propose a nice simple quick-fix which we can
+backport into the -stable stream while we work on the larger
+rearchitecting projects?
+
+I think that might be Max's [5/5]?  Max, do you know whether that patch
+alone will fix up 6.18.x, or do we also need to addressed that lengthy
+spinlocked tail insertion?
+
+If you think [5/5] is sufficient for -stable then please propose that as
+a standalone cc:stable thing then we can look at the broader changes on
+top.
+
