@@ -1,107 +1,47 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793556054;
-	b=nYKchaEZ8BE4T5/UMqPhkeGAjrxzBchY+gevqvh6tr+S493Qzv8Dmom0KrbuMqQkMofI
-	 RJmxFn6QDv8gQG0/nvDFzd7/FhP6ltcrhR9jFmqn59rRJztFPJoJaTVUM5bk5Jlr9ig9/
-	 wzxpaWxxntARojhnCZUK9GRTFrs2KayjUupxbpLg5lghfAnmu/qOTjrm5XbKKz4JmSghU
-	 E3xdKYTC3q6X122uRxUsMMNMe6I/+PrhYuCDGLgXYfZJ+hyouTUsFjA3ZV73JFs9sxA2u
-	 cVDK0pbbqQKcyaof+Nv+J6eA8RKgGxfI7qAtVJTt0+XJh9L0l+tT/Eqj6ATzlSNbsXA==
+	t=1793556116;
+	b=gknAwcbNwLWcRo+s+XCXxIVSQmF7q/GK0T6u+wVIlrOC6ZF+SQFEXW0D/NOFV5ybwmiw
+	 ScVNI71bMX8Fhj7cLRTQ1SOK6y5/YmUN7FGs5fDJeYLzm0EUZSFeoLXChzkEdpoqHBRJb
+	 gFAMDyzvIi53NG8mZ0fWH8oEe5I9Uis8ya8PTVibg0s5CKLtGuJ6LazmcPyiiZI26SlRh
+	 Faw7vN/OTxDGXpDEsShyOUOye3GYX55ISlo/xT8A2G/n2Q5483wKkRiOCtjeV0nIyx6eN
+	 a4JjeOjj9zYNcnreciZonN/P4XrI7WWkJwpdeAzXZRzdjqs1hwdu20Aa1TTejl5Rqkw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556054;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=I/g7B1/2uK+SOUUXwB/iWNiLNLGu8eYWyxjyco9QARM=;
-	b=5dZtlf+6v7nE1JuXreZe2uHWaoAJgoZwtKkwVys95nO5WiMW/OPho81bqtxj/Um3Ah1A
-	 atdfiH0oLGA91B/lx0o6dyZF5nso5qe9KPMBEqRX3bM/b/ub+0gy67qPs1orEMgYXY9PA
-	 hliQghucgJ6bY0lvR4Wl9fVPt9JNZl9e0ox8T2jyjhsKkWAYNuHLSae2iFuCT5f6/fNrx
-	 kSIxfjR6zNFm4tZS0v6jwsEDw6GKtGfUJA7dq3mTb8K65VlV4tjzMLKv4F9umFSm46rBC
-	 16i+gFWiVVprDqEuVWKQ2fvK2nokJbLP3oCmd/t4H0NoN8F5Ot2PcfEq/ItUmvXrRrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556116;
+	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=hSYpUSP/lTMNVX0rcq81U0EC4KzXwGLDgEQG575rG1I=;
+	b=e5+YQ1n3l0C0k9E2YBf+eL5QW9jR+ogIyG+Z5l9joPZ2k2PMHkLtGfBOnGplao0tR69j
+	 dvra9Nr1R4UQoze9i/luyM3N1Mf/+KwYAV4BG1+jSSPNf5VKu0FrKAAzWPeGTfyluwk9s
+	 wxhVcOW0NcL1IoGLERIwRhLsFJt6T1ZNpRxZJ55Uqfgetqqwd+6UOk5BCgJdKddvgkTWi
+	 7PSAJf94t5pkd0islCtAwHMhbZgBHPnZf0PODoUGCMj9wkQjZjf1SPLxwVsRtiqfRF0Al
+	 0W1oVsnv4/HnA8htY56yQLHYckq0JQB9FKYz04kyGKCZa5j/vopSq33g84e5o6tSBsQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+X3GMRa;
-	arc=none smtp.remote-ip=209.85.216.42
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owUQsM63;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B80F4606A32C
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:00:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B80F4606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5684C606A324;
+	Sun,  1 Nov 2026 18:01:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=f+X3GMRa
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3ac9f49b984so1236179a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:00:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793556053; x=1794160853; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=I/g7B1/2uK+SOUUXwB/iWNiLNLGu8eYWyxjyco9QARM=;
-        b=f+X3GMRa8dHuSvPGNmbg698/siJqTGuU0Ry6L0u62GzIWUarciz5VcReeKaa3yv5XN
-         FwK6VsAbEt0/GlEWrMXghRRNqoXKUQR60eCv5AEm6/eSljrqZaxejkmiHvz77NP8Ud7f
-         9lDc15JA6e8wPtlciw0bjBVBdvv6qSohd5u6JpEJqDe0ED/2rCDj0TltQvqZh8mFbSAs
-         H/Uxanlwf9E1imbwZJmjo5Mqtl9OHnEaUBGZRLqLJT6p8kzU+W+ceanE1HSdFt71vd/Y
-         g5lxmCc/pcq9EGbgPa7dut0PCM0M4JfbmXtu9ZiCuC71zcNRLBRCqpiJqqC8OXfQmtdW
-         nNSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793556053; x=1794160853;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=I/g7B1/2uK+SOUUXwB/iWNiLNLGu8eYWyxjyco9QARM=;
-        b=Ggst1jltFuhXH5oYdLvw/N3kn84ZDKLNJC802oe4Ag6oUBuTlBROy+zsEAKeoZMbxx
-         G4pkMEHhdHN/9J5YwUXgwxL3WAlqiZ4lJXYSbTv5NSyviTQR3FiiU93VDt2I1+JK5rAL
-         QZYHaTx6XKOwnBPbgY+sK57LYtc4YWLtiYZ80/PgO/rETRsum+TvsptHIV0mFw76JGwq
-         SLEKC6DyfSMqK2BEcfcJm2+BAxqECppF7CwNd2ciP6SaWkcE9s8lqui4gb0X6aht3Nl1
-         N1t2/oUcOFxb3qv07Vm9/fbAO+p3a8hdXIR/norVigTuAVLL3eR5VjSxzmqktw2gj2np
-         5MYg==
-X-Forwarded-Encrypted: i=1; AKwUvBxOwrYc7P3JYgFYKw52X6TZstMP0qTIbhIn+MwqfUuPcN8WuMIzEA5EECcEZmDGq72aYSSmZ8FbDcXimBA=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/o1+hUG9Uk4PSQvNa13EU2EGB8n9as4cBLgkP5g3xafkoQ68UU
-	7bgCvg+/I3+55/NiT7K3vlncepxGPB7mVI1Oe7lc9BRiJA5tQZy48qV7
-X-Gm-Gg: AYBFou2lIwykQohXjhvmZNMJ548+Qk9KgKubnKoRUOmtB0ppSoRWeq/sia9cix9kOBH
-	eyp9EAVHBn7tASS8k9g8GiSAJT2u620VoPjtL9g+8z1kcyU8LnJRdaBilnANVNMJB0yM2A2hZqQ
-	TgyqwD5vTbrdZumqVoP43gnhBdctudwGUtE7KZxqjzG7l1cibec9LeZ5hQCIo0aB/uqKqHR599W
-	nZroVrcXY24z0G0mQ5AXyhQapmBEX5AD4uXU0YUwXeuRxDwIkZN9pBzpUcekMSHcxY360z2HJJ1
-	JDWfPxrerTz6ubAbWhJrZiZzSJRdVAnt0YTDTb+Lo7OX0OnPKdKO1BYEx5qPD0sd3dn5qRdGT3x
-	8NBLO6sbA5Wip9MEyQCbntUL6RWSm2LirD693meJ79NKXPDf2Z864bJYMeHutSPQHaZ9tLfmZOr
-	2NrnDRgQxdt5d3WVdkFQ6KH64B3mNs/XiCE8CG9vkJtqNIp/r+BUQDbxXY4Yc6IzQ2DYdPBJwN9
-	EvzpiAEfZANyQ12ABylZwc97cX/xzkvLrvAzWuu25ssx+SXIDxwOLGOisIuvYLEMo568dHJIBdn
-	DMlhP2VLNyZcPvRWzQY+Lg==
-X-Received: by 2002:a17:90b:1b0d:b0:3ac:36c7:c144 with SMTP id 98e67ed59e1d1-3ae89776936mr4446077a91.28.1793556052975;
-        Sun, 01 Nov 2026 10:00:52 -0800 (PST)
-Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e949077sm15194159a91.9.2026.11.01.10.00.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 10:00:52 -0800 (PST)
-From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sean Paul <sean@poorly.run>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Connor Abbott <cwabbott0@gmail.com>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/4] drm/msm: free the crash state asynchronously
-Date: Mon,  2 Nov 2026 01:55:51 +0800
-Message-ID: <20261101175553.53746-3-nicoangelodelacruz@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
-References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=owUQsM63
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECDD31F000C1;
+	Sun,  1 Nov 2026 18:01:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793556115;
+	bh=hSYpUSP/lTMNVX0rcq81U0EC4KzXwGLDgEQG575rG1I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=owUQsM63PbdWCRsP3UHF9PHHbIzlqpT9HHtD8UlPXGgZmQel3qdhJxG76106LTDtZ
+	 hkXiicm5ABQU0tGHg+bcFyXLLIIfuipnl1vczuuibMxlfr6tQVEf3zFKQ0M7wM8aAj
+	 WYUpBso/xH2yHTtEaoABheHEnIZzX7RwjPAyqwYjOTAYnbZtGfRUxI+o1+zeWdMGsy
+	 9nsxxhYRWlINIAY2KpD5t7LHLRc3F+nm21C2caCgCdLsUprirGKKx6gKet7J9mf6aq
+	 w4rkzZhY+NIQDz6+XIvivH4mHy60VQcnW4FLpklShRwBNK8nbObLYL1QmZq4WNX9Q/
+	 QueA/XhidKLhg==
+Message-ID: <4026ed95-62c7-4680-9bee-7507330a4217@kernel.org>
+Date: Sun, 1 Nov 2026 19:01:47 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,108 +51,115 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] MAINTAINERS: add Johannes as the page allocator
+ co-maintainer
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: Harry Yoo <harry@kernel.org>, Hao Li <hao.li@linux.dev>,
+ Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Johannes Weiner <hannes@cmpxchg.org>, Suren Baghdasaryan
+ <surenb@google.com>, Michal Hocko <mhocko@suse.com>,
+ Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>,
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>,
+ Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
+ Mike Rapoport <rppt@kernel.org>, Gregory Price <gourry@gourry.net>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+References: <20261101-maint-page_alloc-update-v1-0-27e8c246b13d@kernel.org>
+ <20261101-maint-page_alloc-update-v1-1-27e8c246b13d@kernel.org>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <20261101-maint-page_alloc-update-v1-1-27e8c246b13d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-msm_gpu_crashstate_capture() sets gpu->crashstate and calls
-dev_coredumpm() while the caller (recover_worker() or
-msm_gpu_fault_crashstate_capture()) holds gpu->lock. When devcoredump
-is disabled (/sys/class/devcoredump/disabled, a write-once knob) or
-its allocation fails, dev_coredumpm_timeout() calls the free callback
-synchronously.
+On 11/1/26 17:34, Vlastimil Babka (SUSE) wrote:
+> Johannes is a long-time expert and reviewer for the page allocator and
+> has agreed to step up to a co-maintainer role, so do that. Thanks!
+> 
+> Additionally, page allocator is joining the MM transition, following the
+> MM core updates from David [1].
+> 
+> Patches will be collected in the mm/page_alloc git tree and integrated
+> via the mm/linux integration tree. To signify the change from Andrew's
+> mm tree, remove Andrew as M: - get_maintainers will continue CCing him
+> on most patches via the catch-all MM entry. David prefers not being
+> added for mail volume reasons.
+> 
+> [1] https://lore.kernel.org/all/20261030-maintainers-v1-7-97278f8a5f54@kernel.org/
+> 
+> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> ---
+>  MAINTAINERS | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index b68bc3626709..d7cfb28a9029 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17720,15 +17720,15 @@ F:	include/uapi/linux/oom.h
+>  F:	mm/oom_kill.c
+>  
+>  MEMORY MANAGEMENT - PAGE ALLOCATOR
+> -M:	Andrew Morton <akpm@linux-foundation.org>
+>  M:	Vlastimil Babka <vbabka@kernel.org>
+> +M:	Johannes Weiner <hannes@cmpxchg.org>
+>  R:	Suren Baghdasaryan <surenb@google.com>
+>  R:	Michal Hocko <mhocko@suse.com>
+>  R:	Brendan Jackman <brendan.jackman@linux.dev>
+> -R:	Johannes Weiner <hannes@cmpxchg.org>
+>  R:	Zi Yan <ziy@nvidia.com>
+>  L:	linux-mm@kvack.org
 
-msm_gpu_devcoredump_free() then calls msm_gpu_crashstate_put(), which
-does mutex_lock(&gpu->lock) and so recursively takes a mutex the
-caller already holds. On systems with devcoredump disabled, every GPU
-recovery that captures a crash state deadlocks.
+Want to remove that one as well like I did?
 
-Defer the put to a work item on system_dfl_wq instead. This is safe
-because msm_gpu_devcoredump_read() takes and drops its own crash
-state reference, and the work takes gpu->lock normally once the
-holder has released it. gpu->crashstate stays set until the work
-runs, which only means a capture in that window is skipped.
-msm_gpu_cleanup() flushes an already queued free before teardown.
-
-Tested on an Adreno 830 with /sys/class/devcoredump/disabled set to 1:
-IGT msm_recovery gpu-fault recovers and the GPU resumes.
-
-Fixes: c0fec7f562ec ("drm/msm/gpu: Capture the GPU state on a GPU hang")
-Cc: stable@vger.kernel.org
-Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
----
- drivers/gpu/drm/msm/msm_gpu.c | 21 ++++++++++++++++++++-
- drivers/gpu/drm/msm/msm_gpu.h |  6 ++++++
- 2 files changed, 26 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
-index caa86279f..fded78fdb 100644
---- a/drivers/gpu/drm/msm/msm_gpu.c
-+++ b/drivers/gpu/drm/msm/msm_gpu.c
-@@ -175,6 +175,14 @@ int msm_gpu_hw_init(struct msm_gpu *gpu)
- 	return ret;
- }
- 
-+static void msm_gpu_crashstate_free_worker(struct work_struct *work)
-+{
-+	struct msm_gpu *gpu = container_of(work, struct msm_gpu,
-+					   crashstate_free_work);
-+
-+	msm_gpu_crashstate_put(gpu);
-+}
-+
- #ifdef CONFIG_DEV_COREDUMP
- static ssize_t msm_gpu_devcoredump_read(char *buffer, loff_t offset,
- 		size_t count, void *data, size_t datalen)
-@@ -215,7 +223,13 @@ static void msm_gpu_devcoredump_free(void *data)
- {
- 	struct msm_gpu *gpu = data;
- 
--	msm_gpu_crashstate_put(gpu);
-+	/*
-+	 * dev_coredumpm() calls this synchronously when it can't keep the
-+	 * dump (devcoredump disabled, or out of memory), while
-+	 * msm_gpu_crashstate_capture() holds gpu->lock, which
-+	 * msm_gpu_crashstate_put() also takes.  Defer the put to a worker.
-+	 */
-+	queue_work(system_dfl_wq, &gpu->crashstate_free_work);
- }
- 
- static void msm_gpu_crashstate_get_bo(struct msm_gpu_state *state,
-@@ -899,6 +913,7 @@ int msm_gpu_init(struct drm_device *drm, struct platform_device *pdev,
- 	gpu->dev = drm;
- 	gpu->funcs = funcs;
- 	gpu->name = name;
-+	INIT_WORK(&gpu->crashstate_free_work, msm_gpu_crashstate_free_worker);
- 
- 	gpu->worker = kthread_run_worker(0, "gpu-worker");
- 	if (IS_ERR(gpu->worker)) {
-@@ -1047,6 +1062,10 @@ void msm_gpu_cleanup(struct msm_gpu *gpu)
- 
- 	DBG("%s", gpu->name);
- 
-+	/* May be unset if probe failed before msm_gpu_init() */
-+	if (gpu->crashstate_free_work.func)
-+		flush_work(&gpu->crashstate_free_work);
-+
- 	for (i = 0; i < ARRAY_SIZE(gpu->rb); i++) {
- 		msm_ringbuffer_destroy(gpu->rb[i]);
- 		gpu->rb[i] = NULL;
-diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
-index 5cf220f75..db9e11e7f 100644
---- a/drivers/gpu/drm/msm/msm_gpu.h
-+++ b/drivers/gpu/drm/msm/msm_gpu.h
-@@ -258,6 +258,12 @@ struct msm_gpu {
- 
- 	struct msm_gpu_state *crashstate;
- 
-+	/**
-+	 * @crashstate_free_work: drops the devcoredump's crashstate reference
-+	 * outside of @lock, see msm_gpu_devcoredump_free().
-+	 */
-+	struct work_struct crashstate_free_work;
-+
- 	/**
- 	 * @recovery_in_progress: true while recover_worker() holds @lock, so
- 	 * that fault capture and GMU waits don't wait on a fault devcoredump
 -- 
-2.53.0
+Cheers,
 
+David
