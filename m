@@ -1,49 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571356;
-	b=zieiHD117mEFqEHkoalPD7b23Csoy5a3HXGrlPb81Ks32cHl0v43yAfAAVqppIhKgbIH
-	 yp5OeDge2zJlZIFF1/YCwvMFd8uB+95M4Cpn+BXQ9CQRrBGsjm+iSPfqLzzmPc1VFtq/t
-	 FyO9pxFWFgiMFVc1DCwMoeBBuNTzkD8xlnGP1w3REYRh7zyJ7i1jTryoOer9DCl0HcMZz
-	 adVu44fVhyh3rxu0f4x6dgMky7B2L/7/Asnbk40pCQMKlgWEeKgeRd9kXk+P9jU4fcwwO
-	 rQRRGOZzOtU6c7xQP6Qdnn5FK42hcSBm5FkfvuZl6UnJJkM7/KQlWLr1bn7BZHKNnUw==
+	t=1793571353;
+	b=oW8iSLYHE0RKicn81PmAsV5cCAEv8WwZOusDQqRHNE40T2YzSan5GIP5h6KI4lJAQKKg
+	 JGwqg2qhKbCU/30PkOfQqCuJNMqCXHFVP19NXh7SSeWoZioTWI26kHLMl+ay673haxBLX
+	 voNRHaor1zkHCpeolyz8yVFUgQaBgRCi7+90CI0S2Tcn6woBHpmAP/hDSA65QPhW3pbqD
+	 8pIUImkSe1WflEEiSVxzGFj4rzL1q9sUQDPbu+W9BPPMf1KncKeBksVe3ch6PbCnme/BN
+	 fi/t+nlZV3SNrz6qEny2i9z4lK0J6/YfQSQOUZUgghA6Qio9sh3AdaDWt/CfO5kyf6g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571356;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=W87d5476muuX3/O8DzYP4tAKHPl6gp8nviee8ooqz2c=;
-	b=JtPoxQ7VVkJtr9b7guWUkz+VGmuGuXUNY1BbudEAmjDZU4uEZSw1r+Gz181oqpk5Nd84
-	 54HruGIyI6gMKe/Y11dQs+L1kq+kCBAjVtNUEqilF0X/4Kj0B4WDz0Q7egURghJ71uyps
-	 8gwMJ3EtonmvKSVUweb/L+mSPlOvgkPE1PKyYerWK1jx3VEZCry/aedtMg5+te082QnHp
-	 BprDZ/FqRDhL3KrGgtt8SpJxuiYuwgPts+/UtQW8SEDRbs9GvOclm8FGRXWsIK30aqXUK
-	 kHw/SJWLgCvB5v8pSseniCKw0tirc7NJfFnH3YbD80g/+S172xgtj+XNnoEGeXHJBLw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571353;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dzHxCP/qlD9U2Pnz2CYx8W1+O2sBTItyxz8i84HwCSk=;
+	b=J5Pv9jkEBsdwo1+gE9cuv8m0UwJKvhBAkpiQknFKEvkBa8/+N/JcoSIHcONoQxGQ8fCb
+	 0Q6qZCYKTmclS7MjYZBk1MbC4Ud75HAPrk2R22+6hNPD3MePpJ7r082SxJOv7dufXhJBF
+	 6D7WasSNbsPBXZUoZ6Gm5qkq1IpfqdTCIbs2Ter5EJZjKjNOI4lOr9l8aSL0svHzZjRcr
+	 GBgedxby3lgj2odDqgo1gLNbfe2VenF1tO27Dj5mKbULRLUDbjmyWliJHFqgLRJKHbBY9
+	 m/WHLtS8s1aADP7Iamdi5d0Y0vIoKWMvud8/uR6zAYwMcP8s/S0rI1/REAjtxxhclAg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmGl7Wg9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=i5d2cbhq;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7439A606A335;
-	Sun,  1 Nov 2026 22:15:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D58760A2603;
+	Sun,  1 Nov 2026 22:15:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D58760A2603
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SmGl7Wg9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0ED961F00A20;
-	Sun,  1 Nov 2026 22:15:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571356;
-	bh=W87d5476muuX3/O8DzYP4tAKHPl6gp8nviee8ooqz2c=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=SmGl7Wg9g1RxLvPfW2dALi+8QfaputCLxqfCXXzYwQxYXBE+HvzPQgFDkM9HsWvTL
-	 Xkkz0PMUmTmvi/9Cla9KrdHM8gMqSRVDrIS1Q2Awnl4sjtfhB9oKLuislGoFVvEj8h
-	 B3b5eyTdD/3KWwfeuWkUb0b+N6f8Y8ngmSseQOZcfrUINE2oZehPMiqWOBxoVj7O9T
-	 BRDW1sUwlnFaN3KWeyuMYiJv0qlIvtBeI6VC6WOVxEwu0HebGW+Scz5MniIlsKSd6F
-	 Yy+z6qlaX0muqhV6dMFi4jyvg06S8qEnYCKjcUoFuToUfoPo6JQ/ZrhT1lyDNFTzVO
-	 Loi5eGgGSeZJg==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0315838003B8;
-	Sun,  1 Nov 2026 22:15:56 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=i5d2cbhq
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=dzHxCP/qlD9U2Pnz2CYx8W1+O2sBTItyxz8i84HwCSk=; b=i5d2cbhq02cEiFA3UdTTb0AY1q
+	0Llb1mDrR9x6zaFxdqunHTec4sA/W7RR35xBlTxiCxWNWNQUelPcrb1tLVsF3SeGx3X9bz2xNs1TZ
+	Zkdel6DtXGM7lZY2KHBfo6GFDnpL9g6BiGJowo3OpMVTkigQYTM7Adk/lUt+LfRNz1Ecp0bYTX5rp
+	7lDyco/nl2rP+NQ9+x6P+g5M+EtCyeiK9WFEJ5wHkMjsYG+ZDr0Trs4uFRtFt1tfItfZM5BlIii6w
+	NJvou2MDY7gErqc76cmtcrL5KTlHRWB6age/1B2K+E4fPisTdpNHTIU8pay0J8IDW8iX6s0QRbUkL
+	ZB3f15ag==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Igor Paunovic <royalnet026@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
+	Ondrej Jirman <megi@xff.cz>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+Date: Sun,  1 Nov 2026 23:15:29 +0100
+Message-ID: <179357131393.4107717.8550224711242554057.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260908111908.19371-1-royalnet026@gmail.com>
+References: <20260908111908.19371-1-royalnet026@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,49 +70,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v3 0/2] kexec: fix probe error codes and error propagation
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357135454.2624073.2428991164390583415.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:15:54 +0000
-References: <20260821-mpilaniy-v3-0-76b355399d2e@redhat.com>
-In-Reply-To: <20260821-mpilaniy-v3-0-76b355399d2e@redhat.com>
-To: Mukesh Pilaniya <mpilaniy@redhat.com>
-Cc: linux-riscv@lists.infradead.org, catalin.marinas@arm.com, will@kernel.org,
- mark.rutland@arm.com, chenhuacai@kernel.org, kernel@xen0n.name,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
- pasha.tatashin@soleen.com, pratyush@kernel.org, ltao@redhat.com,
- prudo@redhat.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- kexec@lists.infradead.org, include@grrlz.net
 
-Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Mike Rapoport (Microsoft) <rppt@kernel.org>:
-
-On Fri, 21 Aug 2026 19:19:56 +0530 you wrote:
-> While debugging a misleading error on s390x where kexec -s reported
-> "syscall kexec_file_load not available" instead of the actual EINVAL
-> from a kernel command line that exceeded the architecture limit, we
-> found that some kexec image probe functions return -EINVAL instead of
-> -ENOEXEC for format mismatches, and kexec_image_probe_default() has a
-> bug where it returns whatever the last loader returned rather than
-> always returning -ENOEXEC when no loader matches.
+On Tue, 08 Sep 2026 13:19:08 +0200, Igor Paunovic wrote:
+> The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
+> to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 for this
+> pin; the mainline board file uses RK_PB0, which does not carry the RTC
+> interrupt on this board.
+> 
+> As a result the alarm interrupt never reaches the SoC, so the RTC alarm
+> cannot be used as a wakeup source on this board.
 > 
 > [...]
 
-Here is the summary with links:
-  - [v3,1/2] kexec: return -ENOEXEC from image probe functions on mismatch
-    https://git.kernel.org/riscv/c/2792b4b15f14
-  - [v3,2/2] kexec: fix error propagation in kexec_image_probe_default()
-    https://git.kernel.org/riscv/c/b7c94f4d0961
+Applied, thanks!
 
-You are awesome, thank you!
+[1/1] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
+      commit: dc963c9ec182ec24f0b10f11fe377db00528f7a8
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
