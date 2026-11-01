@@ -1,91 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793569018;
-	b=sRzoRWqsOechV4xh9BfGx0B5yOjcBPWLHsFX2bRcvhnegAqI/i9oIbLLjVZEfVTLHrVP
-	 ICJivvw00w1ZfIexLJmC5b6sy3HUrES71ov6wyCgT22xkv3BvxbvxJAYQPDnsz4ApnXAT
-	 dJfUGSwPQSZnMjJ+FmOJFfRggr697cexd1NI1HgyUr1sfoG7Vdnt/pKD+PrazEpgm2C3Z
-	 +/qiH1DBLrEa2+qGhRFTJktUcr55EDTYJoNrqF9B3rOP7mR0FzZcyZ6l/h87wpA0jMWZp
-	 nmWVm1rKznnCwx6OsRbMF7vhuFo8lVliY9xAmL0M34svv83DDtLXtYcInpbn/+FGiYA==
+	t=1793569150;
+	b=wgyP+bbUdE4+CLW0Asz60wZ9yBcsvqP7iWzXjQpGtPUZLcZGDDGplkk4YtcV/m+8X07q
+	 wryzsi8yKoMmCtFyeaee5KUW+9I1AoNbBDVZbfoXgrAdrqqNGsHVBWqXm6gUtiSA3iGHH
+	 lPyMDX1Rw8uNwvclzTMW9Vw/7hVp/H4dDKnbWNwT+kuUtdJny61k4izsQqud+fj34HTtt
+	 YCem6j6R1mAc5ZwILBZESedNrki6M4WkGNabnPOOX08OvDtIsWEjewF6iy1nnRg0CCK58
+	 h2iJXdlcPY1JFA8jw28oMSdSd1MfG0wFFytvk63vQpSbkwSXzEKvkbLFVEcSwSf09Sw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793569018;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
-	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=y+s8DhqIO5ki4BPjT0hMEJ5bMlWwwKI5gQlDegeYWw4=;
-	b=P0z1Yb3dybrbPTJuuQlOkzHjRvMGI4XT/E74745RwzfuRjtDUNPYLBXs6IGi/UNndwBu
-	 hconR1IEIk8uNO4rjimIV/uVUd/vYc69CNg2Vol/LmMVcCR4mav4z/tDAYPb8CH4YaxQ8
-	 D25TGV4AOn5JPA27Cl49327j7tecoV8sBSERYmmeiIHXRjBVQA+DXOYQQhU3zGFXQzKJj
-	 a9ij77krY8FSMsxc4IotvcRfZ2c6gvKRhPITSiQXr1TuSaoMU4OUYEHoYCPPsDm0WhQNj
-	 ztbrn7qvNrY+Sa3LxztJTlgUuzTVKTKFbEpytUNLyRvW2m95OjwQ2j08/xa4LYCnOCw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793569150;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
+	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
+	bh=lwP8ycQo5PTTc/dYVB1SqGpgCjq4Sjj5i8p0oHH++Fw=;
+	b=Dlge/e4MitglmCWc/wNSlz1qxb+GCTKi9ZigdFnn9VQLx1xjuDyfV6MS1gFXZr1dNCsQ
+	 P5eDu1OjzIkhHYRkE+p/D4/Qo+NtGCWuQCjMg2JYMNmZDAa3s5R2Xajx2txdgqJ4V+8JQ
+	 MwOgj2ml4oJZ6D0InPXy/VavrWzjH6WpisKjU3ToPTfI1nUNXXni/w5p1PgGyoXO3chqg
+	 8HqQe64rQlVG/4vudrVhItWx7Vz+RtXbLG0Et7q9+Gu++jRASV+w3HyBSvum3iM8ASEuV
+	 frBUvmxm/aQQIUSweKbBcndJrTNMnV/16BfLM6EELbscygNzLZ4QxkHnlt7KOiPtyzw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PDdT5LQx;
-	arc=none smtp.remote-ip=209.85.218.41
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=ownmail.net;
+	spf=pass smtp.mailfrom=ownmail.net;
+	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QPQwCMeP;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="D/wsx+xp";
+	arc=none smtp.remote-ip=103.168.172.145
+Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCD3606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:36:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4FCD3606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE66606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:39:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DE66606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=PDdT5LQx
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c43fbcb4393so355146966b.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 13:36:58 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793569017; x=1794173817; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=y+s8DhqIO5ki4BPjT0hMEJ5bMlWwwKI5gQlDegeYWw4=;
-        b=PDdT5LQxBo02AZCHNUCgiS++wwHzZJU01W3jzFiioq4j5XngRhz7bihojtrFkZ0HyQ
-         5Tji5QTN2DAgBkk+dR1kkTwGcNj70on94t0bO5RXk/+VQd9Dy/lX4C4uDq7q0eh79gS4
-         v3F5FLmk4lSirwDqI9+tdZoMkkM6cb5njeUKA=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793569017; x=1794173817;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=y+s8DhqIO5ki4BPjT0hMEJ5bMlWwwKI5gQlDegeYWw4=;
-        b=CwAVYI53n4UE95jwxjuWoat+kV+JknIMQkEPaXnd8C2xUACsJ/KVFYFfyE7PhMz58C
-         ggjAJKancQcwImce449EuyJHs6I5KXzbyjmLXBOPJs5d6B1mwwmwR/8Ntng+jMSu3guq
-         kOiSDUstNaKGTdc7afWFQH5eVgWqdtT8KlnzzQuX2xtkgyY8TmneHMp4JbYjBp//vCzR
-         QNC/yPlPUEgKGSpFkh3i31nXgYqVvjTHMo8/jqWjbpm7O2bUIogEID3MeKl1I+sc3q6V
-         Ph1dscIFxgkz3HRtQCG4S1iN2MhqQOSrOfReTHpUbG+79S2i2UPOmsIhj8vtbAHUuaom
-         BgOQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxpJ5xiEsObHa/i3DAtvBCJvRvI6o3G5f/u24lP542AsE/EbW8b8Bagf6wY6K8OF5LgRWTjbfzEQ2o10pI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKl/411AwQZA2SPW+iwjILh7IgC9JgBUku4DdK0vWWQKqdfA8Kb
-	KTsA2I7xeqMm1Cz50/TInhSvaGMF8a4RXE9QoZymp0r/AQ5TuA3xJ0ylAiInYUeDLzYa0LqPVn5
-	O9AetZA==
-X-Gm-Gg: AYBFou0iyqJFxqa84NvdRqOQAqSnjufFQRvPfw7em0J5s+tlh38EIhDyP563eGoob+i
-	8gX4E7GoUhcTTprXfdoD4OzP36oy1Ijf6uY8/7zsi6VXNI53+K7FgRPuxoWojjHIxhg+KvW/uuN
-	qO0aTXa9mlcDzfsmYT6KUiS9SldS101q3PgmJ08QhLJy2+zUq1iOGvXNFGWTIm6gS3hIy71m0XV
-	0MStLzxYSTc0UYvT587sgF7fosrj9PyDJHQlbO3SBrTZml77PDRpB7bsgUP2uKeZxPMRfVqDdBT
-	0RmW0VTQTPhYoAqpzRus2FbVSDu0UBafihjwzHjahLGz3tr9utcKKFQnV0NaPhbFEkCcLYIypCp
-	aT0DVq0J/sJ1O059p1HdlC+tttykm1ylckFS49FTjKQC5UMbmNsxsB/DNzYmQhjj1rjsbki8MQw
-	vG4vMoDfNEozeecOo1DB3Lu6NxUA84UPB6DdFmtZQs/RUFLbqSPxwbk0uP2+mbfJkMc2Ia4wbG4
-	5oW099jNcdpb6+7hOHlXlXpnaTKGn5VkOi2OUZDiYTvaIRD/mJdxUw9G6sUS+I4UFwM+6pSPRww
-	loWRCkwuJ161MnpbPT5BidOGhaVUIZ11sFo5WyrzXuLYf8ls78LJaDmnYC9sO55HtJodHSRC2Oz
-	Ff45gC1IMhETj
-X-Received: by 2002:a17:907:7253:b0:c46:7de7:e432 with SMTP id a640c23a62f3a-c4ca7ab116dmr687319466b.42.1793569016593;
-        Sun, 01 Nov 2026 13:36:56 -0800 (PST)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com. [209.85.128.52])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabf43b19sm311303066b.87.2026.11.01.13.36.54
-        for <linux-kernel@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 13:36:55 -0800 (PST)
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso23230335e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 13:36:54 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByz3MDklXOzBAJak7LohFpjPS9qLMOIj7Kv/hBEAZEtNxBYz/sXp/zCDqB0vREOR6cD3XRgC21aBG+tCJI=@vger.kernel.org
-X-Received: by 2002:a05:6000:41d9:b0:48e:646e:fb61 with SMTP id
- ffacd0b85a97d-48e6e305b9emr20425341f8f.34.1793569013833; Sun, 01 Nov 2026
- 13:36:53 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QPQwCMeP;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=D/wsx+xp
+Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
+	by mailfout.phl.internal (Postfix) with ESMTP id 60CD0EC022D
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:39:09 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-07.internal (MEProxy); Sun, 01 Nov 2026 16:39:09 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
+	1793569149; x=1793655549; bh=lwP8ycQo5PTTc/dYVB1SqGpgCjq4Sjj5i8p
+	0oHH++Fw=; b=QPQwCMePetFFUPwt8j8EJD+0IvJrJMn8ExRukMKNL8ETLYPgcXZ
+	8eAfOmYulwMIUSHg59wrjdVQU+e0zjT4DU16JBK0YnMVC63vXYPjWSa6c7bG+Oa5
+	64gCHrSThjd36lTpk5oDdFydDrwtjqWzTPn+0wUW0QkQ1s/EpXRe2m4b8bEVM+bg
+	lohN+m6eKlBcp16ufl6eq4WO2AB6cgr5AOn+uo/TavBaX6R0seutjBt4mwXuP+z+
+	H7iUiwV1bOz6VBbjlK/+pPJZCXaQsnDp1qsjLPCwhWL9GW53P6BrSoEQQoio0Ef8
+	ENukQmzWRSwbrnSAHejTcwHHWufiG5xtF5w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793569149; x=
+	1793655549; bh=lwP8ycQo5PTTc/dYVB1SqGpgCjq4Sjj5i8p0oHH++Fw=; b=D
+	/wsx+xpbN/A1Hyp2FDjyolI/Tt89QO+D03+5p6Fjo5stIp8l7Jt0UDmwxWB8LhqI
+	2pPMqQ+MeEQNgtdIUnJcZdWDlHBICte3Uiemlz5rnav5Ew2ayhRg5Niab7R7D4iB
+	S/oJlxZrQT5kAewXS7nBJi38iw7JiEAE52jKTTTnDQ+zST0EuyqXBBld/7gch5WB
+	vm4b6rH8fU7GYryCiDN1D+J2hJcGDohkMx9FZAUJ01te9J36HPblQlsY9DT1Vs1i
+	o3Zz9XHw7wjbYQR+ZvPe67rx1lQMt4oMGYQ9eVCD7Q/HdO49Dc+OKDA6dwG23esC
+	mCow/aA0iVLH185DTNdkA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=ownmail.net a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793569149; d=ownmail.net;
+	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:EeTMCmr64x+QozDCAsmC9iyh9tYTKjOPl1qBtClJwH+0+rT
+	uvv28jxnD7yQFtOLSJ5+2cMwt6y0LP/8GNFPxuedt5TAUjucnxS+bhp2jQIq3fan
+	+oxq4cKjNNpdzg3OLjjbx75cQgncDbq0j2cs9E1+RlczjvJ6HxyJ2q7sy4r6yqZ3
+	uFqzW53Grv4+qhi/EzA91etql4Hak5kfjZ/2Yz7SnSO8Zo+9nlpBvcPud15DD0H7
+	YQ4A4ZdzI4mp/J2zfGHn5A9Ttdc23VyTeHouwNZ7ru+qARNNknyzEdJD9B1DxsYb
+	GxQ9ltWJ5fp4WB4OKJKweYmHBc7nN3/8NSlRqww==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,reply-to,
+	subject,to;
+Message-Instance: m=1; h=sha256:9miFjryQHO1KmqzSrqIhkMbNW6nxCHsBOp5thbTaWQg=:cVtjZT3UUBze5Ok+wlc4VpICLbO+9PQl2PYbEIz6XNI=;
+X-ME-Sender: <xms:fbHnamBcdk5IoTi85oEiGKd0tlnW7a_EkC3nrQ-Rl0cqdje5-W0IWA>
+    <xme:fbHnaqiyzJyutcOX2c4OFfzck5YeDxbQwRJRmmvCSL4wbWNOf5Xai1ZsMbHqV1yU5
+    X59bxWJ_8zVnw7oYenWjVXSVM_DDeCKYYKOzmdLGchALYMFubU>
+X-ME-Received: <xmr:fbHnagOQyTZ55ZHBED1uFuYCejOkxEVNjVDOtyVas4rge2dCqszyG5kD6mj-g17sYa2cJIYXrdSus5WQMQ9gZnBpoB_MD34>
+X-ME-Proxy-Cause: dmFkZTESt4xrVf4fNQ+NzKwfZGCmBFrlLRZWF+jX8JvRcuA+iW0T2FQSJ53rsW2kVCVHb4
+    Mc0Ewjf5XrUIBSRzZ9auFDECcQv7OsP6xoWhjWZT6TB0+QcsutEAKRe4kNkZ08lvF9peXt
+    jUU/beKrbBGvU53pvV8MCySR9Tn2vd/A/L+tqLMfrMfcptkIaOtKPtHQnA9hBHZm0uquFh
+    3ELqV+ppbI//yPqcoDQNyDvA5oy1sjOUpcsjtzk0TGBa+BchYzEzKNvJf4MOVqTXFd8aZg
+    yXvZqL5/wej2wCq4lVsmgJ+3YvbPh/umrtmOsgrIT78iVepVGwcLBgXYOHch9l2C9JnRQD
+    16YZ6G94fXrN/N73eClUCAgxHRjb3t035iZfX3KBm+5TOFTsoB27srPum4rM5eptzMHqTR
+    cQ/PPo9FahCl/oJHbp6DvcJ3S/DwirCWvUUe3ax+D0xIpbQ+oIE+KpwyDD2VqFOvETM/SD
+    ygRNZVoaX7oUgaXlHg3w4RYNg7KOEtBhrDn/NQCLcgNQ7GIEis5NybxYpd85cGGkAVQDWQ
+    aI2HYCSOja3iTs1yE9oR+FetLUfDFtv2XXvoz9mApytjnimXF/kRZPHdxFuNTOCOJoSJ1K
+    mCvyPdXTLIeir5p9XEa1IUe99gZpeRmTkqwzkdNtJtTj/xafBwvGI37ZEb8A
+X-ME-Proxy: <xmx:fbHnai8BsaiK-sfQpl9AfP5jDUbGQDy2L-BqbpovSTco0tC4WZDt4g>
+    <xmx:fbHnapcLhTbZPwmB1yevVuqTzmex5eDKhtiayrre5HBkX0xWtw-EEA>
+    <xmx:fbHnapx595Kuj4dWEy7B12uoYtRqqbgoniJjT6VrbhlY4E8JHRK9-A>
+    <xmx:fbHnamLEjtUTvZ0d6dr7rffeTI3GAw070hf5bh6ZkZiz3B0xwPUh7A>
+    <xmx:fbHnaiSeF-yV2U0g4CT3tIDI9S0kZYhkfV46YrXnSvKR1ke08ksSOmww>
+Feedback-ID: i9d664b8f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 1 Nov 2026 16:39:06 -0500 (EST)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,143 +118,75 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261020153652.2907186-1-dianders@chromium.org>
- <CAFLszTgzpQ-donjjtcPwy5T3pfWg_u83QMh0GcdpY2JCq_s75w@mail.gmail.com>
- <CAD=FV=Vt6hgGJuYtv1_mBSQztWQBjmDN9CwLtVxrXcyECGx2-A@mail.gmail.com> <CAFLszTh8geCqamVZwO00fx6t8SDfVHCFP1Fx9PnA2x9TosDKqg@mail.gmail.com>
-In-Reply-To: <CAFLszTh8geCqamVZwO00fx6t8SDfVHCFP1Fx9PnA2x9TosDKqg@mail.gmail.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Sun, 1 Nov 2026 13:36:42 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WGtmBxQhc+ujm3qtVgftfKupqtp9sUpg_ubeQ=-_QG-A@mail.gmail.com>
-X-Gm-Features: AclHuK83p4a2Vbxf-q7Oyea7vApFkqc_qnBlge2O9IlGicuQhVVmFjLkwyEXh7A
-Message-ID: <CAD=FV=WGtmBxQhc+ujm3qtVgftfKupqtp9sUpg_ubeQ=-_QG-A@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/7] arm64: Add fit images for sc7180-trogdor and google,lga
-To: Simon Glass <sjg@chromium.org>
-Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-kbuild@vger.kernel.org, 
-	Brian Norris <briannorris@chromium.org>, Catalin Marinas <catalin.marinas@arm.com>, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	Chen-Yu Tsai <wenst@chromium.org>, linux-arm-msm@vger.kernel.org, 
-	Nicolas Schier <nsc@kernel.org>, Peter Griffin <peter.griffin@linaro.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Tudor Ambarus <tudor.ambarus@linaro.org>, Devicetree@vger.kernel.org, 
-	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Will Deacon <will@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	=?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Andrew Jones <andrew.jones@linux.dev>, 
-	Bjorn Andersson <andersson@kernel.org>, Breno Leitao <leitao@debian.org>, 
-	David Sterba <dsterba@suse.com>, Gary Guo <gary@garyguo.net>, 
-	Josh Poimboeuf <jpoimboe@kernel.org>, Luis Augenstein <luis.augenstein@tngtech.com>, 
-	Marco Elver <elver@google.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Masahiro Yamada <masahiroy@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, Nick Terrell <terrelln@fb.com>, 
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>, Rong Xu <xur@google.com>, 
-	=?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>, 
-	cros-qcom-dts-watchers@chromium.org, linux-samsung-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+From: NeilBrown <neilb@ownmail.net>
+To: "Haruka Kuze" <harukak@zohomail.eu>
+Cc: "Chuck Lever" <cel@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
+ "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
+ "Tom Talpey" <tom@talpey.com>, linux-nfs@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] nfsd: don't access freed memory when cannot grant a write
+ delegation
+In-reply-to: <20261101212135.1231222-1-harukak@zohomail.eu>
+References: <20261101212135.1231222-1-harukak@zohomail.eu>
+Date: Mon, 02 Nov 2026 08:39:03 +1100
+Message-id: <179356914391.547122.3246865716471741922@noble.neil.brown.name>
+Reply-To: NeilBrown <neil@brown.name>
 
-Hi,
+On Mon, 02 Nov 2026, Haruka Kuze wrote:
+> From: Haruka Kuze <harukak@zohomail.eu>
+>=20
+> nfs4_open_delegation() hashes the delegation before the call to
+> nfsd4_add_rdaccess_to_wrdeleg() and nfs4_delegation_stat(), both of which
+> can sleep, and it calls destroy_delegation() from the error path after
+> dropping the caller's reference.
+>=20
+> Moreover, a DELEGRETURN from same client can unhash the delegation and
+> drop the hash reference in this window, so nfs4_put_stid() frees it and
+> destroy_delegation() then reads freed memory.
+>=20
+> Call destroy_delegation() before dropping the caller reference.
+>=20
+> Fixes: c5967721e106 ("NFSD: handle GETATTR conflict with write delegation")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Haruka Kuze <harukak@zohomail.eu>
+> ---
+>  fs/nfsd/nfs4state.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+> index 1de6c6d757c3..b13d05fe8993 100644
+> --- a/fs/nfsd/nfs4state.c
+> +++ b/fs/nfsd/nfs4state.c
+> @@ -7300,8 +7300,8 @@ nfs4_open_delegation(struct svc_rqst *rqstp, struct n=
+fsd4_open *open,
+>  		f =3D rcu_dereference_protected(dp->dl_stid.sc_file->fi_deleg_file, 1)->=
+nf_file;
+>  		if (!nfsd4_add_rdaccess_to_wrdeleg(rqstp, open, fh, stp) ||
+>  				!nfs4_delegation_stat(dp, currentfh, &stat)) {
+> -			nfs4_put_stid(&dp->dl_stid);
+>  			destroy_delegation(dp);
+> +			nfs4_put_stid(&dp->dl_stid);
 
-On Sun, Nov 1, 2026 at 11:34=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
-e:
->
-> Hi Doug,
->
-> Doug Anderson <dianders@chromium.org> wrote:
->
-> > Putting the metadata in the configuration's `description` property came
-> > out of discussions with Michal Simek at LPC 2026 (where Xilinx/AMD
-> > already uses configuration descriptions for similar board matching).
->
-> Thanks for the background. The Xilinx case is a bit different, though:
-> the same project writes the string (the binman .dts) and parses it
-> (board.c), so it can change both sides together. Here the kernel would
-> write the string and the Pixel bootloader and outside packaging tools
-> would parse it. That makes it a cross-project ABI, and I'd rather that
-> ABI were typed properties than an unwritten string format.
+So it seems strange to access the delegation after it has been
+"destroyed", but I can see that this change does fix a real problem.
 
-OK, fair enough.
+Maybe "destroy_delegation" isn't a good name for the function.
+Maybe "deactivate_delegation" or something like that.
 
+That is a separate problem those.  This patch is good.  The one other
+use of destroy_delegation() is correctly followed by a nfs4_put_stid().
 
-> > The proposal I've tried to push a few times is that it's OK that
-> > different loaders have different types of information available
-> > to them, but people don't like that. They want a universal standard,
-> > which nobody can come up with.
->
-> I agree with you here. We don't need a universal set. I've sent a
-> proposed spec change [1] which lets a configuration node hold one or
-> more match sub-nodes. Each one names its scheme with a vendor-prefixed
-> compatible string and carries the properties that scheme defines, for
-> example:
->
->     conf-1 {
->         compatible =3D "google,lga-...";
->         ...
->         match-1 {
->             compatible =3D "google,board-id";
->             board-id =3D <...>;
->             board-rev =3D <...>;
->             soc-id =3D <...>;
->             soc-rev =3D <...>;
->         };
->     };
->
-> Trogdor would use its own scheme (board name as a string, rev and SKU
-> as u32),
+Reviewed-by: NeilBrown <neil@brown.name>
 
-Sure. For now I might just leave the "match-" out for Trogdor and
-simply have the config file simply be a list of DTBs. Trogdor
-currently boots OK with the "compatible" strings. Maybe Chen-Yu will
-want to propose something for a newer Chromebook where he can take
-full advantage of it. :-)
+Thanks,
+NeilBrown
 
 
-> and Michal's loader could do the same. Each loader still gets
-> what it needs, the types are explicit, and nobody has to parse
-> 'description'. Please can you take a look and comment there? If it
-> works for you, you can point to it in v2.
+>  			goto out_no_deleg;
+>  		}
+>  		open->op_delegate_type =3D deleg_ts ? OPEN_DELEGATE_WRITE_ATTRS_DELEG :
+> --=20
+> 2.55.0
+>=20
+>=20
 
-That looks reasonable to me. Do I need to respond directly to the
-github proposal, or is my response here OK?
-
-Yeah, I can point to it in v2.
-
-
-> > Should I give it a shot for v2?
->
-> Yes please. The DTB list already reaches make_fit.py from the Makefile
-> through the @file argument, so the new file only has to say which DTBs
-> to include and what metadata each one gets.
-
-FWIW, I still liked the idea of limiting the DTBs that were actually
-compiled based on the list of DTBs included in the FIT image. My
-current v2 draft still has that feature. It adds an argument to
-make_fit.py where we can give it the "fitconfig" file and it can spit
-out the list of dtbs. Then the kernel Makefiles use this to limit
-things. If you don't like that idea, though, it wouldn't be the end of
-the world to (slightly wastefully) compile a bunch of DTBs that we
-don't need.
-
-
-> We'll need a simple
-> per-platform file next to the .dts files, passed with a new option
-> through FIT_EXTRA_ARGS
-
-At the moment my v2 draft doesn't just use the FIT_EXTRA_ARGS but uses
-something like this (which will be documented).
-
-FIT_CONFIG=3Dgoogle/lga.fitconfig
-
-Hopefully that looks good.
-
-
-> Running fdtfactor can then be another make_fit.py option, like --decompos=
-e-dtbs
->
-> [1] https://github.com/open-source-firmware/flat-image-tree/pull/66
-
-I don't think it buys us anything to have make_fit call fdtfactor
-directly, does it? The kernel build can just call it. That also makes
-it easier for people to pass non-standard options into fdtfactor if
-they want (via FDTFACTOR_ARGS)
-
--Doug
