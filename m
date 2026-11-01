@@ -1,61 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793554218;
-	b=Grwn5cceGNHyZUj7RHvE2NuH0i84k4B3SXmvCKxXipAXnST2xiicOEh3GzGaoJt3WY3c
-	 3a18KkT5maoN82gXD/vnJmm9HPkmOyDj9ebbt6ayVDTJe7CAyQWqGJHivnGy5gbdb75zW
-	 D22oRNjWLhtSgpUAS0wMHQz7OnTkCBJdqt6ejsFcJUWz7CpDrQySNCd3J05eqZg0xed9i
-	 0p4bscAE88/YNyDlcxEk70SnygvRNohFu+6ioWzhslvUYQjvP1j+08JlGelPDpQhvxCrp
-	 BWuNCm3WOYAz3QuOqYxBsyER6Xy9A5LDF6z0Jptz+g7N4kp0b2BgC9BQo9nq+zdCsNw==
+	t=1793554241;
+	b=h2bI9eqlS92fN01wdM9bQbPCKKelxST5FHYJ7n/YXhLmbxvtShTzLQncMrn0y9NNAFaP
+	 KrWXK5ZDszGbFiVgVlTHmZw+WsGsWOX/IF0mcu7MM+O3SaNN/X/JJ/7aAca5zffNBwIS4
+	 2whPUbRKFMLKjVAY61cKnzTiWxVTXmgkLo7KktI4n1QsrEccGfVrPZ2FB5SGxk3P47/Ih
+	 ChqqQJxu9uEgrBlU3cysYJQ11T/Ch2y9v/s1uerOMlfzHxYqs9UGr1OhsZ5PleRUldbdX
+	 1cK/OdfO+Y6xNg6LCFWnk5x7kmHB+I1rvPfGewex9Yk6FDGAbMEqbjHhkEbi5sYroVw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793554218;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793554241;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=MX3rQtix3+DDixgHo3LU/+2TjC41WR3Cz31kSiIgb6g=;
-	b=d72JGH6wYORsoWJKiqAZQVOSEMYkdQyvbIyvoIeV+MynQSyZNCTKEKNt1M+ETGX8aLFU
-	 LdimBkn7suiyvSsdmgeyLaZ9Iy5WA/RDutOmJrJRvRI8nOMYyKnUbIdaYYFHqFW0ZR9Q8
-	 bG9Ftrl+pUwBN8wZANf9GxlRoi9OaiNwPoCQchcA9kE0jVLCyY/qFOK1Hw+vmbHjiPJGf
-	 y8/dZBZqYug/2dy0ZNIbSniLmhN7+yjSioGOwXHrsnQvYDOE3ibLuwvMT+4PKe9zQB5wa
-	 4BTVRytr6WoWrl3A0msKFfadX2LIaz3CjyArpPxFC1Ruc+Oj8122yitcewX70XI09ig==
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=3yjT4uLUMkuD27R6BJuNehLVUXuISjPFuRqD0wtplj8=;
+	b=eG4KWb7T1EReThOAcdHGga1SMBqbf5x4hZ3eT8xNC5XyC8ONcooWKz7iCLQhdokcYoUU
+	 so75Bp44HLhzTUpGKd3ku1bvPozFJcYj/ri+NPYHI9ti1+ypo0Y6DOMJ1DeIKu7kqSKJo
+	 boKVLmNUQMR+d8HyuzFaxAwoxmN2Zw/t1EG9m765XMn6e/tUUDCiz6DA0Et06KPD5Xc9Z
+	 mI5Hu0055oqyNjyEYnufdYeFw4Vek/3u8P2YUmtAAVRIMwLGlIxACKKtW0hrjti+8DsaC
+	 8dTuOAuBGovMowjtJGthJ5pfj4dWR3TfTGH2fdP8jqqsU1m6Ytjfvh5ChWFrt2Lkhkg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HszQ1xRw;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9P47yac;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F356D606A326;
-	Sun,  1 Nov 2026 17:30:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A8B606A325;
+	Sun,  1 Nov 2026 17:30:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HszQ1xRw
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 226331F00A1A;
-	Sun,  1 Nov 2026 17:30:15 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y9P47yac
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F02B1F000C1;
+	Sun,  1 Nov 2026 17:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793554217;
-	bh=MX3rQtix3+DDixgHo3LU/+2TjC41WR3Cz31kSiIgb6g=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=HszQ1xRwhWZdSGZj1H2uUBKo0tXN5UF/Bp01yPK+sLH8M/YW9CXBqH/ylVNSZDkWS
-	 3PHOssbTeCOnkPnobsvSs7DC4g6nYHd+7ABrMs7Lvk4aioVuUVerK0zre8kkyqwbnZ
-	 0mupMpKVd00d2uBVf0rY/+GAlZIThY+b5Yybpxa0YDBGJtC52d4IXkjsirQvwea5qd
-	 D3XdxXBsPHKY0R/NGIqp7BF5v9hQ9HBfKQGq1JyA5d89Z3cT0MPKzFvI/38TbmhAqu
-	 CTa7axTrnnVK7aRP7zgRp2wSchrfG6CVk6PdtF6Ok0j35TRNT92PE+lYiNrZ9qx3M7
-	 HukpCOdb+/AZA==
-Date: Sun, 1 Nov 2026 17:30:09 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rupesh Majhi <zoone.rupert@gmail.com>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Eddie James <eajames@linux.ibm.com>, Joel Stanley
- <joel@jms.id.au>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Sashiko
- <sashiko-bot@kernel.org>, Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Subject: Re: [PATCH 2/3] iio: pressure: dps310: reset the chip at probe
-Message-ID: <20261101173009.3549f50d@jic23-hlaptop>
-In-Reply-To: <20261101105855.55716-1-zoone.rupert@gmail.com>
-References: <20261029220635.18816-1-zoone.rupert@gmail.com>
-	<20261029220635.18816-3-zoone.rupert@gmail.com>
-	<20261101010444.2803dab4@jic23-hlaptop>
-	<20261101105855.55716-1-zoone.rupert@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1793554241;
+	bh=3yjT4uLUMkuD27R6BJuNehLVUXuISjPFuRqD0wtplj8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y9P47yac+uhWhB5RjcPOXxPsZmYKXJ0KZmUiefS66FujIGl81416n9FY5nAwYtECI
+	 8ral0CluzQ5Il5hoeHd9AlTbnzeQ+t+dhJX90DvybLfu44Otl4DL3RFRyB+wVs/nC3
+	 CslgtwcgzDGD0QLiYf1nLKnFeNSswHkV96Gikg7lzj/KrZI6NfBvGGasi88xbD004x
+	 IZcHyzNbFU0QX35ExNLnBnFWcaUEc7wxtQi5sWj+3ur5NBMQc3Adl4HZX/tq6zWZsR
+	 Gvt4DgUq6B3K6/jR9xFBSZq2llTv4tapMxUCHUVRRek36Qx+WrI/h+WbJoHKaNRLD9
+	 VX5oMtg5kvJXA==
+Date: Sun, 1 Nov 2026 17:30:38 +0000
+From: Harry Yoo <harry@kernel.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, 
+	Christoph Lameter <cl@gentwo.org>, David Rientjes <rientjes@google.com>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Suren Baghdasaryan <surenb@google.com>, Michal Hocko <mhocko@suse.com>, 
+	Brendan Jackman <brendan.jackman@linux.dev>, Zi Yan <ziy@nvidia.com>, "Liam R. Howlett" <liam@infradead.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>, 
+	Mike Rapoport <rppt@kernel.org>, David Hildenbrand <david@kernel.org>, 
+	Gregory Price <gourry@gourry.net>, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 1/2] MAINTAINERS: add Johannes as the page allocator
+ co-maintainer
+Message-ID: <aud2VVt5zp2i1BkB@minisforum>
+References: <20261101-maint-page_alloc-update-v1-0-27e8c246b13d@kernel.org>
+ <20261101-maint-page_alloc-update-v1-1-27e8c246b13d@kernel.org>
+ <audw0QKojvZU8J7e@minisforum>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,35 +66,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <audw0QKojvZU8J7e@minisforum>
 
-On Sun,  1 Nov 2026 12:58:55 +0200
-Rupesh Majhi <zoone.rupert@gmail.com> wrote:
-
-> On Sun, 01 Nov 2026 01:04:44 +0000
-> Jonathan Cameron <jic23@kernel.org> wrote:
+On Sun, Nov 01, 2026 at 05:03:41PM +0000, Harry Yoo wrote:
+> On Sun, Nov 01, 2026 at 05:34:48PM +0100, Vlastimil Babka (SUSE) wrote:
+> > Johannes is a long-time expert and reviewer for the page allocator and
+> > has agreed to step up to a co-maintainer role, so do that. Thanks!
+> > 
+> > Additionally, page allocator is joining the MM transition, following the
+> > MM core updates from David [1].
+> > 
+> > Patches will be collected in the mm/page_alloc git tree and integrated
+> > via the mm/linux integration tree. To signify the change from Andrew's
+> > mm tree, remove Andrew as M: - get_maintainers will continue CCing him
+> > on most patches via the catch-all MM entry. David prefers not being
+> > added for mail volume reasons.
+> > 
+> > [1] https://lore.kernel.org/all/20261030-maintainers-v1-7-97278f8a5f54@kernel.org/
+> > 
+> > Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+> > ---
 > 
-> > > Reset the chip first, as remove already does.  
-> > Why do we do it in remove?  Does it put it in a power saving mode
-> > or similar? It's fairly unusual to bother resetting in that path
-> > given as you've seen here, we pretty much have to reset in probe.  
-> 
-> Yes, in effect. Driver leaves the chip measuring in background mode,
-> and soft reset returns it to standby (datasheet 4.1). It came with the
-> original driver without a stated reason.
-> 
-> Writing 0 to MEAS_CTRL would also stop it, if you'd rather not reset
-> there.
-I would prefer that as it would avoid the need for documentation
-to say that the reset is there to put it into a low power mode.
-If there hadn't been any other way to do it (unlike writing that 0)
-then I'd have asked for a comment.
+> Acked-by: Harry Yoo (Meta) <harry@kernel.org>
 
-Thanks,
+Forgot to add:
 
-Jonathan
+I couldn't agree more that Johannes Weiner has been making valuable
+contributions to the page allocator.
 
-> 
-> Rupesh
+Congratulations and thanks for stepping up as a maintainer, Johannes!
 
+-- 
+Cheers,
+Harry / Hyeonggon
