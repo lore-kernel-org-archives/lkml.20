@@ -1,99 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793571508;
-	b=FJIfqf7wTqy1zYxMXvR48BQOol6aTH22l287GgH0CK4vA5wjlr64A2cWBznqYPTU5cUi
-	 zi2QVR/Uf4ZPBgJe8HR1VxUXQupVbHwQJOHJ2ZobLeuIJ+Z4I7nFALMF0RJGjsxVQcr96
-	 lYrmvtPOAaGQ8qFHqlx9eTvqc8imsPI3acXQfX5v90OqsELq2Iu83DfBGSSw2BhchwkrI
-	 6KUHjeFw/xK6T0RLHTWSyhqpMmnYqhHuxbcO5W/bEYPRdMuaBbnT0E3TZ2yhSCiIByCBY
-	 bvWtXdGgVnpiRr6VT+dRsOL1U3RnqhigEEZL5ybhXRWrP2eI9U7t/uXawwYI4l3cXXA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571508;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:
-	 Cc:Content-Type:Content-Transfer-Encoding;
-	bh=zd20Kr2jG+wpBIUO+vpZmn6D+HgadQK1zsiLf1TK1sw=;
-	b=Szmp9UE9d0jN7gHeye4fZB/OmEAuTixTVyP+aEQjNMk5s/mw6BDq2UHOADzgItUkJj9P
-	 /LpiLve178GYnvkIpV/f9Wk8UVORvJnDyvYQ1eRE3jgt4HM2+mY0OGoY0KZECDRVbckHo
-	 ooHNcUeipjVX001KQJ0GcLSMxZtXXsHSN2xjQJjsN+Y8n1P/Oeq8PSFPkVMffTWI3vcfx
-	 2CK2fvmD36hoHmPO4fOAAZoMZiLu7whEUFnmkkP3FWzy7wc9/r4EAyMR2E8oIslXWr2k6
-	 uM+zw06qBCx8XiKAfZ1ZZ7o3tsu7lp2kHgYfbNfIBa8qCGd7S3wmxiRAuaZjJUTl3SA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fSrFqsKz;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.53
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793571694;
+	b=gNcrYA6rcZ90pq104jY0c8vMw9/Jzm6mEMsUfe95kMgkjC5GEBD42G97nh9xYOnManHk
+	 UI3I2vz2CVAEsc9F8NaQSo7kCkGyGE1XtGLINFtxm9UuQZsGBPLae3GF7laIWW3kNAHEy
+	 6Vh7XZgZhQL3pfVSEIRtqnoHBDqPGX1FGl4nf3O/TFtD+ZrPjdj59N6rvgQ6CS9f/AGHX
+	 v31nz1PYc3x8ThU1W4M4LiCEdSKLtVbZldIri+7RTsjPL1IykVZd3SUur7HoE76eE1QEW
+	 ym0Cv8JvAi1zjT6nKtRUEeVOIFNSMlxW+8+iqJeabqkAzp46hfsC/VjNbo6EmQItQng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571694;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-Spam-Details-Enc:
+	 X-Proofpoint-GUID:X-Authority-Analysis:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=N3RWATaB+aWOJihIl8wvlmI7dxCvdo4R4nH3ZaI7fPM=;
+	b=HaGDhY21k3mVEGNVTasK8FVudN8R3qcmfLPrUElEDJ5w2kzH6NPjFavbE75D1RGHKpSv
+	 wFBFgHHl7dbvmLpaA70yOWyxWrbJO2iVYlK/7TKRgLc6js4TmYHHlLveqS05KbMpuOfNV
+	 kSw6eR/8M+hk0td7zaCU13weRkZudaxixzCpMBx1Z/K9u4liyajaOzbincciAl/Ykbw6x
+	 gaRVuJGubLChpVmYUtCOPNko4hWbK0ilqbkyGKqaF2LHZKvThmmeVihq+Wl9vXgt2YF8U
+	 lpjtsWTvaQCRVYOfTgpr8mwb8RpadzVnrhdftWYY6wqGi5dOmPaM2Becq0nIj2wTObQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OZW+3PCf;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aLOy7ibS;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A10606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:18:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2A10606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24A8606A32D
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:21:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24A8606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fSrFqsKz
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so3872418a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:18:27 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793571506; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FEZChJpWnBuVXNsTXfTC2CegD4Gw9pjycGdut35WdBHd376Y/Hd9FtGId8rA5z7DUh
-         RT/PwZIkySsm+GeD28f60ZMCXAjDcxm64QdtwrKMSpjherBphyFLhbC15Mf03jTz3yxl
-         4mmaIow6HVP1bMOr6g9AMKY6OIkNFYSBY2FsEmSn5vl5uNVUh9pYj6WQJ/8HROJEjXpz
-         S42fGkuTEUw7tZMP/YkVDKYR1WZVny/mVwwrxcnFR/9aCK62PZmqa6ylYoDE2Upvh7kr
-         NJ14wt0qB52dtVv/NlQii5zavrP87zB/UNGbCHP/x+IdUxxouj+qzfWuMBcHEj+ZUTJE
-         iB5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :reply-to:mime-version:dkim-signature;
-        bh=zd20Kr2jG+wpBIUO+vpZmn6D+HgadQK1zsiLf1TK1sw=;
-        fh=X5odUDsnNJt/2ukmGr2aJa0qNFgCDvi5W9+uS00dAmA=;
-        b=pf1MapcQltA5INr3RiYepJlaHc4OmS9W2ZJBzoqt5NB2SzCN4bRSIW1W8inkz2pJAR
-         32grDKuCWdgjKlzpk+0EzToQ/TzM0rRoTIkr9jIHD0BmPaBk4AN4eYammYHV2XSvGsRC
-         W8NVE+suiXfpsnGyHriBPOSE/NzvrCAm1TQVhrR5kLlKRMfxmbhgxk7GVcClVZQ3oIZg
-         iRN+Ca/sZfxQ4NIMT8+Ovf4pbKMovpwZpt5owmvDYMfaYwKDtGZRBZFFFFBlSmkF/STM
-         2R0GUWA5Us3yjMzORaQ19/GguVl+TYIZSSm6biDNFkQrTTyM4RGStQgxiLRPWLilAmmt
-         /oFw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=OZW+3PCf;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aLOy7ibS
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1KKeqA734025
+	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 22:21:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=N3RWATaB+aWOJihIl8wvlm
+	I7dxCvdo4R4nH3ZaI7fPM=; b=OZW+3PCfS8qcXjk4AralCI+AmZxQL6oVlV6FYF
+	qAHRRJffamsDNh90E+KfmEelqLvEnAny+QEHyO7CNKU6GU7SwFvEHVy3UPDDn23s
+	PF0gPjvrMVQ8gTqOah9KpJk7y+2CU5KL0bc2s56G+Og+uvtVmOl7irkZYR2Bb5i5
+	bziXlObmkXK2wXT87SrOy7oAMi/OgvJgWbdDwceWpZyweWMoZR+cEXjBIUcBtUIn
+	RWd2px5mazIESV/TyG+jpW7Zoe1gwjXwNgRbEUXA8QNp07hFRVVDwh6zGyqHwB7V
+	MQckLD70hbrehHaR+IHAVNRYLc4k5SVfAGWjpx/H5ZDOsurA==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8q7v97x-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:21:32 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-1b20a4b5f2bso175863c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:21:32 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793571506; x=1794176306; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:mime-version:from:to:cc:subject:date:message-id
+        d=oss.qualcomm.com; s=google; t=1793571692; x=1794176492; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=zd20Kr2jG+wpBIUO+vpZmn6D+HgadQK1zsiLf1TK1sw=;
-        b=fSrFqsKzpDLjiUDXBr+/tqqXCn3/IZ0KtRDNSZnbZwic5GYqgD50nfhxzH9Jn+cMDH
-         PBJjOi74lDvjR2XvNXaxvmb/3Ui3i3YZucBUP9j1xFZTmLLP6QWiOMXGZOhzeyjZ6eIX
-         C19pgaVL4VBxsOW4dMWViVxtLpRk/1YtCReQGmEE+AkpgBgwb+P7rXrQ2vDULO3nwiZh
-         Gut9DjGCPH3U8CHkt5Yio/m+qO7ZRubOkpMHpm92LegMJlE7GFrJYXZfNlZ5jcZJSI5G
-         3uPGW53AJGykdKmbuU/BQgqrdKvI3tCeDkKL46f5pJMPnPnpaF/GsX1jIon77qLd8cxl
-         rshQ==
+        bh=N3RWATaB+aWOJihIl8wvlmI7dxCvdo4R4nH3ZaI7fPM=;
+        b=aLOy7ibSlNvQe8EsOHCVFLCIM8glUI7DxbTRvnT2qcu1/4wn66Kve5jzuOpA8RZK6O
+         mi9acZBGMaJMkPVjcTuMYnmyPBMUo4oZfyKFGMdegmS3IoANZKsRcP4FrwjwIOV01lSj
+         gyXoHsHRHUzGTYlxlMYyCr+bvYXSkp7QQp2qbASMDqywRSC343HEBGPjhjFqMyjHgHJt
+         z1mAGo4hDTG4VKIyXYLuNGWQcxd/+qnxp0dsztplzTY6O29UAME+ZZSLtWk+MNIlSL4G
+         VV+H/AUSEZrRinO3PXt6370Njw9qB54M2I2Xji8+j427pf1gdTEDVPCkt5Q9vVDDCfs3
+         jNaQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793571506; x=1794176306;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=zd20Kr2jG+wpBIUO+vpZmn6D+HgadQK1zsiLf1TK1sw=;
-        b=VHQs70UuNnLjoQK1csjntHKy1cVI2i7yefyf3sEp+k3iiNcK+h9GVxP/eAiLA9u4Co
-         +WEuQehhNWApf5mQjSyqWSCXWFVjyFjqlYGnhcN++S7a5pa/vfLfVt4rsTA9N6j4ypCT
-         stFpFCzGYsSxp1RzKjVnprb/3eUlwEetq5rkv0pymHjfbjGX+d9I6kVSAqtXqua+7m6i
-         p25wa9nJ26uSqXsxesql+EjYcADOd8V+Nmj+MKG2cekPGZT9vvuxn95ktTIRKFHdgLaD
-         CxEMO0OUzXbST4QwJvsewjkivQHMR1co0+/pmAPJwbHRvbp+NrY02zHRqMig2Wd0JirI
-         zgrA==
-X-Forwarded-Encrypted: i=1; AKwUvByAIrJ+LTi32wI98iMaXvTIIaMIc06Gcd8NsPfan0VdE+5BRQmOHlpeLh8if8yNp0EQ5bPaH2Df/44mjWM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9XrGTYXS6W/ivFsU1d6ZsE7A9Hiv9RBtd/ifeQsRSwiP4QIzMy
-	Hy2FM0D3pYzafaZ1V7yhTfdau2y4mISAa2mN5LajAFKr2FXfyPbEZiYQIOphQM/toLCcSpf/OPK
-	OuLXT+EkTLC+IKC+V9ZYXBZLN98hQB/k=
-X-Gm-Gg: AYBFou2KqaLcWPu8Cm6noJReRoHlU45LsmrLcglyWEaIzQQxJk6+616+1Bx6RWTF3AB
-	aqixDm7s7jbqV5R2JoXQzKc0sHHQYv8NWFkNqnvCDkE3PRRQE6XcMw1pPAwpX4ejFgBsA5eXx6M
-	RwtpsRBBIfimPsWf0bRcBNmgV2wyVO26aOxb/nkm4Sk5AEOGVQrqmbWN3m/Txe1Kcep881xhyiP
-	fVIO/+PDdqBDMTpeJ4j22Braj8Wz/iWaOle3XO3Z3lu4XUJL52HnK3IuTRhFCw1AXm0VVtoXVDH
-	mZ3YMZW+yNe5umBj0M76aXsAIqYHl0NXxokEJbi4MQbM95FKxAVn7jBmZotFF7t9wzfar54NTSp
-	Dp00hOBuoqDlrMxUPxxMpQR7Grf/OtSH/+Dt4QpKALqLTdqv12zzm3KjtS+w=
-X-Received: by 2002:aa7:c24c:0:b0:6b4:5a0c:a7fc with SMTP id
- 4fb4d7f45d1cf-6b4d4d738ffmr4199376a12.26.1793571505882; Sun, 01 Nov 2026
- 14:18:25 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793571692; x=1794176492;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=N3RWATaB+aWOJihIl8wvlmI7dxCvdo4R4nH3ZaI7fPM=;
+        b=TviVvN0OnygZ3GpYFAWEorDyEGFXnAHoKtK+W91ImPTVsVhl7wUfnIX/YKa6CtPkJA
+         DaXHOuULwvHcIkubireFvNCIdx5fsemTDXGiGgojGjzvn0M2jA2i5tN0DklnEKqQO9hd
+         eCv+M3AuW3C1ji/4RpfMb7PcKBZzMyNaeIWCUyQI4+JS5ioUkPFP9QBF5Rej1voeNON7
+         XkNHZlNP6y31ygJ0Q1Da1o0Q37zGBuaZMAwGoOC9h00KdmYBxeza2Rx+i4lAecv3tzr+
+         x04+Zu8+N76g3SoSA7ao3GOCZPuzvUF6aNN/riETxGO/A3ajmj58mZAoPBS6gRNDWTmB
+         fDfw==
+X-Forwarded-Encrypted: i=1; AKwUvBx4OAHRjHQnNaU71GxGzDVPmcegcrW17rKTyp0u9e7XVbDjwWLe2ht2It72ehR+x2lHNmdS+vGiKpgmdEg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ9LgupQBE1ihdygxwqohaztd82RzduqLCSnaiJanDgb+REkIgl
+	0h0m545XXcuxCEyu5fX8sTg3JhHtcqyzEWUklDnB7PchCD4KB3hecpWrk0xc+40WPLUy2Z+O1dd
+	WgWhcmDhlHFJx4OH+7X6IldUbtVPFDKzXEexAcCudYCw5V7WqGvr2QjxZ+M72yiJO6zM=
+X-Gm-Gg: AYBFou04fkXtn/nBk5Wor7l//k4MK1ZG83J6Cw5txDQ6F4QtUKD4b8d82xwtEluBHUr
+	0dkU1dnNKqQmIs1W+dMTXzyjvayvs7nRrBOsd24nFD5RzPRvYepRJPVGYnMiTdQ+x84hnxu0ga+
+	8mPXLi9gdM65JrT9FazNnL9vW5syY4MgXGSWTnYq0r+Veh6W/oaxH298oyNqTKPLEbDWPJIZYdj
+	J/o5mBsgQSssJWv6cm0lZJ3ep9T0T04upa8t7InpjKsxsx4OVkkEF9LCkvj6+4zDH313fMspIXP
+	kb5uCg0XgKzkkyoBQcbJQNC+LTBia2gMkbjs8hbGUa2LeXPFfPjsya0SjW3xbDjbOAto7zdU/so
+	FlQpHrVDivSABMb04jelUWJMAjW573EQr9K9390yL0acJH+nfUSwsOtL6OxyEymXoTSeSmLjI82
+	2uO9pzrg==
+X-Received: by 2002:a05:7023:a42:b0:151:ece6:b16b with SMTP id a92af1059eb24-1ac5da755bdmr11225975c88.7.1793571690873;
+        Sun, 01 Nov 2026 14:21:30 -0800 (PST)
+X-Received: by 2002:a05:7023:a42:b0:151:ece6:b16b with SMTP id a92af1059eb24-1ac5da755bdmr11225946c88.7.1793571690095;
+        Sun, 01 Nov 2026 14:21:30 -0800 (PST)
+Received: from hu-ekangupt-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac13ef1932sm27742653c88.2.2026.11.01.14.21.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 14:21:29 -0800 (PST)
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+Subject: [PATCH v4 00/25] accel/qda: Qualcomm DSP Accelerator driver
+Date: Mon, 02 Nov 2026 03:51:13 +0530
+Message-Id: <20261102-v4-v4-0-88f2f24a5f0b@qti.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,75 +115,431 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Reply-To: yo@miguelrevilla.com
-From: =?UTF-8?Q?Miguel_Revilla_Rodr=C3=ADguez?= <migrev@gmail.com>
-Date: Sun, 1 Nov 2026 23:18:13 +0100
-X-Gm-Features: AclHuK-c09-4rAv-gYdZmBcBJqHP3BI3ufjPXwPmJjbaWNLmFjNpCpjVHq1C_pM
-Message-ID: <CAG9fDsV01JJx6=xbts1XJ3+utG5yzys5BqJ5UcHWp6-_wDKpxA@mail.gmail.com>
-Subject: [PATCH] ASoC: amd: yc: Add DMI quirk for HP OmniBook 3 16-by0xxx
-To: broonie@kernel.org, Vijendar.Mukunda@amd.com
-Cc: linux-sound@vger.kernel.org, venkataprasad.potturu@amd.com, 
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFq752oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyTHQUlJIzE
+ vPSU3UzU4B8JSMDIzNDQwMj3TIT3VSLtNQkYyNDIzPjNCWgwoKi1LTMCrAh0bG1tQChdTbjVAA
+ AAA==
+X-Change-ID: 20261102-v4-e8feb321263f
+To: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Philipp Stanner <phasta@kernel.org>, dmitry.baryshkov@oss.qualcomm.com,
+        andersson@kernel.org, krzk@kernel.org, rob.clark@oss.qualcomm.com,
+        jgg@ziepe.ca
+Cc: lingtong@qti.qualcomm.com, cacar@qti.qualcomm.com,
+        sandheep@qti.qualcomm.com, Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        Ekansh Gupta <ekangupt@qti.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793571679; l=17178;
+ i=ekangupt@qti.qualcomm.com; s=20260223; h=from:subject:message-id;
+ bh=7ulwZDRbVbhnX5VSUAXcebVVwrgoPRyLQkWga1KdhyI=;
+ b=JjzbJKQ6+miuS0jSAWNVCxpyx2YYtKJ7fEaBtdbYj1dJa110KsuqrVzxhkF/GKf1eq6xv/EOH
+ 24RZdWQPUInCFtZhzU8M4r9susfH4vy/3gfy+Lz7k0k44OxRRLQaqbO
+X-Developer-Key: i=ekangupt@qti.qualcomm.com; a=ed25519;
+ pk=n0SepARizye+pYjhjg1RA5J+Nq4+IJbyRcBybU+/ERQ=
+X-Proofpoint-ORIG-GUID: _l3JP2lxSyG6w8i4MB1AFFj3yIY8kolH
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfXw8t2lBJz8des
+ Hb58PRD+wSTCIZ19osi4hGkGZ0SZ/cpuo1KAvYB/wUS5hHULn4oHQ8S4IR6AXH64HTconUEx0eD
+ KNHnoL74c8TGsmNBu8dQ5hDtee+p//E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA4OSBTYWx0ZWRfX5E4+5sftAM4+
+ cJeQInq8GPDd6WBtPMZiakMWRsaUKFaatNzskpSeQOVXqoEwL1Ad6vRXzqa6CtRcJvDRubAYpaE
+ Te6tpHOpHC6Cb2+LaKleWg1FyJPsJOcrLuo2UJ0TH2VPJ6BR/fcqGQqEEKwvk1k1nQItzqt0XNy
+ JxUeLAwvAKoOL/quIzkaIEz8HXqTWxKnc7cx5hv11GDxCsMwJxNCV1RtHBKEJhkDy1xX4AoG5oc
+ ArWme/mOOsqyYXjJkSNuoYWzRucgqBP8QjbDXFeZXV4DvXr6PRzsXGb9NNKSbkPNR8rFRcOliQV
+ IvHoj1RJsAlaZ4PsTsidgHj12X915Vj746u8yTC2ZL0CAhaNtPIT9qGScILLACLSZ60irypalGr
+ MWon9t8cy+l/OBtvOOSvtM4x9ABwqOs3mGJJjHqKDGAYyA3OUjunNGVubz+gGSkaC2yInfosSmA
+ t7Tw5ObMQhrNDKeDUHg==
+X-Proofpoint-GUID: _l3JP2lxSyG6w8i4MB1AFFj3yIY8kolH
+X-Authority-Analysis: v=2.4 cv=PucG/AM3 c=1 sm=1 tr=0 ts=6ae7bb6c cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=J7Ab9oP_6IQewhk8SDcA:9
+ a=QEXdDO2ut3YA:10 a=Kq8ClHjjuc5pcCNDwlU0:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-01_07,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 lowpriorityscore=0 malwarescore=0 bulkscore=0
+ impostorscore=0 spamscore=0 priorityscore=1501 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010089
 
-The HP OmniBook 3 Laptop 16-by0xxx with board name 8EE3 does not
-expose its internal microphone with the current ACP6x machine driver.
-The ACP device is handled by snd_pci_acp6x, but the machine device
-remains unbound and no ACP capture card is registered.
+This series adds QDA, a DRM accel driver for the Hexagon DSPs on
+Qualcomm SoCs. It is meant to replace drivers/misc/fastrpc.c. It speaks
+the same FastRPC protocol to the same DSP firmware over the same RPMsg
+channel, and it binds the same device-tree nodes. It adds no new DT
+binding or compatible.
 
-Add the HP 8EE3 board to yc_acp_quirk_table so that the driver can
-select acp6x_card and register the DMIC capture card on this machine.
+Existing user space keeps working. The series also adds a separate
+module, qda_fastrpc_shim, which serves the full /dev/fastrpc-* ioctl
+interface on top of QDA. A distribution can therefore switch from
+CONFIG_QCOM_FASTRPC to CONFIG_DRM_ACCEL_QDA without breaking FastRPC
+users.
 
-Assisted-by: LLM
-Signed-off-by: Miguel Revilla Rodr=C3=ADguez <migrev@gmail.com>
+Why a new driver
+================
+
+drivers/misc/fastrpc.c predates the accel subsystem. As a miscdevice it
+implements its own buffer tracking, buffer sharing and per-process
+state, all of which DRM already provides as common, well-reviewed code.
+It keeps buffers in driver-private per-file lists. It accepts raw
+DMA-BUF fds, user pointers and inline data as invocation arguments. It
+keys state on the calling process. Each of these has needed
+driver-specific fixes over time, and none of the code is shared with
+any other driver.
+
+Converting fastrpc.c in place into an accel driver was discussed on v3.
+The conclusion was to build the core cleanly on accel, and to keep the
+historical interface in a separate shim module that can later be
+deprecated and dropped.
+
+What moving to accel gives us
+=============================
+
+Shared infrastructure instead of driver-private code
+- GEM provides buffer lifetime, reference counting and per-file handle
+  tables, in place of driver-private lists.
+- DMA-BUF import goes through PRIME, the path used across DRM, rather
+  than a FastRPC-specific fd lookup.
+- Device registration, file handling and unplug follow the accel/DRM
+  model. DSP-specific code is limited to the FastRPC protocol and the
+  DSP memory model.
+- The driver is maintained under accel and reviewed against its
+  conventions, alongside the other compute accelerators.
+
+Stronger isolation and a smaller attack surface
+- Every buffer argument is a (GEM handle, offset, length) triplet,
+  checked against the buffer size. The accel UAPI accepts no user
+  pointers, raw fds or inline payloads, so the kernel never resolves
+  arbitrary user addresses on the DSP's behalf.
+- Each session owns one IOMMU context bank exclusively. Context banks
+  are never shared, and a buffer that belongs to another session's
+  context bank is rejected.
+- No state is keyed on PID or TGID, so isolation follows the open file,
+  not the process.
+- Privileged operations (signed process creation, and Root, Sensors or
+  Audio PD attach) require CAP_SYS_ADMIN. The check is made in one
+  place and covers both the accel UAPI and the legacy interface.
+
+More robust runtime behaviour
+- Context IDs carry a sequence number, so a late or duplicate DSP
+  response for a recycled ID cannot complete the wrong invocation.
+- Waits are interruptible. An abandoned invocation keeps its buffers
+  alive until the DSP has finished with them.
+- When the DSP crashes or stops, pending invocations fail with -EPIPE
+  and further ioctls fail with -ENODEV, instead of hanging or touching
+  freed state.
+
+A cleaner, documented UAPI
+- The interface is documented in Documentation/accel/qda/qda.rst. It
+  uses a consistent QDA_ namespace and rejects unknown query types and
+  options, which leaves room to extend it without new ioctls.
+- The handle/offset/length model carries no host addresses, which makes
+  it a better basis for virtualised DSP devices than the legacy ioctls.
+
+No flag day for users or distributions
+- qda_fastrpc_shim keeps the existing /dev/fastrpc-* nodes and ioctls
+  working on the same core, so current user space runs unmodified while
+  it moves to the accel interface.
+- Both interfaces share one implementation of the protocol, buffer and
+  session logic, so a fix lands once and applies to both.
+- Once fastrpc.c is removed, there is one FastRPC driver to maintain
+  instead of two.
+
+Backwards compatibility and the path to removing fastrpc.c
+==========================================================
+
+* qda_fastrpc_shim (CONFIG_DRM_ACCEL_QDA_FASTRPC_SHIM) binds to an
+  auxiliary device that the core creates for each DSP domain. It
+  registers the same /dev/fastrpc-<dsp> and /dev/fastrpc-<dsp>-secure
+  nodes as drivers/misc/fastrpc.c, with the same secure/non-secure node
+  rules, and translates the legacy ioctls onto QDA sessions. All
+  protocol, buffer and session logic lives in the QDA core; the shim
+  only handles the legacy ABI.
+
+* The core is keyed on struct qda_session rather than struct drm_file,
+  so a session can exist without a DRM file behind it. This removes the
+  blocker reported on v3: there was no way to construct a drm_file from
+  outside the DRM core.
+
+* QDA and fastrpc bind the same compatibles and create the same device
+  nodes, so they are mutually exclusive: QCOM_FASTRPC now depends on
+  !DRM_ACCEL_QDA.
+
+Shim coverage, against include/uapi/misc/fastrpc.h:
+
+  FASTRPC_IOCTL_ALLOC_DMA_BUFF       supported
+  FASTRPC_IOCTL_FREE_DMA_BUFF        -ENOTTY, as in fastrpc.c (buffers
+                                     are released by closing the fd)
+  FASTRPC_IOCTL_INVOKE               supported
+  FASTRPC_IOCTL_INIT_CREATE          supported (ELF image passed by fd)
+  FASTRPC_IOCTL_INIT_ATTACH          supported
+  FASTRPC_IOCTL_INIT_ATTACH_SNS      supported
+  FASTRPC_IOCTL_INIT_CREATE_STATIC   supported (Audio PD)
+  FASTRPC_IOCTL_MMAP / MUNMAP        supported
+  FASTRPC_IOCTL_MEM_MAP / MEM_UNMAP  supported
+  FASTRPC_IOCTL_GET_DSP_INFO         supported
+  FASTRPC_IOCTL_SET_OPTION           supported (poll mode)
+
+Known behavioural differences from fastrpc.c:
+- INIT_CREATE with the ELF image given as a bare user pointer instead
+  of an fd fails with -EOPNOTSUPP, as there is no buffer to resolve.
+- INIT_CREATE_STATIC ignores memlen. The Audio PD remote heap size
+  always comes from the device tree.
+- Mappings are tracked per open file. MUNMAP with a length other than
+  the mapped one is refused, and so is mapping the same fd twice with
+  MEM_MAP. Mappings still outstanding when the file is closed are
+  unmapped on the DSP before their buffers are released.
+
+Proposed plan: merge QDA together with the shim, then remove
+drivers/misc/fastrpc.c, then deprecate the shim and eventually drop it
+once user space has moved to the accel interface.
+
+Design overview
+===============
+
+* Context banks: each "qcom,fastrpc-compute-cb" child node becomes a
+  platform device created with of_platform_device_create(), which gives
+  it its own IOMMU domain. No driver binds to it, and no custom bus or
+  iommu_buses[] change is needed. The devices are created before the
+  accel device is registered and destroyed after it is unplugged.
+
+* Session isolation: each session (accel file or legacy file) gets one
+  context bank to itself on its first allocation or import. If none is
+  free, the operation fails with -EBUSY. A buffer that resolves to
+  another session's context bank, such as a PRIME export imported back
+  on the same device, is rejected.
+
+* Memory: buffers are DMA-coherent GEM objects allocated from the
+  session's context bank. Imported DMA-BUFs are mapped into the same
+  context bank and must be contiguous in its IOVA space, because the
+  DSP firmware takes a single base address per buffer. The DSP manages
+  its own virtual address space, so drm_gpuvm is not used.
+
+* Per-SoC data: the stream-ID position in DSP addresses, the DMA
+  address width and poll-mode support come from OF match data on the
+  two existing compatibles, "qcom,kaanapali-fastrpc" and
+  "qcom,fastrpc".
+
+* Invocations: context IDs are allocated from an xarray and carry a
+  sequence number. Waits are interruptible; an abandoned invocation
+  stays alive until the DSP answers or the channel goes away.
+
+* Privilege: the CAP_SYS_ADMIN check sits in the shared session code,
+  so it applies equally to both interfaces.
+
+* Audio PD remote heap: the reserved-memory region and "qcom,vmids" are
+  parsed at probe, and the region is assigned to the DSP VMs with
+  qcom_scm_assign_mem(). It is handed to the DSP only on the first
+  successful Audio PD attach; later attaches, for example after a
+  daemon restart, reuse it. It is returned to HLOS when the channel
+  goes away.
+
+* Capabilities: DSP capability attributes are fetched once per device
+  through the DSP utilities handle and cached. If the DSP does not
+  implement the API, the query fails with -EOPNOTSUPP.
+
+* Poll mode: a session can opt in to polling a completion word for
+  invocations of dynamically loaded modules in a user PD. If the DSP
+  has not answered within 10 ms, the driver falls back to waiting for
+  the RPMsg response.
+
+Changes in v4
+=============
+
+v3 was mistakenly posted as "v2"; this posting is numbered v4 to keep
+the numbering consistent (Krzysztof).
+
+Architecture
+- Drop the qda-compute-cb custom bus and the iommu_buses[] patch.
+  Context-bank devices are now plain platform devices created from the
+  existing DT child nodes (Jason).
+- Add in-kernel compatibility for the legacy /dev/fastrpc-* UABI as a
+  separate module on the auxiliary bus, covering every legacy ioctl
+  (Bjorn, Dmitry, Rob, Krzysztof).
+- Bind the existing compatibles instead of proposing a new one, and
+  make QCOM_FASTRPC and DRM_ACCEL_QDA mutually exclusive (Krzysztof,
+  Bjorn).
+- Explain the motivation, benefits, compatibility model and fastrpc.c
+  removal plan in the cover letter (Bjorn, Krzysztof).
+
+Memory and sessions
+- Replace PID-based context-bank assignment with per-session
+  assignment. Context banks are no longer shared (Christian, Rob,
+  Dmitry).
+- Size the context-bank registry from the DT count, and drop unused
+  fields, NULL checks and stored counters (Dmitry).
+- Reject buffers that resolve to another session's context bank, and
+  check offset and length against the buffer size.
+- Document the import contiguity requirement and the reason for it
+  (Dmitry).
+
+UAPI
+- Buffer arguments are (handle, offset, length) only; the inline and
+  DMA-BUF fd argument forms are gone (Dmitry).
+- Use QDA_ prefixes throughout and document the scalars (sc) layout
+  (Dmitry).
+- DRM_IOCTL_QDA_QUERY rejects unknown query types; drop unneeded
+  padding (Dmitry).
+- Add DRM_IOCTL_QDA_REMOTE_MMAP and DRM_IOCTL_QDA_REMOTE_MUNMAP, with
+  whole-buffer and attribute-based requests.
+- Add DRM_IOCTL_QDA_REMOTE_SESSION_ATTACH for the Root, Sensors and
+  Audio PDs, including the Audio PD remote heap (open item in v3).
+- Add QDA_QUERY_DSP_CAPABILITIES to DRM_IOCTL_QDA_QUERY rather than a
+  separate ioctl.
+- Add DRM_IOCTL_QDA_SET_OPTION with QDA_SET_OPTION_POLL_MODE.
+- Require CAP_SYS_ADMIN for signed process creation and PD attach
+  (open item in v3).
+
+Protocol
+- Handle context-ID wraparound and stale responses with a sequence
+  number (Dmitry).
+- Make the response wait interruptible, and keep the invocation alive
+  until the DSP is done with its buffers.
+- Fail pending invocations cleanly when the DSP restarts.
+
+Process and style
+- Rewrite commit messages to explain why each change is needed rather
+  than what it contains (Dmitry).
+- Put the MAINTAINERS entry in the first patch and add each F: line
+  together with the files it covers (Krzysztof).
+- Use guard()/scoped_guard() for locking (Markus).
+- Use the DRM driver debug category for debug messages.
+- Add the missing newline at the end of drivers/accel/Makefile
+  (Krzysztof).
+- Reorganise the series so each patch adds one feature end to end, with
+  the shim support for a feature following its accel UAPI patch.
+
+Testing
+=======
+
+Tested on <PLATFORMS> with fastrpc_test from the open-source FastRPC
+user-space library, built with the open-source QAIC IDL compiler. The
+test was run both through the accel UAPI and, unmodified, through
+qda_fastrpc_shim:
+
+  fastrpc_test -d 3 -U 1 -t linux -a v68
+
+User space
+==========
+
+- FastRPC library: https://github.com/qualcomm/fastrpc
+  (accel support: https://github.com/qualcomm/fastrpc/tree/accel/staging)
+- QAIC compiler:   https://github.com/qualcomm/QAIC
+
+Patch organisation
+==================
+
+01      Documentation and MAINTAINERS
+02      Driver skeleton and RPMsg binding; QCOM_FASTRPC depends on !QDA
+03-04   Context-bank devices and per-session assignment
+05      UAPI header and DSP name query
+06-07   GEM buffer allocation and DMA-BUF import
+08-09   Legacy ops table, auxiliary device and shim skeleton
+10-14   Invocation: contexts, RPMsg send and receive, argument packing,
+        invoke ioctl, invoke through the shim
+15-16   DSP process creation and release, and through the shim
+17-19   Remote mmap and munmap, and map/unmap through the shim
+20-22   Root/Sensors PD attach, Audio PD attach with remote heap, and
+        attach through the shim
+23-24   DSP capability query, and through the shim
+25      Poll mode for invocation completion (accel UAPI and shim)
+
+Parts of this patch were written with the help of an AI coding assistant
+(Claude, claude-sonnet-5) and reviewed by the author.
+
+Previous versions
+=================
+
+v3 (posted as "v2"): https://lore.kernel.org/all/20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com/
+v2 (posted as "v1"): https://lore.kernel.org/all/20260519-qda-series-v1-0-b2d984c297f8@oss.qualcomm.com/
+v1 (RFC):            https://lore.kernel.org/dri-devel/20260224-qda-firstpost-v1-0-fe46a9c1a046@oss.qualcomm.com/
+
+Signed-off-by: Ekansh Gupta <ekangupt@qti.qualcomm.com>
 ---
-Based on the ASoC for-next branch at
-11ae63bd9030349a0136fb2edd1622a4a029edc8.
+Ekansh Gupta (25):
+      accel/qda: Add QDA driver documentation
+      accel/qda: Add initial QDA DRM accelerator driver
+      accel/qda: Add compute context bank devices
+      accel/qda: Assign a context bank to each session
+      accel/qda: Add UAPI header and DSP query ioctl
+      accel/qda: Add buffer allocation for the DSP
+      accel/qda: Add DMA-BUF import
+      accel/qda: Add legacy ops base and auxiliary device
+      accel/qda: Add legacy FastRPC shim skeleton
+      accel/qda: Add FastRPC invocation contexts
+      accel/qda: Add RPMsg send and response dispatch
+      accel/qda: Add invocation argument validation and packing
+      accel/qda: Add the invocation ioctl and teardown on unplug
+      accel/qda: Add invocation through the legacy FastRPC shim
+      accel/qda: Add DSP process creation and release
+      accel/qda: Add DSP process creation and release to the legacy shim
+      accel/qda: Add remote memory mapping to the DSP address space
+      accel/qda: Add remote memory unmapping from the DSP address space
+      accel/qda: Add remote memory map and unmap to the legacy shim
+      accel/qda: Add remote attach to root and sensors protection domains
+      accel/qda: Add Audio protection domain attach and its remote heap
+      accel/qda: Add remote session attach to the legacy shim
+      accel/qda: Add DSP capability query
+      accel/qda: Add legacy shim support for DSP capability query
+      accel/qda: Add poll mode for invocation completion
 
-Hardware inspected on the affected laptop:
-- DMI product: HP OmniBook 3 Laptop 16-by0xxx
-- DMI board vendor/name: HP / 8EE3
-- PCI ACP device: 1022:15e2, revision 60, subsystem 103c:8ee3
-- PCI driver: snd_pci_acp6x
-- Kernel: 7.2.11-arch1-1
-- acp_yc_mach.0 exists but is unbound; no ACP card in /proc/asound/cards.
+ Documentation/accel/index.rst          |    1 +
+ Documentation/accel/qda/index.rst      |   13 +
+ Documentation/accel/qda/qda.rst        |  222 +++++
+ MAINTAINERS                            |   11 +
+ drivers/accel/Kconfig                  |    1 +
+ drivers/accel/Makefile                 |    3 +-
+ drivers/accel/qda/Kconfig              |   45 +
+ drivers/accel/qda/Makefile             |   21 +
+ drivers/accel/qda/qda_cb.c             |  129 +++
+ drivers/accel/qda/qda_cb.h             |   29 +
+ drivers/accel/qda/qda_drv.c            |  229 ++++++
+ drivers/accel/qda/qda_drv.h            |  187 +++++
+ drivers/accel/qda/qda_fastrpc.c        | 1417 ++++++++++++++++++++++++++++++++
+ drivers/accel/qda/qda_fastrpc.h        |  452 ++++++++++
+ drivers/accel/qda/qda_fastrpc_shim.c   |  745 +++++++++++++++++
+ drivers/accel/qda/qda_gem.c            |  146 ++++
+ drivers/accel/qda/qda_gem.h            |   53 ++
+ drivers/accel/qda/qda_ioctl.c          |  460 +++++++++++
+ drivers/accel/qda/qda_ioctl.h          |   33 +
+ drivers/accel/qda/qda_legacy_ops.c     |  212 +++++
+ drivers/accel/qda/qda_legacy_ops.h     |   68 ++
+ drivers/accel/qda/qda_memory_dma.c     |   85 ++
+ drivers/accel/qda/qda_memory_dma.h     |   22 +
+ drivers/accel/qda/qda_memory_manager.c |  213 +++++
+ drivers/accel/qda/qda_memory_manager.h |   77 ++
+ drivers/accel/qda/qda_prime.c          |  217 +++++
+ drivers/accel/qda/qda_prime.h          |   29 +
+ drivers/accel/qda/qda_rpmsg.c          |  322 ++++++++
+ drivers/accel/qda/qda_rpmsg.h          |   26 +
+ drivers/accel/qda/qda_soc.c            |   66 ++
+ drivers/accel/qda/qda_soc.h            |   61 ++
+ drivers/misc/Kconfig                   |    1 +
+ include/uapi/drm/qda_accel.h           |  282 +++++++
+ 33 files changed, 5877 insertions(+), 1 deletion(-)
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
+change-id: 20261102-v4-e8feb321263f
 
-Validation: git diff --check and scripts/checkpatch.pl --strict.
-The patched driver has not been built or loaded, and microphone capture
-has not been tested with this change. Running-kernel headers are absent.
+Best regards,
+-- 
+Ekansh Gupta <ekangupt@qti.qualcomm.com>
 
-AI assistance: Codex helped inspect the hardware identifiers, prepare the
-DMI table entry and changelog, and identify the submission recipients.
-
-The same quirk was previously proposed as a GitHub PR:
-https://github.com/tiwai/sound/pull/8
-This is its first submission to the mailing list.
-
- sound/soc/amd/yc/acp6x-mach.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/sound/soc/amd/yc/acp6x-mach.c b/sound/soc/amd/yc/acp6x-mach.c
-index ae2652445..f7a1b8b8f 100644
---- a/sound/soc/amd/yc/acp6x-mach.c
-+++ b/sound/soc/amd/yc/acp6x-mach.c
-@@ -766,6 +766,13 @@ static const struct dmi_system_id yc_acp_quirk_table[]=
- =3D {
-  DMI_MATCH(DMI_BOARD_NAME, "8DC2"),
-  }
-  },
-+ {
-+ .driver_data =3D &acp6x_card,
-+ .matches =3D {
-+ DMI_MATCH(DMI_BOARD_VENDOR, "HP"),
-+ DMI_MATCH(DMI_BOARD_NAME, "8EE3"),
-+ }
-+ },
-  {
-  .driver_data =3D &acp6x_card,
-  .matches =3D {
-
-base-commit: 11ae63bd9030349a0136fb2edd1622a4a029edc8
---
-2.56.0
