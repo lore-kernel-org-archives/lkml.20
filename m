@@ -1,71 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=79.135.106.113
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793536196;
-	b=tgAK3NrZULGva85efARUJ1aaAr1arLxsXEtOG7Dxk22CkjmEID2aSYRjke9n1Sp7tPNZ
-	 gehfG6iY4XWXio/7rZbmO2CwSjshxrmOWFLBS/d7E+GuCQpqAPU5QN5vcazYigJT6yf01
-	 HZE2NALH0jtLN0EYgxmqU/TEGmvmKYk168fbLi3AWIhpY42a7GWye90mEWjsBrOHJMsns
-	 0KPomHSoAd6yCfs+19DcZuHV5nrkcJYVjpawPPFI0tM2/4Qvv9ek2CIeeqqhXvRBBEL8z
-	 Wm4XDg661bqQVsQepKwcrCuIJyE+pRZV7+6jiyDHd9xhpkfqGUpEzGwzddSt8gJDRQQ==
+	t=1793536281;
+	b=AlxSevU07Q+LHVMQZrIIpEjJuEatoggoKisl6c5n+zKfshGQUUZJ2z1/lK6pCTXklC8b
+	 oPXpAZFdiiG2zgf8dVdsE370+3acnx9wIuiwt+YeKztaAQ3/4zIV11pZ3WHRRdTxxbdGv
+	 l91vSAY9wkBLsjZ3cfEYh9B/GNhqX7nX2rU1xkT4hb9BnYono6CSybkGjTfUxhe93+eRM
+	 YwrwW74egdoEGs55u2RLnnnGlunxkR+VSILA9SfBp1a8xn2M4wjizRv0Qp46u7VsbDOfV
+	 uERhpJpfFnmMf2P9cOgNdJyliYUGHQVp4rfKY+as0MUSCrsMvRcDy5PHJafA0XzWK1A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793536196;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=5CNWPC3f4Y7cj+kyGwcKKMi29wAdC6p/pBOZZ28e0cY=;
-	b=RocNiyL0MpTsz6GTT9kgyqm8M6M0HSMIVUIDmaM6wTeHGbXkDxaF8utwK0WaFxBsJusg
-	 2rSxJd7NcblJmyECnA8ZWV6WLP0/LM87+Sj6hrQVoiXf/QVr5zR9XXEbwIiK1iHUgckGr
-	 kCAJzJXqLaVPfqCMhSkIaLo38EfwbPVI8ej0xRa2/KsayonesRR9Y/EUtuyNgSjNLy6l9
-	 78qfXg7In93QmXVGqESmbOTEg8oRHG2OGRPxzwx9sG2fdIKGP45zHyA1MEpFUBfWir7M3
-	 B4+evHiJFp6MXyLr+yL6p366GMTjHEwEvP+yXOpaGrIGe724ej7/S3QzQzyCEpUBYQQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793536281;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Cc:Content-Type;
+	bh=mpG7rekE9P1Lsc2DlbgAaKzCw23xHmyFFTEJHmMozf4=;
+	b=2FDmF+NPRllHQcA3+QD5wuwPx/hQm2LGZP3RF0i/63uFBgvPC4z8JJhflgmheXIVms7u
+	 SefQUhEuizvHzfCnl8gNwl+lwl5w/3HoPiWdRIdVI75rXmp4VNKwT1TbVvT3ppAnUfDus
+	 I8EBjiN8pXe2Jz6lruF5tzuTgxbTR4IImtMmQOu7+1mG57/BDhanX7RF3xJtdp15ECMSj
+	 bKKv9qQP92AOBVlP2asROyFGioRGxBt9zWBAx6KjOwJMsscDAi3fZzcqHWSmmuR+zCTeV
+	 2Vo9MTS25CmOxR8pUedQWOIYQKj+MSCfM1qx0gkImdrKqxFq1+MwZeWAWUtuh8D37lw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=softbase.tech;
-	spf=pass smtp.mailfrom=softbase.tech;
-	dkim=pass header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=EBcTXb9w;
-	arc=none smtp.remote-ip=79.135.106.113
-Received: from mail-106113.protonmail.ch (mail-106113.protonmail.ch [79.135.106.113])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFE1606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:29:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2CFE1606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=softbase.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=softbase.tech
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=EBcTXb9w
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=softbase.tech;
-	s=protonmail3; t=1793536191; x=1793795391;
-	bh=5CNWPC3f4Y7cj+kyGwcKKMi29wAdC6p/pBOZZ28e0cY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=EBcTXb9wZy9SYEH41vt7FqHbLnqf7GvXMvWPm9jYNy8wn/Nr1Mk49MazGTWd4z7d5
-	 hJEyKn0q713yBFOgiSSnarWuPJkoMa7e5R0c+e7QMYJ8FH7gomrXpu9ffVt6vgLkmE
-	 aX0bV1llgwgmqoFQxPpKNVyFfmPFO0ZV9KTsfAHBTcX0UHSTfvgb4mOhdC1xwo6K4g
-	 aHkBg5mAVEHuRoHaAcpY+G14Mp0TeQk25M79FdrrGwm7tPImSklDcIsmWvaceK4rqh
-	 CtAOX8gS6Yop6flHaSQI3Em4vVGouZ1z7bjE0RtFbpJIWKEXvkE0q9CBRo+lJYWE8n
-	 gBO7NAvhy4vFQ==
-X-Pm-Submission-Id: 4jHZ0X2y0lz2Sd2r
-From: "Beat M. Liechti" <beat@softbase.tech>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
-	Dmitry Baryshkov <lumag@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Sean Paul <sean@poorly.run>,
-	Marijn Suijten <marijn.suijten@somainline.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Federico Amedeo Izzo <federico@izzo.pro>,
-	linux-arm-msm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	freedreno@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	"Beat M. Liechti" <beat@softbase.tech>
-Subject: [PATCH v2 0/2] drm/msm: fix CTL/LM swap on color management changes
-Date: Sun,  1 Nov 2026 13:26:56 +0100
-Message-ID: <20261101122943.8155-1-beat@softbase.tech>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101095754.33840-1-beat@softbase.tech>
-References: <20261101095754.33840-1-beat@softbase.tech>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0763606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:31:20 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0763606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4f8281066c4so2996363b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 04:31:20 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793536280; x=1794141080;
+        h=content-type:cc:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=mpG7rekE9P1Lsc2DlbgAaKzCw23xHmyFFTEJHmMozf4=;
+        b=Ko0ZrvqagSRkg+fMsKN2cqdKA5bs3xrVJUQPGj4DtBrndiFE5OSyuh9hAFRwoYkolg
+         pK5+uOg75UjG/zfKim9a0BoqKwBVum8E4lnx4SS4FimYqwb3jSHhnOoVrELB4MNPBLC3
+         4XWm7GBnmdy0ZINxvVmGX/ZLadKKfe6aD0tewD2aDxf3/bZi7C2xxY4u0UHiA2/KcrXx
+         08whFNgWnzVtET1UFkqRtYploXM0L+X3LjJAoy4EJKYFD48+5URw1J4x9KR+kB5FPVW3
+         Ael6EsYHU+gBtATfcqAdGjwOPETnpLKgIvhRPMt7sPQ5LrAvvsk/G3ijosUNnN8t4KMA
+         5F2w==
+X-Forwarded-Encrypted: i=1; AKwUvBx8Gl+nNuXTaZ1YoqRAqU1/rbZfJZSf0kQv0T5y3t7izbfCqiil6Eb7NgY5K0hr6tkY/b71QZXWK0BkjJk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKEzumZkNfZjwtNNRDSnLoflBGgRMvVLrRjqx7Cwz7G+GDE+3r6
+	vwOrqrbfaoqPrhqps/5QxekJf9OYR3tL5mrsChPj95dwP2jEhAlwyBHxAtTjI3UAUMBOObMyUjw
+	MTPijcwdZPvjd0SOZkolx6T+cXmaqaq+XQAx84+aEX/Wg6UUPtCsjLMVxrM8=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,28 +58,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Received: by 2002:a05:6808:bd1:b0:4ca:8d6f:4258 with SMTP id
+ 5614622812f47-5640de8c633mr4713639b6e.37.1793536279887; Sun, 01 Nov 2026
+ 04:31:19 -0800 (PST)
+Date: Sun, 01 Nov 2026 04:31:19 -0800
+In-Reply-To: <CAGUpAYkgbVV3Y1XJdQyv_GY7T0pSvaC909ct0fWs3sSXFWs9CQ@mail.gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae73117.c8ffc79a.e3697.0022.GAE@google.com>
+Subject: Re: kernel BUG in sysfs_break_active_protection
+From: syzbot <syzbot+dcad997ed2b5bd95cc5e@syzkaller.appspotmail.com>
+To: sajal2005gupta@gmail.com
+Cc: sajal2005gupta@gmail.com, syzkaller-bugs@googlegroups.com, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Closing the lid of an X1E laptop under GNOME with an external display
-attached moves the still active external CRTC to other CTL/LM blocks
-without a modeset, which ends in SMMU faults and a hung display
-pipeline. Patch 1 fixes that in DPU. Patch 2 removes the CTM-only
-allow_modeset hack in msm_atomic_check(), which patch 1 makes
-redundant.
+> #syz test: https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/?id=7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
 
-Changes in v2:
-- Patch 1: don't set allow_modeset on behalf of userspace (Dmitry)
-- Patch 2: new, drops the legacy CTM check (Sashiko review)
-- Link to v1: https://lore.kernel.org/r/20261101095754.33840-1-beat@softbase.tech
-
-Beat M. Liechti (2):
-  drm/msm/dpu: don't reassign resources on color management changes
-  drm/msm: drop the CTM modeset hack from msm_atomic_check()
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 25 +++++++++++++++++++++---
- drivers/gpu/drm/msm/msm_atomic.c         | 17 +---------------
- 2 files changed, 23 insertions(+), 19 deletions(-)
-
--- 
-2.53.0
+I've failed to parse your command.
+Did you perhaps forget to provide the branch name, or added an extra ':'?
+Please use one of the two supported formats:
+1. #syz test
+2. #syz test: repo branch-or-commit-hash
+Note the lack of ':' in option 1.
 
