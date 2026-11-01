@@ -1,49 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571355;
-	b=15mBFUgC56GwOMUeqhski/8Dd3QmRBy2WDoQWxctqJscLQpHA8p57BIYPe9EL8Hwod+g
-	 ISyrN7c9FqraFHe/QTmfzYNO3kwQg4/77fjBA106RqCXvgqr9ENGoLHFQfu9B4Ftuj2Nq
-	 O9q22EfcYvQbTDN7wfYzzWHXbW6ReuI1DGg+L1jgmnV6KdSMv59u068GVsuImQjr9q6sS
-	 93SoHgo7bvsL/Gtq+p03wtxzdUK/WDiOsD/GBKqb9fnodHLuDqs0bs7oqlxdOJJHC7UUp
-	 /MVWPyMIo0bM8B10jTE7n7QcJ5TmVMNy3vuhzi9KtFDPQcWOKvAAT1TRED2TjJU/cCA==
+	t=1793571351;
+	b=4DzdbZIinWppBae1PSAmlOdwjWKpptFD1heQgJtFl2hQZwXN7imowAS9JkY3ZpJz/fuD
+	 5lH/WC81Pq8kXmBqJ/sMUDQQ5j8ptrHXuLJkMKhxnofzo0UGh5ChT/oBRWrOvW+8PpTUq
+	 l35pjk3Sj6YntwXvtsVEi6yHRKwx5SKrHS6yWpHxwdIVPWXy7orUrHyknuzgPxvSLpfP3
+	 WLlhvrYt2i2UGVvz8skdMfHyxW8w6EtddHsJEjva/DGFIGQNSKWj0mw/ZSaQFabPrQLN3
+	 Gx+YdVHR0pRPbvx97JijuvhYV6cr8pVstmEsMyrrrMD5xdVWn/OVfnPLOaSFMa5C75Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571355;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=NtvSLxCeAfOoCPUcLXijhf4eopOStWrRuZXjlGTbL0Y=;
-	b=SiMkKmqRMsiAgqKOxyeGS+PmjkqhUjONBN+lzrPzi9/90VJPWyaTvX3zsteM2WecaMlS
-	 NKMIwP3jDiUWroh7v7qUSmGttdJBZd9XFdtaBeZTwJzyWNsTgJlS9oDqfN1qsZUUAmLZi
-	 u6t549omhk0hrQWJ/q7zKC9DdSuxIKfHPEcZNOHSNBlOF2jDwwHKmi3igPvDG/GshvU4P
-	 zf9DTEkzVb3HfwJyGB4v9twXPgSMgM/3OLh27UonFMQu00pxCf5IcRG8L4bSA19dDLI7h
-	 noMJYQk7w7bXqiUmzxm6vdf/r15lJOmUfdHecgdkD1thfUtcAlX272ftVwURSfuri2w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571351;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wv1ABuR7Ob1gLZHZ2qpyHBZVXGvor+J+W/F07nCfMhU=;
+	b=RXxeNVpA20vLh95nHMMU2VOOCrj39p/RFXZkZQcxQSD+957TBu2TZ30egThlVpO/8UUO
+	 Zr/r76r/P0JMu5COUaka+mFuqhd5yEdyieWJo4BghyaQ52ISguwZy9EJp+EQIqe5lzv8N
+	 6YY60mBzyW57Frfnyam+UqwmQPiv3Z5AuM9sJg8tFSeGJbiq62DapwMVFeTMiQpqCuA5m
+	 O1UWmdGI55YL1xtA5sHXWgYoWDKDMl2C6AgAUMpdX8FduIYQyrv0xk1FEs0ZI4a/3fWBz
+	 oDMBf6qyv+L28hyIM/xjsB+aujpXGbxbtrlVTZ97t0CqRdymMkFZ0Uz0YrTwm1eYrWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZKoBexQh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDB8D606A330;
-	Sun,  1 Nov 2026 22:15:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZKoBexQh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85D121F00A02;
-	Sun,  1 Nov 2026 22:15:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571354;
-	bh=NtvSLxCeAfOoCPUcLXijhf4eopOStWrRuZXjlGTbL0Y=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ZKoBexQhRXRdf4UMV5kLb9mnk7bxuTeU9/aOxjsdVCuZzJfHLn+5n4iKhY/oUvoLp
-	 JVlIk4OSC46FGW/cqROShhBfR0LCiGtieNG3r2bP4+vQJKQQN6avAsI3VexTFYEc6H
-	 HeqNJOYNac6pTBjs08uHalbq9/cCo6b4M6EJbRyY8db+P5Yb+nJ89MfGrKvDO/DvqA
-	 EWV32KMLhX7VyAZUZh9xWUqV88A96fOJFPJbNBsWYVqdUjgIvMvML58c4FLKcoe6ME
-	 onFhhkTXSYOw8AndRXgJz1clc6dTs2kPPNm3il6xlWAexBttRJ6fQAlrv66HQgZ0KI
-	 /vAjPn1nOn1zQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D3C738003B8;
-	Sun,  1 Nov 2026 22:15:54 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2FC606A32C;
+	Sun,  1 Nov 2026 22:15:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF2FC606A32C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=wv1ABuR7Ob1gLZHZ2qpyHBZVXGvor+J+W/F07nCfMhU=; b=J7kQ17dyQsTsAEHG6ajo+xgzCO
+	CAaNzQK8q+FqqOxfFCRVLMxqVh8dfcyNgha8Ma+cvRRBkZvFVTnx33fcIjA1ULi9aodpNX5yYrZUG
+	Su3u7GDWgBLF5dJdSME3kryro7FPb93nBPkGJP588b5otHQkNxSQxAdmJVh5TUFgg3dbyZIHxH4HM
+	KUz+znBW3GKmQHpJvfWOibYLRa/A/JUzY1ZJ6xXRaI1lLUuk83Q0jSbnRS/hrhkl/N5xUOj2OsOzU
+	rVhknn3WovtpDtWH3paOls/PrZvs70uCXo6ARaaWTahdX7WIKWmtsKJH65XMBKB12G8i6gxaMLzT8
+	ecb0JEIw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Pufan Jin <2254650260@qq.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Jimmy Hon <honyuenkwun@gmail.com>,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: rockchip: Enable the NPU on LubanCat 4
+Date: Sun,  1 Nov 2026 23:15:20 +0100
+Message-ID: <179357131388.4107717.16646264299235456794.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <tencent_9C3151C59C077D547095ACDC1F08B481A50A@qq.com>
+References: <tencent_9C3151C59C077D547095ACDC1F08B481A50A@qq.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,52 +65,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] kexec: return -ENOEXEC from image probe functions on
- mismatch
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357135307.2624073.4721839203390727689.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:15:53 +0000
-References: <20260813-mpilaniy-v1-1-777d4d0e30f7@redhat.com>
-In-Reply-To: <20260813-mpilaniy-v1-1-777d4d0e30f7@redhat.com>
-To: Mukesh Pilaniya <mpilaniy@redhat.com>
-Cc: linux-riscv@lists.infradead.org, catalin.marinas@arm.com, will@kernel.org,
- mark.rutland@arm.com, chenhuacai@kernel.org, kernel@xen0n.name,
- pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
- akpm@linux-foundation.org, baoquan.he@linux.dev, rppt@kernel.org,
- pasha.tatashin@soleen.com, pratyush@kernel.org, ltao@redhat.com,
- prudo@redhat.com, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
- kexec@lists.infradead.org
 
-Hello:
 
-This patch was applied to riscv/linux.git (fixes)
-by Mike Rapoport (Microsoft) <rppt@kernel.org>:
-
-On Thu, 13 Aug 2026 12:36:29 +0530 you wrote:
-> Several kexec_file_load() image probe functions return -EINVAL when
-> they do not recognize the image format.  A probe function that rejects
-> an image should return -ENOEXEC to indicate that the image is not a
-> recognized executable format.  -EINVAL implies a problem with the
-> syscall parameters, not with image recognition.
+On Thu, 06 Aug 2026 00:57:06 +0800, Pufan Jin wrote:
+> The three RKNN cores and their IOMMUs are disabled by default in the SoC
+> dtsi, so the board has to describe the NPU supply before they can be
+> enabled.
 > 
-> kexec_image_probe_default() iterates through registered loaders and
-> returns the last probe's error code to the caller.  That error
-> propagates as the kexec_file_load() return value to userspace.
-> Returning -EINVAL from a probe when no loader matches is semantically
-> incorrect and misleads userspace about the nature of the failure.
+> This board feeds both the NPU logic and its SRAM from a single RK8602
+> output on i2c1. The vendor DTS makes that explicit by giving the same
+> regulator node two labels, vdd_npu_s0 and vdd_npu_mem_s0, and then
+> handing one to rknpu-supply and the other to mem-supply. There is no
+> separate memory rail to describe, so npu-supply and sram-supply both
+> point at vdd_npu_s0. The binding requires both properties.
 > 
 > [...]
 
-Here is the summary with links:
-  - kexec: return -ENOEXEC from image probe functions on mismatch
-    https://git.kernel.org/riscv/c/2792b4b15f14
+Applied, thanks!
 
-You are awesome, thank you!
+[1/1] arm64: dts: rockchip: Enable the NPU on LubanCat 4
+      commit: 77026e98dce776dc45ca7bc77c3d2ba95c39f6ca
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
