@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793572326;
-	b=TO/awc0y+6HV/Hb5SjRCp/W26sUSO28bUTinxHPXxlXIgwPyWokxTI5veqs7km4XW0aV
-	 eVoif/qDeEgJNDvIqyBtNiCHBu2MGEtF2nw1h8uR0X08PlLcjaVQ+xdzqjanzQasp1taZ
-	 rzZ6fIYm8o92d2mVy7uTL17BwnOdbpTJcS+6IaBVf9cyGo03MConngrFWZ5OesAFJSFaa
-	 AGgYUiiAK10eCeEkXX2jXrdWwv56BvU5d3ufU1/yeW6+63vu4ew1a/PS6OeOPlZhAhkKS
-	 fawze2+jO2tn5WE9CUI6dKpgwsMATeWb6dSLLwUMDU+j/DUqnAqFD+kkTgLA4YANxBQ==
+	t=1793572330;
+	b=RQK/C9esfE5G4DskY7RCMR0nRF6zwWp8falUCcRTgyVDo4A5sv1tP3DbOKN82/z9hBeH
+	 H1dH5R4j41jA1rMDtQNHofFb4cCdghyPIv/XBAU1xTWCo0vdo0hIQI/YrxGoqEnZzvanV
+	 uGN69CjW1XqenSbAOu1cJG85LwEphtxMxKLdWpcUdNFHzXvu4e8m1M+mtFIcJf4w2RI0k
+	 mxYDOPBgI0JySDHsdnGP8erQHWkWj4/geLMvaXMLjDGDXnpBLySnJcxlktgFeBQyJj//O
+	 //h4dOqwS9cjB0lRiQrJgZBesWFBiyVpSjN2N/RGw5qtVbiVq9O1fDG4VWjPHoaMjQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793572326;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793572330;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=oYiJNCm3dPOIvzBQ4ij7Am1GRKzxdtfe/iOcs8mQrc0=;
-	b=bfzjcG3jQ3UM8zQKUOVAYGS9cms0LcobAp9tQANYVcPPrf/l9c2u/FTb/Xt2OFfJKuU8
-	 LqGKnf6KTVOw589uuAJnwq27zc5LgHlZsB+O8L12evWCP6C0CHeAfFKhCYPmVPID47EIt
-	 pB9nnvAW2O2juX+hdzYm+gVu+HpqqhpOlbbhn7Iy5Uma5CO1ZLAUdJahI2eCjND2U70WY
-	 gTyVeid3wFY83B7zXcOW7D/ObpbMPyY/wuJURAmWhkYqXwnpssBPus6rHRAF3z2JG88p2
-	 F7wKWuGLe2DjG1XLLjROe1KksawpWUwQb88t09n6eHHdn4K1YW/ZFnBZ4CKFr7zH8Qw==
+	bh=QoUYqEEH+0gU4KmqZ9aJ26sC/GFx+iLxZx0WIWpJHDM=;
+	b=TVtGoSr5dg0yLNDJQoc2ovUj/l6VEI7RYbVLTuniz+ViimmNitbtM0LHPidhfiwEHcG6
+	 Wa6nWyz+PMhL41o9Eq+c4JRC6HwQl1l5+tzyFDNHKiAtLFWXjLygy2g8xpWesy040+los
+	 emxW8Ftrnry/aGJYlrFxCLAxQlvh9pKZz3Mcrq/naK5K9t32Scey+oMN0CXL/p3lonDPj
+	 d+mmiG1raQPE0ZtJozY5m+z779FGDbMS0vBa369uPquVU0gTSp+18+Z0w0KWmBd8RgTCT
+	 tsmmb62XpSp7902+wI32o1v2eCXcN2jjBwVw5g2w0mnIRtGmn0bKYJ0GQokCcvYfDZw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I2ooZpGI;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LORef+lV;
+	arc=none smtp.remote-ip=209.85.221.43
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2775C606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:32:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2775C606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F56606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:32:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D2F56606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I2ooZpGI
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48e3b22e971so1141264f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:32:05 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LORef+lV
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48e1d0e5dafso1778586f8f.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:32:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793572324; x=1794177124; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793572328; x=1794177128; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oYiJNCm3dPOIvzBQ4ij7Am1GRKzxdtfe/iOcs8mQrc0=;
-        b=I2ooZpGI2PqeKBO+rDDiTvxGNOBwxhL5WAyKdoxPI+oFkvWSgdN0rDu1A+AHvzMrjc
-         KEKrCi+Ck8AxjoFFVjg60rrzRfP2VbJF/yJByjkjZ658zgoE2qN+1k5WsBcuKtk2mR8H
-         U0Xd2bUF9uHVsPP4HydVk2NK1ya66j/2LJzP5HXrbL17iRBl4d2Vg32tQ4ZVoJ+rgKm+
-         ai5kH/uP4gicx5UcBq5pdeWS6i/7IciORQRoU/+fqzujO8PBGc3+wATTkyc31MOKoCU/
-         89MQOYkmuac2Gr/6Hnr0BIHUGUCzVVPIyz/FzCOLaA5a1nM4oT/3jiR0O0/GAFji8S0M
-         7Aag==
+        bh=QoUYqEEH+0gU4KmqZ9aJ26sC/GFx+iLxZx0WIWpJHDM=;
+        b=LORef+lV5mk1U4euf1yzPpEn7oB8+4KqJfSV/RBDbkW+rvlhcsC1KxXILM/vK7KXh3
+         C6FKF+kORwBWrM34y3OL1ffTVFZDw8r6Kv/UlTvdAyvXzRaDsoJ3SmpkkefksbidvdEQ
+         a6RvURikXnfg6782vg/XzzQCemx2JPirM6jaGSSbV8Z1FYMnTwI4+h3torMphDoL+SWo
+         1i9VHtomeM97GEhQDaNSpcdWNTLnaCTLORqh5dDFPiJZ10d2v130Y5FsKwPNOn2/7QPH
+         WOKPju30Ptb8urZVLCm+4jc2pdkfpCYdkJlP5DkeV0ONXCrRy77D1+DN9K70qa+jM4EW
+         IxbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793572324; x=1794177124;
+        d=1e100.net; s=20260707; t=1793572328; x=1794177128;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oYiJNCm3dPOIvzBQ4ij7Am1GRKzxdtfe/iOcs8mQrc0=;
-        b=eEunof7woOmZplvghzAWJmALWYgvYI7y91dcRGSTwjAZTIv9FAsVs/OAWZyM1hj5hH
-         UgSs+kdJ/IAYDzSMvI8M0U0fwL5Ak48IHK+kByP/ZHzhUJWVmMzwNVa8VWSuTuE4Nfkk
-         yLx1q3pwta4YPc5CGub1vVY64kt0Ow190GuOvux4BN+OyxE5DktY1Zx3Wi0UEjpM3wlv
-         sOnf/JVr08Q3mdgO7gcblpWCYuFKfU+jBxBycStgQlu2iPUA//V+HBvj4sBgv+4OOUvT
-         daGE4oAIF8ysRa9sopgmvi4OdBiefcWM1qIC+4yhIsoxOOQfChJCbyaDeLDDOLzsR1qO
-         cdcw==
-X-Forwarded-Encrypted: i=1; AKwUvBwMHrdJNi4phRNdyy0ZIk3Wnz9IRPCEFysRrYaJuJhAEy2ZvFBiQxk9lytHswwp1GlD3T9ZuvQbtCvc9Kc=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/mB6EhMyZ9ZDA6mwMisRD9UUvG4GTczLCOYPXDpPeR7EQA+4u
-	Ra0mEmxtpZMUa54p7ty6kEpRsiEgHBfCf1/6s3TODcTkqiGviGosOmgl
-X-Gm-Gg: AYBFou0dKwpWEqOT45yeWCwQFJCjSf6hqRyTfIQeORxUfp5qxMOE3UW3H5MTplxJNI4
-	plUo1Jr00G9BruzXmvtdUvDyb+Jmcf3tN+SpkaVar525E5mwan1CnvjCCPR/95u9JuJ4nn4Hqw2
-	s5onrkPdbAZZclxWzSUZjuwyh3fRepSRYQfgApWx3p9E+w3cZixJpR1eEHMwqvBPegu+XQ3wcBm
-	WLFXY5yc1fJuXyaYJqeMW4VuWAbbuqfbCORVkEr5cXzVsQSVuyaJKlT5oIaP+oA1pWOJ/v/dJ/L
-	uSWhjIg17jexUOwIsIRuVYFsyJA4z1NpNcnkJTjb8tr7th02BhPvU4cIHq+NQgK9hfAwaIgMAlo
-	ydLFhRc/Ebhcsa/jScuXyeo8fq8YjrhVzUIfZdmMC/ygA1EQw/RHvbdZkNaIHcb3KmZD4Wvh2cP
-	5xWqM8GJjSx0hHinvV9yf5S9UP2iD9wQJ3Ie0AuLRuiGGrnTLK78tNilYn+gCNye/lKQD7Gt9Ap
-	v6Ve0jfj9CpuapRVWxTtE6AGCSRkzavUl5C7h1/F4xuGjqghL6WbRpgIj0CncmfepzZX5UM1iYT
-	EXds0cuHBJQlJTM/v43kIlMD64DirXN2Xvfi6gjBTU8+dTtm7BOjhI+PcE+KpTo=
-X-Received: by 2002:a05:6000:2892:b0:48d:eb44:650c with SMTP id ffacd0b85a97d-48e6e309f40mr19426940f8f.40.1793572324516;
-        Sun, 01 Nov 2026 14:32:04 -0800 (PST)
+        bh=QoUYqEEH+0gU4KmqZ9aJ26sC/GFx+iLxZx0WIWpJHDM=;
+        b=mZ7fAYDus2pQr1udNPdrVZqxQ1IajCkKKHpIjnU9bDLnIpOzQAXPpBoKvxeW4gUNJn
+         bjfzMWZKBCThqwomCmRJJe49LN9Cfe/3aBqEfB09R3Vxnvjpyr5uSI3ih5wT42sruCHt
+         c1N1cVt0LdyYktINVibLxiqnUrn5IHWJFpCWdA+L+Kpf500luy+rxAhAPmR7TKjmF1FF
+         8fWq1LHqPy3cm3eESaS8kmJFr3vanF5EU9OU2EnqX+J2OcFTQGcWozh5OkUreSa/Ocwy
+         q2Ic+N+Gk6TZPaTHaQJFygt/yqnhpdLT4jxYCX6K/NAAAzzLGRlzIaFmdXN60r8z3/sQ
+         L2pA==
+X-Forwarded-Encrypted: i=1; AKwUvBxp/3YDlUGp+GUybefOZLwVTuFS1VkRXnvnpCda6dUkiHyOHJQJ+wuOOFSJsHHlUfYQrf/HuW4oaqmwtdw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8UhDzsW40L8QFRJNcmBgHjlcsqcrdhKBD/kgp5eNOmFohLCIOG
+	4xUkS1sqMENN7Snyg98iYRLNZM29G5m3H80DECIM7mB7szUB4tN68Uq7
+X-Gm-Gg: AYBFou0Lvg1IDyXL/vvvIWE9Y3RPFjyTcZ6aOS+RWRz7WnOZ7iKFs3RN4/7rB0il+Bt
+	GOeD9X0yR2kYbwtPYk5vAK9cUJBHvWJJUzp9J/602Kq6EfNQTVMgPiq+IZ2LdoQ/UL2KUXG3Z6Y
+	hw9jjy6xwoxqgmLh0r/7HXFaPgq4whslB5fX/gIfqgT2x0ToWbCS0hJ1+pF/MkAquDycOcGad/I
+	50rc0CmmLO8aLceFimlMi7InqALZWgwOi6eD+INZoh1v1HQrgcBbaPPL0Uj8AkL8R5dgae66F+I
+	6KT9gfCHpdBh8fIj9GqdbhqcYLU5KYmMh2wak2QlIUPqDRuUOzq41BlNx94EijUZ0/pmVTw1Ea8
+	S3jyrIYhoPq0VA4GMnxdoPhT1MeI918I5vA98bmamqBtpqNrkx3Git+LW5RZwEXJq3/hkcriI1a
+	iDwLRV5qR3GuH6mtTIX2P6TplqsXI7d4C5W5LNMw/SAe29AMohTUhiLNBEYP60g/vuZ5zDR1maE
+	Qsnk/EmX9pp0VEmKMtCga6+xtOyZ9vJxA/GgRbsFrJ46CtLcRfkFEc5buynkiiXNYK55E97vcS8
+	RG85iws7nUZHxEEJj45x+n+ha0vn9SsrraT852MBcU7ALXNz8jLzEDVG9itr3nQ=
+X-Received: by 2002:a5d:5f03:0:b0:48e:1b11:7ee6 with SMTP id ffacd0b85a97d-48e6e27eb97mr19584699f8f.2.1793572328063;
+        Sun, 01 Nov 2026 14:32:08 -0800 (PST)
 Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78f95sm14904805f8f.28.2026.11.01.14.32.01
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78f95sm14904805f8f.28.2026.11.01.14.32.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 14:32:03 -0800 (PST)
+        Sun, 01 Nov 2026 14:32:06 -0800 (PST)
 From: Pablo Mazzini <pmazzini@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -85,9 +85,9 @@ Cc: Pablo Mazzini <pmazzini@gmail.com>,
 	Andreas Kemnade <andreas@kemnade.info>,
 	Alistair Francis <alistair@alistair23.me>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/7] regulator: sy7636a: fix the chip name
-Date: Sun,  1 Nov 2026 22:31:19 +0000
-Message-ID: <20261101223125.302001-2-pmazzini@gmail.com>
+Subject: [PATCH v2 2/7] regulator: sy7636a: add VCOM voltage control
+Date: Sun,  1 Nov 2026 22:31:20 +0000
+Message-ID: <20261101223125.302001-3-pmazzini@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261101223125.302001-1-pmazzini@gmail.com>
 References: <20261101223125.302001-1-pmazzini@gmail.com>
@@ -102,40 +102,86 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The driver header and the Kconfig help call the chip SY3686A.
+VCOM is panel specific, so let boards set it in the devicetree. Switch
+to the selector ops and add the write side.
+
+Per the datasheet, VCOM bit 8 is bit 7 of register 0x02, not bit 0.
 
 Reviewed-by: Andreas Kemnade <andreas@kemnade.info>
 Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
 ---
- drivers/regulator/Kconfig             | 2 +-
- drivers/regulator/sy7636a-regulator.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/regulator/sy7636a-regulator.c | 31 +++++++++++++++++++++++----
+ 1 file changed, 27 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
-index be6b72daa76f..88ba2770e378 100644
---- a/drivers/regulator/Kconfig
-+++ b/drivers/regulator/Kconfig
-@@ -1623,7 +1623,7 @@ config REGULATOR_SY7636A
- 	tristate "Silergy SY7636A voltage regulator"
- 	depends on MFD_SY7636A
- 	help
--	  This driver supports Silergy SY3686A voltage regulator.
-+	  This driver supports Silergy SY7636A voltage regulator.
- 
- config REGULATOR_SY8106A
- 	tristate "Silergy SY8106A regulator"
 diff --git a/drivers/regulator/sy7636a-regulator.c b/drivers/regulator/sy7636a-regulator.c
-index c44c445ea139..015227cb113e 100644
+index 015227cb113e..382bab017784 100644
 --- a/drivers/regulator/sy7636a-regulator.c
 +++ b/drivers/regulator/sy7636a-regulator.c
-@@ -1,6 +1,6 @@
- // SPDX-License-Identifier: GPL-2.0+
- //
--// Functions to access SY3686A power management chip voltages
-+// Functions to access SY7636A power management chip voltages
- //
- // Copyright (C) 2019 reMarkable AS - http://www.remarkable.com/
- //
+@@ -24,7 +24,7 @@ struct sy7636a_data {
+ 	struct gpio_desc *vcom_en_gpio;
+ };
+ 
+-static int sy7636a_get_vcom_voltage_op(struct regulator_dev *rdev)
++static int sy7636a_get_vcom_voltage_sel(struct regulator_dev *rdev)
+ {
+ 	int ret;
+ 	unsigned int val, val_h;
+@@ -37,9 +37,20 @@ static int sy7636a_get_vcom_voltage_op(struct regulator_dev *rdev)
+ 	if (ret)
+ 		return ret;
+ 
+-	val |= (val_h << VCOM_ADJUST_CTRL_SHIFT);
++	/* VCOM[8] is bit 7 of register 0x02 */
++	return val | (val_h & BIT(7)) << 1;
++}
+ 
+-	return (val & VCOM_ADJUST_CTRL_MASK) * VCOM_ADJUST_CTRL_SCAL;
++static int sy7636a_set_vcom_voltage_sel(struct regulator_dev *rdev, unsigned int sel)
++{
++	int ret;
++
++	ret = regmap_write(rdev->regmap, SY7636A_REG_VCOM_ADJUST_CTRL_L, sel & 0xff);
++	if (ret)
++		return ret;
++
++	return regmap_update_bits(rdev->regmap, SY7636A_REG_VCOM_ADJUST_CTRL_H, BIT(7),
++				  (sel & BIT(8)) >> 1);
+ }
+ 
+ static int sy7636a_get_status(struct regulator_dev *rdev)
+@@ -55,19 +66,31 @@ static int sy7636a_get_status(struct regulator_dev *rdev)
+ }
+ 
+ static const struct regulator_ops sy7636a_vcom_volt_ops = {
+-	.get_voltage = sy7636a_get_vcom_voltage_op,
++	.list_voltage = regulator_list_voltage_linear_range,
++	.map_voltage = regulator_map_voltage_linear_range,
++	.get_voltage_sel = sy7636a_get_vcom_voltage_sel,
++	.set_voltage_sel = sy7636a_set_vcom_voltage_sel,
+ 	.enable = regulator_enable_regmap,
+ 	.disable = regulator_disable_regmap,
+ 	.is_enabled = regulator_is_enabled_regmap,
+ 	.get_status = sy7636a_get_status,
+ };
+ 
++/* 10 mV steps up to 5 V, higher codes also give 5 V */
++static const struct linear_range sy7636a_vcom_ranges[] = {
++	REGULATOR_LINEAR_RANGE(0, 0x000, 0x1f4, VCOM_ADJUST_CTRL_SCAL),
++	REGULATOR_LINEAR_RANGE(5000000, 0x1f5, 0x1ff, 0),
++};
++
+ static const struct regulator_desc desc = {
+ 	.name = "vcom",
+ 	.id = 0,
+ 	.ops = &sy7636a_vcom_volt_ops,
+ 	.type = REGULATOR_VOLTAGE,
+ 	.owner = THIS_MODULE,
++	.n_voltages = VCOM_ADJUST_CTRL_MASK + 1,
++	.linear_ranges = sy7636a_vcom_ranges,
++	.n_linear_ranges = ARRAY_SIZE(sy7636a_vcom_ranges),
+ 	.enable_reg = SY7636A_REG_OPERATION_MODE_CRL,
+ 	.enable_mask = SY7636A_OPERATION_MODE_CRL_ONOFF,
+ 	.regulators_node = of_match_ptr("regulators"),
 -- 
 2.52.0
 
