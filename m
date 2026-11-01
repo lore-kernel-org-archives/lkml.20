@@ -1,72 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.24
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793514064;
-	b=TXGAACzYsCPUJ2FRmAIibN+rmaHYn/jClgf46khykT+2k5r3ZJsfPET223M08BfbWN6Y
-	 aUvGkRjAJbcYkQ9JTd03KysuzaeTWbLzTQKe+eN8g3jQQCJjpjZ0q2r4bAoRVOpbbo1Xy
-	 7elVB6hZgnuTR+RHwfpCP8hk2qjohNRXl3v7yDmame80gwthxI+Fw9MdEwJzUVRvVcAuO
-	 9g7orP0dq7Rvfer8st72YlZmXs7fN3oj51vkJJrQyciGPoqj9FawmxVZ6Hh8viTvUVJPX
-	 h1UszTGOXfLhzQuZmPaav4997zYLA72v3Ww6smuNqRBZriyKHF+6Bx3EMootvn09O9Q==
+	t=1793514129;
+	b=LWQRbmIFRB0IDdaP56gbhzhqf2LDuHHfdBL0yPZpT/ZxO/7QSZFqx/I5EfuSpA3CxMGf
+	 omHeiL2jPIblVIEjzFQ6AQR58fPJRowiXRev733xulisAwTIQAbhZFFJE78gEhuJ6B72A
+	 zMeHgYhCY103Hl1fM/Jv2iTUENbS9P7LaBzS3MOsl9ZqDArOep0tPfMEJzj8QBdL9yTq+
+	 uGOP/9g9Eohdd7GF4J55GI49tmPQorA8iejQDb0t3EYcb1GHoCTch0+WirSe2NKh5/mjN
+	 qaQIZC9TYfUWaPVnofEiI/8CfECGGbiyzYjsz57/w4h8VflZCAo9Ym23qrt5IjlL4xw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793514064;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=yNCcoeaVZu8l86yYhX5AKYZ61AL1GukvPzV1U2a1bGA=;
-	b=vwJFmzsFW4eW6987PlKyz3pKXfpsAa4lQdZCwwQV8O1ilv2bOBT7pXkxZpyarItQXYR0
-	 Hpha4uFVyPOn2dSl1V6cCEMexjp50TNng+D4PqD2dS+PnKuGjvULhhwK2beR5SJXrcVaM
-	 ZE65MV+TECL3wxFwdb3fqwj/25jqnjgZlSrhe7ljYUuEb4/aEmEdhC1tBj7JoUPrjcVrA
-	 V8BvbI9LZ1d2znYH4K5Jz8agzYDZc/jNQG//5GfaZ0H+ic9VZthNnhd1LSvA73QwWQdlo
-	 PaTI/Auh6kyLZtf9EB0kTxrqoxXbAZvYOojKrc/vgKVKMaKnskKJliXwK2qC95rIBuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793514129;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=blO6k0GV9t7jq832MC9mTaWTEhU4J8juq8TCxnkK4WQ=;
+	b=onmXVa+Lb96P+EwBXecK0y5+Vc04EFizJA60qXUS46Dv+ZlJKCNCPM7aaNULwrLfNnu8
+	 +hIG9p8buiRHptPo7ybQn2E0Xm38qhZiFuGbDlAzkmWQ1fK5Q/9uBvCagiadOIdlDkZnG
+	 STg+tN7VVBW1z2pypbq3F4cZiwdkEGo2KM1UIZ+PzyOBaa+d0ZnbtgXx8RbLxvsJsdfmv
+	 dFCSINL+4vvTo4bBXdQZl4ikMPXaxwkhMsu8EdJQmEJW8URjrivwXtfePn/QzE1ay/BFs
+	 yftXo6CUXQqQVToSydIBdxUhyuvMZ/Jv83i2vdZWAOxoMvxlaGabdtm6sP+lV20E8dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mazfvG1D;
-	arc=none smtp.remote-ip=74.125.82.72
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tit538k9;
+	arc=none smtp.remote-ip=91.218.175.24
+Received: from mta0.migadu.com (out-24.mta0.migadu.com [91.218.175.24])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61BCC606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:21:04 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61BCC606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE396606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:22:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE396606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=mazfvG1D
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-1aa0fb7f157so3103805c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 23:21:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793514063; x=1794118863; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yNCcoeaVZu8l86yYhX5AKYZ61AL1GukvPzV1U2a1bGA=;
-        b=mazfvG1DbvMQQjL3xskaNj7gXtORkR1b46M1XyNfYKPWGOLzN0/oTQLH7J2kbieYA0
-         uMUJamU7SW7KweP3aLWdVsIO9idHieYDYqP5uPuHYgf9k7VghsX1nCmSqxtCc5O/69Yy
-         nRSPpwUjPYQD2U4hHSp1sMkWn7T8UXVLkvlsl5H3H9uV8+zWxf8xETDnzjdClZv7O7Xi
-         a40zQaFG702QiiNcZ1+RtZJbpzasht2QMSb5bkJSMCEiEjDn7QU+5Kmu28Z8B8OdYFI8
-         kj3s36snSN1muKp0ixn9uFzFEiyT1K+Fw6h0XT+uGSxfrKvnafUY2yeqY7K9hbyn212g
-         NIWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793514063; x=1794118863;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yNCcoeaVZu8l86yYhX5AKYZ61AL1GukvPzV1U2a1bGA=;
-        b=Ym5Jug5zFwui1cVMeqTRzgUx3m9PGCJRTVryP7dLhwrfP7rlZQk879Y5KAW98SdgwX
-         y7SHNjyxzoZEJw5LBf1BOJU5LRtCIkKGenagwxZMgj7msZzjiwoW9BapjiliNsDrlJdS
-         cHKHDzZ+xgNjTa8ey8arI4fyjpQFkgPNwffnplThnZlYlpCXIiISGrEiJaOmPSnZGzAd
-         HtK2l/ZZtL/tlKbid1BWwhq0OE8e2YYdGKmqmJz+AIL9PvgVKnihgxlUPN4JDd9liR3i
-         uyG0BRBAOrNa35G70uOZyGEg+xI4ytTDOXje1JaU/g0IaDpD3Zeny+P0+rEPmh/dGZlc
-         Ql1g==
-X-Forwarded-Encrypted: i=1; AKwUvBy3zc4wJRIb/5qmC2sCGapZ3KKzRRXl+pomn2vChysjKtptBw8/A+yk5ejhQK5UBbqhOHhx1HcKbZ6Ewe4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKAZKOuXScb16wHGSGS/c8uR1e3wI9In9lvf0yT9XxD5+5zt7jH
-	RG84PFHlyk+Ml8hUb0hz3TZKocj5o3pvyrqJIagCiztQpc+K1rT6sebHQqBS3euzVp77HDRaRSK
-	Jyq4+VL54C6fR74MSbJOG/5it9w==
-X-Received: from dleb6-n1.prod.google.com ([2002:a05:701b:4246:10b0:1a8:bca:6c0f])
- (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:701b:418d:20b0:1af:16c4:d06b with SMTP id a92af1059eb24-1af16c4d07emr4745927c88.10.1793514062994;
- Sat, 31 Oct 2026 23:21:02 -0700 (PDT)
-Date: Sun,  1 Nov 2026 06:21:02 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tit538k9
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=gaF9RaTUlWJnz0Kz7eSN92fdFpU4AaHftDt4HKXl/YY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793514127; v=1; x=1794118927;
+ b=Tit538k9XfHYAjy4otnRC7vAz5Cj/Lshaoxkkk8Ghq1rfQBmNwtxsywKDb9yCi4afi7pP4H2
+ azVrDg4QS5ZtzmVl643fP8STHG/kKplwbnGDLa/Y6/LSRHQbsSx6TbqgXQyIEcr3izcualOTZCZ
+ zJw5W9KJF/mRI50gqQiw4csM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5ef06936bde13713;
+	Sun, 01 Nov 2026 06:22:07 +0000
+X-Mizu-Trace-ID: 5ef06936bde13713
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <86d9a986-58ea-44f5-a8af-514abff12c2a@linux.dev>
+Date: Sun, 1 Nov 2026 14:22:00 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,131 +57,99 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261101062102.1000477-1-almasrymina@google.com>
-Subject: [PATCH v1] iommu/amd: Prevent spurious IRQ disable on high-rate GALog MSIs
-From: Mina Almasry <almasrymina@google.com>
-To: Joerg Roedel <jroedel@suse.de>, Suravee Suthikulpanit <suravee.suthikulpanit@amd.com>, 
-	Vasant Hegde <vasant.hegde@amd.com>, Jerry Snitselaar <jsnitsel@redhat.com>, iommu@lists.linux.dev, 
-	linux-kernel@vger.kernel.org
-Cc: Mina Almasry <almasrymina@google.com>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 02/12] mm: hugetlb_vmemmap: unify
+ VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
+To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
+ <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>
+Cc: Lance Yang <lance.yang@linux.dev>, James Houghton
+ <jthoughton@google.com>, David Hildenbrand <david@kernel.org>,
+ Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org
+References: <20261020115306.813483-1-songmuchun@bytedance.com>
+ <20261020115824.823278-1-songmuchun@bytedance.com>
+From: Qi Zheng <qi.zheng@linux.dev>
+In-Reply-To: <20261020115824.823278-1-songmuchun@bytedance.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On AMD EPYC (Turin) hosts with AVIC enabled, passed-through SR-IOV VFs
-in KVM guests log interrupts targeting non-running vCPUs into the IOMMU
-Guest Virtual APIC Log (GALog) ring buffer and signal the host via an
-edge-triggered IntCapXT MSI (AMD-Vi*-GA).
 
-Both __iommu_setup_intcapxt() and iommu_setup_msi() register their
-handlers via request_threaded_irq(..., NULL, thread_fn, IRQF_ONESHOT,
-...), using irq_default_primary_handler() (which returns
-IRQ_WAKE_THREAD), while intcapxt_irqdomain_alloc() sets handle_edge_irq
-which does not mask edge-triggered MSIs during oneshot thread execution.
 
-Previously, amd_iommu_handle_irq() cleared MMIO_STATUS_OFFSET at the top
-of the while (status & mask) loop before calling int_handler(iommu)
-(iommu_poll_ga_log()). Under overcommitted multi-VM TCP_RR workloads
-(1,000 to 10,000 flows across 4-8 VMs with vCPU overcommit), new VF
-interrupts for non-running vCPUs arrive while iommu_poll_ga_log() is
-draining the ring buffer, causing GALogInt to transition 0 -> 1 and fire
-additional hardware edge MSIs while the IRQ thread is still inside
-amd_iommu_handle_irq(). Because desc->threads_handled only increments in
-irq_thread_fn() after action->thread_fn() returns, note_interrupt()
-(kernel/irq/spurious.c) accounts every intermediate edge MSI as IRQ_NONE
-(desc->irqs_unhandled++). Once desc->irqs_unhandled exceeds 99,900 out
-of 100,000 interrupts, __report_bad_irq() logs "irq <N>: nobody cared"
-and permanently disables the IOMMU GALog IRQ, breaking guest VF MSI-X
-wakeups.
+On 10/20/26 7:58 PM, Muchun Song wrote:
+> VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
+> describe fully independent choices. A split-only walk can defer the
+> PMD-split flush to a later global flush, and a remap-only walk can
+> defer the final remap flush. However, when a PMD split is followed
+> by PTE remapping, the split flush must happen before the PTEs are
+> changed, because stale large-page translations must not overlap with
+> new small-page translations that map different physical pages.
+> 
+> Replace the two flags with a single VMEMMAP_REMAP_NO_TLB_FLUSH flag.
+> Keep split-only walks able to defer the flush, but force the split
+> flush whenever a remap_pte callback is present. Callers that batch
+> HVO work can still defer the final remap flush and issue their own
+> global flush.
+> 
+> Current callers keep the same flushing behavior.
+> 
+> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
+> ---
+>   mm/hugetlb_vmemmap.c | 15 +++++++++------
+>   1 file changed, 9 insertions(+), 6 deletions(-)
+> 
+> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
+> index 1105aa925acc..8b3abb562599 100644
+> --- a/mm/hugetlb_vmemmap.c
+> +++ b/mm/hugetlb_vmemmap.c
+> @@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
+>   	struct list_head	*vmemmap_pages;
+>   
+>   
+> -/* Skip the TLB flush when we split the PMD */
+> -#define VMEMMAP_SPLIT_NO_TLB_FLUSH	BIT(0)
+> -/* Skip the TLB flush when we remap the PTE */
+> -#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(1)
+> +/* Skip the TLB flush while updating the vmemmap page tables. */
+> +#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(0)
 
-Fix this in two ways:
-1. Drain the log ring buffer via int_handler(iommu) before writing
-   status & mask to MMIO_STATUS_OFFSET (clearing only the status bits
-   observed set so a concurrent overflow bit is never cleared without
-   running overflow_handler()), followed by a post-clear poll pass so
-   entries written before the status clear took effect are processed
-   without generating redundant edge MSIs or leaving entries stranded.
-2. Set IRQ_IS_POLLED on the AMD-Vi MSI and IntCapXT IRQs (clearing it on
-   request_threaded_irq() failure paths) so note_interrupt() never
-   spuriously disables the dedicated IOMMU event/PPR/GALog IRQ lines
-   under sustained high-rate edge MSI bursts.
+Since this flag is now also used by the split-only path, the
+VMEMMAP_REMAP_NO_TLB_FLUSH name is somewhat misleading. Moreover, the
+flag does not suppress every TLB flush, as the PMD-split flush is still
+mandatory when remapping follows.
 
-Discovered in production testing on AMD EPYC (Turin) hosts running
-multi-VM KVM guests with passed-through SR-IOV VFs where the host
-permanently disabled AMD-Vi-GA under heavy TCP_RR traffic, and verified
-on the same AMD EPYC (Turin) hardware across 4-VM and 8-VM SR-IOV VF
-test suites.
+Would VMEMMAP_DEFER_TLB_FLUSH better describe its semantics? It
+indicates that flushes which can be safely batched are deferred, without
+implying that all TLB flushes are skipped.
 
-Fixes: 2379f3485239 ("iommu/amd: Refactor IOMMU interrupt handling logic for Event, PPR, and GA logs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mina Almasry <almasrymina@google.com>
----
- drivers/iommu/amd/init.c  |  4 ++++
- drivers/iommu/amd/iommu.c | 13 ++++++++++---
- 2 files changed, 14 insertions(+), 3 deletions(-)
+Thanks,
+Qi
 
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index de6db5621194..5eea9204f209 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -2404,9 +2404,11 @@ static int iommu_setup_msi(struct amd_iommu *iommu)
- 	if (r)
- 		return r;
- 
-+	irq_set_status_flags(iommu->dev->irq, IRQ_IS_POLLED);
- 	r = request_threaded_irq(iommu->dev->irq, NULL, amd_iommu_int_thread,
- 				 IRQF_ONESHOT, "AMD-Vi", iommu);
- 	if (r) {
-+		irq_clear_status_flags(iommu->dev->irq, IRQ_IS_POLLED);
- 		pci_disable_msi(iommu->dev);
- 		return r;
- 	}
-@@ -2579,9 +2581,11 @@ static int __iommu_setup_intcapxt(struct amd_iommu *iommu, const char *devname,
- 		return irq;
- 	}
- 
-+	irq_set_status_flags(irq, IRQ_IS_POLLED);
- 	ret = request_threaded_irq(irq, NULL, thread_fn, IRQF_ONESHOT, devname,
- 				   iommu);
- 	if (ret) {
-+		irq_clear_status_flags(irq, IRQ_IS_POLLED);
- 		irq_domain_free_irqs(irq, 1);
- 		irq_domain_remove(domain);
- 		return ret;
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 960e1dc05ec6..ec392da008f9 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -1112,9 +1112,6 @@ static void amd_iommu_handle_irq(void *data, const char *evt_type,
- 	u32 mask = int_mask | overflow_mask;
- 
- 	while (status & mask) {
--		/* Enable interrupt sources again */
--		writel(mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
--
- 		if (int_handler) {
- 			pr_devel("Processing IOMMU (ivhd%d) %s Log\n",
- 				 iommu->index, evt_type);
-@@ -1124,6 +1121,16 @@ static void amd_iommu_handle_irq(void *data, const char *evt_type,
- 		if ((status & overflow_mask) && overflow_handler)
- 			overflow_handler(iommu);
- 
-+		/*
-+		 * Clear only the status bits observed above, then poll once
-+		 * more so entries written before the clear took effect are not
-+		 * left unprocessed with the interrupt status bit cleared.
-+		 */
-+		writel(status & mask, iommu->mmio_base + MMIO_STATUS_OFFSET);
-+
-+		if (int_handler)
-+			int_handler(iommu);
-+
- 		/*
- 		 * Hardware bug: ERBT1312
- 		 * When re-enabling interrupt (by writing 1
-
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
--- 
-2.56.0.385.gac671c819a-goog
+>   	unsigned long		flags;
+>   };
+>   
+> @@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned long start,
+>   		/* Make pte visible before pmd. See comment in pmd_install(). */
+>   		smp_wmb();
+>   		pmd_populate_kernel(&init_mm, pmd, pgtable);
+> -		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
+> +		/*
+> +		 * Modern MMUs allow overlapping TLB entries with different mapping
+> +		 * granularities only if they map the same physical address. So
+> +		 * remapping must not proceed without first flushing the TLB.
+> +		 */
+> +		if (walk->remap_pte || !(walk->flags & VMEMMAP_REMAP_NO_TLB_FLUSH))
+>   			flush_tlb_kernel_range(start, start + PMD_SIZE);
+>   	} else {
+>   		pte_free_kernel(&init_mm, pgtable);
+> @@ -272,7 +275,7 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
+>   {
+>   	struct vmemmap_remap_walk walk = {
+>   		.remap_pte	= NULL,
+> -		.flags		= VMEMMAP_SPLIT_NO_TLB_FLUSH,
+> +		.flags		= VMEMMAP_REMAP_NO_TLB_FLUSH,
+>   	};
+>   
+>   	return vmemmap_remap_range(start, end, &walk);
 
