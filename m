@@ -1,57 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793553399;
-	b=Jl4neQCVdKoBDqUYfi9y4ELq8mtKWXHg/siQi2G1o13V262B2rAiVrd9ra4yzrI4Kf94
-	 9fFansHOVfS2zjc5H6T60Ak1211BSpQHbdujPXUQ222YAltaHoRmkfT+aiOsW/mxaxvj+
-	 cHR3OIo2BUL2h0c97q34L+/7vhtMLIDYQxeVo18LsWlnWhrzcXFDO0g5JOq9W0N8CldOD
-	 MDluPANKzFoAcD+DkkaOc/miSzqPf4iLzyR//BJakFC1LDxe2x/tj5G0SPS2seJxsB5rU
-	 bpXVLP9c+6ry4yBIOTPxXO9IxSK4egdJbgKjNwIHdq0Slb+2reo7PpbCk8iJNMywP9A==
+	t=1793553400;
+	b=Hfg0aGS4bLulKtFHSjx65wHbR9m/3aJA1dyyeFtdgz/ECdQVRTBZcwzJ5OPTP13qOR+i
+	 JAwXJX4cqyp3pRH18cQEwDEOPnb6GXFuPHrrRKz2pm3g/woJGRcGORNIgbJA55w9HrqJF
+	 QZjREvU/zRz3vV6KyaQ3Z2Wb68QyMPG94nZAgxeYmDzITbwckMmuVxm1SrllKevqwR+wI
+	 289qsrbZbrDC3XfZkU6sDiE/w4BxZ3m6uCrTFlIYwVJtGlxCqt5RGP3lRrYbwqTM+tbMo
+	 94gUZ9u/uSj0+q7ypoCHcjw9PcW/L57Od+Lgo1JdA6BMt8OXPhjD+8qQ90Ba2XCh8ZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793553399;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793553400;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=9FIAjLQl49vWGxEAT5mry9z/qprr2ACY4K70jv59AGk=;
-	b=O4MQ5rn3x2xlx2NGSNp0kj9YxCVD0JZtmfAC9bEW/us4iRBt+el2bNmUQSvJzblfUccX
-	 Vtqr8yPoemDXBPz6VYhXwUQMNSwcUNUBIOwhUkQ+mZ7ZSd2/ZLyjUM2zVA+eC2kKA1cQr
-	 3TlwW9e5OcGOEH36kflW5D3OK/QTDwIgfod4RPn1tif1PXfRFzuf8Zpf/kn8UFodZBAZF
-	 gyjw2smm+H4gSlXI0wHYSqhTBRRFZqT7DGZkgYI3Kp/dsoRbEUNsMuF+7VnBdCxcY9uie
-	 hDanhS/tFYZ+HCLiD28wQKq5wymbzgbP7BucJmPfqPM8Pt91gQrxgKsGgqR2u9VfMug==
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=kuii1OxTBCJKn/aKUCi3+2COKzMgGJ8Y558hfckwvWc=;
+	b=x3giuNk/zebnyOh8uxtnI/dDW08P8mbwbEoAytt4DnVIm38VfByBpmCAdloDX8lIAP6m
+	 O1NqbNuhgFZwRwa5Xxv6WytXrDgrtzi8hhT7Xajm/bos1z6D1K0hDKhSg/rQqGfL8vJNO
+	 GYCw3cqfAreWxcY65qU4dWsFrc7rfIuVRBRayEfzPMbOs52OjQ43dlD45iQMpFRyPGzK+
+	 lliSMujU9YpEtyUlVEiXGZ3o5t1VprADdiQUU5EiZf5Vg3nS2W5Vfiovrv0Xw/x9mvvR/
+	 9Ab3Vo3ZZzMRyEgIQmc9F6A5x+lsjh+OCNosI8pT9KN/IpX1xaAS6sCUW4o1vC//Lpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCdRHVbT;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHnHlvuL;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6033606A325;
-	Sun,  1 Nov 2026 17:16:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CE360A2602;
+	Sun,  1 Nov 2026 17:16:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCdRHVbT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183001F00A16;
-	Sun,  1 Nov 2026 17:16:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bHnHlvuL
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65F0F1F00A18;
+	Sun,  1 Nov 2026 17:16:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793553398;
-	bh=9FIAjLQl49vWGxEAT5mry9z/qprr2ACY4K70jv59AGk=;
-	h=From:To:Cc:Subject:Date;
-	b=fCdRHVbTv7LssVGIaJeoJS4MdHHPVs9+iHHW6hyzu5w1w5Y6o/UDhYyRW/dIRklP9
-	 yloZkzUlKQldmVHFvh4o+n7mfWqaz62e9lKgkuexu1b9ipH+ZqMRB6rqXgRC5x7yAe
-	 vA3CNOrQ2yJK06fJl5IqTJCn2RvN+cRDMKFTtCU7ZhDQQfDH0C4ajQ3pbjnr+ImD5R
-	 qZ5Zug2sS3UiFx76sr4iyehCTX/8KgHXuWNED2zVWRsyhX1aB6dI7oRiqNNLFMkJBG
-	 +fOxNd4LC0QPoGfYKDnnKwAT1tAvtgJKUNVDYSYY2EoWU8vUvV3YoOVLizt4+qB/gf
-	 YLJxAyXuWkD5g==
+	s=k20260515; t=1793553399;
+	bh=kuii1OxTBCJKn/aKUCi3+2COKzMgGJ8Y558hfckwvWc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bHnHlvuLtN8sAW4efMQa/2BStqLpezZTUSvbaMHV4QTiT0zRg9a8rjjsZ4nEIzjMX
+	 NB0/XxHhbZM4xXO/RZgy2tQz276Nxs0atzjpGLVanS+E8J1uhgXiGKbkjZ+C//TP6X
+	 5Y0mPolpqhHcAvQxISBEINUq2cAbGNgNEX08k3M2SAAC7XbU57ZHEZ9/UYN0tNf9yJ
+	 5CmaCYVRbHLauBdWQBbuNuXHL7o+0mKlheCugfDltMc4jjblbf5JUrTOM5Zs0wL8oc
+	 gb72hxel/oq1xU7u11QdktDXNwNiNEq6fDbzNy+pXuKnGEeKWMIp9WVH9fML3DXTh3
+	 TkrYcb2Z7oHyQ==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
 	Andrew Morton <akpm@linux-foundation.org>,
-	Shuah Khan <shuah@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v2 0/6] mm/damon: misc improvements/cleanups for core, vaddr, sysfs and tests
-Date: Sun,  1 Nov 2026 09:16:23 -0800
-Message-ID: <20261101171630.81477-1-sj@kernel.org>
+Subject: [RFC PATCH v2 4/6] mm/damon/sysfs-schemes: drop redundant and racy zero target_value check
+Date: Sun,  1 Nov 2026 09:16:27 -0800
+Message-ID: <20261101171630.81477-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261101171630.81477-1-sj@kernel.org>
+References: <20261101171630.81477-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,43 +63,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Refactor code, optimize code speed, and add missing feature supports on
-various areas of DAMON.
+DAMON sysfs interface disallowed zero target_value because it could
+result in divide-by-zero in damos_quota_store().  Because similar checks
+were duplicated to other DAMON API callers, a patch series that starts
+with commit 610c4438fb66 ("mm/damon/core: error
+damos_commit_quota_goal() for zero target_value") added a same check in
+the core layer central parameters, and dropped redundant checks in
+DAMON_LRU_SORT and DAMON_SAMPLIE_MTIER.  It forgot to drop that in the
+DAMON sysfs interface.
 
-Optimize the efficiency of vaddr damos_migrate action under filter
-failures with patch 1.  Use damos->last_applied on damos_migrate action
-in vaddr and support sz_filter_passed for damos_migrate action in vaddr,
-respectively with patch 2 and 3.  Drop a redundant and racy quota goal
-target value validation in sysfs, in favor of that in the core layer,
-with patch 4.  Drop unused variables and imports from selftests with
-patch 5 and 6.
+Now the zero target_value check in DAMON sysfs interface is only
+redundant.  Further, it has a time-of-check to time-of-use (toctou) race
+with target_value_store().  It can confuse readers to believe [1] the
+division-by-zero can still happen.  Drop the redundant and racy check.
 
-Changes from RFC
-- RFC: https://lore.kernel.org/20261031202614.96036-1-sj@kernel.org
-- Drop charge_target_from fixup consolidation.
-- Add a patch for using last_applied on vaddr migrate action.
-- Add missed damos_va_migrate_private->sz_filter_passed setup.
-- Fix wrong commit message for unused imports removal.
+[1] https://lore.kernel.org/20261021005234.94107-1-sj@kernel.org
 
-SJ Park (6):
-  mm/damon/vaddr: advance migration attempt in folio level for filter
-    out
-  mm/damon/vaddr: use damos->last_applied for migrate action
-  mm/damon/vaddr: implement sz_filter_passed for migrate_{hot,cold}
-    action
-  mm/damon/sysfs-schemes: drop redundant and racy zero target_value
-    check
-  selftests/damon/damos_apply_interval: remove unused variables
-  selftests/damon: remove unused imports of os and sys modules
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/sysfs-schemes.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
- mm/damon/sysfs-schemes.c                      |  3 --
- mm/damon/vaddr.c                              | 28 +++++++++++--------
- .../selftests/damon/damos_apply_interval.py   |  2 --
- .../damon/sysfs_no_op_commit_break.py         |  1 -
- ...sysfs_update_schemes_tried_regions_hang.py |  1 -
- 5 files changed, 17 insertions(+), 18 deletions(-)
-
-
-base-commit: 807c0ce92f8424fbb7eb13e7ea48746f68b24dca
+diff --git a/mm/damon/sysfs-schemes.c b/mm/damon/sysfs-schemes.c
+index 637f1bd0c950b..38efdc258ef3f 100644
+--- a/mm/damon/sysfs-schemes.c
++++ b/mm/damon/sysfs-schemes.c
+@@ -2898,9 +2898,6 @@ static int damos_sysfs_add_quota_score(
+ 		struct damos_sysfs_quota_goal *sysfs_goal =
+ 			sysfs_goals->goals_arr[i];
+ 
+-		if (!sysfs_goal->target_value)
+-			continue;
+-
+ 		goal = damos_new_quota_goal(sysfs_goal->metric,
+ 				sysfs_goal->complement,
+ 				sysfs_goal->target_value);
 -- 
 2.47.3
