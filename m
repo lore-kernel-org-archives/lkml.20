@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571355;
-	b=iE61wQ8tnB2oWEOAAkAmE/B+CuSIp3aMy5ugC3e7Dz8sPmKEUXgJR7lq3tApQ96KEbFZ
-	 3Uvyx0Sr7xmJ1NfZ2Q5g4ghAAMqChSmPnjg4gDElu6Ghi6ednniae4OWHjya9YhArIAtf
-	 KXeFOxlwj/4Ntr2YBGaXnEXNUMO7xidGRU3+tCRX1VW8vfH6yh03S7rZzMGhtLkINwqf9
-	 Ro5PNhR+UFANtIGjOCHrbDmhPK5pyzd4XPXNuc0nSkIw7xlVpT7fOxb22edSsJONBJhQV
-	 L6D8rVaCFeT3veCxd4sqh6UaBMFQwlV92zOKDR14lecG6B/XyE6pqyobQ6Tmd9zholA==
+	t=1793571350;
+	b=ICClELZNpl2EaFlm9rPav3M/uWe/RTqYWLiwzwNtq5UUcx0NJtkiB65uiwX3j9ZUCZgO
+	 gawWIEyaygX1k7A7nnewM5mmYE4JmNCZ9r8mav5B4d/m6MyhbLWPmhyuh7w5+Wxtr20XH
+	 T1/P7piYbN1pP/inePJhKtooJWrCljC+8GCgeC2At3y0YkdmxDI+y2V0SnsszEWNY8R9c
+	 s58CQk25XBdZuCLVBmKyCLuXBE7ZtNa+kKYEPE8xDD29/sDaJyg/fENHq/GF2P/Tg9ArA
+	 u8Mla7oN9XvCaIhYi720mjd9WphAND1wIn/oz9qX940diCrt58LyqF7l0UDPma9TX4Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571355;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=cX02P8ZnTabknV6WIxatZgPYI8Lrd5opy+28EBBQ4Ww=;
-	b=vkn+b2aOPAEyxVYN7NXeLbs57p6SJdAdCGJZxU24cOVKw7uBGYCllDBOg3O2OFd+M9rG
-	 O2yu68YTV9XhT+dgcW5OsyAuj1OhzmtRrZDGGQRcjB+3MDEN6PkgXlElDFd5zeRCwUE3B
-	 hwYJ6PTpMI1qoD9PtzGVS405frap7dmOLyQDQQyfdWwB+t9W48FrOEhIIS7UsMU+vw4A9
-	 XK0vMDYRkIO33sdmcNgNOOBuHdSEk11fw/zP6fSlar5+9U07Hc1qLuHVn7QNWhWYEpwpl
-	 QN+JWVTuXrsQ3U6Gcq0U9gK2UfeTVuTmL5QlAU8E6ittdVLJAVwgHHtmKhbxbQT9XgA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571350;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=mV/fldeY7E4VCzvixzPx4jAvmpdj3h5EpC9ZS84v9Yw=;
+	b=V53NEbD5T3RKrb+bEyK6PvuDd1BNpiikgdCTpLMIya5zuHa1xt5qCdznGVHc1V5r95Jq
+	 BAXm+JQhubyxDq3bSaSWz2lHs5Y1Vo8YaavJszWcJgQDeM4cli9X+dY4Z5Vn1J5Ko1hCZ
+	 /5NWZo8ewhBzPbbqo3oc3BnUZh1NNNWd4ytziBx69r5vGu9fm5moynVT6DDZ6/8mf4/AK
+	 aoRfejRti3dqrKJTrk5YVjRjEJZXwYzBFO65MKJq2katw2ePB6DgqqqC5jp5pokPeXc8J
+	 vRpI2XGzFWY4E8hDSpDApA6x7z7kF7192yuNfyquv0gFzKXWgD/vGXU48AMfOdzTJ5w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jGdv0HbM;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="QJmbn/sE";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4ABC606A329;
-	Sun,  1 Nov 2026 22:15:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C4ABC606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B53606A332;
+	Sun,  1 Nov 2026 22:15:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jGdv0HbM
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=cX02P8ZnTabknV6WIxatZgPYI8Lrd5opy+28EBBQ4Ww=; b=jGdv0HbMp5Ar1mmZcemj62b3Bz
-	IqfKVoQq3Y7uOoh4nesoe0YPrEQ8KHBKnCfNpSVz5ieRPsZtJptJdEV4h2VGYfxtO9Edkz+xcmyfU
-	+M6Om0aXubmbUPOtvsbCcGt4ljvkq2uC0kMN2DDwCrJ67/kyV2jzBr6cs3116CJfvJJtrqrkrPD5i
-	lHt5grw/apXIEJQOOD3NmupJs3IetHJnXvhm8kVxsGsN7/EWtu/8CVAaE5xEFSLlpk4F3+0PFrOi+
-	3/Jq6G2F+7NeTrymp7vJggcYEC6MD5MVuc9O5FZBe3aJOA7FICmeTc5Aa8E+dQQn6CWwvNUdeQ8yf
-	R49CAPSA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Igor Velkov <iav@iav.lv>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol Helios64
-Date: Sun,  1 Nov 2026 23:15:24 +0100
-Message-ID: <179357131398.4107717.5871351415650721805.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
-References: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QJmbn/sE
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E26C1F00919;
+	Sun,  1 Nov 2026 22:15:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571350;
+	bh=mV/fldeY7E4VCzvixzPx4jAvmpdj3h5EpC9ZS84v9Yw=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=QJmbn/sEiCcLIX9npgNt7/hSGB88aohj1izoIrdEv9d5KcCfEpZJUEFxoCnkwIxoh
+	 E4rlmq5jt7WSHWppvhokPkWkW5BnE+HuI72cq8zM25olcDxf7GRXPcosfuLOFfhpk1
+	 m/w3RRWX1qaYD2K4rhnKGxp98c6iQm/iIYi54O0uJ3Mst7MuzliBFf/k227iPw9YxS
+	 acRWLFWWuBi1afvt4ACSLuWYcWv+UjOxjREz6eH7WvcdunRj0GvgQW6XFHSpUWeMcH
+	 h8ExEIrC4uk11tzoopjThtSBg4n/p78268HLeBD35YV52cPlbCq/uMqn+l9wP/Tg6b
+	 dNP20WYEcLyLA==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 0312538003B8;
+	Sun,  1 Nov 2026 22:15:50 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,27 +53,49 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 0/4] riscv: dts: spacemit: Enable USB and PCIe for K3
+ CoM260
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357134854.2624073.4474736187144990416.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:15:48 +0000
+References: <20260928231807.1757995-1-jberring@redhat.com>
+In-Reply-To: <20260928231807.1757995-1-jberring@redhat.com>
+To: Jennifer Berringer <jberring@redhat.com>
+Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, dlan@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, devicetree@vger.kernel.org,
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, jmorris@namei.org
 
+Hello:
 
-On Fri, 09 Oct 2026 03:40:48 +0300, Igor Velkov wrote:
-> Besides the system LEDs, the front panel of Helios64 has a network, a
-> USB and five SATA error LEDs. Each is switched by a MOSFET from a GPIO,
-> active high: NETW_ACT_LED_ON on GPIO0_A4, USB3_ACT_LED_ON on GPIO0_B3
-> and SATA_ERR0 to SATA_ERR4 on GPIO2_A2 to GPIO2_A6. The Kobol wiki
-> gives the colours: activity LEDs are blue, error LEDs are red.
+This series was applied to riscv/linux.git (fixes)
+by Yixun Lan <dlan@kernel.org>:
+
+On Mon, 28 Sep 2026 19:18:03 -0400 you wrote:
+> This patchset enables USB 2.0, USB 3.0, PCIe, and rfkill for the K3
+> CoM260 Dev Kit board. This board has 4x USB 3.0 Type-A ports and three
+> M.2 slots which may be used for two NVMe drives, Wi-Fi, and Bluetooth.
 > 
-> Describe them next to the system LEDs. The panel labels the disks
-> HDD 1 to HDD 5, so the error LEDs are numbered from 1.
+> The USB Type-C DRD port is not enabled here because the necessary
+> drivers have not yet been posted.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [1/4] riscv: dts: spacemit: k3-com260: keep dldo4 enabled
+    https://git.kernel.org/riscv/c/f314c98807c1
+  - [2/4] riscv: dts: spacemit: k3-com260-ifx: Add USB nodes
+    https://git.kernel.org/riscv/c/bd56cb9b84f7
+  - [3/4] riscv: dts: spacemit: k3-com260-ifx: Add PCIe nodes
+    (no matching commit)
+  - [4/4] riscv: dts: spacemit: k3-com260-ifx: Add rfkill nodes
+    https://git.kernel.org/riscv/c/dad085951db1
 
-[1/1] arm64: dts: rockchip: Add the front panel LEDs to Kobol Helios64
-      commit: f78fc7aca073241b9d477bc0190ac02f3242e45d
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
