@@ -1,65 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571406;
-	b=u5InmVy7hs0/x+NT0Lf6kqv8sga8w3+pNPKHp3GcFYj+azawGkMQ8UPWwRLi+XbhXSq0
-	 YYQKVTE70PDTUTJTd/ajcG+6UBfYoQvd4THQehMUJakWG9M2fRs6o31b99QtfM/AgVya8
-	 BNf3LBsYKgOEGW05ebVjvx5/pBxl4Ng/MONlrA0BaBKcrnNfTtil0ya0lEbytIjW4oRvF
-	 1xsU5FaMLprrFePCCIDD2/t34RbSTXhqHzL+0+q9bpjUYdsYodtmDXVylPhmHxehfBoSz
-	 zgHEzt1yWn69hdfRsQAKqmiwuYHRr8xYcw51Qbr8xwZ8k30EsiP2dYp0vp9rQtpDnoQ==
+	t=1793571433;
+	b=BJf0ugtXhDvL/7nLqzyzO8GveYeqyhMMA1em0I3pf7E5g0s3+jELuat2LaelIzYzB2jZ
+	 KUYh32rmLZ9u+uNabYEwLzC4AFIlyjjrO0v1SeGRsH79DYFYN+eFU+vSoedNqJjkzNaFx
+	 ffvc+7OGHjUVRj/mdBdmQJmtau0Yz1KakgwrnNlLnX7gSOapWXk2H2FhSo77ghSV0+m+T
+	 0gR8wWuEiK4mRJHMB9CfXAcceQDaduVnTrGnL0SAX0Lg0i2TPgS8lcHivs+3y4HCLdk3z
+	 zxsnsYcq6VnhEHCGmi+ZMNebrg/6vOG/sj4aTfrpKi7o58HSXT46pIVNl5g7/zjWozw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571406;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=;
-	b=A5mXDglRERla6JSYTYR4LPI3Iy0Q+MZ6gnLH+VkfnwMDK8CHnBLmL8lfHqBaF9d8nGv3
-	 ot8dsqA/0S/WdizcfPrys445iHJNvvlkD5ntLmjz3HdEzcumWj2S4mfLsjomdCYrlkDTb
-	 B03SSqBwonURAaaHCOp7HKNskn4N+t5XM/m0Db0ZK7rTBHmXBmioudtWHuXrmg4BzAFbJ
-	 PHv387zaGchHHfEr1zoPlLTcVTe3omkw81fniBy478MfVVje7hpH0YTygGKoU4uZTTWzS
-	 6TGTiK27voPZxlA/yoS9VQx3Iw1Yjs53gdiVkK3nbr/AvUV3eKyp1YHr5D6Afn0X3jw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571433;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=0VUu6Q3iQ1FQir9zMfLK4+e/rrsGptg78V82yq/1WLM=;
+	b=4bLqF9ywlLPwocfuICj1AAA8vNeBmpSsYShJHJ/bWgkp6r9BHH+4Lwrn3CJCBJQ1ODbu
+	 6PsIccJaBRc9sGIGF7nnEG51XfS0TqsDVS/4TYTuKvJCPGZs3pnez16jst8rkNsQzvCsX
+	 A+yw3QSVSyDrua+WiVrPlV1zqUDoCN8JvyKXBjXuN8SR/ikoWQqvqtI/X6U0G6E74B7WE
+	 +pvMzqErW/CS4SPQhS5K8Zv7lHWvTThzBy8bsSGa7Ijm8Hn/fRGUkIsJY167UkT/0bKdD
+	 xU2FX+L69rDopsYDbkf2Z9nKaTRK7x3MWClC7C1MdGpKh/TycIoCTDq7IJ4CJrDF4mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oa6XY8H0;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2016606ECCD;
-	Sun,  1 Nov 2026 22:16:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2016606ECCD
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4721660A6F7F
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:17:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=; b=p3eIOyeNLwKdvGgs0DrdVSQ8AN
-	pIrjanYCEEVzJtZkLgPuQekvVXx/BUa0ZfyE+6Z9T5DGD+P1gkPZoLHl/7w8blOWDd0HAiHdrSbKA
-	C07nlsh2JRBJ6gwFymecy1OJIpZVJLHwnV6Ov78hzlianq2McrvIBDlR7oazvu20VMT7esI7ZOYip
-	YYwScpE5Tf5tf4L/fcgXcMkGFcQ3q+0p2ea/DGT3NZyjGCxItglsSMJEYtNPkNScw2OEqIKyzE0+R
-	eNqyM5/iJGS/8dLRjMKoDfeTZBMxJih72F47iHoaJ95WOQ9Cuf8ppbd/IZK4Bag1wC3t+/plqYb7N
-	ZjnAyqyA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dennis Gilmore <dennis@ausil.us>,
-	Alexey Charkov <alchark@gmail.com>,
-	Kel Modderman <kelvmod@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/2] arm64: dts: rockchip: Fix Orange Pi 5 Pro headphone output
-Date: Sun,  1 Nov 2026 23:16:32 +0100
-Message-ID: <179357139327.4108484.4012953822270877213.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
-References: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oa6XY8H0
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C383C1F0093A;
+	Sun,  1 Nov 2026 22:17:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571432;
+	bh=0VUu6Q3iQ1FQir9zMfLK4+e/rrsGptg78V82yq/1WLM=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=oa6XY8H0fpx7lSgfUce6a2Ro+FE0x6zYQkloDozziCJBx9XCKaN+W3QH7mNiF+J83
+	 QgYdtjEWChc25JoV2Rf9+TnfSBOHkPeztjTa0eR/FkoOzV3usJLSOGOZ98Wn0D6cqm
+	 lFLzESsUiAwShrYfvzcMF/rBSDxVguVKBV4DStBFt3FkpxJS5VaDI+zdcFLYTJd0dO
+	 Jx5XDZschGj8UaY9Yx6/l4V15Et1mcLV5uSLvR2gXkJ07E65WL5eC8MB2cjT6KnaeD
+	 NX+DV9hcerAW1g31Nwg5WfylbS1b6g8bO6GuUH1fApCr2PvubIBTS+z3HiC/i0UL6u
+	 2u3ewTEIT0rng==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA31538003B8;
+	Sun,  1 Nov 2026 22:17:12 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,29 +53,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 0/3] Remove deprecated static key API in scheduler code
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357143129.2624073.6891423921734394986.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:17:11 +0000
+References: <cover.1784538478.git.hongyan.xia@transsion.com>
+In-Reply-To: <cover.1784538478.git.hongyan.xia@transsion.com>
+To: Hongyan Xia <hongyan.xia@transsion.com>
+Cc: linux-riscv@lists.infradead.org, mingo@redhat.com, peterz@infradead.org,
+ juri.lelli@redhat.com, vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+ rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
+ vschneid@redhat.com, kprateek.nayak@amd.com, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ jiazi.li@transsion.com, linux-kernel@vger.kernel.org
 
+Hello:
 
-On Sun, 18 Oct 2026 16:35:29 +1000, Kel Modderman wrote:
-> The Orange Pi 5 Pro inherits vcc_3v3_sd_s0 from the shared
-> rk3588s-orangepi-5.dtsi, but on the Pro GPIO4_B5 does not switch SD card
-> power: it enables the headphone amplifier. With the regulator claiming
-> the pin, the amplifier stays off and the headphone jack is silent.
+This patch was applied to riscv/linux.git (fixes)
+by Peter Zijlstra <peterz@infradead.org>:
+
+On Mon, 20 Jul 2026 09:38:02 +0000 you wrote:
+> From: Hongyan Xia <hongyan.xia@transsion.com>
 > 
-> Patch 1 moves the regulator and the sdmmc vmmc-supply into
-> rk3588s-orangepi-5-5b.dtsi, which only the 5 and 5B include. The
-> compiled 5 and 5B DTBs have the same nodes and properties as before.
+> While working on something static-key-related I noticed we still have a
+> few sites calling the deprecated static key APIs. The old API with name
+> static_key_true and static_key_false are also super confusing. Move all
+> of them to the new API.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [2/3] sched: Convert paravirt_steal to new static key APIs
+    https://git.kernel.org/riscv/c/a5576ebce920
 
-[1/2] arm64: dts: rockchip: Move SD card regulator to Orange Pi 5/5B
-      commit: 7fad20ae8bf8e289cb6423d68ef4f0d67f4a33c5
-[2/2] arm64: dts: rockchip: Add headphone amplifier to Orange Pi 5 Pro
-      commit: f21e9ddb7415eb60a404297e2a44fa23243fd2d4
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
