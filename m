@@ -1,60 +1,110 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793498066;
-	b=p/cQIUvZXOk/bEmdn08HKABuQPY+USy8haFFqHOdiIWREN1Q0Tz3kcJACHV8MF6vvYpj
-	 P9aU5r5RqwGcKbTBBfET4zUeT7URYrhk5Ec9FlBDpW2gLyv2OPIpkwo1sde//kUQe4xPQ
-	 afnwOxSXLRyexz76gMfHbjqcumYylGaKA2jWOBv65VNL/bROsfdMo1DJdatBrZILKn0tP
-	 PaZRHeNUtITky8zRGKqMFEBIUAVuHwXNKME6Dok7cZzW8FBugWzElZx3ocWbwMN1qbKYB
-	 UaOmfVkVasilRgTxm6uFZk4nfinNo3JFYhJ7cKB2ySPIBze8rY0InmTB9SMRzJwCinA==
+	t=1793498242;
+	b=ldVUfp1FIJ3JJcs5ALQwKOMvkv7qeA+5l50Nb/zTEQSUzGnqdfovLeDHyUfWS7hUCTva
+	 ay8neVz7lyslCINfx0AOGLIMigIBnLhF+xG5d/KGpm61hiLhIq1YwqC/k1PElrPDk5SCX
+	 wZ30sEMYyDYUD6jgPpeNuD6JHHAXHEJemS7g9CY6WJMUqoR0Vz/IrCuPOj0HJ6wfoneq1
+	 nbTYiHki5V/UHhiJ1+6GwTAJ5T3ws7qAeDoz/2c/XIErH1RHFtmccM7WmpTcIoMzvhOWZ
+	 ItjFIczjSFJeZui9q1P+WHRFJ+Qeo/peJmkkC50fO5VOKdajf0xpsUa7nxvM0uNycbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793498066;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793498242;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=v3ObFcPZJbeRiKkRyrxGK09fSNusHiNAUgb/BvLOJQg=;
-	b=Qk+KWtaO8yqM9+/DOAbgp+alHvvt4H/Lzl87+I5rLqtuE4iW4N0td2Vphsn8gqloA0mZ
-	 MSZiSiLoad5xYiesm4ockHnErF64jhFh/tEs+e8Uf49clzMWjopvA2iWBMvX0PFSpNMGy
-	 aG9DT3rcfWXxd6uhu1JTnJ/0a6zlpOnqSrfcK9ehhIwHy75TwtYHCw/O9KhN1tXKcxxZL
-	 vykszXukIKdpzBsjBZWXeO+/87tWEy1l6p/hP0EbL4ITqcj8rylB8L3MQtnhiIbCTNM9t
-	 4fOQfDsGCs0huwCiWA0RhaELBOTQwlnr+rZQkqCJ1baycyHwVpxQ5Memla3QnqWV9yA==
+	bh=ldhDDTtZAE/3brSKAhksuwsG1IPpe3NESKnYVMmoFBE=;
+	b=VmJG+0ls4K9Yxr2UBoSIX8oji76jTnbXVsoF3R0Jd5orx3jaZm9o/yhi5cV5EmQcV6ej
+	 /qb34SYa3xBS4M29AJ4KUkDvQQuvm4h1zLjxj8R6vNLcTunsnNXtYAPXWdbwfAuVxYzhN
+	 YILyAiFnoqQu4jk70FluxrCnveNrIDncWg67mjseeBhIrl6bFoMQarzIGpAu6gc+inIUg
+	 3zrXwDYUwMlgjuVih8qbcTb7zhTDiVy8egpZJujmxxepvjFTPD3z17XwBPwVybIe8jqqK
+	 VOWSwfdHY6qeBeQuiHHVrLLK1l54HCsoXaOhr47siShZqpIRe7HNo9/hH6mGYuvU8mg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FurM66+j;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uAYmsTxn;
+	arc=none smtp.remote-ip=209.85.221.41
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7702606A324;
-	Sun,  1 Nov 2026 01:54:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316E2606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:57:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 316E2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FurM66+j
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4791F000C1;
-	Sun,  1 Nov 2026 01:54:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793498065;
-	bh=v3ObFcPZJbeRiKkRyrxGK09fSNusHiNAUgb/BvLOJQg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FurM66+jC+VY1wEq07yWqSc5R7ghKYCDEvyM53uyk6CJFxhT3Xb8gEsY7OUEMiEWR
-	 7iC5Ax31jSTcxPQGvaa6p2JfeZxnaBOzM2njqdj05lWZPY3UwKNCt1IkqnuAc1BPwR
-	 NERuYrub6sLjfUnFQS0PdC8Pe4AnDNB06/B6uVGVNGZHnZ3Nni5DkIc5E8kBgwqU15
-	 AfgjSluiP7PMQv4T5ZPIcKmLsCKAXbTYbZUc6sFNIhi1HlRXDKP1AZ2+2dy4BcXMow
-	 mzyoNBFlA/mk070M3gdyrardf958pz0XqFb070yuq8f1hNsH3t/MzEETqpIjW6Mqbf
-	 O3kPhKoSszHMA==
-Date: Sun, 1 Nov 2026 01:54:16 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Arnav Kapoor <kapoorarnav43@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>, Gwendal Grignou <gwendal@chromium.org>,
- Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] iio: proximity: sx9310: keep the IRQ balanced
- across suspend and resume
-Message-ID: <20261101015416.4b477c91@jic23-hlaptop>
-In-Reply-To: <20261028220444.70121-2-kapoorarnav43@gmail.com>
-References: <20261028220444.70121-1-kapoorarnav43@gmail.com>
-	<20261028220444.70121-2-kapoorarnav43@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=uAYmsTxn
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-48e10a70540so1088737f8f.1
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:57:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793498240; x=1794103040; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ldhDDTtZAE/3brSKAhksuwsG1IPpe3NESKnYVMmoFBE=;
+        b=uAYmsTxnVYOAxhIuO6akQJRAlwulHZ1cjkwNFSKIuLwxuMITROqm04zH8bg2jtdAiN
+         K/q2Xv7O6neta4eG6DSc9d85IPEWiv1++igy29ZUlsr8AKb4Pw8hHevGM6CKovQDGs8p
+         8kNi9wTr+vjarzKpUQpHytF8G944CMgJbukUoNCEdSh+49YhYerb/mSJYVUgYy+HarE1
+         oUBMUty+81j//ZUZmDfTLrKQD5lVb23rSanXMXMqWrKZpIDmf1IeYUqKsCaVdZrygZnK
+         9I/I/b6mqytwi3p1nsWGT6rMtbXnjrwlZ26NoWVYuNgErdJHIx9pErffmAQNAUQcGLmG
+         s8dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793498240; x=1794103040;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ldhDDTtZAE/3brSKAhksuwsG1IPpe3NESKnYVMmoFBE=;
+        b=kX2lc0SGbV7JA45CZMSTUKQaaz78GxtOODuVxtRIegpac4mx5GCGLoUZDOvxzuIeaW
+         r1BBm3n1u/KI6MeETylyYeiZ403F6TH4AlFA3/V3o+qKl96fxWNKCYHBbDBBDFvgkaDb
+         BKikg80I1GlnBUWQHjloB4T5wMsJ/35mibqOcqr7YflPe5mlJkh1cUq50trsQVVioXDW
+         Gp2BSNI5NmfJSgeN+MtBD6Ptu+yWh3fvNRSbRk1ChQdWglGLLH7WQ63nV3zHITEv8kfM
+         9qyk0QYh75vyCTmF7jv4YgbDp+KYtH1xC7OUc1t7WVzpNAXMNmdDuoXCslYnCoeVmaio
+         i5mw==
+X-Forwarded-Encrypted: i=1; AKwUvBz6A5X2TBO64zJkULmP32wKjXiBXTU0/Dwtdohfpa+q8ul2tWdQ9eiHWPf8ClWnOWY03OmHI9FODfW+r+g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJhLrh/V0k+wQhBhRaBM+z4RSrWgKURfIiq0rn8yF27l0PFslg+
+	lVezBT1cBTcm8rzbIAMxaPaPJFeZn6BArYsfXTtEwVrHGGKpNPH30GgR
+X-Gm-Gg: AYBFou1bMfehOqLWXGEXQLsLqUmrS2XwCPDYsr9rIPQK8CpNikMRqSKL/I46LaE2wC2
+	4nLCDeg8lwg7eD4PSCM1fPPhxPPqagp0+dzpVCv3eXXfMomNCmLUgrrIeywQNBr40G2xHfZlRMo
+	teYxdP8vgXfbPoABXDmkkZWRy3ljZFFzRfgb+nHng1aEI2jplT5+aK/Ghdc6GYQyLlTNGvkyIsA
+	3Nj4RsBWEHfYRjZViwz8ImMLZWx7o94/lLUPtGcTPbwB76QQ4KaFwfpnLertPcZwolhfoC56fZU
+	z3M3KxiQPW2q644yoFXXMo8fTr6wxrioTV3/K3Z5q93PVvq44Ly0a5S6oaTQB5BIELCASPIHM/q
+	fObi1OgaT6HNIjfhGv+ZlaNTACyNYoljCAxo7T0y1k7L4roz5jZW475LOvYTTIuVVJmqrByeRdQ
+	jK+m17w/4BMVPeHmuaYOO0D4tUpxNHd2JI4xSZQw2xuFIatz5G67oTuxoDY761jkFiXVpBu6rui
+	Gm2vY7NpJDNxTAnXYZ85B7x1II9ihJdm45BITnX6qi/DuVBt7ctKBtmnshM+C9+XKPHl0KP9jqI
+	QynIigDqVkxn72IcXvt+s/Nq
+X-Received: by 2002:a05:600d:c:b0:4af:83ad:8f70 with SMTP id 5b1f17b1804b1-4af83ad8fa7mr31193005e9.35.1793498240391;
+        Sat, 31 Oct 2026 18:57:20 -0700 (PDT)
+Received: from infinity ([2001:b07:5d26:7a6a:365a:60ff:fe0d:cfc6])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81b7fe80sm273532835e9.11.2026.10.31.18.57.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 18:57:19 -0700 (PDT)
+From: koraynilay <koray.fra@gmail.com>
+To: David Sterba <dsterba@suse.com>,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Sungjong Seo <sj1557.seo@samsung.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Cc: Chris Mason <mason@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	Yuezhang Mo <yuezhang.mo@sony.com>,
+	Chuck Lever <cel@kernel.org>,
+	"Darrick J . Wong" <djwong@kernel.org>,
+	Sean Smith <defendthedisabled@gmail.com>,
+	Andrey Albershteyn <aalbersh@kernel.org>,
+	Pedro Falcato <pfalcato@suse.de>,
+	Amir Goldstein <amir73il@gmail.com>,
+	=?UTF-8?q?Pali=20Roh=C3=A1r?= <pali@kernel.org>,
+	linux-btrfs@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	exfat@lists.linux.dev,
+	ntfs3@lists.linux.dev,
+	linux-api@vger.kernel.org,
+	koraynilay <koray.fra@gmail.com>
+Subject: [RFC PATCH v3 0/5] add provenance time (ptime)
+Date: Sun,  1 Nov 2026 02:55:46 +0100
+Message-ID: <20261101015551.786044-1-koray.fra@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,106 +114,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Thu, 29 Oct 2026 03:34:37 +0530
-Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
+This is an initial implementation of a new timestamp to indicate the
+time when a file/directory was initially created.
 
-> sx9310_suspend() disables the interrupt first and returns with it still
-> disabled if a register access fails. Resume isn't called after a failed
-> suspend, so the interrupt is never enabled again. sx9310_resume() also
-> returns without enabling it on error. Without an interrupt line,
-> client->irq is 0 and both callbacks act on IRQ 0, which the driver
-> doesn't own.
+This patch series takes inspiration from the one by Sean Smith
+<defendthedisabled@gmail.com> [1], but using
+file_setattr()/file_getattr() as suggested by Darrick J. Wong
+<djwong@kernel.org> in [2].
 
-irq 0 doesn't exist any more on any architectures I think..
-It did once, long ago. Today it means no interrupt.
+The semantics of this new timestamp should be at least these:
+- it should be the same as btime on a newly created file
+- it's user-settable, so it can be preserved for backups, filesystem
+  conversions, archives and any similar operation
+- it should be preserved every time mtime gets preserved
 
-> 
-> Disable the interrupt only once the device is asleep, always enable it
-> in resume, and skip both when there is no interrupt.
-> 
-> Fixes: 72ad02b15d63 ("iio: Add SEMTECH SX9310/9311 sensor driver")
-> Reviewed-by: Joshua Crofts <joshua.crofts1@gmail.com>
-> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+and the correspondence with the other timestamps is as follows:
 
-I'm not keen on suspend and resume not being mirror images of each
-other with respect to ordering.
+ctime <-> btime
+mtime <-> ptime
 
-> ---
->  drivers/iio/proximity/sx9310.c | 42 ++++++++++++++++++++++------------
->  1 file changed, 28 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/iio/proximity/sx9310.c b/drivers/iio/proximity/sx9310.c
-> index 79ba46d8a0aa..f824d00f1174 100644
-> --- a/drivers/iio/proximity/sx9310.c
-> +++ b/drivers/iio/proximity/sx9310.c
-> @@ -943,8 +943,6 @@ static int sx9310_suspend(struct device *dev)
->  	u8 ctrl0;
->  	int ret;
->  
-> -	disable_irq_nosync(data->client->irq);
-> -
->  	guard(mutex)(&data->mutex);
->  	ret = regmap_read(data->regmap, SX9310_REG_PROX_CTRL0,
->  			  &data->suspend_ctrl);
-> @@ -956,7 +954,29 @@ static int sx9310_suspend(struct device *dev)
->  	if (ret)
->  		return ret;
->  
-> -	return regmap_write(data->regmap, SX9310_REG_PAUSE, 0);
-> +	ret = regmap_write(data->regmap, SX9310_REG_PAUSE, 0);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Only once nothing can fail, as resume isn't called on failure. */
-> +	if (data->client->irq)
-> +		disable_irq_nosync(data->client->irq);
-> +
-> +	return 0;
-> +}
-> +
-> +static int sx9310_wake_up(struct sx_common_data *data)
-> +{
-> +	struct regmap *map = data->regmap;
-> +	int ret;
-> +
-> +	guard(mutex)(&data->mutex);
-> +
-> +	ret = regmap_write(map, SX9310_REG_PAUSE, 1);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_write(map, SX9310_REG_PROX_CTRL0, data->suspend_ctrl);
->  }
->  
->  static int sx9310_resume(struct device *dev)
-> @@ -964,19 +984,13 @@ static int sx9310_resume(struct device *dev)
->  	struct sx_common_data *data = iio_priv(dev_get_drvdata(dev));
->  	int ret;
->  
-> -	scoped_guard(mutex, &data->mutex) {
-> -		ret = regmap_write(data->regmap, SX9310_REG_PAUSE, 1);
-> -		if (ret)
-> -			return ret;
-> +	ret = sx9310_wake_up(data);
->  
-> -		ret = regmap_write(data->regmap, SX9310_REG_PROX_CTRL0,
-> -				   data->suspend_ctrl);
-> -		if (ret)
-> -			return ret;
-> -	}
-> +	/* Balance the suspend even if the device couldn't be woken up. */
-> +	if (data->client->irq)
-> +		enable_irq(data->client->irq);
-If we are going to reorder suspend, I'd expect this to also move
-and be done before the wake up. I think that should be safe enough?
->  
-> -	enable_irq(data->client->irq);
-> -	return 0;
-> +	return ret;
->  }
->  
->  static DEFINE_SIMPLE_DEV_PM_OPS(sx9310_pm_ops, sx9310_suspend, sx9310_resume);
+Examples:
+1) a .zsh_history file created in 2019, then after a few years the user
+   decides to switch to another filesystem, copying the .zsh_history to
+   the new home, in that case btime would have the timestamp of the copy
+   and ptime would have the 2019 timestamp (just like mtime would have
+   been preserved)
+2) a symlink created in 2020 from the home directory to a /path going
+   through the same process as the .zsh_history, in this case it would
+   also make sense to sync the ptime to the 2020 timestamp instead of
+   keeping only the btime (so the inode creation time).
+
+The proof-of-concept code (for testing) for stat(1) and cp(1) is
+available at https://github.com/koraynilay/coreutils (master branch)
+(Note: these coreutils code changes are a prototype and won't be
+submitted upstream as-is, but they work as expected in simple stat and
+cp -a/--preserve=ptime tests)
+
+Lastly, the name "provenance" and "ptime" are not final, I personally
+don't have a strong opinion on any name, but while testing with stat(1)
+I noticed that "Provenance" is definitely too long for the normal
+output, so another option which would fit well is "Origin time",
+abbreviated as "ntime" (OrigiN time) and not as "otime", as that would
+conflict with btrfs' internal naming and create confusion.
+
+v2 changes:
+- fix permission bypass leading to ptime update on immutable and
+  append-only files (found by sashiko[3])
+- normalize ptime timestamp as done in fs/attr.c:notify_change() (found
+  by sashiko[3])
+- fix wording in vfs patch to be like the cover-letter
+
+v3 changes:
+- vfs: reject setting ptime with -EOPNOTSUPP on filesystems that do not
+  support it instead of silently ignoring it (found by sashiko[4])
+- vfs: fix not being able to clear immutable and append-only on files
+  with ptime, and allow updating immutable/append-only atomically along
+  with ptime (found by sashiko[4])
+- btrfs: validate on-disk ptime nanoseconds and reset to otime if
+  invalid (found by sashiko[4])
+- btrfs: avoid re-assigning ptime on unrelated chattr calls (found by
+  sashiko[4])
+- add ntfs3 and exfat support as suggested by Amir Goldstein[5], but no
+  vfat, smb, or nfs4 yet as they are a bit more complex
+- move the introduction of fileattr_has_fsx_mask() from the btrfs patch
+  to a standalone patch in the series
+- btrfs: add fileattr_[gs]et to symlink and special file operations
+
+Thanks.
+
+[1]: https://lore.kernel.org/20260405195007.1306-2-DefendTheDisabled@gmail.com
+[2]: https://lore.kernel.org/20260407014129.GC6192@frogsfrogsfrogs
+[3]: https://sashiko.dev/#/patchset/20261027220532.736352-1-koray.fra%40gmail.com
+[4]: https://sashiko.dev/#/patchset/20261028134728.294127-1-koray.fra%40gmail.com
+[5]: https://lore.kernel.org/linux-btrfs/CAOQ4uxiuy0VwZj+3M-zRqQ49WTpHZpiaQ+6MZ8z8WdLjyQM_zA@mail.gmail.com/
+
+koraynilay (5):
+  vfs: add provenance time (ptime)
+  vfs: add fileattr_has_fsx_mask()
+  ntfs3: make crtime user-settable using ptime
+  exfat: make crtime user-settable using ptime
+  btrfs: add provenance time (ptime)
+
+ fs/btrfs/btrfs_inode.h          |  4 ++++
+ fs/btrfs/delayed-inode.c        |  6 ++++++
+ fs/btrfs/inode.c                | 29 +++++++++++++++++++++++++-
+ fs/btrfs/ioctl.c                | 12 ++++++++++-
+ fs/btrfs/print-tree.c           |  1 +
+ fs/btrfs/tree-log.c             |  3 +++
+ fs/exfat/exfat_fs.h             |  2 ++
+ fs/exfat/file.c                 | 36 ++++++++++++++++++++++++++++++++-
+ fs/exfat/namei.c                |  1 +
+ fs/file_attr.c                  | 33 ++++++++++++++++++++++++++++--
+ fs/ntfs3/file.c                 | 14 +++++++++++--
+ fs/ntfs3/frecord.c              |  8 +++++++-
+ fs/stat.c                       |  2 ++
+ include/linux/fileattr.h        | 26 +++++++++++++++++++++---
+ include/linux/stat.h            |  1 +
+ include/uapi/linux/btrfs_tree.h |  3 ++-
+ include/uapi/linux/fs.h         |  8 +++++++-
+ include/uapi/linux/stat.h       |  7 ++++++-
+ 18 files changed, 182 insertions(+), 14 deletions(-)
+
+
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+-- 
+2.56.0
 
