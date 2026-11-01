@@ -1,66 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793554904;
-	b=SFcwy2jEsARiNLPLxYlP3Rg2gFTsbbdyspw62F6RhqmUcpFadizBpYRRTeMtMkwN/xxk
-	 CLMuCn0n2K67u0zCOlEuJ9DvrVkg6w7s/dWLDdNFIks7Kq/5U06rx9BxLRMciho6soBzD
-	 hZ6cpoD4DkKkjBV10VfRFOcj5qhg8Se2nH8wn9gDFBvtk2oJIUaSNEbi5rIIvDQI+xIue
-	 8HGW9i67XAYPdoVJWHo6xhQxacfda6mJv2dpWcdrG1rJLa9Go4BZPs6Z58KgKG2VJn/h8
-	 XIliGcTNSs+cF9uiWhC66SIqIXFaYzfzVhr+A6EinDpa4IoI65kIMR3eqsUxeGfRGSA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793554904;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ZSWxv+vsV3OMpY3UoOnjoLymmnb2qgFdGAgFrnTm7wA=;
-	b=Eyw4mGTtswy/zrClQGxgdABNragC/b2R1eatdgIDp7gV+z7rjUwQS/6x1oKZJ5KPuvKG
-	 jdDLJEUiIGQBmdvI5qWrffjhUWfe1lrl0hvb+A63I1N7CZWylqRqgUQYLwkBHSX3DdaQ+
-	 qoZokFHAX9HzwIYrwHIn+WwbOJyBVjrduYV7z7SwGyDveeVd3MZvEjwIAr5mm2oY7xAMT
-	 IPGiF5uohXUlInJoENRGQoES6wX4vBgqupP68RuqQOnr961G2989eq+s4J53YbPzyafwd
-	 G7TZnjHur01jZAwsav/WPWBsjVIw6CI5Gd6LtNaIEsKi3SeFtPvzwKwTb7Q/MpblIcQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJYf1Zmh;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.105
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793554926;
+	b=jrg/HUplU7VsmN4wfZ5os9tIW6qn/dvXCAsmS0TFnscKoxjUS5Td3g7boRxzUokHvsgn
+	 Qu5Vl0IlvAptFeVKEkLMpw02znYv90+0UqaMoFEiI4yplFLu6Xd+8kkBJ8N8q4c3VPv5Q
+	 LakwLE6F4240XVmbZ4AvEiY7uhFEclKrXpBLsv93ujEN96qNNucpW51kERy/9W0E+DyXJ
+	 Keg2YLdzIJIguEUQ/bDDaGmf/WYtIL3zDGgSFUE1RYFCbJlfJ/4i7QiCNi74SrGntrUw+
+	 FI1lGACqXxjRs7brn9BfuiSHFl3kwotH7RJ31XH+5Mp+5eIXAxAjVAokYYs80NEo2Uw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793554926;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
+	bh=DY54u/WILFKyMZKlw6oGU4omBxkvg7WXwo9hrBUQuvs=;
+	b=lmkS45L30pgVxEo0QuHA5SSaXgyONsQ37Zv6d4QavxxdVLH6uAz2uQ28taJepP6bbjjG
+	 suQTT58Ff8nUN9cQqPv1FEHODhpBUU0Qj5h/7GIKbpY11oA0HyfnIjln5ZCAVYqRH6BJB
+	 jrqzxBNOZglTTxi8SC7i1e5AOyIx2Y5VpvkYlYVhY7jDGOF7YRdUhJXyUJLyXksmlinTr
+	 nRCfZ62k6muQ15Ms35xw8mZ4o4PrLz1t+/BBDxPGOb1RWDP7FmGdMIp6U3BaMy2zCUfWZ
+	 qkMm5mXywEXS27/GSW+dAeN6yc80nKwwCz2bt0UDB0OwBxRaFUfnCVn0HFUmimgdDZQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=D62qvW55;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.182.105
+Received: from sender5-pp-e105.zoho.com (sender5-pp-e105.zoho.com [165.173.182.105])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3ED606A32C;
-	Sun,  1 Nov 2026 17:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B55606A327;
+	Sun,  1 Nov 2026 17:42:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0B55606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hJYf1Zmh
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D3961F000C1;
-	Sun,  1 Nov 2026 17:41:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793554903;
-	bh=ZSWxv+vsV3OMpY3UoOnjoLymmnb2qgFdGAgFrnTm7wA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hJYf1Zmh2Yx9+qETVYUi6n/ZBYeFIK+4QJnS6Yn2Q23NGW/MPESWC54jo5Qhioi75
-	 MUZ8ia1LeX5PcscI6EVBgWu6xB0lxUn4sJWDCBuFrF6rAZXzX6uVI+OQMp9xKZl1a7
-	 1OePawjs35W9cDvd3BoBLEg9CBB99xp/FHEtSMfS0qgcqSoZrQGFn3EA8UmhU8yUGf
-	 7uUNVXsuZUAiXu05o5VLCGqPFaJCMkW0YkpIBHVvv4XOyJ0ZOQERDfqw3qiBcVCCdM
-	 O9SsPRB4aZ5MrJ2trR2gfUgDyhEp+rGAK3kehDgRLYeZniN6LkFz7SB9G/MLGwMvjN
-	 ixQGjVXexQeNw==
-Date: Sun, 1 Nov 2026 17:41:40 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Esben Haabendal <esben@geanix.com>, Kuppuswamy
- Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, "Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= (The Capable Hub)"
- <u.kleine-koenig@baylibre.com>, Pan Chuang <panchuang@vivo.com>, Hemanth
- Selam <hemanth.selam@gmail.com>, Antoniu Miclaus
- <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 2/2] iio: light: ltr501: Add support for the
- LTR-659PS-01 proximity sensor
-Message-ID: <20261101174140.4d11fdfc@jic23-hlaptop>
-In-Reply-To: <20261101141507.119186-3-clamor95@gmail.com>
-References: <20261101141507.119186-1-clamor95@gmail.com>
-	<20261101141507.119186-3-clamor95@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=D62qvW55
+ARC-Seal: i=1; a=rsa-sha256; t=1793554897; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=oLRaf38WydJfmWR8xkB0m7VKMb8LxqeZEjgEWFqYmj/Z+6/ji5hKFSC96DTF1pfo76UCA9dWY3BsOyOKNPeySzM42wnT+Aqz5haGynPUsP11jgjWr9nQ8EZhlD2AoAhFKZLCN9r6WVTe5f7cst8HhD5cMtqz9mGJW9TTA8cOGy4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793554897; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=DY54u/WILFKyMZKlw6oGU4omBxkvg7WXwo9hrBUQuvs=; 
+	b=e0vd1iHC4MhTOBujEh07Qay1CqxY2bE4f7kZKO3YT/mFkUoY+Kka350TajayOhhlTVhrf8+UAEYW41+dRZd517jKoamrJ/tLmhpKI3YwAjUSZUqB4UWfTdYkyDeHTBG3dq/lJ91QpIR2qmSW3E/eABwtCCr9Lt9ZjyaRXKBlywE=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=D62qvW55/TqCJcgnGyN820oANwEB97Gtn8G0BFExI341dY/WjsMIN9OXjtVjSW8v7FForYKbGan529gBFR3Ym+S4JbB1riA7WuV/yRpV2n/dtfT2xguyJutEOtcqxHaN7HdH89xMeSeIhvZBycM+oK9TX+/dL/QD7qtiAUZTZkuqw9+lk0xzb30wx7PeB4oKKMYp2ZLyJdzkiK4lW80zkJHME0YSZ7aTIPYqTZebfH40BPWvfli5XNu8c+u3Z+rzP4gUFVPTKl6eGPhj8B23an9A4dgs2BUDbSAkRaDShzuoea8jNg/WyMBxokWmq0vEJVSaU6fGwpVp6wFJf+cNzQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=DY54u/WILFKyMZKlw6oGU4omBxkvg7WXwo9hrBUQuvs=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793554895357322.87931089371625;
+	Sun, 1 Nov 2026 09:41:35 -0800 (PST)
+From: Rong Zhang <i@rong.moe>
+Date: Mon, 02 Nov 2026 01:41:20 +0800
+Subject: [PATCH 3/9] HID: haptic, multitouch: Check haptic prerequisite
+ properly
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,172 +60,278 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-hid-haptic-kmod-v1-3-a3de5626dade@rong.moe>
+References: <20261102-hid-haptic-kmod-v1-0-a3de5626dade@rong.moe>
+In-Reply-To: <20261102-hid-haptic-kmod-v1-0-a3de5626dade@rong.moe>
+To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
+ Jonathan Denose <jdenose@google.com>, Angela Czubak <aczubak@google.com>, 
+ Henrik Rydberg <rydberg@bitmath.org>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Rong Zhang <i@rong.moe>
+X-Mailer: b4 0.17-dev-6be7c
+X-ZohoMailClient: External
 
-On Sun,  1 Nov 2026 16:15:07 +0200
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+The td->is_haptic_touchpad boolean is multiplexed through during the
+probe- and run-time procedures of hid-multitouch. However, the way it
+flips is fragile on faulty devices.
 
-> Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
-> nearly identical to the LTR-559ALS-01, but omits all elements related to
-> ambient light sensing (Even the regmap is identical, but ALS registers are
-> marked as reserved and interactions with them are discouraged).
-> 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Hi Svyatoslav,
+MT touchpads have multiple HID_DG_TIPPRESSURE usages, but the
+td->is_haptic_touchpad only depends on the last usage, and doesn't check
+if all usages have the same critical annotations. Moreover, if the HID
+device happens to have multiple HID_DG_TOUCHPAD applications, the haptic
+device may be initialized more than once.
 
-Various more general comments on the driver in here. Only real request
-is to not copy the rather ugly existing indentation for new code.
+Fix them by storing the relevant HID_DG_TOUCHPAD input device (must have
+a pressure sensor) during hid_haptic_check_pressure_unit(), with proper
+sanity checks that reject annotation mismatches and duplicated input
+devices. Later, hid_haptic_input_configured() continues the
+initialization only if the input device matches the previously stored
+one.
 
-If nothing else comes up in review, I can just tidy that up whilst applying.
-For now I'm going to leave this on list to give others time to take a
-look.
+With that, the td->is_haptic_touchpad is converted into a one-way (false
+=> true) flipping manner. All calls to hid_haptic_*() during the
+probe-time procedures are now guarded by the nullability of td->haptic
+instead of td->is_haptic_touchpad or no guard, preparing to skip
+allocating td->haptic in !CONFIG_HID_HAPTIC builds in the following
+changes.
 
-Thanks,
+Fixes: 7939f787f450 ("HID: haptic: move FF initialization into .input_configured()")
+Signed-off-by: Rong Zhang <i@rong.moe>
+---
+ drivers/hid/hid-haptic.c     | 64 ++++++++++++++++++++++++++------------------
+ drivers/hid/hid-haptic.h     | 23 +++++++---------
+ drivers/hid/hid-multitouch.c | 30 ++++++++++-----------
+ 3 files changed, 61 insertions(+), 56 deletions(-)
 
-Jonathan
+diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
+index 9cbacc827dc9..27cc8a2d9b59 100644
+--- a/drivers/hid/hid-haptic.c
++++ b/drivers/hid/hid-haptic.c
+@@ -48,17 +48,40 @@ void hid_haptic_feature_mapping(struct hid_device *hdev,
+ }
+ EXPORT_SYMBOL_GPL(hid_haptic_feature_mapping);
+ 
+-bool hid_haptic_check_pressure_unit(struct hid_haptic_device *haptic,
++void hid_haptic_check_pressure_unit(struct hid_haptic_device *haptic,
+ 				    struct hid_input *hi, struct hid_field *field)
+ {
+-	if (field->unit == HID_UNIT_GRAM || field->unit == HID_UNIT_NEWTON) {
+-		haptic->force_logical_minimum = field->logical_minimum;
+-		haptic->force_physical_minimum = field->physical_minimum;
+-		haptic->force_resolution = input_abs_get_res(hi->input,
+-							     ABS_MT_PRESSURE);
+-		return true;
++	if (hi->application != HID_DG_TOUCHPAD)
++		return;
++
++	/* Don't care about input devices with no pressure sensor. */
++	if (field->unit != HID_UNIT_GRAM && field->unit != HID_UNIT_NEWTON)
++		return;
++
++	if (IS_ERR(haptic->input_dev))
++		return;
++
++	if (!haptic->input_dev) {
++		haptic->input_dev = hi->input;
++		haptic->pressure_field = field;
++		haptic->force_resolution = input_abs_get_res(hi->input, ABS_MT_PRESSURE);
++		return;
+ 	}
+-	return false;
++
++	if (haptic->input_dev == hi->input &&
++	    haptic->pressure_field->unit == field->unit &&
++	    haptic->pressure_field->logical_minimum == field->logical_minimum &&
++	    haptic->pressure_field->physical_minimum == field->physical_minimum &&
++	    haptic->force_resolution == input_abs_get_res(hi->input, ABS_MT_PRESSURE))
++		return;
++
++	/*
++	 * Reject if:
++	 * - there are multiple input devices with pressure sensors
++	 * - the pressure annotation mismatches
++	 */
++	haptic->input_dev = ERR_PTR(-EPROTO);
++	return;
+ }
+ EXPORT_SYMBOL_GPL(hid_haptic_check_pressure_unit);
+ 
+@@ -78,28 +101,16 @@ int hid_haptic_input_mapping(struct hid_device *hdev,
+ }
+ EXPORT_SYMBOL_GPL(hid_haptic_input_mapping);
+ 
+-int hid_haptic_input_configured(struct hid_device *hdev,
+-				struct hid_haptic_device *haptic,
+-				struct hid_input *hi)
++bool hid_haptic_input_configured(struct hid_device *hdev,
++				 struct hid_haptic_device *haptic, struct hid_input *hi)
+ {
+-	int error;
+-
+-	if (hi->application != HID_DG_TOUCHPAD)
+-		return -1;
+-
+-	if (!haptic->auto_trigger_report || !haptic->manual_trigger_report)
+-		return 0;
++	if (IS_ERR_OR_NULL(haptic->input_dev) || haptic->input_dev != hi->input ||
++	    !haptic->auto_trigger_report || !haptic->manual_trigger_report)
++		return false;
+ 
+ 	__set_bit(INPUT_PROP_PRESSUREPAD, hi->input->propbit);
+ 
+-	error = hid_haptic_init(hdev, haptic, hi->input);
+-	if (error) {
+-		dev_warn(&hdev->dev, "Cannot allocate haptic for %s\n",
+-			 hdev->name);
+-		return 0;
+-	}
+-
+-	return 1;
++	return hid_haptic_init(hdev, haptic, hi->input) == 0;
+ }
+ EXPORT_SYMBOL_GPL(hid_haptic_input_configured);
+ 
+@@ -539,6 +550,7 @@ int hid_haptic_init(struct hid_device *hdev,
+ put_device:
+ 	put_device(&hdev->dev);
+ exit:
++	dev_warn(&hdev->dev, "Cannot allocate haptic for %s: %d\n", hdev->name, ret);
+ 	module_put(THIS_MODULE);
+ 	return ret;
+ }
+diff --git a/drivers/hid/hid-haptic.h b/drivers/hid/hid-haptic.h
+index 6332991a7844..1c11fcbc76f8 100644
+--- a/drivers/hid/hid-haptic.h
++++ b/drivers/hid/hid-haptic.h
+@@ -33,12 +33,11 @@ struct hid_haptic_device {
+ 	struct mutex auto_trigger_mutex;
+ 	struct workqueue_struct *wq;
+ 	struct hid_report *manual_trigger_report;
++	struct hid_field *pressure_field;
+ 	struct mutex manual_trigger_mutex;
+ 	size_t manual_trigger_report_len;
+ 	int pressed_state;
+ 	s32 pressure_sum;
+-	s32 force_logical_minimum;
+-	s32 force_physical_minimum;
+ 	s32 force_resolution;
+ 	u32 mode;
+ 	u32 default_auto_trigger;
+@@ -59,16 +58,15 @@ void hid_haptic_feature_mapping(struct hid_device *hdev,
+ 				struct hid_haptic_device *haptic,
+ 				struct hid_field *field, struct hid_usage
+ 				*usage);
+-bool hid_haptic_check_pressure_unit(struct hid_haptic_device *haptic,
++void hid_haptic_check_pressure_unit(struct hid_haptic_device *haptic,
+ 				    struct hid_input *hi, struct hid_field *field);
+ int hid_haptic_input_mapping(struct hid_device *hdev,
+ 			     struct hid_haptic_device *haptic,
+ 			     struct hid_input *hi,
+ 			     struct hid_field *field, struct hid_usage *usage,
+ 			     unsigned long **bit, int *max);
+-int hid_haptic_input_configured(struct hid_device *hdev,
+-				struct hid_haptic_device *haptic,
+-				struct hid_input *hi);
++bool hid_haptic_input_configured(struct hid_device *hdev,
++				 struct hid_haptic_device *haptic, struct hid_input *hi);
+ int hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
+ 		    struct input_dev *dev);
+ void hid_haptic_handle_press_release(struct hid_haptic_device *haptic);
+@@ -83,11 +81,9 @@ void hid_haptic_feature_mapping(struct hid_device *hdev,
+ 				*usage)
+ {}
+ static inline
+-bool hid_haptic_check_pressure_unit(struct hid_haptic_device *haptic,
++void hid_haptic_check_pressure_unit(struct hid_haptic_device *haptic,
+ 				    struct hid_input *hi, struct hid_field *field)
+-{
+-	return false;
+-}
++{}
+ static inline
+ int hid_haptic_input_mapping(struct hid_device *hdev,
+ 			     struct hid_haptic_device *haptic,
+@@ -98,11 +94,10 @@ int hid_haptic_input_mapping(struct hid_device *hdev,
+ 	return 0;
+ }
+ static inline
+-int hid_haptic_input_configured(struct hid_device *hdev,
+-				struct hid_haptic_device *haptic,
+-				struct hid_input *hi)
++bool hid_haptic_input_configured(struct hid_device *hdev,
++				 struct hid_haptic_device *haptic, struct hid_input *hi)
+ {
+-	return 0;
++	return false;
+ }
+ static inline
+ void hid_haptic_reset(struct hid_device *hdev, struct hid_haptic_device *haptic)
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 4e19a0c4d238..d744ccc3e0b0 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -605,7 +605,8 @@ static void mt_feature_mapping(struct hid_device *hdev,
+ 		break;
+ 	}
+ 
+-	hid_haptic_feature_mapping(hdev, td->haptic, field, usage);
++	if (td->haptic)
++		hid_haptic_feature_mapping(hdev, td->haptic, field, usage);
+ }
+ 
+ static void set_abs(struct input_dev *input, unsigned int code,
+@@ -962,9 +963,8 @@ static int mt_touch_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+ 		case HID_DG_TIPPRESSURE:
+ 			set_abs(hi->input, ABS_MT_PRESSURE, field,
+ 				cls->sn_pressure);
+-			td->is_haptic_touchpad =
+-				hid_haptic_check_pressure_unit(td->haptic,
+-							       hi, field);
++			if (td->haptic)
++				hid_haptic_check_pressure_unit(td->haptic, hi, field);
+ 			MT_STORE_FIELD(p);
+ 			return 1;
+ 		case HID_DG_SCANTIME:
+@@ -1554,10 +1554,11 @@ static int mt_input_mapping(struct hid_device *hdev, struct hid_input *hi,
+ 	if (field->physical == HID_DG_STYLUS)
+ 		hi->application = HID_DG_STYLUS;
+ 
+-	ret = hid_haptic_input_mapping(hdev, td->haptic, hi, field, usage, bit,
+-				       max);
+-	if (ret != 0)
+-		return ret;
++	if (td->haptic) {
++		ret = hid_haptic_input_mapping(hdev, td->haptic, hi, field, usage, bit, max);
++		if (ret)
++			return ret;
++	}
+ 
+ 	/* let hid-core decide for the others */
+ 	return 0;
+@@ -1955,14 +1956,11 @@ static int mt_input_configured(struct hid_device *hdev, struct hid_input *hi)
+ 	struct hid_report *report;
+ 	int ret;
+ 
+-	if (td->is_haptic_touchpad && (td->mtclass.name == MT_CLS_WIN_8 ||
+-	    td->mtclass.name == MT_CLS_WIN_8_FORCE_MULTI_INPUT ||
+-	    td->mtclass.name == MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE)) {
+-		if (hid_haptic_input_configured(hdev, td->haptic, hi) == 0)
+-			td->is_haptic_touchpad = false;
+-	} else {
+-		td->is_haptic_touchpad = false;
+-	}
++	if (td->haptic && !td->is_haptic_touchpad &&
++	    (td->mtclass.name == MT_CLS_WIN_8 ||
++	     td->mtclass.name == MT_CLS_WIN_8_FORCE_MULTI_INPUT ||
++	     td->mtclass.name == MT_CLS_WIN_8_KEEP_LATENCY_ON_CLOSE))
++		td->is_haptic_touchpad = hid_haptic_input_configured(hdev, td->haptic, hi);
+ 
+ 	list_for_each_entry(report, &hi->reports, hidinput_list) {
+ 		rdata = mt_find_report_data(td, report);
 
-> ---
->  drivers/iio/light/ltr501.c | 58 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 58 insertions(+)
-> 
-> diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
-> index 302be2fc314c5..5cc1141322ad5 100644
-> --- a/drivers/iio/light/ltr501.c
-> +++ b/drivers/iio/light/ltr501.c
-> @@ -96,6 +96,7 @@ enum {
->  	ltr329,
->  	ltr501,
->  	ltr559,
-> +	ltr659,
->  };
->  
->  struct ltr501_gain {
-> @@ -649,6 +650,26 @@ static const struct iio_chan_spec ltr301_channels[] = {
->  	IIO_CHAN_SOFT_TIMESTAMP(2),
->  };
->  
-> +static const struct iio_chan_spec ltr659_channels[] = {
-> +	{
-> +		.type = IIO_PROXIMITY,
-> +		.address = LTR501_PS_DATA,
-> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
-> +				      BIT(IIO_CHAN_INFO_SCALE),
-> +		.scan_index = 0,
-> +		.scan_type = {
-> +			.sign = 'u',
-> +			.realbits = 11,
-> +			.storagebits = 16,
-> +			.endianness = IIO_CPU,
-> +		},
-> +		.event_spec = ltr501_pxs_event_spec,
-> +		.num_event_specs = ARRAY_SIZE(ltr501_pxs_event_spec),
-> +		.ext_info = ltr501_ext_info,
-> +	},
-> +	IIO_CHAN_SOFT_TIMESTAMP(1),
-> +};
-> +
->  static int ltr501_read_info_raw(struct ltr501_data *data,
->  				struct iio_chan_spec const *chan,
->  				int *val)
-> @@ -1178,6 +1199,12 @@ static struct attribute *ltr301_attributes[] = {
->  	NULL
->  };
->  
-> +static struct attribute *ltr659_attributes[] = {
-> +	&iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
-> +	&iio_const_attr_sampling_frequency_available.dev_attr.attr,
-> +	NULL
-> +};
-Not something I'm going to ask for as part of this series, but
-if anyone working with this driver has time it would be good to
-move the available handling over to the read_avail() callback
-and masks.  This is an old driver and so far not been converted
-to that newer infrastructure.
-
-> +
->  static const struct attribute_group ltr501_attribute_group = {
->  	.attrs = ltr501_attributes,
->  };
-> @@ -1186,6 +1213,10 @@ static const struct attribute_group ltr301_attribute_group = {
->  	.attrs = ltr301_attributes,
->  };
->  
-> +static const struct attribute_group ltr659_attribute_group = {
-> +	.attrs = ltr659_attributes,
-> +};
-> +
->  static const struct iio_info ltr501_info_no_irq = {
->  	.read_raw = ltr501_read_raw,
->  	.write_raw = ltr501_write_raw,
-> @@ -1218,6 +1249,22 @@ static const struct iio_info ltr301_info = {
->  	.write_event_config	= &ltr501_write_event_config,
->  };
->  
-> +static const struct iio_info ltr659_info_no_irq = {
-> +	.read_raw = ltr501_read_raw,
-> +	.write_raw = ltr501_write_raw,
-> +	.attrs = &ltr659_attribute_group,
-> +};
-> +
-> +static const struct iio_info ltr659_info = {
-> +	.read_raw = ltr501_read_raw,
-> +	.write_raw = ltr501_write_raw,
-> +	.attrs = &ltr659_attribute_group,
-> +	.read_event_value	= &ltr501_read_event,
-> +	.write_event_value	= &ltr501_write_event,
-> +	.read_event_config	= &ltr501_read_event_config,
-> +	.write_event_config	= &ltr501_write_event_config,
-
-The indenting of the existing structure is weird and could do with a tidy up.
-I'd suggest just dropping any attempt to force alignment.  As is shown
-here, doing that tends to lead to inconsistency over time as a driver
-evolves.
-
-> +};
-> +
->  static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
->  	[ltr301] = {
->  		.partid = 0x08,
-> @@ -1283,6 +1330,15 @@ static const struct ltr501_chip_info ltr501_chip_info_tbl[] = {
->  		.channels = ltr501_channels,
->  		.no_channels = ARRAY_SIZE(ltr501_channels),
->  	},
-
-Another nice to have but not a request for this series.
-Would be good to move away from handling these as an array with the enum
-value in the firmware tables. That scales badly and runs into NULL check
-problems when we use the generic firmware accessors (which we should really
-be using here). i2c_get_match_data().  The standard way to do this
-today is to use separate named structures and put pointers to those in the
-tables.
-
-> +	[ltr659] = {
-> +		.partid = 0x09,
-> +		.ps_gain = ltr559_ps_gain_tbl,
-> +		.ps_gain_tbl_size = ARRAY_SIZE(ltr559_ps_gain_tbl),
-> +		.info = &ltr659_info,
-> +		.info_no_irq = &ltr659_info_no_irq,
-> +		.channels = ltr659_channels,
-> +		.no_channels = ARRAY_SIZE(ltr659_channels),
-> +	},
->  };
->  
->  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8 ps_val)
-> @@ -1635,6 +1691,7 @@ static const struct i2c_device_id ltr501_id[] = {
->  	{ .name = "ltr329", .driver_data = ltr329 },
->  	{ .name = "ltr501", .driver_data = ltr501 },
->  	{ .name = "ltr559", .driver_data = ltr559 },
-> +	{ .name = "ltr659", .driver_data = ltr659 },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, ltr501_id);
-> @@ -1645,6 +1702,7 @@ static const struct of_device_id ltr501_of_match[] = {
->  	{ .compatible = "liteon,ltr329", },
->  	{ .compatible = "liteon,ltr501", },
->  	{ .compatible = "liteon,ltr559", },
-> +	{ .compatible = "liteon,ltr659", },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(of, ltr501_of_match);
+-- 
+2.55.0
 
