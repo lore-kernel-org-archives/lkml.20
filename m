@@ -1,102 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793557891;
-	b=0yKwpUQZ/5KvUfgA37cZ/SRKWw1CmAzWjX6uG/fd1j6c3ixq6yW5IFCZIIG6wIuCzJDR
-	 Esw31oXv/vUj3p8x7xztZed6erj941wTyEVtqOt8nK0jisHNCxhmgByi/tdaOQtkqo0i0
-	 xp4NlO12CYunu3ly+Q9nCzzC1nRuMLuG5rQ9oHCab2KkVfm4O/M8saIVv/cr1iAAH2f3+
-	 i5q1hLSZq7TrxhoLzA8KSVhUmeXGwTEyYfDRkQghZVhnooSEESTejFbpo4mIBx/+aVrdA
-	 UpdbiUCSgaJ/kr72fIwv1gNR44R8X5HOVPbgTdTA/x6gZujUZPTNNbOQ409Gyu04Ryw==
+	t=1793558052;
+	b=s2hUv3S/ZuLSQrao18cOjsFoCZCC8ys3JCB7IPS6tdZnpYFGcc/VtAdEPvsM4/BbnR2b
+	 JBO7dv4TlhriT3dt5F0XTG9mTcQsbx3qnGtAf4YOCgd/orrHV0KQE6/e2SlHvHRb2Vo6m
+	 CyM6+2r2ZsSm5onzr6KIrNdNt3YS9E5pXUrYXIRPYhv2JAJr/rwoyrqm4YAp8fGWxAPdm
+	 02UuG40mUUYNp2WQboDTL2+8V1/IeKgwlc/ox2pKKH83zlvmFm2VBMTMGEg/dB9D6yPRu
+	 8l3mwNXi+cO5ir2Y0X4oZDlMYi07+KWQfGWYa3h9z9Bs7f/YAQYGVYzdYFruh6zGN5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793557891;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=tVpS7upRTy3Zlaor6N/9+WDmU5lrwMQoo7X+ts+rJnQ=;
-	b=KM8Wgw+hDvuFQgXuqLpFfHKvlBDTCwB5Phg/yGYF+UQAxLXTfnsdIG0V3GS/pQ2G3Lcl
-	 gor8A6ku6+qUbJRql2AyUo9o3z6YWGRyfhSVmv/62MnwKVhTSaSSikJCD1BUV2lwHgTcR
-	 zgTkGRxNGicl2vSW6Zv673BQFfnTTTffPJZxBSgQ2gYjwVlIiKss54USYVtfC/R0J8CnF
-	 T0UzvNMcvPasl6p4q2qK6z0Mk0x61Vy4nTxHozaK7L7L+gFSi82SUhk2IjedDA7z2PnFS
-	 zMKEkWfLIhM/NXvkEzNntynDCfKh7MKmFtYgbAZezuUPJ2MA9vxgLwmLQrC1tik6RSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793558052;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=Mdcb8PA8Fd6Cc1lT/iQNz2eYhuJFQtFMCUvyRyZT5cY=;
+	b=cS7//4zHjdeSLfotgHKMtW3pVPcyB9hmEFOBzedxHdtWvucSueUK03IgJDlyDddhxKkK
+	 HnVhPjrkd1ZWCkSA57ppncnlS8pMYWmFaHo9yrsQTJS9TZAA8jKnypOkZHuMhauwYR8YE
+	 cJyaQvijOVvj//A+BaraRsJ5K9RvbfLT0aPVy1plenIVxKG74ywRq0ehyX5TVzkUJiEyz
+	 Q28xaPNRWa2TsYycI3XH1gvkj1RdEn2lEjTu1ulvaQNtHZ/R+PY9FJ1BaYpXrSbv9QB0K
+	 Ra4Pc5zbLTliWimTHEKjx3twWr3z3D+3Dx7RN3gEE2SXaz5Hm1Kv7rPbnRMcNDZWzRw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h3iFtlg9;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLm3dxmD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D040B606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:31:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D040B606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD47606A324;
+	Sun,  1 Nov 2026 18:34:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h3iFtlg9
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-3535a54bed9so3500656eec.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:31:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793557890; x=1794162690; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tVpS7upRTy3Zlaor6N/9+WDmU5lrwMQoo7X+ts+rJnQ=;
-        b=h3iFtlg9Cnrr3CnFGFTpfSH2PhV+h/idG5/NPVBMzZmVM1aIvk3f1FVA9AaigPoNXq
-         PdMsnzEKXmVtQ848MPqOhwfCE6W5nuOXuCGdOXaGmcw9cmQYT2ADdS+8P6T79dre33yx
-         2nr9b5zE4UnQAJmOgnk6MqoCv6XObwM4x7EuPdsx8pvS+t0H8vB9QKG2u8VrcbooGssA
-         vb8EIjW8ihuTGeWb+Bd43WD4ZKkfjlzboens3OB2o2Rp5StgO9Sl9q1DPQNMyCPsGboa
-         RfTn4d3osJMfBLaUfIPBvy4+SYyLHZbG7fgVslxaxSYmBHbjz/ba95QTWzz7BqR2SjzS
-         F22Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793557890; x=1794162690;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tVpS7upRTy3Zlaor6N/9+WDmU5lrwMQoo7X+ts+rJnQ=;
-        b=TdWEr4YwQ79Mc2jtpbMZOWP5rO6Grvmj62r4eOOdsbuxvIA+EMPPTXAUyrKhBXijaM
-         Ezs0HjpSQkxUo77kR9bQxvZeLuEYOiA2XQuDAisOMzne86tz3FMEeXwwF5txW7Fo1TGa
-         8931W8IsZWpTM9QtNXVHE2U0fwUJJYlrogQg7le0V5+FYGhJDWjSKPRnp42HViFE43JP
-         JWUBXGS/r1VhXpyEu46NjBtSa7uIEW8K4UQ47Qj+Lf2d5tNP8N97TlenTL18VMxM7B0X
-         +Xj4He+3AFHRSQM7N/rYmtfxxw6oCxq3SbhIxs+iwPdiWNLaQXnSgBRLAMCyWAvQkr/z
-         MKlw==
-X-Forwarded-Encrypted: i=1; AKwUvBzVhVYTIDMfmA95937aFg/gjZ+CeNOkGyLGUaVi5HHbBNJkISqfQCLFvHx1zLiENc54n6TfC5MMEvdMoVg=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/r7XlLNudPYFbIQt0vx0JMinqvwGjfdiz3rgsXPbBkxTMpru2c
-	yYT0L7hLSvUe9W6z6nUcokqlfas8qgQUhPvWIQl1JBPf8fMsO3wSMaZ/
-X-Gm-Gg: AYBFou239OdJK+M9QmC3yhykyRzmVNQ3UyWY7g5VAKoISdFHxNhkw1+n7fCUZ7yTIKv
-	Z5IRoP3UqIiwUa5iK1jEO7vjAA4AK0JVuSyRiroJFqesUiIp9P0TtyhNRvIvMKKQWiUuNVOCJV6
-	DjobQI46d7mkDvDWlTVXru4QYHzFXxYeIpMOzqeB6DEwd0FZOPqQcov0xtGkY4DQGjD7sraFJ/r
-	xoG+xUadtzD1o7omecw9+el95JSU6pScJQrySquWuQOfujELUe9kPt93Uh+iTtemLki1pxUW35e
-	xBL0HToeqiacAT4haT7O1sG6IMMzZ3iZa5VOjU0F+/3yPjJrQcYfIE2uLA+SBc1h1WwgPyGzlN1
-	azsrgOKdmbleXj3nHXQeWiv+YnzE+aQQkOZuCPVYYdxWnvYWtR35uM7z5T5UIS0bhaZokiA5qOl
-	7JNp9YWFIC7pCeQafq5xyyDXmE/AXNxBU+x0hZy8gecmwRBS9jD0l1q/8dLpDwGYbwLjYJqB600
-	C37jLtfshtDtx5+VyUCtjxMObf5EWxd9YJ/OIKW4YXUbCaU8yc7Pa5hZl+yTckR6cntkr81pjM5
-	oiAcFwBKbGtYBFP2oDBVrPpt4A==
-X-Received: by 2002:a05:7300:6d22:b0:36a:13e1:c889 with SMTP id 5a478bee46e88-36a425e10f8mr19307844eec.36.1793557889821;
-        Sun, 01 Nov 2026 10:31:29 -0800 (PST)
-Received: from lion.. ([166.1.190.168])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6f7f9sm34627741eec.25.2026.11.01.10.31.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 10:31:29 -0800 (PST)
-From: Zhiyu Zhang <zhiyuzhang999@gmail.com>
-To: Eric Dumazet <edumazet@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>
-Cc: Neal Cardwell <ncardwell@google.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Matthieu Baerts <matttbe@kernel.org>,
-	Mat Martineau <martineau@kernel.org>,
-	Geliang Tang <geliang@kernel.org>,
-	netdev@vger.kernel.org,
-	mptcp@lists.linux.dev,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLm3dxmD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BAE51F000C1;
+	Sun,  1 Nov 2026 18:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793558051;
+	bh=Mdcb8PA8Fd6Cc1lT/iQNz2eYhuJFQtFMCUvyRyZT5cY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hLm3dxmDedMrL0uJIydX4V5pvwijynFBnvMmkO6AIa0gsNMiytEFTqd9cpmP0BfeW
+	 ZGWcQpNCYUIqDD7t+eNji1CYS0nnQLYbFzUG63Fm7Lb5artoBEnMRWXTJZNQw5q8FE
+	 E1ZVVghFjQeJSsWKS+GmlMNUhWXooFCdo+pMWFxy8XomwZ8J655cLKN/a0++FZrsL3
+	 ReT6z0RPW/G+APAN9gLEKHp3PUIXWkUJVAQF8gQfyxNz8I69AEv7RC1MdQJg0KuGMF
+	 FbrTg+FmcBnCO58kp4sOFyUhd+oVWYjd7vSmMYWrDwigh8wLQ3zXULhDszeWbUu86s
+	 Ck5iniqhfHDlw==
+From: SJ Park <sj@kernel.org>
+To: SJ Park <sj@kernel.org>
+Cc: Jonathan Corbet <corbet@lwn.net>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	damon@lists.linux.dev,
+	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Tong Liu <lyutoon@gmail.com>,
-	Qi Tang <tpluszz77@gmail.com>
-Subject: [PATCH net v2] tcp: restore IPv6 af_ops on disconnect of a v4-mapped socket
-Date: Sun,  1 Nov 2026 13:27:36 -0500
-Message-Id: <20261101182736.430733-1-zhiyuzhang999@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	linux-mm@kvack.org
+Subject: Re: [RFC PATCH v0] Docs/mm/damon/design: document data attributes report infra design (beyond page table accessed-bit milestone 2)
+Date: Sun,  1 Nov 2026 10:34:04 -0800
+Message-ID: <20261101183404.85322-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261017195747.89961-1-sj@kernel.org>
+References: 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,148 +65,151 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@kernel.org>
+On Sat, 17 Oct 2026 12:57:45 -0700 SJ Park <sj@kernel.org> wrote:
 
-A successful connect() of an IPv6 socket to a v4-mapped address switches
-icsk_af_ops, sk_backlog_rcv and af_specific to their IPv4-mapped variants.
-These are only restored if the connect() fails.
+> The "beyond page table accessed-bit DAMON extension" project [1]
+> milestone 2 is for building the basic infrastructure for continued
+> extension.  After starting it, I studied perf event little and found a
+> few demons in details.  I therefore spent time on high level design.  As
+> it started looks like making sense to me, I'd like to share the humble
+> design first and get feedback from more eyeballs.
+> 
+> Add a blueprint of the milestone 2 as a high level design document.
+> Describe the API and ABI of data attribute report infrastructure, and an
+> example use case of it for per-CPUs write-only monitoring.  The API and
+> ABI will later be extended for more data attributes reporters utilizing
+> AMD IBS, Intel PEBS, Arm SPEs like h/w features and any possible
+> DAMON-external reporter kernel components.
+> 
+> Request for comments
+> ====================
+> 
+> This is an RFC for high level design discussion, so no implementation is
+> provided.  Comments I want to receive include but not limited to below.
+> 
+> Does the idea for perf CPU cycle sampling based access monitoring makes
+> sense?
+> 
+> Does the design provides clear idea about how it can be extended for the
+> future extensions that already scoped for milestone 3 (AMD IBS, Intel
+> PEBS, Arm SPE)?
+> 
+> For the foreseeable extensions (AMD IBS, Intel PEBS, Arm SPE), would the
+> required change minimum and maintainable?
+> 
+> Next steps
+> ==========
+> 
+> I will start implementing the infrastructure and perf CPU cycle sampling
+> based access monitoring as described in this patch.  It will go through
+> the normal development process.  Delivery of it will be the completion
+> of the milestone 2.  As set on the initial roadmap [1], ETA of the
+> delivery is LSFMMBPF'27.  No delay is expected so far.
+> 
+> [1] https://lore.kernel.org/all/20260525225208.1179-1-sj@kernel.org/
+> 
+> Signed-off-by: SJ Park <sj@kernel.org>
+> ---
+>  Documentation/mm/damon/design.rst | 44 +++++++++++++++++++++++++++++++
+>  1 file changed, 44 insertions(+)
+> 
+> diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
+> index a465e34bb1d9c..1e699e3f8a496 100644
+> --- a/Documentation/mm/damon/design.rst
+> +++ b/Documentation/mm/damon/design.rst
+> @@ -433,6 +433,50 @@ monitoring.
+>  Refer to the :ref:`admin guide <damon_usage_sysfs_probes>` to know how users
+>  can use the mode.
+>  
+> +Data Attributes Reporting
+> +~~~~~~~~~~~~~~~~~~~~~~~~~
+> +
+> +Infrastructure for receiving attribute information from DAMON-external kernel
+> +components.
+> +
+> +Because DAMON is not hooked in every place but runs in its own worker thread,
+> +it cannot retrieve some types of data attribute information by itself.  Many of
+> +those are available to DAMON-external kernel components such as perf event
+> +callbacks and page fault handler.  For such cases, DAMON provides attributes
+> +reporting infrastructure.  Using its API, any kernel components can report
+> +their finding to DAMON.
+> +
+> +The API for doing the report is a function, damon_report_attrs().  The function
+> +receives the attribute information and saves it in DAMON's internal buffer.
+> +The function is safe to be called in any context including NMI.  The internal
+> +buffer has a fixed size and keeps only latest reports of the size.  Because one
+> +buffer size doesn't fit all, multiple report buffers of different size and
+> +rules can be generated and shared by multiple reporters.  DAMON provides API
+> +for such management of report buffers.  damon_report_attrs() can specify into
+> +which buffer the report should be saved.  DAMON user interface (ABI) for doing
+> +the buffer setup, and enable/disable reports of supported types is also
+> +supported.
 
-After connect(AF_UNSPEC), the socket can be reused for listen() or for a
-native IPv6 connect while still using the mapped handlers. IPv6 packets
-processed from the socket backlog are then handled by tcp_v4_do_rcv().
-tcp_v4_send_reset() and tcp_v4_send_ack() interpret
-TCP_SKB_CB(skb)->header.h6 as IPv4 options, and __ip_options_echo() can
-overflow its 40-byte destination buffer.
+I allowed callers/users to manage the buffers because I didn't have a
+confidence at maanging the buffers in a good way.  But I now think it was not a
+good design choice.
 
-Commit 8cc3aef0cb19 ("tcp: Do not allow buggy transitions between ehash
-and lhash2.") prevents listen() after connect(AF_UNSPEC), but a native IPv6
-connect is still allowed.
+First of all, it is offloading decision to users.  I also feel like this design
+exposes too much internal implementation details to users.  It would be better
+to let DAMON just manage it.  If it turns out to be too suboptimal, we can
+later consider optimizing it and even let users control it if really needed.
 
-Add tcp_v6_disconnect() to restore the IPv6 handlers when a v4-mapped
-socket is disconnected, and use the same helper in the connect error path.
+Letting M:N reports:queue routing makes it quite complicated, too. 
 
-MPTCP subflows override sk_prot, and two teardown paths call
-tcp_disconnect() directly. Route those calls through the protocol-specific
-disconnect operation so IPv6 MPTCP subflows receive the same restoration.
+So, unless others object, I will change the design to hide the report buffers
+management from users.
 
-Tested with TCP and MPTCP by reconnecting an AF_INET6 socket from a
-v4-mapped peer to a native IPv6 peer after connect(AF_UNSPEC).
+> +
+> +The data attribute probe supports the reports.  The probes can be configured to
+> +hit for a given memory region depending on the existence of specific types of
+> +reports that associated with the memory region in given report buffers.
+> +
+> +For example, per-CPUs write-only monitoring can be configured using this
+> +infrastructure like below.
+> +
+> +The user sets a report buffer and enable CPU instruction sampling report for
+> +the buffer.  DAMON will enable perf event counter for CPU cycles sampling.  The
+> +sampling callback will save the sampling time CPU instruction and the id of the
+> +CPU that was executing it, into the DAMON report buffer, using
+> +damon_report_attrs().  DAMON can automatically adjust the perf event sampling
+> +frequency to minimize old report drops due to the buffer size limit.
+> +
+> +The user further sets a DAMON probe.  The probe hits for a given DAMON region
+> +if a store instruction for a memory in the region that was executed from a
+> +given CPUs group exists in the report buffer.  As a result, the probe hit
+> +counts represent relative frequency of writes from a given CPUs group to a
+> +given memory region.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: Tong Liu <lyutoon@gmail.com>
-Reported-by: Qi Tang <tpluszz77@gmail.com>
-Closes: https://lore.kernel.org/netdev/CALf2hKvp0NPVLwr=a3+jUHtPohxbra8gox+aYAfWathJnn-J+Q@mail.gmail.com/
-Link: https://lore.kernel.org/netdev/CAL4WiiqFJpmcV4=TWRpukCq6q=-729658FwGvieNcPXe97kLvQ@mail.gmail.com/
-Signed-off-by: Eric Dumazet <edumazet@kernel.org>
-Co-developed-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
-Signed-off-by: Zhiyu Zhang <zhiyuzhang999@gmail.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
----
-Changes in v2:
-- Drop redundant Reported-by tag.
-- Drop the unrelated watch_queue patch link.
-- Add Kuniyuki's Reviewed-by tag.
-- No code changes.
+My initial plan was to implement the above per-CPU write monitoring with the
+milestone 2 patch series.  That's mainly because we don't want to have an API
+without its callers.  But implementing perf cycle sampling would be no small
+amount of code that require extensive tests.  It may take time and make the
+patch series quite big.  I'm now trying to make it small and quick.
 
-v1: https://lore.kernel.org/r/20261030032314.1978575-1-zhiyuzhang999@gmail.com/
+I find this report infrastructure could also be used for direct user reports.
+That is, users might know which memory they are accessing, and want to ensure
+DAMON knows that, by reporting their information using the report infra.  I
+will expose an ABI for such direct user report, and connect it with the
+reporting infra.  That would look similar to that of DAMOS quota goal
+user_input metric.  I will continue implementing perf cpu cycle based report
+producer implementation on top of it.  But maybe we could also just call the
+user report as milestone 2, as there will be no more blockers for other works
+like AMD IBS support.
 
- net/ipv6/tcp_ipv6.c  | 37 ++++++++++++++++++++++++++++---------
- net/mptcp/protocol.c |  4 ++--
- 2 files changed, 30 insertions(+), 11 deletions(-)
+Unless I get concerns on above plan, I will update this design patch and write
+user ABI documents.  I will share those as RFC v0.1, and keep iterating the
+documentation-only patches for continued design discussion until I get a
+confidence in the interface design.
 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index e006a30360ea..a93410aab66e 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -130,6 +130,19 @@ static int tcp_v6_pre_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 	return BPF_CGROUP_RUN_PROG_INET6_CONNECT(sk, uaddr, &addr_len);
- }
- 
-+/* Undo the v4-mapped setup done by tcp_v6_connect(). */
-+static void tcp_v6_restore_af_ops(struct sock *sk)
-+{
-+	/* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
-+	WRITE_ONCE(inet_csk(sk)->icsk_af_ops, &ipv6_specific);
-+	if (sk_is_mptcp(sk))
-+		mptcpv6_handle_mapped(sk, false);
-+	sk->sk_backlog_rcv = tcp_v6_do_rcv;
-+#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
-+	tcp_sk(sk)->af_specific = &tcp_sock_ipv6_specific;
-+#endif
-+}
-+
- static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 			  int addr_len)
- {
-@@ -243,14 +256,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 
- 		if (err) {
- 			icsk->icsk_ext_hdr_len = exthdrlen;
--			/* Paired with READ_ONCE() in tcp_(get|set)sockopt() */
--			WRITE_ONCE(icsk->icsk_af_ops, &ipv6_specific);
--			if (sk_is_mptcp(sk))
--				mptcpv6_handle_mapped(sk, false);
--			sk->sk_backlog_rcv = tcp_v6_do_rcv;
--#if defined(CONFIG_TCP_MD5SIG) || defined(CONFIG_TCP_AO)
--			tp->af_specific = &tcp_sock_ipv6_specific;
--#endif
-+			tcp_v6_restore_af_ops(sk);
- 			goto failure;
- 		}
- 		np->saddr = sk->sk_v6_rcv_saddr;
-@@ -2093,6 +2099,19 @@ static int tcp_v6_init_sock(struct sock *sk)
- 	return 0;
- }
- 
-+static int tcp_v6_disconnect(struct sock *sk, int flags)
-+{
-+	int ret = tcp_disconnect(sk, flags);
-+
-+	/* A socket used for a v4-mapped connection must not keep IPv4
-+	 * handlers when it is reused for listen() or a native IPv6 connect().
-+	 */
-+	if (sk->sk_backlog_rcv == tcp_v4_do_rcv)
-+		tcp_v6_restore_af_ops(sk);
-+
-+	return ret;
-+}
-+
- #ifdef CONFIG_PROC_FS
- /* Proc filesystem TCPv6 sock list dumping. */
- static void get_openreq6(struct seq_file *seq,
-@@ -2283,7 +2302,7 @@ struct proto tcpv6_prot = {
- 	.close			= tcp_close,
- 	.pre_connect		= tcp_v6_pre_connect,
- 	.connect		= tcp_v6_connect,
--	.disconnect		= tcp_disconnect,
-+	.disconnect		= tcp_v6_disconnect,
- 	.accept			= inet_csk_accept,
- 	.ioctl			= tcp_ioctl,
- 	.init			= tcp_v6_init_sock,
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 7a22e9388e0e..fdfbc7de2ec0 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -2608,7 +2608,7 @@ static void __mptcp_subflow_disconnect(struct sock *ssk,
- 		/* The MPTCP code never wait on the subflow sockets, TCP-level
- 		 * disconnect should never fail
- 		 */
--		WARN_ON_ONCE(tcp_disconnect(ssk, 0));
-+		WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, 0));
- 		mptcp_subflow_ctx_reset(subflow);
- 	} else {
- 		tcp_shutdown(ssk, SEND_SHUTDOWN);
-@@ -3287,7 +3287,7 @@ void mptcp_subflow_shutdown(struct sock *sk, struct sock *ssk, int how)
- 			break;
- 		fallthrough;
- 	case TCP_SYN_SENT:
--		WARN_ON_ONCE(tcp_disconnect(ssk, O_NONBLOCK));
-+		WARN_ON_ONCE(ssk->sk_prot->disconnect(ssk, O_NONBLOCK));
- 		break;
- 	default:
- 		if (__mptcp_check_fallback(mptcp_sk(sk))) {
+FYI, damon/next [1] tree may have hacky changes that could significantly be
+changed in future.  Please don't rely on those.  Don't spend time on reviewing
+those.  I sometimes regret I should named it 'damon/hack'.  Anyway, I will
+share things that ready to be reviewed on this mailing list.
 
-base-commit: 5838f10563d58afca6711edb5e4eda968ca181d9
--- 
-2.34.1
+[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
 
+
+Thanks,
+SJ
+
+[...]
