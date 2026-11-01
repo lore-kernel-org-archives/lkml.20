@@ -1,61 +1,104 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793569849;
-	b=fX6rbibF8KxNx6kVMv4gd57MJMXPRBMJkm1yhOnvNn2DIZWvnigSutiS9PPJG1+4SGy0
-	 IE9Is3QaEYD6rXQ7VYJf1KmIReyNhrElxVb+Xp3rhvlY70MIYQuSNGeCc0vtrMf31o8Ph
-	 co3Klof3+elEqdtANaRHhA1jFO+fC4HKSkk/7wCyQL7DOqNSHEt5/ibnE7p8PUI81kAkc
-	 MQZFyRI9yqwQW+h/X/B9Moc3GNJIro21JDylBk4t6OO7MSYaUYHBk4g2fWCSpDDCESmGm
-	 GMH4Rth/LIz5MVsIanvwqxTl1hGOJS7IWowWL4ILtSkBCmAKfMq1ucC1FAf8f4RnryQ==
+	t=1793570104;
+	b=agkb1XjnA1PPxckTmgm4h04ujQQs1GircjiqZGRSjWO0o6F2hx9MRVxClW0LggtR2Y/B
+	 Xj8X4uOqh6Fxiy8X/2bgzdZhEkbkP+TVEZc9Tq+viSsbzmuWmWEHLvTS0ZtyFL6zmdw2C
+	 j4mihf1/W4/MU2mfp/YZapZvzU/L4CY5/38DZ1qDvzZKNaIPD9NhQyLQvl+PD9cN0IO10
+	 wfkQlECOW/HVBYCa7dRyjtHDpDHuFF+H+vaFEr4s6YzRxmE2Tw2XTzQdIvs0c/txy2cN9
+	 s8u/czzf7Rzu/MMCor/+P2p3WHiV0nzVAa6gUzk6bOCK1g9iZ3XFsVkvhQgqm6dCi4A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793569849;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=1rpLIWcyWHAMoTm8HDUZRR/yftBEok5XqQa7jTiyf8Q=;
-	b=4H/nft48HpgMvex0YGh6YvbDX4bgLNG/Vyz3Arwje8py3j9jA2SVZslvLadRCvxqvM2E
-	 bmVmwRmVvUDaia7sypfdl78owLTsnbpfSf69h155rCzL46RgEskUnr2MCd2m1y7e20zgt
-	 a35vy0rPzJzA/O0AxSFFNHCohRCsZdJV6+gczXePFbkxyfnpnjqYc3Yw9Et8Vp3jMNWE1
-	 2FyDM6FjjAQBqbWCN5/Xkf3XLtIYTn/QFSqRRGdjOCuRk0squz1jkUklrDb3nUy//iZU2
-	 tOWDA3DY5BdecIMjPs5JgmNGlxtxpfcnhzYvJbC350qP/uUcASNCkF/MvTCZy6j9HMw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793570104;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=pH9FDk8PhOZqTZYMJF9VQ6qq2IvSDAE/glr1M5Bsspg=;
+	b=gQ8zdLN/s2SdFInbyqdGMQk/1nGuY5Si5KFnPH+P5LpTU9zNTzuJdUN0NfAGuea45AQo
+	 mmlm7Cxy/sNOi6GUL80r6LvRpF8Dtry5UkZ53H/B9ylSy5qQyuHOVC3qFY/0bOBlTe22k
+	 yseABNZsmXKgbuvWVgmyVj0xAIBVNj9p57i1smutVhC47ddY2KmBMVUK8mi24kB4jesSz
+	 1kAKiImvq2fQKKmnU1ZoGMhVWYcc8GAOAV8s3NvckqzosgMmEpAacSZFRPFYIO31ZNTNo
+	 VDdNyewna2rvmJHopwtmmX6cix/TaQGrXKovPgZIR7NFl+Z1bIak7ss43mhDeBokKVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fbwn3Tr+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j+FXc7WF;
+	arc=none smtp.remote-ip=209.85.214.172
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B7D9606A324;
-	Sun,  1 Nov 2026 21:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468D5606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:55:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 468D5606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=Fbwn3Tr+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF8C01F00A02;
-	Sun,  1 Nov 2026 21:50:47 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=j+FXc7WF
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2e9f6a16afcso49895ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 13:55:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793569848;
-	bh=1rpLIWcyWHAMoTm8HDUZRR/yftBEok5XqQa7jTiyf8Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Fbwn3Tr+FrE2+twWvc96h6eL4CmfV+55YRhlwCU67jh+2ijXjc+sS1d6Vs72iSVnt
-	 9pThhklCkVEpSZevtZfIcg1fa6R/6r51jf56V4MNhNwT1CtWLVsdiI92zpPMX2BsIT
-	 tczuWds92tQZEf8i+WAhNaHBo8mIGCmU9QZMuCAM=
-Date: Sun, 1 Nov 2026 13:50:47 -0800
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Max Kellermann <max.kellermann@ionos.com>
-Cc: Ridong Chen <ridong.chen@linux.dev>, kasong@tencent.com,
- qi.zheng@linux.dev, shakeel.butt@linux.dev, baohua@kernel.org,
- axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com,
- baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, david@kernel.org,
- ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
- surenb@google.com, mhocko@suse.com, hannes@cmpxchg.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, rcu@vger.kernel.org
-Subject: Re: [PATCH 3/5] mm/mglru: cache the last memcg node, make tail
- insertion constant time
-Message-Id: <20261101135047.61fc3f209b3235ed6fc96183@linux-foundation.org>
-In-Reply-To: <CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
-References: <20261012205447.2717801-1-max.kellermann@ionos.com>
-	<20261012205447.2717801-4-max.kellermann@ionos.com>
-	<a64f6a98-de70-4004-aac0-312cb05aaf92@linux.dev>
-	<CAKPOu+83bH2CRtiAio+1VTTQrYFF9th5XfG5wL45ujEavPS3Dg@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+        d=google.com; s=20260707; t=1793570103; x=1794174903; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pH9FDk8PhOZqTZYMJF9VQ6qq2IvSDAE/glr1M5Bsspg=;
+        b=j+FXc7WF2tc/q+FDraof7I5PXE7mWvegDk35vKR6yJdBzaqZwXq1Y+RLxm+NggLFLk
+         a001Bggd0PEjPnb0AZgNacCaj5N6ZIZZtj1uDWD5ckFDbVtYDkyibr4NmK/9I/gimj7z
+         DCkKYWH7tlacnHknyNYYgRxnVPqDF0diR5avPgNkfZeWmyxCaDZo/cp/hpHQ6nwOZL+V
+         PmiumL7AvZTRTQuUY0KxpFw/81M7ZumljMfAcLKENMWkVSRTCIMDZ7zEJZVhiHS7DWcm
+         UN7ieMK1lBJA/6HpfDTNKCzD89Nad0Q+nkMTCjU3vN2rgZCPNcwbYQ0ueADhovAIdjco
+         QTNA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793570103; x=1794174903;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pH9FDk8PhOZqTZYMJF9VQ6qq2IvSDAE/glr1M5Bsspg=;
+        b=LNBPP1cCCgRNH/tThV7i1FbTnomw8dbY+vDWhh7QxXFGOfc3PugX9mFMAUYgxfztrK
+         rJrOmEx4Me2BMKEnGoOLWZakJDoDZqG6vJG1M/1eXQz+R/J2AcPI6Ste3TctcFKsnb0O
+         e8ElPitViXs+Tb+wdLJHEAfTIHIeZxsVxMqrT8jq2kvrFVu8LWEzKqhm5+y1N2bfqkiI
+         Ukq13TozfoU29Hn+Er0V0Dh1b7h5P+MyxjPEh/jqRkTR46mLdX0Nwevi9rZ//RDJ8JwD
+         wTBhk1V+t8Fa6eHKZH8mv3oPgZYq7ZrZlekKl2gYaMSSOsQsCQD24tHdOQNAI4lQyc8h
+         SxHw==
+X-Forwarded-Encrypted: i=1; AKwUvBy/utpuFx1hNXI85uVwA6/9VNvRKxwVZe5gulsGV3fiWlfagYUQ/mpR0lOQO8rIpyy7ViozOAqlhB6ZCOc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+QJ6tsUv+JT2YSDFD3ZWF0QL1nk2j+NCzSDJAED8vKK5pFwe8V
+	W7hXWKEK5xCQQxGgtOk4obQXuu4CP3uQqB5CWhPGhrsWHufGM7GHN9YMckm+XcmDOA==
+X-Gm-Gg: AYBFou1D/FwkFO5Q5syPjHykQ8sB9H//2dejpfQxCZGMY/ExkYX3id4Jh3JicpNh7Nc
+	evS1JVr3eDZYe4KJa+E2i6w+HWlZX+ytsWipJ94qxQTXHgjQtwWIBaW//BQ4NWJ0fdKJp/ubHEB
+	LHFdAOStDdEqJfEZqTvYvaZy8ARPx9PdRVEG61LRyCnFeSw/1rqrWLQzpiw1axC+d7/Ufa23g77
+	ilCxV7RAoHXPCi5qoElscqlu2AEOFtVz/doZspS+mChCGTvRqVcI1CNqKFPtnFdnoI17pZAxG7p
+	gTd2WIdcgmL6xmWYwf6Mmb6n0ypwfSJHmcP5QtRx4cyJLBMsDdcedpGP8z9yTkJ1SbfsI0Sp4d1
+	KAcEM1mHtaiokQFE6rCzvixBuXG0GbaAe0aEWV+lWntfH5Uq/om2YttHCoB5bp0GrkCCKva8pXD
+	FkaaT8oSK0Nyhm7TIYv2w2Xc7hZHteJwjEZ74q91mLiHXykduDSw7N+7WAgpe52z1lJrOdBQuoJ
+	+YdZCqodGtv6U7azm7uUw1c8o3kE03mCPFKVD3nE88yodpwlREc9jCSNXX8D/cr8IIuB2/X+l95
+	SFAtEZob1c5j+SKoLMuNm7u+ZCrjPmW/ptsRW5IxpIMbX9tUx00Vt015mMLCxbQJKCYtDuc0+Ww
+	dRFI3UketjwqrEZw/aF2RVRuPGdQ9Uyd9Xrn6ruH8jA==
+X-Received: by 2002:a17:902:e5cb:b0:2ea:1fa0:8068 with SMTP id d9443c01a7336-2eb1ecbd412mr17712775ad.16.1793570101892;
+        Sun, 01 Nov 2026 13:55:01 -0800 (PST)
+Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e9bc6f7sm15137855a91.16.2026.11.01.13.54.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 13:55:00 -0800 (PST)
+Date: Sun, 1 Nov 2026 21:54:57 +0000
+From: Samiullah Khawaja <skhawaja@google.com>
+To: Baolu Lu <baolu.lu@linux.intel.com>
+Cc: Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, David Woodhouse <dwmw2@infradead.org>, 
+	Pranjal Shrivastava <praan@google.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Kevin Tian <kevin.tian@intel.com>, Alex Williamson <alex@shazbot.org>, 
+	Shuah Khan <shuah@kernel.org>, iommu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	kvm@vger.kernel.org, Pratyush Yadav <pratyush@kernel.org>, 
+	Pasha Tatashin <pasha.tatashin@soleen.com>, David Matlack <dmatlack@google.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Vipin Sharma <vipinsh@google.com>, 
+	Ankit Soni <Ankit.Soni@amd.com>, Nicolin Chen <nicolinc@nvidia.com>, 
+	John Starks <dev@jstarks.net>
+Subject: Re: [PATCH v6 17/18] vfio/pci: Preserve the iommufd state of the
+ vfio cdev
+Message-ID: <aubO8llyTiUc38u2@google.com>
+References: <20261025021930.674647-1-skhawaja@google.com>
+ <20261025021930.674647-18-skhawaja@google.com>
+ <2574cbc8-8c2b-4458-9fcd-b077190084a3@linux.intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,40 +107,133 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <2574cbc8-8c2b-4458-9fcd-b077190084a3@linux.intel.com>
 
-On Wed, 14 Oct 2026 05:58:28 +0200 Max Kellermann <max.kellermann@ionos.com> wrote:
+On Sat, Oct 31, 2026 at 01:56:12PM +0800, Baolu Lu wrote:
+>On 10/25/2026 10:19 AM, Samiullah Khawaja wrote:
+>>If the vfio cdev is attached to an iommufd, preserve the state of the
+>>attached iommufd also. Basically preserve the iommu specific state of
+>>the device and also the attach iommu HW unit.
+>>
+>>Once the device and its iommufd attachment is preserved, it cannot be
+>>detached or attached to another IOAS until it is unpreserved.
+>>
+>>Reviewed-by: Pranjal Shrivastava <praan@google.com>
+>>Signed-off-by: Samiullah Khawaja <skhawaja@google.com>
+>>---
+>>  drivers/vfio/device_cdev.c             | 10 +++++++++
+>>  drivers/vfio/pci/vfio_pci_liveupdate.c | 28 ++++++++++++++++++++++++--
+>>  2 files changed, 36 insertions(+), 2 deletions(-)
+>>
+>>diff --git a/drivers/vfio/device_cdev.c b/drivers/vfio/device_cdev.c
+>>index b818aab92f76..4eb7ffd489bd 100644
+>>--- a/drivers/vfio/device_cdev.c
+>>+++ b/drivers/vfio/device_cdev.c
+>>@@ -284,6 +284,11 @@ int vfio_df_ioctl_attach_pt(struct vfio_device_file *df,
+>>  	}
+>>  	mutex_lock(&device->dev_set->lock);
+>>+	if (iommufd_device_is_preserved(device->iommufd_device)) {
+>>+		ret = -EBUSY;
+>>+		goto out_unlock;
+>>+	}
+>>+
+>>  	if (attach.flags & VFIO_DEVICE_ATTACH_PASID)
+>>  		ret = device->ops->pasid_attach_ioas(device,
+>>  						     attach.pasid,
+>>@@ -342,6 +347,11 @@ int vfio_df_ioctl_detach_pt(struct vfio_device_file *df,
+>>  	}
+>>  	mutex_lock(&device->dev_set->lock);
+>>+	if (iommufd_device_is_preserved(device->iommufd_device)) {
+>>+		mutex_unlock(&device->dev_set->lock);
+>>+		return -EBUSY;
+>>+	}
+>>+
+>>  	if (detach.flags & VFIO_DEVICE_DETACH_PASID)
+>>  		device->ops->pasid_detach_ioas(device, detach.pasid);
+>>  	else
+>>diff --git a/drivers/vfio/pci/vfio_pci_liveupdate.c b/drivers/vfio/pci/vfio_pci_liveupdate.c
+>>index f0ea37d98696..fb2141ee8942 100644
+>>--- a/drivers/vfio/pci/vfio_pci_liveupdate.c
+>>+++ b/drivers/vfio/pci/vfio_pci_liveupdate.c
+>>@@ -106,6 +106,7 @@
+>>  #include <linux/errno.h>
+>>  #include <linux/file.h>
+>>+#include <linux/iommufd.h>
+>>  #include <linux/kexec_handover.h>
+>>  #include <linux/kho/abi/vfio_pci.h>
+>>  #include <linux/liveupdate.h>
+>>@@ -114,6 +115,8 @@
+>>  #include "vfio_pci_priv.h"
+>>+MODULE_IMPORT_NS("IOMMUFD");
+>>+
+>>  static bool vfio_pci_liveupdate_can_preserve(struct liveupdate_file_handler *handler,
+>>  					     struct file *file)
+>>  {
+>>@@ -154,15 +157,25 @@ static int vfio_pci_liveupdate_preserve(struct liveupdate_file_op_args *args)
+>>  	struct vfio_pci_core_device_ser *ser;
+>>  	struct vfio_pci_core_device *vdev;
+>>  	struct pci_dev *pdev;
+>>-	int ret;
+>>+	u64 iommufd_token;
+>>+	int ret = 0;
+>
+>nit: no need to initialize ret.
 
-> On Wed, Oct 14, 2026 at 5:31 AM Ridong Chen <ridong.chen@linux.dev> wrote:
-> > I've also submitted an RFC patch that addresses this issue.
-> 
-> Oh, interesting!  I did not know but your patch, but it looks very
-> similar to mine (but without the hlist_nulls refactoring so yours
-> comes with some code duplicating the hlist_nulls header).
-> 
-> Too bad your RFC went nowhere, that would have saved us from a
-> production incident...  Anyway, even if neither gets merged, I'll keep
-> my patches on our internal kernel fork, because they do help a lot
-> with our workload.
+I will fix this.
+>
+>>  	vdev = container_of(device, struct vfio_pci_core_device, vdev);
+>>  	pdev = vdev->pdev;
+>>-	ret = pci_liveupdate_preserve(pdev);
+>>+	mutex_lock(&device->dev_set->lock);
+>>+	ret = iommufd_device_preserve(args->session,
+>>+				      device->iommufd_device,
+>>+				      &iommufd_token);
+>>+	mutex_unlock(&device->dev_set->lock);
+>>+
+>>  	if (ret)
+>>  		return ret;
+>>+	ret = pci_liveupdate_preserve(pdev);
+>>+	if (ret)
+>>+		goto err_iommufd_unpreserve;
+>>+
+>>  	ser = kho_alloc_preserve(sizeof(*ser));
+>>  	if (IS_ERR(ser)) {
+>>  		ret = PTR_ERR(ser);
+>>@@ -177,6 +190,12 @@ static int vfio_pci_liveupdate_preserve(struct liveupdate_file_op_args *args)
+>>  err_unpreserve:
+>>  	pci_liveupdate_unpreserve(pdev);
+>>+
+>>+err_iommufd_unpreserve:
+>>+	mutex_lock(&device->dev_set->lock);
+>>+	iommufd_device_unpreserve(args->session,
+>>+				  device->iommufd_device);
+>>+	mutex_unlock(&device->dev_set->lock);
+>>  	return ret;
+>>  }
+>>@@ -184,6 +203,11 @@ static void vfio_pci_liveupdate_unpreserve(struct liveupdate_file_op_args *args)
+>>  {
+>>  	struct vfio_device *device = vfio_device_from_file(args->file);
+>>+	mutex_lock(&device->dev_set->lock);
+>>+	iommufd_device_unpreserve(args->session,
+>>+				  device->iommufd_device);
+>>+	mutex_unlock(&device->dev_set->lock);
+>>+
+>>  	pci_liveupdate_unpreserve(to_pci_dev(device->dev));
+>>  	kho_unpreserve_free(phys_to_virt(args->serialized_data));
+>>  }
+>
+>Unpreservation isn't the exact reverse of preservation. Anything special
+>here?
 
-hm, this was a bit of a fail, sorry about that.
+Nothing special. I will make it the exact reverse of preserve.
 
-We had a fairly modest RFC-stage patch which would have addressed the
-issues you've encountered in 6.18.x.  That got waylaid into more
-ambitious re-engineering project which wouldn't have been backportable
-and now this series which also won't be backportable.
+>
+>Otherwise, this patch looks good to me,
+>
+>Reviewed-by: Lu Baolu <baolu.lu@linux.intel.com>
 
-So.  Can someone please propose a nice simple quick-fix which we can
-backport into the -stable stream while we work on the larger
-rearchitecting projects?
-
-I think that might be Max's [5/5]?  Max, do you know whether that patch
-alone will fix up 6.18.x, or do we also need to addressed that lengthy
-spinlocked tail insertion?
-
-If you think [5/5] is sufficient for -stable then please propose that as
-a standalone cc:stable thing then we can look at the broader changes on
-top.
-
+Thanks for the review,
+Sami
