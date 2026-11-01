@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793557383;
-	b=ljI8bDvfNEgxsXeS+Xd+4gD6GAm/NQqgYMOOlnLrcLs65y4KMsUyQ5h1Cio/0S5qq6KF
-	 m+/iQTfk0YsVFGlYs8hMOpLeld5/zDjihz8z0YDEdK1TSGqOe3AE7MzLxvxl1ATXFyaJj
-	 2t0rrkklooETiR7CEEX0cwY6R7MynFMdagbkkVU4kC1BB2twrEN87yG12hL/yLgh3Jly4
-	 smBlHMusKeCXZO9vM34XK15b4TP8mTzBeEPGpj1JjI6pPgzv05R7V4ujo6a7ogjcEsOIF
-	 pvbnKv5+oEnhZX6KZPvxiOEk5CS+UxgTODVhi62uKVlj2XzZ+DTK/of3RcDCkqTwZTQ==
+	t=1793557413;
+	b=XiQRxfT2GBvldAJmMSKl4lRMqP7IAfVJ1AWdkBH14oyRBcAZpefRCFUA7B8u2VH+fG93
+	 OuIrtMCX6VxgFjXm7Vec/Pff/LX+6fn9gxmb2UCsT+Sqy59l4tFUII3myUObvGXmY+Qq9
+	 2X7HS9I4XADXNR16N7j+GGTzCC3rQbYpK7/KpoSCDFjO+pmoq+o0qgmO78fOa13HIfr0E
+	 7+XnISefyww1ziog4nrmC5Euw1cvFlUWihJ5UG2U3+6JKyW5UjQ97ktdZRguz6ZZCmQsP
+	 qIU3tnvFSn8VjuccqdCtRfB8EsWO4Y5gJ54SuWrlqtPOjE04RIBw2y53ggHJUJc/4rA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793557383;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type;
-	bh=tFhldmzZtrcUIX+IHzur5sfIp07vN9tRvmim7V5lDx4=;
-	b=gkAYY/ktUsCP+hE5kMWLU5e1UzBvOn5+GCKAs55hcdSmbClTYfTW1Y5gDqBiOX9rg/rv
-	 oTT3M9izrN/J/dFhX1S/0yQlE4DX+WMIV9TmJaTGTKX9pC2e3nHMVAlfvywBoIgbpwddA
-	 dBzv9qUYRAB9aDS16Uy+V1Nz6AecL5chB023YIEHFOTF8LcPXTNokUgNdiwRnzu91RORN
-	 +CCGEQVGTVA+43Eo7yIkF0AxPBM1Rm896fQQJg2TcIE3QQG1RiZD4ILsvvQseCehj0Agd
-	 fCKOf5dRjapHWpYnsIyxDJtPFhHjaahea832yyHAtz84+SnBGDbFQIUoJ6Vpi9XoWhg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793557413;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CexjKfWtjIoJ9DgljIXuFJ9dsvppgQJpj8XKTnS3YHQ=;
+	b=3B7V+xiwm0p3f4ipSOw0zzubDUzuTrlh5mmRQ0U/vy5UIwLRX92JAgOcjC6dWXuCixbz
+	 KktK2lbjtSS/DyAdGVaW6snAjDRmuiImkqnoMMQ9outUZ7msHIb5PYNjfgMiYDFvT1ARV
+	 B0VNf1eQAOcnBqMpoI4o4V+9jjj+7CUuOYhwlImu7LbozrzlbAcrb6KeB34r7Jm3CdcoL
+	 uYI4Ri2Y5NmcXEJwF04VHTapzTlveQNKT0TX7J8+XWk/ie+ODZzK0BEMIY36IQoklYvtR
+	 SG+bFZa4UgtC+B+DPwbZMIPNoLjqr1WJuV0a90wd1cBRilYXLR7LEdnxi2/cdpp30MQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R79qgKyT;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmTNwo69;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E015606A324;
-	Sun,  1 Nov 2026 18:23:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E015606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFFC606A324;
+	Sun,  1 Nov 2026 18:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=R79qgKyT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=tFhldmzZtrcUIX+IHzur5sfIp07vN9tRvmim7V5lDx4=; b=R79qgKyTpWDh/2r+KkK2V4mheb
-	qOSlYOoAbkSjs5lkPygzmKzgBr3ZVxFRQVQHZopx+84lD7lZXRQYF97a0ZdLv349IjUfFbMvo3+Tu
-	C6i5G9suQZDFGz60r9mkj7CPTnE/Bp8V52PaE6bAukRcWXjPEQYFqbSF5zYoMYLCqSyD8kwMR6ywu
-	UVRvi9up5Usq0r33eZFd864U5BzOClIIIf+E23mLfS0QaDYIQ//6lc9917fD7oODkzB9SuXLUhKgy
-	cq25YB9e7V7bUTTcnjoq9YF+Phjry/avVreKgoYD4JMQmT60DNa3ewLOII60tk6WyZzjCygmrEaBO
-	gLem3wmA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bob Hui <bg9oxa@163.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, Bob Hui <bg9oxa@163.com>
-Subject: Re: [PATCH v10 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-Date: Sun, 01 Nov 2026 19:22:54 +0100
-Message-ID: <2372620.HovnAMPojK@phil>
-In-Reply-To: <20261023-quarkpi-ca2-v10-2-9db904194e03@163.com>
-References:
- <20261023-quarkpi-ca2-v10-0-9db904194e03@163.com>
- <20261023-quarkpi-ca2-v10-2-9db904194e03@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dmTNwo69
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47BD01F000C1;
+	Sun,  1 Nov 2026 18:23:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793557412;
+	bh=CexjKfWtjIoJ9DgljIXuFJ9dsvppgQJpj8XKTnS3YHQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dmTNwo69zFaCQXvC/ED/42xUCxYEr/xQsy2LxIsKvTi2TRX3v8wEwDsVnAxL6CVjl
+	 qtEurOKeT21839/CyOwj4Aq12+04zJhvqZNTzDT2qEz8BYc8WoMFNMUsfNDMW/lNKq
+	 hFzYQP0O9zvIGcxx39lBVxPHe+2qd/OTBh8m127Aq2wKQHBdDx+KgvX9U+ygE2oTOs
+	 47r0axbU1cHMr9ZKL0h4Jd8Q4rOtWkWtX31Gj2ZaJYI4yuAVOsU1p3S5inoszvChHP
+	 J53DpCPpq8KMYouvTVyIk5SBeer8/1hO3sqxPR4Ub26fuTgjKQXXmGiR2Hb7pi+zNn
+	 s9t0soY4Sz7KA==
+Date: Sun, 1 Nov 2026 18:23:27 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Liu Yufei <lyf98405@gmail.com>
+Cc: Alex Lanzano <lanzano.alex@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Gustavo Silva <gustavograzs@gmail.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] iio: imu: bmi270: fix zero timestamp in triggered
+ buffer
+Message-ID: <20261101182327.4fd27ceb@jic23-hlaptop>
+In-Reply-To: <20261028-bmi270-fix-timestamp-v1-1-99c0e5fe7d0c@gmail.com>
+References: <20261028-bmi270-fix-timestamp-v1-1-99c0e5fe7d0c@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,146 +63,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Am Donnerstag, 22. Oktober 2026, 18:26:21 Mitteleurop=C3=A4ische Normalzeit=
- schrieb Bob Hui:
-> Add a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S based card
-> computer. The board comes in 4, 8 and 16 GiB LPDDR4X variants with
-> 32 GB, 64 GB or 128 GB of eMMC; this was tested on the 16 GiB/128 GB
-> one.
->=20
-> Supported peripherals:
->   - 2x LPDDR4X SDRAM and eMMC, plus the microSD card slot
->   - RK806-1 PMIC with the full regulator tree
->   - HDMI output up to 4K60, through hdptxphy0 and VOP2
->   - Gigabit Ethernet with the YT8531 RGMII PHY on MDIO1
->   - four USB Type-A ports (1x USB 3.0, 3x USB 2.0)
->   - USB Type-C port with USB 3.0 and DP output, described through the
->     USBDP PHY and DP0, with role switch and DP altmode
->   - 3.5 mm headset jack (headphones + microphone) with the ES8388
->     codec, the headphone amplifier and jack detection
->   - three function keys (volume down, volume up and PWR_ON from the
->     PMIC) and the headset hook button
->   - IR receiver, 4-pin PWM fan connector and two LEDs
->   - 3-wire debug UART (UART2)
->   - 40-pin expansion header with UART5, I2C3, I2C5, SPI0 and PWM14
->   - two 26-pin MIPI DSI and three 22-pin MIPI CSI connectors, with the
->     connector I2C buses enabled (i2c4, i2c7); panels and cameras are
->     described by overlays
->   - M.2 E-key socket for a WiFi/BT module, with the PCIe 2.0 x1 link
->     enabled (pcie2x1l2, combphy0_ps)
->   - Mali GPU and the three NPU cores
+On Wed, 28 Oct 2026 10:59:26 +0800
+Liu Yufei <lyf98405@gmail.com> wrote:
 
-Please trim your commit message down a lot, this should definitly
-not be this long and contain stuff nobody cares about ;-)
-So I guess the above should be enough.
+> When the device's own data ready trigger is used, the trigger is
+> polled with iio_trigger_poll_nested() from the threaded IRQ handler.
+> In that path the pollfunc top half, iio_pollfunc_store_time(), is
+> never run, so pf->timestamp is left at zero and every sample pushed
+> to the buffer carries a zero timestamp.
+> 
+> Take the timestamp in the trigger handler itself and drop the top
+> half, so that a valid timestamp is provided for all triggers.
+> 
+> Fixes: a1854d55f54b ("iio: imu: bmi270: add support for data ready interrupt trigger")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Liu Yufei <lyf98405@gmail.com>
 
+Firstly. Do you have a setup where you actually care about this, or is this
+found by reading code / LLM etc? If nothing else that changes
+the urgency.
 
-> Assisted-by: Hermes:deepseek-v4-flash
+This is an old problem. I really need to find some time to write
+a more consistent solution for timestamp acquistion that would
+indicate if we have a better timestamp or not and stop this
+being a driver problem.  We used to avoid this by having most
+triggers go through the irq_work dance but that was considered
+too much of an overhead.
 
-Assisted-by got removed again from the process documentation with 7.4-rc1
-so is not necessary anymore.
+As Andy suggested we do want to grab the timestamp if appropriate
+in the top half if it is our own trigger (the one registered
+by the driver) because we then know it is the best possible
+for a dataready trigger.
 
+The way some drivers handle this is to check on whether the
+trigger set is our own or not. Now ideally we'd do that check
+in some helper code, but writing that is less than trivial
+(which is why I've not done it already)
 
-> Signed-off-by: Bob Hui <bg9oxa@163.com>
-> Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+https://elixir.bootlin.com/linux/v7.3/source/drivers/iio/light/rpr0521.c
+is an example I found with a quick grep, but perhaps not
+coded in the cleanest way!  So take the idea, not necessarily
+the implementation from there. 
 
-Andrew always just reviews part of the board, namely the gmac and mdio
-nodes - and states that in his review mail, so I guess a nice way to
-do this would be:
-
-Reviewed-by: Andrew Lunn <andrew@lunn.ch> #gmac1 + mdio1
+Jonathan
 
 
-> +	aliases {
-> +		mmc0 =3D &sdhci;
-> +		mmc1 =3D &sdmmc;
-> +		ethernet0 =3D &gmac1;
-
-please sort properties according to the devicetree writing guide,
-namely here, properties alphabetically, "e" comes before "m".
-
-> +		button-vol-up {
-> +			label =3D "volume up";
-> +			linux,code =3D <KEY_VOLUMEUP>;
-> +			press-threshold-microvolt =3D <17000>;
-> +		};
-> +
-> +		button-vol-down {
-> +			label =3D "volume down";
-> +			linux,code =3D <KEY_VOLUMEDOWN>;
-> +			press-threshold-microvolt =3D <417000>;
-> +		};
-
-similarly please sort nodes without addresses alphabetically,
-"down" before "up"
-
-
-> +	vcc_1v1_nldo_s3: regulator-vcc-1v1-nldo-s3 {
-[...]
-> +	};
-> +
-> +	combophy_avdd0v85: regulator-combophy-avdd0v85 {
-[...]
-> +	};
-> +
-> +	combophy_avdd1v8: regulator-combophy-avdd1v8 {
-[...]
-> +	};
-
-another example of the sorting issue.
-The parts I highlight are not exhaustive, please make sure all are
-sorted correctly.
-
-[...]
-
-> +				regulator-state-mem {
-> +					regulator-off-in-suspend;
-> +					regulator-suspend-microvolt =3D <750000>;
-
-regulator-suspend-microvolt is deprecated in the binding, please don't
-introduce new instances of it. (applicable to all cases)
-
-
-> +&i2c2 {
-[...]
-> +};
-> +
-> +&cpu_l0 {
-
-please sort phandle references alphabetically, &cpu... before &i2c
-same for all other places in the file.
-
-> +/ {
-
-you have one root block at the top, you should definitly not need another
-one here.
-
-
-> +/ {
-
-or here
-
-> +	analog_sound: analog-sound {
-> +		compatible =3D "simple-audio-card";
-
-
-> +&{/} {
-
-this is geting crazy now
-
-> +	ir_receiver: ir-receiver {
-> +		compatible =3D "gpio-ir-receiver";
-> +		gpios =3D <&gpio0 RK_PD4 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&ir_receiver_pin>;
-> +	};
-> +};
-> +
-
-
-Heiko
-
+> ---
+>  drivers/iio/imu/bmi270/bmi270_core.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/iio/imu/bmi270/bmi270_core.c b/drivers/iio/imu/bmi270/bmi270_core.c
+> index fbcf6bb87acc..40ed1ee5ac58 100644
+> --- a/drivers/iio/imu/bmi270/bmi270_core.c
+> +++ b/drivers/iio/imu/bmi270/bmi270_core.c
+> @@ -840,6 +840,7 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
+>  	struct iio_poll_func *pf = p;
+>  	struct iio_dev *indio_dev = pf->indio_dev;
+>  	struct bmi270_data *data = iio_priv(indio_dev);
+> +	s64 timestamp = iio_get_time_ns(indio_dev);
+>  	int ret;
+>  
+>  	guard(mutex)(&data->mutex);
+> @@ -852,7 +853,7 @@ static irqreturn_t bmi270_trigger_handler(int irq, void *p)
+>  		goto done;
+>  
+>  	iio_push_to_buffers_with_timestamp(indio_dev, &data->buffer,
+> -					   pf->timestamp);
+> +					   timestamp);
+>  done:
+>  	iio_trigger_notify_done(indio_dev->trig);
+>  	return IRQ_HANDLED;
+> @@ -1630,8 +1631,7 @@ int bmi270_core_probe(struct device *dev, struct regmap *regmap,
+>  	if (ret)
+>  		return ret;
+>  
+> -	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
+> -					      iio_pollfunc_store_time,
+> +	ret = devm_iio_triggered_buffer_setup(dev, indio_dev, NULL,
+>  					      bmi270_trigger_handler, NULL);
+>  	if (ret)
+>  		return ret;
+> 
+> ---
+> base-commit: 09f742b49cb2728086d78be2b0b35e4d1d71fc85
+> change-id: 20261028-bmi270-fix-timestamp-48a194b69db1
+> 
+> Best regards,
+> --  
+> Liu Yufei <lyf98405@gmail.com>
+> 
 
