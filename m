@@ -1,79 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793542734;
-	b=VWOz+Mlb0mChsXzsvnXdXVv+YJa6qWlOMFzOQTsLxsj3qYG9QKz/zun5km5suaoVYHcS
-	 35YT5T9pEEFc1mPkIa0uHcefHVmLgjzdHzTQW1S85i5EPZnpoV7IozDPNKiEjDLury838
-	 hY1V/7Yo6bu2vTRlzW/Thji/8X4XGhPlb94xRlWInmkGQyK6GmfxHniGoQaB9xl6cQtu6
-	 xtCNr1DwmrWzH/invFFeg425lCRU5frNj/W7IlM/oZYU3kRw9FhP1Qmydm25CKmaQ57qF
-	 rtK579hA+WW4IogAuri+at0gZf9nHzZRTsy+sU7DP7YokckZcETZq08D68Z4NWgVOgQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793542734;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=u9blQz8scr94PPwQuvxtmWBvDZvQKZN89+CtuQld/I8=;
-	b=3m4ixm6yoXAJdbnh3L++Ki7aPBFuz66SDxBCIi/TcLXCRpHBov7vcyYQafYxZZIRKqgM
-	 rL6NRGP0f7AJLFDNqSKiHpy9wjxNbWMnX/h8t471jGPGc7akXIcbilzaecBTG7GXHAQY9
-	 N4Y16eR8DW3/1cT3Xwg7TGfQJKs7wwKSWrkvO3KLm2CFrRCw/1ZRhTvgaYvkwpU2v/KFA
-	 vPKrJX9Tw6HxuGPIyQ+cdzxAWJsSjFgJtN28N7Proggk/ckycuKaUTTOxIZElp7d0pmdX
-	 rjMdeOoSncAlOVlb2G8ghqtZ86rznOfSF9S6d12FjEE4tWKmXI+8/vB3hJJ3sFe/eQg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MyoFOvpY;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D817F606A324;
-	Sun,  1 Nov 2026 14:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MyoFOvpY
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793542733;
-	b=lrCoHnExH10xVtgZvXvEI3maMlZNomnflimfiWwLcBJlZgLM4tlz9sMteS7cDOCK6MD5
-	 Qeo5u6Skj8LZArJvW+ShA6rtYVWnFJOdQRj0zEJ12f1RBO83Cr1W3vHHNJkjoyYPt37Yr
-	 w5o9LbyZw878jcBtfNQ35PeV3MoRF6KmtONuBCi8+DL2+JvPWVB4FkUg++MZbDK/4rmci
-	 IAysjhGW+6IbjLgo5CKkJEWcZUozICWXVDN3JPFWj3PevxUOFv3SkkoGjVrelqfqFfRBg
-	 idqBwYMeXATDq68RR+lYGanH8+VcIw/TwHTS6cGgwXbNJ1VzDG1YXqvlL3mVQP09NlA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793542733;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=u9blQz8scr94PPwQuvxtmWBvDZvQKZN89+CtuQld/I8=;
-	b=IjDNpVTwj8UUf6MdjOoHD4JqbWid8uXHIPqtIncja0vbVN7ZJA4vsh/JOvCQeqtZXboR
-	 wGyRS+qYDmmywB6t6Cjoqnmjv2X9jiLf3cHlWM6M2l4B+wnGaGSk7qz/CBB8YlM4Clag1
-	 izYsvoZPKmGmotCLVQl/MUzjcyKROqkRq0lNWBFJuj0W2xDu8Sy5R7OKtWwSXIpyFtEct
-	 FGW00NVO5NXvT8NUIFbS7cTC+mcUe0lXFzPleNCqUK0FzohEp2xDMXbhndYEKDgaSDuUh
-	 naCYH5ci75cmfh6qN/4TNhXPS9jdaJVa6k0vEPkMOS4biw2c5QIyeMfScO/9wu5h42w==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793543088;
+	b=dEsbZjDy5DWQvZXFPvj1XhnO5iIvn/CJFUq+5MUgR22taSYPbWNcFmBlHMiwLIq4tQVa
+	 M1zvVwmZDIo7Oxsa7E/95oy5ZmduuUV2vb6JZDdMc7NeNJIJq7kkmWnuV+OGq84bf9s0Q
+	 s8q8+/rIDO4tVFdIIJDTvWcRvtfFeHeX+l7DOD73vwdulqHkv8t/1m65inkmDAD9GNdhg
+	 rBQDGtz2ixBEYCRduwwJcumisOku3Y+j0MxCWdPia0Gc89nEv1JfTE2K63toeNAiTj3qL
+	 55OF6M0abBHpYTHWbROeBZcio436EGeGj8i4TUecxG4Z50AhyhACdzHki9EEp/YzAsg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793543088;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9S5hKR3Q9jtJKLTHVg9rJOjWtvZaDRDoo7tiPR+mJPw=;
+	b=GghFcK449vCj6TjAq6pHYZPDElBehKNMIgncs3VzXlHRZoMn6xlH1Og8/z97V20TKNc2
+	 aWvySYWLVi/g86BK5XA2UVnI9RmurGs33pCnwVbQnC691G0ajttSeWgYTugAdIBnAX5wl
+	 2uZYKLjhC+zPL4ev8fnAfRYr79KnFMPbgSvCE9ZusaYAE02FU+TweUnXx1AZg/nWJlPCv
+	 knGxegD+bW4caQP+XoZYr18BcGkmjJjJlW2j1sRZNW8LgMPFRf9cEjPwLyRr1BD3wAjRl
+	 3yV/zmVCGJ5lfBivw/r4ytyFUdwyJCrgTLVMbWz/jhFDxgPp/nY5ddE8f5TsoexwJrQ==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wq0p8kXt;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id C40971F000C1;
-	Sun,  1 Nov 2026 14:18:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793542733;
-	bh=u9blQz8scr94PPwQuvxtmWBvDZvQKZN89+CtuQld/I8=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=MyoFOvpYjCLhcgNFe/CsyHFkNlZRKKS/Q7VvTNrfJX/G2kP0wXd9zXn42XjQ0Znj1
-	 ezeye7kBVzikfJrauOwDIHcBYQmECYP9Cw8V4MUSoM8tBvA/gj5TkS/+FKn0MN9S9R
-	 p6pbN2woV0KZmPul0j1pQqRe0WZf65wdlm8XoHVKwya2WMkP5gE8etwAwX199UYzQK
-	 Rmg2beP1Xj1G9cXnGVKi+Hf1NzWAhpRUvWfKxw3ENYAC9R75G7qXkWEUitZvjeuD4r
-	 w32ESnzSDsD2RZs6fPZ0hTwjGcV5FvYxkiEqGM6/6d1VkeBcWS8bFg+jppY7womumH
-	 34tQ+pt3i5a+Q==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 2682046196;
-	Sun,  1 Nov 2026 14:18:52 +0000 (UTC)
-From: Cunhao Lu via B4 Relay <devnull+1579567540.qq.com@kernel.org>
-Date: Sun, 01 Nov 2026 22:18:51 +0800
-Subject: [PATCH] pmdomain: rockchip: Roll back power-on when leaving idle
- fails
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC12D606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:24:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC12D606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wq0p8kXt
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso5251650a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:24:47 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793543086; x=1794147886; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9S5hKR3Q9jtJKLTHVg9rJOjWtvZaDRDoo7tiPR+mJPw=;
+        b=wq0p8kXtaFaZumbLF7xYGaSfJRmZIQVIy/eK86L39ggOI67iXZNBjBD1AUVqgVOK0d
+         QSb65Z/6iwph4ucFEmljF7LtdNJzAYWLuuMJryKRaTYczY6q8XmRkvQoZj++VfIE7Ulj
+         KjMQEtIO5dhms/XcZ7wtTlRjii/meLFNYSaOZCWEzS9zjmKjm+HWBS1lAasFtmSH3IiZ
+         GDwwhD2OQOMaPvrX1aw4GOLmMgIvouegb59aAqPveENTeMPErvNumxfamdInCpFq/729
+         I1nIQtn5fZNxYtXMFR+03RnKE+CFMn8nnh71mG/eC1M99/GSZB3bu7EtnZmI3frTcZqw
+         W6Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793543086; x=1794147886;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9S5hKR3Q9jtJKLTHVg9rJOjWtvZaDRDoo7tiPR+mJPw=;
+        b=WB0+5z/Qawk8XZ/m9uITEcjdAkkkXEcnAt+O6kI3+nvqIX9cZIsvTlY3ANljNcvH22
+         HdT/hxcezlp2S4pPx6Nb8dpzCsU7yBuiy8H1op6wwSNrlK4KUlBoCDUcz9SIS5EBC7Mw
+         ZnGmQlGulZprVm+U+HMqh3VLTLZoC2MrADm/PH/zIUODw/i6uQRAL/yPPkEh+0napa2F
+         4271dkZRrIB2G5ZgAy2sw//G9373S/oOBRasOxpG6eP9l3qReIFUKgsRwbU2XBBVsVof
+         3YPNujeh+6GtO7q08HmNxm1RhqQnutzbsQ1h2bbOGm1Z+AwK4ogfEbuwmZ4dgW1KiPiJ
+         aD3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzoO8MQ1UInwTlF9IB5S+GL30jSNxkQDk6LPfwDveXdPWphFSq7wTp4fWg01nMgkr00V84/3U/9lRLeoEw=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+dzB5PbmzAs2PpUtNO5Z1fJM+/MCEJDlRKT/ujm+FradiAZaMW
+	R/jeUHtWJHhnnxMkicEezi7MlBWZbMXpXOv9oNiqZBBYsDQ6zvlJVoVs
+X-Gm-Gg: AYBFou3hTmanSit5QZvhJJM6HM5CJfm4aw3nuHMAVOWA3Imxvsyg5FFGvdzt8rM1nmq
+	UOe6DC3VJxq6Ob8TCTuoO0if2PY9d38YM9HT2LwHkugmlUNoV5dUeClirNmy6lxwWeY85BkuaNe
+	gBa3MRBM/S15lRqi1Ik0CNUaWdpSp01RKtPxCiyF4WOfpdaj4d8X59YuP5OoUOHDmZfGZbZg6iC
+	kHGtarN+swA9T4s3XtUepiEAy0hb3F3Vnfs3HAnCh3wSJf1pUiGikWm6gjfiRaF3h8oY5v4IPHw
+	vOLDiXAyF0RVpBPZpQALCh3KCglSXiuk0kRGtyEp6Pl7RH/bDwC2VD2sxG53/vFUk1cCVi5ii2O
+	oOIbi5pU0SDQ724TVNqHTMEzDpBEpri4xOxLCq/VgLe3GLjVMHHyN4ifftdZqqttXGe2bOfTebG
+	TC8aYvDHdpE248Ko9O+tvHN8ZI1bRaujyZbLCtiNTRhiximrBi5OdHrT7A0sdFHEZELqvlY4cl6
+	zn5jx739KcZiP5njY3SHMNWQG2bz+dcdQrAIoyR3kBqD9CohLlkAHVdsramDlYMEDcvEcCJ0BwZ
+	QU67g5rCHcXoKsARhVnhqF7URh90MAhIiT6N4PIgyJazrzmyCg==
+X-Received: by 2002:a17:907:558:b0:c4c:c62a:b9b3 with SMTP id a640c23a62f3a-c4cc62ad38bmr131681666b.22.1793543086239;
+        Sun, 01 Nov 2026 06:24:46 -0800 (PST)
+Received: from xeon ([188.163.112.62])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabf0bfa2sm279135766b.80.2026.11.01.06.24.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 06:24:45 -0800 (PST)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Helge Deller <deller@gmx.de>
+Cc: linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-fbdev@vger.kernel.org
+Subject: [PATCH v1] video: leds: backlight: lm3533: Support getting LED sources from DT
+Date: Sun,  1 Nov 2026 16:24:35 +0200
+Message-ID: <20261101142435.130520-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,139 +101,207 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-fix-rockchip-pmdomain-power-on-rollback-v1-1-59a45783e33e@qq.com>
-X-B4-Tracking: v=1; b=H4sIAEpK52oC/yWNwQ6CQAxEf4X0bBNKDAd/xXhYSpEK7G66oiaEf
- 7fo8WVm3mxQxFQKXKoNTF5aNEUHOlXAY4h3Qe2doamblqgmHPSDlnjiUTPmpU9L0Ig5vcUwRY/
- muQs8IROJ988yEIHbsolPf0/X25/L2j2En4ce9v0LSn4eh4sAAAA=
-X-Change-ID: 20261101-fix-rockchip-pmdomain-power-on-rollback-c11e1014ef11
-To: Ulf Hansson <ulfh@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Peter Geis <pgwipeout@gmail.com>
-Cc: linux-pm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Cunhao Lu <1579567540@qq.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793542731; l=3895;
- i=1579567540@qq.com; s=20261015; h=from:subject:message-id;
- bh=n1GcdQjuTTwBnd/fyanWdo3GZ489PQSz5kGsPzwhT6c=;
- b=WxN7YfRzAeNe1ZbUpfFSZuvt9IaBjnFYOkoxDM/kiTSJpQsS8rYk6w2T9ZihIRiBvYWzq/PIR
- G6G1ODclGVOCL94vn9bNZUbkOUdldTj8Ov1ct0Cd54Y0Hq6VYpix9zm
-X-Developer-Key: i=1579567540@qq.com; a=ed25519;
- pk=sUTWrzlIwT4C7ctjNfVZAzzg0G7QUn2XxRGpYsw4RtM=
-X-Endpoint-Received: by B4 Relay for 1579567540@qq.com/20261015 with
- auth_id=1177
-X-Original-From: Cunhao Lu <1579567540@qq.com>
-Reply-To: 1579567540@qq.com
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Cunhao Lu <1579567540@qq.com>
+Add Control Bank to HVLED/LVLED muxing support based on the led-sources
+defined in the device tree.
 
-When NIU idle exit fails after PMU power-on, clocks and the regulator
-reference are released while the domain remains powered. genpd treats
-it as off and may power off its parents.
-
-Request idle again and, if successful, use the low-level power-off path
-before releasing resources. This preserves saved QoS and notifies
-firmware while retaining the original error.
-
-If rollback fails, resources are still released and genpd may power off
-the parents.
-
-Fixes: 6b2690df3f03 ("pmdomain: rockchip: fix rockchip_pd_power error handling")
-Signed-off-by: Cunhao Lu <1579567540@qq.com>
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 ---
-This pre-existing idle-exit failure case was reported by Sashiko AI
-during the RK3572 mainlining work:
-https://sashiko.dev/#/patchset/20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com?part=10
-
-If leaving NIU idle fails after PMU power-on, the domain remains powered
-while genpd treats it as off. The error path releases the clocks and
-regulator reference, and genpd may power off the parent domains.
-
-This patch requests idle again and, if successful, powers the domain
-off before releasing those resources. It preserves the saved QoS state
-and original error, and uses the low-level path to notify firmware.
-
-Validation:
-
-- All 48 host simulations passed, covering power cycles, idle-exit and
-  rollback failures, QoS preservation and error propagation. No sanitizer
-  findings.
-
-- Hardware testing on OK3572-C: 20 patched and 50 unpatched NVM1 power
-  cycles passed. Request-write injection caused native idle-exit polling
-  timeouts. The fix powered the domain off in 3/3 cases; the original
-  driver left it ON. QoS and the original error were preserved, and
-  retries succeeded after removing the injection.
-
-Persistent rollback idle and power-off timeouts were also tested:
-resources were still released with the domain ON and genpd OFF. These
-failure paths remain unresolved, and genpd may still power off the parents.
-
-AI assistance:
-
-- Codex / DeepSeek V4.1 Flash were used for:
-  - Reviewing and adjusting code style to follow community conventions
-  - Automating tests
-  - Collecting data
+This was part of the original LM3533 controller DT/OF conversion patchset,
+but it appears to have been accidentally separated during the final iteration.
+Therefore, I am sending it as a follow-up.
 ---
- drivers/pmdomain/rockchip/pm-domains.c | 27 ++++++++++++++++++++++++++-
- 1 file changed, 26 insertions(+), 1 deletion(-)
+ drivers/leds/leds-lm3533.c          | 60 +++++++++++++++++++++++++++++
+ drivers/video/backlight/lm3533_bl.c | 45 ++++++++++++++++++++++
+ 2 files changed, 105 insertions(+)
 
-diff --git a/drivers/pmdomain/rockchip/pm-domains.c b/drivers/pmdomain/rockchip/pm-domains.c
-index db3879846db6..170f140601d0 100644
---- a/drivers/pmdomain/rockchip/pm-domains.c
-+++ b/drivers/pmdomain/rockchip/pm-domains.c
-@@ -644,6 +644,29 @@ static int rockchip_do_pmu_set_power_domain(struct rockchip_pm_domain *pd,
- 	return 0;
- }
+diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
+index 7259097bd6a71..a1aeff70a90fc 100644
+--- a/drivers/leds/leds-lm3533.c
++++ b/drivers/leds/leds-lm3533.c
+@@ -26,6 +26,11 @@
+ #define LM3533_ALS_CHANNEL_LV_MIN	1
+ #define LM3533_ALS_CHANNEL_LV_MAX	2
  
-+/*
-+ * The caller holds the PMU lock and transition resources. Use the low-level
-+ * power-off path to avoid overwriting the saved QoS state.
-+ */
-+static void rockchip_pd_power_on_rollback(struct rockchip_pm_domain *pd)
-+{
-+	int ret;
++#define LM3533_REG_OUTPUT_CONF1			0x10
++#define   OUTPUT_CONF1_SHIFT			2
++#define   OUTPUT_LVLED_MASK			0x3
++#define LM3533_REG_OUTPUT_CONF2			0x11
++#define   OUTPUT_CONF2_SHIFT			6
+ #define LM3533_REG_CTRLBANK_BCONF_BASE		0x1b
+ #define LM3533_REG_PATTERN_ENABLE		0x28
+ #define LM3533_REG_PATTERN_LOW_TIME_BASE	0x71
+@@ -54,6 +59,9 @@ struct lm3533_led {
+ 	u32 max_current;
+ 	u32 pwm;
+ 
++	int num_leds;
++	u32 leds[LM3533_LVCTRLBANK_MAX];
 +
-+	ret = rockchip_pmu_set_idle_request(pd, true);
-+	if (ret < 0) {
-+		dev_err(pd->pmu->dev,
-+			"failed to idle domain '%s' on rollback: %d\n",
-+			pd->genpd.name, ret);
-+		return;
+ 	bool have_als;
+ };
+ 
+@@ -622,8 +630,36 @@ static const struct attribute_group *lm3533_led_attribute_groups[] = {
+ 
+ static int lm3533_led_setup(struct lm3533_led *led)
+ {
++	u32 output_cfg_shift = 0;
++	u32 output_cfg_val = 0;
++	u32 output_cfg_mask = 0;
+ 	int ret;
+ 
++	if (led->num_leds) {
++		for (int i = 0; i < led->num_leds; i++) {
++			if (led->leds[i] >= LM3533_LVCTRLBANK_MAX)
++				continue;
++
++			output_cfg_shift = led->leds[i] * 2;
++			output_cfg_val |= led->id << output_cfg_shift;
++			output_cfg_mask |= OUTPUT_LVLED_MASK << output_cfg_shift;
++		}
++
++		/* LVLED1, LVLED2 and LVLED3 */
++		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
++					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
++					 output_cfg_val << OUTPUT_CONF1_SHIFT);
++		if (ret)
++			return ret;
++
++		/* LVLED4 and LVLED5 */
++		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
++					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
++					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
++		if (ret)
++			return ret;
 +	}
 +
-+	ret = rockchip_do_pmu_set_power_domain(pd, false);
-+	if (ret < 0)
-+		dev_err(pd->pmu->dev,
-+			"failed to power off domain '%s' on rollback: %d\n",
-+			pd->genpd.name, ret);
-+}
-+
- static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
- {
- 	struct rockchip_pmu *pmu = pd->pmu;
-@@ -678,8 +701,10 @@ static int rockchip_pd_power(struct rockchip_pm_domain *pd, bool power_on)
- 	if (power_on) {
- 		/* if powering up, leave idle mode */
- 		ret = rockchip_pmu_set_idle_request(pd, false);
--		if (ret < 0)
-+		if (ret < 0) {
-+			rockchip_pd_power_on_rollback(pd);
- 			goto out;
-+		}
+ 	ret = lm3533_ctrlbank_set_max_current(&led->cb, led->max_current);
+ 	if (ret)
+ 		return ret;
+@@ -698,6 +734,30 @@ static int lm3533_led_probe(struct platform_device *pdev)
  
- 		rockchip_pmu_restore_qos(pd);
- 	}
-
----
-base-commit: d89e1d186ec9271bf78e62771779e9fc03bf0fc3
-change-id: 20261101-fix-rockchip-pmdomain-power-on-rollback-c11e1014ef11
-
-Best regards,
---  
-Cunhao Lu <1579567540@qq.com>
-
+ 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
+ 
++	/*
++	 * If led-sources property is not set then either this Control Bank uses
++	 * its default LVLED or is not linked to any LVLED at all.
++	 */
++	led->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
++	if (led->num_leds > LM3533_LVCTRLBANK_MAX) {
++		dev_err(&pdev->dev, "num of LED sources exceeds max %d: %d\n",
++			LM3533_LVCTRLBANK_MAX, led->num_leds);
++		ret = -EINVAL;
++		goto err_deregister;
++	}
++
++	if (led->num_leds < 0)
++		led->num_leds = 0;
++
++	if (led->num_leds > 0) {
++		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
++						     led->leds, led->num_leds);
++		if (ret) {
++			dev_err(&pdev->dev, "failed to get led-sources\n");
++			goto err_deregister;
++		}
++	}
++
+ 	ret = lm3533_led_setup(led);
+ 	if (ret)
+ 		goto err_deregister;
+diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
+index adcd6ac7cf229..e8164c8528577 100644
+--- a/drivers/video/backlight/lm3533_bl.c
++++ b/drivers/video/backlight/lm3533_bl.c
+@@ -7,6 +7,7 @@
+  * Author: Johan Hovold <jhovold@gmail.com>
+  */
+ 
++#include <linux/bits.h>
+ #include <linux/module.h>
+ #include <linux/init.h>
+ #include <linux/platform_device.h>
+@@ -21,6 +22,7 @@
+ #define LM3533_HVCTRLBANK_COUNT		2
+ #define LM3533_BL_MAX_BRIGHTNESS	255
+ 
++#define LM3533_REG_OUTPUT_CONF1		0x10
+ #define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
+ #define   CTRLBANK_AB_BCONF_ALS(n)	BIT(2 * (n))
+ #define   CTRLBANK_AB_BCONF_MODE(n)	BIT(2 * (n) + 1)
+@@ -35,6 +37,9 @@ struct lm3533_bl {
+ 	u32 max_current;
+ 	u32 pwm;
+ 
++	int num_leds;
++	u32 led_strings[LM3533_HVCTRLBANK_COUNT];
++
+ 	bool have_als;
+ 	bool linear;
+ };
+@@ -236,6 +241,8 @@ static const struct attribute_group *lm3533_bl_attribute_groups[] = {
+ static int lm3533_bl_setup(struct lm3533_bl *bl)
+ {
+ 	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
++	u32 output_cfg_val = 0;
++	u32 output_cfg_mask = 0;
+ 	int ret;
+ 
+ 	ret = regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
+@@ -243,6 +250,21 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
+ 	if (ret)
+ 		return ret;
+ 
++	if (bl->num_leds) {
++		for (int i = 0; i < bl->num_leds; i++) {
++			if (bl->led_strings[i] >= LM3533_HVCTRLBANK_COUNT)
++				continue;
++
++			output_cfg_val |= ctrlbank << bl->led_strings[i];
++			output_cfg_mask |= BIT(bl->led_strings[i]);
++		}
++
++		ret = regmap_update_bits(bl->regmap, LM3533_REG_OUTPUT_CONF1,
++					 output_cfg_mask, output_cfg_val);
++		if (ret)
++			return ret;
++	}
++
+ 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
+ 	if (ret)
+ 		return ret;
+@@ -320,6 +342,29 @@ static int lm3533_bl_probe(struct platform_device *pdev)
+ 
+ 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
+ 
++	/*
++	 * If led-sources property is not set then either this Control Bank uses
++	 * its default HVLED or is not linked to any HVLED at all.
++	 */
++	bl->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
++	if (bl->num_leds > LM3533_HVCTRLBANK_COUNT) {
++		dev_err(&pdev->dev, "num of LED sources %d exceeds max %d\n",
++			bl->num_leds, LM3533_HVCTRLBANK_COUNT);
++		return -EINVAL;
++	}
++
++	if (bl->num_leds < 0)
++		bl->num_leds = 0;
++
++	if (bl->num_leds > 0) {
++		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
++						     bl->led_strings,
++						     bl->num_leds);
++		if (ret)
++			return dev_err_probe(&pdev->dev, ret,
++					     "failed to get led-sources\n");
++	}
++
+ 	ret = lm3533_bl_setup(bl);
+ 	if (ret)
+ 		return ret;
+-- 
+2.53.0
 
