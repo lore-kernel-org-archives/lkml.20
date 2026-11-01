@@ -1,99 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793564279;
-	b=ljR4EA9zAtTbOX4iJq/DWxxXULNHprYa8HIWVDsGowRX9O10JsEiOFpnMX6aUhH40GmW
-	 K4U3QC8gYSk8nNrByPZUeRl5+A9BW5mB/hjGGKx94j3lxAOq4wSbJOnvqtsdTBgcAWImo
-	 +Pz/3LHjHfdKxx+jTmvupUQC1Y8qZDv4EhfyxaEJrO8l+KfTTl0VrvwzcffDEsxrHc11A
-	 GiOkIY8wAdKifvva2VIrqPcWUL8AuPPP6mBqJkyaiLCW2dDK7GH9S7r3T4JwNSIAv6+Y/
-	 zEfoCH8gafrhP1bPUTjF1uwg9sqBlBC4FljkWSlD5VElWWz0vuhih0peWzA9c9qZpXw==
+	t=1793564388;
+	b=A8wITKO9HUeq3hBfVEOkktZCc/YyGyONxJ2YTv3DWQRb2/6nMoDo404RtIuqU/e3hrKp
+	 /pkEevZGc/6L0aTA0qrBXU0etl3DiJfZtAQcF0wZGGB90YlT6W+IKt9cff1rDai7L4Njc
+	 ADCFo7JpRtuUcv8AnMjiEZ24y3oMtcwGuifQW6nxCPONcxN5Ig7m9vAkCmCYABsKPWAfs
+	 Mlp1MMLaLCI8QWeH5vJfEuENs1g/a4TynGsJ5gPSRqXFmo2TOm32U03uJDox9A/22WCCT
+	 ChiA4/+1zHVroYxK9mj06uvUjRydZahlZjP6oWufE5n1Qh08MaGG6J4NT0vFW/kwriw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793564279;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=CcMs9tvtlwt5Bs19TD28TDiqHmuTbnMeK3Pwk1m9fcI=;
-	b=RBe5+miP6OiHoKBLNRCjYVohxiKgEwns2qe7QjloR1u7tO94morpwU8ahF99bbyEqfNi
-	 kJdNO8Kk/Jmqgg7N/OA3x5vFs86xtsTBkaTWCNV+mhnbe9AslqKfBkbw5T0cJq91dhTE0
-	 v56IQdWb2qZiiw8rTeJEbuIsypQDeEnzpl8g5ElDKfG+BGT3Np6nhyPtgapCNwgAtErja
-	 Vdv2/Xwlu1i4tj3BYY8oYCMsmCGSewibfhRRPhTa5fGYL4Hxno7hKrVpC49APqv7zOZ8v
-	 hnYruXwFLYy5S4DRTvwxJUp5fe9Sx5RaTBgjollZJOLggIPUMZ19tQQ/iNdyxsD9HMQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793564388;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=nbWzpEen76KfcL+CtXPbSjVeFwZsdAxBkZAu3PHXVRY=;
+	b=ztSLPnvZOPzQWW1ebt7QVO3KSWCE/uhbpsDSGcwrE6milXDcm2XOxfV2/mh5feSZdDra
+	 lt2jhqoLpcbd3TA4JhnNmyY75wn/hGarN+malmFehEY0kyOWV4y/lzpGPSb7Hs3sAl7jZ
+	 NzsY6sIYFYF3JVrqqanpVE2tbAKXJuw0jrrK3bH36CjbE7C9mhnpUBEd5HWzexddr3au5
+	 Azqa3oDIDSmeMK4721tbwZmL7Ah0AwHwxiLwzfuxCvH5hJdYcYjUZdMTT3QFrBUTm1nih
+	 u+0Xbs6JSr89IuELJP5ghdya43lPIxXakCkGj7eTkrjYjFAvqJ0IBg8Z5jC42bQ5Ytg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=BdZrPLVn;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=20rNYJKo;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19755606A337;
-	Sun,  1 Nov 2026 20:17:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 19755606A337
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A334606A324;
+	Sun,  1 Nov 2026 20:19:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A334606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=BdZrPLVn
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 5C99340E03BE;
-	Sun,  1 Nov 2026 20:17:54 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id Bd7ecPcu3egA; Sun,  1 Nov 2026 20:17:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793564269; bh=CcMs9tvtlwt5Bs19TD28TDiqHmuTbnMeK3Pwk1m9fcI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=BdZrPLVnCOqsebut2c7nykFo/vNmhjON4fQa50k/KbCavQnJesAcCCeyovv86jH0Z
-	 6c91xRny7T8cZrM/nOsb7OJFJbpCFlj5B8DX8XbLQ5oJjm7WwEtTuY+HcRSBo9SZ+0
-	 +TiXYiVUwm6ZyrCGWXAISZIx19w4dFtAGYrgjj0IhLYisQ67RXNYWLz3zAfohIVIDN
-	 kdpJ90prDrv09xZpeTqFnN3k5JB7fc7p5Sl2pvahQ3ORoY0Z9jN5W6hZ7O2mHAyjAh
-	 zmU+s1UUy+58aEpNvuRAdxbHn+zsuMukhvt34hgdotP5uO0sSGXBANvo+mRpXrmMc8
-	 +m41JE+gKXLRoPqSEG16r9V6R5T2smfVdoP18vgO48YC1c+ngHB3iE4e6l0WpSE9Zy
-	 CHHfE3wxVIpPrfaSlAMLUWRijoH6NrjVgGeqKI0odptOsvWBp9gUospPyx7+IlS6nd
-	 2hdNNgScNU7TNmJzwlG7KTJRIGQsC3Gh5yZQhOoHvZ9F+gpfA24Rq3S05mdMO+AKF7
-	 QoaBFOzIIgK9Jx9cEUIzXheIbNXcUVMjf3NjqBIn5NuGlsNdS5NGEWDn8qJaz73H4D
-	 jL6jnXgqqUdE3En7PDXPe3PUnpQyGrcf5ytzSHIwKOh7K+Ej2/uyz3dB82z+kwrOIM
-	 vt+Hq3gPyHodhUq01aAERb58=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 7C7F040E0299;
-	Sun,  1 Nov 2026 20:17:30 +0000 (UTC)
-Date: Sun, 1 Nov 2026 12:17:27 -0800
-From: Borislav Petkov <bp@alien8.de>
-To: Joe Perches <joe@perches.com>
-Cc: Andrew Morton <akpm@linux-foundation.org>,
-	Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	"biju.das.au" <biju.das.au@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	Au Dang <au.dang.jx@renesas.com>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-Message-ID: <20261101201727.GCaueeVySou8SsgdDY@fat_crate.local>
-References: <20261031202741.GAauZPPfNDpQLSmIZD@fat_crate.local>
- <94f0ab99b5c9072ce7c026672f704b2987db427f.camel@perches.com>
- <20261031235958.GDauaA_pScrsk2xYUF@fat_crate.local>
- <5ad69a1167fddc7caf1eb73e439765116db1ce17.camel@perches.com>
- <20261101014710.GEauaaHoYk5TzRpGBQ@fat_crate.local>
- <b700f0fb96b9454287850f7aa54d876b709cadb0.camel@perches.com>
- <20261101185452.GAaueK_PzlK68DsmRz@fat_crate.local>
- <44db8c930587810e902dcb36b5a0718a52eb94fc.camel@perches.com>
- <20261101193759.GBaueVF-1a0H8BDmZ2@fat_crate.local>
- <874236faffbe90543d69361f04628fd8047ab1b8.camel@perches.com>
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=20rNYJKo
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=nbWzpEen76KfcL+CtXPbSjVeFwZsdAxBkZAu3PHXVRY=; b=20rNYJKowS8QgUWQ4jODdI+Rso
+	vpy8xoxE5/YhQST3EwqyZxQNmAV03Y5o751usgC31Yc/McSk1TOqOl3zTIEtG/Tj6ZNluFes8ihJp
+	+X13l9D3X4pnJOeyY2ekAMmWEDtrZSMUZ8LP3lJzUj7Lu1F6xYTU5pAYBiiJK0jUrI9hRxttmqeV0
+	Upd10k0OsFPkI6kQGZjcz3bMChwkDKqtnvkeXN0sYn6goMIBQDkrUfV9dFr7bcLRDR225P4brDNnU
+	UZhNWMWPmvq/HDXj1olPKXAI2ZcmO3wnp6wRkxfXQpLJhBxOxhPTB95rlPaSeerNlr2/rBXJMkQDh
+	+jFRBS9Q==;
+From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+ David Heidelberg <david@ixit.cz>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject:
+ Re: [PATCH v12 1/3] arm64: dts: rockchip: rk3568: add XPCS and fixed-clock
+ nodes
+Date: Sun, 01 Nov 2026 21:19:33 +0100
+Message-ID: <23607754.hxa6pUQ8Du@diego>
+In-Reply-To:
+ <CALj3r0g5twZNEiO5b1hHpxy3kAVBxLZNt55E2dxSSeZ5GgXisA@mail.gmail.com>
+References:
+ <20261023053548.1595033-1-coiaprant@gmail.com> <2977688.AiC22s8V5E@phil>
+ <CALj3r0g5twZNEiO5b1hHpxy3kAVBxLZNt55E2dxSSeZ5GgXisA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,25 +68,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <874236faffbe90543d69361f04628fd8047ab1b8.camel@perches.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-On Sun, Nov 01, 2026 at 11:54:42AM -0800, Joe Perches wrote:
-> I do think it was already generally understood though as
-> there was just one exception to the pattern match style
-> in the existing more than ten thousand ^[FX]: MAINTAINER
-> entries.
+Am Sonntag, 1. November 2026, 21:11:56 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Coia Prant:
+> Heiko Stuebner <heiko@sntech.de> =E4=BA=8E2026=E5=B9=B411=E6=9C=881=E6=97=
+=A5=E5=91=A8=E6=97=A5 22:06=E5=86=99=E9=81=93=EF=BC=9A
+> >
+> > Hi,
+> >
+> > Am Freitag, 23. Oktober 2026, 07:35:46 Mitteleurop=C3=A4ische Normalzei=
+t schrieb Coia Prant:
+> > > The RK3568 SoC integrates a Synopsys DesignWare XPCS that provides
+> > > the Physical Coding Sublayer for 1000BASE-X, SGMII, and QSGMII
+> > > interfaces via its four MII ports.  Add the XPCS device node to the
+> > > SoC device tree.
+> > >
+> > > The XPCS device is accessed via the APB3 bus at 0xfda00000 and
+> > > requires the CSR clock (PCLK_XPCS) for register access and the EEE
+> > > clock (CLK_XPCS_EEE) for Energy Efficient Ethernet operation.  The
+> > > PD_PIPE power domain must be enabled before any register access.
+> > >
+> > > Also add two fixed-clock nodes (clock-xpcs-gmac0 and clock-xpcs-gmac1,
+> > > labelled clk_gmac0_xpcs_mii and clk_gmac1_xpcs_mii) providing the
+> > > 125 MHz reference clock for the GMACs when operating with XPCS.  Their
+> > > clock-output-names match the CRU mux parent names in clk-rk3568.c, so
+> > > boards can reparent SCLK_GMAC0_RX_TX / SCLK_GMAC1_RX_TX through
+> > > assigned-clock-parents.
+> > >
+> > > The XPCS node is disabled by default and must be enabled at the board
+> > > level when 1000BASE-X/SGMII/QSGMII is in use.  The fixed-clock nodes
+> > > are always present and do not have a status property, as they are
+> > > static clock sources.
+> > >
+> > > The XPCS node requires a reference to the appropriate Naneng Combo PHY
+> > > via the phys property.  dtbs_check only validates required properties
+> > > for enabled nodes, so the SoC dtsi does not provide phys: boards that
+> > > enable the XPCS must supply it, since the SerDes link is a board-level
+> > > design choice (combphy1 on some boards, combphy2 on others).
+> > >
+> > > Signed-off-by: Coia Prant <coiaprant@gmail.com>
+> > > ---
+> > >  arch/arm64/boot/dts/rockchip/rk3568.dtsi | 23 +++++++++++++++++++++++
+> > >  1 file changed, 23 insertions(+)
+> > >
+> > > diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/bo=
+ot/dts/rockchip/rk3568.dtsi
+> > > index 3bc653f027f1f..20a72785adbc2 100644
+> > > --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> > > +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> > > @@ -8,6 +8,20 @@
+> > >  / {
+> > >       compatible =3D "rockchip,rk3568";
+> > >
+> > > +     clk_gmac0_xpcs_mii: clock-xpcs-gmac0 {
+> > > +             compatible =3D "fixed-clock";
+> > > +             clock-frequency =3D <125000000>;
+> > > +             clock-output-names =3D "clk_gmac0_xpcs_mii";
+> > > +             #clock-cells =3D <0>;
+> > > +     };
+> > > +
+> > > +     clk_gmac1_xpcs_mii: clock-xpcs-gmac1 {
+> > > +             compatible =3D "fixed-clock";
+> > > +             clock-frequency =3D <125000000>;
+> > > +             clock-output-names =3D "clk_gmac1_xpcs_mii";
+> > > +             #clock-cells =3D <0>;
+> > > +     };
+> > > +
+> >
+> > these clocks don't belong here.
+> >
+> > When you place these nodes in the main, they seem to come out of
+> > thin air, while that might be true for some boards, that they
+> > have dedicated oscillators for that, this will likely not be true
+> > for all.
+> >
+> > So these should be defined in the board dts, to match the actual
+> > hardware.
+> >
+> >
+> > Heiko
+> >
+>=20
+> Hi Heiko,
+>=20
+> Okay, these are board-level clock sources, not something the SoC
+> provides. Moving both fixed-clock nodes to the Photonicat DTS and
+> leaving only the xpcs node in rk3568.dtsi.
+>=20
+> I'll respin.
 
-I leave it up to you.
+please also at least describe in the commit message, where the
+board generates these clocks.
 
-As said, my only angle is having this documented as clearly as possible, even
-with an example, so that people in the future do not stumble over this and
-have to add debug prints to get_maintainer.pl code to figure out what exactly
-happens.
+Thanks
+Heiko
 
--- 
-Regards/Gruss,
-    Boris.
 
-https://people.kernel.org/tglx/notes-about-netiquette
