@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.8
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793535696;
-	b=puizY6mRAb/4UdFx20slomgMuzwuhiK4RNV9D53kJETJJsr4po5Yvms5mhUhZxaBdg72
-	 dC5SOv6B/F1r5q7oGXi0FSSyof8UoaXC2N+nvaAs4CajtR8oArhq7CCOWcdgZ8k5lItd8
-	 NzULPjqBAn4NS/Z0xttZ4kuOqDlCCu6kSoXkrzX+P3Z/s/8tzRyLs+yFSvOLGPRldVlCN
-	 Y12fz3F5cCLixl0sI8Q02u3JzOi4TUqNu0TlhCUObG9cR3FU57F8vH+4yp1flyp8X9bfW
-	 aZ/+hulGLd4PlkLFg+6MjgZYNRlBk0TIicR0iujca//g9TTMW1cyoguOPHtP75pnL8A==
+	t=1793536024;
+	b=xUtyfeE07P3aYoHGRnuqbwznc4/xZaLTvqqpH/nnh8jRkYVFokcCoJ1xBiNY3K1VgjJS
+	 O2rxsWv2PqglimtxlwSLyNBX/RonBbReg0m/Le2bY5v9khJ+I0G3/VYfEj6DEkjTUpdtR
+	 FLRvYkntS9WEI6KnCCTooUcpDkSDZz2wOGKsUT5WqV3esyq8xK3MgihQJGwjZxw53QKVH
+	 sLpz6hg/QocxS01r/0iigaTehnSuDjF51svwlqeRk+cMgp6U9YTlLBmlTc3M0sJQ7M7Dz
+	 KCCNG22MmlZwCk/PrcvCOVEDTBa8t/c8dRd6KBsgxTK+ImEUmrgYnCffmEdTzxSrQXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793535696;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=17cJmiuUCova0Iydm9bRMkHrls1dA/n7JgpWCE9LeH4=;
-	b=vTJnI0hkUsXlZvLtEtUREAedGd75wb0zGGR95O8TnuiBEZXF6IBqPljgHAXNkLWPQ187
-	 47FzLX/EwGAHklrwF7Tg3npCl2wNc+jVrPSi+9v4odsS8Ck98lBeoiHnFfTdeHIKE7xwf
-	 GLgy1fyoCU+juLoIjBQXzB+0H9NndS+KVvR3ydVPhGHHmdRgC0jGemwN6MRkWGxfWQXZr
-	 MeCcvhIZMgF1aVOxYsvRzNOu7xjhXdSeg4JNgsFgl4bmklrkuoWq/xrb3C+T+3gvKsQKC
-	 vWnNG6N+JYHuEbagoqna2GUbcCnLR7dEiheWiUZ6Ja//XNjWv7Evnzj+5CAc4gOFY6g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793536024;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dA762MiX0XGurLRN9b/6HziROeNi9rk6flm5jzR8jYo=;
+	b=wfbGkQY5z3bOILxtnRvzTr72jB4YFe+5TtuMTRlRzKD5W2jgRk1oXYXRcx6jHSKAf+yu
+	 2Ixtc1JcqgrBgPZrEW2Srx09WU6M1mMgyMbEg8tEhXt0Ua5S29LBpT95EL0B+6K7RMAl3
+	 Xj6JNEdEeLiPVNEM8gVd7OxoZqECOWk2L5/v42Jv+l0IBSLmaiCMOY7QUwLgjJsBT5FyU
+	 KDppgL3R5pOfAnNJpHJN2u0mR+tsdy4BlD3Kn/u/SBTedoBSmQvN01DEmW2Je0XAiUHoh
+	 AEBHGYLjkCJDTMen6YD/PlosURtXq6Np68jDFT6SRCqPaSeHuZ3jtaZK99SL5GURNEQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Q6VaBw/x";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P6D1uRfG;
+	arc=none smtp.remote-ip=74.125.229.8
+Received: from mail-dy2-f8.google.com (mail-dy2-f8.google.com [74.125.229.8])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D92C606A324;
-	Sun,  1 Nov 2026 12:21:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9289606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:27:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A9289606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Q6VaBw/x
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14B11F000C1;
-	Sun,  1 Nov 2026 12:21:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793535695;
-	bh=17cJmiuUCova0Iydm9bRMkHrls1dA/n7JgpWCE9LeH4=;
-	h=From:To:Cc:Subject:Date;
-	b=Q6VaBw/xwt3xjJKiOpVuAXS/HZYicUcZ9H9vsya1+Lus391pN5d+STWxoXdmnWaxp
-	 FlMYGMIQlds8dXjXjKgZfai04vxCe+tryERfYXX61dArhe6rIDhAXKAbADRtLwQ4Rh
-	 jSiXkHoP+/05wp8sjGbVI1cOUiMHvefjWJHeVLi3jE/2ySAs4KOmmesMP7rswti4yL
-	 MrFDPtW1sAnHaYX5jLQcT4PlDYqx9mQr+2oDBY44Dwf0BZXytQlTPrnYOMncNdiaKq
-	 BRNGhjsq9iPcQ6pll4HpcEtsPlj7PsLnW7CqBR43PqAH8w0w7DI1t2jtgs66CJqS10
-	 ETs+PQZQq1Oiw==
-From: Danilo Krummrich <dakr@kernel.org>
-To: robh@kernel.org,
-	saravanak@kernel.org
-Cc: devicetree@vger.kernel.org,
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=P6D1uRfG
+Received: by mail-dy2-f8.google.com with SMTP id 5a478bee46e88-36a1e794908so685075eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 04:27:03 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793536023; x=1794140823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dA762MiX0XGurLRN9b/6HziROeNi9rk6flm5jzR8jYo=;
+        b=P6D1uRfG8WudZj/+HecnHpsWSnmftBDN7rVF8yIkxqhq2ChaZZKowDsM4BkO2na5Mc
+         yLxxVJ7Wo3+FdtbcBiD6qiqfwa/QRFGI2gcSfYQKro3frJSMTyehnAlSRv3TlJGJx3Cb
+         7YcC1tqaP3v+Tch2I/ty7Ts2xkLBk984B3KFD9TBN58x66f1YhN29BSCMqMjBgnHE8zD
+         snsnDGDhg4XyIsUCXNSnjFBwaaPY6MhMt7vXXnc9DsA5CMXC+oSFOdkkSlAessETm3mk
+         MALGFJAD89YXM+y+nODxqWdv0S/GEIij6llGIGzWEH2D09xjFndxNA20IOoKkcnX7Hwo
+         zgVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793536023; x=1794140823;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dA762MiX0XGurLRN9b/6HziROeNi9rk6flm5jzR8jYo=;
+        b=QF65Y+ohEGm0v017Sh8owtjPX7CH5jiUC8jFb/OMGMXyVTu9aQ5yK2HLHm1LKzwwgs
+         EPktawObTwD93iDDR1yUaZwo+r8dK9XgCLSAbsCavz1RR45LOYKJWA3gamFjMMUdQ6iV
+         P4sTFITQRgyNR4eKf3nXW9Hcfjhz7lBC+Yx+hNTrL2dj7TJcy079c/bQw4VACPiELYES
+         TEbjYdsoT7uFVP0FpL6JbUPQ1KoHMiJ3/YEhZlcBKSsSp6xrafCiY1NMd7poavgn2g/H
+         SunL7IWbI2H4YJQ8ojG8dbxdrjpKtxLOlA6hik4Vb+giaoaEXmoX0aHoDg4oAtMLC0aI
+         k48A==
+X-Forwarded-Encrypted: i=1; AKwUvBwKpzgADZQDewgFMkE+wBYHWQ0IwfVSKujGYVfPqv7GfAeQ7mxR1pkg2N2efKgsrC2lEx9e1KjEX1PaLrc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIB2b4OM9aH2uf4u3CpchbyyvPwAQfPC1ugFLW5mKm+ABS1s/mv
+	od27974j7OEHJOFdPCT6GIACbOhs8S5iT/E8UtwDioMt4Vfzi5rb1oIA
+X-Gm-Gg: AYBFou03DuttvVs5YyozmLqs9OP56Uv2JWPwjJPOHTBbrvcFIm57QZ87xMVsIO4pyuU
+	gyVvMwePtbkv8Xdcz87EVaYr9U5XMkACfaz6GpiviPDFNSgJUd4N+4A2HDrDMZu5jkil3rxfV+Q
+	AajOLOjhKKngIl8cR6FNTw24eIXAaEY9wcEaj+C/z3EE//2vDHqejz+2h+3oeUly4T1zsKwoFmn
+	ZPw6f4HAz3pgA83R/lFpEyFhB0QFm7hlLB4Jyrp7pmVjQ2ztopsP5BIqNZNRMO57X3APEVaBuVA
+	UgxwyrJo25tyWFaCc1LOdb4+ZiLlTbCb/yfHe2SK13nefhpI7zLNxO4nKg3/k7tlS8WFA8RGxlx
+	oQ5tEhtTl6vBTI5VHsqU3LRyQEM37YsH5hUHRtcJJAA7KtxRsg1O9doOcF+PxobIbhS/USr9mwv
+	SqpMlid4g9BQ2kbavssAzKcscZjOyQWyY7WvX6ieTWDHAgwSPkEyAC/nIa2V1tyWsKMaO+2yCRd
+	IkE5buBDYsOOWPlUuuLsHt4wl/x3tDxAAjH4kfYWUjbJ9J/NVhniy1GS/6Mezl7MryK0R+w3JS2
+	xrhftL//+Tcp2tzizpZklNSFHDulSGBjEN07z4v/e3mCKOgMNQZmzAL50GsHOgm2q+lngbDqPdO
+	+NA==
+X-Received: by 2002:a05:701b:4206:20b0:1a4:9eaa:d01d with SMTP id a92af1059eb24-1ac5fd08905mr10832402c88.45.1793536022578;
+        Sun, 01 Nov 2026 04:27:02 -0800 (PST)
+Received: from localhost.localdomain ([98.148.34.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428aed76sm27845234eec.9.2026.11.01.04.27.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 04:27:02 -0800 (PST)
+From: Hungyu Lin <dennylin0707@gmail.com>
+To: Muchun Song <muchun.song@linux.dev>
+Cc: Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mm@kvack.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Danilo Krummrich <dakr@kernel.org>
-Subject: [PATCH] of: unittest: Remove refcount underflow tests
-Date: Sun,  1 Nov 2026 13:19:29 +0100
-Message-ID: <20261101122128.2124348-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	Hungyu Lin <dennylin0707@gmail.com>
+Subject: [PATCH] hugetlbfs: report inode limits without a memory subpool
+Date: Sun,  1 Nov 2026 12:26:53 +0000
+Message-ID: <20261101122653.53982-1-dennylin0707@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,102 +102,38 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-With CONFIG_OF_UNITTEST=y and CONFIG_BUG_ON_DATA_CORRUPTION=y, the
-machine no longer boots after commit 5b5224220747 ("refcount: Use
-CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors").
+A hugetlbfs mount can limit inodes with nr_inodes independently of size
+or min_size. hugetlbfs_statfs() only fills f_files and f_ffree when a
+memory subpool exists, so an inode-only limit is enforced but its inode
+counts are reported as zero.
 
-of_unittest_lifecycle() deliberately calls of_node_put() after the
-node's reference count has reached zero. The test expects a warning and
-continues to check that a subsequent put does not produce another
-warning. With BUG_ON_DATA_CORRUPTION enabled, refcount underflow now
-triggers BUG() instead. This panics the kernel during boot:
+For example, a fresh mount with nr_inodes=4 reports zero total and free
+inodes instead of 4 and 3. This hides the inode limit from tools such
+as df -i, even when creating another file fails with ENOSPC.
 
-	kernel BUG at lib/refcount.c:37!
-	Oops: invalid opcode: 0000 [#1] SMP NOPTI
-	CPU: 1 UID: 0 PID: 1 Comm: swapper/0 Tainted: G                 N  7.3.0+ #14 PREEMPT(full)
-	RIP: 0010:refcount_warn_saturate+0x89/0x90
-	Call Trace:
-	 of_unittest_lifecycle+0x158/0x310
-	 of_unittest+0x105/0x130
-	 do_one_initcall+0x127/0x350
-	 do_initcall_level+0x7c/0xe0
-	 do_initcalls+0x59/0xa0
-	 kernel_init_freeable+0x118/0x1a0
-	 kernel_init+0x1f/0x140
-	Kernel panic - not syncing: Attempted to kill init! exitcode=0x0000000b
+Report the inode counters when an inode limit is configured,
+independently of the memory subpool. Preserve the existing zero and -1
+results for unlimited inode counts.
 
-Remove the refcount underflow tests, which exercise the refcount
-implementation rather than OF-specific behavior.
-
-Fixes: 5b5224220747 ("refcount: Use CONFIG_BUG_ON_DATA_CORRUPTION for UAF-related errors")
-Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+Fixes: 74a8a65c5261 ("[PATCH] Fix hugetlbfs_statfs() reporting of block limits")
+Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
 ---
- drivers/of/unittest.c | 43 -------------------------------------------
- 1 file changed, 43 deletions(-)
+ fs/hugetlbfs/inode.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index e255f54f4d76..03fc941c0995 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -3678,9 +3678,6 @@ static void __init of_unittest_lifecycle(void)
- 	 * - Decrementing refcount to zero via of_node_put() should cause the
- 	 *   attempt to free the node memory by of_node_release() to fail
- 	 *   because the node is not a dynamic node.
--	 *
--	 * - Decrementing refcount past zero should result in additional
--	 *   errors reported.
- 	 */
- 
- 	np = of_find_node_by_path(refcount_path);
-@@ -3714,46 +3711,6 @@ static void __init of_unittest_lifecycle(void)
- 
- 	EXPECT_END(KERN_INFO, "OF: ERROR: of_node_release() detected bad of_node_put() on /testcase-data/refcount-node");
- 
--
--	/*
--	 * expect stack trace for subsequent of_node_put():
--	 *   __refcount_sub_and_test() calls:
--	 *   refcount_warn_saturate(r, REFCOUNT_SUB_UAF)
--	 *
--	 * Not capturing entire WARN_ONCE() trace with EXPECT_*(), just
--	 * the first three lines, and the last line.
--	 */
--	EXPECT_BEGIN(KERN_INFO, "------------[ cut here ]------------");
--	EXPECT_BEGIN(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_BEGIN(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_BEGIN(KERN_INFO, "---[ end trace <<int>> ]---");
--
--	/* refcount is now zero, this should fail */
--	unittest(1, "/testcase-data/refcount-node is zero");
--	of_node_put(np);
--
--	EXPECT_END(KERN_INFO, "---[ end trace <<int>> ]---");
--	EXPECT_END(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_END(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_END(KERN_INFO, "------------[ cut here ]------------");
--
--	/*
--	 * Q. do we expect to get yet another warning?
--	 * A. no, the WARNING is from WARN_ONCE()
--	 */
--	EXPECT_NOT_BEGIN(KERN_INFO, "------------[ cut here ]------------");
--	EXPECT_NOT_BEGIN(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_NOT_BEGIN(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_NOT_BEGIN(KERN_INFO, "---[ end trace <<int>> ]---");
--
--	unittest(1, "/testcase-data/refcount-node is zero, second time");
--	of_node_put(np);
--
--	EXPECT_NOT_END(KERN_INFO, "---[ end trace <<int>> ]---");
--	EXPECT_NOT_END(KERN_INFO, "refcount_t: underflow; use-after-free.");
--	EXPECT_NOT_END(KERN_INFO, "WARNING: <<all>>");
--	EXPECT_NOT_END(KERN_INFO, "------------[ cut here ]------------");
--
- 	/*
- 	 * refcount of zero will trigger stack traces from any further
- 	 * attempt to of_node_get() node "refcount-node". One example of
-
-base-commit: a287f97d4256b5f5527f5b5a54f8ada55e1482c7
+diff --git a/fs/hugetlbfs/inode.c b/fs/hugetlbfs/inode.c
+index 01c4d6f44ebe..e94ee8e17004 100644
+--- a/fs/hugetlbfs/inode.c
++++ b/fs/hugetlbfs/inode.c
+@@ -1113,6 +1113,8 @@ static int hugetlbfs_statfs(struct dentry *dentry, struct kstatfs *buf)
+ 				- sbinfo->spool->used_hpages;
+ 			buf->f_bavail = buf->f_bfree = free_pages;
+ 			spin_unlock_irq(&sbinfo->spool->lock);
++		}
++		if (sbinfo->spool || sbinfo->max_inodes >= 0) {
+ 			buf->f_files = sbinfo->max_inodes;
+ 			buf->f_ffree = sbinfo->free_inodes;
+ 		}
 -- 
-2.56.0
+2.43.0
 
