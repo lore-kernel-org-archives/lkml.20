@@ -1,66 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571353;
-	b=oW8iSLYHE0RKicn81PmAsV5cCAEv8WwZOusDQqRHNE40T2YzSan5GIP5h6KI4lJAQKKg
-	 JGwqg2qhKbCU/30PkOfQqCuJNMqCXHFVP19NXh7SSeWoZioTWI26kHLMl+ay673haxBLX
-	 voNRHaor1zkHCpeolyz8yVFUgQaBgRCi7+90CI0S2Tcn6woBHpmAP/hDSA65QPhW3pbqD
-	 8pIUImkSe1WflEEiSVxzGFj4rzL1q9sUQDPbu+W9BPPMf1KncKeBksVe3ch6PbCnme/BN
-	 fi/t+nlZV3SNrz6qEny2i9z4lK0J6/YfQSQOUZUgghA6Qio9sh3AdaDWt/CfO5kyf6g==
+	t=1793571357;
+	b=BrW06YxLgk8A8TCR2GASQt+vnQZ08KSCBHZrzfMK2Vmpp/BKoZAH7DlqweAzuJzHMv+x
+	 WvCoPT4DNCi2cCsbijN8PkrONf01c6Ef/vK0DvNIrUgn3MsuiV18RQLeAfXMEIxoX9crQ
+	 mN9tahn0JL7PPfw34sNBOIzarSaH/45YKJrfvBwBD+bnZXcc7J60Dzc8MmmpGTHymrk2f
+	 9r2KaDvNt+fQsAa6zHUyYurrQLJLdK1L7ApE/XgItW0ctuCtVwh5zuWsNzzPTP8gdHH6f
+	 z/gdy13cTNtgvhQT/WIC1iZMQeqzzphIhvJ7NhcSJiazrvzMxA8uDbHL6c/uo0DrS4w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571353;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571357;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=dzHxCP/qlD9U2Pnz2CYx8W1+O2sBTItyxz8i84HwCSk=;
-	b=J5Pv9jkEBsdwo1+gE9cuv8m0UwJKvhBAkpiQknFKEvkBa8/+N/JcoSIHcONoQxGQ8fCb
-	 0Q6qZCYKTmclS7MjYZBk1MbC4Ud75HAPrk2R22+6hNPD3MePpJ7r082SxJOv7dufXhJBF
-	 6D7WasSNbsPBXZUoZ6Gm5qkq1IpfqdTCIbs2Ter5EJZjKjNOI4lOr9l8aSL0svHzZjRcr
-	 GBgedxby3lgj2odDqgo1gLNbfe2VenF1tO27Dj5mKbULRLUDbjmyWliJHFqgLRJKHbBY9
-	 m/WHLtS8s1aADP7Iamdi5d0Y0vIoKWMvud8/uR6zAYwMcP8s/S0rI1/REAjtxxhclAg==
+	bh=3Kd169eysaQu7RCb4n9yzxMgogeBCixS4WYZtP9OonQ=;
+	b=hULFQ2V0T5BH9X0VavLILTzX3bDfG086EAT/jClXxtzC685+5bwKmgBku+yn6N/AQ2CT
+	 1GHYVJbA5crivOcxsJOmaL4NXkRWkehH0m6HpwtfprhWYBo0BPJRdExmJAkfN/+VyY9wL
+	 Bz9JHueGwJKZeNQ75AKbB19J2x1RFNV6bDdWzFv0EBVftN/hGFhLeh7HjNPXftBImjFVD
+	 Q6H6QzDyqZKmv3uL3Y5SbajAeX2UehiGmPIaz72LwixM5uj1wyarik8cseStIHFnZCCy2
+	 rrgIbBwO2yYbYU0cRFgTKj8Ff6J9f638INu+FOSK/xx/RkVllOc7m+34lPJ+qzoe9iw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=i5d2cbhq;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=UoD8PMbq;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D58760A2603;
-	Sun,  1 Nov 2026 22:15:52 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7D58760A2603
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A2960A2604;
+	Sun,  1 Nov 2026 22:15:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 42A2960A2604
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=i5d2cbhq
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=UoD8PMbq
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=dzHxCP/qlD9U2Pnz2CYx8W1+O2sBTItyxz8i84HwCSk=; b=i5d2cbhq02cEiFA3UdTTb0AY1q
-	0Llb1mDrR9x6zaFxdqunHTec4sA/W7RR35xBlTxiCxWNWNQUelPcrb1tLVsF3SeGx3X9bz2xNs1TZ
-	Zkdel6DtXGM7lZY2KHBfo6GFDnpL9g6BiGJowo3OpMVTkigQYTM7Adk/lUt+LfRNz1Ecp0bYTX5rp
-	7lDyco/nl2rP+NQ9+x6P+g5M+EtCyeiK9WFEJ5wHkMjsYG+ZDr0Trs4uFRtFt1tfItfZM5BlIii6w
-	NJvou2MDY7gErqc76cmtcrL5KTlHRWB6age/1B2K+E4fPisTdpNHTIU8pay0J8IDW8iX6s0QRbUkL
-	ZB3f15ag==;
+	bh=3Kd169eysaQu7RCb4n9yzxMgogeBCixS4WYZtP9OonQ=; b=UoD8PMbqgQD4c34zCJSg0GJaet
+	sBJfOa1YATL6vN9ZpXCsr93MAYgEA/9x6i0ePk4fu4h0qWMVRyMlCJ69Z6ZW4whSSCGGAUz1wy6/b
+	krAaVXWmaj5kofRsvfjuUQnyVB58wSmTFsfHtq7mHtjckC7cNye2QLCeeHiG0cQDvxwQrKrF0/Bx8
+	EdkEs5azs5pRwirYVOeTd+J6FleptIYySNG5GksLjSGWv4y1Hm4YUD+oh2IaIyH7+KFg1JTza3/wP
+	XYS29q7CKPrWrrsjb8XtSMNl0gbbQNSVo7mv/4+XHtLkIjeEgoDhXy+eP/O5RTwPc150j7Q718Buc
+	1hIOykDA==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Igor Paunovic <royalnet026@gmail.com>
+To: Richard DeFrese <richard.defrese@proton.me>
 Cc: Heiko Stuebner <heiko@sntech.de>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
-	Ondrej Jirman <megi@xff.cz>,
+	linux-rockchip@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
-Date: Sun,  1 Nov 2026 23:15:29 +0100
-Message-ID: <179357131393.4107717.8550224711242554057.b4-ty@b4>
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: route ES8388 MCLK to the IO pin on Orange Pi 5/5B
+Date: Sun,  1 Nov 2026 23:15:28 +0100
+Message-ID: <179357131391.4107717.16406250143729815997.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260908111908.19371-1-royalnet026@gmail.com>
-References: <20260908111908.19371-1-royalnet026@gmail.com>
+In-Reply-To: <20260822194730.526392-1-richard.defrese@proton.me>
+References: <20260822194730.526392-1-richard.defrese@proton.me>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,21 +71,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Tue, 08 Sep 2026 13:19:08 +0200, Igor Paunovic wrote:
-> The interrupt line of the hym8563 RTC on the Orange Pi 5 Plus is routed
-> to GPIO0_C6, not GPIO0_B0. The vendor device tree uses RK_PC6 for this
-> pin; the mainline board file uses RK_PB0, which does not carry the RTC
-> interrupt on this board.
+On Sat, 22 Aug 2026 19:47:58 +0000, Richard DeFrese wrote:
+> The on-board ES8388 codec on the Orange Pi 5 and 5B has no analog output:
+> the codec's master clock (MCLK) never reaches its pin.
 > 
-> As a result the alarm interrupt never reaches the SoC, so the RTC alarm
-> cannot be used as a wakeup source on this board.
+> RK3588 gates the I2S MCLK-to-IO routing in SYS_GRF SOC_CON6 (bit 1 for
+> I2S1), exposed as I2S1_8CH_MCLKOUT_TO_IO. The codec references the internal
+> mux (I2S1_8CH_MCLKOUT) instead, so nothing enables the IO gate: the
+> 12.288 MHz MCLK is generated inside the SoC but never driven out to the
+> codec. With the ES8388 as I2S bit/frame master, the SoC I2S controller then
+> never receives a valid clock and aborts:
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: fix hym8563 interrupt pin on Orange Pi 5 Plus
-      commit: dc963c9ec182ec24f0b10f11fe377db00528f7a8
+[1/1] arm64: dts: rockchip: route ES8388 MCLK to the IO pin on Orange Pi 5/5B
+      commit: 27bb79d40d4890814cacde534e9b3d9cd8ad7435
 
 Best regards,
 -- 
