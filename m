@@ -1,93 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793542558;
-	b=nx4LMBXJp6BTaY8k5qCJlmTB0dO3MM/BZIATHvLyjE5LTE6ts5WiBQ/J0bNj63aqw5wq
-	 eeG1DqfAjlmyt/wxV8j1kqbk/9nUvgzu4609AeVDaFWfZkv3tJyb5CESOwGeWVQHw28b5
-	 rre5adXevKMwxTABtV4PCS41GLov8XjA6rprv6fVH0c6FSbt6WBjMQtH+pgEPfJTkAmnh
-	 YAbq8lashvFOYJ9gdN1AAb/7mQ111vNgTLEQ6MnQp5o2tTT4v90z1xbIis1DTdf4NVe0N
-	 FZLyOQI6dYUYnV91KVIewIrVpmmp8p11u1YFN5XjgU4cPUZOSlzfY3h/vxgS0j/x0Mg==
+	t=1793542563;
+	b=HGUVj/vGc54zuScNs5I3XO2MkqvLuidUb+bAfLbgI9ihqB4KZhfrA9goRpeRRyoB9fM4
+	 YTxmfs9O3b+XX+WWpuqehmLK+O1750Z0OBT42EcCVueG+hFec/hBGUCh1N/NcWbqAQFvf
+	 rUNQ31708QpRpJcq+yDDN5YaxkiOd0iDbv7zbnBnGR13JiaWa/DNYD7+P5D4HEGZbdykp
+	 Nyo39SatjJlPZCkKT58p5gYjmQAbPk0PDmT8LUyub4pYwQ3ktvAQErWaMhoHSBAagHhEr
+	 PUt17s2Mcs01qupDNyNICiUnMsxiUh7qMnBATJQNcLCN1cATN4ok3MC2P+vrsXXpMYA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793542558;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793542563;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=sMIiBsBGGfnuS5WxfPmtADmv/TO4FUudGIPAhofipOw=;
-	b=oH3107cwDVbp9qFmXLFW5yqniCeyTJfJML7PfREK+95ys8PYENEr/Bk3nk1uTL6jaAhG
-	 9oyS+gK4tCUS3TsUgerrTDJMBDD/rT1G4CxsqQq1cr2o/YFDAYghtHUKEhftmChdjoc4T
-	 +3TMj9viRuwHIzFg5u/udHXsj8XlscDLkwU0hshGVVoB/LSFjscip0yufqdGrqnQPsR1Z
-	 Y7utaBufig1rtVZTlnqU9JnU6PT50j4HaMfTMvWeRPKS0EoTXFMwX8b8pBXQRrFPN5B5T
-	 w23/Dc8N1hF5cI1teqoVuyzYMKkGcaVZvdESvEBaaYrCBZmUHFElnCc38vMmKAW3x9w==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=zTSVuTMGY6hfgrfBmT+2Qdu4gO1NY8TIBDQ9SeqIt/A=;
+	b=On65zD/XxisL0mI4GceVIjUnQP+Rki09NWgOzUiDuiawag5UQBYSo7tTlxuCyJ2T2Ms6
+	 3FPCa2az2C5El39LUUOQhrOeWf6NwX8/ZB4LaqpCIPjRDLqg9MaIbp3zsRX1mEPzlLplf
+	 1toa6IJNjKGtUAGbMyretjqO4rdflOg86MNKfMQAKN0AMf80tBGrQ7zzg7QuyHSksBcyO
+	 Nzqq3ifx3ohbPDctW+UkpMriBgZE8L+30J1lqQTH1dcPuJRxJb4cZAulFqFyHuVMedFA8
+	 bb56fRXFQVk4LarCjjsVwdTtTHJXezEOXdgGWKH02u8xVIZPEN1V3N2S4xU/uAUFgfw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vcJpqmfU;
-	arc=none smtp.remote-ip=209.85.167.46
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e6092uB4;
+	arc=none smtp.remote-ip=209.85.167.45
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC95606A32C
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:15:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC95606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E1F2606A32C
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:16:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E1F2606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vcJpqmfU
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so2105747e87.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:15:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=e6092uB4
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5bfbc25a76aso3468888e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:16:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793542557; x=1794147357; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sMIiBsBGGfnuS5WxfPmtADmv/TO4FUudGIPAhofipOw=;
-        b=vcJpqmfUdbN8tkReri4l0x+jGDh7UGhpZX4DbVuZ5aO4NgyOTuHU+T6NbhzFMYImAg
-         6fmdb8ooUrh4DGkUSvCTKj5ZK3k6tXOTNvyrmJcTaFDCkZ3N0qR7EGxWkrwAzXcOQMQU
-         xvKdVF12c0p5iJhej1VGBebhKRztuSAjblBZGLK4TwsNeJ12C/CucXclbxvKDU3TyUHR
-         LRATY/blOtNAzhAAFTvgoxRlYufIMGXOwDhHOTu1qKARAPRmaUYepZpCnzmIrIU5VSYb
-         2rurZlIlN2ToB0EBySYLkROwUBAQm2/f/kgDzkhu7UcXI1URIj4PvoRLYb+26BqTHg7M
-         kh0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793542557; x=1794147357;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793542561; x=1794147361; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sMIiBsBGGfnuS5WxfPmtADmv/TO4FUudGIPAhofipOw=;
-        b=fKQDg/FnksG+AuVuLUg42ZbRcuoTepo870FEd/buvEkrT31hjoV+ihr+3piEYoCIR1
-         Yv/mgrTnkvsyFBBLt7VYWoH6YEx/mjS+Q99KGMCVQh3p1frER6CNFUXNMCo8NQPUY1S8
-         ChPaBckMs/4Jwq+z950M6l3G2Ku69tNemsqcVCvTuWe0JkDiOX5jFMoGFgg4nf78brTk
-         5uhYniyi8cawoARGq94B1W4oADI19V2WIcgVOabH9IEVhG95/6Kp0ynaRSHlbR6CJ4I0
-         HMScIL2gx8rPzV0Y7N4mChp9TpVersJfk8ImlZexfOhyfKmb10CRXzRPvwWsI7gSeRO3
-         prxw==
-X-Forwarded-Encrypted: i=1; AKwUvBz/xzyBB+gd4XB6qENB0HZNvjUGef4qbhtycLjUEbqwoJPFpWr4vc86G7m64fDjeuSfbyLyajA4vXSHWnI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJXB/T6HBKMwB1ufHzQ3sIxO0TSUogI1arzz0+GItYP5wPajMVa
-	IKvWx1dAEfVjNYEqhIpzalZsA719/b5HLfoXTlqc8awldRt5591jfJlw
-X-Gm-Gg: AYBFou2a+Rmpvc3uh/aGGj31TMDUKVi3AJHMJTSJcBTrq7YRaF+Y5OZPZ1yxowbjkUZ
-	wSqYcYmgQI1LItD0E19yxDUMiURy6F2uCurAKj+IT90KR00CuCOgYqLgc4Rv49xHS7meCw9BI+6
-	MELbLQ7Ta6b39xEAy3Jp1OW4NZgUD3uB4gHWaOHXs2gupT7NzjLW1ZJvn1KUONaK5XY0v/DGdyt
-	OKZqYHqORSH44onBCBhIz09V6Tl+vAWyAoJ8F7aCy2/vwpPH71cPbR8k7HjPImSDq5B1/nJnoA+
-	Jkl9tmZp9NTz1LUGC98uFtHF02Jkcyu65jGFaf4k1BRTM5WElvmNjuBzV/74JIAyp8OeizpY/zO
-	OjvPvyTrkGF4wrgjfqQQb45imstIvrdiB26JY9ua50zErRM/akl60AHMvwZ0i6msb0NOi1FtXON
-	sAk0GlYo2tMKzD002GZ6d4u4JwyPU3BgFF4031zVFgiEZt/0+ZUW2uV7z5+yUMKSvUMUrZ9jY0s
-	WW2mWNZ7H6AIKlHJY3zZswDvsXBL1o+HSSTNGZvVB7++sFnbs0td6uEvIsf3soUoFhG1RNuz4V+
-	P9xID9v/RvnlPSA26m8XjAE9Ay7Xs5xxHtaMsXnD62yJsmUX+Ni2bhXFFdNL1Z2iqY0tOA9N7iF
-	OtrnYfGINOG9xZTKSWlwkVxhqJVBePuyk161sK1WmMcJCLT1ec9jITgqy
-X-Received: by 2002:a05:6512:3d17:b0:5bf:a27e:e23e with SMTP id 2adb3069b0e04-5bfd957fbe0mr2778352e87.57.1793542556592;
-        Sun, 01 Nov 2026 06:15:56 -0800 (PST)
+        bh=zTSVuTMGY6hfgrfBmT+2Qdu4gO1NY8TIBDQ9SeqIt/A=;
+        b=e6092uB4Ak7T1uNz+QgZeKrzME/g//SGNqTYgSs6btRriaKY45UA08mydcZ8ejIGnM
+         sPy4jI7f4q6nke1H9Ol15P+1EwlzmGQU9DnRPEBj8GyFii4bmuQWfuiZPCPRkctjYyo+
+         poELxYC0olmV9TQlzBII84NmLVNtoRw5SoAPVOcnF6kdZweMihvme3plholtCGNCWIM7
+         X3T2OyYE8RE94OTsyA+SAFxVwrZKJ1U+1343Zrq8jbC/3jUxWvPBgmnEMQO4apiBC0h1
+         X4JA/xQEzDaM/1VeYafm0AxaJPp6dfb/0OmgaV7yyXDX1U1/ntP1DHcc+UaKeP43DH+N
+         i59Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793542561; x=1794147361;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zTSVuTMGY6hfgrfBmT+2Qdu4gO1NY8TIBDQ9SeqIt/A=;
+        b=nmk7LxfMM6rZe+kDyEF6nkMRHxIjEnJU2zrj4JCEztDjXf+uxecIUHicFzesYsCdAI
+         045RPGAU9iWvFh/r8355T9gfg/LDQcda5lKTcbA2b+KZf6cldF74yM+WGxUVXB+hNo5s
+         BvEfRQn5KXUnwYPssdFZhuoj0rKymZ04Es5fBzEkedLmr7WEYerEVgzCZdRX5TuMJArQ
+         36njt9jwqkLY+vEgrg+yN9Uwq4MeawLpjtAtib4Mocfc8z8gEvcMHjCsGmuRYLECkCYK
+         2FwwG+gQgeOt8GFldb79Sw8e+r2eoxjSl5STa2nqzLxcHu6wEdSVhD8vqvCAdOw81x/Q
+         9BOg==
+X-Forwarded-Encrypted: i=1; AKwUvBy0XET3QL2pKOn7K7urUzBMg7MJ+MVP8mPw404ht3j0gmzEA+QWd0XUVKLtoJSq3Omiufe8JEPOIR2BrBA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzxcA4yKvNeEzsANc9p0rJDQCNLy4oe0R0XLUcguCndnKtUeKB
+	1oItkL5a3nMEpB1l+yByR2Qlmup+TihtlKo5xZWqtVhwSgHAjqMo28pE
+X-Gm-Gg: AYBFou1fbsA0dP2sQ8cUg4aPVDipwMr5jpoMsVpeMJziQABNIHh9K2yrWMS53XXM5QI
+	UpTGk3rv3u+5RiZQvnEBGkbHdnOT4zSFKY60/TGKcSRy6/kAv3LQD9KQcj//hc5+88I9AnpGlCB
+	nYCm9SlLnFmyykUKq1SMOxZdUeLUQbwdoQc9vjTv64nOPAsz/wKFqFwDPLkBZ9UBK5J3RLr6ctJ
+	NC5teqOtf3aNeo/zDZHFkoQ/9GxurNZ39cgwCcmiaWy+rdHOAihAQfYiom65bVurmfS+9aRiRcT
+	f9G0BcJf62TO+cXVgypMD95shrlxrah30Sm3fW2MZA/HkKcN7gmvL2q/XbrzboZ6RzN9FhnVyBN
+	d6FDMmk2Lo9DJ6g8M9N7vKc18W/Led4bF3U39wZxplV5u7YRjd6l80HEIVeogHxw+2BReOTJEoC
+	4WIC8G4F+7ba0Qw+QGDxWvC7DKMA7kucsXyLMKY+712/m6aF5iNPQCY4EYPbgYiXhlrvHKdSpuN
+	dFNzig1XTT07JmR/D7pY6p8YIjt2G2SXCoO0e9c3SAp2xZrvOO9rmvwe4l9mAJ2IFq1CJHpfns4
+	7/vYQJnIdD8Oh+VZQ0X1cxD67RyORspKHbMvSkKRHMLF2CWwDQUObtNRK+kb4sUrbpBHE/tyY8G
+	zdXsAfCIbnrH7RHFgUCUDs9DqxcOmqp4m8tbn0pHzdJLLsigdg/U2doyvcw==
+X-Received: by 2002:a05:6512:3d93:b0:5bf:ac46:c5d6 with SMTP id 2adb3069b0e04-5bfd956d81cmr2363170e87.12.1793542561461;
+        Sun, 01 Nov 2026 06:16:01 -0800 (PST)
 Received: from xps.taila9902.ts.net ([2001:464e:6820:0:f43c:bf8:ce8f:65e6])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe1791832sm1043672e87.23.2026.11.01.06.15.55
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe1791832sm1043672e87.23.2026.11.01.06.15.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 06:15:56 -0800 (PST)
+        Sun, 01 Nov 2026 06:16:00 -0800 (PST)
 From: Nikolaos Gkarlis <nickgarlis@gmail.com>
 To: Jason Gunthorpe <jgg@ziepe.ca>,
 	Leon Romanovsky <leon@kernel.org>
 Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Nikolaos Gkarlis <nickgarlis@gmail.com>
-Subject: [PATCH 0/2] RDMA/nldev: Reply with the command of the request
-Date: Sun,  1 Nov 2026 15:15:19 +0100
-Message-ID: <20261101141521.2426198-1-nickgarlis@gmail.com>
+Subject: [PATCH 1/2] RDMA/nldev: Reply to RDMA_NLDEV_CMD_PORT_GET with its own command
+Date: Sun,  1 Nov 2026 15:15:20 +0100
+Message-ID: <20261101141521.2426198-2-nickgarlis@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261101141521.2426198-1-nickgarlis@gmail.com>
+References: <20261101141521.2426198-1-nickgarlis@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,24 +102,31 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Two doit handlers reply with another command's message type:
-RDMA_NLDEV_CMD_PORT_GET with RDMA_NLDEV_CMD_GET, and RDMA_NLDEV_CMD_STAT_DEL
-with RDMA_NLDEV_CMD_STAT_SET. A client that decodes replies based on their
-type mis-decodes them. AFAIK iproute2 igores the reply type and rdma-core
-does not use these commands. I spotted these when writing an RDMA netlink
-client for Go.
+nldev_port_get_doit() replies with RDMA_NLDEV_CMD_GET, while the dump
+replies with RDMA_NLDEV_CMD_PORT_GET. Use RDMA_NLDEV_CMD_PORT_GET for
+both.
 
-I used AI to prepare the patches but I reviewed and tested myself.
+Fixes: c3f66f7b0052 ("RDMA/netlink: Implement nldev port doit callback")
+Assisted-by: LLM
+Signed-off-by: Nikolaos Gkarlis <nickgarlis@gmail.com>
+---
+ drivers/infiniband/core/nldev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Nikolaos Gkarlis (2):
-  RDMA/nldev: Reply to RDMA_NLDEV_CMD_PORT_GET with its own command
-  RDMA/nldev: Reply to RDMA_NLDEV_CMD_STAT_DEL with its own command
-
- drivers/infiniband/core/nldev.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
-
-
-base-commit: c3e8e9451e6f1b69f685b75e0fbf14f3d0fb2539
+diff --git a/drivers/infiniband/core/nldev.c b/drivers/infiniband/core/nldev.c
+index 849a5db54e1c..0602e4d38aa5 100644
+--- a/drivers/infiniband/core/nldev.c
++++ b/drivers/infiniband/core/nldev.c
+@@ -1304,7 +1304,8 @@ static int nldev_port_get_doit(struct sk_buff *skb, struct nlmsghdr *nlh,
+ 	}
+ 
+ 	nlh = nlmsg_put(msg, NETLINK_CB(skb).portid, nlh->nlmsg_seq,
+-			RDMA_NL_GET_TYPE(RDMA_NL_NLDEV, RDMA_NLDEV_CMD_GET),
++			RDMA_NL_GET_TYPE(RDMA_NL_NLDEV,
++					 RDMA_NLDEV_CMD_PORT_GET),
+ 			0, 0);
+ 	if (!nlh) {
+ 		err = -EMSGSIZE;
 -- 
 2.55.0
 
