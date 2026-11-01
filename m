@@ -1,61 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499927;
-	b=mD7m4q9+n1HUgwmwIffU1MT/74WOPWoQrzfy6EODPfMfOfKaddruI3uEYq6Bd2M4FVDj
-	 MOHdqKhhpY9LYH2URWrGZ2NQp/x8d9HsPDONGkRRaP4UAB4kxp2rKSAuQQiG13NDrF7jD
-	 5nwJXRin1SiTnb5fi1LmkIh7mXa64dFyfWMeSdTSWq+WVuHpvmTgaPb4baNlGCkvr75WA
-	 OZdHa6Q/Rf+0lOi5ArG0vuyKdNcWFz6NfDHc3LNXLYXngxw9drafThw58ZKNMK1W/ZDoY
-	 dpHcNV+ZEtHu4uM5UKVsqMfv7o+kuF+gUzcRFSn6OLDGeM7vYKKrukWSH0xN/ZUlWcA==
+	t=1793499926;
+	b=VvyEQ9Bm0d+WhgS5e/zIn3zRfTeJPQY9f+Sf95v+BWr4ERa0eQbZI5vsyvw2xHERu/iC
+	 v5QH0/b6HDxQ07gnxaql6Du1wmc1Ykz4eE++mmW0JzU1DmHBnr6pprfAwY0Fc8Qx7ny3o
+	 lPi71UGbT3h9YMWZsx4YaQx068TWFnNDSQ6lgojHbcWV2lg1Ocg3eJY4xrugxQPES3LsL
+	 KrMichyv374jdnEjkygrUSUJq9AhNxK35TCR/xu8TvRifUSDe/bovbsn6rFbjMGe73jCS
+	 95u2wAXZb+EJvErreH3ZRg9vc0FiY+Lc18CJod9OW71SQd0uyb2tyzdBKC0jgELe8YA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499927;
-	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
-	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=CJMLFsc+Wp5rV2c+umm5ckbj8CU/O6an9rX8Xcr8JyQ=;
-	b=HZC/hzfBBrNbhb0cmLi7RMW/DsmqI5ueEcLtjVv54ejAv+SiIs33M+woPijLIg9nnK/g
-	 Am5JhAjqBRTFWe07EmTjVw2vK7m8UO6z2qUyQ74vgY9Hb7zpGyshpdvqsrmF0KM/rvPd8
-	 vJC/g3ys2lRZDLAvYWj8JaMHM0nJYzz9MrNublSCGXFyCNq68LbQUKGnGSQ93BRj21Sp5
-	 HRTdodIwUM1Ljpi4b81pTtMAfQembgBo4johExjyaDhumlEbUwJuBQYeW2xO/Y4gfuCEl
-	 I/PfOLr3x2VlKvsl5iuK0ddbd5wFEWwDMztB0rnVIVkHNWdCdZW2m/xRzHsYrzflGEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499926;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=myvjcuz215/LP7voEFRNC685vsIgpbLmNooviClWzRA=;
+	b=1l6NtAdrRWHm8oJE0mQFQa7o9V8hqxM4ZigQxRdpfvOFb4rWFkz1rUdvP8Ef6LKG8HMA
+	 CtIvZb9NWKBPdZL6ntw9w+WF7hAZMeQX02ITWWaaVaNI+DXxLBHPMaI4NL5iMxNSOaDkx
+	 Cfo3ID+0Skrnau1hGL3v35KNbqw38jdUhs3blQgfSUHLS+YAMsJMVHrDCo9nTDg7ceCKG
+	 dTPPySoO4To/LkeO7U7bNBVO6CoAtS5KTfbUngDyzLvAyFI2oQriiurCZLZRK3lEGKFpF
+	 VRq1zS+6snHNZvu0WuD4/l5dpgwOA3MhVlCpRh2u0CM3zqv243woLXgjuiOdR5OILWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mainlining.org;
-	spf=pass smtp.mailfrom=mainlining.org;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=gZSe0UzB;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Q7hj8aUo;
-	arc=none smtp.remote-ip=5.75.144.95
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCyOENOa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0589D606A326;
-	Sun,  1 Nov 2026 02:25:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0589D606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90DBB606A329;
+	Sun,  1 Nov 2026 02:25:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=gZSe0UzB;
-	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Q7hj8aUo
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793499922; bh=CJMLFsc+Wp5rV2c+umm5ckb
-	j8CU/O6an9rX8Xcr8JyQ=; b=gZSe0UzBKFHOSmxVaKMuF5KkHPoiZkHiO2TjFnpPzweOb2S7TV
-	1YqIzfPKV4RO0VKP/h1JGjQCXLhnhoNsIAAgoe3at9GlmgH/9Yl7BCJLKHhQc+9fw9xGoi7h4Kc
-	8TtKtpFtG2pHODXxLNXWrNVfUH9IGaJ7XzgGBPNz3oRjiW4IDc/0VZmuzr84Pw/R4cNXKkWul3D
-	dV5GUkPgwfRA1fUE7J1a1RY8mTVvK9fKMFECRzFZ50L1FOsgeWA7j8CyzFoWn+zldUWglmVZqRP
-	1J5OJPJbAMMv4/gG6zm3LjJuJK+DsUxONgBChJgnt+MoQCZCSeL5JUb7RwomBSnh17Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1793499922; bh=CJMLFsc+Wp5rV2c+umm5ckb
-	j8CU/O6an9rX8Xcr8JyQ=; b=Q7hj8aUouRCHU3VRq2jR1Y88iG/nqfjV+L0ZK+TpKVFBajtQoC
-	1gWehF1X/hxHJjuBebwnNrM88S3vqPwNR0CA==;
-Date: Sun, 01 Nov 2026 02:25:23 +0000
-From: Bradley Morgan <brads@mainlining.org>
-To: bbnpreetsingh@gmail.com
-CC: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- paul@paul-moore.com, sergeh@kernel.org,
- syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com,
- syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com
-Subject: Re: [PATCH] cred: mark the copy in prepare_creds() as a data race
-In-Reply-To: <20261030033308.7-1-bbnpreetsingh@gmail.com>
-Message-ID: <A25971F6-A534-495D-A115-72B4BAF7EFE4@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KCyOENOa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FAF51F000C1;
+	Sun,  1 Nov 2026 02:25:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793499926;
+	bh=myvjcuz215/LP7voEFRNC685vsIgpbLmNooviClWzRA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KCyOENOaUM/Sr4yXfJCh/TmtbbNYSMJ28y/BbEt3h7HawjKW14QkfopuIfo8JOmwJ
+	 a1QwR7yxekv/byfE+6+8HefJvlibmL1I3INoxJN0mFRTOKrrovy8tJm5PBzJ6RJrG6
+	 r5hCRmgrxfx73Y/fK/jjggYq04g2nClhfvjZbOuAV1lPSishtr8v6vFOwA0dUY+W0K
+	 Qsxzh9SymcBIjHhJipJeNG/C6XgYaRBou0piFSBP3xA1xxkRq5khy3JD1t+kWFudU3
+	 WHvF126Z9KTHkem6FgBmD0HhE638Z5NV4U4VHCZp3fR+KRNcmeoKugZHH8Nf2YXnva
+	 p8Qy+hYwaKIKA==
+From: Sasha Levin <sashal@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Ricardo Ribalda <ribalda@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Linux Media Mailing List <linux-media@vger.kernel.org>,
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Subject: Re: [GIT PULL for v7.4] media updates
+Date: Sat, 31 Oct 2026 22:25:23 -0400
+Message-ID: <20261101022524.1005227-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
+References: <20261024185058.20410953@foz.lan> <CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com> <CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com> <CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,99 +64,50 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 30 October 2026 03:33:08 GMT, Babanpreet Singh <bbnpreetsingh@gmail.com>
-wrote:
-
-Well! Okay then. Nearly missed this (sigh)
-
->prepare_creds() copies the old cred while other tasks may be changing
->its refcount. Mark as data race.
-
-It's not the ref count,
-
-Both reports show a 4 byte write 168 bytes into the object:
-
-write to 0xffff888103d7fbe8 of 4 bytes
-
-read to  0xffff888103d7fb40 of 184 bytes
-
-0xfbe8 - 0xfb40 = 0xa8. usage is an atomic_long_t at offset 0, so a hit
-there would be 8 bytes at the very start of the struct. What actually
-raced is this line of get_cred_many(),
-
- nonconst_cred->non_rcu = 0;
-
-a plain write to a published cred. The atomic_long_add() under it never
-shows up, iirc KCSAN models the atomic fine. So non_rcu in the subject
-and the description, thats what the fix is about.
-
-
-
+On Sat, Oct 31, 2026 at 02:14:37PM -0700, Linus Torvalds wrote:
+> It actually broke git this merge window. See
 >
->Reported-by: syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=ee58b040032d8bed63d9
->Reported-by: syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=557fdc985d6ac3831e14
->Assisted-by: Claude:claude-opus-5-5
->Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
->---
->Compile tested with gcc and clang; the KCSAN instrumentation of
->kernel/cred.o was checked before and after.
+>    https://lore.kernel.org/all/20261031065525.19883-2-torvalds@kernel.org/
 
-Sooo? What was the after? Could you have said something like "This bug
-isn't reproduced any longer, tested by soandso"
+I was curious which 283 commits describe was overcounting. Funny
+enough, they all come from bpf-next-7.3 rather than media, and their
+dates seem to make sense.
 
+A bpf series went in with five commits in the same second. A bpf-next-7.4
+series without a base-commit then got applied on top of the middle of that run:
 
+  bd2466ed8fc2 ("bpf: Roll back stream capacity when allocation fails")
 
-> kernel/cred.c | 2 +-
-> 1 file changed, 1 insertion(+), 1 deletion(-)
->
->diff --git a/kernel/cred.c b/kernel/cred.c
->index d01df40a9a386..d212db445c138 100644
->--- a/kernel/cred.c
->+++ b/kernel/cred.c
->@@ -189,7 +189,7 @@ struct cred *prepare_creds(void)
-> 	kdebug("prepare_creds() alloc %p", new);
-> 
-> 	old = task->cred;
->-	memcpy(new, old, sizeof(struct cred));
->+	data_race(memcpy(new, old, sizeof(struct cred)));
+sits on
 
-Hmmm. Comment..?
+  af22d273aa1f ("bpf, arm64: Fix exception table metadata for arena load-acquire")
 
-WARNING: data_race without comment
-#12: FILE: kernel/cred.c:192:
-+ data_race(memcpy(new, old, sizeof(struct cred)));
+The media dates seem to come from tooling too: The media CI merges MRs with
+Marge-bot, a GitLab merge bot, which rebases each one onto next using
+--keep-committers [1]. That copies the original committer date onto every
+rebased commit, so an MR landing after a newer one ends up older than its new
+parent.
 
-The docs says it plain: "Applications of
-data_race() should have a comment so as to document the reasoning behind
-why it was deemed safe."
+GitLab shows the same pattern for all the commits you found: the copy each
+committer pushed sits on an older parent with the same committer date, and the
+rebased branch that landed was pushed by marge-bot. For your example, Sakari
+pushed the alvium fix on top of
 
-I suggest
+  b38d06ad1e13 ("media: ipu6: Fix up missing IWYU issue")
 
+His MR with
 
-/*
-  * The only fields a published cred can still change are non_rcu and
-  * usage, and both get set fresh just below. Keeping a copied non_rcu
-  * would be wrong anyway, __put_cred() then skips the grace period.
-  */
- data_race(memcpy(new, old, sizeof(struct cred)));
+  63c578491cb4 ("media: sun6i-csi: bridge: Use V4L2 subdev active state")
 
-Feel free to bikeshed
+merged at 22:10 UTC on Sep 16, and at 22:11 marge-bot pushed the alvium
+MR rebased on top of it, still dated Sep 15.
 
-prepare_kernel_cred() ALSO does the same copy further down the same file,
-*new = *old, off get_task_cred(daemon). Same race, untouched. Did you mean
-to leave it out, or has syzbot just not hit it yet?
+So in both cases it's the tooling being funny.
 
-> 
-> 	new->non_rcu = 0;
-> 	atomic_long_set(&new->usage, 1);
->
->base-commit: 881f19c2ffbc73f351b257e09c71e6059939b770
->
+[1] https://gitlab.com/marge-org/marge-bot/-/commit/3fb8ab74b8781505530c21a28ac08080bc7deedb
 
---- Thanks!
+-- 
+Thanks,
+Sasha
