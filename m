@@ -1,99 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.71
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793496167;
-	b=bZKs/NrEsPqWDl0u1q0b/Wyrmg2JlzohEloc5ZBONIsy1ybkqnzg0BLNEFn1gjYE4RUh
-	 KU/1w3KJpGq+bnkUKMWFfxoTT1ztRvEZXx00yI9e0ftUkVmsuWAVVVIPOcUDWp4iZbXE7
-	 2dNp83IS43CN5mXmYwhFm3OToxo+VVNv3NwdjX3aCJkBaA6vlaYTOqOAYzcW+k/GnCXsr
-	 wJHRBysvY4Kdbu+EExoUzQ9mdEkUxp+0JlSL3nzez1B8F9YZMv51ae5f2Q37wesZqMrOS
-	 HMu4MN9/S5b5gZvorHueAbRq/b9iWICOHNEi5oQyIEJfqg+7qr90uOV5toZOiboMVpQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793496167;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.222.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793496331;
+	b=hVqlcMZU6LDz7xOVMjd1i+owHOYJU2IUXODOYVfV/31eQ7MQcNOA+DYabYVTCIibRJFo
+	 Qg26tlE5W3j4gbMzdAEwMlelWmEWBwBQw6k8P8SprS7V94JdzFs4X+OnEGdDCK2OLE6s7
+	 VChD4uim5T9kboYobybKF2FFTsecoSPiIcHPqL9GDf8syGbuIc2mgK5GFD/evO/lkR86i
+	 GDigbn2NxbK9IKSToRiOkwoRpGPQcD19sbH6Z1CqDmVLi5+oRn2Jz04XZL3NfqMvo6r5l
+	 O3REbqIHZVLOju/jGPECjcNwpBt6HdpZ6iIyop84FNyu3atMigt0wrCxNo/cqTpPqSg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793496331;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=adZ5p/K2XCIc9ZIqatzmVAiyk3FpES3PeTW7T0laFOY=;
-	b=ZRTLbidD4I2YeZeMQsaZoMRhF1KpZHAvMwU7wsKysqltWemEMHBnV/Jhc/fIYBsVYPkZ
-	 zy7WdYEnxn9feLQi4lFqN3alB88TPF2UzDnPBep2ta/S9uA2fYjbROYRf6KIuHAFVGi3j
-	 i3d3+mnYlaxIKAxOSlPCTVPz4HGuAj4ofMYWRWqOiJ35C09laR0GF/NFNOiLalrKrlxd8
-	 INU12x0qbAxmrngiodnYJcbNs2Bbmee+avhgugmzT4Py8bpmyJJAy9FZRjQjCuZLCzGnN
-	 mN+Rhtqhp44ON0Chnf7VdTvRF2VLYtS6bTcYfTmPp+oFwRkGYUPe4OYPIKOvALNB5zw==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
+	b=AWSqcUHC52JIAu+Se88XnLg9Mjk4PHhYczSrnK++LBdSs02BRPyjLEz/6fOdXS1EPASq
+	 2NZgaXmN7etlubsARDYWuYkdRjP+ioCApcG6ZVQhUF8sLAVbj8HnZP9Nig+iRWRxQnjAH
+	 riz7m2dqqrEj2PObhs519R4GJ8CUkJGGQHXh/e3wcMauo7AzM9ungbCKSCRv08AA0YsgK
+	 NLA3+/ukz0AFeauCV/tzn3KnYpUYl9GFzK2Lz1mC+iP19As/EO2uU99fXC0GdHMEdEhzM
+	 jGmfJmWFgshtYga8FumisZuzBa3onFYNekQILeibqFt8gihmbgotE2dL5vjG7PpJ3CA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b6HsXY5X;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.230.71
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zzqmsNhJ;
+	arc=none smtp.remote-ip=209.85.222.181
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0A7606A31D
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:22:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D0A7606A31D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4A49606A31C
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:25:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D4A49606A31C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b6HsXY5X
-Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3acaedeb908so13711381fa.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:22:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1793496165; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BMO0gZrbnARj1bJg/9dreSRuOkqdOz/4mM2heYDix31Lggso66UBcLQoKOfi+NKDxr
-         jGY/qmbJapWUZGfuSAciIQH9pWE0Ba2gKieCLp3fzmhH26ulH4M/3/aatdOYgqDeIXMS
-         R0cFfhw0n7/8SpCOqwzwgdrk7r42WVvt+s3GJPO0x5YpBsRDom+UWfhu0D40jRCDVyKj
-         +aCxw/UExzxgZyh67w+KoaCNLVcsmX8SEVS/w+ktwXhfOStc5YAhCSj7BDQ7JBq9GKpy
-         K4JeNC59EQvBT1X6nIjJ7uswjv/1NwJ1DEYSQg9U67wQPAbNpmf9p+quZzBXkWGU034c
-         uZ/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :mime-version:dkim-signature;
-        bh=adZ5p/K2XCIc9ZIqatzmVAiyk3FpES3PeTW7T0laFOY=;
-        fh=E8chnltHOd7Z0p8yOHmGOmn5Z52fAIaWxqdl12uV+b4=;
-        b=TTWY4tjcBGcFd5acRaSkT691MFhm7jsM5R5+vJWZxSCyahL5rQ9E6ymAwCxKMTr2FT
-         Q2mLYbuvbhqA/tvrv0lUUMGBPJg6YjkeQFQT6L/2ndqFzFkz9fefsgw4iTW/nDsCqJGA
-         AvCU40tsIHvUprBNDejs8KJRrmEmQ1vFwKL4jmTnsvER+asy4nkZSRvp7sDwl44g6Nbk
-         5LUJSryxbKLtQ4CCT5VRaxvtr8P3v8PqQoRNP2102n4hyxb6PvKsUreTc7yQcFXUaZl2
-         iTQvmHG2KqhsF/ySwoyzokVRBNtyyDXp1+YezudZo2SJN6CJFAU+PNBXUkKR7EIawrcc
-         rYFQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zzqmsNhJ
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93cb9e9405fso94585285a.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 18:25:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793496165; x=1794100965; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=adZ5p/K2XCIc9ZIqatzmVAiyk3FpES3PeTW7T0laFOY=;
-        b=b6HsXY5XE7IPWi9g/1jpJ3BYdBGP/lGp1yvcLUkYy+SG81mBVMk2iiJFM1+4/TYyAa
-         FAy86ioLWJE5Wo6AoxD/8lJLhAeIPptRVzCxhTd+p12b7CenT2mncUjBtWDaQg9ZHDRK
-         YM0OjxUB8C/coZFl1t+j4F+6Derx63qGUvgxO1hM93LUZc0KzQebGAoYhk0L1VpddaW5
-         s97knUE4D8D8fr885TWBJjYNEXZuK5FisOqbN332fFKZBPMA9+Su3uyxv4GG1wCBdnKf
-         saoG/Vncdgq9mJo3nJrSJvmY7uJG6KOLaVZIyCWhWog45NCS6FG1HsRKkANQ36WoCu09
-         YnHQ==
+        d=gmail.com; s=20260707; t=1793496330; x=1794101130; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
+        b=zzqmsNhJEDMfPIIaAUYX/v6Fsch4Y8lYJ6s+0OBgZ+huSDth5hcGBiCf15DYpEXHsg
+         IbTfx8bbGq26DkTqtABxRXxXj77WOvUGw8HdvBpUI/6rIhDnE1CZLEzFQr1V4kFDN5U/
+         XVlnccDeWIW3pd2Zc8+rzNroxTgI6GQl8EsV1hS1u9S2lowukjlLaCqfNvD/sqsenqlj
+         QY75ozAVw/4pN6uimjn7NoZUR2rqO6E2py9zo6vYlGCS/N3ulpxIq9lZDttem6amnspu
+         9ya5W0x4GkM707xUs0MGf0GtNSyGXnNpgYBFZxQdqYGDNNobZh37Ez90AvV11gNz6AGi
+         tKtQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793496165; x=1794100965;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=adZ5p/K2XCIc9ZIqatzmVAiyk3FpES3PeTW7T0laFOY=;
-        b=O8o14BW5aZeoKbd+sj8EoqE1PdS18j1h3IZKJKILrGI3xp0zS8SfFVVutMK74+LqA4
-         HYbA68VlE6PUZ0AiPV/TsK0VSAYYvDSWi/L/q9Pk3DVtM5XtCUSs1Yj9ZiU9C01K0tZK
-         +k1xW6lklO8YqUBIwmv/hcUFD3olwj4oEQBeOLujGKZgYqAsfD9cpcfwqJTCN392CJIU
-         FQVmWvWgzL5YtmMbNaQCSWXUc8OAfWDUabxTvXfreR7lCxnQZcmbXOf2MUVMAejHCwmo
-         l5/+zuvhj64cRsvdjTh6H6DX8yaXOiWJeAg6NfO9yVL9ZayNrPSsoEfJem6eemKmqSHV
-         6P0Q==
-X-Forwarded-Encrypted: i=1; AKwUvByck4udyCp8x4pat8QHH+ALnLFshfWF9GHBUS+y2LiySEXAnpwnPB5aWIaP1/7q/TtAn0Mj3UaRuXhhUPA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7Gnb7z/mKwUN+ITL3nda/+erzLbXGHpvlJKya1yYsPdqa7mpb
-	d64ZVOq4r13HrDiorv1bjKNiFv+h0AjRH2/IGXBaszCQcdIMkesqfjtfJoZmTdlJo1F6FSb7p5H
-	7P3md3YAoyc0vUP/xZyWai+y7pUMtIUM=
-X-Gm-Gg: AYBFou1V6MvbUBlzbcWPvjeMFXeERetdTiLyuPlrbdzQ33CdaV82DC79K2q/IDQTkWt
-	N9XBeGi89v0E/pfwppcOJyD6iuCeC24MsmwjE/+wchxIx0jA3X4xYVechRU/IqZ+IfEbtuCo6hI
-	Bgg9vgx+dpgWB39SHO3NWdYje9KE2TZ4+fwLC5oCODNrJ92+hFq7P9GTtU/NDEdBm2o5532USbQ
-	xLytYjIDZpAGc6EYGNt1xQP2acY3JDItSK1K+MWrk7qDHkL3vsJbd9mYNOdFjN7aypOd1+m3X2J
-	tKlV6uX950Os0nr6eS73cGEMdIvcKooUbRHIzmiV0Vz5lrjB1OimKTzAYDvesJdQA4Ei2wQOQmp
-	B3ktxJafXf2djokUFRhP1wF5FNNOU88m69Ls7EA==
-X-Received: by 2002:a2e:b88b:0:b0:3a7:6d4a:1c9f with SMTP id
- 38308e7fff4ca-3acb7aacdebmr14873131fa.15.1793496164431; Sat, 31 Oct 2026
- 18:22:44 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1793496330; x=1794101130;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=U5YuqJ1RNYNIpnrJqD32N6NRCNjg2qumNEcRV0y+9+A=;
+        b=qBJMdxVENj7A5JdKvfazJdKuQ2fG9+E2b2Q/ATwNv0Ev4hlSen03uTlRW+0fWTeab6
+         OG4giSKgE064//vDT/JOMWbcI20i/TqSavNwouDWA8PYXVwzl8l6lGRU4OXUY/Gr7eTU
+         2bQTo7RyqxvKhigigUYe9Nce0fpkpId0bvMgK0ECmzbuZCENCvIVar49r18dhpS8r0pC
+         t18gamTjQPT7R9B/REzx1ZBCL//sbaWOXGZLtAPE+8TOpDDwDXBj3HMx9mA9k9GDED+i
+         DoK7b23KeQK6Z/f+Rmotipcr77vTOQEpyN+8qdmU2V4oGHFdDBA1o7CwCpVBdzFB2wRH
+         eD6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwinLFspK2i8Lzc8UPT2N8zoQJKgvt9RraiDtV9a3v53LphklJ7zcx0NeypXe72k0+YFlhofl+c2HKytSo=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ+ZPV4EmytvQJ1d2duUlfIzLFTxds1N4kQlfyKc/vZ1/XbKZi3
+	ikU7OrM0vo7NQPccUHtLfby6MfobR2EXmmbuSfL0cGgdiowC2fOJ+Q3N
+X-Gm-Gg: AYBFou02+6D5Ny9RV8Xsbk0/U/ypwa5oSV6BMUyHQoMmIm+udh58V8x1xbODqT4OEjU
+	+piqCrOdf1X6yXw99s/Tkwe5PE8DyleOykBD21O12moZs+V77nFEhM+vP6+5SNG03K+ZggBSr0+
+	FhgQ+0ahL8vYaYptZiq218J8Md5niCxfSIOpXEELtMcO/cV+l7/7NK8YAVGC7c3J5myuXQSZsIN
+	WbFMvtJT7uJA6cBYY+q5SwWF15lAUGEffDrY+3yIL1e3fBLglp2fAz6bQXN/sbNbMjCy9WC+KLM
+	NrPyuvlERSiAdo+PKDnYzffezWNXAryWOzVCvb85XVDq7GA65MhNPU/Wh+S8WNl7izY56A2Q51U
+	pskfcAV+w4iBO+GKpvWVGwcLLP05f+vGx7eK1Z5tKarZtw1v15+2BZeZ1iS3zalKF+l263LylYb
+	YLCc5fNqGeJf/GquyqbFPPS9+2hWv8zf+tFKvOeDJoInNEe5ibuArL9OpaL4L8SUnKVXlkhH2xW
+	WsUc+4zIuK59TyI1zYQkl412Gno7gd7SzN3d2qeu7TVtYbv+xQjpnuBfJFTHPDyJfe026jl98ub
+	wJSJduClwP7dQ3FldYMVcH/CkNVdnnn7AKkpVGaYSKH0qP5j24NXHo+oXwhz4fCBwyNtWLwWoq/
+	YZdkBcd2kZQSNgPCFOg0QZG29cbxim/Hrksev
+X-Received: by 2002:a05:620a:3188:b0:943:ff70:dc00 with SMTP id af79cd13be357-9442174fc9emr1039734385a.56.1793496329626;
+        Sat, 31 Oct 2026 18:25:29 -0700 (PDT)
+Received: from olive.mynetworksettings.com ([2600:4040:b076:8700:60ba:f09c:358e:e7a7])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-94425ac5322sm493379285a.39.2026.10.31.18.25.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 18:25:29 -0700 (PDT)
+From: Matthew Krebs <matthewkrebs8@gmail.com>
+To: amd-gfx@lists.freedesktop.org
+Cc: Felix.Kuehling@amd.com,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Matthew Krebs <matthewkrebs8@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amdkfd: Only take the VRAM path for KFD device pages in svm_range_dma_map_dev
+Date: Sat, 31 Oct 2026 21:25:00 -0400
+Message-ID: <20261101012500.7048-1-matthewkrebs8@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,238 +100,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: =?UTF-8?B?6ZOu?= <fengaojigui88@gmail.com>
-Date: Sun, 1 Nov 2026 09:22:30 +0800
-X-Gm-Features: AclHuK9RPpmNuHM5PN_mRaWc7TyMYbicYKkLqhZYUNjB2KAFRdCXF3Uz9Bd0vog
-Message-ID: <CAO-4RZ2EzuShr1dNEQt+CEjqan8SSyD=-E9g6RW1oocah+chcQ@mail.gmail.com>
-Subject: [BUG] tpm: prolonged stall in vtpm_proxy_fops_release() on Linux 7.3
-To: peterhuewe@gmx.de, Jarkko Sakkinen <jarkko@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>
-Cc: linux-integrity@vger.kernel.org, syzkaller@googlegroups.com, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Peter, Jarkko and Jason,
+svm_range_dma_map_dev() treats every ZONE_DEVICE page returned by
+hmm_range_fault() as VRAM of the range's SVM BO. KFD's own VRAM pages
+are MEMORY_DEVICE_PRIVATE or MEMORY_DEVICE_COHERENT, but fsdax
+(MEMORY_DEVICE_FS_DAX) and device-dax (MEMORY_DEVICE_GENERIC) pages are
+ZONE_DEVICE too. They are system memory.
 
-I observed a task hang in vtpm_proxy_fops_release() while fuzzing the
-vTPM proxy with syzkaller. I reproduced it on Linux 7.3.0: the campaign
-observed the hang 4 times; replaying the stored sequence reproduced it
-once in an automated replay and three times in manual replays. In every
-case a process is blocked for 143+ seconds in
-vtpm_proxy_fops_release() -> vtpm_proxy_work_stop() -> flush_work(),
-while at the same time the sysrq-t dumps show a chip-register work
-(vtpm_proxy_work -> tpm_chip_register() -> tpm_chip_start() ->
-vtpm_proxy_request_locality()) running on the tpm-vtpm workqueue plus a
-backlog of further queued chip-register works. Which queued work the
-blocked release is waiting for is unconfirmed. All logs end while the
-task is still blocked, so I cannot say how long the stall ultimately
-lasts; I am not claiming a permanent deadlock.
+When a process maps a file on a filesystem mounted with -o dax and lets
+the GPU access it (for example hipMemcpy() from the mapping, which
+registers the range through the SVM ioctl), the range is in system
+memory and prange->svm_bo is NULL, so the VRAM branch dereferences it:
 
-Environment
------------
-- Kernel: 7.3.0-kernsight-kasan #1 SMP PREEMPT_DYNAMIC, built 2026-10-20,
-  x86_64. Vanilla 7.3.0 source tarball (sha256
-  87363c24f10e06321eb362765521094e94471f6bff8bce2d6b3e40f39f004953),
-  built with KASAN/KCOV. No TPM changes were made for this testing
-  (drivers/char/tpm/ matches vanilla apart from build artifacts).
-- Guest: QEMU/KVM, 4 vCPU, 6 GiB, 8 scratch virtio disks, 2 NVDIMM/pmem
-  devices, 2 NUMA nodes (the syzkaller standard environment). A fresh VM
-  was used for every reproduction run.
-- Syzkaller: revision 853b104bb454141a5b0fc0e4218ec78e9f34ffb1+
-  (2026-09-18). The "+" denotes local KernSight integration changes
-  (seed ordering/state feedback: pkg/kernsight, prog/kernsight_*,
-  syz-manager/kernsight_*, pkg/execbackend, snapshot support in vm/qemu).
-  They do not change the TPM syscall descriptions or the executor
-  semantics.
-- Reproduction: the campaign observed the hang 4 times; replaying the
-  stored programs reproduced it once in an automated replay, three
-  times as a single 50-program sequence, and once with the two-step
-  form above (one of the manual replays is captured only as a sysrq-t
-  dump). Four runs on a bare fresh VM with a *different kernel command
-  line* and without the scratch/pmem/NUMA layout recorded no hang --
-  since the command line differs as well, these runs cannot attribute
-  the effect to the device layout.
-
-Kernel command line (full text in the repository, cmdline/cmdline-7.3.txt):
-  root=3D/dev/sda console=3DttyS0 fstab=3Dno rw earlyprintk=3Dserial net.if=
-names=3D0
-  oops=3Dpanic panic_on_warn=3D1 panic=3D86400 hung_task_panic=3D1 softlock=
-up_panic=3D1
-  nmi_watchdog=3Dpanic ... page_owner=3Don secretmem.enable=3D1
-  dummy_hcd.num=3D16 max_loop=3D32 nbd.nbds_max=3D32 kunit.autorun=3D0
-  (for the live-inspection runs, hung_task_panic=3D0 was used instead; see
-  cmdline/cmdline-7.3-retest.txt)
-
-Reproduction
-------------
-Two equivalent ways are verified; the two-step form is the simplest.
-
-From the host:
-
-  scp syz-execprog syz-executor repro.priming.prog repro.prog root@guest:/t=
-mp/
-  ssh root@guest
-  cd /tmp && chmod +x syz-execprog syz-executor
-
-Step 1 -- run the state-construction sequence (49 programs) once:
-
-  ./syz-execprog -executor=3D/tmp/syz-executor -procs=3D1 -repeat=3D1
-/tmp/repro.priming.prog
-
-It runs for ~20 s and exits normally. When its executor process exits,
-the vtpm fds it holds are released and the release path hangs: the
-hung-task monitor reports at t=E2=89=88267 s (logs/serial-twostep.log):
-
-  INFO: task syz.0.33:10843 blocked for more than 143 seconds.
-        Blocked by coredump.
-
-while `ps` shows `kworker/X:Y+tpm-vtpm` and the executor task both in
-state D (sysrq-t dump: logs/dmesg-sysrq-twostep.txt), and the serial log
-shows `tpm tpm1/tpm2: Operation Timed out` while the release is blocked.
-Step 2 -- optionally run the crashing testcase afterwards
-(./syz-execprog ... /tmp/repro.prog); on the already-blocked VM it
-simply runs and exits.
-
-The single-file form replays the state construction and the crashing
-testcase as one 50-program sequence (logs/execprog-verify4.out:
-"parsed 50 programs"):
-
-  ./syz-execprog -executor=3D/tmp/syz-executor -procs=3D1 -repeat=3D1
-/tmp/repro.kernsight.prog
-
-In both forms programs run sequentially (procs=3D1, repeat=3D1,
-sandbox=3Dnone), but a program can leave asynchronous kernel-side work
-behind. The sequence creates several vTPM proxy devices and
-closes/exits over them. The hang appears when a closing task's release
-path races a still-running or queued chip-register work. The
-hung-task monitor then reports (t=E2=89=88480 s in logs/serial-verify4.log)=
-:
-
-  INFO: task syz.0.33:10857 blocked for more than 143 seconds.
-        Not tainted 7.3.0-kernsight-kasan #1
-        Blocked by coredump.
-  task:syz.0.33        state:D stack:26264 pid:10857 tgid:10857 ppid:10246
+  BUG: kernel NULL pointer dereference, address: 0000000000000078
+  RIP: 0010:svm_range_dma_map_dev+0x13b/0x300 [amdgpu]
   Call Trace:
-   <TASK>
-   __schedule+0x134d/0x6880
-   schedule_timeout+0x24a/0x290
-   __wait_for_common+0x1d3/0x4e0
-   __flush_work+0x6ab/0xd90
-   vtpm_proxy_work_stop     drivers/char/tpm/tpm_vtpm_proxy.c:470 [inline]
-   vtpm_proxy_delete_device drivers/char/tpm/tpm_vtpm_proxy.c:590 [inline]
-   vtpm_proxy_fops_release+0xa8/0x1d0 drivers/char/tpm/tpm_vtpm_proxy.c:239
-   __fput+0x408/0xb60
-   task_work_run+0x170/0x260
-   do_exit+0x90c/0x2b60
-   ...
+   svm_range_validate_and_map+0x600/0xa70 [amdgpu]
+   svm_range_set_attr+0x450/0x8c0 [amdgpu]
+   svm_ioctl+0x62/0x80 [amdgpu]
+   kfd_ioctl_svm+0x5e/0xe0 [amdgpu]
+   kfd_ioctl+0x532/0x680 [amdgpu]
 
-  Showing all locks held in the system:
-   locks held by kworker/3:2/1235: 2, on CPU#3:
-    #0: ff110000267a8540 ((wq_completion)tpm-vtpm){+.+.}-{0:0}
-    #1: ffa0000006cafd08 ((work_completion)(&proxy_dev->work)){+.+.}-{0:0}
+The process is then left unkillable and later KFD calls in other
+processes can block, until a reboot.
 
-While the task was blocked I captured full task dumps with
-`echo t > /proc/sysrq-trigger` (hung_task_panic=3D0 variant; three dumps
-included). In the first dump the kworker running a vtpm_proxy_work is
-itself blocked in the transmit loop:
+Even with an SVM BO the computed address would be wrong for such a
+page. Take the VRAM path only for device private and device coherent
+pages and DMA map every other page, as for normal system memory.
 
-  task:kworker/2:3     state:D stack:24648 pid:9703
-  Workqueue: tpm-vtpm vtpm_proxy_work
-  Call Trace:
-   <TASK>
-   schedule+0xec/0x2d0
-   schedule_hrtimeout_range_clock+0x11d/0x310
-   usleep_range_state+0x178/0x220
-   ? vtpm_proxy_tpm_req_canceled
-   tpm_transmit+0x4bf/0xb90
-   tpm_transmit_cmd+0x62/0x1f0
-   vtpm_proxy_request_locality+0x140/0x280
-   tpm_chip_start+0x18f/0x340
-   tpm_chip_bootstrap+0x80/0x1c0
-   tpm_chip_register+0x27/0x4d0
-   vtpm_proxy_work+0x41/0x100
-   process_one_work+0xa9c/0x1dc0
-   ...
+Fixes: 1d5dbfe6c06a ("drm/amdkfd: classify and map mixed svm range pages in GPU")
+Cc: stable@vger.kernel.org
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Matthew Krebs <matthewkrebs8@gmail.com>
+---
 
-All three dumps also show that the tpm-vtpm workqueue carries a backlog
-of further chip-register works behind the running one
-(logs/dmesg-sysrq-verify3.txt):
+Notes:
+    Reproducer (needs a filesystem mounted with -o dax; an emulated pmem
+    from memmap=4G!12G and "ndctl create-namespace -m fsdax" works too):
+    
+      fd = open("/mnt/pmem/file", O_RDONLY);          /* >= 64 MiB, on DAX */
+      src = mmap(NULL, 64 << 20, PROT_READ, MAP_SHARED, fd, 0);
+      hipMalloc(&dst, 64 << 20);
+      hipMemcpy(dst, src, 64 << 20, hipMemcpyHostToDevice);
+    
+    An application doing this (hipMemcpy from an mmap of a file on the DAX
+    mount) oopsed as in the commit message. The minimal program above was
+    written afterwards and has only been run on the patched kernel.
+    
+    Tested on Ubuntu 7.0.0-38-generic (based on v7.0.14) with this patch
+    applied to that tree (it applies cleanly), 2x Radeon Pro V620 (Navi 21,
+    gfx1030), ROCm 7.14, Intel Optane in fsdax mode, XFS mounted dax=always:
+    
+    - Before: the application oopsed in svm_range_dma_map_dev on every
+      start (3 of 3, on GPU 0 and on GPU 1); the task was left unkillable
+      and a later hipHostRegister in another process blocked in
+      __synchronize_srcu until a reboot.
+    - After: hipMemcpy and hipHostRegister + copy from the DAX mapping,
+      64 MiB and 1 GiB, on both GPUs, data read back equal; the same on a
+      non-DAX file; the application (an LLM server mapping a 111 GB model
+      file from the DAX mount) starts and answers requests. No oops.
+    - With dynamic debug on svm_range_dma_map_dev, the pages DMA mapped
+      during the copy have pfns inside the pmem region, and KFD's own VRAM
+      pages in the same call still take the VRAM branch.
+    
+    Not tested: MEMORY_DEVICE_COHERENT systems (the GPU memory registered
+    as coherent), device-dax (/dev/daxX.Y) mappings, other ASICs.
+    
+    A stricter test would be "the page belongs to a KFD pgmap", e.g.
+    page_pgmap(page)->ops == &svm_migrate_pgmap_ops, which also rules out
+    another driver's device-coherent pages. I used the type test because it
+    needs no new helper; happy to switch if you prefer that.
 
-  workqueue tpm-vtpm: flags=3D0x40108
-    pwq 6: cpus=3D1 node=3D0 active=3D1 refcnt=3D33
-      in-flight: 24:vtpm_proxy_work for 75s
-      inactive: 4*vtpm_proxy_work BAR(10837), 26*vtpm_proxy_work
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-(logs/dmesg-sysrq-verify4.txt: in-flight for 109 s,
-inactive: 29*vtpm_proxy_work BAR(10857).) With this backlog I cannot
-tell which specific queued work the blocked release is waiting for; the
-running work shown in the stacks may or may not be that one.
+diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+index ed5e33188..354184829 100644
+--- a/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
++++ b/drivers/gpu/drm/amd/amdkfd/kfd_svm.c
+@@ -180,7 +180,12 @@ svm_range_dma_map_dev(struct amdgpu_device *adev, struct svm_range *prange,
+ 			dma_unmap_page(dev, addr[i], PAGE_SIZE, dir);
+ 
+ 		page = hmm_pfn_to_page(hmm_pfns[i]);
+-		if (is_zone_device_page(page)) {
++		/*
++		 * Only KFD's own VRAM pages (device private or device coherent)
++		 * take the VRAM path. Other ZONE_DEVICE pages, such as fsdax or
++		 * device-dax memory, are system memory and are DMA mapped below.
++		 */
++		if (is_device_private_page(page) || is_device_coherent_page(page)) {
+ 			struct amdgpu_device *bo_adev = prange->svm_bo->node->adev;
+ 
+ 			addr[i] = (hmm_pfns[i] << PAGE_SHIFT) +
+-- 
+2.43.0
 
-While the release was blocked, the serial log shows
-"tpm tpm3: Operation Timed out" / "tpm tpm31: Operation Timed out"
-lines. All included logs end while the task is still blocked, so I have
-no log evidence of the release completing; I have also not established
-an upper bound for the stall.
-
-Two entry paths were observed for the blocked release:
-- process exit: do_exit() -> task_work_run() -> __fput()
-  (campaign reports, the automated reproduction, dmesg-sysrq-verify4.txt)
-- close_range() returning to user space: task_work_run() -> __fput()
-  (dmesg-sysrq-verify3.txt)
-
-The minimized single-program testcase does not reproduce the hang; the
-full 50-program sequence above is the reproducer. I have not isolated
-which preceding operations or timing conditions are required.
-
-Question
---------
-vtpm_proxy_tpm_req_canceled() already exists and the driver marks the
-device as being torn down before flush_work(); from the captured dumps
-I cannot tell why the wait nevertheless persists for minutes. Should
-the release path be bounded, or should the in-flight chip-register work
-be ended more promptly once the proxy is being torn down? I am happy to
-test proposed patches.
-
-Materials (the reproducer, the sysrq-t task dumps, full serial logs,
-the syz-execprog output, kernel config, command lines, a sha256 manifest,
-and a verify.sh that re-checks the numbers quoted here):
-  https://github.com/Zheng-zheng-codes/vtpm-proxy-release-hang-repro
-
-Repository contents
--------------------
-  repro/repro.priming.prog           state-construction sequence (49 progra=
-ms)
-  repro/repro.prog                   crashing testcase (use after the
-priming run)
-  repro/repro.kernsight.prog         single-file form (50 programs)
-  logs/vtpm-sysrq-t-all-tasks.txt    sysrq-t dump: kworker stack +
-backlog (run 1)
-  logs/dmesg-sysrq-verify3.txt       sysrq-t dump: backlog,
-close_range entry path
-  logs/dmesg-sysrq-verify4.txt       sysrq-t dump: backlog, do_exit entry p=
-ath
-  logs/serial-7.3-auto-repro.log     automated state-primed reproduction
-  logs/serial-7.3-manual-repro.log   manual replay, run 1
-  logs/serial-verify4.log            manual replay, run 2 (serial)
-  logs/serial-twostep.log            two-step reproduction (serial)
-  logs/execprog-twostep-step1.out    two-step step 1 output ("parsed
-49 programs")
-  logs/dmesg-sysrq-twostep.txt       two-step sysrq-t dump
-  logs/execprog-verify4.out          run 2 syz-execprog stdout
-("parsed 50 programs")
-  logs/serial-7.3-bare-no-trigger-*.log  4 bare-VM runs (no hang recorded)
-  logs/report-7.3-*.txt, log-7.3-*.txt   the 4 campaign instances
-  logs/crash-title.txt               crash title
-  kernel/kernel-7.3.config           kernel configuration
-  cmdline/cmdline-7.3.txt            kernel command line (syzkaller
-standard set)
-  cmdline/cmdline-7.3-retest.txt     verification variant (hung_task_panic=
-=3D0)
-  verify.sh                          re-checks the numbers quoted in this m=
-ail
-  MANIFEST.sha256                    sha256 of every file (except itself)
-
-I am happy to provide additional information and test proposed patches.
-
-Best regards,
-Zheng Zheng
