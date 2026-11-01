@@ -1,98 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793497657;
-	b=M3AsQnHa7WlcLT0U2ZbGqlP0ikmGDHfLviecNVOxs6+fJW6QyDaMcnFsGQoTXfgDnzOi
-	 aGLuAFAdhQ+r0G+bHNM3HKciq4wBXr534YVRVRvlNnUs0Xnw9M5MoNBQzXjlP5TJrW82E
-	 GpAE8+deWwm4Ta2xJlOyCUtMBv0tWP238uubPDCgCOnWZjSVZMuQyoVh7jW0yaQy36ano
-	 6XSk88LEwafnNbSZYWy7dSE17XGwlmlrPAe6he9eSabMPPJQGa2+2Fbb4eSmDE3S78a25
-	 0mjYbbj7q518HAPM5hoZQCGYCtwOUjWkhXZh5lO3QBLbbL9jTn9An7lK2GaoKd7H3Mg==
+	t=1793497779;
+	b=KIceVMWZ2xpoP9GsGKT7HnzJFPEfLIjsWT97cXFg++HWO/6Qfm4X14HhPjimVmOJZQ7T
+	 fDalmLsor4b1nlHISGgus4i6BvTK6TsSlW/YFo74CjgFlIA84UVcqFe1OiaysUrAUsNyl
+	 VdlBxllIzXfymjnd2xtjHBXOSCvYAF4DeFEeFLqjnoMhk/cwt0G7znetjmYthzpcpMDt+
+	 s/tsD36gKypnLHSx3ji6SjMVebJwhUFpgvcwqva5l+gEC36aiEZ139Ht+DpfmNls08tCs
+	 /DOqpD8qU7TM10WIhMdTAMirc+6lknGTM3UVnxuzo1QuhwslyY0YYpUxxYLm+Y6EJeg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793497657;
-	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=4+bBvgSgEpcbPVnG6tEB9RqjnVmf4rED251owKlzT7s=;
-	b=Sx28fr8GlB16MJGvqMY4vz9dNCCQslJiaEVq+CT8PVQt/L2ITsg2+bUTKX+LQ12ikxlH
-	 qet3Ba7v51Uh2uHNE7e8+qlJ+cOezrGgnPgfB2BV+WAyZCskuL5bKQSFgl01oyx4OUJE9
-	 Dopb0G1reJLvMZ7W5pNhbXHCJT0FXsWwoK191VOKs2AKnpjQ+ZkqEPiYFt4ymxUBaweWE
-	 cWFR2xyNydssxscriuDgpRyWa+Le9gJsFpWqN2ExJ8I3lE4kltKrLqV4kerZWfkWW87fY
-	 hcsQ8vWVK4cT62RKGAetouTiHScpDSCFKWw1vq+NOrCQLnSsvWiLvJPys1zDPImngrQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793497779;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=NLPHjAXnjyuMTdfzoDtQeuMq7VGsQqOCv+QqYzkDD0M=;
+	b=EWO7ROSJ1V7Zkh/dCfnUadknjzlMxKfmf/1+vnK7f270iQZSSAUFS6ynT7eBK4TktWSf
+	 BXPOiu4z3RygTSyAjINRVtviQOQACV/33woQwfY2JZdxyijursdKt9qrqxfxGleKTkhzR
+	 DUY8/jBhf/9eihCqnx3qkZI+mx52FJ6TXAkIqYAY2aR9Se6iqdxzUMiCOoENqgtEJbgIV
+	 D9aKuvp1B96VmGEwjQc8WT8msfb5odzrQWAmcHYc7P4koq0IwUGUqys3anZBeOjZoFOjo
+	 37wIN0k7wtHbi5K30UfSRtOjpSTWokKOQq+PrdIGH1/X2tgHshWmy+h/aONIFI+GDIw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=alien8.de;
-	spf=pass smtp.mailfrom=alien8.de;
-	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=YdmJ0CfP;
-	arc=none smtp.remote-ip=65.109.113.108
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdvZPlnA;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A2A606A325;
-	Sun,  1 Nov 2026 01:47:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B8A2A606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0592D606A324;
+	Sun,  1 Nov 2026 01:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=YdmJ0CfP
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id A71FF40E0298;
-	Sun,  1 Nov 2026 01:47:34 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id fZAnZMHs9PfG; Sun,  1 Nov 2026 01:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1793497651; bh=4+bBvgSgEpcbPVnG6tEB9RqjnVmf4rED251owKlzT7s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YdmJ0CfPBfCqcGNsdj/Bg5aVbDQAvOK7x9YTa8ki8RgzSEKKKeTPijq5W7aUGw84g
-	 8qddD+QVGrBWtESxBB3EIg6FwkLLpbblCmBZGfWdIimH/szyylGgK+xe9J02VYL739
-	 6ixJ1q9CEIfH0sXqbFNiV7XCsLLOGVDKmvrWZQ0QmyMFpnRqd15OMPkrqVQkDfNeVu
-	 VSkB8z2o1JBnl4Nt2HEc4siNM1OyQiZTzCJADxuZJ+u+GegstQ9jELHD58LmuY4BnE
-	 upa6LoMLc6n1oFpOfMok4xGvmNuRhPynL6Ei+zeIDY3Qwgh53dm83sgoJLIoQpVyCa
-	 g7OKz365jwHVa+Sr2dEH1Iv/xwhOSaAWa/QrcMLqRusUuzRifIUqJE19uAtJ4xKRd6
-	 Lu+L7ZMrC3wN8Sh0ME+DNUxqTckznHkPqTCvpMU2z2+kxvIpqNzKFXfwAoWy+45knT
-	 wgJtywPajG3PwSUGSIviwYnMGXssYiGAF/oHzsLp86qVdBji6dabf0uGZeolVNFDcx
-	 8LRnIgBqWakiTt7DH81U/vXJba4MO2ccydLYH4+HrwBrVhyEGdvOtXJ9NlbsT1BL2/
-	 y5PNi7uhVs6zwwleW4TGXic8OvzynHuiCg1EV93CMFjX40KO7vrowXdklqkZHxloPt
-	 22bCZpZ+lWOTkZYBzzbyop4M=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id BBC9740E0184;
-	Sun,  1 Nov 2026 01:47:13 +0000 (UTC)
-Date: Sat, 31 Oct 2026 18:47:10 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Joe Perches <joe@perches.com>
-Cc: Kiryl Shutsemau <kas@kernel.org>,
-	Rick Edgecombe <rick.p.edgecombe@intel.com>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	"biju.das.au" <biju.das.au@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"x86@kernel.org" <x86@kernel.org>,
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
-	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
-	Au Dang <au.dang.jx@renesas.com>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-Message-ID: <20261101014710.GEauaaHoYk5TzRpGBQ@fat_crate.local>
-References: <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
- <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org>
- <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
- <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
- <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
- <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
- <20261031202741.GAauZPPfNDpQLSmIZD@fat_crate.local>
- <94f0ab99b5c9072ce7c026672f704b2987db427f.camel@perches.com>
- <20261031235958.GDauaA_pScrsk2xYUF@fat_crate.local>
- <5ad69a1167fddc7caf1eb73e439765116db1ce17.camel@perches.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VdvZPlnA
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4068B1F000C1;
+	Sun,  1 Nov 2026 01:49:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793497778;
+	bh=NLPHjAXnjyuMTdfzoDtQeuMq7VGsQqOCv+QqYzkDD0M=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VdvZPlnAX2kZker4vaxAXk7QW6Loi5C0hOLs4lGN7kLjh/k6oBTkW5TlcCyG/lE/3
+	 uNXECFBiwPgvyYIrWh7TD4JZo5wZm1Fnj3IjeNL4JmIEyvQMigzns4a6lK1FCm/R7Y
+	 1Svytth2/hcySiRU2vU9eXWdDpuwiwiOMRGyiPHVpub2pc75sOPhT2fnzqSLBUErrW
+	 I46YCqFOGvr9sLC4yZzfb1KgNVWvEmyfCylQxtoYt0MSBTrgV3g1p3OClz80LqyEuC
+	 iCZMbnqwjoZ+ec8H87PCWXwLiDGwH3LDWxQhfO4gzU/+lC6+zFBGDM/p8PwyepimCk
+	 u7Zc6TsYeQqjg==
+Date: Sun, 1 Nov 2026 01:49:35 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Andrei Stancovici via B4 Relay
+ <devnull+andrei.stancovici.analog.com@kernel.org>
+Cc: andrei.stancovici@analog.com, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Beguin <liambeguin@gmail.com>,
+ Joshua Crofts <joshua.crofts1@gmail.com>, linux@analog.com,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v3 0/4] iio: adc: ltc2497: add LTC2493 support and
+ line-frequency rejection
+Message-ID: <20261101014935.411c75af@jic23-hlaptop>
+In-Reply-To: <20261029-submission-ltc2493-support-v1-v3-0-c7dd5f877c3b@analog.com>
+References: <20261029-submission-ltc2493-support-v1-v3-0-c7dd5f877c3b@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,34 +67,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <5ad69a1167fddc7caf1eb73e439765116db1ce17.camel@perches.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 31, 2026 at 05:38:46PM -0700, Joe Perches wrote:
-> On Sat, 2026-10-31 at 16:59 -0700, Borislav Petkov wrote:
-> > On Sat, Oct 31, 2026 at 03:52:50PM -0700, Joe Perches wrote:
-> > > Please add a wildcard * at the end
-> > 
-> > I will, once the rationale is clear and documented so that people know what to
-> > do in the future.
-> 
-> MAINTAINERS currently has:
-> 
-> 	F: *Files* and directories wildcard patterns.
-> 	   A trailing slash includes all files and subdirectory files.
-> 	   F:	drivers/net/	all files in and below drivers/net
-> 	   F:	drivers/net/*	all files in drivers/net, but not below
-> 	   F:	*/net/*		all files in "any top level directory"/net
-> 	   F:	fs/**/*foo*.c	all *foo*.c files in any subdirectory of fs
+On Thu, 29 Oct 2026 00:24:25 +0200
+Andrei Stancovici via B4 Relay <devnull+andrei.stancovici.analog.com@kernel=
+.org> wrote:
 
-	   F:  drivers/net/foo  everything under drivers/net/ which starts
-	   with "foo"
+> This series adds LTC2493 support to the ltc2497 driver, and adds FA/FB
+> line-frequency rejection for the LTC2499 and the LTC2493.
+>=20
+> It includes:
+> - the LTC2493 device-tree binding,
+> - FA/FB line-frequency rejection (50Hz, 60Hz, or both) exposed via
+>   filter_mode, implemented in the core and enabled for the LTC2499,
+> - a preparatory refactor giving each supported channel layout a channel
+>   set in the core, referenced directly from chip_info,
+> - LTC2493 support in the driver: 4 single-ended inputs or 2 differential
+>   pairs, 24-bit result, same command format as the LTC2499, the internal
+>   PTAT temperature channel, the 2x conversion speed mode exposed via
+>   sampling_frequency, and the same rejection selection.
+>=20
+> The rejection patch also adjusts the conversion wait time for each
+> rejection mode. The 50Hz-only mode takes up to 163.5 ms at 1x, while the
+> previous fixed 150 ms delay only covered the default 50/60Hz mode.
+>=20
+> Validated on a Raspberry Pi 4 running 7.3.0-rc4, over an IIO network
+> backend, with a DC1010A-A board (LTC2493), a DC1012A-A board (LTC2499)
+> and an LTC2497:
+> - LTC2493: 41/41 hardware tests passed,
+> - LTC2499: 36/36 hardware tests passed,
+> - LTC2497: 24/24 hardware tests passed,
+> - all LTC2493 rejection x speed combinations were exercised without
+>   conversion or I2C errors.
+>=20
+> LTC2496 was build-tested only because no LTC2496 hardware was available.
+>=20
+> The source in this series matches the hardware-tested tree.
+>=20
+> Signed-off-by: Andrei Stancovici <andrei.stancovici@analog.com>
+I've somewhat speculatively picked this up on basis it looks fine to me.
+However, there is still time for additional review from Nuno or others
+as, whilst I'll be rebasing shortly on rc1, I probably won't push out as not
+rebasing until second half of the week.
 
-?
+So applied to the testing branch of iio.git
 
--- 
-Regards/Gruss,
-    Boris.
+Thanks,
 
-https://people.kernel.org/tglx/notes-about-netiquette
+Jonathan
+
+
+> ---
+> Changes in v3:
+> - The channel-set selection moved into a preparatory patch, so the patch
+>   adding the LTC2493 no longer touches the chip_info of the parts
+>   already supported (Nuno S=C3=A1).
+> - chip_info now references a per-device channel set directly. The
+>   num_inputs field and the keyed lookup it was matched against in probe
+>   are both gone (Nuno S=C3=A1).
+> - The LTC2493 patch is reduced to the device-specific additions.
+> - The binding and FA/FB patches are unchanged. Nuno S=C3=A1's Reviewed-by=
+ is
+>   added to the FA/FB patch.
+> - Behaviour revalidated on hardware on all three parts; see the
+>   validation summary above.
+> - Per-patch changelogs are under the --- of each patch.
+> - Link to v2: https://patch.msgid.link/20261022-submission-ltc2493-suppor=
+t-v1-v2-0-391d908d2877@analog.com
+>=20
+> ---
+> Andrei Stancovici (4):
+>       dt-bindings: iio: adc: lltc,ltc2497: add LTC2493 support
+>       iio: adc: ltc2497: add FA/FB line-frequency rejection selection
+>       iio: adc: ltc2497: select the channel set per device
+>       iio: adc: ltc2497: add LTC2493 support
+>=20
+>  .../devicetree/bindings/iio/adc/lltc,ltc2497.yaml  |   7 +
+>  drivers/iio/adc/ltc2496.c                          |   1 +
+>  drivers/iio/adc/ltc2497-core.c                     | 208 +++++++++++++++=
++-----
+>  drivers/iio/adc/ltc2497.c                          |  47 +++--
+>  drivers/iio/adc/ltc2497.h                          |  44 ++++-
+>  5 files changed, 243 insertions(+), 64 deletions(-)
+> ---
+> base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+> change-id: 20261009-submission-ltc2493-support-v1-86449ede432d
+>=20
+> Best regards,
+> -- =20
+> Andrei Stancovici <andrei.stancovici@analog.com>
+>=20
+>=20
+
