@@ -1,99 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793533844;
-	b=kNafA4jSAFRz8DyegOb9R1GrvRy9Ph9GLDExxg+ur5cAzdrRxP//smA1/4TZP/aP8/LE
-	 4JYfSl/jOQXFyM8qT06c9zS52xPK+yvgTI8b8diU/k2fZg6YRILdnYCzb4gbCdEJUtq2S
-	 ojcdmRXDndUwbRpdUdPNYCQdVrV36DlDlrh66Xq1C/7k1ssyPRSrLbaPVGjYt7SGtbV8B
-	 nTdcwbbsQNosnW6K0kw/3umTVyPOjTQTUW8A6Mc/1ayW5NE4TPrIGH+rOv1Yhidm+aMsl
-	 dSYJmgxDL+7vjB7n3Tjz2Qj5qTNrczgHL8zXL5Dr/MmorFwpSddcMtwkP/j20ox3zYA==
+	t=1793534127;
+	b=xv3cwLGlcJoRpdKgcO1bO1xhmSvRaTaQdrNqaEJMUZpWIHrAlsdPpgfbsVdSTNW702oo
+	 MoKcWNgVHq7Kx/IPDVd/mP39/8ry7m00hV/eEA0PAvoJaUCegZUpcCGpfg0tJNpUhM1DJ
+	 fkgdjAZpAE28Kfo/B9FRrQ0iA4IJOiIXLM2SQoaFRdhhvAfpUefSTRLnSRHCQ3B8CxnWh
+	 n/m1kIrTozHONxDqbTcVCATPB/kHI//Vfj6q2jC5z2o2rRE4lemhZ559pdSWyLiiUpV1u
+	 MVNLL+dHOplwLE6qaa8YvLnPBRGLURvQEq1MbTUhCsxTW9WfKatk5I4coyjrtfKFS1g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793533844;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793534127;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
 	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type;
-	bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
-	b=mluGIamL4XeUpPHUfEianSE0NEYqm45+DLkgbG4nIq6YAwS80XBpK8AURCL4uyS8UYnx
-	 84LoIO4qh8j+bziSnufvZ86prnuVtP+9QQ3dJ8AztyZ6Z8z+tPgoeBObimf0PLiF9b+jJ
-	 z7WTm3R11UuQf8ZuySZO71jigKFMROt6LqGjy9ehPhRhktPNGJVmYGM0uyomL7Lg61rkK
-	 JJSprTGX/8fVtX1/ORG7shtUwojaQtYPh9IMahOnn3fZ9TVv0t9iMzS0GPEwXXW6QyxMt
-	 yyCNPR8xrq6AHyeDwlPWOnrSDZGQZlWXxTB50HCR5lJwxaT6mohsy7OQTwLJk9MpuJQ==
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=7fqcRS854qRJ/jeh/UhWfPYnmMyFLLL8s53M6ZZX1/U=;
+	b=N0WGlKF3ZiDQn5Ran/kojtiROKmKs8jEruwUD3HuKkIfobGSBEN9yR2SySVQPfdDj/VL
+	 WCRr1Es2Lx7Ado4oVM4msrT4rQi11fRnpZmVybhY64CcRouJVSDK2bN3+JgSGaOMrzMUo
+	 BmSSrtiGMIliV8XJp2ioMVusdZvjzE8qoUQCUGwRvqYNwnNK9NVeP5I238Miv3r+D9Rk3
+	 kJCVf0wN2ioet8gedO1TWV1Ly41zeFcZc6jj+9qOe/3uFoRO676ppm5xSoa/ZnYyWIUC/
+	 rmzFak+5LMr/g1YQFXTDGRpt7kqJHjUDgAHr6jy+FvmM/28DvcqcEsRPss4KHQyCDzw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EPH0cDDG;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrHhDdmz;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.224.52
+Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56787606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:50:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56787606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA1C606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:55:26 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFA1C606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EPH0cDDG
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b4b7dee316so2022794a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 03:50:44 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793533843; cv=none;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MrHhDdmz
+Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-67a79750749so1200007d50.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 03:55:26 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793534126; cv=none;
         d=google.com; s=arc-20260327;
-        b=e+Bdun0Gwh+iqDjH+ndYdUmQM20CsCsLidE5aNgvsjS4tI6o5JWa4CwBZpdA5ZHbjl
-         kxRpO8LoGR63higvF8fu1+D7G7z6dyJC09685XEku2L9Y+OUkE6q/k1XPpPep6+zdIYI
-         1+kN/+pqTCc4G5g0fYcWJ6Q8Dqt91zhBdqsJ7iWFnHH6VZ7xZJ5dWIsk8xFv4djl/p+v
-         vzTQr6OmXo5K7YXI0tGIscowyxqCapCPTzaib9rR5po/npnZv9MOZMTDhvXfQrEyq67+
-         hUy21srk1/s7Po8W8EM5wIe0kTNL2DNFfRt0doN9yWvrI+VPogMv/rvWflvArtHvKSw3
-         tQPQ==
+        b=MeXe4KBWcpn3Qi/hfCDAWEIKzB4Dt1JLcU/uDcs/MxN+esg7uCVBu8yRSnLGYvWlAW
+         4b3QzkVkhSQuSPTDl+gBB77yzfVHUifbRB+0Z9KYN0GGVpbvxezBT+5g5Wi+8nXkA9Wv
+         qTAjtpWXy/bBnV2QWohHHssK2528EBuSGoj3GZyfFlw94J5ZSqc9O9LDpBWFwV07VQeE
+         Eb0mAlaVb6e/lzQnT8ZCoxhlnbjyWJr3PUR85cwQHinzDPl8BrnfwL+2f0lGe0txw5ou
+         bexP4bcqR03ecOorGQWSFRddG9j/RB3Rd9YMzgYjBXsAN5qKZ7mpGVsTVFPgjA+xvbuW
+         AI1Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
-        fh=lltks0u/uUW4A1AoFjEPCsnEukz9z5c3GLODtaHmZ9E=;
-        b=e3W2GnZ4oCoG3JFNNZJg4cfn+gCwXlFYPqTKbapdXvlb3jY2uaRhiw0VcFXR4d8Djt
-         +0Bc96jggSgJmOfPm+LK3Lmia54bpL5W9ncGmkkvYCoRmW/J3nQzvPf0X4KOcmc8kG1d
-         zLYhsfDpvNP7mUY8rkhDLTxMViP/R01c8rLjf+42n37Zhbp6LOew/DA+3+DyXBqZTzAy
-         83nc0L37/tgCZHf13soltsTOlKheNHpg6cNVM1kNjpUnsv7NSbMVA2qpap2sFYxJ5sVC
-         MTaPCSAfqKIwh5hHf18z6mQduV2kBqJOi+Fuh9BELHw68QQ1dtsOo+WLTUzJapKdFsmr
-         4gsQ==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7fqcRS854qRJ/jeh/UhWfPYnmMyFLLL8s53M6ZZX1/U=;
+        fh=AOW+wuKYuLv0xb4qL0oNysoAPrkL3gfVqVYzJbdtTMA=;
+        b=CG94d4OisSy18hCtd6NYNryFGpjloSRK06Ojt+On3vEWRPRaq8ki7zA7oGxXVlxZH7
+         1oSIlF9EAeVYD1Y4zy9bOqW1VmZp/zGw3CoofbjN3pugc8+IKwqsPiAmwDjPBNvmL+NV
+         DngSB3l6uS145P5HYCtKaxVURRa7j9oFR0jp4WxFBHSLVbzCDcDY7ial80oQmAVtBO37
+         mt5ckWHpXjcugyjoEE1kdBgjsFqK9yvR38koQUC/3pWXpNfMC3vC08ucg/VdqNjPm4nm
+         KDdaGkyGv0wSZcyRyM9dl+OFfSff2+nAH06GhujpflQs2ljBDKMs6N37cayKFw0X1SNL
+         OXyA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793533843; x=1794138643; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
-        b=EPH0cDDGs6JCTfcp8/rTP1Jndjl0s+DWpOcvBvMKvotLkOpcNmxkfOByxp+qPIrnhK
-         BFulElW/IcdJe0/uYm14ZAjJDY2/TL4ustIWO8FHoKQc2ovjfGrsEQQyddxi2OFZ1rpN
-         JkFaL0elawDSdpZktWhaKKC0/8NnzYQ+WyJYgtr+VVyzu57AualEzZ67tKCg70WScWGF
-         dB53Bvf6MvNu5ZcE6skaraluFE+gs9c3W1axWX52Y+JRsvhm0/e5fird95BIkSF0912d
-         oq5cx9Ao0IOGEZ8Um8DUZGzyfHxvJG72Azn1Y6EHGvsPNkMpg/HEhiKEu5TKwzCNXLf/
-         sXeg==
+        d=gmail.com; s=20260707; t=1793534126; x=1794138926; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7fqcRS854qRJ/jeh/UhWfPYnmMyFLLL8s53M6ZZX1/U=;
+        b=MrHhDdmzutbG1jTjdgOBOWryBe4vQco7hsSn9i+xUjBAVyJIAokL7F11t+swBw1rYr
+         v99UwQ/WO4PSY3gA/VbESOPaDnU/7fdttccE6VldN8umhl2Vf0EkTeqTTmk9zVD8PUeM
+         moElVZtaBsEk4xU7TkYXkz2UrZh847m0AnrKGk0IyMU/UKns99sVFxdC2+OLWfbj+PpY
+         G4BrULMRZN5LYGE933oG8KNFdefjT/DIWx0HNJxKoLNQBlO3rgFq8HdMNrPb2+GbjvhC
+         BeSH0LBrvSKoiwhF8TwYLjnCRRsXPGPwpo8PvW4EAMEexsIP2o1O7DaJOYws7gkcMmNU
+         dm7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793533843; x=1794138643;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
-        b=QjmFlpCjFEv+0Ddf/5qzCtuvhc8zH74roU0nlsz8au/O9aImsWiAEtNGifkvXE1043
-         NxvgF6ubEJ2ezqucD03LyecUxrTXy9ybkCMXbJEHyOltaFTnjMTSZdlViODPhPqs8LKS
-         DJPf4v9rLQoZ1QXeYR2bL/mBlVoTKZKl3cE1svftUm9H2P/CUlRbWgO0Pmnnnwo/ciQm
-         uwruvqMvFtw+c7DV84+wum5Kmctv4pI3A9Tqb5WzPXlO0MkINxR3ahVb823NPen7UVn7
-         dBflzpqA1gJSIvh+CZtPBkbZOBsgQXZ0aXWNofjT6A3VmJcFmrndwm9mWNZ1Nu0c0Kvd
-         nVDQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy+F4ikp+7ORyKjuUiE54AkrQT9sdVq9RcbK3PUcY1NRPMy04O5oiBrVchr/uWqaBANc2tAV1Y84yKFGDo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8rqnK/oY1QTHECBJx+K5pf462538yjpfMA98KNfIKyx9MofdnR
-	Dp6cMwMCsSqKa/6HjQw6C8NxBcao+MUTW1oMlGVaICY6t3LviFxZIOlU6djsAgVEqhZamhaNiU1
-	4AsidoRHq+gmGwqRU4RNwaAnIJy5WrnXroHmA
-X-Gm-Gg: AYBFou3A6wAnSFu1U85k0h1I2H7zZfGmXhMS6xxATum18g4YYhtsmUIf38DtrdG4waZ
-	wlmB1S9re30b62JQoHbZ6x8s9Cp5HbuzcRZjtqBcTTGPTL6vpy0FyHqCFhSiigKBywbY41EbRhL
-	X6rtxr6pemRC3MmSDcgoFwKdolurudyk4AoQoO7mGBkT+hBiOxJeRuS8ezQZxbiHQYpljE6hEj6
-	gF37ogizdHSqZnsK7LTUBv5z0rejlrF1wUdBxE8WiOdhRdueUzSUNQ3k7Qx7mmpjMgiVi7S77BQ
-	+wlWf1reZvGSuNWYchjcxAu/vl3QG2fovySZn+YrIPGX4ilGwrMOzddG4Fwb+d/VA+/39AOZa0H
-	tGXMKYtinoN1SItkmH/FvWu/YNitFOjPEBELUjj5e8rsznx2HABHVd0REU8E9iep1VG1uNw==
-X-Received: by 2002:a17:906:eec1:b0:c40:80eb:c541 with SMTP id
- a640c23a62f3a-c4ca797660cmr584233466b.2.1793533842442; Sun, 01 Nov 2026
- 03:50:42 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793534126; x=1794138926;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7fqcRS854qRJ/jeh/UhWfPYnmMyFLLL8s53M6ZZX1/U=;
+        b=A5Mgn+53OYj7MJU0P7noj11LCR7nli2R3/C0hDMmFCu5PuRkssn57fZnoUxdLQ7jOW
+         kw/LidJqDH5KicvWcvL+YNKFQXXjwzb+pUTiYjSPM2Ry/uhf9jbc6Q7cX+BfUMvb5gmD
+         7VC11io1jPBcf5o0sfhQjRS08Xc4GIkuibBaMOmoZrqCoZ05BpkwzPWYLAO+67UHp6Ts
+         1mkQxeP6ZMyAeA+Ri6hylMYi5cbGnzDO2adiFKB98Alzy0b6iDqyHTME6TItJj8TKR3d
+         l5Lm2SSgeOrDTbiz60Z08sfjGOgGYAwnkkqoGYBW7qQ1BmnbrUlslsY4oxEUxL77vvLM
+         glRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwwJ15rHxyGvqy7R840+SMA26ijGoqTofz//sDIYbJbqle2F+Db+feJp8K/Uan5aB30vJOS3YFvAnblTCE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z932umms9umWA6xrHucCDEAHJ3vpQlTUyB9Ou/jT9PSoT6H32o8
+	JNpchUvdtBYoDZYDUOannbC97bP3mIQtYVbPwR5K+3zqtQqHb1WYMIgxRtxsbipzD9KnjenziHj
+	1HtWkSU1iDt/BFqpxmM2BAYZdJ5k5z3rxbu3e
+X-Gm-Gg: AYBFou282KaMaJeEgHoSblCc+LKHcjYOsvCmAOAIlB7sxCk3HNXCkb+gutfBG/v8BOI
+	xzymo5CBxI4QU3aCSi98YbcgMUH8wK6u65kcNktEJMYR7AU7RmhrAkktHl86ZQKzMZJ8FM2Yjbr
+	hePWMeWR0Va0rtllBIIDrmmezhHKATFdFlrI6kGMMia+nrzCrjCJ6F6MqVnHdpJ5LDn0kKpiMif
+	vGBEeKeFaGvcO04j1i/tSFjXwh8R4+jtVq23N/YY+NzIdWumO4DTDuJoCDSRMDukppCOjpUhv1r
+	HizrP9STfJNbzaqeFNibof8Cnez9pgLacB4T26V5QQea7S/9Jal8LOqgXN28jkCdR14xyD0mNqQ
+	4AJxi1oW4qHfalv2x6z7Wr0T3Kp3CS7G4D5CFxGk=
+X-Received: by 2002:a05:690e:1906:b0:674:9cc:4128 with SMTP id
+ 956f58d0204a3-67ba50db7c2mr5707194d50.86.1793534125780; Sun, 01 Nov 2026
+ 03:55:25 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,233 +104,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261031095716.3030288-1-amir73il@gmail.com> <CAHk-=wiPhTLn1p0ZHx-7SMdk4_zazqDK1k7MMEn9scRfqeDgtw@mail.gmail.com>
-In-Reply-To: <CAHk-=wiPhTLn1p0ZHx-7SMdk4_zazqDK1k7MMEn9scRfqeDgtw@mail.gmail.com>
-From: Amir Goldstein <amir73il@gmail.com>
-Date: Sun, 1 Nov 2026 12:50:30 +0100
-X-Gm-Features: AclHuK9MY_OWodpNHuG3eEceVBrQxQNU6w6CnufQ4VmB9cLewZGlHWyfSMT3Qi8
-Message-ID: <CAOQ4uxjNrdxZdZZipsqnUNq+TswCKqp+30iKRKCqh2WOQ-zKGA@mail.gmail.com>
-Subject: Re: Return failure from take_dentry_name_snapshot() (Was: [GIT PULL]
- overlayfs fixes for 7.3)
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, 
-	linux-kernel <linux-kernel@vger.kernel.org>, 
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>, overlayfs <linux-unionfs@vger.kernel.org>, 
-	Al Viro <viro@zeniv.linux.org.uk>
-Content-Type: multipart/mixed; boundary="00000000000092905d065f35a3b4"
-
---00000000000092905d065f35a3b4
+References: <20261031083642.1076356-1-sidong.yang@furiosa.ai>
+In-Reply-To: <20261031083642.1076356-1-sidong.yang@furiosa.ai>
+From: Gyeyoung Baek <gye976@gmail.com>
+Date: Sun, 1 Nov 2026 20:55:15 +0900
+X-Gm-Features: AclHuK-C5JJioyiCBX-IupgWA8EMz6wvl_OsWsPGARgDfid2h8EI2yQI9l4pcfI
+Message-ID: <CAKbEznsRK68w=qimTHifgDhD_Roi4eg2NrBYu+r6foYRZv1ePw@mail.gmail.com>
+Subject: Re: [PATCH] accel/rocket: Report per-core engine usage through fdinfo
+To: Sidong Yang <sidong.yang@furiosa.ai>
+Cc: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 31, 2026 at 8:19=E2=80=AFPM Linus Torvalds
-<torvalds@linux-foundation.org> wrote:
->
-> On Sat, 31 Oct 2026 at 02:57, Amir Goldstein <amir73il@gmail.com> wrote:
-> >
-> > Amir Goldstein (6):
-> >       vfs: add try_take_dentry_name_snapshot()
->
-> I've pulled this, but I detest this particular commit. It just
-> "smells" wrong to me.
->
-> I don't doubt that it fixes a real bug in overlayfs, but I think the
-> fix is entriely wrong. It is wrong in two ways:
->
->  - it incorrectly fails when the issue is a race with a rename (this
-> is harmless for overlayfs and will just result in -ECHILD)
->
->  - it adds a bogus new "try" helper that I don't believe should be
-> needed or exist
->
-> I think the proper fix would be to just say that the
-> !atomic_inc_not_zero() can indeed fail, and we should never retry
-> based on that.
->
-> But if we should *always* retry based on dentry->d_seq.
->
-> And once you retry correctly based on dentry->d_seq, now the "we
-> didn't get a name reference" is reliable: if it happened despite d_seq
-> being stable, it's because we really don't have a name any more, and
-> so we should return failure.
->
-> Put another way: I think we should have just one
-> "take_dentry_name_snapshot()" function, and it should return a
-> boolean, and look somethign like this:
->
->   bool take_dentry_name_snapshot(struct name_snapshot *name, struct
-> dentry *dentry)
->   {
->         unsigned seq;
->         const unsigned char *s;
->
->         rcu_read_lock();
->   retry:
->         seq =3D read_seqcount_begin(&dentry->d_seq);
->         s =3D READ_ONCE(dentry->d_name.name);
->         name->name.hash_len =3D dentry->d_name.hash_len;
->         name->name.name =3D name->inline_name.string;
->         if (likely(s =3D=3D dentry->d_shortname.string)) {
->                 name->inline_name =3D dentry->d_shortname;
->                 if (read_seqcount_retry(&dentry->d_seq, seq))
->                         goto retry;
->         } else {
->                 struct external_name *p;
->                 p =3D container_of(s, struct external_name, name[0]);
->
->                 // Try to get a valid reference
->                 if (unlikely(!atomic_inc_not_zero(&p->count))) {
->                         if (read_seqcount_retry(&dentry->d_seq, seq))
->                                 goto retry;
->                         rcu_read_unlock();
->                         return false;
->                 }
->
->                 // Ok, we have a name reference. Make sure it is still va=
-lid
->                 if (read_seqcount_retry(&dentry->d_seq, seq)) {
->                         release_dentry_name_snapshot(name);
->                         goto retry;
->                 }
->
->                 name->name.name =3D s;
->         }
->         rcu_read_unlock();
->         return true;
->   }
->   EXPORT_SYMBOL(take_dentry_name_snapshot);
->
-> (Note that in this version, if it fails it will just reutn the
-> shortname in name->name.name, but it should never fail for a dentry
-> that you hold a reference to afaik).
->
-> Attached it an ENTIRELY UNTESTED patch that does all the other changes
-> too to make overlayfs use this version.
->
-> Again: ENTIRELY UNTESTED. Maybe I'm missing something and I'm just
-> wrong on this. But I really don't like that nasty
-> try_take_dentry_name_snapshot() thing. It really looks wrong to me,
-> both conceptually and in being actively buggy and racing with renames.
->
-> Hmm? Comments?
+Hi Sidong,
 
-I like this. Small bug in ovl code.
-Forgot to remove old take_dentry_name_snapshot().
+> If userspace (for example systemd-udevd reacting to the drm_dev_register(=
+)
+> uevent, or a client opening the device while remaining cores are still pr=
+obing
+> or deferred) calls rocket_open() before all cores have finished probing,
+> rocket_priv->engine_usage is allocated with the smaller rdev->num_cores c=
+ount
+> at that moment. Once the remaining cores finish probing and increment
+> rdev->num_cores, calling rocket_show_fdinfo() will iterate up to the new
+> rdev->num_cores and read past the end of elapsed_ns[].
+>
+> Similarly, if a lower-indexed core is unbound via rocket_remove(),
+> rdev->num_cores is decremented while higher-indexed cores retain their
+> original core->index. If a file is opened afterwards, rocket_job_handle_i=
+rq()
+> indexing engine_usage->elapsed_ns[core->index] can also write out of boun=
+ds:
+>
 
-Attached proper patch.
-It's sanity tested but I did not try Chris' reproducer with added delays.
+I reproduced the OOB access sashiko reported.
+I used `driver_override` to keep core1 and core2 from
+binding, so only core0 had been probed when the file was opened:
 
-Feel free to apply and/or wait for ACK from Al/Christian,
-or I can include it in my next ovl-fixes PR.
+  BUG: KASAN: slab-out-of-bounds in rocket_show_fdinfo+0xac/0x120 [rocket]
+  Read of size 8 at addr ffff00000242b230 by task grep/461
 
+  Hardware name: Radxa ROCK 5B (DT)
+  Call trace:
+   rocket_show_fdinfo+0xac/0x120 [rocket]
+   drm_show_fdinfo+0x218/0x2a8 [drm]
+   seq_show+0x340/0x648
+   seq_read_iter+0x318/0x9d8
+   vfs_read+0x220/0x6a8
+   ksys_read+0x108/0x1f8
+   ...
+
+  Allocated by task 444 on cpu 5 at 79.841431s:
+   __kmalloc_noprof+0x2d0/0x740
+   rocket_open+0xb4/0x468 [rocket]
+   drm_file_alloc+0x37c/0x568 [drm]
+   drm_open_helper+0x110/0x2a8 [drm]
+   accel_open+0xc4/0x1c0 [drm]
+   ...
+
+> drivers/accel/rocket/rocket_job.c:rocket_job_handle_irq() {
+>         ...
+>         core->in_flight_job->engine_usage->elapsed_ns[core->index] +=3D
+>                 local_clock() - core->in_flight_job->start_ns;
+>         ...
+> }
+>
+> Would it make sense to record the total core count allocated for rdev->co=
+res
+> in rocket_device_init() (or store the allocated array length in struct
+> rocket_engine_usage) so that the allocation size and bounds stay consiste=
+nt?
+>
+
+`num_cores` is used with two different meanings:
+
+  1. in rocket_device_init(): the number of core nodes in the DT
+         (the size of the cores[] allocation)
+  2. rdev->num_cores: the number of cores currently bound
+
+This patch uses (2) where (1) is needed. How about storing (1) in a
+new member (e.g. max_cores), as sashiko suggested, and using it instead?
+
+> --
+> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261031083642.10=
+76356-1-sidong.yang@furiosa.ai?part=3D1
+
+
+--
 Thanks,
-Amir.
-
---00000000000092905d065f35a3b4
-Content-Type: application/x-patch; 
-	name="0001-vfs-take_dentry_name_snapshot-may-fail.patch"
-Content-Disposition: attachment; 
-	filename="0001-vfs-take_dentry_name_snapshot-may-fail.patch"
-Content-Transfer-Encoding: base64
-Content-ID: <f_mvxrlgqn0>
-X-Attachment-Id: f_mvxrlgqn0
-
-RnJvbSA2YjAyNzA4NWM0NzBhNjY0MTc4M2EzMGY4MjdjZDA0N2E3ZjdhMDcyIE1vbiBTZXAgMTcg
-MDA6MDA6MDAgMjAwMQpGcm9tOiBBbWlyIEdvbGRzdGVpbiA8YW1pcjczaWxAZ21haWwuY29tPgpE
-YXRlOiBTdW4sIDEgTm92IDIwMjYgMDk6NDc6MTkgKzAxMDAKU3ViamVjdDogW1BBVENIXSB2ZnM6
-IHRha2VfZGVudHJ5X25hbWVfc25hcHNob3QoKSBtYXkgZmFpbAoKVGhpcyBwYXRjaCB3YXMgcG9z
-dGVkIGJ5IExpbnVzIGFzIGEgYmV0dGVyIGFsdGVybmF0aXZlIHRvIG15CnRyeV90YWtlX2RlbnRy
-eV9uYW1lX3NuYXBzaG90KCkgZm9yIGZpeGluZyB0aGUgb3ZlcmxheWZzIGlzc3VlLgoKUXVvdGlu
-ZyBMaW51czoKSSd2ZSBwdWxsZWQgdGhpcywgYnV0IEkgZGV0ZXN0IHRoaXMgcGFydGljdWxhciBj
-b21taXQuIEl0IGp1c3QKInNtZWxscyIgd3JvbmcgdG8gbWUuCgpJIGRvbid0IGRvdWJ0IHRoYXQg
-aXQgZml4ZXMgYSByZWFsIGJ1ZyBpbiBvdmVybGF5ZnMsIGJ1dCBJIHRoaW5rIHRoZQpmaXggaXMg
-ZW50cmllbHkgd3JvbmcuIEl0IGlzIHdyb25nIGluIHR3byB3YXlzOgoKIC0gaXQgaW5jb3JyZWN0
-bHkgZmFpbHMgd2hlbiB0aGUgaXNzdWUgaXMgYSByYWNlIHdpdGggYSByZW5hbWUgKHRoaXMKaXMg
-aGFybWxlc3MgZm9yIG92ZXJsYXlmcyBhbmQgd2lsbCBqdXN0IHJlc3VsdCBpbiAtRUNISUxEKQoK
-IC0gaXQgYWRkcyBhIGJvZ3VzIG5ldyAidHJ5IiBoZWxwZXIgdGhhdCBJIGRvbid0IGJlbGlldmUg
-c2hvdWxkIGJlCm5lZWRlZCBvciBleGlzdAoKSSB0aGluayB0aGUgcHJvcGVyIGZpeCB3b3VsZCBi
-ZSB0byBqdXN0IHNheSB0aGF0IHRoZQohYXRvbWljX2luY19ub3RfemVybygpIGNhbiBpbmRlZWQg
-ZmFpbCwgYW5kIHdlIHNob3VsZCBuZXZlciByZXRyeQpiYXNlZCBvbiB0aGF0LgoKQnV0IGlmIHdl
-IHNob3VsZCAqYWx3YXlzKiByZXRyeSBiYXNlZCBvbiBkZW50cnktPmRfc2VxLgoKQW5kIG9uY2Ug
-eW91IHJldHJ5IGNvcnJlY3RseSBiYXNlZCBvbiBkZW50cnktPmRfc2VxLCBub3cgdGhlICJ3ZQpk
-aWRuJ3QgZ2V0IGEgbmFtZSByZWZlcmVuY2UiIGlzIHJlbGlhYmxlOiBpZiBpdCBoYXBwZW5lZCBk
-ZXNwaXRlIGRfc2VxCmJlaW5nIHN0YWJsZSwgaXQncyBiZWNhdXNlIHdlIHJlYWxseSBkb24ndCBo
-YXZlIGEgbmFtZSBhbnkgbW9yZSwgYW5kCnNvIHdlIHNob3VsZCByZXR1cm4gZmFpbHVyZS4KClB1
-dCBhbm90aGVyIHdheTogSSB0aGluayB3ZSBzaG91bGQgaGF2ZSBqdXN0IG9uZQoidGFrZV9kZW50
-cnlfbmFtZV9zbmFwc2hvdCgpIiBmdW5jdGlvbiwgYW5kIGl0IHNob3VsZCByZXR1cm4gYQpib29s
-ZWFuLgoKU3VnZ2VzdGVkLWJ5OiBMaW51cyBUb3J2YWxkcyA8dG9ydmFsZHNAbGludXgtZm91bmRh
-dGlvbi5vcmc+Ckxpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvQ0FIay09d2lQaFRMbjFw
-MFpIeC03U01kazRfemF6cURLMWs3TU1FbjlzY1JmcWVEZ3R3QG1haWwuZ21haWwuY29tLwpGaXhl
-czogMTVjNmJkNWNmMTA5NCAoInZmczogYWRkIHRyeV90YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90
-KCkiKQpDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwpTaWduZWQtb2ZmLWJ5OiBBbWlyIEdvbGRz
-dGVpbiA8YW1pcjczaWxAZ21haWwuY29tPgotLS0KIGZzL2RjYWNoZS5jICAgICAgICAgICAgfCAz
-OCArKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQogZnMvb3ZlcmxheWZzL3N1
-cGVyLmMgICB8IDEwICsrKy0tLS0tLS0KIGluY2x1ZGUvbGludXgvZGNhY2hlLmggfCAgMyArLS0K
-IDMgZmlsZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMzQgZGVsZXRpb25zKC0pCgpkaWZm
-IC0tZ2l0IGEvZnMvZGNhY2hlLmMgYi9mcy9kY2FjaGUuYwppbmRleCA0MDlmODQxZTA1OGU0Li5m
-ZTAzN2E4NzZkNzY3IDEwMDY0NAotLS0gYS9mcy9kY2FjaGUuYworKysgYi9mcy9kY2FjaGUuYwpA
-QCAtMzU5LDggKzM1OSw3IEBAIHN0YXRpYyBpbmxpbmUgaW50IGRuYW1lX2V4dGVybmFsKGNvbnN0
-IHN0cnVjdCBkZW50cnkgKmRlbnRyeSkKIAlyZXR1cm4gZGVudHJ5LT5kX25hbWUubmFtZSAhPSBk
-ZW50cnktPmRfc2hvcnRuYW1lLnN0cmluZzsKIH0KIAotc3RhdGljIGJvb2wgX190YWtlX2RlbnRy
-eV9uYW1lX3NuYXBzaG90KHN0cnVjdCBuYW1lX3NuYXBzaG90ICpuYW1lLAotCQkJCQlzdHJ1Y3Qg
-ZGVudHJ5ICpkZW50cnksIGJvb2wgcmV0cnkpCitib29sIHRha2VfZGVudHJ5X25hbWVfc25hcHNo
-b3Qoc3RydWN0IG5hbWVfc25hcHNob3QgKm5hbWUsIHN0cnVjdCBkZW50cnkgKmRlbnRyeSkKIHsK
-IAl1bnNpZ25lZCBzZXE7CiAJY29uc3QgdW5zaWduZWQgY2hhciAqczsKQEAgLTM3Myw0NCArMzcy
-LDMzIEBAIHN0YXRpYyBib29sIF9fdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdChzdHJ1Y3QgbmFt
-ZV9zbmFwc2hvdCAqbmFtZSwKIAluYW1lLT5uYW1lLm5hbWUgPSBuYW1lLT5pbmxpbmVfbmFtZS5z
-dHJpbmc7CiAJaWYgKGxpa2VseShzID09IGRlbnRyeS0+ZF9zaG9ydG5hbWUuc3RyaW5nKSkgewog
-CQluYW1lLT5pbmxpbmVfbmFtZSA9IGRlbnRyeS0+ZF9zaG9ydG5hbWU7CisJCWlmIChyZWFkX3Nl
-cWNvdW50X3JldHJ5KCZkZW50cnktPmRfc2VxLCBzZXEpKQorCQkJZ290byByZXRyeTsKIAl9IGVs
-c2UgewogCQlzdHJ1Y3QgZXh0ZXJuYWxfbmFtZSAqcDsKIAkJcCA9IGNvbnRhaW5lcl9vZihzLCBz
-dHJ1Y3QgZXh0ZXJuYWxfbmFtZSwgbmFtZVswXSk7Ci0JCS8vIGdldCBhIHZhbGlkIHJlZmVyZW5j
-ZQorCisJCS8vIFRyeSB0byBnZXQgYSB2YWxpZCByZWZlcmVuY2UKIAkJaWYgKHVubGlrZWx5KCFh
-dG9taWNfaW5jX25vdF96ZXJvKCZwLT5jb3VudCkpKSB7Ci0JCQlpZiAocmV0cnkpCisJCQlpZiAo
-cmVhZF9zZXFjb3VudF9yZXRyeSgmZGVudHJ5LT5kX3NlcSwgc2VxKSkKIAkJCQlnb3RvIHJldHJ5
-OwogCQkJcmN1X3JlYWRfdW5sb2NrKCk7CiAJCQlyZXR1cm4gZmFsc2U7CiAJCX0KKworCQkvLyBP
-aywgd2UgaGF2ZSBhIG5hbWUgcmVmZXJlbmNlLiBNYWtlIHN1cmUgaXQgaXMgc3RpbGwgdmFsaWQK
-KwkJaWYgKHJlYWRfc2VxY291bnRfcmV0cnkoJmRlbnRyeS0+ZF9zZXEsIHNlcSkpIHsKKwkJCXJl
-bGVhc2VfZGVudHJ5X25hbWVfc25hcHNob3QobmFtZSk7CisJCQlnb3RvIHJldHJ5OworCQl9CisK
-IAkJbmFtZS0+bmFtZS5uYW1lID0gczsKIAl9Ci0JaWYgKHJlYWRfc2VxY291bnRfcmV0cnkoJmRl
-bnRyeS0+ZF9zZXEsIHNlcSkpIHsKLQkJcmVsZWFzZV9kZW50cnlfbmFtZV9zbmFwc2hvdChuYW1l
-KTsKLQkJZ290byByZXRyeTsKLQl9CiAJcmN1X3JlYWRfdW5sb2NrKCk7CiAJcmV0dXJuIHRydWU7
-CiB9Ci0KLXZvaWQgdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdChzdHJ1Y3QgbmFtZV9zbmFwc2hv
-dCAqbmFtZSwgc3RydWN0IGRlbnRyeSAqZGVudHJ5KQotewotCV9fdGFrZV9kZW50cnlfbmFtZV9z
-bmFwc2hvdChuYW1lLCBkZW50cnksIHRydWUpOwotfQogRVhQT1JUX1NZTUJPTCh0YWtlX2RlbnRy
-eV9uYW1lX3NuYXBzaG90KTsKIAotLyoKLSAqIEZvciBhIGNhbGxlciB0aGF0IGhvbGRzIG5vIHJl
-ZmVyZW5jZSBvbiBAZGVudHJ5LCBlLmcuIGluIFJDVSB3YWxrLgotICogVGhlIGV4dGVybmFsIG5h
-bWUgb2YgYSBkZWFkIGRlbnRyeSBoYXMgYSB6ZXJvIHJlZmNvdW50IGZvcmV2ZXIsIHNvCi0gKiB0
-YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90KCkgd291bGQgcmV0cnkgd2l0aG91dCBlbmQuICBGYWls
-IGluc3RlYWQuCi0gKi8KLWJvb2wgdHJ5X3Rha2VfZGVudHJ5X25hbWVfc25hcHNob3Qoc3RydWN0
-IG5hbWVfc25hcHNob3QgKm5hbWUsCi0JCQkJICAgc3RydWN0IGRlbnRyeSAqZGVudHJ5KQotewot
-CXJldHVybiBfX3Rha2VfZGVudHJ5X25hbWVfc25hcHNob3QobmFtZSwgZGVudHJ5LCBmYWxzZSk7
-Ci19Ci1FWFBPUlRfU1lNQk9MKHRyeV90YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90KTsKLQogdm9p
-ZCByZWxlYXNlX2RlbnRyeV9uYW1lX3NuYXBzaG90KHN0cnVjdCBuYW1lX3NuYXBzaG90ICpuYW1l
-KQogewogCWlmICh1bmxpa2VseShuYW1lLT5uYW1lLm5hbWUgIT0gbmFtZS0+aW5saW5lX25hbWUu
-c3RyaW5nKSkgewpkaWZmIC0tZ2l0IGEvZnMvb3ZlcmxheWZzL3N1cGVyLmMgYi9mcy9vdmVybGF5
-ZnMvc3VwZXIuYwppbmRleCAwODY5NWE5OWY0ZjkzLi5kOTE3NGVhY2NjZTJkIDEwMDY0NAotLS0g
-YS9mcy9vdmVybGF5ZnMvc3VwZXIuYworKysgYi9mcy9vdmVybGF5ZnMvc3VwZXIuYwpAQCAtMTAw
-LDE3ICsxMDAsMTMgQEAgc3RhdGljIGludCBvdmxfcmV2YWxpZGF0ZV9yZWFsKHN0cnVjdCBkZW50
-cnkgKmQsIHVuc2lnbmVkIGludCBmbGFncywgYm9vbCB3ZWFrKQogCQkJZGlyID0gZF9pbm9kZV9y
-Y3UocGFyZW50KTsKIAkJCWlmICghZGlyKQogCQkJCXJldHVybiAtRUNISUxEOwotCQkJLyoKLQkJ
-CSAqIE5vdGhpbmcgcGlucyBkIGluIFJDVSB3YWxrOiBldmljdGlvbiBvZiB0aGUgb3ZlcmxheQot
-CQkJICogaW5vZGUgbWF5IGRyb3AgdGhlIGxhc3QgcmVmZXJlbmNlIGF0IGFueSB0aW1lLgotCQkJ
-ICovCi0JCQlpZiAoIXRyeV90YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90KCZuLCBkKSkKLQkJCQly
-ZXR1cm4gLUVDSElMRDsKIAkJfSBlbHNlIHsKIAkJCXBhcmVudCA9IGRnZXRfcGFyZW50KGQpOwog
-CQkJZGlyID0gZF9pbm9kZShwYXJlbnQpOwotCQkJdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdCgm
-biwgZCk7CiAJCX0KKwkJLyogSW4gUkNVIHdhbGsgdGhlIGRlbnRyeSBuYW1lIG1heSBnbyBhd2F5
-IGF0IGFueSB0aW1lICovCisJCWlmICghdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdCgmbiwgZCkp
-CisJCQlyZXR1cm4gLUVDSElMRDsKIAkJcmV0ID0gZC0+ZF9vcC0+ZF9yZXZhbGlkYXRlKGRpciwg
-Jm4ubmFtZSwgZCwgZmxhZ3MpOwogCQlyZWxlYXNlX2RlbnRyeV9uYW1lX3NuYXBzaG90KCZuKTsK
-IAkJaWYgKCEoZmxhZ3MgJiBMT09LVVBfUkNVKSkKZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgv
-ZGNhY2hlLmggYi9pbmNsdWRlL2xpbnV4L2RjYWNoZS5oCmluZGV4IDg0YjBjZmU0ZWQwZTcuLmFh
-YTRiYTdhMTI5OTEgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbGludXgvZGNhY2hlLmgKKysrIGIvaW5j
-bHVkZS9saW51eC9kY2FjaGUuaApAQCAtNjY0LDggKzY2NCw3IEBAIHN0cnVjdCBuYW1lX3NuYXBz
-aG90IHsKIAlzdHJ1Y3QgcXN0ciBuYW1lOwogCXVuaW9uIHNob3J0bmFtZV9zdG9yZSBpbmxpbmVf
-bmFtZTsKIH07Ci12b2lkIHRha2VfZGVudHJ5X25hbWVfc25hcHNob3Qoc3RydWN0IG5hbWVfc25h
-cHNob3QgKiwgc3RydWN0IGRlbnRyeSAqKTsKLWJvb2wgdHJ5X3Rha2VfZGVudHJ5X25hbWVfc25h
-cHNob3Qoc3RydWN0IG5hbWVfc25hcHNob3QgKiwgc3RydWN0IGRlbnRyeSAqKTsKK2Jvb2wgdGFr
-ZV9kZW50cnlfbmFtZV9zbmFwc2hvdChzdHJ1Y3QgbmFtZV9zbmFwc2hvdCAqLCBzdHJ1Y3QgZGVu
-dHJ5ICopOwogdm9pZCByZWxlYXNlX2RlbnRyeV9uYW1lX3NuYXBzaG90KHN0cnVjdCBuYW1lX3Nu
-YXBzaG90ICopOwogCiBzdGF0aWMgaW5saW5lIHN0cnVjdCBkZW50cnkgKmRfZmlyc3RfY2hpbGQo
-Y29uc3Qgc3RydWN0IGRlbnRyeSAqZGVudHJ5KQotLSAKMi41NS4wCgo=
---00000000000092905d065f35a3b4--
+Gyeyoung
