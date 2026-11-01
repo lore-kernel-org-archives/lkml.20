@@ -1,93 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793542558;
-	b=QHFnEQG9W3a/bC5SZN8xa3c3cD2TT65rgQ4/4QtWKw2tBkvbTiVsD54KxDiOHw+zKg0o
-	 9ytn9w/p6/egBLWJ77goyrjBtUnyV80t7RfIBZ1osDzPEBfLoCk79gx0Sb0xjkawV9Cdb
-	 0gmUK4hq5UdkDg2NiXkwz6sa84qs1Qth3x7R3S97g516bMxxofItp+TodiW5fDVFXue50
-	 dWnuFJ4oKJBAGdTnVl65SLdwmd/cYcx/7QnZqvnGx7MTZfpSiO2m1jM2OzKaANADxgyNg
-	 Elz7xVtAAYHCYIhb3MI3xz/n5Qd3lmyuI34x9CSkcs/DLLcB783YlMh5efQqbmLEmmQ==
+	b=nx4LMBXJp6BTaY8k5qCJlmTB0dO3MM/BZIATHvLyjE5LTE6ts5WiBQ/J0bNj63aqw5wq
+	 eeG1DqfAjlmyt/wxV8j1kqbk/9nUvgzu4609AeVDaFWfZkv3tJyb5CESOwGeWVQHw28b5
+	 rre5adXevKMwxTABtV4PCS41GLov8XjA6rprv6fVH0c6FSbt6WBjMQtH+pgEPfJTkAmnh
+	 YAbq8lashvFOYJ9gdN1AAb/7mQ111vNgTLEQ6MnQp5o2tTT4v90z1xbIis1DTdf4NVe0N
+	 FZLyOQI6dYUYnV91KVIewIrVpmmp8p11u1YFN5XjgU4cPUZOSlzfY3h/vxgS0j/x0Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793542558;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=769hpgxROXRAK1CXpDQbulFxjVtDdn47pUvYZPyRQCA=;
-	b=kH3qxd+widR/YGlh/N1Y5k5p4ge2jcxMzAnVyPnQ6P9aE/kFyFsmnyrjjgEXWpoU0xCr
-	 H5HlXHV0ZU7FqGBEjtxRGsTlDMaoM1WEMiXc5pc2dmLMQJyiwJG5wJfpK+49/k6B6vLs8
-	 L8+KeEU8Ulk3QRgYkgfVNo/VrVnV8IK8HseLyuNOPOcX6kmmf+PU+K2KJBGrtqmkOX1VO
-	 nPM7+4GOW2OahOA9vVVyHYgMj9gvLFkzKhjBSuwsp2nMvp+0NgIioQzd2zhYocn93EjJv
-	 Dbw8L2uM6ZBsjocA0z5hpsumyD4Z0EVDKYJhTTkL1qGJoOmNzY9YC8PI1PFmHlNGRBw==
+	bh=sMIiBsBGGfnuS5WxfPmtADmv/TO4FUudGIPAhofipOw=;
+	b=oH3107cwDVbp9qFmXLFW5yqniCeyTJfJML7PfREK+95ys8PYENEr/Bk3nk1uTL6jaAhG
+	 9oyS+gK4tCUS3TsUgerrTDJMBDD/rT1G4CxsqQq1cr2o/YFDAYghtHUKEhftmChdjoc4T
+	 +3TMj9viRuwHIzFg5u/udHXsj8XlscDLkwU0hshGVVoB/LSFjscip0yufqdGrqnQPsR1Z
+	 Y7utaBufig1rtVZTlnqU9JnU6PT50j4HaMfTMvWeRPKS0EoTXFMwX8b8pBXQRrFPN5B5T
+	 w23/Dc8N1hF5cI1teqoVuyzYMKkGcaVZvdESvEBaaYrCBZmUHFElnCc38vMmKAW3x9w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ULMoVwFg;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vcJpqmfU;
+	arc=none smtp.remote-ip=209.85.167.46
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9281A606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:15:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9281A606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC95606A32C
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:15:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7EC95606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ULMoVwFg
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a2000d5fb1so13635395e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:15:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vcJpqmfU
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb6faf862so2105747e87.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:15:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793542556; x=1794147356; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793542557; x=1794147357; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=769hpgxROXRAK1CXpDQbulFxjVtDdn47pUvYZPyRQCA=;
-        b=ULMoVwFgpt0s7xOu5ZTRKirGX36QMF41yZki+Xb0lQzC/yxeDiVJqIIDlKYGdOQu6W
-         KZPmT/TpnEdPTfOQFj7GltR5ip9TRh1mX84ZDbm9FaWkr6DVhk8gNmY7m75GG+GBQpHm
-         PfkvzAdDwGM1QDofc2Vcg+06KHnu6YjSHXs+c5t4ZpV14WIo8cYBG6YEBPDQRkze91dd
-         hx51tpm0UbFdBbzMUPVA4PQyAqDoyur0loyqE7P7vNWx01SZEOcUyUeRP3KBCLaUdHKh
-         xPaq2dKfLjTjqBb6uG/luocpRMWuF2EdSIm0PdRBHChFZWatdSpmU5xYcwaOsnC+59VU
-         5M1A==
+        bh=sMIiBsBGGfnuS5WxfPmtADmv/TO4FUudGIPAhofipOw=;
+        b=vcJpqmfUdbN8tkReri4l0x+jGDh7UGhpZX4DbVuZ5aO4NgyOTuHU+T6NbhzFMYImAg
+         6fmdb8ooUrh4DGkUSvCTKj5ZK3k6tXOTNvyrmJcTaFDCkZ3N0qR7EGxWkrwAzXcOQMQU
+         xvKdVF12c0p5iJhej1VGBebhKRztuSAjblBZGLK4TwsNeJ12C/CucXclbxvKDU3TyUHR
+         LRATY/blOtNAzhAAFTvgoxRlYufIMGXOwDhHOTu1qKARAPRmaUYepZpCnzmIrIU5VSYb
+         2rurZlIlN2ToB0EBySYLkROwUBAQm2/f/kgDzkhu7UcXI1URIj4PvoRLYb+26BqTHg7M
+         kh0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793542556; x=1794147356;
+        d=1e100.net; s=20260707; t=1793542557; x=1794147357;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=769hpgxROXRAK1CXpDQbulFxjVtDdn47pUvYZPyRQCA=;
-        b=rSElfyjhg4D5S/WFDLK3OXjifGyQvt4H3Y0g6btdmiufDG8vo9g4qm1825KY3pmcY8
-         yQPwRphsy+W1vaQPntppE2xV3vSEcWxiLnRsnv5rfhowbMb6LFXJueolhMmxZ/yaD/KQ
-         K1SAbEz3gaKU09WsNKDWCGTUt9jLt2MQVhiJr6v7ktA4wTPon1Jg6Z5Nffvg26qwT3Xn
-         SQOY8gqEdyM6DvWihIZLm0HuUmrarTstF01V1hDfegBROTt2IFroc0WkcopEYsUfsJMU
-         ULoq1P3LBd5V8intg4K9BDtSY237xYL2X4CSuuKZWToN9PdWL116OCRX6GSzahSHvcz5
-         hHvw==
-X-Forwarded-Encrypted: i=1; AKwUvBy1KLRat4tflvkhLEKgDxq/yU+hzBT+5I+beX4BswQvbmAS3v9TWGkvhFw/AS+uSsovzUaOz/PSYewrxp8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLulMrtQkO1f+DO15aDOw6XPbhSF/GiZ5u6rqzm84HR04O1LAN/
-	qQVYYNnwBp2XOY1T/vfIuP6FpOP43T9mYYJ5L1hicUJAsO3N7ECVoy3thOuSxQ==
-X-Gm-Gg: AYBFou2tSr+Lwx0zfTpoPeT+VVF87AShmThfBb1zDf/U2MTfnZV7JfDqP9T6LoEh73o
-	AxJibIPjrM5is2+MlsFe8K3sU35xGZuX+1kN6MgFUAumpqL+B+aVuZ6w5/+SLphaRNsef/tdVts
-	XQK7+55ItCPFLMMaqbZBSri3VCK0CY7KmJ9oqyS9qpKPxOxc/Gje86eqGamGpzeKAudIDyn90ey
-	Z/3Y5k75E1QdXtdmOfj6MQiKZi+rBfI46QuDJnScXcMXgwjD12dOtkW7fXFxItFaQ/SulnDgRBb
-	NbLpU6FE+GzR9/rdzyMYK4PVxgjofgqwuGWe2rLMKyWZI3HKYiZ0c72+HUefXbNU9VmnvEOqSR+
-	Wm7izoWXkyQ9pNCEsPxE53Jp0vKJR4IfmnrVxAFAqBoGe4Sax16ICj03Zc/RYfZAzyrvFZ+cB/r
-	g1A6sifVTlUEeu4qCnIgRNOuT7nc1Y/riUnYcW3Y4GplUmuJXT1dZW9lYZMYAp0Jqa6ZyPTvYlx
-	OT13lzq+GY/BtPVMEyTEVETFDIWvEeO6vJcMhHIAWletQuvYkROdvDcwtQsrBlhXWHV1TDdpdfN
-	jFfKF4/cgVUzl8i3aIlP/+Qavsgrps0qu7vkkvNfzPQ11QwKZXrmRFY80Q==
-X-Received: by 2002:a05:600c:818e:b0:49f:fd40:80fa with SMTP id 5b1f17b1804b1-4ac1932aa2amr172059335e9.34.1793542555903;
-        Sun, 01 Nov 2026 06:15:55 -0800 (PST)
-Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:9c55:89d4:b00d:2bbe])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf0b36853sm185124735e9.0.2026.11.01.06.15.54
+        bh=sMIiBsBGGfnuS5WxfPmtADmv/TO4FUudGIPAhofipOw=;
+        b=fKQDg/FnksG+AuVuLUg42ZbRcuoTepo870FEd/buvEkrT31hjoV+ihr+3piEYoCIR1
+         Yv/mgrTnkvsyFBBLt7VYWoH6YEx/mjS+Q99KGMCVQh3p1frER6CNFUXNMCo8NQPUY1S8
+         ChPaBckMs/4Jwq+z950M6l3G2Ku69tNemsqcVCvTuWe0JkDiOX5jFMoGFgg4nf78brTk
+         5uhYniyi8cawoARGq94B1W4oADI19V2WIcgVOabH9IEVhG95/6Kp0ynaRSHlbR6CJ4I0
+         HMScIL2gx8rPzV0Y7N4mChp9TpVersJfk8ImlZexfOhyfKmb10CRXzRPvwWsI7gSeRO3
+         prxw==
+X-Forwarded-Encrypted: i=1; AKwUvBz/xzyBB+gd4XB6qENB0HZNvjUGef4qbhtycLjUEbqwoJPFpWr4vc86G7m64fDjeuSfbyLyajA4vXSHWnI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJXB/T6HBKMwB1ufHzQ3sIxO0TSUogI1arzz0+GItYP5wPajMVa
+	IKvWx1dAEfVjNYEqhIpzalZsA719/b5HLfoXTlqc8awldRt5591jfJlw
+X-Gm-Gg: AYBFou2a+Rmpvc3uh/aGGj31TMDUKVi3AJHMJTSJcBTrq7YRaF+Y5OZPZ1yxowbjkUZ
+	wSqYcYmgQI1LItD0E19yxDUMiURy6F2uCurAKj+IT90KR00CuCOgYqLgc4Rv49xHS7meCw9BI+6
+	MELbLQ7Ta6b39xEAy3Jp1OW4NZgUD3uB4gHWaOHXs2gupT7NzjLW1ZJvn1KUONaK5XY0v/DGdyt
+	OKZqYHqORSH44onBCBhIz09V6Tl+vAWyAoJ8F7aCy2/vwpPH71cPbR8k7HjPImSDq5B1/nJnoA+
+	Jkl9tmZp9NTz1LUGC98uFtHF02Jkcyu65jGFaf4k1BRTM5WElvmNjuBzV/74JIAyp8OeizpY/zO
+	OjvPvyTrkGF4wrgjfqQQb45imstIvrdiB26JY9ua50zErRM/akl60AHMvwZ0i6msb0NOi1FtXON
+	sAk0GlYo2tMKzD002GZ6d4u4JwyPU3BgFF4031zVFgiEZt/0+ZUW2uV7z5+yUMKSvUMUrZ9jY0s
+	WW2mWNZ7H6AIKlHJY3zZswDvsXBL1o+HSSTNGZvVB7++sFnbs0td6uEvIsf3soUoFhG1RNuz4V+
+	P9xID9v/RvnlPSA26m8XjAE9Ay7Xs5xxHtaMsXnD62yJsmUX+Ni2bhXFFdNL1Z2iqY0tOA9N7iF
+	OtrnYfGINOG9xZTKSWlwkVxhqJVBePuyk161sK1WmMcJCLT1ec9jITgqy
+X-Received: by 2002:a05:6512:3d17:b0:5bf:a27e:e23e with SMTP id 2adb3069b0e04-5bfd957fbe0mr2778352e87.57.1793542556592;
+        Sun, 01 Nov 2026 06:15:56 -0800 (PST)
+Received: from xps.taila9902.ts.net ([2001:464e:6820:0:f43c:bf8:ce8f:65e6])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe1791832sm1043672e87.23.2026.11.01.06.15.55
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 06:15:55 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>
-Cc: Marcelo Tosatti <mtosatti@redhat.com>,
+        Sun, 01 Nov 2026 06:15:56 -0800 (PST)
+From: Nikolaos Gkarlis <nickgarlis@gmail.com>
+To: Jason Gunthorpe <jgg@ziepe.ca>,
+	Leon Romanovsky <leon@kernel.org>
+Cc: linux-rdma@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] hrtimer: Retrigger local timers after clock changes
-Date: Sun,  1 Nov 2026 16:15:53 +0200
-Message-ID: <20261101141552.644764-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Nikolaos Gkarlis <nickgarlis@gmail.com>
+Subject: [PATCH 0/2] RDMA/nldev: Reply with the command of the request
+Date: Sun,  1 Nov 2026 15:15:19 +0100
+Message-ID: <20261101141521.2426198-1-nickgarlis@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,36 +99,24 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-clock_was_set() selects CPUs whose hrtimer deadlines move earlier
-after a clock change. smp_call_function_many() excludes the calling
-CPU even when it is in the mask, leaving its clock event programmed
-for the old deadline. An overdue realtime timer can then expire
-only when a later event triggers timer handling.
+Two doit handlers reply with another command's message type:
+RDMA_NLDEV_CMD_PORT_GET with RDMA_NLDEV_CMD_GET, and RDMA_NLDEV_CMD_STAT_DEL
+with RDMA_NLDEV_CMD_STAT_SET. A client that decodes replies based on their
+type mis-decodes them. AFAIK iproute2 igores the reply type and rdma-core
+does not use these commands. I spotted these when writing an RDMA netlink
+client for Go.
 
-Use on_each_cpu_mask() to retrigger the local CPU when selected,
-without interrupting CPUs with unaffected deadlines.
+I used AI to prepare the patches but I reviewed and tested myself.
 
-Fixes: 81d741d3460c ("hrtimer: Avoid unnecessary SMP function calls in clock_was_set()")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- kernel/time/hrtimer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Nikolaos Gkarlis (2):
+  RDMA/nldev: Reply to RDMA_NLDEV_CMD_PORT_GET with its own command
+  RDMA/nldev: Reply to RDMA_NLDEV_CMD_STAT_DEL with its own command
 
-diff --git a/kernel/time/hrtimer.c b/kernel/time/hrtimer.c
-index 17dd38a6cee7..3133d7403a74 100644
---- a/kernel/time/hrtimer.c
-+++ b/kernel/time/hrtimer.c
-@@ -1000,7 +1000,7 @@ void clock_was_set(unsigned int bases)
- 				cpumask_set_cpu(cpu, mask);
- 		}
- 		scoped_guard(preempt)
--			smp_call_function_many(mask, retrigger_next_event, NULL, 1);
-+			on_each_cpu_mask(mask, retrigger_next_event, NULL, 1);
- 	}
- 	free_cpumask_var(mask);
- 
+ drivers/infiniband/core/nldev.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
+
+base-commit: c3e8e9451e6f1b69f685b75e0fbf14f3d0fb2539
 -- 
-2.43.0
+2.55.0
 
