@@ -1,54 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.23
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793516652;
-	b=0G/1CJUD0UbG4BH6XnAfFRCtJPjewAuSvbXAGar3nQy8I8U9HT/km6oDjCXFt+UzFg30
-	 JDmcLgO+jztNpZz8gs/DX+gLbv8nSn6GiH+acX1Q4fnt2h5HunwPLq+onvhe/Q41feTVP
-	 O8wehpTbugUgsLa0SK5xeo6OLZucUz5+bOxVc2wweD4hE3t0vz1eZWOHF888VxwnmUXQE
-	 47v6QJZaDoft6WtK3Qpj3OBr1hR0mHpW9LN5YE4pS2x993X8Z1p3+Swml4IS1vghcGHDI
-	 qlxSRNF2dfUXraz6e092oGbwP8son/4huAvnBdL3VAMKZs8CNTAnpNAo6WTrwmNsTHQ==
+	t=1793516656;
+	b=J7g4SLNTLMyCX2cOkHP+g/Iwosn9+LraxyPT2Z3QNTLBUHtMPW/ZZBRfv9fOIsjYJiqj
+	 fYfGDLT/avFseiCXuvEDjQsmTJiB3Br1qPCWiLEz+D16NwuElV+Ff2OxNwhkkrelwk5Ss
+	 yaYKkfQtDPnxO503xyHxsSAW4IKer6fzCEOKV7UScrovuiR9RkaV76zJKnV+se7+LOKwm
+	 nFgMkP42yM9boer42IX5jmTwXjEdVpe+vjms0f9OaMNcedyg/lnvhRYGRJJODKuz6XUBE
+	 hY5mECHQXE1Nxbt+jgbendz/wxWQ6GsQggjg3TBokgxAX9Wqi3swzs1GChwgIWhmd9w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793516652;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=sNC2zQ/oVHxxAa7JWMlgFWqLxoPcit1MP3ft2dPEekI=;
-	b=md5N87dio/hhPlBt+b4/wQLqmsBriPGpGTsL4AVThypnXiBYXWQdMUscNzqb9Ux3NZ+p
-	 k6XuhwMkX/YewE07bTKfrlGB4Y9sjSQLQ1zxiV4I/e5PppfjBZNlfNfioK8SMzrpG4Rw7
-	 IS7nRqGYekwg6UobvEV6NmugJz1YBUw550RA5u5ZwgnAkbad6g1c7rS4/NuI2L4W1qqHA
-	 tPv+qvMhfEnbELvHYo6BTYNqI7lCauyam9xcHjJjg8N85JK9gHzP7hokqtlrEM7usm1Q2
-	 IPzM07vsf801doWZ+QmkJokXKxsg7Kteg/oTtBujtNHXM4iULdaScjMaRpNmv21ySWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793516656;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=QHoyp28TlNhklwGqim9yBS4drJHpMYig9famUTvwi9pSFRHCjbOJ9VB49y8xvrVuNRap
+	 vzjYlEZc4NHpCx/RgYeBeXKnDzLshs2D1hZ3B+HoEKUKMsVkFNQOnYFuPqt1T4IgabGg4
+	 NkY1RmJU4m8KroSkPCiNFACU62+xhPqnAgikh331Yi31bJW+U5bos+yNz+ALcb51Re1fC
+	 lzg2TVS29vYn4IphYntswQdKWw0itdlQzvb837pZ45Fpq+OCXHtWgx3wE+//Qkz35xeXD
+	 wxUvnUGHIa6wxlecRT5LNCcNLhg2q8g6+LUeaxlQRDI2TocNopEaScV4vguh8kiWKQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=osIEEKkH;
-	arc=none smtp.remote-ip=95.215.58.23
-Received: from mta1.migadu.com (out-23.mta1.migadu.com [95.215.58.23])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ouSGbOFs;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7B41606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:04:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A7B41606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76AF1606A330;
+	Sun,  1 Nov 2026 07:04:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=osIEEKkH
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=COQy3X6OlJB84W0Wb3ldvsmBsVnNHZN5R6w8mFLCMuI=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793516648; v=1; x=1794121448;
- b=osIEEKkH9IPLc/fzuG9Uy/eeE1EbU3zysUlFAAUCor4tDfwOfanINVWvl9cUK6YlFuvV9qCi
- dyiuIjKnHxX4YnmjorTktkyMojzE1mVwzbY20sLJiTLNYfH8N9Uy6Q8opDPSqE8VSwqkL2jxmuS
- 7Cy2aWYHarIv5W0ZNJRMQpAw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id cf75f6d8aa413e18;
-	Sun, 01 Nov 2026 07:04:08 +0000
-X-Mizu-Trace-ID: cf75f6d8aa413e18
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <cef6856d-74e6-4b05-8a37-2f777354334d@linux.dev>
-Date: Sun, 1 Nov 2026 15:03:58 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ouSGbOFs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E781F00A18;
+	Sun,  1 Nov 2026 07:04:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793516656;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ouSGbOFsXJ6vwZQ0tUopzz5TnGyxCL7cOO7PIPCSZ7yM3ZgNeJhZ39x7mg0+vAmac
+	 JZHfnInxpINS/dJ8hgh/g6wrsUpPxm+7ktAYhQXMvCyNq1DkcxzLlzI14bWlD/kIAt
+	 nkCcZyuyXb+HtPxpnCJ4GNzZvayH+tZ40K75cXJaISnrzcVsMkZpGEnYU6iXrvIhwk
+	 fwUVpGKuIBovPeCQecwq6nr3Oq3ea5n6BEChiBc8eqbP6pmUWNkKhIhdrRzPZg9mS3
+	 CLitjfQ1EhV/KmYzH3PfDp/5xrAN4/0Wi86e1oJBYaBWItT5vdJxKLpLO9FTn2S/U2
+	 UzfrDned3wZkA==
+From: netdev-bot+sinfo@kernel.org
+To: Tariq Toukan <tariqt@nvidia.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org,
+ Paolo Abeni <pabeni@redhat.com>, Gal Pressman <gal@nvidia.com>,
+ Leon Romanovsky <leon@kernel.org>, open list <linux-kernel@vger.kernel.org>,
+ linux-rdma@vger.kernel.org, Maher Sanalla <msanalla@nvidia.com>,
+ Maor Gottlieb <maorg@nvidia.com>, Mark Bloch <mbloch@nvidia.com>,
+ Or Har-Toov <ohartoov@nvidia.com>, Saeed Mahameed <saeedm@nvidia.com>
+Subject: Re: [PATCH net] net/mlx5e: Add missing Ethernet multicast octets to
+ vport_rx_bytes sum
+Date: Sun, 01 Nov 2026 07:04:14 +0000
+Message-ID: <179351665490.3286.7144844476208891525@kernel.org>
+In-Reply-To: <20261101065833.282261-1-tariqt@nvidia.com>
+References: <20261101065833.282261-1-tariqt@nvidia.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,42 +68,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 08/12] mm: hugetlb_vmemmap: move alloc_vmemmap_page_list()
- next to its free helper
-To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
- <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, James Houghton
- <jthoughton@google.com>, David Hildenbrand <david@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261020115306.813483-1-songmuchun@bytedance.com>
- <20261020115824.823278-1-songmuchun@bytedance.com>
- <20261020115824.823278-7-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261020115824.823278-7-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Hi!
 
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-On 10/20/26 7:58 PM, Muchun Song wrote:
-> Keep alloc_vmemmap_page_list() together with
-> free_vmemmap_page_list(). This also allows the folio-oriented
-> optimization helper introduced in a subsequent change to reuse the
-> allocator without a forward declaration.
-> 
-> No functional change intended.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->   mm/hugetlb_vmemmap.c | 42 +++++++++++++++++++++---------------------
->   1 file changed, 21 insertions(+), 21 deletions(-)
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
 
-Thanks,
-Qi
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
 
-
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
