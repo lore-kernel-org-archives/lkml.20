@@ -1,100 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793556194;
-	b=weNCSrOUZPQSGt4keqHaoqNdtJxLWE0d3qY9Va2eBnjAMrZjlHBrHSL0LXDsZDv4438N
-	 EvZGQrNg7Crj1LTTKSGnW4ch57akWFxKVWzugA9ZZyZk7oyn8EbaLnzU1riiY5S7eSwDu
-	 lbW1F3BhycG4kVbIpOCXP6XPR4ssZxHclhWe6ZiPD2KRJu0QpLAc0Q77vsfJ7aKz9IZbK
-	 bwBKOmKKcCsD57Rx0IEdTS9/iwNGDhNVWGvtUxEhTPHl18lt86x3nR7GTpFOHhUuYva7D
-	 36HTigWHbwjzZTtfMBGnMxM2n1EfF32gWpiW+sLzJbVxJFehuGtF2QouZsehNe1Tk4A==
+	t=1793556196;
+	b=2QhYXnKimQ8GAVvVfahAmboiNSadglVe70WlqGVtkOtPn0XrjbCeuawbVDLne7hi8xka
+	 kdQvybjsumZKzwrPW06hrDvGEM+Oyp7y5NNWzXgqKtN/Ug7te0ooIHeNzPPdMAtfB/5Uc
+	 N252FKF94+GTncolH8OfKbmhjX/0+6RR58ycsiDwZ+f1TsVQDPHjmT6kFELUWEqo5oxad
+	 hC2HbNFj5WGQkNnlbHkfNoD53u78bAcWAti0ls7UM0TAKL6qcHf2O9IQJTS7EmuzJ1leJ
+	 6W8I9UjE2lHYjTUZ5P0gjYSgwhOzfzq6Suyzwle0ejUjclaZBrgoBdJuG3SfRPbb4aQ==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556194;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=E2KNNLNC1SGWQPktfWAC0fctv/qW21YYnE3QrHE9Xgw=;
-	b=p8HpoI75fo0vZI1w/v4NDhT5Vu0/bcHQDkcgIJfMIQETUp72Qsb37zXvzymNqbzvbz6J
-	 GRo1yE3s+mRxZQK9x4phoAhEJzhiq8QW1nQGeHXqz2NTaNp8a0Aos6mYL7utup+La/j6k
-	 24K+jT+hHm4VP7MVCFycHNCCOi0UGq9uR63fHt8dvUoYjBOqrO/KO3XXw4v0661/eGAfR
-	 nnWhE4fDdDZHXzi26d3mmdnzLOkYK5bngIa49Fq1O0ujsTLTlkSj+drAqCIqJ35XoIz9f
-	 /WrYnLboiXiBBb5t5PBscWjD+LF/5CLXBoJL4iPFAZ0bdDJV8HUVnmmsVcKYcoYTZLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556196;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
+	 MIME-Version:User-Agent:X-ZohoMailClient;
+	bh=eXHwMW4V4v8WMpgUgtwJi5ivKtzvlCeyOpj5yYo5S2Y=;
+	b=Pmppxf94sXnZCgk2KS2wotirjY2t3yvR21+PReKfuWq9lTeOOdPFUdW4UvRHKuEJcZ9V
+	 OGwdnZHMB65BS4QkQzs2hQwva7DzwaPJm3uY3q9BB30LR0oIpZS0F4gIed4WbIM5K8yjb
+	 BWRVVYrFZpwGfPipQixVb+JTmJXKck6AX/FF0U9Fd1qvR6u3vRXI3z3VkfaSbXISFdqMH
+	 1vwCp53hxZDWirpeZiu/9S/S7zUuuql0wnq58f2f+32uLqRIdTJa7+GSVSSCEC8OFwRPj
+	 vN75Ak1rhbZSxuvPH9N63Qtg692INxYbpPSsLWklglin0GYQT3Hr/nZSoQ0Ennugyug==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F+qEgBzg;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.45
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=rong.moe;
+	spf=pass smtp.mailfrom=rong.moe;
+	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=mg0iYvul;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6D0606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:03:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB6D0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5AC660A2601;
+	Sun,  1 Nov 2026 18:03:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5AC660A2601
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=F+qEgBzg
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6b4e814214aso2311264a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:03:13 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793556192; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HrM7pexOvRhy0c2PC9BXPQyaLBYhXONGvXe2m/thySH7iaxMM0kpHWFxFOCXWj+Vzh
-         yVxWhQRykLXNGee1/X4QDseZaTU4IAiHXfgRXsDLXPSz8JINvbNihAYfkp34rwpmAn2k
-         cou0owutQGGzmdPOI0lw6MwMC3zXHG78lR7hMxdwoEH7CbCJr5tOTeg3+YLuWG4HGW7c
-         5ZEWNhAvpgGQdOG1jZI8ja0eQ+Nz9QnQAwyb0Hf5b/TQMZOpxA86pcCSc+T0FT8pCygT
-         2n3qKP9GKbMi5i/7geRbQ/2rO7aSgDN0XYApQCQ2gJNWKgE18lG7qtHWmKd85Rw0oqua
-         IGUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=E2KNNLNC1SGWQPktfWAC0fctv/qW21YYnE3QrHE9Xgw=;
-        fh=xzjoAmC29yhMIGrcZ9Vc386cCse2jspqsTJmYr8550M=;
-        b=FijmnC3D7TWf2XHgqTJh170iNEauJtXT+PvqtWHPTx0WXiCY1asYifbe9/YR/YIBTD
-         o8drfvC4lNWEqbWnu5ItXIZwg7/0di1YaLrC33+QRJ3dpBXIhVPHPU3tzmXPvN8SUY18
-         pk0qN9JDG4iwwQRHjtq0KJTY0GHk06mFV4wLuHlo/TGNphdwYLlnO79Xw/dqv/qxmgK9
-         FvpeFqMR3MCiBb0F92Luv4WmL6beYEFRTj7oPQMpWJOazgjbvGdOmEuHohKgaXq4of4E
-         7XWT25n5/tADrFb4hk4XgsjehkWk2c48/fvVCvEmuL00dXvv1pKnToWUEjoRQkUpAm1P
-         lxlA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793556192; x=1794160992; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=E2KNNLNC1SGWQPktfWAC0fctv/qW21YYnE3QrHE9Xgw=;
-        b=F+qEgBzgL7NJu22ebqu1eIEMouIufRjFJJatu+R3QPmx0ByjGEVDdmm8l3a13pH4AH
-         s2Zw2sEDeVNUwBzz7xkqmtdVbGstv7GjIaCC9EbiMeH7kUIamjzQxvLAEHSd+OSJYzm3
-         fX7l2+gl5YBYZQ2knnXu6thn468CCAZpOCJlEQYSJ+1rPN0DopXxmVQzXZKGyEg2XQJ3
-         PHj/alIHw75UBD5Djr0ehRlJxwTsd0kVMVw9JirOPuP0XeQB7MrI17Q1B7gtjZpr2lCH
-         xYIlWWSs7CC7D3Ev7m1+hlU5gSZKcbA9b227gqmonBUNEPRBwn+t6n+H8Ij8agazvT4v
-         ClCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793556192; x=1794160992;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=E2KNNLNC1SGWQPktfWAC0fctv/qW21YYnE3QrHE9Xgw=;
-        b=jw0yOVl1YqBpGJxe3UTrJBb0sxyoU1M6bmwFYkdaIQLkcySdX2t/efoDXV81ilncPr
-         E8VJ4uGYrS9ObUt9naoQh06U/7VjIx9XBJlTiDAvk2jj2W/V0UdmvasBZkdGnHjfImp6
-         wCDONfZK0oyyPWh6t1Taq4FbT7uuww6/t3gE1qwulwQmtcYyJrWdttpKkOY0uLU+HFQi
-         RJkbIWPOliRjIa6kgDMDdptJJ8HbSBQX/O+QvHQYRFVcRYSW4DeILFghp871mnW+JtpN
-         2zfpcEkIq7kRX9c032TIr28ej+iHP/LhGzGn616p188bJa8FXZVtZDmeJQ7v9+krUQz6
-         YW6A==
-X-Forwarded-Encrypted: i=1; AKwUvBzeSiF8pNjb5fwogKSd6O/afTbNWqskGJ9/UbswlRZjz1nhX5IjVvMaMLfYoKocgCQwNMNrHNCnuSXos7c=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/fXjtMCM+Cs2fiO2klWb5nkoGF7wSx0rQ9yvtF8MfBQ7J0NYk9
-	NJXC0aEM8fsEJk03bvWcAD+bB80EhHayyC1+f60lm4nY1jWqM7gQoh4th1XK42C6jysCz5fWOhu
-	Z4Vq94T2MKeo/FVras5VbDRTsZJQWoWw=
-X-Gm-Gg: AYBFou0siqrOBiSx6v9JPcHJhh4LfMdakZY1jvdYbxBZEqudpR7wUt0/h7IHIAPFT4Z
-	A0A4GGJma7oJO2BxEchBTS0YbTavBOAhT5JhDmu48E7io3el3NeJfi/1FDb6qZg3RF6SwndARuH
-	Aeingmzezr+DaHQIko1L6ZBA2XT/PuOzkvl5o3JMmKBNl7S1+MG3ji4WEQR5PzebAbPwAO2QSKU
-	dgz+jW+leDr450HaPLpxUxqkPh7TeciqABd+EZ3kbeKqgxl1UAB9a2oF8hsHDgwh7RbXYNCKhiV
-	M+TeTWf83E5nxcJSG7suVvaU5aCqRImESVO0NwPZe3yw6Ye2cFCX/FEqZ9+aF+/4wc6fHvIrin9
-	545cLeUYNjJ0n5Yrts7XoabdvGPM6lg/1+Eopv0I8rXjRFOR1JDhevnDzrFNzgRJLfT2zOvQ=
-X-Received: by 2002:a05:6402:a50b:10b0:6b4:27a:38f7 with SMTP id
- 4fb4d7f45d1cf-6b4d46841c0mr3680555a12.22.1793556191678; Sun, 01 Nov 2026
- 10:03:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=mg0iYvul
+ARC-Seal: i=1; a=rsa-sha256; t=1793556163; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jMfJx7mtJyvrl3hUMFXapoMuOUV0SW6njFh2wylHXITowpncs3kDe6RSZpctLhPcC9UEhO1QTHht9SG4glxsGPhwsiit30FYux7h73qov0oZbRkoE4u3+sh3V8090mGQMd470smDKWYoM2ceo9TvkH3iOAuvnIZdDf1eEJom+i8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1793556163; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=eXHwMW4V4v8WMpgUgtwJi5ivKtzvlCeyOpj5yYo5S2Y=; 
+	b=XGbUC6+DOYEYYsCfwCgdmiekVba2XSqAjiNBGyrv22DYhE8FP48ze15u/GyHx9YnWc2XOx33wseNndNH6n3ioyuTq1CW1pWAfS8aoh+e146eBqC3JCUyewwXZC/JUYbHI0whcGcbZ6wyjKbZ2TQONP73xYhVptEMsm/TD4SSrF8=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: a=rsa-sha256; b=mg0iYvul/EpjF52CrVKwuu2v4fCljaQRbvIOvjnfI8Ue5JzT5rpq++u7Mu8mvopHg3mnDNEVUnxlg7eJ0QWyUUJu9ijeqALN/upZmEMU1yUc6yg90bVkl25Ed5SW01CRJNaG+Q89G2yqUwoTf1XAxQZcKruQhhQEUN3dNqmgDsG0HKWulYx813jotdto6ZzDFbGXOq1UfbLSwaZUtTz8/DFUsGcp4jZCjGCn4fwfzoBZdvH/aphGb6Ak8T7OEs5Ls/rjQkZ6JEAq9LKmgVfwcIFbyFHbIBQLmUCLlcjshXJPu2+sQuApYPM80RvAPPvG9GZD7yugxrQl+NHaxPLVpQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=eXHwMW4V4v8WMpgUgtwJi5ivKtzvlCeyOpj5yYo5S2Y=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1793556161090217.19737328716076;
+	Sun, 1 Nov 2026 10:02:41 -0800 (PST)
+Message-ID: <0fd34add2ef37f6abcab1301f6249cc68423f148.camel@rong.moe>
+Subject: Re: [RFC PATCH 0/1] platform/x86: thinkpad_acpi: Add support for
+ auto keyboard backlight
+From: Rong Zhang <i@rong.moe>
+To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
+ <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
+ Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
+ <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
+ <hmh@hmh.eng.br>
+Cc: Vishnu Sankar <vishnuocv@gmail.com>, Vishnu Sankar
+ <vsankar@lenovo.com>,  Griffin Kroah-Hartman	 <griffin@kroah.com>,
+ ibm-acpi-devel@lists.sourceforge.net, Lee Jones	 <lee@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org,  Pavel Machek
+ <pavel@kernel.org>, platform-driver-x86@vger.kernel.org,
+ vishnuocv@gmail.com, vsankar@lenovo.com
+In-Reply-To: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
+References: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 01:57:33 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,118 +76,100 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101160427.85701-1-maxmuzaf@gmail.com>
-In-Reply-To: <20261101160427.85701-1-maxmuzaf@gmail.com>
-From: Kairui Song <ryncsn@gmail.com>
-Date: Mon, 2 Nov 2026 02:02:33 +0800
-X-Gm-Features: AclHuK-mBCMSO3NX7Gmc3L4MrGwIlRmJA-dre9im5G-WapDPHEKVriJE5cMlVMk
-Message-ID: <CAMgjq7AEf_cJsLw4fxs7m5ntYPW9mjCOC_-w5j6ihk8F=xLRWA@mail.gmail.com>
-Subject: Re: [RFC PATCH 0/1] mm/mglru: MADV_RANDOM page cache never ages and
- thrashes the oldest generation
-To: Maxim Muzafarov <maxmuzaf@gmail.com>
-Cc: linux-mm@kvack.org, Andrew Morton <akpm@linux-foundation.org>, 
-	Qi Zheng <qi.zheng@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, 
-	Barry Song <baohua@kernel.org>, Axel Rasmussen <axelrasmussen@google.com>, 
-	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>, 
-	Baoquan He <baoquan.he@linux.dev>, Baolin Wang <baolin.wang@linux.alibaba.com>, 
-	Yu Zhao <yuzhao@google.com>, Johannes Weiner <hannes@cmpxchg.org>, 
-	David Hildenbrand <david@kernel.org>, Michal Hocko <mhocko@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-On Mon, Nov 2, 2026 at 12:04=E2=80=AFAM Maxim Muzafarov <maxmuzaf@gmail.com=
-> wrote:
->
-> Hi,
+Hi Qiling,
 
-Hello Maxim!
+Thanks for working on this.
 
-> It looks like I've stumbled upon an awkward behaviour. When MGLRU is
+On Sun, 2026-11-01 at 18:01 +0800, Qiling Zhu wrote:
+> Hi Mark, Ilpo, Rong,
+>=20
+> Recent ThinkPads with an ambient light sensor (ALS) support an auto
+> mode for the keyboard backlight: the EC picks the backlight level
+> according to ambient light. The mode is EC keyboard backlight level 3,
+> above the two fixed levels exposed so far, and it is reachable only
+> through the Fn+Space shortcut, which is handled entirely by the
+> firmware. Userspace can neither select the mode nor observe whether it
+> is active.
+>=20
+> This series wires the auto mode up as a private hardware control
+> trigger, "tpacpi-kbd-auto", on top of the hw control trigger framework
+> that recently landed in mainline [1]. With it:
+>=20
+>   - selecting the trigger writes EC level 3 (auto mode on); writing
+>     "none" turns the backlight off
+>   - the trigger state (bracketed in the trigger sysfs attribute, and
+>     the new trigger_may_offload_to_hw attribute) is the userspace
+>     view of auto mode; reading brightness returns -ENODATA while
+>     auto mode is active, per the framework semantics
+>   - Fn+Space keeps cycling through levels and auto mode as before,
+>     and the trigger state now follows hardware-initiated transitions
+>     automatically
+>=20
+> This is the thinkpad_acpi counterpart of the ideapad-laptop wiring
+> from the same framework series, which is still queued; this patch
+> depends only on the LED core parts already in mainline and can be
+> applied independently.
+>=20
+> For background: the February discussion settled that auto mode must
+> not be exposed as a brightness value [2], but no agreement was
+> reached back then on how to expose it instead; the hardware control
+> trigger approach was established later by the framework series [1].
+>=20
+> Tested on a ThinkPad X1 Carbon Gen 14 (MT 21V8) running linux-next
+> next-20261030: 61 scripted user-visible assertions covering the
+> software paths, the Fn+Space event chain and the unchanged legacy
+> behavior, plus manual exercising of both the Fn+Space cycling and
+> desktop-environment brightness controls; checkpatch --strict clean.
+>=20
+> Deliberately unchanged (details in the commit message):
+>=20
+>   - max_brightness stays 2; auto mode is not multiplexed into the
+>     brightness value
+>   - writing 3 to /proc/acpi/ibm/kbdlight keeps returning -EINVAL
+>   - module unload still turns the keyboard backlight off
+>=20
+> Two open questions, the main reason for the RFC tag:
+>=20
+>   1. MLCG returns capability bits in the upper 16 bits; does one of
+>      them indicate auto mode support? If yes, I would gate trigger
+>      registration on it. Mark, does the EC documentation say?
+>   2. On models without an ALS, the EC behavior when asked for level 3
+>      via MLCS is unknown to me. If it is undefined rather than
+>      rejected, optimistic registration would need a rethink (e.g.
+>      DMI whitelisting).
+>=20
+> Rong, happy to rebase this on top of your series or fold it in, if
+> you prefer to keep both wirings together.
 
-You are not alone, I encountered same issue too :)
+(+CC Vishnu)
 
-> enabled, page cache faulted in through an MADV_RANDOM mapping goes into
-> the oldest generation, and the refaults land there at the same rate as
-> well. In my tests bpftrace shows the generations stay at seq 0-3, with
-> no aging attempts and no new generations during the workload run, and
-> /sys/kernel/debug/lru_gen_full shows for generation seq 0 15758245
-> pages evicted and 15580028 pages refaulted, which is 98.87%.
->
-> At the same time, a file read through a normal mmap lands one
-> generation higher and none of its pages are evicted. It stays cached
-> until the end of the workload, and the randomly read working set
-> shrinks. With lru_gen disabled, the CLRU evicts the file
-> instead, and throughput recovers 20-30 seconds after the file was read.
-> I would expect the same behaviour for MGLRU.
->
-> I first saw this slowdown on a single-node OpenSearch 3.6 (Lucene 10.4)
-> HNSW vector search workload [1]. The node had about 2.8 GiB of page
-> cache for a 2.9 GiB index, and Lucene maps the .vec and .vex files with
-> MADV_RANDOM. Kernel 7.2.10-200.fc44.aarch64.
->
-> Search latency and throughput on a single-node OpenSearch:
->
->                          MGLRU on   MGLRU off
->   p50, ms                   286.0        73.6
->   p90, ms                   512.1       135.6
->   p99, ms                   687.0       191.0
->   queries/s                  27.4        87.1
->
-> Disk reads, same runs:
->
->                          MGLRU on   MGLRU off
->   major faults/query         1484         325
->   disk reads/query           1484         325
->   read size, KiB              4.0         4.0
->   disk read, GiB/run        509.6       111.5
->
-> This is clearly visible on the page cache chart [2], where "blue" are
-> page cache pages mapped into at least one process's address space and
-> "orange" the rest of the page cache.
->
-> Then I reproduced it with a synthetic HNSW-like query script in python,
-> and later with fio alone, on 7.2.10-200.fc44.aarch64, 7.2.14, 7.2.14
-> with the MGLRU-FG v4 series [3][4], and on mainline v7.3-rc7.
+AFAIK, Vishnu is also working on adding the same support using the hw
+control trigger framework. Maybe they can answer your questions or
+integrate your patch into theirs.
 
-The missing piece here is refault distance. Both MGLRU and CLRU ignore
-hotness on eviction for vma_has_recency() =3D=3D false case, however, CLRU
-still has refault distance protection, while MGLRU doesn't.
+Thanks,
+Rong
 
-I observed a similar issue, which disappeared after we added refault
-distance for MGLRU.
-
-There is an early version of FG that have it:
-https://lore.kernel.org/linux-mm/20260502-mglru-fg-v1-0-913619b014d9@tencen=
-t.com/
-
-See this patch, it too long so I have to split it out and dropped it
-for later version:
-https://lore.kernel.org/linux-mm/20260502-mglru-fg-v1-30-913619b014d9@tence=
-nt.com/
-
-This code snip:
-+ /* Set refault as active. */
-+ if (distance < total / 2) {
-+ folio_set_active(folio);
-
-I may change it to something like
-folio_set_lru_refs(LRU_REFS_WORKINGSET) later for non in-fault case
-cause this kind of break FG for other cases.
-
-That way, even a random folio will be put to the head directly instead
-of keep thrasing on tail. And placing on head or newer gen will trigger agi=
-ng.
-
-I think I got the problem right? I'll run your benchmark too a bit
-later, still tweaking it for some other issues. The refault distance
-part needs some rebasing and tweaking as it will have chemical
-reactions with many other MGLRU components and it may not work as
-expected yet (I also need to use it for an MRU fallback, because, in
-theory a pure random case may benifit more from fallback to MRU
-stragegy, but your case is a hybrid of hot random and cold non-random,
-so a bit tricky to get it right)...
-
-(And we may also loose lru_gen_in_fault for refault case? Not sure...)
-
-But I think we are getting there :), and your report is a really nice case!
+>=20
+> Comments welcome.
+>=20
+> Regards,
+> Qiling Zhu
+>=20
+> This patch was developed with LLM assistance; I reviewed every design
+> decision against the framework sources and validated the behavior on
+> real hardware myself.
+>=20
+> [1] https://lore.kernel.org/r/20260618-leds-trigger-hw-changed-v2-0-c28c4=
+4053cf3@rong.moe/
+> [2] https://lore.kernel.org/r/20260203232219.11683-1-vishnuocv@gmail.com/
+>=20
+> Qiling Zhu (1):
+>   platform/x86: thinkpad_acpi: Add support for auto keyboard backlight
+>=20
+>  drivers/platform/x86/lenovo/Kconfig         |   1 +
+>  drivers/platform/x86/lenovo/thinkpad_acpi.c | 104 ++++++++++++++++----
+>  2 files changed, 88 insertions(+), 17 deletions(-)
