@@ -1,87 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793570947;
-	b=jx3aKnr67fHpPbh3EPrcqk+zX/KONrOPGIijoJ9G959eWtyNH5bKlK5IKkcGDYs2/oud
-	 dM48IyqbdPSLuJzeVtgd+GcfBiBuEoZr3syEhk+X7BezJYu7BcGE0s5J6JAtwGbxG9MMi
-	 P8wx9HRP/OSU9brg8R3yoCvKfLmarEUjjWH3HrFN0vUej7Nek84O7KJE6OYwW3rHyjHXO
-	 kzuS0ldQSCf+64ivPHWXt84PHl+52/l0eOnll/Jgxb5tDal5ZmN0pOAfYZ1GFahLl0qMj
-	 w2xHM93x1AkTIblEQxuuCRHp3db9WRVQ4f7awuG1OBDGnJZW4bdYrTsDb8xwNg/RaXA==
+	t=1793571042;
+	b=Ce1C6iuHHvozS3URqU7K2BaWhH9fKfMXvSskp9QEux/mDLvS0bgideOEULCXYg8ls6ej
+	 3ekSagtf5d2odkrlZz9TO7U8M6I4onSToLb1nIjqmKFQG4pS/lG3ITXECHJtrbN1/Pzy2
+	 1N2xQ0nEcFhNtVrYvm6hreX3QeZfGIARils5qfK4XfAgp2BVuHDwaEVYELNROf7ioiNGy
+	 WaSnhzZDt19JIozKdR92OXPZEf1cI0d+juYAlDxLJS3Yql4HSr+JLvjaGIWs5cr5Jn0N1
+	 C3QkrckclDGpFvod47LnEG0Hu5pFDpgo2jgXgjrqDvaYTOiIFR4t0bpy7SWXCmfIFuw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793570947;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571042;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:Received:X-Received:
-	 MIME-Version:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
-	 Message-ID:Subject:To:Content-Type:Content-Transfer-Encoding;
-	bh=d+JZwGp5ia2Bi6kVNWZy36BJIsvEKHikXXVfRDh1Yrk=;
-	b=ivcSH7EgW6qYQb9NKHOnX6ra0P+pFAK+rqlqvCvZk6LUOXSHlWxvY71LNwXrerQv48Zs
-	 OkE3hL/i+rp+lD57dB8d+4eQbi2lqXizGqJM0MWoNN0wP1X6di1iwHmXNFC8dpuZEkce7
-	 bItO6uqjJtY0CYPHTeHRcEn/2OnGKrYx/swr8GU51xhB4x+0D+JlSg2GMz78oo7eRyaAq
-	 RZksaevafgITUFsWEHAKhttHr5GtIoJcX/1C5k7jv/quEDUc8onD63xm0pqD9mxrcii9L
-	 TMz/W5LeMU4l/YlEkGGeOXwnsvYHwijEuaQUEE14RVrWcxreLcaADtdEI6Ux/hmKGqw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
+	b=gyLQ4o7cdyW2xgwURC/VX9hAc8YIMh6GNQReLmKZU+IJ3tqpKN/OPPxbOdYBTUp4z4yo
+	 de/Xhv4CGXFWS49QbnMMOFRQRXa11j9/JHQExLp1uZrEzKrV/jF7oVL7uXE49WjJUnOrH
+	 Zh9LZ3I22U7tu5oXK1OgQhG6kJJxod/n7y4D+VZ1XdTf7sluHW4Ih7sMNWFO5DcawFo2J
+	 HC+vycHSXbxRLGNek9aCKn0LsiMkABwUDYVMwy213LGCCJNz+kUdJNUsIEI/L92PlyM3c
+	 445721rHTKnlLHsPXOQtZiYpyM7urTIDWJg97Tr5izMlXNuKbGcGv5AfmtpYm0jM4sg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux-foundation.org;
-	spf=pass smtp.mailfrom=linuxfoundation.org;
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=PkvUgv8D;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	dmarc=pass header.from=chromium.org;
+	spf=pass smtp.mailfrom=chromium.org;
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nZ+JJpkL;
+	arc=none smtp.remote-ip=209.85.167.48
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA699606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:09:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA699606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75981606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:10:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75981606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=PkvUgv8D
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so3338907a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:09:05 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=nZ+JJpkL
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso2691114e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:10:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linux-foundation.org; s=google; t=1793570944; x=1794175744; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=d+JZwGp5ia2Bi6kVNWZy36BJIsvEKHikXXVfRDh1Yrk=;
-        b=PkvUgv8DfqtFx4UN8utQn4URJ/YJjwHeEORUjqzYPWNHzKto9B8rfqTs+cwumDZZ+N
-         jIx+czahDf6mLahJl28v3oZwc4FG6+xVnmVTLm3S8CyoVayWQZXxApNlfrixQaD8bVUP
-         AjKne45cNy0PnLi0zjzfWBwmlBMA9lnBYpPbY=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793570944; x=1794175744;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=chromium.org; s=google; t=1793571040; x=1794175840; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=d+JZwGp5ia2Bi6kVNWZy36BJIsvEKHikXXVfRDh1Yrk=;
-        b=pL//kiysCWjWsbQcE9wvp1G5RrpM4Vkrk2AMJV861Cwj+fzqPD2uC/dCtfqbXxOBHJ
-         h6JoInohFcLKczdRvelvue/JV2hrqa/7amByKEsj1AUydmvlCuIy2JDRr7C6Iavvxcfv
-         JAOPR3BDZOfLc4h4+b9ubvaG16rbPTF4l1AxfODQ9z+0T4PkiTPaU4GjZyubAkeNAnBm
-         okXrhNn9grvW/bolg6ok7wI1KBrUHPwWXG9BHaB1gC5iOtj+WVo/aq/oxbwAF8aAWX9X
-         Da2NDNdlOiTBZJdGK4A3vCFUK7nirNCYvGcgDSYkRcTBbhWbJUWj4+ZF4tUJKkP2P50J
-         rsKQ==
-X-Gm-Message-State: AFq9FYKVOMWlth1HmwNLC9ddNjsZLA5bku7X8sc5fZJy6c8EViXeRgCs
-	+KFJ+0bD5LBdxVGLw+s+kydwwqR46tN1VQ4YHuPJHJp3+PrgijRpUEfv7sl21Yf0POH5PLlIp1Y
-	FH0EUbXA=
-X-Gm-Gg: AYBFou2wKML+nxbqgRkfTrmspmY/1b22NEKn/o2JUJemCLajMBC4zq6jtDNtzxCDeyn
-	CA/+FCQb3VPZIvWaP1aX1qGjDo3ivemVQeHs1gajZ1UKJSTz7PzLZ6tFeN0Y2h/jae4kRE98i1Z
-	C3TByxjoWAeY0OJDLArsjBk/XGDVuZ3SvkBg/cD7KJ/t5t6Eo4x2XC4+CPx9jVhZU4Sl/aRJY/5
-	KyJeZDwbCMdqTqGyW2Yz0r6rquyDv9umc5e3g3aBHSKhLq9jJOlGycsp0d83gymAFpK4D7SEKLE
-	2JdiLuj9IxOiVR8r646RFbEjSkyqZsWOeUsxBK3JmOh/n9RQqVnJuspFo8V3kZ4n2Xpb/96UXGm
-	oFTc9ZmU8IepxhtvMDoXBAp4X4HK4PmAqYeyB6VjO95Bv8qtHqTeziCB06jKqkTWj+WHJiTRxTb
-	qFNCMVlOBE5y6ulfhSP05xneMfoZ8AX2bFxT0nKzX1kzb7K02DzZB1FotnU5w0CUJvEv4fXDZMu
-	NxOdnqYeIc239DnVyBKqq0EW3RGKBui5QNq5kIOa+RqRjOV9pnrfIIehC9xp4yB/PexNuD2ZcBZ
-	6QHhfv1ErAIwrqP+hO//mq7DT7TQXEPwp458cVw5lUyyx+xU2bB/UanLnB8zk/MkUeoZexWHUnR
-	ANA==
-X-Received: by 2002:a17:907:3e9a:b0:c46:645f:cee2 with SMTP id a640c23a62f3a-c4ca7948557mr670696266b.4.1793570943872;
-        Sun, 01 Nov 2026 14:09:03 -0800 (PST)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com. [209.85.208.49])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabf32384sm324238366b.84.2026.11.01.14.09.03
+        bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
+        b=nZ+JJpkLM6mtA/wjHmztmGIPrLfzwCuV306aXf0IV5HMxIwy0K8UWMQOWwDVQi5EE4
+         VWcEqnYMK7VtpNtglKArSMuP0+7Tf0hpwjR7vxQdZ/t6JBrlex4jhEOXWpBBQha9phoh
+         FCHEP7ivwekf3JiC4ikWkfkHLYPjx0+QwNG8c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793571040; x=1794175840;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c5dfra6mnkj3XXcKxeo1MNyxkDUwNUZ/PcTct9GIh04=;
+        b=hzEbRVAwWEJedL/6RBLboJRcDFvuhFs+2othICBobrE12ptb8FOWCUMGWzrEwnNQ5x
+         RMHy0CzGt13TQWGpPji7wulRQkcrZgu88c8CnUrqmg69h5cM95T30ILjt17MCXXK8dai
+         5sEDk+gj/lstm8s7MNReW1gg6KBznyDmQGVcnj6pwiBIKP80uDJa+peTBBgPkNlBs9cj
+         yB8pntr3m0RqmHTkjvhpe5iUSiXISfFPFxdrs/mY4xQMzFgTneGgUVpSMFnkWYgBPyrj
+         dV0XikedvIU93TBcXZiKAZdVOhQnHKikQfZ/KD/Z48T3e/QPZfsDxxmR6Z9rmi8KjO/T
+         yW0A==
+X-Forwarded-Encrypted: i=1; AKwUvBz9xg7ulL+oF6MYbQyK3j32H6uCl72tvfZRbAJ8TBKgREhCPEvbyhrt8Eg1dhNTYBXP2iqOG2rrM47X0fY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z88cZOLRODYbyWGK0isnWN08M1JT/eSW2R1HPEkvGYUum69PDqx
+	cjOG+UTui0WnWiXWg5QwbYFQKlRPA+KluA6vGhHMIgBtHJ8bmNQveKM784GX93XupPXkFIOW4k3
+	9NYpX9UqB
+X-Gm-Gg: AYBFou0OoVC+dQgMVmcTPw04LYpr6mB549k1B5O3AqQ1b5m4ts+YhS3Vrv16YEE1sFx
+	ijXqT7i95UoJ6SIsjDs9C7EV4f7T2LBtMBFBrIwA7VUT6UJL/tb9VDxvdRauRy0o9ODPXOMDBeY
+	o9EV+nQBUF25f8MrF8qJJnzGka6HfWM8udjztFg7Xles/RSWKH7J/vcqfAUgJ0nFq39Bvo2q5fC
+	0K/hBA10sorSzothUW6TINgqP4+MnxkJP62X/XEpeVYzsVD0IqR2B75Szso3ZgDNy60dk0Pvobk
+	+wnQwpF4j4FmX6SUxvho10dHrwUQd4aDVzSlo3y0pBNr9k6XSFgd667cTTF+RGaoTCsJIgHruqV
+	kfjrXjwFF/2ZBmnQ5eZwqho+lZqCharXlRr2+zJaFjw2sWoDR+gymG+YST1Bh8HzxAP1njDYC49
+	JwIPRjxNPo7oB1af4mp6dbK7O59yWxGmZHHo5QP+KL8g8P+ya7LckTTMD/WtrI3pzQrAATW4Rzc
+	3I/WGRwJPArdeZExMTTFt0q5C6CQdhRa89h6f6OnRkXL8GIlr+1+o/sBl9wTwY6Q5YJi13P5zLD
+	6FfsR0BxJc8Aioie6xR6v7q14AXAhUJ1vqF3uBJ/2Vyxv5E8eB84VpYLEq94JMRJTWuLWEtIMY3
+	K14uQuesXBsgQ
+X-Received: by 2002:a05:6512:3056:b0:5ba:418e:9913 with SMTP id 2adb3069b0e04-5bfd957e7b6mr2848823e87.62.1793571039572;
+        Sun, 01 Nov 2026 14:10:39 -0800 (PST)
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com. [209.85.167.41])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe0babd6esm1268999e87.43.2026.11.01.14.10.39
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 14:09:03 -0800 (PST)
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6b1aa2848d2so3338896a12.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:09:03 -0800 (PST)
-X-Received: by 2002:a05:6402:90c:b0:6b4:5a9c:4e44 with SMTP id
- 4fb4d7f45d1cf-6b4d5256569mr5350632a12.37.1793570942806; Sun, 01 Nov 2026
- 14:09:02 -0800 (PST)
+        Sun, 01 Nov 2026 14:10:39 -0800 (PST)
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5ba3ac592faso2691105e87.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:10:39 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBxFz7JxSHehaW3XzN4TwBq2ux8a6rn13Q3QZFD/10/3236DAcEX2ie9hH+AE8JscFbtfDR4Vx9zSdv+b40=@vger.kernel.org
+X-Received: by 2002:a05:6000:2c0f:b0:48b:68:594a with SMTP id
+ ffacd0b85a97d-48e6e2e7798mr18180529f8f.12.1793570721533; Sun, 01 Nov 2026
+ 14:05:21 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,559 +95,185 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Sun, 1 Nov 2026 14:08:46 -0800
-X-Gmail-Original-Message-ID: <CAHk-=whOCnAwXz-FMRdQEDJQ+9b2YXh9M=GHgRay0o4cxSmPVg@mail.gmail.com>
-X-Gm-Features: AclHuK8npSnr7tX2pgbQ3Nl5k6_sRef3kPoEHUcop6fQhdxGjagdAEzOauEo9mM
-Message-ID: <CAHk-=whOCnAwXz-FMRdQEDJQ+9b2YXh9M=GHgRay0o4cxSmPVg@mail.gmail.com>
-Subject: Linus 7.4-rc1
-To: Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+References: <20261028215600.1713475-1-dianders@chromium.org>
+ <20261028215600.1713475-7-dianders@chromium.org> <auR-OXOpim7dVTpH@gractus.seuss>
+In-Reply-To: <auR-OXOpim7dVTpH@gractus.seuss>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sun, 1 Nov 2026 14:05:09 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
+X-Gm-Features: AclHuK9b_8waCxraHHPdtbLhS5x_dJgluJUdAHgQfu4VL-m5sl2trg3HRikQmXo
+Message-ID: <CAD=FV=WLMKquyc_j+gwF5Oz028=yddiq83o2tSCBWcJgTDs8xw@mail.gmail.com>
+Subject: Re: [PATCH v2 06/10] libfdt: overlay: Update base /__local_fixups__
+ on apply
+To: David Gibson <david@gibson.dropbear.id.au>
+Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Brian Norris <briannorris@chromium.org>, 
+	Chen-Yu Tsai <wenst@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Devicetree@vger.kernel.org, Simon Glass <sjg@chromium.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, linux-kernel@vger.kernel.org, 
+	Julius Werner <jwerner@chromium.org>, Saravana Kannan <saravanak@kernel.org>, 
+	Peter Griffin <peter.griffin@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-It's Sunday afternoon, two weeks have passed, and I've pushed out -rc1.
-
-I still have two pull requests in my inbox that I'm still thinking
-about, but I didn't want to delay -rc1 just because I'm vacillating,
-so they may or may not end up showing up in rc2.
-
-This is a *BIG* merge window. I think the reason is the by now obvious
-one, but I'm actually taking it as a good sign: I'm *much* happier
-with the flood of AI triggered work going into the merge window than
-it showing up mainly as extra fixes during the -rc period. So I'm
-hoping that this merge window being larger than usual is a sign that
-the AI fixes are becoming more part of the "normal development" than a
-flood of fixes that go into the whole stabilization phase. I think
-that's a much healthier model. But we'll see how the -rc's look.
-
-That said, a small part of the "this is a big merge window" may also
-be that people are expecting 7.4 to be the next LTS release, which is
-another independent reason why some releases tend larger than others.
-So it may not *just* be the flood of AI patches.
-
-Whatever the reason(s) for a big release, it's huge both in commits -
-almost 20k commits vs the more common ~15k - and as a diff. Although
-the diff is large partly for the other traditional reason: yet another
-AMD hardware register dump into huge headers. A full third of the
-patch is just AMD GPU register offsets and bit masks. We've been here
-before, and I'm sure we'll see it many times again in the future. Just
-ignore the noise.
-
-And if you *do* ignore that noise, it all looks fairly normal. Large,
-and full of fixes for issues found by AI (and more and more the
-patches have been suggested by AI too, although they often get
-rewritten). But not otherwise looking very strange. About half drivers
-(again, ignoring the AMD GPU headers - if you don't, it's more like
-2/3rds drivers), with the rest being spread all over, and in the usual
-places. Architecrture updates, filesystems (both core vfs layer and
-individual low-level filesystems), tooling (mainly perf, and also a
-lot of selftest updates). and core kernel (networking, rust, bpf, mm:
-a little bit of everything).
-
-And even more than usual, you don't want to see the shortlog. Being a
-large merge window means that just the "shortlog" is 24k lines and
-1.2MB total. So below is my usual merge summary, which will act as a
-kind of high-level overview of the areas that have changed. You'll
-need to get the git tree for full details (or more likely, to then
-look at the particular areas you are interested in).
-
-                  Linus
-
----
-
-Alex Williamson (1):
-    VFIO updates
-
-Alexandre Belloni (2):
-    I3C updates
-    RTC updates
-
-Alexei Starovoitov (2):
-    bpf updates
-    bpf fixes
-
-Alison Schofield (1):
-    NVDIMM and DAX updates
-
-Amir Goldstein (1):
-    overlayfs fixes
-
-Andi Shyti (2):
-    i2c updates
-    more i2c updates
-
-Andreas Gruenbacher (1):
-    gfs2 updates
-
-Andrew Morton (3):
-    MM updates
-    non-MM updates
-    more MM updates
-
-Andy Shevchenko (1):
-    auxdisplay updates
-
-Anna Schumaker (1):
-    nfs client updates
-
-Ard Biesheuvel (1):
-    EFI updates
-
-Arnaldo Carvalho de Melo (1):
-    perf tool updates
-
-Arnd Bergmann (4):
-    SoC devicetree updates
-    SoC driver updates
-    SoC defconfig updates
-    ARM SoC board file updates
-
-Bartosz Golaszewski (3):
-    power sequencing updates
-    gpio updates
-    gpio fixes
-
-Bjorn Andersson (2):
-    remoteproc updates
-    rpmsg updates
-
-Bjorn Helgaas (1):
-    PCI updates
-
-Borislav Petkov (10):
-    EDAC updates
-    x86 asm update
-    x86 CPU speculation updates
-    x86 resource control updates
-    x86 cleanups
-    x86 cpu feature updates
-    x86 FPU state updates
-    x86 platform updates
-    x86 SEV updates
-    x86 boot updates
-
-Breno Leitao (1):
-    configfs updates
-
-Carlos Maiolino (1):
-    xfs updates
-
-Catalin Marinas (2):
-    arm64 updates
-    arm64 fixes
-
-Christian Brauner (21):
-    ipc fix
-    namespace updates
-    signal handling updates
-    bfs removal
-    buffer_head updates
-    binfmt updates
-    close_range updates
-    coredump updates
-    file table updates
-    vfs idmap constification
-    iomap updates
-    kernfs updates
-    path lookup updates
-    misc vfs updates
-    mount updates
-    netfs updates
-    pidfd updates
-    superblock updates
-    file closing updates
-    vfs keyring updates
-    vfs fixes
-
-Chuck Lever (1):
-    nfsd updates
-
-Daniel Thompson (1):
-    kgdb updates
-
-Danilo Krummrich (3):
-    driver core updates
-    driver core fixes
-    more driver core fixes
-
-Dave Airlie (2):
-    drm updates
-    drm fixes
-
-Dave Hansen (4):
-    x86 kdump update
-    x86 microcode loader update
-    x86 mm updates
-    x86 TDX updates
-
-Dave Jiang (1):
-    CXL updates
-
-David Hildenbrand (1):
-    core memory management updates
-
-David Sterba (3):
-    btrfs updates
-    affs updates
-    more btrfs updates
-
-David Teigland (1):
-    dlm updates
-
-Dinh Nguyen (1):
-    NIOS2 update
-
-Dipen Patel (1):
-    hte updates
-
-Dmitry Torokhov (1):
-    input updates
-
-Eric Biggers (5):
-    crypto library updates
-    fscrypt updates
-    fsverity updates
-    fscrypt fixes
-    fsverity fixes
-
-Fan Wu (1):
-    IPE updates
-
-Frederic Weisbecker (1):
-    kthread fix
-
-Gao Xiang (2):
-    erofs updates
-    erofs fixes
-
-Geert Uytterhoeven (1):
-    m68k updates
-
-Greg KH (4):
-    staging driver updates
-    tty / serial driver updates
-    USB / Thunderbolt update
-    Char/Misc/IIO/others driver updates
-
-Greg Ungerer (1):
-    m68knommu updates
-
-Guenter Roeck (2):
-    watchdog updates
-    hwmon updates
-
-Harry Yoo (1):
-    slab updates
-
-Heiko Carstens (1):
-    s390 updates
-
-Helge Deller (3):
-    fbdev updates
-    parisc updates
-    more fbdev updates
-
-Herbert Xu (1):
-    crypto updates
-
-Huacai Chen (1):
-    LoongArch updates
-
-Ilpo J=C3=A4rvinen (1):
-    x86 platform driver updates
-
-Ilya Dryomov (1):
-    ceph updates
-
-Ingo Molnar (12):
-    scheduler updates
-    locking updates
-    objtool updates
-    perf events updates
-    kexec / irq fix
-    perf events fixes
-    scheduler fixes
-    timer fixes
-    x86 fix
-    misc irqchip fixes
-    timer fixes
-    scheduler fix
-
-Jaegeuk Kim (1):
-    f2fs updates
-
-Jakub Kicinski (1):
-    networking fixes
-
-James Bottomley (2):
-    SCSI updates
-    more SCSI updates
-
-Jan Kara (2):
-    fsnotify updates
-    ext2, isofs, udf and quota updates
-
-Jarkko Sakkinen (2):
-    keys updates
-    TPM updates
-
-Jason Gunthorpe (4):
-    TSM update
-    iommufd updates
-    rdma updates
-    fwctl update
-
-Jassi Brar (1):
-    mailbox updates
-
-Jens Axboe (5):
-    io_uring updates
-    block updates
-    io_uring dma-buf support
-    io_uring fixes
-    more block updates
-
-Jiri Kosina (1):
-    HID updates
-
-Joel Granados (1):
-    sysctl updates
-
-Joerg Roedel (1):
-    IOMMU updates
-
-Johannes Berg (1):
-    UML updates
-
-John Johansen (1):
-    AppArmor fixes
-
-John Paul Adrian Glaubitz (1):
-    sh updates
-
-Jonathan Corbet (2):
-    documentation updates
-    more documentation updates
-
-Juergen Gross (1):
-    xen updates
-
-Kees Cook (3):
-    pstore updates
-    seccomp updates
-    hardening updates
-
-Konstantin Komarov (1):
-    ntfs3 updates
-
-Lee Jones (3):
-    MFD updates
-    LED updates
-    backlight updates
-
-Len Brown (1):
-    x86 power utilities updates
-
-Linus Walleij (1):
-    pin control updates
-
-Madhavan Srinivasan (1):
-    powerpc updates
-
-Magnus Lindholm (1):
-    alpha updates
-
-Marco Elver (1):
-    KCSAN updates
-
-Marek Szyprowski (1):
-    dma-mapping updates
-
-Mark Brown (6):
-    regulator updates
-    spi updates
-    regmap updates
-    regmap fix
-    regulator fix
-    spi fixes
-
-Masami Hiramatsu (3):
-    probes updates
-    bootconfig updates
-    bootconfig fix
-
-Matt Turner (1):
-    alpha floating point emulation fix
-
-Mauro Carvalho Chehab (2):
-    media updates
-    media update
-
-Max Filippov (1):
-    xtensa updates
-
-Michael Tsirkin (1):
-    vhost,virtio updates
-
-Michal Simek (1):
-    arch/microblaze updates
-
-Micka=C3=ABl Sala=C3=BCn (1):
-    Landlock update
-
-Miguel Ojeda (2):
-    Rust updates
-    Rust fixes
-
-Mike Marshall (1):
-    orangefs updates
-
-Mike Rapoport (3):
-    memblock updates
-    kexec updates
-    liveupdate updates
-
-Miklos Szeredi (1):
-    fuse updates
-
-Mikulas Patocka (1):
-    device mapper updates
-
-Mimi Zohar (1):
-    IMA updates
-
-Miquel Raynal (1):
-    MTD updates
-
-Namjae Jeon (4):
-    smb server updates
-    exfat updates
-    ntfs updates
-    smb server fixes
-
-Nathan Chancellor (2):
-    Kbuild / Kconfig updates
-    Kbuild fixes
-
-Niklas Cassel (1):
-    ata updates
-
-Paolo Abeni (1):
-    networking updates
-
-Paolo Bonzini (2):
-    KVM updates
-    more KVM updates
-
-Paul McKenney (3):
-    two-byte cmpxchg emulation
-    RCU updates
-    CSD lock updates
-
-Paul Moore (3):
-    audit updates
-    selinux updates
-    lsm updates
-
-Paul Walmsley (1):
-    RISC-V updates
-
-Paulo Alcantara (2):
-    smb client updates
-    smb client fixes
-
-Petr Mladek (2):
-    printk updates
-    livepatching updates
-
-Petr Pavlu (1):
-    module updates
-
-Rafael Wysocki (6):
-    ACPI support updates
-    power management updates
-    thermal control updates
-    ACPI support fixes
-    power management fixes
-    thermal control fixes
-
-Rob Herring (1):
-    devicetree updates
-
-Russell King (1):
-    ARM updates
-
-Sebastian Reichel (1):
-    power supply and reset updates
-
-Shuah Khan (2):
-    kselftest updates
-    kunit update
-
-Stephen Boyd (1):
-    clk updates
-
-Steven Rostedt (6):
-    runtime verifier updates
-    RTLA tooling updates
-    ftrace updates
-    ring-buffer updates
-    tracing updates
-    ktest updates
-
-Takashi Iwai (2):
-    sound updates
-    sound fixes
-
-Takashi Sakamoto (1):
-    firewire updates
-
-Ted Ts'o (1):
-    ext4 updates
-
-Tejun Heo (5):
-    workqueue updates
-    cgroup updates
-    sched_ext updates
-    cgroup fixes
-    sched_ext fixes
-
-Thomas Bogendoerfer (1):
-    MIPS updates
-
-Thomas Gleixner (6):
-    irq updates
-    irq chip driver updates
-    clocksource updates
-    timer core updates
-    NOHZ updates
-    VDSO updates
-
-Thomas Wei=C3=9Fschuh (1):
-    nolibc updates
-
-Tzung-Bi Shih (2):
-    chrome platform updates
-    chrome platform firmware loader updates
-
-Ulf Hansson (2):
-    MMC updates
-    pmdomain updates
-
-Uwe Kleine-K=C3=B6nig (1):
-    pwm updates
-
-Viacheslav Dubeyko (2):
-    nilfs2 updates
-    hfs/hfsplus updates
-
-Vinod Koul (3):
-    soundwire updates
-    phy updates
-    dmaengine updates
-
-Wei Liu (1):
-    hyperv updates
-
-Yury Norov (1):
-    bitmap updates
+Hi David,
+
+On Fri, Oct 30, 2026 at 3:24=E2=80=AFAM David Gibson
+<david@gibson.dropbear.id.au> wrote:
+>
+> On Wed, Oct 28, 2026 at 02:55:56PM -0700, Douglas Anderson wrote:
+> > When `fdt_overlay_apply()` merges an overlay into a base device tree, i=
+t
+> > updates `/__symbols__` in the base tree if present, but previously left
+> > the base tree's `/__local_fixups__` node untouched.
+> >
+> > Add `overlay_local_fixups_update()` so that when the base tree contains
+> > a `/__local_fixups__` node, `fdt_overlay_apply()` updates it to reflect
+> > the applied overlay:
+> > - For each fragment in application order, any local fixup properties in
+> >   the base tree's `/__local_fixups__` that correspond to properties
+> >   overwritten by that fragment are cleared first.
+> > - Local phandle references from that fragment's subtree under the
+> >   overlay's `/__local_fixups__/<fragment>/__overlay__` are merged into
+> >   the corresponding target path under the base tree's
+> >   `/__local_fixups__`.
+> > - External phandle references for that fragment from the overlay's
+> >   `/__fixups__` (which are now resolved to local phandles in the merged
+> >   base tree) are added in sorted order to the base tree's
+> >   `/__local_fixups__`.
+> > - Any subnodes under the base tree's `/__local_fixups__` that become
+> >   empty after clearing overwritten properties are pruned.
+> >
+> > If the base tree does not have a `/__local_fixups__` node, nothing is
+> > added.
+>
+> So, this turned out to be substantially more involved than I realised.
+> I wonder if it might be better to make --strip-locals the default, and
+> only add support for preserving the local fixups as a later extension.
+
+In v3 I went ahead and addressed all of your and Simon's review comments on
+this patch (which also trimmed ~80 lines of C from `fdt_overlay.c`).
+
+To address Simon's point about code size in constrained environments like
+U-Boot SPL, I also gated `/__local_fixups__` handling in
+`fdt_overlay_apply()` behind a 3-state compile-time
+`FDT_OVERLAY_LOCAL_FIXUPS` option in `libfdt/libfdt_internal.h`:
+
+- `0` (`FDT_OVERLAY_LOCAL_FIXUPS_IGNORE`): Leave `/__local_fixups__`
+  untouched. I made this the `#ifndef` fallback in `libfdt_internal.h` so
+  that embedded projects that vendor `libfdt` directly get zero code-size
+  increase and zero behavior change unless they opt in.
+- `1` (`FDT_OVERLAY_LOCAL_FIXUPS_STRIP`): Delete `/__local_fixups__` from
+  the base DTB if present (~50 bytes of code), so a stale/half-working
+  `/__local_fixups__` node isn't left behind in the merged tree.
+- `2` (`FDT_OVERLAY_LOCAL_FIXUPS_UPDATE`): Fully update `/__local_fixups__`
+  in the base DTB. This is enabled by default in `dtc`'s Meson
+  (`-Doverlay-local-fixups=3D2`) and Make (`OVERLAY_LOCAL_FIXUPS=3D2`) buil=
+ds
+  for desktop tools and tests.
+
+Even when `fdtfactor -S` is used, we actually do need `fdtoverlay` to
+update `/__local_fixups__` for two reasons:
+
+1. **Kernel composite DTBs (`foo-dtbs :=3D base.dtb bar.dtbo`)**: In the
+   Linux kernel build (`scripts/Makefile.dtbs`), many upstream boards are
+   built as composite DTBs using `cmd_fdtoverlay` (`fdtoverlay -i base.dtb
+   -o foo.dtb bar.dtbo`) *before* `fdtfactor` runs on them. As Simon
+   pointed out on the kernel series [1], if `fdtoverlay` left
+   `/__local_fixups__` untouched (`IGNORE`), `foo.dtb` would still have
+   `base.dtb`'s `/__local_fixups__` node (missing all phandle references
+   from `bar.dtbo` and retaining stale offsets for any overwritten
+   properties), causing `fdtfactor` to silently miss or corrupt phandle
+   references when factoring `foo.dtb`. And if `fdtoverlay` stripped
+   `/__local_fixups__`, `foo.dtb` wouldn't have `/__local_fixups__` at all
+   and `fdtfactor` wouldn't be able to factor any composite DTB.
+2. **`fdtfactor` self-tests**: Since `fdtfactor` inputs are compiled with
+   `dtc -@ -L`, having `fdtoverlay` update `/__local_fixups__` lets the
+   test suite directly verify with `dtbs_equal_unordered` that recombining
+   `base.dtb` + `board.dtbo` produces an exact match for the original input
+   `.dtb` (including all phandle fixup metadata).
+
+Let me know if you're happy with this approach (or if you'd prefer a
+different `FDT_OVERLAY_LOCAL_FIXUPS` default)!
+
+[1] https://lore.kernel.org/all/CAFLszTiVvuaMUsRHjhRTFxFf8Q2hbN1a1K-G=3DQFv=
+4DyXNpWY6w@mail.gmail.com/
+
+
+> > diff --git a/libfdt/fdt_overlay.c b/libfdt/fdt_overlay.c
+> > index a19eb1bc4bd8..bf1b9044ff2a 100644
+> > --- a/libfdt/fdt_overlay.c
+> > +++ b/libfdt/fdt_overlay.c
+> > @@ -804,7 +804,7 @@ static int overlay_prevent_phandle_overwrite(void *=
+fdt, void *fdto)
+> >   *      Negative error code on failure
+> >   */
+> >  static int overlay_apply_node(void *fdt, int target,
+> > -                           void *fdto, int node)
+> > +                           const void *fdto, int node)
+> >  {
+> >       int property;
+> >       int subnode;
+>
+> This change is unrelated to the rest of the patch.
+
+Split into its own standalone preparatory patch ("libfdt: overlay: Make
+fdto const in overlay_apply_node()").
+
+
+> > +static int overlay_create_path(void *fdt, int parent, const char *path=
+,
+> > +                            int path_len)
+> > +{
+> > +     const char *sep;
+> > +     int node =3D parent;
+> > +
+> > +     while (path_len > 0 && *path =3D=3D '/') {
+> > +             path++;
+> > +             path_len--;
+> > +     }
+>
+> In Python, I'm pretty happy to have the code to optionally allow extra
+> slashes to make the functions more widely useful.  In C - especially
+> since this is code that may be run in limited environments - I'd
+> prefer to pin down exactly what the expected format is and require
+> that.  So, I'd suggest this function only take a relative path, and
+> make sure that's the case from the callers.
+>
+> > +     while (path_len > 0) {
+> > +             int comp_len;
+> > +             int next;
+> > +
+> > +             sep =3D memchr(path, '/', path_len);
+> > +             comp_len =3D sep ? (sep - path) : path_len;
+> > +
+> > +             if (comp_len > 0) {
+>
+> Similarly, in C I'd treat comp_len =3D=3D 0 as an error condition, rather
+> than trying to handle it.
+>
+> > +                     next =3D fdt_subnode_offset_namelen(fdt, node, pa=
+th,
+> > +                                                       comp_len);
+> > +                     if (next =3D=3D -FDT_ERR_NOTFOUND)
+> > +                             next =3D fdt_add_subnode_namelen(fdt, nod=
+e, path,
+> > +                                                            comp_len);
+> > +                     if (next < 0)
+> > +                             return next;
+> > +                     node =3D next;
+> > +             }
+> > +
+> > +             path +=3D comp_len;
+> > +             path_len -=3D comp_len;
+> > +             while (path_len > 0 && *path =3D=3D '/') {
+>
+> Same thoughts here.
+
+Done. `overlay_create_path()` now requires a strict relative path and
+returns `-FDT_ERR_BADOVERLAY` if `comp_len =3D=3D 0` (leading `/`, repeated
+`//`) or if `@path` has a trailing `/`.
+
+
+-Doug
