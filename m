@@ -1,111 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.135.74
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793564191;
-	b=3nBPKaqQK0HHgzOMuBNVPAiXq8NavnJPFH+akqz7cEQ9nq+/HSOrDUMEiUcKebibYnO6
-	 BiS/G5yh9TV3iA69cjxct1t00mKgVNDyhZWEQcJdluSIDBhKW2qSOpzNyZ0UIhsaZ5aIk
-	 G/Y91PC+vU4DGRFKZt2x/DkoT2BM/8sSM50iwEsXxClkjlPjKT6huUTSZlznYL5e43lA8
-	 UQyPrMPRdjIO5fLtM5Er8dSCQP08Pi5n5lRw1E+X9ju41ZUnL3xnjWZQc4K+g59sIJ6vg
-	 Yfk5DbPeu4d1OR8gdl3mTt8HzUPqQV6bsmiBygXWKi0MK/KWDzQFF/4YONG6YG6BdjA==
+	t=1793564273;
+	b=ROOXUvkgWwRu9OR8pc0cCto/ZsLIXQYDKVojEPDw8AZDSEkJP/dbkt4poeeD7cKhNayA
+	 3aHms6aVad3E+2e7Sn3G8KugTh/8MUS55dV+UXaU7HVjdi/CCpTw4RBLnfXx0itdPcphb
+	 D+/rUOi80M5hWhxHOb4HhRC/mm1ucwBn/jGYpuPTVuyL4p9njC0XNQ09W/x/ER4yL+Kb/
+	 RfBbPNYd1Vfa7mmKOa5Qu3hRw5L/IKPl3nlGFEy/IPtT2eyQM8QUo46tgj4qPQukJrQkJ
+	 OrjeIRiJyNIBZhPJiOuYeLd3Db+feUailQHOLwoqxbrh0TIAB7lVlQ6mU378sxHlRtA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793564191;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:Date:
-	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=BqTXqaIxt0sZIdIo6UKmgjkLMbcGDQb8Vj6tAnCQxek=;
-	b=1KfZghh49mxFBIG62yo+nhtxmpeQs3Mf6f8W9cH9KkY0wM1h519iEHsy51U8cFVtJlHE
-	 DD00uWkkQmVWfi+N7a81Echoi+W3yWGLsPSzOJihB0J+oPEWv0Q95qHo7Qbbg04hCKpFu
-	 QdnpV5HXy/itFQghLRa5Z6aWBGQOUXBbS9cwwrqCcPxLE8jAiw68B+6EgWDxSly3lbcFp
-	 l88XzPuZXztLkmS5/Qedx4iGFQ2K4uBsaTWsUS/jxI38zEjnFlqb3aCO+nZeAluLgXPH/
-	 J3mOCG9uc6X5elCmZ6fAQvqVk199HxuZ34f8ptl2277jbGilASLpqH8xuOQPSFxnLcw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793564273;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=DlNOls3+ymUZqV5h5Jh29N78SK+Yqf9KWPuhfSGW0t0=;
+	b=KjCar6yKFRwo78KQUBnMy3RIU1ArYOYSmrvlq9yfvRPCwnD9Yfdkj+n6UYtYSTiew5/W
+	 SO15gZHGFxzGbZLat5X29v4D+2c5z/FfkDOzpKiIhvmnhPJH1kpvwjPiKnfUtS0NkfAvp
+	 Sj3fikuohaH2TDQbQBOxG+xCR3U01UF5oaBpRxdx8RmE7ZKXtXbmDblqoYgA9Hl/5oJJX
+	 GLCJKfi4WNZp+kTT5YcJu1nS2JjkIXc1iZhBntCbrr2d0LZcko2g9CHno0hqZxodU7fuO
+	 zDoJdDY3zanfsTa2K9bg85+seLM+OZMJl4eoOp/xCG10DwwLeFQ2XksV5XG3Y+ENekg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=columbia.edu;
-	spf=pass smtp.mailfrom=columbia.edu;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=TJG64jdv;
-	dkim=pass header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=YpdMkAvW;
-	arc=none smtp.remote-ip=148.163.135.74
-Received: from mx0a-00364e01.pphosted.com (mx0a-00364e01.pphosted.com [148.163.135.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="iazur+L/";
+	arc=none smtp.remote-ip=74.125.82.42
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17BE8606A331
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 17BE8606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=columbia.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=columbia.edu
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487AF606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:17:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 487AF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=pps01 header.b=TJG64jdv;
-	dkim=pass (2048-bit key, unprotected) header.d=columbia.edu header.i=@columbia.edu header.a=rsa-sha256 header.s=lionmail header.b=YpdMkAvW
-Received: from pps.filterd (m0499199.ppops.net [127.0.0.1])
-	by mx0a-00364e01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1DVuGq2338394
-	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 15:16:30 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=columbia.edu; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pps01; bh=BqTX
-	qaIxt0sZIdIo6UKmgjkLMbcGDQb8Vj6tAnCQxek=; b=TJG64jdvVFfZcvxcctU+
-	Eks2NAQ4Ak6/S12o0lVe0S6I8BOT8+fgifY4zlFiNb62u00yxwXiCetjKEcO2YLk
-	UpkEXUyaS7nicbe/fvUUYzZz1ury4X2Lf6scvZJ/9wRzbX5IEX7czXTDzjaE7fzh
-	ScmGjD71fxSRFDlYQUj+V6cvUaHwDpQ9gbD0G8+FqmLikYqHDEzMpT6LKzKO6nOq
-	NL0Zk6yBNYIX/3DGrDO9+/d7VcEQZpRnsqnUPMUgmSGhoRZVP1cPbjCA9ip1EQR8
-	zzVAocsbjHjSL7rRwvRd/8xR2bP6zQsTgY+krrMaGZ+Z3cGUzpFTx5uZrJVy7tlf
-	aQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-00364e01.pphosted.com (PPS) with ESMTPS id 4hnxrruay8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:16:30 -0500 (EST)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-7cc10da5ad4so536265137.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:16:30 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=iazur+L/
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15ea896ddc8so4032990c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:17:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=columbia.edu; s=lionmail; t=1793564189; x=1794168989; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20260707; t=1793564272; x=1794169072; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BqTXqaIxt0sZIdIo6UKmgjkLMbcGDQb8Vj6tAnCQxek=;
-        b=YpdMkAvWTJMPJ2txdznmb+h5yx9f22LGssPYaV8uOMkLkmV6aO5FAaLq1wG/sd7oCP
-         x+DQHqEb8e6qfc6SKHIlj62ZbdmNpctUitUi/pJryu1+R6y/pwzDWbPiPIjkO32ruwri
-         rFzFd3S1mRcs5D0R8V4par6Aam03bFNQZD21ILFWwZc1noSv0Yj3A4c8g50v0+TXfkER
-         hr6QtQVHlooN5u2AN+OJXuK7Ss+/+rxhsX2JREBf/GwyDuTMSKJMlluw/uyW+rMYxOQR
-         F9x4vJoebVXk+iLlMyO67BtnPDAlwnS3I/b8p7xbb/cICFcEeFzl/1cimeCxOejppa6H
-         IcbQ==
+        bh=DlNOls3+ymUZqV5h5Jh29N78SK+Yqf9KWPuhfSGW0t0=;
+        b=iazur+L/vt9idNwzNPJUK33YrHqb8KdNZAxNRWDAwq3dCpes3G9Th6Y6hfKYfFxu55
+         Taa0QeCfLmXsFiIFB13awhI6YsePIp2NxiJ3bwMML3ufy8bPGFx3SBuiG/0rwdWZRoCq
+         v5krcuT/PE3ft7zBNJQFFa+hp9smZzfmnWR+/SUVAms+t22l/2ODjR3zUFZl32ZuxmCg
+         qF+hQ/BJ5sCmI6y402tewgozdFwOF3phzMfQu8RZRwQBYS7qANtXh+rFVNAVITr6PgE4
+         0prTOG1nu7YfveO8JImXv6OtCjyTZBoo7KhO+nLccx/PXqJwhzHsauF6yNxnF+4DiXzn
+         c7YA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793564189; x=1794168989;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BqTXqaIxt0sZIdIo6UKmgjkLMbcGDQb8Vj6tAnCQxek=;
-        b=y/oMwEvxZ73Slm41mCHhXx2yYgY5s6iDcdqWI6qBRCPF5QToqcapmHk1BSLmQRQW87
-         mysq/UcJwOwlUrBDxeV6tg9WnSstnZToidqmoRwHzqCBsQTTsj41n98P5tZqgmTfjfA7
-         zAm0GD7lA9gQs+b0ClZf1n0B1HENAfW8q5kvGa7mOd8qEfHL0fe5eU2jc0ypvRfCJ5Vk
-         D0OmX7t4mNhFiYFNMhZ8Q9tEY5F79Lyz54xPPKEmlj0QUy+YBnAvfY0xhfAXxauSXtR1
-         RK+OSI/Hgj3VV730WFKkqCZddRJFZJ47xZdigbF1LdnyWbAQPA7QdaGlfQiggKn90caJ
-         0w3A==
-X-Forwarded-Encrypted: i=1; AKwUvBz+uco6zwkn7Wj2qnHfy7eTTylmBSkNTftRkbEWOP1/uYriZOTBNBivpYrWXJOOg6lI5Aj70fu5niyp9ns=@vger.kernel.org
-X-Gm-Message-State: APuU4Z91Oaq3N8A2mZiuWeQ3Gs80YUXZlFDU9TiXLFt2/MAeXWU1/6kk
-	tIlGUUg/MyVS7TSJNpQhzpXNfOiiyR8i8gmuG8mBwAs7LKMmpNX1oYd6fIgcMgZ1PgrN0fPcTBD
-	apXF/wzKMO7H4CWvw2LrwHv+Rw+wXl9eghbMEsHYCWcQiXzTxbSuq3qu+43DbGd7S+Vvteg==
-X-Gm-Gg: AYBFou2+ZVcszQo6kbZ943Mq520qsu9d8oJOGiwtw1d3QYwY1xlaCEveClOHHUmiHlm
-	HGvBuvEX6/1T5z+Z02Tri9Uo03XODM5VxLPG58AcfFjokXwKns5AwwOlgNHmr6Lsx4szCZ4ItcH
-	nrDn3fm4NncSYopyeRLFckGSc6yeeF7k9vx5EFi+8xJ1HzIkcoI0NSO4o8bD7NIJhANubKNbvCC
-	C4yqwpfoMSD1RYpMO5pkLQTdQzrWvkzwYXFsY6BWaNoWqu2VU4PJx7yRLG08SIirIQGf27iR8Ag
-	SvylNG1HrlGy92hC44zjBoJr/W9Hm6HONPe9RcO+WI/OyIl1meUl/j85SFMiVyVv53PAWDRv0v5
-	OSRxBqdhKDq6+q4I5pS81Yk2IWVHEgCcnR/Ggs4zF23OgtYpRM7I7hIGLVAg=
-X-Received: by 2002:a05:6102:3ec5:b0:7cc:2bb7:131d with SMTP id ada2fe7eead31-7d072baa484mr2927966137.9.1793564189543;
-        Sun, 01 Nov 2026 12:16:29 -0800 (PST)
-X-Received: by 2002:a05:6102:3ec5:b0:7cc:2bb7:131d with SMTP id ada2fe7eead31-7d072baa484mr2927962137.9.1793564189082;
-        Sun, 01 Nov 2026 12:16:29 -0800 (PST)
-Received: from [127.0.1.1] ([37.142.157.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78a4csm15661423f8f.23.2026.11.01.12.16.27
+        d=1e100.net; s=20260707; t=1793564272; x=1794169072;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DlNOls3+ymUZqV5h5Jh29N78SK+Yqf9KWPuhfSGW0t0=;
+        b=AsQXQHO/wvA2m04/yf73LGOpUPlaEA7d5ucih/zZZLB2iv9aAE9iDNDyIkmtQnk7gB
+         R0bfWZlb6rDVsBVM78xBGdQYsl8CWWTeCXmvgbTtpgDFpLWoxDecxjVMatJJg/Xf2TSx
+         uQks/JjhI3Mh57quqmHLNwWtc+8j1RmbZjm0YMVqxinCwzZv/SpDFhpGjZHnK16vZKgC
+         7+V0TNHizni2HzIG0NYyf2tg4GlircLJold3h9PPQ8ENBjTbeXteSD2uahxIp5lnxmLD
+         fn63dea5sP4wVtuO0X8eGakeL/9qX73gSXJxpfPIX4N0PxkMk6qxLCmpocuoOS/PeGTV
+         QEug==
+X-Forwarded-Encrypted: i=1; AKwUvBxR9N6PKI9PASGjkH5k5sjkrKYI9Nocv3/3k9IinmUfhVvxY7cFmVu76XVJA4HBjajwdzCGJ3wql4A5J24=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLnoDJWEn/BccqKVlV6QNdkfJoR3wvCHSHICxFyHECi4Meicgs4
+	Bt56l5kPt4Set5KQdC2wbf1TvdQ11aEJxLzgiFWm9znqu9m1lZ4rhXnr
+X-Gm-Gg: AYBFou3jltNDvgMs95WU64VenZn41RIIkRTJ7SBMB554W0o/jqMlkifewaAeShsDGxD
+	PlU+UmRcgsBz38kX8Nt4rt5t2oMALLVQyxbTx2Gec8bEDqVNSbpFaHRtSUtGcVscXLRrbTK1emQ
+	0EXzcD6HZ0AARlJvKeJ3ouZU1q5lWf8DNzP5XKSMUxKYyxPfs6AF0pn4u3mPKhXUGBjPdbSJai5
+	//GsZif+3CLZLRhn8G7zlpAgkroCFCubXRHsyLZYojfPVdXidvu2Rt6NwdJi1Lqba7jaXYoRPo2
+	ZlGQmYJm+985sFrcd4FEgNsvH9fPLTCcqHH5HLgg1AU+05nNZ3qSeNGzWUNiU57Ga686qkKR2MR
+	56d3foqQlRtrUDQpSy8eIpKwN2rG2QFg0v9YopaiyX7qMkJIJTGszU6a3z9tsOYCrK2Ta7apBk4
+	FCiBFdEKpgZo2WBfmKB8H9iP53GxhX61wB9EnDAAe+PJmLPBSUHJQlqLmWSmYoDb4ck/OfkHCRh
+	Y4Sthg0IeGpfXDw2isfk73LPCm6kevnIapGpLyIph4rOZf39KQaPiRQzzwIMPTLhjspaJYVyuvp
+	KmJEb/Qc0FXOIoq63YYmz3++DeS7+G6WlhpEyqMW3ooIxLUXjtE3ltM/pZx1QZtrww==
+X-Received: by 2002:a05:701b:230e:b0:14a:8cff:fbb8 with SMTP id a92af1059eb24-1ac5bbb5053mr11935043c88.28.1793564272099;
+        Sun, 01 Nov 2026 12:17:52 -0800 (PST)
+Received: from pranith.org (c-67-164-4-239.hsd1.ca.comcast.net. [67.164.4.239])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428ecb61sm26752101eec.10.2026.11.01.12.17.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 12:16:28 -0800 (PST)
-From: Tal Zussman <tz2294@columbia.edu>
-Date: Sun, 01 Nov 2026 15:16:14 -0500
-Subject: [PATCH 2/2] fscrypt: remove fscrypt_is_bounce_page()
+        Sun, 01 Nov 2026 12:17:51 -0800 (PST)
+From: Pranith Kumar <bobby.prani@gmail.com>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Pranith Kumar <bobby.prani@gmail.com>
+Subject: [RESEND PATCH 1/2] eventpoll: parallelize independent nested leaf additions
+Date: Sun,  1 Nov 2026 12:17:30 -0800
+Message-ID: <739fceb0a9fe1bb057ec3ffc05c9401d0fc06a52.1792432666.git.bobby.prani@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1792432666.git.bobby.prani@gmail.com>
+References: <cover.1792432666.git.bobby.prani@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,88 +100,259 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-fscrypt-page-helpers-v1-2-bcfbfaf6a237@columbia.edu>
-References: <20261101-fscrypt-page-helpers-v1-0-bcfbfaf6a237@columbia.edu>
-In-Reply-To: <20261101-fscrypt-page-helpers-v1-0-bcfbfaf6a237@columbia.edu>
-To: Eric Biggers <ebiggers@kernel.org>, "Theodore Y. Ts'o" <tytso@mit.edu>,
-        Jaegeuk Kim <jaegeuk@kernel.org>
-Cc: "Matthew Wilcox (Oracle)" <willy@infradead.org>,
-        linux-fscrypt@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Tal Zussman <tz2294@columbia.edu>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793564181; l=1123;
- i=tz2294@columbia.edu; s=20250528; h=from:subject:message-id;
- bh=FuaDbBzgAylLyOkBuu6fOUJHcXnEh9zDTWNhiRskaFA=;
- b=2cJwYDDDrxsrDKPoMFODyRhRItzplz+Yx9oEv+a8snVPKzI6TGsnhK1uqKmGbTwaZaAyFWvNG
- fIH82I14oOhAlPB4WGMiCOPGIpva2qkQtCcvMk/ZCD4PfO/iwJv4xUi
-X-Developer-Key: i=tz2294@columbia.edu; a=ed25519;
- pk=BIj5KdACscEOyAC0oIkeZqLB3L94fzBnDccEooxeM5Y=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA4MCBTYWx0ZWRfX6Ls2mfLxf7tq
- MV2z2GGGJQ3x1NTDfx+WmCNytZczPRERyZv7ElZGibw5C81vapH0YrUgxmjpn7LYeYo8hKaAEEG
- 5bsWnhR3GhU3KkJXM4JwIg5/Rk0EjMXqHyqQ/DwxPAlnTWZxD4rM
-X-Proofpoint-ORIG-GUID: 4bO82bDBgZwEZ6uThJuj45mLCvVTeqSd
-X-Authority-Analysis: v=2.4 cv=HYaB3SE8 c=1 sm=1 tr=0 ts=6ae79e1e cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=Qz3frfIdACK70Hl/8c7MJg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=x7bEGLp0ZPQA:10 a=A0y_DWxS2BwA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=Da8U98TiO7q1upZEImrf:22 a=G--0XuH5328wxK7v7Suf:22
- a=slkTkWUpcQ_TrhisGP8A:9 a=QEXdDO2ut3YA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-GUID: 4bO82bDBgZwEZ6uThJuj45mLCvVTeqSd
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA4MCBTYWx0ZWRfX9Wp/rXHZlpKu
- h4y0GMN9Z5eKiHsXLoHTVPqxYFyTI/0HOyls/6Dp4tX3aeRpLofviMeg/AZcE2j5Fi8VOnOSH9Z
- EQp9X3edI/IbCPbIu+s2U6qZB0YcLS0k/SqflnOzN+WxF1jR4xx68Bbvbnw88YAdakjuWLK1X3d
- nDCu7HRu6eNIlXnx/oR2oMFUevwdojhSV5FhGbY4EnYaV0fe50doGH9k7CHsVKQN7PYT7tZThfm
- 0ILdy870byiRcwC6OVlHFSgKzJrjxLDxDQeEvgsZmMJo82mURo0RfEQCyGowZwHEAucLWQLmUMX
- AP2hqaqoMgoix+uOtjXnz+jUP5mw2fkKBzdeevfbVFhKlkQx0qCyAVV5ukc2JXL7iprd9/pi7sU
- WX4ev7kiedtn3euRvBrO7WW3G746T4yH7339lYzcKqZW9QoZ80eHIG3S7EWpGrK3cAylMYpTnMO
- xvsSYfdKDSqn5fOQ1bw==
-X-Proofpoint-Virus-Version: vendor=nai engine=6900 definitions=11953
- signatures=596817
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=10 adultscore=0 bulkscore=10
- impostorscore=10 phishscore=0 spamscore=0 suspectscore=0 malwarescore=0
- clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611010080
+Content-Transfer-Encoding: 8bit
 
-fscrypt_is_bounce_page() no longer has any callers, so remove it. This
-removes a use of page->mapping.
+An ordinary-file add to a watched epoll takes epnested_mutex.
+Independent workers therefore queue behind one global mutex even
+when they modify different leaf files and epoll instances.
 
-Signed-off-by: Tal Zussman <tz2294@columbia.edu>
+Freeze topology with an rwsem. These additions share its read side
+and do not take epnested_mutex. A hashed mutex protects each target
+file's reverse-path count, while ep->mtx still serializes operations
+on one epoll. Topology changes take the rwsem's write side and the
+old mutex for global cycle and path checks. Hash collisions only
+reduce concurrency.
+
+The extra read lock and its shared count update cost time, but they
+allow unrelated adds to overlap instead of waiting for the global
+mutex. Uncontended or topology-write-heavy workloads may see less
+benefit, or a regression.
+
+On a local four-core ARM64 setup, nested add/delete throughput
+rose from 1,558,641 to 5,325,959 pairs/s (3.42x).
+Flat throughput changed by +0.52%.
+
+Signed-off-by: Pranith Kumar<bobby.prani@gmail.com>
 ---
- include/linux/fscrypt.h | 10 ----------
- 1 file changed, 10 deletions(-)
+ fs/eventpoll.c | 114 ++++++++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 89 insertions(+), 25 deletions(-)
 
-diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index e70f630fab0c..3a238bebbdf1 100644
---- a/include/linux/fscrypt.h
-+++ b/include/linux/fscrypt.h
-@@ -356,11 +356,6 @@ int fscrypt_decrypt_block_inplace(const struct inode *inode, struct page *page,
- 				  unsigned int len, unsigned int offs,
- 				  u64 lblk_num);
+diff --git a/fs/eventpoll.c b/fs/eventpoll.c
+index f48b829a710f..635db25e7e93 100644
+--- a/fs/eventpoll.c
++++ b/fs/eventpoll.c
+@@ -27,6 +27,7 @@
+ #include <linux/mount.h>
+ #include <linux/bitops.h>
+ #include <linux/mutex.h>
++#include <linux/rwsem.h>
+ #include <linux/anon_inodes.h>
+ #include <linux/device.h>
+ #include <linux/uaccess.h>
+@@ -63,12 +64,13 @@
+  * Locking
+  * -------
+  *
+- * Three levels, acquired from outer to inner:
++ * Locks are acquired from outer to inner:
+  *
+- *   epnested_mutex   (global; rare; taken only for EPOLL_CTL_ADD
+- *                     loop / path checks)
+- *     > ep->mtx     (per-eventpoll; sleepable; serializes most ops)
+- *       > ep->lock  (per-eventpoll; IRQ-safe spinlock)
++ *   epnested_rwsem  (global; write for topology changes, read for
++ *                    ordinary-file adds to watched epolls)
++ *     > epnested_mutex or ep_file_mutexes[]
++ *       > ep->mtx   (per-eventpoll; sleepable; serializes most ops)
++ *         > ep->lock (per-eventpoll; IRQ-safe spinlock)
+  *
+  *   file->f_lock    (per-file; NOT IRQ-safe; guards f_ep hlist ops;
+  *                    nested inside ep->mtx, outside ep->lock)
+@@ -84,6 +86,9 @@
+  *     view of the epoll topology; a per-object scheme would let two
+  *     concurrent inserts (A into B, B into A) construct a cycle
+  *     without either observer seeing it.
++ *   - Ordinary-file adds cannot form cycles. A read hold on the global
++ *     rwsem freezes topology while a file-specific mutex serializes
++ *     changes to that file's reverse wakeup-path count.
+  *   - Per-ep ep->mtx is preferred for scalability elsewhere. Events
+  *     that require epnested_mutex are rare.
+  *
+@@ -387,10 +392,12 @@ static long max_user_watches __read_mostly;
+  *      of a given length -- reverse_path_check().
+  *
+  * Both need a global view of the epoll topology and must be atomic
+- * with the insertion, so the check is serialized by epnested_mutex
+- * and carries its scratch state on a stack-allocated struct
+- * ep_ctl_ctx scoped to one do_epoll_ctl() call. Non-nested inserts
+- * skip this machinery entirely and take only ep->mtx.
++ * with the insertion. Topology changes take epnested_mutex under the
++ * write side of epnested_rwsem. Ordinary-file adds to watched epolls
++ * take the read side and a hashed file mutex, since only their target
++ * file's path count changes. Scratch state is on a stack-allocated
++ * struct ep_ctl_ctx scoped to one do_epoll_ctl() call. Non-nested
++ * inserts skip this machinery entirely and take only ep->mtx.
+  *
+  *   epnested_mutex     Serializes the whole check.
+  *   loop_check_gen     Global monotonic stamp, bumped at the start of
+@@ -413,6 +420,16 @@ static long max_user_watches __read_mostly;
+  * preserve both bail-outs.
+  */
+ static DEFINE_MUTEX(epnested_mutex);
++/* Local experiment: hash collisions only reduce concurrency. */
++#define EP_FILE_LOCK_BITS 8
++static DECLARE_RWSEM(epnested_rwsem);
++static struct mutex ep_file_mutexes[1 << EP_FILE_LOCK_BITS];
++
++static struct mutex *ep_file_mutex(struct file *file)
++{
++	return &ep_file_mutexes[hash_ptr(file, EP_FILE_LOCK_BITS)];
++}
++
+ static u64 loop_check_gen = 0;
  
--static inline bool fscrypt_is_bounce_page(struct page *page)
--{
--	return page->mapping == NULL;
--}
--
- static inline bool fscrypt_is_bounce_folio(const struct folio *folio)
+ #define PATH_ARR_SIZE 5
+@@ -421,7 +438,8 @@ static u64 loop_check_gen = 0;
+  * Per-do_epoll_ctl() scratch for the loop / path checks. Allocated on
+  * the caller's stack; populated by ep_ctl_lock() and the downward
+  * walk; consumed by reverse_path_check(); released by ep_ctl_unlock().
+- * Only valid while the caller holds epnested_mutex.
++ * Only valid while the caller holds the topology write lock or the
++ * topology read lock together with the target file's hashed mutex.
+  */
+ struct ep_ctl_ctx {
+ 	/*
+@@ -1664,8 +1682,7 @@ static void ep_rbtree_insert(struct eventpoll *ep, struct epitem *epi)
+  * epoll topologies without rejecting reasonable usage.
+  *
+  * Enforced at EPOLL_CTL_ADD; CTL_MOD and CTL_DEL cannot add paths.
+- * The running tallies live in ctx->path_count[] and are protected by
+- * epnested_mutex.
++ * The running tallies live in ctx->path_count[].
+  */
+ static const int path_limits[PATH_ARR_SIZE] = { 1000, 500, 100, 50, 10 };
+ 
+@@ -2560,18 +2577,19 @@ static inline int epoll_mutex_lock(struct mutex *mutex, bool nonblock)
+ /*
+  * Acquire the locks required for do_epoll_ctl() on @ep for @op.
+  *
+- * Always takes ep->mtx. For EPOLL_CTL_ADD, additionally runs the
+- * loop / path check under epnested_mutex when the topology can
+- * change: @ep is already watched (epfile->f_ep non-NULL), @ep was
+- * recently loop-checked (ep->gen == loop_check_gen), or @tfile is
+- * itself an eventpoll.
++ * Always takes ep->mtx. For EPOLL_CTL_ADD, additionally checks paths
++ * under the topology read lock when @ep is watched and @tfile is an
++ * ordinary file. Adding an eventpoll or handling a recently checked
++ * @ep uses the topology write lock for the full loop/path check.
+  *
+  * Return value encodes both outcome and lock state:
+  *
+  *   0        success; ep->mtx held.
+  *   1        success; ep->mtx held AND the full check ran under
+- *            epnested_mutex (which is also still held). The value
+- *            doubles as the @full_check argument to ep_insert().
++ *            the topology write lock and epnested_mutex.
++ *   2        success; ep->mtx held, topology read lock and target
++ *            file mutex held for a full path check. Both 1 and 2
++ *            are true as the @full_check argument to ep_insert().
+  *   -errno   failure; no locks held.
+  *
+  * The caller releases what was taken with ep_ctl_unlock(ep, ret).
+@@ -2584,6 +2602,7 @@ static int ep_ctl_lock(struct ep_ctl_ctx *ctx, struct eventpoll *ep, int op,
+ 		       struct file *epfile, struct file *tfile, bool nonblock)
  {
- 	return folio->mapping == NULL;
-@@ -522,11 +517,6 @@ static inline int fscrypt_decrypt_block_inplace(const struct inode *inode,
- 	return -EOPNOTSUPP;
+ 	struct eventpoll *tep;
++	struct mutex *file_mutex;
+ 	int error;
+ 
+ 	error = epoll_mutex_lock(&ep->mtx, nonblock);
+@@ -2596,11 +2615,41 @@ static int ep_ctl_lock(struct ep_ctl_ctx *ctx, struct eventpoll *ep, int op,
+ 	    !is_file_epoll(tfile))
+ 		return 0;
+ 
+-	/* Full check needed: drop ep->mtx so we can take epnested_mutex. */
++	if (READ_ONCE(epfile->f_ep) && ep->gen != loop_check_gen &&
++	    !is_file_epoll(tfile)) {
++		/* Freeze topology, then serialize checks for this leaf file. */
++		mutex_unlock(&ep->mtx);
++		if (nonblock) {
++			if (!down_read_trylock(&epnested_rwsem))
++				return -EAGAIN;
++		} else {
++			down_read(&epnested_rwsem);
++		}
++		file_mutex = ep_file_mutex(tfile);
++		error = epoll_mutex_lock(file_mutex, nonblock);
++		if (error)
++			goto err_unlock_read;
++		error = epoll_mutex_lock(&ep->mtx, nonblock);
++		if (error) {
++			mutex_unlock(file_mutex);
++			goto err_unlock_read;
++		}
++		return 2;
++	}
++
++	/* Full check needed: acquire topology write lock before ep->mtx. */
+ 	mutex_unlock(&ep->mtx);
++	if (nonblock) {
++		if (!down_write_trylock(&epnested_rwsem))
++			return -EAGAIN;
++	} else {
++		down_write(&epnested_rwsem);
++	}
+ 	error = epoll_mutex_lock(&epnested_mutex, nonblock);
+-	if (error)
++	if (error) {
++		up_write(&epnested_rwsem);
+ 		return error;
++	}
+ 
+ 	loop_check_gen++;
+ 
+@@ -2622,17 +2671,28 @@ static int ep_ctl_lock(struct ep_ctl_ctx *ctx, struct eventpoll *ep, int op,
+ 	clear_tfile_check_list(ctx);
+ 	loop_check_gen++;
+ 	mutex_unlock(&epnested_mutex);
++	up_write(&epnested_rwsem);
++	return error;
++
++err_unlock_read:
++	up_read(&epnested_rwsem);
+ 	return error;
  }
  
--static inline bool fscrypt_is_bounce_page(struct page *page)
--{
--	return false;
--}
--
- static inline bool fscrypt_is_bounce_folio(const struct folio *folio)
+ static void ep_ctl_unlock(struct ep_ctl_ctx *ctx, struct eventpoll *ep,
+-			  int full_check)
++			  struct file *tfile, int full_check)
  {
- 	return false;
-
+ 	mutex_unlock(&ep->mtx);
+ 	if (full_check) {
+ 		clear_tfile_check_list(ctx);
+-		loop_check_gen++;
+-		mutex_unlock(&epnested_mutex);
++		if (full_check == 2) {
++			mutex_unlock(ep_file_mutex(tfile));
++			up_read(&epnested_rwsem);
++		} else {
++			loop_check_gen++;
++			mutex_unlock(&epnested_mutex);
++			up_write(&epnested_rwsem);
++		}
+ 	}
+ }
+ 
+@@ -2719,7 +2779,7 @@ int do_epoll_ctl_file(struct file *f, int op, struct epoll_key *tf,
+ 		break;
+ 	}
+ 
+-	ep_ctl_unlock(&ctx, ep, full_check);
++	ep_ctl_unlock(&ctx, ep, tf->file, full_check);
+ 	return error;
+ }
+ 
+@@ -2998,6 +3058,10 @@ COMPAT_SYSCALL_DEFINE6(epoll_pwait2, int, epfd,
+ static int __init eventpoll_init(void)
+ {
+ 	struct sysinfo si;
++	int i;
++
++	for (i = 0; i < ARRAY_SIZE(ep_file_mutexes); i++)
++		mutex_init(&ep_file_mutexes[i]);
+ 
+ 	si_meminfo(&si);
+ 	/*
 -- 
-2.39.5
+2.47.3
 
