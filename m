@@ -1,60 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793569620;
-	b=LWFX0Neng26DhXvW9uASf12+YRjY0k8IoC+QNIfaQrYlRhBWjLOuv68T+6zjx258a3AT
-	 O3uMW7Qn74h1YxF8+LJq11iFYQiMC8HWdOydaYdsR5dqR+a3wtgXwSYTm6GWeS8Skhbyy
-	 GtqEpoIUe0JkO3JSCjsluMdL8Tn0kTyKQhp5fErW57byuNPUaUxz0GGCwLv4iC93Pf1jd
-	 c83/I/FhLrJyNc1p6Hb5zpHoqajArGco7wbp5+Gn2YQPtqrx7rVf6og158iTLSfFVEHTD
-	 CehHTKLMVxvmXUFBomZv76M9JpK2OAFHCSsMnoVa4GYDR5sfa626FuOYJ47ryz33wQw==
+	t=1793569658;
+	b=CXCHb43N2HmPLvWPjmU1vt4vts7ASS3pBGdOyvqBWzL6J4+GBGDmTGdv95P3P+W92+xy
+	 XTTn7FGqTHcF6D0hHkUKNg0zz+vb32YYwssWWzqtCPCE6JD4HqN0c4JxoWQ8TUdtp+RZW
+	 ejCbEQqwXBX0nKKiCOh5M+vOOddzWAvgBxxjh/vHUA1yBfo5pLCeZ7UXDAjYG5mUENFfp
+	 88FzWXcOvJBp7CQg+Irn1saQzDnnMq5zWlsela74E2Zd6KsW55PUKsK2Ad5o2KB8W+ldt
+	 VfXZh7BIqCK7iIDQlsPeS43BlxyF4/NwL4wKCkjVcpyA6tBjsNxgxzHv0CKCEJ1oQ6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793569620;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=uk9492nY2Z6AZT74vYyROopjR/2FFVIMtzAYStpAoSY=;
-	b=eDXIYhUBFrXbDYEfO0jINv2SRFIehR3FTj8dhRbqFV8VKsE60ipTnxK8uNWahapAW0Uw
-	 UIGiBmJsXGPR0toDoT4vjr7iroFla0oJ7X1FVK1bCYPLIwVFDhSFgHZfkf0k8JYvpdsJu
-	 /4ZAEuvSIXSP2Ym8oygH4BP7JVIG+KRaWrtWf5vDbXtUkiI33J9s6u/h10Rg9vxhJERvh
-	 U0/LDI2jGMhofMlxLBR+rrUAOANTiL4r06WBpDs8RHqGo2cyXYD6IRGiLrmW3D6AKqZQ6
-	 4OU6jnATRWPyhhzz/9vBn6N693SEv8gqxOrqsvR+XWe9ZlSJ0PtxxBOmMkxINA9+ECg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793569658;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=TfQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=;
+	b=OnRbGSaAfgJW8sa1nONfRyrpVrvNWrHd6c51qTotql9QCGGhMjFPz7SRpopzLHK0FKAa
+	 j9ZoE1srLTMFYO2RpWLaDGgKjuKHFNrw7Wr+Z9nv8q4IlOClq2lyVfA8ZUyra+G/jdPzj
+	 GDG0LmxQzM3/N4mQLrVc+QUl256aLRU4mmc0a/9xcKVdaEEa+Lfgg/QBtexLZd9iacB9z
+	 /M6nlhlKkVdRJJBs2ByP97xVJnBRGYolhDpOHlR6PYWxGkedfmDWMuVny895l3xR7pXu0
+	 P5323yv0Zh/YDdr1LodHoS2CT4CACx7nasXuYbOoQMw/p/hCHSIVkQ+t/3TR0mAQY9Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LdjK2vne;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b="OAgnY/1L";
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NFjlWA8Q;
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09216606A330;
-	Sun,  1 Nov 2026 21:46:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0656606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:47:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D0656606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LdjK2vne
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED8731F00919;
-	Sun,  1 Nov 2026 21:46:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793569619;
-	bh=uk9492nY2Z6AZT74vYyROopjR/2FFVIMtzAYStpAoSY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=LdjK2vne0p8pZm+XRGfSotz6w/ZxSZQUB2YOfoze+X7J2e9kBQs1VBJ3N6nXlzTdI
-	 /tuw3f9Uxb27gJaEL/nt1GyRsSEB/ayUNcqZqZv5+LEAp6zxiLQkxxnacKemfN7ovK
-	 efTPws4n3hVlo7xbmzykoEUWFgTphK7sDX/u97uRrnUdLGgPCqjjdut53vCDk2/LHE
-	 7him/tpEldBckmrvktlPKPLtMsI/qR5WpjMoWzuz49OpovDTjC/h62wNe+NSXBCtrd
-	 sLHZh4cEdNTmc6t12UK/Uo9rrPmUPXIbhKVHItzVGPlxwER+buETrxG1Vddm0CV48g
-	 Ev1NCV4j+mqww==
-Subject: Re: [PATCH net v2 3/5] net: dsa: b53: clear stale state when creating
- an ARL entry
-From: netdev-bot+sashiko@kernel.org
-To: florian.fainelli@broadcom.com
-Cc: netdev@vger.kernel.org, jonas.gorski@gmail.com, andrew@lunn.ch,
- olteanv@gmail.com, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
- pabeni@redhat.com, linux@armlinux.org.uk, rmk+kernel@armlinux.org.uk,
- linux-kernel@vger.kernel.org
-Date: Sun, 01 Nov 2026 21:46:58 +0000
-Message-ID: <179356961852.3131.14443659841627836744@kernel.org>
-In-Reply-To: <20261028212310.3847553-4-florian.fainelli@broadcom.com>
-References: <20261028212310.3847553-4-florian.fainelli@broadcom.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=OAgnY/1L;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=NFjlWA8Q
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 34BA01D001C4
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:47:37 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-03.internal (MEProxy); Sun, 01 Nov 2026 16:47:37 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1793569656; x=
+	1793656056; bh=TfQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=; b=O
+	AgnY/1LXV2bgTsNbzOulc6cfzZFWwN/yAb0gpnYH/RVgsPjYNOayHJLjOGSUV923
+	y/e3e2xwlTnNZW3rTYXu5F0b+UDTr+1vqY4QgGR2sMlhrliyVE6MFaXh/l69a0/H
+	rK/9W5qr1SlAP1zlRINdc9v4490Pi5c+1UUhwRZQp6kVGjEg/sFImlhgbO19uHDX
+	QiQCpkqdcoI5rk2+6A9w4nK+ajlOY/DVs07qB3P9+a4S/m3xfRd90zEtosTpQKAM
+	8l9X7vDUEO7RLJOEbl8C3a0MlovhhLa/7HHZAKH99FNYf3zFvpEWn0NNWr/XQDGk
+	KaZKUnjNuP/ZO1cyeOj0w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1793569656; x=1793656056; bh=T
+	fQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=; b=NFjlWA8QRwwHP2TOp
+	chRteRFIsiiRVV0GBUzNQmy9UeUzIxGJ71VOul4WSakbZlpf0/ovy4I8JuRiwYzt
+	uIzwjAJuSpnT8CAP2bbCHek+VcPQfW0XhWhCLJfemzEtLrAaWw1w9OaNva3nx/lU
+	sK3PzglpcksS3eOUvnOOkSSGRs5+ZnjFJHhpWZJkhXjTR2CeAKwyz6Rx8wcKz/xO
+	/yQKY44DM9UzveT8Fex6dZa/qWmJmvAgiuQ7iOPW111Fm5Aopm0k6CxBhUNtFWu3
+	/NMQ9r/U1/X7oly7EEne/1BHEgymxS/wabdcIlk1GyvMb12bTlNQGFLS6SaQQrqj
+	UivfA==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793569656; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:C2hIlo/akGwwJfyY3Wn2A253cin535mTWsDW46YeX7Itp51
+	Y5BbxWr1LEGe+kQCS0xfMVsnlGtPApuzELfwPhTIr9Nwaqcnzz9CnPRkuGl2/6F8
+	YuWkkYRcKZ4AW5BxIGUJjEcZs3JXUzPF2cBaCCi3+WqNCvLwc381rxQbuiTTv3OC
+	xNjRqrkmRlcij3pEsSoRLW0CipthFTAFIWV5YPwQukelVO05uyuHi6Euo6LdmDsw
+	UA+bHmtunkOcvrC+R0za52TXsu+q44t05Y2y0lDGDmulXWPO+m6HwsWxZy4i/y0F
+	f435Jh13tqkq1vGaC9c2yGVeLPZHiqUmb2bzYsg==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:p/o4aGb9mNGCizzP1jh+fyrKnTQL0euSFdWfqc2dNEo=:TfQ2I+R1RGUPFEWLUKI19YZg1UU3i8pVJ5KkC7O7TAI=;
+X-ME-Sender: <xms:eLPnam4QIAbRp4ohE-gwHvTeVsaHMfihbfDs5rvsGOs5imhQjJcLxA>
+    <xme:eLPnapNCv9cUEU8-Tj9Pj4lu70itkDCFt6HDM8qTpLmqMpCOJNqDRJAZqbtm5qsj8
+    DgRCSsLHMwoVaR6tadB7Pshc0ubrxGWa6X1GkyN8XAGAaz4_TY1zg>
+X-ME-Received: <xmr:eLPnass5OfJo43pgatwwnrwxXL13p4kfyoGz70_-1yrAMPxh-ZJSXuwC0FUwy4G8>
+X-ME-Proxy-Cause: dmFkZTGn2xXB2HLZ4YG+2m4cCu3T+TF8EMbT2RfZDXxvr8XeapbMGc2tt2OmjZApSH7Bs5
+    6STFEuwR4yMzUkRBosK2ckc1pIkAVcyDj01QKJ8lHtpexEdF+jfqTD61/Dm3HQFJGPwRd+
+    2BBqeeFvlhNGTAAZsK24h+tqccnSZHyidJb+fOoCkpMcZc//joLmaOK2V8Yis+pllG9TtR
+    fuOCK/BrhK+CtNBdut/bqICydSt6NWd38Tr0W0Fq6EAawrB66Nw6MMeUnEBsSK0z/NVlDb
+    ieZodpSyaYccqAUNi0tKlPo4aZJ9aB/EVoOSzRW+ztLK9HsCZpxEbRj6bbSMYTNq2OhmNW
+    2J3RapX7ljOcb4TpqsegIrHbflCvSsP6ffJh9ErghEcSB1A0Og2H+3Nez7QPjqEncx0NIC
+    /yqadKg6YzFelYwPT5HBDsYBulBjPSFEbr5e8GdEJNM6g+FexhEFI+x7NojRFXyed15c94
+    OTmdwRF6JF3ew/HO34j194xMeNEINc6qpQcS6UJqcctJ2/WmVjhuNnytCJ0pkd6Uos6RvD
+    EVUZ0vMjOxFzWRc7JQGTGUns69IhE1t+nhdtgjYNp6MQbStyTfdV+x73u1vWpkulhEHs/0
+    ycg2qNlPjbWhfwZlzBePSriuaCwwK5fwCfm7J5OJd5nDkIdAOq51wbRdpuEA
+X-ME-Proxy: <xmx:eLPnakYcnmz5_M9Q0HCYEd4IQv5CUkYLvGy3N4rfjTe_h6iOro2u2A>
+    <xmx:eLPnamxkSR-d3qBA_M42aMaoIsf_wnHh9H8ai7cSpVgsX7RxlabYTQ>
+    <xmx:eLPnakjO1nzBd9FKpBE-B6PtBs6e8Z12Zxkp1swB_XRaAK7TnN8KiQ>
+    <xmx:eLPnaqlgbqpusqygZAidgkLTYteHgveJhkjy4-oooaO4rpkjFGqWUA>
+    <xmx:eLPnanUHYjEmpDekA7MhOdZ6XT0JA3ztCCq1ld9hQLA5Hh4Ecp8DTQFF>
+Feedback-ID: ib53e4b78:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 1 Nov 2026 16:47:35 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] ksmbd: fix DACL evaluation for denies and guest sessions
+Date: Sun,  1 Nov 2026 15:47:19 -0600
+Message-ID: <20261101214719.732224-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAKYAXd_S5aDNPXTjmkfHG55SvzgCGuYn0ZGfgOesoSB0moMHRA@mail.gmail.com>
+References: <20261030020523.302085-1-icb@fastmail.org> <CAKYAXd_S5aDNPXTjmkfHG55SvzgCGuYn0ZGfgOesoSB0moMHRA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,148 +128,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+Hi Namjae,
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
+Please drop this series.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Your point on 2/2 was right. Working through it and Sashiko's comments
+showed that the series depends on other issues that need to be fixed
+first.
 
-- [Medium] In b53_arl_op() (drivers/net/dsa/b53/b53_common.c), the patch
-  changes the result of deleting an ARL entry that is not present (op ==…
+I will send patches for those issues, then resend fixes for these bugs
+once those patches are merged.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but in
-  b53_arl_op() (drivers/net/dsa/b53/b53_common.c) the unicast delete…
-
---
-
-net: dsa: b53: clear stale state when creating an ARL entry
-
-This patch clears the b53_arl_entry in b53_arl_op() before creating a new
-ARL entry. As a result, a multicast add no longer ORs the port into an
-unrelated bin's forwarding bitmap. It also makes b53_arl_op() return early,
-without writing anything, when asked to delete an entry that is not
-present.
-
-> diff --git a/drivers/net/dsa/b53/b53_common.c b/drivers/net/dsa/b53/b53_common.c
-> index 559d4b360c828..c38e8c5838bd8 100644
-> --- a/drivers/net/dsa/b53/b53_common.c
-> +++ b/drivers/net/dsa/b53/b53_common.c
-> @@ -1990,11 +1990,15 @@ static int b53_arl_op(struct b53_device *dev, int op, int port,
->  	case -ENOSPC:
->  		dev_dbg(dev->dev, "{%pM,%.4d} no space left in ARL\n",
->  			addr, vid);
-> -		return is_valid ? ret : 0;
-> +		return is_valid ? ret : -ENOENT;
->  	case -ENOENT:
-> +		if (!is_valid)
-> +			return ret;
-> +
-
-[Severity: Medium]
-Is it intended that deleting an absent entry now fails with -ENOENT?
-
-Before this patch, the -ENOSPC delete case returned 0. The -ENOENT delete
-case returned the result of b53_arl_rw_op(), which is normally 0.
-
-The commit message only says the function will "return without writing
-anything". In practice both paths now return -ENOENT to b53_fdb_del() and
-b53_mdb_del(), and from there to the DSA core for both b53 and bcm_sf2.
-
-On BCM5325/BCM5365, b53_mdb_add() never programs anything:
-
-	if (is5325(priv) || is5365(priv))
-		return -EOPNOTSUPP;
-
-b53_mdb_del() has no matching check. Every RTM_DELMDB that comes through
-br_switchdev_mdb_notify() -> switchdev_port_obj_del() will now hit this
-path and log:
-
-	if (ret)
-		dev_err(ds->dev, "failed to delete MDB entry\n");
-
-switchdev_port_obj_del_deferred() then logs a second error, because the
-code is not -EOPNOTSUPP. Ordinary IGMP/MLD group leaves or timeouts on a
-bridged user port would produce these messages.
-
-The same thing happens when deleting an fdb/mdb entry whose earlier add
-failed with -ENOSPC.
-
-CPU and DSA ports see a further effect. In net/dsa/switch.c,
-dsa_port_do_fdb_del() keeps the tracking record when the driver returns an
-error, and dsa_port_do_mdb_del() does the same:
-
-	err = ds->ops->port_fdb_del(ds, port, addr, vid, db);
-	trace_dsa_fdb_del_hw(dp, addr, vid, &db, err);
-	if (err) {
-		refcount_set(&a->refcount, 1);
-		goto out;
-	}
-
-A later add of the same address finds that record and calls
-refcount_inc(). It never calls port_fdb_add()/port_mdb_add() again, so the
-ARL entry stays missing until teardown. Before this patch, the delete
-returned 0, the record was freed, and the next add reprogrammed the
-hardware.
-
-There are two ways the hardware can be missing an entry that DSA still
-tracks:
-
-  - bcm_sf2_sw_resume() resets the switch via bcm_sf2_sw_rst() and does
-    not replay the host FDB/MDB lists.
-  - b53 has no FDB isolation. A host entry and a user-port static entry
-    with the same MAC/VID share one ARL slot, so deleting the user-port
-    entry invalidates both.
-
-Documentation/networking/dsa/dsa.rst says port_fdb_del/port_mdb_del remove
-the address "if it was mapped". That reads as if a missing entry is not an
-error.
-
-Would returning 0 here (perhaps with a dev_dbg()), while still skipping the
-write, keep the fix without these side effects?
-
->  		/* We could not find a matching MAC, so reset to a new entry */
->  		dev_dbg(dev->dev, "{%pM,%.4d} not found, using idx: %d\n",
->  			addr, vid, idx);
-> +		memset(&ent, 0, sizeof(ent));
->  		break;
->  	default:
->  		dev_dbg(dev->dev, "{%pM,%.4d} found, using idx: %d\n",
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but should the unicast delete in
-the found case check that the entry belongs to the requesting port?
-
-After the switch statement, b53_arl_op() does:
-
-	if (!is_multicast_ether_addr(addr)) {
-		ent.port = port;
-		ent.is_valid = is_valid;
-	} else {
-
-It then writes the bin back as invalid. It never compares the ent.port read
-from hardware against port.
-
-dsa.rst says port_fdb_del should delete the address "if it was mapped into
-this port forwarding database".
-
-b53 does not set ds->fdb_isolation, so dsa_port_fdb_del() forces
-info.db.bridge.num to 0 and the driver ignores the dsa_db. Suppose the same
-MAC/VID is added on port A and then on port B. This can happen with two
-VLAN-unaware bridges using vid 0, or with a host FDB entry on the CPU port
-plus a user-port static entry.
-
-The single ARL slot then points at B. A later delete on port A removes B's
-entry, while the bridge and DSA still believe it is installed.
-
-This patch only reworks the absent-entry branches, so the found-entry path
-is unchanged.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028212310.3847553-1-florian.fainelli%40broadcom.com
+Thanks for the review,
+Ian
