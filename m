@@ -1,85 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793528742;
-	b=TokNnktGQH3Y57NS6F1tJJ1BvNCTs1oVycmg0qUwh7qExZVvsHwXYqE/qEkX/4BEOLWJ
-	 rlqekHb6gui6SjA6T889Uk5hq/Cr/9hDmhFVUTcTh0NJ77lpUWmEOwmeA2BNcjMBOE/YI
-	 2kYe8JA368JyNbbtVcquf3iogffpQlYJFFohr02yz0kVjIiCjIMzk5cLRQdIVH0e0W0IM
-	 ECBm0jCJ2VU5M2I1fOFsPHu4tf613syljd9YlHXlInYJ4DoVMr+Qb+Q2eeAVsZU9XbYl3
-	 QnrX7yWJv4z0g0S+OHKgVNslJeyBIyunWZ9b/QdU2ezKwj/A8FEkTs3YH+200Du2iAQ==
+	t=1793528746;
+	b=rXXyco+mOgyxC412Ss0kZNVEo1TSQEHnX5HauDzBN3zUSE+3vEJkvpx0rp0siQsQ3Cv2
+	 QB0XCGn7BUAP3q81l0K9w8Y4ibFII1RRFNyux9Bw7bcHFr7PZ8j3Cb4HyMs8i9VFHVN/r
+	 9KHYx4NMFKexQpgG7p9ClmidUu9GSAq3Beq1SlF71NiLeK3eKAQHjcr9ZfdZLzv07hdo2
+	 F8YO1tUbS14RVQnquUh52zYQ2JFwDMeXY6v3JY6SOc/ZA++OsbWBHp1EHTan/BEaCvv8r
+	 AU/woZ83v3GU7dIs4gU2Sy7t+md7tOLvMbUFxInwNp11Dv6/zHZ3qSH9GjRMKbqS2CA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793528742;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528746;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ScDmKIg4acvR723VJmmxd0Toi7h9g82TlLCDxj6T2go=;
-	b=gnL/Vp+ubKoqG5/WANFrJKu4XgXKqniZHVaJ+Od8ol7N17n27j0ElnRb6/ZNyElqQrR/
-	 zRPYU16h6m0szvW/ByG5fMmXKlyKZvykwtyAEeAz0FEVzbVPbKgfj7Ecg3SLiVozaErCs
-	 gfPJMWnR3sg4Slnc0/CJCF2e4TILqI3pklyk0GDtSpbOcZaM32aZP5bTkwew+wP+/H8kt
-	 lXouq0nECocJWG63xETECbmmDVfGgyEWXI4IypeTye3gVOwzeLtVhF8CIsZTxxEL0e9Aa
-	 dRvUv2qcpcc/1RIkb+0+8DbW2gbifP3A8KcUCogZHCPPiE2xEGpidGPQ964YPtRmggg==
+	bh=0WNWdAH/5+xVZy8kDLSNEMLIm1NWHJIuWvqvMrdiB/Q=;
+	b=CvPqJjaTotgEZK8aip/7J8tmbbzQdZYbMItWP1Fz7l6MsCp54TkoAnwC6bfI5ZFE+XHr
+	 s0JxU4qTI1r0ofno+iyvip5OUDQgwVo1rquRw5elDWEm2e8zUU2Q5/KTynMRCTu9nxhb5
+	 eIWFTFB2ru2yOtBCE5ZDpYEnVa3QuzdbTnTtQTQ2b38skb8zXBVK624neMNnIFDbr/LnS
+	 o1bkxSzhNEJ+Ta3x0dL3KoM9Rmu4RlIYi2Kk84vJ18yrOhkaRaxgz5r/XaF6UXlMWPBVR
+	 9s47ZFDqS7+q7p9QsEZ0cvsoQ6DSXgCi3JlXsNPUvI7LjC/jvdgQwIWJuFwK3Fsh1OQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z1EERYeq;
-	arc=none smtp.remote-ip=74.125.82.175
-Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com [74.125.82.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5CTssnI;
+	arc=none smtp.remote-ip=74.125.82.54
+Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D5A606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:25:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E8D5A606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23E5606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:25:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E23E5606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Z1EERYeq
-Received: by mail-dy1-f175.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso671896eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:25:41 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=b5CTssnI
+Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-15943c9c005so301369c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:25:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793528741; x=1794133541; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793528745; x=1794133545; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ScDmKIg4acvR723VJmmxd0Toi7h9g82TlLCDxj6T2go=;
-        b=Z1EERYeqilyU8QknxfEMmyHwDcF6fm4byHkFPlQQobVw/FOEaNVTFXmU7C2l80ZFat
-         1h0ZuPWY3X/gOUb6xtzVrzrmChFGdFE53UBQFCE/rXG7EonG95ph9sgqiYjTOSO8dq4C
-         F0dzXiyU/aFoUar7O1KCfH+edLj0wyx6K9GOl+dBe5QaUoAVZZlc/Y6EPEoxR1jMGa6h
-         SkdGKaybrGp+HAMYFvWlxziTp2I/xd/3ihMUnZrbeQiBpjNo36f7E3pz3Q9TKrT9CSI3
-         vIgqdRlMjYesM9lkZmt5IJdvbewCUaUxQ6A0pBAnHikQfpyUD832tsUA3E1XNVVbEZMm
-         vodg==
+        bh=0WNWdAH/5+xVZy8kDLSNEMLIm1NWHJIuWvqvMrdiB/Q=;
+        b=b5CTssnInoLalaKG7mYWQqQTj1jvMnkisvs/9OXE7YcgV8rSQXzSYMWHGzE32E0naq
+         uuGrTZrCiikAdzdZalQzj6MC/nMR23/yWzhtoSyeoIB6zbZQSjMeSeWI3dySdGPDQktN
+         U5FDt0JZVis38IaTzwGZMt2QI59/fkREzd891W+FshvnRCZc+++7Vj73NrbTUTToSqai
+         45m7K0KBeViVkwkCGehTfm5gEh8wlsARcYxvbf1jcp3rKX1GrVYN9R/S+/7JW9xiQ/I8
+         nx/NvYJTrpDm2x2ToMPjVz9w4dEgKDxQxRfCT2YbysMkVQbaDfDgEjKP1n/g+0sYE4fY
+         kuAw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793528741; x=1794133541;
+        d=1e100.net; s=20260707; t=1793528745; x=1794133545;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ScDmKIg4acvR723VJmmxd0Toi7h9g82TlLCDxj6T2go=;
-        b=HdNk6inr0gJneqKT54oP1t4hV2dVqPysh2Cu4SzAR+6bp2JElbojW9IHC6W1YYiATA
-         ZCQLElZkzr6SAb2KJRwO2IkwE3AGUDHLsk+ms1nk6aCpwwd2Ios+BVVNryPk6qOEKNuz
-         kJYAdjyWE+OB63ITXjIgoGmysQb2AgsL2hA5oXUSTwkCTu80fVGcMDiXme0ifESzIQJe
-         HdLTmAIy/URsiJLlCYNzFnC2H7SzUo5Xqal36T2BkhFKOryVb6up5Ou/l790ETxuGZPM
-         v2W9tMaM0fVLfd/wdZEq6Iq50BLgzXCbXHwFU5sqh+UbeaPXiP5yjCAf12Ubas8FWk/L
-         hEOw==
-X-Forwarded-Encrypted: i=1; AKwUvByTy+om/KDkvBwv3PpU6By4C5t7RAtNH9mXaVjun1QDyKsD3PoVru0bI3hB1JtOk4TG4XJzUgeM328KEXw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbfgFMTXas+AYY0/IlW5aMT9gQbVHp1VgLUU1kNonrWGOYlz3k
-	LpyGIS4syBghGSkOW2OVniHxTuXqRY4U4tcqbCNnos4SUDzkjAVqxRvr
-X-Gm-Gg: AYBFou37Tayjmbbf4teF6s20gHLR0DQpkMoGc+c9wkdzVlrI3ee+fqaFc4Nu/BSS3pt
-	514cxkhfXw3w9QNEYMmuC8sHsPM75jxgg7qObJLrBrfYmvkWDtDA8KtGwb0rLSrLYrT30aE0IuP
-	H1NT9xSebqKGpNRbuqlZlf7Pq+KESRp0PIXQUAOX7XZnry8RiPAf47FnDAMGsXJfhZoaqoYdIIM
-	C0y5Qys/TaiXB0RyInDO28ESgB8ozbo9t+cM+BJJgthMiqky+2Di4FWmk8h4zsrNjT0izMbkv+2
-	fQZkNVwDWYR7YObENT33J0uYvvUsPsqUP/aqVmH8ibBCCy2kTxjymbkrv+k3QgEz8UehBnEOxm5
-	t9D9+OX/u7/e2bqC7J/yYH/Z8BUoqniQ5iw40EOac3aIRNFeUTSeklttdbElBcuiy4qIg04YiMp
-	kEivLfeZPU/4egReUKCwfpwgJLo6cKp7g7sD5MMw1EPLIbw9cbMA5sCfrVAsS0HLoliL4lUWAxl
-	ontISr6oINathHFtmjr//Pl1zChPZgphZJSCt1C4kYOPx6T0vm10SL+K3Ms+KDSXdsLQR9lA8gG
-	jB3Y4vH4tia/5msZPp0TT7ZBSPzTTYvFyutZFhWu+/4LB1GuxQy/iOiTDrtjlfsqUMdohZ4r3Ut
-	vBTaTrZcnOsNRYdnCtVwhW6NNir/zmGYi2vXHUFfoS5RcwLFvtjkirN5A8RobMrPygjCMVGGEbb
-	D5XEYojka153H6kBUpxarwqfh6D2gYx0hH224BzE5UTw==
-X-Received: by 2002:a05:701b:4589:b0:19b:39f4:88c9 with SMTP id a92af1059eb24-1ac5bbb487bmr10547378c88.10.1793528739980;
-        Sun, 01 Nov 2026 02:25:39 -0800 (PST)
+        bh=0WNWdAH/5+xVZy8kDLSNEMLIm1NWHJIuWvqvMrdiB/Q=;
+        b=GDFK72sEfwYaXHa4IJR4405k9N+EYYc5XM5eKM5YuRxfVy/kYjO3XQ1iNdcO7dGgua
+         jVIYAi3sWeXWdTVRSjq1hAohEXHhzseNPNaQpZY6Jb4Kv7OqjSf137CQf50raT7I0twQ
+         IrB8Ffw6RifP6ivEXx5pJLvC0r6PhQR0QsRRHInU3oqw/FdxmV3AgLGFcIkJKlafnevf
+         7ki6kuF+oxkkxhXnhV61IrmO4qb5UxeXbeaqRshmdJfeHnDXS8ivu3FvNiHIEgvWntnr
+         QjLE4+RJHQMbnzRcNC4Y/Wumvw67Mn0999cBTOsmjTC/qhs6kN7LvNwqz815rsaYehqg
+         PsOw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtnzgNwj3bNP9nJfm+qS87QO+t0k6nvQX0pBWSLLrZRQ7tAnSI38B915eKYNfqp00F38FhTtNQedjZMEM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLTHHY5vW7qjzQZYbAag7+d9MO1ceMPOSTC7joAoljwuZnO+yF6
+	ZCRC7x5B90WWY0xmSKt3FxjhHPFc0227iux4VQngiGun3u47R3g66vgq
+X-Gm-Gg: AYBFou0oOAFaGODRsHqHe94TbvIJ2sw419jHVBA+RRhIh7bu4k2GT6Ab2pp6u+RTbbd
+	rGJ9JMwWBJU6dbPXSQjAb7e/0BJigbWWKy/Izjz3NPAG+WYJl86s5bN35Ws4AoYaAYWaTOe71L+
+	EsZO2s9uba8XosaSCqCGrLbvm7cUVt6Pdnd7YvrEpjwEFyNhSxi9PjOOzrxs4lvMuQLur2Js3cO
+	34bVq9z59k9W/Ozu3DZb25HVKlartY/qPv83YS8TgpoibLj3xinFA+Qq3+l4e0FFYRiZDR7kJtu
+	4vFjcjMhlmgc+nWdbMZVoxkwaKd//Q57zGKtaE+td743GPRTUlw0lf0+7mxDF+2Rb0wPUNTg8+H
+	1M9PQdUnjvVmCBC/w2CtWdkhpkTJP6sj8PCKiHo97IjIBYYKR87VBO8ndN8l4U4LYH9IkQaqoXP
+	pr3lOJLkixeQXf4iPwEsmtf4Z9w8nThVmHsu+pRTUDalpVS+6KXD9scCLUachMDT/Lpcz8SHAJx
+	4KBfQxiO34XnL9seFAHSlN1QZOTNsTTR2przQa1VGEQ+OQOQofPs44+wQbCY637VQr62L798/nV
+	2EEi3QeEl3EnyamB9hNneGike2j8h+HbECQl4eV9vBC1961pIA6RClK/mPeWgq2yaIHA2dJmJ91
+	xDSKs1ogVdXqgZP0cWQE3+OOWwmjaVAOuM9YAleCeu3wU9GUrGmszh/yUatlTm8GgHdX5GGi5Kr
+	x2TiS6lP44lQOm7DWt9Qt+yxOuZIrHe+v+4qa4a5p4AyW3qqRKu2X9/UaqgdpytcD4
+X-Received: by 2002:a05:701b:4244:10b0:188:ed6d:ebc9 with SMTP id a92af1059eb24-1ac5e6f5225mr10635487c88.38.1793528745096;
+        Sun, 01 Nov 2026 02:25:45 -0800 (PST)
 Received: from kapoor.iiserb.ac.in ([203.18.51.239])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm6767163c88.9.2026.11.01.02.25.36
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm6767163c88.9.2026.11.01.02.25.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 02:25:39 -0800 (PST)
+        Sun, 01 Nov 2026 02:25:44 -0800 (PST)
 From: Arnav Kapoor <kapoorarnav43@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: David Lechner <dlechner@baylibre.com>,
@@ -91,9 +91,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Arnav Kapoor <kapoorarnav43@gmail.com>
-Subject: [PATCH v4 2/3] iio: proximity: sx9324: keep the IRQ balanced across suspend and resume
-Date: Sun,  1 Nov 2026 15:55:03 +0530
-Message-ID: <20261101102518.22757-3-kapoorarnav43@gmail.com>
+Subject: [PATCH v4 3/3] iio: proximity: sx9360: keep the IRQ balanced across suspend and resume
+Date: Sun,  1 Nov 2026 15:55:04 +0530
+Message-ID: <20261101102518.22757-4-kapoorarnav43@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261101102518.22757-1-kapoorarnav43@gmail.com>
 References: <20261101102518.22757-1-kapoorarnav43@gmail.com>
@@ -108,9 +108,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-sx9324_suspend() disables the interrupt first and returns with it still
+sx9360_suspend() disables the interrupt first and returns with it still
 disabled if a register access fails. Resume isn't called after a failed
-suspend, so the interrupt is never enabled again. sx9324_resume() also
+suspend, so the interrupt is never enabled again. sx9360_resume() also
 returns without enabling it on error.
 
 Make the two mirror images: disable the interrupt as the last step of
@@ -118,31 +118,31 @@ suspend and enable it as the first step of resume, before anything can
 fail. The driver works without an interrupt line, so skip both calls
 when client->irq is 0, as sx_common already does.
 
-Fixes: 4c18a890dff8 ("iio:proximity:sx9324: Add SX9324 support")
+Fixes: 1cdb4c47f7f5 ("iio:proximity:sx9360: Add sx9360 support")
 Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
 ---
- drivers/iio/proximity/sx9324.c | 28 ++++++++++++++++------------
- 1 file changed, 16 insertions(+), 12 deletions(-)
+ drivers/iio/proximity/sx9360.c | 30 +++++++++++++++++-------------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/iio/proximity/sx9324.c b/drivers/iio/proximity/sx9324.c
-index 255a36976ac4..a76c49dda354 100644
---- a/drivers/iio/proximity/sx9324.c
-+++ b/drivers/iio/proximity/sx9324.c
-@@ -1088,8 +1088,6 @@ static int sx9324_suspend(struct device *dev)
+diff --git a/drivers/iio/proximity/sx9360.c b/drivers/iio/proximity/sx9360.c
+index ed83d809ecf5..f89c556e0989 100644
+--- a/drivers/iio/proximity/sx9360.c
++++ b/drivers/iio/proximity/sx9360.c
+@@ -797,8 +797,6 @@ static int sx9360_suspend(struct device *dev)
  	unsigned int regval;
  	int ret;
  
 -	disable_irq_nosync(data->client->irq);
 -
  	guard(mutex)(&data->mutex);
- 	ret = regmap_read(data->regmap, SX9324_REG_GNRL_CTRL1, &regval);
+ 	ret = regmap_read(data->regmap, SX9360_REG_GNRL_CTRL0, &regval);
  	if (ret < 0)
-@@ -1100,23 +1098,29 @@ static int sx9324_suspend(struct device *dev)
+@@ -809,23 +807,29 @@ static int sx9360_suspend(struct device *dev)
  
  
  	/* Disable all phases, send the device to sleep. */
--	return regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1, 0);
-+	ret = regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1, 0);
+-	return regmap_write(data->regmap, SX9360_REG_GNRL_CTRL0, 0);
++	ret = regmap_write(data->regmap, SX9360_REG_GNRL_CTRL0, 0);
 +	if (ret)
 +		return ret;
 +
@@ -153,30 +153,31 @@ index 255a36976ac4..a76c49dda354 100644
 +	return 0;
  }
  
- static int sx9324_resume(struct device *dev)
+ static int sx9360_resume(struct device *dev)
  {
  	struct sx_common_data *data = iio_priv(dev_get_drvdata(dev));
  
 -	scoped_guard(mutex, &data->mutex) {
--		int ret = regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1,
--				       data->suspend_ctrl |
--				       SX9324_REG_GNRL_CTRL1_PAUSECTRL);
+-		int ret = regmap_update_bits(data->regmap,
+-					     SX9360_REG_GNRL_CTRL0,
+-					     SX9360_REG_GNRL_CTRL0_PHEN_MASK,
+-					     data->suspend_ctrl);
 -		if (ret)
 -			return ret;
 -	}
-+	if (data->client->irq)
-+		enable_irq(data->client->irq);
- 
 -	enable_irq(data->client->irq);
 -	return 0;
++	if (data->client->irq)
++		enable_irq(data->client->irq);
++
 +	guard(mutex)(&data->mutex);
 +
-+	return regmap_write(data->regmap, SX9324_REG_GNRL_CTRL1,
-+			    data->suspend_ctrl |
-+			    SX9324_REG_GNRL_CTRL1_PAUSECTRL);
++	return regmap_update_bits(data->regmap, SX9360_REG_GNRL_CTRL0,
++				  SX9360_REG_GNRL_CTRL0_PHEN_MASK,
++				  data->suspend_ctrl);
  }
  
- static DEFINE_SIMPLE_DEV_PM_OPS(sx9324_pm_ops, sx9324_suspend, sx9324_resume);
+ static DEFINE_SIMPLE_DEV_PM_OPS(sx9360_pm_ops, sx9360_suspend, sx9360_resume);
 -- 
 2.53.0
 
