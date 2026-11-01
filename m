@@ -1,98 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.181
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576855;
-	b=2WUKlUBL8xoV8ko0hLQelZL/pItpazRWGcvwLDGoVo5H4TEAq60TbXo72vHOZhZixL8x
-	 sYHdcQepjL1k+Dwf6agTvt0ADfBeG1616Th+5aCOAV5PFf/58+cPGwt+QoAxx5uGt9ZJ4
-	 MZsmUbzUgm9j/joR+oebQZf7UqoeqJqistl7aboRvvOTgBvW1iqSB9ykht6CnJbZUpidC
-	 n6f91TM5CRvg9ux0Z6DJopTpgLQyWw87P2mJsrSwp8vmfc0TJKvukp7MLs08TGB66/lqZ
-	 1ETzT35j4CQiMcslEcm/wf0LwOqzmLvmkb7MvPHLd+t4GvuGVnRwa4ElouTLjUGyIfQ==
+	t=1793576889;
+	b=rLVi9SbUnUt94dDjIFQiRYZW2w4EyRWgkMdKLA32sVvIbPxDWp8c5fHErD1MICAsawnn
+	 WZ6POk+SKd26tN7KuVmUp6fF5iZcx+uLWRxNinViyzj43P6lBM65qvOiJl7lz4Wh2RqFc
+	 ZJwpKWMGTDFY6XmgzG6+8C1+AGgQf5ZoHD8xo7Yj1fbuH5mb6BoAnSEHh8kPcCEbfPUnY
+	 FU0WWZ1zo7cQLS88GQtANYYjtQtV/cvrOacxtNpO6wL6Cr9F6tG/cLUuZWKzb++JbmJjo
+	 VGoXwSkUcqyLLZElF0iXiFjo3lelUdieGeBGhwBq8+NkOkNoUvyF6PSh812lI47o5XQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576855;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793576889;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=VjEByB41Ih4tgNv6S4Ay7vXpDo2JBFqNUNi+LJeYuq8=;
-	b=udIlri2QzxhvM5r9SDTZk9qhHrimkxjhfLrRl95qzvDgNKtArQmbEI8XRj1zgc9X2RaQ
-	 Cr3zQNCvaFhCCz97MJ2yRosFnQ3/S2dCuETFsssRw175kcexirY7cSr3f4O2DfEoa38Mu
-	 UQYfMZc9T8QTRxuTIj/9q2+VNl5Bjzi2OJpnUg4X6k1Tw0IserUKic87sbAyys3Fcj1o9
-	 TlSOEWgYfubObh6Ik86HIjMPtTs/zwz0fcCWHXgck93hhHA1NOwLqemxUiDxXDyLfeNRj
-	 a+Y3Xw8pSpiKrm3nrLDv2t4RduVNkO3W6f0O4cLEqu9eHX9hHZgFSmxk2Tmd5l/9Uxw==
+	bh=V1PNsriSOXNXk9F4i3pS/7KJmz2B+6Azrj9cQd9O7UM=;
+	b=nDu2mU9uwUU+x7L+xTeu9O/R+jCXGUt0u17SR4GzY7MZXoZMxOvqyi+aPCb4HEvKFyoX
+	 L7hM27DZe6WmCkipxiigKHJLfajFvEhrIlcjgCHgejDUGG4uS29ZLvzjd5iumsmv7f4Vo
+	 Y2o34VxJCK8ld8vWlJoF2pFz2wjsZYEzNITuoBQK0pXKCfSzGsR8oL2AW5Phx6fVFnxPx
+	 Hgave2oUS2b7BMXtceD0F+aRt6QsLZEx3+nKvDQTlo2Wlpfe8fA+rnPCupp9NZCRUgB+z
+	 s2BLKT9qZoxxIHhs8+7bM7yVKrZnpvbuTTVGWs3Mk0xdKSsocCWlziYtRQZRg3x+xsg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=korea.ac.kr;
-	spf=pass smtp.mailfrom=korea.ac.kr;
-	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=dyL4q9zk;
-	arc=none smtp.remote-ip=209.85.128.181
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+	dmarc=none header.from=layalina.io;
+	spf=pass smtp.mailfrom=layalina.io;
+	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=acxkjQ3o;
+	arc=none smtp.remote-ip=209.85.128.45
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 399AB606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:47:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 399AB606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1BF606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:48:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F1BF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=dyL4q9zk
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-8ab43af5e97so25799757b3.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:47:32 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=acxkjQ3o
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so26012085e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:48:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=korea.ac.kr; s=google; t=1793576851; x=1794181651; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VjEByB41Ih4tgNv6S4Ay7vXpDo2JBFqNUNi+LJeYuq8=;
-        b=dyL4q9zk06aXWa0zDMqTQMuPbl8NGN1GWWLlFtoUQU8k03V3ogGMBmZLqcc6bp65dO
-         M/TDrgEjuZEiL+x9w9e4sCIn6LtT4KMMEDbd0WJN1a8rSZPBtDkr3wsA9HqrZ/OFgdOZ
-         a45RpyG2mFNJuZ+Ii833589gKi7WOZgIk8/79eLMFuFrVcL0FnnJtk4WM5VpDskEUB7M
-         BXdMIc2EGBG0buSXJtAMF6IqODWN0oYGftf5GyYaT1viu586BdThj5gHpc9V05ohf9E0
-         ylPj+rzVmM3BQvD1ACO+klDlUv49Z8qUW/sRhiUvVG5/mMVOgKGs2kV/mVhfLzHEMzgP
-         hJOw==
+        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793576887; x=1794181687; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V1PNsriSOXNXk9F4i3pS/7KJmz2B+6Azrj9cQd9O7UM=;
+        b=acxkjQ3oMg6V0fHID+GEQE22KSpnzDq6lGlXzvoo1Ip1YJY5ZRScWheQuoRu+wHryQ
+         9QtJXkKYYP/ijrouQZBRIz+Oz9Wa/hqzuSJCv3pB1wuz4cbICKCtzjmrUH2+oVRwZOI7
+         VMpZvtDkC8RLHVh7bQ4cfKIHjsV5abw+Jn86gnvH4Q+ejyjdrjXVDs5L8f4LaMyk73Ph
+         /Q7BkgJ1YGGVLUVR9MIQR6SceKM5iYNjdlcI57Lpm6VBIZqMT8ybrWnb6TzakPlYbjOp
+         xM+bz0icHH1KmDdYuNkNmFNay+JdSEQmIlVWv12hBToInwS4mgC5Uurv4IRE/Wx4NveX
+         m/Tw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793576851; x=1794181651;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793576887; x=1794181687;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VjEByB41Ih4tgNv6S4Ay7vXpDo2JBFqNUNi+LJeYuq8=;
-        b=u9XNzltOD4hskI0peQJkj0Ndvxx0edK3dXdYh94VSC/NPfpVDl4dqqLTR5VZIDXvwX
-         KjXgfCWTaMGoj6vh5ra3H21IDju2Fhxap62g2xZMLzlX+HUmm71YI41DIOm+4A6VbHY/
-         vJpy75xOKtoWrXFwqMH0zYJwIKs3O5V/eLfKTWS5BDUAirfzOn5pXj4hJDnE1XV4NNP9
-         W+99VmEO2N/xcP0SJ2rJTGVxWMv1nWMejJIIYh00mvFqiDbzWAD0/kcV+llzZaVAWpbG
-         tkd6B7GkA0yRVr8bZ3jK5pgFGbSoNCK8P++AkfM/fb/NP2ZSIFGRgz6vN1V+txMDn+az
-         d/8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzeJnzn8RtxuWCKoKHDaQkAOIfuLGKRvL49/msStWFVwO45aahcKAeBNRN2sU06LUSUyALibL4WqgjPtnw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqrGdol5iy7yLdbYhrPYdURlQGm2mRHOLI/45O+hKi+4HcdGbH
-	IMmA2sUOURpH4MTjVMprI6KRGzH9u2LYW+2ucHayRKp//sy/Cp2Fuql5okx9tv7smkD5b/d/Bl7
-	Oh1kROw==
-X-Gm-Gg: AYBFou2aMi58nhi4+HgGpkgzCpGFZ3p23jp9LG7jyg/3VHZT+4Kukc2EOoPKIywdPMk
-	UO4p2J0ZF8iCSF8dSGxqFhrH9kNCQ6cdgOyQOSGv9Z6F4nutWibGhIIiujAiKSglMtXHt80OZWe
-	9JNrCgRrjB4CJHR609juJlbFJQN6WhTmSnSAt4La93dMCT2fbTcDexMo8GAYYeI4nf8vi4M+t5y
-	qQ5dnF+MTJvEOOkDshXGHR1sE6iJTKk1RCQiR7Jh+P7eMTDVN/9sslOVW06/bZ5ZlqxGJJdoFE0
-	QFXBgZ3guPE8EQZ+Sa9bpr1eAbcaW7rWlQdRcZRuF+q0TgbYAFa6JMnynr7zl9ch0yMaes/pHg1
-	MLCh/Ervz8AkKeoxq9GP4to9awj16jYTkSVdrFxX7C9UxPB8T8K56i7dq32XiackedRvLOT9eof
-	dD2hkS48hGWIGt/lul9Ke6Quyp5yj+DhW4tC8HQMPTkSfvTIBEKITyveYPhjeYFcoqOTm3VUoJb
-	x2pR6OCE+qvxIZeVSRKkB1MAOI9hHaQCiZATvXYIF/YWSvP3E8iyuPMx+5RlpmYn0HoJDTl
-X-Received: by 2002:a05:690c:e1cd:20b0:873:5c7b:c13a with SMTP id 00721157ae682-8b1c68bc542mr54116897b3.34.1793576851220;
-        Sun, 01 Nov 2026 15:47:31 -0800 (PST)
-Received: from s2lab05.. ([163.152.163.130])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b71bd543sm43987527b3.45.2026.11.01.15.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 15:47:30 -0800 (PST)
-From: Ingyu Jang <ingyujang25@korea.ac.kr>
-To: Tony Nguyen <anthony.l.nguyen@intel.com>,
-	Przemek Kitszel <przemyslaw.kitszel@intel.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ingyu Jang <ingyujang25@korea.ac.kr>
-Subject: [PATCH iwl-next] ixgbe: make EEPROM init_params() return void
-Date: Mon,  2 Nov 2026 08:47:25 +0900
-Message-Id: <20261101234725.1414173-1-ingyujang25@korea.ac.kr>
-X-Mailer: git-send-email 2.34.1
+        bh=V1PNsriSOXNXk9F4i3pS/7KJmz2B+6Azrj9cQd9O7UM=;
+        b=nLfDklN/HZeK20ygXmqq9rdsTLn2fQqNjamNzlyWc51JW+ojgpCYnkvhyEokdH7CPE
+         J+MZ/K1lHqp1AV33bXvw/xjM0TKTIhlMlCwBvgGgWFMqaO7wX8dye06FtCBhO/F5x3p5
+         m4sMAY82sPtAH7cYkzp+V+nhrpw28plBHZhOL7A43S8RVpkqpr+ZxqmgGPp/4K/mjiCs
+         qfN1Ri6t3SzmavYIa5arN5m4mF5OmfjBYfXEPUfPQdK4wxmu+rQFBxknzuDETI3Al0pg
+         gKzFk5ugNWu/CrS/sm5LzS08ki0qnRoNCd9hqu/5Qaugt6uCrv0aQ0rQ3YxyVYDFKOh8
+         Vfdg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUa8yCB5gnMbyoDfgVCtkFZ2FJy0VF/hamslc7GD7lLN+AvCa5nso/J9TmUg4+l/Uv6CdtC692mJhZDy8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJS2tclQj+73u7CCZmHW6/sjr/sErsCv/6oUJkBDvfqDkoSzZ5X
+	hC+AzbSb2D+mQkIsKa/y/mug23d4aiGNM9hPZ4Ixjpzj9Qup8pXeCmEk0n4x++5mb0A=
+X-Gm-Gg: AYBFou1S2xCMfPwS0mB0Tk9MoiRUMOz6ip6bs7coxR2U0+x2OEweHIoUT9d5CF1m+ms
+	pa2RH++t1Eh6Gzjc4rkf6+fcPqmbsYctUkDwyLyzQIPkJrPFTlc30dvOw32CI2Cw8zcKdrOraQz
+	SBW1i3AaQjSBduPEXxwD9uEumKtxNowpHLjxRAlj0FhxBu4zNCgmliAhZEMM97w246qQfs4zPLP
+	VnT2q+MXwNlO+tN+nmZ+kPeoOmfpkfXCexW4M+0kEmC9fi8cB/E6rJs5EAPGTGyWWHaau+u4OUY
+	W4ZWNa5aisc9keBRrdqAr7SihBw1aY/AW3eptgDtbzyrhRl995S/XnaYJQHP/cE4aA4eX1zf8UX
+	uTih6Jr9P0JhBdWGdJnR5FbdMoiPyKy3njRHoS3lrqPOuIgHgR2a0uQjxZBqtBwlJpAWN3juRhC
+	1HC9laQGrkbP6B/q67KUvHOmaAtGomZ+aYM+3dY+2G6KGlLgvWN6Pui2kPxDG5v73qkFt9hypWE
+	/mu4cwZjznk9/CChR+ZWAArngTmTDpdU+Zuledy/lJ/Ivxp6ZUzP7DbLr2bXXPr6ntRcaH9QxF6
+	kFUnZzrbjvBZlPjWLWTNi+GPKingb/q2uL/exB06OzFbVK5F/quxiz9qpEiXLyHxb/fWcuzl1VK
+	qC8ZcoTYTeuoz
+X-Received: by 2002:a05:600c:8b54:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4ac16bc547dmr204281285e9.9.1793576886582;
+        Sun, 01 Nov 2026 15:48:06 -0800 (PST)
+Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f047bfsm300812595e9.3.2026.11.01.15.48.04
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 15:48:05 -0800 (PST)
+Message-ID: <3228e523-3819-4c59-a523-49b6d381e533@layalina.io>
+Date: Sun, 1 Nov 2026 23:48:03 +0000
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -102,236 +93,120 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 04/13] sched/fair: Remove magic hardcoded margin in
+ fits_capacity()
+To: Zhan Xusheng <zhanxusheng1024@gmail.com>
+Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>, Ingo Molnar <mingo@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Vincent Guittot <vincent.guittot@linaro.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, Juri Lelli <juri.lelli@redhat.com>,
+ Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
+ Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Tim Chen <tim.c.chen@linux.intel.com>, "Chen, Yu C" <yu.c.chen@intel.com>,
+ Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20260504020003.71306-1-qyousef@layalina.io>
+ <20260504020003.71306-5-qyousef@layalina.io>
+ <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
+Content-Language: en-US
+From: Qais Yousef <qyousef@layalina.io>
+In-Reply-To: <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-All implementations of the EEPROM init_params() operation always
-return 0, so the error checks on its return value in ixgbe_sw_init()
-and the E610 NVM helpers never trigger.
+On 9/23/26 07:54, Zhan Xusheng wrote:
+> On 05/04/26 02:59, Qais Yousef wrote:
+>> -#define fits_capacity(cap, max)	((cap) * 1280 < (max) * 1024)
+>> +static inline bool fits_capacity(unsigned long util, int cpu)
+>> +{
+>> +	return util < cpu_rq(cpu)->fits_capacity_threshold;
+>> +}
+> 
+> This does not hold on current tip anymore: fits_capacity() has picked up
+> a second caller that does not pass a capacity, and the new signature
+> accepts it silently.
+> 
+> kernel/sched/fair.c, invalid_llc_nr():
+> 
+> 	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+> 			(scale * per_cpu(sd_llc_size, cpu)));
+> 
+> The second argument is a scaled count of the CPUs in an LLC. sd_llc_size
+> is a per-CPU int and scale is an int, so the product binds to the new @cpu
+> parameter with no conversion and no warning, and the test becomes
+> 
+> 	cpu_rq(scale * per_cpu(sd_llc_size, cpu))->fits_capacity_threshold
+> 
+> With the defaults (CONFIG_SCHED_CACHE=y, sysctl_sched_cache_user=1,
+> llc_aggr_tolerance=1) scale is 1, so this is cpu_rq(sd_llc_size), which is
+> not a valid CPU id on a machine with a single LLC. invalid_llc_nr() is
+> called from account_mm_sched(), task_cache_work() and
+> can_migrate_llc_task().
+> 
+> Separating the two uses first makes 04/13 safe to apply. Something like
+> the below, against tip/sched/urgent (3cb0243767fd, where the cache-aware
+> fixes have just landed; sched/core still has the older mm->sc_stat form).
+> It is a no functional change, since x * 1280 < y * 1024 is equivalent to
+> x * 100 < y * 80. Built with CONFIG_SCHED_CACHE=y and =n, no new warnings.
+> 
+> I can post it as a standalone patch if you would rather not carry it in
+> the series.
 
-Make init_params() return void and remove the dead checks.
+Thanks for catching this and reporting it. I am preparing an updated version and
+would have missed this tbh.
 
-Link: https://lore.kernel.org/all/8524c812-b659-4670-b370-35682aba2d2f@intel.com
-Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
----
- .../net/ethernet/intel/ixgbe/ixgbe_common.c   |  4 +--
- .../net/ethernet/intel/ixgbe/ixgbe_common.h   |  2 +-
- drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c | 29 +++++--------------
- drivers/net/ethernet/intel/ixgbe/ixgbe_e610.h |  2 +-
- drivers/net/ethernet/intel/ixgbe/ixgbe_main.c |  5 +---
- drivers/net/ethernet/intel/ixgbe/ixgbe_type.h |  2 +-
- drivers/net/ethernet/intel/ixgbe/ixgbe_x540.c |  4 +--
- drivers/net/ethernet/intel/ixgbe/ixgbe_x540.h |  2 +-
- drivers/net/ethernet/intel/ixgbe/ixgbe_x550.c |  4 +--
- 9 files changed, 16 insertions(+), 38 deletions(-)
+I'm happy for them to be split; but not happy we have a new user with magic
+numbers :( I am trying to remove these numbers, so seeing more added is unfortunate.
 
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_common.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_common.c
-index 3ea6765f9c5d8..ab2c0818f2417 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_common.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_common.c
-@@ -857,7 +857,7 @@ int ixgbe_led_off_generic(struct ixgbe_hw *hw, u32 index)
-  *  Initializes the EEPROM parameters ixgbe_eeprom_info within the
-  *  ixgbe_hw struct in order to set up EEPROM access.
-  **/
--int ixgbe_init_eeprom_params_generic(struct ixgbe_hw *hw)
-+void ixgbe_init_eeprom_params_generic(struct ixgbe_hw *hw)
- {
- 	struct ixgbe_eeprom_info *eeprom = &hw->eeprom;
- 	u32 eec;
-@@ -895,8 +895,6 @@ int ixgbe_init_eeprom_params_generic(struct ixgbe_hw *hw)
- 		hw_dbg(hw, "Eeprom params: type = %d, size = %d, address bits: %d\n",
- 		       eeprom->type, eeprom->word_size, eeprom->address_bits);
- 	}
--
--	return 0;
- }
- 
- /**
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_common.h b/drivers/net/ethernet/intel/ixgbe/ixgbe_common.h
-index 6639069ad5283..8d4fd9074938b 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_common.h
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_common.h
-@@ -25,7 +25,7 @@ int ixgbe_led_on_generic(struct ixgbe_hw *hw, u32 index);
- int ixgbe_led_off_generic(struct ixgbe_hw *hw, u32 index);
- int ixgbe_init_led_link_act_generic(struct ixgbe_hw *hw);
- 
--int ixgbe_init_eeprom_params_generic(struct ixgbe_hw *hw);
-+void ixgbe_init_eeprom_params_generic(struct ixgbe_hw *hw);
- int ixgbe_write_eeprom_generic(struct ixgbe_hw *hw, u16 offset, u16 data);
- int ixgbe_write_eeprom_buffer_bit_bang_generic(struct ixgbe_hw *hw, u16 offset,
- 					       u16 words, u16 *data);
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c
-index 4d8ae5b56145a..eb20ef11f890b 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.c
-@@ -2267,17 +2267,15 @@ int ixgbe_enter_lplu_e610(struct ixgbe_hw *hw)
-  *
-  * Initialize the EEPROM parameters ixgbe_eeprom_info within the ixgbe_hw
-  * struct in order to set up EEPROM access.
-- *
-- * Return: the operation exit code.
-  */
--int ixgbe_init_eeprom_params_e610(struct ixgbe_hw *hw)
-+void ixgbe_init_eeprom_params_e610(struct ixgbe_hw *hw)
- {
- 	struct ixgbe_eeprom_info *eeprom = &hw->eeprom;
- 	u32 gens_stat;
- 	u8 sr_size;
- 
- 	if (eeprom->type != ixgbe_eeprom_uninitialized)
--		return 0;
-+		return;
- 
- 	eeprom->type = ixgbe_flash;
- 
-@@ -2289,8 +2287,6 @@ int ixgbe_init_eeprom_params_e610(struct ixgbe_hw *hw)
- 
- 	hw_dbg(hw, "Eeprom params: type = %d, size = %d\n", eeprom->type,
- 	       eeprom->word_size);
--
--	return 0;
- }
- 
- /**
-@@ -3681,11 +3677,8 @@ int ixgbe_read_ee_aci_e610(struct ixgbe_hw *hw, u16 offset, u16 *data)
- {
- 	int err;
- 
--	if (hw->eeprom.type == ixgbe_eeprom_uninitialized) {
--		err = hw->eeprom.ops.init_params(hw);
--		if (err)
--			return err;
--	}
-+	if (hw->eeprom.type == ixgbe_eeprom_uninitialized)
-+		hw->eeprom.ops.init_params(hw);
- 
- 	err = ixgbe_acquire_nvm(hw, LIBIE_AQC_RES_ACCESS_READ);
- 	if (err)
-@@ -3714,11 +3707,8 @@ int ixgbe_read_ee_aci_buffer_e610(struct ixgbe_hw *hw, u16 offset,
- {
- 	int err;
- 
--	if (hw->eeprom.type == ixgbe_eeprom_uninitialized) {
--		err = hw->eeprom.ops.init_params(hw);
--		if (err)
--			return err;
--	}
-+	if (hw->eeprom.type == ixgbe_eeprom_uninitialized)
-+		hw->eeprom.ops.init_params(hw);
- 
- 	err = ixgbe_acquire_nvm(hw, LIBIE_AQC_RES_ACCESS_READ);
- 	if (err)
-@@ -3747,11 +3737,8 @@ int ixgbe_validate_eeprom_checksum_e610(struct ixgbe_hw *hw, u16 *checksum_val)
- {
- 	int err;
- 
--	if (hw->eeprom.type == ixgbe_eeprom_uninitialized) {
--		err = hw->eeprom.ops.init_params(hw);
--		if (err)
--			return err;
--	}
-+	if (hw->eeprom.type == ixgbe_eeprom_uninitialized)
-+		hw->eeprom.ops.init_params(hw);
- 
- 	err = ixgbe_nvm_validate_checksum(hw);
- 	if (err)
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.h b/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.h
-index 2cb76a3d30ae6..2bc1210756fe1 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.h
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_e610.h
-@@ -58,7 +58,7 @@ int ixgbe_setup_phy_link_e610(struct ixgbe_hw *hw);
- int ixgbe_setup_eee_e610(struct ixgbe_hw *hw, bool enable_eee);
- int ixgbe_set_phy_power_e610(struct ixgbe_hw *hw, bool on);
- int ixgbe_enter_lplu_e610(struct ixgbe_hw *hw);
--int ixgbe_init_eeprom_params_e610(struct ixgbe_hw *hw);
-+void ixgbe_init_eeprom_params_e610(struct ixgbe_hw *hw);
- int ixgbe_aci_get_netlist_node(struct ixgbe_hw *hw,
- 			       struct ixgbe_aci_cmd_get_link_topo *cmd,
- 			       u8 *node_part_number, u16 *node_handle);
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c
-index f91856498eb2d..b337e2d4cf1c3 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_main.c
-@@ -7058,10 +7058,7 @@ static int ixgbe_sw_init(struct ixgbe_adapter *adapter,
- 	adapter->tx_work_limit = IXGBE_DEFAULT_TX_WORK;
- 
- 	/* initialize eeprom parameters */
--	if (hw->eeprom.ops.init_params(hw)) {
--		e_dev_err("EEPROM initialization failed\n");
--		return -EIO;
--	}
-+	hw->eeprom.ops.init_params(hw);
- 
- 	/* PF holds first pool slot */
- 	set_bit(0, adapter->fwd_bitmask);
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_type.h b/drivers/net/ethernet/intel/ixgbe/ixgbe_type.h
-index a461b6542f96b..48a74c89a799c 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_type.h
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_type.h
-@@ -3476,7 +3476,7 @@ struct ixgbe_hw;
- 
- /* Function pointer table */
- struct ixgbe_eeprom_operations {
--	int (*init_params)(struct ixgbe_hw *);
-+	void (*init_params)(struct ixgbe_hw *hw);
- 	int (*read)(struct ixgbe_hw *, u16, u16 *);
- 	int (*read_buffer)(struct ixgbe_hw *, u16, u16, u16 *);
- 	int (*write)(struct ixgbe_hw *, u16, u16);
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.c
-index e67e2feb045b3..d77c6efd800f2 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.c
-@@ -191,7 +191,7 @@ int ixgbe_start_hw_X540(struct ixgbe_hw *hw)
-  *  Initializes the EEPROM parameters ixgbe_eeprom_info within the
-  *  ixgbe_hw struct in order to set up EEPROM access.
-  **/
--int ixgbe_init_eeprom_params_X540(struct ixgbe_hw *hw)
-+void ixgbe_init_eeprom_params_X540(struct ixgbe_hw *hw)
- {
- 	struct ixgbe_eeprom_info *eeprom = &hw->eeprom;
- 
-@@ -210,8 +210,6 @@ int ixgbe_init_eeprom_params_X540(struct ixgbe_hw *hw)
- 		hw_dbg(hw, "Eeprom params: type = %d, size = %d\n",
- 		       eeprom->type, eeprom->word_size);
- 	}
--
--	return 0;
- }
- 
- /**
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.h b/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.h
-index 6ed360c5b605b..282d10b7d4733 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.h
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_x540.h
-@@ -19,6 +19,6 @@ int ixgbe_blink_led_stop_X540(struct ixgbe_hw *hw, u32 index);
- int ixgbe_acquire_swfw_sync_X540(struct ixgbe_hw *hw, u32 mask);
- void ixgbe_release_swfw_sync_X540(struct ixgbe_hw *hw, u32 mask);
- void ixgbe_init_swfw_sync_X540(struct ixgbe_hw *hw);
--int ixgbe_init_eeprom_params_X540(struct ixgbe_hw *hw);
-+void ixgbe_init_eeprom_params_X540(struct ixgbe_hw *hw);
- 
- #endif /* _IXGBE_X540_H_ */
-diff --git a/drivers/net/ethernet/intel/ixgbe/ixgbe_x550.c b/drivers/net/ethernet/intel/ixgbe/ixgbe_x550.c
-index 4a0ccbf448a2a..a8d300e3f471a 100644
---- a/drivers/net/ethernet/intel/ixgbe/ixgbe_x550.c
-+++ b/drivers/net/ethernet/intel/ixgbe/ixgbe_x550.c
-@@ -629,7 +629,7 @@ static int ixgbe_fc_autoneg_fw(struct ixgbe_hw *hw)
-  *  Initializes the EEPROM parameters ixgbe_eeprom_info within the
-  *  ixgbe_hw struct in order to set up EEPROM access.
-  **/
--static int ixgbe_init_eeprom_params_X550(struct ixgbe_hw *hw)
-+static void ixgbe_init_eeprom_params_X550(struct ixgbe_hw *hw)
- {
- 	struct ixgbe_eeprom_info *eeprom = &hw->eeprom;
- 
-@@ -648,8 +648,6 @@ static int ixgbe_init_eeprom_params_X550(struct ixgbe_hw *hw)
- 		hw_dbg(hw, "Eeprom params: type = %d, size = %d\n",
- 		       eeprom->type, eeprom->word_size);
- 	}
--
--	return 0;
- }
- 
- /**
--- 
-2.34.1
+If you don't mind posting a patch to split and discuss the details that'd be great.
+
+Thanks!
+
+--
+Qais Yousef
+
+> 
+> ---
+>  kernel/sched/fair.c | 19 +++++++++++++++++--
+>  1 file changed, 17 insertions(+), 2 deletions(-)
+> 
+> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+> index 57360f5cdde4..97ce56fcaf85 100644
+> --- a/kernel/sched/fair.c
+> +++ b/kernel/sched/fair.c
+> @@ -1526,6 +1526,21 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
+>  	return false;
+>  }
+>  
+> +/*
+> + * The margin used when comparing the number of a process' active threads
+> + * with the number of CPUs in an LLC.
+> + *
+> + * Mirrors the ~20% margin of fits_capacity(), but is kept separate because
+> + * fits_capacity() describes a utilization versus CPU capacity relation,
+> + * which this is not.
+> + *
+> + * (default: ~80% of the LLC's CPUs)
+> + */
+> +static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
+> +{
+> +	return nr_threads * 100 < (u64)nr_cpus * 80;
+> +}
+> +
+>  static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+>  			   int cpu)
+>  {
+> @@ -1542,8 +1557,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
+>  	if (scale == INT_MAX)
+>  		return false;
+>  
+> -	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
+> -			(scale * per_cpu(sd_llc_size, cpu)));
+> +	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
+> +			    scale * per_cpu(sd_llc_size, cpu));
+>  }
+>  
+>  /*
 
