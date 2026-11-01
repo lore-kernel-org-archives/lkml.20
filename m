@@ -1,61 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793501618;
-	b=R4JM8KtqrV0Ce1VQsWrYX7G1vvDtdeZGtkYc8j5SGa0QjWfisMLAvZTc38RfACostS4O
-	 TRw1sjksn2vvXeG0dIOr/3rGgdiuX16VzAMdPL5IeCvGaBdiA3MSHNMNCYCRhPR/e8xJ/
-	 /3mHmkhdJZCKx6CjNIqocEXJV7UmFfsZ/XIDmFUyVKWKBzYAEGs4SojBp4x3nAAw4lcvG
-	 phWUyyJfkwwXJlQBjO4wM56RCcnccFGJ38nPjB0MLLdOusr2si/Dfmn9N5YEFp1YQcJOF
-	 LzlAmKcYwwYW2avWrG9ckOgUcnevyClB9DUDoCdF/DcrpVpfLyjAgLrGPyCnUPg7Xmg==
+	t=1793501756;
+	b=lKx9QRCwcWpqyGtlIGA29cgjtKaJPf0CCB6j951ZnO5fP5JIsUlq8kiwvNGsRdxWwy8k
+	 SBuw0RorbH7U7VmfdcsSDV3b3cH+PwaZLWSEpPTvyYTu2zferM+BshL88NTfvcaIfUgAT
+	 8sFXNpCWUqD6OI6xS8gjPEj/cnfrnUpKLdkA9bPEAVBk1j+a00V5EJcfFqEPcGpLMdouW
+	 9uaz2ik5mXYKhc+552X7tx5D+kAZJ4HTdUaL7yNDjSPcQcIwReqkhIPf1EI2vdUFPXgmV
+	 oU2/l1qRhNo9Od7evOa8UiIyx3P5pidrHT63zE9ARtUwHZcJTuSQCZ9QFxwuRoQUcyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793501618;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793501756;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
+	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=oi2Om/0yRV8ohoDUorxLi3TAR/FjA7v3NVIbPVXfGMk=;
-	b=fJhW1Knk1Y7v9sKOslHhqyVQRVp8DcyhM8K7eR2UDq5S4w+vTHFXdZbrFOob5gETBnLT
-	 DWD7nr9IsBrm2tJXkdtX7fRS+MR5HqizxmEgTt55YXZNc6Ho2uQwh+upNQipi6YKpvURn
-	 8jeQgjCXjghz6PA/jVdaa0ffcFNLwePD7IMe8H3OssTDg0raIJjv0TKLKiQfmOQFpUW/E
-	 TIx2+qssZjXanzSruMOUFsieNqMYaIbCt1ehI9JtDlM0y1zjbnPYBzcb4kRZ8xBiSMQgW
-	 A5bTPbVSCj0X4MWdAlai9em1qfjNSimCHuAS155FbK3JRbGkvfkWi14Ta+LS+ev2qQg==
+	bh=Rbia2ZdVtMV6lCwGNxC4eIg9zkBp56JlTOTvsadIUzQ=;
+	b=CO64zfv6hhdBtqsSn7oDvzjA1nO71xCIa4l2hbNQL0aHTSLD4WSvMsj3vcDeM8tcN4WZ
+	 UJIDOZQ+Ct9mmX0+4mAEQyUva+j7u+D0rGbvjxBuE0e4ueSBG5Sgb0fuJdptuSSuvDdiZ
+	 15VYmSAu18LupEA+F4yxmybTQCQLWMYTvB3O95xXU9kSggNntjuEODn/wPP64uG2kx4tC
+	 Coku2CvBKm+pZQFP5MLUrU0+rf+me4MKOLiGJfgI4bcr7TU+K+0UMyYSPY6RPDRi7Yd1z
+	 VWLU/6GlvpstWNhJ0i3z+UlkvB+hatKHQrR5zFgomFFYpM8F+7uTx6AhHV+0BEu1jig==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikc572T1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GQu/yWwE";
+	arc=none smtp.remote-ip=209.85.216.43
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE810606A324;
-	Sun,  1 Nov 2026 02:53:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F57606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:55:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F57606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ikc572T1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18C4A1F000C1;
-	Sun,  1 Nov 2026 02:53:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793501617;
-	bh=oi2Om/0yRV8ohoDUorxLi3TAR/FjA7v3NVIbPVXfGMk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ikc572T14IdO7+Q5gL7kWsZMhWNNzS6xlTnow7ZOClBWwio3XgC1oE60a52Fq8HBl
-	 cqzUXSLUVmN77cJSy0KtAuGSf3E4pChr3AoBfi5XWKdMt02cIu9mK/tQLZSoTS+Yyq
-	 vPyCsG8h3zg2a0/yoBq6174FGnUQtTIL37nD3g5Ah58ZfVj/KT9AcjmWCFDaUld/wT
-	 TL94QU2ZV6d8qc5V3fSAtbus1eptVtuw4aanNB8S/GA/H8g/HxTpP24SGAYQv7jQrz
-	 F+QZqHopq5jSK+BKOeGnLdZwnA+kGFGP+M/JDcINnACaVFrufiPYTEKAs6E0/+Vunp
-	 proxPaIyBFDWw==
-Date: Sun, 1 Nov 2026 02:53:28 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josef Bacik
- <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable <stable@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Leonard Crestez
- <cdleonard@gmail.com>
-Subject: Re: [PATCH 02/15] iio: trigger: fail the attach if no sub-IRQ is
- left
-Message-ID: <20261101025328.51918bd8@jic23-hlaptop>
-In-Reply-To: <auHCnFusqaw-CT7x@nsa>
-References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
-	<20261027-llm-char-misc-iio-v1-2-0d818334f6c7@linuxfoundation.org>
-	<auHCnFusqaw-CT7x@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GQu/yWwE
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso784527a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:55:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793501755; x=1794106555; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rbia2ZdVtMV6lCwGNxC4eIg9zkBp56JlTOTvsadIUzQ=;
+        b=GQu/yWwEo/ufwz1xx65OMIDDMJqQ5+BrZ8RU/sQlPM0BdIWEUCaUTrcWJi+DPcMav7
+         nnUdQncF9BHfL+Gjk+F9j3DI5OkeQfQ+yXY6ypCNZ/Pt7g5WWu3i2AbqnQXwvk6BmQnE
+         nqO/ILx/dIJmgaQkmYU+7mEETjh6IDS5oTYHrTnId7owiVrBZ5o9M4LLxhXxW72sRyzf
+         vFW4aOpF13nTjwWaPFfkvd8lxRlSgx1HqkhuRXaPQQw8V+YsQR6NNYQfQiw601kjmwGy
+         ZQ1ZrZeVweKpDlsOfU+mNBNOqB1F/vYp+7hLQCHQ1NSHh7U6fdQ2P8slUIMx0f3bDxXv
+         mx6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793501755; x=1794106555;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rbia2ZdVtMV6lCwGNxC4eIg9zkBp56JlTOTvsadIUzQ=;
+        b=GRMwjgpag9RlgyO+xCaZQmtbbNNCseOjPe6ECdVhbCdaeqUv9ZNVIgPmiubzh9szIY
+         emGIlUjMzPbKt9AZ9cttpvFTgiJ9qmyoXVZ12tiiSuw8EGNq64SpuPatA9mZm/9cv95a
+         cvJaZF0jVSYJiroDOTqReL1YmZtr5MInefRIjirQvkuot56E5l2QPL/b/QkkcVAJ9rsC
+         JU8keRZe/cR4Meb+oTGTu7HMvdC06Dx9CGtUidkbQM5iOdVenwV8YT/J/HDXo5t/9XMP
+         cUK3ScD1gO3xNpICLlUcID9TIJCRIY58Do5vLuzSZeqe3uXMnC8iK0AOLmB9B5qGS/4K
+         3oDQ==
+X-Gm-Message-State: APuU4Z9HEGLXsWRT3+qgTe2sPnWQGvgWmv//8jfSpfRJW2rfnjdeJjsX
+	cd6CL7nrhcZa6UoPkzb1RhZ9MHETunRdpE9IOxhPi616ht79RFv36BEK
+X-Gm-Gg: AYBFou1mgLYrkODtZ7u/RuseneSODCYSQWF0MAkSNKVEtZduzl3UbssJYX3RX0QYYex
+	4Pjq9FoJTXWn8VtukETLGVAiP/IqDo2asIX3UUUQ89bGBWtRUHubj3+TuNcB3GCI9vyoZpBpJjb
+	UHmM6U28vU3uoD2ID9M0M/YXgZoy1XlPV7vjtXnvEYKWOpQpdbe8ehNoHH6VHBM7xnrZSJYMTjv
+	tOdyf0yq0205/yzi33F2Fat9Nhqd6DyECzHxCbmoRGNIu/gVbXPGaEN3A3SwciBpzsshpt16wMV
+	zxFaf5hi1o2n9+2mLkHMBhBxm6zhMUPkeB5R3WZnk5Z1q7AxD1V3Kfhzw80ZZIszOWMr6uYN3ZN
+	PBHgJCDZnJVjmUutuon8rKZb29FjJe/o7gXlvVQp//MbvsjKfUAOFF68ZBRn2kaZnTJmoiNDXQU
+	6XHNTXaSgMVNTRGozDX7O5nUuoqdVLaUd0nFdbq94dPQP7p26FvnwyjBpWHUFl5a4kforO0zi2S
+	+Lev90b8Y4tk9lsq/sVFIvNWDyXC4eIsssli4EsF3fgWXd5OpF5oHB2TslCi1Z9uadQp8VgQ/+j
+	YRWQca4b902BYsVYPS0dV+UNeWgFF0EDkg==
+X-Received: by 2002:a17:90b:4b8a:b0:3a7:8350:3f7e with SMTP id 98e67ed59e1d1-3ae89771679mr5168991a91.44.1793501755440;
+        Sat, 31 Oct 2026 19:55:55 -0700 (PDT)
+Received: from server225.. ([39.170.101.209])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8454327esm8980297a91.4.2026.10.31.19.55.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 31 Oct 2026 19:55:54 -0700 (PDT)
+From: Ping Li <leeonion.muyu@gmail.com>
+To: ben.horgan@arm.com,
+	james.morse@arm.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	reinette.chatre@intel.com,
+	fenghuay@nvidia.com
+Subject: Re: [PATCH] arm_mpam: Warn when firmware leaves PARTIDs disabled
+Date: Sun,  1 Nov 2026 10:55:50 +0800
+Message-Id: <20261101025550.1633447-1-leeonion.muyu@gmail.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <8950f9bc-8ca9-476c-a7d6-2b434908b80c@arm.com>
+References: <8950f9bc-8ca9-476c-a7d6-2b434908b80c@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,83 +99,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 09:38:57 +0000
-Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
+Hi Ben,
 
-> On Tue, Oct 27, 2026 at 05:19:06PM +0100, Greg Kroah-Hartman wrote:
-> > From: Josef Bacik <josef@toxicpanda.com>
-> >=20
-> > A trigger can serve CONFIG_IIO_CONSUMERS_PER_TRIGGER devices, two by
-> > default.  When one more device is attached, iio_trigger_get_irq() retur=
-ns
-> > -ENOMEM.  iio_trigger_attach_poll_func() prints an error, drops the mod=
-ule
-> > reference and jumps to its exit, but ret is still 0 there, so it reports
-> > success.
-> >=20
-> > iio_enable_buffers() goes on as if the poll function were attached.  The
-> > write to buffer/enable succeeds, but no sample ever arrives.  When the
-> > buffer is disabled again, iio_trigger_detach_poll_func() undoes an atta=
-ch
-> > which has not taken place, with -ENOMEM in pf->irq:
-> >=20
-> >  - iio_trigger_put_irq() calls clear_bit() with the bit number
-> >    -ENOMEM - trig->subirq_base, which clears a bit in whatever lies in
-> >    front of trig->pool;
-> >  - if only one of the real consumers is left, the trigger is switched o=
-ff
-> >    under it;
-> >  - module_put() drops a reference to the driver module which has been
-> >    dropped already.
-> >=20
-> > All it takes is to set the same trigger as current_trigger of three
-> > devices and to enable their buffers.
-> >=20
-> > Return the error.
-> >=20
-> > Fixes: 995438233579 ("iio: Fix error handling in iio_trigger_attach_pol=
-l_func")
-> > Cc: stable <stable@kernel.org>
-> > Cc: David Lechner <dlechner@baylibre.com>
-> > Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
-> > Cc: Andy Shevchenko <andy@kernel.org>
-> > Cc: Leonard Crestez <cdleonard@gmail.com>
-> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > --- =20
->=20
-> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
->=20
-Another one where it seems the LLMs are feeding the same to multiple
-people.=20
-Currently on my fixes-togreg tree is:
-ef017c440534 ("iio: trigger: Return an error when the trigger has no free i=
-rq")
-=46rom Karl Mehltretter
+Thanks for sharing the direction. I asked our hardware team why they
+implemented HAS_ENDIS: the motivation is power. Enabling PARTIDs that
+are never used does not affect performance, but costs leakage in the
+registers and combinational logic behind them - with e.g. 32 PARTIDs
+implemented and only a handful ever used, the unused portion is pure
+waste. Their expectation was that software would enable only the
+PARTIDs it needs at initialization time.
 
-> >  drivers/iio/industrialio-trigger.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> >=20
-> > diff --git a/drivers/iio/industrialio-trigger.c b/drivers/iio/industria=
-lio-trigger.c
-> > index 76926fee0f84..fc4651490d42 100644
-> > --- a/drivers/iio/industrialio-trigger.c
-> > +++ b/drivers/iio/industrialio-trigger.c
-> > @@ -293,6 +293,7 @@ int iio_trigger_attach_poll_func(struct iio_trigger=
- *trig,
-> >  	if (pf->irq < 0) {
-> >  		pr_err("Could not find an available irq for trigger %s, CONFIG_IIO_C=
-ONSUMERS_PER_TRIGGER=3D%d limit might be exceeded\n",
-> >  			trig->name, CONFIG_IIO_CONSUMERS_PER_TRIGGER);
-> > +		ret =3D pf->irq;
-> >  		goto out_put_module;
-> >  	}
-> > =20
-> >=20
-> > --=20
-> > 2.56.0
-> >  =20
+For a general-purpose driver that cannot predict how many PARTIDs
+userspace will actually use, that is not something we can do. So what
+I plan to do is either enable all the PARTIDs from the driver, or ask
+the hardware team to drop the HAS_ENDIS feature.
 
+I am happy to drop this warning patch in favour of your driver-side
+enabling patch.
+
+Thanks,
+Ping
