@@ -1,97 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793543088;
-	b=dEsbZjDy5DWQvZXFPvj1XhnO5iIvn/CJFUq+5MUgR22taSYPbWNcFmBlHMiwLIq4tQVa
-	 M1zvVwmZDIo7Oxsa7E/95oy5ZmduuUV2vb6JZDdMc7NeNJIJq7kkmWnuV+OGq84bf9s0Q
-	 s8q8+/rIDO4tVFdIIJDTvWcRvtfFeHeX+l7DOD73vwdulqHkv8t/1m65inkmDAD9GNdhg
-	 rBQDGtz2ixBEYCRduwwJcumisOku3Y+j0MxCWdPia0Gc89nEv1JfTE2K63toeNAiTj3qL
-	 55OF6M0abBHpYTHWbROeBZcio436EGeGj8i4TUecxG4Z50AhyhACdzHki9EEp/YzAsg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793543088;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793543208;
+	b=r5AN5TfAhWJ+l4cr04v2fIaFbYwJBUiy/cXtWIdywex4Yd2gaWXUUA9zDgxPGbJ1hByI
+	 GzH46BwnQJawK1A6bNn3YI8goisvCjuybazSE5UvHI5LTRevNes6UQOn0oBUeXOwGb65x
+	 /QZBfw+w/o1dhJnSKS+oszfgg8qRTsxnFQar4MDMvTvdh7ZjluinHW0mJty5kg+KyHLsw
+	 UhOrpiUzB5hz0urW21myFqOxBZ7bt/mYFj9JZcLZAZCXwtPTjKrHP9Q+CAFBtqjNTbtxC
+	 kwiUq7d86iaCiLV745jSzaailILLWzioMsFD46XsY0wypZou9gRydTAm+49oWly12EQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793543208;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=9S5hKR3Q9jtJKLTHVg9rJOjWtvZaDRDoo7tiPR+mJPw=;
-	b=GghFcK449vCj6TjAq6pHYZPDElBehKNMIgncs3VzXlHRZoMn6xlH1Og8/z97V20TKNc2
-	 aWvySYWLVi/g86BK5XA2UVnI9RmurGs33pCnwVbQnC691G0ajttSeWgYTugAdIBnAX5wl
-	 2uZYKLjhC+zPL4ev8fnAfRYr79KnFMPbgSvCE9ZusaYAE02FU+TweUnXx1AZg/nWJlPCv
-	 knGxegD+bW4caQP+XoZYr18BcGkmjJjJlW2j1sRZNW8LgMPFRf9cEjPwLyRr1BD3wAjRl
-	 3yV/zmVCGJ5lfBivw/r4ytyFUdwyJCrgTLVMbWz/jhFDxgPp/nY5ddE8f5TsoexwJrQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wq0p8kXt;
-	arc=none smtp.remote-ip=209.85.208.47
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=VSMhtPmYj28P/PYH23LQ0LHJkDrgHurxFkaRZSD9+Uk=;
+	b=C3XzttlN9NNA/ZYUody4dxvnDqFDm6fhIvwvumasAxfMXUnZH4N85BvOV2jaWN9y9Xp+
+	 q65H6ySNeOc6jenEEPo6p6lhsp6KkdBKAgaFzH4u+Tq1ep76C6ON65bXvnZ+gCECYHV9J
+	 2QVElAgejOY/FwGKI4dMeDczonhwrE/GGv3uVKvB0ztGIQv0OiCBL9CfulLywz38osFSA
+	 MKBjVtzRfFOzfiXszX+C799b5HbigSmKltsb5ZmZOpNugahTxS4YuR6dH1urQASJxKfHI
+	 DgsPSnfsdU8EoRI3VP2eAUDPbPAo2BmxZqifyvR43hTQT7D5k/Iio6B1ckI8Bog7hug==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=miget.com;
+	spf=pass smtp.mailfrom=miget.com;
+	dkim=pass header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b="SG2s/tPP";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.161.48
+Received: from mail-oo1-f48.google.com (mail-oo1-f48.google.com [209.85.161.48])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC12D606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:24:47 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC12D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC3FA606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:26:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC3FA606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=miget.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=miget.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wq0p8kXt
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1f31c63ebso5251650a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:24:47 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=miget.com header.i=@miget.com header.a=rsa-sha256 header.s=google header.b=SG2s/tPP
+Received: by mail-oo1-f48.google.com with SMTP id 006d021491bc7-703be215729so1047393eaf.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:26:47 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793543207; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dtaX0ChlVCX72qBi24nNC0Wjqz+4GHHy8bzPRKr+hxgLpxtyUYV5Xn2HSoJ7CDlDjA
+         X8Sjj+uikM2nay3AWYESBHZgubEyFkd+4gepWVwx+G+OgSklUzZVwrG2PpBOgvB7qAHj
+         xKGhVclt0+V+vDrE/Amy9R2B3A0InYqo2vOyub1wE6N0Oww3+/8HPMF9oiZDCTJho4Nx
+         UdlKk4yKzhTQvrNxXftW1VjYVWSvQSGQ0fyIf28AUDXpNPWSpqBVEdJT2IQDiy26ebf2
+         8xrSn1yZyaUtROTSAM2uNwAPtLh70/KkytfQ1j7ENCsKDa1vBK3WNSwHqVTSjCpxYN0W
+         6GoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VSMhtPmYj28P/PYH23LQ0LHJkDrgHurxFkaRZSD9+Uk=;
+        fh=v1lsdRHZ/0YEGtzMi5T/RF897J2IX8dlxFGkhIGLiRg=;
+        b=DnOkLi8+0z/9b04ugFxUKrDuG5f0p5Ttvq+u7mlQsch5WOpzl4IVi0bHPt9enKutbO
+         mGyfmbGVRdZxIcUgvPMrudHGxDluxPn26EZWSO3nmzvosyoiaC8AERdhMYw8S2+LXgZX
+         FPyFrtf1glBajZMx0HeWuBU7f+yENHZdD/PWmPRW1zH5H8d3IVjnQRb5OB0YoVPznHmz
+         jgHcRbfflzKizKn/FYTpAjIO4bput15JPvoEnQzAyvc2OabZxqthXsYUggUyY3PRl9A/
+         ZWskzdailfBccxe9Ho5n03bZqPA2VVOozjMROQKWA/TVHwZ11rytWn+lizKTgPjRSNRM
+         kNrg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793543086; x=1794147886; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9S5hKR3Q9jtJKLTHVg9rJOjWtvZaDRDoo7tiPR+mJPw=;
-        b=wq0p8kXtaFaZumbLF7xYGaSfJRmZIQVIy/eK86L39ggOI67iXZNBjBD1AUVqgVOK0d
-         QSb65Z/6iwph4ucFEmljF7LtdNJzAYWLuuMJryKRaTYczY6q8XmRkvQoZj++VfIE7Ulj
-         KjMQEtIO5dhms/XcZ7wtTlRjii/meLFNYSaOZCWEzS9zjmKjm+HWBS1lAasFtmSH3IiZ
-         GDwwhD2OQOMaPvrX1aw4GOLmMgIvouegb59aAqPveENTeMPErvNumxfamdInCpFq/729
-         I1nIQtn5fZNxYtXMFR+03RnKE+CFMn8nnh71mG/eC1M99/GSZB3bu7EtnZmI3frTcZqw
-         W6Kg==
+        d=miget.com; s=google; t=1793543207; x=1794148007; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VSMhtPmYj28P/PYH23LQ0LHJkDrgHurxFkaRZSD9+Uk=;
+        b=SG2s/tPP98PWmeaftY02H/z8zD336YrdgSY6n52NWltggx38Twlo9JM7IP4P5qLgob
+         U8fQTxsqlqlYBPLj6JO1qUQd68MY7OI5ytFCMzlNOKpWCcoEOKv3rHBL3UO2RdkvO8lh
+         5J4iTDpsh37P/T7IyWypweeAgYvBzSXVwtALo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793543086; x=1794147886;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9S5hKR3Q9jtJKLTHVg9rJOjWtvZaDRDoo7tiPR+mJPw=;
-        b=WB0+5z/Qawk8XZ/m9uITEcjdAkkkXEcnAt+O6kI3+nvqIX9cZIsvTlY3ANljNcvH22
-         HdT/hxcezlp2S4pPx6Nb8dpzCsU7yBuiy8H1op6wwSNrlK4KUlBoCDUcz9SIS5EBC7Mw
-         ZnGmQlGulZprVm+U+HMqh3VLTLZoC2MrADm/PH/zIUODw/i6uQRAL/yPPkEh+0napa2F
-         4271dkZRrIB2G5ZgAy2sw//G9373S/oOBRasOxpG6eP9l3qReIFUKgsRwbU2XBBVsVof
-         3YPNujeh+6GtO7q08HmNxm1RhqQnutzbsQ1h2bbOGm1Z+AwK4ogfEbuwmZ4dgW1KiPiJ
-         aD3A==
-X-Forwarded-Encrypted: i=1; AKwUvBzoO8MQ1UInwTlF9IB5S+GL30jSNxkQDk6LPfwDveXdPWphFSq7wTp4fWg01nMgkr00V84/3U/9lRLeoEw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+dzB5PbmzAs2PpUtNO5Z1fJM+/MCEJDlRKT/ujm+FradiAZaMW
-	R/jeUHtWJHhnnxMkicEezi7MlBWZbMXpXOv9oNiqZBBYsDQ6zvlJVoVs
-X-Gm-Gg: AYBFou3hTmanSit5QZvhJJM6HM5CJfm4aw3nuHMAVOWA3Imxvsyg5FFGvdzt8rM1nmq
-	UOe6DC3VJxq6Ob8TCTuoO0if2PY9d38YM9HT2LwHkugmlUNoV5dUeClirNmy6lxwWeY85BkuaNe
-	gBa3MRBM/S15lRqi1Ik0CNUaWdpSp01RKtPxCiyF4WOfpdaj4d8X59YuP5OoUOHDmZfGZbZg6iC
-	kHGtarN+swA9T4s3XtUepiEAy0hb3F3Vnfs3HAnCh3wSJf1pUiGikWm6gjfiRaF3h8oY5v4IPHw
-	vOLDiXAyF0RVpBPZpQALCh3KCglSXiuk0kRGtyEp6Pl7RH/bDwC2VD2sxG53/vFUk1cCVi5ii2O
-	oOIbi5pU0SDQ724TVNqHTMEzDpBEpri4xOxLCq/VgLe3GLjVMHHyN4ifftdZqqttXGe2bOfTebG
-	TC8aYvDHdpE248Ko9O+tvHN8ZI1bRaujyZbLCtiNTRhiximrBi5OdHrT7A0sdFHEZELqvlY4cl6
-	zn5jx739KcZiP5njY3SHMNWQG2bz+dcdQrAIoyR3kBqD9CohLlkAHVdsramDlYMEDcvEcCJ0BwZ
-	QU67g5rCHcXoKsARhVnhqF7URh90MAhIiT6N4PIgyJazrzmyCg==
-X-Received: by 2002:a17:907:558:b0:c4c:c62a:b9b3 with SMTP id a640c23a62f3a-c4cc62ad38bmr131681666b.22.1793543086239;
-        Sun, 01 Nov 2026 06:24:46 -0800 (PST)
-Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabf0bfa2sm279135766b.80.2026.11.01.06.24.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 06:24:45 -0800 (PST)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Griffin Kroah-Hartman <griffin@kroah.com>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Helge Deller <deller@gmx.de>
-Cc: linux-leds@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org
-Subject: [PATCH v1] video: leds: backlight: lm3533: Support getting LED sources from DT
-Date: Sun,  1 Nov 2026 16:24:35 +0200
-Message-ID: <20261101142435.130520-1-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793543207; x=1794148007;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VSMhtPmYj28P/PYH23LQ0LHJkDrgHurxFkaRZSD9+Uk=;
+        b=d+wxgrTKEVcCmBP3ddciSku8KS2vfuHEXFK+rkRV4Cg5ANFj/PARTBz86YgUxJhLNi
+         MXjEyF+0CnXrywZfygjuGHXKrNV4jDSsFxJQrwV8JIZpsQ2NQug82ae5AOZY8gD97UVA
+         sWN42tQAT5OfWbpXrP7sNjhdWXor3J0LiYgfFwchsP+y4KpzoDewYvRPQZZ2WisBKHlC
+         OiHBWPqyeotyBcTeqmQwcAtmt9j0vpz+i5taVA8sH+ZzdGYDsfi1N+7IEI3WXG+hS1If
+         sAoUerXIzqHQg79dGp9yCpRAeLkk7kzhrEoD/0YLR9CH42kGbAmesAbspKOpoaR3ueHh
+         9JNA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4zPFcdIkCLn17VoVgDVhlJP3ei3yTK/1cjpF9Me/IY5gqDMcBG+LU7Y111NE78/a4ZE8Y3QJBEPq5i40=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQd7pMflg0mpGyoW/+uPh30SMZYZ6fgqRmP0N7WP1JyWmS0upg
+	Tn2xPvcGMOIZ8RZ11RgZN4tT2Gu5kLPeemgNiaacuuZ0DqIK3uDn50mixj2v7C+BKeY77m9Drs2
+	pkZNDLxKtISwQ1I0d9RtnwBocyRQA56QTBuH5L4yVvQ==
+X-Gm-Gg: AYBFou33iKnPGMGrmPLJqspdjOPG4ZjPXAk7cvciv9EORJp/Fwy643ole+HF5cqy8Aj
+	0pHNvwP18Nbi6uHTvMJkuAmtU/VhKUVAcblOne5sEN4N/FbqAy+4DJcqgUg9UhvdCRzXN7kg1RI
+	0Vd2AR4zsXNw2LOu86QETUFIAGipAOHaunnFHu9qbHZV9Y4AfLcKO9hhKxYucvVLqOSRSiQjBIq
+	AAqJydpJtXulBlEuqlDgUcfEkoMz0xtw61B7psewZOJr0dP/Lrx+9uSveWS/QlAavclMduPDVPU
+	V+DKf3ik5PY7GmvuBVl/As3nFyfmV604kG1QQ6Vd+FctW5sC6fb2QkCC275ekaoRpfdK5SXbz4n
+	OIMjcUhC++kc42ybwNb+pyAeV5jl7VlakKIbDExc9PamQ1usdR49JmQiEEeThr6CaIcGjTgCAyl
+	l6w0JYMhkI+gWBJAKypKIecRo0gfSJTSs32xnU0pXPjLXzZ78=
+X-Received: by 2002:a05:6820:828:b0:70d:77b7:686b with SMTP id
+ 006d021491bc7-714f29bd919mr3821168eaf.40.1793543206773; Sun, 01 Nov 2026
+ 06:26:46 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,207 +101,74 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261026102101.224568-1-qby140326@gmail.com> <073e6aaa-12dd-4fc1-b7dd-4d27cb4e27b6@kernel.org>
+ <CAAcRvKNvBKwVcPQ6vv-+OGZdL2Gxd-ocNyvZO_q-g083QNfR5w@mail.gmail.com>
+ <f2dd98be-0551-4857-93c7-59ffad1d3e88@kernel.org> <CAAcRvKNYkXr+eor3JAYwO17vckeVAmYT+Dp+-wMobMmL40ukBg@mail.gmail.com>
+ <fc016bc8-bc6e-47ed-a85e-891e522c3f24@kernel.org>
+In-Reply-To: <fc016bc8-bc6e-47ed-a85e-891e522c3f24@kernel.org>
+From: Chris Taraszka <chris@miget.com>
+Date: Sun, 1 Nov 2026 15:26:32 +0100
+X-Gm-Features: AclHuK-Zww_1hrg6V7YRypD6x2MCAdLGuHMa1GKcWFVyTX7OCr-uEhqE7nFiPjc
+Message-ID: <CAAcRvKMdHPUNuG6Zd4g=M2settZ609-oZG6P_PMRk5xL3jRfoQ@mail.gmail.com>
+Subject: Re: [PATCH v14 RESEND 0/6] Merge redmi-wmi into bitland-mifs-wmi
+To: Hans de Goede <hansg@kernel.org>
+Cc: Mingyou Chen <qby140326@gmail.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Ilya Gladyshev <ilya.gladyshev@linux.dev>, KentoNion <kento@kekto.ru>, 
+	platform-driver-x86@vger.kernel.org, ted eric <ericted8810@gmail.com>, 
+	Armin Wolf <W_Armin@gmx.de>, linux-kernel@vger.kernel.org, 
+	Matias Civadda <matias.civadda2342001@gmail.com>, =?UTF-8?B?6auYIOS/iuaWhw==?= <btx342@gmail.com>, 
+	powerfullz <wleizc7319@gmail.com>, =?UTF-8?B?5a2ZIOiqiemTrQ==?= <wolf109909@outlook.com>, 
+	=?UTF-8?Q?Milo=C5=A1_Vlku?= <vlku.milos.fun@gmail.com>, Rsplwe <i@rsplwe.com>, 
+	Bozhen Peng <bozhenpeng93@gmail.com>, Anton Karasev <uselessfire@gmail.com>, 
+	Jame Jao <jaojame6@gmail.com>, Serhiy Shliapuhin <shlyapugin@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+On Wed, 28 Oct 2026, Hans de Goede wrote:
+> Hmm, so does Fn+space work under Windows ? If it works there, then there
+> must be some way to make it work under Linux...
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
----
-This was part of the original LM3533 controller DT/OF conversion patchset,
-but it appears to have been accidentally separated during the final iteration.
-Therefore, I am sending it as a follow-up.
----
- drivers/leds/leds-lm3533.c          | 60 +++++++++++++++++++++++++++++
- drivers/video/backlight/lm3533_bl.c | 45 ++++++++++++++++++++++
- 2 files changed, 105 insertions(+)
+Not on this install. Xiaomi PC Manager fails to start here, and without
+it Fn+Space does nothing under Windows either, so I cannot tell how it
+works with the vendor software running.
 
-diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-index 7259097bd6a71..a1aeff70a90fc 100644
---- a/drivers/leds/leds-lm3533.c
-+++ b/drivers/leds/leds-lm3533.c
-@@ -26,6 +26,11 @@
- #define LM3533_ALS_CHANNEL_LV_MIN	1
- #define LM3533_ALS_CHANNEL_LV_MAX	2
- 
-+#define LM3533_REG_OUTPUT_CONF1			0x10
-+#define   OUTPUT_CONF1_SHIFT			2
-+#define   OUTPUT_LVLED_MASK			0x3
-+#define LM3533_REG_OUTPUT_CONF2			0x11
-+#define   OUTPUT_CONF2_SHIFT			6
- #define LM3533_REG_CTRLBANK_BCONF_BASE		0x1b
- #define LM3533_REG_PATTERN_ENABLE		0x28
- #define LM3533_REG_PATTERN_LOW_TIME_BASE	0x71
-@@ -54,6 +59,9 @@ struct lm3533_led {
- 	u32 max_current;
- 	u32 pwm;
- 
-+	int num_leds;
-+	u32 leds[LM3533_LVCTRLBANK_MAX];
-+
- 	bool have_als;
- };
- 
-@@ -622,8 +630,36 @@ static const struct attribute_group *lm3533_led_attribute_groups[] = {
- 
- static int lm3533_led_setup(struct lm3533_led *led)
- {
-+	u32 output_cfg_shift = 0;
-+	u32 output_cfg_val = 0;
-+	u32 output_cfg_mask = 0;
- 	int ret;
- 
-+	if (led->num_leds) {
-+		for (int i = 0; i < led->num_leds; i++) {
-+			if (led->leds[i] >= LM3533_LVCTRLBANK_MAX)
-+				continue;
-+
-+			output_cfg_shift = led->leds[i] * 2;
-+			output_cfg_val |= led->id << output_cfg_shift;
-+			output_cfg_mask |= OUTPUT_LVLED_MASK << output_cfg_shift;
-+		}
-+
-+		/* LVLED1, LVLED2 and LVLED3 */
-+		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF1,
-+					 output_cfg_mask << OUTPUT_CONF1_SHIFT,
-+					 output_cfg_val << OUTPUT_CONF1_SHIFT);
-+		if (ret)
-+			return ret;
-+
-+		/* LVLED4 and LVLED5 */
-+		ret = regmap_update_bits(led->regmap, LM3533_REG_OUTPUT_CONF2,
-+					 output_cfg_mask >> OUTPUT_CONF2_SHIFT,
-+					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = lm3533_ctrlbank_set_max_current(&led->cb, led->max_current);
- 	if (ret)
- 		return ret;
-@@ -698,6 +734,30 @@ static int lm3533_led_probe(struct platform_device *pdev)
- 
- 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
- 
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default LVLED or is not linked to any LVLED at all.
-+	 */
-+	led->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+	if (led->num_leds > LM3533_LVCTRLBANK_MAX) {
-+		dev_err(&pdev->dev, "num of LED sources exceeds max %d: %d\n",
-+			LM3533_LVCTRLBANK_MAX, led->num_leds);
-+		ret = -EINVAL;
-+		goto err_deregister;
-+	}
-+
-+	if (led->num_leds < 0)
-+		led->num_leds = 0;
-+
-+	if (led->num_leds > 0) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     led->leds, led->num_leds);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to get led-sources\n");
-+			goto err_deregister;
-+		}
-+	}
-+
- 	ret = lm3533_led_setup(led);
- 	if (ret)
- 		goto err_deregister;
-diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-index adcd6ac7cf229..e8164c8528577 100644
---- a/drivers/video/backlight/lm3533_bl.c
-+++ b/drivers/video/backlight/lm3533_bl.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
- 
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/platform_device.h>
-@@ -21,6 +22,7 @@
- #define LM3533_HVCTRLBANK_COUNT		2
- #define LM3533_BL_MAX_BRIGHTNESS	255
- 
-+#define LM3533_REG_OUTPUT_CONF1		0x10
- #define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
- #define   CTRLBANK_AB_BCONF_ALS(n)	BIT(2 * (n))
- #define   CTRLBANK_AB_BCONF_MODE(n)	BIT(2 * (n) + 1)
-@@ -35,6 +37,9 @@ struct lm3533_bl {
- 	u32 max_current;
- 	u32 pwm;
- 
-+	int num_leds;
-+	u32 led_strings[LM3533_HVCTRLBANK_COUNT];
-+
- 	bool have_als;
- 	bool linear;
- };
-@@ -236,6 +241,8 @@ static const struct attribute_group *lm3533_bl_attribute_groups[] = {
- static int lm3533_bl_setup(struct lm3533_bl *bl)
- {
- 	int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
-+	u32 output_cfg_val = 0;
-+	u32 output_cfg_mask = 0;
- 	int ret;
- 
- 	ret = regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
-@@ -243,6 +250,21 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
- 	if (ret)
- 		return ret;
- 
-+	if (bl->num_leds) {
-+		for (int i = 0; i < bl->num_leds; i++) {
-+			if (bl->led_strings[i] >= LM3533_HVCTRLBANK_COUNT)
-+				continue;
-+
-+			output_cfg_val |= ctrlbank << bl->led_strings[i];
-+			output_cfg_mask |= BIT(bl->led_strings[i]);
-+		}
-+
-+		ret = regmap_update_bits(bl->regmap, LM3533_REG_OUTPUT_CONF1,
-+					 output_cfg_mask, output_cfg_val);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
- 	if (ret)
- 		return ret;
-@@ -320,6 +342,29 @@ static int lm3533_bl_probe(struct platform_device *pdev)
- 
- 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
- 
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default HVLED or is not linked to any HVLED at all.
-+	 */
-+	bl->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+	if (bl->num_leds > LM3533_HVCTRLBANK_COUNT) {
-+		dev_err(&pdev->dev, "num of LED sources %d exceeds max %d\n",
-+			bl->num_leds, LM3533_HVCTRLBANK_COUNT);
-+		return -EINVAL;
-+	}
-+
-+	if (bl->num_leds < 0)
-+		bl->num_leds = 0;
-+
-+	if (bl->num_leds > 0) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     bl->led_strings,
-+						     bl->num_leds);
-+		if (ret)
-+			return dev_err_probe(&pdev->dev, ret,
-+					     "failed to get led-sources\n");
-+	}
-+
- 	ret = lm3533_bl_setup(bl);
- 	if (ret)
- 		return ret;
--- 
-2.53.0
+> Ok, so the value-low indicates the state of the LED, right ?
 
+Yes, inverted: value_low is the firmware's "mic on" state, so 1 means
+LED off and 0 means LED on. The firmware builds it from the EC field
+MIUT (EC 0x17 bit 4), which drives the LED: MIUT=1 turns it on.
+
+> Interesting. Is there someway to manually toggle the LED like we do on
+> other laptops, so that we can actually sync it to the alsa-mixer
+> mic-mute state ?
+
+Yes. WMAA has a SET for it: function 0x0A with sub-function (FUN3) 0x05,
+where FUN4 = 1 means mic on (LED off) and any other value means muted
+(LED on). The matching GET returns the same 1/0 state. I checked the
+LED side by writing MIUT directly, which switches the LED on and off
+without any event. The WMI SET itself I have only read in the SSDT so
+far.
+
+One catch: after the SET the firmware sleeps 150 ms and raises event
+0x21 itself. So the driver has to ignore that echo, otherwise it
+reports KEY_MICMUTE again and userspace toggles the mute back.
+
+A key press toggles MIUT in the EC before the event is sent. So today,
+pressing the key while the LED is on turns the LED off while userspace
+mutes, which is exactly the desync you described.
+
+If an LED class device with the audio-micmute trigger is how you would
+like this done, I can do that on top of the TM2424 patches, together
+with the Fn+K one.
+
+On Wed, 28 Oct 2026, Mingyou Chen wrote:
+> I think different models have different behaviors on this.
+> Should we add a quirk item?
+
+I think so. On the TM2424, 0x28 is the Fn+K request and the firmware
+does not change the mode itself, while 0x16 on other models was
+described in this thread as reporting a change that already happened.
+A quirk flag for "0x28 requests a profile cycle" keeps it to models
+where that has been checked. I will add it with the Fn+K patch.
+
+Thanks,
+Chris
