@@ -1,56 +1,61 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793504247;
-	b=5RA75oom/RgfBCUOGsBThvHK5RA/LyoP9jXM+X7L5gbt7KoUFZxWg2LcR0TX/3+dhiB+
-	 YMpPPB0X5rornpuRq68TIWQfp/qK1Shhmp+FOn5uBvbocwqt1cT0QykXslrkJWHtJFPTL
-	 +apZZadUKKHvl4NVmmbrRQq1DYUgxcXh77qZ6hCybB7unBLMwsTycAgvGXl6ithvUXKR3
-	 yYUpjZ+9xYNKdMAPuHeap+6DN9VMnlNZOjyHhfb6fmV3qboiX8Xps0IEhZ1U+4y7OuB3w
-	 vieyo6N634o88vkllaxmZBUitdB3SPcIvdSrjCGxVOKLPocXTR29+fnW0hV/yJ20/3w==
+	t=1793504266;
+	b=RO/VJASb3exxiCPT46vyCUF0tNtpBv0UkmJ4qsNywI3IgfT2nNJ9lxLhcbGLl7egnrm4
+	 O21kY20NObGc+yQRqVrXKzZGh49DGrlKoUSeI58MihtR0WIs2Vh9fDtI134Cw97hgY8JP
+	 qjmpldrie35mJxNyGiUpX/Y6fsWJHnvjmg/IrqPFt5DYUNX1fi+d0tfM+RK+klevl9JqU
+	 SoPGgbGPDTzaeAi6ZUB8KMpQtJAiTSVCrWhv2TDHj7KKiZsWu4n2q1uQJ9f6UihJ8zV4c
+	 6bUREv5rvumDP+IqLhlBDrcsnzZbRJ2J5QeFAX1HF/+7HCdLa8py2u1gTnsVZLxSyng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793504247;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793504266;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=G1tFTKUBc2+iGTzDECw5/2ac1gX4DuSirPbto9t/U2Y=;
-	b=34sZ2kSb3FuDGq7U+y9TkwWwesJYlD+nG3KrRCp5CKv3IvU5amxkhbyg6sYdHZlHEn6q
-	 0YyrbaqR7fmqoiqCU0RZCyP7wSFrFGrBH9PosrPBkVL+/xKMpgVrZEy3MzD96NgGBGQ09
-	 jxmS583phawRskaBtapVFImzvPvGXfn186JjS2abvPTDNVjSZDabr8j9WwSfmq1J0afcs
-	 DglE10OpK89ekvDtKxJIkagYdaEjBHs5e+JVmugpa3+E30TCSbktDlr98aRNN+It3Sj0r
-	 F4To1zIol/smC4+nibYISC1A6YqtV3WlVmOenm8uqB7IomrLfj1ev5ErCF6c86uQ3BQ==
+	bh=CuLpQP3tJdYbac4mzK5XgcCvQDNF7znqOKkjorpQFLM=;
+	b=S8AC2e9jkCq8hH2eMSNpwjSrJh89cHKse2E3YeQ4TfHANYMHcNKNiN/LLMafFIUDZEdH
+	 /3TyY68xbJm+MkRfIb4/s1cA0+5ejAg3ehxQCQ4OVZYuxzzD8lx/SPYQDXTGgNkBqLbd0
+	 UgfSO1Cp59F2X9Dlywb893BOJqbTUABoAixGNgZNgYRlbNY4VWCG/euM6hV4PLa9Lgsbz
+	 UasjdPMM6J//bj2ly8LTLhQHDiYkmMZGOsU6VNQ54Z+ml1acQCTcU+5GPyQQFTadIUT4D
+	 HWepfjVe/Jyvu88RfCxvz9q9iYO412wuee6mnk6/YgpWN4e442HtIEMlfge/K+Oft8w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zZL999tf;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOmEag9j;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85CD6606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:37:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B00606A325;
+	Sun,  1 Nov 2026 03:37:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=zZL999tf
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 819E81F000C1;
-	Sun,  1 Nov 2026 03:37:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793504247;
-	bh=G1tFTKUBc2+iGTzDECw5/2ac1gX4DuSirPbto9t/U2Y=;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XOmEag9j
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3C751F000C1;
+	Sun,  1 Nov 2026 03:37:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793504265;
+	bh=CuLpQP3tJdYbac4mzK5XgcCvQDNF7znqOKkjorpQFLM=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=zZL999tfH5pFUtNBJCiS+dMlFz/f55Px5Ti43L4BhkNaNVNvh4gL4E5fm/H6iX/sN
-	 e4OQBFW9YQokq1GITbuOg5IiDSWQwEzR0cYXgAyrjSHJbldG6XHhunQI5RRPvH5LLW
-	 aLuLItcYuIdPHDek/9Dugywk9o/MRbE6Pjp5apwQ=
-Date: Sat, 31 Oct 2026 20:37:26 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Ren Wei <n05ec@lzu.edu.cn>
-Cc: linux-kernel@vger.kernel.org, david@kernel.org, arnd@arndb.de,
- ljs@kernel.org, kees@kernel.org, schuster.simon@siemens-energy.com,
- yuantan098@gmail.com, yifanwucs@gmail.com, tomapufckgml@gmail.com,
- bird@lzu.edu.cn, caoruide123@gmail.com, enjou1224z@gmail.com, Manfred
- Spraul <manfred@colorfullife.com>, Davidlohr Bueso <dave@stgolabs.net>
-Subject: Re: [PATCH 1/1] ipc: sem: fix used_sems overflow in newary()
-Message-Id: <20261031203726.2dca9645bd13ac9c18248380@linux-foundation.org>
-In-Reply-To: <849fb1fdecd1cc241fd5b032602dbffa90f9dd93.1778477179.git.caoruide123@gmail.com>
-References: <cover.1778477179.git.caoruide123@gmail.com>
-	<849fb1fdecd1cc241fd5b032602dbffa90f9dd93.1778477179.git.caoruide123@gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	b=XOmEag9jSHXWLR84xw/yjGsa6YpgkCdu1c4/X4ScLwkjOnEGEDbvF8HPMK2iQZ5kh
+	 aVUQ2jYBBRaxpRrvIEGruaC1ZVdH+uWhvPxeDPtWVNK0imS+CIJ71JKAy+VExBPe21
+	 sbw89wV8HTFz1E462O/I6TqIkxc/MkiMfoT+lguJ7lU6PsPYsYs30YK1S/sdCkcKBC
+	 OCDPnWbdhkszDwrR3hU1cTKZA7UipzISCQlTXm/16/PHQjDgnBCaR6ucDApmvv+ZGf
+	 lqHCgnlnjVJVo0t+hQ40dqskXXtpohlMezAKsNeN8lA0L8ZheQkJJ0AU+dUmJaK9jW
+	 d1CRAReERyQ+A==
+Date: Sun, 1 Nov 2026 03:37:37 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Daniel Schaefer via B4 Relay <devnull+dhs.frame.work@kernel.org>
+Cc: dhs@frame.work, Jiri Kosina <jikos@kernel.org>, Srinivas Pandruvada
+ <srinivas.pandruvada@linux.intel.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, srinivas pandruvada
+ <srinivas.pandruvada@intel.com>, linux-input@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, Sven
+ =?UTF-8?B?VmFpbmvDvGxh?= <sven@xn--vainkla-r2a.ee>
+Subject: Re: [PATCH] iio: light: hid-sensor-als: Don't read past the end of
+ short fields
+Message-ID: <20261101033737.6c613263@jic23-hlaptop>
+In-Reply-To: <20261027-iio-als-overread-v1-1-e47e2706368b@frame.work>
+References: <20261027-iio-als-overread-v1-1-e47e2706368b@frame.work>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,98 +64,85 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-> On Mon, 11 May 2026 18:42:53 +0800 Ren Wei <n05ec@lzu.edu.cn> wrote:
+On Tue, 27 Oct 2026 18:58:39 +0800
+Daniel Schaefer via B4 Relay <devnull+dhs.frame.work@kernel.org> wrote:
 
-Slight delay, sorry!
+> From: Daniel Schaefer <dhs@frame.work>
+>=20
+> Reports are not guaranteed to be 4 bytes.
+> On color ALS sensors there are fields that can be shorter than 4 bytes:
+> 16-bit illuminance, color temperature and chromaticity x/y.
+>=20
+> I don't have such a sensor right now, but I have emulated one in
+> firmware. With this patch, no garbage data is read from the next report:
+>=20
+>   before: 05dc02bc 05dc02bc 190005dc 0ce41900 00000ce4
+>   after:  000002bc 000002bc 000005dc 00001900 00000ce4
+>=20
+> Same fix as commit ad02ca57e44e ("iio: hid-sensor-prox: Add support for
+> 16-bit report size").
+>=20
+> Fixes: ed5514c925a0 ("iio: hid-sensors: Added ALS")
+> Signed-off-by: Daniel Schaefer <dhs@frame.work>
+Hi Daniel,
 
-> From: Ruide Cao <caoruide123@gmail.com>
-> 
-> newary() checks namespace-wide semaphore usage before creating a new
-> array, but the current accounting uses a plain signed addition.
-> 
-> If the accumulated semaphore count overflows, the limit check can fail
-> open and allow allocations past sc_semmns, breaking namespace semaphore
-> resource enforcement and potentially leading to resource exhaustion.
-> 
-> Fix this by using check_add_overflow() before comparing the new total
-> against sc_semmns, and reject overflow the same way as a true limit
-> exceed.
+Seems in line with the referenced commit and to make sense to me.
+So I'll pick this up now - however still time for more reviews as
+I'll need to rebase on rc1 anyway in the next few days.
 
-LLM review tells me
+Applied to the fixes-togreg branch of iio.git
 
-: The fix looks correct. The existing writer lock covers the check and
-: the later used_sems increment, so that increment needs no further
-: change.
+Thanks,
 
-and
+Jonathan
 
-: Please qualify the changelog. Default SEMMNS and SEMMSL cannot trigger
-: this overflow. It requires raised limits and substantial existing
-: allocations: sem_alloc() separately bounds each array's size, so one
-: enormous request isn't sufficient to demonstrate a successful bypass.
-:
-: With sufficient memory, semget() can then succeed instead of returning
-: ENOSPC, exceed the namespace quota and wrap the semaphore usage reported
-: by SEM_INFO negative. Additional allocations can increase memory
-: pressure.
-
-So I propose this changelog.  Please check:
-
-: newary() checks the namespace-wide semaphore limit using a signed
-: addition of used_sems and nsems. If that addition overflows, the
-: comparison can fail to reject a request which exceeds sc_semmns.
-: 
-: The default semaphore limits cannot trigger this overflow. It requires
-: raised limits and substantial existing allocations. sem_alloc()
-: separately bounds each array's allocation size, so a single enormous
-: request is insufficient to demonstrate a successful quota bypass.
-: 
-: With enough memory, semget() can succeed instead of returning ENOSPC,
-: allowing allocations beyond the namespace semaphore quota and increasing
-: memory pressure. The wrapped used_sems count can also cause SEM_INFO to
-: report a negative semaphore usage count.
-: 
-: Use check_add_overflow() before comparing the new total against
-: sc_semmns, rejecting overflow with ENOSPC. The existing writer lock
-: covers both the check and the later accounting update.
-
-
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@kernel.org
-> Reported-by: Yuan Tan <yuantan098@gmail.com>
-> Reported-by: Yifan Wu <yifanwucs@gmail.com>
-> Reported-by: Juefei Pu <tomapufckgml@gmail.com>
-> Reported-by: Xin Liu <bird@lzu.edu.cn>
-> Signed-off-by: Ruide Cao <caoruide123@gmail.com>
-> Tested-by: Ren Wei <enjou1224z@gmail.com>
-> Signed-off-by: Ren Wei <n05ec@lzu.edu.cn>
 > ---
->  ipc/sem.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/ipc/sem.c b/ipc/sem.c
-> index 6cdf862b1f5c..00c45de33c46 100644
-> --- a/ipc/sem.c
-> +++ b/ipc/sem.c
-> @@ -535,11 +535,13 @@ static int newary(struct ipc_namespace *ns, struct ipc_params *params)
->  	key_t key = params->key;
->  	int nsems = params->u.nsems;
->  	int semflg = params->flg;
-> +	int total_sems;
->  	int i;
->  
->  	if (!nsems)
->  		return -EINVAL;
-> -	if (ns->used_sems + nsems > ns->sc_semmns)
-> +	if (check_add_overflow(ns->used_sems, nsems, &total_sems) ||
-> +	    total_sems > ns->sc_semmns)
->  		return -ENOSPC;
->  
->  	sma = sem_alloc(nsems);
-> -- 
-> 2.34.1
-> 
+> Tested on an emulated sensor with 2 byte reports that is correctly recogn=
+ized
+> by Windows.
+>=20
+> Cc: Sven Vaink=C3=BCla <sven@xn--vainkla-r2a.ee>
+> ---
+>  drivers/iio/light/hid-sensor-als.c | 16 +++++++++++++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/iio/light/hid-sensor-als.c b/drivers/iio/light/hid-s=
+ensor-als.c
+> index 929343e42d83..00dfc2037c19 100644
+> --- a/drivers/iio/light/hid-sensor-als.c
+> +++ b/drivers/iio/light/hid-sensor-als.c
+> @@ -267,7 +267,21 @@ static int als_capture_sample(struct hid_sensor_hub_=
+device *hsdev,
+>  	struct iio_dev *indio_dev =3D platform_get_drvdata(priv);
+>  	struct als_state *als_state =3D iio_priv(indio_dev);
+>  	int ret =3D -EINVAL;
+> -	u32 sample_data =3D *(u32 *)raw_data;
+> +	u32 sample_data;
+> +
+> +	switch (raw_len) {
+> +	case 1:
+> +		sample_data =3D *(u8 *)raw_data;
+> +		break;
+> +	case 2:
+> +		sample_data =3D *(u16 *)raw_data;
+> +		break;
+> +	default:
+> +		if (raw_len < sizeof(u32))
+> +			return -EINVAL;
+> +		sample_data =3D *(u32 *)raw_data;
+> +		break;
+> +	}
+> =20
+>  	switch (usage_id) {
+>  	case HID_USAGE_SENSOR_LIGHT_ILLUM:
+>=20
+> ---
+> base-commit: 09f742b49cb2728086d78be2b0b35e4d1d71fc85
+> change-id: 20261027-iio-als-overread-c9e538fa61fa
+>=20
+> Best regards,
+
