@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793571356;
-	b=0oL3r30Y4NzRmJJdREHrR39IVJHdwFdO3k9vEUaGi4rZw6gT2X0JhW+Mel/8l0lq2OFm
-	 KTrxjBSaF7N+jMqjSTqdNEnQmp/Ahp4xm8/1zn88RptQjx86Y+MRTYBoA7M481wRdWtsA
-	 vJ+v5KPIjKtoyUtBMlaUORtyyN/hAaojijTXpOInH+Rz/Vx1qnd/EiG7wysg7lOWT3GOC
-	 27HA8QiRNlraSloHGWJeK0l3ndl9oYpMep2+OC+EFWEZ1TebTJje5PvmJNNXnPIyoI+J0
-	 9Y1ttTk4PrIj+9njH9yXfrErVKm0wlMK3rflYg5WfUJ/yvwWltXUklI3VXo6p/vW8mg==
+	b=yfL++LmXWMKt2JajIiz1su0A9qzz0IAk3L42MtDLL6vyv6vM9yxfn3LGovG94I95EKL4
+	 1hTVsFPl7b41s075Bw/a/W9pIio8eRafPRnzrUaWWqPhWokkg/vFt0Tx4Sm6bRiCds5Tg
+	 4vxNPIFLcl98yCBY6Ps8NXZuLz2h23cf1z7XJojlX5QrEIX4vcmu6scuq1ufGf7acxMLA
+	 fZwF/A1DZ/DhPcBf+eSvXeto6uCZQMuzvQs5pxJgaPYVKKLatAr3uBvWoXE8u6y09pyyV
+	 fT9U4WXsLlexgFPzVTe9kocogK9uFMEJHRsLBahlZ2qgFa/viUqJZ8YaWSgxUXgYCmg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793571356;
 	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
 	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=/rAbfbo0sbqC0IaBa1BlKo2l+kbF0qrFhj597CNVJsw=;
-	b=Lv3M/zpyCU3ppzc9x8eNGThN66THldbsYb77q0qJZzDBqoZdxW6OdSZGnueeOD6yJTSE
-	 OE4o4+tQm2i/s8v7tA0yl0EE4Mz3r9CXLszq2NQBMuErEJWYRfbUvOvvYBbtPV2wCpeil
-	 xnBACAJyEqjaE44GsHnH6djAG2UFrxouFz6E4F3No1xN/6IiD4eKpC2rn+shgscvSrqc5
-	 q4B6LoKEk3l+m254aIPQtlkL9MWMpCdrOrHstmevF9oxrfh5/WC1azDOLofMrEK1v4DI3
-	 PrxgkNRKOLwfDVz5zlP/YQ+dQse5J+scq3GhhBqaTDAcobpb78kFRqKWSKnTwtYOG3g==
+	bh=koqrDmmt4O2BTAa9AgtZ7rW5JtPwtmhVY/Dn2gUanrA=;
+	b=E161awcm/bunmz3F0priLRbfBX30HoM4+C/WRlvlzn1dseVJq0xA9yq5cUR93eGKJbLH
+	 IgXLOgF1lnBBOlyA3CmYI1BzUFBCPb397F1GONjfbyn/1T3zAeKE7wQg7mT5QOaMQeVXk
+	 ePpgI4jw3IHwlzLqH5RBbMDnBTnhG/w8QKk8CdQZNVX3PiUf9J7IKybkbxgdefV4cd/vg
+	 yrZlA9gHXNRZHzyVY2qNdSt80JahKdssTSn61GH1TQHOCeODCpUutHPgOeMPVCttBrPpG
+	 0QAfEchRSoIQPmgJ2PbL2/VaS4K6vNqK0Mr3Wsl1B4E7JtkmFYN/CAe6FUp23W5JJuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=sntech.de;
 	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=TuQNWuUN;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=v8151im3;
 	arc=none smtp.remote-ip=185.11.138.130
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52451606A33E;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF345606A337;
 	Sun,  1 Nov 2026 22:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52451606A33E
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF345606A337
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=TuQNWuUN
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=v8151im3
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=/rAbfbo0sbqC0IaBa1BlKo2l+kbF0qrFhj597CNVJsw=; b=TuQNWuUNzCW8lMfyzUY6T/5Ggu
-	P85UjS1z5Ss/B5adnOY+BkFcLgtqEkuf7HHZMLWTX4y2P/WbcaPxvsemvwkdaP53jYKdu/QfWEouM
-	JX8hgVJWbC+Fw1rNnUav7G0IDtgcuNxOPcOQGr6+sCckggx0fIhFNBA0kxioK+rQRMX4wVvaf8apn
-	9mn7nDlVEOo6mZAznz/mCwVrjsJ6WaRTDFLBpDVmXUJfAC0kyCdE/M2rBMw52ZA/RXNtUFEWbFfEr
-	ZXHE785PZrk5SQszDTEgChlVfv9F46qFMnZ5O8xD83qEb2KvwqUeX4puFoKY9ndsTYj3C4Uf38zAe
-	JKwnlxcw==;
+	bh=koqrDmmt4O2BTAa9AgtZ7rW5JtPwtmhVY/Dn2gUanrA=; b=v8151im32iqLSPZW/19OcA/UAT
+	kSapPEGiX/dUFAcVl9Tl+QnqsQDTPswcXwKBojtYS2LOPUQRf6zZ03XdqugWd/XWOScXLRWQ9godl
+	SaeO2YQ7i/8D7EqbaW18wEXN2ZJDRDGgU0uOoxUkv/Nfl8UvgUwqEajpLsvd6t2b2v0NdR/pSQGWU
+	NPvpmRCRpkmkiAncvX/Yjb55ZLpR2XXkYrLtb0DB/WKR9yLm25uGDyQjdCgCV+TE8SV+d7y8bytxQ
+	hOGkUP/O7O37rZjLlJYqR4Z1lqnI/rRcOqf2ysWEGpfNAxpSPhCa67g+M0lrRMP3G6AyoM/3AXKDi
+	6+sP7pbw==;
 From: Heiko Stuebner <heiko@sntech.de>
 To: Igor Velkov <iav@iav.lv>
 Cc: Heiko Stuebner <heiko@sntech.de>,
@@ -52,12 +52,12 @@ Cc: Heiko Stuebner <heiko@sntech.de>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the buzzer to Kobol Helios64
-Date: Sun,  1 Nov 2026 23:15:23 +0100
-Message-ID: <179357131397.4107717.15989067428088831380.b4-ty@b4>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add vdd_log and vdd_center to Kobol Helios64
+Date: Sun,  1 Nov 2026 23:15:25 +0100
+Message-ID: <179357131387.4107717.12481039737139265735.b4-ty@b4>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261010-b4-helios64-beeper-v1-1-6235643158cf@iav.lv>
-References: <20261010-b4-helios64-beeper-v1-1-6235643158cf@iav.lv>
+In-Reply-To: <20261021-helios64-vdd-log-center-v1-1-4cafd110e0e5@iav.lv>
+References: <20261021-helios64-vdd-log-center-v1-1-4cafd110e0e5@iav.lv>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,15 +71,21 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Sat, 10 Oct 2026 23:00:16 +0300, Igor Velkov wrote:
-> Helios64 has a 2-pin header, P4, for an external buzzer: pin 1 is 5 V,
-> pin 2 is switched to ground by a MOSFET driven from GPIO4_D3
-> (BUZZER_ON), active high. Describe it as a gpio-beeper.
+On Wed, 21 Oct 2026 02:02:29 +0000, Igor Velkov wrote:
+> The Helios64 feeds VDD_LOG from a PWM regulator driven by PWM2 and
+> VDD_CENTER from DCDC_REG1 of the RK808, but the device tree describes
+> neither of them.
+> 
+> Describe both. The vdd_log range comes from the schematic (sheet 8):
+> 0.83 V with 3.0 V on LOG_DVS_PWM and 1.4 V with 0 V, so the PWM is
+> inverted. vdd_center gets the same limits as vdd_cpu_l.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: Add the buzzer to Kobol Helios64
-      commit: 1f8c17240e23a37072793267cbb64587f24d4f2f
+[1/1] arm64: dts: rockchip: Add vdd_log and vdd_center to Kobol Helios64
+      commit: 5397d554ac76f10737eb7b87c48c8c4bb26d2017
 
 Best regards,
 -- 
