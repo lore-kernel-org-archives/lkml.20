@@ -1,51 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.154
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.160
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793533442;
-	b=mnaSFQ43CTnV6jkF2VyvfUIa11k4uFYfZUPV65X37y+77GoDGi0xQ1ch3nqA5WhTLMs3
-	 qeOZ9eQG1GGcK3QuHpUCvuK2QUU4CKvfIMN4lEphgaq23XVPhOUFGFKG+5tj46FN+eTso
-	 YbDDcmFcDETYRF72WcMwBFlK4mTP4/6ngpflc7pLb5gUrUEPnsO9zIvMl8CDK3w5bIpKp
-	 y4QWN/+j+nrMCuZdpthZlDUPxt2BC002cptgS2jx6UW2Lea9NY+gGjFr+/xvOScaUhlPN
-	 /KAMV7fapik+LCj535pZC8P4Fc+PHt6jKObYE4JXy9zICaDsCDASfKUuuSvF+Zwg+1g==
+	t=1793533450;
+	b=IGAq1DLETUEqb7o6HskDPZ+hPm4gLSfD02r6SznHKRB/NiSqtWi1m+094d8ielEOqamA
+	 zRrVYHwGuGwLsmhyJRO/kHU3SiEsB6GDlDcVy1WBtwc0zoALHQ68K2QBc5kyE1V2EDyBF
+	 4ebmmvEeO1NF/wYO3ruJmQ9UGnWWILXYXE9DKXuFxFDVgr4VPB26ncFMr3CfAjhgw12W4
+	 Gh8ntIM/TjwwLLsmUURwkONNjbN0zRkoeOuXPnRyMAfowttT8Z9Uh0qCvjDJ4wgjDMbEb
+	 c/PY/RNZLj4WpHi8vhGpQm+JrRauyg6GRq3pQxtNIubi8yLVg4KcREr+dLBQLyY08KQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793533442;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793533450;
 	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
 	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-Id:
 	 X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=G/UXbDFUAKI6yXKdZsrScCYDKG6KU1R3KwD4w2NVjn4=;
-	b=SBRvxoMxcPlohRMrP6nDm/9OEfpsbJ+tpJGfJmtu6MQ3z3yAYUnAzf56vxgdauTBk3r1
-	 2mhwo+e1RQwOa97PU+Lf8JBhwgOtRwqin3kvHN26tVn41LGcaCd6k1Y0RSaNgnLJIKkMm
-	 qd8CgR4QUG5OlI1HlG9nUI+1rFPIDRMcP44jQ+BTHGsdvlmRgO2H1WiyWX6OqmGF7XxCk
-	 S3/JNZPPyHfeGtOcFU3hbLrmCifwvB3gNU9XSEWB/V+cALkJOJaIYRFZBcdjXUsHODp2s
-	 kNqy/YRJbuyvi4hbA9qOwHCFbxYBhuIUFSyQLr4CkV41jyCYDtzF30wRWBl3PBn/sLQ==
+	bh=RVVv3zgFkylUwF1PkhMtcoaycUKLJCLwjNAysmZyhV4=;
+	b=URn5ccF0cMUir3j/ZFyivclEN5SbbzPnXQ0LmUwjVvQpEHz0ckndAqREyTeWnZhK591Y
+	 TIoNvXSg5nSXptt9wZuVigtY5oVT3HJE1JSHpFMnT2QWwkbiYuHjvy+JCFModjzf2Suyv
+	 W333s8cGBBeH1uwe03f8n+/Ahsk1RD48qoCxDSNNpfy3ItjWjg/XRMIwLJLcRDCaEDu/l
+	 8ZKLlPiPW0jLjD6k0emMmF51qUZX3sA8A4+i//icAXRY0saberk+rJLhxzhKIuNpIVEfV
+	 nB3eqcBFr80Ykq+WhfHhE29MNGiKJVBxx9WeOKNqTyr8FyfKSungfieOSMCcG04NqWg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.dev;
 	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xvUjDNb8;
-	arc=none smtp.remote-ip=95.215.58.154
-Received: from mta1.migadu.com (out-154.mta1.migadu.com [95.215.58.154])
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tfEBKQ62;
+	arc=none smtp.remote-ip=95.215.58.160
+Received: from mta1.migadu.com (out-160.mta1.migadu.com [95.215.58.160])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29D46606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:44:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29D46606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA036606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:44:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA036606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xvUjDNb8
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=tfEBKQ62
 X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1bGQCX4VUV/CdUrWa9l1pSx5Znb7pHwA++BFd3GfgvE=;
+DKIM-Signature: a=rsa-sha256; bh=qnpM/GcYOikB0LXEG9SLoFQIOm3AK7Pwq+k0WxQO19Q=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793533440; v=1; x=1794138240;
- b=xvUjDNb8Xs/6RS7+nX/Rr6fK4MwCROw1ffr+AEdefN94pzcUfo8QE5RiRhiUgTfoaMvIrE9V
- n2oOjpmfcgVdBibm+kkuhYzZclwm7/THLVqLyDJGZj0YAhPqyo7Z8VVL+Flqlgc6jNx1MWNyBVU
- xFEduJkpPG6YZ8lUfUgwdIwk=
+ t=1793533447; v=1; x=1794138247;
+ b=tfEBKQ625UOnkl49AtVZCSmpLC1fQT4F3rs4POv3cTFd8v6Nq2HmsmkqDHT90XxJAyQ3KIAx
+ dlQJ05NZc0V82e8C9ejc/p0MLr0XKYsy/Xga5jFA+H9yhWLAHL5/apX9KG2CnjojrVoTLyXi3DG
+ szAxd+Ql4h32Id+M7ZaRISIw=
 X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 1628ff46c5874095;
-	Sun, 01 Nov 2026 11:44:00 +0000
-X-Mizu-Trace-ID: 1628ff46c5874095
+Received: by smtp.migadu.com with ESMTPS id e22b6dcfc44cb011;
+	Sun, 01 Nov 2026 11:44:07 +0000
+X-Mizu-Trace-ID: e22b6dcfc44cb011
 X-Migadu-Flow: FLOW_OUT
 From: Ridong Chen <ridong.chen@linux.dev>
 To: Waiman Long <longman@redhat.com>,
@@ -58,9 +58,9 @@ Cc: Guopeng Zhang <guopeng.zhang@linux.dev>,
 	linux-kernel@vger.kernel.org,
 	Chen Ridong <chenridong@huawei.com>,
 	Ridong Chen <chenridong@xiaomi.com>
-Subject: [RFC PATCH -v4 12/22] cpuset: use local_partition_disable() to invalidate local partition
-Date: Sun,  1 Nov 2026 19:41:56 +0800
-Message-Id: <20261101114206.2434398-13-ridong.chen@linux.dev>
+Subject: [RFC PATCH -v4 13/22] cpuset: introduce local_partition_update()
+Date: Sun,  1 Nov 2026 19:41:57 +0800
+Message-Id: <20261101114206.2434398-14-ridong.chen@linux.dev>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261101114206.2434398-1-ridong.chen@linux.dev>
 References: <20261101114206.2434398-1-ridong.chen@linux.dev>
@@ -77,187 +77,253 @@ Content-Transfer-Encoding: 8bit
 
 From: Chen Ridong <chenridong@huawei.com>
 
-Build on the local_partition_disable() infrastructure introduced in the
-previous patch to handle local partition invalidation, replacing
-partcmd_invalidate in partition_cpus_change() and
-cpuset_hotplug_update_tasks().
+The local_partition_update() function replaces the command partcmd_update
+previously handled within update_parent_effective_cpumask(). The update
+logic follows a state-based approach:
 
-In cpuset_hotplug_update_tasks(), the partition error is now derived
-from the reason of the invalidation (PERR_INVPARENT, PERR_NOTPART,
-PERR_HOTPLUG or PERR_NOCPUS) and passed to local_partition_disable(),
-which sets prs_err together with the partition root state.
+1. Validation check: First verify if the local partition is currently valid
+2. Invalidation handling: If the partition is invalid, trigger invalidation
+3. State transition: If an invalid partition has no errors, transition to
+   valid
+4. cpumask updates: For a local partition whose cpumask only changes, use
+   partition_update() to handle the change.
 
-As local_partition_disable() resets the partition data, the
-effective_xcpus of an invalid partition is no longer kept. When
-update_parent_effective_cpumask() turns an invalid partition back into
-a valid one, use partition_enable() to set up effective_xcpus and the
-partition state again.
+validate_local_partition() is added to check the local partition
+specific requirements: the parent must be a valid partition root, a
+root partition is not allowed under an isolated parent, and optionally
+the user exclusive CPUs must not overlap with any sibling. It then
+calls validate_partition() for the common checks.
 
-Additionally, correct the transition logic in cpuset_hotplug_update_tasks()
-when determining whether to transition an invalid partition root, the check
-should be based on non-empty user_xcpus rather than non-empty
-effective_xcpus. This correction addresses the scenario where
-exclusive_cpus is not set but cpus_allowed is configured. In this case,
-effective_xcpus may be empty even though the partition should be considered
-for re-enablement. The user_xcpus based check ensures proper partition
-state transitions under these conditions.
+local_partition_update() computes the new effective exclusive CPUs
+with compute_excpus() as before. As in the old partcmd_update path, the
+sibling exclusivity check is only done for an invalid partition with an
+empty cpuset.cpus.exclusive, as a valid partition has passed it
+already. If an invalid partition fails the validation again, only its
+error code is updated, unless its parent is not a valid partition root.
+In that case, e.g. for a remote partition invalidated by hotplug, the
+original error code is kept as the cpuset can't become a valid local
+partition anyway.
 
-Since partition_disable() gives the CPUs back to the parent and updates
-effective_cpus of the cpuset directly, save effective_cpus before any
-partition state change in cpuset_hotplug_update_tasks() and compare the
-new effective cpumask against it. Otherwise the tasks of a partition
-invalidated by hotplug may be left with only the offlined CPUs.
+In update_cpumasks_hier(), effective_cpus of the child is now updated
+before local_partition_update() is called, as tmp->new_cpus is reused
+by it. For the same reason, the effective cpumask is always recomputed
+afterwards.
 
 Signed-off-by: Chen Ridong <chenridong@huawei.com>
 Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
 ---
- kernel/cgroup/cpuset.c | 81 +++++++++++++++++++++++-------------------
- 1 file changed, 44 insertions(+), 37 deletions(-)
+ kernel/cgroup/cpuset.c | 171 +++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 163 insertions(+), 8 deletions(-)
 
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 3d6ad6cd634a..822cc1d97fca 100644
+index 822cc1d97fca..d2cb989beab9 100644
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
-@@ -2133,23 +2133,6 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	adding = deleting = false;
- 	old_prs = new_prs = cs->partition_root_state;
+@@ -2074,6 +2074,155 @@ static void local_partition_disable(struct cpuset *cs, enum prs_errcode part_err
+ 	update_sibling_cpumasks(parent, cs, tmp);
+ }
  
--	if (cmd == partcmd_invalidate) {
--		if (is_partition_invalid(cs))
--			return 0;
--
--		/*
--		 * Make the current partition invalid.
--		 */
--		if (is_partition_valid(parent))
--			adding = cpumask_and(tmp->addmask,
--					     cs->effective_xcpus,
--					     parent->effective_xcpus);
--		if (old_prs > 0)
--			new_prs = -old_prs;
--
--		goto write_error;
--	}
--
- 	/*
- 	 * The parent must be a partition root.
- 	 * The new cpumask, if present, or the current cpus_allowed must
-@@ -2340,20 +2323,28 @@ static int update_parent_effective_cpumask(struct cpuset *cs, int cmd,
- 	 * Newly added CPUs will be removed from effective_cpus and
- 	 * newly deleted ones will be added back to effective_cpus.
- 	 */
--	spin_lock_irq(&callback_lock);
--	if (old_prs != new_prs)
--		cs->partition_root_state = new_prs;
-+	if ((old_prs < 0) && (new_prs > 0)) {
-+		/*
-+		 * An invalid partition becomes valid again, its effective_xcpus
-+		 * was reset when it was invalidated.
-+		 */
-+		partition_enable(cs, parent, new_prs, tmp->delmask);
-+	} else {
-+		spin_lock_irq(&callback_lock);
-+		if (old_prs != new_prs)
-+			cs->partition_root_state = new_prs;
- 
--	/*
--	 * Adding to parent's effective_cpus means deletion CPUs from cs
--	 * and vice versa.
--	 */
--	if (adding)
--		partition_xcpus_del(old_prs, parent, tmp->addmask);
--	if (deleting)
--		partition_xcpus_add(new_prs, parent, tmp->delmask);
-+		/*
-+		 * Adding to parent's effective_cpus means deletion CPUs from cs
-+		 * and vice versa.
-+		 */
-+		if (adding)
-+			partition_xcpus_del(old_prs, parent, tmp->addmask);
-+		if (deleting)
-+			partition_xcpus_add(new_prs, parent, tmp->delmask);
- 
--	spin_unlock_irq(&callback_lock);
-+		spin_unlock_irq(&callback_lock);
-+	}
- 
- 	if (adding || deleting) {
- 		cpuset_update_tasks_cpumask(parent, tmp->addmask);
-@@ -2657,8 +2648,7 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
- 					   trialcs->effective_xcpus, tmp);
- 	} else {
- 		if (trialcs->prs_err)
--			update_parent_effective_cpumask(cs, partcmd_invalidate,
--							NULL, tmp);
-+			local_partition_disable(cs, trialcs->prs_err, tmp);
- 		else
- 			update_parent_effective_cpumask(cs, partcmd_update,
- 							trialcs->effective_xcpus, tmp);
-@@ -4089,7 +4079,7 @@ void cpuset_force_rebuild(void)
-  */
- static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
- {
--	static cpumask_t new_cpus;
-+	static cpumask_t new_cpus, old_cpus;
- 	static nodemask_t new_mems;
- 	bool cpus_updated;
- 	bool mems_updated;
-@@ -4098,6 +4088,11 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
- 
- 	wait_attach_done_lock();
- 	parent = parent_cs(cs);
-+	/*
-+	 * Partition state changes below may update effective_cpus directly,
-+	 * save it to check if tasks need to be updated.
-+	 */
-+	cpumask_copy(&old_cpus, cs->effective_cpus);
- 	compute_effective_cpumask(&new_cpus, cs, parent);
- 	compute_effective_nodemask(&new_mems, cs, parent);
- 
-@@ -4123,18 +4118,30 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
- 	if (is_local_partition(cs) &&
- 	    (!is_partition_valid(parent) ||
- 	     tasks_nocpu_error(parent, cs, &new_cpus) ||
--	     cpumask_empty(subpartitions_cpus)))
-+	     cpumask_empty(subpartitions_cpus))) {
-+		enum prs_errcode prs_err;
++static bool is_user_xcpus_exclusive(struct cpuset *cs)
++{
++	struct cpuset *parent = parent_cs(cs);
++	struct cgroup_subsys_state *css;
++	struct cpuset *child;
++	bool exclusive = true;
 +
-+		if (!is_partition_valid(parent))
-+			prs_err = is_partition_invalid(parent)
-+				  ? PERR_INVPARENT : PERR_NOTPART;
-+		else if (cpumask_empty(subpartitions_cpus))
-+			prs_err = PERR_HOTPLUG;
-+		else
-+			prs_err = PERR_NOCPUS;
- 		partcmd = partcmd_invalidate;
-+		local_partition_disable(cs, prs_err, tmp);
++	rcu_read_lock();
++	cpuset_for_each_child(child, css, parent) {
++		if (child == cs)
++			continue;
++		if (!cpusets_are_exclusive(cs, child)) {
++			exclusive = false;
++			break;
++		}
 +	}
- 	/*
- 	 * On the other hand, an invalid partition root may be transitioned
--	 * back to a regular one with a non-empty effective xcpus.
-+	 * back to a regular one with a non-empty user xcpus.
- 	 */
- 	else if (is_partition_valid(parent) && is_partition_invalid(cs) &&
--		 !cpumask_empty(cs->effective_xcpus))
-+		 !cpumask_empty(user_xcpus(cs))) {
- 		partcmd = partcmd_update;
-+		update_parent_effective_cpumask(cs, partcmd, NULL, tmp);
++	rcu_read_unlock();
++	return exclusive;
++}
++
++/**
++ * validate_local_partition - Validate for local partition
++ * @cs: Target cpuset to validate
++ * @new_prs: New partition root state to validate
++ * @excpus: New effective exclusive CPUs mask to validate
++ * @excl_check: Flag to enable exclusive CPUs ownership validation
++ * @tmp: Temporary masks
++ *
++ * Return: PERR_NONE if validation passes, appropriate error code otherwise
++ *
++ * Important: The caller must ensure that @cs's cpu mask is updated before
++ * invoking this function when exclusive CPU validation is required.
++ */
++static enum prs_errcode validate_local_partition(struct cpuset *cs, int new_prs,
++			struct cpumask *excpus, bool excl_check, struct tmpmasks *tmp)
++{
++	struct cpuset *parent = parent_cs(cs);
++
++	/* The parent must be a partition root */
++	if (!is_partition_valid(parent)) {
++		return is_partition_invalid(parent)
++			? PERR_INVPARENT : PERR_NOTPART;
 +	}
++
++	/* A root partition is not allowed under an isolated parent */
++	if (new_prs == PRS_ROOT && parent->partition_root_state == PRS_ISOLATED)
++		return PERR_ISOPARENT;
++
++	if (excl_check && !is_user_xcpus_exclusive(cs))
++		return PERR_NOTEXCL;
++
++	return validate_partition(cs, parent, new_prs, excpus,
++				  tmp ? tmp->delmask : NULL);
++}
++
++/**
++ * __local_partition_update - Update local partition configuration
++ * @cs: Target cpuset to update
++ * @xcpus: New exclusive CPU mask
++ * @excpus: New effective exclusive CPU mask
++ * @tmp: Temporary mask storage for intermediate calculations
++ * @excl_check: Flag to enable exclusivity validation
++ *
++ * Handles updates to local CPU partition configurations by validating
++ * changes, managing state transitions, and propagating updates through
++ * the cpuset hierarchy.
++ *
++ * Note on exclusivity checking: Exclusivity validation is required when
++ * transitioning from an invalid to valid partition state. However, when
++ * updating cpus_allowed or exclusive_cpus, exclusivity should have already
++ * been verified by validate_change(). In such cases, excl_check must be
++ * false since the cs cpumasks are not yet updated.
++ *
++ * Return: Partition error code (PERR_NONE indicates success)
++ */
++static int __local_partition_update(struct cpuset *cs, struct cpumask *xcpus,
++				    struct cpumask *excpus, struct tmpmasks *tmp,
++				    bool excl_check)
++{
++	struct cpuset *parent = parent_cs(cs);
++	int part_error = PERR_NONE;	/* Partition error? */
++	int old_prs, new_prs;
++
++	lockdep_assert_cpuset_lock_held();
++	/* For local partition only */
++	if (WARN_ON_ONCE(is_remote_partition(cs) || cs_is_member(cs)))
++		return PERR_NONE;
++
++	old_prs = cs->partition_root_state;
++	/*
++	 * If new_prs < 0, it might transition to valid partition state.
++	 * Use absolute value for validation checks.
++	 */
++	new_prs = old_prs < 0 ? -old_prs : old_prs;
++	cpumask_andnot(tmp->addmask, excpus, cs->effective_xcpus);
++	cpumask_andnot(tmp->delmask, cs->effective_xcpus, excpus);
++	part_error = validate_local_partition(cs, new_prs, excpus,
++					      excl_check, tmp);
++	if (part_error) {
++		/*
++		 * An invalid partition only needs to update its error code.
++		 * Keep the error code if the parent is not a valid partition
++		 * root, e.g. for an invalidated remote partition, as the
++		 * cpuset can't become a valid local partition anyway.
++		 */
++		if (is_partition_valid(cs))
++			local_partition_disable(cs, part_error, tmp);
++		else if (is_partition_valid(parent))
++			WRITE_ONCE(cs->prs_err, part_error);
++		return part_error;
++	}
++
++	/* Nothing changes, return PERR_NONE */
++	if (new_prs == old_prs &&
++	    (cpumask_empty(tmp->addmask) && cpumask_empty(tmp->delmask)))
++		return PERR_NONE;
++
++	/*
++	 * If partition was previously invalid but now passes checks,
++	 * re-enable it and update related flags.
++	 * Otherwise, partition state doesn't change, only cpumasks change.
++	 */
++	if (is_partition_invalid(cs)) {
++		partition_enable(cs, parent, new_prs, excpus);
++		update_partition_sd_lb(cs, old_prs);
++	} else {
++		partition_update(cs, new_prs, xcpus, excpus, tmp);
++	}
++
++	cpuset_update_tasks_cpumask(parent, tmp->addmask);
++	update_sibling_cpumasks(parent, cs, tmp);
++	return PERR_NONE;
++}
++
++static int local_partition_update(struct cpuset *cs, struct tmpmasks *tmp)
++{
++	/*
++	 * A valid partition has passed the exclusivity check already. An
++	 * invalid partition has to pass it before becoming valid again when
++	 * cpuset.cpus.exclusive is empty.
++	 */
++	bool excl_check = is_partition_invalid(cs) &&
++			  cpumask_empty(cs->exclusive_cpus);
++
++	compute_excpus(cs, tmp->new_cpus);
++	return __local_partition_update(cs, NULL, tmp->new_cpus, tmp,
++					excl_check);
++}
++
+ /**
+  * update_parent_effective_cpumask - update effective_cpus mask of parent cpuset
+  * @cs:      The cpuset that requests change in partition root state
+@@ -2483,17 +2632,23 @@ static void update_cpumasks_hier(struct cpuset *cs, struct tmpmasks *tmp,
+ 		if (!css_tryget_online(&cp->css))
+ 			continue;
+ 		rcu_read_unlock();
++		/*
++		 * The tmp->new_cpus may be modified.
++		 * Update effective_cpus before passing tmp to other functions.
++		 */
++		spin_lock_irq(&callback_lock);
++		cpumask_copy(cp->effective_cpus, tmp->new_cpus);
++		spin_unlock_irq(&callback_lock);
  
- 	if (partcmd >= 0) {
+ 		if (update_parent) {
+-			update_parent_effective_cpumask(cp, partcmd_update, NULL, tmp);
++			local_partition_update(cp, tmp);
+ 			/*
+ 			 * Capture current partition_root_state as it may have
+-			 * changed. Recompute effective cpumask if changed.
++			 * changed. tmp->new_cpus is reused by
++			 * local_partition_update(), recompute effective cpumask.
+ 			 */
+ 			new_prs = cp->partition_root_state;
+-			if (new_prs != old_prs) {
+-				compute_effective_cpumask(tmp->new_cpus, cp, parent);
+-			}
++			compute_effective_cpumask(tmp->new_cpus, cp, parent);
+ 		}
+ 
+ 		spin_lock_irq(&callback_lock);
+@@ -2650,8 +2805,8 @@ static void partition_cpus_change(struct cpuset *cs, struct cpuset *trialcs,
+ 		if (trialcs->prs_err)
+ 			local_partition_disable(cs, trialcs->prs_err, tmp);
+ 		else
+-			update_parent_effective_cpumask(cs, partcmd_update,
+-							trialcs->effective_xcpus, tmp);
++			__local_partition_update(cs, trialcs->exclusive_cpus,
++						 trialcs->effective_xcpus, tmp, false);
+ 	}
+ }
+ 
+@@ -4138,7 +4293,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
+ 	else if (is_partition_valid(parent) && is_partition_invalid(cs) &&
+ 		 !cpumask_empty(user_xcpus(cs))) {
+ 		partcmd = partcmd_update;
 -		update_parent_effective_cpumask(cs, partcmd, NULL, tmp);
- 		if (is_partition_valid(cs) || (partcmd == partcmd_invalidate)) {
- 			compute_effective_cpumask(&new_cpus, cs, parent);
- 			cpuset_force_rebuild();
-@@ -4142,7 +4149,7 @@ static void cpuset_hotplug_update_tasks(struct cpuset *cs, struct tmpmasks *tmp)
++		local_partition_update(cs, tmp);
  	}
  
- update_tasks:
--	cpus_updated = !cpumask_equal(&new_cpus, cs->effective_cpus);
-+	cpus_updated = !cpumask_equal(&new_cpus, &old_cpus);
- 	mems_updated = !nodes_equal(new_mems, cs->effective_mems);
- 	if (!cpus_updated && !mems_updated)
- 		goto unlock;	/* Hotplug doesn't affect this cpuset */
+ 	if (partcmd >= 0) {
 -- 
 2.34.1
 
