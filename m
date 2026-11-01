@@ -1,91 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.180
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793541227;
-	b=fB7B/U/IdMtqplWQ6FwMY65EF0/csaaGb9uisHNeMTJ9nyaPpTsQquhrmVkmcmH2ykAE
-	 GU8WMojVehcTtGgfHZZkBfwZE8ULl4bJuI1cJHsrwLqtIlUSheGR4gwQ95G2lg2+GD1vn
-	 lP866kYW2Fe/tFkRNzHUxWLPl0nWFdGcfeHdQj/oe76+pHA3LjbMXLpiUbAC4fSWa9kg0
-	 2G8coBTH42czwfk8b5NTldiWnmMMWsJlFfw7f2fvL/AE6k8OINbxu/sBUwGCVLimVo8YP
-	 GwAxr3sodql3naDIUesR5oSxlTXU5XI36Vh8/FQ/VjNFpjEm6JtON9rSEX1yHVdYWKw==
+	t=1793541244;
+	b=PZmZT1g6JzYMWS8dgDEt+2fLew/tWucXBM7zqJhtQMqDKFTRy2YcsAlru0ml3sXV1anB
+	 lrYswie/vdlYcT5CkgA5ZsHdvBvGi/maHVBKZfSX/nghKkvW/WeDLzsjSkJ6mRpmpJndd
+	 k1VmiDsMtyTlVXAW8tdCXlWe5ez5j79zH6fCUha+N09aGpY1/zhnZf5BFH2XfcCtHZZsk
+	 lKjXN5QjGEPO15W3xL7Yk77z/Fi3T5mWLleEBZGXbUWA+VDK9itzW1pionTsbaBxr3rV8
+	 HUsBsDIxMWYHb6OpB+tGWvtTmjSuf2AeTSImSpr+dg2KE/TNhZ9wyhwJA8wT2kt+VxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793541227;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793541244;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=ByU4pbijH13SuxZHyk54Q+BWYd7sxBxb/2grL4zMyno=;
-	b=vCOIvBVHLywf/KhFKOGWlICKtOHqrbSIuKqiMx6fnQIbTw6aOWR94AyRr4Cx2naC8JMZ
-	 LcgHrxgh8H0xNgjOagElyMOGvfHOWSzkQI7sntrsk+rzuoOeOMoqXfbbkTCAg9XYpYX1T
-	 GVXESgy4RRC+SXKwWw/gRjTaYWimm4AYztNFjLGwIM2J0/jN+eOAu1z1Ogz0qT2S+mjwV
-	 LgEXqyj+9Py9eNhcDaH+Vo3YzcGK8Aol90w3bDt2VILXFo60XzkzlRJJ8/KrcxsdHh7o+
-	 92W+cLMLjZ+rEwFOE5YApjXYj2gqZ+M6WS8ePK+8S27F4JQ7PT6LoNGQiMB1Pexaxhw==
+	bh=JURDH1Ef+kAXVQHZ24OyOfHYXwmX/CvYK84q+N+pCZ4=;
+	b=yXXpsd7W/SoF6bv0Rlq6+lcIGOBGchLwae+IRuYRBlOhzFtpv0jyuBM6oK91iNqci8Ce
+	 8eTSSYiJjOwb78WAVLeAQQV2Rm8L8nw4S1/RBsUa/pQlF7aVIlOBKOHUShbkspX7j1Jo2
+	 C2r3HsEGVzaC40pMP+OlMls1nVTDc0F1zQXboHm/Gp9+fYgSbE/VSUVIxOnWoQFmAxDrg
+	 rgt8nmsvkQinGFPRauJwJVoO/0l4p2YZiuYZ7rXqivlXKuWYayIIXlmB2HobRMXM0m0h5
+	 ZqV4RSlUZ37s2R8Wlr24OZ/dxTjunrE0i0rCWDsYAKOW+LqaaPYmxFK9GdV3eDuqXMg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=korea.ac.kr;
 	spf=pass smtp.mailfrom=korea.ac.kr;
-	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b="kOnu/8id";
-	arc=none smtp.remote-ip=209.85.128.171
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
+	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=LsMerxoG;
+	arc=none smtp.remote-ip=209.85.128.180
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com [209.85.128.180])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F134E606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:53:46 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F134E606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CAF606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:54:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 37CAF606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=kOnu/8id
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-8b0d63f60bcso16678057b3.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:53:46 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=LsMerxoG
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8ab43af5e97so23337067b3.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:54:03 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=korea.ac.kr; s=google; t=1793541226; x=1794146026; darn=vger.kernel.org;
+        d=korea.ac.kr; s=google; t=1793541242; x=1794146042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ByU4pbijH13SuxZHyk54Q+BWYd7sxBxb/2grL4zMyno=;
-        b=kOnu/8idxgf3nP98EBTacEr1UKbx35BwxgnGtNollZ1aNL6n5dpEi5sWp/f/dSodtl
-         WnC4uMqpd3Pa1wbIw//Q5UaXZ4jNzcrwsWcyOtDN35s1zbY4nEGGHX+VixqCaGX63erO
-         +D6bNiV3WNGOa5sU5oy1y9z1kw3J9ZAEYTHDZZf8QaEsS0iYi5zCfOZDkgg0FXJG9qlj
-         w7IWfLlonBAG0RgmP0T0VnUHO2Z/2SKpm/CzJFo+cys8vCRcw3D9aFbtnhgLw/OPUnM9
-         ReygVKilCXDpSlvP7wOa4QUioxS7utjQSIo+Tn2AH7h7vtMFDcc1xnzIaiVUap9tttZZ
-         ILuw==
+        bh=JURDH1Ef+kAXVQHZ24OyOfHYXwmX/CvYK84q+N+pCZ4=;
+        b=LsMerxoGBqiqKoBcaGCNO1mksPlEOZfWi5ztLYpPxmeCrpVRtpUfYHxJxX60YQhQMY
+         Rdg74suCUJhuAaQgfcnpGi3mXhOsV+dYuANTy99gTkec5kXmYlGIS6rdIAjvc/Rtuo8R
+         ohDb3SVnEu1SxL6C9GtswQ4LQfxaJduzRiwH4oKd+9R6ntYN9TM/XMAg7Fdfo4FDOZlB
+         TEvufIe6lJLgQY5fCBSeI3f1x9Vf9Qr/MprMgi751gDD7wxxLQGy0HvryVjCsfpYrXIt
+         zbfaJzeEtvLtWK56BdWfq+PfTPWXmIeIWenze80NDxYk4J3yBOf14xPfp85ci06s3BMZ
+         OTcQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793541226; x=1794146026;
+        d=1e100.net; s=20260707; t=1793541242; x=1794146042;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ByU4pbijH13SuxZHyk54Q+BWYd7sxBxb/2grL4zMyno=;
-        b=mGOqaiVW4uYzs5yPRWv7EHfslyTa4SNyjIAnjJdn7nK736K9E7KbYelmVYzTPkJXSj
-         PvA7L276gpAC8e6p+LI7ux33+fogeq5c16wk0v1TGx+CGzfsHB3KrGQEWS7mfBVY/7Xh
-         iCTUyeJn/kgBw6d9ze3l2Bx8PZRyf/f6tG7Vz1vuoY4Y6tF50hFeK2QgrAPoYrN+91tE
-         iEWdiX+0kvWDJ3odRO+u0CF5crDvbrVZu/S3QkFiAFuhoqvYAbB/gnYA+2VACkapU10x
-         wRWD2NsqrDo+0Gg6dZv6xueTwJ7wRvJW8OneyVuD5Fs0EPw6WSPLdFcZdaHtCK0rMLM4
-         cyTA==
-X-Forwarded-Encrypted: i=1; AKwUvBz6IrMgYdjcowiFNZoc0Bqg9Rg89eK3KfRhiYSpayCA36s5jNn88XTb72FkqGXvm0OUqVQnco6Y3hpQVv8=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+W2EjqLtgtaiQIOppC5kOLrwiUsxIcVeSVDOOTzKlDkFF10p/R
-	uhIoESm9bHk9MQbjsDuSSj3Ii8Qi99W22YoFGfN4xKV1pX/AazsnX/sZb5ZmpMI4h1ngCzil/pP
-	UTGO2UNpd
-X-Gm-Gg: AYBFou2a+149L897WDxYl1MvqXV9HmmWhULFEJBAbiizFxV6+B7QuQw4yRFfJXfPDR/
-	GfxqcwGqXAE4zLhIuyTcHgedB7jFgG3APA1CLlBAKu61S4OJCql4RPA+GVBZDVq2083I62vrjtu
-	QNeGln88mJ0la9qrevo5v3pOlmkAAB1mZtzbi0LA15dbF/0UF2bSnv0AtQoPmBHxlO12iIkMk2i
-	SeBJtxovHTW4cwb2W1AUjcesP9FGONb6y1iIy3N8vXqfD6EBmLF6mwsbitjXI+FrwqnVZ8FWIkI
-	YEqHk+GVAToVnO1ES32KdrFSTyNbChy71I0WtEMA0r437sOGkIkXyRgv/4HEXU3lzH1g1fu3/eV
-	APTax3ntNcIazy6bgSR/j4R7ZTc/fDIA0A4OeccoEY/LwPaQ8RUASF34MFDY4+H4SC3k1Ul41Rr
-	L4MG2+E7A6hhvR7j7SBm8rOznRk8vEzudjXxRhJRcMBbwd52TiKUu5wAu59FaW93939ybF19iVi
-	xk1YIzkOt2EbIn1muBCspG5Qt42o9ghXPRNDNFHDOADn2z6BPd4KH4ojysS1lwLR9huS8M=
-X-Received: by 2002:a05:690c:e243:20b0:8ab:b98b:b77f with SMTP id 00721157ae682-8b2b67497aamr30646777b3.40.1793541225974;
-        Sun, 01 Nov 2026 05:53:45 -0800 (PST)
+        bh=JURDH1Ef+kAXVQHZ24OyOfHYXwmX/CvYK84q+N+pCZ4=;
+        b=N0XOH/ourzex6/AAHdzDIvkBIA//Q8nJ30jc+UxJcN1zZJNKXUxl/CX2wEB9pOK9n5
+         jfqNpt9uA3I4UpCXLcXiEFevkpeZfwPtPZ9q1hDUQcxdEq83uHh+ecL+TiOlJibjMO07
+         fBNgPsRaX+JRxOZiOv5ipn9e7RFd6INCuNr5UZSJvbc0g5/9+VDlcFvKZsMEBdy24CP2
+         wSnOen83nf6NWBQOPDy9tcaidz7mclmP2XXmWsWxpw50HIlY2B2/ygpXMO+dA7MrnIsL
+         zczWKX8uT0AsglbPvoFExw70651osIHKqDvmmGYW6whCJsFjTwQMm59weMYcSGngzK5n
+         Pq9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwc1LE6uAsl8BSK7AsegGfT3UnwalIB0gQ7d6Cga9SYz5HXejc/iIFRtiOeklzJXzJos0BgFEvwHyY/D4M=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+4hVTQNY47eSoWwr7tm/g07Ng/GXNBasuu0EH7vz03+XvU9dc3
+	ylKf4hDFeEBqwSB31CKtD+aVfeAXLMdulpzfpMkSX5dOqkJ0w2H4tCC1PPUS/8BXTI58v+ZPjGc
+	zP8FYUFn7
+X-Gm-Gg: AYBFou1lItI5lKVKw7wpPI0cG8QdbRUWVLPATZkQGHkj8KmfXD7JCViscEqtSr8Y7iW
+	MtCEcURW/fRXT1rAE9rvfSTj/TJFfCdi+mBiUfANzDH3ZWxQ5vtI6L3AWfRw+UlweEsqNibmaiQ
+	FFOrLBWRXuYB5/EtmNLzh6574Z77xBOCSHp96+VZJXq44eea1/0LBKrMO0ZspVQo2Xl8Sg/IP8P
+	uPq5fLellomFzWX/nAwNwcu20Vz9qa9hRfGDQYOTBbj41FzEk8fL73JQ7ZTbO+0l1ilIWYIgnFu
+	rxV7I5HgcYtUoP58Nl4jGnvVq+XrAdFYtETzxVEq1pInGul2MzsjWoITjyPXEX1UaFZCsKfnhcf
+	BofK2+3RgkcLyFiLPXrk+Mc7ZV7phs5fpX4JM5T0oqT0LXLn5ObSuAZ1dolx4sfYjFQtsNttNBT
+	s2Jxhdi8kmtRtm65pnD27gh1YxJFD+U/bOI6YKDl1TaVn6XfXGicDAtbBpzcU0GIXxGOV3oHPmM
+	YqI5tcIM2Ko2yenlHQ+/PfCjjReEluJSx+OFwRCvPIEk8/B7WERjT7TWIYleGnM2xUQZPg=
+X-Received: by 2002:a05:690c:e3c9:b0:8ac:c329:682d with SMTP id 00721157ae682-8b2b66cb3c9mr55705407b3.11.1793541242323;
+        Sun, 01 Nov 2026 05:54:02 -0800 (PST)
 Received: from s2lab05.. ([163.152.163.130])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b7125371sm36327097b3.11.2026.11.01.05.53.43
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b714bd57sm36440147b3.23.2026.11.01.05.53.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 05:53:44 -0800 (PST)
+        Sun, 01 Nov 2026 05:54:01 -0800 (PST)
 From: Ingyu Jang <ingyujang25@korea.ac.kr>
-To: Borislav Petkov <bp@alien8.de>,
-	Tony Luck <tony.luck@intel.com>
-Cc: linux-edac@vger.kernel.org,
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Ingyu Jang <ingyujang25@korea.ac.kr>
-Subject: [PATCH RESEND] RAS/CEC: Drop unneeded debugfs_create_*() return value checks
-Date: Sun,  1 Nov 2026 22:53:40 +0900
-Message-Id: <20261101135340.2197888-1-ingyujang25@korea.ac.kr>
+Subject: [PATCH v2 RESEND] ufs: Defensively handle NULL return from ufs_get_locked_folio()
+Date: Sun,  1 Nov 2026 22:53:56 +0900
+Message-Id: <20261101135356.2204803-1-ingyujang25@korea.ac.kr>
 X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -98,98 +98,48 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-debugfs_create_dir() and debugfs_create_file() return an error pointer
-on failure, never NULL. Per commit ff9fb72bc077 ("debugfs: return error
-values, not NULL"), callers do not need to check the return value.
+ufs_get_locked_folio() may return either an error pointer (when
+read_mapping_folio() fails) or NULL (when a concurrent truncate has
+detached the folio from its mapping). In ufs_alloc_lastblock() the
+NULL path cannot be reached in practice because the only caller,
+ufs_truncate(), holds i_rwsem and so serialises against other
+truncates. Still, the current IS_ERR()-only check does not match the
+documented contract of ufs_get_locked_folio() and is fragile against
+future callers.
 
-Drop the dead NULL checks in create_debugfs_nodes() along with the now
-unused err label and local variables. Converting them to IS_ERR()
-instead would have exposed a regression: on a real debugfs failure
-(notably CONFIG_DEBUG_FS=n) the function would return -1, causing
-cec_init() to abort the entire CEC subsystem.
+Use IS_ERR_OR_NULL() to match the helper's return contract.
 
-The ras_get_debugfs_root() NULL check is kept; that helper has a
-NULL-returning fallback and is the legitimate "RAS debugfs root
-missing" gate.
-
-This patch supersedes an earlier proposal that converted the checks
-to IS_ERR().
-
-Link: https://lore.kernel.org/all/20260514193202.2397348-1-ingyujang25@korea.ac.kr
 Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+Reviewed-by: Jan Kara <jack@suse.cz>
 ---
 Resending, as there has been no response since 2026-05-19.
 Rebased onto current mainline; no other changes.
 
- drivers/ras/cec.c | 39 +++++++--------------------------------
- 1 file changed, 7 insertions(+), 32 deletions(-)
+Changes in v2:
+- Rewrote changelog per Jan Kara's review feedback to clarify that the
+  NULL path is unreachable in practice (i_rwsem in ufs_truncate()), and
+  framed the change as matching the helper's return contract / future-
+  proofing rather than fixing an active race.
+- Diff unchanged.
 
-diff --git a/drivers/ras/cec.c b/drivers/ras/cec.c
-index 15f7f043c8efd..32c1be97bbd0d 100644
---- a/drivers/ras/cec.c
-+++ b/drivers/ras/cec.c
-@@ -480,7 +480,7 @@ DEFINE_SHOW_ATTRIBUTE(array);
+Link to v1: https://lore.kernel.org/all/20260514193256.2556905-1-ingyujang25@korea.ac.kr/
+
+ fs/ufs/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/ufs/inode.c b/fs/ufs/inode.c
+index c9ff8673fa668..fec701330d67f 100644
+--- a/fs/ufs/inode.c
++++ b/fs/ufs/inode.c
+@@ -1051,7 +1051,7 @@ static int ufs_alloc_lastblock(struct inode *inode, loff_t size)
  
- static int __init create_debugfs_nodes(void)
- {
--	struct dentry *d, *pfn, *decay, *count, *array, *dfs;
-+	struct dentry *d, *dfs;
- 
- 	dfs = ras_get_debugfs_root();
- 	if (!dfs) {
-@@ -489,46 +489,21 @@ static int __init create_debugfs_nodes(void)
+ 	folio = ufs_get_locked_folio(mapping, lastfrag >>
+ 				       (PAGE_SHIFT - inode->i_blkbits));
+-	if (IS_ERR(folio)) {
++	if (IS_ERR_OR_NULL(folio)) {
+ 		err = -EIO;
+ 		goto out;
  	}
- 
- 	d = debugfs_create_dir("cec", dfs);
--	if (!d) {
--		pr_warn("Error creating cec debugfs node!\n");
--		return -1;
--	}
- 
--	decay = debugfs_create_file("decay_interval", S_IRUSR | S_IWUSR, d,
--				    &decay_interval, &decay_interval_ops);
--	if (!decay) {
--		pr_warn("Error creating decay_interval debugfs node!\n");
--		goto err;
--	}
-+	debugfs_create_file("decay_interval", S_IRUSR | S_IWUSR, d,
-+			    &decay_interval, &decay_interval_ops);
- 
--	count = debugfs_create_file("action_threshold", S_IRUSR | S_IWUSR, d,
--				    &action_threshold, &action_threshold_ops);
--	if (!count) {
--		pr_warn("Error creating action_threshold debugfs node!\n");
--		goto err;
--	}
-+	debugfs_create_file("action_threshold", S_IRUSR | S_IWUSR, d,
-+			    &action_threshold, &action_threshold_ops);
- 
- 	if (!IS_ENABLED(CONFIG_RAS_CEC_DEBUG))
- 		return 0;
- 
--	pfn = debugfs_create_file("pfn", S_IRUSR | S_IWUSR, d, &dfs_pfn, &pfn_ops);
--	if (!pfn) {
--		pr_warn("Error creating pfn debugfs node!\n");
--		goto err;
--	}
-+	debugfs_create_file("pfn", S_IRUSR | S_IWUSR, d, &dfs_pfn, &pfn_ops);
- 
--	array = debugfs_create_file("array", S_IRUSR, d, NULL, &array_fops);
--	if (!array) {
--		pr_warn("Error creating array debugfs node!\n");
--		goto err;
--	}
-+	debugfs_create_file("array", S_IRUSR, d, NULL, &array_fops);
- 
- 	return 0;
--
--err:
--	debugfs_remove_recursive(d);
--
--	return 1;
- }
- 
- static int cec_notifier(struct notifier_block *nb, unsigned long val,
 -- 
 2.34.1
 
