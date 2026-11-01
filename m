@@ -1,60 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571356;
-	b=Gw37NJn7xbtZvzE9Ej9UW8yF5+m9mebow1aFQvDGx07MTDlt3peVkP00xpTF0t9QeSnI
-	 9aFqnqF7GPgPsW7N7Z8pwG3KR151l6PgLJ09o1Vd4C85KPQSLIybEYuAgvol7jQ+rnI1p
-	 2eA1bbRFVbsqXf7oHu0UWw/78HJOG5RlypSPtweBkgI25W59k/YvrVJIJuzTyp0yygkZ2
-	 SRzwOPYVmbeQdyXrOGZMt7+OTpHAaCUyplCYWM8D9N9WD87UKsILwSOs/JspSV3AAQCzf
-	 MYTaL0Z4zYFK3++kvNeN8jBUSyJdwxYqqm0ctYHTNO/RGhxZzz7zCt8RkL5XKZU1mZw==
+	t=1793571364;
+	b=iTY7kEVQjhxhzFcaC8VkzA5ZusrLEZD+wpSYPhoWqwOYvI9anMegvw/BV28SHdIzfV0P
+	 Yxol3v27zy8OjBNViXMpthCMRnMQ2irkerLn2LRXXIGZKpN2JofeyiJVcFb/aVM0+3cKz
+	 /64DDsjklPG6Blv/SmFPR1iad4FGltrtJqKaP+gB7eoRMPXA+VO7wnOGf3wInmdQ6ZYRK
+	 3glG2YVjJlYQzb4iI452q43PvMoxYUl1QHGtotjrDbTlqlz59XzCKCBaQaYpdFiVAVsuV
+	 nfNAciKBPOWdK6b05LWhg/a04ikBFOYxEXZJaKc1so6udjzMi5DSpz3N4S20OZeO2/A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571356;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=0Ksm3b1KyTjB0vWXpeTrEa3XgjkfnjwTkmMUnW6CK3U=;
-	b=z9XkUbHmA0u9FzX46dMB7Q4xZsvxe8fGsx3emIh/lcSgOhvBFJR+f1Gx6lt1OSeuDecf
-	 PBTbHbbrkLMvcDlZyrvl1xnxigHYO4u7hZ4LZLZsVBiNLQe3T2IogAWG2cJk6uzeMqu/f
-	 NNOaUYGDeda7aisFnksXtVsnFI6yxZnNT8XrdV0UNIWXniI9IDasIgAMC9aWBgxSnlcCu
-	 huUTTYdQGLWXu4CBXnSkHZbtX+Nf23AS+37WZ0th5KdT84M8v2YSoxk1qDLA5qpynPYaL
-	 d8IFVbE3SMx9JFGrLjxah9aAR+nRdcvpAsoWQOPF8BfhVlylKfwXEuxoDVabEaEa97Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571364;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=1QVLcxKIGpBrR1ls29kmgMJV8dBu1FUp9t501+9SlJY=;
+	b=uhZfsn5Y3WUAtRhL5P6xBWO/JxmEu0kmlB9FoG1ERtKiXSCI7du58vm11o7EVAPWp+Zh
+	 JrLKNqK8zdfCe3x4kfGVr784rSs8G/+0DJ3QkJFmthv3nPCFNTOoQm75qEqxdHGoDsOJf
+	 pkcGj6XjBBWlnXbdcAQiowLaT20k0tQEgjIzivSAH1211y6FloOtvfVEuZgflfmAxWv4c
+	 VZL/XfJOhViFJX7rNekqQSwFHq+w4lxkMR/Hv9D6sdmu2X+yKR/C6OEvh4cZOAd9Q6vnD
+	 BNFEQao4yBOzkL8YaNi2nm3/kN6E/GDpD6cskr4niQl2VQZjODwsjlnHTTVdb+gNG8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkhr+eF3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF395606A339;
-	Sun,  1 Nov 2026 22:15:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF395606A339
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=0Ksm3b1KyTjB0vWXpeTrEa3XgjkfnjwTkmMUnW6CK3U=; b=P2n/NivLQ4gQLjSQ+ENADKpxfy
-	+ahd6N903OIwRWIkgrCcqE3QtjnYl+1mJBGeYGLYPo0thnvWijddU/jivqzPd+4nbByjqeaDWra7m
-	2bTtnKasxF/PaNCgrZTEyNWVOLpcAOG1j5quo2dIL99u2BseviunqoU/xhd6dxdNTMt/XUI/YsPdA
-	xw4BvcezZCeorxYO0F0/3287SbTFT6vPAHn7vxF0BfyGutAlHstq3DLtlYwOLTwVfG0Fi4oEmStHy
-	MfY4puZzqDfm9cEqEO/OgLuiddmSDlMPF9KicZm/4R2eyM189VhShib31Go7pTlNpGynJ1DKYXrF5
-	q0iJ+dgg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Jiaxing Hu <gahing@gahingwoo.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RESEND] arm64: dts: rockchip: let TCPM own the USB-C VBUS on CM5-IO
-Date: Sun,  1 Nov 2026 23:15:22 +0100
-Message-ID: <179357131399.4107717.10715553647759854309.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261024083942.148860-1-gahing@gahingwoo.com>
-References: <20261024083942.148860-1-gahing@gahingwoo.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDBC606A32E;
+	Sun,  1 Nov 2026 22:16:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkhr+eF3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887CB1F00A2C;
+	Sun,  1 Nov 2026 22:16:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571363;
+	bh=1QVLcxKIGpBrR1ls29kmgMJV8dBu1FUp9t501+9SlJY=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=dkhr+eF3q1vLH5j+Vt4HH9N1vxJVl63OY3ZWjO6x3dSLn6eQyYKacs6+oM+3Qn+lI
+	 thS97Vkt+DR9px4LyR/SisaZrzLD9G4XkXITq3BcSDr6ocIppa7a8idnye+qEIqM/4
+	 lA297xuw1etIPcz1D0z9fjeTfmdqf6SQPW4T9L8XHNuLzhxg5drxCmE0d9RsQKGE7f
+	 z+lpwxPVzUbcNwvBGGrQmdsobEkchSaH6YXFrcneezcbTudB2i/2DWGMJc6AtOWD6C
+	 C8++koYKIE/Rb+G/udcYaxQ5Bv2MDWCQ3FwdoYvX/c9BzD2IHxxqLnrHL9kBU1vqtn
+	 vMh0jbZFxh6bw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 7D35B38003B8;
+	Sun,  1 Nov 2026 22:16:03 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,26 +53,86 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH RFC 00/18] arch, mm: create a generic
+ set_memory/change_page_attr core
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357136205.2624073.6611857519856364383.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:02 +0000
+References: <20260721-generic-set-memory-v0-1-v1-0-2c1fc62306b3@kernel.org>
+In-Reply-To: <20260721-generic-set-memory-v0-1-v1-0-2c1fc62306b3@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: linux-riscv@lists.infradead.org, linux-mm@kvack.org,
+ aou@eecs.berkeley.edu, akpm@linux-foundation.org, luto@kernel.org,
+ bp@alien8.de, jackmanb@google.com, catalin.marinas@arm.com,
+ dave.hansen@linux.intel.com, david@kernel.org, chenhuacai@kernel.org,
+ mingo@kernel.org, mingo@redhat.com, kevin.brodsky@arm.com,
+ liam@infradead.org, ljs@kernel.org, mhocko@suse.com, palmer@dabbelt.com,
+ pjw@kernel.org, peterz@infradead.org, hpa@zytor.com, surenb@google.com,
+ tglx@kernel.org, vbabka@kernel.org, will@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, x86@kernel.org, dave.hansen@intel.com,
+ jgross@suse.com
 
+Hello:
 
-On Sat, 24 Oct 2026 21:39:42 +1300, Jiaxing Hu wrote:
-> vcc_5v0_typec0 is the switched VBUS of the USB-C port. It is the
-> vbus-supply of the FUSB302, but also the phy-supply of u2phy0_otg.
-> The PHY enables it at boot and keeps it on, so TCPM never sees
-> vSafe0V and a sink partner stays in SRC_ATTACH_WAIT. A USB-C dock is
-> not detected.
+This series was applied to riscv/linux.git (fixes)
+by Dave Hansen <dave.hansen@linux.intel.com>:
+
+On Tue, 21 Jul 2026 19:23:23 +0300 you wrote:
+> Currently there are 6 independent implementations for set_memory and
+> set_direct_map APIs.
 > 
-> Drop the phy-supply and leave VBUS to TCPM.
+> With increasing demand for kernel page table manipulations, for example
+> "Direct Map Removal Support for guest_memfd" [1] and "mm: ASI direct map
+> management" [2], it makes sense to have a generic core for kernel page
+> table manipulation in mm/ with helpers in the architecture specific
+> code.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [RFC,01/18] x86/mm/pat: Don't gate cpa_lock on debug_pagealloc_enabled()
+    (no matching commit)
+  - [RFC,02/18] x86/mm/pat: fix effective RW computation in lookup_address_in_pgd_attr()
+    https://git.kernel.org/riscv/c/ebaf7c9bbb1e
+  - [RFC,03/18] x86/mm/pat: replace x86-speficic pg_level with generic pgtable_level
+    (no matching commit)
+  - [RFC,04/18] x86/mm/pat: use page table accessors for effective RW/NX bits
+    (no matching commit)
+  - [RFC,05/18] x86/mm/pat: use a generic helper for the large page size
+    (no matching commit)
+  - [RFC,06/18] x86/mm/pat: introduce an inline helper to check if alias needs update
+    (no matching commit)
+  - [RFC,07/18] x86/mm/pat: introduce cpa_handle_large_page()
+    (no matching commit)
+  - [RFC,08/18] x86/mm/pat: use cpa_split_data structure to pass split parameters
+    (no matching commit)
+  - [RFC,09/18] x86/mm/pat: use a single locked lookup for PTE verification
+    (no matching commit)
+  - [RFC,10/18] x86/mm/pat: move the large page size calculation to should_split_large_page
+    (no matching commit)
+  - [RFC,11/18] x86/mm/pat, mm: set_memory: pull change_page_attr() core to mm/
+    (no matching commit)
+  - [RFC,12/18] x86/pat/mm, mm/set_memory: abstract the CPA page table lock
+    (no matching commit)
+  - [RFC,13/18] mm/set_memory: read page table entries with pXdp_get()
+    (no matching commit)
+  - [RFC,14/18] x86/mm/pat, mm: move cpa-test to mm
+    (no matching commit)
+  - [RFC,15/18] riscv: convert set_memory to the generic CPA implementation
+    (no matching commit)
+  - [RFC,16/18] riscv: make set_direct_map_*_noflush actually noflush
+    (no matching commit)
+  - [RFC,17/18] loongarch: convert set_memory to the generic CPA implementation
+    (no matching commit)
+  - [RFC,18/18] loongarch: make set_direct_map_*_noflush actually noflush
+    (no matching commit)
 
-[1/1] arm64: dts: rockchip: let TCPM own the USB-C VBUS on CM5-IO
-      commit: 1b0bcdaa4de9725870c9b0216acbd373b5faebb7
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
