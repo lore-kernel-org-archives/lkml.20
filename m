@@ -1,66 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.12.242.13
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793524520;
-	b=C5LSO1r5RkKY+6qyUZJekffnJ+5bctaTEXew5u9omOvaYtaxdYP9PD1hv24gPFhkRZbL
-	 BWLBr5hLc83t7H+Nhxe2lcsi/QGl9lyEAsk+2bOSY50IiZl1/YvvRYwC42eB6TMCh4h+x
-	 /Ut/Cd+xwP5nFpv76Gc8zP0xeXyGtz8aBL7iH0Sp1pod3MlV83YvmF4C9CRYejTO9wL83
-	 UVBgz0GaWk0teySag1I8s95PLG3MrD+BhDgYxDFpsANWJKlqOy3I8i+eD7ei4lSCFBzVy
-	 k/UlY/8PHn4tNH+8Jm5Ei2oJfGlleXjguNzvcBTsFx5aNma/UdBkfDBwzkaD1I6fVAA==
+	t=1793524995;
+	b=PMr7EE2yFTxo+uGP3KtYgtx09E2flhUPOQ5rKnfM81k4AZcRrwvHWBP9TN88Kf5416NX
+	 vm2m2jqcGzLmX1+iXvfjlAm2iPW5Tr+2rEqnUmzYokiRWV8EcOD1VJX7w9uqUBoS/Zwu4
+	 TpiK6P7rPBVkoeFS2VFWCg9ZwA3q7f9/dCFw+SZ+khwYbNI7B3KjV4lLOuWOKAAVKXZtG
+	 WVK03Un6EMde7oRvKrLQWu+rO+vdwA77LCjUO5SkySvhIVyLbbYKLiHgDzA8HkmeEHZ0v
+	 snfifw3PQHhOlESA6P9SIgvXrfCVMLs9pUVHcwByGE4eVr0gsMAxeBKBGtU+RNCmjzg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793524520;
-	h=DMARC-Filter:Received:DKIM-Signature:X-ME-Helo:X-ME-Auth:X-ME-Date:
-	 X-ME-IP:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793524995;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=hpAYGvjX3DPYXJqhuECAIb7VRmhCJAkGQrZ4pOyjybg=;
-	b=Uigd/Wv4/gNLE2OFkUx5vLjvGiFSmaO4SsCcPhQwTM3F6MSQi8cODqTcuRM/Zp9YMDXt
-	 hYiKtlGsHWLOoqrlTS4Udx2l0L5/ewQV5siJrGoCS9PGuQ316ZW5C3tUnywCcAsDmKHN2
-	 FW6WPYw04DEZZTmhxllssqQW36oVmC21GeR++rzq57/oZT9q2wV7Km+If8UrtFF7m5G+S
-	 if130L4m7paT4Bhqo+isMdvr6YXC1FpzwfyxlKrfeNjI3OnQIdmzVLFhXNe3f7coVrWpu
-	 24x3BTwt6yHEhRIWfqGpC4Aht/thQ5wqEK/Ro+I9wn7G1B2u1OQ8n7fG82etn1nX3nw==
+	bh=QKQXXPx0TtnAH7kUYwvPG35lGpK3RW8/bNQYeuZv+r0=;
+	b=K52fwwrlwx9QyAiqMRMdc1sfKAagFpLS0Q2IPHptk9u4WzhrbEhWwJTFiwM2XR9tIrg4
+	 ltqBvD7F5GvqQV5xjompznDXHd6vqetCQSkJ5plIlhKhlJWBVNosnPjCc7Z7lBzQN2vn5
+	 tBUF+FMa3Js4/4sWi20KlPqUTW21IgLlYSNI/S2mb2HRtLyTqtXjVtjofgf4z5bO6VJ2I
+	 zoS6y2tXLddfQmMOZzoqCwKJskK6QMFfpPo9oJrzZtsqk+oZAlwmaxQkbjC6okQQSNCOZ
+	 RdrEEUMvLBzZJAUk6ji+Cveb79VD8fpWOpYsd8b4OXkYxMvnIAjRD4YBp/nmBVanPTg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=wanadoo.fr;
-	spf=pass smtp.mailfrom=wanadoo.fr;
-	dkim=pass header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=d7ywW8Tr;
-	arc=none smtp.remote-ip=80.12.242.13
-Received: from smtp.smtpout.orange.fr (smtp-13.smtpout.orange.fr [80.12.242.13])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pHyohmlz;
+	arc=none smtp.remote-ip=74.125.82.170
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F286606A324;
-	Sun,  1 Nov 2026 09:15:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0F286606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=wanadoo.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wanadoo.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A7C606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:23:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3A7C606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=wanadoo.fr header.i=@wanadoo.fr header.a=rsa-sha256 header.s=t20230301 header.b=d7ywW8Tr
-Received: from fedora.home ([IPv6:2a01:cb10:785:b00:26fb:aefb:6cd2:db0e])
-	by smtp.orange.fr with ESMTPSA
-	id NRegxTj34LDKZNRehxO0lB; Sun, 01 Nov 2026 10:15:11 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=wanadoo.fr;
-	s=t20230301; t=1793524511;
-	bh=hpAYGvjX3DPYXJqhuECAIb7VRmhCJAkGQrZ4pOyjybg=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=d7ywW8TrPZ9b3rPZx6fzmwfoG/zazFagDyJsftf0yS5MI6jCc2vmAlLYKPt+LrNDl
-	 dot0II+ClwEcsWr4AZy4Pg0hDEYRzvdLCzmeJ9r8KNiAnWhIRPn55BR3vaCssaf9FO
-	 dYVek7MU0aBcUKFEhPaMijokzyFrWFmBn7a0zzwiAMrGLakO/x/JwzCBPKCbHKTr8J
-	 cUhSKNhAYg3ydCq1QYZr7lRAOnqZPXRCwss/V3Er0ul1VI7AHaYyn1K90qOM1+KMBB
-	 rNwt9LRrrSLKjH3Sjy4I45SYQkxl5AY92P8DW22Lry4lW1PJ1qsAE/zIB8EutpqhvS
-	 mGr8Jv/p6tKdg==
-X-ME-Helo: fedora.home
-X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
-X-ME-Date: Sun, 01 Nov 2026 10:15:11 +0100
-X-ME-IP: 2a01:cb10:785:b00:26fb:aefb:6cd2:db0e
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>
-Cc: linux-kernel@vger.kernel.org,
-	kernel-janitors@vger.kernel.org,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	linux-pm@vger.kernel.org
-Subject: [PATCH] powercap: dtpm: Constify some structures
-Date: Sun,  1 Nov 2026 10:15:06 +0100
-Message-ID: <a4737f7c69e044d35348c1e9c7f69f229070d29b.1793524483.git.christophe.jaillet@wanadoo.fr>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pHyohmlz
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-36a2551d7b5so4048520eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:23:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793524994; x=1794129794; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QKQXXPx0TtnAH7kUYwvPG35lGpK3RW8/bNQYeuZv+r0=;
+        b=pHyohmlz234FO5ddhkGK3CGghjQSnOPw0U+b7mp+iQ2Qog0pyEnV05r2o/KWSU8x+s
+         XyjePTJfY4Yr90NiqcD310MAxjgzU08691YReLHd9Ggq1HqgtsSRdWXu1Z750l8s5MRs
+         kJZG2JtcISaQT7kwDUOLBQgnOSMK5S7CMmRAX3pN4Vx6w/yqbQZ5OK1jyKmCDPzcSItk
+         GB1gzj365eeujHiPjay8quZNM7Q0AlRzc+b7Mktp7Jkjc769Xz4IMEwmhpaBWTUPr1Dn
+         +Kdrx+IqzROl9knrPszFTYBKlorg0c3x8NxszRwtQ+NiKpjQG2Ejy3xcUFkBKP3RH1Gl
+         atlg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793524994; x=1794129794;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QKQXXPx0TtnAH7kUYwvPG35lGpK3RW8/bNQYeuZv+r0=;
+        b=RrnLCyNU7lpbbwQrC1OqGKQsYvDmLc44fz6eh1DGF21JNGI3S/rMxkYDlB5Djid0WR
+         1IRnqM3E4TWpJUyuDBMkN2JSr/NOrAKtaa6/BJ+yAqJCyic0MibMQwfzGGVqpi5t5r89
+         mSQqiGJbTsFOTlaZjRioSgQhyR8wkUwq8sjzS2xKy7HuXW3bvtv+lXqEyLhvWX89Ojfw
+         ViQayg9uCKuzC8t9wLG4DLO3CCGJ+cI2g3gcH5JZ1EqbbTwCG5jAu8E06acKNmgZ40dN
+         7uIiQCNyuCZ3Lb/zZvXwKCba39xZmVPQ6EHDTF0kzbIRhCIzmmIHjVcoLN2XNFPHqRfj
+         cP+g==
+X-Forwarded-Encrypted: i=1; AKwUvByxJvNqkLNulJVnWJXQ+el3fb1wGuYPA3G72GgyRo+qhJljLkFOzJhJSrwp0qb0iDZX8fAMxOW1fffTDos=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNfUGruWC1VWOSZvlendpAn/eu71GnmfdsHObQlJsQhy0v97l2
+	PQnaKvXUSG4YAjBEGzAZZivmzkdiSV1h/QWlclgEzNW2YNdGkMgKSQmO
+X-Gm-Gg: AYBFou3A7OSyXr8/S9fSsZKLW5I7SbSjL49LmW0Eui9lFoF9z8rcgRXEwEqlGhpa13K
+	8L+ryOM+4+JoWYMRIESapJlBmw+xhwfEfQohk7Wqrpzumv58+cc5PRkgczv5LDZpfypQXC1ZNmZ
+	KQcSp0TsBaAuZgv8WKMKXm4DeMx6p+tF1RXIROEqPlyHajEPvgPZBQ8iHLC1SIuAb84LrJO0beF
+	h7+NqIOvYq5x3SLEr3U9daS2GJJcMP2tqDuQX/qBPs2x8B+xLxHpjxrdjXHNTv9u/sv+u5qFYh6
+	Efs6ioZW9z5/cXwYIHHIPj2+plTqhXAB1gE12jgvhVy5WtVsUY2Q39oc8wTqOgnDd9Zq3K5zTPb
+	B6TECjYXF5kJqnB+wR8CzWNbkKKfO6xxp/TMZrLFMztMiWlMxbtZ0wd53OuFIFvL0CEW2MCpDqF
+	a8fOSicU3QRxpkvl8vcU6eRs//VoLfIExigV28FrpqvXlBk/BpUDitHtRLmgukSMRJ42L6X76nI
+	qoqefkBOLQIK47SAT+/CcUhODZvJEumWulEOpS+1tCciTeF02b1c+VWkIkFZgxp1/oUV+LPGCwX
+	RZK1x2FOAhw80aanDgSF35sdjyYUD5U/1D6J
+X-Received: by 2002:a05:7301:53c8:b0:36a:22de:d85b with SMTP id 5a478bee46e88-36a2fd48fb3mr13979029eec.2.1793524993618;
+        Sun, 01 Nov 2026 01:23:13 -0800 (PST)
+Received: from xploitoverload ([2406:b400:f11:1bac:4040:640b:8a1:8629])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a77c0dsm29407539eec.26.2026.11.01.01.23.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 01:23:12 -0800 (PST)
+From: Kalpesh Solanki <skalpesh942@gmail.com>
+To: alex.aring@gmail.com,
+	stefan@datenfreihafen.org,
+	miquel.raynal@bootlin.com,
+	davem@davemloft.net,
+	edumazet@kernel.org,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	linux-wpan@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com,
+	Kalpesh Solanki <skalpesh942@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ieee802154: nl-mac: validate device pointers before dereference
+Date: Sun,  1 Nov 2026 14:52:19 +0530
+Message-ID: <20261101092219.1278751-1-skalpesh942@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,62 +107,77 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-'struct powercap_zone_constraint_ops', 'struct powercap_zone_ops' and the
-'dtpm_node_callback_t' array are not modified in this driver.
+A virtual network device (such as a TUN interface) can have its link
+type set to ARPHRD_IEEE802154 via ioctl(tun_fd, TUNSETLINK,
+ARPHRD_IEEE802154). However, such devices do not have an IEEE 802.15.4
+private context allocated (dev->ieee802154_ptr is NULL) and do not
+register MAC operations (dev->ml_priv / ieee802154_mlme_ops(dev) is NULL).
 
-Constifying these structures moves some data to a read-only section, so
-increases overall security, especially when the structure holds some
-function pointers.
+When dumping security keys via IEEE802154_LLSEC_LIST_KEY,
+ieee802154_llsec_dump_table() iterates through all net devices and
+dereferences data.ops->llsec assuming that any ARPHRD_IEEE802154 device
+has valid mlme ops. Because data.ops is NULL, this causes an immediate
+null-pointer dereference / General Protection Fault:
 
-On a x86_64, with allmodconfig:
-Before:
-======
-   text	   data	    bss	    dec	    hex	filename
-  22049	   7736	    128	  29913	   74d9	drivers/powercap/dtpm.o
+  Oops: general protection fault, probably for non-canonical address
+  KASAN: null-ptr-deref in range [0x0000000000000038-0x000000000000003f]
+  RIP: 0010:ieee802154_llsec_dump_table+0x204/0x5d0
+  Call Trace:
+   <TASK>
+   genl_dumpit+0x125/0x230 net/netlink/genetlink.c:1026
+   netlink_dump+0x53b/0xd00 net/netlink/af_netlink.c:2351
+   __netlink_dump_start+0x6d6/0x990 net/netlink/af_netlink.c:2466
 
-After:
-=====
-   text	   data	    bss	    dec	    hex	filename
-  22273	   7512	    128	  29913	   74d9	drivers/powercap/dtpm.o
+Similarly, ieee802154_dump_iface() and ieee802154_nl_get_dev() assume
+that ARPHRD_IEEE802154 devices have valid dev->ieee802154_ptr and
+ieee802154_mlme_ops(dev) pointers.
 
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Fix this by ensuring dev->ieee802154_ptr and ieee802154_mlme_ops(dev)
+are non-NULL before proceeding in ieee802154_nl_get_dev(),
+ieee802154_dump_iface(), and ieee802154_llsec_dump_table().
+
+Fixes: 3e9c156e2c21 ("ieee802154: add netlink interfaces for llsec")
+Cc: stable@vger.kernel.org
+Reported-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=9ea34da5ca6100593c90
+Tested-by: syzbot+9ea34da5ca6100593c90@syzkaller.appspotmail.com
+Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
 ---
-Compile tested only.
----
- drivers/powercap/dtpm.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ net/ieee802154/nl-mac.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/powercap/dtpm.c b/drivers/powercap/dtpm.c
-index b7a65e543f19..3413318401fc 100644
---- a/drivers/powercap/dtpm.c
-+++ b/drivers/powercap/dtpm.c
-@@ -296,7 +296,7 @@ static int get_max_power_uw(struct powercap_zone *pcz, int id, u64 *max_power)
- 	return 0;
- }
+diff --git a/net/ieee802154/nl-mac.c b/net/ieee802154/nl-mac.c
+index 74ef0a310af..1acde5af4b5 100644
+--- a/net/ieee802154/nl-mac.c
++++ b/net/ieee802154/nl-mac.c
+@@ -162,7 +162,8 @@ static struct net_device *ieee802154_nl_get_dev(struct genl_info *info)
+ 	if (!dev)
+ 		return NULL;
  
--static struct powercap_zone_constraint_ops constraint_ops = {
-+static const struct powercap_zone_constraint_ops constraint_ops = {
- 	.set_power_limit_uw = set_power_limit_uw,
- 	.get_power_limit_uw = get_power_limit_uw,
- 	.set_time_window_us = set_time_window_us,
-@@ -305,7 +305,7 @@ static struct powercap_zone_constraint_ops constraint_ops = {
- 	.get_name = get_constraint_name,
- };
+-	if (dev->type != ARPHRD_IEEE802154) {
++	if (dev->type != ARPHRD_IEEE802154 || !dev->ieee802154_ptr ||
++	    !ieee802154_mlme_ops(dev)) {
+ 		dev_put(dev);
+ 		return NULL;
+ 	}
+@@ -437,7 +438,8 @@ int ieee802154_dump_iface(struct sk_buff *skb, struct netlink_callback *cb)
  
--static struct powercap_zone_ops zone_ops = {
-+static const struct powercap_zone_ops zone_ops = {
- 	.get_max_power_range_uw = get_max_power_range_uw,
- 	.get_power_uw = get_power_uw,
- 	.release = dtpm_release_zone,
-@@ -470,7 +470,7 @@ static struct dtpm *dtpm_setup_dt(const struct dtpm_node *hierarchy,
+ 	idx = 0;
+ 	for_each_netdev(net, dev) {
+-		if (idx < s_idx || dev->type != ARPHRD_IEEE802154)
++		if (idx < s_idx || dev->type != ARPHRD_IEEE802154 ||
++		    !dev->ieee802154_ptr || !ieee802154_mlme_ops(dev))
+ 			goto cont;
  
- typedef struct dtpm * (*dtpm_node_callback_t)(const struct dtpm_node *, struct dtpm *);
+ 		if (ieee802154_nl_fill_iface(skb, NETLINK_CB(cb->skb).portid,
+@@ -771,7 +773,8 @@ ieee802154_llsec_dump_table(struct sk_buff *skb, struct netlink_callback *cb,
+ 	int rc;
  
--static dtpm_node_callback_t dtpm_node_callback[] = {
-+static const dtpm_node_callback_t dtpm_node_callback[] = {
- 	[DTPM_NODE_VIRTUAL] = dtpm_setup_virtual,
- 	[DTPM_NODE_DT] = dtpm_setup_dt,
- };
+ 	for_each_netdev(net, dev) {
+-		if (idx < first_dev || dev->type != ARPHRD_IEEE802154)
++		if (idx < first_dev || dev->type != ARPHRD_IEEE802154 ||
++		    !dev->ieee802154_ptr || !ieee802154_mlme_ops(dev))
+ 			goto skip;
+ 
+ 		data.ops = ieee802154_mlme_ops(dev);
 -- 
-2.56.0
-
