@@ -1,56 +1,56 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=142.132.183.134
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793575953;
-	b=pI99lo0heCmyTpdZMDXAnMcvFDb38MiNpZg7x3RBgQuSfxftX7GTxjoJ6ZRLV5UAMOYa
-	 vmSI+eda0n8X2EvunXraGlvhL+u3naj9wkU/VHby5obT142CPOTharmpNT0W4iUPHMojs
-	 B5DHafzBnSsFovT6LTkB5V7FIJipdROtxWTQ5EkHZNcoBBS4a4w2dl9SRw2Uvmot9xED/
-	 FR5eRdOyCrIyNv0FKVbM5uHw1uSOSiTMGLah8P/mM+xFwXD1z5eSGw0gGeA95O1+kGGVi
-	 NWxiQn5HvIkeKEmuFY7JN+ecsqwuZ+ndkZQdMzxXq1gg7/APo81pkTqFEANGht0z5/Q==
+	b=mcGN2OfB2OfAd80oIZxz/+2Sc6PIDyY6trFEbls7A4XIWHCmkDR6dx6SxRA6DJLo99GV
+	 CigPYRbirPGnaKrF6XKx5HZzNPT0hnPYK0nfu3+SUd3hQVMaqvrH7dDYTTy29+NSO8a03
+	 JaodehTguMkAqdmVHINCAPEbQ3uC3zy4UxsH3+s1/n6wghrGseLaBxTLKjwMp8NZlcoF4
+	 svLUyIaCwDrzkGRRmZ9nWOLXJEq7WYRmP+JvMYEIloubQtmzfkNwfA9WAPYSBbC1RrL56
+	 2elMOtBr9v1Nlwup86j17sZBawkn7fiFdw/JDWkKXwtB0Z7dQPmj3qhSzXiAuWfKB3Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793575953;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:From:Date:Subject:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
 	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
 	 X-Developer-Key;
-	bh=nnBDFfVscNSIMWRGuukkAP3sB4Yng2JMTdu5t/euvJ8=;
-	b=x5HJG7Jtk+KqjEqiTQGHvT7fBOlFE/jKTnnSvFi4haM2TELs2RyKF5p58qatnr08eAIi
-	 XV8IWNF1hC6SNQA/zSr6d+Dl4sVJxp901x6GDGnY6uFKavpDHa92dlzyu7F9bqCo8V/qO
-	 GFARk1b9sKQw/MYN/O33HDolKzh2NvgpTFK4rFHpiEWW5kfR+lL7waXVSfLlTGzWB8kCz
-	 REiDIbKrcPyJNm+8+lj1h1Aew31IGG7UFdGiMg4biqKCMzHoWoSDoYsFDWE4PXOzXYB5d
-	 KPmTu/f3UjpYfH+I7vyta5ElbcDL9WjjigxCu9qy0sA0vvcWgA+qeYW4BAasZGzQ5RA==
+	bh=iz/yeK2fOPP8+jQttB1dzqiW2pcugn1b23xJp6HtfRM=;
+	b=S2hY42S9C1SnyuoHy+lGZg35JHqNbXf5VJ4FbVPHgg7d1VUCXCdfPIUMn8YPULoNnnXR
+	 YsZqkcA6idGiAJO7X4H/1rxJJD2U+83uS6GvE9RgCgn9/RG67dfa8Zi7IEnUeltvReR82
+	 OtSvsArFKzFdtPxyHYWLBdJYuaj0nZ6pNXMBAOzgEQ+NrE/4MtGK1XU+hQU8yayA0qLdN
+	 HlU3d09Wm2QE6X9UzPFGeShtYMYy+fAx9dVx3SZkwYYB7RfqJbMf2LSn3BfzUaiZ95OdH
+	 0354EI0uUEl60JoWkSMZmbRCE5GIH5SIUrpwEkB6h3ua3FSPC8rca19sn57Mm+WErrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=erebion.eu;
 	spf=pass smtp.mailfrom=erebion.eu;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=ZkWlqeoe;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=DZdRLL+f;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=G1zr4VMZ;
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=ILCOhLUU;
 	arc=none smtp.remote-ip=142.132.183.134
 Received: from erebion.eu (erebion.eu [142.132.183.134])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2064A60A261E;
-	Sun,  1 Nov 2026 23:32:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2064A60A261E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAB060A2627;
+	Sun,  1 Nov 2026 23:32:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9EAB060A2627
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=erebion.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=ZkWlqeoe;
-	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=DZdRLL+f
+	dkim=pass header.d=erebion.eu header.i=@erebion.eu header.a=ed25519-sha256 header.s=202508e header.b=G1zr4VMZ;
+	dkim=pass (2048-bit key, unprotected) header.d=erebion.eu header.i=@erebion.eu header.a=rsa-sha256 header.s=202508r header.b=ILCOhLUU
 DKIM-Signature: v=1; a=ed25519-sha256; s=202508e; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1793575935; bh=nnBDFfVscNSIMWRGuukkAP3
-	sB4Yng2JMTdu5t/euvJ8=; b=ZkWlqeoeYOUN6cTHBwsaUVwqumbXfRRWpgyFfifj7UMKfP2J/2
-	nx2VP9FFUyhQFIwQKP/eeIVYjWg9dhVJIjBA==;
+	h=To:Message-Id:Subject:Date:From; t=1793575936; bh=iz/yeK2fOPP8+jQttB1dzqi
+	W2pcugn1b23xJp6HtfRM=; b=G1zr4VMZOQ/A29VXEPHd4Ut9KCzIIojtzKypEYhaeHld02Sw+L
+	lvZ4YN/XRqVpmcHn+k68ggdAv5U4aRMdRoBg==;
 DKIM-Signature: v=1; a=rsa-sha256; s=202508r; d=erebion.eu; c=relaxed/relaxed; r=y;
-	h=To:Message-Id:Subject:Date:From; t=1793575935; bh=nnBDFfVscNSIMWRGuukkAP3
-	sB4Yng2JMTdu5t/euvJ8=; b=DZdRLL+fHij1RD8G4B0/919PHvplINAtKnleTp4pjD1/FOv446
-	epPuJgQ+xPShEHvMjojIRpFuV97JC66fJao3hQ8nccZnQnx/Je+fTYXR71mShgbPjgwyTRTQIso
-	debIo7fTvby17nVAUEjZElEE5tmjhX7wSMtm3cDKwgSxB5+7FO/perSFD5dIQdjZTqO0XbNEKAk
-	91CbO02KIZYvrvA96G9hVWg1B2r0PM32Uk/YKT/aWI7jvBXqdwJxaf8bx5ZgO225bYF4Igin6jL
-	ssy4VSKIaMr+SSf7gmFiS14xFkivtcYf24J0A1Qeh3nizfy7KZ2YPfocI70OjEuJWsA==;
+	h=To:Message-Id:Subject:Date:From; t=1793575936; bh=iz/yeK2fOPP8+jQttB1dzqi
+	W2pcugn1b23xJp6HtfRM=; b=ILCOhLUUgOPKpdmblSjTYWDCgA1/PeaZBg3XIcWm8DuIfT9ukL
+	PWEbPBnUn2FoIVJ4w+kaJsvnEX1qr5wLg8mtJJA/dpp7kiNBs0DxoVjmVLIouLUcfAM60q0PNZB
+	X4TUN8CsH4oBlZwDp+YZgB9+MVHryGphzUTEz9T05WEjb5xaaBLk/Zwt5m9fCNwAPxfSf6jJwTQ
+	+OR7M1XuGpuXkbReHMk6fUQBfykLWeQC2KRWgIf8OC3tKELSzxJ4xPApZvmsd/tF6SbuVs8Rd/8
+	AL1dK6Xn6aKN8fTHyeNd/g1L1aufez41DfRiFs4nzjkim4qYDJRJyYLbwva7fORV/nw==;
 From: erebion <erebion@erebion.eu>
-Date: Mon, 02 Nov 2026 00:32:13 +0100
-Subject: [PATCH v3 09/12] arm64: dts: qcom: sm6350-lena: Add PMK8350
- thermals
+Date: Mon, 02 Nov 2026 00:32:16 +0100
+Subject: [PATCH v3 12/12] arm64: dts: qcom: sm6350-lena: enable remaining
+ i2c busses
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,7 +62,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-pdx213-upstream-3-v3-9-cdc3be96d257@erebion.eu>
+Message-Id: <20261102-pdx213-upstream-3-v3-12-cdc3be96d257@erebion.eu>
 References: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
 In-Reply-To: <20261102-pdx213-upstream-3-v3-0-cdc3be96d257@erebion.eu>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -78,50 +78,66 @@ Cc: linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  erebion <erebion@erebion.eu>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1046;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793575929; l=1388;
  i=erebion@erebion.eu; s=20260607; h=from:subject:message-id;
- bh=jKbReSlDndZO287vvL8FQ7RDc20bEUG6zhPvlLfoMOg=;
- b=B76EndlOSFxzN9N3fVPNeVVReXwdX00QqnqK9DRZ9ETycgU19YWLSwgOCUJxcIhHyJnEzRN3E
- 1CxZlO3Ffv/CuZKM00lp4jEBVoy7C9q2a/cAA6xSYrer/J8g8Zj37Ap
+ bh=ymLKUXMTdBOYqzoQQuAQGR3AHNoKiUIhl/PVXRBCxns=;
+ b=+/iLs3UKxuAi3slpEDtBfrzmi3YqszAfU7d+UkIHAV6zraCpBC/6iD8zyhe6qSLx29UX3XCuu
+ DRdUQEHpZNTDgDiiKa5RtDKll06+XBi7zucpWClDD3vCHIifkDImkfd
 X-Developer-Key: i=erebion@erebion.eu; a=ed25519;
  pk=rOCVlR8khmBtCFe4ZlDcbCbIcORxdaNzPDkoIiHM7xc=
 
-Configure the thermals for the xo-thermal thermistor connected to
-PMK8350.
-
-The trip points can really only be considered as placeholders, more
-configuration with cooling etc. can be added later.
+Enable all i2c busses where something is connected on this phone. Add
+comments as placeholders for which components are still missing.
 
 Signed-off-by: erebion <erebion@erebion.eu>
 ---
- .../arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ .../dts/qcom/sm6350-sony-xperia-lena-pdx213.dts    | 26 ++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-index 246a290e44f77..6d5aa2fce4c0f 100644
+index 487ef75f2f1de..d2b3aa6e61ab6 100644
 --- a/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
 +++ b/arch/arm64/boot/dts/qcom/sm6350-sony-xperia-lena-pdx213.dts
-@@ -89,6 +89,20 @@ memory@fe901000 {
- 			qcom,vmid = <QCOM_SCM_VMID_MSS_MSA>;
- 		};
- 	};
-+
-+	thermal-zones {
-+		xo-thermal {
-+			thermal-sensors = <&pmk8350_adc_tm 0>;
-+
-+			trips {
-+				active-config0 {
-+					temperature = <125000>;
-+					hysteresis = <1000>;
-+					type = "passive";
-+				};
-+			};
-+		};
-+	};
+@@ -470,6 +470,21 @@ &gpi_dma1 {
+ 	status = "okay";
  };
  
- &adsp {
++&gpu {
++	status = "okay";
++};
++
++&gpu_zap_shader {
++	firmware-name = "qcom/sm6350/sony/pdx213/a615_zap.mbn";
++};
++
++&i2c0 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	/* PN553 NFC @ 28 */
++};
++
+ &i2c8 {
+ 	clock-frequency = <400000>;
+ 	status = "okay";
+@@ -487,6 +502,17 @@ touchscreen@48 {
+ 	};
+ };
+ 
++&i2c10 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	/* PM8008 PMIC @ 8 and 9 */
++	/* SMB1395 PMIC @ 34 and 35 */
++	/* AW882xx amplifier @ 34 */
++	/* Foursemi FS16xx amplifier @ 35 */
++	/* FSA4480 Analog Audio Switch @ 42 */
++};
++
+ &ipa {
+ 	firmware-name = "qcom/sm6350/sony/pdx213/ipa_fws.mbn";
+ 	memory-region = <&pil_ipa_fw_mem>;
 
 -- 
 2.53.0
