@@ -1,45 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793529527;
-	b=M2mXvh1PCLVrc0QaFYR9jjDNKURlWej6VQjF8aAS/dDzxPIy0bbByK7Tkh6wrTHOl2bw
-	 llc02U9InSw+tXpzMeLGAr6e67lMOq19DubLQlrwXyd4RwJpqkoccIwO/UQQ8MYHiP/Tc
-	 flgXDwIaQqBYrOKnNyjBBCxGbjyIlHo1CRITFW4uSzF7zhTYu6CUKpYWuvrLA84W0rHRj
-	 DKnZGM4+uv5yXlNVZUJllyYW5s7gben2/i11WxxXPKcfMetcniWnwYb0YQ+Bb48tPsE2T
-	 txJZDzp3EyDc2Zf3/YNfhVekkBfrS4WiZ88K5oZS5V9DpQdGHl8hm9YyA5PBuKLD16g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793529527;
-	h=Received:DKIM-Signature:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=dMH3qaerGlIxtPzzZ82iQ0WBAXiaZFLAGRlvE0Np840=;
-	b=fKjeNoYZ52sBka2xbPv/VOQRZA/0GYy8lwlgQuE9qmJ+/lRHoBSD11qZrPX1DM9cyag4
-	 Zh5hEnmWFwbSQ9e/PnkwuQ2XTNIdB2uZJ9ZkzPlUTkoQdA5+gZ3i2akc30XF401hGHnC0
-	 9PGAxK2eYnkEVSG0lQBPRkj8zTSnzNj7cdYI+8tvo06DFxBS0520GZNyqtciQr4IsG1eI
-	 9svX5ARZe5RfLodxIspbpak2mNZiXe5Kj3qpgZJbHQaPFq0tUWOYrvJhE+pBLUZYeMepq
-	 flIxYlRIz65HJ5/hU43ByGRrMWnlXNV2A4SSswFq6dTd27JdtgJ7w7B6yv7rq7Ht8tg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="HWCVC/G7";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.34
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793529703;
+	b=lboME8rUScXqvEuQBBQmHZ9uM675gIqwW5p+v6jWRnhyL7xUVsLm0dqSlJ/RlsQJ2zYX
+	 UPyK3AE5gxCcykATZ7jWTcaM2Sj283UgWVXTqh2YT1YOsd2jmSafFWsty6ZSjdiSqQPau
+	 fA9H11tcQBT3Sr40aiH6EH/REre6GHecwxBwoScxe8s9BepOFQ2b7Pevfw8lnBfhvHhJq
+	 qVurZS5VAg9RKmKS23JkE9aHPkRMsOFYxnwp+4Ts9TkL1VuOzn9TlbQyAFHp+of1+hp+k
+	 GTjCn/3cHckXtAIpGR5+tzvmTuKESgecu14v8ut01y6B9KdUbz0+EKYbSQK1XJeJZJA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793529703;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=Xit8D5MjK+x61ju7BRNSSGUolMqHAK831XSJsrg0uHw=;
+	b=y/dnAeRXQuQyAXDNtM+uElnP1SlAOoTctAbD06s5x7p4/00/O0txhVz0vWiAj/1b6vYh
+	 LDNIJV1I4Y7rU6S3lXDCQXQAChH0nvXyzwzGW3Y0sRqX2Q4JAofUN/bNgnClE1FQZ2QCm
+	 TIii8as1YmQl3U7ckFnihKhoQDleQl2Fcj05R/L0+0xhmooE9xjHwy39MmH4wAm2NDnf5
+	 fk7C/heTRMyJ13im8JTCO7O1WG10G+lqUDbHpjQ2KogrUUcM67uRc9w02RNE06fqGHIr5
+	 jl82u/zHsvfeKBOK1f9gw2dEwzxBdy2sOJHuPSEZnPQyG6tIucfyRFXguEnJx1Pp6zA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dwAUMl08;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.200.34
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012034.outbound.protection.outlook.com [40.107.200.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21DC606A324;
-	Sun,  1 Nov 2026 10:38:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5792F606A324;
+	Sun,  1 Nov 2026 10:41:42 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5792F606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HWCVC/G7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F01D11F000C1;
-	Sun,  1 Nov 2026 10:38:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793529526;
-	bh=dMH3qaerGlIxtPzzZ82iQ0WBAXiaZFLAGRlvE0Np840=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=HWCVC/G7GtetFHDeiU1jDOo26TG0/F1aeSQt9wTfOvw7Eh3K7pP6+9p9yM0niBgSY
-	 dbRzkY05DpvQWBH4uOYm+spBX2dXAyoIo3ZlulZRNeeKLv4if6NS2834kMlDEymT5C
-	 Fnp317ztJt91MUmj1vI3I8ufmTgl4SaN22yMLPgOf2WKvYGyLhBsUvo05SM0oxRQ8O
-	 6+4YXiuGdqA3xBTO7+7DBzeEhyKNTNt3FtbUAGtAnJ0Cd3xMKiCWARjEO+wvmCFdmB
-	 EcPGl7lm3KluGuTAmrXGEWgduRhBg4fpYRNNpF2a8EzvoPlj3gR6iv8p5ifIhfHIE3
-	 j9ctBfKA0LefQ==
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=dwAUMl08
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jRVc6QgH78q5j7qNg3mNpiFGm7RiIORegO2DRMTsPnIG93pe1BHHPm2qwclFe0TTYd/OjWZvEMuSj3ERYXabldEMQ21xmz2n967ojNPShHZJBZNxqLY1dtLLc42KHFO8MsQJCLgwYhnR4UqkHxCfbRm3W1IffM7TLL3kdcOqG6hywEfIEScuK8M2jhmnYfF7oLg83DMFZIHqpDeBgoRxPlNFG05QlJZnEXXzrzlSq7DtSzmHSx5WvHFcGB/p4bsPa7Yyo7ipgRkd2pPt96GONEKw7yprOSWg9LVFbxcxgd8HGrS6rHlLAtp3+XxcwiF0z0E8HyfX6Or7fg7IDu780w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Xit8D5MjK+x61ju7BRNSSGUolMqHAK831XSJsrg0uHw=;
+ b=riqUnYAQ4amCWGUGk5TEb2S/AOotrrlmuIJ8ISaRVB2dxZSc/ZTt1S9WSBpWSdzS/7ea/7tWe98y4DdXtRGGM0f+BaGxCsLjtMAx4R5AU/mEmY6ygehc6V+vLV8oGd/sgZ1SkxuwZ97luUzJQsu09535teURC0TVABgquaiBRqCFZmHipok+BMe1qpDjc9Uu46DxYDcF6mz3ZPfn+c0rqjE68x2QA18qY9zkv7xGRHj6Hg51wrZqwVz+X0fScMbZJBpCDvyC/mQNAyfQMEkDeXozGJsxDt52UquqUxiMH9fs5PnWMSSodbtaCyuw8MuNRqUMbgy0laJWk5YEQaDyqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Xit8D5MjK+x61ju7BRNSSGUolMqHAK831XSJsrg0uHw=;
+ b=dwAUMl08URAk5JP/tkWGMhg3OX7Fj5Eus8e+tTVJG11c5JtOAPuJVfzOq+b9yCA/OcSeeeTiwLQV2pyJ/XhMfkBx0aO+OmAsusRwGHZ90BQkGPH9ouk4GkjYK9guny5xxAA/Zaxsyd0kSz70v/nJvC1yIfLAybsl0y/vLQjbp2eLqbV+Voy0K+GgcYc2SLuBEj1BfPUVV8Bo4/aeNq+2zuFF3PDdjDoWvJcJgGZ1lzfJwGAWFl/xj2tEb9cM98fFgDwKWXbuqGkOTRB+ymTzLnvjkKlYChmgl8Y7yh2iI57SK2BxmqgsfrMEaOa+ua8eJ2EZ/FFLMUWGktlSZ/DQRA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA4PR12MB932075.namprd12.prod.outlook.com
+ (2603:10b6:207:12d::15) by CY3PR12MB9701.namprd12.prod.outlook.com
+ (2603:10b6:930:103::18) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sun, 1 Nov
+ 2026 10:41:39 +0000
+Received: from IA4PR12MB932075.namprd12.prod.outlook.com
+ ([fe80::5a6f:1f74:6ccb:cf2f]) by IA4PR12MB932075.namprd12.prod.outlook.com
+ ([fe80::5a6f:1f74:6ccb:cf2f%5]) with mapi id 15.21.0569.011; Sun, 1 Nov 2026
+ 10:41:38 +0000
+Message-ID: <53ba3677-af71-4d8e-b445-39e08eea8b2d@nvidia.com>
+Date: Sun, 1 Nov 2026 12:41:32 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net v1] net/mlx5e: kTLS, Fix missing error unwind when
+ enabling RX offload
+To: Simon Horman <horms@kernel.org>, Xuanqiang Luo <xuanqiang.luo@linux.dev>
+Cc: netdev@vger.kernel.org, saeedm@nvidia.com, leon@kernel.org,
+ tariqt@nvidia.com, mbloch@nvidia.com, borisp@nvidia.com, witu@nvidia.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, linux-rdma@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+References: <20261026095346.1212609-1-xuanqiang.luo@linux.dev>
+ <20261029134019.GG257209@horms.kernel.org>
+Content-Language: en-US
+From: Tariq Toukan <tariqt@nvidia.com>
+In-Reply-To: <20261029134019.GG257209@horms.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TL2P290CA0019.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:3::14) To IA4PR12MB932075.namprd12.prod.outlook.com
+ (2603:10b6:207:12d::15)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -49,126 +102,172 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v9 5/6] phy: realtek: usb2: add support for RTL9607C
- USB2 PHY
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Rustam Adilov <adilov@disroot.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Stanley Chang <stanley_chang@realtek.com>, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Michael Zavertkin <misha.zavertkin@mail.ru>
-In-Reply-To: <20261016180314.31760-6-adilov@disroot.org>
-References: <20261016180314.31760-1-adilov@disroot.org>
- <20261016180314.31760-6-adilov@disroot.org>
-Date: Sun, 01 Nov 2026 16:08:41 +0530
-Message-Id: <179352952125.2955.2053892463815568166.b4-reply@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3121; i=mani@kernel.org;
- h=from:subject:message-id; bh=TLeKs/F24lWtBX55MW+qVfA0CV3sTaN9p59OeWSw/Fo=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xaz08dE+wCEB6sULffEW0WG9vNM0hqYO4KCL
- 7/uh4/Z8tuJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucWswAKCRBVnxHm/pHO
- 9XhfB/9ij3FA+ExdLLmzv9l52xkS3gSFdiiXUY35wOuRa6qfxNmrphNiNWwn3ZTS7iLsxCV50dN
- 3abi7waZCvnPCQ+bDXuPpO5otwZgkvux6U5O7jk8WTGx9V29Bl+dEj2ObbWiLEQhaWKTz2qnk9x
- YOaHeb+RZqGebzj16QZHZypAGlOq5S7/JzcEjPkgZImxPoNDJX4mzrnvTcsuJyuC4uaj5IaMUw+
- LhkxuFt7xNEj23MV/mAVWn3wcqXQFvp91KFVbFFw8BD9CGAJw2n26KdAxgjmZeGJyhye8H0aTIE
- jbue5gWUfw25fSFLMD7NMmOjFaEkaahVp4dmc/lQIqjs8+iV
-X-Developer-Key: i=mani@kernel.org; a=openpgp;
- fpr=C668AEC3C3188E4C611465E7488550E901166008
-
-On 2026-10-16 23:03 +0500, Rustam Adilov wrote:
-> Add support for the usb2 phy of RTL9607C series based SoCs.
-> Add the macros and phy config struct for rtl9607.
-> 
-> RTL9607C requires to clear a "force host disconnect" bit in the
-> specific register (which is at an offset from reg_wrap_vstatus)
-> before proceeding with phy parameter writes. Since it belongs into
-> the vstatus register region, it requires the use of added read and
-> write helper functions.
-> 
-> Add the bool variable to the driver data struct and hide this whole
-> procedure under the if statement that checks this new variable.
-> 
-> Add the appropriate big endian read and write functions for rtl9607
-> and assign them to its rtl9607_phy_reg_desc struct.
-> 
-> Co-developed-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-> Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
-> Signed-off-by: Rustam Adilov <adilov@disroot.org>
-> ---
->  drivers/phy/realtek/phy-rtk-usb2.c | 66 ++++++++++++++++++++++++++++++
->  1 file changed, 66 insertions(+)
-> 
-> diff --git a/drivers/phy/realtek/phy-rtk-usb2.c b/drivers/phy/realtek/phy-rtk-usb2.c
-> index 2ddad7be7353..64076938c821 100644
-> --- a/drivers/phy/realtek/phy-rtk-usb2.c
-> +++ b/drivers/phy/realtek/phy-rtk-usb2.c
-> @@ -26,6 +26,12 @@
->  #define PHY_VCTRL_SHIFT 8
->  #define PHY_REG_DATA_MASK 0xff
->  
-> +#define PHY_9607_VSTS_BUSY BIT(17)
-> +#define PHY_9607_NEW_REG_REQ BIT(13)
-> +
-> +#define PHY_9607_FORCE_DISCONNECT_REG 0x10
-> +#define PHY_9607_FORCE_DISCONNECT_BIT BIT(5)
-> +
->  #define GET_LOW_NIBBLE(addr) ((addr) & 0x0f)
->  #define GET_HIGH_NIBBLE(addr) (((addr) & 0xf0) >> 4)
->  
-> @@ -107,6 +113,7 @@ struct phy_cfg {
->  	bool use_default_parameter;
->  	bool is_double_sensitivity_mode;
->  	const struct phy_reg_desc *reg_desc;
-> +	bool force_host_disconnect;
->  };
->  
->  struct phy_parameter {
-> @@ -144,6 +151,16 @@ static void rtk_usb2phy_write(u32 val, void __iomem *reg)
->  	writel(val, reg);
->  }
->  
-> +static u32 rtk_usb2phy_read_be(void __iomem *reg)
-> +{
-> +	return ioread32be(reg);
-> +}
-> +
-> +static void rtk_usb2phy_write_be(u32 val, void __iomem *reg)
-> +{
-> +	iowrite32be(val, reg);
-> +}
-> +
->  /* mapping 0xE0 to 0 ... 0xE7 to 7, 0xF0 to 8 ,,, 0xF7 to 15 */
->  static inline int page_addr_to_array_index(u8 addr)
->  {
-> @@ -600,6 +617,23 @@ static int do_rtk_phy_init(struct rtk_phy *rtk_phy, int index)
->  		goto do_toggle;
->  	}
->  
-> +	if (phy_cfg->force_host_disconnect) {
-> +		const struct phy_reg_desc *reg_desc = phy_reg->desc;
-> +		void __iomem *vstatus = phy_reg->reg_wrap_vstatus;
-> +		u32 temp;
-> +
-> +		temp = reg_desc->read(vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-> +
-> +		/* disable force-host-disconnect */
-> +		temp &= ~PHY_9607_FORCE_DISCONNECT_BIT;
-> +
-> +		reg_desc->write(temp, vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-> +		temp = reg_desc->read(vstatus + PHY_9607_FORCE_DISCONNECT_REG);
-> +
-> +		/* allow IP to startup */
-> +		usleep_range(10000, 11000);
-
-Same comment as previous patch. Do you really need this range or just a fixed
-sleep time.
-
-- Mani
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA4PR12MB932075:EE_|CY3PR12MB9701:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7d8e1df3-ab36-48b2-b18f-08df3804b5a6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|1800799024|6133799003|10067099003|22082099003|18002099003|56012099006|11063799006|4143699003|261021123027099003|261021121427099003|261026121527099003|261022075727099003|261021135927099003|261022105027099003|261026140227099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	iXHwgjpNNFRE2P+EjeWb3wNjXXrX+N88lotN4c/8lfpqHLkZkb+B1ITKPpjGa57M+T1zlnfNSR5HWAVfHeKKh/RtP/em3aQ4qAYRfxQPD1E80ZxEgpqqaq99ceAtLLB7ZiLttYpLz5+DuypdPfiodiuc76LsTw0/axjvsX8/kudpqn3lGlTrHGbdAxwTFoDqSOoevUn9OWZT5qYLuxn63jc8u8326bBnI3/ny8dyjEwSespByFiWgA49WDGy0foQJFc0YPgp9UtpHfuAuFIekFckEegp9wvup1Jkd954BgnedtYMnJ9VJmLir6bo3k7h5v7YFRj6qorzsuDGim0RqIlwAbHhtd1CS6czAYEWyztn2MH4trFlWB9Txxt9NheYbGzrQBHAsWUiXjT8vWV7UnQF1zGMSaGr5hb0HoMXIlDaR067VtwgRWz7knAgBiMfcL9gyYX2xUqBhIdAHA093LdQJnGqyf9yPR6JvIbVmlZ1ffm0fJcYyORddkLBPx77JpX9zSMWVsCGEkHUg2/9aq7apo90Hlxs9rD6Xo5M4f0ua1MlUy6bSR+q8QOpzfRr1ve/TpPK132bbB66RJ7U9c0iLXev9dOdcmAcrAMvCubcPQFvCWIvyno27B4CFzvIsFMsFaT4gsbZdNKo5IQhMILdHy69gIqQHgDCOQ8xuV8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB932075.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003)(261021123027099003)(261021121427099003)(261026121527099003)(261022075727099003)(261021135927099003)(261022105027099003)(261026140227099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cEVSNENFMEJnanNlK1htQzhjUWN3bElvWEx6WlNBMDFFRFJJZG9jU3NvU09r?=
+ =?utf-8?B?dFk5Ri9lTXYyTFdUVHpYL1REeFJnZUw4TFZXZi9ZTTFPbjRUeXY0U0Y0NXRZ?=
+ =?utf-8?B?U1JzZHpGVHl0UGZCWWxQZGpWWHNJVC8wNzB0Vk1aaFR1YUNZRzBrZHJjZU1p?=
+ =?utf-8?B?QkhBQU4zWGpWcjdHTUNSeVlBaFpkdEZzV2hXS1BweUFoMVlmSlBrMnlXVUVV?=
+ =?utf-8?B?VjRpbmVYOUZOMlpqMzJ2K1BlU1padmJNbHJKM3RGV25icVQwSWVFdzRZZ291?=
+ =?utf-8?B?bk92MHlZT0x4NitOMkxZcGI0aWF1dnBjcXpBS3VTWjZ2RllFTkUzWFZ5SHZW?=
+ =?utf-8?B?WXBZd1BEeEZydGVXSXdNUWZlL1pmYW9BbEk5TGdWakdWR3AxcVNBU0pEdHRL?=
+ =?utf-8?B?cytySCtaa0dCakNkQm16cXlVM2tFaHZmcTNSNHBUTEVNU3VuQVBMSldFT3Fv?=
+ =?utf-8?B?cGdVbXFDL2MvU0dOYnZ4cnA0VmV2MWJudXIvVE85WnZBRFlxWkxkQlFBd242?=
+ =?utf-8?B?TUtzVUtzUnFKVlJmZkc5aitOZ0k5OW84NjY2OFU0dm9uNlVjL2xrZjR1ekJG?=
+ =?utf-8?B?bnNaVXVDMHN6dWl5Sm1tOUs0NkxWQStuK0p6TkRjbFQzRHIzRXgvdkN3L1NZ?=
+ =?utf-8?B?ZEtuNVl6d2hKa2VnckE2cVRjd0czNzFmV01jb0Z0R05KdXAvVVVJOTNsZk9q?=
+ =?utf-8?B?bGMrSmUvVnF5RG9EeHdIYzNWZ00zMUViVG5ib3E1UWxlVXcvQzNIdWp3Mm5r?=
+ =?utf-8?B?OHEzNzhUWExQZHVxMER6d1FEOHJ4N0pxZklNTzhZWU5mREM4d25HaXFpZDhB?=
+ =?utf-8?B?dW9jUHdtZVl0MkIwN1NmOEp6bjFtWWF6WnJMRWVqYXg2VHVDQzM5bnpLejJs?=
+ =?utf-8?B?MXFNejJQSVJTQk40MWgxN2IzS2lQQTNuRHdHRXBlYVpITDJVYmNGOEhKdW11?=
+ =?utf-8?B?bkhUMlpHR3l1TW9JVUZkUzNTS3hwcnN0Ykh6S1RTMkNPYXdXaXBmNFd2QUpl?=
+ =?utf-8?B?c2NTTktvMTdtaGJDQWRwbDkvMHUrSGlPd3I2RVVhRHhLZmZEK3p6c01TMXhv?=
+ =?utf-8?B?MzJ4Y25OZGl1TkN0ZXRKT29Ua2dPM3dkN3VLSitaK3RieDdpK2UvMnlGWHlB?=
+ =?utf-8?B?REpPakF0blhpK1hzQWxla2Ixb0tZTlVzZzgxU2hvWktqUW56WGd0empvYm5j?=
+ =?utf-8?B?VnJvb25CLzk3SGlpTThYV3BJdlRzNkJCSjFGMGtNZm5YSHQvdHdjRThja0kr?=
+ =?utf-8?B?c0h4TmVPbytTUS96QVBjcnBaVEt1QitEdWc2bnVkbW8wNy9BNmtmemRZaytx?=
+ =?utf-8?B?VXFZc2NDOFhpdVp0bFM1MzZZNmx2cUJ3OXM4K2ZSWEh3RldpVXUvbGMxekdX?=
+ =?utf-8?B?bDNmaFRaQjg3RS9aRXVNV0tlTzVYK3JYdXlaTFByTUNHaDlvV09RVlg2cUhY?=
+ =?utf-8?B?SzBudDEvL0grcWVuUVNLenp0ejd0MGJiMjdqb2NuVFJ3ZzVRSU84bGZtSE5j?=
+ =?utf-8?B?VDFadmRhK1ZwdlNRN1Bja1RFNDNxcFJqUzFsWitjWEpPMjllRzd3Y3RzSlZF?=
+ =?utf-8?B?N0FGcGVwcE1PSWQ0eDErMUp6cWVNN1dwcGRvQlFGT2xQblRvN2s3VFFHZEhF?=
+ =?utf-8?B?MkJvMVVUQmdLbXBBQ1NQeG14Z21MbDRLUDRTNldORUFmNjRFRE5xVHdTUWhu?=
+ =?utf-8?B?NEtCUVlGc2FpOVdiWFJEdnRtQTBIanpDUWNla01MYWkvem5ESktKejhrMDVO?=
+ =?utf-8?B?UnRzSEFvcVVuUVZWVzJnNU9mWEVLNkdKbjFEOUhUdFUxK2xEZXJmVHhUc3VW?=
+ =?utf-8?B?Tkl0WWZBVk1qVjNXY0NHdWExVklaZTZVNmNFYVd6Z0U1R29naGNKblQ5Ui9I?=
+ =?utf-8?B?MmlHV2FoUEJwNnl0UGptdzdlRXN6WHJaV0NkT0xYSk5FZU1UR3JQTTNoM0Vu?=
+ =?utf-8?B?aEFPYXNkOStaM1VlUHo1Tlp6THVMZzdDcmUzU3RDSkkrZG5QSUh1MzZFUnRz?=
+ =?utf-8?B?OWk1NXdUWlpWMGpQMmJpL2tiOUVmNlQ5bVVkZndrYVhRc2I4M1c5Q1hsaERz?=
+ =?utf-8?B?V3pUV2N6bVptaU5xbncyMUxIY3c0UHA1WElQdGNXZldXd0hSVyt2emErVUc2?=
+ =?utf-8?B?NW1ZVmRIOUZzVWNOa2lHREtTbTcxZjc2NHc3T3ZuOTNlajhKeHpmeVVtS2ZJ?=
+ =?utf-8?B?ZVZ6dThOR09xc051RFRZTDhSUlIrQkhuamNiWHppOHkwQ2V3elFPWFN3Tm80?=
+ =?utf-8?B?dW54ZG1SRnp6OWFKMXZuMjJ6RWliRERGNmIrVk5VWmRBbWVmY3hTZERTbm5k?=
+ =?utf-8?B?Ni9KaVF4aFNSMWxUTHcvS0FkdzhWZWZicmlzYm9nV09kNGd3VDUrZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7d8e1df3-ab36-48b2-b18f-08df3804b5a6
+X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB932075.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 10:41:38.9414
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 5qxFoP/jDhTjDjw7H4E9kWyuTqN8R12nDpsIPoJQ2yDBBaCYzb/4ewMHZziB8nfX9kGiLUYcvkfTPmM+ai1+uw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9701
 
 
+
+On 29/10/2026 15:40, Simon Horman wrote:
+> On Mon, Oct 26, 2026 at 06:53:46PM +0900, Xuanqiang Luo wrote:
+>> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>>
+>> Since commit abed42f9cd80 ("net/mlx5e: Conditionally create async
+>> ICOSQ"), the async ICOSQ is only created when an XDP program is attached
+>> or priv->ktls_rx_was_enabled is set. When TLS RX offload is enabled for
+>> the first time, mlx5e_ktls_set_feature_rx() sets the flag and reopens
+>> the channels so that they get the queue, but it ignores the return value
+>> of mlx5e_safe_reopen_channels().
+>>
+>> If the reopen fails, mlx5e_safe_switch_params() keeps the old channels,
+>> which have no async ICOSQ, while NETIF_F_HW_TLS_RX is still reported as
+>> enabled. The next offloaded RX connection then dereferences the NULL
+>> c->async_icosq in post_rx_param_wqes(). Enabling the feature again does
+>> not help, as the flag is already set and the reopen is skipped.
+>>
+>> Propagate the error, clear the flag and destroy the accel TCP flow
+>> tables again, so that the feature stays disabled and the next attempt
+>> retries the reopen.
+>>
+>> Fixes: abed42f9cd80 ("net/mlx5e: Conditionally create async ICOSQ")
+>> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>> ---
+>> Found by code inspection while backporting commit abed42f9cd80 to a
+>> downstream kernel. I do not have a crypto-enabled ConnectX NIC, so the
+>> failure has not been reproduced and the fix is only compile-tested.
+>>
+>> The crash itself is the one described in the changelog of abed42f9cd80
+>> ("async ICOSQ allocation is not triggered, causing a NULL pointer
+>> crash"). This patch only covers the case where the reopen that should
+>> create the queue fails. ktls.c is also the only caller that ignores the
+>> return value of mlx5e_safe_reopen_channels(); the callers in health.c
+>> and reporter_tx.c check it.
+>>
+>>   drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c | 6 +++++-
+>>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> I agree that a minimal approach to addressing this problem is appropriate
+> for net.
+> 
+
+Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
+
+
+> Reviewed-by: Simon Horman <horms@kernel.org>
+> 
+> However, I do think the logic of this function is becoming somewhat
+> convoluted and would benefit from:
+> 
+> 1. Handling error paths in conditionals while leaving
+>     the main thread of execution unconditional.
+> 
+> 2. Use goto for unwind.
+> 
+> This is approach is complicated by the function needing to
+> handle the enable condition. But at any rate, maybe a follow-up patch do do
+> something like this would be worthwhile?
+> 
+
+Agree.
+
+> diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> index 3cc1213c2f68..0f5dcd1b822e 100644
+> --- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> +++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/ktls.c
+> @@ -137,19 +137,22 @@ int mlx5e_ktls_set_feature_rx(struct net_device *netdev, bool enable)
+>   	mutex_lock(&priv->state_lock);
+>   	if (enable) {
+>   		err = mlx5e_accel_fs_tcp_create(priv->fs);
+> -		if (!err && !priv->ktls_rx_was_enabled) {
+> -			priv->ktls_rx_was_enabled = true;
+> -			err = mlx5e_safe_reopen_channels(priv);
+> -			if (err) {
+> -				priv->ktls_rx_was_enabled = false;
+> -				mlx5e_accel_fs_tcp_destroy(priv->fs);
+> -			}
+> +		if (err || priv->ktls_rx_was_enabled)
+> +			goto out_unlock;
+> +
+> +		priv->ktls_rx_was_enabled = true;
+> +		err = mlx5e_safe_reopen_channels(priv);
+> +		if (err) {
+> +			priv->ktls_rx_was_enabled = false;
+> +			enable = false;
+>   		}
+> -	} else {
+> -		mlx5e_accel_fs_tcp_destroy(priv->fs);
+>   	}
+> -	mutex_unlock(&priv->state_lock);
+>   
+> +	if (!enable)
+> +		mlx5e_accel_fs_tcp_destroy(priv->fs);
+> +
+> +out_unlock:
+> +	mutex_unlock(&priv->state_lock);
+>   	return err;
+>   }
+>   
+> 
+> ...
+
+Makes sense.
