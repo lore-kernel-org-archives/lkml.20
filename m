@@ -1,44 +1,44 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793553399;
-	b=GtD91iT95qe2nO+hBif5jnj5wpfMgguuVecD/sIc1C9LAI/MMiMPNnnOjLQTn3X1AFi3
-	 2zl7G0U4H5McaqaaFrfoqLb0ATDlfVa5W7lLNqs6CrVUvfLmymFAglQI0d3tivZYbgnK/
-	 9rFNrZdf8ycOemBuf7l0grv9xCPD+h1T4h5chrm2sC/BCRrJCtjPZmFzuGoCNeDymFGl3
-	 znmVyRgpAcw/rCztoKxLqRR97tp5sB42SbTpMqx23Z9hEl5p0GKpi4wovWSM5A02he0te
-	 lz8fYzelhA2aDl4kvbNza5cWEv0BEKHDKlSw5dc74888FBesiK1mPZNXuh1njc6JbHg==
+	b=I0BbM2mIftYQHJkIpMDV3zyj0z6B0/CGmy3l7ErtniAPCr8B2bIZIBrWjMk8svt7DrNX
+	 lKExDK6yIuJnVzgyV0jxCdeQI0+dqGCh8iqV5UtzkirMc19JFZ8Vlg6XhaCpKKNO00fiP
+	 b3mC7ZLPgrqG3bSqnye7KwSoy0tMKBzoO4cYtt3kDhKEQ/9IfQpIkXzuEML5guyOAe/sR
+	 T9iBKkzkjMDSF5o/AS2cl0i3bGJjGxYNdB2DumeIi2bJo2BKwKenzJMsJIb4BWcZ87jO1
+	 i8BXv+ls2/npRH7p+y9ZO7t2aZ1I2U1gHuewDphR5q+uelHgIRkRcrzKL4UAzhE+KjQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793553399;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=gY/iCu9E5Cwctk0xMV73TTepjgVS26fxiMdC6yjt3qQ=;
-	b=4FRdy7cUv+e3VWMh19vM/Le8Ge0WyBSwbQSTiAAaQggAVg4uaebWoD//beJWcsJ/kUwN
-	 9hRTSsGXVN2PfQTdtZW0F3HWn6KjiRs+7AMdl/3ztEKKXUyGVhfsJMwKChyF5fakbWjkV
-	 NrHdSS/tnyfAK9JQr9Iwb3fbMxTI8xUNuByrTh1g5tzU0bGj0j0nZDsoBqICCGl6xLkvf
-	 w6IZSQI7axurHDpu1qtCkV18BsEn0h61qQWqhtaCi6mv3+UGAL2W2FwiC2YG9luvqPQHC
-	 COs7Pht9GFLQM1WioxPemJNSZsr+1o88zUPWfbxk45Fcs3wYc39bwAEaodSk2VcFQjw==
+	bh=m1pJ4mfGksx99HkJq8FYvOx6HIQ0+ynloGyB5SLePdU=;
+	b=XNStgeMWy7y03ziOLyYyslpdn6rAdslVRfjOhinu9l7itMriLub934sRM0j1CoaZ3cVB
+	 M7RHJHZGwF6nmoIwk+WZvWJfkuOtXuKw0EmNdlGPoDveL3swY6ZZM7wEG7eldcTymo6Nr
+	 1TIsEYTK43DrsQjITNtyUQ6LMsbzMMVIaNJWdLHRBCqNS5E49hVcrO3mBnLU5ovaaQQhF
+	 T12IAJh2XiDxe9JJE+MTRYIAdrkd862SDNDe1vq+8czCVllBurvgKHnQBBOOjg9uoBrth
+	 GDg9yKgcEQPxbhQ1w96v7XblXmRIEW3mvLtRTXc5ivhD+flEvBM6Le0rMNPc0aTLYGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3nIKHnK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJWLtLVs;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 685B0606A335;
-	Sun,  1 Nov 2026 17:16:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5FF0606A324;
+	Sun,  1 Nov 2026 17:16:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3nIKHnK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1876D1F00A1A;
-	Sun,  1 Nov 2026 17:16:39 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nJWLtLVs
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74EEC1F00A18;
+	Sun,  1 Nov 2026 17:16:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793553399;
-	bh=gY/iCu9E5Cwctk0xMV73TTepjgVS26fxiMdC6yjt3qQ=;
+	s=k20260515; t=1793553398;
+	bh=m1pJ4mfGksx99HkJq8FYvOx6HIQ0+ynloGyB5SLePdU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=f3nIKHnKutETK10+wjRGjPR+4SXlpJJGTlWtLynLWvfshUsh3PV7ySN632Xw3qMFZ
-	 hMS620cTSQAMCEhDshe7oVfZhV3ZnFP3RphoST+FyVO17Pt6w0oXJsQBDrocAfnla8
-	 f0ROXcajz7X6IxUwMHrB5ndODBkE0MJ5MOyNrUa3krHqW7QmRT53FC79vyCkpUXRti
-	 xmpQE6uIKZd3LZoF6wkfhV0WQ5Fmi+xzi9tICVI1hDagPa5VFjU6FRsebw18SGsA24
-	 Tme9SkcsEqDVu7mXEum26jXlGFqq0ivc+q29tNvirvytF5ECh9TrAMA6DlXIBUHCq1
-	 /ZHz1h1EZZ5zg==
+	b=nJWLtLVsdCYbZA4+cjGbxi6M0J9O8mfTXbAm5CRGXomgvXSAUq/D9DfnSl27G7prw
+	 up6J/VDaP6Fckh+RxgIkQnd4QUG5pNOyreJC55WY4rg3q0a6rFRv6J2/sbObhjDeJ8
+	 vX2lbQZO1yIqJhITenS9963uinxRDkwgFSx/Z31YesSlJWeDI/BYomtZcGCyvjrH6Z
+	 bhGoX6vJ5wr7Axc8EqtVX7vicLNdQBn9eSLdHDHBGL6xmLoPXNQg5bdOMR/3GqioIk
+	 22gqLcMVRIC0yo7yLXjysIa9BX6otAs+/ZJ3ojXUDUlT5o6eljxG3wmnHCBJl3N5FQ
+	 LXqRRG04YekDQ==
 From: SJ Park <sj@kernel.org>
 To: 
 Cc: SJ Park <sj@kernel.org>,
@@ -46,9 +46,9 @@ Cc: SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [RFC PATCH v2 3/6] mm/damon/vaddr: implement sz_filter_passed for migrate_{hot,cold} action
-Date: Sun,  1 Nov 2026 09:16:26 -0800
-Message-ID: <20261101171630.81477-4-sj@kernel.org>
+Subject: [RFC PATCH v2 1/6] mm/damon/vaddr: advance migration attempt in folio level for filter out
+Date: Sun,  1 Nov 2026 09:16:24 -0800
+Message-ID: <20261101171630.81477-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261101171630.81477-1-sj@kernel.org>
 References: <20261101171630.81477-1-sj@kernel.org>
@@ -63,67 +63,40 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Support of DAMOS ops filter and sz_filter_passed support is up to each
-operation set.  DAMON_VADDR supports both for only damos_stat action.
-It intentionally does not support those for madvise-based actions
-because applying filters could make it unnecessarily complicated and
-expensive.  The vaddr implementation of migrate_{hot,cold} action does
-support DAMOS ops filters but sz_filter_passed.  There is no real reason
-to not support sz_filter_passed.  Add the support.
+damos_va_migrate_pmd_entry() finds folios to migrate under the given
+pmd, using a loop for the pmd address range.  The loop advances in page
+size if a given folio is excluded by DAMOS ops filters.  DAMOS ops
+filters work in folio granularity.  Hence it is more efficient and makes
+sense to advance in the folio size.
 
-Pass the sz_filter_passed pointer to the filter applying logic and
-accumulate the number.
+Advance the loop in folio size for the ops filter out decision.  For
+that, do the folio size based loop advancement offset update before
+applying DAMOS ops filters.
 
-Closes: https://sashiko.dev/#/bug/linux-986e8b64-8e65-4e32-970f-4d3ebdf8206e
+Closes: https://sashiko.dev/#/bug/linux-67c34df7-6dfb-4e18-9ce0-0d26915e5785
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
- mm/damon/vaddr.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ mm/damon/vaddr.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/mm/damon/vaddr.c b/mm/damon/vaddr.c
-index b1d7bcf7305bb..6fd0e07b60705 100644
+index b549496ea8e2c..c271b6d63c027 100644
 --- a/mm/damon/vaddr.c
 +++ b/mm/damon/vaddr.c
-@@ -776,6 +776,7 @@ static bool damos_va_filter_out(struct damos *scheme, struct folio *folio,
- struct damos_va_migrate_private {
- 	struct list_head *migration_lists;
- 	struct damos *scheme;
-+	unsigned long *sz_filter_passed;
- };
- 
- /*
-@@ -846,7 +847,7 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 	struct damos_va_migrate_private *priv = walk->private;
- 	struct list_head *migration_lists = priv->migration_lists;
- 	struct damos *s = priv->scheme;
--	struct damos_migrate_dests *dests = &s->migrate_dests;
-+	unsigned long *sz_filter_passed = priv->sz_filter_passed;
- 	struct folio *folio;
- 	spinlock_t *ptl;
- 	pte_t *start_pte, *pte, ptent;
-@@ -865,6 +866,7 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
- 		if (damos_va_filter_out(s, folio, walk->vma, addr, NULL, pmd))
- 			goto huge_out;
- 		s->last_applied = folio;
-+		*sz_filter_passed += folio_size(folio);
- 		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
- 				migration_lists);
- huge_out:
-@@ -893,6 +895,7 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
+@@ -881,12 +881,12 @@ static int damos_va_migrate_pmd_entry(pmd_t *pmd, unsigned long addr,
+ 		folio = vm_normal_folio(walk->vma, addr, ptent);
+ 		if (!folio)
+ 			continue;
++		page_idx = folio_page_idx(folio, pte_page(ptent));
++		nr = folio_nr_pages(folio) - page_idx;
  		if (damos_va_filter_out(s, folio, walk->vma, addr, pte, NULL))
  			continue;
- 		s->last_applied = folio;
-+		*sz_filter_passed += folio_size(folio);
  		damos_va_migrate_dests_add(folio, walk->vma, addr, dests,
  				migration_lists);
+-		page_idx = folio_page_idx(folio, pte_page(ptent));
+-		nr = folio_nr_pages(folio) - page_idx;
  	}
-@@ -971,6 +974,7 @@ static unsigned long damos_va_migrate(struct damon_target *target,
- 	priv.migration_lists = kmalloc_objs(*priv.migration_lists, nr_dests);
- 	if (!priv.migration_lists)
- 		return 0;
-+	priv.sz_filter_passed = sz_filter_passed;
- 
- 	for (int i = 0; i < nr_dests; i++)
- 		INIT_LIST_HEAD(&priv.migration_lists[i]);
+ 	pte_unmap_unlock(start_pte, ptl);
+ 	return 0;
 -- 
 2.47.3
