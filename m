@@ -1,54 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.104
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793514702;
-	b=CJ781kXOtQ7oxNfsa9WcYmcDuc1WdplshQeOq/19KvPSp5y/sMDa8EqhuZbMjw4lM13g
-	 UEBJ5/eSkF+MvL/hlnXVf3rkosC7y6VLPSLsJ2qFn53RMhYk84tmMflRG96zFsWhgMXyH
-	 wCrT2jE7YjCz0cBQBGG5OCXNc6FSOokgxJ6sTE7xTGEnbSizFp4IukVRq5MWJMpUEONoc
-	 1nRy3kWTL2batfY5m5C1/TX0asvIKaQOc1bDyRwz9tKNi/LfGchno3G1aMlc1j+wEsQbv
-	 rm0hOZvXClSmkXKNDA/mpR2Qi1BDpvURdv/JuurxArcJEJr+mDJspN/iS0KuHfOz1tQ==
+	t=1793514846;
+	b=K1JaQAL46KFka+XvMuNtU/O0Jx8f3f9bBJ/PVxlcI9VFslKmOHCtD30AurWATZmb9k+Z
+	 pVG30kGHqS7z7DsVNaoIL4r9BLfXUVisRYaqfxeRJ2cIql46DPd6+tGyfPW7SHsv0reTg
+	 AbTOcfMZe1QGA6gTWCy1BVH0cRZH2IeJQBKXziEsYxMdr137CjjnKZjebi3EtAW8t3Dv0
+	 V9ONIjp3wnIcFH8IKZQmTbcP4AxdTMp0uzZugDqbGvlT0wqHdxlQxih1aak346LfZb4as
+	 7BDXHkoJ6D4Ox1HmI3xuvy5lBbF9t7e3RsS8d3xebgAu3CEAe5mfpA5Q7y591SCzY2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793514702;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=J/f/Ic8iNRBscTPM/Roy1R1y5UupvBWWJfdvYPp6M38=;
-	b=Xl0BRXgObPUIFu0YGOv6cuEm7CqUBBpnxswgpcfDFKG2kiYyPuxgf9W/WNOt5ZO7ltsT
-	 TYmevXqzOZEzZTIowoSM4A3hFFnmVX8jh+2J3gnxbKh297j0tYA2X3xJSRWMnjm3RD0Hh
-	 sbXCt5Co5HxBPkCRvBUQexkmH5LZ6xgykPFUruJzG3CUoy9oCgsiAe2TopnJJYbF88KH6
-	 E+Y9hLSYM4p/jYqOlKS6OZFsRceKv0GojRGvXkW1gM4Sk1HIMKQjeFT7jnqc0np0oSU8Y
-	 47xsY3Wh49v2cLiq608L3tDAJqJHx3h0rYKKDMX70Bzd4zm6VNTesqcZPfQp4KIR8qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793514846;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=rjhYpG29KiXec66lehjT+qnTIjxBrflMBNT7bdsSn/U=;
+	b=n6AAuDWNaVjjxorW0VJFY5XlLSnPR4q9GN2tHdS9oJR0/V+b7go9OUeZbKGKcTCDAYyp
+	 yfdd89g/0uYBdo2hzho9i7nTx5pBQk/AsqD1WhyMhwsEzzGNXrzFXWpORPjr+t7sHFUNv
+	 dJCg3hlJDOQNkQH0nRjYkgpOS2UlU82EUD03KzUqrkfYYkcoYhIZwA3sTPPNd0abBdWFw
+	 n2BM1rDtAefIvqPM9hjX76Ms27NqruMRqN25C23MZ+97omG7yq+QEv09nro+r7XBomeyf
+	 rvohxrI+CvZH85lIBcGUg/aUgaQGREIqQ3/LXNl8RK+KNGHBPVHtKb/MgGbTRLkUdmg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xY+HVFBq;
-	arc=none smtp.remote-ip=95.215.58.104
-Received: from mta1.migadu.com (out-104.mta1.migadu.com [95.215.58.104])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCftg+8C;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F98606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:31:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49F98606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A92E7606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=xY+HVFBq
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=MQQBK01CLkmuEldY36FpAZR9pIhbrpe/1CRm0UOIKVA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793514699; v=1; x=1794119499;
- b=xY+HVFBqLlL29sSlrtuRKeI04WYPdqOOYeX/KNUAtfX3c07DyoO6W0VNhOpCy95Jp7sUzoC3
- eofCnKq9srkbprjgFaMDAzpGHPTPMtTcjDvGWNZ4gk4eB09LFzDOEivHvFWo/EOOvWci8ghNCj+
- 9oQG35VurhFDKW+oduG9lJt4=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7f876ae71b4a29e6;
-	Sun, 01 Nov 2026 06:31:39 +0000
-X-Mizu-Trace-ID: 7f876ae71b4a29e6
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <587556c5-389f-4616-99f9-f0216b72f112@linux.dev>
-Date: Sun, 1 Nov 2026 14:31:33 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nCftg+8C
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0431F000C1;
+	Sun,  1 Nov 2026 06:34:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793514845;
+	bh=rjhYpG29KiXec66lehjT+qnTIjxBrflMBNT7bdsSn/U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nCftg+8CkBGXhzAMGHuCn0XTNgqHPlPKWwYomrrRvc1nVTFUDd3BC+wzhyKWdMLYi
+	 TRoUSowB7f/JpcTXG1/SKDzCqLv3fNQs81f+71TRKwHmJ7SOTf0QgM7iwkDQ8cOxfZ
+	 EO67bbDZdXhhr/tnTV+P+umDIZJmynpMTOwnLvmoHEvs+osMbY5croIYAssBk6tdv0
+	 LCQd6HFk/1eADwcpN1L4yH8Pwzm06f+F3lfP01u6w7sfLTK2UEw5msCbeDo/r/r7Tl
+	 NgSiW0CZ8Z+M3c3rwpXjekJTwSPb8Eak8+dV31kRdSP5y8rbuOYyNwgJsU04t7q1G5
+	 B0sIPYSVLLT0g==
+Date: Sun, 1 Nov 2026 07:34:00 +0100
+From: Ingo Molnar <mingo@kernel.org>
+To: Stian Halseth <stian@itx.no>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	linux-kernel@vger.kernel.org, Thomas Gleixner <tglx@linutronix.de>
+Subject: Re: [GIT PULL] Scheduler updates for v7.4
+Message-ID: <aubdWBZEm35Eqe3o@gmail.com>
+References: <atSiuBt4n03_iQNW@gmail.com>
+ <CAHk-=winC2u2D1FAX5grfq9F=bxmARxhuiQ4MvHAiJFu3iF6gw@mail.gmail.com>
+ <1350c2fef9f74d5654041c99d255a22885fa0ec2.camel@itx.no>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,132 +61,44 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 03/12] mm: hugetlb_vmemmap: simplify vmemmap head page
- handling
-To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
- <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, James Houghton
- <jthoughton@google.com>, David Hildenbrand <david@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261020115306.813483-1-songmuchun@bytedance.com>
- <20261020115824.823278-1-songmuchun@bytedance.com>
- <20261020115824.823278-2-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261020115824.823278-2-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <1350c2fef9f74d5654041c99d255a22885fa0ec2.camel@itx.no>
 
 
+* Stian Halseth <stian@itx.no> wrote:
 
-On 10/20/26 7:58 PM, Muchun Song wrote:
-> The new head page is already tracked on the vmemmap page list before
-> remapping starts.  Passing it separately gives the remap walker two
-> ways to refer to the same page and unnecessarily complicates its
-> interface.
+> Hi Linus,
 > 
-> Use the page list as the single handoff mechanism for the head page,
-> removing the redundant state from the walker.
+> On Fri, 2026-10-30 at 14:05 -1000, Linus Torvalds wrote:
+> > On Sun, 18 Oct 2026 at 00:43, Ingo Molnar <mingo@kernel.org> wrote:
+> > > 
+> > > Please pull the latest sched/core Git tree from:
+> > > 
+> > >    git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git sched-core-
+> > > 2026-10-18
+> > 
+> > So this seems to trigger for me on my laptop. Not every boot, but I've
+> > seen it at least twice now:
+> > 
+> > > Stian Halseth (1):
+> > >       sched/cputime: Don't account idle time twice after dyntick-idle
+> > 
+> > where the new WARN_ON_ONCE() triggers at boot, resulting in a splat like
+> > this
+> > 
 > 
-> No functional change intended.
+> Sorry about that. Paul Menzel and Breno Leitao hit the same. 
+> Nothing is accounted wrong, the warning is just wrong, and the fix Thorsten
+> linked drops it:
 > 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->   mm/hugetlb_vmemmap.c | 17 +++++++----------
->   1 file changed, 7 insertions(+), 10 deletions(-)
+> https://lore.kernel.org/all/20261025100202.2584654-1-stian@itx.no/
 > 
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index 8b3abb562599..164e93e980bf 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -25,7 +25,6 @@
->    *
->    * @remap_pte:		called for each lowest-level entry (PTE).
->    * @nr_walked:		the number of walked pte.
-> - * @vmemmap_head:	the page to be installed as first in the vmemmap range
->    * @vmemmap_tail:	the page to be installed as non-first in the vmemmap range
->    * @vmemmap_pages:	the list head of the vmemmap pages that can be freed
->    *			or is mapped from.
+> Since this is getting more attention, I'll send a v2 with a better commit
+> message and the reports added.
 
-The @vmemmap_pages description may need updating as well. After this
-change, the list is no longer only an output list for pages to be freed;
-its first entry is also consumed as the new head backing page. It would
-be helpful to document this input contract explicitly.
+Thank you, I've queued up the fix and will send it to Linus soon
+so that it gets into -rc1.
 
-Other than that, once Lance's comment is addressed:
-
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
-
-Thanks,
-Qi
-
-> @@ -37,7 +36,6 @@ struct vmemmap_remap_walk {
->   					     struct vmemmap_remap_walk *walk);
->   
->   	unsigned long		nr_walked;
-> -	struct page		*vmemmap_head;
->   	struct page		*vmemmap_tail;
->   	struct list_head	*vmemmap_pages;
->   
-> @@ -208,10 +206,13 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
->   	pte_t entry;
->   
->   	/* Remapping the head page requires r/w */
-> -	if (unlikely(walk->nr_walked == 0 && walk->vmemmap_head)) {
-> +	if (unlikely(walk->nr_walked == 0)) {
-> +		struct page *head;
-> +
->   		VM_WARN_ON_ONCE(!PageHead((const struct page *)addr));
->   
-> -		list_del(&walk->vmemmap_head->lru);
-> +		head = list_first_entry(walk->vmemmap_pages, struct page, lru);
-> +		list_del(&head->lru);
->   
->   		/*
->   		 * Makes sure that preceding stores to the page contents from
-> @@ -220,7 +221,7 @@ static void vmemmap_remap_pte(pte_t *pte, unsigned long addr,
->   		 */
->   		smp_wmb();
->   
-> -		entry = mk_pte(walk->vmemmap_head, PAGE_KERNEL);
-> +		entry = mk_pte(head, PAGE_KERNEL);
->   	} else {
->   		VM_WARN_ON_ONCE(!PageTail((const struct page *)addr));
->   
-> @@ -289,7 +290,6 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
->    *		to remap.
->    * @end:	end address of the vmemmap virtual address range that we want to
->    *		remap.
-> - * @vmemmap_head: the page to be installed as first in the vmemmap range
->    * @vmemmap_tail: the page to be installed as non-first in the vmemmap range
->    * @vmemmap_pages: list to deposit vmemmap pages to be freed.  It is callers
->    *		responsibility to free pages.
-> @@ -298,7 +298,6 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
->    * Return: %0 on success, negative error code otherwise.
->    */
->   static int vmemmap_remap_free(unsigned long start, unsigned long end,
-> -			      struct page *vmemmap_head,
->   			      struct page *vmemmap_tail,
->   			      struct list_head *vmemmap_pages,
->   			      unsigned long flags)
-> @@ -306,7 +305,6 @@ static int vmemmap_remap_free(unsigned long start, unsigned long end,
->   	int ret;
->   	struct vmemmap_remap_walk walk = {
->   		.remap_pte	= vmemmap_remap_pte,
-> -		.vmemmap_head	= vmemmap_head,
->   		.vmemmap_tail	= vmemmap_tail,
->   		.vmemmap_pages	= vmemmap_pages,
->   		.flags		= flags,
-> @@ -547,8 +545,7 @@ static int __hugetlb_vmemmap_optimize_folio(const struct hstate *h,
->   	 * they can be freed by the caller.
->   	 */
->   	ret = vmemmap_remap_free(vmemmap_start, vmemmap_end,
-> -				 vmemmap_head, vmemmap_tail,
-> -				 vmemmap_pages, flags);
-> +				 vmemmap_tail, vmemmap_pages, flags);
->   out:
->   	if (ret)
->   		folio_clear_hugetlb_vmemmap_optimized(folio);
-
+	Ingo
