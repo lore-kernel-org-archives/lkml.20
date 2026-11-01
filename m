@@ -1,101 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793508531;
-	b=ypsHL5gW/0hiv2VG8b7kSLFOvDWZ0utJ3hGBvgVk2LBXgWtH69viFM5ecnNQbVig2Aro
-	 JF+/9F8ge+/M7Hv7sK+VPR2S3mqrtekzKoJSZO6SbwL3j41Zyfxv0/DcvUsRJB3jJBlfb
-	 6NZONWO4jz5Cg8SAq1dSx1RnpMfhamGiL9R8vUML6kNs41fko4F6Eqr3ml5nGZTHmjP5R
-	 LJcNYBAPOsK9haOiKQwisDdJxdX02WKyk2Eyv9r+lWum3wTwW2znn6M0J8Ic/hnAh1z8D
-	 uJTvpyIIGI0accwJGBNuxoUzCMIdXrqvO5KJRsrjaOZ4D3JwJ8wR1k8lG4MIaW9BjwQ==
+	t=1793508854;
+	b=ScbokCEMQTQe3dSX3LMUi3KgIcysvzX3ums0lWS8wtb+ETgmmgBT1LFKVucmK6kj8uYz
+	 Tzn8uCcs9HYovjs44+dlOmR/UxC9BkgCDWXSrZ2BRubms7yWkcxlUBq+LoEhDYjuMr4Ld
+	 ccjBw765hNYoPY/Wwuc4USS06Ril422G62a6FcQwa/hAxW5BXqp5/pCm50WPcl//fEOTL
+	 JesS6jMKI4aq4zAKgo3B276OgQxoIls4D9AU9/0FlfvLC5PkAfCU+0Lw6LZ0fW8ez0FtU
+	 vHA1biU5DmYUaoRDXo3TopK/hx56FdO/7E2oY9sk1BZUETMBzb7d66QSRl8jvozJCjA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793508531;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793508854;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=QNvU5RCwGD7yT7rtU7WNdTuMkbHAjYhh78R8TjXDdfE=;
-	b=mFtOZkX1DohG81Q5AYeizCFYWekl8/i8/3d6DYLq16GJagLyJwfdRIW0e7tnJwRP2Rh/
-	 crRaaMtykoeIaffMO9DF/bL5KAGv6fyvUk/pNpf44gVqgvP1Ps7VeK0cza2MXzuLfMmOk
-	 79AT0HVPRWk2++UgcoWm2Kb45TLU7KVBRIBjBBKym9jgqXouETqSRR7XkQflInO6mlOMt
-	 FTPkq+Ob+EdrM8Ptv1kIYe9h+sCvrJMuEu1itkA/cF5e/vFWCP6o4cO5smnqFRkOOrN7y
-	 sgL8R2lfM4sFhnSzYb7qSHVnois95wi2woX9if+Q0vlStt5Ak9pxGXp86Mjeo9z4glQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=M3Ud+a0XKmipRvum2sdY2bzu5rks9GfJr8hWAWzt+f0=;
+	b=nYAU29oc5y8OKfkNCmpr0bBajw5WBA5zgEh7gBzkcJWP7rkJnvZj+dZi7ZOUEz5bbcf9
+	 DWP0ld/UX94YP3rLEcShaiAIeHghG64vVdXEuzW0gGinvYl0kcPCSrwWodqIH8kQ4a1Yw
+	 rh1kbnN9l3nanIiXZmO5X6filc7yoryXFLf/0bsQOjoZ0LTWNTDpBUL8yLTYuBPFuzlbO
+	 lGKhfW5bzssFWtAOztbfB2c2lFKMj3/RpjJ9LoPcdgnlJV3Pq/yOz/T1I0vkHna9awCbz
+	 /wR3Plrr6nHVRITB03Kp4Uyfd+lwtTVwJl+PHn9DpXudT8xW3/mtM2iRkNz5Rc2Tgew==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=njDPbXHA;
-	arc=none smtp.remote-ip=74.125.82.44
-Received: from mail-dl1-f44.google.com (mail-dl1-f44.google.com [74.125.82.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W6eQhPJF;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEAF9606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 04:48:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEAF9606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB7A7606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 04:54:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DB7A7606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=njDPbXHA
-Received: by mail-dl1-f44.google.com with SMTP id a92af1059eb24-1a2af4c8d00so1775832c88.0
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:48:50 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W6eQhPJF
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so12283615e9.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:54:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793508530; x=1794113330; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793508852; x=1794113652; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QNvU5RCwGD7yT7rtU7WNdTuMkbHAjYhh78R8TjXDdfE=;
-        b=njDPbXHA3IIgBaijCrw0N/AruVQPCFx49GkwZCqU4Ktagua9qJ7nZBGqPRHsDlYZDF
-         YBD8qgVBVNsVEqRPUVuLPSPrAgwsj4hRw5t/hty2nybqa5RbdhqKzyic7ztmpx7jxotB
-         QFKLZ44oAZFGIpLAWgUsskpOvAQsEyaxPZXDtapNc/IPelK7qcUuSc/diMRKwU5OoGW1
-         JbqY22Lh4pXIUtfE2PqgHN8is1dG7kTL6wSrL/vi6ArqT9Ut+EAJuaJxodc5gvaGOy6j
-         rYE0f5K3s/0Vlin37QOFUI6QL1Oafjkt9qMmjXXotg1/99tdN5zakzh2tfcKgK8TK+gJ
-         WpRQ==
+        bh=M3Ud+a0XKmipRvum2sdY2bzu5rks9GfJr8hWAWzt+f0=;
+        b=W6eQhPJFKLPhdDzK/Xaq+MCF+oKDVHzqb9Dqw4M+Y+SRyC3UZHdNfaqzAfP8CetG03
+         SulkDJmKr3YqtVyRCrjJ/ZFHl+tpS8zN2ngKVnORqYuRX+ZmSSk6TW0CbQDhN9XbiFhC
+         YBn6QRTH9VPUFNWUSj+47zeYFRixTmwHJZloVnxNJP00y4blhN5zKsLk4lZa3q2nBYPG
+         zrIzBIJfWUPLsVuDNBSDxasV7ikvhy+2ndE0o99tv08p9YwADPc6WpMJHNLi6KoMudWo
+         ++Ae2MToImPc1cDMBB+mcvaBQRfcRDYsxoGU7c3x6RQ1jPwUnqPQgpWMpVfJ0EoMDUvs
+         b5cg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793508530; x=1794113330;
+        d=1e100.net; s=20260707; t=1793508852; x=1794113652;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QNvU5RCwGD7yT7rtU7WNdTuMkbHAjYhh78R8TjXDdfE=;
-        b=NAg5ztxoCXsx6pQ4bF+q2cTaJnMN5VVl717j3U0oeU2NOaSfcQ2RiZr/i7LSV3+2jy
-         6dk/yaGVi18j5H8oa7DU2M5/FfKe3zIO4mgjWfWtW7cYrLJBCx4oj1XC6cUUn2tE7b8R
-         j8X6Zs6q2uaaqFFluQPV9meLgWoyDU9lipurMIjQ1jjVVfRvdnqoPQnnFqquUGhSRmYq
-         nn2qS4dj3fqgiXvvBTxn+NN0G8TDFtjGGFH4ToWv/7s8zsQhH0RLkCvz3kStY5OB6FEb
-         qk7EnYnspUj31UmVnBpPNQlT7BNCPOHZb+khGCupf1NxW4cFtz1SouCbBNpjjX2pByzZ
-         osTA==
-X-Forwarded-Encrypted: i=1; AKwUvByBLgFOT5ISw+sie7rYSm1dpLlJKdSOqBbLXyYUoTc34PIsmuYy9mmuoJyRMFPZQc/6hzGtSvXSN1IWAno=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJucL2VLhlxXnUdKgBkSHaEcpEcONIWlMBPEF8K/NjMc1TAEaRB
-	LeQbHiHx5nPJgIpCRcYf5jO4YjUwv7CeNbXmHWsmw5JBBqbMi6Dw4Qp3
-X-Gm-Gg: AYBFou2WY6mWwbUny1cLG9HwTOhDzXuVNimTCM/Gj0kMkihy/Xwa6oncXZMSHBfLtTt
-	BB4QUyUDcaHdXq741SP9qMC2VYXJJAxmYFwD+mLMew6yCZeBq3wFJLfIRGa4vpPWsBvwUvb3qCR
-	uy8iGVNltG2zM886ESVETcGRBjRUPdbfKvTrdW4e6Yl6SIzoPsm3aUvCzM536yOikpQvT1lsbUy
-	bFVlcA/gBVapgYAmuzGccqVQ+sFy+HCleqvZNe1WpiIToixbSjkpgBedIXjAiUAMGmXXz28OdmE
-	0kRr6PpA3vvzm4uPDH6ua0holHEC0Z7BF1DCISEqoaja/g2JLZN47nmjqdzzpce09anoGYPx0QY
-	i73nrqen5YpscmZu5oAHBhN2GOVyS+Rm1fqbELo1nCuLWvgVQTuZaEmyc6UL2n7IXddfZGdC9HP
-	6SLxvpa+miLbmgk5eEQN5MFJoWhEVJCwfFlBAerES0N+dfzxMwN0qtUYoNYFPEDXQHlStbqTOgQ
-	TTQXI9o3q1isyC9oKBeQeMTSiCPTjK5ui6xdQ/j72to8d+a8SFk4dd5CiPXEc8w7DQQjxeluDOC
-	jxUpz3WJHQBwcTm8wc4KdleaaSSOfX5zvsr+bYzYPAtu1wkgoJpFajzR94dg0KaHPHmK2bjqR2E
-	JdIxwO8DhWesk
-X-Received: by 2002:a05:7022:eb50:10b0:14d:baf5:c415 with SMTP id a92af1059eb24-1ac5a0b4324mr10594227c88.7.1793508528871;
-        Sat, 31 Oct 2026 21:48:48 -0700 (PDT)
-Received: from youngkk-vm.localdomain (67.216.200.102.16clouds.com. [67.216.200.102])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac19c6b969sm20843929c88.14.2026.10.31.21.48.45
+        bh=M3Ud+a0XKmipRvum2sdY2bzu5rks9GfJr8hWAWzt+f0=;
+        b=h4PSatTsrLgQZQu/YBcoMEgWkA7/Zu+ksD6MFIWNs+turebDb8JMGkGoyTbVElfKjd
+         vy4kop5O/xrMaEB3ew3Kh5X6IrKRvNyx+vtg83DEH4sVy7E3LwQ4RiA2OcbdXO28fMS/
+         0YcKWjZIopLMLKRCYQj8Yi5yV74ia4ZcTBCT517gC/SGVMYMrDAopPc0//LEFe/yHRpv
+         lxPEd76XmcH31uN2XMy9qnBGteHgxvyW4SByWnVCe+1AYmeBpcjyuWRgqfqJDCsxgfkR
+         mZy4vIsZPRvtrH9pq/6yq2FO6pKsIxTq04hwReGlllng2jLzUIS3kYt6jUKOrh36jiZs
+         TlvA==
+X-Forwarded-Encrypted: i=1; AKwUvBwFGAicM5QbN9vuI7K3k3Fa023ihsmUr/k24RFbbGcb8RBhK8/PV/Jjss4kcGiBWkit419MTAZbtf+zpDg=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/+LgD58GPY78oHrNGRkgi4wR5D06Qwc30+cuNrVz3AipjSi3s
+	WEiMdTxuz7F+pq5vZxnsiaO1pJpxCLm5mX1w3RrOEURd+Z59nxFCYstF
+X-Gm-Gg: AYBFou3d67NBE2JBcSFK0MCGqK4GfZtcitL2Y2o1RpXSBGr5Z8ltmSJ/wcNC9+XXhnD
+	CWTRoYROOJMYKOk4rHe9vDh9aCsM1yHdrcfpcehxnv2AHP0j3cT0G5yfT/5znYFJVZ7jCeszJoW
+	TeeCyedC8AoLeE0/j+nlQZtPhqUHq1+DMMyEPxkQy3mpFnCHrqviBgyLyCMeXvBrfERpN2f8iPj
+	Bsee0269MRu8B6Y2ntq/eQh1yN0jcst6QShK/KYdGF9oCvcO+yqKwSPLu153yZ6Jz4nDg6Hfhhe
+	ejC9rVxyOS9HQ6w1nOlsSJHBVsuSfgFgoloF+KCW7RsAZ5kXWlGTsIAwB9NctVGbfl3Wwdm3pkC
+	CzcceXYsCXXvj429vHYzDM9R4CeRaOPBtvY12cyHEhe3ltxDWwIyVcWYxd2fZm7d72g26hD+5CY
+	OVWZnjkSMBa4oiHICAsZ654p6UfUqWH0ecJq0z6pfC/EElGVZXqJ2E5+4xMFSZPAoYinMY/J0HW
+	m9HEF8Q9UCzAV7fa/16E3jT5nclWtVGKhXsoREPJ7ptg+nsI/r7LPHDQSh29Bmqh6HQs/18EpTF
+	drr6fmYyOsiDXrt+pTJmhmLhMylYGPSEFni0qjD3/Pfn9so=
+X-Received: by 2002:a05:600c:1d23:b0:4a2:167a:c946 with SMTP id 5b1f17b1804b1-4ac185bccfbmr150111855e9.13.1793508852044;
+        Sat, 31 Oct 2026 21:54:12 -0700 (PDT)
+Received: from localhost.localdomain ([2a06:c701:4773:6f00:1f0e:d397:58dc:8e89])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm278308975e9.10.2026.10.31.21.54.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 21:48:48 -0700 (PDT)
-From: xiaoblac <teel4res@gmail.com>
-X-Google-Original-From: xiaoblac <1020691186@qq.com>
-To: Ido Schimmel <idosch@nvidia.com>,
-	Nikolay Aleksandrov <razor@blackwall.org>
-Cc: "David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Horatiu Vultur <horatiu.vultur@microchip.com>,
-	bridge@lists.linux.dev,
-	netdev@vger.kernel.org,
+        Sat, 31 Oct 2026 21:54:11 -0700 (PDT)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: tglx@kernel.org
+Cc: radu@rendec.net,
+	maz@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Cheng Yongkang <teel4res@gmail.com>
-Subject: [PATCH net v3] net: bridge: disable MRP ports before the FDB flush in del_nbp()
-Date: Sat, 31 Oct 2026 21:48:40 -0700
-Message-Id: <20261101044840.1595584-1-1020691186@qq.com>
-X-Mailer: git-send-email 2.34.1
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] genirq/core: Free per-CPU enabled mask when releasing an IRQ descriptor
+Date: Sun,  1 Nov 2026 06:53:55 +0200
+Message-ID: <20261101045354.60854-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,105 +98,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Cheng Yongkang <teel4res@gmail.com>
+irq_set_percpu_devid() allocates desc->percpu_enabled separately from
+the descriptor's affinity masks. irq_kobj_release() frees the other
+descriptor allocations but leaves this mask allocated when a sparse
+IRQ descriptor is destroyed.
 
-del_nbp() flushes the port's FDB entries before it unregisters the RX
-handler. For a normal port, br_stp_disable_port() moves the port to
-BR_STATE_DISABLED before this cleanup.
+Free desc->percpu_enabled during descriptor release.
 
-That does not hold for an MRP ring port. br_set_state() ignores state
-changes while BR_MRP_AWARE_BIT is set, so br_stp_disable_port() leaves
-the port state alone. br_mrp_port_del() then restores forwarding when
-the bridge is up before clearing the bit. A frame received between
-br_fdb_cleanup_by_dst() and netdev_rx_handler_unregister() can therefore
-create a new FDB entry referencing the dying port. Nothing removes that
-entry before destroy_nbp_rcu() frees the port, so a later frame to the
-learned MAC can be forwarded through the freed port.
-
-Remove the MRP and CFM instances before disabling the port, so that
-br_stp_disable_port() actually transitions it to BR_STATE_DISABLED.
-With CONFIG_BRIDGE_VLAN_FILTERING=y, synchronize_net() in
-nbp_vlan_group_unpublish() also drains receive paths that could still
-learn with the old state before the final FDB cleanup.
-
-Found through an LLM-assisted source code analysis workflow and
-reproduced on net with KASAN and CONFIG_BRIDGE_VLAN_FILTERING=y in QEMU.
-A diagnostic switchdev module accepts MRP objects and delays the
-NETDEV_CHANGEUPPER callback for 1.5 s, holding del_nbp() after the FDB
-cleanup and before RX handler removal. The reproducer floods the MRP
-port with rotating source MACs, waits for the port's RCU callback
-through the module's rcu_barrier(), then sends frames to those MACs
-from another port. The unpatched kernel reports:
-
-  BUG: KASAN: slab-use-after-free in br_forward+0xb1/0x820
-  Call Trace:
-   <IRQ>
-   br_forward+0xb1/0x820
-   br_handle_frame_finish+0x148b/0x1e50
-   br_handle_frame+0x90a/0x15c0
-
-With this patch, three runs of six cycles each reach the delay without
-a KASAN report.
-
-Fixes: 6536993371fa ("bridge: mrp: Integrate MRP into the bridge")
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://lore.kernel.org/netdev/20261012123051.GA714215@shredder/
-Closes: https://lore.kernel.org/netdev/20261022090431.3641707-1-teel4res@gmail.com/
-Signed-off-by: Cheng Yongkang <teel4res@gmail.com>
+Fixes: 31d9d9b6d830 ("genirq: Add support for per-cpu dev_id interrupts")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
 ---
-Tested on net cb284914e749 (clang 20, KASAN), with and without this
-patch:
-- the reproducer above: the unpatched kernel hits the UAF on the first
-  cycle; the patched kernel completes all cycles without KASAN, WARN
-  or BUG, and a ping / FDB learning / port detach / bridge delete check
-  passes
-- selftests/net: vlan_bridge_binding.sh, bridge_vlan_dump.sh,
-  test_bridge_backup_port.sh and forwarding/bridge_vlan_unaware.sh,
-  bridge_vlan_aware.sh, bridge_fdb_learning_limit.sh,
-  bridge_sticky_fdb.sh, bridge_port_isolation.sh, bridge_locked_port.sh
-  pass on both kernels; bridge_stp_mode.sh skips on both (iproute2
-  without stp_mode support)
-- W=1 build of net/bridge/ with allmodconfig: no warnings
 
-v3:
-- Re-test on current net (Ido).
-- Update the FDB cleanup and VLAN group unpublish names for current net.
-- Describe the FDB's reference to the port without the old dst == p
-  expression.
-- Remove the deprecated Assisted-by trailer and describe discovery and
-  diagnostic instrumentation in plain text.
-- Add the original report/reproducer link and links to v1 and v2.
-- State the VLAN support prerequisite for the receive-path drain.
+Validation: Source-extracted ASan/LSan harness.
+Baseline leak reproduced; patched test and controls passed.
+Kernel object compilation not performed (no verified .config).
 
-v2: https://lore.kernel.org/netdev/179333317814.2102764.8780283783548366593@gmail.com/
-- Use Ido's MRP/CFM reorder instead of adding a second FDB flush.
-- Validate the reorder with the v7.3 reproducer and custom regressions.
+ kernel/irq/irqdesc.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-v1: https://lore.kernel.org/netdev/179268538303.70821.8213834342995341232@gmail.com/
-
- net/bridge/br_if.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/net/bridge/br_if.c b/net/bridge/br_if.c
-index 2c05ebc1299d..fb25ce3e5e64 100644
---- a/net/bridge/br_if.c
-+++ b/net/bridge/br_if.c
-@@ -341,13 +341,13 @@ static void del_nbp(struct net_bridge_port *p)
+diff --git a/kernel/irq/irqdesc.c b/kernel/irq/irqdesc.c
+index 7cbcc3fb9e6d..ee8b4646372e 100644
+--- a/kernel/irq/irqdesc.c
++++ b/kernel/irq/irqdesc.c
+@@ -461,6 +461,7 @@ static void irq_kobj_release(struct kobject *kobj)
  
- 	nbp_delete_promisc(p);
+ 	free_masks(desc);
+ 	free_percpu(desc->kstat_irqs);
++	kfree(desc->percpu_enabled);
+ 	kfree(desc);
+ }
  
-+	br_mrp_port_del(br, p);
-+	br_cfm_port_del(br, p);
-+
- 	spin_lock_bh(&br->lock);
- 	br_stp_disable_port(p);
- 	spin_unlock_bh(&br->lock);
- 
--	br_mrp_port_del(br, p);
--	br_cfm_port_del(br, p);
--
- 	br_ifinfo_notify(RTM_DELLINK, NULL, p);
- 
- 	list_del_rcu(&p->list);
+-- 
+2.43.0
 
-base-commit: cb284914e749388eef402938bdb3115fe1f6d337
