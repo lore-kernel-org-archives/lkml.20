@@ -1,100 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.70
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793511118;
-	b=nUnS4CrJhL5HLtlSCyL1YS+48SK4t4QmPZBtGbc+xP4476tPJmbuW1fGfRZQ8CqFPMH4
-	 WZP9cGW68Wgwj29awS6FUlx5C+BRJlCyw8untrXRsmRXbnksrlSWdtOpFgIhG5xz/s/mJ
-	 WvuCZMasCnNLr1o/C1eCV1yXvDeJi8Py62DJG/td151qhhfSOkSWjbDFZ4S10gU2wa+w5
-	 vQmGAxyOfWmy+kodt0cptAtxsnCIMJ4Yw8GBNrDMqpwNLtd4mEcFW8fNgpihSC2VRPLU+
-	 EYS6kgSB3LvfqgNPRj7VdPWSJxRuSiuy2H/A7nMor+sRmvIdq3Ay16DHHVjMQCzwpoA==
+	t=1793511152;
+	b=xMl4lxyl9qjAWrTg2QHlXJXvWRvSC3eIXHSTYlzQ52EasO5wjBH8N/pUpvZA/gK3ieyE
+	 8m35PC47otd3lkzZCHIWSdNYA0xjpdLFo1DIAYmU1c85sJ44rdfUnVZf1QLAAcs+wh0Zc
+	 Q1kscYvhg07ieJHbJmRu4sPEvGP66oy3dUP5opWqjvbucpjlkDl3a2lARO60ZTpO6QfJZ
+	 GaBjLqnii5WoXoJMPr0eXeinu9Ksb6oGKe3Yrklier+muVPvylObA+LZNWkNxEKz/QURP
+	 LI766rJ1SmkKGK85EmTnLRy9eHJiNHIg08c0IzWXS68qLm7DnOKmqGQpc24ooB57zXw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793511118;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=XVwPKoe9RjiKHmMO6/+ENKIpPwM8V1vN0DPm5EJ76mY=;
-	b=IN482XFxOOGM/nlCjU9DYAY4N6uUQ7LoNRfGkJsLq/++/N3ZbVbD7GhNsXEeGZaMFoFj
-	 5a9ScXkXbBwWKWfTtCQynD7yCTUvERUskxaPwi8x0CFTp4ozIkkNmwJ8u0LqIaIhpE1bR
-	 EfzoV6jpNlg6pF+X+QrBdtXpUKK1lBBS36RwbuhW8zBg/SMtkxfu6o6e23bN4vgTcYKrd
-	 K6o7ou3x4ekcOaa7IPuxFstF/Nn84CA8QTbpIJ87JGQByLGEzRClhlL5jqgS0gP6xf8Rg
-	 fwbUpvsdQ2wx4RF3dsOq4rtcP3QifHCn77iD9Ykwv1n5BCXkMyNUuSxNWqQwh/Ko9aw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793511152;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=DtfoQkKFNHju33US5sxuA85MuGRl6NXBwcxSzKvpS64=;
+	b=dsg5aQS0eTnPyS5izRUr8fx6nu6e1OXqz0iqUIk05ODKV/i+h04Kg8mBQ9SOmhS7B4q9
+	 J67NMTpMxL+5eW5Fx5qfzT8oQjAPuMspKMFsflj/bXJXDHrssnJIsOEUv7Fo35Y966CHC
+	 q6CRISBG0447emcqzQ8WCwuSlu1Oe5m6kgTcMqjDPN99s3mtSD9Vczm67dN/ZHm0pZMCW
+	 P5cji2cQOJnbwbMtK78qeZJ5ZZvrTWfUMBiiFQ4xn9TTl835qzSs4Fy/j1M5in/LaXhKy
+	 msvvx08ghRPEAEOM875FYIrmqsyRkgodDb3LSxUysgd+oL6QZ5dPxzk+zjCrI8yFblw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jgUlSuHf;
-	arc=none smtp.remote-ip=209.85.214.175
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.210.70
+Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9775E606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 05:31:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9775E606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jgUlSuHf
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2e8d6fcbba0so34005ad.1
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:31:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793511117; x=1794115917; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=XVwPKoe9RjiKHmMO6/+ENKIpPwM8V1vN0DPm5EJ76mY=;
-        b=jgUlSuHf06M9uujyWqNHLI95zdxW32DG/F/8axwNdb1iGXk0FccdSCqQKnnEwKqotp
-         R5h9wJe50JXq8pHTbJOkmAK1O7aHoXHWcK2c4ihZsbQ9exo+ZGPoJKWq4JWRVqymFvBW
-         tjl7ohbXSWNMNzoz7rl4ZS+jMwjYpT4DBiyXlNqGEWinD41+cf5pp+jbjqGpRalxQshA
-         YgWUb0WWkE3YMh+CIcDOanCEP4VdIYE8mGI7/RrPHVtsFTSFuCUK/s4PHsjuYfK6Ey4E
-         K+FfNaSj4cTENyP4AT3Xp96Lkiv/G5fn8k8dwkaN628PAEWvfQ6uBUqx85UTTHHYRNoy
-         qiFg==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0727606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 05:32:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0727606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-84fe2593525so3113209a34.3
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 22:32:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793511117; x=1794115917;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=XVwPKoe9RjiKHmMO6/+ENKIpPwM8V1vN0DPm5EJ76mY=;
-        b=PtMaQQWXWfH1gLk/RslRGDNl8FBu/JkfAKKnbxXYWfD8XHedZbl/3dLirZb86hqy0m
-         UQy4voWw0bPXsDNA7uYPDI9ShcfiBYRf+rHu0f84q0hlTqfLJu0k6UYHcPT4sKbh52TC
-         i1IgjnUGpM3yUFc/bLQRE6wxxECpMQ/rk1slBdyc86WI/62broVGFO3DSNhIPDp3l8/s
-         0nYODn3HziTbLLbgRIr/SQwgVDDsBPw8n6sJp+PzWoCLJ1lMtuh9BkE6wiOeICIhzDBH
-         0qUtdUTmhBewBSJSXFL92UPiCKniIaR2YKHz8C9nz7BBmDr9ttYJb86tbOy/8B5Z/3lN
-         1Itw==
-X-Forwarded-Encrypted: i=1; AKwUvByJa7ApSHqQ/NqQhujN8CbPeECsZ7ZJsULCSE699MzQz+4LrCmg1NMIXHO9KAaFjSjdzUr6p9I/e3NVoWw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+5uG9SDSkj4nexdV/Yw7PeiLwSUhVrbAAyz2AetMqqh5nYHS/a
-	FNZnrjBWcXtVZejBJukEQ9Dme6I7FhFNAYTAJtdF4TDwJcQupSFRsP+drVF8K16now==
-X-Gm-Gg: AYBFou1vTdXc5qj1zTTa5MVHFVSGmPAkbHuQ4wfvVzRwkU+CITNxiGBNFHTf9abE7ny
-	nyF0lzQ2oUEEZoZ+N3FOuyUz8350YqUZTxX3GP1sCj3jNPz+KFD6mE1e1OnJXU45w7yZrkpgt/H
-	38GBWJ9szssinqeAkIqnLyrmlXWZDrdjY8prBMUOVRigwJOiiMQ8TC6x+FnpbMdjkh4hpvAeR/i
-	15E7Veg51+B/ihpJbRI2CjgJ6dTtOyf3KK+DIjtt13ZZEX1+iRoRfirvvdovSqvpGgemm2RMQuK
-	q+BFghDZEi1eDqxgMopER2T7ftg4CV+RSCoe1BDmAGlUNA6wcWAzWDUuedDa2Hgqlu0+tLKp3T+
-	fW38TDIKT+CW4XCAKEW9oCMQKACusrODfXz6BD1PJdvdcFPsH0qC1ZlP/VXns/awmFOBpLbqVKI
-	9hWaIMBneow/4EnTER7Z4lertma3XpiDMZokL++wyq/NaUPfCOIPYooHuovhckx40pzohIPT7yl
-	rnTbY97YHu0oc6ZwtoArcZGgvUxFKT3LK3mUfq3Odj9xq82Lh4GHRh0fMwLQKwA5Gp/8TxbAFqL
-	culG8OMd/ZPj4Qgr8xMfW9rBXy999/J1iJQi8GxvqK+aj7T4zjAN76UyUloCsZIiOe0Gf2yfct6
-	Ta97u0XrtWb+tdyyRnRq0
-X-Received: by 2002:a17:902:f541:b0:2df:42af:2f9f with SMTP id d9443c01a7336-2eb1ec33fd5mr15542125ad.1.1793511116342;
-        Sat, 31 Oct 2026 22:31:56 -0700 (PDT)
-Received: from google.com (25.75.145.34.bc.googleusercontent.com. [34.145.75.25])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb09614e4bsm1987052a12.4.2026.10.31.22.31.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 22:31:54 -0700 (PDT)
-Date: Sun, 1 Nov 2026 05:31:50 +0000
-From: Samiullah Khawaja <skhawaja@google.com>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Andy Lutomirski <luto@amacapital.net>, 
-	David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, 
-	John Hubbard <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Chris Mason <mason@kernel.org>, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/gup: check folio->mapping under folio lock in
- memfd_pin_folios()
-Message-ID: <aubLkqA-aWrcklwS@google.com>
-References: <20261031203540.2282507-1-skhawaja@google.com>
- <20261031194058.d3bd25ed950e5340ab595f07@linux-foundation.org>
- <CALCETrU76ThzLDbUfpoota5=xcoOS4aZrwgK2B3ELkYcFOjGJQ@mail.gmail.com>
- <20261031212507.31609e7ed27de35253b226c3@linux-foundation.org>
+        d=1e100.net; s=20260707; t=1793511150; x=1794115950;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DtfoQkKFNHju33US5sxuA85MuGRl6NXBwcxSzKvpS64=;
+        b=gHS0YFGNwsxmq76lev1PIpZ8ov/k9xNQONDPSZlQYE2SJfOqCQKGD5NexguNontnEM
+         dZO0blpJpIZAKxr1N6w1l7UReRdmmyEvSF1KpSZe2s7g1lSGZ5nXy3qtO1x0lHx9rl65
+         Juho72+qlhpzbsMy31XMY1SRvTLteMSvbwU7Zw42TUBwFYcPePBtmcTJc30Cp5ya0fJ3
+         Fh6yBWSm7EOMdTjbWJm0sY2PZAitiuY4XNM61XpJ3qIsglkQfj6+aFEZSgskGlq9nAJU
+         Y+LMV9ojE6n0oCY1gKnJXIJJvD1IAPtsBom/6G09BzeChjCbx7giI4NKzcgKmBEhpREb
+         Rlgg==
+X-Gm-Message-State: AFq9FYL/sjc47VPWAGTvBPgjBfw/KAGzr/L7go3SCFayi6MvKp32vCV4
+	e1pJzb6XjnkaMcop2qmYqbNqb6g9+OilaPK8nun4n12PxqFoBFK5cqz8UsCW9vqSM22dwJqGRZm
+	eadOvyqyFEd+0jaTfHpwbT0Gan5JJHdEuw01y+vlcfMYow1F7mQvYR4Pxno0=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,73 +57,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261031212507.31609e7ed27de35253b226c3@linux-foundation.org>
+X-Received: by 2002:a05:6808:f13:b0:4f4:813c:6a21 with SMTP id
+ 5614622812f47-5640dcb87admr4413209b6e.20.1793511150467; Sat, 31 Oct 2026
+ 22:32:30 -0700 (PDT)
+Date: Sat, 31 Oct 2026 22:32:30 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae6ceee.67782f90.13afb0.0053.GAE@google.com>
+Subject: [syzbot] [rdma?] WARNING in rdma_resolve_addr
+From: syzbot <syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-rdma@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Oct 31, 2026 at 09:25:07PM -0700, Andrew Morton wrote:
->On Sat, 31 Oct 2026 20:20:03 -0700 Andy Lutomirski <luto@amacapital.net> wrote:
->
->> On Sat, Oct 31, 2026 at 7:40 PM Andrew Morton <akpm@linux-foundation.org> wrote:
->> >
->> > On Sat, 31 Oct 2026 20:35:40 +0000 Samiullah Khawaja <skhawaja@google.com> wrote:
->> >
->> > > memfd_pin_folios() pins folios from the page cache without taking the
->> > > folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
->> > > its refcount check while memfd_pin_folios() still pins the old folio,
->> > > and the caller ends up with a folio that is no longer part of the memfd.
->> > >
->> > > Lock the folio and recheck folio->mapping before pinning it, like other
->> > > page cache users do. If the folio was removed, retry the folio lookup
->> > > from the index that was removed.
->> >
->> > Can we please include a clear description of the userspace-visible
->> > runtime effects of the bug?
->>
->> It's straight-up data corruption if you manage to trigger it, no?  If
->> you manage to race a memfd_pin_folios() against collapse,
->> memfd_pin_folios() will pin the wrong folio.
->>
->> Fortunately, there are a whopping three callers in the whole tree.
->> You can hit it from udmabuf or iommufd or memfd LUO.
->>
->> The former two will direct DMA to the wrong folio.  Fortunately it's
->> not UAF as the DMA will be directed to a folio that is still pinned,
->> but it's the wrong one.  DMA reads will read potentially stale data
->> and DMA writes will overwrite that stale data but not update the live
->> copy.  (The DMA will not be directed to some other application's
->> memory, just to a leftover copy of the calling application's memory.)
->>
->> As far as I know, the effect with LUO would be for stale data to
->> reappear in the memfd after handover.  With the patchset that started
->> this whole discussion applied, I think it might result in misdirected
->> DMA to freed memory (I do not stand by that claim at all), but that
->> patchset is not applied.
->
->Thanks.  How's this for a changelog?
->
->: memfd_pin_folios() pins folios from the page cache without taking the
->: folio lock. khugepaged or MADV_COLLAPSE can therefore replace a folio
->: after checking its refcount while memfd_pin_folios() still pins the old
->: folio. The caller then receives a folio which is no longer part of the
->: memfd.
->:
->: For udmabuf and iommufd, this can cause data corruption: DMA accesses
->: the detached folio rather than the live memfd contents. DMA reads can
->: return stale data, while DMA writes update the detached copy and are
->: lost from the live memfd. The detached folio remains pinned, so these
->: accesses do not constitute a use-after-free or target another
->: application's memory. For memfd live update, the stale contents can
->: reappear in the memfd after handover.
->:
->: Lock the folio and recheck folio->mapping before pinning it, like other
->: page cache users do. If the folio was removed, retry the folio lookup
->: from the index that was removed.
+Hello,
 
-This explanation sounds good to me.
+syzbot found the following issue on:
 
-Please let me know if you want me to send a v2 with this changelog.
+HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=1364b795580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=37ec6334ca3b8e94
+dashboard link: https://syzkaller.appspot.com/bug?extid=6699995b421c8ec7d2fe
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1752b159580000
 
-Thanks,
-Sami
+AI-generated root cause summary:
+A race condition exists in resolve_prepare_src() in
+drivers/infiniband/core/cma.c when binding an address during
+rdma_resolve_addr(). Calling cma_bind_addr() transitions id_priv->state to
+RDMA_CM_ADDR_BOUND and attaches id_priv to cma_dev->id_list, exposing it to
+concurrent device removal via cma_process_remove() /
+cma_send_device_removal_put(), which sets id_priv->state to
+RDMA_CM_DEVICE_REMOVAL. When this occurs before resolve_prepare_src() executes
+cma_comp_exch(id_priv, RDMA_CM_ADDR_BOUND, RDMA_CM_ADDR_QUERY), the state check
+fails and triggers a false-positive WARN_ON(), returning -EINVAL which is
+handled cleanly by callers without memory corruption or DoS.
+
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=6699995b421c8ec7d2fe
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+6699995b421c8ec7d2fe@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+!cma_comp_exch(id_priv, RDMA_CM_ADDR_BOUND, RDMA_CM_ADDR_QUERY)
+WARNING: drivers/infiniband/core/cma.c:4120 at resolve_prepare_src drivers/infiniband/core/cma.c:4120 [inline], CPU#1: kworker/u8:8/1176
+WARNING: drivers/infiniband/core/cma.c:4120 at rdma_resolve_addr+0x3f1/0x20e0 drivers/infiniband/core/cma.c:4146, CPU#1: kworker/u8:8/1176
+Modules linked in:
+CPU: 1 UID: 0 PID: 1176 Comm: kworker/u8:8 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
+Workqueue: krds_cp_wq#43/0 rds_connect_worker
+RIP: 0010:resolve_prepare_src drivers/infiniband/core/cma.c:4120 [inline]
+RIP: 0010:rdma_resolve_addr+0x3f1/0x20e0 drivers/infiniband/core/cma.c:4146
+Code: 02 00 00 44 89 f6 e8 3e f2 14 f9 41 83 fe 07 0f 84 09 07 00 00 e8 bf f7 14 f9 48 8b bd 18 ff ff ff 48 89 de e8 10 3f f7 02 90 <0f> 0b 90 bb ea ff ff ff e9 57 fd ff ff e8 9d f7 14 f9 49 8d 7c 24
+RSP: 0018:ffffc900052ff8b0 EFLAGS: 00010286
+RAX: 8000000000000001 RBX: 0000000000000293 RCX: 0000000000000000
+RDX: 0000000000000004 RSI: ffffffff8e6277e2 RDI: 0000000000000001
+RBP: ffffc900052ffa00 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000001 R11: 0000000000000000 R12: ffffc900052ffb00
+R13: 0000000000001388 R14: 0000000000000009 R15: ffffc900052ffa60
+FS:  0000000000000000(0000) GS:ffff88812257f000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000560c3d47e9f8 CR3: 0000000020ebc000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ rds_ib_conn_path_connect+0x415/0x5d0 net/rds/ib_cm.c:1044
+ rds_connect_worker+0x1b4/0x2d0 net/rds/threads.c:176
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3495
+ process_scheduled_works kernel/workqueue.c:3578 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3659
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
