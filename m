@@ -1,65 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793560965;
-	b=cNtY0dom01XCGnifLtfQL8DT+hIz5Hq8Rg14vw1ip8CwmSXvJjou6Ox5cvXN72HCa3gV
-	 ZCEzmNNQlesMpNzM/aRiIA4+xukZ93ToEpttB9/AnEiY9T9U4N0QFr2U1XZ/ZO+uCv3HQ
-	 pTm8YUqq1R+4BROXkf7BKgu83uXco2Iwe3wpdckcSBMsy/Xv2OWQTNS5+gdv0Ieu7qcnz
-	 6495FlWrNSe5rxNxMCrCZuCdsfHrxeaSQVcy9ziMBur9GmnOapEwXCUarQAIgmKxWaR7h
-	 zxuf2u2JtGuSCyl1VYK7JQJS8OGTPILHRnMlajxBC0NVYewUubnBnfTyLpOu23gtFAQ==
+	t=1793561048;
+	b=hmyTNhCw2gonbI8Kn13Hb95qSx6yDOwUQjCTOwtdwcp/PGSIoV37NRB0jPcQOTO5d5xf
+	 AeQdDpl5eB6beBVjSU0qtjuyt98rbEyM1xjh78vuxhGyjgfh8Vbl4I3IWYQlLQyFoLB5T
+	 Nwm/6PKNmpOPGM3GAIJAOaX3iwBD738Aby+c16Jj6Ipe3bVbwF5Jz2FxirkXLQWa2P221
+	 BHeJTx2Jowjl8gzwsi6+gY+dy6W/k6dISVeGQ2SmZGmi8a7EHeX4nobqPtZXEKzF12oCl
+	 V0UfsUWGs7jJGj5NbhdNHrHh9sPY9+vkPlEX4DiH95JzXVD8AGBmmFPYfxdkemHEPLQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793560965;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=kkgPxlepizBLlXhgw2TsN5llBrLCoHqm+pT/V03Io8Q=;
-	b=AdtuQEJncL+HrireYWiQpHXssOsBqrKJ0Kv9DCuHP3eJTT7uwIMPrmePnBwp6CLLqMlC
-	 A82B1MFprbtcewyyL2Sdi4Jcd/oISPU2FOQCp5KGRO2s/Bq7VgDcNnY7XwCvtzRYSn1aP
-	 Gi/Zhewf/0uSGIPSeqpFcRJlqSlWTym+58Fa1zpw9eVcHPLa05gq927pBCaLFJdxmtOet
-	 jOAsl0pw9TWi1xDiiyPChWWX47A3l2iFJZKR7ueTK3huS1iGJP0sZh9uylgTe0XheFVhz
-	 In/9y5wGHD/z7yDa4JfZkG0BKV6hOKMnblp4Yb5dtVmR7uLeNsqBkVAv6X18ajJoSBg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561048;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=5dla/eqbb2IMG2xm59fzp+ARiaZoRPt3t8rJalIczyY=;
+	b=lY/Ae0Y3ggbrYYLyUcaRxm/YSEgQvZ46oXlPHq+esZf15lMBuCgR6YwsIN2NaHDV/Fdx
+	 OBP/qnninmJTEGAaHRvijXvPCNYiCcgTlL6Zng+e6nTFMoY9eRPg1Pm4eUpNolZMF2Emu
+	 An/wspMtWFfrU/FFZ532xnKjLBvbcPGnQHRV1BaWwd+V5sXuaUcMc7Qw7TNyuQL7Nfgaz
+	 nUj35iSlimTOI7Jbk7YtJrfnIXdomRE0AazhyGY9RWOw9+YYcb1885JopwhCLTfxWzTaq
+	 CD2HbMC7CwQI1qiWAPX4M3ld+Fw03OmEVcpHkXjXOy30Ckh8XD6wefGRUjv9RxHBIDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nC6Qxexc;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qfyPa/pj";
+	arc=none smtp.remote-ip=209.85.221.48
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF722606A32F;
-	Sun,  1 Nov 2026 19:22:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF722606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 641A1606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:24:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 641A1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=nC6Qxexc
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=kkgPxlepizBLlXhgw2TsN5llBrLCoHqm+pT/V03Io8Q=; b=nC6Qxexcb1LYHfJcON7cNciq0w
-	P7EAHWaqH7HZ2WdN82kt8onrfeZ+ihZZy7LOkPfWmC28+EQCpsOSY0WTMbuhZApllLfjH/+UM1yiN
-	+vHeRUf1JQ2FoarU7Ne9KBUlRDlkCPcc/d9OjINGbNG3jMJcZukXoCURNWjPUMt/k4FI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xNb8Q-00DfA5-RQ; Sun, 01 Nov 2026 20:22:30 +0100
-Date: Sun, 1 Nov 2026 20:22:30 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	Thangaraj Samynathan <Thangaraj.S@microchip.com>,
-	UNGLinuxDriver@microchip.com, netdev@vger.kernel.org,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Russell King <linux@armlinux.org.uk>,
-	Oleksij Rempel <o.rempel@pengutronix.de>, stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>, Cheng Wen <wencheng@xidian.edu.cn>
-Subject: Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop
- phylink
-Message-ID: <2af2ac6e-7993-4566-92ed-c22eb7541bf7@lunn.ch>
-References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
- <e71cccdf-59e5-407c-b536-9dd47a49b0a7@lunn.ch>
- <179351078879.2591.15287457752530436149@stu.xidian.edu.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qfyPa/pj
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48bbb06e746so963584f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:24:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793561047; x=1794165847; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5dla/eqbb2IMG2xm59fzp+ARiaZoRPt3t8rJalIczyY=;
+        b=qfyPa/pjNiiI17EcvqcCi73zZWgmWmB3QzpqBqTnaRIlduYwe8C9lU+XL8jQfh+osm
+         M/7qmbi3I89oJA6HKKihS6oU/Eh3WCScTvkDTE4Zu/h3E705kesenk88j1SqDi/kL5h2
+         77//GaIRpCmF3+fkTNCmDxPb0m6S/mpJ2W6WDOM4l0qp/fXxQkO/RgfzKtPX2MMK8uPn
+         kOk+XSmTMJQY2pnEfLp9D6XgZ/49HqALtaObDjBj6UKgn/0LxVaZG3Qy2uClTbvxx9h0
+         +4oHY1ulR7F5SBlZgQRYQsKlJyH9pO7aBicAPVhOXtZ+v6GXb4v2JF9RpxBkhgjY3vyF
+         9lNQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793561047; x=1794165847;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5dla/eqbb2IMG2xm59fzp+ARiaZoRPt3t8rJalIczyY=;
+        b=J9EUsG1B4lamCvF6Xx38gfc9wP6R4+sB00OAA5Rxuw/y5GYuJVpynbVAYyktUa7brU
+         jGLbGyZkyxgaXqpXSLebxL9aoXTXwCezQhWz85sd8erR1zo480zFQ5T96R4sWXr+nicR
+         yvegO0masH9U6eDkREw06fmphECBtS0HwtMrY9rLN3nd6OirgFRcgAv0AasOU4F3iwuW
+         /yMihF7Uohh4P5NQak4L9KYYEojaaNlMmW2IMeLU3ZnEl9hLKTbU6vt0/JX647Mlfm+J
+         ILbYUAfqlmR64l0DqlWqX3wPhbAJh6DANq+mMnj+v0V1gXSXuVamJsgf+JOBMz/ckb2g
+         9xkw==
+X-Forwarded-Encrypted: i=1; AKwUvBxtbVwHdMbGmM/ao7kyEuZuB9GXyQfGSmYYmGHIegu8RLWHBw3Bb+Ravb6FjL1EsNaHxFph+vCoiQnKXXQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/OvNHO425KfD2BMnPLTShtPcb28WI6xbMp3xPkPNLdvdi3hLc8
+	PCPikIFdcoxJA5rEzcdGZwArmczIWWUw/0XtBnwMEmVmZ9lkTUwy2gRL
+X-Gm-Gg: AYBFou2ItF467yx2zF7+q/W03FJSdmY563xlawwngyos3YBspAOiIcv2NlgHIf7MYgQ
+	RN/w51m0nDx64HgvS2saP36LugONQKzTfnMchN4xxbkdUQbmU/eYKbCt/bL2Kn3uSqa3nMzr4IB
+	mNxqmgoJdn4tgo6/zDJaK7apiAb4Qgx7bz4THJeGYoxA4z+xYiR98ePPqhinUBUDQ9dAnycRkVy
+	s/8hjN1PIPQ+Y5fGBLp9CL+YkhXO/y2s0eFIEEeMb5Q6sEiLmtpTjF5x12ZOoSCKjTi9GA/mrTC
+	OU2nHG48+8cQ+P04cBf/MurBrrIlSLWj8JkcPs/QCLf2ZobwjCbfrfkg+MfVeCDzAbY6WwZtozu
+	KYH4D+OrNwZaCU70rJ/EFsub1p1PB/kG9FJbumrh/gANqPITJSsIB+wy6ZGU9iY56pr4cPKqTXB
+	sQNZm5PUqqlnDNhGvv4qgPKOXLMOTLHhl3FSQAZNOXBTDDdW4MwIdf//b9YLlvOx30qjcYMAu7f
+	xV3j2drv651WuW2vN//cRLHCQoSaKVWDyx6UXwN2QguljCObf1xuk39YvTa17Oc0vYgeCzYidLB
+	GQIWI8+t+2cpkl0GkxcFMo5aayqF6PPNBhe7ZA==
+X-Received: by 2002:a5d:4c8e:0:b0:48e:1c2:55a1 with SMTP id ffacd0b85a97d-48e6e500505mr14645535f8f.52.1793561046625;
+        Sun, 01 Nov 2026 11:24:06 -0800 (PST)
+Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:1cfb:88cc:8567:d293])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba7168sm17032738f8f.55.2026.11.01.11.24.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 11:24:05 -0800 (PST)
+From: Avi Weiss <thnkslprpt@gmail.com>
+To: jstultz@google.com,
+	tglx@kernel.org
+Cc: sboyd@kernel.org,
+	mlichvar@redhat.com,
+	frederic@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Avi Weiss <thnkslprpt@gmail.com>
+Subject: [PATCH] alarmtimer: Trace the requested expiry when starting an alarm
+Date: Sun,  1 Nov 2026 21:24:02 +0200
+Message-ID: <20261101192401.858702-2-thnkslprpt@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -69,29 +98,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179351078879.2591.15287457752530436149@stu.xidian.edu.cn>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 01, 2026 at 01:26:28PM +0800, YuanZhe Liu wrote:
-> Hi Andrew,
-> 
-> Yes, I did, but it ended up at the bottom of my reply to the sashiko-bot
-> review, which was not the right place for it. Here it is directly.
-> 
-> e110bc825897 is the commit that introduced the call which warns. Before
-> it, lan78xx_disconnect() did:
-> 
-> 	unregister_netdev(net);
-> 	...
-> 	phydev = net->phydev;
-> 	phy_disconnect(net->phydev);
-> 
-> and phy_stop() only existed in lan78xx_stop(), guarded by
-> "if (net->phydev)". So disconnect never called phy_stop() on a PHY that
-> had not been started, and the warning was not reachable from this path.
+alarm_start_timer() traces alarm->node.expires before updating it,
+so alarmtimer_start reports the previous deadline on rearm.
 
-Yes, thanks. I see this patch puts things back into the same order as
-before phylink was introduces, so it is correct.
+Move the tracepoint after assigning the new expiry.
 
-       Andrew
+Fixes: 183d00b72713 ("alarmtimer: Provide alarm_start_timer()")
+Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+---
+ kernel/time/alarmtimer.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/kernel/time/alarmtimer.c b/kernel/time/alarmtimer.c
+index ea5be5870e515..f6d2183aa4e3c 100644
+--- a/kernel/time/alarmtimer.c
++++ b/kernel/time/alarmtimer.c
+@@ -351,10 +351,9 @@ bool alarm_start_timer(struct alarm *alarm, ktime_t expires, bool relative)
+ 	if (relative)
+ 		expires = ktime_add_safe(expires, base->get_ktime());
+ 
+-	trace_alarmtimer_start(alarm, base->get_ktime());
+-
+ 	guard(spinlock_irqsave)(&base->lock);
+ 	alarm->node.expires = expires;
++	trace_alarmtimer_start(alarm, base->get_ktime());
+ 	alarmtimer_enqueue(base, alarm);
+ 	if (!hrtimer_start_range_ns_user(&alarm->timer, expires, 0, HRTIMER_MODE_ABS)) {
+ 		alarmtimer_dequeue(base, alarm);
+
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+-- 
+2.43.0
+
