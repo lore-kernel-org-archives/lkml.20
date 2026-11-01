@@ -1,92 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793509009;
-	b=Xwhj78eDM2Ezg+ERIJS673SpH8ltud9K7fSt0ZSC2XnLk3bdMLipNWawsmV9ru1upGnu
-	 UYIDTGVe+yo0o/3JSV/aHqS83+gkZkytKgiYG1bLxvNtYvvNhiAwDG+zWr3jiQXr+2Hhu
-	 5IdkLkqi8NtOP4KJX35PKvMmc5FWeruzAqcUBt7v8donFlUczi0O39pofagdHXXqlLgu9
-	 lqapcP2RUG1uzxX4qZxLnIPZJj9kDTS0DdVEm2we59xEFhtM2qIDChZgrl4khA73Egy6M
-	 zqR9KRkZbCMjm13+ddYHqkClfyd+cFR9EiwoNxttNg28V0q5bgbe2E5CTBOEkEZuDnQ==
+	t=1793509563;
+	b=OBIbDin0SNOeCd7crzgZrSoouW8YgJRQVUPpnezlIQDvgkkoJENsCbP017fkrcUZItiV
+	 rpE8ShM28Opfx6Lfcnkbd4HPRhd7m8vRLteNgeHeeTF6Loo2yaw0WMTbhe00DoH3FaHPd
+	 Fy349XjN3yL2ALGXpHPj0CcjvV1JhyRRVG3OTIsJaY0pkx19WfHyqbUg1ZId/GVlGNJcj
+	 307zCntdAarpaic0LdaC7C6pwrONUrhUInzMrITEoo6VYBJvglz4UACqtvn92myL+2Nr8
+	 H7WZXJHOT+/IugQGomASwNz4JCT+vVyfYTLVwVUTsD4O0GA7tlvrVZLohoX3d9XSpzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793509009;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=LeJF4Pxpn6+eTYyORgX2n47bZp/eNndLgg0fRZ3I7Wk=;
-	b=WgKAtoCRG+wckLvXFcdL75gvl4jav0EGRRkGIASqNDe1KTdwNzQT+LhviWUy7mlttuNw
-	 Kintg92RUKXwP0Q4MJDCiJdfoUuwcEy4AmTANys7S1QEAISvnSTA2qXaZ2Q1UQ2RCfzSg
-	 3/9qJN4MK4JMveRvOqWjX/COz4Z48uHo8g9PU2CXqSVOdKgz8qPE/pGiyNbum4UOKE87U
-	 41YQ1AgyPeSnVYxcZITJW5ZmxK7ZnKthW5xph0uQ3QTjU/RwsLhAIlNnER+MJnzyioiNW
-	 EJNdf6QnQePbjm5V9lQ3XaRdJyviUOH3sBpSXVhp/mbt0l/3E/ujUw/NlNWSSX0MeYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793509563;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=oKt03IBoj025m7//QTcbRHFKe7Z2qoFZaKWmpUpZm2s=;
+	b=0FZkJQGcBuJu/SEG75QbNpo5jACM4qPbvyeYU9UZXDnXohvwhUSBuN7/z62Ox/SxOve3
+	 ZV+IDrBpL7UfhlCc5szMnloOsmg603XRKPXPx/3waeHR6RR1la2bQ3z21MERMX//LDnBI
+	 ZtaMi3ff0mqScWHnknP4/zRpLgeuIGATbjG02Q0DiVAuGBz6C/QrFjeY49num3Fx+MSXA
+	 sycTpQAoTNmysxhlQrS9dH+ORQPaVC5xVC6S1WU4UIVxzGZKvk3qyufe/c3xBZOHkutjM
+	 0/U64Hd2pnv3eiNHqCrszI6PHsatoDkTFypjxklddPzrxhoYUffYpYo1t3sKStD8Dww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ewd66BYO;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=intel.com;
+	spf=pass smtp.mailfrom=intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b="Wi6VUG/e";
+	arc=none smtp.remote-ip=198.175.65.14
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2AFE606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 04:56:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F2AFE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EB45606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 05:06:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0EB45606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ewd66BYO
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so14944485e9.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 21:56:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793509007; x=1794113807; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LeJF4Pxpn6+eTYyORgX2n47bZp/eNndLgg0fRZ3I7Wk=;
-        b=ewd66BYOVFhhLJiU21aR5INRXtJR0B7ja3aShUQhPKtHiGJ9uSkzigOGYsbo6lWooj
-         QEAAiWlOYnMlOCsr100K35p2EgUM9PWPUtGTa+AeWFotLPOJAwl7pCplfwbrkn06ZNdb
-         Ssn5EZ9nru9fcxmikCEEJ+d1gVF4VUyAnrLS/t1wm7H2c5Bq9EwWKtyXuIUNu0lhNs0v
-         FgbrRCt+0KB49MYNP3adNy/Nhio3qkk3iE9j1U9McnE2EwLHV/AbkIBqyu6LdAif+Mip
-         j8bZvH547TYhfm+pJPLYp9N2PayF8JvSGXmNqHYk+dCMTXZEZMzGC3I/9k7sla3KLCz7
-         3XMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793509007; x=1794113807;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LeJF4Pxpn6+eTYyORgX2n47bZp/eNndLgg0fRZ3I7Wk=;
-        b=hZF+M857p2AgMsO6Wz2/Z19SkBXfIezKSjZZ2nukL1nnz85dil6t2xKawk2z0wnEG6
-         Rscx0ylEjWMZmjXyQawHXUftmGO0VVUKkGwy/I21PKlvhEK5hAqp9AVXJ+Y8PB6BcyNq
-         2IJditlpbZdBar3kExHUrFA3XLwAVIBhGkWZr/xVR+ssSttHu2ZZDd4I4d1laQ+VJXoh
-         6DN911EmPDqY5YDoxgDGh/CT0sYY1VZFUDobNyGfZiPd6oHvpSpXOgIcNfNgPyJFt2H6
-         19zTn3eyITv3zDjh8rs3vzDJ55+2FQi66ZRlZmIVTfsHK/xCR+COuD4xhpiJoMkwH/Iq
-         EZcw==
-X-Forwarded-Encrypted: i=1; AKwUvBzevO2FqfIwjT7A3y4Q+NfD0yp8xFs03svG8HkCza0jOdRir7jlmHVKepUwxNueDf2M5tpVSI0LIZ1d42Q=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKLOve91XO2lZs98qg5vuv+qsgafp+7WIEwu15oPY9OJWesmJJz
-	gQ9wr1T+QYFszx7rVWoJzpMx/IXYxkO9u3YXodyK06fko9v02/QXWmuD
-X-Gm-Gg: AYBFou164kLcyj+zrlzlqZr5Bat2u2P54VCmB4fN4Zc8SGS6gr7xOybEI4qUZytdDWT
-	U5Cmy2hO4f0zW1cAEh5yhIg/Iu+Kgc9P/1jB03XdMnMQ+riBY3dT42eZfbyVbbZ2Me8nHHgrWEm
-	JF0hzByPDCmu1kJbOboXlKbv295IY36m9ZdI42tt0UbzwaFr9gW/8SBSLvzVRyolvqJXKrN7fEo
-	dWxDn0hb0+iwlxHdtAzcfXeKYbQVDLin1j1i6NtJCJJxdQ6Y6wc44pdIVKkLBRMgME5JwP5otZC
-	SGMJdgD3w0opyAM5dBzuPVtCZjCgVs2QKJFwaVjsisGELOj3D0m+lg4OFIGYiABOnoea1J4xgej
-	z9zQ7+gbolB2orOYjGd0OUtZX1om2IBLMvbV/Bhfnc0Ysbs5VOV3t7cujSITkP4X1cqieBfq0uq
-	wdDUIvHnsatvM/oYsPFKuVOT6wpVYOM0VN5mAQ2cDmOkeukUjwpGTeZaGu/NOoHoBsZoL7hZzA+
-	dPW9xOh0odmhfwB90vNJXLy9UN4BC93KoKeQCyuTsqJFNLNKweFqy/zCKALPw8REJeYhpYezL6F
-	VSDD9S3ECB9Pjf7PSBHUo41fu6Yle6Cd
-X-Received: by 2002:a05:600c:8483:b0:4a1:dda8:eb73 with SMTP id 5b1f17b1804b1-4ac1889d4b5mr144561925e9.27.1793509007271;
-        Sat, 31 Oct 2026 21:56:47 -0700 (PDT)
-Received: from thinkpad.lan ([2a06:c701:4773:6f00:56ee:931:5944:26f7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf0b36853sm157791665e9.0.2026.10.31.21.56.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 21:56:45 -0700 (PDT)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: tglx@kernel.org
-Cc: radu@rendec.net,
-	maz@kernel.org,
-	linux-kernel@vger.kernel.org,
-	Avi Weiss <thnkslprpt@gmail.com>
-Subject: [PATCH] genirq: Resend pending interrupts after handle_simple_irq()
-Date: Sun,  1 Nov 2026 06:56:28 +0200
-Message-ID: <20261101045632.218099-1-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=Wi6VUG/e
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793509561; x=1825045561;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6HCXN7YioSzOzhr/4EO5NIRQku4j7L9Jr8wKtgoLglA=;
+  b=Wi6VUG/ermI4EqM+edbv1oTfrCn9Qn2SkxWbjPB9HVnAmJFVbAD9Pem+
+   XIMEVPfdGjoimHIgS42rexw93kGdfg3r5CzfQY89tY2QYMZUb9Y0Mm/tz
+   A6H60MorjQjen0s/ZLX+cYbXFg2Pzi4gbWEtixP4e3moNPqJbC/EnpdGf
+   /Uydv8JI/jUWjAstMeAsQCKT2GVsniUd8SHmX8Uxuz5ZDV/rgkDi81WXq
+   6rCme1vu45xE0gesUvm5EXLyTO2g0INsKVNHxgWNn2uZPDCwI5/BXUWB2
+   bHdk5zcZqgPkkl3TbY7V5UPOq2ME844hcV72Y1dqAlpHY975IGTF1hF2D
+   Q==;
+X-CSE-ConnectionGUID: gooeEcBOTOOyfH5GC2eJ4g==
+X-CSE-MsgGUID: auM09aFrReColUADeNAFHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11952"; a="2103800"
+X-IronPort-AV: E=Sophos;i="6.27,189,1787036400"; 
+   d="scan'208";a="2103800"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Oct 2026 22:06:01 -0700
+X-CSE-ConnectionGUID: dKH/iTkPRkKQyZlw/QZq3Q==
+X-CSE-MsgGUID: w8aILaraR9iujBxEWgLFag==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,189,1787036400"; 
+   d="scan'208";a="6114101"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 31 Oct 2026 22:05:58 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xNNlT-00000000dRc-3bGh;
+	Sun, 01 Nov 2026 05:05:55 +0000
+Date: Sun, 1 Nov 2026 13:05:20 +0800
+From: kernel test robot <lkp@intel.com>
+To: Jenhao Chen <jenhaochen@google.com>, Nick Terrell <terrelln@fb.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-kernel@vger.kernel.org,
+	Minchan Kim <minchan@kernel.org>, Martin Liu <liumartin@google.com>,
+	Ben Wei <benwei@google.com>, Jenhao Chen <jenhaochen@google.com>
+Subject: Re: [PATCH] zstd: Build with -O3 and use shift mask on arm64
+Message-ID: <202611011223.PoKyD37Y-lkp@intel.com>
+References: <20261030121633.258612-1-jenhaochen@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,40 +83,37 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261030121633.258612-1-jenhaochen@google.com>
 
-Commit 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an
-in-progress interrupt") records a concurrent interrupt as IRQS_PENDING
-when another CPU is still handling the IRQ. However, handle_simple_irq()
-does not consume the pending state after the first handler completes,
-so an interrupt arriving during an affinity change can be lost.
+Hi Jenhao,
 
-Check IRQS_PENDING after handle_irq_event() and request a resend, as
-handle_fasteoi_irq() already does.
+kernel test robot noticed the following build errors:
 
-Fixes: 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an in-progress interrupt")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
+[auto build test ERROR on akpm-mm/mm-nonmm-unstable]
+[also build test ERROR on linus/master v7.3 next-20261030]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Related 2025 patch/review: https://lore.kernel.org/r/20250708173404.1278635-2-maz@kernel.org
- kernel/irq/chip.c | 2 ++
- 1 file changed, 2 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Jenhao-Chen/zstd-Build-with-O3-and-use-shift-mask-on-arm64/20261030-121633
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm.git mm-nonmm-unstable
+patch link:    https://lore.kernel.org/r/20261030121633.258612-1-jenhaochen%40google.com
+patch subject: [PATCH] zstd: Build with -O3 and use shift mask on arm64
+config: nios2-randconfig-1000-20261101 (https://download.01.org/0day-ci/archive/20261101/202611011223.PoKyD37Y-lkp@intel.com/config)
+compiler: nios2-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261101/202611011223.PoKyD37Y-lkp@intel.com/reproduce)
 
-diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
-index de754db414d1..4a131dd72196 100644
---- a/kernel/irq/chip.c
-+++ b/kernel/irq/chip.c
-@@ -626,6 +626,8 @@ void handle_simple_irq(struct irq_desc *desc)
- 
- 	kstat_incr_irqs_this_cpu(desc);
- 	handle_irq_event(desc);
-+	if (unlikely(desc->istate & IRQS_PENDING))
-+		check_irq_resend(desc, false);
- }
- EXPORT_SYMBOL_GPL(handle_simple_irq);
- 
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202611011223.PoKyD37Y-lkp@intel.com/
 
-base-commit: e9954f3fbddd25e1a01b7e5a0b72fb8b564204e0
--- 
-2.53.0
+All errors (new ones prefixed by >>, old ones prefixed by <<):
 
+>> ERROR: modpost: lib/zstd/zstd_compress.ko: symbol '__divsi3_table' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
