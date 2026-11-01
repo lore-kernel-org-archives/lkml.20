@@ -1,92 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.104
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793575224;
-	b=dvBl1c+F4Zx1wfcaKjHksFyxJUeOzaqlimvx6c4IAyOfydlcRI1G1m8sXUjKuSWR43m+
-	 ZrpTfCnUkSzJptKcsqoMgl84w57O3l2uZIX2cVvA9IfPLmzbbkRSeCWFJCnB8QVhW1497
-	 YIvOR8FLmcFhsGtASX/LPhrVujRyhoPBgzW/XSaHGvMVDAVgiVHGesCHrf6DIJtDBKGOf
-	 XwWU820kC2YtQAmjzDK+8SwPA5UPOas1lg98uxygaGFbAU2mRpkYs/O0Uwhp1RYA7HHGj
-	 1zY4Knmk9pKWnDavJ9hHd9d4myw/aPEt1vaqysW4VONBHPCIRy0ki8M+XYAQ+bmvolA==
+	t=1793575246;
+	b=Ss6+ovC2iSuUspEcybBHXQ+YE9atSt5C5tBiiCttn0WVUz2SGxckMupSIegDE5pJGsGr
+	 O/in78n8yj+7StWDmN8sd4t97v7xINQpDQSwL38/IISxpZaqQ3+FRP+8Us/TsqURxBomE
+	 neCT9F/d51O8GtO6XwNGHvrWnd9LXUheesGQP8VQtNPxe8jypMVmQFDSg7dAg6xr++rvV
+	 F78iqmJkQLlM3+F4ZxSRq3r0KjUddkvJtdAbk2GnI5v0D7vbSkJkx5EpX0fv/rQUUEhGe
+	 dszsZjEIyNUlryRoBI0j1WxzoL8LS8fJ4ZTZ2mLc+IkxozyP6X1Z1aZIX5NL9zwTZsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793575224;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=CMz7QH5hxHuI4HppoMOO6E5SNWmF8pkb67kqxTZZ+hI=;
-	b=UHZss0bWh1AEmD/RamO4jScqpG3sRdZO4J9SmCVDt/uDZnarJCcgU9yRfXDpqRy/OReW
-	 ipFh3Mr4oAbSRx7R34CS9EZBpOx3SBObv+QnrZ6fizVLznaSSNw6zICiKGYB3iw6br4eG
-	 M8YV3dnHN9Cvjs2q67szqFjJ3a/NaX/MgLYEuznoikrVJh/nrIIHkSjZVrz9y8Wx7spQp
-	 CPEoALV/o6pNc3Npu1XLREaC40E879dqt9lux/NL69xwkLBmzo4Zb7lzxJoTXbp81izoR
-	 kZ1CMb4ipGh2gZYwYpMpgtwaW1FqrPUPx3yyRPXUUi8kwAWzKC5BwlfBxU93Rx1PwdA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793575246;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:Received:Date:From:To:cc:Subject:Message-ID:
+	 MIME-Version:Content-Type;
+	bh=DN2qS6zGxd+41Wpysh4jKjE7aUcT+0wcXmczyVLoNZ4=;
+	b=5GWhE7ue37X1Td+KOqDUAu5S+M6v40Sfs9KmNOXWxaFLfQTug0Kd32OFNdxuMwUrbj8Q
+	 shswomLKpA2IZqQUENoxi7SyK/wq8ryCQnhXRwNwjcIa1ayrzkHB8NrEEfxumgpafz6xj
+	 8NodESEaq5aFaO4r27b6i+QSjVUkGtXiHBEbOdTYvIRmZ0y1uQWeZ6n4a6zOp9QwWLaZk
+	 jFrDMeU414D6Ab/JFsh4qGje+gKduigzuLO7+nQAv82NSlvQ1gXQb20bbcNCtZ7/CKTO+
+	 v73A+xtaC5664yjj/4HBGTDC/U+6e+Y5YhAU4gHkvNGIBHwpCJwroa1U8z9XlQbRfbQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=googlemail.com;
-	spf=pass smtp.mailfrom=googlemail.com;
-	dkim=pass header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=zQ+VRDRs;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=inria.fr;
+	spf=pass smtp.mailfrom=inria.fr;
+	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=sur1vkFH;
+	arc=none smtp.remote-ip=192.134.164.104
+Received: from mail3-relais-sop.national.inria.fr (mail3-relais-sop.national.inria.fr [192.134.164.104])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A192606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:20:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2A192606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31D2B606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:20:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 31D2B606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=googlemail.com header.i=@googlemail.com header.a=rsa-sha256 header.s=20260707 header.b=zQ+VRDRs
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so18496705e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:20:23 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=sur1vkFH
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20260707; t=1793575222; x=1794180022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CMz7QH5hxHuI4HppoMOO6E5SNWmF8pkb67kqxTZZ+hI=;
-        b=zQ+VRDRsAihzfyiAc0GNDklzPpgtkWAJKz5g19TQ5p5QgSim+4BrF1LhyKrdj5ZEFf
-         Yy0ukBfGR4wtoPLiq2UOBolnqVLNOt1HiUtPtPblu0JVSyN15T0UfyTf8PPLwAR1ptAL
-         hT9MTGVJu/V3l47aIP+W89VeNK65Nyxad2UMuIneLEI29gOFdpcB9+5ooGQQr3P/o4rB
-         CzI/VB3WYAx6L+bphqjz7fOhtCtzhE2gcBd3NWkkKy3Oe/CY0eAPEna972ToFcBAdFMI
-         JKYzn4YxY0dliqLEYQdfGmzTrYYxGIM3cPFCmJ8hY2DUDLOAPL8FDJy3pyTMfcG1jQ4h
-         rz6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793575222; x=1794180022;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CMz7QH5hxHuI4HppoMOO6E5SNWmF8pkb67kqxTZZ+hI=;
-        b=bwy/+ci7jPx1qidvHSFT0JE9VfQyFdVCLFltXBlz7ewl5UTuDMaJElOgT96F/iY5wf
-         dF67I5Mpkde/HTSvwlpOnX6q7i89tFrEuiDy4xYkPBVDYSrUhBUF0+ciZ/VPTFJ4fMPX
-         2acgHHO8HJ8NfGg7/tvxecAUqbVvHWrMRvPYRaWki8A4YREUAX8bBck07ujTy7nuOWxx
-         BCC12jH9wIGMJu4B8Snotu6Z/NG/JrX5zdHbsx7Z+haEnoUZzuz1blFd8AH7dncc9oPK
-         IakOKFEAHh+qdFUMOXcR2OXqZHW99VF2NypZ21kT+58gVlL9KajB/QKkwslNxBv6YCCa
-         o1/A==
-X-Gm-Message-State: AFq9FYKY2nZ98AH5CKDI7TW5UxF/tL8Lsz27VFtpB5UklBqV5oKovjV6
-	STLGPFe75F9dlPfapmUL4x3zdZD3wjGCqVfH/G5t3WFd61ItnZJUj+Rx
-X-Gm-Gg: AYBFou3aJqIzFWeHoKdBtm9g/s4qK1Kcn813wWx4cvRH+dMkUSRXWP5p38VWAWQoGba
-	Goy7Wy/xvRpEKjdUVx1GperTNuBVVjdOqKoqFGh6W0F3r/7ZLV9jIxrPiE7ZreiHaMPyrMIUK/N
-	+oT3091MPqNJJeh5sR7Dv3JTF5uUKAfFHl8dncXCwwamcV165xoRa2di39f0+xDY2TqeB3T9t7k
-	sCuJwGd1F5iqZgsTJPbWfN0g4h2pl1ZlyelYeUjdV2KqTKeudqQDEWWNt39fpixUQ26rzbz5Tgf
-	zJGS8njYld4cf/7P+jO3RBb1FehkSiDkIpkcA88IbddNAYTtbSDcmPw+z7iZqQgQ7BqW1DnIg39
-	p92yGaLdoGWKGuw6YcSXRwRpHYE/VSVqjRPaR/2h5tmKIuGtap5L9WyXO8CN3q/lPZc6/tcA24t
-	W5+6JUZYkuPIILXQ2k8pvFqGFGXUefmUbvT+YpaBRpVfMcxCacLJ9z7xfO9hYUewBllQyKg6Hhg
-	r1EG49pImcr9LaR3mvWQtGaHnTfDER5F0MCGY+rJEVhk8FZwYg4/8inXurn7v0L024kA90YVXzf
-	tHmG3JC3pKUw/154vIVf5XalXT0DTNgp6o6teBAAdRkQ0k2jz7hyQib8O08rgoYvaf2tF/4HMju
-	HkCGUJgvENnd8v4ym3wQAs1PVVc9h62zQG9vAQBuYN6ovkK0J9L73SyO8
-X-Received: by 2002:a05:600c:470d:b0:4a2:191f:7cb8 with SMTP id 5b1f17b1804b1-4ac1899378bmr187344695e9.17.1793575222418;
-        Sun, 01 Nov 2026 15:20:22 -0800 (PST)
-Received: from blackbox (dynamic-2a02-3100-b1d0-8200-f22f-74ff-fe21-0725.310.pool.telefonica.de. [2a02:3100:b1d0:8200:f22f:74ff:fe21:725])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04785sm303691815e9.4.2026.11.01.15.20.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 15:20:21 -0800 (PST)
-From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-To: linux-amlogic@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	neil.armstrong@linaro.org,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Subject: [PATCH] arm: dts: meson8m2: add dwmac 3.70a compatible
-Date: Mon,  2 Nov 2026 00:20:11 +0100
-Message-ID: <20261101232011.1172410-1-martin.blumenstingl@googlemail.com>
-X-Mailer: git-send-email 2.56.0
+  d=inria.fr; s=dc;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=DN2qS6zGxd+41Wpysh4jKjE7aUcT+0wcXmczyVLoNZ4=;
+  b=sur1vkFHUFM4tdopFk453RMy0yzNeGFzo15QkmRsOjong5vtylwkc2Mg
+   b2acZclxfvTsSwhszQpKDwTsQT97YcvS3/d27hRinjCiHZvg3c02W3BXH
+   ViK4uQdDW8dFQnry4i8jpSmnV9m8yI6ot/dBYRKFVWnDv6msSPNJop3Tc
+   k=;
+X-CSE-ConnectionGUID: seC/1H/YRD2C1QvPGX9PXw==
+X-CSE-MsgGUID: 4emA+J89SAm/t9cYuuNo8g==
+Authentication-Results: mail3-relais-sop.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
+X-IronPort-AV: E=Sophos;i="6.27,190,1787004000"; 
+   d="scan'208";a="161430623"
+Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
+  by mail3-relais-sop.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 00:20:41 +0100
+Date: Mon, 2 Nov 2026 00:20:41 +0100 (CET)
+From: Julia Lawall <julia.lawall@inria.fr>
+To: Pasha Tatashin <pasha.tatashin@soleen.com>
+cc: Andrew Morton <akpm@linux-foundation.org>, 
+    Linux Memory Management List <linux-mm@kvack.org>, 
+    "Mike Rapoport (Microsoft)" <rppt@kernel.org>, 
+    Pratyush Yadav <pratyush@kernel.org>, linux-kernel@vger.kernel.org, 
+    oe-kbuild-all@lists.linux.de
+Subject: kernel/liveupdate/luo_file.c:558:5-13: ERROR: invalid reference to
+ the index variable of the iterator on line 553 (fwd)
+Message-ID: <a1b79e2b-e960-b6de-9139-fbbd13bfb2b3@inria.fr>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,31 +67,122 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-The Meson8m2 DWMAC reports User ID 0x10 and Synopsys ID 0x37,
-identifying it as a Synopsys DWMAC 3.70a core.
+luo_file may point to something random if the break in the
+list_for_each_entry is not taken.
 
-Add the "snps,dwmac-3.70a" compatible to match meson8b.dtsi.
+julia
 
-Signed-off-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
----
- arch/arm/boot/dts/amlogic/meson8m2.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+---------- Forwarded message ----------
+Date: Mon, 02 Nov 2026 00:06:55 +0100
+From: kernel test robot <lkp@intel.com>
+To: oe-kbuild@lists.linux.dev
+Cc: lkp@intel.com, Julia Lawall <julia.lawall@inria.fr>
+Subject: kernel/liveupdate/luo_file.c:558:5-13: ERROR: invalid reference to the
+    index variable of the iterator on line 553
 
-diff --git a/arch/arm/boot/dts/amlogic/meson8m2.dtsi b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
-index 6725dd9fd825..cdc47ee1a233 100644
---- a/arch/arm/boot/dts/amlogic/meson8m2.dtsi
-+++ b/arch/arm/boot/dts/amlogic/meson8m2.dtsi
-@@ -25,7 +25,7 @@ canvas: video-lut@48 {
- };
- 
- &ethmac {
--	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac";
-+	compatible = "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac";
- 	reg = <0xc9410000 0x10000
- 		0xc1108140 0x8>;
- 	clocks = <&clkc CLKID_ETH>,
--- 
-2.56.0
+BCC: lkp@intel.com
+CC: oe-kbuild-all@lists.linux.dev
+CC: linux-kernel@vger.kernel.org
+TO: Pasha Tatashin <pasha.tatashin@soleen.com>
+CC: Andrew Morton <akpm@linux-foundation.org>
+CC: Linux Memory Management List <linux-mm@kvack.org>
+CC: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+CC: Pratyush Yadav <pratyush@kernel.org>
 
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git master
+head:   6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+commit: 7c722a7f44e0c1f9714084152226bc7bd644b7e3 liveupdate: luo_file: implement file systems callbacks
+date:   11 months ago
+:::::: branch date: 2 hours ago
+:::::: commit date: 11 months ago
+config: x86_64-randconfig-2103-20261101 (https://download.01.org/0day-ci/archive/20261101/202611012349.RESCKElP-lkp@intel.com/config)
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Fixes: 7c722a7f44e0 ("liveupdate: luo_file: implement file systems callbacks")
+| Reported-by: kernel test robot <lkp@intel.com>
+| Reported-by: Julia Lawall <julia.lawall@inria.fr>
+| Closes: https://lore.kernel.org/r/202611012349.RESCKElP-lkp@intel.com/
+
+cocci warnings: (new ones prefixed by >>)
+>> kernel/liveupdate/luo_file.c:558:5-13: ERROR: invalid reference to the index variable of the iterator on line 553
+
+vim +558 kernel/liveupdate/luo_file.c
+
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  517
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  518  /**
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  519   * luo_retrieve_file - Restores a preserved file from a file_set by its token.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  520   * @file_set: The file_set from which to retrieve the file.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  521   * @token:    The unique token identifying the file to be restored.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  522   * @filep:    Output parameter; on success, this is populated with a pointer
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  523   *            to the newly retrieved 'struct file'.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  524   *
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  525   * This function is the primary mechanism for recreating a file in the new
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  526   * kernel after a live update. It searches the file_set's list of deserialized
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  527   * files for an entry matching the provided @token.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  528   *
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  529   * The operation is idempotent: if a file has already been successfully
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  530   * retrieved, this function will simply return a pointer to the existing
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  531   * 'struct file' and report success without re-executing the retrieve
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  532   * operation. This is handled by checking the 'retrieved' flag under a lock.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  533   *
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  534   * File retrieval can happen in any order; it is not bound by the order of
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  535   * preservation.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  536   *
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  537   * Context: Can be called from an ioctl or other in-kernel code in the new
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  538   *          kernel.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  539   * Return: 0 on success. Returns a negative errno on failure:
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  540   *         -ENOENT if no file with the matching token is found.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  541   *         Any error code returned by the handler's .retrieve() op.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  542   */
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  543  int luo_retrieve_file(struct luo_file_set *file_set, u64 token,
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  544  		      struct file **filep)
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  545  {
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  546  	struct liveupdate_file_op_args args = {0};
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  547  	struct luo_file *luo_file;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  548  	int err;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  549
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  550  	if (list_empty(&file_set->files_list))
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  551  		return -ENOENT;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  552
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25 @553  	list_for_each_entry(luo_file, &file_set->files_list, list) {
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  554  		if (luo_file->token == token)
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  555  			break;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  556  	}
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  557
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25 @558  	if (luo_file->token != token)
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  559  		return -ENOENT;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  560
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  561  	guard(mutex)(&luo_file->mutex);
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  562  	if (luo_file->retrieved) {
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  563  		/*
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  564  		 * Someone is asking for this file again, so get a reference
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  565  		 * for them.
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  566  		 */
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  567  		get_file(luo_file->file);
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  568  		*filep = luo_file->file;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  569  		return 0;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  570  	}
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  571
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  572  	args.handler = luo_file->fh;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  573  	args.serialized_data = luo_file->serialized_data;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  574  	err = luo_file->fh->ops->retrieve(&args);
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  575  	if (!err) {
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  576  		luo_file->file = args.file;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  577
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  578  		/* Get reference so we can keep this file in LUO until finish */
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  579  		get_file(luo_file->file);
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  580  		*filep = luo_file->file;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  581  		luo_file->retrieved = true;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  582  	}
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  583
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  584  	return err;
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  585  }
+7c722a7f44e0c1 Pasha Tatashin 2025-11-25  586
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
