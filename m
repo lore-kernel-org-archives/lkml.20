@@ -1,59 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793533742;
-	b=CfODO5RZL7DOzkVNbLfaloJZRUUm6tabvKcofB3cSjGJ+S+hcAUk7oVrD4ohFkELtLvp
-	 PUaWy7uedrhVYwnWHv8ihOFHa2MIe+bgsyvL0d2ZS5w4APmT3sJR286+fbGtCXY/Y+6fH
-	 gNeLTV2QYyJtpu2U5M/hdBj7UwcqM217y/TRNKB9WeV5yKJkzx20WljG8b8uU2OgkO9CH
-	 RzcRV3y4oX+US/iQsabPZpNXc/ZOiObBq1APbRaXPF+U99ry/RS+tsIj/bmaQzVQasMP+
-	 Tgxb08bUz1cRJMSKhdiR82OPwI0cv12i9vdgLusx3+O9I3Xq+GckGt4uSN7Ys+MsOSA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793533742;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=uhqQZWYhQfQseqw3TWhQ06TGIfzrnlFvPN/L9zUwqpE=;
-	b=y0/8LU4ChWARF+3Lvofwq55U5vmt+apgIneJDGdv8gShuHAFnSkbm9eNzVU8rnHkqJ55
-	 iEKW5fyc2tQHR6CZyVLa4rQ5ndS2H03TIOcdejS0x9iaRf9sw71JEqiOi63wTwgkvrMoL
-	 bEmLZNOhY4CgnxcImmANJsx05lhqr3osg/FkXcryhPlK9sbW3DJi5NCKUFHmgwglUS3BQ
-	 aY5cawQKtlKw5FDaGPGfppzdnHQ4PAM76AWqGElK9G7zPbRPkhq6OWvHNw0PUgxIy4FIC
-	 +iRbs2BdjDQFiE91aW6a6wm04+WiMovaMEBqrsTUZiolcpUvqZAwqdcbnMfEyMWMJRQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldkaxfbS;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793533844;
+	b=kNafA4jSAFRz8DyegOb9R1GrvRy9Ph9GLDExxg+ur5cAzdrRxP//smA1/4TZP/aP8/LE
+	 4JYfSl/jOQXFyM8qT06c9zS52xPK+yvgTI8b8diU/k2fZg6YRILdnYCzb4gbCdEJUtq2S
+	 ojcdmRXDndUwbRpdUdPNYCQdVrV36DlDlrh66Xq1C/7k1ssyPRSrLbaPVGjYt7SGtbV8B
+	 nTdcwbbsQNosnW6K0kw/3umTVyPOjTQTUW8A6Mc/1ayW5NE4TPrIGH+rOv1Yhidm+aMsl
+	 dSYJmgxDL+7vjB7n3Tjz2Qj5qTNrczgHL8zXL5Dr/MmorFwpSddcMtwkP/j20ox3zYA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793533844;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
+	b=mluGIamL4XeUpPHUfEianSE0NEYqm45+DLkgbG4nIq6YAwS80XBpK8AURCL4uyS8UYnx
+	 84LoIO4qh8j+bziSnufvZ86prnuVtP+9QQ3dJ8AztyZ6Z8z+tPgoeBObimf0PLiF9b+jJ
+	 z7WTm3R11UuQf8ZuySZO71jigKFMROt6LqGjy9ehPhRhktPNGJVmYGM0uyomL7Lg61rkK
+	 JJSprTGX/8fVtX1/ORG7shtUwojaQtYPh9IMahOnn3fZ9TVv0t9iMzS0GPEwXXW6QyxMt
+	 yyCNPR8xrq6AHyeDwlPWOnrSDZGQZlWXxTB50HCR5lJwxaT6mohsy7OQTwLJk9MpuJQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EPH0cDDG;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17FC606A324;
-	Sun,  1 Nov 2026 11:49:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56787606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:50:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 56787606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ldkaxfbS
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6E21F000C1;
-	Sun,  1 Nov 2026 11:49:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793533741;
-	bh=uhqQZWYhQfQseqw3TWhQ06TGIfzrnlFvPN/L9zUwqpE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ldkaxfbSysz0X0K2rHj+IB3XF9NOWWt/iLkNc8wNpYpF5HYGrfK3hFE/eTf4ztgGM
-	 hNaKxknKioNxk/kZMqQKItDTezc9UAFTBbfc/FPXheupCV+pbci/IHAsWWcD9kowau
-	 VBddHTzLkS1Ihf/nVpV5cgdbEHqMILE7CCRri6+Gmi5M0cKu0sCblKpsWigrnIrGws
-	 FZ91SDb7GLF/WjuXsWJt3gSekZA1ZaErAe3iQDx+vIQozD6pwywuB1lAyWpy3+gBho
-	 rl77ZHRQ8gq3nz7oJWmkWSRSURJ2YCc/7PC3uAHPlqbzBHudBUauH0rFLENloB56HE
-	 LS4kx6VWblE5w==
-Subject:
- Re: [PATCH] seg6: fix OOB read in advance_nextseg when segments_left is 0
-From: netdev-bot+sashiko@kernel.org
-To: tangbin@cmss.chinamobile.com
-Cc: andrea.mayer@uniroma2.it, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Sun, 01 Nov 2026 11:49:00 +0000
-Message-ID: <179353374041.3131.16148032694599738830@kernel.org>
-In-Reply-To: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
-References: <20261028113141.2111-1-tangbin@cmss.chinamobile.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=EPH0cDDG
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b4b7dee316so2022794a12.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 03:50:44 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793533843; cv=none;
+        d=google.com; s=arc-20260327;
+        b=e+Bdun0Gwh+iqDjH+ndYdUmQM20CsCsLidE5aNgvsjS4tI6o5JWa4CwBZpdA5ZHbjl
+         kxRpO8LoGR63higvF8fu1+D7G7z6dyJC09685XEku2L9Y+OUkE6q/k1XPpPep6+zdIYI
+         1+kN/+pqTCc4G5g0fYcWJ6Q8Dqt91zhBdqsJ7iWFnHH6VZ7xZJ5dWIsk8xFv4djl/p+v
+         vzTQr6OmXo5K7YXI0tGIscowyxqCapCPTzaib9rR5po/npnZv9MOZMTDhvXfQrEyq67+
+         hUy21srk1/s7Po8W8EM5wIe0kTNL2DNFfRt0doN9yWvrI+VPogMv/rvWflvArtHvKSw3
+         tQPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
+        fh=lltks0u/uUW4A1AoFjEPCsnEukz9z5c3GLODtaHmZ9E=;
+        b=e3W2GnZ4oCoG3JFNNZJg4cfn+gCwXlFYPqTKbapdXvlb3jY2uaRhiw0VcFXR4d8Djt
+         +0Bc96jggSgJmOfPm+LK3Lmia54bpL5W9ncGmkkvYCoRmW/J3nQzvPf0X4KOcmc8kG1d
+         zLYhsfDpvNP7mUY8rkhDLTxMViP/R01c8rLjf+42n37Zhbp6LOew/DA+3+DyXBqZTzAy
+         83nc0L37/tgCZHf13soltsTOlKheNHpg6cNVM1kNjpUnsv7NSbMVA2qpap2sFYxJ5sVC
+         MTaPCSAfqKIwh5hHf18z6mQduV2kBqJOi+Fuh9BELHw68QQ1dtsOo+WLTUzJapKdFsmr
+         4gsQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793533843; x=1794138643; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
+        b=EPH0cDDGs6JCTfcp8/rTP1Jndjl0s+DWpOcvBvMKvotLkOpcNmxkfOByxp+qPIrnhK
+         BFulElW/IcdJe0/uYm14ZAjJDY2/TL4ustIWO8FHoKQc2ovjfGrsEQQyddxi2OFZ1rpN
+         JkFaL0elawDSdpZktWhaKKC0/8NnzYQ+WyJYgtr+VVyzu57AualEzZ67tKCg70WScWGF
+         dB53Bvf6MvNu5ZcE6skaraluFE+gs9c3W1axWX52Y+JRsvhm0/e5fird95BIkSF0912d
+         oq5cx9Ao0IOGEZ8Um8DUZGzyfHxvJG72Azn1Y6EHGvsPNkMpg/HEhiKEu5TKwzCNXLf/
+         sXeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793533843; x=1794138643;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=6BbJSAbA9xJpMB+DZoqrUpdzwrF+orIIb7WEUesZfbM=;
+        b=QjmFlpCjFEv+0Ddf/5qzCtuvhc8zH74roU0nlsz8au/O9aImsWiAEtNGifkvXE1043
+         NxvgF6ubEJ2ezqucD03LyecUxrTXy9ybkCMXbJEHyOltaFTnjMTSZdlViODPhPqs8LKS
+         DJPf4v9rLQoZ1QXeYR2bL/mBlVoTKZKl3cE1svftUm9H2P/CUlRbWgO0Pmnnnwo/ciQm
+         uwruvqMvFtw+c7DV84+wum5Kmctv4pI3A9Tqb5WzPXlO0MkINxR3ahVb823NPen7UVn7
+         dBflzpqA1gJSIvh+CZtPBkbZOBsgQXZ0aXWNofjT6A3VmJcFmrndwm9mWNZ1Nu0c0Kvd
+         nVDQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy+F4ikp+7ORyKjuUiE54AkrQT9sdVq9RcbK3PUcY1NRPMy04O5oiBrVchr/uWqaBANc2tAV1Y84yKFGDo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rqnK/oY1QTHECBJx+K5pf462538yjpfMA98KNfIKyx9MofdnR
+	Dp6cMwMCsSqKa/6HjQw6C8NxBcao+MUTW1oMlGVaICY6t3LviFxZIOlU6djsAgVEqhZamhaNiU1
+	4AsidoRHq+gmGwqRU4RNwaAnIJy5WrnXroHmA
+X-Gm-Gg: AYBFou3A6wAnSFu1U85k0h1I2H7zZfGmXhMS6xxATum18g4YYhtsmUIf38DtrdG4waZ
+	wlmB1S9re30b62JQoHbZ6x8s9Cp5HbuzcRZjtqBcTTGPTL6vpy0FyHqCFhSiigKBywbY41EbRhL
+	X6rtxr6pemRC3MmSDcgoFwKdolurudyk4AoQoO7mGBkT+hBiOxJeRuS8ezQZxbiHQYpljE6hEj6
+	gF37ogizdHSqZnsK7LTUBv5z0rejlrF1wUdBxE8WiOdhRdueUzSUNQ3k7Qx7mmpjMgiVi7S77BQ
+	+wlWf1reZvGSuNWYchjcxAu/vl3QG2fovySZn+YrIPGX4ilGwrMOzddG4Fwb+d/VA+/39AOZa0H
+	tGXMKYtinoN1SItkmH/FvWu/YNitFOjPEBELUjj5e8rsznx2HABHVd0REU8E9iep1VG1uNw==
+X-Received: by 2002:a17:906:eec1:b0:c40:80eb:c541 with SMTP id
+ a640c23a62f3a-c4ca797660cmr584233466b.2.1793533842442; Sun, 01 Nov 2026
+ 03:50:42 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,141 +103,233 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+References: <20261031095716.3030288-1-amir73il@gmail.com> <CAHk-=wiPhTLn1p0ZHx-7SMdk4_zazqDK1k7MMEn9scRfqeDgtw@mail.gmail.com>
+In-Reply-To: <CAHk-=wiPhTLn1p0ZHx-7SMdk4_zazqDK1k7MMEn9scRfqeDgtw@mail.gmail.com>
+From: Amir Goldstein <amir73il@gmail.com>
+Date: Sun, 1 Nov 2026 12:50:30 +0100
+X-Gm-Features: AclHuK9MY_OWodpNHuG3eEceVBrQxQNU6w6CnufQ4VmB9cLewZGlHWyfSMT3Qi8
+Message-ID: <CAOQ4uxjNrdxZdZZipsqnUNq+TswCKqp+30iKRKCqh2WOQ-zKGA@mail.gmail.com>
+Subject: Re: Return failure from take_dentry_name_snapshot() (Was: [GIT PULL]
+ overlayfs fixes for 7.3)
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, overlayfs <linux-unionfs@vger.kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>
+Content-Type: multipart/mixed; boundary="00000000000092905d065f35a3b4"
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+--00000000000092905d065f35a3b4
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
+On Sat, Oct 31, 2026 at 8:19=E2=80=AFPM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> On Sat, 31 Oct 2026 at 02:57, Amir Goldstein <amir73il@gmail.com> wrote:
+> >
+> > Amir Goldstein (6):
+> >       vfs: add try_take_dentry_name_snapshot()
+>
+> I've pulled this, but I detest this particular commit. It just
+> "smells" wrong to me.
+>
+> I don't doubt that it fixes a real bug in overlayfs, but I think the
+> fix is entriely wrong. It is wrong in two ways:
+>
+>  - it incorrectly fails when the issue is a race with a rename (this
+> is harmless for overlayfs and will just result in -ECHILD)
+>
+>  - it adds a bogus new "try" helper that I don't believe should be
+> needed or exist
+>
+> I think the proper fix would be to just say that the
+> !atomic_inc_not_zero() can indeed fail, and we should never retry
+> based on that.
+>
+> But if we should *always* retry based on dentry->d_seq.
+>
+> And once you retry correctly based on dentry->d_seq, now the "we
+> didn't get a name reference" is reliable: if it happened despite d_seq
+> being stable, it's because we really don't have a name any more, and
+> so we should return failure.
+>
+> Put another way: I think we should have just one
+> "take_dentry_name_snapshot()" function, and it should return a
+> boolean, and look somethign like this:
+>
+>   bool take_dentry_name_snapshot(struct name_snapshot *name, struct
+> dentry *dentry)
+>   {
+>         unsigned seq;
+>         const unsigned char *s;
+>
+>         rcu_read_lock();
+>   retry:
+>         seq =3D read_seqcount_begin(&dentry->d_seq);
+>         s =3D READ_ONCE(dentry->d_name.name);
+>         name->name.hash_len =3D dentry->d_name.hash_len;
+>         name->name.name =3D name->inline_name.string;
+>         if (likely(s =3D=3D dentry->d_shortname.string)) {
+>                 name->inline_name =3D dentry->d_shortname;
+>                 if (read_seqcount_retry(&dentry->d_seq, seq))
+>                         goto retry;
+>         } else {
+>                 struct external_name *p;
+>                 p =3D container_of(s, struct external_name, name[0]);
+>
+>                 // Try to get a valid reference
+>                 if (unlikely(!atomic_inc_not_zero(&p->count))) {
+>                         if (read_seqcount_retry(&dentry->d_seq, seq))
+>                                 goto retry;
+>                         rcu_read_unlock();
+>                         return false;
+>                 }
+>
+>                 // Ok, we have a name reference. Make sure it is still va=
+lid
+>                 if (read_seqcount_retry(&dentry->d_seq, seq)) {
+>                         release_dentry_name_snapshot(name);
+>                         goto retry;
+>                 }
+>
+>                 name->name.name =3D s;
+>         }
+>         rcu_read_unlock();
+>         return true;
+>   }
+>   EXPORT_SYMBOL(take_dentry_name_snapshot);
+>
+> (Note that in this version, if it fails it will just reutn the
+> shortname in name->name.name, but it should never fail for a dentry
+> that you hold a reference to afaik).
+>
+> Attached it an ENTIRELY UNTESTED patch that does all the other changes
+> too to make overlayfs use this version.
+>
+> Again: ENTIRELY UNTESTED. Maybe I'm missing something and I'm just
+> wrong on this. But I really don't like that nasty
+> try_take_dentry_name_snapshot() thing. It really looks wrong to me,
+> both conceptually and in being actively buggy and racing with renames.
+>
+> Hmm? Comments?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+I like this. Small bug in ovl code.
+Forgot to remove old take_dentry_name_snapshot().
 
-- [Medium] The commit message describes a bug that the current tree does
-  not have.
-- [Low] The patch adds a second NULL return to advance_nextseg() in
-  net/ipv6/seg6_local.c, for segments_left == 0, with drop reason…
+Attached proper patch.
+It's sanity tested but I did not try Chris' reproducer with added delays.
 
---
+Feel free to apply and/or wait for ACK from Al/Christian,
+or I can include it in my next ovl-fixes PR.
 
-seg6: fix OOB read in advance_nextseg when segments_left is 0
+Thanks,
+Amir.
 
-This commit adds a segments_left == 0 check to advance_nextseg() in
-net/ipv6/seg6_local.c. The check runs before the field is decremented and
-used to index srh->segments. The commit message says the End, End.X,
-End.T, End.B6.Encap and End.BPF paths can reach advance_nextseg() with
-segments_left == 0 and read out of bounds.
+--00000000000092905d065f35a3b4
+Content-Type: application/x-patch; 
+	name="0001-vfs-take_dentry_name_snapshot-may-fail.patch"
+Content-Disposition: attachment; 
+	filename="0001-vfs-take_dentry_name_snapshot-may-fail.patch"
+Content-Transfer-Encoding: base64
+Content-ID: <f_mvxrlgqn0>
+X-Attachment-Id: f_mvxrlgqn0
 
-> advance_nextseg() decrements srh->segments_left and uses it to index
-> srh->segments without checking it is non-zero. seg6_validate_srh() permits
-> segments_left == 0, so a packet with SRH segments_left==0 reaching an End*
-> action underflows the u8 (255) and reads srh->segments[255] (~4KB out of
-> bounds); the read bytes are then used as the new IPv6 destination address
-> (info leak) or crash on unmapped memory. The decap path
-> (decap_and_validate) already checks segments_left > 0, but the standard
-> End/End.X/End.T/End.B6.Encap/End.BPF paths do not. Reject segments_left ==
-> 0 before decrementing.
-
-[Severity: Medium]
-Can any of these paths actually reach advance_nextseg() with
-segments_left == 0?
-
-input_action_end_core(), input_action_end_x_core(), input_action_end_t(),
-input_action_end_b6_encap() and input_action_end_bpf() all get the SRH
-from get_and_validate_srh(), which asks for IP6_FH_F_SKIP_RH:
-
-net/ipv6/seg6_local.c:get_and_validate_srh() {
-	srh = seg6_get_srh(skb, IP6_FH_F_SKIP_RH);
-	if (!srh)
-		return NULL;
-    ...
-}
-
-When that flag is set, ipv6_find_hdr() skips any routing header with
-segments_left == 0:
-
-net/ipv6/exthdrs_core.c:ipv6_find_hdr() {
-    ...
-			if (flags && (*flags & IP6_FH_F_SKIP_RH) &&
-			    rh->segments_left == 0)
-				found = false;
-    ...
-}
-
-So these callers never get back an SRH with segments_left == 0. Nothing
-between the lookup and advance_nextseg() writes segments_left, and the
-HMAC check only reads it.
-
-end_flv8986_core() is the only caller that uses seg6_get_srh(skb, 0).
-There, seg6_get_srh_pktinfo() maps segments_left == 0 to
-SEG6_LOCAL_PKTINFO_SL_ZERO. flv8986_act_tbl only has entries for SL_ONE
-and SL_MORE:
-
-static const u8 flv8986_act_tbl[FLV8986_ACT_TBL_SIZE] = {
-	/* PSP variant for packet where SRH with SL = 1 */
-	tbl_cfg(PSP, SL_ONE, F_PSP),
-	/* End for packet where the SRH with SL > 1*/
-	tbl_cfg(END, SL_MORE, F_PSP),
-};
-
-So SL_ZERO resolves to SEG6_LOCAL_FLV_ACT_UNSPEC, and the packet is
-dropped before advance_nextseg() is called.
-
-The commit named in the Fixes: tag, d7a669dd2f8b ("ipv6: sr: add helper
-functions for seg6local"), also already rejected segments_left == 0
-explicitly in get_and_validate_srh().
-
-Given that, is it accurate to say the standard End* paths "do not" check
-segments_left? The SKIP_RH lookup flag appears to do that check.
-
-If no path reaches this code with segments_left == 0, should the patch be
-described as hardening, without the Fixes: and Cc: stable tags? As
-written, it would likely be backported and triaged as a remotely
-triggerable OOB read and info leak.
-
-> diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
-> index 0c3d1be7f1299..0f72b7fe3ac14 100644
-> --- a/net/ipv6/seg6_local.c
-> +++ b/net/ipv6/seg6_local.c
-> @@ -310,6 +310,10 @@ static struct ipv6_sr_hdr *advance_nextseg(struct sk_buff *skb,
->  	/* skb_ensure_writable() may change skb pointers; evaluate srh again */
->  	srh = (struct ipv6_sr_hdr *)(skb->data + srhoff);
->  
-> +	if (srh->segments_left == 0) {
-> +		*reason = SKB_DROP_REASON_NOT_SPECIFIED;
-> +		return NULL;
-> +	}
-
-[Severity: Low]
-Should the kernel-doc above advance_nextseg() be updated for this new
-NULL return? It still says:
-
- *  - NULL when the skb cannot be made writable. In this case, the function
- *    sets the drop reason to SKB_DROP_REASON_NOMEM.
-
-The callers follow that contract and turn any NULL into -ENOMEM. For
-example, in input_action_end_core():
-
-	srh = advance_nextseg(skb, srh, &reason);
-	if (!srh) {
-		err = -ENOMEM;
-		goto drop;
-	}
-
-The same pattern appears in input_action_end_x_core(), in both the END
-and PSP cases of end_flv8986_core(), in input_action_end_t() and in
-input_action_end_b6_encap(). input_action_end_bpf() returns -ENOMEM
-directly.
-
-If this branch ever fired, a malformed SRH would be reported as -ENOMEM
-with drop reason SKB_DROP_REASON_NOT_SPECIFIED. As noted above, no
-current caller appears able to reach it.
-
->  	srh->segments_left--;
->  	addr = srh->segments + srh->segments_left;
->  	ipv6_hdr(skb)->daddr = *addr;
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261028113141.2111-1-tangbin%40cmss.chinamobile.com
+RnJvbSA2YjAyNzA4NWM0NzBhNjY0MTc4M2EzMGY4MjdjZDA0N2E3ZjdhMDcyIE1vbiBTZXAgMTcg
+MDA6MDA6MDAgMjAwMQpGcm9tOiBBbWlyIEdvbGRzdGVpbiA8YW1pcjczaWxAZ21haWwuY29tPgpE
+YXRlOiBTdW4sIDEgTm92IDIwMjYgMDk6NDc6MTkgKzAxMDAKU3ViamVjdDogW1BBVENIXSB2ZnM6
+IHRha2VfZGVudHJ5X25hbWVfc25hcHNob3QoKSBtYXkgZmFpbAoKVGhpcyBwYXRjaCB3YXMgcG9z
+dGVkIGJ5IExpbnVzIGFzIGEgYmV0dGVyIGFsdGVybmF0aXZlIHRvIG15CnRyeV90YWtlX2RlbnRy
+eV9uYW1lX3NuYXBzaG90KCkgZm9yIGZpeGluZyB0aGUgb3ZlcmxheWZzIGlzc3VlLgoKUXVvdGlu
+ZyBMaW51czoKSSd2ZSBwdWxsZWQgdGhpcywgYnV0IEkgZGV0ZXN0IHRoaXMgcGFydGljdWxhciBj
+b21taXQuIEl0IGp1c3QKInNtZWxscyIgd3JvbmcgdG8gbWUuCgpJIGRvbid0IGRvdWJ0IHRoYXQg
+aXQgZml4ZXMgYSByZWFsIGJ1ZyBpbiBvdmVybGF5ZnMsIGJ1dCBJIHRoaW5rIHRoZQpmaXggaXMg
+ZW50cmllbHkgd3JvbmcuIEl0IGlzIHdyb25nIGluIHR3byB3YXlzOgoKIC0gaXQgaW5jb3JyZWN0
+bHkgZmFpbHMgd2hlbiB0aGUgaXNzdWUgaXMgYSByYWNlIHdpdGggYSByZW5hbWUgKHRoaXMKaXMg
+aGFybWxlc3MgZm9yIG92ZXJsYXlmcyBhbmQgd2lsbCBqdXN0IHJlc3VsdCBpbiAtRUNISUxEKQoK
+IC0gaXQgYWRkcyBhIGJvZ3VzIG5ldyAidHJ5IiBoZWxwZXIgdGhhdCBJIGRvbid0IGJlbGlldmUg
+c2hvdWxkIGJlCm5lZWRlZCBvciBleGlzdAoKSSB0aGluayB0aGUgcHJvcGVyIGZpeCB3b3VsZCBi
+ZSB0byBqdXN0IHNheSB0aGF0IHRoZQohYXRvbWljX2luY19ub3RfemVybygpIGNhbiBpbmRlZWQg
+ZmFpbCwgYW5kIHdlIHNob3VsZCBuZXZlciByZXRyeQpiYXNlZCBvbiB0aGF0LgoKQnV0IGlmIHdl
+IHNob3VsZCAqYWx3YXlzKiByZXRyeSBiYXNlZCBvbiBkZW50cnktPmRfc2VxLgoKQW5kIG9uY2Ug
+eW91IHJldHJ5IGNvcnJlY3RseSBiYXNlZCBvbiBkZW50cnktPmRfc2VxLCBub3cgdGhlICJ3ZQpk
+aWRuJ3QgZ2V0IGEgbmFtZSByZWZlcmVuY2UiIGlzIHJlbGlhYmxlOiBpZiBpdCBoYXBwZW5lZCBk
+ZXNwaXRlIGRfc2VxCmJlaW5nIHN0YWJsZSwgaXQncyBiZWNhdXNlIHdlIHJlYWxseSBkb24ndCBo
+YXZlIGEgbmFtZSBhbnkgbW9yZSwgYW5kCnNvIHdlIHNob3VsZCByZXR1cm4gZmFpbHVyZS4KClB1
+dCBhbm90aGVyIHdheTogSSB0aGluayB3ZSBzaG91bGQgaGF2ZSBqdXN0IG9uZQoidGFrZV9kZW50
+cnlfbmFtZV9zbmFwc2hvdCgpIiBmdW5jdGlvbiwgYW5kIGl0IHNob3VsZCByZXR1cm4gYQpib29s
+ZWFuLgoKU3VnZ2VzdGVkLWJ5OiBMaW51cyBUb3J2YWxkcyA8dG9ydmFsZHNAbGludXgtZm91bmRh
+dGlvbi5vcmc+Ckxpbms6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL3IvQ0FIay09d2lQaFRMbjFw
+MFpIeC03U01kazRfemF6cURLMWs3TU1FbjlzY1JmcWVEZ3R3QG1haWwuZ21haWwuY29tLwpGaXhl
+czogMTVjNmJkNWNmMTA5NCAoInZmczogYWRkIHRyeV90YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90
+KCkiKQpDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwpTaWduZWQtb2ZmLWJ5OiBBbWlyIEdvbGRz
+dGVpbiA8YW1pcjczaWxAZ21haWwuY29tPgotLS0KIGZzL2RjYWNoZS5jICAgICAgICAgICAgfCAz
+OCArKysrKysrKysrKysrLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQogZnMvb3ZlcmxheWZzL3N1
+cGVyLmMgICB8IDEwICsrKy0tLS0tLS0KIGluY2x1ZGUvbGludXgvZGNhY2hlLmggfCAgMyArLS0K
+IDMgZmlsZXMgY2hhbmdlZCwgMTcgaW5zZXJ0aW9ucygrKSwgMzQgZGVsZXRpb25zKC0pCgpkaWZm
+IC0tZ2l0IGEvZnMvZGNhY2hlLmMgYi9mcy9kY2FjaGUuYwppbmRleCA0MDlmODQxZTA1OGU0Li5m
+ZTAzN2E4NzZkNzY3IDEwMDY0NAotLS0gYS9mcy9kY2FjaGUuYworKysgYi9mcy9kY2FjaGUuYwpA
+QCAtMzU5LDggKzM1OSw3IEBAIHN0YXRpYyBpbmxpbmUgaW50IGRuYW1lX2V4dGVybmFsKGNvbnN0
+IHN0cnVjdCBkZW50cnkgKmRlbnRyeSkKIAlyZXR1cm4gZGVudHJ5LT5kX25hbWUubmFtZSAhPSBk
+ZW50cnktPmRfc2hvcnRuYW1lLnN0cmluZzsKIH0KIAotc3RhdGljIGJvb2wgX190YWtlX2RlbnRy
+eV9uYW1lX3NuYXBzaG90KHN0cnVjdCBuYW1lX3NuYXBzaG90ICpuYW1lLAotCQkJCQlzdHJ1Y3Qg
+ZGVudHJ5ICpkZW50cnksIGJvb2wgcmV0cnkpCitib29sIHRha2VfZGVudHJ5X25hbWVfc25hcHNo
+b3Qoc3RydWN0IG5hbWVfc25hcHNob3QgKm5hbWUsIHN0cnVjdCBkZW50cnkgKmRlbnRyeSkKIHsK
+IAl1bnNpZ25lZCBzZXE7CiAJY29uc3QgdW5zaWduZWQgY2hhciAqczsKQEAgLTM3Myw0NCArMzcy
+LDMzIEBAIHN0YXRpYyBib29sIF9fdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdChzdHJ1Y3QgbmFt
+ZV9zbmFwc2hvdCAqbmFtZSwKIAluYW1lLT5uYW1lLm5hbWUgPSBuYW1lLT5pbmxpbmVfbmFtZS5z
+dHJpbmc7CiAJaWYgKGxpa2VseShzID09IGRlbnRyeS0+ZF9zaG9ydG5hbWUuc3RyaW5nKSkgewog
+CQluYW1lLT5pbmxpbmVfbmFtZSA9IGRlbnRyeS0+ZF9zaG9ydG5hbWU7CisJCWlmIChyZWFkX3Nl
+cWNvdW50X3JldHJ5KCZkZW50cnktPmRfc2VxLCBzZXEpKQorCQkJZ290byByZXRyeTsKIAl9IGVs
+c2UgewogCQlzdHJ1Y3QgZXh0ZXJuYWxfbmFtZSAqcDsKIAkJcCA9IGNvbnRhaW5lcl9vZihzLCBz
+dHJ1Y3QgZXh0ZXJuYWxfbmFtZSwgbmFtZVswXSk7Ci0JCS8vIGdldCBhIHZhbGlkIHJlZmVyZW5j
+ZQorCisJCS8vIFRyeSB0byBnZXQgYSB2YWxpZCByZWZlcmVuY2UKIAkJaWYgKHVubGlrZWx5KCFh
+dG9taWNfaW5jX25vdF96ZXJvKCZwLT5jb3VudCkpKSB7Ci0JCQlpZiAocmV0cnkpCisJCQlpZiAo
+cmVhZF9zZXFjb3VudF9yZXRyeSgmZGVudHJ5LT5kX3NlcSwgc2VxKSkKIAkJCQlnb3RvIHJldHJ5
+OwogCQkJcmN1X3JlYWRfdW5sb2NrKCk7CiAJCQlyZXR1cm4gZmFsc2U7CiAJCX0KKworCQkvLyBP
+aywgd2UgaGF2ZSBhIG5hbWUgcmVmZXJlbmNlLiBNYWtlIHN1cmUgaXQgaXMgc3RpbGwgdmFsaWQK
+KwkJaWYgKHJlYWRfc2VxY291bnRfcmV0cnkoJmRlbnRyeS0+ZF9zZXEsIHNlcSkpIHsKKwkJCXJl
+bGVhc2VfZGVudHJ5X25hbWVfc25hcHNob3QobmFtZSk7CisJCQlnb3RvIHJldHJ5OworCQl9CisK
+IAkJbmFtZS0+bmFtZS5uYW1lID0gczsKIAl9Ci0JaWYgKHJlYWRfc2VxY291bnRfcmV0cnkoJmRl
+bnRyeS0+ZF9zZXEsIHNlcSkpIHsKLQkJcmVsZWFzZV9kZW50cnlfbmFtZV9zbmFwc2hvdChuYW1l
+KTsKLQkJZ290byByZXRyeTsKLQl9CiAJcmN1X3JlYWRfdW5sb2NrKCk7CiAJcmV0dXJuIHRydWU7
+CiB9Ci0KLXZvaWQgdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdChzdHJ1Y3QgbmFtZV9zbmFwc2hv
+dCAqbmFtZSwgc3RydWN0IGRlbnRyeSAqZGVudHJ5KQotewotCV9fdGFrZV9kZW50cnlfbmFtZV9z
+bmFwc2hvdChuYW1lLCBkZW50cnksIHRydWUpOwotfQogRVhQT1JUX1NZTUJPTCh0YWtlX2RlbnRy
+eV9uYW1lX3NuYXBzaG90KTsKIAotLyoKLSAqIEZvciBhIGNhbGxlciB0aGF0IGhvbGRzIG5vIHJl
+ZmVyZW5jZSBvbiBAZGVudHJ5LCBlLmcuIGluIFJDVSB3YWxrLgotICogVGhlIGV4dGVybmFsIG5h
+bWUgb2YgYSBkZWFkIGRlbnRyeSBoYXMgYSB6ZXJvIHJlZmNvdW50IGZvcmV2ZXIsIHNvCi0gKiB0
+YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90KCkgd291bGQgcmV0cnkgd2l0aG91dCBlbmQuICBGYWls
+IGluc3RlYWQuCi0gKi8KLWJvb2wgdHJ5X3Rha2VfZGVudHJ5X25hbWVfc25hcHNob3Qoc3RydWN0
+IG5hbWVfc25hcHNob3QgKm5hbWUsCi0JCQkJICAgc3RydWN0IGRlbnRyeSAqZGVudHJ5KQotewot
+CXJldHVybiBfX3Rha2VfZGVudHJ5X25hbWVfc25hcHNob3QobmFtZSwgZGVudHJ5LCBmYWxzZSk7
+Ci19Ci1FWFBPUlRfU1lNQk9MKHRyeV90YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90KTsKLQogdm9p
+ZCByZWxlYXNlX2RlbnRyeV9uYW1lX3NuYXBzaG90KHN0cnVjdCBuYW1lX3NuYXBzaG90ICpuYW1l
+KQogewogCWlmICh1bmxpa2VseShuYW1lLT5uYW1lLm5hbWUgIT0gbmFtZS0+aW5saW5lX25hbWUu
+c3RyaW5nKSkgewpkaWZmIC0tZ2l0IGEvZnMvb3ZlcmxheWZzL3N1cGVyLmMgYi9mcy9vdmVybGF5
+ZnMvc3VwZXIuYwppbmRleCAwODY5NWE5OWY0ZjkzLi5kOTE3NGVhY2NjZTJkIDEwMDY0NAotLS0g
+YS9mcy9vdmVybGF5ZnMvc3VwZXIuYworKysgYi9mcy9vdmVybGF5ZnMvc3VwZXIuYwpAQCAtMTAw
+LDE3ICsxMDAsMTMgQEAgc3RhdGljIGludCBvdmxfcmV2YWxpZGF0ZV9yZWFsKHN0cnVjdCBkZW50
+cnkgKmQsIHVuc2lnbmVkIGludCBmbGFncywgYm9vbCB3ZWFrKQogCQkJZGlyID0gZF9pbm9kZV9y
+Y3UocGFyZW50KTsKIAkJCWlmICghZGlyKQogCQkJCXJldHVybiAtRUNISUxEOwotCQkJLyoKLQkJ
+CSAqIE5vdGhpbmcgcGlucyBkIGluIFJDVSB3YWxrOiBldmljdGlvbiBvZiB0aGUgb3ZlcmxheQot
+CQkJICogaW5vZGUgbWF5IGRyb3AgdGhlIGxhc3QgcmVmZXJlbmNlIGF0IGFueSB0aW1lLgotCQkJ
+ICovCi0JCQlpZiAoIXRyeV90YWtlX2RlbnRyeV9uYW1lX3NuYXBzaG90KCZuLCBkKSkKLQkJCQly
+ZXR1cm4gLUVDSElMRDsKIAkJfSBlbHNlIHsKIAkJCXBhcmVudCA9IGRnZXRfcGFyZW50KGQpOwog
+CQkJZGlyID0gZF9pbm9kZShwYXJlbnQpOwotCQkJdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdCgm
+biwgZCk7CiAJCX0KKwkJLyogSW4gUkNVIHdhbGsgdGhlIGRlbnRyeSBuYW1lIG1heSBnbyBhd2F5
+IGF0IGFueSB0aW1lICovCisJCWlmICghdGFrZV9kZW50cnlfbmFtZV9zbmFwc2hvdCgmbiwgZCkp
+CisJCQlyZXR1cm4gLUVDSElMRDsKIAkJcmV0ID0gZC0+ZF9vcC0+ZF9yZXZhbGlkYXRlKGRpciwg
+Jm4ubmFtZSwgZCwgZmxhZ3MpOwogCQlyZWxlYXNlX2RlbnRyeV9uYW1lX3NuYXBzaG90KCZuKTsK
+IAkJaWYgKCEoZmxhZ3MgJiBMT09LVVBfUkNVKSkKZGlmZiAtLWdpdCBhL2luY2x1ZGUvbGludXgv
+ZGNhY2hlLmggYi9pbmNsdWRlL2xpbnV4L2RjYWNoZS5oCmluZGV4IDg0YjBjZmU0ZWQwZTcuLmFh
+YTRiYTdhMTI5OTEgMTAwNjQ0Ci0tLSBhL2luY2x1ZGUvbGludXgvZGNhY2hlLmgKKysrIGIvaW5j
+bHVkZS9saW51eC9kY2FjaGUuaApAQCAtNjY0LDggKzY2NCw3IEBAIHN0cnVjdCBuYW1lX3NuYXBz
+aG90IHsKIAlzdHJ1Y3QgcXN0ciBuYW1lOwogCXVuaW9uIHNob3J0bmFtZV9zdG9yZSBpbmxpbmVf
+bmFtZTsKIH07Ci12b2lkIHRha2VfZGVudHJ5X25hbWVfc25hcHNob3Qoc3RydWN0IG5hbWVfc25h
+cHNob3QgKiwgc3RydWN0IGRlbnRyeSAqKTsKLWJvb2wgdHJ5X3Rha2VfZGVudHJ5X25hbWVfc25h
+cHNob3Qoc3RydWN0IG5hbWVfc25hcHNob3QgKiwgc3RydWN0IGRlbnRyeSAqKTsKK2Jvb2wgdGFr
+ZV9kZW50cnlfbmFtZV9zbmFwc2hvdChzdHJ1Y3QgbmFtZV9zbmFwc2hvdCAqLCBzdHJ1Y3QgZGVu
+dHJ5ICopOwogdm9pZCByZWxlYXNlX2RlbnRyeV9uYW1lX3NuYXBzaG90KHN0cnVjdCBuYW1lX3Nu
+YXBzaG90ICopOwogCiBzdGF0aWMgaW5saW5lIHN0cnVjdCBkZW50cnkgKmRfZmlyc3RfY2hpbGQo
+Y29uc3Qgc3RydWN0IGRlbnRyeSAqZGVudHJ5KQotLSAKMi41NS4wCgo=
+--00000000000092905d065f35a3b4--
