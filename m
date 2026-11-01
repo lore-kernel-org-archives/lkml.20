@@ -1,48 +1,65 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793574060;
-	b=5OJgn0vHfGJEqo6aiLvFycK4wBNaOfXpjsuv+oxz/pdCUeCDT49v0rM4R3aZzGmCM0FA
-	 DGN40Fkvo4KyUYZMPQ+jT6aEB6ofBGsqKjjnUM/ec9V7/b44JvyFccdS3mi4rVa0Y56hB
-	 hlgGbRUE20dk0PffarqeGp9EKpcklbi+d+WKAwqd7SmruRI7VK/ElXM511di981PyH8z1
-	 vIV1j6fQ568DKVBHamlrP3GfOR8tvb3CMhhJeqYT2qwiOKbLU5r9d5KDyeXb0JwDmcI0L
-	 VzYp1dti1J+ipOYd82yFPkMnDt5EtCd1y0Cjb0TMl2K/lHFMIa5LuTHn28Rul9SHMcg==
+	t=1793574088;
+	b=AtcKz9Nw/nWmMtB4U9ETzOkVqxCMpjDyxSFv7a1Q2H80/E+AsiTuLGbxMwBrk/RCcA+1
+	 dx95Bv2zoZLTRO9JvdxtB/ublKm0k25NDK3TMI+80W68wDY6GaFePG7wVgzJ3WNL5eXpl
+	 Mx2d8KRkmrMz612+4lgJ4oKcJXUmzH7FM9OO2AlqyVLO34vGu+IdM22WtLmOVH0tM/eu8
+	 tiYLyP6UvVRxVbtRCDAQYkng4bZt6LhQ6qm97zkCzfIsWNnMdpjIiKNW9YQ1yfiJIzBbA
+	 29pWwNRxXZe9453tBPcKtiBhxIHjJdu4wEmnF4R8yxlHxxmmGCGQz7QTenb8PQdW5DA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793574060;
-	h=Received:DKIM-Signature:Received:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
-	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=WX2F145DmNnWNKyO8kav9VYCsTOxrh1LqXN9CUJ8PfA=;
-	b=0MyWZVh25X2zYHhfPp89MimLQM6GLLWekL5hVWyrs2sfzjYZ4VoOBmTJpHc8A++SDvJF
-	 MuNCWowypxXzXYAFVkkoen/B0Tz0Bh/DPfgdWYibX1W5gmxVIr3pj6zVbxWbkoPgIXPR0
-	 cT+wIWuQlbuuxY3BH+JIvKn7CWJe4NPr2LfOXwTcwjbIq28WDA454gHS0a2jy9HNiGCZJ
-	 YnQTPgh8rhIEUzr6Qd1IfyNZYjeCDX/jgGWd07VBvnNK4Fy6vhDkSGXgVpYPkueCqs1m/
-	 Aibe+4k3iL28woVgU5EXHXHqac99QOYDidPlh1Byw2fdODvvE34c/EAAZV+wm9/pIMA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793574088;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=t2MxZtB2T9Bz2tg5DIt4j1dXYuKYbfcmPZ03Fr/VSko=;
+	b=y74rHxLKMNJ0vpsWxNuLB0xAzi1oYxBdipekDFTqUtSfZ9hHguexhXziQKjlVYVzGoyf
+	 Qkesbs6GpPQzpRyqQWZvbFgaLacuyH5zqH0f4MswlAL/7SatHYSS4LqKcKXPjBWCN58Au
+	 /C5wyyyyV2cuhZi0MHXBzPJr5MYuD5XxbY4u1prnkfsqIldDeR6PUiwC9hdcsW2467Wsj
+	 1kr+96PvhCELjR8llq+D2mz+Q90E8j/98zCTfcuc2X7IF/Fu6Sk/GfFFIB2b4301vjCQj
+	 UzCZiUprOLv/5MEujEFygk/AOMziZ2mwolem2eDmXE/sTlvaWEQxSCTBkXBkwlbGEFA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgM9SoY8;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=avxvdOrw;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C7A606A324;
-	Sun,  1 Nov 2026 23:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBE2A606A329;
+	Sun,  1 Nov 2026 23:01:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fgM9SoY8
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 769DA1F000C1;
-	Sun,  1 Nov 2026 23:00:59 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=avxvdOrw
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D3071F000C1;
+	Sun,  1 Nov 2026 23:01:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793574059;
-	bh=WX2F145DmNnWNKyO8kav9VYCsTOxrh1LqXN9CUJ8PfA=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=fgM9SoY8R7tcstnRez/BdlKIO3DCsflQ78QVcOLuZ9R4EzO7L6LbvxwaoyjLxPouc
-	 KS5CCaBmwDoDeur7amu10YrRu1EKesjq4HRsSzlEPTKG1I0aKUuV9UU76dCmh5ly/V
-	 PF6dmk41Jr3iXgmWOFxR0piK9duLurBzvAmwEdPCG8GhxUl7kLVjG7e4NlaSmdpUs/
-	 TjcdBEfjy5Alc/PhRMKhrbU/GTknNoZMHi2rSL/9ld939J2j6VetERz6MQRyRp9QaZ
-	 /OOrjl6abKyJCa+zxPMk/wnnz/ZBZJmwTbYnraxK6E1H9hF5SA3DoEVmPWeWq6tbc+
-	 +4aYGMpOV7ZGQ==
-Received: from traversing.sirena.org.uk (localhost [IPv6:::1])
-	by traversing.sirena.org.uk (Postfix) with ESMTP id D582E208F436;
-	Sun, 01 Nov 2026 23:00:56 +0000 (GMT)
+	s=k20260515; t=1793574087;
+	bh=t2MxZtB2T9Bz2tg5DIt4j1dXYuKYbfcmPZ03Fr/VSko=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=avxvdOrwTRHGrZq0iN80QYgJ56/4BguQdjjbV8AQlXIj9kslbw7j1K/EgI2SnSy1Z
+	 OrLwaVBYKoOBqB6oYBUuiNTW1ysAC2jWgZVIteuXetmmSGnp+DwaN4zOYE4CwhcMSn
+	 Ipu9cicjz3lSLSmITRtZ1ojXclq2ZEI3gyrGbc26x8yBkjQqz370PStx0m2Ys1Gf+F
+	 Nw/MrUWeasTOBcDeQFr0dXUqOLiaXicOSR6LF475ZOy395qWm2wtP6FvRj/qXbz7iR
+	 RaT9FHpjc8bVHIvt2oP3XnoLozkgZOL2f5DWUv3vPlihT1ackXnhwXsVP2pe6JmxJf
+	 /46WCm8kf8HPg==
+Subject: Re: [PATCH net v5 3/4] netdevsim: support devmem RX and TX bindings
+From: netdev-bot+sashiko@kernel.org
+To: almasrymina@google.com
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, pabeni@redhat.com, sdf@fomichev.me,
+ kaiyuanz@google.com, kuba@kernel.org, bobbyeshleman@meta.com,
+ asml.silence@gmail.com, dw@davidwei.uk, ap420073@gmail.com,
+ davem@davemloft.net, edumazet@kernel.org, horms@kernel.org, shuah@kernel.org,
+ sumit.semwal@linaro.org, christian.koenig@amd.com, phasta@kernel.org,
+ andrew+netdev@lunn.ch, sdf.kernel@gmail.com, hawk@kernel.org,
+ ilias.apalodimas@linaro.org, daniel@iogearbox.net, razor@blackwall.org,
+ tariqt@nvidia.com, kaifengw@google.com, dtatulea@nvidia.com
+Date: Sun, 01 Nov 2026 23:01:25 +0000
+Message-ID: <179357408589.3131.13149073708335764140@kernel.org>
+In-Reply-To: <20261030083539.777877-4-almasrymina@google.com>
+References: <20261030083539.777877-4-almasrymina@google.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,42 +69,85 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] ASoC: SOF: Intel: hda: Stop the controller before
- freeing its DMA buffers
-From: Mark Brown <broonie@kernel.org>
-To: Sasha Levin <sashal@kernel.org>
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Bard Liao <yung-chuan.liao@linux.intel.com>, 
- Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
- Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
- Daniel Baluta <daniel.baluta@nxp.com>, Takashi Iwai <tiwai@suse.com>, 
- Jaroslav Kysela <perex@perex.cz>, sound-open-firmware@alsa-project.org, 
- linux-sound@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261028144446.992948-1-sashal@kernel.org>
-References: <20261028144446.992948-1-sashal@kernel.org>
-Date: Sun, 01 Nov 2026 23:00:54 +0000
-Message-Id: <179357405490.1679716.7958054921741157139.b4-review@b4>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=485; i=broonie@kernel.org;
- h=from:subject:message-id; bh=Pg4hrzRr5VUO6qkDDViQ2BcjDmYibLs67oDx3fEdgH4=;
- b=owGbwMvMwCWm/754w+YLFp2Mp9WSGLKeH1nx91uk7KkZV8N2PH8z67eDptDqLMP8TZt/TRQOn
- qgdrtu9o6OUhUGMi0FWTJElLov7ZX3J6zV8Bxe2wcxhZQIZwsDFKQATmcLDyLA+icXqdkCU/+mq
- p1+Zv2e8KjzNka4U5Z5+27fiSUbhcXeG/7UrO/bdPCeR/27l9InRiXUml277CG9ZNLP9VOap06o
- C+1kA
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-> hda_dsp_probe() starts the CORB/RIRB DMA engines through
-> hda_dsp_ctrl_init_chip(), but neither hda_dsp_remove() nor the error
-> path of hda_dsp_probe() stops them before hda_dsp_stream_free() frees
-> the CORB/RIRB ring buffer and the position buffer.  Unsolicited
-> responses also stay enabled, so the controller can keep writing RIRB
-> entries into the freed page.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-This doesn't apply against current code, please check and resend.
+Low priority / nit picks for your consideration:
+
+- [Low] Not a bug (baseline: false positive).
+
+--
+
+netdevsim: support devmem RX and TX bindings
+
+This patch sets a 64-bit DMA mask on the netdevsim bus device and turns on
+NETMEM_TX_DMA on the netdevsim net_device. It also sets up the page pools
+so they can be backed by unreadable netmem, which lets the devmem bind-rx
+and bind-tx netlink operations be tested against netdevsim. pp_hold is
+refused on memory-provider backed pools, and unreadable or net_iov skbs
+are dropped in nsim_start_xmit().
+
+> diff --git a/drivers/net/netdevsim/netdev.c b/drivers/net/netdevsim/netdev.c
+> index eebc02ccc4a92..0372a9bd63bbb 100644
+> --- a/drivers/net/netdevsim/netdev.c
+> +++ b/drivers/net/netdevsim/netdev.c
+> @@ -133,6 +133,10 @@ static netdev_tx_t nsim_start_xmit(struct sk_buff *skb, struct net_device *dev)
+>  	int dr;
+>  
+>  	rcu_read_lock();
+> +	if (!skb_frags_readable(skb) ||
+> +	    (skb_shinfo(skb)->nr_frags &&
+> +	     skb_frag_is_net_iov(&skb_shinfo(skb)->frags[0])))
+> +		goto out_drop_any;
+>  	if (!nsim_ipsec_tx(ns, skb))
+>  		goto out_drop_any;
+>  
+
+[ ... ]
+
+> @@ -1059,6 +1078,8 @@ static int nsim_init_netdevsim(struct netdevsim *ns)
+>  	ns->netdev->netdev_ops = &nsim_netdev_ops;
+>  	ns->netdev->stat_ops = &nsim_stat_ops;
+>  	ns->netdev->queue_mgmt_ops = &nsim_queue_mgmt_ops;
+> +	if (ns->nsim_bus_dev->dev.dma_mask)
+> +		ns->netdev->netmem_tx = NETMEM_TX_DMA;
+
+[Severity: Low]
+This isn't a bug, but the docs and the driver don't quite match here.
+Documentation/networking/netmem.rst describes the mode as:
+
+    NETMEM_TX_DMA: for physical devices that perform DMA.
+
+nsim_init_netdevsim() sets NETMEM_TX_DMA, but nsim_start_xmit() above
+drops every unreadable or net_iov skb.
+
+As I understand it, NETMEM_TX_NO_DMA would not work for this test. That
+is because netdev_find_netmem_tx_dev() only resolves a NO_DMA device by
+following leased RX queues to a physical NETMEM_TX_DMA device:
+
+net/core/netdev-genl.c:netdev_find_netmem_tx_dev() {
+    ...
+	if (dev->netmem_tx == NETMEM_TX_DMA)
+		return dev;
+
+	if (dev->netmem_tx != NETMEM_TX_NO_DMA)
+		return NULL;
+    ...
+}
+
+Traffic also behaves the same as before. Under NETMEM_TX_NONE,
+validate_xmit_unreadable_skb() already freed these skbs. Now the driver
+drops them and counts them through dev_dstats_tx_dropped().
+
+Would it help to add a short comment next to this assignment? It could
+say that netdevsim advertises NETMEM_TX_DMA only so the bind-tx control
+path works, and that devmem TX data is dropped in nsim_start_xmit().
+
+>  	netdev_lockdep_set_classes(ns->netdev);
+>  
+>  	err = nsim_udp_tunnels_info_create(ns->nsim_dev, ns->netdev);
 
 -- 
-Mark Brown <broonie@kernel.org>
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030083539.777877-1-almasrymina%40google.com
