@@ -1,95 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.6
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.58.211
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793533117;
-	b=4CKQVSj4uJmn6j9s8NHPD/aRbFC1X0EW+8Fb8/xPndSkFWKHAaEqNd0u0FjekP37cUhb
-	 lvMKqPicLITqrYdEHVCzd+qpTmS4tzH3n+Kew/5/1JhxYV/cFY1nB/r4YaKs1PeGNzUo5
-	 6lHLyY4ohHeelc774PTLFBSz5EN2lSAzftCZzcJgjbUrvB19M6mMYtiXZZ2P2J2YDkrzZ
-	 G4IWGnWZQaSG9kIBRjlZTyUPzW8e++C30e4DFVznZXoOdEm5rcM0BGR7MDdndiHQYVF4j
-	 HCqcwhHcf63isBEWm8ClZ144zCSoLzXefx3IFEuV8FrjfV1NLo/PHWafH7D2v/VDTIg==
+	t=1793533157;
+	b=g4danMqqTNkKBY7dH2P80ykjH370zlSmRB3p2JUqQtlqgBEahMEHV8XTVqkDps6RDG5q
+	 ui5wVju8/Y66Xt6cI4EiBjLRco8534ewssZE8Z6FMTX5Ovgd4iAtg5RnL6yWpo41XrD1b
+	 4Z3kZMIDpyWHXldrB9FqnM6okT5c/Z7fxclprzPvmbtzuvIfrfV9LlGWOGOBhSThZ7VhG
+	 BrE48SWhEMIPWADFUM57cMyjUJke3wbUlYkbYEy3ui8NuzEOMfIdBVxmcTQZn9mcf4/+2
+	 pqAXN5iDSbFAwBRWXr2J275eWmeELQC3u0Zw/GFfT1XTDDXsxwSfdetXPxiWVjGc60w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793533117;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Wi28ZO61b9JIXVOR3091FD6X0ybjO5St+FAJ9rvXmeI=;
-	b=OdskJrTEvCUAtTk1B+Xp9EvYQ2J9Y5YzCPgYlMGbU9HWpovGHLmRZQmmW07H3MEc0HOZ
-	 dN4uqeBx6STVhDVXaGEEgNAhX5GruLoMY6FeujApzEqrlf05/MUUuArGW8cd+LWPsADHq
-	 in3awRBcw1twZKjpjVAyoyIVMaVE2z7AWPWcwvLhGdVkOKKo7UmPloU2P1j9h4phziLGW
-	 +SQ7nPCVaiMZvUf0d35EEDn+vnkslwh5+P5P2SqUzIvEfPeHjxmpYDvLj75tJzPkkn1Pk
-	 xY+8sDSU/w5qqFy8AwwMKNv6zNKnssYk7xLvTRarxq+91TZIdtNQLhVBUmug0EoamjQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793533157;
+	h=DMARC-Filter:DKIM-Signature:X-QQ-XMRINFO:X-QQ-XMAILINFO:From:To:Cc:
+	 Subject:Mime-Version:Content-Type:Content-Transfer-Encoding:Date:
+	 X-Priority:Message-ID:X-QQ-MIME:X-Mailer:X-QQ-Mailer:References:
+	 In-Reply-To:X-QQ-mid;
+	bh=5uHMqeGCi5xEjxp7eaOraEh1Wivt/hows3ISRJRA5sc=;
+	b=zJ/gXNA2bpusW2+Xg66kfsI5BKMO1uD01/yhRT9LpN9Z4cJ1pd4J4x86YZfJtWOfsu6V
+	 dX5wNcjcOxpV37zy1in1Nt1jeMjWiCEQCCb9aiN7RMOiSluKQoSbuOBJ6UPQrrYL3vDVJ
+	 eCNLAyAEmTajsvWAineBwMOCVGvsuz9SbfVmXIBlxdtD1vTwid7+1p7G/WoVhFDwEQtXj
+	 8Qr4Es2pfff2wDzZ+MCFkwCeaf/6u6tRAhlwoxdNvF2pR4sDzBXLn98V9DLRcfgkU653r
+	 3oMLKaOjaYdWNCuLguRNYwhg+F6oUAM7MpEIhQiCstHNxuCYp0xkb2DQlVU364BfUCg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAw1YES+;
-	arc=none smtp.remote-ip=74.125.229.6
-Received: from mail-dy2-f6.google.com (mail-dy2-f6.google.com [74.125.229.6])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=qq.com;
+	spf=pass smtp.mailfrom=qq.com;
+	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XbiFhlDv;
+	arc=none smtp.remote-ip=162.62.58.211
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B491606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 11:38:36 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5B491606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84C58606A325;
+	Sun,  1 Nov 2026 11:39:13 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84C58606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aAw1YES+
-Received: by mail-dy2-f6.google.com with SMTP id 5a478bee46e88-35adc681e1aso4184112eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 03:38:36 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793533115; x=1794137915; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wi28ZO61b9JIXVOR3091FD6X0ybjO5St+FAJ9rvXmeI=;
-        b=aAw1YES+jNGnRe6vmpDq/uw6N/gZSOXQunDBHap+IsV87lKnZddbSruz9OKeDauD1H
-         AbMitBsJNkn6tkZTY64diqDhaYg48fy/q8PvqFSf6mrg+HVTj2drgo5yuU8gYf3t23Vk
-         uzZKqIUUBpRuzRAJRMtq5dACTSfnJbEeLodtkoRFdgEKIhxSE9sICQog693qNrqN8IxD
-         EbhKf+SOJg8WMLT6DhCGKitiHIsJJyAQXZxGfnHpYFKK3wK2oJVb//2H4ElK8eyy2Azn
-         ZTPCPxYepJMmlbljajbGuTWDiE4pCEZmAPA5hd265HbC9ddvcXEQwm3SSz6iO3UARvdR
-         YjSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793533115; x=1794137915;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wi28ZO61b9JIXVOR3091FD6X0ybjO5St+FAJ9rvXmeI=;
-        b=CcaroyYwALUDK9MjM0Y73AUsk1HGfhbWhyzXsEzDVqvG45zgyYed9L24HDQKAd+vZN
-         mRhUYnnWVWExg0Mbm4ofaWMbwECNcPOcLS+Br7GkZ4VhYj7ZyofwKsI3Y+bbFe+FX03k
-         DEVpVDkH6lOBM6kNmO0BJcfFnyUXTapp2LJxPJdSaOeVO6i6aQLaH4TXfAsj7fmIM71n
-         5b1C+dl7lBos/NXP+NdTANjA3WqhJXKOcXf9KSseX+1iMTYDF/DBjhFlNfPbNgKgI5w6
-         H5aSCE1qJrbkMJNt42x+TB82gxxJE2IdZrQenK+FID9JVBWGflxq1G9xfGdbtB1dWh+0
-         DzMA==
-X-Forwarded-Encrypted: i=1; AKwUvBxuhPh7s/V59CikTTazNzEF0qDAyKJoL91dyUpIBZFfSvVYaen2PfnUWnwWaYmv/zqIvjJK/7AmysA54lU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYID0vcM0CxdubkNW+sjxNKb7W55ih1uTRtm1QOEFNwNCQA7MX6t
-	V8CSpY5Kr5E6F24Kr0siDYlzj1Khu7C1CeX6TwzTbkppavamzdPVisE7
-X-Gm-Gg: AYBFou19+RYdNgI7/EsbkteA9ww9Ws0RMnFrDFsnQiv+fp2YUhWwkVe9byOD+uh97xd
-	JRHibLhOT//U70/EDzptIlqVFiK04mrZWGx718hpFRv9PzaaoxyatPautdom+0sRtHTm7miUsDE
-	2of6xobYXRKS4ArKDg1L99oiO+9gCE54dtNTuMwZzDgaNQPFtqvI9BpSPAYbRAXAXNfu+jYTlqz
-	287Mofhlx+dki6ssRIv/SzltHKef8UweAAFj/BGtNYwbW5f77LFEUjvv+P6OfREN/BdPcCw77Au
-	WsPPqw38dDbeErc0rnJO2vgb0m2kesb2C/XwAUZA0Wiel/lDc9R9rGTv6bHROM+SyLar3T4B5E5
-	SvCE5aVCz3aMNFISFtHmx3G8CmCdmSXjtbPi14h++Zc7pIE0tC0jtJjZPkwgGnIqWNnaW7AGK4X
-	dwug2jMwGILFQ+Q4/m4ZM3D+orQvqVtVF4YCIQB6I7kCVWCnFWplGQt0SwaHZCJsZ0w/GPBmC8g
-	Q9EGDepjti1CsVfaovzjXWgmZgjBvqwRWWiCzDudrTr/WEIUy9iB1FTIWZBYrAVm9GXv+ONee4h
-	+QLT8TmV7j7wTksleZ+5PEvdMErI99RC46qUJWrd+E/dM+edPfI0chqe
-X-Received: by 2002:a05:7022:f107:b0:1ab:fe29:5081 with SMTP id a92af1059eb24-1ac5ac4ded4mr10636078c88.20.1793533115322;
-        Sun, 01 Nov 2026 03:38:35 -0800 (PST)
-Received: from localhost.localdomain ([98.148.34.5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm20393851c88.12.2026.11.01.03.38.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 03:38:34 -0800 (PST)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Deepa Dinamani <deepa.kernel@gmail.com>,
-	Jeff Layton <jlayton@kernel.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH] vfs: preserve subsecond timestamps at filesystem time limits
-Date: Sun,  1 Nov 2026 11:38:15 +0000
-Message-ID: <20261101113815.52911-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=XbiFhlDv
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1793533145; bh=5uHMqeGCi5xEjxp7eaOraEh1Wivt/hows3ISRJRA5sc=;
+	h=From:To:Cc:Subject:Date:References:In-Reply-To;
+	b=XbiFhlDvI6WGK8Bsvq8LH7n0vu1J/qtX7NScBAtj1EFYUeJUcTbZLekmvevT4pDJi
+	 L8u+hNlUKJHvEKRoq6/56YUkF+SlBI972ERJOauNdaKGMX/9/22qjutC2Pm6sbAO2q
+	 NsM/l0TijMC1xEp+42hCMB2mLk/6qIvFEfR/1PJA=
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+X-QQ-XMAILINFO: NkQGnmzToUyF0HQ0dYoXDCd8WAlZNEOU7fHjxUZdzBCyuy7mN4509D4z/oFOLF
+	 mp8O3+8yYpU9EBj+4Wa1B83pgvDaatwTABEjm54x+Tj652l17NWrmh8FnTeBZ8iisLukH531dkto3
+	 1epOliaRAypX17H3VMsY07+Wvgqk9e5GsxJ4YxIqwiAtoCfpizYbPcirRK8jekIKSsGuE+TM+9YLr
+	 AU2XW7tYus4vIUesvhJ346t5rtR4aUwsMdXBsoOa2HZapPMreMozjuMFK5bwW/iIjH6dIxifSuROa
+	 +qzyzbrr2KyhW9UgAZib5YZeiP8HHHXR0+g2tyFZ6e7kSjHC4GSi8qadlRcxWfoIR5YbpJi+I43fA
+	 OD2k4aB2C2XdGdWmoTpgLRQsVfJiG8NntDpUwa4rOenYOo/WQzDKvvkNHWxamomjilq3bZLADTeXm
+	 8UT/Y6ZANI7fF96dpgTxR2wGcbnrUJDKNfx9J3r/1MdwjKDY3cXo1BfesRbo0WvJI66tWuYxVYT97
+	 hQypgWt0hBqWYcOMA672gQq2wzqQ/kq6hNVb5OrxmZ+cxcA0UrSzel4V+8Xqs6/i5LlttU7HCmeut
+	 ebxATsgi8CqSuAmOXtopJ34fW38TwplM9fGbTsA5a9Of2Bv1srR0O9+f5EaRTIv//zZLppQMuVNW6
+	 vVH1s2yzLyUrEKVp40L4CIUPPFcH/7XQaMu3Ex5YDVDryrVJJJKNvuvwCTN3ynaeI0Drar8n0vbAT
+	 LhJek8pdik/8YpUYCFZkMwzPv3IlRP70FA42CdsVe2rb+LQsnLyw5wmYdFPVsEnmprnWWtwtexqlu
+	 UT2TSA96rGmBUqgqHO3XCw7Py88VgePSu0+HZXrVQSgQLQM5N9HD7BwemBa8dcccqND2hCHjmd37A
+	 dccK23A7bq37MpdZT1/dOdzhlFZNLWXRiORJiyZw/QMfJxce/w6qwZF3vnH92m84vgdj+w5oRVwHe
+	 8LaTrvTY26iR0TVigTrR/KMO5P3nrpa8BfiZUAUPYScNOl0stTaTm0q9Z2KOE9Um9F2uhZDng9585
+	 ksoGddMClOCvlkKFDu8STVWDH5fhueHuRwyvinVRN8h9L506imQ8DvXDZ698ulVpfx43u
+From: "=?utf-8?B?Q3VuaGFvIEx1?=" <1579567540@qq.com>
+To: "=?utf-8?B?TWFuaXZhbm5hbiBTYWRoYXNpdmFt?=" <mani@kernel.org>
+Cc: "=?utf-8?B?bGludXgtYXJtLWtlcm5lbA==?=" <linux-arm-kernel@lists.infradead.org>, "=?utf-8?B?bGludXgtcm9ja2NoaXA=?=" <linux-rockchip@lists.infradead.org>, "=?utf-8?B?bGludXgta2VybmVs?=" <linux-kernel@vger.kernel.org>, "=?utf-8?B?bGludXgtZ3Bpbw==?=" <linux-gpio@vger.kernel.org>, "=?utf-8?B?bGludXgtcGh5?=" <linux-phy@lists.infradead.org>, "=?utf-8?B?bGludXgtdXNi?=" <linux-usb@vger.kernel.org>
+Subject: Re: [PATCH 21/27] phy: rockchip-inno-usb2: Add RK3572 support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,50 +67,38 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Type: text/plain;
+	charset="utf-8"
+Content-Transfer-Encoding: base64
+Date: Sun, 1 Nov 2026 19:39:03 +0800
+X-Priority: 3
+Message-ID: <tencent_650649C624E17C043BA00BB1D4CFB8498105@qq.com>
+X-QQ-MIME: TCMime 1.0 by Tencent
+X-Mailer: QQMail 2.x
+X-QQ-Mailer: QQMail 2.x
+References: <20261022-add-board-ok3572-c-v1-0-0b0fd85a31ee@qq.com>
+ <20261022-add-board-ok3572-c-v1-21-0b0fd85a31ee@qq.com>
+	<179353031285.2955.4272173079718014092.b4-reply@b4>
+In-Reply-To: <179353031285.2955.4272173079718014092.b4-reply@b4>
+X-QQ-mid: xmsezb41-0t1793533143tqyga0g4o
 
-timestamp_truncate() clears tv_nsec whenever the clamped seconds equal
-either filesystem time limit. This also drops the fractional part of
-timestamps whose seconds were already within the supported range.
-
-For example, setting a JFS mtime to 0.123456789 produces 0.000000000,
-although the filesystem can store the requested value. Utilities such
-as touch and cp -p consequently lose valid subsecond timestamps when
-preserving these endpoint values. Timestamps strictly between the
-filesystem limits are unaffected.
-
-Only clear tv_nsec when clamping actually changes tv_sec. Continue to
-truncate in-range nanoseconds to the filesystem's timestamp granularity,
-including when the seconds equal either endpoint.
-
-Ben Hutchings suggested comparing clamped and original seconds in the
-2019 utimes review. That caller was switched to timestamp_truncate(),
-but the helper retained its endpoint equality check.
-
-Link: https://lore.kernel.org/lkml/12c095e595836a7ff7f2c7b2a32cb5544dd29b55.camel@codethink.co.uk/
-Fixes: 50e17c000c46 ("vfs: Add timestamp_truncate() api")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
- fs/inode.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/fs/inode.c b/fs/inode.c
-index 1cb6293b237a..7f8e8feec4db 100644
---- a/fs/inode.c
-+++ b/fs/inode.c
-@@ -2847,9 +2847,10 @@ struct timespec64 timestamp_truncate(struct timespec64 t, struct inode *inode)
- {
- 	struct super_block *sb = inode->i_sb;
- 	unsigned int gran = sb->s_time_gran;
-+	time64_t seconds = t.tv_sec;
- 
- 	t.tv_sec = clamp(t.tv_sec, sb->s_time_min, sb->s_time_max);
--	if (unlikely(t.tv_sec == sb->s_time_max || t.tv_sec == sb->s_time_min))
-+	if (unlikely(t.tv_sec != seconds))
- 		t.tv_nsec = 0;
- 
- 	/* Avoid division in the common cases 1 ns and 1 s. */
--- 
-2.43.0
+SGksCgo+PiArIHJlZmNsayA9IGRldm1fY2xrX2dldChycGh5LT5kZXYsICJwaHljbGsiKTsK
+Pj4gKyBpZiAoSVNfRVJSKHJlZmNsaykpCj4+ICsgcmV0dXJuIFBUUl9FUlIocmVmY2xrKTsK
+Pgo+IFBsZWFzZSBpbnNlcnQgYSBuZXdsaW5lIGJldHdlZW4gZWFjaCBvcGVyYXRpb24gdG8g
+aW1wcm92ZSByZWFkYWJpbGl0eS4KPgo+PiArIHJhdGUgPSBjbGtfZ2V0X3JhdGUocmVmY2xr
+KTsKPj4gKyBpZiAocmF0ZSAhPSAyNDAwMDAwMCAmJiByYXRlICE9IDI2MDAwMDAwKQo+PiAr
+IHJldHVybiAtRUlOVkFMOwoKSSB3aWxsIGFkZCBhIGJsYW5rIGxpbmUgaGVyZSBhbmQgYmV0
+d2VlbiB0aGUgb3RoZXIgb3BlcmF0aW9ucyB0byBpbXByb3ZlCnJlYWRhYmlsaXR5LgoKPj4g
+KyAvKiBTZXQgdGhlIG5vcm1hbCBsaW5lLXN0YXRlIGZpbHRlciBpbnRlcnZhbC4gKi8KPj4g
+KyByZXQgPSByZWdtYXBfd3JpdGUocnBoeS0+Z3JmLCByZWcgKyAweDAwMjAsIDB4MzAxMDAp
+Owo+PiArIGlmIChyZXQpCj4+ICsgcmV0dXJuIHJldDsKPgo+IEhlcmUuCj4KPj4gKyAvKiBJ
+bmNyZWFzZSBIUyB2b2x0YWdlIGJ5IDUuODklIGFuZCBkb3VibGUgcHJlLWVtcGhhc2lzIGN1
+cnJlbnQuICovCj4+ICsgcmV0ID0gcmVnbWFwX3dyaXRlKHJwaHktPmdyZiwgcmVnICsgMHgw
+MDBjLCBHRU5NQVNLKDI3LCAyNCkgfCAweDA5MDApOwo+PiArIGlmIChyZXQpCj4+ICsgcmV0
+dXJuIHJldDsKPgo+IEFuZCBoZXJlLgoKSSB3aWxsIGFkZCBibGFuayBsaW5lcyBhdCB0aGVz
+ZSBwbGFjZXMgdG9vLgoKSSBhbSB3b3JraW5nIG9uIHNwbGl0dGluZyB0aGUgcGF0Y2hlcyBi
+eSBzdWJzeXN0ZW0sIGFuZCBJIHdpbGwKcmVzdWJtaXQgdGhpcyBwYXRjaCBhcyBwYXJ0IG9m
+IHYyIGFmdGVyIGFkZHJlc3NpbmcgdGhlc2UgY29tbWVudHMuCgpUaGFuayB5b3UgZm9yIHlv
+dXIgcmV2aWV3IQoKQmVzdCByZWdhcmRzLApDdW5oYW8gTHUK
 
