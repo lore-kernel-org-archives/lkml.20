@@ -1,84 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793543440;
-	b=Q8qx6bkzzhAB90r8S/DPhmKxw/M69Q+pM1AkOeKwuSGY5Tkwc1F2j6KR9BPIZlPj1BzJ
-	 2EdMQxHsKzniQwsN2DtXrTIH9JHrz4g0o9xk+U3fcgPICQwpsuRRKC6rCyylCI2xmdqEN
-	 M1GwxNavy8VTx7F5Yro0AUdkLnnHGqCAsgT7p1jBNVpmSDBZQNC3W+BQ9C6L5gfK8D3i2
-	 jNi0gg40TULAA/aCgxIsYlUHmEEbkmH3NrxgxTy7u+aMwU+XKYS2tEvf5IpIj+kdzhNlK
-	 akMtk/EY9M0HBDX/jWJ/slNtwACfyZxWGw1P9/aH/7tfKoGpO4AV9U7ne7HeZdRaGiw==
+	t=1793543439;
+	b=0r5zfC0zAtpgw0caogESKa2hhYwirwJGzH8qboqp0p5XrQuX3dPKjlXwvDn9vhBJS+Xa
+	 99K06MtQrdsrrfo0o0I3uxJLj7sMzhZML3Az3YL2n9XjJUnlq0FL7xR0nl3eUt6Lfi+VJ
+	 b6rRzkxhMmi+v2CUs0ajqvjK9/IbIDQiRHrTuxpNa8yMVtmqumT4b9XkAAbOucMtwNaS5
+	 oCyE80/eA7f6R80y/xejP0wxpj0SoUKRPrvpddocp6pyJc+WnvI/fkKhBm/lydCeSQ7n1
+	 R47METZfy2CL1rX79T+d/NcYKeqeQhbN9tEmI3JyGqJsqGeJ0ccSQDPGsmqss8VXgbw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793543440;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793543439;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tmzM1He6Zcm6h21veWQ/ul9U4i6SIDSSoe6SFpMsROk=;
-	b=i5KTWVWu7VhSIaTmKuqtaVK9e+hwlmPZD+MqNlPBnS5ONMr8gAVrrbohAKl57gHzIEah
-	 4K+9AFA9wcwY7r6kJNTm/Bw9NSEFiWFAKQsHNy4GcbnnbE0GNZ0JlTsLMp+czgbjO2Ln9
-	 8S6cMeWW3kFTpKzOX+mOKEGWbs49P/Kbur5bscM3JCdU2DMTdO3hytwZTKlhrF+hMIBuK
-	 tHRYnamFU2d5qoH5YsaFD94ldFkarCydO4D5y71/OGTjecVjgJosEU2d/L5twfPwb8Sxp
-	 nM+Ui/Ukh/OYtDd1z6csXsUzhikVfN/IP8YEXncJmDtHUkdrHiPcjYBKtaapzVq//Dw==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=beFOhHM7NoueVRBXy1T35SISL4UnsCDbE1h6tUqY/wA=;
+	b=MAiLU6Z5eUMw8919WRLGLpfuoq0JGKoXpE1jf8dkMYaQusXYdBltEKCTpJ3YeUotBCBX
+	 FmHG043iIkapUYfPw8OFPQsR/kQcajxWwB/UEOTHSi0vuLjKJ98bpsHGgdMfI3J8SQ1wl
+	 Gqd6L3Qa5KQ1nTU7ZQP/NMgQYlB6klMzv3zVxk7RUSpTohJ0NO4RMa46L7Bbiy6TTuxzS
+	 cVP8tSqi7hG4UrfaMD1sVB9NM0VUntA6Y+0b/+geh+M7wyoVYLFbo7/wotDTR6+gyXh/1
+	 JUI4Sdu9bItCnkKhsf+vC11tuSpzNrgQZJuU/bJ0JqVS9x1oJTyvKpdanQIALfHp7rg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+M1Wa+n;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="axrKvV5/";
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24182606A33D
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:30:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 24182606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F009C606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:30:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F009C606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=A+M1Wa+n
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a208d93758so23315005e9.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:30:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=axrKvV5/
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a5087a5348so16655115e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:30:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793543438; x=1794148238; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tmzM1He6Zcm6h21veWQ/ul9U4i6SIDSSoe6SFpMsROk=;
-        b=A+M1Wa+n9o6Ai1aDy5wIuMQ1Qwkbm9uj6N1YCs0axvyRq7zp/S7yNcm1HxCpeoriTL
-         zUnYBMuGWUzpBFYEOgmnCb2zGtGGMm4c3BdODeDl8X5kDIkr8cVgmGz4ByekK/bl8pVN
-         jlsUoSoWe6slMLaDpSMbNHI8j5mIKBjQ6BkqKzfBSLey/wSh7FU9UI9b95ZHUH1etdy/
-         gmxHgT2czUkR0YvQiOTmKJeGoE0uOyNvbRzDjQEeUVphq/ar6VwmK3kJMVb70OaOpU32
-         mybNpWC2JN/pg42L6iPUBn0HyZFEBy/p5s49JO7MKlLwA5sMzpr+XG6ZOdTC42GQg0h7
-         iYmg==
+        d=gmail.com; s=20260707; t=1793543437; x=1794148237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=beFOhHM7NoueVRBXy1T35SISL4UnsCDbE1h6tUqY/wA=;
+        b=axrKvV5/sycBk82+6Nt8gbseFSxoBPJM35iGjjREg3AlOkRUPtjV0bkauhgc3l76Ns
+         uvwYudrYsSijF7O4AvU63k6xhpZobOwKxE2/qguQofve7K6aFBYk0HsX7zBnIzSgs1KQ
+         u+BPOJbCj3E46YyqH7mTr2yCLdwZe6mazzmvWbHxnIjDJDcEiLasYasbX6a5Af+9Pkfg
+         r8dufV8lZA2m888lkjrjpTnzodE0g+gQAnD6mamUiFsLXnZBobWTPKF14OPjd11ixwjJ
+         xqwiFyDn3nitgx7zggVDT6fH9ZiNhBU/q8cLwysv7LPCLfI/7eHLdNS9c/FRC8FUxTzv
+         EVXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793543438; x=1794148238;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tmzM1He6Zcm6h21veWQ/ul9U4i6SIDSSoe6SFpMsROk=;
-        b=VI9oyk65sbrD3hJegiJIzuGkYIyjDlrHOknk1VnekCNqzCJN0DuCVAIk47FkI2Z/aR
-         ooNRYgiYEDVF3KvnDJuh0iv1Va2p/57Dw08OL97Y5nEGPV/hrTAbaJclRmECi6ejsgOW
-         NdfjoAPCDGpB6umtZ3whybg7r694k2t6DbHxamwvBFF/u89dQoYT17qVA4GfPPMUCyuG
-         DhUEbvOYlNLYa+LaSQc4VSbNJP44IeoS9twboU3Ud+iuocPUIFg1IwoKCsikPwVQ9OOT
-         Ougvsoas1XhyAqc8JcGS6pUVxkDVv+6X0lSUJhgzvYo32JopouZygBDm+sH++9taJk7Z
-         7AZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBza1MdT4OMM8MpyJowm/9yGCjPQQwG2Vm+UtFX3W60fvH/dDxZ8LeApoq3fD7NLFUaVVLQIxHUAyOmDKS0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJB9KaGJnjx56wceM3bgeh5DZyAlYOHfDKhB9JwrexB9Z7rhVhF
-	Ft1JXmiNBavIm5HM3blFg9vmLZjMF6aTGdKh/qmZ2xH5rhjyY5M/q/yN
-X-Gm-Gg: AYBFou0XXwW4K3+ZNvLION4T2YLkbmCvJ3ybQjTPrOTCHMBHpn9OpxxMByGKO+X/92Y
-	1j1PEmarCoNxydVZM5KS6eTFHdO3pdN0U/0160Y789Akg6GGmTY+xnbf+WWLqDbnfftTf7MQqOK
-	AFVQ8nIjXJHFU6yQZwwMg87oK+M+Ceg6AiHXZpUAa0qEuecRUWMWTd8jME0IocLIPIFcP9/xZgL
-	yDq9rFs9cYymFJuFp4gz+9iQmpSVx/ERG/32bac8oOD2e8Xl8ATui2cKmUmh5VYrVHRXhlOEfjP
-	Fzmm59enE9+6x0i2r4wmaiCnikCWpqcm6fCB5zS3/PAccrMDCQ1LifF7qzrSbRJXH16aKPkAhcd
-	hQjCq2xzqsaKm//yEJ63xPPNmBylRs4aIYmhu2ss4dCwCmvAOS2A7czMkDhyyHJGKDayvef7MIR
-	+R1Q5IpjpGO4G4Z65MKxgHt/NhAplN3QUopik6kn/U9a7/+6wCTAujN6Y+vaeJfqM3DBKVUwgp6
-	+R9/ig/Jak126z1LUusxby5HdI+FSf7VvfUR7QY2V7QHMI/vepo6H3MrBER/+F7fZqboNfHbb2r
-	tPjhLklHnLjvFCl6M2CFQPePZNjOAXcygNGWl+a7b+7je5K+dKchXOwcpqlunDLlY8926j6NQhl
-	KA5wawKtYM/yflilRKzePUvWh3Y+l2C4z3FzRaBdb/n/szQ==
-X-Received: by 2002:a05:600c:4752:b0:4a1:9661:14b5 with SMTP id 5b1f17b1804b1-4ac18e5d4d0mr184744515e9.29.1793543438534;
-        Sun, 01 Nov 2026 06:30:38 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793543437; x=1794148237;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=beFOhHM7NoueVRBXy1T35SISL4UnsCDbE1h6tUqY/wA=;
+        b=TMLO+iApUPaPxSkJZvqgkhX6bXJb2syZ9XyHtYQ0/asZ78V7SUKQ9CtKv4LczBQYwH
+         zsHawPB0XLzsV4XM1/kPRAn4HIFdMjKROho0RrUy2d5W8uKn9OX5oq8Mh3s9ZX/vYAwe
+         /yE3LWVVMzCAQ/nVQ1IyLl7w56G8YDA6kjviNbJqgjtFzb2+jlG6BGVaHFroXyRaD4JK
+         iA0ZWx/yWVmgsaFt/23ULwBBaTZ+h5Dic1Wj3g3X9nKnCHCqM6X2VSSgWAhrAZbQWylW
+         /cVmgXnTEKHlxjMSk2NCj/iuGvwJONjQGWHN/8mlEoFU35g1O2qBTi7lOPGHjgRNTTLH
+         tn0g==
+X-Forwarded-Encrypted: i=1; AKwUvBwuibTc9E/ujZBuF3uQBHaiLkIVWY5zgZ6A9XsBw1fKSuZ1V/lZITTT0cMuIZF7NzjSXEYx5As7wWqF0/g=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJMtCgBK60sZhuCsQ+E9aRq0dZMkEtLVFKj0RbzldWYYvvGq/AM
+	sDKDl0E0UuB5SHLbQWbMYknYsgzSTph45uZxyLmvIbVO1f7OMFwZy7IZ
+X-Gm-Gg: AYBFou03XagNgq8Q6pb8q8cBdMLy4qsFhj83NlsAi42nk29LsLWSuwl6yHPpe4Ngwyf
+	L3yemNQVDWKX8ldgcx9gjCrTEFrYvzoENhggzsWZEBxtbNO/PX6pMApDthqN/uooB0XZWIX39Ep
+	f9oCiVtzE4eWDRfyZ07O5PDM/Ij7r0/2BN8YNLPSKf4gTk1jCXfOEIM1on2R1hJwtww+ovuHtpr
+	jaMA0JeafWN9RTu3L1OejBZ66ka91ItmEDFT2Wwk6//JNhK57Gr0zMOjY11ZiuHBAoFZhyT3Y04
+	Wil649H3IkQhd+dDZyE4ing2OgF1M/blYLMy1tk9mpQwc9TrBjWBHnKQvGxA058Z+skDlPYzgUt
+	6gMx4BEg28q0W72YZL5/pXr8bpOK3dPxHLMbJ+xVx0Wd1iquvZkCm46PYgosuMDU86x49Ge0dS2
+	gN1b3Lcz2BbkxURQmx9/0L4RkGz8ybbtLJ8TmzX011+J6f28l3FLtbZxpwFvvNa6zkNOVEXENMW
+	G5iMLTNXcHeHrOv10l5Jz1g6s7vzpun8hUCUe3YAxr+q6PM+1WN846D9lSbLB+PKXZTTyTHyeoJ
+	NMqRr67cIWTmuri71dYN5/S6C3fe8jkdmKzW0n2phU5tnsKaz8yNTYqr5CVDk/8ASsjR93kbu/0
+	FcKWztYd9vMi26PkHDseLD1GBskaZEthlXLQ7bSBgms33JQ==
+X-Received: by 2002:a05:600c:8b85:b0:4a2:392:9de2 with SMTP id 5b1f17b1804b1-4ac1932b550mr152423265e9.28.1793543437168;
+        Sun, 01 Nov 2026 06:30:37 -0800 (PST)
 Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:861:39c2:e340:849f:a468:4121:a85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7706516sm138430595e9.0.2026.11.01.06.30.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe7706516sm138430595e9.0.2026.11.01.06.30.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 06:30:38 -0800 (PST)
+        Sun, 01 Nov 2026 06:30:36 -0800 (PST)
 From: Romain TISSERAND <romain.tisserand@gmail.com>
 To: Mark Brown <broonie@kernel.org>,
 	Liam Girdwood <lgirdwood@gmail.com>
@@ -93,12 +92,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	sashiko-reviews@lists.linux.dev
-Subject: [PATCH v2 2/2] ASoC: codecs: rt5631: Enable the optional MCLK
-Date: Sun,  1 Nov 2026 15:30:35 +0100
-Message-ID: <20261101143035.880469-3-romain.tisserand@gmail.com>
+Subject: [PATCH v2 0/2] ASoC: rt5631: Support an MCLK clock from the SoC
+Date: Sun,  1 Nov 2026 15:30:33 +0100
+Message-ID: <20261101143035.880469-1-romain.tisserand@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101143035.880469-1-romain.tisserand@gmail.com>
-References: <20261101143035.880469-1-romain.tisserand@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,78 +107,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When the RT5631 master clock comes from a SoC clock output, nothing in
-the codec driver keeps it running, and the clock framework turns it off
-at boot as an unused clock.
+The RT5631 driver doesn't take a master clock, so when MCLK comes from a
+SoC clock output, that clock is turned off at boot as unused. This
+series adds an optional "mclk" clock to the binding and enables it in
+the driver while the codec is active, as rt5616 does.
 
-Get an optional "mclk" clock in the I2C probe and enable it while the
-codec is active, from the PREPARE bias level, as rt5616 does. The rate
-is left to the CPU DAI.
+The board that needs it is the GPD XD (RK3288), whose device tree is not
+upstream yet. Its MCLK is i2s0_clkout: handed to simple-audio-card, the
+mux picked the 12 MHz oscillator for 12.288 MHz (wrong pitch); held by
+the codec, it follows the I2S clock, as on the RK3288 boards with ES8388
+and MAX98090 codecs.
 
-On the GPD XD (RK3288) MCLK is i2s0_clkout, a mux between the I2S clock
-and a 12 MHz oscillator. Handed to simple-audio-card instead, it is set
-to the stream rate before the CPU DAI sets the I2S clock, so for
-12.288 MHz the mux picks the oscillator and audio plays at the wrong
-pitch. Held by the codec, it follows the I2S clock.
+Changes in v2:
+- Patch 2: get the clock in the I2C probe, as rt5616 does since
+  b5c9df40ca56: from the component probe a deferral was lost and a rebind
+  leaked the clock (reported by Sashiko).
+- Patch 1: unchanged; picked up Krzysztof's Reviewed-by.
+- v1: https://lore.kernel.org/all/20261025145354.3476371-1-romain.tisserand@gmail.com/
 
-Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
----
- sound/soc/codecs/rt5631.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Testing: dt_binding_check for realtek,rt5631.yaml; W=1 builds for arm
+(multi_v7) and arm64 (defconfig) with SND_SOC_RT5631=y and =m, no
+warnings. Tested live on the GPD XD (RT5631 on simple-audio-card,
+mclk-fs 256) on 6.18.54 with this change backported (the bias level read
+uses snd_soc_component_get_bias_level() there): i2s0_clkout stays on the
+I2S clock at 11.2896 MHz for 44.1 kHz and 12.288 MHz for 48 kHz, and
+both play at the right pitch; v2 tested the same way, with the clock
+taken in the I2C probe. Boards without an "mclk" clock are not affected
+(clk_prepare_enable() on a NULL clock does nothing); not tested on other
+boards.
 
-diff --git a/sound/soc/codecs/rt5631.c b/sound/soc/codecs/rt5631.c
-index f97fd24e42..d523d6d3a2 100644
---- a/sound/soc/codecs/rt5631.c
-+++ b/sound/soc/codecs/rt5631.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/moduleparam.h>
- #include <linux/init.h>
-+#include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/pm.h>
- #include <linux/i2c.h>
-@@ -27,6 +28,7 @@
- 
- struct rt5631_priv {
- 	struct regmap *regmap;
-+	struct clk *mclk;
- 	int codec_version;
- 	int master;
- 	int sysclk;
-@@ -1536,10 +1538,19 @@ static int rt5631_set_bias_level(struct snd_soc_component *component,
- {
- 	struct rt5631_priv *rt5631 = snd_soc_component_get_drvdata(component);
- 	struct snd_soc_dapm_context *dapm = snd_soc_component_to_dapm(component);
-+	int ret;
- 
- 	switch (level) {
--	case SND_SOC_BIAS_ON:
- 	case SND_SOC_BIAS_PREPARE:
-+		if (snd_soc_dapm_get_bias_level(dapm) == SND_SOC_BIAS_ON) {
-+			clk_disable_unprepare(rt5631->mclk);
-+		} else {
-+			ret = clk_prepare_enable(rt5631->mclk);
-+			if (ret)
-+				return ret;
-+		}
-+		fallthrough;
-+	case SND_SOC_BIAS_ON:
- 		snd_soc_component_update_bits(component, RT5631_PWR_MANAG_ADD2,
- 			RT5631_PWR_MICBIAS1_VOL | RT5631_PWR_MICBIAS2_VOL,
- 			RT5631_PWR_MICBIAS1_VOL | RT5631_PWR_MICBIAS2_VOL);
-@@ -1726,6 +1737,11 @@ static int rt5631_i2c_probe(struct i2c_client *i2c)
- 	if (IS_ERR(rt5631->regmap))
- 		return PTR_ERR(rt5631->regmap);
- 
-+	rt5631->mclk = devm_clk_get_optional(&i2c->dev, "mclk");
-+	if (IS_ERR(rt5631->mclk))
-+		return dev_err_probe(&i2c->dev, PTR_ERR(rt5631->mclk),
-+				     "failed to get the mclk clock\n");
-+
- 	ret = devm_snd_soc_register_component(&i2c->dev,
- 			&soc_component_dev_rt5631,
- 			rt5631_dai, ARRAY_SIZE(rt5631_dai));
+Tool disclosure: this series was prepared with Claude Opus 5.5
+(Anthropic) as a coding assistant, in an interactive session where I
+asked it to fix the pitch problem without the RK3288 clock change that
+was refused in 2014. It traced the clock ordering in simple-audio-card,
+proposed taking the clock in the codec driver following rt5616, and
+drafted the patches and the messages; v2 follows the Sashiko review. I
+reviewed and understand them, and tested them on the GPD XD as described
+above.
+
+Romain TISSERAND (2):
+  ASoC: dt-bindings: realtek,rt5631: Add the optional MCLK
+  ASoC: codecs: rt5631: Enable the optional MCLK
+
+ .../bindings/sound/realtek,rt5631.yaml         |  8 ++++++++
+ sound/soc/codecs/rt5631.c                      | 18 +++++++++++++++++-
+ 2 files changed, 25 insertions(+), 1 deletion(-)
+
+
+base-commit: cc3fc99f1bce93c3ae3771ef98cb91a566da857e
 -- 
 2.43.0
 
