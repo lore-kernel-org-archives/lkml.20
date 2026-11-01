@@ -1,66 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571934;
-	b=Oz4HLMHDNQ+BvJSuXzkHxehyK+4GKBRKSqIKmVtWigZeA+XlUMwhDaHKpn+uSAuQ6BQH
-	 bSJcKgzvDxVdx8sO805AJRepd7q7FaPp/MVIgyd2OhS5bo8sr0DCIJHHqtonqBFb273Ta
-	 ENcHLSiy4ZdVIGn9fHxkedouv0GlTSC0flYRlDWoD+A7FHaATICc5x3biIfRl5RlIEUeO
-	 cHW20HHtId2Jgs3z1dQDKd+AKkqIPQVT5Jrf4mOPotIVL9yRZHZWrNiYhSSgEwUlhmUEQ
-	 IMtBf4/ARNz8zAJLHZBbW1fYkD3An2djdeYV4LCxJ2njWz1pH8gR+FSNy7ETpE+mxdA==
+	t=1793571939;
+	b=WfaVcJrhVuFPFoWiP4earn4MBsJjii7be2xvAkS+2Qy39xyusYt95xU96MFbYhzqdlns
+	 Htlh9ZilsMpsDwEX+/rw13SMfcg+3CUSJHeXeAursMABM1HnBOz9W6UuZ/Hm+fzPqzYra
+	 CYYnjqUZXCn1Gr6YwVeQmb1RRD3kpb7kS3A0p33J92sVLQadGwWxOgEtrKF/+flNbJ7fv
+	 DoAXYQ8a/ndrr7VqsdGOAjZTdZocEg6IpzVvAPwCvWc7XqrqOgR3aClqcn8jj0RK+waeo
+	 5GexysR0EUlQlQjQoJZqlAhuvaA8XWLtjW7A28IxqA/0JvBeIY3S60bVZdMsIgfJNDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571934;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571939;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=8sOoVCRcZN/x0LMY6dgWZjebg2CSDJGW78WD2Rp9JOk=;
-	b=N+PtyQnTs9UoV5pFk0e0DesmKIjuCP1ovD5Ou+UDuHG8gzhB632Z0tawLpPod1DG+9gC
-	 3qOghmha/lcPwkVzQivGljWnM++i8KZXZFDMeP6KBlGGzLoUgHK94ovdiATqp09h15w1w
-	 jsKUhi4YvMgdf6nPacE0o8987ZCoyAqPkwWffrOWQfcvWebVyTA2syGy+4Fk1Og646G1I
-	 G4cxl3zElc+2IEJibnSdPUIala69XJpsaoIlkkyIiTnklYXgVB4G2yJ0ojYVV3p9XJXtG
-	 pZJWBFyCWdcJn5BAQcYN1zGaQINzXrCZev1mRs/l8vbm9ilOSLOu3ON3QozdrXeOUxA==
+	bh=kJOBoJUkoFAEiWtg0dNKy3UlTYdlf7GE/vw5ICcDfv0=;
+	b=J64mUxirvTKM/DUdVvM9mIUXTo9hO9cXclKXAH4AsmhACKLwQtKNE/JeYW8RwXgbRql6
+	 SsHnwYNYyZkU6MdRs4SD2bHQjkSdobJ8kypO6hVahP+lKwa6oNbmXSbLk4D3sahMkYz7C
+	 RTcJeU3viljyLdqNSVgnuXqGmPXGXpsbELsxOzSJG8bJcthF21Ifcxk1gy27XEgjqEctE
+	 /8bFDhA0ACCKLtD5sDef1kiyX9HOIpsT7f/T1Y1W4qQoR79oi9KpDRdklAG1hTD6Zboba
+	 0sSnTdsKdMRxv0o3H2EJJIclXxAGhIwzpzmjU8jNslkixDjcFq7YLwFB1BfYUGJkk2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8rmNcVY;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LmEr+VQ1;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2063F606E527;
-	Sun,  1 Nov 2026 22:25:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43C560701D3
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:25:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C43C560701D3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V8rmNcVY
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3915E1F000C1;
-	Sun,  1 Nov 2026 22:25:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571933;
-	bh=8sOoVCRcZN/x0LMY6dgWZjebg2CSDJGW78WD2Rp9JOk=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=V8rmNcVYviQJAu7eXwfrG/iy4DFzgdzimOFhPCKd3jsOWvGYdXk0J4xxkhSesTnvv
-	 C5tXKm85R6al635JtY3Me14qQlMBoOS1B9N1BCKd+23ppkJMGogryE4wbmoxF/K9Mj
-	 nNb0mRZ+2hAW6NfWQTQXtU2UPrmcgGKRoDReGE5V1A5yklvDW+YYMDog2CMnk0W+Ju
-	 /25jRTtShkYlWY8E05dlkU7xnjTO62ZSe/lkp9i383NI/KNkod7MIF383PnTeXROjJ
-	 26B0C7kcYuWcBrtg06s+yOZqqaBTK/NKr8Q1MNfkI2nniE3Y6+FBvUFu2+bMkqajzg
-	 //56bQgv/+1pQ==
-Date: Sun, 1 Nov 2026 22:25:28 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- "Jean-Baptiste Maneyrol" <jean-baptiste.maneyrol@tdk.com>, Joshua Crofts
- <joshua.crofts1@gmail.com>, Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
- Chris Morgan <macromorgan@hotmail.com>, <kernel@axis.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, Jonathan Cameron
- <jonathan.cameron@oss.qualcomm.com>, Krzysztof Kozlowski
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 7/7] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID: <20261101222528.4ee16a59@jic23-hlaptop>
-In-Reply-To: <20261026-b4-inv_icm42370p-v7-7-222e296ac1e0@axis.com>
-References: <20261026-b4-inv_icm42370p-v7-0-222e296ac1e0@axis.com>
-	<20261026-b4-inv_icm42370p-v7-7-222e296ac1e0@axis.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LmEr+VQ1
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-36a17a332ecso3946358eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:25:38 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793571938; x=1794176738; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kJOBoJUkoFAEiWtg0dNKy3UlTYdlf7GE/vw5ICcDfv0=;
+        b=LmEr+VQ1TBDpm8PGMdN8isqSoNjalLY06F83FXsd3LHuMPBaCR3le02S2H3oDV8bDl
+         Hu+Ba/o+5nLxa51WKsanjBYw//9XaQPzbRve/L705NDW9XMvSr0uJC2SkoVPAp4GSTdu
+         QUoy7fwPs2POs9RCz8bl4EMCnC6gFwvy09VY2+EunqEP57j6DGPK9TAtZwUHo+D3Qsfg
+         6pLzal6tYEZaeNQFftE/FesVeLv+KT6G52Pk/CWIE1F5pT6D0tForpzNdOjWuZwMT6rd
+         BGWIhNY7h+yImwTSypUSrI5L4YBdgroybfAoljcyhhmPUfhMctU/2oURCmUk1UfvGdvS
+         Lfag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793571938; x=1794176738;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kJOBoJUkoFAEiWtg0dNKy3UlTYdlf7GE/vw5ICcDfv0=;
+        b=AtdkvVs7fTDgu25XYDKYWt8ghPUaaWoC0i+v55im5wt39LvQqhGJy2L71QZys4VK5e
+         UvF6pfWga3ZSYl9ifkbSJ4NVpvKbbzQ7u8tQWHxVEjgSJhzu087m8nXVEX8Lk7lTDYM2
+         tE61rd9W2JmW3/RiykPLlVGTOEImvZDgMrXwApr3upy3Wtenaz3UP3wy1em7zxMVTwVw
+         3dXvFIW82dUvwYdP+BaVx/Ga63adz97Rxobqolvsl8sr0EsUEh2GhCv+96XAitrr3Z28
+         QL+s0PKt9RPzhYb5NlRMft2JJyTHn17cXpITVzS+Fczy3pZE9F4vKr53dQqvs/Hl4X1s
+         hPZw==
+X-Forwarded-Encrypted: i=1; AKwUvBwO4asX6/cI2be9PhwiU+hXEVMus4TgdipiPeqt0pl9t7LgNgJKKjr/qebN1PItjzIqvZOlkVDagukhltE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLI0bXBNWEgxaAw51qQVDKCcrP6aSiYxWfpY8Oq2Nn1McMj2IXZ
+	lMiSoU/DswFi1/EVddRJpJFdJH1D8DnAlyvLtN9FJ+Gyv8WN3uLMwUOl
+X-Gm-Gg: AYBFou0nqWLCItimWLPM3UAzKx3rdYmYvVPnIEfFoNPJfU8U9Se36Ip/Fdgac9i0GSA
+	nlaE2CV451BqdOfn4OUMGJdOMstHIwgLAgjdAVAMX8491E1AEXEdvcD4SePBKqeibPkbmG1Mum1
+	WQZlmLByEcJsCnBbbIZpmySu3D+fJVdyIX2iA/v9hjgYYn+qwHgNnt1nimp9JTctydX9N84z2IP
+	QU1wlZXBMpCMjaXCtKB0U6wXLHN7XQINHsOu/Oho7kk5bNrM/r6GOVBFIG2IWL9VFK0K2m4/ZhA
+	AeEDYDLoPtie7pYKa8WmsUlvHL6i7xUK5GkDpd6C2gIrcqQl8BKFkFRPW5y7OPyl00Lv+D5GFv3
+	nMWLLghY63hFHLuf0eoe9t8SABt1NkaeINZJrBbbnaFSBwS5QkRf3BGOShCLAgWJ4bSURHOjpDK
+	o5rdFx7NBNrTlBPuntf/Eh0AS1ZrkUOT8Nm4Vx/aAQPL6OKisZJc308iytW/1CYOO4xwpDHNCXQ
+	KWM1abkN/QMZPgx24IKkcyNpUeyA+aipuW8Xu3JZEAXD8MmA7KUaqKlUANEdlHaF392FeA8fJkL
+	DN0pLeI7C39FCMYVTRVggxlZR79BWcsUG+T8KFd5HtUZiiNXisc/ZnhqM28O2lDdAvKfQygzWZk
+	jvUYBgme6+UyLCFkkHmdT8Yxrhvl/0Fni1aqEitY9JT7bW44X31slw42pAnzXc9HEXJ4P/JhOA0
+	oWQg==
+X-Received: by 2002:a05:693c:87cd:20b0:36a:32de:a239 with SMTP id 5a478bee46e88-36a420643f1mr12848026eec.0.1793571937651;
+        Sun, 01 Nov 2026 14:25:37 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42669128sm33089979eec.3.2026.11.01.14.25.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 14:25:37 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-wireless@vger.kernel.org
+Cc: Ping-Ke Shih <pkshih@realtek.com>,
+	Zong-Zhe Yang <kevin_yang@realtek.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH rtw-next] wifi: rtw89: acpi: check for _DSM function support before evaluating it
+Date: Sun,  1 Nov 2026 14:25:35 -0800
+Message-ID: <20261101222535.34573-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -70,160 +98,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, 26 Oct 2026 12:02:55 +0100
-Kanak Shilledar <kanak.shilledar@axis.com> wrote:
+When the WiFi device has no ACPI companion, or the firmware does not
+implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() calls
+acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
 
-> Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> registers are stored in MREG1. The calibration bias is written to
-> OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
-> limit calibbias values instead of clamping it.
->=20
-> Datasheet: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370=
--p
-> Datasheet: https://www.lcsc.com/product-detail/C5129967.html
-> Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-> Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
-Minor thing inline given you are going to be doing a v8
+  ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 rev:0 func:10 (0x1001)
+  ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7 rev:0 func:6 (0x1001)
 
-Thanks,
+Here the handle is NULL, and acpi_evaluate_object() returns
+AE_BAD_PARAMETER. All callers already treat failure as "no policy
+provided by the platform", so this is only noise.
 
-Jonathan
+Use acpi_check_dsm() first. It returns false for a NULL handle and for
+functions that are not advertised, so absent functions fail quietly at
+debug level, as rtw89_acpi_evaluate_method() already does.
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c b/drivers/=
-iio/imu/inv_icm42607/inv_icm42607_accel.c
-> index 9a3ace3e7fcf9..2878e35d655d0 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
-> @@ -4,6 +4,7 @@
->   */
-> =20
->  #include <linux/array_size.h>
-> +#include <linux/bitfield.h>
->  #include <linux/bits.h>
->  #include <linux/cleanup.h>
->  #include <linux/device/devres.h>
-> @@ -13,6 +14,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
->  #include <linux/types.h>
-> +#include <linux/units.h>
-> =20
->  #include "inv_icm42607.h"
->  #include "inv_icm42607_temp.h"
-> @@ -22,9 +24,11 @@
->  	.type =3D IIO_ACCEL,							\
->  	.modified =3D 1,								\
->  	.channel2 =3D _modifier,							\
-> -	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),				\
-> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |				\
-> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
-+			      BIT(IIO_CHAN_INFO_CALIBBIAS),			\
-Is my preference for aligning the blocks of a load of bits.
+Seen on an RTL8852BE in a desktop PCIe slot.
 
->  	.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE),			\
-> -	.info_mask_shared_by_type_available =3D BIT(IIO_CHAN_INFO_SCALE),		\
-> +	.info_mask_shared_by_type_available =3D BIT(IIO_CHAN_INFO_SCALE) |	\
-> +		BIT(IIO_CHAN_INFO_CALIBBIAS),					\
->  	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),		\
->  	.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
->  	.scan_index =3D _index,							\
-> @@ -56,6 +60,16 @@ static const struct iio_chan_spec inv_icm42607_accel_c=
-hannels[] =3D {
->  	INV_ICM42607_TEMP_CHAN(INV_ICM42607_ACCEL_SCAN_TEMP),
->  };
+Fixes: e897b0bef38a ("wifi: rtw89: introduce realtek ACPI DSM method")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/net/wireless/realtek/rtw89/acpi.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-> +
-> +static int inv_icm42607_accel_write_offset(struct iio_dev *indio_dev,
-> +					   struct iio_chan_spec const *chan,
-> +					   int val, int val2)
-> +{
-> +	struct inv_icm42607_state *st =3D iio_device_get_drvdata(indio_dev);
-> +	struct device *dev =3D regmap_get_device(st->map);
-> +	s32 min, max;
-> +	u8 msb, lsb;
-> +	s16 offset;
-> +	s64 val64;
-> +	int ret;
-> +
-> +	if (chan->type !=3D IIO_ACCEL)
-> +		return -EINVAL;
-> +
-> +	/* inv_icm42607_accel_calibbias: min - step - max in micro */
-> +	min =3D inv_icm42607_accel_calibbias[0] * (long)MEGA -
-> +	      inv_icm42607_accel_calibbias[1];
-> +	max =3D inv_icm42607_accel_calibbias[4] * (long)MEGA +
-> +	      inv_icm42607_accel_calibbias[5];
-> +
-> +	val64 =3D val * (s64)MEGA;
-> +	if (val >=3D 0)
-> +		val64 +=3D val2;
-> +	else
-> +		val64 -=3D val2;
-> +
-> +	if (val64 < min || val64 > max)
-> +		return -EINVAL;
-> +
-> +	/*
-> +	 * Convert m/s=C2=B2 to g then to raw value
-> +	 * m/s=C2=B2 to g: 1 / 9.806650
-> +	 * g to raw 12 bits signed, step 0.5mg: 10000 / 5
-> +	 * val in micro (1000000)
-> +	 * val * 10000 / (9.806650 * 1000000 * 5)
-> +	 */
-> +	val64 *=3D 10000LL;
-> +	offset =3D DIV_S64_ROUND_CLOSEST(val64, 9806650 * 5);
-> +
-> +	/* Value is limited to 12 bits signed, return -EINVAL if out of range */
-> +	if (offset < -2048 || offset > 2047)
-> +		return -EINVAL;
-> +
-> +	msb =3D FIELD_GET(INV_ICM42607_OFFSET_MSB, offset);
-> +	lsb =3D FIELD_GET(INV_ICM42607_OFFSET_LSB, offset);
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(dev, pm);
-> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	switch (chan->channel2) {
-> +	case IIO_MOD_X:
-> +		/* OFFSET_USER4 upper nibble is shared. */
-> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER4,
-> +				INV_ICM42607_OFFSET_USER_NIBBLE_HI,
-Align after (
-Don't worry about slightly long lines.
-
-> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER5, lsb);
-> +	case IIO_MOD_Y:
-> +		/* OFFSET_USER7 lower nibble is shared. */
-> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
-> +				INV_ICM42607_OFFSET_USER_NIBBLE_LO,
-> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_LO, msb));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER6, lsb);
-> +	case IIO_MOD_Z:
-> +		/* OFFSET_USER7 upper nibble is shared. */
-> +		ret =3D regmap_update_bits(st->map, INV_ICM42607_REG_OFFSET_USER7,
-> +				INV_ICM42607_OFFSET_USER_NIBBLE_HI,
-> +				FIELD_PREP(INV_ICM42607_OFFSET_USER_NIBBLE_HI, msb));
-> +		if (ret)
-> +			return ret;
-> +
-> +		return regmap_write(st->map, INV_ICM42607_REG_OFFSET_USER8, lsb);
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
+diff --git a/drivers/net/wireless/realtek/rtw89/acpi.c b/drivers/net/wireless/realtek/rtw89/acpi.c
+index ebb6cf555747..2968918936ac 100644
+--- a/drivers/net/wireless/realtek/rtw89/acpi.c
++++ b/drivers/net/wireless/realtek/rtw89/acpi.c
+@@ -372,11 +372,17 @@ int rtw89_acpi_evaluate_dsm(struct rtw89_dev *rtwdev,
+ 			    enum rtw89_acpi_dsm_func func,
+ 			    struct rtw89_acpi_dsm_result *res)
+ {
++	acpi_handle handle = ACPI_HANDLE(rtwdev->dev);
+ 	union acpi_object *obj;
+ 	int ret;
+ 
+-	obj = acpi_evaluate_dsm(ACPI_HANDLE(rtwdev->dev), &rtw89_guid,
+-				0, func, NULL);
++	if (!acpi_check_dsm(handle, &rtw89_guid, 0, BIT(func))) {
++		rtw89_debug(rtwdev, RTW89_DBG_ACPI,
++			    "acpi dsm func %d not supported\n", func);
++		return -ENOENT;
++	}
++
++	obj = acpi_evaluate_dsm(handle, &rtw89_guid, 0, func, NULL);
+ 	if (!obj) {
+ 		rtw89_debug(rtwdev, RTW89_DBG_ACPI,
+ 			    "acpi dsm fail to evaluate func: %d\n", func);
+-- 
+2.56.0
 
