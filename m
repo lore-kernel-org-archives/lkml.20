@@ -1,66 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.134.164.83
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793577117;
-	b=bOdPm6ZP1Sih9BBKVmmkimirmkJ7ctggBeqS69QY1PPMLYUG10qMzfwFv0ws2iYa4410
-	 WLAogSLLJdydpgwzNezoR54ZGGc4Qy/MbKI77TOt6aaQfRKNDWjLZCoNq0QGet4WIdv37
-	 jmsADZEo6Xor5kby/g4N2aLDxI70zNZxiZ6AHH3RfIDm6lha+U3mA9IIMLMza4Lc8wCEX
-	 P7t2761YZyAGRk0PLfjP3zNNsGYN6dML3CsTWWbMHKMdckk2+9NnuHOiC8pwuaYblAMs6
-	 ez9VGkfwiHIgM2n9d61u496oserMWzVqgC3K8Bge5aEIvBbg7DfSAkUhAR16iu4rg1g==
+	t=1793577187;
+	b=SKmft+HeCH1GwLDKBDj0PNlmFfkKhouPx87HPctFjXanveejTf3PVDD/h4Uxbllei7B+
+	 1o3eIzSfD2oWOXLv0qnEs1uBQcuXCMsOzItwHmmsRAQa/uTgjDFx+vu1LzEiILGsI35f3
+	 lG8Epbdy3+9JY+aVsMjkQYkFQU5oO7mAWjwQ3Q2n2IMmw1Zkpb/YUbwjENyTXxDIZM2G3
+	 zfxmtLJB/vwSUs7WNDpagkdEMWHGMquZSpCmjq0qrk82QCy0WtHlG3geFnnOz2CHZNN05
+	 9c+ylwdqK7wvsx4qti7dnRP5y6/SHmCnGC33hZjeXUwDu5ix+8P10PFK/2mudu/w28Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793577117;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:Received:Date:From:To:cc:Subject:In-Reply-To:Message-ID:
-	 References:MIME-Version:Content-Type;
-	bh=KIvY7c6eGNR1PYr4Rw2sHXHPIR5Jl1oXe/FN4rg1gXs=;
-	b=gO6nnr4S+cSXRqPG85YFqP3XUqbEVTzzywVcU+WOOKH7wxStJCsM75Z7n/JMVw8DrxT/
-	 lvbUAT28vhYC1J40uRU61NrLNC+tGyRWGuLtnIt+H3PetE90f1yo0pe8QCxjVSSvGRw/+
-	 ki0HqQHPyT36DtcNvsbCOhVzYMgZv0/K7XA1RTl05HVqjikRA+ISVe/9MMQcIc/8Wg7rH
-	 fzrF6GtrpsZNkBpu8VxfUGj2d603FoKmAgojLyWNvKpo/Me5lsaEjU1SBj5fttYTAGxkP
-	 GgQaYdIl8tm+XDHFVJhW7gSIjCTq0Dd/c+PMC40AUecRq06e0vufzMRUtpC2I6+AUwA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577187;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+FdbV1fygpkQa5AYOrs49bje7EWIBa53juEdskXuHwU=;
+	b=N4FybAT/B7TUSeh5ARJW/QoiM19YVIg/v2gYNJHgVrBkfVSjlCCl96cPlHywiekPCbHY
+	 pkD8oiz4S9uGHAeEF8nwkQfu0WsB+EuwQMpKsq4hvarTLNI/aU+QbyXktM01tOFUk6dXq
+	 lftq5HQyq88r+rYCLe1YT3HccT74QkP+T2BE0C+k7k7WDc3XO3HDFnFDGN0aTD1dhk9HW
+	 Wxme6eNHI7PCIf9G4vD9nXoWRCzE4POAI2RIRTM0HfXBxm6e6DEijfwWDvqTojpaYfUvs
+	 TZ2mQvUmRgbK2RGiND+uQHgdPbxXvKa3YeRvqN7fvNpXLrieLelfdJ+M2k1gmiSER2Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=inria.fr;
-	spf=pass smtp.mailfrom=inria.fr;
-	dkim=pass header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=iee5eqVz;
-	arc=none smtp.remote-ip=192.134.164.83
-Received: from mail2-relais-roc.national.inria.fr (mail2-relais-roc.national.inria.fr [192.134.164.83])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPmoTco4;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55276606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:51:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 55276606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=inria.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=inria.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF4D2606A324;
+	Sun,  1 Nov 2026 23:53:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=inria.fr header.i=@inria.fr header.a=rsa-sha256 header.s=dc header.b=iee5eqVz
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=inria.fr; s=dc;
-  h=date:from:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=KIvY7c6eGNR1PYr4Rw2sHXHPIR5Jl1oXe/FN4rg1gXs=;
-  b=iee5eqVzXL2zTBc/zdr53NR8ZlmyDjYaWBIjFVDBezg6j066xMnatFRE
-   AGh0n1ekNNX5+Y1FqfjsSBZXdzyC25rh64G+3LSf5dhhe0Bidv2KBQA4s
-   1bDJpVFSOBVcfpBvp2vJzIQbUl2o+TAQbPbUkdosppnxERt+GqVW+qVTK
-   M=;
-X-CSE-ConnectionGUID: KvlqFKkSQByscQ4HsivZmQ==
-X-CSE-MsgGUID: cwhUsx3XTdCozV56cvniZA==
-Authentication-Results: mail2-relais-roc.national.inria.fr; dkim=none (message not signed) header.i=none; spf=SoftFail smtp.mailfrom=julia.lawall@inria.fr; dmarc=fail (p=none dis=none) d=inria.fr
-X-IronPort-AV: E=Sophos;i="6.27,190,1787004000"; 
-   d="scan'208";a="303236714"
-Received: from 88-188-149-159.subs.proxad.net (HELO hadrien.home) ([88.188.149.159])
-  by mail2-relais-roc.national.inria.fr with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 00:51:54 +0100
-Date: Mon, 2 Nov 2026 00:51:53 +0100 (CET)
-From: Julia Lawall <julia.lawall@inria.fr>
-To: Joe Perches <joe@perches.com>
-cc: Greg KH <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org, 
-    Linus Torvalds <torvalds@linux-foundation.org>, 
-    Kees Cook <kees@kernel.org>, driver-core@lists.linux.dev, 
-    Julia Lawall <Julia.Lawall@inria.fr>, 
-    Nicolas Palix <nicolas.palix@imag.fr>, cocci@inria.fr
-Subject: Re: [resend PATCH] coccinelle: Add devm_kmalloc_objs conversion
- script
-In-Reply-To: <9b55b3e3269ef43ede64fff34f42121f7aa47979.camel@perches.com>
-Message-ID: <1a6026c4-3e19-a1a9-e637-f1842172482b@inria.fr>
-References: <9b55b3e3269ef43ede64fff34f42121f7aa47979.camel@perches.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WPmoTco4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 785891F000C1;
+	Sun,  1 Nov 2026 23:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793577186;
+	bh=+FdbV1fygpkQa5AYOrs49bje7EWIBa53juEdskXuHwU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WPmoTco4mk4LgWTTkVTV2hDqSITZ518aq3iHHoMFevxLyCh6xCDcBiL/ge82h347W
+	 usFpr9+SgHiuFrYPzA6XxL9Sr21lWT6t+pIIyrBEHhoQgf4rA77XYoGLv7ayfLfcHu
+	 9+fYC6kndRxa/UBm2istlaUjrOWIUfoNquMq9dielufemC0GeaOlTIoW5sI1Y1HUL2
+	 gyNY02y5mYc5lrC7NgOHZ1zIOPVroOYr3tJzb8KdjD5o9E/u/46UzkwJlk+vM/YdlL
+	 41lO4lNPnyNJxW4LKExWDoswQYB7EGTxPzI852RaupVVBAqXqjkm46GBm+olVztdm2
+	 6i8uL06R50hcA==
+Date: Sun, 1 Nov 2026 23:52:59 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Arnav Kapoor <kapoorarnav43@gmail.com>
+Cc: Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, Conall O'Griofa
+ <conall.ogriofa@amd.com>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Michal Simek <michal.simek@amd.com>, Andy Shevchenko
+ <andriy.shevchenko@intel.com>, stable@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-iio@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] iio: adc: xilinx-ams: fix out-of-bounds accesses
+ when parsing channels
+Message-ID: <20261101235259.27b3b43c@jic23-hlaptop>
+In-Reply-To: <20261023185652.195025-1-kapoorarnav43@gmail.com>
+References: <20261023185652.195025-1-kapoorarnav43@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -71,197 +66,183 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sat, 24 Oct 2026 00:26:48 +0530
+Arnav Kapoor <kapoorarnav43@gmail.com> wrote:
 
+> ams_parse_firmware() allocates room for ARRAY_SIZE(ams_ps_channels) +
+> ARRAY_SIZE(ams_pl_channels) + ARRAY_SIZE(ams_ctrl_channels) = 51
+> channel specs and lets ams_init_module() fill them for the AMS node and
+> each of its children, without telling it how much room is left.
+> 
+> For the PL-SYSMON node, ams_get_ext_chan() appends one channel per
+> "channel@N" child after the 10 fixed PL channels. The binding allows
+> reg values 20..50, so a PL node can have up to 31 such children, i.e.
+> up to 41 PL channels, while only 31 are budgeted for it. Together with
+> the 13 PS and 7 AMS control channels, this writes past the end of the
+> buffer. Since the modules are filled in device tree order, the fixed
+> channel blocks copied after the PL node can overflow as well.
+> 
+> ams_get_ext_chan() also only checks the upper bound of reg. ext_chan is
+> unsigned, so a reg below 20 makes it wrap and ams_pl_channels[] is read
+> far out of bounds.
+> 
+> Pass the remaining capacity down to ams_init_module() and
+> ams_get_ext_chan() and fail with -ENOSPC when a module does not fit,
+> instead of writing past the buffer. Also reject reg values below 20, as
+> the binding requires.
+> 
+> Fixes: d5c70627a794 ("iio: adc: Add Xilinx AMS driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Arnav Kapoor <kapoorarnav43@gmail.com>
+AMD Xilinx folk, please take a look at this one.
 
-On Sun, 1 Nov 2026, Joe Perches wrote:
+Thanks,
 
-> Like commit bdc5071d7f7b ("coccinelle: Add kmalloc_objs conversion script")
-> with commit 1c7bbaeed110 ("coccinelle: kmalloc_obj: Remove default GFP_KERNEL arg")
->
-> Finds and converts sized devm_kmalloc-family of allocations into the typed
-> devm_kmalloc_obj-family of allocations.
+Jonathan
 
-Applied
-
->
-> Signed-off-by: Joe Perches <joe@perches.com>
 > ---
->
-> Maybe this might be useful to run and apply just prior to some -rc1
->
-> This script would change more than 8000 instances in more than
-> 5000 files in Linus' current master.
->
-> $ spatch -D patch --very-quiet --cocci-file ./scripts/coccinelle/api/devm_kmalloc_objs.cocci \
->     --include-headers-for-types --all-includes --include-headers --keep-comments \
->     -I ./arch/x86/include -I ./arch/x86/include/generated -I ./include \
->     -I ./arch/x86/include/uapi -I ./arch/x86/include/generated/uapi -I ./include/uapi \
->     -I ./include/generated/uapi --include ./include/linux/compiler-version.h \
->     --include ./include/linux/kconfig.h .
+> Changes in v2:
+> - Fix the truncated subject line (Andy)
+> - Drop the paragraph about an earlier report, I could not find that
+>   thread again to reference it properly
+> - Pass the remaining capacity as unsigned int and drop the casts (Andy)
+> - Keep the ams_get_ext_chan() call on one line (Andy)
+> - Rebase on fixes-togreg
+> - Drop the bouncing @xilinx.com and @huawei.com addresses from Cc
+> 
+> v1: https://lore.kernel.org/all/20261021225356.625288-1-kapoorarnav43@gmail.com/
+> 
+> Compile-tested only (W=1); I don't have ZynqMP hardware.
+> 
+>  drivers/iio/adc/xilinx-ams.c | 54 ++++++++++++++++++++++++++++--------
+>  1 file changed, 43 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/xilinx-ams.c b/drivers/iio/adc/xilinx-ams.c
+> index 158e6133abf5..7f0f7778d6aa 100644
+> --- a/drivers/iio/adc/xilinx-ams.c
+> +++ b/drivers/iio/adc/xilinx-ams.c
+> @@ -144,7 +144,14 @@
+>  #define AMS_PL_CSTS_ACCESS_MASK		BIT(1)
+>  
+>  #define AMS_PL_MAX_FIXED_CHANNEL	10
+> -#define AMS_PL_MAX_EXT_CHANNEL		20
+> +/*
+> + * The external PL channels are addressed by their channel number. The
+> + * binding allows the range from AMS_PL_EXT_CHANNEL_MIN to
+> + * AMS_PL_EXT_CHANNEL_MAX. AMS_PL_EXT_CHANNEL_MIN maps onto the first
+> + * ams_pl_channels[] entry, AMS_PL_EXT_CHANNEL_MAX onto the last one.
+> + */
+> +#define AMS_PL_EXT_CHANNEL_MIN		20
+> +#define AMS_PL_EXT_CHANNEL_MAX		50
+>  
+>  #define AMS_INIT_POLL_TIME_US		200
+>  #define AMS_INIT_TIMEOUT_US		10000
+> @@ -1142,20 +1149,31 @@ static const struct iio_chan_spec ams_ctrl_channels[] = {
+>  };
+>  
+>  static int ams_get_ext_chan(struct fwnode_handle *chan_node,
+> -			    struct iio_chan_spec *channels, int num_channels)
+> +			    struct iio_chan_spec *channels, int num_channels,
+> +			    unsigned int max_channels)
+>  {
+>  	struct iio_chan_spec *chan;
+> -	struct fwnode_handle *child;
+>  	unsigned int reg, ext_chan;
+>  	int ret;
+>  
+> -	fwnode_for_each_child_node(chan_node, child) {
+> +	fwnode_for_each_child_node_scoped(chan_node, child) {
+>  		ret = fwnode_property_read_u32(child, "reg", &reg);
+> -		if (ret || reg > AMS_PL_MAX_EXT_CHANNEL + 30)
+> +		if (ret)
+> +			continue;
+> +
+> +		/*
+> +		 * Anything outside of the range of channel numbers allowed
+> +		 * by the binding is not a valid channel.
+> +		 */
+> +		if (reg < AMS_PL_EXT_CHANNEL_MIN ||
+> +		    reg > AMS_PL_EXT_CHANNEL_MAX)
+>  			continue;
+>  
+> +		if (num_channels >= max_channels)
+> +			return -ENOSPC;
+> +
+>  		chan = &channels[num_channels];
+> -		ext_chan = reg + AMS_PL_MAX_FIXED_CHANNEL - 30;
+> +		ext_chan = reg - AMS_PL_EXT_CHANNEL_MIN;
+>  		memcpy(chan, &ams_pl_channels[ext_chan], sizeof(*channels));
+>  
+>  		if (fwnode_property_read_bool(child, "xlnx,bipolar"))
+> @@ -1183,7 +1201,8 @@ static void ams_iounmap_pl(void *data)
+>  
+>  static int ams_init_module(struct iio_dev *indio_dev,
+>  			   struct fwnode_handle *fwnode,
+> -			   struct iio_chan_spec *channels)
+> +			   struct iio_chan_spec *channels,
+> +			   unsigned int max_channels)
+>  {
+>  	struct device *dev = indio_dev->dev.parent;
+>  	struct ams *ams = iio_priv(indio_dev);
+> @@ -1191,6 +1210,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+>  	int ret;
+>  
+>  	if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-ps")) {
+> +		if (max_channels < ARRAY_SIZE(ams_ps_channels))
+> +			return -ENOSPC;
+> +
+>  		ams->ps_base = fwnode_iomap(fwnode, 0);
+>  		if (!ams->ps_base)
+>  			return -ENXIO;
+> @@ -1202,6 +1224,9 @@ static int ams_init_module(struct iio_dev *indio_dev,
+>  		memcpy(channels, ams_ps_channels, sizeof(ams_ps_channels));
+>  		num_channels = ARRAY_SIZE(ams_ps_channels);
+>  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams-pl")) {
+> +		if (max_channels < AMS_PL_MAX_FIXED_CHANNEL)
+> +			return -ENOSPC;
+> +
+>  		ams->pl_base = fwnode_iomap(fwnode, 0);
+>  		if (!ams->pl_base)
+>  			return -ENXIO;
+> @@ -1213,9 +1238,14 @@ static int ams_init_module(struct iio_dev *indio_dev,
+>  		/* Copy only first 10 fix channels */
+>  		memcpy(channels, ams_pl_channels, AMS_PL_MAX_FIXED_CHANNEL * sizeof(*channels));
+>  		num_channels += AMS_PL_MAX_FIXED_CHANNEL;
+> -		num_channels = ams_get_ext_chan(fwnode, channels,
+> -						num_channels);
+> +		ret = ams_get_ext_chan(fwnode, channels, num_channels, max_channels);
+> +		if (ret < 0)
+> +			return ret;
+> +		num_channels = ret;
+>  	} else if (fwnode_device_is_compatible(fwnode, "xlnx,zynqmp-ams")) {
+> +		if (max_channels < ARRAY_SIZE(ams_ctrl_channels))
+> +			return -ENOSPC;
+> +
+>  		/* add AMS channels to iio device channels */
+>  		memcpy(channels, ams_ctrl_channels, sizeof(ams_ctrl_channels));
+>  		num_channels += ARRAY_SIZE(ams_ctrl_channels);
+> @@ -1245,7 +1275,7 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+>  		return -ENOMEM;
+>  
+>  	if (fwnode_device_is_available(fwnode)) {
+> -		ret = ams_init_module(indio_dev, fwnode, ams_channels);
+> +		ret = ams_init_module(indio_dev, fwnode, ams_channels, ams_size);
+>  		if (ret < 0)
+>  			return ret;
+>  
+> @@ -1253,7 +1283,9 @@ static int ams_parse_firmware(struct iio_dev *indio_dev)
+>  	}
+>  
+>  	device_for_each_child_node_scoped(dev, child) {
+> -		ret = ams_init_module(indio_dev, child, ams_channels + num_channels);
+> +		ret = ams_init_module(indio_dev, child,
+> +				      ams_channels + num_channels,
+> +				      ams_size - num_channels);
+>  		if (ret < 0)
+>  			return ret;
+>  
+> 
+> base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
 
-I'm not sure that --include-headers-for-types is useful.  That is useful
-when there is an expression metavariable that is required to have a
-particular type.  I don't see that here.  I also got around 5000 changes
-in Linus's current master without using that argument.  I didn't try it,
-but I think --no-includes would thus be fine.  --include-headers will get
-the changes in the header files.
-
-If the --keep comments argument is useful, it could be added to the
-semantic patch, by putting #spatch --keep-comments at the top of the file.
-
-julia
-
->
-> Lightly tested but directly copied and modified to update the devm_ uses
->
-> Its been a bit.
-> Any comments or negatives about using or running this script?
->
->  .../coccinelle/api/devm_kmalloc_objs.cocci    | 136 ++++++++++++++++++
->  1 file changed, 136 insertions(+)
->  create mode 100644 scripts/coccinelle/api/devm_kmalloc_objs.cocci
->
-> diff --git a/scripts/coccinelle/api/devm_kmalloc_objs.cocci b/scripts/coccinelle/api/devm_kmalloc_objs.cocci
-> new file mode 100644
-> index 0000000000000..322f79a2d9654
-> --- /dev/null
-> +++ b/scripts/coccinelle/api/devm_kmalloc_objs.cocci
-> @@ -0,0 +1,136 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/// Use devm_kmalloc_obj family of macros for allocations
-> +///
-> +// Confidence: High
-> +// Options: --include-headers-for-types --all-includes --include-headers --keep-comments
-> +
-> +virtual patch
-> +
-> +@initialize:python@
-> +@@
-> +import sys
-> +
-> +def alloc_array(name):
-> +	func = "FAILED_RENAME"
-> +	if name == "devm_kmalloc_array":
-> +		func = "devm_kmalloc_objs"
-> +	elif name == "devm_kvmalloc_array":
-> +		func = "devm_kvmalloc_objs"
-> +	elif name == "devm_kcalloc":
-> +		func = "devm_kzalloc_objs"
-> +	elif name == "devm_kvcalloc":
-> +		func = "devm_kvzalloc_objs"
-> +	else:
-> +		print(f"Unknown transform for {name}", file=sys.stderr)
-> +	return func
-> +
-> +// This excludes anything that is assigning to or from integral types or
-> +// string literals. Everything else gets the sizeof() extracted for the
-> +// kmalloc_obj() type/var argument. sizeof(void *) is also excluded because
-> +// it will need case-by-case double-checking to make sure the right type is
-> +// being assigned.
-> +@direct depends on patch && !(file in "tools") && !(file in "samples")@
-> +typedef u8, u16, u32, u64;
-> +typedef __u8, __u16, __u32, __u64;
-> +typedef uint8_t, uint16_t, uint32_t, uint64_t;
-> +typedef uchar, ushort, uint, ulong;
-> +typedef __le16, __le32, __le64;
-> +typedef __be16, __be32, __be64;
-> +typedef wchar_t;
-> +type INTEGRAL = {u8,__u8,uint8_t,char,unsigned char,uchar,wchar_t,
-> +		 u16,__u16,uint16_t,unsigned short,ushort,
-> +		 u32,__u32,uint32_t,unsigned int,uint,
-> +		 u64,__u64,uint64_t,unsigned long,ulong,
-> +		 __le16,__le32,__le64,__be16,__be32,__be64};
-> +char [] STRING;
-> +INTEGRAL *BYTES;
-> +INTEGRAL **BYTES_PTRS;
-> +type TYPE;
-> +expression VAR;
-> +expression GFP;
-> +expression COUNT;
-> +expression FLEX;
-> +expression E;
-> +expression DEV;
-> +identifier ALLOC =~ "^devm_kv?[mz]alloc$";
-> +fresh identifier ALLOC_OBJ = ALLOC ## "_obj";
-> +fresh identifier ALLOC_FLEX = ALLOC ## "_flex";
-> +identifier ALLOC_ARRAY = {devm_kmalloc_array,devm_kvmalloc_array,devm_kcalloc,devm_kvcalloc};
-> +fresh identifier ALLOC_OBJS = script:python(ALLOC_ARRAY) { alloc_array(ALLOC_ARRAY) };
-> +@@
-> +
-> +(
-> +-	VAR = ALLOC(DEV,(sizeof(*VAR)), GFP)
-> ++	VAR = ALLOC_OBJ(DEV,*VAR, GFP)
-> +|
-> +	ALLOC(DEV,(\(sizeof(STRING)\|sizeof(INTEGRAL)\|sizeof(INTEGRAL *)\)), GFP)
-> +|
-> +	BYTES = ALLOC(DEV,(sizeof(E)), GFP)
-> +|
-> +	BYTES = ALLOC(DEV,(sizeof(TYPE)), GFP)
-> +|
-> +	BYTES_PTRS = ALLOC(DEV,(sizeof(E)), GFP)
-> +|
-> +	BYTES_PTRS = ALLOC(DEV,(sizeof(TYPE)), GFP)
-> +|
-> +	ALLOC(DEV,(sizeof(void *)), GFP)
-> +|
-> +-	ALLOC(DEV,(sizeof(E)), GFP)
-> ++	ALLOC_OBJ(DEV, E, GFP)
-> +|
-> +-	ALLOC(DEV,(sizeof(TYPE)), GFP)
-> ++	ALLOC_OBJ(DEV,TYPE, GFP)
-> +|
-> +	ALLOC_ARRAY(DEV,COUNT, (\(sizeof(STRING)\|sizeof(INTEGRAL)\|sizeof(INTEGRAL *)\)), GFP)
-> +|
-> +	BYTES = ALLOC_ARRAY(DEV, COUNT, (sizeof(E)), GFP)
-> +|
-> +	BYTES = ALLOC_ARRAY(DEV,COUNT, (sizeof(TYPE)), GFP)
-> +|
-> +	BYTES_PTRS = ALLOC_ARRAY(DEV, COUNT, (sizeof(E)), GFP)
-> +|
-> +	BYTES_PTRS = ALLOC_ARRAY(DEV, COUNT, (sizeof(TYPE)), GFP)
-> +|
-> +	ALLOC_ARRAY(DEV, (\(sizeof(STRING)\|sizeof(INTEGRAL)\|sizeof(INTEGRAL *)\)), COUNT, GFP)
-> +|
-> +	BYTES = ALLOC_ARRAY(DEV, (sizeof(E)), COUNT, GFP)
-> +|
-> +	BYTES = ALLOC_ARRAY(DEV, (sizeof(TYPE)), COUNT, GFP)
-> +|
-> +	BYTES_PTRS = ALLOC_ARRAY(DEV, (sizeof(E)), COUNT, GFP)
-> +|
-> +	BYTES_PTRS = ALLOC_ARRAY(DEV, (sizeof(TYPE)), COUNT, GFP)
-> +|
-> +	ALLOC_ARRAY(DEV, COUNT, (sizeof(void *)), GFP)
-> +|
-> +	ALLOC_ARRAY(DEV, (sizeof(void *)), COUNT, GFP)
-> +|
-> +-	ALLOC_ARRAY(DEV, COUNT, (sizeof(E)), GFP)
-> ++	ALLOC_OBJS(DEV, E, COUNT, GFP)
-> +|
-> +-	ALLOC_ARRAY(DEV, COUNT, (sizeof(TYPE)), GFP)
-> ++	ALLOC_OBJS(DEV, TYPE, COUNT, GFP)
-> +|
-> +-	ALLOC_ARRAY(DEV, (sizeof(E)), COUNT, GFP)
-> ++	ALLOC_OBJS(DEV, E, COUNT, GFP)
-> +|
-> +-	ALLOC_ARRAY(DEV, (sizeof(TYPE)), COUNT, GFP)
-> ++	ALLOC_OBJS(DEV, TYPE, COUNT, GFP)
-> +|
-> +-	ALLOC(DEV, struct_size(VAR, FLEX, COUNT), GFP)
-> ++	ALLOC_FLEX(DEV, *VAR, FLEX, COUNT, GFP)
-> +|
-> +-	ALLOC(DEV, struct_size_t(TYPE, FLEX, COUNT), GFP)
-> ++	ALLOC_FLEX(DEV, TYPE, FLEX, COUNT, GFP)
-> +)
-> +
-> +@drop_gfp_kernel depends on patch && !(file in "tools") && !(file in "samples")@
-> +identifier ALLOC = {devm_kmalloc_obj,devm_kmalloc_objs,devm_kmalloc_flex,
-> +		    devm_kzalloc_obj,devm_kzalloc_objs,devm_kzalloc_flex,
-> +		    devm_kvmalloc_obj,devm_kvmalloc_objs,devm_kvmalloc_flex,
-> +		    devm_kvzalloc_obj,devm_kvzalloc_objs,devm_kvzalloc_flex};
-> +@@
-> +
-> +	ALLOC(...
-> +-		 , GFP_KERNEL
-> +	     )
->
