@@ -1,54 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.12
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.177
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793541033;
-	b=4LPerlgbH/PN+HW0W0bHfE36t2z8f9EjrzTlGBpX8bhFyp0mEvYZ2cfQFYrAAjyezTrb
-	 FGVzsB0u7b4vzhlmV2Qfi8NxxYbTkO+JPTxDUjIIRS9q/F2ANw4Y9HMBAJel3O2TokJbv
-	 7aGr4IY9HCk8o6GoCApBaSJJ/Oz2i9KyJOwwZa97IHb71bsOMWqMuJe7H26XXl6E4sLEw
-	 afOpp6wClD5DlSC36twMGUeIntsP8mpXbqLN+Gr0Ax3HA26lVcWJ/02/q4D12VWT2NL7v
-	 zoArCfa11Ku5FlMvsTiAyKGi2/4cFDHGk05vfiqixeNxz+S8G6hnbUaS5vhPNVIjRkw==
+	t=1793541212;
+	b=YiALI7Xuc0xx+8sa/eoGlg62CYCHHBY3BWfU9Nb6stDUBm5XVgZxsT8MP2KzUNwEkuWs
+	 aB2vGvLMuxxeElWAWKE4QfznZLdV3wUBBgjjXRBLnuhyZHC+qk7J6UbCBIzZUDkEAQXdy
+	 3atD2wbuSOvqQAdfzDRaZ8ScTxZM5f7tw60iUjQhiVdEDnQz+mXC9Hox+u61C5QbYo70P
+	 yhzkY1sXAbAy6MKAGt/IU+O3XKZy9PrVnlvjfTCvzZ2Ud+f1WYdkRj6Ex+Zxdk0apdCOB
+	 n3+Zpa/6p9JyKGb2sVcWYu1Ob8kOE1HyjEt+cTHDfhHqw5unfbRkpiLNrM5ze9lo0Pw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793541033;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=XSCBRN33qQsy8Auxjft+8kvMXuANLfWvZcIctPrMpas=;
-	b=noo/YNxE5lHvKlGDaV1BCkwI2yh6KXiSumx3hyrsQCZAaq6yZQeATypt0LWmMNiPF8zk
-	 TSxUT7ntuEzDAFIDEhooBs8/TqoQv1HeMClstHoj/JE3LEn7g1LP2ySETsFKo36JcgrpC
-	 /VUugegGJA95KFMt0F3Kx/EWgaGzr4NtlhC2ph5/PrIiYztlMB1OHaeN6b7GatigEIQQm
-	 tBKr9IsOtHlvAkHikjX84Fb0g5ztJfcLwa7biGqnZw0YPb28CIjWmRJkChfNayk6eKO0V
-	 XFfB50eTVfty8ybYqS6zhDXIGL5mWFkgauuJAlGz3zw90fT/ThHjk/opLMSTj2rP97g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793541212;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=ob9tiRoLzrD8MH3HJ+lkSzfmmvOaWtBTkgx8ANuE3JI=;
+	b=gkkh4a+3JnVOLIHDGpNx292LM9ZkMknaW1+QEsI1mzJKLcIxtxLdukNvq7R4AXtrrwUD
+	 qSZrAodtAzL7q/kp0oGU4D3ilmbXXWpxKJMl4WN/DQJYO5W2+M1WVzbFS/n1coRfkuSmv
+	 kvy61/8CRAkBD/CH4p1OWsrwnKrb0iZXLy0/CXM89XpfWJOqt3Stln0ChcVfZ0Hx6C10R
+	 jsVNvqqyy0yvR4ZZUoYO7m+l1HQtelniK1xWI1ooz1GeNiWXjgEYC5MqqOZezTpGXsTBd
+	 EUqPtyY3UqIvX20MRV+6MqNJJ6jQbP2z9YdyVA5kXqdbgeI9nsnfkTBLbTvwFs7wdxg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="Pc24P/jl";
-	arc=none smtp.remote-ip=91.218.175.12
-Received: from mta0.migadu.com (out-12.mta0.migadu.com [91.218.175.12])
+	dmarc=pass header.from=korea.ac.kr;
+	spf=pass smtp.mailfrom=korea.ac.kr;
+	dkim=pass header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=iYQOPLGt;
+	arc=none smtp.remote-ip=209.85.128.177
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C983A606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:50:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C983A606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FE8606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 13:53:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72FE8606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=korea.ac.kr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=korea.ac.kr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pc24P/jl
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=H/s3VKQo6Z5fR1WbNIhwJli7PgqADZcHiVAAOisPb3A=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793541031; v=1; x=1794145831;
- b=Pc24P/jl4DNHuiBNxex6uzO6LR6dk7swpKTlTQ3YsA1IbGEC4hOBltfiDabywVGsnrpyDocA
- DGTrj7snn/tGnKkZeZ3im9eGAXntES97lgg5isCMnFpLhzEhIB5zA6jVkDJ+p0Kwqj0HJLh87Po
- ja6Ok4NL3eaTaU/pDRl/KVNw=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 99df9d40205e812e;
-	Sun, 01 Nov 2026 13:50:17 +0000
-X-Mizu-Trace-ID: 99df9d40205e812e
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <bec5d30e-4d65-49ce-8445-7f417d1a5060@linux.dev>
-Date: Sun, 1 Nov 2026 13:50:11 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=korea.ac.kr header.i=@korea.ac.kr header.a=rsa-sha256 header.s=google header.b=iYQOPLGt
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-8ac9d666d4eso18852277b3.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 05:53:31 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=korea.ac.kr; s=google; t=1793541210; x=1794146010; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ob9tiRoLzrD8MH3HJ+lkSzfmmvOaWtBTkgx8ANuE3JI=;
+        b=iYQOPLGtYwzVZnyj1j23lYqTPxmQHbYy60ll8geKmCKn/Hoqd4q2XlhcoWxWU4ZolX
+         yx09r1t72DeBJI31edAdrMsdui10kyHITWbGUihd0+DIMQtUrvMTLSmrBi85/nV8TTHV
+         YVLX2OuycFLflfLpNCnna7aRyGjXmLQPUZ/eSxOILp3DMHEShgh5qiOSb1V7zR4civ/d
+         CAn8DkodHzzmlvKzEG2V6R6jnooi1UUVudQ4k/hzjQoUFvGpIWbgIkmWCjXmkt+6YSO6
+         C91EnzeVvEDyLgw6A7kBnYSfpw5QZ7BydV7vNYH0QQVOoQE7QMMtHNtZRxxOa2SUS6lm
+         7MJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793541210; x=1794146010;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ob9tiRoLzrD8MH3HJ+lkSzfmmvOaWtBTkgx8ANuE3JI=;
+        b=cBr4bw9JwIxnX+iKWwBVfSx+oIN++N/ikejHlRvOVZNshLSNrO5lVsiA5BTEuQHK1C
+         9dqBriKSEwKomsMKadLxW64lJcYV5DVMr/SFiIQuC7U6D5VgVcPnUHuL/YpnbYJvrmnl
+         doXVDlMSry5/P/BMKHyKGKImyPPw0EZOXPN3xSPtSD/GErmLdZxjKSMv81VjDZlwBzFy
+         1VvE1yKh9CylGZ5X41F8qS1IdIEwuf7QdsMa/9dmFUoSbsc8iLwgCJs8J9MFeM/hiOGH
+         Dfrvfvmc3QJDNaS0dTXmUm1PE/ACaTvmXv5r0gFL91jWuLtxg3B2jxcbsnMrWUYUWCpc
+         iOfw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZrG67Ynp3jS1tHWVRN9z3diasmM6Lc7bKDZMsqUfNuNdeYbOJ1ChG+RNXs7EIMSF2cxXs7P2iww1TlYQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+B0FQvQ6aUscFPpxp2apVXt0LfpUPdXTCTeUyTrHvcBCbMfCaG
+	Mzm98h8szVirm6a/CFvlLuT6eYO908v+ubbWOFQZMqAntBuAJCg/F67bDnMhsTshBA==
+X-Gm-Gg: AYBFou3HlfhE6i4iH37GALb1+vFPk1X0l9zWifFfmVEydlh6ZAgECgLGvzZp9XuRE6Q
+	7Mo1Els4rePA2iAuXFEAl51nnXMg4a+va+rjIIOOvxU9thyyqO/AEG7D1RcsN6ZHZFi1jJFCHuW
+	YDKIGNdsbAJObIBAcaUiY26a93vAckTPa4zWIeShY41uyHN12HEBH9y4zjzJA1tloGDkAsRVnIY
+	vDV2iYHBKn21jdCkkVIIWhGv8yrqqdLrhwRQgMS3rTSqZ3vvkBPehSa4WIlAtqJJxV2TkHnzITp
+	snKNl7BuuBhOxIW8hBCWaJjdDCBA7gJUKLsv9qipwFCnaSVAGbZKLZHIABqFYHhPer77G3w3Ezu
+	PoGG7CYWQ/wBU3zFk4rr1J3bN8OB6RbiXkUPF5pnzfyaHqBoWPH/hRowlbXQYdN3oZMivb9DmEq
+	aRsWraUa0pwLGiS17rFBV/Edk8DtELvqYKSKXC/BarrE9adDnFEe3n391Pbll3Mc/hUc6No6n1I
+	RUjWzdLSa48nfnAaB69vD5ECsMYMMO4jv7tYIwwsaN/stuYQCSaRmFLea7Zmyf83elWeGY=
+X-Received: by 2002:a05:690c:f8f:b0:8a7:1943:17cb with SMTP id 00721157ae682-8b2b67c1d1dmr42944947b3.90.1793541210292;
+        Sun, 01 Nov 2026 05:53:30 -0800 (PST)
+Received: from s2lab05.. ([163.152.163.130])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b71657besm36833807b3.30.2026.11.01.05.53.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 05:53:29 -0800 (PST)
+From: Ingyu Jang <ingyujang25@korea.ac.kr>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>
+Cc: linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ingyu Jang <ingyujang25@korea.ac.kr>
+Subject: [PATCH RESEND] Bluetooth: btintel: Drop dead !skb check in btintel_read_version()
+Date: Sun,  1 Nov 2026 22:53:24 +0900
+Message-Id: <20261101135324.2192752-1-ingyujang25@korea.ac.kr>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,47 +95,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/14] drm/tidss: Add helper to identify the AM65x OLDI
- video port
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-2-dc7f2b532478@ideasonboard.com>
-Content-Language: en-US
-From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-In-Reply-To: <20261029-beagley-ai-display-v4-2-dc7f2b532478@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+__hci_cmd_sync() returns either an ERR_PTR or a valid non-NULL skb;
+its internal NULL cases are converted to ERR_PTR(-ENODATA) before
+return (net/bluetooth/hci_sync.c). After the preceding IS_ERR(skb)
+filter, skb is guaranteed to be a valid non-NULL pointer, so the
+!skb disjunct in the subsequent length check never triggers.
 
+Drop the dead !skb subexpression; the skb->len size mismatch check
+remains the real guard.
 
-On 29/10/26 10:18, Tomi Valkeinen wrote:
-> On AM65x the OLDI TX is modeled as a part of the DSS, not as a separate
-> bridge as the newer SoCs do, and is fed by the first video port. To
-> handle the AM65x OLDI, we check for it in multiple places using the
-> feat's vp_bus_type.
-> 
-> However, vp_bus_type is problematic concept and should be removed, so
-> this commit adds a helper function to check for the AM65x OLDI by
-> looking at the DSS subrevision and videoport number.
-> 
-> No functional change.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Signed-off-by: Ingyu Jang <ingyujang25@korea.ac.kr>
+---
+Resending, as there has been no response since 2026-07-11.
+Rebased onto current mainline; no other changes.
 
-Reviewed-by: Aradhya Bhatia <aradhya.bhatia@linux.dev>
+ drivers/bluetooth/btintel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/bluetooth/btintel.c b/drivers/bluetooth/btintel.c
+index 0709fb3212f96..4aff00e41d43e 100644
+--- a/drivers/bluetooth/btintel.c
++++ b/drivers/bluetooth/btintel.c
+@@ -471,7 +471,7 @@ int btintel_read_version(struct hci_dev *hdev, struct intel_version *ver)
+ 		return PTR_ERR(skb);
+ 	}
+ 
+-	if (!skb || skb->len != sizeof(*ver)) {
++	if (skb->len != sizeof(*ver)) {
+ 		bt_dev_err(hdev, "Intel version event size mismatch");
+ 		kfree_skb(skb);
+ 		return -EILSEQ;
 -- 
-Regards
-Aradhya
+2.34.1
 
