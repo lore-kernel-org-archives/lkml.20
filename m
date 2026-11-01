@@ -1,87 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=121.127.44.66
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576458;
-	b=uuyU5VYRcPJAR3hryfwEtCu6XGkwFO0wWQoj11BRbFWJJekZvIcHJO2LbpLLpfsZSURE
-	 TXzOBb4Pd1jQ+cGbtAwd8Sz3FNx5YUIhdgVFoU2SNBqgrDm2yTHWRXwcxR0/OI4HeZehs
-	 UReetJI3o7Ctn3bPtsmLW4uiTLG9ob+XfOYcMi5mbyGh8n7zadMC86bNz/LvH4qfhiSb7
-	 B94KfMEplWCfjqcski4xL8+KMX6bMQ14ZhYGwKhEKDQMIS9CDX44/jSLQv+eTVL/mlJHi
-	 o+9XAgmCRaIjlWv/dMeu39tXu7jvVUqxgS+JwsbMi7nFx9PRbBiVG7F7VNP9HQgAG3Q==
+	t=1793576500;
+	b=Afy7gphgsN2DM87eWuQD7B5/2e04gWJSYFx3AA8T/AbSr1XHzdncxRROoRy6qPlVOU+7
+	 b+a5DQkLJV2KWYcgVP93PU41cgdR6tMCPsKAVuiLLH1Q5sYpOyXs+gbw9Z9M0yyDZbrYO
+	 lNNgwr5WNqxKoJBYOjRJlhb6jZ04y+ZICgMX9M3EoqQt0PQ404DKdVJCPeT3UxgHrzXXk
+	 16FDUOMBNU4gV0iXil+W3w+frzHp9aSpQ+RLuQOCelkTisa1XWncTTPakvhcKbLsOTaef
+	 ire3HinuIhUWS55LLpKGI2EPuq7KQE0QqUn3JcQfi+WroHg4oTrdO0X5jaUmWRDNwDw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576458;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:From:Subject:To:Cc:References:
-	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=74HQukGUJ4C2yyxSBlp/m4XQnwuzePv4+DTCDFRGHbM=;
-	b=0F4sXacOXvc+vdVO5g6CN5/8YJQG1wy9FKKkT/jukkkvDBRzXfQRE5MvIXd6rMafQpUO
-	 t1l95NC2VD4ercUEcV8i8m3GKwSdRzjolm3VZiORN31ptsXkr9WTvIO94kC0DMvChGppm
-	 AApUH98y8o/YW6ypLZAOlG/lK7H7BrQk4lLAi2CgdLgJI6OUaxud3HYaYT06jsFsruEZU
-	 iAoaL6NuF1Bst45xkvOCrDtAWZda7QawvfvDU9f7NFzJT9So1hlYv+/HmFsJVhuMLCJ30
-	 46rzDVYqeODOpDhoNYgMxpEDNgSL874ojBL4vQiuycOqKbMVacENdAHmzVkcAZbkAwQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793576500;
+	h=DMARC-Filter:DKIM-Signature:X-Forward-Email-ID:
+	 X-Forward-Email-Sender:X-Forward-Email-Version:
+	 X-Forward-Email-Website:X-Complaints-To:X-Report-Abuse:
+	 X-Report-Abuse-To:Message-ID:Date:MIME-Version:User-Agent:Subject:To:
+	 Cc:References:Content-Language:From:Autocrypt:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=ypPd9unCPRKnmOOEGLs6Sx0KOiFfY8/EXgl2Ea6FLkQ=;
+	b=cxuAfd8vMqCPsSUYPE921IJY5c9CGiCAuABe+f4p6sAC3193JN7DJLNV77+iQ+5LivPo
+	 kQFkoqgqy4yAoAJOwDD+S0ZH2emZGXRD32pRvV5iWKw7RwZj8Rv9nezeOmgYzcm48b/aI
+	 SwpsowpDEhrCp9UHTNtHzDM88V8qYrDPv9syrJPpaW6mPWXbjcIp6hG0/VLeLP17rEuNG
+	 WitNCSQmQbCR6v3iKyk0RTCgDPlCn9oNHHfhMjn/WAQoI6mnKiNa65oz389153KU9jaHp
+	 Yfqu12zHLV8zbu4Ar30UQrTjzWZF0LoljTYoau4kCsnszRDOkMEr4yaHu2KPaOj/7hw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=layalina.io;
-	spf=pass smtp.mailfrom=layalina.io;
-	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bOucPML2;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=ovn.org;
+	spf=pass smtp.mailfrom=fe-bounces.ovn.org;
+	dkim=pass header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=M270NjMN;
+	arc=none smtp.remote-ip=121.127.44.66
+Received: from smtp.forwardemail.net (smtp.forwardemail.net [121.127.44.66])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA0F9606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:40:57 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CA0F9606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A084606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:41:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A084606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ovn.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fe-bounces.ovn.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=bOucPML2
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a35a60499eso23616195e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:40:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793576456; x=1794181256; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=74HQukGUJ4C2yyxSBlp/m4XQnwuzePv4+DTCDFRGHbM=;
-        b=bOucPML26sK51G3EMy6byEmq4KrbSaMXohO4qeYws1nKX4TnEEzDY+h05i37dd7qVu
-         rQKhto6WFnUq1kh6gREzDxJiqLPW2JaTwzoY3lPq8/w4yfJmS7r2/t4HT3ksxbulF6fm
-         E5a8f73xBjrmmfW7F0J+iAkoussgrDcWgyEpTNb184B8IOURRVtir8mZOpTIwMkrniRN
-         XjfR33XZIexICQ1ZjXkIhMpeCtT9Zn8obi0JjUXWe4rQnmFFNS3nfJJrx8JhDax757ui
-         vUPR4It3x+ifLzkStIC2KWJUWM4hhLR1rH4x6eOE4Y0+VAMFbIbBsbTqQJcFTzUma5KL
-         gFnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793576456; x=1794181256;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=74HQukGUJ4C2yyxSBlp/m4XQnwuzePv4+DTCDFRGHbM=;
-        b=nPVNkJZzZHaju0jTzHsb3OVtApK7lZFzeqRjzYPIl/cU7AWi0gu87N/hK7ykq48hdx
-         vc1jo5owKm8+SWOIZxhrW9FpbNjQsCRSrjSGug5DHrwHn4L+zH955zGUtFuxnRjmdotG
-         DnysdP2Mz9iOH/SGQVeA+WVkZH9ToYA9v9vofeeiA5agFCoBZjbKmp5hYoh7Z5rBrP3E
-         fxI8nNyvn8X0cq0E/erLV1NJtVKl/j3qQs0/1wWRKZx229UXxhjPOzD7RNYpOhqpoPsJ
-         Z9jFLVCZ6TI5I6tRbpmNKBhQjihVP0Sk0yTEpa1qgLp3InHp4rdRwLdn+QIusdzin2lU
-         yudg==
-X-Forwarded-Encrypted: i=1; AKwUvByD/4/IhheM5riouieUNuy9y5cSXPfJ3B5jxbj2rYm7KIzCPn0U4FzMrKxRD9A6nDRELfn2As+v2vARipI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+/GGcXjmmgHkeA2hShvGSipVL5nc7/aOJ8GnU/SUw9LDoNck+Z
-	BaYbC0HYW7mO/I1mdCmtzyP9VjD9JcmqMOlWx5JXr6Qk7epAVQUBukaPF/DuIEnf7yw=
-X-Gm-Gg: AYBFou0xpLip1Gtf2KMp+lTbtsGO3Zt396idgLQSrhuEr02lKPWdObpPtu0u8SV7Kdo
-	QjHn72fkrIZwlHpibG9tnsGvyIrfsBJlOukNosAdvEl82gNcTpgVGpU/l/U82dlzPSrUn7igHC1
-	V+qegxPpDRy+sjz9TxO1+UPBF+Rk4KgutZwFihCkKGW5pQ8Nl8qHZOW5XNuJv5kexqWnDawUbm7
-	LJwA0OL7rQr8I69SeVOnkg8WIDf7Qpmm5tCb/tZ1QTR0zpAovquGOsDDGHxEg83cbeSakt3/wiY
-	Q+Mz+dhgOZluOgaAYgzewgCYOK2HNOQABFLa1N8mb9XqNcJOVDbjT8hsg3hS4Qc9Yw45FqOjYrr
-	sNndkxb9MDc0xNCNnHZBCQfr7XGsjDHhafI5b3C5V5i+yJMBYWbFMljQ3DVc8po6de0YWaNs176
-	lXjptPEgH4tuagtgfDcGhxcl8FZAzdiiTHWNDBkYgkldY8ULXA/shGAE1Pkd2pumAnz5I1pPFII
-	OJwOA4uX/8awI9gozZdBxdKmQJEEHoeGPMe4HAgPbEwc4ETKuy3i7jqkDKPYiu2UXbyEM3kguy0
-	bzGeyhg9kLyCj0LUmUiDjyteFDk42qphgvadamXxqnS4zM1g57PJz/5VQkpVqCATA/OmOSan1il
-	LbGSmIzsC2PaN8/K+uNAiDP42a58ptHytn3Q=
-X-Received: by 2002:a05:6000:4543:b0:487:6f2:1a4c with SMTP id ffacd0b85a97d-48e6e2fce14mr13432327f8f.25.1793576455447;
-        Sun, 01 Nov 2026 15:40:55 -0800 (PST)
-Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba4ac6sm17598619f8f.52.2026.11.01.15.40.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 15:40:53 -0800 (PST)
-Message-ID: <438bb66b-f659-4de6-8acf-29df7f4a90f2@layalina.io>
-Date: Sun, 1 Nov 2026 23:40:52 +0000
+	dkim=pass (1024-bit key, unprotected) header.d=ovn.org header.i=@ovn.org header.a=rsa-sha256 header.s=fe-13eddc7e57 header.b=M270NjMN
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ovn.org;
+ h=Content-Transfer-Encoding: Content-Type: In-Reply-To: From: References:
+ Cc: To: Subject: MIME-Version: Date: Message-ID; q=dns/txt;
+ s=fe-13eddc7e57; t=1793576493;
+ bh=ypPd9unCPRKnmOOEGLs6Sx0KOiFfY8/EXgl2Ea6FLkQ=;
+ b=M270NjMNAc0gvat/qEzauixY8hdqnEQSVTgr9UEEAbAsOPSF//zf5Ebfz1rDqIBqHRINgyDhj
+ 3hKhmsidSMrgbWs6QJQ4idJNuD3jlsL37u9mGFnduxRU+Ce2Viu9iA4Ch4H2bmC0moi55c8jS+T
+ WKJrAapECqtt/jdMbOXTmK4=
+X-Forward-Email-ID: 6ae7ce297155658d66b80d68
+X-Forward-Email-Sender: rfc822; i.maximets@ovn.org, smtp.forwardemail.net,
+ 121.127.44.66
+X-Forward-Email-Version: 2.18.12
+X-Forward-Email-Website: https://forwardemail.net
+X-Complaints-To: abuse@forwardemail.net
+X-Report-Abuse: abuse@forwardemail.net
+X-Report-Abuse-To: abuse@forwardemail.net
+Message-ID: <c4c0c187-1c8b-49ab-978a-815c599b4b4c@ovn.org>
+Date: Mon, 2 Nov 2026 00:41:24 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,121 +64,136 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Qais Yousef <qyousef@layalina.io>
-Subject: Re: [PATCH v4 1/2] sched/uclamp: Fix race condition leading to
- imbalanced uclamp_rq
-To: Peter Zijlstra <peterz@infradead.org>,
- Christian Loehle <christian.loehle@arm.com>
-Cc: Ingo Molnar <mingo@kernel.org>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
- linux-kernel@vger.kernel.org, Wei Wang <wvw@google.com>
-References: <20261029131354.11030-1-qyousef@layalina.io>
- <20261029131354.11030-2-qyousef@layalina.io>
- <c4740152-e873-4409-b3a8-16c5a49548dd@arm.com>
- <d944d543-1756-43d8-aa08-bcbbf6df712f@layalina.io>
- <75772ae5-d297-4894-971a-683f92fb87a4@arm.com>
- <20261030112825.z7k57twgua27p2vu@airbuntu>
- <20261030121518.GE1813469@noisy.programming.kicks-ass.net>
- <20261030124119.xulxkpo7aas3wlwa@airbuntu>
- <7b9c9ab0-7b3d-414b-b1b1-5416be256cc7@arm.com>
- <20261030141317.GP1779021@noisy.programming.kicks-ass.net>
+Subject: Re: [PATCH net] openvswitch: advance by the real header length in
+ get_ipv6_ext_hdrs()
+To: Joas Antonio dos Santos <joasantonio108@gmail.com>,
+ Aaron Conole <aconole@redhat.com>, Eelco Chaudron <echaudro@redhat.com>,
+ Ilya Maximets <i.maximets@ovn.org>
+Cc: "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ netdev@vger.kernel.org, dev@openvswitch.org, linux-kernel@vger.kernel.org
+References: <179328922134.76862.10417963652853801970@gmail.com>
 Content-Language: en-US
-In-Reply-To: <20261030141317.GP1779021@noisy.programming.kicks-ass.net>
+From: Ilya Maximets <i.maximets@ovn.org>
+Autocrypt: addr=i.maximets@ovn.org; keydata=
+ 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
+In-Reply-To: <179328922134.76862.10417963652853801970@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 10/30/26 14:13, Peter Zijlstra wrote:
-> On Fri, Oct 30, 2026 at 01:21:30PM +0000, Christian Loehle wrote:
->> On 10/30/26 12:41, Qais Yousef wrote:
->>> On 10/30/26 13:15, Peter Zijlstra wrote:
->>>> On Fri, Oct 30, 2026 at 11:28:25AM +0000, Qais Yousef wrote:
->>>>
->>>>> Peter/Vincent, what do you think? It seems we have a schrodenger task that is
->>>>> both enqueued and dequeued simultaneously in these throttling paths. Shouldn't
->>>>> this be fixed? If yes, any thoughts on the right approach? Should we throttle
->>>>> if there are no other tasks on the rq too? I didn't realize the semantics are
->>>>> that strong for enforcing the quota.
->>>>
->>>> Urgh, nothing is ever straight forward is it ...
->>>
->>> Exactly my thoughts..
->>>
->>>>
->>>> Bah, so this is because the core does uclamp (for classes that have it
->>>> on) but then the class does the throttle without going through the core
->>>> {en,de}queue.
->>>>
->>>> Does it make sense to have throttle_Cfs_rq_work() and tg_unthrottle_up()
->>>> do uclamp_rq_{dec,inc}() respectively, along with the
->>>> {de,en}queue_task_fair() they're already doing?
->>>
->>> Yes it does, just wanted to make sure we agree the bug is there rather than in
->>> the current patchset approach.
->>>
->>> I remember seeing a patch to remove the uclamp_enabled bit and defer to
->>> enqueue/dequeue_task_$class to handle this instead. Maybe I can revive it if it
->>> makes more sense to go that way.
->>>
->>> Let me find the path of least resistance and add it to the stack. Not sure we
->>> want to tag as Fixes for LTS to pick up this independent fix. Note we have rt
->>> group throttling path flagged up - which I also thought was false positive but
->>> not sure anymore - but it seems to do partial dequeue and must be fixed in that
->>> regard anyway even if it doesn't force idle.
->>
->> I can reproduce the idle path without uclamp_rq_dec through sched_rt_rq_dequeue(),>> too, so IMO that needs fixing up as well.
->
-> Right, every class that has uclamp_enabled needs to be audited -- this
-> seems to include sched_ext.
+On 10/29/26 4:53 PM, Joas Antonio dos Santos wrote:
+> get_ipv6_ext_hdrs() walks the IPv6 extension header chain to fill
+> key->ipv6.exthdrs, but advances to the next header with ipv6_optlen()
+> whatever the current header is.  That is only right for Hop-by-Hop,
+> Destination Options and Routing headers:
+> 
+>  - an Authentication Header is ((hdrlen + 2) << 2) bytes long
+>    (ipv6_authlen()), so with hdrlen = 4 the walk skips 40 bytes instead
+>    of 24 and reads the next "header" from the ICV and payload;
+> 
+>  - a Fragment header is always 8 bytes, and the byte read as hdrlen is
+>    its Reserved field, which the sender controls and receivers ignore,
+>    so a non-zero value makes the walk skip up to 2048 bytes and miss
+>    the headers that follow.
+> 
+> In both cases the OFPIEH12_* bits stored in key->ipv6.exthdrs depend on
+> bytes chosen by the sender rather than on the headers that are actually
+> present: payload bytes that look like another AH or a Hop-by-Hop header
+> add OFPIEH12_UNREP/OFPIEH12_UNSEQ, and real headers after a Fragment
+> header can go unreported.  Flows that match on OVS_KEY_ATTR_IPV6_EXTHDRS
+> then classify such packets wrongly.  There is no memory safety issue,
+> skb_header_pointer() bounds every read.
+> 
+> Advance by sizeof(struct frag_hdr) for Fragment headers and by
+> ipv6_authlen() for AH, as ipv6_find_hdr() does.
+> 
+> Fixes: 28a3f0601727 ("net: openvswitch: IPv6: Add IPv6 extension header support")
+> Link: https://lore.kernel.org/all/178905555085.219967.6617611783437228045@kernel.org/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+> Assisted-by: Yaga Agent HackerSec Claude:claude-opus-5-5
 
-It would be in theory an easy fix to pair uclamp_rq_{inc, dec}() with
-{add, sub}_nr_running(); this should ensure the moment we remove or add is the
-moment we inc/dec uclamp too.
+The tag is no longer needed.  And it has a wrong format anyway.
 
-There's a mess in RT case though that will require partial revert of
-f4ebcbc0d7e00 ("sched/rt: Substract number of tasks of throttled queues from
-rq->nr_running"); we should simply do {add, sub}_nr_running() in
-{inc, dec}_rt_tasks() without the extra complexity. Also sched_rt_rq_dequeue()
-calling dequeue_top_rt_rq() doesn't make sense when RT group isn't compiled in,
-the function is a NOP (dead code) in this case.
+> ---
+> Found while going through the pre-existing issues the Sashiko review of
+> "openvswitch: fix wrong flag value in get_ipv6_ext_hdrs()" pointed out
+> (Link above); Eelco mentioned putting them on his todo list, and I did
+> not find a fix for this part in net, net-next or on the list.  Happy to
+> drop this if a fix is already in flight.
+> 
+> Tested by building get_ipv6_ext_hdrs() before and after this patch in a
+> userspace harness (skb_header_pointer() replaced by a bounds-checked
+> memcpy from a buffer) and feeding it crafted packets:
+> 
+>   AH(hdrlen=4) + DSTOPTS + TCP, payload mimicking AH at old offset
+>     before: AUTH DEST UNREP UNSEQ      after: AUTH DEST UNSEQ
+>   FRAG(Reserved=0xff) + DSTOPTS + ROUTING + TCP
+>     before: DEST FRAG UNSEQ            after: DEST FRAG ROUTER UNSEQ
+>   FRAG(Reserved=0) + ROUTING + TCP, HOP + DST + ROUTING + TCP
+>     unchanged
+> 
+> net/openvswitch/ builds cleanly with W=1 (arm64, net/main 94cea342e891).
+> I did not test it on a live datapath.
+> 
+>  net/openvswitch/flow.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/openvswitch/flow.c b/net/openvswitch/flow.c
+> index 1c4f3a079..a1c60d2f5 100644
+> --- a/net/openvswitch/flow.c
+> +++ b/net/openvswitch/flow.c
+> @@ -372,8 +372,13 @@ static void get_ipv6_ext_hdrs(struct sk_buff *skb, struct ipv6hdr *nh,
+>  		hp = skb_header_pointer(skb, start, sizeof(_hdr), &_hdr);
+>  		if (!hp)
+>  			break;
+> +		if (next_type == IPPROTO_FRAGMENT)
+> +			start += sizeof(struct frag_hdr);
 
-I am not sure though how to handle when rt_se is a group not a task in
-{inc, dec}_rt_tasks(). Should I do something like this?
+Should we also stop it's not a first fragment?  There is no actual
+next header after the fragment one if it's not the first.  Otherwise,
+the patch seems incomplete.
 
-@@ -1182,6 +1131,9 @@ void inc_rt_tasks(struct sched_rt_entity *rt_se, struct rt_rq
- *rt_rq)
-
-        inc_rt_prio(rt_rq, prio);
-        inc_rt_group(rt_se, rt_rq);
-+
-+       if (!group_rt_rq(rt_se))
-+               add_nr_running(rq_of_rt_rq(rt_rq), 1);
- }
-
- static inline
-@@ -1194,6 +1146,9 @@ void dec_rt_tasks(struct sched_rt_entity *rt_se, struct rt_rq
- *rt_rq)
-
-        dec_rt_prio(rt_rq, rt_se_prio(rt_se));
-        dec_rt_group(rt_se, rt_rq);
-+
-+       if (!group_rt_rq(rt_se))
-+               sub_nr_running(rq_of_rt_rq(rt_rq), 1);
- }
-
-I think this should make sure we keep rq->nr_runninng updated correctly. I can
-then easily pair uclamp inc/dec for all classes.
-
-I am not sure also I can come up with LTS friendly solution now. We either
-have to live with the existing warning in uclamp_rq_dec_id() if active is set
-but buctkets is empty for LTS since we should handle it fine anyway. Or drop the
-fixes tag and let folks who want it backport. The former seems the less evil of
-the two to me.
-
-I have done the work above on this branch and gave it some verification, if you
-can give it a quick go Christian to confirm the warnings disappear that'd be
-appreciated. I just need to make sure I am handling group rt correctly and would
-be ready to post it.
-
-	git clone https://github.com/qais-yousef/linux -b uclamp-idle-fix
+Best regards, Ilya Maximets.
