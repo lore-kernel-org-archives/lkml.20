@@ -1,114 +1,124 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.144
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793569150;
-	b=wgyP+bbUdE4+CLW0Asz60wZ9yBcsvqP7iWzXjQpGtPUZLcZGDDGplkk4YtcV/m+8X07q
-	 wryzsi8yKoMmCtFyeaee5KUW+9I1AoNbBDVZbfoXgrAdrqqNGsHVBWqXm6gUtiSA3iGHH
-	 lPyMDX1Rw8uNwvclzTMW9Vw/7hVp/H4dDKnbWNwT+kuUtdJny61k4izsQqud+fj34HTtt
-	 YCem6j6R1mAc5ZwILBZESedNrki6M4WkGNabnPOOX08OvDtIsWEjewF6iy1nnRg0CCK58
-	 h2iJXdlcPY1JFA8jw28oMSdSd1MfG0wFFytvk63vQpSbkwSXzEKvkbLFVEcSwSf09Sw==
+	t=1793569478;
+	b=bvi3hekDcMNUDclnB8NIkTSL1+eLjKUnTo1ynt2vg80/TKsb3TjqLPkieihtTs83Epsy
+	 P5CSepLz20Bo8mWAI+geXtCqwhu1dC+pTm2o4/xxTLSMtP5EK3NKHnN3tNExtDP+26aww
+	 jf9ZiKhxFDWjrvPBRSVoJ6NS4g7zsLPh1mJJEBs+F5kmIj9RamoDx2OY+YYCDOzmKdAD0
+	 V3CLklVKBCH8OetM3MdmZGaYmT2u07VGwNuSjpFzB/5KTGbh+phBDPiGFC6O+hcy2cY02
+	 5u/A9fR5CL2wjVcMCAGYc1gBfX1mwav4rAdhu5RviWmplG8R1+Caeuey9NBYWGCqqzw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793569150;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793569478;
 	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
 	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
 	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Content-Type:Content-Transfer-Encoding:MIME-Version:From:To:
-	 Cc:Subject:In-reply-to:References:Date:Message-id:Reply-To;
-	bh=lwP8ycQo5PTTc/dYVB1SqGpgCjq4Sjj5i8p0oHH++Fw=;
-	b=Dlge/e4MitglmCWc/wNSlz1qxb+GCTKi9ZigdFnn9VQLx1xjuDyfV6MS1gFXZr1dNCsQ
-	 P5eDu1OjzIkhHYRkE+p/D4/Qo+NtGCWuQCjMg2JYMNmZDAa3s5R2Xajx2txdgqJ4V+8JQ
-	 MwOgj2ml4oJZ6D0InPXy/VavrWzjH6WpisKjU3ToPTfI1nUNXXni/w5p1PgGyoXO3chqg
-	 8HqQe64rQlVG/4vudrVhItWx7Vz+RtXbLG0Et7q9+Gu++jRASV+w3HyBSvum3iM8ASEuV
-	 frBUvmxm/aQQIUSweKbBcndJrTNMnV/16BfLM6EELbscygNzLZ4QxkHnlt7KOiPtyzw==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=1mMVj/Ylp3Zajqhxi8SVpg1+8G54F1N0w5aojxYs+sA=;
+	b=iT864JR2jWIZGC7sZmunaHahVy2ZkMzyaGLskzFc70eou19t8GOXR4Qq0FOQci8FqUt5
+	 yhzGL/ItXfifTJp6BRFxfyW/C10whMS2uCp85WJx5BgiWRf3np2KQLk+sb5bmQLLHVqME
+	 skZYQAhsZF2vMlTy6Uh6Ljm1hbs/iB9GyC15EP+S+gHqjRDS3+9mXLvqj0Ti8u48jsrX4
+	 o2P0tzOc5S/KNn/BKen391PVdcUTEF41p9Fmx5y3mH/CNbOayYJXaBnbuMmjObDUVcJN9
+	 vRn4qcKEk9V0wPw1NnAzco5U6sUy/fdBSCpTCpnyjPhv4eRbaHNFa48Y/uAKy2hv+mQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=ownmail.net;
-	spf=pass smtp.mailfrom=ownmail.net;
-	dkim=pass header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QPQwCMeP;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="D/wsx+xp";
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dmarc=pass header.from=fastmail.org;
+	spf=pass smtp.mailfrom=fastmail.org;
+	dkim=pass header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=AE7ESmBE;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b="qs1HYt/q";
+	arc=none smtp.remote-ip=202.12.124.144
+Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE66606A327
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:39:10 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4DE66606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ownmail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ownmail.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAD7606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 21:44:32 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8EAD7606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ownmail.net header.i=@ownmail.net header.a=rsa-sha256 header.s=fm2 header.b=QPQwCMeP;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=D/wsx+xp
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.phl.internal (Postfix) with ESMTP id 60CD0EC022D
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:39:09 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Sun, 01 Nov 2026 16:39:09 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ownmail.net; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to; s=fm2; t=
-	1793569149; x=1793655549; bh=lwP8ycQo5PTTc/dYVB1SqGpgCjq4Sjj5i8p
-	0oHH++Fw=; b=QPQwCMePetFFUPwt8j8EJD+0IvJrJMn8ExRukMKNL8ETLYPgcXZ
-	8eAfOmYulwMIUSHg59wrjdVQU+e0zjT4DU16JBK0YnMVC63vXYPjWSa6c7bG+Oa5
-	64gCHrSThjd36lTpk5oDdFydDrwtjqWzTPn+0wUW0QkQ1s/EpXRe2m4b8bEVM+bg
-	lohN+m6eKlBcp16ufl6eq4WO2AB6cgr5AOn+uo/TavBaX6R0seutjBt4mwXuP+z+
-	H7iUiwV1bOz6VBbjlK/+pPJZCXaQsnDp1qsjLPCwhWL9GW53P6BrSoEQQoio0Ef8
-	ENukQmzWRSwbrnSAHejTcwHHWufiG5xtF5w==
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.org header.i=@fastmail.org header.a=rsa-sha256 header.s=fm2 header.b=AE7ESmBE;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qs1HYt/q
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 08CFB1D001BE
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:44:32 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-02.internal (MEProxy); Sun, 01 Nov 2026 16:44:32 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.org; h=
+	cc:cc:content-transfer-encoding:content-type:date:date:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm2; t=1793569471; x=
+	1793655871; bh=1mMVj/Ylp3Zajqhxi8SVpg1+8G54F1N0w5aojxYs+sA=; b=A
+	E7ESmBE6MDWnJYpCWrVoCtT02gtzn9NTvwMgTdQLAVXpaqkLfdprHvXCk+hWw3Rr
+	kJseJgZJFHcb4LrtdJza5j83J0USbsdS2pJNE/LFkJvRmQaJhUmy0vrV1ACL+YhB
+	vtuazn397TFJyNEUAX0urpWDOlkPLKrIAYURFRH9wtKLnXOn8fL1G3uwfbF45Z6i
+	iktXULjLjUWTGAgoDpsGDtYWvz+pwCMo/sM4lXOmJOaLFWkdVOd+VrrXN4DPl6YN
+	SzVvW9iHWqeFQ4zRbifW2R1wZ0jZgkI+vzLP29dYdJhN5a5ocE/B4wfUNr13h3ty
+	UoKymClKGyy9DcWS9C6sw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793569149; x=
-	1793655549; bh=lwP8ycQo5PTTc/dYVB1SqGpgCjq4Sjj5i8p0oHH++Fw=; b=D
-	/wsx+xpbN/A1Hyp2FDjyolI/Tt89QO+D03+5p6Fjo5stIp8l7Jt0UDmwxWB8LhqI
-	2pPMqQ+MeEQNgtdIUnJcZdWDlHBICte3Uiemlz5rnav5Ew2ayhRg5Niab7R7D4iB
-	S/oJlxZrQT5kAewXS7nBJi38iw7JiEAE52jKTTTnDQ+zST0EuyqXBBld/7gch5WB
-	vm4b6rH8fU7GYryCiDN1D+J2hJcGDohkMx9FZAUJ01te9J36HPblQlsY9DT1Vs1i
-	o3Zz9XHw7wjbYQR+ZvPe67rx1lQMt4oMGYQ9eVCD7Q/HdO49Dc+OKDA6dwG23esC
-	mCow/aA0iVLH185DTNdkA==
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1793569471; x=1793655871; bh=1
+	mMVj/Ylp3Zajqhxi8SVpg1+8G54F1N0w5aojxYs+sA=; b=qs1HYt/qSsqGmuJxz
+	swYVYH9gVaA7p3NTG/mQG6XEAmkaYpUQBfKlPKVU0cFF3DxXkN9Leb2YrZLWPmgP
+	MGM8X32lhCzyXpGX95vZkLEwO5CQWe3UQBv/2mz0JMq0V43wDI1Sd8KXcL5U6IAb
+	SnHA9Jewbv5ZvDPaNuh0xuz0nWyiMBNvXaRoAXQ1N3UwUB2bdaUcUi3C7bFwD0hJ
+	1UljXX4y529kzVGIXp8LLJGJOWMuEkHQuXvhvFFTIeH07UZ5arutP3DCzsUy0wgV
+	BHV/AblUTtDZyRz6tkIMmxdVF1p4g5W15gER9pTZH/WNC6/iCq0JDcHNHfEJPJun
+	uTTuQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=ownmail.net a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793569149; d=ownmail.net;
-	mf=PG5laWxiQG93bm1haWwubmV0Pg==;
+	action=sign d=fastmail.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793569471; d=fastmail.org;
+	mf=PGljYkBmYXN0bWFpbC5vcmc+;
 	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:EeTMCmr64x+QozDCAsmC9iyh9tYTKjOPl1qBtClJwH+0+rT
-	uvv28jxnD7yQFtOLSJ5+2cMwt6y0LP/8GNFPxuedt5TAUjucnxS+bhp2jQIq3fan
-	+oxq4cKjNNpdzg3OLjjbx75cQgncDbq0j2cs9E1+RlczjvJ6HxyJ2q7sy4r6yqZ3
-	uFqzW53Grv4+qhi/EzA91etql4Hak5kfjZ/2Yz7SnSO8Zo+9nlpBvcPud15DD0H7
-	YQ4A4ZdzI4mp/J2zfGHn5A9Ttdc23VyTeHouwNZ7ru+qARNNknyzEdJD9B1DxsYb
-	GxQ9ltWJ5fp4WB4OKJKweYmHBc7nN3/8NSlRqww==;
+	s=fm2:rsa-sha256:Gg6taEAAV/02t3v8/9DQUlyyVqgMFlTYf4k5zaPcXyxxf8T
+	5y0GAdfb3rFvwjBMRF3jDZhwLzdxv8OLzxdtDLscHat19bPv28VoDlm5ufxlp9m8
+	4+c3UhHr9a7B7i/sTcDRLNNBcKFG6uCYZtXZrfAioog0Bl4mn0+He6jlvpCsIYVV
+	oPxPt1hHTq0Ym2HDUiTL6F2AXN8kC1fI8EjUCHbBT3//VFqtMS1yWEeK36waa5NR
+	gzS3uK1xnaF4XoWqG8ieIx27TX1dOTdaMwN2VJ/amEtQrzDGDaAMwHT8dX+BZvkT
+	x/dXsyKBOOMBhun3UdYvVbJqj7QpMk+4pu3AO1Q==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
 	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,reply-to,
-	subject,to;
-Message-Instance: m=1; h=sha256:9miFjryQHO1KmqzSrqIhkMbNW6nxCHsBOp5thbTaWQg=:cVtjZT3UUBze5Ok+wlc4VpICLbO+9PQl2PYbEIz6XNI=;
-X-ME-Sender: <xms:fbHnamBcdk5IoTi85oEiGKd0tlnW7a_EkC3nrQ-Rl0cqdje5-W0IWA>
-    <xme:fbHnaqiyzJyutcOX2c4OFfzck5YeDxbQwRJRmmvCSL4wbWNOf5Xai1ZsMbHqV1yU5
-    X59bxWJ_8zVnw7oYenWjVXSVM_DDeCKYYKOzmdLGchALYMFubU>
-X-ME-Received: <xmr:fbHnagOQyTZ55ZHBED1uFuYCejOkxEVNjVDOtyVas4rge2dCqszyG5kD6mj-g17sYa2cJIYXrdSus5WQMQ9gZnBpoB_MD34>
-X-ME-Proxy-Cause: dmFkZTESt4xrVf4fNQ+NzKwfZGCmBFrlLRZWF+jX8JvRcuA+iW0T2FQSJ53rsW2kVCVHb4
-    Mc0Ewjf5XrUIBSRzZ9auFDECcQv7OsP6xoWhjWZT6TB0+QcsutEAKRe4kNkZ08lvF9peXt
-    jUU/beKrbBGvU53pvV8MCySR9Tn2vd/A/L+tqLMfrMfcptkIaOtKPtHQnA9hBHZm0uquFh
-    3ELqV+ppbI//yPqcoDQNyDvA5oy1sjOUpcsjtzk0TGBa+BchYzEzKNvJf4MOVqTXFd8aZg
-    yXvZqL5/wej2wCq4lVsmgJ+3YvbPh/umrtmOsgrIT78iVepVGwcLBgXYOHch9l2C9JnRQD
-    16YZ6G94fXrN/N73eClUCAgxHRjb3t035iZfX3KBm+5TOFTsoB27srPum4rM5eptzMHqTR
-    cQ/PPo9FahCl/oJHbp6DvcJ3S/DwirCWvUUe3ax+D0xIpbQ+oIE+KpwyDD2VqFOvETM/SD
-    ygRNZVoaX7oUgaXlHg3w4RYNg7KOEtBhrDn/NQCLcgNQ7GIEis5NybxYpd85cGGkAVQDWQ
-    aI2HYCSOja3iTs1yE9oR+FetLUfDFtv2XXvoz9mApytjnimXF/kRZPHdxFuNTOCOJoSJ1K
-    mCvyPdXTLIeir5p9XEa1IUe99gZpeRmTkqwzkdNtJtTj/xafBwvGI37ZEb8A
-X-ME-Proxy: <xmx:fbHnai8BsaiK-sfQpl9AfP5jDUbGQDy2L-BqbpovSTco0tC4WZDt4g>
-    <xmx:fbHnapcLhTbZPwmB1yevVuqTzmex5eDKhtiayrre5HBkX0xWtw-EEA>
-    <xmx:fbHnapx595Kuj4dWEy7B12uoYtRqqbgoniJjT6VrbhlY4E8JHRK9-A>
-    <xmx:fbHnamLEjtUTvZ0d6dr7rffeTI3GAw070hf5bh6ZkZiz3B0xwPUh7A>
-    <xmx:fbHnaiSeF-yV2U0g4CT3tIDI9S0kZYhkfV46YrXnSvKR1ke08ksSOmww>
-Feedback-ID: i9d664b8f:Fastmail
+	action=mi-m=1; hc=11;
+	hn=cc,content-transfer-encoding,date,feedback-id,from,
+	in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:s3D0c4wDMJC0cXlZMBmVc9tbHXMHJ9R/y4awmIrt6vw=:1mMVj/Ylp3Zajqhxi8SVpg1+8G54F1N0w5aojxYs+sA=;
+X-ME-Sender: <xms:vrLnauYsv5Wmzj6LdN9_ERDEvm7soB60-BDiWfgT2REDEEi1jJJ3XA>
+    <xme:vrLnaqsxskBrCJBV21CTkdiztgn3ZW-7nj-ya6uEw4alOEy7RxOPBW-BzieoVQBRe
+    zhgxwtGoIjpivQGBuOdmGqeBNLEnbThKo4orET_jTlJnAaKul7rtQqt>
+X-ME-Received: <xmr:vrLnagOXmB4hO6mCQmttswZ_JOqLa7iqV4m0YNlSxL6SNSRUR2Tg3STDfkoe0n8H>
+X-ME-Proxy-Cause: dmFkZTF3NaYCNjGh8GDiquiV6BKvLn2bMNkt+4G+za2RoAktBLWK4JKctLjCjO6hCq7GZ3
+    7rnwthsvRlCv9UYVVrRk2loGsJl/F6CzE3Y9g/blAALzQq7ks4iNzx1pAEH39xpCVQjwek
+    Qdvo+MRPAD6cZ5hbNV2cUyyi7rLPkDTTUiY0Q8K3T/RShhsHjaiUw1eZL0+wfnzlh58JrI
+    zi5S0J6vutAyLNbOY/gRvta14zWuOVd0MrR5Xq1Ftmz4VmdX5u7yXtdViF9qBunFVxYfQI
+    dXx4BY3mmXk8NIHWwjfPkKgSADDBBEvOWzA2U7xHjITY8hzbTtHKrAj00CXwbo8WMj/2iN
+    U0Yngt/+ZCSV+YnN2kFxMjmgg0EqXvU0snjVa3O/XapJlMJpmEjOn+G0XgVWULXMRkmRCW
+    5ZCksZ0Uoyc69Ta+4AqkpulLhMP9UNsOpYnig+WtCdZ7kNio7xBOif3bHkQcjzxXZNjD2e
+    8QGhV6Y9sh0eT+FnXUmmY4G9YgvQDSmH/63M4qoWyCZJFkzW8JWCz1xGW29GZb/sA5RATX
+    J+YXciU+QW0cDBORN7B1wKWWnRfDs1uTV+G63thGA1pZLSMdgbRUF+jIXMgD34d1eXdwKb
+    ytVlbF8dFX8wzr88oUFe118J9VEBQwjhKIn1FCdrJZk6mXZy4YU9WusG535w
+X-ME-Proxy: <xmx:vrLnah4dmX5CsJhLJURZK3OgnP7s8UZrLj8H18o3F9lhDA2qjddv1w>
+    <xmx:vrLnamTQCmGoyAr_D0NC2J__DmbJeqPzVNjQifnLQg4rXNNI0R268A>
+    <xmx:vrLnauCW0tsnLxnCFDTCxC5dP2lIKzNAyulz76wciRMUce-vaqLsKw>
+    <xmx:vrLnamFZ-w1lPa-ZDwXHP-cyDX0CWumwBdEw4oRfVagiXCmZ-Jy_uw>
+    <xmx:v7Lnam11NSn8WAy7S3IHtTvHz5rMOobZ7zdNBWJQBZ4ah9bkrz9hiJoO>
+Feedback-ID: ib53e4b78:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 16:39:06 -0500 (EST)
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
+ 1 Nov 2026 16:44:29 -0500 (EST)
+From: Ian Bridges <icb@fastmail.org>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] ksmbd: enforce the DACL permission check on delete-on-close opens
+Date: Sun,  1 Nov 2026 15:44:20 -0600
+Message-ID: <20261101214420.731352-1-icb@fastmail.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <CAKYAXd94Fe0awVpprg+41Xc+S+nr79g1jU75oeH4Trd2WWwSqg@mail.gmail.com>
+References: <20261029140535.260498-1-icb@fastmail.org> <CAKYAXd94Fe0awVpprg+41Xc+S+nr79g1jU75oeH4Trd2WWwSqg@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,75 +128,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-From: NeilBrown <neilb@ownmail.net>
-To: "Haruka Kuze" <harukak@zohomail.eu>
-Cc: "Chuck Lever" <cel@kernel.org>, "Jeff Layton" <jlayton@kernel.org>,
- "Olga Kornievskaia" <okorniev@redhat.com>, "Dai Ngo" <Dai.Ngo@oracle.com>,
- "Tom Talpey" <tom@talpey.com>, linux-nfs@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] nfsd: don't access freed memory when cannot grant a write
- delegation
-In-reply-to: <20261101212135.1231222-1-harukak@zohomail.eu>
-References: <20261101212135.1231222-1-harukak@zohomail.eu>
-Date: Mon, 02 Nov 2026 08:39:03 +1100
-Message-id: <179356914391.547122.3246865716471741922@noble.neil.brown.name>
-Reply-To: NeilBrown <neil@brown.name>
+Content-Transfer-Encoding: 8bit
 
-On Mon, 02 Nov 2026, Haruka Kuze wrote:
-> From: Haruka Kuze <harukak@zohomail.eu>
->=20
-> nfs4_open_delegation() hashes the delegation before the call to
-> nfsd4_add_rdaccess_to_wrdeleg() and nfs4_delegation_stat(), both of which
-> can sleep, and it calls destroy_delegation() from the error path after
-> dropping the caller's reference.
->=20
-> Moreover, a DELEGRETURN from same client can unhash the delegation and
-> drop the hash reference in this window, so nfs4_put_stid() frees it and
-> destroy_delegation() then reads freed memory.
->=20
-> Call destroy_delegation() before dropping the caller reference.
->=20
-> Fixes: c5967721e106 ("NFSD: handle GETATTR conflict with write delegation")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Haruka Kuze <harukak@zohomail.eu>
-> ---
->  fs/nfsd/nfs4state.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-> index 1de6c6d757c3..b13d05fe8993 100644
-> --- a/fs/nfsd/nfs4state.c
-> +++ b/fs/nfsd/nfs4state.c
-> @@ -7300,8 +7300,8 @@ nfs4_open_delegation(struct svc_rqst *rqstp, struct n=
-fsd4_open *open,
->  		f =3D rcu_dereference_protected(dp->dl_stid.sc_file->fi_deleg_file, 1)->=
-nf_file;
->  		if (!nfsd4_add_rdaccess_to_wrdeleg(rqstp, open, fh, stp) ||
->  				!nfs4_delegation_stat(dp, currentfh, &stat)) {
-> -			nfs4_put_stid(&dp->dl_stid);
->  			destroy_delegation(dp);
-> +			nfs4_put_stid(&dp->dl_stid);
+Hi Namjae,
 
-So it seems strange to access the delegation after it has been
-"destroyed", but I can see that this change does fix a real problem.
+Please drop this patch.
 
-Maybe "destroy_delegation" isn't a good name for the function.
-Maybe "deactivate_delegation" or something like that.
+I checked Sashiko's comments. It found two real problems in this patch.
+While fixing them I found that checking delete-on-close opens with
+smb_check_perm_dacl() makes some valid opens fail. Other issues need to
+be fixed first.
 
-That is a separate problem those.  This patch is good.  The one other
-use of destroy_delegation() is correctly followed by a nfs4_put_stid().
-
-Reviewed-by: NeilBrown <neil@brown.name>
+I will send patches for those issues, then resend a fix for this bug
+once those patches are merged.
 
 Thanks,
-NeilBrown
-
-
->  			goto out_no_deleg;
->  		}
->  		open->op_delegate_type =3D deleg_ts ? OPEN_DELEGATE_WRITE_ATTRS_DELEG :
-> --=20
-> 2.55.0
->=20
->=20
-
+Ian
