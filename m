@@ -1,66 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.64
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793548892;
-	b=mnjbEyWTx9Qvf/SOxTJz/VBv+ZPNnzSPKtfVhBRjCwOBQC3FgHqEQJBziQIKyVWeMgvs
-	 J9+uFklkwWNhz+WVF1wY7o6EhIdsz9xxrfrlkG5ViMJ6irRhWKWmHHXBMCTnMUNPeVzx0
-	 Zvkg7ghoEm/drlq1zzrY+InbPT6B9cofzAHQNs+hOKF6Gh4T1ByqEoL02yIssLu3NBNln
-	 w0ojbTxuCaAEdrAudgZEkRbmymOHuduTaP5mOpIeOGLPOw9IQnpB5OtQ5PQepqgrO76r+
-	 68fG1FubWYPmvKlcHEyN9R7JghKVOsBLHdTcCArOSyqDrEsYlu7bjNZFYX44UQl+gkA==
+	t=1793548895;
+	b=3bhdx8qw+cByV6P5fPhUsNP/RuUzdUeq+3XOaKW5UNlv/VG3gQ8YRlrJ3H2WFdQlWJLL
+	 ZwVFMjjAQaKKLhjg3yteTtagK6s40x7ho/toexfdmDNjXro87rg2cERuioyyLCrpirkFL
+	 8q8H+SVUmpmbYEp8TLTCT/D5MWHnqqPn1/hNrpFeU4tfYObj61czaEspqjHndqb/hSphK
+	 J2s4oq44saq6vyZcAz5Thyp1pVez8NUXxyjWzeEwFgtpncmNCociXecqTVOUL8Zc1zU8Q
+	 thMR+hy38UfBmZ9/wsZ4DsgHnyxcUvWfkgdzIKhAAItapOZFcAyWFhybjNAh1Zy0rgg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793548892;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793548895;
 	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
 	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=dJAjI256HYju+smarK/sFecvcjyXOoXB2UXk9HtpRA8=;
-	b=20ISy001VI5FeuFhaPFxeokNCBs/N/eim7X5V1I/MrWmIKPYWX5iqrEhq0g38hDEWSiA
-	 rpsNaX2Gn+7eIgGG82naUyidwA4Ho5ez3VzwfoV7UHs3IC6D3DRCFq6yH6PsBYrkMCxMT
-	 iagV1SiDuywu9giOnrCZij86tWiwGxHGGJHNEyhvmnS9GIfJmzqHfqEI2825WENp7whxf
-	 kMVjaHvQL0940PGXbYGBD//10FVjvPq+RMPP2S3RpJ3cKy7kZpHB7kJYUkqtKtj+MEDpo
-	 Gmmdur19uxYdc/fydhFMXL7bvlleYVN68fcY+2ZgHWguAfadt1UJdozLnpZQkXbfP4A==
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=VCSjjerN4swAyojavdxydNFi5ohpFUbrii0bTBGDcD8=;
+	b=4R4M4k3LHFsbARX0IR3VjamzWsEOkTQ0Fw8zG3NGHptgi8xMlqVFDS7YdX1I5nkssAwq
+	 tBCBtXU8Fh1hYLdqzGAajeebOJE13xMCme/rc2X6MlocTYjUO/uYjaHUWdCsacV6SWQlw
+	 CQiM6Q91I4HW3z06NXtvb46mgPGA54RjEUUiwEKDJrbiSEn8GYEDo1m25RprNRUjl2hCY
+	 EvCGEieMFHGrcIxDMQ9sGbpZg13ZGFL1IL0xfPdU9AHMIGknb0pm33a/a9QUQVe2RULmr
+	 qJZ8/uujG6iFAZBJtwlskXs6Pb8g2hYtzEWQ+lL1URJX/sdvciXzHyix1/62pRuDKCQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=foxmail.com;
 	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=ZUCzD63D;
-	arc=none smtp.remote-ip=162.62.57.252
-Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b="V1K/be/r";
+	arc=none smtp.remote-ip=162.62.57.64
+Received: from out162-62-57-64.mail.qq.com (out162-62-57-64.mail.qq.com [162.62.57.64])
 	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B547E606A324;
-	Sun,  1 Nov 2026 16:01:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B547E606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BE73606A325;
+	Sun,  1 Nov 2026 16:01:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6BE73606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=ZUCzD63D
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=V1K/be/r
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793548885;
-	bh=dJAjI256HYju+smarK/sFecvcjyXOoXB2UXk9HtpRA8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZUCzD63DSRdrMEGTfiMCYIaqUrCTwmVQ69ub6q2NkDw6gvvu/4avWG/TRk1fhZVPw
-	 KwbBi8q+j5NPWoKJkZWJH6gU4j26kdQRG4GLPNTCTqjclW1NgsltgULGBiLlxcI/PH
-	 6EGKDS9iRK2DTDHXpE+brr6tWfEIQMUJ4+ebU7oA=
+	s=s201512; t=1793548882;
+	bh=VCSjjerN4swAyojavdxydNFi5ohpFUbrii0bTBGDcD8=;
+	h=From:To:Cc:Subject:Date;
+	b=V1K/be/rl7UewVJPmyNAnSjaLlEPQs3AdgvRhjU/xfYPBOB0hn/zu7S4POvPz2qQe
+	 UZmC/jb2+VK8D9LPvHaSDe9kaa9UdtHc6JcyCUkysQzxvDCDWslM+ZmeQCBSExpSF7
+	 Qxju0FL5zqGDHnG0ydkdoOTEHmPWKUt8Qo9uUK5g=
 Received: from ubuntu.lan ([223.160.115.26])
 	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
 	id 4D84AD9; Mon, 02 Nov 2026 00:01:13 +0800
-X-QQ-mid: xmsmtpt1793548881t4gxc0hzc
-Message-ID: <tencent_1E7A74EBC425C78E07DED39F31807B7E1D0A@qq.com>
-X-QQ-XMAILINFO: OOO9dHjlsLs7VXtaDxIJMbnyZWPNEEi5lnAw/PKiMNYLrm4QS3fWT/7VliBWKo
-	 wVkqf37fmaVukQ1DDu25FW5bTPqm90dpeRNKvTZL0AMVMmCJykhYrlaWwrZ/pNCHgnMFfW2wbwVJ
-	 BQCTam0QDaL9lp8Jjius68lHf0Ji3oAZyDdsA1vnsoM/f0pKTB2Gx6RjVC9sRIqPlMkqGsmkBy8p
-	 3pjKldcGNKsJEqWdSR/vphUMW7+CCZZbuQrwyFZC7bL7RH0381Y6xQAUoEtVWeGNxo3LMr11mlh3
-	 3rlpfI/nBVWaOzsd9nrNjUYvQL3ovxK/AhOiXkdsHydODCLm6TrtEsdFZAc+H0s1lP0tHRxyDDkw
-	 7marcOn+56TvjLi987o3xDk4y0DGmU4dHLoWTjP4nsRrq1TRGfNXckPY6emBLAvK3kgzaq3p5ZKh
-	 ldaCCk6cuWq0lvA6fro14m6HN5ajixKHQs79Pf/7vcnt7p9fsBrw0/dMLhlKBP/FgNYrRdXYYZaO
-	 LXOt9SzAUkPwEi7Pk+NI4rd+VRz1x8zKm9SLYYk2MYtPfKcarGKJYouReoNPcKgYWVPMJWRg/L4v
-	 0k4Vf5itpQMmt74HYE6QgMTqIEgOa7O/Pk+pNhEaRO1Oi7Rbj172KJL87ewVLQgKv3C8x8CfJfwr
-	 Yp8NeNYU3QCd2wvMxMI+Sw+iQIEiRaZCN762KMXNppDmdX1ct7Sm//WI1kWq4tVVKC6qXpmJJijd
-	 vRe+cNTaRDSqDVMScY5RYbZ7Q092Uo6Ul1ew0NUrlOnhl0sGdXbj2rZaV5R+Q4Zfte0Z73x9sqFl
-	 gHk7llNlOPIQCgFF29qDil8R7lRt2vp4bEcIfv0ePcCRJzaT0kp2/iYpl3Ip/5coFu26Ox4ZOIvP
-	 3+4VOMl0a9NnvbsfFgCMD1FjhSCu4FuTE7BpfYAVqtbu0EiUUlu70ILuAwjgPwTFTheVbyhBRMbA
-	 augxqhgjwJ6O1yIRBlk/VnPNxovtWcwjpJIUkl3PFka0VHOhiGdRHBtbGwLxR4nxQh0J6Lxuae89
-	 TvxWLUHlJZ7HJsrQAN6az6mHyB2erfcD7N0uttXmVnoWq0uP8hGiqTySwzeQJqKt0+/qUiaw==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-mid: xmsmtpt1793548873t57elxer6
+Message-ID: <tencent_123976BCEABEFB4C0F5CE28BCAA346A72405@qq.com>
+X-QQ-XMAILINFO: M+6QKz8nsrJQPjexYpMHD+dPrJhsMYfcpG2PkQZZq3oezjMOep2zSZHp6AmknP
+	 JNspPK74ZH5/uM7T643swzukTR+V81mIc8RJ/VTw9qeRw1jNbl+HgSPTMmJUSplj1BFNj8Z7AoYH
+	 1IZGExuUmtYjO8+bCDvFP0AFAoXcrm1ZZY/bjHbbUnz28fLXRMkmczxpDt8pFWT4PQ7aIYp44kjb
+	 5RP0VL5urWns6fee4jRI3AWLHOPI0oZ7EkxoEuVFHsPiFNGnxRJ9/wlapxthXRmYpQufJMUK0EuU
+	 Q0ssYwZwOXqV63D/XN8U3E83wpLJWRt1sjtwnnZO8oHuaCi1/JND5WGhk2MsgvTO5SfDUL5uV6j0
+	 x7o6/5Qa7/IedswcGWPZEqG5i/Zddg3MF2U9Mh8DqPqZRe3eHvj8ET/J/p/IBuUFYdsbnSj6KfUJ
+	 XKZLXm6SfI9OZhw+2xinkD+YpN3MBdA88kTmTREX+wglJh/nWXl5Hf1ND7w5KieSEosyTd5J/4pq
+	 nfhwLTHRUfhLfJCmD5uBEG9DdtlrwSi61pnBOUsLCCJ1NB09xMrqMFoo+ba+Z6zrc/L+ihT5m17g
+	 LGKacS0SpSq17trQgZVs/HNvbsRSMUaLuTTRHs5RL9BbMbpv95CvNMNE/QJmQevj1056Gkm1io7k
+	 ALfWvvNdYpe3ke5noogKuO2So9SB3PkwQSE3HHtVbec8amRgSBE3lyx4E5hFezoaMSIQ10DqYSbC
+	 J7vEBCzYbJz89XiX1DeQLnOSfoEl7b7KLVP7FU6wspO+ZyzcHICg8tH+F7XSKhryEwUsehYBYuVe
+	 R3T55EffN9OVBvkxuDxOS70sSo22yT0bdAazd6F09m7cBlD3F2kCLoD0e66hVnLGNj7IljBfXBXk
+	 ldLAXRURns/4ZrOnNWoDJje9KXrtew172bCJEoZMdyuMIxO7OMiya9cC0P1yWx1KptpYkj7VEk27
+	 ih6xrNSjGND0HWZ57XNQCKaItU0zly2z8HlH+qTF5jKFvK2GaAgbpZu5+la3IhNi0KJHNymHt/ly
+	 bk706fmOixvf9YwRw59/1huAw4nAzg5Vt0gFKsLVx9k/V36w8e/GR6O5wwUSou67Y71P4lpQ==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
 From: Haozhen Li <dezige131@foxmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>
@@ -69,12 +68,10 @@ Cc: Abel Vesa <abelvesa@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Haozhen Li <dezige131@foxmail.com>
-Subject: [RFC PATCH 1/2] firmware: qcom: scm: Add QSEECOM app loading and shutdown
-Date: Sun,  1 Nov 2026 16:01:08 +0000
-X-OQ-MSGID: <20261101160110.3622-2-dezige131@foxmail.com>
+Subject: [RFC PATCH 0/2] firmware: qcom: scm: QSEECOM app loading and listener support
+Date: Sun,  1 Nov 2026 16:01:07 +0000
+X-OQ-MSGID: <20261101160110.3622-1-dezige131@foxmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101160110.3622-1-dezige131@foxmail.com>
-References: <20261101160110.3622-1-dezige131@foxmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,227 +81,88 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-QSEECOM clients in the kernel can currently only talk to trusted
-applications that some earlier boot stage happened to load:
-qcom_scm_qseecom_app_get_id() looks an app up and
-qcom_scm_qseecom_app_send() talks to it, but nothing lets Linux start
-one itself.
+The QSEECOM interface in qcom_scm.c currently only supports interacting
+with pre-loaded trusted applications via qcom_scm_qseecom_app_get_id() and
+qcom_scm_qseecom_app_send(). It lacks support for loading applications at
+runtime, unloading them, and servicing normal-world listener requests.
 
-Add the two missing app-manager commands:
+When an application requires normal-world interaction, the SMC returns
+QSEECOM_RESULT_INCOMPLETE. Currently, qcom_scm_qseecom_call() issues a
+WARN_ON() and returns 0 on incomplete calls, leaving the application
+blocked in TrustZone and rendering subsequent QSEECOM calls unresponsive
+(-EBUSY). This behavior is the primary reason the driver currently relies
+on a machine allowlist (qcom_scm_qseecom_allowlist).
 
-  - qcom_scm_qseecom_app_load() authenticates, loads and starts an app
-    from an image staged in TZ memory, handing it over with the
-    APP_START call. Both image layouts QTEE accepts are supported: a
-    split image (.mdt metadata followed by the segment files, with the
-    metadata length passed as mdt_len) and a single-file signed ELF
-    (mdt_len == 0), where QTEE parses the metadata from the program
-    headers itself.
+Design rationale:
+Currently, QSEECOM expects apps to be pre-loaded by early bootloaders.
+However, runtime loading via APP_START is required for modular devices
+and trusted applications (e.g. fingerprint) whose lifecycles are tied to
+user-space daemons or loadable drivers. Furthermore, dynamic loading and
+unloading frees secure-world memory when the app is idle. We believe
+providing qcom_scm_qseecom_app_load() and shutdown() within qcom_scm is
+the least intrusive way to expose this firmware capability, but feedback
+on whether this belongs here or should eventually hook into a higher-level
+tee subsystem is very welcome.
 
-  - qcom_scm_qseecom_app_shutdown() stops an app and releases its
-    secure-world memory and name. Without it an app can only be loaded
-    once per boot: QTEE refuses a second load, and only a reboot
-    clears the name.
+This series implements the missing app-manager and listener commands:
 
-QTEE reads the image address passed to APP_START as a 32-bit value
-even under the 64-bit SMC calling convention, and truncates anything
-above 4 GiB. Catch that case in qcom_scm_qseecom_app_load() and fail
-with -EINVAL rather than pass an address on for silent truncation: on
-platforms whose firmware hands out memory above 4 GiB the load would
-otherwise fail far from the cause, or worse.
+Patch 1 adds qcom_scm_qseecom_app_load() and
+qcom_scm_qseecom_app_shutdown() using the APP_START and APP_SHUTDOWN SMC
+commands. It supports both split (.mdt) and single signed ELF images, and
+enforces a <4 GiB physical address check required by the 32-bit SMC32
+arguments.
 
-Based on the QSEECOM transport work of Dawid Wrobel and samcday
-(https://github.com/samcday/linux).
+Patch 2 introduces listener registration and request handling. During an
+incomplete call, qcom_scm_qseecom_call() dispatches the request to the
+registered listener callback and returns the result via LISTENER_RESPONSE.
+An iteration limit prevents indefinite blocking in case of misbehaving
+applications. The listener shared buffer is conservatively required to lie
+entirely below 4 GiB, mirroring the image constraint of patch 1.
+
+Removing the machine allowlist is deferred to follow-up work once existing
+callers have been verified for re-entrancy.
+
+This work builds upon the QSEECOM transport logic developed by Dawid Wrobel
+and samcday [1], adapted to modern mainline interfaces (qcom_tzmem,
+lockdep, and proper kerneldoc constraints).
+
+In accordance with Documentation/process/generated-content.rst: an AI
+assistant was used to port the transport logic onto current mainline APIs
+and to draft the kerneldoc and commit messages. The architecture and code
+were reviewed and validated on hardware by the author, who assumes full
+DCO responsibility.
+
+Build-tested on arm64 with defconfig and CONFIG_QCOM_QSEECOM=y (W=1 clean,
+checkpatch --strict clean).
+
+The transport logic this series ports has been exercised on hardware
+before: on SDM670 through the work it derives from [1], and on sc8280xp
+(huawei,gaokun3) through the equivalent out-of-tree patch. This exact
+series has been boot-tested on sc8280xp (huawei,gaokun3) with an
+out-of-tree client of the fingerprint trusted application: trustlet
+loading and shutdown verified across multiple start/shutdown cycles
+with consecutive loads succeeding (confirming that APP_SHUTDOWN releases
+the secure-world memory and name), sensor initialization and image
+capture stable across repeated enroll and verify transactions, and no
+dmesg regressions compared to the out-of-tree baseline.
+
+[1] https://github.com/samcday/linux
+    branch codex/sargo-fingerprint-kernel11-baseline
 
 Signed-off-by: Haozhen Li <dezige131@foxmail.com>
----
- drivers/firmware/qcom/qcom_scm.c       | 123 +++++++++++++++++++++++++
- include/linux/firmware/qcom/qcom_scm.h |  14 +++
- 2 files changed, 137 insertions(+)
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index 43e250fae..c77130693 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /* Copyright (c) 2010,2015,2019 The Linux Foundation. All rights reserved.
-  * Copyright (C) 2015 Linaro Ltd.
-+ * Copyright (C) 2026 Dawid Wróbel <me@dawidwrobel.com>
-  */
- 
- #include <linux/arm-smccc.h>
-@@ -115,7 +116,14 @@ enum qcom_scm_qseecom_tz_svc {
- };
- 
- enum qcom_scm_qseecom_tz_cmd_app {
-+	/*
-+	 * APP_START and APP_SEND share the same command number and are
-+	 * told apart by owner and service: APP_START is
-+	 * QSEE_OS/APP_MGR, APP_SEND is TZ_APPS/APP_ID_PLACEHOLDER.
-+	 */
-+	QSEECOM_TZ_CMD_APP_START		= 1,
- 	QSEECOM_TZ_CMD_APP_SEND			= 1,
-+	QSEECOM_TZ_CMD_APP_SHUTDOWN		= 2,
- 	QSEECOM_TZ_CMD_APP_LOOKUP		= 3,
- };
- 
-@@ -2168,6 +2176,121 @@ int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id)
- }
- EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_get_id);
- 
-+/**
-+ * qcom_scm_qseecom_app_load() - Load and start a QSEE application.
-+ * @img:     Image buffer, must be allocated from TZ memory.
-+ * @mdt_len: Length of the .mdt metadata at the start of @img, or zero if
-+ *           @img is a single-file image.
-+ * @img_len: Total length of the image in bytes.
-+ * @app_id:  ID assigned to the loaded application.
-+ *
-+ * Hands an application image to QTEE for authentication, loading and
-+ * starting, and returns the ID under which qcom_scm_qseecom_app_send()
-+ * reaches it.
-+ *
-+ * Two image layouts are accepted. With a non-zero @mdt_len, @img holds the
-+ * .mdt metadata followed by each segment file concatenated in
-+ * program-header order; in that layout the metadata segments appear twice,
-+ * as the .mdt already contains them, and padding between segments is
-+ * dropped. With @mdt_len == 0, @img is a single signed ELF passed as one
-+ * file, and QTEE parses the metadata from the program headers itself.
-+ *
-+ * The image buffer must lie entirely below the 4 GiB physical mark: QTEE
-+ * reads the image address as a 32-bit value even under the 64-bit SMC
-+ * calling convention, so a buffer above it would be truncated into a wrong
-+ * address. Such buffers are rejected here rather than passed on.
-+ *
-+ * Return: Zero on success, nonzero on failure.
-+ */
-+int qcom_scm_qseecom_app_load(void *img, size_t mdt_len, size_t img_len,
-+			      u32 *app_id)
-+{
-+	phys_addr_t img_phys;
-+	struct qcom_scm_qseecom_resp res = {};
-+	struct qcom_scm_desc desc = {};
-+	int status;
-+
-+	if (!img || !img_len || mdt_len > img_len)
-+		return -EINVAL;
-+
-+	/*
-+	 * Unlike the lookup command, which passes a buffer holding the name,
-+	 * the image is handed over as a bare physical address: all three
-+	 * arguments are plain values.
-+	 */
-+	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
-+	desc.svc = QSEECOM_TZ_SVC_APP_MGR;
-+	desc.cmd = QSEECOM_TZ_CMD_APP_START;
-+	desc.arginfo = QCOM_SCM_ARGS(3);
-+	desc.args[0] = mdt_len;
-+	desc.args[1] = img_len;
-+
-+	img_phys = qcom_tzmem_to_phys(img);
-+	if (!img_phys)
-+		return -EINVAL;
-+
-+	/* See the comment on the 4 GiB limit in the function doc above. */
-+	if (upper_32_bits(img_phys) || (u64)img_phys + img_len > SZ_4G) {
-+		dev_err(__scm->dev, "qseecom: image buffer beyond 4GB: %pap\n", &img_phys);
-+		return -EINVAL;
-+	}
-+
-+	desc.args[2] = img_phys;
-+
-+	status = qcom_scm_qseecom_call(&desc, &res);
-+	if (status)
-+		return status;
-+
-+	if (res.result != QSEECOM_RESULT_SUCCESS) {
-+		dev_dbg(__scm->dev,
-+			"qseecom: app load rejected: result %llu, type %llu, data %llu\n",
-+			res.result, res.resp_type, res.data);
-+		return -EIO;
-+	}
-+
-+	if (res.resp_type != QSEECOM_SCM_RES_APP_ID)
-+		return -EINVAL;
-+
-+	*app_id = res.data;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_load);
-+
-+/**
-+ * qcom_scm_qseecom_app_shutdown() - Stop and unload a QSEE application.
-+ * @app_id: The ID of the application to unload.
-+ *
-+ * The counterpart to qcom_scm_qseecom_app_load(): stops the application
-+ * and releases the secure-world memory it occupies, freeing its name for a
-+ * later load. Without this an application can be loaded only once per
-+ * boot: QTEE refuses a second load, and only a reboot clears the name.
-+ *
-+ * Return: Zero on success, nonzero on failure.
-+ */
-+int qcom_scm_qseecom_app_shutdown(u32 app_id)
-+{
-+	struct qcom_scm_qseecom_resp res = {};
-+	struct qcom_scm_desc desc = {};
-+	int status;
-+
-+	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
-+	desc.svc = QSEECOM_TZ_SVC_APP_MGR;
-+	desc.cmd = QSEECOM_TZ_CMD_APP_SHUTDOWN;
-+	desc.arginfo = QCOM_SCM_ARGS(1);
-+	desc.args[0] = app_id;
-+
-+	status = qcom_scm_qseecom_call(&desc, &res);
-+	if (status)
-+		return status;
-+
-+	if (res.result != QSEECOM_RESULT_SUCCESS)
-+		return -EINVAL;
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_shutdown);
-+
- /**
-  * qcom_scm_qseecom_app_send() - Send to and receive data from a given QSEE app.
-  * @app_id:   The ID of the target app.
-diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
-index a0a6bc022..8f98b57e1 100644
---- a/include/linux/firmware/qcom/qcom_scm.h
-+++ b/include/linux/firmware/qcom/qcom_scm.h
-@@ -141,6 +141,9 @@ int qcom_scm_shm_bridge_delete(u64 handle);
- #ifdef CONFIG_QCOM_QSEECOM
- 
- int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id);
-+int qcom_scm_qseecom_app_load(void *img, size_t mdt_len, size_t img_len,
-+			      u32 *app_id);
-+int qcom_scm_qseecom_app_shutdown(u32 app_id);
- int qcom_scm_qseecom_app_send(u32 app_id, void *req, size_t req_size,
- 			      void *rsp, size_t rsp_size);
- 
-@@ -151,6 +154,17 @@ static inline int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id)
- 	return -EINVAL;
- }
- 
-+static inline int qcom_scm_qseecom_app_load(void *img, size_t mdt_len,
-+					    size_t img_len, u32 *app_id)
-+{
-+	return -EINVAL;
-+}
-+
-+static inline int qcom_scm_qseecom_app_shutdown(u32 app_id)
-+{
-+	return -EINVAL;
-+}
-+
- static inline int qcom_scm_qseecom_app_send(u32 app_id,
- 					    void *req, size_t req_size,
- 					    void *rsp, size_t rsp_size)
+Haozhen Li (2):
+  firmware: qcom: scm: Add QSEECOM app loading and shutdown
+  firmware: qcom: scm: Handle QSEECOM listener callbacks
+
+ drivers/firmware/qcom/qcom_scm.c       | 394 ++++++++++++++++++++++++-
+ include/linux/firmware/qcom/qcom_scm.h |  62 ++++
+ 2 files changed, 444 insertions(+), 12 deletions(-)
+
+
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
 -- 
 2.43.0
 
