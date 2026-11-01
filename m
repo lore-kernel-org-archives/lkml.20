@@ -1,91 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.170
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571122;
-	b=Q2PBkNTfcXlm6cBi+VKSxh7ZdwR36bMM37zrtqA8JoOyTV80TPSo9TuVkB5R0lPERB4p
-	 VDbaqNYgrK0NvJ6lNc1K3/dvi4HzIPrHHtAfsqE+3M2RPuWagw/sMDbwcxLS8h24F9yO/
-	 to2/kT1G8rVTz2MJgcCLgDpImmKmDIE0noIGjpu1m1VSE0t25ZuZEIxGLsDmt5eib7SFp
-	 UBbUBuggIh8T7fcRPCrExs3KvmOyUYikWIKMN5kdOj5UceWl1clalrUhi0tag9G/el+a/
-	 KNwwd7Bg87sdY7Z8E82MkvXfQhK62hWZNVTVZEF5pTKUKLPMnRQzVb08kPm3pnqns8Q==
+	t=1793571135;
+	b=Cpd5L3pc5gD1161ZzCOHOLnDcXkjpkIFXVTMBEXuuI88eVnJFKIBZ16kt8f8j3eT5Gn9
+	 RI7jnNAZLypqpV4jj7uOAPpiMyImZF/CyZg6mDLG6EHogj+ndiPrq4rF4CzNpShp6ZERT
+	 h942uH3ySEWM2YdVKfeNfsOXWxFduJCsaj7XI8aKHiJ0EAvbZUMype9ft2PLraRAD5tSN
+	 oK+siw0PkWUMzFunaXV5ZkfiLxjGrBixW97qh3sBaXOzf99S/mOPyLG3v9+XKYhLabfFX
+	 637PCeLW5dpFETrIwlUSRpk+Di9fVedLCPtmUbhjYVAM5jGHxrB0mewZmvxk7OeIOmA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571122;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571135;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
 	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
 	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=Buc1QDeYtaFDuNaaLime3LTMfQGnM03bKEX58bfBjs4=;
-	b=NLPd5u+bsSA6om7nkRmt/CdOZB44U5aX9lBGdPXV3iF0j1LcRm9ayetUm/Txg1XMukKc
-	 rUEynwsFAyLpGXITSPSIEUEJEkDUsOtEkb9dPEu+BKLfXbmjs1Q4e97VNZoc2xok3pX+s
-	 O9V7B8c5WuhlAElZyOUC4NKsgccNJCxWdyos7W3p0IZrjpLO4CXZYlcDLrP+nQ8JvpIh8
-	 bjgz4d+F2s9eD2VdHlm0F19ylVhcIe/FETFliILY3UQUf7VKt3ogSCSYouywC/OizmXJo
-	 G0bDkCjJcYS7lzshV00gf2f4zDtfNGnvxQR0vNcUb2XPASNQGwAVvgNF1KyAFrifpwg==
+	bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
+	b=Hpc2zMsRMA5OxFEOGep94YNWN0H2yWUs9G49cQ4FHcUAiX649C0AGa4bcpWgJ8CqW89X
+	 Y1stsjBGBZ2LkeEV1RgSrjAjlsulu0DJdGcvY/plZOJ5aPLgUrva27/Vt6Q4uP7rj4EMt
+	 tL1AucYqONrRfYMaKHGnQPmyzWc+G8nPBZU65B5dQLQGBAtNwyMqHItDbZwmUoVALyfhS
+	 NugvQIk+Ue6uaILt2qUkPyRYwt6uGKuLRlKqTNAKZ5op13W/w+hZo+ZY5FvEvk4a+4iJp
+	 oU0bnFwpzXawI6XHudv7CvMeaiesHq3h0Sz4BlHGZy1tZTgjpLKvgs5Tk5BkGCc8X7w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=chromium.org;
 	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MJ+mGmnD;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iIwzR4es;
+	arc=none smtp.remote-ip=209.85.208.170
+Received: from mail-lj1-f170.google.com (mail-lj1-f170.google.com [209.85.208.170])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CC76606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:12:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5CC76606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357E6606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:12:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 357E6606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=MJ+mGmnD
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6af9a9451daso3724395a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:12:02 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=iIwzR4es
+Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-3a75f960be3so22133821fa.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:12:14 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793571121; x=1794175921; darn=vger.kernel.org;
+        d=chromium.org; s=google; t=1793571133; x=1794175933; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Buc1QDeYtaFDuNaaLime3LTMfQGnM03bKEX58bfBjs4=;
-        b=MJ+mGmnDkOSk51mkQqfhre9162Lg6QFU53lgr5EPqsvk+7QsZIQyVXfRQCcXkw9f8Q
-         MPXJ5wvwaiLAaQwsfk213lO4fBNFkF+hd1P2itxfVaHboxdQjdt5xsEELYaHI7Qy6Cyz
-         mDR6/z9MmxNuMdGM+gXoq7USnZ7kbsFZS7qdw=
+        bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
+        b=iIwzR4esjbGPsi11cntQtTj5Uz9VKLU2MFEAWleX1YLFT/TihdkwcjouHk97FPK3U9
+         AOggF/CWuhdCGsklyfyAvfE+Bsi+f+E8zW/L+5EmmaZs3mpdOTNViWis6rEQdaWJYNE7
+         mnkuccILEMkAns7PDA+9U5/xN5/xOJMIz9cO8=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793571121; x=1794175921;
+        d=1e100.net; s=20260707; t=1793571133; x=1794175933;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Buc1QDeYtaFDuNaaLime3LTMfQGnM03bKEX58bfBjs4=;
-        b=yrT0PQvWQtbwkx2lhMXTczS3HdMq0griF5avjOv/bzU4JwGZ7h04+RCIBSVPobF7wh
-         DWMfP3wDkYSVdOaDFuBgLQgs68NLa+orPmGOS6iWlEMGaKdiSsHGwSJNEwyQZAS7nrm9
-         Eht20ynnQZrqKI22yE+G3tNYDA4Dxl0eot2j8kl3FANaIlwPHOPRGbST2aceIRbym5XG
-         XlcXIXg/5dg/tFGtT8RhhmuxhgJDtvfTS+mNoRA3I6mMDCIbWq2RXIZcqRyhjtGopfyO
-         ZLyX/Ux99odBBRV7MvD49kZSNXwO3grV/gCKdQL/bQ8xO6rdVRpStiZsfGsE8jPS76m2
-         JM8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzebFOFMidiFHQlFE/QjzPqcxqztIWUuE1azWvkQmGIKD9vKcjcxVsjLZPSUqItm0RuSnZzKev+pxN5Nm0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+58TkbnTxTJ8LEAcwMN2oztK3G5a6ANf/JHNFH2b6ZMJWqCJq1
-	orUKD4LIx1L5r0sO3iF2u4v4NkOnwpgOUYyDrDg762YqvziIKVSfyR+WZoQWxS5K/M8yFrRV5Yj
-	JxAGpGWkd
-X-Gm-Gg: AYBFou2Mk8/MmFX5m29u5uNLlnxi+jS/fVfoU9k7rwZGyWp1wmVOsArA6USWj7jnWTK
-	aJWGVeg52KfnRy9qUYkiSrsU5Kj5Gyid8OQv3RqSC+jNHDjM5EIC2ElKUOCMfNB5zYWPyBL/03h
-	xVoOyXe0gUwERRlhTT//Uey0ChzQqh/0C4H7OZI2fUXXCdv3EdpC6vMA1Tus27ku/gS5UQAi4KR
-	aDZ8yLIoYyYblx/6VAAStWmIWcAX3Z7bQRWyZD4ndUxj79NwIw1/CrK6hStXXARHh2GxJ9TAhEa
-	gnETQmuL+qzRLqkDl6gPp2m7SLEp9shdvWu6FrnQuix6ZJP31cF3Q0xjFXjuoolSOm5It10atCw
-	JWtENOhNEh13Zo5794IWdwIZ0SPWR1+bqR/D70PQaL6qnv5q1SYX+wSyDQO/4jVRsespZYvu9d4
-	JjaonGB1zCTfl4CbAeSH9zvU17ICQgS3ub8xn7FU2f59Ibrk6nqE/Xk2BO7zYhL0xF0hogWdA5i
-	IUko2XgABI+SqcBqCuUp8JNmsR2XwE5X09L+cKcxETyQZzLTwpbJyjXnW4AK4y4YdlfR8PUA5Wa
-	2gIGmlFMBPxqCtYVQ0ZnJp7gzvwLuVCwEZmhI49WmMy032xKGnCneSBaIWf1Ke7rE80CjsQDTlL
-	KQTTNLbX09iJB
-X-Received: by 2002:a05:6402:2423:b0:6b2:2331:3ea9 with SMTP id 4fb4d7f45d1cf-6b4d4d6e333mr5585977a12.17.1793571120713;
-        Sun, 01 Nov 2026 14:12:00 -0800 (PST)
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com. [209.85.218.48])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9eebb0sm2440847a12.8.2026.11.01.14.12.00
+        bh=5Me/9QJm4Q38T465J3XjzPEtQTmtBofSNTe5eAQE4wQ=;
+        b=Z+deff7Ey3gaOh5SEia7eIWKrnux+cyN1Mag+0Pj0sMLMFwOydfSgEWe3l3gRwhsa4
+         kU20Z5pTUc7fxxaTqnNO+XCrPWdDXZRCMqGwpwayWZS1EGEatbxfdTnChbRg4MPKnOcd
+         7Qmg1RIoOPHL9V560sT8/eNQX+hie9zF9dZmGIBjZhDqHnD+nY3IusCA7svqGwzuRPfj
+         jFp9XpL8RdYJv3NdFOTtyGzBjrU8a+iL+ir+Ot1EmUK+pXyWpe6OpDwVYGO7pmarRuID
+         LV34n6HMyV98tCz6UHeCXFJI4AH4QH/GMv6gOzvQc3ribS5gxtP4aTvP1DNA2MesHls7
+         6lgw==
+X-Forwarded-Encrypted: i=1; AKwUvByCgmH2ugnw7dG7FR+oqvJ/JvacRb35JnpkF12XPHBr+fuggOdeQ5Xnq0wobFa/0jnhnn5N+W4p9jFlESk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8PUOOIePpQUogeSkS9yuVAqNi+Dpiw8G80ya98Bf2IKFVoRSCa
+	gK/PRIPtl7E2+1UnYiOQ4S+/31edG6r6OppNMmnTr24hHCIChVV9JhC+CLrImnsJy+xmZLyqe+g
+	ZJJM9DZ0J
+X-Gm-Gg: AYBFou1Hnlaeafdxcvzdmk0K3u/KlknJBduuRF/x25gKBs+CUYpew+9r4OFQxtBRi9J
+	omE10TLKI7kRjwlDLxxWIaKarp7QgQ93nHFiGGOEfFsnPACnjuqhpTlqVaQgAYWH4NJbi7+bX2u
+	D+gYkRLlJfAMzKidaZRn+Rd1qISNIlfYHKBBFJJ5z3swvVDGu1AdxjO4OuDvXa7eObbERiyn45A
+	V14HNwwWxin67PxczGli2YqBTGI5QQQ60ihsoS9GdX+rMTKMLH9b/imeMLWliMQNu3KrnOzryTF
+	NNpsTfLS96gCBCohjL/J+iUIoIODCRvhjKF2+5F6auW/2BXS/wUQCtQFHxZRjyf5tYO4LlziQH8
+	ItcmTyBy+URSP3H3VUaalF0goKVN+sSzYH/I+cPVQU2xVxvSwnKPunnjtvti/rVvT/RFiimnZ5I
+	GrfCUaF4rSe8RNi4ImGqay7kGANbEer5hThPNLCBtVFnQsCAaM9Cj+RNK/ylD76lHaHioK2TSwK
+	GDv0yKuINVx/a+YwjvO7S0+nQ3P0ChsjEDfcHrCLLfgycbT/7RAGVcIa06mKSirT7suBDC9Me79
+	TXlOhvQs4T1IgcbtNcjBtORrLJpZ/pvWWXeH+Lrd1zVXl2wEwj4zZAsUfA8MZ4vczm2GKJg=
+X-Received: by 2002:a05:6512:131e:b0:5bf:cabe:23b6 with SMTP id 2adb3069b0e04-5bfd9569866mr2650721e87.33.1793571133418;
+        Sun, 01 Nov 2026 14:12:13 -0800 (PST)
+Received: from mail-lj1-f175.google.com (mail-lj1-f175.google.com. [209.85.208.175])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bfe074673asm1331528e87.68.2026.11.01.14.12.13
         for <linux-kernel@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 14:12:00 -0800 (PST)
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c3fd91337baso398370866b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:12:00 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBwk9SL8OnuCr1VrnSaLodk+MaCJoNXUvrOmpe/ATfjmxpKWcQYSbokrgMAdbQaspeOcsQj+gR5C/G3gtuw=@vger.kernel.org
-X-Received: by 2002:a05:600c:4708:b0:4a2:167a:c93b with SMTP id
- 5b1f17b1804b1-4ac19234ad8mr193309575e9.30.1793570740977; Sun, 01 Nov 2026
- 14:05:40 -0800 (PST)
+        Sun, 01 Nov 2026 14:12:13 -0800 (PST)
+Received: by mail-lj1-f175.google.com with SMTP id 38308e7fff4ca-3a75f960be3so22133741fa.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 14:12:13 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvByXuvT5wIzMe8KUfU64ZeO2ZvBHhYhJKdr+PBRvD5BEdCVhqMoVIcK5JjRey6tFcecAR304cgK2LgADX68=@vger.kernel.org
+X-Received: by 2002:a05:6000:46da:b0:48e:73dd:855a with SMTP id
+ ffacd0b85a97d-48e73dd874bmr11427269f8f.51.1793570749483; Sun, 01 Nov 2026
+ 14:05:49 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,14 +95,14 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 References: <20261028215600.1713475-1-dianders@chromium.org>
- <20261028215600.1713475-9-dianders@chromium.org> <CAFLszThZs9Qx6c_qff4LUXPNpncUAO7LGygkyv6FRtGcxU88xg@mail.gmail.com>
-In-Reply-To: <CAFLszThZs9Qx6c_qff4LUXPNpncUAO7LGygkyv6FRtGcxU88xg@mail.gmail.com>
+ <20261028215600.1713475-11-dianders@chromium.org> <CAFLszTgXZ8fcHuMbMAorsDaebj43gU47bS48pO8dKtnL0JF+Fw@mail.gmail.com>
+In-Reply-To: <CAFLszTgXZ8fcHuMbMAorsDaebj43gU47bS48pO8dKtnL0JF+Fw@mail.gmail.com>
 From: Doug Anderson <dianders@chromium.org>
-Date: Sun, 1 Nov 2026 14:05:29 -0800
-X-Gmail-Original-Message-ID: <CAD=FV=WeMHHTZ5v0tWLhqRivAMogbqVQ-cuF9HRb6sfO+9TVkw@mail.gmail.com>
-X-Gm-Features: AclHuK87KLmJoI8xKOrvWWlX0UnZ0z4ES-P-CBsehd7HFous4pSW5-SGmdATFXc
-Message-ID: <CAD=FV=WeMHHTZ5v0tWLhqRivAMogbqVQ-cuF9HRb6sfO+9TVkw@mail.gmail.com>
-Subject: Re: [PATCH v2 08/10] fdtfactor: Add -S/--strip-local-fixups option
+Date: Sun, 1 Nov 2026 14:05:37 -0800
+X-Gmail-Original-Message-ID: <CAD=FV=XG-YHW2__uxUdJr4vC3e_mW=P==F0JUvkeepXqmKMSNQ@mail.gmail.com>
+X-Gm-Features: AclHuK_naoI8TgiOEvg2nlmaOCNYlC5UGiEf6u-6ngKNFsppEgRdoP0YA4HjfTs
+Message-ID: <CAD=FV=XG-YHW2__uxUdJr4vC3e_mW=P==F0JUvkeepXqmKMSNQ@mail.gmail.com>
+Subject: Re: [PATCH v2 10/10] fdtfactor: Add compiled FIT image factoring support
 To: Simon Glass <sjg@chromium.org>
 Cc: Devicetree-compiler@vger.kernel.org, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
@@ -121,45 +120,48 @@ Hi Simon,
 On Fri, Oct 30, 2026 at 5:23=E2=80=AFAM Simon Glass <sjg@chromium.org> wrot=
 e:
 >
-> > On a set of 47 Qualcomm SC7180 Trogdor Chromebook board DTBs,
-> > `fdtfactor -S` reduces total uncompressed size from 7.69 MB to 634 KB
-> > (91.8% savings).
+> On Wed, 28 Oct 2026 at 15:56, Douglas Anderson <dianders@chromium.org> wr=
+ote:
+> >
+> > Add `-F`/`--fit`, `--outfile`, and `--single-base-dtb` to `fdtfactor` s=
+o
+> > it can directly factor `/images/fdt-*` blobs inside a compiled U-Boot /
+> > ChromeOS Flattened Image Tree (FIT) image.
+> ...
+> > Assisted-by: Gemini:gemini-3-pro [edid_decode] [gerrit_and_build_artifa=
+cts] [gsheets_gdocs_cli]
+> > Signed-off-by: Douglas Anderson <dianders@chromium.org>
+> > ---
+> >
+> > Changes in v2:
+> > - Moved FIT image factoring into its own patch.
+> > - Replaced external `fdtget`/`fdtput` subprocess calls with `NodeTree`.
+> > - Added FIT `hash*` recalculation (`crc32`, `sha1`, `sha256`, etc.) and
+> >   rejected signed FIT images (`signature*` subnodes) and external-data
+> >   FIT images (`data-offset` / `data-position`).
+> > - Preserved per-group compression (`lz4`, `lzma`, `xz`, `gzip`) on
+> >   factored FIT `fdt-base-*` and `fdt-*` nodes.
+> >
+> >  README.md                 |  19 +++
+> >  fdtfactor                 | 408 +++++++++++++++++++++++++++++++++++++-
+> >  tests/fdtfactor_lz4.its   |  83 ++++++++
+> >  tests/fdtfactor_other1.dts|  21 ++
+> >  tests/fdtfactor_other2.dts|  21 ++
+> >  tests/fdtfactor_test.its  |  83 ++++++++
+> >  tests/run_tests.sh        | 156 +++++++++++++++
+> >  7 files changed, 789 insertions(+), 2 deletions(-)
+> >  create mode 100644 tests/fdtfactor_lz4.its
+> >  create mode 100644 tests/fdtfactor_other1.dts
+> >  create mode 100644 tests/fdtfactor_other2.dts
+> >  create mode 100644 tests/fdtfactor_test.its
 >
-> This compares against the unfactored DTBs, so it doesn't show what -S
-> itself saves. Please can you also give the size without -S, so it is
-> clear what the /__local_fixups__ in base.dtb costs?
-
-Done. Updated the commit message to show both numbers: without `-S` the
-47 Trogdor DTBs factor down from 7.69 MB to 932 KB (88.2% savings), and
-with `-S` they factor down to 634 KB (91.8% savings, saving an additional
-298 KB by omitting `/__local_fixups__` from `base.dtb`).
-
-
-> > diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> > @@ -1238,6 +1238,28 @@ fdtfactor_tests () {
-> > +    # Strip local fixups (-S): verify that merged DTBs match DTBs comp=
-iled
-> > +    # with -@ (without -L), and that inputs lacking /__local_fixups__ =
-are
-> > +    # rejected.
-> > +    for i in 1 2 3; do
-> > +     run_dtc_test -b 2 -@ -I dts -O dtb -o fdtfactor_board${i}.nolf.te=
-st.dtb \
-> > +         "$SRCDIR/fdtfactor_board${i}.dts"
-> > +    done
-> > +    run_wrap_error_test $PYTHON $FDTFACTOR -o fdtfactor_strip.test.dir=
- \
-> > +     fdtfactor_board1.nolf.test.dtb fdtfactor_board2.test.dtb
+> Reviewed-by: Simon Glass <sjg@chromium.org>
 >
-> This rejection test has no -S, so it checks the -L requirement from
-> the previous patch rather than anything added here. Since -S could
-> easily be read as 'my inputs don't need -L', I think it is more useful
-> to pass -S here, to show that it does not relax that requirement. The
-> plain no-S case could then go into the previous patch with the other
-> rejection tests.
+> BTW, 'FIT image' actually means an image in a FIT, so I think you
+> should try to call the whole thing a 'FIT' instead.
 
-Done. Moved the no-`-S` `.nolf.test.dtb` rejection test into the main
-`fdtfactor` patch and updated this test to pass `-S`.
+Done. Updated the commit message, `README.md`, `fdtfactor`, and tests to
+refer to the container as a "FIT" rather than a "FIT image".
 
 
 -Doug
