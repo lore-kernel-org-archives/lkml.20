@@ -1,58 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793547725;
-	b=uDf8h7LibfIgD5CKAr56Kp/10mj5yDMtPI7CsydnaIjZGJNhtsZVCo0QJuAokGawEdQI
-	 Of4MrYhYcN4EJnDaxn5U1aJfz+ormnUMmPc0aRZOUt41s1MrPBuaZ6RMzC4V8kCwWDMCB
-	 ct3136l1rcLlxHGKt94ZZ2mG97VGY6reeRdRvib9e2QbNDMRrXwpxklw95ej09PVXo6HE
-	 BcOxRoPxHMWjrxjL+g+nZUqaPnuHAlC20kYbyYoG+F2uwjDnMcGOTRIZynkZZojnKbAL6
-	 l1wJhSYB1ghdJyiQWweATQxcdh5x9I5svg3+GYigGFBZb3lNgnqFlAS1OXPS/wkM/ew==
+	t=1793547724;
+	b=5SnqZw1hUfjkLhKF7PLebltQzVMjJd3a1NN3PHsGqeZkVgg48BzBq96vlmEvjT+rwwqW
+	 7UhdgDe04mSMcXrDYPSwBLme653zs/CkSr5eHoZTtXPsgr/IolRevHii+JQgH+Zs00epB
+	 YeYZVX6+Y3frruwcm91zRgn9OjcP9vkSn5VKDeVT9exTnRIl+Sk47P3YFYfdB5DxfhPC8
+	 cgflljaFNvWxAhBI9ae4rnOKbCYsO0tAvyCgmzln/Dnn+nWb+aLdnarWxp+7PNEGCzmQH
+	 xBDZ/ym0QNejZSDIIaTXlkIlSJUEdTgtilnkv1vPAYi8nDJ98dfZQTmHMg9duGZl7vQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793547725;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=5YJOISa85c8XY87lgejAtJgrxjDeC85yyty9hA0DTew=;
-	b=SDK+Zt+W5O2tifoXbs3tyu0u7xFKizxTHWc9brvbiDulZD4UjbZ21TecNyoJQHBgbruR
-	 KYZrfnQV+Z0w95EB+Ec7sArQh5cSGmLLusqnrtwiGjUGoP7PN2vC238CdrGGHPY9X5TW8
-	 SMFoItjDheYecDe6aTQKG7yxq20Ec5SuIguFBfUYS2GbM0zZDqR4IS6nJdMd1YPd9jtsd
-	 1pvzmYQ4xECE2qJ1zIEH+/ARmHYzYTGOolSUDONTSnqBkhc1U5oB7qiBrrFhf0QroxCKN
-	 MFdS/Hg5x30FHvz35UdxWNgRtjh5rQDu8AJlrbCNx0KxLIrJeUE+E9C5eeibdSM5Ccw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793547724;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
+	bh=7D17qXi3Tw0c7OsVGynV0oeKo9zjydflACAeqDBE66Q=;
+	b=opX61/ND5kObxiGNxUfNcTaPXDndoWC+FPkdbvC1BOt+XEXwfzKz+/Uu42MTF/XHmPRx
+	 9rFrlK9gblTjaI58MtLeUm33SfojvAjuNHlOW2JLvtqLo7l9X8a2+9+gM1Axwwx34TIyb
+	 9XZ6HXgGHRcj9k7S6UcB4xIkhBNKiHCfZ2YNAuztiQX8LALaB/D9TYcQ2jw+d9JyohO0m
+	 gDpP3v5Qju0MuoMDePpZEWaErH7jt0An+zSFkV6U9naxZd25wESs+RJhyHZA6/q804jyv
+	 VsziMi5lYhwMx487inoKURPZLu9rxY1DwKHQ0aHGqjL4k8GpX5EAChtLZnJY1tA37jA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QydDIIie;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PHMvp3ae;
+	arc=none smtp.remote-ip=209.85.210.197
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B027B606A324;
-	Sun,  1 Nov 2026 15:42:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B027B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46FF6606A329
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46FF6606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=QydDIIie
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=5YJOISa85c8XY87lgejAtJgrxjDeC85yyty9hA0DTew=; b=QydDIIieE2+04feUam0hml1fSo
-	1uAoPoaVuBM5jqCx/clrx+yTbfkX/HxbgpyvYkEp4tqEJCGnJ/BIQjvlQ+N0UcicWEtbDcRxBEWa+
-	eS3w9j88Qq5xBCax6+UXdKwkjs5EfFKzndLbcIetCThrolfcEmUnFTJOk6zqft2LWmX0=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xNXh0-00De2D-Ix; Sun, 01 Nov 2026 16:41:58 +0100
-Date: Sun, 1 Nov 2026 16:41:58 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Matthias Goergens <matthias.goergens@gmail.com>
-Cc: Peter Korsgaard <peter@korsgaard.com>,
-	Andi Shyti <andi.shyti@kernel.org>, linux-i2c@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] i2c: ocores: delete adapter before disabling controller
-Message-ID: <2ebf2d74-4e2d-40a9-8dd0-81bfa5ac9cb0@lunn.ch>
-References: <20261031033240.2491016-1-matthias.goergens@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=PHMvp3ae
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-89ff475a0deso1994144b3a.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:42:04 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793547723; x=1794152523; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7D17qXi3Tw0c7OsVGynV0oeKo9zjydflACAeqDBE66Q=;
+        b=PHMvp3ae3ljxZAel8iJvmJOkoaGczK6G+iEju6I1EU6Pmx50daS+OpBLU0YGWEgqHw
+         AxnaKxN42E6RHfVIaFXsNYlqrBd0ZFJvc1HPnBfkKpMnc0KnFwWLDHREl8HDMjDN0vk9
+         JIQm74pC15pIjEGsaOc9oilpQUBqojq5hWTB0Q88mtnz4bxhhH8ieCUXaq1Q99h/us45
+         xrEHIBtFWr/+ZKVh0quRPaPYFtJiaLwuAUrQg5n2FES1TwzYk/+kz2H8HMOwMvLQVKMG
+         +Gq7fIOOgbayoTCziG3R1YqXAmFRaA05ksbiU/zShCiwarLmQaLC/gHP06p+gUsXnOlq
+         6QUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793547723; x=1794152523;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7D17qXi3Tw0c7OsVGynV0oeKo9zjydflACAeqDBE66Q=;
+        b=CSExWdWfBZ/axccouGko6d0/CVF4yrRfbXyYvpaIU9QQ/Z71XcGxDC6vBOjH/oIWxA
+         LOAW+z5l2DIbZgQIxqm/p994kBZbp39K6Bf79DUhRMArJKmVzasxUrGWS+7vOEn7ua0k
+         kfi3T2dJpLxHPd2ZH4/RMcz6SJINSMyBxRDDbXtzF47qghOV5y0m0nd1aazMrVdfViK7
+         ZKl1YmhU54zr5Brn42b46J9JabbOdvmf5OA2HnP14Y/ZTthIGVajfLt3Lw4iWoukYrbu
+         Qz4hZoFpnUT/JidE8MKgDCrGmmQkHfedItL5PeGw8MAdbUbpflEz6wUz5ugA1vpFhZ4c
+         lLQA==
+X-Forwarded-Encrypted: i=1; AKwUvBx9A7nf6E/5o51miDEojbf47adi8pfgE2RdX8F99mWDTbPuOo9gFhzLC1ypMs8FVRp+/3Rt2ODQF5GDaNc=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK+b/FhhtTnXosZ8BoyEIBLyEMJy3YL1B/0/UH1dwkI/SYkxd3M
+	Sd6EqtwPfOFyDPq9FTvG3afmajl/02U8JQjjgHfOQHrpCE0QoJwNk/OarZ2B8rGRfb/wB8Mcqht
+	8VYQh/Q==
+X-Received: from pfbeb25.prod.google.com ([2002:a05:6a00:4c99:b0:8a2:1bc3:8884])
+ (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6a00:4652:b0:880:f278:6af1
+ with SMTP id d2e1a72fcca58-8a9b9a4ec9amr5296046b3a.7.1793547723237; Sun, 01
+ Nov 2026 07:42:03 -0800 (PST)
+Date: Sun, 1 Nov 2026 15:42:02 +0000
+In-Reply-To: <edbdf4f4075565b1fb5925d7e311d6f315151a48.1793444262.git.thnkslprpt@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,24 +77,76 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261031033240.2491016-1-matthias.goergens@gmail.com>
+Mime-Version: 1.0
+References: <0b1a91e7fa0de128c6e2bd3ae2f5c960a5c0f883.1793444262.git.thnkslprpt@gmail.com>
+ <edbdf4f4075565b1fb5925d7e311d6f315151a48.1793444262.git.thnkslprpt@gmail.com>
+Message-ID: <auddRPy5o927NtZH@google.com>
+Subject: Re: [PATCH net 2/2] net: check the recvmsg LSM hook for every
+ recvmmsg entry
+From: Kuniyuki Iwashima <kuniyu@google.com>
+To: Avi Weiss <thnkslprpt@gmail.com>
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, pabeni@redhat.com, 
+	willemb@google.com, davem@davemloft.net, kuba@kernel.org, horms@kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Sat, Oct 31, 2026 at 11:32:40AM +0800, Matthias Goergens wrote:
-> i2c_del_adapter() unregisters child devices, and their removal
-> callbacks may perform I2C. Delete the adapter before disabling the
-> controller so those transactions still work.
+On Sat, 31 Oct 2026 13:08:41 +0200, Avi Weiss wrote:
+> do_recvmmsg() passes the number of received datagrams as the nosec
+> argument to ___sys_recvmsg(). After the first datagram, this bypasses
+> security_socket_recvmsg() even when a later entry requests a larger
+> receive buffer that would be rejected by an LSM policy.
+
+Same question, what is the real use case ?
+
 > 
-> Found by Sashiko AI review.
+> Pass zero for both native and compat entries so each receive goes
+> through the security check. Remove the first-datagram-only comment.
 > 
-> Link: https://sashiko.dev/#/patchset/20260813153155.3953577-1-ruoyuw560@gmail.com
+> Fixes: a2e2725541fa ("net: Introduce recvmmsg socket syscall")
 
-Please take a read of:
+Remove this.
 
-https://docs.kernel.org/process/submitting-patches.html
 
-This patch needs a Signed-off-by:
+> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
+> ---
+>  net/socket.c | 7 ++-----
+>  1 file changed, 2 insertions(+), 5 deletions(-)
+> 
+> diff --git a/net/socket.c b/net/socket.c
+> index c2a85224ab55..fff80fbca1a8 100644
+> --- a/net/socket.c
+> +++ b/net/socket.c
+> @@ -3057,13 +3057,10 @@ static int do_recvmmsg(int fd, struct mmsghdr __user *mmsg,
+>  	compat_entry = (struct compat_mmsghdr __user *)mmsg;
+>  
+>  	while (datagrams < vlen) {
+> -		/*
+> -		 * No need to ask LSM for more than the first datagram.
+> -		 */
+>  		if (MSG_CMSG_COMPAT & flags) {
+>  			err = ___sys_recvmsg(sock, (struct user_msghdr __user *)compat_entry,
+>  					     &msg_sys, flags & ~MSG_WAITFORONE,
+> -					     datagrams);
+> +					     0);
+>  			if (err < 0)
+>  				break;
+>  			err = put_user(err, &compat_entry->msg_len);
+> @@ -3072,7 +3069,7 @@ static int do_recvmmsg(int fd, struct mmsghdr __user *mmsg,
+>  			err = ___sys_recvmsg(sock,
+>  					     (struct user_msghdr __user *)entry,
+>  					     &msg_sys, flags & ~MSG_WAITFORONE,
+> -					     datagrams);
+> +					     0);
 
-     Andrew
+This makes nosec dead in every path.
+
+---
+pw-bot: cr
+
+
+>  			if (err < 0)
+>  				break;
+>  			err = put_user(err, &entry->msg_len);
+> -- 
+> 2.43.0
+> 
