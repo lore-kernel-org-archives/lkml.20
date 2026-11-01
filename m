@@ -1,101 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.62
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793494094;
-	b=rpshe09Hv4ylbKnulFgFL5nCh2ELw3T2ajNvpcTvDNLccYhsm6m4h3Uq+c9b6WZUa1MT
-	 xfLdSfk+6PLFzoAkO55c3Ld4IBer8JFhEywNhucB4S/wG3Pp15bCkbacQ4rEHCOD0aeCm
-	 WM41uKUJqMHrl9ddFb0ddtEKwoRkzVNHzTQHUPndkTWnTfl4gNEbSIvgaOAak0qb6g5il
-	 Gu0SkLyeXpkkHwpygeBD0JeeDX60gNKPTnmVxFKvNKeYtaIHbqGVSKxIj9hMYPCq8Xa6a
-	 BvDlzsTmj1gAiEPli/fK21k6pPNlbSwY4dP0a/YCf7qIKrbBBHM/PZD1pzwNgpo6k7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793494094;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:From:
-	 To:Cc:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:
-	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Jkl6KJhNPuKiHhWTZB98cRR7BnsO7r93WistNrnnAnY=;
-	b=5UMU3/gBiJCDd19MSkyDeWUhtWt+srZiDspcuKXTwk4XP14UTGiP4aLwOcKyJmRMikqw
-	 /zYpQ+n/+B9lS/YADY5p4KrwHrFsBrmMmPBytlF/CGyaGacb6MGO0N7Gxs2CYT+aK+DQf
-	 WM/3ljlyvQLOmUmipOnG3zUXvN7xsreTP5Faq8NRZwzJ1vNTYdMfgCmPzKb0Yl+EBYh59
-	 ZQF5lTtSqZjgawtFKU7ASna/XMIfD0DZ8sP9KDFjFgfuwR8bZY/MwBlQ9ZTokS7wnASoU
-	 WwoDSktloMj/HGrstGAB0Vcm/OHNindsFrjQRIsvMYcHsKTkP/et2SbVKdV8YStChlg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=nvidia.com;
-	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QsFGNFPm;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.62
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010062.outbound.protection.outlook.com [52.101.85.62])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.9
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793494396;
+	b=KwQpZFjlyXkWxPrahHgUis1EZZnkLVse3RPgBZnuUf45/CiS/KX8ZaPNuirhICIHAJxb
+	 YofoyH5wTtLdWRXvE0KxCkyHHX8ile6TXl5ci9o6CtnEYTPrtpNl9oyYcn64Sy89H49Qz
+	 OYlNVlL8ufNMNDD6WU7nVdsydubOxYRm6n0IaCjhEhmo5JerAA/rYIISftA5qMo4AsaTW
+	 6U+JCJ9U3I6o6p/m+9FqBUPVCMo4VKlkLxGZdPGI+nmB/X+Ao6G2rCqQUfNFonl54P20U
+	 jo6gBJ7lQccKnoXjX0gwdGO2nl2pYBQIsrq6BXP/CmShUIF5tNfwiwGvRqQHoSnq1yg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793494396;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:DKIM-Signature:
+	 Received:Received:X-SNPS-Relay:From:To:Cc:Subject:Date:Message-Id:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=I/VW0hIYyl4/TarqUGGuYkjQQcLgdcefuPFvQyfb5Ow=;
+	b=ekLAXuSNHbhCnxmG7jIxHq5nP9BcCSpIHA3LfbK88aKnykEUk6qA0cwxrR1QeIh4pzJg
+	 p8Z/e6/8z0k3aeCgdxQjTuILmRWchns3T2g1ncdb17TTixWrkquWadUEZ/a5MgbTYwR+r
+	 htDvELZIc1MEuPALiRD0YIeBFEwAeqCOioAaqJplionkXZ35IQJY8Ulbg5GqEjzEaqZQ4
+	 gHLx/sNW21E1vpjMJjVQC1/baqf+027k1lLLAcxB7npMbeaNtIQbROIWedeiNI4xKi9VP
+	 lT15Q0i7IjqiHeT3yp7HFYjUt6xrWGE87U+UeBvvI7DcgL+sTlPp7kOjicnuP2MI9Lw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=synopsys.com;
+	spf=pass smtp.mailfrom=synopsys.com;
+	dkim=pass header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=pfptdkimsnps header.b=Wx0Dx6yd;
+	dkim=pass header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=mail header.b=ihuwy2Ru;
+	arc=none smtp.remote-ip=148.163.158.9
+Received: from mx0b-00230701.pphosted.com (mx0b-00230701.pphosted.com [148.163.158.9])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE760606A31A;
-	Sun,  1 Nov 2026 00:48:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE760606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23AA606A31A
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 00:53:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E23AA606A31A
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=synopsys.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synopsys.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=QsFGNFPm
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YmolrTVPjdE6bB5QszSzyEQvoLzcUiHJh0Z/xHAJg1NtPW2y1mPCvFBfAAgncAbFhLJR0iw8RuF1pfgLzybUVAbZcYz5CwW4L9JBSIaRC28mNe7h4ZUyAbgTGr1+8baTw5dX6SNM2/y9EU702HR09xojGvQbhMygtjVtGBt5+k8NqjxoMarOtJ2YAYLp59acS5+z++bRaRjjJdOzJxXeWWw5ixWKON+hqnOxEAuMN7E2bCB+j8QnXyzRNBZ2dx6SXv7zoRJ4U56cF+RutSJ0GLxsYyC8vLlV73DIL1ap+0+H/yUxxmlL5P35kVQheaBkV71K6tfWj4uo1ifK9ATNag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Jkl6KJhNPuKiHhWTZB98cRR7BnsO7r93WistNrnnAnY=;
- b=T8fkh0a2Sg4pnTYF8BjC932H6jqOR9z/nbJ7MM96l/41AsMOvhBZDgMhEW4Fvly21nIvHUfKK5btTjFGkMfU4bWQOG6Qg8ddoWmyAxpFAVdj1UHPUNWso7jacMzrrH3ew/8a6dIhRQdOcSYZNJVMpnk6fu4U0pcoV4Y3iD77DcitqgaqwQDoSa8Iua/wgXQKgUfL1qKapl7dLdbOMRuNn9qAkBWJyDu19hXYSM2/DXx2NK8Kmdtg/P3xWWhG/l5qmopbsREBRuscE6IpTinuPgjaz3y/G01e9CJNT1V+BYkNCXh5G5WowOgoY1QozXv0d/RcL8v+aYM6A+B2tJE43Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Jkl6KJhNPuKiHhWTZB98cRR7BnsO7r93WistNrnnAnY=;
- b=QsFGNFPmySvlBqk3iXQfmi5hN+9fX0vqajaC8SQB7w6VygAIoPHBiFUQ4vOpvc9ZN8pl4HFS2RORtWO2es67IOIzqX4BGbXb124lbKIkz2yH6XZ2Ggc2z5uxFjt2dV1GdludwSJmWTaW5fSaucJylLwe3vDS4U1AbuXzsZ4vYhIvaiMCOjxD4YPvMmiji+9e5Kp6+LSs4aUJqF/QxcG8zUvEQtzyW1dyaASzX72Z/oz49Bf51aPyA9V0H+B175wRNIgbdF+3HIxNuFq2B1Ld3fHmtZH0O43ueiJbESQFsKas1/54HiXM3hvbjEHQ7qkoCgX3eru9vXUCpD55DBzYVw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SAWPR12MB999267.namprd12.prod.outlook.com (2603:10b6:806:55f::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sun, 1 Nov
- 2026 00:48:10 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.010; Sun, 1 Nov 2026
- 00:48:10 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 01 Nov 2026 09:48:07 +0900
-Message-Id: <DMJGLDDKA84T.34HT9JC8SSZG3@nvidia.com>
-Subject: Re: [PATCH] rust: bindings: derive Zeroable for bindgen's opaque
- array wrappers
-From: "Alexandre Courbot" <acourbot@nvidia.com>
-To: "Sasha Levin" <sashal@kernel.org>
-Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Jens Axboe" <axboe@kernel.dk>,
- "Linus Torvalds" <torvalds@linux-foundation.org>, "Josef Bacik"
- <josef@toxicpanda.com>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Nathan Chancellor" <nathan@kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-block@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-References: <27b58e47-723b-4d67-a1f0-ccb8b0ae66a9@kernel.dk>
- <20261031152846.746656-1-sashal@kernel.org>
-In-Reply-To: <20261031152846.746656-1-sashal@kernel.org>
-X-ClientProxiedBy: TYWP286CA0030.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:262::20) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	dkim=pass (2048-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=pfptdkimsnps header.b=Wx0Dx6yd;
+	dkim=pass (2048-bit key, unprotected) header.d=synopsys.com header.i=@synopsys.com header.a=rsa-sha256 header.s=mail header.b=ihuwy2Ru
+Received: from pps.filterd (m0297265.ppops.net [127.0.0.1])
+	by mx0a-00230701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A10HbWM4041072;
+	Sat, 31 Oct 2026 17:52:53 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=synopsys.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pfptdkimsnps; bh=I/VW0hIY
+	yl4/TarqUGGuYkjQQcLgdcefuPFvQyfb5Ow=; b=Wx0Dx6yd71vBcSuF+ssnYZ64
+	DQr4Lfq1+TuPZhptkkhjEBDhYZwSp2qphzG8prw9eDcOHkbbZ9DpVpSUaFHuoMBX
+	JY9/s+cOF908H8HZ96pHyHt1jRSPKZTTbtWPgt1LhN9WfpdrTnAL1NZ49Y7/uMGg
+	e1ZVSIE7W8nySOfLTM2cjbuDKKsqagjDtanf9MvnZYsDhiAIKZv2KTR6KxNbAuAq
+	AInREOFA6OmgUNb2WqXui4IcXfuzwec1LYjDvTloeTPSARz9boIjWPaj5Kz2tuJa
+	046Er6hXPo2AsUJ2OR9p3chtprtv8MF2fceWXURaUFZT/761EdtOPE2gEOjggw==
+Received: from smtprelay-out1.synopsys.com (smtprelay-out1.synopsys.com [149.117.87.133])
+	by mx0a-00230701.pphosted.com (PPS) with ESMTPS id 4hnf8ujb6u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Sat, 31 Oct 2026 17:52:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=synopsys.com; s=mail;
+	t=1793494372; bh=JJ+tm9BW/dkgc9icICG2+TYbPu47TXoYLdenqgK6v18=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ihuwy2Ru8Ab7Azz3ch3ubSxg3WbHqSSusBjfF2MerBkbloSlDNY48D+drdnOM7p47
+	 d7qrnhhPxSQPiS2dj0YPCmEoQsluedyxh/uuSYtyosgbYBMnn7Q5iAWbdN4ABaOgY0
+	 W0VNPLK4qyNa2LUVy1T9NBuXrFgPNs0xg2YaP/QBH//AM4gPB+Oi3RbwyKudBBkUBz
+	 0mqK4Fi+p543f8NzjhNe/9vMO5hitwocq06NjWNxIgFyC9rFPK5sDk9tXT8yHgt3FP
+	 K4ijHDxxkeMID4gzLHUK8rbDA6e7LJfbzatyng6rbO5pzpRsXwCy6cLY9JZbZRbHMC
+	 s1KuTekUrG3gA==
+Received: from mailhost.synopsys.com (eudc-mailhost2.synopsys.com [10.213.161.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits)
+	 client-signature RSA-PSS (2048 bits))
+	(Client CN "mailhost.synopsys.com", Issuer "SNPSica2" (verified OK))
+	by smtprelay-out1.synopsys.com (Postfix) with ESMTPS id B7D6E40158;
+	Sun,  1 Nov 2026 00:52:51 +0000 (UTC)
+Received: from Ubuntu.internal.synopsys.com (unknown [10.150.8.73])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mailhost.synopsys.com (Postfix) with ESMTPSA id 392F2C0EFA;
+	Sun,  1 Nov 2026 00:52:48 +0000 (UTC)
+X-SNPS-Relay: synopsys.com
+From: Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
+To: Dineshkumar.Parameswaran@synopsys.com
+Cc: Frank.Li@nxp.com, alexandre.belloni@bootlin.com,
+        linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
+        Dineshkumar Parameswaran <Dineshkumar.Parameswaran@synopsys.com>
+Subject: [PATCH v2] i3c: master: dw-i3c-master: Add HDR-DDR support to Designware Controller.
+Date: Sun,  1 Nov 2026 06:22:43 +0530
+Message-Id: <20261101005243.4739-1-parame@synopsys.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261013073126.5948-1-parame@synopsys.com>
+References: <20261013073126.5948-1-parame@synopsys.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,101 +98,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SAWPR12MB999267:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee4279f3-0d5e-49ce-5cba-08df37b1cd35
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|23010399003|366016|376014|7416014|10070799003|4143699003|11063799006|56012099006|261009223027099003|261028144727099003|261026121527099003|261021121427099003|261026140227099003|261022105027099003|261022075727099003|10067099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	wBpPTFC2Ps0Fv46tMEabJT9WBBbdbTUAupyCIAfT19dqOd9haOQh0wqa/0rf1x8bTyy0QzlY4+Zps4j/XAf1XwZef0tgcRV/A6dHbaGr4JTRZcWZYEakqQo8OqZCZOh6r8h7kh0v6UhQk7jqFbyDTWYg1b4J5J8qj7yTG9lyDIXZSmnnCahgPJgmv8mcNt9NsvzwDMI6oJy6wF0mybCWFkIzSZDMlFGFjxG4gKgs+k6hxd/7kbcS68eWfLLkQxWfbFR080BgqzZIQDpR9UPvAX85Gk8h171+5UdKWYue106SwfuZoSmtdyrNGKI1nVLVfs7IzKE69p0P05SiENKQpN8IJ+NoQRMbM4ej/mG/X6q7htNjQDRZ74ztrlJsz6oIMnGXjjBKuC4eZC5ZQKEmKNf3p+H74Y6a+IjFwgtHolJmN3aXoE9gloA8ou5Okq3irGkDY3axChAw8+wcKhdDNxJv7J88tWSuEp8f/CqsfDfFEciRNOrEAZVYs6WJUPBCZqSwSelzRt9xD0DuJU7U9Ev6Uw5Rd6TPo3H978NIkwsfWkgWZtqbzBmA1/BbbQEaKNB69k1XmzWVXZaeSun36i4AqI/p06Ha8Yv1mXdMOeQ7wBbzeikmLaUdwk5tQe/7yQYiOFNLNtc1QSmdg2agGrHH+Z94SOWkMkIA1Z3cSWY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(376014)(7416014)(10070799003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261026121527099003)(261021121427099003)(261026140227099003)(261022105027099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ZXhSaHdQOUczVHUreXRlQlhycjJ3aSt3SWdQbEJ3Z3hSQkdwdk5Oalh6Z3dy?=
- =?utf-8?B?cUkwMUdHK1oxUnRnbnNsdlljVDFNVjNaYnVuK2RVcmpmZmdpL0E2MVdKdjhT?=
- =?utf-8?B?L3pxOVo2MEVadDh0czZzWHdqUTdwbDljZkpqOUFGbWR1R0NIRjEyM2w4VENS?=
- =?utf-8?B?c0VGN05xZWVkVDFrSmNGK3ZpZUk1UklwaWtPZmRFTmRhQUMwYlphWDRtZmxI?=
- =?utf-8?B?aExuSDhVRkVVQXk5eXpEWmNqR3laWU4xbFo4MDV4VTJ1SDNadWFFRC8zVDds?=
- =?utf-8?B?VGlkUFZkTXJNdFNucEx1ZzV3NkYyUzk5NVhKU21hTHVUTUNzc2xmczZ4VnM4?=
- =?utf-8?B?NmNnRHBWTGdlakJUVkxDQWpDZVVTbmFFaEtEdHJlTXJaMjJ1YzhZaVZjVVJ3?=
- =?utf-8?B?UXIxSDcwOVdRb1FJUmVycGRGOVdLQm9qeTUzeks4ZFBZVXR0VDRueW9YRjMz?=
- =?utf-8?B?Qkx4NmUwdU0wS3diNENoVUFPUmlac2dVZUhTaDdKUzlkT0tiSmxVejRZcXVa?=
- =?utf-8?B?KzN0SzdUTDFUam9wTk1WWStvbitLRVRSbHRaWjM0aCsva1QyWGVqMUtIRDN5?=
- =?utf-8?B?MXNjbGxrRUVGeGcwZXRUdFNUZGRWczNFZTNiQjJQL0lVRkRGQ0hLTUt5UVMz?=
- =?utf-8?B?cnhLb280SWE4SDR4UEEyM1FSQURFS0FraUptTmtteGY3eXpNaHlLOC9HYmxO?=
- =?utf-8?B?WW0wcnJ3VlM1Mlk4M0dSaUhMdU5mYlZRa1VvUi9MdU16eFA0YmhFeXlENkhy?=
- =?utf-8?B?UTY0OStMRUhGRU5ua1lmL0UvbnBmQktvUzhoVlZSa2tCZFZ2Rk5rZWlEQjBL?=
- =?utf-8?B?MDRDbEZjM0lTdk9aOUNvUG5ZR2RZb3VQZ3U0NEVwWmtTdHNRWURBRVA5eVBa?=
- =?utf-8?B?bWg4ZWRzTnkyWlVhbGFmdjZGMVl6a3BmcisrRHJwY0FDNm9LVjlGeG9KejRo?=
- =?utf-8?B?aFFtaXF2R1FZeW9hU1hleTA0N1Y1enNEa29vV3ZNVnpVV2JYNE9tUGNlVFRY?=
- =?utf-8?B?QTQ1VXN2VzY5cTFnWENGU3p1SU44OTg0OFhHVHBteEQ5ZlFDYW53eHZvYlds?=
- =?utf-8?B?ZzIyRnY5OENjeTNnOGlsdzhTTTlFZVV4UnFYL2NRcE1jbHlNdVdySUZkVmhq?=
- =?utf-8?B?S0MzV0U0SFRhZExEQ2s1dC9nSzBrT293UmhlOGY2TTF5NmwzMUxRVXAvVzdo?=
- =?utf-8?B?VFVzb3djd25BQTJxYTRSVnprdWFBVW9NeEgvNC9ONURIOXkwREJQYzdYOWR0?=
- =?utf-8?B?WldibjM3bGpOaFo1V3pxVFlrZ01uM280TkZodEFrUnVBSDhBRS9URFBzWWZ0?=
- =?utf-8?B?V1pHZDlHYTl0QktsbDNZQUJOYjEvKytTbzRJYjZHSVVybVRqU2Nuc3g4MC92?=
- =?utf-8?B?cU1naW5OTWZwUGU4TFBNeXFNelpjeFpIenlEQno5emFKaWVDODlzdXQ0Smlr?=
- =?utf-8?B?U1I4em1yYU13dEhQZjlqQk5WL1RJYTFtcGs4dGVpZ1NNQ2luVCs0ZTNDT3Ix?=
- =?utf-8?B?MGtNTlJJTDE3Q3FZTVM5T2dEZVRJWjUzWXl5SFdwM1hyYzFNTUFIKy9RVFpY?=
- =?utf-8?B?UkRCSXlOaHBFZzhEb3JVeDJ5K2hpY2ZvTXZ6WndrZTFDVXpneGxlOVJyaVI5?=
- =?utf-8?B?YzBDVUpXN1B5dkREZ1g2cUNWbjNPcWZMNG5vdlVjUHpVOHdURWVKS1NSZkZH?=
- =?utf-8?B?M1hsdG1JdmxpMGlSQkdSMXgvc08rT2VnS1hKRUplMEJ4Rmd0WVhqTGg5akhP?=
- =?utf-8?B?aDNvVExEZ0xEWU5YWGtncUhDOHl4amxKdUIvWkxTMTc3WWdTMm5pY0pwTGxL?=
- =?utf-8?B?OHcreWtLL0QybTlHSFY5UWpYTGd1eExSc3NYRGl4bGZPczlzd1lUQVRjaDdH?=
- =?utf-8?B?MmN6L2IzdmRVa1Vna05xVTMwTGQyeUhDRDJXYUxRWWtuL3kwbGZMbkhrWS9h?=
- =?utf-8?B?dDJjMnVVelFmKzhTR0t2K1gzNG5zMXoyNWNjVXhacXY5UGJKdmxqMEh2RDdu?=
- =?utf-8?B?WDhWN2prZWF4L0l4cElFTkVSMlU0ZG8yRkVqWXU1YTNFTFI2dWtTRXNGN3J0?=
- =?utf-8?B?N1dvbXNNdy9JV0lYUVBrR1IwazlSOFRzYklOMUNlbVo2dDN1S3lnQ3VDMG5U?=
- =?utf-8?B?T0N1ZmRpTSs4SFM1SkgzZmVQOTZqNTk0Zmltd3lkamY2ekJkeGgremZGTUww?=
- =?utf-8?B?Y25kU0pDRFhnT0Q1YU9ZZlE2anduZllXZGdtbFRzZkJNVjhDdWJOYkZtNzlR?=
- =?utf-8?B?aTFDN2FXQndZcHpkWDRPWk9ocElVMFFtSFMvb3ZvRDQycjV0NDM4RllFbWdJ?=
- =?utf-8?B?VkllOVNEOFdSS2NjelY1a2t1TU14bDR2YnNyK3Vzd0ZmQTZpcDlHOSttZVdk?=
- =?utf-8?Q?KYzRtSjBfUqA0VBeCA6twEefy65TJwOCrDEhSJYmQKI6C?=
-X-MS-Exchange-AntiSpam-MessageData-1: sMNkVKfXkKpmzQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee4279f3-0d5e-49ce-5cba-08df37b1cd35
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 00:48:10.3808
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: AGW+luP3SYBym2S9bCd94lwUWvnhowWkeoCs4KO0YlLhB1w+icWyefG5S1b5fs3aS+KJYQAFldBweAz3a0qiGw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR12MB999267
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: yTTDwN7Xl9OMoISNIJwktHBFtbGlCrFC
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDAwMyBTYWx0ZWRfX74DK3KdyacFc
+ ASqnnVbiJGDjAAaeOPL6fjp4Tx6+nBpe+TAJrRjWZLdYAXjoQHukZZ2OjrA4lIOHRxqYLaEInc4
+ WLYsizgeEsEgUgkwbH6ntIRSHn/UEFg=
+X-Proofpoint-GUID: yTTDwN7Xl9OMoISNIJwktHBFtbGlCrFC
+X-Authority-Analysis: v=2.4 cv=Uvr2pOwB c=1 sm=1 tr=0 ts=6ae68d65 cx=c_pps
+ a=t4gDRyhI9k+KZ5gXRQysFQ==:117 a=t4gDRyhI9k+KZ5gXRQysFQ==:17
+ a=660iZSQnnn4A:10 a=qPHU084jO2kA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=tU_645BZ7FZt8VqRJtHG:22 a=-4-sGo8i1FcW4KD7_GeR:22 a=jIQo8A4GAAAA:8
+ a=6SBVZJJJ0Vs975MvW8gA:9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDAwMyBTYWx0ZWRfX3a0qdxR1N341
+ inzI39Sne8YwQQSXaWN8wueKO6K+AcQbfesKiPNh2eIf+RsSuPLFsa1ryvywxVsHILS+dSh9mRK
+ dsu6IUXzMjiPpObsVFeR9Ai+D9uSBV1LuUyLVmBmcp5YZ27Mu5V5tHruRU0ahFuJ5f/uwzJoFbd
+ IySdDSo3w/kJZL1NtTfEPtDR2cf6sWik50nPHC6bwJWszfUIja3n6s8xIQ01TJ1pxMB7n/lTRbi
+ +nf5RgdfKzksN/DPXC0517UYikY2qiOZq92Y2dD3FyRTKKkNc24Xorn8c1FiWZrX9D+NQttiaKr
+ 0HcYrOcsb/vI/s2vDuMNTmk+Ce1vVMRrMdwQRVQzaWXZTMYZy/tgTm7UJrZI2MOE1RWUR5X7c+8
+ N65sqAzWUtwEMVaIsDFf+snxXwcDd+DShO5kUI0HjhvzW8vatuv6oW8KjlvieYpiJ0ZpSQpru9L
+ pplGTjsSg1SskRHQQVw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-10-31_06,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_active_cloned_notspam
+ policy=outbound_active_cloned score=0 clxscore=1015 malwarescore=0
+ impostorscore=0 suspectscore=0 spamscore=0 bulkscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 phishscore=0 classifier=typeunknown
+ authscore=0 authtc= authcc= route=outbound adjust=0 reason=mlx scancount=1
+ engine=8.22.0-2610300000 definitions=main-2611010003
 
-On Sun Nov 1, 2026 at 12:28 AM JST, Sasha Levin wrote:
-> bindgen 0.73 emits the blob of some opaque types, such as ones aligned
-> to more than 4 bytes, as a `__BindgenOpaqueArray` or
-> `__BindgenOpaqueArray<align>` newtype instead of a plain array. The
-> newtype only derives `PartialEq`, `Eq`, `Copy`, `Clone`, `Debug` and
-> `Hash`, and the `MaybeZeroable` custom derive does not reach it, so a
-> struct that embeds such an opaque type is no longer `Zeroable`.
->
-> `spinlock` is opaque (see rust/bindgen_parameters), and with lockdep its
-> blob becomes a `__BindgenOpaqueArray8<[u8; 72]>`. Commit 71ec3c7d6db8
-> ("blk-mq: quiesce a queue that joins a quiesced tag set") added a
-> `spinlock_t` to `struct blk_mq_tag_set`, so an allmodconfig build with
-> bindgen 0.73 now fails:
->
->   error[E0277]: the trait bound `bindings::__BindgenOpaqueArray8<[u8; 72]=
->: pin_init::Zeroable` is not satisfied
->     --> rust/kernel/block/mq/tag_set.rs:41:49
->
-> Which wrappers exist depends on the bindgen version and on the opaque
-> types of the configuration, so they cannot be covered by unconditional
-> impls in rust/bindings/lib.rs like `__BindgenBitfieldUnit` is. Derive
-> `Zeroable` for each wrapper in the generated bindings instead. The
-> pattern allows for the spacing of bindgen's output when rustfmt is not
-> available.
->
-> Fixes: 71ec3c7d6db8 ("blk-mq: quiesce a queue that joins a quiesced tag s=
-et")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+Implement HDR-DDR transfer support for the DesignWare Controller.
+Only support for private transfers and does not support sending CCC
+commands in HDR mode.
 
-I think this is going to be useful for Nova as well, so thanks!
+Key differences:
+- Sends ENTHDR CCC for entering to HDR-DDR mode before sending data.
+To do that we are setting the ENTHDR in controller cmd. Sets the speed
+to HDR_DDR_SPEED(6) to do data transfer in HDR-DDR mode.
+- HDR exit pattern must be sent instead of send a stop after transfer
+completion.
 
-Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
+Signed-off-by: Dineshkumar Parameswaran <parame@synopsys.com>
+
+---
+changes in v2:
+- Add HDR-DDR capability advertisement in dw_i3c_master_bus_init()
+- ENTHDR0 CCC is generated by the hardware. No need to put that in the
+  command.
+- Fix the speed field corruption in COMMAND_PORT_SPEED.
+
+ drivers/i3c/master/dw-i3c-master.c | 17 +++++++++++++----
+ 1 file changed, 13 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
+index 05584ddaf104..149982a05477 100644
+--- a/drivers/i3c/master/dw-i3c-master.c
++++ b/drivers/i3c/master/dw-i3c-master.c
+@@ -232,6 +232,8 @@
+ #define I3C_BUS_I2C_FMP_TLOW_MIN_NS	500
+ #define I3C_BUS_THIGH_MAX_NS		41
+ 
++#define DW_I3C_HDR_DDR_SPEED	6
++
+ #define XFER_TIMEOUT (msecs_to_jiffies(1000))
+ #define RPM_AUTOSUSPEND_TIMEOUT 1000 /* ms */
+ 
+@@ -726,6 +728,8 @@ static int dw_i3c_master_bus_init(struct i3c_master_controller *m)
+ 	memset(&info, 0, sizeof(info));
+ 	info.dyn_addr = ret;
+ 
++	info.hdr_cap = I3C_CCC_HDR_MODE(I3C_HDR_DDR);
++
+ 	ret = i3c_master_set_info(&master->base, &info);
+ 	if (ret)
+ 		goto rpm_out;
+@@ -1003,20 +1007,25 @@ static int dw_i3c_master_i3c_xfers(struct i3c_dev_desc *dev,
+ 		if (i3c_xfers[i].rnw) {
+ 			cmd->rx_buf = i3c_xfers[i].data.in;
+ 			cmd->rx_len = i3c_xfers[i].len;
+-			cmd->cmd_lo = COMMAND_PORT_READ_TRANSFER |
+-				      COMMAND_PORT_SPEED(dev->info.max_read_ds);
++			cmd->cmd_lo = COMMAND_PORT_READ_TRANSFER;
+ 
+ 		} else {
+ 			cmd->tx_buf = i3c_xfers[i].data.out;
+ 			cmd->tx_len = i3c_xfers[i].len;
+-			cmd->cmd_lo =
+-				COMMAND_PORT_SPEED(dev->info.max_write_ds);
+ 		}
+ 
+ 		cmd->cmd_lo |= COMMAND_PORT_TID(i) |
+ 			       COMMAND_PORT_DEV_INDEX(data->index) |
+ 			       COMMAND_PORT_ROC;
+ 
++		if (mode == I3C_HDR_DDR)
++			cmd->cmd_lo |= COMMAND_PORT_CP |
++				COMMAND_PORT_SPEED(DW_I3C_HDR_DDR_SPEED);
++		else
++			cmd->cmd_lo |= (i3c_xfers[i].rnw) ?
++				COMMAND_PORT_SPEED(dev->info.max_read_ds) :
++				COMMAND_PORT_SPEED(dev->info.max_write_ds);
++
+ 		if (i == (i3c_nxfers - 1))
+ 			cmd->cmd_lo |= COMMAND_PORT_TOC;
+ 	}
+-- 
+2.34.1
+
