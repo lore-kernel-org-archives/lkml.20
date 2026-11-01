@@ -1,89 +1,67 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576889;
-	b=rLVi9SbUnUt94dDjIFQiRYZW2w4EyRWgkMdKLA32sVvIbPxDWp8c5fHErD1MICAsawnn
-	 WZ6POk+SKd26tN7KuVmUp6fF5iZcx+uLWRxNinViyzj43P6lBM65qvOiJl7lz4Wh2RqFc
-	 ZJwpKWMGTDFY6XmgzG6+8C1+AGgQf5ZoHD8xo7Yj1fbuH5mb6BoAnSEHh8kPcCEbfPUnY
-	 FU0WWZ1zo7cQLS88GQtANYYjtQtV/cvrOacxtNpO6wL6Cr9F6tG/cLUuZWKzb++JbmJjo
-	 VGoXwSkUcqyLLZElF0iXiFjo3lelUdieGeBGhwBq8+NkOkNoUvyF6PSh812lI47o5XQ==
+	t=1793577021;
+	b=kBIj+TCAD6Rf3UbIpqa7tOwTNxpWc1A9dmvYGPRhSb7jM8y33/QDkVQPKasBG47IDPd6
+	 8QHF4uvX3imuegc3fNgxp+eAimu1MYkrD22Szlt4P7ZR56wrbSIq0+aEB6qXSHr5fWwbP
+	 nITeeNfma6I0s8hPRTX7tK9GW45L8EA63CnsO49OCqbTj0AU+gq4yoJ3Y1KVdHhx9cf1n
+	 Wlacqk7v3OjqYAIa41z3bBrdW9xgBaVz2M0wpha6QR0Ht6zB+VHb7zvL28pEf8u6N92du
+	 t7IrFLPe4n8h/eVkNUH2PFo6U6yW5Kn3p3hnAmEZZDuGIMV6f2haCIOEznCIxmCkzZw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576889;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793577021;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=V1PNsriSOXNXk9F4i3pS/7KJmz2B+6Azrj9cQd9O7UM=;
-	b=nDu2mU9uwUU+x7L+xTeu9O/R+jCXGUt0u17SR4GzY7MZXoZMxOvqyi+aPCb4HEvKFyoX
-	 L7hM27DZe6WmCkipxiigKHJLfajFvEhrIlcjgCHgejDUGG4uS29ZLvzjd5iumsmv7f4Vo
-	 Y2o34VxJCK8ld8vWlJoF2pFz2wjsZYEzNITuoBQK0pXKCfSzGsR8oL2AW5Phx6fVFnxPx
-	 Hgave2oUS2b7BMXtceD0F+aRt6QsLZEx3+nKvDQTlo2Wlpfe8fA+rnPCupp9NZCRUgB+z
-	 s2BLKT9qZoxxIHhs8+7bM7yVKrZnpvbuTTVGWs3Mk0xdKSsocCWlziYtRQZRg3x+xsg==
+	bh=GtkyqXjaNZUhp+wtMvVWU33nxLUpc8+32fesBBYhb8w=;
+	b=Jui8+Q+0DVF9eCiHWOAOlQrmCrF6uwHuZtLPKUrigv8gQ1ZO/EjK3Nk7Qj0heEjIsaUf
+	 uJTLwBGLKym4+eG+2dFuG0E+v2Dz467TKChWwkLbV7zwDW1ZLj2Z//6NlCWfPtaVGldUZ
+	 M0lSwE7kAP/dlP9g1XjnBWmP2tT4PdaSIxmZPQnKWkxaVeTjAM7nTP6nfdzYr8BQ9Rfij
+	 8aWIu7OcrefuIjxiiCKT+cERbpsQ0R/hle3dSE3tP2ZUX5ZmNE1ThHmksUSTuU4Rg0OCR
+	 oHzBncwo2bf8R+GIrbItkmxB2i8YGMtDhVrsFg6scPEbkapE4j/OMOCAXTYsrv1L/uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=layalina.io;
-	spf=pass smtp.mailfrom=layalina.io;
-	dkim=pass header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=acxkjQ3o;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1mOGOEa;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1BF606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:48:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3F1BF606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=layalina.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=layalina.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9A4606A324;
+	Sun,  1 Nov 2026 23:50:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=layalina-io.20260707.gappssmtp.com header.i=@layalina-io.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=acxkjQ3o
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a60f9474c4so26012085e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:48:08 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=layalina-io.20260707.gappssmtp.com; s=20260707; t=1793576887; x=1794181687; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=V1PNsriSOXNXk9F4i3pS/7KJmz2B+6Azrj9cQd9O7UM=;
-        b=acxkjQ3oMg6V0fHID+GEQE22KSpnzDq6lGlXzvoo1Ip1YJY5ZRScWheQuoRu+wHryQ
-         9QtJXkKYYP/ijrouQZBRIz+Oz9Wa/hqzuSJCv3pB1wuz4cbICKCtzjmrUH2+oVRwZOI7
-         VMpZvtDkC8RLHVh7bQ4cfKIHjsV5abw+Jn86gnvH4Q+ejyjdrjXVDs5L8f4LaMyk73Ph
-         /Q7BkgJ1YGGVLUVR9MIQR6SceKM5iYNjdlcI57Lpm6VBIZqMT8ybrWnb6TzakPlYbjOp
-         xM+bz0icHH1KmDdYuNkNmFNay+JdSEQmIlVWv12hBToInwS4mgC5Uurv4IRE/Wx4NveX
-         m/Tw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793576887; x=1794181687;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=V1PNsriSOXNXk9F4i3pS/7KJmz2B+6Azrj9cQd9O7UM=;
-        b=nLfDklN/HZeK20ygXmqq9rdsTLn2fQqNjamNzlyWc51JW+ojgpCYnkvhyEokdH7CPE
-         J+MZ/K1lHqp1AV33bXvw/xjM0TKTIhlMlCwBvgGgWFMqaO7wX8dye06FtCBhO/F5x3p5
-         m4sMAY82sPtAH7cYkzp+V+nhrpw28plBHZhOL7A43S8RVpkqpr+ZxqmgGPp/4K/mjiCs
-         qfN1Ri6t3SzmavYIa5arN5m4mF5OmfjBYfXEPUfPQdK4wxmu+rQFBxknzuDETI3Al0pg
-         gKzFk5ugNWu/CrS/sm5LzS08ki0qnRoNCd9hqu/5Qaugt6uCrv0aQ0rQ3YxyVYDFKOh8
-         Vfdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwUa8yCB5gnMbyoDfgVCtkFZ2FJy0VF/hamslc7GD7lLN+AvCa5nso/J9TmUg4+l/Uv6CdtC692mJhZDy8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJS2tclQj+73u7CCZmHW6/sjr/sErsCv/6oUJkBDvfqDkoSzZ5X
-	hC+AzbSb2D+mQkIsKa/y/mug23d4aiGNM9hPZ4Ixjpzj9Qup8pXeCmEk0n4x++5mb0A=
-X-Gm-Gg: AYBFou1S2xCMfPwS0mB0Tk9MoiRUMOz6ip6bs7coxR2U0+x2OEweHIoUT9d5CF1m+ms
-	pa2RH++t1Eh6Gzjc4rkf6+fcPqmbsYctUkDwyLyzQIPkJrPFTlc30dvOw32CI2Cw8zcKdrOraQz
-	SBW1i3AaQjSBduPEXxwD9uEumKtxNowpHLjxRAlj0FhxBu4zNCgmliAhZEMM97w246qQfs4zPLP
-	VnT2q+MXwNlO+tN+nmZ+kPeoOmfpkfXCexW4M+0kEmC9fi8cB/E6rJs5EAPGTGyWWHaau+u4OUY
-	W4ZWNa5aisc9keBRrdqAr7SihBw1aY/AW3eptgDtbzyrhRl995S/XnaYJQHP/cE4aA4eX1zf8UX
-	uTih6Jr9P0JhBdWGdJnR5FbdMoiPyKy3njRHoS3lrqPOuIgHgR2a0uQjxZBqtBwlJpAWN3juRhC
-	1HC9laQGrkbP6B/q67KUvHOmaAtGomZ+aYM+3dY+2G6KGlLgvWN6Pui2kPxDG5v73qkFt9hypWE
-	/mu4cwZjznk9/CChR+ZWAArngTmTDpdU+Zuledy/lJ/Ivxp6ZUzP7DbLr2bXXPr6ntRcaH9QxF6
-	kFUnZzrbjvBZlPjWLWTNi+GPKingb/q2uL/exB06OzFbVK5F/quxiz9qpEiXLyHxb/fWcuzl1VK
-	qC8ZcoTYTeuoz
-X-Received: by 2002:a05:600c:8b54:b0:4a1:fa21:fd90 with SMTP id 5b1f17b1804b1-4ac16bc547dmr204281285e9.9.1793576886582;
-        Sun, 01 Nov 2026 15:48:06 -0800 (PST)
-Received: from [192.168.0.219] (host86-128-182-179.range86-128.btcentralplus.com. [86.128.182.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f047bfsm300812595e9.3.2026.11.01.15.48.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 15:48:05 -0800 (PST)
-Message-ID: <3228e523-3819-4c59-a523-49b6d381e533@layalina.io>
-Date: Sun, 1 Nov 2026 23:48:03 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=i1mOGOEa
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A5131F000C1;
+	Sun,  1 Nov 2026 23:50:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793577020;
+	bh=GtkyqXjaNZUhp+wtMvVWU33nxLUpc8+32fesBBYhb8w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=i1mOGOEaTLeFmzOBlUQPAipM3JBBEAnnb8FPetvslzNbDTb6qpgLHSXbJ5/6K+XYp
+	 Vxzcv05w+wIcpMMbJHxghkLCTN4kiZWPTrxnY01jkZNmM6FNk2nXJxXmzHNkXujkI3
+	 YM1Z6EKcixm75tmxi3B/Kqt0KAQMDWPFHWL4AMmsAwXd00DveNDZa4hKDlakL65nrB
+	 a/SomYiUTTQrTbFdeC8ivQPr+v/I+sXilm2dP3ZtpH0sQCfnlDyVvI8gUdtTg6JPoV
+	 T2kpvDdgJqRJjPQBCBmrIoC+doiFRsStkDDoA4dHB73vBWBXSD6eRYTVdvvnKuLUVb
+	 NXfjgbWYCOO8Q==
+Date: Sun, 1 Nov 2026 23:50:10 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Sabau, Radu bogdan" <radu.sabau@analog.com>
+Cc: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>,
+ Lars-Peter Clausen <lars@metafoo.de>, "Hennerich, Michael"
+ <Michael.Hennerich@analog.com>, "Sa, Nuno" <Nuno.Sa@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
+ Alexandru Ardelean <alexandru.ardelean@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, "linux-iio@vger.kernel.org"
+ <linux-iio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>, linux <linux@analog.com>
+Subject: Re: [PATCH v4 6/8] iio: imu: adis16607: Add FIFO-based
+ buffered/triggered capture
+Message-ID: <20261101235010.79416e15@jic23-hlaptop>
+In-Reply-To: <LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
+References: <20261023-adis16607-v4-0-a4d541ebfd13@analog.com>
+	<20261023-adis16607-v4-6-a4d541ebfd13@analog.com>
+	<20261026000910.328f6cd8@jic23-hlaptop>
+	<LV9PR03MB8414024B4B8A88109DE96B29F7602@LV9PR03MB8414.namprd03.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,120 +71,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 04/13] sched/fair: Remove magic hardcoded margin in
- fits_capacity()
-To: Zhan Xusheng <zhanxusheng1024@gmail.com>
-Cc: Zhan Xusheng <zhanxusheng@xiaomi.com>, Ingo Molnar <mingo@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Juri Lelli <juri.lelli@redhat.com>,
- Steven Rostedt <rostedt@goodmis.org>, John Stultz <jstultz@google.com>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Tim Chen <tim.c.chen@linux.intel.com>, "Chen, Yu C" <yu.c.chen@intel.com>,
- Thomas Gleixner <tglx@kernel.org>, linux-kernel@vger.kernel.org,
- linux-pm@vger.kernel.org
-References: <20260504020003.71306-1-qyousef@layalina.io>
- <20260504020003.71306-5-qyousef@layalina.io>
- <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
-Content-Language: en-US
-From: Qais Yousef <qyousef@layalina.io>
-In-Reply-To: <20260923065407.3451520-1-zhanxusheng@xiaomi.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 9/23/26 07:54, Zhan Xusheng wrote:
-> On 05/04/26 02:59, Qais Yousef wrote:
->> -#define fits_capacity(cap, max)	((cap) * 1280 < (max) * 1024)
->> +static inline bool fits_capacity(unsigned long util, int cpu)
->> +{
->> +	return util < cpu_rq(cpu)->fits_capacity_threshold;
->> +}
-> 
-> This does not hold on current tip anymore: fits_capacity() has picked up
-> a second caller that does not pass a capacity, and the new signature
-> accepts it silently.
-> 
-> kernel/sched/fair.c, invalid_llc_nr():
-> 
-> 	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
-> 			(scale * per_cpu(sd_llc_size, cpu)));
-> 
-> The second argument is a scaled count of the CPUs in an LLC. sd_llc_size
-> is a per-CPU int and scale is an int, so the product binds to the new @cpu
-> parameter with no conversion and no warning, and the test becomes
-> 
-> 	cpu_rq(scale * per_cpu(sd_llc_size, cpu))->fits_capacity_threshold
-> 
-> With the defaults (CONFIG_SCHED_CACHE=y, sysctl_sched_cache_user=1,
-> llc_aggr_tolerance=1) scale is 1, so this is cpu_rq(sd_llc_size), which is
-> not a valid CPU id on a machine with a single LLC. invalid_llc_nr() is
-> called from account_mm_sched(), task_cache_work() and
-> can_migrate_llc_task().
-> 
-> Separating the two uses first makes 04/13 safe to apply. Something like
-> the below, against tip/sched/urgent (3cb0243767fd, where the cache-aware
-> fixes have just landed; sched/core still has the older mm->sc_stat form).
-> It is a no functional change, since x * 1280 < y * 1024 is equivalent to
-> x * 100 < y * 80. Built with CONFIG_SCHED_CACHE=y and =n, no new warnings.
-> 
-> I can post it as a standalone patch if you would rather not carry it in
-> the series.
+On Tue, 27 Oct 2026 09:36:47 +0000
+"Sabau, Radu bogdan" <radu.sabau@analog.com> wrote:
 
-Thanks for catching this and reporting it. I am preparing an updated version and
-would have missed this tbh.
+> > -----Original Message-----
+> > From: Jonathan Cameron <jic23@kernel.org>
+> > Sent: Monday, October 26, 2026 2:09 AM  
+> 
+> ...
+> 
+> > > +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
+> > > +				       u8 *fifo_data, s64 timestamp)
+> > > +{
+> > > +	struct adis16607 *st = iio_priv(indio_dev);
+> > > +	u16 msw, lsw;
+> > > +	s32 val24;
+> > > +	int bit, offset = 0;
+> > > +
+> > > +	memset(st->data, 0, sizeof(st->data));
+> > > +
+> > > +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev-
+> > >masklength) {  
+> > iio_for_each_active_channel()
+> > 
+> > As sashiko notes, masklength is private.
+> > 
+> > There are a load of places we need to update to stop accessing these
+> > directly but please don't add another one.
+> > 
+> > It's on my list to throw some LLM tokens ago once I get out from
+> > under review backlog.
+> > 
+> > https://urldefense.com/v3/__https://sashiko.dev/*/patchset/20261023-
+> > adis16607-v4-0-
+> > a4d541ebfd13*40analog.com__;IyU!!A3Ni8CS0y2Y!9cguUuIwYMdnmBcoNR
+> > ye0_U99KUnJt04T6XlSnvS-9rxh5-8Y2fQXC39Mxsw3erc_JwvyFp3ssecZg$
+> > Check everything else reported.
+> > 
+> > FWIW there are also some nasty race conditions around active_scan_mask
+> > being available when the buffer is being torn down. You might
+> > want to close those off by claiming buffered mode to prevent
+> > such a transition.
+> >   
+> 
+> Agreed, I'll switch to iio_for_each_active_channel() and I'll go through the
+> rest of the Sashiko findings for v5.
+> 
+> On the active_scan_mask races, I'd like to check which path you mean.
+> In this driver the only reader of the mask is the trigger handler
+> (fifo_push_sample()), which runs as the pollfunc.
+> As far as I can tell, iio_trigger_detach_poll_func()'s free_irq() waits for it
+> to finish before iio_disable_buffers() frees the mask, so I couldn't find a
+> window where the handler sees a stale or NULL mask today.
 
-I'm happy for them to be split; but not happy we have a new user with magic
-numbers :( I am trying to remove these numbers, so seeing more added is unfortunate.
+Ah. I may have failed to distinguish between cases with a trigger involved
+and those without.  The bug reports are probably on the ones without.
+Unfortunately I haven't found time to look at the overall issue
+in enough detail yet.
 
-If you don't mind posting a patch to split and discuss the details that'd be great.
+> Even so, I'd like to close this off for good, so that a later change to the
+> driver or to adislib can't introduce the race.
+> 
+> Claiming buffer mode inside the handler looks like it would deadlock
+> against iio_disable_buffers(), which holds mlock while waiting for the
+> handler in free_irq().
 
-Thanks!
+We'd use a conditional claim in here - only the core code driving the state
+transitions should take a claim unconditionally (they can just grab the lock).
+If mlock is held it should fail and we just drop out of the handler having
+done nothing.  So either disable buffer wins and we drop through the handler
+quickly or it looses and the attempt to take mlock blocks in
+iio_disable_buffers()
 
---
-Qais Yousef
+Or am I missing something worse?
 
 > 
-> ---
->  kernel/sched/fair.c | 19 +++++++++++++++++--
->  1 file changed, 17 insertions(+), 2 deletions(-)
+> Would snapshotting the active-channel layout in update_scan_mode()
+> (called before the pollfunc is attached) and having the handler read
+> only that copy be an acceptable way to close it?
+It would but that feels like we are just papering over a lifetime issue
+by creating another object rather than fixing it if necessary.
+
+Anyhow, from your first comment this may all be irrelevant anyway.
+
+Jonathan
+
 > 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 57360f5cdde4..97ce56fcaf85 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -1526,6 +1526,21 @@ static bool exceed_llc_capacity(struct sched_cache_group *grp, int cpu)
->  	return false;
->  }
->  
-> +/*
-> + * The margin used when comparing the number of a process' active threads
-> + * with the number of CPUs in an LLC.
-> + *
-> + * Mirrors the ~20% margin of fits_capacity(), but is kept separate because
-> + * fits_capacity() describes a utilization versus CPU capacity relation,
-> + * which this is not.
-> + *
-> + * (default: ~80% of the LLC's CPUs)
-> + */
-> +static inline bool fits_llc_nr(u64 nr_threads, unsigned int nr_cpus)
-> +{
-> +	return nr_threads * 100 < (u64)nr_cpus * 80;
-> +}
-> +
->  static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
->  			   int cpu)
->  {
-> @@ -1542,8 +1557,8 @@ static bool invalid_llc_nr(struct sched_cache_group *grp, struct task_struct *p,
->  	if (scale == INT_MAX)
->  		return false;
->  
-> -	return !fits_capacity((READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads),
-> -			(scale * per_cpu(sd_llc_size, cpu)));
-> +	return !fits_llc_nr(READ_ONCE(grp->nr_running_avg) * cpu_smt_num_threads,
-> +			    scale * per_cpu(sd_llc_size, cpu));
->  }
->  
->  /*
 
