@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793553088;
-	b=bnVjGYafC4pV+GYp+HTGQ5lLGad1IHnZ/zNyH/iFbbAUa8HE1qGVDCIZpIudla6dDkpz
-	 w8NmMjZk+8FHtAvbaTigWHG4X6dUYHKL217edhswc7s/mITwH3CtuRPHVXPCqf29TMn14
-	 m0HmhK0Ftz601aIZNWewDipRc8pH2hfb9ZSryx1VQXjkO6h5Q8p0xC7dBXUVWOsn0a48R
-	 3TADK+/OzwH7jUt/n2LDpHUeNKaPIYV4L4zF9TbQgq2NU0r+iM6x2acplrjDh/GDtvOAu
-	 57ELvtsT8aMDq0lAWPSR4WB7bqgn18xwxjwYZk7qYAhSwh7dAClkcNABbn4+nj52YLw==
+	t=1793553256;
+	b=URm3x2UulgjI/HNvOf6603laUW5gwRy5yAO1yJ48vBAGTlfzJHpT7yT1BqSlrnGETUm7
+	 QZwociQ6ARDiu2FLy4qI+PT0TXp+dMIY5wPD0fn4/GkDWVjM1jynTPhjzSlgqlU3wTe/b
+	 o9ys1bp5vChuSdVKPPHyYtYnUaAFUESyfercxa3dP5YclrtiReoQk4/MalTrdyzScKfHy
+	 MOxaXAn6/aTvklqLMwt8XVtyNOddscMVPkxjcrntftzD+/JRiIZOEW4rinA6j2v+lBeu8
+	 G1ujVS8SgdS2trZSgHGVGfgf3vgeMZ2AuwYDoRtnv7KfQHuZ4Rx12HyrH70g1vp5FwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793553088;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793553256;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=OAh3bSv7u3LMOUIxSn2imLDtJLVr1ST8Nu4wB45AsEY=;
-	b=aOHSj0K1wmfRDo9AYJxKONso+8pPp3WWJpFSt4L0/FUbIrUnEzcqpeKohwARRfTx11O3
-	 TyzYp58OYdZ0fI4IFE/Ae00z49RooDPMbpbJ+AS8E9yzvV38pmmcB2pvlV52sNDoo29fs
-	 y5lxwaqV/UtZn5u3aCeRvI92aVVavFszEJ6L3MCqqa+MV/9FvqbjRU0rY3QbyCP09XgbH
-	 U/GGwWeUqbUQZ9+Bk4ZiV/ZL+S0gTtnMAJsNsXIGznI4Ffx1LDWo/U5kjoOsnuj6lqXFM
-	 TQT3C88omZUe9pWVP/p3DdtusG6wMqka5MV6KtY0Epwkflx5+99YKJ1dM7NQ4TRezTw==
+	bh=R6gUavSXN8o98nfRqPmDU4mBwMW9oSNT3lHuUTmjbYo=;
+	b=vH0tuKdFwQb1bXKXN4voxyBNxj0p2f3LfZzi2uwXi7sYQz/+V/z+7isEHGlAmi49Ef40
+	 SEJ/h2mg0BconVZ7kMv2vsx3+9VA6ZtloXA4ZtV1wrH868RdEsbHtlNd2jM3CBr1OQ+2P
+	 szJpeteuTYwcMFrO4FJAIjNI7HEpu1mZVMjQr0uj/IWiaAZ4C5WMDuLN9UEqmGkwJR9ap
+	 gzI8fWjjjb7+JwBlCDWaoKwNoiwcGl1Q1RKpi+rQgydMZMt6QIgFdpaBNS+DYY0mfmELf
+	 wVQXIl5gX+3OEJrp++E4b6kAWmQktbPhxDqRcKZq8FIB5dpqQGzwyp18X5EddCRbcxQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8K7STZD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="NW0/ZItu";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB50606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:11:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B22F3606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:14:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=a8K7STZD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88D681F000C1;
-	Sun,  1 Nov 2026 17:11:27 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=NW0/ZItu
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7622E1F000C1;
+	Sun,  1 Nov 2026 17:14:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793553088;
-	bh=OAh3bSv7u3LMOUIxSn2imLDtJLVr1ST8Nu4wB45AsEY=;
+	s=k20260515; t=1793553255;
+	bh=R6gUavSXN8o98nfRqPmDU4mBwMW9oSNT3lHuUTmjbYo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a8K7STZDnDa6mE0nR6n9AkERHliVp3c33Rev6eagR57gXJzu8hsiiy99MzzPNjCka
-	 KhVl5q9nLlLcOq5eLBtvMpWVpMBgVNwrhw4J+PYjxnvi4eX4IqxbuCf3i7Dv9qVuZt
-	 Yc6pbWe6DDMvUrImKxCcW5KqZvWPg0ydFHEvq7McLGsbMJ2dE4JYtzQoP9cLV+/AFM
-	 9Ji2j0IMq+fhBKX15/mASDdqANUXhrNxgMoIPZP4ldBZSCSSapXuVxmANPf6C8N7OD
-	 jgxvF8PlFUMLdbioT+PlrganVE0wyWDd+82hWmBe42oUwuOeeI2eFwZlrl7XNbC/yG
-	 EHdBO4MFILNhw==
-Date: Sun, 1 Nov 2026 17:11:26 +0000
+	b=NW0/ZItu8ulb85kahpqmxU5Cdhwkdm5fODVcRqYy5093olCiYLGwX7cw1FLgl/Wr8
+	 be6fSFpfOzilrkt3Mgrvv3f30APu+WmoLRhr6w5YThqBESoP5fQrAnIRvDI+unlBU2
+	 XGY/8ngxF/IMenuje6LAqPjw894hwe+xyz7HmvasyKt/fGFx5myHpXwVbtlwHGIAdV
+	 bB06uoPXtIzgtCDJYVFA8LfpKvY5/jU7OOmM4yRQIQRaHCfhUvHo0WMuxWN1NR58rh
+	 81Kl3CuXfHLi8oQYLM0CMiFJlqua3DYgG4QBD9lfGheBq5gAgkTK7Ku1qzRr72QTQK
+	 Ed8/XYIg/OB4w==
+Date: Sun, 1 Nov 2026 17:14:12 +0000
 From: Harry Yoo <harry@kernel.org>
 To: "David Hildenbrand (Arm)" <david@kernel.org>
 Cc: Alistair Popple <apopple@nvidia.com>, 
@@ -69,11 +69,10 @@ Cc: Alistair Popple <apopple@nvidia.com>,
 	Will Deacon <will@kernel.org>, Xu Xin <xu.xin@linux.dev>, 
 	Ying Huang <ying.huang@linux.alibaba.com>, Youngjun Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, 
 	Jason Gunthorpe <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
-Subject: Re: [PATCH 1/7] MAINTAINERS: mention for-next branch in MEMORY
- MANAGEMENT - MEMORY MAP
-Message-ID: <audyrBPhYRZvkJVl@minisforum>
+Subject: Re: [PATCH 2/7] MAINTAINERS: TMPFS (SHMEM FILESYSTEM) updates
+Message-ID: <audzTEdSflX9iZMg@minisforum>
 References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
- <20261030-maintainers-v1-1-97278f8a5f54@kernel.org>
+ <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -85,16 +84,28 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261030-maintainers-v1-1-97278f8a5f54@kernel.org>
+In-Reply-To: <20261030-maintainers-v1-2-97278f8a5f54@kernel.org>
 
-On Fri, Oct 30, 2026 at 10:34:25PM +0100, David Hildenbrand (Arm) wrote:
-> "memmap" will be used as a prefix for branches, but not as a branch
-> itself. "for-next" is the integration for all these things against which
-> people should ideally send patches.
+On Fri, Oct 30, 2026 at 10:34:26PM +0100, David Hildenbrand (Arm) wrote:
+> I am not really the best shmem/tmpfs/memfd expert around, but it should
+> be good enough to judge when something is ready to be picked up, to then
+> pick it up. I'll have to heavily rely on Hugh and Baolin on judgment
+> for the more involved and more controversial bits.
 > 
-> Not mentioning a branch makes them assume "master", which is wrong.
+> Rename "TMPFS (SHMEM FILESYSTEM)" to "MEMORY MANAGEMENT - SHARED MEMORY
+> (SHMEM/TMPFS/MEMFD)" and move it accordingly. Add myself as a MAINTAINER
+> so people know whom to CC.
 > 
-> So just mention the right thing, which is "for-next"
+> Add mm/core.git as the target git tree. Once shmem becomes a high volume
+> component we can dedicate it a separate tree and have dedicated people
+> pick it up.
+> 
+> While at it, add some more shmem/tmpfs/memfd related files+directories
+> we missed so far.
+> 
+> There is also "kernel/pid_sysctl.h", which includes some of the pid
+> namespaced sysctl vm.memfd_noexec. But that's really more of a proc/
+> namespace thingy, so it's not a good fit here.
 > 
 > Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
 > ---
