@@ -1,75 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.210
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.181
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793556291;
-	b=YosZpilVMpTje54lbNqYbAk7hO6+xO+bLRnk2SVZLX7TLefn3ImI7lSbVPL/WB7Gl28N
-	 OIaJwc5oFsTJzoVqwYPiKxbJffHCt5QrchzxkYl4OLVmAsUs+VkUN0gD+RMRc1V5okJlC
-	 gnkNcXq0wW5oho/+liRWLKbto7V/Uwh4+esjXna+Qi6LJJEf24Z6TK+2tu1vAnnR96AMz
-	 S1tzPGlWlUGhBf5ZiR1hAL99dVMX2ajKm1YQ66NF1PZyo5uArcuBvPL576ASxpZ5nNFF+
-	 JjXa02166FaXSEIoP64ty7UJR0jkR01cRuRU83FW52NWYJBIgw33BGV7XFxVt6hRMOg==
+	t=1793556338;
+	b=WTtK891dCzRflLOzYhRbnfsaVJAAIrLxByeveqcUbJib0WK9yL3SMhgbY2kkYGJ4meFM
+	 ZttPlMYDp9e4YlSzLxobXx0cq7IrCUtzHXeHWjK4d1sKI+3xCTpA4GIL4NrJHFTZThyQU
+	 5MW3gw+n/uXbeVAYnTRuDZbLU+i2KDlQR/v5XFJXxQCnxtldiI/MpelxU4ozyYPqbX3SG
+	 NW58O3kGHf5VelegLOk1cgXc4Zq7w9G+YcGaC9v8hhMS/KEdnu1ed30zzKvHtfQO/6nzG
+	 rdiwky/Dp1pLljc+3LXLCkJ6mvShdqDpX/lGBy/bbN8F+QYfT3b8K3lCERuTPNxsqdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556291;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:X-OQ-MSGID:Date:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=LYyqboXdIBzGq/CwwE0/RCPQD2DfivCnnBGtlUgka8A=;
-	b=Of2zc/vIxbmIUUhqpEd6A6EAhP7vfCwcKa7blqfuEcAk42qNPpllgkq2rBw1T6D64zmR
-	 LBNjZSiUlcm1WUyfhKWYEFMbOhTtd/P04ZGq+T9pI6GDE6J1rbfaTv91+hDIGREUERSQ5
-	 JceAEcsNl16tmgQLUSL3/XGdgidnlLvZj/b2sOfL16jdyVWBAxPPTdGGH9EjXNkl4kGCj
-	 p8NPp9+t79iycNZHAxG0vFsvsXwa62pzXtAZk76N7lXSFc0rEKA2rX6pOMLZ5H5XoCf1P
-	 0RGjgAHuiEKAdOlNVJwiDLm2ebmonbsIzJ71k7nCNOHPWEl7/KrTTF6epK03l3pztmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556338;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=KZfx8zG3lr0SxJdej5NZrOvMKfAGpQe9QBAGg9mMie8=;
+	b=W+d57CX+j8kGQvuRwrbsnXxO5kP1foTtZl0D3NzWIllRON3wOLcPpbu3p/r2O1ICAwHw
+	 uK1pubImuKefstpuLlHrLpOMY3ByUKExw62WixwORBOuWSuBsF8oZxYQu97jRACHa41qH
+	 wBZjtjhEJYJ4zvRmPKumc7rKLruGzEkh6A8o798sKwA0hD8UQn4fPKslgL989PnYw9dGb
+	 ySro+omWeJLdRf5zWyjrv2vHwhp17HaXtZ3vjJCzmMLvS+ydCPikfZqOCw1ZXlYSwTH/0
+	 bZcygX+f1dA6SYD+IOUpPa3N03up2m7UN/IvGORVCp1PnWZEs1rp3DLLrFfFj3tIeVA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=afqooPYA;
-	arc=none smtp.remote-ip=203.205.221.210
-Received: from out203-205-221-210.mail.qq.com (out203-205-221-210.mail.qq.com [203.205.221.210])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xkBZBrhz;
+	arc=none smtp.remote-ip=209.85.210.181
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4973E606A324;
-	Sun,  1 Nov 2026 18:04:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4973E606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B6A606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:05:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48B6A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=afqooPYA
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793556280; bh=LYyqboXdIBzGq/CwwE0/RCPQD2DfivCnnBGtlUgka8A=;
-	h=From:To:Cc:Subject:Date;
-	b=afqooPYAmxQH5F1YRVAj2pBrnLRT1197zCJt7xor4IsGSKBHnFXBVi8JbQ2ufPHQB
-	 xb0JPYiitbd8YVaT0ItColuq07Ho9Q+C4V/LXpAZMleW/mHnlqbCWvSj2LLMPraRsZ
-	 Ik0CMqSRYyHTDSLU/lXXsS9+Crojq1QHw3yIKwgw=
-Received: from [172.18.4.77] ([111.31.227.58])
-	by newxmesmtplogicsvrszc56-0.qq.com (NewEsmtp) with SMTP
-	id 1258B23B; Mon, 02 Nov 2026 02:04:37 +0800
-X-QQ-mid: xmsmtpt1793556277tco5hrfpg
-Message-ID: <tencent_5C7F8B8D303ABD994244C1F814473DA5B60A@qq.com>
-X-QQ-XMAILINFO: NC4p7XQIBeahkpsAabajIhOpaIENfCc12td3HavyUmzdgLXtc/MdrH3oMVGlBZ
-	 B3SOvdJyT3d2PxlQ/Igc505LEvU9m/LRGnLTYrlqbz4/rNZvdiuK51cUSx+mwNDgINIF/0RWc26j
-	 98DtjEv6OelHteu/TNsSJtlMwonR0KFpFRn9YvikFHz9fAsmvNtQ6ri1/aCRJZf/Wm6Z2/gbiWRG
-	 Z7YSOfJFhJq5fMxdVaw83UiWQjlduY0R03rel3B4AXeIWPPe8ArYm7jIbFp5hDUJ/6gegtIwe1SD
-	 J42yT79/pHom8QIjzIsIovl6iHfqocaEQPqyTQCuJsMe/qookhnaLhZFgv7hRQOxfnaApcbP5THh
-	 zxV6mg9YsICzI3ayv81CXvj2E3Z3GSPKiuSkGgpKzUbwPSg5e1HwsXePEQPueaHdv7Y5khWQQ9Rl
-	 bAknmmWeCtZ8Gepwsqb6Nw+pBTShKDLeAUpEgoOKrl+2BJ2r/WJP+bQpr1ho89ttUtdNgScwqy9M
-	 xmTzUlKsLHsy/w9sEV2YxNRjujfJABd3nxhW7Rs7kfAcNbW0ZTnnpSEjaKTgrvsUE2miX+iwB5RR
-	 n9Krq28tHzVH4t+JFFgwvOL3fmR5SZJ00XfWFoA+qOXIEhEBIibgI0heNudIiE46j1HQcuj/HaRg
-	 6j5Xcn8W3c5ZQGcgSyWQtdhZYhysklDsMYUWX8BRggV53b/B1+yE1tohOM9pcCGj8RAa4CUrv21a
-	 Q1xeQy+iQDSVqlRN8BlUZMy7Ba+HAVKk/bHp4ymsvuJ6Hgs3FQ//6d0TTfvEQmYfJmoVrXUxZjiw
-	 IBdN2ARO+sAw/IFYejVemRK5PUAU9VxKqfjlzArHXxza3j6nY1chyFOMKE+NKUaKcwfS5+T4K57O
-	 AwVioMDobsfk/uke4vCKuR3KGZfvl9dKveBPL4b3KkspLm4tzk2uHfjR0SVClaQm1xvhsCnMJTvD
-	 CQkRVapFZM0wShYcBI+zOP4KrARE3Pie7UNwRU+CPHTzNiuFk0YEGQXPUAcqhcoBamj+Dmc97zvT
-	 70b0wDkwqFxS57YCOKorfsaGUPAjlfnSqtjBypYnT7reuCjW+c
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Guikun Yang <yangguikun19@qq.com>
-To: ntfs@lists.linux.dev, Namjae Jeon <linkinjeon@kernel.org>,
- Hyunchul Lee <hyc.lee@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Subject: [Bug report] ntfs: initialized_size from $LogFile $DATA drives an
- unvalidated loop bound in ntfs_empty_logfile() - UBSAN shift-out-of-bounds
- (ilog2) at rw-mount
-X-OQ-MSGID: <c7-ntfs-logfile-ubsan-20261031@qq.com>
-Date: Sat, 31 Oct 2026 20:00:00 +0800
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xkBZBrhz
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-8a0673d9bd2so1297766b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:05:37 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793556336; x=1794161136; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KZfx8zG3lr0SxJdej5NZrOvMKfAGpQe9QBAGg9mMie8=;
+        b=xkBZBrhz35b1PtVI3eDzsXibSRdAnSrMXguCCo3D1eUCyG0jBF5Exo4cXt8kSKSMFt
+         w5+0p+bsWxKcqGCSAOo5YSKu8uWNn+KYw1xmp302oQ/wXTG9PCbSF8vo0xVBIzKxMcOp
+         MkDhNibvjQlpV0a2/skrJP7x6IRyEnyg0Cf99BzB16LdRK8HY+l9Qq88RRIARUmbPRRm
+         jNU/0Dx4D3fXDdsNWYnLzPc+X2kARabg8umHOvCr4GgjqrwAIlznJCFVOSZ9CnP0Q5tZ
+         G7RzXprwQ8Gqgbi8ZDCEgZIBcyZs9alsut6IYf+JxgUD9eNyTWrT1j20lqhCKHwn9keb
+         rS7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793556336; x=1794161136;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KZfx8zG3lr0SxJdej5NZrOvMKfAGpQe9QBAGg9mMie8=;
+        b=muv41PdrU4l9slJ9+CqaVvWsRZdv5WBBX3/J6aPZDMzle5Mbrc6oOSITdgiSfvEqr4
+         3M0c078JqZwn7G0U52sMhHWXQHwAtxDzwc5qxPEPxbiJbUDMwcybGY9L5owV0NzyAMN1
+         i7GQhSQiCNMA1j4qjJUNnNvkVRCwWVOffWVQl5gl7muXvGbpkaKYctXJPgpJA5igL5E7
+         7JQGtfypSfqsdLUSk5DWs+N3YFxCs6K1zSKD8p/Ifdbw38yiiXcz9n8MDpzzn9KgqU5m
+         WztbcfcON56mLAGu+GpP7okYwFiioa11AzxJlXdV42EZuKz5zwRqhVJlLQutIeKAQ9Ly
+         sCdA==
+X-Forwarded-Encrypted: i=1; AKwUvBz2ezqClom7NPeWVjijBPd0N3ITc+3+nHpJpWAF2+cee2frM23KCVQhlN7Lq4RSLfRPSlGrHt2/rXcYdsI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZ98U3CJMlZZvtXeo8D7+pLOOWoK/dpFJ3G85iyKe6n6VLNZSn
+	CLTODlURwr/u/0lKPCtDw/Tn8EdWD0m2zV0iG7Qp1ste9UZyZ8HMyX9K
+X-Gm-Gg: AYBFou0loraeUS9IGZ0k7QxrQtb8SkmOkMBB8gF9ymiTpOkjAsv/3qXMpYvnrlVa/Q+
+	a6+H4OCozWNSeX9NJSNwhfTcpIx3NjUDdWXxwTcmBmkdlrjQUEYYPqfeTMi0qSS3Yn1aFfDlVsW
+	yZZO1rcHlP/La7Urmx6GJd8QCS3laOea3j/RaB0thLrNDCw9v5UwmCBKpkeTVbb1GAQVAvzFkSU
+	dRbgXXfdg/kDCuFo1K/4cw0eEVLvOzXw0ebI98GCcVDGfvumefwJZ/43/J3fiTOnishr9ODDr7S
+	M7SJ8RXXQsllx7VR45wBG0WuQvyQyC1U7IXysNW/yDI6eUnyfHqPTbdBBR4kXvk6ACGfcNOlHS9
+	S3ouaGkfuxIlWjvvWkTByfPoRGQctsBD72UcnCmV3qosEscI37MWPrlMLiIW3hMmqTrlMmurpLF
+	5v48qRCtF3Fy6dVY3LzNka+JHc3tUoERPetBHDltlgazLx67JUe9WfSOO24yPgQcvqgw+oatu2o
+	gjzrDgPSbo3Bcli9Xscnlncgju77RtwFdZNpt0refNWSKLXBx+mSWwX+Ii635c2El9NlgVOMatM
+	7Y3vlGzmYmqlXr35h+n3C2w=
+X-Received: by 2002:a05:6a00:6c83:b0:899:915:792b with SMTP id d2e1a72fcca58-8a9bfddf73emr6622142b3a.54.1793556336463;
+        Sun, 01 Nov 2026 10:05:36 -0800 (PST)
+Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8ac269b8805sm446544b3a.44.2026.11.01.10.05.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 10:05:35 -0800 (PST)
+From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sean Paul <sean@poorly.run>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Connor Abbott <cwabbott0@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+Subject: [PATCH 3/4] drm/msm/a8xx: add a memory-only GPU crash state
+Date: Mon,  2 Nov 2026 02:05:07 +0800
+Message-ID: <20261101180508.66598-1-nicoangelodelacruz@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,89 +110,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-To: ntfs@lists.linux.dev
-Cc: linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
-    Namjae Jeon, Hyunchul Lee
-Subject: [Bug report] ntfs: initialized_size from $LogFile $DATA drives an
- unvalidated loop bound in ntfs_empty_logfile() - UBSAN
- shift-out-of-bounds (ilog2) at rw-mount
+a8xx had no gpu_state_get callback, so no devcoredump was ever
+produced when the GPU hung or faulted.
 
-Hi,
+Add a8xx_gpu_state_get(), a memory-only snapshot: the generic Adreno
+state from adreno_gpu_state_get() (ring buffer contents and fences,
+with rptr read from the hw_apriv shadow rather than a register), the
+GMU log/HFI/debug buffers and the HFI queue history. No register is
+read, because the GMU may be wedged and GX powered off when this runs
+from the recover worker or the SMMU fault path. As a result a8xx
+dumps always report "gpu-initialized: 0", as a6xx/a7xx dumps do when
+GX is off.
 
-While fuzzing single-byte corruptions of NTFS metadata with an automated
-mount harness, we found that ntfs_empty_logfile() trusts the on-disk
-initialized_size of the LogFile's $DATA attribute as a loop bound without
-any check against the runlist or the volume size, and a single flipped
-byte in a read-write mount sends the kernel into a shift-out-of-bounds
-panic inside the readahead path.
+The shared part moves out of a6xx_gpu_state_get() into
+a6xx_gpu_state_get_gmu(), which also runs adreno_gpu_state_get().
+It is a pure move except for a new gmu_regs parameter that gates
+a6xx_get_gmu_registers(); a6xx/a7xx pass true, so their output is
+unchanged. Reviewed with git diff --color-moved=dimmed-zebra: apart
+from the moved lines, the new code is the helper's signature, the
+"if (gmu_regs)" check, the locals the helper needs, and the call.
 
-The code (fs/ntfs/logfile.c, ntfs_empty_logfile()):
+Tested on an Adreno 830: IGT msm_recovery gpu-fault (6 of 6 runs) and
+natural GPU hangs produce dumps with the ringbuffer, gmu-log, gmu-hfi
+and queue-history sections; capture takes 1.1 to 4.0 ms.
 
-    end_vcn = (log_ni->initialized_size + vol->cluster_size_mask) >>
-          vol->cluster_size_bits;
-    ...
-    if (rl[1].vcn > end_vcn)
-        len = end_vcn - rl->vcn;
-    end = NTFS_CLU_TO_B(vol, lcn + len);
+a6xx/a7xx: build and pure-move review only, Tested-by welcome.
 
-    page_cache_sync_readahead(sb->s_bdev->bd_mapping, ra, NULL,
-        start >> PAGE_SHIFT, (end - start) >> PAGE_SHIFT);
-    ...
-    } while ((++rl)->vcn < end_vcn);
+Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.c       |  7 +++
+ drivers/gpu/drm/msm/adreno/a6xx_gpu.h       |  1 +
+ drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c | 47 ++++++++++++++++-----
+ 3 files changed, 45 insertions(+), 10 deletions(-)
 
-The inode loader does validate the on-disk trio against each other
-(ntfs_non_resident_sizes_inconsistent(): initialized_size >= 0,
-initialized_size <= data_size, data_size <= allocated_size,
-allocated_size cluster-aligned). What is missing is any relation between
-those sizes and the runlist length or the volume size: initialized_size
-is used directly as end_vcn, and the readahead/loop bounds follow it out
-of the volume. For comparison, ntfs_check_logfile() scans the LogFile
-using i_size (= data_size) truncated to MaxLogFileSize, but that
-truncation happens on a local variable only, and ntfs_empty_logfile()
-runs afterwards on the untruncated initialized_size.
-
-Trigger: one byte. In a mkntfs-created 64MB image, flip byte 0x4947 in
-MFT record 2 (a high byte of the $DATA non-resident size fields) to
-0xFF and mount read-write:
-
-    UBSAN: shift-out-of-bounds in ./include/linux/log2.h:57:13
-    shift exponent 64 is too large for 64-bit type 'long unsigned int'
-    Call Trace:
-     ...
-     page_cache_sync_ra.cold+0x19/0x46
-     ntfs_empty_logfile+0x763/0xd50
-     ntfs_fill_super+0x4085/0x71d0
-     ...
-    Kernel panic - not syncing: UBSAN: panic_on_warn set ...
-
-Reproduced 3/3 runs on a self-built 7.3.0 kernel (CONFIG_NTFS_FS=y,
-CONFIG_UBSAN=y) under QEMU/KVM. The function and the missing
-runlist/volume bound are unchanged in current mainline.
-
-Notes:
-
-- ntfs_check_logfile() scans with i_size (= data_size, still sane), finds
-  no restart pages, reports the LogFile as not empty; the emptying then
-  runs anyway on the crafted initialized_size. The panic happens inside
-  mount(), before any other syscall.
-- A natural fix is to reject or clamp initialized_size (and the derived
-  end_vcn) against the runlist extent or the volume size when the inode
-  is loaded or when the emptying loop starts. Happy to test a patch.
-- This needs a crafted image, like the rest of our NTFS corruption
-  testing; we are reporting it because it is a kernel-crashing UBSAN
-  violation reachable from mount, the class of bug syzkaller-style
-  fuzzing of mount images finds and fixes routinely.
-
-The reproducer bundle (image after the single-byte flip, clean control
-image, a moderate-value variant that mounts cleanly, the flip harness,
-guest init, and a README with field offsets and expected output) is
-available on request.
-
-Environment: QEMU/KVM x86_64, 1 vCPU, self-built 7.3.0 with
-CONFIG_NTFS_FS=y, CONFIG_KASAN_GENERIC=y, CONFIG_UBSAN=y. The driver is
-fs/ntfs as merged in 7.3.
-
-Thanks,
-Guikun Yang
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+index 92e8c8abb..0f4b0af0a 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.c
+@@ -2918,9 +2918,16 @@ const struct adreno_gpu_funcs a8xx_gpu_funcs = {
+ 		.active_ring = a6xx_active_ring,
+ 		.irq = a8xx_irq,
+ 		.destroy = a6xx_destroy,
++#if defined(CONFIG_DRM_MSM_GPU_STATE)
++		.show = a6xx_show,
++#endif
+ 		.gpu_busy = a8xx_gpu_busy,
+ 		.gpu_get_freq = a6xx_gmu_get_freq,
+ 		.gpu_set_freq = a6xx_gpu_set_freq,
++#if defined(CONFIG_DRM_MSM_GPU_STATE)
++		.gpu_state_get = a8xx_gpu_state_get,
++		.gpu_state_put = a6xx_gpu_state_put,
++#endif
+ 		.create_vm = a6xx_create_vm,
+ 		.create_private_vm = a6xx_create_private_vm,
+ 		.get_rptr = a6xx_get_rptr,
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+index 79912a33e..03432abf9 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu.h
+@@ -338,6 +338,7 @@ void a6xx_show(struct msm_gpu *gpu, struct msm_gpu_state *state,
+ 		struct drm_printer *p);
+ 
+ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu);
++struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu);
+ int a6xx_gpu_state_put(struct msm_gpu_state *state);
+ 
+ void a6xx_bus_clear_pending_transactions(struct adreno_gpu *adreno_gpu, bool gx_off);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+index 26c17861c..a3751358a 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gpu_state.c
+@@ -1629,25 +1629,19 @@ static void a7xx_get_indexed_registers(struct msm_gpu *gpu,
+ 	return;
+ }
+ 
+-struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
++static void a6xx_gpu_state_get_gmu(struct msm_gpu *gpu,
++				   struct a6xx_gpu_state *a6xx_state, bool gmu_regs)
+ {
+-	struct a6xx_crashdumper _dumper = { 0 }, *dumper = NULL;
+ 	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
+ 	struct a6xx_gpu *a6xx_gpu = to_a6xx_gpu(adreno_gpu);
+-	struct a6xx_gpu_state *a6xx_state = kzalloc_obj(*a6xx_state);
+-	bool stalled;
+-
+-	if (!a6xx_state)
+-		return ERR_PTR(-ENOMEM);
+-
+-	INIT_LIST_HEAD(&a6xx_state->objs);
+ 
+ 	/* Get the generic state from the adreno core */
+ 	adreno_gpu_state_get(gpu, &a6xx_state->base);
+ 
+ 	if (!adreno_has_gmu_wrapper(adreno_gpu) &&
+ 	    !adreno_has_rgmu(adreno_gpu)) {
+-		a6xx_get_gmu_registers(gpu, a6xx_state);
++		if (gmu_regs)
++			a6xx_get_gmu_registers(gpu, a6xx_state);
+ 
+ 		a6xx_state->gmu_log = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.log);
+ 		a6xx_state->gmu_hfi = a6xx_snapshot_gmu_bo(a6xx_state, &a6xx_gpu->gmu.hfi);
+@@ -1655,6 +1649,21 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
+ 
+ 		a6xx_snapshot_gmu_hfi_history(gpu, a6xx_state);
+ 	}
++}
++
++struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
++{
++	struct a6xx_crashdumper _dumper = { 0 }, *dumper = NULL;
++	struct adreno_gpu *adreno_gpu = to_adreno_gpu(gpu);
++	struct a6xx_gpu_state *a6xx_state = kzalloc_obj(*a6xx_state);
++	bool stalled;
++
++	if (!a6xx_state)
++		return ERR_PTR(-ENOMEM);
++
++	INIT_LIST_HEAD(&a6xx_state->objs);
++
++	a6xx_gpu_state_get_gmu(gpu, a6xx_state, true);
+ 
+ 	/* If GX isn't on the rest of the data isn't going to be accessible */
+ 	if (!adreno_gpu->funcs->gx_is_on(adreno_gpu))
+@@ -1714,6 +1723,24 @@ struct msm_gpu_state *a6xx_gpu_state_get(struct msm_gpu *gpu)
+ 	return  &a6xx_state->base;
+ }
+ 
++/*
++ * Memory-only snapshot for a8xx: no register is read, as the GMU may be
++ * wedged and GX powered off by the time this runs.
++ */
++struct msm_gpu_state *a8xx_gpu_state_get(struct msm_gpu *gpu)
++{
++	struct a6xx_gpu_state *a6xx_state = kzalloc_obj(*a6xx_state);
++
++	if (!a6xx_state)
++		return ERR_PTR(-ENOMEM);
++
++	INIT_LIST_HEAD(&a6xx_state->objs);
++
++	a6xx_gpu_state_get_gmu(gpu, a6xx_state, false);
++
++	return &a6xx_state->base;
++}
++
+ static void a6xx_gpu_state_destroy(struct kref *kref)
+ {
+ 	struct a6xx_state_memobj *obj, *tmp;
+-- 
+2.53.0
 
