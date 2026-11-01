@@ -1,57 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=109.224.244.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793560180;
-	b=lfO8OUmjQPOeUhPyG9ksVZbbziOwUA987icmBSW/OyvIXWi/2HLJy+Vz6no9rff83XCB
-	 9A3SDfbaVmDZQe8Jwg8axMbDAKW4gC1iH86RBeBIymHxECwoGL1+fkPfyx9PW2shTfSQn
-	 pBAErxRy3j+hEtsac0thd+4jRncQHVpQSWPTy15SIG1ycmeWu/IjWQPimC5aQn44tpQTK
-	 albPkERCQM0Q+ffW8cQmnZ8IP+hPFd8vpCsqIy4ZUi1f94K8FhEz/96DZBtHc6MnRgEDp
-	 dPFN+JMFp4Ot5mASCHc9elQBILdvg933W9SW/X0QerSQ7n9sHDA7WmEJaBiG+ErKQjw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793560180;
-	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
-	 Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=LA4MOBGnH7WOPJ3v5WtMa3hrQfPYQiY2vki2Q7WBKBk=;
-	b=PPqLpS1GoYfEeVUpydhcVH/M3AGjKx9XtW/xw3L7ZrNfGUX5l1iB8tcBQ9FjDLfFJPEJ
-	 C75ePH/Z2x0YgwOQCi3xC45MGONyC92h2Nx3X9BLRi9qu9qy2Io0VmQq/ScRZ/PINcR1C
-	 2drhTCpGV8mG1VCFaJKx2mm5VHh0iHb1vS/OZ3mH2Xdev+n8istLO9BttIlJnKw6w8B9S
-	 iAmOsvxwRlGbwwalgcbQQn4vTkGNjuJ714lfzG2E8CE4gHafCG3iJNGIWTJkDl8fL/eUM
-	 HZT4bNaL/nZwPDeQ4QM7wt/JYa2WkfT7mXQ3PJt/op5iCIWxWzvTJpG43YNVxOXSpsA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=michaelmcallister.org;
-	spf=pass smtp.mailfrom=michaelmcallister.org;
-	dkim=pass header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Oo59QWws;
-	arc=none smtp.remote-ip=109.224.244.108
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793560301;
+	b=v5lrOXLE4iy2wdGGMIM+AQJuKi/0uEm58q2EkPOcVH/2tTv5KhfZnDMYbXwc6TWIi2Nf
+	 UiMSSEJymYBLx4f31TUL9Qn42H+jY1sbtXy2TPR98NXK1bEncG1eGPFS0S7xaf7jbQR+j
+	 BHLCjsLA+X0NesqeaoKZ32pbJy2elAwU8ZU86mpAYJt7araXav3wqUUGOIX/OZgTltgFM
+	 hN6DvsT0Od9aedX1zDf8SBb2cg3elU6DU6l55l5ABkW67edP1h1PGTkbv/CVkz6v9QyOB
+	 NB0UwsEBk0bmMaI/aDuilIhlsfj0DhI8E3vZcYMW6LAK1/+rQyttHGDW+dx2HYVznpQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793560301;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=mPcWOwuHmd2vb2lc/1veBqXCg/9uHVaMceIoosx5SG8=;
+	b=HjfIxqbsWE6v6aFd/qDitqwVZFeZpadACNwLVCvGbtDBolFYqsthBVT6PgjEto0K2v6H
+	 VyIzm4XEELfFFdJfKLnLfts8/Yzbd+HgsSCpRSPFc33ppn9sA3GC8uHWDarLvYjSAR2M3
+	 b0uSoAVdkFjKk02XggmUitMuvMBY/BLUlRvboBZKEaqxiApitU+YwpVtlnYhH/094dqdU
+	 LuyFKnpJaf3A0QgpmLDfS/xf0eJvci8h9n8jN/RSsSAEcXQGO8r9Dyl9le2Rzk05Vlssm
+	 m1fhX2xfMuhMDDOKboGtuSW5RbSpQ15pDRjn85uYQJYgONAhMRf5d/3okxOy/XPnFJg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=iav.lv;
+	spf=pass smtp.mailfrom=iav.lv;
+	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=VxAMb9Yk;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
+Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0575606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:09:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0575606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=michaelmcallister.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=michaelmcallister.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E111D606A324;
+	Sun,  1 Nov 2026 19:11:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E111D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=michaelmcallister.org header.i=@michaelmcallister.org header.a=rsa-sha256 header.s=protonmail2 header.b=Oo59QWws
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=michaelmcallister.org; s=protonmail2; t=1793560176; x=1793819376;
-	bh=LA4MOBGnH7WOPJ3v5WtMa3hrQfPYQiY2vki2Q7WBKBk=;
-	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=Oo59QWwsn6DOx+vKWEP+KJTo3iSzN+4tSy4IbHEsEy5suIQ9jzImkBCL+Q+dmKRUv
-	 JBoxAZtI2YfppKFRkcQl54B3Sy/rD/Z7iRwDL0HoyuePPjkIY2nkPR15wb5Ch1WOyf
-	 aqo6VL9+/33/m/nE1f5PrW6JTfJP51mD6D3s2oAYCz86k9Qg2INGVv2NsSGXm3zprD
-	 midkrvc/O6ydfdTuUnUJKne5ZMohfMGIP5sPapozHiB9si5cjvB0cWb3ug1U+3nNPC
-	 LiGdD2sdjbOszgHYCZE0MX/ouojhlnzmsVKaoQ/0OGRK8AInPNQvIiQTE4RbBSDjYm
-	 hYwqJ7j48rb1A==
-X-Pm-Submission-Id: 4jHksn6L9Tz1DFSp
-From: Michael McAllister <me@michaelmcallister.org>
-To: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, Michael McAllister <me@michaelmcallister.org>
-Subject: [PATCH] ASoC: qcom: q6asm: Correct the 24-bit capture format
-Date: Sun, 01 Nov 2026 19:05:33 +0000
-Message-ID: <179355993304.51321.11135059681945648585.q6asm-capture-format-v1@michaelmcallister.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=VxAMb9Yk
+ARC-Seal: i=1; a=rsa-sha256; t=1793560235; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=iRBtL5ZI127nRPDqqbTqjRcbsDS30mPeVHezXgaqcjUFMkQDqoK8sp0ijTBCmafp/flXvwvfocEKXG6gqj9RTAhrFG7X6e6PqPbMiPY+ZQKGq+3Uy6mFnYxWh9c6qf3xJwGMrnom/aDUk+LAwkjhpyQjzaWduNH2LiXxDDtZj1M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1793560235; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=mPcWOwuHmd2vb2lc/1veBqXCg/9uHVaMceIoosx5SG8=; 
+	b=V9p49xnybzD+e3S8j1KhS/QP1iZM8Qkb2xIwizMus9rJS4YRbKeP/jFbaZwVwRaiMzJaLTSKo6lT+f5izvfYny9BInMU6MJOsy2DIsWxpJxsnMgz1isgcTzmVyA5qte7msiZOtUB8Lj75msKPXTYRmW4veWRqcIbsM0jlbIomS4=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: a=rsa-sha256; b=VxAMb9YkFS0HWxIAL9v0QH3eV836oDrQf3tt3baPOt8693zNFZPNp1MlPM0j8dZAgVWcHVzmB2Eor+Q691r/iKGybzsFXRXVcPnGSLheFezn/xMsRaZHqLXZEDyQIiceVoSNrTionsswenYr487X/bcDE33WAf8HieHx4WNrtPQ=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=mPcWOwuHmd2vb2lc/1veBqXCg/9uHVaMceIoosx5SG8=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zoho.eu with SMTPS id 1793560234157386.45816168150634;
+	Sun, 1 Nov 2026 20:10:34 +0100 (CET)
+From: Igor Velkov <iav@iav.lv>
+To: netdev-bot+sashiko@kernel.org
+Cc: iav@iav.lv, andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, maxime.chevallier@bootlin.com, lukas@wunner.de, rafael.j.wysocki@intel.com, wei.fang@nxp.com, niklas.soderlund@ragnatech.se, paul@pbarker.dev, florian.fainelli@broadcom.com, opendmb@gmail.com, Thangaraj.S@microchip.com, shenwei.wang@nxp.com, netdev@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v4 5/5] net: phy: postpone PHY interrupts during sleep with MAC-managed PM
+Date: Sun, 01 Nov 2026 21:09:52 +0200
+Message-ID: <179356019298.3385307.17700170309730679223@iav.lv>
+In-Reply-To: <179352219781.3131.16504721138901563596@kernel.org>
+References: <20261031-b4-phylib-mac-pm-irq-v3-v4-5-5ba23b3ff9a4@iav.lv> <179352219781.3131.16504721138901563596@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,150 +64,21 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-Recording in S24_LE on my Moto G10 produces badly scaled samples that
-wrap at full scale. The PCM V2 DSP interface places 24-bit samples in
-bits 31:8 of each 32-bit word, but ALSA S24_LE expects bits 23:0.
+Path 1 is real for a PHY that keeps its link interrupt enabled while
+armed for WoL. phylink_suspend() calls phylink_stop() before
+phylink_speed_down(), so the driver's suspend runs first. RTL8211F and
+AN8801R mask the link interrupt there; on Helios64 (stmmac + RTL8211F,
+wakeup-source) WoL suspend passed 4/4, though I did not log the link
+speed. Of the wakeup-capable PHYs in drivers/net/phy, BCM54210E leaves
+it enabled. Before this series, the link-up after the downshift could
+arrive after stmmac gated its clocks, and phy_interrupt() would read the
+PHY over a dead MDIO bus: the hang this series fixes. An aborted suspend
+is the safer failure.
 
-Replace S24_LE with S32_LE for capture and constrain it to 24
-significant bits. Keep the DSP configured for 24-bit samples. This
-matches its native layout without converting samples in the kernel.
-Playback is unchanged.
-
-Translate S32_LE back to S24_LE in the APQ8096 and SC7180 backend
-fixups so that routing and the physical audio ports keep their 24-bit
-width. The other Q6ASM machine drivers already set the backend format.
-
-Tested on the Moto G10 with direct ALSA and PipeWire capture at 48 kHz,
-using 16-bit and 32-bit containers, reopening the stream, and recording
-after suspend. ALSA reports 24 significant bits for S32_LE. S24_LE
-capture through ALSA's plug conversion also works.
-
-Signed-off-by: Michael McAllister <me@michaelmcallister.org>
----
-Hi,
-
-I found this while getting the microphone working on my Moto G10
-(SM4250). This fixes the incorrect sample format for 24-bit capture;
-I've tested it with ALSA and PipeWire, including after suspend.
-
-The APQ8096 and SC7180 changes have only been build-tested, so testing
-on those boards would be appreciated.
-
-Thanks,
-Michael
-
- sound/soc/qcom/apq8096.c         |  8 ++++++++
- sound/soc/qcom/qdsp6/q6asm-dai.c | 12 ++++++++++--
- sound/soc/qcom/sc7180.c          |  8 ++++++++
- 3 files changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/sound/soc/qcom/apq8096.c b/sound/soc/qcom/apq8096.c
-index cfd6438db..25f2f0c0e 100644
---- a/sound/soc/qcom/apq8096.c
-+++ b/sound/soc/qcom/apq8096.c
-@@ -6,6 +6,7 @@
- #include <sound/soc.h>
- #include <sound/soc-dapm.h>
- #include <sound/pcm.h>
-+#include <sound/pcm_params.h>
- #include "common.h"
- 
- #define SLIM_MAX_TX_PORTS 16
-@@ -19,10 +20,17 @@ static int apq8096_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 					SNDRV_PCM_HW_PARAM_RATE);
- 	struct snd_interval *channels = hw_param_interval(params,
- 					SNDRV_PCM_HW_PARAM_CHANNELS);
-+	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
- 
- 	rate->min = rate->max = 48000;
- 	channels->min = channels->max = 2;
- 
-+	/* Keep the backend at 24 bits despite the 32-bit capture container. */
-+	if (params_format(params) == SNDRV_PCM_FORMAT_S32_LE) {
-+		snd_mask_none(fmt);
-+		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
-+	}
-+
- 	return 0;
- }
- 
-diff --git a/sound/soc/qcom/qdsp6/q6asm-dai.c b/sound/soc/qcom/qdsp6/q6asm-dai.c
-index 4261c3048..4bed05f0d 100644
---- a/sound/soc/qcom/qdsp6/q6asm-dai.c
-+++ b/sound/soc/qcom/qdsp6/q6asm-dai.c
-@@ -90,7 +90,7 @@ static const struct snd_pcm_hardware q6asm_dai_hardware_capture = {
- 				SNDRV_PCM_INFO_INTERLEAVED |
- 				SNDRV_PCM_INFO_PAUSE | SNDRV_PCM_INFO_RESUME),
- 	.formats =              (SNDRV_PCM_FMTBIT_S16_LE |
--				SNDRV_PCM_FMTBIT_S24_LE),
-+				SNDRV_PCM_FMTBIT_S32_LE),
- 	.rates =                SNDRV_PCM_RATE_8000_48000,
- 	.rate_min =             8000,
- 	.rate_max =             48000,
-@@ -151,7 +151,7 @@ static const struct snd_pcm_hardware q6asm_dai_hardware_playback = {
- 				  SNDRV_PCM_RATE_12000 |		\
- 				  SNDRV_PCM_RATE_24000),		\
- 			.formats = (SNDRV_PCM_FMTBIT_S16_LE |		\
--				    SNDRV_PCM_FMTBIT_S24_LE),		\
-+				    SNDRV_PCM_FMTBIT_S32_LE),		\
- 			.channels_min = 1,				\
- 			.channels_max = 4,				\
- 			.rate_min =     8000,				\
-@@ -377,6 +377,13 @@ static int q6asm_dai_open(struct snd_soc_component *component,
- 
- 	stream_id = cpu_dai->driver->id;
- 
-+	if (substream->stream == SNDRV_PCM_STREAM_CAPTURE) {
-+		/* The DSP stores 24-bit samples in the high bits of 32-bit words. */
-+		ret = snd_pcm_hw_constraint_msbits(runtime, 0, 32, 24);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
- 	pdata = snd_soc_component_get_drvdata(component);
- 	if (!pdata) {
- 		dev_err(dev, "Drv data not found ..\n");
-@@ -506,6 +513,7 @@ static int q6asm_dai_hw_params(struct snd_soc_component *component,
- 		prtd->bits_per_sample = 16;
- 		break;
- 	case SNDRV_PCM_FORMAT_S24_LE:
-+	case SNDRV_PCM_FORMAT_S32_LE:
- 		prtd->bits_per_sample = 24;
- 		break;
- 	}
-diff --git a/sound/soc/qcom/sc7180.c b/sound/soc/qcom/sc7180.c
-index bc5a18883..9e4bd9855 100644
---- a/sound/soc/qcom/sc7180.c
-+++ b/sound/soc/qcom/sc7180.c
-@@ -13,6 +13,7 @@
- #include <sound/core.h>
- #include <sound/jack.h>
- #include <sound/pcm.h>
-+#include <sound/pcm_params.h>
- #include <sound/soc.h>
- #include <uapi/linux/input-event-codes.h>
- 
-@@ -425,10 +426,17 @@ static int sc7180_qdsp_be_hw_params_fixup(struct snd_soc_pcm_runtime *rtd,
- 					SNDRV_PCM_HW_PARAM_RATE);
- 	struct snd_interval *channels = hw_param_interval(params,
- 					SNDRV_PCM_HW_PARAM_CHANNELS);
-+	struct snd_mask *fmt = hw_param_mask(params, SNDRV_PCM_HW_PARAM_FORMAT);
- 
- 	rate->min = rate->max = 48000;
- 	channels->min = channels->max = 2;
- 
-+	/* Keep the backend at 24 bits despite the 32-bit capture container. */
-+	if (params_format(params) == SNDRV_PCM_FORMAT_S32_LE) {
-+		snd_mask_none(fmt);
-+		snd_mask_set_format(fmt, SNDRV_PCM_FORMAT_S24_LE);
-+	}
-+
- 	return 0;
- }
- 
-
-base-commit: 46fec1c3029b552ec63b2d01af9d43a386f043ea
--- 
-2.39.5
-
+Path 2: phy_stop() with wol_enabled leaves the copper link up
+(rtl821x_suspend() skips genphy_suspend()), so the MAC causes no link
+interrupt. Counting netdev->ethtool->wol_enabled as a system wakeup is
+what phy_interrupt() already does for PHYs without mac_managed_pm.
