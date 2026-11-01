@@ -1,50 +1,63 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=128.30.2.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793541872;
-	b=oBXLhiQTMsxq81xzms4UA4bJiIjecvZj648V6gVvgWbUVsq6EunHpRxj4ch/JO3JoG4b
-	 uGiyRSC2Wnt5R3dMbePgw+JkEuxjzwkdcQvOv2W1M4WtRuDOUEKWJ2E4El33zyz9lndb6
-	 VEuGuL0PZyXZegY7rlTRMiENGNaC87CEcLPYBYj/hR0hBDlKuB0sfd65clwM0dNr5l1+m
-	 /43PpSnOholUu8K0c+6CJoYI3zCCXBc0q7/sB+Klg2xjnz1G61oy40lS/okHlZVmY+cN0
-	 X+yPkfPxG9JpI5ZOuQuDN37Hg6UBo95w6huJ6VNW7sL23mCDgQ3/Or9bJxwLEesJkpA==
+	t=1793541966;
+	b=LsiW76csfaLmgyJcpsAQXMPAFgXkgnNjefvyEOlsgUXQcNeh2DBbcBcjlZCyBon/ABYk
+	 R58MXNLxKTh2bVe3e9WL8SxS4DtRBejzl2FpCsu2X6wLLWM/CgplPx3T3xZqrh+GUKQiz
+	 XEQRo5oSGrzJbiWmQxFHwId6DtZOaqYX3L7CQDYOY9yZ8tW/uurqbvRHdhdmP/rWiN2tI
+	 b9kB5biNXpgoXXGjPK6yWhExQFMxjpjVV1Ncrf62ZlHI6xJ5RoJn/BXU1Or3ub2FuEqxC
+	 11vNdcFo4Od3xB9xXer2UMALnEl5Ay42dQaX2IgQ4/nV1UevE0mmAHPDt4daIz5alCg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793541872;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=x2LG4I8K268YSfho51Oa9+mfFy/fqJPwPrh4z5MqxDg=;
-	b=dIm/ynMfAbDaoYQ546DGX5FVJCKCuXIVt835rI1ms1CcEx3oDUfJ9/CAjzff3M8rpC0l
-	 GGSpk3RyIDD5ZE6DzwHTMCZqbRI9v7sB4c18iPWLE+w2Xi3qUnt7T4/qLZTJ+GnOfpzrG
-	 iaqxftNE47VqdGyjN92RGRqE/gF4PMlxiR1clvBFtoap/4yzyHctXX8eMxlkzmuLp1Eci
-	 VKpWq7ame5hCpwt/Y2vbbzB7F3l7kf+MJgMSYWRX40NhiLXz58EC5U1pYiZ0ZAjr0F1d5
-	 H20UXBKq1PqiUzyuiz71cnv/LZ8bW9maVbYLgZnL8LpDzwqFO3HQaiF/kjqWwSXU1Dw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793541966;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 Content-Type;
+	bh=Pb2tgUvSCnXik9d7e+k7c23WDjV6nr8u+NYxLcvKygc=;
+	b=iVWfGmchaM3PlfpzGI6a/5liAlSwDcWnApJlnzvkuIN7epFEixXmPxpVV+gtMzBhY4EC
+	 Lu4toBfaWlCQiDFDhUiK2BR/9HPe4bAl3St4QFR1Pqp4cbDtws9y6VAfTxw8lblxI3p5Y
+	 +wdH9lU7SyUkiF0Uq1D7ukuAVFkG7b4ykPkxbBS1lWZmyvA8Ir0923V3cnAOc5TWVRt9U
+	 FJ0Eqsprc+ZB83lwikDKIC7brqyxXoMJ4pbCvvKacRDCLcD2aJLmR2VMORGRTRCITSd4P
+	 6wxEt/Z6NSQayT1h0f81SfnSOcWDKnf+9X/wM9Wy26eu8Lt6y9D52Dvl5IV+Bi4IiiA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=csail.mit.edu;
-	spf=pass smtp.mailfrom=csail.mit.edu;
-	arc=none smtp.remote-ip=128.30.2.78
-Received: from outgoing2021.csail.mit.edu (outgoing2021.csail.mit.edu [128.30.2.78])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=f3h37cP4;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35544606A324;
-	Sun,  1 Nov 2026 14:04:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 35544606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=csail.mit.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=csail.mit.edu
-Received: from escalante.csail.mit.edu ([128.52.128.198])
-	by outgoing2021.csail.mit.edu with esmtp (Exim 4.95)
-	(envelope-from <nickolai@csail.mit.edu>)
-	id 1xNWAf-001kRh-Ol;
-	Sun, 01 Nov 2026 09:04:29 -0500
-From: Nickolai Zeldovich <nickolai@csail.mit.edu>
-To: Matthew Wilcox <willy@infradead.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: linux-fsdevel@vger.kernel.org,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	Nickolai Zeldovich <nickolai@csail.mit.edu>
-Subject: [PATCH v2] xarray: unlink a node before freeing it
-Date: Sun,  1 Nov 2026 09:04:29 -0500
-Message-ID: <20261101140429.862287-1-nickolai@csail.mit.edu>
-X-Mailer: git-send-email 2.53.0
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7088606A324;
+	Sun,  1 Nov 2026 14:06:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E7088606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=f3h37cP4
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Pb2tgUvSCnXik9d7e+k7c23WDjV6nr8u+NYxLcvKygc=; b=f3h37cP4p7Is2X4TRLMrgHrtFy
+	8sv5yL/fdmgiuWxyCUNn/Q2YIlV4y8NA0atk/aDivmvAyaVqAp7XH7aAkA5zqfOO+dSrACQRF3XsZ
+	qGGMuYBkVlCejDDQYEJUWR51EmubT57Ehstj+sLN8/Jj1m32JRG1PQoXarqjjOrkKW0DcyEVHtkIv
+	tqKvrVkZCnt4c32AYEV3eTYZ9LI04N+DCAflaTg6OY7z8BlckXcpiBwcyVYVt/o7/RbMcBUqq0Dyn
+	/r0RtfZyuvu51bg2EEm6VqYQC0kHQy0aQCFBFCQE1XyW8R6zgyMSs9w5ZgHR29ToiocQUs5AfiJJ/
+	TQxYC2dw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Coia Prant <coiaprant@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Shawn Lin <shawn.lin@rock-chips.com>,
+ David Heidelberg <david@ixit.cz>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Coia Prant <coiaprant@gmail.com>
+Subject:
+ Re: [PATCH v12 1/3] arm64: dts: rockchip: rk3568: add XPCS and fixed-clock
+ nodes
+Date: Sun, 01 Nov 2026 15:05:43 +0100
+Message-ID: <2977688.AiC22s8V5E@phil>
+In-Reply-To: <20261023053548.1595033-2-coiaprant@gmail.com>
+References:
+ <20261023053548.1595033-1-coiaprant@gmail.com>
+ <20261023053548.1595033-2-coiaprant@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,63 +67,82 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-xas_delete_node() passes an empty node to xa_node_free(), which queues
-it with call_rcu(), before it stores NULL over the pointer to the node
-in the parent's slot or in xa_head.  A lockless walker that loads that
-pointer after the grace period has started is not waited for, and
-reads the node after it is freed.
+Hi,
 
-Free the node after unlinking it, as delete_node() in lib/radix-tree.c
-does.
+Am Freitag, 23. Oktober 2026, 07:35:46 Mitteleurop=C3=A4ische Normalzeit sc=
+hrieb Coia Prant:
+> The RK3568 SoC integrates a Synopsys DesignWare XPCS that provides
+> the Physical Coding Sublayer for 1000BASE-X, SGMII, and QSGMII
+> interfaces via its four MII ports.  Add the XPCS device node to the
+> SoC device tree.
+>=20
+> The XPCS device is accessed via the APB3 bus at 0xfda00000 and
+> requires the CSR clock (PCLK_XPCS) for register access and the EEE
+> clock (CLK_XPCS_EEE) for Energy Efficient Ethernet operation.  The
+> PD_PIPE power domain must be enabled before any register access.
+>=20
+> Also add two fixed-clock nodes (clock-xpcs-gmac0 and clock-xpcs-gmac1,
+> labelled clk_gmac0_xpcs_mii and clk_gmac1_xpcs_mii) providing the
+> 125 MHz reference clock for the GMACs when operating with XPCS.  Their
+> clock-output-names match the CRU mux parent names in clk-rk3568.c, so
+> boards can reparent SCLK_GMAC0_RX_TX / SCLK_GMAC1_RX_TX through
+> assigned-clock-parents.
+>=20
+> The XPCS node is disabled by default and must be enabled at the board
+> level when 1000BASE-X/SGMII/QSGMII is in use.  The fixed-clock nodes
+> are always present and do not have a status property, as they are
+> static clock sources.
+>=20
+> The XPCS node requires a reference to the appropriate Naneng Combo PHY
+> via the phys property.  dtbs_check only validates required properties
+> for enabled nodes, so the SoC dtsi does not provide phys: boards that
+> enable the XPCS must supply it, since the SerDes link is a board-level
+> design choice (combphy1 on some boards, combphy2 on others).
+>=20
+> Signed-off-by: Coia Prant <coiaprant@gmail.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3568.dtsi | 23 +++++++++++++++++++++++
+>  1 file changed, 23 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3568.dtsi
+> index 3bc653f027f1f..20a72785adbc2 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> @@ -8,6 +8,20 @@
+>  / {
+>  	compatible =3D "rockchip,rk3568";
+> =20
+> +	clk_gmac0_xpcs_mii: clock-xpcs-gmac0 {
+> +		compatible =3D "fixed-clock";
+> +		clock-frequency =3D <125000000>;
+> +		clock-output-names =3D "clk_gmac0_xpcs_mii";
+> +		#clock-cells =3D <0>;
+> +	};
+> +
+> +	clk_gmac1_xpcs_mii: clock-xpcs-gmac1 {
+> +		compatible =3D "fixed-clock";
+> +		clock-frequency =3D <125000000>;
+> +		clock-output-names =3D "clk_gmac1_xpcs_mii";
+> +		#clock-cells =3D <0>;
+> +	};
+> +
 
-The radix-tree test suite's multiorder test hits this under
-AddressSanitizer: a heap-use-after-free in xas_start() in 19 of 200
-runs, none with this patch.
+these clocks don't belong here.
 
-Fixes: 58d6ea3085f2 ("xarray: Add XArray unconditional store operations")
-Signed-off-by: Nickolai Zeldovich <nickolai@csail.mit.edu>
----
+When you place these nodes in the main, they seem to come out of
+thin air, while that might be true for some boards, that they
+have dedicated oscillators for that, this will likely not be true
+for all.
 
-Notes:
-    This patch was prepared with the help of an AI tool.
-    
-    Changes in v2:
-    - Resend with a shorter changelog, per Andrew Morton and Matthew Wilcox.
-      No code change.
-    
-    v1: https://lore.kernel.org/all/20261012174230.772325-1-nickolai@csail.mit.edu/
+So these should be defined in the board dts, to match the actual
+hardware.
 
- lib/xarray.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/lib/xarray.c b/lib/xarray.c
-index bfe7bef80f34..d48754c5f8b8 100644
---- a/lib/xarray.c
-+++ b/lib/xarray.c
-@@ -500,17 +500,18 @@ static void xas_delete_node(struct xa_state *xas)
- 		parent = xa_parent_locked(xas->xa, node);
- 		xas->xa_node = parent;
- 		xas->xa_offset = node->offset;
--		xa_node_free(node);
- 
- 		if (!parent) {
- 			xas->xa->xa_head = NULL;
- 			xas->xa_node = XAS_BOUNDS;
-+			xa_node_free(node);
- 			return;
- 		}
- 
- 		parent->slots[xas->xa_offset] = NULL;
- 		parent->count--;
- 		XA_NODE_BUG_ON(parent, parent->count > XA_CHUNK_SIZE);
-+		xa_node_free(node);
- 		node = parent;
- 		xas_update(xas, node);
- 	}
+Heiko
 
-base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
--- 
-2.53.0
+
 
