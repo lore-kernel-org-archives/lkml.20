@@ -1,78 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=178.156.171.147
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499881;
-	b=CEH6Q5R9nD9L3odbIv4vtWQMI9NPDtF8nghp9ovE6XAzX+xPJgcXp6FWoc66JReDnwZa
-	 Wy6GFy1NEpEF+4nItoXZEBLhSX1H8d+av39my8h+M108Wb5hYVjcqx08/xM3lLqYzWxiD
-	 wOiSMkotODAKS0NaEbqC62Paoe/tb3s3dUQwJdfyT3ijQC9dRm/1rVPmWO3nfq5WvoTCP
-	 uwjDF1gd/2P3J2CrVt9xVDpGZ5EX5PvUaCuhawmmi59YQTbgBc2QJKRCtTOcHRMHAKt9d
-	 cftrk92V9qeKVfyGknZ+dpCLz5WrsWaYQ118b+HMhJMGgSfug49jQQ8Nt6hb7jn3xVg==
+	t=1793499884;
+	b=sP4SuwP2k2Cnkrij8dkYjOmNZ4dQuQgHE+OMBQ/vCb2KOqSPSa3XjBKJ4o6SDBkQ2ptv
+	 ljQaLxDUv1EfLdSwmVJ/WiYM7Fvvg0ED8ZP2eU0lrmhg1b0YQ26NGmrFX8/kR6M9JNJJv
+	 R9PbjG26OvcxXKVjZPcHp1J0ubt4aCE54IETW9/sBaKEqaAo3hcINCBwgjCXtUmFVfHEG
+	 GsRdrMlUQ2p59kRCeeZf/uk4YR/k4vDU3zkvKO/ccEimArQnUjsV8bnyTwoDNNYjKazYT
+	 kPdm+3g3ETVBKeon62x83nK58tOV/I7Z/4TsA/XWsb/QHAhJsbknqun8b5QG0CNtnJQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499881;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=kqU33gEA8KfwKOunAziA7xlh/3MGIAM7fmhplDE5fT0=;
-	b=MBbcRFzBjeqPRouOdDyrCd7L6x6vipJtV4z7NVB4iFJv4rI1PsfxVBArohDSjdr18S5u
-	 jIJzA70r11j16n2BnmSloVatCaSj1eqlWZ9gqrL5tQqVw5AWoi3f2JA1ys5v5gJ2o//zB
-	 /BfWJ0bgvq5U1ZUrs2CWYK4vQ1se1o21ZImsOnBBN7gAy7JbPCWUU4TZq7g3yO8TQcBx5
-	 wW5d0o41oRy0xckZccb76hZGOaQ4oneyVvk6k8KcKvI6l+Z3VkqRXE/lP0AdKHUxnOHhS
-	 29sViC1N3HELfJ+Ut+9e9zccrzVjlLohWh4NZ8OcbcG8si99I83h5Ro+a3gu5dNJa3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499884;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-FB-Internal:Content-Type:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version;
+	bh=9qK/M5Q1l5Xw9YVuAHPCYT0d7+vzZiNxXyZrRyF08os=;
+	b=NB3g9i1IQLQsymAmTEiShtd8FSo+0vubm4NtOYe56QuKMAIrUGlun2sre9fj2H5dV3BD
+	 M2jcyejDvorTe/GZh2nSQxxegu86XMVo4zLaEYnrVJ8eNIyoGkL+9Ys4u7SyNEZ+/FR41
+	 WswU1Q/nALAa0UDpxyoq97tqif6cxAgJVBoDDKf1N4+u54AM4PBrJ4Td67eLhwRq8uidi
+	 9eru5SegxDtPmntzZAtw3jFhsX6vxs7AqNZs6YK7UhB+51Cp5FN3cCsi8waCq48cWixDn
+	 dUBfWIPV/HJ+Bed4f7sZoQjvQVtDea+JswPH0HyQ78v+SzZoUrAtrsuTxiDRZpAmLRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=Kxgi7LrU;
-	arc=none smtp.remote-ip=178.156.171.147
-Received: from relay13.grserver.gr (relay13.grserver.gr [178.156.171.147])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=dWhEKt8X;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0965F606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:24:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0965F606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD294606A329
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:24:43 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD294606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=Kxgi7LrU
-Received: from relay13 (localhost [127.0.0.1])
-	by relay13.grserver.gr (Proxmox) with ESMTP id 146A55E5A0
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 04:24:34 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay13.grserver.gr (Proxmox) with ESMTPS id 8C2975DF02
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 04:24:33 +0200 (EET)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 2557A200CCF
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 04:24:32 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1793499872;
-	bh=kqU33gEA8KfwKOunAziA7xlh/3MGIAM7fmhplDE5fT0=;
-	h=Received:From:Subject:To;
-	b=Kxgi7LrUkOuiXolUF3UrrlNrk4LQ5EH2FOlD0nYPp0Zpq06QIyb1lx9EwYKAQdde8
-	 zi+CYTYq38Ic+ox4lcPgKmwuw4Yp7Yq0Mu/Ma3fE71DJ8vdFq10uzRMTOCdx01ZAfr
-	 VUKVdbRjiYi3erN2r8PnAeAAjmQCVUMkwqLwSiZJlzmbYKFiOiB6v+60q18OXmZDQ/
-	 znYAOzNU42qvU6l8Qx8R22mrR9UPjYkhCl2hM7Ww1sFcxgGUM7JmO97vPHxWyQ+Lkt
-	 1BAXIU31APsZgWilo24z1Bf3RMVBGmUGFC8AhPx/89rz6YcHIRphYPRNQ3dlzpy0UZ
-	 t7OqbKUQAl/DQ==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.214.174) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pl1-f174.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pl1-f174.google.com with SMTP id
- d9443c01a7336-2e60f9af6e6so17965185ad.3
-        for <linux-kernel@vger.kernel.org>;
- Sat, 31 Oct 2026 19:24:32 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvByi8ZbBrjA1WwbYK61aIuMONPaN5wnK5AJiIkIDbnJoWzNZu0Kc81BHzKgtCsk/yN25XBGplY1DEd/9mwY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9msqKz0VGCoeVzaFhYVi81hS99sHePZM6WmX9a2KqUqU+rP7i4
-	0wqGf05fb9WX3w8qZod0gVsIQU+5pyUovWNFw37ICh3Ex/z3i54xRUt9jR6Stj69A7RdvD3wwH2
-	b083BN+81PsJDH5hsfLBdxe6JbZblZRQ=
-X-Received: by 2002:a17:902:d2cd:b0:2e9:5b4e:b8a7 with SMTP id
- d9443c01a7336-2eb364f8fe2mr65117825ad.51.1793499870868; Sat, 31 Oct 2026
- 19:24:30 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=dWhEKt8X
+Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A120UWQ2808260
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:24:43 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=9qK/M5Q1l
+	5Xw9YVuAHPCYT0d7+vzZiNxXyZrRyF08os=; b=dWhEKt8XEnbeg/CG6qT1Sfbn+
+	RwHUjzspdgTbP2trmunhDRXjOyLxmG1OgZK1BSC0bJqkzmStVm1+YVW/I3+RfTOS
+	1ZjFn62pxhFkoMI2CBzMM1d3ZtwaC8WFRruMBsidYyEVh6KeaUnwB8hDwEw8srEe
+	HLQYq4FHx2Mi6Yiwu6z2Jk663/DPWyUpHrcbVkpDom4mWyXKzUjwV1IBhrbJz7ht
+	haJGnIt/WYSXl8CroG5vCgNALUNykTrjcPSL/vrzHh1PzUW0FqtVZV3rVU+645Ze
+	LaDJ7YWMze6QFIaIQ0sKYhqp7GO1WZO1lnlTv1z6DQAaVLUvlAyrc/MR/Uw+Q==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hn2wddm10-4
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:24:42 -0700 (PDT)
+Received: from twshared30277.33.frc3.facebook.com (2620:10d:c085:208::7cb7) by
+ mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Sun, 1 Nov 2026 02:24:39 +0000
+Received: by devvm18200.frc0.facebook.com (Postfix, from userid 352338)
+	id 153296E473AD3; Sat, 31 Oct 2026 19:24:37 -0700 (PDT)
+From: Foo Bar <muratseker@meta.com>
+To: Amit Shah <amit@kernel.org>
+CC: Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman
+	<gregkh@linuxfoundation.org>,
+        Rusty Russell <rusty@rustcorp.com.au>,
+        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
+        <muratseker@meta.com>
+Subject: [PATCH] virtio_console: add console port to list before hvc_alloc()
+Date: Sat, 31 Oct 2026 19:24:35 -0700
+Message-ID: <20261101022435.3466820-1-muratseker@meta.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,84 +79,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: 
- <TY7PR01MB1374656B7810521751CB248D4DB6B2@TY7PR01MB13746.jpnprd01.prod.outlook.com>
- <TY7PR01MB1374600CF756D90DF8CFC37BDDB6B2@TY7PR01MB13746.jpnprd01.prod.outlook.com>
-In-Reply-To: 
- <TY7PR01MB1374600CF756D90DF8CFC37BDDB6B2@TY7PR01MB13746.jpnprd01.prod.outlook.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sun, 1 Nov 2026 03:24:20 +0100
-X-Gmail-Original-Message-ID: 
- <CAGwozwGbxW9+uVkbcCUiZVZZPK3dVBQsmV-jMXr96XovudEdzg@mail.gmail.com>
-X-Gm-Features: AclHuK8ncQZWy8VN_L5_o--scyvvyi6zdooVn7LuqNYynRJ8A1onvxPS4fM4gB4
-Message-ID: 
- <CAGwozwGbxW9+uVkbcCUiZVZZPK3dVBQsmV-jMXr96XovudEdzg@mail.gmail.com>
-Subject: Re: [PATCH v2] platform/x86: oxpec: add OneXPlayer X2 Mini (G3E) DMI
- entry
-To: Jiajun Leng <adolphpi@outlook.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	Derek John Clark <derekjohn.clark@gmail.com>,
-	=?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179349987253.1471767.4672178459927109333@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-GUID: i5NkobxyL7nr40mxAYQ5QAgNU7oJX-j_
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDAwOSBTYWx0ZWRfXwYy8ayPr+V/Y
+ kTxlyakl/bOK5JBJrgrevU4kcCkWzXgG2KKlNFgSZb3MdaYyM/wTNj+IW7qVQspwq/ZivO50kIE
+ eWjvcXtCL4SD+rZYvaIry+BVpwwt3AQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDAwOSBTYWx0ZWRfX228snsGdLA+F
+ j7xTGQSyak+528ObSn2u6kL1US7JE0wdMJy9tQI3UuZL9I7LXTNH/X2liOhT/+rUJ01FNCErr36
+ JyR/0u70W1Twz37GeB5dI6xW7mEvnndZJdOrz9a5XqhGgfMc4JNOW7pxyI8wQhgJecN0tAJCV3O
+ Ct7qI943JQG2+L1+2YdhSZ/dH1eOmIRMbi0nOkHBRBwP/SjbB/H6iIvUCsuCkAXjWDXsVRb97U/
+ zn8Lb5ysLcFL4FKkTm2RZpgMfQ7W0gOCA0Yc8/cYEeOJGZimryA2ZGEJSg+0VhmMdBBpP/MEBzI
+ Bx+zA1p7qPr7Up5Y/beYo5qDcufLKrk6neWRVkolhdmt2sCJfQSVIxaH40fsCHWVKMZXATinqHS
+ ZPNYZr3um6lfDRqtzVDZt3NrhEeDCLd61giZ92kXPfwLqX/KYx/I87/6XwfllZMpE7NkKY2OuSJ
+ Ki+GSUredyRShjDebtA==
+X-Authority-Analysis: v=2.4 cv=U+MHnuru c=1 sm=1 tr=0 ts=6ae6a2ea cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=_1IyUuN4QrATX339ibzo:22 a=VabnemYjAAAA:8 a=3OxQIUvJTM31TIZw88YA:9
+ a=gKebqoRLp9LExxC7YDUY:22
+X-Proofpoint-ORIG-GUID: i5NkobxyL7nr40mxAYQ5QAgNU7oJX-j_
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-01_01,2026-10-21_02,2025-10-01_01
 
-On Sun, 1 Nov 2026 at 03:18, Jiajun Leng <adolphpi@outlook.com> wrote:
->
-> The OneXPlayer X2 Mini (G3E) is the Intel variant and reports DMI board
-> name "ONEXPLAYER X2Mini". Map it to oxp_g1_i, the profile used by the
-> ONEXPLAYER 3, which has the same Intel EC layout. Fan reading, manual PWM
-> and charging control work.
->
+From: Murat Seker <muratseker@meta.com>
 
-Reviewed-by: Antheas Kapenekakis <lkml@antheas.dev>
+init_port_console() calls hvc_alloc() before adding the port to
+pdrvdata.consoles.  When the port is the preferred console (for example
+console=3Dhvc0), hvc_alloc() registers it, and register_console() replays
+the log buffer through put_chars().  put_chars() looks the port up by
+vtermno in pdrvdata.consoles, does not find it yet and returns -EPIPE,
+so hvc discards every message printed before virtio-console probed.
+The messages are still in the kernel log, but a host capturing the
+virtio console never receives them.
 
-FYI no reply-to next time. You shouldn't chain versions on the same
-thread especially for series. If you find out why Claude does that let
-us know
+Add the port to the list before calling hvc_alloc(), and remove it again
+if hvc_alloc() fails.  The out_vq, outvq_lock and portdev used by
+put_chars() are set up in add_port() before init_port_console() runs,
+and the other users of cons.hvc check it through is_console_port().
 
-Antheas
+Tested on x86_64 QEMU/KVM with KASAN, PROVE_LOCKING and DEBUG_LIST:
+with console=3Dhvc0 the virtio console now starts at [0.000000] instead o=
+f
+at virtio-console probe; with hvc0 next to ttyS0 both carry the full
+log; with earlycon (no replay) output is unchanged; and hot-adding and
+removing extra virtconsole ports still works.  No new warnings.
 
-> Signed-off-by: Jiajun Leng <adolphpi@outlook.com>
-> ---
-> Changes in v2:
-> - Remove the X2Mini PRO comparison and the downstream kernel version.
-> - Merge the quirk mapping and test results into the first paragraph.
-> - Place the entry above ONEXPLAYER X2Mini PRO to keep alphabetical order.
-> - Move the AI assistance note out of the commit message.
->
-> AI assistance: Claude (Anthropic) was used to draft this changelog and the
-> diff; the submitter reviewed and tested the change.
->
->  drivers/platform/x86/oxpec.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/platform/x86/oxpec.c b/drivers/platform/x86/oxpec.c
-> index c4c4babe8e30..f4b5a35a4d69 100644
-> --- a/drivers/platform/x86/oxpec.c
-> +++ b/drivers/platform/x86/oxpec.c
-> @@ -300,6 +300,13 @@ static const struct dmi_system_id dmi_table[] = {
->                 },
->                 .driver_data = (void *)oxp_x1,
->         },
-> +       {
-> +               .matches = {
-> +                       DMI_MATCH(DMI_BOARD_VENDOR, "ONE-NETBOOK"),
-> +                       DMI_EXACT_MATCH(DMI_BOARD_NAME, "ONEXPLAYER X2Mini"),
-> +               },
-> +               .driver_data = (void *)oxp_g1_i,
-> +       },
->         {
->                 .matches = {
->                         DMI_MATCH(DMI_BOARD_VENDOR, "ONE-NETBOOK"),
-> --
-> 2.53.0
->
->
+Fixes: 38edf58d73c2 ("virtio: console: don't assume a single console port=
+.")
+Signed-off-by: Murat Seker <muratseker@meta.com>
+---
+ drivers/char/virtio_console.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.=
+c
+index 019bcae81af5..a31fdac65891 100644
+--- a/drivers/char/virtio_console.c
++++ b/drivers/char/virtio_console.c
+@@ -1280,18 +1280,28 @@ static int init_port_console(struct port *port)
+ 		return ret;
+=20
+ 	port->cons.vtermno =3D ret;
++
++	/*
++	 * hvc_alloc() may register the console, which replays the log buffer
++	 * through put_chars().  put_chars() finds the port on this list, so
++	 * add it first or the replayed messages are dropped.
++	 */
++	spin_lock_irq(&pdrvdata_lock);
++	list_add_tail(&port->cons.list, &pdrvdata.consoles);
++	spin_unlock_irq(&pdrvdata_lock);
++
+ 	port->cons.hvc =3D hvc_alloc(port->cons.vtermno, 0, &hv_ops, PAGE_SIZE)=
+;
+ 	if (IS_ERR(port->cons.hvc)) {
+ 		ret =3D PTR_ERR(port->cons.hvc);
+ 		dev_err(port->dev,
+ 			"error %d allocating hvc for port\n", ret);
+ 		port->cons.hvc =3D NULL;
++		spin_lock_irq(&pdrvdata_lock);
++		list_del(&port->cons.list);
++		spin_unlock_irq(&pdrvdata_lock);
+ 		ida_free(&vtermno_ida, port->cons.vtermno);
+ 		return ret;
+ 	}
+-	spin_lock_irq(&pdrvdata_lock);
+-	list_add_tail(&port->cons.list, &pdrvdata.consoles);
+-	spin_unlock_irq(&pdrvdata_lock);
+ 	port->guest_connected =3D true;
+=20
+ 	/* Notify host of port being opened */
+--=20
+2.53.0-Meta
 
