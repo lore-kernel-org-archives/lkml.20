@@ -1,49 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571392;
-	b=eLxcl05CbRRCkS+vUVPMr9Ia5+2g4VRrNudk5/HPwKclxw8uIjxirl5pkVXmaDUfl6Oy
-	 b7a34Xref5iNTkakHWZpDrvg2NQEw6RDxTUXcXuP56PzN85nptoQ3lyLSdnYUS9lopWBb
-	 qqyvQwWOzxDTPoS3qMyqoub0iGn9YLJk3yAgE/NpLCXjHrF5nU1FdWz3SmZzycHH8cr19
-	 8/svyYxbWcbJXT2sa1oWaA/w9yXKGCQGbVPVR8w2darXvcwwt7cFHe9Uj+RI4ESedXQei
-	 G0l5slWoo4exY7aKHeNP41XXVKA02HzeEKKLhOTOkkji6CYve78k82AwqzmEML8RLBQ==
+	t=1793571394;
+	b=pAMhfXDuUMDs6jrf6U5J40iMMhl3jxYgxXjxMKW3wNd/LWCPmXpmjmsVdPTAqT0BTO7Y
+	 sh1EkSMoJqd+x3Ym9d0riZeO2Y4CTgwQpjlEbHdxrwOUmrLN0UlDrsiewbbF2Z+vIuNb/
+	 HjJvqfAKQYDJ3h85hpfhScH3waPGgqxvXuLTK+dTMhDub2wduLhqLvfsG8cpmzz7ngZPd
+	 wIApwWiEeeFZEXoyJAWD3z8t30kZje3OPhhrHsqPdKe9oFJkWGF6FZQ79ScxHCFDi315m
+	 28AbA2xtJkg0d1c1UvnAtpIbeSq1c0sq9iOkZaMWN4tmrd6RZER80altHUZTHGlJ6FA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571392;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=7jMaG7E0faIciRuA0j8698KDnNXPdfgqG5SZCjrpwFM=;
-	b=v/MZbUthF9+Jdc4t5l5H4AQQIMWFhoxdOOoUJQlREtiuEX2rcAVAbBmR7FNY/j9oIbts
-	 zVKpkwmQfqpBvj1t17rEtetATynziVj3CYz8rZue17bD4JrtIU+wdAczgoOKxEyPKLpQD
-	 MvV1y2BZggk/UrjKdmXZcKYA1L1lQ2VbgTtN/ZJmHBlMELFQUBZRACXFaEcAE6B+Gs4w1
-	 cmMkt7MN0yL/y55SUWCFXepem3gLE+KH5XOjzKyBsve6pYSg1BGEAlK/jurnUeC/Q/8Gx
-	 C/Hi6N4GbwNnXKjVATYh9NZ/oqJ+GNj38bHK1U0WRjKmTjHcJ7C/UWmHUQmBOm8Av0w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571394;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=Qn7fQ/WuImtrNrwAytucTquNZwzb54Hg+kTqL7gmoxA=;
+	b=2d2zIOMwiPM50Igi98P1nclxoffbJS7Zb2hGy/4LxXJWBdURVZ4LelIZycnKoYtzDvTC
+	 r77WhL10rWZf/zpjPBClytqO0UvZ995XpPLdFioIDzvJYR9VfmewnTtaIGVm4gyDnL7/G
+	 fsj5cUIIKLovLWzAtjbwPZER5MChT0ZnflDsf1yqqZYXu3/VltLWTjoYqhhgO4RU/Vz5u
+	 jjebjCk+jT4+b0pVxlsCHeDr6EpsyLsHIkIeV1ZJ9UmhhjjEtEidR+LZGKa/8GTYEtB4i
+	 0QTTjexaJaz1m/VArM/A73We9pGhFPUJaSqvms3YImIGDma3bn8oM1MC/RQGbILu7/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI6vqfud;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=CzSGUltm;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8573C606E500;
-	Sun,  1 Nov 2026 22:16:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12E46606E52D;
+	Sun,  1 Nov 2026 22:16:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 12E46606E52D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RI6vqfud
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4D81F000C1;
-	Sun,  1 Nov 2026 22:16:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571392;
-	bh=7jMaG7E0faIciRuA0j8698KDnNXPdfgqG5SZCjrpwFM=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=RI6vqfudUDAPQJyogDLl2CpARmQSYi02Z/r+Di8qbeK3KcSdM0cWSldHGeHFd7Wmg
-	 oZkcWTzbyfmhEOg5tcfCHfhpf6iaGm+isSH86qaujprBW88A0OM503IaD8+WPv9717
-	 bpcrsoSfdrv6EFgcaHxAfgeqBVd+9Lh2jlei+lTKhKmrMmF1DDRxKwuNJ2YAzniH64
-	 bTK3lBMxJ6uc9UCiWTe96qjtjhpAxsSnnRxROmumhMt3+M7z/8Bl4vxi21IO/fXVoH
-	 wUHNq2epY1lAcTmYzulW8paMq9f4RX7rYBp2SAoAq4o7yj3fGB1UzuSY/Wrq1aK7S0
-	 zpB9EvUeVfZow==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5347838003B8;
-	Sun,  1 Nov 2026 22:16:32 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=CzSGUltm
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=Qn7fQ/WuImtrNrwAytucTquNZwzb54Hg+kTqL7gmoxA=; b=CzSGUltm5eVCpsFPFpmu2teIl3
+	pCCMuFhCNrt+jIs3tl/m6p6bsKexs5jU+KZXxFoHk+VMixs2F7PSs7ERSo0OdxI6mmcBihNNpszOA
+	eEnDAr+4TQQq6moGFkH+fiowTYy9fClKD5apbLYn1gAqKSei+2Nl4wXJn85Fsfeq8fJ34XQX//4L+
+	78dfJKDe9z03KVOuvYbaiolk9YeRGKInlvAjzyxnRPrk3LwYZoV00c8kzdXRg9GjohkCpUOea+OVu
+	gYAkoGEh9HzwVemNyAhhLVDq5U7WbD5onv1uAWhqz/l7t+AQaZwVnC4gad6Ctg/KGvU6vAVl3qxJY
+	HfyBLkHA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Shawn Lin <shawn.lin@rock-chips.com>,
+	Leonard Lausen <leonard@lausen.nl>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
+Date: Sun,  1 Nov 2026 23:16:11 +0100
+Message-ID: <179357136492.4108155.17814114343295841881.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261026070821.324094-1-leonard@lausen.nl>
+References: <20261026070821.324094-1-leonard@lausen.nl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,67 +68,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 0/8] mm: Drop pxd_ERROR()
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357139104.2624073.10186400247460209292.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:31 +0000
-References: <20260831054331.625505-1-anshuman.khandual@arm.com>
-In-Reply-To: <20260831054331.625505-1-anshuman.khandual@arm.com>
-To: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: linux-riscv@lists.infradead.org, linux-mm@kvack.org,
- samuel.holland@sifive.com, david@kernel.org, rppt@kernel.org,
- akpm@linux-foundation.org, ljs@kernel.org, ysato@users.sourceforge.jp,
- dalias@libc.org, glaubitz@physik.fu-berlin.de,
- James.Bottomley@HansenPartnership.com, deller@gmx.de, chenhuacai@kernel.org,
- kernel@xen0n.name, linux-alpha@vger.kernel.org,
- linux-snps-arc@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-csky@vger.kernel.org, linux-hexagon@vger.kernel.org,
- loongarch@lists.linux.dev, linux-m68k@lists.linux-m68k.org,
- linux-mips@vger.kernel.org, linux-openrisc@vger.kernel.org,
- linux-parisc@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
- linux-s390@vger.kernel.org, linux-sh@vger.kernel.org,
- sparclinux@vger.kernel.org, linux-um@lists.infradead.org,
- linux-arch@vger.kernel.org, linux-kernel@vger.kernel.org
 
-Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Andrew Morton <akpm@linux-foundation.org>:
-
-On Mon, 31 Aug 2026 11:13:22 +0530 you wrote:
-> pxd_ERROR() macros have been provided by all platforms, which are very much
-> identical and can be dropped off completely if these pgtable printing could
-> be moved to callers in generic MM aka all pxd_clear_bad().
+On Mon, 26 Oct 2026 07:06:50 +0000, Leonard Lausen wrote:
+> The NanoPi M5 has an M.2 E-key slot for SDIO Wi-Fi modules such as the
+> RTL8822CS-based AC200. The SDIO controller is disabled and the module's
+> power sequence is not described, preventing the card from enumerating.
 > 
-> But first cleanups and re-organizations are required in some platforms that
-> are using these macros internally. Afterwards [pte|pmd|pud|p4d|pgd]_ERROR()
-> macros have been completely dropped from the entire tree.
+> Enable the controller in four-bit SDR104 mode and connect its 3.3 V card
+> and 1.8 V I/O supplies. Describe the active-low reset on GPIO1_C2, the
+> 200 ms power-on delay used by the vendor device tree, and the external
+> 32.768 kHz clock from the HYM8563 RTC. Keep the card powered during
+> suspend as required by the rtw88 SDIO driver.
 > 
 > [...]
 
-Here is the summary with links:
-  - [1/8] mm: Make ptval_to_str() generally available
-    (no matching commit)
-  - [2/8] mm: Stop using pxd_ERROR()
-    https://git.kernel.org/riscv/c/0666fc9d4432
-  - [3/8] loongarch/mm: Stop using pte_ERROR()
-    https://git.kernel.org/riscv/c/ea8763ac3af7
-  - [4/8] parisc/mm: Directly use generic [pmd|pgd]_clear_bad()
-    https://git.kernel.org/riscv/c/94d6c5466d1a
-  - [5/8] sh/mm: Stop using pte_ERROR()
-    https://git.kernel.org/riscv/c/6858e42cc2bc
-  - [6/8] sh/mm: Stop using [p4d|pud|pmd]_ERROR()
-    https://git.kernel.org/riscv/c/3b225ce37f62
-  - [7/8] sh/mm: Stop using pgd_ERROR()
-    https://git.kernel.org/riscv/c/66a0441a1791
-  - [8/8] mm: Drop pxd_ERROR()
-    https://git.kernel.org/riscv/c/c970236c300f
+Applied, thanks!
 
-You are awesome, thank you!
+[1/1] arm64: dts: rockchip: Enable Wi-Fi on the NanoPi M5
+      commit: 2712e8fa4d1108b33ce3a49c9459d9b88489f639
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
