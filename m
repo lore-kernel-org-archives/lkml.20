@@ -1,71 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793543538;
-	b=K5MM0Z4yWBbgXSoCA0oLBruSH0ur2Ih++HCIKjoNkNOkXkzxrY/joPV+7mDRV+71csQp
-	 NSWl+AXt4fPUrJZPX0wSMdb+/qbvNLStAPQg3rY0ITDE6fWxrMeCM1MJPlNk26elYIwcG
-	 hLiHQhQlkV1u0YXeV/2bQIFp8PjN7la1HS1wc45jMZWShkhAvmgj6hknFAJRLYgGqjW65
-	 sekSTu7JiDySwWIt7Uz2rwIZbVO/11vZ8FM4/qll7FHXODXbJug2X1m1S7z8/1m02UQLv
-	 5+0gmsk8GRHY0JaaroQ8pCvbzrgLoq7hFi4DvWYZG1Ud15W2aqUZaiekCxRgNL6t6WA==
+	t=1793543557;
+	b=VFKmi+IYkhZbFWUoKN6WiezQOPmh6C4+4SymsfgO/WbEQuScRKnQclag3sOMvr1AMsm0
+	 74C1zQP6TQrP+k3yXGVR4OoL2whyiGAf/c8ptk+efcpwpnDBNbZREmrN3tLVi0hhxI9IL
+	 56GGYEu+khurktEjOx3CaKHZatiyym2vML3PUOEkAGO1m81lQbC5tJewltFTQKhB65cMF
+	 GnnmA+BH5zASzNjNHA8rD5o+96Dwp/jWHOhYJEUKodGHU4MJJ5JcHF3rbDOg8XpnrtAVO
+	 m8ZLb5rqVTcWdOpCQpYB1RgLZ1eyffGnMqo4kEbZfyiACM1UttQBaLuQyuuh7ZnUgHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793543538;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=Uqju34F2XTm0dOOLsODT8LSZpd+f6JRw+MJO0qkB++U=;
-	b=KpdEzniJLwMd1vhOq/03MEdrNLjcB5+6ka8AQ6pcJyVqVLcNO37orhNT7ZPYP70xlHnB
-	 0e0xAH/TsuY6BpaYUqymLA6SeF+/ZDiYouB8dU8Fc9wdlV6AwooOidNGiUeOf5UieVIpg
-	 8LUkM1fXpi+ZGqtc6pd2jOyWys3Od4TaL05TMOP8yD7WILOdeHfTjZL6zn08kGOZIPFqt
-	 o+7Sjd9lyQpfO92XGzFjS4J55o8Op3v9pBW036LJp186sODq/zaP2QcXiErIepX6cfB8K
-	 TJHTi3RT6EdF84SNeBYgKL54kfGzqzHgBj6+KVdvebEUj2ZFOy0QgD6UNyRjgH3X3cA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793543557;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=33+Ajih/EybhbhvEqS+vJmQByXgj3jIZ+TH4V/duWTA=;
+	b=qnWUP05I35IcpSI1jKhs7JDiYQQ8ndCWexxMbQYKwxvaMvUF56qhmMKeQGmE7fLhmc8Q
+	 /4GZDa5caNi2PKPa0s70nuUK/oF49uAq+yiq6qUC6rOhu2OikwnswN4LQ+XjUJ0oxJo9J
+	 eRFl2M2MAEGYX49QYDClziVYYORObQJH3Iu54pRrltMrkB+Yp6R5DIIqbFHQZCmMV5gLV
+	 /V4ZWJa6K6DqD+KW8dn26RRKqp3Y+luc2W3NkLFHU7NOql4T/Fp8sQ5j5JyQ3zm/lGgGx
+	 meAAx/kaixImhzbq7I0xrl4sQ9Da3enGHAMOmfI23aGglb5YDQIDcqwqdlIPPrL9cZQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K3l+p3wu;
-	arc=none smtp.remote-ip=192.198.163.9
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ZOUXOeGo;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B809C606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:32:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B809C606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0C84606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:32:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A0C84606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=K3l+p3wu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793543537; x=1825079537;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:to:cc;
-  bh=k4B0QxYHDKxB79XJwXBSjOl3me0D6cQAaJA4VfP4zdE=;
-  b=K3l+p3wuZ+hfbPKQC8k4qzaS73gZIvwMtzPLqVR3RkRbe3Mc3X/+oyY0
-   tvbohSQDhcmy0ajG9S7+N/9vnXDcYSrntRmDURmFaftQeTYqkmn3J96ry
-   +4ZepiMU1v+fWyT/+TM1TseU16CaxaEgU9PftC+SLPni3zeCyTLd/vkh3
-   WjKfGwADScn8HmgP9fKQ2UHC9O3qhTs4JrmME6YjiCHQy2a5dVVJCxDqw
-   Uda5hbQSMuL6CndlnOKdc6GmJ4Qgwcg8QMHwe09MI+kcbEC2rs9B06rJM
-   FHdTc6Rx3q2Mbgi6NH/H42LZf5xpHYGA+UX241q5f6iYITJoQIpIPmT66
-   g==;
-X-CSE-ConnectionGUID: 8yMY9OFZSHqf+0T5/4KslQ==
-X-CSE-MsgGUID: 4i+oG6eFSlW1BzB3z5G5QA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2124621"
-X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
-   d="scan'208";a="2124621"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 06:32:16 -0800
-X-CSE-ConnectionGUID: f/TWoBkKSniGKu6CRFtusw==
-X-CSE-MsgGUID: p41oxIB4S7+yM2a0DnLgpQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,190,1787036400"; 
-   d="scan'208";a="6280183"
-Received: from sannilnx-dsk.jer.intel.com (HELO [127.0.1.1]) ([10.12.231.107])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 06:32:15 -0800
-From: Alexander Usyskin <alexander.usyskin@intel.com>
-Date: Sun, 01 Nov 2026 16:32:06 +0200
-Subject: [PATCH char-misc-next] mei: bail out if no matching hbm request
- found
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=ZOUXOeGo
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=33
+	+Ajih/EybhbhvEqS+vJmQByXgj3jIZ+TH4V/duWTA=; b=ZOUXOeGo7GtZE/cG3i
+	EXmVCirT9MLnTeKF+/QYzhvUiN9SHFD1oDcOGJYPu3l59tIgvykteRGDsruOWhpo
+	DDUgz6xQitw6Jq9hpNR3uCRsnHhAzPmviDnceMlAiMw3+iYhhKOl9dAn0ubIpAzF
+	UlJZAJV7+RibCD4C+rfp42WgI=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-4 (Coremail) with SMTP id _____wD3H7olTedqVuV_EA--.26938S2;
+	Sun, 01 Nov 2026 22:31:02 +0800 (CST)
+From: albin_yang@163.com
+To: kayracizmeci@gmail.com,
+	peterz@infradead.org,
+	kprateek.nayak@amd.com
+Cc: albin_yang@163.com,
+	albinwyang@tencent.com,
+	bsegall@google.com,
+	chen.yu@linux.dev,
+	dietmar.eggemann@arm.com,
+	jstultz@google.com,
+	juri.lelli@redhat.com,
+	linux-kernel@vger.kernel.org,
+	mgorman@suse.de,
+	mingo@redhat.com,
+	rostedt@goodmis.org,
+	vincent.guittot@linaro.org,
+	vschneid@redhat.com
+Subject: Re: [PATCH] sched/stats: Fix run_delay over-count for proxy-migrated blocked donors
+Date: Sun,  1 Nov 2026 22:31:01 +0800
+Message-ID: <20261101143101.353033-1-albin_yang@163.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <0d9bce4b-0d50-46df-b865-76511b2670f6@amd.com>
+References: <0d9bce4b-0d50-46df-b865-76511b2670f6@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,80 +75,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-bail_out_on_nonexisting_hbm-v1-1-ec1eb6aa5547@intel.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MTQqDMBBA4avIrDtgLPGnVykSoo46oJOSSYsg3
- r1pl2/xvhOUIpPCozgh0oeVg+QwtwLG1ctCyFNuqMqqNqY0OHjeXHgnF8RJEDpYE8vi1mFH33n
- btHVj27uFLLwizXz89eePi7izjpinBP11fQH2Iw40fQAAAA==
-X-Change-ID: 20261101-bail_out_on_nonexisting_hbm-a9a578675835
-To: Arnd Bergmann <arnd@arndb.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, Menachem Adin <menachem.adin@intel.com>, 
- Alexander Usyskin <alexander.usyskin@intel.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793543534; l=1463;
- i=alexander.usyskin@intel.com; s=20260315; h=from:subject:message-id;
- bh=k4B0QxYHDKxB79XJwXBSjOl3me0D6cQAaJA4VfP4zdE=;
- b=T3cgkIYluDkvIpbgxLs/8W3RZvgNVi0n6GeA1NWKv2on12xAbEguix3dH/rCS1a8KiNPrlgSv
- c72NvX5740ODlnseh1/4DAixX98yDhpOexn31+ZcqIrBxQOQr+BALm8
-X-Developer-Key: i=alexander.usyskin@intel.com; a=ed25519;
- pk=X+qoF/nFCdDOV04IForWSxnkyoCAbUE10egZi6PSfcU=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3H7olTedqVuV_EA--.26938S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxAr4xCw4xKw48KF47ur43GFg_yoW5CryDpa
+	ykJa43Kw4UKFWUX3WxAr4kX34a9wn7t343Grnay345AF45JrySqFyfKr45uFZ0krZ3uFWS
+	vFWjqwsIkFWDCrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUNIDwUUUUU=
+X-CM-SenderInfo: pdoex0xb1d0wi6rwjhhfrp/xtbC7wfwk2rnTScg1wAA3b
 
-Umatched HBM client response acts on wrong client
-as last traversed client is used.
+On Wed, Oct 28, 2026 at 09:10:20AM +0530, K Prateek Nayak wrote:
+> Yup! on_cpu / task_current() gets dealt at sched_info_switch()
+> which will enqueue the signal if the task is preempted.
 
-Fill cl pointer only when match is found and add debug print
-for that edge case.
+Prateek, Kayra, Peter -- thanks for the reviews and suggestions.
 
-Signed-off-by: Alexander Usyskin <alexander.usyskin@intel.com>
----
- drivers/misc/mei/hbm.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+I tested the full diff below (comments stripped for brevity).
 
-diff --git a/drivers/misc/mei/hbm.c b/drivers/misc/mei/hbm.c
-index a864ac7121b2..c93f3db34353 100644
---- a/drivers/misc/mei/hbm.c
-+++ b/drivers/misc/mei/hbm.c
-@@ -998,25 +998,26 @@ static void mei_hbm_cl_res(struct mei_device *dev,
- 			   struct mei_hbm_cl_cmd *rs,
- 			   enum mei_cb_file_ops fop_type)
- {
--	struct mei_cl *cl;
-+	struct mei_cl *cl = NULL;
- 	struct mei_cl_cb *cb, *next;
- 
--	cl = NULL;
- 	list_for_each_entry_safe(cb, next, &dev->ctrl_rd_list, list) {
- 
--		cl = cb->cl;
--
- 		if (cb->fop_type != fop_type)
- 			continue;
- 
--		if (mei_hbm_cl_addr_equal(cl, rs)) {
-+		if (mei_hbm_cl_addr_equal(cb->cl, rs)) {
- 			list_del_init(&cb->list);
-+			cl = cb->cl;
- 			break;
- 		}
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+@@ static int ttwu_runnable(struct task_struct *p, int wake_flags) @@
+ 	if (!task_on_cpu(rq, p)) {
+ 		wakeup_preempt(rq, p, wake_flags | WF_TTWU_RQ);
++		sched_info_enqueue(rq, p);
  	}
- 
--	if (!cl)
-+	if (!cl) {
-+		dev_dbg(&dev->dev, "Can't find request for cmd %02d (%02d:%02d)\n",
-+			rs->hbm_cmd, rs->host_addr, rs->me_addr);
+ 	ttwu_do_wakeup(p);
+ 	return 1;
+
+diff --git a/kernel/sched/stats.h b/kernel/sched/stats.h
+@@ static inline void sched_info_dequeue(struct rq *rq, struct task_struct *t) @@
+ 	unsigned long long delta = 0;
++	if (t->is_blocked)
++		t->sched_info.last_queued = 0;
+
+ 	if (!t->sched_info.last_queued)
  		return;
-+	}
- 
- 	switch (fop_type) {
- 	case MEI_FOP_CONNECT:
+@@ static inline void sched_info_enqueue(struct rq *rq, struct task_struct *t) @@
+-	if (!t->sched_info.last_queued)
++	if (!t->sched_info.last_queued || t->is_blocked)
+ 		t->sched_info.last_queued = rq_clock(rq);
 
----
-base-commit: 79e5797d243a466138f641932f81dc69f796060c
-change-id: 20261101-bail_out_on_nonexisting_hbm-a9a578675835
+Results -- run_delay is field 2 of /proc/<tid>/schedstat:
 
-Best regards,
--- 
-Alexander Usyskin <alexander.usyskin@intel.com>
+  proxy exec, donor migrated to the owner's CPU (~170 ms block)
+    unpatched   167.07-167.09 ms   5/5   migrated
+    patched       0.00 ms         20/20  migrated
+    same-cpu      0.00 ms          0/5   not migrated
+
+  DELAY_DEQUEUE, sleeper migrated across CPUs (~150 ms sleep)
+    unpatched   147.94-147.99 ms   5/20
+    patched       0.00 ms          0/100
+
+Accounting stays alive in both: the proxy reproducer's sanity check
+still gains ~39 ms per 80 ms contention window in every run, and the
+DELAY_DEQUEUE one shows run_delay growing ~40 ms per round. The latter
+also self-checks -- it has to reproduce unpatched, and it does.
+
+Agreed with Kayra and Prateek that p==current needs no call:
+try_to_wake_up() WARN_ON_ONCE()s on both se.sched_delayed and
+is_blocked there, so that task is running, not waiting.
+
+One ask, about the split rather than the code: keep the DELAY_DEQUEUE
+fix as its own patch on se.sched_delayed. p->is_blocked arrived in
+4c2a20413d7f and first appears in v7.2-rc1, while that over-count goes
+back to v6.12 (152e11f6df29) -- folded in, it cannot be built or
+backported for v6.12.y..v7.1.y. It already exists as v4, already
+reviewed and tested:
+
+  https://lore.kernel.org/all/20261024042753.2276779-1-albin_yang@163.com/
+
+Happy to be overruled.
+
+On the proxy gate itself, dropping my own !task_is_blocked():
+Prateek's covers at least the same ground, and I could not measure a
+difference.
+
+Still unmeasured: the donor already being back on p->wake_cpu -- the
+case that motivated the ttwu_runnable() call. Every round I measured
+ended up with task_cpu(p) != p->wake_cpu, so proxy_needs_return() did
+the dequeue and the call was never reached. Forcing that path needs
+the owner to migrate mid-hold and the donor to follow it, which is
+timing sensitive -- I'll report if I get it, but don't hold the patch
+on it.
+
+I'm happy to post this as a series if that helps -- how would you
+suggest splitting it?
+
+Thanks,
+Wei Yang
 
