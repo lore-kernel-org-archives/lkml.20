@@ -1,56 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793559221;
-	b=FaiNZFdDn4gSgsfjmy5gFO9OWnrQhMqXoegRzKcrmjiCia3pp61A3QnzbdZUbC9H3A/5
-	 aRMD36Vrlv801AJmFe/TvJNx41JpKkdyrvqJECstrjlniPKJ/D+5tggAWD/8XhRHBuMu5
-	 AxVMr+s2xkpQKbLwsuL+aM1HnWsb/zSEHOwFe/zN6Huw9mLGQn0Q3K25k+jfWwyLAS8H+
-	 4uqLqDt+mBAjudVNbt5x5I8Y+joloCm7I+qUvA259qoqSl5TJaKkdx6/WY7wBniI+NugF
-	 wYweiXQnFT55EfX6d/beshBKYiNy1l7/p+vrlD8JfBignC8ggkV+cb5NtIOFU6iYGOA==
+	t=1793559320;
+	b=Eb1O2tEGX92vYThCtn2LPE/AsptTubf/yyLpb6jVqipvIOJrWUnkgO/Ca0GFIsbouY6G
+	 MQ24owyBqlEOx0lNrHbX+lURcBfkuALs6Gz8KIxIhVRlkZfuEkt3s3E8eXzl7sHsncJVJ
+	 +THUn3RCfS+5A8aEbwMipfU/Ttfer56TdkSm627iHMX4hRh/wDf2g5EnAM3zkzrUJLifI
+	 +Bnoz12MTu9AEwfz15fgiZLAMruqlAoipLWo9J1eJ/5j0GPYYioFOrG6gk+nKTAV0SooP
+	 qVH+1Rt6B/nyU1gs7ClxBRVK+65fjCM0Gg0aCXNz9Lr7wLBYcsvFirB1PScWIKd0pQQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793559221;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=O7nr/yKGnN/+M712VH7dPBKqFnx9GUMB2SXsPy6Lq/w=;
-	b=4fGtTTKvVgvtLx3h21Tfutr1M5cR+QsBCLAXGRZFd5f44WRvz8NXgbIHBCzzJDZeWrcy
-	 9gsavN1rh3nzo/9olmV/KXlPTyfhgD9qvaxbyJhZFM2X1ckIa38iGNQJDeAaQ8Nxsrx0I
-	 ACI2POUf39BYWJePib+leRHbLcBouQ8jE1bFewBl/VmCIR4WJvKE2hrgbKWqEgPNoTdcV
-	 lmqal0AQkd75L6mIykQcnrafi8TXB9DNCHp3FDVe39lIHn0d3zFSPTt6y8XCEP6Y265B0
-	 L9Vy0e/Y280VkU9z1GRk7dMzz6gKITu7mDflk1GZni4DmufLCTlDXz4GUh37Dv+8lUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793559320;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=ScgBFQ2sEKk0TgN1KH7zHW+IlMrnPfyRl1r/gf8Y950=;
+	b=y5WkavqLu0n+EWiBCOJToa8usdc4pM6hEaqp9WxZMauD0lkcO8msPWXNlrQR6R+iDXkX
+	 yFa5zoY16OrfW1lHwhmWMtNDBZQUqpsQpD1ckWC7zTpSK18xNWknMXxRJ3Yb4rzcluZYU
+	 qrmLon+Xqdy1bSkqQPFZVKrF2E8n3Pq+N2JpEcjRJ1sdd0cqtyAj86I/Zm9M13LFW5DBl
+	 mW/AhWV0x2lOtXj0vYvzMxrbbdzkXeJ/PxLQaElnIEOvmEzcEETQLa3r3zR9pVI4vOFzx
+	 LYk/w9YD8/DtNSYIGX1eXBilpZCfv9xPAmTOW4Ptz0gzoATOOFylrypRXFJHlr8i5Xw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeTToXO1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Fd0sAu6A;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19126606A324;
-	Sun,  1 Nov 2026 18:53:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFD11606A325;
+	Sun,  1 Nov 2026 18:55:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EFD11606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeTToXO1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669D71F000C1;
-	Sun,  1 Nov 2026 18:53:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793559220;
-	bh=O7nr/yKGnN/+M712VH7dPBKqFnx9GUMB2SXsPy6Lq/w=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JeTToXO1ns3g1Lf8brAFk14jEkw8EwVGlD2GoEOoUsO8Xsb9Msume7fzVl+fhZQPN
-	 q6WaI7R0rC4isz3s3VpLH8nJD5YTENxOns+nwHlFij+nw6vs7FjjrnJ7tHOc5b+2Cq
-	 GOdAMsSSsiOLopqKd0B8lqubh/OEW7egc52tQfT3vDL30Tfv8nXneyio/7+Vym/nIS
-	 dlOqylKibUSGokmUOtnQj9HQvRcQDgnzsMK9gkv2Vy+T6GRvCypnnemEmXFS5EsxZX
-	 MdOXn3NffR0XTTTo0hLPhEJsBszpuYYmLr5H33zJfbD2IljvfJMOhO/f5WTZaMsHvO
-	 DVbblg8Ah1bUA==
-Date: Sun, 1 Nov 2026 18:53:35 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
-Cc: andriy.shevchenko@intel.com, andy@kernel.org, dlechner@baylibre.com,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com
-Subject: Re: [PATCH v3 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <20261101185335.6a5165f4@jic23-hlaptop>
-In-Reply-To: <SN1PR12MB25286CE39CC09CDD0D07889BA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
-References: <auBTxjakiTKn1LL_@ashevche-desk.local>
-	<SN1PR12MB25286CE39CC09CDD0D07889BA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Fd0sAu6A
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 0AFD240E02B7;
+	Sun,  1 Nov 2026 18:55:16 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id GiwTy8Y-tnlr; Sun,  1 Nov 2026 18:55:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793559313; bh=ScgBFQ2sEKk0TgN1KH7zHW+IlMrnPfyRl1r/gf8Y950=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Fd0sAu6Ag4L25Z3n/tp+oZ0Oac5dsyFgG6/NxLjkeA6Hzya3ScsIvwtPeIgOkyvAe
+	 dAZqcKKMvvewmJwsUX9PmE8HDgp1v290YCz5YzIMwPKOya/2OezBUlX/vL08wMTAhZ
+	 smETM8r1nrReNHkKK1+ODUsC3kQpvQnmaTqgRWmj995ROUril0Qzv7wiuY/qhdJIGn
+	 CDp+niWzh/rNEZUpzvu5XZe2rN0UfgOLoLU9xrzDOF57Zh3s3WrT7sleTwN/9ej3io
+	 WjeH8gzPwzAQp65KGWXh8eEgstVlwRBjZQ3TvqB0OVv337WVcokar1aWvKLULj7MM0
+	 5DAPQaI7v/rTyZ4zY74brkZ5sJQ15/UoCS+6rFg8k8+uCrTDeruN8SpXgaXC6aH4y6
+	 apg9cq7Na4RBP6jBszvo5GoIoH8zGkFO5xKPccEFVlne7i909/jMsnPtT9mDoEJPiX
+	 gGwPHcf2RBLShleWSk9R7qoURpZScNWjx/uqNDL4dDEtx9J5kcwcPfZqTORV9eqMgt
+	 tuANnMrgGsdSM8uwZlCjH6YNiqBUVrzenplMPpNfxpfvUiIsE7hpJ4ZUJwl+sG3YID
+	 YX/tDo/AV63BxCAIVV9as/lGxxH1mCa0q64r5dRfcOCDcPL1bnvE2I/oq2l5sNBM85
+	 tRBEFODZx1DB4hWnVwGyArZw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 55AA740E0298;
+	Sun,  1 Nov 2026 18:54:55 +0000 (UTC)
+Date: Sun, 1 Nov 2026 10:54:52 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: Joe Perches <joe@perches.com>
+Cc: Kiryl Shutsemau <kas@kernel.org>,
+	Rick Edgecombe <rick.p.edgecombe@intel.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	"biju.das.au" <biju.das.au@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"x86@kernel.org" <x86@kernel.org>,
+	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>,
+	"kvm@vger.kernel.org" <kvm@vger.kernel.org>,
+	Au Dang <au.dang.jx@renesas.com>
+Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
+Message-ID: <20261101185452.GAaueK_PzlK68DsmRz@fat_crate.local>
+References: <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
+ <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local>
+ <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
+ <35ba539820e1782bde038df98d3b49295eb7cd3a.camel@perches.com>
+ <20261031202741.GAauZPPfNDpQLSmIZD@fat_crate.local>
+ <94f0ab99b5c9072ce7c026672f704b2987db427f.camel@perches.com>
+ <20261031235958.GDauaA_pScrsk2xYUF@fat_crate.local>
+ <5ad69a1167fddc7caf1eb73e439765116db1ce17.camel@perches.com>
+ <20261101014710.GEauaaHoYk5TzRpGBQ@fat_crate.local>
+ <b700f0fb96b9454287850f7aa54d876b709cadb0.camel@perches.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,107 +102,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <b700f0fb96b9454287850f7aa54d876b709cadb0.camel@perches.com>
 
-On Tue, 27 Oct 2026 05:04:38 -0500
-Victor Chernyakin <chernyakin.victor.j@outlook.com> wrote:
+On Sat, Oct 31, 2026 at 10:35:57PM -0700, Joe Perches wrote:
+> No.  The intent is to match typical file matching patterns.
 
-> > > I don't like the duplication either, but I think the real problem here is
-> > > that read_avail is just a somewhat awkward interface that doesn't allow me
-> > > to return s64 values directly. To me, having this separate decomposed table
-> > > just for read_avail and otherwise working with s64 values is the least bad
-> > > approach.  
-> > 
-> > What about adding .read_avail64() (in a separate change)? Problem solved!  
-> 
-> If Jonathan is open to such a new API, I could work on that! I think
-> if we're going to add it, instead of just changing the two int* parameters
-> to one s64*, we could add a union for the function to write into. 
+Are you trying to have the same matching behavior as <pathspec> of git?
 
-Doing it for read_avail() and not read_raw() would be a odd.
-For read_raw() we went down the decompose path because in initial drivers
-it was only one or two out of a whole bunch of values that needed
-the 64 bit form.
+See section "pathspec" in gitglossary(7).
 
-The challenge of touching these interfaces is how to make things both
-backwards compatible and avoid need to do major refactors.
-There is precedence in the addition of read_raw_multi().
-Drivers that use that have to use it for everything rather than mix and match
-with read_raw().
+-- 
+Regards/Gruss,
+    Boris.
 
-Note that we need to also carefully think about impacts on the inkern
-interfaces as they use all these callbacks and the consumer drivers need
-to understand the results - anything in this space goes beyond the
-simple sysfs interfaces.
-
-So there are various things we could do and I'm not sure which one makes sense.
-Maybe we do have enough users now to justify a new interface. I was unconvinced
-in the past but things do chagne.
-
-Anyhow, options - note I don't want to do read_avail only as that to me
-leaves us in a silly intermediate place.  So just consider read_raw().
-read_avail() should follow naturally.
-
-1. read_raw_multi() path.  Drivers opt in to do everything in 64 bit.
-   Maybe painful and that inkern.c consumer bit needs some papering over.
-   I haven't thought about how painful that will be.
-2. read_avail() vs read_raw() path.  Given not all properties have meaningful
-   available values. Hence thes two use separate masks and opt in.  Here we
-   need to avoid that as would be significant bloat.
-3. Mix and match. read_raw() for some things, read_raw_multi() for others.
-   How to decide?  I don't like try one and see if it returns an error.
-   Could use something similar to the write_fmt callback.  So drivers
-   could say what the format of a read_raw was and use that to pick between
-   callbacks.
-
-Generally I'm not sure.  Probably needs some experimentation to find the
-cleaners solution for all the paths that use these callbacks.
-
-
-> That way,
-> not everything needs to be represented as raw s64's; we could introduce
-> a proper range type for example:
-> 
-> struct iio_range {
->     s64 min;
->     s64 step;
->     s64 max;
-> };
-> 
-> struct iio_available_value {
->     enum iio_available_type type; /* IIO_AVAIL_RANGE, etc. */
->     union {
->         const struct iio_range *range;
->         struct {
->             const s64 *vals;
->             int num_vals;
->         } list;
->     };
-> };
-> 
-> /* Used like so: */
-> 
-> static const struct iio_range fdc1004_calibbias = {
-> 	.min  = -0x8000 * 488281250UL,
-> 	.step = +0x0001 * 488281250UL,
-> 	.max  = +0x7FFF * 488281250UL,
-> };
-> 
-> static int fdc1004_read_avail_ext(struct iio_dev *indio_dev,
-> 			                      const struct iio_chan_spec *chan,
-> 			                      iio_available_value *out, long info)
-> {
-> 	switch (info) {
-> 	case IIO_CHAN_INFO_CALIBBIAS:
->         out->range = &fdc1004_calibbias; /* No casts! */
->         out->type = IIO_AVAIL_RANGE;
-> 		return IIO_VAL_DECIMAL64_FEMTO;
->     }
-> }
-This ends up as a bit of an implementation detail. Might make
-sense to have such a structure / union. I'm not sure yet.
-
-Jonathan
-> 
-
+https://people.kernel.org/tglx/notes-about-netiquette
