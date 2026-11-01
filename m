@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571381;
-	b=MbFrqDptL1eKJ7j5Z4PEKzApptJWfoAS9qAWEKc6KCJj8ptzXlzbLNeiVCKT5kXbwfRV
-	 OSQPC2b+hQYVG/N4o8zWAh3aBGuMRRBcoLxuDg3nz4sWd+nQR7DNMRvZoadc5s55h4Fzl
-	 qnVTfp8iiXOBqwxxRjnEpVeyHmjMvnz4AP16ZpsF5CQ3KQkUIENaCBgZdWmxfK7wMy2sV
-	 +oiqWB2XKFk74hgaZUR0EXjPTNnb0WQO9Q5TnG7m83PYy4KoIhL1CHbrESFE/8bWf2KbF
-	 AP/GESnbdwzLdQnTT7ivQSM4HGPDp2mzOonH7prxbtz2knOxO7FnrKqlZbINkixXtPg==
+	t=1793571374;
+	b=l5KH+YHtWSf6jGkQiSckXj328xaHiIZ7DqoJSXLh+Q6eVFZz9HZfwZbsScygPXI6wcak
+	 0hAvKprTjXz5aM7sOVqsl+64FTsBUPg/fkRyuJXy4br9ZEqF7fci3bjaAWkgcW7Ajp2QY
+	 gqyxyfZxHgqXbM5VfPTM2D3eSO8HPnidEdBgVtRgaYrwXz9A2zscAxKwju/wSSRmwpUSW
+	 Xf3UtvvnikT7sdyZHLmguSYLfBOpdFDnWAC4zwHFxXGAWqAmz0px6ud04EmznzYO8BPAM
+	 ptUjqVw4/+hMELbb6NLWZyQRLaEZsZwo0c0lCLXniDDbCq50j0Y5M4FmU2Azi6zu7Yg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571381;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571374;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=dO8IDvnKbQ89guABqKeHsYCIoKDAIsVkhl3ddA1wtcc=;
-	b=eVJ+9IZLGuNwuDR7VWBq8Ud9nbndtiATsdIBxwjA88EnIm/AARilWnYM0KRzw8QNi1TK
-	 Kd98WZ9S1PNeSQGkNvZe8N3zOOFkOwpuSHOUux3iPoH+WAXUemW3dC1sDn4eYBSuwSYiU
-	 CKXzFdaZBZk7YQcZ6bDi4g5VOqVxSho4U0cEYvPQ6Xy6FdAihAJqNyTZkf5x7P5nT/Fda
-	 QOn/yng9eQkwhON68tfCYglfLMP+T5CnmoO63AUD3kEdPQEuuUjNT8Lwa0cdxXzsw5qk2
-	 6aMtg1EbwCPDUubftXUtOyUfEOhmppXKnZqK2PsrhHVOK7CPmDQFV6nCj2hRCJFUUyg==
+	bh=k1DWd8TsBWg5NBBxBu42AFkg72eDnbidrtlPTmYRtJY=;
+	b=kb7UrpmxCpp/rNPSsRZeWOoRvHootzjsnyT2ts+zvIG6ZvIEd1A7tItpCgaDmwcPFmMn
+	 H4bSjspg95jE0Gy4AvT/XXe1ILL19LTQJgVKWLLBOgQNa4agVbvKaYMhS0XVLEwh0DuX/
+	 WyrYgpRzaVAQRjzHFjX57cEtkF9K16AGIbmiWJRe9VNK2gR/8aox7E5Ovxhr69CLZDyMJ
+	 DlHtZ2WdcHc7+LnGb796z4/KD3So1YM4Er56bp3nTLbNaOa21034o+/SddnkRNxaDhamP
+	 FjnP3yIlIUKnynbUlyBwjB6aKoPBSi8bsHTjj4auRtJkuH42EuXbmHtHVCctH3GWFEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKfbTIwU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4nmcWS6;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91559606B075;
-	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E10360A3829;
+	Sun,  1 Nov 2026 22:16:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PKfbTIwU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48F151F00A1F;
-	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=l4nmcWS6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE641F00A2C;
+	Sun,  1 Nov 2026 22:16:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571381;
-	bh=dO8IDvnKbQ89guABqKeHsYCIoKDAIsVkhl3ddA1wtcc=;
+	s=k20260515; t=1793571374;
+	bh=k1DWd8TsBWg5NBBxBu42AFkg72eDnbidrtlPTmYRtJY=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=PKfbTIwUwRg7utef2I61K+61rzrtDd/F/7eBveR00naBoqdh8F3uPt9bannBILkUq
-	 FQXvy8Z0s5mkEUdeNhZmZVKFkBmt/LUE+5D1CvzgeMepBxoKf1PdLKC8RwoCB40Mf5
-	 OdkcjsQ690c2MU+DctNOxnLmgdhbGaelLNRiN/qixigRpPtaiG2ijQmAVgt/H9pdCb
-	 FiOvUSJsvaZ7CtN4srqpYrX5YQCsqj7N4Wxx4hnjOnXfuL07C7Ow54npn+WdSZ8oPe
-	 Plja86Te6UpKeeKPM7LXj3NXO5VI//NBfrJ+Uv+0AsJVqmhPK+HaK/XHSo8YOL1C3I
-	 iVVMD5YkVeKPA==
+	b=l4nmcWS6A/4Hr5O71oODbuTRUfO0NkWJ85KjSmxpc4wtkYxkpb1bOMwK0jr4BmFWY
+	 lYIEM9ylgDV6SUrYMpJIE2KKFpoD2nnt+UGewiExEhxyhKTMOjm+T52MFPeK8Yd0J+
+	 p4q/4axVz0UfZx3L63VYvsm1IdHUsRWd2LlParmpMe2U//B6WU2rzsRD4qt6poBS3X
+	 9nvXcpbi8Wvh3JxnKjFOreSdRvTy7KVewOW8UsbJ5RSKNcsm8ZfOb0TAb1yKpjZZPl
+	 L41yoUudqhZYHKnzicNfUykC9EKnM+e9w4aN1yX+WbAJDCsXR56xtkURsIUpOdA2Bn
+	 Z4trFEgXz6Wyg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 4025738003B8;
-	Sun,  1 Nov 2026 22:16:21 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 030DB38003B8;
+	Sun,  1 Nov 2026 22:16:14 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,81 +54,56 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v8 00/22] Add basic pinctrl drivers for JHB100 SoC
+Subject: Re: [PATCH v3 0/6] arch, mm/execmem: resolve confusion about
+ set_direct_map_valid_noflush()
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357137979.2624073.5964699004424197111.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:19 +0000
-References: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
-In-Reply-To: <20260910100357.130134-1-changhuang.liang@starfivetech.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: linux-riscv@lists.infradead.org, linusw@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, kernel@esmil.dk, pjw@kernel.org,
- aou@eecs.berkeley.edu, palmer@dabbelt.com, alex@ghiti.fr,
- p.zabel@pengutronix.de, brgl@kernel.org, linux-gpio@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- lianfeng.ouyang@starfivetech.com
+ <179357137254.2624073.6914916059318534007.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:12 +0000
+References: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
+In-Reply-To: <20260903-execmem-set-vm-perms-v0-2-v3-0-949b64a9f755@kernel.org>
+To: Mike Rapoport <rppt@kernel.org>
+Cc: linux-riscv@lists.infradead.org, akpm@linux-foundation.org,
+ abarnas@google.com, aou@eecs.berkeley.edu, agordeev@linux.ibm.com,
+ alex@ghiti.fr, luto@kernel.org, bp@alien8.de, brendan.jackman@linux.dev,
+ catalin.marinas@arm.com, borntraeger@linux.ibm.com,
+ dave.hansen@linux.intel.com, david@kernel.org, gerald.schaefer@linux.ibm.com,
+ hca@linux.ibm.com, chenhuacai@kernel.org, mingo@redhat.com, lenb@kernel.org,
+ palmer@dabbelt.com, pjw@kernel.org, pavel@kernel.org, peterz@infradead.org,
+ hpa@zytor.com, rafael@kernel.org, ryan.roberts@arm.com, svens@linux.ibm.com,
+ tglx@kernel.org, urezki@gmail.com, gor@linux.ibm.com, kernel@xen0n.name,
+ will@kernel.org, x86@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org,
+ linux-s390@vger.kernel.org, loongarch@lists.linux.dev
 
 Hello:
 
 This series was applied to riscv/linux.git (fixes)
-by Linus Walleij <linusw@kernel.org>:
+by Andrew Morton <akpm@linux-foundation.org>:
 
-On Thu, 10 Sep 2026 03:03:35 -0700 you wrote:
-> The JHB100 SoC has 13 pinctrl domains - sys0, sys0h, sys1, sys2, per0, per1,
-> per2, per2pok, per3, adc0, adc1, emmc, and vga.
+On Thu, 03 Sep 2026 12:28:26 +0300 you wrote:
+> Recent discussion about implementation of execmem's ROX caches on arm64
+> revealed a confusion about how set_direct_map_valid_noflush()
+> implemented on different architectures.
 > 
-> In the current series, we will only add the following pinctrl:
->  - sys0, sys0h, sys1, sys2
->  - per0, per1, per2, per2pok, per3
+> On arm64 it sets or clears the PTE_VALID bit marking a PTE as present or
+> not present.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v8,01/22] dt-bindings: pincfg-node: Add property 'input-debounce-ns'
-    https://git.kernel.org/riscv/c/5dde08ea70b9
-  - [v8,02/22] pinctrl: pinconf-generic: Add property 'input-debounce-ns'
-    (no matching commit)
-  - [v8,03/22] dt-bindings: pinctrl: Add starfive,jhb100-sys0-pinctrl
-    https://git.kernel.org/riscv/c/9d3dc8decb60
-  - [v8,04/22] pinctrl: starfive: Add StarFive JHB100 sys0 controller driver
-    (no matching commit)
-  - [v8,05/22] dt-bindings: pinctrl: Add starfive,jhb100-sys0h-pinctrl
-    https://git.kernel.org/riscv/c/6701c1c00891
-  - [v8,06/22] pinctrl: starfive: Add StarFive JHB100 sys0h controller driver
-    (no matching commit)
-  - [v8,07/22] dt-bindings: pinctrl: Add starfive,jhb100-sys1-pinctrl
-    https://git.kernel.org/riscv/c/bf8241062c79
-  - [v8,08/22] pinctrl: starfive: Add StarFive JHB100 sys1 controller driver
-    https://git.kernel.org/riscv/c/1d5c13990916
-  - [v8,09/22] dt-bindings: pinctrl: Add starfive,jhb100-sys2-pinctrl
-    https://git.kernel.org/riscv/c/941cc8022c21
-  - [v8,10/22] pinctrl: starfive: Add StarFive JHB100 sys2 controller driver
-    https://git.kernel.org/riscv/c/594deb7f74f4
-  - [v8,11/22] dt-bindings: pinctrl: Add starfive,jhb100-per0-pinctrl
-    https://git.kernel.org/riscv/c/402323de0c04
-  - [v8,12/22] pinctrl: starfive: Add StarFive JHB100 per0 controller driver
-    (no matching commit)
-  - [v8,13/22] dt-bindings: pinctrl: Add starfive,jhb100-per1-pinctrl
-    https://git.kernel.org/riscv/c/d6001140c2e8
-  - [v8,14/22] pinctrl: starfive: Add StarFive JHB100 per1 controller driver
-    (no matching commit)
-  - [v8,15/22] dt-bindings: pinctrl: Add starfive,jhb100-per2-pinctrl
-    https://git.kernel.org/riscv/c/b598855cc302
-  - [v8,16/22] pinctrl: starfive: Add StarFive JHB100 per2 controller driver
-    (no matching commit)
-  - [v8,17/22] dt-bindings: pinctrl: Add starfive,jhb100-per2pok-pinctrl
-    https://git.kernel.org/riscv/c/c9ed9daba98a
-  - [v8,18/22] pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
-    (no matching commit)
-  - [v8,19/22] dt-bindings: pinctrl: Add starfive,jhb100-per3-pinctrl
-    https://git.kernel.org/riscv/c/340588f9b94c
-  - [v8,20/22] pinctrl: starfive: Add StarFive JHB100 per3 controller driver
-    (no matching commit)
-  - [v8,21/22] riscv: dts: starfive: Add JHB100 pinctrl pad number header
-    (no matching commit)
-  - [v8,22/22] riscv: dts: starfive: jhb100: Add pinctrl nodes
-    (no matching commit)
+  - [v3,1/6] set_memory: add number of pages parameter to set_direct_map APIs
+    https://git.kernel.org/riscv/c/be7dacb9c1d4
+  - [v3,2/6] mm/vmalloc: set area's page_order after allocation succeeds
+    https://git.kernel.org/riscv/c/40702f168a9e
+  - [v3,3/6] mm/vmalloc: constify vm parameter of get_vm_area_page_order()
+    https://git.kernel.org/riscv/c/1f73dfdeb9c2
+  - [v3,4/6] mm/vmalloc: make set_area_direct_map HUGE_VMAP friendly
+    https://git.kernel.org/riscv/c/86dc0280b807
+  - [v3,5/6] mm/execmem: use VM_FLUSH_RESET_PERMS for ROX cache allocations
+    https://git.kernel.org/riscv/c/4c4b2ed5b783
+  - [v3,6/6] Revert "arch: introduce set_direct_map_valid_noflush()"
+    https://git.kernel.org/riscv/c/0e774fdb2ed6
 
 You are awesome, thank you!
 -- 
