@@ -1,90 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793561296;
-	b=q1kRv7DEyyvD/mih6qVDi9UgWlIqOXiAboslIUGFGgwNUuP55AslDVCohBJSr2Hd1squ
-	 8fSI8AuXopM0sKt3pRUlv/hu4eynmkZ3FG+0hH41uvsbXf2+ylKfmi2aOfngYTppi0tux
-	 HYZPPO7TrGEQn9+tZOFlZ2iSNOBYETG+3fhKUzPAfe+xaSTnXy8S1b8PuXo1ubnSRa+pc
-	 BOrP3MgkR+SAiIpOcyj6p84njwni7o5AKXU2eCvGp2UP56uZjDuwb8IQ8ik4/8OcE9sD6
-	 Ki85ribJEx5wj09lTwt8bK0kpkBsWO4DGUci8IHJAyQv/8GIRQoQNmOdALajQrF6Axw==
+	t=1793561304;
+	b=FJIcIdlizaeYNnTtATkBwSWUOWm1iM13eFeJO2+fhT/svGMmxH/zAh8byiBmcD9Gi00b
+	 HOhuHPyCdbC2VIC71NR3g7aGPC/VRH/MtJxSLVtlgXBv7A+lNw2RKFGdv1pUhbsG/f41F
+	 wgUcqYsY7b+86dhKyhrjsVWKjbWqo+8JE3I2+44aYdFtVj0qhJWbR7MHSo9eCFwTDffQt
+	 SqjtSTvabaO5UgynB432+/O1MxTfzQ5lZ0XtcHfc3mEOvE4fdNjv98RQbKm9i53HOXe6U
+	 FFrMmQt1Gzg1fW5evAxPWNr3AuUYYoEUD7rsBNh/JmQMFvuDqN4XVb/LIhKFMPdoUXQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793561296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793561304;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key;
-	bh=oSjaN8gq+uvyeQwJlExslk3+33soV5Wz90d5smnAJWo=;
-	b=Me2f6QiOjn6HxsOGsdB2rsvWu3oeolc62kWTe/hbYZAfIfwRmlaeVRTfMe1GMbPCP3zc
-	 frj8jZdG4DysZ50l23yL6xOD8lUSu59qDV7vWODHn32t2IrOa0R+BnlFH0B4/hsLtm9D6
-	 dIC6q89apNjOr1qyxwaRm0PilWM70jxK9tru13tPjNrJKfRlW44fgyXN73M5BTxYTpF2w
-	 PlI9ly5SoUzGbXCq05PQfT+mYjZrnzjITn/5IdM0cCvqHMNu5/nIw7kqG12yKntLwLHIc
-	 AB6SmZ3rHAYtth3vzRoGZZvoehjSu01ztggK355sEkryM4jow5YVtJ4awVt6/oWbVTw==
+	bh=4VWlDyarhGLs59ZmxOAL3pCox4wN1k2aQWsJ1VbQoyY=;
+	b=FVkm7aOjvXUN6gP1Ql9aX/mDQSLposOZhh8+pGZYMtIZWvMnRdlxi8rosQ5JSG173Gdj
+	 CrZmTe2WGtp25VQ54Y8o5M4UgoEZcgsacfOh3eVKWiQmFKB0k7DZ65WqkR+1E0pH8Y5xY
+	 RmQgchms8o+etsJAdcuJoV07N/SxIW1RYgbc3kybLhxEG1qudsFOPxO7FD9Txn4IiNcvC
+	 WVmwohvZoic0s0J0UXCtnXpKtEiDaryypQbXJQGNa1JnHWP2zSQ+bmtQVTCOjbvPYUlWN
+	 42DEHFTRFfKvdKBK1IbU90tYeBLg7HOU0vjA6NKH6Ev2k2tAdQxzv1C/6utf0PkExdg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FphcP7ut;
-	arc=none smtp.remote-ip=74.125.224.44
-Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S2kisjCd;
+	arc=none smtp.remote-ip=209.85.128.174
+Received: from mail-yw1-f174.google.com (mail-yw1-f174.google.com [209.85.128.174])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497F0606A33A
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:28:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 497F0606A33A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A359960A2624
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 19:28:23 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A359960A2624
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FphcP7ut
-Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-679a2297c55so2423664d50.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:28:16 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=S2kisjCd
+Received: by mail-yw1-f174.google.com with SMTP id 00721157ae682-8b118bea471so10609237b3.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 11:28:23 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793561295; x=1794166095; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793561303; x=1794166103; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oSjaN8gq+uvyeQwJlExslk3+33soV5Wz90d5smnAJWo=;
-        b=FphcP7utCPD+/CiHyl6RbV+MwLmrVwhNJCw5PYbZMe+An9k6KQv9iq1c1l3OTNtg/j
-         gV+kb0Jb5HYkKeusXj6hfurRhT3rq/nIm0U8erqK62ypB8cFi5b2nBbJ4ju0T+0DCmyM
-         EVxplqQbRGAnAN8KDCTxa4gWrBzVtov+gVL1TXGjAfbDgccTuCuu0qhQ7X0PgqODrMsb
-         4AZZ5Wm+AKLA4LOzsEE763WxgqZrXD0b8TTbBAM6BiMccm19b5wIIXjXzpnVqAbZp1YV
-         vuL6nrqXTtcAvVBKdqhVQiMuzGcCOcZZhbo5wWHxSMEag4WyGnS0oGBueRNOSX+Ph5Yr
-         zpkA==
+        bh=4VWlDyarhGLs59ZmxOAL3pCox4wN1k2aQWsJ1VbQoyY=;
+        b=S2kisjCdmPZ5bwqVbfQcLsUDTCaG3of2QvgAz2fQy00csrpt96ES9g8VW1DI/+P/XD
+         1VxsxqI2E/no3LfUiMzQa9ol5B45jD3xv6yhW3o3dIqPmqEQS6wDcBCa2rpKwvegQDNv
+         kB9b6UKhAdnZuuHRX46fHTpInntvYuJAykStCZWn+y/WP2ngtfSPPf2EMN/UfcJUKqFR
+         eenkhEH/H1ohvyUbNh+6sDN3jbJdZxS8CNGUyRmKhZS24OEQ6MtzwZ7qMpkra01WMNsW
+         muhvSyJFvX2Vn2yroRhn2AZIcGi3HFHDFZrXwB4T3foL/7Vv4Njx+7kCTbc3SfVdmVpZ
+         CL/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793561295; x=1794166095;
+        d=1e100.net; s=20260707; t=1793561303; x=1794166103;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=oSjaN8gq+uvyeQwJlExslk3+33soV5Wz90d5smnAJWo=;
-        b=iQ/6zQD/0zVD7+IOYZ+xYjPOTqaOp1W2werZBNKQJMogwXJREhyKdYBWH6X+zLpKvb
-         vTJFOfTLkoHe//0rRg1RRUbDtDopssnyQKDsgmpD2QwTlI7laOwGQ987w5UxqOSo8v9p
-         nhPtNuSxYpuk7UVLL6ne0y308sAvPEWT85++9cl2+IEmUgpTEAeR8yQhM2cPD6tcMxro
-         wuIKKu2GJdQ77Wx1H067sbmQUjEa0WlUgQUxY4rwz8hd53Fft6AX18RkWtLXezzRzou7
-         nPx+GGlihRKOIISD0biwGfHRkBpfjw1dASMT8tPXWMZWpwDH286raVxhBb+ovD6HcmPU
-         o+UQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxyD4u8JaUjem147W7vDMknQAbRl2wwREmS7pIcycRwWkif9dLjqA9G3Jm8O89ogqWYcsQoNXoZYWDK/Q0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8daqZDGyb0z3BalGheH+2xQCwOmUkJETMdrfo4P3qV6Ru/gORF
-	0KJCqaiwwwHwWS8BDw0LbZgZz6h4f1btCONE5bsm1mMFUev7Q24oEM0u
-X-Gm-Gg: AYBFou21BzyjGxRvRiyLJ2fUWON3J1YyUPruP/Tp5yvYFM65Nv23jfuEJ1g48qt3Uog
-	I6oN2uwEk4N4tb16X14UNPDtsPOsbUBe8QPU1qJnx7S8CEzQaqRH9e93zIi2v98NfrFt5DOsAcl
-	Ifmcgfj0S1XBW9hF7ReXEjYbjxcIt0L8oEWruUGGd6ciRHUWlwbwrAAponkJTrKHr/J2n8V2YiR
-	VF+MsrzEp/Icr0v0XKgoHS1uL2BxVnAizDfxQ3Y4DsvKRfLoOUvdQMkkArIpH4mJP/xdhBXCMNn
-	bwtHX9Q+B8BNzD6uhYqSIyUf24RX6OQzsJcHctFfCcwyo7MMOZ73OVvnaAtIs1bWg0xJYuSrEmK
-	P4/cRFnJutQNbF99xhVJPFEE5CGtqlhE5Hd+NMwCfnZTjiFRV0KLeNt1KfERPUcgQE8PxBVW/ko
-	3qLxU544kaU8rmgpqiBRAzdX/1RcArrXQhOv5IaqIJatrMxLdXPA5NTb2PnShM6aOLMAVk86jTD
-	3YT4gQTvJpgFvw1aLzxj4TMmrdRMtDIjnrsqo8Um9uTVh/GRFaTLbxjaXhRni04ci9e5fETT5f0
-	RWGtDGTGlg1uDGtxGnvYvSzMV5R7FO3pwOUxTme6f0DgCDwzKM+0fLGETHqGqcos0pegyk4i6WL
-	oNiZMTHkXBw==
-X-Received: by 2002:a05:690e:43c3:b0:677:d87c:4277 with SMTP id 956f58d0204a3-67ba50f3afcmr3810702d50.97.1793561295090;
-        Sun, 01 Nov 2026 11:28:15 -0800 (PST)
+        bh=4VWlDyarhGLs59ZmxOAL3pCox4wN1k2aQWsJ1VbQoyY=;
+        b=DCO8xlpYF3zR/6JNnm4yzwy6nSCbT+i6Q7YQLQeHtn5Ia6Urc2VZnvV+/zxrRq9UI4
+         QL1lEHbBbRqL7p2kQKRGH8Lq+h7z+aNEr4Z1nr72xgBeqrgc4O1k0kwcRjjLisEhVz+z
+         t7DDLyT0k/DjJU5wS3QNhSxUtbw7c0+4FC0bB/EPh1yrT+8PEsbKlo6h2Men1BNTK7Ec
+         oHtqD3mn7Lh5X72DWJh1L4VEAEU5UdMQMiFzz6VbRpULSxbEbIrOT6WCu+uEe0ZXPTG6
+         5xv6AXBaMGg71GbhK2h//jYtQ7auiViZyOIUVVC8z1R/wsQ5hc0pCE9ir+6MQlhjt6UP
+         y1tQ==
+X-Forwarded-Encrypted: i=1; AKwUvByXnOIClyhMVjp2Lr7bI7McMIsbPvoQErV7Fim8+amJeqwWv6XgVhsWrv/RkgyUx4fLHNWM7eGVpIQpePY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8yqTzQ2s7iESa+DrHTJ+4qEwi2D4CIm91ld1h6KD5WXdyXIuNk
+	2RKPmz0XSRfFEX/ot2zVZPIHSnDcYWHtyxJ0sGZpcKtfBez75iwSVbaI
+X-Gm-Gg: AYBFou252Oox4gnSZo1H0n1DUdQKGxnANP0qQ3ZqaXeIDIezG6Pme+ztvr3N/uSqYL7
+	ZXrO3BHbyA3wXgcs2VQKZB0vhohERWx4ZFF2aSjKgk/RrKcmEN5liQdoWkt1iDZnyRiYFJFm2Y5
+	c//4jwbmm4YicGTizr5sFEYJaQkSGKwlp7u/twWbv3tTq6MS0NgRzcCpeZt54k+d0FocHP7GLJn
+	kgvIBb3mTx0OzINDqDyX0WVIZxa3YP0x8VkeR/pDgm5jl4Zm3Cekf8TDDULiSy1UPLws5ovbgbM
+	srKPg0vOvIG6iFvvSMp5hz02tkDJxYX4NVrUAETXaqnhaiGsjEcmgD0Es09xuZYTrcyiqPL5MZ5
+	M63pQqM7tzGcY3ycvcm4ORTkeMb8SwJDje4VcDMyqDJ7roUU0o1v7MY++spMQLJpOeoCfELzKNg
+	b7jQvRvu6rx3exhNUXbYD8x+8zT3uyJSdrAoNnE4NJ4EUazJu+huiTo2kiU9YBJ/C59jxAcZUww
+	ds4bYQIOO8FPgYWAzI7LtCuRJXEEpxoSqbLS4oBj/Jye99LdSMlr/waiLp9hI0dTgsj4s/XH3es
+	tMEuWMMw1jQXYGv4iem5HBEegEsvbWZnxuWG6NvcduvHClyymyhWVozmCvWqoQrQ0QrgyIvKIy7
+	QJH9OfdYCRg==
+X-Received: by 2002:a05:690c:c513:b0:8b0:a857:654f with SMTP id 00721157ae682-8b2b67b73cemr51969817b3.63.1793561302558;
+        Sun, 01 Nov 2026 11:28:22 -0800 (PST)
 Received: from localhost ([2600:1702:7a90:6f9f:8bc4:8aec:108d:7a04])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf147246sm3725582d50.1.2026.11.01.11.28.12
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b2b7125371sm39969497b3.11.2026.11.01.11.28.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 11:28:13 -0800 (PST)
+        Sun, 01 Nov 2026 11:28:21 -0800 (PST)
 From: Matt Turner <mattst88@gmail.com>
-Date: Sun, 01 Nov 2026 14:28:07 -0500
-Subject: [PATCH v3 4/7] alpha/perf: do not report user registers from the
- entry code
+Date: Sun, 01 Nov 2026 14:28:10 -0500
+Subject: [PATCH v3 7/7] alpha/perf: optionally randomize the ProfileMe
+ sampling interval
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,7 +96,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261101-alpha-profileme-v3-4-92d511b5a044@gmail.com>
+Message-Id: <20261101-alpha-profileme-v3-7-92d511b5a044@gmail.com>
 References: <20261101-alpha-profileme-v3-0-92d511b5a044@gmail.com>
 In-Reply-To: <20261101-alpha-profileme-v3-0-92d511b5a044@gmail.com>
 To: Richard Henderson <richard.henderson@linaro.org>, 
@@ -111,117 +111,138 @@ Cc: linux-alpha@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-perf-users@vger.kernel.org, Matt Turner <mattst88@gmail.com>, 
  Peter Zijlstra <a.p.zijlstra@chello.nl>, Ingo Molnar <mingo@elte.hu>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3729; i=mattst88@gmail.com;
- h=from:subject:message-id; bh=j745NTzeMTR18QqhA7qldpQHNflfi9v6N9g1RNlRzvQ=;
- b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKeTzq6Sl6wf26HPOuy6bzXHd/tkyo+EHgquN/4dgbXx
- etrG5qOd3xkYRDjYpgppsgSt16RZVbbjqU+p6V/wcxhZQIZIi3SwAAELAx8uYl5pUY6Rnqm2oZ6
- hkCGjlE8RE6PQSOzuLg0tUg3raDIIS+/JLEkMz+vWC+/IDWvIL1ALy0zrSQjI7+oOBVohF5eaom
- pq6ObkaGBiaWjhZmThaOpibOzk6GTm6Ojs6uTkaW5iYGzpaOJq6U5AxenAMw1H/gYGd7PV7JjWs
- H7R3lnVdoMNTZlm/DZc8vvn/8x377pzI+F/bGMDCs2y6y8+d59Wvelf+ufMVVo/J6XLLKPVfHsk
- rnr5Y71ybEAAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4503; i=mattst88@gmail.com;
+ h=from:subject:message-id; bh=L90ZL0BUtYXerAHuGfkXQ/FfilBgYa9DEbvkOqQGpVc=;
+ b=owGbwMvMwCW25rVmCc8sv+mMp9WSGLKeTzp6Nsr/TVdmxomMa/Zhbo8CJsioC+99MetI3pnAH
+ zm2pkZtHR9ZGMS4GGaKKbLErVdkmdW2Y6nPaelfMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
+ IZChYxQPkdNj0MgsLi5NLdJNKyhyyMsvSSzJzM8r1ssvSM0rSC/QS8tMK8nIyC8qTgUaoZeXWmL
+ q6uhmZGhgYuloYeZk4Whq4uzsZOjk5ujo7OpkZGluYuBs6WjiamnOwMUpAHPNbWeG/76q1WU/Ih
+ JfM/zbmmPJ5Cb8KXSDcqG2147DN559P+FT/4Xhf9T/DXr2ur6nEtU4eEO1DS4X6TQtUZF4z5P66
+ quYVIY/MwA=
 X-Developer-Key: i=mattst88@gmail.com; a=openpgp;
  fpr=3BB639E56F861FA2E86505690FDD682D974CA72A
 
-perf_get_regs_user() returns task_pt_regs() whenever a sample of a user
-task lands in the kernel. But exception entry runs with interrupts
-enabled, so the sample can land before the entry code has saved the user
-registers. Only the part PALcode pushed is valid then. An interrupt
-taken on the first instruction of entUna, say, pushes its own frame on
-top of PALcode's, which overlaps the rest of the user frame, so r7 and r8
-read as the interrupt's r23 and r24.
+A fixed sampling interval can phase-lock with a loop whose length divides
+it, so that the same few instructions are profiled over and over while
+the rest of the loop is never seen. DCPI avoided this by randomizing the
+interval.
 
-Report no user registers while the interrupted PC is in the entry code.
-Such a sample also gets no user stack dump. The range is all of the entry
-code from entInt to the end of the save in entSys, so it also drops the
-registers of samples that land after they were saved there.
+Add a randomize config bit that varies each interval by up to 1/16 of
+the period in either direction. Only ProfileMe events accept it, since
+Aggregate mode samples already land a variable distance from the
+instruction that overflowed. Counts are unaffected, because prev_count
+already records the value written to the counter. The jitter
+is computed with mul_u64_u32_shr() and the sum saturates, so that a
+period beyond 32 bits cannot overflow.
 
-An interrupt that nests on one taken in the entry code still reads the
-incomplete frame, as its own PC has left the entry code.
+The jitter comes from a per-CPU prandom state rather than
+get_random_u32_below(), which takes the batched entropy local lock and
+triggers an invalid wait context report from lockdep in the PMI.
 
-Fixes: 9280e99d87dd ("alpha: add HAVE_PERF_REGS and HAVE_PERF_USER_STACK_DUMP support")
-Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Matt Turner <mattst88@gmail.com>
+Reviewed-by: Magnus Lindholm <linmag7@gmail.com>
+Tested-by: Magnus Lindholm <linmag7@gmail.com>
 ---
- arch/alpha/include/asm/ptrace.h | 12 ++++++++++++
- arch/alpha/kernel/entry.S       |  8 ++++++++
- arch/alpha/kernel/perf_regs.c   | 13 +++++++++++++
- 3 files changed, 33 insertions(+)
+ arch/alpha/kernel/perf_event.c | 37 ++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/arch/alpha/include/asm/ptrace.h b/arch/alpha/include/asm/ptrace.h
-index 45d1229344b6..1400ba3e7d43 100644
---- a/arch/alpha/include/asm/ptrace.h
-+++ b/arch/alpha/include/asm/ptrace.h
-@@ -14,6 +14,18 @@
- #define task_pt_regs(task) \
-   ((struct pt_regs *) (task_stack_page(task) + 2*PAGE_SIZE) - 1)
+diff --git a/arch/alpha/kernel/perf_event.c b/arch/alpha/kernel/perf_event.c
+index a816a18036b7..037182b4f8c4 100644
+--- a/arch/alpha/kernel/perf_event.c
++++ b/arch/alpha/kernel/perf_event.c
+@@ -16,6 +16,9 @@
+ #include <linux/kdebug.h>
+ #include <linux/mutex.h>
+ #include <linux/init.h>
++#include <linux/math64.h>
++#include <linux/overflow.h>
++#include <linux/prandom.h>
  
-+/*
-+ * Whether pc is in entry code that may not have completed the frame at
-+ * task_pt_regs(). See entry.S.
-+ */
-+static inline bool in_entry_save_code(unsigned long pc)
-+{
-+	extern char __entry_save_start[], __entry_save_end[];
-+
-+	return pc >= (unsigned long)__entry_save_start &&
-+	       pc < (unsigned long)__entry_save_end;
-+}
-+
- #define current_pt_regs() \
-   ((struct pt_regs *) ((char *)current_thread_info() + 2*PAGE_SIZE) - 1)
+ #include <asm/hwrpb.h>
+ #include <linux/atomic.h>
+@@ -33,9 +36,11 @@
+ /* Layout of attr.config for PERF_TYPE_RAW events; see format/ in sysfs. */
+ #define ALPHA_PERF_CONFIG_EVENT		0xffULL
+ #define ALPHA_PERF_CONFIG_PROFILEME	BIT_ULL(8)
++#define ALPHA_PERF_CONFIG_RANDOMIZE	BIT_ULL(9)
  
-diff --git a/arch/alpha/kernel/entry.S b/arch/alpha/kernel/entry.S
-index 790389a15c3c..2de7cdd3a872 100644
---- a/arch/alpha/kernel/entry.S
-+++ b/arch/alpha/kernel/entry.S
-@@ -186,8 +186,14 @@
+ /* hw_perf_event.flags */
+ #define ALPHA_PERF_FLAG_PROFILEME	0x1
++#define ALPHA_PERF_FLAG_RANDOMIZE	0x2
+ 
+ /* For tracking PMCs and the hw events they monitor on each CPU. */
+ struct cpu_hw_events {
+@@ -59,6 +64,9 @@ struct cpu_hw_events {
+ };
+ DEFINE_PER_CPU(struct cpu_hw_events, cpu_hw_events);
+ 
++/* For randomizing sample intervals from the PMI, where locks are not allowed. */
++static DEFINE_PER_CPU(struct rnd_state, alpha_perf_rnd);
++
+ 
  
  /*
-  * Non-syscall kernel entry points.
-+ *
-+ * Between __entry_save_start and __entry_save_end the frame at task_pt_regs()
-+ * may not be complete. perf uses these to avoid reading it.
-  */
+@@ -246,10 +254,12 @@ static int ev67_raw_event_valid(u64 config)
  
-+	.globl	__entry_save_start
-+__entry_save_start:
-+
- CFI_START_OSF_FRAME entInt
- 	SAVE_ALL
- 	lda	$8, 0x3fff
-@@ -473,6 +479,8 @@ CFI_END_OSF_FRAME entDbg
- 	.cfi_rel_offset	$gp, 16
- entSys:
- 	SAVE_ALL
-+	.globl	__entry_save_end
-+__entry_save_end:
- 	ldq	$1, 0($sp)	/* syscall nr from saved r0 */
- 	stq	$1, 8($sp)	/* regs->r1 = shadow syscall nr */
+ PMU_FORMAT_ATTR(event, "config:0-7");
+ PMU_FORMAT_ATTR(profileme, "config:8");
++PMU_FORMAT_ATTR(randomize, "config:9");
  
-diff --git a/arch/alpha/kernel/perf_regs.c b/arch/alpha/kernel/perf_regs.c
-index 33ea2e831ba0..894683851b30 100644
---- a/arch/alpha/kernel/perf_regs.c
-+++ b/arch/alpha/kernel/perf_regs.c
-@@ -59,6 +59,19 @@ u64 perf_reg_abi(struct task_struct *task)
- void perf_get_regs_user(struct perf_regs *regs_user,
- 			struct pt_regs *regs)
- {
+ static struct attribute *ev67_format_attrs[] = {
+ 	&format_attr_event.attr,
+ 	&format_attr_profileme.attr,
++	&format_attr_randomize.attr,
+ 	NULL,
+ };
+ 
+@@ -384,6 +394,22 @@ static int alpha_perf_event_set_period(struct perf_event *event,
+ 		ret = 1;
+ 	}
+ 
 +	/*
-+	 * Exception entry runs with interrupts enabled, so a sample can land
-+	 * before the entry code has saved the user registers. PALcode has
-+	 * pushed only its part of the frame, and the rest may hold an
-+	 * interrupt's frame. An interrupt that nests on top of one taken here
-+	 * is not caught, as its PC has left the entry code.
++	 * Vary each new interval by up to 1/16 of the period either way, so
++	 * the samples cannot phase-lock with a loop whose length divides the
++	 * period. The count stays exact because prev_count records the value
++	 * written.
 +	 */
-+	if (in_entry_save_code(regs->pc)) {
-+		regs_user->regs = NULL;
-+		regs_user->abi = PERF_SAMPLE_REGS_ABI_NONE;
-+		return;
++	if (ret && (hwc->flags & ALPHA_PERF_FLAG_RANDOMIZE) && period >= 8) {
++		long jitter = period / 8;
++		u32 r = prandom_u32_state(this_cpu_ptr(&alpha_perf_rnd));
++		long offset = mul_u64_u32_shr(jitter, r, 32) - jitter / 2;
++
++		if (check_add_overflow(left, offset, &left))
++			left = LONG_MAX;
++		local64_set(&hwc->period_left, left);
 +	}
 +
- 	regs_user->regs = task_pt_regs(current);
- 	regs_user->abi = perf_reg_abi(current);
- }
+ 	/*
+ 	 * Hardware restrictions require that the counters must not be
+ 	 * written with values that are too close to the maximum period.
+@@ -750,7 +776,8 @@ static int __hw_perf_event_init(struct perf_event *event)
+ 		return -EOPNOTSUPP;
+ 	} else if (attr->type == PERF_TYPE_RAW) {
+ 		if (attr->config & ~(ALPHA_PERF_CONFIG_EVENT |
+-				     ALPHA_PERF_CONFIG_PROFILEME))
++				     ALPHA_PERF_CONFIG_PROFILEME |
++				     ALPHA_PERF_CONFIG_RANDOMIZE))
+ 			return -EINVAL;
+ 		ev = attr->config & ALPHA_PERF_CONFIG_EVENT;
+ 		if (!alpha_pmu->raw_event_valid(ev))
+@@ -775,6 +802,14 @@ static int __hw_perf_event_init(struct perf_event *event)
+ 		return -EINVAL;
+ 	hwc->flags = profileme ? ALPHA_PERF_FLAG_PROFILEME : 0;
+ 
++	if (attr->type == PERF_TYPE_RAW &&
++	    (attr->config & ALPHA_PERF_CONFIG_RANDOMIZE)) {
++		if (!profileme)
++			return -EINVAL;
++		prandom_init_once(&alpha_perf_rnd);
++		hwc->flags |= ALPHA_PERF_FLAG_RANDOMIZE;
++	}
++
+ 	/*
+ 	 * We place the event type in event_base here and leave calculation
+ 	 * of the codes to programme the PMU for alpha_pmu_enable() because
 
 -- 
 2.55.0
