@@ -1,60 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793572814;
-	b=1CTaElcUMW2Nt+QfVthcwrKCIgG2j2UsWNTMZtb3MYG7QQShPXlQuB+YWlEp+kJ25h4m
-	 /D0SqelbMjh3GVAUSlx8fOCt2lLF4cO6+P0DNIhM15YyvksmXnEq5q4dMqTjPTL9nj7EJ
-	 ZYEOjgJiT7MroGKrKxN7Tp9B6dhEFiMS8bnU6lcIwMJyNsL9ZLabWUXLEvfjLBU+YsDiu
-	 kgkBfNe2/vDzfd/i+t2+ogOb7cv93Dr15jbJaN1ojufgGhcqQBUSCuv1u07bjvYebJKiA
-	 EhSDS3ZAcXRlgAhlLUFwNktIlyboCdAC0cgg1bKetJl/V2O80cCl6FOZe6t+uIJva8w==
+	t=1793572816;
+	b=alY0N/6ZIinZvWfjr09PNaArrRj7pe2i38hSMUmAX2tmQuztdI8t2W1XpmYwhTYxLlwb
+	 e5DMMZtOF3efV5dG7zV2M2/yFt1bDPEzRBIE7C1t0d66vrBcnfLWgSosdaxWrNLz61WuG
+	 SlufNlhVdgFnIXPsKAIMjAUsFVZEjOhsKQTiooWRbwRzmv4g6fq6M6iqa1YQ6eOzTDErT
+	 D4TVupF083hVpeoYfSFnowoz9yaKBgitz2haH/cQg/loOv0XAz6LxNlp/9u0ehaEQML+9
+	 dDIOWYIKy7bDPGlGvHJWur8OXaHP6K7jmOyaz3sm3jlPCkTdDqZv6ilXFHVyXfGBUzQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793572814;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=zz0SgYmzMlFmYbvywWRdsNJhbZCdEWF94qrr5u2SZBg=;
-	b=ACQUwOqsV761a94dVloihopGM3hvLP3X78ox9zceDWCFFiYYsKlERvETX/9FbDJxBG8m
-	 IyIkPJ+EMZWThrWLQ49ikQ2yrdrbzkutpRNzffl3GEvlW054Sj/v/zLYguELfNQT5nxR2
-	 lt6Kufc1i5BF18sNOIN5HEaueCn4bzeMjjw1+VA2I84RVGI9zV7tMMwxr064Nn9dzuE5M
-	 XU8RLel86Rf24m6P5nzGZOXdKyLAHGc7izrYG9TJVXwiKuk2IDn5J0ebqs21TBxraY97y
-	 3voLK2JaZ1PQC3Vdma8IcihRlwrZRtPQrNRzmegYaHfOYhNbMaFGu60wwoUoLT04cNw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793572816;
+	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=3if99zGsFpoaWlPkVMPbJ3l6rF8wASBCV35D8Ivm+Tw=;
+	b=cu8XDUXqKoi6MMj3AtomWD/PvJQPU08ciLP0jI9ADmrkabqRA+fgnOwAjgdfMPJcFu98
+	 mypWMucCsQll6vpIg9AsiZUb1LbnlvPlklJsKOgmy6L6qfLdY3fX55jmvcn0MuHO9cDJd
+	 rPflq8x8VMXuk3+BYDZUEX9TMPD8W4Y1uaW3KHKTrQQP1oeakJp9cXXtwME6pXiZCRPIB
+	 ssuc1nXVKFj9ndXpx/4osJxQyh4rTe74KIcPuEnZstigY/93vllR4NWO4veOVeJmz1wb1
+	 xntyfUIXz5hkVkNJx6d5Nn+0sp/Wzbl1fxrNXRQ7qQbicVGDZwPGxtef9F9whrBZoww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="GEB8z/uT";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msy09BZh;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EAD2606A326;
-	Sun,  1 Nov 2026 22:40:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2035E606A332;
+	Sun,  1 Nov 2026 22:40:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GEB8z/uT
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CB1F1F000C1;
-	Sun,  1 Nov 2026 22:40:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=msy09BZh
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB9DB1F000C1;
+	Sun,  1 Nov 2026 22:40:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793572814;
-	bh=zz0SgYmzMlFmYbvywWRdsNJhbZCdEWF94qrr5u2SZBg=;
+	s=k20260515; t=1793572816;
+	bh=3if99zGsFpoaWlPkVMPbJ3l6rF8wASBCV35D8Ivm+Tw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GEB8z/uTQp1CRy8jvIiM4D3Tva+bUAi1CqUQ0LJdgHgywDg9ZzPO89IQ2YwunLrrF
-	 nBWDsAqeAwEYkB46xe1aKwLJX3/z+lQNcuikoGXr/s7iAD/tMEsGz8yow3dfHuxrSA
-	 jnGt1Trhrslmy3Pc6x/bog8KFbtwtcoqyubFtmRqiGv80+Gwjww9G6Gh7JWHk/XVul
-	 U510JibNyuI59Yw4IYoDvfGa1iqvUs4M4UtTRoV9PXYmpYrevq+Me1QZEwWFijEypH
-	 yHCbYQo8ScidZSHAePpYaXp8w68yVMG8ulLtKqFEFBBP626Y0Gup3lDRAV8OO0hQt/
-	 86TTR7aRak/TA==
-Date: Sun, 1 Nov 2026 15:40:08 -0700
-From: Nathan Chancellor <nathan@kernel.org>
-To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Cc: linux-mediatek@lists.infradead.org, kernel test robot <lkp@intel.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, llvm@lists.linux.dev
-Subject: Re: [PATCH] clocksource/drivers/timer-mediatek: Fix "no-cfi indirect
- call" warning
-Message-ID: <20261101224008.GA910831@ax162>
-References: <20261101095538.1046918-1-l.scorcia@gmail.com>
+	b=msy09BZhssA6usmKymBv0dLLJ/G+ZdbslQU3LojnIT4huMx6tfrJ2jBNI1H1vecCr
+	 Yf6109z3JHG9OG6DuyMDDqKSXeLR+wIiWedINBXKxV8qwakU+C95PIW9LHYKeN30X6
+	 YXnHuoTuc3M3ON2IdcuU1SVBl/v1+OmxZTuFcEVzFkCgjfY7QxtJXbPRpBaKGmNw21
+	 I/X9vTFbkvAZkENgqLpn/J8t4rr8oXQlcxwpxVeu2CaiT5eZ6rLLDPUgjX9KDo6fq8
+	 LBBoAXJj4aUQHEaO+G50eJgJi0yoE7T+4A/4fMVambXr6Gv+gTO69eFtXUPBh9Nh6G
+	 NNZN6qKFsxkCA==
+Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
+	id 593ED2064B9F; Sun, 01 Nov 2026 22:40:13 +0000 (GMT)
+Date: Sun, 1 Nov 2026 22:40:13 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v3 0/3] regulator: add the WL2868C camera PMIC and its
+ users
+Message-ID: <aue_zSZqx_hsM7c2@sirena.org.uk>
+References: <20261028120442.99375-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,53 +64,42 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="azfLz2Hh5u+PuUby"
+Content-Disposition: inline
+In-Reply-To: <20261031034300.272730-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Cookie: Whoever dies with the most toys wins.
+
+
+--azfLz2Hh5u+PuUby
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261101095538.1046918-1-l.scorcia@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Nov 01, 2026 at 10:55:31AM +0100, Luca Leonardo Scorcia wrote:
-> After converting the driver to OF probing, kernel-test-robot reported the
-> following new warning:
-> 
-> vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi indirect call!
-> 
-> This occurs because of_device_get_match_data() returns NULL when
-> CONFIG_OF is disabled, which results in LLVM dropping the kCFI setup
-> since it knows that there is no valid target for this call. Adding a
-> check for a NULL timer_init avoids the warning and it makes the probe
-> more robust since of_device_get_match_data() could return NULL even
-> when CONFIG_OF=y.
-> 
-> Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202610290223.iOEGeDs2-lkp@intel.com/
-> Suggested-by: Nathan Chancellor <nathan@kernel.org>
-> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+On Sat, Oct 31, 2026 at 11:42:57AM +0800, Qianhui Xu wrote:
+> regulator: add the WL2868C camera PMIC and its users
+>=20
+> Hi all,
+>=20
+> this series adds a driver for the WL2868C camera PMIC found on the Lenovo
+> Legion Tab (TB322FC / "elden", SM8750).  The chip is an I2C regulator with
+> seven LDOs; on this board eight supplies are wired to the camera stack
+> (S5KJNS sensor, GC08A8 sensor, GT9764 VCM, and the CSIPHY rails).
 
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Please don't send new patches in reply to old patches or serieses, this
+makes it harder for both people and tools to understand what is going
+on - it can bury things in mailboxes and make it difficult to keep track
+of what current patches are, both for the new patches and the old ones.
 
-> ---
->  drivers/clocksource/timer-mediatek.c | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
-> index 842d6ee4259e..e772f5fe8742 100644
-> --- a/drivers/clocksource/timer-mediatek.c
-> +++ b/drivers/clocksource/timer-mediatek.c
-> @@ -353,6 +353,9 @@ static int mtk_timer_probe(struct platform_device *pdev)
->  	int (*timer_init)(struct platform_device *pdev);
->  
->  	timer_init = of_device_get_match_data(&pdev->dev);
-> +	if (!timer_init)
-> +		return -ENODEV;
-> +
->  	return timer_init(pdev);
->  }
->  
-> -- 
-> 2.43.0
-> 
+--azfLz2Hh5u+PuUby
+Content-Type: application/pgp-signature; name="signature.asc"
 
--- 
-Cheers,
-Nathan
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCaue/xgAKCRAv73Ows9A4
+ib9SAP45+umsB9CT/sdvyPYwgxPmpvvNnIDEphWcj/z+6QAB9gEA4JsxnIGmlYm5
+5xu1BzZLaGMpjd7eB3h0keQEvCBj5Ao=
+=od5F
+-----END PGP SIGNATURE-----
+
+--azfLz2Hh5u+PuUby--
