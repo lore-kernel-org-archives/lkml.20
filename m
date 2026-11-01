@@ -1,49 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571424;
-	b=NK0Z3CmsIm27d2HJ8lyRr1MOfg949a+lKsu3GvpR1sF7campVKHnDamUJ8aqcuNb6vcv
-	 1G7sC7S9MCvxA6O08iomTvvoqu3vRkIY7mGD5XGokVaPCqZraaTHxKHlLl7nVE/Fn0Mko
-	 F8wVore+kwURo1sZgoAKo5QPxfbT1QBj6vEq+dfj27g1IH8i3QmaAqAeNUBDppUQAy4W1
-	 c9/hapUjntuq0jZhHUmq53uks4XKJYhTIIpBRJ2WPt8KBOWvbKlpsPqFT7KtxqkwVDNdx
-	 XkNNWhq0F3IKndawjv4fjji7qa0WmYZ49wts9UDBy/Yh3ZnT3ar17OsZZP16Ial2DbA==
+	t=1793571406;
+	b=u5InmVy7hs0/x+NT0Lf6kqv8sga8w3+pNPKHp3GcFYj+azawGkMQ8UPWwRLi+XbhXSq0
+	 YYQKVTE70PDTUTJTd/ajcG+6UBfYoQvd4THQehMUJakWG9M2fRs6o31b99QtfM/AgVya8
+	 BNf3LBsYKgOEGW05ebVjvx5/pBxl4Ng/MONlrA0BaBKcrnNfTtil0ya0lEbytIjW4oRvF
+	 1xsU5FaMLprrFePCCIDD2/t34RbSTXhqHzL+0+q9bpjUYdsYodtmDXVylPhmHxehfBoSz
+	 zgHEzt1yWn69hdfRsQAKqmiwuYHRr8xYcw51Qbr8xwZ8k30EsiP2dYp0vp9rQtpDnoQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571424;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=mwQ54c5JkfJpHrp/y55v3+7zzLJcgDNuv3Y/w5BwAbI=;
-	b=FVc7X8dBzPmDvsDt7RV/jlCMI4n5gIEjrPKj9b5sDeZ3zY2wcJE2mv+/nwClEC003vbL
-	 7PmH6joRkftQxNZGCKk4TNF82tHHmKNzlY+QX/tIFPv6AUBix1xE6cCAWZJslDps7If6g
-	 AVkLS1qxQNeURzaJCyfmQLZM22O102upbTj70/TmmmQZa6ymBkwh2W2AcxPGO2t5biz/u
-	 CILjYn6Ra0hkULP/mpGCEdW6MLdHA7qBZIPJfMoTX3H8DZWuvmwuXfz0Z7lO+isLOei+F
-	 AoICQj8aFIUUGi8lAIHQ6QbhrqLvxZW0gG1isNdH3nSM/dgvwzL8Nb4CxXyLkBYbbVA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571406;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=;
+	b=A5mXDglRERla6JSYTYR4LPI3Iy0Q+MZ6gnLH+VkfnwMDK8CHnBLmL8lfHqBaF9d8nGv3
+	 ot8dsqA/0S/WdizcfPrys445iHJNvvlkD5ntLmjz3HdEzcumWj2S4mfLsjomdCYrlkDTb
+	 B03SSqBwonURAaaHCOp7HKNskn4N+t5XM/m0Db0ZK7rTBHmXBmioudtWHuXrmg4BzAFbJ
+	 PHv387zaGchHHfEr1zoPlLTcVTe3omkw81fniBy478MfVVje7hpH0YTygGKoU4uZTTWzS
+	 6TGTiK27voPZxlA/yoS9VQx3Iw1Yjs53gdiVkK3nbr/AvUV3eKyp1YHr5D6Afn0X3jw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiQKvFdK;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E670B6074111;
-	Sun,  1 Nov 2026 22:17:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2016606ECCD;
+	Sun,  1 Nov 2026 22:16:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E2016606ECCD
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZiQKvFdK
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30891F00A15;
-	Sun,  1 Nov 2026 22:17:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571423;
-	bh=mwQ54c5JkfJpHrp/y55v3+7zzLJcgDNuv3Y/w5BwAbI=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=ZiQKvFdKyyD65+V/GWduNoaVFFc7LGWrjAt3G2vakfNBLq64wie4OtAB6Lxc2cPzm
-	 bU/0maqb8ZSvBgayOuYeaQxSaxCKsLoMgcR0LF/TSdCYbGWkbMB7vvPuNFOuveS/zP
-	 8wg3MU06V9Si4ZkuKrfCO0Ch0SRRL/ez40yzZ7d2o2K1HKATkfWSebtBA4Uf51hMa1
-	 VDiUGOOsMjstqnDIzz+e/WoXOWvM82m+tZ4Hh4r3b9RzjGQ4EGqswTPobUzsua9GPi
-	 /7JnHzakObPpyVXHNcfYIHxhdW0rQnaIz0VrOtcSpkTv1hwVH+VwKuImOMK+A0TNCS
-	 gvYlWm4P8QYIw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA3CE38003B8;
-	Sun,  1 Nov 2026 22:17:03 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=p3eIOyeN
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=n3w1Fl6SJMp1kr9973CPt7D/UB+btgvPCLo7vh9GdrE=; b=p3eIOyeNLwKdvGgs0DrdVSQ8AN
+	pIrjanYCEEVzJtZkLgPuQekvVXx/BUa0ZfyE+6Z9T5DGD+P1gkPZoLHl/7w8blOWDd0HAiHdrSbKA
+	C07nlsh2JRBJ6gwFymecy1OJIpZVJLHwnV6Ov78hzlianq2McrvIBDlR7oazvu20VMT7esI7ZOYip
+	YYwScpE5Tf5tf4L/fcgXcMkGFcQ3q+0p2ea/DGT3NZyjGCxItglsSMJEYtNPkNScw2OEqIKyzE0+R
+	eNqyM5/iJGS/8dLRjMKoDfeTZBMxJih72F47iHoaJ95WOQ9Cuf8ppbd/IZK4Bag1wC3t+/plqYb7N
+	ZjnAyqyA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dennis Gilmore <dennis@ausil.us>,
+	Alexey Charkov <alchark@gmail.com>,
+	Kel Modderman <kelvmod@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/2] arm64: dts: rockchip: Fix Orange Pi 5 Pro headphone output
+Date: Sun,  1 Nov 2026 23:16:32 +0100
+Message-ID: <179357139327.4108484.4012953822270877213.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
+References: <20261018-opi5pro-amp-v1-0-05c84e91bf6d@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,47 +69,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [RESEND PATCH] riscv: mm: exclude invalid THP PMDs from page
- table
- check
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357142229.2624073.6074262524879972441.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:17:02 +0000
-References: <20260523042052.35476-1-cuiyunhui@bytedance.com>
-In-Reply-To: <20260523042052.35476-1-cuiyunhui@bytedance.com>
-To: yunhui cui <cuiyunhui@bytedance.com>
-Cc: linux-riscv@lists.infradead.org, paul.walmsley@sifive.com,
- palmer@dabbelt.com, aou@eecs.berkeley.edu, tongtiangen@huawei.com,
- akpm@linux-foundation.org, pasha.tatashin@soleen.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
 
-This patch was applied to riscv/linux.git (fixes)
-by Andrew Morton <akpm@linux-foundation.org>:
-
-On Sat, 23 May 2026 12:20:52 +0800 you wrote:
-> RISC-V THP splitting uses a temporary invalid PMD state where
-> pmd_mkinvalid() clears _PAGE_PRESENT and _PAGE_PROT_NONE but leaves
-> _PAGE_LEAF set so the MM code can still recognize the PMD as a THP split
-> in-progress entry.
+On Sun, 18 Oct 2026 16:35:29 +1000, Kel Modderman wrote:
+> The Orange Pi 5 Pro inherits vcc_3v3_sd_s0 from the shared
+> rk3588s-orangepi-5.dtsi, but on the Pro GPIO4_B5 does not switch SD card
+> power: it enables the headphone amplifier. With the regulator claiming
+> the pin, the amplifier stays off and the headphone jack is silent.
 > 
-> That temporary state no longer describes a user-accessible mapping, but
-> page_table_check currently treats it as one because the RISC-V PMD
-> user-accessibility test only checks whether the PMD is a leaf and has
-> user permissions.
+> Patch 1 moves the regulator and the sdmmc vmmc-supply into
+> rk3588s-orangepi-5-5b.dtsi, which only the 5 and 5B include. The
+> compiled 5 and 5B DTBs have the same nodes and properties as before.
 > 
 > [...]
 
-Here is the summary with links:
-  - [RESEND] riscv: mm: exclude invalid THP PMDs from page table check
-    https://git.kernel.org/riscv/c/bdda2887cbf3
+Applied, thanks!
 
-You are awesome, thank you!
+[1/2] arm64: dts: rockchip: Move SD card regulator to Orange Pi 5/5B
+      commit: 7fad20ae8bf8e289cb6423d68ef4f0d67f4a33c5
+[2/2] arm64: dts: rockchip: Add headphone amplifier to Orange Pi 5 Pro
+      commit: f21e9ddb7415eb60a404297e2a44fa23243fd2d4
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
