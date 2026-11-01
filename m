@@ -1,87 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793528587;
-	b=fwBYoBcRWlSWu4lfGdxJVmopLUeO4Endv+rQr3mhxiGglO3gR4zfRKGg+G5aO91DO2Fv
-	 PaHPkG2y03uvTGLp52j7CPj36BoOb2XBzIqcMGbkwNaf1qKvk84eoFPvkXRcxZLtrGRz7
-	 WJO9ZwADJzppwbnfEdW3I4M6QszJbKx5gjDDAzL4xhiUsVbr2tq4/6McuYOqYciTVx505
-	 xOe/Qm1noo9dmgi3rD44LT6IhfKMkowlzEZXOwhEUX1ig4gpoySZVQx8GvSKEhV+QbTeV
-	 A9leY+nRpUrj6yqTHyPULZ/ajt/uiOVZpr5bFJkp42xkuARa7KEQrqjClosHM60jEng==
+	t=1793528729;
+	b=YLpKPdjIcbOP45vkWRshu7W16qGCnMJkzNPns7v7rPPbAdi71UEbS0wnV6WQf8po85su
+	 FmODZV3hcfiyFKtHh66UGa8oIgV6R98Ocq/MnRxRVALvmGAUeHOw98EJI/R2EuAUwRgTf
+	 XoP6p+Ed5cZ3iufQ7eF6oQqqFN0zDuXvsKp2B5Ux8WFHDQhEh7rLJsw3YQ99wFweG41AU
+	 AVF10G5BT0hZon2HeHkB697sW/mXcFfdUbsVA+g+P9ftz51VmdSNAgxVCWetZORB7Tt3v
+	 hG8UbFPipdesQ9Rmz45mMeu4++sMIiS222Bwji+QR5Ib9um+GpE/RTmCxi3L1+mngRw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793528587;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793528729;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:Content-Language:To:
-	 Cc:References:From:In-Reply-To:Content-Type:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=msvOHl/vwSgu8PRO+tkgo4NL+2qt01hm6ZSBcN1ALqQ=;
-	b=iLRFW0nycytz32fbvSWDMkBAY29Q2Y/3J/P+H2YVP69QUBRK6rvFzXK1ZVtSOXa0qj/p
-	 jPIyXGam1WQQ7YwMYhKScnolbqx+z+Ae8c9Yk/nFYXcq9XgSOAsudIDH1+/L2NBLEapQb
-	 8D+vbBYLNOTSFrNolzdZBLMKTRaFe6LJbIKvXTocLJXrLNTncZTANWR+BbiiDzwa3ObZF
-	 bJcYHNahIFLFcIVHRqLZ0pzYQFPPbHSL5Dml9k7YZkF+AUUfCnAhO+W7m5IN7TZNYKpRl
-	 DpOLQDRLcfunRoaYheVf+mKZMFyodc+qa2VJeST9p/eZErRg1rtmniodyIPRyxjBK0w==
+	bh=paoWbKvqLK3NcbGaFUKJSTzcpwiwtIw5MyG4/oJgE9E=;
+	b=oxfU94hkm1zNs+5b3zNphwJ8GBM6UkR+Q7S7ZJ7xWIy+GvP7eIH02Amrd9iwrQZlWA7G
+	 Kr3XD166wk7DhJdhgtCxmWOw49FInFZk2aagDksPQmhia0mZR3fNTrYPKOdZ/Zo4QHWyt
+	 Yo2cLDTB4LYy2G9hC2C1tZpZurt2kATARQ5Pa7q5BB7OvNQNlCAGDzROJbxfCbDpDvfSc
+	 OucbMijjKlPXjPeQIYiPNDTBYeKIyn9V9NnAMOIKWpCDvTlsCkK9wFd4D3Hlz8BizEOp+
+	 WlgEMFgTKK+0SqVmSV4AFqotD4hk2dCyJ5ToWO1JnXi5Fz51EMtgcvlyf2DzMIl/dWQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=blackwall.org;
-	spf=none smtp.mailfrom=blackwall.org;
-	dkim=pass header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=IbBQEbE7;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PkQZ+XJN;
+	arc=none smtp.remote-ip=74.125.82.50
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7437C606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:23:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7437C606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91D9B606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:25:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 91D9B606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=blackwall.org header.i=@blackwall.org header.a=rsa-sha256 header.s=google header.b=IbBQEbE7
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so15434375e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:23:06 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=PkQZ+XJN
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2761c69fbso2621688c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:25:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1793528585; x=1794133385; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=msvOHl/vwSgu8PRO+tkgo4NL+2qt01hm6ZSBcN1ALqQ=;
-        b=IbBQEbE7feKVZTBcHrbcmXeLAJoNrm+yN//hxFKgtmcm3daxC97LETn7Po6C6wjVOI
-         n7OAsHkd4fJTGHumh0e7J5PQSfLnBEgMt+twh8xAhLbGWA4AW3iTvM8JJ/VOL2KpNifz
-         flc0/3HDjXu7SPviS92yKsjlzUhMDMbeupymAhrZxJioYV0qg5eR2w3pyXvSbbzTpCJI
-         R2X6mgOW5hwasaKBXsGaw4zKdZ9rfT+QFixNR4rT+Ylth8u6GCa+71rD41AMZ7HlHSxl
-         Fb4MrOXS3sd6t0Z96W6k4xi2g0HwPJ9uZEXvpLCKYZZ01ROU7TX/WCCy40SjRjBzVnzD
-         85Jg==
+        d=gmail.com; s=20260707; t=1793528728; x=1794133528; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=paoWbKvqLK3NcbGaFUKJSTzcpwiwtIw5MyG4/oJgE9E=;
+        b=PkQZ+XJNbnFgVlIDTRSgVWtEJWIYgUuYr996WYpbTC04fo+/qKtNRMvi44xHQJ9/6D
+         P5XqmOJvq8Lb3QV8R+LLJm8W5KYnS7jrkIlHy+S1tLmCMBbktNcUxvz+EfJSUd2xLS8W
+         sl2+LYM6Gv6lSw47at6Hw7PIV5t26I4p7gO8oDaBOkgyRPjfEBbbkFvEdDpL8e0kl+FH
+         v6k1VdQIIQQuqLwqW9K29sO9CAyckMwfJ0Jk9FHv2Th8o6u1+0G6uvPv2PTGgUv1dcrU
+         ho7nre1YGo59y1tGRehJ/PCO6GGkD6rlOx/XDfh67cfzYFeW5ybFUpp0vi+8Uorpb03a
+         iWBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793528585; x=1794133385;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1793528728; x=1794133528;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=msvOHl/vwSgu8PRO+tkgo4NL+2qt01hm6ZSBcN1ALqQ=;
-        b=ZhEW9nnJYtR8s1fvQ90kHvgjqKGOAscLrepLYeYspOJCirzRMUNna84suu4NWJq+9s
-         cCkCdC9OOxiknRmlbSfnR6OWNv+drqlLS1Av9BOMIZMRLww25aNRfg+70NIcQQ9vOESf
-         7ipzfAeR0CdjMbYxqWM9hwArJxm6YCxM9JUHzbWXdyOJTG5P7b7FFrz7/1cSsk2L5cDE
-         IgW6vMro+gGkdnxSce1F42njYKW1OdHPplttuSnjBYPiegZzxVixfsmJrnz9onQcJHIx
-         WbbI4PmCwn8jKzpZrW58lZl8XbRG1CtCfXJMAez8wmobO4bQGqSg0qiOm5gxve3uu87U
-         9Pbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxEhMLCEADfn48wXXs2DeYfeG0ZpJnNbhZfroezBGcQRcbTzS3y2ZYN6kO+P16M21XcUfUfUmFoJsu3qyA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJHsMPIHUgiRy3/EXpxUiQAlvUWFwthuXaQW+QyeK65BecfZEB1
-	bHdN2q8X/a/Df4awWdjWRBVKKVLvkbUCrLdTX7u3zstKfxr+wCjAww0mlW8qsu6vQtQ=
-X-Gm-Gg: AYBFou1Y3r2tVwmfR5GkKjcKp+tPEZPTV8qAsGQLBH93tFNjnBsXZhPbpRcbp8JdnoD
-	QnY02vSdYv+X9iWrc3oPyV0KfHQqQz1KDjud7MQelvw8NJA2jB2+AyFlizT6djVJDLQaBCBR2sV
-	5utEFn3pOVQjgAP5kVdEg0EyMlIcy4kXjrLdTHs2VuZdLqRZyzIsokWMXFFpkhNDEkN+sXvUtkp
-	nTgTAzzY7yfhoZrKMTQrSmb0F3GalakcmRcIjiAEPWiTDEcbcD3YgTpZU/ATZEWHjXon2OV72e5
-	59g6pET68XQrLasnDQucke8q6XLRHEVY7lYvclOiO5LEYOw6qSmndRhDWQL199coYf3t3/3Q23l
-	qos1V3of+ZYRXrEVFkfsG4qfu3zvnAlRj/rowbMJRieZnGps5Pt5BS1pFqFVRQqFiqc9mzyGG2M
-	0Y60NrkU3MI/p8+QAlxxvXs2RggQ9EX0UGWU7HN2K92Wdsh9fwqmj0ckuLLc25OduMcNppR96zp
-	ERuaOLL+1CxJelxoi0KbFdvqzoh7rV9+QMiEeVK3WRDPtpTsecx0dLkR0kM4Dsp+uyoJuALrMiJ
-	5HRuUNai1a6RVHE2gOC7zl3yb60lTHPIsh4l/weHAtB+raZC+xXTTOepcg==
-X-Received: by 2002:a05:600c:46d2:b0:4a1:7ec7:a479 with SMTP id 5b1f17b1804b1-4ac1980118cmr155693645e9.33.1793528584150;
-        Sun, 01 Nov 2026 02:23:04 -0800 (PST)
-Received: from [192.168.0.161] (78-154-14-127.ip.btc-net.bg. [78.154.14.127])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac0a66caefsm151902005e9.5.2026.11.01.02.23.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 02:23:03 -0800 (PST)
-Message-ID: <f7e54e22-c117-455b-9bfb-9dc728dce740@blackwall.org>
-Date: Sun, 1 Nov 2026 12:23:01 +0200
+        bh=paoWbKvqLK3NcbGaFUKJSTzcpwiwtIw5MyG4/oJgE9E=;
+        b=nEmLmUqT/nrdblD9bzJJO9U+2VraypFeNl2v/Y+1iummVlnC2KT5NSES1/ku2OknhT
+         X1ojdNKmSYZihI5RMiSZO9gVzi6ZLGBKbwYSXOIHy0v2KgvAUyl16Y6g/tH2ZC23WmHp
+         kR3hjrSjDsbV2kuP2oXjPVZMTrrjn+fNXfo9RiJafaRLWmnyFuIDFLs+3+ddel2VRYf7
+         ytr6WiWiNe3s507HrX47hlmAgCbF6FXfNvTIF2b/UNdhUca4uH4k3045qwgtErihZfAX
+         RkVJLIhMqH5gHtMyp5ev79Hvt3hRzk3WHg0cdqSDuHrV4ctSQ/TlfiQ7ZALsGV0cK8Zn
+         rqng==
+X-Forwarded-Encrypted: i=1; AKwUvBzLbDzrFgm0WzmOay7CqKTbyeytTeUK0Sg9bY65n8FObK1wWlnxAhbYEJnCtb0gcCHgKF3+ydJXrt4Wze8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIlPHQwXVjW0w2+PwP3yGebGtmthIWXI/pk/I2ivBhOmEszp2s0
+	7lVn/Eaa+5YhBegZi27Yle4szKsR7EtwnocxLxas+VmFvYabuOyTr/Un
+X-Gm-Gg: AYBFou3V7ZpearkFIxmwzuKu6r1Q6E2J2UtgF2ZyzffuA1IpCfwva9lE4DFZBTxdY0K
+	/3dgq7fOhQK1N0vRnioNoP4t2meSg6YNfmjPx+JPDXIDMvudu6Gmxq5knW3LfAM0l59HJnTAZdU
+	NiXQWm88+TKKmGnuEgVMDsOuGiNgXS2MQI/SbtBJlgEQbE2vuhaupsMD3IqYwsEaSo3yykgK68N
+	+h/jGB41slzdDSUxt3ReOd/2rRQ/medycKq+xCNkRqgb6RRlQjIVRbSbiSeeNLwDunqvK4Q8fDL
+	0U7La255vN2IYN2pZAu3kzfytWAs139f1FONb9iQwLoW2bqLhLsLYhiPrwZYxQ0kFP2x1OEAdX1
+	w6/SfVBjO4Wiqzj5g0D6A4OY1WvQXIIxmMVCa0kpKwPXWC+jSR0s/6kcOtWd31QqdGO0oO4/bLV
+	IyFvKAj7Z8Hv5qA7aZNI5YjQufmKwXAI76TemM+8fG415DVxp9fSs28KTZHwfMV+jC9Llk3naBk
+	8IKLnUDVnhfpCZo5/iu+Howr5EcLoCgkQUfzmz6aPXuW7xnl5pIV3HqQM1ECYMzVXL89K6CDnuc
+	uzGwkbhaqHOX92JHUrBg5g0Ivr+YzD3+M3cxbO8SfmHzE+rNuy4MXQlda9ROCsH//xWveBhQ1iS
+	WkzzWstTlDbW9SXhI4EW1KgQURcLGgM24CNPNZEUTvN5Z1C7wPTAOZy3RISEye3sJeLG77eYL2A
+	sncu3n6z/Iex8vgsFhh6mDExvrAN5LcFi5KTz/c4/Hp/8HyrKLe0JBcKnTrYHLXsm/
+X-Received: by 2002:a05:7022:29c:20b0:15a:9834:73f2 with SMTP id a92af1059eb24-1ac5c5554eemr10126918c88.38.1793528727415;
+        Sun, 01 Nov 2026 02:25:27 -0800 (PST)
+Received: from kapoor.iiserb.ac.in ([203.18.51.239])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1b106edc7f8sm6767163c88.9.2026.11.01.02.25.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 02:25:26 -0800 (PST)
+From: Arnav Kapoor <kapoorarnav43@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Gwendal Grignou <gwendal@chromium.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Arnav Kapoor <kapoorarnav43@gmail.com>
+Subject: [PATCH v4 0/3] iio: proximity: sx93xx: keep the IRQ balanced across suspend and resume
+Date: Sun,  1 Nov 2026 15:55:01 +0530
+Message-ID: <20261101102518.22757-1-kapoorarnav43@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -91,125 +103,43 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v3 3/5] ipv6: restrict mld_qrv to 255
-Content-Language: en-US, bg
-To: Jiayuan Chen <jiayuan.chen@linux.dev>, netdev@vger.kernel.org
-Cc: stable@vger.kernel.org, Fernando Fernandez Mancera <fmancera@suse.de>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, David Ahern <dsahern@kernel.org>,
- Ido Schimmel <idosch@nvidia.com>, Thomas Gleixner <tglx@kernel.org>,
- Joel Granados <joel.granados@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Kuniyuki Iwashima <kuniyu@google.com>, Maoyi Xie <maoyi.xie@ntu.edu.sg>,
- Gerd Rausch <gerd.rausch@oracle.com>, Oleg Nesterov <oleg@redhat.com>,
- Chia-Yu Chang <chia-yu.chang@nokia-bell-labs.com>,
- Yung Chih Su <yuuchihsu@gmail.com>, Wyatt Feng
- <bronzed_45_vested@icloud.com>,
- Hannes Frederic Sowa <hannes@stressinduktion.org>,
- Flavio Leitner <fbl@redhat.com>, "Paul E. McKenney" <paulmck@kernel.org>,
- Petr Mladek <pmladek@suse.com>, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261101061331.286404-1-jiayuan.chen@linux.dev>
- <20261101061331.286404-4-jiayuan.chen@linux.dev>
-From: Nikolay Aleksandrov <razor@blackwall.org>
-In-Reply-To: <20261101061331.286404-4-jiayuan.chen@linux.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/11/2026 08:12, Jiayuan Chen wrote:
-> net.ipv6.mld_qrv only has a lower bound, but ipv6_mc_reset() stores it
-> into the u8 inet6_dev::mc_qrv, so 256 wraps to 0 and the first MLDv2
-> Query received on the interface trips the WARN_ON() in mld_update_qrv():
-> 
-> 	WARN_ON(idev->mc_qrv == 0);
-> 
->    WARNING: net/ipv6/mcast.c:1327 at mld_query_work+0x1fd2/0x2cb0, CPU#3: kworker/3:1/2688
->    Workqueue: mld mld_query_work
->    RIP: 0010:mld_query_work+0x1fd2/0x2cb0
->    Call Trace:
->     <TASK>
->     process_one_work+0x93a/0x1b20
->     worker_thread+0x6d0/0x11d0
->     kthread+0x358/0x470
->     ret_from_fork+0x5b3/0x820
->     ret_from_fork_asm+0x1a/0x30
->     </TASK>
-> 
-> Make the sysctl a u8 like mc_qrv and switch to proc_dou8vec_minmax(),
-> which rejects anything above 255, and document it.
-> 
-> Fixes: 2f711939d2ea ("ipv6: add sysctl_mld_qrv to configure query robustness variable")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-> Signed-off-by: Jiayuan Chen <jiayuan.chen@linux.dev>
-> ---
-> v2: switched to u8 and proc_dou8vec_minmax(), as suggested by Kuniyuki
-> Iwashima.
-> ---
->   Documentation/networking/ip-sysctl.rst | 2 ++
->   include/net/ipv6.h                     | 2 +-
->   net/ipv6/mcast.c                       | 2 +-
->   net/ipv6/sysctl_net_ipv6.c             | 4 ++--
->   4 files changed, 6 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/networking/ip-sysctl.rst b/Documentation/networking/ip-sysctl.rst
-> index 4b19c8d3efda7..71f334f27004e 100644
-> --- a/Documentation/networking/ip-sysctl.rst
-> +++ b/Documentation/networking/ip-sysctl.rst
-> @@ -2515,6 +2515,8 @@ mld_qrv - INTEGER
->   
->   	Minimum: 1 (as specified by RFC6636 4.5)
->   
-> +	Maximum: 255
-> +
->   max_dst_opts_number - INTEGER
->   	Maximum number of non-padding TLVs allowed in a Destination
->   	options extension header. If this value is less than zero
-> diff --git a/include/net/ipv6.h b/include/net/ipv6.h
-> index 3de07e738538f..4901a92066e61 100644
-> --- a/include/net/ipv6.h
-> +++ b/include/net/ipv6.h
-> @@ -205,7 +205,7 @@ struct sk_buff *ip6_frag_next(struct sk_buff *skb,
->   
->   /* sysctls */
->   extern int sysctl_mld_max_msf;
-> -extern int sysctl_mld_qrv;
-> +extern u8 sysctl_mld_qrv;
->   
->   #define _DEVINC(net, statname, mod, idev, field)			\
->   ({									\
-> diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-> index ecef55f261890..13f31132e0f97 100644
-> --- a/net/ipv6/mcast.c
-> +++ b/net/ipv6/mcast.c
-> @@ -106,7 +106,7 @@ static int __ipv6_dev_mc_inc(struct net_device *dev,
->   #define IPV6_MLD_MAX_MSF	64
->   
->   int sysctl_mld_max_msf __read_mostly = IPV6_MLD_MAX_MSF;
-> -int sysctl_mld_qrv __read_mostly = MLD_QRV_DEFAULT;
-> +u8 sysctl_mld_qrv __read_mostly = MLD_QRV_DEFAULT;
->   
->   #define mc_assert_locked(idev)			\
->   	lockdep_assert_held(&(idev)->mc_lock)
-> diff --git a/net/ipv6/sysctl_net_ipv6.c b/net/ipv6/sysctl_net_ipv6.c
-> index 1a0a36dcdabc1..f3ac04dbc71d0 100644
-> --- a/net/ipv6/sysctl_net_ipv6.c
-> +++ b/net/ipv6/sysctl_net_ipv6.c
-> @@ -226,9 +226,9 @@ static struct ctl_table ipv6_rotable[] = {
->   	{
->   		.procname	= "mld_qrv",
->   		.data		= &sysctl_mld_qrv,
-> -		.maxlen		= sizeof(int),
-> +		.maxlen		= sizeof(u8),
->   		.mode		= 0644,
-> -		.proc_handler	= proc_dointvec_minmax,
-> +		.proc_handler	= proc_dou8vec_minmax,
->   		.extra1		= SYSCTL_ONE
->   	},
->   #ifdef CONFIG_NETLABEL
+sx9310, sx9324 and sx9360 disable the interrupt in suspend before
+anything that can fail, and don't enable it again when suspend or resume
+fails. One patch per driver, as the Fixes tags differ.
 
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
+Changes in v4:
+- Enable the interrupt first in resume, so resume mirrors suspend
+  (Jonathan). This also drops the sx9310_wake_up() helper from v3.
+- Drop the IRQ 0 wording from the commit messages (Jonathan)
+- Drop Joshua's Reviewed-by, as resume changed
+
+v3: https://lore.kernel.org/all/20261028220444.70121-1-kapoorarnav43@gmail.com/
+v2: https://lore.kernel.org/all/20261026112342.65917-1-kapoorarnav43@gmail.com/
+v1:
+https://lore.kernel.org/all/20261026100322.16720-1-kapoorarnav43@gmail.com/
+https://lore.kernel.org/all/20261026100408.16874-1-kapoorarnav43@gmail.com/
+https://lore.kernel.org/all/20261026100450.17023-1-kapoorarnav43@gmail.com/
+
+Compile-tested only (W=1); I don't have the hardware and haven't
+reproduced a failing suspend.
+
+Arnav Kapoor (3):
+  iio: proximity: sx9310: keep the IRQ balanced across suspend and
+    resume
+  iio: proximity: sx9324: keep the IRQ balanced across suspend and
+    resume
+  iio: proximity: sx9360: keep the IRQ balanced across suspend and
+    resume
+
+ drivers/iio/proximity/sx9310.c | 32 ++++++++++++++++++--------------
+ drivers/iio/proximity/sx9324.c | 28 ++++++++++++++++------------
+ drivers/iio/proximity/sx9360.c | 30 +++++++++++++++++-------------
+ 3 files changed, 51 insertions(+), 39 deletions(-)
+
+
+base-commit: 2ef6f5c4ee56e90c237c5f7687f09e635f7d30a9
+-- 
+2.53.0
 
