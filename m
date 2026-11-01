@@ -1,112 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793551639;
-	b=s1bBgNInbFgaTTMbkxK6yfQ7T+rroHE/bukobNy9MwSR8HF7CvoHvz1rOTtHSnoA6ign
-	 vuY5w/TU487Ln+B6JZ2yb+kHC9ZZO93Zm4YjqNhEzvtRmC2Z9UeoveJPNTD85yGfEziS7
-	 SF8nsVI6X1u9SGbvnDrSE7MSqVA/kTOq2xEe/crZRoFC6XMU8gGozrwDVXxQq+ryDyR4E
-	 T3bPiZlufJDpacu+AIknvOPf61QHcn6bj8nVm99SACwjD3Q+9RXvJQieJhO2NhNznssEn
-	 So8otsu1+zALrN4eD+f5IlI9TZwxtyZVs4GZnnjV0aah5/4p52y6H8bISZYSCLlcpsw==
+	t=1793551640;
+	b=SYSKvRVUkxkih1SWWeqQ/KvQRZreP0B7K75A0INxfbhJihoAfQtPGrpVI2/rgc1XmK+2
+	 yDIG7oy+JxGZCznv6/Q3iAaJPfMwgJX31oWumBoMNljD2th7OSdWZOH3yF8Ru7o8gLjYU
+	 QyhA5XSAGXR79pVgE1jhKFPTBYkxiFsT2UOYssrjpakRu/c9jFWKYtfwyjm0yzUlsPEcJ
+	 tbNIwoE/vv1cCUDqdlW9ntdmYrkzOTG5Zj8dWeUmKNTZyZ+cQTcxyawZM8+eqnjEwF7bO
+	 wUAeMBmrRK5OX89W8XHsaFJ2wjo8g48l067/GgaSgYUacs+wLSU91rfJx498WoXl5xg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793551639;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793551640;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=VG7KpqUth9C7vUEstwvVTw+ImzZPQG2lv8IyeNq6Cjk=;
-	b=gVtWAzFVXiBm2/sIELt6RTrJSOsjRG2ZRxHimrWQB9LsFfl8gnDHphsh2EdRaCMaOB5f
-	 JwUecY+/H7nsGEgT9B/fcGQnIde+EYOfN20+Ks0vQHwTqKZfVZSb0Uvb3gkTVDxTbw2Tj
-	 yFMOBMuclD746pF8T9/4q+VYnTp0KWuJKpFz2rjEckKESHmKTVxz4XMGPKnQYbEojC1TB
-	 GEmtaaK1tFjB31KjiXaqPAQ5qoXwDkyyf/R5J94xeYzQyZKayBILMPtmKb7r027qseZH5
-	 dRGhVUMht5g2wem74PneNoV3Tvmuh6X24yeSRB210RAvEFEMpdy1XpAOkMFpF6N6XRQ==
+	bh=+QmBRgJFhtFLO88pUA9+jvHOb9ztG8eZY/mf5WUdXt4=;
+	b=fhygw84Df2u+FZ0F53/oW7o6Guo1XCdScZVjakY1BwTB5rCrb+52dIslmK1U+qtBqc65
+	 PDaH/wkL6C/O1cZDcOXKlNw+BHcwRpNqDlcowqKjxQEEf6VljKI+BLpbp1g1ijTyIOd2n
+	 pr4zyyg5hwAgehcv19BFeW3GFoCTVQl6GT9IRwZI3eBaidFYUvXPIG90vdUozIZNYBuZB
+	 fPJaBHWimF7//aOJYYJ42SUOmhqD4sp4/5RoPpIANbWiLAk7tvAURZZlMCeeIPSHM5WEJ
+	 NhXknrww/yBbXtKpzEHLefnCt9xfm+E7j5LoOJ1NWPMxYJl/4zQEoCM+MaO/Rn9h99A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bairaktaris.de;
 	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=qHbb8Dnd;
-	arc=none smtp.remote-ip=209.85.218.49
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b="n/F12gFP";
+	arc=none smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 745C8606A33E
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:47:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 745C8606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F71A606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:47:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9F71A606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=qHbb8Dnd
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c247f6687dcso391875566b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:47:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=n/F12gFP
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6b3dc272dcfso2951427a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:47:19 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1793551626; x=1794156426; darn=vger.kernel.org;
+        d=bairaktaris.de; s=google; t=1793551638; x=1794156438; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VG7KpqUth9C7vUEstwvVTw+ImzZPQG2lv8IyeNq6Cjk=;
-        b=qHbb8DndBNkVx2QJ7r39etzM4CIhvAGCMvh6rxVzQoGgdVYQY6lF1iYcaB4IbUo4l+
-         umlbmHPZyVDMH8VXL2wTcsHoEWbh972ZdwHdcsSuU0v7RMxPsJ5XyUY/UGRXLJI9f7BQ
-         h7FEc481LzN9aZDCnU5zqghTIVP5jE36Pobc5+G0vSFmq/F/s9p58f6PQxxpzbgd5D4b
-         oqxIpXhbwOJY4wEyvyNvg2Nrjhsqtw14938jbp4hDdVEC9WKGvm3A3lKWzUxFbZkV3YN
-         PnDJ2upx4J5bIsazOt/bZlN2uhCcl5hXZS/vFtAZWGqZ4FZJf8Irabf6GN+oJcnbBsql
-         dRpg==
+        bh=+QmBRgJFhtFLO88pUA9+jvHOb9ztG8eZY/mf5WUdXt4=;
+        b=n/F12gFPVpxFWUK+fqF6mtxqvv8ZkCQuy1esRW7YgZCTYmcKkXX4Gx2WalHux3tzjS
+         4XnRIFo6Z+LMohQ2yzQWmLnIEdvnSRYVkP+y+ls/h4l28/Cs27L6MX0X5CnTJs/QyrBv
+         N3wq7+kPMvLcdIse37nOggR8G6dYvcprDknykO6zxzCAlNclKhzAhjcnsxFd+gh7E1JB
+         4WXNG2Er/es1rZB9/9EYBuzXKxcnDKAwXp1JELXoDQvnZDIj9fcKWUoIAOM8q+6MQlDS
+         pvb3loY5rqWQdxgnwbgI2LC6yD992IwG8viBoQ7dy309bjnOzZR+pKOVXmSIDCM936KZ
+         nRQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793551626; x=1794156426;
+        d=1e100.net; s=20260707; t=1793551638; x=1794156438;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VG7KpqUth9C7vUEstwvVTw+ImzZPQG2lv8IyeNq6Cjk=;
-        b=VvcYa5sEnvPMS1bnvEHSls2CO6Jdhi5uWkplSVjkssBntdWgYSyomK5y5KhFu5c5H5
-         2TFt7ZYWmI3zXWwr9QHPVrjs49VnWQfJPFkXSDXQLyZA80U1OtbgVHpd6q+7VoevAW6U
-         7cGkSpg7/AX7L5GQHV4JQkvJMKOiIDa4exbk8nqMTA6F4uZ8Egj46eU8iyJ3Iji0ENji
-         1U51w8q6ZdlU8dxORx5QJuiofGLNTgLJnfOlc6aKjFgimQEsqqXeGBgJAT5vZao6fbYh
-         Js0rjEMoDUFPtltJK8vnjWrdVPZyUb7q6ZnA74Ny2x1VM1adgp4uFRuB6qIZOS52Cqld
-         5K6A==
-X-Forwarded-Encrypted: i=1; AKwUvBwr8og7QjlL2xAOjmx085vx8TLIq7Hmu+QUIMq19MpnHoMOWFeF75gUxIzNyJyuL/jQOMYTiTDqTe40cwE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLxR3AP4MUjyr68WetLL1Jqtl+rgLatvtJTHZHB9raAz8Bgut/q
-	KBKqRv9R3AMkrh73Vk18i+bsgnVcOIiQBf7B+W3SN+Lauc0N3KuHFJyfEKrfVOITtA==
-X-Gm-Gg: AYBFou0vE8tI0Cgy0pibiZd0AbxN0hXJZStE6afzY7yoTN7nvY4ft/As4AVJgfkBAUm
-	RTshmenJDVrjTU8927YOuGdS0uJJapMvPyJEwPXrqHIFcoPGQHJJnCWefDtP7QTM2Rgf51AC2wb
-	RshmSrWMFZ/FL20Q8NcDYCZMxhZ4AUk1yEV0/ujMVP+e6OIcIke1hFoy5f7K4tQtDoGcogWayU+
-	tbDIrWTvgYWJHk4P9aSUUqDit0ketons0zlxIQpFjl1hIgLSjt86OVX2lk3E1yL3SobppdCSuW2
-	cXk5wTNostvmxWynUxrWXPNhXQ0WCDvl0FWD1rdThpXR48OkcymOp1ca81B2/fcGTKBv5GHjdgm
-	VYtBxToRLs4t/Mm8fQBLKdI1PcBGvBTwF33Dc3N1uaq18raHHQgD0DgFOJdNKE+lbtBBsCPKaZ9
-	CFVoe1cAqxKz9/On2UcvOlz8jUl5R5UMyR2lbdjvUI4ZdMnZxPJYTn9a1gP53UWT9j2Z7vvfqTg
-	B+UUcYF821k/w4Uo+PEpPQXYd4992QcIWJjLGRk2PEOPGRErPTzzbHzvqcoIPhzP2ND1Du0W2FZ
-	KAD3TVppb1HXAgoOeWDJdvksy0UP/Ab/fNMOMulE0oFV3nYcaSY9/a6O3WgjzzSTo2mkRurohwG
-	fZeTEWr3iBtR9Nrq0PIXYH/DfbgZnKu7HETN5OESdEPcaGnxZcQ+DRLhH3q6XMkA3FWEy2+yxgi
-	ecHNWd8ZPeqlbUtSSVOcqRAy3UAAxtmmpIl2POPbC1RwnuNoxGG0olMFeQWR665EvQ1FM5kIe+X
-	ztnwBMxD/bbBvv68rD0OiZkE9ULO+gUANe0U22UkTY2IS9L6ORajVeUx5LaigjdpET1O4FVuN7N
-	lQ4DCzwKVhr9ad/uB2Q=
-X-Received: by 2002:a17:907:9341:b0:c43:eae5:ee80 with SMTP id a640c23a62f3a-c4ca7a09978mr643941066b.17.1793551625975;
-        Sun, 01 Nov 2026 08:47:05 -0800 (PST)
+        bh=+QmBRgJFhtFLO88pUA9+jvHOb9ztG8eZY/mf5WUdXt4=;
+        b=DQQ87ekVGKAhs0nTzvQhpj0gfHEdm/YpyTxtAA8lqxx0F0uzQ1GvqSM8d+A4zBh5cs
+         J2qE7b2n5ANeF2cHbnchgSj8f+/ZjbTic8k8VBCSk9gc/AThrlpbvyZ+l0OebYAKVp+Z
+         hALwXVXHBDsKl3J9o1+7WNjj9+wRSmB/WIRIWALf8ooMyTLqsU94g8/XDvymL7OkF9hQ
+         z5G9AwYjqZU+6TBUKG4gXjQYktzMjs+zsRnyr3GIFUPj8Kn1iVNeBcJI1dqP6+CIY9RJ
+         o/8FNDQsJDdDXk3U7KF8GyJrzFdWNwoIjAq2Y9cNLAFCWd5J2Cs3rDLmaoCLXvsmFosd
+         jsWQ==
+X-Forwarded-Encrypted: i=1; AKwUvByhZzCT+FSdwYX0eXlK3KAkoiszc17AYjUaQRyjErl4tnfB2ypbawMChy8KQUURAsmG5C0VyHwDzUjG8Oc=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+xyvyjLE0NiW+0iKHufFCPrq+ol1Hgs8zrxGvO3ajs2RvGS3ad
+	+Tl9JmnkDWG26J0Oz9zJ8+YFkm7XKwpwkG41L8DhIMerRetsUYp75W/UyNPJ3Ly7Ig==
+X-Gm-Gg: AYBFou17HgQd083cIz15KkK3NSOs2uhQTXVDrUUDT6TsHJCQetuNwh7NgxjTzZOiQH4
+	Q4Fz3R+CkXOae9+cjkwTP5b2z19YlI/pcNNPG3OtyMgm69nTL4PHBuZMnBx95KSaUQ3mtQ1HY/E
+	WNU+ynp6MPXJn7JBr6Y1OfJb+/QvRFM13Sz4qnFRHE/8sQmcHwkoDCVTc/7q+THEpJ8I9e4O0Ee
+	FXDsLDzYWu4l2Mh2S5j2yiBSmkTwW7Cw8OHtkeR/dbfzwljzfX+M6+EJRH3AYMmYIA6+P0EKhBh
+	j9YsQTjBcknKJrQuHe/fLCChBg8yhAxWPAUkUxrD0bcdw2WgzAVNABeh/TlUBRj4zyzDFjy4NsF
+	0SXWYYkDE8C4t6f3AFoE1cEo1y66PYwilY38/eFXVDZImu8D3mVIjN9kdXwQ95xoiSEsWrczG/I
+	jCAKurx7Vx89pQl16wA7mblvqK+8qpchDU4tyxIXJ1Hgh0+bS0Wd9f4rSLPmlfh1mD7x436hVui
+	B20ix9rL7/XmRIgPTYEYN9Bdupw9EOhFHmjbgmIAToB7MwiLSL0CGBayY3IMlUBc3Io+9iN9RRf
+	1IzJPg/SRwJbTEsufi8gYC6rvD5xBjFajz6OTj/OYnuLlUhNiYCWU7sN5EhwlJ2RxkIDxD8gtTK
+	mHha8N19ll48k4X9jY81YA2C7FpjvXSKnZkWqU6CPFg5pimbDkvJIcFq7x8aW696zQ8DRNrX4P+
+	J4KAc06F+7JqAxI3dlvEjyUU8IAVgehQFv/93kxVj85ljZvTnjQE4KWTER/094TU7HQQ+ieprn9
+	mjw23dzxKT1tZ1a5KKBuNIevuZVeH/SODbTAX+6ntCaqbfEIacYh6LPSnBvETSrPXo5gUR96rUz
+	RUkK8vO0oVrkJBmHwas4
+X-Received: by 2002:aa7:d387:0:b0:6b1:ce74:2913 with SMTP id 4fb4d7f45d1cf-6b4d467561bmr3616851a12.8.1793551637969;
+        Sun, 01 Nov 2026 08:47:17 -0800 (PST)
 Received: from Desktop (p54aff790.dip0.t-ipconnect.de. [84.175.247.144])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe1002asm296061966b.45.2026.11.01.08.47.04
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca0f376sm2371248a12.26.2026.11.01.08.47.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:47:05 -0800 (PST)
+        Sun, 01 Nov 2026 08:47:16 -0800 (PST)
 From: Julius Bairaktaris <julius@bairaktaris.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: netdev@vger.kernel.org,
-	dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	steffen.klassert@secunet.com,
-	willemb@google.com,
-	jiayuan.chen@linux.dev,
-	mfleming@cloudflare.com,
-	almasrymina@google.com,
-	bigeasy@linutronix.de,
-	richardbgobert@gmail.com,
-	ecree.xilinx@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v3 4/4] ipmr: do not drop GSO packets that fit the MTU after segmentation
-Date: Sun,  1 Nov 2026 17:47:04 +0100
-Message-ID: <20261101164704.302087-1-julius@bairaktaris.de>
+To: Florian Maurer <fmaurer@disroot.org>
+Cc: Jeff Johnson <jjohnson@kernel.org>,
+	ath11k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>,
+	Vasanthakumar Thiagarajan <vasanthakumar.thiagarajan@oss.qualcomm.com>,
+	Rameshkumar Sundaram <rameshkumar.sundaram@oss.qualcomm.com>,
+	P Praneesh <praneesh.p@oss.qualcomm.com>,
+	Kalle Valo <kvalo@kernel.org>,
+	Muhammad Usama Anjum <usama.anjum@arm.com>,
+	John Crispin <john@phrozen.org>,
+	Sriram R <sriram.ramachandran@oss.qualcomm.com>
+Subject: Re: [PATCH ath-next v2 0/5] wifi: ath11k: firmware crash recovery fixes
+Date: Sun,  1 Nov 2026 17:47:16 +0100
+Message-ID: <20261101164716.302826-1-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <179241583068.3135.17027966387414517090@kernel.org>
-References: <179241583068.3135.17027966387414517090@kernel.org>
+In-Reply-To: <20261101131550.1890062-1-fmaurer@disroot.org>
+References: <20261018210153.1925962-1-julius@bairaktaris.de> <20261101131550.1890062-1-fmaurer@disroot.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -118,13 +113,29 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Should the inner UDP header length be accounted for in the
-> skb->encapsulation branch of skb_gso_transport_seglen()?
+Hi Florian,
 
-Agreed. v4 adds patch 2, which counts the inner UDP header for
-SKB_GSO_UDP_L4 in that branch. With UDP_SEGMENT over VXLAN with DF and
-1404-byte outer segments, a route with MTU 1400 forwarded all 1000
-segments at 1404 bytes, both through ip_forward() and through an MFC
-entry; with patch 2 none leave and FragFails counts them.
+Thanks for the testing and for your three patches.
 
-pw-bot: cr
+> That recovery fails after ath11k_hal_srng_clear() but before
+> ath11k_ce_init_pipes(). The next recovery then tears down the CE pipes
+> on the cleared rings and hits a NULL pointer with BHs disabled (under
+> ce_lock):
+
+My v3 covers this case in 3/5 and 4/5. In 3/5,
+ath11k_ce_completed_send_next() returns -EIO for a ring without a tail
+pointer before it takes srng->lock, since ath11k_hal_srng_clear()
+zeroes the lock with the ring, and ath11k_ce_send() tests CRASH_FLUSH
+before it reaps. In 4/5, ath11k_core_qmi_firmware_ready() clears
+CRASH_FLUSH once the rings are rebuilt and sets it again on its error
+path before ath11k_dp_free().
+
+> I can try that if you don't plan to cover it in a v3.
+
+I will run your crash 10-20 ms after "is now up" against v3 on my
+AX3600 and post it with your three patches on top as one series, with
+your From: and Signed-off-by kept and your Tested-by on my five. Is
+that fine with you?
+
+Thanks,
+Julius
