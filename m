@@ -1,83 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793542533;
-	b=gLV4StuA1l9tAPvS78Ey4ofJdZW7bU+SkAJk1QTl8H3P1U6rk5pPv357zDmBtFmCIudn
-	 RjwIsxLpRZ1k3qB1g3dVOtpbTNpGVfyLlY519JrOZjB7kOaWG+drZ6BQJtkSb9QPWl4R2
-	 OSEV2xBJR64G5nsgovSIvSm10RnE/QpcXx5OTfv7ESrPvKvE6doYeQ+6k2C74sxlA2Jwo
-	 vyORmQMP1toHz8xpu+iwyUtQnfIv1EZza2fv6EY0f1PyPFdM5QWvekAV0ZYhPgo3O0Kw+
-	 f0279FfwwsbVjNEMlv+bQrw8X0R013YvptT/s1OLxatIrgIdPjifXg6Sbj5bbIwseiQ==
+	t=1793542531;
+	b=H/SlPwG+7n2eSVj4xrsr30O0WIMWxwRgGrQEWGliv26OIhvniwjxcZuc/AIh9aiFDmVB
+	 zF3AVpA+CS8EPHR133KFX/3T+HbY/VAYM8EcAIPMh3SPgtCAcWVpz5pkY9zZboxhmc4jq
+	 IVAHHvyWOk70oWnYqBqxO4JkelJt4xkHnZPWfMJCN/vIDCMc3VWrxI63zIKsaPGoQewOF
+	 Tq7c1Mxlvym6LP9GwIDY9jbvnWUbFic9E/EjsBge8JZONxvJBA94gGVo+uCTHCyAoJNlf
+	 A1zc6YYvoX3zEBv1cPj0bVhXnVSwNPH3+9Ec0hJH7zXZTHUpNxrv/AhVfZ8HY+ZkXRg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793542533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793542531;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
-	b=Sv/Bq11/NzSPaxkRq9rLUJDosx6/GNZwdINODwjdfQAONPCC7Vb6zSBnP5uhRTiz8B5v
-	 pGdiaeBtwKr347AU6BJoOwHFkVck12XAvCXqWwFMZF86LLXQmYScRLVcGS39czjVZ9TCv
-	 /v10TjTawDzX7VdFeFEzDz7HYYRTXM5h4Cdux2DbRFwuvQgOcJi0OF/cME1wccPTPNPJ8
-	 k6yXM97+h/OI/meJHFBjlsdvjs4LF/xMvCe9/TsFOSkr3hh3yCdofeYOmU/q0FguFywhE
-	 Ryjz8av5F0Lfz0YfeOZntsSSNwizWTXR5RGyUs2xVkwDjdGG4gW+Nr579S0QSYFjZWA==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=i+HyPC3h0+CjA+c2wC2QKJxSGQ6LFt99JUqVEiYe5TM=;
+	b=1z5tXnw2M6eXgv7W/7TuAXru4VU2ZdljDCiEWJwGZkt0HU78hAW0w/KabcliZryBoPsl
+	 xPaJAkfudhUBSwv7eoOgLTVuf8+BK1whPPcrwV0/JrtWyf06c+RUziDLQuMCTOUoEVapG
+	 Z4Vcl4HCB7USq2INCJWB7bUoK4YMdYJrUK84qy68SPZwzO3lZRb9gfXUKA6GkA3QmQ//D
+	 atSwBcLZiy/lL21Rb2S41xbQBYcnAtrchwTi0waZEjj3gD09hhuNuQ/HDHf4tLK/STz6H
+	 0eGpJEt/sWKS7j+X/dyEoWyn1yIlJtQdfE0UgT6v/Zedr/ImI9wTQz/pjxcLcnlmDYg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hE+tk5Le;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="v/0dqfDh";
+	arc=none smtp.remote-ip=209.85.218.49
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B3A606A330
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:15:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 39B3A606A330
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C06A606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:15:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6C06A606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hE+tk5Le
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c37b612635bso305122766b.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:15:33 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=v/0dqfDh
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c40f29667e6so328768266b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:15:30 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793542532; x=1794147332; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
-        b=hE+tk5Leam7kz4ZKTkBOYn/U8XAqhR+uwoX8FgHVXR95UB8LGxUI+qygLbNQGE7eLg
-         3jqblPI8Kokn5TT6IY7vj17bYWcpr6M9OespfMNJxJ1Ly+S4nB6YTF5FYF3qIcM+jbHx
-         B7APhQF0iWQxtChIhY3TEKNlxf70K2GGFVVyaZCfDksj5CDLm5QPloaBzzPKRnJg/YHc
-         YNsgz5koB4952RoF5P1CEBiQOMZqKGDbM3S9p+AvFZv96GIXF6rfrI/FAOVvoUOUuNtx
-         8PFj1Ci/n+flAtpWnGqIdvDa21jJuj7+ev+lc2dTIoYNS6dqNXYwJpXaHoXIIadtxLcI
-         Ae0Q==
+        d=gmail.com; s=20260707; t=1793542529; x=1794147329; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=i+HyPC3h0+CjA+c2wC2QKJxSGQ6LFt99JUqVEiYe5TM=;
+        b=v/0dqfDh/LLX8QuRh45hi2LGiNbiGbswWBbiecwizZ7IU5+c+Mj8bdNQZs8JkVPT/Z
+         mk5A4AAKTV5wdg8mRDxqoIEHPsbaykj+7nFV329SfGhcfdAtFWx5RBCv1NXQcnfDL3yP
+         +EP5Je/iBDNzFe70NuX/EghwgVSEbDM39NNh4W96uEkY11yLRaR7LD9TGNbd+DocD8zN
+         O2V/TtKTu8g+juww1i8It23ymEObXfH7rIRurTQ2Bylvr8jvYzD/1sGbRgiXlPKE5J+F
+         cz9op2k6jamY3DwOWtxxWrdLKljI9M0a6r8xZs9L7tYIRafDql7+MAbA3NW4a9jBvgBs
+         cKrg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793542532; x=1794147332;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xu7FC3Q8JkhKAZXkmoQyecqo7Y03cSTT/z26JLOH2q8=;
-        b=xhe4584qsUWgrPdLJGih0fu57LXqO0HWt5XV0Kn3hV2eRN/WdevDrKn/7DUZLn7JyT
-         SvoN9NpwKvHLSbVdbZ0n7OauYkl99AjwAPzD0Cd2Of8vnIh8viI/OL+dDGtTJI4zc40P
-         rQ8kyDmqTuB2hdkgM8LFAaB6vDCrTFYlSynLZxevZAd4kBvQjoy77LNH4zeOIGyhCWC0
-         8M6anMb65FMDxP9zNztAb/Ur2zMYZkP1+x9Elta6QXIjvMS/T2T18gkSxGw5e7zp5vJG
-         NdVmiM6FYdJl76Q8OJ0JLobkI7sniYEWsTxletJgT2Q5+pCP4S4y98yhCQz0omqcx9FR
-         Fj1A==
-X-Forwarded-Encrypted: i=1; AKwUvBxxX4tk+GkY8UPj6hLBpL5ENBJSHWaO6v5ZdHAlo+tJdJZTI7rZJoQGiZe+BxCqrNL0QMaeS16uECpZnEk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYK7Rlo96Ynh0wcMTJfa86E1pDjKmMZUTjIf8ZjwL1v6oXKjR/BS
-	1p8Gtu6dAiI98Cjo2zzYe2L8KLYaB2tXYXi6m7r1Tq76kTPxFsAyJpDl
-X-Gm-Gg: AYBFou1m4aPHxnZayiPh0cbwRTAADVygf6keGpvgtip/fZgDOVTnH7F2UL5rXYZ2E9S
-	7iBWaYN3mkfOynSwb/HVIUop44aTsV40rgejB67iYMoUJPFs8dTAVev0DKCvyiDGx7TiKdr5BMH
-	lbXOHi42JlaRmSfLSdDu5/tQJ1WHmABCxZtQLyuXUkI8FUAMioqpgfBZW5+3/UBiHjPrOBaSgBf
-	swO73E6qnQLzAPyewSOODj98lT6/zeQdF7B7pMpoHGwFi4LGYUbQkmCOEF3LAemMk3weDlmKP/F
-	u8aAm3X59yxLRsHRZKrOL9tR6arfcTCzAFLgX/aWu/dRA+pK/9dH5NZo94FRj0ObnQZ0R16TPIJ
-	vtoZl2SCJq7lQTxIXi0efr3gu8cpFb1n7QW1XqYrzoSryR0rnWRoIvparwIldvOrGRjxrlAvrY+
-	ntmVWqhodMgTGvsIvlEkZqwRnA3dG6s+9ZRsImPpsQvwn8wyEo3KPPDma75ABAOWg8NVZMJJeb8
-	nAT2VKLsU3T7OvxgjJ04sMcZAC7m34kisC+0AejwL4TIXv35d2KSnD4Ar/eaR1AnC1PF6l5km8C
-	O2ByzA/TtWHU/TZY3+HsPYOJSjeEv2l82NXJW/9kYetAgxAEKg==
-X-Received: by 2002:a17:906:ef07:b0:c49:cdc8:10cf with SMTP id a640c23a62f3a-c4ca7aa04a1mr633438066b.40.1793542531418;
-        Sun, 01 Nov 2026 06:15:31 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793542529; x=1794147329;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=i+HyPC3h0+CjA+c2wC2QKJxSGQ6LFt99JUqVEiYe5TM=;
+        b=pWex0jjmpiSZ/URrmsfQXMlbQXqH0C2PgK2JCJBgqODSpVexVZb+ZtXkPnd1IRpy7z
+         eBFpkYMFVccQHuYb2J9k+tZf8YTJT+LS/tlXJ+hFqEStFlp8kRzNpAxP2FcbcBB/c8X1
+         nsxDnWWlPu4oSoi9XRpw324Zom3SzsM1o6CQNVU0ifXEIh98BXpg0cBFWR8A3xvbuy8j
+         flOLnUwUrMcVI9ortxBg7pPfZ8Rl0favg+P2GCY3r2IH38p8PPRAlXYetAHaqhkxJOkJ
+         h4IjGBIDqJFJwUW05eZ0d5Lh/gIQfa2bCAK7Oq21DdlAy0tan/GVU1PEOPCqEQBfLj/z
+         tJ5w==
+X-Forwarded-Encrypted: i=1; AKwUvBxEXJWGKjcC9NjRtgGbO4hVamDIj/V+EGsw2xgW1m6kEMF9iomSPE28UUnNlWE2ZbcspK1ZGOWs0HxB4GM=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKvFsO8ArQE+Qc+Ut4pOOF/X+ygVz0xROg8H+7G5tAd71W9pb2q
+	1BDifyaDaGE5yCPkQwHKcLhGm+JK3vAmf1zyKWT4MNg29m8HaXzL0iC1
+X-Gm-Gg: AYBFou1hfLC+50BGcYrv+/gruAcUa9ILYf/7X6KBOohQPpfEe50DLd98cmu3LxEd0Sc
+	msXWP09VZt8ZGvJI89uBEzZRl5yoWLwgjlpcnFrAP7/l6QGxDypeAuEXOB8iP8EJHabKEkrqwVs
+	Sqg7Ti05x2ytkGG+WITUY0rH8HYL7HUjY6xoaNL4coQMN4eDOgtANzU1w/S/TvFX830tduTuNi7
+	/GmUyrnrnde1Lkm2VkLeIS0HV+GK9s4bznPoDLwJNxmg5+X8D0PNfuzvALBDtIJ0/b2E4iVxlq6
+	jLQgT6/swCh2otVVZSft6ZqG6/XKJerj4ZRl61NRfDpolsmt8Mlrgz7h5dgeGaDG1Uc/A1fbSls
+	Ce+a3PhmkSLoPZwt84HtsAHMM0qUN6FSCfmOv/c1V7lTSiyiCbFM57e++yBEEIz54mn/l5Y/eKb
+	XbkiUgRKdjyo3PaufRIXqcv4cu+ghypzRUQTszAtgVJhgc2t2h+oks3769FJYGo4faj/lEXJ0Ct
+	YKD+M7jIFg1C+TvWTz9XxHFQMTHdZzfPoubSri1pf1/JLWtk+E+ZZZvFh3TE17ZCYOLsnC7ZEPW
+	hFwYrnvlSofjpu61nJW8qzOhT2axgRNHPjgh0C7hrTN361Ha5w==
+X-Received: by 2002:a17:907:961a:b0:c31:91f9:60b7 with SMTP id a640c23a62f3a-c4ca7a69731mr631054166b.34.1793542528615;
+        Sun, 01 Nov 2026 06:15:28 -0800 (PST)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc18ec5sm281769266b.12.2026.11.01.06.15.28
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc18ec5sm281769266b.12.2026.11.01.06.15.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 06:15:29 -0800 (PST)
+        Sun, 01 Nov 2026 06:15:26 -0800 (PST)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	David Lechner <dlechner@baylibre.com>,
@@ -97,12 +96,10 @@ To: Jonathan Cameron <jic23@kernel.org>,
 Cc: linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/2] dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
-Date: Sun,  1 Nov 2026 16:15:06 +0200
-Message-ID: <20261101141507.119186-2-clamor95@gmail.com>
+Subject: [PATCH v1 0/2] iio: light: ltr501: Add LTR-659PS-01 prox sensor support
+Date: Sun,  1 Nov 2026 16:15:05 +0200
+Message-ID: <20261101141507.119186-1-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261101141507.119186-1-clamor95@gmail.com>
-References: <20261101141507.119186-1-clamor95@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,26 +111,18 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The LTR-659PS-01 is a proximity sensor similar to the LTR-559ALS-01, but
-without ambient light sensing support.
+Add support for the Lite-On LTR-659PS-01 proximity sensor. This device is
+nearly identical to the LTR-559ALS-01, but omits all elements related to
+ambient light sensing.
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Svyatoslav Ryhel (2):
+  dt-bindings: iio: light: ltr501: Document LTR659 proximity sensor
+  iio: light: ltr501: Add support for the LTR-659PS-01 proximity sensor
 
-diff --git a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-index 20abd7da080d6..85ac3b540c206 100644
---- a/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-+++ b/Documentation/devicetree/bindings/iio/light/liteon,ltr501.yaml
-@@ -17,6 +17,7 @@ properties:
-       - liteon,ltr329
-       - liteon,ltr501
-       - liteon,ltr559
-+      - liteon,ltr659
- 
-   reg:
-     maxItems: 1
+ .../bindings/iio/light/liteon,ltr501.yaml     |  1 +
+ drivers/iio/light/ltr501.c                    | 58 +++++++++++++++++++
+ 2 files changed, 59 insertions(+)
+
 -- 
 2.53.0
 
