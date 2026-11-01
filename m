@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571413;
-	b=cJPAGDYjUH4c07YBMp0DN1q/ojiasoRfOZrLUWWPuh4tZukwHQ/6DOtrDy8wuwYPttdD
-	 F0qbvwWikO8ibilOxrdTNIdsGairSv1zEF1lsPgREUoYvoTzPkwrUYz0d3ysNbUbJNrnk
-	 pcsRqEF7QIfdZ5+wrYoWUuU0kAHHw1lJ0NuiqqFOdDWgsYoOnaKDa7R65KnK9lG/c+XEA
-	 eiiRGffrolsYGH/8ES4liB3IauzXkLt9H4zb1HDtP+ZZ61eTUUiQ7Xjjuxpky2OP+qLBz
-	 0JBNkXfOeue0Q7wIPH5IOxLYPnsS3z0WxieThUplJcFuwQYrcn3PAKKJ9VuvroMo2Aw==
+	t=1793571434;
+	b=Zn2WMrfdR7uoDG6cdtg43Q/EwHQr3KNkAcoDEG0zfj8rLIChQmbkxcZs+Kuyi7pM3ouw
+	 54qW5TkWxM2bjSr3MS4N9v/I5NkJVfzWAbPf/Jj9y/98bkOuMieuzVxmHi22KYhIjr1UN
+	 GTLUAEjfbIyExKF1zxj+jjA1yzU9ALWDcn+a0kp3uogsRh29zJYZ2KxyWvM4f2JSHr2PK
+	 qv0P+E/UrSz/fizrWIOfAuSoSK97zpEYWcYDCOJ25lcBx6UtHne32E7rmpKHU5rzXdTuG
+	 TULyTPDl1MC0EmK8jNxL5rARM+FxUF89AnpcMSjjK4tXh7KOl+lkUdlm1zAfTKgpxUA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571413;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571434;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
-	b=IB4MAXBiR8FZLnTWT74oxcqdFffLdHisVk64rJZPzITvlq+ErT1YNoTVWDBG59FLK+Xg
-	 ymHdw72JcBr3NxhDvgHuWw68TlyTFXim+zj8lqhj9kXJOB4Ojbg9ocrdKlCbRJysqmAc5
-	 TOtw6E08FcV/10k8Gg76Ijzd0KQTMizA01ckh3FM6uf+o99MEhM2aSLbO2ncDntACgcC1
-	 iWeOKQfMB1ZnYf0sRUDoowwzvyxnayYHQxnXaOqueFbfev3Til0WO/wd3RbBD9bDVH3dL
-	 lJmQBfSR068Sty/39RzImkTHQXTZrkqN6be4GQKMMyuSyKiN1p/tBYcojzIgAUjjZPA==
+	bh=cjatygCmxk8XIyEbtr4pyzKJ6E60G4Tfi3euF78nVXA=;
+	b=PJYFLGwy40sd5ZZg5KfKibhhzNoZ+CkH1Wt4VFtSCF3yj8Dfe+qL6Y2KQt9KeSyNQ60T
+	 yT+d8ri1iDLVjVrn4FhFVv9+vH4eAzyefY4AqhMID6vIvqQoxGStPtKpFReLDOFJs8yO9
+	 limKCWjRtleFq1dR79l6FGN5sizV7V8sCp3ALp+6/xtTsOOJc+uqR9gC1TQat5XxeIA0P
+	 QGMPQm3KaThB9d52/hVtt+VkKr/vk6K5mvrSXclwLfIG9MQtIvLx43DfuP31tYQNzUIQS
+	 x6vyBPiABzZqzoTZtfnMJD/BzhnEZAffeijNZxp1RVMfPU5XjIHIBDPcypnx3dNRs/g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B37CRQpc;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52EB6072170;
-	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75D13606F2CD;
+	Sun,  1 Nov 2026 22:17:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e7A8Cvgs
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 499EC1F00919;
-	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B37CRQpc
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AF4C1F0093A;
+	Sun,  1 Nov 2026 22:17:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571413;
-	bh=R/bKUVygQmmrYTuRm9k4uP1auZgpb0gZfWPM2miQjnw=;
+	s=k20260515; t=1793571434;
+	bh=cjatygCmxk8XIyEbtr4pyzKJ6E60G4Tfi3euF78nVXA=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=e7A8CvgsLR+P85In/cqf5teG1i56/z+xxZn3GQOfofjUdlB2fVQynrtbr2W1/1aqe
-	 +4KwOpykFZFbAMOaM2gd0eUFvVGzdZY7aoLUiuVvDUu6K7o5K8USTQ2HqAAFzrsFrr
-	 DPtQmC7Yg02AxB2O9kokMig4jAaS+86VYzru+qxDqTWNMOSwJQzaLkdk0YMWA6tKYm
-	 ++ViQCAvb7sEJHHdUuce9ru34+IY9z5wFevuJnHNlmu/3GQKuNXnqg1yF8GEE8JRVA
-	 MwJYfEpe7fXfDWwyzFoGuRZNcKwUbIW2Xx9lsxy7wL5JanRHWBJckgHxMcV5blV7BQ
-	 Y72Cn2H9f5T5Q==
+	b=B37CRQpcdmmwCy32vZHgPCWMyUptn49raCX3hJZVcxsEUYOsqHqKCUFeSZMmdrHar
+	 P973m1II/ofRE5pnWqeiZvqWMGVRqsLIUP1n1XIX0nFBkKS0IRka2D7KopquB77g6O
+	 Mp/unwfBnH0l1eqg07ua7p0Vs/LC2MTS3vGGD6h6owSUEaRNT6q1AXW/x5xBnzEQnc
+	 EmKj7qUuyXmc8mBTkvUCHpgFrpk8n5Uq59fpbStEBh5xRF1iBXEyBMchINku/sQN+X
+	 GTmMdu6UOejRm4ya75HKvjJSDVBqFLUssCE8lSC7D/wzZYaWR0EmUh/OpuxZjzWe5k
+	 ui1FC15h7AaNQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401C038003B8;
-	Sun,  1 Nov 2026 22:16:53 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 403AC38003B8;
+	Sun,  1 Nov 2026 22:17:14 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,47 +54,50 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [RESEND v22 0/3] Add OpenCores PTC PWM support
+Subject: Re: [PATCH RESEND] sched: Convert paravirt_steal to new static key
+ APIs
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357141185.2624073.8394896290201314670.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:51 +0000
-References: <20260810030714.48100-1-hal.feng@starfivetech.com>
-In-Reply-To: <20260810030714.48100-1-hal.feng@starfivetech.com>
-To: Hal Feng <hal.feng@starfivetech.com>
-Cc: linux-riscv@lists.infradead.org, ukleinek@kernel.org,
- p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
- conor@kernel.org, emil.renner.berthing@canonical.com, palmer@dabbelt.com,
- pjw@kernel.org, aou@eecs.berkeley.edu, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+ <179357143279.2624073.7781801497885838332.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:17:12 +0000
+References: <20260819081207.12150-1-hongyan.xia@transsion.com>
+In-Reply-To: <20260819081207.12150-1-hongyan.xia@transsion.com>
+To: Hongyan Xia <hongyan.xia@transsion.com>
+Cc: linux-riscv@lists.infradead.org, jgross@suse.com, ajay.kaher@broadcom.com,
+ alexey.makhalov@broadcom.com, bcm-kernel-feedback-list@broadcom.com,
+ catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
+ kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
+ npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org, mingo@redhat.com,
+ bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+ pbonzini@redhat.com, vkuznets@redhat.com, sstabellini@kernel.org,
+ oleksandr_tyshchenko@epam.com, peterz@infradead.org, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
+ bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+ kprateek.nayak@amd.com, jiazi.li@transsion.com,
+ virtualization@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, loongarch@lists.linux.dev,
+ linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+ xen-devel@lists.xenproject.org
 
 Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Conor Dooley <conor.dooley@microchip.com>:
+This patch was applied to riscv/linux.git (fixes)
+by Peter Zijlstra <peterz@infradead.org>:
 
-On Mon, 10 Aug 2026 11:07:11 +0800 you wrote:
-> Add OpenCores PTC PWM driver which is used in StarFive
-> JH7100/JH7110/JHB100 SoC.
+On Wed, 19 Aug 2026 08:12:09 +0000 you wrote:
+> From: Hongyan Xia <hongyan.xia@transsion.com>
 > 
-> I will maintain this pwm module in place of William.
+> paravirt_steal_rq_enabled and paravirt_steal_enabled use raw static_key
+> APIs which are now deprecated. Use the new API instead.
 > 
-> Changes since v21:
-> - Allow non-zero duty cycles shorter than one clock tick to round down to
->   zero.
-> - Drop the .free() callback to preserve the PWM hardware state after
->   pwm_put().
-> - Update the comment.
+> No functional change.
 > 
 > [...]
 
 Here is the summary with links:
-  - [RESEND,v22,1/3] dt-bindings: pwm: opencores: Update compatibles, examples and maintainers
-    (no matching commit)
-  - [RESEND,v22,2/3] riscv: dts: starfive: Correct pwm nodes
-    https://git.kernel.org/riscv/c/2186ec5f59c2
-  - [RESEND,v22,3/3] pwm: Add OpenCores PTC PWM driver
-    (no matching commit)
+  - [RESEND] sched: Convert paravirt_steal to new static key APIs
+    https://git.kernel.org/riscv/c/a5576ebce920
 
 You are awesome, thank you!
 -- 
