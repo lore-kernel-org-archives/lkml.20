@@ -1,54 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.51
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793537483;
-	b=vH8XGIj0BBVR8OorbP6+vQ9i+HhaiUPBslHnFHeZwrxRPFo16lGXAxNhHcjtxh2850og
-	 Eofi66R5gs+/16mnATVvCYE3wLQfHkgDrAkjQ4yxqK2+vHVRglLlHSPlYD6PdJNFjc3iq
-	 1PGou9xYyOguculZ7VS2d8qjAyEMRHLPJyjfZ2umegYJGL7XzsBPgu70j3CG/uqoL3870
-	 gexDZ03tM4RQs8RUgm/zBAL042cruyHRftCt07LRFhvvM4OQUlVrxVN4EktkEPT9qvftb
-	 nXCdCAZsrfo2fHMOM2dCkazKJZTiKWUH7IPWd8SZRWKiMut6Hg9STVgN6DG62kLZdaA==
+	t=1793537493;
+	b=yM7503NBK3Sml+1HxYYCapz8ubbxkQY4fEZaMh1damSMPjrXx6/P456c3DAn23LwJBP+
+	 fQmajZ9JD8+w+2vb0EchBBoxLKKWtIs8SL0QWtXjOoe19+Mm0ZH4UgXfpMA5DjiKbD7Aa
+	 7rn0r1AnSOFl2psToMGlhq7lUlUPv1MBv3qlsShViFcLB8weEuMQZmnQ8C9UKIwYteYhZ
+	 wvNOa3AOLDSXcZEj1p+R7Oi3Aeb9ym+xgQnmWXSJf8ksHZNyCFOpQPLoS+bzwXgNn3ITs
+	 P6JoAlaGDOEodggu3mIvJeWBDlNMXT7vl5PSRcHVyjDc5P7iPoyISMcltWKt5PZXLQw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793537483;
-	h=DMARC-Filter:DKIM-Signature:From:Message-Id:Content-Type:
-	 X-Lms-Return-Path:Date:Mime-Version:Received:To:Subject:
-	 X-Original-From:Cc:In-Reply-To:References:X-Mailer:
-	 Content-Transfer-Encoding;
-	bh=bTf75aymh5jBl9eu/8t3zOznHSc9aBSs8jDGsG1P1tY=;
-	b=rDD4rn3COXVtCtcOgZSFgZJ4TXd5rncPOHWVVYTUanU2NBC7Zk1NK9I8iX0rEdSS80aZ
-	 EZ3VC1BOGnb7in0j4I4BSgMiFu2u9OKD7oe9OY6T39P0drJ1ojFzZoc+1TmZW+nNR+A1x
-	 gBYmnePRBXQ61UD/u4fyu2uZcnQREaKRHse9KpfLeQk6/khfV5SZykoNQc1sG66iZnWz3
-	 /mTNaswTjQyGovxVNzVuKUjvldgnjGZLmFDkx+PR43nGx+3oU719SYxeELQtL391UCbNZ
-	 bdrqxN3EkGemY34ScDH3DfGCZDLRrBBRK+9eawIGTqrLgS8L0oAixNP0yB+MmnEwaYA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793537493;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=/yH3sEyaKulpngVkZ8vP3Q7iirhuq9rycYyh4cMRasA=;
+	b=BNPYUEjhJ0bBYewKIx+O7Owgz+tCqOosHMn8C4/p8bKKNse7z70zi/uSJMvtk5tYK4Z5
+	 92BwneHkibYiSRFQuVG1w0atT/ApcdjyEvoX6YG6ePzslTHUmO3SDFOltth+Z9wUGT4Qm
+	 JLgNmYTr20ZTKPj2t1ltZ6RZXvPIVppHjIfdaGy2qnSk9BA7jNaq1xruQtnCLkHHvIpxz
+	 gK4sRAk3qjEg8x41Vj+RmSkJt39q3WY6Iy/V7TkeTU5ZVVZV5/gyFN1+XJigyt2JUXj0K
+	 oOu7vVMO79qOV0PZwNzz8azoLl857q+71A1LT5lJiYk5O6KbD9p/mhHlExXl4o1BadQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=dw1.io;
-	spf=pass smtp.mailfrom=dw1.io;
-	dkim=pass header.d=dw1.io header.i=@dw1.io header.a=rsa-sha256 header.s=lark2403231520 header.b=sdU6Q6pT;
-	arc=none smtp.remote-ip=209.127.231.51
-Received: from va-2-51.ptr.blmpb.com (va-2-51.ptr.blmpb.com [209.127.231.51])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBoDaGw6;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A001606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:51:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A001606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dw1.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dw1.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC060606A324;
+	Sun,  1 Nov 2026 12:51:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=dw1.io header.i=@dw1.io header.a=rsa-sha256 header.s=lark2403231520 header.b=sdU6Q6pT
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=lark2403231520; d=dw1.io; t=1793537477; h=from:subject:mime-version:
- from:date:message-id:subject:to:cc:reply-to:content-type:mime-version:
- in-reply-to:message-id;
- bh=bTf75aymh5jBl9eu/8t3zOznHSc9aBSs8jDGsG1P1tY=;
- b=sdU6Q6pTGdFUiNvz8IAK8o+7wxAQnpL+weLfM5dx470v01aoKYvx6t70phjo3GEa+LQdB+
- J0in4GLb+O7zD3Zpc/tes5MlBsbrEu7kGe0hlxTXlrLoF78+g2MOtzIxOstI0igjeAtgYN
- FyadbUTvfzrkLgatCN+wSN/0LbcQe0Ohg6ENFX43yJhiPPHMZM5BAO1tu+n1UdKA84p1xJ
- 6Lo42L+PBnHbNWv0ekumgAh6Q3SMuNTNL2wBYJRXXtdhjBPQrqdYQrZjv9/2WTQOUCApCG
- CVhtcLF3EpvjNg5P0hbgvYS8726UYpzw69zPiMSLMx4zB48SOjjUqVUjK227zQ==
-From: "Dwi Siswanto" <me@dw1.io>
-Message-Id: <20261101125114.19009-1-me@dw1.io>
-Content-Type: text/plain; charset=UTF-8
-X-Lms-Return-Path: <lba+26ae735c4+e72af5+vger.kernel.org+me@dw1.io>
-Date: Sun,  1 Nov 2026 19:47:50 +0700
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YBoDaGw6
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D66611F000C1;
+	Sun,  1 Nov 2026 12:51:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793537492;
+	bh=/yH3sEyaKulpngVkZ8vP3Q7iirhuq9rycYyh4cMRasA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=YBoDaGw6GW154m6un1pq1EgKNifOYMs5KH2nEoL+1MAqO65VAUuFHjB4B1Jm/wkcP
+	 ognEGG1UiF5LavsOhP3uNR7FQgujIKkRWGiTgclICqoWFjlPm9/zCyGHXrAznjG38c
+	 ELapRiYalHqqFnjT9uRvT+8zw5ctrwK/wIvmmA+aXAZbYU+hyoBjxhIaQHgWiV3Sm+
+	 6E67IStYvv0vGLLXJI95yhXDKzwDEXAYDa1hfI1XV5PsVrvivnVrvX/WXEHLaqLvAz
+	 WS9t/dMG6Sz4BezVxGR240nJZQCjhP5GMHfvD46Jn3E2owUBt/9t3D89f/ULm0VX9A
+	 ULheU/DaoURlA==
+Subject:
+ Re: [PATCH v2 3/3] can: ifi_canfd: enable NAPI before starting the controller
+From: netdev-bot+sashiko@kernel.org
+To: patrzhan@amazon.com
+Cc: mkl@pengutronix.de, mailhol@kernel.org, linux-can@vger.kernel.org,
+ pisa@cmp.felk.cvut.cz, ondrej.ille@gmail.com, harini.t@amd.com,
+ michal.simek@amd.com, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, kuba@kernel.org
+Date: Sun, 01 Nov 2026 12:51:31 +0000
+Message-ID: <179353749137.3127.3654469722382202292@kernel.org>
+In-Reply-To: <20261030233330.3483988-4-patrzhan@amazon.com>
+References: <20261030233330.3483988-4-patrzhan@amazon.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,68 +63,192 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Received: from dwis-macbook-pro.tail904ed7.ts.net ([168.107.87.239]) by smtp.larksuite.com with ESMTPS; Sun, 01 Nov 2026 12:51:16 +0000
-To: =?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>
-Subject: Re: [PATCH 1/3] landlock: Fix layer composition of LANDLOCK_ACCESS_FS_REFER
-X-Original-From: Dwi Siswanto <me@dw1.io>
-Cc: =?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>, 
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>, 
-	<linux-security-module@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Paul Moore" <paul@paul-moore.com>, "James Morris" <jmorris@namei.org>, 
-	"Serge E. Hallyn" <serge@hallyn.com>, 
-	"Konstantin Meskhidze" <konstantin.meskhidze@huawei.com>, 
-	<linux-kernel@vger.kernel.org>
-In-Reply-To: <20261030102411.12985-2-gnoack3000@gmail.com>
-References: <20261030102411.12985-1-gnoack3000@gmail.com> <20261030102411.12985-2-gnoack3000@gmail.com>
-X-Mailer: git-send-email 2.50.1
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
 
-I saw the docs still describe the old one. include/uapi/linux/landlock.h
-says:
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-   * For historical reasons, the %LANDLOCK_ACCESS_FS_REFER right is always denied
-   * by default, even when its bit is not set in @handled_access_fs.
+Critical: 0 · High: 0 · Medium: 1 · Low: 2
 
-and, for LANDLOCK_ACCESS_FS_REFER itself:
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-   *   This is the only access right which is denied by default by any ruleset,
-   *   even if the right is not specified as handled at ruleset creation time.
+- [Medium] In ifi_canfd_open() (drivers/net/can/ifi_canfd/ifi_canfd.c),
+  enabling NAPI before ifi_canfd_start() lets ifi_canfd_poll() run in…
+- [Low] The new open sequence never puts IFI_CANFD_IRQMASK into a known
+  masked state before napi_enable().
+- [Low] The comment added in ifi_canfd_open() (lines 857-859) reads "Keep
+  between the reset and ifi_canfd_start(): the ISR masks the interrupts…
 
-So ruleset that handles no filesystem access right never denies
-LANDLOCK_ACCESS_FS_REFER -- alone or layered.
+--
 
-Also, the comment above _LANDLOCK_ACCESS_FS_INITIALLY_DENIED in access.h
-has the same problem:
+can: ifi_canfd: enable NAPI before starting the controller
 
-   * All access rights that are denied by default whether they are handled or not
-   * by a ruleset/layer.  This must be ORed with all domain->handled_masks[]
-   * entries when we need to get the absolute handled access masks, see
-   * landlock_upgrade_handled_access_masks().
+This splits the IP reset, configuration and interrupt status clear out of
+ifi_canfd_start() into a new ifi_canfd_reset_config(). ifi_canfd_open()
+now calls ifi_canfd_reset_config(), synchronize_irq() and napi_enable()
+before ifi_canfd_start(). An early RX interrupt can then schedule the poll
+instead of having the schedule dropped. The bus-off restart path in
+ifi_canfd_set_mode() calls both halves in sequence.
 
-After this patch, the mask only applies to layers that handle filesystem
-access, and after patch 3, nothing ORs it in at read time. *Someone* who
-follows the comment could bring the bug back.
+> diff --git a/drivers/net/can/ifi_canfd/ifi_canfd.c b/drivers/net/can/ifi_canfd/ifi_canfd.c
+> index 0f83335e4d075..0ff766c7e786a 100644
+> --- a/drivers/net/can/ifi_canfd/ifi_canfd.c
+> +++ b/drivers/net/can/ifi_canfd/ifi_canfd.c
+> @@ -734,10 +734,9 @@ static void ifi_canfd_set_filters(struct net_device *ndev)
+>  			     IFI_CANFD_FILTER_IDENT_IDE);
+>  }
+>  
+> -static void ifi_canfd_start(struct net_device *ndev)
+> +static void ifi_canfd_reset_config(struct net_device *ndev)
+>  {
 
-> +	access_mask_t handled = domain->handled_masks[layer_level].fs;
-> +
-> +	/*
-> +	 * Handles all initially denied by default access rights, but only for
-> +	 * layers handling filesystem accesses.
+[ ... ]
+
+> @@ -760,6 +759,12 @@ static void ifi_canfd_start(struct net_device *ndev)
+>  	/* Clear all pending interrupts */
+>  	writel((u32)(~IFI_CANFD_INTERRUPT_SET_IRQ),
+>  	       priv->base + IFI_CANFD_INTERRUPT);
+> +}
+
+[Severity: Low]
+The commit message says "The controller stays disabled until
+ifi_canfd_start() unmasks the interrupts and enables it". However,
+ifi_canfd_reset_config() never writes IFI_CANFD_IRQMASK. Does the driver
+know the interrupt mask state in the window after napi_enable()?
+
+On a re-open, the last IRQMASK write was in ifi_canfd_stop():
+
+	/* Reset the IP */
+	writel(IFI_CANFD_STCMD_HARDRESET, priv->base + IFI_CANFD_STCMD);
+
+	/* Mask all interrupts */
+	writel(~0, priv->base + IFI_CANFD_IRQMASK);
+
+ifi_canfd_irq_enable() treats SET_ERR, SET_TS, SET_TX and SET_RX as group
+write qualifiers. A source bit of 1 enables that source, and it masks by
+writing only the SET_* bits. Under that encoding, ~0 would enable every
+source, including ones that ifi_canfd_irq_enable(ndev, 1) never enables.
+
+Suppose HARDRESET does not clear IRQMASK. On a dedicated IRQ line, an
+rx-class status bit that latches after the final INTERRUPT clear here
+would then raise the interrupt. With NAPI now enabled, the poll would run
+alongside ifi_canfd_start().
+
+The ~0 write predates this patch, and the v2 notes say it could not be
+confirmed to mask. Enabling NAPI inside this window is what makes it
+matter now.
+
+Would calling ifi_canfd_irq_enable(ndev, 0) in ifi_canfd_reset_config(),
+before the final INTERRUPT clear, put the mask into a known state? The ISR
+already relies on that encoding to mask. ifi_canfd_stop() could also use
+the same helper instead of ~0.
+
+Neither change covers a shared-line invocation, because the ISR reads the
+raw status regardless of the mask.
+
+[ ... ]
+
+> @@ -846,9 +852,14 @@ static int ifi_canfd_open(struct net_device *ndev)
+>  		goto err_irq;
+>  	}
+>  
+> +	ifi_canfd_reset_config(ndev);
+> +	synchronize_irq(ndev->irq);
+> +	/* Keep between the reset and ifi_canfd_start(): the ISR masks the
+> +	 * interrupts and only the poll unmasks them.
 > +	 */
-> +	if (handled)
-> +		handled |= _LANDLOCK_ACCESS_FS_INITIALLY_DENIED;
-> +
-> +	return handled;
 
-nit: I believe landlock_upgrade_handled_access_masks() already has the
-same "only if fs is non-zero" rule, so this could be
+[Severity: Low]
+Is "only the poll unmasks them" accurate? ifi_canfd_start() is called
+right after this and also unmasks, through ifi_canfd_irq_enable(ndev, 1).
+The same happens from ifi_canfd_set_mode(CAN_MODE_START).
 
-	return landlock_upgrade_handled_access_masks(
-		domain->handled_masks[layer_level]).fs;
+The comment also only explains why napi_enable() has to come before
+ifi_canfd_start(). Could it also say why it has to come after
+ifi_canfd_reset_config() and synchronize_irq()?
 
-Which keep the rule in one place. It matters little if patch 3 goes in
-on top, and 6.12 doesn't have the helper. What do you think?
+The IRQF_SHARED handler acts on the raw IFI_CANFD_INTERRUPT status, so
+stale status could schedule a poll that races with the HARDRESET and FIFO
+reset. synchronize_irq() makes sure the schedule from an in-flight
+handler is still dropped.
 
-Best!
-Dwi
+As written, the comment gives no warning to a later change that moves
+napi_enable() above the reset or drops synchronize_irq().
+
+> +	napi_enable(&priv->napi);
+>  	ifi_canfd_start(ndev);
+
+[Severity: Medium]
+With NAPI enabled here, can ifi_canfd_poll() now run at the same time as
+the rest of ifi_canfd_start()?
+
+synchronize_irq() only waits for handlers that are already running. The
+handler is registered with IRQF_SHARED, so it can be invoked again after
+that point, and it acts on the raw IFI_CANFD_INTERRUPT status:
+
+ifi_canfd_isr() {
+	...
+	if (isr & rx_irq_mask) {
+		ifi_canfd_irq_enable(ndev, 0);
+		napi_schedule(&priv->napi);
+	}
+	...
+}
+
+On the open path this schedule used to be dropped, and now it succeeds.
+The poll then overlaps these writes in ifi_canfd_start(), none of which
+hold a lock:
+
+	priv->can.state = CAN_STATE_ERROR_ACTIVE;
+
+	ifi_canfd_irq_enable(ndev, 1);
+
+	/* Unlock, reset and enable the error counter. */
+	writel(IFI_CANFD_ERROR_CTR_UNLOCK_MAGIC,
+	       priv->base + IFI_CANFD_ERROR_CTR);
+	writel(IFI_CANFD_ERROR_CTR_ER_RESET, priv->base + IFI_CANFD_ERROR_CTR);
+	writel(IFI_CANFD_ERROR_CTR_ER_ENABLE, priv->base + IFI_CANFD_ERROR_CTR);
+
+On the poll side, ifi_canfd_poll()->ifi_canfd_handle_state_errors()
+compares the STCMD status bits of the still-disabled controller with the
+stale priv->can.state, which is CAN_STATE_STOPPED. If BUSOFF reads as set,
+ifi_canfd_handle_state_change() does:
+
+		priv->can.state = CAN_STATE_BUS_OFF;
+		ifi_canfd_irq_enable(ndev, 0);
+		priv->can.can_stats.bus_off++;
+		can_bus_off(ndev);
+
+This turns the carrier off in the middle of open(). ifi_canfd_start() then
+overwrites the state with CAN_STATE_ERROR_ACTIVE, so the driver state and
+the carrier state disagree. In the milder case, a spurious ERROR_ACTIVE
+error frame is sent and error_warning is incremented.
+
+With CAN_CTRLMODE_BERR_REPORTING set, ifi_canfd_handle_lec_err() does:
+
+	writel(IFI_CANFD_ERROR_CTR_ER_RESET, priv->base + IFI_CANFD_ERROR_CTR);
+	writel(IFI_CANFD_INTERRUPT_ERROR_COUNTER,
+	       priv->base + IFI_CANFD_INTERRUPT);
+	writel(IFI_CANFD_ERROR_CTR_ER_ENABLE, priv->base + IFI_CANFD_ERROR_CTR);
+
+Could these interleave with the unlock/reset/enable sequence in
+ifi_canfd_start() and leave the error counter in an inconsistent state?
+
+The driver alone doesn't show whether the IP latches these status bits, or
+reports BUSOFF in STCMD, while STCMD_ENABLE is clear. The v2 notes
+acknowledge this overlap. The bus-off restart path in ifi_canfd_set_mode()
+already has it, but it is new on the open path.
+
+Would it work to move the priv->can.state assignment and the ERROR_CTR
+unlock/reset/enable writes into ifi_canfd_reset_config(), before
+napi_enable()? That would leave only the interrupt unmask and the STCMD
+enable in ifi_canfd_start().
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030233330.3483988-1-patrzhan%40amazon.com
