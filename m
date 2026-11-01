@@ -1,47 +1,81 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793564987;
-	b=ytiZNNi4q0Vho3sIMI/DaUfU3rHeHzFneIGd8ogl6MAzwzp2hLRGMUXYGMMhfeKe7Ws1
-	 nTwgZxe4WZBXIdQ77RiRcZQYJta42La7JoIMJw5RogHjdpDeslK0dYv5olkIrsPQzl6QF
-	 WwnQItsGUzUjnZ8JQhemlkGC6G9jCBx5rt+ab9X1CGAMsMSP87+3EEFwmkpa2D/OY+oB4
-	 tIko4udpuuz8UyqUO+MimU7Fht78kJWm11twTuhh0hfKhdrSWtDeSPNh9EvN0zzL3WX48
-	 /U1+1GItA+GxQmxdlE/01kgIMCghZMuFzwP1k48BOPH3vlKfj9W5sVYYHHBoCgv4whw==
+	t=1793565030;
+	b=BS2ywFk9K9sahC2s8XWa5+3TX7vqfChq79IqTpBGzBG95f6gabEOzkEa/gxp17wd1MZj
+	 KWP1beT5iHSwfpSQ4DWbODvwErz4Df1nnvLrQUxwAe+mWd8aeXz9yd/vMqhbN+C5wiiUD
+	 2/WREJa+AYpg44zdWh61Va3K0UhLetTnbgIQd86bpAQ1ty+CgufMTZjWkdcxhHuxzV+yh
+	 79BUIeUfv5N0Iu55VKrWpbYgDDEbh6/kU1sIhCNJyWwb68eMRgpR0jJk3yD5EhERAD/Km
+	 nRSfI3Y9LfEtuW5HMiZwGhzY4nfCZ/dferwvdA7CqX0kjiPjviQNrCwQ0m+XoxoNoYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793564987;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=tyBCW4dL7dxwpqiq+RaHFPz+hKBl6ALLSIM9B59I3dk=;
-	b=vtnougR4tAkN57wchANwAVLsYxCBRLBv+7pMJWSA0WA6wdePjA7lJFQvT8BZkOJVV06I
-	 7NKsZXWdXlQJDztu4GdJxVswjOfWRXkhVBNPfpqDalChtRDHZm09jOg5fYGtyPudYujff
-	 7EZB4RKLORpKsAEwpcDwCAgoefLMQyzD9biBVCBOAlkSWnu0weJ63ORWEmuJR5jl+QVkN
-	 a0TeDLwIUu0Ra/mM59W+OqftRO4KHLouyHLiIEQk3KYcRpxLLGASS6Y3tTjtSCcDCh9qv
-	 eemWkeT/zbXzZ53w6fxK6R98SwRW+dMsggwiCBX4sl7YQbtXbxA0bK5VfDDsQ9gY/rA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793565030;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
+	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=0PsO3+ixebAi2GeHvElphzKqyCrNVa40RrCbCBR6aoo=;
+	b=VRLeyv4F/a6pwiY4ImxmXTI4otF5PBkbQeKWTO6V4SQJLyMisHQA78QPgYHpct1EH+G3
+	 PNFFTOgMoqVuZEz63vnFjaLB/xgnEDhqThg/ZP69T7CFV6S1R2xPrY8ARgkJ1DEjMQXaH
+	 akRO4Nyd5RhuQDGlqpbmXw+dm1GDkB1FUxLYAOlTk3bYkVhJ/jvhqMfQlOTzP+F+BQbIi
+	 o+xrMrLTu7Poug4Psx7xxHTA+5DZ76r17Usye/gKfSCnWey4EjDekcTCL+gqCHZs++5Ke
+	 OWbQ6GlyI0mavwg/j56McfVuA0SXG4TAjxBgKPXbwNfFWk88rhM697nADex45k/YtvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh0r3ntm;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="FNhsqH/I";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02226606A324;
-	Sun,  1 Nov 2026 20:29:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D38606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:30:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh0r3ntm
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17921F000C1;
-	Sun,  1 Nov 2026 20:29:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793564986;
-	bh=tyBCW4dL7dxwpqiq+RaHFPz+hKBl6ALLSIM9B59I3dk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Nh0r3ntmiuua7iX+B4hCTpkrm6Y1aN65kGtShyxvwFfFy7VzSbltFC3P+ZbETyc1H
-	 8rKbKmxpm4upRgjpauF4op4eiZRr/tPFsCOviHiJ6p7p/9HqB6+BYDK4/qpemt67PU
-	 CXhvr1AHoOakq/A4e8m8prW2m1zIQWDNE4xEkNUHi2LGHaA/Ql9w3mrTfF/y7Q44RY
-	 HxQEXYXHEKsW7xUEmPx6BnFig507WgcIeHHdxKWgE9OpIpj1eDedOBnovAxgh8UPss
-	 q5ExaQkvEKYKqNpCrxPkWD53788S3J6h5fDLOdLq2l7v91AHjHQJNEXMCG8lfUZYKK
-	 UpjyZIhaOHysA==
-Message-ID: <931ef103-d0f1-4f5e-b906-47af4dad6015@kernel.org>
-Date: Sun, 1 Nov 2026 21:29:41 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=FNhsqH/I
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 072E81F000C1;
+	Sun,  1 Nov 2026 20:30:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1793565027;
+	bh=0PsO3+ixebAi2GeHvElphzKqyCrNVa40RrCbCBR6aoo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FNhsqH/IpagTug6CeKHflu48Fz4ATDd8wChHmLe8njQ5/+03LK+0tBXDoXTa3Th2V
+	 hIQBaVlVLG/Gz8HmFg1wV+7NB1ZXY309bBipBw2p+lGIo8IP6VBNnVVTudel8rHFiU
+	 QvTJv97xdnj8Qc6yj2VnFTQFBzF35zYwOsQvWOxM=
+Date: Sun, 1 Nov 2026 12:30:25 -0800
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Alistair Popple <apopple@nvidia.com>, "Aneesh Kumar K.V"
+ <aneesh.kumar@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Baoquan He <baoquan.he@linux.dev>, Barry Song <baohua@kernel.org>, Brendan
+ Jackman <brendan.jackman@linux.dev>, Byungchul Park <byungchul@sk.com>,
+ Chengming Zhou <chengming.zhou@linux.dev>, Chris Li <chrisl@kernel.org>,
+ Christoph Lameter <cl@gentwo.org>, Dave Chinner <david@fromorbit.com>,
+ David Rientjes <rientjes@google.com>, Dennis Zhou <dennis@kernel.org>, Dev
+ Jain <dev.jain@arm.com>, Gregory Price <gourry@gourry.net>, Hao Li
+ <hao.li@linux.dev>, Harry Yoo <harry@kernel.org>, Hugh Dickins
+ <hughd@google.com>, Jann Horn <jannh@google.com>, Johannes Weiner
+ <hannes@cmpxchg.org>, John Hubbard <jhubbard@nvidia.com>, Joshua Hahn
+ <joshua.hahnjy@gmail.com>, Kairui Song <kasong@tencent.com>, Kemeng Shi
+ <shikemeng@huaweicloud.com>, Kiryl Shutsemau <kas@kernel.org>, Lance Yang
+ <lance.yang@linux.dev>, "Liam R. Howlett" <liam@infradead.org>, Lorenzo
+ Stoakes <ljs@kernel.org>, Matthew Brost <matthew.brost@intel.com>, Miaohe
+ Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, Mike Rapoport
+ <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Naoya Horiguchi
+ <nao.horiguchi@gmail.com>, Nhat Pham <nphamcs@gmail.com>, Nick Piggin
+ <npiggin@gmail.com>, Nico Pache <nico.pache@linux.dev>, Oscar Salvador
+ <osalvador@suse.de>, Pedro Falcato <pfalcato@suse.de>, Peter Xu
+ <peterx@redhat.com>, Peter Zijlstra <peterz@infradead.org>, Qi Zheng
+ <qi.zheng@linux.dev>, Rakie Kim <rakie.kim@sk.com>, Rik van Riel
+ <riel@surriel.com>, Roman Gushchin <roman.gushchin@linux.dev>, Ryan Roberts
+ <ryan.roberts@arm.com>, Shakeel Butt <shakeel.butt@linux.dev>, Suren
+ Baghdasaryan <surenb@google.com>, Tejun Heo <tj@kernel.org>, Uladzislau
+ Rezki <urezki@gmail.com>, Usama Arif <usama.arif@linux.dev>, Vlastimil
+ Babka <vbabka@kernel.org>, Will Deacon <will@kernel.org>, Xu Xin
+ <xu.xin@linux.dev>, Ying Huang <ying.huang@linux.alibaba.com>, Youngjun
+ Park <youngjun.park@lge.com>, Zi Yan <ziy@nvidia.com>, Jason Gunthorpe
+ <jgg@ziepe.ca>, linux-kernel@vger.kernel.org, linux-mm@kvack.org
+Subject: Re: [PATCH 0/7] MAINTAINERS: MM updates
+Message-Id: <20261101123025.4d8133d5321820f2202c8f1a@linux-foundation.org>
+In-Reply-To: <1c46e678-1da8-473d-960e-5aa22d4d7e73@kernel.org>
+References: <20261030-maintainers-v1-0-97278f8a5f54@kernel.org>
+	<1c46e678-1da8-473d-960e-5aa22d4d7e73@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,82 +84,306 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 5/6] arm64: defconfig: Enable PWM_CLK for backlight PWM
- support
-To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org
-References: <20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com>
- <20261030-lyra-display-upstream-post-v2-5-906302159392@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261030-lyra-display-upstream-post-v2-5-906302159392@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 30/10/2026 10:40, Anand Tiwari wrote:
-> Enable CONFIG_PWM_CLK so the generic clock-based PWM driver is
-> available, used by the Qualcomm Talos Lyra EVK LVDS panel overlay
-> backlight.
+On Sun, 1 Nov 2026 14:33:57 +0100 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+
+> On 10/30/26 22:34, David Hildenbrand (Arm) wrote:
+> > Hi,
+> > 
+> > several MM updates:
+> > 
 > 
-> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
-> ---
->  arch/arm64/configs/defconfig | 1 +
->  1 file changed, 1 insertion(+)
+> @Andrew, should I pick these or do you want to route them through your tree?
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+I'll grab for now, thanks.  As a hotfix.
 
-Best regards,
-Krzysztof
+Because I'm whacking away at MAINTAINERS at present.  First step is to
+consistently name the components, below.
+
+This is a two-patch series.  The first renames components so everything
+starts with "^MEMORY MANAGEMENT", leaving MAIINTAINERS incorrectly
+sorted.  The second patch only moves things around, to restore the
+alphasorting.
+
+So people only need look at the first patch.  Please review that.
+
+After this I'll have it identify the various files under include/linux,
+mm/ and lib/ which can fairly be described as "mm".  That's looking
+like about 50 files at this time.
+
+mm stuff:
+
+include/linux/gfp_api.h
+include/linux/mmu_context.h
+include/linux/node.h
+include/linux/pgtable_api.h
+include/linux/pti.h
+include/linux/rodata_test.h
+
+shared-with-other-subsystems stuff:
+
+include/linux/buffer_head.h
+include/linux/bvec.h
+include/linux/crash_reserve.h
+include/linux/dma-buf-io.h
+include/linux/dma-buf-mapping.h
+include/linux/dma-direction.h
+include/linux/elf-randomize.h
+include/linux/fault-inject-usercopy.h
+include/linux/fault-inject.h
+include/linux/firmware-map.h
+include/linux/flex_proportions.h
+include/linux/folio_queue.h
+include/linux/fs_api.h
+include/linux/genalloc.h
+include/linux/interval_tree.h
+include/linux/interval_tree_generic.h
+include/linux/io-mapping.h
+include/linux/io-pgtable.h
+include/linux/io.h
+include/linux/iommu-debug-pagealloc.h
+include/linux/iommu-helper.h
+include/linux/ioport.h
+include/linux/iov_iter.h
+include/linux/iova_bitmap.h
+include/linux/kho_radix_tree.h
+include/linux/mem_encrypt.h
+include/linux/memregion.h
+include/linux/mpage.h
+include/linux/ndctl.h
+include/linux/poison.h
+include/linux/radix-tree.h
+include/linux/ramfs.h
+include/linux/rbtree.h
+include/linux/rbtree_augmented.h
+include/linux/rbtree_types.h
+include/linux/scatterlist.h
+include/linux/sched/numa_balancing.h
+include/linux/set_memory.h
+include/linux/shm.h
+include/linux/stackdepot.h
+include/linux/uaccess.h
+include/linux/vmcore_info.h
+lib/tests/kunit_iov_iter.c
+
+Then I shall have it ensure that all these not-yet-covered files are
+entered in the appropriate place under an MM component.  This may
+require creation of new components for the purpose, tbd.
+
+After that I needs to have it cover Documentation/
+
+After that I need to have it whack away at selftests, shudder.
+
+
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: MAINTAINERS: use a common prefix for MM components
+Date: Sun, 01 Nov 2026 12:13:07 -0800
+
+Several MM component entries still use standalone headings, so searching
+for headings beginning with "MEMORY MANAGEMENT" misses them.
+
+Give these 18 entries the common "MEMORY MANAGEMENT - " prefix.  Leave
+them in place for now so that the renames can be reviewed separately
+from the subsequent alphabetical sorting.
+
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+
+---
+
+ MAINTAINERS |   36 ++++++++++++++++++------------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+--- a/MAINTAINERS~maintainers-use-a-common-prefix-for-mm-components
++++ a/MAINTAINERS
+@@ -6816,7 +6816,7 @@ T:	git https://gitlab.freedesktop.org/dr
+ F:	include/linux/cgroup_dmem.h
+ F:	kernel/cgroup/dmem.c
+ 
+-CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)
++MEMORY MANAGEMENT - MEMORY RESOURCE CONTROLLER (MEMCG)
+ M:	Johannes Weiner <hannes@cmpxchg.org>
+ M:	Michal Hocko <mhocko@kernel.org>
+ M:	Roman Gushchin <roman.gushchin@linux.dev>
+@@ -7322,7 +7322,7 @@ S:	Maintained
+ W:	https://docs.dasharo.com/
+ F:	drivers/platform/x86/dasharo-acpi.c
+ 
+-DAMON
++MEMORY MANAGEMENT - DAMON
+ M:	SJ Park <sj@kernel.org>
+ L:	damon@lists.linux.dev
+ L:	linux-mm@kvack.org
+@@ -12164,7 +12164,7 @@ S:	Maintained
+ F:	Documentation/ABI/testing/debugfs-hisi-zip
+ F:	drivers/crypto/hisilicon/zip/
+ 
+-HMM - Heterogeneous Memory Management
++MEMORY MANAGEMENT - HMM (Heterogeneous Memory Management)
+ M:	Jason Gunthorpe <jgg@nvidia.com>
+ M:	Leon Romanovsky <leonro@nvidia.com>
+ L:	linux-mm@kvack.org
+@@ -12328,7 +12328,7 @@ F:	drivers/power/supply/huawei-gaokun-ba
+ F:	drivers/usb/typec/ucsi/ucsi_huawei_gaokun.c
+ F:	include/linux/platform_data/huawei-gaokun-ec.h
+ 
+-HUGETLB SUBSYSTEM
++MEMORY MANAGEMENT - HUGETLB
+ M:	Muchun Song <muchun.song@linux.dev>
+ M:	Oscar Salvador <osalvador@suse.de>
+ R:	David Hildenbrand <david@kernel.org>
+@@ -12362,7 +12362,7 @@ W:	https://linuxtv.org
+ T:	git git://linuxtv.org/media.git
+ F:	drivers/media/platform/st/sti/hva
+ 
+-HWPOISON MEMORY FAILURE HANDLING
++MEMORY MANAGEMENT - HWPOISON MEMORY FAILURE HANDLING
+ M:	Miaohe Lin <linmiaohe@huawei.com>
+ R:	Naoya Horiguchi <nao.horiguchi@gmail.com>
+ L:	linux-mm@kvack.org
+@@ -17370,7 +17370,7 @@ F:	arch/*/include/asm/sync_core.h
+ F:	include/uapi/linux/membarrier.h
+ F:	kernel/sched/membarrier.c
+ 
+-MEMBLOCK AND MEMORY MANAGEMENT INITIALIZATION
++MEMORY MANAGEMENT - MEMBLOCK AND INITIALIZATION
+ M:	Mike Rapoport <rppt@kernel.org>
+ L:	linux-mm@kvack.org
+ S:	Maintained
+@@ -17879,7 +17879,7 @@ F:	rust/kernel/mm.rs
+ F:	rust/kernel/mm/
+ F:	rust/kernel/page.rs
+ 
+-MEMORY MAPPING
++MEMORY MANAGEMENT - MEMORY MAPPING
+ M:	Andrew Morton <akpm@linux-foundation.org>
+ M:	Liam R. Howlett <liam@infradead.org>
+ M:	Lorenzo Stoakes <ljs@kernel.org>
+@@ -17916,7 +17916,7 @@ F:	mm/vma_internal.h
+ F:	tools/testing/selftests/mm/merge.c
+ F:	tools/testing/vma/
+ 
+-MEMORY MAPPING - LOCKING
++MEMORY MANAGEMENT - MEMORY MAPPING - LOCKING
+ M:	Andrew Morton <akpm@linux-foundation.org>
+ M:	Suren Baghdasaryan <surenb@google.com>
+ M:	Liam R. Howlett <liam@infradead.org>
+@@ -17932,7 +17932,7 @@ F:	include/linux/mmap_lock.h
+ F:	include/trace/events/mmap_lock.h
+ F:	mm/mmap_lock.c
+ 
+-MEMORY MAPPING - MADVISE (MEMORY ADVICE)
++MEMORY MANAGEMENT - MEMORY MAPPING - MADVISE (MEMORY ADVICE)
+ M:	Andrew Morton <akpm@linux-foundation.org>
+ M:	Liam R. Howlett <liam@infradead.org>
+ M:	Lorenzo Stoakes <ljs@kernel.org>
+@@ -18728,7 +18728,7 @@ S:	Maintained
+ F:	drivers/phy/marvell/phy-mmp3-usb.c
+ F:	drivers/phy/marvell/phy-pxa-usb.c
+ 
+-MMU GATHER AND TLB INVALIDATION
++MEMORY MANAGEMENT - MMU GATHER AND TLB INVALIDATION
+ M:	Will Deacon <will@kernel.org>
+ M:	"Aneesh Kumar K.V" <aneesh.kumar@kernel.org>
+ M:	Andrew Morton <akpm@linux-foundation.org>
+@@ -21113,7 +21113,7 @@ F:	Documentation/core-api/padata.rst
+ F:	include/linux/padata.h
+ F:	kernel/padata.c
+ 
+-PAGE CACHE
++MEMORY MANAGEMENT - PAGE CACHE
+ M:	Matthew Wilcox (Oracle) <willy@infradead.org>
+ M:	Jan Kara <jack@suse.cz>
+ L:	linux-fsdevel@vger.kernel.org
+@@ -21142,7 +21142,7 @@ F:	include/net/page_pool/
+ F:	include/trace/events/page_pool.h
+ F:	net/core/page_pool.c
+ 
+-PAGE TABLE CHECK
++MEMORY MANAGEMENT - PAGE TABLE CHECK
+ M:	Pasha Tatashin <pasha.tatashin@soleen.com>
+ M:	Andrew Morton <akpm@linux-foundation.org>
+ L:	linux-mm@kvack.org
+@@ -21829,7 +21829,7 @@ S:	Maintained
+ F:	Documentation/networking/device_drivers/ethernet/pensando/ionic.rst
+ F:	drivers/net/ethernet/pensando/
+ 
+-PER-CPU MEMORY ALLOCATOR
++MEMORY MANAGEMENT - PER-CPU MEMORY ALLOCATOR
+ M:	Dennis Zhou <dennis@kernel.org>
+ M:	Tejun Heo <tj@kernel.org>
+ M:	Christoph Lameter <cl@gentwo.org>
+@@ -25539,7 +25539,7 @@ T:	git git://linuxtv.org/media.git
+ F:	drivers/media/i2c/rj54n1cb0c.c
+ F:	include/media/i2c/rj54n1cb0c.h
+ 
+-SHRINKER
++MEMORY MANAGEMENT - SHRINKER
+ M:	Andrew Morton <akpm@linux-foundation.org>
+ M:	Dave Chinner <david@fromorbit.com>
+ R:	Qi Zheng <qi.zheng@linux.dev>
+@@ -25775,7 +25775,7 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/nvmem/layouts/kontron,sl28-vpd.yaml
+ F:	drivers/nvmem/layouts/sl28vpd.c
+ 
+-SLAB ALLOCATOR
++MEMORY MANAGEMENT - SLAB ALLOCATOR
+ M:	Vlastimil Babka <vbabka@kernel.org>
+ M:	Harry Yoo <harry@kernel.org>
+ M:	Andrew Morton <akpm@linux-foundation.org>
+@@ -29831,7 +29831,7 @@ F:	net/vmw_vsock/
+ F:	tools/testing/selftests/vsock/
+ F:	tools/testing/vsock/
+ 
+-VMALLOC
++MEMORY MANAGEMENT - VMALLOC
+ M:	Andrew Morton <akpm@linux-foundation.org>
+ M:	Uladzislau Rezki <urezki@gmail.com>
+ L:	linux-mm@kvack.org
+@@ -30864,7 +30864,7 @@ M:	"Maciej W. Rozycki" <macro@orcam.me.u
+ S:	Maintained
+ F:	drivers/tty/serial/zs.*
+ 
+-ZSMALLOC COMPRESSED SLAB MEMORY ALLOCATOR
++MEMORY MANAGEMENT - ZSMALLOC COMPRESSED SLAB MEMORY ALLOCATOR
+ M:	Minchan Kim <minchan@kernel.org>
+ M:	Sergey Senozhatsky <senozhatsky@chromium.org>
+ L:	linux-mm@kvack.org
+@@ -30887,7 +30887,7 @@ F:	lib/zstd/
+ N:	zstd
+ K:	zstd
+ 
+-ZSWAP COMPRESSED SWAP CACHING
++MEMORY MANAGEMENT - ZSWAP COMPRESSED SWAP CACHING
+ M:	Johannes Weiner <hannes@cmpxchg.org>
+ M:	Yosry Ahmed <yosry@kernel.org>
+ M:	Nhat Pham <nphamcs@gmail.com>
+_
+
+
+
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: MAINTAINERS: sort component entries alphabetically
+Date: Sun, 01 Nov 2026 12:13:07 -0800
+
+Sort the component entries alphabetically, keeping the introductory
+text at the start and THE REST at the end.  This groups the renamed MM
+entries together and corrects existing ordering inconsistencies.
+
+Move complete entries without changing their contents or the order of
+lines within them.
+
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+
+
+---
+
+ MAINTAINERS | 3252 +++++++++++++++++++++++++-------------------------
+ 1 file changed, 1626 insertions(+), 1626 deletions(-)
+
+[enormous and utterly boring patch elided]
+
