@@ -1,62 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=207.54.77.50
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793537529;
-	b=FF7FG2ZATatK3k5hcpJVJ0Ln9+3LDGAlaCsRb9h3iTcLtGikUkK37w4naaxgWbfXPzwE
-	 e6oiEx8cNUwHwO9xMYV09CW7Yb6DAx7C8FwRbWzSbG5MALpeuVFhiXvcABK3maaQCerCV
-	 /1ZmiNXzJOcBLLCENBBxFOHq6bSyIAJ9oOvQMNaTbUkI1T2RZalDQFF2VUUsnMy0KgtT7
-	 HBWHnJpeoLD+uN/02/YqTTKK/hH5r3d3DE7BBNYrQIJf0BPotZ4BwnnPeu8PX/4N6xAz8
-	 8/JyFwaQ8HXqYBCEBsQW32XnBN77aSsP+y3xEwNCgn5JK77T3rh3iRtPDtgmY0d+iow==
+	t=1793537532;
+	b=4vQjJFRyIONAZrDBZqCn9XHm+ybOKOHY9pNALQ1G5PcL2KqCq99fDfXLSaFuzt1Yz+rC
+	 jDLsISMznFPB9+BjBOzNqwo5/9OY043m7MwD4N4sXBpOM66v9uNTrlrVRJ8P0794zAQAi
+	 /VjPrOEuII8RyvIxtlLxhJQuqxlzdkhIwhED0eeU6moh1MMw4eas9DrdIzrBr6WoFHLuV
+	 EL7P/BLzZzuYwdEql2xyrWWzurDzhczTgHY2VUlxsk2RNbDPQ5xNo2CBI1gTMY+qFAvnW
+	 ScxvTNk3GCFLzBYAIjpAtYkIyP8ncwXwQFSD3IR0W2Xa7fu94Lh1qkpRYYZS7UW5Q6w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793537529;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793537532;
 	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
 	 X-Amp-Result:X-Amp-File-Uploaded:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:Received:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer;
-	bh=T1x0vysFK56GDrbLUZ1yaxaRfWiWDkgWCgw/ELIonLY=;
-	b=FYxvNNxfXoFGDKrz1WCMVh7qi375Ek2fdWFEM62NidZVASwpGSwuP/hJze6iTHa4vq83
-	 EXS5O/XBS9vplKvunNP61X1yoKUe4fJIffaP806sZN098rtVboTwV82VCJWgjTd1B81Mr
-	 LJLP5LTjNrnhx85eQU9xQUobKczLQ/TUjizTadjFbHABpfL6o6gh9x4RvuOPB5Pl0sdNx
-	 OC0sYvhqHPqBoqwdYlL/Ougc/KX+pvAlGjPGfQ/QnVkPSG8yXTVLmFDMmfl/PQgr1xgOZ
-	 8BVD7XVF6NnwoYzwf1vKxZv/YorCY177IaE1gl/cn6KByr9vM9Tx69ia+uObcejtOdQ==
+	 X-CSE-MsgGUID:Received:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
+	 In-Reply-To:To:Cc:X-Mailer;
+	bh=stI/el1CBpWwCJRTG5Yr04XGmaRKr84A3Tq3Gj7mwzQ=;
+	b=gSgF+gCMNBaTp5RvgplOTXG15Lk0/ZmQNda8XClG3Nv83rX0HYiIcOXXC8TjoNGcziJs
+	 dOPFvzSqIGV1O9p4JonWFLPk/sbPi5B0Sa1jmnG8Jz37e8Bei4wJfOOmGOgqWltzU1ftY
+	 42P5CTa47UoMd/i9oimp5PeFF6PfXKXW7AbFTIlXLlhDRYhCzYWCenDJ5uAqmLN80SYkc
+	 8ApHswf7ltNnkzJZ684rntN9WBHYRESKjy4ge4izrc4b6VEMKeCEjPNbOqs8BLzBFJ25t
+	 WkijBQ5L1qJfOGahM1gnag1oa7xW5h893/dqRZvikDNwpsm4tlPV8DW0RB+E2fkWI1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=mobileye.com;
 	spf=pass smtp.mailfrom=mobileye.com;
 	arc=none smtp.remote-ip=207.54.77.50
 Received: from esa3.hc555-34.eu.iphmx.com (esa3.hc555-34.eu.iphmx.com [207.54.77.50])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 512AB606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:52:06 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 512AB606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 48845606A329
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 12:52:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48845606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mobileye.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mobileye.com
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple;
   d=mobileye.com; i=@mobileye.com; q=dns/txt; s=MoEyIP;
-  t=1793537526; x=1825073526;
-  h=from:subject:date:message-id:mime-version:
-   content-transfer-encoding:to:cc;
-  bh=fzO6/tBvzjG5tEeJvVUYifVW+dbAyvdgAGc9/Aw6eXU=;
-  b=CGNPVBQktY/Rwx4bzSOFr3I/JjCNIgAlAf0FZ8fSL3Pd7Bjdc3nL2YJj
-   t60rzrIghDp2ZE/CLOWGCOo49IkBt12BoZUpRPiUJ/aBX/ikEF3Cz/ibp
-   0fHoKSN6PcQ4HpMEey7lI7e20WHQx+c9ltpVU2tvmvKwl8DtB2CPEaOXi
-   uMwAumyZ6w8j8my8CSMUslRuq8z63HSMrzS9AwdKyAAYbrI+n9uxHCGuq
-   H83iprL2x6ewz4K2U6mq4qUAJQm4OB2x/6iEtyalPzt8C83S5xrx1WWJ4
-   9RWZfh/jcOSA+fhmwTk0QTDn4Lvit+t0umV8GHZGQyA9qXsVJyBQnbnh7
-   A==;
-X-CSE-ConnectionGUID: 22Y1jvoRRQWQIb/dO8WQSw==
-X-CSE-MsgGUID: Yz0dgcf/T1ShTLkfn9hewA==
+  t=1793537530; x=1825073530;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=XcUFy86mcXwBkdVbQzI9DqvGN0xrj3EmlcdsiyF9xIA=;
+  b=I1pkYVHhwMr5FDpLME7GGLsr46Kq5SzR89Cx7SRbABbNp8Z2S6MGQDR1
+   GJn+d+ylAgb9h9m/RBCov72tq3QT9h+kFA0c+lZugmpS1c2Ch/m06+4L7
+   Xcqab+APOdV7Dpt+tHBdY5oWLFtLN8bBZA13/5VUwb87QUzA5uHa70xXX
+   dIl9aZ13SMjBrFpLgiFhYJgwLfnJ3EYQwtohdagJw0objuJ8NIJB5W5zS
+   CUqejtlvL1HCN/CHx7uoySqRUuO2Nq2/eibrf89nBgAF3bfYNk8rwCmHg
+   ndb9NjEyx83WcbpxMxLKwwxo61fNWDQYAt84FcvRCAVjcMxPrFvKiA4Ig
+   w==;
+X-CSE-ConnectionGUID: cW9n8rYGRcCgTwgJg8msHQ==
+X-CSE-MsgGUID: QBEWlbg5QVqEzlJeM9FLAw==
 X-Amp-Result: SKIPPED(no attachment in message)
 X-Amp-File-Uploaded: False
-Received: from unknown (HELO ces01_data.me-corp.lan) ([146.255.191.134])
-  by esa3.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 14:51:58 +0200
-X-CSE-ConnectionGUID: t2vqmZwwQ1KLb1z0tZwntA==
-X-CSE-MsgGUID: hNNBhcZ5R+iVMtXNsCB+tw==
+Received: from unknown (HELO ces02_data.me-corp.lan) ([146.255.191.134])
+  by esa3.hc555-34.eu.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Nov 2026 14:52:00 +0200
+X-CSE-ConnectionGUID: NRXJzW0zTWqgjUI9udJRrw==
+X-CSE-MsgGUID: CJJN556EQJmMSBLCCC7cOg==
 Received: from unknown (HELO epgd071.me-corp.lan) ([10.154.54.3])
-  by ces01_data.me-corp.lan with SMTP; 01 Nov 2026 14:59:56 +0200
-Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Sun, 01 Nov 2026 14:51:56 +0200
+  by ces02_data.me-corp.lan with SMTP; 01 Nov 2026 14:59:53 +0200
+Received: by epgd071.me-corp.lan (sSMTP sendmail emulation); Sun, 01 Nov 2026 14:51:59 +0200
 From: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Subject: [PATCH v4 0/2] riscv: support CPUs with Zalrsc but not Zaamo
-Date: Sun, 01 Nov 2026 14:51:38 +0200
-Message-Id: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
+Date: Sun, 01 Nov 2026 14:51:40 +0200
+Subject: [PATCH v4 2/2] riscv: accept the atomic extensions this kernel was
+ built with
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,10 +68,9 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANs152oC/03MQQ7CIBCF4as0sxYDtDbWlfcwXcg42EloMWCIp
- OHuIisXs/gnL98OkQJThEu3Q6DEkf1WYzh0gMt9e5LgR23QUo9SaSlciCj85rJAlOOgtT0Zo6D
- uX4Esf5p1m2svHN8+5Ean/vdtiqr3p6ReSEGoJzyrSVqjrqs37CjTEf0KcynlCy9OJXOlAAAA
-X-Change-ID: 20260120-lrsc-only-cc06422f5bb1
+Message-Id: <20261101-lrsc-only-v4-2-4e1d010463b3@mobileye.com>
+References: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
+In-Reply-To: <20261101-lrsc-only-v4-0-4e1d010463b3@mobileye.com>
 To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
  Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
  Will Deacon <will@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
@@ -86,75 +85,62 @@ Cc: linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
  Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 X-Mailer: b4 0.16.0
 
-RISC-V split the A extension into Zaamo (AMO*.w/AMO*.d) and Zalrsc
-(LR/SC). Linux has so far required the whole A extension.
+riscv_early_of_processor_hartid() rejects a hart unless its
+riscv,isa-extensions property contains "a". That rejects a Zalrsc-only
+hart even when the kernel was built to use only LR/SC.
 
-MIPS P8700 [1] implements only Zalrsc. AMO instructions are emulated by a
-trap into SBI. I measured typical userspace atomics on this CPU: an
-LR/SC atomic takes about 40 cycles, an AMO atomic about 600. The same
-ratio applies to kernel refcounts, bitops, xchg and futexes, so the
-kernel needs to emit LR/SC when Zaamo is not implemented.
-
-Mobileye is going to use the "eyeq7h" platform, built on this CPU, for
-ADAS and autonomous driving. Kernel atomics are on the scheduling,
-memory-management and driver paths of that product, so the emulated
-AMO cost is not acceptable there.
-
-This series keeps today's default: both extensions on, -march still
-contains "a", generated code is unchanged. Turning Zaamo off is a
-NONPORTABLE choice. The resulting kernel matches one -march, which
-userspace has to use as well, so a runtime alternative would not
-produce a portable image.
-
-Zalrsc stays mandatory. cmpxchg, conditional atomics and futex CAS are
-already LR/SC sequences; Zaamo cannot replace them. BPF atomic ops
-still emit AMO and remain unsupported on a Zalrsc-only kernel.
-
-[1] https://mips.com/products/hardware/p8700/
-
-Changes in v4:
-- Require a compiler that accepts _zalrsc in -march before Zaamo can
-  be disabled. GCC 15.1 introduces that support. Older compilers keep
-  Zaamo enabled and -march keeps "a".
-- Link to v3: https://patch.msgid.link/20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com
-
-Changes in v3:
-- Make Zalrsc mandatory. cmpxchg and the conditional atomics already
-  use LR/SC, so RISCV_ISA_ZALRSC can no longer be turned off.
-- Check AMO and LR/SC support independently. A kernel that emits both
-  requires "a", or both "zaamo" and "zalrsc".
-- Put the LR/SC bitop sequence in its own block so two inlined
-  set_bit or clear_bit calls compile.
-- Remove the LR/SC loop that ran after the hart lottery and accessed
-  address 1. Build the lottery increment with add so RV32 assembles.
-- Add an exception-table entry for sc as well as lr in the futex
-  LR/SC helper.
-
-Changes in v2:
-- Switch from a runtime choice of atomic implementation to a
-  compile-time one, gated by NONPORTABLE.
+Require "a" or "zaamo" when the kernel emits AMO, and "a" or "zalrsc"
+when it emits LR/SC. A normal build defines both toolchain macros and
+still requires the full A extension. The legacy "riscv,isa" fallback
+keeps its rv{32,64}ima check.
 
 Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
 ---
-Vladimir Kondratiev (2):
-      riscv: build kernel atomics from LR/SC when Zaamo is disabled
-      riscv: accept the atomic extensions this kernel was built with
+ arch/riscv/kernel/cpu.c | 28 ++++++++++++++++++++++++----
+ 1 file changed, 24 insertions(+), 4 deletions(-)
 
- arch/riscv/Kconfig               | 32 +++++++++++++++++++++++
- arch/riscv/Makefile              | 15 ++++++++---
- arch/riscv/include/asm/atomic.h  | 56 +++++++++++++++++++++++++++++++++++++++-
- arch/riscv/include/asm/bitops.h  | 51 ++++++++++++++++++++++++++++++++++++
- arch/riscv/include/asm/cmpxchg.h | 18 +++++++++++++
- arch/riscv/include/asm/futex.h   | 53 +++++++++++++++++++++++++++++++++++++
- arch/riscv/kernel/cpu.c          | 28 +++++++++++++++++---
- arch/riscv/kernel/entry.S        |  9 +++++++
- arch/riscv/kernel/head.S         | 14 ++++++++++
- 9 files changed, 267 insertions(+), 9 deletions(-)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20260120-lrsc-only-cc06422f5bb1
+diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
+index 3dbc8cc557dd..5d1e39d16e59 100644
+--- a/arch/riscv/kernel/cpu.c
++++ b/arch/riscv/kernel/cpu.c
+@@ -82,12 +82,32 @@ int __init riscv_early_of_processor_hartid(struct device_node *node, unsigned lo
+ 		return -ENODEV;
+ 
+ 	if (of_property_match_string(node, "riscv,isa-extensions", "i") < 0 ||
+-	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0 ||
+-	    of_property_match_string(node, "riscv,isa-extensions", "a") < 0) {
+-		pr_warn("CPU with hartid=%lu does not support ima", *hart);
++	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0) {
++		pr_warn("CPU with hartid=%lu does not support im", *hart);
+ 		return -ENODEV;
+ 	}
+-
++#if !defined(__riscv_atomic) && !defined(__riscv_zaamo) && !defined(__riscv_zalrsc)
++#error "Need AMO or LR/SC atomics"
++#endif
++	/*
++	 * Require each atomic form this kernel emits. The single-letter
++	 * "a" extension satisfies either check. A Zalrsc-only build defines
++	 * __riscv_zalrsc and checks that extension only.
++	 */
++#if defined(__riscv_atomic) || defined(__riscv_zaamo)
++	if (of_property_match_string(node, "riscv,isa-extensions", "a") < 0 &&
++	    of_property_match_string(node, "riscv,isa-extensions", "zaamo") < 0) {
++		pr_warn("CPU with hartid=%lu does not support AMO atomics", *hart);
++		return -ENODEV;
++	}
++#endif
++#if defined(__riscv_atomic) || defined(__riscv_zalrsc)
++	if (of_property_match_string(node, "riscv,isa-extensions", "a") < 0 &&
++	    of_property_match_string(node, "riscv,isa-extensions", "zalrsc") < 0) {
++		pr_warn("CPU with hartid=%lu does not support LR/SC atomics", *hart);
++		return -ENODEV;
++	}
++#endif
+ 	return 0;
+ 
+ old_interface:
 
-Best regards,
---  
-Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
+-- 
+2.43.0
 
