@@ -1,78 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=88.99.38.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793497084;
-	b=mmjoiyNluoHjsj26yGVEnDFdhh9ApLLR6PQVGN1N7X4H7FpfIcFLnC9xZejCk2jJN4Zg
-	 6BvhhQ0JrnsuLY5IWDqcfaxJRF6P+HZYkYfjcvVQlvltfsdyW0f+xTtiFqh373volYAhG
-	 Pj6sjSjNdkAgoTYFsMYJYhWLlsSmMWT5uLa1o9T0oXBvr1x19Ttpu4DrXwT36b9gKpcUX
-	 zxp1tOreonous8RH46B9rld8MyQKVGnSlR3yX0B+6pGA8Dp13rZiFJ9GiK/5YMvsCsI+J
-	 ZdT6BGY5rmBF/UjlFNv2uC+5cPIY0vnEkjByWytkLJ4Bqv+oMKpUAVYqWb0IKv13NLw==
+	t=1793497118;
+	b=iBZj4RXBewisOAdtOftUv2+ywrYRsQ37SShQgf9IEJ377UcD3h8xpwOvWdmJvuR00WLp
+	 bv3FRFEDb8nqNX69csjKhFH25U+q29J52o0Lweyq+eMwEg3myGpC4KIokTANXCpN3RY9E
+	 l6Z/yrV9xmjZTNfUqGRaw1+PIfpNhlWG9mQ8rSGpVRAIiPQ9XZFCcEGrXSvdWKWUe8CuL
+	 K39m0FtrVOHmZB7QeSYc9tbrett05wahuVxlvQRlDHY8qbYoitB9TWnrDKrs8D0t9rQP0
+	 t/kqRbCuehkVmMRcbZpPMz1FsBq9CRg3hYuxl34L4dLMxAuTqpMsrn3zHfBvRPfJqcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793497084;
-	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:Received-SPF:
-	 Received:X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:X-PPP-Message-ID:X-PPP-Vhost:X-Virus-Scanned:
-	 X-Virus-Status;
-	bh=AbVV6hXFymPLGqPqc/r4VXUug2rta/ReY0oIgq5dhJQ=;
-	b=pwm/SLqi3+RmQ5Mm8EHaEPLAWyrEb/5e9TxMKU5PXRlJFYpg3hryPjQdt7bNbTck7RaI
-	 DRmIFxt7Mt0JKZ8nKwjN+WkdxEArioikulNT/d93zZD61kl0G0vKUvR+s9K7+Z5ZOz/A6
-	 eSmdLemtNO/ZY7I1jlai39L4nYkkZT0VDhbGHsnldtJYgnyiM79KG7ibxSSZwycnU4IYg
-	 na8EqurnFeK5o5msWdlxeQRoZNCP/JKqOG3J43ZVbO/tjyY+BmqRz6ZJFw0GnicFtBNrX
-	 5OAyS3iHwgrmwMiafAZ+INZvzBs3wlVpi8IYrYmNr2nWbMdCx+UFdXcX61VfylTp9Kg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793497118;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wkggvdD4Daf1drrMBcb90xMWnEWnBOyml4nDOqyyoZg=;
+	b=3fY7g2vUT4wcov7H8TuV2W9MvImf5//vz+5QG1eQIHo/n2iyedEqRSuKA7edQkjY+R8/
+	 QMSrpUYsmowJ+2Ma5rzeI2ltYvAxNHMR6xQjnoVYX/HKxoKdmSniBkiDHiMTblCdDLBu2
+	 0aSlbjg/dJFXVY6cQnguIWjq0Eyl8jjeZyFxSQlF7JwPm/XueMBynApq6KSkmDdXGoEXd
+	 YOnF6NVk66H+5qjfW/NGgYHVT/m1gLHlFpmFvVvPMbZNu9SAw09e5GnMTjmiSibuJjlO2
+	 /Z3zgamX9VCXSsLzzVmh0cvUwyX8R2VLaXkhDbSXmDYTcb9C/8yBlSbu43KLOmfnHbg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=antheas.dev;
-	spf=pass smtp.mailfrom=antheas.dev;
-	dkim=pass header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=LgD4z4s2;
-	arc=none smtp.remote-ip=88.99.38.195
-Received: from relay12.grserver.gr (relay12.grserver.gr [88.99.38.195])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L/0GaqtI";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEEC3606A31A
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 01:38:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CEEC3606A31A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=antheas.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=antheas.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FD50606A31A;
+	Sun,  1 Nov 2026 01:38:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=antheas.dev header.i=@antheas.dev header.a=rsa-sha256 header.s=default header.b=LgD4z4s2
-Received: from relay12 (localhost [127.0.0.1])
-	by relay12.grserver.gr (Proxmox) with ESMTP id 2269EBDEA7
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:38:01 +0200 (EET)
-Received: from linux3247.grserver.gr (linux3247.grserver.gr [213.158.90.240])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by relay12.grserver.gr (Proxmox) with ESMTPS id B0586BDE8B
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:38:00 +0200 (EET)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
-	by linux3247.grserver.gr (Postfix) with ESMTPSA id 9DAE6200CDE
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:37:59 +0200 (EET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=antheas.dev;
-	s=default; t=1793497080;
-	bh=AbVV6hXFymPLGqPqc/r4VXUug2rta/ReY0oIgq5dhJQ=;
-	h=Received:From:Subject:To;
-	b=LgD4z4s27DFchTJKFRV1uV1tjWrF0VYZS1tNlPlRx2lmg0uIWEBrogvqzXGtHoAJo
-	 r38jzslJqWSyhw6ttg8EF4MZe5JZPNJSlS7hv8plYnzLIiQ2FF6znRWGQLVgYnzt2j
-	 asFjv11BbKneBiLYhbU10/VG/dD7C8aw8vTEdTldBxVTI23wR9IaYrwoaczHRui29M
-	 9JEDOjjoHoi+AwBDdrp9dNOwL1Dc9FiNCsFv0abGEtbJ4w1u+napg+xIO8MDcYaBzm
-	 hlclqouCm+dAAgiadM2/9Frr86J8JCx5M167e5auwv0cmrA8ua3qJUH7+kCsAILVjp
-	 xs0SF0x9kZ2HA==
-Authentication-Results: linux3247.grserver.gr;
-        spf=pass (sender IP is 209.85.215.182) smtp.mailfrom=lkml@antheas.dev smtp.helo=mail-pg1-f182.google.com
-Received-SPF: pass (linux3247.grserver.gr: connection is authenticated)
-Received: by mail-pg1-f182.google.com with SMTP id
- 41be03b00d2f7-ccce6d9abfeso1340692a12.1
-        for <linux-kernel@vger.kernel.org>;
- Sat, 31 Oct 2026 18:37:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1;
- AKwUvBx7JVK2ZRX/gguM1vBw6R0qlGBDfm2Hug+kr1qQp75M+ivFqT/OxdYXymZOzeXBAO74CGwNfVc+/mMieqw=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8ezR7SQR81UZKXxiocXJfkuTtvG7KOix7LfAqealDNqdVC04zR
-	N9CWrhD436yjTazuQmTypBKKGU0YXoJz+eTFGu60e4A8R8K3oUiXEtPHQiFg7qkTsmfpsvMGZoS
-	gEC07sSwXIu5dxkWn2AOr0bJ6bQ4dYs4=
-X-Received: by 2002:a17:90b:528d:b0:3ae:5525:dc25 with SMTP id
- 98e67ed59e1d1-3ae89850a1amr5314180a91.51.1793497078050; Sat, 31 Oct 2026
- 18:37:58 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L/0GaqtI
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258EE1F000C1;
+	Sun,  1 Nov 2026 01:38:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793497117;
+	bh=wkggvdD4Daf1drrMBcb90xMWnEWnBOyml4nDOqyyoZg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=L/0GaqtIo4ljcF6HhkiYfZqgqFfzu7sb2NkCwbaTtE2OUjTcTLJRXTyZtUK1Narrr
+	 BtQLDj7zRIIYxbD8+FBD4wlKou3nEAPke635eAz7vVjuDKwzzXPCAQT16jTp9CgGL0
+	 ba2LaOoHCP9feeoX8BP8LKv4yveSZWwZo6yHjtlYIjXCx4V0POS1oHKma+w2QDRFaw
+	 bFs3gxmRlx8fBdDMx60B/RskaLNeuJ3lyaYWZfLal9k+4P7aIxa899xvKOLsT5R/bB
+	 bFVyAcYisN4dpM7gjUbRJx96JJ4SZsMz1PSkwib+7dreMZmtGyU+hikjLVEkCGsSCI
+	 8TqVyGhsXxtwg==
+Date: Sun, 1 Nov 2026 01:38:17 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Atharva Tiwari <atharvatiwarilinuxdev@gmail.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, Dave Hansen
+ <dave.hansen@linux.intel.com>, x86@kernel.org, "H. Peter Anvin"
+ <hpa@zytor.com>, "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown
+ <lenb@kernel.org>, Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Sven Peter <sven@kernel.org>, Janne Grunau
+ <j@jannau.net>, Neal Gompa <neal@gompa.dev>, Guenter Roeck
+ <linux@roeck-us.net>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Griffin
+ Kroah-Hartman <griffin@kroah.com>, Hans de Goede <hansg@kernel.org>, Ilpo
+ =?UTF-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Sebastian Reichel
+ <sre@kernel.org>, Alexandre Belloni <alexandre.belloni@bootlin.com>, Wim
+ Van Sebroeck <wim@linux-watchdog.org>, Jarkko Sakkinen <jarkko@kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Roberto Sassu <roberto.sassu@huawei.com>,
+ Dmitry Kasatkin <dmitry.kasatkin@gmail.com>, Eric Snowberg
+ <eric.snowberg@oracle.com>, Paul Moore <paul@paul-moore.com>, James Morris
+ <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>,
+ linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+ linux-acpi@vger.kernel.org, linux-gpio@vger.kernel.org,
+ asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-hwmon@vger.kernel.org, linux-iio@vger.kernel.org,
+ linux-leds@vger.kernel.org, mfd@lists.linux.dev,
+ platform-driver-x86@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-watchdog@vger.kernel.org,
+ linux-integrity@vger.kernel.org, keyrings@vger.kernel.org,
+ linux-security-module@vger.kernel.org
+Subject: Re: [RFC PATCH 14/14] mfd/macsmc: add ioctl to access smc keys
+Message-ID: <20261101013817.22d67ea7@jic23-hlaptop>
+In-Reply-To: <20261029085504.3547-15-atharvatiwarilinuxdev@gmail.com>
+References: <20261029085504.3547-1-atharvatiwarilinuxdev@gmail.com>
+	<20261029085504.3547-15-atharvatiwarilinuxdev@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,101 +85,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: 
- <TY7PR01MB1374656B7810521751CB248D4DB6B2@TY7PR01MB13746.jpnprd01.prod.outlook.com>
- <CAGwozwGDo4ae4WV=7Ko0vtW+JLCFTZcnZ6z=zQcRE2qXUBJt=g@mail.gmail.com>
-In-Reply-To: 
- <CAGwozwGDo4ae4WV=7Ko0vtW+JLCFTZcnZ6z=zQcRE2qXUBJt=g@mail.gmail.com>
-From: Antheas Kapenekakis <lkml@antheas.dev>
-Date: Sun, 1 Nov 2026 02:37:46 +0100
-X-Gmail-Original-Message-ID: 
- <CAGwozwFqNXuwepO80H2uJu3-21TkAx-0Xva9XPTf5tVyXp=oQw@mail.gmail.com>
-X-Gm-Features: AclHuK-ZBEnNg-PxRUfvRk5pEnqd-SLiJgdGWd2YOlAcClDZkXSge4mXI7KBUbg
-Message-ID: 
- <CAGwozwFqNXuwepO80H2uJu3-21TkAx-0Xva9XPTf5tVyXp=oQw@mail.gmail.com>
-Subject: Re: [PATCH] platform/x86: oxpec: add OneXPlayer X2 Mini (G3E) DMI
- entry
-To: Jiajun Leng <adolphpi@outlook.com>
-Cc: platform-driver-x86@vger.kernel.org,
-	Derek John Clark <derekjohn.clark@gmail.com>,
-	=?UTF-8?Q?Joaqu=C3=ADn_Ignacio_Aramend=C3=ADa?= <samsagax@gmail.com>,
-	Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-PPP-Message-ID: 
- <179349708024.1294865.9495059634984652434@linux3247.grserver.gr>
-X-PPP-Vhost: antheas.dev
-X-Virus-Scanned: clamav-milter 1.4.6 at linux3247.grserver.gr
-X-Virus-Status: Clean
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sun, 1 Nov 2026 at 02:35, Antheas Kapenekakis <lkml@antheas.dev> wrote:
->
-> On Sun, 1 Nov 2026 at 02:26, Jiajun Leng <adolphpi@outlook.com> wrote:
-> >
-> > The OneXPlayer X2 Mini (G3E) is the Intel variant and reports DMI board
-> > name "ONEXPLAYER X2Mini".
->
-> > It is not covered by the existing "ONEXPLAYER
-> > X2Mini PRO" entry, which is the AMD board using oxp_fly.
->
-> Obviously. Remove.
->
-> > Map it to oxp_g1_i, the profile used by the ONEXPLAYER 3, which has the
-> > same Intel EC layout.
->
-> Keep. Move up to the first paragraph.
->
-> > Verified on Bazzite 44 with kernel 7.2.11-ogc4.1.fc44.x86_64:
->
-> Drop. Broadly speaking we don't care, and I could ask you to test a
-> mainline kernel now. But it is not necessary.
->
-> > reading, manual PWM and charging control work.
->
-> Move to the initial paragraph
->
-> > AI assistance: Claude (Anthropic) was used to draft this changelog and the
-> > diff. The submitter reviewed the change, built it as an out-of-tree module
-> > and tested it on the hardware.
->
-> Also drop. if you want to mention you used AI, do it after the
-> trailer. The assisted-by tag is not used anymore.
->
-> > Signed-off-by: Jiajun Leng <adolphpi@outlook.com>
-> > ---
->
-> /\ this is the trailer
->
-> Best,
-> Antheas
->
-> >  drivers/platform/x86/oxpec.c | 7 +++++++
-> >  1 file changed, 7 insertions(+)
-> >
-> > diff --git a/drivers/platform/x86/oxpec.c b/drivers/platform/x86/oxpec.c
-> > index c4c4babe8e30..50d169302fc3 100644
-> > --- a/drivers/platform/x86/oxpec.c
-> > +++ b/drivers/platform/x86/oxpec.c
-> > @@ -230,6 +230,13 @@ static const struct dmi_system_id dmi_table[] = {
-> >                 },
-> >                 .driver_data = (void *)oxp_g1_i,
-> >         },
-> > +       {
-> > +               .matches = {
-> > +                       DMI_MATCH(DMI_BOARD_VENDOR, "ONE-NETBOOK"),
-> > +                       DMI_EXACT_MATCH(DMI_BOARD_NAME, "ONEXPLAYER X2Mini"),
-> > +               },
-> > +               .driver_data = (void *)oxp_g1_i,
-> > +       },
+On Thu, 29 Oct 2026 04:52:11 -0400
+Atharva Tiwari <atharvatiwarilinuxdev@gmail.com> wrote:
 
-Also, move above X2Mini Pro to adhere to alphabetical sorting.
+> Add a /dev/smc device so userspace can talk to the SMC
+> directly. Some keys that need to be written aren't handled by
+> any driver, or affect several drivers at once, so they
+> can't be exposed cleanly through the kernel interfaces.
+> 
+> Keys already managed by kernel drivers can't be written this
+> way, to avoid conflicts.
 
-> >         {
-> >                 .matches = {
-> >                         DMI_MATCH(DMI_BOARD_VENDOR, "ONE-NETBOOK"),
-> > --
-> > 2.53.0
-> >
-> >
+If this isn't matching some legacy interface, then we need more
+on what these do.  Maybe they are suited to some other kernel
+interface? In particular they might need the various controls
+on how destructive they are that something like fwctl brings.
 
+Generally an arbitrary opaque path to firmware isn't a good idea...
+
+Jonathan
