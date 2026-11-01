@@ -1,68 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=51.159.188.251
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793576185;
-	b=Fyx0KyNSoq5Div8TU+RpfxjyARtiL3empmR263LBSxQhRZnccUxb4sycZMxKZj/TIv8K
-	 smDdFtqe4Mc/I2QfdzDgUasiSWik3AGK5WnAEFiwg0ZnX98X0VxYyB0fsgzAZu6og603m
-	 4a3Lr/6KiTozqahcAxPNqj8XT30o4rCdWDg9JCK3kxA7z6OmIX3bTL1wB1p42KHzHUFK4
-	 c8swg3waPY11QIRz+qYwaRCZhIbW01/pfgZGPEdWGckljnIZqxcUjxtMpB/e7I4eyd/U3
-	 rxLxbiVV+KoAh+4fghe7tw87+U5L292TUyJ5qL9EGh+QlhfuKZ586kI7sK5Dr45OfIw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793576185;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-Get-Message-Sender-Via:X-Authenticated-Sender:X-Source:
-	 X-Source-Args:X-Source-Dir;
-	bh=ey9NG0HNZ68k2ywfFfBKJVqpuijTLNdK0lfA6urOnrg=;
-	b=nIeN4sqBsvSTuvmf5A+uWDl0KGcE2SzAJR4furrO1QC7SJI6R1TMSXy4Ich5tK8Trnd6
-	 +9oT3TJMCvWgA4xPxRvRNzSxxeRdeUf2NbxsHCyRECNfH5lklJlz3ctjSSfXb7KhWoxvz
-	 a2M0Vk3RccJbHNx03Nt7imsEtLXmfWv20VdQdLWOJ4yi1NCBGxg6aY98MHEju63N2NI6Z
-	 yaF/6ENImaOTtXEDQqPrGc9R4n6tG2KRIkPjX5PTT9UCKoHPieyehuSzKgZsranOfs52g
-	 PpTXI1OQc8oID2adWUlXGfF0qNHjA9O6hR0Oh9Bm6gNN/gOjS+z4v6hE0ITsMVYrinQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.cyber.gouv.fr;
-	spf=pass smtp.mailfrom=oss.cyber.gouv.fr;
-	dkim=pass header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=kTLluWtm;
-	arc=none smtp.remote-ip=51.159.188.251
-Received: from oss.cyber.gouv.fr (oss.cyber.gouv.fr [51.159.188.251])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793576246;
+	b=vuyOi21LuH0+vA7q7mcHqHwYiNBGM/RzuWWs1a5dJyy7WVrQnicyJnP1YcA9HFQZJBWR
+	 vx4HHYeWY0wUBIXLJR3+gJOzNYjtpb+IQKQn391bZ26ILXRm6XCNEudASoft0tyDW53UZ
+	 5t8BFmjixphEiWWqZniwYT9DYEkKIpN6osHCjNv7J5ERHma5b8qbjzHX+QSvlJdDLBpJR
+	 r8/KjgntWclqb9prNi5eOZLDLD8zixQ21G3koFH4mDcCO+1/CPgTxGC6u8d2CZies0wqJ
+	 Blq8tVZe+OHxCkUxPZqB1eTHZYlgGH0RcImig8rS8zDdiFDjKSH2ktNo9TfnVJQMwMg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793576246;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type;
+	bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+	b=onB3Hz11hW5L5ebkdJvDBwYXt1e8+ijYDoP8EJt2y8JlMRXWOJmFfi0WEIN6I0mdn/Xi
+	 WqP7s/loA3shqY6L5ROERP0nZhCI/5D75QvlrUEQxgV/cTww5aHSt+KLSq5JuARuCZkUQ
+	 yD3RS4u48UsaiMzZDyXZ3OkBmJkystcl1oImaSAOfEQBXsbpolSAAH6sH9lCvRfOao7t/
+	 zueTb+uFwQfbNje1PxwCml+06hNhc5da8j8v3XP6GNvGD3/VD4skXTG/ElU0r/xbY4GuZ
+	 RgCuN+ZjiPjdYf2Se5qCKp9sVQ0Gz4DJlKWfnQu3JEPAifnJJfY1NhWspDmG2Iv2eNA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJPwvw9V;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFBA606A324;
-	Sun,  1 Nov 2026 23:36:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EFBA606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.cyber.gouv.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.cyber.gouv.fr
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944D1606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 23:37:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 944D1606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.cyber.gouv.fr header.i=@oss.cyber.gouv.fr header.a=rsa-sha256 header.s=default header.b=kTLluWtm
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=oss.cyber.gouv.fr; s=default; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Reply-To:Sender:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=ey9NG0HNZ68k2ywfFfBKJVqpuijTLNdK0lfA6urOnrg=; b=kTLluWtmwRQg1FXQPkAfOrV/r9
-	BKK5W57cqXkCe9gqQDtm0Q8YyZSvruzYTmjJnjVPPWvVdiWTQmUu/TbSAumOfAJRTsr56rSrtYANB
-	U+09gYo7m9050sNezqF4YfwQ/yDlJ14dnrBuONBVPHRu3nk1giY+TrezpSTx0UBvtIaRrsdHMDD3A
-	2/pIiO/UvyPPk1dD10EkjHzwPTZISI5s3qbYTFm5CokUbPLvrR8GuIftcgguP1SKyw6So3qayuOB2
-	9Y98U5VbPgC8OujHcxP9WCn7LqXDBb2aghliLynQbcI/jReg/Um9fIDujlQsehmd9hXGy1FLeEucx
-	VMKNd/WQ==;
-Received: from [151.115.150.205] (port=55758 helo=gepetto..)
-	by pf-012.whm.fr-par.scw.cloud with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <Jeremy.Jean@oss.cyber.gouv.fr>)
-	id 1xNf67-00000005EFT-3i5K;
-	Mon, 02 Nov 2026 00:36:23 +0100
-From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>
-To: Subash Abhinov Kasiviswanathan <subash.a.kasiviswanathan@oss.qualcomm.com>,
-	Sean Tranchetti <sean.tranchetti@oss.qualcomm.com>
-Cc: netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?J=C3=A9r=C3=A9my=20Jean?= <Jeremy.Jean@oss.cyber.gouv.fr>,
-	stable@vger.kernel.org
-Subject: [PATCH net] net: qualcomm: rmnet: fix TX aggregation teardown race
-Date: Sun,  1 Nov 2026 23:34:28 +0000
-Message-ID: <20261101233427.2050688-2-Jeremy.Jean@oss.cyber.gouv.fr>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DJPwvw9V
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a2167bd087so19196525e9.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 15:37:25 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793576244; cv=none;
+        d=google.com; s=arc-20260327;
+        b=QABEKHN2RHqb4qfq9DGjGhNSU5D49d3pStbyiHa4fPedS5+qeIt0GWnBzUTaE5Tx2Y
+         /zm9OMz4qkXjwh0TtYzmKDNOAB1AEVmb6LCnZWqx/Cenf4Z1ZUarffIL9Pj5NP5OVBMG
+         D2q5HEvQToxqQKw/5n466bTr4s+HzUUm3KRZwKCIKWFmiwF4yG75hNNSrYA8WuQOCEqb
+         zPijMpBRYf35V7o9ngUb3t10/UCgA6qCuuNPvnOMh7+wl06Og225RtemdOL6yY8xYynP
+         digHiaPTY15lj15XhctdLOAT+j8c9/BwCXC+cS1xFcOa3EhbuICkvS4/I3uC5hTScf4L
+         CjSg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+        fh=A/XxdB04QYCFBKvSXtRtCIp9jD8sq0Is1nLyB2xKxqM=;
+        b=V7eGJpk4VYxC1hXuVCrneitn/rQQ8yNPdG6PiCtQeThJ4gFx7x+7NfHbhP+5jy55cd
+         vx1QnH2vPPZOTmtNv0e1w/x4Z1dYy/kT/Z89w0LIcA8Gx9LqdT+L7PzKKiOdqmSenC2g
+         42Bjam/l6um9Q9flmUwoM2Gjl1sKb270X4Guk0KC9zE8RruzV5kgZpjk9PMxHDLXNEzT
+         MMB+jAzvkdwKNz/MDLIkO8zLHNrhRMtLwaD5aKFutPDacqTy3CggHKvNA3rGOrAa5is6
+         Z2YYKT8F+bEuppPE8ngdadKLqtihr7XrMqO3TuN6Bzp6SR0tAcFH61Bs6UlukboVNoHb
+         SDvw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793576244; x=1794181044; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+        b=DJPwvw9VWxxXEXg3Omwq4faWUuDWM7CUUkqqbhabswF4sHSOOeuGf1V/01sXtHVqIp
+         bE7aDIwkZCO/VSC8aDt+vGUroWNpCAUeXrJyb8uP+x1V9nhuzO7fR0np7OXR+aB3+c65
+         pY64O4qW0OVn5s5PdqkEFTW68ssjLquL/lA1TBupexIn1J9LQWo0SNH5NnOzFXi2yWqd
+         +Kp9JjL2Vwia9KrDFVZDX4MifFNEegTw44tw18BFvdOJ3ZHcsjSWOviF8+BVTjP3FtW3
+         LgD6IQEgVP8GNflseWTcXmFDtvi8kRwEOYYcSchpRem0lIBeqLuY2BS82ftzZVybwhQh
+         7AEw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793576244; x=1794181044;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=uycyJS0DpZnW8iPJ9gPVOdKwEEcjN0iqSHG3ZEmJNDY=;
+        b=AREWEwTost1aZHkUzP4IhoJDtVw6Oj9Ma3UNliHOtrkDhcaOYPPZVJP0NaiJBRVzHH
+         7piU1mHOHZA1NCPReS8D5T5Untky49ZIi64OHt23OgcaKF5RrL7zoEFQzDWVdVDBaVwZ
+         YoDt5gMuDzDgN0FEy90WJOkah6zw/UNkB6KWtPE8KR7M5lLi/sSqMzxlMSqjiagqvsdu
+         v8sMrIKf98MrbNTp1Segkkj6cynhsSIfbDfz2VoSlD9rKH5qlmxaNB2SGpnTZrpGb4pG
+         P4Hxwh7UFLMrnIkNwsCCUCuaTfuFU6gLjpUFEPBDYiseic867TvHZLJEvUxGk9Bemje/
+         4QOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzG05Y9H1bvB7aJbBdIljAfDjKIvknXJeefi29utbPEnkBLjvxSWh4GxtL3PlyjJgsXJT5hNKt6YGGGfzk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJkovwR8q2twgHwS5tZq6AXvudNxhzWeV1x5ClkxsoTAX73w9vv
+	O2XDq/LGXCLTNZtrYAA2akUxen3awgdeR5gDNUqT+hhvxJOkkOBdPGcd4h4rwt8R523Pdj1BYvV
+	wWSBSDaV8mQisyv0wK0zg5pX/E/3KVRk=
+X-Gm-Gg: AYBFou3Rsn4x0PHZ10jZ43NVs8x0bsKhTTyjWxFlAgwu7M+CuvDw/J8/MXlxAfB6esV
+	VhDB5vpuGtsLtHmI9yI8SJ9ExGSlDG/stCf+2rlT2xerpX0g9KZQ7NtfXI7+G18N+trPUHOiuuj
+	RiTpn5OsBRMoBp0se4W3qHtrXYeNNxOqrv+zKwFgsSxDbSNLE5vGA3j8EAS55u1FLlnz/EF/M8u
+	20tRNeZlvmxEIM7gq/obLv+5V3s3pQqZfZTTXa0LcIWrsyyioYcGQcYZ/lLZV7VdtL0z4sce6Mg
+	aHDhZBo8giLoX4jH5TiFYWbsvYo2E9V302ZszbkjXYjBZoxzPqum980hLg3qwe9KAKPUMnV8D9I
+	93NaDXCbSjU98lXlZvNgdYaZCPtxWy1hOpkDJ6VY=
+X-Received: by 2002:a05:600c:6089:b0:4a2:a8c:22b0 with SMTP id
+ 5b1f17b1804b1-4ac14ec75fbmr185544245e9.1.1793576243659; Sun, 01 Nov 2026
+ 15:37:23 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -72,52 +101,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - pf-012.whm.fr-par.scw.cloud
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - oss.cyber.gouv.fr
-X-Get-Message-Sender-Via: pf-012.whm.fr-par.scw.cloud: authenticated_id: jeremy.jean@oss.cyber.gouv.fr
-X-Authenticated-Sender: pf-012.whm.fr-par.scw.cloud: jeremy.jean@oss.cyber.gouv.fr
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+From: Arnaud BERTRAND <arnaud078@gmail.com>
+Date: Mon, 2 Nov 2026 00:37:11 +0100
+X-Gm-Features: AclHuK9ns4XBGZ7zNo5bqw4a_9l2SxlgD9VWWmJ9YT0QG78bE9OgwzMy8CJwXYU
+Message-ID: <CAGxFSwnBDM93ouN6Aq2ppm5zF1h19XE6NJ92NT2UEhMP1P4xEg@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/amdgpu: add firmware file fallback for APU VBIOS discovery
+To: Oz Tiram <oz@shift-computing.de>
+Cc: airlied@gmail.com, alexander.deucher@amd.com, 
+	amd-gfx@lists.freedesktop.org, christian.koenig@amd.com, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	simona@ffwll.ch
+Content-Type: text/plain; charset="UTF-8"
 
-There is a race in rmnet_unregister_real_device() because it cancels TX
-aggregation before unregistering the rx handler. A transmit that already
-obtained the port through rmnet_get_port_rcu() can wait on port->agg_lock,
-then create a new aggregate and rearm the timer after
-rmnet_map_tx_aggregate_exit() has drained it. The timer can later queue
-work on the freed port.
+Hello,
 
-Unregister the rx handler first so that no reader can rearm aggregation
-after rmnet_map_tx_aggregate_exit() drains it.
-
-Fixes: 64b5d1f8f2d1 ("net: qualcomm: rmnet: add tx packets aggregation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jérémy Jean <Jeremy.Jean@oss.cyber.gouv.fr>
----
- drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-index 61b04c6c0390..2ff4b9519139 100644
---- a/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-+++ b/drivers/net/ethernet/qualcomm/rmnet/rmnet_config.c
-@@ -40,10 +40,10 @@ static int rmnet_unregister_real_device(struct net_device *real_dev)
- 	if (port->nr_rmnet_devs)
- 		return -EINVAL;
- 
--	rmnet_map_tx_aggregate_exit(port);
--
- 	netdev_rx_handler_unregister(real_dev);
- 
-+	rmnet_map_tx_aggregate_exit(port);
-+
- 	kfree(port);
- 
- 	netdev_dbg(real_dev, "Removed from rmnet\n");
--- 
-2.47.3
-
+I have two dGPUs : a Radeon RX 6800
+XT and a Radeon RX 6800. They both report the same PCI identity
+1002:73bf and each has a different VBIOS.
+I hit the same VFCT bus-number mismatch on 7.2.10, but with a different
+outcome: on my machine the device-identity fallback actively breaks the second
+dGPU.
+I patched my kernel to remove the fallback, but I would like to have a
+better solution for my use case.
+Would it be possible to apply the patch only to APUs ? That would keep
+Oz's APU case working but a dGPU with a stale bus number would fall
+through to its own ROM, which is the source that is
+guaranteed to match the card in the slot.
+I can provide more details if needed, I am out of my depth here.
+Thanks
+Arnaud
