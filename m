@@ -1,58 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793507109;
-	b=37KKCPP6qzyS9LV445+bHlt1O2rdw6gMb7aBi3taQNmEplRZPtuu0WF9+hE9cXweDxQz
-	 mnAubKt2fxO5GnBp4qg4P0L46eC3Udps0+TYPK+y503r2dcZwPW/BS8IqJ5OWBwMmQk0E
-	 LXWTZWimwHTA7BXtKqPvikAP1GIgT3jYyLEr0DtHtjXFy70EjPH+1RMe7m8l+VslsRASc
-	 NJSMIllVAIQHM2b5lRZvR2BolSZKCZuUHccwgPRky/9mLZbL465O16tI9buYiFKgqbgLI
-	 x3nakRpoIiVqWAdv2VcS8EDEGQOJ1UEH32ZnGUvI6OyurCnwsB2J4Vp3ahue41TXsBQ==
+	t=1793508128;
+	b=TJ6TpVjA9w/ejn9oznWPPMiCZ7p46HfwAOJfNIYZXK/U/lsqR8kGD8c1ST5Si/eV8q3i
+	 Ge5MT+9iCBiF1HmCrVttDJGdpUIntYP6BflF6fDjCTJ/2jJ8Uqrqu3xMryT6pkb0glIH6
+	 26se/DBY0Rr0bJshIol3lczlEIjlEIs1BnjnZaGTUKfT4ykINGPjC1QRJLcjuOxLCWIuP
+	 EAZuEGi5TgBX9BMO/h1sdqyZzvJkcpYB5aJzNU9OOmOW9vnNoqhaLwJuWJ2sWSa1oMwWQ
+	 DZAji6Hy5GjM21zG2AgwG9VeZ6o8oBptuAzG/NeLZa6rU/tyTvA9o2wLnPQSnqjunXg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793507109;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-Id:
-	 In-Reply-To:References:X-Mailer:Mime-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=AaJPl9a9qhxWoN0NnjUzfzvyBJovsF7rWwGHYOTv9cA=;
-	b=v3P1qpM8LLi0qnWuiy2F/Nd3zflUA01CDNSO+zpc7ffDPZQyfkZpi/irR0e1VWFsAia0
-	 b4Wqz80zdeaFZ11DgtrXiiWHN60asVOcd1AET1iopIQdtKt/wVwP21FQC25rnubU86Ow9
-	 lRWFqFifIT5+8PRy0XM0cREzXsCbMcCEROW9BOiUz7etAYGLpha+c1ch5+NU9KxJtuxRZ
-	 dNAMZJyhjp7oxOqfisOupOjc8Un2BmLIEd3Y5oU4elO5pkuKsQwDTcUsB9fUCBXvZh0+s
-	 PdZBKHmiwc6PuiHVYsImOuv4orvHG/yKTbZEVRgSg5AgJZqxKChoEnJXlEWdovV4Nww==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793508128;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=KoWImiShPPX64endYV2oF0Pegts01lrpoAaRhh6SIUI=;
+	b=zf9iZ5ox2TKvN17m/U5FRrI6WGq6RiRW+h757IeFoCIW1QSdSG2jQkiHEyixEIn9qsfG
+	 vMWVhM6YUKz9yyzGU0zW+dnDYh54a9weCWYTs6HdFDzlzZHsDOekTq3GvqT5J+1XoOv/5
+	 EAqVcWo0y8wyiK4RlS9WYLeHd4RAlRF65btfJ5EoNbp3JOlD96tWztzI9EBRXTr59Lr0j
+	 PEOQ+4hACXEnWJGEDVCxVA8jC1VXymImfxHhyp+NIRxyGQeR84E7lbNXSbrtascIRygoF
+	 Y6l7osvQ2BErkSVYUGkZIak1Hv83nrBxO0vHDvGFr1kuPen5LLfggMs2gcYF7M1VoNg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b="XPTW/R/H";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=bqF6uGMh;
+	arc=none smtp.remote-ip=103.209.128.53
+Received: from mail-m12853.netease.com (mail-m12853.netease.com [103.209.128.53])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96B6606A324;
-	Sun,  1 Nov 2026 04:25:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B7E6606A325;
+	Sun,  1 Nov 2026 04:42:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9B7E6606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=korg header.b=XPTW/R/H
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F9C91F000C1;
-	Sun,  1 Nov 2026 04:25:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1793507108;
-	bh=AaJPl9a9qhxWoN0NnjUzfzvyBJovsF7rWwGHYOTv9cA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=XPTW/R/HdyZBfz+1MYvVMhTd7exeqadSGQnqrCnmq3Bk1dfSl/sDytOqoQpiSmGMV
-	 w6UIZQnaIrYx5uviPDZFwtdPCywav27UzXlhJdvtV+A/BkrEMrMOa1hjuO168/CGxh
-	 i+gq4WFy6pDFSKYdAEfeJYecWAOdsknlcn3kHk34=
-Date: Sat, 31 Oct 2026 21:25:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Andy Lutomirski <luto@amacapital.net>
-Cc: Samiullah Khawaja <skhawaja@google.com>, David Hildenbrand
- <david@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard
- <jhubbard@nvidia.com>, Peter Xu <peterx@redhat.com>, Chris Mason
- <mason@kernel.org>, linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: Re: [PATCH] mm/gup: check folio->mapping under folio lock in
- memfd_pin_folios()
-Message-Id: <20261031212507.31609e7ed27de35253b226c3@linux-foundation.org>
-In-Reply-To: <CALCETrU76ThzLDbUfpoota5=xcoOS4aZrwgK2B3ELkYcFOjGJQ@mail.gmail.com>
-References: <20261031203540.2282507-1-skhawaja@google.com>
-	<20261031194058.d3bd25ed950e5340ab595f07@linux-foundation.org>
-	<CALCETrU76ThzLDbUfpoota5=xcoOS4aZrwgK2B3ELkYcFOjGJQ@mail.gmail.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=bqF6uGMh
+Received: from 5950x.tail741d0a.ts.net (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 530dcc2c7;
+	Sun, 1 Nov 2026 12:41:54 +0800 (GMT+08:00)
+From: Xing Zheng <zhengxing@rock-chips.com>
+To: broonie@kernel.org,
+	heiko@sntech.de,
+	linux-sound@vger.kernel.org
+Cc: luca.ceresoli@bootlin.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	huangtao@rock-chips.com,
+	sugar.zhang@rock-chips.com,
+	lxt@rock-chips.com,
+	xing.zheng@rock-chips.com
+Subject: [PATCH v2 0/3] RK3308 codec audio sequencing and headphone support
+Date: Sun,  1 Nov 2026 12:41:46 +0800
+Message-Id: <20261101044149.2018744-1-zhengxing@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261101040125.1864141-1-zhengxing@rock-chips.com>
+References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,69 +69,73 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19569ff8e03a8kunmda3ed7c8171604
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTUtDVkNDQkxLThhPSUNISlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=bqF6uGMhSTBFAbWN5IR16gHZGfMogg7UR6TuV1g89zqcdicAFAH+wfNaI5+fSBa/5I6PVqFNUeREaMS7a0CtofeWp89stdIH/7RrAEUTpnrWPcYqLXkew6gQI0h3JmQfQklt6MADUXOYmu5zGZi/hz6GRHKkuCFzmq/20E1bN5E=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=KoWImiShPPX64endYV2oF0Pegts01lrpoAaRhh6SIUI=;
+	h=date:mime-version:subject:message-id:from;
 
-On Sat, 31 Oct 2026 20:20:03 -0700 Andy Lutomirski <luto@amacapital.net> wrote:
+Restore the full RK3308 codec analog power sequencing and headphone
+support from the downstream 6.12 implementation, adapted to the current
+ASoC interfaces. Keep the complete codec source and register definitions
+in one patch, alongside the binding and SoC detection-resource changes.
 
-> On Sat, Oct 31, 2026 at 7:40 PM Andrew Morton <akpm@linux-foundation.org> wrote:
-> >
-> > On Sat, 31 Oct 2026 20:35:40 +0000 Samiullah Khawaja <skhawaja@google.com> wrote:
-> >
-> > > memfd_pin_folios() pins folios from the page cache without taking the
-> > > folio lock. So khugepaged or MADV_COLLAPSE can replace the folio after
-> > > its refcount check while memfd_pin_folios() still pins the old folio,
-> > > and the caller ends up with a folio that is no longer part of the memfd.
-> > >
-> > > Lock the folio and recheck folio->mapping before pinning it, like other
-> > > page cache users do. If the folio was removed, retry the folio lookup
-> > > from the index that was removed.
-> >
-> > Can we please include a clear description of the userspace-visible
-> > runtime effects of the bug?
-> 
-> It's straight-up data corruption if you manage to trigger it, no?  If
-> you manage to race a memfd_pin_folios() against collapse,
-> memfd_pin_folios() will pin the wrong folio.
-> 
-> Fortunately, there are a whopping three callers in the whole tree.
-> You can hit it from udmabuf or iommufd or memfd LUO.
-> 
-> The former two will direct DMA to the wrong folio.  Fortunately it's
-> not UAF as the DMA will be directed to a folio that is still pinned,
-> but it's the wrong one.  DMA reads will read potentially stale data
-> and DMA writes will overwrite that stale data but not update the live
-> copy.  (The DMA will not be directed to some other application's
-> memory, just to a leftover copy of the calling application's memory.)
-> 
-> As far as I know, the effect with LUO would be for stale data to
-> reappear in the memfd after handover.  With the patchset that started
-> this whole discussion applied, I think it might result in misdirected
-> DMA to freed memory (I do not stand by that claim at all), but that
-> patchset is not applied.
+The codec change includes revision-specific ADC/DAC supply sequencing,
+reference-current and headphone gain ramps, A/B CIC fades, active ADC
+resynchronization, MICBIAS restoration, microphone boost controls, ADC
+stereo-group routing and B/C headphone detection. Machine drivers retain
+ownership of the external amplifier GPIOs.
 
-Thanks.  How's this for a changelog?
+The SDK-only multicodecs shutdown fix and EVB/VAD routing patch are
+outside this series because their target drivers and board files are
+not present in the upstream tree.
 
-: memfd_pin_folios() pins folios from the page cache without taking the
-: folio lock. khugepaged or MADV_COLLAPSE can therefore replace a folio
-: after checking its refcount while memfd_pin_folios() still pins the old
-: folio. The caller then receives a folio which is no longer part of the
-: memfd.
-: 
-: For udmabuf and iommufd, this can cause data corruption: DMA accesses
-: the detached folio rather than the live memfd contents. DMA reads can
-: return stale data, while DMA writes update the detached copy and are
-: lost from the live memfd. The detached folio remains pinned, so these
-: accesses do not constitute a use-after-free or target another
-: application's memory. For memfd live update, the stale contents can
-: reappear in the memfd after handover.
-: 
-: Lock the folio and recheck folio->mapping before pinning it, like other
-: page cache users do. If the folio was removed, retry the folio lookup
-: from the index that was removed.
+Patches 1-2 are for the ASoC tree; patch 3 is for the Rockchip DT tree.
+The detection resources remain optional for existing device trees.
 
-Samiullah's patch assumes the presence of Chris Mason's "mm/gup: fix
-clearing folios in memfd_pin_folios()" which is in mm-next, so... 
-->David
+Changes since v1:
+- Restore the full analog sequencing omitted from the initial posting.
+- Consolidate all codec C/header changes into a single patch.
+- Use the original binding descriptions and legacy IRQ lookup rules.
+- Preserve upstream automatic DAI format selection and adapt accessors.
+- Use sleepable waits while preserving downstream minimum delay requests.
+- Keep the SDK-only machine-driver and EVB/VAD work deferred.
 
+Previous posting:
+https://lore.kernel.org/r/20261101040125.1864141-1-zhengxing@rock-chips.com
+
+Validation:
+- ARM64 defconfig plus built-in RK3308 codec, Image and all six RK3308
+  DTBs build on broonie/for-next and the Linus baseline with GCC 14.3.1.
+- Codec W=1 builds, binding/example validation and codec-schema checks
+  on the six DTBs pass; strict checkpatch reports no diagnostics.
+- The three patches apply to the Linus baseline without 3-way fallback;
+  range-diff reports all three patches unchanged.
+- Extracted SDK/upstream analog functions match across 11520 modeled
+  register traces, including operation order and minimum delay requests,
+  under ASan/UBSan. Parameter/error-path probes also pass.
+
+These host models do not verify actual hardware settling time.
+No new playback, capture, hotplug, suspend/resume or electrical timing
+measurements have been performed on hardware with this upstream series.
+
+Xing Zheng (3):
+  ASoC: dt-bindings: rk3308-codec: describe detection and ADC routing
+  ASoC: codecs: rk3308: restore audio and headphone support
+  arm64: dts: rockchip: restore RK3308 codec detection resources
+
+ .../bindings/sound/rockchip,rk3308-codec.yaml |   55 +
+ arch/arm64/boot/dts/rockchip/rk3308.dtsi      |    4 +
+ sound/soc/codecs/rk3308_codec.c               | 1155 ++++++++++++++---
+ sound/soc/codecs/rk3308_codec.h               |   18 +-
+ 4 files changed, 1064 insertions(+), 168 deletions(-)
+
+
+base-commit: 11ae63bd9030349a0136fb2edd1622a4a029edc8
