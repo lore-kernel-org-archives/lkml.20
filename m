@@ -1,110 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793521773;
-	b=KpfBdi1Gkz1suspSEkNE8kidgITTUC+WlD8t9KJsd0kAg+JsTYQnlAlGzv2BN9AvNYzg
-	 1X2ZS0KE7GR3Kkq565iEaAdLc8TpgK3Gfjfr6ZWPIOYiuRETDDk6e3h9JhsoKLSgIKYsn
-	 0bGbFibKJ9cCCyqxEk8OjY0kfKOOL8vtzLoZsKPm/D3s5k/ZgiNCR5X9NU4nnmRnvsAnb
-	 fbeWauDtKGllaz4sJzdBs9NVrbfoeM4Dzme4UNbDHYsCu+srKT3vxBCrtXV++7pOGYmGu
-	 kLQDM6YRj4UTm9X70VFcYCyksirG+x82DGguRnP2U66Tm7ypF8NVwLb8H9gfpuMBELg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521773;
-	h=DMARC-Filter:X-RZG-CLASS-ID:DKIM-Signature:DKIM-Signature:X-RZG-AUTH:
-	 Received:Subject:To:Cc:References:From:Organization:Message-ID:Date:
-	 X-Mailer:MIME-Version:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=vlZRwvKFZngxd4ogQEIfdVGvHi+Ew7cR4JQOBhK+k7I=;
-	b=jF2D91OaCbS7aYaI1BnKCxiHxuchVWtv+cYF24OEXwntWkzbQGVrVADZ439S3AtDt3vx
-	 5q/o/5kI0NEL26i8YP5d9uEnCiiZSyAgEXZ7j0noYtyN9WfwIzyqUDEnXyXc3IvbIdGbC
-	 0fNfg17LhRjHht8eFNeAuP7gc5883WmnaEINijZfksVZYwaeFuZcdutsTNzVjmgmmFkIb
-	 heMP65950pXQjNxFUfRFJFNG8SGzNK+6siK0htGxEWWz9GD2hpGesJyPXWx13zhjhs4XO
-	 OCfYUwg/rbM62z3hbZM+w5FEw/FLCCvx3aQqkx+O/xpuPo3ok0rPuQdwdn9J1NHuE4w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=xenosoft.de;
-	spf=none smtp.mailfrom=xenosoft.de;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RxXntzIp;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2SNI8NAn;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=81.169.146.164
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [81.169.146.164])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793521819;
+	b=nd5naNIh39NyYra7GX2YSLk9bS06wgrAZbWDewvb25D5hWKk2o0IXildv0tlYvXxJyxs
+	 dY+qG47243q9pNP4WuAC3zAzyESYzZRcZcuuaz/su/hvrB+iRDCI96/IJ6otlseeVzWLi
+	 I73ceM112OFAGX75wjMkNfWF93moW9Db5iyN7Ot6zFkMn2YkFWSXFN1erDwVzNBHkC6QU
+	 txVUYpLVylR/cflp7aaISZ6nZlhXAKP/KIZO559OU4LmgtYAEKp1sTcCjTWT80Aqu7+a2
+	 ERjKliukUgTAW/L95/HYH/Dmq0P8jmjQdqsi0GfckuayjPVoMCUBmGuq9ye+VvRh5WQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521819;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=sq0GUY/ITn4SQxq/x1kkdeNsQ++qEz4hJvkAkG/WKPU=;
+	b=uHySY9f7c0etHafltNseKZlPF888D5bbSOWQMugeBb16Qv+APIX/6VviQVk3GYo86P0h
+	 r+e1uW9ddm7mNBpVrR/gCUwQsdCWcJC2fva8B/w7k7uw9DAa1Ep34y/tIMvQf0Afg7V6l
+	 vqpQDcJpG461EhgPHS5Y7GP5u6dsRql4PzDRNkLhSkOOTEKsUTwtFb1czFkfWUTSdI3iZ
+	 MKGdIgENs56E1pHHNhsAdnknArKT23XPMfxFdmE1Hx5uvrurfzTQgLZzNMpQXloml+lrq
+	 xPUSl2Kr6o4AUE4lVWJl0/fz0qE4MX+IPyrsrLQU9B5YNNe4ftP8sHsiCm8Q/jaJSKw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elw9lDlb;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3631606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:29:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3631606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=xenosoft.de
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=xenosoft.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C10EB606A325;
+	Sun,  1 Nov 2026 08:30:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=xenosoft.de header.i=@xenosoft.de header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=RxXntzIp;
-	dkim=pass header.d=xenosoft.de header.i=@xenosoft.de header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=2SNI8NAn
-ARC-Seal: i=1; a=rsa-sha256; t=1793521732; cv=none;
-    d=strato.com; s=strato-dkim-0002;
-    b=AIRdNLJOJqxIo9tNGK3h0unlzm/BQOqJOiXBSN/3HNCMOGN4ifRya1/uiAIZiBdRn/
-    xY3n6hNZ+nKq+PhiNSN1yBbb0wh/zvNBqWixvYQj2I/4MjXXJCRYdYwiVQ705WBV2Fy6
-    Mr4CiQgp0yomrRtcAxk5Gf1kKjaqhHGeDTounV/IMq0gQSrCekSIU5rjTtUzEFkVyXQx
-    g/EeZ+Lki5yKkw3orY8YpTuA5SlOuDLwKvqsGxLMpk57eb/1slkmGAbihyoziBnFs+AW
-    HQsHaFWlw03w5RhrEEVG5ObqBYyEv3VzG1REV/ljqyQPY71z79SVYhxytpIlDFANzBT+
-    1/5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1793521732;
-    s=strato-dkim-0002; d=strato.com;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=vlZRwvKFZngxd4ogQEIfdVGvHi+Ew7cR4JQOBhK+k7I=;
-    b=UzRYZ5a2KajZd6OaAkrMHGyoGuA2X5HXhWBHMNu/PHh9FQGQkaITa2QuG+tY9pHoSS
-    Ato/VGissC3uXI+E+o3dsdBkWTkqg9XgB+713FSdfvt1GwjxyedndhYOoFoDXEseNILn
-    9qJvTU94NydHCpX29vVE6Wln20O40lKocbfLSWALm2ogBJ9D35edOfgPWY6dXZk1H4iO
-    rgqNwU8FMFb7PjJKlYnoZqZj5oz0ep+UZe0XcjH23uVTrI/j1l5ZNgjum1aXjorI3ITF
-    XYUL+9RKP6i8nwij+AaKsYmOJMEmfwWPfrq9bK3bgCqvWPCGwjahwC36LK5gdcy4DVM0
-    Dheg==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo01
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1793521732;
-    s=strato-dkim-0002; d=xenosoft.de;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=vlZRwvKFZngxd4ogQEIfdVGvHi+Ew7cR4JQOBhK+k7I=;
-    b=RxXntzIpB7Qj5YerNFpUKiJZpSgX8gjwRECBk0VMnQTrfGRt7HaLu4EvvmYh1nEp+3
-    /QPC5mskBKQHxa9giWV9XwniUUD/+/281Hiz0GeChvjD6HGQSJiqdwwFQkzN042W02D6
-    YW1Luu93Tu4+9Xtl0S7BvCQM74cvVxN1bA2IFLw+2n2kzQ2SfeOiYRNNypYu5XmUbkjf
-    Lu92LSHVknH4SJvuz/nNiLjmh8LQ5r8Rmn0oMw2TiUawoLrQJNrULnbagSi4jr0kusHl
-    5NGtcEiXfrEUoYHb323zOHibjh/wZAPjkpJRnaNlT8HuwMUGpO+QmHymQEVueAzRB0VQ
-    CGvw==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1793521732;
-    s=strato-dkim-0003; d=xenosoft.de;
-    h=In-Reply-To:Date:Message-ID:From:References:Cc:To:Subject:Cc:Date:
-    From:Subject:Sender;
-    bh=vlZRwvKFZngxd4ogQEIfdVGvHi+Ew7cR4JQOBhK+k7I=;
-    b=2SNI8NAnWSJRFlbYf5jySV+sISntx9QURQ4Sge9Og+CQq9Djam9T0GfezkGlL6FT59
-    qtjUz2mtLaFTK9teCcCw==
-X-RZG-AUTH: ":L2QefEenb+UdBJSdRCXu93KJ1bmSGnhMdmOod1DhGN0rBVhd9dFr4thIFiqT9BURIi+m7xzg"
-Received: from void-ppc.a-eon.tld
-    by smtp.strato.de (RZmta 55.6.3 DYNA|AUTH)
-    with ESMTPSA id e825d92A18So4xa
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-    Sun, 1 Nov 2026 09:28:50 +0100 (CET)
-Subject: Re: [PATCH 1/2] KVM: PPC: BookE: Disable preemption before loading
- guest FP and Altivec
-To: "Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Narayana Murty N <nnmlinux@linux.ibm.com>, maddy@linux.ibm.com,
- linuxppc-dev@lists.ozlabs.org
-Cc: mpe@ellerman.id.au, npiggin@gmail.com, christophe.leroy@csgroup.eu,
- linux-kernel@vger.kernel.org, msuchanek@suse.de, harshpb@linux.ibm.com,
- gautam@linux.ibm.com, amachhiw@linux.ibm.com, venkat88@linux.ibm.com,
- "R.T.Dickinson" <rtd2@xtra.co.nz>, mad skateman <madskateman@gmail.com>,
- Damien Stewart <hypexed@yahoo.com.au>
-References: <20260928110411.844582-1-sshegde@linux.ibm.com>
- <20260928110411.844582-2-sshegde@linux.ibm.com>
- <9d83e196-4d6b-4be1-811c-eb72527d3cdd@linux.ibm.com>
- <2a75097f-6b49-456a-bfef-d5e559ce719a@linux.ibm.com>
- <33tnw44q.ritesh.list@gmail.com>
-From: Christian Zigotzky <chzigotzky@xenosoft.de>
-Organization: A-EON Open Source
-Message-ID: <15075ad5-73f8-4714-0503-2565ca3dfb4b@xenosoft.de>
-Date: Sun, 1 Nov 2026 09:28:50 +0100
-X-Mailer: BrassMonkey/35.0.2
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=elw9lDlb
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0EF1F000C1;
+	Sun,  1 Nov 2026 08:30:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793521818;
+	bh=sq0GUY/ITn4SQxq/x1kkdeNsQ++qEz4hJvkAkG/WKPU=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=elw9lDlbOmEjCZYozD36NQhOlOae9eklhjYFasrHzcrnyMhvUeziCy9CqIujQUs9L
+	 S/ghqD5Xzq8eNRw0xtinzVYmLJjdMFZ/YQUM/ussoNwGcWwhLKCu1t1hW0hn/2mzV6
+	 8pN6cyK1an3Z8Hk7WKPcmHk3Kxxs5uYFIJJWJ+tvek1iWQbhpZFIexG2inf4a2Xtkk
+	 zF2zyPQVSiqskfauYkImEhxKQ9OYW+9oqm03GqLtGDuwaRL4SvHnGmbHadOYgOTMek
+	 d/13500EnpMa5lLKcX67IdPZZhohnjMmugmsuwmcDAhrivBVuKFOgLOFX+LzawLDo9
+	 hp8c26JManPzw==
+Subject: Re: [PATCH net] tcp: fix device binding after failed IPv6 connect
+From: netdev-bot+sashiko@kernel.org
+To: yanxia@cmss.chinamobile.com
+Cc: netdev@vger.kernel.org, edumazet@kernel.org, ncardwell@google.com,
+ kuniyu@google.com, davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com,
+ horms@kernel.org, torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, yana06070@163.com
+Date: Sun, 01 Nov 2026 08:30:17 +0000
+Message-ID: <179352181715.3131.4301656429935322614@kernel.org>
+In-Reply-To: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
+References: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,91 +63,198 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-In-Reply-To: <33tnw44q.ritesh.list@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 30/10/26 17:21, Ritesh Harjani (IBM) wrote:
-> Shrikanth Hegde <sshegde@linux.ibm.com> writes:
->
->> Hi Narayana.
->>
->> On 10/1/26 4:56 PM, Narayana Murty N wrote:
->>> Hi Shrikanth,
->>> Thanks for the fixes. I had one question on patch 1.
->> See response below.
->>
->>>> diff --git a/arch/powerpc/kvm/booke.c b/arch/powerpc/kvm/booke.c
->>>> index 13ad4cf5fa71..5b9118eefe1d 100644
->>>> --- a/arch/powerpc/kvm/booke.c
->>>> +++ b/arch/powerpc/kvm/booke.c
->>>> @@ -1404,10 +1404,17 @@ int kvmppc_handle_exit(struct kvm_vcpu *vcpu, unsigned int exit_nr)
->>>>            if (s <= 0)
->>>>                r = (s << 2) | RESUME_HOST | (r & RESUME_FLAG_NV);
->>>>            else {
->>>> -            /* interrupts now hard-disabled */
->>>> +            /*
->>>> +             * kvmppc_fix_ee_before_entry() marks the software
->>>> +             * IRQ state enabled while interrupts are still
->>>> +             * hard-disabled. So disable preemption while loading
->>>> +             * guest FP and Altivec.
->>>> +             */
->>>>                kvmppc_fix_ee_before_entry();
->>>> +            preempt_disable();
->>>>                kvmppc_load_guest_fp(vcpu);
->>>>                kvmppc_load_guest_altivec(vcpu);
->>>> +            preempt_enable_no_resched();
->>> Would it be simpler to move kvmppc_fix_ee_before_entry() after the
->>> FP/Altivec loads instead?
->>>
->>> The normal kvmppc_vcpu_run() entry path already loads the guest
->>> FP/Altivec state while interrupts are still disabled and calls
->>> kvmppc_fix_ee_before_entry() immediately before entering the guest.
->>>
->>> So could this path follow the same ordering:
->>>
->>> kvmppc_load_guest_fp(vcpu);
->>> kvmppc_load_guest_altivec(vcpu);
->>> kvmppc_fix_ee_before_entry();
->>>
-> Thanks Narayana, that actually make more sense to me.
->
->
->>> That would avoid making the software IRQ state enabled before loading
->>> the guest FP/Altivec state, and also avoid the additional
->>> preempt_disable()/preempt_enable_no_resched() pair.
->>>
->>> Thanks,
->>> Narayana Murty.
->>>>            }
->>>>        }
->> I thought I had put that for discussion after ---, but looks like I forgot.
->>
->> I don't mind the above too.  but I didn't have a way to test it.
-> Actually I agree with Narayan's reasoning here.
->
-> Sorry for being so late to the game. As you know we have been occupied
-> with other things internally.
->
->> So kept it as is based on what Christian said works for him.
->> If you have a way to test the patches, please let me know.
->> We can try that too.
-> Let's ask Christian directly :)
-> @Christian - Once we have v2, would you kindly help us test that
-> please?
->
-> We think the other approach which Narayana suggested might be a better
-> fix for this and it can avoid preempt_enable/disable() dance. However,
-> looks like we may not have the board where we can reproduce this.
->
->
-> -ritesh
->
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider.
 
-Yes, I can help with testing.
+Critical: 0 · High: 2 · Medium: 0 · Low: 1
 
-- Christian
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [High] The fix is incomplete.
+- [High] tcp: restore sk_bound_dev_if before inet_bhash2_reset_saddr() in
+  tcp_v6_connect()
+- [Low] The restore at the `failure:` label is unconditional.
+
+--
+
+tcp: fix device binding after failed IPv6 connect
+
+This patch saves sk_bound_dev_if when tcp_v6_connect() is entered and
+restores it at the failure label. The goal is that a binding taken from
+sin6_scope_id for a link-local destination does not stay on the socket
+after a failed connect, so a later connect() to ::1 on the same socket
+can succeed.
+
+> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
+> index e006a30360eae..7bb8266d9d1b7 100644
+> --- a/net/ipv6/tcp_ipv6.c
+> +++ b/net/ipv6/tcp_ipv6.c
+> @@ -146,6 +146,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+>  	struct flowi6 *fl6;
+>  	int addr_type;
+>  	int err;
+> +	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
+>  
+>  	if (addr_len < SIN6_LEN_RFC2133)
+>  		return -EINVAL;
+
+[ ... ]
+
+> @@ -358,6 +359,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
+>  failure:
+>  	inet->inet_dport = 0;
+>  	sk->sk_route_caps = 0;
+> +	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
+>  	return err;
+>  }
+
+[Severity: High]
+Is the restore placed too late for the late_failure path?
+
+When inet6_hash_connect(), tcp_fastopen_defer_connect() or
+tcp_connect() fails, the code jumps to late_failure. That label calls
+tcp_set_state(sk, TCP_CLOSE) and then inet_bhash2_reset_saddr(sk),
+and only after that falls through to failure. Both calls therefore
+run while sk_bound_dev_if still holds the sin6_scope_id value.
+old_bound_dev_if is written back only at the end.
+
+inet_bhash2_reset_saddr() calls __inet_bhash2_update_saddr(). That
+function computes l3mdev with inet_sk_bound_l3mdev(sk), which reads
+sk_bound_dev_if. It then passes that l3mdev to
+inet_bind2_bucket_find() for the wildcard address, and calls
+inet_bind2_bucket_init() if nothing matches.
+
+Consider a socket bound to [::]:port with no device, so tb->l3mdev
+and tb2->l3mdev are 0. It then connects to a link-local address
+whose sin6_scope_id names a VRF slave, with tcp_l3mdev_accept=0.
+sk_dev_equal_l3scope() passes because sk_bound_dev_if is 0, and the
+scope_id is installed.
+
+If the connect then fails after inet_bhash2_update_saddr(), the
+reset rehashes the socket into a bind2 bucket keyed on the VRF
+master's l3mdev. The failure label then puts sk_bound_dev_if back to
+0. The socket is left with an icsk_bind2_hash whose l3mdev disagrees
+with both icsk_bind_hash and its own restored binding.
+
+A later listen() looks up tb2 with the restored l3mdev in
+inet_csk_get_port() and hits
+WARN_ON(inet_csk(sk)->icsk_bind2_hash != tb2).
+
+If another socket shares the port, things get worse. The reset can
+create a duplicate wildcard bucket, or link this socket into another
+VRF socket's bucket. In the second case, closing the sockets in the
+wrong order can destroy the wrong inet_bind_bucket. The VRF tb is
+then leaked with an empty bhash2 list, which later trips
+WARN_ON(hlist_empty(&tb->bhash2)) in __inet_hash_connect().
+
+Before this patch the binding simply stayed in place. Later bhash2
+lookups then at least used the same l3mdev that the reset used. The
+mismatch between the restored binding and icsk_bind2_hash is new
+with this change.
+
+A smaller side effect is that tcp_set_state(sk, TCP_CLOSE) runs the
+BPF_SOCK_OPS_STATE_CB and bpf_tcp_ops state callbacks while the
+failed scope_id binding is still visible.
+
+Should sk_bound_dev_if be restored at the top of late_failure,
+before tcp_set_state() and inet_bhash2_reset_saddr()? Or is there a
+reason the reset is expected to use the connect-time binding?
+
+[Severity: High]
+
+Does this handle a connect() that fails after tcp_v6_connect() has
+already returned 0?
+
+The restore only runs when tcp_v6_connect() itself returns an error.
+After tcp_connect() queues the SYN, the function returns early:
+
+	err = tcp_connect(sk);
+	if (err)
+		goto late_failure;
+
+	return 0;
+
+Suppose the peer sends RST, the SYN times out, or an ICMPv6 error
+arrives. Then __inet_stream_connect() sees TCP_CLOSE and takes the
+sock_error path:
+
+net/ipv4/af_inet.c:__inet_stream_connect() {
+    ...
+sock_error:
+	err = sock_error(sk) ? : -ECONNABORTED;
+	sock->state = SS_UNCONNECTED;
+	sk->sk_disconnects++;
+	if (sk->sk_prot->disconnect(sk, flags))
+		sock->state = SS_DISCONNECTING;
+    ...
+}
+
+tcp_disconnect() undoes the auto-assigned source address with
+inet_bhash2_reset_saddr() and drops the dst with __sk_dst_reset(). It
+never touches sk_bound_dev_if, so the socket stays bound to the
+interface taken from sin6_scope_id.
+
+On a retry connect() to ::1, sk->sk_bound_dev_if is copied into
+fl6->flowi6_oif. ip6_route_output_flags_noref() then adds
+RT6_LOOKUP_F_IFACE:
+
+	if ((sk && sk->sk_bound_dev_if) || rt6_need_strict(&fl6->daddr) ||
+	    (fl6->flowi6_oif && any_src))
+		flags |= RT6_LOOKUP_F_IFACE;
+
+The lookup then fails with ENETUNREACH, which is the symptom the commit
+message describes. A successful link-local connect followed by
+connect(AF_UNSPEC) ends up the same way.
+
+An unprivileged user cannot clear the stale binding either.
+sock_bindtoindex_locked() returns -EPERM when sk_bound_dev_if is already
+set and the caller lacks CAP_NET_RAW.
+
+So with this patch, the implicit binding is undone after a synchronous
+failure (route lookup) but kept after an asynchronous one (RST, timeout,
+ICMP). Would it make sense to also undo the scope_id binding on the
+disconnect path, or to track it so it can be undone there?
+
+[Severity: Low]
+
+Could this write-back clobber a binding that was set after the snapshot
+was taken?
+
+The restore is unconditional. It runs even when the sin6_scope_id
+branch never changed sk_bound_dev_if. tcp_connect() runs the BPF
+connect hooks before several of its error returns:
+
+net/ipv4/tcp_output.c:tcp_connect() {
+    ...
+	tcp_call_bpf(sk, BPF_SOCK_OPS_TCP_CONNECT_CB);
+	bpf_tcp_ops_call(connect, sk);
+    ...
+			return -EKEYREJECTED;
+    ...
+	if (inet_csk(sk)->icsk_af_ops->rebuild_header(sk))
+		return -EHOSTUNREACH; /* Routing failure or similar. */
+    ...
+	if (unlikely(!buff))
+		return -ENOBUFS;
+    ...
+}
+
+A sock_ops program can call bpf_setsockopt() with SO_BINDTODEVICE or
+SO_BINDTOIFINDEX from CONNECT_CB, and sol_socket_sockopt() in
+net/core/filter.c accepts both.
+
+If tcp_connect() fails after that, the path goes late_failure ->
+failure. The value saved on entry then overwrites the binding the BPF
+program just installed, and no sk_dst_reset() follows. Before this
+patch, that binding would have survived.
+
+Would it be better to restore only when tcp_v6_connect() itself wrote
+sin6_scope_id into sk_bound_dev_if?
 
 -- 
-Sent with BrassMonkey 35.0.2 (https://github.com/chzigotzky/Web-Browsers-and-Suites-for-Linux-PPC/releases/tag/BrassMonkey_35.0.2)
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031074654.73952-1-yanxia%40cmss.chinamobile.com
