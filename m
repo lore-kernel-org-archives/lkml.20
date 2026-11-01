@@ -1,99 +1,60 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=62.149.158.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793545373;
-	b=YK1IDoSYIfxoYsrJv/dGsDIgJSdeS2Xko1siK1eDjeAb9ODCzNHohYEj7wbZjg8NCRyq
-	 CoZ+6Xlg0jYaIEiKO2TbAEqzujNNH0whZJJVloaud+2/I5I2mOjcYJE2SbfhZrlsZH7k4
-	 sqHqUQe4FGTqgQ9zVA12hkK9YUKRj0/fGqV9Av/3n38MS3boCx8QeJfn2Q3trdE/b/UWH
-	 3fx3RHW7Kau2thaqt3KH8xcKv2OVwRNvBDZUTVqWKm23JSHUKyJWwVtmyWBb9EJDuXNNE
-	 tsHbf3abo9wDmySLlvT5Pq6VUbyo9boUvr0gQi7NwyHMn/okPQlmuhIhhomX8hcPn3A==
+	t=1793545397;
+	b=1cwfpsDTtD0Ucw4Qe7hH701qa+A27bm4J6ZPtitSkpCGtLuWKAztISDQ+RAxBHrvLtP0
+	 UOE3L9ZiULGMGHUFoFsblZy2K+C36+8sBzZTaRrMAjh+a/e+FMXvH8PAb4lHPzXIa7jAf
+	 cJOXtvDmt+flGwc9lbdVmCz90Da2PR9UsYewYSSygbliFhOhtJcbLMqm7+sw3oZaTO359
+	 mWEkkWbkfGdwZqbuAAwEUz8UWKZP39wohFtOwjri3C6g+OkhhaymP+YdLLVQtQdY29Ryq
+	 H6zuJ6sKzHtOmI76FC38scHb5/jm6ar78+m+Bh/+v1Eah+8f/V6dmVo9yosuR5xMb0g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793545373;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=n526eF796VsVK0te1y2BUvy07jmqYe5zbpzfr00FB+I=;
-	b=tU8I3FkFHzlmLQ1gmnxJ8GTUvq7JEdXeWwhwQKB4JflStMcQZjxf2ac+w5eLmIgW3ay/
-	 NgU23YXioU2opkB0K9H4OqpbKA3rJLwAWGbAUoPw5a/3oi8UlAmjXQaLUg4kEi14qyN2D
-	 /5XAMdxwlPCrxqw+jtbqHX+CE9080N37FWuedTIfzurQqSICWU7KKcFJhjw56I/srNNfm
-	 p7je0i5CanVG3unnyNbwKsGOoud394bgry0mivehgB8B6c201PUVgnDLxUz5g30RV3Y6a
-	 sLeWNiMUZxkK4b3R9Scldmg5sXSExvckVD05S9o51psj8uxeitaAjuPe1JUBmM+hMoQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793545397;
+	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CMAE-Envelope;
+	bh=PeQatZuCTe50g7/M8SkAi3VgySytcqPBSX9TVmXkD4E=;
+	b=3SN2X4hwEgw3n4HMTCrelmTDf7Tc/d8vIDgTOzOM1Dso1HNWmoUMjznVwB9Uz9hRr/Yh
+	 m+jA2KNYV2gBom7kCXdpQQrsN/UveNEZ/LwpbZv/p1pqIutRzScqTNWczCeJxNsUqV49p
+	 nPOOuaM/j0cgyC7Na0o1NTUnGQD7n9WBj8RYle3RxVyTUHHXr2a/gZJR9H7WUrBKUbKwe
+	 /13seqHHMxoJnYFg0GZeE9qM/cVJCNqZt2MPwVWdIM0VZBg6fW/uJBpOBSVpLylWdJ/RS
+	 0lp1wOtbsEoWkSQtqRY3l0LukajJLNqB1RjSCtEuC2jR4ASIGDONeNxvT+lokNWX/RA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WYISqS9W;
-	arc=none smtp.remote-ip=209.85.128.46
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=mythread.it;
+	spf=pass smtp.mailfrom=mythread.it;
+	dkim=pass header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=eK6FL+We;
+	arc=none smtp.remote-ip=62.149.158.117
+Received: from smtpcmd03117.aruba.it (smtpcmd03117.aruba.it [62.149.158.117])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C54B606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:02:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C54B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0198606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 15:03:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C0198606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WYISqS9W
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a4d7ae1ae9so19973455e9.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 07:02:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793545371; x=1794150171; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=n526eF796VsVK0te1y2BUvy07jmqYe5zbpzfr00FB+I=;
-        b=WYISqS9WQ40IsqY5xG5yW+LDrBE4+wMrDHEK0lqbYfZtkPi/rdsEVlbJum4eaRRoeS
-         PwBPe9Gl86JgrSt/OCkxoJQpRyH52Y2+NmJzi21fscZI6yOhbJOgO2sPeqlq1c167M/i
-         womkYkjs+WKe37jK2L7Ph4m2QRiEqp1Jg/yuhs2V16YBFYfddEtMOXJ+ToqA+lk7dgXI
-         vUEvo5Khe0akIDRvkhrlETegbz2ATOhMnwUHN6mgc/cZz6ciMYJNWP4Utkdqewt9y6tB
-         lCfG5e5wlmk5UUV19HfvTr6fBbWZkX9nOqwCsv2WF0B9rH27mZyyuHVIqSQoa6i6Znkc
-         V0vA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793545371; x=1794150171;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=n526eF796VsVK0te1y2BUvy07jmqYe5zbpzfr00FB+I=;
-        b=SWn4xjIk8kAotDaoU0tkjP4Ey5Qm8QXbBppaQZONlYRj9RayRyuqn9pqSCzDCsrx8Z
-         F5KhkhKXP6dHbgt1fA1A1pkqBotr+LZ2tx82oy8MbStZss6IQWTwJqo96iwLumP1MaK3
-         Lw7Bx3habub+JUYpiPG8e8VFOGE/2DNKts1aVVZjUET6WR+mKfGze32fAdfRYEJXLijr
-         LMd/3XRQAKoTDjneUuL44eeBpnq++MOhU2crbrk5cg7/3HVqxMVjjssD1Xn7yz5VZI6o
-         bh6SUHLG0FCzfu5/QqvUWcLraEObSsZ7KVIw7GW+svonSK+9GUnxjZPAHjHjHPkqS49y
-         wj5Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx8WF6QDGekSbMcrm4iq1LWJYKVWRJlxp/5TSmt290Rx4RIkM+L/p7piG0dPkLk82gvKfDoFHYCPjLe+Ec=@vger.kernel.org
-X-Gm-Message-State: AFq9FYILtVBo9KWHTKXISs/fkYHla2nUEJ5scmGLCW2ST5XNkeAwmPoX
-	hNmHy781+jYWZoaqMMUA3FpFQ5OkXKW76iRVQ6MeBEbj+cU/n0nlZSUX
-X-Gm-Gg: AYBFou1gog6w6CCWGRFmIn7rksJvZZ2FY0oRcB7cAEpg04vE48hl6XIWHGptXUzrh3o
-	4OJG24cH8rxZsUGe06i3oVDapIXIricWdA7NCj+MEC5MSP501UZYgTD5B+H9G9KPlZMYNgXbbGy
-	Hi2ERZAWfUnhnpyqMH3P20aAgdXiPfBVK8FDB2C3/wBhOazKnHrteK1BK+4KJbbFN9lg5gFkJDC
-	8d5x5InAzopY60O3mx7hsCavUptpylpAnnvLRbxx87UPwk8N2t0y3q3vIJo3/gx17xR9lgcQwEO
-	clpG/fJpxAz0NdgRLbN0uRU/aBMAtYIYep0mexz05chs6dVaLI1bzBLxOC0sH+WxeVtHx4IX4HJ
-	qJbfT+P1GoOnLftayDfb+jNvksHkGMgxQgGfoNMr7R+S8uix4Ph3eOXSeIzHKPIeWy0OREpp5Sf
-	kH3Ai0pmmVONyiEfjER2HlAnYOCzOU+DEhtbkecmV7dUDN6o7oOgzOKNql1yixNAGucNcwnK7aA
-	NO1QMam4J0Jj2KbcCw6d0Lntsmx57me+gKQ04selXjibmjQv38vgSSbpeUP7L/MXLDZGrf+DS73
-	DgTYpump+ogcvbFsC5GdlI/11eNrcqMN0NxFDzO3oAMf
-X-Received: by 2002:a05:600c:19c8:b0:4a3:59c9:a743 with SMTP id 5b1f17b1804b1-4ac1913ef8fmr177099825e9.27.1793545371461;
-        Sun, 01 Nov 2026 07:02:51 -0800 (PST)
-Received: from stukan.bbrouter ([46.201.91.224])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09fadb75sm135018375e9.3.2026.11.01.07.02.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 07:02:49 -0800 (PST)
-From: Timur Stukan <timur.stukan.linux@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Hangbin Liu <hangbin.liu@linux.dev>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Timur Stukan <timur.stukan.linux@gmail.com>,
-	Jay Vosburgh <jv@jvosburgh.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v3] bonding: fix missing down path on speed/duplex failure after FAIL->UP
-Date: Sun,  1 Nov 2026 17:02:39 +0200
-Message-ID: <20261101150240.66292-1-timur.stukan.linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=mythread.it header.i=@mythread.it header.a=rsa-sha256 header.s=a1 header.b=eK6FL+We
+Received: from ubuntu22.homenet.telecomitalia.it ([87.16.49.252])
+	by Aruba SMTP with ESMTPSA
+	id NX5Ox1MB707TYNX5OxsyUT; Sun, 01 Nov 2026 16:03:06 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1793545386; bh=4f2/gDpALMyB5b46KLMadbqzMq/daeZK3ycde92D7fI=;
+	h=From:To:Subject:Date:MIME-Version:Content-Type;
+	b=eK6FL+We+t+crs08RH2oRdDX4BsDCTsJeQj9AaBt+zpoT9gdPbH5N3abkxpZ3E4eJ
+	 /u3RZ/99egofCBlvB9wEwhog951ECcFBjDjD+ow1rrxTXMKZjYBA7gnlDcY9bZlvRv
+	 4djdbthOomtjT3BJ1uTo/7qNzJ98xqSY0iEfbwlnDsFbApadliLhp6xFhQ5TtEAHxC
+	 KZQLru050/W2Q5ccVLMNeFj4JAg4pchVbcGX9+XIJ7sGF6eKFjwDTc6qWoGC3bYGNc
+	 MDlQtAXn4asbwGIg71PoYaHez8NDY94cSMfydr2kTibPpjrAAKdGmBavds0x5tx/t2
+	 Hqp+CHTqIDQzA==
+From: Alessio Ferri <alessio.ferri@mythread.it>
+To: johannes@sipsolutions.net
+Cc: zajec5@gmail.com,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Alessio Ferri <alessio.ferri@mythread.it>
+Subject: [PATCH] MAINTAINERS: add myself as a bcma maintainer
+Date: Sun,  1 Nov 2026 16:03:04 +0100
+Message-Id: <20261101150304.1746-1-alessio.ferri@mythread.it>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,188 +64,31 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfMCLvV35QuzC2E/w3OB3oF669AcR8OkAU+ihnpWtUHrkn63DPsrDG8QCfbIxJJrLlJGmrhBmyGrJ47pFfkJ/XAalXIKV3wSWdEAH8K1wXeSsb1z/bzad
+ MJvcqvTxnEoJhpKEaL0F2JQ6IarpDJazTD21vPmF3OnL0eWgG9ETtnDM+KoEMpCaG1jZPwrRjeJWJz6v3qDx/tBc+vaEKC2nB4x/4a23UXiHnfuSJRIQsRfI
+ ZT0dcvrn6MFjO8doXV8AWwJcLASPcwBce82nslORhlt55BcPBVnnU4XADBhfCyAh56/iuf9LO4kUkLnNXQgGDGdvVVdVMno62EaqaX21HYbuz8vTguzH20Ca
+ Ja63i1KNZ4RZEhoX35DhQjEefh03NQ==
 
-In bond_miimon_commit(), when a slave is proposed as BOND_LINK_UP but
-bond_update_speed_duplex() fails in bonding mode that needs speed/duplex
-(802.3ad, tlb, alb), the slave is set to BOND_LINK_DOWN directly. This
-bypasses bond_set_slave_link_state(), bond_miimon_link_change() and
-failover.
-
-This is fine for slave that coming from BOND_LINK_BACK, which was never
-brought up and is not in use. But since commit 1899bb325149 ("bonding:
-fix state transition issue in link monitoring") the commit phase also
-handles BOND_LINK_FAIL -> BOND_LINK_UP which means a slave that is still
-in use and may be curr_active_slave.
-
-If the link recovers within downdelay and goes down again before the
-commit phase reads speed/duplex, the slave is silently marked down while
-remaining the active slave in worst cases. In alb/tlb the bond MAC stays
-on the dead port, no failover happens and TLB/RLB state is not cleaned,
-so the bond stops passing traffic until that link comes back even though
-other slaves are up. A non-active slave is affected too, in alb, RLB
-clients assigned to it are not reassigned and become unreachable.
-
-Reproduced in tlb and alb mode with miimon=100 and downdelay=10000 by
-flapping a slave within downdelay and dropping it again before commit
-(a longer delay was added between inspect and commit to make window
-wider and easier to test):
-  bond0: (slave enp0s3): link status down for interface, disabling it in 10000 ms
-  bond0: (slave enp0s3): link status up again after 3400 ms
-  bond0: (slave enp0s3): failed to get link speed/duplex
-
-procfs then shows the active slave with "MII Status: down" and "Link
-Failure Count: 0", and all traffic is lost.
-
-Fix this by dropping the loop in bond_mii_monitor() that applied all
-proposed link states before bond_miimon_commit(). bond_miimon_commit()
-now applies each state itself: UP after the speed/duplex check, as it
-already did, DOWN in the down path, and FAIL/BACK directly. So when the
-speed/duplex check runs, slave->link still holds the previous state. If
-the check fails for a slave that is FAIL or UP, take it through the
-regular down path, including failover. DOWN and BACK slaves were
-never brought up and are still just reverted to DOWN. The down path is
-moved into bond_miimon_slave_down() so both callers share it.
-
-After the fix:
-  bond0: (slave enp0s3): failed to get link speed/duplex
-  bond0: (slave enp0s3): link status definitely down, disabling slave
-  bond0: (slave enp0s4): making interface the new active one
-
-Fixes: 1899bb325149 ("bonding: fix state transition issue in link monitoring")
-Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
+Add myself next to Rafał to maintain bcma, starting from the
+BCM4352/BCM4360 support.
 ---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-Notes:
-    Changes in v3:
-    - Drop the loop in bond_mii_monitor() and apply FAIL/BACK in
-      bond_miimon_commit() with bond_commit_link_state() (Jay, Hangbin)
-    - Also take the full down path for a slave that is already UP when
-      the speed/duplex update fails (Sashiko)
-    - The 802.3ad notifier issue reported by Sashiko is fixed separately:
-      https://lore.kernel.org/netdev/20261101145653.63648-1-timur.stukan.linux@gmail.com/
-    - v2: https://lore.kernel.org/netdev/20261028104758.299129-1-timur.stukan.linux@gmail.com/
-    
-    Changes in v2:
-    - Drop link_prev_state. Instead, don't commit UP proposals in
-      bond_mii_monitor() and let bond_miimon_commit() commit them after
-      the speed/duplex check, so no extra state is needed (Jay)
-    - v1: https://lore.kernel.org/netdev/20261022103821.89552-1-timur.stukan.linux@gmail.com/
-
- drivers/net/bonding/bond_main.c | 63 +++++++++++++++++++--------------
- 1 file changed, 37 insertions(+), 26 deletions(-)
-
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 7019e5d8fdc8..d6b6c125470f 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -2779,6 +2779,27 @@ static void bond_miimon_link_change(struct bonding *bond,
- 	}
- }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index f53047aa8..e4e5bce20 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5556,6 +5556,7 @@ F:	include/dt-bindings/soc/bcm-pmb.h
  
-+static bool bond_miimon_slave_down(struct bonding *bond,
-+				   struct slave *slave)
-+{
-+	if (slave->link_failure_count < UINT_MAX)
-+		slave->link_failure_count++;
-+
-+	bond_set_slave_link_state(slave, BOND_LINK_DOWN,
-+				  BOND_SLAVE_NOTIFY_NOW);
-+
-+	if (BOND_MODE(bond) == BOND_MODE_ACTIVEBACKUP ||
-+	    BOND_MODE(bond) == BOND_MODE_8023AD)
-+		bond_set_slave_inactive_flags(slave,
-+					      BOND_SLAVE_NOTIFY_NOW);
-+
-+	slave_info(bond->dev, slave->dev, "link status definitely down, disabling slave\n");
-+
-+	bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
-+
-+	return slave == rcu_access_pointer(bond->curr_active_slave);
-+}
-+
- static void bond_miimon_commit(struct bonding *bond)
- {
- 	struct slave *slave, *primary, *active;
-@@ -2807,10 +2828,22 @@ static void bond_miimon_commit(struct bonding *bond)
- 			err = bond_update_speed_duplex(slave);
- 			netdev_unlock_ops(slave->dev);
- 			if (err && bond_needs_speed_duplex(bond)) {
--				slave->link = BOND_LINK_DOWN;
- 				if (net_ratelimit())
- 					slave_warn(bond->dev, slave->dev,
- 						   "failed to get link speed/duplex\n");
-+				/* Coming from FAIL/UP, the slave may still be
-+				 * in use and may be curr_active_slave, so take
-+				 * it through the full down path. Coming from
-+				 * DOWN/BACK, it was never brought up, so just
-+				 * revert it to DOWN.
-+				 */
-+				if (slave->link == BOND_LINK_FAIL ||
-+				    slave->link == BOND_LINK_UP) {
-+					if (bond_miimon_slave_down(bond, slave))
-+						do_failover = true;
-+					continue;
-+				}
-+				slave->link = BOND_LINK_DOWN;
- 				continue;
- 			}
- 			bond_set_slave_link_state(slave, BOND_LINK_UP,
-@@ -2839,28 +2872,13 @@ static void bond_miimon_commit(struct bonding *bond)
- 			continue;
- 
- 		case BOND_LINK_DOWN:
--			if (slave->link_failure_count < UINT_MAX)
--				slave->link_failure_count++;
--
--			bond_set_slave_link_state(slave, BOND_LINK_DOWN,
--						  BOND_SLAVE_NOTIFY_NOW);
--
--			if (BOND_MODE(bond) == BOND_MODE_ACTIVEBACKUP ||
--			    BOND_MODE(bond) == BOND_MODE_8023AD)
--				bond_set_slave_inactive_flags(slave,
--							      BOND_SLAVE_NOTIFY_NOW);
--
--			slave_info(bond->dev, slave->dev, "link status definitely down, disabling slave\n");
--
--			bond_miimon_link_change(bond, slave, BOND_LINK_DOWN);
--
--			if (slave == rcu_access_pointer(bond->curr_active_slave))
-+			if (bond_miimon_slave_down(bond, slave))
- 				do_failover = true;
--
- 			continue;
- 
- 		case BOND_LINK_FAIL:
- 		case BOND_LINK_BACK:
-+			bond_commit_link_state(slave, BOND_SLAVE_NOTIFY_LATER);
- 			slave_dbg(bond->dev, slave->dev, "link_new_state %d on slave\n",
- 				  slave->link_new_state);
- 			continue;
-@@ -2894,8 +2912,6 @@ static void bond_mii_monitor(struct work_struct *work)
- {
- 	struct bonding *bond = container_of(work, struct bonding,
- 					    mii_work.work);
--	struct list_head *iter;
--	struct slave *slave;
- 	unsigned long delay;
- 	bool commit;
- 
-@@ -2917,13 +2933,8 @@ static void bond_mii_monitor(struct work_struct *work)
- 			goto re_arm;
- 		}
- 
--		if (commit) {
--			bond_for_each_slave(bond, slave, iter) {
--				bond_commit_link_state(slave,
--						       BOND_SLAVE_NOTIFY_LATER);
--			}
-+		if (commit)
- 			bond_miimon_commit(bond);
--		}
- 
- 		if (bond->send_peer_notif)
- 			bond_peer_notify_may_events(bond, true);
+ BROADCOM SPECIFIC AMBA DRIVER (BCMA)
+ M:	Rafał Miłecki <zajec5@gmail.com>
++M:	Alessio Ferri <alessio.ferri@mythread.it>
+ L:	linux-wireless@vger.kernel.org
+ S:	Maintained
+ F:	drivers/bcma/
 -- 
-2.43.0
+2.34.1
 
