@@ -1,64 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.159
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793573126;
-	b=q1WmnQbalTjHv6QjLOnPC0ypwSr5Y+b9g2BnNdKxZgTCKgIOpG1YRtYQ4eeAng9T5XWP
-	 CnxhYQsxVkC8MWDEFLIFo22Kvs8QMKkz8nhVCipRSNCfYHw9VqRTbu1LgWAfqCVubDPRr
-	 4d0203FN6Pxho06ejIeM799+Frbgkh4vyk20ibs5lZFJnI7gF7cTVU1Uw3PW+0AbNds9Y
-	 KKN9d0xOt1sWbkPq3KYLUwl+npwmR4XIiDp8vzgRGoBTVfVquCbPh521lzalvf1ut5jHh
-	 fr4uU3oFHyrVGVTgTbBP1DA3+hvJ7JfDLZwexLPvwRpttvTCcut4GGKk/wPAMSiBBdg==
+	t=1793573451;
+	b=TmV4Sej6qC2On67e48lgHEY9Hat/KuSiefCK2mIemBfBUitP+8jnnQo1Ax86uNwZwo+4
+	 FzecQmcq8xQ+hfuJGhP3SohmCD6R3bnpXYL5kQkSjqQDKgnG3SqolwZ/w5Sw52dgkDIZQ
+	 D4gd/aIScWCrszyCJRbBZnP6pjAG/KV4npBwzwqyw+jfE/1l+/ZP4KkxSM27Byjo8Risr
+	 6XlrKPb+6E69x+BR5MMc57joorXfrH4Whc8GcKHWmYAmdcqviiaQXhw6b6mzTojuwYYqK
+	 zI9QRueyuK8UDykSzIqqu+k27AXkaeIUZUos958uNIiW3C1Xtn80/o66IyhB5ROILdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793573126;
-	h=Received:DKIM-Signature:Received:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
-	 X-Cookie;
-	bh=BzRuFBupQjQiDyoa/qXLe1S7CqDSM/Br1lwbCFNkGzY=;
-	b=yi2FWvTAtpIQFgLokQkG3fwIAyohQ3aBN3/g+OmZFOHsAv+uTV5UpiVs6tDfI8EJZGCV
-	 GB0iN56yC3N9YS7efPoqHZILtsj01E1Ibh8pt/7tmzLI0GgDDYDerR0yh8HkpJ4CTefDw
-	 3W0OYo9QXdGgY1jsw5nEbcHBaFC7xNdnU1KCWOT3GGv0iQtDKjlfUoz+2bAX8+/ppqyju
-	 mu1h37kkw80Q4JBT0KfJwuhDMDiXQsvrL00YtgAMfQ9Q1KNnSVKGwImAnWWO9A/QFoRAp
-	 PdRUeCYQHil+rAFyyrHyO1BH1QR79dQMH1ECPgK9kxKOiPPAxdALD8e6jMxWGWkL+lA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793573451;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:Received:X-Mailer:
+	 MIME-Version:X-ThreadId:Date:From:To:Cc:Message-Id:In-Reply-To:
+	 References:Subject:Content-Type:Content-Transfer-Encoding;
+	bh=Y0qvq6mmMLgTfpxELoghMFTbhqnb2nmeoC+hPsWafsY=;
+	b=KP5Dr/9eq6182yva7nmrlNf/aA/bHTuRiQJCZ9C+Ro27NSbIDmekuWcENH0F69TTrKBe
+	 duwFkl0mS//DwBcWmKffcuvqerE/nbMX3wzLEGpZicd/Y9AU9NNt+rC4rF8RFRie1FNAY
+	 W72ptYYApBMGi2BfkRdakMGQYbcFBRhoE1y1e482wa50397PxP2vwJQHrUNKjJKqq/jxU
+	 i0zr3ua2sSnAEZcckPr9/P379Q/BDuWGtinS27miGgm0Qqy5o26jrp9f0aow9NuotIECr
+	 ei/egndkddg+0Ovdu5vOe5hffGpzj2AUr4qer31yGqwDvy7zeTmAzBzNEjp+KHFi1AA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wk+Rtdnl;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=squebb.ca;
+	spf=pass smtp.mailfrom=squebb.ca;
+	dkim=pass header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm3 header.b=lTkm1dFE;
+	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=O3G8MzPt;
+	arc=none smtp.remote-ip=202.12.124.159
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F8F2606A324;
-	Sun,  1 Nov 2026 22:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D7B0606A327
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 22:50:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D7B0606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=squebb.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=squebb.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Wk+Rtdnl
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDF791F000C1;
-	Sun,  1 Nov 2026 22:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793573126;
-	bh=BzRuFBupQjQiDyoa/qXLe1S7CqDSM/Br1lwbCFNkGzY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wk+RtdnlNfF0ZU1JG+cJnT6+Cm3sXxVjQsN6TARzsEQX378ayC2zgTKW6xx9AOEo5
-	 SyEx/0OuPrv7HTVQpfufdTXQOFuXF9JtHJ+qcYjlnl2TYByspxnxJr62180NhiVJVM
-	 LJ8JgSYfK85y4E8U6OCDDOmIgxlZuoKrVvo6gZ2vWv/WKihj2lOK/2EmYhYaiMzPU8
-	 CcJHn9A6ENzI11QIP4qI6TYpaiw0F3cO2j0Un0qjp46PzoQVVHMDc4E1l+9VkL9gVN
-	 7b1fB1JQBA+BnG5XpWcEWMPYuFlLm43xq1SAm3W4Tgzf/P+Ux3axqj7xkfrtmSAIJj
-	 ZS93vYt2DBpMw==
-Received: by traversing.sirena.org.uk (Postfix, from userid 1000)
-	id 50F102065139; Sun, 01 Nov 2026 22:45:23 +0000 (GMT)
-Date: Sun, 1 Nov 2026 22:45:23 +0000
-From: Mark Brown <broonie@kernel.org>
-To: Xing Zheng <zhengxing@rock-chips.com>
-Cc: heiko@sntech.de, linux-sound@vger.kernel.org, luca.ceresoli@bootlin.com,
-	lgirdwood@gmail.com, perex@perex.cz, tiwai@suse.com,
-	linux-kernel@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, huangtao@rock-chips.com,
-	sugar.zhang@rock-chips.com, lxt@rock-chips.com,
-	xing.zheng@rock-chips.com
-Subject: Re: [PATCH v2 1/3] ASoC: dt-bindings: rk3308-codec: describe
- detection and ADC routing
-Message-ID: <aufBA7-uC7udM0qa@sirena.org.uk>
-References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-1-zhengxing@rock-chips.com>
- <20261101044149.2018744-2-zhengxing@rock-chips.com>
+	dkim=pass (2048-bit key, unprotected) header.d=squebb.ca header.i=@squebb.ca header.a=rsa-sha256 header.s=fm3 header.b=lTkm1dFE;
+	dkim=temperror header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=O3G8MzPt
+Received: from stl-compute-04.internal (stl-compute-04.internal [10.204.2.64])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 12BC47A01B9
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:50:49 -0500 (EST)
+Received: from stl-imap-02 ([10.204.2.93])
+  by stl-compute-04.internal (MEProxy); Sun, 01 Nov 2026 17:50:49 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=squebb.ca; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1793573448;
+	 x=1793659848; bh=Y0qvq6mmMLgTfpxELoghMFTbhqnb2nmeoC+hPsWafsY=; b=
+	lTkm1dFEizaTZ/AGpa6zxjy6SPQmIMWJj6mzMbOYl6EWjCSSbHytQZed7uVxK7kJ
+	nr/clt36gCe2DWVu/Id0ZmLTjTafZikPuTDe/57uDKjvJxUTmlKr4TvTa3By4iro
+	4BPeVKvkS/6MGmwbsW84zEfKwATJMQjlVEDLtz11GVTEn4E6vmxpNiCfCzR8Oukl
+	ikR9dLxrQcHLQyrn4KuyiO920/5UpxxPugi6YjMXmBHG1RL4Nn1RSSDua/TzTsCl
+	DxX/kdzzg9/eiyt4i0c+iq0VIj1srhPTyLPDU8F59Y+9e1jl00FKWG25zWZus1Xs
+	EZkxAFdde1J2XAk1XwFU1Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793573448; x=
+	1793659848; bh=Y0qvq6mmMLgTfpxELoghMFTbhqnb2nmeoC+hPsWafsY=; b=O
+	3G8MzPtlWB6Luxqh7Y/OlUo/HeBlLkyrvwBLGICreCc8iF/mj9mcXoRPI4/kyBFC
+	vISiqkERWV7W89Ga2MSRaOdaEs70QDiCVVHvA8H5HLovQZEH/SuJ/rrbpmLKkcQG
+	xNyLIKSUjq+BDaAckaPw6n4uu5srd//UVYsndgXgLbKHe7ySxMVZ4eBSyYUTQzev
+	ZhDJT1pu1MXdV1hD9iPIHBU4Q9h1R0tX+r0ro/rKyJGDy5evIG253fN+9YG1pXNw
+	THA/H1RfGhpkrBfnS5J8m5BhDQCYQvEao4AAMuxNp02sya66gho2SuRtskUzcLux
+	4K7+X4VFcTBnkl6UdYKIg==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=squebb.ca a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793573448; d=squebb.ca;
+	mf=PG1wZWFyc29uLWxlbm92b0BzcXVlYmIuY2E+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm3:rsa-sha256:HVzCu4JUIUyucsf5wDVkGjoUSo2tkPBKH8cllnE10tKNgDJ
+	m5fjBH25Z9xxW8kzy/4TiI28HWYmXObVOz3GwuXmKq97E4o0tzNRMiJr9h8amSga
+	l5uujNyAWIRHJJ16HwWxGcBWGdODl/sIIZXtWYqaDdOqN1p02a3gZKfJGZxw83gv
+	zQj62fqdpn6SgqlY01ABxjmq0kyQejTTqc4fFggiAG4Fzm9JvUKRjcDEq3SvaTM0
+	bt7C1k97P2woQ5Bd2mVqHwNZJHCPV2m6yLN4wSRNMFHzyB0ZYVWVoegoy/QEa+up
+	qckD3OFEDkULDPn6W7okUeNOP/5JObHJH2kS/MQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:h1r7H1JmIfKs7ynKY6TwBeMNMKAvDQv09HIHvnvOfX0=:XruLzfUNKPyOXJRr85//uKUxn9BcK/EXau0HHFWfJxo=;
+X-ME-Sender: <xms:R8Lnakzn82T8yz7mB-5eDN02nrgUjlImqj0EDaHSuLpiXCwksgNo3Q>
+    <xme:R8LnajGXRhuAH6XOZMwFvaScZdFQkk_-KUSEH3kVwC1hKDzTyE2bOU14vj_U9Ltct
+    Y2X2MqHCwCYc2tiu-axhrrGZh3_GEifjUgHI7siMAJ4AfzADzilSTDI>
+X-ME-Proxy-Cause: dmFkZTFhUdMH7Nnrx9Bw1Nr4mn/JQ1i/DNqh8HAW2MnBgUaKdagA+LJo+7SK1W3NY8aKJ/
+    2BiXK4wA186bBde+9EXRCVCdxaBMobjctDZ5ibYacY7jGUko/ulxToRAH7UJNKzWw0TO2M
+    qz6RHR2ZtLDoMzKKun+jEP7M8bbMV7upnPMU8iHqcfdl0S2jERJ1crS57OKVya+OQkywHC
+    Cxp0TskD+1mqkTHm27iebRu4QTiLbPKp7IXi4aQlfe/nTXNW5iY0ZUxMvbdN3yVu8hAYH3
+    iusBLKW7iPRMjxL5BK+iirsDnWbADeGQ55OQf/drmXTIigpZUriEEhEGl3NnFIKOBuDDXG
+    B8AzAlGxxUDLOmMy6unXETyYJjLhQVei56+6w1jkYYfL6za5ntBUHvL9slAV1REnyEnVBc
+    nZfKu+GRIgWHeU7yw/10dZCCT2tZ787ITQBEl9+XA7khTXv1+IK8b2GcB52qGPwlI0qxos
+    PYdFFZueH83NLSbeVK7Sn2SP+lp7H+0ZSWA1yTAIOo2JHTmtqADaaYG32x4CJqPGqcwe+5
+    Jj3c5VoPbPQ1NCLXoc1yWP+apNTDgNAlsZVRchwm/mcnrWsehoYWybA0Ad2Shlef6Y8JEv
+    vozuE6IeXKTJ2/4JysXtmO/AWux4GkVnKNuSkUfWSNaNr1V1IwUoqUAsFhNw
+X-ME-Proxy: <xmx:R8LnaqvsSn-60AWTcfEja23CPkP1VL6IEZLeoFX86-SU9G8oLqiIYw>
+    <xmx:R8LnakYcuQhyuT_YSH1h_uzmb7yLKlEqBbpC4SQ1APjryYQjMaO9Lw>
+    <xmx:R8LnaqAdQEySL8B24lQkRrMurqf6WjwS8K4zliaEDiru34ls41z8QA>
+    <xmx:R8Lnak8TDDPDOMdROg9mjtdEuEXrwWy5Qn9Y73TAJGUEO4A0hYor2Q>
+    <xmx:SMLnatc0APAyOsELPl4NTI7a0HcNPawCrmoU-mMQQWTimCRnEcocIHwc>
+Feedback-ID: ibe194615:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id 6F6372C00082; Sun,  1 Nov 2026 17:50:47 -0500 (EST)
+X-Mailer: MessagingEngine.com Webmail Interface
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,37 +115,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bSSLOBRclnUyzkCZ"
-Content-Disposition: inline
-In-Reply-To: <20261101044149.2018744-2-zhengxing@rock-chips.com>
-X-Cookie: Whoever dies with the most toys wins.
+X-ThreadId: Aq9FyiwXssPF
+Date: Sun, 01 Nov 2026 17:50:27 -0500
+From: "Mark Pearson" <mpearson-lenovo@squebb.ca>
+To: kernel@resetko.pl, "Heikki Krogerus" <heikki.krogerus@linux.intel.com>,
+ "Greg KH" <gregkh@linuxfoundation.org>, "Guenter Roeck" <linux@roeck-us.net>
+Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ "Daniel Dev" <daniel.dev@noex.uk>, stable@vger.kernel.org
+Message-Id: <8d0c94b6-8fd0-4fde-8af5-ade15e142a0e@app.fastmail.com>
+In-Reply-To: <20261031-ucsi-lenovo-t14g2a-v1-1-183751e63c02@resetko.pl>
+References: <20261031-ucsi-lenovo-t14g2a-v1-1-183751e63c02@resetko.pl>
+Subject: Re: [PATCH] usb: typec: ucsi: acpi: Assume UCSI 1.0 on Lenovo ThinkPad T14 Gen
+ 2a
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
+Hi Stanislaw,
 
---bSSLOBRclnUyzkCZ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Sat, Oct 31, 2026, at 5:40 PM, Stanis=C5=82aw Titenko via B4 Relay wr=
+ote:
+> From: Stanis=C5=82aw Titenko <kernel@resetko.pl>
+>
+> The Lenovo ThinkPad T14 Gen 2a exposes a functional UCSI ACPI PPM but
+> the firmware leaves the VERSION field of the UCSI mailbox at zero.
+>
+> ucsi_register() rejects a zero version with -ENODEV, leaving the
+> system without registered USB Type-C connectors. Without an OPM, the
+> embedded controller does not complete DisplayPort Alternate Mode setup
+> when a USB-C dock or monitor that supplies power is connected after
+> boot, so the display stays dark while USB and charging work.
+>
+> The mailbox uses the 48-byte UCSI 1.x layout, and the PPM works
+> correctly when UCSI 1.0 is assumed.
+>
+> Add a DMI-specific UCSI operation for the ThinkPad T14 Gen 2a that
+> substitutes UCSI 1.0 only when firmware reports a zero version.
+> Preserve any valid non-zero firmware version.
+>
+> Tested on a ThinkPad T14 Gen 2a with BIOS 1.33 (R1MET63W): both
+> Type-C connectors register, and plugging and replugging a USB-C
+> monitor with an integrated hub and power delivery brings up
+> DisplayPort Alternate Mode each time.
+>
+> Reported-by: Daniel Dev <daniel.dev@noex.uk>
+> Closes:=20
+> https://lore.kernel.org/linux-usb/b1Wn_eFvTFShGbd970WWl4CWhge_6P2x7Wb6=
+rab3QHNlE4OJ4p__O-QN3B6I-308ftr5oV5Zr7vywA0vdvmtNw6E0YJnVM2ek_5DcFnkXB0=3D=
+@noex.uk/
+> Fixes: c1b0bc2dabfa ("usb: typec: Add support for UCSI interface")
+> Cc: stable@vger.kernel.org
+> Assisted-by: pi:claude-opus-5-5
+> Signed-off-by: Stanis=C5=82aw Titenko <kernel@resetko.pl>
 
-On Sun, Nov 01, 2026 at 12:41:47PM +0800, Xing Zheng wrote:
-> Describe the optional detect-GRF phandle and named interrupt resources
-> used by the B/C headphone detector. Retain the legacy interrupt order
-> and index-based lookup when names are absent. Document the detector
-> disable and reversed-jack properties and their resource dependencies.
+This platform was Linux certified so let me see if I can get the FW team=
+ to look at it (it is an older platform, but it looks like it's still un=
+der support)
+I don't have this HW myself, so I'll need to ask the team in Japan to re=
+produce the issue. My personal preference would be to try and get the FW=
+ fixed first and do the quirk if for some reason that isn't possible.
 
-Please don't send new patches in reply to old patches or serieses, this
-makes it harder for both people and tools to understand what is going
-on - it can bury things in mailboxes and make it difficult to keep track
-of what current patches are, both for the new patches and the old ones.
+> ---
+>  drivers/usb/typec/ucsi/ucsi_acpi.c | 34=20
+> ++++++++++++++++++++++++++++++++++
+>  1 file changed, 34 insertions(+)
+>
+> diff --git a/drivers/usb/typec/ucsi/ucsi_acpi.c=20
+> b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> index 5697ccc24ec3..33747e24353f 100644
+> --- a/drivers/usb/typec/ucsi/ucsi_acpi.c
+> +++ b/drivers/usb/typec/ucsi/ucsi_acpi.c
+> @@ -148,6 +148,33 @@ static const struct ucsi_operations ucsi_acer_ops=20
+> =3D {
+>  	.async_control =3D ucsi_acpi_async_control
+>  };
+>=20
+> +static int ucsi_lenovo_read_version(struct ucsi *ucsi, u16 *version)
+> +{
+> +	struct ucsi_acpi *ua =3D ucsi_get_drvdata(ucsi);
+> +	int ret;
+> +
+> +	ret =3D ucsi_acpi_read_version(ucsi, version);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!*version) {
+> +		dev_warn(ua->dev, "UCSI version is zero, assuming 1.0\n");
+> +		*version =3D UCSI_VERSION_1_0;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct ucsi_operations ucsi_lenovo_ops =3D {
+> +	.read_version =3D ucsi_lenovo_read_version,
+> +	.read_cci =3D ucsi_acpi_read_cci,
+> +	.poll_cci =3D ucsi_acpi_poll_cci,
+> +	.read_message_in =3D ucsi_acpi_read_message_in,
+> +	.write_message_out =3D ucsi_acpi_write_message_out,
+> +	.sync_control =3D ucsi_sync_control_common,
+> +	.async_control =3D ucsi_acpi_async_control
+> +};
+> +
+>  static int ucsi_gram_sync_control(struct ucsi *ucsi, u64 command, u32=
+ *cci,
+>  				  void *val, size_t len, void *msg_out,
+>  				  size_t msg_out_size)
+> @@ -196,6 +223,13 @@ static const struct dmi_system_id ucsi_acpi_quirk=
+s[] =3D {
+>  		},
+>  		.driver_data =3D (void *)&ucsi_acer_ops,
+>  	},
+> +	{
+> +		.matches =3D {
+> +			DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"),
+> +			DMI_MATCH(DMI_PRODUCT_VERSION, "ThinkPad T14 Gen 2a"),
+> +		},
+> +		.driver_data =3D (void *)&ucsi_lenovo_ops,
+> +	},
+>  	{
+>  		.matches =3D {
+>  			DMI_MATCH(DMI_SYS_VENDOR, "LG Electronics"),
+>
 
---bSSLOBRclnUyzkCZ
-Content-Type: application/pgp-signature; name="signature.asc"
+1) Couldn't you just reuse the ucsi_acer_ops quirk?
 
------BEGIN PGP SIGNATURE-----
+2) Better to use DMI_BOARD_NAME for the DMI match. For the T14 G2 AMD th=
+ere are two possible matches - "20XK" and "20XL".
 
-iHUEABYKAB0WIQReagvpf3TrrA7BoYYv73Ows9A4iQUCaufBAwAKCRAv73Ows9A4
-iabwAP9Gmr6n9IX2ZB1GxaMa2+TbbQ+zn3trx0LRgC/h5052OgD9Gp6fMckCkXWu
-OhGm7TPU0nV/e3bw6I0v2x60AncDWA0=
-=ngH3
------END PGP SIGNATURE-----
-
---bSSLOBRclnUyzkCZ--
+Thanks
+Mark
