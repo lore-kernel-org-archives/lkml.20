@@ -1,74 +1,62 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793572993;
-	b=kNy96QLKxy3+XG8nZ7H7I8rNajtgIeRMiSmmbCvUvwloRTbTnL3huQ9tbX88UPi/2Had
-	 y5uQWp6M/NFv8JhD2TavZOBS/ywmeeVUQXu4o+j1a03rVFjI4OjFS4VOjUWQlqWzXiEUP
-	 KAw8Jcm23L8Jeo9FB2xTg1LfIyuV29k+YkLEkU4/532iOOxHgopmmn9qCkK+DFD9tYNQp
-	 NJP/Y26oFyKJgHG+Ls+nQGAB3DiyyjPd2LCSh9GHocvTdfAwmNcwrCRBdsO0l3FuTF9QS
-	 lZHyYtAXStOEA0gJo5exM/Ma+H0tZL6Uh0Cweqv+qyxotUgRPMSVipPqxR7ma7Q9Y6A==
+	t=1793573058;
+	b=dUvJscVDYdPLp+qjjv+kQ7Y5xQJJdznQUJcQ4HYOYEHM0x2ArX2eRsURC2M8JRfXXQDZ
+	 pa/vMES6id4bZEVKv4nXMX6D7mWRW6SwKK+iXX/3fQG1rZpJM8OLmsurywgvp+eorwXGP
+	 k9u0ZMRI7DBoAR9OMiCpGoNpJ29oaRtkNkoCkLKp1Eb/zW1LpO5r15h8FEfCDenB8ZvR4
+	 LhZubuquownlBU44WmQIQdNWNqggJMbnghRERk40LhzVK+wkOIzTscOSpqt90Rjg1b8uz
+	 YmpfQLAABWy+kwgIa5GAT+1E6g2vnRL6LflEgP4GuRsz/Vb5hEpU2pSZCrFX8mC2Xvw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793572993;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:X-Patch-Reply:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=VLna3m1PJup3gw6ZeZRQ1OZQFa8SVHWJAPHsEWs7xmQ=;
-	b=fheledpnFl8X9s4EOJay4oR7ufd8uZF19M3lPdc7hWAVBHrYN73T4M3Z4VdAeQ8wLwpA
-	 OYPl/0JwaIEiiBE1oOkSyYXtb7KIe/+JrosPgiOIQYv14ym6b5spxdIbkrQmjfTzck5nC
-	 mctzpXf+e5VwLub4STwguyu+fDC33Jcxuw+z6mA8NYRSn+PRoIo6hf9wuMKeURs7XfjB5
-	 McANxE9v+2QZ2jIYkwxvcd1Th/QqhSSGbDBCglmOrWXoQIbIbpJeIcNnfv+S0B/flbHkn
-	 6TbGPigRk4NweG5aVdj9ZXC4IO2YAEPZ5I86aOyaprKkf2plA15GJMPo0W0DuvOYvGA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793573058;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MD/ud5bn1lltcSGfJDPA5Z7qCcJ2gM0givQb8/vfVIA=;
+	b=1MfxvmE5OfAFuofIclP6f9bl/gwwq2D1WiBDOwVWvB+0eLuGMiHdupPkF2JEWbhNFmfA
+	 vtOuHxpn/Ht8qot2Gmbu7VHeQvyY2FuY/SUekRzeEHJSSqTC6PplmwqgUeiDyvTB20bmX
+	 Hw4cmCa2t9grloPhghGHC/kZb5GCHqbB+/zAQ1GvTOnLftO6LZ6BroB5Rxzb1gDqnT494
+	 jCucH7lD2KaeIUdRt2NF06qEzI9FpDvGHCSw6GM9i4cqn3Lt5xKXcejdbLjPOkeET/lEd
+	 3z8Fdylk7WdMPiXDSFN6OmvHf6N9+KSen+wGntHYp4oTNlGZ0MFtC3Q6fza2pyvtYzQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VPqnOoa+;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Gr5Evwy/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19184606A324;
-	Sun,  1 Nov 2026 22:43:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DE5E606A324;
+	Sun,  1 Nov 2026 22:44:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VPqnOoa+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68BFB1F000C1;
-	Sun,  1 Nov 2026 22:43:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Gr5Evwy/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1AFD1F000C1;
+	Sun,  1 Nov 2026 22:44:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793572992;
-	bh=VLna3m1PJup3gw6ZeZRQ1OZQFa8SVHWJAPHsEWs7xmQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VPqnOoa+zBiQa5BxRC5N4b1ufoN3d9/DOGepIo17/ywjnX5G9y6LDsf10ake1Tt6i
-	 LQKVhMpORFvQ6WIWUnhNHlz1kl8Jvz1O87kJ+oYnsu+Kbb8dW08CeTnRuiujoYk+v9
-	 qCgO69QCzOiAQ6sy1dq7CfIhauL2B6EbTxh+K/tQFB8Eufc36UJRT1hpokl29Dg4gO
-	 YXgrjLAPfu2j5U8gnBjMADJnEJ26Qjke0aAN136sgj2lMyJsD0pGOwQ31Ty2R//dzw
-	 VtNr+W2Up0cGFFRl6bq53x1FR6z8z5XQHVTNuJ611Py8oecmv/7pz+nZpawFM9ZVxe
-	 PZA0kjnr3S5Og==
-From: Danilo Krummrich <dakr@kernel.org>
-To: Eliot Courtney <ecourtney@nvidia.com>
-Cc: Danilo Krummrich <dakr@kernel.org>,
-	Alice Ryhl <aliceryhl@google.com>,
-	Daniel Almeida <daniel.almeida@collabora.com>,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Boqun Feng <boqun@kernel.org>,
-	Gary Guo <gary@garyguo.net>,
-	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
-	Benno Lossin <lossin@kernel.org>,
-	Andreas Hindborg <a.hindborg@kernel.org>,
-	Trevor Gross <tmgross@umich.edu>,
-	Tamir Duberstein <tamird@kernel.org>,
-	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
-	John Hubbard <jhubbard@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Timur Tabi <ttabi@nvidia.com>,
-	Alexandre Courbot <acourbot@nvidia.com>,
-	driver-core@lists.linux.dev,
-	rust-for-linux@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	kernel test robot <lkp@intel.com>
-Subject: Re: [PATCH] rust: io: fix unused Flags::from_raw warning without CONFIG_PCI
-Date: Sun,  1 Nov 2026 23:43:05 +0100
-Message-ID: <20261101224305.2470088-1-dakr@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261026-pci-fix-v1-1-a6a69ee584d4@nvidia.com>
-References: <20261026-pci-fix-v1-1-a6a69ee584d4@nvidia.com>
-X-Patch-Reply: applied
+	s=k20260515; t=1793573058;
+	bh=MD/ud5bn1lltcSGfJDPA5Z7qCcJ2gM0givQb8/vfVIA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Gr5Evwy/mzkVY6iMhTqthJIBmxhEOY8fNWU70xm4NNhLEyRs0rbrQzYfn5Rv7lcP3
+	 tyHeIrtvP2VZD3JWwedOEHOxHljajeeQC4KEfZf0NRXAzmfWzSOH8pCHtzzCqXZ8V9
+	 4csKCjl+7fsZ3R7BMbruYW7YepqhcW538tjenuo1aJv3EUvI1St8qUROn2JOZ99sMJ
+	 jlgj2LUGct+A+8P0ZHIOfmBJgYhg7pf6txxwh8d24dM5vOkU8GiGFm0bHYra3k9xPi
+	 lUTtwNcEr5oiq6MTGTHbvvj5i7kkHLWmhjwRsUaVmbEZpQ1DD/2b4L7IGwhzFNxXhz
+	 tyldoud8rPfQA==
+Date: Sun, 1 Nov 2026 15:44:12 -0700
+From: Nathan Chancellor <nathan@kernel.org>
+To: Demian Shulhan <demyansh@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Eric Biggers <ebiggers@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Marco Elver <elver@google.com>, Ard Biesheuvel <ardb@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	David Gow <davidgow@google.com>,
+	Brendan Higgins <brendan.higgins@linux.dev>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	kunit-dev@googlegroups.com, netdev@vger.kernel.org,
+	llvm@lists.linux.dev
+Subject: Re: [PATCH 1/2] arm64: csum: Add fused copy and Internet checksum
+Message-ID: <20261101224412.GA1185206@ax162>
+References: <20260927131838.6774-1-demyansh@gmail.com>
+ <20260927131838.6774-2-demyansh@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -78,21 +66,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260927131838.6774-2-demyansh@gmail.com>
 
-On Mon, 26 Oct 2026 12:53:20 +0900, Eliot Courtney wrote:
-> [PATCH] rust: io: fix unused Flags::from_raw warning without CONFIG_PCI
+Hi Demian,
 
-Applied, thanks!
+On Sun, Sep 27, 2026 at 03:17:57PM +0200, Demian Shulhan wrote:
+> diff --git a/arch/arm64/lib/csum-copy-neon.c b/arch/arm64/lib/csum-copy-neon.c
+> new file mode 100644
+> index 000000000000..bfeaf2beba39
+> --- /dev/null
+> +++ b/arch/arm64/lib/csum-copy-neon.c
+> @@ -0,0 +1,168 @@
+...
+> +#include <linux/types.h>
+> +#include <asm/neon-intrinsics.h>
 
-  Branch: driver-core-linus
-  Tree:   git://git.kernel.org/pub/scm/linux/kernel/git/driver-core/driver-core.git
+Please avoid combining these files, it will be forbidden soon:
 
-[1/1] rust: io: fix unused Flags::from_raw warning without CONFIG_PCI
-      commit: 14098e496671
+  https://lore.kernel.org/20261029135020.272082-9-ardb+git@google.com/
 
-The patch will appear in the next linux-next integration (typically within 24
-hours on weekdays).
-
-The patch is queued up for Linus's tree and should land in the next -rc release.
+-- 
+Cheers,
+Nathan
