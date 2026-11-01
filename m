@@ -1,55 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.108
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793554970;
-	b=z8cIb2ULpgsyk5vHyyWUV88mtEmHrKsgLIOV5Mx/0naAsEDmWOxYhNFY7izGY1yAzAXZ
-	 90zhDBrcOGrfD/IwugQCXXcyO4GNc8sasLHghn6uNfY1rpjxN+ZIR/g+ZQeAJn0BBxdZT
-	 Dng+yb/ZdD4Y0R6z3F8He5NRm6ozOtX1qXIQ+g+sXSZCgGpuAtPvy23nxiHO0vEfAD234
-	 JNdeUkGORY9f5LZfJuLMSHVouBHQmxTqBwamR1pZbsvNTDMzXuRF9pQ8trZmUCHO4KWLy
-	 EiHgPNNiblt2tMg955P7hvRWoawZd93okeT3rHi+JbwEag+dQImZa1+0TrSUSG81J7A==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793554970;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-ZohoMailClient;
-	bh=3Z0oePM/NYjKIN6WmhUxB5eRDhUIibp/qbMUl/KTSkI=;
-	b=AjU5Qvh1NQyM/GuQo64QWWpSrkDTRj+qmRrqdzJUJnfZnGAvfy5eDxe/dCTmXovRrHbv
-	 nrMtOJjqUz3MxeEhKKtfblhSKfhbV2RG/O47oNd+TgOO52/j+eSHb//rBDQqONPMcHLke
-	 Y6w2WR6MmKuPbxXf5obC9U2S/b6zDL7dn8Bm2iDEfy6XsGeeAirdMbOlrc+sA0YbDG8Zf
-	 mkRf0XxO1oeUfYwNThXbKfxL81uOScMPw2mpfKzW2/vxnG4/dC1tuWvzeDm1ue5g7xfpb
-	 HgGxj5Dvg08dNPRS1b2+m8Ddr5/dm65Pptjm3yRKka2aE/Vf2eU8B0uDhJcmoJOKZsA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=WNjbKp5T;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=165.173.180.108
-Received: from sender6-pp-e108.zoho.com (sender6-pp-e108.zoho.com [165.173.180.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.46
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793555066;
+	b=mNpwgiDnPZv3CsSnxuFthIUI76NueCbFDUbZnNsz5jUL9svWnQdUK48b/rBzherGn7Bx
+	 drwmjI5lS/LHXiBEKO51a4uQKcW6Hj9eSRCdz3bar5Pj1muwoEvA0JiW3AZ+21ePi9vYw
+	 BmKleb7dL513it9GRdyx2MhbIK3sh4MOIMoj7VdhICbd3yxHbFoNpNX9jy5e7N8Nae3X8
+	 +f3IznRjCep8Yem0PY8RbFWr10DX9fpzBXlyrCms2Lryw/kCKJa6nUUwF9yDziBDvRh3D
+	 OR60h+5hxHy2jfCzbpfFlhcPfl/TZpz29FMh+iynBrvtmbTiwik9Nu7WTSAK6LhF+ig==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793555066;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=9O61ATkKp+DlIEXsj3DD0qBP/WN9VXV3+UsO1P4gT6Q=;
+	b=E01UzprjdFINREUJcdmBARW5rA3JEKkCX0T4ZRVNB6UL9SDAre1CDEfnW+CN+tT37FxD
+	 KjavHQdYnqQ/fFKZ4XZfG60fbUP2ufIO/aKyNwgTy9QX3VD/4PZ0yRt65NTQZptcJeK7A
+	 No4yL46wLgbkiEiWIdPoOVRoqdQUFVh5f5prvas2Veo3nZ0gv19SZejS7dGO66LOWmQn4
+	 kleK3eyVGUb5VahZl9HdGLaR+fiYW6IePibr0GtgAzJyKfHEhut7kzcxUBauQJgy5C23s
+	 4sYvEuMmFSg5X1rEXhOJSbJ8EmYAKGnNkcgVNUD1T4B8b9PhMcuiIkeSg6mAiYFiCxw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=bairaktaris.de;
+	spf=pass smtp.mailfrom=bairaktaris.de;
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b="Axr6b2C/";
+	arc=none smtp.remote-ip=209.85.208.46
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA79B606A325;
-	Sun,  1 Nov 2026 17:42:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BA79B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FE38606A32E
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:44:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9FE38606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=WNjbKp5T
-ARC-Seal: i=1; a=rsa-sha256; t=1793554911; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=etcHy1OMQOQQ1YLHCfWTV27HHPyqHVnm7MPbh4VEjMlCRFmFtLdkF0+/w4BlaobSQhi2BkDMEzHp8gRwEn0rM/3tKRKWZhvfz+6KY1J/nUvAvzjx31+O8aqQwYAY/TRcsD6KcuF9AqMwbZLQlABRxyqAZ1S06lojfei5jwn87sU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793554911; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=3Z0oePM/NYjKIN6WmhUxB5eRDhUIibp/qbMUl/KTSkI=; 
-	b=bNZbPNXkMSJVfpUxa7beMdGoiQKt0vezBgiAjXudRupBsfPCdwp3z7XNBBzjpOXoAy3MaAbyAq4KsFaW/cGEoSwTnUB57hORR2m1oRPJnsemfE3UV/uDneJmIYsgCUfy7x4n4SQbMSObmzPuIiwoIKhNEDJpUCa6pdUJ75MqSNI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=WNjbKp5T9JxXLVN2XXZzhp+e8PVuueUDvrDVZglmsXjM2il8wUeZ58Bx6z0cXCD7yNr6p1mgrErVrRZOTAmVKkExsK7h/lcLV2h6Sc01mqmC/JoS9wUJfeGdErR0KGGJNPurrcfOgAH2/PUFHNG5lTDEPhCyjhVFM/ipdWRXtJZ2eekTytDF+uDCC8bgdErJxYPLBruPclyPCF/w3CK+TAcw8iB542VkqmDtK3CExv2RqrKgKKPTy0W1Zj0Y4y+pvqNbZGuoBAgPhowZlELLXQ6THKDNHctesihNrGq/XmwZchhsJAKGwhk081lHwE4Oz8vgwwyZjiJGXvG1EU19aA==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=3Z0oePM/NYjKIN6WmhUxB5eRDhUIibp/qbMUl/KTSkI=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793554909116889.4038146434671;
-	Sun, 1 Nov 2026 09:41:49 -0800 (PST)
-From: Rong Zhang <i@rong.moe>
-Date: Mon, 02 Nov 2026 01:41:25 +0800
-Subject: [PATCH 8/9] HID: haptic: Convert into a loadable plugin
+	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=Axr6b2C/
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6b47c1a3c74so3027695a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:44:25 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=bairaktaris.de; s=google; t=1793555064; x=1794159864; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9O61ATkKp+DlIEXsj3DD0qBP/WN9VXV3+UsO1P4gT6Q=;
+        b=Axr6b2C/htBA5mpk/A7z04dUTzsIIuRRDwi1GBxebzzC2Wr8Mj+BOuS4O5dONN1yZ2
+         fFczSqudfLWZpQS4yaHhhl47jufjbZ8fOSmRGeFpwJRAtxXn1mgKHJaoap+PZ+OdrrXH
+         +Yzt71aga+okNJ4AK4sp85zltvrNWePW7mgBlscR+SoTIjkq3HGj0JigZytcBsRjbvqx
+         AEuM+XMtdwPKbx7s1FsLoW8NA9vOqey8NOgImB0T1spm4yeIzoXsBr81NrITfTjGd4jp
+         QmHObgnt4Rs8ZrcJvOxldrUdxupBDSvPe/dAiFWyAKsFWM7aTAXx0HjTZhypALvYtOSP
+         Lcig==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793555064; x=1794159864;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9O61ATkKp+DlIEXsj3DD0qBP/WN9VXV3+UsO1P4gT6Q=;
+        b=IBhsaPWQnLNxwGiMmwVE+gb0nCIQ1N+4QwMlspRBepab/AJQWLAzAQaV11h3r4ojiV
+         LXtnjlw1ioJaM3SyfDSaWhndcWUunqFpNYz/M+m4tfC4gB7XBnZfXwa6dQpKqGIRa6Mk
+         gZetP+84KyWLHPJN7KewvEFEVbTre63iw8sYjWu+nmmLHn/ZJWBmXwts5nmDkRbGSxaD
+         xfKd8Y0kf8McYsBrYlJcj0lQo+c3TfUF53dAM34jYCBj1rmar0cV76jEjqw4TjjzEtqx
+         H4+LMJdQ05Gn82FqbRkmck4ZsmHB/m8LY6XsWC7PApHjI2I6j5XCz04ZfHWD31vjoan0
+         6wKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz0kswVs5Nave+Lj7MKiqIiXsynS2XQfb3jbgPAmGiXbA5rua5rxl8ujxM9+Nu42sZexrgVkzLnrNRv0mk=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/Gjrz67mYJdN4wL19Oz4PkTyWuy9iskSyKB6GIv9jr17pKMlfB
+	qd2h3EH/fH6jSgO3SX/FV6rm7c5NodHzW6XR2ji37NwSbTpovlxW4iSPFq5EZyS2Np8UeUf6ipD
+	s8ktsrSri
+X-Gm-Gg: AYBFou1pniu8Bpgq+dBCezVzubfRKE/sBFnMS4jd4RKXZQzzBXSU8aIquvBgybY9Hfj
+	BdSN3kR55tNs0tMsgZzL1Ksod7b+yQHjaloc22m7fuPet27ePoMjFqP9KId7M0B2qVcZRBro0Jc
+	A21t50/bzOs+tnWC0YO7Jt9W4SJO++F3M6LR96Yl8EmmRhzXPA3/gcyG1Te89+b/JlXE9gbTXuZ
+	Ez7G7qVtRIfoK5zj/Q/PAweRudWnZsITBfrVgcw0ufAGkjeGiAWfDQFos5KHc5S9yFA4RCO5XK+
+	VFMX/AGfZxPhQrqzM8HpHeztLMJvJvfqPGIuQuZSUVlcMwfp30lzg+xV7M/8gIOrgwUDzet4r0n
+	ifyRjZyiD76z8iB4a56iCiHiM1C9M0riu1s8J4Dzjwa+woFUk2tvbxjWMT53mQW+LnC1x43pVt+
+	AvDbVXF8bhtkuCDKReY/vItzZlzmGeM7J4mESIMBlwAiv2l7nuoZSDYjzaKUtafGfHOI8RYc64H
+	lZMABzU8DUY8rnpbYs5Hjqb98Sdee1tdEVlLsoYwC5uGQ9a8FHPvx2hHpNlcL1jrySv1rd9cai1
+	RO+HshTNOkqMH+wQXcgi6b8xyG42Qw8f/BNcIIIjl/AwXJag5EAxF9cme7jizHNNa/M/a0kqK2q
+	kBwxfnoUx4+0qcBBBUbrJeT4qfULIEPQzpAhsY+IHAkX5u5mQ6Bz5qoN8V7e0+ej7C+5Ql/+V8m
+	l/yMh+7IEisTvW17bwNVBQfqLaHp+QtoJSK1RJODOAf8RaA+yaCVWMv6t4RzatA98vqE9kui/Nx
+	B8Ud4izb8TPtjk3aAMYbKmsHuqbmq45T+yEpNfYA7EIE9GIEGyqAzDYtqhEfuDxmTy4FPwzZrs6
+	nCKAaCwQq6Yst1CgrAA=
+X-Received: by 2002:a05:6402:1d51:b0:6ab:7700:9371 with SMTP id 4fb4d7f45d1cf-6b4d468b63cmr5289419a12.25.1793555063954;
+        Sun, 01 Nov 2026 09:44:23 -0800 (PST)
+Received: from Desktop (p54aff7cf.dip0.t-ipconnect.de. [84.175.247.207])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4eca21356sm2369094a12.35.2026.11.01.09.44.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 09:44:23 -0800 (PST)
+From: Julius Bairaktaris <julius@bairaktaris.de>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: ath11k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Subject: [PATCH ath-next] wifi: ath11k: do not fail down transitions of the station state
+Date: Sun,  1 Nov 2026 18:44:22 +0100
+Message-ID: <20261101174422.1275413-1-julius@bairaktaris.de>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,241 +101,57 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-hid-haptic-kmod-v1-8-a3de5626dade@rong.moe>
-References: <20261102-hid-haptic-kmod-v1-0-a3de5626dade@rong.moe>
-In-Reply-To: <20261102-hid-haptic-kmod-v1-0-a3de5626dade@rong.moe>
-To: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
- Jonathan Denose <jdenose@google.com>, Angela Czubak <aczubak@google.com>, 
- Henrik Rydberg <rydberg@bitmath.org>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Rong Zhang <i@rong.moe>
-X-Mailer: b4 0.17-dev-6be7c
-X-ZohoMailClient: External
+Content-Transfer-Encoding: 8bit
 
-Commit 083a4f3f3cc7 ("HID: Kconfig: Fix build error from
-CONFIG_HID_HAPTIC") built hid-haptic into vmlinux or hid.ko. This is not
-optimal for generic kernel images, as a platform with no multitouch
-device doesn't need it anyway. It's also a bit harsh for enabling it in
-distribution kernels.
+mac80211 requires sta_state to succeed for down transitions and warns
+when the driver returns an error for one. ath11k returns the result of
+WMI commands for ASSOC -> AUTH and NONE -> NOTEXIST, and these fail
+with -ESHUTDOWN while the firmware is down. A station removed during a
+firmware crash then triggers, for the disassociation:
 
-With the new hid-plugin framework, hid-haptic can be easily converted
-into a loadable plugin module, so that hid-multitouch only requests it
-on demand.
+  Driver is not allowed to fail if the sta_state is transitioning down the list: -108
+  WARNING: CPU: 1 PID: 5952 at net/mac80211/sta_info.c:1561 ieee80211_sta_eosp+0x119c/0x1668 [mac80211]
 
-The redaundent `default n' statement is also removed for tidiness since
-we are anyway touching its context.
+and for the removal:
 
-Suggested-by: Benjamin Tissoires <bentiss@kernel.org>
-Link: https://lore.kernel.org/linux-input/auypydfkhx2eg7vp764way4batdilzc35inqda3exwzs3tk3ff@oagat6g46zto/
-Signed-off-by: Rong Zhang <i@rong.moe>
+  WARNING: CPU: 2 PID: 2080 at net/mac80211/sta_info.c:1652 sta_set_sinfo+0x1118/0x1144 [mac80211]
+  Call trace:
+   sta_set_sinfo+0x1118/0x1144 [mac80211] (P)
+   sta_info_destroy_addr_bss+0x34/0x48 [mac80211]
+   ieee80211_del_station+0x1c/0x54 [mac80211]
+   nl80211_del_station+0xf4/0x174 [cfg80211]
+
+Both paths already warn about the failure, and the removal releases the
+host state of the station either way. Return success for every down
+transition.
+
+Tested-on: IPQ8074 hw2.0 AHB WLAN.HK.2.12-01460-QCAHKSWPL_SILICONZ-1
+
+Fixes: d5c65159f289 ("ath11k: driver for Qualcomm IEEE 802.11ax devices")
+Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 ---
- MAINTAINERS              |  1 +
- drivers/hid/Kconfig      |  7 +++++--
- drivers/hid/Makefile     |  2 +-
- drivers/hid/hid-haptic.c | 28 ++++++++++++++++++----------
- drivers/hid/hid-haptic.h | 29 +++++++++++++++++++++++++++--
- drivers/hid/hid-plugin.c |  3 +++
- drivers/hid/hid-plugin.h |  6 ++++++
- 7 files changed, 61 insertions(+), 15 deletions(-)
+ath10k and ath12k return the same errors for these transitions.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index fdec2f6b640d..a7d4953c3844 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11906,6 +11906,7 @@ HID PLUGINS
- M:	Rong Zhang <i@rong.moe>
- L:	linux-input@vger.kernel.org
- S:	Maintained
-+F:	drivers/hid/hid-haptic.*
- F:	drivers/hid/hid-plugin.*
+I used Claude (Anthropic) to help write this patch.
+
+ drivers/net/wireless/ath/ath11k/mac.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath11k/mac.c b/drivers/net/wireless/ath/ath11k/mac.c
+index 1a237adaa37d1..e5bab84a36bbd 100644
+--- a/drivers/net/wireless/ath/ath11k/mac.c
++++ b/drivers/net/wireless/ath/ath11k/mac.c
+@@ -10074,6 +10074,10 @@ static int ath11k_mac_op_sta_state(struct ieee80211_hw *hw,
+ 				    sta->addr);
+ 	}
  
- HID PULSAR DRIVER
-diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 604683b4a4a9..97cb4caf9d7e 100644
---- a/drivers/hid/Kconfig
-+++ b/drivers/hid/Kconfig
-@@ -106,9 +106,10 @@ menuconfig HID_PLUGIN
- 
- 	If unsure, say N.
- 
-+if HID_PLUGIN
++	/* mac80211 does not let a down transition fail */
++	if (new_state < old_state)
++		ret = 0;
 +
- config HID_HAPTIC
--	bool "Haptic touchpad support"
--	default n
-+	tristate "Haptic touchpad support"
- 	help
- 	Support for touchpads with force sensors and haptic actuators instead of a
- 	traditional button.
-@@ -117,6 +118,8 @@ config HID_HAPTIC
- 
- 	If unsure, say N.
- 
-+endif # HID_PLUGIN
-+
- menu "Special HID drivers"
- 
- config HID_A4TECH
-diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index b41aa3f52a94..3360347c1cb8 100644
---- a/drivers/hid/Makefile
-+++ b/drivers/hid/Makefile
-@@ -6,7 +6,7 @@ hid-y			:= hid-core.o hid-input.o hid-quirks.o
- hid-$(CONFIG_DEBUG_FS)		+= hid-debug.o
- hid-$(CONFIG_HID_PLUGIN)	+= hid-plugin.o
- 
--hid-$(CONFIG_HID_HAPTIC)	+= hid-haptic.o
-+obj-$(CONFIG_HID_HAPTIC)	+= hid-haptic.o
- 
- obj-$(CONFIG_HID_BPF)		+= bpf/
- 
-diff --git a/drivers/hid/hid-haptic.c b/drivers/hid/hid-haptic.c
-index dcecb89e8fd5..d5e33b470e36 100644
---- a/drivers/hid/hid-haptic.c
-+++ b/drivers/hid/hid-haptic.c
-@@ -315,12 +315,11 @@ static void hid_haptic_destroy(struct ff_device *ff)
- 	if (hdev)
- 		put_device(&hdev->dev);
- 
--	module_put(THIS_MODULE);
-+	hid_plugin_put(HID_PLUGIN_HAPTIC, &haptic->self_plugin->hp);
- }
- 
--int hid_haptic_init(struct hid_device *hdev,
--		    struct hid_haptic_device *haptic,
--		    struct input_dev *dev)
-+static int __hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
-+			     struct input_dev *dev)
- {
- 	struct ff_device *ff;
- 	int ret = 0, r;
-@@ -328,10 +327,6 @@ int hid_haptic_init(struct hid_device *hdev,
- 		.hid_usage = HID_HP_WAVEFORMSTOP & HID_USAGE,
- 	};
- 
--	if (!try_module_get(THIS_MODULE)) {
--		dev_err(&hdev->dev, "Failed to increase module count.\n");
--		return -ENXIO;
--	}
- 	if (!get_device(&hdev->dev)) {
- 		dev_err(&hdev->dev, "Failed to get hdev device.\n");
- 		ret = -ENXIO;
-@@ -456,7 +451,20 @@ int hid_haptic_init(struct hid_device *hdev,
- 	put_device(&hdev->dev);
- exit:
- 	dev_warn(&hdev->dev, "Cannot allocate haptic for %s: %d\n", hdev->name, ret);
--	module_put(THIS_MODULE);
-+	hid_plugin_put(HID_PLUGIN_HAPTIC, &haptic->self_plugin->hp);
+ 	mutex_unlock(&ar->conf_mutex);
  	return ret;
  }
--EXPORT_SYMBOL_GPL(hid_haptic_init);
-+
-+static struct hid_plugin_haptic hid_plugin_haptic = {
-+	.hp = {
-+		.owner = THIS_MODULE,
-+	},
-+	.init = __hid_haptic_init,
-+};
-+module_hid_plugin(haptic, HID_PLUGIN_HAPTIC, &hid_plugin_haptic.hp);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_AUTHOR("Angela Czubak <aczubak@google.com>");
-+MODULE_AUTHOR("Jonathan Denose <jdenose@google.com>");
-+MODULE_AUTHOR("Rong Zhang <i@rong.moe>");
-+MODULE_DESCRIPTION("HID helpers for Haptics Page");
-diff --git a/drivers/hid/hid-haptic.h b/drivers/hid/hid-haptic.h
-index d09068689a5e..d3e8fb9aa3b4 100644
---- a/drivers/hid/hid-haptic.h
-+++ b/drivers/hid/hid-haptic.h
-@@ -5,10 +5,13 @@
-  *  Copyright (c) 2021 Angela Czubak <acz@semihalf.com>
-  */
- 
-+#include <linux/container_of.h>
- #include <linux/err.h>
- #include <linux/hid.h>
- #include <linux/slab.h>
- 
-+#include "hid-plugin.h"
-+
- #define HID_HAPTIC_ORDINAL_WAVEFORMNONE 1
- #define HID_HAPTIC_ORDINAL_WAVEFORMSTOP 2
- 
-@@ -53,6 +56,14 @@ struct hid_haptic_device {
- 	u16 release_ordinal;
- 	struct hid_haptic_effect *effect;
- 	struct hid_haptic_effect stop_effect;
-+
-+	struct hid_plugin_haptic *self_plugin;
-+};
-+
-+struct hid_plugin_haptic {
-+	struct hid_plugin hp;
-+	int (*init)(struct hid_device *hdev, struct hid_haptic_device *haptic,
-+		    struct input_dev *dev);
- };
- 
- #if IS_ENABLED(CONFIG_HID_HAPTIC)
-@@ -147,8 +158,22 @@ static inline int hid_haptic_input_mapping(struct hid_device *hdev,
- 	return 0;
- }
- 
--int hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
--		    struct input_dev *dev);
-+static inline int hid_haptic_init(struct hid_device *hdev, struct hid_haptic_device *haptic,
-+				  struct input_dev *dev)
-+{
-+	struct hid_plugin_haptic *self_plugin;
-+	struct hid_plugin *plugin;
-+
-+	plugin = hid_plugin_get(HID_PLUGIN_HAPTIC);
-+	if (IS_ERR(plugin))
-+		return PTR_ERR(plugin);
-+
-+	self_plugin = container_of(plugin, struct hid_plugin_haptic, hp);
-+
-+	haptic->self_plugin = self_plugin;
-+
-+	return self_plugin->init(hdev, haptic, dev);
-+}
- 
- static inline bool hid_haptic_input_configured(struct hid_device *hdev,
- 					       struct hid_haptic_device *haptic,
-diff --git a/drivers/hid/hid-plugin.c b/drivers/hid/hid-plugin.c
-index a83275df038c..7357f81c3aac 100644
---- a/drivers/hid/hid-plugin.c
-+++ b/drivers/hid/hid-plugin.c
-@@ -18,6 +18,9 @@
- #include "hid-plugin.h"
- 
- static const char * const hid_plugin_mod_names[NR_HID_PLUGINS] = {
-+#if IS_MODULE(CONFIG_HID_HAPTIC)
-+	[HID_PLUGIN_HAPTIC] = "hid-haptic",
-+#endif
- };
- 
- static struct hid_plugin __rcu *hid_plugins[NR_HID_PLUGINS];
-diff --git a/drivers/hid/hid-plugin.h b/drivers/hid/hid-plugin.h
-index 4038325c51a0..20d1b80a98c8 100644
---- a/drivers/hid/hid-plugin.h
-+++ b/drivers/hid/hid-plugin.h
-@@ -19,6 +19,12 @@
- enum hid_plugin_id {
- 	HID_PLUGIN_DISABLED	= -1,
- 
-+#if IS_ENABLED(CONFIG_HID_HAPTIC)
-+	HID_PLUGIN_HAPTIC,
-+#else
-+#define HID_PLUGIN_HAPTIC	HID_PLUGIN_DISABLED
-+#endif
-+
- 	NR_HID_PLUGINS,
- };
- 
-
 -- 
-2.55.0
+2.53.0
 
