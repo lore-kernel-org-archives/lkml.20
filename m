@@ -1,49 +1,64 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571412;
-	b=wR7eoXvyvxCaL9OW9kB7G1q3W9rl6Rfnm+1knrrvhpiouRIr/qUzlM0P0u+G5QNCj9L3
-	 pecIkjy3mWTcXOuQsUx3yKYGpK0iphELos0wqEU1ifwaXPUqP9ZZ/F3nIXID/joJxF4d0
-	 bLj6fNgcmP22c2453o6zi1MGHm72J0qc6iY27E0Ps1MeoQY4+kr2vfL0VsxCs+SEhJkMO
-	 IEpOGlzS5aUnOaUfdJggRR4FlJcynvCG1O+VSXs3tzZf731bj3t43zd+rgLmVncGMCpbc
-	 KxvZr7zaBn+5UOLfZexK5KuFDgf2+zC8XnXPFUb1+CtxMSK9c8CySzGcKpigrv3QXUQ==
+	t=1793571409;
+	b=m2omQAVr4PMbVS0d4g3chRXHiLs9kpxBV9fWVlQhqXP7S+Hm3mn7a/tz7jedgtENuRL2
+	 aG3ltaLcslzHrvOZpW+Iaif5ysch6oFCqRTVgkcpkK7QSR3KEH6gZ1SxGPa0nHkCgv14w
+	 qsi4IAfG8mzUgMEp5zZEHCmTX/FZBrAY0jMUH8P00Lvi75aNx9l6fll/QqWga+QwK2ffn
+	 IX4jIKpRv/tiamOFq14Qrn9dJ8n1JMvbcqatp8SUfziEvY1G6ZbaBIFg/NtDKXrytOG1u
+	 qWqAdU+CsQOjVTnQycBw9VzpfhVcdmZ17M2vFomErT+G2vANoGtxm+cw6l9/3tcu2Mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571412;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=1M18UEoj2fkXVA3N5MwFODgLvNc8kgHEtwNhvCdbEts=;
-	b=0JfBMMg6S6ShaxwX8G+W1hWmkQUzEGejqJx5tHKZmrCk9Zw9s6/7lqhMCixtz3sFCeQ7
-	 OalrBa48/AbYweicuTlrYP1fSkZbv/5k+T3BzWXzdjRskM8R+SeJEYGJnIApIe0cLGoaj
-	 QLIcZiSgEhfIJ5/M5GNxYrppWYQ6uinYgpLPArzqMeTV0zeHSAvEoifRprhEmrWMcLzir
-	 sladll9yEVUU3k7obWdVo7aD7FOy3itlzifNdJPht6pZ47T/RVqNhxNlmltupftYDzvZ/
-	 /tobGmAMOQf9QDkoxHRJrAP8915RkJzY0bcu19W8UDp3X0ey1ZV8Iwyl/6PrDjGBo+A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571409;
+	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=goW7RQ5gSG9M8ONyPtIuBcVGXFA2Uc2cLxCG2sGG9h0=;
+	b=lEUcrQCgTZChaqzDDefyBvz0oUCcS07dH0fWSnO57ozkKO5wWj+cwl7FmZn+sqKbRgxY
+	 H0K29XRNnc8+9vwFEkJCPeuVy/9xM7RrL7LDJOdqqAnOi0KSmqA/BEGSS18Biv+ytt/w9
+	 Hm6gJA86bEeXqxLFe/q1XQXjQo0l+AlBvtN2IocrABqAMTdNra+RkJys9tw5tx7kJyzMI
+	 BCpTCEWk1IH0gQj3avWp3DFdO00McaZR+jFYimmtxGx28cgZUtjYxLnb/FyOK0h/fZrPe
+	 pNV6SPXyhTiGSgrYavjdrolMRaCxpRwgEHQjkUeuecuZQ7RFb1f0vOeIpbFjKAKBEgA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ZsiFDt;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=sntech.de;
+	spf=pass smtp.mailfrom=sntech.de;
+	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e521Ynih;
+	arc=none smtp.remote-ip=185.11.138.130
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C5A607214C;
-	Sun,  1 Nov 2026 22:16:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF5460A382B;
+	Sun,  1 Nov 2026 22:16:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DBF5460A382B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ZsiFDt
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59771F00919;
-	Sun,  1 Nov 2026 22:16:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571411;
-	bh=1M18UEoj2fkXVA3N5MwFODgLvNc8kgHEtwNhvCdbEts=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=G4ZsiFDtZ62yw/+PrdD8L5Da6gB7BqqsvG701dZBR1txA7fSnfvZerKJe/hPf9qvZ
-	 4dhfa7sn+SvyWYLr7JPbMzZROg2ndHcu7yFY9M8ejckEQk4zQGTsveX3hMKIkIAR/h
-	 PEOoFYc5ThbkMFFjiIdoT8PETipkrDFzVTx+1f+O/+qNRcnzOuAxDSUC01qJCR5DHV
-	 IwXAm8U8f+iDeO4dcnr2aFpB55Po8yP/uLgPpGwbX+WgwBeS9CZ3V717KQuYvMjhJQ
-	 epfyR6Fge8m1DNcfsWd/uIU03aC59pi4rQI3NJu/wm3NOxeMOZXb84fp+XODxAaIA3
-	 sDGSj81m6UQ2w==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA28A38003B8;
-	Sun,  1 Nov 2026 22:16:51 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=e521Ynih
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=goW7RQ5gSG9M8ONyPtIuBcVGXFA2Uc2cLxCG2sGG9h0=; b=e521Ynih/0ZP2WcELufGS4Msny
+	QdmO24BM/lDHX5CE3zgpiWVRcnsQaJImAxf2Ywz4CoNaqjYyj+CD6VeQqsbvoj9pcZU/bjrPFBTMC
+	o706mrEcaXYw9aO/SGEHyT+iBxU5YAgiA3l47huvw/w0FebKqIp6TaNx6VBz7aa9fxu9YKpVgja7M
+	ltNPL6rZKBs3AHzKTwf5idni0QRBld7Gwm1EUmozDxIiG53q33PW3EDvEQQhLfW2SmgCSa/p5JTDx
+	eUFZ6jCOBCaCjOjjVTrfo19al7nXPVWswzKxl+Xt68zDzLjjku8wlMymL61GLuzJIhVeHRAIseYkY
+	q358SY3Q==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	linux-clk@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	kernel@collabora.com
+Subject: Re: [PATCH 0/2] Rockchip softrst cleanup
+Date: Sun,  1 Nov 2026 23:16:35 +0100
+Message-ID: <179357139340.4108484.8828443894202280653.b4-ty@b4>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260901-rockchip-reset-refactor-v1-0-936576523b21@collabora.com>
+References: <20260901-rockchip-reset-refactor-v1-0-936576523b21@collabora.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,51 +68,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 0/4] spi: sophgo: Fix SPI NOR errors and clock limits
-From: patchwork-bot+linux-riscv@kernel.org
-Message-Id: 
- <179357141023.2624073.834055517039065391.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:50 +0000
-References: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
-In-Reply-To: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
-To: Han Gao <gaohan@iscas.ac.cn>
-Cc: linux-riscv@lists.infradead.org, broonie@kernel.org, looong.bin@gmail.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- chen.wang@linux.dev, inochiama@gmail.com, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, rabenda.cn@gmail.com,
- lihangfan@iscas.ac.cn, linux-spi@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- sophgo@lists.linux.dev
 
-Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Inochi Amaoto <inochiama@gmail.com>:
-
-On Thu, 01 Oct 2026 02:22:49 +0800 you wrote:
-> The SG204x SPI NOR driver ignores transfer errors and clock limits.
-> Fix both, enable SPI NOR on SRD3-10, and use 12.5 MHz on SRD3-10 and
-> SG2042 to match EDK2 and the vendor kernel, respectively.
+On Tue, 01 Sep 2026 17:13:33 +0200, Nicolas Frattaroli wrote:
+> A small bit of cleanup, prompted by me looking at the softrst driver
+> during a patch review and noticing that there's some dead code in this
+> here reset driver.
 > 
-> Tested on SRD3-12 at 12.5 MHz: both flashes identify correctly, SFDP
-> reads succeed, and two full 64 MiB reads per flash match.
+> Testbooted on an RK3588.
+> 
 > 
 > [...]
 
-Here is the summary with links:
-  - [v2,1/4] spi: sg2044-nor: Return transfer errors
-    (no matching commit)
-  - [v2,2/4] spi: sg2044-nor: Honor SPI clock limits
-    (no matching commit)
-  - [v2,3/4] riscv: dts: sophgo: Enable SPI NOR on SRD3-10
-    https://git.kernel.org/riscv/c/0fe449e8ff7b
-  - [v2,4/4] riscv: dts: sophgo: Limit SG2042 SPI NOR to 12.5 MHz
-    https://git.kernel.org/riscv/c/a3a8c25c59f8
+Applied, thanks!
 
-You are awesome, thank you!
+[1/2] clk: rockchip: Remove dead code from softrst driver
+      commit: 3c1db9e5bea27e658c9fd2b0e5dede0949ffc0f9
+[2/2] clk: rockchip: softrst: Remove unused num_regs member
+      commit: ac718d9a906b7c85ab94f9e77d5734ae5e675249
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Heiko Stuebner <heiko@sntech.de>
