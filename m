@@ -1,55 +1,73 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793544130;
-	b=wZYMgzqq5iEx6H/vYUO99R2rsxCnm6av+uION5tIuqwhfXula7oKQm0PStBtVYp5xvVP
-	 3sY3FNcumLNEqE9KSysVsvUH9MtA5X40gWZtE5iV+JP6yZbti/QyVtLXReVMXLH3bJVls
-	 /aqVTn8lcChVsD+UqhkRod6EHrnX1y3KicpmXvGtYvmQjadJRuBXIMYJco7w+VAOfD2vb
-	 7gR5otZC2dD81rzAdJzLeRVcWpUreQnrBaEmjDtKPUyUYn9UjJaiHDs/3I2n5sv9gZNlM
-	 6BCsE0D49YX81Mxuq9KQMrF1GurapaF0jsaliaMcQwyE4xEfV+qLDIP7FsCwcijFr6w==
+	t=1793544241;
+	b=Xpp5ue6X8e/y/bb/A8cGf0aFpJc4eaoFZ35ABvvqYPfeAL0o9Z7gzCtO6rVF4wKIr83U
+	 FGr7bEN2e09RaWAlvKwDOql5ZJNBEz4rWqozoQ6WOJOKciVcGfcLygipPT25PiEiQp/Fw
+	 w5n/S2Wr3BKbWhCANZWFEuDL/96Lihe8zS965/NOD2sxhgFW02vwF6dcWEyGyXTwgITA1
+	 9HkMnUr5A4CZh0gWEqnNKvAjV8ZVpc7ZCHN1nylrqWJVD92qwhmYFC0KMmYBY7Imgv1/0
+	 8+BtDbcmJAnH+dinmuQhyGQgGmfegTVz/G/7h4DtDjewX6m40mS5HFGiju+DpVgi/EQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793544130;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=yTv+63IoiSC/7HIqnxNmdXMmP57cJFHvG785xwiYPN8=;
-	b=KTwbNvNzrfnn23+yeCCZlJ6nWXgp51o0NRnFokie43VfRYZGOzHKEEO0UbFL0jUroe4S
-	 iJaZyAWEKaX10SMvRMyhsS5zbh/B2qk7GcYuKrTQ9I6LgTiyyKiK3pc9+yhS+zs8IBKBi
-	 ZeRpBpF/LzqZuo319Oicbr4K1WLq6eC/LDIVYpSwD0K/bJIFwvJG70n8W2KNiF+8Jjx00
-	 nbCkCbacB+HN07nE6eqfFEZorL8mlVnuNQr/VwPns71qQR/TWjWrQMPLzJOcZtN33YWzP
-	 FuWsav0bwRUq2yjSmnfPg05kYahfIxBAIgT+Z0KQlD/iuJ5ttp3aOJ315RwyCK2VpnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793544241;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=oUyTfJUNz75/QBEP7R/YNu/IVgJrEDsKO2KorAjSqnY=;
+	b=36VTFYB3xNQPHFRPvIkwlfbMrN+dPCdZrPJVCW3FBypkdSbf6jPKZJTl7K3g9RYz3HjJ
+	 tjo60uObJerrDG5HcVBhaNYKCIQdiYW8SXE+/ikd0xN6C7X7waSkhrYqNMBB/EjpyLCvT
+	 mOPGbQk+VcNM1x+rpOGtrvva47LfJ5Dp7XOgTCzq9dCDi/Vc4iB7gMsDkDaVcIXb5Jj4R
+	 i59FtoLJandg0amfI8YyDIXOd9Uu5xDhWWpadN2MxwnU3veVbSw4m6tetp70zpc9+UdC5
+	 uLaBRS/du5Nmfp+AeeUL4kQDMkkdt2coupvot7TcTzmB1bfbgid0D2kG0CfQEf1vPAw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=beV+ex6L;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEjC3pSU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7F20606A324;
-	Sun,  1 Nov 2026 14:42:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFF9606A324;
+	Sun,  1 Nov 2026 14:44:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.a=rsa-sha256 header.s=korg header.b=beV+ex6L
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280351F000C1;
-	Sun,  1 Nov 2026 14:42:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1793544129;
-	bh=yTv+63IoiSC/7HIqnxNmdXMmP57cJFHvG785xwiYPN8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=beV+ex6Lh6FjU87SePRwRs05RQgLV+nB3zrqE7MkU83InoxEa2WkfHIfg5BXqJ0Ls
-	 5QtYETGurRbjzNPHR1f3PTsZZ3tbRFVewLRmITMy3adl+I/UiDFWt5hkHL+R19yja7
-	 tV+eqBpWR/xPietij14U1Bod6VlSaRd7nAgT9ngE=
-Date: Sun, 1 Nov 2026 09:42:08 -0500
-From: Konstantin Ryabitsev <konstantin@linuxfoundation.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>, 
-	Joe Perches <joe@perches.com>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-kernel@vger.kernel.org, users@kernel.org, 
-	Federico Vaga <federico.vaga@vaga.pv.it>, Akira Yokosawa <akiyks@gmail.com>, 
-	Carlos Bilbao <carlos.bilbao@kernel.org>, Avadhut Naik <avadhut.naik@amd.com>, Alex Shi <alexs@kernel.org>, 
-	Yanteng Si <si.yanteng@linux.dev>, Dongliang Mu <dzm91@hust.edu.cn>, 
-	Chen-Yu Yeh <chenyou910331@gmail.com>, Weijie Yuan <wy@wyuan.org>, workflows@vger.kernel.org, 
-	linux-doc@vger.kernel.org, Petr Pavlu <petr.pavlu@suse.com>
-Subject: Re: [PATCH v2 0/2] get_maintainer: stop sending every patch to LKML
-Message-ID: <20261101-inescapable-vivacious-shoebill-5b7ebb@lemur>
-References: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=cEjC3pSU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C69071F000C1;
+	Sun,  1 Nov 2026 14:43:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793544241;
+	bh=oUyTfJUNz75/QBEP7R/YNu/IVgJrEDsKO2KorAjSqnY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cEjC3pSUU65PYApD34HbwzC2MMmjLmYi6OlWjZaCqRLnkqHw38435lbVOow767vyy
+	 zy9AIbrOycA8tktJCpz1ZwTwI1cr2O7rVBiQS0aaKFzWth0JR4Gvblq7EwGZ+FWCXi
+	 bfEDeU+C/ozQu2drzvaNV1EcGPLJBv44ENgQmsSLD4ldB+WzUbZanB03tRQfu01gOV
+	 nMgPxYFf9Vp9F3qZRdor51md7/9l0v6KdN6EkGZsRWJAZoGNa+ndvD1RpSW5yuL+hv
+	 Tg3mpKHau7GJiEhTebcirVwOkrQXRcJiNpeoQnsp9jwMLZSqCLaHAzce3RPQj496Q6
+	 MB7WD3KCXUNvA==
+From: Sasha Levin <sashal@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Sasha Levin <sashal@kernel.org>,
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	linux-tegra@vger.kernel.org,
+	stable@vger.kernel.org,
+	Jon Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH 6.1 0000/1879] 6.1.191-rc2 review
+Date: Sun,  1 Nov 2026 09:43:55 -0500
+Message-ID: <2026-11-01-1-daily-reply-0001-stmmac-tegra-6-1@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
+References: <7e927599-10b7-44f4-828f-e50c0caf5f27@nvidia.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,39 +77,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Oct 20, 2026 at 11:35:24AM -0400, Konstantin Ryabitsev wrote:
-> LKML has become mostly a firehose of patches that are already going to a
-> subsystem list. The reason is THE REST: it matches every file in the
-> tree, so get_maintainer.pl adds linux-kernel@vger.kernel.org to every
-> single patch. During the week of Oct 1-7, 2026:
-> 
->   - LKML carried 13,641 messages (~1,950/day), 90% of which were also
->     sent to at least one other list;
->   - with ~2,100 subscribers, that is about 29 million deliveries per
->     week for LKML alone.
-> 
-> This issue came up during the 2026 Maintainer Summit and the consensus
-> was that "always include linux-kernel for every patch" was never the
-> intent.
-> 
-> This series makes THE REST a fallback as initially intended: it is only
-> added for a file when no other matching MAINTAINERS section provides a
-> mailing list that get_maintainer.pl would actually output for it.
-> Patch 2 updates submitting-patches.rst, which currently tells submitters
-> to send every patch to LKML.
+> Bisecting is pointing to the below commit and reverting it fixes
+> the above issues ...
+>
+> # first bad commit: [26c5e136ba4e94ad708333c9bd34039a1de397b0] net: stmmac: protect updates of 64-bit statistics counters
 
-Linus, it looks like everyone is on board with this change, but it never made
-it into any pull request. Will you consider merging this one directly for 7.4
-rc-1? This ought to do it:
+Thanks for bisecting. 6.1 is missing a prerequisite for that backport.
 
-    b4 shazam -S 20261020-get-maintainer-the-rest-fallback-v2-0-162aea473488@linuxfoundation.org
+38cc3c6dcc09 ("net: stmmac: protect updates of 64-bit statistics
+counters") allocates priv->xstats.pcpu_stats in stmmac_dvr_probe().
+6.1 does not have 2eb85b750512 ("net: stmmac: don't clear network
+statistics in .ndo_open()"), so the memset() of priv->xstats in
+__stmmac_open() zeroes that pointer on every ifup, and the first DMA
+interrupt on a dwmac4 device (Tegra186/194 EQOS) dereferences a NULL
+percpu pointer.
 
-With the ever-increasing volume of patches sent in and Gmail's obtuse "you're
-sending us too much mail, back off" attitude, this is becoming urgent.
+Greg has queued a revert of the backport for 6.1, so this goes away in
+the next 6.1 release. 38cc3c6dcc09 can come back to 6.1 later together
+with 2eb85b750512.
 
+Could you test if adding in 2eb85b750512 fixes the issue?
+
+-- 
 Thanks,
--K
+Sasha
