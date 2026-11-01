@@ -1,102 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793551814;
-	b=TLUOcIMbaIjml9UdM75/vmLVq7RsXcRPJnmUNzMcIRJmi6rNrTmWAa/pERxCR6gMqGdI
-	 HRT+9dCwwir1R6gluzTj2zSAQqfYvaaka2z5jegnsl3gRGg/a0WjnDfyJ6YwLZrbqTQt5
-	 kue7OZRr21jEKkv4fPwqIMFqpg3q0luc4Ph8ndkenBeJmXsz0IUshW/WJTnKj3+FoP4Nh
-	 sHkyBVXlZcbILPLHy7+8Qq0rxi9ifwkaMk4868iFBMhQX6XBICDnKKV97SxxAKQKDX/ZL
-	 N5UvmJIkEn6zehFclFVx5JTv2Nl8wNmiyKJg9Tgnn/MxkCLKchUJwOwMM8uzluftqTg==
+	t=1793551959;
+	b=JmaTjcaTquAn9otW4cqFUzy+Hi/yZV7uGPeiM36+SxJ5oO5wEEnW9sALCbkWcZZ/RsFN
+	 e+joYzcm1ST5pn8FewMWQgKAitOqIeI8g3JzwcfclfPzAMo2XKKYDhrkwojM7Hji01UOy
+	 UNwwu5Z/+MIf0NFCAQOqrpElHlCwug1xV2CdIzDeUK8PTjui7rXWpSgiobPNb/hGQABEG
+	 JeeHTC0wUH5qMd1++kYjnHRtCg1zQL7/NVE7+rEesV2PZeZsK+VNybpbOUoFUykdHR7tt
+	 t81QJfwmbuLkJcp+iBDBQzIdUEMX8Q88D1uYn2gX804uipuI+3DGUm7BMoEag8mGT3g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793551814;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=mZZe4bKEcD5TSYKYkVMyAQ6dVStKsxhjunUD6f+PU+0=;
-	b=Rqoc2dXnVSmInzc/9kJosJfRr4E2orPLtPfhKsaRTyLU9DTgYD5/ci1znPSCBIGM8BNj
-	 0PNQNqtquj66249tfkpFPWnOkPxkaIzVOcXJS6pz/i9/Lhaj4HA1tOCNBpzGVeJh0v2la
-	 NZgtSL2AZ2QIQfJAGzvvvG8schw/CkMBRofWPlfwj6yRKuMQ1zp7LXhh92WzG6cOhruAi
-	 NKpXijerCHlUF/UvBOI62oyZ5NPXyYeCQUrJmdT3mZQp8OkkcyQ3g/UDsurtfaDcg8v0h
-	 C8kdSdb0/KgmUwpD/IDg3SJ4vtS42F+DJ03L+p7y1Wd2uf6S+BE00k5bIj8bmpSZ3Tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793551959;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=m4Jbx6Bfo1ddm8Iqy1wqgq9WiTU/MIHTtxEsKpTryfA=;
+	b=d0adHRxCSvBJ/fQ8nkVkzIqEN+WEP0tZutVfYQoBw9qgVtjm/Sa/Sn91ypqqsWkmcexL
+	 B9fYS6CQczDrvVtVttec+WQUSUZxhxlQL000f7kHydbiAbbLNujt/jo5ibnQ8yp6Q5m07
+	 doU9eNW5S/hQ8gJLPAsOmccuB/rrCMoyyCotq8IICD/c3lngjBzoK2SiS0t8y1uxs4hNE
+	 qAYRqh0/wmFb6jH17kLTzVDGEZzIRe6Le8NbxPDvfOHPfe5ZrOUv11fLJAxZjrtA0mz79
+	 2dXdT9USfG9uOxAfCxHOrBQezHyEMjWVqlgBNE6yNbDu25VlfSO9Xgy0m8NjkpFu3vw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0jq2OaOv;
-	arc=none smtp.remote-ip=74.125.82.171
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhoXEZxD;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2423C606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:50:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2423C606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87EE7606A324;
+	Sun,  1 Nov 2026 16:52:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0jq2OaOv
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3645f0f3fcdso3964283eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:50:13 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793551813; x=1794156613; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=mZZe4bKEcD5TSYKYkVMyAQ6dVStKsxhjunUD6f+PU+0=;
-        b=0jq2OaOv/VB8alV10OIyFhzRgwYGwdbak1sNcvg1B4TViZnUcpBAp2z38SSNRYDRFm
-         iWL4NL6qgRA55EC9Nok9ZP8gNMVq53QnCspXz1P64Zkgy+AWhvqcouMzwsduyTkZ5012
-         f4nQrmaIrmukypuridQE1Rqc2bQO2XtKr1wXs4gKemRM6oXqppdY9DKk6ZwU1tpgVLRs
-         Yht0Pcfho/JnMuEIPOp4Ns3v2a6FQiGqn6Zq8Z9d2cYZdwoU6NVPn///Vpb2mGCsXGpG
-         nHarEKEXX6wypiLqRLeopMvysMA2SEdZjNx/LDGITkRP6YXHoQfCv2vaKmKvnjsp/MVq
-         5idw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793551813; x=1794156613;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mZZe4bKEcD5TSYKYkVMyAQ6dVStKsxhjunUD6f+PU+0=;
-        b=Y9kOWxslNYcTjm1F1+nZRkX3T1OiuzcEj43VlbES0AWyBCRPrwYNoSHIVM+nzK9ArV
-         fXdG3OIAVQaSD2d8AJ9RBw96+Y4fU6m2wNUpvxOFPKGKDcO7Mhjc+Z1rkERHYf7hYeBm
-         T2oZOj98kf5/V1Kw0A3bRjbkhFERMTykATRpb5aBPOwmSmEhaEB+3KE3J7/XUDMjGNbw
-         StV6zpHWmbWUfYsaNapsMeM6LjUPidxV8PYxOMFaCXfMuiE1AtRgDwIUutlngV2kY3pe
-         R0rCE2s3/7ca3xshvu4InwrrUx8oIMredZie2NBQslTm2ceSyAnzbdzDkoldf6rBV+5i
-         Z6Vg==
-X-Forwarded-Encrypted: i=1; AKwUvByWVTvjoH3j+T4tIJJ34UToYxNuFK5F5yut+Fz3u9PQCNtgkWpvxtgjFk6VFb4j4BcsoX5/v2AJURw5aTo=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8wqMsYB5PkjlXqUbyV5q/NcygZg12JgAhRzAD8lmplzrZ2Bqik
-	TrkehUZTvHV/qk4k076TKCwBWsSAgSvj1Pke00oB52qzBt+F8sbjKFCW
-X-Gm-Gg: AYBFou3n3yaNB2+2wZIZNGLcQk/4gXv/80ifBnoU6+qr9GnAx3SJIJGmGj19UzVVkw7
-	5x4G+O6F8M5i2H+Y/ZsjpWxg84LmFC7Y6ZGPw0DEITNldjSigxGUuPpF6Hr+YFnVt3mb+yjixSP
-	zSlSeliqirKEt8pR5cx+OI6RorTvx3AkfNz/KevBHex83mvuOVib5KmXTa7XJTs6zhWfN+VCmG9
-	vMRnojkXWvpgbOzT1NGBdoZ9gvv+hX6iAaVeFBMJFfpZeGrB9e0c3nznFiDZO474A4tI2iUpbGg
-	tcs+ZFfQYBHTmy1upnb7OJIpqHHhYRXQhNuRGiiXLAabx4uXsVPgN4X5WJDp9Qicx3T8x+CDvHr
-	CzK1HNr6zNOSPBwQmuVhxv4Phs5d9NMSPL7JzM//9f8zDTQuaEC3mR2lrlPQ0+y35H+JicPS629
-	6GeDgOPpUgf+30NuiLb4PIHPWhgKyM985BLMrOUTue4CK0r98y/POLQqkHwo1HWqc3ewPh3a4nb
-	NxmejPDC1db+dczkA/yQWLC6E29FtyD3M5RFKmGFXpypH1c6EMXpZuMilh8T5TRteB2s3lu31/Q
-	7uHzuEn1px7d5rk1O4qmewuQ7b6A+7ix7WzBeg+rxbfChFXj6lBZ771yLdw72BSBRhtr
-X-Received: by 2002:a05:693c:87cd:20b0:36a:32de:a239 with SMTP id 5a478bee46e88-36a420643f1mr11900427eec.0.1793551813029;
-        Sun, 01 Nov 2026 08:50:13 -0800 (PST)
-Received: from localhost.localdomain ([121.101.131.247])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42935b4asm39444940eec.16.2026.11.01.08.50.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:50:12 -0800 (PST)
-From: Amir Hanip <killdeath104@gmail.com>
-To: barnabas.czeman@mainlining.org
-Cc: abelvesa@kernel.org,
-	andersson@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	killdeath104@gmail.com,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	a39skl@gmail.com
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Xiaomi Poco M3
-Date: Sun,  1 Nov 2026 23:49:30 +0700
-Message-ID: <20261101164930.17976-1-killdeath104@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <239d46726c0aad84feccc3def4eafab2@mainlining.org>
-References: <239d46726c0aad84feccc3def4eafab2@mainlining.org>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UhoXEZxD
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A1931F000C1;
+	Sun,  1 Nov 2026 16:52:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793551958;
+	bh=m4Jbx6Bfo1ddm8Iqy1wqgq9WiTU/MIHTtxEsKpTryfA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UhoXEZxD/lABF3hCCh1uoq03tqfOlcwp5FcWDndtpoLX9o68BYueCl75NL12l7+kA
+	 g8PcKwKSKdbw9zDNvrBUbIM6Rc934HZM2xbmgR/Dt2U5DnWK3r0OwK38puq+IDqSq0
+	 uLm26hUiP54VANmDk5jvuO529HkhKtQ6KATB+n2bmnyHxhLxsxKUsLoUUEZ2nzzLep
+	 KFkg9Oh3T4aJi5y/PVUvmzN8WdY6GR7kQKg4Uwifvhqv7hVMANoRWwFtOCFma1FCev
+	 CDamEpBMxJhvBooj5kY7BKQszBTH4hUcak+QqjqfFEuYppjLklzOVWEGQCHSsIqpJb
+	 skmxTLlYV0lPA==
+Subject:
+ Re: [PATCH net v2] net: usb: lan78xx: let unregister_netdev() stop phylink
+From: netdev-bot+sashiko@kernel.org
+To: 25031212351@stu.xidian.edu.cn
+Cc: Thangaraj.S@microchip.com, UNGLinuxDriver@microchip.com,
+ netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-kernel@vger.kernel.org, andrew+netdev@lunn.ch, linux@armlinux.org.uk,
+ o.rempel@pengutronix.de, stable@vger.kernel.org, byu@xidian.edu.cn,
+ wencheng@xidian.edu.cn, kuba@kernel.org
+Date: Sun, 01 Nov 2026 16:52:37 +0000
+Message-ID: <179355195704.3131.3408534065723152966@kernel.org>
+In-Reply-To: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
+References: <20261031165213.2738-1-25031212351@stu.xidian.edu.cn>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,64 +65,177 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Fri, 30 Oct 2026 13:30:28 +0100, Barnabas Czeman wrote:
-> Poco M3 (citrus) is same HW like Redmi 9T (lime) and Remi 9T NFC
-> (lemon) basically is a lime with NFC.
-> So i think it would be better make a common base from lemon's
-> devicetree instead of making the same devicetree again for the
-> different variants where only the compatible and the model property
-> will be the difference.
-> Check sm6115-xiaomi-gingkgo-common for example, it was the same case
-> for Redmi Note 8 (ginkgo) and 8T (willow).
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
 
-Hi Barnabas, Adam,
+Critical: 0 · High: 0 (1) · Medium: 1 · Low: 0 (1)
 
-Thanks for the review, that makes sense. I am preparing a v3 that
-moves the shared parts of lemon into sm6115-xiaomi-lime-common.dtsi
-and has both lemon and citrus include it. I used the name lime-common
-following your naming. Happy to rename it.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Plan for v3:
-1. dt-bindings (unchanged)
-2. lemon: move the shared nodes into the common dtsi, no functional
-   change intended
-3. citrus on top of the common dtsi
+- [Medium] The reordered disconnect still calls phy_stop() on a halted
+  PHY after a normal system suspend/resume of an open interface.
 
-I can only test citrus. I do not own a Redmi 9T, so lemon is untested
-on hardware. Instead, I compared the lemon DTS before and after the
-split, normalized with dtc (dtc -I dts -O dts -s). The only
-difference is the numbering of two auto-generated phandles. I will
-describe the check in the cover letter. Adam,
-would you be able to test lemon once v3 is posted, or look at the
-split beforehand?
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but lan78xx has an
+  AB-BA lock inversion between dev->dev_mutex and rtnl_mutex.
+- [Low] This problem wasn't introduced by this patch, but lan78xx_stop()
+  uses timer_pending() to decide whether to synchronize with the…
 
-The IPA carve-outs (pil_ipa_fw_mem and pil_ipa_gsi_mem) are identical
-on both, so they now live in the common dtsi.
+--
 
-I kept the following per variant because I cannot tell whether they
-are real hardware differences or just differences between the stock
-firmware images:
+net: usb: lan78xx: let unregister_netdev() stop phylink
 
-- ADSP carve-out: 0x53800000/0x2200000 on citrus, 0x53400000/0x2600000
-  on lemon. Both regions end at 0x55a00000, so only the start and
-  size differ. I can only confirm that the citrus value works on my
-  device.
-- GPU carve-out: 0x55a15000 on citrus (right after pil_ipa_gsi_mem,
-  like the SoC dtsi defaults), 0xfa400000 on lemon. The citrus value
-  works: the GPU runs with a full DT that includes the display
-  pipeline, which is not part of this series. I cannot verify
-  lemon's value. Adam, is 0xfa400000 intentional?
-- PM6125 regulators: seven have different voltage ranges (s7, l5,
-  l7, l11, l17, l18, l22). l24 has the same range, but only citrus
-  sets regulator-allow-set-load. lemon also marks l5, l7 and l22 as
-  always-on, citrus does not.
-- citrus deletes cdsp_sec_mem and the orientation-switch property of
-  usb_qmpphy, lemon does not.
+This patch reorders lan78xx_disconnect() so that unregister_netdev() runs
+first and phylink_disconnect_phy() runs after it. The explicit
+phylink_stop() call is dropped, so that phylink is only stopped through
+lan78xx_stop() when the interface is running. The aim is to avoid the
+phy_stop() "called from state READY/HALTED" warning on unplug.
 
-Barnabas, Adam: do you know whether these differences are real, or
-whether they only come from the firmware of each model?
+> diff --git a/drivers/net/usb/lan78xx.c b/drivers/net/usb/lan78xx.c
+> index 181e8c087655c..4780aef87736e 100644
+> --- a/drivers/net/usb/lan78xx.c
+> +++ b/drivers/net/usb/lan78xx.c
+> @@ -4593,13 +4593,12 @@ static void lan78xx_disconnect(struct usb_interface *intf)
+>
+>  	net = dev->net;
+>
+> +	unregister_netdev(net);
+> +
 
-Thanks,
-Amir
+[Severity: Medium]
+The commit message says the interface is "stopped exactly once and only
+while it is running". Does that still hold after a normal system suspend
+and resume of an open interface?
+
+Consider this sequence:
+
+ifup
+  lan78xx_open()
+    phylink_start()
+
+system suspend
+  lan78xx_suspend()
+    phylink_suspend(dev->phylink, false)
+      phylink_stop()
+        phy_stop()      /* PHY now PHY_HALTED, IFF_UP still set */
+
+lan78xx_phylink_mac_ops has no .mac_set_wol, so mac_wol is false and
+phylink_suspend() goes through phylink_stop().
+
+normal (non-reset) resume
+  lan78xx_resume()      /* no phylink_resume() or phylink_start() */
+
+phylink_resume() is only called from lan78xx_reset_resume(). Because
+pc->mac_managed_pm = true, phylib does not restart the PHY either.
+
+unplug
+  lan78xx_disconnect()
+    unregister_netdev()
+      dev_close()
+        lan78xx_stop()
+          phylink_stop()
+            phy_stop()
+
+That reaches this check in phy_stop() with the state HALTED:
+
+	if (!phy_is_started(phydev) && phydev->state != PHY_DOWN &&
+	    phydev->state != PHY_ERROR) {
+		WARN(1, "called from state %s\n",
+
+Before this patch the warning fired twice in this sequence. Now it fires
+once.
+
+The same gap also leaves the link down after such a resume, and a plain
+ifdown afterwards hits the same warning.
+
+Would it make sense to also restart phylink on the normal resume path in
+lan78xx_resume(), in addition to this reordering?
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the commit message relies on
+lan78xx_stop() taking dev->dev_mutex under RTNL via unregister_netdev().
+Is there a lock order inversion between dev->dev_mutex and rtnl_mutex?
+
+lan78xx_open() and lan78xx_stop() run as ndo_open/ndo_stop with RTNL
+already held by __dev_open()/__dev_close_many(), and then take dev_mutex:
+
+  rtnl_mutex -> dev->dev_mutex
+
+lan78xx_suspend() does the reverse for an open interface:
+
+	mutex_lock(&dev->dev_mutex);
+	...
+		rtnl_lock();
+		phylink_suspend(dev->phylink, false);
+		rtnl_unlock();
+
+  dev->dev_mutex -> rtnl_mutex
+
+The rtnl_lock() block in lan78xx_suspend() came in with e110bc825897, the
+commit named in the Fixes tag.
+
+With CONFIG_PROVE_LOCKING, ifup followed by a system suspend with the
+interface open looks like it would produce a circular locking dependency
+report.
+
+A real deadlock would need a non-frozen context holding RTNL to call
+ndo_open/ndo_stop on this device while lan78xx_suspend() holds dev_mutex.
+One example is netns teardown in cleanup_net() moving the device back to
+init_net, which goes through dev_close() and then lan78xx_stop().
+
+[Severity: Low]
+This is a pre-existing issue, but lan78xx_stop() is now the only place
+that stops a running interface on disconnect. lan78xx_stop() uses
+timer_pending() to decide whether to synchronize with the stat_monitor
+timer:
+
+	if (timer_pending(&dev->stat_monitor))
+		timer_delete_sync(&dev->stat_monitor);
+	...
+	clear_bit(EVENT_STAT_UPDATE, &dev->flags);
+
+	cancel_delayed_work_sync(&dev->wq);
+
+Can the stats timer be re-armed after ifdown?
+
+If lan78xx_delayedwork() has already passed test_bit(EVENT_STAT_UPDATE)
+and is inside lan78xx_update_stats(), the timer is not pending, so the
+sync delete is skipped. cancel_delayed_work_sync() then waits for the
+work, and the work finishes with:
+
+		mod_timer(&dev->stat_monitor,
+			  jiffies + (STAT_UPDATE_TIMER * dev->delta));
+
+lan78xx_delayedwork() has no EVENT_DEV_OPEN check. So the timer and work
+keep cycling while the interface is down, autoresuming the device and
+issuing USB stats reads.
+
+The same thing can happen when lan78xx_stat_monitor() is already running
+on another CPU. Its lan78xx_defer_kevent(dev, EVENT_STAT_UPDATE) can land
+after the clear_bit() or after cancel_delayed_work_sync().
+
+An unconditional timer_delete_sync() would not cover the first case on
+its own. The work would also need to be cancelled before the timer is
+shut down.
+
+On disconnect, timer_shutdown_sync(), EVENT_DEV_DISCONNECT and the
+cancel_delayed_work_sync() in lan78xx_disconnect() still clean this up.
+
+>  	rtnl_lock();
+> -	phylink_stop(dev->phylink);
+>  	phylink_disconnect_phy(dev->phylink);
+>  	rtnl_unlock();
+>
+> -	unregister_netdev(net);
+> -
+>  	timer_shutdown_sync(&dev->stat_monitor);
+>  	set_bit(EVENT_DEV_DISCONNECT, &dev->flags);
+>  	cancel_delayed_work_sync(&dev->wq);
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261031165213.2738-1-25031212351%40stu.xidian.edu.cn
