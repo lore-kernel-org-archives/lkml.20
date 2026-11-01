@@ -1,54 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.24
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793514129;
-	b=LWQRbmIFRB0IDdaP56gbhzhqf2LDuHHfdBL0yPZpT/ZxO/7QSZFqx/I5EfuSpA3CxMGf
-	 omHeiL2jPIblVIEjzFQ6AQR58fPJRowiXRev733xulisAwTIQAbhZFFJE78gEhuJ6B72A
-	 zMeHgYhCY103Hl1fM/Jv2iTUENbS9P7LaBzS3MOsl9ZqDArOep0tPfMEJzj8QBdL9yTq+
-	 uGOP/9g9Eohdd7GF4J55GI49tmPQorA8iejQDb0t3EYcb1GHoCTch0+WirSe2NKh5/mjN
-	 qaQIZC9TYfUWaPVnofEiI/8CfECGGbiyzYjsz57/w4h8VflZCAo9Ym23qrt5IjlL4xw==
+	t=1793514197;
+	b=R8PB2DB024HBO5rKeuhpdOOzlOMznqSC6IgsVShbvAyJ9f9/OwV31K39or1/apHHEDFl
+	 AGiPFqmiusETCvkDHXxPjt6g3Us59bLK7jLj0PQu/KrBz6e9IpWqhP0AvC1A6CEPO6+7m
+	 e5MrcNyuJD5XsZgnmT9EHoA5M22UDYpyDZw+ylfgbvhSQEgUwtpXWwaJqh47nFayJ5lUF
+	 PI5I0XBUivjyXDQ/zFFxII6EZPDuid2KAPrkEQ0zx70ICyAJrqh5YzgJuwnZeVIV3RnQz
+	 8V8qszFpt4XJ3v1cGNpc6sLv7NYzMhLCbW8SCbeVMZkGE9F3OXrnQbQchWDfAPpazIQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793514129;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793514197;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=blO6k0GV9t7jq832MC9mTaWTEhU4J8juq8TCxnkK4WQ=;
-	b=onmXVa+Lb96P+EwBXecK0y5+Vc04EFizJA60qXUS46Dv+ZlJKCNCPM7aaNULwrLfNnu8
-	 +hIG9p8buiRHptPo7ybQn2E0Xm38qhZiFuGbDlAzkmWQ1fK5Q/9uBvCagiadOIdlDkZnG
-	 STg+tN7VVBW1z2pypbq3F4cZiwdkEGo2KM1UIZ+PzyOBaa+d0ZnbtgXx8RbLxvsJsdfmv
-	 dFCSINL+4vvTo4bBXdQZl4ikMPXaxwkhMsu8EdJQmEJW8URjrivwXtfePn/QzE1ay/BFs
-	 yftXo6CUXQqQVToSydIBdxUhyuvMZ/Jv83i2vdZWAOxoMvxlaGabdtm6sP+lV20E8dA==
+	bh=r5JhajIzD9ubXl5M8tJbplpixiasXJVLRaVa00eXAjQ=;
+	b=ffRnoFKmqiCC8X/kEleRLImwBbiLiNOLvHsTxeaBh6uqkVN4cBHJTTWAA6Wu7wGKdJTY
+	 Un49Rc91kjofcqSryNKwvXo9+L2TwMz0kIBNC2VfCX62qvpTyoK6/Hs++GG3VP2A/YH6H
+	 rVMnRl8JlR1yPIUXfZ3Y+r46wCIbGlIzKd7y0j+qv1wjaKBgm/t80fFA4BCVOI9PxoHm/
+	 XQ/lG4K+rwga1suNjm9G3LLhC7J5Ug2Lk4DCYrepimWcwdJlwdotENb2J6NZEcTqSyI0Q
+	 T1ZPDqp9b+kLIiCGTRlZ++/K4EFkbkojzKFrRKREczMx85npk0L53UD3MLrMNnGC/4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tit538k9;
-	arc=none smtp.remote-ip=91.218.175.24
-Received: from mta0.migadu.com (out-24.mta0.migadu.com [91.218.175.24])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NoSqufGz;
+	arc=none smtp.remote-ip=209.85.216.51
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE396606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:22:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DE396606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F418606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:23:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F418606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Tit538k9
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=gaF9RaTUlWJnz0Kz7eSN92fdFpU4AaHftDt4HKXl/YY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793514127; v=1; x=1794118927;
- b=Tit538k9XfHYAjy4otnRC7vAz5Cj/Lshaoxkkk8Ghq1rfQBmNwtxsywKDb9yCi4afi7pP4H2
- azVrDg4QS5ZtzmVl643fP8STHG/kKplwbnGDLa/Y6/LSRHQbsSx6TbqgXQyIEcr3izcualOTZCZ
- zJw5W9KJF/mRI50gqQiw4csM=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 5ef06936bde13713;
-	Sun, 01 Nov 2026 06:22:07 +0000
-X-Mizu-Trace-ID: 5ef06936bde13713
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <86d9a986-58ea-44f5-a8af-514abff12c2a@linux.dev>
-Date: Sun, 1 Nov 2026 14:22:00 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NoSqufGz
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3ac77270fbfso939796a91.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 23:23:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793514196; x=1794118996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=r5JhajIzD9ubXl5M8tJbplpixiasXJVLRaVa00eXAjQ=;
+        b=NoSqufGzNtrHCJzWqkLelGubERrGQOSlrCqyXZd/fOCZxBvIqDVAy/Wms1m4X6xNPi
+         KQ8yi4bm7dkuXwOUpqCYlNYmCWY1Z4qnhRyrAaLLk2QHE4wsuC3XrN+kFq5YGxIhz5z2
+         1lchgQn5znNJTSGVc49Q4+Bcla5oWygzotjQlwUQuHHR0bipU20tjMwqryKj+O9qLcn2
+         ctYNi8rcuRASdkz2tvFLUZWlDiBqeBPrK9MFundNCtt4xHyr9eJAMh/EX2G2w5B2fTM8
+         PAN4t8BWLMsBNjOcj03C4mHOfysX7fqZL9XE5151gQFvXdyrREmyqPQu6gzcNKtzYX1G
+         M6Rw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793514196; x=1794118996;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=r5JhajIzD9ubXl5M8tJbplpixiasXJVLRaVa00eXAjQ=;
+        b=iPK4wJ0DK5khUdZoIFxbfglVgd/FWopMJ86XJJ0JMzfvI+s0ar9oEpnDdZa909Eqq8
+         D5UPiBZDgN30iZSLkXGgr8d4LynAc+mAqo/Ga1uJLJZf5uyWGQ/Z8TrMXvTxXV98w8ab
+         pX5PIVZQH74JBJuwZBJNSlhvYmtURICZXFet76fATHY5LpXqeiPaONCxPUF4H8eOD5G5
+         TJBPROm2ko83klhfoBHTDftOfYQncs2YOOyBmKhRKz+2eeNCFZTSYlD9wKfWeLB6MAYO
+         8WvCjKrzlnUJchX3DEgc8di9g7ddVzg6DNMcOqy5hdG/2vHY/0YKezl7HXJElNPQTGep
+         KrXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwVt1j+2FSf3MKRfJGZY9KvsdUhE3im/CmTrfeSRDbEf7plcdfW+X5cNN6BVIOsL7gzPdTAw+2qxpvefac=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8LTgShv5ceSPgQSodZ3unDUEhRyE50RSGw2NT2Ath6gOSj3SLC
+	z9+InTu4+1+Bv10ygYLyI/XfeRFiC/NQpOQfZ7x/ktPye8IMdP0tvDcc
+X-Gm-Gg: AYBFou1w27XTMIfwEetM8JTLN2sq8PmtCX+94ujRaYafx3Dv32bVSZI1Iw77+Xs92ad
+	vH5SHqS9zZScXudOaSrcIUXiCo1GrLyxxwF+2pa2z1T1zaygLD8N+yMuo5ygR75f+asc1Q8m3EV
+	3/xFDBNLhSxkNEMnCAyfGfNX1T1eOS5c7ajI+8XYjkth1OiqrWMiGZNL/KiO6fUMsrG+YhK7P++
+	9pqBikMV0Wfu5xW3+sSoesQ4z62ZNdJHisNe1orkLC3uQgNkmcBgSqG1/PCyGS6Tr2yuX5mTbrN
+	ER7kHLvtlxGfy4UC2jKkVArFiIJPUDpIhjT9mtxIpc2+Ysof2aUN3tgozg2SMKltCMImVUz2zyj
+	3+rkIexPkowm/g6c5gPayhxqyjF+KV+dsILDnS4LrU9ZI+gwZyq6us6DZ15XUNy+TSFMLlK3bBq
+	UDeHeAF26f73cUzZXuI02XsBvixYcz+HmVEef4AxF4xVb8xYNgLoue5LRkPe99yeWRf5SH0vUPi
+	40EutmomP5XP4UIjg8/lOb+poeYG0MlKCHZs0ECyfVvUEDvKnP29+a3mfJV+AbB9Qbm4KKdwv+h
+	sfvldBMrfInSoonljB9eBLrl8eLNu91glTfzToipqeCak+ANAOaojlo747MnGMghm1EMwDMui9r
+	BdvQlosaA74PI9s2L05YtPgiA127Cx5vu8FkDKIGvyZ2ru5rixOcDVRzfXDKaTwU64FCLu+xHim
+	FAninP9TR3RBxt+g7BbFI=
+X-Received: by 2002:a17:90b:1d47:b0:3ac:2788:cab1 with SMTP id 98e67ed59e1d1-3ae897c3dc6mr5582405a91.30.1793514196302;
+        Sat, 31 Oct 2026 23:23:16 -0700 (PDT)
+Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845ae5b9sm9505181a91.12.2026.10.31.23.23.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sat, 31 Oct 2026 23:23:15 -0700 (PDT)
+From: Yu Zhang <yuz08559@gmail.com>
+To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] stm class: fail stm_lookup_protocol() when the protocol module is going away
+Date: Sun,  1 Nov 2026 16:22:53 +1000
+Message-ID: <20261101062253.16528-1-yuz08559@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,98 +97,52 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/12] mm: hugetlb_vmemmap: unify
- VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
-To: Muchun Song <songmuchun@bytedance.com>, Oscar Salvador
- <osalvador@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- Mike Rapoport <rppt@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, James Houghton
- <jthoughton@google.com>, David Hildenbrand <david@kernel.org>,
- Muchun Song <muchun.song@linux.dev>, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-References: <20261020115306.813483-1-songmuchun@bytedance.com>
- <20261020115824.823278-1-songmuchun@bytedance.com>
-From: Qi Zheng <qi.zheng@linux.dev>
-In-Reply-To: <20261020115824.823278-1-songmuchun@bytedance.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
+stm_lookup_protocol() returns 0 whenever a protocol entry with the given
+name exists, even if stm_get_protocol() failed because the protocol
+module is being unloaded. In that case *pdrv and *node_type are left
+untouched and stp_policy_make() goes on to install two uninitialised
+stack pointers as stm->pdrv and stm->pdrv_node_type, and its error path
+and stp_policy_unbind() later dereference them to drop a module
+reference that was never taken.
 
+Return -ENOENT unless the protocol was found and its module reference
+taken.
 
-On 10/20/26 7:58 PM, Muchun Song wrote:
-> VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
-> describe fully independent choices. A split-only walk can defer the
-> PMD-split flush to a later global flush, and a remap-only walk can
-> defer the final remap flush. However, when a PMD split is followed
-> by PTE remapping, the split flush must happen before the PTEs are
-> changed, because stale large-page translations must not overlap with
-> new small-page translations that map different physical pages.
-> 
-> Replace the two flags with a single VMEMMAP_REMAP_NO_TLB_FLUSH flag.
-> Keep split-only walks able to defer the flush, but force the split
-> flush whenever a remap_pte callback is present. Callers that batch
-> HVO work can still defer the final remap flush and issue their own
-> global flush.
-> 
-> Current callers keep the same flushing behavior.
-> 
-> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-> ---
->   mm/hugetlb_vmemmap.c | 15 +++++++++------
->   1 file changed, 9 insertions(+), 6 deletions(-)
-> 
-> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-> index 1105aa925acc..8b3abb562599 100644
-> --- a/mm/hugetlb_vmemmap.c
-> +++ b/mm/hugetlb_vmemmap.c
-> @@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
->   	struct list_head	*vmemmap_pages;
->   
->   
-> -/* Skip the TLB flush when we split the PMD */
-> -#define VMEMMAP_SPLIT_NO_TLB_FLUSH	BIT(0)
-> -/* Skip the TLB flush when we remap the PTE */
-> -#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(1)
-> +/* Skip the TLB flush while updating the vmemmap page tables. */
-> +#define VMEMMAP_REMAP_NO_TLB_FLUSH	BIT(0)
+Fixes: c7fd62bc69d0 ("stm class: Introduce framing protocol drivers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+---
+ drivers/hwtracing/stm/core.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Since this flag is now also used by the split-only path, the
-VMEMMAP_REMAP_NO_TLB_FLUSH name is somewhat misleading. Moreover, the
-flag does not suppress every TLB flush, as the PMD-split flush is still
-mandatory when remapping follows.
-
-Would VMEMMAP_DEFER_TLB_FLUSH better describe its semantics? It
-indicates that flushes which can be safely batched are deferred, without
-implying that all TLB flushes are skipped.
-
-Thanks,
-Qi
-
->   	unsigned long		flags;
->   };
->   
-> @@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct page *head, unsigned long start,
->   		/* Make pte visible before pmd. See comment in pmd_install(). */
->   		smp_wmb();
->   		pmd_populate_kernel(&init_mm, pmd, pgtable);
-> -		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
-> +		/*
-> +		 * Modern MMUs allow overlapping TLB entries with different mapping
-> +		 * granularities only if they map the same physical address. So
-> +		 * remapping must not proceed without first flushing the TLB.
-> +		 */
-> +		if (walk->remap_pte || !(walk->flags & VMEMMAP_REMAP_NO_TLB_FLUSH))
->   			flush_tlb_kernel_range(start, start + PMD_SIZE);
->   	} else {
->   		pte_free_kernel(&init_mm, pgtable);
-> @@ -272,7 +275,7 @@ static int vmemmap_remap_split(unsigned long start, unsigned long end)
->   {
->   	struct vmemmap_remap_walk walk = {
->   		.remap_pte	= NULL,
-> -		.flags		= VMEMMAP_SPLIT_NO_TLB_FLUSH,
-> +		.flags		= VMEMMAP_REMAP_NO_TLB_FLUSH,
->   	};
->   
->   	return vmemmap_remap_range(start, end, &walk);
+diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
+index f48c6a8..5fbea4e 100644
+--- a/drivers/hwtracing/stm/core.c
++++ b/drivers/hwtracing/stm/core.c
+@@ -468,6 +468,7 @@ int stm_lookup_protocol(const char *name,
+ 			const struct config_item_type **node_type)
+ {
+ 	const struct stm_pdrv_entry *pe;
++	int ret = -ENOENT;
+ 
+ 	mutex_lock(&stm_pdrv_mutex);
+ 
+@@ -475,11 +476,12 @@ int stm_lookup_protocol(const char *name,
+ 	if (pe && pe->pdrv && stm_get_protocol(pe->pdrv)) {
+ 		*pdrv = pe->pdrv;
+ 		*node_type = pe->node_type;
++		ret = 0;
+ 	}
+ 
+ 	mutex_unlock(&stm_pdrv_mutex);
+ 
+-	return pe ? 0 : -ENOENT;
++	return ret;
+ }
+ 
+ static int stm_char_open(struct inode *inode, struct file *file)
+-- 
+2.43.0
 
