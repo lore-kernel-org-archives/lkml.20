@@ -1,54 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.227.129
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793527218;
-	b=fCPGNxCe65TX1vP5Iko+UWHozy7oUXO30m8M2zSE+cU8txtfwrG0KJcxiZ2wsTsi1ojl
-	 d1IuSL8YiXNhVYo2HOwX6cabxzrFPDO7oQQ+iN5dtoa6HKbh4WOysJkR2oezfur5i2oys
-	 NaZ6BPXz/cjrDpdWAL9Bm/yCzZ6aHkDYm8irtmWrKZ/dELyifYeisAr04dL2ZiGtGFYcZ
-	 JEeCTXb3P8cijTThVsgMVmgD6xA7Mdp6yKUdypMqU0pxC+3LrHdOTEKGdaD5Q0X1IcMQF
-	 OzxawZXuY7GK6uLbCB5Oi4N+4RiIbXdIS75iCUknwALdQjmY1G8EJ1JeVlCzDyg+a6Q==
+	t=1793527378;
+	b=n/y4ZqwsGTsUe9d5q0QK7EPhyGmye0sdXtGTxBZFH20H6NS2H3K6hfNiprAWRnBnKcGt
+	 Uc2dfPnYmqn9Lg+n9Tq2sdTpI5OEGGiS6gNI6Enh7GKzm495eFEH8JtAgxCom9k1MYYlh
+	 yi/4SKnLrrFAV6ZNh3aZCb17s6elUa2C/LyyPS0+ug2CYnjXOHBmiex/1YxERPyDtlqQi
+	 jUbNBXHJhsByzer+lGdkcSFXXoPNv3rFyIyLS/9GnX9Dg2C7NYggSeF6oMPUh/8RG9Nr3
+	 eJZQsor9SGVbS0p99NulvctVAU4nmHv2leDcMy+f/IJ0PRzZg/LUXo4fRFrcLotJr7g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793527218;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding:X-HM-Tid:X-HM-MType:
-	 X-HM-Spam-Status;
-	bh=qkfPS8hofwtnNm0CXa6ZP95vc5TkVzOTDVJ6YjTfRpo=;
-	b=OiOkFQNK7lnB6PiLMp+9WEZLOXSx9AW1A8eSo5xvVWxM8QJlFCdA0YqDIV0pCCSkqgfC
-	 JjYUY2p3/3PpYXOIUO4PRx2II4OExyUk5z6/RLZgqa8omPLzgsEA+k3AP45KhEn/SZDOI
-	 rVB4uW0ZLIMOCYaFxRi+3kqq6X2mMT6OsKg2VnsZF71IjzQDkxZp+0BP9Hjc9CitQnJUz
-	 EZbm29Th7lH3wnwNxwGPHOL1K5l9gctLmj1hr1my00JiujMQnLkMUZvtEoM7c/I/xdjJA
-	 RnopRlYLw/dmMtQ3seoTTwypFcjQKvgU2LwaLoAU33jz0yl0BaWr+6tiz7KsuMuIwKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793527378;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=LugNflWSTGYWWTtxsSZYRFunR5npiQJObm4IegZVYlY=;
+	b=PO9ioqMhAGyGq0Y/knkYiWLnuLorfPV6dBXVhz70JVFa6LJq+sIZ76nOJGTKMfxGZppG
+	 yJ4drbM0adzIbc/MEWKg59ePoZYpRbtHsqxccGBKjgO67VedQOWErYC+WB7u8FIcgTDwK
+	 MxHSgBTdOx4xKHpZXtRhH/3cuohXrqQSNkJO7F+nG1D/RgxIdd2DVgZGMT9XptI9gwu4e
+	 n8eleMq/Gsxu4k/ecDO/cBxJohOVfJG85KhO3xfhmLpzh9XhyEScAAbTo3pfIxT6+zovx
+	 RKHdf412OfrwjHbHMrhLuyQ2ImJ4ZG8JwlGPQWQglGy7cV795oEo0iqKO+SQz0fkPdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jmu.edu.cn;
-	spf=pass smtp.mailfrom=jmu.edu.cn;
-	arc=none smtp.remote-ip=45.254.49.198
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="ABBzA/E1";
+	arc=none smtp.remote-ip=74.125.227.129
+Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB5F7606A325;
-	Sun,  1 Nov 2026 10:00:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB5F7606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.lan (unknown [IPV6:240e:3bc:2e87:4e80:2a7b:821a:ffcf:549e])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 531059d45;
-	Sun, 1 Nov 2026 18:00:04 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40171606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:02:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 40171606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ABBzA/E1
+Received: by mail-pj2-f1.google.com with SMTP id d9443c01a7336-2e85fb35300so3473685ad.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:02:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793527377; x=1794132177; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LugNflWSTGYWWTtxsSZYRFunR5npiQJObm4IegZVYlY=;
+        b=ABBzA/E1yzC/XyNbaXLATPDWKlLSVhgz9WDD6gJQXh5+SyImZxFMRf8wMbqdz8um8n
+         vH2Kt83PfykJPKhdkAtM5dhKf+1DLnKouyBXZ3lZPSUKuFT7+AzMfsCkYq2Z7ys4DZRU
+         0Iw+as4m+yH7pHKCtk74wB+05etUgxOmkl+p5W3qn6I+Flr15fU6Z+39Sd/ufb4eXhsQ
+         ujE2k4Sfk/hBv786opeI/diPCPoCpl7yazZWgH5Nq5sgB53uHySnvLEYjqmAdT5+rMGD
+         wH6aGH1hFQ0j/nbZLltNvO39LNZ2sbEO/wq4XyP9wzpy0nYzPKAPUuSvNWzciKxc/sNt
+         y+mg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793527377; x=1794132177;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LugNflWSTGYWWTtxsSZYRFunR5npiQJObm4IegZVYlY=;
+        b=zeI1VP2fz5Ph8MZKqjtAni6hvB3vqTK5OQ8+CsEMb4vnWKsT7r1Gz088OJWzZVry8u
+         /Ojp8Stb8vsYUG0OxIOKsXB1RPtjM+x19ay6pBbj6xOPhrQ7U1D0+ojPJ3ao4cKhxKTH
+         87qR7dIvv7oa8QQHFOCtUuyU7trA23bFXlJDm3UflhRXaNsRVEQ696MFMENAlKVPqRZ7
+         2SRNUt6r/KIpWc/tLGphync/g19bstb6nuITI2TBbFOEqxTz0FgWaK7DSnUU4geB1aWR
+         kFbarrd2dzfnlOzVQXpHqAqbfbaF2T78i6XwKu3u/ugE3AZ301zUQMrtR3DfFzzpdkel
+         xuVA==
+X-Forwarded-Encrypted: i=1; AKwUvBxYGys4sK+j+Gj0myqwuBx84zDBgf/S7wXNC+GNHO6jWkpUZqFj7TD/MX9lA0ahE8TlGpZ0j1z/mtcq0io=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9Z0QgTpabxNcAqh4zkZ/PSKmCyF+bb47VrTiwE0qyXjrtUW6K/
+	zlHM/0krDRNTbKwiXOuh/sIjWILTLAKcf5PjHONvkGEYKCtzC2MmX1Ww
+X-Gm-Gg: AYBFou0+xfwwf+noH0Ff8NNLa8WBuOXBTDci0y7DZsl9BIC236ZQvGQ8LHqxMJ/4kP/
+	MNlaPHZ2dhqnhAERp9T1kscNIzWzKOgmJ2Bu3DFtX6dqmGL3AYCeKrViK5rk/n4l7eoOQLTpJ9R
+	K2+ODbv7zLb9J73Z+57vQiqUpddN9bJL1+m9PdSf47zCPbpYtF91saB780gFZx6yfBxzlylG7Ll
+	pnhWj6iAGev3PnqhuUmXWTcT9djpyfUqt+RkM3coxCjfmkKV2eMmkOhwJkDlqDtwkE0s/8Ec0CB
+	BbiumauGJi47CMhReKEkXZYIn4ei0MMTiHPTBFZLGgYZj/FDUO4uBnX8XhRZ44GsUZhUzCbJzpV
+	kuDJqkEwnQto4Aou5nMADymKbwi8gAOw/LBjSBbD3oOeg+3sjB/4aqiuyi2hYTl8PycrGeqqgba
+	lsu0+vjSgyMTWFMAKfQ5fBiNCMN300k2iCfklgfcds0kS9BD8rvHc++FdriVjXZXdbWO8n1JyHl
+	xSn0acVkRodyEKIkykenVl51ZMwU+bE3U7qrL9Sqlhr9Ox8sD4VaekRzv0HEzjnXa1ERizczCe7
+	ByJIq41I+lZden6jCDaulZl9g1U9bp6N0Q==
+X-Received: by 2002:a17:90b:57c5:b0:3a4:b509:88bd with SMTP id 98e67ed59e1d1-3ae89559f3amr4097204a91.2.1793527377532;
+        Sun, 01 Nov 2026 02:02:57 -0800 (PST)
+Received: from ThinkPad ([240e:46e:8710:e4e:e10f:cd51:e533:58a5])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e99b267sm14314906a91.14.2026.11.01.02.02.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 02:02:57 -0800 (PST)
+From: Qiling Zhu <kmatzkaczor244@gmail.com>
+To: Mark Pearson <mpearson-lenovo@squebb.ca>,
+	"Derek J. Clark" <derekjohn.clark@gmail.com>,
+	Rong Zhang <i@rong.moe>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Henrique de Moraes Holschuh <hmh@hmh.eng.br>
+Cc: Griffin Kroah-Hartman <griffin@kroah.com>,
+	ibm-acpi-devel@lists.sourceforge.net,
+	Lee Jones <lee@kernel.org>,
 	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	devicetree@vger.kernel.org,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: [PATCH v2 1/1] arm64: dts: allwinner: a523: drop redundant status=okay
-Date: Sun,  1 Nov 2026 18:00:00 +0800
-Message-Id: <20261101100000.725282-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	linux-leds@vger.kernel.org,
+	Pavel Machek <pavel@kernel.org>,
+	platform-driver-x86@vger.kernel.org,
+	vishnuocv@gmail.com,
+	vsankar@lenovo.com,
+	Qiling Zhu <kmatzkaczor244@gmail.com>
+Subject: [RFC PATCH 0/1] platform/x86: thinkpad_acpi: Add support for auto keyboard backlight
+Date: Sun,  1 Nov 2026 18:01:22 +0800
+Message-ID: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,89 +108,85 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa1968d4b0703a2kunm959b05f2a51c2
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkwYVkwaHk8aH00eHUpNQ1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUgZGEFJHkNMQU8eQ0tBSRpMGUFDSUoaQR0dGB1BTk
-	9CHllXWRYaDxIVHRRZQVlPS0hVSktJQkNDTFVKS0tVS1kG
 
-Device nodes are enabled by default, so no need for
-status="okay" property.
+Hi Mark, Ilpo, Rong,
 
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
----
-Changes in v2:
-  Remove `status = "okay"` from the pmic node.
-  Link to v1: https://lore.kernel.org/lkml/20250901120020.181414-1-amadeus@jmu.edu.cn/
----
- arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi            | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts   | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts    | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts   | 1 -
- arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts | 1 -
- 5 files changed, 5 deletions(-)
+Recent ThinkPads with an ambient light sensor (ALS) support an auto
+mode for the keyboard backlight: the EC picks the backlight level
+according to ambient light. The mode is EC keyboard backlight level 3,
+above the two fixed levels exposed so far, and it is reachable only
+through the Fn+Space shortcut, which is handled entirely by the
+firmware. Userspace can neither select the mode nor observe whether it
+is active.
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-index 85ef492ffeae..aa23d9062a3d 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523.dtsi
-@@ -386,7 +386,6 @@ wdt: watchdog@2050000 {
- 			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
- 			clocks = <&osc24M>, <&rtc CLK_OSC32K>;
- 			clock-names = "hosc", "losc";
--			status = "okay";
- 		};
- 
- 		uart0: serial@2500000 {
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-index bfdf1728cd14..384a6174de3a 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a527-cubie-a5e.dts
-@@ -297,7 +297,6 @@ axp323: pmic@36 {
- 		interrupt-controller;
- 		interrupt-parent = <&nmi_intc>;
- 		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-index eb9fd0a65b41..ff772dfd5c92 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-h728-x96qpro+.dts
-@@ -249,7 +249,6 @@ axp323: pmic@36 {
- 		interrupt-controller;
- 		interrupt-parent = <&nmi_intc>;
- 		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
-index 85247186461d..e6c24e925a54 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-avaota-a1.dts
-@@ -356,7 +356,6 @@ axp323: pmic@36 {
- 		interrupt-controller;
- 		interrupt-parent = <&nmi_intc>;
- 		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts b/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-index 26ce579b42bf..7d056d555e36 100644
---- a/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-t527-orangepi-4a.dts
-@@ -341,7 +341,6 @@ axp323: pmic@36 {
- 		reg = <0x36>;
- 		#interrupt-cells = <1>;
- 		interrupt-controller;
--		status = "okay";
- 
- 		vin1-supply = <&reg_vcc5v>;
- 		vin2-supply = <&reg_vcc5v>;
+This series wires the auto mode up as a private hardware control
+trigger, "tpacpi-kbd-auto", on top of the hw control trigger framework
+that recently landed in mainline [1]. With it:
+
+  - selecting the trigger writes EC level 3 (auto mode on); writing
+    "none" turns the backlight off
+  - the trigger state (bracketed in the trigger sysfs attribute, and
+    the new trigger_may_offload_to_hw attribute) is the userspace
+    view of auto mode; reading brightness returns -ENODATA while
+    auto mode is active, per the framework semantics
+  - Fn+Space keeps cycling through levels and auto mode as before,
+    and the trigger state now follows hardware-initiated transitions
+    automatically
+
+This is the thinkpad_acpi counterpart of the ideapad-laptop wiring
+from the same framework series, which is still queued; this patch
+depends only on the LED core parts already in mainline and can be
+applied independently.
+
+For background: the February discussion settled that auto mode must
+not be exposed as a brightness value [2], but no agreement was
+reached back then on how to expose it instead; the hardware control
+trigger approach was established later by the framework series [1].
+
+Tested on a ThinkPad X1 Carbon Gen 14 (MT 21V8) running linux-next
+next-20261030: 61 scripted user-visible assertions covering the
+software paths, the Fn+Space event chain and the unchanged legacy
+behavior, plus manual exercising of both the Fn+Space cycling and
+desktop-environment brightness controls; checkpatch --strict clean.
+
+Deliberately unchanged (details in the commit message):
+
+  - max_brightness stays 2; auto mode is not multiplexed into the
+    brightness value
+  - writing 3 to /proc/acpi/ibm/kbdlight keeps returning -EINVAL
+  - module unload still turns the keyboard backlight off
+
+Two open questions, the main reason for the RFC tag:
+
+  1. MLCG returns capability bits in the upper 16 bits; does one of
+     them indicate auto mode support? If yes, I would gate trigger
+     registration on it. Mark, does the EC documentation say?
+  2. On models without an ALS, the EC behavior when asked for level 3
+     via MLCS is unknown to me. If it is undefined rather than
+     rejected, optimistic registration would need a rethink (e.g.
+     DMI whitelisting).
+
+Rong, happy to rebase this on top of your series or fold it in, if
+you prefer to keep both wirings together.
+
+Comments welcome.
+
+Regards,
+Qiling Zhu
+
+This patch was developed with LLM assistance; I reviewed every design
+decision against the framework sources and validated the behavior on
+real hardware myself.
+
+[1] https://lore.kernel.org/r/20260618-leds-trigger-hw-changed-v2-0-c28c44053cf3@rong.moe/
+[2] https://lore.kernel.org/r/20260203232219.11683-1-vishnuocv@gmail.com/
+
+Qiling Zhu (1):
+  platform/x86: thinkpad_acpi: Add support for auto keyboard backlight
+
+ drivers/platform/x86/lenovo/Kconfig         |   1 +
+ drivers/platform/x86/lenovo/thinkpad_acpi.c | 104 ++++++++++++++++----
+ 2 files changed, 88 insertions(+), 17 deletions(-)
+
 -- 
-2.34.1
-
+2.56.0
