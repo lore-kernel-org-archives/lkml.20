@@ -1,65 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793526647;
-	b=bVWbXTltftSG2RiKbjESHqQbgFxPKQQl88MoZ1Iou7I0aXvJ6kbmnWgBG8p72k+rx8QE
-	 CF8KjjVIE0DVI7lb62B2G0oXmPuBAcbDTeTbD6X/wXmUDtc9rL2K9nwKCOSRNbLhCwzKl
-	 FjEFF/l5CDhRfexdI8HNxIYtZl6h/7n/BQVmsPLfh4CtR2xaBrCIjejiF3+6iMGN5fUXH
-	 1M075vUXhFk4n4jjs/xA7smysvyphJI9+kZUtR5BmQ+fplB2FpeIZnCM1isvNTewu7O7u
-	 2Ipjqa5JMk366kAyhonZBVNmfuY/+SA6KARnZSqOmz8DeowQYkLWrmYXezeMh++MbGA==
+	t=1793526688;
+	b=AfG+PRZI1TRyHOkVT/w2sbzxtthivFurRjngqGtXc+nzqg97VMeD5p5vTMWn6vODve37
+	 VgYiBxVjwqdEoegTC0c2UzAYEMxJkfmyLXPjbOn6iM12WwjU0N0YGasQfHsgqI5LRUKU0
+	 T9Rj0x4/95zHapExCEv0NcKUTlWqglibe855gcpYYVFWpUM3WC8U61RkqkQavd/wVzT/b
+	 4cYCVkAI0v3pTpZWXuYg14zDWHKaPnUBtxcDqavfq2hmeaRWOu7IztxlCX80jWzXMorTq
+	 0r4jADXQsnFgYpmbtskUN9migUJ1kYKuwK01nBryWmXkywYw7vVR3GGSSlRd3YGE1fw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793526647;
-	h=Received:DKIM-Signature:Received:Date:Message-ID:From:To:Cc:Subject:
-	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
-	 X-SA-Exim-Connect-IP:X-SA-Exim-Rcpt-To:X-SA-Exim-Mail-From:
-	 X-SA-Exim-Scanned;
-	bh=42uXSRxPhPDO6oQZR38ZRaJO7S/jow9zUbQ6T8A30a0=;
-	b=yknQEoU23js/kV2S+LRJT0TLLAW7Tucp6fb1Vl9VEsdD2GO62ksvANsVJRD2/jeXUgAC
-	 GK2chWe15V/lzXEt+OeprfDAlqV5ANut3CU60mDpMlakdD0THYbHmN7DDgW8Z303H0/rk
-	 rrBHa9fuyoT552HyG9ox74FR0EG+e7X1PGCXIuSbkWj13oTNAaokXc6si9AwayaRHf6iI
-	 E8YCzNVkuheVEGQRGj1rQGZw5EzIJv+vNaZRoY8/2bgcl668ujKOF350dLTtEUwX2cHhg
-	 7LZxMHXcP9Djb8EqfAN3uL0WHGZcgs5e1S10gEodN6kmKufVQf98ZuoAQlULWWCFUZA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793526688;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
+	 Subject:To:References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=42mltXfOHa8qQEgF7vx2IvMlukJoJC4Ac1VKSCu6M58=;
+	b=VqF5BxO4E+qRMrqkBda+O/LjB0z/+8Uw7JJzZ5lQByyjcYdFPmGSMJLunhgsqVjkt9g4
+	 XMychcenWXkfTOJvRWQoZ1UcHPgm+aoy2bphEKAta5qvmvNjxTbr1wqVRmeze2RLS8Bg2
+	 6gvmv+hNpn6qHXn/SOyrV+CqX3g5gdDmbCE+atCMWJIC77dIIEtahWYuCb3BoIGLNt2I8
+	 aq3mVX60VyUpC1UTOlLy3WjK17NlrY97933+L41LmGqBY/WfXN9LsF2RDzX8f7GxPzuwe
+	 dZQ0FHWRzZY3ozRyXwUSFzFj9mU/IEs0aCGUDrT0LbQIDtQ1z13UbTxKCHzjbOyIDDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVdZuWWd;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	arc=none smtp.remote-ip=95.215.58.53
+Received: from mta1.migadu.com (out-53.mta1.migadu.com [95.215.58.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43C7E606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GVdZuWWd
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA6BB1F000C1;
-	Sun,  1 Nov 2026 09:50:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793526646;
-	bh=42uXSRxPhPDO6oQZR38ZRaJO7S/jow9zUbQ6T8A30a0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GVdZuWWdEzXRVjEEQNOiUhhrtLa+A0riyiLXO20rrwSm+OwCd29zCk1EXh3PQdRKA
-	 uWXOhV7ammigMk9sRM4I9w/xIdzIMvqLPWiS/IrypyPc2XQz8KzI+fuyEUI7jEMT64
-	 74bHikrzIQUTuILLPeXl7SJGqU1EUPa1zkEMUQAqckQQpTK6XL9BcH27QXc/Ud6ood
-	 JK3RY0R899yc3SDGiqSAFjcC/fpKiqhkzQi9/deJrIRHaYZFLdVyoD7gyby/0Ecs8/
-	 6kGZBW1JBAc65Bu9HDUuF4LUiTjmwxBgiq88m+5q2pTu7xqKHw51c2LuNiCPi6LGao
-	 G4ATvPiJuZlWQ==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1xNSD6-00000009S7v-1hV8;
-	Sun, 01 Nov 2026 09:50:44 +0000
-Date: Sun, 01 Nov 2026 09:50:39 +0000
-Message-ID: <86jymw3mog.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: Avi Weiss <thnkslprpt@gmail.com>
-Cc: tglx@kernel.org,
-	radu@rendec.net,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] genirq: Resend pending interrupts after handle_simple_irq()
-In-Reply-To: <20261101045632.218099-1-thnkslprpt@gmail.com>
-References: <20261101045632.218099-1-thnkslprpt@gmail.com>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AFC8606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:51:22 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5AFC8606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=+LcOo+yzU61N5f/ovbIqmgFP1ag60jqXkCX/q1zSclw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793526680; v=1; x=1794131480;
+ b=Q34tkcKlbgVeEA19/oLfRhDgHn0n51q7h03Zi8nXZlWgq7chnBC8JxMgHoF3yzURkNd8r7Kq
+ ZMOiKmnnKFcY00XKrM8yYOFkwYcoJ2KQtjfGIbBcb9qCWv579aNLAirrAVEuJpTzt+HOqAlzKab
+ 3Gu78SHHJJKCK5M/wwMhy+GY=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a8b3a4003f078db1;
+	Sun, 01 Nov 2026 09:51:20 +0000
+X-Mizu-Trace-ID: a8b3a4003f078db1
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <7ce7a3c9-0e2f-4f01-a29c-f589f03f581c@linux.dev>
+Date: Sun, 1 Nov 2026 17:51:13 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,63 +54,50 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: thnkslprpt@gmail.com, tglx@kernel.org, radu@rendec.net, linux-kernel@vger.kernel.org
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [syzbot] [net?] BUG: unable to handle kernel paging request in
+ nsim_drv_port_add (2)
+To: syzbot <syzbot+b3fca27eb4005f0111f4@syzkaller.appspotmail.com>,
+ linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ syzkaller-bugs@googlegroups.com, stitch@zju.edu.cn
+References: <6ae6e3d1.7fe51036.1ecf7.0016.GAE@google.com>
+From: Jiayuan Chen <jiayuan.chen@linux.dev>
+In-Reply-To: <6ae6e3d1.7fe51036.1ecf7.0016.GAE@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, 01 Nov 2026 04:56:28 +0000,
-Avi Weiss <thnkslprpt@gmail.com> wrote:
-> 
-> Commit 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an
-> in-progress interrupt") records a concurrent interrupt as IRQS_PENDING
-> when another CPU is still handling the IRQ. However, handle_simple_irq()
-> does not consume the pending state after the first handler completes,
-> so an interrupt arriving during an affinity change can be lost.
+
+On 11/1/26 3:01 PM, syzbot wrote:
+> Hello,
 >
+> syzbot found the following issue on:
+>
+> HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=1332b159580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=dc4462df6d1062fe
+> dashboard link: https://syzkaller.appspot.com/bug?extid=b3fca27eb4005f0111f4
+> compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1194b795580000
+>
+> AI-generated root cause summary:
+> In netdevsim, sysfs device attributes such as 'new_port' and 'del_port' are
+> exposed at the device level on nsim_bus_dev without holding device_lock or
+> checking if the driver is bound. An access via sysfs after the driver has been
+> unbound, after a failed probe, or concurrently with device removal finds drvdata
+> set to NULL; passing this NULL pointer to priv_to_devlink() computes a negative
+> offset from NULL, triggering a kernel page fault crash when attempting to
+> acquire devlink->lock.
+>
+> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=b3fca27eb4005f0111f4
 
-This commit message isn't quite accurate.
 
-"Consuming" has a particular meaning for edge-triggered interrupts,
-and indicates that the interrupt is not pending anymore. Here, the bug
-is that we don't check for the race after the initial handling, and
-while the interrupt is still pending (hence not really lost), the
-signalling is the missing part.
+This looks like the same issue Jiacheng's pending patch addresses,
 
-> Check IRQS_PENDING after handle_irq_event() and request a resend, as
-> handle_fasteoi_irq() already does.
+new_port/del_port don't take device_lock nor check drvdata, so a write
+after unbind hits a NULL nsim_dev:
 
-And then this sentence makes perfect sense.
+https://lore.kernel.org/netdev/20261012135941.78329-1-stitch@zju.edu.cn/
 
-> 
-> Fixes: 2c9e7f857400 ("genirq: Teach handle_simple_irq() to resend an in-progress interrupt")
-> Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
-> ---
-> 
-> Related 2025 patch/review: https://lore.kernel.org/r/20250708173404.1278635-2-maz@kernel.org
->  kernel/irq/chip.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
-> index de754db414d1..4a131dd72196 100644
-> --- a/kernel/irq/chip.c
-> +++ b/kernel/irq/chip.c
-> @@ -626,6 +626,8 @@ void handle_simple_irq(struct irq_desc *desc)
->  
->  	kstat_incr_irqs_this_cpu(desc);
->  	handle_irq_event(desc);
-> +	if (unlikely(desc->istate & IRQS_PENDING))
-> +		check_irq_resend(desc, false);
->  }
->  EXPORT_SYMBOL_GPL(handle_simple_irq);
 
-Other than the nits above:
-
-Reviewed-by: Marc Zyngier <maz@kernel.org>
-
-	M.
-
--- 
-Without deviation from the norm, progress is not possible.
