@@ -1,54 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.86
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793527381;
-	b=NumiKDrR5dHsH2wYi3OakXr1iS+BNSwth42v7KIb+UoOq4aflPkdbJp0HqV3CUKjGDXr
-	 yMHScCfW/1/JGyNJF+RpCChZUVO7Izy4p370DCfLOq3bCQAqCra931BaW1IBp+IGT2ct+
-	 hkyC3cgKm/X7r/Z/Bp/DHTAZUXhrRhspVnd0rHxl45Q4tF9SC2GrFPXunBYMqYGZwKw8V
-	 YTuM93oe8QyDdxdtPd39eBqSc5AFOg9UjDzLXpdLW5a4N0qN2yTTUXPbdtcqxCVLuDfKb
-	 B1RY70KrLEg2E/WlOXE5kkSKxkY/R/+oVfYfeAbxKzxRbOVXd728FDyhkLj7uOiqb6Q==
+	t=1793527445;
+	b=mFmU0z8EPSz/qs/cMmPheOHfqafKKMnLdqFLFKwIQPTNQgt4aSvUPoEWhGryX8L+lRW5
+	 1drL8Fddrd7R829TJEUHF3hnPzmJOx+0OBjdr8vAGuhU8tdAU7c7qzjDdGadHigEvmJNJ
+	 +WWsi+8LOMRFDl+CVPZaPUzZ60P0G2fHdZBm5bFgIDXgSEcU1JrFCVWEz81HakmBruEOP
+	 cEbXGEMiygIDJcXCY48q1w8NA1w39WvtJ4qU9WqMSKNMFNNPYKXtJ7xn7n853p4GHY7z2
+	 oxg15TrbrIx1L11mquwjVHqDLZBrKo7zR3oDt+OWvRt11xCfaTEm+F5BxjxQb+yiZcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793527381;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793527445;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=CcUb3OEvt4a1yV7+AYfYcqheRryY6o0DxYaBOwnyDcA=;
-	b=2Spqpq40K4raLzFye8B2nSOuQdr4jGyWgDWYPpK7NNyXPdq+NmhWZdaVbHV/wKa1Rfd5
-	 ClVY0v90mnZkghRxo6A0FWRoF1m3ycruiXLl3A8vafDHTQK7E2Pv/wlXJnz9Gb1RZIkhM
-	 lHpqQJUPKZWVQ0ZD0LZQUe+Byn1T5tim/NkmSzq36Be6Mps7yjGh5qfrsHAx+X/zv6s2l
-	 xeH0PKWjWdYpH5qjqBxevdBhQ14zLQO8mWmYLzqHnA+luDbnfvbAW/jv3J86FeAhtDlQW
-	 BBW7ZMzYPYyLwkLDYbQMHPCqj9lgkh6MzSSkCUGwlEGEvNhGLzD9sc0hanTnr5xC7HQ==
+	bh=lZQ8rHpkkfpRhUYETvPsbxBlPx9cvrEfEZIYciSVKHU=;
+	b=LE3CXRLxHeIO5zORm8TM6Xo/PNtscmjiSPwCUqZ68kJbXatMULAdnqeiayEhPVXpZlK+
+	 Ii9LHvIyzdEkPBrbRQ0G8Y3mzFamB/VLwL2GhoaaliNRmkSw4Ok2AOxYMTZyY7LMo39CK
+	 6k9kG5xQJ6Bm8WVOonanseBn9EMToH3AEd3u+Gv56RXlca/Y3oNJMRtCfAR6hDEDXXFT2
+	 z9GLFYSPPJ0OkA7GgTt8fn4kcwZHlAmRjGu+nDZDPC6gYobW24T1JUO1dE1QK22kfJQgm
+	 8JQxz1QaApAksTmjAahXyjfTMZq1rXABDgdk60l1OoTldo+NNmKMu4X31Yp49yW2QWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bkok4EIA;
-	arc=none smtp.remote-ip=91.218.175.86
-Received: from mta0.migadu.com (out-86.mta0.migadu.com [91.218.175.86])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLOkA644;
+	arc=none smtp.remote-ip=74.125.82.172
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33787606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:02:58 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33787606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47563606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 10:04:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 47563606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=bkok4EIA
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=yYCz03GhobTxtAJpUtamnKh4J2bHZRJOFBYPZ9SOXn0=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793527376; v=1; x=1794132176;
- b=bkok4EIA52/J3efDJoMJVfywKr7US22/DAlWiNqZKvXQnnAEwwOsmbWg8vLsWZgXfPE1v1lE
- 8WWh9/sMEvo7+aoQCBrofccYLf6BWEH5Pp/hXJnfxRqgXISey80Lv3f+mRKsjj88tOZpZq5Brp3
- NhhDWjlsBG1IszXRmX6Etf3s=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 7d86e53af7001ace;
-	Sun, 01 Nov 2026 10:02:56 +0000
-X-Mizu-Trace-ID: 7d86e53af7001ace
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <062d02ca-e9e1-4f4e-ac57-0de27272a205@linux.dev>
-Date: Sun, 1 Nov 2026 18:02:48 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=TLOkA644
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-369f33df08eso4194936eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 02:04:05 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793527444; x=1794132244; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lZQ8rHpkkfpRhUYETvPsbxBlPx9cvrEfEZIYciSVKHU=;
+        b=TLOkA644h9HfpGw/SGS0NewdQGdEbuAjgwC6StfxYuB2bPe3WZ+EYXFOt4aEtJaIrh
+         BBq3fFtIm8e++mbwBzQ+fZSH22eTonM421VOxPrOpBbgCOOHE107pqLSy+czZBRMeUq4
+         TpaS5zs/fUFbM0nBc97gfHaxmVgwOLcU1oz5xqT38TmNJYGyOsXSVJ5cXNjXi3V6YOXx
+         DYuOuWLmVqnDSDy3mmMs+r3Jb6DZf43fcoaGuMWC1kO6OMB9xrJSZzUqjr899avlFJ5u
+         hJD0aVMe6ZKzT5fBN8mQVWpvK0b7/89Bv3F3T9pNqcD5e5KjqHhwt4I4ukZINp2YetK4
+         bbuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793527444; x=1794132244;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lZQ8rHpkkfpRhUYETvPsbxBlPx9cvrEfEZIYciSVKHU=;
+        b=WHdlahmnDGLu43y1A39DtdofPCXytA73WyKsOpiAzAwWZ81v6LgjsJCWNbhT//LolN
+         7gh4rqJ7X/MAfH2r608KZS2bvaplH/mWDJV9Gbtg6U2CZcItgmrpaySSFh0Nj/SzdaiI
+         OcT8tD1soJIGtjjgClJCRY4/tfVVxWofEhF9msJg0fymxuO4YVdKn/6YwmrizffZkU1d
+         oA25+byeTaoPicE/WGMBUmSbLAm88S7d0xNyGI0DoBJrPhhxEMrI7OkMpij9rUUYumC6
+         0Podo0iqhIT6aqqMAzMpgxYPLbx+HpMnxxl/Q1hxhFKdAt67i8C9gmKk45/xc5LDjvyY
+         40Ew==
+X-Forwarded-Encrypted: i=1; AKwUvBw20R3B0vZusMs3VFTr+gTTsZEeK2cC76JEdF9M2qLXATBPxdjWpBuYAilO6W5FXzpxVt8dC0/fl+U3NCU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/7SdTYPZrk1eb7HvgcLNh1pQyLMHJ/0azwYcokBWh3vCu+Xug
+	ZlROXZXli9NENKYZRmmlbMrgENWrLFG5jlNUt5u3UYvYi3i+nsNxvtgL
+X-Gm-Gg: AYBFou0dW3Om4HBSOfdWPWbh3aI4Ic/9JpZwoJU01C9/oGLjqJy4MB7WPviOwXO8xrg
+	7wAsNWjJ/zp4Tk+O4B0A+sJeFaBnPcOhRaDh5afHwMwrzSzcpp/4ss5Vq6QUDB0w7gxd1QWqEWx
+	PlSgtXUFObJ2DQaj5cSwBeDbeDAtAEWsbDXm0/Ktp6et16VOSCg8G/YmjkT55J5oA1GuDrEHZMr
+	sIpIkwYCBt+uYOdLe5W3fBTI9DcdAM0ztQR0EtuaDC05Lu9MlsZlXNuPluK+EmHgMhezsyadHsF
+	yfOUKLRSeUXRrsmD8U63hQ/+9Ovn/r5PjFAvVbtTO8UZ7q7gYfqmH/ad5BqDleiYhrKv3S4ox7r
+	mMOj37FCLYdiZheRXD5cJP+OYFtb1WNIBvhJXCnesnlu6GWyBO/+fpaV+Wrt+5fr4Tx0ycriiUU
+	pewSldNKqLIsEndTfgAXB0JMFCFigtZwbf3ZW6N2FK56n9lJ5OPL+fNPjrjMlUHkudfCMH2z4o6
+	aO/Ge9jTDB8AR9r3JET3J/aXFT9m/kAJE3gaLxs97nZlRQivrkuXEaVJ6oGTdSNjPRrUNlzP1SB
+	LtEbgqKirzv8kN6RD3e1tZRg/LGjIen7QqZgNBhmixC7ThdapPkxGTuFL1OYUgsCcFuJ2x/5xr/
+	mFEWLzuFjeABJAyUOQf4/vpwE+eweaSZrrNqCbfI2BKsh9q1c2bkzrfc8WYv47mV7CCg+poXJdF
+	IcRfwZ
+X-Received: by 2002:a05:701b:4511:10b0:160:6a5b:7edf with SMTP id a92af1059eb24-1ac5fd0852amr9931498c88.44.1793527444190;
+        Sun, 01 Nov 2026 02:04:04 -0800 (PST)
+Received: from suraj-HP-Laptop-15s-fq2xxx.. ([2402:a00:163:3509:1f2e:5705:c23f:b6fa])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac194b5437sm26302562c88.13.2026.11.01.02.04.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 02:04:03 -0800 (PST)
+From: Suraj Sonawane <surajsonawane0215@gmail.com>
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Suraj Sonawane <surajsonawane0215@gmail.com>
+Subject: [PATCH] pinctrl: qcom: sc7280-lpass-lpi: add ext_mclk1_c function
+Date: Sun,  1 Nov 2026 15:30:30 +0530
+Message-Id: <20261101100030.15744-1-surajsonawane0215@gmail.com>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,90 +100,66 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tcp: fix device binding after failed IPv6 connect
-To: Xia Yan <yanxia@cmss.chinamobile.com>, netdev@vger.kernel.org
-Cc: edumazet@kernel.org, ncardwell@google.com, kuniyu@google.com,
- davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, yana06070@163.com
-References: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
-From: Jiayuan Chen <jiayuan.chen@linux.dev>
-In-Reply-To: <20261031074654.73952-1-yanxia@cmss.chinamobile.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+LPASS LPI gpio5 can mux EXT_MCLK1_C, but that function slot is left
+unnamed, so a device tree cannot select it. SC8280XP already names the
+same slot ext_mclk1_c.
 
-On 10/31/26 3:46 PM, Xia Yan wrote:
-> tcp_v6_connect() sets sk_bound_dev_if from sin6_scope_id when connecting
-> to a link-local address. If the route lookup fails, the failure path
-> clears the destination port and route capabilities but leaves the
-> device binding in place.
->
-> A failed connection through a down interface can therefore leave the
-> socket bound to that interface. A subsequent connect() on the same
-> socket to ::1 then fails with ENETUNREACH, even though a fresh socket
-> can reach the listener.
->
-> Save the original device binding before processing the destination and
-> restore it on failure.
->
-> Found while reviewing the error paths in tcp_v6_connect(). Reproduced
-> in UML by connecting to fe80::1 on a down dummy interface, then retrying
-> the same socket against a listener on ::1. With the fix, the retry
-> succeeds and data flows in both directions. Tests also confirm that
-> existing device bindings are retained after failed IPv6, IPv4-mapped
-> and link-local connections without an explicit scope ID.
->
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Xia Yan <yanxia@cmss.chinamobile.com>
-> ---
->
-> Tested in UML on net fcc00b15cb21. The complete tcp_ipv6.c file is
-> unchanged at the base commit. Before the fix, the socket remains
-> bound after the failed link-local connect and cannot reconnect.
-> With the fix, all 12 checks pass.
->
-> Build-tested on x86_64 with W=1 using configurations based on
-> allmodconfig and allyesconfig. The corrected tcp_ipv6.o compiles
-> without warnings in both configurations, and incremental kernel
-> builds complete successfully. WERROR was disabled for both;
-> allyesconfig also had KUNIT_ALL_TESTS disabled.
->
->  net/ipv6/tcp_ipv6.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-> index e006a30360eae..7bb8266d9d1b7 100644
-> --- a/net/ipv6/tcp_ipv6.c
-> +++ b/net/ipv6/tcp_ipv6.c
-> @@ -146,6 +146,7 @@ static int tcp_v6_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
->  	struct flowi6 *fl6;
->  	int addr_type;
->  	int err;
-> +	int old_bound_dev_if = READ_ONCE(sk->sk_bound_dev_if);
->  
+Name the slot on SC7280 and assign it to gpio5. The third slot stays
+empty; on SC8280XP it is qua_mi2s_data.
 
+This file also provides the SM8350 LPASS LPI driver, which uses the
+same pin table, so the function becomes available on SM8350 as well.
 
-Reverse xmas tree please
+Tested on the Vicharak Axon Mini (QCS6490): selecting this mux slot
+drives the codec master clock, and ES8388 playback and headset capture
+work. Not tested on SM8350.
 
+Signed-off-by: Suraj Sonawane <surajsonawane0215@gmail.com>
+---
+ drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
->  	if (addr_len < SIN6_LEN_RFC2133)
->  		return -EINVAL;
-> @@ -358,6 +359,7 @@ late_failure:
->  failure:
->  	inet->inet_dport = 0;
->  	sk->sk_route_caps = 0;
-> +	WRITE_ONCE(sk->sk_bound_dev_if, old_bound_dev_if);
+diff --git a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+index a61df10d4..278d5fac8 100644
+--- a/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
++++ b/drivers/pinctrl/qcom/pinctrl-sc7280-lpass-lpi.c
+@@ -34,6 +34,7 @@ enum lpass_lpi_functions {
+ 	LPI_MUX_swr_tx_data,
+ 	LPI_MUX_wsa_swr_clk,
+ 	LPI_MUX_wsa_swr_data,
++	LPI_MUX_ext_mclk1_c,
+ 	LPI_MUX_gpio,
+ 	LPI_MUX__,
+ };
+@@ -77,6 +78,7 @@ static const char * const i2s1_data_groups[] = { "gpio8", "gpio9" };
+ static const char * const wsa_swr_clk_groups[] = { "gpio10" };
+ static const char * const wsa_swr_data_groups[] = { "gpio11" };
+ static const char * const i2s2_data_groups[] = { "gpio12", "gpio13" };
++static const char * const ext_mclk1_c_groups[] = { "gpio5" };
+ 
+ static const struct lpi_pingroup sc7280_groups[] = {
+ 	LPI_PINGROUP(0, 0, swr_tx_clk, qua_mi2s_sclk, _, _),
+@@ -84,7 +86,7 @@ static const struct lpi_pingroup sc7280_groups[] = {
+ 	LPI_PINGROUP(2, 4, swr_tx_data, qua_mi2s_data, _, _),
+ 	LPI_PINGROUP(3, 8, swr_rx_clk, qua_mi2s_data, _, _),
+ 	LPI_PINGROUP(4, 10, swr_rx_data, qua_mi2s_data, _, _),
+-	LPI_PINGROUP(5, 12, swr_rx_data, _, _, _),
++	LPI_PINGROUP(5, 12, swr_rx_data, ext_mclk1_c, _, _),
+ 	LPI_PINGROUP(6, LPI_NO_SLEW, dmic1_clk, i2s1_clk, _,  _),
+ 	LPI_PINGROUP(7, LPI_NO_SLEW, dmic1_data, i2s1_ws, _, _),
+ 	LPI_PINGROUP(8, LPI_NO_SLEW, dmic2_clk, i2s1_data, _, _),
+@@ -118,6 +120,7 @@ static const struct lpi_function sc7280_functions[] = {
+ 	LPI_FUNCTION(swr_tx_data),
+ 	LPI_FUNCTION(wsa_swr_clk),
+ 	LPI_FUNCTION(wsa_swr_data),
++	LPI_FUNCTION(ext_mclk1_c),
+ };
+ 
+ static const struct lpi_pinctrl_variant_data sc7280_lpi_data = {
 
-
-
-inet_bhash2_reset_saddr uses sk_bound_dev_if too.
-  inet_bhash2_reset_saddr
-    __inet_bhash2_update_saddr
-      inet_sk_bound_l3mdev
-
-So I think we should restore it before  inet_bhash2_reset_saddd ?
-
+base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
+-- 
+2.34.1
 
