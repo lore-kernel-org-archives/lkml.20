@@ -1,64 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.165
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499711;
-	b=O9w44WRN2JBJTFvyx4jXhkMdSCxaNoVXMmUbzOw+rgKiZPUoy+jybfNNceCujH81hff/
-	 goVRuGWlLnTRShpCLHLWu98LQ1A2/vHUFotKN8Rp4c+uLDOK4T2DoIGwcMmdrp/P3z3m/
-	 2NJxCZxe1Ob1JxHYXy1nyG3WF7xX2UQUBWfIl7Fg45IuSM0UX90BViGd+EzyMD6nAJInS
-	 S+m6aeKBEQLy7bXvuPONff3swb6Xtpdt7KHPYJvXI1n8CzBwSNjsP71OKX4v9ymVpL4oK
-	 t/P46KZ409q/q4wXeOXLB/6V4YcCMgT1mldTn5lJYvJBSQgFcfJaEdJuStMjcXEZVZw==
+	t=1793499719;
+	b=kQcvm1nZcHIpRI97Pi4WxcMrlZmYwNnQuGK1peY/VRq9bfyL4gBmz4p6DUk81DaRn5y0
+	 DBw5fXycxH9X+STLOY7jV0xUm+sGvpaMfYy1DQx/zwsIvs+rXtOcA7BdTpDhTeEB6M5Tm
+	 VIeJT16pXZ6Tm3SdshVJ6/VeGlE6AHp73DZHsEa1jGFDR5uwCFDuWTfxCkPMOXnyUFRu+
+	 HpO8ntxzmHuXAOeKwqa9bKlg2i6SjK2T4ZgqJpc45NvWZTg//1b49MpmxFG7hVn+tDbfx
+	 YTqFDH64rikD9cY2k17yGsPxMXGHTsI88wnG0nBsmZ+wZAIwOlmEwRbMXJORBJUABww==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499711;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=pg94ZvA9fm2CtwS2VRcFGv5BeKOthkyH8l1LVzhmn30=;
-	b=UkhCcSpDZU9/ZVnpmZdwsV8ELoM7TRZUBlVGXJ+elg4Qgr7UbYazVrGWqCya/2J4D4zI
-	 bdPPa8F6uPpEeEIDjc1aNcTCI5ePziO3b+6O5vFvXQU5zEjbE9J3JxapQLFSiTMUwkLVL
-	 5yZCCqVU1dmcJEWcdwrFjYgmk0DygCvrg+g7hRebYjV4EEkIauQSqCnYv7fJodfqqgxfF
-	 N2kUx0oa/8zbQzx+topcosZz8C1mnKTgH7r5f4I5FAvS5013GLrs+kWg9FCDdXjKxgCNc
-	 aPtD93F2nFSd+yoh3XgLhD4B4KrQCkTMakrQ+gG9d+s7eYs+DA367xNgRkWM79EBEWg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499719;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=Pg87gFc6D5vPj6Z68gMhcX5RARC2NQRQPzk8oYKjjSc=;
+	b=P61afzS4VnNrxAh72tOTZZEGu0NilqJgJKtNJqyyXBeSFGMi/eIg7tjog4O9+ODdTP+C
+	 Nd8dwr7BK+eHzwMlKUTXqQiltji3Vzhno/enkQVF3UAJ1b4A5+1PKYj21sYDFuUyouOMV
+	 4r41rxWGql5hmymUg2Hn9/zTD8ls8soharJT9DWZUANB6xpK5GHdTaIxr94ocynKDcPEz
+	 vjsMbA2oRcsbs0y9+ZeFxnHTd4cD5iWuGuRqxJ7jw48tPir9c/p/FHbqdlGFM7mohm7eL
+	 3HyKkXWSjducfU6HmbXiW9DMQi0hxjUssBXcpZtcdvVWfyKFh87hZkU5EuXcrzlcUiw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQDtmnmR;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtU+qDmv;
+	arc=none smtp.remote-ip=91.218.175.165
+Received: from mta0.migadu.com (out-165.mta0.migadu.com [91.218.175.165])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02CD1606A324;
-	Sun,  1 Nov 2026 02:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB3E6606A329
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:21:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EB3E6606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MQDtmnmR
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E9E61F000C1;
-	Sun,  1 Nov 2026 02:21:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793499710;
-	bh=pg94ZvA9fm2CtwS2VRcFGv5BeKOthkyH8l1LVzhmn30=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=MQDtmnmREyaf9pjGRm7Ym9Cu5uz9yWinDYxINGq5M7dZYu8EfuoWLoAi+u06j6HMp
-	 IQFYd9tIs+6oBjceAADKurLr7L3oqpTbAHVpYNibzWFNfH3/WVJvLXecBRi8CYnnOY
-	 RF4mDbUvVD3JXv0aupNNXcHADi4Pszqjt8tuxKg073q90n65lFUH9bnT56cEzu4Zao
-	 PsbT9wQjYhMQnHoqbfbriYwjWerhb/1idV9sbyyspe++57nAMDU+NAdfLTNHGn+pOl
-	 CaijoQhK/cPUPRDhh17cRaEz2uE21cBi+pSgfrVh36kOdT0E7L3WNP8yVZ/RQE9LBj
-	 0AffUfBSmQ1ug==
-Date: Sun, 1 Nov 2026 02:21:44 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Josef Bacik
- <josef@toxicpanda.com>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable <stable@kernel.org>, Marcelo Schmitt
- <marcelo.schmitt@analog.com>, Antoniu Miclaus <antoniu.miclaus@analog.com>,
- Michael Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Cosmin Tanislav
- <demonsingur@gmail.com>
-Subject: Re: [PATCH 07/15] iio: addac: ad74413r: fix the values of
- set_multiple
-Message-ID: <20261101022144.54e8d651@jic23-hlaptop>
-In-Reply-To: <auHCeHSLVRuChXYp@nsa>
-References: <20261027-llm-char-misc-iio-v1-0-0d818334f6c7@linuxfoundation.org>
-	<20261027-llm-char-misc-iio-v1-7-0d818334f6c7@linuxfoundation.org>
-	<auHCeHSLVRuChXYp@nsa>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=MtU+qDmv
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=lPd+L3Fi5L/JRb8mgYsEPFBFLc/EK/FoHzehgXk/yCE=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793499715; v=1; x=1794104515;
+ b=MtU+qDmvGwEezhnxq1/Osl48o/WbBTXtEJ5vMyCs3UC9AGmqBI5U9kFR7Ok9AKWWhECQT9eR
+ aLJ5mZa4ceeTS24uf18t6Zdu0iGEGF0Xx4BuF5qki7jqwdEyQGpoFHMghUzN7XY/R1XEmRZB0LF
+ piFLg/6zeHN1+TFnWNQbBDew=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 7c5fdc765f8b831e;
+	Sun, 01 Nov 2026 02:21:55 +0000
+X-Mizu-Trace-ID: 7c5fdc765f8b831e
+X-Migadu-Flow: FLOW_OUT
+From: Shakeel Butt <shakeel.butt@linux.dev>
+To: Jens Axboe <axboe@kernel.dk>
+Cc: Meta kernel team <kernel-team@meta.com>,
+	io-uring@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] io_uring/sqpoll: do the return-to-userspace work in the SQPOLL thread
+Date: Sat, 31 Oct 2026 19:21:46 -0700
+Message-ID: <20261101022146.309201-1-shakeel.butt@linux.dev>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,73 +65,69 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, 28 Oct 2026 09:38:19 +0000
-Nuno S=C3=A1 <nuno.sa@analog.com> wrote:
+The SQPOLL thread never returns to userspace. io_sq_tw() runs its
+task_work, but the rest of resume_user_mode_work(), like memory.high
+reclaim and block cgroup throttling, only runs when the thread exits.
+So memory.high reclaim only happens inside a charge, with sqd->lock and
+ctx->uring_lock held, and not at all if the charges can't block.
 
-> On Tue, Oct 27, 2026 at 05:19:11PM +0100, Greg Kroah-Hartman wrote:
-> > From: Josef Bacik <josef@toxicpanda.com>
-> >=20
-> > ad74413r_gpio_set_multiple() walks over the lines in the mask and looks=
- up
-> > the new value of each with
-> >=20
-> > 	if (*bits & offset)
-> >=20
-> > offset is the number of the line, not a bit mask.  Line 0 is always dri=
-ven
-> > low, line 1 gets the value meant for line 0, line 2 the one meant for l=
-ine
-> > 1, and line 3 is driven high if either of these two is.
-> >=20
-> > Test the bit which belongs to the line.
-> >=20
-> > Fixes: fea251b6a5db ("iio: addac: add AD74413R driver")
-> > Cc: stable <stable@kernel.org>
-> > Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> > Cc: Antoniu Miclaus <antoniu.miclaus@analog.com>
-> > Cc: "Nuno S=C3=A1" <nuno.sa@analog.com>
-> > Cc: Michael Hennerich <Michael.Hennerich@analog.com>
-> > Cc: David Lechner <dlechner@baylibre.com>
-> > Cc: Andy Shevchenko <andy@kernel.org>
-> > Cc: Linus Walleij <linusw@kernel.org>
-> > Cc: Bartosz Golaszewski <brgl@kernel.org>
-> > Cc: Cosmin Tanislav <demonsingur@gmail.com>
-> > Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> > Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-> > --- =20
->=20
-> Reviewed-by: Nuno S=C3=A1 <nuno.sa@analog.com>
-Applied to the fixes-togreg branch of iio.git.
+This used to work. The loop called io_run_task_work(), which does this
+work since commit b5d3ae202fbf ("io_uring: handle TIF_NOTIFY_RESUME
+when checking for task_work"). Commit af5d68f8892f ("io_uring/sqpoll:
+manage task_work privately") replaced that call with io_sq_tw().
 
-I'll send a pull request after rebasing on rc1.
+Call resume_user_mode_work() at the top of the loop when
+TIF_NOTIFY_RESUME is set, with sqd->lock dropped. It runs once per pass,
+so a pass that charges two or more batches still reclaims inside the
+charge, as before.
 
-Thanks
+Tested in a VM with memory.high=64M and swap on zram. An SQPOLL ring
+reads 256M from /dev/zero into untouched memory, 64K at a time. Before,
+the thread made 337 calls to __mem_cgroup_handle_over_high(), all from
+inside the charge. After, it makes 704, all from the top of the loop.
+memory.peak stays at 64M. With 1M reads, 296 of its 385 calls still come
+from inside the charge. Both runs take about 50% longer, and the extra
+time is in the handler, which now runs more often. Without memory.high
+pressure, the test never calls resume_user_mode_work() and the times
+do not change. Lockdep showed no warnings, also with io_uring_register()
+racing for sqd->lock.
 
-Jonathan
+Fixes: af5d68f8892f ("io_uring/sqpoll: manage task_work privately")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shakeel Butt <shakeel.butt@linux.dev>
+---
 
->=20
-> >  drivers/iio/addac/ad74413r.c | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/drivers/iio/addac/ad74413r.c b/drivers/iio/addac/ad74413r.c
-> > index 2e5a58e48a89..20db890d958b 100644
-> > --- a/drivers/iio/addac/ad74413r.c
-> > +++ b/drivers/iio/addac/ad74413r.c
-> > @@ -312,7 +312,7 @@ static int ad74413r_gpio_set_multiple(struct gpio_c=
-hip *chip,
-> >  			return ret;
-> > =20
-> >  		real_mask |=3D BIT(real_offset);
-> > -		if (*bits & offset)
-> > +		if (test_bit(offset, bits))
-> >  			real_bits |=3D BIT(real_offset);
-> >  	}
-> > =20
-> >=20
-> > --=20
-> > 2.56.0
-> >  =20
+There was similar code pattern in the same function i.e.
+unlock/cond-resched/lock. I kept this separate for easy backport.
+
+ io_uring/sqpoll.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/io_uring/sqpoll.c b/io_uring/sqpoll.c
+index 49c52284ecdd..0fef4d3f4472 100644
+--- a/io_uring/sqpoll.c
++++ b/io_uring/sqpoll.c
+@@ -348,6 +348,18 @@ static int io_sq_thread(void *data)
+ 			timeout = jiffies + sqd->sq_thread_idle;
+ 		}
+ 
++		/*
++		 * The SQPOLL thread never returns to userspace, so do the
++		 * return-to-userspace work, like memory.high reclaim, here.
++		 * It can sleep for a long time, so drop sqd->lock.
++		 */
++		if (test_thread_flag(TIF_NOTIFY_RESUME)) {
++			mutex_unlock(&sqd->lock);
++			resume_user_mode_work(NULL);
++			mutex_lock(&sqd->lock);
++			sqd->sq_cpu = raw_smp_processor_id();
++		}
++
+ 		cap_entries = !list_is_singular(&sqd->ctx_list);
+ 		list_for_each_entry(ctx, &sqd->ctx_list, sqd_list) {
+ 			int ret;
+-- 
+2.53.0-Meta
 
