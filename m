@@ -1,74 +1,90 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.198
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793553357;
-	b=Cicys6T0x6hNRysOkG67i0QzSoiE+p5gE3Co6KlcJCcg37xiZjRX53qMrPgx7GvXkHFu
-	 rXlH6sVwJ0/SKNQYSYeOK7u8/Y99ts9h6kWpDPI8KQNhqDwgEsBPTAGBSXfeNYfEquPd8
-	 KlUaGxni9BJ2WrVcmDsuCJe1+aGp/CVBuACFQIPPDJ07HWEjaURvxTAoxbNgVPsZd5Zkx
-	 12U0p88Ww1eDuN4x+e0yYMINBbZ+DkesuBp2Mzlee9NVcbSt4qCaJWeFtkDm+5Zd89UC6
-	 R5Xnsu1lZlIJe1TSWAKepYEuuxTLJhTTLNcYPNjHNc8nklaU+kgkDaNwjqOHGFCx8hg==
+	t=1793553394;
+	b=mABQ52db1Kn8GxNHpu7y0WvH5XwWz5pb77HLHsRr7q/nXox0ZP5tlkWxp1+vQCL8kcRU
+	 wXsR9/90WQBJkzI8kEwFPICvN+nphhlQ9U/x4n80YkJ6TxMWpPaBDVF2CvEXPLdZt+p8D
+	 JCL7xlHBBJSuZmw4JkjNdxEulZKxfKJatiXooU/OB4Z+w8resqbZ3sH8bFHomG7pvaWZL
+	 m4Wht8MLNf6bB8bKCfub4btdRTzwiQB7YL9oGOukKqXh7li5CbKtwEuolxwJUf4PBnxl8
+	 opVen0oFnHsswjRSCcpT00sAy7zZ7Fw+JGgwBzeNfIKrIc3Uhy2qaPZL3t7OpJpFWbA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793553357;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793553394;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=ri6mm4g8aC/HkC6PYUflTSf+2uZxNNs5OIicG2gsEt4=;
-	b=HG9MYVlD2zVrf8XXGi4Bit8kQSuq/zP2qli6AzdslUEqkZstXzZvHyX4BxEzWz0Z6WPg
-	 WPaQgDGyiguC9N8jHr2oo/pSK7ts9q7UV64MPjH55EPpEjiC2faXvc+X3/Xj8JxidoKbp
-	 9JPZy/JHHIx71RDt6Pv1TuL3b02GxW7PT7s17+UTqR8N1pcAdVWmNGcLYmFdQmcqOLXDn
-	 l47n/NOE+7T4U9cWwp5SS6HWI8B08k7syAuOtWnDbgRZvvaD5UcVcsxE3RuhEQwWTJyMQ
-	 aVaTuf0js3F/AFsdsXqMnkGFyFKpktgcr2N2g/1t1MF1YI0c4VO56B7aR+cv/spzUOw==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Received:X-Forwarded-Encrypted:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type;
+	bh=stfMBCCx0iYEkgEJ5sWasY787cUVg+XUdXtndqYjb9o=;
+	b=Z58Bjh1FhsxTExkeBrQGlFhVZuQzJ1I1kFV0Ylo0uKxRTGInEDrK6NZUFjEe/tiD4Wja
+	 jgC6fzedl0dCJ4ohJbsKPcaWgBSoDt6KOJfCTWX5w5cajHawRrimaThrsyJHLzPPqFA93
+	 gSl2Hqlc1DEonpBOHUXPZai1mdXFpEDCWWENTRT9poxfKZJN0h+oD843+TWa3GOShLGgF
+	 gBDhYeu/fQjc2KfHjnvA1TEDWwWQR7iopYKX9uGa3y7KpUNwg7tUBBfz4hxCHKpmKWY3l
+	 U0HCXmFsFCzeDoZdiGG8uhCJPFP6jy1xBvolmZydpZfMfYznDgQsOeCWUcM0SY7wylA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b="QuEK/AwJ";
-	arc=none smtp.remote-ip=209.85.214.198
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	dmarc=none header.from=linux-foundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	dkim=pass header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=gNQ8Tpbv;
+	arc=none smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94D69606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:15:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94D69606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--kuniyu.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AD4A606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:16:33 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9AD4A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-foundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=QuEK/AwJ
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e987ec84afso19322925ad.3
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:15:56 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=linux-foundation.org header.i=@linux-foundation.org header.a=rsa-sha256 header.s=google header.b=gNQ8Tpbv
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b3dc272dcfso2970107a12.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:16:33 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793553356; x=1794158156; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+        d=linux-foundation.org; s=google; t=1793553392; x=1794158192; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ri6mm4g8aC/HkC6PYUflTSf+2uZxNNs5OIicG2gsEt4=;
-        b=QuEK/AwJKi2Ixp3yIC2uwMEYm1rKIp/m4C3I3y5ZCuigDFWMM24QOGNikavpmDq+cu
-         fNftJaeLqhSAaV2WDxpGWVzH9XDi2PTm00P4VxgSJMBI03FCfvAoF6wPLw/TPaZoaXUw
-         4RrJpNvVAQQ2z7TLcHOgHKQbvahMnWiE9olc+BFh+pUTaHNO7Pcvl0ffStldf42JsmlE
-         jUcJectpyHQZO2XmvmsiHSWpd1TvCN6ifJ80hUhTlYDAeDZXeEtFL7Mki1V/oHi7dQJG
-         VUsKj/y+DdmOTWWZzOKPxu2dyx3iMJKVMvbeFPZiKsvYXZvH7ArriBxBKiqvUrs7oiUi
-         y7ZQ==
+        bh=stfMBCCx0iYEkgEJ5sWasY787cUVg+XUdXtndqYjb9o=;
+        b=gNQ8Tpbv5/eK1NBNWCxtTgc16zPTW31++MtIDLWD3Q/1zm4lUx52ChF8Czkb/NMICb
+         UX4FF48fhvwXyObWcaMxmZPVQOL3xD6mt1ikX5AMH6MGeVlPBISjpeEWo1vrRNiyJr0+
+         GSQPwsqvDokOUf5Tz2oS1y1Ty72N6IRBibvNo=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793553356; x=1794158156;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ri6mm4g8aC/HkC6PYUflTSf+2uZxNNs5OIicG2gsEt4=;
-        b=XCfD+ssVKBZsZMlmknEPINwBAsrKAoLv1Fec9YivKXpBJQS8fhT22M5307bMrFfBtO
-         CEubpRYrJqh3T3k4D2R+GGuQRmGGE3ABZYYJJPjbk6vjubxM/DhO0yKgXbxr5wm82hb3
-         Aaa+gUW57QV0uBpheA0sd2qMR2ZmMVyZyBeNw/tLyW/OOUtWh/h83y87UVhV6wCAJUHk
-         cv1orZUNT5ybNFgfxfVgALB86TJDZKSZ4NA06nXudZJ0iV3gd6bk03Ir4R86TBs0E7pi
-         u+dV1lpUSO7RW1aCXkujU/XOACE7dcBpZ5vZh68xaPFri4y391oOLiaV9P4uf2Gntzxu
-         VJCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBws5P4kRZWlo422jYd3EwrVMol6kFiE8oQ45Um6jpreRAmLiMfNKEEOCX7kCp38v6Xw1+XHUhcHyARrZTs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+w5UgENeOtBNt1Yhj2fMOe/k58NtQklq6NFH1kNcdF2oiKjnP5
-	mOksLkd1spa0CFAGYwARBzqms+3XCIU6a9kmN/y3nJBRm60IkZ8FNl4nz1Kge7lu0+tW1+KNUra
-	8YZScRw==
-X-Received: from pjbft1.prod.google.com ([2002:a17:90b:f81:b0:3ad:cde0:ea04])
- (user=kuniyu job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:4c08:b0:3ac:8741:e2e8
- with SMTP id 98e67ed59e1d1-3ae8957cb02mr6841418a91.8.1793553355750; Sun, 01
- Nov 2026 09:15:55 -0800 (PST)
-Date: Sun, 1 Nov 2026 17:15:55 +0000
-In-Reply-To: <20261101075145.698399-1-sgzhang@google.com>
+        d=1e100.net; s=20260707; t=1793553392; x=1794158192;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=stfMBCCx0iYEkgEJ5sWasY787cUVg+XUdXtndqYjb9o=;
+        b=GngWrYhoIv77h7hqPoWga8r2lTAaEBzs0a9GdZOwyFMJE7URGeT5QRgdUhfWLK3vFS
+         +QpDG2oq0hjBTF72X4E6Cz9bz5O8sgrUKCpCr8LbYICr7px3tw2+ke8S/KjO1dUYvzls
+         yuOKEelkRTHfS3xZF9ReYvJ7z3iIXb57kZKi1jTkcbF3GRSVHccasT2GcGC+zU5YV0Qp
+         87kT+z0K7nLZXKLr0z259vii6IQa8G/HoJPUC/vAV2ilcAgLhFpodK73SN3W7zfmXzH6
+         GDWwhu8npx9UUfLMXsd7LJwEJ7huP3bv4OhhfTlyG5hP1fZ0RueuIyWRfYO5h54GOwKV
+         SSRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxPgbklJau/wgs/D5n2EWaORiu184wwiUFWP209/l+tfP3TNU+OgDIucq40gH2tRx0FgCHqoRxepy4PcOI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8IcKEqMT5yPjNLbM59/kote/70lz7HtQU+z6B6wR6pGD07sh3i
+	10KBsLK5kFEkChN8eM+mUugjmgvMJVqvscZlT+SQW1RMF7HD/MYOIAevIdeZ0utsmcvG0+Nk5wF
+	yuI6MLjc=
+X-Gm-Gg: AYBFou3FuDtiKoEQ2M9Wmh+/XxrxDwBbg44p/3qTKzyKLYw//90KcRGdKunqGc49IAW
+	aV4MpHJsXZCs4GEXfRstYBX5fVjaP/gVsV7w/VI0Ka+SbBG4L+z+VyGvDQg5VfBi6bHHsLJSSPb
+	RhNbjbzZbPNtgGRxflnMl1KvTtfzHJzRXoUQF0JfJyadL0EMnAjwWB1k+L6AF9bBGc4XgIPIFgE
+	rSE/6/osGOvIAj9dw39Q3yZKEpVA7XTvwB5UeCpw6t+fhg1eksrFnVQf8HkxrhEc6DIFqArLOcj
+	zuR19f7k8f5JnQ8mmtWRbZfhcgzOnme1ZZGSaa3jxLgf1vjQaldSqjRpxS84lfjNzEwn+7nReZK
+	2j0yJSuEyQqa7wNoRSXHbAn/fkqHtKPuTED7UGfoLOLwgzXJ52KpHoDdz8FQPfcqO2JYFNbJyY4
+	v9DhYB3dq0OcLj46h+QEIdhISONICoKPYT7PdGQEYmlX/5ZgXCZap82oHbR7E/jqOPQoBUBdY/Z
+	eJztPved835SNqW6chCl0HTCEWO1UqBC762PYlAILv9trw8kwQ+2bQJBU88/x3ouWeqxLLVYThi
+	f6BbR47RvCb8VAKV3NZgOGeGcz/bOEwYcGnUoTruJ6DW1LLKzPydN0Begi05nJ6KhFKh2rq0vFh
+	1Nw==
+X-Received: by 2002:a05:6402:4008:b0:6b3:fc9c:6345 with SMTP id 4fb4d7f45d1cf-6b4d339239cmr4882403a12.3.1793553391968;
+        Sun, 01 Nov 2026 09:16:31 -0800 (PST)
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com. [209.85.218.47])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9fcba5sm2409708a12.20.2026.11.01.09.16.30
+        for <linux-kernel@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 01 Nov 2026 09:16:31 -0800 (PST)
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c4550d8ab15so263658066b.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:16:30 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBz2NgL82hzNuIfV347XDSLSFJHkHHTwxwPylthf+UI0sE7q3lzTOSNnFvlZCNYCFVh2S3agtKRaXsgPJeY=@vger.kernel.org
+X-Received: by 2002:a17:907:9615:b0:c41:e75e:5889 with SMTP id
+ a640c23a62f3a-c4ca7ab6062mr670144466b.33.1793553390629; Sun, 01 Nov 2026
+ 09:16:30 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,78 +93,37 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <20261101075145.698399-1-sgzhang@google.com>
-Message-ID: <audwphXNeZhVItS0@google.com>
-Subject: Re: [PATCH net] net: count last skb of each sk_backlog pass in __release_sock()
-From: Kuniyuki Iwashima <kuniyu@google.com>
-To: Ray Zhang <sgzhang@google.com>
-Cc: netdev@vger.kernel.org, Eric Dumazet <edumazet@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Willem de Bruijn <willemb@google.com>, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Simon Horman <horms@kernel.org>, 
-	David Decotigny <decot@google.com>, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+References: <20261031095716.3030288-1-amir73il@gmail.com> <CAHk-=wiPhTLn1p0ZHx-7SMdk4_zazqDK1k7MMEn9scRfqeDgtw@mail.gmail.com>
+ <CAOQ4uxjNrdxZdZZipsqnUNq+TswCKqp+30iKRKCqh2WOQ-zKGA@mail.gmail.com>
+In-Reply-To: <CAOQ4uxjNrdxZdZZipsqnUNq+TswCKqp+30iKRKCqh2WOQ-zKGA@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Sun, 1 Nov 2026 09:16:13 -0800
+X-Gmail-Original-Message-ID: <CAHk-=wiimdwWu0EVQdxGVjbVWdzNKGg0f6vZ1aR-GXxDvQa-Eg@mail.gmail.com>
+X-Gm-Features: AclHuK_uccpP1X2e8Vqp60tdiLbtX2zzsC2PsbIq8_vF14_xkvBHQNU7aw3Vaz8
+Message-ID: <CAHk-=wiimdwWu0EVQdxGVjbVWdzNKGg0f6vZ1aR-GXxDvQa-Eg@mail.gmail.com>
+Subject: Re: Return failure from take_dentry_name_snapshot() (Was: [GIT PULL]
+ overlayfs fixes for 7.3)
+To: Amir Goldstein <amir73il@gmail.com>
+Cc: Miklos Szeredi <miklos@szeredi.hu>, Christian Brauner <brauner@kernel.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, 
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>, overlayfs <linux-unionfs@vger.kernel.org>, 
+	Al Viro <viro@zeniv.linux.org.uk>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sun, 01 Nov 2026 00:51:45 -0700, Ray Zhang wrote:
-> Running 500 concurrent TCPv6 streams (neper "tcp_stream -6 -T 1 -F 500")
-> on a 2-core Cortex-A53 (CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN)
+On Sun, 1 Nov 2026 at 03:50, Amir Goldstein <amir73il@gmail.com> wrote:
+>
+> Feel free to apply and/or wait for ACK from Al/Christian,
 
-I guess you tested it on 6.18, but note that CONFIG_PREEMPT_NONE
-is no longer selectable on arm64 since 7dadeaa6e851.
+I'd like to see an ack from Al / Christian, but
 
+> or I can include it in my next ovl-fixes PR.
 
-> triggers resched_latency_warn() in __release_sock():
-> 
->   [ 3655.311821] sched: CPU 0 need_resched set for > 100006892 ns (100 ticks) without schedule
->   [ 3655.311889] Call trace:
->   ...
->   [ 3655.311944]  resched_latency_warn+0x7c/0x88
->   [ 3655.311958]  sched_tick+0x1c0/0x418
->   ...
->   [ 3655.312578]  net_rx_action+0x238/0x438
->   ...
->   [ 3655.312641]  do_softirq+0x4c/0x90
->   [ 3655.312651]  __local_bh_enable_ip+0x84/0x90
->   [ 3655.312663]  local_bh_enable+0x1c/0x28
->   [ 3655.312674]  __dev_queue_xmit+0x4a8/0xb00
->   ...
->   [ 3655.312782]  tcp_v6_do_rcv+0x240/0x5f8
->   [ 3655.312793]  __release_sock+0x9c/0x188
->   [ 3655.312806]  release_sock+0x150/0x168
->   [ 3655.312817]  tcp_sendmsg+0x4c/0x70
-> 
-> __release_sock() can loop past 100 ms without calling cond_resched():
-> 
-> - Each outer-loop pass drains sk_backlog, but "if (!skb) break;" runs
->   before "++nb", so a pass of B skbs only adds B - 1 to nb (0 for 1 skb).
-> - With 500 TCPv6 streams and NAPI sharing two Cortex-A53 cores, runnable
->   tasks keep TIF_NEED_RESCHED set on CPU 0.
-> - During spin_unlock_bh() and TX softirqs (__dev_queue_xmit() ->
->   local_bh_enable()), tcp_add_backlog() coalesces arriving pure ACKs into
->   a single tail skb.
-> - Repeated 1-skb passes never advance nb or call cond_resched(),
->   triggering resched_latency_warn() after 100 ticks.
-> 
-> Restore the do-while loop and drop "if (!skb) break;" so every skb
-> increments nb across passes and calls cond_resched() every 16 skbs.
-> 
-> Reproduced the issue and verified the fix on two 2-core Cortex-A53 hosts
-> (CONFIG_PREEMPT_NONE=y, HZ=1000, LATENCY_WARN, latency_warn_once=0) with
-> a userspace reproducer over /dev/net/tun:
-> 
-> - CPU 0 runs a TCPv6 sender and a second runnable task while CPU 1 writes
->   pure ACKs to /dev/net/tun (~30k TCPBacklogCoalesce/run), sustaining
->   1-skb sk_backlog refills in __release_sock() for ~400 ms (ftrace).
-> - Before: CPU 0 stayed unscheduled in __release_sock(), hitting
->   resched_latency_warn() 293 and 275 times on the two hosts (> 100.9 ms).
-> - After: cond_resched() yielded CPU 0 inside __release_sock(), with
->   0 resched_latency_warn() hits on both hosts.
-> - Also observed no regression with the workload from
->   commit 16c610162d1f ("net: call cond_resched() less often in
->   __release_sock()"), "super_netperf 4 -H srv -T,10 -l 3000 &".
-> 
-> Fixes: 16c610162d1f ("net: call cond_resched() less often in __release_sock()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ray Zhang <sgzhang@google.com>
+I think I'll also rewrite that function to use guards. I didn't do it
+originally because I just wanted to do minimal surgery, but when I
+look at that patch I go "it could be done more prettily with our
+modern infrastructure".
 
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Let me look at it in my copious spare time.
+
+             Linus
