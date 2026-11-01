@@ -1,111 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793551358;
-	b=g6dHXN2NtikpsdLqrhQp1F5NqAsN8sQs71U5/JmhxrnYPFnvnnm9SMcC+zqNYhIoq6Mn
-	 ghjexs6MLmrJ1d2dS2wQaLeuboxx1QURjw+bwKZ6x6L9XiLxwmuB1TVUf/6n96QgF7D0z
-	 e3SV28OtMgMCmzMwDe3gEee+pwOpGK3Ar27CbG5fPBbnN6nA4oZhGUoEsezsuh42hLy8g
-	 r/QerPaWaknLhoQsqQul8l8H/OWQQHCc7WfUreTSLGYtuvunD/pssNcQZNFXdANahiWR+
-	 Qcl4urvbNhrwMInTqZQOrke/GLqIB0IjIqTd3f91ponl11zboYBWNsflyEKSx1UOV6g==
+	t=1793551381;
+	b=MahuZzgkqgrGFyqGxP0bCXEgeGCHGP3ht2FUbkWkdzxtUEG+OmZXF0rveZSXLCH5DduF
+	 CUx1w0tJNqs+RHH9HBvE+2KFu4VT2rNrx6Aw+O11rTIO8RgwgraxY0JvEuXum2e+K5JIN
+	 AjRs1V3xgBn9WW0qlu++PhrS9J/k0ErzX5ryEU6SBfkJQoBZWQZatfXsbY3gTBq1kDVRn
+	 yLUfTiRTCGGN+Ggx97ZAXtjjmB9cQnuyAn1KTOC0mlybUeImsFleRCeUlcNvl+BWC0rX5
+	 4G5z/u33bWFzQtX6uVBiDLHYltrHjuUgEpxzFdtG9+KzGncTkjuCE5qIYkv+JitKPaw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793551358;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793551381;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=TlraSu9AjY+wAsB7GZqoG24SclQpPomTr5qFhEYxo8U=;
-	b=0XKkdCXo3OD0qyC8qdlsxVic5WOzR+K6hB6pJlG6c33rY7JaIJSJNTO+3p6v8gNS02jz
-	 n0AZsGIsbRzZ+FRn53GLK+a8d6PeKbBAgt4kQujhYIAVbtJRCXExCa+cdNDVm80NOBLj+
-	 GBCJLHoBnEjzQTNQF67PzE9LcEaEuOtnUODRIqR/lV7gsXf48BlkDep+G7kWFffy04bf7
-	 Tb09U2JS8EnZCoMS4oQOuZzNfXYfi9NO3p00kpDmOoS6XVocnbL70a7UR8INDwVs2Z1kc
-	 JGP9Hfuk4y/BUYjpZazmoFKF4nUIppHvhay0KqDjLbLL2F1aNwspBHjwPYUYXMLdOvQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=nqSPqL8yjaU09QPPfgAWe8HPn4ku6hVjF8Y+SAe+d9U=;
+	b=dlDQtUcI2+kIcQ4fdpgz0QUMjwi+lCq6pvmGr+262OcWkCrPtJ1/boHCSfwqjglltdo+
+	 h1giOPAz5UB91luGvvWKK+675cAjNGWnXG/9JKTDGM7AYVSY2I9R5FLaV/uquYR6NMcBt
+	 Qri96HMcri9kV8CtqltWU73ZZ+EgD/dqLPGJaFYmvH/jYICbs2H7nxC2HgQv2Z/AigBHI
+	 zHTS6MT+su4/BW/N0DtNVVH4tEwpoM8louNttqPAiFy/KZAc6xoaESyz9fr3Y8p6P6XLA
+	 +WMgYJEDC5rbeRHEPZ4HfUt/zBhB0Xp2tCf1swy/VVsdy0sCWF31zWTAIPGRreOHfzA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=bairaktaris.de;
 	spf=pass smtp.mailfrom=bairaktaris.de;
-	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=t+WLQy0B;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
+	dkim=pass header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=ler5jBfN;
+	arc=none smtp.remote-ip=209.85.208.42
+Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D7D560A261A
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:42:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4D7D560A261A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E65A606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:43:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1E65A606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bairaktaris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=t+WLQy0B
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c46822eefb6so300849566b.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:42:38 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=bairaktaris.de header.i=@bairaktaris.de header.a=rsa-sha256 header.s=google header.b=ler5jBfN
+Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so3631773a12.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:43:00 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bairaktaris.de; s=google; t=1793551357; x=1794156157; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TlraSu9AjY+wAsB7GZqoG24SclQpPomTr5qFhEYxo8U=;
-        b=t+WLQy0BSuGtr5MwiFW+b4clPwk3wSTjU+5yXt6LJzMFRj3AbwtXZNjZ5yqwM+6/5U
-         r6RcbLa9SB0RIU/FmeukHD7Qsh/SPhmC04PJX9Be898pt4rhAqumfA/NKiDz/sp42awz
-         7umJQaQBwZgek5PWiM73Jq5fCjyM7Vja9ncJVOgbR97aDYVe/3tpQ2qfX3vRZ+BIahAo
-         sWJlShjct0wAwCegAVO9OXOq7MCCSMrq10k7M+pTL712SEvwNLV/i6zh3FiXe1feCDU9
-         MHsrD81qz252LKeme69QIcEv6mqWoDmcdXqGrEcoCR74fiZRK53WULOdT1Co588B6Dii
-         eNxw==
+        d=bairaktaris.de; s=google; t=1793551379; x=1794156179; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=nqSPqL8yjaU09QPPfgAWe8HPn4ku6hVjF8Y+SAe+d9U=;
+        b=ler5jBfNdB0+YhpwAf2om5N9kE/dn47PDFSiVVPhQqJwi4Q+kCy4Kel5oKcffZbjXj
+         8d/KArdqZZTK1mEjFsT3NGlYGWjyl79+cmny5A07lzUhLUrMEuCfmRVvYGPcHQu/6Tq4
+         u9IPpfztx1NRxf2rWEE+5GjV56pyBSjEWO8HgC91POIXQjK8YSdt8Qdjb0+LcTDmf63w
+         QtWMO/A4suz4wBqwwIlZEBZPKZDT8us88rOD4EGE/DZpG9lTuzeZz5lC3MLdvmNx6HYm
+         YfKTi7lZa0e/TAoKT1Kk8yTR47CExXw4cqvt7SZtJfj+mQA3EJdwhrRI0Pm/N3cpwBFU
+         9lUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793551357; x=1794156157;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TlraSu9AjY+wAsB7GZqoG24SclQpPomTr5qFhEYxo8U=;
-        b=qafbM2eu2vf4OqX5SdtIo9rhMNtxZDd9d1JdRnOZvXKMLEur6psnnlSh5T1+ILob4E
-         8ZF/5ks4FUi3A0z2kEviFAmoMg0oW5SCsmjf802sMoRFgpEGmWfQ/nGt/imdtz8dpLuR
-         QjYm++qmRNdK4EYYP9Mvh5dGuRPHJsQUPX/aPA2/Bvptc5Ni/RFzvzVAfsevLcqtUSyy
-         VlFo2Cu/JSLbpOQ/dhsT/63cTdfYcE8aBh/p66gzSLarucezgmkmhLzOR80Xy48UGx14
-         BGYuwdsdbAlGIdBURSjcyG8il4Lvlqlk5vUmXD+O/yUtp0cnEJAs8139yINU6mpZ2x81
-         Gjhg==
-X-Forwarded-Encrypted: i=1; AKwUvBwZeFVnYYcc1+IPes4SxrIWUYAGGNXSTA+KQG+egvbVaNCJ1dKoc5MmWQ9uHTWahQQ9kc+t/QII6ixUpiE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNvRNoVfS/UWikPxHVG4ht5GQD/iKXn8jcVoQunIX1rlK8V8cN
-	0ENPGj1luMzGTZ28N+5p7gRYc5Yo0S43jjBZ9z2dazhMqlK7zFcoiH4YyBYawaND5Q==
-X-Gm-Gg: AYBFou28fyPG1174FDPs05ZFRFTR6kHjNMyWn7FZIH+nn8HVz3B7p5GRNXe8EEatLwu
-	WbPko4+RF3nHENWUfxETbJEZceQ1E1yy7e6aD6apkLGF43bgtrvAKT/XD8EwiliY8pEeibnBUMg
-	7BhRycohihtTRD+tvBZCRYqEUTAL4Hxkpi51VrDofAyreQq4sCD2PYzN3pmW+pSCRWb4jtOeCB5
-	r4L3/a3TtzNBloeY9gGSIYxCYO+IybsihfLfBgDkQmI0zVqcE0F8Qq2PKUhtgac2ZTOWGWKGaiA
-	lOOSCMI0cVsXYKp/ILqmV3/yZTxKIkEcoKMHGzsPG3HXaTdkN8szNDdogwXS7aqLU0Yh2sHm5ei
-	gVzXrWL8WJ7+UjkyKV4TH8iu4NJyDg7CPVTPHBwk2ZycQ3zfTHLsvn2DmZzxBj3gH7C43Ez0GmZ
-	0lFdoe/iN/gxJ95ReFydCG/gnvFv9C3vGY9bckTqEeht/nfX/wcvJZ5C6auI/47RvbVLH+06f0v
-	Yr+wN/cXWOBVFit5eHhMKs3Sdci6DRl6H7RXhYC31plJ+oNVk5L5XQcrG4ZHLwDeShH2uxGjXB4
-	dNlFkx/fqlH1OCc+dZ9mQDBi6nF+UAXzszrEQgNAbM90dxpe/1qCElqAb5Li8f3lFH6RrnIWM/X
-	f1aHRhfH13L3w8Azwpg+j+4nuTkc3HVVj/3R0wP24zsnj3W05kfnVkpjPF1Jabl35B8zqKMQuzg
-	qdeG1xwkXLHAhapETmdecdozv9xUPtx3qUqcvYkdTSZeVzJbUx/dxN/zGBmrsbXjXwmEGk9rU5h
-	MMLzClgTZM9+IBRorzJycfAlbpcFEvBeuK9A2BDFt9c4h/uwvSkr0uNt1+/9RKY7s5PqZStmvKK
-	+O3Rz+z8xeCpw6vXn0s=
-X-Received: by 2002:a17:907:2d8e:b0:c42:102f:15df with SMTP id a640c23a62f3a-c4ca7a0dc8cmr673791066b.8.1793551356711;
-        Sun, 01 Nov 2026 08:42:36 -0800 (PST)
-Received: from Desktop (p54aff88b.dip0.t-ipconnect.de. [84.175.248.139])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe0f37esm296622966b.33.2026.11.01.08.42.35
+        d=1e100.net; s=20260707; t=1793551379; x=1794156179;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=nqSPqL8yjaU09QPPfgAWe8HPn4ku6hVjF8Y+SAe+d9U=;
+        b=dhA6l93asNE/1M43B7V5wGLwbaKsHWGhsuZHaXqzce1ZL98L/N55r/bNyp86sbHcwQ
+         JmBiKMrCz7QtNEm0HhT1aPmp3EUcIQ8FXtK0jWSjRLaO6L0Ryq/MAuPxU5fCWytPqAaz
+         fh40c88yiJqJBQfBOfzHhMiEwZeAW7Pg6L6cbf6Gm1mxRUAiNc4ZlyLNimuOZSeQQ6BX
+         uvstolBb9pN5Y3Ywn13DqFnfuwt6kFzzUX46H+nVy0nbpVeikuT5QXRl1f7zwRTTcpOZ
+         RdDyKffpcnhQf0wTFe72zUYeGf3T+aK0/1AvTJgXm0MjqKkbq1baVLGBwXwDzSHqoMou
+         22dA==
+X-Forwarded-Encrypted: i=1; AKwUvByT83zMd5FuDfr7Qc03hv9fb08ri8+TzimYykkvk6vBkTEtPgbUqsLMAp9NlbXWq247qT3H69OOrQtOt6A=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9UjJIDfTx3kUrdehEFC0PIj+6meO7cRm57FSQ3SfY0of1Jalhl
+	8ccx8LDvTw0OhM1LruZlC/TMTYjq8kO4IbCEK8C2cC+YkI7IFhlBvqRPJdrbPnBfiQ==
+X-Gm-Gg: AYBFou3qDH8S6Wn0IqBl14dpSwSiXKlmip0VzBmY8eNHGv8TNzPVjnRdKct5/Tyirfp
+	sWUNVG4Y5SD5vWusIsO0bz25EG/+77iOeSxgvSPn4U9fYNhd8IM5c7j3peRImXTzjg3ztP1oK07
+	vUjYKNrvEKCFuD5PYIhwX+hWuVFDj4iBOzk570nEA8rkK37UV58sEyaI2d1vnu9ENJ/GPYS4UwB
+	KQMdE9NybFwRlVbXaJalKUNRmqFlBQPwUfvZ1aY3lrHraUSkim/jybr4nf0mKopR0PnsG6G14a2
+	vvzEjoKp4IsLZIjSOuaJuQrpqgzEZBmfSOzJ6Bfa6TiXG0uhg/0B0DrsTbvVP1nkygl0yoKeGJB
+	dcxuc5b/mMVyDUgb4kajwizjyeOrjRTOHaHZC1Ajuj+D9RlX29yXBdRTDMdkMaj60NCaZSJPNtH
+	9ltYf/drygG3ppriHPHRz1VZryTMKUSnqDlPdjuJZGEbRC7ZCGb7x4LVbk+pp1tfL2w7coYdxXP
+	QT85kGdDIrLZLtvZIJftrSUaMgVC72kkkr5rcMb4PTtyCnSd+1JgRiXpChYDj/3VC7/WnywrGQP
+	ME5UqwRr0vhiHJ0KuQrTG9rtKppiDue10asW6iHAipFVs59G+wBvooyDJRAvLoPgiITwyxpAVJ9
+	hQ3Quz8TohtTMh0Ts/KiVAu1wiOKN/gZlnOekzl2LEOvav4ehcTVm7dLfqTSx25xASONpEGikuH
+	iZP/emhnfBpLnxEwuSHoY21DXZo/0H9lkK4Ynox+Y2ciyaGXyc9l/qC49FxdYeka1URJ0ZO4YFD
+	3dJgqWYN36ATCnYovrXnk8Ms9oOc1GhXNISZEKt3q1ztmugNxJZKPQYzjD1Oq4h
+X-Received: by 2002:a05:6402:d0d:b0:6b4:1d53:5185 with SMTP id 4fb4d7f45d1cf-6b4d467ca70mr5007157a12.16.1793551379106;
+        Sun, 01 Nov 2026 08:42:59 -0800 (PST)
+Received: from Desktop ([217.26.238.154])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec91e2f2sm2261112a12.0.2026.11.01.08.42.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 08:42:36 -0800 (PST)
+        Sun, 01 Nov 2026 08:42:57 -0800 (PST)
 From: Julius Bairaktaris <julius@bairaktaris.de>
-To: netdev@vger.kernel.org
-Cc: dsahern@kernel.org,
-	idosch@nvidia.com,
-	davem@davemloft.net,
-	edumazet@kernel.org,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	steffen.klassert@secunet.com,
-	willemb@google.com,
-	jiayuan.chen@linux.dev,
-	mfleming@cloudflare.com,
-	almasrymina@google.com,
-	bigeasy@linutronix.de,
-	richardbgobert@gmail.com,
-	ecree.xilinx@gmail.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net v4 3/4] ipmr: set up GSO state for tunnel vifs
-Date: Sun,  1 Nov 2026 17:42:31 +0100
-Message-ID: <529dd7ba1395f17c0b328ab2a597769809cbe720.1792838740.git.julius@bairaktaris.de>
+To: Jeff Johnson <jjohnson@kernel.org>
+Cc: ath10k@lists.infradead.org,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Baochen Qiang <baochen.qiang@oss.qualcomm.com>
+Subject: [PATCH ath-next] wifi: ath10k: spread the PCI copy engine interrupts over the CPUs
+Date: Sun,  1 Nov 2026 17:42:47 +0100
+Message-ID: <20261101164247.258200-1-julius@bairaktaris.de>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1792838740.git.julius@bairaktaris.de>
-References: <cover.1792838740.git.julius@bairaktaris.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,81 +101,182 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ip_encap() pushes the outer IPv4 header but does not set SKB_GSO_IPXIP4,
-skb->encapsulation or the inner headers. A GSO packet forwarded to a
-VIFF_TUNNEL vif is then rejected by ipip_gso_segment() and dropped in
-validate_xmit_skb(), after being counted as sent. A device with UDP
-segmentation offload is handed a GSO packet whose transport header
-points at the inner IP header.
+The PCI ath10k devices are capable of multiple MSI. The QCA9889 of a
+Xiaomi AX3600 advertises 8 vectors in its MSI capability (Multiple
+Message Capable 3) and, when granted all of them, raises the firmware
+interrupt and each copy engine on its own vector, the layout ath10k
+used until commit cfe9011a05a8 ("ath10k: remove MSI range support").
+Since then ath10k asks for one vector, so all its copy engine
+interrupts and the NAPI they schedule run on one CPU.
 
-Call iptunnel_handle_offloads() and skb_set_inner_ipproto() as
-ipip_tunnel_xmit() does, reserve one outer IP ID per segment as
-iptunnel_xmit() does, and set the outer length with iph_set_totlen(),
-since a GSO packet plus the outer header can exceed 64 KB. A GSO packet
-that GRE or UDP tunnel GRO marked as encapsulated already uses the inner
-headers for its own tunnel; drop it, as segmentation did before.
+Ask for as many MSI vectors as the device offers and spread them over
+the CPUs, starting each further device on the next CPU. Every vector
+keeps the shared handler, which schedules the NAPI that services all
+copy engines, so the copy engine to vector mapping does not matter for
+correctness. With one vector nothing changes.
 
-Fixes: 9fd1ff5d2ac7 ("udp: Support UDP fraglist GRO/GSO.")
+On the AX3600, with a station uploading 87-88 Mbit/s over the QCA9889,
+the HTT copy engine raised 36891-37590 interrupts in 14 s on vector 6
+and the WMI and HTC ones 165-313 each on vectors 2-4. The receive
+softirq moved from CPU0 (21-25%) to CPU2 (21-35%), with CPU0 at 1-3%.
+Measured with idle-priority spinners, the CPU time of the whole system
+stayed within the run-to-run spread: 25-42% of four CPUs against 22-34%
+uploading, 14-35% against 10-37% downloading (3 runs each). A firmware
+crash forced through debugfs recovered as without the change.
+
+Tested-on: QCA9887 hw1.0 PCI 10.2.4-1.0-00047
+
 Signed-off-by: Julius Bairaktaris <julius@bairaktaris.de>
 ---
- net/ipv4/ipmr.c | 23 +++++++++++++++++------
- 1 file changed, 17 insertions(+), 6 deletions(-)
+Tested on OpenWrt's ath10k (Linux 6.18 with backports 7.2) and on
+ath10k-ct with the same change, where the DesignWare PCIe MSI of the
+IPQ8074 lets each vector run on its own CPU since commit eaf290c404f7c
+("PCI: dwc: Enable MSI affinity support").
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index acacaae05cc49..98e38839f8ccb 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -1849,12 +1849,21 @@ static struct notifier_block ip_mr_notifier = {
-  * This avoids tunnel drivers and other mess and gives us the speed so
-  * important for multicast video.
-  */
--static void ip_encap(struct net *net, struct sk_buff *skb,
--		     __be32 saddr, __be32 daddr)
-+static int ip_encap(struct net *net, struct sk_buff *skb,
-+		    __be32 saddr, __be32 daddr)
+I used Claude (Anthropic) to help write this patch.
+
+ drivers/net/wireless/ath/ath10k/pci.c | 64 +++++++++++++++++++++------
+ drivers/net/wireless/ath/ath10k/pci.h |  3 ++
+ 2 files changed, 54 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/wireless/ath/ath10k/pci.c b/drivers/net/wireless/ath/ath10k/pci.c
+index 335bc7c488..4de789cd06 100644
+--- a/drivers/net/wireless/ath/ath10k/pci.c
++++ b/drivers/net/wireless/ath/ath10k/pci.c
+@@ -38,6 +38,9 @@ MODULE_PARM_DESC(irq_mode, "0: auto, 1: legacy, 2: msi (default: 0)");
+ module_param_named(reset_mode, ath10k_pci_reset_mode, uint, 0644);
+ MODULE_PARM_DESC(reset_mode, "0: auto, 1: warm only (default: 0)");
+ 
++/* Spreads the interrupts of each further device from the next CPU on */
++static atomic_t ath10k_pci_num_devs = ATOMIC_INIT(0);
++
+ /* how long wait to wait for target to initialise, in ms */
+ #define ATH10K_PCI_TARGET_WAIT 3000
+ #define ATH10K_PCI_NUM_WARM_RESET_ATTEMPTS 3
+@@ -1943,8 +1946,10 @@ static void ath10k_pci_irq_disable(struct ath10k *ar)
+ static void ath10k_pci_irq_sync(struct ath10k *ar)
  {
-+	const struct iphdr *old_iph;
- 	struct iphdr *iph;
--	const struct iphdr *old_iph = ip_hdr(skb);
+ 	struct ath10k_pci *ar_pci = ath10k_pci_priv(ar);
++	int i;
  
-+	/* The inner headers can describe one tunnel only */
-+	if (skb_is_gso(skb) && skb->encapsulation)
-+		return -1;
-+
-+	if (iptunnel_handle_offloads(skb, SKB_GSO_IPXIP4))
-+		return -1;
-+	skb_set_inner_ipproto(skb, IPPROTO_IPIP);
-+
-+	old_iph = ip_hdr(skb);
- 	skb_push(skb, sizeof(struct iphdr));
- 	skb->transport_header = skb->network_header;
- 	skb_reset_network_header(skb);
-@@ -1868,12 +1877,13 @@ static void ip_encap(struct net *net, struct sk_buff *skb,
- 	iph->saddr	=	saddr;
- 	iph->protocol	=	IPPROTO_IPIP;
- 	iph->ihl	=	5;
--	iph->tot_len	=	htons(skb->len);
--	ip_select_ident(net, skb, NULL);
-+	iph_set_totlen(iph, skb->len);
-+	ip_select_ident_segs(net, skb, NULL, skb_shinfo(skb)->gso_segs ?: 1);
- 	ip_send_check(iph);
- 
- 	memset(&(IPCB(skb)->opt), 0, sizeof(IPCB(skb)->opt));
- 	nf_reset_ct(skb);
-+	return 0;
+-	synchronize_irq(ar_pci->pdev->irq);
++	for (i = 0; i < ar_pci->num_irqs; i++)
++		synchronize_irq(pci_irq_vector(ar_pci->pdev, i));
  }
  
- static inline int ipmr_forward_finish(struct net *net, struct sock *sk,
-@@ -1982,7 +1992,8 @@ static int ipmr_prepare_xmit(struct net *net, struct mr_table *mrt,
- 	 * What do we do with netfilter? -- RR
+ static void ath10k_pci_irq_enable(struct ath10k *ar)
+@@ -3164,18 +3169,42 @@ static int ath10k_pci_napi_poll(struct napi_struct *ctx, int budget)
+ static int ath10k_pci_request_irq_msi(struct ath10k *ar)
+ {
+ 	struct ath10k_pci *ar_pci = ath10k_pci_priv(ar);
+-	int ret;
++	int cpu_offset, cpu, irq, ret, i;
+ 
+-	ret = request_irq(ar_pci->pdev->irq,
+-			  ath10k_pci_interrupt_handler,
+-			  IRQF_SHARED, "ath10k_pci", ar);
+-	if (ret) {
+-		ath10k_warn(ar, "failed to request MSI irq %d: %d\n",
+-			    ar_pci->pdev->irq, ret);
+-		return ret;
++	/* With several vectors the device raises the firmware interrupt and
++	 * each copy engine on its own one. Each vector schedules the same
++	 * NAPI, so they only differ in where it runs: spread them over the
++	 * CPUs, from a different CPU for each device.
++	 */
++	cpu_offset = atomic_fetch_inc(&ath10k_pci_num_devs);
++
++	for (i = 0; i < ar_pci->num_irqs; i++) {
++		irq = pci_irq_vector(ar_pci->pdev, i);
++		ret = request_irq(irq, ath10k_pci_interrupt_handler,
++				  IRQF_SHARED, "ath10k_pci", ar);
++		if (ret) {
++			ath10k_warn(ar, "failed to request MSI irq %d: %d\n",
++				    irq, ret);
++			goto err_free;
++		}
++
++		if (ar_pci->num_irqs > 1) {
++			cpu = cpumask_local_spread(i + cpu_offset,
++						   dev_to_node(ar_pci->dev));
++			irq_set_affinity_and_hint(irq, cpumask_of(cpu));
++		}
+ 	}
+ 
+ 	return 0;
++
++err_free:
++	while (--i >= 0) {
++		irq = pci_irq_vector(ar_pci->pdev, i);
++		irq_update_affinity_hint(irq, NULL);
++		free_irq(irq, ar);
++	}
++
++	return ret;
+ }
+ 
+ static int ath10k_pci_request_irq_intx(struct ath10k *ar)
+@@ -3212,8 +3241,13 @@ static int ath10k_pci_request_irq(struct ath10k *ar)
+ static void ath10k_pci_free_irq(struct ath10k *ar)
+ {
+ 	struct ath10k_pci *ar_pci = ath10k_pci_priv(ar);
++	int irq, i;
+ 
+-	free_irq(ar_pci->pdev->irq, ar);
++	for (i = 0; i < ar_pci->num_irqs; i++) {
++		irq = pci_irq_vector(ar_pci->pdev, i);
++		irq_update_affinity_hint(irq, NULL);
++		free_irq(irq, ar);
++	}
+ }
+ 
+ void ath10k_pci_init_napi(struct ath10k *ar)
+@@ -3235,9 +3269,12 @@ static int ath10k_pci_init_irq(struct ath10k *ar)
+ 	/* Try MSI */
+ 	if (ath10k_pci_irq_mode != ATH10K_PCI_IRQ_INTX) {
+ 		ar_pci->oper_irq_mode = ATH10K_PCI_IRQ_MSI;
+-		ret = pci_enable_msi(ar_pci->pdev);
+-		if (ret == 0)
++		ret = pci_alloc_irq_vectors(ar_pci->pdev, 1, CE_COUNT_MAX + 1,
++					    PCI_IRQ_MSI);
++		if (ret > 0) {
++			ar_pci->num_irqs = ret;
+ 			return 0;
++		}
+ 
+ 		/* MHI failed, try legacy irq next */
+ 	}
+@@ -3252,6 +3289,7 @@ static int ath10k_pci_init_irq(struct ath10k *ar)
+ 	 * synchronization checking.
  	 */
- 	if (vif->flags & VIFF_TUNNEL) {
--		ip_encap(net, skb, vif->local, vif->remote);
-+		if (ip_encap(net, skb, vif->local, vif->remote))
-+			return -1;
- 		/* FIXME: extra output firewall step used to be here. --RR */
- 		DEV_STATS_INC(vif_dev, tx_packets);
- 		DEV_STATS_ADD(vif_dev, tx_bytes, skb->len);
+ 	ar_pci->oper_irq_mode = ATH10K_PCI_IRQ_INTX;
++	ar_pci->num_irqs = 1;
+ 
+ 	ath10k_pci_write32(ar, SOC_CORE_BASE_ADDRESS + PCIE_INTR_ENABLE_ADDRESS,
+ 			   PCIE_INTR_FIRMWARE_MASK | PCIE_INTR_CE_MASK_ALL);
+@@ -3274,7 +3312,7 @@ static int ath10k_pci_deinit_irq(struct ath10k *ar)
+ 		ath10k_pci_deinit_irq_intx(ar);
+ 		break;
+ 	default:
+-		pci_disable_msi(ar_pci->pdev);
++		pci_free_irq_vectors(ar_pci->pdev);
+ 		break;
+ 	}
+ 
+diff --git a/drivers/net/wireless/ath/ath10k/pci.h b/drivers/net/wireless/ath/ath10k/pci.h
+index d114778edb..252044dd63 100644
+--- a/drivers/net/wireless/ath/ath10k/pci.h
++++ b/drivers/net/wireless/ath/ath10k/pci.h
+@@ -115,6 +115,9 @@ struct ath10k_pci {
+ 	/* Operating interrupt mode */
+ 	enum ath10k_pci_irq_mode oper_irq_mode;
+ 
++	/* Number of MSI vectors, or 1 for INTx */
++	int num_irqs;
++
+ 	struct ath10k_pci_pipe pipe_info[CE_COUNT_MAX];
+ 
+ 	/* Copy Engine used for Diagnostic Accesses */
 -- 
 2.53.0
 
