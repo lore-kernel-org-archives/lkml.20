@@ -1,61 +1,126 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499332;
-	b=TjDMN7dPEgU6rFF7YsbkLOMJNvUYEBapyHRlO6PaNJze5kFu8cSD0J0OBYRU95kR3sfi
-	 VCUOAO3aT5aCdbY7bm3CKWtTXWVSzluDUZ9yiFKI48I1y5xtO2AA2oM59SZV9XDmFrErl
-	 ayZndQHgDirqxBfABiUT2+ADQ1W1kPU/GtBPzhl73fwK8KdOBylIlW+jBKBBfr/I1oMOe
-	 aWeN8vrlxYLlgasn4kHxYwbeQpIoTjoM8wtkdi10MHw8rXXHYmtrIN6zwAhcZDI0ROttE
-	 enGQXX44hunJFLY62UH8mUPULUeOpFyOCRPf/w3o/8NDKj1xTEUM9+pcZ3QCYdIRndA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499332;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=pGb/TcMAboBwB3Sj+01ezuTRZ9UzgOLsqeFKfsEFeQw=;
-	b=JQ8VwGYVYm9S/BO0YCXCu9Tt2OfzaxymR8GVR++hOTw+0EEsoLFGVpi0Z9TCVL8uCeHL
-	 xZ5KV/euh8/mfrrXbSWYAdhNqBixibBz9bsm3V++X6f3lfEqXVWAwB3XuS4SDQZjL7bJL
-	 rAezmb/24HLo9qGdHAEjoGT+SrxsoTb4myBEblAP+65fQJKsQyD5ULFW1yUsl5M/+ar96
-	 LY0ti7WUy/ypKlVjJWuo4eHoRE7hA7KtlkIGuWIC6T7vZh1FyBBsapCnkmP6tl/I1yqt0
-	 oU02kkQj1y5c6KNnhHJ/lAD5mY/2D/64K2TWexHVWA/xyS70/EUQpcvGUVTi1ZWvrkQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MI74K84u;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.58
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793499366;
+	b=LkrY8hl6kAo9iNiuqWAcUpPNNgAVjw9YLiDi4SB1L8LouszmGVCMT8QVzC+/0NSUSfoO
+	 i6fgIaLHN/zBdbQHpvPv+RtNfq0oXLuHv0iBwO2BNWjAuVck55Fso/zy+jhkCjYWzu/Gu
+	 X9CJ9tSXZA+tD1RUzXowgbWIHXw3/wAUXbrkC/DJR8XdE0JVnDWZMV1w6Ix1jwPsmtqE+
+	 VdMOUb699nfkVGGKcRqnPdP9ghNwFypCUCp77/uaS0KMQ8vRsoNQXzVznZXHXpPIZTE3V
+	 22+se7kAsyStXE4Bpu+ouWQIy6w1/rce4Cn/TdzuGwW1c3njpZQrOV/HTZNbOmu+DFw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499366;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 Content-Transfer-Encoding:Content-Type:Date:Message-Id:Subject:Cc:To:
+	 From:X-Mailer:References:In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=PHY3op/sKzJI/D92BGtbGPemOoqlJ+m5Lb2J/nUsLbQ=;
+	b=4fha4eTnt5JHDok4Xn7gDnl5BDVLeL9PFa7Ud2Yya1DCjffAhq5emi2itXuuQlPpOWMY
+	 DEUAVnxU7bmFWeWmquQ6quoyj8U/Hgg/vahYZgOL1oS2O0bXB0+1k0ExP9Mm83s8c2FHQ
+	 JhCGbRiVJ6ZWXuadO4+ui2v+gKJzg6BENvQn6hdLm4v8pSEy+kLyiHlnR7443guE15eN1
+	 nbBRl7jdAltQKBfgUQMizqPDRJaTzowX/KPxbwksXlAJBMg48Wg9g50gFQZh3LRIbOW0+
+	 kQNfWlqiP+TTLb74EeUc8eo22NXu1uhxpbE1NGpKQx63o5ensLqT1EBH5bZH+CacEEA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LSMsEcAv;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.196.58
+Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013058.outbound.protection.outlook.com [40.93.196.58])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25CB0606A335;
-	Sun,  1 Nov 2026 02:15:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E2DD606A324;
+	Sun,  1 Nov 2026 02:16:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5E2DD606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MI74K84u
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F92B1F00919;
-	Sun,  1 Nov 2026 02:15:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793499332;
-	bh=pGb/TcMAboBwB3Sj+01ezuTRZ9UzgOLsqeFKfsEFeQw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MI74K84uSPMHvsO4upj+Fi9xBK4legbXc3FAye3IF4i/18hwubqU+nLDBmwulvz9g
-	 NpKn0y7XjOLbyUUJnCZdxqSRa+0AofeYHgeMsaFDo5pHL3/50SKta0rOwOb4NG4e47
-	 duSUS3CZGnWuaqjiiEUH9Dus5vE3dKhwvTnVMU+TkztUvYTcfPZ5T1DstaOql5Gew9
-	 Br+gvYa+oCj8JHfQxmgvUf3Y7mgoQMYbG4Vpau0XUJLONIyv0NKO640b98I/Qj3EmD
-	 DvipekOijX8j1aO53I7wMDporAcomuWvoFRxqW6bX89ikyKWuUaiQuq/4sjv41F3Hx
-	 DGULoR1SixRbQ==
-Subject: Re: [PATCH v7 13/13] can: peak_usb: don't return an uninitialized
- PCAN-USB CAN channel ID
-From: netdev-bot+sashiko@kernel.org
-To: s.grosjean@peak-system.fr
-Cc: mkl@pengutronix.de, mailhol@kernel.org, wg@grandegger.com,
- error27@gmail.com, lukas.magel@posteo.net, linux-can@vger.kernel.org,
- linux-kernel@vger.kernel.org, tristmd@gmail.com, kuba@kernel.org
-Date: Sun, 01 Nov 2026 02:15:31 +0000
-Message-ID: <179349933109.3127.16204326690893554658@kernel.org>
-In-Reply-To:
- <20261030-canfd_check_channel_idx-v7-13-fc4a3faf3acf@peak-system.fr>
-References:
- <20261030-canfd_check_channel_idx-v7-13-fc4a3faf3acf@peak-system.fr>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LSMsEcAv
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ACUVy+oFP/C6zQvclMvHH/CSR7HqPdSiyY8AyduaT6sfRzWQDNRvvF+2Ci1ZA1u34EJFjPoOx2A3+NPmJ+DNSVuPvCTAyfZ2A/PfQdtR/oOPcCOJ/uMSojDdjOPjIrJf/152eIv0zeYAvavWi6eE0mbziTzrRGRF6BMZqNtOYeDkSUIQIQr8c+sbZOjdgEGubGAsgibsJY/hdtPpSOzLZXzuPQbghllltJPWrejsdhyZ/hJm2wAooz2HcL7H7CdLGYs6t1YHmlITwGzAuvDGOYGLglNXfnt8QwCWvFmFH5ke2/gXt2w77wjLvZOMiifqnTQWAn7AuaIRwTecHC9QLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=PHY3op/sKzJI/D92BGtbGPemOoqlJ+m5Lb2J/nUsLbQ=;
+ b=hP5+phphrKcckZeICUMUVXvncomX5mwra2a1ddfH1mrx24ZX90LdxW9YvP0O10CQjjfD8q1e8ZnZfjMqiQPwxMYkkqj9Lq6rIKhuWg9GAzQFHja1u2RjZyAn3LiADZYaimfzNWK6qDDTtyuZDPD3NS2Oa/soyxzboSmawtoql+sF6srsAq1eQ50MxoBeqWSmlSZyJjX2O6M5ods+YUCuYY8U6ZCdUXmI0X2P/ZAffD4uXx0yBavbQsjxRqKLx2mjFtr32MHq2Ubnbbxc8p+QE21Hl1z9p9YwjhbLUxMgPAZkUMxxMx7nKwRHcJ9g6/xkNqWijolks7LQ9ZKlGKICSQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=PHY3op/sKzJI/D92BGtbGPemOoqlJ+m5Lb2J/nUsLbQ=;
+ b=LSMsEcAv7QTgAvpQ9OITBQ51o4dYMFqxOsxqlJeEJVCfabzPvTiDF1keot75WkBxTKwEKh0s6v053nY25FjSsau0dB1pk6LJxYjJFYOaRrhV4iK6FV2Ogeuv+FPhipHMcoetRSKhqESEJNTowY2F4oeAJuAGmN82pEgAIFm6tkmak9YewZUiVjNsL0U10OpAJqSx62ILOVXXw1m/Ddw9KN1IVYDVQcXQSQr/l2GOX7WVCUMMNmjfYqWs8RpzNvghoLrUxgrqhkQQbs/4cLUT0/RPHxJNZ29rFh1AsaGToNPa4Fpg3Ka8hcWnqrP6/6p9lm6t+v8zNk4KeOykQkYO3w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com (2603:10b6:208:40e::7)
+ by LV9PR12MB9760.namprd12.prod.outlook.com (2603:10b6:408:2f0::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Sun, 1 Nov
+ 2026 02:16:00 +0000
+Received: from IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16]) by IA0PR12MB8374.namprd12.prod.outlook.com
+ ([fe80::d85f:4c87:ae84:3f16%6]) with mapi id 15.21.0569.010; Sun, 1 Nov 2026
+ 02:16:00 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 31 Oct 2026 22:15:58 -0400
+Message-Id: <DMJIGN2WK8BB.12X03XDR3OBW5@nvidia.com>
+Subject: Re: [PATCH v3 14/47] mm/huge_memory: fix zapping migration entries
+ for device-private THPs
+Cc: <linux-mm@kvack.org>, <linux-kernel@vger.kernel.org>,
+ <kexec@lists.infradead.org>, <linux-fsdevel@vger.kernel.org>,
+ <linux-arch@vger.kernel.org>, <linux-cxl@vger.kernel.org>, "Chris Mason"
+ <mason@kernel.org>, <stable@vger.kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>, "Andrew Morton"
+ <akpm@linux-foundation.org>, "Johannes Weiner" <hannes@cmpxchg.org>,
+ "Michal Hocko" <mhocko@kernel.org>, "Qi Zheng" <qi.zheng@linux.dev>,
+ "Shakeel Butt" <shakeel.butt@linux.dev>, "Lorenzo Stoakes"
+ <ljs@kernel.org>, "Kairui Song" <kasong@tencent.com>, "Barry Song"
+ <baohua@kernel.org>, "Axel Rasmussen" <axelrasmussen@google.com>, "Yuanchu
+ Xie" <yuanchu@google.com>, "Wei Xu" <weixugc@google.com>, "Baoquan He"
+ <baoquan.he@linux.dev>, "Baolin Wang" <baolin.wang@linux.alibaba.com>,
+ "Liam R. Howlett" <liam@infradead.org>, "Vlastimil Babka"
+ <vbabka@kernel.org>, "Mike Rapoport" <rppt@kernel.org>, "Suren
+ Baghdasaryan" <surenb@google.com>, "Michal Hocko" <mhocko@suse.com>, "Kees
+ Cook" <kees@kernel.org>, "Peter Zijlstra" <peterz@infradead.org>, "Jann
+ Horn" <jannh@google.com>, "Pedro Falcato" <pfalcato@suse.de>, "Hugh
+ Dickins" <hughd@google.com>, "Pasha Tatashin" <pasha.tatashin@soleen.com>,
+ "Pratyush Yadav" <pratyush@kernel.org>, "Matthew Wilcox (Oracle)"
+ <willy@infradead.org>, "Jan Kara" <jack@suse.cz>, "Lance Yang"
+ <lance.yang@linux.dev>, "Rik van Riel" <riel@surriel.com>, "Harry Yoo"
+ <harry@kernel.org>, "Alistair Popple" <apopple@nvidia.com>, "Nico Pache"
+ <nico.pache@linux.dev>, "Ryan Roberts" <ryan.roberts@arm.com>, "Dev Jain"
+ <dev.jain@arm.com>, "Usama Arif" <usama.arif@linux.dev>, "Kiryl Shutsemau"
+ <kas@kernel.org>, "Matthew Brost" <matthew.brost@intel.com>, "John Hubbard"
+ <jhubbard@nvidia.com>, "Peter Xu" <peterx@redhat.com>, "Will Deacon"
+ <will@kernel.org>, "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, "Nick
+ Piggin" <npiggin@gmail.com>, "Oscar Salvador" <osalvador@suse.de>, "Minchan
+ Kim" <minchan@kernel.org>, "Muchun Song" <muchun.song@linux.dev>, "Xu Xin"
+ <xu.xin@linux.dev>, "Chengming Zhou" <chengming.zhou@linux.dev>, "Chris Li"
+ <chrisl@kernel.org>, "Kemeng Shi" <shikemeng@huaweicloud.com>, "Nhat Pham"
+ <nphamcs@gmail.com>, "Youngjun Park" <youngjun.park@lge.com>, "Gregory
+ Price" <gourry@gourry.net>, "Joshua Hahn" <joshua.hahnjy@gmail.com>, "Rakie
+ Kim" <rakie.kim@sk.com>, "Ying Huang" <ying.huang@linux.alibaba.com>,
+ "Jason Gunthorpe" <jgg@ziepe.ca>
+From: "Zi Yan" <ziy@nvidia.com>
+X-Mailer: aerc 0.22.0
+References: <20261031-fixes_core-v3-0-d6437171ecc3@kernel.org>
+ <20261031-fixes_core-v3-14-d6437171ecc3@kernel.org>
+In-Reply-To: <20261031-fixes_core-v3-14-d6437171ecc3@kernel.org>
+X-ClientProxiedBy: BLAPR03CA0063.namprd03.prod.outlook.com
+ (2603:10b6:208:329::8) To IA0PR12MB8374.namprd12.prod.outlook.com
+ (2603:10b6:208:40e::7)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,146 +130,102 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA0PR12MB8374:EE_|LV9PR12MB9760:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28bb9fcf-8461-4ff8-ad3c-08df37be1279
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|6133799003|10067099003|22082099003|18002099003|921020|56012099006|11063799006|4143699003|261021121427099003|261021123027099003|261026121527099003|261022075727099003|261009223027099003;
+X-Microsoft-Antispam-Message-Info:
+	VglyTav8uaooeWz2s4fu3BqWDegcxZJOsqy6SVKPjwK4kTcF8XCzyFF/lXguG3GSXiW0QvbeTQDO+PYUHm2qzrJUfFoV5/HyHY03WfNgaWttu7pJYolBtaCONWKB816k03SPL9ZyqVJFUsiM7SmSjB/i6Ka73NwohbEfqUx2hosjS+4UUiVR58UC0mcTX41ExNXeJP3QlZljdM647IwQOnzPsaO5wKAw+TkX1AFStgf30gEYdl74qkwn69OXSvOgziXsLYi9ZriJGKzZtgay8Lmj9DHhTrYQbFEKVgYQvlbZITcmbdKKKD2goplZOjXH8+Go5IZahyJ/k4K8Z1QVFGps55UhNQyM6Em41wLrby9grdzi0XLdujQVCpgMr3okCXYvm67RIz/3HyiqumBq0JDCi5XjohLjM0kI9riHfqFNWfey+PAIy/XTAYdHCFaHKYAAy4Ue6HYF4G38yx/OvtvKGT7IhYJ2gUGr+KofD5osQq6BLLd0l3/tX72BBbF+NamNWOKXyrF1ZeL6kc3TdYVNmBaAK0UFHo0d4OezgSm69C+H13Cb9WO2/AwwqNqDZIxV2ZOIJhnAPhIXRY/YiJvA023O0qnP83hbmIwaRLbwikZHWR3K0UCPAUSp3OG162QK2KZayGWqTj++Gtuw90ag82ZYSEWB2oaSUCmJ4rh7dKOmMNKd6Of4du74MAhZFb6X+cCrCsCafhysygaz0A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA0PR12MB8374.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(921020)(56012099006)(11063799006)(4143699003)(261021121427099003)(261021123027099003)(261026121527099003)(261022075727099003)(261009223027099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T2N4U09saCtKR3RqK0p1ZXpFTkdLdWpKbWRFVzFsR0QvVHhsVEVzZGtMcmNC?=
+ =?utf-8?B?MEliL0c4ZmxXMlpSelZxMzBkTDNhbzExUWtOeWVpVURhUlpwUE05N0ZOUmNy?=
+ =?utf-8?B?d2orbGxlaTlBMUd4YlNkL3BOQ09aK0ZiSHZlZ0VkQ1JzdUxURE1Jd1IvRHpl?=
+ =?utf-8?B?dVczZ1c0aldhcjU3OHVKdnJZVDc3b3d3aTRpVmEwRjNVNXkyRGpoV1Fua2s0?=
+ =?utf-8?B?aVBCbGQzMy9icGVVMEUrQnQ3dW5MYWxqN2FwdDY2aHJlajRZS2kySGNYL1FW?=
+ =?utf-8?B?dGgyYTI0ajRyN1FEK04xQzBnTjFDUWdxSnpsYmhGRXM0MEZlMCs2cU9tcGgz?=
+ =?utf-8?B?TURhL2NpQlRyV2RNSWlMdmE3ZVNyL3hRMkFFcHBMK0VSNlNlS3RkQlNja0Jl?=
+ =?utf-8?B?VFdFY09xLzdZVlVQSDF1OVo5YnQvcG15bXBMRVlHKzNwbXNSamozeVc4SGM5?=
+ =?utf-8?B?WXE1eVJXNUU4QjFid05od3p3MStnT3ZDd1RsUmtGU2kwTit3R05BcWc1Rk8r?=
+ =?utf-8?B?U0hVMGEwWFRQUVRrQTFGWFNuaVF1S2tmN25NdS9xR0pZclNaNmhNS011ck9z?=
+ =?utf-8?B?TXgxWlJiZzBWSTY3VGUxOE5sNVY0cHR6TFZTQVl1L3FJMFY0SzN2K012N3Az?=
+ =?utf-8?B?ZzV4RzlpV05HMjNWZWt1QnZhRTdIdUMzbnZPNWpkTVlkV2V6a0E4UGJiY0k5?=
+ =?utf-8?B?Unp0aVFrVjF6c2ZWSWw0WDFCUWl1MEFmNVFuSThKMjBXWG1jZlV4NXNvZ3h6?=
+ =?utf-8?B?c0dKSExZVndiRWRubGNoSVhPcCs2R2hYcEZJNVFKeG1nNTBUWWZhUys5TG94?=
+ =?utf-8?B?Unh1WWF1UzlwNEVpVGVMSWp0MHZDR3JoZEdCVk55S3hLRE03N0JFTmRSQXNT?=
+ =?utf-8?B?UVROaHIzMW5pK3lLQlA0djM0aEliZkd4cTFROEkwdnA4QkZTUEdWRGRXRzlT?=
+ =?utf-8?B?SlE5Zm1kQ21UMGdVYjBoYUFxdmVHMDBBT3BROWdBeXd3N3ltajZUR2VUUFhG?=
+ =?utf-8?B?V1dqRDE3OHlvMjdDWW1kU09ydW5wSHBVeUtSWWtmY2xvT3U4MDlqSmZiL2Fn?=
+ =?utf-8?B?bkRkT2lOWlpkaVdTNjFxdHFzVUhtNDV6dmIvMnoyajlwVVpSMW9QNXRvMXNE?=
+ =?utf-8?B?Z0VQc3NEcGEvZzZvenB3MjlYL09uNDM3QlNEQlg2ZkxUM1RSRnJDZXpWdzla?=
+ =?utf-8?B?aFV4eFhrYXdxWUFFcHlZa29oZFdPUE96TkZvODIvdHJoQ2s3UVdVbzdBSVdI?=
+ =?utf-8?B?WnFzdTVLYlpRV3VvbjloOEN3REp3NzA4eW5SaDdvUGtydnBram1vUThnRmlN?=
+ =?utf-8?B?SHBIa2djUVY5bjNnQU5jcFlQYWlQQStEb1IxMWg4YkN6TThsWW9FQkkrV1pl?=
+ =?utf-8?B?blZ6dmc1MU5nZVNGbVh5dXh6N0h5eGRBVUlTdjYwRjlJQy9SZC94MDIrTHU2?=
+ =?utf-8?B?OStsZURQNjV6clFEVEIreTlMaU5xTS8vSFB6bC9iUkxZYi9aN1dGejE3Nmd4?=
+ =?utf-8?B?YndlaUk0ZGxCY1hoRXNscGQrME5ZZDJBVW4xcWVSaWZDK3laZEZsTHZsOHFv?=
+ =?utf-8?B?eURCMHlCSWgyNmVIZ0NwelNMalJEQjIwK0ZkWG1xenZqelRXVHVJRVNIMWMz?=
+ =?utf-8?B?bS90UTFYY0RHbDR1dldxZFBhUXhxNVN6MXdESW9KaDgyd1FRcmg1bXpOUDNx?=
+ =?utf-8?B?Z3ZzN3pmWENsQnNCQmtobmV1aUtWNW8xZWJ6ZnpWeWpZakdOU2VMVDhUZ3dq?=
+ =?utf-8?B?eXg0NU1ONHFSbisrYjYra0pHa3g4cVkrd2VIUkNGblZ5bVIrdkt4NjZOWXRI?=
+ =?utf-8?B?NjJyYTR5c1NhQzVuWW9oWlR5Z0k0QXk3WDVQdys5Q2xaTXVJdkdZS0dDT2dK?=
+ =?utf-8?B?VjBJWUFWQmVITWlCbjByaDZoUTFTR2tobFZ4UFFpUkltY3VMbGh5RzN0Wk9v?=
+ =?utf-8?B?RldMTkh0c3laUXF4ejNhdldkQXRSU09qSHlQaGRBQ0ROMTh1WXJPS0tnSUZ0?=
+ =?utf-8?B?QXRzZFpPNmhvbDU4U1RIRm94b094MDRPWW9WNWVTZEJ5ZHZDVkNTRVh0NHNa?=
+ =?utf-8?B?N0NuN2pVajVBcTBncERBd3htTmJ2bFArTldiQVh2UEE0Ym9EMXNYOVhHa2oz?=
+ =?utf-8?B?MkJmOCtyTzZuc00vRVRDMzFLdWNPUEE5N1luRXIzSU53b09lR3Jtdm92N01h?=
+ =?utf-8?B?TkM4YUlmMHk5WmJ1MTdGWE0rOWxWMy8xYktTYlltMERPVWhpb3NESFRiN00y?=
+ =?utf-8?B?ekFGUzlHUm90SHZCVmtUVjBVRVFkQlNIeWFROS93Mk1nejR3OHFDMUlvRnZ6?=
+ =?utf-8?Q?CSPXpeN1le/36RIer8?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28bb9fcf-8461-4ff8-ad3c-08df37be1279
+X-MS-Exchange-CrossTenant-AuthSource: IA0PR12MB8374.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Nov 2026 02:16:00.4275
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: /4uvc2pHCPDUaAdPETHu151AX2MPzlKOfPvMzE7GyT0qG2/Qq7BjRbNv2/IptPao
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV9PR12MB9760
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+On Sat Oct 31, 2026 at 5:39 AM EDT, David Hildenbrand (Arm) wrote:
+> From: Chris Mason <mason@kernel.org>
+>
+> A PMD migration entry can refer to a device-private folio.
+> zap_huge_pmd_folio() checks the folio type instead of the entry type,
+> so it treats such a migration entry as a device-private entry.
+>
+> Installing the migration entry already removed the reverse mapping and
+> dropped the mapping reference. Zapping it must not repeat those
+> operations. Concurrent MADV_DONTNEED during migration back to system
+> memory can trigger this.
+>
+> Check the PMD entry type using pmd_is_device_private_entry().
+>
+> Fix generated by an LLM and sent by Chris Mason in private.
+>
+> Fixes: 368076f52ebe ("mm/huge_memory: add device-private THP support to P=
+MD operations")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chris Mason <mason@kernel.org>
+> [ david: simplify description ]
+> Reviewed-by: Gregory Price (Meta) <gourry@gourry.net>
+> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
+> ---
+>  mm/huge_memory.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0 (1)
+Reviewed-by: Zi Yan <ziy@nvidia.com>
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
 
-- [Medium] The same ETHTOOL_GEEPROM disconnect-window leak is still open
-  for PCAN-USB Pro, through the same shared handler.
+--=20
+Best Regards,
+Yan, Zi
 
-Pre-existing issues:
-- [Medium] Baseline decision: false (kept only because
-  requires_validation=true).
-- [Low] Baseline decision: false (kept only because
-  requires_validation=true).
-
---
-
-can: peak_usb: don't return an uninitialized PCAN-USB CAN channel ID
-
-This patch zero-initializes args[] in pcan_usb_get_can_channel_id().
-After disconnect has cleared PCAN_USB_STATE_CONNECTED, pcan_usb_wait_rsp()
-returns success without filling args[]. Without the initializer, an
-ETHTOOL_GEEPROM request in that window copies an uninitialized stack byte
-to userspace.
-
-> diff --git a/drivers/net/can/usb/peak_usb/pcan_usb.c b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> index 626593251e5d7..4f255f2a33feb 100644
-> --- a/drivers/net/can/usb/peak_usb/pcan_usb.c
-> +++ b/drivers/net/can/usb/peak_usb/pcan_usb.c
-> @@ -386,7 +386,7 @@ static int pcan_usb_get_serial(struct peak_usb_device *dev, u32 *serial_number)
->   */
->  static int pcan_usb_get_can_channel_id(struct peak_usb_device *dev, u32 *can_ch_id)
->  {
-> -	u8 args[PCAN_USB_CMD_ARGS_LEN];
-> +	u8 args[PCAN_USB_CMD_ARGS_LEN] = {};
-
-[Severity: Medium]
-Is the same ETHTOOL_GEEPROM disconnect window still open for the PCAN-USB
-Pro? It goes through the same peak_usb_get_eeprom() handler.
-
-In pcan_usb_pro.c, pcan_usb_pro_get_can_channel_id() builds the GETDEVID
-record with only one variadic argument:
-
-	pcan_msg_add_rec(&um, PCAN_USBPRO_GETDEVID, dev->ctrl_idx);
-
-pcan_msg_add_rec() handles GETDEVID in the same case as SETBTR and
-SETDEVID. That case reads a second u32 argument, which this caller never
-passes:
-
-	case PCAN_USBPRO_SETBTR:
-	case PCAN_USBPRO_GETDEVID:
-	case PCAN_USBPRO_SETDEVID:
-		*pc++ = va_arg(ap, int);
-		pc += 2;
-		*(__le32 *)pc = cpu_to_le32(va_arg(ap, u32));
-
-That va_arg() is undefined behavior. In practice, whatever leftover
-register or stack value it picks up ends up in the dev_num field of the
-record in dev->cmd_buf.
-
-The window opens after peak_usb_stop_rx() clears PCAN_USB_STATE_CONNECTED
-and drops rtnl, and closes when unregister_candev() runs. Inside it,
-pcan_usb_pro_send_cmd() and pcan_usb_pro_wait_rsp() both return 0 without
-doing any USB I/O. Then this returns those leftover bytes as the channel
-ID:
-
-	pdn = (struct pcan_usb_pro_devid *)pc;
-	*can_ch_id = le32_to_cpu(pdn->dev_num);
-
-peak_usb_get_eeprom() then copies them to userspace. It also caches them
-in dev->can_channel_id, which backs the can_channel_id sysfs attribute.
-
-While the device is connected, the same 4 bytes are also sent to the
-device with every GETDEVID request.
-
-Would passing an explicit 0 as the second argument to pcan_msg_add_rec()
-in pcan_usb_pro_get_can_channel_id() fix the Pro adapter? That could go
-in a separate follow-up patch.
-
->  	int err;
->  
->  	err = pcan_usb_wait_rsp(dev, PCAN_USB_CMD_DEVID, PCAN_USB_GET, args);
-
-[Severity: Low]
-This isn't a bug introduced by this patch, but pcan_usb_wait_rsp() ignores
-actual_length from the CMDIN usb_bulk_msg(). It also doesn't check that
-cmd_buf[PCAN_USB_CMD_FUNC] and cmd_buf[PCAN_USB_CMD_NUM] match the
-request:
-
-	err = usb_bulk_msg(dev->udev,
-		usb_rcvbulkpipe(dev->udev, PCAN_USB_EP_CMDIN),
-		dev->cmd_buf, PCAN_USB_CMD_LEN, &actual_length,
-		PCAN_USB_COMMAND_TIMEOUT);
-	if (err)
-		...
-	else if (p)
-		memcpy(p, dev->cmd_buf + PCAN_USB_CMD_ARGS,
-			PCAN_USB_CMD_ARGS_LEN);
-
-Suppose the device sends a short reply, or a late reply to an earlier
-command that timed out. Could stale bytes from dev->cmd_buf then
-overwrite the new zero initializer in args[]?
-
-pcan_usb_send_cmd(..., NULL) only rewrites cmd_buf[0] and cmd_buf[1]. So
-pcan_usb_get_can_channel_id() could report a byte left over from an
-earlier outgoing command as the channel ID, for example btr1 from
-pcan_usb_set_bittiming().
-
-[Severity: Medium]
-This is a pre-existing issue, but two setters in this file have the same
-uninitialized args[] problem on the transmit side.
-pcan_usb_set_can_channel_id() only sets args[0]:
-
-	u8 args[PCAN_USB_CMD_ARGS_LEN];
-	...
-	args[0] = can_ch_id;
-	return pcan_usb_send_cmd(dev, PCAN_USB_CMD_DEVID, PCAN_USB_SET, args);
-
-pcan_usb_set_bittiming() only sets args[0] and args[1].
-
-pcan_usb_send_cmd() copies all PCAN_USB_CMD_ARGS_LEN bytes into
-dev->cmd_buf and sends the whole command over the bulk OUT endpoint:
-
-	if (p)
-		memcpy(dev->cmd_buf + PCAN_USB_CMD_ARGS,
-			p, PCAN_USB_CMD_ARGS_LEN);
-
-Does this send 12 or 13 bytes of uninitialized kernel stack to the USB
-device on every channel ID write and every bitrate change?
-
-The other setters in pcan_usb.c, such as pcan_usb_set_sja1000(),
-pcan_usb_set_bus() and pcan_usb_set_led(), zero-initialize their args[].
-
-Could these two args[] arrays get the same {} initializer?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261030-canfd_check_channel_idx-v7-0-fc4a3faf3acf%40peak-system.fr
