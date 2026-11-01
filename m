@@ -1,72 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793565252;
-	b=m35fFX+pRg3gqk6HvcjYo6Moh8kdlv6RCR8TPJnz9zKW7R4s97S393NSV9kVhX5YBAiH
-	 EMvRLi9WC1GD8BapkcWzrVru8ijVZRiilS5sVPOZ+Cq0ibCwANpJEjvv/BUVJobeQ7NaO
-	 m/pCiHVuG56vc9vG/oofMhAnhK/JulBSNG354DeCEXm3QfpIVacgIJbcIbaC6kRDdvSsT
-	 knxmnPrsmTa3VZw/QjluWhbcXwmI51sTKOm6wDfiDaHQ++gb8ozdYtGS8Do2SMx9xk/Io
-	 Yook/9ecW4VImCSDFV42CqbNguKhe1NmuS9M6P8LZPEbiF/4buIb0lTkPDfUIkfZ9eA==
+	t=1793565382;
+	b=nwnduxISYNc8Pr0fUEOfnnZDT+/FgCQNfwpa9ZsjwRerUJFyHWKEyQ+nypMCuHz92dLQ
+	 ZObH/UzDtHcgBBzLPU+wmyer1UqbshaiyQgsk5v/7PGuTp+Rkj0qrFZaxjNIOup8RKVPM
+	 I/XT6H0MIiFPEwmE30hH3Y8U6bcwAzrfhszv7ZO+HUN8EMvZtBmyQddpPuQMi9t7FN7AD
+	 PVixz7Tt7SBfZBECAh7GJPQXUz7wOEuiyByUpJO7lz7PZ9v5IEiphiGjQSPLwo7Xt5l49
+	 wBHBIv/se5gN5MZpk38Dc9WIEBKX8XDw5wvnyKbSOzHLzlPoOUdxz71sBxxOscpeg+g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793565252;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
-	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=WEcinyzXvpzdrQbdmzGRVBkMmzuM3NlP9qlzk0r7u+M=;
-	b=Ybqyx5I12CTGv0OrQHMub6n8Tm1LxBdPMI/QXixxIFUaqOOPxijcF93apK0tQHv0MQ6N
-	 0ucPaBml708ciwcuM74EQkoeS97Sgt0xvk3/YC1eWzmYXvQUheYpw40kqdXW1wC9HZ1Hs
-	 ERBZ1186uhIjuKeKcXwtVsxD5Z9oOqjCZr+V/CaSeCx7ZJ9QL33zYf8286EsZevkyuXdJ
-	 pv9Y4F2k8YFLhu7MswnDZ/1EdiP0lEJQy7jqOhDxoNjrdg1REUb4M46hT5K59gjM7nJKt
-	 RmWMNktokTvzQn6dsTA6jZMIxkWGA1HlzZxQkoM601DCFL5uj7bBUg8Yzbt7UYavE9g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793565382;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:In-Reply-To:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=sy1SXxSh8A2I8IELMo6BxSYib7WbescqXfqsguSzEWA=;
+	b=Om/IThH3SVALSgsBsQcJEZKu7fVdseekUoMNXINxRZS5CsB4OhSXkKx4nEfGw/INBoQE
+	 iC4YP6ButjBYR4rA5yRFR6isKpym8ADoIDnOqE8VoH/NKbyfkBE1CtAKy4smBpP9i3rNN
+	 cUqCZSEX1A/pNbIoc2fOtnhXhYGvJlsEg+onilhZYPMN4VQok7bcjnEwsojZHrPKo0yI2
+	 VX/JFeSDWC/wTRMbKE+GiB77AsNAw8BXB9TmUY6uYgvyKnroBU/MbdbTm6NYwIskKFs2r
+	 MwvNFUsm1P399UYMHKp2fdmT9KBiHgRPU2hr4O2zKIXtfbL9Q3ezW/w+i/2KOXZGefw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=sang-engineering.com;
-	spf=pass smtp.mailfrom=sang-engineering.com;
-	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BtuJ+9TG;
-	arc=none smtp.remote-ip=194.117.254.33
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.199
+Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04514606A32F
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04514606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BtuJ+9TG
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=WEci
-	nyzXvpzdrQbdmzGRVBkMmzuM3NlP9qlzk0r7u+M=; b=BtuJ+9TGthEvfHggV1K7
-	8HCM7lmDmDVKnstgAkSutQeepbxM9f+LBjaFk5F7H0FOumehplkJKLqoJ4+ceSBh
-	YK2ss/QChr71ijKyvjcVkjJLIy4l+mwVhX+S0+XWv8HGGxsgbS3TL9RxhUbSVG/E
-	axv8+Pk12kFE5H2dIY84wmQcx62TwwtQW8iTi8kMfH2anW9M1GuJzYn0um/iNzoS
-	MqQKrx44llXCiyQQ7aiR0H9+sB8qB7UaGm2wtCRRck41rxjhBhdU4H/PyL28+gfh
-	1iQa6igkkswZenPR28OwGiM6B5IRigeuzt7kfw2me4EMvNskJM0zliJLQI9IogCF
-	wA==
-Received: (qmail 853660 invoked from network); 1 Nov 2026 21:34:07 +0100
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 1 Nov 2026 21:34:07 +0100
-X-UD-Smtp-Session: l3s3148p1@YnRo8zxfVKTB0HFD
-Date: Sun, 1 Nov 2026 22:34:06 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Diogo Ivo <diogo.ivo.sx@renesas.com>
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org
-Subject: Re: [PATCH v2 7/7] arm64: dts: renesas: r9a08g046: Add I3C support
-Message-ID: <aueiPnMvmHQhFtM4@shikoro>
-References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
- <20261026-divo-ssgrlpcsrc-2966-i3c-v2-7-2e76b87209bb@renesas.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D594D606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:36:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D594D606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-547ae874949so3774139b6e.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:36:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793565381; x=1794170181;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=sy1SXxSh8A2I8IELMo6BxSYib7WbescqXfqsguSzEWA=;
+        b=W0XQ0iyBBDbhvaumxzlTXGyOe4YyG41HyRZV4ldOzohyE8k9cl2bP6tPPm/wg8qFPI
+         WmjPtSJhbL9MSmZ0zDLyxX+aSAREsRnymr5257+GmZfKCMGWj81xDHafBRmDkCj7ynBZ
+         cxXuZkWxec2bFrl/yiYoM9mOYEBPclz+bqb+Ky0SkqdpSOMIrt5HGw11nFjCOXDxxY1w
+         HstwOXoD2NLZu6gIuULg4gDyywGHqu9o43As4BD/G3Ex0hSAbKWGBbSURvtD6t7CyNgk
+         qYiRxhD9sa+nNc6nfRWlkarUwcmaxhs3GHC3ntOMqZPWNSK0Cxi25ldt8Pf87IplAKz4
+         h9uQ==
+X-Gm-Message-State: AFq9FYKe91A3hqPU1Xo5Pbud+HfVoaeBcscNQFUXH1gp4C876hXB3qDR
+	8n7FEn3JAoxXvGXp8y5T436pPL9WgcOTNu3zzPz7oUKN676+3sJunbYlHvG4WmIMjceZfXshpgB
+	yp8NSETjjbXb+To6vZr2RLuuvD1U4H4+jEhCT5M105W4cX2M4AWR6S4MUFOc=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,30 +57,77 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-7-2e76b87209bb@renesas.com>
+X-Received: by 2002:a05:6808:c3ed:b0:4cb:818f:d571 with SMTP id
+ 5614622812f47-5640df3d5aemr5845814b6e.25.1793565380849; Sun, 01 Nov 2026
+ 12:36:20 -0800 (PST)
+Date: Sun, 01 Nov 2026 12:36:20 -0800
+In-Reply-To: <6ae5609d.264039fe.1edcaa.0001.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae7a2c4.7fe51036.1ecf7.002e.GAE@google.com>
+Subject: Forwarded: [PATCH] media: em28xx: fix v4l2 use-after-free after
+ failed init
+From: syzbot <syzbot+1e71765881a6fc43185f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Oct 26, 2026 at 11:35:50AM +0000, Diogo Ivo wrote:
-> Add the I3C Bus Interface node to the RZ/G3L (R9A08G046) SoC DTSI and
-> enable it on the RZ/G3L SMARC EVK, together with the required pin
-> control.
-> 
-> The driver only consumes resources that are common to the RZ/G3L and
-> the RZ/G3S (R9A08G045), so the node uses the SoC-specific
-> renesas,r9a08g046-i3c compatible with a fallback to the
-> renesas,r9a08g045-i3c compatible of the RZ/G3S, following the bindings.
-> 
-> The I3C pins are shared with RIIC3, so the controller is only enabled
-> when the SW_I3C_EN switch is on.
-> 
-> The I3C I/O voltage can be set to 1.2V or 1.8V on the board through
-> the SYS.3 (I3C_IOVS) switch, so configure the pin controller for the
-> selected voltage through the power-source property.
-> 
-> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
+For archival purposes, forwarding an incoming command email to
+linux-kernel@vger.kernel.org.
 
-Didn't double check the pinmux values, but rest looks good to me:
+***
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: [PATCH] media: em28xx: fix v4l2 use-after-free after failed init
+Author: drifabdelmalekmohamedsaid@gmail.com
+
+#syz test
+---
+ drivers/media/usb/em28xx/em28xx-video.c | 15 +++++++++++----
+ 1 file changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index 84424284d486..924a3f7977c9 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2414,7 +2414,7 @@ static int em28xx_v4l2_open(struct file *filp)
+  */
+ static int em28xx_v4l2_fini(struct em28xx *dev)
+ {
+-	struct em28xx_v4l2 *v4l2 = dev->v4l2;
++	struct em28xx_v4l2 *v4l2;
+ 
+ 	if (dev->is_audio_only) {
+ 		/* Shouldn't initialize IR for this interface */
+@@ -2426,13 +2426,17 @@ static int em28xx_v4l2_fini(struct em28xx *dev)
+ 		return 0;
+ 	}
+ 
+-	if (!v4l2)
+-		return 0;
+-
+ 	dev_info(&dev->intf->dev, "Closing video extension\n");
+ 
+ 	mutex_lock(&dev->lock);
+ 
++	/* matches em28xx_v4l2_init error paths */
++	v4l2 = dev->v4l2;
++	if (!v4l2){
++		mutex_unlock(&dev->lock);
++		return 0;
++	}
++
+ 	v4l2_device_disconnect(&v4l2->v4l2_dev);
+ 
+ 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
+@@ -3129,6 +3133,9 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		vb2_video_unregister_device(&v4l2->vdev);
+ 	}
+ 
++	/* matches check in em28xx_v4l2_fini (under the same lock) */
++	dev->v4l2 = NULL;
++
+ 	mutex_unlock(&dev->lock);
+ 
+ 	/*
+-- 
+2.43.0
 
