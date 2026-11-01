@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793531051;
-	b=hbm4xMW0F1U3S7rzZln2w4j4na7/UEWhUiZjcJ/9TiLRMX+wyBvN2fRqoC4J509VyXLq
-	 bligdKwLchGQyxLfFG7cyuweExwvrATRWqTKSyVEQ9dqfOR4Hi03tbi+HSfDFw9w3672/
-	 fKKuQscqye1pE11VQW8iIFdFDby7t8uigWV2wzib8EpGO83HfR3Bm4tKmn6kGdkqDY1MN
-	 myQ08BX9qAEXWrag6HfIEy9+Uxp+M9xewhZXD1bca0F62lltYilkIam5a9FxXhp6K0Ni+
-	 9tkqgO0idj33C1QXZMGVwuWt0k4pffMQrvQogYSUxzU0y6WV8357IR9mje/QYgx6WAA==
+	t=1793531179;
+	b=FSciFDPtHGAhw9aSz1pe5tvJoooy+znb60pzR13hEjM1WuU7123fQiUivUyZD5cafk4K
+	 7zstBV4oH1XwLJswG6ZY1TEjCDVvHV22qMF3yWkSpKWJavrqNbgtc5EqM7HEreypZaQ+S
+	 JquvKu22k8vYM+dw0AKZ1Z2iui2F4wh/hAmwEnvejcq4bgagloMPabxFUi4SjQ1iyeSfX
+	 GeoRkLIm35WKU8ttZEh1P1kqsm5f2e5kt17et9J7WoIWN/mzc5O8SckS0w+QWaQCVUv/A
+	 cPsyhQlC+wl7STpx5Etd/UTl0tawSj1Vgo+dsEYPni4TuqxHJQmcrb5ObtRDXpD7IGA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793531051;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793531179;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=YvFQlOUFIJL8wjzKncMYMsofkDAlkEk9YwsTQ2MFUHc=;
-	b=Dlug7Syq6CymlLT+z2zvJBG7jEXiZPqDyDuq8fB6B9vpiuXJrgk2iiikAD4lRqek7atJ
-	 tP5zqiuEePm0OuBJ7fTXShc4085lUEENzalERoCqiBK+hHLuQKqenlJY9nrdwDGMr7y8a
-	 6MCpenjctNIkIVHSPXnHzZ/G9LBAJbUdxQQG50gv6kcwtiS435FtRya5F9dEpm0HpbEQp
-	 zE0bJ0xO0ypvy3dqEpJty+jbQ6Nw1Xozbm71dmRF21B/X5AI6eWhE+EDP0aYTGNCIEclA
-	 oiqnf+NlWkNtkn80qAmnnRvs1S6EbXO3u462kHtPUaxWL3BHUabgZNoV9XCa/Qdwd2Q==
+	bh=ICIkAf3UPu4vp4g9wq9pl5fJ3rhAB5F7TqD0Cz1UXjg=;
+	b=JGPDLTEu/6slPTNQzmXyG58JOn4mVZ9kbDpmNDqNAmKCLR11nd8zP5Og6g1Q3alXZMir
+	 NvojRvCCaBKEI5U4AWc+ougwtcqWa5SybTgswiqAj6FSvzAvIFyiRKGLxgoVeUT8NJ4vF
+	 lQiwMZ0kaLEnWynSR1QAsm+PxNLy6vn1GMsZoToNmr754SGhxudXxwQ7S4DVJiYOSBjmE
+	 tgWo02pnp7EX2kDSgG4VvALFWQTRsMlNLnCRBD1PDL1qPj9VBm1UDIoVGkdk9vd0cvLQz
+	 U4J+oda/v0LNshVLk7ZJK/CSaxHcTSdW7T60/yS3Lw8yRma5Ke1fMdtZQvI47Oag3xA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="L5CiVr/G";
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNTtMyDY;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4912606A324;
-	Sun,  1 Nov 2026 11:04:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748EA606A324;
+	Sun,  1 Nov 2026 11:06:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=L5CiVr/G
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC401F000C1;
-	Sun,  1 Nov 2026 11:04:06 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DNTtMyDY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41DBD1F000C1;
+	Sun,  1 Nov 2026 11:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793531050;
-	bh=YvFQlOUFIJL8wjzKncMYMsofkDAlkEk9YwsTQ2MFUHc=;
+	s=k20260515; t=1793531179;
+	bh=ICIkAf3UPu4vp4g9wq9pl5fJ3rhAB5F7TqD0Cz1UXjg=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=L5CiVr/Gt/fKSnAbUV4j0TATCnPGEWPLW8svHuajzcZRLKoPaUMy5X6l2mzT24mn+
-	 xRpp6KI27XfsW5cm8imiG54eGTjCbQ1avu71JjBfO6Uwv+rrKebjAUOB1hEFSwBLUR
-	 gTsGXTy1AoTEHbHnPGplBUTzGE5/pTNZDutAX/7TpMp2IkyFqDdqTQ5sBglAzQO3aX
-	 jT4UcUEI6Uzbt8iAW00YOmyqV1yTr+8tZbxsJef1d8ua++GIRBSmkY7/Mbcegi8wuY
-	 bk791VEzRcK/DOmw2fkp7xTBlv+1lr+6FwOudFz4WOg3zaQHMjh4RI1kRYZuaxz77/
-	 FxUpnRx0Uh/tQ==
+	b=DNTtMyDY6sgakprgJdluxjvivbsnTtKQfLxmqRjCbVA4kgZOmhZOwV67noWIzTw9k
+	 XRTQbPddEJWqhsLM5zko1Agcsj12H5ke6W0KbT9Fv3sDhnCkF4k/qN09OmnrQHwlRW
+	 TzvnEDNp85FaCk4ZJ52ytdc32NOIYM5B44joQWlCSWL65KQq/+ne6briCWGmsi2gkx
+	 tR1zAvGLWy1QwJGBrOXbiT0RxrVKRpv3aRO91Kwxo7xFdxMbzwo+2T2nTTlN66K/2g
+	 t/M4QWYsoIYwayDtpDQTmj+5rpqiHtMcdo+iP4FtTsCg/hnV+osY+zLkLkLc71JbPx
+	 tCOIUQ+oUIJfg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,47 +51,64 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 2/2] phy: exynos5-usbdrd: Add support for the
- Exynos5515 usbdrd phy
+Subject: Re: [PATCH v2] phy: qcom: qmp-combo: Leave the USB PCS alone in
+ DP-only mode
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Aiden Isik <aidenisik@member.fsf.org>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Sylwester Nawrocki <s.nawrocki@samsung.com>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, linux-phy@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org
-In-Reply-To: <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
-References: <20261022-for-next-lucky7-usb-phy-v1-0-2e47f8484bf4@member.fsf.org>
- <20261022-for-next-lucky7-usb-phy-v1-2-2e47f8484bf4@member.fsf.org>
-Date: Sun, 01 Nov 2026 16:34:03 +0530
-Message-Id: <179353104399.2955.18059371046251578542.b4-reply@b4>
+To: Joonhoe Kim <26rote@gmail.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org, 
+ konrad.dybcio@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com, 
+ val@packett.cool, wesley.cheng@oss.qualcomm.com, 
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20261023123512.1912-1-26rote@gmail.com>
+References: <20261023123512.1912-1-26rote@gmail.com>
+Date: Sun, 01 Nov 2026 16:36:13 +0530
+Message-Id: <179353117353.2955.16116793673558325261.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=333; i=mani@kernel.org;
- h=from:subject:message-id; bh=k0kivXC91YJ9ydGLFjgg9cV2aYT/3fbfHC2TkzZeQL4=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5xylPm/36572fC7jalo3M7lGxtto6fI6GyvDS
- QmfTEoLEcCJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCauccpQAKCRBVnxHm/pHO
- 9ei7B/996lzB9IF8yZ1xlFjW/Q9LgKlADFgT+zK7F884JdRlmnuRYi4YD+5xiwF8H3rz+e15C2q
- JG+CXo0X/Aj/Yvm/kK4m0t+GdYTVNiLvWofC+YarL/m0YIU4ybxZvWsZTIJrj/VE0tLbsBxQmDa
- dtanz5ce4gLop0Q6/mV7v44Qn3/9GdIcyV4OUaktdACKRDTyXJIlm/NxjsPwIaoYfyKXCkInPc+
- jZCFGc1ODDYsSVN3mmnAcjwfQan/bR6OLzd1yp1YOPzVn9nkDDG57GwR2y1lhreXKGQGdBvbCvB
- bw+Z82YI7RvuAIet5jKu7Y8EbuPSjxipnnKHP7XItfdDEufi
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1723; i=mani@kernel.org;
+ h=from:subject:message-id; bh=Qm6xI6pBQHw/JhBtXoNijp9M1lQctxsjcpVxgL/i6NE=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5x0nDJe3fEmoyf6sZec61aECAaAg0o1cX25Ki
+ FMLJUqTzDaJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucdJwAKCRBVnxHm/pHO
+ 9VZUB/9HhdfzEhaz1Jw9bmrIhDzgSuZ1RwQsR89b8mh4mJ9zXwYloZnv6WkSprFSIE6EPp9RqZt
+ XKHYgXFs8bZYfS4UxpKutjkQS+HisdIx+1mkxHgfzfm264wxnLJuTOfhKq8x7UmcYv/rVc/8oKw
+ cpZICoXHJfuHgQZOsPlyFEw0tj3OT9QEhrToa5W8qG0EWOtd4n/NR9jeuxcOn/G3sYJ/S2zaclA
+ y9CJ8X6zfLb9ApJkpWyUre08yNOnIsyb+IBqYlRx6Mier6ZMlHo34ZmaKli/oC9fbAiGZl84q1d
+ cpmOD6JtjKVavlf9u+8cXRUZpwr4SrFllq6wcvriV7ZQsWsc
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-22 17:46 +0100, Aiden Isik wrote:
-> The Exynos5515 USBDRD PHY is a USB PHY which supports USB Super-Speed
-> and High-Speed. Add support for High-Speed (UTMI+) operation.
+On 2026-10-23 21:35 +0900, Joonhoe Kim wrote:
+> In DP-only mode (DisplayPort pin assignments C and E) all four lanes
+> belong to the DisplayPort PHY and the USB PCS stays powered down.
+> Three paths still touch the USB PCS in this state:
 > 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
+> - The USB controller can exit and re-init its PHY in DP-only mode, e.g.
+>   across a system suspend that loses power. qmp_combo_usb_init() then
+>   programs the USB serdes, lane and PCS tables over the DisplayPort
+>   configuration and times out waiting for PHYSTATUS, and
+>   qmp_combo_usb_exit() resets and powers down a PCS that is not in use.
+> - qmp_combo_typec_switch_set() powers the USB PCS off and on when the
+>   orientation changes in DP-only mode, e.g. when a DP-only sink is
+>   plugged in the other way round while the mux is still in DP-only
+>   mode.
+> - qmp_combo_reconfigure_phy() powers the USB PCS off again when the
+>   port leaves DP-only mode.
+> 
+> Skip the USB PCS in these paths in DP-only mode. Keep the
+> qmp_combo_com_init()/qmp_combo_com_exit() reference and usb_init_count,
+> so that qmp_combo_reconfigure_phy() powers the USB PCS up when the port
+> leaves DP-only mode.
+> 
+> On a Lenovo Y700 Gen 5 (TB323FU, Kaanapali) with a USB-C monitor
+> in pin assignment C, resume from s2idle fails with "phy initialization
+> timed-out", the dwc3 resume returns -110 and the following xHCI resume
+> hangs the system.
+> 
+> Fixes: 896277138c13 ("phy: qcom: qmp-combo: register a typec mux to change the QMPPHY_MODE")
+> Fixes: 89563a152973 ("phy: qualcomm: qmp-combo: Add preliminary USB4 support")
+> Signed-off-by: Joonhoe Kim <26rote@gmail.com>
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
 - Mani
 
