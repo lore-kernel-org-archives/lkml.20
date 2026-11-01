@@ -1,101 +1,69 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.70.43.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793526975;
-	b=WSvNzll2wt2HtjVcqscEGeYAviu1DyRDk4O9bSwsNgj1FSHXE9g8DFVjJ+a/f/daXZ1t
-	 nNnrIAGmwD8OIVkuEdGlz+uoXJHjPSncxBQ5pUTNULA0AIv3SR8UJBQuOjAY/x/LeEMPj
-	 FDtjUOp1/Zv1tMV0D6OyZNl7Mnm3JNW7sj/5wLEeVqpWLmoip7XN54MySQXH217q5gT9M
-	 eGpwrZIGpYRFYTyWM7liZnZTh+ZCjd3aLZx9OETOUkHsX+lFOKy6b772Iew9sRY03fzGY
-	 qQ28xR40gVDlO68kZEzuxN36EEZUWp+y3jPs5FOOoSZxOgjhZEx15LLp1aIRMiysTHg==
+	t=1793527085;
+	b=U4X6p8HFQW3Hm5xwftBdhdVYaO+tp0vFjbDOezEm2sB10Q/3/rU8AdMpPSq/LEdQ/XJD
+	 TIv68NFB/4XodkI9dv8xOqlVrBMS9w8Qq9FsHPRiR5Q6//gw4VD9SOWa/yabB96Ufctd4
+	 pVfOED5S8SQN7Qr8v4srdqsP4NHs7V1nXTjbupAawTSUzU17a5LxHQtikAtYOmAXQuioy
+	 0yuNtPgR+Ox6BCb/EhATw1cPq4T1jOO3a4K7Qoir9lJMXJAiHw75ajOUghdTYp5q+8gY/
+	 +jafLoDLWJhf5hsm0YuzGRtoHINKerZT4sBBEr8bjOXdcRG79odkvNsu+yl9yUwsLMg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793526975;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NH5p8XFReWk5OnsBbt0kkc9aNsHf1J+jU8MERKjpPV8=;
-	b=IisLQJ3actJsxCjOlfdFMWbMEmNV8g5DXGl10OqIzWD5ZOrg/3t1XV61kP21ps0j/r5y
-	 eMR6ap9N9szWSQ/G3NQYYydynNphbGMcEgzNn4m49rQ3A6KN85fkm32rkUwRZBr8nXLM0
-	 EAyP53BhvzsxMRm57OOYRT25m5+Q26JAeya2X25eKdd9cz7QRB85M0W3U6/2ugthHG/zl
-	 kz4GHha+RyqXHGUPC2R374qtoKK7taqGnLW2DJtqneI8aACZzbzlM1zXkPNAEI5rcPeO4
-	 nM6PgSfgtLs/P9CJ/VMonSQe040REOh4Z3LJjssL3gaCmo/9buhD8MmBXXKsIm0HcrA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793527085;
+	h=DMARC-Filter:DKIM-Signature:X-Pm-Submission-Id:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
+	bh=8xnBzjwCE8sPHtEp9RM3ZWkfBVkxawpnG/dVeRbBTaw=;
+	b=lZfqd1Fymyj7wRYLXYfWl4uowB2MBpWm0J16Ha07p+Tth1fU4x61MHOy3mH9kXs0tHN0
+	 dLnQH7LtSIKQxDyISIvT9NSKi96LLKvryBYcogKR7FKUamqcoBsU1scGY4kCiYdE4SiC9
+	 Pe0jWR53xGaTqACLvTN0AJtkBgtsSbUSJ0J9NhmNMUHAhfUccdeeDAVPWYUp/87WBx9B3
+	 WPoMT5zYqBm6q4bPIQuhYE5My0WR0YNOJlSIq2wqZqvxM+ApjUOuZWldYwlmWYEBfGK87
+	 wdWaLOuFmnCDdsQRvkJjAdavuHbnzmYNR27DyyZ/ul58lAYL3PxmZsJF3ke+y4llvuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OiuZ2k8N;
-	arc=none smtp.remote-ip=209.85.128.45
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=softbase.tech;
+	spf=pass smtp.mailfrom=softbase.tech;
+	dkim=pass header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=pPiSD5Lc;
+	arc=none smtp.remote-ip=185.70.43.172
+Received: from mail-43172.protonmail.ch (mail-43172.protonmail.ch [185.70.43.172])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB12606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 09:56:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3EB12606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6261606A325;
+	Sun,  1 Nov 2026 09:58:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C6261606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=softbase.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=softbase.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OiuZ2k8N
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a3517554f7so16180905e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:56:15 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793526974; x=1794131774; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NH5p8XFReWk5OnsBbt0kkc9aNsHf1J+jU8MERKjpPV8=;
-        b=OiuZ2k8Nty9QXiv+hK5g5xqHwKvyHYAWajfx/ogxddLunB9wAG86yk4xr25486eIz1
-         AanCsVh9mi6Rvj4x2ObUibUjDrveJjXVpQoeqJIqbFTgpnKh5Pym+1qmukG4yIQflwOd
-         Jm3zTLFzuQBujsOW4uTUrx5oHyDQ2BKeRPkspC+9JKjTPz/hYT7G1jdRg5xmmeHMSJih
-         8FTgn6VhpiBCaTGYpBFl2nt1+6BJ2IAKTstGB3NEltPh4MxRZDBw+xRVyFpGRZgHvyiK
-         K47PYnV8xvLK/7EGDF2GLF7lQydGvngFE82N0vTfmVcl0hfrBQqdP3hNP3mRyTA0jNo/
-         vypQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793526974; x=1794131774;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NH5p8XFReWk5OnsBbt0kkc9aNsHf1J+jU8MERKjpPV8=;
-        b=JV4T11MG9ImCyRi8joNcorQ2aZEIwzkFkWUO4flqfwY8YLSfLdZY83PpKRqyGVc3p8
-         8WkBPD+y+VOpALdmxsC8GXZKEmXJRRwAfaAsww+kBDML6Ni0wJ3WPLvgVzJQCQ4/gchq
-         WcqgmVxf1LIP6d2CRvDFCDlZmrCnezFSobq1sCh6NsNzDKocfL6Wh2rclV0Pp7zjo3bj
-         zE4ySjLDaRCof1gXYTOi2lHUWMqj1iyrbHhcPaTelECbamD+k93pIR/yzNJJ4HYf+74z
-         8Xpfgu3AC6lP4v1Zzh+mziTVOLnI2m9F+pYmjJ+kG2+QwFfdP0xfz45zaKV56nVS2bPi
-         LdJg==
-X-Forwarded-Encrypted: i=1; AKwUvBwATYhJMx2582aTd7YyA3q7+7STu+xb4Oba/uqghbGU5uxg6lkJLyE59YX0mrjuUtsq1cK63MvrtwDPWpk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJC5rV9CtktnDLojM2cntueL7/gZPGrAmNnWtHAPlyNq9S9b3Um
-	F/jzpcekbwlb+Gs4y4rFwPAsjBgk7tWNY8bDQ2tHL3qUHwo6D7SyFhze
-X-Gm-Gg: AYBFou0nQuFGyzcMTWiddDfHbmjmq9m8lWCoNnOdWlN8K237aZzS4lE4QjuTOHGIW06
-	B1Sb0cyFnyftT97tYlehcanaFzK688iQhzM1pbW+xw43pJMfEw0hpRTVIUgNmSEA9TxdSoBWCHe
-	elorRIAoueKWb9zGQbqNgZsLsY+ZnovXz6q0vKtLJr39qj9z7c1enlEOZue8Ikxt5CKIBFlpZU/
-	us+iRXs54vnrb//aIRqlLIdAzqBAJlwuyramVHBdrrVIUCSASqb/vj4SUt3Uv1dNx0Rrf0+enmd
-	Zoo4vk3HZvWVG8VDWSRs7aQYmQxPe+95Ch6LU1M9yYAC7TzKox75sXUIpFcdRftzxFjAa5jDbYb
-	O0XNVKeFC9oCVf0inPT3FsMx0kaXF8KblSmatjMWRv9+xZicC2D01EVN3RGIn1hMutoQEWg1n8o
-	DcM5sBHQHZbS1iViMVAu8MnyK2uc5Zwafi1tEAmikKRO4sJieLAaSPxkm6kxKuxXGZU0rp//W8G
-	62+Sz6oOO67ULegBYOD3aPFOvhFIhvzUXXZ5O6L8/1vg0jvS3pnRmRWobw9E7ijox4ja+BGOXLr
-	3ZBDWLHUuVACyf7NQi58z2w2
-X-Received: by 2002:a05:600c:8706:b0:4a1:e0d5:293e with SMTP id 5b1f17b1804b1-4ac1765d3ddmr174291005e9.21.1793526973501;
-        Sun, 01 Nov 2026 01:56:13 -0800 (PST)
-Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf67aa704sm179893505e9.8.2026.11.01.01.56.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 01:56:13 -0800 (PST)
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-To: linux-mediatek@lists.infradead.org
-Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
-	kernel test robot <lkp@intel.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nick Desaulniers <ndesaulniers@google.com>,
-	Bill Wendling <morbo@google.com>,
-	Justin Stitt <justinstitt@google.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=softbase.tech header.i=@softbase.tech header.a=rsa-sha256 header.s=protonmail3 header.b=pPiSD5Lc
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=softbase.tech;
+	s=protonmail3; t=1793527082; x=1793786282;
+	bh=8xnBzjwCE8sPHtEp9RM3ZWkfBVkxawpnG/dVeRbBTaw=;
+	h=From:To:Cc:Subject:Date:Message-ID:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=pPiSD5Lc2qdIFUqqQ0hJX5aWFrXBB/VPR2bUzYhKQ3zX4/qdry12Pu8bAzmBtEYRr
+	 iPodWnQatHGVbNigMkL0mcx0JZ93rjajjkywKasIXm5+U/kpWYFOEp2dI2KsR82tbg
+	 vFPQ2rjpSBqo1GT8JHQ8G4AMCyRBPqonceDsf/Lz9nEOn9rfE1NVNS103Ofx3odV1r
+	 T0QrnAJ9gAlcnBTGUX9N4uf0IZwYZfWN/KPuGuAJQPox07kBBcbADeIdAqCw8V7GvV
+	 dsqJmz9GV1r49h/Qhv3abFIz49Volr3TMvesIbTkiPKRPjd+egr0vyon8hD+31gvnF
+	 SPFuSl0MsZTKw==
+X-Pm-Submission-Id: 4jHVdM62gvz2Scn7
+From: "Beat M. Liechti" <beat@softbase.tech>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Sean Paul <sean@poorly.run>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Federico Amedeo Izzo <federico@izzo.pro>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	llvm@lists.linux.dev
-Subject: [PATCH] clocksource/drivers/timer-mediatek: Fix "no-cfi indirect call" warning
-Date: Sun,  1 Nov 2026 10:55:31 +0100
-Message-ID: <20261101095538.1046918-1-l.scorcia@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	"Beat M. Liechti" <beat@softbase.tech>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: don't reassign resources on color management changes
+Date: Sun,  1 Nov 2026 10:57:45 +0100
+Message-ID: <20261101095754.33840-1-beat@softbase.tech>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,41 +75,113 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-After converting the driver to OF probing, kernel-test-robot reported the
-following new warning:
+Since commit 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide
+GAMMA_LUT DRM property"), dpu_crtc_atomic_check() releases and reserves
+the hardware blocks of a CRTC whenever color_mgmt_changed is set, not
+only on a modeset. A commit that merely replaces the GAMMA_LUT or CTM
+blob of an active CRTC can therefore move that CRTC to a different
+CTL/LM pair without disabling and re-enabling the pipeline, and the
+hardware keeps scanning out through blocks the driver no longer
+considers in use.
 
-vmlinux.o: warning: objtool: mtk_timer_probe+0x23: no-cfi indirect call!
+This is easy to hit with GNOME/mutter on a laptop driving an external
+display: closing the lid disables the eDP CRTC, and in the same atomic
+commit mutter sets new color blobs on the still active HDMI CRTC. With
+drm.debug enabled, dpu_rm_reserve() moves the HDMI CRTC from CTL_1 to
+the just released CTL_0 while its encoder is neither disabled nor
+re-enabled. A few seconds later the display SMMU reports context faults
+at the refresh rate and the external screen fills with garbage. Opening
+the lid again leads to a stream of "vblank timeout" and "frame done
+timeout" errors and the machine has to be power cycled.
 
-This occurs because of_device_get_match_data() returns NULL when
-CONFIG_OF is disabled, which results in LLVM dropping the kCFI setup
-since it knows that there is no valid target for this call. Adding a
-check for a NULL timer_init avoids the warning and it makes the probe
-more robust since of_device_get_match_data() could return NULL even
-when CONFIG_OF=y.
+Color management affects the topology in only one way: DSPP blocks are
+requested when either CTM or GAMMA_LUT is set. Handle that case in
+dpu_crtc_check_mode_changed() by forcing a full modeset when the
+presence of CTM/GAMMA_LUT changes, as msm_atomic_check() already does
+for the CTM, and stop reallocating resources on a bare
+color_mgmt_changed.
 
-Fixes: 7a097aba7255 ("clocksource/drivers/timer-mediatek: Convert to OF probing")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202610290223.iOEGeDs2-lkp@intel.com/
-Suggested-by: Nathan Chancellor <nathan@kernel.org>
-Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Fixes: 39a750ff5fc9 ("drm/msm/dpu: Add DSPP GC driver to provide GAMMA_LUT DRM property")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Beat M. Liechti <beat@softbase.tech>
 ---
- drivers/clocksource/timer-mediatek.c | 3 +++
- 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/clocksource/timer-mediatek.c b/drivers/clocksource/timer-mediatek.c
-index 842d6ee4259e..e772f5fe8742 100644
---- a/drivers/clocksource/timer-mediatek.c
-+++ b/drivers/clocksource/timer-mediatek.c
-@@ -353,6 +353,9 @@ static int mtk_timer_probe(struct platform_device *pdev)
- 	int (*timer_init)(struct platform_device *pdev);
+Notes:
+    Testing: ThinkPad T14s Gen 6 (X1E78100), GNOME 50 / mutter on Wayland,
+    LG 4K60 monitor on the HDMI port (DP to HDMI bridge), logind set to not
+    suspend on lid close while on external power. Without this patch every
+    lid close reproduces the corruption and hang described above. With it,
+    closing and opening the lid produces no SMMU faults, vblank timeouts or
+    frame done timeouts, and both displays keep working.
+    
+    That testing was done on a v7.0.14 based distribution kernel (Ubuntu
+    7.0.0-42.42). On msm-next the patch has only been compile tested (W=1,
+    no new warnings), not run.
+    
+    Open questions:
+    - Like the existing CTM check in msm_atomic_check() (see the FIXME
+      there), this sets allow_modeset on behalf of userspace when the DSPP
+      requirement changes. Rejecting such commits without
+      DRM_MODE_ATOMIC_ALLOW_MODESET would be stricter, but could break
+      compositors that toggle GAMMA_LUT at runtime (night light). I am happy
+      to change it either way.
+    - The RFC "drm/msm/dpu: Force modeset if new CTLs have been reserved"
+      (https://lists.freedesktop.org/archives/freedreno/2025-March/036824.html)
+      addresses reassignment without a modeset in general. This patch only
+      removes the color management trigger.
+    
+    The root cause analysis of the drm.debug trace, the fix and the
+    changelog were developed with an AI coding assistant (Claude by
+    Anthropic). I reviewed the change and tested it on the hardware above.
+
+ drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c | 26 +++++++++++++++++++++---
+ 1 file changed, 23 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+index 42d0a529b..3b304a896 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_crtc.c
+@@ -1516,6 +1516,20 @@ int dpu_crtc_check_mode_changed(struct drm_crtc_state *old_crtc_state,
+ 	    (!clone_mode_requested && clone_mode_enabled))
+ 		new_crtc_state->mode_changed = true;
  
- 	timer_init = of_device_get_match_data(&pdev->dev);
-+	if (!timer_init)
-+		return -ENODEV;
++	/*
++	 * DSPP blocks are reserved only when CTM or GAMMA_LUT is set (see
++	 * dpu_crtc_get_topology()), so enabling or disabling color management
++	 * changes the hardware topology. Changing resources on an active CRTC
++	 * requires a full modeset; otherwise the CTL/LM blocks get swapped
++	 * underneath a running pipeline.
++	 */
++	if (new_crtc_state->enable &&
++	    (!!(old_crtc_state->ctm || old_crtc_state->gamma_lut) !=
++	     !!(new_crtc_state->ctm || new_crtc_state->gamma_lut))) {
++		new_crtc_state->mode_changed = true;
++		new_crtc_state->state->allow_modeset = true;
++	}
 +
- 	return timer_init(pdev);
+ 	return 0;
  }
  
+@@ -1534,9 +1548,15 @@ static int dpu_crtc_atomic_check(struct drm_crtc *crtc,
+ 
+ 	bool needs_dirtyfb = dpu_crtc_needs_dirtyfb(crtc_state);
+ 
+-	/* don't reallocate resources if only ACTIVE has beeen changed */
+-	if (crtc_state->mode_changed || crtc_state->connectors_changed ||
+-	    crtc_state->color_mgmt_changed) {
++	/*
++	 * Don't reallocate resources if only ACTIVE or color management
++	 * values have changed. A change in DSPP requirements is turned into a
++	 * modeset by dpu_crtc_check_mode_changed(). Reallocating on a plain
++	 * color_mgmt_changed would move an active CRTC to different CTL/LM
++	 * blocks without a modeset, leaving the hardware scanning out through
++	 * stale CTL/LM state (SMMU faults, corrupted output, vblank timeouts).
++	 */
++	if (crtc_state->mode_changed || crtc_state->connectors_changed) {
+ 		rc = dpu_crtc_assign_resources(crtc, crtc_state);
+ 		if (rc < 0)
+ 			return rc;
 -- 
-2.43.0
+2.53.0
 
