@@ -1,100 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.217.51
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793545024;
-	b=rXFpZnJyE+ZYsyJxdTpJUBO3ui9DyWvW2lyny9D77BJCr2XIhwGxRxI7eC/Bnu6+E7qb
-	 eD0EG8T7mcHfgdfeuVXXIqZNuo/zgeKmlqgw6/nC0tj6v+V1fOweaFnrEIkP0fwtBZYCL
-	 sCRtbwsQwur10mIJJJhnixvD+0ZZA9WZ2Crjf+rMLS+XEeSUDu9Wvq+rutivIvZSmYsUF
-	 gI5dk7TRRTaLuQjF8RAV7rKD7Jc39Jz7KOGaLSJCLDbNUVtQjsxNA2uRl2QprhZ2sMxpl
-	 tsSS/BHxWFSD5eXqEbvCbnMBm3bX1qFhpDMKIMe6MSqsriGFg0ORJtul09Ig5YoxgaA==
+	t=1793545050;
+	b=EO6xLi8xnThDwEdPNkhwyvEBot1kcex7A3o24kJoMNuvTYn7UW5UHUzRH8LQrledNzd0
+	 k9onJkCwsCjR/QyZg8TghOYvQd3oK2wJPy3vuNqYrr9ipezh+2cvycnBKcwjJfzW+d0C3
+	 Kvlz+5h3/IQ4+sbJ9uwec6eoRSUu9fGTI1rfFqq9J3yxxDCg3Kuhi9LdtaqGxsk2qTskj
+	 SZ7lvaV/1B8SYHNL6GWA0+mVpaySWCollzbjKJcPwd4ji/IxOISP+GRk06XFKyL1mAyow
+	 VHLWA2Qphtoe04nww1WBf4TH5ouYaXqz9+cuocFWLjKeoqJmzePIsdItHqzo36b8kEA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793545024;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793545050;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=L5lhL2beYV7BhyhbK9ACbFrNrJXtxDi/4b3LA9oMRFA=;
-	b=3mIYNULbhd6HWroEZp5rYWeoJXMKz6/obYaNadEAnlKXGUm413UB3ZhZbDso2Rtf7Ce3
-	 0jTIXV4b+nUK+ZP1Si3McuM0CnigCUODnbQGXy0R/nOFdGw5AC7Qe+HfQ1mgYHIQF+PMc
-	 UhU0qqB4T5SZbS0SW3p/fy/HsiVbfKyiOjKN48BKIRnO0XEEbd9AL17+JmnZbxcvlLQ78
-	 fjqTnUFIbny/e6c244QLKWBFmRtmDQD3jEr+np4C9iZrBT6rIW5mJuWGwfRkdNAGcsEzM
-	 7M1dOCWgIj97Kqc+97f87bqlu+ZflPN2ONfOVAakTHDlVdlJooN4OrL7tzjaVrrpayA==
+	 Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=PGMqY+oZ0RvA46OKAo95DoA/lt7CWx4VsMgHlnaoQfk=;
+	b=lbOL89yRqFhwXlY3eDuCNdRz2C6LAzDddJU47a3MdewY8Yz7xAenQlLSbQ6Wj3oy0X41
+	 xlX1l4tq+mdTjMfS4eRdjnOXGkxyY4ZGL/xi6KfG3eiMoyAjrrWkgMATsT4TsmhalpRv0
+	 8I2zHN6FMNVCa7CXvMTj//dJ0uUZMl/Pq0R2ieAkc3pBgUAxkr5fFDQBvJUbNPW83VGm8
+	 /b+H3zB8UaXv49krzV3GbLuE4CVWBKAO/DwAkbGJWPxsEimbt3v/YYXwgsh23aDcIaeE+
+	 JK0ZKvf/pWiUFiE/hqf7bapmr7xTVnH5d4kM/KCQTyuWZLyktfdTA9rbzC0MZTv9Ncw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QILQC8FE;
-	arc=none smtp.remote-ip=209.85.208.54
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YnrXzXXD;
+	arc=none smtp.remote-ip=209.85.217.51
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com [209.85.217.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3922606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:57:02 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F3922606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A353606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 14:57:28 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0A353606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=QILQC8FE
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6b2237b596cso4433248a12.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:57:02 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=YnrXzXXD
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-745497ac8fcso876336137.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 06:57:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793545021; x=1794149821; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L5lhL2beYV7BhyhbK9ACbFrNrJXtxDi/4b3LA9oMRFA=;
-        b=QILQC8FE1WP2+aAvEV5glCxGnqssHHiRDH4Bu+bW8/rLzjezvWaIscoeNvwWY0XwtV
-         sWHqhXZPQ7neMkYKtck2VSHZNgGryHhvszLlcaHpX0eKJG6x3qHlVq9spSPe2Eil1bUU
-         ypGY9bWkGdrR8srF791MX7a7V0FS9IIiPee37U+7B6IWG4XhsP9cp10JcNJ/9+wFWwU7
-         M8jGKwrD9Lpywn53jH4enEhA23ZsaSkSfLkffVHQyYINkGxF+Ur6zXpiBpUN/DV2Fd6s
-         F0lDxNiSGF3vi/jU/N0VwGR+acvhKAnc6eL9NLSuuBxEyCrXlfBU7OUqVeW8AYRX5yRO
-         9P+Q==
+        d=gmail.com; s=20260707; t=1793545048; x=1794149848; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PGMqY+oZ0RvA46OKAo95DoA/lt7CWx4VsMgHlnaoQfk=;
+        b=YnrXzXXDO7AHeU25pOIfi0Q6lPUH72unj6hi5PzCFWFZGiCB388hJtBD4DzkllGc0J
+         WjYLOaesnpl2Ohx2FSGQZ7elGKhBPrhrMVAFC0sbmKfpxK2SBy0nYgvnF+rduLVKFnx8
+         HTTNgv3IVA3IBj3uVKN+W6/NnvNeDYQTzm0P/2p+qvHzppQ3RhVoZOFRu/NGE2/RKSLz
+         yl/ECevi5DevNrtT9nJzjLqRv8mVzjwhfJ3+lB73hYrq3W8PuFf3375FHd7pjS/wsQ1S
+         hqa4GbMgsJczYccs1pMnSzN2k8J31zSr2av627d2jfhIEAdGJ2dKq1AnkS0RDkJIVjJI
+         JNXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793545021; x=1794149821;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=L5lhL2beYV7BhyhbK9ACbFrNrJXtxDi/4b3LA9oMRFA=;
-        b=vHP5FANZuVL+Oqynf78hf5O2sqz3eYqBMfZGJ8r4K2T85rk4rYS5xVt3UQ5SMagBtV
-         jS9lhfbzOVvky5r2vozu0kChp8ZDNuL44doP0T4yBAhOViZoUsFYi3UYTdPNz6o3Vti5
-         I0rD2whsg3MrOh+Yxj4/d/CAKIMWLzAj05OUcu4DpdG+Zkd/ezBntkFq55/oW/Gnq1u4
-         ksJTzBITnOTroTZJltOP43hcLa8QAUP6sMFj/LLYdNw7BpFnU3EFwstZUvS+kOEHkc+4
-         EnxZM10QBEfBfAPWwPUvwfUrn76+goiyOUBZqjkNRC3m/LKUrXJgwF/Kb/DgAq3/Umqs
-         9qMA==
-X-Forwarded-Encrypted: i=1; AKwUvBxas9TyRr5/y3FDeubFcL1lXmmb134ZpJJND6vBx6cGeeWQYT//GvzfVuRZKhtHynzxkSFpqdGalryHnz4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9txKrsBiIb3JceX14ouyIatD5rMuoN9N8UBzletoTuwjQgo5jX
-	sXlfuzv7KCnsguftCWA/55FVLxt0pEfzLYzY08aNY3Xt6UJyHNjU4Q3M
-X-Gm-Gg: AYBFou1Y94RbIzjdGrxdJewj2D205HxwGuED1t6wTWVA6ZLhv+dNEyWmMx8J0qbOIjf
-	YvqYhMD8rrLZpyx5ZHHCrp2W7lL5S9ww121c6SO/krtVDbePAo0SHvxXSOQT3glcFPLs29kUJhK
-	00v0BHFVKtY9dcyiglTpPMVbuqiDSDyVHJzdsTXOYG5UnLCCAeheG7Bbu68PWyc7j1psgk0LNiP
-	W88qWaX9wLoBZgSpw/JDo6yYsddEniGes8JsoyZMrQoE7AszlLfKyA9cNXIjUeErbl92o1nBpUi
-	Dhj9G4m7NlsYODc00XSL2CtBWgeRSLFVzSlTC1+p4hTZQbJu2ZMIqfl1FF0JOgqej7fgb8MCM2j
-	1B417ccR4AWoSKS6NK2DlULTMpAcaWqFCsR8TxDKurYcIDfpgZUjfpU93mopLdywnDlOV/04tgB
-	YJiX81TjzNSEZ0/dcWKnpx3Otd6hokoG6kcWFO6v/q78J8ZhTx5UJJv9ajH8cKi1F1pIvsmJjIY
-	MPK4rlFgeyIptNeAT8anj3w8DDTzBfGmvxp01oi3GSw4QEL7jphIKEaSM5bZvu2Wvb1dTLM4UTH
-	Ips+NP8dMhH0G5wztnhxTLt9kz+S0XrrZrHXS1Ufl6CL
-X-Received: by 2002:a05:6402:a50b:10b0:6b4:27a:38f7 with SMTP id 4fb4d7f45d1cf-6b4d46841c0mr3541426a12.22.1793545021117;
-        Sun, 01 Nov 2026 06:57:01 -0800 (PST)
-Received: from stukan.bbrouter ([46.201.91.224])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9ee975sm2166587a12.13.2026.11.01.06.56.58
+        d=1e100.net; s=20260707; t=1793545048; x=1794149848;
+        h=content-transfer-encoding:content-type:mime-version:subject
+         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PGMqY+oZ0RvA46OKAo95DoA/lt7CWx4VsMgHlnaoQfk=;
+        b=sfDb6kYIUIySZh8yuH3Pr4pX0HxJyE/GBvoazorhPoQCK5nlGanwFurz3jxQhyjV0d
+         jJbTH+nvcU2BHfUok2qjgNxv0tXLTUc+53gQo5bhQArGMQOXe502mpOt/DN8gdgtY8m/
+         DB01X3RTlulBcqNXHZA7aR2gfcsQqm/Aw2q5ueHqMGwEpL7scolhHvubpkY2yzPvzhyA
+         JMa8gDVvgvw5H+Tm78SZj5STdeB7MFH99BHm/Ga2fKM5bkrUGr6moZBQkP/umccm9HsK
+         ACUOkK3VIKrYWZ7JYCe8c6i2ZPVa/uDWOkTiWBMo0+8QdI1HowSpTj7g1c1VTnu4zGGm
+         7Djw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1ePlX3Lbbewk43caiVP90n9cReuZyykNlz7Rx90D2Gd9tZYRSMD5n5CI2ePcnWnkGXGmAdTPLlzWuOG0=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkVvofZwZT5FKB4XUQAkv8MUPFDfo8IJE767k3Qp9WIX3dmAis
+	K96rn1oehf5CVmYlwPIV1fv4s+hW0/hLpQ6oecixx+wEm0k8pCNj/RizZKQXig==
+X-Gm-Gg: AYBFou3zb0BCJKSKaJZ5RQgRlgLfpOEJ27Hv8Qn+kQi82Hti5ews1rjBBeL16GvQnra
+	8z4Xn7FtfcmBvT8VSnwsA97XMX3EOcg1/fadMId8yix9ZOdbpC+wvHO8yxxxZ5ipIgcuzNoXtpF
+	GeIbFni/ltrwasGVVFr/X4CufX9hj7iErEk++SeYABktV66Y2yRJ41rSLjDouaELfyvxjtD1/Oz
+	O8zpZO8tnWySf1ZUd5O5YdOCu8/2fjvOu5h0L3W5GGiGcDppvoCsZRzHesByoDpGO9TubeqsEp6
+	xEy4bfEjSYnrWvI+Jxdcqauonah47kag4aBWDaoICmPB31i6qEVIA4rkqvhjeiYV3eBGoZq7C8c
+	8O8e2FEToF9BBIwTGN2M58RTfV5cBD8ga5WWATyxF3wwXl1XjMw3bpXg6nXr+bitCGkkm87VEmz
+	Gee/+nIuo1Bq8o01UJ0sD1Hk9W8w6fz0oIfzHl7AAFukmI7sgtMXOA+6qaUJ7Uw0dFsKDfOdel9
+	0SEpwdKKAT0Z5qUbkhMgk+OUDCVc7E/uJAAEoJDsbbXLj+O28d7woAKff8xC6T/zTDPl0NwfKWc
+	hbHgI/Gytr8ZPzkn7t3g11ZPYi5wUeYmvYNRwO4Ij1Ugz9aj9vVfSe94bjEnBTRNgfDuTTZPNGj
+	wlFo4CqY4o5uL1M1/SelMYr/kSDq2lTz1beZwLGEUKeps4LtehyfIXjfGtXZccsQ2pGn1
+X-Received: by 2002:a05:6102:5709:b0:7c1:f530:2d8e with SMTP id ada2fe7eead31-7d072d33bbemr3289437137.35.1793545047921;
+        Sun, 01 Nov 2026 06:57:27 -0800 (PST)
+Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-992edfb5511sm9722277241.0.2026.11.01.06.57.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 06:56:59 -0800 (PST)
-From: Timur Stukan <timur.stukan.linux@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Hangbin Liu <hangbin.liu@linux.dev>,
-	Nikolay Aleksandrov <razor@blackwall.org>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Timur Stukan <timur.stukan.linux@gmail.com>,
-	Jay Vosburgh <jv@jvosburgh.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Jarod Wilson <jarod@redhat.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net] bonding: 3ad: don't set BOND_LINK_FAIL on a slave that is not up
-Date: Sun,  1 Nov 2026 16:56:53 +0200
-Message-ID: <20261101145653.63648-1-timur.stukan.linux@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Sun, 01 Nov 2026 06:57:27 -0800 (PST)
+Date: Sun, 01 Nov 2026 09:57:26 -0500
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ "Michael S. Tsirkin" <mst@redhat.com>, 
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, 
+ "David S. Miller" <davem@davemloft.net>, 
+ Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ =?UTF-8?B?RXVnZW5pbyBQw6lyZXo=?= <eperezma@redhat.com>, 
+ Jason Wang <jasowangio@gmail.com>, 
+ Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: Steffen Trumtrar <s.trumtrar@pengutronix.de>, 
+ virtualization@lists.linux.dev, 
+ netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ bpf@vger.kernel.org, 
+ kvm@vger.kernel.org
+Message-ID: <willemdebruijn.kernel.1d6388f036c46@gmail.com>
+In-Reply-To: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
+References: <20261026-v6-7-topic-virtio-net-ptp-v4-0-008af03cd43b@pengutronix.de>
+Subject: Re: [PATCH RFC v4 0/6] virtio-net: add receive timestamp support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,78 +118,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-In 802.3ad mode, when bond_update_speed_duplex() fails on NETDEV_UP or
-NETDEV_CHANGE, bond_slave_netdev_event() sets the slave link to FAIL if
-the slave has ever been up (last_link_up != 0), and to DOWN otherwise,
-so that miimon can set it right once speed/duplex are valid.
+Steffen Trumtrar wrote:
+> This series picks up Willem de Bruijn's work on a virtio-net receive
+> timestamp. The device puts the time of arrival (TAI, ns) into the
+> virtio-net header so the guest can use it for PTP and RTT estimation
+> without taking the timestamp itself after the host-to-guest latency.
+> =
 
-last_link_up is never cleared, so a slave that is currently DOWN but
-was up before is set to FAIL as well. miimon then treats it as a slave
-that is still in use and takes it through the full down path again:
-the link failure count is incremented, "link status definitely down"
-is logged and the 802.3ad port is disabled a second time, although the
-slave has not been up since it went down.
+> The series is an RFC. I am mostly interested in feedback on the
+> approach and on the wire format:
 
-Reproduced in 802.3ad mode with miimon=100 by setting a slave down and
-up again. On NETDEV_UP the speed is still unknown, so the notifier sets
-FAIL, and the next miimon pass sees no carrier and proposes DOWN:
+At a high level +1 from me.
 
-	ip link add bond0 type bond mode 802.3ad miimon 100 lacp_rate 1
-	ip link set enp0s3 down
-	ip link set enp0s4 down
-	ip link set enp0s3 master bond0
-	ip link set enp0s4 master bond0
-	ip link set enp0s3 up
-	ip link set enp0s4 up
-	ip link set bond0 up
-	# wait for LACP to settle
-	ip link set enp0s3 down
-	ip link set enp0s3 up
+Some comments inline.
+> =
 
-procfs then shows "Link Failure Count: 2" in enp0s3 slave part. Also in
-dmesg wrote twice: "link status definitely down, disabling slave".
+>  - The timestamp is a new field at the end of virtio_net_common_hdr
+>    after outer_nh_offset and ipsec, offset 32 (see virtio spec),
+>    negotiated with VIRTIO_NET_F_RX_TSTAMP (bit 49). Header size now 40
+>    bytes.
+>    Willem noted on v3 that virtio_net_common_hdr was not meant to be
+>    extended this way; I kept it as the simplest approach, but a
+>    separate struct for the timestamp header is an option.
+>  - Timestamping is enabled at runtime with SIOCSHWTSTAMP; all
+>    supported rx filters behave the same for now.
+>  - XDP programs can read the timestamp with
+>    bpf_xdp_metadata_rx_timestamp().
+>  - vhost-net passes the feature through; the timestamp itself is
+>    written by tun. The tun patch is only meant as a reference
+>    implementation for the device side.
+>  - The timestamp is in TAI.
 
-Fix this by setting FAIL only for a slave that is currently UP and
-leaving other states alone. An up slave that loses speed/duplex still
-goes through FAIL as before, and DOWN/BACK slaves are left to miimon,
-as in the other modes.
+Is this a requirement? It is common for PHCs to be synced to TAI,
+but not 100% the case. Does virtio need to specify this.
 
-Fixes: ea53abfab960 ("bonding/802.3ad: fix link_failure_count tracking")
-Signed-off-by: Timur Stukan <timur.stukan.linux@gmail.com>
----
- drivers/net/bonding/bond_main.c | 15 +++++----------
- 1 file changed, 5 insertions(+), 10 deletions(-)
+>    The driver reports it as
+>    SOF_TIMESTAMPING_RAW_HARDWARE without a PTP clock (phc_index -1),
+>    so userspace cannot tell which clock it refers to and may compare
+>    it against CLOCK_REALTIME (currently off by 37s). Options I see:
+>    convert to the guest's system time in the driver (correct only if
+>    host and guest agree on the TAI offset), expose a PHC so the
+>    time base is explicit, or keep the raw TAI value and leave the
+>    conversion to userspace. Which one is preferred?
+>  - Like the existing rx_hash, the XDP timestamp callback locates the
+>    header relative to xdp->data, so it must be called before
+>    bpf_xdp_adjust_head().
+> =
 
-diff --git a/drivers/net/bonding/bond_main.c b/drivers/net/bonding/bond_main.c
-index 7019e5d8fdc8..8212d406f3bc 100644
---- a/drivers/net/bonding/bond_main.c
-+++ b/drivers/net/bonding/bond_main.c
-@@ -3973,18 +3973,13 @@ static int bond_slave_netdev_event(unsigned long event,
- 	case NETDEV_CHANGE:
- 		/* For 802.3ad mode only:
- 		 * Getting invalid Speed/Duplex values here will put slave
--		 * in weird state. Mark it as link-fail if the link was
--		 * previously up or link-down if it hasn't yet come up, and
--		 * let link-monitoring (miimon) set it right when correct
--		 * speeds/duplex are available.
-+		 * in weird state. Mark an up slave as link-fail and let
-+		 * miimon set it right when correct speed/duplex are available.
- 		 */
- 		if (bond_update_speed_duplex(slave) &&
--		    BOND_MODE(bond) == BOND_MODE_8023AD) {
--			if (slave->last_link_up)
--				slave->link = BOND_LINK_FAIL;
--			else
--				slave->link = BOND_LINK_DOWN;
--		}
-+		    BOND_MODE(bond) == BOND_MODE_8023AD &&
-+		    slave->link == BOND_LINK_UP)
-+			slave->link = BOND_LINK_FAIL;
- 
- 		if (BOND_MODE(bond) == BOND_MODE_8023AD)
- 			bond_3ad_adapter_speed_duplex_changed(slave);
--- 
-2.43.0
+> A virtio spec change is needed as well and not yet proposed.
+> =
+
+> Testing: the feature needs a QEMU that knows VIRTIO_NET_F_RX_TSTAMP and=
+
+> sets the matching vnet header size; see
+> https://github.com/strumtrar/qemu/tree/v11.0.1/virtio-rx-stamps
+> =
+
+> Performance: I measured the receive rate with 64 byte UDP packets in
+> a nested QEMU/KVM setup with vhost-net. The variance between runs is
+> larger than any difference between the variants (without the series,
+> series without the feature, feature negotiated, feature enabled), so
+> I cannot show a measurable cost or the absence of one. Numbers from
+> bare metal will follow with a non-RFC version.
+
+This does not seem performance sensitive to me. And it is opt-in.
+IMHO no need for extensive testing for performance regressions.
+
+
+> Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> ---
+> Changes in v4:
+> - zero the header beyond the known fields on tx and in vhost
+> - grow padded_vnet_hdr for the 40 byte header (big packets)
+> - install xdp_metadata_ops if only RX_TSTAMP is negotiated
+> - rename VIRTIO_NET_F_TSTAMP to VIRTIO_NET_F_RX_TSTAMP
+> - move tstamp to offset 32 (header size 40) to match virtio spec layout=
+
+> - drop XDP restriction for SIOCSHWTSTAMP, add xmo_rx_timestamp
+> - add static_asserts for header sizes
+> - add support in vhost
+> - move virtio_net_common_hdr to virtio_net.h
+> - Link to v3: https://patch.msgid.link/20260921-v6-7-topic-virtio-net-p=
+tp-v3-0-3350851c4f88@pengutronix.de
+> Changes in v3:
+> - rework to use virtio_net_common_hdr instead of adding new struct
+> Changes in v2:
+> - rework patches to use flow filter instead of feature flag
+> - Link to v1: https://lore.kernel.org/r/20231218-v6-7-topic-virtio-net-=
+ptp-v1-0-cac92b2d8532@pengutronix.de
+> =
+
+> To: Michael S. Tsirkin <mst@redhat.com>
+> To: Xuan Zhuo <xuanzhuo@linux.alibaba.com>
+> To: David S. Miller <davem@davemloft.net>
+> To: Jakub Kicinski <kuba@kernel.org>
+> To: Paolo Abeni <pabeni@redhat.com>
+> To: Richard Cochran <richardcochran@gmail.com>
+> To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+> To: Andrew Lunn <andrew+netdev@lunn.ch>
+> To: Eugenio P=C3=A9rez <eperezma@redhat.com>
+> To: Jason Wang <jasowangio@gmail.com>
+> To: Alexei Starovoitov <ast@kernel.org>
+> To: Daniel Borkmann <daniel@iogearbox.net>
+> To: Jesper Dangaard Brouer <hawk@kernel.org>
+> To: John Fastabend <john.fastabend@gmail.com>
+> To: Stanislav Fomichev <sdf@fomichev.me>
+> To: Eric Dumazet <edumazet@kernel.org>
+> Cc: virtualization@lists.linux.dev
+> Cc: netdev@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: bpf@vger.kernel.org
+> Cc: kvm@vger.kernel.org
+> =
+
+> ---
+> Steffen Trumtrar (6):
+>       virtio-net: move virtio_net_common_hdr to virtio_net.h
+>       virtio-net: support receive timestamp
+>       virtio-net: assert header sizes
+>       vhost-net: support VIRTIO_NET_F_RX_TSTAMP
+>       virtio-net: add XDP rx timestamp metadata
+>       tun: add rx timestamp to the vnet header
+> =
+
+>  drivers/net/tun.c               |  14 ++--
+>  drivers/net/tun_vnet.h          |  18 +++--
+>  drivers/net/virtio_net.c        | 171 ++++++++++++++++++++++++++++++++=
+++------
+>  drivers/vhost/net.c             |  17 +++-
+>  include/linux/virtio_net.h      |  30 +++++++
+>  include/uapi/linux/virtio_net.h |   1 +
+>  6 files changed, 214 insertions(+), 37 deletions(-)
+> ---
+> base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
+> change-id: 20231218-v6-7-topic-virtio-net-ptp-3df023bc4f4d
+> =
+
+> Best regards,
+> --  =
+
+> Steffen Trumtrar <s.trumtrar@pengutronix.de>
+> =
+
+
 
