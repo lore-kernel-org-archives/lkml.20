@@ -1,63 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571405;
-	b=Ceck/yzY5IkvxBWUSoZPRtR6V/lkfiIbe1Is5Zbs+PPjcp3AH4fTELl5DDbky0E8aKus
-	 lEVWfzoYzK8KBEZdBPS5/Y3HibsGRfSiseq0dmvy69EpaarRYnfz8O00RSdTBZ3cwuKzQ
-	 ocqvfzePCilP9+AFxEsvEbR7JVU+jmyWL6pZ+k8fd5ugb6ywQyc6x3p5KDosABoOehZgS
-	 toO5sqbG2YaMGtU/+zf+hpwlxMW4kHuy0UhgA2q2vl0+d1xRsoVU4+0W85Iri/UuS2+jw
-	 38I4exQZfmDgoqI+h7vVNFhP7N6344+KqnDKu0RbEVfL9UyGN5tkRwk9RgICn6I92/A==
+	t=1793571412;
+	b=wR7eoXvyvxCaL9OW9kB7G1q3W9rl6Rfnm+1knrrvhpiouRIr/qUzlM0P0u+G5QNCj9L3
+	 pecIkjy3mWTcXOuQsUx3yKYGpK0iphELos0wqEU1ifwaXPUqP9ZZ/F3nIXID/joJxF4d0
+	 bLj6fNgcmP22c2453o6zi1MGHm72J0qc6iY27E0Ps1MeoQY4+kr2vfL0VsxCs+SEhJkMO
+	 IEpOGlzS5aUnOaUfdJggRR4FlJcynvCG1O+VSXs3tzZf731bj3t43zd+rgLmVncGMCpbc
+	 KxvZr7zaBn+5UOLfZexK5KuFDgf2+zC8XnXPFUb1+CtxMSK9c8CySzGcKpigrv3QXUQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571405;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=P0/aAmuW0CyqaK3PactR+FND9DgMw/5CGgOfekT7jEU=;
-	b=lL+kMnls9Xi67Ts7RGKP9nam6fmuS+Xzm9E9RxU0HjmAUOuan2ljH6yIPlkBUX2jnIQc
-	 g/3iogNCMtBf5zNV98GEqpHCfCnJgXe8+75zgNW1ZJ/umPVhmrIbe8LXIuKg4wD+dpFGk
-	 4Rhz1Ka2ExpJY+w5Uwm+8OdAnJAoMFTwnFG9WeH4gndvUseQ9iQdHsSsCdIl9s/0i4qML
-	 ws8VECju6VHPwgP1zwvp8xImL8YLAfe8s7dMkiydsRRZcembz+SW/DqT7VVPswmIbsVCr
-	 5KXG/TJd5WaHBqeqPl5p7FjhB6X4wtL8K/g/vNubfmnxaLG1sY5nBgthX/k6HoQcLMg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571412;
+	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
+	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc;
+	bh=1M18UEoj2fkXVA3N5MwFODgLvNc8kgHEtwNhvCdbEts=;
+	b=0JfBMMg6S6ShaxwX8G+W1hWmkQUzEGejqJx5tHKZmrCk9Zw9s6/7lqhMCixtz3sFCeQ7
+	 OalrBa48/AbYweicuTlrYP1fSkZbv/5k+T3BzWXzdjRskM8R+SeJEYGJnIApIe0cLGoaj
+	 QLIcZiSgEhfIJ5/M5GNxYrppWYQ6uinYgpLPArzqMeTV0zeHSAvEoifRprhEmrWMcLzir
+	 sladll9yEVUU3k7obWdVo7aD7FOy3itlzifNdJPht6pZ47T/RVqNhxNlmltupftYDzvZ/
+	 /tobGmAMOQf9QDkoxHRJrAP8915RkJzY0bcu19W8UDp3X0ey1ZV8Iwyl/6PrDjGBo+A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=sntech.de;
-	spf=pass smtp.mailfrom=sntech.de;
-	dkim=pass header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b="jQ/cLWVw";
-	arc=none smtp.remote-ip=185.11.138.130
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ZsiFDt;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D45CA606D103;
-	Sun,  1 Nov 2026 22:16:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D45CA606D103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C5A607214C;
+	Sun,  1 Nov 2026 22:16:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=sntech.de header.i=@sntech.de header.a=rsa-sha256 header.s=gloria202408 header.b=jQ/cLWVw
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=P0/aAmuW0CyqaK3PactR+FND9DgMw/5CGgOfekT7jEU=; b=jQ/cLWVw1VGy7cg3FZP6Dt2sPa
-	fuCq8FAq+WocEnRYcK4eM0adoCG4B+ClDnApOIxd9sxhSgQH7p6nzuo9FavcnaYpXbQQuLuRgtXl5
-	t2LuOfUptrsgiwVK5Ed9yYhxYGrjfxy2a6ev7RQf0ZcVT/FDBO+aZJWoaKn72uBbyCcIxNvakD7Dh
-	xFiuIqkKVvjR/LcJjOgpOx6o0SrrQWWAXv/gR9Gyy9DDfY3yIVv2e/2YBEe74pDiDWF1G5LlVxsDY
-	PDhqR8H7CIpnAi+HS3JTGVqZCUQfXaY/MlpIQ/jZA/Z5yp2XhKkEDxnawWOPt86jbFbmbI6KS+klM
-	GCvTYdIA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Igor Velkov <iav@iav.lv>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the battery charger to Kobol Helios64
-Date: Sun,  1 Nov 2026 23:16:30 +0100
-Message-ID: <179357139334.4108484.16394732199796045492.b4-ty@b4>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261004-helios64-dc-charger-v1-1-0eabf0274d47@iav.lv>
-References: <20261004-helios64-dc-charger-v1-1-0eabf0274d47@iav.lv>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=G4ZsiFDt
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59771F00919;
+	Sun,  1 Nov 2026 22:16:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793571411;
+	bh=1M18UEoj2fkXVA3N5MwFODgLvNc8kgHEtwNhvCdbEts=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=G4ZsiFDtZ62yw/+PrdD8L5Da6gB7BqqsvG701dZBR1txA7fSnfvZerKJe/hPf9qvZ
+	 4dhfa7sn+SvyWYLr7JPbMzZROg2ndHcu7yFY9M8ejckEQk4zQGTsveX3hMKIkIAR/h
+	 PEOoFYc5ThbkMFFjiIdoT8PETipkrDFzVTx+1f+O/+qNRcnzOuAxDSUC01qJCR5DHV
+	 IwXAm8U8f+iDeO4dcnr2aFpB55Po8yP/uLgPpGwbX+WgwBeS9CZ3V717KQuYvMjhJQ
+	 epfyR6Fge8m1DNcfsWd/uIU03aC59pi4rQI3NJu/wm3NOxeMOZXb84fp+XODxAaIA3
+	 sDGSj81m6UQ2w==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA28A38003B8;
+	Sun,  1 Nov 2026 22:16:51 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,26 +53,51 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v2 0/4] spi: sophgo: Fix SPI NOR errors and clock limits
+From: patchwork-bot+linux-riscv@kernel.org
+Message-Id: 
+ <179357141023.2624073.834055517039065391.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:16:50 +0000
+References: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
+In-Reply-To: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: linux-riscv@lists.infradead.org, broonie@kernel.org, looong.bin@gmail.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ chen.wang@linux.dev, inochiama@gmail.com, pjw@kernel.org, palmer@dabbelt.com,
+ aou@eecs.berkeley.edu, alex@ghiti.fr, rabenda.cn@gmail.com,
+ lihangfan@iscas.ac.cn, linux-spi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ sophgo@lists.linux.dev
 
+Hello:
 
-On Sun, 04 Oct 2026 22:39:58 +0000, Igor Velkov wrote:
-> Helios64 has a battery backup built around a BQ24133 charger. The
-> charger works on its own; the SoC only sees two status lines:
+This series was applied to riscv/linux.git (fixes)
+by Inochi Amaoto <inochiama@gmail.com>:
+
+On Thu, 01 Oct 2026 02:22:49 +0800 you wrote:
+> The SG204x SPI NOR driver ignores transfer errors and clock limits.
+> Fix both, enable SPI NOR on SRD3-10, and use 12.5 MHz on SRD3-10 and
+> SG2042 to match EDK2 and the vendor kernel, respectively.
 > 
-> - VCC12V_DCIN_GOOD on GPIO0_A2, a divider from the 12 V input, high
->   while the mains adapter powers the board;
-> - CHARGER_STATUS# on GPIO2_D3, the inverted STAT output of the charger,
->   high while the battery is charging.
+> Tested on SRD3-12 at 12.5 MHz: both flashes identify correctly, SFDP
+> reads succeed, and two full 64 MiB reads per flash match.
 > 
 > [...]
 
-Applied, thanks!
+Here is the summary with links:
+  - [v2,1/4] spi: sg2044-nor: Return transfer errors
+    (no matching commit)
+  - [v2,2/4] spi: sg2044-nor: Honor SPI clock limits
+    (no matching commit)
+  - [v2,3/4] riscv: dts: sophgo: Enable SPI NOR on SRD3-10
+    https://git.kernel.org/riscv/c/0fe449e8ff7b
+  - [v2,4/4] riscv: dts: sophgo: Limit SG2042 SPI NOR to 12.5 MHz
+    https://git.kernel.org/riscv/c/a3a8c25c59f8
 
-[1/1] arm64: dts: rockchip: Add the battery charger to Kobol Helios64
-      commit: 5a4ee10520cd66f294b86645423885c1845ccdd6
-
-Best regards,
+You are awesome, thank you!
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
