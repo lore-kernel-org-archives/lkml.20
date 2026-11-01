@@ -1,47 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793557139;
-	b=ait0dOPQ/Fgq9DOe8Mznny3MZLA2o6UOenm+Ui3L0b/tOi8BUt0ko2Pd8VM4wNfLNDHu
-	 j78DMu7E87MzBLazDble0QJxc20ulMTcU2eOowgWNOvNV8uKFngCHMKouYcmz4uEJ65pS
-	 vM1G/2SlNGY1yzUg1fG3Gcws1CbCvkcUD1iQAo8e5pEuIGY6+jCryVCKthuvxMEJMm74M
-	 Ur7ajqrbYz61vOrbaQfQ9uIy+AvNoYDUxH6Pc8SfPc6T9NlTM1fPo+u7HI2JQcZDXxzYy
-	 WlchmRg7exMwv66UFgmstlSxJqdTxpbnGH6+iJbiIbKuD8+dH+goM9UCbD0uK9X/zow==
+	t=1793557323;
+	b=dvhy0HcISld/sokZC65zSKdilLiwLefV38jymqShT5EcC8mw5lmzgjfirzkaMr4Djpt5
+	 gJKNnIUblAnSEEc7MxzhQjy/QFNPpS0LgGQik0qGElZ8sFNbtozMgB3M83TrPCOkkkTu4
+	 w9jyxcRki6hJ1JergGtTc9d9wsh+UwsJ5KZlM/OF0Re6xNQoDGQsl7dDHx1IMBObqW3V3
+	 oInpk1xWe24wZX6V82Y9Y/VRyDh05B540xa9f6pLdTv3S+AIEAGHDKpey1ppoaF6LtN4+
+	 VvQ8kcrcp+hoT2s/XCGf0MlMlg/7YXaQ0FxhT6WZyoWTyZfySwp0Urq3hevl0+FHgyg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793557139;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:From:To:Cc:References:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=Ufkw0mhxgeNgH2/pQ2q7PPe3Br8wC4VML0hZBdX1Pi8=;
-	b=SG/T/ksRFwv1tuQzEwl9ZCFqTwpi2ikIDp0e0x2MKvRjfBBqbasTJgZnB1UGq0X/p8I4
-	 +/HiLh+WjxZaZTgVliJbPpYkPXGGuZObp5LtjfkvfNIdJQ5BlLMxpSUQIp7AfdiY8Zhnz
-	 ADpOvNwg4sWzcVDqUQa5iMaS1NgHaxOzPUK5BoagZ35FlN5UzIV36jEbld/eP7bHagP15
-	 XTeLJq2/USYwdKrbbcQLqP41j0P+uPTB7tn/hKnIT0gKeEqDEn267VPVA+MTQV9xW95pq
-	 l8M+RN2tXkeymQN5BN01mb6M/7DXZ84Kp3gKfIfrR+5+VWC4ll3DMKIfH3dmSfemIGQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793557323;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:X-Mailer:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=mlISQOHGH/cpnL0817uRuQcIGOT3seVGDHgC8ES2oDk=;
+	b=LTMwPphIKWOtlgbJpJPbjFW598bC//L4g2aUNyzqLszwaRHghbAqszTzTHW7qbKoqhwv
+	 poE6wdd79KdUNffcmkO7efhrrUI0ceBdwTeDsDW/guKGyIFin/mQRIrktOQX8Q7qXvwb0
+	 GrGVsF1VDEZxwt7RCPvwAqp+qQHbrqbt73mR2n3QTkxavV1GD5HEGvbfzIrlcipbz8Kgx
+	 k/xmJ373A2oC36dx9hmnwS97SVRSUHCTbXtyQ5pulg1ytBP2MWZgTaR/w8EukDoNLI5fx
+	 wzYcaWyevlsOySYSWDaf8jbawN65ZJdIRPC8IcMgHLxdJCEAyjeL42RGdIhsSDRYcwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klz8DA2W;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FvAUL1uS;
+	arc=none smtp.remote-ip=209.85.221.53
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44A5C606A324;
-	Sun,  1 Nov 2026 18:18:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A6A606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:22:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4A6A606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=klz8DA2W
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ECA31F000C1;
-	Sun,  1 Nov 2026 18:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793557138;
-	bh=Ufkw0mhxgeNgH2/pQ2q7PPe3Br8wC4VML0hZBdX1Pi8=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=klz8DA2Wy4v8itPMM2Sk9hjHDXFe4ZdxZ7Wm3kSIbNIjgq2j0zYuwD3dHhzLIsL0e
-	 4zKr0h4je0AERM9ZjdXzQgALGxnA98fIsYFgDKnS+aeSps60tnSRzpaw2RJNLqRveY
-	 5tSqwghmdVskVhQLiTUVhkKxF+1lg2G48aFjA+jvhYGJnlq4x/ruqGjVl8SSILlFJ7
-	 t4XRAy1rUINCeozRiHO9sXtJmZuofyoT4naAPHaZaTGPifbJmkANfnGNglb+yUCEGZ
-	 AeS0wXa8ZCWPh18XTbEWZyvoDH8pgu5Y2P7HBtGjqfkG+FTJhEtIpKe5JAFxSMAIkI
-	 bF9wyBE8cQqEA==
-Message-ID: <da1dc033-9131-4b77-9443-a8cc82fd7e58@kernel.org>
-Date: Sun, 1 Nov 2026 19:18:52 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FvAUL1uS
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48c4d870d54so1297826f8f.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:22:02 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793557321; x=1794162121; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=mlISQOHGH/cpnL0817uRuQcIGOT3seVGDHgC8ES2oDk=;
+        b=FvAUL1uSmCc43Z/f6EFXxE8JNxxFA9pNWbLLLMDPEKa+qEUMPJAhnF4dmaRRHs9bRD
+         5/1cmt2u7a7tZnzb2XHKaebLxgSXTuazVQ6LabIJjyAHGIrF1AdiOOwZnWFvs7OLtlsa
+         2c41Nrbp2zxYZN29eVMuqzfl1zZQi+GI324zq1iqRfYgG/UjasAmTALBLFTWfb0VuY0R
+         iQT/NVeP7qAiCywr8tXVq8tqrfR7bWZPJWmBJv4z9rNR39gtvMA9vqKAfM3ATR2LGi6U
+         WPrOJTXeSk7jxV5WhAT6LmwxvHb+BFFcPMTf3lUFnBcxskvE8GQ/EEzTp25/qePU8QkW
+         eWbg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793557321; x=1794162121;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=mlISQOHGH/cpnL0817uRuQcIGOT3seVGDHgC8ES2oDk=;
+        b=ADqHX0/DuieiL0QWaa1JA5X1s24uZ9bJWWj6ivp7sfiR7mOOCQ1bficYcgR1p+oNpp
+         9EwGxk8tzYrrNlarJPGw3zMFeLf9CT4IzJT1Rc+xnFWYA0+zj05qrcWQDyf9NDztzSui
+         RJ/JDIBG430KmUrHEE16fU6MPg4Q/GFxNMdv9V0JZLxUs00l1Y5xH0dsYzlBm2c28Pxf
+         ZKfRy3QaxCqJfmAct0R8de0SJmQ5wI7QnYBlXEee6tSFD7qpcpQAJoIqpM7Zl8QHExXX
+         bWPEZIk2tlN8ZaLmZC3eIyHQRzzeecyOPYeNtPbtj7TntD7VOZ+M6pe3/iRnISUEjha4
+         t3xA==
+X-Forwarded-Encrypted: i=1; AKwUvBx6Ye/rIsVq4NKsU1vP12GHz9WbmEGQG4mdkLpkEq/g3A7o6Iv0+qP0zTw0B5KP8g68MpOQ+P8jrA+2Z2M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKBiSMlk0iUawx84aEC+i6YHZ5Vdqbcu+p0V4ZCqqUVDk5nrA6Y
+	LhOYjc2gEiijtYepSXPK04pr89zFUnPWcJ1c0vJqRM9AUAcOmx/gl5Ps
+X-Gm-Gg: AYBFou1yTexNskD6k2lIjXAugIX9kDPoK2lhfzVf1YN4ttHjhf952Cp3ZkQZz8DdhZQ
+	WdJNBXG2+FJh+GUaHYTqTC1OVpW/FtJxOCo8PNTkIN1C/AN9Oq6QIrM6Krrk8uWU06Nd2RXB9Hw
+	c5YHWLvFIIZJRrcW6K1Q4+7wpO1JAsuFX6VPVx1oz++Hk8adlyCktVgJkct5e2SzJCWMvvj8iM/
+	8rA4K2nCjxQolHrcmAbSwnYHcyMwRn22XgQcXG+Z09O1lNoSaDgvdXuo24ZVrT/Pu94Rupj4o38
+	hQOFH69KP7zwEYNMJIXpuLshrlbdcinIuoHD2reYLNpoPbDAE7RGOYl0XcbmbeayZUA54byNY4g
+	LOKHcVYytH+ihfTml+GZx/V7+suOxS/XCi4yFxH6sfAj/XGiKq9JNGxMD/LMRt4i3THjomrgvdf
+	Knj+/pI0cuMVec371oTWXhxCfm6XIngEA9Ls8dP4R5WdSB9sR9ZxNpgo1skaCX0zb2oFTk9/IZ2
+	O0kwuW7odxbtOsrYBYt6+12WVgR0hK6FRVi0Nex8wrzMOOTeT9HqUjdIpJlKmQVos7NVUjdDxjk
+	N4tM9lo3VPXKGMV56fc2BFrUXM7gcNDwcJAO7VGfY7qc6crT8noVDG874EgReKwr
+X-Received: by 2002:a05:600c:b8a:b0:4ab:c447:49df with SMTP id 5b1f17b1804b1-4ac182dca8emr181298545e9.23.1793557320864;
+        Sun, 01 Nov 2026 10:22:00 -0800 (PST)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf368bff7sm216805675e9.2.2026.11.01.10.21.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 10:21:58 -0800 (PST)
+Date: Sun, 1 Nov 2026 18:21:56 +0000
+From: David Laight <david.laight.linux@gmail.com>
+To: Demian Shulhan <demyansh@gmail.com>
+Cc: Catalin Marinas <catalin.marinas@arm.com>, Will Deacon
+ <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>, Eric Biggers
+ <ebiggers@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Marco
+ Elver <elver@google.com>, Ard Biesheuvel <ardb@kernel.org>, Robin Murphy
+ <robin.murphy@arm.com>, David Gow <davidgow@google.com>, Brendan Higgins
+ <brendan.higgins@linux.dev>, Nathan Chancellor <nathan@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kunit-dev@googlegroups.com, netdev@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH 0/2] arm64: csum: Add fused copy and Internet checksum
+Message-ID: <20261101182156.380dbaf6@pumpkin>
+In-Reply-To: <CAOLeWCt+yFs29yWg6DrRH42HD9ConLgTEbW=wMKtEoTW5ROHvw@mail.gmail.com>
+References: <20260927131838.6774-1-demyansh@gmail.com>
+	<20260927184414.6c0c8867@pumpkin>
+	<CAOLeWCt+yFs29yWg6DrRH42HD9ConLgTEbW=wMKtEoTW5ROHvw@mail.gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,120 +106,127 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] fs/proc/task_mmu: check THP exclusivity for each subpage
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-To: Kelvin Zhang <zhangxp1998@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org
-Cc: "Liam R . Howlett" <liam@infradead.org>, Lorenzo Stoakes
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>,
- Jann Horn <jannh@google.com>, Pedro Falcato <pfalcato@suse.de>,
- Kalesh Singh <kaleshsingh@google.com>, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, stable@vger.kernel.org
-References: <4c1b393a4b04bd94e4f1c7879ae04e1793eb0931.1793552446.git.zhangxp1998@gmail.com>
- <54617273-262f-4e17-b912-8b07113ca45c@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <54617273-262f-4e17-b912-8b07113ca45c@kernel.org>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 
-On 11/1/26 19:07, David Hildenbrand (Arm) wrote:
-> On 11/1/26 18:01, Kelvin Zhang wrote:
->> A PMD-mapped THP can contain subpages with different mapcounts. For
->> example, after fork(), the child can unmap only part of the THP. The
->> parent retains its PMD mapping, while the remaining child mappings
->> are PTE mappings.
->>
->> pagemap_pmd_range_thp() passes the same initial page to
->> __folio_page_mapped_exclusively() for every pagemap entry. With
->> CONFIG_PAGE_MAPCOUNT=y, this applies the first subpage's exclusivity
->> to all entries, falsely setting or clearing PM_MMAP_EXCLUSIVE for
->> subpages with different sharing.
->>
->> Pass page + idx to check the subpage corresponding to each entry, as
->> was done before converting to __folio_page_mapped_exclusively(). The
->> index already accounts for reads starting partway through the PMD.
->> The conservative whole-folio check without CONFIG_PAGE_MAPCOUNT is
->> unchanged.
->>
->> Fixes: eb16876971ea ("fs/proc/task_mmu: remove per-page mapcount dependency for PM_MMAP_EXCLUSIVE (CONFIG_NO_PAGE_MAPCOUNT)")
->> Cc: stable@vger.kernel.org # 6.15+
->> Signed-off-by: Kelvin Zhang <zhangxp1998@gmail.com>
->> ---
->> Tested on x86-64 under QEMU/KVM with CONFIG_TRANSPARENT_HUGEPAGE=y
->> and CONFIG_PAGE_MAPCOUNT=y, using the same test binary before and after
->> this change. After fork(), the child unmaps the first, second, middle,
->> or last 4 KiB subpage, while the parent retains a PMD mapping. Both
->> bulk pagemap reads and reads starting inside the PMD are checked.
->>
->> Across three repetitions (12 cases), the unmodified kernel fails 24 of
->> 84 assertions; with this change all 84 pass. Fully private and fully
->> shared PMD controls pass before and after the fix.
->>
-> 
-> How was this found. Through an LLM or because there was actually a problem in
-> practice?
-> 
-> Why do you care about this information to be reliable.
-> 
-> If the answer is "I don't care, I don't care, an LLM reported so I blindly
-> submit a fix" we might just perform the switch to the CONFIG_NO_PAGE_MAPCOUNT
-> variant directly.
-> 
-> 
-> https://lore.kernel.org/linux-mm/20260412-mapcount-v1-4-05e8dfab52e0@kernel.org/
-Sent my mail a bit to soon: the reason is that this might be one of the
-best-case scenarios: we broke something by accident, nobody cared for various
-releases; so now we can just change it.
+On Sun, 1 Nov 2026 14:33:49 +0100
+Demian Shulhan <demyansh@gmail.com> wrote:
 
-Thanks for the report!
+> Hi David,
+>=20
+> Sorry for the delay, I was in the middle of a company change.
+>=20
+> You are right about SG and TX csum, but only when the traffic goes
+> straight to a NIC that offloads them. There is another side: software
+> GSO (skb_segment() with !sg && !csum) hits this path on 100% of TCP
+> payload over WireGuard (wg_xmit() -> skb_gso_segment(skb, 0)), and on
+> drivers without SG/TX csum (u_ether/f_ncm, cdc_ncm, mt76, rtw88/89,
+> ath9k).
+>=20
+> So in general the software copy+csum path is still alive.
 
--- 
-Cheers,
+I was partially worried that someone had just looked at the code and
+noticed that arm didn't have the code to do checksum+copy and decided
+to write it.
 
 David
+
+>=20
+> On the other hand, NEON is useless here. skb_segment() splits GSO
+> packets into 1-MSS segments before copying, so on these paths calls
+> never exceed 1448 bytes (1368 on WireGuard). At that size
+> kernel_neon_begin()/end() costs more than NEON saves, on real hardware
+> v1 was ~3% slower in cycles/byte than the scalar loop on the slower
+> cores. So that part can go.
+>=20
+> I would prefer to keep only the scalar version of the fused copy+csum.
+> It reads the data once instead of twice, and on real Armv9 hardware it
+> cuts end-to-end cycles/byte for bulk TCP over WireGuard by 3-12%
+> depending on the core (+6-8% throughput). It uses only general-purpose
+> registers, so there is no FPSIMD state to save and it is safe in any
+> context.
+>=20
+> If you are OK with the scalar path, I can send v2 with NEON dropped,
+> the scalar path only, and the KUnit fix for the x86 zero-length case
+> Jakub reported.
+>=20
+> Thanks,
+> Demian
+>=20
+> =D0=BD=D0=B4, 27 =D0=B2=D0=B5=D1=80. 2026=E2=80=AF=D1=80. =D0=BE 19:44 Da=
+vid Laight <david.laight.linux@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > On Sun, 27 Sep 2026 15:17:56 +0200
+> > Demian Shulhan <demyansh@gmail.com> wrote:
+> > =20
+> > > arm64 currently uses the generic csum_partial_copy_nocheck(), which
+> > > performs memcpy() followed by a second pass for csum_partial(). This
+> > > double pass exerts unnecessary pressure on the L1 cache. =20
+> >
+> > Which workload actually needs this?
+> > Most modern ethernet MAC support checksum setting on transmit and
+> > checking on receive.
+> > So the software checksum shouldn't be needed very often.
+> >
+> > IIRC there is also code to defer UDP checksum validation until the
+> > copy_to_user().
+> > I'd bet (a few pints of beer) that the complication this adds isn't
+> > actually worth while.
+> > Even Linus can't remember why it was done, my guess is it improved the
+> > performance of the userspace NFS (over UDP) daemon that would be
+> > doing 8k UDP send/receive (fragmented by IP).
+> >
+> > There is certainly still code to checksum data during copy_from_user()
+> > in send().
+> > Last time I looked I couldn't see why send on TCP sockets didn't go thr=
+ough it.
+> > On x86 (in particular) copies can be done far faster than ones that
+> > include a checksum.
+> >
+> > David
+> > =20
+> > >
+> > > Replace it with a single-pass implementation. The new implementation
+> > > provides a general-purpose register path for short buffers and atomic
+> > > contexts, and a kernel-mode NEON path for lengths >=3D 1024 bytes.
+> > >
+> > > Measured in-kernel on an Ampere Altra (Neoverse-N1):
+> > > - Scalar path: 1.2x-1.6x faster for lengths < 1024 bytes.
+> > > - NEON path: 1.2x faster at 1024 bytes, scaling up to 1.6x-1.8x at
+> > >   4096 bytes.
+> > > On Apple M-series cores, gains are 1.3-1.7x below 1024 bytes and
+> > > 1.6-2.4x above. No length or alignment regresses on either
+> > > microarchitecture.
+> > >
+> > > Patch 1 implements the fused routines and the dispatcher.
+> > > Patch 2 adds KUnit test coverage for the new API and internal paths.
+> > >
+> > > Tested: in-kernel benchmark module on Neoverse-N1 with both
+> > > implementations cross-checked (0 mismatches); KUnit suite under QEMU
+> > > (with/without KASAN, with PREEMPT_RT), exhaustive and random userspace
+> > > testing of both routines against a naive reference with PROT_NONE gua=
+rd
+> > > pages, gcc 13 and clang 18 W=3D1 builds, checkpatch --strict.
+> > >
+> > > Demian Shulhan (2):
+> > >   arm64: csum: Add fused copy and Internet checksum
+> > >   lib/tests: checksum: Add KUnit tests for csum_partial_copy_nocheck()
+> > >
+> > >  arch/arm64/include/asm/checksum.h |   3 +
+> > >  arch/arm64/lib/Makefile           |   7 +-
+> > >  arch/arm64/lib/csum-copy-neon.c   | 168 +++++++++++
+> > >  arch/arm64/lib/csum-copy.c        | 108 +++++++
+> > >  arch/arm64/lib/csum-copy.h        |  84 ++++++
+> > >  arch/arm64/lib/csum.c             |  54 ++++
+> > >  lib/Kconfig.debug                 |  10 +
+> > >  lib/tests/checksum_kunit.c        | 463 ++++++++++++++++++++++++++++=
+++
+> > >  8 files changed, 896 insertions(+), 1 deletion(-)
+> > >  create mode 100644 arch/arm64/lib/csum-copy-neon.c
+> > >  create mode 100644 arch/arm64/lib/csum-copy.c
+> > >  create mode 100644 arch/arm64/lib/csum-copy.h
+> > >
+> > >
+> > > base-commit: 93f51579e7df248780214094418f205253383cc5 =20
+> > =20
 
