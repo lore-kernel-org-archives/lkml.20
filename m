@@ -1,100 +1,80 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.170
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793548851;
-	b=kL2YP1AghPb40SHKkR9qjgQhluYes3m8OQjsRWWCiJks8rKJGYKsanzNt6RsXuMNDX3C
-	 14PWag3BBaCanSGT6x1FlQ9bpg/JkJ9qWjey9LTFVLLiGgpoJYzn1yW+i3hR0VQa3XOL3
-	 UmbZ+8ugTj0T3tiLzezYOl/KmhsAd1YeAYvoyNvNWcIcFHSdO5od+1JlQnjAlPV3DIH/6
-	 aGcxeZM+45Jf9aCBnfvXcMd0aW3lMPV1ExyIdQ1BCKoLpI07tJV7NCX7Xj8/nUPMFdCHv
-	 DbmE9Ax0OC0kCpCmqGnUEy9pY/z3sFhgHRs0k6FZaFwgojJsumsay9aPwbbZWWQoKSQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793548851;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=qKQDgkRL9E3S6U2cAM4sdtFLp25slrgCe2pH+1FhaxY=;
-	b=tc+bMsCzKUwh2MbBifd+ChWfCnu9FsS0P8BsSIC5XmISwe1epQ95JoogjhIyAmcWhMvG
-	 bWyr4CAL3KssNn4Eya3XthHuD7wHhCDQzpTVaw0iSwOHxJNz0Z5rS8RtrES0RD045jWmf
-	 iX+ie2/i0O/QwisfBjpj5QUsCDkaQ1hsrDqtDOCnLJBbBeN6NvLDib/S9Go9DZMpO8ZB0
-	 xtGVOIBbDKtF0NetyUeQAjOIl+S4yYW90Z9DP6F2LloQ5rqPJ4U3UOiHjNWcXwr4DbFem
-	 QsY/9HJ6Hq0ThEPT/V4lm7ziulKvxJqb1JhsZpKTzLjLP3wIcybdPJt0nw3dTwWKvZQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KIO9Qegb;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.160.170
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.252
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793548892;
+	b=mnjbEyWTx9Qvf/SOxTJz/VBv+ZPNnzSPKtfVhBRjCwOBQC3FgHqEQJBziQIKyVWeMgvs
+	 J9+uFklkwWNhz+WVF1wY7o6EhIdsz9xxrfrlkG5ViMJ6irRhWKWmHHXBMCTnMUNPeVzx0
+	 Zvkg7ghoEm/drlq1zzrY+InbPT6B9cofzAHQNs+hOKF6Gh4T1ByqEoL02yIssLu3NBNln
+	 w0ojbTxuCaAEdrAudgZEkRbmymOHuduTaP5mOpIeOGLPOw9IQnpB5OtQ5PQepqgrO76r+
+	 68fG1FubWYPmvKlcHEyN9R7JghKVOsBLHdTcCArOSyqDrEsYlu7bjNZFYX44UQl+gkA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793548892;
+	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
+	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=dJAjI256HYju+smarK/sFecvcjyXOoXB2UXk9HtpRA8=;
+	b=20ISy001VI5FeuFhaPFxeokNCBs/N/eim7X5V1I/MrWmIKPYWX5iqrEhq0g38hDEWSiA
+	 rpsNaX2Gn+7eIgGG82naUyidwA4Ho5ez3VzwfoV7UHs3IC6D3DRCFq6yH6PsBYrkMCxMT
+	 iagV1SiDuywu9giOnrCZij86tWiwGxHGGJHNEyhvmnS9GIfJmzqHfqEI2825WENp7whxf
+	 kMVjaHvQL0940PGXbYGBD//10FVjvPq+RMPP2S3RpJ3cKy7kZpHB7kJYUkqtKtj+MEDpo
+	 Gmmdur19uxYdc/fydhFMXL7bvlleYVN68fcY+2ZgHWguAfadt1UJdozLnpZQkXbfP4A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=foxmail.com;
+	spf=pass smtp.mailfrom=foxmail.com;
+	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=ZUCzD63D;
+	arc=none smtp.remote-ip=162.62.57.252
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C9D606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:00:50 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C1C9D606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B547E606A324;
+	Sun,  1 Nov 2026 16:01:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B547E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=KIO9Qegb
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-535f598d126so190781cf.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:00:50 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793548850; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AX3/sJrSZ3lOVTwnWYRWl/ggyTlD1uMuSEF5Xl3I2liRUCKnmrWOlgkL6VR0BUH3NV
-         YHhPxPcLwU4MeStUA85c+Bgd8EJ41rcIw3WOx9Svus5gTIslAiibZ6zXp7qfqGk8p74O
-         l10Fd0FF5Vu+rv6jG3JcxcPRIpx1rFON9QbVtz7uNHhRkOHRYKOIlE6QSSIK6q3Cf7HZ
-         +kgXq5Pt5m8nRzI/y+3DXNDiuSAww1dXHuAwRzIyrGV3nahmo+fDfRE1YwrTVHA4zSjh
-         DH0zuJoG/uI+JdAOLFFQLqK++o+rkJ5vh7V6sHa0XNDlxR5QHYzaICF2gqvqI0uZ5llk
-         L/sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=qKQDgkRL9E3S6U2cAM4sdtFLp25slrgCe2pH+1FhaxY=;
-        fh=a7D47emCqObLwUE0saNAoknpDMRCLGuI9+oPLDpzofI=;
-        b=CyYamgVU1xQ9Kpbhou+Zm7d92Rv3KIlaKMdSrhc3WHvNAyAVUAURc4UXE4D8CDrPDG
-         jtRRjmgiKuQhPlCRU3Pr7s0rsvb8oJfRIn1vU8SlSgdv63ojGVsKK3gcX/TjBe25hjOQ
-         Ftyg8Mh2LwjJrUbq7mAMxBaVtdwJjLaK7ekpLR/0Z2ejDvY2Fw0fymISmol1JZf4kbdN
-         051aPwlnwmn3ZhAihdZOOnFI5tU9jCv17wQQGUSbIUOKd6/Jm8rj72FOhfPZs7h0+iFf
-         PMEOFufltpYN5TgpxSnudTMhPidN9DeTnwdoqBGcxi8zKPjBw4jS2eG+Uy6j+MVRCN4+
-         IoyA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793548850; x=1794153650; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qKQDgkRL9E3S6U2cAM4sdtFLp25slrgCe2pH+1FhaxY=;
-        b=KIO9QegbgRlHF8J+EI96VcBueTVdKCMiOtewLwCvrxPKhLGdIeh4owqmswijvGqdBU
-         90CRAHRayN3Ivh4fn5elhQhTRAnhqWYgsDWVLh8Q7Ko6gUOeSygNXewb8kHcYUl27aic
-         5uauykDy+fv8Ffn7G37BJmjwAVpvzd4nSu86Ws4V33fzV6455ceeAuFq/cDXrbUdKevP
-         mUT49ec39gXSflFoXRaAaQyde7p92WS9YSBN33N0INEn8gQe+jTHi1uSj6D1SPItip8+
-         iGI+97IJjxyxhzOBUv+Hz01QjyMv2fyNZBHfgNcpNqr+r2hadId1tnkaKCatfvTv6fP/
-         vVOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793548850; x=1794153650;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qKQDgkRL9E3S6U2cAM4sdtFLp25slrgCe2pH+1FhaxY=;
-        b=VRDccykCsAlQy9QWuQbYZVFR0ZZl9sj23JHTAjwwfBtBlqZu2xsTV6tKMBFw84Qm/d
-         S5v1BjDca6ty8XY70mZPNJqA5LDUnwhRGqcmW7/KCDR/zbYfQckhwGxnr96P4vGPcv1N
-         7Bqscsyxty+mGvYMZc0anIY2iFo6NX6TR47KJYJTALNdyTeqa9UTXNPdsOru7tXLVEnQ
-         66pXNGMuaDh6CfxWicoX4eWrQgHZcu/4woZNY9RCcN5reDxZor4Lh5OBH96DbXCFP+0B
-         633yNnKSFwrZSqKjF1q+DlN1V++vfGxrQGSdHD37Xuolegf8cBd1CjL0XHIFCqlXvFuC
-         aJ9g==
-X-Forwarded-Encrypted: i=1; AKwUvBw3G8celQbY7VHFJ/0ftT3ldyjypooktNdO/XdbjU3aSfY4uoafNlUE9oBrpSQ9a/nEk/BKAOl3rAOBQTE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJf7OHKCr8K719Qe+XS2BjLlwYyo8fS64OfZOxA4FI6/J2/rzFl
-	ekGfV3DQY96oG9csTlUA7GHWoH15Y7YOO90cGzlERBc7TqQciqIpu0xXVW7qiaCL5caWZy7Qzgj
-	7v8huznPx9r92c8h+6cWVnYgx0Vp9QIE3I6wWEpqi
-X-Gm-Gg: AYBFou2qm1AsjcMqpC9uPaS4nkH1Qj0rdneMamKYpfHJwhUD2xwUMFa2x+aYux+J+JQ
-	h9FKQwNVaU6N+zXnvl+PP788+tGQzJrsEZSxDTFKHl/BQeh1vnyq0Xh+we9+FhWbb6vq7/eU4MX
-	kOKBeSFn9c3IJ2m0bNuzFPHMOvSsaBLwsSL5bnY6+R8UEmNoxuiFCbFcSZq69OUWsXig9KRWGP8
-	lQdm7aNg109bE52iZQHX+lv0zVCpkpkDe4h5d1ZxY7EYgsYXWm5Viq6D2S1hncF+lIuPaf7rb+q
-	8+alUMcUP+nLaUrRHM3dPmP62BcUQnRFMVcjOYzNEWkkZTj0Nm+HWbdgFKUnR4zQ+Vq90atO99L
-	BjdFQGCJreg1P5qKmn2mV9DRAqEJPj62Qtxo=
-X-Received: by 2002:a05:622b:1c2:10b0:546:92f2:7830 with SMTP id
- d75a77b69052e-54692f2886fmr8712951cf.6.1793548848845; Sun, 01 Nov 2026
- 08:00:48 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=ZUCzD63D
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
+	s=s201512; t=1793548885;
+	bh=dJAjI256HYju+smarK/sFecvcjyXOoXB2UXk9HtpRA8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ZUCzD63DSRdrMEGTfiMCYIaqUrCTwmVQ69ub6q2NkDw6gvvu/4avWG/TRk1fhZVPw
+	 KwbBi8q+j5NPWoKJkZWJH6gU4j26kdQRG4GLPNTCTqjclW1NgsltgULGBiLlxcI/PH
+	 6EGKDS9iRK2DTDHXpE+brr6tWfEIQMUJ4+ebU7oA=
+Received: from ubuntu.lan ([223.160.115.26])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 4D84AD9; Mon, 02 Nov 2026 00:01:13 +0800
+X-QQ-mid: xmsmtpt1793548881t4gxc0hzc
+Message-ID: <tencent_1E7A74EBC425C78E07DED39F31807B7E1D0A@qq.com>
+X-QQ-XMAILINFO: OOO9dHjlsLs7VXtaDxIJMbnyZWPNEEi5lnAw/PKiMNYLrm4QS3fWT/7VliBWKo
+	 wVkqf37fmaVukQ1DDu25FW5bTPqm90dpeRNKvTZL0AMVMmCJykhYrlaWwrZ/pNCHgnMFfW2wbwVJ
+	 BQCTam0QDaL9lp8Jjius68lHf0Ji3oAZyDdsA1vnsoM/f0pKTB2Gx6RjVC9sRIqPlMkqGsmkBy8p
+	 3pjKldcGNKsJEqWdSR/vphUMW7+CCZZbuQrwyFZC7bL7RH0381Y6xQAUoEtVWeGNxo3LMr11mlh3
+	 3rlpfI/nBVWaOzsd9nrNjUYvQL3ovxK/AhOiXkdsHydODCLm6TrtEsdFZAc+H0s1lP0tHRxyDDkw
+	 7marcOn+56TvjLi987o3xDk4y0DGmU4dHLoWTjP4nsRrq1TRGfNXckPY6emBLAvK3kgzaq3p5ZKh
+	 ldaCCk6cuWq0lvA6fro14m6HN5ajixKHQs79Pf/7vcnt7p9fsBrw0/dMLhlKBP/FgNYrRdXYYZaO
+	 LXOt9SzAUkPwEi7Pk+NI4rd+VRz1x8zKm9SLYYk2MYtPfKcarGKJYouReoNPcKgYWVPMJWRg/L4v
+	 0k4Vf5itpQMmt74HYE6QgMTqIEgOa7O/Pk+pNhEaRO1Oi7Rbj172KJL87ewVLQgKv3C8x8CfJfwr
+	 Yp8NeNYU3QCd2wvMxMI+Sw+iQIEiRaZCN762KMXNppDmdX1ct7Sm//WI1kWq4tVVKC6qXpmJJijd
+	 vRe+cNTaRDSqDVMScY5RYbZ7Q092Uo6Ul1ew0NUrlOnhl0sGdXbj2rZaV5R+Q4Zfte0Z73x9sqFl
+	 gHk7llNlOPIQCgFF29qDil8R7lRt2vp4bEcIfv0ePcCRJzaT0kp2/iYpl3Ip/5coFu26Ox4ZOIvP
+	 3+4VOMl0a9NnvbsfFgCMD1FjhSCu4FuTE7BpfYAVqtbu0EiUUlu70ILuAwjgPwTFTheVbyhBRMbA
+	 augxqhgjwJ6O1yIRBlk/VnPNxovtWcwjpJIUkl3PFka0VHOhiGdRHBtbGwLxR4nxQh0J6Lxuae89
+	 TvxWLUHlJZ7HJsrQAN6az6mHyB2erfcD7N0uttXmVnoWq0uP8hGiqTySwzeQJqKt0+/qUiaw==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Haozhen Li <dezige131@foxmail.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>,
+	=?UTF-8?q?Dawid=20Wr=C3=B3bel?= <me@dawidwrobel.com>,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haozhen Li <dezige131@foxmail.com>
+Subject: [RFC PATCH 1/2] firmware: qcom: scm: Add QSEECOM app loading and shutdown
+Date: Sun,  1 Nov 2026 16:01:08 +0000
+X-OQ-MSGID: <20261101160110.3622-2-dezige131@foxmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261101160110.3622-1-dezige131@foxmail.com>
+References: <20261101160110.3622-1-dezige131@foxmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,147 +84,227 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261026080329.140244-1-hao.ge@linux.dev> <20261026080329.140244-5-hao.ge@linux.dev>
- <e1cfd568-8fdf-4aa1-a8c5-961bb8d7efba@arm.com> <5b0f90a4-c7d2-4f12-9d95-95c7149c49c7@linux.dev>
-In-Reply-To: <5b0f90a4-c7d2-4f12-9d95-95c7149c49c7@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Sun, 1 Nov 2026 08:00:37 -0800
-X-Gm-Features: AclHuK9081SXnilxbhxPhUG0EsiIt3QEWxeLpuWJxyGCO1FD5elbMhuUvO38YFc
-Message-ID: <CAJuCfpHOZPKKd-bGWavBmBf5cmR-PEZO7a_jxXMZVS8tsgG5PA@mail.gmail.com>
-Subject: Re: [PATCH v3 04/10] mm/vmalloc: propagate errors in vmap_pages_p*d_range()
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Dev Jain <dev.jain@arm.com>, Andrew Morton <akpm@linux-foundation.org>, 
-	Uladzislau Rezki <urezki@gmail.com>, linuxppc-dev@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	Madhavan Srinivasan <maddy@linux.ibm.com>, Michael Ellerman <mpe@ellerman.id.au>, 
-	Nicholas Piggin <npiggin@gmail.com>, "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, Shrikanth Hegde <sshegde@linux.ibm.com>, 
-	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, Dmitry Vyukov <dvyukov@google.com>, 
-	Dennis Zhou <dennis@kernel.org>, Tejun Heo <tj@kernel.org>, Christoph Lameter <cl@gentwo.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 30, 2026 at 2:16=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> Hi Dev
->
-> Thanks for your review.
->
-> On 2026/10/30 15:29, Dev Jain wrote:
-> >
-> >
-> > On 26/10/26 1:33 pm, Hao Ge wrote:
-> >> vmap_pages_pmd_range(), vmap_pages_pud_range() and
-> >> vmap_pages_p4d_range() return -ENOMEM whenever the level below them
-> >> fails.  But vmap_pages_pte_range() can also return -EINVAL for a
-> >> page without a valid pfn and -EBUSY for a pte that is already
-> >> mapped.  Pass the error up as-is instead, like the vmap_p*d_range()
-> >> helpers for vmap_page_range() do.
-> >>
-> >> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> >> ---
-> >
-> > Fixes?
-> >
->
-> Sorry, I missed that.
->
-> > Reviewed-by: Dev Jain <dev.jain@arm.com>
->
-> Thanks! If you have some time, I'd also appreciate a review of the
-> remaining patches in the series -- or Suren and Uladzislau, if they
-> get a chance. No rush, I know everyone is busy.
+QSEECOM clients in the kernel can currently only talk to trusted
+applications that some earlier boot stage happened to load:
+qcom_scm_qseecom_app_get_id() looks an app up and
+qcom_scm_qseecom_app_send() talks to it, but nothing lets Linux start
+one itself.
 
-Yep, it's in my review queue.
+Add the two missing app-manager commands:
 
->
-> Thanks
-> Best Regards
-> Hao
->
-> >
-> >
-> >>  mm/vmalloc.c | 24 +++++++++++++++---------
-> >>  1 file changed, 15 insertions(+), 9 deletions(-)
-> >>
-> >> diff --git a/mm/vmalloc.c b/mm/vmalloc.c
-> >> index 7131f60d1a8e..d60b99b81ec9 100644
-> >> --- a/mm/vmalloc.c
-> >> +++ b/mm/vmalloc.c
-> >> @@ -600,16 +600,18 @@ static int vmap_pages_pmd_range(pud_t *pud, unsi=
-gned long addr,
-> >>  {
-> >>      pmd_t *pmd;
-> >>      unsigned long next;
-> >> +    int err =3D 0;
-> >>
-> >>      pmd =3D pmd_alloc_track(&init_mm, pud, addr, mask);
-> >>      if (!pmd)
-> >>              return -ENOMEM;
-> >>      do {
-> >>              next =3D pmd_addr_end(addr, end);
-> >> -            if (vmap_pages_pte_range(pmd, addr, next, prot, pages, nr=
-, mask))
-> >> -                    return -ENOMEM;
-> >> +            err =3D vmap_pages_pte_range(pmd, addr, next, prot, pages=
-, nr, mask);
-> >> +            if (err)
-> >> +                    break;
-> >>      } while (pmd++, addr =3D next, addr !=3D end);
-> >> -    return 0;
-> >> +    return err;
-> >>  }
-> >>
-> >>  static int vmap_pages_pud_range(p4d_t *p4d, unsigned long addr,
-> >> @@ -618,16 +620,18 @@ static int vmap_pages_pud_range(p4d_t *p4d, unsi=
-gned long addr,
-> >>  {
-> >>      pud_t *pud;
-> >>      unsigned long next;
-> >> +    int err =3D 0;
-> >>
-> >>      pud =3D pud_alloc_track(&init_mm, p4d, addr, mask);
-> >>      if (!pud)
-> >>              return -ENOMEM;
-> >>      do {
-> >>              next =3D pud_addr_end(addr, end);
-> >> -            if (vmap_pages_pmd_range(pud, addr, next, prot, pages, nr=
-, mask))
-> >> -                    return -ENOMEM;
-> >> +            err =3D vmap_pages_pmd_range(pud, addr, next, prot, pages=
-, nr, mask);
-> >> +            if (err)
-> >> +                    break;
-> >>      } while (pud++, addr =3D next, addr !=3D end);
-> >> -    return 0;
-> >> +    return err;
-> >>  }
-> >>
-> >>  static int vmap_pages_p4d_range(pgd_t *pgd, unsigned long addr,
-> >> @@ -636,16 +640,18 @@ static int vmap_pages_p4d_range(pgd_t *pgd, unsi=
-gned long addr,
-> >>  {
-> >>      p4d_t *p4d;
-> >>      unsigned long next;
-> >> +    int err =3D 0;
-> >>
-> >>      p4d =3D p4d_alloc_track(&init_mm, pgd, addr, mask);
-> >>      if (!p4d)
-> >>              return -ENOMEM;
-> >>      do {
-> >>              next =3D p4d_addr_end(addr, end);
-> >> -            if (vmap_pages_pud_range(p4d, addr, next, prot, pages, nr=
-, mask))
-> >> -                    return -ENOMEM;
-> >> +            err =3D vmap_pages_pud_range(p4d, addr, next, prot, pages=
-, nr, mask);
-> >> +            if (err)
-> >> +                    break;
-> >>      } while (p4d++, addr =3D next, addr !=3D end);
-> >> -    return 0;
-> >> +    return err;
-> >>  }
-> >>
-> >>  static int vmap_small_pages_range_noflush(unsigned long addr, unsigne=
-d long end,
-> >
+  - qcom_scm_qseecom_app_load() authenticates, loads and starts an app
+    from an image staged in TZ memory, handing it over with the
+    APP_START call. Both image layouts QTEE accepts are supported: a
+    split image (.mdt metadata followed by the segment files, with the
+    metadata length passed as mdt_len) and a single-file signed ELF
+    (mdt_len == 0), where QTEE parses the metadata from the program
+    headers itself.
+
+  - qcom_scm_qseecom_app_shutdown() stops an app and releases its
+    secure-world memory and name. Without it an app can only be loaded
+    once per boot: QTEE refuses a second load, and only a reboot
+    clears the name.
+
+QTEE reads the image address passed to APP_START as a 32-bit value
+even under the 64-bit SMC calling convention, and truncates anything
+above 4 GiB. Catch that case in qcom_scm_qseecom_app_load() and fail
+with -EINVAL rather than pass an address on for silent truncation: on
+platforms whose firmware hands out memory above 4 GiB the load would
+otherwise fail far from the cause, or worse.
+
+Based on the QSEECOM transport work of Dawid Wrobel and samcday
+(https://github.com/samcday/linux).
+
+Signed-off-by: Haozhen Li <dezige131@foxmail.com>
+---
+ drivers/firmware/qcom/qcom_scm.c       | 123 +++++++++++++++++++++++++
+ include/linux/firmware/qcom/qcom_scm.h |  14 +++
+ 2 files changed, 137 insertions(+)
+
+diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
+index 43e250fae..c77130693 100644
+--- a/drivers/firmware/qcom/qcom_scm.c
++++ b/drivers/firmware/qcom/qcom_scm.c
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0-only
+ /* Copyright (c) 2010,2015,2019 The Linux Foundation. All rights reserved.
+  * Copyright (C) 2015 Linaro Ltd.
++ * Copyright (C) 2026 Dawid Wróbel <me@dawidwrobel.com>
+  */
+ 
+ #include <linux/arm-smccc.h>
+@@ -115,7 +116,14 @@ enum qcom_scm_qseecom_tz_svc {
+ };
+ 
+ enum qcom_scm_qseecom_tz_cmd_app {
++	/*
++	 * APP_START and APP_SEND share the same command number and are
++	 * told apart by owner and service: APP_START is
++	 * QSEE_OS/APP_MGR, APP_SEND is TZ_APPS/APP_ID_PLACEHOLDER.
++	 */
++	QSEECOM_TZ_CMD_APP_START		= 1,
+ 	QSEECOM_TZ_CMD_APP_SEND			= 1,
++	QSEECOM_TZ_CMD_APP_SHUTDOWN		= 2,
+ 	QSEECOM_TZ_CMD_APP_LOOKUP		= 3,
+ };
+ 
+@@ -2168,6 +2176,121 @@ int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id)
+ }
+ EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_get_id);
+ 
++/**
++ * qcom_scm_qseecom_app_load() - Load and start a QSEE application.
++ * @img:     Image buffer, must be allocated from TZ memory.
++ * @mdt_len: Length of the .mdt metadata at the start of @img, or zero if
++ *           @img is a single-file image.
++ * @img_len: Total length of the image in bytes.
++ * @app_id:  ID assigned to the loaded application.
++ *
++ * Hands an application image to QTEE for authentication, loading and
++ * starting, and returns the ID under which qcom_scm_qseecom_app_send()
++ * reaches it.
++ *
++ * Two image layouts are accepted. With a non-zero @mdt_len, @img holds the
++ * .mdt metadata followed by each segment file concatenated in
++ * program-header order; in that layout the metadata segments appear twice,
++ * as the .mdt already contains them, and padding between segments is
++ * dropped. With @mdt_len == 0, @img is a single signed ELF passed as one
++ * file, and QTEE parses the metadata from the program headers itself.
++ *
++ * The image buffer must lie entirely below the 4 GiB physical mark: QTEE
++ * reads the image address as a 32-bit value even under the 64-bit SMC
++ * calling convention, so a buffer above it would be truncated into a wrong
++ * address. Such buffers are rejected here rather than passed on.
++ *
++ * Return: Zero on success, nonzero on failure.
++ */
++int qcom_scm_qseecom_app_load(void *img, size_t mdt_len, size_t img_len,
++			      u32 *app_id)
++{
++	phys_addr_t img_phys;
++	struct qcom_scm_qseecom_resp res = {};
++	struct qcom_scm_desc desc = {};
++	int status;
++
++	if (!img || !img_len || mdt_len > img_len)
++		return -EINVAL;
++
++	/*
++	 * Unlike the lookup command, which passes a buffer holding the name,
++	 * the image is handed over as a bare physical address: all three
++	 * arguments are plain values.
++	 */
++	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
++	desc.svc = QSEECOM_TZ_SVC_APP_MGR;
++	desc.cmd = QSEECOM_TZ_CMD_APP_START;
++	desc.arginfo = QCOM_SCM_ARGS(3);
++	desc.args[0] = mdt_len;
++	desc.args[1] = img_len;
++
++	img_phys = qcom_tzmem_to_phys(img);
++	if (!img_phys)
++		return -EINVAL;
++
++	/* See the comment on the 4 GiB limit in the function doc above. */
++	if (upper_32_bits(img_phys) || (u64)img_phys + img_len > SZ_4G) {
++		dev_err(__scm->dev, "qseecom: image buffer beyond 4GB: %pap\n", &img_phys);
++		return -EINVAL;
++	}
++
++	desc.args[2] = img_phys;
++
++	status = qcom_scm_qseecom_call(&desc, &res);
++	if (status)
++		return status;
++
++	if (res.result != QSEECOM_RESULT_SUCCESS) {
++		dev_dbg(__scm->dev,
++			"qseecom: app load rejected: result %llu, type %llu, data %llu\n",
++			res.result, res.resp_type, res.data);
++		return -EIO;
++	}
++
++	if (res.resp_type != QSEECOM_SCM_RES_APP_ID)
++		return -EINVAL;
++
++	*app_id = res.data;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_load);
++
++/**
++ * qcom_scm_qseecom_app_shutdown() - Stop and unload a QSEE application.
++ * @app_id: The ID of the application to unload.
++ *
++ * The counterpart to qcom_scm_qseecom_app_load(): stops the application
++ * and releases the secure-world memory it occupies, freeing its name for a
++ * later load. Without this an application can be loaded only once per
++ * boot: QTEE refuses a second load, and only a reboot clears the name.
++ *
++ * Return: Zero on success, nonzero on failure.
++ */
++int qcom_scm_qseecom_app_shutdown(u32 app_id)
++{
++	struct qcom_scm_qseecom_resp res = {};
++	struct qcom_scm_desc desc = {};
++	int status;
++
++	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
++	desc.svc = QSEECOM_TZ_SVC_APP_MGR;
++	desc.cmd = QSEECOM_TZ_CMD_APP_SHUTDOWN;
++	desc.arginfo = QCOM_SCM_ARGS(1);
++	desc.args[0] = app_id;
++
++	status = qcom_scm_qseecom_call(&desc, &res);
++	if (status)
++		return status;
++
++	if (res.result != QSEECOM_RESULT_SUCCESS)
++		return -EINVAL;
++
++	return 0;
++}
++EXPORT_SYMBOL_GPL(qcom_scm_qseecom_app_shutdown);
++
+ /**
+  * qcom_scm_qseecom_app_send() - Send to and receive data from a given QSEE app.
+  * @app_id:   The ID of the target app.
+diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
+index a0a6bc022..8f98b57e1 100644
+--- a/include/linux/firmware/qcom/qcom_scm.h
++++ b/include/linux/firmware/qcom/qcom_scm.h
+@@ -141,6 +141,9 @@ int qcom_scm_shm_bridge_delete(u64 handle);
+ #ifdef CONFIG_QCOM_QSEECOM
+ 
+ int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id);
++int qcom_scm_qseecom_app_load(void *img, size_t mdt_len, size_t img_len,
++			      u32 *app_id);
++int qcom_scm_qseecom_app_shutdown(u32 app_id);
+ int qcom_scm_qseecom_app_send(u32 app_id, void *req, size_t req_size,
+ 			      void *rsp, size_t rsp_size);
+ 
+@@ -151,6 +154,17 @@ static inline int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id)
+ 	return -EINVAL;
+ }
+ 
++static inline int qcom_scm_qseecom_app_load(void *img, size_t mdt_len,
++					    size_t img_len, u32 *app_id)
++{
++	return -EINVAL;
++}
++
++static inline int qcom_scm_qseecom_app_shutdown(u32 app_id)
++{
++	return -EINVAL;
++}
++
+ static inline int qcom_scm_qseecom_app_send(u32 app_id,
+ 					    void *req, size_t req_size,
+ 					    void *rsp, size_t rsp_size)
+-- 
+2.43.0
+
