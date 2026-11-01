@@ -1,92 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.176
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.176
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793514223;
-	b=gpd4r4hr77HIuIpBhr71zHUKifqDKiUyKRXbDKos2wbyurzylnpIkux1fV1U9YWTHLo6
-	 AcrmgEpG9n71jDM1Iu9nysfB+XbfgrXqhcPGZzHzhrSK18pHKlYGdfYg5mlhmlSvaU4FB
-	 Z+nz4dz/i974aJ7w3glLS9NjrSHD+ElYGZOvr8KsLq+vDmV4v4QbQeeQzQQiDaVu4O78z
-	 8WCOBRASSHbptC35GIe4vH6wc3LWFXgxOzkaTiREaRoSKcaKjdk+1LM+zWv4zn+8+gxCG
-	 LF36B4csUeOiYatcWzG1sC5DUidyi8SXolvc9psUq0H0kYJsPJ3D6iJMc4nP2WUE3pQ==
+	t=1793514243;
+	b=rhXGGq4/bWuN7AZ980PDTGvjnOW4Ey7IX7VTF2St6AeLPM2vDDpAfGBSTS39Wa5ToO68
+	 mhjucci52NBwEJP6eIpSpczwkJXKVeKC2TSt3j9CiB6GKe/YE9zPOQrmOGjucGBSV55yO
+	 OQnLgtfeQzVjpteDd6iG1EWlUVQkvsaZuRcaMWAuVt6xcNPxGnjTYY9TZplGtYG+WF5gw
+	 bi+PwfCAx3LGkr5hx/4UsegQyFAEDIVYLubOmIdEhBzQDcTGU2rQYTsFOhZXQ3wfuPove
+	 4z2DAHqBL7m1TI9lALN4WMxbLyej0hWKSfxzWkCsgg9cOb7SRE8T567JuRZvxfSKNkg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793514223;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793514243;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=V3iVcUnWr9KVu5ckBKFl1JMHxwLvLh7qZfi7p+79FtM=;
-	b=cbX/rgRNI4WmH2RUqp6QUHZIQaBwDrDmmBeZIvKIdyc+Lj0p0ZoeYMk38qcxfHh6UfT5
-	 0SXJrSzxVAe5KGELb6HXAQrTiA0dJ/YFIiJObT7jQrYgCra/osgpFrV/iE5nl0ENkhJz1
-	 +8+o/N2u68ioWvnlIqJZCiVWTM/CVqzfFc9mdHdFbWL7pkoMIHXVKXu2gdB4PpszOTY9z
-	 E6FwXIF9MrjQDxtEoymsUTARZntCUOyKd2neZMUyxC3S3SfgtLPVwQjz2ve8QZXmKUGpS
-	 uS9iY1II/i6ty16Eo08FqsDww5VrRyfntdL9gc6OI3A2iVpUIf1pVR6Z/jZYlQAL4BQ==
+	bh=U6RxQqnraCujnuFyGwdEGaWyvDwvEokaINvEdRIrFx8=;
+	b=Pq3xuEHVZEwV/lKb+51Q/7EEOZeLd7133tGRim1zOyyGr/mMC4cKtOVaBh172/mILm5e
+	 Z9zMNCyzIxv8zrqLsbbZZxLXu8rdlmiMRz8maIDjnz28GjmFhiNQCFGYEbxx4qkLlB1Ds
+	 WBb1XUDgM9Ka8HDL8kkn/CDDVWp6D1ejImphKX9HU7ViAy5v1WHw2Sezb1P+2nBQVvwiy
+	 Kjqxg96yMrIKEmCmDJmkueFw5OGhviwk+sJ/70Zdpx8cRwuLSZaNu9tvrZal2AMFsBu5k
+	 mwgECMBcuda3IM902g3mFUSAfzlsbxAHDB6meoMaOb9eb1VrJTbM4/j0jBBzDSKqkGQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="J/a3fqOS";
-	arc=none smtp.remote-ip=209.85.210.176
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+y36DUi;
+	arc=none smtp.remote-ip=209.85.215.176
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4424B606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:23:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4424B606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D13DF606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 06:24:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D13DF606A325
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=J/a3fqOS
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-8a4c72951b8so1338883b3a.3
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 23:23:43 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g+y36DUi
+Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-cdb15cd8558so218342a12.2
+        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 23:24:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793514222; x=1794119022; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793514242; x=1794119042; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V3iVcUnWr9KVu5ckBKFl1JMHxwLvLh7qZfi7p+79FtM=;
-        b=J/a3fqOSUlU27X0iUhIvxL6HMOzpQpOemLZ7bZZX3WllfYRs5Sdkz1t74ROJMTzMw7
-         tKDOR3s2xLJ3OcNj9iooWxJm5vE6V6SAYZJbP/zkaXsd7piaOO6Py6gZgg4sxt4dudsl
-         Jo0bdB9Cg6jLjDqkfbQs0RR4IxopYnj7VEbVLf9x2h3azDT41Dcaf882qdargx0vItIu
-         xN0Gey/+65JJ2UJe5M6tYGvb0/8LrCIyGbDcHM8d0nPiP9f/j5seVKoXiKrLDoMBnO+d
-         E8LGyExj6OmqobfZ+xOyuMQ41AWPfb3HIYbgmZKYGsZh3wVQJyo34rxdyxOwddc97N4p
-         ZwAQ==
+        bh=U6RxQqnraCujnuFyGwdEGaWyvDwvEokaINvEdRIrFx8=;
+        b=g+y36DUiYCN2ds2/LESOdmzu3PGF7A+GvYMK9x/7YlArL7oT2RqzCbC7NN9x/SDBTS
+         0oWBIi2bEnAH5Nah+GO8HYiV15KdoeWvW5QVplVNIjSksNN2uAJNsb3vKGBAPYHzn4Xj
+         BHSLh+nlOiG/lv3XlLhUjtn2lxC9/FqCn5yE9kcQJxNnZSw9PDTApP2u4ezbgagbtHmq
+         atRhM5RWODdjrTMb3hb2E6u34RoU+0wT9DBcm1vrFr9g1jD5mN/pUXFaY5ZETx9J7efm
+         15nIY26eD7WlMkmHwyhpHBBV5YnyHcR3297OFdiFvMvfdEGQdRdWWKBnUC2yn90ENDOf
+         /XwQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793514222; x=1794119022;
+        d=1e100.net; s=20260707; t=1793514242; x=1794119042;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V3iVcUnWr9KVu5ckBKFl1JMHxwLvLh7qZfi7p+79FtM=;
-        b=npzhuNOAxKTuYV68Uf1hPit3FEi445+v/NGxH4ms19jro5OwUPEne9WKtx95fASuDw
-         G+MSnSsN95Na5gAdTk5RoaUbSgl03oEzFIU7EtVb7wo1YVuLspS0bCWQvtSOGo1RwfdQ
-         o+ztLGSXrkujTFQOrYD2QeP4VxoyXXVtg0bhVr2D5NRJ0tHEZy6MXu+qyDGu3rCI7ILm
-         0vlRdLO4t+eVVV758DxiBzz7SYxP4AMdITo+CTpYzUWX6FnQxw3oQ1ajx03Wya66/fMH
-         SikL8etQ4mtK3eWXWoQDpGKyGoCFKiWmTM8lxc/Xo15kvR9g0z/OnNDeSwCvEEgPA+Dm
-         nJ7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxuDMpXoPY+G+7UdV3h8ajXJBeh1+18MywA/TGl5Vj7OlkRyHXx+EL5O2XjkcTLB0HTeVCyAUX93R30GY0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIQwKfcN0R08KCEiRY6MGhWqQV0CGhmMplC+RPnMT44OkCu0mgQ
-	yRhTYCCyQLCC73rs8Ufdd6KoEmoPBC5Wplkv/ynO85+1QNiFuxARqhK0ZN0aBfjv
-X-Gm-Gg: AYBFou32JxlRnWPshFoqMdfW2O2Y9nVXDDB4MfTn0b/XRy0ruHWlfC8ewU5L55yNvfF
-	QRhyIl0TUJPD02gUSZcWJyxHo+s1HMhpu+eVWAohGUY5iThB1wyQ1QXHKjv4C8j70NKO24KMSGb
-	RC33nGRpDz8QyP8qH0CCLRIz9zj1bFI+NeXrAAaQQNIju+0WHBJZOQUuV7iOgGfH6uJjfyEga2L
-	27gl8uLax8T51LfsGlDUfZlE1uy8NjIf1S0Zs276tSwKUDaNAJFJ5TOnESkWxSd4XIbzrKzcaJG
-	xsQYxAQ/QIgxCaLZvl+S7HPwAyu6cl/Qvq/pNnkhHFjtYRlqXxHj7fntdWkSPE3Mpnp8qxGXYOO
-	krw39UxDPgXEVTDwpMwnSN98lzNKC6ktiKv4K4X6D/mhjJmjMtt5hnDi5dUvTvpp9U3y10herxv
-	hudxqjdnOtPnMAog5sVV3qofYYXgqL5Jh/RvIVnCk3H23WBsKQUcgD3EALrcq2sVvFGnDO0LW4r
-	80qhhSjt1v92Oc4thKOvxjDd7w+nrp2SLmIMBADu8HU/MqrToYlluXQ3/aKw5oD8gc7Ny3CGsoI
-	clVCB5MGx3wLiSVr8UPyDqxylUW0nWK0XuTOfulyNA8l69jcsIVKby+Siq9O2ZWz0FTkbsA23xd
-	1LHe6ZwMsZqR1gf97/BNNYN6pNrp02ZhLPFXKAQ/OhMV9eDGaxr5esDGMeJ3Sebhxihii9coZI4
-	lvOBODtR2dsLFKROnTGokI
-X-Received: by 2002:a05:6a00:21cf:b0:882:905d:aa05 with SMTP id d2e1a72fcca58-8a9bfde689amr5497443b3a.50.1793514222525;
-        Sat, 31 Oct 2026 23:23:42 -0700 (PDT)
+        bh=U6RxQqnraCujnuFyGwdEGaWyvDwvEokaINvEdRIrFx8=;
+        b=z1schNomTfMd7TDh/RBJtSR9VK6WaW7wdnfNKt0M5+G20um+pAlkQ+0u8wwVXqEUgk
+         q1x9G3VHiYFMeuRaSkl8mvVpsnq2WInlnq1TAvMbuKtKlXqMqOCuIPym9SAVZlkg5ajP
+         1Fu9Bb7YjWRGF1QoXiof369bTEE4odkc27vTK8zgiSD2YBf9aHkOBjaRvPIFQw5M2Tmn
+         6wWH3pZZlMLBMoZVG1uo0k7VxKWEEA71UiJ+0jeCCHKTPxXTPCLJZWi00yWpp0c86Jha
+         jHhwTB2HbM0VEwRqLjWyJUaOpA/6UG48DxyG8FV3FaJra8Iik1crDgJawESUp/bRNQh8
+         n+rA==
+X-Forwarded-Encrypted: i=1; AKwUvBzHsPABVbo1NCnEopR942C4/YRsXBolqAKJACtoARltDJy8ADydy2juKMsz8Q4O8AJonozruV5WMeFDoWg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9r+I85ofKgs/HlNpgji3821YMmVmzNdbBF9BjWhKXKzteROxel
+	x1UZFfDUKzXBudXSb24Wr55K6M5ufrfcMEP7FmdrY+qyLzRaDJqtkP3e
+X-Gm-Gg: AYBFou3FYQNb2VigxD0wHMH6Ri4QvPOisSiHZ1IaS1nT/2/VLTOy64aJcDvvu8zzJ7z
+	n2KACyUNjDkpCIk+6/GWopy411ntLxFfrghXt6YOT6Yc5kDN9fpo5VDOpder0CsZgvsU9Y42OTf
+	iTS8RkRwkGz70yBnUyVH2N6dnRCgin/xn99z8UP2UTENV78Ei3QfwFtOoiS9V84q0i6b3IMTIyc
+	ORr13HktWDiPKgMpnGXUpGpwqHyD7T4KFt7LnOc1UCDTGFsH38WALgoKpK2JJaI+Q5ZuhDmX6zX
+	Ph5gDHErhxNKd40s+Ldbw/1JMl9Pik6kcuNiuIX6AMdB1ktUUMb2GaQlJNzYkXAKPmylfb4Jw9P
+	YhlB3MuVul9iuM4pz2mrVNG+v8Jltdw3S49feD+QEpMbn+zvcm40hIXP2b7ETEGxdo4OLIx4LfT
+	MJyNMCiW2fZeF64IlHwqy4jI1GjWDf8kCZ6kG9MWWfzRola6hLvIpZQ3/4La3SJbq6bbyQcar6c
+	CIty1WInXlpKpwN4jv3CCW0KdbGzI7woYoihM7ZkmITPUl2kB/JQQsIGz9+Dexcgv+kqxreRhG/
+	fu89Tk0QyZ21cUo/vKqOi4SQ50b6mV1w7Opjg3w18HOX6K0j+Gj5BJnF54KvwUz/wlj34iB4wz3
+	pr8SxlevTvX/gQ8/WFvLaCsRyKGhXGq1BJC7l2acaYaKMTKRu1R2EWUaNmjEDfQuO9TfxLbtpMa
+	dmHkyxl4JUrG8VAAIzhFE=
+X-Received: by 2002:a17:90b:2803:b0:3ac:96a3:77d5 with SMTP id 98e67ed59e1d1-3ae897e066bmr4668404a91.36.1793514242027;
+        Sat, 31 Oct 2026 23:24:02 -0700 (PDT)
 Received: from EAIT-H54D9Q2FJQ.eait.uq.edu.au ([130.102.10.191])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aadac9c505sm1026348b3a.53.2026.10.31.23.23.32
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e2a703esm14092486a91.0.2026.10.31.23.23.57
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 31 Oct 2026 23:23:41 -0700 (PDT)
+        Sat, 31 Oct 2026 23:24:01 -0700 (PDT)
 From: Yu Zhang <yuz08559@gmail.com>
 To: Alexander Shishkin <alexander.shishkin@linux.intel.com>
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] stm class: drop the source link after the source device is gone
-Date: Sun,  1 Nov 2026 16:23:17 +1000
-Message-ID: <20261101062317.16608-1-yuz08559@gmail.com>
+Subject: [PATCH] stm class: clear output->pdrv_private when the output is freed
+Date: Sun,  1 Nov 2026 16:23:43 +1000
+Message-ID: <20261101062343.16629-1-yuz08559@gmail.com>
 X-Mailer: git-send-email 2.55.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -99,42 +99,52 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-stm_source_unregister_device() drops the link of the source and only
-then unregisters its device. The stm_source_link sysfs attribute is
-still reachable in between, so a concurrent write to it re-links the
-source: it ends up on the stm device's link list with src->link set and
-the source's link() callback armed, after which device_unregister()
-frees it and the source module is unloaded. The next unlink walk in
-stm_unregister_device() then touches the freed source, the stm device
-keeps a reference that is never dropped, and a source like
-stm_heartbeat has its hrtimer fire in freed module memory.
+sys_t_output_close() frees output->pdrv_private but leaves the pointer
+in place, and stm_output_free() only calls the output_close() of the
+protocol driver that is bound when the output is freed. The protocol
+driver of an stm device can be changed while an output is unassigned,
+by removing the policy and creating one for another protocol, so the
+stale pointer survives a re-assignment under a driver that has no
+output_open() and is dereferenced again once the sys-t driver is bound
+back:
 
-Delete the device first, which drains the sysfs attribute, then drop
-the link and release the device.
+  P=/sys/kernel/config/stp-policy
+  L=/sys/class/stm_source/heartbeat.0/stm_source_link
+  mkdir $P/dummy_stm.0:p_sys-t.a $P/dummy_stm.0:p_sys-t.a/heartbeat.0
+  echo dummy_stm.0 > $L   # sys_t_output_open() allocates pdrv_private
+  echo none > $L          # unlink: sys_t_output_close() frees it
+  rmdir $P/dummy_stm.0:p_sys-t.a/heartbeat.0 $P/dummy_stm.0:p_sys-t.a
+  mkdir $P/dummy_stm.0:p_basic.b $P/dummy_stm.0:p_basic.b/heartbeat.0
+  echo dummy_stm.0 > $L   # no output_open(), pdrv_private is kept
+  rmdir $P/dummy_stm.0:p_basic.b/heartbeat.0 $P/dummy_stm.0:p_basic.b
+  mkdir $P/dummy_stm.0:p_sys-t.c
 
-Fixes: 7bd1d4093c2f ("stm class: Introduce an abstraction for System Trace Module devices")
+The next heartbeat then runs sys_t_write() on the freed sys_t_output,
+and unlinking the source frees it a second time.
+
+Clear the pointer when the output is freed, so that a stale private
+pointer can neither be used nor freed again. If no protocol driver is
+bound at that point the private data is leaked instead, as before.
+
+Fixes: c7fd62bc69d0 ("stm class: Introduce framing protocol drivers")
 Cc: stable@vger.kernel.org
 Signed-off-by: Yu Zhang <yuz08559@gmail.com>
 ---
- drivers/hwtracing/stm/core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/hwtracing/stm/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/hwtracing/stm/core.c b/drivers/hwtracing/stm/core.c
-index 5fbea4e..64a9eb1 100644
+index 64a9eb1..5b7dfa3 100644
 --- a/drivers/hwtracing/stm/core.c
 +++ b/drivers/hwtracing/stm/core.c
-@@ -1287,9 +1287,9 @@ void stm_source_unregister_device(struct stm_source_data *data)
- {
- 	struct stm_source_device *src = data->src;
- 
-+	device_del(&src->dev);
- 	stm_source_link_drop(src);
--
--	device_unregister(&src->dev);
-+	put_device(&src->dev);
+@@ -345,6 +345,7 @@ static void stm_output_free(struct stm_device *stm, struct stm_output *output)
+ 		stm_output_disclaim(stm, output);
+ 	if (stm->pdrv && stm->pdrv->output_close)
+ 		stm->pdrv->output_close(output);
++	output->pdrv_private = NULL;
+ 	spin_unlock(&output->lock);
+ 	spin_unlock(&stm->mc_lock);
  }
- EXPORT_SYMBOL_GPL(stm_source_unregister_device);
- 
 -- 
 2.43.0
 
