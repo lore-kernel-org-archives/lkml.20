@@ -1,119 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793555661;
-	b=09amsJxh3vPGKNWxwMGzOcWQQqz9uisoX77OeRCW6me04Mh9fx4fubzfUD1I55mxh6RS
-	 REwAKaCnQdAt5IBP+Zm6arPO5NpFsM7t0XG6XeaRXV3IJmbOlRCWE91Ph+/UDPV4hFB5y
-	 LjFPlg2YKPfxETUd69kkXimH6HN11JjWTJlfh7xSCBm9YKiXhsLVZeklM+bhf2Rvu8+Pe
-	 /MbpRdhHz8T0AVV77tDBr6snbTEWJS0LRz6R1bCBYQ+29ArqHRJuyUKmuSvBSW1DPkN7e
-	 /XljkxievexTr6OjHmOrs4A3nmFkDyoMq0vsDYZfNIVFjZrNXiiDfM6q/lRXphHne8g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793555661;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:MIME-Version:X-Developer-Signature:
-	 X-Developer-Key:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081kH3kHkjY=;
-	b=BPHdpFiWqn8xycIExHIRDoMqL//vEN/np6SxKCZVZTrtlYhJ1+xXcGWeOMTW3zVZ0W8/
-	 OncBgjuCL/41Gg6okEy1z/wEQ2nlguuJvyEhEXBoLQj7lkdsa3GMnBzCeZJmTkyw/nXtJ
-	 zeMO5Gnfy5IhdG9f/VAy7hoGFTiTgFQGaUtncysdWn/dy5brZABE8+th9B8Lxcm076nBV
-	 QOTct6kPd45HN90UakgyOJwtDOD2BEiaD30o4NaN35s2l6pI4S8isy87Ejc3jRePB7a65
-	 ToMHhuhb+mGanV/6rAltV4qOg+n6TGeRYvmJyNF6KbdJYcC2j5tvgOsbVzRrJLchOYg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jOMHyELc;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oi5g6u0w;
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793555763;
+	b=yMwR8RToMGklbCJzclWqbMW6FIgzTrdCPNUPcEK/U2zZekKRXvhxsbL87ivIAw4em6Ou
+	 eSPUrXg4+0aUraM/PzJTUz5KUDuSbK+RUTYy9S30BPNG0nip5Sh5QvfOvu1qtH6SGXi+T
+	 TELn53tpDCmeJoYbOonYvwDsbVKmnMqQQ3MgkhTVspDCq1wJsCtNbqtoA9UW/Gta1b09+
+	 7vrxlBzW8qBVf9VLr4jc/xX2WlQifU4W20txcHuplFGrysJ7dOZpOpx9i+pF/WR3gQnh3
+	 LjN7azmbppICf1CybhJb9AeM374/uor77Q6XE2So1YubGjYbNWnFBhg8tnJzidvq+6w==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793555763;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
+	b=EzxiEc/OTTM6Lgx/3dBwpbs14YBvu2ZEy2G70eBMsxOdu1eCerLTJhhDBSpWODh/uCAu
+	 SitsicMRAXOzfFSlpBxShILUd93NoUCcL3US8+rbN+4uN5mzcGoulg993s4CAAADXbNZ7
+	 E4PCMlLD4q7VCaGHgRtR+Dy3D8g/0TxjX4Cc7iRFrFXTb9PZNnQPxIBWTUcI/qor9fvGx
+	 nmleB5b8mmW5qtBGd6N4m3pJhDCxrXEYBhGvw8kpcoRJ7qMybrX8t9rCXy65wpPGKFkfi
+	 HkYWQPoja9cDEsG1IZM9IIj73Wmf/FlGqO2vu8tzHV1gI31WYSLcyzYK4Lg7Usn0J+Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xI7Eg+iH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.177
+Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E314B606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:54:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E314B606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3CFA606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:56:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A3CFA606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=jOMHyELc;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Oi5g6u0w
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A1HR2X02021415
-	for <linux-kernel@vger.kernel.org>; Sun, 1 Nov 2026 17:54:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081
-	kH3kHkjY=; b=jOMHyELc7YKJrU2lbiIdQ8ccYv1sGKinrcX6pRVIoGtPQxOKdTb
-	ajo2yPCyEsZ6A39YuRUua/PyVE1HSgsTC+msvcgMy6cilaXVrQMAVFoB9Bk+eF1k
-	eq92zAc7d4/T/AJwx+pbwM40qKvHg0DzS/fjR5obDCft5fs9t7Q320FLeRKME+CB
-	pxBlv6MlKSPQklbPtBmxwan+oZDWymKUN7AByfw/mCz5YfZ4CjlUHmjjsaXSsaHx
-	mQcmFHGUbGPYlwAca078PwlIxnNtq4zcw5T9ITL55M32VRMAOqp3WlpmeTkG9m0a
-	Ou7DmlNQPHyEM/8lpx0wf1wUpL9nMZfj5FQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6m006-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 17:54:19 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e92aad34aso459883985a.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:54:19 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xI7Eg+iH
+Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-369f33df08eso4642434eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 09:56:02 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793555762; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Bi4vzV+6RXcgvcwQvzeyY1Avk6sO4ko5IpZtVPLLX59PSN7Y0RbeFBiGR/EGc6OJOo
+         iK2G1m6h7FO5k6g1vdmtTDqhQYqOBXD7Lg0LF/mh13Ha3Y2s7Medo8TV3355ufnwBZxf
+         N14vIEggjK8wM+3jOoZpaAOA8fC74mdzOd/ervaOKMbD3Ur62eYBLeAMrUZ8JSoPKB7A
+         Zer7sxHC572AMvOIUis2XoZK32Xp8SBLOr+/lJPkdZjk5ZELL3ubM1ieAHJY0JQXLOxX
+         kIoJzPB1q8mMe8YTaW7IDIfvb/RCwPvkFfJSuJWy/h0pjuquJP7nC/qq8gVPWWyQ8ki/
+         eocg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
+        fh=H+TYXQNK3yfJXOJvhPZCQuOl+pwXGvMSfjSqR9Jmzt4=;
+        b=eOnusqotypFb5Q8J4f6Drvq31yJRDaLLIocM3Pv6B5GTTBDCogSYSAmw3lxqmDZTOK
+         4bT3zExQ+4WlJTj0S3cbay6Web4IX2NMUcdtpewTu6IhvUYs5zYWDmZhBzfHNuVCNvMi
+         ln57Xq8f2uyFNhIIDT8LlSMQ/0I+6uGfnchWICbYssaEYrU1K5bT7FVGAYixQTbkGrG8
+         6S0uXiQIfZCApvh/Ce9E8/zzdwc4yd71dqQ/Z0swSKSIm/Nl6YDsiEYULAFnjGSGp7JT
+         8LmgdfyX2c6JsObtMGsgL8VyCDavQHLu9B2HX5F7ykqGsvyd/gZLla0wyLRPnfFLjuz2
+         yRtg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793555659; x=1794160459; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081kH3kHkjY=;
-        b=Oi5g6u0wMuPbL5mLRDY7c74PZ8cLNzU2KBdkGN57JzUWNpr5q7ikxRd7tpPCIV7q24
-         VB1P6kBGuIQP1SE3diaQUEZvaIeicGP0vUjVguutSKgQ651+f7rGp9nLAf1lK6AcZOJS
-         dkA06vCtZbfAxhxGcs3Bq20XrUdc3q4DLNDMuS5C+tL6ZNxUyX8BthbTxTG/tbVy5+WC
-         DUzCorprBAY2IiTvizikDHHmI/5BRhAVgmEgkuXayJtW5KBynXa4DpA6K7fdO+u2IhJz
-         zqU15DEKkp/i97YyZsPW02HVRqfvzRRQkLrAEt2PGL8hE1iQTUcpNHSEnSkrXcV9go0K
-         JGnA==
+        d=gmail.com; s=20260707; t=1793555762; x=1794160562; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
+        b=xI7Eg+iHeR8rPP+5vWDtTL5ybfLa9tfSUe6MjVJlKbjP3y8byZoks27U/XyRJiUKeA
+         3APi1BVxzVLn0GiDoMIAt1XFUF4HgOrEIHP8Kg3BqkNBFcgy/B24O2Hdx76f7Xg91Wdp
+         6J1oMess/iGYBKKfo7CP9+TpIsQdvaQMxq2aBE7QUFXjJlQgIioX8mL9scGZ8YoRFA2p
+         Q+AKFFznQ1GAja7JTHDWBbtuN7P88Bt88vQg9PzQkZs6ZKSu40/nqDfrEWpq4RJ+OEcm
+         fA8vuG7ZYRxLFQG2BY8cRbk0MofoQtVbSnrwMBGrUNVFhjz9gO2fJ6xSqZ5A6Pwt5sQn
+         wC+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793555659; x=1794160459;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kdtmiZdTU1nXwsamLd7Szc08WcYoKl4Y081kH3kHkjY=;
-        b=asGX2ZqKDNOBvOjCjz2AbCeLYUfJ1BtTOpXd372iuxWjwgr9QIYHfHmm4EiFf4FR2R
-         npjgWC/phq06h0s6iD9RQMGiYcZoZUb3sXN/fwqGwQDYVzwVSHYchxKuX+bWPHfY1BlS
-         UVF59dscNZ48LOAf0Cs1tdV8wyr49Vr9qO2RpJy+eSooDeQzYxBZ6tTnlPp+Io2KGby3
-         nm6/RKzKjnqf+FaKIZkkDDlOHEJCuk3H6AIGENUJJo6eZmmvUrDBwjp6atjzWBjCduWk
-         PFTxjZujr6WQMuT1tXzGSIPWgC004mMS4bCwBmznwfwKEN2GvkTPN4NS+fjL3MgsRRuI
-         K1mQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz/pJDDuXwly8++nOSxGUl+XqLMmXbH2/uYQ6mSMog8HSctXGQYZfqmb+FjAOB693Del4tg12Nsg6oh2gE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKUsFa4BE3uJf0JwL7lAfXS7Z8skDJG2Icwj4DDWfEoSRmD1uXI
-	CxrhrEFtYjbk3/4dVqm043wAQ9iTgLNReD7TOUp6hhxqtIWvwEPb3eSkl25T/E87oBh9wDjmWNR
-	SdoG6PsjRkjIT8vSUGAOT7DuFVW0oiaSPR0mEB1ORznYcmj1hxQHbB0YMv/xkA7As6kk=
-X-Gm-Gg: AYBFou2bUW61Slbk/WsQGxs1PRUx/WQUe3rJlozwU3P9bmYi4RZzlIo8eJovnuq5LbC
-	8N7MiIV0WJQlbfKVPWxL2gp+oPp/peNpQTocQCPDrEhP7kfRRu5ANVtcr0v8kD1qKUhdGJz1RuV
-	vRR7EjEfQXE+kK7szHYXTILgd86pO//patp8rr3lAqDRuuDb7lyS/60frhLP0CFGRt1Pf7KDE7Z
-	gvarFRgJUPAeMi9j0yyn6QcezZN2iqkw/QZS0f1xGUghtVRImnoMHUD5fFKD22RC5E19zHt3IDP
-	Olam3Fl3B+vmuUeXXi1NFrh5kCNXSQ25sDlBpRq/Tmqhtp57LMai/Rqfp8bhViAc68UFXt+pQt/
-	UZvms912OGlgEHoUMx1jMSpuQot+ldkMdInhFx+7Y7din6B7XR6Z6fZU2uhNh9g==
-X-Received: by 2002:a05:620a:6848:b0:939:ff85:8067 with SMTP id af79cd13be357-94421663f42mr1273097985a.30.1793555659045;
-        Sun, 01 Nov 2026 09:54:19 -0800 (PST)
-X-Received: by 2002:a05:620a:6848:b0:939:ff85:8067 with SMTP id af79cd13be357-94421663f42mr1273094685a.30.1793555658425;
-        Sun, 01 Nov 2026 09:54:18 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa80f04723sm325714735e9.5.2026.11.01.09.54.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 09:54:17 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Mark Brown <broonie@kernel.org>,
-        Andy Gross <andy.gross@linaro.org>,
-        Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-        linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH] soc: qcom: apr: Reject packets with header size larger than packet size
-Date: Sun,  1 Nov 2026 18:54:08 +0100
-Message-ID: <20261101175407.110780-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20260707; t=1793555762; x=1794160562;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GoX7Xz5wrKL93mBkqFEu2q61WlbNu4zQ74W9jEnyAOI=;
+        b=AeSXx7DcN7Pi9O0zM89yqJLTRvZlFlty47ZJVLhViCakqH1OTWLS6trWCpNdALgl7Z
+         ZOriQ1cnaqiO8JgK5y7uQpg5moy3O19v7x16hqnTp8nhStO2CCT0BsZwMtktPtMR5TkU
+         UQvlKTmruzSTNZEA7aF/iUCGz19ovdxW2Z8NIk3lW/ZMJlCkhVGfBLsJHtBcvS06XUdP
+         i6LobEr/y61+dV5OY0vQKeh2ZVHpGUAEcdgVkKESfDlafqCx7LYD8glIDRLQFGrh7Cs7
+         6v1jR3qqhY63y+9lY0XReTXPDnXsDtoB6H/6Lqlz7ZYcQPV+DEorDQrbz1F1GjTpgvjg
+         leig==
+X-Forwarded-Encrypted: i=1; AKwUvBxok7Q+NtezshWzVwm1tAEAE0SP7lps1StfJJCGuO8F1rPEgOc6fHUIw+aFc2gmoIFbDKHJvWA/JmG6WNg=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+p9AvVLWzFkS+Wtdm/GLG4iZg9Hy2GONBIRi3mhe3Nq46MFbus
+	WmB+OW2jj1d0iR8Sdk5nSu/I3Ilgo6Cv3hcPu6sQ8wsax1w8u3V3EDV9ZpfA8ghtCzOXuPhOcxa
+	mueNjY5QWaNbhIx12EKc88Ifiwq7niIA=
+X-Gm-Gg: AYBFou1Gx3k4yRhrv74WAZrrH6Qg5tf5SWIiM5QXuaYAx/GvLUK+FlUk2Rzi95JYkQj
+	R1ORTLO3IHW9/6MEldvS5BJiKRzedsOBqB4pV6otBRKdU/9v+qQgPVZZV9YlN1khl1l3mawYLo8
+	3je/B+UR0nsF9EcNKbJPSdUWLcCcRI1dNKQUmSDJwj3VonSVnHoz7lQA9g1+r4fTdmV/OBY/hQ3
+	3yghWaUV6xCT5ZtjlUWG4IuBGG0pDpeU6/vb3YvRCspowaF1EUta6Io7HGcfQQX/5I3U0QhjzR9
+	Q4uUfsN6+c+DA7YJ4zymrSR08wm1Eu+67ECxrj2OiN3DAXEN2I+iGiU8I3rAImR5BtXhESLCWlY
+	6ZVDGeh7cevBTKZctS4DrVpOOvccbmmhOe26T2m1AODrYk7PcLlQCE7sMu0y2Y22yRBdICQ==
+X-Received: by 2002:a05:693c:895c:20b0:359:ef9:9be3 with SMTP id
+ 5a478bee46e88-36a4236a466mr11835005eec.11.1793555761519; Sun, 01 Nov 2026
+ 09:56:01 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,94 +104,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1945; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=4MmiwbTe67Vae9D7Lm+Zj++XqRihN9uwcpy1QVEzwR8=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq53y/r7BuYv9eK3+a8QHoZBIisHOoqo5rhSCYT
- x83EJSNlliJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaud8vwAKCRDBN2bmhouD
- 1y9cEACPaj9qjm4Xgq2YAlnapjZ58AL8Ampb8QNuC8Q2em4csesDfI7RlNvwHxZkbCKKftlHP8q
- R1l8jH6moeUbMfPMFoqbtgedazQfS1q+MVgIIzgI4yRkwf/gRPK3dOEGs74dGL2/VRIqriImqm6
- ZRft9ZDOmNscRv8oSlf0cSusfzJhaY76AsT5XfhvdVxv9HHTCCwHmlQ1jqd+CJxdcXjpjdbuJ3/
- f9da1/Wqa/x77gsXo70d/5DMqX/MFjIa/zcNOS9cz06dUAXqd5P+/Xj+ccr0R9o4vzaaIeXZuo1
- +h1xXwIWbePSbuobLX9bs4kFqAXeMiXV//+c39eMpZaKEcwP/i/xo5/zX66AyvKrEoK+t9WzqV6
- lQ2NSAs6ckCdKUAO06lNAcmmk0wo5p5smBNYyoxqTA4a3HdYp0KMucFEseiIpjj4SKRbXSlO6r6
- M2CVnkiKM3i1IAS5NJ8hwuJiJ1mPhHMJXWZ8qyLyUbu6FsvjcdPtyBnazeo4FnZMBO20aGvjTOA
- 8g+IkgWoTb8gHMAux6fT5SReiBGW1txvpPx1afafp6sbvTrp2Bl+VXzGl2YoiR68CnRo03I0sww
- wckAJZ/8dfTPRSGKulNus45bOrJElgXwaAZew84f6a4qsfFQTdzSCDETRQaUX3+pG1IT+Tqa7xM u1hWjU49i/JprBA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Lykvxkf9FWGqlhDfA12mjVeKJEdR11G1
-X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae77ccb cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=DVh7n887_SxPlczGqH4A:9
- a=PEH46H7Ffwr30OY-TuGO:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-GUID: Lykvxkf9FWGqlhDfA12mjVeKJEdR11G1
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDA3MSBTYWx0ZWRfX9EYQB0en9kdm
- rKI9k6ULwN+bP8MwoOJE/+tN+VnuqgM/o+f20eZs6drCm1DwFNVa3afXGUJY9JlTZR2MKhWdWai
- bc/JGNz9CebNJ/bqEDcFjYQlxEFF7v0=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDA3MSBTYWx0ZWRfXyq5JXO9QDa6Q
- F9zo2+o7ABKKoy4nP6emxwpuDQjLxOfKh4xZ8I1XCoBrMWtjoR8Hyt1gUGXFO/rFjXx3VAm9+a5
- DkdYcADcNxWf0lUhiRkkbvUQV9RkdI7TII2svj8PvslWP7Iq3JWP+5AMaBBleQnj06KFqVyi572
- bYiAy5atIkheZytA7Zrn4J4vaZBDvoTytccfVvJ+80K7lBrnsS8zMEQ0uTy0PXZlBEFVt3jTSeM
- 1Xftjy4M5+XzklGn2gqpTE32z3hWUrNoKOXEjeJ88TUx4KNLdMiRnPxtES0KQjiybrG1/GLLBqL
- LfN6TMeutXrr3XzvPg6LRj9NCcFa0Mnnf4neqZFXmMnhj/YtOlL+dDIwN+cKQEn6aVi/jyCAPCY
- HWlrV1SQX0+tqDqxF2OTddABe+/WvLlF4okgZjC7Z7bW8Cu8BTbO1Ehc/vR/hQQ2yfnhlxHK4vF
- H6vdT03lADncNhfqnrQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-01_06,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611010071
+References: <20261101141507.119186-1-clamor95@gmail.com> <20261101141507.119186-3-clamor95@gmail.com>
+ <20261101174140.4d11fdfc@jic23-hlaptop>
+In-Reply-To: <20261101174140.4d11fdfc@jic23-hlaptop>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Sun, 1 Nov 2026 19:55:49 +0200
+X-Gm-Features: AclHuK8EZUIy45_qfYG3a3MB3Ax9bYhjt0WTcJl5ffWhhE8QVM-VmOuMMgRylVc
+Message-ID: <CAPVz0n25RR-ayBHuvP8KkrYc22AzHT67=nSEZn=hzRufUJw0zg@mail.gmail.com>
+Subject: Re: [PATCH v1 2/2] iio: light: ltr501: Add support for the
+ LTR-659PS-01 proximity sensor
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Esben Haabendal <esben@geanix.com>, 
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig_=28The_Capable_Hub=29?= <u.kleine-koenig@baylibre.com>, 
+	Pan Chuang <panchuang@vivo.com>, Hemanth Selam <hemanth.selam@gmail.com>, 
+	Antoniu Miclaus <antoniu.miclaus@analog.com>, Nikita Travkin <nikita@trvn.ru>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-apr_do_rx_callback() and gpr_do_rx_callback() validate the header size
-and the packet size separately, but never check that the header fits
-within the packet.  Both sizes are u16, so with a malformed packet where
-the header size exceeds the packet size, the subtraction computing
-resp.payload_size gets promoted to int and becomes negative.
+=D0=BD=D0=B4, 1 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:41=
+ Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun,  1 Nov 2026 16:15:07 +0200
+> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+>
+> > Add support for the Lite-On LTR-659PS-01 proximity sensor. This device =
+is
+> > nearly identical to the LTR-559ALS-01, but omits all elements related t=
+o
+> > ambient light sensing (Even the regmap is identical, but ALS registers =
+are
+> > marked as reserved and interactions with them are discouraged).
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Hi Svyatoslav,
+>
+> Various more general comments on the driver in here. Only real request
+> is to not copy the rather ugly existing indentation for new code.
+>
+> If nothing else comes up in review, I can just tidy that up whilst applyi=
+ng.
+> For now I'm going to leave this on list to give others time to take a
+> look.
+>
 
-Further check "resp.payload_size > 0" would fail, leading to
-resp.payload left uninitialized (stack value).  Reject such packets as
-having a wrong packet size, although unlikely that firmware would
-produce such packets.
+I can address some of your suggestions in this series. I would like to
+send v2 anyway since Sashiko found a few legit places needing a fix.
 
-Fixes: 6adba21eb434 ("soc: qcom: Add APR bus driver")
-Fixes: ec1471a898cc ("soc: qcom: apr: Add GPR support")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-82d40745-1593-4c20-8432-d86099836525
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- drivers/soc/qcom/apr.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+> Thanks,
+>
+> Jonathan
+>
+> > ---
+> >  drivers/iio/light/ltr501.c | 58 ++++++++++++++++++++++++++++++++++++++
+> >  1 file changed, 58 insertions(+)
+> >
+> > diff --git a/drivers/iio/light/ltr501.c b/drivers/iio/light/ltr501.c
+> > index 302be2fc314c5..5cc1141322ad5 100644
+> > --- a/drivers/iio/light/ltr501.c
+> > +++ b/drivers/iio/light/ltr501.c
+> > @@ -96,6 +96,7 @@ enum {
+> >       ltr329,
+> >       ltr501,
+> >       ltr559,
+> > +     ltr659,
+> >  };
+> >
+> >  struct ltr501_gain {
+> > @@ -649,6 +650,26 @@ static const struct iio_chan_spec ltr301_channels[=
+] =3D {
+> >       IIO_CHAN_SOFT_TIMESTAMP(2),
+> >  };
+> >
+> > +static const struct iio_chan_spec ltr659_channels[] =3D {
+> > +     {
+> > +             .type =3D IIO_PROXIMITY,
+> > +             .address =3D LTR501_PS_DATA,
+> > +             .info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+> > +                                   BIT(IIO_CHAN_INFO_SCALE),
+> > +             .scan_index =3D 0,
+> > +             .scan_type =3D {
+> > +                     .sign =3D 'u',
+> > +                     .realbits =3D 11,
+> > +                     .storagebits =3D 16,
+> > +                     .endianness =3D IIO_CPU,
+> > +             },
+> > +             .event_spec =3D ltr501_pxs_event_spec,
+> > +             .num_event_specs =3D ARRAY_SIZE(ltr501_pxs_event_spec),
+> > +             .ext_info =3D ltr501_ext_info,
+> > +     },
+> > +     IIO_CHAN_SOFT_TIMESTAMP(1),
+> > +};
+> > +
+> >  static int ltr501_read_info_raw(struct ltr501_data *data,
+> >                               struct iio_chan_spec const *chan,
+> >                               int *val)
+> > @@ -1178,6 +1199,12 @@ static struct attribute *ltr301_attributes[] =3D=
+ {
+> >       NULL
+> >  };
+> >
+> > +static struct attribute *ltr659_attributes[] =3D {
+> > +     &iio_dev_attr_in_proximity_scale_available.dev_attr.attr,
+> > +     &iio_const_attr_sampling_frequency_available.dev_attr.attr,
+> > +     NULL
+> > +};
+> Not something I'm going to ask for as part of this series, but
+> if anyone working with this driver has time it would be good to
+> move the available handling over to the read_avail() callback
+> and masks.  This is an old driver and so far not been converted
+> to that newer infrastructure.
+>
 
-diff --git a/drivers/soc/qcom/apr.c b/drivers/soc/qcom/apr.c
-index 2d5645ff9919..6f29b57aaecc 100644
---- a/drivers/soc/qcom/apr.c
-+++ b/drivers/soc/qcom/apr.c
-@@ -210,7 +210,8 @@ static int apr_do_rx_callback(struct packet_router *apr, struct apr_rx_buf *abuf
- 		return -EINVAL;
- 	}
- 
--	if (hdr->pkt_size < APR_HDR_SIZE || hdr->pkt_size != len) {
-+	if (hdr->pkt_size < APR_HDR_SIZE || hdr->pkt_size != len ||
-+	    hdr->pkt_size < hdr_size) {
- 		dev_err(apr->dev, "APR: Wrong packet size\n");
- 		return -EINVAL;
- 	}
-@@ -280,7 +281,8 @@ static int gpr_do_rx_callback(struct packet_router *gpr, struct apr_rx_buf *abuf
- 		return -EINVAL;
- 	}
- 
--	if (hdr->pkt_size < GPR_PKT_HEADER_BYTE_SIZE || hdr->pkt_size != len) {
-+	if (hdr->pkt_size < GPR_PKT_HEADER_BYTE_SIZE || hdr->pkt_size != len ||
-+	    hdr->pkt_size < hdr_size * 4) {
- 		dev_err(gpr->dev, "GPR: Wrong packet size\n");
- 		return -EINVAL;
- 	}
--- 
-2.53.0
+This I don't promise, I will see what I can do. Maybe you have a good examp=
+le?
 
+> > +
+> >  static const struct attribute_group ltr501_attribute_group =3D {
+> >       .attrs =3D ltr501_attributes,
+> >  };
+> > @@ -1186,6 +1213,10 @@ static const struct attribute_group ltr301_attri=
+bute_group =3D {
+> >       .attrs =3D ltr301_attributes,
+> >  };
+> >
+> > +static const struct attribute_group ltr659_attribute_group =3D {
+> > +     .attrs =3D ltr659_attributes,
+> > +};
+> > +
+> >  static const struct iio_info ltr501_info_no_irq =3D {
+> >       .read_raw =3D ltr501_read_raw,
+> >       .write_raw =3D ltr501_write_raw,
+> > @@ -1218,6 +1249,22 @@ static const struct iio_info ltr301_info =3D {
+> >       .write_event_config     =3D &ltr501_write_event_config,
+> >  };
+> >
+> > +static const struct iio_info ltr659_info_no_irq =3D {
+> > +     .read_raw =3D ltr501_read_raw,
+> > +     .write_raw =3D ltr501_write_raw,
+> > +     .attrs =3D &ltr659_attribute_group,
+> > +};
+> > +
+> > +static const struct iio_info ltr659_info =3D {
+> > +     .read_raw =3D ltr501_read_raw,
+> > +     .write_raw =3D ltr501_write_raw,
+> > +     .attrs =3D &ltr659_attribute_group,
+> > +     .read_event_value       =3D &ltr501_read_event,
+> > +     .write_event_value      =3D &ltr501_write_event,
+> > +     .read_event_config      =3D &ltr501_read_event_config,
+> > +     .write_event_config     =3D &ltr501_write_event_config,
+>
+> The indenting of the existing structure is weird and could do with a tidy=
+ up.
+> I'd suggest just dropping any attempt to force alignment.  As is shown
+> here, doing that tends to lead to inconsistency over time as a driver
+> evolves.
+>
+
+This I will address as a separate commit before adding ltr659
+
+> > +};
+> > +
+> >  static const struct ltr501_chip_info ltr501_chip_info_tbl[] =3D {
+> >       [ltr301] =3D {
+> >               .partid =3D 0x08,
+> > @@ -1283,6 +1330,15 @@ static const struct ltr501_chip_info ltr501_chip=
+_info_tbl[] =3D {
+> >               .channels =3D ltr501_channels,
+> >               .no_channels =3D ARRAY_SIZE(ltr501_channels),
+> >       },
+>
+> Another nice to have but not a request for this series.
+> Would be good to move away from handling these as an array with the enum
+> value in the firmware tables. That scales badly and runs into NULL check
+> problems when we use the generic firmware accessors (which we should real=
+ly
+> be using here). i2c_get_match_data().  The standard way to do this
+> today is to use separate named structures and put pointers to those in th=
+e
+> tables.
+>
+
+This I will address as well.
+
+> > +     [ltr659] =3D {
+> > +             .partid =3D 0x09,
+> > +             .ps_gain =3D ltr559_ps_gain_tbl,
+> > +             .ps_gain_tbl_size =3D ARRAY_SIZE(ltr559_ps_gain_tbl),
+> > +             .info =3D &ltr659_info,
+> > +             .info_no_irq =3D &ltr659_info_no_irq,
+> > +             .channels =3D ltr659_channels,
+> > +             .no_channels =3D ARRAY_SIZE(ltr659_channels),
+> > +     },
+> >  };
+> >
+> >  static int ltr501_write_contr(struct ltr501_data *data, u8 als_val, u8=
+ ps_val)
+> > @@ -1635,6 +1691,7 @@ static const struct i2c_device_id ltr501_id[] =3D=
+ {
+> >       { .name =3D "ltr329", .driver_data =3D ltr329 },
+> >       { .name =3D "ltr501", .driver_data =3D ltr501 },
+> >       { .name =3D "ltr559", .driver_data =3D ltr559 },
+> > +     { .name =3D "ltr659", .driver_data =3D ltr659 },
+> >       { }
+> >  };
+> >  MODULE_DEVICE_TABLE(i2c, ltr501_id);
+> > @@ -1645,6 +1702,7 @@ static const struct of_device_id ltr501_of_match[=
+] =3D {
+> >       { .compatible =3D "liteon,ltr329", },
+> >       { .compatible =3D "liteon,ltr501", },
+> >       { .compatible =3D "liteon,ltr559", },
+> > +     { .compatible =3D "liteon,ltr659", },
+> >       { }
+> >  };
+> >  MODULE_DEVICE_TABLE(of, ltr501_of_match);
+>
