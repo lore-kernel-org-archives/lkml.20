@@ -1,48 +1,48 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793571415;
-	b=2PQGZuyVL0gNItwxQIK6CTXYw0+MryyPL+YGOPBAGNmewga9BEr7ndLWgi+ij0+O2SCR
-	 eJSx2CJ9UfShBqLLs6WyLJcftHRnCXq3BEXuhjBg5uposw+/J6gPdcjI05xb7KrB2nHnt
-	 uAQ350rlSQBJCEzVxBoPIFsOurHwnRHm0CkD/m5P5eHpHJyALgA/SGAdhBNbOUlV4upVQ
-	 nPrvfl3g1llxRdlTWNjrSQwJ2CFVXZIX52JqxwqPsaZkngkGQrkzhG/wVpJgjC0VW14xh
-	 Ppjqp+SgisfxVf8PlDaFQMrmsWaIHDYJSz8xV5cE2pULJjNvwkRT9xyvlMGe8YwtExw==
+	t=1793571425;
+	b=1Wr/au0pVCDRQNFR5nvK1y0yn7wCBTHi1z0yf/v7+HDisirRj9Bnbi3ltEDNcb+u7Fp7
+	 5Vxm+QEJWMdA18sZ082ihnRFH4obI6thIJTYJRS7CG9QPbLW2nNKy+T5Vv3Viz1CiugTF
+	 0/5lzPjmqXJTRU1e3aPj6WIFW0zD8t88ODxpZBpXAzIFDTcSXjhUwniuUNxil6jxrVAGu
+	 /kb53vHmO3xKvQOnODI+ZhNhSK6m+bY9HasDemVGXATJpvLGyo50igupun6PcQ4QbaQSi
+	 HUicxkFw/3F64F5xhY8k/g90OAb8c/HIoUqh4ESlLFbmMe60mLLQBxRQ4DS9xjaBD2w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793571415;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793571425;
 	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
 	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
 	 In-Reply-To:To:Cc;
-	bh=HltbMUNV2mL7CmzUNbC48/jDW0dqtweL2/SgQbNH2V0=;
-	b=Cmt5OoIthRbEx7XnF+GpVJx+77kjPMSilsyAqBvhiEUCfUsx7KWyQx9rPiv8IpkDSC3D
-	 oGZbS5Q2yMRMbeBp7BfNGuj3qKwJJJgo0vKPu5ywiWXRlMhIWKzfSEyBaTlU+NxX+AXLt
-	 TN6O1mxSR5gTwQbEgsoX18CH2eqoBqdd5I8aAVtD3EPpMrZbx2VJkQptVfK46mVU/p5bk
-	 +Hhnw1fGZ6SpiUSIHh9xP7tsXZkF4Q5ab/izdN95gDKUcOsPIojsROGp4M8Hy74k0iIbA
-	 gl0mHEdWcRlQ/99MroKi2Q6YQUoaVPfGPcGf34rsD2OwdL4RcHxI5VtLmzLTa45fkHQ==
+	bh=UARKkxG8v/FxLOwHbeoJk4xGIgzo4xkYbvdWI9tXmCk=;
+	b=lQU0aIqv+ZrFhtnq4WRDcCvGVymhrwuZmYfFYZB0lzyds/RD6WSg4ZNNLQklsGZgHpK+
+	 1t8YAcyazn8X/fIaWSgehGBchp+AfQZ6o4VjDYX8hRP/g0OhXk450DaeFzLL7akaOuEgN
+	 FLfYyyZMKYGpGkN9R8WbBMBmZ+/Ere1ggUp6ZMDJIs94oEflv6TQCD7li6fTKn5tDk0Vd
+	 5ynsXRiyjJAwevxOq1jlO4lNvjZgYtlAhvnZVlGYZgduwk5g4F2AORaH/jHFea+GGJso0
+	 HadxwTQn3hukoVeSgo4HtGLpIXE2Fv8o3QUx5IM4VTtFdQVxHISo+57PaWPtGo/LKwQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sw2wvSa9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWlsXTGV;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D406072B07;
-	Sun,  1 Nov 2026 22:16:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7B3607412D;
+	Sun,  1 Nov 2026 22:17:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sw2wvSa9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5BBD1F00A1A;
-	Sun,  1 Nov 2026 22:16:54 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aWlsXTGV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ACE31F000C1;
+	Sun,  1 Nov 2026 22:17:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793571414;
-	bh=HltbMUNV2mL7CmzUNbC48/jDW0dqtweL2/SgQbNH2V0=;
+	s=k20260515; t=1793571425;
+	bh=UARKkxG8v/FxLOwHbeoJk4xGIgzo4xkYbvdWI9tXmCk=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Sw2wvSa9SHk+5nIAcZtroRIwKn3V8PzpfgbTLlVEV2B7Xsn//R4odyY0lpJuvkfxl
-	 NUZRIwvOhsHBhiPm4aKwcK/KKj3SJoyTiRkThQXKWOCyMxiNH0czjnItiMBrcqFga7
-	 uuczREcVU5lBB+gyieVoJQUbYjoYHae2v3rLcILiOpCvWoFXuRaWQn0K5Q/kHvzBTZ
-	 7pABNP2hcIomqaTsjurf04sAXjbEbAJtS5ik2OrgzBtbk8OsoUZ/jXIyzmR7cCJIyQ
-	 383vUSbItJnXYvFwIhgBanuA94ScjhOdY/FSt2V66ReLpmbDYJ9lM4+t4c4cA36L5q
-	 FvbztgSLAHKsQ==
+	b=aWlsXTGVrdI7jijjtDRDpVp2iW7JbtpN8zW3KaG3LTUEXDnqc/gmpYJDMGSLYrxfI
+	 T+zxJhPLwsWmx6EUEMjqIjWZn7ZT7BGqvbxqA/hID2NwI+EHpyzr9oZlL/rmxd/FXT
+	 pAJRIt559uJkZ2N4OIT3WzqBZoWyjOL1ykUQOH/xrLuM6+Ipji/sLX6MkbPs5+x0PZ
+	 +nraQLUY2Uy9qNbMrxA9H671ALuOk0qGqfqGmZg5eU+XAmpDGjAhik7aIYMppbZ6HE
+	 Cdatf7nxg/lUVofezd0mBqPw9JAuna1jOzH7NflXaQKGDpDj+1q4yh4WrY/AwLCuMt
+	 DXF4usnxXgVrg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id BA53838003B8;
-	Sun,  1 Nov 2026 22:16:54 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 401F638003B8;
+	Sun,  1 Nov 2026 22:17:05 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -54,63 +54,48 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2 00/10] riscv: Add device tree support for UltraRISC
- DP1000
+Subject: Re: [PATCH] clk: tenstorrent: Assign .num before accessing .hws
 From: patchwork-bot+linux-riscv@kernel.org
 Message-Id: 
- <179357141329.2624073.10814218023350815293.git-patchwork-notify@kernel.org>
-Date: Sun, 01 Nov 2026 22:16:53 +0000
-References: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
-In-Reply-To: <20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com>
-To: Jia Wang <wangjia@ultrarisc.com>
-Cc: linux-riscv@lists.infradead.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
- aou@eecs.berkeley.edu, alex@ghiti.fr, daniel.lezcano@kernel.org,
- tglx@kernel.org, samuel.holland@sifive.com, anup@brainfault.org,
- broonie@kernel.org, andi.shyti@kernel.org, mika.westerberg@linux.intel.com,
- Eugeniy.Paltsev@synopsys.com, vkoul@kernel.org, Frank.Li@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- paul.walmsley@sifive.com, palmer@sifive.com, conor@kernel.org,
- linux-spi@vger.kernel.org, linux-i2c@vger.kernel.org,
- dmaengine@vger.kernel.org, conor.dooley@microchip.com
+ <179357142379.2624073.14814247366912220033.git-patchwork-notify@kernel.org>
+Date: Sun, 01 Nov 2026 22:17:03 +0000
+References: 
+ <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+In-Reply-To: 
+ <AS8P251MB00013BD9A093C06D2D60E10EC8B42@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+To: Aamir Ahmed <elb12345@hotmail.co.uk>
+Cc: linux-riscv@lists.infradead.org, dfustini@oss.tenstorrent.com,
+ jms@oss.tenstorrent.com, sboyd@kernel.org, bmasney+clk@redhat.com,
+ jbrunet+clk@baylibre.com, linux-clk@vger.kernel.org,
+ linux-kernel@vger.kernel.org, asrinivasan@oss.tenstorrent.com,
+ kees@kernel.org, linux-hardening@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
-This series was applied to riscv/linux.git (fixes)
-by Vinod Koul <vkoul@kernel.org>:
+This patch was applied to riscv/linux.git (fixes)
+by Drew Fustini (Tenstorrent) <fustini@kernel.org>:
 
-On Mon, 07 Sep 2026 17:54:39 +0800 you wrote:
-> Add Devicetree support for the UltraRISC DP1000 RISC-V SoC and two
-> DP1000-based motherboards: Shenzhen Rongda M0 and Milk-V Titan.
-> 
-> DP1000 integrates eight UltraRISC CP100 CPU cores.  The SoC description
-> includes the CPU and cache topology, CLINT, PLIC, clock controller,
-> pinctrl, GPIO, four UARTs, two SPI controllers, four I2C controllers,
-> three PCIe root complexes, GMAC, and the DMA controller.
+On Sat,  5 Sep 2026 21:48:35 +0100 you wrote:
+> Commit f316cdff8d67 ("clk: Annotate struct clk_hw_onecell_data with
+> __counted_by") annotated the hws member of 'struct clk_hw_onecell_data'
+> with __counted_by, which informs the bounds sanitizer (UBSAN_BOUNDS)
+> about the number of elements in .hws[], so that it can warn when .hws[]
+> is accessed out of bounds. As noted in that change, the __counted_by
+> member must be initialized with the number of elements before the first
+> array access happens, otherwise there will be a warning from each access
+> prior to the initialization because the number of elements is zero.
+> This occurs in atlantis_prcm_clocks_register() due to .num being
+> assigned only after every clock has been stored in .hws[]. With
+> CONFIG_UBSAN_BOUNDS and a compiler that implements __counted_by (GCC
+> 15.1+ or Clang 20.1+), this triggers an array-index-out-of-bounds report
+> during probe, and with CONFIG_UBSAN_TRAP the first store traps so the
+> clock provider never registers.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2,01/10] dt-bindings: vendor-prefixes: Add shenrongda
-    (no matching commit)
-  - [v2,02/10] dt-bindings: riscv: cpus: Add UltraRISC CP100 compatible
-    (no matching commit)
-  - [v2,03/10] dt-bindings: riscv: Add UltraRISC DP1000 board compatibles
-    (no matching commit)
-  - [v2,04/10] dt-bindings: timer: Add UltraRISC DP1000 CLINT
-    (no matching commit)
-  - [v2,05/10] spi: dt-bindings: snps,dw-apb-ssi: Add compatible for UltraRISC DP1000 SoC
-    (no matching commit)
-  - [v2,06/10] dt-bindings: i2c: dw: Add compatible for UltraRISC DP1000 SoC
-    https://git.kernel.org/riscv/c/3d067add1281
-  - [v2,07/10] dt-bindings: dma: snps,dw-axi-dmac: Add UltraRISC DP1000 compatible
-    https://git.kernel.org/riscv/c/58a66a560aa1
-  - [v2,08/10] riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
-    (no matching commit)
-  - [v2,09/10] riscv: dts: ultrarisc: Add Shenzhen Rongda M0 board device tree
-    (no matching commit)
-  - [v2,10/10] riscv: dts: ultrarisc: Add Milk-V Titan board device tree
-    (no matching commit)
+  - clk: tenstorrent: Assign .num before accessing .hws
+    https://git.kernel.org/riscv/c/da9f1312b06e
 
 You are awesome, thank you!
 -- 
