@@ -1,101 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=194.117.254.33
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793565249;
-	b=dHeg/iHE6qLof755HDAdmNvC1D5cU7ddio0UyH8gUNMsH8mKi+BFflKsA9Cx/QrmQA/8
-	 vhgKa4mT4OjtLWlROmO4HM5dqRkV+hNjZDfAVYguAsV2w76SMNnvt0LWrhoBZ2WtMFcqx
-	 nGsNmLC6bqiOk7pUn2RVRdqb8SenddcUrz0fTYHUNgXnAB0ZKgh488h0bN2Z97YwUkObe
-	 op1NqUOaTyy1weePHAsHGXgYZN+007SQuJOCZyDk/QdJv3BvBJRcgZnff9pXkg+swJP64
-	 TgIEjMAC1uPDPDOZDq34PxPSRlkYBtOh6YsPcSTLjZBeU1afjpFe6TOABqI7P7Ly9qg==
+	t=1793565252;
+	b=m35fFX+pRg3gqk6HvcjYo6Moh8kdlv6RCR8TPJnz9zKW7R4s97S393NSV9kVhX5YBAiH
+	 EMvRLi9WC1GD8BapkcWzrVru8ijVZRiilS5sVPOZ+Cq0ibCwANpJEjvv/BUVJobeQ7NaO
+	 m/pCiHVuG56vc9vG/oofMhAnhK/JulBSNG354DeCEXm3QfpIVacgIJbcIbaC6kRDdvSsT
+	 knxmnPrsmTa3VZw/QjluWhbcXwmI51sTKOm6wDfiDaHQ++gb8ozdYtGS8Do2SMx9xk/Io
+	 Yook/9ecW4VImCSDFV42CqbNguKhe1NmuS9M6P8LZPEbiF/4buIb0lTkPDfUIkfZ9eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793565249;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=F89725KkjE+kUI5LXBxmdgLNt89Tfm7tC84mMjTHCkI=;
-	b=HGLzfOh6WAcJg3C3tIKjS7Mo+KYWTqKm+fNQYaH2hGa63lP+VW13PQzK8e9ZDK5qUB2Q
-	 fA7nJva6bNAoRG6nr/oBBNLokODy9BwHk0yrXqQUpcb0SSGEcXV1tPUOYXpZ3dziSfPOU
-	 LYznt7RwMQfh1rJf5+BIPLFK9tr8KHN+22Uvz9mZdBR2XIs6XR4bXejDiM0/zJDTKnCWQ
-	 fD6RLxQVf0CZs/eRqXhmH2aAJK7feukrl9OxKkp/B0eA82b5XANldbSqJlowDz08DNIvl
-	 LL3RYkmumwCVaOxPEiIa/bbu2QuDmtmDUibRgC7C/1vVS84+mQkmeRcpsAKv84KvKvg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793565252;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:X-UD-Smtp-Session:Date:
+	 From:To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=WEcinyzXvpzdrQbdmzGRVBkMmzuM3NlP9qlzk0r7u+M=;
+	b=Ybqyx5I12CTGv0OrQHMub6n8Tm1LxBdPMI/QXixxIFUaqOOPxijcF93apK0tQHv0MQ6N
+	 0ucPaBml708ciwcuM74EQkoeS97Sgt0xvk3/YC1eWzmYXvQUheYpw40kqdXW1wC9HZ1Hs
+	 ERBZ1186uhIjuKeKcXwtVsxD5Z9oOqjCZr+V/CaSeCx7ZJ9QL33zYf8286EsZevkyuXdJ
+	 pv9Y4F2k8YFLhu7MswnDZ/1EdiP0lEJQy7jqOhDxoNjrdg1REUb4M46hT5K59gjM7nJKt
+	 RmWMNktokTvzQn6dsTA6jZMIxkWGA1HlzZxQkoM601DCFL5uj7bBUg8Yzbt7UYavE9g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h2rQsl6J;
-	arc=none smtp.remote-ip=209.85.128.53
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=sang-engineering.com;
+	spf=pass smtp.mailfrom=sang-engineering.com;
+	dkim=pass header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BtuJ+9TG;
+	arc=none smtp.remote-ip=194.117.254.33
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BD6606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04514606A32F
 	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:34:09 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88BD6606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 04514606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=h2rQsl6J
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a210470b49so18506135e9.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:34:09 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793565248; x=1794170048; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F89725KkjE+kUI5LXBxmdgLNt89Tfm7tC84mMjTHCkI=;
-        b=h2rQsl6JF6r8yJaimAgurHkvgIEUOBN2l/PFgxOPhehtV/famX9N0k0Ue0d4054iiL
-         pPTirxy4Mqo93uxkeCYyMS3jbXqH5KqVO4d1xbbOTyIzcn15N/EJAt0sTvcoiQA5aIfq
-         JdTzy9o+jrag67cUTZQ5ES5f08eK9BQQzBSDEbYS+KbTrN8j1tY8L6sPh4y1A7voZb33
-         k25DNxg8N81bHcH8a04YdVPd4TTDoyywAv6TSOxFepU8oLjh3WCmb1cXNK1Z9ID1M3I2
-         E/66LPnibKZ0DHyoV0GBD2Pk/kV90W6Y2LW9ZOpGaZQsPd7pMdVW+Zd2Bg2I/zfHiAe2
-         xymw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793565248; x=1794170048;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F89725KkjE+kUI5LXBxmdgLNt89Tfm7tC84mMjTHCkI=;
-        b=sWWteAzED4fCXEqIASKKk0KW+xUibPoL25n+awlYrvQNR410dbkt1B9QdWhPvFCE7z
-         kJqSQCo0l9yUlbU3U3IBxgUe4J/L7qyz+2q/4RKvLDIGZXOW82rTJdkEtMwpH8ciJc5+
-         Z5Vo93nAcBURSlwlT65J8T9cpjJ6m5dpeLK/wmxv4w7+QsIFZtkGzHJoCmIQLE8ULC9J
-         dzibJy93cus0SDMmdJiv7034x+1lii1NT/A1YIemv59uxo55Ezwr+pm/Jkkrh+hAb++h
-         E/N8nNDkqBmLSxZIMQC5eJvm9UcATHVI7UsoEHt2i9vLNL1CCTIRQt+TQApY1jRdr5/q
-         zvvA==
-X-Forwarded-Encrypted: i=1; AKwUvBxoI+A55etXTQcnvyjDgrX3Y1b+vEOqxTzlGQe8PcrDK3cyH/XNSdTtPG191yAQ9w6w722BZfzRJH8iaek=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIP4OV5V0BjKpypli+0sFwfWC4H0Mgcs5nhIx+/RbroqGvkQSvs
-	v56cl6BOfreNwdfDMjtUtfTmiBwTBMFgajv23pVSBIan1BUQ3rjMRjK9
-X-Gm-Gg: AYBFou32wjIy/t22g8iREK8HymlEryFg5Kbl03f2GniZY/6WWfcze3k/2v6brUDky/w
-	HHlg4Qqev8VPYhrDRU2chiQKoBrxL/yjA3etQ+DLiSwUHw3uczGQqVkG8z6/ERKsb80mYCt/ENO
-	fxMVzrqwFp86YSvsGIczw9D0GqDGZi/mmz4RgWideY/CtMv7vok0zTqJUtajgd5ztvMgj1cDaL2
-	rezKkSkyQ9B5dVzWQg/S5n5wE9MNP7Megz/uVmj4VREsOeF8gpIOC7wl0LwlJJZ56TYIyxHh6gh
-	r3vIIBY/lUBbK9a3prSgawyyCu/wpZDSiSqwBq7q4FMOu4/O35dLcBuy09+yQS+izhTLeKG6ptd
-	+OW7vr8QkjUojJqGAdlraxyO/64h8mkPD1p+glbcB936dzxdQkTrjuyUUr9zo3Vfr8+Qu7GJmeK
-	B6DOh4xls87PLH0HvwbT6AG1x1hbv6cS4x0i2+E7oSHmGsaP2Ye4TsqDudbDVaJb7v9UYkxsGyW
-	gbAnYzMz/Vqn6dwZdrYs/01As0xQbfIOW9nzNWLEjxf+WUOZPLv1vmZ0Cnp0A6kw8LavgrYHFM6
-	X34mcntgPjCvimmJO0XyFJm2E74/b8GlB9ZDlofIRRqVSwGzjs1q6t1hGllJB8xJiEEab2kNSBk
-	x9AMhP7sD29dPVaM4hW7MpXcMKCboXt+rmVLokomIrljssA==
-X-Received: by 2002:a05:600c:1d07:b0:4a2:18d4:f9e0 with SMTP id 5b1f17b1804b1-4ac18c735b3mr192334605e9.25.1793565247854;
-        Sun, 01 Nov 2026 12:34:07 -0800 (PST)
-Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net ([2001:861:39c2:e340:849f:a468:4121:a85])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ab61d8b9f4sm263946675e9.12.2026.11.01.12.34.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 12:34:07 -0800 (PST)
-From: Romain TISSERAND <romain.tisserand@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	dri-devel@lists.freedesktop.org,
-	linux-sunxi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	sashiko-reviews@lists.linux.dev
-Subject: [PATCH] drm/sun4i: dsi: set the connector orientation from the panel node
-Date: Sun,  1 Nov 2026 21:34:06 +0100
-Message-ID: <20261101203406.1360656-1-romain.tisserand@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=sang-engineering.com header.i=@sang-engineering.com header.a=rsa-sha256 header.s=k1 header.b=BtuJ+9TG
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=WEci
+	nyzXvpzdrQbdmzGRVBkMmzuM3NlP9qlzk0r7u+M=; b=BtuJ+9TGthEvfHggV1K7
+	8HCM7lmDmDVKnstgAkSutQeepbxM9f+LBjaFk5F7H0FOumehplkJKLqoJ4+ceSBh
+	YK2ss/QChr71ijKyvjcVkjJLIy4l+mwVhX+S0+XWv8HGGxsgbS3TL9RxhUbSVG/E
+	axv8+Pk12kFE5H2dIY84wmQcx62TwwtQW8iTi8kMfH2anW9M1GuJzYn0um/iNzoS
+	MqQKrx44llXCiyQQ7aiR0H9+sB8qB7UaGm2wtCRRck41rxjhBhdU4H/PyL28+gfh
+	1iQa6igkkswZenPR28OwGiM6B5IRigeuzt7kfw2me4EMvNskJM0zliJLQI9IogCF
+	wA==
+Received: (qmail 853660 invoked from network); 1 Nov 2026 21:34:07 +0100
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 1 Nov 2026 21:34:07 +0100
+X-UD-Smtp-Session: l3s3148p1@YnRo8zxfVKTB0HFD
+Date: Sun, 1 Nov 2026 22:34:06 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Diogo Ivo <diogo.ivo.sx@renesas.com>
+Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Linus Walleij <linusw@kernel.org>, linux-i3c@lists.infradead.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org,
+	linux-gpio@vger.kernel.org
+Subject: Re: [PATCH v2 7/7] arm64: dts: renesas: r9a08g046: Add I3C support
+Message-ID: <aueiPnMvmHQhFtM4@shikoro>
+References: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-0-2e76b87209bb@renesas.com>
+ <20261026-divo-ssgrlpcsrc-2966-i3c-v2-7-2e76b87209bb@renesas.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,98 +76,30 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261026-divo-ssgrlpcsrc-2966-i3c-v2-7-2e76b87209bb@renesas.com>
 
-sun6i_dsi_attach() only accepts the panel once the DRM device is
-registered, and returns -EPROBE_DEFER until then. By that time the
-connector can no longer get a "panel orientation" property: it has to be
-attached before registration. The fbdev emulation is also set up from the
-hotplug event of the attach, so it gets no rotation hint either.
+On Mon, Oct 26, 2026 at 11:35:50AM +0000, Diogo Ivo wrote:
+> Add the I3C Bus Interface node to the RZ/G3L (R9A08G046) SoC DTSI and
+> enable it on the RZ/G3L SMARC EVK, together with the required pin
+> control.
+> 
+> The driver only consumes resources that are common to the RZ/G3L and
+> the RZ/G3S (R9A08G045), so the node uses the SoC-specific
+> renesas,r9a08g046-i3c compatible with a fallback to the
+> renesas,r9a08g045-i3c compatible of the RZ/G3S, following the bindings.
+> 
+> The I3C pins are shared with RIIC3, so the controller is only enabled
+> when the SW_I3C_EN switch is on.
+> 
+> The I3C I/O voltage can be set to 1.2V or 1.8V on the board through
+> the SYS.3 (I3C_IOVS) switch, so configure the pin controller for the
+> selected voltage through the power-source property.
+> 
+> Signed-off-by: Diogo Ivo <diogo.ivo.sx@renesas.com>
 
-As a result the rotation property of a DSI panel on these SoCs is ignored:
-on the PocketGo S30 (A33, 320x480 panel mounted for landscape use,
-rotation = <270>) the console and the boot splash stay in portrait.
+Didn't double check the pinmux values, but rest looks good to me:
 
-The panel is a child node of the DSI host, so read its orientation from
-the device tree when binding, before the device is registered, and set it
-on the connector then.
-
-Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
----
-Notes:
-- Testing: built with W=1 for arm (multi_v7_defconfig, DRM_SUN6I_DSI=y
-  and =m) and arm64 (defconfig, =m), no warnings. Tested on a PocketGo
-  S30 (A33, ILI9488 DSI panel, rotation = <270>): on 6.18.54 with the same
-  change (6.18 still calls the helper of_drm_get_panel_orientation()) the
-  console and plymouth come up in landscape, where they were in portrait;
-  on 7.3.1 with this patch the DSI connector reports "panel orientation"
-  = "Left Side Up".
-  Not tested on other boards; boards without a rotation property keep the
-  current behaviour (no property is attached).
-- Tool disclosure: this patch was prepared with Claude Opus 5.5
-  (Anthropic) as a coding assistant, in an interactive session where I
-  asked it to fix the console orientation on the PocketGo S30. It traced
-  why the connector never got the orientation, wrote the change and the
-  message. I reviewed and understand it, and tested it as described.
-
- drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c | 28 ++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-index d504ae5832..1eb8a4cde0 100644
---- a/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-+++ b/drivers/gpu/drm/sun4i/sun6i_mipi_dsi.c
-@@ -22,6 +22,7 @@
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_of.h>
- #include <drm/drm_panel.h>
- #include <drm/drm_print.h>
- #include <drm/drm_probe_helper.h>
-@@ -1055,6 +1056,31 @@ static const struct regmap_config sun6i_dsi_regmap_config = {
- 	.name		= "mipi-dsi",
- };
- 
-+/*
-+ * The panel only attaches once the DRM device is registered, too late to
-+ * give the connector its orientation (the property cannot be added after
-+ * registration), so fbcon and the boot splash would not rotate. Read the
-+ * orientation from the panel node, a child of the DSI node, at bind time.
-+ */
-+static void sun6i_dsi_set_panel_orientation(struct sun6i_dsi *dsi)
-+{
-+	enum drm_panel_orientation orientation;
-+	struct device_node *np;
-+
-+	for_each_available_child_of_node(dsi->dev->of_node, np) {
-+		if (of_node_name_eq(np, "port") || of_node_name_eq(np, "ports"))
-+			continue;
-+
-+		if (!drm_of_get_panel_orientation(np, &orientation) &&
-+		    orientation != DRM_MODE_PANEL_ORIENTATION_UNKNOWN) {
-+			drm_connector_set_panel_orientation(&dsi->connector,
-+							    orientation);
-+			of_node_put(np);
-+			return;
-+		}
-+	}
-+}
-+
- static int sun6i_dsi_bind(struct device *dev, struct device *master,
- 			 void *data)
- {
-@@ -1085,6 +1111,8 @@ static int sun6i_dsi_bind(struct device *dev, struct device *master,
- 
- 	drm_connector_attach_encoder(&dsi->connector, &dsi->encoder);
- 
-+	sun6i_dsi_set_panel_orientation(dsi);
-+
- 	dsi->drm = drm;
- 
- 	return 0;
-
-base-commit: a1e63ab695ad76850ab9787b9eb6aab695dc2965
--- 
-2.43.0
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
