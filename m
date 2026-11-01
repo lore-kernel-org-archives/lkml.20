@@ -1,61 +1,109 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.174
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793519134;
-	b=1E+NOBAZ86EY+6B6Fa127VjBqbGEWkZu9YyhR6POaQc1vxL5TiOhD5eO0u9uMgJ1qVbZ
-	 90AKYm6kHksXxktvYAEcyHQlNEMVPp8hwSBBmvnuIJbbF8hlIVhGCRLWWD2ULQEP+Ia29
-	 O5fYgpDidfNfMC9qTbMnqg5DFwthkLi2Hs/g2QRzZ6g/+P5Q6C7G2jC4AY/PDjycQKXpD
-	 ZxzhDheb+kphpe3S4pGLg2Bm0PM9IEezhKx6G/CeRhiVrItA402e8h/Pl9ZsXK+iAKfp7
-	 2E3Gyd+MX0z91tM+Bdf1+nUk0adCsL+BwsNoq0nuIh+9aAzFePrXDEoghcD9/IHcbiw==
+	t=1793519163;
+	b=IduMn9aau28HieehsCv4uc2UxnJIVloNk8bNdeyrUC45cYEiXiyxmponDzWRK73udX1/
+	 njXVj1Ms41StAst8dFqEnjRxf+u5LQPXaqbDO7SYid7dw5NJz19lJgwBYl+uKY2Wyjm5d
+	 afPLYjEcvRPWn8wVAcnSwlDqNDy+dX9EimEFVg/iejaErNSlpgqKDnxsLd2E3CW7toGke
+	 hXmsgnwbZIO3bO3wkHknCvHdBD/CAXgCiTbcfYI/7VL8Tu+g6VsZLQflcIbRusni5Wnp9
+	 BNTgKwly/TFba03b3UBHU6KZzqrwesBU95qStHUj41cLrlIPYtBuwVCWPcLvPkVKnRA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793519134;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=e4EP3Ad5hH7nvwH91+4TgVRsVIVbhxkn0SnVRiywnP0=;
-	b=kNpODCNd5qTafphkE+jLCK35Iv7uiTk/gO4GGqU3SM00IlIU8LyvvN2OFQ5pffGCB1vm
-	 DlK3Amk9kgxyPjZGr/A2mHOmxXHJ/RyKoCFbj/pJKbDPDerpXds8lnmWMx8vQF5nxqfko
-	 OWIq+35CzHw5Gu71w0VQtraHtms2NX0eH4r4sHyqzIqsWMliDiJ9KvnnDu4tQ+4PyfqqQ
-	 Tcd08VqZ9gGPmhbJ+uCbSUTwq/EKGD4zOgCSfD0XfjvOlwXlDnjIzPeF/gbj0XwqKJ4nK
-	 J5dhAMXNSNKX386Rm768ehqJdJV3+H0VKHftJPnu475wgZqGvQVfbq8yaDAftoAGfnQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793519163;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=SAR00vszMy7Oo8d4FC1bVF4Fi2pxCcoHYlztJt6Lr9s=;
+	b=f70YZTDN7YP0cgIlVnyIxSyL9hzcWL7lOY2VRv0an5cPIeZawIaOSPXKEjHwhnJb1Tfs
+	 GxYoKxsYbV/APW2n+RvpU+xnOlOpZAjYICndDUwq8j+P0MWgqA5fjxydLcj3qRJS8A0EB
+	 whQ5FBDXRkNXYvaDQ64wiZ3p6/Eoesap9UpnkjL6hSlT1XtOqknYBzrjOYd4+st8wVfeS
+	 4myXA12Dv6YgUgU7gl/FxsC5mo6McByL/YqH2ojjdu7UwqoQGnb/4/WONovN/VvcJv/92
+	 0ezKNqJPg6p7eLqscAYJxEvbvM++oGmFm09Dt4d9dQhJIkSFSLS4Z1SUyv7KrRqrmLQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tafwcz4N;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="VRK6u/rG";
+	arc=none smtp.remote-ip=74.125.82.174
+Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CEA606A329;
-	Sun,  1 Nov 2026 07:45:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830AC606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 07:46:03 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 830AC606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tafwcz4N
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF82C1F000C1;
-	Sun,  1 Nov 2026 07:45:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793519133;
-	bh=e4EP3Ad5hH7nvwH91+4TgVRsVIVbhxkn0SnVRiywnP0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Tafwcz4Nm5xU9CsfeAB+gjvHKCA8kBV5O9Gjw3J3LVYEWJQrxk/3bR6DshKjYM/AA
-	 KZvnH3/1G6K7B776p2auRGeo3ALNX3MYn8JS9s+XiOQPBmMLZ8ZU67fQ1ebeMx6itg
-	 Yj7oqFwzK1IHy/5o75DuiqWkFu6GW9Gq/Ke/hVqpkXqLFGsj0jFDj/mnFxgm6r5EAD
-	 CJGgV6LBzsb+SLIQrPgbIeWjRxV6g4dSnjccB54Yc450kRI/erqZD/zHGbTjAW214o
-	 jODeYooJumvIJxAWvb8KCrB6zRt5p6Ax7CU4jC1+AZZcCu1+NpspFXVIYxTLGVbQRm
-	 8BHBubGuRIdwg==
-Date: Sun, 1 Nov 2026 08:45:28 +0100
-From: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Greg Kroah-Hartman
- <gregkh@linuxfoundation.org>, Andrew Morton <akpm@linux-foundation.org>,
- Linux Media Mailing List <linux-media@vger.kernel.org>, Linux Kernel
- Mailing List <linux-kernel@vger.kernel.org>, Hans Verkuil
- <hverkuil+cisco@kernel.org>, Ricardo Ribalda <ribalda@google.com>
-Subject: Re: [GIT PULL for v7.4] media updates
-Message-ID: <20261101084528.53a1e83e@foz.lan>
-In-Reply-To: <CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
-References: <20261024185058.20410953@foz.lan>
-	<CAHk-=whVSx-=wUbY7e79bgW-C+m27+ON+HLm13mKHJBfBgUqOg@mail.gmail.com>
-	<CAHk-=wg0+RmcNDKQ4Qf82-miG4gjZ+CzqjTBET1ZZhkrPBp5Kw@mail.gmail.com>
-	<CAHk-=wixKLm5ahcYJ0tZNViP298RNJ_QwDcXN-AheH6uOfLZwA@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VRK6u/rG
+Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-3282db206d3so2500054eec.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 00:46:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793519162; x=1794123962; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=SAR00vszMy7Oo8d4FC1bVF4Fi2pxCcoHYlztJt6Lr9s=;
+        b=VRK6u/rGWl+iWQBWtPoSfwsH4iYy/wckEhB4cNLAeRElbupKkNN6SFHTATwzvhkoCC
+         j+aeCJ3s4CUCUG8nZxCzuQCjitQCYD0NljeYZq3pKGDld+7dm+Kr6sOzXv2Pb+lHuvIu
+         ywTWGHkvUJdVo5PYCIhFjPpOqPnl1BDgyFcWpgeBMiZHvBU7UfnyjF0csD3fy+u3wz8u
+         e6Z5J7+1tR4vfUAL6YDsyAXJLIXUHmHXaRATLoHLbEWocm4CdM5K7pmTsEM/LYAy4JWb
+         kr19gZFthfT+5QNjKVO0aAlDSEoP8j9tFURACZyLhSKrtUyUeTJ3Hff018ljzysZiALR
+         O03Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793519162; x=1794123962;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SAR00vszMy7Oo8d4FC1bVF4Fi2pxCcoHYlztJt6Lr9s=;
+        b=Eq6Zw0Ezrnt+71C8nLF+4XvEYLEHYLm7JIupGb8cd6Xj7fHZzBjJGbi/K7MZxhLDDo
+         xpBmnn1KBkhgtiR12/P2yRYlxIuVBIpn8Qr9Za680lm4s7iOnbDfXIA3qwLjAeJqb9ZT
+         9glru2Z6kMkvIgRujMeKrUuK/6EWA1VplyTAWqAEPBp5ZpmhJb3xT1OsnXvyKyrB12y7
+         5IA1A2tw0d/ZfRQql1shSxF5c5v7xoWJULiZ0aCnJJ5u8gxBM4piEwGZfbo3vZu5yrzB
+         usxGqsiOQFfpQXOdly5DR06UZDdee+AT1J/4Vje1l3+/MkRArCuzMilCfTD11/6mC2ii
+         KJ2g==
+X-Forwarded-Encrypted: i=1; AKwUvBwDkuIIXgz/iHUE0/bC1PIUz4g8SPdpcIeUylj2rVxJmOP06fIh+pfU1MzTfRDAqoR0OgjqOE9aY9yPqmA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+XOrfj2hSDtWeW4j0ejjfmUtrMiIqaKFZSQcBnjU87gFOaiZiK
+	9Rv4zAWsflKFTPym+i7l4wjElZe0v0VhnSriuJ85nj+PiUycMIKp8EFI
+X-Gm-Gg: AYBFou0AxTVyOVDSNr5FV1StFdf2YO7U+2uXWv4joGelLfKBqMai3pFPnWMvvwWFVMW
+	yQHpJEqN/8WC9/QzdrYQfjreBnOT0zDao1rBwPo+J8bzHqOhIaTl/6tyYE8oTkrpWHxGjYmrWbN
+	rlqfm7s9D3VA2nqo+J8D1jx1KGew3BqWKYQHPWYLee63zh23zuf4+pUJ7mcONlOMB1stI2ZJhx7
+	KA6+z92xnpTfdmPmZvY3AZr6MsIt9X6fP5q45AShFoUBWt0XvfsEOTkfDGAzP42g2JBOwR4e+xh
+	wy5lv7VSb6u4BEFAkW2ExXyA9lBr5geHg1hpat5VhdhHEQ5va4PLng0noy+CwrojjOja1cN+sTC
+	DGX7Ush2r0h92tTr7Bt7rDc0G6yJP/HhA7KB6DQUQTLZXcYjquWixXxesdVOB34ZsjhzkCOSn6w
+	ErD0lM+0R7edVqDvNnAzO1ZzawRKy4N3BS4aj7exbCvcN1J7M1fFZC9+ADBdtrVRRPUmjNgGeOD
+	pbUvX2/Z11R+Of7x21HEEXFLVgBOLEQ5HTbsAO7xPcq+poFtkYcZ3WE11JF8OgiO3AfcKvCuX/I
+	qDKtyvCZR/lZ7/oAiGPC3PiN8WOp94K8tYraq6Dl
+X-Received: by 2002:a05:7300:fe86:b0:35c:85fa:5a68 with SMTP id 5a478bee46e88-36a42400c6amr10962673eec.31.1793519162483;
+        Sun, 01 Nov 2026 00:46:02 -0700 (PDT)
+Received: from arch.localdomain ([152.175.67.103])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42662f23sm28414684eec.2.2026.11.01.00.45.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 00:46:02 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: jerrysteve1101@gmail.com
+Cc: Laurent.pinchart@ideasonboard.com,
+	airlied@gmail.com,
+	andrzej.hajda@intel.com,
+	damon.ding@rock-chips.com,
+	dri-devel@lists.freedesktop.org,
+	heiko@sntech.de,
+	jernej.skrabec@gmail.com,
+	jonas@kwiboo.se,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	luca.ceresoli@bootlin.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v2 RESEND] drm/bridge: analogix_dp: use devm_phy_optional_get() for the DP PHY
+Date: Sun,  1 Nov 2026 15:45:51 +0800
+Message-ID: <20261101074551.263631-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261013134659.335829-1-jerrysteve1101@gmail.com>
+References: <20261013134659.335829-1-jerrysteve1101@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,160 +113,19 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Linus,
+Hi all,
 
-On Sat, 31 Oct 2026 14:14:37 -0700
-Linus Torvalds <torvalds@linux-foundation.org> wrote:
+Gentle ping - three weeks on the list without comments:
 
-> On Sat, 31 Oct 2026 at 00:47, Linus Torvalds
-> <torvalds@linux-foundation.org> wrote:
-> >
-> > And if people are playing games with commit dates, they need to stop
-> > doing that. NOW. Because I'm not pulling the media tree until this is
-> > dealt with. =20
->=20
-> Note that this is more than "don't lie" (although that's the biggest
-> issue to me personally - I don't want to see people lying about what
-> is going on).
->=20
-> It actually broke git this merge window. See
->=20
->    https://lore.kernel.org/all/20261031065525.19883-2-torvalds@kernel.org/
->=20
-> for a patch I sent to the git mailing list to make git-describe show
-> the right commit counts.
->=20
-> Git doesn't depend on commit dates for _correctness_, but they are
-> used for a few heuristics for quick history traversal.
->=20
-> So if you lie about commit times, or are committing on a broken
-> machine with dates completely off, the resulting repository data is
-> actively worse.
+https://lore.kernel.org/dri-devel/20261013134659.335829-1-jerrysteve1101@gmail.com/
 
-As Sasha mentioned:
+It makes the DP PHY optional, as needed by the RK3288/RK3399 built-in
+PHY, and drops the misleading "no DP phy configured" error at probe.  It
+has a Reviewed-by from Damon Ding and applies cleanly on drm-next.
 
-On Sat, 31 Oct 2026 22:25:23 -0400
-Sasha Levin <sashal@kernel.org> wrote:
-
-> GitLab shows the same pattern for all the commits you found: the copy each
-> committer pushed sits on an older parent with the same committer date, an=
-d the
-> rebased branch that landed was pushed by marge-bot. For your example, Sak=
-ari
-> pushed the alvium fix on top of
->=20
->   b38d06ad1e13 ("media: ipu6: Fix up missing IWYU issue")
->=20
-> His MR with
->=20
->   63c578491cb4 ("media: sun6i-csi: bridge: Use V4L2 subdev active state")
->=20
-> merged at 22:10 UTC on Sep 16, and at 22:11 marge-bot pushed the alvium
-> MR rebased on top of it, still dated Sep 15.
->=20
-> So in both cases it's the tooling being funny.
-
-Those are caused by the way we merge patches from different sources.
-Currently, we use gitlab mainly because we want its actions to run
-media CI.
-
-The way it works is that multiple committers can send merge requests
-to it, each starting CI pipelines to do several checks, including
-compilation with different configs, checkpatch, sparse, smatch
-(there is ~10 checks it runs).
-
-Then, either Hans or myself merge the pull request, preserving the
-original committer and timestamp. The goal of preserving it is to
-preserve who generated the merge request. This is done using a
-tool calling margebot.
-
-We opted to do that instead of using merges, as sometimes we're
-picking very small merge requests with just one patch or two.
-So, if we don't do that:
-
-- a media pull request during the merge window will end with
-  dozens of merge requests on it;
-- a media fixes PR will have several merge requests
-  as each fix will have its own PR.
-
-So, this is due to our attempt to not pollute upstream with
-those internal pull requests.
-
-Now, there two ways to avoid that:
-
-1. a one-line change at marge-bot, applying a patch that Ricardo=20
-   prepared yesterday:
-
-	https://gitlab.com/marge-org/marge-bot/-/merge_requests/676
-
-   This will keep preserving the committer, but will change the timestamp
-   for it to be monotonically increased, losing the original timestamp
-   representing when the committer merged the patch.
-
-   We use this procedure to allow us to have multiple merge requests
-   to run at CI at the same time, as CI usually takes 30m to 1h per
-   merge request. By using this procedure, maintainers can apply
-   multiple merge requests at the same time, letting CI to
-   automatically test each of them, only actually completing the
-   merge after it completes successfully without any errors or
-   warnings.=20
-
-   As test time varis from series to series, it means that merges
-   will be done asynchronously, not preserving the MR order.
-
-2. switch to one merge per each committer merge.
-
-   With that, every media merge request will have its own merge at the
-   media history, which would reflect on upstream merges.
-
-   So, for instance, merges during release candidates will have those merge=
-s=20
-   inside it:
-
-	https://gitlab.freedesktop.org/linux-media/media-committers/-/merge_reques=
-ts/?sort=3Dcreated_date&state=3Dmerged&target_branches%5B%5D=3Dfixes&first_=
-page_size=3D20
-
-   So, for instance this PR:
-	https://lore.kernel.org/linux-media/20261028014050.3614d83a@foz.lan/
-
-   with a single fix would have instead two patches(*):
-
-	Sakari Ailus (1):
-	      Revert "media: Don't hide I=C2=B2C or SPI drivers by default"
-	Mauro Carvalho Chehab (1):
-	      Merge tag 'mr-426' of https://gitlab.freedesktop.org/linux-media/med=
-ia-committers into next
-
-   which is probably not what you want.
-
-   Also, we would need to ensure at gitlab that each merge will=20
-   generate its own tag.
-
-   (*) we could minimize it to only do a merge if the parent is
-       different, but still when we have more than one media fix PR,
-       we'll end with media internal merge requests at the history.
-
-   The ones inside the merge window will also reflect the media
-   merge requests:
-	https://gitlab.freedesktop.org/linux-media/media-committers/-/merge_reques=
-ts/?sort=3Dcreated_date&state=3Dmerged&target_branches%5B%5D=3Dnext&first_p=
-age_size%3D20
-
-   So, you would see dozens of merges on media PRs during the merge
-   window.
-
-   the advantage of this approach would be to keep preserving the=20
-   exact timestamps from the committer.
-
-Based on past discussions with regards to avoiding to send internal
-merges to the upstream tree, I think (1) fits better.
-
-Either way, either (1) or (2) should probably avoid the issues you
-mentioned with git describe.
+Anything else you would like changed, or can it be picked up?
 
 Thanks,
-Mauro
+Jun Yan
