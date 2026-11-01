@@ -1,54 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793557529;
-	b=dnLXNPZoQWgzT/wvWNRDZ9+5mnGHE5y4asqmWcYxMLMsCSBMZieoT5VldgLqakWvKpxe
-	 kekEQ1LZhCjwb7qP8A97239edvCYWLiW5Ssv65evqVGS6LostsISuWd2xvMy7PagC35VB
-	 mudRC9cMzesIjUDKxEGYaiX528I5p7AeoLXYzNPK7KpkEuJEi6GkJuruCtgZYXQ366ZPk
-	 46Z6POmiYiX3w03t5N+19wzuLFuTT8iwZWhdga2Fd3DYDhZ6lMCvKqApPB0dgSQBn7L0o
-	 8vpVQ0lgnL1Qos4fjOmx9Fg6SLY0S+D/7gQNDNoqZu+o/cHrFxtfjX6EkE0Tz5slGiQ==
+	t=1793557530;
+	b=tU2rHh4aF86+ajC25994xPKPiOkuhl5v0f+roqDis+Z9nrMMUuesUGD6bKx/wsUkTn6F
+	 sHH9Vis9bk3y877M+GonOCrTh7CfWK8fbL5Fn0oty5GswW5MJFRakqv8a1Yt3oTBO5SAY
+	 jLru8tGSaNILjAku6naE9ImMfZDOlrFd1i2bL1Zuqp7kx09wuq1k1TVU8sVWcvnIGs7Tx
+	 NtIf35rKwxSIvE8wjTaOqxiyCePALYV0zkX23wckrfRfD6iwOTHJ6Hywj9nWntqgHMaRa
+	 R9zA6fuc2+6uQ/Gr1qSwXczTW9ui103RjhYrssBNUjF4ZJaLWIntsyyyKZmluLvsyhQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793557529;
-	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:MIME-Version:X-Received:Date:
-	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
-	 Subject:From:To:Content-Type;
-	bh=/0Lr19vplzCZOi4BIjIOhosAo/z3alkdeJXutRk7xYU=;
-	b=nJ0eGVMiYfpUIroQNlXMXaYK2KpS5lbpzLhrS7/5lmwTGiGf8f+A7YSUUGJ11GH33U68
-	 t6cIemOE3I3a35Jrdso9h5ZfjGNJDZhh7hCQtCrULxnFLyhJMSoZX0vvgepgwR/iA7Ka2
-	 1ZoNL2UGITfaaVDB9rMpe0MxzIP275bR1UtLeiEjEgKaNV7D406ganfBD7bBQTFO1EAd7
-	 MYjQioK+dBKTQYb7dD8B0+GKpQl/f14dVPUOINpf0m2ZjpmCV12uSL+ReJnTjFJc3XHPa
-	 vYroUpZRvZ3u/R4S7C70lQJKFKLymV6GaD9L7GYVbFJ6hoqF8nOivaqrzRc6yeguGoA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793557530;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Gm-Message-State:
+	 MIME-Version:X-Received:Date:X-Google-Appengine-App-Id:
+	 X-Google-Appengine-App-Id-Alias:Message-ID:Subject:From:To:
+	 Content-Type;
+	bh=CMF+rDxX3I6Jh93CcarKiFP3ZLIidiAmOkST9zJjDqc=;
+	b=FjbtsWbYkgSGxTzfEX+OnQ0ZX+ZBsqN3cK7gxzRTxsHmdMAgyrz6vsNfsaIMz4KSfSn1
+	 XNRSWw4Y/NX/BJCkt+7aryV7VQhYEhWsFaqwiIpUzP9woFVfQs/a5JFkx4vx3vpdS8t5b
+	 I1tkh7DkGds2cdIyrxsEbc96zs0pUeajtsN9cCMRZK5wyKAHF6le9/AkpO8smTHz6tkXx
+	 Jj2zApcKq2rPNn3l4XdREGO97csqTWghw2ZcjRyUXWX2mMCMUrAu/JKsWlILCOYTczFQI
+	 OPmaME2wT3gKcjS+pNok9yZgkxUZV6H/06hwll75T8qn5vVOvvG1O52GW6+bDC0AriA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=fail header.from=syzkaller.appspotmail.com;
 	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
-	arc=none smtp.remote-ip=209.85.167.199
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
+	arc=none smtp.remote-ip=209.85.167.197
+Received: from mail-oi1-f197.google.com (mail-oi1-f197.google.com [209.85.167.197])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C24606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:25:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81C24606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6517C606A339
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:25:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6517C606A339
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4b2d1eb484aso3142675b6e.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:25:29 -0800 (PST)
+Received: by mail-oi1-f197.google.com with SMTP id 5614622812f47-4e778acdbc6so4011197b6e.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:25:30 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793557528; x=1794162328;
+        d=1e100.net; s=20260707; t=1793557529; x=1794162329;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/0Lr19vplzCZOi4BIjIOhosAo/z3alkdeJXutRk7xYU=;
-        b=rBOfT15S/YBIYuKctC19E4UgwggJtdUfn7/V+bkL7Jfc0EL1aiDzxxQs0ljQ7VYoIP
-         zC/rAA58WvRj8c9kVmMNVkWRrhsyMaya/EH2j8+3hAQ8r+9XetH60ysX9MTKI8plBZLs
-         +34ytBdv+Y4/OJDNGbJIYqIfeFJpPF4kmVTp7mGXDZB2N//5TdnyaoJ41kTHadt9jK32
-         9XuvQzL4AA/RtQWeWPuq+GRV75dP5qZnw25Fbsl7XN22j6ao6Z9YjHJuv4ZcuLdTm6wb
-         aqLfGH2rGGs0YNMGFqUCeBNYVKZy8lwz/Bgkq9/2q5tjxidbtXZGwTzd43dzSUTohff1
-         eiWw==
-X-Forwarded-Encrypted: i=1; AKwUvBzSN8wPw5ZoAOTtVo+T1wgfW4O/O7U+CFs1D7GHGnkgac1B7nybfRF28kIM0ZgL+GKczMWTcNXOwtH5azI=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzIckizplRpAp9cEuemV3vdldROGPfBBiZL/JNRu1gx11ZlA4/
-	VQLIAJljRut0gNJUMTAFlgJxBHiyoiMLOSsniv2nOAHKltIyy2oFEW3HodnA3PyNJtzVc9xDF1D
-	9dKIkGo1GmrcXmOSrWwfCQF5imYwOEGsJlp2wCNcqgFiY5yzBDmf5Rx7sxvQ=
+        bh=CMF+rDxX3I6Jh93CcarKiFP3ZLIidiAmOkST9zJjDqc=;
+        b=wKN3lr50nEIcItJnmx4X7M2uk0J+LRAgRZa9BYOMLzk8g/qcZ+1lskRIuDJC/f5PBl
+         GTXsM1E5OJBAlTD9md+vFl2rE5H6AjhPgfboQKHfI/N0R6hyFaAzZR9kl2hNMCghdY75
+         Ehutnc8M52985N1kkCK9rneZe8fy8vzwJhgLqUzyjVnFuVhRIHvkllqnAa7fYkkEkbSN
+         /0ubm3SbAJoRKpZxNaD3HKen53VGmoZfEi4NGo7jOL3bWp7pKO2U7TCUDaDJ+0QcIXqo
+         d4/oOyxO8bXC43zTZjL96nP+mWaN2Nx8jjQY1z2PSJFwpw4HKW1+DgHANfeEIMXXnMVY
+         T5Nw==
+X-Gm-Message-State: AFq9FYIdLZBnTZc3OmzWcDl4lSNH0KhbpBjiR6rKCOm6QCzzjcEP/k2w
+	TWR+1PilsTwBIsEUZOVdclRVbRHtXD+uO7glm+O4AUoOgtr/ayLG44oEMLvDOX0DXl/N3A+khie
+	E4z+oZ1gP7qpqz2OlMzidUGbiEWx/b8AxFQ6x3IBOBJLsWnAVXEFgMbdKAJQ=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,16 +57,16 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c2c6:b0:557:4340:4d47 with SMTP id
- 5614622812f47-5640ddc4293mr5175214b6e.35.1793557528456; Sun, 01 Nov 2026
- 10:25:28 -0800 (PST)
+X-Received: by 2002:a05:6808:1244:b0:510:7dc8:5ff7 with SMTP id
+ 5614622812f47-5640deea651mr5941698b6e.19.1793557529004; Sun, 01 Nov 2026
+ 10:25:29 -0800 (PST)
 Date: Sun, 01 Nov 2026 10:25:28 -0800
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6ae78418.6552420f.2a0efc.005a.GAE@google.com>
-Subject: [syzbot] [io-uring?] WARNING in io_sq_thread_stop
-From: syzbot <syzbot+675af112519ca34f5502@syzkaller.appspotmail.com>
-To: axboe@kernel.dk, io-uring@vger.kernel.org, linux-kernel@vger.kernel.org, 
+Message-ID: <6ae78418.6552420f.2a0efc.005c.GAE@google.com>
+Subject: [syzbot] [mm?] general protection fault in validate_mm (2)
+From: syzbot <syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
 	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
@@ -75,79 +74,99 @@ Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    bd5c762ac051 Merge tag 'scsi-misc' of git://git.kernel.org..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=176b0981580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=27aa0e260943f70b
-dashboard link: https://syzkaller.appspot.com/bug?extid=675af112519ca34f5502
-compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1096ccb1580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1496ccb1580000
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/63d7454ecf30/disk-bd5c762a.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/07607d1cf7ed/vmlinux-bd5c762a.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/2eb94eb9d0af/bzImage-bd5c762a.xz
-
-The issue was bisected to:
-
-commit 22d9db9fd64a493525d692b32c556875b7254665
-Author: Jens Axboe <axboe@kernel.dk>
-Date:   Fri Oct 30 13:27:28 2026 +0000
-
-    io_uring/sqpoll: don't attach to a thread that is canceling
-
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=1024562d580000
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=1224562d580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=1424562d580000
+HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=12b81cb1580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=bd712e5dbce1d1a0
+dashboard link: https://syzkaller.appspot.com/bug?extid=10e72ea5747737bcd2ad
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12a58f95580000
 
 AI-generated root cause summary:
-When an io_uring SQPOLL thread terminates prematurely (e.g., due to a fatal
-signal), io_sq_thread() sets the IO_SQ_THREAD_SHOULD_STOP bit in sqd->state
-before exiting. Later, when the ring is cleaned up during io_ring_exit_work(),
-io_put_sq_data() calls io_sq_thread_stop(), which checks
-WARN_ON_ONCE(test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)) under the
-assumption that the stop bit is not yet set. This causes a benign WARN_ON_ONCE
-to trigger; subsequent cleanup proceeds normally without leaking memory or
-corrupting state.
+In validate_mm() (mm/vma.c), struct anon_vma *anon_vma = vma->anon_vma caches
+the anon_vma pointer at the beginning of the VMA iteration loop. In
+vms_complete_munmap_vmas(), mm->mmap_lock is downgraded to a read lock before
+validate_mm() is called, allowing a concurrent page fault on another thread to
+populate vma->anon_vma via __anon_vma_prepare(). When this race occurs,
+vma_has_anon_rmap(vma) evaluates to true by re-reading vma->anon_vma, but
+anon_vma_lock_read(anon_vma) is invoked with the stale NULL local variable,
+resulting in an unhandled NULL-pointer dereference and kernel crash.
 
-full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=675af112519ca34f5502
+full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=10e72ea5747737bcd2ad
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+675af112519ca34f5502@syzkaller.appspotmail.com
-Fixes: 22d9db9fd64a ("io_uring/sqpoll: don't attach to a thread that is canceling")
+Reported-by: syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com
 
-------------[ cut here ]------------
-test_bit(IO_SQ_THREAD_SHOULD_STOP, &sqd->state)
-WARNING: io_uring/sqpoll.c:88 at io_sq_thread_stop+0x17e/0x1a0 io_uring/sqpoll.c:88, CPU#0: kworker/u8:2/48
-Modules linked in:
-CPU: 0 UID: 0 PID: 48 Comm: kworker/u8:2 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 10/07/2026
-Workqueue: iou_exit io_ring_exit_work
-RIP: 0010:io_sq_thread_stop+0x17e/0x1a0 io_uring/sqpoll.c:88
-Code: c6 05 cb df e9 0b 01 48 c7 c7 a0 da ea 8b be 26 00 00 00 48 c7 c2 e0 da ea 8b e8 dd 05 ce fc e9 4f ff ff ff e8 e3 d8 f2 fc 90 <0f> 0b 90 e9 e1 fe ff ff e8 d5 d8 f2 fc 90 0f 0b 90 e9 6e ff ff ff
-RSP: 0018:ffffc90000ba7890 EFLAGS: 00010293
-RAX: ffffffff84d5061d RBX: ffff888030ac3400 RCX: ffff888022291f40
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: dffffc0000000000 R11: ffffed10061586ab R12: 0000000000000001
-R13: 0000000000000000 R14: ffff888030ac3550 R15: dffffc0000000000
-FS:  0000000000000000(0000) GS:ffff888124718000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055556aef1340 CR3: 000000003f44e000 CR4: 00000000003526f0
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 0 UID: 0 PID: 6142 Comm: syz-executor263 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:anon_vma_lock_read mm/internal.h:315 [inline]
+RIP: 0010:validate_mm+0x3d4/0x780 mm/vma.c:707
+Code: d2 e0 98 ff 48 89 df e8 5a 10 f1 ff c6 05 db a8 dd 0f 01 90 0f 0b 90 e9 04 fd ff ff e8 b5 e0 98 ff 48 8b 44 24 08 48 c1 e8 03 <80> 3c 28 00 0f 85 25 03 00 00 48 8b 44 24 08 4c 8d 63 30 48 8b 00
+RSP: 0018:ffffc900040d7870 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff88806b186000 RCX: 0000000000000000
+RDX: ffff888000794b00 RSI: ffffffff8274c56b RDI: 0000000000000005
+RBP: dffffc0000000000 R08: 0000000000000000 R09: 0000000000000001
+R10: ffff88806b186083 R11: 0000000000000001 R12: ffff88806b186010
+R13: ffff88806b186040 R14: 0000000000000001 R15: 000000000000003d
+FS:  0000000000000000(0000) GS:ffff888095281000(0063) knlGS:000000005727b3c0
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7f72000 CR3: 000000004e463000 CR4: 0000000000352ef0
 Call Trace:
  <TASK>
- io_put_sq_data+0x8a/0x150 io_uring/sqpoll.c:105
- io_sq_thread_finish+0x1fd/0x240 io_uring/sqpoll.c:130
- io_ring_ctx_free+0x2d/0x5e0 io_uring/io_uring.c:2322
- io_ring_exit_work+0x5b1/0x640 io_uring/io_uring.c:2658
- process_one_work kernel/workqueue.c:3495 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3578
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3659
- kthread+0x38b/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ vms_complete_munmap_vmas+0x83b/0xdf0 mm/vma.c:1437
+ do_vmi_align_munmap+0x44f/0x5f0 mm/vma.c:1677
+ do_vmi_munmap+0x1f8/0x410 mm/vma.c:1725
+ __vm_munmap+0x196/0x3c0 mm/vma.c:3562
+ __do_sys_munmap mm/mmap.c:1094 [inline]
+ __se_sys_munmap mm/mmap.c:1091 [inline]
+ __ia32_sys_munmap+0x57/0x80 mm/mmap.c:1091
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x14b/0x8c0 arch/x86/entry/syscall_32.c:282
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:307
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7eaafbc
+Code: d2 74 05 c1 e8 0c 89 02 8b 5d fc 31 c0 c9 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 2e 8d b4 26 00 00 00 00 8d b4 26 00 00 00 00 58 b8
+RSP: 002b:00000000ff8ab10c EFLAGS: 00000296 ORIG_RAX: 000000000000005b
+RAX: ffffffffffffffda RBX: 0000000020088000 RCX: 0000000000001000
+RDX: 00000000f7f70ff4 RSI: 00000000000000fb RDI: 0000000000000040
+RBP: 00000000ff8ab168 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
  </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:anon_vma_lock_read mm/internal.h:315 [inline]
+RIP: 0010:validate_mm+0x3d4/0x780 mm/vma.c:707
+Code: d2 e0 98 ff 48 89 df e8 5a 10 f1 ff c6 05 db a8 dd 0f 01 90 0f 0b 90 e9 04 fd ff ff e8 b5 e0 98 ff 48 8b 44 24 08 48 c1 e8 03 <80> 3c 28 00 0f 85 25 03 00 00 48 8b 44 24 08 4c 8d 63 30 48 8b 00
+RSP: 0018:ffffc900040d7870 EFLAGS: 00010246
+RAX: 0000000000000000 RBX: ffff88806b186000 RCX: 0000000000000000
+RDX: ffff888000794b00 RSI: ffffffff8274c56b RDI: 0000000000000005
+RBP: dffffc0000000000 R08: 0000000000000000 R09: 0000000000000001
+R10: ffff88806b186083 R11: 0000000000000001 R12: ffff88806b186010
+R13: ffff88806b186040 R14: 0000000000000001 R15: 000000000000003d
+FS:  0000000000000000(0000) GS:ffff888095281000(0063) knlGS:000000005727b3c0
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7f72000 CR3: 000000004e463000 CR4: 0000000000352ef0
+----------------
+Code disassembly (best guess), 4 bytes skipped:
+   0:	48 89 df             	mov    %rbx,%rdi
+   3:	e8 5a 10 f1 ff       	call   0xfff11062
+   8:	c6 05 db a8 dd 0f 01 	movb   $0x1,0xfdda8db(%rip)        # 0xfdda8ea
+   f:	90                   	nop
+  10:	0f 0b                	ud2
+  12:	90                   	nop
+  13:	e9 04 fd ff ff       	jmp    0xfffffd1c
+  18:	e8 b5 e0 98 ff       	call   0xff98e0d2
+  1d:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  22:	48 c1 e8 03          	shr    $0x3,%rax
+* 26:	80 3c 28 00          	cmpb   $0x0,(%rax,%rbp,1) <-- trapping instruction
+  2a:	0f 85 25 03 00 00    	jne    0x355
+  30:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  35:	4c 8d 63 30          	lea    0x30(%rbx),%r12
+  39:	48 8b 00             	mov    (%rax),%rax
 
 
 ---
@@ -157,7 +176,6 @@ syzbot engineers can be reached at syzkaller@googlegroups.com.
 
 syzbot will keep track of this issue. See:
 https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
 
 If the report is already addressed, let syzbot know by replying with:
 #syz fix: exact-commit-title
