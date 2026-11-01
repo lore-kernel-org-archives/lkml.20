@@ -1,149 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.145
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521452;
-	b=jfjdhuSFNJEADP/dF/SIkAnJJ833507DIJsZP2aWGGgoZgzisJAYFHB2OB0c8d3ZMHiJ
-	 SKIGCgaYCJSiAx5vmJMDcrd8DDtpFiSGLOcy65ExqQ642l1FBtSE2+O7ctoP5p4C3cUHw
-	 R+A1cQugXseC3nylTLnZFKtEuqYGLY2pFhYJzRP8XdDCjoO71EttK235C2lAjFQXCyhdO
-	 v04P2i7LnRQhgH5LUNJ4byH2utPYcSZr3Y8MeJYcUffQ3m9wUn2xO1q6ZhnoaLXIP01+u
-	 Qti084MPDACfWUZV7nEslq4+St2uD+06tG1g/J2f1y7Xtvo+RQmGcQoGPHuEi8GXbSw==
+	t=1793521449;
+	b=K7bnXh1ZHudN9gu3j11sB8QXFbw0kaVk++HMI6ZyG3GpAPJxpsmyOWBV9peEJXi77Rnq
+	 zjGrVa/csgJD9PXQlym/TI54k7NH7QBmNAtXKMeIbAnDhMWNAyhChV6HYNE/PmI5Wx9lo
+	 NQT16HqbvmCncjPN/r24LEsqyEH/a5MhLxWD6DXMjeXNDbEpSqGzVGk5jc3mwzdo2Z92N
+	 jvpFu+m27otow4vchGQA640VcvIdup8fPhJDlZ+z/oyuAWbWyWTti7OBqGe0gxvZw9Iv1
+	 9I4r2qREyIazAC5uP4tsAVyfFaF3La+23GmyicvtynpvbCx2Zr3UASTYWiJQZtXExdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521452;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding;
-	bh=cgr3O4I7DwkUDW0N/kSwsX4ydZ39VN+0kbFssYLbxJg=;
-	b=FU7zzHbm3lAy7J0xAjKkm5gtVYPN2m1MCdNN80qtNvRefrfBg3Db6NWi/gdxPJpl/B78
-	 hQJr4pWeh+TeRZYGfPrtnTiXNlqeYCG61D2EvoRAhsvIgqjV52RXm5OwcZf73tRzyCmep
-	 mKaL3k3HjWbrvs/dzWn/bYy3EF75kra5mLqI1FcKzAnMDSFT2zbGStEPLOI2LMt99ajDp
-	 3Z8s7bcycqcQStE1KUONkiCdI6oo5BWPynrQPkfYEsYG753Gc29MLX8lpIhS6wr+g3FTQ
-	 QLNnhPOtRhWUpH4kC/j7V6PgQOKesNn8A5RVAe4ee2YsDJRg6TZi+TPXWGKZgdabCyg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521449;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:
+	 X-Mailer;
+	bh=zr2bACuemphecdv4BzIcfo+dhb7hRoM9xEUnWOT8OQY=;
+	b=roi8ErohpQ85RO6eMxEHVzgtn1aMkHF8iPyroB9I4BsAN96KQVHRkfyUjXcyfQrwrgf5
+	 x2KgrOGqQooe+nt/OjxcRbLQ3NHRpkAx6NswZSVw2piRsNUNtiRWqupZ892l0CWGd7IDf
+	 UJTvJ1hySmSiL6ETSxrA1izMZSNwZsgQmQc1TrFD7uYVzkjT8CszJDaPJkjRQszT4tBNL
+	 OZIs7ahuqh9g1vVC89lgmf4CmY5VqeScj0l75tRJurF69CC6JDUIObRxHjZeVLWD2QYi4
+	 VKRXVPyC0eaPfE/Bhz6FSoTwSJovKitZ9xcE1FTjsYMMDFvLx+Lws1ce9tEP83QLUWw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gahingwoo.com;
-	spf=pass smtp.mailfrom=gahingwoo.com;
-	dkim=pass header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=DD3dVSEd;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cObI03vx;
-	arc=none smtp.remote-ip=103.168.172.145
-Received: from fout-a2-smtp.messagingengine.com (fout-a2-smtp.messagingengine.com [103.168.172.145])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=atDDT426;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45503606A332
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:24:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 45503606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 514C3606A324;
+	Sun,  1 Nov 2026 08:24:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gahingwoo.com header.i=@gahingwoo.com header.a=rsa-sha256 header.s=fm1 header.b=DD3dVSEd;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=cObI03vx
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.phl.internal (Postfix) with ESMTP id 28F4FEC06A4
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:24:11 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Sun, 01 Nov 2026 03:24:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
-	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
-	:from:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm1; t=1793521451; x=
-	1793607851; bh=cgr3O4I7DwkUDW0N/kSwsX4ydZ39VN+0kbFssYLbxJg=; b=D
-	D3dVSEddWuKhJ5+P4wX4ffYK2bu87Ah0Y+aUc/gI5P1Q8x0W3cV5VkzcEMyz49B3
-	TFydSWKmQPdrWPl9PYzE3a9AFS9fDfL9ZRyL3UuOoLVceWwtlcA/J31+iCDzbS5n
-	qfcX3cQAbXumSFn1DQWtCuD0JnYne7LpSK2r7L83EQnoUJNOkNe2AcVcCP3w3LFh
-	NV9Mbec2JHZhV7bnZu0KOfX+Ni8wgzbZ+0vjN4ATF/LLa+7B2/ecp2lE33Ud8yyV
-	p2i47cX/RYItDMjayZZ3O6j4cJIbJhFJOSxrdILbpGIS1gRp61ZdCqotsz6mO2a3
-	DA9IqIh4TeYG6VahueiGw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
-	:x-me-sender:x-sasl-enc; s=fm2; t=1793521451; x=1793607851; bh=c
-	gr3O4I7DwkUDW0N/kSwsX4ydZ39VN+0kbFssYLbxJg=; b=cObI03vx7rkLK2mau
-	vqkD/wtwMSgcqEFSMnbyq2qRiHqtWhWDsBwB8f2EU9djCdeUpgYiC4d+x8A7Dyer
-	wYc//+BqIH8pSZiYne8DD8ULLYvxG6jUGHca/R+qm07gqOFtatrv9yMkarf5WPm4
-	nEl3fmML044quAzJ3CxXFNet2RRYHx2Izg2GEDuxeta9C++UZT8on+fGWpgJfTXq
-	ySYvnfni0rBJISOJUKjs4qOJtdz/eStYpd7CZteMzdwhm9Ak1GAigYlIlHKMcsZU
-	OCw2ecQWYzmVMETboyE8qZ9SsA8r96Onp4VtOjVoa0TDXxpoToUcLxk7Ntdv6lLy
-	dn88A==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=gahingwoo.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793521451; d=gahingwoo.com;
-	mf=PGdhaGluZ0BnYWhpbmd3b28uY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm1:rsa-sha256:VEPF4YHFdPjl0QtNiQMas+ST2bxAMCbwdEez3z+4FV5Ltb+
-	8HYcglKrSCIEsV0rzE+cBz0BzmmUd5Nk0WIiSo4/tHzPfkM58siNNCYSs98AWnWH
-	jioydVMHVKj6RA35q+amMM/K36RU1lj0bB5CLA3vJDOgWfkn3O45kUWjP/KmPVE0
-	/qDrWrM02Cg6xqVi5BFocFMtP3fPUM15p9wwNCslRoO14GanAUrKXlz1Exzvj8Ew
-	R6LTShCS49WrrHnmYuwVaU1+sorAgyk69fqKHA5P74mLH/22Uq02Bry7cgFNRZnd
-	fEr5AKLCvN7eSW3b4pTecgTqLcAcGU7XGCLLjSw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=11;
-	hn=cc,content-transfer-encoding,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:G2ezc5FLDefrR+8r2DKGPcy/zKp7XpR519EEybRktVQ=:ZuRx5xe755qYa0gb4/aDfZM05kBxhm1L8sT7M608++E=;
-X-ME-Sender: <xms:K_fmagwT-AqMUXnhdntSZ2H7Iw99TmpZ7uQxFJUTP29XW9T0H51AyA>
-    <xme:K_fmandBoKBlTSlxj7zi4uhyiKcGJX5LmvGQLBB-4S-qtwYcLw5Rdvxmbf4nQGFSn
-    PqF4VJZPwv-_yHlAUnDBuBmZMnPuOKv-lEaEuw3lU5EgP7UlNj5bg>
-X-ME-Received: <xmr:K_fmapLf7WPQU4kdHUuEJcysZ2kHkkXU_LirWcuLhhzx8yQDe4eXsrJyaa97X1b3Ie0OQwvt>
-X-ME-Proxy-Cause: dmFkZTEio0HITRPU8VpT4PebgbYf+HqQTVmTBwoXIcaWhSPJQuOpCGNL4Feyfw1mm6jNto
-    aCqGt+GjGmHddQdDYMsFOcBW2fd2wbE1C2hSqpUPgYFBCtzpG0VAhrL+r+dSJb3xHPmeXu
-    bbiU80H+3s8diofjGu9JFbSOoisVQrvN3eDU6svi49hrmcI63rUfSkuUe5+aUvGFuszdig
-    Qnc72eHSOddgDW0HvcKHXNvldok2Sz2296F+6Jr1XxRzNWV9h54MRHCMGFMHXdGms8Xsm1
-    Bk/Rw1sBqh58/z5F2FEqlRBvxPnvur8T5rxLVrR8npGrMSSnol3N1co7aLduCklPXA/vJl
-    YnFEZni01NLKMQSYX/mIf+ZL4IJ4nKp6UeVFxNKY0H9ZkwD+pN+hUO6U8qVglr0xDwBrUo
-    Ap91fJhWyJmW7tmIhfo1ecixjxPiIxBlkz2+I3fZDeKM0s+jVo4i2YAEMvIRr9oxESn0bA
-    dYOSHaNneoSd7TOH7qPxulWMlw5H4ir1fqyMB6M9qTPz1zCxBgUFVJ72mc2b7lJqlTlc01
-    +yg9c8YauDhdWXWKM/kX7urjBozR2WEB+DztoA8IR0e6n9kkyEWuD0Itq1J4jfQtAKJhFQ
-    ROHqX/PWdXMnjSp1FHjdtvqC3n/RoSZdXckt9BOYpAtvD4wkhxGwK8VtchVA
-X-ME-Proxy: <xmx:K_fmajl6Tpd7Oavv05hJzLJLBJAkMvi23ZRUqHd0v7ajCCrMBk7FYw>
-    <xmx:K_fmakXwlDjbQssh8qwjDpPkjxIhODFkpWdHMz-yPB9qVKPQ6QpqAg>
-    <xmx:K_fmalthWUdisAovsc9BYlxq54liDIo7E_JpxJ25JHFvIm0tuRZdCg>
-    <xmx:K_fmao0d2_aXDgeONcZe9IbDFuV88nXkawIheY8k5uv_ipR0N-09zg>
-    <xmx:K_fmajXp1FzijLW9CrX4NAhVST5I3w_OHQxt0wFumXftctJlTIr2BSAw>
-Feedback-ID: i7a5e4b5f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 1 Nov 2026 03:24:03 -0500 (EST)
-From: Jiaxing Hu <gahing@gahingwoo.com>
-To: tomeu@tomeuvizoso.net,
-	heiko@sntech.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	joro@8bytes.org,
-	will@kernel.org,
-	robin.murphy@arm.com,
-	ulfh@kernel.org,
-	p.zabel@pengutronix.de,
-	ogabbay@kernel.org,
-	zhangqing@rock-chips.com
-Cc: royalnet026@gmail.com,
-	abel.vesa@oss.qualcomm.com,
-	sebastian.reichel@collabora.com,
-	sidong.yang@furiosa.ai,
-	u.kleine-koenig@baylibre.com,
-	chaoyi.chen@rock-chips.com,
-	diederik@cknow-tech.com,
-	alchark@flipper.net,
-	leonard@lausen.nl,
-	jeff.hugo@oss.qualcomm.com,
-	rfoss@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-rockchip@lists.infradead.org,
-	iommu@lists.linux.dev,
-	linux-pm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Jiaxing Hu <gahing@gahingwoo.com>
-Subject: [PATCH v15 05/15] accel/rocket: factor the completion tail out of the IRQ handler
-Date: Sun,  1 Nov 2026 21:22:57 +1300
-Message-ID: <20261101082307.151957-6-gahing@gahingwoo.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101082307.151957-1-gahing@gahingwoo.com>
-References: <20261101082307.151957-1-gahing@gahingwoo.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=atDDT426
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1299B1F00A15;
+	Sun,  1 Nov 2026 08:24:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793521448;
+	bh=zr2bACuemphecdv4BzIcfo+dhb7hRoM9xEUnWOT8OQY=;
+	h=From:Date:Subject:To:Cc;
+	b=atDDT4264LDfkryxKKZT+rFaN0zTUANFgOlvsFn/u8QwzMOE/ykAwQl7QyTmcqKJQ
+	 P8GY+B7tcEeM0uKHOwqIWyHy9uGOCKS0OVLzcyAHYohKCz371SMt6mzOChngqDk2Y9
+	 nM4/NLkAE+NWUF0d2RKqedXyYuL2LQFRwdOUMprkldxG1AKxEdzZP3SoebBcKQuQx/
+	 uV12oPvGNBzx+KBVq68cege5ZOn+WMrNiBD+UYCpFoNLaf8OuS0bpB7CVy7/b/Iz+j
+	 csaxQyQskRuil6fxX5wvMakqCkv0dzHHjhbBYg9aOl76VL0RcME0P596SMDNEuc+bU
+	 +K4wr1Dce2HbA==
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
+Date: Sun, 01 Nov 2026 10:24:02 +0200
+Subject: [PATCH] mm/vma: undo userfaultfd unmap preparation when unmapping
+ fails
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -153,66 +53,222 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261101-uffd-unmap-abort-v1-1-1588d7a7c61a@kernel.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMzQrCMBCEX6Xs2aCNRcRXEQ+7ycZG3KTkpwil7
+ 26ihzl8w8y3QebkOcNt2CDx6rOPocF4GMDMGJ6svG0M+qQvY4uqzllVg+CikGIqSo9uulpj8Ew
+ TtNuS2PnPT3l//DlXerEp3dMXhJkVJQxm7pVILHIUadZckN4M+/4FD4NrW5gAAAA=
+X-Change-ID: 20261026-uffd-unmap-abort-21f48dcca3b4
+To: Andrew Morton <akpm@linux-foundation.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>, Jann Horn <jannh@google.com>, 
+ Noah Weinberger <NoahWeinberger2003@proton.me>, 
+ Pedro Falcato <pfalcato@suse.de>, Peter Xu <peterx@redhat.com>, 
+ Vlastimil Babka <vbabka@kernel.org>, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, stable@vger.kernel.org
+X-Mailer: b4 0.16.1-dev
 
-Move the part of rocket_job_handle_irq() that starts the next task or
-retires the job into rocket_job_next_locked(). No functional change.
+vms_gather_munmap_vmas() collects VMAs to unmap and calls
+userfaultfd_unmap_prep() for each of these VMAs. This takes a reference
+to the userfaultfd context, raises ctx->mmap_changing and queues an
+UFFD_EVENT_UNMAP on the caller's list.
 
-Signed-off-by: Jiaxing Hu <gahing@gahingwoo.com>
-Reviewed-by: Igor Paunovic <royalnet026@gmail.com>
+If gathering fails half way, e.g. because one of the VMAs is sealed, or
+the operation fails after the VMAs were gathered, the original mappings
+stay intact but the queued events remain on the list.
+
+Depending on the caller they are either delivered although nothing was
+unmapped (munmap(), mremap(), mmap(MAP_FIXED)), or silently dropped
+(brk()). In the latter case the userfaultfd context and the mm_struct it
+pins are leaked and mmap_changing is never lowered, so UFFDIO_COPY,
+UFFDIO_ZEROPAGE and all other ioctls that check mmap_changing fail with
+-EAGAIN forever.
+
+With mseal() this is trivially triggered by an unprivileged process.
+
+Collect the events in do_vmi_align_munmap() on a local list and splice
+it to the caller's list only when the unmap completes, because mremap()
+may already have events for earlier unmaps on that list.
+
+Drop the pending events with a new userfaultfd_unmap_abort() helper when
+do_vmi_align_munmap() or __mmap_setup() fail.
+
+Fixes: 65ac132027a88 ("userfaultfd: fix regression in userfaultfd_unmap_prep()")
+Reported-by: Noah Weinberger <NoahWeinberger2003@proton.me>
+Cc: stable@vger.kernel.org
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 ---
- drivers/accel/rocket/rocket_job.c | 31 ++++++++++++++++++++-----------
- 1 file changed, 20 insertions(+), 11 deletions(-)
+Noah reported off-list that when an operation that unmaps memory fails
+half way, some UFFD_EVENT_UNMAP events might already be queued for it.
+These events are either delivered although nothing was unmapped, or
+leaked together with the userfaultfd context and the mm_struct it pins.
 
-diff --git a/drivers/accel/rocket/rocket_job.c b/drivers/accel/rocket/rocket_job.c
-index 152a9098634b..417d5ef06c09 100644
---- a/drivers/accel/rocket/rocket_job.c
-+++ b/drivers/accel/rocket/rocket_job.c
-@@ -365,6 +365,25 @@ static struct dma_fence *rocket_job_run(struct drm_sched_job *sched_job)
- 	return ERR_PTR(ret);
+With mseal() this is trivially triggered by an unprivileged process.
+---
+ include/linux/userfaultfd_k.h     |  5 +++++
+ mm/userfaultfd.c                  | 19 +++++++++++++++++++
+ mm/vma.c                          | 28 +++++++++++++++++++++++-----
+ tools/testing/vma/include/stubs.h |  4 ++++
+ 4 files changed, 51 insertions(+), 5 deletions(-)
+
+diff --git a/include/linux/userfaultfd_k.h b/include/linux/userfaultfd_k.h
+index ebd86677b052d..5857ff0542905 100644
+--- a/include/linux/userfaultfd_k.h
++++ b/include/linux/userfaultfd_k.h
+@@ -279,6 +279,7 @@ extern int userfaultfd_unmap_prep(struct vm_area_struct *vma,
+ 		unsigned long start, unsigned long end, struct list_head *uf);
+ extern void userfaultfd_unmap_complete(struct mm_struct *mm,
+ 				       struct list_head *uf);
++void userfaultfd_unmap_abort(struct list_head *uf);
+ extern bool userfaultfd_wp_unpopulated(struct vm_area_struct *vma);
+ extern bool userfaultfd_wp_async(struct vm_area_struct *vma);
+ extern bool userfaultfd_rwp_async(struct vm_area_struct *vma);
+@@ -445,6 +446,10 @@ static inline void userfaultfd_unmap_complete(struct mm_struct *mm,
+ {
  }
  
-+/* Start the job's next task, or retire it. Caller holds job_lock. */
-+static void rocket_job_next_locked(struct rocket_core *core)
++static inline void userfaultfd_unmap_abort(struct list_head *uf)
 +{
-+	lockdep_assert_held(&core->job_lock);
-+
-+	if (!core->in_flight_job)
-+		return;
-+
-+	if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
-+		rocket_job_hw_submit(core, core->in_flight_job);
-+		return;
-+	}
-+
-+	iommu_detach_group(NULL, iommu_group_get(core->dev));
-+	dma_fence_signal(core->in_flight_job->done_fence);
-+	pm_runtime_put_autosuspend(core->dev);
-+	core->in_flight_job = NULL;
 +}
 +
- static void rocket_job_handle_irq(struct rocket_core *core)
+ static inline bool uffd_disable_fault_around(struct vm_area_struct *vma)
  {
- 	pm_runtime_mark_last_busy(core->dev);
-@@ -378,17 +397,7 @@ static void rocket_job_handle_irq(struct rocket_core *core)
- 		rocket_pc_writel(core, OPERATION_ENABLE, 0x0);
- 		rocket_pc_writel(core, INTERRUPT_CLEAR, 0x1ffff);
- 
--		if (core->in_flight_job) {
--			if (core->in_flight_job->next_task_idx < core->in_flight_job->task_count) {
--				rocket_job_hw_submit(core, core->in_flight_job);
--				return;
--			}
--
--			iommu_detach_group(NULL, iommu_group_get(core->dev));
--			dma_fence_signal(core->in_flight_job->done_fence);
--			pm_runtime_put_autosuspend(core->dev);
--			core->in_flight_job = NULL;
--		}
-+		rocket_job_next_locked(core);
+ 	return false;
+diff --git a/mm/userfaultfd.c b/mm/userfaultfd.c
+index 3b71712edab4c..15d2422345705 100644
+--- a/mm/userfaultfd.c
++++ b/mm/userfaultfd.c
+@@ -3295,6 +3295,25 @@ void userfaultfd_unmap_complete(struct mm_struct *mm, struct list_head *uf)
  	}
  }
  
--- 
-2.43.0
++void userfaultfd_unmap_abort(struct list_head *uf)
++{
++	struct userfaultfd_unmap_ctx *unmap_ctx, *n;
++
++	if (!uf)
++		return;
++
++	list_for_each_entry_safe(unmap_ctx, n, uf, list) {
++		struct userfaultfd_ctx *ctx = unmap_ctx->ctx;
++
++		atomic_dec(&ctx->mmap_changing);
++		VM_WARN_ON_ONCE(atomic_read(&ctx->mmap_changing) < 0);
++		userfaultfd_ctx_put(ctx);
++
++		list_del(&unmap_ctx->list);
++		kfree(unmap_ctx);
++	}
++}
++
+ static int userfaultfd_release(struct inode *inode, struct file *file)
+ {
+ 	struct userfaultfd_ctx *ctx = file->private_data;
+diff --git a/mm/vma.c b/mm/vma.c
+index d416ba58eb4c2..4672d420521e3 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -1675,9 +1675,18 @@ int do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 	mt_init_flags(&mt_detach, vmi->mas.tree->ma_flags & MT_FLAGS_LOCK_MASK);
+ 	mt_on_stack(mt_detach);
+ 	struct vma_munmap_struct vms;
++	struct list_head *uf_unmaps;
++	LIST_HEAD(uf_new_unmaps);
+ 	int error;
+ 
+-	init_vma_munmap(&vms, vmi, vma, start, end, uf, unlock);
++	/*
++	 * @uf may already hold events of earlier successful unmaps, e.g. in
++	 * mremap().
++	 * Collect new events on a separate list so they can be dropped if this
++	 * unmap fails, and splice them into @uf on success.
++	 */
++	uf_unmaps = uf ? &uf_new_unmaps : NULL;
++	init_vma_munmap(&vms, vmi, vma, start, end, uf_unmaps, unlock);
+ 	error = vms_gather_munmap_vmas(&vms, &mas_detach);
+ 	if (error)
+ 		goto gather_failed;
+@@ -1687,12 +1696,15 @@ int do_vmi_align_munmap(struct vma_iterator *vmi, struct vm_area_struct *vma,
+ 		goto clear_tree_failed;
+ 
+ 	/* Point of no return */
++	if (uf)
++		list_splice_tail(&uf_new_unmaps, uf);
+ 	vms_complete_munmap_vmas(&vms, &mas_detach);
+ 	return 0;
+ 
+ clear_tree_failed:
+ 	reattach_vmas(&mas_detach);
+ gather_failed:
++	userfaultfd_unmap_abort(&uf_new_unmaps);
+ 	validate_mm(mm);
+ 	return error;
+ }
+@@ -2581,7 +2593,7 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
+ 		if (error) {
+ 			/* On error VMAs will already have been reattached. */
+ 			vms->nr_pages = 0;
+-			return error;
++			goto abort_unmaps;
+ 		}
+ 
+ 		map->next = vms->next;
+@@ -2591,8 +2603,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
+ 	}
+ 
+ 	/* Check against address space limit. */
+-	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages))
+-		return -ENOMEM;
++	if (!may_expand_vm(map->mm, &map->vma_flags, map->pglen - vms->nr_pages)) {
++		error = -ENOMEM;
++		goto abort_unmaps;
++	}
+ 
+ 	/* Private writable mapping: check memory availability. */
+ 	if (accountable_mapping(map)) {
+@@ -2602,7 +2616,7 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
+ 		if (uncharged) {
+ 			error = security_vm_enough_memory_mm(map->mm, uncharged);
+ 			if (error)
+-				return error;
++				goto abort_unmaps;
+ 		}
+ 
+ 		/* Our new mapping owns the entire charge now. */
+@@ -2621,6 +2635,10 @@ static int __mmap_setup(struct mmap_state *map, struct vm_area_desc *desc,
+ 
+ 	set_desc_from_map(desc, map);
+ 	return 0;
++
++abort_unmaps:
++	userfaultfd_unmap_abort(uf);
++	return error;
+ }
+ 
+ static bool map_same_file(struct mmap_state *map)
+diff --git a/tools/testing/vma/include/stubs.h b/tools/testing/vma/include/stubs.h
+index 8d030a3ace848..9f5b8e996abf6 100644
+--- a/tools/testing/vma/include/stubs.h
++++ b/tools/testing/vma/include/stubs.h
+@@ -148,6 +148,10 @@ static inline int userfaultfd_unmap_prep(struct vm_area_struct *vma,
+ 	return 0;
+ }
+ 
++static inline void userfaultfd_unmap_abort(struct list_head *uf)
++{
++}
++
+ static inline void mmap_write_downgrade(struct mm_struct *mm)
+ {
+ }
+
+---
+base-commit: b61fa14ce6bcbba2cb9a96feea31b760226d6b43
+change-id: 20261026-uffd-unmap-abort-21f48dcca3b4
+
+--
+Sincerely yours,
+Mike.
 
