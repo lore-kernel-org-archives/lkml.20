@@ -1,51 +1,107 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=114.247.232.78
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793556034;
-	b=xETEYO48hYI0TASXe3yLqJGgHrUsJLpHsoGPeHFuVXNd5JtHLHdmSO9ihdvLkBGWJQUY
-	 TPR7g73VTamUA9R3fQgDjDPHhU6+dUfWPcAuAyHGPbkJV3Px4nX0iIWyr+QyG+gWNcn75
-	 65NML/a/zcHvwNykG169LrGCuLYHZQIUA3+uZp3ANyzLoWbgQDBuV5ayQWyBEfgM0uB5D
-	 CI++mDdh/ObraAFpz23cqfraa8sCjJvsSGLVFySpo2Au793CY9dm8OYB9rI5WzO0T6FMN
-	 NYmOwiFH0fdPA5zU4BLPhMIXFivdAWjR84bK4TxUsaENb1+irvsIZYSilonsRPFRSMg==
+	t=1793556041;
+	b=Mx4kezRI9n3o6xSBnjBxIOHYCwQ2CeXet+chTHTtkSHdluGd6KgJV9SF+Py9GW3XTiIl
+	 aMpqv2YJWyT8vQGz/cr5vcPXd+/hJKLW7fApGLrdB/9gMwm0Ym8/FrDBPeTqwtFywujpd
+	 AJ3aA+IZ/MhFbLpa+iexnZbOy0IcVDkJ5anF3upmsN2cgDExN6HZuyTnEVohnlK5g4aZv
+	 P5K+4Xwbs8/gclSgg4MOgyBsj4daj9MBk+bWRyzg97nSbjOQC3K/VKnlZ33oJE5d82fXt
+	 1dEhRJiEQ9vMdfSd7xWBRMSwj+d94UVje3gxiZKXItR8BkL2/OVyYTqiTu8dinTFOgQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793556034;
-	h=DMARC-Filter:Received:Received:Received:From:To:Cc:Subject:Date:
-	 Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=sQF5AaRAqJJwPNtFv8d82MWcPLAgvRqmvTygJZxjDWE=;
-	b=qP/O1fOCaiH936OtRxP15DV8k0UFfiwOezDiuvnwqADK+XiTvd0e5fYmgH5pw6WNPwO5
-	 aTOXllBJaFFdPzs3skR14IFufYMmBFaddv/11bFQ0PTi/S8HhtpemO/LrbNL/6iuJF7wE
-	 MBCwkPvCH5K9ckkB/5GXJ6lhZdlm+BNQQJYpXRZJuPSlBDk9A1h/2JimYsOQmxVIzvMM1
-	 dPEbPtvIvxKIuKUegrqj//2K3pcLlbDcLJU7q99aLPCqLQawbe5BJCzIW4FliJW2p42CB
-	 DALYzzYa24gv4sSaazmZ4bSnyc+cfuQqX/wmhtSclLpjNHfNpePD/vqaV3cGt4Bx8zQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793556041;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=90aqdG+SrfJSGek/huInxfvZ4wZJxbtx8iY/wQCJzXI=;
+	b=zNqLrDJSyfuaNh2Npr8ecB2hpCsUQkc1QP2CzsXZAMhVVdHjuOXactnN1CHlSTc88sS9
+	 5s7yj3DIWojunwpPZLJB0NLPV31m6kdMA74w/saAkSNEzD491s4ZRKex5CkhQlBPxtCNg
+	 HF2zhf3+p/qm08wg19KB/sETYwB4zeRm7LTRTojNWij4olPa1RXDaC83AwUJphYBsppX5
+	 QdxtgJ0HDsoWFKieT7H2BHJPo2DhSH4e8DmjPIkfFxwB/+y2pqNcGAQj+5jUaWk/Qd6+Z
+	 71PtOb6LHUTbZMXraegz9b5XM3AA9PIdJNp/w5E1JVoyp8GlaQLjeISMher+DyWNgpw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linx-info.com;
-	spf=pass smtp.mailfrom=linx-info.com;
-	arc=none smtp.remote-ip=114.247.232.78
-Received: from mail.linx-info.com (mail.linx-info.com [114.247.232.78])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D7B7606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:00:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D7B7606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linx-info.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linx-info.com
-Received: from localhost (localhost [127.0.0.1])
-	by mail.linx-info.com (Postfix) with ESMTP id E2697321215;
-	Mon,  2 Nov 2026 02:00:24 +0800 (CST)
-Received: from mail.linx-info.com ([127.0.0.1])
-	by localhost (mail.linx-info.com [127.0.0.1]) (amavisd-new, port 10024)
-	with ESMTP id n6jflpuqa_Xy; Mon,  2 Nov 2026 02:00:24 +0800 (CST)
-Received: from DiGouShu (unknown [172.31.255.20])
-	by mail.linx-info.com (Postfix) with ESMTPSA id 8498432116A;
-	Mon,  2 Nov 2026 02:00:24 +0800 (CST)
-From: Wang Guangke <gkwang@linx-info.com>
-To: sj@kernel.org,
-	akpm@linux-foundation.org
-Cc: damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=POJbI7uY;
+	arc=none smtp.remote-ip=209.85.216.41
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E2FE606A325
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:00:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7E2FE606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=POJbI7uY
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3adac5b29ebso1425390a91.2
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:00:41 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793556041; x=1794160841; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=90aqdG+SrfJSGek/huInxfvZ4wZJxbtx8iY/wQCJzXI=;
+        b=POJbI7uY6k/OxJGlxrcy13JLDXROLJxeNth0W7JfbndI4sCBCabjMnlTToZSFBnDvR
+         5rwKhR1DDuuWR6l9+6FdakgBMT562qMeVqjwV+Fd7xCuNDiSTc2Y/eVMERYj+W1g4eDb
+         T5Yd/fUifm5+fpIEMH1hpfEQBto259Q9bPAAF1bUHM3+N29g6L6UxH0sH7eaVoPB/Wfu
+         Eu181Omwqs9pjObZ0wWXg7fHws1cRv9VXOVajYrN8K7rNwU/tYp+vCCqcfZcgZVHxkNa
+         S0RQzYuSi3JkjD5sxfbkNtjME6TDvfm8RQOfu3i+hF3XnZl2I2viioATM8KIvbv6w30U
+         LM0g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793556041; x=1794160841;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=90aqdG+SrfJSGek/huInxfvZ4wZJxbtx8iY/wQCJzXI=;
+        b=lPUW/CV85QFLaFckADRF/SZ5Ip2YUoxMg6CMvTkYYthLBPX324qTm19Kp+linNoFZC
+         OHZxNZ84KuEoKijZnQ11jixZKr3KFNW1Y61JRaaqRBRUNvSuo8U775apfMpfj2JakWWe
+         VTyUws70AJDNQzlivl2HvT+tADJbOvtWHuKnuoMSzfAMC0cplzKAHPxJp8ezCyA2tL94
+         dbWk1QGPZU4ZeHIohSjYT4wIUbIeKhWr13Sst08fPEbkc8cHAADN3z/RwagAgemFbsOI
+         l/dMnPrKyfVESjoazTEzVXyXcitEjLfy3oOW1EOpScbYi4sAyuPX7JoJPCnO6LBvTIR+
+         mezQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwLrkvrUaWGqOkGsGTTqRJKU0fmTOpWEJjcEjUTTIbLCHfxGnHJ2MMdKpGBli9UBHQ73jt91xyJ1QwvfYI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8abk5X2TO/AFGnIEtg882Zft91Hssk73bCEHr3gpdpGFK+9K5p
+	L5kKgmVoW0his9BBLDRB+/qcJBx2uG0kZaQkuS6V+gABPgGzlrhw3xKj
+X-Gm-Gg: AYBFou06O8z1X3aYaqqzXL+wv0V7CACo89v9MQr2Ddgy5UI28XLcDX5PEt20fIIiHef
+	Jz9HOmlbSOiovAIsyjRzFd5FdfYNIhFubwFdFFthJnoIMI5iEoTRsH6zBCQT8Hx2MNwihFH2/za
+	j2AzittNHaFSrv+/cw6g1lD5JgpKZxwcfBXJOUglJ42YtC6ulH6rT1f+NBwpGEkQTjqjgtWUJr/
+	yCK4/Odm0uAJy29h9wLQ0tcgke2BK7wOvEj3HqMDYh5SIlJV6QK1rkX00CgKLmbUNQ65kn8+gYJ
+	qBmisWB4r19o1/zlAqmE64NNj7S2qVGL7O5EyalWw+D748CbpAGgUYF3jMr0fFCcdKid6tdJIwj
+	xBTBnbdRZKqRhUBEVenV+rVTdYcLfWFNmx/YMxTTyNguu67Cf1U2/AM6sQEt+3VWJ0EhqaA3uH+
+	CxfBncQastWAaBSZDudrDCTk6Mm5VIR/6tiLtLkO5mIwF5JVKi+Prv3Mr7N8tUsouUUNV6tEdNE
+	4eIu1dBsuKIM1u4lbeOPSj/AqLaM+4EsqIMrExM4RLenaYjNjGm/fZzro1elRKJt3mbrjw4ffPQ
+	AjGwa4+pL//4xSh8PRoBwA==
+X-Received: by 2002:a17:90b:4f87:b0:3ae:5572:c4e2 with SMTP id 98e67ed59e1d1-3ae897e5685mr6397230a91.57.1793556040776;
+        Sun, 01 Nov 2026 10:00:40 -0800 (PST)
+Received: from tabby-boi ([2a09:bac5:4fad:e6::17:370])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae6e949077sm15194159a91.9.2026.11.01.10.00.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 10:00:39 -0800 (PST)
+From: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>
+Cc: Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Sean Paul <sean@poorly.run>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Connor Abbott <cwabbott0@gmail.com>,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	Wang Guangke <gkwang@linx-info.com>
-Subject: [PATCH] mm/damon/stat: avoid overflow in estimated_memory_bandwidth calculation
-Date: Mon,  2 Nov 2026 02:00:01 +0800
-Message-ID: <20261101180001.167198-1-gkwang@linx-info.com>
-X-Mailer: git-send-email 2.56.0
+	Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] drm/msm: don't wait for a fault devcoredump during GPU recovery
+Date: Mon,  2 Nov 2026 01:55:50 +0800
+Message-ID: <20261101175553.53746-2-nicoangelodelacruz@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
+References: <20261101175553.53746-1-nicoangelodelacruz@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,63 +113,155 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The calculation of estimated_memory_bandwidth computes
-access_bytes * USEC_PER_MSEC * MSEC_PER_SEC / aggr_interval directly.
-On 32-bit systems, the intermediate product
-access_bytes * USEC_PER_MSEC * MSEC_PER_SEC may overflow before the
-division is performed.
+adreno_fault_handler() calls reinit_completion() on
+fault_coredump_done and then blocks in
+msm_gpu_fault_crashstate_capture() on mutex_lock(&gpu->lock) to take
+the devcoredump.
 
-Fix it by splitting the division into quotient and remainder,
-multiplying each part separately.
+If recover_worker() is already running, it holds gpu->lock and, from
+the runtime suspend in a6xx_recover() or a8xx_recover(), may time out
+in a6xx_hfi_wait_for_msg_interrupt() or a6xx_gmu_set_oob(). Both loops
+then fall into an unbounded wait_for_completion() on
+fault_coredump_done, which has just been reinitialized and which only
+the fault handler can complete. The fault handler is waiting for
+gpu->lock, which recovery will not release until the wait returns, so
+neither side makes progress.
 
-Fixes: fabdd1e911da ("mm/damon/stat: calculate and expose estimated
-memory bandwidth")
+A fault dump that needs gpu->lock can never complete while recovery
+holds it, so waiting for it is wrong. Add a recovery_in_progress flag
+to struct msm_gpu, set by recover_worker() under gpu->lock, and check
+it in two places:
 
-Signed-off-by: Wang Guangke <gkwang@linx-info.com>
+ - the fault handler doesn't start a devcoredump capture while
+   recovery is running, so a fault that arrives during recovery no
+   longer reinitializes the completion;
+
+ - both GMU wait loops stop waiting for the completion while recovery
+   is running and fall through to their normal timeout handling. This
+   covers a fault handler that had already reinitialized the
+   completion when recovery took gpu->lock.
+
+GMU waiters that don't hold gpu->lock, such as the devfreq frequency
+change path, also skip the completion wait while recovery is running
+and report their timeout right away; recovery is resetting the GMU
+at that point anyway.
+
+On a OnePlus Pad 3 (Adreno 830), recoveries that saw a CP page fault
+within 2 s of "hangcheck recover!" were stuck 3 of 3 times, while
+12 of 12 recoveries without such a fault completed. With this patch,
+three natural recoveries that took a CP page fault during recovery
+all completed.
+
+Fixes: 50a0b122cfc8 ("drm/msm: Wait for MMU devcoredump when waiting for GMU")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/all/CACu1E7EApr6Ne3XxFv4cUa2JuwNW2kfo1c5wSsAUN78iWyQ2sg@mail.gmail.com/
+Signed-off-by: Nico Angelo Dela Cruz <nicoangelodelacruz@gmail.com>
 ---
- mm/damon/stat.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c   | 7 +++++--
+ drivers/gpu/drm/msm/adreno/a6xx_hfi.c   | 7 +++++--
+ drivers/gpu/drm/msm/adreno/adreno_gpu.c | 3 ++-
+ drivers/gpu/drm/msm/msm_gpu.c           | 2 ++
+ drivers/gpu/drm/msm/msm_gpu.h           | 9 +++++++++
+ 5 files changed, 23 insertions(+), 5 deletions(-)
 
-diff --git a/mm/damon/stat.c b/mm/damon/stat.c
-index b05b68f73e10..7cfa3a8d6801 100644
---- a/mm/damon/stat.c
-+++ b/mm/damon/stat.c
-@@ -32,8 +32,8 @@ static bool enabled __read_mostly = IS_ENABLED(
- module_param_cb(enabled, &enabled_param_ops, NULL, 0600);
- MODULE_PARM_DESC(enabled, "Enable of disable DAMON_STAT");
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 662f09bec..32ed49abe 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -445,12 +445,15 @@ int a6xx_gmu_set_oob(struct a6xx_gmu *gmu, enum a6xx_gmu_oob_state state)
+ 		if (!ret)
+ 			break;
  
--static unsigned long estimated_memory_bandwidth __read_mostly;
--module_param(estimated_memory_bandwidth, ulong, 0400);
-+static u64 estimated_memory_bandwidth __read_mostly;
-+module_param(estimated_memory_bandwidth, ullong, 0400);
- MODULE_PARM_DESC(estimated_memory_bandwidth,
- 		"Estimated memory bandwidth usage in bytes per second");
+-		if (completion_done(&a6xx_gpu->base.fault_coredump_done))
++		if (completion_done(&a6xx_gpu->base.fault_coredump_done) ||
++		    READ_ONCE(a6xx_gpu->base.base.recovery_in_progress))
+ 			break;
  
-@@ -55,15 +55,20 @@ static void damon_stat_set_estimated_memory_bandwidth(struct damon_ctx *c)
- {
- 	struct damon_target *t;
- 	struct damon_region *r;
--	unsigned long access_bytes = 0;
-+	u64 access_bytes = 0;
-+	u64 remainder, bytes_per_interval;
+ 		/* We may timeout because the GMU is temporarily wedged from
+ 		 * pending faults from the GPU and we are taking a devcoredump.
+-		 * Wait until the MMU is resumed and try again.
++		 * Wait until the MMU is resumed and try again. A fault dump
++		 * cannot complete while recovery holds gpu->lock, so don't
++		 * wait for one then.
+ 		 */
+ 		wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
+ 	} while (true);
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+index 6b34e704a..fe4e35728 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_hfi.c
+@@ -122,12 +122,15 @@ static int a6xx_hfi_wait_for_msg_interrupt(struct a6xx_gmu *gmu, u32 id, u32 seq
+ 		if (!ret)
+ 			break;
  
- 	damon_for_each_target(t, c) {
- 		damon_for_each_region(r, t)
--			access_bytes += (r->ar.end - r->ar.start) *
-+			access_bytes += (u64)(r->ar.end - r->ar.start) *
- 				r->nr_accesses;
- 	}
--	estimated_memory_bandwidth = access_bytes * USEC_PER_MSEC *
--		MSEC_PER_SEC / c->attrs.aggr_interval;
-+	bytes_per_interval = div64_u64_rem(access_bytes,
-+			c->attrs.aggr_interval, &remainder);
-+	estimated_memory_bandwidth =
-+		bytes_per_interval * USEC_PER_MSEC * MSEC_PER_SEC +
-+		div64_u64(remainder * USEC_PER_MSEC * MSEC_PER_SEC,
-+				c->attrs.aggr_interval);
- }
+-		if (completion_done(&a6xx_gpu->base.fault_coredump_done))
++		if (completion_done(&a6xx_gpu->base.fault_coredump_done) ||
++		    READ_ONCE(a6xx_gpu->base.base.recovery_in_progress))
+ 			break;
  
- static int damon_stat_idletime(const struct damon_region *r)
+ 		/* We may timeout because the GMU is temporarily wedged from
+ 		 * pending faults from the GPU and we are taking a devcoredump.
+-		 * Wait until the MMU is resumed and try again.
++		 * Wait until the MMU is resumed and try again. A fault dump
++		 * cannot complete while recovery holds gpu->lock, so don't
++		 * wait for one then.
+ 		 */
+ 		wait_for_completion(&a6xx_gpu->base.fault_coredump_done);
+ 	} while (true);
+diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.c b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+index dadfe4c69..138bebf5e 100644
+--- a/drivers/gpu/drm/msm/adreno/adreno_gpu.c
++++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.c
+@@ -289,7 +289,8 @@ int adreno_fault_handler(struct msm_gpu *gpu, unsigned long iova, int flags,
+ 	struct msm_mmu *mmu = to_msm_vm(gpu->vm)->mmu;
+ 	const char *type = "UNKNOWN";
+ 	bool do_devcoredump = info && (info->fsr & ARM_SMMU_FSR_SS) &&
+-		!READ_ONCE(gpu->crashstate);
++		!READ_ONCE(gpu->crashstate) &&
++		!READ_ONCE(gpu->recovery_in_progress);
+ 	unsigned long irq_flags;
+ 
+ 	/*
+diff --git a/drivers/gpu/drm/msm/msm_gpu.c b/drivers/gpu/drm/msm/msm_gpu.c
+index 0c2c35636..caa86279f 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.c
++++ b/drivers/gpu/drm/msm/msm_gpu.c
+@@ -474,6 +474,7 @@ static void recover_worker(struct kthread_work *work)
+ 	int i;
+ 
+ 	mutex_lock(&gpu->lock);
++	WRITE_ONCE(gpu->recovery_in_progress, true);
+ 
+ 	DRM_DEV_ERROR(dev->dev, "%s: hangcheck recover!\n", gpu->name);
+ 
+@@ -585,6 +586,7 @@ static void recover_worker(struct kthread_work *work)
+ 	pm_runtime_put(&gpu->pdev->dev);
+ 
+ out_unlock:
++	WRITE_ONCE(gpu->recovery_in_progress, false);
+ 	mutex_unlock(&gpu->lock);
+ 
+ 	msm_gpu_retire(gpu);
+diff --git a/drivers/gpu/drm/msm/msm_gpu.h b/drivers/gpu/drm/msm/msm_gpu.h
+index d27d54bdb..5cf220f75 100644
+--- a/drivers/gpu/drm/msm/msm_gpu.h
++++ b/drivers/gpu/drm/msm/msm_gpu.h
+@@ -258,6 +258,15 @@ struct msm_gpu {
+ 
+ 	struct msm_gpu_state *crashstate;
+ 
++	/**
++	 * @recovery_in_progress: true while recover_worker() holds @lock, so
++	 * that fault capture and GMU waits don't wait on a fault devcoredump
++	 * that can't complete while recovery holds @lock.  Written with
++	 * WRITE_ONCE() under @lock; readers (the fault handler, GMU wait
++	 * loops) don't hold @lock and use READ_ONCE().
++	 */
++	bool recovery_in_progress;
++
+ 	/* True if the hardware supports expanded apriv (a650 and newer) */
+ 	bool hw_apriv;
+ 
 -- 
-2.47.3
+2.53.0
 
