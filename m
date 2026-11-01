@@ -1,78 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793562976;
-	b=jTMaxLAo20csQhrHSCyN/PL2ZtzYEVkqGfCZSNgDntDF1QLrM/csCvPkCmUR06cndgI8
-	 AGKoZQVeNMd1nr7o5H7hgSpyhn9UxTzU/x7NRWgYIIOKRRQVDPwEt0s6L2gayyN0PKHav
-	 +MKHRG8YlnueHIvD9qkvyADnA2iSU150C6bCblYvIS/BLWQvPbgsM6VItZ/aRZnIvmh2p
-	 s5qSiX2DqikyiYrU+jscjklIXcS1+jIgZq41ausddn8qIGnkBN5R7psk7/i2dLGaIRSUY
-	 ZiRdz6bNNk6EBbo8vDFmxhaf+QHI9MsJXsFeYni2uJ/WOloHCshENVqAlKuiHh/lhWQ==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793562976;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KkSdsnG+BikklEniaj4Q/jttRVObYiAieT3WyHniuSE=;
-	b=kyJ06Z1JMaw0lEp44T+6W++7IYWU89AvJJ5SNR6LUscz3ecEZ6d4jAraqMcXzuw03inO
-	 CqXrO0+HsGWIRRIinV4F5WdgEbxB27p9jrqnBHhC6v6gPvzSxxnvO5bljpknnIT3DkYPF
-	 OhAGwz7gYoxzyv4rzS7+WGV9cr7Z9RwQ2ao4fujmmw6wg6p0oGUzxDUJSzjvVGDFYHloz
-	 MlgEoXSTg2rTF8IOEes8Hd9Db/oKRBVFLWgI+FcHiv7FKbeTaLcW9aYTCjawS7nATzSte
-	 ycRMBSjz6oyxfc7oJE8fIIj+Pfj5AtcsDBOGp4Zeg1NS9qEX51dnJdfVjvqRNhZiJ6Q==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tkz6qqX2;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60720606A324;
-	Sun,  1 Nov 2026 19:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Tkz6qqX2
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793562976;
-	b=cO/pDw7+2RWtBAj/oL+dgnaL+bX2+X4CSwHff3Sf9YynmwNqL2MZcy7t1W1n89Mxkisc
-	 v9MaRN1RUQJpObgsq+Mm26CoBhFOOmUr0Fvgvj86IIgMP7CvpuYwnkTIKIbSHT+QPriE3
-	 Gjra0yOs0ROlOBr/0wcOpmSDDlZs8VBhLrYqml8GM9mUFONXMUnL8QgX+EnCAHnlMF5Zo
-	 IXVMb6tz1nIwDlX/c+8wnSW9/614x2Iqw7UC55a8axV9hciErxFR/l10ZPQTXDHXdDH2L
-	 vS69MH0FAPEDPoGyRb7W/WQGrHn00j+0c03jhjSfhBff4nQEjL0cbGZk7K0e6plZu9A==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793562976;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=KkSdsnG+BikklEniaj4Q/jttRVObYiAieT3WyHniuSE=;
-	b=ynpQWKzLvw6Tkne0COGo7PUPkZ9gk5f7IYawoG8eeBJy5AYYXwWdrikMTXwLPWkc80IW
-	 k/0GK2YzyWHOnM22BRda80ai/qerbuEuP1zqMJ4w7o7I3SL8C4MmZ5SdJzhg+O+uJ5Nd9
-	 MZCgNaePcJm5zYJhE8I3KCp9mPZrcmcIKE3v5KZt16mkuoWb2wCeIHms+NFxkM9JDqy9X
-	 6KmJoaD2Rctxyuvb6GYV0/Le5OjLpgoAPspaYnZIS9zOnRZAMWOdv1txj/MDWHBvLQoLo
-	 HHHUQ68tNOPi43FoQkJ0QpenfJHJrx9dXlBaDJ2TZenvBQxMN4RGSKRHAvgqSz+ccig==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.43
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793563318;
+	b=bkVpQztXcBIO/ahP1Bld67NDVn9GMtsmUZZ5Xy86RiViSnNjaD5eqLf/smgiE2/mj8j5
+	 We+srARSfFz8pp7+mveK0Mb4OPmnjqatRnSztSTN+ltm9c0DJiI+5PQNuH/bp1JUfXOVZ
+	 EmpwceHCgsvghPNYOdbJJR5HtVjX2DZhpHVBCvypiAXE7rALKyurxV1K05KlOoK4IRYVx
+	 jpyZlSUDjfC9CtEwmYAbrdQLkYLa+A2iayAS+NREaIxxpYXcojnkpJ5GnMr7V7b+qDElr
+	 WdSMy+HGBR9Lk3ZM+ayPO6YWlmahG/iW5T/ppX/VN3Mf40gEeae0sHQtoqfuDE+ycyw==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793563318;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=z/VKI7RpLJNOxCKazePUIRScOgx02AgC8jGvZ4BHeOw=;
+	b=4waJkztvqwNMFuWWmDpaS4HOFVKlDWSzJakAem6jXpXk+3XVuX+DZWGZ+zF8IRp/ewHM
+	 PLC0Bnbaj3xtQ0DOrXN1x89qbzfe7qmZj7nxKNwSW1fSRBLeFDIkYegvHxWdKuHaxPaKk
+	 Q5JkZMO7KBQp/QzLRQtpBQVy0oTSti4jT5Xc1XkQaIUqk517mh+2dLhTAiQCURLXNEgJh
+	 21fyZiIkeW7AYtdVxf92jYB861eanWB6eE4WNA4D7SVNXWqHz6dT6bwDKJUxDk7nUWLgJ
+	 5u1NLUZw1ELzHfEDoBUwHOXsNIsYPObJm3PgwlNVDJu/PgrCXFutT+BkP2IR+7S0vIw==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvbi1YUQ;
+	arc=none smtp.remote-ip=74.125.82.43
+Received: from mail-dl1-f43.google.com (mail-dl1-f43.google.com [74.125.82.43])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 92AEC1F000C1;
-	Sun,  1 Nov 2026 19:56:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793562976;
-	bh=KkSdsnG+BikklEniaj4Q/jttRVObYiAieT3WyHniuSE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=Tkz6qqX2nxZdNGf5ydwqblRNBWs8hFYnLIyJm7MqhBJxLFmBra8LUKfXf1D8yNes8
-	 UoBhRaOZXOK5B1XoRgBztURbcdCmb1OaIkuDQppHo2g2fgEwmwtjXk1uup+A0d9oX0
-	 qzICd40zDLtqbpFwCACt3LpVVf6nyOz3gV3Zl7UjsqeWV5/3p+IOfkVHkyD1+2lK+6
-	 qvgVr30wt+QD7doMXRbEyeLeZ4aYFUCi5DHuHzhAs0k1Hx33vKOE6K6QuWYdAuCZ4u
-	 oxTW7OkSS8XXkMNC3cIyW7SsM39TLm6IfNzzERxwzWD3KpQCgJ5ZAvrdJ4iN+ZKMwV
-	 bBncI5SPGJzKg==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id E78AB4625B;
-	Sun,  1 Nov 2026 19:56:14 +0000 (UTC)
-From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
-Date: Sun, 01 Nov 2026 14:56:15 -0500
-Subject: [PATCH] cgroup: arm the notify timer only while the file exists
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88298606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 20:01:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 88298606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=zvbi1YUQ
+Received: by mail-dl1-f43.google.com with SMTP id a92af1059eb24-1adbf62dd31so2318972c88.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 12:01:58 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793563318; x=1794168118; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z/VKI7RpLJNOxCKazePUIRScOgx02AgC8jGvZ4BHeOw=;
+        b=zvbi1YUQQ7aVWRUMLEDhhyHBLdyqiN4nI5hVMkMqE1W5UV/BN7B/1lPeV0+RClu5pe
+         sTNdCZk2+jO4OLZqsjXB4W/Dezxb5/tsjn5PBf2I2inKfFzcs9M8KTS+i18C+1Ej2wjY
+         kubKMurAl9Y1XFIAXcNIfE1mgEgh3Qk1v+D2lvd2bKBNHkYjwHExxdhTD+C7skmlUwwS
+         g+hW7vQG1QCdCjItKVr7YU521PgeKVZTBAfAIjG8ApoHn7DTXBDld/+vKrTzv3qauUym
+         uNHUvJh9an8WWMcfC4nm+gQ2DUsmzUIZh/eUsM2rt/mQtlypk+7dWKo1pFxZjdxiCUVC
+         rG7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793563318; x=1794168118;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z/VKI7RpLJNOxCKazePUIRScOgx02AgC8jGvZ4BHeOw=;
+        b=1f3XBIejl+zq8A7QaKixujpB2U2r9xnVO8oSkTGjjYfeMRuTdiXYkTaDQvZSo3tPC2
+         +SW3MMTDotplVnvXQ7MqjzyXxQd+WxKRxqxprFaYj8JFvNaefN83EphrC+q/UMnojJBE
+         jmkg9LdO5dc9uhB5F+slnxmL7DBsMl279K9NTsOn2yThozeyDba+xU7O2bKzN2QMyuaY
+         58U8iQnM7zOals9/Rl7o3CMd3dcGN12qp3OqH3Si06kD1KQU9HIlk22b3FIXwve3lP3A
+         QI2tCyLFrUsC0PF2rjneYfk/9AqS0UmUxck7OwYABGJj0urrHeZMhsrh56S2QTfn/9+Q
+         ImHQ==
+X-Forwarded-Encrypted: i=1; AKwUvByshCf/U1qmKQAyQey2diCRoaMU9Mvvira7lDcbdgm/8qqNWLc3E+fNnG09P8CXmGrg0ibOpmAkCvx512I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmruth6tQl7g1wQrzAeplouEgDNtVGZFbcun7vyMNSD4mggMyR
+	6AEDm3i8dFYsTU5AKDLCUmUYMQDK1Y1hvZcslih7SddNGmOakgaOQKOfc0w3YA==
+X-Gm-Gg: AYBFou1t+mRtP00kRuhVLIE6usaYySWMcFFNtbpAnanOUns89hY+B22Rx9DaoucvS/C
+	KefjkM5klg8VTrUJGoB2oXHhhwLWQ0dRCircB7fQ/kOOxBqdUFgkN6jjHbt5FPcWw1FEcLjVVMm
+	13bIzglSFc6ZowckCnqb5xceS7Ct55auQyw3tSu0R7BQ5bJ6u8/BOjPGcunNaG/167IArtZnv0s
+	otYJ8PKD3sfJ42fV+ILith8TuawD02KXChKscrlxr6IduuHXJFVBfpoGX+xFsnGGZ7m2BcPUyUn
+	+gCxsBL5KBFxmOdXoK9CInZnQYLxM0V1ej3WqssWd3IJQ5f+hsKnDx1rLGdtx6nl5TQZzznKBGV
+	g7sKPwZBrvS6S4gX48P/SVWNa78XPkQnnCOsq+IB+n4SeYdXzgDugy7pkD7YH0nvDP2WiYbBQWO
+	77k4A20YTawpK2dPTqpO2tLGBk/9XZu84bVeBzmZQW2auIkAote4SyKGvZvoy2q4G1ossb0tpmH
+	O04T746xIxzm1cDMlAbzBBANcMxUPHo5lljJ50+5FqU7R+wDRBuv9PAsrKLayoaQNuwxZgaTD01
+	aLKXruIdXp02wPWHKabC2iAc06N4s0/VFpwKG4jmX8r5hhNMCG2P393TmprFGcVw+Lo/tKuTQzt
+	ewLSiaRyEKRrz9nmsxPYK0OY7+udVGOkKI/4dsMwZ+qAkIXqQrCA/dOrtVt2mic58/5hseQ/FKR
+	Ipew==
+X-Received: by 2002:a05:7022:3f04:b0:19f:527d:96da with SMTP id a92af1059eb24-1ac5da7b145mr11824196c88.33.1793563317369;
+        Sun, 01 Nov 2026 12:01:57 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1b38ac58sm26633510c88.23.2026.11.01.12.01.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 12:01:56 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: linux-spi@vger.kernel.org
+Cc: Mark Brown <broonie@kernel.org>,
+	Ard Biesheuvel <ardb@kernel.org>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] spi: acpi: only look up the IRQ of confirmed SPI devices
+Date: Sun,  1 Nov 2026 12:01:55 -0800
+Message-ID: <20261101200155.15740-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,132 +97,121 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-cgroup-notify-timer-v1-1-060c07b81aeb@columbia.edu>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWTuQidSgVxEXNp3EEUzKJJVK6
- d0bdfkW/69QWIULXLoVlN9SJKcGOnTgH/cUGWVsBmvsicgQ+qh5njDlKuGDVV6saMi587H3HOw
- IrZyUgyy/6/X2d5mHJ/v6XcG27bcM03d3AAAA
-X-Change-ID: 20261101-cgroup-notify-timer-0177935cef2d
-To: Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>, 
- =?utf-8?q?Michal_Koutn=C3=BD?= <mkoutny@suse.com>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>, cgroups@vger.kernel.org, 
- linux-kernel@vger.kernel.org, tz2294@columbia.edu, stable@vger.kernel.org, 
- Mani Tofigh <mt4022@columbia.edu>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793562974; l=3928;
- i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
- bh=60CvO+jfXOPrHcfReXmW+4kGYjYut7KkK2ugXS8x2o8=;
- b=ccope1IVV72NxQTvKWk4fob2aYpuP+89xl0/LH5ma9uin0a9lufbzf1Q+PjrigtqxOsrNZgqM
- b+PqUMuc6CTATGB286ZcljzcPq4UVSWpls/f02dcNU+BOykeI0fi/Og
-X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
- pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
-X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
- auth_id=1322
-X-Original-From: Mani Tofigh <mt4022@columbia.edu>
-Reply-To: mt4022@columbia.edu
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-From: Mani Tofigh <mt4022@columbia.edu>
+When an SPI controller is registered, acpi_register_spi_device() is
+called for every present ACPI device in the namespace and
+acpi_spi_device_alloc() walks each device's _CRS. While doing so,
+acpi_spi_add_resource() converts the first interrupt resource it finds,
+even for devices that have no SpiSerialBus resource at all and are
+discarded right afterwards. Converting an interrupt resource registers
+its GSI, so this maps IRQs for arbitrary unrelated ACPI devices.
 
-cgroup_rm_file() clears cfile->kn under cfile->lock and then deletes the
-notify timer.  Since commit 4616120fca7f ("cgroup: add lockless
-fast-path checks to cgroup_file_notify()"), cgroup_file_notify() checks
-kn and arms the timer without that lock and can arm it right after it
-was deleted:
+On a Dell Precision M4800 (Lynx Point, 24-pin IOAPIC) the DSDT reports
+Haswell-ULT LPSS child devices (\_SB.PCI0.I2C0.ACD0 and
+\_SB.PCI0.SDHC.WI01) as present with interrupts on GSI 37 and 38.
+Registering the intel-spi controller then results in:
 
-  Task A (memcg charge)                  Task B (subtree_control write)
-  cgroup_file_notify()
-    READ_ONCE(cfile->kn) != NULL
-                                         cgroup_rm_file()
-                                           cfile->kn = NULL
-                                           timer_delete_sync()
-    timer_reduce(&cfile->notify_timer)
-      /* timer queued again */
+  ERROR: Unable to locate IOAPIC for GSI 37
+  ERROR: Unable to locate IOAPIC for GSI 38
 
-If the css is only hidden, showing it again runs timer_setup() on the
-still queued timer and corrupts the timer wheel:
+Do what the I2C core does and only parse the interrupt resource once the
+device has been identified as an SPI device on this controller.
 
-  [   14.324093] ODEBUG: init active (active state 0) object: 0000000009e526fd object type: timer_list hint: cgroup_file_notify_timer+0x0/0x10
-  [   14.324123] WARNING: lib/debugobjects.c:629 at debug_print_object+0x1a4/0x3b0, CPU#1: cgnotify/64
-  [   14.329806] CPU: 1 UID: 0 PID: 64 Comm: cgnotify Tainted: G        W            7.3.0-17087-gd865f2677c44 #1 PREEMPT
-  [   14.335109] RIP: 0010:debug_print_object+0x1ae/0x3b0
-  [   14.354351] Call Trace:
-  [   14.354927]  <TASK>
-  [   14.356650]  __debug_object_init+0x203/0x3c0
-  [   14.361799]  timer_init_key+0x2c/0x240
-  [   14.362682]  cgroup_addrm_files+0x754/0xc40
-  [   14.366744]  css_populate_dir+0x12e/0x440
-  [   14.368636]  cgroup_apply_control_enable+0x2f3/0xb60
-  [   14.371769]  cgroup_subtree_control_write+0x740/0xc10
-  [   14.376924]  cgroup_file_write+0x19e/0x700
-  [   14.381809]  kernfs_fop_write_iter+0x337/0x510
-  [   14.382818]  vfs_write+0x545/0x1250
-  [   14.386491]  ksys_write+0xfa/0x200
-  [   14.390144]  do_syscall_64+0xfb/0x590
-  [   14.390994]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-If the css is freed instead, the timer can fire on freed memory.
-
-Arm the timer under cfile->lock after checking kn again and keep only
-the kn and timer_pending() checks outside the lock.  With the fix, the
-timer stays idle once the file is removed.
-
-This bug was identified and confirmed with the help of a deterministic
-hypervisor currently under development.  The C reproducer below however
-hits it within a minute.
-
-Fixes: 4616120fca7f ("cgroup: add lockless fast-path checks to cgroup_file_notify()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+Fixes: 4c3c59544f33 ("spi/acpi: enumerate all SPI slaves in the namespace")
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
 ---
-Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/cgnotify.c
----
- kernel/cgroup/cgroup.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ drivers/spi/spi.c | 36 ++++++++++++++++++++++++++++--------
+ 1 file changed, 28 insertions(+), 8 deletions(-)
 
-diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
-index a284225f8dc9..b3657e72db99 100644
---- a/kernel/cgroup/cgroup.c
-+++ b/kernel/cgroup/cgroup.c
-@@ -4806,19 +4806,21 @@ void cgroup_file_notify(struct cgroup_file *cfile)
- 	if (!READ_ONCE(cfile->kn))
- 		return;
- 
--	last = READ_ONCE(cfile->notified_at);
--	next = last + CGROUP_FILE_NOTIFY_MIN_INTV;
--	if (time_in_range(jiffies, last, next)) {
--		timer_reduce(&cfile->notify_timer, next);
--		if (timer_pending(&cfile->notify_timer))
--			return;
--	}
-+	if (timer_pending(&cfile->notify_timer))
-+		return;
- 
- 	spin_lock_irqsave(&cfile->lock, flags);
- 	if (cfile->kn) {
--		kn = cfile->kn;
--		kernfs_get(kn);
--		WRITE_ONCE(cfile->notified_at, jiffies);
-+		last = cfile->notified_at;
-+		next = last + CGROUP_FILE_NOTIFY_MIN_INTV;
-+
-+		if (time_in_range(jiffies, last, next)) {
-+			timer_reduce(&cfile->notify_timer, next);
-+		} else {
-+			kn = cfile->kn;
-+			kernfs_get(kn);
-+			cfile->notified_at = jiffies;
-+		}
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+index 40cda0037ea5..5a2cbebfabc5 100644
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -2995,7 +2995,6 @@ struct acpi_spi_lookup {
+ 	acpi_handle		device_handle;
+ 	u32			max_speed_hz;
+ 	u32			mode;
+-	int			irq;
+ 	u8			bits_per_word;
+ 	u8			chip_select;
+ 	int			n;
+@@ -3138,17 +3137,25 @@ static int acpi_spi_add_resource(struct acpi_resource *ares, void *data)
+ 			if (sb->device_polarity == ACPI_SPI_ACTIVE_HIGH)
+ 				lookup->mode |= SPI_CS_HIGH;
+ 		}
+-	} else if (lookup->irq < 0) {
+-		struct resource r;
+-
+-		if (acpi_dev_resource_interrupt(ares, 0, &r))
+-			lookup->irq = r.start;
  	}
- 	spin_unlock_irqrestore(&cfile->lock, flags);
  
-
----
-base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
-change-id: 20261101-cgroup-notify-timer-0177935cef2d
-
-Best regards,
---  
-Mani Tofigh <mt4022@columbia.edu>
-
+ 	/* Always tell the ACPI core to skip this resource */
+ 	return 1;
+ }
+ 
++static int acpi_spi_add_irq_resource(struct acpi_resource *ares, void *data)
++{
++	int *irq = data;
++	struct resource r;
++
++	if (*irq < 0 && ares->type != ACPI_RESOURCE_TYPE_SERIAL_BUS &&
++	    acpi_dev_resource_interrupt(ares, 0, &r))
++		*irq = r.start;
++
++	/* Always tell the ACPI core to skip this resource */
++	return 1;
++}
++
+ /**
+  * acpi_spi_device_alloc - Allocate a spi device, and fill it in with ACPI information
+  * @ctlr: controller to which the spi device belongs
+@@ -3173,6 +3180,7 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
+ 	struct list_head resource_list;
+ 	struct acpi_spi_lookup lookup = {};
+ 	struct spi_device *spi;
++	int irq = -1;
+ 	int ret;
+ 
+ 	if (!ctlr && index == -1)
+@@ -3180,7 +3188,6 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
+ 
+ 	lookup.ctlr		= ctlr;
+ 	lookup.device_handle	= acpi_device_handle(adev);
+-	lookup.irq		= -1;
+ 	lookup.index		= index;
+ 	lookup.n		= 0;
+ 
+@@ -3203,6 +3210,19 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
+ 	if (!lookup.max_speed_hz)
+ 		return ERR_PTR(-ENODEV);
+ 
++	/*
++	 * Only look up the IRQ once we know this is an SPI device for us.
++	 * Parsing an interrupt resource maps its GSI, which must not be done
++	 * for every unrelated ACPI device walked during enumeration.
++	 */
++	INIT_LIST_HEAD(&resource_list);
++	ret = acpi_dev_get_resources(adev, &resource_list,
++				     acpi_spi_add_irq_resource, &irq);
++	if (ret < 0)
++		return ERR_PTR(ret);
++
++	acpi_dev_free_resource_list(&resource_list);
++
+ 	spi = spi_alloc_device(lookup.ctlr);
+ 	if (!spi) {
+ 		dev_err(&lookup.ctlr->dev, "failed to allocate SPI device for %s\n",
+@@ -3215,7 +3235,7 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
+ 	ACPI_COMPANION_SET(&spi->dev, adev);
+ 	spi->max_speed_hz	= lookup.max_speed_hz;
+ 	spi->mode		|= lookup.mode;
+-	spi->irq		= lookup.irq;
++	spi->irq		= irq;
+ 	spi->bits_per_word	= lookup.bits_per_word;
+ 	/*
+ 	 * By default spi->chip_select[0] will hold the physical CS number,
+-- 
+2.56.0
 
