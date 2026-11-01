@@ -1,75 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793499884;
-	b=sP4SuwP2k2Cnkrij8dkYjOmNZ4dQuQgHE+OMBQ/vCb2KOqSPSa3XjBKJ4o6SDBkQ2ptv
-	 ljQaLxDUv1EfLdSwmVJ/WiYM7Fvvg0ED8ZP2eU0lrmhg1b0YQ26NGmrFX8/kR6M9JNJJv
-	 R9PbjG26OvcxXKVjZPcHp1J0ubt4aCE54IETW9/sBaKEqaAo3hcINCBwgjCXtUmFVfHEG
-	 GsRdrMlUQ2p59kRCeeZf/uk4YR/k4vDU3zkvKO/ccEimArQnUjsV8bnyTwoDNNYjKazYT
-	 kPdm+3g3ETVBKeon62x83nK58tOV/I7Z/4TsA/XWsb/QHAhJsbknqun8b5QG0CNtnJQ==
+	t=1793499927;
+	b=mD7m4q9+n1HUgwmwIffU1MT/74WOPWoQrzfy6EODPfMfOfKaddruI3uEYq6Bd2M4FVDj
+	 MOHdqKhhpY9LYH2URWrGZ2NQp/x8d9HsPDONGkRRaP4UAB4kxp2rKSAuQQiG13NDrF7jD
+	 5nwJXRin1SiTnb5fi1LmkIh7mXa64dFyfWMeSdTSWq+WVuHpvmTgaPb4baNlGCkvr75WA
+	 OZdHa6Q/Rf+0lOi5ArG0vuyKdNcWFz6NfDHc3LNXLYXngxw9drafThw58ZKNMK1W/ZDoY
+	 dpHcNV+ZEtHu4uM5UKVsqMfv7o+kuF+gUzcRFSn6OLDGeM7vYKKrukWSH0xN/ZUlWcA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793499884;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
-	 To:CC:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding:X-FB-Internal:Content-Type:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version;
-	bh=9qK/M5Q1l5Xw9YVuAHPCYT0d7+vzZiNxXyZrRyF08os=;
-	b=NB3g9i1IQLQsymAmTEiShtd8FSo+0vubm4NtOYe56QuKMAIrUGlun2sre9fj2H5dV3BD
-	 M2jcyejDvorTe/GZh2nSQxxegu86XMVo4zLaEYnrVJ8eNIyoGkL+9Ys4u7SyNEZ+/FR41
-	 WswU1Q/nALAa0UDpxyoq97tqif6cxAgJVBoDDKf1N4+u54AM4PBrJ4Td67eLhwRq8uidi
-	 9eru5SegxDtPmntzZAtw3jFhsX6vxs7AqNZs6YK7UhB+51Cp5FN3cCsi8waCq48cWixDn
-	 dUBfWIPV/HJ+Bed4f7sZoQjvQVtDea+JswPH0HyQ78v+SzZoUrAtrsuTxiDRZpAmLRQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793499927;
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Date:From:To:CC:Subject:
+	 In-Reply-To:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=CJMLFsc+Wp5rV2c+umm5ckbj8CU/O6an9rX8Xcr8JyQ=;
+	b=HZC/hzfBBrNbhb0cmLi7RMW/DsmqI5ueEcLtjVv54ejAv+SiIs33M+woPijLIg9nnK/g
+	 Am5JhAjqBRTFWe07EmTjVw2vK7m8UO6z2qUyQ74vgY9Hb7zpGyshpdvqsrmF0KM/rvPd8
+	 vJC/g3ys2lRZDLAvYWj8JaMHM0nJYzz9MrNublSCGXFyCNq68LbQUKGnGSQ93BRj21Sp5
+	 HRTdodIwUM1Ljpi4b81pTtMAfQembgBo4johExjyaDhumlEbUwJuBQYeW2xO/Y4gfuCEl
+	 I/PfOLr3x2VlKvsl5iuK0ddbd5wFEWwDMztB0rnVIVkHNWdCdZW2m/xRzHsYrzflGEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=meta.com;
-	spf=pass smtp.mailfrom=meta.com;
-	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=dWhEKt8X;
-	arc=none smtp.remote-ip=67.231.145.42
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=gZSe0UzB;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Q7hj8aUo;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD294606A329
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:24:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD294606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0589D606A326;
+	Sun,  1 Nov 2026 02:25:25 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0589D606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=dWhEKt8X
-Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
-	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A120UWQ2808260
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:24:43 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
-	:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=pps82601-s2048-2026-q3; bh=9qK/M5Q1l
-	5Xw9YVuAHPCYT0d7+vzZiNxXyZrRyF08os=; b=dWhEKt8XEnbeg/CG6qT1Sfbn+
-	RwHUjzspdgTbP2trmunhDRXjOyLxmG1OgZK1BSC0bJqkzmStVm1+YVW/I3+RfTOS
-	1ZjFn62pxhFkoMI2CBzMM1d3ZtwaC8WFRruMBsidYyEVh6KeaUnwB8hDwEw8srEe
-	HLQYq4FHx2Mi6Yiwu6z2Jk663/DPWyUpHrcbVkpDom4mWyXKzUjwV1IBhrbJz7ht
-	haJGnIt/WYSXl8CroG5vCgNALUNykTrjcPSL/vrzHh1PzUW0FqtVZV3rVU+645Ze
-	LaDJ7YWMze6QFIaIQ0sKYhqp7GO1WZO1lnlTv1z6DQAaVLUvlAyrc/MR/Uw+Q==
-Received: from mail.thefacebook.com ([163.114.134.16])
-	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hn2wddm10-4
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:24:42 -0700 (PDT)
-Received: from twshared30277.33.frc3.facebook.com (2620:10d:c085:208::7cb7) by
- mail.thefacebook.com (2620:10d:c08b:78::c78f) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Sun, 1 Nov 2026 02:24:39 +0000
-Received: by devvm18200.frc0.facebook.com (Postfix, from userid 352338)
-	id 153296E473AD3; Sat, 31 Oct 2026 19:24:37 -0700 (PDT)
-From: Foo Bar <muratseker@meta.com>
-To: Amit Shah <amit@kernel.org>
-CC: Arnd Bergmann <arnd@arndb.de>,
-        Greg Kroah-Hartman
-	<gregkh@linuxfoundation.org>,
-        Rusty Russell <rusty@rustcorp.com.au>,
-        <virtualization@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
-        <muratseker@meta.com>
-Subject: [PATCH] virtio_console: add console port to list before hvc_alloc()
-Date: Sat, 31 Oct 2026 19:24:35 -0700
-Message-ID: <20261101022435.3466820-1-muratseker@meta.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=gZSe0UzB;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=Q7hj8aUo
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793499922; bh=CJMLFsc+Wp5rV2c+umm5ckb
+	j8CU/O6an9rX8Xcr8JyQ=; b=gZSe0UzBKFHOSmxVaKMuF5KkHPoiZkHiO2TjFnpPzweOb2S7TV
+	1YqIzfPKV4RO0VKP/h1JGjQCXLhnhoNsIAAgoe3at9GlmgH/9Yl7BCJLKHhQc+9fw9xGoi7h4Kc
+	8TtKtpFtG2pHODXxLNXWrNVfUH9IGaJ7XzgGBPNz3oRjiW4IDc/0VZmuzr84Pw/R4cNXKkWul3D
+	dV5GUkPgwfRA1fUE7J1a1RY8mTVvK9fKMFECRzFZ50L1FOsgeWA7j8CyzFoWn+zldUWglmVZqRP
+	1J5OJPJbAMMv4/gG6zm3LjJuJK+DsUxONgBChJgnt+MoQCZCSeL5JUb7RwomBSnh17Q==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793499922; bh=CJMLFsc+Wp5rV2c+umm5ckb
+	j8CU/O6an9rX8Xcr8JyQ=; b=Q7hj8aUouRCHU3VRq2jR1Y88iG/nqfjV+L0ZK+TpKVFBajtQoC
+	1gWehF1X/hxHJjuBebwnNrM88S3vqPwNR0CA==;
+Date: Sun, 01 Nov 2026 02:25:23 +0000
+From: Bradley Morgan <brads@mainlining.org>
+To: bbnpreetsingh@gmail.com
+CC: linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
+ paul@paul-moore.com, sergeh@kernel.org,
+ syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com,
+ syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com
+Subject: Re: [PATCH] cred: mark the copy in prepare_creds() as a data race
+In-Reply-To: <20261030033308.7-1-bbnpreetsingh@gmail.com>
+Message-ID: <A25971F6-A534-495D-A115-72B4BAF7EFE4@mainlining.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,99 +65,99 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-X-FB-Internal: Safe
-Content-Type: text/plain
-X-Proofpoint-GUID: i5NkobxyL7nr40mxAYQ5QAgNU7oJX-j_
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDAwOSBTYWx0ZWRfXwYy8ayPr+V/Y
- kTxlyakl/bOK5JBJrgrevU4kcCkWzXgG2KKlNFgSZb3MdaYyM/wTNj+IW7qVQspwq/ZivO50kIE
- eWjvcXtCL4SD+rZYvaIry+BVpwwt3AQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDAwOSBTYWx0ZWRfX228snsGdLA+F
- j7xTGQSyak+528ObSn2u6kL1US7JE0wdMJy9tQI3UuZL9I7LXTNH/X2liOhT/+rUJ01FNCErr36
- JyR/0u70W1Twz37GeB5dI6xW7mEvnndZJdOrz9a5XqhGgfMc4JNOW7pxyI8wQhgJecN0tAJCV3O
- Ct7qI943JQG2+L1+2YdhSZ/dH1eOmIRMbi0nOkHBRBwP/SjbB/H6iIvUCsuCkAXjWDXsVRb97U/
- zn8Lb5ysLcFL4FKkTm2RZpgMfQ7W0gOCA0Yc8/cYEeOJGZimryA2ZGEJSg+0VhmMdBBpP/MEBzI
- Bx+zA1p7qPr7Up5Y/beYo5qDcufLKrk6neWRVkolhdmt2sCJfQSVIxaH40fsCHWVKMZXATinqHS
- ZPNYZr3um6lfDRqtzVDZt3NrhEeDCLd61giZ92kXPfwLqX/KYx/I87/6XwfllZMpE7NkKY2OuSJ
- Ki+GSUredyRShjDebtA==
-X-Authority-Analysis: v=2.4 cv=U+MHnuru c=1 sm=1 tr=0 ts=6ae6a2ea cx=c_pps
- a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
- a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
- a=_1IyUuN4QrATX339ibzo:22 a=VabnemYjAAAA:8 a=3OxQIUvJTM31TIZw88YA:9
- a=gKebqoRLp9LExxC7YDUY:22
-X-Proofpoint-ORIG-GUID: i5NkobxyL7nr40mxAYQ5QAgNU7oJX-j_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-01_01,2026-10-21_02,2025-10-01_01
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-From: Murat Seker <muratseker@meta.com>
+On 30 October 2026 03:33:08 GMT, Babanpreet Singh <bbnpreetsingh@gmail.com>
+wrote:
 
-init_port_console() calls hvc_alloc() before adding the port to
-pdrvdata.consoles.  When the port is the preferred console (for example
-console=3Dhvc0), hvc_alloc() registers it, and register_console() replays
-the log buffer through put_chars().  put_chars() looks the port up by
-vtermno in pdrvdata.consoles, does not find it yet and returns -EPIPE,
-so hvc discards every message printed before virtio-console probed.
-The messages are still in the kernel log, but a host capturing the
-virtio console never receives them.
+Well! Okay then. Nearly missed this (sigh)
 
-Add the port to the list before calling hvc_alloc(), and remove it again
-if hvc_alloc() fails.  The out_vq, outvq_lock and portdev used by
-put_chars() are set up in add_port() before init_port_console() runs,
-and the other users of cons.hvc check it through is_console_port().
+>prepare_creds() copies the old cred while other tasks may be changing
+>its refcount. Mark as data race.
 
-Tested on x86_64 QEMU/KVM with KASAN, PROVE_LOCKING and DEBUG_LIST:
-with console=3Dhvc0 the virtio console now starts at [0.000000] instead o=
-f
-at virtio-console probe; with hvc0 next to ttyS0 both carry the full
-log; with earlycon (no replay) output is unchanged; and hot-adding and
-removing extra virtconsole ports still works.  No new warnings.
+It's not the ref count,
 
-Fixes: 38edf58d73c2 ("virtio: console: don't assume a single console port=
-.")
-Signed-off-by: Murat Seker <muratseker@meta.com>
----
- drivers/char/virtio_console.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Both reports show a 4 byte write 168 bytes into the object:
 
-diff --git a/drivers/char/virtio_console.c b/drivers/char/virtio_console.=
-c
-index 019bcae81af5..a31fdac65891 100644
---- a/drivers/char/virtio_console.c
-+++ b/drivers/char/virtio_console.c
-@@ -1280,18 +1280,28 @@ static int init_port_console(struct port *port)
- 		return ret;
-=20
- 	port->cons.vtermno =3D ret;
-+
-+	/*
-+	 * hvc_alloc() may register the console, which replays the log buffer
-+	 * through put_chars().  put_chars() finds the port on this list, so
-+	 * add it first or the replayed messages are dropped.
-+	 */
-+	spin_lock_irq(&pdrvdata_lock);
-+	list_add_tail(&port->cons.list, &pdrvdata.consoles);
-+	spin_unlock_irq(&pdrvdata_lock);
-+
- 	port->cons.hvc =3D hvc_alloc(port->cons.vtermno, 0, &hv_ops, PAGE_SIZE)=
-;
- 	if (IS_ERR(port->cons.hvc)) {
- 		ret =3D PTR_ERR(port->cons.hvc);
- 		dev_err(port->dev,
- 			"error %d allocating hvc for port\n", ret);
- 		port->cons.hvc =3D NULL;
-+		spin_lock_irq(&pdrvdata_lock);
-+		list_del(&port->cons.list);
-+		spin_unlock_irq(&pdrvdata_lock);
- 		ida_free(&vtermno_ida, port->cons.vtermno);
- 		return ret;
- 	}
--	spin_lock_irq(&pdrvdata_lock);
--	list_add_tail(&port->cons.list, &pdrvdata.consoles);
--	spin_unlock_irq(&pdrvdata_lock);
- 	port->guest_connected =3D true;
-=20
- 	/* Notify host of port being opened */
---=20
-2.53.0-Meta
+write to 0xffff888103d7fbe8 of 4 bytes
 
+read to  0xffff888103d7fb40 of 184 bytes
+
+0xfbe8 - 0xfb40 = 0xa8. usage is an atomic_long_t at offset 0, so a hit
+there would be 8 bytes at the very start of the struct. What actually
+raced is this line of get_cred_many(),
+
+ nonconst_cred->non_rcu = 0;
+
+a plain write to a published cred. The atomic_long_add() under it never
+shows up, iirc KCSAN models the atomic fine. So non_rcu in the subject
+and the description, thats what the fix is about.
+
+
+
+>
+>Reported-by: syzbot+ee58b040032d8bed63d9@syzkaller.appspotmail.com
+>Closes: https://syzkaller.appspot.com/bug?extid=ee58b040032d8bed63d9
+>Reported-by: syzbot+557fdc985d6ac3831e14@syzkaller.appspotmail.com
+>Closes: https://syzkaller.appspot.com/bug?extid=557fdc985d6ac3831e14
+>Assisted-by: Claude:claude-opus-5-5
+>Signed-off-by: Babanpreet Singh <bbnpreetsingh@gmail.com>
+>---
+>Compile tested with gcc and clang; the KCSAN instrumentation of
+>kernel/cred.o was checked before and after.
+
+Sooo? What was the after? Could you have said something like "This bug
+isn't reproduced any longer, tested by soandso"
+
+
+
+> kernel/cred.c | 2 +-
+> 1 file changed, 1 insertion(+), 1 deletion(-)
+>
+>diff --git a/kernel/cred.c b/kernel/cred.c
+>index d01df40a9a386..d212db445c138 100644
+>--- a/kernel/cred.c
+>+++ b/kernel/cred.c
+>@@ -189,7 +189,7 @@ struct cred *prepare_creds(void)
+> 	kdebug("prepare_creds() alloc %p", new);
+> 
+> 	old = task->cred;
+>-	memcpy(new, old, sizeof(struct cred));
+>+	data_race(memcpy(new, old, sizeof(struct cred)));
+
+Hmmm. Comment..?
+
+WARNING: data_race without comment
+#12: FILE: kernel/cred.c:192:
++ data_race(memcpy(new, old, sizeof(struct cred)));
+
+The docs says it plain: "Applications of
+data_race() should have a comment so as to document the reasoning behind
+why it was deemed safe."
+
+I suggest
+
+
+/*
+  * The only fields a published cred can still change are non_rcu and
+  * usage, and both get set fresh just below. Keeping a copied non_rcu
+  * would be wrong anyway, __put_cred() then skips the grace period.
+  */
+ data_race(memcpy(new, old, sizeof(struct cred)));
+
+Feel free to bikeshed
+
+prepare_kernel_cred() ALSO does the same copy further down the same file,
+*new = *old, off get_task_cred(daemon). Same race, untouched. Did you mean
+to leave it out, or has syzbot just not hit it yet?
+
+> 
+> 	new->non_rcu = 0;
+> 	atomic_long_set(&new->usage, 1);
+>
+>base-commit: 881f19c2ffbc73f351b257e09c71e6059939b770
+>
+
+--- Thanks!
