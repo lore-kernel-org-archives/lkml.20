@@ -1,80 +1,66 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.209.128.97
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793504684;
-	b=XIk0YinmQo9ThYhrkQA53qSpbPpmXNjDjhdC+bjWqiW3UkDoSLZbQ1x/KHCjthrCzjof
-	 EaCkXy8jpffLAKWFtKS7iiYbCVLXaUZoHu3naQflo+ZNhWVsbG6DqGsDMXAw5MBzOZe58
-	 h2l/RG+x3xL+Fs42aHi+Rn8c9XjQRzatXy85dbFN+lANAeWAWsw3CyHq9yfDuHS1lroh4
-	 orDuD85Mb7IieYVk3IzqN5vvozeHTPoYO4jnEXHMlWkkS0UjwW4PQfIdswJFuKgGGDnug
-	 md5/Aw9+fP5k/64+s0/eHT17Zpk6Q5qXDtmBqpCfW6OT997Xi0fPdBk3HhHTmrW/ldw==
+	t=1793505723;
+	b=csZFmGJNrBZonHnsjngV93z7jRa5wwsgTMxXvKkPkrfWfPyaKyv+dviGqld1FGt5IGfW
+	 AE8ZYBx1nkw4d/giNCPlUhpBGe43l2SHqPDiyMnusWGxksKGku1foWsCdDSfqND4YjZV3
+	 oGrECY4ImV7Kge95fE3zl6GuN2cpPGbwSUgqsv+mM2cOD9aL4Iulwi1bVbgLuyvwNiNM0
+	 G6a/EMiRXDnIrtC/8CVOvOyir1hEsvGNTJHOKm/koYHqqnFjB7sMQqS/9UryxJRYN8u1m
+	 qqc5Uva+2oGogfySxpyo8QkpwNEOsd+FKBTAHE3sFhWkmiKkD1evZwysLAyXlLDwOBQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793504684;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:Message-ID:
-	 References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=3NX0nEmrDMRcK2qb2zALY4YGB6wA9H4jDy5kL7Ko/AI=;
-	b=e8Z45N8bFodeLytWF4HD8q7VjaSpFFAxPDU+SDZ3ijxIcNPPAN1sshDdpIcfenFP6veT
-	 fc56QX7AfqxjS+gczf6Y6PYLuhYm9jdgqdFgxd5ZBYLLrSZW9V+OmOlrSsOOzTYU/Iz4d
-	 BqbQxvOk5AWmVcY6f5lGJeZPlRFGBdXg7Dpi0s5UTpkBXKSzvCh/RkbBH7t3WMoVwsp5S
-	 zjK10dl5HSUcYs2asLNxs2OBh3FQLFh3pdisVLK3zVcQClKNkLjcMNDMrmRsy5N9zPbKR
-	 CteM/nXCggx+3qDnRI5mmIWNyO1jNj+g2tmy+K/i7PAO/fvTUXMOiTFYAzdvAYiYW5A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793505723;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
+	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status:DKIM-Signature;
+	bh=WIsAYVuA2tUNACU+9ZJPOaIId0MsnHlyEuV2LWfZyCs=;
+	b=lmsFMH+0Szxn06gJlnzKjJmpfMUyW8k56fjjnHvz8HA8inCKrCXAwdagTLfChs7+oyF6
+	 KdHxbPZ/p6Yrx8zuBLft6olKGXWDPLVHe0DRQfx5wfcXwk5qOs0M9tA2JYtzoNgcmRGUP
+	 cu/KZn2wGfZGCpyjOtsCpepdud5Rnwy2nS9GBqwiNAEQd6+/tn7pwT8oDG+ai/iXbe8Se
+	 nZEKH7sZPMreCBQk0dAL+l1L6JFreYm2nQWoJKT0Wk75EhtCPt/Vz/0BOyU9ZuyxoPOYt
+	 HueTpkm6eTh/t1Yn0OfhGvI9tq49bRe6MzkslDvGh3ZF8CyM3C7WUewDiYOa+OeWwuQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VxHqxSNA;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	dmarc=pass header.from=rock-chips.com;
+	spf=pass smtp.mailfrom=rock-chips.com;
+	dkim=pass header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MJkEViPB;
+	arc=none smtp.remote-ip=103.209.128.97
+Received: from mail-m12897.netease.com (mail-m12897.netease.com [103.209.128.97])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6D58606A324;
-	Sun,  1 Nov 2026 03:44:43 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6D58606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67864606A325;
+	Sun,  1 Nov 2026 04:01:59 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 67864606A325
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=VxHqxSNA
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A13iDiM51007663, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793504653; bh=3NX0nEmrDMRcK2qb2zALY4YGB6wA9H4jDy5kL7Ko/AI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=VxHqxSNAppv6MRhiJStSxpK+ZjDKRQgNW0I3nrWmExg31gs0Q0KJ0zfsOt6Oky+CY
-	 yNgB2NYliPx0RK8G+01qt/S1i/znBkNx/DMKacFoOX4ey9DYrgLh/3Xmya/Px5Mz4E
-	 ZMJzO02hEsYgSP27HFCkYSlq6p/oQv+xwVOM7TK3yVaZVNksMaVw9bapwAAVHhxvrF
-	 SvQILInGL3T09pr4DHhq6IQYyN8XPPjZb1apEqsIQqjwBrwWVJAn+we54CanPAjYjB
-	 a+2k3AtgwWjvxaPqrY9eVL/J4Jm9Kb0FDaMyk6Dy34yCOO7eF7wuoZKgy4Yldvy1Z4
-	 38c7mu9LAhAAw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A13iDiM51007663
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Sun, 1 Nov 2026 11:44:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Sun, 1 Nov 2026 11:44:13 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Sun, 1 Nov 2026 11:44:13 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Ho Jie Feng <hjf3108@gmail.com>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, "Kalle
- Valo" <kvalo@kernel.org>, neo_jou <neo_jou@realtek.com>, Hans Ulli Kroll
-	<linux@ulli-kroll.de>, Sascha Hauer <s.hauer@pengutronix.de>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
- aggregation buffer as a frame
-Thread-Topic: [PATCH rtw-next v3] wifi: rtw88: usb: don't report the
- aggregation buffer as a frame
-Thread-Index: AQHdaI9vizk2vXuz70+nFp0lnrRycrcYkErA
-Date: Sun, 1 Nov 2026 03:44:13 +0000
-Message-ID: <2d53d5420be945fc9bdfbea5542b61db@realtek.com>
-References: <20261030165451.365591-1-hjf3108@gmail.com>
-In-Reply-To: <20261030165451.365591-1-hjf3108@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key, unprotected) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=MJkEViPB
+Received: from 5950x.tail741d0a.ts.net (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 530d8413a;
+	Sun, 1 Nov 2026 12:01:50 +0800 (GMT+08:00)
+From: Xing Zheng <zhengxing@rock-chips.com>
+To: broonie@kernel.org,
+	heiko@sntech.de,
+	linux-sound@vger.kernel.org
+Cc: luca.ceresoli@bootlin.com,
+	lgirdwood@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	huangtao@rock-chips.com,
+	sugar.zhang@rock-chips.com,
+	lxt@rock-chips.com,
+	xing.zheng@rock-chips.com
+Subject: [PATCH v1 1/6] ASoC: codecs: rk3308: restore MICBIAS voltage after reset
+Date: Sun,  1 Nov 2026 12:01:20 +0800
+Message-Id: <20261101040125.1864141-2-zhengxing@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261101040125.1864141-1-zhengxing@rock-chips.com>
+References: <20261101040125.1864141-1-zhengxing@rock-chips.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,34 +70,64 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa19545536003a8kunm8fccdc7416d29a
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTBlJVk5CGhhDShhJT0xIGlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=MJkEViPBLLrSVBmi0yY4NY0W388ta6Dsn8D9yLl6XkrKHhyUi6ddDSb32eZVBeQbHx5/vHz0E19Ay8fYxJd6Q7SVG/ICIcU7vuPpja7VHl+Co21D3eSmoB70q6UxBQ1X3IITrTEjxDYXAL3OCTsEAEnoHelm/ZKimyc3vY4SfZo=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=WIsAYVuA2tUNACU+9ZJPOaIId0MsnHlyEuV2LWfZyCs=;
+	h=date:mime-version:subject:message-id:from;
 
-Ho Jie Feng <hjf3108@gmail.com> wrote:
-> When rtw_usb_tx_agg_skb() has more than one frame queued, it copies them
-> into a new buffer. That buffer was also handed to mac80211, as one
-> additional TX completion.
->=20
-> Report TX status only for the original frames, and free the aggregate
-> buffer without passing it to mac80211.
+The platform probe programs the requested MICBIAS voltage before
+registering the component. The component probe subsequently resets the
+codec, losing that setting before capture starts.
 
-The rtw_usb_write_port() might be failed and call ieee80211_purge_tx_queue(=
-)
-to purge txcb->tx_ack_queue list. Should we check if the tail skb of
-txcb->tx_ack_queue (or just check skb_head) is drv_frame=3Dtrue?
+Cache the validated voltage selector and apply it during component
+initialization after reset. Keep the reset selector when the property is
+absent.
 
-> @@ -431,6 +436,9 @@ static bool rtw_usb_tx_agg_skb(struct rtw_usb *rtwusb=
-, struct sk_buff_head *list
->                 goto queue;
->         }
->=20
-> +       /* report TX status only for the original frames */
-> +       rtw_usb_get_tx_data(skb_head)->drv_frame =3D true;
+Fixes: 4ed0915f5bc4 ("ASoC: codecs: Add RK3308 internal audio codec driver")
+Signed-off-by: Xing Zheng <zhengxing@rock-chips.com>
+---
+ sound/soc/codecs/rk3308_codec.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-If we can just check drv_frame by skb_head, just declare a local
-   struct rtw_usb_tx_data *skb_head_tx_data.
-
-> +
->         while (skb_iter) {
->                 unsigned long flags;
->
-
-
+diff --git a/sound/soc/codecs/rk3308_codec.c b/sound/soc/codecs/rk3308_codec.c
+index a3d41cd8150d..7a18ff45e391 100644
+--- a/sound/soc/codecs/rk3308_codec.c
++++ b/sound/soc/codecs/rk3308_codec.c
+@@ -46,6 +46,7 @@ struct rk3308_codec_priv {
+ 	struct clk *mclk_tx;
+ 	struct snd_soc_component *component;
+ 	unsigned char codec_ver;
++	u32 micbias_level;
+ };
+ 
+ static struct clk_bulk_data rk3308_codec_clocks[] = {
+@@ -840,6 +841,10 @@ static int rk3308_codec_initialize(struct rk3308_codec_priv *rk3308)
+ {
+ 	int grp;
+ 
++	regmap_update_bits(rk3308->regmap, RK3308_ADC_ANA_CON07(0),
++			   RK3308_ADC_LEVEL_RANGE_MICBIAS_MSK,
++			   rk3308->micbias_level);
++
+ 	/*
+ 	 * Init ADC digital vol to 0 dB (reset value is 0xff, undocumented).
+ 	 * Range: -97dB ~ +32dB.
+@@ -997,9 +1002,8 @@ static int rk3308_codec_set_micbias_level(struct rk3308_codec_priv *rk3308)
+ 				     "Invalid value %u for 'rockchip,micbias-avdd-percent'\n",
+ 				     percent);
+ 
+-	regmap_update_bits(rk3308->regmap, RK3308_ADC_ANA_CON07(0),
+-			   RK3308_ADC_LEVEL_RANGE_MICBIAS_MSK,
+-			   mult << RK3308_ADC_LEVEL_RANGE_MICBIAS_SFT);
++	/* The component probe resets the codec after this property is parsed. */
++	rk3308->micbias_level = mult << RK3308_ADC_LEVEL_RANGE_MICBIAS_SFT;
+ 
+ 	return 0;
+ }
