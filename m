@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793531241;
-	b=Fg4ObzIt9vbpOKnRF0vZu62YNeyPq+hjYFaKQqcii0JW7D7M7JpXY8KxY93x+IeAeHvf
-	 ufanZOz7njmaBhIwfbfBKCAJK6bTAfk4BrfJBAHGS3HzbYyPYtU/sodeUPYc51Qb4881+
-	 iLFTHZJTwkDaVl/B+iwSt47ok0Gjh2+8YfIyKE3gTeCwHuwldpuqNS5/Q+1UNWwyzhiI8
-	 h8QEbxZ7LkZDY2HSt0renwbWbnq6Iap6WS68Dojok2LfB5HZYXQrODfVM2M05egwwDQNe
-	 vkF8EINdNntdHowAsNNgT9YaaMkL4g0XiOM5lDe3nwW/9j+hXxEhVFvuvCoWeHAP/Eg==
+	t=1793531297;
+	b=YjxFzX52ZzU27JpQ/6j1CF9//NH97XEhXSPa9cc/3c+h7fV5yZHa39Fr2Ofaib+ONcQl
+	 k9P/SVP1EAfUE6sFmZ41ZCCT5GbzQGRlaHCyzImUw2DzyjiUh7DTxJ6aruSM13hPz0/jR
+	 dU+v8ukPMOTqnyAmL/46SZq/mfCv1FirBEGH23CfCuozbMOGxW1zZAeHBxVyI99F7zwkS
+	 2rfS3Ki+mdgZc4GRm/bzA/bg2aNPTvOeeIU/1NQ3UPEA9m/AoS2u8o/uFlm9AmDPi5fmF
+	 zAtZ6crmE+b5wz1lCQ3KoyChPFJHhBkimZFF2pxBKmS05EtA0+PMc6FAxmZv6euTSFQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793531241;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793531297;
 	h=Received:DKIM-Signature:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:References:
 	 Date:Message-Id:X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=hlNY/PV8DGVOaVDQ87qnWmiDTqBZhpUgMHIAxp3ZzvA=;
-	b=kDV0yax5owKij1hQk9q2bckEk6oKah6Y/a1B4/hV6SJSDihYvziLwZe9e/7CCBJphwM3
-	 9gGZFnYcIhWZ1J2BwAYgXQDMM2SZNsuk2g30iLIqCxb5mMNhAjoaesuBShs1dENCVRgwo
-	 aHXF0av7pYaFOznNf7SEjw/IVcRElNCEsSI9CfWhh+np4FkxdbViG0XIm4OfmcIdjm6i9
-	 oDlNhQXdOHW7PU+/TCcR5jEy/wtXx9dWrMk8DcsqZ9FFmpTop2sA1AZsoQDS0MZkrgdO8
-	 8IScwDSXR1N95vXBAvErC/fz52+SQfAsacJeQZwGekK252jKyfniVy6tlwg746DT3dA==
+	bh=8ZqHKrTZAa7k2c+zRd+2kFVhc7BZE6cjwLl6WJGjDT0=;
+	b=RTOi5Stz64kt85chbB2M6KGuqT3yQR84B+zGC+Ze3Lh8+Qz/+IYv3xxvUZps68E8tsBs
+	 EoNrfxL9lipJNYtorjrTBy/FEwIAULwIAeCJ/4EkC46BfiCII7qaqIur72JEI0LZ70TYu
+	 /1SHPTmNs+0dIGTSh8TIOz6NDXZxb78TrmIRXXf5pPK4dSO9w7lWCeoUEOjeQC/bVMrEx
+	 hJJI4Qa3RspegIGjRS1XnJ2TzlvbXUNAT8BLvfc/aTyRD31QtK+JWeqFXXRC/YfWfMNci
+	 0/hVeRlQlUvFrxL1RreoRmyXtNoj3eXInLHIacqSIqEW6UFTKbub58xRk6eqNhIMI8g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+qDYpEv;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="ZjvCiAz/";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820D9606A324;
-	Sun,  1 Nov 2026 11:07:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01218606A324;
+	Sun,  1 Nov 2026 11:08:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=e+qDYpEv
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 017741F000C1;
-	Sun,  1 Nov 2026 11:07:18 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ZjvCiAz/
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112701F000C1;
+	Sun,  1 Nov 2026 11:08:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793531241;
-	bh=hlNY/PV8DGVOaVDQ87qnWmiDTqBZhpUgMHIAxp3ZzvA=;
+	s=k20260515; t=1793531296;
+	bh=8ZqHKrTZAa7k2c+zRd+2kFVhc7BZE6cjwLl6WJGjDT0=;
 	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=e+qDYpEvupV2f4QI+ABCnWxY7QIYk/8tszNFxOaWNecB5AM34b8uv2iIq4abolxIM
-	 BpL8WabsJF7IFYUW+iD14mWdApn1fy4w6+sn7437wyjCjZEFMCzJDolzQuEnxy7ZLr
-	 N7Dbgr6ny5HsgGN8285AkM0x58KVd8NVhmiH4YuQr4aEyhStF520jaBogDpUX6kCUR
-	 mjiykSaF1mWYN43WOol+ROXLJyflx9TgHUOd4tVJDrS+7Rlg99KaygWyn51UHPFdq+
-	 xJ7/fqqcsjA3pIAV3Bp5WshWmbdslIV4l2ll6XqxdO4l2NmYbVSwtNFrIa5e/xa3a4
-	 w5OX2w8X+l7DQ==
+	b=ZjvCiAz/R3hHYCQjzSwylNYDqpP98D94MjX5tXYTpgDdSYBgmJRdGaDqRJ/SVUmNg
+	 B/t1mA+yCqsP6rgUO/wGmi4JypUE8Wnb1JgOJzzHZNbjyBttMCt6ygoaELLEtlsohW
+	 6VXkd45iPPsuJf3/5WYiVm+8trodqkNp7VogVtkQKnhwj0gBpuzuiwpvZ1WbcU/7jt
+	 3S1kG2VnP3pwEx/AsVwCjfngRDyCRwzqNAkjb+JRwsZIx6SzphdJr6e1wDIu1mT1S+
+	 pXCNoHQq/SkiNDPBrYwvMmWISfMYg2x/dyULBmpinzFGU/UlIVWErRD/j35tOF5Xs9
+	 GCpeT/4lvQ3tg==
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -50,46 +50,54 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] phy: ingenic: Don't disable the supply in exit
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 2/2] phy: amlogic: meson-g12a-usb2: add S4 support
 From: Manivannan Sadhasivam <mani@kernel.org>
-To: Olivier Louvignes <olivier@mgcrea.io>
-Cc: Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, 
- Paul Cercueil <paul@crapouillou.net>, linux-phy@lists.infradead.org, 
- linux-mips@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261024051756.79342-1-olivier@mgcrea.io>
-References: <20261024051756.79342-1-olivier@mgcrea.io>
-Date: Sun, 01 Nov 2026 16:37:16 +0530
-Message-Id: <179353123621.2955.1763925677067862965.b4-reply@b4>
+To: christian.koever-draxl@student.uibk.ac.at
+Cc: neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, 
+ martin.blumenstingl@googlemail.com, vkoul@kernel.org, mani@kernel.org, 
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Christian_Stefan_K=C3=B6v=C3=A9r-Draxl?= <ckoever@outlook.de>
+In-Reply-To: <20261025192202.209045-3-christian.koever-draxl@student.uibk.ac.at>
+References: <20261025192202.209045-1-christian.koever-draxl@student.uibk.ac.at>
+ <20261025192202.209045-3-christian.koever-draxl@student.uibk.ac.at>
+Date: Sun, 01 Nov 2026 16:38:09 +0530
+Message-Id: <179353128971.2955.5743207181968737681.b4-reply@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=640; i=mani@kernel.org;
- h=from:subject:message-id; bh=/AyMrrTg8Y397zc3NTnyqQqqDGUCh56bFnIUP/Ey9GQ=;
- b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5x1mQ+/vqLmjlLlj7D/J+HKB89tHLr4pP2XBo
- tc2ISXp6MKJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucdZgAKCRBVnxHm/pHO
- 9Xw1B/9ieynVZm2Z2sQAMUegzCNku6ctqgBumbhH6y9X0wsbZVMD/qiu3Jywa/jY/iPnJTl5dA9
- wWX0vuIRwDwJhQnYmnht7GMj29L/944OvD1zCrIJkQOjp66r0TyA9ZFI8PiZMN33sRIHmvlo5Pi
- bgEB7RpUJpCpDBD3wvvMU+U6JR8EIeEvpJaWmlWUOlQ9l/CZeOgVYW9VDfWt9M+MXaGVbvGT6Hn
- 0xDqpj8+iH1rSV48wjE96QCh4Xt+T21veUGZuAqazHMjhvTPvPyVgzXt47B3A/upAqCD8tzi7x5
- A7V8QT5SgegqoUHECrrqt7Y9yKfS7ET2dI0cbymQyt3Kfpts
+X-Developer-Signature: v=1; a=openpgp-sha256; l=863; i=mani@kernel.org;
+ h=from:subject:message-id; bh=4i/UwT8KhY3hDwjDHgZhm00CnhxEntUWfkuk3YkQLrw=;
+ b=owEBbQGS/pANAwAKAVWfEeb+kc71AcsmYgBq5x2c0yLz8HY/wgEQv3vpJxM4SQJtXqKuxtC0B
+ LCogdcfNbCJATMEAAEKAB0WIQRnpUMqgUjL2KRYJ5dVnxHm/pHO9QUCaucdnAAKCRBVnxHm/pHO
+ 9UOJB/9SBeD1OafxoTl/SwCaFJ4dyRTpOgVlCzWb3ZLWr3/uDJWq9lfhVJaKaSPNj3afa65p4vM
+ jEUQsr/ell75TnsWQXsLZ/7orZpUz577RsM6FDvgzM1kbTdp0WUhtALxYwrjwuUb2BgYWSOIIwG
+ 6PLr4E2Bgd0IM3+WmSdqxR4NzBEm9JPx0nyzzQD0QwioiqTAJskV1J2COuAueG1h1BMdcAFw3Px
+ qNr1m172yWnYquAJ5RgjlmHSCCZxQ6xIN8t9IZS1SS3Be9qPZbhh6+SqpufamxKLYN0fyUJk9ld
+ hjL7EgcSLyjBMI/m+OVPYuun0La37tUVBHM+jqt/OagPGAmE
 X-Developer-Key: i=mani@kernel.org; a=openpgp;
  fpr=C668AEC3C3188E4C611465E7488550E901166008
 
-On 2026-10-24 07:17 +0200, Olivier Louvignes wrote:
-> The supply is enabled in power_on() and disabled in power_off(); exit()
-> disabling it again unbalances it. dwc2 powers its PHY off before exiting
-> it, which warns at every probe on an Ingenic X1600:
+On 2026-10-25 20:22 +0100, christian.koever-draxl@student.uibk.ac.at wrote:
+> From: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 > 
->   WARNING: ... _regulator_disable
->   ...
->   ingenic_usb_phy_exit
->   phy_exit
->   dwc2_lowlevel_hw_disable
->   dwc2_driver_probe
+> The S4 USB2 PHY follows the A1 programming (MPLL DCO clock select, R21
+> calibration, R13 analog settings) with a few differences taken from the
+> vendor driver:
 > 
-> Fixes: 31de313dfdcf ("PHY: Ingenic: Add USB PHY driver using generic PHY framework.")
-> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+>  - edge drive trim 2 instead of 3,
+>  - HS disconnect reference 3 instead of 1,
+>  - a disconnect threshold in R14, and the R13 PMA signal update bit
+>    set to latch the analog settings.
+> 
+> Without the PMA update the host controller sees no root ports and
+> nothing enumerates.
+> 
+> Tested on an S905W2 board: devices enumerate and work behind a hub on
+> the host ports.
+> 
+> Signed-off-by: Christian Stefan Kövér-Draxl <ckoever@outlook.de>
 
 Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
