@@ -1,79 +1,79 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793552695;
-	b=RTwmGXIa3oLRRF8htAd2lp5xMTakEwgr+UWXpmSKzHV0Df09KHKcVuDR7ZCa+GBP69Vc
-	 RRcgc5gWASSOPL7sgXGdUAFuR/hb7CVUrjjOArKpwE8P0+xFUbwNgAotaxZedsq4s0Ut6
-	 8inUG85Sbdd+co/kkurmC5//XBGZ0gVi2W08t6hr54OwEaD0l5k1KpRSOxbDTHsWcEjR4
-	 aF+Z7ru+bh5xWhOSY1eokYQ+1A1W4SLuPl6CMpJeID7SJVA2/1NgvceWkXCDeCfsNNrnl
-	 LIEbE81B97ert26e6KEcdkJIorBw8LvJv2k40s8SAmzb89o0m69LtM3fLbNroc52GBQ==
+	t=1793552696;
+	b=Yf9h2j8i4YsJOqDvWFFYVySBM441v0Ta1SKbeXrKv91XxT64NuPek4dFzB5jTwtc/tko
+	 6DYrjDjnFk0JjlEjkH8DE6BPCy3es54PRlTG1TIjBd4je5mc5FlRZZrMUcPOiDumWO4XA
+	 bYcDEycQLKyvBd6fksibZsCd7anfjXo2r7rRFKnOyIfAY2ASPxwOrIWlv5Z3cZm2leUKA
+	 VAQWYzyrNdorbxewiu6mE99NfzZ2VdA6YYGTufOFsIEr6GotfoNM5fgK9HOkHuaRibM2s
+	 DKLkcRhw8RdE2AWd8XmkJot2uuSzTK9yqweT6My+n8aKsxCEUlCt8qTjVVDc9WAOoig==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793552695;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793552696;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=PJ8xawFkvQChuRbpRvFM3kzwdMyBEtgBeCZPpV2XFyg=;
-	b=eYyqXezHVsX+sPzQ3pQWCPnM8QRk/WiEMoc2p1DtvD8kXFdHB5PBVGJ5qKxFVnHdjXiY
-	 fgaR1kdgRAnO2fLquHSujsP1T9CH1Sg+vU1BDKx4YEQ4nDEghw3Pqg5YlPprFAnFORJQz
-	 7FJyupmYT3MKr5WwQeYxJOBoWHCyPHfqs5juQKIo/gq18LL+QyX7jhIYzNKrlxVZL+FAg
-	 xIwF2rRH60uQ6FOnyAEWjjf36u/2Cu/0+ngYjk6zwv3gSBVCwg3YFjMWSeyrKV2b9DWFg
-	 iyxIw8gMZzbI2htaMyMqC0U7pygPjJCSwIYVAvoz0KW3ADCZi9Dd0EjasoIB2AcxtKg==
+	bh=62qoK2pO81XgznFvwxDzAXRoE7cV0Lfka+X+SvLqreQ=;
+	b=1g5+S0Rr8DnNJLSkhKKUIYgAppGZN8N4brZSEvn8cAphdnGzxPh1QEOLYM/yRoLIchiR
+	 6e+54MxtD0JmkptGk/5jrtXXQCnrlMpBp7Ai3+9UCG8/9t8kg7aVjCUw54fssIqGbFr2e
+	 CKUuTvUfTkaq6KRwt7auCV1cAAUMAG62afZXHKDWwRspr9NTQwrhlI9BRSfje2YaCTOOf
+	 XI+fBCPLjtUjS5KV69ga2X2sp+e1dvVbW1n6OxDSaD17VtkloEVBStTX+f+8bkuacssIm
+	 mhNVRlBk0B3REGg0R6HOCpDcv2Tn6xZiwWleftxu5AY+KfW+Fkm63V9jEQAiES9IXIA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWFKsSjK;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRQH2Ke7;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 761EE606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B069606A326
 	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 17:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hWFKsSjK
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PRQH2Ke7
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793552695;
-	b=qfjWH5+04uhsEJN8X5z5hdC1sLJp2JEOm4yJ85mI692oviINv+FwSN+dH0RH6aV1CeDf
-	 ChIcnvikNEZ34zDp6lgX4eNMq8foXfhnd0HkQ04y+LzMBwYqsDx8K8cbaIsvJY0LbSz9W
-	 UJLD1vEqo4kTsN+TIkgRWAInHEN5NOBjDqMGraAGsqCOYeIxCToHnHRiMZtsW4y5Y66PW
-	 AU2Tpc56XaJ798i51td6GFPqt00y2/lOPqTjxATC+EasKndogylniLTVBUKb8ZoiKuYik
-	 evCbyDFaexbSF/rw8pRGXM7KRjUYhel3OxvWazIXE5FQiO1HfCQPJg5vsAhaonGZF3A==
+	t=1793552694;
+	b=nmqcbrAS/zMnfZfbqv5WfKz8sJEhNBMKlunJx557hMitoPt2z0ipbSN7rYPEbd9i33CF
+	 VYd/HE7XxOqQs2JNaDsPM1hfRqiGUtydZhsqd9+weY2UZjTGzE1NMAMc5zKbSvPNl4fmr
+	 oWOl9cVfPb2kprOmPlBxAcu8vqLayprrDtvjcsvwM7WqdjkwvhBn/JRy3uoJ0hN+d6m+u
+	 uhjhI6UOPyla4oeQ5MCYJwxw1BzjpKT78CoLtgu7sjMWNyl2HUHqEFaB2TcdSCxTsf3lD
+	 zLNWfOQMhoB/CsFby+0USJCLh1YlgptkLxmZZOAgQKpoC9n2htamx5hvVPVWQooGznw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793552695;
+	c=relaxed/relaxed; t=1793552694;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=PJ8xawFkvQChuRbpRvFM3kzwdMyBEtgBeCZPpV2XFyg=;
-	b=PLpVEs5Gu/t0rFhnijQGjoDiu7//4Sy1P+RVPmUFmfyiTVczSb9u+FCjSJdiGVPx3YGc
-	 G8W4aalxyhNlG/Moox6nlGeUVISjqY4/bsXiBiwuDy9vdDbnm3YbLqB3uunf1kqycKY5d
-	 OA9/NHSqmj7x0pjlReaCPnzGCdgHbwjFXwRWSOVE18jtVny/pv2bFiTXAE47/qXjlN7MV
-	 LZTRbdPvsCK+2CLT4FpuEAa0IXaH1irv8NOvNIctqXs57A0kkkeONiwnRT/78sV3dDg4q
-	 UKGb+DW23nSboyHwdOkIqdd7GP70JwntKu7gmf38KRLgCuJKmKPXaQsaNb2hVxQH73g==
+	bh=62qoK2pO81XgznFvwxDzAXRoE7cV0Lfka+X+SvLqreQ=;
+	b=2UatVVGowrPmVkNi1+QmbjK5WFrjr/NKnLpj1w5dC4JHpjVlak9/EzkZrRC0AFxiNYkP
+	 9CObF/KJm4EuTPQpe6LH7P1Pv9TuMFXWOViSTlT1MOEC3QjXZDRWDiA/VqSQVM1jNmxDY
+	 xGp/jccrm4G8+pMoTBzAgQdh8BQ5QXEebVQ8G59NBSbQeM1Ji20Q/MFmAttgkxmjL7l6T
+	 dg06beI+O/gkH9q4T2G+VmCSu6SraX8o1duExF1sDoIG9shX/9p/deXqROORGjJn/982q
+	 vU6NBBhPS+f/DD1+y5Tp6vDGw+0Ou6RxSjSWuSheBvOX7oWGe7HSHOa4aWY74Qc4T6w==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 9CF281F00919;
+	by smtp.kernel.org (Postfix) with ESMTPS id A1D961F0093A;
 	Sun,  1 Nov 2026 17:04:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793552695;
-	bh=PJ8xawFkvQChuRbpRvFM3kzwdMyBEtgBeCZPpV2XFyg=;
+	s=k20260515; t=1793552694;
+	bh=62qoK2pO81XgznFvwxDzAXRoE7cV0Lfka+X+SvLqreQ=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=hWFKsSjKc7QjZnpePN0uyidulXuwPGOXphX9fP0Z+84iVAQEi9A9GSNxvftKw6mGO
-	 bJuUDWVi15fLfTPKMoj1mO79uV3ttnXGPogOFxpyZTaETKjdvVn33O4N34NbllxET8
-	 oBaBtNFco3YhYlTU8AjjsHQTxb0N+VeVRrMXwW4sw9NuC0tfpBlfulCE8GY+0Wzu7a
-	 /4SULSTlHdCMj7d3/05EtGrKxZRxAF3TjWvIJPEh+xbU+RX7pK6fsI2Z349mnylLeq
-	 Jx+cnhpapzZIKmwAW8I0+d3vx9v0KQplmmjw1jwywTZMwWpGvB9wO0BLbD3RcOFMkK
-	 rNUhM6U+Av+IQ==
+	b=PRQH2Ke7p7Tkx9xdUoud04SF9I5X5CUcHi5yYnvXEh9AkZDuU92gvgg1QnKsdelro
+	 t3xLNGos5Cj6VfhxqN8aFRxBcuWW94RTfgbkXvVu2e7PusTT06lO5obYYVtQWOxerF
+	 6G3bNZN56I0GLrEwinTHMNdolz8e/MeSgVxJ8hj5qxZzeJ8Jl4GyyPU9oh4804ZIlB
+	 wCSiuoeqAJWisstlrYUEgjOWSJaOV70IpIDnWguCB8H3AgIMXSz+eAiDK7VUtMq+jz
+	 uRx3oBU1fDidqX73FBumogAiYwlbyDnRErqT+Aps3hBKTcyhtpeoEoBqLjcYInFzpa
+	 wwaaGXSaG+7EA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 15737461F2;
+	by lkml.kernel.org (Postfix) with ESMTP id 238A146207;
 	Sun,  1 Nov 2026 17:04:53 +0000 (UTC)
 From: Viorel Cernateanu via B4 Relay <devnull+vrilutza.gmail.com@kernel.org>
-Date: Sun, 01 Nov 2026 19:04:36 +0200
-Subject: [PATCH v2 1/4] x86/mm: Don't randomize the CPU entry area with
- KMSAN
+Date: Sun, 01 Nov 2026 19:04:37 +0200
+Subject: [PATCH v2 2/4] x86/kmsan: Use the per-CPU area base for metadata
+ lookup
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +84,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261101-kmsan-serie-v2-1-f97f66dc57ef@gmail.com>
+Message-Id: <20261101-kmsan-serie-v2-2-f97f66dc57ef@gmail.com>
 References: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
 In-Reply-To: <20261101-kmsan-serie-v2-0-f97f66dc57ef@gmail.com>
 To: Dave Hansen <dave.hansen@linux.intel.com>, 
@@ -108,11 +108,11 @@ Cc: Borislav Petkov <bp@suse.de>, linux-kernel@vger.kernel.org,
  Ilya Leoshkevich <iii@linux.ibm.com>, 
  Viorel Cernateanu <vrilutza@gmail.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793552692; l=1962;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793552692; l=2372;
  i=vrilutza@gmail.com; s=lenovo-20261005; h=from:subject:message-id;
- bh=3GnlWiRUuop6GUO7x6h5NkCg48nWG8mPXHhT2pkVM5I=;
- b=yKz6MZ9gYqyG+QuCK81CgBR/q2zsFoBHJwnWKEvwQ6EyvvaGBEtoqNWRB3Iz2r9tvXCtvXbik
- qf1R5WMpACrA7a4Vnzww4SNVFt8w/FhpREa3DOYYxUVlJc+Mp+u3K2y
+ bh=NoOANBIkTTfd/eqBkNAgT+oIrASIhNAW1KDPRJHc8EE=;
+ b=QwxnxeGnXDmOd0DLmmsnWf6hS/U2H9z5w0zqfUe3FwI30/q+cMZZ3cIhxbu4zEaIwpmDEOOgW
+ Qh8H+LP1/BxCCn5PY4EV0iqampEubxUsI2yfqO1JYZ8zM0xSpo3c+ME
 X-Developer-Key: i=vrilutza@gmail.com; a=ed25519;
  pk=HttZd2ffphVYTK/pvlflateaij8E4SdPd6Y+xDQMqDU=
 X-Endpoint-Received: by B4 Relay for vrilutza@gmail.com/lenovo-20261005
@@ -123,54 +123,63 @@ Content-Transfer-Encoding: 7bit
 
 From: Viorel Cernateanu <vrilutza@gmail.com>
 
-arch_kmsan_get_meta_or_null() derives the CPU number from the offset
-of an address within the CPU entry area. This assumes that the areas
-are laid out in CPU order.
+The per-CPU entry areas start at CPU_ENTRY_AREA_PER_CPU, one page
+above CPU_ENTRY_AREA_BASE, after the read-only IDT page.
 
-With KASLR, init_cea_offsets() assigns each CPU a random slot. The
-metadata lookup treats that slot number as a CPU number and can pass
-an out-of-range index to get_cpu_entry_area().
+arch_kmsan_get_meta_or_null() computes the CPU number relative to
+CPU_ENTRY_AREA_BASE. With the areas laid out in CPU order, this
+attributes the last page of each CPU's area to the next CPU. The
+subsequent offset check rejects the address, so KMSAN cannot find
+its metadata. At the end of the populated area, the lookup can also
+select a CPU that is not possible.
 
-On an Ivy Bridge laptop, this causes a KMSAN kernel to oops during
-boot while the hard lockup detector sets up its perf event. A QEMU
-test that reads one byte from the current CPU's GDT alias reproduces
-the out-of-bounds access:
+Compute the CPU number relative to CPU_ENTRY_AREA_PER_CPU and
+exclude the IDT page from the lookup. Check that the resulting CPU
+is within nr_cpu_ids and possible before accessing its per-CPU data.
 
-  UBSAN: array-index-out-of-bounds in arch/x86/mm/cpu_entry_area.c:25:9
-  index 2100006 is out of range for type 'unsigned long[64]'
-  RIP: 0010:get_cpu_entry_area+0x14/0x50
+Remove the always-false negative check on the unsigned offset.
 
-Keep the CPU entry areas in CPU order when KMSAN is enabled. This
-allows the metadata lookup to identify the CPU directly, without
-searching every CPU's area on each lookup.
-
-This disables CPU entry area randomization for KMSAN kernels.
-Kernel text randomization remains enabled.
-
-Fixes: 97e3d26b5e5f ("x86/mm: Randomize per-cpu entry area")
-Suggested-by: Alexander Potapenko <glider@google.com>
+Fixes: ce732a7520b0 ("x86: kmsan: handle CPU entry area")
 Signed-off-by: Viorel Cernateanu <vrilutza@gmail.com>
 ---
- arch/x86/mm/cpu_entry_area.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ arch/x86/include/asm/kmsan.h | 14 +++++++++-----
+ 1 file changed, 9 insertions(+), 5 deletions(-)
 
-diff --git a/arch/x86/mm/cpu_entry_area.c b/arch/x86/mm/cpu_entry_area.c
-index 575f863f3c75..ce9b5d0e968d 100644
---- a/arch/x86/mm/cpu_entry_area.c
-+++ b/arch/x86/mm/cpu_entry_area.c
-@@ -30,7 +30,11 @@ static __init void init_cea_offsets(void)
- 	unsigned int max_cea;
- 	unsigned int i, j;
+diff --git a/arch/x86/include/asm/kmsan.h b/arch/x86/include/asm/kmsan.h
+index d91b37f5b4bb..c6715b2db0dc 100644
+--- a/arch/x86/include/asm/kmsan.h
++++ b/arch/x86/include/asm/kmsan.h
+@@ -13,6 +13,7 @@
  
--	if (!kaslr_enabled()) {
-+	/*
-+	 * KMSAN works out the CPU of a CPU entry area address from its offset,
-+	 * see arch_kmsan_get_meta_or_null(), so keep the areas in CPU order.
-+	 */
-+	if (!kaslr_enabled() || IS_ENABLED(CONFIG_KMSAN)) {
- 		for_each_possible_cpu(i)
- 			per_cpu(_cea_offset, i) = i;
- 		return;
+ #include <asm/cpu_entry_area.h>
+ #include <asm/processor.h>
++#include <linux/cpumask.h>
+ #include <linux/mmzone.h>
+ 
+ DECLARE_PER_CPU(char[CPU_ENTRY_AREA_SIZE], cpu_entry_area_shadow);
+@@ -32,14 +33,17 @@ static inline void *arch_kmsan_get_meta_or_null(void *addr, bool is_origin)
+ 	unsigned long addr64 = (unsigned long)addr;
+ 	char *metadata_array;
+ 	unsigned long off;
+-	int cpu;
++	unsigned int cpu;
+ 
+-	if ((addr64 < CPU_ENTRY_AREA_BASE) ||
+-	    (addr64 >= (CPU_ENTRY_AREA_BASE + CPU_ENTRY_AREA_MAP_SIZE)))
++	/* The per-CPU areas start after the read-only IDT page. */
++	if (addr64 < CPU_ENTRY_AREA_PER_CPU ||
++	    addr64 >= CPU_ENTRY_AREA_BASE + CPU_ENTRY_AREA_MAP_SIZE)
++		return NULL;
++	cpu = (addr64 - CPU_ENTRY_AREA_PER_CPU) / CPU_ENTRY_AREA_SIZE;
++	if (cpu >= nr_cpu_ids || !cpu_possible(cpu))
+ 		return NULL;
+-	cpu = (addr64 - CPU_ENTRY_AREA_BASE) / CPU_ENTRY_AREA_SIZE;
+ 	off = addr64 - (unsigned long)get_cpu_entry_area(cpu);
+-	if ((off < 0) || (off >= CPU_ENTRY_AREA_SIZE))
++	if (off >= CPU_ENTRY_AREA_SIZE)
+ 		return NULL;
+ 	metadata_array = is_origin ? cpu_entry_area_origin :
+ 				     cpu_entry_area_shadow;
 
 -- 
 2.53.0
