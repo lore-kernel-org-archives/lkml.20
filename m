@@ -1,81 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.192
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793548897;
-	b=tVTdzWXf8OBiFY0lIfzVIi4QLGgB6gXaJHgmo8cKVNdU8rDkJqhpGSnIJyhW1FGBxhOo
-	 Lh9u4nfJZUVytqaYzpNwCKRJ3QnKeOlbp/KjSI9arDeKlaYdWdeTxKPIIky++UxKF7j20
-	 ONNj/hQUMxzYqYMq2wc2wB2gOSjYR3fhZ1pJ+pOdDaC+TJ81p9+wj8CfLccd24brSIYNJ
-	 ayMq5GXVkaanhebRJMoqlBUNsqXLm9P6y7lp8qFmXzBhzNcGI4aHj5zxZrS28lneuy1qZ
-	 PTjImNGJr09ZOARP//UoeeQIqg5BFH91WkEhpzAAIG520VkxDfcHA4ut1fn7qtqkCMw==
+	t=1793549075;
+	b=jCKXGX2p02q5rUfqY5qD4IUH7ia7tLYJLYo5G6iqRXwRW+NgFxM3I4kyydVyx0BLqBzS
+	 EBHaS4NkPiVAywQ/jraynB8LjngrbYOXooFPz0PDHRhGl+2+6m2H1G/j2WexLEZqP5Hgb
+	 IPal8hsFFgCwynpvNUWWvwFLjHBk59BD5I8iWWX7lumW5Nr9nQPOTyaNzEEiqTfqdugTU
+	 TH8LvJD7H9PNWB8EwpH/Z431BTcs2o33Qb/KQ9tD0KYemB61chZClNtQ6kkSc2U9gpkX9
+	 nM5zUB6X0HKAQlIAjZGZzC1uaa6Hp7MD9tuysYYmcaGxUahWGfvmdHKNyo5K/pg026Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793548897;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793549075;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=xZmCou/dQOtPrSIfRvBnurgCE/PSgpFzVUTx/UPlLZg=;
-	b=FPhwKuWvM8DVqqUPcQbqkcu7Iov/9TJ/hAx+e/eWimXL5cq2gGCc6Z6Zkzi/dWvnYNS3
-	 iFahMCOCJiIwq+QJhw72orMZhuLof1GwLD/iF3yR4+tjtUpc8b0I5mH38gzzk2LR2BFm3
-	 xQcG8Na5VZdFz8ihQwsYTn9c/DeOGzGDA8Yitp7AP261v8AdEXng4z0CD5gcmPEX9jXjb
-	 sk/TTqgtYIm2ihBsJIrH8QfYt8By/s/4Za7tqW1091oZkUNmrG3R1j4K8TijyDkz7oqtl
-	 h2DCaGk2EmgxEjI4hJfxIuF/QFkDvDVXWKWeMzTQd2tLFjdE7iD1WKfBH5ta5YxZhqg==
+	bh=VpiNcJITzAimIo2l/+wZFEDSgKEuus8b7eMSXpkoRXc=;
+	b=1Gg+h0XD50Ot4V+nrSTwc7ZdOVBeAli0crZYiZ9lx4XBC+YIPgrzMN4/6Xs6MJYCc+qO
+	 yCCiq7qW+D7bJRKn1T0eNzPjKVS/xuLQ5yRy5CdtVuaP0eRZ5+oUOSwkskcsshNEyaxzl
+	 2Pfeya4XkbZVk2/nbIdHV6WGA2qqt72+dYmAjacWoD4Nuf5rXR82K/Mi3RVErWAZhuS5v
+	 HKnawGg93aJgEovEs+0BE0oJPpma2DFpRHwd8v8kQcbALIu2TNj2C0tDHyMrELuNJOlYp
+	 d6fm2xChAhg2F5eXRgOvQ8LL94szjFPvZdbqecZPuItYEM6nVgJkWCjIrUtzdxcJC0w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b="Au/9rfBH";
-	arc=none smtp.remote-ip=203.205.221.192
-Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VC0viFXL;
+	arc=none smtp.remote-ip=209.85.218.44
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A13F2606A32F;
-	Sun,  1 Nov 2026 16:01:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A13F2606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0104E606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 16:04:34 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0104E606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=Au/9rfBH
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793548888;
-	bh=xZmCou/dQOtPrSIfRvBnurgCE/PSgpFzVUTx/UPlLZg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Au/9rfBHYzd03/B3UlN+d8E0VEWgXy0rlzLbjWjKvOPgu/8bO5+R8lQGhPWBTlIfu
-	 sdKgzNf2FeEYR3aJZ/0duLtHIc+33H89O7A14dWi948U6l1u4dV1LfQl102uy/whwK
-	 JA2gwn6rMj/VKaNvjZfeCg+i6geYdWo6xJyUvFOg=
-Received: from ubuntu.lan ([223.160.115.26])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 4D84AD9; Mon, 02 Nov 2026 00:01:13 +0800
-X-QQ-mid: xmsmtpt1793548884tyz0oq840
-Message-ID: <tencent_B6F75567FAE05B5F2B1E793A9FC916E3A608@qq.com>
-X-QQ-XMAILINFO: NmRjDopJZVxO80f01PFtXdtUikJMe9b8/vpXuv0QreLhYksdtShcaJucQw1GhE
-	 0UYm2uVyv3lQkjTfpnq2/PtHM0gIH8ZKXQlscbMmisBcHyvMR9kZXh9hGyHJz5MX9iXsNOat8+xs
-	 gYEalgnZXhEEULi43r19FIEMKsVVaZQKei7nJHJiqz/voTrj3DFBaEOUeMW+OF3V2hkoyebNNaHe
-	 1F9+w6dZgGYbT26UJYRMZKk0KJ05yoQb0jen9xMFnpF/kZRcYwihpisyQ0DUJw7Rln66TNu/aLxY
-	 QY24Kq8c456OBmawp4NBlYJ/JPnuOLet1ORGLu/dPPEE7Hatftd8Q93RCs1OzJg0dyAL3OvdtIUi
-	 Mk0l+MUMGGvzLUtGQp+X/Ml3pVak7btfrL0ntrrD7JnBko02GWO+4IWhz6HItaYD3T5dRyaAezJQ
-	 FKvp8yWf1SWx9IaYyC7lfhVeq3mBNull8JGFVuA7mR1kEh9aRl3cH1J/1fYIVYZOhkSjqGYBf0bc
-	 56f0qDMVEkc/lwtVXP+54p5HiMaCklzfxlG2WflcmpMiw1AlLrd1+Rd/c31/KA+Hy4UR8S8TCQVe
-	 N5kF+N0sQT0Mk+K/PY442DbjY1Cc1fzvHOM80udWaBvHCNaUryaZP063e2GMVKsunONEOmnxjC/C
-	 /z9uXJ1c5tS7z5y1b/V0nTPvux24uRNrb9PSpivDz9CePZ0gdlYMTJzD2AGtsU6Rhf5aUoCsuHzh
-	 4RmIBe/VwmkC6vrex96k1FbGvgCHS1inKoy0pp3tAvSAc7PvrK7LcA00hwI1QhMNP6SXOQTnD5ZO
-	 FDpPk80/PTpL8Ifqp4BYnOZHc3dqgrSBaNOpz+IjVBDRH9gV5NXOK+6SmAMkd3m+700209jxCwxG
-	 a380Czub/r+13gITRNlGMhp5SfBQz07qwd7RZ7z4hUtU7HuE1/3koVGeDIDfFSnn6kKDtrwI/S/c
-	 ffczaFYCciab7zBKlYErDrDc3IaLv9fXFuDv9nv7MZKuVNkep+vyjowaM9SKf29Wl1fDBuUrN83K
-	 WDbEyD16rMKsFfewKC4YMwiAdEcVYz4sIwFZDXjmtz5m0IceWWv6A4xzdDcNNGLxyJbeITrg59Rg
-	 qhXQFvbeu3Sf8fnueCcXr8Ogeytg==
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Haozhen Li <dezige131@foxmail.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>,
-	=?UTF-8?q?Dawid=20Wr=C3=B3bel?= <me@dawidwrobel.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haozhen Li <dezige131@foxmail.com>
-Subject: [RFC PATCH 2/2] firmware: qcom: scm: Handle QSEECOM listener callbacks
-Date: Sun,  1 Nov 2026 16:01:09 +0000
-X-OQ-MSGID: <20261101160110.3622-3-dezige131@foxmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261101160110.3622-1-dezige131@foxmail.com>
-References: <20261101160110.3622-1-dezige131@foxmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VC0viFXL
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c40f29667e6so336327266b.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 08:04:34 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793549073; x=1794153873; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VpiNcJITzAimIo2l/+wZFEDSgKEuus8b7eMSXpkoRXc=;
+        b=VC0viFXLFmPDshxR/N5FxKPy4HMB1OO9XhcRtrnsEmyh7E3VA6KtpB/lZ4as7AmAuF
+         Ynfltmmtv7k4kWSdti7LwztLH6D9gmO9ekNx+qK3VhPEAz9tNBxV3WUopwYFWdngwJ4Z
+         2rHcq4pAV+WKauUlWCTiVlmQbIycLictWM+HdV3uxEWTQR5D6o/Ki7hcn1GWFQeVKZTb
+         OBvDkluNnTSzb67P+yCKjIIAtNzx++7qpoJFrZYFao+xBfqXRi77l4Z+Xc+SdWU6u6iM
+         leqT1pi2GUmBW1gi9Ms7OA6QNyyGwPFNbkiDkMyVyOrNN6Kfa7khw+Kn3KPI6VtY38QM
+         fcQQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793549073; x=1794153873;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VpiNcJITzAimIo2l/+wZFEDSgKEuus8b7eMSXpkoRXc=;
+        b=dFcvOEo5RKx+1rhKM3ke/cf2shYFt1Lbe/QNNXzGEr9C8rf0pdZoSl4Kv7bTdCCxhM
+         j6qjuPaiCnoLxgWwPx9sRsKAF6enCDaxkEnxxGeUnOofiDBjc9gBAAc0hEY6eiuUyRrZ
+         TPy0N0gNOvF3VtGzWD9NYjFli6bJNKJPTRZzdMzfjAwSlxugQCuzR4hdPmrt+BzewAYH
+         C/1OdCfQ0XLKVnjVZlgD7ItuHJj+LprpNbUuP620DirnN/SfaDHfShCMg3024ojlLmUV
+         vA/xg/m9KciDThdG3pu2Kuyt4JvtVarpmwh4a+8TB2jcEuT7WtoIZryz2zdzkvFNmgv6
+         mMcQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxLEERtKCCm8FZTAeqU3AmE5uTLmtHKHwi5m1O/p5JlLMTtV6kNqvFy4n5qQibEn14oozmGAwELbwlTR4I=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKZ1dHJyFgemehLZRvkqlAjnseREGeB8uq2Btkc41kILi1HqHd8
+	W4E4Z6xWxgF40g1LjU7uDjZfxUntv8IAN1Q5hMFhN/IGMxOnwMDaPYFh
+X-Gm-Gg: AYBFou2P5iVYsOAuKl6qPVNDSXLArSUBWRt5JIgihx/CCT1Lf6E+ewdQIUCPmt1mLPU
+	e1du6HOCQMa5ojLSCuOk4FHl3pNmvNsNs/DKR3v+Ls+Yv5Ot8wZ+CyZ2QpSjBhCWnfRCegj7Ry3
+	fmWkfA7LeDcKp4A+TWER4Wf3bFzCEvziQpzZODSYkFLg9jkF6zMFyQGDeMGtnVzwVMrQWUFeRUN
+	VOFvycvSaa3mvuKUvrXdkHFS/F6EqgGTANxekhgdvhDDQUaGEgV2uKDXttWeG+XgPRI7Q0tlAPC
+	erQd4NUo4Wug92lqivoKYk0ADIdCQs1n1o3+mle5tF2zkdb5SgDVRr0QaR3pKqIXjK/u3vVPA8/
+	KYtba9pLp+ZrOX32AIfsTPa8Sgr4VWVmoBtYMw/4vqxdpHgl3qp/40zabIeq5y1b7QQtP2/YFbj
+	M//4AxA1MynBQ6md/YYWLP8t5lSmfKf1Jdo/Txs0wWC3Gi0XgAApq3QdWyXdcqf1QniZiyVPC0m
+	GGu+cki+oSzJwJyiD/w2noBJs0z4ZpvZ7qTKBroFMfzzfUaxuZTK/YvjLlV8fCXwpcE44rDBCQn
+	l+N9K+SK1oJkfPBzFzAmJJ71QkEDACb7ACg+36SRU/ByoLCUFFpbMO8dJNY6THUby23wSvvpv+S
+	Q715aABBW2vG0Lx3jSeLKdV+qzDysOC3AAmiXeHw=
+X-Received: by 2002:a17:907:84c:b0:c46:ba0d:3728 with SMTP id a640c23a62f3a-c4ca7a408c7mr613297866b.18.1793549072714;
+        Sun, 01 Nov 2026 08:04:32 -0800 (PST)
+Received: from localhost.localdomain (dynamic-077-188-130-121.77.188.pool.telefonica.de. [77.188.130.121])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabc174c0sm287957166b.8.2026.11.01.08.04.31
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 01 Nov 2026 08:04:32 -0800 (PST)
+From: Maxim Muzafarov <maxmuzaf@gmail.com>
+To: linux-mm@kvack.org
+Cc: Maxim Muzafarov <maxmuzaf@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kairui Song <kasong@tencent.com>,
+	Qi Zheng <qi.zheng@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>,
+	Wei Xu <weixugc@google.com>,
+	Baoquan He <baoquan.he@linux.dev>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Yu Zhao <yuzhao@google.com>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	David Hildenbrand <david@kernel.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	linux-kernel@vger.kernel.org
+Subject: [RFC PATCH 0/1] mm/mglru: MADV_RANDOM page cache never ages and thrashes the oldest generation
+Date: Sun,  1 Nov 2026 17:04:26 +0100
+Message-ID: <20261101160427.85701-1-maxmuzaf@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,454 +112,314 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A QSEE app that needs something from the normal world -- nearly
-always file I/O against its secure storage -- does not return from the
-SCM call. Instead the call comes back as QSEECOM_RESULT_INCOMPLETE
-naming the listener the app waits for, and stays that way until the
-normal world answers. Answering is what resumes the app.
+Hi,
 
-The QSEECOM SCM helpers have no way to answer: the TODO in
-qcom_scm_qseecom_call() turns an incomplete call into a WARN and
-returns success, the app stays parked in TZ, and every later QSEECOM
-call returns -EBUSY until the device is power cycled. The machine
-allowlist in qcom_scm_qseecom_init() exists because of problems of
-this class.
+It looks like I've stumbled upon an awkward behaviour. When MGLRU is
+enabled, page cache faulted in through an MADV_RANDOM mapping goes into
+the oldest generation, and the refaults land there at the same rate as
+well. In my tests bpftrace shows the generations stay at seq 0-3, with
+no aging attempts and no new generations during the workload run, and
+/sys/kernel/debug/lru_gen_full shows for generation seq 0 15758245
+pages evicted and 15580028 pages refaulted, which is 98.87%.
 
-Add listener support:
+At the same time, a file read through a normal mmap lands one
+generation higher and none of its pages are evicted. It stays cached
+until the end of the workload, and the randomly read working set
+shrinks. With lru_gen disabled, the CLRU evicts the file
+instead, and throughput recovers 20-30 seconds after the file was read.
+I would expect the same behaviour for MGLRU.
 
-  - qcom_scm_qseecom_listener_register()/..._unregister() publish a
-    listener, with its shared buffer, to TZ.
+I first saw this slowdown on a single-node OpenSearch 3.6 (Lucene 10.4)
+HNSW vector search workload [1]. The node had about 2.8 GiB of page
+cache for a 2.9 GiB index, and Lucene maps the .vec and .vex files with
+MADV_RANDOM. Kernel 7.2.10-200.fc44.aarch64.
 
-  - qcom_scm_qseecom_call() now services listener requests while it
-    holds the call lock: it dispatches to the registered listener,
-    answers with the LISTENER_RESPONSE call, and repeats while the
-    interrupted command keeps coming back incomplete. An unknown
-    listener id is answered with a failure rather than ignored, since
-    ignoring it strands the app; a listener that never settles is
-    failed after 256 rounds so a broken app cannot hold the call lock
-    forever. A blocked call (the listener is busy in another
-    conversation) is reported as -EBUSY as before, without the WARN.
+Search latency and throughput on a single-node OpenSearch:
 
-The listener path follows the QSEECOM transport work of Dawid Wrobel
-and samcday (https://github.com/samcday/linux), which was verified on
-SDM670; on sc8280xp the series is exercised through the fingerprint
-trusted application, whose conversation with the normal world stays
-on the plain request/response path.
+                         MGLRU on   MGLRU off
+  p50, ms                   286.0        73.6
+  p90, ms                   512.1       135.6
+  p99, ms                   687.0       191.0
+  queries/s                  27.4        87.1
 
-Removing the machine allowlist remains future work: it needs users of
-this interface to be audited for re-entrancy first, and this series
-does not change which machines QSEECOM comes up on.
+Disk reads, same runs:
 
-Signed-off-by: Haozhen Li <dezige131@foxmail.com>
----
- drivers/firmware/qcom/qcom_scm.c       | 271 +++++++++++++++++++++++--
- include/linux/firmware/qcom/qcom_scm.h |  48 +++++
- 2 files changed, 307 insertions(+), 12 deletions(-)
+                         MGLRU on   MGLRU off
+  major faults/query         1484         325
+  disk reads/query           1484         325
+  read size, KiB              4.0         4.0
+  disk read, GiB/run        509.6       111.5
 
-diff --git a/drivers/firmware/qcom/qcom_scm.c b/drivers/firmware/qcom/qcom_scm.c
-index c77130693..7a1a93006 100644
---- a/drivers/firmware/qcom/qcom_scm.c
-+++ b/drivers/firmware/qcom/qcom_scm.c
-@@ -112,6 +112,7 @@ enum qcom_scm_qseecom_tz_owner {
- enum qcom_scm_qseecom_tz_svc {
- 	QSEECOM_TZ_SVC_APP_ID_PLACEHOLDER	= 0,
- 	QSEECOM_TZ_SVC_APP_MGR			= 1,
-+	QSEECOM_TZ_SVC_LISTENER			= 2,
- 	QSEECOM_TZ_SVC_INFO			= 6,
- };
- 
-@@ -127,6 +128,12 @@ enum qcom_scm_qseecom_tz_cmd_app {
- 	QSEECOM_TZ_CMD_APP_LOOKUP		= 3,
- };
- 
-+enum qcom_scm_qseecom_tz_cmd_listener {
-+	QSEECOM_TZ_CMD_LISTENER_REGISTER	= 1,
-+	QSEECOM_TZ_CMD_LISTENER_DEREGISTER	= 2,
-+	QSEECOM_TZ_CMD_LISTENER_RESPONSE	= 3,
-+};
-+
- enum qcom_scm_qseecom_tz_cmd_info {
- 	QSEECOM_TZ_CMD_INFO_VERSION		= 3,
- };
-@@ -2041,13 +2048,146 @@ static int __qcom_scm_qseecom_call(const struct qcom_scm_desc *desc,
- 	return 0;
- }
- 
-+/* Registered listener services, protected by qcom_scm_qseecom_call_lock. */
-+static LIST_HEAD(qcom_scm_qseecom_listeners);
-+
-+/*
-+ * An app that keeps asking for service without ever making progress would
-+ * otherwise spin here forever with the call lock held. The real bound is
-+ * set by the app; this only stops a broken one from taking the machine
-+ * with it.
-+ */
-+#define QSEECOM_MAX_LISTENER_ROUNDS		256
-+
-+static struct qcom_scm_qseecom_listener *qcom_scm_qseecom_listener_find(u32 id)
-+{
-+	struct qcom_scm_qseecom_listener *listener;
-+
-+	lockdep_assert_held(&qcom_scm_qseecom_call_lock);
-+
-+	list_for_each_entry(listener, &qcom_scm_qseecom_listeners, node) {
-+		if (listener->id == id)
-+			return listener;
-+	}
-+
-+	return NULL;
-+}
-+
-+/*
-+ * Tell TZ that a listener request has been dealt with. The response is
-+ * what resumes the app, so this returns the outcome of the command that
-+ * was interrupted -- which may itself be another listener request.
-+ */
-+static int qcom_scm_qseecom_listener_respond(u32 id, u32 status,
-+					     struct qcom_scm_qseecom_resp *res)
-+{
-+	struct qcom_scm_desc desc = {};
-+
-+	lockdep_assert_held(&qcom_scm_qseecom_call_lock);
-+
-+	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
-+	desc.svc = QSEECOM_TZ_SVC_LISTENER;
-+	desc.cmd = QSEECOM_TZ_CMD_LISTENER_RESPONSE;
-+	desc.arginfo = QCOM_SCM_ARGS(2, QCOM_SCM_VAL, QCOM_SCM_VAL);
-+	desc.args[0] = id;
-+	desc.args[1] = status;
-+
-+	return __qcom_scm_qseecom_call(&desc, res);
-+}
-+
-+/*
-+ * Service listener requests until the interrupted command finally
-+ * completes.
-+ *
-+ * A QSEE app that needs something from the normal world -- reading or
-+ * writing its secure storage, overwhelmingly -- does not return; the SCM
-+ * call comes back as QSEECOM_RESULT_INCOMPLETE naming the listener it
-+ * wants, and stays that way until we answer. Answering is what resumes
-+ * it.
-+ *
-+ * Not answering is not a neutral option. TZ waits, every later QSEECOM
-+ * call returns -EBUSY, and the device generally has to be power cycled.
-+ * So an unknown listener id is still answered, with a failure, which the
-+ * app can at least handle.
-+ */
-+static int qcom_scm_qseecom_service_listeners(struct qcom_scm_qseecom_resp *res)
-+{
-+	struct qcom_scm_qseecom_listener *listener;
-+	unsigned int rounds = 0;
-+	u32 status;
-+	u32 id;
-+	int ret;
-+
-+	lockdep_assert_held(&qcom_scm_qseecom_call_lock);
-+
-+	while (res->result == QSEECOM_RESULT_INCOMPLETE) {
-+		if (res->resp_type != QSEECOM_SCM_RES_QSEOS_LISTENER_ID) {
-+			dev_err(__scm->dev, "qseecom: invalid response type: 0x%llx\n",
-+				res->resp_type);
-+			return -EPROTO;
-+		}
-+
-+		if (res->data > U32_MAX) {
-+			dev_err(__scm->dev, "qseecom: listener ID out of range: 0x%llx\n",
-+				res->data);
-+			return -EPROTO;
-+		}
-+
-+		id = res->data;
-+
-+		if (++rounds > QSEECOM_MAX_LISTENER_ROUNDS) {
-+			dev_err(__scm->dev, "qseecom: listener %u loop count exceeded\n", id);
-+			status = QSEECOM_LISTENER_FAILURE;
-+			ret = qcom_scm_qseecom_listener_respond(id, status, res);
-+			if (ret)
-+				dev_err(__scm->dev, "qseecom: failed to respond to listener %u: %d\n",
-+					id, ret);
-+			return -ELOOP;
-+		}
-+
-+		listener = qcom_scm_qseecom_listener_find(id);
-+		if (listener) {
-+			status = listener->service(listener);
-+		} else {
-+			dev_warn_once(__scm->dev, "qseecom: unhandled listener ID: %u\n", id);
-+			status = QSEECOM_LISTENER_FAILURE;
-+		}
-+
-+		ret = qcom_scm_qseecom_listener_respond(id, status, res);
-+		if (ret) {
-+			dev_err(__scm->dev, "qseecom: failed to respond to listener %u: %d\n",
-+				id, ret);
-+			return ret;
-+		}
-+	}
-+
-+	/*
-+	 * A blocked call is a different problem: the app is waiting on a
-+	 * listener that is already busy elsewhere, and unblocking it needs
-+	 * TZ_OS_CONTINUE_BLOCKED_REQUEST. Nothing here generates that yet.
-+	 *
-+	 * Reported the same way as before this function existed: not a
-+	 * kernel bug, so no backtrace, and rate-limited because a caller
-+	 * that hits it will keep hitting it.
-+	 */
-+	if (res->result == QSEECOM_RESULT_BLOCKED_ON_LISTENER) {
-+		dev_warn_ratelimited(__scm->dev,
-+				     "qseecom: blocked on a busy listener\n");
-+		return -EBUSY;
-+	}
-+
-+	return 0;
-+}
-+
- /**
-  * qcom_scm_qseecom_call() - Perform a QSEECOM SCM call.
-  * @desc: SCM call descriptor.
-  * @res:  SCM call response (output).
-  *
-  * Performs the QSEECOM SCM call described by @desc, returning the response in
-- * @rsp.
-+ * @rsp. If the call is interrupted by a request for a listener service,
-+ * that request is serviced and the call resumed, as many times as the
-+ * application asks.
-  *
-  * Return: Zero on success, nonzero on failure.
-  */
-@@ -2058,12 +2198,16 @@ static int qcom_scm_qseecom_call(const struct qcom_scm_desc *desc,
- 
- 	/*
- 	 * Note: Multiple QSEECOM SCM calls should not be executed same time,
--	 * so lock things here. This needs to be extended to callback/listener
--	 * handling when support for that is implemented.
-+	 * so lock things here. The lock is held across listener servicing
-+	 * too: from TZ's point of view the request and our answer are one
-+	 * conversation, and letting another call in partway through would
-+	 * interleave two of them.
- 	 */
- 
- 	mutex_lock(&qcom_scm_qseecom_call_lock);
- 	status = __qcom_scm_qseecom_call(desc, res);
-+	if (!status)
-+		status = qcom_scm_qseecom_service_listeners(res);
- 	mutex_unlock(&qcom_scm_qseecom_call_lock);
- 
- 	dev_dbg(__scm->dev, "%s: owner=%x, svc=%x, cmd=%x, result=%lld, type=%llx, data=%llx\n",
-@@ -2075,19 +2219,122 @@ static int qcom_scm_qseecom_call(const struct qcom_scm_desc *desc,
- 		return status;
- 	}
- 
-+	return 0;
-+}
-+
-+/**
-+ * qcom_scm_qseecom_listener_register() - Offer a listener service to QSEE
-+ *                                        apps.
-+ * @listener: The listener to register. See &struct qcom_scm_qseecom_listener
-+ *            for what the caller has to fill in, and for the rules @service
-+ *            has to follow.
-+ *
-+ * Registers @listener with TZ, after which any app may ask it for service
-+ * by its ID. Requests arrive on whichever thread is driving the app at the
-+ * time.
-+ *
-+ * Return: Zero on success, nonzero on failure.
-+ */
-+int qcom_scm_qseecom_listener_register(struct qcom_scm_qseecom_listener *listener)
-+{
-+	struct qcom_scm_qseecom_resp res = {};
-+	struct qcom_scm_desc desc = {};
-+	phys_addr_t sb_phys;
-+	int status;
-+
-+	if (!listener->service || !listener->sb || !listener->sb_len)
-+		return -EINVAL;
-+
-+	sb_phys = qcom_tzmem_to_phys(listener->sb);
-+	if (!sb_phys)
-+		return -EINVAL;
-+
- 	/*
--	 * TODO: Handle incomplete and blocked calls:
--	 *
--	 * Incomplete and blocked calls are not supported yet. Some devices
--	 * and/or commands require those, some don't. Let's warn about them
--	 * prominently in case someone attempts to try these commands with a
--	 * device/command combination that isn't supported yet.
-+	 * The listener service belongs to the same 32-bit era of the
-+	 * QSEECOM firmware as APP_START, and nothing establishes that
-+	 * it reads the shared-buffer address at full width. An address
-+	 * it would truncate would only surface as a secure-world fault
-+	 * once a listener request arrives, so -- like
-+	 * qcom_scm_qseecom_app_load() for its image -- reject anything
-+	 * that does not lie entirely below 4 GiB.
- 	 */
--	WARN_ON(res->result == QSEECOM_RESULT_INCOMPLETE);
--	WARN_ON(res->result == QSEECOM_RESULT_BLOCKED_ON_LISTENER);
-+	if (upper_32_bits(sb_phys) ||
-+	    (u64)sb_phys + listener->sb_len > SZ_4G)
-+		return -EINVAL;
- 
--	return 0;
-+	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
-+	desc.svc = QSEECOM_TZ_SVC_LISTENER;
-+	desc.cmd = QSEECOM_TZ_CMD_LISTENER_REGISTER;
-+	desc.arginfo = QCOM_SCM_ARGS(3, QCOM_SCM_VAL, QCOM_SCM_RW,
-+				     QCOM_SCM_VAL);
-+	desc.args[0] = listener->id;
-+	desc.args[1] = sb_phys;
-+	desc.args[2] = listener->sb_len;
-+
-+	mutex_lock(&qcom_scm_qseecom_call_lock);
-+
-+	if (qcom_scm_qseecom_listener_find(listener->id)) {
-+		mutex_unlock(&qcom_scm_qseecom_call_lock);
-+		return -EBUSY;
-+	}
-+
-+	status = __qcom_scm_qseecom_call(&desc, &res);
-+	if (!status && res.result != QSEECOM_RESULT_SUCCESS)
-+		status = -EIO;
-+	if (!status)
-+		list_add_tail(&listener->node, &qcom_scm_qseecom_listeners);
-+
-+	mutex_unlock(&qcom_scm_qseecom_call_lock);
-+
-+	if (status)
-+		dev_err(__scm->dev, "qseecom: failed to register listener %u: %d\n",
-+			listener->id, status);
-+
-+	return status;
-+}
-+EXPORT_SYMBOL_GPL(qcom_scm_qseecom_listener_register);
-+
-+/**
-+ * qcom_scm_qseecom_listener_unregister() - Deregister a QSEECOM listener
-+ * @listener: Listener service to deregister
-+ *
-+ * Return: Zero on success, negative errno on failure.
-+ */
-+int qcom_scm_qseecom_listener_unregister(struct qcom_scm_qseecom_listener *listener)
-+{
-+	struct qcom_scm_qseecom_resp res = {};
-+	struct qcom_scm_desc desc = {};
-+	int status;
-+
-+	desc.owner = QSEECOM_TZ_OWNER_QSEE_OS;
-+	desc.svc = QSEECOM_TZ_SVC_LISTENER;
-+	desc.cmd = QSEECOM_TZ_CMD_LISTENER_DEREGISTER;
-+	desc.arginfo = QCOM_SCM_ARGS(1, QCOM_SCM_VAL);
-+	desc.args[0] = listener->id;
-+
-+	mutex_lock(&qcom_scm_qseecom_call_lock);
-+
-+	if (qcom_scm_qseecom_listener_find(listener->id) != listener) {
-+		mutex_unlock(&qcom_scm_qseecom_call_lock);
-+		return -ENOENT;
-+	}
-+
-+	/* Always remove from list to prevent use-after-free on caller unbind */
-+	list_del(&listener->node);
-+
-+	status = __qcom_scm_qseecom_call(&desc, &res);
-+	if (!status && res.result != QSEECOM_RESULT_SUCCESS)
-+		status = -EIO;
-+
-+	mutex_unlock(&qcom_scm_qseecom_call_lock);
-+
-+	if (status)
-+		dev_err(__scm->dev, "qseecom: failed to deregister listener %u: %d\n",
-+			listener->id, status);
-+
-+	return status;
- }
-+EXPORT_SYMBOL_GPL(qcom_scm_qseecom_listener_unregister);
- 
- /**
-  * qcom_scm_qseecom_get_version() - Query the QSEECOM version.
-diff --git a/include/linux/firmware/qcom/qcom_scm.h b/include/linux/firmware/qcom/qcom_scm.h
-index 8f98b57e1..cf6d9bbc9 100644
---- a/include/linux/firmware/qcom/qcom_scm.h
-+++ b/include/linux/firmware/qcom/qcom_scm.h
-@@ -6,6 +6,7 @@
- #define __QCOM_SCM_H
- 
- #include <linux/err.h>
-+#include <linux/list.h>
- #include <linux/types.h>
- #include <linux/cpumask.h>
- 
-@@ -138,6 +139,39 @@ int qcom_scm_shm_bridge_create(u64 pfn_and_ns_perm_flags,
- 			       u64 ns_vmids, u64 *handle);
- int qcom_scm_shm_bridge_delete(u64 handle);
- 
-+/**
-+ * enum qcom_scm_qseecom_listener_status - Return status for listener services
-+ * @QSEECOM_LISTENER_SUCCESS: Request processed, shared buffer contains response
-+ * @QSEECOM_LISTENER_FAILURE: Failed to process request
-+ */
-+enum qcom_scm_qseecom_listener_status {
-+	QSEECOM_LISTENER_SUCCESS	= 0,
-+	QSEECOM_LISTENER_FAILURE	= 1,
-+};
-+
-+/**
-+ * struct qcom_scm_qseecom_listener - QSEECOM normal-world listener descriptor
-+ * @id:      Unique identifier agreed upon with the target TA
-+ * @sb:      Shared memory buffer mapped to TrustZone. Must remain valid
-+ *           for as long as the listener is registered, and lie entirely
-+ *           below 4 GiB, like the images passed to
-+ *           qcom_scm_qseecom_app_load().
-+ * @sb_len:  Size of @sb in bytes
-+ * @service: Callback invoked to handle normal-world requests
-+ * @node:    Internal list entry
-+ *
-+ * Context: @service is called with qcom_scm_qseecom_call_lock held. It must not
-+ * invoke any SCM/QSEECOM functions (which would deadlock) and must not perform
-+ * unbounded sleep.
-+ */
-+struct qcom_scm_qseecom_listener {
-+	u32 id;
-+	void *sb;
-+	size_t sb_len;
-+	int (*service)(struct qcom_scm_qseecom_listener *listener);
-+	struct list_head node;
-+};
-+
- #ifdef CONFIG_QCOM_QSEECOM
- 
- int qcom_scm_qseecom_app_get_id(const char *app_name, u32 *app_id);
-@@ -146,6 +180,8 @@ int qcom_scm_qseecom_app_load(void *img, size_t mdt_len, size_t img_len,
- int qcom_scm_qseecom_app_shutdown(u32 app_id);
- int qcom_scm_qseecom_app_send(u32 app_id, void *req, size_t req_size,
- 			      void *rsp, size_t rsp_size);
-+int qcom_scm_qseecom_listener_register(struct qcom_scm_qseecom_listener *listener);
-+int qcom_scm_qseecom_listener_unregister(struct qcom_scm_qseecom_listener *listener);
- 
- #else /* CONFIG_QCOM_QSEECOM */
- 
-@@ -172,6 +208,18 @@ static inline int qcom_scm_qseecom_app_send(u32 app_id,
- 	return -EINVAL;
- }
- 
-+static inline int
-+qcom_scm_qseecom_listener_register(struct qcom_scm_qseecom_listener *listener)
-+{
-+	return -EINVAL;
-+}
-+
-+static inline int
-+qcom_scm_qseecom_listener_unregister(struct qcom_scm_qseecom_listener *listener)
-+{
-+	return -EINVAL;
-+}
-+
- #endif /* CONFIG_QCOM_QSEECOM */
- 
- int qcom_scm_qtee_invoke_smc(phys_addr_t inbuf, size_t inbuf_size,
+This is clearly visible on the page cache chart [2], where "blue" are
+page cache pages mapped into at least one process's address space and
+"orange" the rest of the page cache.
+
+Then I reproduced it with a synthetic HNSW-like query script in python,
+and later with fio alone, on 7.2.10-200.fc44.aarch64, 7.2.14, 7.2.14
+with the MGLRU-FG v4 series [3][4], and on mainline v7.3-rc7.
+
+Kernel and setup
+----------------
+
+Arm64 Lima VM (vz) on an Apple M1 Max host, 8 vCPUs, 16 GiB RAM, virtio
+disk, btrfs, 4K pages, THP madvise. Tests run in a 2 GiB memcg with
+swap disabled.
+CONFIG_LRU_GEN=y, CONFIG_LRU_GEN_ENABLED=y, CONFIG_LRU_GEN_WALKS_MMU=y.
+
+Reproducer
+----------
+
+The script below reproduces the stall with fio, MGLRU on (y) or off
+(n). 4 fio jobs read the vector file at random through an mmap in a
+2 GiB memcg, with MADV_RANDOM or no advice (normal).
+
+At t=90 a second fio reads a 600 MB cold file twice through a normal
+mmap. With MGLRU on and MADV_RANDOM, the cold file stays cached and
+IOPS doesn't recover.
+
+./run.sh <y|n> [random|normal]
+
+-------
+#!/usr/bin/env bash
+set -u
+
+usage="usage: sudo $0 <y|n> [random|normal]"
+lru=${1:?$usage}
+advice=${2:-random}
+case $advice in random) hint=1 ;; normal) hint=0 ;; *) echo "$usage" >&2; exit 1 ;; esac
+out=$(dirname "$(readlink -f "$0")")/results/$(uname -r)/$lru-$advice.txt
+[ ! -e "$out" ] || { echo "$out exists, move it aside first" >&2; exit 1; }
+vec=/var/tmp/mglru/vs-vec.bin
+cold=/var/tmp/mglru/cold.bin
+unit=mglru-06-$$
+cg=/sys/fs/cgroup/system.slice/$unit.scope
+log=/tmp/mglru-06-$$.fio
+
+workload() {
+	fio --name=vec --filename=$vec --ioengine=mmap --rw=randread --bs=4k \
+	    --fadvise_hint=$hint --random_distribution=zipf:0.8 --numjobs=4 \
+	    --group_reporting --time_based --runtime=270 \
+	    --status-interval=1 --output-format=terse --output=$log &
+	sleep 90
+	fio --name=cold --filename=$cold --ioengine=mmap --rw=read --bs=4k \
+	    --fadvise_hint=0 --loops=2 > /dev/null
+	wait
+}
+
+memstat() {
+	awk -v key=$1 '$1 == key { print $2 }' $cg/memory.stat
+}
+
+cached_mb() {
+	fincore -nb -o RES $1 | awk '{ print int($1 / 2^20) }'
+}
+
+render() {
+	local t=$1 kb faults refaults activated
+	kb=$(tail -n 1 $log | cut -d';' -f6)
+	faults=$(memstat pgmajfault)
+	refaults=$(memstat workingset_refault_file)
+	activated=$(memstat workingset_activate_file)
+
+	printf '%4s %9s %9s %9s %9s %7s %7s\n' $t \
+		$(( (kb - prev[0]) / 4 / 5 )) \
+		$(( (faults - prev[1]) / 5 )) \
+		$(( (refaults - prev[2]) / 5 )) \
+		$(( (activated - prev[3]) / 5 )) \
+		$(cached_mb $vec) $(cached_mb $cold)
+
+	prev=($kb $faults $refaults $activated)
+}
+
+mkdir -p /var/tmp/mglru
+[ -f $vec ] || dd if=/dev/urandom of=$vec bs=1M count=1905 status=none
+[ -f $cold ] || dd if=/dev/urandom of=$cold bs=1M count=600 status=none
+
+echo $lru > /sys/kernel/mm/lru_gen/enabled
+sync
+echo 3 > /proc/sys/vm/drop_caches
+
+mkdir -p "$(dirname "$out")"
+exec > >(tee "$out")
+echo "MGLRU $(cat /sys/kernel/mm/lru_gen/enabled), kernel $(uname -r), $advice advice, cold file read at t=90 s"
+printf '%4s %9s %9s %9s %9s %7s %7s\n' t IOPS majflt/s refault/s activ/s vec_MB cold_MB
+
+export -f workload
+export vec cold hint log
+systemd-run --scope --quiet --unit=$unit -p MemoryMax=2G -p MemorySwapMax=0 bash -c workload &
+
+until [ -e $cg/memory.stat ]; do kill -0 $! 2>/dev/null || exit 1; sleep 0.1; done
+prev=(0 $(memstat pgmajfault) $(memstat workingset_refault_file) $(memstat workingset_activate_file))
+for t in $(seq 5 5 270); do
+	sleep 5
+	render $t
+done
+wait
+-------
+
+Results
+-------
+
+v7.3-rc7, cold file read at t=90
+
+lru_gen on, random:
+   t      IOPS  majflt/s refault/s   activ/s  vec_MB cold_MB
+  85   4966675         0         0         0    1904       0
+  90   4863829      1150      1158         0    1729     277
+  95    174236     30664     30669         0    1408     600
+ 120    202080     28161     28163         0    1408     600
+ 180    207005     26665     26667         0    1408     600
+ 270    226341     22677     22669         0    1409     600
+
+lru_gen off, random:
+   t      IOPS  majflt/s refault/s   activ/s  vec_MB cold_MB
+  85   5007909         0         0         0    1904       0
+  90   5150972       140       228        51    1873     139
+  95    188806     29509     29504      9283    1413     600
+ 110    342921     31803     31802     23547    1697     313
+ 115   2563389     15857     15849     10540    1903     107
+ 120   5157256        31        31        27    1904     107
+ 270   5179181         2        28        27    1904     107
+
+lru_gen on, normal:
+   t      IOPS  majflt/s refault/s   activ/s  vec_MB cold_MB
+  85   5093044         0         0         0    1904       0
+  90   4887136         0         0         0    1904      39
+  95   2612769      3665     88721      6458    1904     109
+ 100   4997923         0         0         0    1904     106
+ 180   5134344         0         0         0    1904     104
+ 270   5025222         0         0         0    1904     104
+
+lru_gen off, normal:
+   t      IOPS  majflt/s refault/s   activ/s  vec_MB cold_MB
+  85   4866859         0         0         0    1904       0
+  90   4466107         0         0         0    1904     103
+  95   2378250      3027     34135     33956    1885     127
+ 100   2734588      5431      5520      5500    1903     109
+ 105   4933296        62        69        67    1904     104
+ 270   4822353         2        17        14    1904     104
+
+As you can see, only MGLRU with MADV_RANDOM stalls, at about 220k IOPS
+until the end. It activates no refaults, and cold.bin stays at 600 MB
+while the vector file stays near 1408 MB. With MGLRU off, the same
+workload is back to ~5M IOPS 30 seconds after the cold read. With
+normal advice, both LRUs recover within 15 seconds.
+
+With MGLRU and MADV_RANDOM, vs-vec.bin reads in my python reproducer
+drop from ~2.5M/s to ~300K/s after the cold read and never recover
+(chart [5]). On the same kernel with normal advice, MGLRU recovers
+normally (chart [6]).
+
+What I traced
+-------------
+
+On 7.2.14 with bpftrace, every MADV_RANDOM fault and refault is
+inserted in the old gen. lru_gen_enter_fault() sets in_lru_fault from
+vma_has_recency(), which is false for VM_RAND_READ, so refaults are
+never activated. The aging walk and the look-around on eviction skip
+these mappings too.
+
+On 7.2.14 with bpftrace, the oldest generation is evicted and refilled
+at the same rate, and never empties. min_seq doesn't advance,
+fentry:try_to_inc_max_seq is never called, and the window stays at
+seq 0-3.
+
+On 7.2.10 (fio, no tracing), one manual aging step, "+ memcg_id 0
+max_seq" written to /sys/kernel/debug/lru_gen, evicts the cold file
+within 10 seconds.
+
+I also tested the MGLRU-FG v4 series [3][4] on top of 7.2.14. The stall
+is the same, refaults on the MADV_RANDOM mapping are still not
+activated. The series cover letter [3] describes this as intended,
+so I'm not sure what the right fix is here.
+
+RFC patch
+---------
+
+Patch 1/1 is a draft against v7.3-rc7. I'm still not sure it is the
+right fix and would appreciate feedback. The simplest thing I found is
+one more condition in should_run_aging(), which does the same as the
+manual aging step above, at the cost of a few more reads and a
+comparison.
+
+In short:
+
+1. Run aging when eviction only recycles the oldest generation
+2. Pass the evictable size that get_nr_to_scan() already computes down
+   to should_run_aging(), so lruvec_evictable_size() is still called
+   once per pass and not on every batch
+
+The module parameter lru_gen_age_on_thrash and noinline was only for
+A/B runs and bpftrace and comparing results.
+
+Results with the patch
+----------------------
+
+The fio reproducer from above on v7.3-rc7 with the patch. "checks" is
+the number of oldest_gen_thrashing() calls in the last 5 seconds, and
+"gens" the number of generations added by aging, both from bpftrace.
+
+lru_gen on, random, lru_gen_age_on_thrash=Y:
+   t     IOPS majflt/s refault/s activ/s vec_MB cold_MB checks gens
+  85  5019235        0         0       0   1904       0      0    0
+  90  5073570      377       384       0   1764     254      0    0
+  95   130923    20534     20527       0   1418     600   2441    0
+ 105   218624    23462     23456       0   1418     600   1785    0
+ 115   178889    26035     26043       0   1418     600   1338    0
+ 120   175238    26918     26910       0   1418     600   2086    1
+ 125   256621    27773     27780       0   1418     600   1959    0
+ 130   253813    24509     24501       0   1677     342   1910    0
+ 135  2678888    11649     11649       0   1904     116   1914    0
+ 140  5064423        2         2       0   1904     116    297    0
+ 180  4872187        0         0       0   1904     116      0    0
+ 265  4939524        0         0       0   1904     115      0    0
+
+The check returned true 3 times, and aging added one generation, at
+t=117 (seq 0-3 to 1-4).
+
+lru_gen on, random, lru_gen_age_on_thrash=N:
+   t     IOPS majflt/s refault/s activ/s vec_MB cold_MB checks gens
+  85  5127299        0         0       0   1904       0      0    0
+  90  5290342      409       417       0   1822     196      0    0
+  95   151082    27372     27372       0   1418     600   2739    0
+ 120   251683    33784     33789       0   1418     600   2425    0
+ 180   252607    31539     31542       0   1418     600   2314    0
+ 265   223364    28211     28220       0   1418     600   2290    0
+
+The recovery is still slower than with CLRU. With the patch IOPS
+recovers at t=135-140, with CLRU at t=115-120. I think the patch adds
+this delay, as the first aging step needs up to one lruvec worth of
+refaults after the stall starts.
+
+In the OpenSearch workload reclaim runs from the start, so the counter
+is already close to the threshold when the cold file is read, and the
+recovery is comparable to CLRU (chart [7]).
+
+The threshold could be lowered, but it's not clear to me yet how to
+pick it right. The patch is a draft to get feedback on the approach.
+Any thoughts?
+
+Thanks,
+Maxim Muzafarov
+
+Links
+-----
+
+[1] https://docs.opensearch.org/latest/benchmark/workloads/vectorsearch/
+[2] https://gist.github.com/user-attachments/assets/cbfa5c17-0a89-458f-b816-4d1bb72cb97c
+[3] https://lore.kernel.org/all/20261016-mglru-fg-v4-0-2106750c0bfa@tencent.com/
+[4] https://github.com/zen-kernel/zen-kernel/commits/7.2/mglru-fg-v4/
+[5] https://gist.github.com/user-attachments/assets/f65fbbf3-a30a-464f-8535-29d39e0dff43
+[6] https://gist.github.com/user-attachments/assets/5d28512d-3a1d-4475-b20e-3690a8c9e196
+[7] https://gist.github.com/user-attachments/assets/41b7aaa1-5e9c-43dc-8fc1-09d2df52f8d7
+
+Maxim Muzafarov (1):
+  mm/mglru: age when the oldest generation is thrashing
+
+ mm/vmscan.c | 32 ++++++++++++++++++++++++++++----
+ 1 file changed, 28 insertions(+), 4 deletions(-)
+
+base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
 -- 
-2.43.0
+2.56.0
 
