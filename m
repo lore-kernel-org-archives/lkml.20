@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793521049;
-	b=2UaqMhts+cwJUyNiMJPKJb6eAm5IF2HVOVDXrfZYmDcbbwGU9ZIlyd40S4kYwj7ejzjt
-	 FqeCP2TNSgZKncps7tyE99l8euWkg9E0lh8CarvrSePT2A2VJyr0KphbKMmtyYuEv2NjS
-	 TtJxs/yE/mtmmSdsVA7ir4G4lymQxN2PUg1Lg09h5OZW/lglrCYw9rjCMjA0DoHWuDlm3
-	 urFGjg49dbDp6uXkiqhXMquG2hGoG1GMZiQOUviRy5OKafugNA4T8yGPMwuMPpdB46tL3
-	 62moR3bJUUQ2zygwvMYHTN1RCbf1x4GLRPyoZdKYFceDy94h6P85XXSoFh2aXJjxZZw==
+	t=1793521068;
+	b=L0kbl5W2H0FDTku+V75Gnh0EWSN4/E6HltZu0xHrL1p9F/VdrCDy7a3KSJqA9n7E/4LL
+	 P2Xnemfggvo6DzBr/WgDzisaoJmkIm9RQTJVcDZ3sUp2CIihOUClOhxCYTHARxtimq8xd
+	 2RWjUFGGl047LIhLjOnrsv0xk7doUPEVijIv/+OiWPYDeQgz+CMJWMwIpv+7LLG+E4kOR
+	 6pJQcG5mnxMkjCESw8LZ8g0KvwteYU08zwdNTtqutBUop5Tel4KWU/vSwDA9tLczcsbdU
+	 99kpLCRk5jRuiFmfwLSojlhw0iISsXen3vQXoMJbEaWkIp84V4y+fgV7MZBLT1jKzPw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793521049;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793521068;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=l+hkzwCpvpQgrUCpeG4tt9OeGdPww69ynoVOKpj/83A=;
-	b=eT/LAzyWYV4ydETyPvdulxkE+9xLKN2JKFZrDxCPXWdSiV9H1u5WKaeSp2fdTzx0uLw1
-	 yBd2R3SaSxKAatn5vUAkXmcA2i7pHs8PcBekFh/x81db+Y6AIamXdKBOLibCf219dxmXX
-	 wlwMxXQjfGPmQGNhJQ9ds6D/b1z8VqreAzoQXpccd33YZY23Nx07ked4nf/3jgOKm9wT0
-	 qh2k5aY83lfNeo4TocXMbYtpEpI17u1I3nWH5U4PadY3Q+/u/FUOV7hGS1v6TaPgM8T9n
-	 FkxEcZFYEzfXkDS7tD4MtAewW3ipsKT8EPk7dJCkKurjHqcopZlrbDlxMdwLjCQXPLg==
+	bh=PquNKABWi0C6tGTol3B3b6YxtKfoZjVRBFpfFj8hv80=;
+	b=3/WwOfHlML8ul9Ou2mBUHDmuAdSa/HK3340022q5D+hR0iBA/fBym0X1GBr2SOGz1clA
+	 NSP4PIo+P3tS4oKJDOtWl6jFCZnOkTqdCW74h7PLrSX7MHcjD4KgOcCNI7KYcFiafTcbF
+	 UD5fXNAp5mk+IodX+zKNtvU3F7HK0E+xMtyNJIA6kms0z0RlsHQpXfXRfaWDP9cp7FD6m
+	 96mwwLCfFiUfoa1jbh+3IVC2Su/2+ASyVEAGWRRvzL56UPUNvxIbiDKBBwfjml++qCFm/
+	 Em//h8zaVD27r2HMcfiF/R6TI57Cs2dmQnetarWch/Ttvx9OwZ3cI2/aEImvFfEHIuw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r1O5o+j+;
-	arc=none smtp.remote-ip=209.85.210.175
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=guLijxjT;
+	arc=none smtp.remote-ip=209.85.216.44
+Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0128B606A326
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:17:28 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0128B606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FE9606A32C
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 08:17:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1FE9606A32C
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r1O5o+j+
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a06b27bf9bso696212b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:17:28 -0700 (PDT)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=guLijxjT
+Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-3ae1b34e0d2so1616971a91.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 01:17:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793521048; x=1794125848; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793521067; x=1794125867; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l+hkzwCpvpQgrUCpeG4tt9OeGdPww69ynoVOKpj/83A=;
-        b=r1O5o+j+DhaI1igvj1ETrTNrpYZ4cW7jYwzRRdbtVjVWvaxG4RWlyY/0yxooMG6oTM
-         GhBDtLjgO14j1yftZzCs7YZ+HAlbiKgM3P3rqT9J376HwsADT6SCjVzOQXqFRRk4s8mm
-         uj0Pj2m+g2/VdMprvzlKdSo+V8fGXPY8aVXSyghBHBje+0X3+oMZfquTdCMesEK5H98l
-         SRiiWtYUoHKSZKwQCgc3M0WxmwYWnj38TiBcxOPN7v6XyVXIEiXci/Esr31TMYUnVBYx
-         AoFyn9XAZt+5Al8DUvymg5xtNNNtZf2WWAjGPCTqMYmNoLPFzGxvf7bjLnv2gw0frPaH
-         8M8g==
+        bh=PquNKABWi0C6tGTol3B3b6YxtKfoZjVRBFpfFj8hv80=;
+        b=guLijxjTMJ66lfe8n6JMhPGpbFDCjjgWc1gp+wR2hHlNR2BFETzJHyZvtojeB4V0ap
+         Qgwr4Nvp8zeubBiwsErHaPxQ1dx7Kc7iHSxjfoPrKEWUZsMzEYzwxmPsEtixyD/TD4du
+         bbF6dCwa5HSE96wTUvihfcqYutieQhyyGuWmo3VZLWpubLCrtbKsz0pk19k16Avhp6fN
+         GIhlUnytDFwfQZ9K/HjeNscYCWHrrUx9rXrg/28tR/2dZ14Vc0ohkzEocbO5MD5IQvQ2
+         9w2oIAkyHdT4HMU1jnxuj+bLqxrxjRCVVkkNINuzWr877xU+8FfrXRogVQuqZYziny95
+         /+Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793521048; x=1794125848;
+        d=1e100.net; s=20260707; t=1793521067; x=1794125867;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l+hkzwCpvpQgrUCpeG4tt9OeGdPww69ynoVOKpj/83A=;
-        b=X5DDZ5oekX7Cm3iiec8sP0FXjQ7l0C1mzDSyojkkGG6TObirjv+dTRk9MQqqYRAbln
-         iuYj7MiSJhTYxRVo7RcwBgOs/QZw4uDf3ahd3eWjjqzVZk45Q2JF8MuF4GhQf4kxi6aa
-         K74Vfb6GDvSn/wz5p1nSALg7KdlZuZRxRy/qYFEXzHZpxz75uDDoMPuTPvxzVKldBKiQ
-         P+PdER6EwcEf+sE+UdRpLeHflIY4hqoMvrQajkcc2uknucW0Jv7grBA+OGfmql9Xak3U
-         /dcB+jdf3ote2BtFMFgZgbxh2EfN03sPHD2bdKnDw4NpWxvXZnsFOaKtqEg5v9K5nLNA
-         jofQ==
-X-Gm-Message-State: AFq9FYJmFzrXki9r7plSyY14sVc5YWfsMh4g5Amf/8XBIRlvgwMvwkdE
-	DmeCYsRT+TDI/Cw2qXRG4ApXV5Vaj6TBqcUFSVZMVi2vUCCeC1P7p6yaucmfAbYO+Ns=
-X-Gm-Gg: AYBFou2JhMkkktl9NPUjhXGr6Hg6rEcc1l54OPEIR+BWxYTNdPe0TEb25yS66EjmEFC
-	Bamzha80M4jNIKVyw0/Iq9ViAH2uDfiK+5faLX05NjY6wFoPRHPm9M/n2vn8kX/pKICzO8OsqHv
-	x1pzUAgReF7cEKOf2du5yuwfQo/ffzbgwCF1D3o0zWNqPP4TFuLMMz+o4TwWsjBRSUAMoRatRcn
-	5Zlhkii4BM3pIXTSriX9b0r6ngLHxXCTD8eKF0NUkGscXKk7KqUmXoSQiWCGWtEj5J3lHpiX5QR
-	/qZejHbZCUH8qHSgZqnwcy37oxqBk4QboNiNXQj6cDm4myyHjacJiaFX2fMy56K8GzhT2a3Gfrp
-	4Ng+6S1NR7YliFw1y3W+RDuECexYdkMCcSnLYxA03LVAn5n2aNu6JG9/Jwf8qGbblRtv2gSJgBF
-	ZHIJvptAjPf5gjCYODOtOCCPcYbepyaG7qXBWTszEkBWf42JYz2swsYdEYZd+1mww96enLv/SAa
-	5vrtAUejd9023KcGscCs0isvh5nzbYAEksh5ffJa8KZ6L6c0FRIaMeF7w0Swgv6O7U+RPVRbnsx
-	ww79EBY2T9lpUXbwuiyw4INhsqA9luQHq6oeVC4YE+uG2/9u9b+EMXlWPwbdKFCgtD+vFmMzkbk
-	ZUC6vBzSyTZ8me90lSMOyans=
-X-Received: by 2002:a05:6a00:2e21:b0:8a0:20e0:b131 with SMTP id d2e1a72fcca58-8a9be490997mr5082579b3a.19.1793521048212;
-        Sun, 01 Nov 2026 01:17:28 -0700 (PDT)
+        bh=PquNKABWi0C6tGTol3B3b6YxtKfoZjVRBFpfFj8hv80=;
+        b=dyU6BVdqymJN/0WAoinmjGVH1HV9+6aGIloWbT4J/JkggnjfTVJSF9kvd7JS6Kewdk
+         Y9cLxUrLe4Q1UgpCc2BRrxBV+2onR0BqeqfpnKz1WAbxe6xoLq1qbyFRgoOVvAy8hWic
+         O1cm4WCPCDihjy8XD6tzfkRKvrasBMpZAhXDAJQVh+3uce6FbYaX55hUgX0QwXhdA/Bv
+         tOirarc/JAVtiYYCh7Clk9KbNJYjI6svzzLgfdQb8OdMtGXfi7gAJ+uBsd61Ey7/Khfa
+         6VRvWkyNsPPe0xJvcNwwxVEHELMiaKT9IIQzHL3Ppg195lvAWvGxJtI+1fXiNvcq9MjE
+         ETwA==
+X-Gm-Message-State: APuU4Z8WmWdj2b4cOdEjAND8qzkaw435Ht2atepfQwQlMFsFHhUKABFv
+	KS9aHRSgWsgW8W0gwYR2f5i/UpL4Qy8U5lhcQdd9xc6yHFi9DwZBHWCc
+X-Gm-Gg: AYBFou1MUwKX0rBSt//RUIL+/voAYuJGHHCMADcidZtziErghHOf5OaczV3bze4wwqc
+	y+qnByQADKssrmAF7fn7Qkug37EtY3n738EupAvZWwUY6kXNTfdVCrXk+7mpT9YBc2LbOYjYqAy
+	2ra09+DorkybLjuXtnG7nHA09kN1/amjoVKr8661Qxb/chRGdnD30YNaCbRydWNgHgRfQKgK2az
+	LlHlz3/WauKXd130taa4LP+L1fELKU2/ZRnCw3ZvT9ACIty+zZYlu7OuNFenz4JYOZdH7v924Ax
+	aqI8z0GSPfqTI5TtlLKuMPBJdo7pv88bFr8ckIEQu4XdVRw6A8315yXHevZkhkIk+crbHH8hpRA
+	quR+wbCg/2c0LZSMKZHeHam3cEqUOhKt63aBx6IYTxJ/9JqWigLcGWWPqUxkU8u/SQDiN9CZX1s
+	K8NPlba9sribaAEKOJwh4WNgA4LlcZVKxSH4gCeBVNgVZ/VIXYSQh61d+R2FJeDDuYfm9/kXodr
+	PKgFb4MowxDdCrinlSbRYNDxYeBDKKcTWZxJ8nVQYfWjZLLlrL5kojJKCHQlZ9lGRfdSCggfDlW
+	rjcpAA7gOudekrS5BwUN/8+e9DFgt+z6JFJgFQmWsCeNM96S7UGTPLM1O0fbWPQJtcF12Hv5dVh
+	M+0wJ7MaZNl0R5IV6jREf2kSn
+X-Received: by 2002:a17:90b:53c7:b0:3aa:412f:b0a7 with SMTP id 98e67ed59e1d1-3ae89559e5emr3615666a91.5.1793521066862;
+        Sun, 01 Nov 2026 01:17:46 -0700 (PDT)
 Received: from LDYT9Q2G2M ([2a09:bac5:cad2:3228::4ff:28])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d067cesm1104467b3a.29.2026.11.01.01.17.23
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae84596e3bsm10011455a91.9.2026.11.01.01.17.43
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 01 Nov 2026 01:17:26 -0700 (PDT)
+        Sun, 01 Nov 2026 01:17:46 -0700 (PDT)
 From: Zhiqi Zhang <zhiqizhangg@gmail.com>
 To: Andrew Morton <akpm@linux-foundation.org>
 Cc: linux-kernel@vger.kernel.org,
@@ -87,13 +87,14 @@ Cc: linux-kernel@vger.kernel.org,
 	netfilter-devel@vger.kernel.org,
 	Jamal Hadi Salim <jhs@mojatatu.com>,
 	Jiri Pirko <jiri@resnulli.us>,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH] lib/ts_fsm: preserve token types when exporting patterns
-Date: Sun,  1 Nov 2026 16:17:19 +0800
-Message-ID: <20261101081719.51784-1-zhiqizhangg@gmail.com>
+	netdev@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] lib/ts_fsm: preserve token types when exporting patterns
+Date: Sun,  1 Nov 2026 16:17:35 +0800
+Message-ID: <20261101081736.51803-2-zhiqizhangg@gmail.com>
 X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261031202211.22f18bca7819dbe2d107d17d@linux-foundation.org>
-References: <20261031202211.22f18bca7819dbe2d107d17d@linux-foundation.org>
+In-Reply-To: <20261101081736.51803-1-zhiqizhangg@gmail.com>
+References: <20261101081736.51803-1-zhiqizhangg@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,66 +106,74 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Andrew,
+Dumping and restoring a tc filter with an FSM text ematch can silently
+change which packets it matches, or fail to restore it with EINVAL. This
+happens when userspace reuses the pattern returned by RTM_GETTFILTER to
+configure another filter. Dumping alone does not change the live filter.
 
-> The main user of textsearch appears to be netfilter, so please let's
-> keep the relevant developers in the loop.
+fsm_init() replaces each public token type with an internal character-class
+mask, and fsm_get_pattern() returns that converted array. For example,
+TS_FSM_DIGIT (2) becomes the _D mask (4). Restoring the exported pattern
+interprets 4 as TS_FSM_PRINT. With a DIGIT/MULTI pattern, a rule that
+matched the UDP payload "7777" but rejected "AAAA" starts matching both
+after restoration. Other exported masks exceed TS_FSM_TYPE_MAX and are
+rejected with EINVAL.
 
-Thanks for bringing them in. The affected userspace export path I verified
-is tc's text ematch in net/sched/em_text.c. I have also copied the tc
-maintainers and netdev. xt_string retains its original pattern, so I am
-not claiming an iptables-save/restore regression.
+Keep the public token types in the configuration and look up their masks
+in match_token(). This preserves the exported representation without
+adding another pattern allocation. Initialization still validates every
+type before it can be used to index token_map. The extra lookup during
+character-class matching avoids storing a second copy of the pattern.
 
-> Zhiqi, a thing which is missing from the changelog, and it's really
-> important, is a description of the userspace-visible runtime effects of
-> the bug.
+I identified this issue. OpenAI Codex helped confirm it and drafted the
+fix and changelog. I reviewed the fix, built it and verified that the
+tests passed.
 
-Agreed; the changelog should have explained the tc consequence directly.
-I have added it for v2. There is a runtime effect: restoring an FSM text
-ematch from its rtnetlink dump can change which packets match, or return
-EINVAL when an exported character-class mask is not a valid token type.
+Fixes: 6408f79cce40 ("[LIB]: Naive finite state machine based textsearch")
+Cc: stable@vger.kernel.org
+Signed-off-by: Zhiqi Zhang <zhiqizhangg@gmail.com>
+---
+Changes in v2: describe the tc impact, split out the KUnit tests and add
+stable. The production code change is unchanged from v1.
 
-The additional automated test uses a tc basic filter on loopback in an
-isolated ARM64 QEMU guest, a DIGIT/MULTI token, and four-byte UDP payloads.
-The original rule matches "7777" and rejects "AAAA". Before the fix, a rule
-recreated from its dump matches both; after the fix it still rejects
-"AAAA". This is measured with the classifier's evaluated/matched counters.
-A PRINT/MULTI rule also fails restoration with EINVAL before the fix and
-restores successfully afterwards.
+Validation: updated KUnit tests change from 2/15 to 15/15 passing on ARM64
+GCC; ARM32 GCC and ARM64 Clang also pass. An isolated QEMU rtnetlink/UDP
+test demonstrates altered packet matching and EINVAL restoration before
+the fix, with both corrected afterwards. See the cover letter for details.
 
-> once the issue is out there, LLM-using bad actors might be able to find
-> ways of exploiting the bug, so please discuss that aspect also.
+An ARM64 userspace microbenchmark of the extracted matcher measured median
+paired slowdowns of about 1-5% for tested long character-class scans and
+13% for a one-byte rejection case with appreciable variability. This is
+not a measurement of in-kernel or packet throughput.
 
-The trigger is reuse of an affected exported pattern when configuring a
-rule; dumping alone does not change the running rule. Creating/restoring
-the rule requires CAP_NET_ADMIN in the relevant network namespace. Where
-matching selects a filtering action, changed matches can make the restored
-policy differ from the administrator's intent. The tests establish the
-matching error, not a privilege escalation or memory-corruption exploit.
-I have not established a production deployment or a wider exploit path.
-The test source and detailed logs are available if useful.
+ lib/ts_fsm.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
-> : Related finding: BM/KMP also export transformed patterns. With
-> : TS_IGNORECASE, repeated folding of 0xff changes it again
+diff --git a/lib/ts_fsm.c b/lib/ts_fsm.c
+index 053615f4f..8725ea6f0 100644
+--- a/lib/ts_fsm.c
++++ b/lib/ts_fsm.c
+@@ -126,7 +126,7 @@ _W|_L,         _W|_L,        _W|_L,        _W|_L};		/* 252-255 */
+ static inline int match_token(struct ts_fsm_token *t, u8 d)
+ {
+ 	if (t->type)
+-		return (token_lookup_tbl[d] & t->type) != 0;
++		return (token_lookup_tbl[d] & token_map[t->type]) != 0;
+ 	else
+ 		return t->value == d;
+ }
+@@ -288,11 +288,6 @@ static struct ts_config *fsm_init(const void *pattern, unsigned int len,
+ 	fsm->ntokens = ntokens;
+ 	memcpy(fsm->tokens, pattern, len);
+ 
+-	for (i = 0; i < fsm->ntokens; i++) {
+-		struct ts_fsm_token *t = &fsm->tokens[i];
+-		t->type = token_map[t->type];
+-	}
+-
+ 	return conf;
+ 
+ errout:
+-- 
+2.54.0 (Apple Git-157)
 
-Thanks for the pointer. I have kept that separate from this FSM series;
-I have not independently validated that additional finding.
-
-> : One small test improvement: after copying the exported pattern, add
-> : KUNIT_EXPECT_MEMEQ(test, exported, pattern, len).
-
-Added. The updated suite fails 13/15 tests before the fix and passes 15/15
-after it on ARM64 GCC, with 15/15 also passing on ARM32 GCC and ARM64 Clang.
-
-> And I'm thinking that a cc:stable is justified here.
-
-Added to the fix. I split the fix and KUnit coverage into two patches so
-the small production change can be backported independently. The matcher
-change itself is unchanged from v1. I am sending v2 as a separate series
-with the v1 and review links.
-
-The additional v2 tests and revised text were prepared with OpenAI Codex;
-the recorded automated runs were driven by Codex.
-
-Thanks,
-Zhiqi
