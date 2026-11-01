@@ -1,95 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.145.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793501756;
-	b=lKx9QRCwcWpqyGtlIGA29cgjtKaJPf0CCB6j951ZnO5fP5JIsUlq8kiwvNGsRdxWwy8k
-	 SBuw0RorbH7U7VmfdcsSDV3b3cH+PwaZLWSEpPTvyYTu2zferM+BshL88NTfvcaIfUgAT
-	 8sFXNpCWUqD6OI6xS8gjPEj/cnfrnUpKLdkA9bPEAVBk1j+a00V5EJcfFqEPcGpLMdouW
-	 9uaz2ik5mXYKhc+552X7tx5D+kAZJ4HTdUaL7yNDjSPcQcIwReqkhIPf1EI2vdUFPXgmV
-	 oU2/l1qRhNo9Od7evOa8UiIyx3P5pidrHT63zE9ARtUwHZcJTuSQCZ9QFxwuRoQUcyw==
+	t=1793502020;
+	b=dwS0Gcj0k62yHHqY4q5B9SmeA5VKWsA34tE1U70kDCb2Zf7dB8FxUTRzYT7tpH0kMNke
+	 dDNAd6K5ajnTKCdF6EdCuikmT6tY5V7FaU5gTk09LlyZ9dIxzuWmUFQBmdsuzNjohvKcp
+	 kjrDEyUm0oXKPPWsne0aRv21dD9dwLQvxXfMsUMdjs1qDK4IJwwVlcMoTZunoiiFMp7vr
+	 cTpa+zisEGUomBtFrGPHf9EyDrs2hNbstP2FTHgfAhj/X4kJik1W+5Qs9V8z29/1Wpv/l
+	 hiFdRzQIHmunLGU54sfnPE+19HlWTnpJFzPNRgBG8Ik5fg++VGnodxozBFSYm+RE2mg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793501756;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:Received:From:To:Cc:Subject:
-	 Date:Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=Rbia2ZdVtMV6lCwGNxC4eIg9zkBp56JlTOTvsadIUzQ=;
-	b=CO64zfv6hhdBtqsSn7oDvzjA1nO71xCIa4l2hbNQL0aHTSLD4WSvMsj3vcDeM8tcN4WZ
-	 UJIDOZQ+Ct9mmX0+4mAEQyUva+j7u+D0rGbvjxBuE0e4ueSBG5Sgb0fuJdptuSSuvDdiZ
-	 15VYmSAu18LupEA+F4yxmybTQCQLWMYTvB3O95xXU9kSggNntjuEODn/wPP64uG2kx4tC
-	 Coku2CvBKm+pZQFP5MLUrU0+rf+me4MKOLiGJfgI4bcr7TU+K+0UMyYSPY6RPDRi7Yd1z
-	 VWLU/6GlvpstWNhJ0i3z+UlkvB+hatKHQrR5zFgomFFYpM8F+7uTx6AhHV+0BEu1jig==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793502020;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:From:
+	 To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding:X-FB-Internal:Content-Type:
+	 X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Authority-Analysis:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version;
+	bh=+7tqArStNBb6UzWOhpgCNro6Nr4m1kw0/PjhJKGYy3U=;
+	b=qW/XpsKO/tEfF49Lc9e38J30SezznVLXf3qnQk/Q7JF/oy8GHRk1VNuOxWZ1NSM1i53T
+	 P+DQ8bq0tdZHhRQa6pRQYFkak3f5/x5Pap5AgiBsneCww8N3ZurbjqoJVcirD7YckvSFC
+	 FxmsHIGEYqxD8sX/sX3xWpMbTC7jwF2W/lGjg7WisnRM+oxbomviZ3NeFFVorq1jxUEbd
+	 avJ65xqFzjAOwVCjMLq5LqoAhppp64G+GUwtBXgIyGxWS77cV3QCb+sjUuPfCbijw7nAf
+	 /6WkLZ4P8o17k+JtoioQSqsNy+Bn6eLT7s8vTb5HfUBl1DBppPrDuWBCBxOQwJeSWtQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="GQu/yWwE";
-	arc=none smtp.remote-ip=209.85.216.43
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=W9cvOe1S;
+	arc=none smtp.remote-ip=67.231.145.42
+Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com [67.231.145.42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F57606A324
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 02:55:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29F57606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86568606A326
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 03:00:19 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 86568606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=GQu/yWwE
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3ada4c06b7bso784527a91.2
-        for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 19:55:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793501755; x=1794106555; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Rbia2ZdVtMV6lCwGNxC4eIg9zkBp56JlTOTvsadIUzQ=;
-        b=GQu/yWwEo/ufwz1xx65OMIDDMJqQ5+BrZ8RU/sQlPM0BdIWEUCaUTrcWJi+DPcMav7
-         nnUdQncF9BHfL+Gjk+F9j3DI5OkeQfQ+yXY6ypCNZ/Pt7g5WWu3i2AbqnQXwvk6BmQnE
-         nqO/ILx/dIJmgaQkmYU+7mEETjh6IDS5oTYHrTnId7owiVrBZ5o9M4LLxhXxW72sRyzf
-         vFW4aOpF13nTjwWaPFfkvd8lxRlSgx1HqkhuRXaPQQw8V+YsQR6NNYQfQiw601kjmwGy
-         ZQ1ZrZeVweKpDlsOfU+mNBNOqB1F/vYp+7hLQCHQ1NSHh7U6fdQ2P8slUIMx0f3bDxXv
-         mx6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793501755; x=1794106555;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Rbia2ZdVtMV6lCwGNxC4eIg9zkBp56JlTOTvsadIUzQ=;
-        b=GRMwjgpag9RlgyO+xCaZQmtbbNNCseOjPe6ECdVhbCdaeqUv9ZNVIgPmiubzh9szIY
-         emGIlUjMzPbKt9AZ9cttpvFTgiJ9qmyoXVZ12tiiSuw8EGNq64SpuPatA9mZm/9cv95a
-         cvJaZF0jVSYJiroDOTqReL1YmZtr5MInefRIjirQvkuot56E5l2QPL/b/QkkcVAJ9rsC
-         JU8keRZe/cR4Meb+oTGTu7HMvdC06Dx9CGtUidkbQM5iOdVenwV8YT/J/HDXo5t/9XMP
-         cUK3ScD1gO3xNpICLlUcID9TIJCRIY58Do5vLuzSZeqe3uXMnC8iK0AOLmB9B5qGS/4K
-         3oDQ==
-X-Gm-Message-State: APuU4Z9HEGLXsWRT3+qgTe2sPnWQGvgWmv//8jfSpfRJW2rfnjdeJjsX
-	cd6CL7nrhcZa6UoPkzb1RhZ9MHETunRdpE9IOxhPi616ht79RFv36BEK
-X-Gm-Gg: AYBFou1mgLYrkODtZ7u/RuseneSODCYSQWF0MAkSNKVEtZduzl3UbssJYX3RX0QYYex
-	4Pjq9FoJTXWn8VtukETLGVAiP/IqDo2asIX3UUUQ89bGBWtRUHubj3+TuNcB3GCI9vyoZpBpJjb
-	UHmM6U28vU3uoD2ID9M0M/YXgZoy1XlPV7vjtXnvEYKWOpQpdbe8ehNoHH6VHBM7xnrZSJYMTjv
-	tOdyf0yq0205/yzi33F2Fat9Nhqd6DyECzHxCbmoRGNIu/gVbXPGaEN3A3SwciBpzsshpt16wMV
-	zxFaf5hi1o2n9+2mLkHMBhBxm6zhMUPkeB5R3WZnk5Z1q7AxD1V3Kfhzw80ZZIszOWMr6uYN3ZN
-	PBHgJCDZnJVjmUutuon8rKZb29FjJe/o7gXlvVQp//MbvsjKfUAOFF68ZBRn2kaZnTJmoiNDXQU
-	6XHNTXaSgMVNTRGozDX7O5nUuoqdVLaUd0nFdbq94dPQP7p26FvnwyjBpWHUFl5a4kforO0zi2S
-	+Lev90b8Y4tk9lsq/sVFIvNWDyXC4eIsssli4EsF3fgWXd5OpF5oHB2TslCi1Z9uadQp8VgQ/+j
-	YRWQca4b902BYsVYPS0dV+UNeWgFF0EDkg==
-X-Received: by 2002:a17:90b:4b8a:b0:3a7:8350:3f7e with SMTP id 98e67ed59e1d1-3ae89771679mr5168991a91.44.1793501755440;
-        Sat, 31 Oct 2026 19:55:55 -0700 (PDT)
-Received: from server225.. ([39.170.101.209])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae8454327esm8980297a91.4.2026.10.31.19.55.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 31 Oct 2026 19:55:54 -0700 (PDT)
-From: Ping Li <leeonion.muyu@gmail.com>
-To: ben.horgan@arm.com,
-	james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	reinette.chatre@intel.com,
-	fenghuay@nvidia.com
-Subject: Re: [PATCH] arm_mpam: Warn when firmware leaves PARTIDs disabled
-Date: Sun,  1 Nov 2026 10:55:50 +0800
-Message-Id: <20261101025550.1633447-1-leeonion.muyu@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <8950f9bc-8ca9-476c-a7d6-2b434908b80c@arm.com>
-References: <8950f9bc-8ca9-476c-a7d6-2b434908b80c@arm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=W9cvOe1S
+Received: from pps.filterd (m0528008.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A12ma792898495
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:00:19 -0700
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	pps82601-s2048-2026-q3; bh=+7tqArStNBb6UzWOhpgCNro6Nr4m1kw0/PjhJ
+	KGYy3U=; b=W9cvOe1SMaIvNcvf7RfKbQOs/stp++R8dHDRsAj+aPqtErtPzNJ86
+	cDIt7TsSfEZh5Rbb+wIlosutUtbS/ipiN8g/AC0MzF/o0gpKiXMoEuQ81I86VHO8
+	AS6Asa5odsJcnL5cIA1gUsEzZwHuzLm+r+6ounuJeLW7WZK9PrWUI8d3BI1CDHds
+	ztRvMvX7cGK5NU/rPzr2EFubZUo2Lm/JK57zb0Td+uBysyn2N2fU7p3SkKS6HFT/
+	JzyfTsh18chx9aizem1PKKoRCnjp3XmzaH/SO4Nc8nUq+SX4Bew3mYXYxnZUNNUU
+	rWK+HMlRkwXJXBLq2lHalpgmZgQw/RuJw==
+Received: from maileast.thefacebook.com ([163.114.135.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hn2wddpfq-3
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Sat, 31 Oct 2026 20:00:18 -0700 (PDT)
+Received: from twshared119346.16.frc2.facebook.com (2620:10d:c0a8:1b::30) by
+ mail.thefacebook.com (2620:10d:c0a9:6f::237c) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Sun, 1 Nov 2026 03:00:10 +0000
+Received: by devvm18200.frc0.facebook.com (Postfix, from userid 352338)
+	id 8E6ED6E47EF20; Sat, 31 Oct 2026 19:59:57 -0700 (PDT)
+From: Murat Seker <muratseker@meta.com>
+To: <muratseker@meta.com>
+CC: <amit@kernel.org>, <arnd@arndb.de>, <gregkh@linuxfoundation.org>,
+        <linux-kernel@vger.kernel.org>, <rusty@rustcorp.com.au>,
+        <virtualization@lists.linux.dev>
+Subject: Re: [PATCH] virtio_console: add console port to list before hvc_alloc()
+Date: Sat, 31 Oct 2026 19:59:55 -0700
+Message-ID: <20261101025955.3870851-1-muratseker@meta.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261101022435.3466820-1-muratseker@meta.com>
+References: <20261101022435.3466820-1-muratseker@meta.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,25 +79,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-FB-Internal: Safe
+Content-Type: text/plain
+X-Proofpoint-GUID: JsJ4_t4q_Ic8-Vmswas-ebw4bibyNikg
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAxMDAxMSBTYWx0ZWRfX5F1Lsn/Zecce
+ XSTnq77wSLdel0adgvVojiqD/zeNHxvYPGOe2cfb6vgFQmCMrRmW/h/+O0lC+roNu7iO4EFARqV
+ Y+HamuIatAt7Z+34bNFu1edpsKUveB8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAxMDAxMSBTYWx0ZWRfX3LzwgwBvyNBq
+ 0EGHFwJVgBdcR8gCx0DTfNTNyyyye2x1O4HYXFL8upv2NT8t4VQ3q68uitc7OpgGYZDlDX/QES0
+ VFRmY0qIDdCkjuErucp+JVcsXuEdIPvYBBCijOKtBQBDkg5dl4zqExP+UhNcaSpW6RMWF/0rgoR
+ R2/SEF1AWwa1avL1NWO+O30JILFMFdJE1OMmRa/5idw88tWzW7/6qYeIkj18kBfjHV/IGTmWYd7
+ kNCuw8kcURW00juIIzu4dDy+KkFYLh3t1daSnipAzJke15a5DHNrk3NgEiijFNE66szfnN8fpVa
+ LPmQ97H1gIDd0jcjbDO7f9UeNYPVYcMcSORmwNQhirNInGnesGVTZ2cPajSkMVBeWqEvG6z4Kzg
+ Q6Lqq6e+H7l9vhZuYwY9zvXr1Xr893yxpMKp0r2mVM7VjnJi7F+q57WPGejTaq/3Q/awrJWBawM
+ +p3fD+wv+L6l+kzrjrA==
+X-Authority-Analysis: v=2.4 cv=U+MHnuru c=1 sm=1 tr=0 ts=6ae6ab42 cx=c_pps
+ a=MfjaFnPeirRr97d5FC5oHw==:117 a=MfjaFnPeirRr97d5FC5oHw==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=7x6HtfJdh03M6CCDgxCd:22
+ a=_1IyUuN4QrATX339ibzo:22 a=jLPmfgFi0iO_3v1wpOMA:9 a=QYH75iMubAgA:10
+X-Proofpoint-ORIG-GUID: JsJ4_t4q_Ic8-Vmswas-ebw4bibyNikg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-01_01,2026-10-21_02,2025-10-01_01
 
-Hi Ben,
+On Sat, 31 Oct 2026 19:24:35 -0700, Murat Seker wrote:
+> Subject: [PATCH] virtio_console: add console port to list before hvc_al=
+loc()
 
-Thanks for sharing the direction. I asked our hardware team why they
-implemented HAS_ENDIS: the motivation is power. Enabling PARTIDs that
-are never used does not affect performance, but costs leakage in the
-registers and combinational logic behind them - with e.g. 32 PARTIDs
-implemented and only a handful ever used, the unused portion is pure
-waste. Their expectation was that software would enable only the
-PARTIDs it needs at initialization time.
+Please disregard this patch. I'll send a different fix.
 
-For a general-purpose driver that cannot predict how many PARTIDs
-userspace will actually use, that is not something we can do. So what
-I plan to do is either enable all the PARTIDs from the driver, or ask
-the hardware team to drop the HAS_ENDIS feature.
-
-I am happy to drop this warning patch in favour of your driver-side
-enabling patch.
-
-Thanks,
-Ping
+Sorry for the noise.
+Murat Seker
