@@ -1,95 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793558971;
-	b=ej7M7sehu7htEymLiXHoJ3oSFgI1JSqnNZd/AqjDvl2kxT+RKAtEXCm4WpeH/Ez/1g/5
-	 zawWw6GJdDY0fXYocjUA04qFxXUlmaIUWf1+HAAREZI/wKVS5f8ZNaGsbsA2nV1GbUHOi
-	 uCzTi0HiGdVGUmYKvgl6fBHA1oewg1F0Mnk08IMqqp35jPmtt+7/Sph7K4QZee1inAcB0
-	 k7mRtD+XHiW2FyaglBaaHivqrfPXJ61ObHsGPQOm29V6rxI+UkdwI7WLgQc/RBHTUokd7
-	 JTWFhbFq/mq8awKDpIFw0qNmWSQFM2xTPe2e5TizgP1h3NVyNp48PLGX8eOFI9Ftj/w==
+	t=1793559221;
+	b=FaiNZFdDn4gSgsfjmy5gFO9OWnrQhMqXoegRzKcrmjiCia3pp61A3QnzbdZUbC9H3A/5
+	 aRMD36Vrlv801AJmFe/TvJNx41JpKkdyrvqJECstrjlniPKJ/D+5tggAWD/8XhRHBuMu5
+	 AxVMr+s2xkpQKbLwsuL+aM1HnWsb/zSEHOwFe/zN6Huw9mLGQn0Q3K25k+jfWwyLAS8H+
+	 4uqLqDt+mBAjudVNbt5x5I8Y+joloCm7I+qUvA259qoqSl5TJaKkdx6/WY7wBniI+NugF
+	 wYweiXQnFT55EfX6d/beshBKYiNy1l7/p+vrlD8JfBignC8ggkV+cb5NtIOFU6iYGOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793558971;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793559221;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=i4kMYe4pF05BAeSRiIgaVbEHMlhyZzqAIkz58RqSejo=;
-	b=D6TgKGYGsjbmabIIfWTuM/pEFh7fQihEDM7894MIZGTS70gaEe9/aZWL8/z+D2m5WOns
-	 pn4EAIVt74PJBBf+2YqF6pxNdZyol4WL+w3vjGyKoOTsq1/4pkuaeHOMe1pxywDlB2je0
-	 WGejSsta0s/fp2xRA79htTAzc6cNtIvBAF4tDBnnCuf/SGRgHDShFQtPe6RmuN7gWRrFD
-	 TjSN43X5jCjyORcRb7qOeT48XX8o90fNvuHTEZfXAIvdnt866QCxd9LVbRqgso/h78SQY
-	 SIhUrmPR9zOBtt4eOgurSxGKv+v8e/L1yBFHLSnPzalZTKLBqGsx5bDXM8SiznT1Pgg==
+	bh=O7nr/yKGnN/+M712VH7dPBKqFnx9GUMB2SXsPy6Lq/w=;
+	b=4fGtTTKvVgvtLx3h21Tfutr1M5cR+QsBCLAXGRZFd5f44WRvz8NXgbIHBCzzJDZeWrcy
+	 9gsavN1rh3nzo/9olmV/KXlPTyfhgD9qvaxbyJhZFM2X1ckIa38iGNQJDeAaQ8Nxsrx0I
+	 ACI2POUf39BYWJePib+leRHbLcBouQ8jE1bFewBl/VmCIR4WJvKE2hrgbKWqEgPNoTdcV
+	 lmqal0AQkd75L6mIykQcnrafi8TXB9DNCHp3FDVe39lIHn0d3zFSPTt6y8XCEP6Y265B0
+	 L9Vy0e/Y280VkU9z1GRk7dMzz6gKITu7mDflk1GZni4DmufLCTlDXz4GUh37Dv+8lUg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="T1Lt0/8s";
-	arc=none smtp.remote-ip=209.85.221.53
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeTToXO1;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CFF0606A325
-	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:49:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9CFF0606A325
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19126606A324;
+	Sun,  1 Nov 2026 18:53:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=T1Lt0/8s
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-48e0d1da913so1704106f8f.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 10:49:30 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793558969; x=1794163769; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i4kMYe4pF05BAeSRiIgaVbEHMlhyZzqAIkz58RqSejo=;
-        b=T1Lt0/8sM6vsdHVtQUrrSjN+N+RGfd7oTw/E7Iem+qy3KEkUIPeeqSSNSFbKnZ2xWA
-         gP/NJs9vEK0U1VSFD1vACyL62pGU+rvu7Tgzc08NI2GYp5APsDw7XQIu/XC8yOW0I7cf
-         zqR2oxVp3FXmzSpPedq7wro6heKXVbnxubEjVnVnauasf9M4RLRAY87NZR5sVnm1Hupm
-         oCMvcBmGfXi2tA2qJhRtG7YAYZKsvq4j5k2MBzw8NZZozEHTxDyyLypNZs8DdcL2mzCr
-         3yTzJQ8JCh22d5NUpgB4CVuknomiJM0oB5kOZkCQLUElyv26pTWmIMbFUUkUwa/l9hPo
-         BdEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793558969; x=1794163769;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=i4kMYe4pF05BAeSRiIgaVbEHMlhyZzqAIkz58RqSejo=;
-        b=WQvagFVnH2Axfc3kwlm3yqVQVt1PNNksrj9eiBScMwnFsLiuq+zYtn5iB4KOKqHi49
-         Uc4FLf8dCHIiUklKgC1F9OqKfjn5OlIBZk3K1V1aVsuD0eZugFfmEtHnjg4t4UoKYssL
-         UWG8rAUD7agKGfF7orIUTIe/XVuP3DgbweFvHW3XD76AN4rsaKcHwr4Zdj88w03mXqyZ
-         qzzgJItTBvSLjc/AyQbLdhN+TFGwl7jxNPWCm4afT/asotOiFrjz9YEFi9HLl5t6dAGt
-         TWHMyj8nq0+AXQU4agbyh/AAGn6EPXJcMOqeEkotXVnXGF7tBt3hV4Ji8bWhATjM8O3r
-         oFNg==
-X-Forwarded-Encrypted: i=1; AKwUvBwos7SowGWGm9SHduUbN27T1g/w7CQpm9oW4Zs2MT6xKAS4Tw9XJu0WbN9yCqFyWQo5ef/xQauxJsnypzE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9zNZCeVVfHiSTpopXl8MmXklnvBDXEnL+U0nEJ0F8z0HS7QMTx
-	uV39P1rW39PMtKD3zkU16RrNOJhI0SpYxeJ4DDNUjAzehGwDV1sBt+k=
-X-Gm-Gg: AYBFou0MX+9/xCQ0IKg2Xos/emq48/8aUlS6oZJ42wl3GHnz13H9S0KTWD21Js6D8hb
-	Po1cs5URPE7tfPJTZ8sqoCpOy3RYeTHaNUafNTEQpFY+Mhu6p+GZyCAIoTtzagPxwNWYX7Fm3/8
-	eKSSAr9IguMrEPxuWJ5emqOW+1uA2M0UpsBfHGB40M3qfXU4kG/gUGnYCv9qA/DDznKqqHWzvu9
-	ceEI07kFBSaOHVI0JToQ0B92m6mGUQK+RvKlkO43VgKkIPEKHkX/2pyJL8+TSw2w8G8fE7ccJ3U
-	C9kXA3+/uLM2dj6rV2Y7+ku02w8F70iyK04k6PrzDIxC6g6nicyqvhrt39Jeqwe8wGAyZgSCRFN
-	g69ggjRQiYzKrwP9vOcZzI7PQe5iR79+6OtFckc/oEF/uNUip7rjZ+TPdRrSS4Soej4obQFZ7y/
-	zB1EQPVdYE1GBj+1xGxuBJzc9Ir4seaEwOi3XOc8PhFYpJ4z6d6/nVfHahCdWq73dEcF6GFsuF5
-	WVez2VXUN/J4Q7lDvHCaR69wmp4Ht8rVsZfLWV7psF+05XTUFZWpEy+zswHZZS2UMxMBonM8/qV
-	6jJ0bRfans3RzD/ci2nSEwkZ19m3UAghUT/FCW6ZM52W5Eiz7v+eALj/kcOOwzBgGaSYiIxaO+X
-	472a0a0HRN7TfHgQzjkLjG9+kzk1Gh7ipWEvb4w==
-X-Received: by 2002:a05:6000:4012:b0:48e:678d:396e with SMTP id ffacd0b85a97d-48e678d39eemr26985417f8f.9.1793558968758;
-        Sun, 01 Nov 2026 10:49:28 -0800 (PST)
-Received: from localhost.localdomain ([81.199.56.166])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7270asm15530548f8f.11.2026.11.01.10.49.26
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 01 Nov 2026 10:49:28 -0800 (PST)
-From: amit <amittibi123@gmail.com>
-To: andy@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: dri-devel@lists.freedesktop.org,
-	linux-fbdev@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	amit <amittibi123@gmail.com>
-Subject: [PATCH] staging: fbtft: remove unused ssbuf member
-Date: Sun,  1 Nov 2026 20:49:15 +0200
-Message-ID: <20261101184915.33899-1-amittibi123@gmail.com>
-X-Mailer: git-send-email 2.54.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JeTToXO1
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 669D71F000C1;
+	Sun,  1 Nov 2026 18:53:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793559220;
+	bh=O7nr/yKGnN/+M712VH7dPBKqFnx9GUMB2SXsPy6Lq/w=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=JeTToXO1ns3g1Lf8brAFk14jEkw8EwVGlD2GoEOoUsO8Xsb9Msume7fzVl+fhZQPN
+	 q6WaI7R0rC4isz3s3VpLH8nJD5YTENxOns+nwHlFij+nw6vs7FjjrnJ7tHOc5b+2Cq
+	 GOdAMsSSsiOLopqKd0B8lqubh/OEW7egc52tQfT3vDL30Tfv8nXneyio/7+Vym/nIS
+	 dlOqylKibUSGokmUOtnQj9HQvRcQDgnzsMK9gkv2Vy+T6GRvCypnnemEmXFS5EsxZX
+	 MdOXn3NffR0XTTTo0hLPhEJsBszpuYYmLr5H33zJfbD2IljvfJMOhO/f5WTZaMsHvO
+	 DVbblg8Ah1bUA==
+Date: Sun, 1 Nov 2026 18:53:35 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Victor Chernyakin <chernyakin.victor.j@outlook.com>
+Cc: andriy.shevchenko@intel.com, andy@kernel.org, dlechner@baylibre.com,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com
+Subject: Re: [PATCH v3 4/4] iio: cdc: add Texas Instruments FDC1004 driver
+Message-ID: <20261101185335.6a5165f4@jic23-hlaptop>
+In-Reply-To: <SN1PR12MB25286CE39CC09CDD0D07889BA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
+References: <auBTxjakiTKn1LL_@ashevche-desk.local>
+	<SN1PR12MB25286CE39CC09CDD0D07889BA5602@SN1PR12MB2528.namprd12.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,38 +60,107 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-The ssbuf member is documented as unused and has no
-users in the FBTFT driver. Remove the unused member
-and its kerneldoc entry.
+On Tue, 27 Oct 2026 05:04:38 -0500
+Victor Chernyakin <chernyakin.victor.j@outlook.com> wrote:
 
-Assisted-by: LLM
-Signed-off-by: amit <amittibi123@gmail.com>
----
- drivers/staging/fbtft/fbtft.h | 2 --
- 1 file changed, 2 deletions(-)
+> > > I don't like the duplication either, but I think the real problem here is
+> > > that read_avail is just a somewhat awkward interface that doesn't allow me
+> > > to return s64 values directly. To me, having this separate decomposed table
+> > > just for read_avail and otherwise working with s64 values is the least bad
+> > > approach.  
+> > 
+> > What about adding .read_avail64() (in a separate change)? Problem solved!  
+> 
+> If Jonathan is open to such a new API, I could work on that! I think
+> if we're going to add it, instead of just changing the two int* parameters
+> to one s64*, we could add a union for the function to write into. 
 
-diff --git a/drivers/staging/fbtft/fbtft.h b/drivers/staging/fbtft/fbtft.h
-index 40a7567df..3b58bb9d7 100644
---- a/drivers/staging/fbtft/fbtft.h
-+++ b/drivers/staging/fbtft/fbtft.h
-@@ -155,7 +155,6 @@ struct fbtft_platform_data {
-  * @pdev: Set if it is a platform device
-  * @info: Pointer to framebuffer fb_info structure
-  * @pdata: Pointer to platform data
-- * @ssbuf: Not used
-  * @pseudo_palette: Used by fb_set_colreg()
-  * @txbuf.buf: Transmit buffer
-  * @txbuf.len: Transmit buffer length
-@@ -192,7 +191,6 @@ struct fbtft_par {
- 	struct platform_device *pdev;
- 	struct fb_info *info;
- 	struct fbtft_platform_data *pdata;
--	u16 *ssbuf;
- 	u32 pseudo_palette[16];
- 	struct {
- 		void *buf;
--- 
-2.54.0
+Doing it for read_avail() and not read_raw() would be a odd.
+For read_raw() we went down the decompose path because in initial drivers
+it was only one or two out of a whole bunch of values that needed
+the 64 bit form.
+
+The challenge of touching these interfaces is how to make things both
+backwards compatible and avoid need to do major refactors.
+There is precedence in the addition of read_raw_multi().
+Drivers that use that have to use it for everything rather than mix and match
+with read_raw().
+
+Note that we need to also carefully think about impacts on the inkern
+interfaces as they use all these callbacks and the consumer drivers need
+to understand the results - anything in this space goes beyond the
+simple sysfs interfaces.
+
+So there are various things we could do and I'm not sure which one makes sense.
+Maybe we do have enough users now to justify a new interface. I was unconvinced
+in the past but things do chagne.
+
+Anyhow, options - note I don't want to do read_avail only as that to me
+leaves us in a silly intermediate place.  So just consider read_raw().
+read_avail() should follow naturally.
+
+1. read_raw_multi() path.  Drivers opt in to do everything in 64 bit.
+   Maybe painful and that inkern.c consumer bit needs some papering over.
+   I haven't thought about how painful that will be.
+2. read_avail() vs read_raw() path.  Given not all properties have meaningful
+   available values. Hence thes two use separate masks and opt in.  Here we
+   need to avoid that as would be significant bloat.
+3. Mix and match. read_raw() for some things, read_raw_multi() for others.
+   How to decide?  I don't like try one and see if it returns an error.
+   Could use something similar to the write_fmt callback.  So drivers
+   could say what the format of a read_raw was and use that to pick between
+   callbacks.
+
+Generally I'm not sure.  Probably needs some experimentation to find the
+cleaners solution for all the paths that use these callbacks.
+
+
+> That way,
+> not everything needs to be represented as raw s64's; we could introduce
+> a proper range type for example:
+> 
+> struct iio_range {
+>     s64 min;
+>     s64 step;
+>     s64 max;
+> };
+> 
+> struct iio_available_value {
+>     enum iio_available_type type; /* IIO_AVAIL_RANGE, etc. */
+>     union {
+>         const struct iio_range *range;
+>         struct {
+>             const s64 *vals;
+>             int num_vals;
+>         } list;
+>     };
+> };
+> 
+> /* Used like so: */
+> 
+> static const struct iio_range fdc1004_calibbias = {
+> 	.min  = -0x8000 * 488281250UL,
+> 	.step = +0x0001 * 488281250UL,
+> 	.max  = +0x7FFF * 488281250UL,
+> };
+> 
+> static int fdc1004_read_avail_ext(struct iio_dev *indio_dev,
+> 			                      const struct iio_chan_spec *chan,
+> 			                      iio_available_value *out, long info)
+> {
+> 	switch (info) {
+> 	case IIO_CHAN_INFO_CALIBBIAS:
+>         out->range = &fdc1004_calibbias; /* No casts! */
+>         out->type = IIO_AVAIL_RANGE;
+> 		return IIO_VAL_DECIMAL64_FEMTO;
+>     }
+> }
+This ends up as a bit of an implementation detail. Might make
+sense to have such a structure / union. I'm not sure yet.
+
+Jonathan
+> 
 
