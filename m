@@ -1,56 +1,56 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.171
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793559496;
-	b=vY+xXh15RCZbP/gye8tE/PMZ28HudajH8SkDhn9t5qW+3y+jmdrDOh1EJ+mUuFKOb10a
-	 M2SNCeBsM6Z1R/vMpnLZyJSmsjv1rNmJREmoN8dVkUuahwNYJhEpE5N4DZa1JRPeAUBmG
-	 oIb+Byeb790dGQpH8ySMpF4Npm1q3tilPNgn2+CrppnnvS8SDpWhKBGZsb6MjAY7xzq15
-	 Hzyjc4OFSlIGfeeMf8SSThfPgFXWCBFYlicCfRFp4zvrQ0oIUBFbgSlzSQWVwo25DmBQK
-	 5dPwHIwixfSkvTovrIk4UjK5Itt6HXitS3e8KQLrG0tkZRoUELYcsB6SezQx/JVjPnQ==
+	t=1793559502;
+	b=scWskZPkguqr6SPP1PrZZAW0gpwvHCQWir41/ycocQt1m+JdfqlH+ZqowbMGwmA4G9vi
+	 zj2p6byUR0V5dJ9k9Cp2cDhaFzpwa076Gr+p2IsI5wjZ4hpIQ+9nJZmyT0TQRJGmbybMm
+	 4XfSSI7B8O/cwmNL4mhV2Tmfh2R3/dzvjQJsPI9bvV3kQk17HgVRcixqvecTXjsLo5E9c
+	 UzQuwroQzVEexhkiLQOuivZYvGUnuYdGdDJXLJtQIQSMnTL1o6idwF4UsVVV4xPcCeO2m
+	 xmO8TH+0dYlLD5ycBGkDldk3UnjkHo4qa+MOkJF/bvhVuneR+Md73VnaVz7OGcsD99w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793559496;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793559502;
 	h=DMARC-Filter:Received:DKIM-Signature:From:To:Cc:Subject:Date:
 	 Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
 	 Content-Transfer-Encoding:X-Rspamd-Queue-Id;
-	bh=ptw+MuKIB/nDKNuKuc8q9Chj/1S3rLY9q3tb7HiLDxM=;
-	b=mwJtIyF0ppORVNaH1BhT5ZjiXnvJQ2g+OWvJwvTWM441bjlazQ/ubK6GckTKkzCI/M9j
-	 a2B0exlkJna7w5QW3YLqDaf9QJshcs+rkYQADzSz+Aoc6fvKZ1olR/LBlgW1RGU2ev48d
-	 K8xkx6juOuNE05Q1gC1hH4HDm2Pk1YIj/PVl4GNtE4fzJoAGCq5lsSU2alcVXeOi5QHfK
-	 8KIy6uVGGcI1+mVpqK2UkWbv93HVnvhOiBM67INl/IgBnldgpu9k06OFA5q0lk4R2SN3R
-	 z/suEVYUqsO1s2IfnhEtSR+qKIHe4e8509x0dqobw0fDXcTZFrbZgdk5s5x0wdHkvuA==
+	bh=x5fTb5UWBlgiWGkgOOBDAPFo8Ho3NRa1iT80XUYs+XY=;
+	b=rAonsfVAALugXqwRNHhk8PP+eQSFNctlQKKRPHeziPQsmhx4jehKr+h+8LRhL037grIP
+	 FViCKzWNL50XuoSi4s6XFf/E2bv14zjrPASFrO1vFI2x7eVkgRFT4CjfA4Qv4QQ1LPvd4
+	 y5cmVdQqqnTo+XMx7rmO+b7tn/BNIIlKk1HR4crDjubtzxGcu+dUJiwyAoC+xmUfC66q+
+	 NByL28rtXHNqWajlRgaCiL0jeM2KIcw63LeWDNBwOxdrxex3Jr7NGm5TV5g8ONRZYwXcK
+	 RcP8Un3nzewYz/zX4VAAsimt+X1roHXYnwub6rXmn+hCzgDuPTjTWRYFaeLtSc3VP/A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=hsal.es;
 	spf=pass smtp.mailfrom=hsal.es;
-	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=G1kYf7WO;
-	arc=none smtp.remote-ip=80.241.56.152
-Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=ry3hCN5V;
+	arc=none smtp.remote-ip=80.241.56.171
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E98D606A325;
-	Sun,  1 Nov 2026 18:58:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0E98D606A325
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81CDB60A2610;
+	Sun,  1 Nov 2026 18:58:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81CDB60A2610
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=G1kYf7WO
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=ry3hCN5V
 Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jHkch6h4SzKp9t;
-	Sun, 01 Nov 2026 19:58:12 +0100 (CET)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4jHkck1PTGzMlB2;
+	Sun, 01 Nov 2026 19:58:14 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
-	t=1793559492;
+	t=1793559494;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ptw+MuKIB/nDKNuKuc8q9Chj/1S3rLY9q3tb7HiLDxM=;
-	b=G1kYf7WONy4WGNc1L+iXOuj4ZvU12x9SR3+jVRfniJKg6X5HwDpSt+NastzfDwdxrKZkLL
-	ArM2WqcYg2RwhUOzraq1JfJWC6/HnIxEuxrNM35TAG3QQIPd8n7y+vQM2slbFiXrYdMhxF
-	cIQ8O1AzAOozMZZlCkuJgpfXj1fB9wcnMp708Z7jEnf+IUIpq4vq9Ra0k9pEk2k752kg+y
-	KLwK4GwFE2+YYpm3vXMcGGBPbYPZvWtV/293hmAH6+1uETHKNEE/+87sCEjbOfooYGIPtg
-	7xa7BNyAmcj/Kpbedd21I13sbtY46B1U8WCGFcVNdqilXiRE0GYrU/AxtCikWA==
+	bh=x5fTb5UWBlgiWGkgOOBDAPFo8Ho3NRa1iT80XUYs+XY=;
+	b=ry3hCN5VJL/ERMI1JVM+B58zISOvY4hcFtzGbXEZSkj0OqEZIRbyfcOSO2NzhTJeSiZoNW
+	NhuLyXw46ky0WLkFWa4K7pmvUGH4FO1waj1LgAZ9c6cemLbLc4hbTNzlrviWAmyWj8A2+i
+	C58AMZGaGXB2EA2qJ3rZgfrMa4kcc/H6Lq0OtSZnHJVvRgTrZGkrTkIZg0RipL7pX+WCxA
+	5hs4USb/yhVFWXi/9JSUU1Xmk076nz6Vd64iq2Dw6yasjRvJscXAv+oyBkvANSVbkEjARq
+	M8M2q72mTQWPs8qmhpCuT/msOmFBcP4cSj1hQFBb9hBAYAU5Oeewva/2lb/khA==
 Authentication-Results: outgoing_mbo_mout;
 	dkim=none;
 	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::202 as permitted sender) smtp.mailfrom=hugo@hsal.es
@@ -67,9 +67,9 @@ Cc: Len Brown <lenb@kernel.org>,
 	linux-acpi@vger.kernel.org,
 	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH 2/4] cpufreq: intel_pstate: Send CPUFREQ_UPDATE_CPUINFO on max_freq changes
-Date: Sun,  1 Nov 2026 18:58:05 +0000
-Message-ID: <20261101185807.112449-3-hugo@hsal.es>
+Subject: [RFC PATCH 3/4] ACPI: processor: thermal: Factor out the thermal_req update
+Date: Sun,  1 Nov 2026 18:58:06 +0000
+Message-ID: <20261101185807.112449-4-hugo@hsal.es>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261101185807.112449-1-hugo@hsal.es>
 References: <20261101185807.112449-1-hugo@hsal.es>
@@ -83,46 +83,61 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Rspamd-Queue-Id: 4jHkch6h4SzKp9t
+X-Rspamd-Queue-Id: 4jHkck1PTGzMlB2
 
-intel_pstate has no ->set_boost() callback. It changes
-policy->cpuinfo.max_freq in __intel_pstate_update_max_freq() when
-no_turbo is written and when the HWP capabilities change, so
-policy_set_boost() never sends CPUFREQ_UPDATE_CPUINFO for it
+Split the cap computation and the thermal_req update out of
+cpufreq_update_thermal_limit() into cpufreq_update_thermal_req(), which
+takes the policy and the step as arguments. This prepares for
+recomputing the cap on CPUFREQ_UPDATE_CPUINFO, where the notifier
+passes the policy and the step is stored for each CPU
 
-Send the event from there when the value changes, before the policy
-limits are refreshed
+No functional change
 
 Signed-off-by: Hugo Sales <hugo@hsal.es>
 ---
- drivers/cpufreq/intel_pstate.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+ drivers/acpi/processor_thermal.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/cpufreq/intel_pstate.c b/drivers/cpufreq/intel_pstate.c
-index 0e6ae4cdda5de..f9e356409f199 100644
---- a/drivers/cpufreq/intel_pstate.c
-+++ b/drivers/cpufreq/intel_pstate.c
-@@ -1429,13 +1429,19 @@ static void intel_pstate_update_policies(void)
- static void __intel_pstate_update_max_freq(struct cpufreq_policy *policy,
- 					   struct cpudata *cpudata)
+diff --git a/drivers/acpi/processor_thermal.c b/drivers/acpi/processor_thermal.c
+index 11036f0d2b942..25c4b0ad64e36 100644
+--- a/drivers/acpi/processor_thermal.c
++++ b/drivers/acpi/processor_thermal.c
+@@ -88,23 +88,30 @@ static int cpufreq_get_cur_state(unsigned int cpu)
+ 	return reduction_step(cpu);
+ }
+ 
+-static bool cpufreq_update_thermal_limit(unsigned int cpu, struct acpi_processor *pr)
++static void cpufreq_update_thermal_req(struct cpufreq_policy *policy,
++				       struct acpi_processor *pr,
++				       unsigned int step)
  {
-+	unsigned int max_freq;
+ 	unsigned long max_freq;
+ 	int ret;
+ 
+-	struct cpufreq_policy *policy __free(put_cpufreq_policy) = cpufreq_cpu_get(cpu);
+-	if (!policy)
+-		return false;
+-
+ 	max_freq = (policy->cpuinfo.max_freq *
+-		(100 - reduction_step(cpu) * cpufreq_thermal_reduction_pctg)) / 100;
++		(100 - step * cpufreq_thermal_reduction_pctg)) / 100;
+ 
+ 	ret = freq_qos_update_request(&pr->thermal_req, max_freq);
+ 	if (ret < 0) {
+ 		pr_warn("Failed to update thermal freq constraint: CPU%d (%d)\n",
+ 			pr->id, ret);
+ 	}
++}
 +
- 	guard(cpufreq_policy_write)(policy);
++static bool cpufreq_update_thermal_limit(unsigned int cpu, struct acpi_processor *pr)
++{
++	struct cpufreq_policy *policy __free(put_cpufreq_policy) = cpufreq_cpu_get(cpu);
++	if (!policy)
++		return false;
++
++	cpufreq_update_thermal_req(policy, pr, reduction_step(cpu));
  
- 	if (hwp_active)
- 		intel_pstate_get_hwp_cap(cpudata);
- 
--	policy->cpuinfo.max_freq = READ_ONCE(global.no_turbo) ?
--			cpudata->pstate.max_freq : cpudata->pstate.turbo_freq;
-+	max_freq = READ_ONCE(global.no_turbo) ?
-+		   cpudata->pstate.max_freq : cpudata->pstate.turbo_freq;
-+	if (policy->cpuinfo.max_freq != max_freq) {
-+		policy->cpuinfo.max_freq = max_freq;
-+		cpufreq_notify_cpuinfo_update(policy);
-+	}
- 
- 	refresh_frequency_limits(policy);
+ 	return true;
  }
 -- 
 2.56.0
