@@ -1,47 +1,47 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793564928;
-	b=JmOWH/f5W7t9B7DvIDFHCVNre9GzNG4V6f/BzoBJuARkEizgD/gB4rp/w+f7YfBtHJcU
-	 gKyt2aPQau4bJ+vuNyQCKOTkqK0HbIkXpnADbSXjblcZi5t4t2ZC+OsGJWzxRQPq+31vE
-	 lEhWm7eJWVx/aVoRnzy9PGrTfZknnz3+kKj+VGNM4ZO37WFIAX07NhZTHDZyNXt2FHl9+
-	 DGVGJPeTOq35YWU0PtSCBG+rUEW1QdtWJHbjUZZqfBnFEg1+dtIUrmOjgGjRA3+wn2osr
-	 GiPI6Yr4D+YiCSRcqnog0eYI+rtLpCye1AuxATd0qU6++AWPGsMJxieX3L+OQgM7IdQ==
+	t=1793564987;
+	b=ytiZNNi4q0Vho3sIMI/DaUfU3rHeHzFneIGd8ogl6MAzwzp2hLRGMUXYGMMhfeKe7Ws1
+	 nTwgZxe4WZBXIdQ77RiRcZQYJta42La7JoIMJw5RogHjdpDeslK0dYv5olkIrsPQzl6QF
+	 WwnQItsGUzUjnZ8JQhemlkGC6G9jCBx5rt+ab9X1CGAMsMSP87+3EEFwmkpa2D/OY+oB4
+	 tIko4udpuuz8UyqUO+MimU7Fht78kJWm11twTuhh0hfKhdrSWtDeSPNh9EvN0zzL3WX48
+	 /U1+1GItA+GxQmxdlE/01kgIMCghZMuFzwP1k48BOPH3vlKfj9W5sVYYHHBoCgv4whw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793564928;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793564987;
 	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
 	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
 	 Content-Type:Content-Transfer-Encoding;
-	bh=cbmE3kphP4smnb7V900fJ5gzLZ4XdgQ+RznkeVECxJY=;
-	b=GDH9rdgYoUmpYL+sINZWkPp8Fu1q0qkdbSOsIM+qVNipKhy8hFqe4YpOxXUO9nSuWPXv
-	 DkSQKIVuUyJEVe5tKPVYxyK46xFHt2zUIdF8FKTnz19ltMJ+JzidA+n0LyT4AHCcxMPTN
-	 F9pcOJ0oMkAlr+QUOZhkcLuqsaEMpURL0d3dLQa7bOIBVo68C0CE0gDZIbozRKW/1vvit
-	 3ejqiTrX/78/aWcm3UzYXUCP3ABMtuo1J71X7vil/ukME6P/SEuZ7uWtMWUyluQGsbgdk
-	 DcaQwFUHP0INo4X//UHKJMDOHGIDthUw4xPq7t7zWfrgKGVh8V2MiiZvYaOi4SRY4GQ==
+	bh=tyBCW4dL7dxwpqiq+RaHFPz+hKBl6ALLSIM9B59I3dk=;
+	b=vtnougR4tAkN57wchANwAVLsYxCBRLBv+7pMJWSA0WA6wdePjA7lJFQvT8BZkOJVV06I
+	 7NKsZXWdXlQJDztu4GdJxVswjOfWRXkhVBNPfpqDalChtRDHZm09jOg5fYGtyPudYujff
+	 7EZB4RKLORpKsAEwpcDwCAgoefLMQyzD9biBVCBOAlkSWnu0weJ63ORWEmuJR5jl+QVkN
+	 a0TeDLwIUu0Ra/mM59W+OqftRO4KHLouyHLiIEQk3KYcRpxLLGASS6Y3tTjtSCcDCh9qv
+	 eemWkeT/zbXzZ53w6fxK6R98SwRW+dMsggwiCBX4sl7YQbtXbxA0bK5VfDDsQ9gY/rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJFYlP5P;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh0r3ntm;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20886606A325;
-	Sun,  1 Nov 2026 20:28:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02226606A324;
+	Sun,  1 Nov 2026 20:29:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJFYlP5P
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4FFB1F000C1;
-	Sun,  1 Nov 2026 20:28:43 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Nh0r3ntm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B17921F000C1;
+	Sun,  1 Nov 2026 20:29:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793564927;
-	bh=cbmE3kphP4smnb7V900fJ5gzLZ4XdgQ+RznkeVECxJY=;
+	s=k20260515; t=1793564986;
+	bh=tyBCW4dL7dxwpqiq+RaHFPz+hKBl6ALLSIM9B59I3dk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XJFYlP5P+bCkZcqHuPIQuiHgVPU2w7JbnDS2jR4Uib+GbkmiIfAGlcAiuyz7xwu0C
-	 5ZShGqUKR+4hYoRl8UCFwrqIxvjiqCbiuSU0rxt9Xbv3zEiR+mA6+2RipuXYVC8QZG
-	 ET+7cVxC3yFQkyjzta/iqwjGsaRMq6LZJgKS3VxJehCuTH2sra/I1f8U+FWZudXVEt
-	 LrHiw3K029Il4cjnRo7ZUgIsTNbESev2UXTGKiq/kVgaQ/rxvHt6iouQ2+0kYY0+AY
-	 Ge++o+GqbayyUA6aa8QvFm3rxQR4fjAcHjqzUEnjOeVy9m4RzEuvYspArfm0vYiIuz
-	 p6OaaXrl1Zsyw==
-Message-ID: <e5b53ac2-87f4-45cd-9667-91cbb45fbcb0@kernel.org>
-Date: Sun, 1 Nov 2026 21:28:41 +0100
+	b=Nh0r3ntmiuua7iX+B4hCTpkrm6Y1aN65kGtShyxvwFfFy7VzSbltFC3P+ZbETyc1H
+	 8rKbKmxpm4upRgjpauF4op4eiZRr/tPFsCOviHiJ6p7p/9HqB6+BYDK4/qpemt67PU
+	 CXhvr1AHoOakq/A4e8m8prW2m1zIQWDNE4xEkNUHi2LGHaA/Ql9w3mrTfF/y7Q44RY
+	 HxQEXYXHEKsW7xUEmPx6BnFig507WgcIeHHdxKWgE9OpIpj1eDedOBnovAxgh8UPss
+	 q5ExaQkvEKYKqNpCrxPkWD53788S3J6h5fDLOdLq2l7v91AHjHQJNEXMCG8lfUZYKK
+	 UpjyZIhaOHysA==
+Message-ID: <931ef103-d0f1-4f5e-b906-47af4dad6015@kernel.org>
+Date: Sun, 1 Nov 2026 21:29:41 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,20 +52,20 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/6] dt-bindings: arm: qcom: add SA8255p Ride board
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+Subject: Re: [PATCH v2 5/6] arm64: defconfig: Enable PWM_CLK for backlight PWM
+ support
+To: Anand Tiwari <anand.tiwari@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
- Shazad Hussain <shazad.hussain@oss.qualcomm.com>,
- Bartosz Golaszewski <brgl@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-References: <20261031131042.1200862-1-shengchao.guo@oss.qualcomm.com>
- <20261031131042.1200862-6-shengchao.guo@oss.qualcomm.com>
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-rpi-kernel@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20261030-lyra-display-upstream-post-v2-0-906302159392@oss.qualcomm.com>
+ <20261030-lyra-display-upstream-post-v2-5-906302159392@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -111,23 +111,21 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261031131042.1200862-6-shengchao.guo@oss.qualcomm.com>
+In-Reply-To: <20261030-lyra-display-upstream-post-v2-5-906302159392@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 31/10/2026 14:10, Shawn Guo wrote:
-> From: Nikunj Kela <quic_nkela@quicinc.com>
+On 30/10/2026 10:40, Anand Tiwari wrote:
+> Enable CONFIG_PWM_CLK so the generic clock-based PWM driver is
+> available, used by the Qualcomm Talos Lyra EVK LVDS panel overlay
+> backlight.
 > 
-> Document the SA8255p SoC and its reference board: sa8255p-ride.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> Signed-off-by: Nikunj Kela <quic_nkela@quicinc.com>
-> Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Tested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Anand Tiwari <anand.tiwari@oss.qualcomm.com>
+> ---
+>  arch/arm64/configs/defconfig | 1 +
+>  1 file changed, 1 insertion(+)
 
-Drop. Binding cannot be tested other than build process.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
