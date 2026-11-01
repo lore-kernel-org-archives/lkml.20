@@ -1,59 +1,58 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793558052;
-	b=s2hUv3S/ZuLSQrao18cOjsFoCZCC8ys3JCB7IPS6tdZnpYFGcc/VtAdEPvsM4/BbnR2b
-	 JBO7dv4TlhriT3dt5F0XTG9mTcQsbx3qnGtAf4YOCgd/orrHV0KQE6/e2SlHvHRb2Vo6m
-	 CyM6+2r2ZsSm5onzr6KIrNdNt3YS9E5pXUrYXIRPYhv2JAJr/rwoyrqm4YAp8fGWxAPdm
-	 02UuG40mUUYNp2WQboDTL2+8V1/IeKgwlc/ox2pKKH83zlvmFm2VBMTMGEg/dB9D6yPRu
-	 8l3mwNXi+cO5ir2Y0X4oZDlMYi07+KWQfGWYa3h9z9Bs7f/YAQYGVYzdYFruh6zGN5w==
+	t=1793558058;
+	b=An8R8w/80Wd3XUJYDjje3FY1sGimHRJnC2jF7+jlhcrAq6lK487IMwS0Gu8WXxq7tnuv
+	 hwZtYfMIHfFs0rJm9PR1HwQBCYvcNBbNt0fPD6lAxhj8qzX8hqSDc0k7R+QFWzAoSqtIs
+	 POaDnLfU514ItG2QSFiWg6D5JYTwMO4ZQNQo2W9hUocX3aMQ0Z/35/w7F17N8Nn5YNe/y
+	 iHQfw29Mrs4/7+OFxpn3pwXnXFY+8VZGM+auRtxy0awzsTgiHhVQAvc4f15iBuggjBLLh
+	 hrLFz4IK2tz1q8XDKxpmwb8n2vYqSNQO/blUP8VbVs6CapTh089N8/1XJuGTl8zLGCw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793558052;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=Mdcb8PA8Fd6Cc1lT/iQNz2eYhuJFQtFMCUvyRyZT5cY=;
-	b=cS7//4zHjdeSLfotgHKMtW3pVPcyB9hmEFOBzedxHdtWvucSueUK03IgJDlyDddhxKkK
-	 HnVhPjrkd1ZWCkSA57ppncnlS8pMYWmFaHo9yrsQTJS9TZAA8jKnypOkZHuMhauwYR8YE
-	 cJyaQvijOVvj//A+BaraRsJ5K9RvbfLT0aPVy1plenIVxKG74ywRq0ehyX5TVzkUJiEyz
-	 Q28xaPNRWa2TsYycI3XH1gvkj1RdEn2lEjTu1ulvaQNtHZ/R+PY9FJ1BaYpXrSbv9QB0K
-	 Ra4Pc5zbLTliWimTHEKjx3twWr3z3D+3Dx7RN3gEE2SXaz5Hm1Kv7rPbnRMcNDZWzRw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793558058;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=vmoWTKpodF0sixBD3Bte4QbXRriDHgbk+I5LKRP+ucY=;
+	b=C6qyaPcyBelSu81N2t8cXTTT0V+yGyEDK36IAUZ05GYVTzh1MYq8+JiZvrPBvPawElaH
+	 ukURYGFq4UTTtgOuUb5l/bQ+IrsqxtPqzjvHrZH4KfW4oevmQ0OlTNpCPq0/BmIAwMYJC
+	 yHxky11hJBD3NFGdqydXVYORJUD9RBHnLnTXYXQOxu+ufeN3vFXhe0c9FF3qS3EfJqJu3
+	 ked3MDf6n2/rNJdntLuKkOgUZsaRlQzL9ErhoaKzsLmfoyJ34iN8TmD8otycsadl5AbvH
+	 rW5cNzx6+5gMlatduF5egwC0SiTTnxitWeVcy5Gg7cO8uxPG8Evsb3JCz2IhtZPw/rA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLm3dxmD;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LAqonWv4;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CD47606A324;
-	Sun,  1 Nov 2026 18:34:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562CD606A324;
+	Sun,  1 Nov 2026 18:34:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLm3dxmD
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BAE51F000C1;
-	Sun,  1 Nov 2026 18:34:11 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LAqonWv4
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B1151F0093A;
+	Sun,  1 Nov 2026 18:34:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793558051;
-	bh=Mdcb8PA8Fd6Cc1lT/iQNz2eYhuJFQtFMCUvyRyZT5cY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hLm3dxmDedMrL0uJIydX4V5pvwijynFBnvMmkO6AIa0gsNMiytEFTqd9cpmP0BfeW
-	 ZGWcQpNCYUIqDD7t+eNji1CYS0nnQLYbFzUG63Fm7Lb5artoBEnMRWXTJZNQw5q8FE
-	 E1ZVVghFjQeJSsWKS+GmlMNUhWXooFCdo+pMWFxy8XomwZ8J655cLKN/a0++FZrsL3
-	 ReT6z0RPW/G+APAN9gLEKHp3PUIXWkUJVAQF8gQfyxNz8I69AEv7RC1MdQJg0KuGMF
-	 FbrTg+FmcBnCO58kp4sOFyUhd+oVWYjd7vSmMYWrDwigh8wLQ3zXULhDszeWbUu86s
-	 Ck5iniqhfHDlw==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: Re: [RFC PATCH v0] Docs/mm/damon/design: document data attributes report infra design (beyond page table accessed-bit milestone 2)
-Date: Sun,  1 Nov 2026 10:34:04 -0800
-Message-ID: <20261101183404.85322-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261017195747.89961-1-sj@kernel.org>
-References: 
+	s=k20260515; t=1793558057;
+	bh=vmoWTKpodF0sixBD3Bte4QbXRriDHgbk+I5LKRP+ucY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LAqonWv4/N7g4i3hDOfoLq0a6yhIonzlH+Zb8HBsVvhoBSBqQc0BfmHVwJl8U5NvW
+	 vwnoXAtWuGRsM8Xw1PSr/CKYtB/5G9nCURN2r3MqtGNwY3e2+Ul158+xhPz+BUlwL2
+	 1WIcm6iGrs5GaDSuSclgIo5mScesPMkN6gB1suDAf2gHTG3p3DOv+1V8a9fczc1J1h
+	 14NNfc39ZIRovlkXAKnv1cXgdBW0T1Im57YrzAfxGpT03PVwdyj+gC6+2lIS5IUObU
+	 9yLGCYakHYWK6SKULeUNa/dY6WWSDbF8cfSTT+XLYZTEqPJNMeWYz6ZN0T43YeSVKn
+	 pZzUfr8/Mh7FA==
+Date: Sun, 1 Nov 2026 18:34:15 +0000
+From: Harry Yoo <harry@kernel.org>
+To: Kees Cook <kees@kernel.org>
+Cc: Chris Down <chris@chrisdown.name>, Vlastimil Babka <vbabka@kernel.org>, 
+	Andrew Morton <akpm@linux-foundation.org>, Hao Li <hao.li@linux.dev>, Christoph Lameter <cl@gentwo.org>, 
+	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, 
+	Marco Elver <elver@google.com>, GONG Ruiqi <gongruiqi@huaweicloud.com>, 
+	Jonathan Corbet <corbet@lwn.net>, linux-mm@kvack.org, linux-hardening@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, kernel-team@meta.com
+Subject: Re: [PATCH v2 3/6] mm/slab: Support disabling SLAB_BUCKETS at boot
+Message-ID: <aud4gPOUzvHtLYnJ@thinkstation>
+References: <cover.1793253633.git.chris@chrisdown.name>
+ <9a68a4d95830352ad3821437c2e22c30a673055b.1793253633.git.chris@chrisdown.name>
+ <202610302115.8C7AD110@keescook>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,153 +62,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <202610302115.8C7AD110@keescook>
 
-On Sat, 17 Oct 2026 12:57:45 -0700 SJ Park <sj@kernel.org> wrote:
+A gentle ping to Kees to hear his thoughts on having a bit more
+coarse grained boot parameter e.g.) `slab_hardening=` to specify
+how much performance/memory is worth sacrificing for enhanced security.
 
-> The "beyond page table accessed-bit DAMON extension" project [1]
-> milestone 2 is for building the basic infrastructure for continued
-> extension.  After starting it, I studied perf event little and found a
-> few demons in details.  I therefore spent time on high level design.  As
-> it started looks like making sense to me, I'd like to share the humble
-> design first and get feedback from more eyeballs.
+Quoting an email from [1], Harry Yoo wrote:
+> On Wed, Oct 28, 2026 at 11:27:37PM +0800, Chris Down wrote:
+> > Harry Yoo writes:
+> > > If we end up supporting boot-time parameters for hardening,
+> > > I think it should be all enabled (or disabled) by:
+> > > 
+> > >  slab_hardening=none|light|full
+> > >  # please feel free to suggest bertter names
+> > > 
+> > > none: "Turn of all of them to maximize performance"
+> > > 
+> > > light: "I'm willying to sacrifice _some_ memory and CPU for security"
+> > > 
+> > > full: "I'm willying to sacrifice more overhead for security
+> > >
+> > > IMHO more fine-grained knob for each feature doesn't make much sense.
+> >
+> > I think if we did the 4 knobs that is a good idea. Given now it's two, I
+> > think it seems reasonable to keep it as two separate knobs unless you
+> > object? Otherwise I think given it will only cover the latter two, it
+> > should be something like kmalloc_isolation= instead. Let me know what you
+> > think.
 > 
-> Add a blueprint of the milestone 2 as a high level design document.
-> Describe the API and ABI of data attribute report infrastructure, and an
-> example use case of it for per-CPUs write-only monitoring.  The API and
-> ABI will later be extended for more data attributes reporters utilizing
-> AMD IBS, Intel PEBS, Arm SPEs like h/w features and any possible
-> DAMON-external reporter kernel components.
+> There has been constant, steady efforts to add more and more hardening
+> features over the last decade. So I'd say slab_hardening= is more
+> future proof :-)
 > 
-> Request for comments
-> ====================
-> 
-> This is an RFC for high level design discussion, so no implementation is
-> provided.  Comments I want to receive include but not limited to below.
-> 
-> Does the idea for perf CPU cycle sampling based access monitoring makes
-> sense?
-> 
-> Does the design provides clear idea about how it can be extended for the
-> future extensions that already scoped for milestone 3 (AMD IBS, Intel
-> PEBS, Arm SPE)?
-> 
-> For the foreseeable extensions (AMD IBS, Intel PEBS, Arm SPE), would the
-> required change minimum and maintainable?
-> 
-> Next steps
-> ==========
-> 
-> I will start implementing the infrastructure and perf CPU cycle sampling
-> based access monitoring as described in this patch.  It will go through
-> the normal development process.  Delivery of it will be the completion
-> of the milestone 2.  As set on the initial roadmap [1], ETA of the
-> delivery is LSFMMBPF'27.  No delay is expected so far.
-> 
-> [1] https://lore.kernel.org/all/20260525225208.1179-1-sj@kernel.org/
-> 
-> Signed-off-by: SJ Park <sj@kernel.org>
-> ---
->  Documentation/mm/damon/design.rst | 44 +++++++++++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
-> 
-> diff --git a/Documentation/mm/damon/design.rst b/Documentation/mm/damon/design.rst
-> index a465e34bb1d9c..1e699e3f8a496 100644
-> --- a/Documentation/mm/damon/design.rst
-> +++ b/Documentation/mm/damon/design.rst
-> @@ -433,6 +433,50 @@ monitoring.
->  Refer to the :ref:`admin guide <damon_usage_sysfs_probes>` to know how users
->  can use the mode.
->  
-> +Data Attributes Reporting
-> +~~~~~~~~~~~~~~~~~~~~~~~~~
-> +
-> +Infrastructure for receiving attribute information from DAMON-external kernel
-> +components.
-> +
-> +Because DAMON is not hooked in every place but runs in its own worker thread,
-> +it cannot retrieve some types of data attribute information by itself.  Many of
-> +those are available to DAMON-external kernel components such as perf event
-> +callbacks and page fault handler.  For such cases, DAMON provides attributes
-> +reporting infrastructure.  Using its API, any kernel components can report
-> +their finding to DAMON.
-> +
-> +The API for doing the report is a function, damon_report_attrs().  The function
-> +receives the attribute information and saves it in DAMON's internal buffer.
-> +The function is safe to be called in any context including NMI.  The internal
-> +buffer has a fixed size and keeps only latest reports of the size.  Because one
-> +buffer size doesn't fit all, multiple report buffers of different size and
-> +rules can be generated and shared by multiple reporters.  DAMON provides API
-> +for such management of report buffers.  damon_report_attrs() can specify into
-> +which buffer the report should be saved.  DAMON user interface (ABI) for doing
-> +the buffer setup, and enable/disable reports of supported types is also
-> +supported.
+> Kees or Marco might have more insights on this.
 
-I allowed callers/users to manage the buffers because I didn't have a
-confidence at maanging the buffers in a good way.  But I now think it was not a
-good design choice.
+[1] https://lore.kernel.org/linux-mm/auIVIKxjrdXIaUIY@thinkstation
 
-First of all, it is offloading decision to users.  I also feel like this design
-exposes too much internal implementation details to users.  It would be better
-to let DAMON just manage it.  If it turns out to be too suboptimal, we can
-later consider optimizing it and even let users control it if really needed.
-
-Letting M:N reports:queue routing makes it quite complicated, too. 
-
-So, unless others object, I will change the design to hide the report buffers
-management from users.
-
-> +
-> +The data attribute probe supports the reports.  The probes can be configured to
-> +hit for a given memory region depending on the existence of specific types of
-> +reports that associated with the memory region in given report buffers.
-> +
-> +For example, per-CPUs write-only monitoring can be configured using this
-> +infrastructure like below.
-> +
-> +The user sets a report buffer and enable CPU instruction sampling report for
-> +the buffer.  DAMON will enable perf event counter for CPU cycles sampling.  The
-> +sampling callback will save the sampling time CPU instruction and the id of the
-> +CPU that was executing it, into the DAMON report buffer, using
-> +damon_report_attrs().  DAMON can automatically adjust the perf event sampling
-> +frequency to minimize old report drops due to the buffer size limit.
-> +
-> +The user further sets a DAMON probe.  The probe hits for a given DAMON region
-> +if a store instruction for a memory in the region that was executed from a
-> +given CPUs group exists in the report buffer.  As a result, the probe hit
-> +counts represent relative frequency of writes from a given CPUs group to a
-> +given memory region.
-
-My initial plan was to implement the above per-CPU write monitoring with the
-milestone 2 patch series.  That's mainly because we don't want to have an API
-without its callers.  But implementing perf cycle sampling would be no small
-amount of code that require extensive tests.  It may take time and make the
-patch series quite big.  I'm now trying to make it small and quick.
-
-I find this report infrastructure could also be used for direct user reports.
-That is, users might know which memory they are accessing, and want to ensure
-DAMON knows that, by reporting their information using the report infra.  I
-will expose an ABI for such direct user report, and connect it with the
-reporting infra.  That would look similar to that of DAMOS quota goal
-user_input metric.  I will continue implementing perf cpu cycle based report
-producer implementation on top of it.  But maybe we could also just call the
-user report as milestone 2, as there will be no more blockers for other works
-like AMD IBS support.
-
-Unless I get concerns on above plan, I will update this design patch and write
-user ABI documents.  I will share those as RFC v0.1, and keep iterating the
-documentation-only patches for continued design discussion until I get a
-confidence in the interface design.
-
-FYI, damon/next [1] tree may have hacky changes that could significantly be
-changed in future.  Please don't rely on those.  Don't spend time on reviewing
-those.  I sometimes regret I should named it 'damon/hack'.  Anyway, I will
-share things that ready to be reviewed on this mailing list.
-
-[1] https://origin.kernel.org/doc/html/latest/mm/damon/maintainer-profile.html#scm-trees
-
-
-Thanks,
-SJ
-
-[...]
+-- 
+Cheers,
+Harry / Hyeonggon
