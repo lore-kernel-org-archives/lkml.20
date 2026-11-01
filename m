@@ -1,59 +1,50 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793558129;
-	b=1YXKGhYdl6cJPZcl5vUJdks9rpthZ4ikyFEinJb+ZTQ0IeGYnwso8UPDvAR81Wjzthdm
-	 Y4o7XpR3A1sp12pBEnuwFYmjAABDNt6XppaLDZ+i11TVM5uy06qQKbwTXD9/ih9vMaRBS
-	 TIWAH2cxF2pHHvTm/4hYfB666/Q/Hm9EabL4MDF/yjw48rDjtOmxIFS97DMMpg3w2wpTl
-	 R2Tw8+Ztq/b4iGB2Cb33uAoYq2/cfMPYUYHygcpQANoOc0fRhrKIdm4ddCALyPpHwhK/h
-	 mAL5kfAXWzw0oMe0J3TsVNd3fmWAiKkr+ys1g03BGfRNEEi/I1Lej75xPaUCd6/Pjgg==
+	t=1793558192;
+	b=UqaAxYsaF/asT2rjY3L7HpGEvmtY5H8jBe/WK4fnk28vrH2rPEQKO8Pys3mE09beY4HP
+	 G+vUm7iOxOa5PRnlsiZeDBQVBVwPATSR4vD8UqxJTxiuhLlf0RpqO7zHHOUM1TqeMc9uB
+	 Euz26Xy0MvQg1ZbhwAWkAAYnMc0yC3JSS4iSgf9MA9s3R/iJn0T0NzpFQgo+MjBYAehoH
+	 7uRGRzFyCNv1rsHbSmpi2tKyFa8g/w3QI1avh6HenKVIaDLvn1a0UUlVeGq4oYKx3JORr
+	 P8cw8PtFg2A7zUsx0h5Or2I48jXBvTlreY6GPe6Ro1RZonToTJX2mo/4+h6IVrZZd2g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793558129;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=714q+JQndWob5uh3djoFeHGesUURXR98SNz0mVZNiR4=;
-	b=AHESfhVf11EhTA9cfkqfT2VFKkbEwtzuSU2kLyli3XWY3HaMPcqgTGAP7KW2SXcc8AY1
-	 A9reHckwf3FKF+crV9TmySK6Ak3bc2P88adZAgidb13dR2sbIPae4tqkIs2zA8dRlxHOi
-	 mEyqVkOu8kSyqcqW5kzxmBYi/olb/KxT2RDd5HwOJ1ODz8QjV3NtKeohU50rX2ZAbMLEt
-	 RSTXi+VHg7yrQ4UMrMepilGvdbEA7QwtalfUVW6KwxiHgs2HhG1L0SpT0nsXarL3xBcYs
-	 CTQ/rQ3IlmGq1n3BQXBFt0h+YWqV8w7GVONSYBWkp3zgErv/NXAxKxxMBYQJBylvIdg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793558192;
+	h=DMARC-Filter:Received:Received:Message-ID:Subject:From:To:Cc:Date:
+	 Content-Type:Content-Transfer-Encoding:User-Agent:MIME-Version:
+	 X-Rspamd-Server:X-Rspamd-Queue-Id:X-Stat-Signature:X-Spam-Status:
+	 X-Session-Marker:X-Session-ID:X-HE-Tag:X-HE-Meta;
+	bh=2GWORHxf/K1UDYtlWJNFHkuHXbz2rBaThlFUJw8MkYM=;
+	b=YqP3iNjPOXNQZsvqT6u/CeuAU/m9WuJuM4szaiZi3tUKYEqJPR3cBMRHZN1PFmnVs8B2
+	 sLsDj84SoDBF8CY2ooTLAFzG5C8Dl78FLdhE/c+JOt57cTG5xsBI/P9FrnfqoeAACrzML
+	 T10UrEoxUOSsz2I1mWNtMFvTuu1tEWAtfBXCqFlocqRlkv6Cb8e6r2qcLJK3uC3v2cd/t
+	 90Rt47EES+aHecYixKs+kgHg9TcpOLGj3BnamWu54nb0u31lE4m8J1qkepueG66Dv3k+n
+	 oEAg399lqUmJ1fActbjmYNJJjRhxBIcrBFrfgCHC1fB0lfRm9gQjKE2elRkhJ9CjFHQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WW+Il0lZ;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=none header.from=perches.com;
+	spf=pass smtp.mailfrom=perches.com;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98D5606A324;
-	Sun,  1 Nov 2026 18:35:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WW+Il0lZ
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D29CA1F000C1;
-	Sun,  1 Nov 2026 18:35:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793558128;
-	bh=714q+JQndWob5uh3djoFeHGesUURXR98SNz0mVZNiR4=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WW+Il0lZGSBKBlhrFX6Q6wAKYQUoX9LIXnvKUVAFsdQZFBaQ0exmpyezgWrSAJA0N
-	 9Z0rzTGgSBNRK+jEZ+0BR93PaNlb3k8tnQ90s5poMYuXIrSmyNtC3QYwvx+oz0fZ8z
-	 tmgV8W/33IqOeyttrg06C7DkhQZfHkEdLoodgvNCEJi7eu3EbpBpwXJhX45oRwqSu7
-	 E+i/4dkVEBiIwdOKCtCm6xwkTSse4zI7lPYKKO8w/NTXM5lBppOChtbHTe5zbOttrd
-	 90EweljoeYp+SZS2YAMcBuOWZBjE362uZS0pcVg6VRUShhtH16k4N2uHsJ3E8RRfRP
-	 ZUsRFdgh54hkg==
-Date: Sun, 1 Nov 2026 18:35:23 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Victor Chernyakin <chernyakin.victor.j@outlook.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] iio: cdc: add Texas Instruments FDC1004 driver
-Message-ID: <20261101183523.693e4b48@jic23-hlaptop>
-In-Reply-To: <at-0cXiBV0RM-Att@ashevche-desk.local>
-References: <SN1PR12MB252882C0E885BF3368E036E5A5612@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<SN1PR12MB2528DB8EE8ACEBF9551ED52EA5612@SN1PR12MB2528.namprd12.prod.outlook.com>
-	<at-0cXiBV0RM-Att@ashevche-desk.local>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66073606A324
+	for <linux-kernel@vger.kernel.org>; Sun,  1 Nov 2026 18:36:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 66073606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=perches.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=perches.com
+Received: from omf17.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id E719880A27;
+	Sun,  1 Nov 2026 18:36:29 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: joe@perches.com) by omf17.hostedemail.com (Postfix) with ESMTPA id 57A301A;
+	Sun,  1 Nov 2026 18:36:28 +0000 (UTC)
+Message-ID: <9d9626b16393901994012fa59824a63e96acd6ab.camel@perches.com>
+Subject: [PATCH] get_maintainer.pl: Fix inexact file pattern matching
+From: Joe Perches <joe@perches.com>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: LKML <linux-kernel@vger.kernel.org>, Borislav Petkov <bp@alien8.de>
+Date: Sun, 01 Nov 2026 10:36:27 -0800
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,64 +54,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Rspamd-Server: rspamout07
+X-Rspamd-Queue-Id: 57A301A
+X-Stat-Signature: 1muab9hsf4rh51qtu3raobuozmm88rk3
+X-Session-Marker: 6A6F6540706572636865732E636F6D
+X-Session-ID: U2FsdGVkX1+GDzaXAkdeWehuQojB6nnKvmpbdzfzFWw=
+X-HE-Tag: 1793558188-101353
+X-HE-Meta: U2FsdGVkX1/DAkcidbtDxJPh5LqJzKb+XLbdnyxkqlKik9Y2l1Q08bPWpnwTYF1IqWwBCH1MwUDFxF6hjhQ1D2IvlJwunBfxk/pHnBEky98rGk+XF2gY7XdrJU+cLL+EuIvBfeIo5tisdqwRgIHx78ZPXBbUZrwwM/QXTYjMgh35b3h8Ec8T/CYNi7C26qnofh+yQxAU6OliKIsJBJ/5Q0MeyRczlEpXuq1hy7uSXTM3w6exx6BGcm+OlISB70Vj0hiOMrSCTHRYxdezlyVSbURSJcfKfvgFneAr1ZvuBUaC11+KcTCewMD1oAFAA9rFvItG1Pm3buMwNXKTZ+Z3Czo2y0PW4MrDyM9eU4eOr4THuFebFGE834kjswpXvKor
 
+The intent of file pattern matches is to exactly specify a
+file pattern with or without wildcard **, *, or ? expansion.
 
-> > +		/*
-> > +		 * Now read the two registers making up the measurement.
-> > +		 * The datasheet says to read MSB first, LSB second.
-> > +		 */
-> > +		ret = regmap_bulk_read(map, FDC1004_REG_MEASn_MSB(0),
-> > +				       reg_vals, ARRAY_SIZE(reg_vals));
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		*val = (sign_extend32(reg_vals[0], 15) << 8) | (reg_vals[1] >> 8);  
-> 
-> We still have two shift operators, so it might be not a bad idea after all to
-> have a combined variable with wordswap done in case of LITTLE_ENDIAN
-> architecture. Jonathan, what do you think about this? Reading the whole set as
-> 32-bit value and convert it if required
-> 
-> 		// also note in this case we don't need to have _MSB in the name
-> 		ret = regmap_bulk_read(map, FDC1004_REG_MEASn(0), reg_val, sizeof(reg_val));
-> 		if (ret)
-> 			return ret;
-> 
-> #ifdef __LITTLE_ENDIAN
-> 		reg_val = swahw32(reg_val);
-> #endif
-> 
-> 		*val = sign_extend32(reg_val >> 8, 23);
-> 
-> 		// I assume the following is also possible in this case
-> 		// *val = (int)reg_val >> 8;
-> 		// but usually we use sign_extend32() in IIO even when simple
-> 		// casting is okay
-> 
-> This also reduces stack usage.
+The pattern match code failed to include a trailing $ to
+match the end of the pattern.
 
-To esoteric for me.  We'd have to add comments on why it worked to limit
-the future blast radius.  Now, what could we do that didn't need that...
-The problem is that the regmap_bulk_read is feeding us two native endian
-16 bit values.  Well, you could 'fix' that...
+A pattern like:
 
-		u8 be_temp[4];
+F:	include/drm/drm
 
-		ret = regmap_bulk_read(map, FDC1004_REG_MEAS_n_MSB(0),
-				       reg_vals, ARRAY_SIZE(reg_vals));
-		put_unaligned_be16(reg_vals[0], &be_temp[0]);
-		put_unaligned_be16(reg_vals[1], &be_temp[2]);
-		*val = sign_extgend32(get_unaligned_be32(be_temp) >> 8, 23);
+would match files like include/drm/drm_<foo>
 
-Or something along those lines...  I'd rather something explicit like that
-than Andy's suggestion, but I'm not convinced on this either.
+Fix it and the self-test code too.
 
-> 
-> > +		return IIO_VAL_INT;
-> > +	}
+Signed-off-by: Joe Perches <joe@perches.com>
+---
+ scripts/get_maintainer.pl | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-Jonathan
-
-
+diff --git a/scripts/get_maintainer.pl b/scripts/get_maintainer.pl
+index 16b80a700d4ac..48328c48f5341 100755
+--- a/scripts/get_maintainer.pl
++++ b/scripts/get_maintainer.pl
+@@ -768,6 +768,10 @@ sub self_test {
+ 	    if ((-d $value)) {
+ 		$value =3D~ s@([^/])$@$1/@;
+ 	    }
++	    if (substr($value, -1) ne "/") {
++		$value .=3D '$';
++	    }
++
+ 	    if (!grep(m@^$value@, @lsfiles)) {
+ 		print("$x->{file}:$x->{linenr}: warning: no file matches\t$x->{line}\n")=
+;
+ 	    }
+@@ -1062,7 +1066,7 @@ sub file_match_pattern {
+ 	    return 1;
+ 	}
+     } else {
+-	if ($file =3D~ m@^$pattern@) {
++	if ($file =3D~ m@^$pattern$@) {
+ 	    my $s1 =3D ($file =3D~ tr@/@@);
+ 	    my $s2 =3D ($pattern =3D~ tr@/@@);
+ 	    if ($s1 =3D=3D $s2 || $pattern =3D~ /\(\?:/) {
