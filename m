@@ -1,48 +1,87 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=193.142.43.55
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631812;
-	b=jvuczjW5stPh6f1t2BivJt1nAE5bqswo/r29afOJaPlSE2zeeXfcAhz2ALEJ3zJ5CZFo
-	 A23YaQhzUYd9rJD6w1jKkopOuO2ZJlY8QEjwJS3EJf41iGT1xh2T5veubehw+RSum6/Ii
-	 7bJmRTxaucnoAy8lWR42J1DxxlrW9E7vzOBs0zzwj4WY/by1Go+kzPURxwO/fs/VY+nc+
-	 t7QUTDXE8jbXbz7TOVi0Kz1nc4dppkDR97Xl1A69bWHimdQ65854MrGLV55JbJqjFW1hq
-	 lMrIkeX5D2RvSRF7oIcaLrjtHirbOmeVt1KfJ+hOyfuDzivFqWw4pUNXOyOeu1CA+Tg==
+	t=1793631819;
+	b=Dw3VSi5FC6lxTDp+Mk0/tLPCErfwNob0TR/GprW69sMKTKAeqcOfN90nwzE6oOKaPOGH
+	 HQC2ERwjYrf17TN/WofrTrVZTgnHXNJY9osKuapXsqCfVHSh1JeUoPt4pyvzR6ki0EYKd
+	 iMlRqdjJgqBxXQ+GkDOTDhhPHDEQAE1duErG0fsst70gGpuP7PYFSoUqZE+ZaVHGfWXCS
+	 PKlbF0SW3GpyTpTbGJbfgWdMxEDJnapoJPBcubYptSTcgcOhrLhwVLFVSxtNbQcksuWUo
+	 fdHFr00/PkHWDO7xMnM8D5hOB1DpM8A/lG65kJohmMb18nNLCe5agEaWANqygYNYVPQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631812;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=oVeQwusVcdWt+t2MXjuQ/DhAoQowLCWkhlldD+EM/ro=;
-	b=TAOCg5Do/yxixTJOUb2HD3Ox27ebrpKDukLJ+XXRu6G3iLXrA+P502INe0L1Ze08+KLh
-	 E0e5DhmjFg/k2Hs8DyVjuBLgeaGaz5SurpyXN9zEgcStXthLm9QA+wvpcYyu9VqxcNLOf
-	 ArC3jthfywOtOWMPeEDHkDRToIAxZn8jBoPwqxEr274pJlNOosJ4777YOlSdgRbVJ0nF8
-	 sDoeMuh2G/dLdEiA80R0/snxTodiNCwrSx/mjtRzqX/19wc+IXsTWqgcAq2j9MZi51TeS
-	 Cv+oLPBDvwdGT7ms29HQW3IQdKlrnlZMQgVWIBZC6ouqoMVyZAEu0ZJztR1sfInytKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631819;
+	h=DMARC-Filter:Date:DKIM-Signature:DKIM-Signature:From:To:Cc:Subject:
+	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=vmeP5yEnqnkyVoHBFqgCtuQIbq8hDW1r9WecfwOSwuQ=;
+	b=FTbyFzPDVu9rpXSzqadmueCW3qQRFOsWdk3qcDHGqp4QsUJmCssJoJHIDctN8VFCGbR3
+	 Ixdg9tgQqafkzwzZucmXB68LwV4tbalyfIogw7uw0mkhCMzxG5a91q3oxkhAaoFMg5hff
+	 rzOeuVer3O6KexnLxxauI/Ws3KQDe1/Reh32fD6CrYybGxvULVq2YxdXn4cy+2YNb7h1L
+	 5sqDporHS7QsgjNMdrarSdoqkQeLKrI4rON4D6v3JfVIN9hSn9gECO2Vtj4VrgY4aEiFO
+	 tiUMNzgMJdkDdsgPw8XDoaXMfa5FV3Qkp89xsMmnd4o45RgwyIUveSl5QCXSoQ0B/Tw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWjkcOBN;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=linutronix.de;
+	spf=pass smtp.mailfrom=linutronix.de;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UO6wl9m7;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cjq+t5yW;
+	arc=none smtp.remote-ip=193.142.43.55
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D5C60716C9;
-	Mon,  2 Nov 2026 15:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71BB16085550;
+	Mon,  2 Nov 2026 15:03:38 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71BB16085550
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OWjkcOBN
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 822311F00A1A;
-	Mon,  2 Nov 2026 15:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793631812;
-	bh=oVeQwusVcdWt+t2MXjuQ/DhAoQowLCWkhlldD+EM/ro=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=OWjkcOBNjrMUeTufmvVyzLqLuyvTySsw+dhv5IHxs/hieYtMOgOEszSyAJzpSCxpE
-	 ivhlaW3vverSeo9xxXMpCNv4uvFlwTOs2Rxv79ipdQZsAXLlNfjnYXqlikAzK9Rhwj
-	 fbSTM45jfTBK7jdKNJHzSS+yPm+jYE9xinTq6+vQkPrWwGMPkbWnlrXkqvWf+SEGzv
-	 NUr+FGlXFmobxkkYkI8iFyJMqEYyanfGZehuXpsHLl/Q30PMDmV9NESufDJsqM/FXP
-	 RzCWFajSSJkhhGsUeItsbwH1Bh143kv0KKo/cAPN6grVu2VmnCed1H7khCoprygo9o
-	 BRZHUp6nTcKrA==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:01:33 +0100
-Subject: [PATCH RFC 06/22] powerpc/rtas: let procfs copy out reads
+	dkim=pass (2048-bit key, unprotected) header.d=linutronix.de header.i=@linutronix.de header.a=rsa-sha256 header.s=2020 header.b=UO6wl9m7;
+	dkim=pass header.d=linutronix.de header.i=@linutronix.de header.a=ed25519-sha256 header.s=2020e header.b=cjq+t5yW
+Date: Mon, 2 Nov 2026 16:03:34 +0100
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1793631816;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vmeP5yEnqnkyVoHBFqgCtuQIbq8hDW1r9WecfwOSwuQ=;
+	b=UO6wl9m7RBHrJieOiZZvN4brHRib9ZtQyiwmHyHaWuAYRG64DM5WGvmVptZLI4u3WKDJnF
+	M71KpRdCjGEYRQ0ZNyuUrg2MBf6G/0h8AtNOtxhd609crQRWsn9ULFz1c0bdVFLsOo+Ghl
+	MxtJ5voXI2MjoMbwE0/348BYH4kSOiCqUbcKQKAueZveDDZ/i81+/UswGenDgvc4Hrk7ho
+	0OGIHcI9bOYmI2VW1SPwAumWkw28Y5/C1tLPFAGAX+/wylYCKe8tauPeEQB4FvI/4TGv85
+	vD/54DUZTKSuMkHRKk5V75A01BIW35D4ajgKmrXW7lzY0S8uv9iWtC9sayWk8Q==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1793631816;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vmeP5yEnqnkyVoHBFqgCtuQIbq8hDW1r9WecfwOSwuQ=;
+	b=cjq+t5yW0qbGlmcj6omOC7sdr5+cqnKu1szT+dy1lmE74Kt1pDmVGyuE1tjvvm6Sp7AedD
+	0pwVWf/K/m4EnjCQ==
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+To: Ryan Brue <ryanbrue.dev@gmail.com>
+Cc: Chen-Yu Tsai <wenst@chromium.org>, Mark Brown <broonie@kernel.org>,
+	Lee Jones <lee@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Sean Wang <sean.wang@kernel.org>, Linus Walleij <linusw@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Clark Williams <clrkwllms@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Yingjoe Chen <yingjoe.chen@mediatek.com>,
+	Chaotian Jing <chaotian.jing@mediatek.com>,
+	Hongzhou Yang <hongzhou.yang@mediatek.com>,
+	linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rt-devel@lists.linux.dev, mfd@lists.linux.dev
+Subject: Re: [PATCH] pinctrl: mediatek: common-v1: Use a raw spinlock for the
+ pinctrl regmap
+Message-ID: <20261102150334.9q83qkpM@linutronix.de>
+References: <20260929-rbrue-suez-upstreaming-mtk-pinctrl-raw-regmap-v1-1-db92943f42cb@gmail.com>
+ <20260930080609.dnK1-Uta@linutronix.de>
+ <CAGXv+5FssQL3Go3VDFbLAT6HP12RS3U3OgxhYOeapzs64QTdUw@mail.gmail.com>
+ <d3d3e7b3-eb8b-456d-9a2c-116334e86c14@gmail.com>
+ <20261020073236.dDVmd3BW@linutronix.de>
+ <7981f7c6-c949-42e6-ad53-15e6530588cb@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -52,231 +91,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-arch-v1-6-c9492ab08480@kernel.org>
-References: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
-In-Reply-To: <20261102-work-procfs-arch-v1-0-c9492ab08480@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <7981f7c6-c949-42e6-ad53-15e6530588cb@gmail.com>
 
-Implement ->proc_read_buf() for the error log and the flash files so
-procfs copies what is read to userspace after it unpinned the entry.
+On 2026-10-28 15:30:38 [-0500], Ryan Brue wrote:
+> On 10/20/26 2:32 AM, Sebastian Andrzej Siewior wrote:
+> > bulk writes could be a concern. The 40us delay is within the lock
+> > acquired? If so, could this be done without the lock? I assume this is
+> > part of the init sequence so nothing should use the HW so the writes
+> > should not be interrupted by other writes to the device.
+>=20
+> Yes, it's under the lock. regmap_multi_reg_write() holds the regmap lock =
+for
+> the whole sequence, and since an MMIO syscon's regmap can't sleep, the
+> delays are udelay()s. The PLL's enable runs that sequence (13 writes, 40 =
+us
+> of delays) whenever the PLL goes from off to on, retrying up to 10 times
+> until it locks.
 
-The error log hands out a record the way it did before, the record is
-consumed before it reaches userspace. A reader that passes a NULL buffer
-now loses a record like one that passed a bad buffer always did, instead
-of getting -EINVAL. The files can be spliced now, like every entry that
-is read through ->read_iter(). Note that a sendfile() from the error log
-into a target that fails or takes less than was read drops the records
-in between, splice_direct_to_actor() rewinds any seekable file like
-that and the error log doesn't hand a record out twice.
+If this is only at boot-up then it is less of a problem. It would be
+more of a problem if a driver, such as SPI, would use this to fill its
+entire FIFO during a regular transfer. This would then spike up during
+the transfer.
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- arch/powerpc/kernel/rtas_flash.c | 24 ++++++++++++------------
- arch/powerpc/kernel/rtasd.c      | 19 +++++--------------
- 2 files changed, 17 insertions(+), 26 deletions(-)
+> In practice it's init-time, though. The G12A USB3/PCIe PHY takes the PLL
+> with devm_clk_get_enabled() at probe and keeps it on, so it runs only onc=
+e.
+> Nothing else writes the PLL then, but the lock is the HHI syscon's, so on=
+ RT
+> the other clocks in that block would wait it out. Running it without the
+> lock would mean changing how the meson PLL code writes its init sequence,
+> which I wouldn't want to take on in a pinctrl fix (unless that were
+> preferred).
 
-diff --git a/arch/powerpc/kernel/rtas_flash.c b/arch/powerpc/kernel/rtas_flash.c
-index 77a4627f2507..5ebaee7683ef 100644
---- a/arch/powerpc/kernel/rtas_flash.c
-+++ b/arch/powerpc/kernel/rtas_flash.c
-@@ -269,7 +269,7 @@ static size_t get_flash_status_msg(int status, char *buf)
- }
- 
- /* Reading the proc file will show status (not the firmware contents) */
--static ssize_t rtas_flash_read_msg(struct file *file, char __user *buf,
-+static ssize_t rtas_flash_read_msg(struct file *file, char *buf,
- 				   size_t count, loff_t *ppos)
- {
- 	struct rtas_update_flash_t *const uf = &rtas_update_flash_data;
-@@ -283,10 +283,10 @@ static ssize_t rtas_flash_read_msg(struct file *file, char __user *buf,
- 
- 	/* Read as text message */
- 	len = get_flash_status_msg(status, msg);
--	return simple_read_from_buffer(buf, count, ppos, msg, len);
-+	return memory_read_from_buffer(buf, count, ppos, msg, len);
- }
- 
--static ssize_t rtas_flash_read_num(struct file *file, char __user *buf,
-+static ssize_t rtas_flash_read_num(struct file *file, char *buf,
- 				   size_t count, loff_t *ppos)
- {
- 	struct rtas_update_flash_t *const uf = &rtas_update_flash_data;
-@@ -299,7 +299,7 @@ static ssize_t rtas_flash_read_num(struct file *file, char __user *buf,
- 
- 	/* Read as number */
- 	sprintf(msg, "%d\n", status);
--	return simple_read_from_buffer(buf, count, ppos, msg, strlen(msg));
-+	return memory_read_from_buffer(buf, count, ppos, msg, strlen(msg));
- }
- 
- /* We could be much more efficient here.  But to keep this function
-@@ -370,7 +370,7 @@ static void manage_flash(struct rtas_manage_flash_t *args_buf, unsigned int op)
- 	args_buf->status = rc;
- }
- 
--static ssize_t manage_flash_read(struct file *file, char __user *buf,
-+static ssize_t manage_flash_read(struct file *file, char *buf,
- 			       size_t count, loff_t *ppos)
- {
- 	struct rtas_manage_flash_t *const args_buf = &rtas_manage_flash_data;
-@@ -382,7 +382,7 @@ static ssize_t manage_flash_read(struct file *file, char __user *buf,
- 	mutex_unlock(&rtas_manage_flash_mutex);
- 
- 	msglen = sprintf(msg, "%d\n", status);
--	return simple_read_from_buffer(buf, count, ppos, msg, msglen);
-+	return memory_read_from_buffer(buf, count, ppos, msg, msglen);
- }
- 
- static ssize_t manage_flash_write(struct file *file, char *buf,
-@@ -450,7 +450,7 @@ static int get_validate_flash_msg(struct rtas_validate_flash_t *args_buf,
- 	return n;
- }
- 
--static ssize_t validate_flash_read(struct file *file, char __user *buf,
-+static ssize_t validate_flash_read(struct file *file, char *buf,
- 			       size_t count, loff_t *ppos)
- {
- 	struct rtas_validate_flash_t *const args_buf =
-@@ -462,7 +462,7 @@ static ssize_t validate_flash_read(struct file *file, char __user *buf,
- 	msglen = get_validate_flash_msg(args_buf, msg, VALIDATE_MSG_LEN);
- 	mutex_unlock(&rtas_validate_flash_mutex);
- 
--	return simple_read_from_buffer(buf, count, ppos, msg, msglen);
-+	return memory_read_from_buffer(buf, count, ppos, msg, msglen);
- }
- 
- static ssize_t validate_flash_write(struct file *file, char *buf,
-@@ -623,7 +623,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
- 		.handle		= RTAS_FN_IBM_UPDATE_FLASH_64_AND_REBOOT,
- 		.status		= &rtas_update_flash_data.status,
- 		.ops.proc_flags	= PROC_ENTRY_SHORT_WRITES,
--		.ops.proc_read	= rtas_flash_read_msg,
-+		.ops.proc_read_buf = rtas_flash_read_msg,
- 		.ops.proc_write_buf = rtas_flash_write,
- 		.ops.proc_write_size = RTAS_BLK_SIZE,
- 		.ops.proc_release = rtas_flash_release,
-@@ -634,7 +634,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
- 		.handle		= RTAS_FN_IBM_UPDATE_FLASH_64_AND_REBOOT,
- 		.status		= &rtas_update_flash_data.status,
- 		.ops.proc_flags	= PROC_ENTRY_SHORT_WRITES,
--		.ops.proc_read	= rtas_flash_read_num,
-+		.ops.proc_read_buf = rtas_flash_read_num,
- 		.ops.proc_write_buf = rtas_flash_write,
- 		.ops.proc_write_size = RTAS_BLK_SIZE,
- 		.ops.proc_release = rtas_flash_release,
-@@ -645,7 +645,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
- 		.handle		= RTAS_FN_IBM_VALIDATE_FLASH_IMAGE,
- 		.status		= &rtas_validate_flash_data.status,
- 		.ops.proc_flags	= PROC_ENTRY_SHORT_WRITES,
--		.ops.proc_read	= validate_flash_read,
-+		.ops.proc_read_buf = validate_flash_read,
- 		.ops.proc_write_buf = validate_flash_write,
- 		.ops.proc_write_size = VALIDATE_BUF_SIZE,
- 		.ops.proc_release = validate_flash_release,
-@@ -655,7 +655,7 @@ static const struct rtas_flash_file rtas_flash_files[] = {
- 		.filename	= "powerpc/rtas/" MANAGE_FLASH_NAME,
- 		.handle		= RTAS_FN_IBM_MANAGE_FLASH_IMAGE,
- 		.status		= &rtas_manage_flash_data.status,
--		.ops.proc_read	= manage_flash_read,
-+		.ops.proc_read_buf = manage_flash_read,
- 		.ops.proc_write_buf = manage_flash_write,
- 		.ops.proc_lseek	= default_llseek,
- 	}
-diff --git a/arch/powerpc/kernel/rtasd.c b/arch/powerpc/kernel/rtasd.c
-index dd0df5e164a3..360ed2e30fd5 100644
---- a/arch/powerpc/kernel/rtasd.c
-+++ b/arch/powerpc/kernel/rtasd.c
-@@ -291,26 +291,18 @@ static int rtas_log_release(struct inode * inode, struct file * file)
-  * know that we can safely clear the events in NVRAM.
-  * Next we'll sit and wait for something else to log.
-  */
--static ssize_t rtas_log_read(struct file * file, char __user * buf,
-+static ssize_t rtas_log_read(struct file * file, char * buf,
- 			 size_t count, loff_t *ppos)
- {
- 	int error;
--	char *tmp;
- 	unsigned long s;
- 	unsigned long offset;
- 
--	if (!buf || count < rtas_error_log_buffer_max)
-+	if (count < rtas_error_log_buffer_max)
- 		return -EINVAL;
- 
- 	count = rtas_error_log_buffer_max;
- 
--	if (!access_ok(buf, count))
--		return -EFAULT;
--
--	tmp = kmalloc(count, GFP_KERNEL);
--	if (!tmp)
--		return -ENOMEM;
--
- 	spin_lock_irqsave(&rtasd_log_lock, s);
- 
- 	/* if it's 0, then we know we got the last one (the one in NVRAM) */
-@@ -338,15 +330,14 @@ static ssize_t rtas_log_read(struct file * file, char __user * buf,
- 	}
- 
- 	offset = rtas_error_log_buffer_max * (rtas_log_start & LOG_NUMBER_MASK);
--	memcpy(tmp, &rtas_log_buf[offset], count);
-+	memcpy(buf, &rtas_log_buf[offset], count);
- 
- 	rtas_log_start += 1;
- 	rtas_log_size -= 1;
- 	spin_unlock_irqrestore(&rtasd_log_lock, s);
- 
--	error = copy_to_user(buf, tmp, count) ? -EFAULT : count;
-+	error = count;
- out:
--	kfree(tmp);
- 	return error;
- }
- 
-@@ -359,7 +350,7 @@ static __poll_t rtas_log_poll(struct file *file, poll_table * wait)
- }
- 
- static const struct proc_ops rtas_log_proc_ops = {
--	.proc_read	= rtas_log_read,
-+	.proc_read_buf	= rtas_log_read,
- 	.proc_poll	= rtas_log_poll,
- 	.proc_open	= rtas_log_open,
- 	.proc_release	= rtas_log_release,
+Okay.
 
--- 
-2.53.0
+> > So it would be safe for now=E2=80=A6
+> Yes, that's the trade-off with the second option, which relies on the DIN
+> never being written in a multi-step sequence. Nothing enforces that thoug=
+h.
+>=20
+> I'd like to send a v2 after -rc1, but I don't know the best option for the
+> fix. Still waiting on Lee, Arnd, and Mark to pitch in if they have a
+> preference, or any option I've missed.
 
+This is (I think) the second time the syscon mapping becomes a problem.
+I would be a bit worried if the same mapping/ regs could be accessed by
+different drivers under different locks.
+But yeah=E2=80=A6
+
+> Best regards,
+> Ryan Brue
+
+Sebastian
