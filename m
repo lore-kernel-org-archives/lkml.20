@@ -1,62 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793645720;
-	b=FyqiBby99kUAnvfQjasdsmK/uPehwIL+ldhagd4kzbqItSYJ/pSitD5Qx8C1nx7cNbjC
-	 iNKv6l56iKOyq8hWSp8lQzNG6J04YKPmQD+T+kzGid0q+zhvvHDqQIXzUFp4U8KKtdbyU
-	 29es/CCXJzTy4HLxUh3MaTwwEaFH02qBBzqfyHfhLwHzxBAQTowA/oGT+3pkTh2dP0Zng
-	 neEmwzqS7R5Eld15jBy2mCca1pTLc+X9Di475SvJEya/TwZXNY3N8hWc6b4SJbi7WrCaA
-	 t2I0rG5x0vjTrFdbhBChVfYVWQqNqZ1kEkLEh/g/JNZZysKr/iOq93g/sZOXjKANEdg==
+	t=1793645817;
+	b=BCkYz1uwiN3IWe04RK2fk0aS/B/TPaUCDOY5btvnF/XDzLwMKKRzVIBhhCVLPuZoC7ao
+	 AzTyc0IATpVLLwc1GtJM8WoqrCsy3fdf1XSFXjTZZ2tClRHPBFltj3l8OPMjwFfhHjv/C
+	 g7yBt+NlFkw7ZCyzAS3jdJnafFvWFgZY4Lu5O+u/75cDt7cPzRVzBqs+EniMLD2T6JSwg
+	 u9OONWPRknM7w/J7fSGxOx1xL7ssSAk1ZsLl/rf7Gyotp6rOWuwVgfh2FPA4eUAN9ZfAf
+	 ptYxeJ6+4zlhpgXlTyZmt7QlQp31Pn453vYX9vpct8ilO0+LWewReRMBrySW9j6hiaA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645720;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=q+a6d1VrvhVSJwinXzVZd6V4L8Mih7bk8gcaP4YRihk=;
-	b=xZ4B7wt3b6T+/X8AtVTbTUjLSwsmnAXkN4Em0OjLse2Q2V0wheK/DFokUuX/zR0kRJun
-	 LQbJ9qFEUSF22ucOFHVlAT5tSFkOweDDHI3G7TyFRG2wfWGkO5JiErEEnMLPJqWYG/aaZ
-	 /EQDm5nA+J2kjz2/EmA+sCUL8RLGDnKR8Qhds/TWNtCXxLFrkkQkkhIjwrqB88a/ZwpgU
-	 Kz22jWpNsRYac5H7stPp9s6irL/gc1vGaKRKkr/q0LI7aA1BccGxKIsm9gUX8kGCLebNk
-	 OQm/Dv1fMrNy02/b/t7n6T4oohGYn/HZSh8RaDaqhofQ3ADNRPuqpIs78vgIZMGTuaw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645817;
+	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
+	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
+	 User-Agent:MIME-Version;
+	bh=Em7LgszDC3yV2ax9pGbeyhWHik0oIvE0LFFvVjdiovc=;
+	b=iTm80x01FXk3thbj+z7RkAUrkkSGrK4r8czUyAGTxOZFWQJnzJ0r9sv6UM3TvH1P81NL
+	 PmDiLrD3cuAq4HEC1sv6JMjBeHh5kORZaemRXcn49ymdBx8nh5PZBauthzDoZSi/ITTvO
+	 rbkqin8irFDb+6wlR8hyJnYMsEk8Wy7N9lBl+B8hs3ePg6Rl3f2efXzs8hb3Dn0h+oPom
+	 yGS4XIB8u8Hwz4Z8YcpS+i1s5IVHT4oeEJW0YtWviRD/1MpUxldqhioCCsSuIdOGarQnG
+	 mZF6Dsiq98ZID3HYoikTDfn7N82lsITNuItXp7PHYUy1GYlpapUr7pRIqX1DP4FoAiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VglL4fs7;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BQyDa+Qt;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E91606A324;
-	Mon,  2 Nov 2026 18:55:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3424606A326;
+	Mon,  2 Nov 2026 18:56:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3424606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VglL4fs7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3FB01F00A16;
-	Mon,  2 Nov 2026 18:55:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793645719;
-	bh=q+a6d1VrvhVSJwinXzVZd6V4L8Mih7bk8gcaP4YRihk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VglL4fs7480mcJ92S08Hi5fuXYtW/GFNLFIzyF2BMe2RReH9hPsRkqGB2qUnI0kcp
-	 hWMC/bX571paRKhGlOKsSf5JgG/faMJ4UFGFGIlnUFe/r2TFHzGtPEvSr1+Cnx/ErJ
-	 uCvcCoL7n3MXcNyuJnqVQn2bumMNjj2XmTQ1Nbc4rP39IrJsJ+iKT570c5f2TN+G3l
-	 tNE14seAOJ1i6sn7RxHH9w3sKjPIGl7x2gBBzfwxm2AA4HLFiQYg5NiUJWH4b9hE1N
-	 vBdzpp/rZRLTqtzC69GzNOwZae/AEUuR36dwz1wZkAgIgoQ6xV6CNqO34oOYrRhiIf
-	 AZ56LYyBzMhnQ==
-Date: Tue, 3 Nov 2026 00:15:52 +0530
-From: Naveen N Rao <naveen@kernel.org>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Tom Lendacky <thomas.lendacky@amd.com>, Borislav Petkov <bp@alien8.de>, 
-	kvm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Paolo Bonzini <pbonzini@redhat.com>, Nikunj A Dadhania <nikunj@amd.com>, 
-	Tianyu Lan <tiala@microsoft.com>, Dave Hansen <dave.hansen@linux.intel.com>, 
-	Thomas Gleixner <tglx@kernel.org>
-Subject: Re: [RFC PATCH v3 02/27] x86/apic: Drop savic_eoi() in favor of
- native_apic_msr_eoi() for Secure AVIC
-Message-ID: <aujZ6BuUPcKMzWZZ@blrnaveerao1>
-References: <cover.1783490022.git.naveen@kernel.org>
- <36c039713c4b03c87b636635cb4c1f8b98c15eff.1783490022.git.naveen@kernel.org>
- <5f6bcceb-1c48-43e5-bafc-8f86676c4092@amd.com>
- <alX59ewiXXSx7J3R@blrnaveerao1>
- <asSSU2huZDlusYdG@google.com>
- <asXlwARv1cE1RREu@blrnaveerao1>
- <atDVyVCeUFafWPHm@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=BQyDa+Qt
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793645815;
+	bh=fOLpOB2LsNGYFnbSGDntDvT7olJ/DoIyk1p1zTIGGg4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=BQyDa+QtEF/80OwP/TH+CIWiZ+c9fDqQ4cNvyl03AhCjS4ptcy81Q0y/fQiCY8QiB
+	 plyP4LTlwcILzEXf+9jijXl1qYlprb6cPDDX6WY/mDaASVNkVxdTlofccdqA1aMC91
+	 KAjiiJ6CRyfPDKRssS/i/c4wf341SFNsBryfEti9CUuXwIsqBzIgEyKzg29/DGVl3F
+	 LcLpxYWK1Nl2FS+nhQPIIK+L8UZxumV0kZvnudDqKTXVAYl7D+1bCZ/LIfzJlFEPxM
+	 YLBZtoQNBIfbDbRGCrd1jgCpRq47kSZrDIKJbSveNLz6xzDLwOslbxTxhsSTPnucex
+	 ySWR8mk8GhWTg==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 3F78E17E07F6;
+	Mon, 02 Nov 2026 19:56:53 +0100 (CET)
+Message-ID: <cd5780876274ab5aa73739f890a32ceacf2e793b.camel@collabora.com>
+Subject: Re: [PATCH 04/10] staging: media: cedrus: mpeg2: use the field
+ height for field pictures
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
+	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
+ <paulk@sys-base.io>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 02 Nov 2026 13:56:52 -0500
+In-Reply-To: <20261102170303.1973892-5-jernej.skrabec@gmail.com>
+References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
+	 <20261102170303.1973892-5-jernej.skrabec@gmail.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-P2HLuzwLLDfm1tPGi+tN"
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,73 +92,93 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <atDVyVCeUFafWPHm@google.com>
-
-On Thu, Oct 15, 2026 at 06:31:53AM -0700, Sean Christopherson wrote:
-> On Thu, Oct 08, 2026, Naveen N Rao wrote:
-> > On Mon, Oct 05, 2026 at 11:16:51PM -0700, Sean Christopherson wrote:
-> > > On Tue, Jul 14, 2026, Naveen N Rao wrote:
-> > > > On Mon, Jul 13, 2026 at 12:43:45PM -0500, Tom Lendacky wrote:
-> > > > > On 7/8/26 01:32, Naveen N Rao (AMD) wrote:
-> > > > > > Drop savic_eoi() in favor of using the native helper that writes to the
-> > > > > > APIC_EOI MSR. savic_eoi() was added mainly to be able to handle
-> > > > > > level-triggered interrupts. However, it relies on APIC_TMR indicating a
-> > > > > > vector to be level-triggered, but APIC_TMR can never have a bit set
-> > > > > > since it is only updated when the LAPIC accepts a level-triggered
-> > > > > > interrupt. In the case of a Secure AVIC SEV-SNP guest, all
-> > > > > > level-triggered interrupt sources are in the VMM (emulated IOAPIC
-> > > > > > primarily) and KVM accepts them on behalf of the guest resulting in the
-> > > > > > APIC_TMR in KVM APIC backing page having a bit set. This is never seen
-> > > > > > by the guest, which has its own private APIC backing page. As such, the
-> > > > > > savic_eoi() handler is dead code. Remove it.
-> > > > > > 
-> > > > > > Fixes: 43b6687ac877 ("x86/apic: Handle EOI writes for Secure AVIC guests")
-> > > > > > Signed-off-by: Naveen N Rao (AMD) <naveen@kernel.org>
-> > > > > 
-> > > > > Another guest change which should be separate from this series.
-> > > > 
-> > > > Yes, I have called this out in the cover letter. I see now that I should 
-> > > > have used a better subject for the cover letter though.
-> > > > 
-> > > > > 
-> > > > > Is this causing issues with this hypervisor support or is just code that
-> > > > > is never invoked? Do other hypervisors behave the same way and will
-> > > > > removing this break them?
-> > > > 
-> > > > This is code that is never invoked and is independent of the hypervisor.  
-> > > > No impact to hypervisor code.
-> > > 
-> > > Doesn't that mean level-triggered interrupts are fundamentally incompatible with
-> > > Secure AVIC?
-> > 
-> > I think so, at least from the hypervisor front. Secure AVIC uses a 
-> > guest-private, encrypted APIC backing page. KVM's APIC_TMR is not 
-> > visible to the guest and the only injection mechanism is via 
-> > VMCB->Requested_IRR field, which can only carry vectors. This means 
-> > APIC_TMR in the guest backing page will never be set. So, all guest 
-> > writes to APIC_EOI are accelerated and do not cause an exit.
-> > 
-> > The guest could track level-triggered interrupts and notify the 
-> > hypervisor though. But, it isn't clear to me that is necessarily better.  
-> > Linux already seems to have a fallback which works for I/O APIC (see 
-> > below).
-> > 
-> > I believe TDX has similar restrictions?
-> 
-> No.  VMX lets the hypervisor select exactly which vectors will trigger a VM-Exit
-> on EOI, via a dedicated bitmap.  Only SVM's approach of keying off the TMR is
-> problematic.  FWIW, SVM's approach is flawed in general because it makes assumptions
-> about hypervisor behavior that don't hold true, e.g. see the games that have to
-> be played to deal with RTC tick stuffing when it's wired up as an edge-triggered
-> interrupt.
-
-Agreed w.r.t VMX vs. SVM.
-
-However, as far as I can tell, for TDX guests, the EOI exit bitmap is 
-not honored and so, level-triggered interrupts are incompatible with 
-those too, no?
 
 
-- Naveen
+--=-P2HLuzwLLDfm1tPGi+tN
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Le lundi 02 novembre 2026 =C3=A0 18:02 +0100, Jernej Skrabec a =C3=A9crit=
+=C2=A0:
+> A field picture covers only half of the macroblock rows of a frame, but
+> the driver programs the coded and the boundary size of the whole frame
+> for it, as for a frame picture.
+>=20
+> Program the height of a field for field pictures, like the vendor
+> library does.
+>=20
+> Fixes: 50e761516f2b ("media: platform: Add Cedrus VPU decoder driver")
+> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+> ---
+>  drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c | 13 +++++++++++--
+>  1 file changed, 11 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c b/drivers/=
+staging/media/sunxi/cedrus/cedrus_mpeg2.c
+> index 10e98f08aafc..ca66a3c6b830 100644
+> --- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
+> @@ -58,6 +58,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, s=
+truct cedrus_run *run)
+>  	struct vb2_queue *vq;
+>  	const u8 *matrix;
+>  	unsigned int i;
+> +	bool field;
+>  	u32 reg;
+> =20
+>  	seq =3D run->mpeg2.sequence;
+> @@ -108,13 +109,21 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ct=
+x, struct cedrus_run *run)
+> =20
+>  	/* Set frame dimensions. */
+> =20
+> +	/*
+> +	 * Field pictures cover half of the frame's macroblock rows; the
+> +	 * vendor library halves both the coded and the boundary height.
+> +	 */
+> +	field =3D pic->picture_structure !=3D V4L2_MPEG2_PIC_FRAME;
+> +
+>  	reg =3D VE_DEC_MPEG_PICCODEDSIZE_WIDTH(seq->horizontal_size);
+> -	reg |=3D VE_DEC_MPEG_PICCODEDSIZE_HEIGHT(seq->vertical_size);
+> +	reg |=3D VE_DEC_MPEG_PICCODEDSIZE_HEIGHT(field ?
+> +			ALIGN(seq->vertical_size, 32) / 2 : seq->vertical_size);
+> =20
+>  	cedrus_write(dev, VE_DEC_MPEG_PICCODEDSIZE, reg);
+> =20
+>  	reg =3D VE_DEC_MPEG_PICBOUNDSIZE_WIDTH(ctx->src_fmt.width);
+> -	reg |=3D VE_DEC_MPEG_PICBOUNDSIZE_HEIGHT(ctx->src_fmt.height);
+> +	reg |=3D VE_DEC_MPEG_PICBOUNDSIZE_HEIGHT(field ? ctx->src_fmt.height / =
+2 :
+> +						   ctx->src_fmt.height);
+
+I'm not entirely sure, but I see:
+
+	fsize->stepwise.step_height =3D 1;
+
+But I don't think interlaced video can have odd height in the first place. =
+But
+it also have an implication here as you are not rounding up to a multiple o=
+f 2.
+Not sure what is the proper fix, but I have this impression something is
+missing.
+
+Nicolas
+
+> =20
+>  	cedrus_write(dev, VE_DEC_MPEG_PICBOUNDSIZE, reg);
+> =20
+
+--=-P2HLuzwLLDfm1tPGi+tN
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujc9AAKCRDZQZRRKWBy
+9FCtAP9jsMoceNEcZBP9smOFURh22hfFhq9F7bGhoIiXygecnwD/TZd0tE9tcnxF
+yNRD1b/TdxpJUTqjYdMx/wp68lb2mAs=
+=X4Qg
+-----END PGP SIGNATURE-----
+
+--=-P2HLuzwLLDfm1tPGi+tN--
