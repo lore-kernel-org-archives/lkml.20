@@ -1,104 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630358;
-	b=qAd/l0IptMFpL5cFEK6XGeOiu1waSD/gETXc9TIuO9/kOYW/z/rteyoUwodOYTxyPtMG
-	 N6fdr3M8ict8UrOrF7PoHgHfeBv9rQuIUN5g3fpQ48fQF3WrA6qhNwb3jBgLTvGs4l36+
-	 L+ATS05iPILXQ6XlfNTcLgYuGz1TO3oSW2J+UcKuRffEGWgpAf7rr9D0Prr2odeBwMK7L
-	 /Dp+SOgu1SdueF2WNjLK7QjQy0eGe5qF2jon5V1SCTJkkuQ3c9BeyoNf95OLGCIfX+hSy
-	 LDvQI3gfvhhbB6O2L1HLtMM3py9Kqyc6p4ElllC2/owKSPIqW+v+6DtR9uH14RIGiew==
+	t=1793630362;
+	b=Iq0ewsO9c8aZysg0/zjqPKCUgMl+8WbyWndhB/Z987cXqmyoF3H6rj9dg4EC4fUVfrmj
+	 U+28o23z+ouGl7hOK6bQpszZFl8xRqbh8t2h11N1jgmB657fd8ptWz+1YFIeO7lFsnjEP
+	 8S+J21MekEaWgw4gr6WNrWjRoIbvDV7LA9CNoUbLekqRSZxng9Fup2KCBMVfmxZFvq7us
+	 pjLhP/FAeqSHJo/dOTMbr/w4Y2zexcysNpnMN2TKYdS4RjqnUT7arXx1UsuS04ABvC+aG
+	 Cyv+MwW2PLw3u96DN7m2jhV0Ve+uiFoBRFU8xXMSrPesPg7urkbVomsYDkfrfAxwXZA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630358;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-GUID:X-Authority-Analysis:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630362;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=t3uMzKFF0fpXKNPzeuZqcP8SHbCjBILits3drrR5UAs=;
-	b=LZp/w/RmvwH8Tqq2CMaydDTHxtPldRM5hdsOtVNCycpui8L9Rmh6TRHvhiKSxdZRs79Q
-	 J1R9W4VUIyy/WSI+/YIMRquOX4i4mlDrUOAD2lpq6dCaoYmvz06a3TQ7sj3ABoSaMIkfi
-	 8EVrJaVKfwDMwfk0zrtuVVRHsNXKdEowwb66PDDc7wt7eeunXu+bLKjZdZBne/i8b2mWJ
-	 bVOtGWyv5m4vbZUw/J3WDU67BJZCx8x9MvKip0o0LfByYNe9U2rRyrYqGM8OqDc3A2+X8
-	 XRpKZSXJVpM1RGk/0sDqgAE7o40+xzx9Y1gPF5ABgJqkq88iO7oE0LLo4oos5nih3Iw==
+	bh=eSQPv9J+QlCFTNzamqkT43tzwOVTKcOK6QBTK/tnv2E=;
+	b=FQtlhV5oZpgahaRBfBwgx3YP23J8PI9BKHvCRmY396IS9F7xmXHN+AMqfyJCiw8cGaJx
+	 t+inyM9HyXhEvZ2W81Nm+lycaqOPDVyXd3jLn4Geynqsbi8kxRLPSWQ9IUm/UXMj1qjeO
+	 Tq8u3L9zhtCa0lO+2JtQSsUyZJdDyDA1MTcxptcCwtzX5DxIAFr2j9mqgZ8SytSnVUivb
+	 JP0nOjfLzJ8B9rqpVyTr/rPUOw8Bu1iX10lLB5S2Ttok/4QSuSTQw+T839kIcVecyQn93
+	 +DEVPEuJqaSFDCX0ZgQZLXScJKgBNchXIDsT5giKp1UB6m1FitnCw1BqdFx35EZHiDA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jrsDzUSF;
-	arc=none smtp.remote-ip=148.163.156.1
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iKgJ+Bvs;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FWfT5v7i;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDF8606A58A;
-	Mon,  2 Nov 2026 14:39:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEDF8606A58A
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF5B606E011
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:39:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0CF5B606E011
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=jrsDzUSF
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2EEEvg3103442;
-	Mon, 2 Nov 2026 14:38:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pp1; bh=t3uMzKFF0fpXKNPzeuZqcP8SHbCjBI
-	Lits3drrR5UAs=; b=jrsDzUSF/OggKdN81wWhb4EQ3nK8LML9mgaSnR8qAY70jz
-	0DbJXtS4PJuv8PQiLy7abs+fG7sndfj6ShOJulStFvMaB4jzVmChtTE0sAet0Vm3
-	A1+30vWOdajDQi0XubC1JRA8+Z0IFqBUkwIt3tZHqrS7135+dwCfgEZ9oFFGPewC
-	l25ok0YfFnDEr9VN3wS8SYboK6sKCmQ6lfAwbRcX9ljp4AV5DyeSlhrCxiJoEWty
-	Y1DzMBTvPDR+g06pwD9FhYxvyUDi1W8x+t9hc8THVHlowf7A2mNVTcdtd7GnSpo3
-	aFq1FAonyVk3KK0s0pDgB8L2nMIRTSxdOjGsR3jA==
-Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn826h1td-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 14:38:33 +0000 (GMT)
-Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2E5w6Q1034496;
-	Mon, 2 Nov 2026 14:38:32 GMT
-Received: from smtprelay07.fra02v.mail.ibm.com ([9.218.2.229])
-	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnu1vebv3-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 14:38:32 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com [10.20.54.102])
-	by smtprelay07.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2EcS5845613524
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 14:38:28 GMT
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A89912004D;
-	Mon,  2 Nov 2026 14:38:28 +0000 (GMT)
-Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 0A5D02004E;
-	Mon,  2 Nov 2026 14:38:22 +0000 (GMT)
-Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com (unknown [9.39.25.78])
-	by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTPS;
-	Mon,  2 Nov 2026 14:38:21 +0000 (GMT)
-Date: Mon, 2 Nov 2026 20:08:19 +0530
-From: Gautam Menghani <gautam@linux.ibm.com>
-To: Sean Christopherson <seanjc@google.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oupton@kernel.org>,
-        Tianrui Zhao <zhaotianrui@loongson.cn>, Bibo Mao <maobibo@loongson.cn>,
-        Huacai Chen <chenhuacai@kernel.org>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Anup Patel <anup@brainfault.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Paolo Bonzini <pbonzini@redhat.com>, Fuad Tabba <fuad.tabba@linux.dev>,
-        Joey Gouly <joey.gouly@arm.com>, Steffen Eiden <seiden@linux.ibm.com>,
-        Suzuki K Poulose <suzuki.poulose@arm.com>,
-        Zenghui Yu <yuzenghui@huawei.com>, Nicholas Piggin <npiggin@gmail.com>,
-        Atish Patra <atish.patra@linux.dev>, Alexandre Ghiti <alex@ghiti.fr>,
-        linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-        kvm@vger.kernel.org, loongarch@lists.linux.dev,
-        linux-mips@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
-        kvm-riscv@lists.infradead.org, linux-riscv@lists.infradead.org,
-        linux-kernel@vger.kernel.org, Stefan Teodorescu <fane@google.com>
-Subject: Re: [PATCH 3/7] KVM: PPC: Explicitly force IPIs when directly
- kicking vCPUs
-Message-ID: <auiZYdVzhFbnj0iy@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
-References: <20261028190259.1819571-1-seanjc@google.com>
- <20261028190259.1819571-4-seanjc@google.com>
- <auStM0rbFol79h5o@li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.ibm.com>
- <auTohixp3V5-vNsB@google.com>
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iKgJ+Bvs;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FWfT5v7i
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DpIEl3102577
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 14:39:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	eSQPv9J+QlCFTNzamqkT43tzwOVTKcOK6QBTK/tnv2E=; b=iKgJ+BvsSJcCQgGa
+	mJSVvfoMUao9w/aRtCvYNnMCnBDeW7YnEv84V6gfcPnAulp4PULt8v7TDDQMqVSt
+	2+fBcox4doGhkA5V+YeqgOYxhvd0Vs5b7FRgP65/71jD6EyljLG59ksaTXV+YF2D
+	zD8VSY/ZDhY74AQ6HAqyrXm6oZQVuhzBU1hK+/J9bMKjzJJNdahXXMeu8cBh2/j6
+	AOwewqBOUUhEZESuJA7TOe9B0wjRj3XJlE1Po4i/Ymw9qtMLADp0U1tV75Q8lZAV
+	5ZWebiOgf6FnbpY3iFZOw/sCVabS9Hvk1R9xNB6Kfl128DpWJSm8hzBHim7oqY7e
+	adkkjQ==
+Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpk9rj98r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 14:39:20 +0000 (GMT)
+Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c97957d83bso171644e0c.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:39:20 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793630360; x=1794235160; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eSQPv9J+QlCFTNzamqkT43tzwOVTKcOK6QBTK/tnv2E=;
+        b=FWfT5v7ip5XjQskGOoQIpn/9PXq7cifQ2XWFTDrPdK/mIRP2HS7zWJKJjSLUjbMMjX
+         iWnM7ipK1xMCBISyEOn7G+Gsa/IDH8ohm5Zz9KskLMpBMjQS5zd/3lbs+3grbU1J6RPy
+         9LwV6QodjRDmelNdUYmxOqUQsQazgfXwN6MNs4pA2tsGIZtxRQDuuYErlueeRKQaFtun
+         KhgCr2gyCm5Wke81Ijxp+noqZUb1SIKUyYX1M8dupVUUnbutXeO0a7QeuW8LgHbNE/KW
+         lHSy2ofHZHmP9wVSar0a0KvgKm0/AiWxZtqJcpZJVMyCdlUkh9d5O8weOLWj+uaRtEWa
+         KuTw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793630360; x=1794235160;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eSQPv9J+QlCFTNzamqkT43tzwOVTKcOK6QBTK/tnv2E=;
+        b=EiUw/dpIt8/mETDPsmaEWTx4vJVjzHdEoCjH/+oqb3y9lfOZAo4Nhe9g/8e6/g2qS4
+         a4TxkLItJ/zlJxwhbNyUzyk0SROLMOhbW0rE1lK+zkxR8tS0NKcoZQcnb20YmEIg+xFm
+         vLU6tSn+fDnrLWFo1SH4bdgY9X40lNvt8w1+DSVCbKPLJSsuSiUtlKK0+01wVNHR2YEh
+         4h7YtgByLUh1Plzgmjd2qbdQukonnQnGlKlHzjbZdTiRO4xCQiS2Ihtmt9DMoAIv/i52
+         kf+2UfqcA625BrdkhpdyP+QuZUhwfuMffCX7TYhxAm+9DcXoS4yskoVQyljD4tW54fDw
+         ASSw==
+X-Forwarded-Encrypted: i=1; AKwUvBwIsK/p0kW7cmcT2WbukZJMmNaHudwrta0A4s6CeqGPbvjL4+DG7xgRPbK3PYEgpkLjMHVNxqsqO0lgIDQ=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9lJKTMGctRDL7kEb3eKo5XLQkumOaTEEuOZ7aLxx8v3+aWx0YD
+	AqPQxjIM1mBgOejbG2kxko/ABU0rArvXRwL/0G7L6WJOmeGCUfmfsV4bwp3LUZUApSv76UZA/Kt
+	saQBclbLTImd/L46WoiIzkilcN09JjmTHwYoVgs57bOLxC5iXu8i3Yd65Z4NShPXfP3ZYuGZH+a
+	c=
+X-Gm-Gg: AYBFou1ObCgePyMTKqdL+7O5JbXGdkxVgbodQ7BEYZwCg/YNvIfMwaHKt9CGZVUhDcs
+	GXgUCLxmAlHKviV51LevO9hQpQHlQLMa5fS2Mt+Kh1pT5QXzEc46lXu/flKKEZOf9+NGRdpzEJT
+	PVc9ebHnVaRovgDBfQt8bIVpO5hfRJcm+oXGYJqPJJt4JfxKAkwiT8WgqfwXWE5YSwaQHc775FB
+	Xi8f6Ym5/9YzWFjlDsVTBUu69Gns/Wb/KhqZThGByG/vymT7mLh7KY+J/pV5TKq0Hy9l780zZop
+	kgYJ+Ym0bI/g42b+JFX62xhnyt7OmpPS/+ok/eka7OvyRzHnZB7lPlG042hqgqv7LNjI5+JGaRt
+	KDSpYuqaEXz7dEAXqBo/vlK76HasnLljirJ/e2fYu7NIST71JN1wOdmGpksaTeyUrArIuRSMNch
+	Egomnvs4wxD052V1eEdim0BMIrVS5Y1w==
+X-Received: by 2002:a05:6122:2b01:b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ec6897ccbamr4412993e0c.5.1793630359991;
+        Mon, 02 Nov 2026 06:39:19 -0800 (PST)
+X-Received: by 2002:a05:6122:2b01:b0:5cf:ad27:3a67 with SMTP id 71dfb90a1353d-5ec6897ccbamr4412976e0c.5.1793630359426;
+        Mon, 02 Nov 2026 06:39:19 -0800 (PST)
+Received: from ?IPV6:2a00:f44:e0:8d11:8079:3a24:c57d:745c? ([2a00:f44:e0:8d11:8079:3a24:c57d:745c])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe3c449sm403461466b.49.2026.11.02.06.39.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 06:39:18 -0800 (PST)
+Message-ID: <e23b0980-4759-430e-83da-52f44cff37d5@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 15:39:14 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -108,102 +117,101 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <auTohixp3V5-vNsB@google.com>
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-ORIG-GUID: MVuzkhZ7vtCvo0_kidGaNnCzUH4z2Q5t
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NiBTYWx0ZWRfX9NPC/owi16S7
- 9yPcxDuxCXAVRis8gROnpHUQtX1lgGRd8hAKUnleFK3QWlX1SdAjhFR8oEvK54MRQDdismPxh+K
- SQ8loUK3UQRzfSLpS9uRj+aWjubkYTlbIquMNg8PhpfWVJkZ76O3xxEXr80qfN6IOD19XJfjKtr
- 634hKk5awadYPmt24Ux7BsSNM3cqVRZujAolWeljDDPrwops7bov/t92bCk4p83QwKy6YXStSnl
- 0VsEIPP7bIE5T7r4zJSL0tKzTIgSYx+WFY3Qwo3DYgWTx5sTM9UVeBsh0rxrl31K1IM0pQFj1A7
- gw+VtvRxiUYjK/87Jg4SStypE42sXR/2o22pNseu+/r/yDHR8uGSsjBtiHv4st3RTmohj8hx7JP
- UCE4D1U1IEi/wr/eFIXPrL9wTCpxRXnB0VIgaijskvnY1QOUMWWKwaAo3sk8IykSUxckF0V1iQL
- y3XMeya+tQcv90pkeiQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NiBTYWx0ZWRfX/Jv0f66eb8FC
- gBsCZTcz1I/pV05gMEXUAwMes48ABsD2pbDotd5Qxpz6XqvBunVHHDSaqleBJACDat+c8lSkusL
- mmZ2c5c7i5Q1tgycd0AKgoXZ+Q680vQ=
-X-Proofpoint-GUID: 3_YY6ZYXsy9uBgG-NjaOA9L9V7gYRG4x
-X-Authority-Analysis: v=2.4 cv=EsJHPicA c=1 sm=1 tr=0 ts=6ae8a06a cx=c_pps
- a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
- a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
- a=1XWaLZrsAAAA:8 a=VnNF1IyMAAAA:8 a=duh_M4KPJp97uAtK-N0A:9 a=CjuIK1q_8ugA:10
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 1/2] phy: qcom: qmp-combo: Add PM suspend/resume
+ callbacks
+To: Prashanth K <prashanth.k@oss.qualcomm.com>
+Cc: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+        Kishon Vijay Abraham I <kishon@kernel.org>
+References: <20261022104321.306679-1-prashanth.k@oss.qualcomm.com>
+ <20261022104321.306679-2-prashanth.k@oss.qualcomm.com>
+ <de3e5baf-dab5-417b-a9ed-225cbc56ce1a@oss.qualcomm.com>
+ <a8104e92-990c-4e1a-aa4a-c97b9a801935@oss.qualcomm.com>
+ <a05ddb1a-a84b-4db0-9806-918958f3a962@oss.qualcomm.com>
+ <9f7c605b-e7ec-49d9-85af-7dd9d00a9079@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <9f7c605b-e7ec-49d9-85af-7dd9d00a9079@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: b6Fi0bglbBzEyBHoHRLqsTafSvQi2lxm
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1OCBTYWx0ZWRfX6A0MhJ8WiLs8
+ MvbeId+BoWKw+0eHCI5T/ZapFgfC7wiPqR5csVTGLcpc5aWqM3SVBwT74IGVkBWYNY2S5+f4Ovh
+ KYIU2ZKOTnts6RjGqBbFX2lvWPGncH/FKd0AV15dgHY97k0KiRfNRvOyvOyNCYx+2zT+n01byNc
+ FQPUMYYh8njwvFjML/9NNRF3/iRvPm5yQalQXWzCw/fBIeaJeXWbYs6/Dz4lPruUBbZ0qhdJ7RY
+ f+AShgoq8g6gwjHhGZjJV7fMEAKng6FFLKQuvBujBXVqyM1JhkauLXSKkbtu6KAAAlvFt5QEzX1
+ H6vlkM8Qpl8OTI9NerjibbGVqEph8L/1I9u8ubR2DWlEJTAtWEYT/M2exawOKYQQHoETQmugVN3
+ EwcAQ5uS2hUSd1eKesfZ1+o16G6x9qPzqSsPGtb9KbUH6zjLfJFgrhpvu81Bm0MsLg2UBHeUgQn
+ dp0pyqvljN6aKyOpzRA==
+X-Proofpoint-GUID: b6Fi0bglbBzEyBHoHRLqsTafSvQi2lxm
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1OCBTYWx0ZWRfX6Da5nzFndGiB
+ CueLoGtPWIzfRPuXa6JKNo7HjJ9eSuALt+kOT1CI09PKKBRhEjtoSWkhw6q9UCfovE223A+l77H
+ zNZZTmBinf/PbBYq9+jlkte5MQi6WPY=
+X-Authority-Analysis: v=2.4 cv=LvwHWXdc c=1 sm=1 tr=0 ts=6ae8a099 cx=c_pps
+ a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=c92rfblmAAAA:8
+ a=EUspDBNiAAAA:8 a=TnnhYUFuctcyKAmn-PYA:9 a=QEXdDO2ut3YA:10
+ a=tNoRWFLymzeba-QzToBc:22 a=GvGzcOZaWPEFPQC_NcjD:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-02_04,2026-11-02_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 lowpriorityscore=0 malwarescore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
- definitions=main-2611020056
+ impostorscore=0 spamscore=0 malwarescore=0 bulkscore=0 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 adultscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020058
 
-On Fri, Oct 30, 2026 at 11:57:10AM -0700, Sean Christopherson wrote:
-> On Fri, Oct 30, 2026, Gautam Menghani wrote:
-> > On Wed, Oct 28, 2026 at 12:02:55PM -0700, Sean Christopherson wrote:
-> > > Explicitly force an IPI when invoking kvm_vcpu_kick() directly instead of
-> > > relying on kvm_arch_vcpu_should_kick() to unconditionally return 1/true.
-> > > This will allow dropping kvm_arch_vcpu_should_kick() in favor of
-> > > kvm_request_needs_ipi().
-> > > 
-> > > No functional change intended (1 || 1 == true).
-> > > 
-> > > Signed-off-by: Sean Christopherson <seanjc@google.com>
-> > > ---
-> > >  arch/powerpc/include/asm/kvm_ppc.h | 13 ++++++++++++-
-> > >  arch/powerpc/kvm/book3s.c          |  4 ++--
-> > >  arch/powerpc/kvm/book3s_pr.c       |  2 +-
-> > >  arch/powerpc/kvm/booke.c           |  6 +++---
-> > >  arch/powerpc/kvm/e500_emulate.c    |  2 +-
-> > >  arch/powerpc/kvm/powerpc.c         |  2 +-
-> > >  6 files changed, 20 insertions(+), 9 deletions(-)
-> > > 
-> > > diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
-> > > index 169ea6a7fbad..bbe7378ad0ef 100644
-> > > --- a/arch/powerpc/include/asm/kvm_ppc.h
-> > > +++ b/arch/powerpc/include/asm/kvm_ppc.h
-> > > @@ -30,6 +30,17 @@
-> > >  #endif
-> > >  #include <asm/inst.h>
-> > >  
-> > > +/*
-> > > + * TODO: For unknown reasons, KVM PPC has historically ignored vcpu->mode when
-> > > + *       determining if kicking a vCPU needs an IPI.  Either document why that
-> > > + *       behavior is necessary, or drop this helper and the @force param from
-> > > + *       __kvm_vcpu_kick().
-> > > + */
-> > > +static inline void kvmppc_vcpu_kick(struct kvm_vcpu *vcpu)
-> > > +{
-> > > +	__kvm_vcpu_kick(vcpu, false, true);
-> > > +}
-> > > +
-> > 
-> > AFAICS, there is no reason for PPC to always return 1. I was looking at
-> > the old patches on mailing list and found this - https://lore.kernel.org/kvm/0FEE585F-5E21-47F2-A3F0-AD0DE05EBB43@suse.de
-> > 
-> > ```
-> > How about we return 1 for kvm_arch_vcpu_in_guest_mode() on !x86 always, just
-> > like it's done today basically? Then we can worry about needless IPIs later
-> > and don't regress from the respective current kick implementations.
-> > ```
+On 11/2/26 9:15 AM, Prashanth K wrote:
 > 
-> FWIW, I found that as well, but there are a metric ton of kvm_vcpu_kick() calls
-> that have been added since then, and they scared me.
 > 
-> > However, I'll do some testing and get back by mid next week to make sure
-> > there are no suprises.
+> On 10/30/2026 6:54 PM, Konrad Dybcio wrote:
+>> On 10/29/26 7:11 AM, Prashanth K wrote:
+>>>
+>>>
+>>> On 10/23/2026 3:53 PM, Konrad Dybcio wrote:
+>>>> On 10/22/26 12:43 PM, Prashanth K wrote:
+>>>>> Currently when we perform system suspend, the phy clocks aren't
+>>>>> turned off leading to power leakage. Prevent this by adding PM
+>>>>> suspend/resume callbacks for the qmp-combo-phy which toggles
+>>>>> clocks on/off correspondingly.
+>>>>>
+>>>>> Signed-off-by: Prashanth K <prashanth.k@oss.qualcomm.com>
+>>>>> ---
+>>>>
+>>>> Well this still leaves pm_runtime_forbid() in the probe function..
+>>>>
+>>>
+>>> Not sure about the history behind this, I assume its for controlling RT
+>>> behavior from user-space.
+>>
+>> Long story short it was an opt-in because it was broken.. can't recall
+>> if the issues were on the dwc3-qcom(-legacy) side or somewhere in the
+>> PHY code itself.
+>>
+>> Konrad
 > 
-> Thanks!  If we can drop the PPC behavior, that would be wonderful!  Though if
-> we do that, it should be for 7.5 in a follow-up (this series really should go
-> into 7.4 due to the SNP issue).
+> ok, I'm not sure if we should modify it in this patch, I'll enable the
+> RT PM operations and check its behavior. But this patch is intended to
+> enable the system suspend/resume ops for qmp phy.
 
+> While at it, you had suggested to add mutex guard on RT operations,
+> I think we can add that also as a separate series since it needs
+> addition of mutex on qmp-usb driver.
 
-Yeah I looked into it and realized that the newer variants of KVM on PPC
-are not even using vcpu->mode at all. So that has to be fixed from our
-end.
+Please assess whether it's necessary. If it is, it's a prerequisite for
+the other patch. If it isn't, there aren't any blockers.
 
-For this series,
-Reviewed-by: Gautam Menghani <gautam@linux.ibm.com> # PPC
+It definitely is in the combo PHY case as Sashiko points out
+
+https://sashiko.dev/#/patchset/20261022104321.306679-1-prashanth.k%40oss.qualcomm.com
+
+You can also use:
+
+SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend, pm_runtime_force_resume)
+
+instead of adding custom runPM-as-sysPM wrappers
+
+Konrad
