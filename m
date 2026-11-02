@@ -1,84 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.46
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641449;
-	b=DMFuIVMWaa4736V7oarNV+ngU2vR7/PAjH5XB5d7ubEsz0uV/gdPxoD+5UKF6ZG+vVVR
-	 2DyXRIFTAY1Rzm/3pyicpW/v5z/gonalPgDxK9aO5+/UBx5McRYrja+6ENKTjy72Tz3AH
-	 hPzHqPi7q0tI+FtV7svvDcM/C7Q8UcWgpTQxuLPNTezRHCbqn9xgZa8//ZyMuj3xk76WB
-	 bdrHh8LEoBm3WVOyOpl02RXe4jkynH0RrPYbgfhTjIaFJl80hadHeZg2/FUeNMQlHf2Ws
-	 O3vIwucWerfJnDawYMO71MoGEzTAWCNQ5hEi+RO0XogRmhXFFN/iUcEdLLlpbtzoCZQ==
+	t=1793641446;
+	b=l61p6jtV7uSXwLMKBHs41pxhhARvMn1WCf+cdCWAoX0Y1r9cuLiMOdMsHlrGtKHwQ57l
+	 bUv2kte92cZ0B5wjI2cUInRT+b04xxCfMY+jfW1VJTs65l9ayDvBeZdZXxiYoVO2q3k30
+	 vQj79iNPXr9IbxAkKZE11Z73tbfIrvP6+hdBrUCc4BZQcsrezqJ/W1MZjEg9yKt43YIUh
+	 yIK16Hu283fk9mMtzccBk0zk4rJHYqdCZfSyvXyAxoYCqPJfGpiqxQs7akTC9CJyJ7/6J
+	 Hfl4d6WBtUkl3VGqhnSONiXCI7HCXxy9yU+nJtSMB5o//8jhEQp1Fp0Gr8O5wDidNHQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641449;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641446;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=EHCQadAY8CNjmskwtsv6n18ePfbYCbVyW2mXEHaCPTM=;
-	b=cYUrOTlp7rQpGoIMv06BZOwqOnbd889plKfFcRVE6A8H3TCJwgvsUxE/wldAq/fcQOcv
-	 FmlMZeR8zXoIi+tPDIUijiau2pRtxQGIK7zp5WcMmAy9nkeXTucrq2biyey22v8Bi5sij
-	 Rh7zkJAhHK1m8VFYgz3BXJilCDl878aDsQeCWOB8gw6VnE9+6AmyjBZR3hZuZ8ygcAjD9
-	 6YIIqaRapNey2lFq0rXyOku9XHEKuso1TdtVD+LryXlUppLFtU8njbYHFupto9kvVqCBP
-	 pE9tS445v4njZSzBaf2NB1pyFRh66pVYoIwVEPFGvLQMx3rtAmdEj8lZCPEaa2ruxcQ==
+	bh=agT2sP37K9WOIXXonUOP0XJUw1BELGxgcJibL+YQ3I0=;
+	b=BeWg1fKAOa3TljJhe3AzgzmN4novi7CNcuIPFifq+NAF6eR1U3dnnrSdc+rUlTpoLsiD
+	 6/Y/lPzSOe2Va0NUb2KN8swhYYG//yFVgPNjpOLss4pi1M1MuPk61GWBDbAlym+Rp4CCc
+	 Awxr6+Spdgd+o2r9XQ/A3l9Y2TLtb5IiWD9K9ZbxXHaCWYO37+jjFN9JgUTf08XUoTbzh
+	 PKu6uR7ft0YjUzHNGSMLunBGYlP36JoveVRd5abdVLFMCAWwiXiQimHdytb7oUEiSfCn+
+	 hOQGnFHXHpc2QSatVssfBCb4BrHCDEs8NYJ55NtccrvPuGHTIrtKW0iXkd7FS2gpVBQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJ51Tyww;
-	arc=none smtp.remote-ip=209.85.128.49
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LbANDaoZ;
+	arc=none smtp.remote-ip=209.85.128.46
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9EF606B911
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:44:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EC9EF606B911
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA12E606B1C8
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:44:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AA12E606B1C8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HJ51Tyww
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so35298195e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:44:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=LbANDaoZ
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so28126985e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:44:05 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793641447; x=1794246247; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793641444; x=1794246244; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EHCQadAY8CNjmskwtsv6n18ePfbYCbVyW2mXEHaCPTM=;
-        b=HJ51Tywwr+XZ29wAcoNwa9GQAlHT0bah+gLnEkAQFMja3qlxMk6TqNCGw9my5l6Dro
-         dQdYGNv28qI8GBzghwIkdic0jM+DSXmYOrDPTawyx2OyfDy5YaohmLT5k0EfNRGBsFuO
-         yZD0FP84XkVLufxeQXYrcoN7UL3q5woDEGrfpo4qyQ0gp0GJr5nK3Y0j9gxgBnKRksu0
-         iUKWka26+TcczH3mb5I6se00SFAHPhaedfxtf4B9VWcQEZyePOIL4XKZzRzdmTA8coqz
-         goiwoRdsNLWeG7xEPfBdLdIf3U8Me6xiv+bfpJtYf7wgncLwXF946g4G5ZIZFupR++kw
-         eG+Q==
+        bh=agT2sP37K9WOIXXonUOP0XJUw1BELGxgcJibL+YQ3I0=;
+        b=LbANDaoZCQKZPwMi7B3S9QQ1jyxcinSKIlOFzSbHLK+XvBF27u/mJb1LiJK+ETn6Op
+         FLYumYA0lJOclOTIo4ZStDYTGaQOUR+HHP3QH4UiVhBg7bv/Dy9U3sE8dUFvYYBFjse+
+         9LPanSrKnvESryGi1rFCLuC33/0eb9WRbWljeNmO2veWOoE4wauBm3Z7deMmGvrHyLLg
+         stzbGPMQUwqDWd+A3hNNbTsyGFVoaZqQv4oLHJPhtQLYfQpzHYy4tj2Kv3bgR7j2k91Z
+         bWiURnTQ/CvWe/3cISwM7btd6E0CxsTKsGHCccfFsJFuWNQ7r7Nb5A8iSm65b8j7d5TL
+         mbvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793641447; x=1794246247;
+        d=1e100.net; s=20260707; t=1793641444; x=1794246244;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EHCQadAY8CNjmskwtsv6n18ePfbYCbVyW2mXEHaCPTM=;
-        b=HgLqupAB7XLaMbtmUd1muoHjHbL3UOBk6F8NPq9wcQa0a7OB6fWLJY53hEL/Q+RT0J
-         o9+zzU1dBVbhM6r4QgXL+gIbTUlagKef5zzIPS7cIQTSeUsxzTRo50E4hBmDsOGNaxim
-         iSIvpc6yJ2GayeGeRJYelAGLyGX69mrspdSdM002pAPZC8v7bCWikGDRtaBkm3oFW/f2
-         JhV0o5OPVq5vmdXPi5X9G93nJfzjvvUg2BbXOBrG59gPwPowihghqSoJQ8kloRbBQag0
-         PGJhk0edwTzpCFMlwraFoqF/d0m1CvS447le9dzeVOmx58hTfuctaBRuuwOdkdldgGBp
-         Qayw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNBr2V1zWKEQIkUEAQ94FhLwnueDiaWOmK51R3qfGFwjRMpkxrOMoAhMNXsVHkxCEH/U67pCTDy6t8jT8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIFhrdJvfwNJc4Mdng1qnBCW7ENgfpS+Mq+VEgcX3puYjJgjMXK
-	ixk4YlfIVMo5D3jE9odX8LgxEjnb6bmr+8LYpdrR68PdkZlv+xjxhMYf
-X-Gm-Gg: AYBFou2KQDINtg4NGNqXfRzZGy0375f/LitPF4yCEjTq4JJERVoeQCTBs2wOVMKKZG2
-	+ty09Z3ZPVPpPyhEe4WHRWAtnyNzIUusBNRdK4fAaXs83rZW3DlUg9/dCJAhLLlt+wd1dq547HK
-	RXRhofMEL2X/rz/5ODeTg5ZebGgjPp/f+1682LgEXAdjR8tGE3w55AIFApTE1IouULaKxftRsoT
-	8HcWHMezC0Wgl/2KppzPQQqNm3K43sDQHONzcp0vDBOfK0B3gP+lShd+APwEtEJaRkuPvPoQEKG
-	hhfAxXhqoQJyNJFLS2o3xvf+pJ/SQHB7tkXHfnjIzzbqwkbvZdHfN3vdiuAm0CirWXNwkTJPYU3
-	qb3SOXe7x1uVSG7IRMM2K+TLEExgHsUiX4UIwSVHqMO161jEWuNJi1W1HWfsJ5O4bytK3OmFKxB
-	9rvnUzYWnCoiTDU2Ogd/bgeOylt+R48cctQzJcHgK6vxuH71QLPboxmkzNWi4kRRqNDKfSCVGTs
-	DwGoQVXJhorPubErH1pxXqbXryHg3rv8p5igKJlkjjrfbVgHH/mbnUze3UkJQtAu2rdMMwIWHF2
-	Iqjz82bZNW0XBrHwhxwReTDF5GQ3Wl3x67hcsukO04cKp0Sg8HDI6r38LUwpb8iTjfLtof9Ia7k
-	q
-X-Received: by 2002:a05:600c:6215:b0:4a1:a45a:88f with SMTP id 5b1f17b1804b1-4ac187a6c3amr233296855e9.20.1793641447321;
-        Mon, 02 Nov 2026 09:44:07 -0800 (PST)
+        bh=agT2sP37K9WOIXXonUOP0XJUw1BELGxgcJibL+YQ3I0=;
+        b=LX5X5hK35ZwCjQmWLjsz+obCpGfoUoLa5+JleS9mROhdAbK+Yni11gjDJO5sTRd456
+         a+OYjtpXX1MKpWcIqlekJbdc2OSB2hqoNX+K5nxN0k38qE9WpQEVreZsl/3VjPpJUWIN
+         x8jfBCIZ6555mZzEmAUOa4mRNnXu9R6he1WvQpIbzzSk9ixsklhVyynwCrsvXbSFl3zi
+         83mzPqzkKZV9r/outBC3xwZI0AgAvNzpjp5E7MYFjyDPXfZ35t9kDNsxmKrRIHvSQSCF
+         X5r+6Vt2IPF31XT+pWiS9ahlx3iKzD1KOMT7xCgej/Isuzcbo3O7TzgfRcCJMTwtOdaC
+         B5rw==
+X-Forwarded-Encrypted: i=1; AKwUvBwDh6AXdD7jS13Ih8PU82OwvzvgBJmHppFiv9k6vI6bk56BYeva84sg24GDqJ934hVH2OqNBbQR8qRliDA=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLLWHhTpQq8b79SJc/OnO08kV3ctPejiQrEfRBMtvbnpibe/4d1
+	MVAKrOcUYdOOszL9c/m+cbHlmjcDPwCbxXO5kPcQTF9Lvrc1phxj5zSh
+X-Gm-Gg: AYBFou3LYUjmvwgMIicwUAIJQhQHVCY5d0y/h9xQSFxy0xVQzXQsi/5vQnAoyP2/pT4
+	cXTDZ/DXfwvXzw58UpueAuyp1xenpQlKU8/4UE+P2OLGER2bXv00PpLtZ0YytfS2fHnFKK3t3Ab
+	i6IfXjH77e0Y4p9D3aMVSGD7PSRxHUvAm3YIa0V1N9FMwmCuf3E6tLjYYBIawInqcgoS7bY2Edk
+	gnN79KeEbwHwtOBKo/11mYhcVUcTxpago5WQvVsX0xamu2UF/CszWr9xsO5HqHzK7id/vwVARS8
+	UWhWzkQMwIT4g/ltxQsyZMElskho4ueX4/dxzK7y8jiFbPcU98leuvzG6KEcCYz9AllgC1ezWgK
+	v22xZ/MzTjn4Zh59T48auIsZObMqDA4lTg877ni1ZXqkOkDY1UMvyQJWsVwaf3BYOAPH0ZpQgQ0
+	FsJ8/Z4axSWsRzSpvHga6X6j4tN1pVjteDBHGmMDkAC7Zb8bct2oOSZ9DqBwaotR4h0VP6YHGPY
+	JkRQLR1SvUd0KVwQIVogXltRpd/Kecoy5kQBkqJOH95x1Qvtjuc49mdDmOG2t7m4odGWpPii/oZ
+	S48EGip1ke2P+Aq5l4TAhq5pPxAFA5zM/awJjUX8y/XEPdJ4q40YOvuISMy7h8GiY/xqfUW7BXQ
+	H
+X-Received: by 2002:a05:600c:a00d:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4ac185bc336mr238059655e9.18.1793641443872;
+        Mon, 02 Nov 2026 09:44:03 -0800 (PST)
 Received: from mtardy-friendly-lvh-runner.europe-west1-c.c.cilium-dev.internal ([2600:1900:4010:1a8::])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm196311865e9.1.2026.11.02.09.44.06
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm196311865e9.1.2026.11.02.09.44.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:44:07 -0800 (PST)
+        Mon, 02 Nov 2026 09:44:03 -0800 (PST)
 From: Mahe Tardy <mahe.tardy@gmail.com>
 To: bpf@vger.kernel.org
 Cc: Quentin Monnet <qmo@kernel.org>,
@@ -101,9 +101,9 @@ Cc: Quentin Monnet <qmo@kernel.org>,
 	Josef Bacik <josef@toxicpanda.com>,
 	linux-kernel@vger.kernel.org,
 	linux-kselftest@vger.kernel.org
-Subject: [PATCH bpf-next 4/5] bpftool: Add attach option for light skeleton generation
-Date: Mon,  2 Nov 2026 17:43:49 +0000
-Message-ID: <20261102174350.472592-5-mahe.tardy@gmail.com>
+Subject: [PATCH bpf-next 1/5] libbpf: Count entry programs for bpf_gen__init()
+Date: Mon,  2 Nov 2026 17:43:46 +0000
+Message-ID: <20261102174350.472592-2-mahe.tardy@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261102174350.472592-1-mahe.tardy@gmail.com>
 References: <20261102174350.472592-1-mahe.tardy@gmail.com>
@@ -118,227 +118,54 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add an optional attach keyword to gen skeleton when the loader backend
-is selected, and pass the request through gen_loader_opts.gen_attach.
+Commit '259172bb6514 ("libbpf: Fix gen_loader assumption on number of
+programs.")' explicitly mention that we may pass a higher number of
+progs because we include subprogs and autoload=false to bpf_gen__init()
+generating a bigger cleanup section which is harmless.
 
-Extend the loader context to receive link FDs, using zero for empty slots.
-Generate attach functions that check the returned links, and detach
-functions that close and reset the FDs. Document the option and add shell
-completion.
+This is in preparation for the next commits that will introduce cleanup
+of the link_fds to bpf_gen__init(). We don't want to overallocate but
+have the correct count of progs in this situation so that the
+program-slot count matches the programs exposed by the skeleton.
 
 Signed-off-by: Mahe Tardy <mahe.tardy@gmail.com>
 ---
- .../bpf/bpftool/Documentation/bpftool-gen.rst | 11 ++-
- tools/bpf/bpftool/bash-completion/bpftool     |  2 +-
- tools/bpf/bpftool/gen.c                       | 67 +++++++++++++------
- 3 files changed, 56 insertions(+), 24 deletions(-)
+ tools/lib/bpf/libbpf.c | 12 ++++++++----
+ 1 file changed, 8 insertions(+), 4 deletions(-)
 
-diff --git a/tools/bpf/bpftool/Documentation/bpftool-gen.rst b/tools/bpf/bpftool/Documentation/bpftool-gen.rst
-index d0a36f442db7..4bf8b0b99ea2 100644
---- a/tools/bpf/bpftool/Documentation/bpftool-gen.rst
-+++ b/tools/bpf/bpftool/Documentation/bpftool-gen.rst
-@@ -24,7 +24,7 @@ GEN COMMANDS
- =============
+diff --git a/tools/lib/bpf/libbpf.c b/tools/lib/bpf/libbpf.c
+index 8fcb8cf39cc0..cd8ff7f42768 100644
+--- a/tools/lib/bpf/libbpf.c
++++ b/tools/lib/bpf/libbpf.c
+@@ -10077,7 +10077,7 @@ static int bpf_object_load(struct bpf_object *obj, int extra_log_level, const ch
+ 	 * permit cross-endian creation of "light skeleton".
+ 	 */
+ 	if (obj->gen_loader) {
+-		int nr_func_ptr_maps = 0, nr_progs = 0, i;
++		int nr_func_ptr_maps = 0, nr_progs = 0, nr_obj_progs = 0, i;
+ 		bool text_has_callx = false;
 
- | **bpftool** **gen object** *OUTPUT_FILE* *INPUT_FILE* [*INPUT_FILE*...]
--| **bpftool** **gen skeleton** *FILE* [**name** *OBJECT_NAME*]
-+| **bpftool** **gen skeleton** *FILE* [**name** *OBJECT_NAME*] [**attach**]
- | **bpftool** **gen subskeleton** *FILE* [**name** *OBJECT_NAME*]
- | **bpftool** **gen min_core_btf** *INPUT* *OUTPUT* *OBJECT* [*OBJECT*...]
- | **bpftool** **gen help**
-@@ -51,6 +51,15 @@ bpftool gen object *OUTPUT_FILE* *INPUT_FILE* [*INPUT_FILE*...]
- bpftool gen skeleton *FILE*
-     Generate BPF skeleton C header file for a given *FILE*.
-
-+    With **-L**, **attach** requests attachment during execution of the
-+    generated loader. Supported programs are ordinary LSM programs and
-+    BTF-based tracing programs using **fentry**, **fexit**, **fmod_ret**, or
-+    **tp_btf** sections, with kernel targets resolved during loading.
-+    The generated **__load()** function loads and attaches the programs;
-+    **__attach()** checks that the links exist, and **__detach()** closes them.
-+    Reattaching after detachment is not supported in this mode. Without
-+    **attach**, loading and attachment remain separate operations.
-+
-     BPF skeleton is an alternative interface to existing libbpf APIs for
-     working with BPF objects. Skeleton code is intended to significantly
-     shorten and simplify code to load and work with BPF programs from userspace
-diff --git a/tools/bpf/bpftool/bash-completion/bpftool b/tools/bpf/bpftool/bash-completion/bpftool
-index a28af31937ad..9247a9fdcaef 100644
---- a/tools/bpf/bpftool/bash-completion/bpftool
-+++ b/tools/bpf/bpftool/bash-completion/bpftool
-@@ -1021,7 +1021,7 @@ _bpftool()
-                             return 0
-                             ;;
-                         *)
--                            _bpftool_once_attr 'name'
-+                            _bpftool_once_attr 'name attach'
-                             return 0
-                             ;;
-                     esac
-diff --git a/tools/bpf/bpftool/gen.c b/tools/bpf/bpftool/gen.c
-index 74c2c949458a..19670b3454ec 100644
---- a/tools/bpf/bpftool/gen.c
-+++ b/tools/bpf/bpftool/gen.c
-@@ -567,7 +567,8 @@ static void codegen_asserts(struct bpf_object *obj, const char *obj_name)
- 		");
- }
-
--static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
-+static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name,
-+				 bool gen_attach)
- {
- 	struct bpf_program *prog;
-
-@@ -583,21 +584,30 @@ static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
- 				int prog_fd = skel->progs.%2$s.prog_fd;		    \n\
- 			", obj_name, bpf_program__name(prog));
-
--		switch (bpf_program__type(prog)) {
--		case BPF_PROG_TYPE_RAW_TRACEPOINT:
--			tp_name = strchr(bpf_program__section_name(prog), '/') + 1;
--			printf("\tint fd = skel_raw_tracepoint_open(\"%s\", prog_fd);\n", tp_name);
--			break;
--		case BPF_PROG_TYPE_TRACING:
--		case BPF_PROG_TYPE_LSM:
--			if (bpf_program__expected_attach_type(prog) == BPF_TRACE_ITER)
--				printf("\tint fd = skel_link_create(prog_fd, 0, BPF_TRACE_ITER);\n");
-+		if (gen_attach) {
-+			if (bpf_program__autoload(prog) && bpf_program__autoattach(prog))
-+				printf("\tint fd = ((void)prog_fd, skel->links.%s_fd <= 0 ? -ENOLINK : 0);\n",
-+				       bpf_program__name(prog));
- 			else
--				printf("\tint fd = skel_raw_tracepoint_open(NULL, prog_fd);\n");
--			break;
--		default:
--			printf("\tint fd = ((void)prog_fd, 0); /* auto-attach not supported */\n");
--			break;
-+				printf("\tint fd = ((void)prog_fd, 0);\n");
-+		} else {
-+			switch (bpf_program__type(prog)) {
-+			case BPF_PROG_TYPE_RAW_TRACEPOINT:
-+				tp_name = strchr(bpf_program__section_name(prog), '/') + 1;
-+				printf("\tint fd = skel_raw_tracepoint_open(\"%s\", prog_fd);\n",
-+				       tp_name);
-+				break;
-+			case BPF_PROG_TYPE_TRACING:
-+			case BPF_PROG_TYPE_LSM:
-+				if (bpf_program__expected_attach_type(prog) == BPF_TRACE_ITER)
-+					printf("\tint fd = skel_link_create(prog_fd, 0, BPF_TRACE_ITER);\n");
-+				else
-+					printf("\tint fd = skel_raw_tracepoint_open(NULL, prog_fd);\n");
-+				break;
-+			default:
-+				printf("\tint fd = ((void)prog_fd, 0); /* auto-attach not supported */\n");
-+				break;
-+			}
- 		}
- 		codegen("\
- 			\n\
-@@ -641,6 +651,8 @@ static void codegen_attach_detach(struct bpf_object *obj, const char *obj_name)
- 			\n\
- 				skel_closenz(skel->links.%1$s_fd);	    \n\
- 			", bpf_program__name(prog));
-+		if (gen_attach)
-+			printf("\tskel->links.%s_fd = 0;\n", bpf_program__name(prog));
- 	}
-
- 	codegen("\
-@@ -692,7 +704,8 @@ static void codegen_destroy(struct bpf_object *obj, const char *obj_name)
- 		obj_name);
- }
-
--static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *header_guard)
-+static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *header_guard,
-+		     bool gen_attach)
- {
- 	DECLARE_LIBBPF_OPTS(gen_loader_opts, opts);
- 	struct bpf_load_and_run_opts sopts = {};
-@@ -703,6 +716,7 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
- 	char ident[256];
- 	int err = 0;
-
-+	opts.gen_attach = gen_attach;
- 	if (sign_progs)
- 		opts.gen_hash = true;
-
-@@ -739,7 +753,7 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
- 	}
- #endif
-
--	codegen_attach_detach(obj, obj_name);
-+	codegen_attach_detach(obj, obj_name, gen_attach);
-
- 	codegen_destroy(obj, obj_name);
-
-@@ -756,6 +770,8 @@ static int gen_trace(struct bpf_object *obj, const char *obj_name, const char *h
- 			skel->ctx.sz = (char *)&skel->links - (char *)skel; \n\
- 		",
- 		obj_name, opts.data_sz);
-+	if (gen_attach)
-+		printf("\tskel->ctx.sz += sizeof(skel->links);\n");
- 	bpf_object__for_each_map(map, obj) {
- 		const void *mmap_data = NULL;
- 		size_t mmap_size = 0;
-@@ -1262,6 +1278,7 @@ static int do_skeleton(int argc, char **argv)
- 	struct bpf_map *map;
- 	struct btf *btf;
- 	struct stat st;
-+	bool gen_attach = false;
-
- 	if (!REQ_ARGS(1)) {
- 		usage();
-@@ -1270,10 +1287,9 @@ static int do_skeleton(int argc, char **argv)
- 	file = GET_ARG();
-
- 	while (argc) {
--		if (!REQ_ARGS(2))
--			return -1;
--
- 		if (is_prefix(*argv, "name")) {
-+			if (!REQ_ARGS(2))
-+				return -1;
- 			NEXT_ARG();
-
- 			if (obj_name[0] != '\0') {
-@@ -1283,6 +1299,8 @@ static int do_skeleton(int argc, char **argv)
-
- 			strncpy(obj_name, *argv, MAX_OBJ_NAME_LEN - 1);
- 			obj_name[MAX_OBJ_NAME_LEN - 1] = '\0';
-+		} else if (is_prefix(*argv, "attach")) {
-+			gen_attach = true;
- 		} else {
- 			p_err("unknown arg %s", *argv);
- 			return -1;
-@@ -1291,6 +1309,11 @@ static int do_skeleton(int argc, char **argv)
- 		NEXT_ARG();
- 	}
-
-+	if (gen_attach && !use_loader) {
-+		p_err("attach requires a light skeleton (-L)");
-+		return -1;
-+	}
-+
- 	if (argc) {
- 		p_err("extra unknown arguments");
- 		return -1;
-@@ -1454,7 +1477,7 @@ static int do_skeleton(int argc, char **argv)
- 			goto out;
- 	}
- 	if (use_loader) {
--		err = gen_trace(obj, obj_name, header_guard);
-+		err = gen_trace(obj, obj_name, header_guard, gen_attach);
- 		goto out;
- 	}
-
-@@ -2018,7 +2041,7 @@ static int do_help(int argc, char **argv)
-
- 	fprintf(stderr,
- 		"Usage: %1$s %2$s object OUTPUT_FILE INPUT_FILE [INPUT_FILE...]\n"
--		"       %1$s %2$s skeleton FILE [name OBJECT_NAME]\n"
-+		"       %1$s %2$s skeleton FILE [name OBJECT_NAME] [attach]\n"
- 		"       %1$s %2$s subskeleton FILE [name OBJECT_NAME]\n"
- 		"       %1$s %2$s min_core_btf INPUT OUTPUT OBJECT [OBJECT...]\n"
- 		"       %1$s %2$s help\n"
+ 		/*
+@@ -10092,12 +10092,16 @@ static int bpf_object_load(struct bpf_object *obj, int extra_log_level, const ch
+ 			if (prog_is_subprog(obj, &obj->programs[i]) &&
+ 			    prog_has_callx(&obj->programs[i]))
+ 				text_has_callx = true;
+-		for (i = 0; i < obj->nr_programs; i++)
+-			if (obj->programs[i].autoload && !prog_is_subprog(obj, &obj->programs[i]) &&
++		for (i = 0; i < obj->nr_programs; i++) {
++			if (prog_is_subprog(obj, &obj->programs[i]))
++				continue;
++			nr_obj_progs++;
++			if (obj->programs[i].autoload &&
+ 			    (text_has_callx || prog_has_callx(&obj->programs[i])))
+ 				nr_progs++;
++		}
+ 		bpf_gen__init(obj->gen_loader, obj->log_level | extra_log_level,
+-			      obj->nr_programs, obj->nr_maps, nr_func_ptr_maps * nr_progs);
++			      nr_obj_progs, obj->nr_maps, nr_func_ptr_maps * nr_progs);
+ 	} else if (!is_native_endianness(obj)) {
+ 		pr_warn("object '%s': loading non-native endianness is unsupported\n", obj->name);
+ 		return libbpf_err(-LIBBPF_ERRNO__ENDIAN);
 --
 2.43.0
 
