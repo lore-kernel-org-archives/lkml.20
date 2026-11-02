@@ -1,72 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793661510;
-	b=ZgVDToqXgt7m09mZqn0OchMi+5exw6Zzp6AWLgqK5I38xKd2+7tMbUJMxfBZhw5S1fAo
-	 ruFF/IFJfetfnC4vb2GZ0lbstAFX/1O/yIkyrnXSN7p7DUPjSpgCtigiSYBgYFZVLurnR
-	 72rHTnc4msvL2+LWaX4rU5Eg6kLvC5hJMr9Bgtt9v0BkjybWRfCB9zyzkw1oxAFugIYxg
-	 kCJscpywvJDgJYMV57cFkLKvcUzq8aJSNOaPpP7FvnccEjZvc3njLo7BQ4V1fnpggSPyV
-	 05xyCC5/cLRKywX3esjxDPJ/yPYtgOzZuUxmCF8bt+CFum9EBlxd3wYC6/jKpZQGaPQ==
+	t=1793661511;
+	b=GQ3n4TG/I+5M//6DNUNXXYP2ySwJN+0q5o2CBZZllSpUJUJVOdZwKsaXr2A3ySICi9iA
+	 eGh8rGDmADB+ryfeLn8DErqehia+6lZ7hbmQuN69cKO/NoSrB7kuKfu0nPcWdtRcd9wGY
+	 scThb3WAWtNfP+agNUoi6M3PSmUxDxOz7N496sdtCQvSL/2eO3cvy+h0x3t8nQSMBRbRk
+	 3a/Yaq/klSwsDPKVtg87jQiA37grIE1XJYIiRXD14Xx5HVFfph4ZPbg37JEqFVWAVMZUh
+	 xa7OdF/vQwc7FkISUcfD4GwbLsDrM7BvlRFazdDesWFNCQGAZoZesNAmQA9SmneXg5w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793661510;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793661511;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:Mime-Version:
-	 X-Mailer:Message-ID:Subject:From:To:Cc:Content-Type;
-	bh=LFVGfhguVIcON2Iuwy9nGTiu+m3FyzEBTJ2yKEsx2aE=;
-	b=hUNfuoaBoCYwSLRk/SUpNAcK9c6ttVFoslnV39LdEsccG8dn3wlLO6stueWHUMqz/2Nd
-	 mC5ji69UE/2iW/tyqsQUdoy7t+XJtQkUhfujHoHeKI4xQEhhKTNtppr7w3mwUN5Lrr10A
-	 SKXkbPSCKB58wc6cD5md5kc6Xo1Aa4PW71V1yhCrEsmazL4FCAxGInD2znWywY+w+zxWP
-	 bTULzYmGP+OW9XTMuu3TnJ3b8dxZ5OrM9Y6ZkQnj4M4BOPQD8mg0Ku6Avk5yT+VBoifcA
-	 zvFw/FOWWYBH2j4yx8ouHBEj4RyjzOOOx/8Bx38RcZbq7fk2ghbGdqFRdjoWUaKpzwA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=iZDXbweAmFNOv7UlpFwc90QtjCwuGkfN6YnFxiQHliQ=;
+	b=dwLKzZSc0JSVymCEYqAVSgK5RphQRlxZlEbamd1VrpjMOiV2bTWGcKVuVuzb4b9BtqBj
+	 E3WWvjtWVYnSR200w3SgIZg2oYj+zTQoGgPlq55bKnXmwJkiBfUW+bQWA2lLBYrtDt82T
+	 XEfo7ya0DcDPcfpsnvSJ6tuAMQW2jI6OhenBdp42uUDdKwc2L1oNGxH7Amyo3ntmqgNM6
+	 lLFf40u29Vop3YpFfBzcSbzvx1rQ7MiFg2UNUnllqtVR0LJVIUfPvbgm3zXWrL8dWv5Mt
+	 GJw536pGXHrLG6spvf7+lec1A20BikjREFJ+REoSLOBd2R/IdNOwVztU0BGou4juc3g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DXKmJT3l;
-	arc=none smtp.remote-ip=74.125.82.197
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NwMBWKZk;
+	arc=none smtp.remote-ip=74.125.82.198
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B96606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:18:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 46B96606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82939606D80E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:18:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 82939606D80E
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--almasrymina.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=DXKmJT3l
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-341eff9e381so8114704eec.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:18:29 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=NwMBWKZk
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so8114740eec.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:18:31 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793661508; x=1794266308; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LFVGfhguVIcON2Iuwy9nGTiu+m3FyzEBTJ2yKEsx2aE=;
-        b=DXKmJT3lCkMlwCskfFOjbDWelDzwwlLNmhIHmHwNsNRnJ0svZpkUW69UETFPWwY3lK
-         VbjijYoIQ+s6KQ6vinBnRUseiXI8/sJS7Hxg16aspX82rL5MyMeTo9Z/QadHkhURUSH8
-         dVaVizVG2yFsiHv1WgpDG93FWlvstODhE4+v736QFowJi+hlqkDYQ1pb5NXg6wPrAhOM
-         /96ioVQgdMiT71YgQdw1R//aButs+8NhfzTiVBxk/ZNVxFsfS9weKCD8YKIaWtcg9X6i
-         NRhZLsHrF2KP6WtMwRMnsPQ02d3hwOMWLhMGg7FbnvcXRCUNSAS1Q16lULwwO7tx+fJ8
-         uTKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793661508; x=1794266308;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=google.com; s=20260707; t=1793661511; x=1794266311; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=LFVGfhguVIcON2Iuwy9nGTiu+m3FyzEBTJ2yKEsx2aE=;
-        b=hIwvknvcxWN3Xt4qg0uJVUVV5qpSL9b6VWATNS9OGfn8E/v2IsxGDdwxNzIhGOfgU3
-         XDQpqEruDf8zO3d0RoMbBPCVLTzo/2xoPUATOJB4DhpPpGkNF+bFuPO+TrJY2sOzEjbH
-         v0xmocKsHPbflOCStKRarVOQCBt1Or94aJC5x7sVKCUNOyus6PNmirhpCC/YMY49XiYd
-         b+wrPF3TUHPSGDfYb0J5gahyP4/p0QmuC22aN70wkpM80Cvp7GNzm/phmuQ3BBAz/jqP
-         67aZDJ6HBR9IoqAwnDjtMrc4q93AAwielwmqyd7Ayk1xE7n9glbHAL7HjlY9Ozn6WM4z
-         vYnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwLpbXMl5toz8FTOPSEPNRlt7xVQfsY/30FWZuSe2HSex1o9GveU7i4PYXT6t0fHfEYvunVL2qoDfMHvUI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8Udt/uCUUel3Cdp0yEAZAT9EFXIVMvTlJGDsGECwddDMK4wnhJ
-	wy3Sf9tnOGmXCOcrbiDHyngj2iUe88gPrgaFqou6eD8YG542xiFxrylgm0FmzPGslwysHrahBv/
-	RwV47vkCTaCIfOu4KDpaNu78+IA==
-X-Received: from dylq31.prod.google.com ([2002:a05:7300:599f:b0:369:dee2:2b2b])
+        bh=iZDXbweAmFNOv7UlpFwc90QtjCwuGkfN6YnFxiQHliQ=;
+        b=NwMBWKZkHV9VC9yw3iAdkZ2KsA56AQ3pOxJUPTT0CttR4gI/DPhpJwxH1Ytgnx8jf4
+         CgJptNiuJv7F9NxRj5XiBePAEmKGA/c0Rs9Iw8bwb9jH2L0cIF4hsiSzP5c85/8cv93H
+         92M7DqcGpXrsHLV2bJD3nTri9lLl95Mjewm1RIjOJgk48n+XclK3bvk+9FtPj5YjrtTn
+         zi5K64h49LLfIoDxkAcKIaB6yJxtjM/SdUX3pQtKmWqWVCkz1yl+qADFdV1gG/6SJ496
+         EBS9H/4IWjbil0WrvIn9Z01QXRgxY1PrTzOBdRs9UOw+7XSHYDDA4eU1yEaSyVLNrZNz
+         kotA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793661511; x=1794266311;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iZDXbweAmFNOv7UlpFwc90QtjCwuGkfN6YnFxiQHliQ=;
+        b=M53S6WcfRR4uf9Pne1ZjwzCAWZ3+mIhTkOhFWAxu+9DDBEJszDWFRHNakMamuBIQ9p
+         3mkrIq+zN5wdJ7/FAf/9TmIKfQjT9q9+2gqEFu3nLApyTW5wFepD5OajZsWbfDqceGyf
+         0+QZLNUBkjYrR1/12hBectd2pZ8ztddu38AMgUw+2ZSWc6qKXi8UDviGSS++dHYuSrZU
+         QbKC0KVro05jdnVQd829Kyt6zgLHijLDEfA4v6WC06Lq+zlKEhB3MNs7xl2JzmzXNDb2
+         XAHHD8JTTgqbiKQbqlWTUfxjzTTJPJ+/RV+uijDrgiljo19NO/7O/bSNUoe7sW1HC52x
+         fYBA==
+X-Forwarded-Encrypted: i=1; AKwUvBxn1ssx++1IaBm1M8oaRQzLd8IUHE0rLzl65Sa5WHSiUqyL7rHOn+PhPgyXfGWCwVZdDqlEROMDDQi3MKI=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+iGZ7CQT053jwNhcl+zn7RLb7xL2wYRY0UvQx2tYJg6njcjJXO
+	EEv6DCQaUJxKaDceI2/naIwazlWEcUvrTJk8WsxoMIO5eSL6WGE3hBPPPFjmxprTd+PahfFguYq
+	Ha1BqzGVlLyFAVa04YX3aq5ue/w==
+X-Received: from dyr19.prod.google.com ([2002:a05:693c:4013:b0:35f:390d:248a])
  (user=almasrymina job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:7301:1886:b0:35e:6eae:c01a with SMTP id 5a478bee46e88-36a4237d9d5mr17726681eec.19.1793661507989;
- Mon, 02 Nov 2026 15:18:27 -0800 (PST)
-Date: Mon,  2 Nov 2026 23:18:23 +0000
+ 2002:a05:7300:c00f:10b0:36a:1470:da0e with SMTP id 5a478bee46e88-36a423bececmr20849250eec.29.1793661510277;
+ Mon, 02 Nov 2026 15:18:30 -0800 (PST)
+Date: Mon,  2 Nov 2026 23:18:25 +0000
+In-Reply-To: <20261102231827.4088254-1-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,10 +79,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
+References: <20261102231827.4088254-1-almasrymina@google.com>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
-Message-ID: <20261102231827.4088254-1-almasrymina@google.com>
-Subject: [PATCH net-next v2 0/4] net: prevent mixing incompatible memory
- providers in skbs
+Message-ID: <20261102231827.4088254-3-almasrymina@google.com>
+Subject: [PATCH net-next v2 2/4] netmem: store memory provider private pointer
+ directly in struct net_iov
 From: Mina Almasry <almasrymina@google.com>
 To: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	Jakub Kicinski <kuba@kernel.org>, Willem de Bruijn <willemb@google.com>, Eric Dumazet <edumazet@kernel.org>, 
@@ -92,50 +96,155 @@ Cc: "David S. Miller" <davem@davemloft.net>, Simon Horman <horms@kernel.org>,
 	Kuniyuki Iwashima <kuniyu@google.com>, David Ahern <dsahern@kernel.org>, Ido Schimmel <idosch@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Enforce that all fragments in a nonlinear skb come from compatible
-memory providers (and for devmem, the exact same binding).
+Resolving the memory provider instance from a struct net_iov currently
+chases niov->owner (struct net_iov_area) and then dereferences the
+provider-specific container struct (such as net_devmem_dmabuf_binding
+or io_zcrx_area->ifq).
 
-Patch 1 fixes skb->unreadable propagation in skb_split() and skb_shift().
-Patch 2 stores mp_priv directly inside struct net_iov.
-Patch 3 adds skb_has_net_iovs(), skb_mem_provider_compat(), and
-skb_frags_can_coalesce().
-Patch 4 enforces provider/binding compatibility across TX, TCP, GRO,
-IP defrag, skb_shift(), and skb_try_coalesce().
+Alias void *mp_priv over the unused _pp_mapping_pad slot inside struct
+net_iov (keeping sizeof(struct net_iov) == 64 bytes unchanged) and populate
+it in net_iov_init() for both TX and RX net_iovs so callers can obtain the
+provider instance pointer in a single load from the net_iov cacheline.
 
-v1 -> v2:
-- Generalize the check across TX, TCP collapse, GRO, IP defrag,
-  skb_shift(), and skb_try_coalesce() by storing mp_priv directly in
-  struct net_iov and introducing skb_frags_can_coalesce().
-- Fix skb->unreadable propagation in skb_split() and skb_shift().
-- Add KUnit coverage for cross-provider and cross-binding rejection.
-- v1: https://lore.kernel.org/netdev/20261008034027.1403188-1-almasrymina@google.com/
+Signed-off-by: Mina Almasry <almasrymina@google.com>
+---
+ include/net/netmem.h | 15 +++++++++++++--
+ io_uring/zcrx.c      |  2 +-
+ net/core/devmem.c    |  3 ++-
+ net/core/devmem.h    |  3 +--
+ net/core/net_test.c  | 10 +++++-----
+ 5 files changed, 22 insertions(+), 11 deletions(-)
 
-
-Mina Almasry (4):
-  net: fix skb->unreadable propagation in skb_split() and skb_shift()
-  netmem: store memory provider private pointer directly in struct
-    net_iov
-  net: add skb_frags_can_coalesce() helper
-  net: prevent mixing frags from different memory providers or bindings
-
- include/linux/skbuff.h   | 58 ++++++++++++++++++++++++++++++++++++++++
- include/net/netmem.h     | 15 +++++++++--
- include/net/tcp.h        |  5 ++--
- io_uring/zcrx.c          |  2 +-
- net/core/datagram.c      |  4 +--
- net/core/dev.c           | 14 +++-------
- net/core/devmem.c        |  3 ++-
- net/core/devmem.h        | 25 +++++++++++++++--
- net/core/gro.c           | 16 +++++------
- net/core/net_test.c      | 34 +++++++++++++++++------
- net/core/skbuff.c        | 34 ++++++++++++-----------
- net/ipv4/inet_fragment.c |  3 +++
- net/ipv4/tcp.c           |  2 +-
- net/ipv4/tcp_output.c    |  3 +++
- 14 files changed, 163 insertions(+), 55 deletions(-)
-
-
-base-commit: 4dd16e31135ea8437a720222df34e8745f385d6d
+diff --git a/include/net/netmem.h b/include/net/netmem.h
+index fb693bc1702a4..c869be9c4d266 100644
+--- a/include/net/netmem.h
++++ b/include/net/netmem.h
+@@ -95,11 +95,20 @@ enum net_iov_type {
+  *		supported.
+  */
+ struct net_iov {
+-	struct netmem_desc desc;
++	union {
++		struct netmem_desc desc;
++		struct {
++			unsigned long _pad[3];
++			void *mp_priv;
++		};
++	};
+ 	enum net_iov_type type;
+ 	struct net_iov_area *owner;
+ };
+ 
++static_assert(offsetof(struct net_iov, mp_priv) ==
++	      offsetof(struct netmem_desc, _pp_mapping_pad));
++
+ struct net_iov_area {
+ 	/* Array of net_iovs for this area. */
+ 	struct net_iov *niovs;
+@@ -120,10 +129,12 @@ static inline unsigned int net_iov_idx(const struct net_iov *niov)
+  */
+ static inline void net_iov_init(struct net_iov *niov,
+ 				struct net_iov_area *owner,
+-				enum net_iov_type type)
++				enum net_iov_type type,
++				void *mp_priv)
+ {
+ 	niov->owner = owner;
+ 	niov->type = type;
++	niov->mp_priv = mp_priv;
+ }
+ 
+ /* netmem */
+diff --git a/io_uring/zcrx.c b/io_uring/zcrx.c
+index 6d7abb1636e7f..6ec618d325606 100644
+--- a/io_uring/zcrx.c
++++ b/io_uring/zcrx.c
+@@ -562,7 +562,7 @@ static int __zcrx_create_area(struct io_zcrx_ifq *ifq,
+ 	for (i = 0; i < nr_iovs; i++) {
+ 		struct net_iov *niov = &area->nia.niovs[i];
+ 
+-		net_iov_init(niov, &area->nia, NET_IOV_IOURING);
++		net_iov_init(niov, &area->nia, NET_IOV_IOURING, ifq);
+ 		area->freelist[i] = i;
+ 		atomic_set(&area->user_refs[i], 0);
+ 	}
+diff --git a/net/core/devmem.c b/net/core/devmem.c
+index 32fafbfa1359e..fe99c005cbc5e 100644
+--- a/net/core/devmem.c
++++ b/net/core/devmem.c
+@@ -323,7 +323,8 @@ net_devmem_bind_dmabuf(struct net_device *dev, void *vdev,
+ 		nr_niovs = len >> niov_shift;
+ 		for (i = 0; i < nr_niovs; i++, niov_idx++) {
+ 			niov = &binding->area.niovs[niov_idx];
+-			net_iov_init(niov, &binding->area, NET_IOV_DMABUF);
++			net_iov_init(niov, &binding->area, NET_IOV_DMABUF,
++				     binding);
+ 			if (net_mp_niov_set_dma_addr(niov, dma_addr)) {
+ 				err = -EFAULT;
+ 				NL_SET_ERR_MSG(extack,
+diff --git a/net/core/devmem.h b/net/core/devmem.h
+index 8fa089776610a..942b8caf36e99 100644
+--- a/net/core/devmem.h
++++ b/net/core/devmem.h
+@@ -102,8 +102,7 @@ int net_devmem_bind_dmabuf_to_queue(struct net_device *dev, u32 rxq_idx,
+ static inline struct net_devmem_dmabuf_binding *
+ net_devmem_iov_binding(const struct net_iov *niov)
+ {
+-	return container_of(net_iov_owner(niov),
+-			    struct net_devmem_dmabuf_binding, area);
++	return niov->mp_priv;
+ }
+ 
+ static inline u32 net_devmem_iov_binding_id(const struct net_iov *niov)
+diff --git a/net/core/net_test.c b/net/core/net_test.c
+index 2b5080c226636..63124dbf3c9a8 100644
+--- a/net/core/net_test.c
++++ b/net/core/net_test.c
+@@ -857,7 +857,7 @@ static void netmem_ref_test_net_iov(struct kunit *test)
+ 			      PERCPU_REF_INIT_ATOMIC, GFP_KERNEL);
+ 	KUNIT_ASSERT_EQ(test, err, 0);
+ 
+-	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF);
++	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF, &binding);
+ 	netmem = net_iov_to_netmem(&niov);
+ 	base_ref = atomic_long_read(&binding.ref.data->count);
+ 
+@@ -1145,7 +1145,7 @@ static void netmem_ref_test_release_data(struct kunit *test)
+ 			percpu_ref_init(&binding.ref, dummy_percpu_ref_release,
+ 					PERCPU_REF_INIT_ATOMIC, GFP_KERNEL),
+ 			0);
+-	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF);
++	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF, &binding);
+ 	netmem = net_iov_to_netmem(&niov);
+ 	netmem_set_pp(netmem, pool);
+ 	netmem_or_pp_magic(netmem, PP_SIGNATURE);
+@@ -1206,7 +1206,7 @@ static void netmem_ref_test_skb_segment(struct kunit *test)
+ 			percpu_ref_init(&binding.ref, dummy_percpu_ref_release,
+ 					PERCPU_REF_INIT_ATOMIC, GFP_KERNEL),
+ 			0);
+-	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF);
++	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF, &binding);
+ 	niov_nm = net_iov_to_netmem(&niov);
+ 	netmem_set_pp(niov_nm, pool);
+ 	netmem_or_pp_magic(niov_nm, PP_SIGNATURE);
+@@ -1508,7 +1508,7 @@ static void netmem_ref_test_try_coalesce(struct kunit *test)
+ 			percpu_ref_init(&binding.ref, dummy_percpu_ref_release,
+ 					PERCPU_REF_INIT_ATOMIC, GFP_KERNEL),
+ 			0);
+-	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF);
++	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF, &binding);
+ 	niov_nm = net_iov_to_netmem(&niov);
+ 	netmem_set_pp(niov_nm, pool);
+ 	netmem_or_pp_magic(niov_nm, PP_SIGNATURE);
+@@ -1654,7 +1654,7 @@ static void netmem_ref_test_tcp_devmem_recv(struct kunit *test)
+ 		KUNIT_ASSERT_EQ(test, ret, 0);
+ 	}
+ 	binding.area.niovs = &niov;
+-	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF);
++	net_iov_init(&niov, &binding.area, NET_IOV_DMABUF, &binding);
+ 	niov_nm = net_iov_to_netmem(&niov);
+ 	netmem_set_pp(niov_nm, pool);
+ 	netmem_or_pp_magic(niov_nm, PP_SIGNATURE);
 -- 
 2.56.0.385.gac671c819a-goog
 
