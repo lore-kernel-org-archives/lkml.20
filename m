@@ -1,58 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637228;
-	b=g1U3uyDF7kI2yvNGEeR2b9El8S0mekT/Vo3b7IJ/VXL6hcbsEFX8sHrIS33ZBjZPBjC+
-	 65Uldzf06Y3jQV1tB0tn3QOQSJemQbBhdFtXF5/bmNcAdbLLAlhZ/eVnXm5uRUnf97r5R
-	 NA/qR/SHx3JK3Lg9LDp23pTOFYHCW7/ajVuML9I8pLXFnm6O9iRB1jg68cvQLwSXU0RBZ
-	 cUCwh14D5aQD1lcU13Tgv82Qa/nrTbsvd9JK8YBeb4nEaUVDjEz6G5AsDqk7ffWd6xsH5
-	 bAnHlXaYRFhIHeWbeuZbzDvnDQxJbbb/wDmnJfS1YbFkAavqoV3c0LSTWFJpfxDHapw==
+	t=1793637246;
+	b=MM5geuynjdxY5BOJfYQwaqXNLdksd4O6KmtMKb0+D3hq+7OUGyy/GQGm7fOPD5EEwsGO
+	 U/JdW9N8SrAGhj72AkMni6XdcD99fnmQv/GjBBhuHNrgpPFhacs8zZcEbbBioVCSC/fEw
+	 zzydktCnq+3NjgVlGXp14KyRZuu6MT8lBa9mqWO6YLh1AyqfhCmpG3OnSN+uDqQKQ2Zfg
+	 DeN492X0VkRfo3Ao8B6cLpBFob0hvVMKv+aMk5TdU2Iowa9Dh9kd4/0cLpMiE38IkugkB
+	 zRlGeDEdFcDjTiKxY1QvZbQDnhqu+Z2/SxJkA8Bh5kWZtjwPogY224TjPZ37nWzMqnw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637228;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:From:To:Cc:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 X-Spam-Status:X-Spam-Checker-Version;
-	bh=+CGY7tF70V7u0OLBsqICi+tyqkgLNUWhoT5j+slS+i4=;
-	b=3G7vkvoVVP6ktyrEGKsKd11QDnSZAeXLXa1D9cbeW8IxdVH6/9ecj3EyISdgtINwTpR3
-	 mJ3gSMI7rbaisyJxFzjF3ryZAbKgDmcR76jMYPwmYVGM/3+YuPW52Yvm//Fsk1e7awDSV
-	 TtuWSxZQfinUJMHCtKPTz16rC4VgE5lxT70y1lfMm0jzMv89NXVEeIsbWW94fxoZS5HLU
-	 03lJ/z9fE4YJFVM1L/og0jbkR59PJ5R8SHlL8LVqoWOzIdI7rDtkZaNBz7dvb0gWMoRHJ
-	 3G7v/i4aBIrdTEUvNoqdrhN7jc3M/wAjgAn2+4q0tvsTtnhLa0wgrQmf88hbh07xBKw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637246;
+	h=Received:DKIM-Signature:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=QP+HE6vmuzGLbe3HdR/8wzLb/M7lRFFGRjYTgGG20kA=;
+	b=K2g2ChlKIk7JJ5NJGMICQgPVtfH8TprAecGq4UxHhWr+03P7BR6KI4kt0SmDL3OHKenA
+	 l6copY6Vn/IRlK301JU8hEyNXCS+0euSdCPQxobxjdxFi4CctpKyym6MPGDimKHCv7n9B
+	 oagxgz5sYRZTIYxzoUNaR2LSidgQK/Jcx4iSvTGYoNYjvoqhEf7KHRjnCwQ2Jw+vpAen3
+	 KoUnKAbRrQxVWOl9ast+4C1YTM/Aj5/S6/IP/tx+2f9patzl/IS9Sj5nK9rvCLYT9K3CY
+	 K7o6mIi5pwtHRHOGZorD1U207oKPWP2vA0dyAu9RrQI5YljzEHMV6GMgJLHXyrRaeRQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=nMHmjLx6;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 641AF608B071;
-	Mon,  2 Nov 2026 16:33:48 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 641AF608B071
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQev4lNV;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F36608B07C;
+	Mon,  2 Nov 2026 16:34:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=nMHmjLx6
-Received: from CPC-namja-026ON.localdomain (unknown [4.213.232.20])
-	by linux.microsoft.com (Postfix) with ESMTPSA id 70DD320B7166;
-	Mon,  2 Nov 2026 08:33:31 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 70DD320B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793637213;
-	bh=+CGY7tF70V7u0OLBsqICi+tyqkgLNUWhoT5j+slS+i4=;
-	h=From:To:Cc:Subject:Date:From;
-	b=nMHmjLx6ZrNTEQcSPL+YLY1D6PQ4a0bqbF7xWfK0RDhwJx5kIfu6sc3Zt5YZoF2si
-	 SVN9PM9f/9Qp2pTFa8dqpLdekjyFSsSlVzXnVXrNiRXLWUlmOKDXv4OUh1vh4iifbr
-	 A+zFwfPPoTxQjtY3kTpDxrCVYQH2gQKAZGjJs444=
-From: Naman Jain <namjain@linux.microsoft.com>
-To: Theodore Ts'o <tytso@mit.edu>,
-	Andreas Dilger <adilger.kernel@dilger.ca>,
-	Sasha Levin <sashal@kernel.org>,
-	Matthew Wilcox <willy@infradead.org>
-Cc: stable@vger.kernel.org,
-	linux-ext4@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 6.1] ext4: honor NULL returns from __filemap_get_folio()
-Date: Mon,  2 Nov 2026 16:33:41 +0000
-Message-ID: <20261102163341.2170232-1-namjain@linux.microsoft.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IQev4lNV
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931321F00A1C;
+	Mon,  2 Nov 2026 16:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793637245;
+	bh=QP+HE6vmuzGLbe3HdR/8wzLb/M7lRFFGRjYTgGG20kA=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=IQev4lNV0p4G4ZptoppRo2Q/gZwmkpt8LEC4RLvTMZNGmw5vELK/GSPheNegky6Yl
+	 Y4zkTWThFljgaaarnGRhJQUgaeVoC6C9JKb5btk6mfE6kiR5aDbc3/CswNBxmp8Okr
+	 6V7Lrw9yBySpn+0q3N+QHMVbd2Vbg5uwG5wybrueAVf4JRH6wyiSAyhx9235nAlNSr
+	 tbF3Q3IippVT8t5TKOS5ri2MaoLWbCgUzzyK6e/F/fFrGFJghJWs2swXAe3JCQ55eN
+	 wPM3jqO84aLfyWNRfgSXz5hy/oXgwgJsfXL7Mw3oYSWsdlDxAqeBG73+b89qgs8JE6
+	 V3FmZ2iYtAMGg==
+Date: Mon, 02 Nov 2026 06:34:04 -1000
+Message-ID: <0c5a32d85c3bf4d9fa3bacafa510b51f@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Juri Lelli <juri.lelli@redhat.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>, Vincent Guittot <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>, Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, Luca Abeni <luca.abeni@santannapisa.it>, Andrea Righi <arighi@nvidia.com>, sched-ext@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: sched/deadline: total_bw leak when a task leaves SCHED_DEADLINE while not queued
+In-Reply-To: <auhw3ctxwy8qeOvs@jlelli-thinkpadt14gen4.remote.csb>
+References: <2b5fb3f22bca6aa383be8f4781923392@kernel.org> <auRh42kZI1xLIWNr@jlelli-thinkpadt14gen4.remote.csb> <1a24bcdde0bb6e4a8c839351002e841d@kernel.org> <auhhGAjRtuSb5JP7@jlelli-thinkpadt14gen4.remote.csb> <auhw3ctxwy8qeOvs@jlelli-thinkpadt14gen4.remote.csb>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,117 +57,28 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 
-The bitmap and buddy folio conversions assume that
-__filemap_get_folio() returns error pointers. In Linux 6.1, however,
-it returns NULL both when a non-creating lookup misses and when folio
-creation fails.
+Hello, Juri.
 
-A cache miss therefore passes the IS_ERR() check and reaches
-folio_test_uptodate(NULL) in ext4_mb_load_buddy_gfp(). Creating-lookup
-failures can also dereference NULL in its slow paths and in
-ext4_mb_get_buddy_page_lock().
+On Mon, Nov 02, 2026 at 12:15:41PM +0100, Juri Lelli wrote:
+> Would you be able to re-test with the patches at
+>
+> https://github.com/jlelli/linux.git fix/dl-total-bw-leak
 
-Restore NULL checks at all six lookup sites and return -ENOMEM when a
-creating lookup fails. Preserve the folio locking and migration checks
-without changing the global filemap API.
+On 473adf013e43, all three are fixed.
 
-Fixes: d34e4fd4e73f ("ext4: convert bd_bitmap_page to bd_bitmap_folio")
-Fixes: 862483175d3d ("ext4: convert bd_buddy_page to bd_buddy_folio")
-Cc: stable@vger.kernel.org # 6.1.x
-Signed-off-by: Naman Jain <namjain@linux.microsoft.com>
----
- fs/ext4/mballoc.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+Tested-by: Tejun Heo <tj@kernel.org>
 
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index e77d56c533c0b..d0b276ce9401c 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -1375,8 +1375,8 @@ static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
- 	poff = block % blocks_per_page;
- 	folio = __filemap_get_folio(inode->i_mapping, pnum,
- 			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--	if (IS_ERR(folio))
--		return PTR_ERR(folio);
-+	if (!folio)
-+		return -ENOMEM;
- 	BUG_ON(folio->mapping != inode->i_mapping);
- 	e4b->bd_bitmap_folio = folio;
- 	e4b->bd_bitmap = folio_address(folio) + (poff * sb->s_blocksize);
-@@ -1389,8 +1389,8 @@ static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
- 	/* blocks_per_page == 1, hence we need another page for the buddy */
- 	folio = __filemap_get_folio(inode->i_mapping, block + 1,
- 			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--	if (IS_ERR(folio))
--		return PTR_ERR(folio);
-+	if (!folio)
-+		return -ENOMEM;
- 	BUG_ON(folio->mapping != inode->i_mapping);
- 	e4b->bd_buddy_folio = folio;
- 	return 0;
-@@ -1533,7 +1533,7 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 
- 	/* Avoid locking the folio in the fast path ... */
- 	folio = __filemap_get_folio(inode->i_mapping, pnum, FGP_ACCESSED, 0);
--	if (IS_ERR(folio) || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
-+	if (!folio || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
- 		/*
- 		 * folio_test_locked is employed to detect ongoing folio
- 		 * migrations, since concurrent migrations can lead to
-@@ -1543,11 +1543,11 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 		 * try to get the folio with lock in both cases to avoid
- 		 * concurrency.
- 		 */
--		if (!IS_ERR(folio))
-+		if (folio)
- 			folio_put(folio);
- 		folio = __filemap_get_folio(inode->i_mapping, pnum,
- 				FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--		if (!IS_ERR(folio)) {
-+		if (folio) {
- 			if (WARN_RATELIMIT(folio->mapping != inode->i_mapping,
- 	"ext4: bitmap's mapping != inode->i_mapping\n")) {
- 				/* should never happen */
-@@ -1567,8 +1567,8 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 			folio_unlock(folio);
- 		}
- 	}
--	if (IS_ERR(folio)) {
--		ret = PTR_ERR(folio);
-+	if (!folio) {
-+		ret = -ENOMEM;
- 		goto err;
- 	}
- 	if (!folio_test_uptodate(folio)) {
-@@ -1585,12 +1585,12 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 	poff = block % blocks_per_page;
- 
- 	folio = __filemap_get_folio(inode->i_mapping, pnum, FGP_ACCESSED, 0);
--	if (IS_ERR(folio) || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
--		if (!IS_ERR(folio))
-+	if (!folio || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
-+		if (folio)
- 			folio_put(folio);
- 		folio = __filemap_get_folio(inode->i_mapping, pnum,
- 				FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--		if (!IS_ERR(folio)) {
-+		if (folio) {
- 			if (WARN_RATELIMIT(folio->mapping != inode->i_mapping,
- 	"ext4: buddy bitmap's mapping != inode->i_mapping\n")) {
- 				/* should never happen */
-@@ -1609,8 +1609,8 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 			folio_unlock(folio);
- 		}
- 	}
--	if (IS_ERR(folio)) {
--		ret = PTR_ERR(folio);
-+	if (!folio) {
-+		ret = -ENOMEM;
- 		goto err;
- 	}
- 	if (!folio_test_uptodate(folio)) {
--- 
-2.43.0
+> BTW, it looks like I could verify with reproducers I pushed to
+> https://github.com/jlelli/sched-deadline-tests/commits/fix/dl-total-bw-leak-reproducer
+> but I'm not sure if they are similar/equivalent to what you have at your
+> end.
 
+They cover the same cases as mine.
+
+Thanks.
+
+--
+tejun
