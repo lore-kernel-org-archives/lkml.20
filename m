@@ -1,54 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793637148;
-	b=vPJV47+XqaPqsoavuqotc9LiU+O236Cyi7tukBwR+Sd22pNCSy3ut5vqoQv9mQs7F7a+
-	 cvfmFI1uwrSuWUC1PJ7N9ZGNQjpHmFtEw2H5aR6MIa+Wu5y6ZLwZj4W6hTuTpn7tDORkN
-	 eK1vqro+NNgS2iqYG83W1k0QjvmEhz20tQY/lJFMM+cBbqrIMN1RdDGRatApoC9PM0knk
-	 X7i8Tygbe7x17LaXC7L9Ld1cpPFFAm21/xUX4NpTdQxx3DqU5wD/GZR2j8sYfe+me/xTG
-	 XO/W/AX+zPSZr8g0OadpZol/1S/6bqlrqs+S5C9aVCgCdi2X2kpIcUXhju+I9DZdauw==
+	t=1793637162;
+	b=ZMnZAkT13Uic01npZtWM44IbvbsgbAxVj0kbl3uEvBRvuvUW9uGgXCapY96ACcDC97Ac
+	 OGJa3WHBHUocV2pjicve2BM+PF0fPb6HfIk6rpO2rxx4uDMQRT9jnO2k4f+A1Eshvdo4M
+	 OKHO6fiYuSolf0kEbkI0SzFkdPM1Ako4qY6xRlQwSSHNNXaAMGzNjxe22SS7GAGQyFYsb
+	 IH517zicvjDMaleCynePwz8kGontSn8xlqmYae8y44eJ3G35+iXsxdN7CKTdOBj3L7SMh
+	 yKNYDOA4RbcFe+qtgfm7L56uzjIlk5KoE/WnbYXeVFmJzwqQolb86hQQgvAvXoZtAYw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793637148;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=I2DcIW001sUYVfzNlJQeVBewOygtd2GgakfGiD8PY+M=;
-	b=CpmE/VtDA52mFmuK/6eY43Cd//okP9zOvFDEnxRr0PTmC5b1+7d+l2IT2k6Uldiq7NFO
-	 TJNDDQ3B+qyyv+y7C4l0egxu52V297xpLoaMObgKhp1xyA1wqJu9UmiirDlxbJx7WY6CN
-	 5Mc66Q+Wzp5MFn6JIQHWrDppdVpw9a26qcvi7CcHg2RG7tiAXKuPH2y7lxakMcf20OEkK
-	 ymHRiuyoziOtvmEyScGez0dDTVyOmevQ57VIG4kk42RmJOnB8+mH03nqHIs2hFm86KjVa
-	 2SQr4K3InaNQHKWB0suPGdzxDBhCxR9DrAlkIsg+4Vuc2JOTAvt1y83jS+Vj6REIq9w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793637162;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=wb4mBzyfZ0kKUChcn64LcBZNg4proTG3oaURoFMVm9o=;
+	b=DlrbRO5mSEMHetpgEe38yxMz2w83avzeh8EhUaNgkaeUTeg8MkoNX87ffDcEsXz7F38e
+	 hiFVHuSYMVXyJrGxE2ZH1kcZGzZL7QwPoYTn+/vBVVEpRALQK/w6UzVsAXjI3d3fSX2ia
+	 0hqd5bb51+Zrfcfu1sN+9Z8jJv2Hh4J9cgPtLUCkA/xvr9WFp4pOgTne2n1JfbrXivR6x
+	 WPeM1K6zhPg8tP8txz2Mub0Y8NZpC/np5DmVDeHPHiafJEXrZImRiC1mQXuYnlLg/CznE
+	 77hgcxTKwSDJZbYsWE7woTGNGYWwr6i83xplfj7+Q1Gq5/QXTXWYXprnW+PkC4mKjBw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vW5f75lY;
-	arc=none smtp.remote-ip=91.218.175.131
-Received: from mta0.migadu.com (out-131.mta0.migadu.com [91.218.175.131])
+	dmarc=pass header.from=linuxfoundation.org;
+	spf=pass smtp.mailfrom=linuxfoundation.org;
+	arc=none smtp.remote-ip=209.85.210.43
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316EE6072EE3
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:32:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 316EE6072EE3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=vW5f75lY
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=cMQd7ViTEEFLx21Upc27tT5FD51v8xytsO/TzIbpq/Q=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793637144; v=1; x=1794241944;
- b=vW5f75lY3uvwR6vtyN4jMAiR3ZGYHp4XmhktZZtRb7heFqmmGVd/+GHTe91uOlvftWfQxUuz
- 5y45N2G5f/OplEFKtvM2MD0zSaUHbtMdpy/nbWAI4t/ve+TBmEdKaFpiayC08c/dWQ57jPVbJau
- E5O557Zdl3lZY02EyDt/i0hQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id e5fc46e4f632b820;
-	Mon, 02 Nov 2026 16:32:24 +0000
-X-Mizu-Trace-ID: e5fc46e4f632b820
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <e2cab3ba-e363-4d21-ab44-c009476f61f2@linux.dev>
-Date: Tue, 3 Nov 2026 00:32:17 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFA8608A34F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:32:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0AFA8608A34F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxfoundation.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxfoundation.org
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-85c1135c286so2080143a34.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:32:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linuxfoundation.org; s=google; t=1793637150; x=1794241950; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=wb4mBzyfZ0kKUChcn64LcBZNg4proTG3oaURoFMVm9o=;
+        b=K7dM6d50zwoz7aBhfl+TN8bK1XqD7HIB6KXzJnB6Ev2K7k6UMTITkbg/ivKc+8K2at
+         TSljeWav5xZoG4upTbnADlaxFwv3+NlnzDGoelfQvT2EyAjf34EMwTBQhp5rFgxcGHz8
+         bE2G0wwNppAlW6XH8B4OtcffWhAaq4xQphf5o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793637150; x=1794241950;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wb4mBzyfZ0kKUChcn64LcBZNg4proTG3oaURoFMVm9o=;
+        b=E/PsF3hYNrDMMnJ8VPHvlRy6ypYNVqJw8WivSHV6eJoO/W1ViQssvwkdMyS11huhln
+         aQuvWtqHN/7T5YxUnA+N3sUJkC6kR8uJfE1vrjxbk1qaDO8knOo6oby9NLwHcmImLfmD
+         wSzu+uCigTV/tZTiyCJ6l3ezewi664STjHloAVvKyBAG3vz7fEoRgw+4s6+jzpPSESm8
+         mlq/H0JpuaTYUKEyHrNX91ZxUMs/uNpfExbFOj2QKlH+3Oi+t1mtXRiypK04m8JXB7DE
+         zReMEOjnJLOA9wCeWi5CM2jQ0VsVBFRtS1CSS0TBPAVjYRhIOyD60e0Ub5lkxfeB7nl2
+         4boQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzLgW5AaQdKbv9iAgzoIvMeJCN6s/B59zWeDxszkQW02XrKAa0a4FzvH5I1ynEN7wxZ8SLYtZmsXpXVm78=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIXSqBKM872RIU3bmvEdOsJ4hkTgH2xft1JayoDI2wvBJy0D9tc
+	F8GmdLK0A7i+8GnCy70jWjsw9NveLOIBU71nz7Trj0tEN/PTwAhc4/+oZMb6CHEAqVI=
+X-Gm-Gg: AYBFou05tIt2qpnlGKv1bd/T4SFyREkjtFw9/Sy3wiCfzvILTQ6PKRpKmWFPubUt7/C
+	9qvdQQvRKZ6hAaDJP4RdlsUFYr0Y8UU+mDwCIpW4bgkqYMq81Cj62KabcH5hn/S8XlqmAZVis/L
+	AKyHO1rdKptoNtDKL77ZIMNt7mgKeJr8ag1+ybsFc3E5zjJyBOp5FAw2QtDHbKLxWznGB3dEVgV
+	EETu3LNsaKPYfxsVpVsegPJqyAL/NoMEm5oO4/XG3KRYy/4tNV61TOrU2a7rYWddOPcqwcH13m9
+	NAyORmEe0Y8tUHUfQ4YpQ5Tf/vXtF6HzvKFQXeqSj51+zwgawyBf3AOLrl3zVAl0w6jmFXyFxF0
+	aNfisnmU0xo/brN+/hzJm5QtsAUHnLdqPV3LJJEQd+AMUArEkoPq26nJVM+C9FTUEBp435kDZxO
+	Nz9vKzUsoL435gZueaxwDpViBmJTauR9uKdmzQFYR2DO5ONfueUOxlCTqcLTa+ErcnqCrP2uaMT
+	X7w4yMONOQFABJ6CIbvOfnkxyRJGK7p3xXMqiUq7aYX/toiKMxoQvoqrNOB68XmIYiLkpemn/Vp
+	R1KTebcwP1bnAT41zqCTNmn42qhcS5usTElE
+X-Received: by 2002:a05:6830:7197:b0:822:27d6:c28a with SMTP id 46e09a7af769-85d362f2e48mr7714233a34.4.1793637149826;
+        Mon, 02 Nov 2026 08:32:29 -0800 (PST)
+Received: from [192.168.1.128] ([38.15.57.99])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-85d351e841fsm10329751a34.1.2026.11.02.08.32.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 08:32:28 -0800 (PST)
+Message-ID: <97e486d7-b5e0-4293-8bce-75251f5d3c20@linuxfoundation.org>
+Date: Mon, 2 Nov 2026 09:32:24 -0700
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,172 +87,35 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 00/14] rv: Add task latency over budget RV monitor
-To: Gabriele Monaco <gmonaco@redhat.com>
-Cc: Nam Cao <namcao@linutronix.de>, linux-trace-kernel@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1791745088.git.wen.yang@linux.dev>
- <3eb0948c9ca67f64b3b311f823cd0f7628033c68.camel@redhat.com>
- <6a8b5d26-37cc-4a8f-ab1d-0df2c2e6c2d3@linux.dev>
- <8e13471b64e11218cab612e7662e8068c34e1219.camel@redhat.com>
+Subject: Re:
+To: Regen Yang <regentropfen.yang@gmail.com>, Shuah Khan <shuah@kernel.org>
+Cc: linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Shuah Khan <skhan@linuxfoundation.org>
+References: <CAJze65gQg=q2OW-1n5wT6vah8FnjxD9rsPCsyg4HspOB42o53g@mail.gmail.com>
 Content-Language: en-US
-From: Wen Yang <wen.yang@linux.dev>
-In-Reply-To: <8e13471b64e11218cab612e7662e8068c34e1219.camel@redhat.com>
+From: Shuah Khan <skhan@linuxfoundation.org>
+In-Reply-To: <CAJze65gQg=q2OW-1n5wT6vah8FnjxD9rsPCsyg4HspOB42o53g@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
+On 10/31/26 12:20, Regen Yang wrote:
+> run_kselftest.sh sources runner.sh under /bin/sh, but run_in_netns()
+> uses Bash's &> redirection for running a test and deleting its namespace.
+> With dash, this backgrounds the command and performs a separate
+> redirection-only command. Consequently, rc captures the successful
+> redirection instead of the test status, and namespace cleanup can race
+> with test execution.
+> 
+> A failing test run with run_kselftest.sh -n can therefore be counted as a
+> pass and return success. The totals can also appear before the test
+> result, and skipped and expected-failure tests are counted as passes.
+> 
+> Use portable stdout and stderr redirections so the runner waits for the
+> test and namespace cleanup, preserves the test status, and reads the log
+> after the test has finished.
 
+Please send a proper patch with patch summary? Add output before and
+after to the commit log.
 
-On 10/20/26 23:30, Gabriele Monaco wrote:
-> On Tue, 2026-10-20 at 03:18 +0800, Wen Yang wrote:
->>
-> 
->>> there's been a conversation at the LPC conference about completely migrating
->>> RV
->>> to BPF.
->>> While we aren't sure of its feasibility yet, and it will take time, it's
->>> something to keep in mind for new contributions.
->>>
->>
->> Understood, and I have been following that direction.  I spent the last
->> few days reading the v2 "rv: Add support for BPF monitors" series in
->> detail, so the comparison below is against that code rather than the
->> general idea.
-> 
-> Great, I'm going to review your series when I get some time.
-> 
->>> First of all, would dropping RV in-kernel support negatively affect your
->>> current
->>> workflow?
->>>
->> Yes, it would.  Some concrete points, all from the current tree.
->> (a) Event ABI.  event_da_monitor / error_env_* in
->>       kernel/trace/rv/rv_trace.h are plain tracepoints, so trace-cmd,
->>       perf and anything else reading tracefs consume them today with no
->>       extra userspace.  The BPF series delivers events through a ring
->>       buffer read by the rv tool, so the two backends are not
->>       interchangeable for existing consumers.
-> 
-> Good point, you might have noticed a similar discussion is happening also on the
-> RV-BPF thread. We cannot have the absolute same ABI in BPF, but we probably need
-> tracepoints or anything that can easily interact with other tracing tools.
-> 
->> (b) Build and deployment.  On the images we target, BPF is often not
->>       compiled in or not permitted:
->>         CONFIG_BPF_SYSCALL            default n
->>         CONFIG_BPF_EVENTS             needs BPF_SYSCALL
->>         CONFIG_DEBUG_INFO_BTF         needed for CO-RE; depends on
->>                                       !DEBUG_INFO_REDUCED and pahole
->>         LOCKDOWN_BPF_READ_KERNEL      disables the probe_read helpers
->>       Those are product constraints, not local build issues.  tracefs/RV
->>       works in all of these configurations.
->>
->>       There is also a size cost: BPF implies CONFIG_DEBUG_INFO_BTF, and
->>       .BTF is resident in RO_DATA and kept in the boot image - about
->>       5 MB uncompressed on a full kernel, 1.2-1.6 MB compressed, plus
->>       roughly 25% per module with DEBUG_INFO_BTF_MODULES.  On a
->>       16-32 MB kernel partition that matters.
->>
-> 
-> I've vaguely heard automotive folks saying they don't want to build BPF support
-> several times. Finally I get a proper technical reason!
-> 
-> Now I think this isn't easy to sort out, if that's a hard requirement, we are
-> probably going to need to keep in-kernel monitors around.
-> 
->> (c) Timing semantics.  tlob arms a per-task hrtimer with
->>       HRTIMER_MODE_REL_HARD.  bpf_timer is fixed to
->>       HRTIMER_MODE_REL_SOFT and the verifier states "bpf_timer callbacks
->>       are never sleepable" .  On PREEMPT_RT the callback runs in a
->> threaded
->>       softirq, so the expiry time carries scheduler latency.
-> 
-> I haven't looked into this yet, but from what you say, the bpf_timers code
-> doesn't really support PREEMPT_RT.
-> 
->>       For a budget monitor the expiry time is the output, so this is a
->>       semantic change, not just overhead.
-> 
-> Well, the expiry time you get from an hrtimer is what you configured + some
-> system jitter. The jitter here is just going to be less predictable but is it
-> really the output you need in your monitor?
-> Or am I missing your point?
-> 
-
-Hi Gabriele,
-
-Thanks for the feedback.
-
-For tlob, the primary goal is detecting deadline overruns on the order 
-of milliseconds or sub-milliseconds (e.g. 10 ms budget).
-Under HRTIMER_MODE_REL_SOFT on PREEMPT_RT, the timer callback runs in a
-threaded softirq (ksoftirqd or threaded irq context).  If the system is
-under CPU or scheduler pressure, the softirq latency itself can easily 
-add several milliseconds of unpredictable delay.  When that happens, it
-blurs attribution: users cannot distinguish whether the monitored task
-exceeded its budget, or whether the task finished on time but the timer
-callback was delayed in the scheduler queue.  HARD hrtimer avoids this 
-by firing directly in hardirq context at the physical deadline.
-
->>
->>       What a BPF tlob would look like once those exist:
->>         - model: still tlob.dot, with rvgen -b extended to the hybrid
->>           backend;
->>         - state: one record per task in BPF_MAP_TYPE_TASK_STORAGE (or
->>           the per-object hash map the series has today), holding the
->>           state, the binding id and the budget;
-> 
-> Yeah I wasn't aware of BPF_MAP_TYPE_TASK_STORAGE before, I have a draft V3
-> (coming some time after the merge window) using that.
-> But I'd assume this type of storage would simplify the design of your monitor,
-> which is currently using a PER_OBJ just to add more things to a PER_TASK.
-> I'm going to keep in mind your use-case where you essentially extend the storage
-> (which is perfectly fine in BPF since we don't use the task_struct slot).
-> 
-
-
-Thanks.
-On the in-kernel side, your DA_OBJ_EMBEDDED_TYPE PoC delivered
-the exact same simplification.
-
-In v8, we adopted DA_OBJ_EMBEDDED_TYPE so struct tlob_record is embedded
-directly into struct da_monitor_storage:
-- Deleted the private mempool and custom allocator entirely; tlob now
-   relies 100% on the framework pre-allocated pool.
-- Deleted the parallel state machine (OPEN / CLOSED / RETIRED) and
-   tlob_binding_lock.  The window lifecycle is now driven purely by the
-   automaton states (stopped, running, waiting, sleeping).
-- Overall, tlob.c shrunk from ~1065 lines to ~660 lines (-38%), with no
-   locking on the scheduler hot path.
-
-We are currently testing and will send out v8 soon.
-
---
-Best wishes,
-Wen
-
-
->>         - window: two uprobe programs attached to PATH:START and
->>           PATH:STOP, with the binding id and budget passed through the
->>           attach cookie or a small config map populated before load;
->>         - expiry: a bpf_timer in the same record, armed on state
->>           transitions and cancelled on STOP, submitting an error entry
->>           to the monitor's ringbuf;
->>         - output: the rv tool reads the ringbuf and prints it, and the
->>           reactor is linked in with bpf_linker as v2 already does.
->>
->>       The DA engine and the ringbuf/reactor plumbing would carry over
->>       unchanged.  The three missing pieces are the uprobe
->>       attach/configuration path, the timer and env handling in
->>       da_monitor_bpf.h, and the hybrid backend in rvgen.
->>
->>       None of this argues against migrating.  It argues that the BPF
->>       backend has to reach parity on (a)-(c) before the in-kernel path
->>       can be removed.
->>
-> 
-> 
-> Thanks for taking time to assess this, it looks like the right direction.
-> 
-> Gabriele
-> 
+thanks,
+-- Shuah
