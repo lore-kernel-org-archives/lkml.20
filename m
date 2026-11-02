@@ -1,106 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624746;
-	b=ugJzp3p4fVtK5nkKeCzMdjM87HMkJtAzG1EfESSDXvGUTGorplvF7oYlOB2SycUeLt69
-	 m9Wc/EFjbp2nlcKHtNJXRCdOyZze955kY1XihAZhflHfVhQcHArNksZIMif/439EDZt6s
-	 rMALyn1K7F7duRfshOPAiDX8/YZs5OMvunp4GxW7b6udprqJd9dGHCfkVDno4q/QqkRf4
-	 eCRIQgnMBelYsxGejXeHA1Oa+xVhZ2N8kEAAYMm8p0tNoMz+YiNIvPzVwDueJue7PQXo7
-	 kWlkEzjZ8r092YgCPXjVsU5nnqhhW/5dnwmYjwMgResm+FGAIj3GdvIJh/aiuv/VloQ==
+	t=1793624776;
+	b=YOsr2Vhvw/wvHsMOecsF9+cSRPA6aXk3vrh9juJ/RnHP5KgLgmuM2LUmFgIA6zh5/RfG
+	 /C82H+5Abex2UxhSjeZbC5KQUgs6N5p+se4Mu6UUXvehg0/e1tgu5Ep1A3++Lj+Ti3fEE
+	 +JSmqgyLCIGq38QqDBZ++jVrJhAHmJscpqiCZMhuVMhrCAjpVVFXU4pDxSqhyUVhdgrk3
+	 CwlUG5h/Zd+oOAmYs699d+f4wLOQSWL07R2QJAc+xHOISGvig9/4JXB8wcuecnxSMDp54
+	 BxgBaBoZ0bAZ3cOtptPZ9a0kUV2nnwFDQfFUIGDsgSySTnwW/yqygSe/rgtiDiZP9jQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624746;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624776;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=2/g1xL5iGwG1omHrmHgnmCBZ/PbDFU5IAnXkvWs0rU8=;
-	b=jL9vFxXqrAA+pI3AbxA9HHHnc06kB7GOYs0aIFUEo/5zl/8bK7v/rld8yL5cCMYGra+/
-	 0FFxFSGHyV4FSY+vN2QS/5gpcxp9WDlmQh9Ln9t97+2bApc7yrhp2Iel1hEGJEdNZC2Nq
-	 Kks80Cr8ZWws0jln8LCO8BEu9z1XnqWQJRyjYyulZ1zMZQjFztugwportTmEdgJsIW+nl
-	 shMNe6P3FNy7uEEiNc86QeoYVS+AGacDQ8XyjJrm1R3fLmq5TaFcZvvk1AhhSDE9ybbbA
-	 yk+1oZxtTF6HyHYa3MitlvrslJ8kwFv8LKEHwfGt2Az9Ekewv+PAWbhvLYsxvVFt43A==
+	 Message-ID:Date:MIME-Version:User-Agent:From:Reply-To:Subject:To:Cc:
+	 References:Content-Language:Autocrypt:Organization:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=A97kxCcF7u/RTY0AnQ5TCiwBkHgpiQmx35XWzV0XoaE=;
+	b=CbTAoD0Ekm1SZAXEYWCUURR2x8LL5gmvAz/NFzY0d4Mb8zxC15mZhYjzsqn8RxdrHizk
+	 AaEGwG7EOoExMaTvn5HVFun8WKHQH3TI0Yhz3QNjoyz5/UTLLTjerjRLImmuPEB3VTuIx
+	 8uC97p5yin+BJ/NvxULocMlZx4bOYI42WM/zI1hzO3LSvA0Ozh6TyhJE14Zcl0ErP1nsH
+	 EThA64wlRZk60JqByGKuOxer8c/lUZiGjZlQ9naAHT4WZvCrnQlO1aj83StALvY4Vdqko
+	 NIh7j/yXnFoT8CadoQ18sy/TpX/yWTt9S4FTVx/3xVbrFSjDAIbgnLFUXEv/dqfzioQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="D9/S9EAi";
-	arc=none smtp.remote-ip=209.85.128.52
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	dmarc=pass header.from=linaro.org;
+	spf=pass smtp.mailfrom=linaro.org;
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=timyKwqa;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8A5606A32E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:05:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D8A5606A32E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F243606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:06:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1F243606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D9/S9EAi
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a214af2076so22620935e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:05:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=timyKwqa
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5036bbac7so17926195e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:06:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793624743; x=1794229543; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2/g1xL5iGwG1omHrmHgnmCBZ/PbDFU5IAnXkvWs0rU8=;
-        b=D9/S9EAiM4U3YwX9Fq+R2/twHKsOr6RHGoCPd6j6+sZL33de8LQ1lj/bFMZ4NaiXRy
-         /K4VnigemD4+VqDY0hchVHT6sPvVLpjM8Z9sq/4t/m+SaM0CJW2VlF2qWQ4nD8zgVzzT
-         ADN2anmU0+N0l93HJhzGF/rn23AaKvUac8zezVVLv7ffba4YhMrIg4yYa7ZW1floAKUD
-         E74hi/fACYkYjv/7C8Lt0IR5C5W4Hph7Ei+hf2dry0AIKw6sWcxcOlO11QQA2vRT43a9
-         POLOaDAbcMBVXf9KOrJ5Q/Wd/gJOKqFdgfv5uVMhn0b7YV40mFY3vlVIBbhHgf9kX1oD
-         CvNg==
+        d=linaro.org; s=google; t=1793624774; x=1794229574; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A97kxCcF7u/RTY0AnQ5TCiwBkHgpiQmx35XWzV0XoaE=;
+        b=timyKwqaHaxhtvFxukfd6ZO5EXBLkQgQgPwtghmieITeO9A0RaXS+Mk/4KS97CIVFU
+         c5cj3KKwc7xFMTR9DmhSXT6L/mrCbdsn1cRmztwj7YzIvmkQp3Xj/LklYtY1zoktrlfC
+         aoyEn3UBghrgjOzmfLQTGQxJFT8ieu1hfIfRlJ2tHxCE7Wu0qLh+7w5UHhWX4my1EIwa
+         r8cevp05X88mJyGt0AgZ3BJYhHQtY8OknVm78rXlnX/uXYCVItaD8g8kNQha38ICievS
+         mor/9EgobEAZbpIjZ5FPvlWrZNeNX+Y6/dMi7UayqUvK7zzKGmu7+9LeV67APbRFtIln
+         CC2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793624743; x=1794229543;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=2/g1xL5iGwG1omHrmHgnmCBZ/PbDFU5IAnXkvWs0rU8=;
-        b=PbStzbLRln1RbsiOEXW9gQgrVEcqFt/l+V5zZ4g/63xETR2SfSrS14Hca0qAoh7RM4
-         0+RwhqFgrwNHMUFObZh/ZUpcx/6aCQonIKNSYoaOAmlvdMgCW0JfKwvvff6WQUT6oH9h
-         1e3ZKYYIDNhRtK8Si47YWLBQO9nmybXNu+mCEr3atFb9dH3d9trTwp7WA24DQrcEqTg3
-         yD546ITEOI4MSPN75IhhG14W1yrlm+BxdN2tqv9GYYIxV/VDOXdC07WKIMELCky1cvMI
-         eICntpjobqy93TQBfmeQlGt6auPRJmM2SCI1jBHzBEL9pKSw0WtBGrMVsRkBauV5+7k2
-         0NTg==
-X-Forwarded-Encrypted: i=1; AKwUvBydvSjBonFu0Zusx4icfu0HCfhAWLg7xi8u8RRMFdc2aeVSp4UwqVpwC6OJVUeGbqMl0dLk5IyXfHYQ8aU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLW72Ii/frIzyXCFlYZHU67DUVxliu590JkTasN4SWVzZAZ8FZ+
-	IAR1CMSbEVeqcgORgL2j8oSBN4+i5fY1GA3MxGP6LntT0R7kgmi4j9NI
-X-Gm-Gg: AYBFou0yjUvyWYqASoOBdNGotyE5w9vIyH+OyXq9cFVY/Q2xRFLXBHwPlaUfgu3rwY1
-	5lqpbLR9D4MD30TqwZhbf+FHnRnS0hqXMOnm/aqgk/wzRt7Rn3cgrR2rRySnqpqbls/N0cL6j5O
-	21gDl/WY0rZ/slwVvuOg4zk+eiVunSMf7f+1ZyVqIhzchUr2qV0tZEWVbAeiwy8uNiGw3lf1naM
-	wNSlrtQqLQuBzBs671V7AsoKQDosQMaTnNsbKODYnRYR0hl3RU0+IA1l5Q37OpuxwmkhgP34vyh
-	TqnttUEKeFoXvw7alQ6wiUnCCebGKaP490GAsfy87jw3BpNgpKGAvV68vD8akRUqxr6PeHzemLz
-	sw9RS/1X+6MUGc6QXGmvwIOsdwpuOstMSyEY6ac65x3OpoDR7nkseH6+QPSEh+DhPPuGTiq/Gfs
-	jqILstbRqR5I155Egcb62ni/6/uf756qhdXmvvVXRuot4X+DhUkLk7w31ggWo23Dw0lvPUjdEl0
-	3XLADmjk1z4AkkpPz86k21EirELCQBEiKAhs1ZVMy3o6hKmrTkpF8Ww6lsdXDpg9nCZUDxtOuMx
-	99H8jVduyK+QuYcu6YSco0eNUdIcTQHE8/83V396TRwXvIB0nGPqCSbhOZKmE7Dd1Q9t+b+U7Fu
-	G4c1tpRxSOQ==
-X-Received: by 2002:a05:600c:6087:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4ac17753befmr226189025e9.15.1793624743352;
-        Mon, 02 Nov 2026 05:05:43 -0800 (PST)
-Received: from omos-acer.lan (109-81-86-162.rct.o2.cz. [109.81.86.162])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d2640sm340857865e9.6.2026.11.02.05.05.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:05:42 -0800 (PST)
-From: =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
-To: Eric Dumazet <edumazet@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Cc: Paul Moore <paul@paul-moore.com>,
-	Stephen Smalley <stephen.smalley.work@gmail.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Simon Horman <horms@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>,
-	netdev@vger.kernel.org,
-	selinux@vger.kernel.org,
-	linux-security-module@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [RFC PATCH] af_unix: introduce MSG_CMSG_SEALED
-Date: Mon,  2 Nov 2026 14:05:40 +0100
-Message-ID: <20261102130540.252894-1-omosnacek@gmail.com>
-X-Mailer: git-send-email 2.54.0
+        d=1e100.net; s=20260707; t=1793624774; x=1794229574;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A97kxCcF7u/RTY0AnQ5TCiwBkHgpiQmx35XWzV0XoaE=;
+        b=BGQOTINLjC5KzZRrJZKDTu/8q27rrx0eYPqy4MN4X0OSjadi5gzLlbrqyN2X3w2ljL
+         4/Fxkx8UjfnaZnRi05kCa5ncdE/3Iixe/DTMgTUIaBkUtJCqfz9mdSH0VNOz7qgOLNkz
+         InxQs98tlG/2N0y3lykwU2+WVsHubLkpnvRy7xdNGZ8MJkqiIQZabl231Md8M7o3Zo5z
+         TUafCHfW9Y7+wqwH0DvXjyuV4TBX+UL9soWZqaOco+7cWLE3e1tjfXuabRfwp2Wjw2FQ
+         ARYu7StLnG0+AD3LF6PdkBGRJEzQzu1XqgiV7kTEB6eqO6HP2tx6Cv3Qyh043WwFTW7B
+         Raqg==
+X-Forwarded-Encrypted: i=1; AKwUvBxjIDnrzhw5eWAYvRxdFjbYYdt8ejrypA+OoLQdXNR0Fd2gC7jNONXMxBSg9ENYQTOSrnSZu838sCBOg8c=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTduVOe9+6pQsPT3Oa2TukchXmwH55ys66RsXOPtGb6GbEuZ7D
+	ZXOBtp80wmH31A99HcPnJOj87ObaqWZi6u6C2c2+6PNdi36Rp7eKI8zDD39y/ybrXJ0=
+X-Gm-Gg: AYBFou1gw47HIaBSR5GhfEsfIaWjXWP0vTfAM+7yK8Yn0wfwQImsbvtPc8iXPnKjJ6H
+	uLwc8nKc1jjMrqbytZoHIIie41sRujWcjdjmLQi3wWODbV0o4SeJpviXLsQaPkAEpllVsK3HIqB
+	l2mgt7yL1E/Gs6AEDo37HLf5Ae2pOlIcMrfe7gIhPS0joDOSzbfxm7wohHldhFUqXZlGR70wKxH
+	Or/7U/+wYp4eYJivdqEBHF7ZQPrfPv5EKY+bKvoBKiFFZtCaXr6u1rMMqvJXqHvxZoeNJxWcQhJ
+	A7mF/rTT/QUX1QopWKWv//eY40dUdCNxwZ2UO4eirEjVNPoCz0yqsalOt14l8lj+rQQ0UShknbx
+	5y1EDYkwQXwobwE6gg4rQnkLNqrMepXRynZnQVoXdzrMZg5Ax1uOICWvQJbe5sFva3C1zR98XfA
+	1rpLBW4p0cQ2hTVS8kUrYxJrgnb/nh70Cw0ZB+uILN9dz1EFs927FLXrwDz/4WL8yOUJ0GFUOPp
+	cTcCglEMurTNrCQORhwiDyzcg52Wb+d8EocbqQt/dM+H5ArqcUDTEtHlLxQacku0z8lI5u2iw29
+	hrj5DOJIICM8+Y8NqXqcSfT3EOchUN3SpzwNpxZpbEL8OL2EypGsGmFuEBj08YW1FJxizo266UW
+	FuNAo
+X-Received: by 2002:a05:600c:a00b:b0:4a2:180b:3153 with SMTP id 5b1f17b1804b1-4ac185bcc7dmr241323195e9.14.1793624774407;
+        Mon, 02 Nov 2026 05:06:14 -0800 (PST)
+Received: from ?IPV6:2a01:e0a:106d:1080:9476:5165:3a16:262? ([2a01:e0a:106d:1080:9476:5165:3a16:262])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa7c5063e3sm335996165e9.0.2026.11.02.05.06.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 05:06:14 -0800 (PST)
+Message-ID: <8f6212da-a6a1-4435-984b-98f79fd50e41@linaro.org>
+Date: Mon, 2 Nov 2026 14:06:13 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -110,396 +93,320 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 3/4] drm/panel: ilitek-ili9881c: add Mingjun MJ070BI30IA2
+To: Icenowy Zheng <zhengxingda@iscas.ac.cn>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, Icenowy Zheng <uwu@icenowy.me>,
+ Han Gao <gaohan@iscas.ac.cn>
+References: <20261030-mj070bi30ia2-v1-0-a0f65b65c290@iscas.ac.cn>
+ <20261030-mj070bi30ia2-v1-3-a0f65b65c290@iscas.ac.cn>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261030-mj070bi30ia2-v1-3-a0f65b65c290@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Currently, when a process receives a file through AF_UNIX's SCM_RIGHTS
-mechanism, the security_file_receive() LSM hook is calledto allow LSMs
-like SELinux to validate the receiver's access to the received file
-(similarly to a process inheriting file descriptors through execve(2)).
+On 10/30/26 06:44, Icenowy Zheng wrote:
+> Mingjun MJ070BI30IA2 is a 7" MIPI DSI LCD panel used by Lichee Console
+> 4A, with a initialization sequence matching the pattern of Ilitek
+> ILI9881C driver chip.
+> 
+> Add it to the driver for ILI9881C-based panels.
+> 
+> Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+> ---
+>   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 222 ++++++++++++++++++++++++++
+>   1 file changed, 222 insertions(+)
+> 
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> index c3d5ab67121d9..83148c40e25ca 100644
+> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+> @@ -2198,6 +2198,201 @@ static const struct ili9881c_instr waveshare_7inch_a_init[] = {
+>   	ILI9881C_COMMAND_INSTR(0x36, 0x00),
+>   };
+>   
+> +static const struct ili9881c_instr mj070bi30ia2_init[] = {
+> +	ILI9881C_SWITCH_PAGE_INSTR(3),
+> +	ILI9881C_COMMAND_INSTR(0x01, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x02, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x03, 0x73),
+> +	ILI9881C_COMMAND_INSTR(0x04, 0x13),
+> +	ILI9881C_COMMAND_INSTR(0x05, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x06, 0x0A),
+> +	ILI9881C_COMMAND_INSTR(0x07, 0x05),
+> +	ILI9881C_COMMAND_INSTR(0x11, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x09, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x0A, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0B, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0C, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0D, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x0E, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x0F, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x10, 0x28),
+> +	ILI9881C_COMMAND_INSTR(0x11, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x12, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x13, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x14, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x15, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x16, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x17, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x18, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x19, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x1A, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x1B, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x1C, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x1D, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x1E, 0x40),
+> +	ILI9881C_COMMAND_INSTR(0x1F, 0x80),
+> +	ILI9881C_COMMAND_INSTR(0x20, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x21, 0x01),
+> +	ILI9881C_COMMAND_INSTR(0x22, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x23, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x24, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x25, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x26, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x27, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x28, 0x33),
+> +	ILI9881C_COMMAND_INSTR(0x29, 0x33),
+> +	ILI9881C_COMMAND_INSTR(0x2A, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x2B, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x2C, 0x04),
+> +	ILI9881C_COMMAND_INSTR(0x2D, 0x0C),
+> +	ILI9881C_COMMAND_INSTR(0x2E, 0x05),
+> +	ILI9881C_COMMAND_INSTR(0x2F, 0x05),
+> +	ILI9881C_COMMAND_INSTR(0x30, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x31, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x32, 0x31),
+> +	ILI9881C_COMMAND_INSTR(0x33, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x34, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x35, 0x0A),
+> +	ILI9881C_COMMAND_INSTR(0x36, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x37, 0x08),
+> +	ILI9881C_COMMAND_INSTR(0x70, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x39, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x3A, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x3B, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x3C, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x3D, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x3E, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x3F, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x40, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x41, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x42, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x43, 0x08),
+> +	ILI9881C_COMMAND_INSTR(0x44, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xA0, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x51, 0x23),
+> +	ILI9881C_COMMAND_INSTR(0x52, 0x44),
+> +	ILI9881C_COMMAND_INSTR(0x53, 0x67),
+> +	ILI9881C_COMMAND_INSTR(0x54, 0x89),
+> +	ILI9881C_COMMAND_INSTR(0x55, 0xAB),
+> +	ILI9881C_COMMAND_INSTR(0x56, 0x01),
+> +	ILI9881C_COMMAND_INSTR(0x57, 0x23),
+> +	ILI9881C_COMMAND_INSTR(0x58, 0x45),
+> +	ILI9881C_COMMAND_INSTR(0x59, 0x67),
+> +	ILI9881C_COMMAND_INSTR(0x5A, 0x89),
+> +	ILI9881C_COMMAND_INSTR(0x5B, 0xAB),
+> +	ILI9881C_COMMAND_INSTR(0x5C, 0xCD),
+> +	ILI9881C_COMMAND_INSTR(0x5D, 0xEF),
+> +	ILI9881C_COMMAND_INSTR(0x5E, 0x11),
+> +	ILI9881C_COMMAND_INSTR(0x5F, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x60, 0x08),
+> +	ILI9881C_COMMAND_INSTR(0x61, 0x0E),
+> +	ILI9881C_COMMAND_INSTR(0x62, 0x0F),
+> +	ILI9881C_COMMAND_INSTR(0x63, 0x0C),
+> +	ILI9881C_COMMAND_INSTR(0x64, 0x0D),
+> +	ILI9881C_COMMAND_INSTR(0x65, 0x17),
+> +	ILI9881C_COMMAND_INSTR(0x66, 0x01),
+> +	ILI9881C_COMMAND_INSTR(0x67, 0x01),
+> +	ILI9881C_COMMAND_INSTR(0x68, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x69, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x6A, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x6B, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x6C, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x6D, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x6E, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0x6F, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0x70, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x71, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x72, 0x07),
+> +	ILI9881C_COMMAND_INSTR(0x73, 0x07),
+> +	ILI9881C_COMMAND_INSTR(0x74, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x75, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x76, 0x08),
+> +	ILI9881C_COMMAND_INSTR(0x77, 0x0E),
+> +	ILI9881C_COMMAND_INSTR(0x78, 0x0F),
+> +	ILI9881C_COMMAND_INSTR(0x79, 0x0C),
+> +	ILI9881C_COMMAND_INSTR(0x7A, 0x0D),
+> +	ILI9881C_COMMAND_INSTR(0x7B, 0x17),
+> +	ILI9881C_COMMAND_INSTR(0x7C, 0x01),
+> +	ILI9881C_COMMAND_INSTR(0x7D, 0x01),
+> +	ILI9881C_COMMAND_INSTR(0x7E, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x7F, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x80, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x81, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0x82, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x83, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x84, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0x85, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0x86, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x87, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x88, 0x07),
+> +	ILI9881C_COMMAND_INSTR(0x89, 0x07),
+> +	ILI9881C_COMMAND_INSTR(0x8A, 0x02),
+> +
+> +	ILI9881C_SWITCH_PAGE_INSTR(4),
+> +	ILI9881C_COMMAND_INSTR(0x6E, 0x1A),
+> +	ILI9881C_COMMAND_INSTR(0x6F, 0x37),
+> +	ILI9881C_COMMAND_INSTR(0x3A, 0xA4),
+> +	ILI9881C_COMMAND_INSTR(0x8D, 0x1F),
+> +	ILI9881C_COMMAND_INSTR(0x87, 0xBA),
+> +	ILI9881C_COMMAND_INSTR(0xB2, 0xD1),
+> +	ILI9881C_COMMAND_INSTR(0x88, 0x0B),
+> +	ILI9881C_COMMAND_INSTR(0x38, 0x01),
+> +	ILI9881C_COMMAND_INSTR(0x39, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xB5, 0x02),
+> +	ILI9881C_COMMAND_INSTR(0x31, 0x25),
+> +	ILI9881C_COMMAND_INSTR(0x3B, 0x98),
+> +
+> +	ILI9881C_SWITCH_PAGE_INSTR(1),
+> +	ILI9881C_COMMAND_INSTR(0x22, 0x0A),
+> +	ILI9881C_COMMAND_INSTR(0x31, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xA6, 0xA6),
+> +	ILI9881C_COMMAND_INSTR(0x55, 0x3D),
+> +	ILI9881C_COMMAND_INSTR(0x50, 0x9E),
+> +	ILI9881C_COMMAND_INSTR(0x51, 0x99),
+> +	ILI9881C_COMMAND_INSTR(0x60, 0x06),
+> +	ILI9881C_COMMAND_INSTR(0x62, 0x20),
+> +	ILI9881C_COMMAND_INSTR(0xA0, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xA1, 0x17),
+> +	ILI9881C_COMMAND_INSTR(0xA2, 0x26),
+> +	ILI9881C_COMMAND_INSTR(0xA3, 0x13),
+> +	ILI9881C_COMMAND_INSTR(0xA4, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0xA5, 0x29),
+> +	ILI9881C_COMMAND_INSTR(0xA6, 0x1E),
+> +	ILI9881C_COMMAND_INSTR(0xA7, 0x1F),
+> +	ILI9881C_COMMAND_INSTR(0xA8, 0x8B),
+> +	ILI9881C_COMMAND_INSTR(0xA9, 0x1D),
+> +	ILI9881C_COMMAND_INSTR(0xAA, 0x2A),
+> +	ILI9881C_COMMAND_INSTR(0xAB, 0x7B),
+> +	ILI9881C_COMMAND_INSTR(0xAC, 0x1A),
+> +	ILI9881C_COMMAND_INSTR(0xAD, 0x19),
+> +	ILI9881C_COMMAND_INSTR(0xAE, 0x4E),
+> +	ILI9881C_COMMAND_INSTR(0xAF, 0x24),
+> +	ILI9881C_COMMAND_INSTR(0xB0, 0x29),
+> +	ILI9881C_COMMAND_INSTR(0xB1, 0x4F),
+> +	ILI9881C_COMMAND_INSTR(0xB2, 0x5C),
+> +	ILI9881C_COMMAND_INSTR(0xB3, 0x3E),
+> +	ILI9881C_COMMAND_INSTR(0xC0, 0x00),
+> +	ILI9881C_COMMAND_INSTR(0xC1, 0x17),
+> +	ILI9881C_COMMAND_INSTR(0xC2, 0x26),
+> +	ILI9881C_COMMAND_INSTR(0xC3, 0x13),
+> +	ILI9881C_COMMAND_INSTR(0xC4, 0x16),
+> +	ILI9881C_COMMAND_INSTR(0xC5, 0x29),
+> +	ILI9881C_COMMAND_INSTR(0xC6, 0x1E),
+> +	ILI9881C_COMMAND_INSTR(0xC7, 0x1F),
+> +	ILI9881C_COMMAND_INSTR(0xC8, 0x8B),
+> +	ILI9881C_COMMAND_INSTR(0xC9, 0x1D),
+> +	ILI9881C_COMMAND_INSTR(0xCA, 0x2A),
+> +	ILI9881C_COMMAND_INSTR(0xCB, 0x7B),
+> +	ILI9881C_COMMAND_INSTR(0xCC, 0x1A),
+> +	ILI9881C_COMMAND_INSTR(0xCD, 0x19),
+> +	ILI9881C_COMMAND_INSTR(0xCE, 0x4E),
+> +	ILI9881C_COMMAND_INSTR(0xCF, 0x24),
+> +	ILI9881C_COMMAND_INSTR(0xD0, 0x29),
+> +	ILI9881C_COMMAND_INSTR(0xD1, 0x4D),
+> +	ILI9881C_COMMAND_INSTR(0xD2, 0x5C),
+> +	ILI9881C_COMMAND_INSTR(0xD3, 0x3E),
+> +};
+> +
+>   static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel)
+>   {
+>   	return container_of(panel, struct ili9881c, panel);
+> @@ -2493,6 +2688,23 @@ static const struct drm_display_mode waveshare_7inch_a_mode = {
+>   	.height_mm	= 154,
+>   };
+>   
+> +static const struct drm_display_mode mj070bi30ia2_mode = {
+> +	.clock		= 75750,
+> +
+> +	.hdisplay	= 800,
+> +	.hsync_start	= 800 + 48,
+> +	.hsync_end	= 800 + 48 + 32,
+> +	.htotal		= 800 + 48 + 32 + 80,
+> +
+> +	.vdisplay	= 1280,
+> +	.vsync_start	= 1280 + 3,
+> +	.vsync_end	= 1280 + 3 + 10,
+> +	.vtotal		= 1280 + 3 + 10 + 24,
+> +
+> +	.width_mm	= 94,
+> +	.height_mm	= 150,
+> +};
+> +
+>   static int ili9881c_get_modes(struct drm_panel *panel,
+>   			      struct drm_connector *connector)
+>   {
+> @@ -2704,6 +2916,15 @@ static const struct ili9881c_desc waveshare_7inch_a_desc = {
+>   	.lanes = 2,
+>   };
+>   
+> +static const struct ili9881c_desc mj070bi30ia2_desc = {
+> +	.init = mj070bi30ia2_init,
+> +	.init_length = ARRAY_SIZE(mj070bi30ia2_init),
+> +	.mode = &mj070bi30ia2_mode,
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+> +		      MIPI_DSI_MODE_LPM,
+> +	.lanes = 4,
+> +};
+> +
+>   static const struct of_device_id ili9881c_of_match[] = {
+>   	{ .compatible = "bananapi,lhr050h41", .data = &lhr050h41_desc },
+>   	{ .compatible = "bestar,bsd1218-a101kl68", .data = &bsd1218_a101kl68_desc },
+> @@ -2714,6 +2935,7 @@ static const struct of_device_id ili9881c_of_match[] = {
+>   	{ .compatible = "wanchanglong,w552946aba", .data = &w552946aba_desc },
+>   	{ .compatible = "waveshare,7.0-dsi-touch-a", .data = &waveshare_7inch_a_desc },
+>   	{ .compatible = "ampire,am8001280g", .data = &am8001280g_desc },
+> +	{ .compatible = "mingjun,mj070bi30ia2", .data = &mj070bi30ia2_desc },
+>   	{ .compatible = "raspberrypi,dsi-5inch", &rpi_5inch_desc },
+>   	{ .compatible = "raspberrypi,dsi-7inch", &rpi_7inch_desc },
+>   	{ }
+> 
 
-However, there are cases (such as dbus daemon/dbus-broker) where the
-receiver doesn't intend to access the received file and merely wants to
-forward it to a third process. In this case the forwarding process would
-need to have the appropriate r/w access to the file in order to receive
-it, even though it will never actually acess it. That leads to the
-security policy having to grant the forwarder access to a potentially
-wide range of files (in case of dbus-broker basically all files), which
-is not ideal.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-This patch adds a new CMSG flag MSG_CMSG_SEALED that, when passed to
-recvmsg(2), wraps any received files into an opaque anonymous inode with
-the name "[envelope]", skipping the security_file_receive() LSM check.
-The returned "[envelope]" file descriptor can't be used in any
-meaningful way other than being passed forward via sendmsg(2) with the
-MSG_CMSG_SEALED flag. In that case the original file is unwrapped and
-sent via SCM_RIGHTS to the receiver. The receiver can then either
-receive the file as normal (subject to the LSM check) or again "sealed"
-in the "[envelope]" anon inode for further forwarding.
-
-Note that sending the "[envelope]" file is only allowed with the
-MSG_CMSG_SEALED flag set, to make the unsealing explicit and avoid
-unexpected behavior. Attempting to send it without this flag will fail
-with an error. This also avoids recursive nesting of "[envelope]" files,
-which would only make this feature harder to audit for possible issues.
-
-This patch also adds a simple read-only sockopt for UNIX sockets that
-allows userspace to determine if this feature is present (passing
-unknown CMSG flags unfortunately doesn't lead to an error currently).
-The minimal code to do so can look like this:
-
-    #ifndef SO_RIGHTS_SEALED_SUPPORTED
-    #define SO_RIGHTS_SEALED_SUPPORTED 88
-    #endif
-
-    #include <sys/socket.h>
-    #include <unistd.h>
-    #include <stdbool.h>
-
-    bool MSG_CMSG_SEALED_supported(void)
-    {
-        int sock, ret;
-        socklen_t optlen = 0;
-
-        sock = socket(AF_UNIX, SOCK_STREAM, 0);
-        if (sock < 0) {
-            /* handle error */
-            /* ... */
-        }
-
-        ret = getsockopt(sock, SOL_SOCKET, SO_RIGHTS_SEALED_SUPPORTED,
-                         NULL, &optlen);
-        close(sock);
-
-        return ret == 0;
-    }
-
-Related: https://github.com/fedora-selinux/selinux-policy/issues/3286
-Related: https://github.com/fedora-selinux/selinux-policy/issues/3287
-Signed-off-by: Ondrej Mosnáček <omosnacek@gmail.com>
----
- arch/alpha/include/uapi/asm/socket.h    |  2 +
- arch/mips/include/uapi/asm/socket.h     |  2 +
- arch/parisc/include/uapi/asm/socket.h   |  2 +
- arch/sparc/include/uapi/asm/socket.h    |  2 +
- include/linux/socket.h                  |  4 +-
- include/net/scm.h                       |  2 +-
- include/uapi/asm-generic/socket.h       |  2 +
- io_uring/net.c                          |  2 +-
- net/compat.c                            |  3 +-
- net/core/scm.c                          | 81 +++++++++++++++++++++----
- net/core/sock.c                         |  9 +++
- net/socket.c                            |  2 +-
- tools/include/uapi/asm-generic/socket.h |  2 +
- 13 files changed, 97 insertions(+), 18 deletions(-)
-
-diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
-index 5d3524c26b2b..cd9fce1d9432 100644
---- a/arch/alpha/include/uapi/asm/socket.h
-+++ b/arch/alpha/include/uapi/asm/socket.h
-@@ -161,6 +161,8 @@
- 
- #define SO_PEERPIDFD_THREAD    87
- 
-+#define SO_RIGHTS_SEALED_SUPPORTED	88
-+
- #if !defined(__KERNEL__)
- 
- #if __BITS_PER_LONG == 64
-diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
-index 245a43f52fb1..393898479ce6 100644
---- a/arch/mips/include/uapi/asm/socket.h
-+++ b/arch/mips/include/uapi/asm/socket.h
-@@ -172,6 +172,8 @@
- 
- #define SO_PEERPIDFD_THREAD    87
- 
-+#define SO_RIGHTS_SEALED_SUPPORTED	88
-+
- #if !defined(__KERNEL__)
- 
- #if __BITS_PER_LONG == 64
-diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
-index f23710e1c671..055b532ccc14 100644
---- a/arch/parisc/include/uapi/asm/socket.h
-+++ b/arch/parisc/include/uapi/asm/socket.h
-@@ -153,6 +153,8 @@
- 
- #define SO_PEERPIDFD_THREAD	0x4055
- 
-+#define SO_RIGHTS_SEALED_SUPPORTED	0x4056
-+
- #if !defined(__KERNEL__)
- 
- #if __BITS_PER_LONG == 64
-diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
-index b35b25bdefc2..e152e2bdf42e 100644
---- a/arch/sparc/include/uapi/asm/socket.h
-+++ b/arch/sparc/include/uapi/asm/socket.h
-@@ -154,6 +154,8 @@
- 
- #define SO_PEERPIDFD_THREAD      0x0060
- 
-+#define SO_RIGHTS_SEALED_SUPPORTED	0x0061
-+
- #if !defined(__KERNEL__)
- 
- 
-diff --git a/include/linux/socket.h b/include/linux/socket.h
-index b17fdb7d38a7..90e4bc5d3f91 100644
---- a/include/linux/socket.h
-+++ b/include/linux/socket.h
-@@ -345,7 +345,9 @@ struct ucred {
- #define MSG_SOCK_DEVMEM 0x2000000	/* Receive devmem skbs as cmsg */
- #define MSG_ZEROCOPY	0x4000000	/* Use user data in kernel path */
- #define MSG_SPLICE_PAGES 0x8000000	/* Splice the pages from the iterator in sendmsg() */
--#define MSG_FASTOPEN	0x20000000	/* Send data in TCP SYN */
-+#define MSG_CMSG_SEALED  0x10000000	/* Seal file descriptors received
-+					   through SCM_RIGHTS */
-+#define MSG_FASTOPEN     0x20000000	/* Send data in TCP SYN */
- #define MSG_CMSG_CLOEXEC 0x40000000	/* Set close_on_exec for file
- 					   descriptor received through
- 					   SCM_RIGHTS */
-diff --git a/include/net/scm.h b/include/net/scm.h
-index b68a143f42de..53b999868104 100644
---- a/include/net/scm.h
-+++ b/include/net/scm.h
-@@ -108,7 +108,7 @@ void scm_recv_unix(struct socket *sock, struct msghdr *msg,
- 		   struct scm_cookie *scm, int flags);
- 
- int scm_recv_one_fd(struct file *f, int __user *ufd, unsigned int flags,
--		    bool notrunc);
-+		    bool notrunc, bool sealed);
- 
- #endif /* __LINUX_NET_SCM_H */
- 
-diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
-index 56fed7ab27ab..14bf06367ef1 100644
---- a/include/uapi/asm-generic/socket.h
-+++ b/include/uapi/asm-generic/socket.h
-@@ -156,6 +156,8 @@
- 
- #define SO_PEERPIDFD_THREAD	87
- 
-+#define SO_RIGHTS_SEALED_SUPPORTED	88
-+
- #if !defined(__KERNEL__)
- 
- #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
-diff --git a/io_uring/net.c b/io_uring/net.c
-index eeab88e77fd8..b579d542b7e2 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -992,7 +992,7 @@ static int io_recvmsg_multishot(struct socket *sock, struct io_sr_msg *io,
- 
- 	if (kmsg->namelen)
- 		kmsg->msg.msg_name = &hdr.addr;
--	kmsg->msg.msg_flags = flags & (MSG_CMSG_CLOEXEC|MSG_CMSG_COMPAT);
-+	kmsg->msg.msg_flags = flags & (MSG_CMSG_CLOEXEC | MSG_CMSG_SEALED | MSG_CMSG_COMPAT);
- 	kmsg->msg.msg_namelen = 0;
- 
- 	if (sock->file->f_flags & O_NONBLOCK)
-diff --git a/net/compat.c b/net/compat.c
-index 6bdf4a2c9077..29816b47f675 100644
---- a/net/compat.c
-+++ b/net/compat.c
-@@ -296,7 +296,8 @@ void scm_detach_fds_compat(struct msghdr *msg, struct scm_cookie *scm, bool notr
- 	int err = 0, i;
- 
- 	for (i = 0; i < fdmax; i++) {
--		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc);
-+		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc,
-+				      msg->msg_flags & MSG_CMSG_SEALED);
- 		if (err < 0)
- 			break;
- 	}
-diff --git a/net/core/scm.c b/net/core/scm.c
-index ae38f3c1165c..08822b2a1f22 100644
---- a/net/core/scm.c
-+++ b/net/core/scm.c
-@@ -29,6 +29,7 @@
- #include <linux/slab.h>
- #include <linux/errqueue.h>
- #include <linux/io_uring.h>
-+#include <linux/anon_inodes.h>
- 
- #include <linux/uaccess.h>
- 
-@@ -66,7 +67,19 @@ static __inline__ int scm_check_creds(struct ucred *creds)
- 	return -EPERM;
- }
- 
--static int scm_fp_copy(struct cmsghdr *cmsg, struct scm_fp_list **fplp)
-+static int envelope_release(struct inode *inode, struct file *file)
-+{
-+	struct file *inner = file->private_data;
-+
-+	fput(inner);
-+	return 0;
-+}
-+
-+static const struct file_operations envelope_ops = {
-+	.release = envelope_release,
-+};
-+
-+static int scm_fp_copy(struct cmsghdr *cmsg, struct scm_fp_list **fplp, bool sealed)
- {
- 	int *fdp = (int*)CMSG_DATA(cmsg);
- 	struct scm_fp_list *fpl = *fplp;
-@@ -114,10 +127,29 @@ static int scm_fp_copy(struct cmsghdr *cmsg, struct scm_fp_list **fplp)
- 
- 		if (fd < 0 || !(file = fget_raw(fd)))
- 			return -EBADF;
--		/* don't allow io_uring files */
--		if (io_is_uring_fops(file)) {
--			fput(file);
--			return -EINVAL;
-+
-+		if (sealed) {
-+			/* Only allow sealed files */
-+			if (file->f_op != &envelope_ops)
-+				return -EINVAL;
-+
-+			file = (struct file *)file->private_data;
-+
-+			/*
-+			 * No need to check for io_uring files here as the
-+			 * underlying file had already successfully passed the
-+			 * check when it was first sent.
-+			 */
-+		} else {
-+			/* Don't allow sealed files */
-+			if (file->f_op == &envelope_ops)
-+				return -EINVAL;
-+
-+			/* don't allow io_uring files */
-+			if (io_is_uring_fops(file)) {
-+				fput(file);
-+				return -EINVAL;
-+			}
- 		}
- 		if (unix_get_socket(file))
- 			fpl->count_unix++;
-@@ -203,7 +235,8 @@ int __scm_send(struct socket *sock, struct msghdr *msg, struct scm_cookie *p)
- 		case SCM_RIGHTS:
- 			if (!ops || ops->family != PF_UNIX)
- 				goto error;
--			err=scm_fp_copy(cmsg, &p->fp);
-+			err = scm_fp_copy(cmsg, &p->fp,
-+					  msg->msg_flags & MSG_CMSG_SEALED);
- 			if (err<0)
- 				goto error;
- 			break;
-@@ -365,18 +398,37 @@ static int scm_max_fds(struct msghdr *msg)
- }
- 
- int scm_recv_one_fd(struct file *f, int __user *ufd, unsigned int flags,
--		    bool notrunc)
-+		    bool notrunc, bool sealed)
- {
-+	struct file *f_received;
- 	int error;
- 
- 	if (!ufd)
- 		return -EFAULT;
- 
--	error = security_file_receive(f);
--	if (error)
--		return notrunc ? put_user(error, ufd) : error;
-+	if (sealed) {
-+		/*
-+		 * Receive fd sealed in an "envelope" anonymous fd.
-+		 * This will install a special file that can be unsealed
-+		 * upon sending to another process, otherwise the underlying
-+		 * file will not be accessible to this process, avoiding the
-+		 * need to pass the LSM check below.
-+		 */
-+		f_received = anon_inode_getfile("[envelope]", &envelope_ops, f,
-+						O_RDONLY);
-+		if (IS_ERR(f_received))
-+			return PTR_ERR(f_received);
-+
-+		get_file(f);
-+	} else {
-+		error = security_file_receive(f);
-+		if (error)
-+			return notrunc ? put_user(error, ufd) : error;
- 
--	FD_PREPARE(fdf, flags, get_file(f));
-+		f_received = get_file(f);
-+	}
-+
-+	FD_PREPARE(fdf, flags, f_received);
- 	if (fdf->fd < 0)
- 		return fdf->fd;
- 
-@@ -384,7 +436,9 @@ int scm_recv_one_fd(struct file *f, int __user *ufd, unsigned int flags,
- 	if (error)
- 		return error;
- 
--	__receive_sock(fdf->file);
-+	if (!sealed)
-+		__receive_sock(fdf->file);
-+
- 	return fd_publish(fdf);
- }
- 
-@@ -407,7 +461,8 @@ void scm_detach_fds(struct msghdr *msg, struct scm_cookie *scm, bool notrunc)
- 	}
- 
- 	for (i = 0; i < fdmax; i++) {
--		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc);
-+		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc,
-+				      msg->msg_flags & MSG_CMSG_SEALED);
- 		if (err < 0)
- 			break;
- 	}
-diff --git a/net/core/sock.c b/net/core/sock.c
-index e7405be8941f..68a447d8bf52 100644
---- a/net/core/sock.c
-+++ b/net/core/sock.c
-@@ -1959,6 +1959,15 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
- 		v.val = sk->sk_scm_rights;
- 		break;
- 
-+	case SO_RIGHTS_SEALED_SUPPORTED:
-+		if (!sk_is_unix(sk))
-+			return -EOPNOTSUPP;
-+
-+		/* Just succeed without returning anything, signaling
-+		 * support.
-+		 */
-+		break;
-+
- 	case SO_PEERCRED:
- 	{
- 		struct ucred peercred;
-diff --git a/net/socket.c b/net/socket.c
-index 2e3b5737c481..dbb3c7c6ff66 100644
---- a/net/socket.c
-+++ b/net/socket.c
-@@ -2921,7 +2921,7 @@ static int ____sys_recvmsg(struct socket *sock, struct msghdr *msg_sys,
- 
- 	msg_sys->msg_name = &addr;
- 	cmsg_ptr = (unsigned long)msg_sys->msg_control;
--	msg_sys->msg_flags = flags & (MSG_CMSG_CLOEXEC|MSG_CMSG_COMPAT);
-+	msg_sys->msg_flags = flags & (MSG_CMSG_CLOEXEC | MSG_CMSG_SEALED | MSG_CMSG_COMPAT);
- 
- 	/* We assume all kernel code knows the size of sockaddr_storage */
- 	msg_sys->msg_namelen = 0;
-diff --git a/tools/include/uapi/asm-generic/socket.h b/tools/include/uapi/asm-generic/socket.h
-index f333a0ac4ee4..fb9e98a7b370 100644
---- a/tools/include/uapi/asm-generic/socket.h
-+++ b/tools/include/uapi/asm-generic/socket.h
-@@ -147,6 +147,8 @@
- 
- #define SO_PASSRIGHTS		83
- 
-+#define SO_RIGHTS_SEALED_SUPPORTED	88
-+
- #if !defined(__KERNEL__)
- 
- #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
--- 
-2.54.0
-
+Thanks,
+Neil
