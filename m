@@ -1,82 +1,83 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793644041;
-	b=tspdOuVcCS0ObSCtSItElxi+UpW3rfF42ycLgNLvnBf8X8FbdYFG+BcsT/6Ncr8G0UeQ
-	 me0IVp7HTB4Igz3FOT18RAPLj+oC5nHa/+gogCDRdZ8BNExO5ubWahSbXXr+YMDSpFeGq
-	 Lkv0jnXrjzT/05D25jfoXauT6n3goZp1RMnBxAwn1MjWjPR07GpkrnFmItHnpGQu99OHi
-	 rwFAu0tA9IlwZtHX0kOi3PFIpRIJhWjiRf4l1USvkHkbCKmZNlWIxQSG9ntmkAPuZrEB2
-	 l0cRmZasrOLyMgnPKm2AsIjpIrVn8L02Jlu5n0ZNMtlzpxRPTdz2lUk7pd02p4+ca/Q==
+	t=1793644038;
+	b=a7cfUmzppeZdXbQqo8ZUmmvgwTFRkzMdRQdbQbLdHUVgzrofDYGM7wSPekVkyLpttQnS
+	 3oBSy/Wxo0HmZfkxJ0o9kImx5FAs5ioVR1Ey8JRbUjvWLluLKflQhJxV35NaNem81hpYz
+	 S8bA0Ltgs7UlVnp4T8HTsAPRCrxmiAEO2k6IxqAdI+7kI6oRKKw9AvQMx6w5/BD3CgccO
+	 v8wEKkbRPTm6wc5trDwD5CCKnKDwS/N0CDnyJIDXmzlgNj8uuv+RG8tsS151OR18CITtj
+	 0ZBQTu6XFwZuAMVbUFYLLQfWm33TwvXKCOX4IxoPoPEbeL3xZH6Z0rQ5HSDZeoprqsg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793644041;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793644038;
 	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
 	 Received:Received:Received:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-TM-AS-GCONF:X-Proofpoint-Reinject:
-	 X-Proofpoint-GUID:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Spam-Info:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
 	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=IGE3ly9MV1Gr1qS4ng0EqqPCWkx+OWvmUL62FmsSUmE=;
-	b=wxOKvKJpYN4Cs+Cos2psyBXfUstwiC02yPD2Sgs9KzjUC2d3jnDXvmyw6TITkKpz6rXC
-	 HuaijZeOOSd9fsQFwrb15xgA9v9Bqbm0p9dL3KP7lP1caxWlOjGqRhzfRL4KV9+GO6wTM
-	 OA5NGHm4M7GX+icX374udaofb/MIVI9fNUmOq52sWAmMvdxLnzTiDTEK8VcoHGb4lL04/
-	 WfANc8iBxIrN6g44xOsJRlq1k72ySsn22S4ZfSI5NQOlFLywbIgI9W7EPNkuMTKg+8RUP
-	 AO7U4QzeRugi50tnNoNZC93IWRa+eHxEDgeZG8L/HsCxZ7/L8u+Tx8//0ZzIddLcUVw==
+	bh=hNxz90Ffp8EQvDdpfRrjvRNqKKWwnRzrsfTMSXkRyRQ=;
+	b=dZcFjgCGYvwpxfxRyaDV4OrErDkDO5QodErfTfZ+XA5EtZ4+Ot7nbWQwqIk/nozOTJpY
+	 S6C26WPpQq9iZEjcaz6oysnfpKrM2U9K0o3m4SUV3b1VvZFC1blhExsXgoxAZNF5igGWo
+	 PG8MPNbFCAd1FmN3JuZGSPqbylSQ3sdfgB6bqelUzy4BZKliuZYy5EoiwZ4uur/yz4UUc
+	 39j3vdq8G6KniOlHtLyJYUMs3sQYXbxUT9eWFWcVZWiBfLhBwwpruf+BqNF7UDag9llhj
+	 MhQa4IoVfbNaBF2rGoaydkxr0ncq4KwAlXbS01cEQX0yCDxkmWuZowcaSefrzuwQYjg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linux.ibm.com;
 	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=aby3ICGK;
+	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pUlLqOzh;
 	arc=none smtp.remote-ip=148.163.158.5
 Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5E84606D801;
-	Mon,  2 Nov 2026 18:27:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A5E84606D801
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C24BE606A32F;
+	Mon,  2 Nov 2026 18:27:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C24BE606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=aby3ICGK
-Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2HibD32394651;
-	Mon, 2 Nov 2026 18:27:10 GMT
+	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=pUlLqOzh
+Received: from pps.filterd (m0356516.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2HiHmM3489271;
+	Mon, 2 Nov 2026 18:27:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
 	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=IGE3ly
-	9MV1Gr1qS4ng0EqqPCWkx+OWvmUL62FmsSUmE=; b=aby3ICGK34kXkuj+U9MdXJ
-	7iBzRkqIURaVTjTe3hj12zlM7GEbYY7g+2xkIguAD3O7XZc0oEzXpWG5L2O+7XxL
-	UoydECO9aKwDqxUBh8AYgIv7HzqkjOqgLtvvwxQyUtjqSM0qDZ4JSYnszfhBx3tc
-	JiXjsdC0Ynex2euGdwqbsdoqZWI3z7ZMru7dXrCNPMPXV7iVA6zsmfaWDtLmG0vx
-	GrZHVZvi6B6mVBhalRUcq0clHQWxEbgskXfPLbgfUhgkJPlDOUGdMU87VnjKEdC6
-	Tmw8TpvQlBNFIW0EdtLEmJnogBRxPAGquClgZO6MuHMLfhwn/ZU6ZMY+RXNjWDYQ
+	:message-id:mime-version:references:subject:to; s=pp1; bh=hNxz90
+	Ffp8EQvDdpfRrjvRNqKKWwnRzrsfTMSXkRyRQ=; b=pUlLqOzhso3freUzkQ3hrm
+	bxOkJSD4gFk60AE4ASJLtKcD6Vuw2uHA2fbjIUZXBC61tQFnRPu8KHxikPX1xRZC
+	f8Gfky8etzZoQXZMo+gCFNYNU3UTqCPLqaT2Ml6hPryaZzuDS7JwEaA45iE6lVs2
+	kKur87NPt6FHfgi9cxwqzXiQ+Uhl87GV7SYnh9fA0WUqIXeVPjq320dTQPCgwSJV
+	OZG0D4z2VY4CnsjQsK5CP81Yzx8/xOPrXs3DWS0JrLQku7SAY+16EICuwCZplegk
+	cBoNymdQeRlmWynHa14VL0w2F9jC9qw9UCProJV7O/Uq3XWLw2Z2L2HhSSn3iaCA
 	==
-Received: from ppma23.wdc07v.mail.ibm.com (5d.69.3da9.ip4.static.sl-reverse.com [169.61.105.93])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn6rd2689-1
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn5rhjb7g-1
 	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 18:27:09 +0000 (GMT)
-Received: from pps.filterd (ppma23.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma23.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2HYvDI1340206;
-	Mon, 2 Nov 2026 18:27:09 GMT
-Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
-	by ppma23.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4hnv5gq5q0-1
+	Mon, 02 Nov 2026 18:27:01 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2HZ3tn1272225;
+	Mon, 2 Nov 2026 18:27:00 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hntnpyddm-1
 	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 18:27:09 +0000 (GMT)
+	Mon, 02 Nov 2026 18:27:00 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (smtpav05.fra02v.mail.ibm.com [10.20.54.104])
-	by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2IR6Uj38928850
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A2IQwQV13697334
 	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 18:27:06 GMT
+	Mon, 2 Nov 2026 18:26:59 GMT
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 9FBC220040;
-	Mon,  2 Nov 2026 18:27:06 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id DCAC120043;
+	Mon,  2 Nov 2026 18:26:58 +0000 (GMT)
 Received: from smtpav05.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id A80A720043;
-	Mon,  2 Nov 2026 18:27:04 +0000 (GMT)
+	by IMSVA (Postfix) with ESMTP id AC6C420040;
+	Mon,  2 Nov 2026 18:26:56 +0000 (GMT)
 Received: from localhost.localdomain (unknown [9.39.25.71])
 	by smtpav05.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 18:27:04 +0000 (GMT)
+	Mon,  2 Nov 2026 18:26:56 +0000 (GMT)
 From: Ojaswin Mujoo <ojaswin@linux.ibm.com>
-Date: Mon, 02 Nov 2026 23:56:20 +0530
-Subject: [PATCH 5/8] ext4: don't zeroout if we have inflight direct IOs
+Date: Mon, 02 Nov 2026 23:56:17 +0530
+Subject: [PATCH 2/8] ext4: fix endio zeroout corruption by tracking
+ unwritten to-be-converted IOs
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,7 +89,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-ext4-endio-zero-bug-v1-5-266d2bb9e6dc@linux.ibm.com>
+Message-Id: <20261102-ext4-endio-zero-bug-v1-2-266d2bb9e6dc@linux.ibm.com>
 References: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
 In-Reply-To: <20261102-ext4-endio-zero-bug-v1-0-266d2bb9e6dc@linux.ibm.com>
 To: "Theodore Ts'o" <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>,
@@ -99,185 +100,459 @@ Cc: linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.14.3
 X-TM-AS-GCONF: 00
 X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-GUID: xqlGs70y2bF__2HNreLugK6OcPzVLjBj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3MiBTYWx0ZWRfX5wBgdry64Qim
- 4tXdlGY1DJA4YXQIFl7KdHKHu8up97CRo56s0D7ZaeUquk0pbb9oud4ImdW/5pBU9SPLOstsG8K
- VoIsRqUP0CqrBY/+wgImOJHvqb7rl9tJKrupQhkeHXIZVhCCeJqsvHpi56IAXSCCVyPVS0Z8kux
- pYiqlX1xgQT4zd0au1kyllt1o8S0c0Wk7x8z4eHJXmJNqAmogRPUbK2TjbJXJ5t5QOJOubecILf
- 9dMRZZ5iWF9vSE7YxgEfM3Dkh7hSvaDkgzn6r4berNZuDGirvAIM80PtHmCnzeai73+0V3/AitI
- +hvMxyHhqsiSvzP57BOgKTjGrkMNCZq4nIyzNAp7/ywn40Qn/u1WsRvlUm3PX44RrT1R22nWznH
- 344VQH0fnwwBiXFUq5CTeBRBo9odoaY6rS59ziQA6t1AGORnggWJ0C3jiwSld1TBaSb9p1mGGaJ
- lWIaMir1XWcIpvTlX9Q==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3MiBTYWx0ZWRfX/U2URcVZfx3U
- 9vjNpUt0JmULZJwRwRDxNE95f0wxw3bxWrsptYMnHLyO3vW6/fzPutrKq3LwXcJtMVRFdJX0Uws
- /XHgjax6t+YZxlFaEDm8S2IhqSZD3iE=
-X-Authority-Analysis: v=2.4 cv=QK391QLL c=1 sm=1 tr=0 ts=6ae8d5fe cx=c_pps
- a=3Bg1Hr4SwmMryq2xdFQyZA==:117 a=3Bg1Hr4SwmMryq2xdFQyZA==:17
+X-Proofpoint-ORIG-GUID: vnpbSvxbWVZnKvTyTgNQgBuUyC_Xh01F
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3MiBTYWx0ZWRfX5zJ+EoISvHoZ
+ WGqLnWGdEN/l1qETYwqJuCV+TH5MEZnbpptRXN+2ov19Y6zIr2HtYqiJgHtiLshGOObh+ev+p5x
+ 4WGtrjzLSDkzpWqs2jyfJszeee5UZvU=
+X-Authority-Analysis: v=2.4 cv=LokHWXdc c=1 sm=1 tr=0 ts=6ae8d5f5 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=V8glGbnc2Ofi9Qvn3v5h:22 a=VnNF1IyMAAAA:8
- a=PZbrOloShCCzKOjG55sA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: zVc1HOEGOnI4TvCuzjoffDZrnAMsiUVi
+ a=RnoormkPH1_aCDwRdu11:22 a=Y2IxJ9c9Rs8Kov3niI8_:22 a=VnNF1IyMAAAA:8
+ a=KK7gg9ZJj2oIaeODp_sA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3MiBTYWx0ZWRfX4113FXQvMpjd
+ 41i9ABTdDw4vhBJAyDGnxXg6ogelMct3MireaHzc+10/rioAiG4Qp4B49LAGB4gngFy3erUv8HM
+ DLC3XWFcymL7+ssP449Y7R2szZ4lDCYZd9u1UlHjEhGRSB1wQUTHKnhpt/iXl+mPjKJ34ah/KMF
+ x2KKd5ebXUzpxgo2mh8IPZ1w5pJ0U0BBmKzqDtelOZK48yYjUQ3aSICdC8ksWZM8a+/ql8semXq
+ lWldzAD4GeYyDmfEg5MrTESqrf8KS/zyb5aQvw6/Z2EOWyuAdwY/dbRwg5HdR4hgiBsu7prpayh
+ Km+Lf8+DzP+w054TjRbnGow9loSfNvzG1vEpzAE2KsZL+kTxKcF6Oq6NpEb1vqMrJ/pK0QYsHi1
+ xxVz0BIBmvCiXnd01TovwqWLW7Z8xI7gjQonOcW3TPz3HPDXNa5w2kHDiN2SeWSN+SAc/ukGcyn
+ siw74n/KHJyG5r1w80w==
+X-Proofpoint-GUID: g82ksEokMsCBQCEQDErQR0PM0jbEAs98
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-02_05,2026-11-02_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 lowpriorityscore=0 adultscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ spamscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ priorityscore=1501 suspectscore=0 phishscore=0 malwarescore=0 bulkscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
  definitions=main-2611020072
 
-When endio conversion of an unwritten extent fails (e.g. ENOSPC while
-trying to split the extent), ext4 falls back to zeroing out the unwritten
-portions of the extent and marking it as written. This is safe only when no
-other in-flight writes have valid data underneath other parts of the same
-unwritten extent, otherwise the zeroout would silently corrupt that data.
+In case endio conversion fails due to factors like ENOSPC or ENOMEM, ext4
+uses a fallback where we zeroout the unwritten extents instead of
+splitting. However, not all unwritten extents can be zeroed out
+unconditionally as they might have data underneath which is pending endio
+conversion. Zeroing out such an extent can cause silent corruption.
 
-Commit ea96cb5c4ae3 ("ext4: don't split extent before submitting I/O")
-changed the dio path to submit I/O without pre-splitting extents, deferring
-the split to endio. This means multiple concurrent writes can share a
-single unwritten extent, and a failed split on one of them could zeroout
-data belonging to another.
+To fix this we track the IOs which are about to undergo conversion in
+ei->i_conv_pending_ios. The zeroout code then uses this counter to
+determine if it's safe to zeroout.
 
-Buffered IO fixes this by counting such IOs on unwritten extents in
-i_conv_pending_ios and decrementing them after conversion. However, due to
-the way dio iomap is designed, it is not very straightforward for the FS
-layer to increment once per unwritten IO.
+Design Notes:
 
-Hence, to keep it simple use the existing inode->i_dio_count which is
-incremented/decremented once per dio. zeroout code can now use
-i_dio_count with i_conv_pending_ios to decide if zeroout is safe to do.
+**Locking**
 
-The only thing missing is the mutual exclusion of i_dio_count increment vs
-the zeroout decision. To fix that, add ext4_conv_pending_barrier() in
-ext4_iomap_begin() which just rotates i_conv_pending_sem before returning
-an unwritten mapping for a write. This ensures that either a racing zeroout
-has finished before we issue an IO over unwritten extent, or zeroout starts
-after our dio is accounted for.
+The only mutual exclusion we need is between an IO that is about to be
+submitted over an unwritten extent and zeroout. This is done using a
+dedicated rwsem, ei->i_conv_pending_sem with the following rules:
 
-This design is overly cautious in disabling zeroout (eg, we will disable it
-for all inflight dio, not just dio over unwritten extents) but it keeps the
-code simple.
+1. Incrementing the counter must down_read(i_conv_pending_sem).
+2. A zeroout must check the counter and zero data under
+   down_write(i_conv_pending_sem)
+3. Decrementing the counter needs no lock. At worst, this makes zeroout
+   bail out due to a stale, elevated counter value, which is acceptable
+4. Changes to i_conv_pending_ios should use atomic helpers.
 
-Fixes: ea96cb5c4ae3 ("ext4: don't split extent before submitting I/O")
+This design provides us the required exclusion while ensuring that fast
+paths don't see any heavy lock contention. Atomic counters help parallel
+modifications to be serialized.
+
+** Tolerance for false positives **
+
+We trade false positives for simplicity of implementation because having a
+false positive here will just error the endio which is still better than
+silently corrupting the data. We can always optimize our tracking to make
+it more accurate in the future.
+
 Signed-off-by: Ojaswin Mujoo <ojaswin@linux.ibm.com>
 ---
- fs/ext4/ext4.h    |  2 ++
- fs/ext4/extents.c |  9 ++++++++-
- fs/ext4/inode.c   | 43 ++++++++++++++++++++++++++++++++++++++++---
- 3 files changed, 50 insertions(+), 4 deletions(-)
+ fs/ext4/ext4.h              | 19 ++++++++++
+ fs/ext4/extents-test.c      |  2 +
+ fs/ext4/extents.c           | 78 ++++++++++++++++++++++++++++++++------
+ fs/ext4/inode.c             | 92 +++++++++++++++++++++++++++++++++++++++++++++
+ fs/ext4/super.c             | 12 ++++++
+ include/trace/events/ext4.h |  1 +
+ 6 files changed, 192 insertions(+), 12 deletions(-)
 
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 44cd9f12d350..bf390b3b5606 100644
+index b72f90b6375b..1a01b1f809f7 100644
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -4002,6 +4002,8 @@ extern void ext4_conv_pending_sum(struct inode *inode, int n);
- extern int ext4_conv_pending_inc_trylock(struct inode *inode);
- extern void ext4_conv_pending_dec(struct inode *inode);
- extern void ext4_conv_pending_sub(struct inode *inode, int n);
-+extern void ext4_conv_pending_barrier(struct inode *inode);
-+extern int ext4_conv_pending_barrier_trylock(struct inode *inode);
+@@ -736,6 +736,11 @@ enum {
+  * Look EXT4_MAP_QUERY_LAST_IN_LEAF.
+  */
+ #define EXT4_GET_BLOCKS_QUERY_LAST_IN_LEAF	0x1000
++/*
++ * Caller may convert an unwritten extent (possibly zeroing parts of it)
++ * without elevating the i_conv_pending_ios count to account for itself.
++ */
++#define EXT4_GET_BLOCKS_NO_CONV_ACC		0x2000
+ 
+ /*
+  * The bit position of these flags must not overlap with any of the
+@@ -1235,6 +1240,15 @@ struct ext4_inode_info {
+ #ifdef CONFIG_FS_ENCRYPTION
+ 	struct fscrypt_inode_info *i_crypt_info;
+ #endif
++	/*
++	 * Number of in-flight IOs pending unwritten->written conversion. Used
++	 * by the zeroout fallback to avoid zeroing out data of such IOs.
++	 * Incrementing needs down_read(i_conv_pending_sem), zeroout needs
++	 * down_write(i_conv_pending_sem), decrementing needs no lock. See
++	 * comment above ext4_conv_pending_inc().
++	 */
++	atomic_t i_conv_pending_ios;
++	struct rw_semaphore i_conv_pending_sem;
+ };
+ 
+ /*
+@@ -3983,6 +3997,11 @@ extern int ext4_map_query_blocks(handle_t *handle, struct inode *inode,
+ 				  struct ext4_map_blocks *map, int flags);
+ extern int ext4_map_create_blocks(handle_t *handle, struct inode *inode,
+ 				  struct ext4_map_blocks *map, int flags);
++extern void ext4_conv_pending_inc(struct inode *inode);
++extern void ext4_conv_pending_sum(struct inode *inode, int n);
++extern int ext4_conv_pending_inc_trylock(struct inode *inode);
++extern void ext4_conv_pending_dec(struct inode *inode);
++extern void ext4_conv_pending_sub(struct inode *inode, int n);
  extern int ext4_ext_calc_credits_for_single_extent(struct inode *inode,
  						   int num,
  						   struct ext4_ext_path *path);
+diff --git a/fs/ext4/extents-test.c b/fs/ext4/extents-test.c
+index c3836ecb89f9..4d63c2050135 100644
+--- a/fs/ext4/extents-test.c
++++ b/fs/ext4/extents-test.c
+@@ -271,6 +271,8 @@ static int extents_kunit_init(struct kunit *test)
+ 
+ 	ext4_es_init_tree(&ei->i_es_tree);
+ 	rwlock_init(&ei->i_es_lock);
++	atomic_set(&ei->i_conv_pending_ios, 0);
++	init_rwsem(&ei->i_conv_pending_sem);
+ 	INIT_LIST_HEAD(&ei->i_es_list);
+ 	ei->i_es_all_nr = 0;
+ 	ei->i_es_shk_nr = 0;
 diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 96d8ad012b2a..e4e65f3f576d 100644
+index a229983f91dd..d255884cf075 100644
 --- a/fs/ext4/extents.c
 +++ b/fs/ext4/extents.c
-@@ -3333,10 +3333,17 @@ static bool ext4_conv_pending_zeroout_lock(struct inode *inode, int flags)
- 	pending = atomic_read(&ei->i_conv_pending_ios);
+@@ -3311,6 +3311,40 @@ static struct ext4_ext_path *ext4_split_extent_at(handle_t *handle,
+ 	return path;
+ }
  
- 	WARN_ON_ONCE(pending < 0);
--	if (pending > thresh || pending < 0) {
-+	if (pending < 0) {
- 		up_write(&ei->i_conv_pending_sem);
- 		return false;
- 	}
++/*
++ * Returns true with i_conv_pending_sem held for write if it's safe to zeroout,
++ * else drops the lock and returns false. The caller must call
++ * ext4_conv_pending_zeroout_unlock() once the zeroout IO is complete.
++ *
++ * Callers are expected to have elevated i_conv_pending_ios to account for
++ * themselves, so a count of 1 is their own. Callers that haven't must pass
++ * EXT4_GET_BLOCKS_NO_CONV_ACC in flags, in which case any count is another IO.
++ *
++ * Refer to comment above ext4_conv_pending_inc() for details.
++ */
++static bool ext4_conv_pending_zeroout_lock(struct inode *inode, int flags)
++{
++	struct ext4_inode_info *ei = EXT4_I(inode);
++	int pending, thresh;
 +
-+	pending += atomic_read(&inode->i_dio_count);
-+	if (pending > thresh) {
++	thresh = (flags & EXT4_GET_BLOCKS_NO_CONV_ACC) ? 0 : 1;
++
++	down_write(&ei->i_conv_pending_sem);
++	pending = atomic_read(&ei->i_conv_pending_ios);
++
++	WARN_ON_ONCE(pending < 0);
++	if (pending > thresh || pending < 0) {
 +		up_write(&ei->i_conv_pending_sem);
 +		return false;
 +	}
++	return true;
++}
 +
- 	return true;
++static void ext4_conv_pending_zeroout_unlock(struct inode *inode)
++{
++	up_write(&EXT4_I(inode)->i_conv_pending_sem);
++}
++
+ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 				     struct ext4_ext_path *path,
+ 				     struct ext4_map_blocks *map, int flags)
+@@ -3328,6 +3362,9 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 	ee_len = ext4_ext_get_actual_len(ex);
+ 	is_unwrit = ext4_ext_is_unwritten(ex);
+ 
++	if (!ext4_conv_pending_zeroout_lock(inode, flags))
++		return -EINVAL;
++
+ 	if (flags & EXT4_GET_BLOCKS_CONVERT) {
+ 		/*
+ 		 * EXT4_GET_BLOCKS_CONVERT: Caller wants the range specified by
+@@ -3338,9 +3375,11 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 		loff_t map_end = (loff_t) map->m_lblk + map->m_len;
+ 		loff_t ex_end = (loff_t) ee_block + ee_len;
+ 
+-		if (!is_unwrit)
++		if (!is_unwrit) {
+ 			/* Shouldn't happen. Just exit */
+-			return -EINVAL;
++			err = -EINVAL;
++			goto out_unlock;
++		}
+ 
+ 		/* zeroout left */
+ 		if (map->m_lblk > ee_block) {
+@@ -3350,7 +3389,7 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 			err = ext4_issue_zeroout(inode, lblk, pblk, len);
+ 			if (err)
+ 				/* ZEROOUT failed, just return original error */
+-				return err;
++				goto out_unlock;
+ 		}
+ 
+ 		/* zeroout right */
+@@ -3361,7 +3400,7 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 			err = ext4_issue_zeroout(inode, lblk, pblk, len);
+ 			if (err)
+ 				/* ZEROOUT failed, just return original error */
+-				return err;
++				goto out_unlock;
+ 		}
+ 	} else if (flags & EXT4_GET_BLOCKS_CONVERT_UNWRITTEN) {
+ 		/*
+@@ -3370,9 +3409,11 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 		 * Zeroout the map range leaving rest as it is.
+ 		 */
+ 
+-		if (is_unwrit)
++		if (is_unwrit) {
+ 			/* Shouldn't happen. Just exit */
+-			return -EINVAL;
++			err = -EINVAL;
++			goto out_unlock;
++		}
+ 
+ 		lblk = map->m_lblk;
+ 		len = map->m_len;
+@@ -3380,16 +3421,23 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 		err = ext4_issue_zeroout(inode, lblk, pblk, len);
+ 		if (err)
+ 			/* ZEROOUT failed, just return original error */
+-			return err;
++			goto out_unlock;
+ 	} else {
+ 		/*
+ 		 * We no longer perform unwritten to unwritten splits in IO paths.
+ 		 * Hence this should not happen.
+ 		 */
+ 		WARN_ON_ONCE(true);
+-		return -EINVAL;
++		err = -EINVAL;
++		goto out_unlock;
+ 	}
+ 
++	/*
++	 * The zeroout IO is done, no need to hold off new unwritten IOs while we
++	 * update the extent tree.
++	 */
++	ext4_conv_pending_zeroout_unlock(inode);
++
+ 	err = ext4_ext_get_access(handle, inode, path + depth);
+ 	if (err)
+ 		return err;
+@@ -3401,6 +3449,10 @@ static int ext4_split_extent_zeroout(handle_t *handle, struct inode *inode,
+ 		return err;
+ 
+ 	return 0;
++
++out_unlock:
++	ext4_conv_pending_zeroout_unlock(inode);
++	return err;
  }
  
+ /*
+@@ -3743,7 +3795,8 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
+ 	split_map.m_lblk = map->m_lblk;
+ 	split_map.m_len = map->m_len;
+ 
+-	if (max_zeroout && (*allocated > split_map.m_len)) {
++	if (max_zeroout && (*allocated > split_map.m_len) &&
++	    ext4_conv_pending_zeroout_lock(inode, flags)) {
+ 		if (*allocated <= max_zeroout) {
+ 			/* case 3 or 5 */
+ 			zero_ex1.ee_block =
+@@ -3756,7 +3809,7 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
+ 				split_map.m_len - ee_block);
+ 			err = ext4_ext_zeroout(inode, &zero_ex1);
+ 			if (err)
+-				goto fallback;
++				goto zeroout_unlock;
+ 			split_map.m_len = *allocated;
+ 		}
+ 		if (split_map.m_lblk - ee_block + split_map.m_len <
+@@ -3770,16 +3823,17 @@ ext4_ext_convert_to_initialized(handle_t *handle, struct inode *inode,
+ 						      ext4_ext_pblock(ex));
+ 				err = ext4_ext_zeroout(inode, &zero_ex2);
+ 				if (err)
+-					goto fallback;
++					goto zeroout_unlock;
+ 			}
+ 
+ 			split_map.m_len += split_map.m_lblk - ee_block;
+ 			split_map.m_lblk = ee_block;
+ 			*allocated = map->m_len;
+ 		}
++zeroout_unlock:
++		ext4_conv_pending_zeroout_unlock(inode);
+ 	}
+ 
+-fallback:
+ 	path = ext4_split_convert_extents(handle, inode, &split_map, path,
+ 					  flags | EXT4_GET_BLOCKS_CONVERT, NULL);
+ 	if (IS_ERR(path))
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 8b5cb37cdd6d..9d7d4da0071f 100644
+index 6ede3644a738..280ba3d359e3 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
-@@ -692,9 +692,9 @@ static void _ext4_conv_pending_mod(struct inode *inode, int n)
-  * they might have data underneath which is pending endio conversion. Zeroing
-  * out such an extent can cause silent corruption.
-  *
-- * To fix this we track the IOs which are about to undergo conversion in
-- * ei->i_conv_pending_ios. The zeroout code then uses this counter to
-- * determine if it's safe to zeroout.
-+ * To fix this we track the no. of buffered IOs which are about to undergo
-+ * conversion in ei->i_conv_pending_ios. The zeroout code then uses this counter
-+ * to determine if it's safe to zeroout.
-  *
-  * Design Notes:
-  *
-@@ -715,6 +715,9 @@ static void _ext4_conv_pending_mod(struct inode *inode, int n)
-  * don't see any heavy lock contention. Atomic counters help parallel
-  * modifications to be serialized.
-  *
-+ * Note that dio does not use i_conv_pending_ios; instead we use i_dio_count to
-+ * disable zeroout if there are any other inflight dios.
-+ *
-  * ** Tolerance for false positives **
-  *
-  * We trade false positives for simplicity of implementation because having a
-@@ -756,6 +759,30 @@ int ext4_conv_pending_inc_trylock(struct inode *inode)
- 	return 0;
+@@ -669,6 +669,98 @@ int ext4_map_query_blocks(handle_t *handle, struct inode *inode,
+ 	return retval;
  }
  
-+/*
-+ * Rotate i_conv_pending_sem. This guarantees mutual exclusion against a
-+ * concurrent endio zeroout, which holds i_conv_pending_sem exclusive. This
-+ * barrier ensures either the zeroout has completed before we return, or it will
-+ * start after we have accounted for the io and will see it while zeroing out.
-+ * This can be used for paths that might not be changing ei->i_conv_pending_ios
-+ */
-+void ext4_conv_pending_barrier(struct inode *inode)
++static void _ext4_conv_pending_mod(struct inode *inode, int n)
 +{
-+	down_read(&EXT4_I(inode)->i_conv_pending_sem);
-+	up_read(&EXT4_I(inode)->i_conv_pending_sem);
++	struct ext4_inode_info *ei = EXT4_I(inode);
++
++	atomic_add(n, &ei->i_conv_pending_ios);
 +}
 +
 +/*
-+ * Same as ext4_conv_pending_barrier() but doesn't sleep on i_conv_pending_sem.
++ * In case endio conversion fails due to factors like ENOSPC or ENOMEM, ext4
++ * uses a fallback where we zeroout the unwritten extents instead of splitting.
++ * However, not all unwritten extents can be zeroed out unconditionally as
++ * they might have data underneath which is pending endio conversion. Zeroing
++ * out such an extent can cause silent corruption.
++ *
++ * To fix this we track the IOs which are about to undergo conversion in
++ * ei->i_conv_pending_ios. The zeroout code then uses this counter to
++ * determine if it's safe to zeroout.
++ *
++ * Design Notes:
++ *
++ * **Locking**
++ *
++ * The only mutual exclusion we need is between an IO that is about to be
++ * submitted over an unwritten extent and zeroout. This is done using a
++ * dedicated rwsem, ei->i_conv_pending_sem with the following rules:
++ *
++ * 1. Incrementing the counter must down_read(i_conv_pending_sem).
++ * 2. A zeroout must check the counter and zero data under
++ *    down_write(i_conv_pending_sem)
++ * 3. Decrementing the counter needs no lock. At worst, this makes zeroout bail
++ *    out due to a stale, elevated counter value, which is acceptable
++ * 4. Changes to i_conv_pending_ios should use atomic helpers.
++ *
++ * This design provides us the required exclusion while ensuring that fast paths
++ * don't see any heavy lock contention. Atomic counters help parallel
++ * modifications to be serialized.
++ *
++ * ** Tolerance for false positives **
++ *
++ * We trade false positives for simplicity of implementation because having a
++ * false positive here will just error the endio which is still better than
++ * silently corrupting the data. We can always optimize our tracking to make it
++ * more accurate in the future.
 + */
-+int ext4_conv_pending_barrier_trylock(struct inode *inode)
++void ext4_conv_pending_inc(struct inode *inode)
 +{
-+	if (!down_read_trylock(&EXT4_I(inode)->i_conv_pending_sem))
++	struct ext4_inode_info *ei = EXT4_I(inode);
++
++	down_read(&ei->i_conv_pending_sem);
++	_ext4_conv_pending_mod(inode, 1);
++	up_read(&ei->i_conv_pending_sem);
++}
++
++void ext4_conv_pending_sum(struct inode *inode, int n)
++{
++	struct ext4_inode_info *ei = EXT4_I(inode);
++
++	down_read(&ei->i_conv_pending_sem);
++	_ext4_conv_pending_mod(inode, n);
++	up_read(&ei->i_conv_pending_sem);
++}
++
++/*
++ * Same as ext4_conv_pending_inc() but doesn't sleep if a zeroout is in
++ * progress. Returns -EAGAIN and leaves the counter untouched in that case.
++ */
++int ext4_conv_pending_inc_trylock(struct inode *inode)
++{
++	struct ext4_inode_info *ei = EXT4_I(inode);
++
++	if (!down_read_trylock(&ei->i_conv_pending_sem))
 +		return -EAGAIN;
-+	up_read(&EXT4_I(inode)->i_conv_pending_sem);
++
++	_ext4_conv_pending_mod(inode, 1);
++	up_read(&ei->i_conv_pending_sem);
 +	return 0;
 +}
 +
- void ext4_conv_pending_dec(struct inode *inode)
- {
- 	_ext4_conv_pending_mod(inode, -1);
-@@ -4073,6 +4100,16 @@ int ext4_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
- 	if (ret < 0)
- 		return ret;
- out:
-+	if ((flags & IOMAP_WRITE) && (map.m_flags & EXT4_MAP_UNWRITTEN)) {
-+		if (flags & IOMAP_NOWAIT) {
-+			ret = ext4_conv_pending_barrier_trylock(inode);
-+			if (ret)
-+				return ret;
-+		} else {
-+			ext4_conv_pending_barrier(inode);
-+		}
-+	}
++void ext4_conv_pending_dec(struct inode *inode)
++{
++	_ext4_conv_pending_mod(inode, -1);
++}
 +
- 	/*
- 	 * Sometimes I/O to an encrypted file has to be broken up to guarantee
- 	 * DUN contiguity.  Handle this by limiting the length of the mapping
++void ext4_conv_pending_sub(struct inode *inode, int n)
++{
++	struct ext4_inode_info *ei = EXT4_I(inode);
++
++	down_read(&ei->i_conv_pending_sem);
++	_ext4_conv_pending_mod(inode, -n);
++	up_read(&ei->i_conv_pending_sem);
++}
++
+ int ext4_map_create_blocks(handle_t *handle, struct inode *inode,
+ 			   struct ext4_map_blocks *map, int flags)
+ {
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 7d8aedfbbb87..866a6a70535e 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1429,6 +1429,8 @@ static struct inode *ext4_alloc_inode(struct super_block *sb)
+ 	ei->i_es_shrink_lblk = 0;
+ 	ei->i_es_seq = 0;
+ 	ei->i_reserved_data_blocks = 0;
++	atomic_set(&ei->i_conv_pending_ios, 0);
++	init_rwsem(&ei->i_conv_pending_sem);
+ 	spin_lock_init(&(ei->i_block_reservation_lock));
+ 	ext4_init_pending_tree(&ei->i_pending_tree);
+ #ifdef CONFIG_QUOTA
+@@ -1505,6 +1507,16 @@ static void ext4_destroy_inode(struct inode *inode)
+ 		ext4_msg(inode->i_sb, KERN_ERR,
+ 			 "Inode %llu (%p): EXT4_STATE_DISKSIZE_GROW_PENDING not cleared!",
+ 			 inode->i_ino, EXT4_I(inode));
++
++	if (!(EXT4_SB(inode->i_sb)->s_mount_state & EXT4_ERROR_FS) &&
++	    !ext4_emergency_state(inode->i_sb)) {
++		int pending = atomic_read(&EXT4_I(inode)->i_conv_pending_ios);
++
++		if (WARN_ON_ONCE(pending))
++			ext4_msg(inode->i_sb, KERN_ERR,
++				 "Inode %llu (%p): i_conv_pending_ios (%d) not cleared!",
++				 inode->i_ino, EXT4_I(inode), pending);
++	}
+ }
+ 
+ static void ext4_shutdown(struct super_block *sb)
+diff --git a/include/trace/events/ext4.h b/include/trace/events/ext4.h
+index 92048da9dae4..7d255c47c446 100644
+--- a/include/trace/events/ext4.h
++++ b/include/trace/events/ext4.h
+@@ -43,6 +43,7 @@ struct partial_cluster;
+ 	{ EXT4_GET_BLOCKS_CONVERT,		"CONVERT" },		\
+ 	{ EXT4_GET_BLOCKS_METADATA_NOFAIL,	"METADATA_NOFAIL" },	\
+ 	{ EXT4_GET_BLOCKS_NO_NORMALIZE,		"NO_NORMALIZE" },	\
++	{ EXT4_GET_BLOCKS_NO_CONV_ACC,		"NO_CONV_ACC" },	\
+ 	{ EXT4_GET_BLOCKS_CONVERT_UNWRITTEN,	"CONVERT_UNWRITTEN" },  \
+ 	{ EXT4_GET_BLOCKS_ZERO,			"ZERO" },		\
+ 	{ EXT4_GET_BLOCKS_IO_SUBMIT,		"IO_SUBMIT" },		\
 
 -- 
 2.55.0
