@@ -1,47 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624057;
-	b=VYpJWcRXUB7zGOvqG792pOfYWkDwncTSyR9RDxfXxX9m5OsJavbwPVqUhmJZOCYkihrc
-	 p5vvQR10zaBBLZMEal6PKTJiQ9meRUsXKWMxH649tieqzqlbtg2M9/WYuNoGOL2kr93fF
-	 xu5Bzk/TtWTrQuemm2/eJ7/bQ0A/ZFE3zuTmy4TXqwvEo2ak/G4fIFxVv1EhrIkeM34TD
-	 FpONckx2/NFcJXkwVvFXQ3zc62Q3/aH95qMJ3s5MfgkWdEXA/uSwQshI1lBAxSTdoRNrz
-	 cDWpi66o9kZCGsa3NBlfuWeQD9ryzIhWuz2epqAVD6tFfYxGW16HL15T+mTxch82iZQ==
+	t=1793624137;
+	b=iFF2khEOVjlicp99kxLhGQ5hGFaNbgKPdnqBYocxWU8yCaVkwMHbP9qWhU/E8693TzND
+	 D+aXx/iiuK5/7pEhBfdxe7CXmHklZWZzA652qn67la4bdDvkB5slt6IfXUR+yempp+BFC
+	 u1s+tv5Uc7lbDc82BTm1SZAXVTLr8V7KHuYsnjYXKBVqQ9baxrXhuT0SKOx7Sk88RU+2O
+	 AOuh9Iy2yswkfGkFmiXeQOUcSeNtv3l6X1Ttq5uEhoxDg2mGxKk0UOXdZmAefY11w2TM7
+	 mTIBdqO6CtprLunFwB64mqvEATFQXmeaTGNnS/scACdZRc9JX4E2xnInYAjIyB5LWXA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624057;
-	h=Received:DKIM-Signature:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:Content-Language:Autocrypt:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=MYKdbODKc1prEg/TSIAKCpPLWFj9bHZOX1ZDiVmUN/E=;
-	b=cU+5HdMn4vk+M8njCEk1fzCiN2XDvebwJ57E9cRWDwYrTVHI4/ufb00+Ynln8VdUyneQ
-	 7XUpXGuALUQ4USpBbO7NDWUV+w5NEpN1lMy1br6K0qOulvLqver709uBEl1X2zj4stZgQ
-	 9T6nWkCMDj5mBNxHSzScje2a2zlGBz1CgITFqee82p2gcOQIRynLMkw0T9JIi8N/5otv9
-	 Op7qvgAZGxNqLLz66MaN80fN/lda4nrzF7+I52gYWoA569OVPfEKMZg+gquZuEuznHv0y
-	 GvUEUfa1XtsX2CXo+HiPYz25Bw0QOIrpYW6HwwwzAdX+Gs+wWTrKyrpkZHI5RdlMVIg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624137;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=zK+jduPgyuYhoGFDTvKP1KlaDNql1X030u3qNAXE0zA=;
+	b=rHxIDAxHWkl/lH4Y2ERBugFGUAh7qLIBgQ3fDoCNviqKjhJxFrNXxo/GMqD7qnId7UK0
+	 fxes5qyX7Am6JPcd4ale4j7KHp3jiQInKCfm41Wi0Suc1M0pnzGHpV7GVccM23X5+vyZW
+	 dlwRxsA5nKK9B+2bhr1bQhXnIMftsFI1jyL0Cu4exlmmvBniJaRguE4BpuZewgnxpVMuM
+	 +u9UggFKHG7Vu6pnf2eu0kRE9LKHQBRzGCHi98TetN8afE+DZiOYLzfMidO87yj/yhb+1
+	 4qfnLhdbo4cfbRtrpmjhFWyywdPqM5UZQ5kW2c7Gf/AKt9H7tlEmfmCK2qXg045S5lg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csvcTsOU;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPDBYnRq;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB61A606A326;
-	Mon,  2 Nov 2026 12:54:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 869C1606A32C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:55:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=csvcTsOU
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67B651F00A16;
-	Mon,  2 Nov 2026 12:54:09 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BPDBYnRq
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C40F1F00A16;
+	Mon,  2 Nov 2026 12:55:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793624056;
-	bh=MYKdbODKc1prEg/TSIAKCpPLWFj9bHZOX1ZDiVmUN/E=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=csvcTsOUYC23IF5THZRKLkyoa8+bR3vOPOvcfHV1GbL03Pc0uq4mCw9+53mIF4ErN
-	 MtvQVl9QC1exMlpUh/LNqLsdxSLvFxPPkCNJuwA6bMm++7lghNlev2lLb67EfsqjSk
-	 4WLj/TyIG906qxCp+7j1OM8uKsUVLiPYjJRwQMQbm5RlSiV9xdyUgX5kOTFs3SZ2VZ
-	 8dUQakbFT6sWB0GBISiaRU2M6b9amfOtTvYlM9z1T28yTAz7Grux/KR7DRiMIoqhza
-	 87k9tQ+6GTFFRzU4v2SQ4mtWHCViIeMReaJNBIG/DbWU10n/S+lfFR6SfaIY8HW469
-	 ll4JZH22VNegg==
-Message-ID: <47abd304-e269-42dd-9d9a-3b7300ce23e3@kernel.org>
-Date: Mon, 2 Nov 2026 13:54:06 +0100
+	s=k20260515; t=1793624137;
+	bh=zK+jduPgyuYhoGFDTvKP1KlaDNql1X030u3qNAXE0zA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BPDBYnRqf0o0UbbvkaWjK97ToRo8QnnXDa+oV8kdzXiCvIH7BgZt+sLXxnFlLUdjZ
+	 J1F/CHVDxjRLimLNxrAWVrOh+nqoRouG4O0tzipJeliYcGEskLHhMIs7bFOu/L5tuP
+	 7Pp6SIH5pz5saLv9Oj7r6iTI2kZ/hAgzJrjWklPAMsyYiyM3ycETTZ00kt+kT7gvOe
+	 K0QkjvZtKKTJHqMns9+OZ4q9CxX9Hf8Y5eCTxEgSFFUOLQuvNjmgwfviDp/o6Im8e0
+	 7JrSYh2G6i9P2XngglE6HoaquaVBaZNaasYaAy0b178ZNHSoaYW9W+GpFXFjSk6KAY
+	 /hmvLLaTVyuyg==
+Date: Mon, 2 Nov 2026 12:55:32 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: Xu Xin <xu.xin@linux.dev>, Chengming Zhou <chengming.zhou@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, Rik van Riel <riel@redhat.com>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, Zhao Gongyi <zhaogongyi@bytedance.com>
+Subject: Re: [PATCH] mm/ksm: avoid unsafe anon rmap dereference in KSM merge
+Message-ID: <auiHNPkbB0p7-2GI@gremlin>
+References: <20261102-ksm-anon-rmap-fix-v1-1-68962acfb59b@kernel.org>
+ <54e20549-ca49-4d86-90fd-9f5e483d362d@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -51,128 +58,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 02/15] mm/hugetlb: compare against persistent count when
- freeing lowmem folios
-To: Muchun Song <muchun.song@linux.dev>
-Cc: Oscar Salvador <osalvador@suse.de>,
- Naoya Horiguchi <nao.horiguchi@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>,
- Andy Whitcroft <apw@canonical.com>, Miaohe Lin <linmiaohe@huawei.com>,
- Michal Hocko <mhocko@suse.com>, Rik van Riel <riel@surriel.com>,
- Hugh Dickins <hughd@google.com>, Baolin Wang
- <baolin.wang@linux.alibaba.com>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, Dave Airlie <airlied@redhat.com>,
- Jason Gunthorpe <jgg@ziepe.ca>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, Peter Xu <peterx@redhat.com>,
- Breno Leitao <leitao@debian.org>, Will Deacon <will@kernel.org>,
- "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, Nick Piggin
- <npiggin@gmail.com>, Peter Zijlstra <peterz@infradead.org>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Arnd Bergmann <arnd@arndb.de>,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Gerd Hoffmann <kraxel@redhat.com>, linux-doc@vger.kernel.org,
- linux-arch@vger.kernel.org, linux-s390@vger.kernel.org, stable@kernel.org
-References: <20261028-fixes_hugetlb-v1-0-a0a033db180f@kernel.org>
- <20261028-fixes_hugetlb-v1-2-a0a033db180f@kernel.org>
- <68EFA1E5-4898-4278-8718-06B1A010DFFD@linux.dev>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <68EFA1E5-4898-4278-8718-06B1A010DFFD@linux.dev>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <54e20549-ca49-4d86-90fd-9f5e483d362d@kernel.org>
 
-On 10/29/26 04:39, Muchun Song wrote:
-> 
-> 
->> On Oct 29, 2026, at 04:13, David Hildenbrand (Arm) <david@kernel.org> wrote:
->>
->> try_to_free_low() gets a target number of persistent folios, but
->> compares it with "nr_huge_pages", which includes surplus folios. As a
->> result, it can free lowmem folios below that target.
->>
->> For example, with two persistent folios and one surplus folio, a target
->> of two can still end up freeing one persistent folio.
->>
->> Compare against persistent_huge_pages() instead. Convert the macro to a
->> helper function and place it before try_to_free_low().
->>
->> Fixes: 7893d1d505d5 ("hugetlb: Try to grow hugetlb pool for MAP_PRIVATE mappings")
->> Cc: stable@kernel.org
->> Signed-off-by: David Hildenbrand (Arm) <david@kernel.org>
-> 
-> Acked-by: Muchun Song <muchun.song@linux.dev>
-> 
-> One nit bellow.
-> 
->> ---
->> mm/hugetlb.c | 8 ++++++--
->> 1 file changed, 6 insertions(+), 2 deletions(-)
->>
->> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
->> index da5d04edf7c1..3a94ea1c9457 100644
->> --- a/mm/hugetlb.c
->> +++ b/mm/hugetlb.c
->> @@ -1335,6 +1335,11 @@ static unsigned long available_huge_pages(struct hstate *h)
->> 	return h->free_huge_pages - h->resv_huge_pages;
->> }
->>
->> +static unsigned long persistent_huge_pages(struct hstate *h)
-> 
-> Better to make *h const?
+On Mon, Nov 02, 2026 at 01:49:02PM +0100, David Hildenbrand (Arm) wrote:
+> On 11/2/26 13:32, Lorenzo Stoakes (ARM) wrote:
+> > When KSM examines candidate VMAs in scan_get_next_rmap_item(), it
+> > accumulates (mm, address) pairs in ksm_rmap_item objects, assigning them
+> > via get_next_rmap_item(), pinning folios via a page walk in
+> > ksm_next_page_pmd_entry().
+> >
+> > Throughout this operation, scan_get_next_rmap_item() holds mmap read lock,
+> > which it drops afterwards.
+> >
+> > After the mmap lock is dropped the VMAs might be freed and remapped where
+> > the VMA belonging to the folio was previously mapped.
+> >
+> > mremap()'s ability to change where anon folios are mapped is dealt with by
+> > KSM by essentially avoiding the problem - prep_move_vma() unshares KSM
+> > folios, and the scanning logic is tolerant of concurrent remaps, discarding
+> > stale ksm_rmap_item objects and allocating new ones at the new address.
+> >
+> > This doesn't account for a new VMA being mapped over an old one where a
+> > folio was previously mapped, so KSM accounts for this by checking things at
+> > the page table level.
+> >
+> > However, once an anon_vma's reference count reaches zero, it is freed, but
+> > nothing clears folio->mapping, which is where the KSM pin interacts badly
+> > with the current KSM implementation.
+> >
+> > page_address_in_vma() is consistently used to look up the folio's address,
+> > but page_address_in_vma() explicitly states:
+> >
+> > "It is the caller's responsibility to check the page is actually within the
+> > VMA."
+> >
+> > And KSM violates this, as it cannot know this to be true. This results in
+> > this function performing a use-after-free:
+> >
+> > 		struct anon_vma *anon_vma = folio_anon_vma(folio);
+> >
+> > 		...
+> >
+> > 		if (!vma_has_anon_rmap(vma) || !anon_vma ||
+> > 		    vma->anon_vma->root != anon_vma->root)
+> > 			return -EFAULT;
+> >
+> > As anon_vma->root is dereferenced when anon_vma can already have been
+> > freed.
+> >
+> > This is currently benign in practice, as anon_vma's are slab-allocated
+> > objects so this will always be within the direct mapping and arbitrary
+> > memory will be treated as if it were a pointer to be compared.
+> >
+> > This either results in an -EFAULT or a spurious match, which will be
+> > rejected at the page table level.
+> >
+> > However we mustn't UAF even if it's harmless, and KASAN rightly flags this.
+> >
+> > It turns out we don't even need to use page_address_in_vma() as we already
+> > know the folio's address, it simply needs to be passed through.
+> >
+> > This change therefore updates KSM to do this, sidestepping the issue
+> > altogether.
+> >
+> > Explicitly check for KSM folios in try_to_merge_one_page(), which are
+> > already merged, and by definition never have an anon_vma.
+> >
+> > This was previously handled implicitly by page_address_in_vma() as
+> > folio_anon_vma() returns NULL for those.
+> >
+> > In many cases cmp_and_merge_page() will reject these, but it's possible for
+> > KSM folios to fall into the unstable tree there, so eliminate that
+> > possibility by checking for that early.
+> >
+> > This maintains existing behaviour.
+> >
+> > The bug was introduced by commit 21d0d443cdc1 ("rmap: resurrect
+> > page_address_in_vma anon_vma check") which first dereferenced
+> > folio->mapping unsafely, but commit b8c8ba73c68b ("slub: Introduce
+> > CONFIG_SLUB_RCU_DEBUG") made it visible with CONFIG_SLUB_RCU_DEBUG enabled.
+> >
+> > Fixes: 21d0d443cdc1 ("rmap: resurrect page_address_in_vma anon_vma check")
+> > Reported-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+> > Closes: https://lore.kernel.org/all/20261031182256.40205-1-zhaogongyi@bytedance.com/
+> > Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+> > ---
+> > David - this seems benign in practice, so I'm not sure whether a backport
+> > is required here.
+>
+> Ok, thanks. Is there a similar problem as with the other anon_vma->root issue
+> where a false positive match could be problematic?
+>
+> I suspect not.
 
-Agreed, thanks!
+No, as it checks stuff at the page table level later.
 
--- 
-Cheers,
+>
+> In that case I would pick this for the next merge window after a couple of days.
 
-David
+Yup, this is far from urgent.
+
+>
+> [...]
+>
+> >  {
+> >  	struct folio *folio = page_folio(page);
+> >  	pte_t orig_pte = __pte(0);
+> > @@ -1515,7 +1507,7 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
+> >  	if (page == kpage)			/* ksm page forked */
+> >  		return 0;
+> >
+> > -	if (!folio_test_anon(folio))
+> > +	if (!folio_test_anon(folio) || folio_test_ksm(folio))
+> >  		goto out;
+> Okay, that makes sense. We don't have to check under the folio lock as KSM
+> doesn't merge concurrently.
+>
+> Do we want to assert in write_protect_page() that we are not getting called with
+> a KSM folio, similar to what we do with large folios in there?
+
+Sure could do. I wonder whether that existing check should just be a
+VM_WARN_ON_ONCE() anyway, seems a bit silly to if (WARN_ON_ONCE(...)) return
+err; there.
+
+Do you want a respin for that or happy to add?
+
+--
+Cheers, Lorenzo
