@@ -1,80 +1,113 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609630;
-	b=0A4FDjwTqUD794aQ0VD/9iYNd87EHkSENJCNO1uU8NsNWapmsbqtvVlDFvoNpDDMvTj3
-	 vCvdQHhdHYQqMS/s1DaYnWKrvP2KK/Enw4BilY5jZqoMzJ4ntDGGHfeVyd08BKtze7jP/
-	 KPa4ljbuzOUXsDALlOrrfpB1ZCkm0gPCvKxKRV2iOGTgaByqOZc4wBcOD7yHY8TSBXpsM
-	 qTiD3/ipEBvOkacP2YZmo0f/o+l0joVx1B1d7VtcoNC5EER/U2MFRi6t70Ar7e99zcw8y
-	 y3kce63JJHrxEf/cH3//jq2WCPoMa1LxxKPgb1880fC1TFb93CnI8l3ePJ3tcbqpBug==
+	t=1793609631;
+	b=ef1yOwpDTYVYMYbyB1ktXclCmFU3vzO4I2bvAWGyJMzuEk77jLwtzmRQR8Zk7ft1B+6B
+	 T/LRo+EYeGQdAQPTpHJ0yExEDG6mR8GzzDQcrBz9ocyDs7NwmO6SU0ZaQsXKrsHAVeCkh
+	 rKGG28WAUKIK3a+4R1Hj1yiZOqAOSqHyo4KNI4Gq6sNOQpfJFfk5TpIpQftKMl/92LIi6
+	 YI/kkOXnrvOvPhT/yAOjqt6KdJS7cPufA20f+Emm0SnfM8EX2zzQpLtlzDww02rLKH+1B
+	 abQIPFdAnW+LcPT6xIs4xYBTz7VpNMR9PxUPFtQ0G9ixtXx17w9enMMONitIGs6CwHw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609630;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:Date:From:To:CC:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
-	bh=Tupbzvx4VkKzIlj8hM3jEDvpvxLK2n9OwH+R3BnYryg=;
-	b=jZlmP8MOTCwv0YDQ2Vjn4rYwmu/Sum02d/xeY+xaWlYrAfwEofKeTOQN4bMNJQKRZkSt
-	 qHDxaP7142lPTQJEwr54P3+OpKT4/56tslpaQu06uh7O0jklXF5wEF86ON2GAkh2uu9Np
-	 afb/Q7E2pypKtlET7FcDhLDWmQRcqcXm8HB2cBmN4i5fZBYQipNrOFlvsvYPEJn68vfuM
-	 xaNzLtPZagv6pdKAkdLA0dXa1Ra91U9LYPcgM9YrFF+fAwUjPs/U/QAVgETQDnnJtqDS1
-	 Jnc/7xNdYs0TlslhVIU6LdUFHI6KUB8RwnvOel84YcpIlrZuvhCFMR1mFSjYIrh4AUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609631;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Rspamd-Queue-Id:X-Spam-Level:X-Rspamd-Server:X-Rspamd-Action:
+	 X-Spam-Flag:X-Spamd-Result:X-Spam-Score;
+	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
+	b=i04+Bv5DMqs1+yyW3KWu4lKSRvyn44UJjWMGAE5VX+dWde2TLRChQt9vKrFJCr2hVL77
+	 J84f609t6Bu14VHPki9/jb7waLtbt3z2NkLMig1jcmk5ymaZLVQtca590H1dip5UtrX35
+	 t+HB8to7C1XfPN/dVJPVYZZeKxNoOjD6Y0023bZQ40r28uiVaoujx9HO7wJitzoBRlMzw
+	 50qXWAS1KfvReoiC1s8XtKJ3W6xVs3JcImi7JZBYsWAZ39BVI8CvgcgDWxowYcygFRpKO
+	 SswjhK0ch4xPzsy8QwUC1cihOpQHybtpA6qLc7kBxoMj04TW7Y7TRe1fu/pXXWVX3Cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=microchip.com;
-	spf=pass smtp.mailfrom=microchip.com;
-	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=xxlpOj9D;
-	arc=none smtp.remote-ip=68.232.154.123
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W;
+	arc=none smtp.remote-ip=195.135.223.131
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CF2606A326;
-	Mon,  2 Nov 2026 08:53:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 84CF2606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF52606A332;
+	Mon,  2 Nov 2026 08:53:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EDF52606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=xxlpOj9D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1793609629; x=1825145629;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=8QAClhMDGss4VRpG0qd8RvKwAum8v/xYsu3E2qScQZg=;
-  b=xxlpOj9DeeSso1HsMWN8FEcdlbXA5XUn9ejZDAAk6B0YnKTZTVYeHf6m
-   Hq03CNzgqv4QIyLMFWHQKbxSevo++ZoDLraQtqXojNAkkNQfb4+0DZ2Lq
-   mmAD1reI4JVcBnOp6UMcr52rF278dtuB2KMvPVoAkf8EIeTN//fpbv2dA
-   zw4ghABUga+//5f6dZ5FXDVOfT89mgphVSoOEUAD2g+gX6GZlExn3JxtX
-   Aj/8N1jvdu5LZ4j4qUHr7hjy2kZf9W/LetoApL5G0oaoq7+SoSrLwFnCt
-   RB+ym0SAIlWMqpG2viD5wlwE5mfPzUqiDTULPyXBO4Mx+q7LwZgJrOQW3
-   w==;
-X-CSE-ConnectionGUID: vaCC1SBATlqPHVLQLR5a7Q==
-X-CSE-MsgGUID: 55cphz5uTJS2AXRo/JsVYg==
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="64906431"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 01:53:43 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.56; Mon, 2 Nov 2026 01:53:42 -0700
-Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Mon, 2 Nov 2026 01:53:39 -0700
-Date: Mon, 2 Nov 2026 09:53:39 +0100
-From: Daniel Machon <daniel.machon@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <horatiu.vultur@microchip.com>, <UNGLinuxDriver@microchip.com>,
-	<andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@kernel.org>,
-	<kuba@kernel.org>, <pabeni@redhat.com>, <ast@kernel.org>,
-	<daniel@iogearbox.net>, <hawk@kernel.org>, <john.fastabend@gmail.com>,
-	<sdf@fomichev.me>, <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<bpf@vger.kernel.org>
-Subject: Re: [PATCH net] net: lan966x: don't free XDP buffers in fdma tx
- clear with budget 0
-Message-ID: <20261102085339.ixdqujaly75yldp7@DEN-DL-M70577.microsemi.net>
-References: <20261029-lan966x-fdma-tx-clear-budget-v1-1-38c52d7aab8c@microchip.com>
- <179339596952.3131.4206946876532380801@kernel.org>
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=UcPPE8QJ;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=BzsyZ33W
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 718791F7CE;
+	Mon,  2 Nov 2026 08:53:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793609629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
+	b=UcPPE8QJ8lG8ZGClFH9L+PfqufKn0HrKewSGAe8xQCk9x843/7U2MZoIi5ZUCuL9aJElqt
+	Vwn10Znha/v6c3Kf1TtaxdSSuDFDm6SW9anEv7AKeBFLp+XSEuZ2wZkUttB3K1FxMYSgp5
+	xwVqv7Pm5/H5NK6Ko4JBi2QtFjWaIoQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793609629;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
+	b=BzsyZ33WIy9qY2wAsoT6BKk68KjFGVmUplF+ut/pbfR0+6tS4HArNJFn6G8FoR/9RPqmh8
+	qKtZePvgnrNKLrAA==
+Authentication-Results: smtp-out2.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=UcPPE8QJ;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=BzsyZ33W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793609629; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
+	b=UcPPE8QJ8lG8ZGClFH9L+PfqufKn0HrKewSGAe8xQCk9x843/7U2MZoIi5ZUCuL9aJElqt
+	Vwn10Znha/v6c3Kf1TtaxdSSuDFDm6SW9anEv7AKeBFLp+XSEuZ2wZkUttB3K1FxMYSgp5
+	xwVqv7Pm5/H5NK6Ko4JBi2QtFjWaIoQ=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793609629;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+KGaFK0hXbsr6P3pyaOfsnWeHMObgqJEyVunXcd4Hmc=;
+	b=BzsyZ33WIy9qY2wAsoT6BKk68KjFGVmUplF+ut/pbfR0+6tS4HArNJFn6G8FoR/9RPqmh8
+	qKtZePvgnrNKLrAA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 197AE134B8;
+	Mon,  2 Nov 2026 08:53:49 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id tjHCOJxP6GpDTAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 08:53:49 +0000
+Date: Mon, 02 Nov 2026 09:53:48 +0100
+Message-ID: <87ik2f4ns3.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: HyeongJun An <sammiee5311@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.com>,
+	Ivan Orlov <ivan.orlov0322@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-sound@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/3] selftests: ALSA: pcmtest: Test error injection and pause
+In-Reply-To: <cover.1792660433.git.sammiee5311@gmail.com>
+References: <cover.1792660433.git.sammiee5311@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,193 +116,68 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <179339596952.3131.4206946876532380801@kernel.org>
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Rspamd-Queue-Id: 718791F7CE
+X-Spam-Level: 
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Action: no action
+X-Spam-Flag: NO
+X-Spamd-Result: default: False [-11.01 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	FREEMAIL_TO(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	RCVD_TLS_ALL(0.00)[];
+	TO_DN_SOME(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DNSWL_BLOCKED(0.00)[2a07:de40:b281:106:10:150:64:167:received,2a07:de40:b281:104:10:150:64:97:from];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	FREEMAIL_CC(0.00)[suse.com,gmail.com,kernel.org,perex.cz,vger.kernel.org];
+	RCPT_COUNT_SEVEN(0.00)[9];
+	TAGGED_RCPT(0.00)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.de:dkim]
+X-Spam-Score: -11.01
 
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider.
+On Thu, 22 Oct 2026 13:12:41 +0200,
+HyeongJun An wrote:
 > 
-> Critical: 0 · High: 0 (1) · Medium: 1 (1) · Low: 0
+> The pcmtest driver can return errors from its PCM callbacks and
+> supports pause, but the selftest covers neither. This series adds tests
+> for both.
 > 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
+> Patch 1 moves the capture data check into a helper, so patch 3 can
+> reuse it. Patch 2 tests each inject_*_err parameter. Patch 3 tests
+> pausing a capture stream.
 > 
-> - [Medium] This patch adds a skip to lan966x_fdma_tx_clear_buf()
->   (drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c, line 359): `if…
+> Tested on x86_64 with the sound/for-next driver, built for a 6.17 host.
+> All 10 tests pass in three runs. To check that the pause test catches
+> real bugs, I loaded two broken drivers. One keeps running on PAUSE_PUSH.
+> The other restarts the data on PAUSE_RELEASE. Only capture_pause fails
+> on each.
 > 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but
->   lan966x_fdma_reload()…
-> - [Medium] This problem wasn't introduced by this patch, but
->   lan966x_fdma_deinit()…
-> 
-> --
-> 
-> net: lan966x: don't free XDP buffers in fdma tx clear with budget 0
-> 
-> This patch makes lan966x_fdma_tx_clear_buf() skip completed XDP_TX and
-> ndo_xdp_xmit DCBs when netpoll calls it with a budget of 0. That way the
-> page pool and XDP return APIs are not called with hardirqs disabled. The
-> skipped buffers are left for the next NAPI poll, and skbs are still freed
-> via napi_consume_skb().
-> 
-> > diff --git a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> > index 21668bbcc9063..1fbe910c5ec38 100644
-> > --- a/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> > +++ b/drivers/net/ethernet/microchip/lan966x/lan966x_fdma.c
-> > @@ -353,6 +353,12 @@ static void lan966x_fdma_tx_clear_buf(struct lan966x *lan966x, int weight)
-> >               if (!fdma_db_is_done(db))
-> >                       continue;
-> >
-> > +             /* XDP and page pool APIs can't be used with a budget of 0.
-> > +              * Leave these buffers for the next NAPI poll.
-> > +              */
-> > +             if (!weight && !dcb_buf->use_skb)
-> > +                     continue;
-> 
-> [Severity: Medium]
-> Can this starve netconsole transmits on the port that owns the FDMA NAPI?
-> 
-> skbs and XDP frames get slots from the same ring through
-> lan966x_fdma_get_next_dcb(), which only checks the used bit:
-> 
-> lan966x_fdma_get_next_dcb() {
->         ...
->                 if (!dcb_buf->used &&
->                     !fdma_is_last(&tx->fdma, &tx->fdma.dcbs[i]))
->                         return i;
->         ...
-> }
-> 
-> If heavy XDP_TX or ndo_xdp_xmit traffic fills every usable slot, a
-> netpoll skb ends up here in lan966x_fdma_xmit():
-> 
->         next_to_use = lan966x_fdma_get_next_dcb(tx);
->         if (next_to_use < 0) {
->                 netif_stop_queue(dev);
->                 return NETDEV_TX_BUSY;
->         }
-> 
-> __netpoll_send_skb() then polls between retries:
-> 
-> netpoll_poll_dev()->poll_one_napi()->napi->poll(napi, 0)
->   ->lan966x_fdma_tx_clear_buf(lan966x, 0)
-> 
-> With the new check, every completed XDP DCB is skipped. No slot is freed,
-> clear stays false, and lan966x_fdma_wakeup_netdev() is never called.
-> 
-> Once the retries run out, the skb is put on npinfo->txq and handed to
-> delayed work, and later messages queue behind it. In normal operation a
-> later IRQ-driven NAPI poll frees the DCBs and output only comes late.
-> 
-> During a panic, with the other CPUs stopped and hardirqs off, would that
-> work ever run? If not, the netconsole output is lost.
-> 
-> Before this patch, the budget-0 poll freed those slots, so netpoll could
-> make progress.
+> HyeongJun An (3):
+>   selftests: ALSA: pcmtest: Move the capture data check into a helper
+>   selftests: ALSA: pcmtest: Test errors from the PCM callbacks
+>   selftests: ALSA: pcmtest: Test pausing a capture stream
 
-Seems right, however, AFAICT, this is only an issue if the panic hits while the
-ring is completely full of finished XDP frames. Freeing those frames from
-netpoll is what napi.rst forbids: with a budget of 0 the driver cannot call any
-XDP or page pool APIs, and doing so is the splat this patch fixes.
+Applied to for-next branch now.  Thanks.
 
-The only other way I see is to give XDP its own FDMA injection channel, so XDP
-frames can never take the slots netpoll needs. lan966x has free injection
-channels for that, but it is a rework for net-next, not a fix for net.
 
-> 
-> [Severity: High]
-> This isn't a bug introduced by this patch, but can XDP_TX pages that TX
-> DCBs still hold end up in the wrong page_pool when lan966x_fdma_reload()
-> replaces the RX pool?
-> 
-> lan966x_fdma_reload() does:
-> 
->         napi_synchronize(&lan966x->napi);
->         napi_disable(&lan966x->napi);
->         ...
->         err = lan966x_fdma_rx_alloc(&lan966x->rx);
->         ...
->         page_pool_destroy(page_pool);
-> 
->         lan966x_fdma_wakeup_netdev(lan966x);
->         napi_enable(&lan966x->napi);
-> 
-> It never walks tx->dcbs_buf[]. Suppose an XDP_TX DCB posted by the last
-> poll completes in hardware after napi_disable(). The FDMA IRQ's
-> napi_schedule() then does nothing, and the DCB stays used.
-> 
-> The first poll after napi_enable() then runs this in
-> lan966x_fdma_tx_clear_buf():
-> 
->         page_pool_recycle_direct(rx->page_pool,
->                                  dcb_buf->data.page);
-> 
-> At that point rx->page_pool is the new pool. __page_pool_put_page() does
-> not check which pool owns the page. So the old pool's page, with its old
-> DMA mapping and order, goes into the new pool's cache.
-> 
-> If the MTU change raised page_order, could the new pool give this smaller
-> page to the RX ring? There db_size is PAGE_SIZE << new_order, so the
-> device could DMA a large frame past the end of the page.
-> 
-> Even if the order stays the same, the old pool's inflight count would
-> never reach zero, so its shutdown stalls and the pool is leaked. And
-> wouldn't the new pool's inflight count go negative when it is destroyed?
-> 
-> This can happen on these paths while XDP_TX traffic is flowing:
-> 
-> lan966x_port_change_mtu()->lan966x_fdma_change_mtu()
->   ->__lan966x_fdma_reload()->lan966x_fdma_reload()
-> 
-> lan966x_xdp_setup()->lan966x_fdma_reload_page_pool()
->   ->__lan966x_fdma_reload()->lan966x_fdma_reload()
-> 
-> This patch doesn't widen the window much. An IRQ-driven NAPI poll still
-> reclaims those DCBs if it runs before napi_disable().
-> 
-> [Severity: Medium]
-> This is a pre-existing issue, but does lan966x_fdma_deinit() leak the TX
-> DCBs that are still marked used?
-> 
-> lan966x_fdma_deinit() {
->         ...
->         napi_synchronize(&lan966x->napi);
->         napi_disable(&lan966x->napi);
-> 
->         lan966x_fdma_rx_free_pages(&lan966x->rx);
->         fdma_free_coherent(lan966x->dma_dev, &lan966x->rx.fdma);
->         page_pool_destroy(lan966x->rx.page_pool);
->         lan966x_fdma_tx_free(&lan966x->tx);
-> }
-> 
-> lan966x_fdma_tx_free() only does:
-> 
->         kfree(tx->dcbs_buf);
->         fdma_free_coherent(lan966x->dma_dev, &tx->fdma);
-> 
-> Entries that are still used are never released:
-> 
-> - skb and xdp_ndo buffers stay DMA-mapped
-> - skbs are not consumed
-> - xdp_frames are not returned
-> - XDP_TX pages are not returned to the page pool
-> 
-> Those pages keep the destroyed pool inflight, so its shutdown stalls.
-> 
-> lan966x_remove() and the probe error path both call fdma_deinit() before
-> lan966x_cleanup_ports(). After napi_disable() no poll can reclaim these
-> entries.
-> 
-> This patch adds completed but deferred XDP buffers to what can still be
-> outstanding here. The window is narrow, because an IRQ-driven poll
-> normally frees them before napi_disable().
-> 
-> --
-> Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029-lan966x-fdma-tx-clear-budget-v1-1-38c52d7aab8c%40microchip.com
+Takashi
