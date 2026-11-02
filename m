@@ -1,54 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.183
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793622557;
-	b=HR9seoE4lqXUa4Y3uB+EBiEv5QMHBwIHcOXPB7mO5IN1C4nO5PnvIf82MsKrqJd7zknn
-	 izejrwamVcS+UZgx4McbJ3IiPxErbmaqcpKDriG/tAFNDhUlIITyFNSgyUEEluWwYN2yb
-	 E6a24X596Xyjp9VSgx2/sm1zx8J+PzsWvR/+cWHPH1I/RQMPZPh2OyM9/Wg5IBS/qrp7E
-	 eWLQfo89fKVJPw7A1jCMyw37ad5SKuJaNxlAdou5ixVVjAqRGeOwqEnhTfz7FzB3dk4qS
-	 kYdfvJk9++XFpegwnYeyVVcQEsURcWrLQZv7T/JtcA8KLrTVQB0JlLXSJkPCpVYPiMQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622557;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
-	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
-	 To:X-Mailer;
-	bh=i5jpm5CuS5hMQjKmVnNP27jSTbTcYAnxBrA5dk6se5s=;
-	b=1uRn1TyjULWZkW2AKM83+BBekZLTiQhrizTnV/RLcitXAyVkNuegTk3KOgeLNhFeDXtk
-	 FzTxv2ZeQrqtTgph7BqcQOgER9O1dyLHD0Os4NwHZc40wX/OZ/q+FSI8I50amO8dT8Drz
-	 QGvZcO3mFMUCXMaGs7E21Q30pGCO+Tbz2nMnejIcqQf990UHn70FaFTdGDbDswrDrYXht
-	 hmKmhuupUsT1sm2ru4UbNY/k3YxYk7RU0rSvAL0GO4dmyPkrq0W3sfPkFfRWeB29v7XJU
-	 JveP37R8c1HKfZz47vKwp9U+jYvJ4qcDVADvuRBZ5HUYbFRkJ7dwM3tU1/PSt2cGBhw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b="N4f8/RAK";
-	arc=none smtp.remote-ip=91.218.175.183
-Received: from mta0.migadu.com (out-183.mta0.migadu.com [91.218.175.183])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.64
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793622615;
+	b=wKW7hm8+vMwpHpFlCx+8hrmeKlpVkVzxvrYGalELcPc2z7rgTIgXSDeJ4tkOaE+FLVEP
+	 MBc21+5COj8hA8jbZ42oIsMLFdPG+IfBPXfDoHt0nhArrJ2Qr7wIfz5DN/XYT3CsO7Dmz
+	 D/Q8Y0OQGEGX+EqVD0RZsjvdOUmGsVPK4refoJYWNTpbVU4yLVuK33UFx6LJ9E3L6S0WH
+	 pr+Ze5JBUo9/nD/jWREjpYVrP0He1LLC6XNmMcFAS6exljCUU9QQrRQtJyQgf7u94rG6e
+	 AYL+T8tSmFAdUG6702B+VDgUIh5IhQyjaP3We8rRuc7L0xCzAaO+lX9Q8cQhvXBWZqA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622615;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:From:Date:Subject:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:
+	 X-MS-Exchange-AntiSpam-MessageData-1:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=J7WOeLxDGG9f1TnMXeUbfqLg9C4RqisxSiDL3UVRKRw=;
+	b=LEu9fYu1fL0z4hXsLNKcB753OEu1sZa/n20mM8zfV46sQcYcZR5E6CcwNjyaed5KNmbI
+	 P/nTXy7VkV62678f6CW+cB0oikeDmozokbQojBAJxeEF8+WnmtO4rR/uO130YtV7i5kS+
+	 2CZPWtEj95fr916yj99ngkxxZOENjIBlNwQi9IxobK0/PIuIGo5gv0OFzGqaVu7Hm9Qz6
+	 +T7TKVxEbeI0hY2u1tpSHkJWSdRXcg3eub3A2+B8XN2QmGAl9xAN7K20y1ynN6TsUm6S2
+	 ACAwEWtgK4ETufXU6OpJgfZLjX3UdeaAslDS1WzqMBaHSaSQWedP9aiFQQ81s1RG1lw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="Gt1PDd/n";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.193.64
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010064.outbound.protection.outlook.com [52.101.193.64])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3CB2606A329
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:29:16 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B3CB2606A329
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48ECD606A32D;
+	Mon,  2 Nov 2026 12:30:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 48ECD606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=N4f8/RAK
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lBOQhpowAzDqo4yhRDS5YU2BDNuirwHB1ryB/ebjSfs=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793622554; v=1; x=1794227354;
- b=N4f8/RAKVKgzDj0sMXRI2wKidp6iBEGTLilMDBxNotEE13jbz5JJ+Cm33bVE8fAzU2hNd27h
- SItOAxujigfetZnAsyMS49nOaoaLVuXcj7qgfQDUuNka0MJtX84jfK2PYN99A1FJmyYZru/t0I3
- nwh6USvqx0lIj0ME8kNrINcQ=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by mta12.migadu.com with ESMTPS id 1b3ff97483b36a93;
-	Mon, 02 Nov 2026 12:29:14 +0000
-X-Mizu-Trace-ID: 1b3ff97483b36a93
-X-Migadu-Flow: FLOW_OUT
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Gt1PDd/n
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b1k+xIkuSsnzTmCRbhPHLa2eDLToh1+utdABbiK/KSBBdc4iuQdUqoJdOsdVghP+CJpMdBFU4RPNSwcET9RoCd+ZDs8+i/C/nckf5Lpom4E1FVk6XuZbvYrq54PU8sMwWuFJjDe1qFQdiyGBrprBdX2jMICLceoLegZfCXYMOg1bG7lGE1EFapc7o1mfUgWAINqiL3xF3B1DXFdZCJ+Kqo9qBnLk4NeOLu8SM5ecOpRrH/GyGHh23Seu/MA2lO73tshlBmxqz6tnOHY/DM6XdoKIvXWnlG2TCFWMvExtxzbT7raGAVsdmfHOL6ZC23lH5jz9ZApMHuB2btqoB1pIwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=J7WOeLxDGG9f1TnMXeUbfqLg9C4RqisxSiDL3UVRKRw=;
+ b=jGTCOoFdhzXU5zHJhZfx3CYmriy8Rk0u1yR1H92wQ9zpg5zISJnAnzuOQNCaOTcVC7R4A7Avt7j9tX/WQC0K/d9zssxvK8w8N+mOOc26/vQq+z3Pxl+l584xsMen8tDxE+AEOYKFiCgGl3Zigz9fXWxh2T5c0L6APXYOGUYOaa8A16vfx6j/T5OAI3Azpqkngp8YlJTxqwZ1+64IDg9cyZiWMaUc0LLHUF746apMKBrXqaB76drJvm/urXQXw7sa9A1kG9M7DP4apoPDxplzEaH0252PeykF3HLIAmek6XTSmYHKQ1iL0ziP876lAO4iZ5vJZQqsTX/dK9U/ouQ+UA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=J7WOeLxDGG9f1TnMXeUbfqLg9C4RqisxSiDL3UVRKRw=;
+ b=Gt1PDd/nG80lt0T2tQFfFqDaLzADZNLy693VV4oDwCl1DbFVaSn9/SUAjaE2i9ugnfR1iDJLAh00prITibEsFPXkk5Y3JssGMTtZa7sKd1rOzp/tORR/ksmyzA+LkXbhV5/0QN+PF736O/QoblPCrvPZOZ1QMAyvWdyeiRI+yargT1722mctzWGVP9n+qiSYDkg1xlWH8d3v613owaVv0OokRSDcZdQVA2NvNSGoXa5UQ4gTc9+r5FQvNmssA041+PKoAzWmcI2Ajq/+hxExv9GQSorFR0GnU9t798tVcKstyu8B62KNR+LFOpMfZ3aNf3B4r64EJCcQeGH2SmTy9g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA1PR12MB8079.namprd12.prod.outlook.com (2603:10b6:208:3fb::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.11; Mon, 2 Nov
+ 2026 12:30:11 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 12:30:11 +0000
+From: Alexandre Courbot <acourbot@nvidia.com>
+Date: Mon, 02 Nov 2026 21:30:05 +0900
+Subject: [PATCH v2] gpu: nova-core: gsp: cmdq: reduce sleep delta in
+ wait_for_msg
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-cmdq_wait_msg_timeout-v2-1-50bc4534b659@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQ6CMBBFr0K6tqYzGDSuvIchpLYDjEmptqVqC
+ HcX8AAuX/L++5OIFJiiOBeTCJQ5sh8WwF0hTK+HjiTbhQUqrECVShpnn81Lc2pc7JrEjvyYJFa
+ 2BcDyYEGJZfsI1PJ7617rH8fxdieT1thq9ByTD5/tOMPq/fvIIEFqoApPFo8lmsuQ2bLeG+9EP
+ c/zF9QJ0frNAAAA
+X-Change-ID: 20261030-cmdq_wait_msg_timeout-26df11234d10
+To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: John Hubbard <jhubbard@nvidia.com>, 
+ Alistair Popple <apopple@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
+ Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
+ nova-gpu@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: OS7PR01CA0046.jpnprd01.prod.outlook.com
+ (2603:1096:604:254::10) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -57,123 +104,111 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH v2 02/12] mm: hugetlb_vmemmap: unify
- VMEMMAP_{SPLIT,REMAP}_NO_TLB_FLUSH
-From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <179361471103.1337633.14353990207430443405.b4-review@b4>
-Date: Mon, 2 Nov 2026 20:28:56 +0800
-Cc: Muchun Song <songmuchun@bytedance.com>,
- Oscar Salvador <osalvador@suse.de>,
- Andrew Morton <akpm@linux-foundation.org>,
- Qi Zheng <qi.zheng@linux.dev>,
- Lance Yang <lance.yang@linux.dev>,
- James Houghton <jthoughton@google.com>,
- David Hildenbrand <david@kernel.org>,
- linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <B5E261FB-D532-48A2-801C-C8E4F86D7C1F@linux.dev>
-References: <20261102032525.3597743-1-songmuchun@bytedance.com>
- <20261102032525.3597743-3-songmuchun@bytedance.com>
- <179361471103.1337633.14353990207430443405.b4-review@b4>
-To: Mike Rapoport <rppt@kernel.org>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA1PR12MB8079:EE_
+X-MS-Office365-Filtering-Correlation-Id: 10f3e9f4-3ba0-45ab-effa-08df38dd098c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|1800799024|366016|23010399003|376014|261021123027099003|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261026121527099003|261022075727099003|261026140227099003|261022105027099003|261022115727099003|10067099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	o5qE12Qbya5ikvIyNMRE7ccS/bEoZBF9VwY+l7lsM//CwlUvGpmUF+YmGHOoQ/CP1rin6UtaVOzc32A31FbpJHH+o+yP7hx56R43vRpx0cGMzeNrk58qaxbFLOJrrlwhYckdfR8AgPxhNcInGlD3N9xDOnJ5GqLOXTaLzaOBhenSjSZkiS23R8vXrK7gdaWqcsF6E5fZDKvOoDBuRgam2c7V7ElPRVLEuDx6ZqvNVR8mqCz0bphfAzCbAxjwub8Yxi4eh0pTkU0q1Vv7rlJB7OHuJYeW7oLeuQalVxQtIyrZwqOqU4Smi6c+J4/UsxutGRj9UaNKpvCaqlppQbfRmHTsLcD+DUtr+C1+z0a9hddj0Vw7DL4tQ/UIxs1HhKIlDvJPbFXKZ8RrxDeRxcejpLTBzq683z0Si3QsvGiIRK/iKY0xQNMiqarnfSSHIP62volfX5nwulB4n1whyso/sElP9kUNReA1XX7hybcwyxGe9nKcZSLLPTOnqZBycEnsZrODgUwrHRR3PxoaBvKlatPVnccuXGf3fWzz+0OHFIohkV2IFrs4zeSjYGwkPozLz7HZEdj0466SBsGwMQeAF/vpzMd7zjd9J6uUtwp2qW4+VebEDwYJ4pR5CPbBGEx71gN6jMTRnTSXYUCpslmvXsLxVw9Doybz5uhcmov5VRw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MW4PR12MB6873.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(366016)(23010399003)(376014)(261021123027099003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261026121527099003)(261022075727099003)(261026140227099003)(261022105027099003)(261022115727099003)(10067099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U05UT1VlU21mVEtBVjN2RGdGVkNtZnVCdE1wY1pCMTAvS2FRZTRmSURTZXow?=
+ =?utf-8?B?eXQrdGlVZHVHYTlwRUdXODZCUGZNbE5sTEZLRHVVejV1Z2pBSGRWcE85eHFD?=
+ =?utf-8?B?ZllCME4rU3VMVU81NDVaVDRCeFNFZzNEdlM0NDMwcm9CNFlaNSsreDY2dXpV?=
+ =?utf-8?B?bnl5WGM2dkRQRnVkRDJRQlc1bVd0TTlsczhTU2tqUFNVdisyb1dLcUZQeFds?=
+ =?utf-8?B?ZzdBQnNHZnd4RDJUZjdacWxEMnlwaVJONG9xRmdOWE5ac0Jobk92cDk4SXV6?=
+ =?utf-8?B?dmRSajhJTGpCYzBJemxodzdHdFJrdFNtTldwQ2ZHVXdCZnRDM0xmYWpabzRz?=
+ =?utf-8?B?cHIzbGNEb1ZSV2RKWlVSSXhpeU85QWVPUXNwVmVucVZpMjljdS9kSnRQSXlM?=
+ =?utf-8?B?UDkwenNGKzFkMlg3NGVPQXRRY3BMRXFOWE9ZSzFSbWlFSkJ4ci9ROE5tMEhl?=
+ =?utf-8?B?MDV6NldmSVZQQWVjcEVNaVozT2Z4VWg4WUdKb0tzczd1RTJHTVdmMjhNK3dW?=
+ =?utf-8?B?ZkMxdWc1aysxcHVHT29FVWJodkZheW0vaVg2OFRRYU9WYURiN09GTTdaNnBj?=
+ =?utf-8?B?L08zQmpCc0JNR2duRytQRXA5MldVY2xHT3VXbWY0Qjk0SC9kVnR2Uld5UVdO?=
+ =?utf-8?B?QUJvZXZhbXYvdndsaTJhSVFkYnBqWHFEcGExM2o5aUZZYXRnRzc5QXZTbmRn?=
+ =?utf-8?B?L2ZPV2V4QVgwalJHTGY4Vjh0NmVtQThtY0Q1SzduSjFnc0xEeFNLZUx6azR6?=
+ =?utf-8?B?bC94RWRUenpuV2VmemZpNFUxRVdvUHFlNHZZWDAyYm5VNjhRcHhIcW96V21q?=
+ =?utf-8?B?WmJxZ2tBcXFuQXJBQWZZT0tGWFZaS0t3QldVRGR2Y3FOVUVTaHpFVmUzRkpi?=
+ =?utf-8?B?TWI4bjNROEFWQlRSYXFNQkJZODY5QkpkQ1NMRCthNE5VeVNnYzhOaWNkVUxn?=
+ =?utf-8?B?S1hLWWpyUXdPUFdhUyswK1pvZHh3aURsakNmM2FMYXlZRVczQmw1WU4rZjRJ?=
+ =?utf-8?B?em5HZEpORUhlUGpCTUJDMU1DWVRXMEUxRm00bDBtVnNIY2ZzV0Y2NnorRU9R?=
+ =?utf-8?B?dUtpYmFJQjRJQkkrODhJUWRvYU5EcGJKRGhLendzV1lTOEJrOS92eHRCOXJJ?=
+ =?utf-8?B?Q2xPNk04YzdzWUd1Wkhja0FFTUwwcDRmZnJzejNUNkRXaHhTUDhIWGdkeGxs?=
+ =?utf-8?B?eGxXem0ybjdmNXVFK0U3eXV1c1JZYmpJTjY3TmZCWVo3V0FBL0NLY04zY0ln?=
+ =?utf-8?B?UGFickNjZGpKczRzN3E4cFJzMjRzQVN0cHhpNXZpMlFqeDhWVjFmamJteVha?=
+ =?utf-8?B?SVZVL09IRzdtTnVCYm1kemtTNEdVbmxacG81SWxzQnBkcFIwM1J3TE0raURw?=
+ =?utf-8?B?MXdhQ09qZjhYdGhZSmh1T1ZWN1Q2WkJQcmxBSkNlUE1RQnliTTNKMHJDaktx?=
+ =?utf-8?B?U3FJeWpKR3JaRzR2YWEyZ2lKS1NOby8raWE4WFlqWEtyT1hBMzBEZEY5ZXkz?=
+ =?utf-8?B?MlB3eGVsWTh0QzhHSzdScXRrN3JkbW1CekdnblFRb2o2ei9mVXBjMVdwL0pw?=
+ =?utf-8?B?NnhQemFTTHUrOEIzOW1PbGNFQ1M5QzJjalBxcFpLK292MW9uUUJDdC8yNVpU?=
+ =?utf-8?B?WWZRb015NDdaVjYvRjV2OTVTejViRlphUVV0QjdtaGR6TTgrenlqY0QrTHho?=
+ =?utf-8?B?Q1p4UzNHejlGZjlpbDBFRnVaaVhxbFpKa2sxMVpScGpEemgyb3pjRCtsS1hF?=
+ =?utf-8?B?OEVNRTNXSlBuWUdYa01ObWZ0TXYzQ0RRQlJ3MVprekZOOWx6c2pPU0R6V1NK?=
+ =?utf-8?B?VFo4alRMUUFOYUxPdG81SWxVUXU3eCt6S3lER2dESmxoMXVJODZzU1BiTEJh?=
+ =?utf-8?B?OFVQZXpPYjA4ZDJSOWxXSitGS3pCM0hxRkJMOS96dkpQei83ZmJTZWQ1d1VZ?=
+ =?utf-8?B?SUVmNUY2TXJEcXBOR2FzNytxRDNEMHUzVkkxd2dHeVhMdHF0T25XM3p6a1lC?=
+ =?utf-8?B?MWQ1TVlCbUp1cFY2c2ROZGdSekFSeUpXSzltSXUzWDJOUGs1NHVkTjlWWkN1?=
+ =?utf-8?B?SlJ6K0ZrTjgwZFh0SXBsc05KNDBmd05xYklqNDdTVHNQQ0ZvTWsvdUlSenNh?=
+ =?utf-8?B?Q0dNcFBzUGJ6VXRnS0Zlb3FQMzUvNVNJV3p6UkFCSlp0WnYwSTJMRnFBeTYx?=
+ =?utf-8?B?ejloazJRUWg4em5Oa0p4ZGdOVFBmZTllWDFLUUlzOWFWQVhkUjIvWGN2VXpm?=
+ =?utf-8?B?Z0NVZHhnclJ5NHBKS1RqVWhPQnhMYndHS1JMUjB3a2JIM2NUSkhCdjNsazVx?=
+ =?utf-8?B?eVRGdGJUTWlKRFdaL0w4akZ2ajZsdnhRa2pJN2JnRFRoVitqbm1ZK2puMGEz?=
+ =?utf-8?Q?4bxd7UIFQe0NYJLAYS+qBzOrv2ZCsvazvyZIJ8rdHKjzj?=
+X-MS-Exchange-AntiSpam-MessageData-1: m0BwvK0oaaZrcw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 10f3e9f4-3ba0-45ab-effa-08df38dd098c
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:30:11.0939
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: wXYkHcjl46PjoBvz4nkqNo47m+jHE9sj46j+1LVtczo7Z+PwsueQivnwWdNUXeIHo0g7t5fbnWyvF2GRxF5chA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB8079
 
+If a message is not immediately available on the queue, `wait_for_msg`
+sleeps for 1 millisecond before checking again. This is 3 orders of
+magnitude more than Nouveau (which sleeps for 1 microsecond) or OpenRM
+(which does not sleep at all and busy-polls) and is way too much, as GSP
+commands are expected to be processed much faster than that.
 
+Reduce the sleep time to 1 microsecond. This effectively makes `fsleep`
+busy-loop with a call to `cpu_relax` afterwards, keeping latency to a
+minimum.
 
-> On Nov 2, 2026, at 18:18, Mike Rapoport <rppt@kernel.org> wrote:
->=20
-> Hi Muchun,
+Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
+---
+Changes in v2:
+- Wait for 1 microsecond. (Eliot)
+- Link to v1: https://patch.msgid.link/20261030-cmdq_wait_msg_timeout-v1-1-a1e628d2732c@nvidia.com
+---
+ drivers/gpu/nova-core/gsp/cmdq.rs | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Hi,
+diff --git a/drivers/gpu/nova-core/gsp/cmdq.rs b/drivers/gpu/nova-core/gsp/cmdq.rs
+index 936406004a57..8ee8a99e4d7e 100644
+--- a/drivers/gpu/nova-core/gsp/cmdq.rs
++++ b/drivers/gpu/nova-core/gsp/cmdq.rs
+@@ -603,7 +603,7 @@ fn wait_for_msg(&self, timeout: Delta) -> Result<GspMessage<'_>> {
+             read_poll_timeout(
+                 || Ok(self.gsp_mem.driver_read_area()),
+                 |driver_area| !driver_area.0.is_empty(),
+-                Delta::from_millis(1),
++                Delta::from_micros(1),
+                 timeout,
+             )
+         }
 
-I didn't realized that I'm not using a plain text in my last mail.
-It=E2=80=99s my email client's fault. Let me email it again.
+---
+base-commit: 9fe580fd90e20c8432832c5f9a7e92b049ae9af6
+change-id: 20261030-cmdq_wait_msg_timeout-26df11234d10
 
->=20
->> VMEMMAP_SPLIT_NO_TLB_FLUSH and VMEMMAP_REMAP_NO_TLB_FLUSH do not
->> describe fully independent choices. A split-only walk can defer the
->> PMD-split flush to a later global flush, and a remap-only walk can
->> defer the final remap flush. However, when a PMD split is followed
->> by PTE remapping, the split flush must happen before the PTEs are
->> changed, because stale large-page translations must not overlap with
->> new small-page translations that map different physical pages.
->>=20
->> Replace the two flags with a single VMEMMAP_DEFER_TLB_FLUSH flag. The
->> new name reflects that only safely batchable flushes are deferred. =
-Keep
->> split-only walks able to defer the flush, but force the split flush
->> whenever a remap_pte callback is present. Callers that batch HVO work
->> can still defer the final remap flush and issue their own global =
-flush.
->>=20
->> Current callers keep the same flushing behavior.
->>=20
->> Signed-off-by: Muchun Song <songmuchun@bytedance.com>
->> Reviewed-by: Lance Yang <lance.yang@linux.dev>
->> Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
->> ---
->> v2:
->> - Rename the unified flag to VMEMMAP_DEFER_TLB_FLUSH and update its
->>  comment (suggested by Qi Zheng)
->> - Update the commit message for the new flag name
->> - Collect Reviewed-by from Lance Yang and Qi Zheng
->> ---
->> mm/hugetlb_vmemmap.c | 23 +++++++++++++----------
->> 1 file changed, 13 insertions(+), 10 deletions(-)
->>=20
->> diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
->> index 4b73d6ec8dcea..63e899cfaac3a 100644
->> --- a/mm/hugetlb_vmemmap.c
->> +++ b/mm/hugetlb_vmemmap.c
->> @@ -42,10 +42,8 @@ struct vmemmap_remap_walk {
->> struct list_head *vmemmap_pages;
->>=20
->>=20
->> -/* Skip the TLB flush when we split the PMD */
->> -#define VMEMMAP_SPLIT_NO_TLB_FLUSH BIT(0)
->> -/* Skip the TLB flush when we remap the PTE */
->> -#define VMEMMAP_REMAP_NO_TLB_FLUSH BIT(1)
->> +/* Defer safely batchable TLB flushes to the caller. */
->> +#define VMEMMAP_DEFER_TLB_FLUSH BIT(0)
->> unsigned long flags;
->> };
->>=20
->> @@ -85,7 +83,12 @@ static int vmemmap_split_pmd(pmd_t *pmd, struct =
-page *head, unsigned long start,
->> 		/* Make pte visible before pmd. See comment in =
-pmd_install(). */
->> 		smp_wmb();
->> 		pmd_populate_kernel(&init_mm, pmd, pgtable);
->> -		if (!(walk->flags & VMEMMAP_SPLIT_NO_TLB_FLUSH))
->> +		/*
->> + 		 * Modern MMUs allow overlapping TLB entries with =
-different mapping
->> + 		 * granularities only if they map the same physical =
-address. So
->> + 		 * remapping must not proceed without first flushing the =
-TLB.
->=20
-> Are we certain that *all* modern MMUs for *all* architecures that=20
-> support hugetlb are fine with skipping TLB flush after a split?
-
-I think this is the case on architectures that currently enable
-ARCH_WANT_OPTIMIZE_HUGETLB_VMEMMAP. Of course, the point I want to
-further clarify is that the "skip" action here is not really a skip,
-but rather a "defer"=E2=80=94the TLB is subsequently flushed in a single =
-batch.
-
-Thanks for your review.
-
-Muchun.
-
->=20
-> AFAIU, x86::set_memory always flushes TLBs after a large leaf is =
-split.
->=20
-> --=20
-> Sincerely yours,
-> Mike.
-
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
 
