@@ -1,111 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.51
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793622091;
-	b=ik5DyOdQX1DPeoOQrij+51Rz910i3djn5oXoh3kUG6riCZCPrV8DWsQMrzJDtb9YNlfa
-	 kKjuSFsCTeb8SLUv1FJBBrhdQsHf4wsHQXsh9XY/W2JsWA5fZj0zEBw4NZ3IRL7evIsYJ
-	 jG0lsshlqcYzenjxOcqcjX4lLetQsU5SwMu5JXhcgNavSlyQT/WpUtDs7W5gNs7HmIv03
-	 e0xZJdK/+6+5OxiMUii2iNIVmu2S1V1/OGokc+x9yYN4ObjHHZNE+oo4jsepDvb1jXNoO
-	 ZkoLGK/P8ZhHaemcVxQcVL82R8lqdCmU2F0yUxKi9V57DOLWCi8m5Vrxz76pZad73zg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793622091;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:
-	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
-	 Received:From:To:CC:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:Content-Type:
-	 X-EOPAttributedMessage:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-Id:
-	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=Nx2k7pxdxbHfW3z6fYRnQeSZE2Mryn1gxwQy+BH+xc4=;
-	b=qvYK0HciAfQoG9pyxwzufN+llG24mL3l9AqmGQAZ+R9HtSFbsOZiRbypCYjEE/NmmAbJ
-	 +mP7KonCUFASQR/FnUo2Q30QjGnvsEq+/NyEgUFCOFplrVIZxebHUXixs7s0tZ5DGKjSm
-	 jWTn318V4x396LNsSYDwgaFgBHUlUBZ36HxTLESis1AvCMO8GevYNftnG3OfZ7SwDK7B8
-	 ebjcZgfDP3P05YzBa38tjHmc8p9asQjSBHKe85BxDK8InWMlZp1F4p2tI+fUjCJK1Zv0a
-	 K0Jscber7ntJJhYOy8IgVJmEyiKcNahU3WpzOCwEGJ8bEbGqspQZ1hA6NUmHw95bC6A==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=o9AWhKOL;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.201.51
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=68.232.154.123
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793622097;
+	b=DJ5aBmCT9PBLdiLVYDKBwxDf09NgB+bavmkh3JoYScZIxNRMVfqlwva5r6Scem11R6wD
+	 pIax7zN39ZL8KXyg+seIz1vZov+98VbeGz6miFM3Bp1RjQ+q2zU/3YUoaS/M6fvY+Amf0
+	 5bOZXqOIZ7jx8JDc0dx/OZmalJDCfa1GlqxR/JHWKivJiHojqahb3qNba4mH2paFtzcWN
+	 1aPXqrwwlmG8AWqM3w8xFYCp+PRVUf0CQLGtni0pxr6XgbIVfeEGWzl1uQq/Tr50fg6nu
+	 XzMKYTXpo9BebqLVC70R5BBD0flhMurDhplGUtXDYtzgUqn94a94Jn/r+wIBH86mpDA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793622097;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-Amp-Result:Received:Received:Received:From:Date:
+	 Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 Message-ID:References:In-Reply-To:To:CC:X-Mailer;
+	bh=jOzcNOCXsZw9GBo68EteljZLCQUWx+mYfOI1+N6fGLw=;
+	b=mQlfAZ25cYlyhlMJ6djElXchx0YcrtewvL/XMrRI3kTAZE/p0ofbx62o8g2LrDWoiC8p
+	 SvRO/u4LYT+6yCtu+pXTgre7UEX4wgahjLsXAU4nb++Wu0xv6YXhsx0g5nxyy0C1LZwDS
+	 pbH1GTJfNEQaoBV8SY7NoZcyWxDl9kqgakeNVPYt561iyoxALVTlyAwtqPBhqZC3jLE9n
+	 1++dmdUV/CSb0DV6RypXs0jLE5yJIiNF5raOxKN4pblQKWSmSQVfwSiGaCt217KkWu5J8
+	 4IDbJQlB00+JVylOSPrbVFYHgMWx/8SC4W6is8nMB84vmK21SuuOl+Sy3CuYMUyR6/A==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=microchip.com;
+	spf=pass smtp.mailfrom=microchip.com;
+	dkim=pass header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=sCcvp+0E;
+	arc=none smtp.remote-ip=68.232.154.123
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9B0A606A326;
-	Mon,  2 Nov 2026 12:21:30 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D9B0A606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3499660A260E;
+	Mon,  2 Nov 2026 12:21:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3499660A260E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=o9AWhKOL
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nx7OWIu5yPZnmp3nn+mUKwy8opMvhQqcv4MHJuaE3Bodm38QylQxesgeRWhevD7zWjCVrBcfpNxdyeDbwdv+ZRIkwnsRAAqD1q2RT6DnDDiXE3HWJhnX5Lt8IRR0EIQQX3LtQlY6kp9Oe3ZlQPpas0i1hHdaPDHnnw+8ugRcMQyYR+dmQU+tcqgk5qsy/ANOM/nvus3BsY2IaW3lbZ1HgT6PdsH0ocxFVi4DGGmejSSML3wGhB0vPfPNqOGKcRFvczqqVYaE9Q1hiwIbSZsyohCd4Xqg/XJ18wxVyFncR49025fnBOfYfXlCvRVKFfPOcgO/rejpRYTZ3OrEwMFK9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Nx2k7pxdxbHfW3z6fYRnQeSZE2Mryn1gxwQy+BH+xc4=;
- b=OVt95COKdjkMu0fcTHyXTHXWDJWxdI9YRc0rOwVHYSaYDZCsse6X5cR+JVFAbqDGmGKk59Fv8p5kQUtARE0tgoHPW2nTHxJGjT/J2nhS1fY5sWtHHkON+Jq7fCVMahiS75CAmFhU6OgMGexEfVJKpDYBfqFchpVUSwOf5fjBtVlgIm02+mEMvPpALLDdNvI0se1fcN/LEy6C868GX3xb3YvBgw10vFFc7ubd+pgPzJBeVki1hDnS5KHGFx2xxcQ9laxbN3UQenXyU212YCp+huZZ+jIbkSGx7JkRZG3A+Qjx74SUrhlXkD9c14oNSbuhuM58l3Btix3idmy1OQJWng==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Nx2k7pxdxbHfW3z6fYRnQeSZE2Mryn1gxwQy+BH+xc4=;
- b=o9AWhKOLF88Zm6qqJAr37h34zdXjdIQi5EbCdoi+pZKv5xLspMEJUljicUXBmjHYnSAXmX8IZAxFp8Z3MHeeVbJz/c8ZG9QLZ7LTrJnr8U1dT0+CYM8v+T6S3++x7/ajvMMwheVUWLQyVf0LDv6ZPk7qaOUqIzzqNvRGDHgpoQA=
-Received: from MW4P223CA0006.NAMP223.PROD.OUTLOOK.COM (2603:10b6:303:80::11)
- by DS0PR12MB7512.namprd12.prod.outlook.com (2603:10b6:8:13a::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 12:21:25 +0000
-Received: from BY1PEPF00026968.namprd05.prod.outlook.com
- (2603:10b6:303:80:cafe::8) by MW4P223CA0006.outlook.office365.com
- (2603:10b6:303:80::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
- Nov 2026 12:21:24 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BY1PEPF00026968.mail.protection.outlook.com (10.167.244.152) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 12:21:24 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.53; Mon, 2 Nov
- 2026 06:21:24 -0600
-Received: from xhdakumarma40.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.53 via Frontend
- Transport; Mon, 2 Nov 2026 06:21:20 -0600
-From: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
-To: Jonathan Cameron <jic23@kernel.org>, Michal Simek <michal.simek@amd.com>,
-	Sai Krishna Potthuri <sai.krishna.potthuri@amd.com>, David Lechner
-	<dlechner@baylibre.com>, =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<amitrkcian2002@gmail.com>, Amit Kumar Mahapatra
-	<amit.kumar-mahapatra@amd.com>
-Subject: [PATCH 1/6] iio: adc: versal-sysmon: fix race in interrupt teardown
-Date: Mon, 2 Nov 2026 17:51:07 +0530
-Message-ID: <20261102122112.1723130-2-amit.kumar-mahapatra@amd.com>
-X-Mailer: git-send-email 2.44.4
-In-Reply-To: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
-References: <20261102122112.1723130-1-amit.kumar-mahapatra@amd.com>
+	dkim=pass (2048-bit key, unprotected) header.d=microchip.com header.i=@microchip.com header.a=rsa-sha256 header.s=mchp header.b=sCcvp+0E
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1793622097; x=1825158097;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=9kKNX21gIxuuwn3cG5eWlinoOGPTdfcBaKnMy7wtyTg=;
+  b=sCcvp+0EQYguGYb+V3r4H4BdVHIu2jjxTXUy2wnOcyCiyCM3VzOM9ogg
+   YVlcGOBQ2oCYOnB++q2/huy7Bqd3n+KePBUb4KGqgRjp1ms+fXdhKRrdw
+   roWq3tyytSnMDNzH1eDArZJ9l6GxZ2hqaguXRpfbh+NPqqtA9E2aYNib5
+   B5JzABenxawFsXviJDQxd16INmJ89VWYWwFfnRJMxwCRtP8IVggLyEUrC
+   4dn5kgO6fnYkLDMcNi8wD0CyQGachcl5SggQpfwExAbSsSCyROxUQSl6F
+   X1zQLfvWSodLswiCghYHsb+D7YZFTHVU861qMpGEPKz/627MdKwepD/Xx
+   w==;
+X-CSE-ConnectionGUID: hSGVB9tpQgaUFnYRbguTVw==
+X-CSE-MsgGUID: CdsaWMRwSF+Um2QCqLRS6A==
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="66132318"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 05:21:36 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.56; Mon, 2 Nov 2026 05:21:36 -0700
+Received: from DEN-DL-M70577.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Mon, 2 Nov 2026 05:21:34 -0700
+From: Daniel Machon <daniel.machon@microchip.com>
+Date: Mon, 2 Nov 2026 13:21:25 +0100
+Subject: [PATCH net-next v2 2/5] net: sparx5: Add registers used by the
+ port policer
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,103 +74,281 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BY1PEPF00026968:EE_|DS0PR12MB7512:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9c128a70-fa4a-425b-e0a7-08df38dbcfdd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|7416014|261021121427099003|261021123027099003|261022105027099003|261022075727099003|261009223327099003|261009223027099003|261009220027099003|261009221727099003|261009221227099003|261026140227099003|261028144727099003|11063799006|5023799004|10067099003|56012099006|18002099003|22082099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	oH2+cHBgVCX6oJCbZ9jVNHUubIGENPsrYw2gNA8lVyyUoanZB1tTcitHFLTqqQ3u1dnvKkrPbWw7y/C4Sk9jYt9HVUBF8pPnDdktruRHMI5L7oa2DU/TVi4KBWscWi44qN0CQkPdBqfgpjKSxyH+pGQqM0fPI/kygKiNTvzAngXPEhOzQhVcWHfzhiiGiAH9hconh/Oz1/WJxwkdLSHTHHP/hHlnaaIhF/ttAIBPLyS2MyMz3Qf009rUdY6LG8E9ErL5M6Z+Gh/aDrqHiogzI0/54wCIW9RdEsoQDjkylczCOrSyiA6SMD+MOM17Ayy9MXvZaVG+VhwFVjoE06RozJlJZsq6+da7LLReS30ZarBHfVsl3Ili7F7GVZiT/XKcHTnIZhXJG5Nh2da1ogYULUEJ50RYGqsFamhzpYMJJxSTxbE1xNd+Le+rooRov3wU5evOHCyaiTDRC0bFIee4ujRRZu9UJ3qJpuuo48QlZUU1f8XY5uPf3PxBeiTp1rnBpq6NbZ4kEO4L9poidx04Drui5b15/udL0o0mUL9LZJgTLQzW1gDBPbh+aDRCX9ffJ3kaWPkkj4Q3ddrsKno0wMnBqR7lWWHpIT/AOuRAfMgpNrAYO57j/brMmis4xQvoM5Y6feEf24KMxAwKXEKtJOUBJxz+Rp6Zl1x5+edobSvhDlP3/Y+x8rEqCEPzk9zltSXmiTfUEpcQiPDDRkd5YA==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(7416014)(261021121427099003)(261021123027099003)(261022105027099003)(261022075727099003)(261009223327099003)(261009223027099003)(261009220027099003)(261009221727099003)(261009221227099003)(261026140227099003)(261028144727099003)(11063799006)(5023799004)(10067099003)(56012099006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	TBP/kytg+yhfXaapKxAdtFBKIo1j8uQQJGFgLwgXL90TDPO4XC3cfKEgfv7xN7tGgikaNjWcr1E5dVi4T67L3/H6ohERQ9smYZwUznzXDYDo5KODdHcBsT9B7rta1zlqOhENV1CReyRzIQe72ITH5ypf8M5zyWf+fewjdscvTKQfTvfAygEQD2xCsAfplBmY9GHBwvCJW/44TexkSjioDVBVFoXAoe+9DQe1f7qPo+j9mb9Lo2sJxfQpqEFfi1f/NZgkaZY/NaHEheepEBtZq1Ua4qNuNO2PLrQ+8qGPu/Q91wezyLsr0rztpwe6S6LGdMDuvk0RqNwwsXii2MjoGDFSPRYfzSpFumAgAYhDwiCaE1BrUEB9hNJjWQwFfhYyozPtP0aTQYd0aIDCDUt22bXeDl6nVv9vt7oAPXSsclBQeKbJyf6YgiWQtmGn3u9S
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:21:24.5574
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9c128a70-fa4a-425b-e0a7-08df38dbcfdd
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BY1PEPF00026968.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7512
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20261102-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v2-2-3bd47ec1b227@microchip.com>
+References: <20261102-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v2-0-3bd47ec1b227@microchip.com>
+In-Reply-To: <20261102-b4-lan966x-pci-fdma-sparx5-lan969x-port-policers-v2-0-3bd47ec1b227@microchip.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Steen Hegelund
+	<Steen.Hegelund@microchip.com>, <UNGLinuxDriver@microchip.com>
+CC: <robert.marko@sartura.hr>, <netdev@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
+X-Mailer: b4 0.14.3
 
-sysmon_disable_interrupts() masks all interrupts, clears masked_temp and
-cancels the unmask worker, but leaves the interrupt handler live. A
-worker that is already running can re-enable an alarm through IER after
-the mask write. If that alarm fires, the handler queues the worker again
-after cancel_delayed_work_sync() has returned. On unbind this action runs
-before devm releases the IRQ, so the queued work can run after the
-devm-allocated iio_dev that embeds it has been freed.
+Add the registers used to configure the ingress port policers and to
+read back their statistics, on both sparx5 and lan969x: the
+POL_PORT_CFG and POL_PORT_CTRL groups of ANA_AC_POL, the shared
+POL_ALL_CFG register, and the MSB part of the ANA_AC port statistics
+counters.
 
-Disable the IRQ first so that no handler is running or can start, then
-clear masked_temp and cancel the worker, and mask all interrupts last,
-once nothing is left that can unmask them. Record the IRQ number for
-this.
-
-Fixes: c7f7eb10638f ("iio: adc: versal-sysmon: add threshold event support")
-Signed-off-by: Amit Kumar Mahapatra <amit.kumar-mahapatra@amd.com>
+Signed-off-by: Daniel Machon <daniel.machon@microchip.com>
 ---
- drivers/iio/adc/versal-sysmon-core.c | 5 ++++-
- drivers/iio/adc/versal-sysmon.h      | 2 ++
- 2 files changed, 6 insertions(+), 1 deletion(-)
+ .../microchip/sparx5/lan969x/lan969x_regs.c        |   7 ++
+ .../ethernet/microchip/sparx5/sparx5_main_regs.h   | 105 +++++++++++++++++++++
+ .../net/ethernet/microchip/sparx5/sparx5_regs.c    |   7 ++
+ .../net/ethernet/microchip/sparx5/sparx5_regs.h    |   7 ++
+ 4 files changed, 126 insertions(+)
 
-diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
-index 1b55d343982e..6b9a58e19831 100644
---- a/drivers/iio/adc/versal-sysmon-core.c
-+++ b/drivers/iio/adc/versal-sysmon-core.c
-@@ -781,12 +781,14 @@ static void sysmon_disable_interrupts(void *data)
- {
- 	struct sysmon *sysmon = data;
+diff --git a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_regs.c b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_regs.c
+index 175fcf8bdd61c..5650550d4294d 100644
+--- a/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_regs.c
++++ b/drivers/net/ethernet/microchip/sparx5/lan969x/lan969x_regs.c
+@@ -28,6 +28,9 @@ const unsigned int lan969x_rcnt[RCNT_LAST] = {
+ 	[RC_ANA_AC_OWN_UPSID] = 1,
+ 	[RC_ANA_ACL_VCAP_S2_CFG] = 35,
+ 	[RC_ANA_ACL_OWN_UPSID] = 1,
++	[RC_ANA_AC_POL_PORT_THRES_CFG_0] = 140,
++	[RC_ANA_AC_POL_PORT_THRES_CFG_1] = 140,
++	[RC_ANA_AC_POL_PORT_RATE_CFG] = 140,
+ 	[RC_ANA_CL_OWN_UPSID] = 1,
+ 	[RC_ANA_L2_OWN_UPSID] = 1,
+ 	[RC_ASM_PORT_CFG] = 32,
+@@ -70,6 +73,8 @@ const unsigned int lan969x_gaddr[GADDR_LAST] = {
+ 	[GA_ANA_ACL_CNT_B] = 4096,
+ 	[GA_ANA_ACL_STICKY] = 10852,
+ 	[GA_ANA_AC_POL_POL_ALL_CFG] = 17504,
++	[GA_ANA_AC_POL_POL_PORT_CFG] = 0,
++	[GA_ANA_AC_POL_POL_PORT_CTRL] = 16384,
+ 	[GA_ANA_AC_POL_COMMON_BDLB] = 19464,
+ 	[GA_ANA_AC_POL_COMMON_BUM_SLB] = 19472,
+ 	[GA_ANA_AC_SDLB_LBGRP_TBL] = 31788,
+@@ -121,6 +126,7 @@ const unsigned int lan969x_gcnt[GCNT_LAST] = {
+ 	[GC_ANA_ACL_KEY_SEL] = 99,
+ 	[GC_ANA_ACL_CNT_A] = 1024,
+ 	[GC_ANA_ACL_CNT_B] = 1024,
++	[GC_ANA_AC_POL_POL_PORT_CTRL] = 35,
+ 	[GC_ANA_AC_SDLB_LBGRP_TBL] = 5,
+ 	[GC_ANA_AC_SDLB_LBSET_TBL] = 496,
+ 	[GC_ANA_CL_PORT] = 35,
+@@ -186,6 +192,7 @@ const unsigned int lan969x_fsize[FSIZE_LAST] = {
+ 	[FW_ANA_AC_TSN_SF_STATUS_TSN_SFID] = 8,
+ 	[FW_ANA_AC_SG_ACCESS_CTRL_SGID] = 8,
+ 	[FW_ANA_AC_PORT_SGE_CFG_MASK] = 17,
++	[FW_ANA_AC_POL_PORT_RATE_CFG_PORT_RATE] = 19,
+ 	[FW_ANA_AC_SDLB_XLB_START_LBSET_START] = 9,
+ 	[FW_ANA_AC_SDLB_LBGRP_MISC_THRES_SHIFT] = 3,
+ 	[FW_ANA_AC_SDLB_LBGRP_STATE_TBL_PUP_LBSET_NEXT] = 9,
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+index 219c7f0e516e9..1bf7dabf622e6 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_main_regs.h
+@@ -554,6 +554,17 @@ extern const struct sparx5_regs *regs;
+ 	__REG(TARGET_ANA_AC, 0, 1, regs->gaddr[GA_ANA_AC_STAT_CNT_CFG_PORT], g,\
+ 	      regs->gcnt[GC_ANA_AC_STAT_CNT_CFG_PORT], 64, 20, r, 4, 4)
  
--	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
-+	disable_irq(sysmon->irq);
- 
- 	scoped_guard(spinlock_irq, &sysmon->irq_lock)
- 		sysmon->masked_temp = 0;
- 
- 	cancel_delayed_work_sync(&sysmon->sysmon_unmask_work);
++/* ANA_AC:STAT_CNT_CFG_PORT:STAT_MSB_CNT */
++#define ANA_AC_PORT_STAT_MSB_CNT(g, r)                                         \
++	__REG(TARGET_ANA_AC, 0, 1, regs->gaddr[GA_ANA_AC_STAT_CNT_CFG_PORT], g,\
++	      regs->gcnt[GC_ANA_AC_STAT_CNT_CFG_PORT], 64, 36, r, 4, 4)
 +
-+	regmap_write(sysmon->regmap, SYSMON_IDR, SYSMON_INTR_ALL_MASK);
- }
++#define ANA_AC_PORT_STAT_MSB_CNT_MSB_CNT         GENMASK(7, 0)
++#define ANA_AC_PORT_STAT_MSB_CNT_MSB_CNT_SET(x)\
++	FIELD_PREP(ANA_AC_PORT_STAT_MSB_CNT_MSB_CNT, x)
++#define ANA_AC_PORT_STAT_MSB_CNT_MSB_CNT_GET(x)\
++	FIELD_GET(ANA_AC_PORT_STAT_MSB_CNT_MSB_CNT, x)
++
+ /* ANA_AC:STAT_GLOBAL_CFG_ACL:GLOBAL_CNT_FRM_TYPE_CFG */
+ #define ANA_AC_ACL_GLOBAL_CNT_FRM_TYPE_CFG(r)                                  \
+ 	__REG(TARGET_ANA_AC, 0, 1, regs->gaddr[GA_ANA_AC_STAT_GLOBAL_CFG_ACL], \
+@@ -938,6 +949,35 @@ extern const struct sparx5_regs *regs;
+ #define ANA_ACL_SEC_LOOKUP_STICKY_SEC_TYPE_MAC_ETYPE_STICKY_GET(x)\
+ 	FIELD_GET(ANA_ACL_SEC_LOOKUP_STICKY_SEC_TYPE_MAC_ETYPE_STICKY, x)
  
- static int sysmon_init_interrupt(struct sysmon *sysmon,
-@@ -807,6 +809,7 @@ static int sysmon_init_interrupt(struct sysmon *sysmon,
- 	if (ret)
- 		return ret;
- 	sysmon->temp_mask = imr & SYSMON_TEMP_INTR_MASK;
-+	sysmon->irq = irq;
++/* ANA_AC_POL:POL_ALL_CFG:POL_ALL_CFG */
++#define ANA_AC_POL_ALL_CFG                                                     \
++	__REG(TARGET_ANA_AC_POL, 0, 1, regs->gaddr[GA_ANA_AC_POL_POL_ALL_CFG],\
++	      0, 1, 1160, 1144, 0, 1, 4)
++
++#define ANA_AC_POL_ALL_CFG_PORT_FC_ENA            BIT(14)
++#define ANA_AC_POL_ALL_CFG_PORT_FC_ENA_SET(x)\
++	FIELD_PREP(ANA_AC_POL_ALL_CFG_PORT_FC_ENA, x)
++#define ANA_AC_POL_ALL_CFG_PORT_FC_ENA_GET(x)\
++	FIELD_GET(ANA_AC_POL_ALL_CFG_PORT_FC_ENA, x)
++
++#define ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT          BIT(4)
++#define ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT_SET(x)\
++	FIELD_PREP(ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT, x)
++#define ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT_GET(x)\
++	FIELD_GET(ANA_AC_POL_ALL_CFG_ACL_FORCE_INIT, x)
++
++#define ANA_AC_POL_ALL_CFG_LPORT_POLICE_ENA        BIT(1)
++#define ANA_AC_POL_ALL_CFG_LPORT_POLICE_ENA_SET(x)\
++	FIELD_PREP(ANA_AC_POL_ALL_CFG_LPORT_POLICE_ENA, x)
++#define ANA_AC_POL_ALL_CFG_LPORT_POLICE_ENA_GET(x)\
++	FIELD_GET(ANA_AC_POL_ALL_CFG_LPORT_POLICE_ENA, x)
++
++#define ANA_AC_POL_ALL_CFG_FORCE_INIT              BIT(0)
++#define ANA_AC_POL_ALL_CFG_FORCE_INIT_SET(x)\
++	FIELD_PREP(ANA_AC_POL_ALL_CFG_FORCE_INIT, x)
++#define ANA_AC_POL_ALL_CFG_FORCE_INIT_GET(x)\
++	FIELD_GET(ANA_AC_POL_ALL_CFG_FORCE_INIT, x)
++
+ /* ANA_AC_POL:POL_ALL_CFG:POL_UPD_INT_CFG */
+ #define ANA_AC_POL_UPD_INT_CFG                                                 \
+ 	__REG(TARGET_ANA_AC_POL, 0, 1, regs->gaddr[GA_ANA_AC_POL_POL_ALL_CFG], \
+@@ -949,6 +989,71 @@ extern const struct sparx5_regs *regs;
+ #define ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT_GET(x)\
+ 	FIELD_GET(ANA_AC_POL_UPD_INT_CFG_POL_UPD_INT, x)
  
- 	ret = devm_request_irq(dev, irq, sysmon_iio_irq, 0, "sysmon-irq", indio_dev);
- 	if (ret)
-diff --git a/drivers/iio/adc/versal-sysmon.h b/drivers/iio/adc/versal-sysmon.h
-index bb9a75bf71c0..701ef9b56263 100644
---- a/drivers/iio/adc/versal-sysmon.h
-+++ b/drivers/iio/adc/versal-sysmon.h
-@@ -85,6 +85,7 @@ struct regmap;
-  * @regmap: register map for hardware access
-  * @lock: protects read-modify-write sequences on threshold registers
-  *        and cached state that spans multiple regmap calls
-+ * @irq: interrupt number, 0 when events are not supported
-  * @irq_lock: protects interrupt mask register updates (MMIO path only)
-  * @masked_temp: currently masked temperature alarm bits
-  * @temp_mask: temperature interrupt configuration mask
-@@ -101,6 +102,7 @@ struct sysmon {
- 	 * that spans multiple regmap calls.
- 	 */
- 	struct mutex lock;
-+	int irq;
- 	/*
- 	 * Protects interrupt mask register updates.  Only used on the
- 	 * MMIO path (fast_io regmap); I2C has no IRQ and never reaches
++/* ANA_AC_POL:POL_PORT_CFG:POL_PORT_THRES_CFG_0 */
++#define ANA_AC_POL_PORT_THRES_CFG_0(r)                                         \
++	__REG(TARGET_ANA_AC_POL, 0, 1, regs->gaddr[GA_ANA_AC_POL_POL_PORT_CFG],\
++	      0, 1, 8192, 0, r, regs->rcnt[RC_ANA_AC_POL_PORT_THRES_CFG_0], 4)
++
++#define ANA_AC_POL_PORT_THRES_CFG_0_PORT_THRES0   GENMASK(5, 0)
++#define ANA_AC_POL_PORT_THRES_CFG_0_PORT_THRES0_SET(x)\
++	FIELD_PREP(ANA_AC_POL_PORT_THRES_CFG_0_PORT_THRES0, x)
++#define ANA_AC_POL_PORT_THRES_CFG_0_PORT_THRES0_GET(x)\
++	FIELD_GET(ANA_AC_POL_PORT_THRES_CFG_0_PORT_THRES0, x)
++
++/* ANA_AC_POL:POL_PORT_CFG:POL_PORT_THRES_CFG_1 */
++#define ANA_AC_POL_PORT_THRES_CFG_1(r)                                         \
++	__REG(TARGET_ANA_AC_POL, 0, 1, regs->gaddr[GA_ANA_AC_POL_POL_PORT_CFG],\
++	      0, 1, 8192, 2048, r,\
++	      regs->rcnt[RC_ANA_AC_POL_PORT_THRES_CFG_1], 4)
++
++#define ANA_AC_POL_PORT_THRES_CFG_1_PORT_THRES1   GENMASK(5, 0)
++#define ANA_AC_POL_PORT_THRES_CFG_1_PORT_THRES1_SET(x)\
++	FIELD_PREP(ANA_AC_POL_PORT_THRES_CFG_1_PORT_THRES1, x)
++#define ANA_AC_POL_PORT_THRES_CFG_1_PORT_THRES1_GET(x)\
++	FIELD_GET(ANA_AC_POL_PORT_THRES_CFG_1_PORT_THRES1, x)
++
++/* ANA_AC_POL:POL_PORT_CFG:POL_PORT_RATE_CFG */
++#define ANA_AC_POL_PORT_RATE_CFG(r)                                            \
++	__REG(TARGET_ANA_AC_POL, 0, 1, regs->gaddr[GA_ANA_AC_POL_POL_PORT_CFG],\
++	      0, 1, 8192, 4096, r, regs->rcnt[RC_ANA_AC_POL_PORT_RATE_CFG], 4)
++
++#define ANA_AC_POL_PORT_RATE_CFG_PORT_RATE\
++	GENMASK(regs->fsize[FW_ANA_AC_POL_PORT_RATE_CFG_PORT_RATE] + 0 - 1, 0)
++#define ANA_AC_POL_PORT_RATE_CFG_PORT_RATE_SET(x)\
++	spx5_field_prep(ANA_AC_POL_PORT_RATE_CFG_PORT_RATE, x)
++#define ANA_AC_POL_PORT_RATE_CFG_PORT_RATE_GET(x)\
++	spx5_field_get(ANA_AC_POL_PORT_RATE_CFG_PORT_RATE, x)
++
++/* ANA_AC_POL:POL_PORT_CTRL:POL_PORT_GAP */
++#define ANA_AC_POL_PORT_GAP(g)                                                 \
++	__REG(TARGET_ANA_AC_POL, 0, 1,\
++	      regs->gaddr[GA_ANA_AC_POL_POL_PORT_CTRL], g,                     \
++	      regs->gcnt[GC_ANA_AC_POL_POL_PORT_CTRL], 32, 0, 0, 1, 4)
++
++#define ANA_AC_POL_PORT_GAP_PORT_PIPELINE_PT       GENMASK(11, 7)
++#define ANA_AC_POL_PORT_GAP_PORT_PIPELINE_PT_SET(x)\
++	FIELD_PREP(ANA_AC_POL_PORT_GAP_PORT_PIPELINE_PT, x)
++#define ANA_AC_POL_PORT_GAP_PORT_PIPELINE_PT_GET(x)\
++	FIELD_GET(ANA_AC_POL_PORT_GAP_PORT_PIPELINE_PT, x)
++
++#define ANA_AC_POL_PORT_GAP_GAP_VALUE              GENMASK(6, 0)
++#define ANA_AC_POL_PORT_GAP_GAP_VALUE_SET(x)\
++	FIELD_PREP(ANA_AC_POL_PORT_GAP_GAP_VALUE, x)
++#define ANA_AC_POL_PORT_GAP_GAP_VALUE_GET(x)\
++	FIELD_GET(ANA_AC_POL_PORT_GAP_GAP_VALUE, x)
++
++/* ANA_AC_POL:POL_PORT_CTRL:POL_PORT_CFG */
++#define ANA_AC_POL_PORT_CFG(g, r)                                              \
++	__REG(TARGET_ANA_AC_POL, 0, 1,\
++	      regs->gaddr[GA_ANA_AC_POL_POL_PORT_CTRL], g,                     \
++	      regs->gcnt[GC_ANA_AC_POL_POL_PORT_CTRL], 32, 4, r, 4, 4)
++
++#define ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK      GENMASK(7, 0)
++#define ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK_SET(x)\
++	FIELD_PREP(ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK, x)
++#define ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK_GET(x)\
++	FIELD_GET(ANA_AC_POL_PORT_CFG_TRAFFIC_TYPE_MASK, x)
++
+ /* ANA_AC_POL:COMMON_BDLB:DLB_CTRL */
+ #define ANA_AC_POL_BDLB_DLB_CTRL                                               \
+ 	__REG(TARGET_ANA_AC_POL, 0, 1, regs->gaddr[GA_ANA_AC_POL_COMMON_BDLB], \
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_regs.c b/drivers/net/ethernet/microchip/sparx5/sparx5_regs.c
+index 75c1bd4f0053c..ce5f0bbf0e65b 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_regs.c
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_regs.c
+@@ -28,6 +28,9 @@ const unsigned int sparx5_rcnt[RCNT_LAST] = {
+ 	[RC_ANA_AC_OWN_UPSID] = 3,
+ 	[RC_ANA_ACL_VCAP_S2_CFG] = 70,
+ 	[RC_ANA_ACL_OWN_UPSID] = 3,
++	[RC_ANA_AC_POL_PORT_THRES_CFG_0] = 280,
++	[RC_ANA_AC_POL_PORT_THRES_CFG_1] = 280,
++	[RC_ANA_AC_POL_PORT_RATE_CFG] = 280,
+ 	[RC_ANA_CL_OWN_UPSID] = 3,
+ 	[RC_ANA_L2_OWN_UPSID] = 3,
+ 	[RC_ASM_PORT_CFG] = 67,
+@@ -70,6 +73,8 @@ const unsigned int sparx5_gaddr[GADDR_LAST] = {
+ 	[GA_ANA_ACL_CNT_B] = 16384,
+ 	[GA_ANA_ACL_STICKY] = 36408,
+ 	[GA_ANA_AC_POL_POL_ALL_CFG] = 75968,
++	[GA_ANA_AC_POL_POL_PORT_CFG] = 65536,
++	[GA_ANA_AC_POL_POL_PORT_CTRL] = 73728,
+ 	[GA_ANA_AC_POL_COMMON_BDLB] = 79048,
+ 	[GA_ANA_AC_POL_COMMON_BUM_SLB] = 79056,
+ 	[GA_ANA_AC_SDLB_LBGRP_TBL] = 295468,
+@@ -121,6 +126,7 @@ const unsigned int sparx5_gcnt[GCNT_LAST] = {
+ 	[GC_ANA_ACL_KEY_SEL] = 134,
+ 	[GC_ANA_ACL_CNT_A] = 4096,
+ 	[GC_ANA_ACL_CNT_B] = 4096,
++	[GC_ANA_AC_POL_POL_PORT_CTRL] = 70,
+ 	[GC_ANA_AC_SDLB_LBGRP_TBL] = 10,
+ 	[GC_ANA_AC_SDLB_LBSET_TBL] = 4616,
+ 	[GC_ANA_CL_PORT] = 70,
+@@ -186,6 +192,7 @@ const unsigned int sparx5_fsize[FSIZE_LAST] = {
+ 	[FW_ANA_AC_TSN_SF_STATUS_TSN_SFID] = 10,
+ 	[FW_ANA_AC_SG_ACCESS_CTRL_SGID] = 10,
+ 	[FW_ANA_AC_PORT_SGE_CFG_MASK] = 16,
++	[FW_ANA_AC_POL_PORT_RATE_CFG_PORT_RATE] = 20,
+ 	[FW_ANA_AC_SDLB_XLB_START_LBSET_START] = 13,
+ 	[FW_ANA_AC_SDLB_LBGRP_MISC_THRES_SHIFT] = 5,
+ 	[FW_ANA_AC_SDLB_LBGRP_STATE_TBL_PUP_LBSET_NEXT] = 13,
+diff --git a/drivers/net/ethernet/microchip/sparx5/sparx5_regs.h b/drivers/net/ethernet/microchip/sparx5/sparx5_regs.h
+index 97d496ebb7508..17abaa5798cbe 100644
+--- a/drivers/net/ethernet/microchip/sparx5/sparx5_regs.h
++++ b/drivers/net/ethernet/microchip/sparx5/sparx5_regs.h
+@@ -36,6 +36,9 @@ enum sparx5_rcnt_enum {
+ 	RC_ANA_AC_OWN_UPSID,
+ 	RC_ANA_ACL_VCAP_S2_CFG,
+ 	RC_ANA_ACL_OWN_UPSID,
++	RC_ANA_AC_POL_PORT_THRES_CFG_0,
++	RC_ANA_AC_POL_PORT_THRES_CFG_1,
++	RC_ANA_AC_POL_PORT_RATE_CFG,
+ 	RC_ANA_CL_OWN_UPSID,
+ 	RC_ANA_L2_OWN_UPSID,
+ 	RC_ASM_PORT_CFG,
+@@ -79,6 +82,8 @@ enum sparx5_gaddr_enum {
+ 	GA_ANA_ACL_CNT_B,
+ 	GA_ANA_ACL_STICKY,
+ 	GA_ANA_AC_POL_POL_ALL_CFG,
++	GA_ANA_AC_POL_POL_PORT_CFG,
++	GA_ANA_AC_POL_POL_PORT_CTRL,
+ 	GA_ANA_AC_POL_COMMON_BDLB,
+ 	GA_ANA_AC_POL_COMMON_BUM_SLB,
+ 	GA_ANA_AC_SDLB_LBGRP_TBL,
+@@ -131,6 +136,7 @@ enum sparx5_gcnt_enum {
+ 	GC_ANA_ACL_KEY_SEL,
+ 	GC_ANA_ACL_CNT_A,
+ 	GC_ANA_ACL_CNT_B,
++	GC_ANA_AC_POL_POL_PORT_CTRL,
+ 	GC_ANA_AC_SDLB_LBGRP_TBL,
+ 	GC_ANA_AC_SDLB_LBSET_TBL,
+ 	GC_ANA_CL_PORT,
+@@ -199,6 +205,7 @@ enum sparx5_fsize_enum {
+ 	FW_ANA_AC_TSN_SF_STATUS_TSN_SFID,
+ 	FW_ANA_AC_SG_ACCESS_CTRL_SGID,
+ 	FW_ANA_AC_PORT_SGE_CFG_MASK,
++	FW_ANA_AC_POL_PORT_RATE_CFG_PORT_RATE,
+ 	FW_ANA_AC_SDLB_XLB_START_LBSET_START,
+ 	FW_ANA_AC_SDLB_LBGRP_MISC_THRES_SHIFT,
+ 	FW_ANA_AC_SDLB_LBGRP_STATE_TBL_PUP_LBSET_NEXT,
+
 -- 
 2.34.1
 
