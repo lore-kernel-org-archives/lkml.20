@@ -1,58 +1,114 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=195.135.223.130
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793609861;
-	b=pefHgv6KycbVQlwMonz9QCndn2TI5D34frXjnPt53abZEqr3oElpq2Bbxsz2Ts8LRZGh
-	 3LLAigW4mYzmW8REgFkEGAHZEI5QwADnaoiUIrL9cAbklPCBD3r92KE3TS+YPCbWY5F5e
-	 r9WUQ6uHOasQ+Ae4x8uRbZESETemPvgvSljjZO+p2MKarZxnLm4QEpwZLU5WmUswWo62a
-	 0JOfnk5JKg3K7npN1NCYJmTnVHMjhY0FPj982eYb57N1lWl5GoCx8Yq4ttbmiPYrelKlR
-	 sbOa+ZF1zdWfiYr5XyCoq/saH8BqI5bnclr3t8A4HN1/7pHN3nh0CVhp44tS9oLFqfg==
+	t=1793609870;
+	b=nzvuvFobuMLw44sjlELhbgAD3uBB84s3YkxHGtNfccUKrV8BAxOB+IVaEAgJj/iTd9FB
+	 bx6j+7y4m1JwX6jHF5yBnbqhsxP8/uHLnUi9JyoqxAmB3v+y5HH8B7hdG7osq3w60pvKw
+	 nqFOwQz9B2NB3ANDnS2K9zvmME4DbEBdOI2cNs0lsDL0AfE4vczXlj7aO9nVF38x0MSlQ
+	 ck4B3NxwRgYC/k8EyB9SvakTzBhNyfOdYjpzYCUEBM9Wj4C9ClajhI3M0lft3Sw9O5G3t
+	 DUI9kcn/AMxvbMppj76xuOZl23x2FnSJ54CeY6jf78bgjQYBtkndy6xmh0smlve7PKw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793609861;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-Id:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f1pPTgJrxY=;
-	b=mAB3q7JdigGG2rPc20SgjVmTI1r7ZLN+KyLkkMroTAU5U3/6DzoWyAH//IZOVsDciT/A
-	 6IlRLN3HPBAxolOOZHA7siaJOW4wUJwWSxrRqouOB+E7ewQD/f/74RuwNvjxWlm2mAXr0
-	 wMY8AlzPBXlt3NXCyQyJEAd+RfKphAokUENC9ELVu+39qEctP66rQ7LmJNZhue5pHsKzS
-	 aO9lxHI+q0WbhR44XUFUI2F/TXeNcIeroDhoifdYtHiNTKvFg0gF4s9gxOeluVBE9xZJO
-	 alN5YJ6RsBt7Nj+MjMvfViewGDOg7y1b9Dc3WY+iCE3zaDezM4KR9VrVNmkkD5K0J/g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793609870;
+	h=DMARC-Filter:Received:DKIM-Signature:DKIM-Signature:DKIM-Signature:
+	 DKIM-Signature:Received:Received:Date:Message-ID:From:To:Cc:Subject:
+	 In-Reply-To:References:User-Agent:MIME-Version:Content-Type:
+	 X-Spam-Flag:X-Spam-Level:X-Spamd-Result:X-Spam-Score;
+	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
+	b=CyfmQRWR+9CKqMv5JHFEWQBEuXXzRfaXF3fLLLYBY2Htmh/ito6WW49pVJgmmDdmNhU3
+	 y+tl+osIPCweq8rkEOMmFUgDy/Uii8p3HwLz8CU6YpnYHyDKoY2vic80mlu5o9EB1lg1b
+	 vy4sbyh0Poxqj3YjwFolHRop6ZmUzlNS12N+nt9yjZrcYLzjLB9EeVSmX0hwOWLT3Q91V
+	 /S3GFuQJ2xb9f2tYhH828YsR3TFq44lpEL8o2/n/PoxqXltbF0B9i2U2WEmM1b97J+X9Z
+	 0C0ykNxBN5SV2T30wC3/PZfbZbHgAcEPqgCRfN54tKxZjapgFHLz4FfRyayp/SiC4EA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=stu.xidian.edu.cn;
-	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
-	arc=none smtp.remote-ip=162.243.164.118
-Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id ED0D1606A33D;
-	Mon,  2 Nov 2026 08:57:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ED0D1606A33D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
-	Message-Id:In-Reply-To:References:MIME-Version:
-	Content-Transfer-Encoding; bh=MT+iqss53aywUbO/a8V4XaOjzYPtyOfA+f
-	1pPTgJrxY=; b=2iK4pYuaYJy+wMyeo3b39vJoZY4ccIjt68b84fl+BlGRa7+GB8
-	+/NtxI8CoW0hA6fi0Idesc//54YIztTpoeGgG3E6SuPMwQRa4CItm+GVOT0wRd9/
-	JP8b3SVsPCgioTF+TysiCt75pY1zmoEQRtkkbP9Vx6MlA5LKLeLLCDOoM=
-Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
-	by hzbj-edu-front-2.icoremail.net (Coremail) with UTF8SMTPA id BLQMCkD2Of90UOhqVtIYAQ--.48924S2;
-	Mon, 02 Nov 2026 16:57:25 +0800 (CST)
-From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
-To: Helge Deller <deller@gmx.de>,
-	Steve Glendinning <steve.glendinning@shawell.net>
-Cc: linux-fbdev@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
+	dmarc=pass header.from=suse.de;
+	spf=pass smtp.mailfrom=suse.de;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY;
+	arc=none smtp.remote-ip=195.135.223.130
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51D05606A327;
+	Mon,  2 Nov 2026 08:57:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 51D05606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key, unprotected) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=Z7Oj74UK;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=cIiyNdLY
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 91F7E21EB8;
+	Mon,  2 Nov 2026 08:57:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793609867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
+	b=Z7Oj74UKbtdUkAKOLh+GKY5N/GfaHCWXDYMHK2ntHPbTqbdaImIRuM5fFvbspPEFKBIoSo
+	QXlE+NdSCLUsLYZxRPskM6kgT8NveBaWIUg7wHGla+smbkcnKISSYCHlNXTO8e/nqIVhvU
+	JRbXWoKve1rKi/neB2bjPwNzegsVQLw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793609867;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
+	b=cIiyNdLYVOhJHW590PBqD2l5SlhN/37+jP940ns8cA/lCEkQXvnQfHWbX3MPmCc0j3oqXa
+	MO+nbwpWekP8rXDA==
+Authentication-Results: smtp-out1.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1793609867; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
+	b=Z7Oj74UKbtdUkAKOLh+GKY5N/GfaHCWXDYMHK2ntHPbTqbdaImIRuM5fFvbspPEFKBIoSo
+	QXlE+NdSCLUsLYZxRPskM6kgT8NveBaWIUg7wHGla+smbkcnKISSYCHlNXTO8e/nqIVhvU
+	JRbXWoKve1rKi/neB2bjPwNzegsVQLw=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1793609867;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=3fxGFnrLPenEBS3hRgN9fftoOHtXAct/Kj+2DSQLtFw=;
+	b=cIiyNdLYVOhJHW590PBqD2l5SlhN/37+jP940ns8cA/lCEkQXvnQfHWbX3MPmCc0j3oqXa
+	MO+nbwpWekP8rXDA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 11900134B8;
+	Mon,  2 Nov 2026 08:57:43 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id xSa6NYZQ6GrYUAAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Mon, 02 Nov 2026 08:57:43 +0000
+Date: Mon, 02 Nov 2026 09:57:42 +0100
+Message-ID: <87ecd34nll.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Joonho Lee <mynameisjune111@gmail.com>
+Cc: linux-sound@vger.kernel.org,
+	tiwai@suse.de,
+	perex@perex.cz,
+	anton.yakovlev@opensynergy.com,
+	mst@redhat.com,
+	virtualization@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bin Yu <byu@xidian.edu.cn>,
-	Cheng Wen <wencheng@xidian.edu.cn>
-Subject: [PATCH v2] fbdev: smscufx: keep the usb_device alive while ufx_data is in use
-Date: Mon,  2 Nov 2026 16:57:24 +0800
-Message-Id: <20261102085724.13456-1-25031212351@stu.xidian.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
-References: <20261102072120.3022-1-25031212351@stu.xidian.edu.cn>
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org
+Subject: Re: [PATCH v11 00/14] ALSA: virtio: staged capture recovery and PCM RESET synchronization
+In-Reply-To: <20261031020855.2402-1-mynameisjune111@gmail.com>
+References: <20261031020855.2402-1-mynameisjune111@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,104 +117,167 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:BLQMCkD2Of90UOhqVtIYAQ--.48924S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGrW5uFWDuFyfWr1kWFyDWrg_yoW5ur18pF
-	W5Cay5GrWkJr4Y9a9rGr48uFyFqw13Aa4UCr9Fkr15uFn8C3y3JryqyryIg3Z3JFWkAw47
-	Aa45X3yj9a9ru3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
-	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
-	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
-	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
-	8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
-	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17Mc
-	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
-	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r43MxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
-	UvcSsGvfC2KfnxnUUI43ZEXa7IU5_Ks5UUUUU==
-X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAQUFD2rnVdSL8QABs5
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Flag: NO
+X-Spam-Level: 
+X-Spamd-Result: default: False [-12.30 / 50.00];
+	SUSE_INTERNAL_BYPASS(-9.00)[];
+	BAYES_HAM(-3.00)[100.00%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	RCPT_COUNT_TWELVE(0.00)[12];
+	FREEMAIL_TO(0.00)[gmail.com];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo]
+X-Spam-Score: -12.30
 
-ufx_usb_probe() stores the usb_device pointer in dev->udev without
-taking a reference, and ufx_usb_disconnect() does not wait for in-flight
-control transfers.  A mode set or blank request that runs while the
-device is being unplugged - through ufx_ops_set_par() or ufx_ops_blank()
-on an open /dev/fbN file - keeps issuing synchronous control messages for
-the whole ufx_set_vid_mode() sequence, including two msleep(1) delays in
-ufx_config_pix_clk().  Once the disconnect callback returns, the USB core
-may release the usb_device, and the next ufx_reg_write()/ufx_reg_read()
-dereferences dev->udev through __create_pipe():
+On Sat, 31 Oct 2026 03:08:41 +0100,
+Joonho Lee wrote:
+> 
+> Hi Takashi,
+> 
+> This revision supersedes v10 and includes the unmerged prerequisites.
+> Apply patches 1-14 to sound.git for-next at
+> a4311e9447bbb219044db38897f95be112f46a8a. Targeting 7.5 or later still
+> works for me.
+> 
+> Previous revision:
+> https://lore.kernel.org/linux-sound/20261030052629.27742-1-mynameisjune111@gmail.com/T/
+> 
+> The series adds staged capture accounting for shared clients such as
+> dsnoop, lifecycle recovery, and synchronized PCM RESET accounting. The
+> capture compatibility options remain opt-in and disabled by default.
+> 
+> Changes since v10
+> 
+> Sashiko raised nine findings in patches 4, 9, 12 and 14. This revision
+> folds the corrections into the relevant patches and carries the queue
+> retirement checks from patch 3.
+> 
+> Patch 4 seeds ordinary RX once per prepare. Native STOP leaves requests
+> and unread samples owned by the current ring, so resume preserves them.
+> Consumed or discarded space returns through ACK and RESET. This avoids
+> inflated pending lengths and resubmission of unread DMA slots.
+> 
+> Patch 9 restores notifications after rejected native pause and handles
+> both success and failure on the already-running START path. Ordinary
+> capture now honors the XRUN latch in ACK. Its monotonic completion count
+> also detects a whole unobserved ring and reports XRUN for prepare
+> recovery. Capture completions preserve the latch from this patch onward.
+> 
+> A first version of the recovery notification exposed an old ring of
+> samples after paused RESET. Passing every wakeup through period_elapsed
+> let ALSA infer a wrap without a newly completed period. The worker now
+> uses the partial-progress helper for synthetic wakeups and retains PCM
+> timer notifications for actual new periods. The sample comparison and
+> a periodic PCM timer test both reproduce the candidate regression and
+> pass with this separation.
+> 
+> Patch 12 removes the second appl_ptr assignment after a callback member
+> has completed prepare. A linked member's prepare can sleep while the
+> first member accepts SYNC_PTR. The callback path now preserves that
+> acknowledgment under its PCM lock. Explicit RESET retains playback
+> silence handling; prepare leaves filling to the normal START path.
+> 
+> Patch 14 checks the existing XRUN and lifecycle state before mutating
+> paused indirect accounting. The RX queue and substream locks cover its
+> pointer observation, temporary accounting and refill. The notification
+> floor follows the RESET observation. Refill failure retains the existing
+> zero-return policy while the worker reports XRUN and prepare recovers it.
+> 
+> Patch 3 retires each queue wrapper under the detach lock and checks queue
+> identity in PCM, control and event callbacks. The proposed detached-ring
+> IRQ failure was not reproduced on the tested PCI transport: forced
+> callback tests passed on both versions. This part strengthens teardown
+> ownership boundaries; the transport reset callback synchronization
+> contract still applies.
+> 
+> Patch layout
+> 
+>   1-6: ACK errors, START/RELEASE recovery and request/DMA lifetime.
+>   7:   Core stop-threshold accesses used by capture policy sampling.
+>   8:   Partial-progress notification under the PCM stream lock.
+>   9:   Staged capture, shared capture policy and lifecycle recovery.
+>   10:  Staged capture work priority.
+>   11:  Capture compatibility option documentation.
+>   12:  Optional PCM reset operation under the stream lock.
+>   13:  Staged capture RESET accounting.
+>   14:  Ordinary capture RESET accounting.
+> 
+> The core API additions remain separate from their driver users. Drivers
+> without a reset callback retain the ioctl path. Linked RESET and prepare
+> retain their first-error, partial-completion contract. A zero RESET
+> return allows the core rebase to finish; later I/O can report -EPIPE and
+> require prepare or reopen. The internal snd_pcm_ops addition requires
+> out-of-tree modules using it to be rebuilt.
+> 
+> Validation
+> 
+> The functional candidate passed 23 ARM64 QEMU runs with KASAN and lockdep,
+> covering error injection, recovery, reopen and compatibility tests.
+> The core fixtures covered 72 atomic/nonatomic, callback/legacy and linked
+> failure cases, including playback silence. snd-dummy and virtio-snd each
+> passed three playback/capture cycles. Additional timer comparisons kept
+> real period ticks and removed the synthetic resume tick.
+> 
+> For both ordinary and staged capture, an uninstrumented kernel recorded
+> 70 seconds through RW and another 70 seconds through MMAP after
+> PAUSE, RESET and resume, followed by reopen. All 14 segments,
+> 14,208,000 S16 mono frames at 48 kHz, matched independently generated
+> SHA-256 values from QEMU sequence metadata. The oracle includes the
+> intended RESET discard and backend epoch boundaries. The earlier failing
+> candidate and its sample comparison remain in the local evidence.
+> 
+> The paused interleaving test verifies the new atomic observation
+> boundary; it does not establish sample loss in the original code.
+> ARM64 W=1 Image/modules and ARM32 LLVM object builds passed. Test hooks
+> remain separate from the submitted code. Each mail patch is applied to
+> the pinned baseline and compared with its expected intermediate source.
+> 
+> Fresh v11 postimages at stages 3-14 built without compiler warnings.
+> Nine additional stage VMs passed, including eight injected recovery cases
+> at patch 9, staged native and pause-restart capture, and paused RESET at
+> patches 13 and 14. All six additional MMAP segments matched the sequence
+> oracle. Neighboring patches have refreshed contexts where earlier changes
+> moved their code.
+> 
+> Packaging also adds braces to one existing staged if arm. The new module's
+> executable, relocation, data and symbol sections match the tested module
+> byte for byte. The fresh stage tests above use this formatted source.
+> 
+> These results cover QEMU synthetic input. Physical VZ/MOTU acceptance,
+> an independent KCSAN run and broader format/multichannel and ARM32
+> runtime testing remain pending. The high-load TCG scheduling results
+> from earlier revisions still limit performance conclusions. The new
+> ordinary full-ring check reports -EPIPE where the modulo-only path could
+> wait indefinitely. The core progress helper and linked RESET contract
+> still need maintainer review.
+> 
+> Coding assistance was used for analysis, implementation, fixtures and
+> this explanation. The patches carry Assisted-by: LLM.
+> 
+> Thanks,
+> Joonho
 
-  general protection fault, probably for non-canonical address
-  0xdffffc0000000006: 0000 [#1] SMP
-  KASAN: null-ptr-deref in range [0x0000000000000030-0x0000000000000037]
-  RIP: __create_pipe include/linux/usb.h:2031
-  Call Trace:
-   ufx_set_vid_mode
-   ufx_ops_set_par
-   fb_set_var
-   fb_set_var_from_user
-   store_rotate
+Sashiko reported still a few issues.  As they seem to be rather minor
+issues, I can work v11 now and you can fix incrementally.  Or you can
+resubmit v12, if any.  Let me know which way you prefer.
 
-Take a reference to the usb_device in ufx_usb_probe() and drop it in
-ufx_free(), so dev->udev and dev->gdev stay valid until the last
-ufx_data user is gone.  The control transfers then fail with -ENODEV
-instead of dereferencing freed memory.
 
-Also return early from ufx_set_vid_mode() while the device is inactive,
-matching the other transmit paths.  That check alone is not enough,
-because it is not serialized against ufx_usb_disconnect() and the
-transfer sequence continues after it; it only avoids a long series of
-failing transfers.
+thanks,
 
-Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
-Cc: stable@vger.kernel.org
----
-Changes in v2:
- - Hold a reference to the usb_device and drop it in ufx_free() so
-   dev->udev stays valid for the whole transfer sequence; the
-   usb_active check alone only covers the entry (review feedback).
- drivers/video/fbdev/smscufx.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
-index 5704f60e1741..eac303adb69a 100644
---- a/drivers/video/fbdev/smscufx.c
-+++ b/drivers/video/fbdev/smscufx.c
-@@ -661,8 +661,12 @@ static int ufx_set_vid_mode(struct ufx_data *dev, struct fb_var_screeninfo *var)
- 	u32 temp;
- 	u16 h_total, h_active, h_blank_start, h_blank_end, h_sync_start, h_sync_end;
- 	u16 v_total, v_active, v_blank_start, v_blank_end, v_sync_start, v_sync_end;
-+	int status;
-+
-+	if (!atomic_read(&dev->usb_active))
-+		return -ENODEV;
- 
--	int status = ufx_reg_write(dev, 0x8028, 0);
-+	status = ufx_reg_write(dev, 0x8028, 0);
- 	check_warn_return(status, "ufx_set_vid_mode error disabling RGB pad");
- 
- 	status = ufx_reg_write(dev, 0x8024, 0);
-@@ -1064,6 +1068,7 @@ static void ufx_free(struct kref *kref)
- {
- 	struct ufx_data *dev = container_of(kref, struct ufx_data, kref);
- 
-+	usb_put_dev(dev->udev);
- 	kfree(dev);
- }
- 
-@@ -1606,6 +1611,8 @@ static int ufx_usb_probe(struct usb_interface *interface,
- 
- 	dev->udev = usbdev;
- 	dev->gdev = &usbdev->dev; /* our generic struct device * */
-+	/* keep the device alive until the last ufx_data user is gone */
-+	usb_get_dev(usbdev);
- 	usb_set_intfdata(interface, dev);
- 
- 	dev_dbg(dev->gdev, "%s %s - serial #%s\n",
--- 
-2.34.1
+Takashi
 
