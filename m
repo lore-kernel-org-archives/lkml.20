@@ -1,121 +1,70 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638742;
-	b=bNoASJhw7rLaTZV1iDdt8t+Wz+8MXBE4heO5iKGuXJH8s+kf5NZMHVl+TTatLqqYmPo8
-	 GXqpY4EZKeFA1cyUJsq3OFSCOT5e2ST5ZEtUyicPJ3SLVT+JetTCa8m5KT17MENXPAGjL
-	 DdI70BZY7aSXXuB1yRHsoRooWJ/De8mdv0LHY1+OcFJ4TpVt+aljwo44cIAvjT+DAify6
-	 IE4+WwBD2c4HMtiXg3wMkhIzXtDGxzIFyQ8yK2juXXpwFi235zFO63mEmVI3+B2iBRFRb
-	 UK50ExxbfWcQ5OABeiZquZLDsB9mNx8UF6SER3TwLKHx769Pte5jil/DmxgPWBAoqzQ==
+	t=1793638743;
+	b=zwKUt9a19oT054c6K2jDdm0zHruKcYsQjrrFizmuQP2fHxEkMt3q+K1GlYBo0am0C7b6
+	 qm/7tTW34eYFqBQ6HCvUMXRv/Da/j49xIvVm1ftwKSJEw8NK5cmGBHvwF7o81e9xWO4d9
+	 EMuvb7z3indbI69ZXgq9vNdNzCcsgKjFMTcchEDBc8ckIYM73ymEA9QihnvyYosjc2Lri
+	 Edrh3ZT6FR2FmeitrQs6jg9i6Cp835Aj4cF6ScPuJAKV0BaqWdgJfNR0SMMQdtAgVwCju
+	 l+Ll9k9z9lWVzRZX5o1pJP9MMwRL9dWNvlhS1gyA1EACw2/Abf+k19L1WYIfhGxK/SQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638742;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
-	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
-	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
-	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=M3eezsuyIgK3nwybmyakC/MworsMBoqtq6oIBsdD+tE=;
-	b=4zd4Gr7zMEZY5u7JG7e3D5f0rmSZLPfMq252e1T2w9t+E172avaaJ9P9B5UVduYmOWEZ
-	 1w7CAT3BLk+LRBqC7aietFXtFxfE3OTk80mqoWcroU40pfClE0ypR0oDj7t7VdKJ5V1Qn
-	 Y7p4MPZBVRkA/EpBuHhtIOvLyPWbBjMN2lZY38Fkpl51ZFuZB+mQ0C37+Cj1/ZDfPaKxK
-	 lth7wYIG3mAluzDz5pxGGx7h20/B5rEQHNlkV8hP8N+FDJ0dt1vTXTY6z25C9ILhFRRG1
-	 8QWFp1fa5a5f9M8U4SVCdJnTjqXfH8Jg8y4GzPoWcbn4nOJNYTow6/49fgzCx/hUeKg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638743;
+	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
+	 Message-ID:In-Reply-To:References:Organization:X-Mailer:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=0uwoivLJiAvzutQ7aY0JF+5vLwoMB9+Ywm79ON4BGsE=;
+	b=LtenXy9YjZI+KoLxuzwZGhVpvM+Bmh5vfxBzmmoyn6JU0CJU1+9H5YVn717NenFePwYR
+	 HEm23A4AYAIPe+jKib+7mt/sl/CPv/A5T9Xo7NLM11mAm4GdS4aoXJf6WL9n2QIVazU7i
+	 csw8yJw0erg4Ig438Z1CgeKtPtjMMRusqcodeK48xQ4VarQazK6ImzaYOtNo2S2+lHY2x
+	 5KFJfEipI8vWyTQGhZ4TXjOTkYElo9c+vn0jGlTJTEwl+tk+MVzv4luwp8DJN2xH5j+RU
+	 lAfn2xu4RxmqBaL41EfoC5PVQDVe5UQTTq416MbtRTFcfJ8DAcBm1nQzudLb99ITD0A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=kroah.com;
-	spf=pass smtp.mailfrom=kroah.com;
-	dkim=pass header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=sGzoQb8F;
-	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ulQLyYaS;
-	arc=none smtp.remote-ip=103.168.172.148
-Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
+	dmarc=pass header.from=collabora.com;
+	spf=pass smtp.mailfrom=collabora.com;
+	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bLoGyWGd;
+	arc=none smtp.remote-ip=148.251.105.195
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B09A607504C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:59:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2B09A607504C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF57F607505B
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF57F607505B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kroah.com header.i=@kroah.com header.a=rsa-sha256 header.s=fm2 header.b=sGzoQb8F;
-	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=ulQLyYaS
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfout.phl.internal (Postfix) with ESMTP id 54E2AEC067B
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:59:00 -0500 (EST)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Mon, 02 Nov 2026 11:59:00 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1793638740; x=1793725140; bh=M3eezsuyIg
-	K3nwybmyakC/MworsMBoqtq6oIBsdD+tE=; b=sGzoQb8FSlfUsFJVrOPndIkjzt
-	kE40I7aNUVXi+4Q3wFfnOP05glZ0pbGwPW6BgoQCKFCd7V//b9TcueKg94BA2f+m
-	9w7sPSmrsimBmyzn5mKm0B4wo76KpgpeIXNMv9anzNBreqCgh6DroFfDvkTK+iKe
-	r8SarNe6DhEp7hmsNqpgPNV0kMXNOSaQRcO9r55J6BVT6pnBtXeBdJu4lYpU6K/k
-	mmg6ulvyoGn6gZv1Id/b9T1Jr5/MyUlEqWSidrtNmOpTD5RvBBdRPvzkwGB5wnmf
-	sESPzNdwz5a/ZdPis4ujkQQHdj9Tr4QUZYAv/SOl1eKF9S2ZliYDWC07SXYg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1793638740; x=1793725140; bh=M3eezsuyIgK3nwybmyakC/MworsMBoqtq6o
-	IBsdD+tE=; b=ulQLyYaSIuuHik9Bx7i30O+ibuK22mhfbsBuCddeREtJ7uRoRKd
-	+u1uaX5rhygRk3/+bk/osixwcKYMNHqF+8HX73uWq4rgherjxIl7j3Obfckiuo/E
-	osDRGFATKPuRQ5ZpNd0SO1rv402vKSUN3RZAJ9PwjL7GEpQZwcQb1Kaml8oh3x+v
-	HWAwsvR30ycsv4qq4d9oKhBftIB4xBEa6ULgOS1+0+3Y6A6mOWrK8QbJ1pfI3khW
-	1mwit+b8J5XXcig3ueGYrIRW/+SGgIVEkQQwNsGXWGGyBEkWUZkz0BAEfcifWOnb
-	zQixuCFV8y3zTVCwV1q35H7dJkFbSaSDAUw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1793638740; d=kroah.com;
-	mf=PGdyZWdAa3JvYWguY29tPg==;
-	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
-	s=fm2:rsa-sha256:O+YW3wKMNa9pGoyxg5FQAhEdmbrwtMf2u8xgsMeQLvHMafJ
-	rK0zV8NoKUjRo01oFfnKZPUMZ8i2c6OyoO0sV9ZHcweOn/1/qm1X15VYu1BYc4HS
-	rTBpdEF68LTvxd46zZYICWSvwfIWslnmxtLhTJJlpKjqIpQKSOJjOt7kIe+FcAun
-	FYAG+XWOb/xd/fUcb0YuKVfyWb2KYFRd/GD9tca5d2e2vyG1ByKnLLDWSFjETmCH
-	okofeET3otyfh6CQBBj2+95fv0UBkfJnARBu5kjn/+umO7T2GeJ0zvbCGRBHe5BI
-	qY7NiMg8QRA54TAsUEZTUKXMmBR8PajoTxub8hg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
-	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-disposition,content-type,date,feedback-id,from,
-	in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:Aktz/cN0hOPJhmHpxP9DOHFJhk+nRLbFzCFak6LRPfU=:5+a/GWJPW+aBNSZRfLDYw7TYit46Fh7RkPcYuf2+rkg=;
-X-ME-Sender: <xms:VMHoanReIfPY4mZ6H2zzR_MJlJh6GoSg8r-iwSwLl-666_75uSurMg>
-    <xme:VMHoalLv4WuPXM2xapSXNkcrvIb0FrEdmG-omzoFS0aDhtMq-s8CdMVrlbVE8HcHp
-    AVR75rCl6MikDmw6ClQmsdEqMpswkfrBmJjybgnJTxS56BQTqc>
-X-ME-Received: <xmr:VMHoahQjiuo0FzEXnnCdrsg2epOi1QVpqF3sAJGx_jCuWFUlKw3PsTwAtDfu>
-X-ME-Proxy-Cause: dmFkZTFPXn2hYcKuahI6WM8TuOSCrGJoOxGIZRhohOINH/8S8Ajso1tTvhc/iLRY5vquD7
-    +BO10uekoDUMUXuDBAwu1T20ExL/50qHgXDvpOE0z+NxxU26uzt2Uur8zLs9AlLEOSLByX
-    YPsr13hIBd5kWOHeMWfiu5KMivwRabJ6XHBB1k+75zbYeHTepqAdQc5G3W9bi1VdKb3vBy
-    hSDOiVnH0ca4KiXzpy8Zl/PulwIOcE3bj6ce7N0ttshUF4qGJGF5A9ntb4s9TGaH7yDxJq
-    PmQTuD4rjrqnSV1F+9t9gyJlkfa8z39vvObnx65GfTu7JTRhOxKlPnw1Tub6HTUxRCFMQy
-    2+YQ29D8qC7mNvWvoFJryy3ccNVlxdHtce7fqjx7xHGIfHfDmbZWBhMSObVZEwGCctzx8X
-    RqfZRkCNXNglhoMbDcc4Im7MbPEAjCeLoVD8OTA/WFHFHyoJpMy59aYEqf+5iFOvC4f6t4
-    fVRbdJvUdhRdLWD5UZvh/D4VG5G3AWxl1CCkxpKBPWIlHgMDDM+1CTPWUrBM7ih9OIJNpQ
-    Jbc2cX+y73LFr5gXaiSCqJvwDe3gaWDIFRaCfVIdAC4DfXkDmFEBcPx2aA0d5umV8IEfKO
-    sAQtcPTtSx5+IyV7Xgrz24D9e6/FJieqTh2kBCmqvpV3eZQITvCM4kcH1s1g
-X-ME-Proxy: <xmx:VMHoalL8-S31qF0mUd27tMGANRSqI2tL-W3V1FYeP-CQRjN-bDKmYw>
-    <xmx:VMHoas-6gJBVrP1VW2150cMuUXD5et5SPZce3pANHCi34Uy7PCSMjg>
-    <xmx:VMHoakKo4AISBtO6iBKxyQcFn8j_0A_XCgpslmjqKc5oIn4ZgP2RjQ>
-    <xmx:VMHoajH11f18RC4lsdRO0G0Cf-nJ7gFt70NMWGG0dhyIZddL5lWeyQ>
-    <xmx:VMHoaqWPwvgdhlX7gQAGhqk0DF8NsG3B7QR_wI3F0PZhjOfC1-LVzof_>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 2 Nov 2026 11:58:59 -0500 (EST)
-Date: Mon, 2 Nov 2026 17:54:01 +0100
-From: Greg KH <greg@kroah.com>
-To: Zhao Li <enderaoelyther@gmail.com>
-Cc: Marcel Holtmann <marcel@holtmann.org>,
-	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-	Johan Hedberg <johan.hedberg@intel.com>, security@kernel.org,
-	linux-bluetooth@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] Bluetooth: L2CAP: Clear request identifiers on
- incoming LE connections
-Message-ID: <2026110247-steadier-squealing-e571@gregkh>
-References: <20261102124735.23199-1-enderaoelyther@gmail.com>
- <20261102124735.23199-3-enderaoelyther@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=bLoGyWGd
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1793638741;
+	bh=CL8t3c6JLDGRR3T0QVgRjVlabSJH7qyJQ3Ydz55euyg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+	b=bLoGyWGd5rx6L7H9iLz5O1gc9zmLZqtiSNZ9D4eZXoFydq10BOPzjlAdV695cDKNV
+	 YMtUccFIMB6MHKsja8kI2ISszG8miTcchRB3RrG/X9EVBIGEV5jxRKMvBp1uC2H2QE
+	 NMpSfaOQSf8UlUmk/BhITRogrby+JF7I00lia6DLMfkniAZuOLVrrwSezIhPaXqxU3
+	 mBEZiV8Bj3IJVn3bkT7NNzoxoBHjqtP+sC7MED3HnejtV5zE3eg5QuLxL8mNsYkKNu
+	 U8jJFwd+r1ihj/bzSZk39sWpK4sg2xKDkRY50TySvENmSgNNWOTk8AoryXU42JXjUG
+	 TlhnPGpicFtlw==
+Received: from fedora1.home (unknown [100.64.0.11])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bbrezillon)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9911817E0240;
+	Mon, 02 Nov 2026 17:59:00 +0100 (CET)
+Date: Mon, 2 Nov 2026 17:58:56 +0100
+From: Boris Brezillon <boris.brezillon@collabora.com>
+To: Liviu Dudau <liviu.dudau@arm.com>
+Cc: Steven Price <steven.price@arm.com>, David Airlie <airlied@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, Akash Goel
+ <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>, Lukas
+ Zapolskas <lukas.zapolskas@arm.com>, Florent Tomasin
+ <florent.tomasin@arm.com>, Daniel Stone <daniels@collabora.com>
+Subject: Re: [PATCH v2] drm/panthor: Add more reviewers
+Message-ID: <20261102175856.39e4b36d@fedora1.home>
+In-Reply-To: <20261030144805.667158-1-liviu.dudau@arm.com>
+References: <20261030144305.666845-1-liviu.dudau@arm.com>
+	<20261030144805.667158-1-liviu.dudau@arm.com>
+Organization: Collabora
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,126 +74,39 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102124735.23199-3-enderaoelyther@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 08:47:35PM +0800, Zhao Li wrote:
-> Incoming LE and ECRED channels retain the peer's request identifier
-> after an immediate response. The deferred LE response also leaves the
-> identifier set, unlike the deferred ECRED response.
+On Fri, 30 Oct 2026 14:48:05 +0000
+Liviu Dudau <liviu.dudau@arm.com> wrote:
+
+> We now have more people that can do reviews and contribute patches
+> to Panthor, so add their names to the list.
 > 
-> A later ECRED request can reuse that identifier and include an unrelated
-> channel in its shared-response handling. That walk matches on the
-> identifier alone, so an LE channel is selected too. If the old channel is
-> closing, the checks can refuse the new connection. The check at request
-> receipt rejects it with L2CAP_CR_LE_INVALID_PARAMS; the check before a
-> deferred response returns L2CAP_CR_LE_AUTHORIZATION.
+> Signed-off-by: Liviu Dudau <liviu.dudau@arm.com>
+
+Acked-by: Boris Brezillon <boris.brezillon@collabora.com>
+
 > 
-> Store the identifier only when deferring the response, and clear it
-> after sending the deferred LE response. Keep deferred ECRED identifiers
-> until the shared response is sent, since a partially accepted group
-> still needs them.
-> 
-> AI assistance was used.
-> 
-> Fixes: 27e2d4c8d28b ("Bluetooth: Add basic LE L2CAP connect request receiving support")
-> Fixes: 15f02b910562 ("Bluetooth: L2CAP: Add initial code for Enhanced Credit Based Mode")
-> Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 > ---
-> Built in patch order at W=1 with GCC 12.2 (x86_64 module, x86_64
-> built-in and i386 module) and Clang 19.1.7 (x86_64 module). The x86_64
-> module builds with both compilers also linked vmlinux and modules.
-> Sparse checked l2cap_core.c with C=2 after each patch without
-> diagnostics. Smatch reported the same pre-existing l2cap_chan_connect()
-> diagnostic as the base; no cross-function database was used.
+> v2: Forgot to add Chris Diamand to the list, fixed.
+> ---
+>  MAINTAINERS | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> Coccinelle 1.3's use_after_iter rule found nothing in the changed
-> functions. All changed functions were processed; five unchanged parser
-> gaps also occur in the base. Hardware validation has not been run.
-> 
-> The two-patch QEMU/vhci arm kept all 445 established channels alive.
-> In runs where new ECRED requests reused the identifier of a closing LE
-> channel, the base and patch 1 alone refused 18 of 18 at each site:
-> with L2CAP_CR_LE_INVALID_PARAMS at receipt, or with
-> L2CAP_CR_LE_AUTHORIZATION in the deferred response. With this patch,
-> all 18 completed with L2CAP_CR_LE_SUCCESS at both sites. Two further
-> requests per run were refused identically on every kernel and are not
-> counted. Partially accepted groups were not tested.
-> 
-> A KCSAN kernel with both patches, built without KASAN, ran the patch 1
-> close-before workloads without data-race reports.
-> 
->  net/bluetooth/l2cap_core.c | 5 +++--
->  1 file changed, 3 insertions(+), 2 deletions(-)
-> 
-> diff --git a/net/bluetooth/l2cap_core.c b/net/bluetooth/l2cap_core.c
-> index a21b2d70ad8a..0b6eb082f3f7 100644
-> --- a/net/bluetooth/l2cap_core.c
-> +++ b/net/bluetooth/l2cap_core.c
-> @@ -3972,6 +3972,7 @@ void __l2cap_le_connect_rsp_defer(struct l2cap_chan *chan)
->  
->  	l2cap_send_cmd(conn, chan->ident, L2CAP_LE_CONN_RSP, sizeof(rsp),
->  		       &rsp);
-> +	chan->ident = 0;
->  }
->  
->  static void l2cap_ecred_list_defer(struct l2cap_chan *chan, void *data)
-> @@ -5311,10 +5312,10 @@ static int l2cap_le_connect_req(struct l2cap_conn *conn,
->  
->  	__set_chan_timer(chan, chan->ops->get_sndtimeo(chan));
->  
-> -	chan->ident = cmd->ident;
->  	chan->mode = L2CAP_MODE_LE_FLOWCTL;
->  
->  	if (test_bit(FLAG_DEFER_SETUP, &chan->flags)) {
-> +		chan->ident = cmd->ident;
->  		l2cap_state_change(chan, BT_CONNECT2);
->  		/* The following result value is actually not defined
->  		 * for LE CoC but we use it to let the function know
-> @@ -5550,10 +5551,10 @@ static inline int l2cap_ecred_conn_req(struct l2cap_conn *conn,
->  
->  		__set_chan_timer(chan, chan->ops->get_sndtimeo(chan));
->  
-> -		chan->ident = cmd->ident;
->  		chan->mode = L2CAP_MODE_EXT_FLOWCTL;
->  
->  		if (test_bit(FLAG_DEFER_SETUP, &chan->flags)) {
-> +			chan->ident = cmd->ident;
->  			l2cap_state_change(chan, BT_CONNECT2);
->  			defer = true;
->  			chan->ops->defer(chan);
-> -- 
-> 2.56.0
-> 
-> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 89ea35a35c680..ef92c462a8381 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2321,6 +2321,10 @@ ARM MALI PANTHOR DRM DRIVER
+>  M:	Boris Brezillon <boris.brezillon@collabora.com>
+>  M:	Steven Price <steven.price@arm.com>
+>  M:	Liviu Dudau <liviu.dudau@arm.com>
+> +R:	Akash Goel <akash.goel@arm.com>
+> +R:	Karunika Choo <karunika.choo@arm.com>
+> +R:	Lukas Zapolskas <lukas.zapolskas@arm.com>
+> +R:	Chris Diamand <chris.diamand@arm.com>
+>  L:	dri-devel@lists.freedesktop.org
+>  S:	Supported
+>  T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
 
-Hi,
-
-This is the friendly patch-bot of Greg Kroah-Hartman.  You have sent him
-a patch that has triggered this response.  He used to manually respond
-to these common problems, but in order to save his sanity (he kept
-writing the same thing over and over, yet to different people), I was
-created.  Hopefully you will not take offence and will fix the problem
-in your patch and resubmit it so that it can be accepted into the Linux
-kernel tree.
-
-You are receiving this message because of the following common error(s)
-as indicated below:
-
-- You have marked a patch with a "Fixes:" tag for a commit that is in an
-  older released kernel, yet you do not have a cc: stable line in the
-  signed-off-by area at all, which means that the patch will not be
-  applied to any older kernel releases.  To properly fix this, please
-  follow the documented rules in the
-  Documentation/process/stable-kernel-rules.rst file for how to resolve
-  this.
-
-If you wish to discuss this problem further, or you have questions about
-how to resolve this issue, please feel free to respond to this email and
-Greg will reply once he has dug out from the pending patches received
-from other developers.
-
-thanks,
-
-greg k-h's patch email bot
