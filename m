@@ -1,90 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=159.226.251.81
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793628300;
-	b=Ap648FXqEHtW5Wi8YE1PkELFcwrLLPFvi0Rk7ZbGj5yhVrEPwV908Svd9hVAu9wTAmkw
-	 mMIVX3/Ahuk4vgp8zygJTv0bzb1Etuzt6g5eKScuEywidfGtJpTERkx2fSWnhrIfxmYc0
-	 wtUXPxHln9EDSnofPGaNdrR7lP0lgR9p0W/Cyn1nu31FNVTuodGkh9ComvouGk3UGmjB2
-	 FUZ2cI8oaw6d7xQvC9JfTPxdC34BH2koFKnX2sMMDv0jK9Nv2PfdkxVCMyAy0MTHATtis
-	 VsXzw8OQTxgQDYdl1g1ZmIsrolFRsqzMKBuRNCQ74xI2qbawGBMV7OWFQaiqGeIDMvg==
+	t=1793628340;
+	b=CXamhbhX5Ig0eYzesljtH/HB/3v21R/ABFFmniY3NMKnTNC8/EqeUTYLI044k/XH1pK4
+	 F49Yw/Hqz5MdSAgxJG/iRCtHWBtdbpM5j8MGVcfJXrlKJpdCqVxIuU+84lUFwos+qu+qZ
+	 8kmTpDemSo+uloQYUoD1BvLlFatGSiE1XILqL2gLy8teUoexU7xq2vY3XjXApIMz54LV2
+	 hCmkXIw7w64mmidiREy7YJu95PPhKneGYmptwNViHSzjieVIqXJdHOAtN1rAfg11ST5C6
+	 a+8q5qk01Rxr7avERv6UAeHye7ghPYlS7glxyXZ3+Xivtw5riLHfOnonKuuYFQ31VqA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628300;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=HlH6HJ9AzhH0cBdXc0NNL2Vao0WiXPXGwYC4r4Hr7pI=;
-	b=hp7pPr0GB7ExW8hg+GbRmuiKb5Ha8Go37UH0KCmUvhVMmcsPuOG9Z+AxbfAbIuM8S2Qy
-	 EV6uyUe268gl48mYIQ8emPMNLea/PCVTW3xDKzMX8dTBdJUebjTutEjT1/57fFNIZhnor
-	 oSd1eOAxbhQuXeJpOQbwBApwUolCFZKwcF3ZsoBydclpjNxVR4YkgypAM7ltfXaATHjgU
-	 0LpHcbvw3QX4TWBaR4OQBeHOf6/MJfZxUgrmnRqvlQbmzb/9wwHGj8AYqLrhoy12Y11k4
-	 JNQ5beCbmJMuTkNJLeyg4o8JEhMaIDD5RDNRXATobJ6BQ+9+ffZ/WVYWHjhwy2e66Qw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628340;
+	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding:X-CM-TRANSID:
+	 X-Coremail-Antispam:X-Originating-IP:X-CM-SenderInfo;
+	bh=/XMzfToS1zTnmPiPCBq3nD9Ti3EDEb0JomqNO1ssfAk=;
+	b=ZB6jcGHsmpom9oQyopHIKX/b28WbEzGp3aSiKEbCmAw/XH5cFOq3dJk1FhZ+tPptumd5
+	 niYRDfFSwhdNMRrdo7rHBaoOakAKIh7lASoMQaEktjwihhsUkdboaqW8eaj2JFvX50oSa
+	 B28vLHa5YmXzvOOYwMK6hUJaugl14AkS2m66bdw5FCHNhr9RSmae8im5vGIKBg9Xntzrl
+	 yLSxgiMW2ZeC9yN+bcwd8w/Kb5AmFATfQfNWiLmQcOGpe8c41f9niEVGfFF8l60t0U0Lt
+	 1plF6IhNvX8v55r0bBFFpwLfw8/oUUyy5xhfqYbmdA/VBxIwQsxH/pzwWGHA358yDDQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=cO5671f5;
-	arc=none smtp.remote-ip=209.85.128.50
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=none header.from=iscas.ac.cn;
+	spf=pass smtp.mailfrom=iscas.ac.cn;
+	arc=none smtp.remote-ip=159.226.251.81
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF807606A32D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:04:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF807606A32D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=cO5671f5
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a2d6cf958bso13666785e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:04:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1793628298; x=1794233098; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=HlH6HJ9AzhH0cBdXc0NNL2Vao0WiXPXGwYC4r4Hr7pI=;
-        b=cO5671f5GfzuJZP9nmVOTQhaoaNZljJhHb4Wyqoun8A7/QZ5xEwHE77qAQmfJy1Aya
-         CbV2rKEOlk+QZDZehfgiNhgnFo7pXk74Jg+oqGb3GxtHF22pnwe7DYPVzjlqR0zZUttD
-         NWMa+Yk1NDfQpo40+XwPP3Xd0+WzoL25UOnE2V1HCjk0s6y//Lz0qe3c2ojpqHKt1lXP
-         ihN+S6hHbJvclJIDwhBMMzRJZXRVL51A09aDCzTVb8QwfrAFwEvvollDHN2eucnq/Bj3
-         rz5g5Wnv+O3GuB8VVAJMPfaWJHUrgCwLCCOPVGFq2p79AiWmy6eunA0pEt7KVHhtStEl
-         v7YQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793628298; x=1794233098;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=HlH6HJ9AzhH0cBdXc0NNL2Vao0WiXPXGwYC4r4Hr7pI=;
-        b=f9YKv7R9bvpE2f2SV8IapMpYuAQC9ACuDBAQTBkEztrZGdGKt6WKHyRPBJdjyRH9YB
-         c9ul/bDx1pBvdNWFBnYelCvjQmwuHT3v+exwToqHwq+rgS4mjneBKrr4BmO0+C59X8zQ
-         oOKV4+5m1JqHMT/hY1zVIADZ4ep0JqfD+xN7yy01sFiaRFl5J0DoOVZD1IMUPbHtXPlP
-         yBq3DLSN2v/LEsZuHTPqHCQtjbMKdMe29dgpchS0GAsdZCF+wH0aBHh0nT+tVPLTqfkh
-         7qbQr3OnQDOZcuDRXVdb0PaNEBTCo+jedh0LUpIHSJr9tAGzMHQitoqYMVsyhoTLGzBq
-         /tow==
-X-Forwarded-Encrypted: i=1; AKwUvBzT5xFDW2ffcIkSHRxb2wzawb7lqwlRjWF6FBHKs+S6MSokUJs8tWNi7iyAEBRfsrhtyi/eWe1/Xi8tOPE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLPsrPIup85av6kXo/iOy+w5cV5aFcv9cNSe4h416UeZC2YJx/z
-	oiODjPFDtubHNa/yYhWN/ROmLPFtYTlW5aD+A/mvx7aHrzsBSheUivWs59gNgoZJ9I49zf8Liz5
-	DVKHlJjKiDw==
-X-Gm-Gg: AYBFou38FTyrVt8+cDeJ2tFwJVYN0minj1GfMkiNizJwlxaidW25buLTULNXR4k0D+G
-	RnIuDrrPpfcKGxCaVjoMQNr0s9uQQk5C9FtyyGbfx/P/9aN44X3pdLoJL8lrrqDBhXnQxyfOEi8
-	DhBbeCCGF6rRXi+9o6tqnxpv88X0Y9VfL11bnuUJznmEuthDWNZmDWkBXmoSGvKsseQjiMc6bGY
-	Eg9wGonyse+EPX3Y9WbItkas5FLOPUnkT/TDq4pyDnVjxBiRPdGycb9xpArqPZKEjrj2CldL6nG
-	VRMfCx5RkUFsbrMKiBJiRgSFcEPVGh4FZzr5PTVlG3IWfewH9YIX3z+Dvdpksp68wCcq4eCocp6
-	+dyDnZbLRVEs6f36g11rt/e/B2FIgMZ2xF0VpqrFaQPvtlyQq5sJcvOydJvXlanVjO87j52mr7D
-	M6U6SmzWXjLkkVzqATOlDOkOdvOIJ+LdZxKqhjrxtDa+YUc7OTR/KtozOHZY4NPAM+EWBkaryYZ
-	RaWqKYaFOn//I/b80L47NOxXDVOXUwd2BHcLeP7Tq65xhTOM1io08AGfQOjD6DPDAZbriU3nOtF
-	FMPd0aR38HQWzSebW4vIBipPBhHJPT2tSRttGwBMgfsBr7ZgFtVRElWzrZjrFZXK2A14xnnIEf7
-	fK8qcyT3l
-X-Received: by 2002:a05:600d:c:b0:4af:83ad:8f70 with SMTP id 5b1f17b1804b1-4af83ad8fa7mr101213825e9.35.1793628298304;
-        Mon, 02 Nov 2026 06:04:58 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abe885d91esm202182505e9.0.2026.11.02.06.04.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:04:57 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 02 Nov 2026 18:04:46 +0400
-Subject: [PATCH] usb: typec: tcpm: Complete discovery when the partner
- lacks SVDM support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5E77606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:05:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5E77606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.102.150])
+	by APP-03 (Coremail) with SMTP id rQCowAAXKJmlmOhqPOIwAA--.51432S2;
+	Mon, 02 Nov 2026 22:05:26 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH v2] drm/panel: ilitek-ili9881c: add Mingjun MJ070BI30IA2
+Date: Mon,  2 Nov 2026 22:05:24 +0800
+Message-ID: <20261102140524.1544755-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -94,81 +57,306 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-tcpm-discovery-no-svdm-v1-1-54bb9b613065@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrDtgAlXpVUoXMTPqFEwkY0OLe
- HdTXb7F/xsoJ2GFR7VB4iwqMRSYWwV+cmFkFCoGW9vGmNri6pcZSdTHzOmHIaJmmrHvnDPDvW0
- 6IijxkniQ7zl+vi7rp3+zX/832PcDHuB2i3oAAAA=
-X-Change-ID: 20261102-tcpm-discovery-no-svdm-b8aa1f5768dd
-To: Badhri Jagan Sridharan <badhri@google.com>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2237; i=alchark@flipper.net;
- h=from:subject:message-id; bh=8+ESZci8+ds89DX2dU2TuMQVtHES8Aj9Kyz+KdWXPd0=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWS9mNF8NCjCePHB6Ny/m+yvx2ySCZtxv4/XZNWcCctXs
- hxhfCGp2TGRhUGMi8FSTJFl7rcltlON+Gbt8vD4CjOHlQlkiLRIAwMQsDDw5SbmlRrpGOmZahvq
- GRrpGOsYMXBxCsBUu6kyMjS9WlV3VD7rg5oL3wqBra5XumVm3Hlf4DWl8GeHxoIZEbyMDHsmm6j
- N054v7eAVziF76ELaykd/QjJen/Pcbe3taNSuwQEA
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAXKJmlmOhqPOIwAA--.51432S2
+X-Coremail-Antispam: 1UD129KBjvJXoW3uF15KryfKr4DZr4kXrWxtFb_yoWkCrWxpr
+	95Cws2k34rursxt34FgFZrJa1Ikayxtr4kCryDuws0vayakr4FqFW3Ja18W3Z8Za17u3Z3
+	AF4jq3s0gF4UJaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-A PD 3.0 port that does not support Structured VDMs answers Discover
-Identity with Not_Supported, as TCPM itself does when no sink-vdos are
-configured. TCPM treats a NAK to Discover Identity or Discover SVIDs as
-the end of discovery, but on Not_Supported it only ends the VDM exchange
-and leaves discovery pending. Every pass through the ready state then
-restarts it, and the state machine passes through it after each reply
-it sends.
+Mingjun MJ070BI30IA2 is a 7" MIPI DSI LCD panel used by Lichee Console
+4A, with a initialization sequence matching the pattern of Ilitek
+ILI9881C driver chip.
 
-Two such ports therefore keep each other busy: each answers the other's
-Discover Identity with Not_Supported, which restarts its own discovery,
-which draws a Not_Supported in turn. Two RK3576 boards connected to each
-other exchange about 25 Discover Identity requests per second each way,
-indefinitely, crowding out other PD traffic.
+Add it to the driver for ILI9881C-based panels.
 
-Mark discovery complete when the partner answers Discover Identity or
-Discover SVIDs with Not_Supported, as on a NAK. Leave a Not_Supported
-from the cable plug alone, so that it cannot cut short discovery of the
-partner.
+As the sequence provided by Sipeed is captured with a logic analyzer,
+some values are obviously wrong and I patched them with other panels'
+sequence as reference. This fixes a weird problem that the liquid
+crystal gets DC polarized when the panel enters sleep mode, and I am
+grateful to Sashiko for pointing this out.
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 ---
- drivers/usb/typec/tcpm/tcpm.c | 11 +++++++++++
- 1 file changed, 11 insertions(+)
+Changes in v2:
+- Made all hex values in the initialization sequence lower case to match
+  other panels.
+- Fixed some obvious errors in the initialization sequence as pointed by
+  Sashiko. This also removes the need for doing soft reset in
+  unprepare callback.
+- Added Neil's R-b.
+- Rebased on top of drm-misc-next.
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 222 ++++++++++++++++++
+ 1 file changed, 222 insertions(+)
 
-diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
-index d721baef5210..e21fe544b2d4 100644
---- a/drivers/usb/typec/tcpm/tcpm.c
-+++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -3908,6 +3908,17 @@ static void tcpm_pd_ctrl_request(struct tcpm_port *port,
- 		case SNK_READY:
- 			if (port->vdm_state > VDM_STATE_READY) {
- 				port->vdm_state = VDM_STATE_DONE;
-+				/*
-+				 * A partner without Structured VDM support answers
-+				 * discovery with Not_Supported: there is nothing left
-+				 * to discover, just as after a NAK.
-+				 */
-+				if (type == PD_CTRL_NOT_SUPP &&
-+				    rx_sop_type == TCPC_TX_SOP &&
-+				    (port->ams == DISCOVER_IDENTITY ||
-+				     port->ams == DISCOVER_SVIDS))
-+					tcpm_update_vdm_discovery_state(port,
-+									VDM_DISCOVERY_COMPLETE);
- 				if (tcpm_vdm_ams(port))
- 					tcpm_ams_finish(port);
- 				mod_vdm_delayed_work(port, 0);
-
----
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-change-id: 20261102-tcpm-discovery-no-svdm-b8aa1f5768dd
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
+diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+index acc560dc5ea5d..0854c4cf7ebd7 100644
+--- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
++++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
+@@ -2387,6 +2387,201 @@ static const struct ili9881c_instr dt300249_init[] = {
+ 	ILI9881C_COMMAND_INSTR(0xd3, 0x3f),
+ };
+ 
++static const struct ili9881c_instr mj070bi30ia2_init[] = {
++	ILI9881C_SWITCH_PAGE_INSTR(3),
++	ILI9881C_COMMAND_INSTR(0x01, 0x00),
++	ILI9881C_COMMAND_INSTR(0x02, 0x00),
++	ILI9881C_COMMAND_INSTR(0x03, 0x73),
++	ILI9881C_COMMAND_INSTR(0x04, 0x13),
++	ILI9881C_COMMAND_INSTR(0x05, 0x00),
++	ILI9881C_COMMAND_INSTR(0x06, 0x0a),
++	ILI9881C_COMMAND_INSTR(0x07, 0x05),
++	ILI9881C_COMMAND_INSTR(0x08, 0x00), /* raw capture 0x11, 0x00 */
++	ILI9881C_COMMAND_INSTR(0x09, 0x28),
++	ILI9881C_COMMAND_INSTR(0x0a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0c, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0d, 0x28),
++	ILI9881C_COMMAND_INSTR(0x0e, 0x00),
++	ILI9881C_COMMAND_INSTR(0x0f, 0x28),
++	ILI9881C_COMMAND_INSTR(0x10, 0x28),
++	ILI9881C_COMMAND_INSTR(0x11, 0x00),
++	ILI9881C_COMMAND_INSTR(0x12, 0x00),
++	ILI9881C_COMMAND_INSTR(0x13, 0x00),
++	ILI9881C_COMMAND_INSTR(0x14, 0x00),
++	ILI9881C_COMMAND_INSTR(0x15, 0x00),
++	ILI9881C_COMMAND_INSTR(0x16, 0x00),
++	ILI9881C_COMMAND_INSTR(0x17, 0x00),
++	ILI9881C_COMMAND_INSTR(0x18, 0x00),
++	ILI9881C_COMMAND_INSTR(0x19, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1c, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1d, 0x00),
++	ILI9881C_COMMAND_INSTR(0x1e, 0x40),
++	ILI9881C_COMMAND_INSTR(0x1f, 0x80),
++	ILI9881C_COMMAND_INSTR(0x20, 0x06),
++	ILI9881C_COMMAND_INSTR(0x21, 0x01),
++	ILI9881C_COMMAND_INSTR(0x22, 0x00),
++	ILI9881C_COMMAND_INSTR(0x23, 0x00),
++	ILI9881C_COMMAND_INSTR(0x24, 0x00),
++	ILI9881C_COMMAND_INSTR(0x25, 0x00),
++	ILI9881C_COMMAND_INSTR(0x26, 0x00),
++	ILI9881C_COMMAND_INSTR(0x27, 0x00),
++	ILI9881C_COMMAND_INSTR(0x28, 0x33),
++	ILI9881C_COMMAND_INSTR(0x29, 0x33),
++	ILI9881C_COMMAND_INSTR(0x2a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x2b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x2c, 0x04),
++	ILI9881C_COMMAND_INSTR(0x2d, 0x0c),
++	ILI9881C_COMMAND_INSTR(0x2e, 0x05),
++	ILI9881C_COMMAND_INSTR(0x2f, 0x05),
++	ILI9881C_COMMAND_INSTR(0x30, 0x00),
++	ILI9881C_COMMAND_INSTR(0x31, 0x00),
++	ILI9881C_COMMAND_INSTR(0x32, 0x31),
++	ILI9881C_COMMAND_INSTR(0x33, 0x00),
++	ILI9881C_COMMAND_INSTR(0x34, 0x00),
++	ILI9881C_COMMAND_INSTR(0x35, 0x0a),
++	ILI9881C_COMMAND_INSTR(0x36, 0x00),
++	ILI9881C_COMMAND_INSTR(0x37, 0x08),
++	ILI9881C_COMMAND_INSTR(0x38, 0x00), /* raw capture 0x70, 0x00 */
++	ILI9881C_COMMAND_INSTR(0x39, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3c, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3d, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3e, 0x00),
++	ILI9881C_COMMAND_INSTR(0x3f, 0x00),
++	ILI9881C_COMMAND_INSTR(0x40, 0x00),
++	ILI9881C_COMMAND_INSTR(0x41, 0x00),
++	ILI9881C_COMMAND_INSTR(0x42, 0x00),
++	ILI9881C_COMMAND_INSTR(0x43, 0x08),
++	ILI9881C_COMMAND_INSTR(0x44, 0x00),
++	ILI9881C_COMMAND_INSTR(0x50, 0x01), /* raw capture 0xa0, 0x00 */
++	ILI9881C_COMMAND_INSTR(0x51, 0x23), /* raw capture 0x51, 0x22 */
++	ILI9881C_COMMAND_INSTR(0x52, 0x45),
++	ILI9881C_COMMAND_INSTR(0x53, 0x67),
++	ILI9881C_COMMAND_INSTR(0x54, 0x89),
++	ILI9881C_COMMAND_INSTR(0x55, 0xab),
++	ILI9881C_COMMAND_INSTR(0x56, 0x01),
++	ILI9881C_COMMAND_INSTR(0x57, 0x23),
++	ILI9881C_COMMAND_INSTR(0x58, 0x45),
++	ILI9881C_COMMAND_INSTR(0x59, 0x67),
++	ILI9881C_COMMAND_INSTR(0x5a, 0x89),
++	ILI9881C_COMMAND_INSTR(0x5b, 0xab),
++	ILI9881C_COMMAND_INSTR(0x5c, 0xcd),
++	ILI9881C_COMMAND_INSTR(0x5d, 0xef),
++	ILI9881C_COMMAND_INSTR(0x5e, 0x11),
++	ILI9881C_COMMAND_INSTR(0x5f, 0x02),
++	ILI9881C_COMMAND_INSTR(0x60, 0x08),
++	ILI9881C_COMMAND_INSTR(0x61, 0x0e),
++	ILI9881C_COMMAND_INSTR(0x62, 0x0f),
++	ILI9881C_COMMAND_INSTR(0x63, 0x0c),
++	ILI9881C_COMMAND_INSTR(0x64, 0x0d),
++	ILI9881C_COMMAND_INSTR(0x65, 0x17),
++	ILI9881C_COMMAND_INSTR(0x66, 0x01),
++	ILI9881C_COMMAND_INSTR(0x67, 0x01),
++	ILI9881C_COMMAND_INSTR(0x68, 0x02),
++	ILI9881C_COMMAND_INSTR(0x69, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6a, 0x00),
++	ILI9881C_COMMAND_INSTR(0x6b, 0x00),
++	ILI9881C_COMMAND_INSTR(0x6c, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6d, 0x02),
++	ILI9881C_COMMAND_INSTR(0x6e, 0x16),
++	ILI9881C_COMMAND_INSTR(0x6f, 0x16),
++	ILI9881C_COMMAND_INSTR(0x70, 0x06),
++	ILI9881C_COMMAND_INSTR(0x71, 0x06),
++	ILI9881C_COMMAND_INSTR(0x72, 0x07),
++	ILI9881C_COMMAND_INSTR(0x73, 0x07),
++	ILI9881C_COMMAND_INSTR(0x74, 0x02),
++	ILI9881C_COMMAND_INSTR(0x75, 0x02),
++	ILI9881C_COMMAND_INSTR(0x76, 0x08),
++	ILI9881C_COMMAND_INSTR(0x77, 0x0e),
++	ILI9881C_COMMAND_INSTR(0x78, 0x0f),
++	ILI9881C_COMMAND_INSTR(0x79, 0x0c),
++	ILI9881C_COMMAND_INSTR(0x7a, 0x0d),
++	ILI9881C_COMMAND_INSTR(0x7b, 0x17),
++	ILI9881C_COMMAND_INSTR(0x7c, 0x01),
++	ILI9881C_COMMAND_INSTR(0x7d, 0x01),
++	ILI9881C_COMMAND_INSTR(0x7e, 0x02),
++	ILI9881C_COMMAND_INSTR(0x7f, 0x02),
++	ILI9881C_COMMAND_INSTR(0x80, 0x00),
++	ILI9881C_COMMAND_INSTR(0x81, 0x00),
++	ILI9881C_COMMAND_INSTR(0x82, 0x02),
++	ILI9881C_COMMAND_INSTR(0x83, 0x02),
++	ILI9881C_COMMAND_INSTR(0x84, 0x16),
++	ILI9881C_COMMAND_INSTR(0x85, 0x16),
++	ILI9881C_COMMAND_INSTR(0x86, 0x06),
++	ILI9881C_COMMAND_INSTR(0x87, 0x06),
++	ILI9881C_COMMAND_INSTR(0x88, 0x07),
++	ILI9881C_COMMAND_INSTR(0x89, 0x07),
++	ILI9881C_COMMAND_INSTR(0x8a, 0x02),
++
++	ILI9881C_SWITCH_PAGE_INSTR(4),
++	ILI9881C_COMMAND_INSTR(0x6e, 0x1a),
++	ILI9881C_COMMAND_INSTR(0x6f, 0x37),
++	ILI9881C_COMMAND_INSTR(0x3a, 0xa4),
++	ILI9881C_COMMAND_INSTR(0x8d, 0x1f),
++	ILI9881C_COMMAND_INSTR(0x87, 0xba),
++	ILI9881C_COMMAND_INSTR(0xb2, 0xd1),
++	ILI9881C_COMMAND_INSTR(0x88, 0x0b),
++	ILI9881C_COMMAND_INSTR(0x38, 0x01),
++	ILI9881C_COMMAND_INSTR(0x39, 0x00),
++	ILI9881C_COMMAND_INSTR(0xb5, 0x02),
++	ILI9881C_COMMAND_INSTR(0x31, 0x25),
++	ILI9881C_COMMAND_INSTR(0x3b, 0x98),
++
++	ILI9881C_SWITCH_PAGE_INSTR(1),
++	ILI9881C_COMMAND_INSTR(0x22, 0x0a),
++	ILI9881C_COMMAND_INSTR(0x31, 0x00),
++	ILI9881C_COMMAND_INSTR(0x53, 0x4c), /* raw capture 0xa6, 0xa6 */
++	ILI9881C_COMMAND_INSTR(0x55, 0x3d),
++	ILI9881C_COMMAND_INSTR(0x50, 0x9e),
++	ILI9881C_COMMAND_INSTR(0x51, 0x99),
++	ILI9881C_COMMAND_INSTR(0x60, 0x06),
++	ILI9881C_COMMAND_INSTR(0x62, 0x20),
++	ILI9881C_COMMAND_INSTR(0xa0, 0x00),
++	ILI9881C_COMMAND_INSTR(0xa1, 0x17),
++	ILI9881C_COMMAND_INSTR(0xa2, 0x26),
++	ILI9881C_COMMAND_INSTR(0xa3, 0x13),
++	ILI9881C_COMMAND_INSTR(0xa4, 0x16),
++	ILI9881C_COMMAND_INSTR(0xa5, 0x29),
++	ILI9881C_COMMAND_INSTR(0xa6, 0x1e),
++	ILI9881C_COMMAND_INSTR(0xa7, 0x1f),
++	ILI9881C_COMMAND_INSTR(0xa8, 0x8b),
++	ILI9881C_COMMAND_INSTR(0xa9, 0x1d),
++	ILI9881C_COMMAND_INSTR(0xaa, 0x2a),
++	ILI9881C_COMMAND_INSTR(0xab, 0x7b),
++	ILI9881C_COMMAND_INSTR(0xac, 0x1a),
++	ILI9881C_COMMAND_INSTR(0xad, 0x19),
++	ILI9881C_COMMAND_INSTR(0xae, 0x4e),
++	ILI9881C_COMMAND_INSTR(0xaf, 0x24),
++	ILI9881C_COMMAND_INSTR(0xb0, 0x29),
++	ILI9881C_COMMAND_INSTR(0xb1, 0x4f),
++	ILI9881C_COMMAND_INSTR(0xb2, 0x5c),
++	ILI9881C_COMMAND_INSTR(0xb3, 0x3e),
++	ILI9881C_COMMAND_INSTR(0xc0, 0x00),
++	ILI9881C_COMMAND_INSTR(0xc1, 0x17),
++	ILI9881C_COMMAND_INSTR(0xc2, 0x26),
++	ILI9881C_COMMAND_INSTR(0xc3, 0x13),
++	ILI9881C_COMMAND_INSTR(0xc4, 0x16),
++	ILI9881C_COMMAND_INSTR(0xc5, 0x29),
++	ILI9881C_COMMAND_INSTR(0xc6, 0x1e),
++	ILI9881C_COMMAND_INSTR(0xc7, 0x1f),
++	ILI9881C_COMMAND_INSTR(0xc8, 0x8b),
++	ILI9881C_COMMAND_INSTR(0xc9, 0x1d),
++	ILI9881C_COMMAND_INSTR(0xca, 0x2a),
++	ILI9881C_COMMAND_INSTR(0xcb, 0x7b),
++	ILI9881C_COMMAND_INSTR(0xcc, 0x1a),
++	ILI9881C_COMMAND_INSTR(0xcd, 0x19),
++	ILI9881C_COMMAND_INSTR(0xce, 0x4e),
++	ILI9881C_COMMAND_INSTR(0xcf, 0x24),
++	ILI9881C_COMMAND_INSTR(0xd0, 0x29),
++	ILI9881C_COMMAND_INSTR(0xd1, 0x4d),
++	ILI9881C_COMMAND_INSTR(0xd2, 0x5c),
++	ILI9881C_COMMAND_INSTR(0xd3, 0x3e),
++};
++
+ static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel)
+ {
+ 	return container_of(panel, struct ili9881c, panel);
+@@ -2699,6 +2894,23 @@ static const struct drm_display_mode dt300249_default_mode = {
+ 	.height_mm	= 121,
+ };
+ 
++static const struct drm_display_mode mj070bi30ia2_mode = {
++	.clock		= 75750,
++
++	.hdisplay	= 800,
++	.hsync_start	= 800 + 48,
++	.hsync_end	= 800 + 48 + 32,
++	.htotal		= 800 + 48 + 32 + 80,
++
++	.vdisplay	= 1280,
++	.vsync_start	= 1280 + 3,
++	.vsync_end	= 1280 + 3 + 10,
++	.vtotal		= 1280 + 3 + 10 + 24,
++
++	.width_mm	= 94,
++	.height_mm	= 150,
++};
++
+ static int ili9881c_get_modes(struct drm_panel *panel,
+ 			      struct drm_connector *connector)
+ {
+@@ -2913,6 +3125,15 @@ static const struct ili9881c_desc dt300249_desc = {
+ 	.lanes = 4,
+ };
+ 
++static const struct ili9881c_desc mj070bi30ia2_desc = {
++	.init = mj070bi30ia2_init,
++	.init_length = ARRAY_SIZE(mj070bi30ia2_init),
++	.mode = &mj070bi30ia2_mode,
++	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++		      MIPI_DSI_MODE_LPM,
++	.lanes = 4,
++};
++
+ static const struct of_device_id ili9881c_of_match[] = {
+ 	{ .compatible = "bananapi,lhr050h41", .data = &lhr050h41_desc },
+ 	{ .compatible = "bestar,bsd1218-a101kl68", .data = &bsd1218_a101kl68_desc },
+@@ -2924,6 +3145,7 @@ static const struct of_device_id ili9881c_of_match[] = {
+ 	{ .compatible = "wanchanglong,w552946aba", .data = &w552946aba_desc },
+ 	{ .compatible = "waveshare,7.0-dsi-touch-a", .data = &waveshare_7inch_a_desc },
+ 	{ .compatible = "ampire,am8001280g", .data = &am8001280g_desc },
++	{ .compatible = "mingjun,mj070bi30ia2", .data = &mj070bi30ia2_desc },
+ 	{ .compatible = "raspberrypi,dsi-5inch", &rpi_5inch_desc },
+ 	{ .compatible = "raspberrypi,dsi-7inch", &rpi_7inch_desc },
+ 	{ }
+-- 
+2.56.0
 
