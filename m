@@ -1,72 +1,68 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.4
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.11
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608178;
-	b=2BgbsVoa+jw5fXu3Lkn6peleNrL2aWY98KT5VhO1Bc16sQo3nGR4uo28pGwAzGG3Edw8
-	 BHmCqJ1K7VYI9/KdTi87WDG9fT/qsgZOCC1lwvV/5uDeffp4VJrNbKLeFVBhWQLuvGp31
-	 0pGK1KqDXeH0MbIaV9x3xKlFXjQfgSL7gVUavg2zzIkN6G1THXnxYMGnlbh+0bx3kptgs
-	 qt7st6HFyqdwnl2ecZMuFv2A4lGvMlW9gW++RhWWmnZT2vmjhEVxt3srkxqyC8OFNAH69
-	 tGf8Y4ZrsR0igm4mN9lM+rNkqhhGAWDn4xnZaxhbHjN1k1OkrIwCYyiqgmyYCtvlvnQ==
+	t=1793608199;
+	b=5RGeXwnFWhh4ffs590HivCcd3/D2ON0mhxrvNI3O6647IxEFI7q0xRVzlYM71A3ctrkd
+	 DmMwJCUZKXKlm6FvfPVcShfiKHb4F7CL66PQkdVG/3SiHhiX3GS+qNZpn2l9QdD4THtHD
+	 sY19MIPb8fJdGV+rUupXzmMfm+Y124AxI0Dn/nQiwSTAEJFPl9j1jIPPO5oBRilS5Ep84
+	 G6DV6aX9jCfoTfnNXZiDh0ghpPHq/6Sqrt1MCX6cH9LY7VwFgNTurpSVFYZPCE8x8vupo
+	 w0t7oJRYx0+Bljv8Er+1CrnR41pJy/f9nWgtGaHoL0uQFkPLPapXiWfTdegRC2OBMjg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608178;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:MIME-Version:Content-Transfer-Encoding;
-	bh=euznYBocIb8kfNgcKlt2GHcUVDSBs2gzY/11E05nVeE=;
-	b=p9c6ZkAEXBVbklIj8rxZjRTlGCWbQ3gK5EBF53RAVovw3uiCbzURn+R8Rtu5IBZOeq5Z
-	 hcqgBnk8Yqd/XtZ+R0bFpcKWZxeWahytRY09Nlqakb3mLmaInqHwuVjtXcVVur4+FT6Qs
-	 8pWrUuZnSXd5NDsb+jgXs8KqpSK54DZuAXaokchpSloUeD/vzrs4m4aIfA9M5NJ/zOcJy
-	 dLwblZrFe705+KNv5QSj7BfVATYmH9qelh//omUr9Uc3U63MqiZCvtBnyhzXGP0cMa9zI
-	 NU8+33h3sf/YgtloOewEPaDcG9L/CE1LH9F7M4QnxASIS2c11GkT2SvhjRhwMWuHCYg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608199;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Message-ID:Date:
+	 MIME-Version:User-Agent:Subject:To:Cc:References:From:
+	 Content-Language:In-Reply-To:Content-Type:Content-Transfer-Encoding;
+	bh=xgaHGHJ703/BmLgkQ/c7X7zJbd3V5E8MeHEoM0XykK4=;
+	b=cDY5EnH22In3KHcN8JEmd233QUh6iQKyVdtIFZC2XU31CyPKTgqjvEAqAbHYUYPkTg5e
+	 Vi2DGmUpW1dT2Pb4zBcb1kek+5Ren1qhW9YUyNbn8Ssaubq0IHxWdisUyuPXvT2tAxqgM
+	 w/sY6+OsOhQaEZtroZ7aURZ+KYGnRyemaFR/byjnmbln8R0XGmrTQpFwEVtRdgYysZQkC
+	 6WKMbe/ZX9W5SnQTiJH9nwHsML/RUQOgBVt8zZSmFJ0Ftf72l7EqYbT2/vT1pqsPINaE6
+	 DPZFKy62S0iwhCxcE3UYguD/zodHpSmePAvm4o1Gg8V6NfdNAWMM26KclicGJLM03aQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW;
-	arc=none smtp.remote-ip=95.215.58.4
-Received: from mta1.migadu.com (out-4.mta1.migadu.com [95.215.58.4])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PCJdLjhQ;
+	arc=none smtp.remote-ip=198.175.65.11
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FB6606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:29:37 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B4FB6606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829FF606A324;
+	Mon,  2 Nov 2026 08:29:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 829FF606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=F+5WWgPW
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=y8BgwjagvHGf78IlM6ng3nm9vDTk3b3hu1EyL1SF7ec=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793608174; v=1; x=1794212974;
- b=F+5WWgPWHTgZkLOdWp34fjp8vKNTzLwWGqZ/4900AI/b1FTmGpR1sFpQt8SzIiPVy20OvRLv
- h7fwwNHkpAZeLqoAxkwBPghJibjqFi5yr5vvVF8G2NWNsTRh8Fx/D44CNgsqKctPTHRQgrIphKQ
- IaHcegGiTwV+63OFDSO3Vjy0=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id eddade33f188acbf;
-	Mon, 02 Nov 2026 08:29:34 +0000
-X-Mizu-Trace-ID: eddade33f188acbf
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Hyunwoo Kim <imv4bel@gmail.com>,
-	Eric Auger <eauger@redhat.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Will Deacon <will@kernel.org>,
-	Sascha Bischoff <sascha.bischoff@arm.com>,
-	Sebastian Ene <sebastianene@google.com>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] KVM: arm64: vgic-its: Update GITS_CTLR.Enabled under its_lock
-Date: Mon,  2 Nov 2026 08:29:33 +0000
-Message-ID: <20261102082933.2673799-1-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PCJdLjhQ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793608198; x=1825144198;
+  h=message-id:date:mime-version:subject:to:cc:references:
+   from:in-reply-to:content-transfer-encoding;
+  bh=JGjRxR6gm6ACNJIRopKVz3Mv1eqCxBu0rrxBy/s9uoc=;
+  b=PCJdLjhQoOPua0HtBNdizFy6Ze/4WTByDmQCAMzOldMx7zf1IaqW9FBw
+   r0kIfAb7dTXTEr3BggnAwfo6CNVTN2el/83xZVBJNinq9GbDxteBc624e
+   G/orBkQw5qbw3hLhUeqtm5EPUzXTnRZ1EslBS8XQyCsVBRfsRGWf4JCXm
+   HnDmu0WpIjOyalQk67MiQ9G8dXaXjnofMozFF9bK3XOhRc6E9AZBhML1F
+   VB0WehKaymoUExdtv5pLGlaEUnb7wiTjbtk29ESjNaTzTOdVIh7dG+dKC
+   NEH+t0G/MBl+lXKGMj761clk22FwPcPlEooEhDFt9P0W4znG5Nux6Jspt
+   w==;
+X-CSE-ConnectionGUID: JmkFaQtpSuyEnttKmAsgYg==
+X-CSE-MsgGUID: 6VC9+4V4RqqhBt9qyfNrHQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2169918"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2169918"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 00:29:56 -0800
+X-CSE-ConnectionGUID: f5i1oGraQiCNnG6AikT8IA==
+X-CSE-MsgGUID: D20pI9MoSXGOIV3+GHf8eQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="5888222"
+Received: from unknown (HELO [10.238.2.205]) ([10.238.2.205])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 00:29:51 -0800
+Message-ID: <eb118916-090d-431a-8f78-ab2f320c6bc1@linux.intel.com>
+Date: Mon, 2 Nov 2026 16:29:48 +0800
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -76,79 +72,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 20/28] KVM: nVMX: Enable support for secondary VM exit
+ controls
+To: Sohil Mehta <sohil.mehta@intel.com>
+Cc: kvm@vger.kernel.org, x86@kernel.org, Paolo Bonzini <pbonzini@redhat.com>,
+ Sean Christopherson <seanjc@google.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Thomas Gleixner <tglx@kernel.org>,
+ Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
+ Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin"
+ <hpa@zytor.com>, Xin Li <xin@zytor.com>, Andy Lutomirski <luto@kernel.org>,
+ Peter Zijlstra <peterz@infradead.org>,
+ Andrew Cooper <andrew.cooper3@citrix.com>,
+ Tom Lendacky <thomas.lendacky@amd.com>, Nikunj A Dadhania <nikunj@amd.com>,
+ Shivansh Dhiman <shivansh.dhiman@amd.com>,
+ David Woodhouse <dwmw@amazon.co.uk>, Chao Gao <chao.gao@intel.com>,
+ Zhao Liu <zhao1.liu@intel.com>, Yosry Ahmed <yosry@kernel.org>,
+ David Matlack <dmatlack@google.com>, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
+References: <20260911213659.2025974-1-sohil.mehta@intel.com>
+ <20260911213659.2025974-21-sohil.mehta@intel.com>
+From: Binbin Wu <binbin.wu@linux.intel.com>
+Content-Language: en-US
+In-Reply-To: <20260911213659.2025974-21-sohil.mehta@intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-A GITS_CTLR write that disables the ITS clears its->enabled and
-invalidates the translation cache under cmd_lock, while an MSI
-injection tests the enable bit and populates the cache under its_lock.
-An injection that passed the test before the disable can cache its
-translation after the invalidation, and the cached path then injects
-the LPI from the disabled ITS on every later MSI for that event.
+On 9/12/2026 5:36 AM, Sohil Mehta wrote:
+> From: "Xin Li (Intel)" <xin@zytor.com>
+> 
+> Add support for secondary VM exit controls in nested VMX to facilitate
+> future FRED integration.
+> 
+> Signed-off-by: Xin Li (Intel) <xin@zytor.com>
+> Signed-off-by: Sohil Mehta <sohil.mehta@intel.com>
 
-Take its_lock around the store and the invalidation, so that it
-serializes the store against the test. Nest it under cmd_lock, as the
-command handlers do.
-
-Fixes: 86a7dae884f38 ("KVM: arm/arm64: vgic-its: Check the LPI translation cache on MSI injection")
-Reported-by: Hyunwoo Kim <imv4bel@gmail.com>
-Link: https://lore.kernel.org/ah6Lsi4MfKUU6wBR@v4bel/
-Suggested-by: Oliver Upton <oupton@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
-
-Notes:
-    Changes since v1 [1]:
-      - Reworded the commit message.
-      - Rebased on 7.4-rc1.
-    
-    Picking up the fix Marc was worried had stalled [2].
-    
-    The GICR_CTLR.EnableLPIs path has the same window and is left as
-    is. vgic_its_invalidate_all_caches() can't take kvm->lock there (it
-    runs with vcpu->mutex held) or config_lock (the userspace GICR_CTLR
-    route already holds it). Instead, the vgic_target_oracle() check in
-    my LPIs-disabled series [3] keeps an LPI off a redistributor with
-    EnableLPIs clear. The two don't depend on each other.
-    
-    vgic_its_free_collection_list() still leaves the cache alone. A
-    guest reaches it only through a GITS_BASER write, which already
-    drops the cache (8cd92f77ae4f). An ITS reset frees the devices
-    first, which drops it too. That leaves a failed collection-table
-    restore. A VMM gets there with translations cached only by enabling
-    the ITS before the restore, against the documented order. Those
-    translations then keep injecting their LPIs into the old target
-    vCPUs.
-    
-    Based on Linux 7.4-rc1 (6628e7d4c6b25; also applies to kvmarm/fixes
-    79f3724ca8913).
-    
-    [1] https://lore.kernel.org/all/20260917162020.1612577-1-fuad.tabba@linux.dev/
-    [2] https://lore.kernel.org/861pbr6emw.wl-maz@kernel.org/
-    [3] https://lore.kernel.org/all/20261026092802.2636798-1-fuad.tabba@linux.dev/
-
- arch/arm64/kvm/vgic/vgic-its.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-its.c b/arch/arm64/kvm/vgic/vgic-its.c
-index 7e9b265b1f521..68e3034e52236 100644
---- a/arch/arm64/kvm/vgic/vgic-its.c
-+++ b/arch/arm64/kvm/vgic/vgic-its.c
-@@ -1800,9 +1800,12 @@ static void vgic_mmio_write_its_ctlr(struct kvm *kvm, struct vgic_its *its,
- 		 !(its->cbaser & GITS_CBASER_VALID)))
- 		goto out;
- 
-+	/* vgic_its_resolve_lpi() tests the enable bit and caches under its_lock. */
-+	mutex_lock(&its->its_lock);
- 	its->enabled = !!(val & GITS_CTLR_ENABLE);
- 	if (!its->enabled)
- 		vgic_its_invalidate_cache(its);
-+	mutex_unlock(&its->its_lock);
- 
- 	/*
- 	 * Try to process any pending commands. This function bails out early
-
-base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
--- 
-2.47.3
+Reviewed-by: Binbin Wu <binbin.wu@linux.intel.com>
 
