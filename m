@@ -1,118 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.52
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624701;
-	b=oIUBOkM1f1NfMqmc/8abWcyGIlxTNhfcJg6fesFduTwIPxG2C/90S84kza3aQHMX9PH5
-	 cMVa3T/dxzocObzg3ci19c+TD68e0P5HX8sKEXwCjVOT44UUc2zoYqQZWGf2Ygn3hB4zC
-	 Eshm2cAWmh5KIFuR7B7jV+yj64ii98bQey1CIkH4L1EdchcDJJ8mc/DxuD3DYRmXmfQQn
-	 PZfycEN73VUTZ6GpAwct+rBBRSnDft10EycDF51HtL/7RuxBaNZj39nqeb/x4K4B2VQuQ
-	 68SFhQIqiEvGFOnHOBNwMt2gy0So8XSeRR6ONWz636RpRl187XeI6qWncMKwJjLQTag==
+	t=1793624746;
+	b=ugJzp3p4fVtK5nkKeCzMdjM87HMkJtAzG1EfESSDXvGUTGorplvF7oYlOB2SycUeLt69
+	 m9Wc/EFjbp2nlcKHtNJXRCdOyZze955kY1XihAZhflHfVhQcHArNksZIMif/439EDZt6s
+	 rMALyn1K7F7duRfshOPAiDX8/YZs5OMvunp4GxW7b6udprqJd9dGHCfkVDno4q/QqkRf4
+	 eCRIQgnMBelYsxGejXeHA1Oa+xVhZ2N8kEAAYMm8p0tNoMz+YiNIvPzVwDueJue7PQXo7
+	 kWlkEzjZ8r092YgCPXjVsU5nnqhhW/5dnwmYjwMgResm+FGAIj3GdvIJh/aiuv/VloQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624701;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
-	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=DKbfkNf6shMAobIvrVNG47N567d/1LqtaVRbpnXw0B4=;
-	b=y9yg8Qq9E9215Nac5pyueTOCd5puDk90O/st+F5RhZF6xwSLt6oGRaN1aGJXUkbKCnyW
-	 CibE2hAtbIUJBHrhTtARL/MVvJYVfbBUpeIIdxWZOXepPhPY9k5pxz3dKHUfTyA9Xs19c
-	 OtXYrVV+4GtIkcvxNe9fsPLEaUmqAgrHLvhCu7NSphQaAEpx9wOZSmYTXTZgG/03TNhg5
-	 NzKQh2OiJrb2ogoTU6niJy/ftjqgXSeQmuLaoMH9JIyGNFs4pWDCmluQCuu4/EypRkJDV
-	 6DMMxHU3TMTqFeutn8zvoU8Th+YCZHb5hhm2QOWVgJC6mNyo7B/IcnZn5IF35VIdTYw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624746;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=2/g1xL5iGwG1omHrmHgnmCBZ/PbDFU5IAnXkvWs0rU8=;
+	b=jL9vFxXqrAA+pI3AbxA9HHHnc06kB7GOYs0aIFUEo/5zl/8bK7v/rld8yL5cCMYGra+/
+	 0FFxFSGHyV4FSY+vN2QS/5gpcxp9WDlmQh9Ln9t97+2bApc7yrhp2Iel1hEGJEdNZC2Nq
+	 Kks80Cr8ZWws0jln8LCO8BEu9z1XnqWQJRyjYyulZ1zMZQjFztugwportTmEdgJsIW+nl
+	 shMNe6P3FNy7uEEiNc86QeoYVS+AGacDQ8XyjJrm1R3fLmq5TaFcZvvk1AhhSDE9ybbbA
+	 yk+1oZxtTF6HyHYa3MitlvrslJ8kwFv8LKEHwfGt2Az9Ekewv+PAWbhvLYsxvVFt43A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EGi5bwSd;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bdn+paMf;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="D9/S9EAi";
+	arc=none smtp.remote-ip=209.85.128.52
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B137B606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:05:00 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B137B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D8A5606A32E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:05:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3D8A5606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=EGi5bwSd;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=bdn+paMf
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793624699;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=DKbfkNf6shMAobIvrVNG47N567d/1LqtaVRbpnXw0B4=;
-	b=EGi5bwSd+runPkVMHGLbqfz+zKZLKIgNO/WwkrZZVPocFCrneKvwwMDRrTSWFuTJgM2tEj
-	8lmArcMRIat/gswFUcZxDMilC+unYcyhlthH8wMJGFsP6NQWK+msuFTwY07Ly52+bATMVl
-	yT6kXephnI/j+2dpmoMOwdDrWCj/zGs=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-523-tSv2YljNOziFhlYeZwbGJw-1; Mon, 02 Nov 2026 08:04:58 -0500
-X-MC-Unique: tSv2YljNOziFhlYeZwbGJw-1
-X-Mimecast-MFC-AGG-ID: tSv2YljNOziFhlYeZwbGJw_1793624697
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a2b0669946so21731165e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:04:57 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=D9/S9EAi
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a214af2076so22620935e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:05:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793624697; x=1794229497; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DKbfkNf6shMAobIvrVNG47N567d/1LqtaVRbpnXw0B4=;
-        b=bdn+paMfD1HoPoSWb3BurNJ+dmJbMOHOkksKLSzWZKznj8gg5czNzld442BEERZTnp
-         4XNg6njpsbRe1I8ohWyUzZkB5CjjTsTqzWy+4jECAAfwqBH2V8TgPbw/54roU5K/xXRs
-         sQi7VJtm491ROmLxY70pP65L6EfxIL3pj9qDXMSSvbke9hcGnbB/oLOGipOTcXfp85QW
-         ZJaxentXbMr00BC9FF05ZIkElfmfY2I6MsgGUYJF1RtcR4zMOycSXXvrBpeDFzeYEC5b
-         HRivF+aBvQ9HRstHB4q3eKw0c9V94l4iMGnwCBiIQlwF+Ir+baXYX4qzZLPKOgZ4jONU
-         7FhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793624697; x=1794229497;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20260707; t=1793624743; x=1794229543; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DKbfkNf6shMAobIvrVNG47N567d/1LqtaVRbpnXw0B4=;
-        b=vdrD2eX2ASKpeOif0fJByAWn0c7ZOvaEKWqmrtSo9E+hwBc7p7SALis6vaCjyOq+jc
-         IBxQIglqvNQbc3iNO+sdQmTarcGgxOhdQ7gXswW8xgTXpux/HD9LTT0gPxWRY9oH+bX0
-         F1DQGjRtrkXZtP7oAfilhabC1qPLaNeL/L814jyK/EWM1KTFDJPgb5epVE+g3O3nhuIk
-         /sYebw1Fo3p+dha93zvwoa34e71+TWG/yNtyJ+VdV6LvUlJevg4iTu8Cd0CmDXohMsEV
-         eRNRvTKsRDWRyRGhyMN0I1hITTBCephOUewXwiHrJgPStgIZO1YcGirUljSpT4QyEgiN
-         ioSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzl/VYV1clsKg9f/a5vm4wP1q7fP/zSetJ2XtjyEZ6FNrqVunzcx3BYTR/Iyx18CuM2HQUqZaYelNsh6tg=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLN95V04wX3C4bXqUCSMTdnsK1gNvw1sj5MzXVVPOtZdKZAUZj3
-	ivc4Tr7bU6KJMexo6mxu/2ANVQ8ZFEemTB93IrZcgPiCu2zgS5/lI/8+D3QyHjysrplsD7adIQ9
-	HaaSktdh/m9A5xEFiugwdmWL1mbTs4s4C/q5E7yE5Oh0zCyTcrbbKCQ9YwK2Uvl2Dcw==
-X-Gm-Gg: AYBFou098Laq9D1GT7GEzPvRz6T15bBo0/G8ZUwnFVWmQLCdUKBfwiE/r2ZhjbiSdxA
-	ZLFcUc6/FXFHjV6iGh5e+3fYc8f/OFpI2C6Og/5pqwvinqckVoI4dlUGMyGoPI7xyCJmOqUsEbu
-	7m6TGhuNOnbUriEFNFRMAlTJi2EHn4NCoc7AdnHxCFOORM2/9j4VCChbliTN7HzH22OYgGgn+cn
-	DsK6lznlufwnG4LEXc0jXQJ35tk/4CyFwA/LDwW7i6PxWZBTLRshXJC8o6Pc3fouSAAAWO63Xiy
-	X7g8VPO9L4vdoJyot5YtfUlZBRi4GmqijUnvoWoKwfEL6BMAON3LFp4aILk3/gg8tP7Kmi9dpoy
-	5ysEjd208bUvpN/HpBb/xuT5huKpKzX5e7yEZ3Jn4/ysI6mpZ7l6ldSWpEAL9sDUXyyZLLXtUiT
-	Fhdg==
-X-Received: by 2002:a05:600c:848a:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4ac17b2ce84mr249990395e9.6.1793624696816;
-        Mon, 02 Nov 2026 05:04:56 -0800 (PST)
-X-Received: by 2002:a05:600c:848a:b0:4a3:59c9:a756 with SMTP id 5b1f17b1804b1-4ac17b2ce84mr249989845e9.6.1793624696447;
-        Mon, 02 Nov 2026 05:04:56 -0800 (PST)
-Received: from jlelli-thinkpadt14gen4.remote.csb ([151.29.158.90])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf396dfdbsm272885665e9.1.2026.11.02.05.04.54
+        bh=2/g1xL5iGwG1omHrmHgnmCBZ/PbDFU5IAnXkvWs0rU8=;
+        b=D9/S9EAiM4U3YwX9Fq+R2/twHKsOr6RHGoCPd6j6+sZL33de8LQ1lj/bFMZ4NaiXRy
+         /K4VnigemD4+VqDY0hchVHT6sPvVLpjM8Z9sq/4t/m+SaM0CJW2VlF2qWQ4nD8zgVzzT
+         ADN2anmU0+N0l93HJhzGF/rn23AaKvUac8zezVVLv7ffba4YhMrIg4yYa7ZW1floAKUD
+         E74hi/fACYkYjv/7C8Lt0IR5C5W4Hph7Ei+hf2dry0AIKw6sWcxcOlO11QQA2vRT43a9
+         POLOaDAbcMBVXf9KOrJ5Q/Wd/gJOKqFdgfv5uVMhn0b7YV40mFY3vlVIBbhHgf9kX1oD
+         CvNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793624743; x=1794229543;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2/g1xL5iGwG1omHrmHgnmCBZ/PbDFU5IAnXkvWs0rU8=;
+        b=PbStzbLRln1RbsiOEXW9gQgrVEcqFt/l+V5zZ4g/63xETR2SfSrS14Hca0qAoh7RM4
+         0+RwhqFgrwNHMUFObZh/ZUpcx/6aCQonIKNSYoaOAmlvdMgCW0JfKwvvff6WQUT6oH9h
+         1e3ZKYYIDNhRtK8Si47YWLBQO9nmybXNu+mCEr3atFb9dH3d9trTwp7WA24DQrcEqTg3
+         yD546ITEOI4MSPN75IhhG14W1yrlm+BxdN2tqv9GYYIxV/VDOXdC07WKIMELCky1cvMI
+         eICntpjobqy93TQBfmeQlGt6auPRJmM2SCI1jBHzBEL9pKSw0WtBGrMVsRkBauV5+7k2
+         0NTg==
+X-Forwarded-Encrypted: i=1; AKwUvBydvSjBonFu0Zusx4icfu0HCfhAWLg7xi8u8RRMFdc2aeVSp4UwqVpwC6OJVUeGbqMl0dLk5IyXfHYQ8aU=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLW72Ii/frIzyXCFlYZHU67DUVxliu590JkTasN4SWVzZAZ8FZ+
+	IAR1CMSbEVeqcgORgL2j8oSBN4+i5fY1GA3MxGP6LntT0R7kgmi4j9NI
+X-Gm-Gg: AYBFou0yjUvyWYqASoOBdNGotyE5w9vIyH+OyXq9cFVY/Q2xRFLXBHwPlaUfgu3rwY1
+	5lqpbLR9D4MD30TqwZhbf+FHnRnS0hqXMOnm/aqgk/wzRt7Rn3cgrR2rRySnqpqbls/N0cL6j5O
+	21gDl/WY0rZ/slwVvuOg4zk+eiVunSMf7f+1ZyVqIhzchUr2qV0tZEWVbAeiwy8uNiGw3lf1naM
+	wNSlrtQqLQuBzBs671V7AsoKQDosQMaTnNsbKODYnRYR0hl3RU0+IA1l5Q37OpuxwmkhgP34vyh
+	TqnttUEKeFoXvw7alQ6wiUnCCebGKaP490GAsfy87jw3BpNgpKGAvV68vD8akRUqxr6PeHzemLz
+	sw9RS/1X+6MUGc6QXGmvwIOsdwpuOstMSyEY6ac65x3OpoDR7nkseH6+QPSEh+DhPPuGTiq/Gfs
+	jqILstbRqR5I155Egcb62ni/6/uf756qhdXmvvVXRuot4X+DhUkLk7w31ggWo23Dw0lvPUjdEl0
+	3XLADmjk1z4AkkpPz86k21EirELCQBEiKAhs1ZVMy3o6hKmrTkpF8Ww6lsdXDpg9nCZUDxtOuMx
+	99H8jVduyK+QuYcu6YSco0eNUdIcTQHE8/83V396TRwXvIB0nGPqCSbhOZKmE7Dd1Q9t+b+U7Fu
+	G4c1tpRxSOQ==
+X-Received: by 2002:a05:600c:6087:b0:49f:f099:6fb1 with SMTP id 5b1f17b1804b1-4ac17753befmr226189025e9.15.1793624743352;
+        Mon, 02 Nov 2026 05:05:43 -0800 (PST)
+Received: from omos-acer.lan (109-81-86-162.rct.o2.cz. [109.81.86.162])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa813d2640sm340857865e9.6.2026.11.02.05.05.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:04:55 -0800 (PST)
-Date: Mon, 2 Nov 2026 14:04:51 +0100
-From: Juri Lelli <juri.lelli@redhat.com>
-To: Weiheng Qiu <weihengqiuu@gmail.com>
-Cc: Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>,
-	Valentin Schneider <vschneid@redhat.com>,
-	K Prateek Nayak <kprateek.nayak@amd.com>,
+        Mon, 02 Nov 2026 05:05:42 -0800 (PST)
+From: =?UTF-8?q?Ondrej=20Mosn=C3=A1=C4=8Dek?= <omosnacek@gmail.com>
+To: Eric Dumazet <edumazet@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Cc: Paul Moore <paul@paul-moore.com>,
+	Stephen Smalley <stephen.smalley.work@gmail.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Simon Horman <horms@kernel.org>,
+	Jens Axboe <axboe@kernel.dk>,
+	netdev@vger.kernel.org,
+	selinux@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: sched/deadline: total_bw leak when SCHED_DEADLINE is set on a
- dead task
-Message-ID: <auiKc77SS8tGfSXM@jlelli-thinkpadt14gen4.remote.csb>
-References: <3f6e6c87-645b-45fd-8fc6-8da5bc5b82d8@gmail.com>
+Subject: [RFC PATCH] af_unix: introduce MSG_CMSG_SEALED
+Date: Mon,  2 Nov 2026 14:05:40 +0100
+Message-ID: <20261102130540.252894-1-omosnacek@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -122,75 +110,396 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3f6e6c87-645b-45fd-8fc6-8da5bc5b82d8@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Currently, when a process receives a file through AF_UNIX's SCM_RIGHTS
+mechanism, the security_file_receive() LSM hook is calledto allow LSMs
+like SELinux to validate the receiver's access to the received file
+(similarly to a process inheriting file descriptors through execve(2)).
 
-On 31/10/26 17:02, Weiheng Qiu wrote:
-> Hi,
-> 
-> sched_setattr(SCHED_DEADLINE) on a task that has exited but has not
-> been reaped returns 0 and charges the root domain's dl_bw->total_bw.
-> The task never runs again, so nothing releases it, not even reaping.
-> 
-> __sched_setscheduler() does not look at p->exit_state, so
-> sched_dl_overflow() charges the task. A DL task's bandwidth is
-> normally released at its last dequeue, which a task that has already
-> done its final __schedule() never reaches again.
-> 
-> Repeating it fills total_bw to the admission cap: a later
-> sched_setattr(SCHED_DEADLINE) and CPU offline then fail with -EBUSY
-> with no DL task left; only a root-domain rebuild recomputes it. A
-> thread-group leader that exits while its other threads run stays
-> unreaped and keeps the TGID, so a pid is enough. Needs CAP_SYS_NICE,
-> as any DL admission does.
-> 
-> Reproducer below; needs root and debugfs, assumes x86-64. On mainline
-> c339f4010dea (0.25 CPU == 262144):
-> 
->   task 63 state Z
->   total_bw at start: 0.100 CPU (104856)
->   SCHED_DEADLINE on the zombie: rc 0, policy 6, total_bw 0.350 CPU (367000)
->   zombie reaped: total_bw 0.350 CPU (367000), +0.250 CPU (262144)
->   6 more zombies admitted, then: Device or resource busy
->   total_bw 1.850 CPU (1939864)
->   DL tasks left: 0; new 0.250-CPU request: Device or resource busy
->   after a root-domain rebuild (recomputed): total_bw 0.100 CPU (104856)
+However, there are cases (such as dbus daemon/dbus-broker) where the
+receiver doesn't intend to access the received file and merely wants to
+forward it to a third process. In this case the forwarding process would
+need to have the appropriate r/w access to the file in order to receive
+it, even though it will never actually acess it. That leads to the
+security policy having to grant the forwarder access to a potentially
+wide range of files (in case of dbus-broker basically all files), which
+is not ideal.
 
-Thanks for reporting and for the reproducer.
+This patch adds a new CMSG flag MSG_CMSG_SEALED that, when passed to
+recvmsg(2), wraps any received files into an opaque anonymous inode with
+the name "[envelope]", skipping the security_file_receive() LSM check.
+The returned "[envelope]" file descriptor can't be used in any
+meaningful way other than being passed forward via sendmsg(2) with the
+MSG_CMSG_SEALED flag. In that case the original file is unwrapped and
+sent via SCM_RIGHTS to the receiver. The receiver can then either
+receive the file as normal (subject to the LSM check) or again "sealed"
+in the "[envelope]" anon inode for further forwarding.
 
-Something like what below should fix it. Can you please confirm?
+Note that sending the "[envelope]" file is only allowed with the
+MSG_CMSG_SEALED flag set, to make the unsealing explicit and avoid
+unexpected behavior. Attempting to send it without this flag will fail
+with an error. This also avoids recursive nesting of "[envelope]" files,
+which would only make this feature harder to audit for possible issues.
 
-I made it DEADLINE specific, as I'm not sure setscheduler after exit
-might make sense for, say, sysrq reset to SCHED_NORMAL. Peter, others?
+This patch also adds a simple read-only sockopt for UNIX sockets that
+allows userspace to determine if this feature is present (passing
+unknown CMSG flags unfortunately doesn't lead to an error currently).
+The minimal code to do so can look like this:
 
-Best,
-Juri
+    #ifndef SO_RIGHTS_SEALED_SUPPORTED
+    #define SO_RIGHTS_SEALED_SUPPORTED 88
+    #endif
+
+    #include <sys/socket.h>
+    #include <unistd.h>
+    #include <stdbool.h>
+
+    bool MSG_CMSG_SEALED_supported(void)
+    {
+        int sock, ret;
+        socklen_t optlen = 0;
+
+        sock = socket(AF_UNIX, SOCK_STREAM, 0);
+        if (sock < 0) {
+            /* handle error */
+            /* ... */
+        }
+
+        ret = getsockopt(sock, SOL_SOCKET, SO_RIGHTS_SEALED_SUPPORTED,
+                         NULL, &optlen);
+        close(sock);
+
+        return ret == 0;
+    }
+
+Related: https://github.com/fedora-selinux/selinux-policy/issues/3286
+Related: https://github.com/fedora-selinux/selinux-policy/issues/3287
+Signed-off-by: Ondrej Mosnáček <omosnacek@gmail.com>
 ---
- kernel/sched/syscalls.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
+ arch/alpha/include/uapi/asm/socket.h    |  2 +
+ arch/mips/include/uapi/asm/socket.h     |  2 +
+ arch/parisc/include/uapi/asm/socket.h   |  2 +
+ arch/sparc/include/uapi/asm/socket.h    |  2 +
+ include/linux/socket.h                  |  4 +-
+ include/net/scm.h                       |  2 +-
+ include/uapi/asm-generic/socket.h       |  2 +
+ io_uring/net.c                          |  2 +-
+ net/compat.c                            |  3 +-
+ net/core/scm.c                          | 81 +++++++++++++++++++++----
+ net/core/sock.c                         |  9 +++
+ net/socket.c                            |  2 +-
+ tools/include/uapi/asm-generic/socket.h |  2 +
+ 13 files changed, 97 insertions(+), 18 deletions(-)
 
-diff --git a/kernel/sched/syscalls.c b/kernel/sched/syscalls.c
-index b215b0ead9a60..64e604affa288 100644
---- a/kernel/sched/syscalls.c
-+++ b/kernel/sched/syscalls.c
-@@ -583,6 +583,16 @@ int __sched_setscheduler(struct task_struct *p,
- 	if (retval)
- 		goto unlock;
+diff --git a/arch/alpha/include/uapi/asm/socket.h b/arch/alpha/include/uapi/asm/socket.h
+index 5d3524c26b2b..cd9fce1d9432 100644
+--- a/arch/alpha/include/uapi/asm/socket.h
++++ b/arch/alpha/include/uapi/asm/socket.h
+@@ -161,6 +161,8 @@
  
-+	/*
-+	 * Reject SCHED_DEADLINE on exited tasks. A zombie will never be
-+	 * scheduled again, so sched_dl_overflow() would charge total_bw
-+	 * that nothing will ever release.
-+	 */
-+	if (dl_policy(policy) && p->exit_state) {
-+		retval = -ESRCH;
-+		goto unlock;
+ #define SO_PEERPIDFD_THREAD    87
+ 
++#define SO_RIGHTS_SEALED_SUPPORTED	88
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64
+diff --git a/arch/mips/include/uapi/asm/socket.h b/arch/mips/include/uapi/asm/socket.h
+index 245a43f52fb1..393898479ce6 100644
+--- a/arch/mips/include/uapi/asm/socket.h
++++ b/arch/mips/include/uapi/asm/socket.h
+@@ -172,6 +172,8 @@
+ 
+ #define SO_PEERPIDFD_THREAD    87
+ 
++#define SO_RIGHTS_SEALED_SUPPORTED	88
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64
+diff --git a/arch/parisc/include/uapi/asm/socket.h b/arch/parisc/include/uapi/asm/socket.h
+index f23710e1c671..055b532ccc14 100644
+--- a/arch/parisc/include/uapi/asm/socket.h
++++ b/arch/parisc/include/uapi/asm/socket.h
+@@ -153,6 +153,8 @@
+ 
+ #define SO_PEERPIDFD_THREAD	0x4055
+ 
++#define SO_RIGHTS_SEALED_SUPPORTED	0x4056
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64
+diff --git a/arch/sparc/include/uapi/asm/socket.h b/arch/sparc/include/uapi/asm/socket.h
+index b35b25bdefc2..e152e2bdf42e 100644
+--- a/arch/sparc/include/uapi/asm/socket.h
++++ b/arch/sparc/include/uapi/asm/socket.h
+@@ -154,6 +154,8 @@
+ 
+ #define SO_PEERPIDFD_THREAD      0x0060
+ 
++#define SO_RIGHTS_SEALED_SUPPORTED	0x0061
++
+ #if !defined(__KERNEL__)
+ 
+ 
+diff --git a/include/linux/socket.h b/include/linux/socket.h
+index b17fdb7d38a7..90e4bc5d3f91 100644
+--- a/include/linux/socket.h
++++ b/include/linux/socket.h
+@@ -345,7 +345,9 @@ struct ucred {
+ #define MSG_SOCK_DEVMEM 0x2000000	/* Receive devmem skbs as cmsg */
+ #define MSG_ZEROCOPY	0x4000000	/* Use user data in kernel path */
+ #define MSG_SPLICE_PAGES 0x8000000	/* Splice the pages from the iterator in sendmsg() */
+-#define MSG_FASTOPEN	0x20000000	/* Send data in TCP SYN */
++#define MSG_CMSG_SEALED  0x10000000	/* Seal file descriptors received
++					   through SCM_RIGHTS */
++#define MSG_FASTOPEN     0x20000000	/* Send data in TCP SYN */
+ #define MSG_CMSG_CLOEXEC 0x40000000	/* Set close_on_exec for file
+ 					   descriptor received through
+ 					   SCM_RIGHTS */
+diff --git a/include/net/scm.h b/include/net/scm.h
+index b68a143f42de..53b999868104 100644
+--- a/include/net/scm.h
++++ b/include/net/scm.h
+@@ -108,7 +108,7 @@ void scm_recv_unix(struct socket *sock, struct msghdr *msg,
+ 		   struct scm_cookie *scm, int flags);
+ 
+ int scm_recv_one_fd(struct file *f, int __user *ufd, unsigned int flags,
+-		    bool notrunc);
++		    bool notrunc, bool sealed);
+ 
+ #endif /* __LINUX_NET_SCM_H */
+ 
+diff --git a/include/uapi/asm-generic/socket.h b/include/uapi/asm-generic/socket.h
+index 56fed7ab27ab..14bf06367ef1 100644
+--- a/include/uapi/asm-generic/socket.h
++++ b/include/uapi/asm-generic/socket.h
+@@ -156,6 +156,8 @@
+ 
+ #define SO_PEERPIDFD_THREAD	87
+ 
++#define SO_RIGHTS_SEALED_SUPPORTED	88
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
+diff --git a/io_uring/net.c b/io_uring/net.c
+index eeab88e77fd8..b579d542b7e2 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -992,7 +992,7 @@ static int io_recvmsg_multishot(struct socket *sock, struct io_sr_msg *io,
+ 
+ 	if (kmsg->namelen)
+ 		kmsg->msg.msg_name = &hdr.addr;
+-	kmsg->msg.msg_flags = flags & (MSG_CMSG_CLOEXEC|MSG_CMSG_COMPAT);
++	kmsg->msg.msg_flags = flags & (MSG_CMSG_CLOEXEC | MSG_CMSG_SEALED | MSG_CMSG_COMPAT);
+ 	kmsg->msg.msg_namelen = 0;
+ 
+ 	if (sock->file->f_flags & O_NONBLOCK)
+diff --git a/net/compat.c b/net/compat.c
+index 6bdf4a2c9077..29816b47f675 100644
+--- a/net/compat.c
++++ b/net/compat.c
+@@ -296,7 +296,8 @@ void scm_detach_fds_compat(struct msghdr *msg, struct scm_cookie *scm, bool notr
+ 	int err = 0, i;
+ 
+ 	for (i = 0; i < fdmax; i++) {
+-		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc);
++		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc,
++				      msg->msg_flags & MSG_CMSG_SEALED);
+ 		if (err < 0)
+ 			break;
+ 	}
+diff --git a/net/core/scm.c b/net/core/scm.c
+index ae38f3c1165c..08822b2a1f22 100644
+--- a/net/core/scm.c
++++ b/net/core/scm.c
+@@ -29,6 +29,7 @@
+ #include <linux/slab.h>
+ #include <linux/errqueue.h>
+ #include <linux/io_uring.h>
++#include <linux/anon_inodes.h>
+ 
+ #include <linux/uaccess.h>
+ 
+@@ -66,7 +67,19 @@ static __inline__ int scm_check_creds(struct ucred *creds)
+ 	return -EPERM;
+ }
+ 
+-static int scm_fp_copy(struct cmsghdr *cmsg, struct scm_fp_list **fplp)
++static int envelope_release(struct inode *inode, struct file *file)
++{
++	struct file *inner = file->private_data;
++
++	fput(inner);
++	return 0;
++}
++
++static const struct file_operations envelope_ops = {
++	.release = envelope_release,
++};
++
++static int scm_fp_copy(struct cmsghdr *cmsg, struct scm_fp_list **fplp, bool sealed)
+ {
+ 	int *fdp = (int*)CMSG_DATA(cmsg);
+ 	struct scm_fp_list *fpl = *fplp;
+@@ -114,10 +127,29 @@ static int scm_fp_copy(struct cmsghdr *cmsg, struct scm_fp_list **fplp)
+ 
+ 		if (fd < 0 || !(file = fget_raw(fd)))
+ 			return -EBADF;
+-		/* don't allow io_uring files */
+-		if (io_is_uring_fops(file)) {
+-			fput(file);
+-			return -EINVAL;
++
++		if (sealed) {
++			/* Only allow sealed files */
++			if (file->f_op != &envelope_ops)
++				return -EINVAL;
++
++			file = (struct file *)file->private_data;
++
++			/*
++			 * No need to check for io_uring files here as the
++			 * underlying file had already successfully passed the
++			 * check when it was first sent.
++			 */
++		} else {
++			/* Don't allow sealed files */
++			if (file->f_op == &envelope_ops)
++				return -EINVAL;
++
++			/* don't allow io_uring files */
++			if (io_is_uring_fops(file)) {
++				fput(file);
++				return -EINVAL;
++			}
+ 		}
+ 		if (unix_get_socket(file))
+ 			fpl->count_unix++;
+@@ -203,7 +235,8 @@ int __scm_send(struct socket *sock, struct msghdr *msg, struct scm_cookie *p)
+ 		case SCM_RIGHTS:
+ 			if (!ops || ops->family != PF_UNIX)
+ 				goto error;
+-			err=scm_fp_copy(cmsg, &p->fp);
++			err = scm_fp_copy(cmsg, &p->fp,
++					  msg->msg_flags & MSG_CMSG_SEALED);
+ 			if (err<0)
+ 				goto error;
+ 			break;
+@@ -365,18 +398,37 @@ static int scm_max_fds(struct msghdr *msg)
+ }
+ 
+ int scm_recv_one_fd(struct file *f, int __user *ufd, unsigned int flags,
+-		    bool notrunc)
++		    bool notrunc, bool sealed)
+ {
++	struct file *f_received;
+ 	int error;
+ 
+ 	if (!ufd)
+ 		return -EFAULT;
+ 
+-	error = security_file_receive(f);
+-	if (error)
+-		return notrunc ? put_user(error, ufd) : error;
++	if (sealed) {
++		/*
++		 * Receive fd sealed in an "envelope" anonymous fd.
++		 * This will install a special file that can be unsealed
++		 * upon sending to another process, otherwise the underlying
++		 * file will not be accessible to this process, avoiding the
++		 * need to pass the LSM check below.
++		 */
++		f_received = anon_inode_getfile("[envelope]", &envelope_ops, f,
++						O_RDONLY);
++		if (IS_ERR(f_received))
++			return PTR_ERR(f_received);
++
++		get_file(f);
++	} else {
++		error = security_file_receive(f);
++		if (error)
++			return notrunc ? put_user(error, ufd) : error;
+ 
+-	FD_PREPARE(fdf, flags, get_file(f));
++		f_received = get_file(f);
 +	}
 +
- 	/*
- 	 * If not changing anything there's no need to proceed further,
- 	 * but store a possible modification of reset_on_fork.
++	FD_PREPARE(fdf, flags, f_received);
+ 	if (fdf->fd < 0)
+ 		return fdf->fd;
+ 
+@@ -384,7 +436,9 @@ int scm_recv_one_fd(struct file *f, int __user *ufd, unsigned int flags,
+ 	if (error)
+ 		return error;
+ 
+-	__receive_sock(fdf->file);
++	if (!sealed)
++		__receive_sock(fdf->file);
++
+ 	return fd_publish(fdf);
+ }
+ 
+@@ -407,7 +461,8 @@ void scm_detach_fds(struct msghdr *msg, struct scm_cookie *scm, bool notrunc)
+ 	}
+ 
+ 	for (i = 0; i < fdmax; i++) {
+-		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc);
++		err = scm_recv_one_fd(scm->fp->fp[i], cmsg_data + i, o_flags, notrunc,
++				      msg->msg_flags & MSG_CMSG_SEALED);
+ 		if (err < 0)
+ 			break;
+ 	}
+diff --git a/net/core/sock.c b/net/core/sock.c
+index e7405be8941f..68a447d8bf52 100644
+--- a/net/core/sock.c
++++ b/net/core/sock.c
+@@ -1959,6 +1959,15 @@ int sk_getsockopt(struct sock *sk, int level, int optname,
+ 		v.val = sk->sk_scm_rights;
+ 		break;
+ 
++	case SO_RIGHTS_SEALED_SUPPORTED:
++		if (!sk_is_unix(sk))
++			return -EOPNOTSUPP;
++
++		/* Just succeed without returning anything, signaling
++		 * support.
++		 */
++		break;
++
+ 	case SO_PEERCRED:
+ 	{
+ 		struct ucred peercred;
+diff --git a/net/socket.c b/net/socket.c
+index 2e3b5737c481..dbb3c7c6ff66 100644
+--- a/net/socket.c
++++ b/net/socket.c
+@@ -2921,7 +2921,7 @@ static int ____sys_recvmsg(struct socket *sock, struct msghdr *msg_sys,
+ 
+ 	msg_sys->msg_name = &addr;
+ 	cmsg_ptr = (unsigned long)msg_sys->msg_control;
+-	msg_sys->msg_flags = flags & (MSG_CMSG_CLOEXEC|MSG_CMSG_COMPAT);
++	msg_sys->msg_flags = flags & (MSG_CMSG_CLOEXEC | MSG_CMSG_SEALED | MSG_CMSG_COMPAT);
+ 
+ 	/* We assume all kernel code knows the size of sockaddr_storage */
+ 	msg_sys->msg_namelen = 0;
+diff --git a/tools/include/uapi/asm-generic/socket.h b/tools/include/uapi/asm-generic/socket.h
+index f333a0ac4ee4..fb9e98a7b370 100644
+--- a/tools/include/uapi/asm-generic/socket.h
++++ b/tools/include/uapi/asm-generic/socket.h
+@@ -147,6 +147,8 @@
+ 
+ #define SO_PASSRIGHTS		83
+ 
++#define SO_RIGHTS_SEALED_SUPPORTED	88
++
+ #if !defined(__KERNEL__)
+ 
+ #if __BITS_PER_LONG == 64 || (defined(__x86_64__) && defined(__ILP32__))
+-- 
+2.54.0
 
