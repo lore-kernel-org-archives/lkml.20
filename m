@@ -1,70 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.224.132
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793618163;
-	b=5o5ciN7zHUMYuZ9rHe/wj4cJ74U2ea/8NyotKD6n115DqDkeMStEQJr3wlkRtQVGHt8P
-	 AS9SZ3qrZDBIS+biQEWCjxnYZCW+d7I5pOwgtHhTM9S5aMg3nyXcXDV4pAUZ9VHwcRgcS
-	 OW29J3ht8HHvLhhnEwnhNsk3f0K3f77w6bpE8z7yavKrMqSguBufiPCBSvnptQjQet71Q
-	 0kWuHWDXj59gRnu5949gb94oUbaolw9JyQoL+Lu93XBFgLL55ugL83PweP2m9z5Y9t88p
-	 6khrbABY8VMGJWLt8W7+1472Lggo4HFiBuiIVUlHt4L0mI8R7+5R71Y+Y512g7Yuaqg==
+	t=1793618175;
+	b=NUi6pM30wEjV2eU0eogFmeQPYVjYZGLzEpE4OzAWjs8UXzLbYsEHjopD7sPBIdYJLsN+
+	 xX+yhW5GGmcoH3WhJSWDZeUcjf4ZpS3WUyEClBGzD4CGZzUjhYCYX81DujjFMR6fmIuEN
+	 GK5NvYYjowIqVQKEK7uwedKKfXBr2gOwuCxlvyq4T8/pN+0Gtxc9n/vJFwV3no0t7uOAD
+	 FUl3qPps1x8hGej7OAQlzocJGVgeRgq8ZU5eB+ALW65ufUQUOQoFmpatgtndiJAuKT0ML
+	 vPVj8SygMl1Ux60chOTBqfok0roib+YN0o1nIplc1rhJzOJVbYyleV5lfE9wTRDHznQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793618163;
-	h=Received:DKIM-Signature:Received:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793618175;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	 Content-Language:From:In-Reply-To:Content-Type:
 	 Content-Transfer-Encoding;
-	bh=ndKvpmqpsXXKNWXd8KEPVUmv4+a8DRhy1Wexw6izFEo=;
-	b=A0T4GmIZKOmMrAjdWetSuxlbKOLWRTNAFM0i7sTBFLlw0uvQTcH47HAy0vIYG4OT44hH
-	 S7Xa/fm3oNzwXJ3nSx45IVlbVuf5Z+3gPPl+1oI0iWnvI30W/9t/IbplDQyIv0V1HS7Yu
-	 Qeo27208lClHhgiMDzCEJ6B2PC+QdAiMXSIUdiSK0De9u255/uSSuNmJtwYpy6/Gp5fOm
-	 CbqMh4nfcvWLs/0Hv+qgy+RuOF17mQY1yb0SCMxxw7RPcLzn4aC0qpC0OGWAaYxmokw6l
-	 11l82/1t6G3bGWRbePgD6YLnoakaTdWAbuWdgOThkrsP/nD2VBwbU1+5zKzXuvwRXPw==
+	bh=Bt2PQaCOWWl5wAhg9mJHVrkNYzA12/JaAR8E5rJGHP8=;
+	b=KjXGYszY3nsxv3WUoUWa84Bw4cBXT45HdzLEKEMBXBjFZeHkUry9sri5C6KqlxeAxvCy
+	 rxJKk3njaVNn4w/uAXog8FqB5P8AQUosaB36sdk821V27mgucMInhEfj6orWjRyDhPESZ
+	 yzXKrt4UzjrJJsVnQerXKh3WbSvajB9OgLnEiiUlF5BR1DNEyy1vjYWKtFwiAJQdZcCiU
+	 kbfXU1xdPL/bp+3sreu4W0B5LQYgvzJRUyXfGOPKAH+AuZ26sXJuh2+mV2AuqvVZUaef+
+	 UEanvhLNcjLr9zNyUwK5BmdTTn+pqnomY1TOY6zquYqt3W+VRv65NsPUT7RBNzjb+wg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLox7QM9;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZDWCQZD7;
+	arc=none smtp.remote-ip=74.125.224.132
+Received: from mail-yx2-f4.google.com (mail-yx2-f4.google.com [74.125.224.132])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A420B606A33F;
-	Mon,  2 Nov 2026 11:16:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2400606A339
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:16:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2400606A339
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hLox7QM9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78E1C1F00A17;
-	Mon,  2 Nov 2026 11:16:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793618162;
-	bh=ndKvpmqpsXXKNWXd8KEPVUmv4+a8DRhy1Wexw6izFEo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hLox7QM9nPlrGHmnxCZZ4vF4foTEpvrL5MWrlI/o7GRu4CZ42Qe7Mv07gwsLq6Rvo
-	 4rxjPokHqVAwxxLn+cy5EO7WVDNYq7DDg2nkIwiRVUg9T+zjYx5i0svDKx82aV1bfu
-	 QTgUsDSRlpF6QrtaHx0EYclwVbmmzk6NqzgvVKHfbZkBbs4jSIvS16cMCuzJUXagUH
-	 u2f6zr+rF3RXW0P2ZIrJa6YDLKn1vVK2QuCSXpz2S5uTnEaGrAT8fzx/uAH4gU9CUr
-	 j6tWtRgxhMkc96Uidq1qCCd5Z4G5fauLU5pr7P89AGmbvyNTc2o2HAeaybQ4gQGqUN
-	 65tuYqeS4M4AA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1xNq1A-00000005aDy-0zdE;
-	Mon, 02 Nov 2026 12:16:00 +0100
-From: Johan Hovold <johan@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Danilo Krummrich <dakr@kernel.org>,
-	Johan Hovold <johan@kernel.org>
-Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Daniel Scally <djrscally@gmail.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	driver-core@lists.linux.dev,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Subject: [PATCH 2/2] software node: fix primary software node removal
-Date: Mon,  2 Nov 2026 12:14:20 +0100
-Message-ID: <20261102111420.1330760-3-johan@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261102111420.1330760-1-johan@kernel.org>
-References: <20261102111420.1330760-1-johan@kernel.org>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ZDWCQZD7
+Received: by mail-yx2-f4.google.com with SMTP id 956f58d0204a3-679a0b1c35eso1252299d50.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:16:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793618174; x=1794222974; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Bt2PQaCOWWl5wAhg9mJHVrkNYzA12/JaAR8E5rJGHP8=;
+        b=ZDWCQZD7W2u5VXx4nfee+ehpfOVSemblSUe7p6qbJI7FCKfuH4uzHdHS/aNUObazCN
+         W0OwSB/508a1VKPPghroIpt05jqfqIJTfhdq0RmQC8Vrf6fp7ykVAVn0eNzH3FLBlETF
+         3xX3aNLj2AkHVtD6ZZiNYUXm3/jCIRu/hSS7R7XoXA1wFDt2GFPhs8XOXAVOkOdLxOBP
+         N4PEFo7EgBfBFivpR4CWbi+2c+n8Fo6puJDRWw5l68vNFEDEk6qIaZ0gET3rD/ITxpyA
+         QhWd/VkR4eWTkS6oMCllL6nUb+Q26gyosLmAtToz9Ah9NEOlVNyuV4jfFbgSkxp8g55Y
+         ISiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793618174; x=1794222974;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bt2PQaCOWWl5wAhg9mJHVrkNYzA12/JaAR8E5rJGHP8=;
+        b=blWRleq/DICF0WI9L+SYZDcKztadIVfqDbRQeEjG9qkGSCiJ0SZJoTDR9ELrXO5Ybs
+         puOh2DXtpEnjquRU7Rjn8P4CV2NcukuOabRTCZW8j6xo2T7/ZQthT4FBC1oUwvm4pCjy
+         QNll2NNWI7lPvlm5ZPzfW45IJj09oM2UeNYbvQ9lZUOHQoGAgPqKNfXgPwbnK/bmbJVy
+         lkW54dw674tpQ/v2aaPOmyBDJiH7f4zUEcxDwObFMRbo+8ldtQSA+HFU47Fk/SoFSpB/
+         fYvnDoQ93zmk3wC++AV9qQM2+ooaQNcpajPF7XRp3SJwtrqWKRv8S/agR+uYKErSmIHB
+         G2iQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzQ+TqawacoNitMDKYD2RkiUW3FuvPFJqQsinrvuXOnvFUOZw62lEMuE1u67jZc/KLhCIZOvltEQ2LCsNY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+uRdHTtPBNsMim62sz2PzpH4amS2hQIt10oEGMF4NbqKm8+qfJ
+	SKw1LLKIqIrs1PApg4x3vUysJ5AezlUZg8f9GTXbS3bHQTsJ2UFGOlqH
+X-Gm-Gg: AYBFou0Px1WkEB+Hio2kc/gRRu2HBmwlm5j4ImJT4aBCJaZUDvhOjNzld56gVuldRpC
+	MdEk8dwrZxi9ERzsAsFB9BOeo7xHlo/4AiIa+1hQo789BfEgWd2YCNVDCKB+D19DpbJJmYvo+U1
+	ETDkQ9ihe6AOc4AGJqXnIjEwSPRpVBv9MBK0WsjKKY44BzUvBHvxkqTgpe0oeUnwPx7B2rYmzGl
+	FV74dbUybfiOZTta9k92sdyDViPRgOdeL6j6dJPAX73fMuoEMxL46FrKpWP7Vi//0hNOnwxDRl7
+	xTbGYazK9FkvEWfLa3haW4agGz6KrW09wxVkDHeDKldqLk93KFcL1OeyQBGYEzFjSy0tD+Qnsed
+	bhZotpeqLBe3jdxW/mJ3qwOSVnB3uGdur0/LiN6jYdpDQX/7ivIeP7jC/GDSkk3e5QzW1nbq5IK
+	qU5VAR3IQkeZFx7u+Ff2HnYGUBMC98lcCadLHFNH/bTujVEP8j4JA5AIQUyQdlKQKDMGBRfqCfk
+	25NM20zfAA1kEdfV5f1+tfgBEmnjogODV73MItH6M7EfwUC6Ys85vipXnC6E7io95C79dyZXzfk
+	B7Me2By78j+RzWgdGOwo+lVpq3F+tgQCCPaO
+X-Received: by 2002:a05:690e:128a:b0:679:9ad9:b103 with SMTP id 956f58d0204a3-67ba50262b2mr5935282d50.136.1793618173443;
+        Mon, 02 Nov 2026 03:16:13 -0800 (PST)
+Received: from [10.0.0.48] ([71.69.222.122])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-67baf27263csm4858032d50.4.2026.11.02.03.16.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 02 Nov 2026 03:16:12 -0800 (PST)
+Message-ID: <b67c43d4-7cfe-4217-b3f5-ed1425d2f3bc@gmail.com>
+Date: Mon, 2 Nov 2026 06:16:12 -0500
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -74,44 +92,54 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/3] nvme-tcp: parallelize I/O queue allocation and
+ startup
+To: "Surabhi Gogte (she/her)" <sgogte@purestorage.com>
+Cc: Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ mkhalfella@purestorage.com, randyj@purestorage.com, adailey@purestorage.com,
+ Hannes Reinecke <hare@kernel.org>, wagi@kernel.org,
+ shinichiro.kawasaki@wdc.com
+References: <20260922200718.3941465-1-sgogte@purestorage.com>
+ <20260922200718.3941465-4-sgogte@purestorage.com>
+ <705f4452-3d07-4d91-9dcd-ea53b2cd75a5@gmail.com>
+ <CAMof9cU5s0ck20fcSAYSvK-xpcP5_Hv2BmN20Bh3btpLum7THg@mail.gmail.com>
+Content-Language: en-US
+From: Martin Belanger <martin.nvme.dev@gmail.com>
+In-Reply-To: <CAMof9cU5s0ck20fcSAYSvK-xpcP5_Hv2BmN20Bh3btpLum7THg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-When removing a software node using device_remove_software_node(), the
-primary fwnode pointer is never cleared if the software node is the
-primary node.
 
-Since commit 7d80509ff0da ("driver core: platform: unify release path")
-this can lead to a use-after-free when freeing a platform device if a
-driver or subsystem (e.g. mfd) has already removed and freed the node.
 
-Clear the primary fwnode pointer when removing a software node that is
-the primary node to avoid this.
+On 10/30/26 17:25, Surabhi Gogte (she/her) wrote:
+> 
+> Hey Martin, can you try the tests once with tlshd using commit 3a6658e
+> ("tlshd: Link the NFS keyrings per handshake instead of at startup")
+> or ktls-utils 1.5. blktests nvme/062 and nvme/063 passed with this
+> commit. I believe that change fixed the keyring race in tlshd
+> independently. If the issue persists, let me know the reproducer
+> script so I can also take a look. I saw the same errors while running
+> blktests with an older tlshd version from ktls-utils 1.3.1 and
+> updating tlshd worked.
+> 
+> Best,
+> Surabhi
 
-Fixes: 7d80509ff0da ("driver core: platform: unify release path")
-Cc: stable@vger.kernel.org	# 7.3
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Signed-off-by: Johan Hovold <johan@kernel.org>
----
- drivers/base/swnode.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Hi Surabhi,
 
-diff --git a/drivers/base/swnode.c b/drivers/base/swnode.c
-index 84a77ffa3dc4..9c98234979ec 100644
---- a/drivers/base/swnode.c
-+++ b/drivers/base/swnode.c
-@@ -1110,7 +1110,11 @@ void device_remove_software_node(struct device *dev)
- 	if (device_is_registered(dev))
- 		software_node_notify_remove(dev);
- 
--	set_secondary_fwnode(dev, NULL);
-+	if (is_software_node(dev_fwnode(dev)))
-+		set_primary_fwnode(dev, NULL);
-+	else
-+		set_secondary_fwnode(dev, NULL);
-+
- 	swnode_put(swnode);
- }
- EXPORT_SYMBOL_GPL(device_remove_software_node);
--- 
-2.55.0
+You are right, thanks. The tlshd in my test was too old.
+
+Same kernel 4 CPUs, 4 I/O queues, 40 connects:
+
+- tlshd a0bd51d: 19 of 40 connects fail.
+- tlshd from ktls-utils 1.5.0: 40 of 40 connects pass, no handshake
+   errors.
+
+So this patch only exposed a race in older tlshd versions, and there
+is nothing to fix in the kernel. Sorry for the noise.
+
+Martin
 
