@@ -1,69 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.62.57.49
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=162.243.164.118
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793611761;
-	b=Cn5gNCrl7dKcZmUB3dSL6d7xJyNa9YhcWNemfMy//Tyu1sn0TwF1X9oPv4/NAgQhwuwp
-	 bL7NecGRX/78XALHGdlJPQApncN3YcOXJKnjHeoJUNZy0AV2lbQ5IfziO4BzCc7f1/6c6
-	 +911KzSsBbkzb6XA6rPDPpxnpj3yGjgE2F6ieqi5tnvdsdQukXx1g0vGKw9lur3ldVGXQ
-	 VxWwpRnYQtmNT+9MKSnRADCrPp5lZx8wP976ibOrEvTCDsH3olUGiyXKzFfOQ+aGxD7+Q
-	 CNAb0O8eBB379k/ai2O/Mafh2dUclC2G2FRH5tQOe5QGRpt1hAmRyLCrvYMFMvvzT9Q==
+	t=1793611781;
+	b=kTArOyBEqIuW2qVFNLbiqb2pVhN52IufaOTLbfvy5LSSKPSmDgWhId2JmAVpDhlarvmU
+	 tB5O7WhNi3jPfQbaqt/mcWSYJk0Q1ZJOOhGKA29FwtwPSxn4vAUVwqROyhIXAj2dbIkhR
+	 z2hdIuO08AJRAjRD8UmYbqIDAxnH8yhirljRKqp6sj19bYa7EQE4KEtg7hdKoCfTS8uo9
+	 Ts3PRxLLVIiZ+BgM2sEiF0WK8tWZYtDLhxTQHZjCV8qTmXJRFT3oay6JFj+8krSFGxbjN
+	 iTQj5AtZqQhe/euKscUT+4ydODQruEkkaEgVVo+hoSPdnihW7htMl00gQRn7sCDeFqw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793611761;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:X-OQ-MSGID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=rxxX0qla8hwD31pbvXQlK+1bs9/2ui2XSllowjYuYoY=;
-	b=4ob66HEoAPV+fqcQTQuMxU57+VwapHMaGDMZAQpwW0UjudjMZ8MDKLKBtUQthN/YXJTy
-	 po/wZDiMcALY4YWdsTFSzbacxO5b/wY1dajzzR5hDutkyeKFaNyII3NV6KipofkQrFdZH
-	 y/2lIW7sAUw/K/BTQc3BPWzCBqbWitVya8CDPsTTXMlNWFL47dwppeVvbMToc/frAzidf
-	 9YHajO6/G73tEHh49wUGyEnbm8ePJcliUEooZG60zLrMBxyPiA5B0018ON1NwiltzaBZJ
-	 DkPrmwTZdXCdZ1IuFLJbzhBD5djvBWotaAX86yvgqIb6ujwLLTz11eBtCmrUwGdRwLg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793611781;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-Id:X-Mailer:MIME-Version:Content-Transfer-Encoding:
+	 X-CM-TRANSID:X-Coremail-Antispam:X-CM-SenderInfo;
+	bh=SokQ9ZXvf91S67MDPneJhsSwDRmkfnKSHkpvgNhOdcw=;
+	b=AEJ6Mcnq+h5Ib4D4B5AXceaihs/F/pHhsPNF5+PIYsiah9XYzKnH7EGnUsEIqz+tpuYu
+	 cIDzYTly2HLbqXN9/+/ASRWQod9lszamIsNi/a/R4wCt5ik7Brh7jqkdHLuFvgZ0oZWYC
+	 wxLPmaF5rorNhzBvMHPQSdrFN6GQbMn5YQP8WiXW3VI4Rut1LghdOp61HS7XiF8Y+bb8v
+	 wQUTF6u9kCLdvkyC2Ps3yCw/5vuAnSICbP2nFJ5ya2OdquFGe/0ssrPtKcVSB669KdiQe
+	 3AfOdoCY+iLElsQ9QiET+jfUaIv9rMuNqzB0fERglrLxZlVO6YOBOKqroF/T1LBKqlg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=qq.com;
-	spf=pass smtp.mailfrom=qq.com;
-	dkim=pass header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xWMWKiVm;
-	arc=none smtp.remote-ip=162.62.57.49
-Received: from out162-62-57-49.mail.qq.com (out162-62-57-49.mail.qq.com [162.62.57.49])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9567606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:29:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C9567606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=xWMWKiVm
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1793611754; bh=rxxX0qla8hwD31pbvXQlK+1bs9/2ui2XSllowjYuYoY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=xWMWKiVmR4TWRLjz5V26D4ZiVQQDnJyZIPTesIcDxnwOEEf7RAm33b57kZhtdrlOz
-	 N6vC9SQvPnFgAHWC+ba6UN3UVBjt/oNumXtUfj/kjZLJl2x3ZbIcKHZ2jnID+EXKeJ
-	 7MVVeiz/VBtTyOHBeeIjKOn9fbdjbBjLI9s4dAZE=
-Received: from [10.88.157.208] ([61.169.203.203])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 74BA5091; Mon, 02 Nov 2026 17:29:11 +0800
-X-QQ-mid: xmsmtpt1793611751t4nne06do
-Message-ID: <tencent_9125D3B8701AD20B318ED534FC1119659807@qq.com>
-X-QQ-XMAILINFO: NtdA9nrf+Ds0cXQSZJ3paxv0piPaAhDTo018K5/oh91Q4O2tGuq3ACE0h5VgjB
-	 4QWmoUF8jTASINayjdNXRZZFP75OwhKqw8R3AiF8bf34i2UJxNZCkkJ+JhPODCDHuXXCnryenDAj
-	 S+vQVly7g82FkqplaK9xqEDLOKkvOsaCNFP9lcXGmmcwkqr8sL/V4oeGg/DMyx4eV0hE6D3XmFjR
-	 e94E4TSDG7MYTHIf7hm2gy4sghHkPyoepqDU1XF0ixQbQMwJp+78GNGsUbfA+k+jqjFmJeXArPQU
-	 lvwWQPdC4NQ9sn76d2qB5WaQcVJn6IBwvS3WHyy1w3aXTtV/L4ZoPXPp/M7IVVXY1dO0N6DMA5ih
-	 hikz1rmoHV+f2zJYH5l9XSi+kZ2ZxihDFbjT8VHr51kCF48tXsscZjMgNkzskajCILHBgNWwvm/y
-	 IKL1LYaQX0rShGPIgMpJO3+IYO/5irg8f6vv2q+c7/awbUGq1q/Ox6SCU6dVWaEcShVPuDhhyrNd
-	 j7LKOdFUMTwdbx1gzj1Cx+QdH3APayWbYJlxE1S8bhUwcSeG0mK3El0eZPkkyZ18+m1hNFj0c4en
-	 a3u4v5NjcjuOpTALIHr4MqJj4b21gvRYnq5CIJcvUytTSCE1gM8LtNDvLpZE7pEVwpfHRNtuOV6O
-	 Md8cDQqsgETgFOsMwJqWxIuMUvs91ZjzCsZjmJf/Bf0zwkg3HMAgEi9ZCPrVL3WWCJeuWuMHh+fe
-	 zqBUVCxazjtV6Q4KZ2DX6p8L+ww+etxUDQ8v/YgQXQy/J3SzWV9QOgh+cBbauXtM58khhblMDUrg
-	 6cnHtEe2NOv4XfXvP7Il0yUBZNrAz/vf/EBJ1LaT9vDJd/2OLyop0X1RbHQSSbegO9vAj1BNaVZN
-	 +dFVexczlFge4iuOgKpcBv106m0aKBZI+OKZ9xHwZ3SP1VFn/zwiPRaiyrfOMwsKGP/pLrt8jg+M
-	 iTT3WC1/a+MakyQZ4J9i+3j1qCF/5u9Z7R/dVnlhbH8KUCThVt7hXs5LNbzgb/Cejg1Q39GC5C9X
-	 jIwCCx1qIGUIW37L4yCJ1me4mJVLG18rBYVeBVnznoNX+WjPpVebr2VAv2w/Lor1wBbj+M90wLyr
-	 KeH1qfCwT707i+LXx0Pm0A4NfD8/VLUqmk/LbewViaZgCvO05vIRMeXAZo/WGulKxzE/4KjN66VR
-	 910tM=
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-OQ-MSGID: <b23eae5c-0bc4-4556-8516-82d77272ecc8@qq.com>
-Date: Mon, 2 Nov 2026 17:29:11 +0800
+	dmarc=pass header.from=stu.xidian.edu.cn;
+	spf=pass smtp.mailfrom=stu.xidian.edu.cn;
+	arc=none smtp.remote-ip=162.243.164.118
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62DF6606A324;
+	Mon,  2 Nov 2026 09:29:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 62DF6606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.xidian.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.xidian.edu.cn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=stu.xidian.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+	Message-Id:MIME-Version:Content-Transfer-Encoding; bh=SokQ9ZXvf9
+	1S67MDPneJhsSwDRmkfnKSHkpvgNhOdcw=; b=eED5RygvPVs/gqNk5Yargo6uhR
+	B5hkv1K7DKIltHnjvdewGWtI8SgxQyUJmLxMEYaiq57853ymvS3yBhV9kZMa2/jm
+	R4NScoLp8jTg4CQ+8f0AipPGM/SUlRfuIMCZSB424UoGG8/VujRpa1K7A34HzcMl
+	AWD6tpajwTRkKNVsw=
+Received: from user-virtual-machine.localdomain (unknown [113.200.174.55])
+	by hzbj-edu-front-4.icoremail.net (Coremail) with UTF8SMTPA id BrQMCkAWNvz2V+hqNicZAQ--.18472S2;
+	Mon, 02 Nov 2026 17:29:27 +0800 (CST)
+From: YuanZhe Liu <25031212351@stu.xidian.edu.cn>
+To: Helge Deller <deller@gmx.de>,
+	Steve Glendinning <steve.glendinning@shawell.net>
+Cc: linux-fbdev@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Bin Yu <byu@xidian.edu.cn>,
+	Cheng Wen <wencheng@xidian.edu.cn>
+Subject: [PATCH] fbdev: smscufx: allocate the size advertised in smem_len
+Date: Mon,  2 Nov 2026 17:29:25 +0800
+Message-Id: <20261102092925.18027-1-25031212351@stu.xidian.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -73,61 +59,70 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mm/page_alloc: release isolated freepages on compound
- range mismatch
-To: "David Hildenbrand (Arm)" <david@kernel.org>, akpm@linux-foundation.org
-Cc: vbabka@kernel.org, surenb@google.com, mhocko@suse.com,
- brendan.jackman@linux.dev, hannes@cmpxchg.org, ziy@nvidia.com,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org
-References: <tencent_869149E9C4305627F0ED654860AC4DDBC309@qq.com>
- <5d79db66-2195-4f8d-a721-e1756bc6ead0@kernel.org>
-From: Zhenghui Hao <zhenghui.hao@qq.com>
-In-Reply-To: <5d79db66-2195-4f8d-a721-e1756bc6ead0@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:BrQMCkAWNvz2V+hqNicZAQ--.18472S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr45WryrCF1ktr4DJFWrZrb_yoW8AryxpF
+	4Yka4qyrs8tr4UZwnrK3WFkFyFvan3uryjkrW3t34F9F15Zry5uFy8CryIgr98AFWxXFnF
+	qw45ta47uFyUu3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9ab7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I
+	8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x2
+	0xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18Mc
+	Ij6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l
+	c7CjxVAaw2AFwI0_JF0_Jw1lc2xSY4AK67AK6r4fMxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_
+	Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8Jr
+	UvcSsGvfC2KfnxnUUI43ZEXa7IU5R6zUUUUUU==
+X-CM-SenderInfo: ysvqjiysrsjkur6v33wo0lvxldqovvfxof0/1tbiAgUFD2rnWEKRUAAAsb
 
+ufx_realloc_framebuffer() allocates line_length * yres bytes but records
+PAGE_ALIGN(line_length * yres) in info->fix.smem_len.  ufx_ops_set_par()
+clears the framebuffer by writing smem_len bytes, so the write runs past
+the end of the vmalloc() allocation whenever the mode size is not page
+aligned:
 
-On 2026/11/2 17:11, David Hildenbrand (Arm) wrote:
-> On 11/2/26 10:06, Zhenghui Hao wrote:
->> alloc_contig_frozen_range_noprof() isolates [outer_start, outer_end)
->> before checking whether a __GFP_COMP request exactly matches the
->> allocated range.  If it does not, the function returns -EINVAL without
->> releasing cc.freepages, leaking the isolated pages.
->>
->> Call release_free_list() before returning -EINVAL, while the pageblock
->> is still isolated, matching the cleanup already used when
->> isolate_freepages_range() fails.
->>
->> Use WARN_ONCE() as well: the condition is reachable through the exported
->> API, and repeated invalid calls should not flood dmesg.
->>
->> Tested with an order-9 free pageblock and a one-page __GFP_COMP
->> subrange:
->>   before: free_buddy=0, leaked=512/512
->>   after:  free_buddy=1, leaked=0/512
-> How did you reproduce this? Using a hacky kernel module?
->
->> Fixes: e98337d11bbdf ("mm/contig_alloc: support __GFP_COMP")
-> I thought we discussed this in the past: if you are able to trigger the WARN
-> something is messed up already.
->
->
-> And indeed, same patch already here, SMH
->
-> https://lore.kernel.org/linux-mm/20260629-free-pfn-on-alloc-contig-range-error-path-v1-1-496ff9ca22db@nvidia.com/
-Thanks for the pointer, and sorry for the duplicate -- I missed the
-earlier thread.
+  BUG: KASAN: vmalloc-out-of-bounds in ufx_ops_set_par
+  Write of size 2 at addr ffffc90005518600
+  Call Trace:
+   ufx_ops_set_par
+   ufx_usb_probe
+   usb_probe_interface
 
-You're right on both points: the reproducer was a synthetic module, not a
-real workload, and being able to trigger the WARN means the underlying
-path or validation needs fixing rather than papering over it with
-WARN_ONCE.
+This runs from the probe path, before any client can open the device: with
+the fallback mode of 800x600 at 16 bpp the framebuffer is 960000 bytes and
+PAGE_ALIGN() adds 2560 bytes that were never allocated.
 
-I'll drop this version and follow the existing thread. I'll check whether
-the earlier patch is still pending and only send an update if there is a
-real delta on the current tree.
+Allocate the page aligned size that is published in smem_len instead, so
+the buffer covers every byte the driver and the framebuffer core can reach
+through smem_start and smem_len.
 
-Thanks,
-Zhenghui
+Fixes: 3c8a63e22a08 ("Add support for SMSC UFX6000/7000 USB display adapters")
+Cc: stable@vger.kernel.org
+---
+ drivers/video/fbdev/smscufx.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/video/fbdev/smscufx.c b/drivers/video/fbdev/smscufx.c
+index 5704f60e1741..d5b9802ea94f 100644
+--- a/drivers/video/fbdev/smscufx.c
++++ b/drivers/video/fbdev/smscufx.c
+@@ -1277,9 +1277,10 @@ static int ufx_realloc_framebuffer(struct ufx_data *dev, struct fb_info *info)
+ 
+ 	if (PAGE_ALIGN(new_len) > old_len) {
+ 		/*
+-		 * Alloc system memory for virtual framebuffer
++		 * Alloc system memory for virtual framebuffer.  smem_len is
++		 * rounded up to a page, so allocate that much as well.
+ 		 */
+-		new_fb = vmalloc(new_len);
++		new_fb = vmalloc(PAGE_ALIGN(new_len));
+ 		if (!new_fb)
+ 			return -ENOMEM;
+ 
+-- 
+2.34.1
 
