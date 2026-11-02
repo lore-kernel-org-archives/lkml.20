@@ -1,57 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793614430;
-	b=F3IGW1Eup/h+ty5MQDsvzWEn+aiuAeM94OqxLVsJ7zeg/aD7piCgtacwpiJ7r5gRXfpc
-	 b7ArG3mCxCCEhnYGg3U173+UK9DN0kIBvViU6uEvSSJL30nWoTh5TJCBYG7FFW3w5MGW1
-	 SmMqn6f5Xj3mDvOjEdkBmhCop+z1Mw7TaFmS8bkByLZkbsIC7aynBu3Y7fQ2nneOq86Ji
-	 gWM27lM5pdrvGM5t11R3DSCpPKeogEQkluaw29E1cfVlWPoyyp0aNOxIiIpIYSIzTKxdx
-	 a5SV/gWx9wQk3hGgQFXaKxL/hkp/+j5wTYBATPM12lenGMyrMqNyzS0sHmjxb/il0PA==
+	b=lTzqg5Ik+A9lyscyaUP+5zWMO9AdNU8pA0FQAiuRJ5XKXlaxCzz3SssjW7cdKy1Ya9k1
+	 suvbaAln5wNhS7/pxfV54g3ojnobswl2g97qtrtZ7moqgh1QL2RaTVSvU7lCia0ABAyOC
+	 Xn5D6rrz5nNY4WEhiPeB1HCrT/6PtVd7ArbFKEdmSYAaofg0lM2vO+9R6lRGaR+dCtzQC
+	 fPc+23M8F7f0+BT17xCGm0stuR0gD+e0LUej1L7POEEi3HgOG8a5ZzVm6KL1ixKQGiM6q
+	 mcPjBRvFFs/rLY0zMiXthVBLxV7o9XVST376elb7Oq/b546coISBgyQD5wgsjQ2KSdg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793614430;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=/geg4fn5RzdAUH4lS/NHAgce/2jiQ9EPWoRaLv0NohE=;
-	b=D67WpcOk2+GmjBTArVjdISLtUBG1tvosrNroiU1ynID5bqTXq7qbhb+qxUu2mTHkfMMR
-	 01nr4M4pgjDt1v86jDGv6Duk+oGT3QssaQrGL4RY/xDk/EpebOon7l24CNOBXuSo6je7K
-	 l9glVn19WRa1vBIzYlEJO3SECXCxL2dZnpdnjcLetD97G2o9Tn797L0zxyuuhyjZWZxAj
-	 fHyW0B3/zV9+gOlblfn0Mr6bMWrqJSdV3B8TVGBswvp2EuYkKr/A2pvk4uh7BwKKIoqZN
-	 9VuHDWIHP1NNYnjdlNQ3Zo0hXoQIgaUBbBHHEaj4fPkTqPmVEhk7l5ia3sESSlEVDhA==
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:
+	 In-Reply-To:References:Auto-Submitted:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	b=m6rqo2fWjdqrlYKDMwp45LTioVFa+eSSPJn7hXLlqj36Q4TiasB46IyJpnI6EAf3sOnU
+	 MorPTkqW/fIsGXHG6ikqWGawvVcB68it4WlsT/OMLvKJWo5VooI6gdikmeHn3b5tz8h5I
+	 /SUOeZbAayVRau6+E1ucGDOBoxUxs8N0kyZyilNTtmNeJkPfX6mYjQoGZs9wjErK6DakO
+	 SNnAKoUXhJWfu8ym/V091Tu6+nOIuXwZV6MRmvZxAvQuFGzRTe5jS+ArMWCETOa4gAIfn
+	 0xxQH1gArMVAVPiO2o8RjYczZYergVHgVuAoqFw1pK6ioOcWX9YsF5jw7yI6uBoPWqQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqKvkUph;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwjFARZU;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5209C606A327;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520DE606A329;
 	Mon,  2 Nov 2026 10:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CqKvkUph
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA191F00A17;
-	Mon,  2 Nov 2026 10:13:48 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lwjFARZU
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9C0481F00A18;
+	Mon,  2 Nov 2026 10:13:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793614429;
-	bh=/geg4fn5RzdAUH4lS/NHAgce/2jiQ9EPWoRaLv0NohE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CqKvkUph1JMI+M3Quw787pbiUXVd4OsSacpUh7DBq1UMHojPYBWdwypfgOu8ApXDX
-	 Oj0ziUigXpLbJb7ApnHlmo3GVQnwvyoKkQbT76WPr+QALqQgF6YtEanGFVVR0FFheY
-	 NNKjV63p85ATE8OIcyp14Ng8KLHcqIa/1sEYmwDvNckCx6QOXfNu5FgNna7zkacIxB
-	 t2dnD19uAqegTS9/3NM+pVFpVdhZxNjXv+YpSxYUUOsW7KO5vuVw3GZBLxS0PFdSOt
-	 uN38sGBOMAfem+9bQ1J23Gi5nEc7+NlN+e5oVwisv12htcWVD22e/EfB20nT72NC2L
-	 G4fW7k3cB26Wg==
-Date: Mon, 2 Nov 2026 11:13:46 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aiden Isik <aidenisik@member.fsf.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Peter Griffin <peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/5] dt-bindings: arm: samsung: Add lucky7 board
- binding
-Message-ID: <20261102-origami-shoebill-of-fortitude-ddf566@quoll>
-References: <20261030-for-next-lucky7-v3-0-81e02272ce69@member.fsf.org>
- <20261030-for-next-lucky7-v3-3-81e02272ce69@member.fsf.org>
+	s=k20260515; t=1793614430;
+	bh=Z9zRtXHe/J1k/4/9wAeq1n+PwAt+ioXmV3zyjSNrjDw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lwjFARZUCE8eW6izTeOI/rl0il0aZsDTXNrGpjJjdK962sfr0lFKQrCfoyKVXzV3S
+	 g1PFchZ3qqfmzRLsLGEwNv6qmX0g+fo1kySKfq2z2shBfP3n6/RxVzYx8RIV3G3SFk
+	 rwRkdX/k66Ysc0QXy9ML6zp41Yp2l0N2eczAKMOvrdj1wzgh8Yx5J0KZw1Tmt97EEY
+	 otKF8eI+EQOJ5b0xLAbMCZHT/4N50vuO/Kq8X+VC8rg86NY/wR3HbHvg7b/eKY82eB
+	 GiHJvoJhLm3KGEX0b8Nttd+y3Ub7kiP7i/0KlPEtR2ysmBRLSlfFEoFxejmO0wiyqQ
+	 9dInnRAIhoVzA==
+From: netdev-bot+sinfo@kernel.org
+To: David Yang <mmyangfl@gmail.com>
+Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
+ Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, linux-kernel@vger.kernel.org
+Subject: 
+ Re: [PATCH net] net: dsa: motorcomm: Clear the MIB buffer on chip reset
+Date: Mon, 02 Nov 2026 10:13:49 +0000
+Message-ID: <179361442917.3286.13140295265370118734@kernel.org>
+In-Reply-To: <20261102101125.3523835-1-mmyangfl@gmail.com>
+References: <20261102101125.3523835-1-mmyangfl@gmail.com>
+Auto-Submitted: auto-generated
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,35 +64,25 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261030-for-next-lucky7-v3-3-81e02272ce69@member.fsf.org>
 
-On Fri, Oct 30, 2026 at 08:33:58PM +0000, Aiden Isik wrote:
-> Add device tree binding for the Samsung Galaxy Watch FE (SM-R861/SM-R866)
-> board, based on the Exynos5515 SoC.
-> 
-> Signed-off-by: Aiden Isik <aidenisik@member.fsf.org>
-> ---
->  Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> index db19a686f490..c80fac4fad7a 100644
-> --- a/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> +++ b/Documentation/devicetree/bindings/arm/samsung/samsung-boards.yaml
-> @@ -157,6 +157,12 @@ properties:
->            - const: samsung,exynos5420
->            - const: samsung,exynos5
->  
-> +      - description: Exynos5515 based boards
-> +        items:
-> +          - enum:
-> +              - samsung,lucky7                  # Samsung Galaxy Watch FE (SM-R861/SM-R866)
-> +          - const: samsung,exynos5515
+Hi!
 
-This looks misplaced. Entries are sorted by the fallback compatible.
+This is an automated message. This series looks like a fix, but its
+commit messages seem to be missing some information:
 
-Best regards,
-Krzysztof
+ - How the issue was discovered, e.g. hit in production, hit during
+   development, syzbot report, manual code inspection, LLM or static
+   analysis tool scan.
 
+ - Whether the issue was actually triggered, or is only theoretical
+   (e.g. found by code inspection). If it was triggered please include
+   the symptoms, like the stack trace or error messages.
+
+Please do not repost the series just to address the above. Instead,
+reply to this email with the missing information, so that reviewers
+can take it into account. If the series needs another revision for
+other reasons, please include the information in the commit messages
+then.
+
+The evaluation is done by an LLM so it may be wrong, if you think
+that is the case please reply and explain.
