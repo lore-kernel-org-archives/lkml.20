@@ -1,49 +1,73 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633193;
-	b=YFXPPo6EdJI+wwuCe3VAWOhnA+WG+8UKour0ybzwprgNGauOs3Zr2YfZhA63lNbSLG/Y
-	 M5LqbPu7kFDgG0AuMgJi29mv556K4yNnAtTeAfueoq/Av1AYl0cCiCBiY2yj79B0Dl2rU
-	 YHt4/4KCyqNS8UvEijbcx2Is6oEpjom5f3yaD8V50K9HyGEFJiTjF/2pItAFmLexu5lni
-	 rhq4AZIilAgGJNMlXsd5n+hUEP2xfBRYKbmr+THiJPvQGBoObZhLypXlBllPJyjJRG/SV
-	 DnyzKnUC0DJQcOSjQZJvAgx3LgeXDgIFEQAg3PHoZbNW0Yugi5exqWQN2he3lBc9QHQ==
+	t=1793633213;
+	b=TiLlRBzPdCCUBIBYfZ+cidD3PwagC1uxtb+2mnGHh6alN9qmAaQaCr49GOD/8EvRvnpr
+	 eICPZWF8miEPeLH/UReLOsarnfbU5F3IKSbdYx8wSbITiGUC84zdy6yd1mTyHlsqvDuyy
+	 Cwi1DlAMRzO2Z+uw2BeYcwN0at9iJnyP663FPZcI1gY9I8gMnJhoV+v/6zLGFNpKqPTcE
+	 3d5h3zhvCKIy+hUQwHnrlL8fCpbL2nNWfDI9uWfyKvbKlsYNIc23NRQniSZBxBgXniZ5F
+	 ESz+sXC/17uY7gqfYMqBh9Zmi73HEwp2sQs4T2cRiK/v5VRnJZLRKmoc2r8vO9q0nEw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633193;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=R1VqjUGL5+J0t5hj5seZeRe1Maiv3S9hp7Jj5OG0/0s=;
-	b=g1zhUEHnQNG2C5NNskomrOOCO9DmdTN4BPO/owuhVm2XrTavaNc6Yz851nskw5di9VH7
-	 kIfH4zlQdd3gpOl6MlWAqQioIggbxCFO6boz/lZOeTPPILRgaIJP3KzPSXvK2tJc7cPRu
-	 jJsHR15/LQcnA5RutiVubHQO+df9qshrflP0QkMW1WSJK6ZlINS0H/PPm6hdWSenVOjHr
-	 2Px0uPSuNYNQlhlMUG0zxUTSX16Kgb0hfxBAHmJtxgMrvnOgVMsIW5dRMMdh+s3vJHv9l
-	 Y9ExMjzL+MeIrfqnLc+RxuaO2p1kSNdz4NvCHujdSd+9ed5UfFbfx1O/hbV0qxKA7Rw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633213;
+	h=DMARC-Filter:Received:DKIM-Signature:Date:From:To:Cc:Message-ID:
+	 In-Reply-To:References:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Priority:Importance:X-Mailer:
+	 X-Originating-Client:X-Rspamd-Queue-Id;
+	bh=nP2e3PGjH3XUNquztLEZ0q/WCiO+28qYpsidPKUHKlc=;
+	b=Op2ksFf+6wLOWDENe6cNWbJcnTHAarH+/nb4APnhFXQ9qH4uUJuwbr8OvCdHyZB9fqGf
+	 nfb/bb/lfW0fGFvBdioVrKpJyUlhLJIJ8kz+GVXcmEDGRSD7lQnV1i1CleTB/wLW/8veP
+	 rIeaClFBBuMHUQnTsNcnF1iGf/wPnYrJPBadLdE4cvKOP25kX7g5q1IS1Hhn8Oos18J55
+	 VZS8GMMTyjVy7ECdwVhY19XvCuAaW6ToDiBF/e+uLqpkFUEC0jsHm049FWi7oG2lPNGpw
+	 7d1DpjisZitdllyKCZJSiIz79kb4u4DsdShzWGKxu+nfCCAIf9lU19aTNEmlIxQAcUQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPntUaej;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=hsal.es;
+	spf=pass smtp.mailfrom=hsal.es;
+	dkim=pass header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=YV7AHBTE;
+	arc=none smtp.remote-ip=80.241.56.152
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 171F06083601;
-	Mon,  2 Nov 2026 15:26:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE91B608362E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:26:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BE91B608362E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hsal.es
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hsal.es
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LPntUaej
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D7DB1F00A16;
-	Mon,  2 Nov 2026 15:26:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793633192;
-	bh=R1VqjUGL5+J0t5hj5seZeRe1Maiv3S9hp7Jj5OG0/0s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=LPntUaejzzAUOTRvUNS0Y1GMbnPApCWQqcTwI13UUCKXze90UPLxxpRnGW90okaRN
-	 /SIo51jvsTdg8UsLHm4uePjBeYyLPk3KVJ4wuqLBYJhjSGrlhysCaMmn5I/CkJ1pd9
-	 ZHTI/3+dLOQ6JzTqFxt6SjCj+4pjEdhhbPGoo6W+bAjQGlPVV4SQHQDv7/I/vWQIJ6
-	 /fi/xyM0dOZwYg9ycwAhjjdk4lSHA97j+wFr9FXI3WUCvPAnDgHJoyNjjrjgyn1Ef4
-	 i8wvejafrNc0aiVo0X6lBeVv6XILV8EgxhSfBWL+BkF8M9XALmyKKUOR1IJtwGwMO0
-	 zz5ZY6ZT8QG2Q==
-From: Christian Brauner <brauner@kernel.org>
-Date: Mon, 02 Nov 2026 16:07:29 +0100
-Subject: [PATCH RFC 19/27] kallsyms: let procfs own the seq_file of
- /proc/kallsyms
+	dkim=pass (2048-bit key, unprotected) header.d=hsal.es header.i=@hsal.es header.a=rsa-sha256 header.s=MBO0001 header.b=YV7AHBTE
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4jJFtC0W4XzKn28;
+	Mon, 02 Nov 2026 16:26:43 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hsal.es; s=MBO0001;
+	t=1793633203;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=nP2e3PGjH3XUNquztLEZ0q/WCiO+28qYpsidPKUHKlc=;
+	b=YV7AHBTE5mbv7+xt+PhpooXgBlcKB/sxubS+DnOWOTpFo3bbtlJmhkmRhkjPs6XVeoXWMe
+	CFPFyNBZ1MPgn9FEDS+8f1Z8cIqJw7WGmFffza3UP412OxxJwIU9zo23GA5Z44namqId1u
+	0DrJWeD98Be0H8s1EHSwCi9srHMwh0JTS1ceYuKMghdxohN1OL4V/iGCJuZtCmL33gk7Wt
+	iHq2UjgSgp72i60hUZ1dvOAN+HeejZaG3Zif4EfSp91FXQHGAWZR5h0IK7imVPOdBKkUGs
+	6U0idDFpMqothWuxI6Cfhc1ptrsK91XEZTHSHZwbNyb5KGyMzcwS6w5rTOx4rA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of hugo@hsal.es designates 2001:67c:2050:b231:465::102 as permitted sender) smtp.mailfrom=hugo@hsal.es
+Date: Mon, 2 Nov 2026 15:26:42 +0000 (WET)
+From: Hugo Sales <hugo@hsal.es>
+To: =?UTF-8?Q?Ville_Syrj=C3=A4l=C3=A4?= <ville.syrjala@linux.intel.com>
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
+	tzimmermann@suse.de, dri-devel@lists.freedesktop.org,
+	airlied@gmail.com, simona@ffwll.ch, harry.wentland@amd.com,
+	amd-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Message-ID: <2112993263.278931.1793633202457@app.mailbox.org>
+In-Reply-To: <auh8pUx_kXUYSdZ8@intel.com>
+References: <20261031161952.660049-1-hugo@hsal.es>
+ <auh8pUx_kXUYSdZ8@intel.com>
+Subject: Re: [PATCH] drm/probe-helper: Sort and set crtcinfo before dropping
+ the modeset locks
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,94 +77,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-work-procfs-fs-v1-19-d09a996317b3@kernel.org>
-References: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-In-Reply-To: <20261102-work-procfs-fs-v1-0-d09a996317b3@kernel.org>
-To: linux-fsdevel@vger.kernel.org
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
- Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
- Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
- NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
- Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
- Greg Kroah-Hartman <gregkh@suse.de>, 
- Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
- Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
- linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
- ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
- coreteam@netfilter.org, kexec@lists.infradead.org, 
- linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
- netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
- linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
- linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
- linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
- sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
- linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
- linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
- linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
- linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
- linux-debuggers@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, 
- Chuck Lever <cel@kernel.org>
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1331; i=brauner@kernel.org;
- h=from:subject:message-id; bh=X1hXUo+P6dAEkQI4HVxBka/iuP3neD063cymPGxvXEU=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWS9WG7E86Wn6bItX8PRGc932QRueyvG/7r7fdz1LQabT
- jt31lYxdZSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEwkdQkjQ2/ojiqupX4S/zNi
- eAuad2pzvL4hu4l32d2bRa7rPvysnMjIcOC061HJ9ce7zeXr+fWZln6azCZ4Zf56HXH9smbnqy8
- vsQMA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Priority: 3
+Importance: Normal
+X-Mailer: Open-Xchange Mailer v8.53.348
+X-Originating-Client: open-xchange-appsuite
+X-Rspamd-Queue-Id: 4jJFtC0W4XzKn28
 
-Declare the seq_operations and the size of the iterator and let procfs
-open and free the seq_file. ->proc_open() only initializes the iterator
-now.
+On 11/02/2026 12:05 PM WET Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.int=
+el.com> wrote:
+> On Sat, Oct 31, 2026 at 04:19:52PM +0000, Hugo Sales wrote:
+> > amdgpu walks connector->modes from its atomic_check, in
+>
+> That is just wrong. connector->modes is protected by mode_config.mutex
 
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
----
- kernel/kallsyms.c | 12 +++++-------
- 1 file changed, 5 insertions(+), 7 deletions(-)
+You're right, I should have fixed the real issue rather than work around
+it. Please drop this one
 
-diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index aec2f06858af..2d309fcee730 100644
---- a/kernel/kallsyms.c
-+++ b/kernel/kallsyms.c
-@@ -888,10 +888,9 @@ static int kallsyms_open(struct inode *inode, struct file *file)
- 	 * s_start from where we left off, so we avoid doing
- 	 * using get_symbol_offset for every symbol.
- 	 */
--	struct kallsym_iter *iter;
--	iter = __seq_open_private(file, &kallsyms_op, sizeof(*iter));
--	if (!iter)
--		return -ENOMEM;
-+	struct seq_file *m = file->private_data;
-+	struct kallsym_iter *iter = m->private;
-+
- 	reset_iter(iter, 0);
- 
- 	/*
-@@ -923,10 +922,9 @@ const char *kdb_walk_kallsyms(loff_t *pos)
- #endif	/* CONFIG_KGDB_KDB */
- 
- static const struct proc_ops kallsyms_proc_ops = {
-+	.proc_seq_ops	= &kallsyms_op,
-+	.proc_state_size = sizeof(struct kallsym_iter),
- 	.proc_open	= kallsyms_open,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
--	.proc_release	= seq_release_private,
- };
- 
- static int __init kallsyms_init(void)
+I'll try to fix it in amdgpu instead. atomic_check can't take
+mode_config.mutex there, so amdgpu would pick the mode it needs while
+probing and keep its own copy, like it already does for freesync_vid_base
 
--- 
-2.53.0
+> And regardless of changing the locking rules or not, someone
+> should probably sprinkle lockdep asserts to bunch of places
+> where connector->modes is consulted. Perhaps even introduce
+> custom list iterator macros that include the assert...
 
+Makes sense. amdgpu would trip them today, so I'll look at that once
+the amdgpu side is fixed
+
+Thanks for the review,
+Hugo
