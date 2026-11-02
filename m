@@ -1,94 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.46
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621974;
-	b=lYGiFOOR/T8WXu/FPalTcbY+EBodkqVkP0Ygq1r/iqMmG8h5mFHEXxkeJTVmExsJHt7i
-	 BiJWHj/wdZxA54VVAbdYkPrIP6dHnRDSDMUHxWg5mTv2DrZNT4rGEh4jgdid7q27dGkxX
-	 qhFGOcWJj+JHMFcUKKadJUI6U2+tyOTZtcjYIcDL03Fjp96DuzIIvOWhaAAW7MEoXGiUf
-	 q/W75rsTgGoKMB+5vMWcC2R9o59XcWPsjMerwL/bFmdFdClJ7sMLpp6ue67wuKIL+StlI
-	 rIsDM3pys3c18JRMF/A5NTKkem1AXmjGF7HRoghcDF1C0ZZ18fEoAw03hAF9BfehGKg==
+	t=1793621970;
+	b=rkudtd0lyqi2FuhMEvn5ej5DKU6grkDZn2tjvAE9PFq2a8s/lYdQ7N3M7nDl+F0BanPF
+	 Ks3M3jgWuichUOl/RsIhbEjDrKcTh4iCsmBRCbvFn26zt7Bb8F9wLB6JJGsIJyAlHXBA7
+	 +fHP+JG5TkyCfQ+r9fhJL/s8lVYbCoqmfQNEA0D497prwpfEStRB6Ha/VQLArx9sdxZN5
+	 1YL8n41TZguGBIwz+DvffW202iXn9N6CMKDEJ8YXFSXo56Li7hGUYS5v0tFd+WBAsSAff
+	 E0MumZSQqbz0B/KGO+75p+XP/WFSBPtZ0MUGlUVa+n0oO2NSewTxLBN9xa2ocuLLkeQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621974;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=NOwKFTDoEguLb3kIIHfznAhArwn4FDch8KZcfkKCFSQ=;
-	b=qy34niHmldCOmljWkMcyWxg6IvG2fU7gFXR7SoNRf2bL0LAdicjldGAlpz2kKBYWltU8
-	 TwUGGMrKXOhbno9qmDrpM7NgIcaSpBos7zOz2d3QDyPDh9qWGI95lbjlRfeBS6NS8DDaj
-	 cQt6h0yoLRuc5exNq/I0NbWuVuC8VQZN/CnSmS24pWee1BK9TxhqoNfuk/3phYF24N3l7
-	 32PZsK5rTxjB4VuZNY5kbyyx5V5bLpJNnhv7QCwAC9TX36GZ+O3KVvHtB73wVxy8MUm5c
-	 4/8w9Gsw8es59NvwIhpN+f+gAP1KGtsL6AXONQbhZ8Y1FSxTbNV8nwmmoS8MNy6FK3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621970;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=BfvqbiLIKBc21OlWW9dUVyXq5aPIqBZABvNUTfTEyVM=;
+	b=nIFsZYfFDl1rnS/YI4Ej/w8e1Zgn3BWnOT3CQhkAsev2mE0MRdBJx2VwWXL7rIJZM+m6
+	 VfmWUs5/CN1nT5Jd21I4BXtaGLbKL5r1FlXC6B1Yc8zeYIEL0g9T/NpRThZo5xuuBZaMM
+	 GBUULVc6bKfVfkp805OraCuDgOE3ggoHCEOomfAbaYsORCo7TrMZNrx5X+NqjouKsXI7L
+	 1wdwlu7ufu29CAEzhYm0yrkFBza4qfPhZSe/68d2I1vySCcId+P3P5KRDx3kjaGGsQR65
+	 dVY+NKXmw9yGwXXi3X5jkPxIUzFdw6LjBPSCKkH3sNS/OoiHYGuykQoVT0FMPSqvLpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=remarkable.no;
-	spf=pass smtp.mailfrom=remarkable.no;
-	dkim=pass header.d=remarkable.no header.i=@remarkable.no header.a=rsa-sha256 header.s=google header.b=FyN4u5Aq;
-	arc=none smtp.remote-ip=209.85.218.46
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com [209.85.218.46])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="D7M/LoSa";
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3415C606A84D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:19:34 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3415C606A84D
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=remarkable.no
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=remarkable.no
+	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id 0F43F606A32C;
+	Mon,  2 Nov 2026 12:19:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=remarkable.no header.i=@remarkable.no header.a=rsa-sha256 header.s=google header.b=FyN4u5Aq
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c411e139259so244999866b.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:19:33 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=remarkable.no; s=google; t=1793621972; x=1794226772; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NOwKFTDoEguLb3kIIHfznAhArwn4FDch8KZcfkKCFSQ=;
-        b=FyN4u5Aqva1CpQZyIrjtbRqokvPeaCfdwazIeEWS+Q6H1J1wVqsjWNQR5bECcBlnr3
-         yExLuqdVEPM7ILYbZszmI3/buLIiZnKtyjQiElIdX3FpsWXkEPuWqWh+SFYeWtUr06KJ
-         gFqzUSaHCl5cn9AhALgmanUIDciCdHRPXwhqz/7sUyII0h/ire/a48OY+10Uhch5ZECT
-         Ruu9pk7lRo3Z6fA69Z6aTDtonMzD/1otKa8YJXYk7hlSTlrKEiSVhWjzceFGMcFsEpVF
-         eKcqWvhgzh0BNlf/TP+DBjFojFhnGE2KL55UaGAZf8YgtDAoNBsWjkDReDhy9ccqGAVv
-         StYw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793621972; x=1794226772;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NOwKFTDoEguLb3kIIHfznAhArwn4FDch8KZcfkKCFSQ=;
-        b=iGjQexOrRqtvI+y7TTLSeRBZyhg2GAqG2/XVmK2m4lkdSx6MdfQka5As5iGKk+uAwk
-         t980s2Tcka9Jc5rIXtzfO/C4bAh76CEeXmj6JTwtT3sxnoIo34ljvnJwlKgTc+xx1GZX
-         oBUlSOryXGdzdUv0xKynVgwDgDi4z6lgFM47GrTpHmPQHPGyLB8MgRvKqliSCbBT4kQ4
-         WFrSFPE1VDz3blnGK9SFZDDgo76bvbiWiIyfCUTj9OAWh8EeWWL/EySQMH8mFVnZKMH0
-         VHfxuNf7eITnmTbk5PtEL9S9agDN1iv+jQ2xMoOEvkcwVlqXkJXYmV49D40hMBiX1gyz
-         gFNw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQPHG3HyvbLyqs16nhtEHHm1y0cqQ8nbLwXrkjaSghjZt9h+FnI/ZKzHh3G47Rq3A4j9TLe5zBMsK7+t4=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIs42XpBW0pvUnuohupw2TY6xCBlfb7vw3CAwgSMe3XBUmUJ3LC
-	eHfV6rL3u5DhMe2aLo3KV9dwLIHvZ4bV9QNMTYKkbEpvRfedTJd/OIQ4yZ7/y7HNZRx3yylPqpp
-	itf7fYs0=
-X-Gm-Gg: AYBFou1LEVUCPsrh4L6CHwZ9cb2DHJBdBv3WyJla2OlK+0LnuziuKRNwq80JcfniSi/
-	7r/jCcROApAGGrpOyclp2CV8JdpvJuXvagFXujw+SrWtCom14inU53w72nc6bXRfVLGx9InKjXA
-	zaUjwYnRkgoTixsPDu8FotRkE6AEzLTijqqRQOgcDxJvtF7uYxFQ+MF9Z8SeODQ8tQI5kuL76X0
-	7QTa03kzfGJUyc0/tC4YZdsIV48rSESFAK1VF36uQoMBHS35AS3lICD8Jl9YtolUrpMv3DSGyDg
-	4vCvN/O2DESsAEARwGuk6423JBMadaNKmZJzfMemAVVthI9HOOslIKTwTzn1rlZ9HrO6r4rYEym
-	Ja/Ar8OQjF2URjyB678MwAl6vw8wDbzA1rMEySEOSEv5xe5Wr4Asdu3ptDMM8SIrsPyIvjgnvAr
-	oatUItcRW6/l6JlPtlY2edGoiq6PPLJn6skml6QSEbJEXbrplfAoxnBEWhcSmoS7EBuzSu9Sdfc
-	KWx/LGE8UD5oaxdGqXkX0Btk+ag/xm85SDCDJ9unxig9tZF3+p6wyqsMWky430I353bB/gFabtR
-	c6MWoDW0WVvlEg1GW+TRt4Yv0jYfKbJKpieqLG9jqfbO
-X-Received: by 2002:a17:907:7294:b0:c42:fc8b:6c7a with SMTP id a640c23a62f3a-c4ca7b601d3mr772506666b.41.1793621972466;
-        Mon, 02 Nov 2026 04:19:32 -0800 (PST)
-Received: from vkn-desktop.lan ([213.52.63.204])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabcfd22bsm378293666b.28.2026.11.02.04.19.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:19:32 -0800 (PST)
-From: Viktor Korsnes <viktor.korsnes@remarkable.no>
-To: Jeff Chen <jeff.chen_1@nxp.com>,
-	Johannes Berg <johannes@sipsolutions.net>
-Cc: Viktor Korsnes <viktor.korsnes@remarkable.no>,
-	Francesco Dolcini <francesco@dolcini.it>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless 1/2] wifi: nxpwifi: fix hex parsing in nxpwifi_parse_cal_cfg()
-Date: Mon,  2 Nov 2026 13:17:59 +0100
-Message-ID: <20261102121856.1011263-1-viktor.korsnes@remarkable.no>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=D7M/LoSa
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 163211F00A16;
+	Mon,  2 Nov 2026 12:19:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793621969;
+	bh=BfvqbiLIKBc21OlWW9dUVyXq5aPIqBZABvNUTfTEyVM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=D7M/LoSau+Rr+G7JgoYZfNzDPNVKpsA/41tOcvUbgzAllt3YkeUTprYGqkNOLx+MM
+	 c0PXOdoLGiJQo7dTcz9UU55QZ6OIiZ0A8jBCS1eUW1Pp9eq1Q+g7NCzz2A8ep3QtXO
+	 gD3WLG1FxqdQiqjSvz105e0917Yb/diZ/Z8bA+MmNjgufwloI7BYj8J3qwDgykQdpP
+	 UqX9J+P7U320y3oyqk49Kx8CBw8ufIO9CplUVzy7d9TX6zk9o9M47acKaPFUC/99VL
+	 yfIc2K2yDxoDMnnsKjt2td38PTWD2eJ5iQok4z/jr8TMeIOg/ecuFKlFSuH/d5Vc54
+	 FXr7mq6x2AkoA==
+Date: Mon, 2 Nov 2026 14:19:26 +0200
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: David Howells <dhowells@redhat.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-integrity@vger.kernel.org,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	Roberto Sassu <roberto.sassu@huawei.com>,
+	Dmitry Kasatkin <dmitry.kasatkin@gmail.com>,
+	Eric Snowberg <eric.snowberg@oracle.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	"open list:SECURITY SUBSYSTEM" <linux-security-module@vger.kernel.org>,
+	open list <linux-kernel@vger.kernel.org>, keyrings@vger.kernel.org
+Subject: Re: [RFC PATCH 0/4] KEYS: sanitize the garbage collector behavior
+Message-ID: <auh_zhPyeYWspJSb@kernel.org>
+References: <20261102121518.1197453-1-jarkko@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -98,73 +63,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102121518.1197453-1-jarkko@kernel.org>
 
-nxpwifi_parse_cal_cfg() passes a pointer into the raw firmware buffer to
-kstrtou8(). Because kstrtou8() requires a NUL- or newline-terminated
-string, it fails with -EINVAL as soon as it encounters a space after the
-first byte, causing nxpwifi_parse_cal_cfg() to return 0 bytes.
+On Mon, Nov 02, 2026 at 02:15:11PM +0200, Jarkko Sakkinen wrote:
+> 1. Remove key_type_dead and replace it with the regular module semantics.
+> 2. Replace variable size workqueue items with fixed-size 64 key chunks.
+> 
+> The first change has user space visible effect: rmmod semantics will change
+> from always succeeding into returning -EBUSY when keys or restrictions have
+> the LKM pinned.
+> 
+> Jarkko Sakkinen (4):
+>   KEYS: trusted: Disable sysfs bind attributes for TEE driver
+>   KEYS: Pin the backing module for struct key_type
+>   KEYS: Remove key_type_dead
+>   KEYS: key_garbage_collector(): process in chunks
+> 
+>  include/linux/key-type.h                 |   6 +-
+>  security/keys/gc.c                       | 249 ++++++++---------------
+>  security/keys/internal.h                 |   7 +-
+>  security/keys/key.c                      |  46 +++--
+>  security/keys/keyring.c                  |  84 +++-----
+>  security/keys/trusted-keys/trusted_tee.c |   1 +
+>  6 files changed, 148 insertions(+), 245 deletions(-)
+> 
+> --
+> 2.47.3
+> 
 
-Use hex2bin() instead to parse each two-character hex byte, bound the
-output buffer to the command buffer capacity, and return -EINVAL when
-no calibration data is parsed.
+cc: keyring
 
-Fixes: 73b01e57ed3e ("wifi: nxp: add nxpwifi driver for IW61x")
-Assisted-by: GitHub-Copilot:Gemini-4-Argon
-Signed-off-by: Viktor Korsnes <viktor.korsnes@remarkable.no>
----
- drivers/net/wireless/nxp/nxpwifi/sta_cmd.c | 23 +++++++++++++---------
- 1 file changed, 14 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/wireless/nxp/nxpwifi/sta_cmd.c b/drivers/net/wireless/nxp/nxpwifi/sta_cmd.c
-index 5e8ffd306b31..f3cd5a51c438 100644
---- a/drivers/net/wireless/nxp/nxpwifi/sta_cmd.c
-+++ b/drivers/net/wireless/nxp/nxpwifi/sta_cmd.c
-@@ -1391,7 +1391,7 @@ nxpwifi_ret_sta_mem_access(struct nxpwifi_private *priv,
- 	return 0;
- }
- 
--static u32 nxpwifi_parse_cal_cfg(u8 *src, size_t len, u8 *dst)
-+static u32 nxpwifi_parse_cal_cfg(u8 *src, size_t len, u8 *dst, size_t dst_size)
- {
- 	u8 *s = src, *d = dst;
- 
-@@ -1401,7 +1401,8 @@ static u32 nxpwifi_parse_cal_cfg(u8 *src, size_t len, u8 *dst)
- 			continue;
- 		}
- 		if (isxdigit(*s)) {
--			if (kstrtou8(s, 16, d))
-+			if (d - dst >= dst_size || src + len - s < 2 ||
-+			    hex2bin(d, s, 1))
- 				return 0;
- 			d++;
- 			s += 2;
-@@ -1423,14 +1424,18 @@ nxpwifi_cmd_sta_cfg_data(struct nxpwifi_private *priv,
- 	u32 len;
- 	u8 *data = (u8 *)cmd + S_DS_GEN;
- 
--	if (adapter->cal_data->data && adapter->cal_data->size > 0) {
--		len = nxpwifi_parse_cal_cfg((u8 *)adapter->cal_data->data,
--					    adapter->cal_data->size, data);
--		nxpwifi_dbg(adapter, INFO,
--			    "download cfg_data from config file\n");
--	} else {
-+	if (!adapter->cal_data || !adapter->cal_data->data ||
-+	    !adapter->cal_data->size)
- 		return -EINVAL;
--	}
-+
-+	len = nxpwifi_parse_cal_cfg((u8 *)adapter->cal_data->data,
-+				    adapter->cal_data->size, data,
-+				    NXPWIFI_SIZE_OF_CMD_BUFFER - S_DS_GEN);
-+	if (!len)
-+		return -EINVAL;
-+
-+	nxpwifi_dbg(adapter, INFO,
-+		    "download cfg_data from config file\n");
- 
- 	cmd->command = cpu_to_le16(HOST_CMD_CFG_DATA);
- 	cmd->size = cpu_to_le16(S_DS_GEN + len);
--- 
-2.53.0
-
+Br, Jarkko
