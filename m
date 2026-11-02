@@ -1,88 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=203.205.221.233
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793636865;
-	b=rysd2ZNYinCIagaCcbDZGonXHnfPApuNSlb78cxf9OshwhZBO1pqb1pn5mdmUYYqSkC4
-	 2+8zn3HYkIBfrq12Z82tqCJX7lL/ziDr43PrbyWwN4/p8kOZqNL5DDqVXcHt3kXAJoMbj
-	 9TuWUiK3ZV0cVCbCltU+Sq3CBxN/FoTLq/PSFnSdvRlNlfPrHjZMM39bqVncWC1rahsde
-	 iMatBo0Q8G86WLH5e9olGwko50ICF4k1NQ3BO/E1ss5270AxPiRbw3XK78VdT7arODvsH
-	 YpLXusprVveo9S6Xg22rUd5001Q/LE2Enr04BZMCnxR8oFpst0rjbKEOKsjaB9N/iJw==
+	t=1793636870;
+	b=Q6rpODC3nJQq0D8IqLahB36Op2xv4MjXFQ76G6ib6zUx7gD1Q7zua32Jw4xmoogmVgnA
+	 qQ2Wqw3FT1uzErXUBRTqhKJ3XRetQffq1TnhnPFEneivpM2Ngy+CZ/PLUny6T0cDXiDxk
+	 THsUMan4DNQXAvkN3m4+iIRCsbGo9EFkZVznyNwfgHwar2+WDFOorbM/L8riTOSiMIL/U
+	 ctdlrAjXC6AMpjTjOvtaELuFzaZPEMtaOZBjjgVntD9Jgid1L44qnnxH0d6EInbwH7plh
+	 YF9F8ja/q/20AYF0buuxgd2DjfBjUeCR8qkFlry30r9glb3Zza54tYQWOxRagEx0lGg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636865;
-	h=DMARC-Filter:DKIM-Signature:Received:X-QQ-mid:Message-ID:
-	 X-QQ-XMAILINFO:X-QQ-XMRINFO:From:To:Cc:Subject:Date:X-OQ-MSGID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=ff3BZrkChdI7027N7uoy8k2ci2kqph0m3jBPVQrD6Go=;
-	b=M90hACaiqMK6rRMIV8l27InnfXfWoEPgLJbZiC2G3AWZJQJxj/r7E3o3RHaK3nVDkBL7
-	 FQUcmucTcj5hUHrlc+fgAPhAoZA6jDdAqSAxCjdl4WxJ1v/jFG8oEXeN86C9k8MkmceAc
-	 9VciBidntMOiNi2MAghN0+7g6fSi0rM+lGPcZiy7aQ+1nD23BddG63SXpwnnQO5n8Xc+q
-	 nIFPYQqUZahbD1GD43HKOaDHWnQfwtlXM691jQbT6M/kYQ2zvgHW7fHS/vgA5gcVZSt7c
-	 C9WXTFYV0jSZT2E9JTfpO+O0dpesvt9yuYK4jkv/aV85InWTH3wSLeyO5yQqr1eqzRA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636870;
+	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
+	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
+	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=wHdtFy4kp/ZwM1BqNPeMTtm2ddmGgb+Bt7+4Qa7+AJg=;
+	b=BTc+auhni1QDf6tGtlqcxQF5zIwjBKFmc/mx6cQd2WSXULcKaVvpF/+8wpljxP3fLmmO
+	 0XJtpuoNAEqR4u8Pg5x0BvIqbFQ0DKJunkrs67IA6Y9+wOg6B2loA4MGn+JAjfpXqjcSB
+	 Vn2tEV37FUyqZoEA2HpVvZbuv/tafBYx0ECDWWJJ+OekFvtBZ+9YwuhUQS+dINdj6VAkA
+	 y7oc9lb2V5FMZk3KOHWtcbmtAHOHaMbaSYrUbb8paw/tWM+r8fkfoUsaIDZwSET5X6YMf
+	 uDjNOGotqKjBDJN+xjEqOgbUW/KS2CDuHyA06RSv2kw/S4q4M/ZpLpFWvXVg/qX/iXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=foxmail.com;
-	spf=pass smtp.mailfrom=foxmail.com;
-	dkim=pass header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=sd8siFk1;
-	arc=none smtp.remote-ip=203.205.221.233
-Received: from out203-205-221-233.mail.qq.com (out203-205-221-233.mail.qq.com [203.205.221.233])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQiClhc3;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30B68609D82E;
-	Mon,  2 Nov 2026 16:27:42 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 30B68609D82E
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foxmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foxmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D43609EE4E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:27:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=foxmail.com header.i=@foxmail.com header.a=rsa-sha256 header.s=s201512 header.b=sd8siFk1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foxmail.com;
-	s=s201512; t=1793636855;
-	bh=ff3BZrkChdI7027N7uoy8k2ci2kqph0m3jBPVQrD6Go=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=sd8siFk1Ozll/WcUcjlECBTRbfuyIhucPbGiCmZ5Gj9v2qZZBq/Zf2cZJsdZBr4yF
-	 iBA35V1ZQOkC8mTZX8qYF4hoaiRnDxV/fJLnWNodvQ+oSthQ9firUOl8/oJ7euzffJ
-	 hErNbqWCPhCVEwGrAwO94TMYF9qs8yqpvYkdYdf4=
-Received: from ubuntu.lan ([223.160.115.26])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 6DF1BC5E; Tue, 03 Nov 2026 00:27:31 +0800
-X-QQ-mid: xmsmtpt1793636851t034awwff
-Message-ID: <tencent_1A709D2F1A0F149D99E48871997B9FB32607@qq.com>
-X-QQ-XMAILINFO: MC1fDArw1Zbws/K7XTar14mJT1rKIFRTt7uWt1eJHngEhGESrjoaZtZksUg8ps
-	 88iH8Zay6LAm1XypPlgXoW7bIGsVxIO+2AraxcLHDLYKLzdOHRsSbIitlK6mynAl6m5v20cKS+fw
-	 MvhsPJ7/35Tlo6vEFLRgJ2Xn9eTZ+rVzwBpbnv5kkfBLyB4xEv4OM8bVkoGrhpoG7/JiKABs8Ly1
-	 X6rE2Iu2eOFEko4uYEOOC2jaMCOFJnEZ2Fr4FK7hYqDqYsR77lvcewIzSIqjG/hoFoJB8aUi9WqE
-	 LT4beVZpeEr00FL4bUuLR4RFiuF5Ca1ZcUHMgL/KCewkJughm42R711TF08z1+F2/bRlq6YO/XhA
-	 NGYXsdJxQDUmg3DTSujOi3ZtAUpHBcl4BxMAzd2wOKOVgccta/EWty1ybSHcpzIv2A87xjQrZfDa
-	 iGKSs9pO1Us0Bzx08HMNNqX1zfcsx+y/B+mWAALkrZS0PwmxBY9NwCttGHvhIjoeREO01u8W9XIc
-	 iKF7gvxriY1ZIlZGn7qX/wrGzlH99ypTwer0Vg3qyLadPt3tCl4APxaxpw6fwxq+c3iFx4vcexoS
-	 tpKEvtJMjFE2p3kM5HPmrslNAJDvIfNDLEXk7eqaDUFf0YJt9p4qhsF6LYH0yc83RpUdfjlPNAjf
-	 EUdIoSoeArdJ2eMGAXKwJ05lKK/cKfVMe4xznfkqQz454qvwcPYVULOLcbxUqIQ5f3UOCyEHsyXd
-	 +IxFLKSiVbX1nYm8ggBuDamHayQKi7kYEspSAl/k7jHVMAN2jMTlDZPiHonWKVQWBtFuQPCLRmk8
-	 Lj5yeOOLWXanvbSyibEJJCc9WzOO9k69HmCWRHXhpM6SuBN7jfA0Lf/cOZPOUbhb/AMmd6H5j5gT
-	 NB1z77XOnWk4dwDUx/9QXVOwEdBeSBFTvyJYyfKt8iQGdEygCUI5Lb+ZMhohapjkwqWjGqSjN9Iw
-	 DpAdd6DEAOrnZlEPQCgfxSGv1mD7CHxGlD3pMHehPOH/yMPnNAdpK6lJAh+MbEcjX4j+IIOzNwg/
-	 gQb/ofJpLTuLirim0e9aMqqCYR0o6vUcHwY0L+G9umfsmjZUJPDC+ry1JI/sEZ7MPECAzf2wS23A
-	 h2hDcibyZg1r/xEkjMjahWZfHvzLcBTwl8uFkM
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-From: Haozhen Li <dezige131@foxmail.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Dawid Wrobel <me@dawidwrobel.com>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>,
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
-	Harshal Dev <harshal.dev@oss.qualcomm.com>,
-	Sumit Garg <sumit.garg@oss.qualcomm.com>,
-	Jorge Ramirez-Ortiz <jorge.ramirez-ortiz@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Haozhen Li <dezige131@foxmail.com>
-Subject: Re: [RFC PATCH 1/2] firmware: qcom: scm: Add QSEECOM app loading and shutdown
-Date: Mon,  2 Nov 2026 16:27:28 +0000
-X-OQ-MSGID: <20261102162728.104501-1-dezige131@foxmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <60afa31c-0c68-4e77-81b7-ef78f987f429@oss.qualcomm.com>
-References: <60afa31c-0c68-4e77-81b7-ef78f987f429@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eQiClhc3
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 285521F01578
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:27:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793636869;
+	bh=wHdtFy4kp/ZwM1BqNPeMTtm2ddmGgb+Bt7+4Qa7+AJg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eQiClhc3f5SHGtIVBHZ4EBE4/N9ECAPQxqSFBKGKsk6A1gBkKKB3KVGS0zXArEqj5
+	 WpifqFDNH2UNvXK40cNTsrOWSd/R3DPD6Jnr4lG86r5H+DNoUJXe+Y6Mx1q9yOv2Kn
+	 4nFfaOpl5WlxYJBr/89t0ER2Hb18dh3cvl7yGV++MVX+Ur5DIXLhxT8TtA1hW/KTLh
+	 W6b4w67lWb9blRbQ2gMz5Dm3cLpj04e4GGhj5mj8s6BmUz1XCV6uebtA9and2GBqHf
+	 ytbS1BUUqIGz9dRWFn+EKbShfLUTohazZrL9uw6fuWQke1FBaifS0IAzLpJzc0hXFk
+	 Y9JW9pdpphhpg==
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-7c19c6721a3so2123546137.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:27:49 -0800 (PST)
+X-Forwarded-Encrypted: i=1; AKwUvBw3MprMpku3sH+nfIFJ9J8U4wLDg1bjlXe8plyCLjBtq1sNTxvkwocaq0wP911rADcL9xnFS/IkjQhb6YU=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+UG3D0Ta5GfXOkQHAooUNuwRaxjrlz4x4OlNtAk4T3jLi/kdYH
+	OA/Ji19I37GgYe+BcNmPP4PKOKmJKjA9Lp7oc5voXJk/augcrsHZTkpxLRkX4f+uy+haYld+eTu
+	ewKhGv+vP8S0l+1SAKo/DLGuHUKAHjMI=
+X-Received: by 2002:a05:6102:8092:b0:7cc:56a:58d3 with SMTP id
+ ada2fe7eead31-7d07279cd1amr4474738137.31.1793636868341; Mon, 02 Nov 2026
+ 08:27:48 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,27 +59,141 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
+ <20261030-b4-btrfs-data-integrity-v1-4-f4d4196731e6@toxicpanda.com>
+In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-4-f4d4196731e6@toxicpanda.com>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Mon, 2 Nov 2026 16:27:11 +0000
+X-Gmail-Original-Message-ID: <CAL3q7H5e4abXv+RCsy09Sb824yqNsrxMkn6PPt49aN9ZyZTj2w@mail.gmail.com>
+X-Gm-Features: AclHuK9TcHojbk1WRwyX4MQgObBjTqCYoP4bFkRVWUT4s-4JmwoAESI9qBfcvLM
+Message-ID: <CAL3q7H5e4abXv+RCsy09Sb824yqNsrxMkn6PPt49aN9ZyZTj2w@mail.gmail.com>
+Subject: Re: [PATCH 4/5] btrfs: don't report success for a skipped log sync
+To: Josef Bacik <josef@toxicpanda.com>
+Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
+	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
+	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Konrad,
+On Fri, Oct 30, 2026 at 2:39=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
+wrote:
+>
+> When a commit of the log root tree gives up, because the transaction
+> needs a full commit or writing the log failed, btrfs_sync_log() still
+> advances log_transid_committed and hands the result to the contexts on
+> the list. Unlike a successful commit it does not advance log_transid, so
+> the log transaction it just retired is still the one new syncs join.
+>
+> A sync that gets to the log root tree after that adds its context to
+> the emptied list, sees log_transid_committed >=3D its log_transid and
+> returns its log_ret, which is still 0:
+>
+>   fsync A (subvol 1)           rename       fsync B (subvol 2)
+>
+>                                             btrfs_need_log_full_commit()
+>                                               -> false
+>                                btrfs_set_log_full_commit()
+>   btrfs_need_log_full_commit()
+>     -> true
+>   btrfs_remove_all_log_ctxs()
+>   log_transid_committed =3D N
+>   log_transid stays N
+>                                             log_transid =3D N, log_ret =
+=3D 0
+>                                             log_transid_committed >=3D N
+>                                             return 0
+>
+> btrfs_sync_file() then ends the transaction without committing it, and a
+> crash before A's transaction commit loses what B was told is durable.
+> This was reproduced with delays added to btrfs_sync_log().
+>
+> Fix by advancing log_transid when a commit of the log root tree gives
+> up, so a later sync joins the next log transaction and either commits it
+> or gives up itself. The check for an already committed log transaction
+> can then no longer be true, so assert that it isn't, and still force a
+> full commit if it is.
+>
+> Fixes: d1433debe7f4 ("Btrfs: just wait or commit our own log sub-transact=
+ion")
+> CC: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> ---
+>  fs/btrfs/tree-log.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+>
+> diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
+> index 1d9dfb63fc5a..b542b1d97989 100644
+> --- a/fs/btrfs/tree-log.c
+> +++ b/fs/btrfs/tree-log.c
+> @@ -3437,11 +3437,20 @@ int btrfs_sync_log(struct btrfs_trans_handle *tra=
+ns,
+>                 goto out;
+>         }
+>
+> -       if (log_root_tree->log_transid_committed >=3D root_log_ctx.log_tr=
+ansid) {
+> +       /*
+> +        * A commit of the log root tree moves log_transid on even when i=
+t
+> +        * gives up, so the log transaction we just joined can't be done.
+> +        */
+> +       if (unlikely(log_root_tree->log_transid_committed >=3D
+> +                    root_log_ctx.log_transid)) {
+> +               ASSERT(0, "log_transid_committed=3D%d log_transid=3D%d",
+> +                      log_root_tree->log_transid_committed,
+> +                      root_log_ctx.log_transid);
 
-Thanks for pointing these out.
+Can we please stop using ASSERT() where we pass a false value and have
+code to handle the unexpected case?
+Some distros like SUSE ones enable assertions by default, so this is
+effectively the same as BUG_ON().
 
-You were completely right about the 4 GiB claim. I probed it on
-sc8280xp by OR-ing bit 32 into an otherwise valid image address handed
-to APP_START: a firmware reading only the low 32 bits would have
-loaded from the untouched address and succeeded, but the call came
-back with an explicit error (result 0xffffffffffffffd1, mapped by the
-kernel to -EINVAL) instead. There is no silent truncation on this
-firmware, and the universal claim in v1 was simply wrong.
+As we have code to deal with this and avoid a crash, just use
+WARN_ON() in the if statements expression with btrfs_warn(), or the
+DEBUG_WARN() macro we have.
+Both will trigger a stack trace and make fstests report it if we ever
+hit it, while avoiding the unnecessary crash from the BUG() call done
+by ASSERT().
 
-Since I am withdrawing this series in favor of Dawid's upcoming RFC
-(see the cover-letter thread), all of your feedback -- the
-reverse-Christmas-tree sorting, the overflow-safe comparison form you
-suggested (img_len > SZ_4G - img_phys), and reframing the 4 GiB check
-as defensive hardening -- will go into a PR against his tree instead
-of a v2 from me.
+Otherwise, it looks good.
+With that change:
 
-Best regards,
-Haozhen Li
+Reviewed-by: Filipe Manana <fdmanana@suse.com>
 
+Thanks.
+
+
+
+>                 blk_finish_plug(&plug);
+>                 list_del_init(&root_log_ctx.list);
+> +               btrfs_wait_tree_log_extents(log, mark);
+>                 mutex_unlock(&log_root_tree->log_mutex);
+> -               ret =3D root_log_ctx.log_ret;
+> +               ret =3D BTRFS_LOG_FORCE_COMMIT;
+>                 trace_btrfs_sync_log_exit(trans, root, ctx, ret);
+>                 goto out;
+>         }
+> @@ -3575,6 +3584,13 @@ int btrfs_sync_log(struct btrfs_trans_handle *tran=
+s,
+>         mutex_lock(&log_root_tree->log_mutex);
+>         btrfs_remove_all_log_ctxs(log_root_tree, index2, ret);
+>
+> +       /*
+> +        * If the commit gave up, log_transid still names the log transac=
+tion
+> +        * we are retiring. Move it on, so that nobody joins a log transa=
+ction
+> +        * whose result has already been handed out.
+> +        */
+> +       if (log_root_tree->log_transid =3D=3D root_log_ctx.log_transid)
+> +               log_root_tree->log_transid++;
+>         log_root_tree->log_transid_committed++;
+>         log_root_tree->log_commit[index2] =3D false;
+>         mutex_unlock(&log_root_tree->log_mutex);
+>
+> --
+> 2.55.0
+>
+>
