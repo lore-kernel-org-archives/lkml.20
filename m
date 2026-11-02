@@ -1,59 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.12.121.168
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.121
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793589035;
-	b=KvQVB7qud6/EnjuDG+nozMuES437rcPN2QuyAYqQRNg/bpTujA9pSlx3hWbJRZFSj0CR
-	 LXOxHnN6V+I8JFc3i5XNJLu0HVrH+XORU0juE7JnNSczr4KLyOsL2pTf9RXtqu2t3gP01
-	 /rlOO7rhdgnQ3NCFYHEHTN16F1NI0LgkVkmA7TS6wedWK7quLlBi6q2GvYOALEl/tlsnq
-	 zxu7dmCLOeX0ewrW7rT/plRBSQ9uUTxUjAcn+SEXLOn1MJ3npa77W0urY7p9/NKfBwnd5
-	 rjNdHyTsTYlYIEbT52RN+sMBe6keeCOSMgbTVvmgsmJFaDBLK+QNBIAHvU/M0FlXGuw==
+	t=1793589076;
+	b=vHP/yBSjxXP/uyy7TG1D7sWp+NLu0VV4EY3gY+s8+dkERkS8t26zExs30OktvFTThKhh
+	 EcfSbOzIHeDndKGknxb9yLMdLgPY3iHFLf+aUG41hpzMP5nqduDspBuSKlqsNevEsitPb
+	 0ucE8riAThkA7Fo98Ek521XctVpvaONK4pO0KENFXeh3zrgKcADe0ckxl0hhsvfPw7ZH0
+	 HNGSQfZOK3Ap7gFQSL33lDPxB/EyNel0ea74OYJBcT/bMBzW1mD1PSuwD/uBbEv4BlMiG
+	 8iubEWB25ArHA5sddrl5vXgls5v1v1v6xfk4Xhet/exzerHDscR+bKldJMuXESNi3BA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793589035;
-	h=DMARC-Filter:DKIM-Signature:From:To:Cc:Subject:In-Reply-To:
-	 References:Date:Message-ID:MIME-Version:Content-Type;
-	bh=v+2g8LhY8MFTBrF3bcNOytObBw0f5aMK4zrYQ9fE5Pg=;
-	b=MQWIinuwh/8Q9yOJcsjH4nn3PEHvJ4Yb87yB//Qcwum7VQNzgX+ffFCB6xbClys3jL6i
-	 tn6ZlNF4rK/K5B3vRCko3SQLksEs7ydu121MAP/7hfH5qeHyAiQ9+GHpN2lwq0YrYPwtF
-	 rj25rJg7tPqgf6flxWGHfOSI6S+7xJxSbOlxWsSRzvgdidfSSAtzQNsJziy5zXMSyUWDe
-	 1tuMlrWsae8tuyKdICYzlyRXnyGpQj4Kj/aJn7+jy0cVgxHQKHfbrWBpevgjmjtGTGYed
-	 LVoky6e04ecTf5B1dElGqRB2fAPS+1eQzdF4nLYM8W7YxvbwL3TQFBYi+JzNl2ifuIA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589076;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Content-Type:Mime-Version:Subject:From:
+	 In-Reply-To:Date:Cc:Content-Transfer-Encoding:Message-Id:References:
+	 To:X-Mailer;
+	bh=HDhZoiU2k7hzH5EQ8QltiF8pnal5BaZYHkxarnC+U5E=;
+	b=uZ/Xp0VEbcIAn1appi8S2Kulpi7q/GNp9nI1oITqcCF7uZ3PoStY6o+yhq8buGw6vroP
+	 Yp5v5b/dKVPHdpxxNz8WyhqXLG+1YrqfaamK6L79SxwmFbS2UfXq3krxOy+cVMLLn5ANi
+	 gBUfkRgctjAgVCHRhwBT3d0ekrLpRastbuAevQXBp/AaGY6zu/NXNDoMYGdGDeUHAhBBB
+	 r31tWzo16/92QTEfTFK4de22GIa2Rl4zHAvJ8vr8cm5D2T43nIrYav4bxqnVARo55vUhh
+	 nAG+INo0vIZWt4xLKPfaKbjHw9tgY9EUmpn4AfJxlGCLyK517sRp5wzDcqvojZOCgEg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=barrensea.org;
-	spf=pass smtp.mailfrom=barrensea.org;
-	dkim=pass header.d=barrensea.org header.i=@barrensea.org header.a=rsa-sha256 header.s=mail header.b=GL5ttpFy;
-	arc=none smtp.remote-ip=198.12.121.168
-Received: from mail.barrensea.org (mail.barrensea.org [198.12.121.168])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n0k3Hqlr;
+	arc=none smtp.remote-ip=95.215.58.121
+Received: from mta1.migadu.com (out-121.mta1.migadu.com [95.215.58.121])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5E4606A324;
-	Mon,  2 Nov 2026 03:10:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6D5E4606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=barrensea.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=barrensea.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483C0606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:11:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 483C0606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=barrensea.org header.i=@barrensea.org header.a=rsa-sha256 header.s=mail header.b=GL5ttpFy
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=barrensea.org;
-	s=mail; t=1793589029;
-	bh=4x3+38Wv6GpzVvI5o+ijYIXw99v1yzm6GISaiqzWyn0=;
-	h=From:To:Cc:Subject:In-Reply-To:References;
-	b=GL5ttpFy1ceG8MBuOJuhPmighIar8ZSLsoXvgah3/OityDkI+TjvJPcDpl75gyaTF
-	 xr1mrk5zrFx0i50v/bl/PJmJFYc60w2lJ86z74oSLfRn9eAHxwcv8aLpCMh38hzqGw
-	 9YQpx+yOvC3U7Heepfd674U3btCv6qoKpTA1VL6UHtjE6P7G5GEy0XwbLN6RIiibvO
-	 agIDjIsF4Kle0K/AUBlDxs5/aZHnZgfUlZf8yputaYUOqI0azdUpojH0G3oBsNLuJz
-	 E5AAZUbfy3tsdt5HTBHvoBrc08k8v73YaUjfvflu7BEnhOfD2fJbBevBbcuqXfHvxM
-	 gl4z5zy8YVOYQ==
-From: Donjuanplatinum <donplat@barrensea.org>
-To: Armin Wolf <W_Armin@gmx.de>
-Cc: Hans de Goede <hansg@kernel.org>,  Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,  platform-driver-x86@vger.kernel.org,
-  linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5] uniwill: Add support for MECHREVO WUJIE Series 15 X Pro
-In-Reply-To: <c8cb27ab-e5de-4a86-ad09-6610905e74b8@gmx.de> (Armin Wolf's
-	message of "Sun, 1 Nov 2026 18:41:09 +0100")
-References: <20261011081421.38128-1-donplat@barrensea.org>
-	<c8cb27ab-e5de-4a86-ad09-6610905e74b8@gmx.de>
-Date: Mon, 02 Nov 2026 11:10:25 +0800
-Message-ID: <878q3cc4im.fsf_-_@barrensea.org>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=n0k3Hqlr
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=2ep7chL4yiYBSxOtKkATYD7E9Kan5MnJyt74PbsbY2s=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793589067; v=1; x=1794193867;
+ b=n0k3HqlrjwV2Tsu/afxxjlV4pD44YtWJfaVfNxqkf9f5BRb34TxDBhYIPNPv3UVWsbdtWpzv
+ nDY1ZRbtXmCXX/EiHWE91drrqkdYXLA1t2WmPrqsfw75Lx6z5Vd+3cOAqiCXrqIBDsAChjqAXdA
+ 0N4xoivwgBDZlGU5lKOUjChM=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 13887cf09f90baa8;
+	Mon, 02 Nov 2026 03:11:07 +0000
+X-Mizu-Trace-ID: 13887cf09f90baa8
+X-Migadu-Flow: FLOW_OUT
+Content-Type: text/plain;
+	charset=us-ascii
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -62,108 +57,135 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Type: text/plain
-
-Armin Wolf <W_Armin@gmx.de> writes:
-
-> Am 11.10.26 um 10:14 schrieb Donjuanplatinum:
->
-
-
-> Does the OEM control center for Windows support battery charging
-> modes? If yes then you should also select
-> UNIWILL_FEATURE_BATTERY_CHARGE_MODES.
->
-> Other than that the patch looks fine to me, but i would be very happy
-> if you could rebase it on the current for-next branch.
->
-> Thanks, Armin Wolf
-
-Hi Armin, I think some of my previous replies may have been missed. I
-have added and tested the battery charging mode:
-
-> > Can you check if UNIWILL_FEATURE_BATTERY_CHARGE_MODES also works on
-> > your device?  Please note that the embedded controller will still
-> > report to charge the battery to 100%, so this is not a reliable
-> > indicator. Do you know if the Windows OEM app provides such a
-> > setting on this device?
-> >
-> > Thanks, Armin Wolf
-> >
-
-> I also checked the battery charge modes in the Windows OEM
-> application. The OEM application provides this setting.
-
-> Additionally, I used the interfaces exposed by the OEM's
-> ACPIDriverDll.dll to test the three charge modes and confirmed that
-> their behavior matches the current implementation in the Uniwill
-> driver.
-
-This is the previous disscuss:
-https://lore.kernel.org/platform-driver-x86/c8cb27ab-e5de-4a86-ad09-6610905e74b8@gmx.de/T/#mf80e6c3fdad4eb3af835504c0e512df66c474c52
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH v2 2/3] mm/hugetlb: Preserve persistent flags when
+ returning folios to the pool
+From: Muchun Song <muchun.song@linux.dev>
+In-Reply-To: <20261102024910.31486-3-kaitao.cheng@linux.dev>
+Date: Mon, 2 Nov 2026 11:10:47 +0800
+Cc: Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Mike Rapoport <rppt@kernel.org>,
+ Johannes Weiner <hannes@cmpxchg.org>,
+ Michal Hocko <mhocko@kernel.org>,
+ Roman Gushchin <roman.gushchin@linux.dev>,
+ Shakeel Butt <shakeel.butt@linux.dev>,
+ Mani Tofigh <mt4022@columbia.edu>,
+ Zi Yan <ziy@nvidia.com>,
+ Mike Kravetz <mike.kravetz@oracle.com>,
+ Baolin Wang <baolin.wang@linux.alibaba.com>,
+ Miaohe Lin <linmiaohe@huawei.com>,
+ Naoya Horiguchi <nao.horiguchi@gmail.com>,
+ Frank van der Linden <fvdl@google.com>,
+ Chris Down <chris@chrisdown.name>,
+ Joshua Hahn <joshua.hahnjy@gmail.com>,
+ linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org,
+ cgroups@vger.kernel.org,
+ Kaitao Cheng <chengkaitao@kylinos.cn>
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <80F17A68-8C3B-4BA5-9E70-838846BFAAB2@linux.dev>
+References: <20261102024910.31486-1-kaitao.cheng@linux.dev>
+ <20261102024910.31486-3-kaitao.cheng@linux.dev>
+To: Kaitao Cheng <kaitao.cheng@linux.dev>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
 
 
 
-> Other than that the patch looks fine to me, but i would be very happy if you
-> could rebase it on the current for-next branch.
+> On Nov 2, 2026, at 10:49, Kaitao Cheng <kaitao.cheng@linux.dev> wrote:
+>=20
+> From: Kaitao Cheng <chengkaitao@kylinos.cn>
+>=20
+> add_hugetlb_folio() returns a folio to the HugeTLB pool when vmemmap
+> restoration fails. It clears folio->private and restores only
+> HPG_vmemmap_optimized, losing other flags that must survive the =
+rollback.
+>=20
+> Clearing HPG_cma causes a later free to bypass the CMA release path,
+> leaving the CMA allocation bitmap set. Clearing HPG_raw_hwp_unreliable
+> loses the indication that the locations of poisoned subpages are =
+unknown,
+> undermining the checks that prevent freeing or unpoisoning such =
+folios.
+>=20
+> Preserve the existing flags instead of resetting folio->private. =
+Callers
+> already clear HPG_restore_reserve, HPG_migratable and HPG_freed before
+> returning a folio to the pool. Clear HPG_temporary in =
+free_huge_folio()
+> before attempting to free a temporary folio, so a failed vmemmap =
+restore
+> does not leave that flag set on a folio returned as surplus.
+>=20
+> Add a VM_WARN_ON_ONCE_FOLIO() check for flags other than
+> HPG_vmemmap_optimized, HPG_raw_hwp_unreliable and HPG_cma to detect
+> incomplete transient flag cleanup.
+>=20
+> Fixes: 161df60e9e89 ("mm, hwpoison, hugetlb: support saving mechanism =
+of raw error pages")
+> Fixes: d2d786714080 ("mm/hugetlb: enable bootmem allocation from CMA =
+areas")
+> Closes: =
+https://sashiko.dev/#/bug/linux-5363eb09-9c3c-4f8b-9f3c-a998a8c4b258
+> Suggested-by: David Hildenbrand <david@kernel.org>
+> Suggested-by: Muchun Song <muchun.song@linux.dev>
+> Suggested-by: Zi Yan <ziy@nvidia.com>
+> Signed-off-by: Kaitao Cheng <chengkaitao@kylinos.cn>
 
-I put the rebased patch here,it now base the for-next:
+Acked-by: Muchun Song <muchun.song@linux.dev>
 
-From c45bac93447a52dd2e4a76395202a13c6d91763c Mon Sep 17 00:00:00 2001
-From: Donjuanplatinum <donplat@barrensea.org>
-Date: Mon, 2 Nov 2026 11:03:25 +0800
-Subject: [PATCH] platform/x86: uniwill-laptop: Add support for MECHREVO WUJIE
- Series 15 X Pro
+But,
 
-Add support for the MECHREVO WUJIE Series 15 X Pro (WUJIE
-Series-X5SP4NAG).
+> ---
+> mm/hugetlb.c | 10 +++++++---
+> 1 file changed, 7 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/mm/hugetlb.c b/mm/hugetlb.c
+> index 4a008afaedf9..931ca3a30773 100644
+> --- a/mm/hugetlb.c
+> +++ b/mm/hugetlb.c
+> @@ -1443,6 +1443,12 @@ void add_hugetlb_folio(struct hstate *h, struct =
+folio *folio,
+>=20
+> 	lockdep_assert_held(&hugetlb_lock);
+>=20
+> +	/* Callers must clear transient flags before returning to the =
+pool. */
+> +	VM_WARN_ON_ONCE_FOLIO((unsigned long)folio->private &
+> +			     ~(BIT(HPG_vmemmap_optimized) |
 
-Signed-off-by: Yifei Yao <donplat@barrensea.org>
----
- drivers/platform/x86/uniwill/uniwill-acpi.c | 22 +++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+It looks like the parameters aren't aligned. A space missing before "~"?
 
-diff --git a/drivers/platform/x86/uniwill/uniwill-acpi.c b/drivers/platform/x86/uniwill/uniwill-acpi.c
-index f62d59f29676..d49be1caea50 100644
---- a/drivers/platform/x86/uniwill/uniwill-acpi.c
-+++ b/drivers/platform/x86/uniwill/uniwill-acpi.c
-@@ -2715,6 +2715,20 @@ static struct platform_driver uniwill_driver = {
- 	.shutdown = uniwill_shutdown,
- };
- 
-+static struct uniwill_device_descriptor series_x5sp4nag_descriptor __initdata = {
-+	.features = UNIWILL_FEATURE_FN_LOCK |
-+		    UNIWILL_FEATURE_SUPER_KEY |
-+		    UNIWILL_FEATURE_CPU_TEMP |
-+		    UNIWILL_FEATURE_PRIMARY_FAN |
-+		    UNIWILL_FEATURE_SECONDARY_FAN |
-+	            UNIWILL_FEATURE_BATTERY_CHARGE_MODES |
-+		    UNIWILL_FEATURE_KEYBOARD_BACKLIGHT |
-+		    UNIWILL_FEATURE_AC_AUTO_BOOT |
-+		    UNIWILL_FEATURE_USB_POWERSHARE,
-+	.kbd_led_single_color = false,
-+	.kbd_led_max_brightness = 4,
-+};
-+
- static struct uniwill_device_descriptor machenike_l16p_descriptor __initdata = {
- 	.features = UNIWILL_FEATURE_FN_LOCK |
- 		    UNIWILL_FEATURE_SUPER_KEY |
-@@ -3075,6 +3089,14 @@ static const struct dmi_system_id uniwill_dmi_table[] __initconst = {
- 		},
- 		.driver_data = &x4sp4nal_descriptor,
- 	},
-+	{
-+		.ident = "MECHREVO WUJIE Series 15 X Pro",
-+		.matches = {
-+			DMI_MATCH(DMI_SYS_VENDOR, "MECHREVO"),
-+			DMI_EXACT_MATCH(DMI_BOARD_NAME, "WUJIE Series-X5SP4NAG"),
-+		},
-+		.driver_data = &series_x5sp4nag_descriptor,
-+	},
- 	{
- 		.ident = "MACHENIKE L16 Pro",
- 		.matches = {
--- 
-2.56.0
+Thanks.
+
+> +			       BIT(HPG_raw_hwp_unreliable) |
+> +			       BIT(HPG_cma)), folio);
+> +
+> 	INIT_LIST_HEAD(&folio->lru);
+> 	h->nr_huge_pages++;
+> 	h->nr_huge_pages_node[nid]++;
+> @@ -1453,9 +1459,6 @@ void add_hugetlb_folio(struct hstate *h, struct =
+folio *folio,
+> 	}
+>=20
+> 	__folio_set_hugetlb(folio);
+> -	/* Clear all folio->private flags except =
+hugetlb_vmemmap_optimized. */
+> -	folio->private =3D NULL;
+> -	folio_set_hugetlb_vmemmap_optimized(folio);
+>=20
+> 	arch_clear_hugetlb_flags(folio);
+> 	enqueue_hugetlb_folio(h, folio);
+> @@ -1743,6 +1746,7 @@ void free_huge_folio(struct folio *folio)
+> 		h->resv_huge_pages++;
+>=20
+> 	if (folio_test_hugetlb_temporary(folio)) {
+> +		folio_clear_hugetlb_temporary(folio);
+> 		remove_hugetlb_folio(h, folio, false);
+> 		spin_unlock_irqrestore(&hugetlb_lock, flags);
+> 		update_and_free_hugetlb_folio(h, folio, true);
+> --=20
+> 2.54.0 (Apple Git-157)
+>=20
 
