@@ -1,102 +1,92 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.remote-ip=209.85.208.48
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=fail;
-	t=1793592582;
-	b=3KAttBmYpMoSVPUbDMrRuoI1mjcWz/ObxZAgGr6KI1H+XjGA3zKI9HotKQ2pOAUEE6kb
-	 Vyi7hWe+zsBJnR98g2UJFELfqDm/Ob//f4ZSCoMqIjSaGmuHmsHkN6Tku/L1rG+YmADUg
-	 QilN3BcHnALXMT09x8rg4C3JENStmwlsTDl3dmibtGHt45VZGRuJkjYSjtYJzfmVeIhy/
-	 vcocr1hytXv+bclMAPxDY8aGpMFr0rXOgmqr9VrgzYGUZSqXjM9SPyc6RXXaPu/geDtC8
-	 EnTuiWGcaPCZLVrMgGlIP//HCnOYYYTrftG7Sh+Kz3VWQ4/MM+MvPoWPtfWlbDBUl/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793592582;
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.51
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793592723;
+	b=tgiW2OkD+aDy0w+Fk29T7OkWRydzW8R+ivlHcLjBxrXAy0G3u1QNSFh+mufGNgnuqiLF
+	 Mpyb4Gm+Bqs8boCYu7JPcp+3zwZ1zo7J7AHtpOPS4+czmj//64HYEmQN1L2t19e0iBHnd
+	 11OyOZ8qIt6chQfykwfwQOjGsWD7IitMuFAH2/TJ8ipxQHBJB2oSznhRc8/RSQQZrpD9K
+	 zgepBOnFHRgkURqfjMyEqV8W2SqFVfX5RjTl86rZAoDI1rXxoXcBtCzrcALPkm8Jt/tdA
+	 afHlJ1rdf/Etqxsbmr39WfwHlQ4rv5Y0rP/pMTYs5pHqDtuB+GOF7LjJosr5XZ7713Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592723;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=oMe8V0wAAjhpcg5k07EFvoLZjdMDN1vdGTa6u17C93k=;
-	b=wMKvjz39+PnHhXI6UYaFI7Lb0FfEiFCL7hXSCheVfz99QFV+jLKdr7lEEaEaoaCdTxMU
-	 gi7j5didwo1P8C6Zrlrz/M2e3ewo06hSO18HJC472nYiZQIptZyndA739si+IUZ4BkvOV
-	 RfLgX2h3JncDjBFfFl7YAubm5nwNz44mKtrwJX2xbZNd18SqNzd2pez++6eFpQyZJMayo
-	 KXpCTGT2n/fHgQxsrOtu9TJTWoas0Go4JquWiWJXoijPq4wcydWYdqsu2JUZIFBakXPDS
-	 gBXTjbcxyciwyt32lEYlOJhOjOnTINGOEgL5gw39KIKNDWQbXMUi/TFxgyVPwAV2VZg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=UoVVCs4E0WqMtB/439e3ybc24ctA88xvXydp2Ix8gds=;
+	b=3SBOF9/seUZJRwkdiKpKP/f6k3XZq/GeNggpHhjHjEvzC++jJJ31gsQBHAlAWnBDRDfI
+	 asIdBg/DKT5sGas33fI6QQjwTbLzbJDy7bfpIsRw3apiXPGhAEHnfXx4w4kMkzYSHkxQG
+	 YqhH/Lq41e2VkNiAvHh7jPiv806UuAC1+Ync5JwMq6KopHl3jJMxOOGkWXMQz3uQwCTkF
+	 Cw1JRB0+pNeHJetL7+G0wCJtMMzizJZNY8rkCaYTsUfvaGNatjSGoyuTTOYGtHxQC/Hs6
+	 mOtVJxwk78uToZx0WSi+8lmcIpNDASGwzv2idn+SHvLHgw8/Slc6XV9Q6/Ng/0E/VlA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=manxnVUc;
-	arc=fail smtp.remote-ip=209.85.208.48
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Tc/9+/Ld";
+	arc=none smtp.remote-ip=74.125.82.51
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B02606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:09:41 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B2B02606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2370C606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:12:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2370C606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=manxnVUc
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6acb9c018ffso3744995a12.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:09:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793592580; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PR6lwSGRflhOjgfo0DJ/ewQ/Km11eio+BpZdvc6uGuE6gELz23S3CnC39+YZ6FKwc2
-         u/16ZK8UsJiUeVtgGEijOegvaVy76Eqz2rOTAcvHFTgo70tJf1fUd1ujFaI3hYoaoE9u
-         QGqU03soZRWZYUFct5mF0oYJfyo278LuHYmXhicnmK8YbciEIaDyhpJwcVvAJe+eNhit
-         2X/usEORfwdb0SZEHbhB1dF8q0hso6I45aIUbfW6EP4TuTY6Y1IIf10Z6GfN0mxZFr/o
-         0coT/QbJ2oc8takqpauvJkDCsUbei8KHqo/blSmS69oT0ZeY6ab2ZlwOXVUvmX535KUX
-         Wfcw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=oMe8V0wAAjhpcg5k07EFvoLZjdMDN1vdGTa6u17C93k=;
-        fh=YVjqc612uBWyspLraRPRTIGA26VddnHW+moVgH1KQv0=;
-        b=oaCJ9va3h2sycG7zzJEtzlTNv4uyCZZIvGaotkd5U+xDxw0hZBMQQ08KaFOFraTqRH
-         8M7IJqrE7eIaFlVtYT2RnlGRGlqWAhiNkoq2sDcRFQr2amGSFogSSyoB9UcbbLSb/9iX
-         ViqBiR9nVEYqJWnue4yVXifJ8n1VEtr1PEVQKDLzawrDS1Ud5ILOJeTOuaoAC22z+hfX
-         QSoFdSATecqtfWzjzDcusktERe9VRyxdhBe/BKIcjZngIf+PkA+y8Wbts745GX0XExAy
-         gA3okAUoUahEE8h+V6/xl2WGZ4qEkb02GE4ih4VI1Hm38PJl296SDI3hsa0YLoYLSekK
-         dyig==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Tc/9+/Ld
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-15943c9c005so155298c88.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:12:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793592580; x=1794197380; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oMe8V0wAAjhpcg5k07EFvoLZjdMDN1vdGTa6u17C93k=;
-        b=manxnVUc8KeOoDen8Ui6END2+YERSoJVq3Iu6IkWI581JWz/iG7UkSSZD/Z11+xV4z
-         skTE3gD2spnzTn/ql/WBXrS6Rsz5IqpGrMa4D335RmY8dopgEAtTiwfXId5gLmH1rE6c
-         brhLorooVt+jQbp9osxORq8jtUE8tquoGm9zzRsJNP8RuQe0iNq/me4PbdrxyUmkQYm8
-         eP/1UKQOh2UIdqT/XwB3NLl90HBLPkSUl8tROxgzLBK5flM7wqvdRgY2vKay+bzHWBsi
-         sBuHfRPkRX4SNdQAeQkgPs74qHuTNMsD1tE8iXQAXEvC/RkS/apYCBa7XwuoyWtkuHT5
-         bXnw==
+        d=gmail.com; s=20260707; t=1793592722; x=1794197522; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UoVVCs4E0WqMtB/439e3ybc24ctA88xvXydp2Ix8gds=;
+        b=Tc/9+/LdIC66EeckJPdBLvN9Rg1wU4pEN4l7rnCe3Z/gHKcDFU1y3neN14jG9ql81i
+         W5/DMdYmOha3JI3QFuzqYwwl6m7CbFv0EAWX3qkWcen8pt6vZ6jptX3i4rBbZcmiy9xn
+         d2HlbnbUSE7tpHxkSiMsGN/e4ulsAbKQe7EaFt+DVKPz60dAFcM+EiHLViGJFINg7S/z
+         eW7cDkC2MPdjYjuVj9wngyd4LKVT3xSUN0McuKX/wk85J93UK4ZafZEsLdDTzikiIaOY
+         78v/KEOxxmt9wBLgLlKInjZStqKwOXxNdKTDyyapCAwdvvMgLWKG/HJfjkfXk4FLmGLg
+         6MDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793592580; x=1794197380;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oMe8V0wAAjhpcg5k07EFvoLZjdMDN1vdGTa6u17C93k=;
-        b=NHceTZITUPtvAgEHFs3wYEGYf/ue+IpDqjiDaL7Bt1f8tRXjgXG2zAymUQ6GjcwxGi
-         nVX1FTMk5cHF+WCexiD9N0gzjpxHocD/EQ9wM4CeiU2lkUYy1j28ry6U8g1vwMoeu3aO
-         S7BcRjgjCnk3PWTjrLKXaImPG88g+xgKV5J92KuuI78wklBfvHoqoAYVNbWu+lxtPTDq
-         lB3DLngredDAOPCCgHhYkIL6yLijadDYo8WSFjsqv0znkOS3/292U29Xkgmcc77YoWkH
-         FxZzangxCn1aECj9eeuOMT/b8mzNicmndT3UE4tgi9bdKnasiyj9Y0GCKS15aXZGLoOj
-         N2dA==
-X-Forwarded-Encrypted: i=1; AKwUvBysGrCQaH1gxkeMl90ba733RLSHN1OVpMvDtk1ASiR/FZxsDx5WMvB7VrWHwc/Tpdq1JfA7NcjALf9jKE4=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/alVnNjOW5llHhJhACWZfux/p9ll2UOlrXapIQxeJLjeRBtOks
-	g/bPbUo9zOueyL6hg0JR7CKtfCQFej0ZK0INBpvkcIX5H4iYHpHYTl5xqXcdblb4+XK9Rru/K8Z
-	F4mh4prSUZev02w1O9t6yArm0r1JHXz6jsw==
-X-Gm-Gg: AYBFou0cKkgFQ/h4MoI+8SLklDxfyia2ckIzl/Jv1hO4anvo6OUN5YRIH3U7g0rZLW/
-	jijh8l1CM5xMPJiMd48Zv7WObWv+GmhJ3EiNyxItK1H4nELt8kLtylqIJn/D5smZSfJXJj5HkC1
-	9mobxhIFkhV782DOpp0/dds0m/4C8WcJ0PKPr8uIjip5w6sodAovtZGFg39+NOBN1uPeotHenam
-	mFOl3jMlYwfgrCDKl+9HKPOlMCI+zVO/0Ct4QFsgOKH/KmAOWfFrVWVKdv5/l8OuhrLT54QsILW
-	87ZrcwGHVx/iXSnkaimwqSdxnCsx47UanGZRwTQDQa4NC9qmsatSsWX2OrY4NhT6eEoAerHswyU
-	envKbfnJrXMaGW9wAjlG4zt1zdR5l6wXVFcFf+j2FX7xvsKOlE5fRR0HCt/Ab9iEqmyujLRKpl6
-	yviRaA2RJNvAYCYfiAU7i5m3HxzT6QGksXANc26RqvQxLmFhRAOF/yV/5ycuoWbrkjhMeBoTXnc
-	bva0dPDyI8WgYpSNYos8K669LRBrVI7rQVtxZ9Dr1LoEJKiEQ==
-X-Received: by 2002:aa7:da45:0:b0:6b3:e89b:128f with SMTP id
- 4fb4d7f45d1cf-6b4d4d6d938mr4387808a12.9.1793592579961; Sun, 01 Nov 2026
- 20:09:39 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793592722; x=1794197522;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UoVVCs4E0WqMtB/439e3ybc24ctA88xvXydp2Ix8gds=;
+        b=NJtzGXhlbbUhEgkNayziiwW2DiXjrF3ZkPwBrsBHGyfwLj1EGmSWyrkLAwzYkqbqGV
+         7kUa/lHYV27+NHKiIOjBv+xDtvpUWJzYY+HljiMHYuglJ7GPTsKB4QQ2RKrM6aAGLH58
+         2rPaGaZIHzVxFGsRHwj0Nud8agFm/ppcw08PvsM148M47WVmYEKVCzmtox1D9uIE6DM+
+         eCNkrdww7c2ksGzr69HgQAvHIUNTudbncv/A8APQvfVUoIy4cQO9o30ufNzMeVIl56lH
+         cVrVxPisfl8ZD4RipoGC3g30TR1u0gbzhmw4wlvDOXcvn2+EdP7QkwaxmlBaBE/+56bR
+         zNpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwnIXPLGqkmhi1biZocroAUz4a7VcIjwnK0l/85OQmhl38oB+da+ayQydJIGhNJ5qmURqG11IaZygOvN4s=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYz58PFzXsPt+od4cfL3+j03Q/oo8C7CUM+LxoN79n6dv5MXwa
+	fvxbtbJTXrNu086TBPL3QB4PAdHmFEJMiySyjF2Wrz+u51Z6w36rKpFZ
+X-Gm-Gg: AYBFou1Imjm9guiZY9oH2xczt3aM7OntzJtQ3S5tBlpSi6MMcU7lZzWT/KzqmVUZTIM
+	xy3n9k5gYH5upXjgiiYzkBevrpPvs0xoZg+Tc9tddahEunPJkFOrUgVARpZdEFSTOscCaDZSFrI
+	mahJj9VP8BqH4JB6mVx0b2vxG2JEIh26BwCJXmlcKNsFDvb+r2hnQUjPz9aaMgUJAbmp6nqsipt
+	PIY1LcTxnoiU6hosKvu8d7urxkc4Q3z73sy56wIdUPqyz3n6SkTa3aKdER3e/8RvCl2vFRz3Na/
+	WtMHm1Xk/fCDKOp+cZHy5diGZGf2Y+mvGWhUvQIOWsZm6z7YgMG1Ep6BYBMcoDAHp50i8QXS5Bp
+	MJNBAsXWkuwvr1Onde2hdAp6ujhloGhhIb49IgOypv+GqjNSq7n0HWEea4FMvJ+THGSQA+Rdelf
+	jh1+eCG1emPK5hSF+ANmW60gR9bqWWDNlhA7pGM2Jb1BTqLTdKBF2Y3Yk75Dszh8uA5JH0CNOf9
+	ziOaOKobROXZZhV/bpWnN41cuvBulI4Yoeh/x6YosTtmO4yob02e4WIvybAq2awyLjeIwyEtbG7
+	O4Fi2i0oj+zuXLhSUnL9rsJJsrilBtSjbpfoYgsgre5D39PVmXQq1NsqiRRqS7JV/A==
+X-Received: by 2002:a05:701b:4589:b0:19b:39f4:88c9 with SMTP id a92af1059eb24-1ac5bbb487bmr13511529c88.10.1793592722018;
+        Sun, 01 Nov 2026 20:12:02 -0800 (PST)
+Received: from localhost.localdomain ([2400:d802:dd7:8000:50b9:9b10:1e19:1f0a])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1a13652csm33171098c88.17.2026.11.01.20.12.00
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 01 Nov 2026 20:12:01 -0800 (PST)
+From: Yuqiang Sun <izaiahsun@gmail.com>
+To: stas.yakovlev@gmail.com
+Cc: johannes@sipsolutions.net,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: libipw: Do not return NETDEV_TX_BUSY after consuming the skb
+Date: Mon,  2 Nov 2026 12:11:55 +0800
+Message-ID: <20261102041155.61680-1-izaiahsun@gmail.com>
+X-Mailer: git-send-email 2.54.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -106,54 +96,58 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261101222535.34573-1-rosenp@gmail.com> <ebd3c83183464c3e9c218337a568b59a@realtek.com>
-In-Reply-To: <ebd3c83183464c3e9c218337a568b59a@realtek.com>
-From: Rosen Penev <rosenp@gmail.com>
-Date: Sun, 1 Nov 2026 20:09:28 -0800
-X-Gm-Features: AclHuK_jKe0Xxth3Cx5LMzpWC9m2Moacl_LQ9teKHl9xzgIDEwojGOVkQTWAUuk
-Message-ID: <CAKxU2N9Bk71yaZY239w4kT3+o_p594xA5-jkNQ_BdWU8hPW+Yg@mail.gmail.com>
-Subject: Re: [PATCH rtw-next] wifi: rtw89: acpi: check for _DSM function
- support before evaluating it
-To: Ping-Ke Shih <pkshih@realtek.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, Zong-Zhe Yang <kevin_yang@realtek.com>, 
-	Kalle Valo <kvalo@kernel.org>, open list <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Nov 1, 2026 at 7:28=E2=80=AFPM Ping-Ke Shih <pkshih@realtek.com> wr=
-ote:
->
-> Rosen Penev <rosenp@gmail.com> wrote:
-> > When the WiFi device has no ACPI companion, or the firmware does not
-> > implement a given rtw89 _DSM function, rtw89_acpi_evaluate_dsm() calls
-> > acpi_evaluate_dsm() anyway. ACPI core then warns on every probe:
-> >
-> >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7=
- rev:0 func:10 (0x1001)
-> >   ACPI: \: failed to evaluate _DSM e8c3a8d2-694b-004f-82bd-fe8607803aa7=
- rev:0 func:6 (0x1001)
-> >
-> > Here the handle is NULL, and acpi_evaluate_object() returns
-> > AE_BAD_PARAMETER. All callers already treat failure as "no policy
-> > provided by the platform", so this is only noise.
-> >
-> > Use acpi_check_dsm() first. It returns false for a NULL handle and for
-> > functions that are not advertised, so absent functions fail quietly at
-> > debug level, as rtw89_acpi_evaluate_method() already does.
->
-> The acpi_check_dsm() is to evaluate func 0 before actually accessing func=
-.
-> I'm not sure if all platforms will implement func 0. Do you know that?
-yes this was only a partial fix. Will rework.
->
-> >
-> > Seen on an RTL8852BE in a desktop PCIe slot.
-> >
-> > Fixes: e897b0bef38a ("wifi: rtw89: introduce realtek ACPI DSM method")
->
-> Does it need a Fixes? As I see, this is not a bug.
-WIll drop.
->
-> > Signed-off-by: Rosen Penev <rosenp@gmail.com>
->
->
+When the TKIP MSDU encryption is done in software (host_encrypt_msdu,
+set by ipw2200), libipw_xmit() copies the frame into a new skb, frees
+the original skb and goes on with the new one. If libipw_alloc_txb()
+then fails, the function jumps to "failed" and returns NETDEV_TX_BUSY.
+The core stack takes NETDEV_TX_BUSY as "skb not consumed" and requeues
+the original skb, which has already been freed, so it is used after
+free. The new skb is leaked.
+
+Even without the swap, returning NETDEV_TX_BUSY from "failed" is wrong:
+every jump there comes after skb_pull() removed the Ethernet header, so
+a requeued skb is sent again without it.
+
+Drop the frame on these errors instead: free the skb and return
+NETDEV_TX_OK. Do not stop the queue either, since no frame is waiting
+for it to be woken.
+
+Fixes: 1264fc0498e1 ("[PATCH] ieee80211: Fix TKIP, repeated fragmentation problem, and payload_size reporting")
+Cc: stable@vger.kernel.org
+Signed-off-by: Yuqiang Sun <izaiahsun@gmail.com>
+---
+
+Notes:
+    The bug was found with kbound, a research static analysis prototype.
+    The patch and the changelog were written with the help of an AI coding
+    assistant (Claude); I have reviewed them.
+    
+    Compile-tested only (x86_64 and arm64 allmodconfig, W=1, sparse): I do
+    not have ipw2100/ipw2200 hardware, and there is no emulated device.
+
+ drivers/net/wireless/intel/ipw2x00/libipw_tx.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/intel/ipw2x00/libipw_tx.c b/drivers/net/wireless/intel/ipw2x00/libipw_tx.c
+index 6e16060834b8..d0352c8dc064 100644
+--- a/drivers/net/wireless/intel/ipw2x00/libipw_tx.c
++++ b/drivers/net/wireless/intel/ipw2x00/libipw_tx.c
+@@ -509,9 +509,9 @@ netdev_tx_t libipw_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+       failed:
+ 	spin_unlock_irqrestore(&ieee->lock, flags);
+-	netif_stop_queue(dev);
++	dev_kfree_skb_any(skb);
+ 	dev->stats.tx_errors++;
+-	return NETDEV_TX_BUSY;
++	return NETDEV_TX_OK;
+ }
+ EXPORT_SYMBOL(libipw_xmit);
+ 
+
+base-commit: 25e73f1d6868c759c8eb56cad4e411692c5341b4
+-- 
+2.53.0
+
