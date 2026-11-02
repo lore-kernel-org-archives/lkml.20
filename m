@@ -1,55 +1,53 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=183.62.165.209
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793620218;
-	b=UzMBc0LTk+SYg2K0CGcGDrmdX+uuADMUv1We7W8WqxR8ZyvGllZC+07dhv9my1PIslj/
-	 gD/pTkrvz4DagrsJtnxjBwn7FN9R3DnkgQRmftaxM2i7pUn27QOXEVipyO9KolAAvjXNm
-	 NygGamdLIjHrknuGUPTkUeX1L0Rr6FsEDNm0pCmatMvwQLpXeUthpm0n53KNVuQdi+IGm
-	 9JRm+Toqmlkettw9mj7vo1TIGgT9ryX2+a/dUiGQFQH+9KyTWUGotuntOPqpyRV0FsMrW
-	 FHZCu/LFITijACuLKAJpzhGSz8jEtHhG5xIH9lWgt8mDVXYLs3MktT3W8mpxMCLXWuA==
+	t=1793620241;
+	b=il2TMlAmE6ZvwnAnWvv/3QHUHbA5Kv+r2NG8ACmPa/tTvbtZ3sLjcs0NwAcmE49y+Rkm
+	 KbYc0coDMZPnelgdcxVBWQiXkrgYuBecJuhzmWa0YmODE85DuOGHiWTwB4f9Ws6MAZdrK
+	 mu5DerBexMTvCOxv9xkDYMhaTK2qBstD69by0hGaFFiN2ITUDApoA0UsjPYbjQKA8Heyr
+	 jlTbZIGFYe5PhsCcup//p2agm5wn1PAk00WaO83tVrzqTXPKc0O6OicXNf6TTSZKPLwrv
+	 CjphmMJM009TJ/NaabwizYmO/cCrp9yGPEY9YAZeQpHQxiAyUy2kUauZ5xYWS1OR5OQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793620218;
-	h=DMARC-Filter:Received:From:To:Cc:Subject:Date:Message-Id:X-Mailer:
-	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
-	 X-HM-Tid:X-HM-MType:X-HM-Spam-Status;
-	bh=A3GjgjLPBUrnD3kzEtH7HKFnqwNdS3wRA6X8t8xa4es=;
-	b=J1ZKBsVJZQ9ZlotO95+OoIUOrTtg0B9JTx5J07GB+Oct6Ezqgrhe+F7AB/TyHHYAuQqL
-	 X/AwmrbFZ1L7/gyPk8j6Q8Afn7oiJnnufArZ6saLoo7kAwo3dR/TlRhNbPPMdhsE4IxOa
-	 fJgVPTs1eeoMEVHfdbEtcC6RMBo2yJj8qD2Sc97d0N/QncvMWWlzarsVfhcF+XL4/T7QR
-	 oVF/OkSFYrgYWMLGW6CEmBhBqz0+uu8j3ejp3as6+fOBAvykxThEqUyHvFYhPs7+0LA33
-	 W3TNQXmW3vCqBVUCSorSG5PlVnOuCY7Qj2iwKLtCNqiXCxUwnIHl3eE8Ikx9P6hAuSw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793620241;
+	h=DMARC-Filter:Received:Received:Received:X-Zmail-TransId:X-Mailer:
+	 Message-ID:Date:Mime-Version:From:To:Cc:Subject:Content-Type:X-MAIL:
+	 X-TLS:X-ENVELOPE-SENDER:X-SOURCE-IP:X-CLEAN:
+	 X-Fangmail-Anti-Spam-Filtered:X-Fangmail-MID-QID;
+	bh=IO3YFHnhAuew1qKAqNJkEYxad9XP8pflUZUw4Tx+Jd4=;
+	b=yItGpSsnJao/QDgKwDDTQjiGA9kF64sycE6o8rKow24vPoBnYxLA8iCSvmnYZtRMtLYl
+	 kEwtctcGps2rA1qOc3KHX09b7I/i7Yy774TiGp4iyTj+fCVoyNoVp3AUcN9Sy65DlQrxG
+	 yPndmO0h4CHRrSgnv/dtqFUQ6EKLnYK5wo8PkXM8mIVt1XxyL9LD5XF8giGxEjOOvaq42
+	 muYdjz2mEpOaOo+Cdu00cWFUxNlTJxgN4aTPFcd4A4jJJmPeEtiBLNyMTbtw40wZmBh20
+	 rebNPSxJl+toVMwyRJJ/IWzd4yeFTH7TxuwSxO/ipY7rd21pouCwmrN7G4awhRF7L5Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=jmu.edu.cn;
-	spf=pass smtp.mailfrom=jmu.edu.cn;
-	arc=none smtp.remote-ip=45.254.49.197
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+	dmarc=pass header.from=zte.com.cn;
+	spf=pass smtp.mailfrom=zte.com.cn;
+	arc=none smtp.remote-ip=183.62.165.209
+Received: from mxct.zte.com.cn (mxct.zte.com.cn [183.62.165.209])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347FD606A327;
-	Mon,  2 Nov 2026 11:50:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 347FD606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.lan (unknown [IPV6:240e:3bc:2e87:1c50:1c8e:3f10:8458:b32f])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 5330b226c;
-	Mon, 2 Nov 2026 19:50:11 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: coiaprant@gmail.com
-Cc: bigfoot@classfun.cn,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	heiko@sntech.de,
-	krzk+dt@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	Chukun Pan <amadeus@jmu.edu.cn>
-Subject: Re: [PATCH 5/5] arm64: dts: rockchip: fix USB OTG power on Photonicat in battery mode
-Date: Mon,  2 Nov 2026 19:50:01 +0800
-Message-Id: <20261102115001.1820171-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261101192807.897562-6-coiaprant@gmail.com>
-References: <20261101192807.897562-6-coiaprant@gmail.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620B4606A326;
+	Mon,  2 Nov 2026 11:50:39 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 620B4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=zte.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zte.com.cn
+Received: from mse-fl1.zte.com.cn (unknown [10.5.228.132])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mxct.zte.com.cn (FangMail) with ESMTPS id 4jJ94m28Tgz59tjr;
+	Mon, 02 Nov 2026 19:50:32 +0800 (CST)
+Received: from xaxapp01.zte.com.cn ([10.88.99.176])
+	by mse-fl1.zte.com.cn with SMTP id 6A2BoRSc068839;
+	Mon, 2 Nov 2026 19:50:27 +0800 (+08)
+	(envelope-from shao.mingyin@zte.com.cn)
+Received: from mapi (xaxapp01[null])
+	by mapi (Zmail) with MAPI id mid32;
+	Mon, 2 Nov 2026 19:50:30 +0800 (CST)
+X-Zmail-TransId: 2af96ae87906b1d-7b9b2
+X-Mailer: Zmail v1.0
+Message-ID: <20261102195030814Aeehrb4WmExc085745ldN@zte.com.cn>
+Date: Mon, 2 Nov 2026 19:50:30 +0800 (CST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,44 +56,63 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa19c18750403a2kunm632ef75ce7f31
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTE4ZVkNJHxpPSR5MS0wdS1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJT0seQUgZGEFJHkNMQUoYTktBShhDHkFIHUpLQUNPTkNBGU
-	hJHVlXWRYaDxIVHRRZQVlPS0hVSktISkxMSVVKS0tVSkJLS1kG
+Mime-Version: 1.0
+From: <shao.mingyin@zte.com.cn>
+To: <richard@nod.at>
+Cc: <linux-mtd@lists.infradead.org>, <chengzhihao1@huawei.com>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+Subject: =?UTF-8?B?W1BBVENIIDAvM10gdWJpZnM6IGZpeCBhbiBhdXRoIG5vZGUgbGVhayBhbmQgdHdvIGVycm9yLWhhbmRsaW5nIGJ1Z3M=?=
+Content-Type: text/plain;
+	charset="UTF-8"
+X-MAIL:mse-fl1.zte.com.cn 6A2BoRSc068839
+X-TLS: YES
+X-ENVELOPE-SENDER: shao.mingyin@zte.com.cn
+X-SOURCE-IP: 10.5.228.132 unknown Mon, 02 Nov 2026 19:50:32 +0800
+X-CLEAN: YES
+X-Fangmail-Anti-Spam-Filtered: true
+X-Fangmail-MID-QID: 6AE87908.000/4jJ94m28Tgz59tjr
 
-Hi,
+This series fixes three independent problems in ubifs, all found while
+auditing the error paths around the GC write-buffer, xattr creation and
+authenticated node hashing.
 
-> +	/* actually fed by vccin_5v, dependent on vcc5v0_usb30_otg0 */
-> +	vcc5v0_usb30_otg0_boost: regulator-vcc5v0-boost {
+Patch 1 fixes a leak.  move_nodes() allocates the authentication node for
+the GC journal head and writes it into the GC write-buffer; the buffer is
+freed only when one of the steps fails.  On an authenticated file system
+every GC pass that moves nodes therefore leaks ubifs_auth_node_sz()
+bytes, so the loss is unbounded on a long-running system.
 
-This is incorrect from the schematic:
+Patch 2 fixes state that survives a failed operation.  create_xattr()
+sets UBIFS_CRYPT_FL for inodes that carry an encryption context, but its
+error path clears the flag whether this call set it or not.  A setxattr()
+that fails before anything reaches the journal, for example because its
+journal buffer cannot be allocated, therefore leaves the in-memory inode
+marked as unencrypted; the next inode write persists that, and after the
+next mount the inode is no longer treated as encrypted although its names
+and data still are.
 
-VBAT -> 5V_BOOST / 5V_OUT regulator
-                 |
-Boost_EN ---------
+Patch 3 stops five call sites from ignoring ubifs_node_calc_hash().  With
+authentication enabled a failing crypto operation leaves those callers
+using an uninitialised stack buffer as the node hash; it is then stored in
+the TNC or in the master node, and the affected nodes fail verification
+later.
 
-5V_OUT -----
-            |-> VCC5V0_USB30_OTG0 -> USB3 VBUS
-VCCIN_5V ---            |
-                        |
-USB_HOST_PWREN_H -------
+The three patches are independent and can be applied in any order or as a
+subset.  They are listed by severity, not by dependency: the leak first,
+then the persistent state loss, then the error propagation.
 
-So you should modify the vin-supply of vcc5v0_usb30_otg0.
+All three carry Fixes: and Cc: stable.
 
-> +		regulator-name = "vcc5v0_boost";
+Testing: the patches apply to next-20261030, pass checkpatch.pl --strict
+with 0 errors/0 warnings/0 checks, and fs/ubifs/ builds with
+CONFIG_UBIFS_FS_AUTHENTICATION, CONFIG_UBIFS_FS_XATTR and
+CONFIG_UBIFS_FS_SECURITY enabled and W=1 without new warnings.  They were
+not exercised at runtime: this machine has no UBI/MTD tooling or
+emulation, so there is no mount test.  Patch 1 is the easiest to verify by
+inspection; patch 2 needs an allocation or I/O failure in
+ubifs_jnl_update(); patch 3 needs a crypto failure inside
+ubifs_node_calc_hash().
 
-vcc5v_boost
-
-> +		vin-supply = <&vcc5v0_usb30_otg0>;
-> +	};
-
-vccin_5v: vbat: regulator-vccin-5v {
-vin-supply = <&vbat>;
-
-> +		vcc5v0_boost_en: vcc5v0-boost-en {
-
-boost_en
+Signed-off-by: Shao Mingyin <shao.mingyin@zte.com.cn>
+---
+base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
