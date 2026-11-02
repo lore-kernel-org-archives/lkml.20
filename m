@@ -1,95 +1,94 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.67
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793634296;
-	b=gO8e+OjxrrVeoewqrNhUcuIoZ7sH+am4sWmcXIiMkNoUutQKSkDsk9nX3l7NLVGBeQ4f
-	 1CIIt8M7j3jNOpRiN5VYr/qmvzuuTK2QFKUryDj2EgSlyQWNxnAyCGqovnEqEDZPToQRh
-	 kpNBFHAdvSYQG7asZ3TTMA6wEHiGGnKy724xgjkgs1J64qnrFvlpQIQmlZ3sViteSJTi0
-	 b4R63Lk3aCO2640FmgIWzD9SwxSz1AI7pnKoUUAXpmiNsqfN8Mc0C90MvGEEX0ow1SUgO
-	 YnMPASLljzEvJElHeA1KHVMaFJ+ThHHGRTMgJHRCg8d3wSycc6a2YWxS5QZ7jjsdHUg==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634296;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
-	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
-	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
-	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
-	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=r2vskZVrRT2Sr/MQJ84kEYXVZRCD9WXu2rQ7RBiiXEQ=;
-	b=Vf4oRYlDAUIBF1D8ThCS0I/pr4mp2VU/Ptl5IRpbmvIKXIiDFvDa+jjaca6zTp6qkpbt
-	 5SBEoBpxg0XUbvobmW+f0K+zfS/DRw3xOkqIZaxqhXxAmPAy1MjP6tfzmV2jP0SVi0XGm
-	 biy3Pt/FeDIw0bJMkVxBmm0rUnFBj6468TShMy8c8P1z8ts499BP1baC5zWyCe52nmWHq
-	 xsfkZsVTXmUSyuJRgqVpC2LkkXMg10inchm31w46UAlW7M8y0nNzUr1XRLvgb5dJoDbvN
-	 kFM+6ZD+e9QvT956Wo1AXSTH9t2wMQi7EwDdM0B5eUk3wY0Xbv3GVBzGlWV34QwTjCQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=amd.com;
-	spf=fail smtp.mailfrom=amd.com;
-	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tQqpJ+h5;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.67
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010067.outbound.protection.outlook.com [52.101.85.67])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793634309;
+	b=BgtsxNg/YNvgnVhFQFTqXMq/sxZoADsclRuzv9eGIi61S2aelo3ruQxM9Wd6ee6T6/mp
+	 uaKaMMzEOXuSyQWeEhq8y8enAa/iUWzwIeuWtY71c40BRyGuysDy1NpLzCQEhwRfC7wlQ
+	 7V1oO370qHj/2/xuI0A9DjRMNs9JG6FXtFDU5SsAyweCnaYTGJJE3ZVKyzm75rajB5aiX
+	 cFoZrM99TrdTdkrcn1pzofqwmEl8SXYk5IJuH98CUjvsZGadgzjXJ8UD1zkd4gQslXioj
+	 dRZlRTyLp6Q7rr5fkAhM19SgERg7wMkKnuVOtnUFNLkmRMTdWEZIQmsccfwT0lLqICg==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634309;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:X-Google-Original-From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+	b=ItfcUhsQfCaO9vSloGprpyOc3B4lLJ0TPGtHCIgyzihTynStSZgpOgeVF31bJOzALHgm
+	 e2AhySsQp3VEF1c+ilysDfBRQXT6j93JvXAeF6G4M+yorxCdNvgBRGCghGnswfFBt3shw
+	 9PSBKbAKGvMDVSGZM9omtGLUkzHA9pCwjBfsp7lhiRHI95CVwNhlWoJW/zCYMPc2nrKZr
+	 BkpJoI9jsqZMJee9fjNqmK2cfQaYkIlXghvwUD81T2/CroXgFVkFta8rm/wCrBBiq8H3u
+	 HyU93/sXgA/W3iPDnaq11l2axCYCPU01agPVc8Dka4efgx3F509Vq2DgDNVxn4TfPMg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOO+oafD;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B49606B93F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:44:55 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 52B49606B93F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190E6606DE8C
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:45:08 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 190E6606DE8C
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=tQqpJ+h5
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jkWJGP3WG5Ot2liWeFpq2RrX27bUBJthyqvFoI+8SMu8pg4r+5LG76+7at5C71KJ9zP8nwQp9sBP8aamr5E5qYmJEj0H2rD3W8eELcH8jXGgd28BzP/4RnUtAUAXQm5Jcq6KbkmuJ+Vt+hlalT1h/TFCi+IuzhvA3bwGY7xS/Hs5fGjdQAdxmLRMJoelkgw1/N4Q8ZAgDkYjCj8k459H1cRB68RKRypx0b2emwKwhg/vt2fVfHBLkePJzAXu/5KVosTy89Cj28omKkbFfe/djhY+cfCcgKeZ2jPSMpwB6HyB4wvPF6xFXlLv8Eq8kQ342RLVTIK+Airzz97oFSWK0g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r2vskZVrRT2Sr/MQJ84kEYXVZRCD9WXu2rQ7RBiiXEQ=;
- b=YgeRccgBfCUDUVdAEWKkdgfAGWGd9xHgVGKogJQKmLQG0kLx+E3+aVRRdRTfM5NOU0ZJ2oBrjoyDw5LAaZlF1moPcYe7c8rok5PoU495vZjYGW1PZ8We9aMjMa3uDGAwjQ0iIafxN4PZItvcYiweozHVC1xMfywS1qhoRL1B9Oi9+c315AVdKgVHgaQT+YclJliiJR7a8YGUECgqAijqOomdEokctLzoWPAFKRqlWKWCpDMpg7jhxxxxpfHYkG4qF8DrfVh06vLE8FNCb4wHF6J2QE+NYCGBsNq0/1H5vZJAR00HnPZmgxdvqGzt2eUWla2OQlvGzN1/J+ezvOzqsQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r2vskZVrRT2Sr/MQJ84kEYXVZRCD9WXu2rQ7RBiiXEQ=;
- b=tQqpJ+h5Mpvd5hjCMlbkatHvEdx6rMudyzvdndhzOHAplV5Na52ckUyesNsdZUYdutKRkOfJS7DS4qMmNlAYwl/jmpxro4IjUD4tQK0/iiGDXS7rsuvUvy0wzkLIBNpf/iP2lXKjKlxsXs3z4w6gyHMV+Vn/NbWgj/JxcHIhQ28=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB6704.namprd12.prod.outlook.com (2603:10b6:806:254::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 15:44:52 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 15:44:52 +0000
-Message-ID: <0c8f89c5-b02b-491b-99a5-f881ea82a804@amd.com>
-Date: Mon, 2 Nov 2026 16:44:48 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] drm/amdgpu: add wedge event implementation
-To: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Felix Kuehling <Felix.Kuehling@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261029152000.22001-1-pierre-eric.pelloux-prayer@amd.com>
- <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261029152000.22001-4-pierre-eric.pelloux-prayer@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0178.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::6) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=jOO+oafD
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so27065935e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:45:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793634307; x=1794239107; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+        b=jOO+oafDQ2vni9CZUtj423urEKRJ69jfP7P1rtCT/lLRYDjvDPw7FUFoXbbgyPo8Cn
+         yt1Oy8naqRqTtH3YENpB/KwgK30dNfiycT12ytLnYPpQA/NKOZ7+zH9XwYEkbtFZA8pu
+         PzdFUh2YdT3h094VfP2ntYWTCzRKfIiB//63Arvj88EkMwFfT+eONgMw6ezvUPafMq4W
+         /x+wSF+8Wt4Vrq7+dGVFU6mzMu7ZRjPOjH/4lXWmJVjTVU04IEkrGL33E6/Vh2NMWgzu
+         cm7A711XcMoQEQf7wAxa+nuf3xplO/L2OK0TCcjTAm0u0in5AiXnE8ypOWmvIUKr888X
+         GPFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793634307; x=1794239107;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G+Ul4wYB7F7GOHeOHYfi0XFFmYlVfK1p/QtFcQWKlB8=;
+        b=rapQD3nYJMd7/1eJR+4s6q2wOUocWnrskENhrMWYbyacl3nWZkihkGsq60PKsKIZLa
+         fTEHyJ0OfJAzYXgjx3rIBzot85oc8c8pzXcsQzMHxe4AxFXq5qRArhIqPoff4TSZySw1
+         zfs7fzjtqd/4nUEiFFiNbxJ2SV3Hu2Se+lYQTwk8fKUVPZ8gJw54VjpouOQP4QQysTmX
+         /72JuHiDimUgbgJXJrScFnYZCSRE9J6d8IvSgRdIRcL3ivPCg0eeB49fO4tFhwj4mQK/
+         pBYRwrZzBo7VT6bLxxs2qLTNN3KcmIyrnSzawMN2MPUl6manpLc+VvAfGrIC40M0IpWW
+         I8pQ==
+X-Forwarded-Encrypted: i=1; AKwUvByrvUo/g0djRJjBC93+b7D0wOg9OqYfAJHRf0mNtb6B7kZWocZKwQiF/1jHbUrba35wdbSZylTVCdnhl2M=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJrCZq6V17dyO9qlVaLXHoBC0gMl89ECMO9CMAmsqCnvNiXy3S+
+	/LLQRqJx98zf8ECd19/SyAS8l+Z1HNQc44k8s70NmVdHZV1F6PolxzA=
+X-Gm-Gg: AYBFou3ixGx0+7uj1T+BnSlGUnjpY4IC99EFydfQEiIoUDPYRRtbMe56u4YQZbXF5fp
+	FXz/tmW21tXbbdYwEsbNS/Y+TAKy1sbJ68nIFEzgKRr/JllRVhsatAr8s1fqSrVQmyT7wPhQaQT
+	Via1rI4EEX2lQlA04TQ12VytC4VFcX8t7HusAqR3hAVqwvtSR2XvriFBoAUtXRN5NudaEKGzHGh
+	81Buj3xdinJJkn0JY+tuBwq+k98wXmYqnNwRLH5EAMbd0IWynGOh9iVblZ8LtO/3AK8EfOi6oxm
+	6WgXwRWlfuYuT4diHLsVZfbBOwEpIM/9tGtUfO0rO6QFsR8ljQXg81OebfAAB5Er7e9eKVPVdgr
+	VSXH3K4eYdxI4XH41w0ylPs/TO3Lvl9KyW1ZwcXLWoh/RNJaXLMLrb9qAy16qiNnYrArscobGje
+	AwvB+QXGINdCD5zNGZGOlQE8+zpWyG1BlBu5lL4FB8OiKNPv5bGw59p3DWeCI5OJbIciukL6o+u
+	DK0MjeAUSiSi5elMhiIH5CpYv6iokjySE57pzHUu0kbE9ByTqfxhnOUhN083UyGJRMXee0k56e7
+	5QNek0n3h5SrKcvsxnWOOem1NSe+guLr
+X-Received: by 2002:a05:600c:8b04:b0:4a1:db17:c7e6 with SMTP id 5b1f17b1804b1-4ac150b2044mr235626945e9.2.1793634307242;
+        Mon, 02 Nov 2026 07:45:07 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm369026565e9.9.2026.11.02.07.45.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:45:06 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+X-Google-Original-From: Tristan Madani <tristan@talencesecurity.com>
+To: mchehab@kernel.org
+Cc: linma@zju.edu.cn,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>
+Subject: [PATCH] media: dvbdev: fix dangling minor pointer in dvb_register_device() error paths
+Date: Mon,  2 Nov 2026 15:45:05 +0000
+Message-ID: <20261102154505.1224791-1-tristan@talencesecurity.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,357 +98,78 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB6704:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1bb6cf61-0630-4fe3-a4d9-08df38f83bd7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|6133799003|10067099003|22082099003|261102123227099003|18002099003|56012099006|11063799006|4143699003|261022105027099003|261021123027099003|261021121427099003|261022075727099003|261026140227099003|261026121527099003|261009221227099003|261009223027099003|261028144727099003|260925022911599003|260925021911599003|260925021311599003;
-X-Microsoft-Antispam-Message-Info:
-	dsbcli2N9+maDsT4UYETgPU9RJpdq4u+Tf2sod3K1W004JIh89ayHYS7ceRaWKkpqZOEZIsuQ3BKEZ07mYhzq0dkx84tWEdYlPeiZLXI3jfv2L0CsxeI9AL7JGP5vZNhCavbNp53adqzJ5UL8+R/wotDZOZAEjxf0jlsrEdqwcrkGjGHzpJl93PIdscJajLNBlJ5qRNo0lMUXE0JFxbhEU2zQMUfMyeiiY8szQgbepx8DLY9ZVq1NA6K9EFatj9aXVqUQLN6oynLpIMutYulATyS0PqUPOv020nKHbS7Yc0XNZoHfPeMO+3fDcj7w1tKNHoogC22BQBJLrevSNRqWeKaKgNsFy8a/Spg2F5jCFtb9k/Rv2k6b3DliEB8DohYJY7AgDrlCNds0Vw6uJeCeeLtwVauk0755B0f2b9twl2sj+Z56OaCeYI0eLTGNfmweAOeqWZiEPpOqe3kBRXx+GWVQOsEy1kA/KlU6cdosbKtSYICtNAgaIm16CtqkbC+xHZ/QheUPKzcwrTQuub7gULdSvsLD2rUvITgbqFRTgln4e7t1VpOdhScfWlH1A03h+7cQA5QjoCCs2gppJnIurb5QvDGyYwmSZxm/P9pXNVlfWPYpxbopghDIDotAIBZ+QoOCXgf5/ZoyvDDdsDhzR/xrZHDVEaPhUvZufi89KQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(22082099003)(261102123227099003)(18002099003)(56012099006)(11063799006)(4143699003)(261022105027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261026140227099003)(261026121527099003)(261009221227099003)(261009223027099003)(261028144727099003)(260925022911599003)(260925021911599003)(260925021311599003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NzlqSUJPalJOK3BjU2RSNy9TUEVtZC9jQ2VaaVFHY25OdloxUHRlYktQd1Vn?=
- =?utf-8?B?S1lpUytOeWh1OGpmUXd5a2RwM0hxaUtNelBRcURIcFQ0Z0duOGpHVFNlZzNk?=
- =?utf-8?B?ODE1VU8wWlZCZ2VsbmN0Y054dXF3TExsWVp0dkhTcFRSd3l0RTVrWlZMN0Ev?=
- =?utf-8?B?ZjZpbGQwb0x6Y2gzWllKRkVya2tmeHMrbDdSZXdub21uVVBaQ0pteHh1RHlw?=
- =?utf-8?B?Z3Q2SEZuMVFPcFdKeWgwbWZvc2RFWXJGUU5UY1RaVVRVQjFsUGk0TlRpYjl6?=
- =?utf-8?B?amZMSlhYYmZXcXk3QnYva3FjSVU0OXd3RmszRGExcXlzSUw4a2JCVlJwTU9J?=
- =?utf-8?B?VnBFeElsZW1xY28zRDJ4eWo2TTV3Q3IyanNCRU5CQkJickp0Qm9yaGFDc1Nk?=
- =?utf-8?B?S2I5SlpkZ3BBT1FKTmNBU3J3U0VOTzBWRXdnL3FZS1FsVDZCNXVpcVN6Mm5a?=
- =?utf-8?B?TFVhek9NRk5VczZvdmlhbzlBbGs3UWtVQUwydzZXSFNjQXRya1AxVkNsUTJQ?=
- =?utf-8?B?SDBWKzZVQ01BcjNIZjE1T25sZWluM0Fsc3VvVGJXdEMzZHdkQlNLcDk2YnNh?=
- =?utf-8?B?T2F3Ym16ajFCY0pCWVpoMFl0cTNwLytnVmxlSFZZZ09rRENGa2ZYa1JzK1VE?=
- =?utf-8?B?bEZFTDcxY0lGN2lqTXBxODN0azNVdWhsNHRwa2FZR0pCRTFob1hhaE9WQTdD?=
- =?utf-8?B?VjlFK1pOWko0VTlxQ3lJSE5GUDN2c2NVelFzTnpob2VBdm1BYUZISGZkb0RM?=
- =?utf-8?B?V2RiZEJ0dWJ0ZldrS2dISG9CZTVWNVJEdVVpK0w2SS9HYXN3LzNzaWJVQTYw?=
- =?utf-8?B?d3d0L0dlZ1NOK2ZXenFnSUZXN0xQSXVhalBWcXE1aUdIaXdxNXpxSHFqTzhu?=
- =?utf-8?B?SGwvZjgrUjNBaDlnSG5oZVM3MWdSeEtzeUlhWk1FWGNwN2N5LzNIeXBtODYz?=
- =?utf-8?B?dWRZNmZTV3o4UDJwNGhqbldvaG1DTmRJNEpTdmFXa0FuaXpNSm9nR0cwdWZG?=
- =?utf-8?B?TTVBTGNxb0xXd0VFK3Qzd0VGUlE1N3dPaGRvQjliWlF5UDk2L1hic1JBZzJK?=
- =?utf-8?B?UkNzekF4cWxBdzQ2YzdubWlUdFNpUzV5U2dmdnNYYmdzUnFiaU85OFVhaG5Y?=
- =?utf-8?B?c0VmRkJ5eEZPdUdCWUhPOC93NHNYOUFiV2hhOHJ6SlVpNStpT3ZFeWJBd3Ez?=
- =?utf-8?B?eFJ4RHF0MWpieEd4Qm1zNk9mQ09LdFZxQ050emUwTElXYWgyWFdNZVZ2L0hT?=
- =?utf-8?B?aStwZVlweThwWnlIcUFnRERCby9yRUVzNURMWkdJUVJmei9Bb1EwU0pCeFlL?=
- =?utf-8?B?NzFYakptOUtCbUdFNHB0OG82WGJQb2F0UjhNaGlzKzBkQjgvS3BSelR1MzRq?=
- =?utf-8?B?cXRJWFZ5cTdvVXhTeFpZb01pUnFsTHFyZzk5UUVldDFzc003aGVvVENDUkMw?=
- =?utf-8?B?SG9zZ3dxWkt2WWhRaGp0YXIwS0t1MmVBV1d6NnliSWV0TnhSWk9rL3NzNm00?=
- =?utf-8?B?NmVBS3FsS2l5RHdjZitnYUMrREdlOTJFWHlqR0Y1NkxBcldPYmRXYWlDNVZT?=
- =?utf-8?B?U0VlU0RIc21MdFhteGp4NUQ0SUNTUlBabGtHek5obWF1eENXUUJZbVlUNzdN?=
- =?utf-8?B?Yjd3Z3NCOGJFWWVvQkhXamZrWXBiVW41dzduNExxZis1dGpTcXcvSHdSSkk4?=
- =?utf-8?B?bUQ4R3RiOXdpblZhRVFBdjltZWNSNGFjbXdtOFNNZ3pFOVF6RHJPeGFpOTlV?=
- =?utf-8?B?L2dHcFVla2pwU2JqdWF1bHhFdXBiUzRhemRhWWIrcTh1Z0dtUitMZzM3Yld4?=
- =?utf-8?B?UVE2dkFxWUpQRHZ0WnZacVg1Uy95RThlODlmMm95WHRmTjJUVERIN0tkVXha?=
- =?utf-8?B?RTZtL0wycCt6ZWorUzczZmlaRGhqQ3FjUEtFbDBmMDhJQkp3T3lVQmNqU1Nn?=
- =?utf-8?B?RWhDeHRMN2ZKTWNjUDRLRWlRVlhOdmFZNEdNeGZHYUgxdVYyMWdaMjc3Y0lQ?=
- =?utf-8?B?dHVOU1NOeHBHS20zMG1MYVV3WG5pMVVFVGhSMVJyZ0dpU21tOHY3TFk3cmJv?=
- =?utf-8?B?ZlRNc3dNcTd4ekxHM1F1Z3JuQVVFNElqSkM0aXh1OHhxVWlQQ2dwVUFhUlpw?=
- =?utf-8?B?Nyt0c0xlTHdWcWp3Qm04eUVyVXBaS2ZEQmNVUHJaREZmSFhuN2pUSTlSOGVz?=
- =?utf-8?B?NTFDSDBncHg5YVZYTk12KytFYkNCUGx1Z0RsbzhWVldPQ2JrL2tQVC9oYXdx?=
- =?utf-8?B?WnJmcHd1SGY2MWgra2V3SDZXWG5wTVhnUnpPVmdQb2JERWdKamJSSHBYVmFp?=
- =?utf-8?Q?UHsN+O1mP79uFW4/lo?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1bb6cf61-0630-4fe3-a4d9-08df38f83bd7
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 15:44:52.0277
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: TKQQGKjat5NwwIWoTsdEBLS+up9CeGKaytwS/R2InSCKrLNs6/xKTKeAY5h2qhIy
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB6704
+Content-Transfer-Encoding: 8bit
 
-On 10/29/26 16:19, Pierre-Eric Pelloux-Prayer wrote:
-> When a job times out the kernel tries to reset the GPU to get
-> the system back to a normal state.
-> Sometimes it's useful to disable this process - for instance to
-> be able to inspect the hardware state at the time of the hang.
-> Since leaving fence unsignalled might affect the system's
-> stability, this commit enables the drm wedge framework for amdgpu.
-> 
-> When a hang condition is detected, the GPU isn't reset but all
-> the pending fences are signalled and the hung GPU cannot receive
-> new work. For KFD it's implemented by making
-> kfd_process_device_data_by_id return NULL if the requested GPU
-> is wedged.
-> 
-> When the user is done, it's possible to trigger a GPU
-> reset.
-> 
-> The auto-recovery is still enabled by default, and to use this
-> feature one has to either:
-> * boot with amdgpu.gpu_recovery=0: not recommended as it disables
->   recovery for all GPUs
-> * write 0 to /sys/kernel/debug/dri/X/amdgpu_gpu_recover to disable
->   auto-recovery for one GPU only
-> 
-> Runtime power management is disabled when the device is wedged
-> (because we can't submit any work to the GPU).
-> 
-> Assisted-by: LLM
-> Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+dvb_register_device() stores the dvb_device in the global dvb_minors[]
+array via dvb_device_get() and releases minor_rwsem before calling
+dvb_register_media_device() and device_create(). If either of these
+fails, the error paths call kfree() on dvbdev without clearing the
+dvb_minors[minor] entry and without going through dvb_device_put().
+This leaves a stale pointer in the array that dvb_device_open() can
+dereference under minor_rwsem, and bypasses the reference count
+established by dvb_device_get().
 
-Looks mostly reasonable to me. 
+Fix both error paths by:
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        | 13 +++++++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c     |  3 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c |  8 +++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c    |  8 +++++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c    |  3 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_job.c    | 34 ++++++++++++++++++++--
->  drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c    | 12 ++++++++
->  drivers/gpu/drm/amd/amdkfd/kfd_process.c   |  6 +++-
->  8 files changed, 83 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> index 34bbb30b6f0c..cd4959486c94 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -989,6 +989,13 @@ struct amdgpu_device {
->  	 */
->  	bool gpu_recovery_enabled;
->  
-> +	/* Set to 1 when the device has been declared wedged following a
-> +	 * hang: it no longer accepts new work and pending fences have been
-> +	 * force-signalled. Reset to 0 once the device is reset back to a
-> +	 * working state.
-> +	 */
-> +	atomic_t wedge_status;
-> +
->  	/* KFD
->  	 * Must be last --ends in a flexible-array member.
->  	 */
-> @@ -1374,4 +1381,10 @@ void amdgpu_device_set_uid(struct amdgpu_uid *uid_info,
->  			   uint64_t uid);
->  uint64_t amdgpu_device_get_uid(struct amdgpu_uid *uid_info,
->  			       enum amdgpu_uid_type type, uint8_t inst);
-> +
-> +static inline bool amdgpu_device_is_wedged(struct amdgpu_device *adev)
-> +{
-> +	return atomic_read(&adev->wedge_status);
-> +}
-> +
->  #endif
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> index fa301c71b782..d119de477284 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c
-> @@ -1465,6 +1465,9 @@ int amdgpu_cs_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  	if (!adev->accel_working)
->  		return -EBUSY;
->  
-> +	if (amdgpu_device_is_wedged(adev))
-> +		return -ENODEV;
-> +
->  	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
->  
->  	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> index ec2514079919..641b7fe24951 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -4110,6 +4110,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->  	}
->  
->  	adev->gpu_recovery_enabled = true;
-> +	atomic_set(&adev->wedge_status, 0);
->  
->  fence_driver_init:
->  	/* Fence driver */
-> @@ -4362,6 +4363,9 @@ void amdgpu_device_fini_sw(struct amdgpu_device *adev)
->  		amdgpu_sync_free(&adev->isolation[i].prev);
->  	}
->  
-> +	if (atomic_xchg(&adev->wedge_status, 0))
-> +		pm_runtime_put_autosuspend(adev->dev);
-> +
->  	amdgpu_reset_fini(adev);
->  
->  	/* free i2c buses */
-> @@ -5155,6 +5159,10 @@ int amdgpu_device_reinit_after_reset(struct amdgpu_reset_context *reset_context)
->  	r = 0;
->  	list_for_each_entry(tmp_adev, device_list_handle, reset_list) {
->  		amdgpu_set_init_level(tmp_adev, init_level);
-> +
-> +		if (atomic_xchg(&tmp_adev->wedge_status, 0))
-> +			pm_runtime_put_autosuspend(tmp_adev->dev);
-> +
->  		if (full_reset) {
->  			/* post card */
->  			amdgpu_reset_set_dpc_status(tmp_adev, false);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> index fb60a99f43c1..617d4eec4e26 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c
-> @@ -459,6 +459,9 @@ int amdgpu_gem_create_ioctl(struct drm_device *dev, void *data,
->  	uint32_t handle, initial_domain;
->  	int r;
->  
-> +	if (amdgpu_device_is_wedged(adev))
-> +		return -ENODEV;
-> +
->  	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
->  
->  	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-> @@ -961,6 +964,11 @@ int amdgpu_gem_va_ioctl(struct drm_device *dev, void *data,
->  		abo = NULL;
->  	}
->  
-> +	if (amdgpu_device_is_wedged(adev)) {
-> +		r = -ENODEV;
-> +		goto error_put_gobj;
-> +	}
-> +
->  	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, lock);
->  
->  	r = PM_RUNTIME_ACQUIRE_ERR(&lock);
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> index 4204c3c750a8..53fa9fa83ae7 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-> @@ -730,6 +730,9 @@ void amdgpu_gmc_flush_gpu_tlb(struct amdgpu_device *adev, uint32_t vmid,
->  	struct amdgpu_job *job;
->  	int r;
->  
-> +	if (amdgpu_device_is_wedged(adev))
-> +		return;
-> +
->  	ring = to_amdgpu_ring(adev->mman.buffer_funcs_scheds[0]);
->  
->  	if (!hub->sdma_invalidation_workaround || vmid ||
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> index 0b8d0a79dd45..f72c9c690c3b 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_job.c
-> @@ -24,6 +24,7 @@
->  #include <linux/kthread.h>
->  #include <linux/wait.h>
->  #include <linux/sched.h>
-> +#include <linux/pm_runtime.h>
->  
->  #include <drm/drm_drv.h>
->  
-> @@ -185,9 +186,35 @@ static enum drm_gpu_sched_stat amdgpu_job_timedout(struct drm_sched_job *s_job)
->  		if (r)
->  			dev_err(adev->dev, "GPU Recovery Failed: %d\n", r);
->  	} else {
-> -		drm_sched_suspend_timeout(&ring->sched);
-> -		if (amdgpu_sriov_vf(adev))
-> +		if (amdgpu_sriov_vf(adev)) {
-> +			drm_sched_suspend_timeout(&ring->sched);
->  			adev->virt.tdr_debug = true;
+1. Clearing dvb_minors[minor] under minor_rwsem and calling
+   dvb_device_put() to release the array reference.
+2. Replacing the direct kfree() with dvb_device_put() to release
+   the initial reference and allow the release callback to free
+   the object when the count reaches zero.
 
-I think we should just completely drop the tdr_debug approach from the VF handling under SRIOV.
+This mirrors the cleanup sequence in dvb_unregister_device().
 
-The wedge event approach should be completely sufficient to handle all of that.
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/media/dvb-core/dvbdev.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Regards,
-Christian.
-
-> +		} else {
-> +			struct drm_gpu_scheduler *sched;
-> +			struct amdgpu_fence *guilty_fence;
-> +
-> +			/* Declare the device as wedged if it's not already. */
-> +			if (!atomic_xchg(&adev->wedge_status, 1)) {
-> +				/* This ref will be dropped in amdgpu_device_reinit_after_reset. */
-> +				pm_runtime_get_noresume(adev->dev);
-> +
-> +				pci_clear_master(adev->pdev);
-> +
-> +				drm_dev_wedged_event(&adev->ddev, DRM_WEDGE_RECOVERY_REBIND, info);
-> +			}
-> +
-> +			guilty_fence = to_amdgpu_job(s_job)->hw_fence;
-> +
-> +			sched = &ring->sched;
-> +
-> +			/* Prevent anybody else from touching the ring buffer. */
-> +			drm_sched_wqueue_stop(sched);
-> +
-> +			amdgpu_fence_driver_force_completion(ring, &guilty_fence->base);
-> +
-> +			/* Start the scheduler again */
-> +			drm_sched_wqueue_start(sched);
-> +		}
->  	}
->  
->  exit:
-> @@ -439,7 +466,8 @@ static struct dma_fence *amdgpu_job_run(struct drm_sched_job *sched_job)
->  
->  	/* Skip job if VRAM is lost and never resubmit gangs */
->  	if (job->generation != amdgpu_vm_generation(adev, job->vm) ||
-> -	    (job->job_run_counter && job->gang_submit))
-> +	    (job->job_run_counter && job->gang_submit) ||
-> +	    amdgpu_device_is_wedged(adev))
->  		dma_fence_set_error(finished, -ECANCELED);
->  
->  	if (finished->error < 0) {
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> index 14a72a406d37..2393cad36ac0 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c
-> @@ -781,6 +781,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  		return copy_to_user(out, &count, min(size, 4u)) ? -EFAULT : 0;
->  	}
->  	case AMDGPU_INFO_TIMESTAMP: {
-> +		if (amdgpu_device_is_wedged(adev))
-> +			return -ENODEV;
-> +
->  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->  
->  		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> @@ -913,6 +916,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  		if (info->read_mmr_reg.count > 128)
->  			return -EINVAL;
->  
-> +		if (amdgpu_device_is_wedged(adev))
-> +			return -ENODEV;
-> +
->  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->  
->  		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> @@ -953,6 +959,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  		uint64_t vm_size;
->  		uint32_t pcie_gen_mask, pcie_width_mask;
->  
-> +		if (amdgpu_device_is_wedged(adev))
-> +			return -ENODEV;
-> +
->  		/* The clock limits are only available while the SMU is up. */
->  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->  
-> @@ -1187,6 +1196,9 @@ int amdgpu_info_ioctl(struct drm_device *dev, void *data, struct drm_file *filp)
->  		}
->  	}
->  	case AMDGPU_INFO_SENSOR: {
-> +		if (amdgpu_device_is_wedged(adev))
-> +			return -ENODEV;
-> +
->  		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev->dev, pm);
->  
->  		ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process.c b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> index ac18c2be6ecb..b95dddeaccc5 100644
-> --- a/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process.c
-> @@ -2424,8 +2424,12 @@ struct kfd_process_device *kfd_process_device_data_by_id(struct kfd_process *p,
->  		for (i = 0; i < p->n_pdds; i++) {
->  			struct kfd_process_device *pdd = p->pdds[i];
->  
-> -			if (pdd->user_gpu_id == gpu_id)
-> +			if (pdd->user_gpu_id == gpu_id) {
-> +				if (amdgpu_device_is_wedged(pdd->dev->adev))
-> +					return NULL;
-> +
->  				return pdd;
-> +			}
->  		}
->  	}
->  	return NULL;
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a6..c931c467d4c52 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -551,6 +551,10 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (ret) {
+ 		pr_err("%s: dvb_register_media_device failed to create the mediagraph\n",
+ 		       __func__);
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		dvb_device_put(dvbdev);
++		up_write(&minor_rwsem);
+ 		if (new_node) {
+ 			list_del(&new_node->list_head);
+ 			kfree(dvbdevfops);
+@@ -558,7 +562,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 		}
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
++		dvb_device_put(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
+ 		return ret;
+@@ -570,6 +574,10 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (IS_ERR(clsdev)) {
+ 		pr_err("%s: failed to create device dvb%d.%s%d (%pe)\n",
+ 		       __func__, adap->num, dnames[type], id, clsdev);
++		down_write(&minor_rwsem);
++		dvb_minors[minor] = NULL;
++		dvb_device_put(dvbdev);
++		up_write(&minor_rwsem);
+ 		if (new_node) {
+ 			list_del(&new_node->list_head);
+ 			kfree(dvbdevfops);
+@@ -577,7 +585,7 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 		}
+ 		dvb_media_device_free(dvbdev);
+ 		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
++		dvb_device_put(dvbdev);
+ 		*pdvbdev = NULL;
+ 		mutex_unlock(&dvbdev_register_lock);
+ 		return PTR_ERR(clsdev);
+-- 
+2.47.3
 
