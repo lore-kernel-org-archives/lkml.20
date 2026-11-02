@@ -1,55 +1,51 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=5.75.144.95
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793650322;
-	b=Hwlz4H7vSLclWsA4W47g4Kg/GKETkY4QPaHIFBDGK4cbLkIMhjOBg1BeSMyFFaqRnuM1
-	 hc5CZ264Pu1pGN5p9MwLyJsIAgowKKDbI7kxFvF5pHN9IlbY/DD+GThbVZdnhyiNdadZo
-	 /dSG2c68Rs8BcgtEvnItzTCl8vMVLeHsKRb4JR5OjGLyb4zPN3brWgp8fAahNpNgVC6CZ
-	 2QAwRBzL8ndfm5iOu9m5K+O/o1UUkgzoHrBvYcml+C9rr6hw8pZCJQB2hWGWCu2CYbICv
-	 My3x68wPG2BjOnT6A1hUFY9mSp72UlwR1D/uUdRm0uqkAkVt2f2H1lwqKWvl6t9XFrg==
+	b=eGsuBrocQQQvrl+Ql8hG+82iI6LdSFB6JCQHwULqI0wVGYYZrP9TeH4s71GkOTgfZGOQ
+	 s3wQ3ROmxoPlebVtU9QeaorYPUUM4eYjARaDwt7C4xxvpLrwecGj5G+1drb+oeWTEy9PI
+	 za5mSwaSGkk4ZrEGzLPmATwN8fFN2HqBVuo+0TF9oAP4wdCTcilOL7ePb3RCI4I3N3IB5
+	 3UWofdKZC0iGuzacN+supKHR9uQyBU1tl6Vi14hLajzhEvmFk+nFBNHbf+UiWju7vkl7C
+	 aQ9R5rPMj79rl56rBmaMOWcnfh2Tk4vbF0NorWBR/3g2QyrJUnS4JEWu0T4+91hA2bA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793650322;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=BjDOfNesHUvUYdnemATt3QpEnFnBaEWBJAu+ke/IeV8=;
-	b=rFQp/PkOiN/7hvt+p6Gzadd2VZR+NGWLi34hY11ZthYN6X19Br15/eW+wWgwKQo1oxEZ
-	 tbVFAmJ0z62Fq99X7TGc8Vp83Ay2I02z37a/hRQ6b0DzYfs5RpM4hZcGMmXN1uy5UE2Cx
-	 9SiLnlGyNA5VUoBZcqjk+OjuPGGNxLSyoZQmsBYQW8KovpMkxt0o9qSY7kWyRE8OvWy7T
-	 +whaRwHpkJ/5pDMng8ExE0zyJ2akmUfzMjdralHMr8Ku6i4K3KgC6YwtNBH0hWzndB0aM
-	 TsBBXMShC5mv70SA0qO+hgRim2vKcDQxKYRnCHjIof5GZZpWGgZ5gNgrF8phG050sfw==
+	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:MIME-Version:Date:From:To:
+	 Cc:Subject:In-Reply-To:References:Message-ID:X-Sender:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=ooVkNjORrZgSba8ld1qrv4TAWTmp+Mq4v6vJgAJRcuY=;
+	b=hyJy/RUd6j9xcopuT9LY2wgRW4HtDTvwG7q+7rpuhNNx19LFKjEXm7O4QOdea9CFfzy2
+	 jdByxslgjHuashOfXU3z9gRt8+yOO+EovMjIXYmfuF508Wfh5Aw67mxLLVTOeQIiup5oV
+	 RtAV2vAXfZNypYy/iu52J2hSy8DUFjoq8Mm258PSGVhRFdP1+AIGtPUR2wLsMhrey1ZfA
+	 E6ssw/qOCvQFkyVS3C/6yA3KZ+Q0cf4VnKAySYcpzI5Au6G1Zgc7DNd8RVvhaGWal7Dau
+	 jm45iTHTcGMBB5yEgmzrjacWGuNKT88X7H4M+AFOheIJaZsJqLywxZcdYlO4VygR71A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="fCxM4P/Z";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=mainlining.org;
+	spf=pass smtp.mailfrom=mainlining.org;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=J5uuMyvB;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=DlvNQeXY;
+	arc=none smtp.remote-ip=5.75.144.95
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9794E606A33A
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:12:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FD50606A330;
+	Mon,  2 Nov 2026 20:12:00 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1FD50606A330
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fCxM4P/Z
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 764A61F00A17
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:12:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793650322;
-	bh=BjDOfNesHUvUYdnemATt3QpEnFnBaEWBJAu+ke/IeV8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fCxM4P/Z77JCfIGz5fMLuOcLnuT1agPgyAWc6xu2TroXoThnXAKIo865OA4e3Atv3
-	 Xkbwhl0CojTtI2yoq5c7Ln2KnHGFmGHgwzv6SP3jZiYjGo05bpiahvSpZvouEqDM1B
-	 rvqYc/e+G6siNDWSVM6h3lJqavfaFQiVLKyFwINS1Vkb13+CyUgFRYin3AIZAZzbOD
-	 mWQknHNoyjII2fneg/H+qwzDuHAE6uAHVcoEayLt2p2bHySptfg8+s2a1IeQepo9V2
-	 sE1VX0Fqw64Kk1PPou/Tb3RUpSk/a3yHnCuZLrY9FbX08LvaQsS19YXd7j9hMua/Fd
-	 wH3o5lWXSGCVA==
-Received: by mail-qk1-f173.google.com with SMTP id af79cd13be357-93f20c3aaa5so370595385a.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:12:02 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBx0GFOnbPUrfvSPEMweFL0SlfNtX9Kg+5LQ++1LAXvQcbZ9EnYytoDcVrWG51PgGZ5qO3Zk34RIYZ6rICE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLXiJQiKZ8ziHm7yPyaDISCU4e1osNycUMeYzGCbQ6qsE6y4Vha
-	A/iEzOxCAkDznHy5eGR3o5UPcx0gIw7tmbvP8zq+SlOJ1PLREaxVKy0pidkRDHl2hCWWII2MzF0
-	yXwikLYQaAbBbfFNWqKNHZOkBxVGg8T0=
-X-Received: by 2002:a05:620a:2614:b0:93f:baf:279e with SMTP id
- af79cd13be357-94421588032mr1947387285a.8.1793650320775; Mon, 02 Nov 2026
- 12:12:00 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=mainlining.org header.i=@mainlining.org header.a=rsa-sha256 header.s=202507r header.b=J5uuMyvB;
+	dkim=pass header.d=mainlining.org header.i=@mainlining.org header.a=ed25519-sha256 header.s=202507e header.b=DlvNQeXY
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793650293; bh=ooVkNjORrZgSba8ld1qrv4T
+	AWTmp+Mq4v6vJgAJRcuY=; b=J5uuMyvB0j8+fnnIEA5+blJO0xOjNA6dhLpOwpclL9kJpaC0Tm
+	8LK8Udvpnr0wv8evtfO5mH+HUCfb4ZwEqdyEUWw7mFP24R3pGwm59KRAIgDy9QRAOb2mnukLywL
+	0660CA6K7wEYBRdCGYj0C4cNgJeqSRXyfo9MdgW1cxFHD4r0ssTTGfVFu4XWh9CYRcKzoHIy7AS
+	C2J7EP8gep42piUJmtZHEmNBU6rVHAD43SFsjSE6pROOJmAwbYSSMakMl1VlQG83PIKuljNL3KP
+	dDZSbc1Pl7aKJWjehAM35wqwK40Vie0bdq+GdKfhAw1VEFr1xAZf7iaQaMuUbeQQxsQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Subject:To:From:Date; t=1793650293; bh=ooVkNjORrZgSba8ld1qrv4T
+	AWTmp+Mq4v6vJgAJRcuY=; b=DlvNQeXYdySbukhI3ezy0aeC1O7mihjZhRE+/kthxIG0im6cUY
+	RI9/hdW99mOi/rtxxbS6OcWbNWPcQIfH5XAg==;
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,91 +55,76 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <6FACF8FF-F943-45C8-BDFD-3AFB5C060E0A@linux.dev>
- <20261031055838.60138-1-lance.yang@linux.dev> <a704d458-ad60-43bf-a0ce-3b128b218d88@kernel.org>
-In-Reply-To: <a704d458-ad60-43bf-a0ce-3b128b218d88@kernel.org>
-From: Barry Song <baohua@kernel.org>
-Date: Tue, 3 Nov 2026 04:11:47 +0800
-X-Gmail-Original-Message-ID: <CAGsJ_4wjGjDoFPz3qWHqW8WTv31AkR_zrY14ON0dLbTZNsohWQ@mail.gmail.com>
-X-Gm-Features: AclHuK_rJzE5Yay_lHuYFvz2Gw1cEWyIS737R4EkfHxGw2G6SeGPSgpipiW_eIU
-Message-ID: <CAGsJ_4wjGjDoFPz3qWHqW8WTv31AkR_zrY14ON0dLbTZNsohWQ@mail.gmail.com>
-Subject: Re: [PATCH v2 01/47] mm/mglru: don't use stack pointers when walking
- PUD and PMD tables
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: Lance Yang <lance.yang@linux.dev>, muchun.song@linux.dev, kasong@tencent.com, 
-	ridong.chen@linux.dev, sj@kernel.org, hannes@cmpxchg.org, mhocko@kernel.org, 
-	qi.zheng@linux.dev, shakeel.butt@linux.dev, ljs@kernel.org, 
-	axelrasmussen@google.com, yuanchu@google.com, weixugc@google.com, 
-	baoquan.he@linux.dev, baolin.wang@linux.alibaba.com, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	kees@kernel.org, peterz@infradead.org, jannh@google.com, pfalcato@suse.de, 
-	hughd@google.com, pasha.tatashin@soleen.com, pratyush@kernel.org, 
-	willy@infradead.org, jack@suse.cz, ziy@nvidia.com, riel@surriel.com, 
-	harry@kernel.org, apopple@nvidia.com, nico.pache@linux.dev, 
-	ryan.roberts@arm.com, dev.jain@arm.com, usama.arif@linux.dev, kas@kernel.org, 
-	matthew.brost@intel.com, jhubbard@nvidia.com, peterx@redhat.com, 
-	will@kernel.org, aneesh.kumar@kernel.org, npiggin@gmail.com, 
-	osalvador@suse.de, minchan@kernel.org, xu.xin@linux.dev, 
-	chengming.zhou@linux.dev, chrisl@kernel.org, shikemeng@huaweicloud.com, 
-	nphamcs@gmail.com, youngjun.park@lge.com, gourry@gourry.net, 
-	joshua.hahnjy@gmail.com, rakie.kim@sk.com, ying.huang@linux.alibaba.com, 
-	jgg@ziepe.ca, linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	kexec@lists.infradead.org, linux-fsdevel@vger.kernel.org, 
-	linux-arch@vger.kernel.org, linux-cxl@vger.kernel.org, josef@toxicpanda.com, 
-	stable@vger.kernel.org, usama.anjum@arm.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Date: Mon, 02 Nov 2026 21:11:33 +0100
+From: =?UTF-8?Q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?=
+ <barnabas.czeman@mainlining.org>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Amir Hanip <killdeath104@gmail.com>, abelvesa@kernel.org,
+ andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ konradybcio@kernel.org, krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, a39skl@gmail.com
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: Add Xiaomi Poco M3
+In-Reply-To: <f4c2b984-e255-457a-9b39-f797b840cac4@oss.qualcomm.com>
+References: <239d46726c0aad84feccc3def4eafab2@mainlining.org>
+ <20261101164930.17976-1-killdeath104@gmail.com>
+ <9304e75396496855881251cac2edb0a5@mainlining.org>
+ <f4c2b984-e255-457a-9b39-f797b840cac4@oss.qualcomm.com>
+Message-ID: <3ec43b1b00bca7506c1ca678c118f8c2@mainlining.org>
+X-Sender: barnabas.czeman@mainlining.org
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 31, 2026 at 5:42=E2=80=AFPM David Hildenbrand (Arm)
-<david@kernel.org> wrote:
->
-> On 10/31/26 06:58, Lance Yang wrote:
-> >
-> > On Sat, Oct 31, 2026 at 09:46:37AM +0800, Muchun Song wrote:
-> >>
-> >>
-> >>>
-> >>>
-> >>>
-> >>> Agreed. FWIW, I think Barry Song and Kairui Song would be good candid=
-ates
-> >>> for the maintainer role.
-> >>
-> >> +1
-> >>
-> >> It would be great if they could take this over.
-> >
-> > +1 from me too ;)
-> >
-> > They both have been really active on MGLRU and doing great work for qui=
-te
-> > a while. No doubt they'll continue to do so :D
->
-> Fully agreed, we really need some people familiar with this code to help
-> maintain it, and Kairu and Barry have most experience on this.
-
-Thanks to Ridong, Muchun, Lance, and David for all the
-kind words. Your encouragement is truly inspiring!
-
->
-> Just a note that I also don't want to pressure into such a role (which co=
-mes
-> with responsibility).
-
-It would be a great pleasure to work for the MGLRU
-community.
-
-Over the past few months, we've seen many active
-contributors join the MGLRU effort. It feels like MGLRU
-has never been this popular. I'm really glad to see the
-community growing.
-
-I may have missed someone, but besides Kairui and me, I'd
-like to mention Baoquan, Baolin, Hui Zhu, Ridong, Kunwu,
-Maxim, T.J., Siddharth, Xiang Liu, Bingfang Guo, Shakeel,
-Zicheng, and many others.
-
-It's great to see so many people contributing to MGLRU!
-
-Best,
-Barry
+On 2026-11-02 11:44, Konrad Dybcio wrote:
+> On 11/1/26 8:44 PM, Barnabás Czémán wrote:
+>> On 2026-11-01 17:49, Amir Hanip wrote:
+>>> On Fri, 30 Oct 2026 13:30:28 +0100, Barnabas Czeman wrote:
+>>>> Poco M3 (citrus) is same HW like Redmi 9T (lime) and Remi 9T NFC
+>>>> (lemon) basically is a lime with NFC.
+>>>> So i think it would be better make a common base from lemon's
+>>>> devicetree instead of making the same devicetree again for the
+>>>> different variants where only the compatible and the model property
+>>>> will be the difference.
+>>>> Check sm6115-xiaomi-gingkgo-common for example, it was the same case
+>>>> for Redmi Note 8 (ginkgo) and 8T (willow).
+>>> 
+>>> Hi Barnabas, Adam,
+>>> 
+>>> Thanks for the review, that makes sense. I am preparing a v3 that
+>>> moves the shared parts of lemon into sm6115-xiaomi-lime-common.dtsi
+>>> and has both lemon and citrus include it. I used the name lime-common
+>>> following your naming. Happy to rename it.
+>>> 
+>>> Plan for v3:
+>>> 1. dt-bindings (unchanged)
+>>> 2. lemon: move the shared nodes into the common dtsi, no functional
+>>>    change intended
+>>> 3. citrus on top of the common dtsi
+>>> 
+>>> I can only test citrus. I do not own a Redmi 9T, so lemon is untested
+>>> on hardware. Instead, I compared the lemon DTS before and after the
+>>> split, normalized with dtc (dtc -I dts -O dts -s). The only
+>>> difference is the numbering of two auto-generated phandles. I will
+>>> describe the check in the cover letter. Adam,
+>>> would you be able to test lemon once v3 is posted, or look at the
+>>> split beforehand?
+>>> 
+>>> The IPA carve-outs (pil_ipa_fw_mem and pil_ipa_gsi_mem) are identical
+>>> on both, so they now live in the common dtsi.
+>>> 
+>>> I kept the following per variant because I cannot tell whether they
+>>> are real hardware differences or just differences between the stock
+>>> firmware images:
+>>> 
+>>> - ADSP carve-out: 0x53800000/0x2200000 on citrus, 
+>>> 0x53400000/0x2600000
+>>>   on lemon. Both regions end at 0x55a00000, so only the start and
+>>>   size differ. I can only confirm that the citrus value works on my
+>>>   device.
+>> If there are no overlaps the bigger range could work for both of them.
+> 
+> Waste of precious RAM!
+I have checked it seems lemon have same adsp region like citrus.
+`pil_adsp_region@53800000`
+> 
+> Konrad
