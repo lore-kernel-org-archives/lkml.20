@@ -1,88 +1,111 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.218.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615472;
-	b=flrBU0cgae5O0nOGuPLwPj08BTMRVxs4XDYXj7uIClZBWQsAH+2Zrkge+5CNhRL1YXcv
-	 mSfNnwmSFN4fjpfZC7fLzjNp8JBsgHTxOtlWYc4ov2WEaod+XTc29P+HS0zseyXZF0/1Y
-	 WtlqaOJ8BilMb+uFa7XBOcy/UvPREa/M6Ym9sZB/0loJTKRC963DsT0bNHmqw9QMoKY+U
-	 4pkj92GQyV5WwXWZ0mABmSsK/5QG8VpDEJA54s2iojNLhI8lGpHivUIC4b6ujdlg5p3uv
-	 76oPKE9etWBOWMutefRxbRrLTBohuUxvnfapy/SR7Wlmw5/hc6SNyiD8WyUUoSkjMWA==
+	t=1793615478;
+	b=DJO1hhppCR3/WpyZYQr1vDS1QBWGMdc6oYM5c2sxQS+BYsrzW9fELG2ZjNF4kz1zbM/D
+	 EK5uCYhypGiJSI4SNwo6qZKg6hc5ZJ4peoGDbd7ltPbpxYgcOh25sWg+1QB+TflD7xrwY
+	 hbTcdy7ftrjlKdbhiRc0ynkNtcUyAbDgSbMkmYNkF6UUvmBJVy1qcaiKxPr/+ALx7LjK1
+	 vki37y3Cz5hTf9W9gOH8b1Jj+xu2cGXDWXh/BFxXlnRw72RoVbd/+OMMQzs9Z9w1t06Vd
+	 7/QnP4P21f78eBWlYcLhKwe58YrQvRNyR132At5/vveusUW4tj1r779jy19Xu0Jh55g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615472;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:References:
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615478;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
+	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
 	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=TG6233zEpb+rSVfSqflC2boy12f75HN0PuFPajXRgoQ=;
-	b=L4kQzYXyzyE5MRwfbAfG4ofAGlN3GaHuaXbQMZelUNXBX/cjYM9grdhDuVLFlymWADkW
-	 6DoVSC3btXmKq1ETTIKZp+wMBUXVIWxeVPRLfpAnF7+v7DOE1tPb8DLaOFoUqNJ1jn7wP
-	 upPgYFKa/ZVTA0rZNMWQlSp+pTWFy/eBVlQE44TgoeCW7d3T2H/khyvKCubVmlbq64pM2
-	 KwnpOpqKagyJaQrCJ284WYZ8/IS2hLir1WcPJz+CTJEVoRELDVE4Dz3rqP5qOcbSS1V2R
-	 8cGYKbunALktnbxAh6RnCz8kmNlq97BDziSG9vRnoDo8ULvB0Ns0GSJZR9PHN0CgPAA==
+	 Content-Transfer-Encoding:X-Authority-Analysis:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=BD2jJ7R23UELXBejTUvUKCF/Tie5xKv0KES5hJVghpg=;
+	b=o6FjPeYyS25lmXRmDsfSQx6mendAlIW6ZfmVaH+rJx9JHw5beJ0bEqBb2F8rWk5xIqzQ
+	 F5/2gVu56y64isWNdmx4fu6cP5YXFgxhWYhlek6oXvUu0qPhJaVHnJC3E8HZ3ejViCFim
+	 9xZYPRArQNe452fIm6cNcCo7e6pEWnTuSemd0PRgPem6mBYvRbdbTyiDLDJsIGpsJeeRK
+	 OLOiZCodqe9jsTN82LVGaTp8bTQ8jRuD3tW7lnSQLA8w3iwUxpNZXuxfxshweNiC/d8I3
+	 hPW9GAXBiLDAOXMqhTYoLqKrdP4TlwoVtBBQekbRU9xJHiHlMkqSf/TE/gJB1QPzHng==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linaro.org;
-	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dl7a7ixk;
-	arc=none smtp.remote-ip=209.85.218.48
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iqOy0Qxh;
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aCP9IEZJ;
+	arc=none smtp.remote-ip=205.220.180.131
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC846606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:31:11 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC846606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73312606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:31:18 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 73312606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=dl7a7ixk
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c4322d310e7so459286666b.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:31:11 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=iqOy0Qxh;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=aCP9IEZJ
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A299xnY3430281
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 10:31:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BD2jJ7R23UELXBejTUvUKCF/Tie5xKv0KES5hJVghpg=; b=iqOy0QxhOCnKNBdb
+	/Rh6UyYWPSeiPz76xCjfWUaNc1iK6XbqnFzicpEoMLn1OuC3hZKuC0tNztnd9/B0
+	PlvyYYjvjvLtrAOIA0VfMjrcUvp3ndTUlyauhME0PPPjRcZ8MDTtJV/pX8VYURAn
+	QIxZFkwtM/Xn8pjfgOA0QTvCrgBUmoTd2RHYmRdBnmRIrAsj+lq9VpPCx8CTyQrp
+	v3dt7CsCODBmt1bmLjd1CXKa+lgauQzbhH40OhNhMmiy6NDfBz2YSpVzHLaRom5b
+	Sj1hLsRUPwhaIHXuxRm9sPLo9B9EMpfk3iFFUOuAOYvBIOD6gSiH17Q5ug6EhyBb
+	TnNCrg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpnmeruvg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:31:17 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ea8a9cfe6so48536285a.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:31:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793615470; x=1794220270; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1793615477; x=1794220277; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=TG6233zEpb+rSVfSqflC2boy12f75HN0PuFPajXRgoQ=;
-        b=dl7a7ixkBmvTd/Bl1qpeE6XGKZRBY0qGhsEz1ql0KEb/u4+u3nMCKFRwrA9NdQ2eCn
-         8gjseojxGoGj5UUZSlXfJGYsz4MDdEZeauqsoQw4jp3/o1UYSB6DIle5MSmh6z+Gc+sU
-         URKgsnZa7uMFIXfyh/NfVutFnnNNWZro9Xqy93ZmSATA1vNNPzbgCT/N/LHZnjr9NguF
-         0LN/CDPRzgNY+m19bNb/QRpmKtQCOqMlDwkCSColFpjmE0j94LXNHzgYmOI0owZ1mS7W
-         YXEZdVlJwpBll0/J6NlL+ULPNSCbPfMunMUyWOO15h45sPM3iSQ52rgftmf3mSVhmxSO
-         ZdsA==
+        bh=BD2jJ7R23UELXBejTUvUKCF/Tie5xKv0KES5hJVghpg=;
+        b=aCP9IEZJ35thTu+xxh/A0nNM///k4CWeCfLgntDzgzRdt0NKakkvUMCuAT7NoaXKoY
+         6OcNrlkJPVNPXMvzQ+DrfCrgHJT0eegx5NBGti/rrBQeTzNKlnD7kTPxW5CX2tgqKaAG
+         XuT5MxunhN8We95E0PPOoffzkjv7S5us9iwdDqmYCrak+//Z1CR+dZHhvHH3wx8ICk54
+         D/hScTiiHpXddkTQhI0GoungCMak2Dq97FyZ+/O5bilFXgcPdeT/MUNRbsI2qCDg3f3f
+         +Bq5/tPBNpQ7wm1pIl10Nw2hG8pru8I2MyjBUt/m8MQXxglbpdWJbTqBtTR+DEcD4hoN
+         mhKQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793615470; x=1794220270;
+        d=1e100.net; s=20260707; t=1793615477; x=1794220277;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=TG6233zEpb+rSVfSqflC2boy12f75HN0PuFPajXRgoQ=;
-        b=sVCuN1/WMgjGOUttXRIv6cuSEBDtllNemJg8UNALNp8fJ96zLHnxapMEaW0qazIYI8
-         xcfODkv4IN/nPh2bC1nAR/L2dfWNsLHB0fRjVYCQ3CEPeXcY+Sli2lJPLa0/B5V7zUrT
-         oQgBwkURRPJGfiURYU+NQDTSbIYC/5DFVcjjwF1yobXXxh0Rr5La0ZyqHHkS/cd1k7lT
-         XxQ7iOL3R1crogIZxdZ2W1N12550TrVLiEItKFHL/CC3npo0VB6t2DoQuhOBMVIlNkXM
-         Pc9EVwFxoBQh6tHWZj/BUWfy7fzuKoanqd3wBnrCjEy+I3xzQyqsHXJ3iw7F6kxCU1EJ
-         Kd0w==
-X-Forwarded-Encrypted: i=1; AKwUvBz/oN1pdJHKpDEjj8FmwUo2EY3rRdunna5BBQwABrNbyvE+xP4lWugTMqSsWXJ/u6/ijyqgE4dQ+FNF6PY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z89ptdEB5+GBShFZbhZzpt53DFYBmuk37L2eW3AsXC609VFK3ws
-	YR6t/7shbRLT4vVAGnxP9H6FXme6BG6c0xYfYL2rhTqgE5dsdwWkw2vaLjKAtmmcDRA=
-X-Gm-Gg: AYBFou0tt8JQsmX9ow8glTijHmeLyWDoZruSybPJIixciT+GrnXuDzlE4pqSUBqPQlL
-	Q8YNXyyvrasWEAx/rRnpdseNG0Qv0tWdDofvy6w3w9GzbtRCbo3Z10hwofkbnOtnXzOkQu5FdgO
-	HPmNLLUlBVqUo0x2/7h/NFRqMkgV+h/hfiGTZ+kUbbb0zl5bb4taHZYWWCNVhcGX3LEErvIUBoK
-	obuY/5CO2wzt2Fl2pqEYU55rn7A+CD8Ro250jK65t2RUpAPiQDynLHaoG7bntPanqk7JRz1CIN/
-	qASOWv2pTjcXIbn65ryDW/rAlOvBktrC/f/V6rAhIxjvzS8R58vYXw+fhYPScI5pa4iovH6YYho
-	5HC1waYAy661+pS2nIIEYcR6AThmqJX41zusLnQKxVPp5kc5AgmLzG/NRZ/Xx4SGwTcHffYVMFd
-	m+NlBy5ueyQXdK5ruPfcdbVsaMwapTQxRSiNZBgbSW1+K63icz8e74dA24rl8AKpRYX9NUaRu+7
-	tle+Ix7aPIBpdndKbhXeYEoTea7mqHzrjZook39Lstx/IRvD+HAEiU2LERdu32wF6KevlkpnesU
-	G03A7cUCmVBkWuCiYoIc24/GSXRHi8Ib
-X-Received: by 2002:a17:906:c156:b0:c49:9383:a28 with SMTP id a640c23a62f3a-c4ca7ac537bmr772991066b.35.1793615452931;
-        Mon, 02 Nov 2026 02:30:52 -0800 (PST)
-Received: from [192.168.1.3] ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabeb11acsm371161266b.70.2026.11.02.02.30.51
+        bh=BD2jJ7R23UELXBejTUvUKCF/Tie5xKv0KES5hJVghpg=;
+        b=GWI8iHrqXKWBrFphg4GUUMu/0cw+8149ZUmzMJEJI4v3CPoIF77DOwM+wTsB0ZfxyP
+         ttgTJHmCa5WYv0gaD5PlSqhsMEaNpB0amPPev9yZrvmuI+8HcU+7/sOhKMnH9/eJks4+
+         R5ZRpXZB+wVjG9b5X51JVUSv5Jur+2OL//Lm2eempFhpKR84Ll3/Kb02HLpPD9E9PmI6
+         DnkHlEOsJu0hoSFBPfSyjWrTJR7EJ5Pn9I3J3uia1DAtLpBWjeDeAbLEl1zbAV/JPqsX
+         T6wjfWPF6J0uGHvYnKm4vEVa1u1qSLIDxPV4UeqB42njvKTOxpnkWNdpBjpuUeBoP9SI
+         ZDjg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbZLWBVthaJMAe7a5/kuGINKJyojCZvyf9KBLMGOslOBV6kgPqN4oKiV/Ex/MpsHdUxs8fuoDpnqPxZro=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJyB75wX2HC9WovojfeqyFB01THuH4pBvJNlzyTTYKePlzYs/4A
+	XScUQAirh2DwcU7thYvF4G77tlvb2logk0hG0/T5VCqPblL4ldlJwDadtBdHmCKWIgxcI17xu33
+	H4gTpEN03udy09aFbULpEvyRQk9r407APw4w+qKtUsOXNhPQCnprhl+EOfvI5TNYf9kY=
+X-Gm-Gg: AYBFou1ow6uLoLWOHwDRp2LAzVy2cAv6MwGONDzKb3ZJBxLy87WhA+94P1YC80A6YSw
+	/cWfD1pkmsboqwcfLV05rBWp5c6dWhYZoAEWuwxyaLK4qI6rI8iKbhv+OD6r0WX3DtUU+j+edXZ
+	mdopv+SQYae2ypVrN4pKO7UAF3D9deNhHbzNCjY/SVtCzl3RdCfc5G2h9YQlTAtlbo4qmv7TP6U
+	iCdNb2AHxeSoZSZ0RDq0Ro/ywfvOEuGzzj5Jg4ojdyNQkGtpLJLTpdVaj4QpwLfB9rh6OoM5XEa
+	jsVpr/aYVlVc+SicS81Ie34u27KPwzAu60afkB1PcDDSVwTq09vpuc0Fx+ZDmhHUiSZRwjMOe9V
+	9UQ6fzBSkDLmphIBpqC69FpuXMnGBkUMdg5nRGgdLwm0eBcEevNphCsim90z16qiMWjpb49A=
+X-Received: by 2002:a05:620a:72cf:10b0:93e:e111:2771 with SMTP id af79cd13be357-94421619197mr1550882685a.2.1793615476646;
+        Mon, 02 Nov 2026 02:31:16 -0800 (PST)
+X-Received: by 2002:a05:620a:72cf:10b0:93e:e111:2771 with SMTP id af79cd13be357-94421619197mr1550879385a.2.1793615476113;
+        Mon, 02 Nov 2026 02:31:16 -0800 (PST)
+Received: from [192.168.226.248] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabf428f1sm367117166b.86.2026.11.02.02.31.12
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:30:52 -0800 (PST)
-Message-ID: <6682e9cf-8350-4410-8acc-1fbeca638e64@linaro.org>
-Date: Mon, 2 Nov 2026 10:30:51 +0000
+        Mon, 02 Nov 2026 02:31:15 -0800 (PST)
+Message-ID: <01e57cde-a18e-481a-8b4a-e38d467b39c6@oss.qualcomm.com>
+Date: Mon, 2 Nov 2026 11:31:11 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,139 +116,67 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/14] perf cs-etm: Fix bogus branch samples on
- exceptions
-To: Leo Yan <leo.yan@arm.com>
-Cc: Arnaldo Carvalho de Melo <acme@redhat.com>, coresight@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-perf-users@vger.kernel.org,
- linux-kernel@vger.kernel.org, Arnaldo Carvalho de Melo <acme@kernel.org>,
- Namhyung Kim <namhyung@kernel.org>, Jiri Olsa <jolsa@kernel.org>,
- Ian Rogers <irogers@google.com>, Adrian Hunter <adrian.hunter@intel.com>,
- Mike Leach <mike.leach@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
- Suyash Mahar <smahar@meta.com>, Amir Ayupov <aaupov@fb.com>
-References: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
+Subject: Re: [PATCH 3/3] soc: qcom: smp2p: Fix possible out-of-bounds read
+ with too many inbound entries
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Andy Gross <agross@codeaurora.org>,
+        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
+        Chris Lew <chris.lew@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Cc: Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20261101202404.156522-4-krzysztof.kozlowski@oss.qualcomm.com>
+ <20261101202404.156522-6-krzysztof.kozlowski@oss.qualcomm.com>
 Content-Language: en-US
-From: James Clark <james.clark@linaro.org>
-In-Reply-To: <20261030-perf_cs_etm_fix_non_taken-v3-0-7629b52ab047@arm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261101202404.156522-6-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=KZ1HIgYD c=1 sm=1 tr=0 ts=6ae86675 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=c92rfblmAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=UsLgiRDap3Yzww6lrMkA:9
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX7RwxjPRE2Mbi
+ HobyImcm/PrCae9gqnwhw3fqGbL0d68o5NydrRRh1MbhHQrT7IOOdf2Z0ve9MFp/vldYsdzdOX9
+ Sbzj2AikEjk7/HgZNg7JcgE0RDzL8akQpVvlSDycKa6mfKX8F0BdqrT1ARK6Nlm4QY3dqeonauA
+ matWHB/gcTPo0cQLUHxYSGGphpfXDRD77X14WkiMESxEhH7AAWar2FaD6EwGaIq9/R8lLf4zuDA
+ l5zeOBtzo5mV1lXihN2/YLHfHT8sEDPSX9ZYyKFkNhr5zmq9qLbq3gOSpe31bdvtR+heX/BFhZw
+ J0eVV3KPvStwN0ha/IHLWt6vmn8x2WtvVaKZAurCAX1n+8rpika9qS5DLgiqO9nszXyJm0MTC3M
+ zUccMdGhtn5qYpD8D62iEwvg+gLTpprm4wj1idbCn9wLv6Q1WITDp0sgKrYGZFinavTC0jsI/sU
+ KwT+jWpWwX7w0+iGMxg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX+4Y9uO5NjWyq
+ h23Z/wTmaA1CS3IfEJ4j9S9A8glGi1mC6/2E/PtgVmCEKFnSNruCqby25kyxlsK3/BvM8Imp4Qx
+ lb8X4cKC1AZlWRpeLs9LoBjBTFUcNXY=
+X-Proofpoint-ORIG-GUID: mjI3OE9LQsfTn9sea7Z_8wPDN5hoFZMW
+X-Proofpoint-GUID: mjI3OE9LQsfTn9sea7Z_8wPDN5hoFZMW
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 suspectscore=0 bulkscore=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610300000
+ definitions=main-2611020041
 
-
-
-On 30/10/2026 15:13, Leo Yan wrote:
-> CoreSight currently models exception entry by changing the preceding
-> instruction range into a taken branch. This can give an IRQ the source
-> PC of an instruction that already retired and overwrite a real branch
-> immediately before the exception.
+On 11/1/26 9:24 PM, Krzysztof Kozlowski wrote:
+> The inbound SMEM item is populated by the remote processor, so its
+> contents, including number of entries, should be validated by the
+> kernel.  Number of inbound entries is directly used when iterating over
+> inbound data structure, so if it is higher than actual size of data,
+> kernel would read memory out-of-bounds.
 > 
-> For an untaken B.LS followed by an IRQ, perf script currently reports:
-> 
->    hw int  4000f8 => ffff800080010c80  b.ls #0x400118
->    ...
->    iret    ffff800080012284 => 4000fc  eret
-> 
-> The hardware trace supplies 0x4000fc as the preferred return address.
-> For an IRQ, this is the architectural resume PC (Arm ARM, R_VBQMV).
-> B.LS has retired, and the saved PC identifies the boundary before the
-> following MOV. Using this PC as the IRQ source reflects the
-> architectural state at exception entry:
-> 
->    hw int  4000fc => ffff800080010c80  movz x2, #0x1796
->    ...
->    iret    ffff800080012284 => 4000fc  eret
-> 
-> The IRQ sample represents the transfer from this architectural execution
-> position to the handler. The series synthesizes exception entries from
-> exception packets, preserving the preceding branch and its outcome.
-> 
-> The supporting changes:
-> 
-> - Let decoders supply sample.ret_addr so later instruction fetching cannot
->    change thread-stack return addresses. Apply this to Intel PT
->    asynchronous samples as well.
-> - Prepare packet ISA and instruction-size handling and share sample
->    synthesis helpers. Mark untaken branches and break history when
->    instruction memory is unavailable.
-> - Add a thread-stack regression test and four AArch64 CoreSight tests.
->    IRQs and page faults must resume at the entry PC; SVC and emulated MRS
->    must resume four bytes later.
-> 
-> Based on the AI search and test on my x86 machine, this matches perf's
-> Intel PT handling of IRQs. Intel PT records the next instruction's IP in
-> the FUP packet, and Perf uses that IP as the interrupt sample's source.
-> 
-> This series is verified on Orion6 board with "perf test coresight".
-> 
-> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/bug/linux-b79427c9-5d22-4b48-8ee7-1d7808101e52
+> Fixes: 8a9a7b9d14c2 ("soc: qcom: smp2p: Add irqchip state support")
+> Fixes: 50e99641413e ("soc: qcom: smp2p: Qualcomm Shared Memory Point to Point")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
-> Changes in v3:
-> - Introduced the pref_ret_addr/end_addr union (James).
-> - Clarified zero-size A32/A64 exception handling and why T32 retains
->    per-address instruction decoding (James).
-> - Retreed missing exception pairs for up to three recordings,
->    then fail instead of skipping (James).
-> - Shorten the IRQ workload (James).
-> - Fix FIFO argument quoting and remove redundant ShellCheck source
->    directives (James).
-> - Checked instruction length before copying bytes into sample->insn
->    (Sashiko).
-> - Retried MRS checks when instruction page faults may match the opcode
->    filter (Sashiko).
-> - Rebased onto the updated perf tree and collect review tags.
-> - Link to v2: https://lore.kernel.org/r/20260923-perf_cs_etm_fix_non_taken-v2-0-6ab8c07a5455@arm.com
-> 
-> Changes in v2:
-> 
-> - Rework the fix around exception packets to preserve both exception
->    entries and preceding branches.
-> - Add explicit return addresses and the Intel PT asynchronous-branch fix.
-> - Split out packet/synthesis preparation, record not-taken branches and
->    handle unreadable instruction memory.
-> - Add thread-stack regression coverage and four CoreSight tests.
-> - Link to v1: https://lore.kernel.org/r/20260713-perf_cs_etm_fix_non_taken-v1-0-4561607fc69f@arm.com
-> 
-> ---
-> Leo Yan (14):
->        perf sample: Allow decoders to supply branch return addresses
->        perf intel-pt: Preserve return addresses for asynchronous branches
->        perf cs-etm: Break branch history when instruction memory is unavailable
->        perf cs-etm: Centralize packet ISA initialization
->        perf cs-etm: Use the recorded instruction size for A32 and A64
->        perf cs-etm: Mark branches that were not taken
->        perf cs-etm: Factor out final instruction sample synthesis
->        perf cs-etm: Centralize branch sample synthesis checks
->        perf cs-etm: Classify exception calls using the exception packet
->        perf cs-etm: Synthesize exception entries separately from branches
->        perf tests: Check CoreSight IRQ entry and exit
->        perf tests: Check CoreSight syscall entry and exit
->        perf tests: Check CoreSight abort entry and exit
->        perf tests: Check CoreSight emulated instruction entry and exit
-> 
->   tools/perf/tests/Build                             |   1 +
->   tools/perf/tests/builtin-test.c                    |   3 +
->   .../perf/tests/shell/coresight/abort_entry_exit.sh |  32 +++
->   tools/perf/tests/shell/coresight/irq_entry_exit.sh |  36 +++
->   .../tests/shell/coresight/syscall_entry_exit.sh    |  32 +++
->   .../perf/tests/shell/coresight/trap_entry_exit.sh  |  39 ++++
->   tools/perf/tests/shell/lib/coresight_exception.sh  | 164 ++++++++++++++
->   tools/perf/tests/tests.h                           |   3 +
->   tools/perf/tests/thread-stack.c                    | 106 +++++++++
->   tools/perf/tests/workloads/Build                   |   4 +
->   tools/perf/tests/workloads/branch_not_taken_loop.c |  33 +++
->   tools/perf/tests/workloads/page_fault_loop.c       |  37 ++++
->   tools/perf/util/cs-etm-decoder/cs-etm-decoder.c    | 106 ++++++---
->   tools/perf/util/cs-etm.c                           | 246 +++++++++++----------
->   tools/perf/util/cs-etm.h                           |   6 +-
->   tools/perf/util/intel-pt.c                         |   7 +
->   tools/perf/util/sample.c                           |   1 +
->   tools/perf/util/sample.h                           |   5 +
->   tools/perf/util/thread-stack.c                     |   5 +-
->   19 files changed, 714 insertions(+), 152 deletions(-)
-> ---
-> base-commit: 4626d370ae89b8af4d46a45372b269f926ec662d
-> change-id: 20260713-perf_cs_etm_fix_non_taken-5b4d7f73f41e
-> 
-> Best regards,
 
-Reviewed-by: James Clark <james.clark@linaro.org>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
+Konrad
