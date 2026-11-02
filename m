@@ -1,59 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=101.204.27.37
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621654;
-	b=hOab6/MGXa2f8zESFsKCtHv93TkFirSRZG3t1CwGmM9VQLOjxZujig2rP9c4WXQgVxIm
-	 fDwvJfdGjVK6KpPE0olXLrG7zgGFMU2vBD2R6jw3L91Ky25GvDbx4cqdW5XKQl4BWsn27
-	 993iYIULrOEtctUk/b0TMkjVRw/6BnqCengp110yNx6Yq1UY5B5ujb9QgIBFV3WZ6Etpi
-	 CUMyrKlBff76we5Aw7RmvstA6acMaOAq/0dXwKHtLrANjZpJOvSCzvz2Aed7p7mVh0wb3
-	 pFyEbIdkN4zyLv/F/mqLV9Nfr8uTu9zSemDwoQkF4HXppkvxBPlCGwoajQ8jznnV86A==
+	t=1793621657;
+	b=U3IUZOT2u21gVgtJwl0yxfKlN9wLi45AMOUmzpplCkR/5Ng2OsYEHnFGSWotQLQZWECF
+	 V9XFa9w0WoHRXyJidlTqiFrnF67z0x7rImmk6mLk2VV4BTdfREbJIF62PF2BMHZg2SQPo
+	 pgIMKD5z6ocgpydgxodfZoAo6H0DiC46k/mU99xFbhMMlfv/LU02tuYgaRHIRIewQPZxt
+	 scq7cHI3jiXqeDEZTNQt6Hglt4mZ7L+TjTEKK+Nd0Fzss/9K5k5IfzyBqhu50HNSuwe0e
+	 6MJuQtnA9IcvCtV2q3nluXJkvQFguccC8srCWqkYrO/rP2fS/R4hNEp6eX+xCfblAOA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621654;
-	h=DMARC-Filter:Received:Received:Received:Received:From:To:CC:Subject:
-	 Date:Message-ID:X-Mailer:MIME-Version:Content-Transfer-Encoding:
-	 Content-Type:X-Originating-IP:X-ClientProxiedBy;
-	bh=ZHnD2BhfQS4goxoEINStSTyGKKje9Pvfaj0elViDg4Q=;
-	b=28aFNAvE4PvjgrKyDiNlQFOi9InZIVNu1mhsYzQ48vkqFmjwaHdjdXvT0taCdiY99j6d
-	 ga8VHAheZ0KHzrLSyN7AYwEJc5RpO5WM6jRsWelBxv7n1z79TilXc6xIWly21zl+k7iu+
-	 UuxdDMt0mnDILdgv3pid6OCRr/HDVYljTJXfQ4SK9Zk1GiBo67RoLrpozIYCOxDFK+rsn
-	 4SF14USTkYJwj58RvsUkBk8hXY6pJxFcVgkQAymo7MxYum0lGdV9g5MqAXTyY4xyFJA4y
-	 tjNANHQIXOXFDhPnzFRBtw2a5OLLp+Tb+d5HlUVae6f4TtOYSefvvTCv2p0M99NOmAw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621657;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=KPahiPVhIkHB9HIPU+lncEVEvfQq7XDuVADEkW0Ex9s=;
+	b=hDBj9347Qev+tC9X5Tdm2a5RU8MDadiXY9IAqzEg0dHBoox5VHUjQHX1R6ioZdAN/lQY
+	 5Ydm+1dY2Rhw8Kzn10Wy02MNYs4xKeO6rLJCNL5leogKOUuZ5duzv5G6iG7ti1hAAh4xv
+	 CKKxyP1PQJrfT2aXmXGyyGRDgQ7iA8G/YAKIfmleZof0fsTQB0ZYX0uG88soi0X5dVfjd
+	 qSyfUdrJCxwa/NBnXcOfej6p9FcuTo+RIg8cXZjrLDaN+wLCh5HJ3zLP65HTP5s8h1Lke
+	 UuHm+jorsfbV4EP11ghd+Ec4CR01akF7NUMpGyUH3WT3eIFG5T4q2YeaMHrfLFZCdLg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=hygon.cn;
-	spf=pass smtp.mailfrom=hygon.cn;
-	arc=none smtp.remote-ip=101.204.27.37
-Received: from spam01.hygon.cn (unknown [101.204.27.37])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 98DA9606A327;
-	Mon,  2 Nov 2026 12:13:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 98DA9606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hygon.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hygon.cn
-Received: from maildlp1.hygon.cn (unknown [127.0.0.1])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jJ9bd4xYVz16TS1;
-	Mon,  2 Nov 2026 20:13:49 +0800 (CST)
-Received: from maildlp1.hygon.cn (unknown [172.23.18.60])
-	by spam01.hygon.cn (Postfix) with ESMTP id 4jJ9bZ5ssyz2fTg;
-	Mon,  2 Nov 2026 20:13:46 +0800 (CST)
-Received: from cncheex04.Hygon.cn (unknown [172.23.18.114])
-	by maildlp1.hygon.cn (Postfix) with ESMTPS id CC38AB357;
-	Mon,  2 Nov 2026 20:13:42 +0800 (CST)
-Received: from hsj-2U-Workstation.hygon.cn (172.19.24.226) by
- cncheex04.Hygon.cn (172.23.18.114) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.36; Mon, 2 Nov 2026 20:13:44 +0800
-From: Huang Shijie <huangsj@hygon.cn>
-To: <peterz@infradead.org>, <mingo@redhat.com>, <acme@kernel.org>,
-	<namhyung@kernel.org>, <ravi.bangoria@amd.com>, <mark.rutland@arm.com>,
-	<alexander.shishkin@linux.intel.com>, <jolsa@kernel.org>,
-	<irogers@google.com>, <adrian.hunter@intel.com>, <james.clark@linaro.org>,
-	<tglx@kernel.org>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<x86@kernel.org>, <linux-perf-users@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-CC: <zhongyuan@hygon.cn>, <fangbaoshun@hygon.cn>, <yingzhiwei@hygon.cn>,
-	<shijie8@gmail.com>, Huang Shijie <huangsj@hygon.cn>
-Subject: [PATCH v2] perf/amd/ibs: add phy_addr_only software filter for ibs_op
-Date: Mon, 2 Nov 2026 20:13:24 +0800
-Message-ID: <20261102121324.371157-1-huangsj@hygon.cn>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsaOqqxm;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23B24606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:14:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bsaOqqxm
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89F291F00A18;
+	Mon,  2 Nov 2026 12:14:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793621656;
+	bh=KPahiPVhIkHB9HIPU+lncEVEvfQq7XDuVADEkW0Ex9s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bsaOqqxmm/wDTF06kQLZ7usCwZDMQcBem0NCjGecfGqC8YxYpb9r7JBcYY8Y3CUOZ
+	 wjZmF4155okl3WVzEtR20fDyljYMSWuw6Qr8mUKjbLg/NXVbkQIbcLqDpcD8wCG306
+	 pBzCi+pp2Cxgy8A92vrmJLMrhr/0+FIiO1/EqFkjRn/wKONa403xxZRAiICU7lrmiE
+	 NSFjE2bN/rmb3XQ4Avj7NRfd5ekWjdPD1FRlQYZ72m6UTyzKHgzu3luE1vDqEnwL/N
+	 /Q9dn1lPhX67PiGQPuNtSBpn8Ka5cotgaNAMYx9H0B9U8LBxNRdb1DJmqSYvtgMULQ
+	 QjQv5OT5wLnJg==
+Date: Mon, 2 Nov 2026 12:14:11 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: xu.xin@linux.dev
+Cc: zhaogongyi@bytedance.com, aarcange@redhat.com, 
+	akpm@linux-foundation.org, chengming.zhou@linux.dev, david@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org, riel@redhat.com
+Subject: Re: [PATCH] mm/ksm: avoid anon_vma UAF during page merging
+Message-ID: <auh9cfHS7DYJAzgP@gremlin>
+References: <20261031182256.40205-1-zhaogongyi@bytedance.com>
+ <20261102101831.218090-1-xu.xin@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,151 +59,90 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: cncheex05.Hygon.cn (172.23.18.115) To cncheex04.Hygon.cn
- (172.23.18.114)
+In-Reply-To: <20261102101831.218090-1-xu.xin@linux.dev>
 
-We use the following command to track a process's memory footprint:
-  #perf record -e ibs_fetch// -e ibs_op// -p xxx --phys-data -- sleep 10
+On Mon, Nov 02, 2026 at 06:18:31PM +0800, xu.xin@linux.dev wrote:
+> > KASAN reports a use-after-free in page_address_in_vma() while ksmd
+> > merges pages. ksmd keeps a folio reference across an mmap_lock drop,
+> > during which mremap() can remove its last mapping and free its
+> > anon_vma. page_address_in_vma() then dereferences the stale pointer
+> > from folio->mapping.
+> >
+> > KSM needs only a candidate address. write_protect_page() checks that
+> > the PTE maps the folio, and replace_page() verifies the saved PTE
+> > before replacing it. Compute the candidate from the folio index and
+> > VMA instead of dereferencing the folio-side anon_vma. Reject KSM
+> > folios because their page index is not meaningful.
+> >
+> > Fixes: 21d0d443cdc1 ("rmap: resurrect page_address_in_vma anon_vma check")
+> > Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
+> > ---
+> > Testing:
+> >   Unpatched mm-new: fixed-pool KSM/mremap reproduced the KASAN UAF.
+> >   Patched mm-new: the same workload ran for 12 minutes without KASAN,
+> >   BUG or WARNING; fork/COW KSM smoke passed.
+>
+> Thanks for the report.
+>
+> I’d like to ask whether this issue is easy to reproduce on 6.18 since
+> I suspect the accuracy of the “fixes” tag in the commit description.
+>
+> Besides, adding an extra folio_test_ksm() check is unneeded, see reasons below.
+>
+> >
+> >  mm/ksm.c | 6 +++---
+> >  1 file changed, 3 insertions(+), 3 deletions(-)
+> >
+> > diff --git a/mm/ksm.c b/mm/ksm.c
+> > index d6f736a..f8af5ee 100644
+> > --- a/mm/ksm.c
+> > +++ b/mm/ksm.c
+> > @@ -1307,7 +1307,7 @@ static int write_protect_page(struct vm_area_struct *vma, struct folio *folio,
+> >  	if (WARN_ON_ONCE(folio_test_large(folio)))
+> >  		return err;
+> >
+> > -	pvmw.address = page_address_in_vma(folio, folio_page(folio, 0), vma);
+> > +	pvmw.address = vma_anon_address(vma, folio_pgoff(folio), 1);
+> >  	if (pvmw.address == -EFAULT)
+> >  		goto out;
+> >
+> > @@ -1408,7 +1408,7 @@ static int replace_page(struct vm_area_struct *vma, struct page *page,
+> >  	int err = -EFAULT;
+> >  	struct mmu_notifier_range range;
+> >
+> > -	addr = page_address_in_vma(folio, page, vma);
+> > +	addr = vma_anon_address(vma, page_pgoff(folio, page), 1);
+> >  	if (addr == -EFAULT)
+> >  		goto out;
+> >
+> > @@ -1515,7 +1515,7 @@ static int try_to_merge_one_page(struct vm_area_struct *vma,
+> >  	if (page == kpage)			/* ksm page forked */
+> >  		return 0;
+> >
+> > -	if (!folio_test_anon(folio))
+> > +	if (!folio_test_anon(folio) || folio_test_ksm(folio))
+> >  		goto out;
+>
+> The check folio_test_ksm(folio)) in try_to_merge_one_page is unnecessary, because before
+> try_to_merge_one_page() is called, cmp_and_merge_page() invokes folio_stable_node(), which already checks
+> whether this is a KSM page. Only KSM fork pages are allowed to pass through; even if they do pass, they
+> will ultimately be intercepted by the if (page == kpage) check in try_to_merge_one_page.
 
-In the mysql tests, I caught over 1,804,973 records for ibs_op event.
-I found that over 53% records(970,554) are like this:
-        ibs_op//:  ffffffffb6017739               0
+This doesn't quite cover it, as cmp_and_merge_page() doesn't bail if
+!folio_test_ksm(), it can then fall through to stable_tree_search() which can
+return NULL legitimately there, so the page ends up in th eunstable tree.
 
-The physical address is 0 for these records. These records are not needed
-by us, and they wasted the CPU cycles.
+Actually right now what's saving us is page_address_in_vma() implicitly
+rejecting KSM folios (since folio_anon_vma() returns NULL for them).
 
-This patch adds an ibs_op/phy_addr_only term that discards samples
-without a valid physical address (dc_phy_addr_valid == 0) in the interrupt
-handler. And it avoids the phys_addr=0 noise when used with --phys-data.
-The term is only meaningful together with PERF_SAMPLE_PHYS_ADDR.
+So if you remove that, you have to re-add the check there.
 
-Test result:
-   On 384-CPU Hygon machine running MySQL 8 + sysbench oltp_read_only with
-400 threads. Use perf-record in a 3s window after 15s of warmup.
+This is very fiddly, and KSM is very worrying :)
 
-Compared with BPF filter:
-  "perf record --phys-data --filter 'phys_addr != 0'"
+(I'm sending a fix separately.)
 
-    "-c = 50000":
-                   samples
-    filter        captured
-    ----------------------
-    phy_addr_only 25158085
-    bpf           24628937
-
-    "-c = 40000":
-                   samples
-    filter        captured
-    ----------------------
-    phy_addr_only 28215473
-    bpf             FAILED
-
-At -c 40000 the BPF rounds stop working.
-The phy_addr_only rounds keep capturing at that density,
-and every one of them still reports zero phys_addr==0 samples.
-
-Signed-off-by: Huang Shijie <huangsj@hygon.cn>
----
-v1 -->v2:
-   1.) filter the zero-address
-   2.) returen invalid if PERF_SAMPLE_PHYS_ADDR is not set.
-
-  v1:  
-   https://lore.kernel.org/all/20260902085251.4046240-1-huangsj@hygon.cn/#t
----
- arch/x86/events/amd/ibs.c | 34 +++++++++++++++++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
-
-diff --git a/arch/x86/events/amd/ibs.c b/arch/x86/events/amd/ibs.c
-index e5376ad5b2ec..f9949853e991 100644
---- a/arch/x86/events/amd/ibs.c
-+++ b/arch/x86/events/amd/ibs.c
-@@ -32,6 +32,7 @@ static u32 ibs_caps;
- 
- /* attr.config2 */
- #define IBS_SW_FILTER_MASK	1
-+#define IBS_PHY_ADDR_ONLY_MASK	2
- 
- /* attr.config1 */
- #define IBS_OP_CONFIG1_LDLAT_MASK		(0xFFFULL <<  0)
-@@ -303,6 +304,13 @@ static bool perf_ibs_strmst_event(struct perf_ibs *perf_ibs,
- 	       (event->attr.config1 & IBS_OP_CONFIG1_STRMST_MASK);
- }
- 
-+static bool perf_ibs_phy_addr_only_event(struct perf_ibs *perf_ibs,
-+					 struct perf_event *event)
-+{
-+	return perf_ibs == &perf_ibs_op &&
-+	       (event->attr.config2 & IBS_PHY_ADDR_ONLY_MASK);
-+}
-+
- static int perf_ibs_init(struct perf_event *event)
- {
- 	struct hw_perf_event *hwc = &event->hw;
-@@ -439,6 +447,10 @@ static int perf_ibs_init(struct perf_event *event)
- 		hwc->extra_reg.config |= strmst << IBS_OP_2_STRM_ST_FILTER_SHIFT;
- 	}
- 
-+	if (perf_ibs_phy_addr_only_event(perf_ibs, event) &&
-+	    !(event->attr.sample_type & PERF_SAMPLE_PHYS_ADDR))
-+		return -EINVAL;
-+
- 	/*
- 	 * If we modify hwc->sample_period, we also need to update
- 	 * hwc->last_period and hwc->period_left.
-@@ -721,6 +733,7 @@ static struct attribute_group empty_caps_group = {
- PMU_FORMAT_ATTR(rand_en,	"config:57");
- PMU_FORMAT_ATTR(cnt_ctl,	"config:19");
- PMU_FORMAT_ATTR(swfilt,		"config2:0");
-+PMU_FORMAT_ATTR(phy_addr_only,	"config2:1");
- PMU_EVENT_ATTR_STRING(l3missonly, fetch_l3missonly, "config:59");
- PMU_EVENT_ATTR_STRING(l3missonly, op_l3missonly, "config:16");
- PMU_EVENT_ATTR_STRING(ldlat, ibs_op_ldlat_format, "config1:0-11");
-@@ -890,6 +903,7 @@ cnt_ctl_is_visible(struct kobject *kobj, struct attribute *attr, int i)
- 
- static struct attribute *op_attrs[] = {
- 	&format_attr_swfilt.attr,
-+	&format_attr_phy_addr_only.attr,
- 	NULL,
- };
- 
-@@ -1357,7 +1371,8 @@ static int perf_ibs_get_offset_max(struct perf_ibs *perf_ibs,
- 	if (event->attr.sample_type & PERF_SAMPLE_RAW ||
- 	    perf_ibs_is_mem_sample_type(perf_ibs, event) ||
- 	    perf_ibs_ldlat_event(perf_ibs, event) ||
--	    perf_ibs_fetch_lat_event(perf_ibs, event))
-+	    perf_ibs_fetch_lat_event(perf_ibs, event) ||
-+	    perf_ibs_phy_addr_only_event(perf_ibs, event))
- 		return perf_ibs->offset_max;
- 	else if (check_rip)
- 		return 3;
-@@ -1499,6 +1514,23 @@ static int perf_ibs_handle_irq(struct perf_ibs *perf_ibs, struct pt_regs *iregs)
- 		}
- 	}
- 
-+	if (perf_ibs_phy_addr_only_event(perf_ibs, event)) {
-+		union ibs_op_data3 op_data3;
-+		u64 phys_addr;
-+
-+		op_data3.val = ibs_data.regs[ibs_op_msr_idx(MSR_AMD64_IBSOPDATA3)];
-+		if (!op_data3.dc_phy_addr_valid) {
-+			throttle = perf_event_account_interrupt(event);
-+			goto out;
-+		}
-+		/* Also skip the case: zero address in MSR_AMD64_IBSDCPHYSAD */
-+		phys_addr = ibs_data.regs[ibs_op_msr_idx(MSR_AMD64_IBSDCPHYSAD)];
-+		if (!phys_addr) {
-+			throttle = perf_event_account_interrupt(event);
-+			goto out;
-+		}
-+	}
-+
- 	if (perf_ibs_fetch_lat_event(perf_ibs, event)) {
- 		union ibs_fetch_ctl fetch_ctl;
- 
--- 
-2.53.0
-
-
+--
+Cheers, Lorenzo
