@@ -1,13 +1,13 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.31
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.44
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793658867;
-	b=HdR+Pqmto9OhcukQ5Gsggf7YpC1+Q/dZdh5C8A+WCjrDlYURkuPRm7lB6BE6JU4mHf6C
-	 98Q/0Jq2pc4UWqII+yHhRM8Al1ZNfAsqwV2dAYZvTvK+3ycrMTSadsEYDF8oaU68PPH3h
-	 qN6X2Vug3PToppppzsL4zMs7Z6oU1cNqaKDEW0dtMnhK9aQcFN+/NRA8ru3CNyZphRMvU
-	 dMrIDDUsI8juUWK144/nEdD2dO/RnLiz86mUo6QxowiiRFNh1Gan/PmS9RTgHFhCsu/b6
-	 H1jZMjatB015vHwaJtK++aj8GoNeWYXuT+k/a1JfrBcFP8vZzmw5Gp5NpnfIu42JcOw==
+	t=1793658862;
+	b=qiLQ/kbpDE0F3VCOAY8sm4egAgq6Y5tIrkU5/XR96HYCkjWTBOMCREc3+3ssNJxI4DOg
+	 I6quL25J8gxPoY1nbLdPFMl+d4Oxjo96E1d+l0Cpoot/Pm6NsW9sQooNoVK6BKr1+l4jV
+	 NdQH4tNcJenxe01CwLA0mEA694nS+0eHvLD60xmQgeWPuWsXaJGGWreqq8YyMDqIHAanT
+	 gpmyTjJAXSrZCEsatiP784vMOZLb+Y0zVcR4EhPn22zJzZfDIzGQIGcSRRztcbw4Zr/K3
+	 oQVZIlwk9bcp4D+B5TPlNPzP7TfEwwlXbvtAGrnQKY+1N89tFT1i5QFl8rrhYIRt28g==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793658867;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793658862;
 	h=DMARC-Filter:DKIM-Signature:Received:Received:From:To:Cc:Subject:
 	 Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
@@ -24,54 +24,54 @@ ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
 	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
 	 X-MS-Exchange-CrossTenant-UserPrincipalName:
 	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=4OwC9MzeH9hOHOKtnAqRp6ZfExt6VpVwCKFMaql1SGI=;
-	b=W/NQtv5FbXFxL2Sen4RsQvMoelChcrUCKV31qWlMBmIAeiAR1Ut0rx+rTpATHmXWp1yW
-	 aNeQvGD9ZqR8aEqGEFoIusRc34dOYTAksbTQI04T5FX1m8XRNW8+tZmONfZHL5ZvVxESN
-	 e0Vy85WpXbnEidZbm23xPpnQecdCTxtVMZIJUVMZnNwn6ogEBMw0moBYYrwr8F67S8qo6
-	 zOJaFHoMQVpYIf9uejOE1vNSCCot8eWn6h9lfi5i2p4OvCLf64+R+SmNWOFX3FKHoHmOz
-	 umNC8vFO8O/AS65oOHnO0NGF9zYaKHVv7SW/onxfpcxZIGIyaITLN//cH979J7skwKQ==
+	bh=8ZtjDYQ3v/I7x/nz1DDylE4Vj7f/moyV3BFmv20XrWI=;
+	b=Xd/olc8msWqWttAPJTKV+bOxNfDLvDflzo+sMfRQa8lPuc71UWslxpivTtJsLzXpAryQ
+	 FLJWCohbl2K61BUVO0455voGP/DfZJd5NQSGQzGvP8HAFZRsk4o2gS+/NGgtROOgwnuOE
+	 1ZkE/hSKbTu7nWn+VHkrTFYil/SyJ+pzA1foK99smG5vpYDYtz2TTLz50EPmKnBfO+1TT
+	 k7b+/eNYeBJjz+7INqkedwSNgQVImcVaEgnyhdIOUMM3tKe+FPMgAqyP5IXWTKo3C7ath
+	 AXhU2rSwFS6+J8fUWP4dM0zCiG5h69HbB3RNfOzf6IEktdEJ5nszEl0JzUvbA3OrEVw==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=nvidia.com;
 	spf=fail smtp.mailfrom=nvidia.com;
-	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b="r8L/KDzu";
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.85.31
-Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010031.outbound.protection.outlook.com [52.101.85.31])
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aoZBzZjH;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.57.44
+Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011044.outbound.protection.outlook.com [52.101.57.44])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B9B606A329;
-	Mon,  2 Nov 2026 22:34:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 64B9B606A329
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E713606A324;
+	Mon,  2 Nov 2026 22:34:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6E713606A324
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=r8L/KDzu
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=aoZBzZjH
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qldViUtU15KTgElC4mgDawsgrkSqPmWbCybWYWB5jqkWQ9qjOAXHkPhxstSXTvHwcHc1vfcvmZ9z+B3jNH5VPrbop0b2mGCsH7K0kKilqEfHdXy5cNcCIxO/URmDh+wS6cVoFJrm2qzzffHPdZREprm1zqSpY+wxYE6KDdZckElRIa+7yhV/thfjmDk5CJxWUlGCVKx6j5iufXI+/GA1vSuNCvLmML2sbfXW8cYEk7PHz2krNJi2PfsktNiV9Ybp0RI32pH2ewx+TTT1BHgkN4A1Lfx9F/x9QCQ5fc3TQXa/zKxAE/24TQqRdE5FnswqYx9I1+ZUeM2JH6FEht1xcA==
+ b=rs0LP5AJUG2MFP1cZSv3MdhtWs10x7VoZ9haXvYkWpHK58gb0giEwwUzFodTsQpNJCPZK44QEHvruAlv0BWCWk3478qiOF6Q9Wr9zdmC2YaZ00l1Fa/OCSYixpzGKuoxTtajU7HrVF+tAWiFoH/cvRoSXLwNPsU4aX7/Z5Vyb3oPZuFrVwnfpoe85ixpaIJSfWBDZGt2+dI2S1QO6j0hFDP6Jk0tM7hq9yK3mCUMtciB7GLR2eGkyihJcO9v9pGw5UaibH7rvol9bviB1OAvSbelKs61N3c+zbaoJAS3SO26pZODeZlw5ho66/czaUlSg/UkgJKkx+PX3gwagJPGNw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4OwC9MzeH9hOHOKtnAqRp6ZfExt6VpVwCKFMaql1SGI=;
- b=n8f+9l7Rbr0u527QrcyCJb26yOgVI4ykD1HjU3dcsTPBXeUR+EsaxVSswzfyRtMABuW96YfQl/BKZYOaRkLvf/BnfNgXln0AMc312I5kUarojGPZ6QYDfW1S4MgPBxipfWZTXwyDJkohHzfpO/AlUnNQfO169HITJApHjhj08vDPSk3zg7gIJY8GpczyQbBCJMEEsCfGhVsuxvYSDZ+jL1Q9gGap0EjGIYT6FjaVdSdxM2C3Kh4AF5g2/SoUoxoXCoVv7VJ/o5y0X9/M8Bfa+EG5petOrCFMeRARoPuUyrqcXXJ7kqYl8W0gLQP18AKvOE49z68sBa/coYKsGPrvKg==
+ bh=8ZtjDYQ3v/I7x/nz1DDylE4Vj7f/moyV3BFmv20XrWI=;
+ b=JKqvN4Oyzi/gIJrRv8padBiuSGSbp9+GjhYNS49iX28EQdty0eLEaUAK9a2palAxGDpAxdJJD4+cDU8ksKS+fR5zxVufeaN1ylzXGtRWEVqEaqxaadR3PubFRteo2iM67NZbOXZ+EUt8dlMoSIyl9Z6oOVLHPIKAtNhdlBbTwigEQNo7dCMvVOdn8g2iHAr80lmaa6KO8ePM4yLPcXWb642J1sgbi9o5bfGmPWWRpLRVrLccA1n72DmOYKWFLl5G66rWHfdvG7pylmaoYwFFLTJMFRimTQ8qlHOURlzfYSQT3oNdhpiNXn/8sajUPGM8OnKXwNSKSZugoKPAustdmw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4OwC9MzeH9hOHOKtnAqRp6ZfExt6VpVwCKFMaql1SGI=;
- b=r8L/KDzujMQ8yy7q7ZnXBNiHg6M4NCXLrV+Po4o83p1+s1SRE23wGROPV9Et/QZcgVFmu7nMHJNX6EbzCwToshBUU1vSVLEtQQb5QQCvo7isrloppvO+kBgmEEjLRBLX/fIqYS2+3N04dvQolR73s8Gsuh6gDtazAvzKCEAHw9L9EILdtq83bqeoxVS2K9n4qpRq/QbUJD/F57WstF2StDYVaMAeDF7bJZ5E9nQwqoGhBkU3lhzPgQ7Q0WjSMLkrFCGl1HzaoSalG6PXWlfs743z4XNzF3ToRpExmL+y1xDKlyVYdne3hZp3vUj8Sd5TwX7MALb4bsme2AoOKgHu1w==
+ bh=8ZtjDYQ3v/I7x/nz1DDylE4Vj7f/moyV3BFmv20XrWI=;
+ b=aoZBzZjHixjLoJZHegvf/lYwT1XS61Ric1r/OQYmvNt121EAISZJa2UI9s89MqAmwBdlXIa54crVIOeuvWrfPfyJmc+NBAEY7aM5w+JHxL8vCa/+HOB3PhUUooGECDzoxkK462yhwu2gxP6gY2+XTw6+3SCJU/FatE1EiY0UO+p52c27XvOsIqt5x5DL+5mnVI9IVOKq2JcBAJHqrcteuOdWa2IND8gJleeOivfLJxpJvuOrOQTmPGkdWaB8iboKvERd7Ro5/UwpfTR2cl33yP2hpY+WI7rJ+Jy0Li9JhtxnGBhEvJ6CIjVqfl7y0wKVDejGDxL0eHclc6oHQfhkVQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from CY5PR12MB6478.namprd12.prod.outlook.com (2603:10b6:930:35::19)
- by DS7PR12MB5792.namprd12.prod.outlook.com (2603:10b6:8:77::22) with
+ by DM6PR12MB4265.namprd12.prod.outlook.com (2603:10b6:5:211::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 22:34:21 +0000
+ 2026 22:34:14 +0000
 Received: from CY5PR12MB6478.namprd12.prod.outlook.com
  ([fe80::51f:ab92:7d1a:441b]) by CY5PR12MB6478.namprd12.prod.outlook.com
  ([fe80::51f:ab92:7d1a:441b%2]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 22:34:21 +0000
+ 22:34:13 +0000
 From: Michael Gur <michaelgur@nvidia.com>
 To: jgg@ziepe.ca,
 	leon@kernel.org,
@@ -79,30 +79,19 @@ To: jgg@ziepe.ca,
 Cc: Edward Srouji <edwards@nvidia.com>,
 	Yishai Hadas <yishaih@nvidia.com>,
 	Michael Gur <michaelgur@nvidia.com>,
+	stable@vger.kernel.org,
 	Jason Gunthorpe <jgg@nvidia.com>,
-	Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Dragos Tatulea <dtatulea@nvidia.com>,
-	Cosmin Ratiu <cratiu@nvidia.com>,
-	Gal Pressman <gal@nvidia.com>,
-	linux-kernel@vger.kernel.org (open list),
-	netdev@vger.kernel.org (open list:MELLANOX MLX5 core VPI driver)
-Subject: [PATCH rdma-next v2 05/15] mlx5: Rename IFC bits of relaxed ordering fields
-Date: Tue,  3 Nov 2026 00:32:58 +0200
-Message-ID: <20261102223325.2115128-6-michaelgur@nvidia.com>
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH rdma-next v2 04/15] RDMA/core: Allow optional access flags in reg mr ioctl
+Date: Tue,  3 Nov 2026 00:32:57 +0200
+Message-ID: <20261102223325.2115128-5-michaelgur@nvidia.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20261102223325.2115128-1-michaelgur@nvidia.com>
 References: <20261102223325.2115128-1-michaelgur@nvidia.com>
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: TL2P290CA0019.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::14) To CY5PR12MB6478.namprd12.prod.outlook.com
+X-ClientProxiedBy: TL2P290CA0014.ISRP290.PROD.OUTLOOK.COM
+ (2603:1096:950:2::17) To CY5PR12MB6478.namprd12.prod.outlook.com
  (2603:10b6:930:35::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -114,306 +103,92 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PR12MB6478:EE_|DS7PR12MB5792:EE_
-X-MS-Office365-Filtering-Correlation-Id: da860e62-05d4-4a86-4ede-08df3931706a
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6478:EE_|DM6PR12MB4265:EE_
+X-MS-Office365-Filtering-Correlation-Id: 28e3d9a3-2a5f-4755-5093-08df39316bcd
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|18002099003|22082099003|10067099003|56012099006|261102123227099003|261009223027099003|261022105027099003|261028144727099003|261021121427099003|261021123027099003|11063799006|261026140227099003|261026121527099003;
+	BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|18002099003|22082099003|56012099006|261102123227099003|10067099003|261009223027099003|261022105027099003|261021121427099003|261021123027099003|11063799006|261028144727099003|261026140227099003;
 X-Microsoft-Antispam-Message-Info:
-	tCmh4fO8dRXOxbSlUCyjrubQf6UqQlXovQJVLlchWt25IMnjaor9h1rmFTrwOHn9LUiiV4IAoUYfjUYo9LSNgYKYqlkHIA5gYKTh69a8M7ikEgoE0YbfUo+k/X+eT2WOEUo6dqTC6Jroa20QA7RfZME2JuQQlprTCAkObFezDB2U0AP3rocwU/56M+Js07RBcGZyBpxYdy5MmJvqkz+Yd0HmhXGn2ny7iwOx9W+eGQAm/Q3VVuuSxAn5mqrsEoUD90CSoawqRlHzXesYIIZXfZnfMcNQn+7uOe9FCUX8dwiDtyLyza2levT3bzORVkmTMdkul2E1pQ92aSXcQnki0pBAO1gf/k59uihMJVPQGJEjyqJalOYozbZvxMvjtaksjyX8rZzul5j5QXNAWp6IyvbSej1zrGXtltPI6Z3p208bgA73H9brRHuZ2E5ciD30Qqn0hkUwLtQdyDN25i801ZLGudGLnf0u1MXsF2YtzinOcvVdu4elVNv0dZrYuNPx1OiuYgXVdV35feAbmatFXGOSaJ5/HrdKgn/HoRNj9Cin1B8YzOAqcwrQeunyz/yh9G2Y3vTbOybQmGyBTik54cqEmQejlJ8xwR1PMjxZFskI24i38W7X6dYlNUjFvOSntEaSEkXCnQN+hVaYTbwBtmvZJf11rxdoo8eqNvsANLc=
+	t3LYBCdICSL7lCdy5N2EQXngoxWZ+gFQCZuNz3xg5DyqGbb2YGui2tnH45o5Hr4YiZDBPHM8xRB6EJTUrXPMx5z8mROQWM43BStbm3UCGPeMcMxC8yo+qtpSf4ERM68SKTpurf3osQ01Csn4o7U3p/XMj7g0bzgJ/Vbpmi+x1EQHLrra1NB7Fli+BvN9H3PdCO1DLwSOGM1BSGdCS7YC9jdMtWSB+7oadeLhKdrmHNdKj4jazz+4lXvWIvU7tkh/HKXneXg8fHg8Cebv4eToDBexpJMD/bmAVWU6odohTe07TICTfeB3etOsf0I/ylqSl4xdhE25X5BEHN/0t9YS849lI+Mxfm4ATlF88akKyTWTAgrw5cbiPHuV5qR/KccbzoXaCjmXmu5lRHgNYD+W0uhnYpPUvrRcmqERp53DC/DKh9I6Yp+bqH9UICw8zcjivLYf1vJRvfYIONef+8g9R2TU3m6tUrDTIMWpHG6Kjx+HC5pdXCoZotaxzO4qEqcgZxO7EoWAVKGvyKrYmoz/e2xTJ7d1tqZtGbZ/xA0ZXguijkhbcD02MY/eJZXMLGdJgWqG0gJ4IrUARz+hVIgFmfwXA+9UOI43UcjexeQBLMfxiMY31+ie4TJCFPAe8sR//BiL52UkGkvlR99rYKsGJW8CCf7VI/m3EhHwqmzowfM=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6478.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006)(261102123227099003)(261009223027099003)(261022105027099003)(261028144727099003)(261021121427099003)(261021123027099003)(11063799006)(261026140227099003)(261026121527099003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6478.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(18002099003)(22082099003)(56012099006)(261102123227099003)(10067099003)(261009223027099003)(261022105027099003)(261021121427099003)(261021123027099003)(11063799006)(261028144727099003)(261026140227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?KV+XaVGwsagXA8x9DDfNFmRNDA+DLvs/j7KC5S+jZ6CRKGhc6QXiYDbe8Vsx?=
- =?us-ascii?Q?jonYogDU4Du2dncTxOZZjojxHsh4ruA3deDyzN2fLqLT+c+gtBONO8fH9qBI?=
- =?us-ascii?Q?U5zP3IRjBOvofe7Hf2qtbwoaSDH0RNDaaJ1DsG3g2QKz2XB2jg1ye5RJQcLi?=
- =?us-ascii?Q?ivI9/QBtEv7IbT+m73Ubo8FNpW053DYRmQxFRqxI5tbWyMK9Rrzr4J0n9wCd?=
- =?us-ascii?Q?oHTBh0ioq2nJOw9qxV1//vMHr7s5TlP+GHIKAkCzNR+LNdttzZ2xr/6Y1bQ4?=
- =?us-ascii?Q?V2V6z0p3LRjmn/9mVEKjDMDaTAuko3GxVfrbq4j7Fbr4HmQEA/gwqjwXTBbs?=
- =?us-ascii?Q?gy1bZjdtUCRDNQDZhZT+EqyFJJ0wJQt1tG1P1vF7A8Hww2t3z/3lnKTyRGvE?=
- =?us-ascii?Q?OkNvGt4CvEs0eLNQgP7JoFh0IGWXI/4L1/Gr8m4nN4TYrFCPl/sGrezE3duh?=
- =?us-ascii?Q?3cMnEWfyh0lzkxBmUwrpGlM5FRxYY5X5oTMflqTkvel8IMgHREVTkgyePltE?=
- =?us-ascii?Q?MtsIffGqDZnfAjPM8OxxPkCUxCJYYJej5fqTiE07e9AguE5l79k6Hb3mxXiY?=
- =?us-ascii?Q?PqAOWbPRoV47z2QxK6f3z9KX0C7AlmKWRMZ81ip39xpgGsGiUQLvthYmMFzn?=
- =?us-ascii?Q?AIbj45mJ0s7zicRUjipOEUa7OFD5xYyAhkJLjqzeERQpebEdEYVKc19mtPzJ?=
- =?us-ascii?Q?HR+xBr6uE+XcL32tUcJgmNkq40Csrk1X/qYzq/YWYGz8hSaI7Lp5/SgZl7SW?=
- =?us-ascii?Q?BZRAlrEYXUhC8Kx+qzPfclC8ThX9JiSXjP1yHpCgbgV1jh0KvbI7WM7XoNhB?=
- =?us-ascii?Q?Lunz3VygCo3T7s6iRu9P/Ca5KQEEjOn5siSyZox+59rBkiLaZ9GO758CIgYb?=
- =?us-ascii?Q?mXcaL2tsDL/eHPHtEcDA9fyW2qo0bTjXMLIq33X5pn0ahtp3X+XbJow0K0cg?=
- =?us-ascii?Q?iXGEkc5cP3TaKGjDJd94A8AAoWUiLuxRQE45gI7QZloKbxuMooqQzcEtzNXd?=
- =?us-ascii?Q?rkVJnXr2Od1/Qk6LxcvNewITwlKhDFBSiAPGq+r7NFGNmV/18OrX1J4wY0V7?=
- =?us-ascii?Q?OXv9sZ8+0Q55riMqkL2ZUSnnnp0cFHpHu9kUi3pCHCzndXf3DIpyn/boTqbI?=
- =?us-ascii?Q?pL2XIs/4TDAZm00EKo194NnV8iDw7t17/u7GNcVE5Z8yA/7N9lpcxoPJtnvs?=
- =?us-ascii?Q?8jQ5FXc/YOdAuimnMYULiN69JsWwONHq0Z00D8bf37iJBMw6pz/OkwiwvC0g?=
- =?us-ascii?Q?oCk5Qvx9vr+7H1BclepeZQB1cyIrFQAf6hpr+uxhruTW5Q5BJ//S4HHXavx9?=
- =?us-ascii?Q?+P/NEBkUTwxg4pKxBPilRj3YHElm9Ir8FLhYKobnNtoWNwIe4KVstRkaaEV5?=
- =?us-ascii?Q?LRg80URTENM+zRSGS0FwgvpJBt4RZvyvT2AshkRcOXSRYiTCQXuqatk6hMUD?=
- =?us-ascii?Q?xxznaG1vBOruI2znTSMbnbWXr1u3Mh05U9DEqj4OqfFsNMY+SvkaH2TDve4i?=
- =?us-ascii?Q?D6n4Y1heBY/hMfCC3Dlfr7UrJUbSXm1R5RiYbwXac3yNx25yAOUJjw3XxZrV?=
- =?us-ascii?Q?bubKiO/+zYyQg3nHgOAPzJrB6+iCmJ9+IPtyCF3g+1/BekR0nSOqw5EPJdF9?=
- =?us-ascii?Q?xK2OllYc5XxlQGsmRvlzSwWBVONcWy3p8xSHdHgFB4/o00zmuWDDD/uML6T8?=
- =?us-ascii?Q?ElqJxEH0HMex77JElW1KnRAywWQZnuDaTIfPgUs5Rn5vY6UkG+UFTI69H6mS?=
- =?us-ascii?Q?wSXIsHS8fw=3D=3D?=
+	=?us-ascii?Q?aHZg8FOazeDsdyiPhRPim2Zf3q7MpZbb8g5CGUH2w2oyrMiVeHDuO9B1pTFb?=
+ =?us-ascii?Q?iwRnDjGeCMwAyBJWW8U/CLuF8u/kWPqyDKNH+650HhXrKAvalIjNKUm13uXd?=
+ =?us-ascii?Q?zKqMIazTvX6n/vl/uweFeNu+dXGzQfLyXyUmBUx75ZSXtD+bDJ7amFawa5ka?=
+ =?us-ascii?Q?A+0Yny5JvzEiFtbwTgXkzvW5OQrNw6cB/PpZR4+gc5kS4rBdZCqcY/UwoCOz?=
+ =?us-ascii?Q?nxBeers1KQPGlDRKdzRvbXi/eVsHTRz5Qka1c4tUkt62NPpgch7K2bK0f77H?=
+ =?us-ascii?Q?zeHgSB/1woygRdVd3vn5uXa/0kekvNYBHz8mZu04uAuia3mmHurApTqTHVA0?=
+ =?us-ascii?Q?H0vcH/meigOdzs2/uLhjeqvnVsJ3hm7MTNWLoYkGt/ADWF4W6TYhCSYD+hOK?=
+ =?us-ascii?Q?ee0y3oOPkXEZi3/1CBXXvseygwY/56nBKl4smAfKwJf+OJU4ghQ0bMCxuUkL?=
+ =?us-ascii?Q?lvdeF9KorJrzHmwGsOvsOW2G6J6ltDwBJrQyM+cIuWxVj6cCCfuAjmOwR1gm?=
+ =?us-ascii?Q?Y1LtkeN0qgwzduJErrQaJ0eajTy5UqU4ecI6I26mGaVzVVLaUc+NXDvgmRmv?=
+ =?us-ascii?Q?bQ1s127cT7mRY9ygnu+v66NU9Dc8v7NYjF6ORPCiXDwE3mEsBX+cm/O0s4KH?=
+ =?us-ascii?Q?4k9gYCLcUXBz0sRm6Bhe2+o61mIUamVG5Db3MMivq+ui02vC/AymJhFpevVN?=
+ =?us-ascii?Q?dtovmLy0rvwU5NNxmUNVhWUoduUh5RHX1zQXLJQjLDf7jaDtaK5t+wmjGrjL?=
+ =?us-ascii?Q?ET02BiUJXsm6PdiN9hGjintaBz1q6iA5lj34aV8Kh5GLc9y6q4iXX/bJi8WF?=
+ =?us-ascii?Q?O8y2ePXAw6s/RWH9Au9ErJ6asCERA/UzezipeZPsf+MGJNFwj6YgZF8ZC+H4?=
+ =?us-ascii?Q?FO8aIrKmGfVzgp5Bf5CrIpUFym/R0N89OIoz5v2MPAMlJehtjfR1vEAPCd15?=
+ =?us-ascii?Q?A16qxAvRwgaLLhctNcituaoEUKicSPccH6xxjRGis5VeGZzPtod9aSqe787n?=
+ =?us-ascii?Q?xSFngt8otvwra/NPuiJ3YlC5mwcalsHnJkRoyICV13qMvh6I2Blb8ntwZgbi?=
+ =?us-ascii?Q?K/OYnJMJ6TOuNOjuJtr5YNtJg0OywRGz/94EPbt4YXXr5iGkFyebG3zJK0uk?=
+ =?us-ascii?Q?aOtp7D7rN987J8MdyHsaMYJySAL/9jVdiZRpDkGXD1dFJNz94JLiGWWKrpYP?=
+ =?us-ascii?Q?vNiGx4S7Pw+6eDr6gZ9g50rutmVPkB4mQxxzB7K18ilrD9OXLD0dQYieqZ7C?=
+ =?us-ascii?Q?2coXKnHqtoLNz+MjSIepAXBA3wqHhte9PUXa2WcTAQ12vbzhZ0Di346RYzci?=
+ =?us-ascii?Q?jO2o93sDfG/S2Oqor1irJxdzAuAFPixgfNl/u0WhB6uNfktpj40fH5k+HxYI?=
+ =?us-ascii?Q?Yxs2fYlbssUwzu7ex+Nl8XtZiHD7cqqYwa6FMW79cWeu4VAgC793JX4HbEMQ?=
+ =?us-ascii?Q?gnTF63p+DnyJbK0tnuepZCPdccY/SiG/bvYaWGojY8AWClEasXCWrhqVH3NM?=
+ =?us-ascii?Q?HdCfVL1Xr205Ep0xmdpxPOkyH/59H5B8onlSsfrkjVmvB7It28ABgN/m5a4r?=
+ =?us-ascii?Q?wnGbhh8CtO0ur3ozCr503IniL8IJCyvHDonlCZbVIQMFp++Wytz/NxvWuURZ?=
+ =?us-ascii?Q?xZJufxF+FU4qDCGiTZ/hAaRJOa7ZU+QAI58ebCLTrRjHnpgTwXcBkqsPT6WZ?=
+ =?us-ascii?Q?eYi2fnaiU1Oc/5/4fySkLAVW96S68mFnGqTRYW/t+8PxwOixVqlEr2E5JT25?=
+ =?us-ascii?Q?LKVmgnf2+g=3D=3D?=
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da860e62-05d4-4a86-4ede-08df3931706a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 28e3d9a3-2a5f-4755-5093-08df39316bcd
 X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6478.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 22:34:21.3768
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 22:34:13.6032
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8NvVUN/eTnzKnIkyOjWXHR4VLY4e+kmSqs1YRgV41aUryUgvA10JDCYjrp+3fMRlfrcNi4igxnnGCJzrsRWgug==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB5792
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8pgdPDxafw3G/OyMz46d3CH3YELKE1Jz9HjoNnCRV8Gp6CkO8eIfVTlVu22SsLFMPnkPmZpLs9A50po77w/uRA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4265
 
-Align the IFC field names with the new naming:
-- relaxed_ordering_write_umr -> order_write_after_write_umr (cap)
-- relaxed_ordering_read_umr -> pci_relaxed_ordered_read_umr (cap)
-- relaxed_ordering_write -> mkc_order_write_after_write_ro (cap)
-- relaxed_ordering_write -> order_write_after_write (mkc)
-- relaxed_ordering_read -> pci_relaxed_ordered_read (cap and mkc)
+The uverbs ABI reserves the optional access flags range as best-effort:
+drivers should accept any flag in this range and treat the actual support
+as opportunistic, never failing registration when an optional flag is
+requested.
 
-Update all references across drivers.
+Add the optional access flag to the allow-list of dmabuf registration
+through the reg_mr ioctl. Uverbs users can now request any optional access
+flag on dmabuf registrations and mlx5 will apply the flag's effect on a
+best-effort basis when supported.
 
+Fixes: 5b2e45049dc0 ("IB/core: Add UVERBS_METHOD_REG_MR on the MR object")
+Cc: stable@vger.kernel.org
 Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 Reviewed-by: Yishai Hadas <yishaih@nvidia.com>
 Signed-off-by: Michael Gur <michaelgur@nvidia.com>
 ---
- drivers/infiniband/hw/mlx5/mr.c                  | 16 ++++++++--------
- drivers/infiniband/hw/mlx5/umr.c                 | 14 +++++++-------
- drivers/infiniband/hw/mlx5/umr.h                 |  8 ++++----
- .../ethernet/mellanox/mlx5/core/data_direct.c    |  8 ++++----
- .../net/ethernet/mellanox/mlx5/core/en/params.c  |  2 +-
- .../net/ethernet/mellanox/mlx5/core/en_common.c  |  8 ++++----
- include/linux/mlx5/mlx5_ifc.h                    | 12 ++++++------
- 7 files changed, 34 insertions(+), 34 deletions(-)
+ drivers/infiniband/core/uverbs_std_types_mr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/hw/mlx5/mr.c b/drivers/infiniband/hw/mlx5/mr.c
-index 176f87ba062c..a15610c6211c 100644
---- a/drivers/infiniband/hw/mlx5/mr.c
-+++ b/drivers/infiniband/hw/mlx5/mr.c
-@@ -71,14 +71,14 @@ static void set_mkc_access_pd_addr_fields(void *mkc, int acc, u64 start_addr,
- 	MLX5_SET(mkc, mkc, lr, 1);
- 
- 	if (acc & IB_ACCESS_RELAXED_ORDERING) {
--		if (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write))
--			MLX5_SET(mkc, mkc, relaxed_ordering_write, 1);
-+		if (MLX5_CAP_GEN(dev->mdev, mkc_order_write_after_write_ro))
-+			MLX5_SET(mkc, mkc, order_write_after_write, 1);
- 
--		if (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read) ||
-+		if (MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read) ||
- 		    (MLX5_CAP_GEN(dev->mdev,
- 				  relaxed_ordering_read_pci_enabled) &&
- 		     pcie_relaxed_ordering_enabled(dev->mdev->pdev)))
--			MLX5_SET(mkc, mkc, relaxed_ordering_read, 1);
-+			MLX5_SET(mkc, mkc, pci_relaxed_ordered_read, 1);
- 	}
- 
- 	MLX5_SET(mkc, mkc, pd, to_mpd(pd)->pdn);
-@@ -146,14 +146,14 @@ static int get_unchangeable_access_flags(struct mlx5_ib_dev *dev,
- 		ret |= IB_ACCESS_REMOTE_ATOMIC;
- 
- 	if ((access_flags & IB_ACCESS_RELAXED_ORDERING) &&
--	    MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write) &&
--	    !MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write_umr))
-+	    MLX5_CAP_GEN(dev->mdev, mkc_order_write_after_write_ro) &&
-+	    !MLX5_CAP_GEN(dev->mdev, order_write_after_write_umr))
- 		ret |= IB_ACCESS_RELAXED_ORDERING;
- 
- 	if ((access_flags & IB_ACCESS_RELAXED_ORDERING) &&
--	    (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read) ||
-+	    (MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read) ||
- 	     MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read_pci_enabled)) &&
--	    !MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read_umr))
-+	    !MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read_umr))
- 		ret |= IB_ACCESS_RELAXED_ORDERING;
- 
- 	return ret;
-diff --git a/drivers/infiniband/hw/mlx5/umr.c b/drivers/infiniband/hw/mlx5/umr.c
-index 711075e3d9ea..144cf851c41e 100644
---- a/drivers/infiniband/hw/mlx5/umr.c
-+++ b/drivers/infiniband/hw/mlx5/umr.c
-@@ -59,10 +59,10 @@ static __be64 get_umr_update_access_mask(struct mlx5_ib_dev *dev)
- 	if (MLX5_CAP_GEN(dev->mdev, atomic))
- 		result |= MLX5_MKEY_MASK_A;
- 
--	if (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write_umr))
-+	if (MLX5_CAP_GEN(dev->mdev, order_write_after_write_umr))
- 		result |= MLX5_MKEY_MASK_RELAXED_ORDERING_WRITE;
- 
--	if (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read_umr))
-+	if (MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read_umr))
- 		result |= MLX5_MKEY_MASK_RELAXED_ORDERING_READ;
- 
- 	return cpu_to_be64(result);
-@@ -88,11 +88,11 @@ static int umr_check_mkey_mask(struct mlx5_ib_dev *dev, u64 mask)
- 		return -EPERM;
- 
- 	if (mask & MLX5_MKEY_MASK_RELAXED_ORDERING_WRITE &&
--	    !MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write_umr))
-+	    !MLX5_CAP_GEN(dev->mdev, order_write_after_write_umr))
- 		return -EPERM;
- 
- 	if (mask & MLX5_MKEY_MASK_RELAXED_ORDERING_READ &&
--	    !MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read_umr))
-+	    !MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read_umr))
- 		return -EPERM;
- 
- 	return 0;
-@@ -446,7 +446,7 @@ static void mlx5r_umr_set_access_flags(struct mlx5_ib_dev *dev,
- 				       unsigned int access_flags)
- {
- 	bool ro_read = (access_flags & IB_ACCESS_RELAXED_ORDERING) &&
--		       (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read) ||
-+		       (MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read) ||
- 			pcie_relaxed_ordering_enabled(dev->mdev->pdev));
- 
- 	MLX5_SET(mkc, seg, a, !!(access_flags & IB_ACCESS_REMOTE_ATOMIC));
-@@ -454,9 +454,9 @@ static void mlx5r_umr_set_access_flags(struct mlx5_ib_dev *dev,
- 	MLX5_SET(mkc, seg, rr, !!(access_flags & IB_ACCESS_REMOTE_READ));
- 	MLX5_SET(mkc, seg, lw, !!(access_flags & IB_ACCESS_LOCAL_WRITE));
- 	MLX5_SET(mkc, seg, lr, 1);
--	MLX5_SET(mkc, seg, relaxed_ordering_write,
-+	MLX5_SET(mkc, seg, order_write_after_write,
- 		 !!(access_flags & IB_ACCESS_RELAXED_ORDERING));
--	MLX5_SET(mkc, seg, relaxed_ordering_read, ro_read);
-+	MLX5_SET(mkc, seg, pci_relaxed_ordered_read, ro_read);
- }
- 
- int mlx5r_umr_rereg_pd_access(struct mlx5_ib_mr *mr, struct ib_pd *pd,
-diff --git a/drivers/infiniband/hw/mlx5/umr.h b/drivers/infiniband/hw/mlx5/umr.h
-index bda7123781a9..04dec726b267 100644
---- a/drivers/infiniband/hw/mlx5/umr.h
-+++ b/drivers/infiniband/hw/mlx5/umr.h
-@@ -61,14 +61,14 @@ static inline bool mlx5r_umr_can_reconfig(struct mlx5_ib_dev *dev,
- 		return false;
- 
- 	if ((diffs & IB_ACCESS_RELAXED_ORDERING) &&
--	    MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write) &&
--	    !MLX5_CAP_GEN(dev->mdev, relaxed_ordering_write_umr))
-+	    MLX5_CAP_GEN(dev->mdev, mkc_order_write_after_write_ro) &&
-+	    !MLX5_CAP_GEN(dev->mdev, order_write_after_write_umr))
- 		return false;
- 
- 	if ((diffs & IB_ACCESS_RELAXED_ORDERING) &&
--	    (MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read) ||
-+	    (MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read) ||
- 	     MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read_pci_enabled)) &&
--	    !MLX5_CAP_GEN(dev->mdev, relaxed_ordering_read_umr))
-+	    !MLX5_CAP_GEN(dev->mdev, pci_relaxed_ordered_read_umr))
- 		return false;
- 
- 	return true;
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/data_direct.c b/drivers/net/ethernet/mellanox/mlx5/core/data_direct.c
-index 5afb11a2a9f0..b2eb2cb0d734 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/data_direct.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/data_direct.c
-@@ -145,13 +145,13 @@ static int mlx5_data_direct_create_resources(struct mlx5_core_dev *mdev)
- 	mdev->data_direct->pdn = pdn;
- 
- 	/* create another mkey with RO support */
--	if (MLX5_CAP_GEN(mdev, relaxed_ordering_write)) {
--		MLX5_SET(mkc, mkc, relaxed_ordering_write, 1);
-+	if (MLX5_CAP_GEN(mdev, mkc_order_write_after_write_ro)) {
-+		MLX5_SET(mkc, mkc, order_write_after_write, 1);
- 		ro_supp = true;
- 	}
- 
--	if (MLX5_CAP_GEN(mdev, relaxed_ordering_read)) {
--		MLX5_SET(mkc, mkc, relaxed_ordering_read, 1);
-+	if (MLX5_CAP_GEN(mdev, pci_relaxed_ordered_read)) {
-+		MLX5_SET(mkc, mkc, pci_relaxed_ordered_read, 1);
- 		ro_supp = true;
- 	}
- 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
-index 5caf7820a136..b0fc1fdd1339 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/params.c
-@@ -912,7 +912,7 @@ static void mlx5e_build_rx_cq_param(struct mlx5_core_dev *mdev,
- static u8 rq_end_pad_mode(struct mlx5_core_dev *mdev, struct mlx5e_params *params)
- {
- 	bool lro_en = params->packet_merge.type == MLX5E_PACKET_MERGE_LRO;
--	bool ro = MLX5_CAP_GEN(mdev, relaxed_ordering_write);
-+	bool ro = MLX5_CAP_GEN(mdev, mkc_order_write_after_write_ro);
- 
- 	return ro && lro_en ?
- 		MLX5_WQ_END_PAD_MODE_NONE : MLX5_WQ_END_PAD_MODE_ALIGN;
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_common.c b/drivers/net/ethernet/mellanox/mlx5/core/en_common.c
-index c2d4bae533de..2dbcf6673916 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_common.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_common.c
-@@ -40,13 +40,13 @@
- 
- void mlx5e_mkey_set_relaxed_ordering(struct mlx5_core_dev *mdev, void *mkc)
- {
--	bool ro_write = MLX5_CAP_GEN(mdev, relaxed_ordering_write);
--	bool ro_read = MLX5_CAP_GEN(mdev, relaxed_ordering_read) ||
-+	bool ro_write = MLX5_CAP_GEN(mdev, mkc_order_write_after_write_ro);
-+	bool ro_read = MLX5_CAP_GEN(mdev, pci_relaxed_ordered_read) ||
- 		       (pcie_relaxed_ordering_enabled(mdev->pdev) &&
- 			MLX5_CAP_GEN(mdev, relaxed_ordering_read_pci_enabled));
- 
--	MLX5_SET(mkc, mkc, relaxed_ordering_read, ro_read);
--	MLX5_SET(mkc, mkc, relaxed_ordering_write, ro_write);
-+	MLX5_SET(mkc, mkc, pci_relaxed_ordered_read, ro_read);
-+	MLX5_SET(mkc, mkc, order_write_after_write, ro_write);
- }
- 
- int mlx5e_create_mkey(struct mlx5_core_dev *mdev, u32 pdn, u32 *mkey)
-diff --git a/include/linux/mlx5/mlx5_ifc.h b/include/linux/mlx5/mlx5_ifc.h
-index 697fc9387b73..8531d611fa9b 100644
---- a/include/linux/mlx5/mlx5_ifc.h
-+++ b/include/linux/mlx5/mlx5_ifc.h
-@@ -1711,15 +1711,15 @@ struct mlx5_ifc_cmd_hca_cap_bits {
- 
- 	u8         max_sgl_for_optimized_performance[0x8];
- 	u8         log_max_cq_sz[0x8];
--	u8         relaxed_ordering_write_umr[0x1];
--	u8         relaxed_ordering_read_umr[0x1];
-+	u8         order_write_after_write_umr[0x1];
-+	u8         pci_relaxed_ordered_read_umr[0x1];
- 	u8         reserved_at_d2[0x7];
- 	u8         virtio_net_device_emualtion_manager[0x1];
- 	u8         virtio_blk_device_emualtion_manager[0x1];
- 	u8         log_max_cq[0x5];
- 
- 	u8         log_max_eq_sz[0x8];
--	u8         relaxed_ordering_write[0x1];
-+	u8         mkc_order_write_after_write_ro[0x1];
- 	u8         relaxed_ordering_read_pci_enabled[0x1];
- 	u8         log_max_mkey[0x6];
- 	u8         reserved_at_f0[0x6];
-@@ -1951,7 +1951,7 @@ struct mlx5_ifc_cmd_hca_cap_bits {
- 	u8         reserved_at_320[0x3];
- 	u8         log_max_transport_domain[0x5];
- 	u8         reserved_at_328[0x2];
--	u8	   relaxed_ordering_read[0x1];
-+	u8         pci_relaxed_ordered_read[0x1];
- 	u8         log_max_pd[0x5];
- 	u8         dp_ordering_ooo_all_ud[0x1];
- 	u8         dp_ordering_ooo_all_uc[0x1];
-@@ -4528,7 +4528,7 @@ struct mlx5_ifc_mkc_bits {
- 	u8         reserved_at_2[0x1];
- 	u8         access_mode_4_2[0x3];
- 	u8         reserved_at_6[0x7];
--	u8         relaxed_ordering_write[0x1];
-+	u8         order_write_after_write[0x1];
- 	u8         reserved_at_e[0x1];
- 	u8         small_fence_on_rdma_read_response[0x1];
- 	u8         umr_en[0x1];
-@@ -4570,7 +4570,7 @@ struct mlx5_ifc_mkc_bits {
- 	u8         translations_octword_size[0x20];
- 
- 	u8         reserved_at_1c0[0x19];
--	u8         relaxed_ordering_read[0x1];
-+	u8         pci_relaxed_ordered_read[0x1];
- 	u8         log_page_size[0x6];
- 
- 	u8         reserved_at_1e0[0x5];
+diff --git a/drivers/infiniband/core/uverbs_std_types_mr.c b/drivers/infiniband/core/uverbs_std_types_mr.c
+index b6d6cbe448a2..ce6c9aaea95d 100644
+--- a/drivers/infiniband/core/uverbs_std_types_mr.c
++++ b/drivers/infiniband/core/uverbs_std_types_mr.c
+@@ -332,7 +332,7 @@ static int UVERBS_HANDLER(UVERBS_METHOD_REG_MR)(
+ 				     IB_ACCESS_REMOTE_READ |
+ 				     IB_ACCESS_REMOTE_WRITE |
+ 				     IB_ACCESS_REMOTE_ATOMIC |
+-				     IB_ACCESS_RELAXED_ORDERING;
++				     IB_ACCESS_OPTIONAL;
+ 	} else {
+ 		if (!has_addr || has_fd_offset)
+ 			return -EINVAL;
 -- 
 2.52.0
 
