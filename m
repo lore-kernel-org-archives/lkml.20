@@ -1,74 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=91.218.175.152
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793583359;
-	b=ufhEAtfmcl5pHXOoi+h3cB1Uu1xLVM+6QKZ+e/orFZlMCHtjQCdi0JFTgchVoeIBdBgW
-	 hsjyWd2bY/ba8hQLA0kI+CCsyGPK0l5Wi6GmhQUcNWaO6p9VTBeBezylNjwBg5G/+O0ZZ
-	 Op28u9tEe7T5OOfsIr5XUxm0j2CMD8y03CM9PjFLhFMzarruX1NeHryG5NBgparwWnQMz
-	 pVhNy75EDvB8Vkno4kogWTqJVYiCwFfU8DGL90bT+CO5lvErWYgsxYORrIHMPoUH16HTY
-	 UopDBHoM0CGe6UHwnl6m/va6XnJFng5LUHBrarCO0rR9MqIgF0KS0HPrSC4SeQm0IuQ==
+	t=1793583432;
+	b=gi8QdZ4J7qhWb/fJSEQU+YgAXKd6k706gsX8FgBe84pp4leoWGFIayPVEnj88moov+U5
+	 f6Tqdb/A7BLIhPsIqVOq4jpFuT8IflZ0kQ6bwwQGfwnGBUkDOwgNAJrbbsrhbDDCld60X
+	 ry57jaPYmEd/kbDVTBxtEl/5AMGSyfysEnY7O+OJ1Oz5aFWJo+mGFp8ONgTV/M66lGtSD
+	 86PG1B8b5XF/hU6Hb1xlfERhQRFltHAjHpcjZavyl+i2iFqcHllW7orydQdkWbc19pRer
+	 d4Vb1ISmEYKZsj6UpdltV6wWVZ6KPu9LrM8akEzV9NUwK8sMJvxU+leGWFHAf670JSA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793583359;
-	h=DMARC-Filter:DKIM-Signature:Received:Date:From:To:Cc:Subject:
-	 Message-ID:References:MIME-Version:Content-Type:Content-Disposition:
-	 In-Reply-To;
-	bh=dlU73RR5PLs3OxNGnWFwp4gEKCDYj3V/cQaaU2gVSyg=;
-	b=X6fdVUsYQZ2JfEOp74swKkiMv2tbCXgyKUx6UuoCj6R7Bs1h0OaAGA4KaPOllGd9MS8P
-	 vAaT3DrADHIStADEiAMQHpQjAR1EA2HvEWPlrEsySYd3iFRgpnwR7mpom/rvsWthaZeqr
-	 GfyYwmwFDvOw1rz0870+0UytNdk8B9SXFzvAEMGXPmalsYdbet6Up4G5uz3bU4swrw/i2
-	 JSmB10n3nmRVkI/q0XrdJ8Bi0fF5Zo1ZcthoGehejEArDFISm4101rnuXLwGXxmj/A/2e
-	 9hZkKx7G8r71V78qbv4K5yeHaTIJxacKhQmsXlOBSTVe9brNoJWF7S08Q9dWwG0z0Gg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793583432;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=60rYsd/AjRckt1lyvYj4vtHp2+NMHTUyTXpQRwJ1gH8=;
+	b=DRjzzvEVNtGae26+gJj9V3a4w/vU1P4NjpVjgpSEUAx+8lRFBf8psnCatlsvwsM0OM9D
+	 dpsve2ud/2dAGtNy5vt/43y6aQfiP3pxiFgt14lKJosq0OqqN02g5bDIsVz4xukdTSGAt
+	 Hxpk25x2tkr3aJ+G+Q46iSjEskzou//p6VczUdV0Ed3SmiR3y16zKzfz+GWmvjS3X8X3j
+	 V35MVNTZsOO/HLFvEsViizGEb572iB4BRV/oJX58tSGfbn21hpMe9qHiceEhzJTj2+vYh
+	 d9G8w5IyPCPNWBrJnaKOV3nEnLB9jZtuQQG8ta3kDZ8Jj3O8N6S8WfKq8VC2wBbY6dA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=lunn.ch;
-	spf=pass smtp.mailfrom=lunn.ch;
-	dkim=pass header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ujjqRWDL;
-	arc=none smtp.remote-ip=156.67.10.101
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EIUPFzWs;
+	arc=none smtp.remote-ip=91.218.175.152
+Received: from mta0.migadu.com (out-152.mta0.migadu.com [91.218.175.152])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DC9606A324;
-	Mon,  2 Nov 2026 01:35:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 61DC9606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A73A7606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 01:37:11 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A73A7606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=lunn.ch header.i=@lunn.ch header.a=rsa-sha256 header.s=20171124 header.b=ujjqRWDL
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=dlU73RR5PLs3OxNGnWFwp4gEKCDYj3V/cQaaU2gVSyg=; b=ujjqRWDLSM35ZXJrHv4cRciEhX
-	ih9dwrbYjr+X+My4f5gNPokhio5aabBHAsqb8roJ4PwbG1Z1xLY/WUvAozOBpWxoOvxdbCGrmjONl
-	SO9TL3QOPq8+zkMThYRdSkkOs8IpQU3b3cnKxOEcBqyBto4oeiHcq8MSXF8ahZ+f3TjM=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xNgxe-00DidV-5x; Mon, 02 Nov 2026 02:35:46 +0100
-Date: Mon, 2 Nov 2026 02:35:46 +0100
-From: Andrew Lunn <andrew@lunn.ch>
-To: Doug Ledford <doug.ledford@hpe.com>
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
-	Nathan Chancellor <nathan@kernel.org>,
-	Nicolas Schier <nsc@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Guenter Roeck <linux@roeck-us.net>, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, linux-kbuild@vger.kernel.org,
-	Sandeep Bhoot <sandeep.bhoot@hpe.com>,
-	Iraimani P <iraimani.pavadai@hpe.com>,
-	Mamila Santosh <santosh-kumar.mamila@hpe.com>
-Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
- Slingshot NIC drivers
-Message-ID: <2f831f13-58ff-40ca-a76f-3aca647012b6@lunn.ch>
-References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
- <20261030151121.1f232b50@kernel.org>
- <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
- <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=EIUPFzWs
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=mF5HCW1rYzYU+/byn7lpiTMdUmKESV7ryiW//mc/fP0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793583429; v=1; x=1794188229;
+ b=EIUPFzWsp6gKLfS2+RhRYiXCqrdqUabhe/sOw3lewqSPsFfLEKGo9dyTZGA7Fc4FdWkDngVW
+ uOkrdFdJBaFlmqIFKOqBFznjvBuCiH2Cw7P/jUJ9wqaqdfkQFktp6gO2FhQKyvT23ovTOEAd0zB
+ cctPkGPMsGXw39Hy7JgaCc8I=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by mta10.migadu.com with ESMTPS id 7b95e43db45818e8;
+	Mon, 02 Nov 2026 01:37:09 +0000
+X-Mizu-Trace-ID: 7b95e43db45818e8
+X-Migadu-Flow: FLOW_OUT
+Date: Mon, 2 Nov 2026 09:37:05 +0800
+From: Baoquan He <baoquan.he@linux.dev>
+To: Ridong Chen <ridong.chen@linux.dev>
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Dave Chinner <david@fromorbit.com>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Muchun Song <muchun.song@linux.dev>, Qi Zheng <qi.zheng@linux.dev>,
+	Kairui Song <kasong@tencent.com>, Barry Song <baohua@kernel.org>,
+	Axel Rasmussen <axelrasmussen@google.com>,
+	Yuanchu Xie <yuanchu@google.com>, Wei Xu <weixugc@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org, linux-mm@kvack.org,
+	"open list:CONTROL GROUP - MEMORY RESOURCE CONTROLLER (MEMCG)" <cgroups@vger.kernel.org>,
+	"open list:BPF [MISC]:Keyword:(?:b|_)bpf(?:b|_)" <bpf@vger.kernel.org>,
+	Ridong Chen <chenridong@xiaomi.com>
+Subject: Re: [PATCH v5 2/6] mm/vmscan: move vmscan tracepoints to a local
+ header
+Message-ID: <aufpQS0XL-CD9YW_@bogon>
+References: <20261031090041.58574-1-ridong.chen@linux.dev>
+ <20261031090041.58574-3-ridong.chen@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -80,19 +85,122 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
+In-Reply-To: <20261031090041.58574-3-ridong.chen@linux.dev>
 
-> I'll see how fast I can get that done.  But "the bare minimum" is going
-> to be more than you are accustomed to.  This hardware does not receive
-> Ethernet packets using MAC address like normal Ethernet hardware.  It
-> uses a special portal table entry that filters in the Ethernet packets.
-> It has the ability to have different filters that receive different
-> Ethernet packets and so sorts them before the driver ever sees them.
+On 10/31/26 at 05:00pm, Ridong Chen wrote:
+> From: Ridong Chen <chenridong@xiaomi.com>
+> 
+> Move include/trace/events/vmscan.h to mm/trace_vmscan.h so that the
+> tracepoints can be extended to reference vmscan-internal structures such
+> as struct scan_control, which is not visible outside mm/.  This mirrors
+> what several other subsystems already do with their trace headers (e.g.
+> fs/fuse/fuse_trace.h, fs/gfs2/trace_gfs2.h, fs/lockd/trace.h).  As they
+> do, set TRACE_INCLUDE_PATH to "." and add mm/ to the include path of
+> vmscan.o, the only user that defines CREATE_TRACE_POINTS.
+> 
+> No functional change.
+> 
+> Signed-off-by: Ridong Chen <chenridong@xiaomi.com>
+> Reviewed-by: Barry Song <baohua@kernel.org>
+> ---
+>  MAINTAINERS                                        | 2 ++
+>  mm/Makefile                                        | 1 +
+>  mm/shrinker.c                                      | 2 +-
+>  include/trace/events/vmscan.h => mm/trace_vmscan.h | 4 ++++
+>  mm/vmscan.c                                        | 2 +-
+>  5 files changed, 9 insertions(+), 2 deletions(-)
+>  rename include/trace/events/vmscan.h => mm/trace_vmscan.h (99%)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index aaf2825ac945..2ad01107fa05 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -17653,6 +17653,7 @@ F:	Documentation/admin-guide/mm/multigen_lru.rst
+>  F:	Documentation/mm/multigen_lru.rst
+>  F:	include/linux/mm_inline.h
+>  F:	include/linux/mmzone.h
+> +F:	mm/trace_vmscan.h
+>  F:	mm/vmscan.c
+>  F:	mm/workingset.c
+>  
+> @@ -17802,6 +17803,7 @@ R:	Shakeel Butt <shakeel.butt@linux.dev>
+>  R:	Lorenzo Stoakes <ljs@kernel.org>
+>  L:	linux-mm@kvack.org
+>  S:	Maintained
+> +F:	mm/trace_vmscan.h
+>  F:	mm/vmscan.c
+>  F:	mm/workingset.c
+>  
+> diff --git a/mm/Makefile b/mm/Makefile
+> index 2a3ec53d62ee..277b97f7f8d7 100644
+> --- a/mm/Makefile
+> +++ b/mm/Makefile
+> @@ -32,6 +32,7 @@ KCOV_INSTRUMENT_vmstat.o := n
+>  KCOV_INSTRUMENT_failslab.o := n
+>  
+>  CFLAGS_init-mm.o += -Wno-override-init
+> +CFLAGS_vmscan.o += -I$(src)
 
-Can you add a single portal entry which matches everything? Or matches
-a single MAC address? KISS.
+One nit:
 
-You can then add on the complexity of adding MAC addresses to the
-table in later patchsets.
+Does it really need the above line? It affects mm/shrinker.c too, did your
+shrinker.o building fail?
 
-	Andrew
+Seems it's redundant because kbuild adds -I$(src) -I$(obj) for every object
+in the directory since commit cdd750bfb1f7 ("kbuild: remove 'addtree' and
+'flags' magic for header search paths"). Please correct me if I am
+wrong.
+
+Other than the nit, this patch looks good to me,
+
+Reviewed-by: Baoquan He <baoquan.he@linux.dev>
+
+Thanks.
+>  
+>  mmu-y			:= nommu.o
+>  mmu-$(CONFIG_MMU)	:= highmem.o memory.o mincore.o \
+> diff --git a/mm/shrinker.c b/mm/shrinker.c
+> index 4fb424e721bc..4fbdade6d2f6 100644
+> --- a/mm/shrinker.c
+> +++ b/mm/shrinker.c
+> @@ -3,7 +3,7 @@
+>  #include <linux/rwsem.h>
+>  #include <linux/shrinker.h>
+>  #include <linux/rculist.h>
+> -#include <trace/events/vmscan.h>
+> +#include "trace_vmscan.h"
+>  
+>  #include "internal.h"
+>  
+> diff --git a/include/trace/events/vmscan.h b/mm/trace_vmscan.h
+> similarity index 99%
+> rename from include/trace/events/vmscan.h
+> rename to mm/trace_vmscan.h
+> index 8a872990b4be..ad90f0e9bf2e 100644
+> --- a/include/trace/events/vmscan.h
+> +++ b/mm/trace_vmscan.h
+> @@ -648,4 +648,8 @@ TRACE_EVENT(mm_vmscan_kswapd_clear_hopeless,
+>  #endif /* _TRACE_VMSCAN_H */
+>  
+>  /* This part must be outside protection */
+> +#undef TRACE_INCLUDE_FILE
+> +#undef TRACE_INCLUDE_PATH
+> +#define TRACE_INCLUDE_PATH .
+> +#define TRACE_INCLUDE_FILE trace_vmscan
+>  #include <trace/define_trace.h>
+> diff --git a/mm/vmscan.c b/mm/vmscan.c
+> index 9959ca158ce8..79d2d614afd0 100644
+> --- a/mm/vmscan.c
+> +++ b/mm/vmscan.c
+> @@ -71,7 +71,7 @@
+>  #include "swap.h"
+>  
+>  #define CREATE_TRACE_POINTS
+> -#include <trace/events/vmscan.h>
+> +#include "trace_vmscan.h"
+>  
+>  struct scan_control {
+>  	/* How many pages shrink_list() should reclaim */
+> -- 
+> 2.43.0
+> 
