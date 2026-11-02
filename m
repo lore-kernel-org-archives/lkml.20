@@ -1,49 +1,108 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=13.77.154.182
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608860;
-	b=xKI9Q82H+2BwiAChFEPqjic3uYMVYPA1A3xzBjCkyCjgx8zGubXPn5HF0oLnG6tfo61y
-	 p2VdErTcMuEXO9cGq/715XqXQYlrdLzVYWsHnpJtXX9SCMYSXa1yY9WpClBqMsOdFz8Ah
-	 d5xmOmFQ4xoNc1pSOje1dgBBFkb53P1ycO1SgtDkYroOqOB2zsD07++L7CqxS12DtA/gT
-	 kRer7VHSLWydjehgjgZK63dcn3815rn3Qw4DVDo8UXDXyGJflzfSjbTyyxt2jqEI6G60M
-	 6NB8idxyglUbCVVWAmnLCBwWsj5KHtzUtW6Jslz1S6PcHZE2ryK9WXBuMn1ulOE/EvQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608860;
-	h=DMARC-Filter:Received:DKIM-Filter:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding:X-Spam-Status:
-	 X-Spam-Checker-Version;
-	bh=TBMPW9Hz/9HOJ6hvWgJSPpHoL/GUz3UlXN+d2qADpsk=;
-	b=4T3aUs5ntfyfewcNUBP6mmXSPoT3FNetfH61/XjfsRpiJ6fVQej5XlRPWV+Jz2gldMbi
-	 l/snzdxYyTzqqx2d06028FzI8N+2gHr93SmSiewkLZ4Xo+Y8VpfF1sNYrcKe2gJ8iTLgC
-	 z1rzxRhpz576AxjHr3bRfYFSAzdRgGfFuUl8H3I2FsmtbSxRgO1rLuQIjQ8E7YMsBahR9
-	 ecXjFDszZ4Er00SxRxofI1VnmP7c4iGP46zUrfP/kME9OutU/aPraexrNh+w7zyngYg9d
-	 Dk1MgLPzSv1dqsgSELcODUmJIIJ4cBAjkfrPH9UJGoUaOem7Pd8ieoGtQqQ8jrpZPzQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.microsoft.com;
-	spf=pass smtp.mailfrom=linux.microsoft.com;
-	dkim=pass header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=NYGQybIW;
-	arc=none smtp.remote-ip=13.77.154.182
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A8250606A324;
-	Mon,  2 Nov 2026 08:40:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A8250606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.a=rsa-sha256 header.s=default header.b=NYGQybIW
-Received: from [10.95.64.190] (unknown [52.172.102.219])
-	by linux.microsoft.com (Postfix) with ESMTPSA id CDA7B20B7166;
-	Mon,  2 Nov 2026 00:40:40 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CDA7B20B7166
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1793608844;
-	bh=TBMPW9Hz/9HOJ6hvWgJSPpHoL/GUz3UlXN+d2qADpsk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=NYGQybIWbkUHU2Bw31QghwVsbUX6WhJzJCjW1MhEzn7M7abGTFZPxJXyngJgDMfki
-	 uBnrIadeDBXoxg+LkTfUrNTyb/GgGbRb61+3hDBkqv8xb9Wwfk8+Da6BSHJgCmnF56
-	 iM/hq/WIlcNLVRcZIp/Y28hF44eo2kgtyOuIy2XI=
-Message-ID: <1aa540cd-5bcc-492e-a6d2-561962d9dd69@linux.microsoft.com>
-Date: Mon, 2 Nov 2026 14:10:52 +0530
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.77
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793608920;
+	b=l5MnsWIW4HY7mCfPK4d3oRcttU6tr/VQYhaT6KE9sWUCR3nO7ah796GveYdAOJiSGS2s
+	 VbpEwlkUEOORItErPGGrsEC0Oqm5sUu/RP6IUips0JQW/ZxeCzUg+5gVAUQ3Mzu3Lfd5o
+	 lukqb9Kc0qEHzmG2KFy7OKZCoGWUy31AQ0Fj1Uh90TUJRzmAkKNWHJhb5GVlxS/xOnEjt
+	 YeeXu89WVUf6Bnb+osMsTZ3RL5ZFyyFnt5etX6bU+ua4CTcIVOuWs4gtBgdqn05JNklU3
+	 a28SQFKqB8aFPFwNWbj5k6OQ2Z5J3GoyzTYrYbjpvYPpYfTg8l27xAWMQwec6f+RErA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608920;
+	h=DMARC-Filter:Received:Received:X-MS-Exchange-Authentication-Results:
+	 Received-SPF:Received:Received:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding:X-EOPAttributedMessage:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:Content-Type:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=K/VuNAFvyH2RzF9VWtc5C4dx7BhXxQLtuGzqwhLuChE=;
+	b=JxLCzRfeeQQisK+gFyYyOf4FtQxcimK/xrHz1TgPhDCwtT6ntdy52QKHhpPyB1k1hH+A
+	 Ect9tq15u2UvOvAr3hs/rcOHwvuyxwBLRhuLozd//Hr7Q0bdKcspTX7hPhwvGulPUVY/W
+	 9Ndfm7iQPXE31ze6fhpVZre4CK0yQ1ts4lW/2oW7iPCXfSqHU/H375QFJPRHDMpn4vPzB
+	 5kEhgKFo1Wk3IWkXnAXDXWRwhEbKZ7l+i9r1RHp5as3OQ4EuGhwDj/mOutyaO1A553cPi
+	 Wt94ReT9xjG+vmLa7OTbeowNG6OIMFnxo6EdKBWmGKRnIPQ6ICAX5VB+Vvc1tPCtzXg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=none header.from=cixtech.com;
+	spf=pass smtp.mailfrom=cixtech.com;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.126.77
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022077.outbound.protection.outlook.com [52.101.126.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C5D4606A326;
+	Mon,  2 Nov 2026 08:41:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9C5D4606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wt5djTDr+hkPJUoMFZfsQPzViYERXrw/3qqXI4YRHiTuSanrahnvf72rz47JEoNCKQjmV8EhbNyooYW0qsA7b3PSw2lIKUPOStL/voXkDJwMz1n4t+Gwq1kLtxpJNnngLCBkbHJLB36jNasgy0J1AeshHrpcwlS/L+SEP+kcdAigLKbdgQ/roZ6yb0y5VejDNXx0Wpt2SBzWFc/D7Lgtv2uRsJAzeYCsjewzpF+lw9+ekX8ZgC7hnoRhLnlDW5eXUa/l8RX20TZbQJJMfp8kPAuAYAJOKJHBShIcLgtMlsPoJFUwHvFC6ehm52rkUHDyxvhyzyb+kmZIVfah7NejAg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=K/VuNAFvyH2RzF9VWtc5C4dx7BhXxQLtuGzqwhLuChE=;
+ b=g7xsuFDfwsls+MKc2KRzgt7A1Gmk77GmXFGVY8pDyTsVRYpZ981A659bKTNkeUKW7tqGDGdbu5OtnzXirDsTYSlQ1p91pl5Cc/H8A80ufq1hXZZS5RckvqaOsFwihHAoEVkgcbHe8IVdmLqEYQl8PFoj5FDcjpkG2IybrreLUtr+whReiVJStUnh8T1fMpwOsPUKxRLyYECJ8QEJYll98dTxjp9uVFx3gARrVzcoxf1swHAUU1hVioLbISW1f97nMCLT7kGa47vXYVXKST3OyMv0i5hjQOaaguV3pE7wgECHff7wlldysOOx9hTGlxljHohBQ9yGPk2QJ2snDOUX0Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 222.71.101.198) smtp.rcpttodomain=arm.com smtp.mailfrom=cixtech.com;
+ dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
+ not signed); arc=none (0)
+Received: from SI2PR02CA0031.apcprd02.prod.outlook.com (2603:1096:4:195::16)
+ by PUZPR06MB6005.apcprd06.prod.outlook.com (2603:1096:301:11b::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.592.8; Mon, 2 Nov 2026
+ 08:41:55 +0000
+Received: from SG1PEPF000082E1.apcprd02.prod.outlook.com
+ (2603:1096:4:195:cafe::27) by SI2PR02CA0031.outlook.office365.com
+ (2603:1096:4:195::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
+ Nov 2026 08:41:55 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
+ header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
+Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
+ 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
+ client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
+Received: from smtprelay.cixcomputing.com (222.71.101.198) by
+ SG1PEPF000082E1.mail.protection.outlook.com (10.167.240.10) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 08:41:54 +0000
+Received: from JohnnyFan (unknown [172.21.64.24])
+	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id A2D5E40920E1;
+	Mon,  2 Nov 2026 16:41:53 +0800 (CST)
+From: "Johnny.Fan" <johnny.fan@cixtech.com>
+To: will@kernel.org,
+	mark.rutland@arm.com
+Cc: suzuki.poulose@arm.com,
+	leo.yan@arm.com,
+	jeremy.linton@arm.com,
+	maz@kernel.org,
+	mike.leach@arm.com,
+	james.clark@linaro.org,
+	alexander.shishkin@linux.intel.com,
+	coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cix-kernel-upstream@cixtech.com,
+	jie.fu@cixtech.com,
+	bob.zhang@cixtech.com,
+	"Johnny.Fan" <Johnny.Fan@cixtech.com>,
+	Fugang Duan <fugang.duan@cixtech.com>
+Subject: [PATCH v3 1/2] perf: arm_pmu: Accept a per-device CPU mask from platform data
+Date: Mon,  2 Nov 2026 16:41:51 +0800
+Message-ID: <20261102084153.3975282-2-johnny.fan@cixtech.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261102084153.3975282-1-johnny.fan@cixtech.com>
+References: <20261102084153.3975282-1-johnny.fan@cixtech.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,297 +112,168 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] x86/hyperv: Account for lazy mm_cpumask maintenance
-To: Dave Hansen <dave.hansen@intel.com>, haiyangz@microsoft.com,
- wei.liu@kernel.org, decui@microsoft.com, tglx@kernel.org, mingo@redhat.com,
- bp@alien8.de, dave.hansen@linux.intel.com, x86@kernel.org, luto@kernel.org,
- peterz@infradead.org
-Cc: hpa@zytor.com, riel@surriel.com, mhklinux@outlook.com,
- linux-hyperv@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261029064234.362385-1-namjain@linux.microsoft.com>
- <cae10e61-ef31-4a66-9de9-7c39663026cd@intel.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <cae10e61-ef31-4a66-9de9-7c39663026cd@intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SG1PEPF000082E1:EE_|PUZPR06MB6005:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: ed9b2e39-3567-4e39-dfbd-08df38bd2641
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|82310400026|36860700016|56012099006|261009223027099003|261021123027099003|261021121427099003|261022075727099003|261026121527099003|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	9+o1zi7ovHGVcjb45h/Q5LYn6VRNS7jJvnP3ejEb04evW7+/dtu3oJku8gG7kAvPA62q3N4wkvR9nqNo39tB5xhQNvkpBPtGObZ6+a9e8iYKEKUKKHXfRhWbBHN5KI7ZyexAZAucVqlReKm/mKlmGdjPYmDEhaoWvAUDy494SsJ3nV3KEVTFLP1f2oQr+5cahargg1lTD/KZNOAil3zVj+ltQK06zUt/eMRaFCQjH33g5PBBKZ/s2TW7/IK1T0bs2n2VRk9PnBClz0dXt9UJq+w6xyqRxkiQJB/vciI/TjQWbos1Sw8d+0d+rZeoG7EzblJQH9QAfRvo97UFII/liFhY/w8b7QRnPAICbkjHaJSwG+KP5eX7CTgD4OWHvbsdZZm4bv5Gr9PWrPU7ubN0c4E0JDcbAG4vXG1bw1qf6LcjvhnbsIHziruHJXwt+vEU9RkMAkPPryqiJKlqnaeSjk4n1L0FZe687jO69jmM2rJY5hPp5rhzhmI/E+wGzEbchpGHLJN46GvpDefWJ/Ti0grdoxYUya7/rA8utLqfJbH77Lf4VlFGKascrrZS+vqYJLAPqLsz4e4pJHZILV4S+HDdQRxuJZzN04G+TB5sh5k2IyGm3OyDvy72W6d3c5vSQnuoBBETE00XYBQO23o2A2b+HaqZEt1rhpzFIpgAm/k6HvtXvb1rZH1cKT9LdIOI4aKjQWH/wwUV7D6dnJzdSA==
+X-Forefront-Antispam-Report:
+	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(82310400026)(36860700016)(56012099006)(261009223027099003)(261021123027099003)(261021121427099003)(261022075727099003)(261026121527099003)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	U/PEmN3Po6l/7JG/vEQUUYaEgYdZUGFBARH3URFMtYwH4RIB5R+GvtZipQWiRh4pi6EYhmvvb/DPTKmCqAOg/D6ltRDxY8U+i0XCuFEc7m13NtMabH0JMf4/NPkBA29dfmNVvpKVMpvgQvIi2lvShhsD1qMiQr/1NUqkbiV9dYNxjUcRtjZ/7S3G5hkWi9bxb19ZgwWhqgnj8utcue/CAtia8NiBjDwMJ8Ahp3JKSkVPRRfwvkkcJI7Jh4cAPzKt6s70eoh9eZ5aJHDGzMRVrRjrUxuEKed2jVyg3xe42AVp0lTuJmmH3x20ldq93ReLWqBujSCLsF8EtQrogOc8wKHVrRBLMJSWQf3cg7YdzfuT6J/U8hUMC9dXZTs7RTqshDRnNbR71038yTTqjT4usLOWmqgV9xv26kFk1WVJi9zz2a8seVeEahkPnOL6ha1c
+X-OriginatorOrg: cixtech.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:41:54.6297
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ed9b2e39-3567-4e39-dfbd-08df38bd2641
+X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SG1PEPF000082E1.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PUZPR06MB6005
 
+From: "Johnny.Fan" <Johnny.Fan@cixtech.com>
 
+Synthetic platform devices created from ACPI data have no fwnode, so
+platform_get_irq_affinity() cannot tell which CPUs implement the
+feature and falls back to cpu_possible_mask.
 
-On 10/30/2026 9:39 PM, Dave Hansen wrote:
-> On 10/28/26 23:42, Naman Jain wrote:
->> CPUs no longer running an mm may remain in mm_cpumask(). Hyper-V treats
->> these CPUs as flush targets and bypasses the native callbacks that trim
->> the mask. A single-threaded process can therefore keep issuing
->> all-processor flushes after visiting all CPUs and returning to one CPU.
->>
->> Share the native target predicate and filter the mask before building
->> either hypercall format or selecting HV_FLUSH_ALL_PROCESSORS. Preserve
->> lazy-TLB exclusion and unfiltered page-table-freeing flushes, and use
->> native callbacks for periodic trimming and ASID transitions.
->>
->> When no remote targets remain, request immediate trimming through native
->> callbacks so stale memberships do not unnecessarily prevent later
->> invalidations from using the local fast path. Leave lazy CPU-mask
->> maintenance during context switches unchanged.
-> 
-> There's a lot of stuff in this patch not covered in the changelog. Like
-> the mm_in_asid_transition() addition.
-> 
-> This reads to me as being highly LLM-generated and not super readable or
-> relevant.
+Add an optional CPU mask to the platform data and make both the SPE and
+the TRBE drivers prefer it over the firmware-described IRQ affinity.
+Device tree devices have no platform data and keep using the affinity.
 
-In my attempt to fix AI reported issues, I combined several changes
-without explaining their individual purposes clearly enough. I'll split
-the patch and simplify the explanations.
+TRBE must also pass a stable copy of the mask to
+request_percpu_irq_affinity(), because supported_cpus is pruned as CPUs
+are probed, while the IRQ action keeps a pointer to the mask.
 
-> 
->> Fixes: 209954cbc7d0 ("x86/mm/tlb: Update mm_cpumask lazily")
-> 
-> We usually don't put Fixes: tags on performance improvements.
-> 
-> I don't want this backported.
+This is a preparatory change: no ACPI device carries platform data yet,
+so behaviour is unchanged.
 
-I included Fixes because this is a measured regression rather than a
-general optimization. We observed the SuperBench workload regress
-between 6.8 and 7.0 and bisected it to 209954cbc7d0. That commit stopped
-clearing outgoing mm_cpumask bits at context-switch time and moved their
-removal into the native flush callback, which successful Hyper-V
-hypercalls bypass. More details on this in my reply to Michael Kelley in 
-this thread.
+Signed-off-by: Johnny.Fan <Johnny.Fan@cixtech.com>
+Reviewed-by: Fugang Duan <fugang.duan@cixtech.com>
+---
+ drivers/hwtracing/coresight/coresight-trbe.c | 22 +++++++++++++++++---
+ drivers/perf/arm_spe_pmu.c                   | 10 ++++++++-
+ include/linux/perf/arm_pmu.h                 | 10 +++++++++
+ 3 files changed, 38 insertions(+), 4 deletions(-)
 
-I understand that you don't want this backported, but if this changes
-anything, please let me know.
-
-> 
->> -	if (!hv_hypercall_pg)
->> +	/*
->> +	 * Hypercalls bypass the callbacks that trim mm_cpumask() and complete
->> +	 * ASID transitions.
->> +	 */
->> +	if (!hv_hypercall_pg || info->trim_cpumask ||
->> +	    mm_in_asid_transition(info->mm))
->>   		goto do_native;
-> 
-> What do ASID transitions have to do with this?
-
-They are separate from the reported regression. The native path
-explicitly bypasses this predicate during global ASID transitions,
-and its callbacks can switch CPUs still using a local ASID to the
-mm's global ASID.
-
-A Hyper-V flush hypercall does not run those callbacks. I added the
-guard to preserve that handling when reusing the native predicate.
-
-The missing fallback predates this patch. I'll separate it for review
-and explain the reason. I have not runtime-tested the transition case.
-
-> 
->>   	local_irq_save(flags);
->> @@ -79,6 +82,30 @@ static void hyperv_flush_tlb_multi(const struct cpumask *cpus,
->>   		goto do_native;
->>   	}
->>   
->> +	flush_cpus = this_cpu_ptr(&hyperv_tlb_flush_mask);
->> +	if (info->freed_tables) {
->> +		cpumask_copy(flush_cpus, cpus);
->> +	} else {
->> +		cpumask_clear(flush_cpus);
->> +		for_each_cpu(cpu, cpus) {
->> +			if (cpu_needs_tlb_flush(cpu, info))
->> +				__cpumask_set_cpu(cpu, flush_cpus);
->> +		}
->> +	}
-> 
-> This needs some heavy commenting. Or a helper. Or both.
-
-Acked.
-
-> 
->> +	/*
->> +	 * An effectively local mm should not keep taking the remote path until
->> +	 * the next periodic trim. Let the native callbacks prune stale bits.
->> +	 */
->> +	if (cpumask_any_but(flush_cpus, smp_processor_id()) >= nr_cpu_ids) {
-> 
-> Is this condition right? Doesn't ">= nr_cpu_ids" mean "no other CPUs found"?
-> 
-> I'm not following this.
-
-Yes, that is the intended condition. The filtered mask contains no CPU
-other than the current CPU, or is empty.
-
-The purpose was to avoid a Hyper-V hypercall when there are no remote
-targets, and to request native mask cleanup at that point. The comment
-doesn't explain that clearly enough. I'll fix it.
-
-> 
->> +		struct flush_tlb_info local_info = *info;
-> 
-> What's wrong with reusing 'info'?
-
-The argument 'info' is const. The copy lets this call request trimming 
-without modifying the caller's request.
-
-> 
->> +		local_info.trim_cpumask = 1;
->> +		local_irq_restore(flags);
->> +		native_flush_tlb_multi(cpus, &local_info);
->> +		return;
->> +	}
-> 
-> Gah, so is this hacking "trim_cpumask = 1" to force should_flush_tlb()
-> or something?
-
-Yes. It makes the native predicate select stale, non-lazy members so
-their callbacks can clear their own mask bits. The intent was to avoid
-waiting for periodic trimming before later flushes can use the local
-fast path.
-
-> 
-> Right now, we have quite clean code around info->trim_cpumask. It's
-> either 0 or set from:
-> 
-> 	info.trim_cpumask = should_trim_cpumask(mm);
-> 
-> It would be nice to keep it that way if possible.
-
-Agreed. Having a second trimming decision in the Hyper-V backend is
-awkward. I'll separate this cleanup optimization from target filtering
-so we can review the policy independently.
-
-> 
-> Also, just looking at flush_tlb_mm_range(), there's a very familiar
-> check there:
-> 
->          } else if (cpumask_any_but(mm_cpumask(mm), cpu) < nr_cpu_ids) {
->                  remote_flush = true;
-> 
-> which feeds:
-> 
->          if (remote_flush) {
->                  info.trim_cpumask = should_trim_cpumask(mm);
->                  flush_tlb_multi(mm_cpumask(mm), &info);
->                  consider_global_asid(mm);
->          }
-> 
-> So what if we just added a check to should_trim_cpumask(), like:
-> 
-> 	if (cpumask_weight(mm_cpumask(mm)) > atomic_read(&mm->mm_users))
-> 		return true;
-> 
-> Or mm_users*2, or _some_ other heuristic that will trip when
-> mm_cpumask(mm) gets out of whack from ->mm_users.
-> 
-> That's a pretty cheap check because mm_cpumask() is already hot or is
-> just about to be read anyway. It might actually be useful to INVLPGB
-> systems too. That still needs the info->trim_cpumask check at the top of
-> hyperv_flush_tlb_multi(), btw.
-> 
-
-I tested this as a replacement for the Hyper-V forced-trim block on a
-32-vCPU Hyper-V VM, retaining the native fallback for
-info->trim_cpumask. With three remote readers, mm_users was 4, while
-the mask weight remained at 26–32, including 22–28 lazy memberships.
-
-For ordinary flushes, trimming skips lazy CPUs. The comparison stayed
-true across 10,000 flush requests, and each reader received 10,000
-remote callbacks. The current patch used Hyper-V hypercalls instead
-in the corresponding test.
-
-I agree with centralizing the decision, but the raw comparison can
-keep requesting cleanup while lazy memberships keep the condition
-true. A 2x threshold would still trigger for these observed counts.
-
-> Also, this is *kinda* changing the meaning of ->trim_cpumask. It's
-> really starting to mean "send IPIs". A rename might be appropriate.
-> 
-
-For Hyper-V it does select native callbacks rather than a flush
-hypercall. The native predicate still skips lazy CPUs, though, so it
-does not mean unconditional IPI delivery.
-
-I'll revisit the name as part of the separate cleanup patch, once
-the intended policy is settled.
-
-> /*
->> diff --git a/arch/x86/include/asm/tlbflush.h b/arch/x86/include/asm/tlbflush.h
->> index 70098d448e999..e1e05cc867d5a 100644
->> --- a/arch/x86/include/asm/tlbflush.h
->> +++ b/arch/x86/include/asm/tlbflush.h
->> @@ -264,6 +264,12 @@ void flush_tlb_one_kernel(unsigned long addr);
->>   void flush_tlb_multi(const struct cpumask *cpumask,
->>   		      const struct flush_tlb_info *info);
->>   
->> +/*
->> + * Do not use for filtering when freeing page tables or during global ASID
->> + * transitions.
->> + */
->> +bool cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info);
-> 
-> Please look around this header that's being patched. Are the functions
-> above this commented? Please match the style.
-> 
-> Comment the definition itself, not the declaration.
-> 
-
-Acked.
-
->>   static inline bool is_dyn_asid(u16 asid)
->>   {
->>   	return asid < TLB_NR_DYN_ASIDS;
->> diff --git a/arch/x86/mm/tlb.c b/arch/x86/mm/tlb.c
->> index 0c4da320831cb..f2f40928d56a4 100644
->> --- a/arch/x86/mm/tlb.c
->> +++ b/arch/x86/mm/tlb.c
->> @@ -1273,10 +1273,9 @@ static void flush_tlb_func(void *info)
->>   			nr_invalidate);
->>   }
->>   
->> -static bool should_flush_tlb(int cpu, void *data)
->> +bool cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info)
->>   {
->>   	struct mm_struct *loaded_mm = per_cpu(cpu_tlbstate.loaded_mm, cpu);
->> -	struct flush_tlb_info *info = data;
->>   
->>   	/*
->>   	 * Order the 'loaded_mm' and 'is_lazy' against their
->> @@ -1311,6 +1310,11 @@ static bool should_flush_tlb(int cpu, void *data)
->>   	return false;
->>   }
->>   
->> +static bool should_flush_tlb(int cpu, void *data)
->> +{
->> +	return cpu_needs_tlb_flush(cpu, data);
->> +}
->> +
->>   static bool should_trim_cpumask(struct mm_struct *mm)
->>   {
->>   	if (time_after(jiffies, READ_ONCE(mm->context.next_trim_cpumask))) {
-> 
-> None of this movement is mentioned in the changelog. The naming change
-> here is also really silly. Now we have
-> 
-> 	should_flush_tlb(int cpu, void *data)
-> and
-> 	cpu_needs_tlb_flush(int cpu, const struct flush_tlb_info *info)
-> 
-> which are literally the same thing, except for the type. This is
-> precisely the kind of place we should keep the names _identical_. Either
-> use an __ or call the "void *" version "_wrapper" or something with a
-> comment:
-> 
-> /* Wrap foo() with a different type for use as an IPI callback: */
-> 
-> BTW, this "patch" probably needs to be broken up into a 4-5ish patch series.
-
-
-I can use the wrapper and explain its role.
-I'll also break this patch into a series.
-
-Thanks for reviewing.
-
-Regards,
-Naman
+diff --git a/drivers/hwtracing/coresight/coresight-trbe.c b/drivers/hwtracing/coresight/coresight-trbe.c
+index c7cbca45f2de..0c4bc8fbcaf3 100644
+--- a/drivers/hwtracing/coresight/coresight-trbe.c
++++ b/drivers/hwtracing/coresight/coresight-trbe.c
+@@ -158,6 +158,7 @@ struct trbe_drvdata {
+ 	struct hlist_node hotplug_node;
+ 	int irq;
+ 	cpumask_t supported_cpus;
++	cpumask_t irq_affinity;
+ 	enum cpuhp_state trbe_online;
+ 	struct platform_device *pdev;
+ };
+@@ -1533,6 +1534,8 @@ static void arm_trbe_remove_cpuhp(struct trbe_drvdata *drvdata)
+ static int arm_trbe_probe_irq(struct platform_device *pdev,
+ 			      struct trbe_drvdata *drvdata)
+ {
++	const struct arm_pmu_acpi_dev_data *acpi_data =
++		dev_get_platdata(&pdev->dev);
+ 	const struct cpumask *affinity;
+ 	int ret;
+ 
+@@ -1547,14 +1550,27 @@ static int arm_trbe_probe_irq(struct platform_device *pdev,
+ 		return -EINVAL;
+ 	}
+ 
+-	cpumask_copy(&drvdata->supported_cpus, affinity);
++	/*
++	 * The ACPI path has no fwnode describing which CPUs implement TRBE,
++	 * so it passes the mask explicitly. DT devices still use the
++	 * firmware-described IRQ affinity.
++	 */
++	cpumask_copy(&drvdata->supported_cpus,
++		     acpi_data ? &acpi_data->cpus : affinity);
++
++	/*
++	 * supported_cpus gets pruned as CPUs are probed, so keep a stable
++	 * copy for the IRQ action.
++	 */
++	cpumask_copy(&drvdata->irq_affinity, &drvdata->supported_cpus);
+ 
+ 	drvdata->handle = alloc_percpu(struct perf_output_handle *);
+ 	if (!drvdata->handle)
+ 		return -ENOMEM;
+ 
+-	ret = request_percpu_irq_affinity(drvdata->irq, arm_trbe_irq_handler, DRVNAME,
+-					  affinity, drvdata->handle);
++	ret = request_percpu_irq_affinity(drvdata->irq, arm_trbe_irq_handler,
++					  DRVNAME, &drvdata->irq_affinity,
++					  drvdata->handle);
+ 	if (ret) {
+ 		free_percpu(drvdata->handle);
+ 		return ret;
+diff --git a/drivers/perf/arm_spe_pmu.c b/drivers/perf/arm_spe_pmu.c
+index b70f3fedf028..712b7f187301 100644
+--- a/drivers/perf/arm_spe_pmu.c
++++ b/drivers/perf/arm_spe_pmu.c
+@@ -1330,6 +1330,8 @@ static void arm_spe_pmu_dev_teardown(struct arm_spe_pmu *spe_pmu)
+ static int arm_spe_pmu_irq_probe(struct arm_spe_pmu *spe_pmu)
+ {
+ 	struct platform_device *pdev = spe_pmu->pdev;
++	const struct arm_pmu_acpi_dev_data *acpi_data =
++		dev_get_platdata(&pdev->dev);
+ 	const struct cpumask *affinity;
+ 	int irq;
+ 
+@@ -1342,7 +1344,13 @@ static int arm_spe_pmu_irq_probe(struct arm_spe_pmu *spe_pmu)
+ 		return -EINVAL;
+ 	}
+ 
+-	cpumask_copy(&spe_pmu->supported_cpus, affinity);
++	/*
++	 * The ACPI path has no fwnode describing which CPUs implement SPE,
++	 * so it passes the mask explicitly. DT devices still use the
++	 * firmware-described IRQ affinity.
++	 */
++	cpumask_copy(&spe_pmu->supported_cpus,
++		     acpi_data ? &acpi_data->cpus : affinity);
+ 
+ 	spe_pmu->irq = irq;
+ 	return 0;
+diff --git a/include/linux/perf/arm_pmu.h b/include/linux/perf/arm_pmu.h
+index 02d2c7f45b52..7f1c03c55025 100644
+--- a/include/linux/perf/arm_pmu.h
++++ b/include/linux/perf/arm_pmu.h
+@@ -8,6 +8,7 @@
+ #ifndef __ARM_PMU_H__
+ #define __ARM_PMU_H__
+ 
++#include <linux/cpumask.h>
+ #include <linux/interrupt.h>
+ #include <linux/perf_event.h>
+ #include <linux/platform_device.h>
+@@ -199,6 +200,15 @@ void armpmu_free_irq(struct arm_pmu * __percpu *armpmu, int irq, int cpu);
+ #define ARMV8_SPE_PDEV_NAME "arm,spe-v1"
+ #define ARMV8_TRBE_PDEV_NAME "arm,trbe"
+ 
++/*
++ * Per-device CPU mask passed by the ACPI MADT walk. The synthetic
++ * platform devices have no fwnode, so the IRQ affinity cannot describe
++ * which CPUs actually implement the feature.
++ */
++struct arm_pmu_acpi_dev_data {
++	struct cpumask cpus;
++};
++
+ /* Why does everything I do descend into this? */
+ #define __GEN_PMU_FORMAT_ATTR(cfg, lo, hi)				\
+ 	(lo) == (hi) ? #cfg ":" #lo "\n" : #cfg ":" #lo "-" #hi
+-- 
+2.55.0
 
