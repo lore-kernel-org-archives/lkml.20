@@ -1,113 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.178
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793589534;
-	b=zYLPRXKyVIMOzeMTAquCP3r6HQshh8x1vmoFM88ZuSf7nz/67nGcEMM4mwUHPWzax82p
-	 +u8LDOCCwJ5jZuLO0tv0ZveKg5DO2QrEYwPIxZC0bVtPcWs/cJVFOEaqjll4qP6kKunnJ
-	 vP67zAW7Biobu6yQ2zA4RZeg0FH6W7C5UT1P44AiJwPa4+/1assVsFEv7TmNfoZTMqcv5
-	 BLmZcRa6wNDNBDFyfSEFdbqcWLMYQPjASUrl6YCbmqdHtIwpAwzrVezkRNrn85EF8JwT0
-	 vjum9DdMX024ue1orX2OwzilKisH6GkJBId75bM2mC5fFHJvxjlEiwD4ihP7/HD+zKg==
+	t=1793589553;
+	b=gdvBAU8ryD/2dx1zE4gMmgc93Qrzp4pKNVY7i+4RcYR3eB4uj1mXEZHsZ1ScOyU4wVPx
+	 uZVYUFbxFK5PS6XJ7oxl5caNAd6D2CB3UT1cKMiR14juAVZs7tZNuu2wz+AvESWEStQXu
+	 RFFYoNJGlrdr9GCi2P9qEOfsKq+k4uOEMp6X6Zw1CSJKuzXpzepmgzKUsBMRWrS4zYwOu
+	 2haP6hI7KTtEnJSCb4oc1PHklN43sUil8sGS/T9unJV4LeU+AQifO5sMW8vRpZhEHTOon
+	 ilQSvDrFaSfou36Gc9QfnNqQA4V0h3bw2ImKBSoqOzSdz+G8QBgF+VCEx90Bt0zWf9Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793589534;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793589553;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Content-Disposition;
-	bh=nJCnzPlEYPTpiPpNwhFLsc1nTWFuyJzYXd5f4tSr6oQ=;
-	b=GzqfRrPelQ7ay6WNw47CcLX3NBISOV7vl8tWwmZRpT+WGfIQeDoDbi5TVOPqFLYvEK9U
-	 qY9xbnDlKfy68BfjnAtlCOOUVNoAa6W+r2mr0REgrC852HDsATmGwEwW41X80VuOwUjWb
-	 EM22VbUNoDMYfoNDCvrWVsKRfHixHlsNBeKNbtVHgJvPg1CdjQhQZ5nrkkROaXFc6O7ji
-	 P2oQ0Uo1lMplXrtoEsZTXUWikWBer8jVsq9dOxPhoqmsC6b9Egfg0v9PUGNAIdzK3PkMD
-	 W2krfPVw52avkl97bbuOeV10Gk+tvcWUD4zm0lihPDsBHwM3wr/TwGiWfyAsRSbqqbQ==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=Pq7i3VhC2u37X3a2faYflIcKZg9HRolwFH3fa/oNdq8=;
+	b=KNlND/jmFASmX4WGd/154oYY8rn+SpGS+qTzK3hgRJnfgTJDig83uCRubncwqQ+c0hDu
+	 Pv/r01Nmqft6uf1jDfMlR2WNYLIxT3ysNQP49zRf2rDcLtebp0yJof+P9cF16fRc/UH+H
+	 FW7FU3/iwsLVEpY3utrJFfTn0BJomRDDaH9BEdMdrvuGc0XVpWD4l5fL3/Oofhk/Ffaj+
+	 0zuCiwlhcCJ3N8Z4Qtok1pjkYBkvNhHS296BM4e36a9CAIj1a6DWWWH53UTsTXCiXtUUG
+	 yfPFx7/1LavXEzCDKdYhy4vDorcmXCopuSRLUrgcXr2ZM/J6tGHUIjJBQ2bRe+o/5DA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HzdV9ohT;
-	arc=none smtp.remote-ip=74.125.82.182
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c4lNAqb;
+	arc=none smtp.remote-ip=209.85.214.178
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E845606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:18:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E845606A32C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD286606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:19:12 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BD286606A326
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=HzdV9ohT
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3282db206d3so3838642eec.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:18:54 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0c4lNAqb
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2e8f2c3ad6bso14992485ad.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:19:12 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793589533; x=1794194333; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nJCnzPlEYPTpiPpNwhFLsc1nTWFuyJzYXd5f4tSr6oQ=;
-        b=HzdV9ohTmNFyqmLLsDCqmODyoy6Sx31mv0ijemiLjdQg7hHw0X40I2CBE+mz0w6uWC
-         aNYtC6Yu5CBBGxnEVhvE/Y4P6wEZVejk2WgvWSIhziXfRTXvLOnmEUo9UxTr7iP4XE/3
-         2eEplDFJDBFyraV/0AW3CWGNlYcrVqQIpT2k2nOGcHrMMk5JghogbQjvZYX+UKpoAakp
-         Y1Cxg2O0X+lnxVEt7t0wL7ZtoESdT4GuM4+mampJwV4M+gY1pIlnVR9DJfvSBaw9QIpW
-         NQcWRXEroXcZLMc6vUr7ZvMWPYeFlup5uPOXrbCj0dmNQE52XCFrdmOQbDZhTClfxJTa
-         y+dg==
+        d=gmail.com; s=20260707; t=1793589552; x=1794194352; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pq7i3VhC2u37X3a2faYflIcKZg9HRolwFH3fa/oNdq8=;
+        b=0c4lNAqbAvc8AsVXd5NU8F1DHR4DwN4NTrsozwI15qfIQWOterjv+nT1KBRXjrRt1c
+         dZyeR+imfEBPM1DpcuT3hEt/NPiscPltdOtGM10Es0jdEN+aVSYheQ0s0Irjd+jh3JVD
+         rOAaK/CBiek7Y1Bntw9Ab2sazue6F9QgBPEmPPNNTE+dzZTh44SFWPXYGtGY5hXDdAS/
+         c3F3kEGSNBML4pnSKP/wMMV42Z5ZyJcmBamJYOHz3wD2DyO/FZ5G9OM4AyshV6+5L70p
+         XLhRERyHe3ZdCoxrKkwybkxfkeXD61g2DffpSWZwt5GA2DF3UAH24C3Ya9mSrq3XnjaL
+         TSXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793589533; x=1794194333;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=nJCnzPlEYPTpiPpNwhFLsc1nTWFuyJzYXd5f4tSr6oQ=;
-        b=mYMQ7750rPT9RVf4sZdSwEMQsVxI6Sq6EA2hzLcfjObEevFfovxL8V9bAFt7EanqJ3
-         pC0/bUCsxKbH4sHoE0UzYLWiGznyP2x0ipdiJStI0dozuzQ+WCB3yTTn/GfVUrao0Dhp
-         3rSzo9zfh1HEqJO695IOWJZLAEmD97Ysk/Xh3rw+cGvF6F1ZmcOBS3x6CWo0D9okAhca
-         r1HcNO/cIgj69RZdK7lZQ0Pe+ujflww4SnwHKpAprwmIDsbnO3TRHmVYXK4+1hEL++de
-         QTcNziVdphzR2y1Y33Mxdgn6gx85F9l+pC2WfADidZzToE87RWhmNjrYShSL5u5StuJd
-         5pYA==
-X-Forwarded-Encrypted: i=1; AKwUvByErqvh9poDM7gfirt1GkOXbXA9fVGuDE3m6yxtVeALmsgQn60qSrns5yjx4h4Wdl9ydjjFsqzUJlsAK0A=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+pnXXCKvL5mU1UvblA59tNeGpbP26eayyZHTMmpmpKchCjm376
-	vTjKJhF68WBQAFyuLqOiwwSjdApuFkLaV2TkHhCG9Uu8onIKfMyH9ymHdUsXXw==
-X-Gm-Gg: AYBFou3nrlztg8O1Hk0WJ7EmRnXVsBqo+dvhKd4YXQJOmrZyKMB8lbS3IkdExWxxtgA
-	fVBSUh/E5TEBaPjDWitTIro7aVJdAIfzwlf74I5DKdICoOPexMP+dO+/gl4/SLUipUnOum1s/Lq
-	GrPdRhBbDsfoB93iqWW9nsTeg3Ov2ra8mlvggAfcXniNmdajf9WYehW7e4MXZxiJqYmmlSrd7AU
-	Iv7L3OSZMorb02YHxbXdeBSuqdhZJRDyJ6XfviXtmc6KIoPu+RJ26Z5KJgXRgttTsHJ5WBlnwR6
-	2Fhzl4o59PtwpstQUJdTVt2FAX0JnmibGkTkLfFWMaFPzfMWf+sRv81UGKbEHyj7xqd3dJ3jERS
-	6XyVACjYIw74N4bSeoQHl0JzFIzPuI/5PbJLyc/sXbYeJRcl2NAD0xy0WwJ9ySYm82YMoe1E6Hz
-	gB5Akhh5w+EIdtyxFYatS+huOp2l6oaGK1VOG6fc5p60utw0PGH1OnW09O3F9YSWjBh3O9n5qkl
-	AdKuoWeKskrrnmHGDcyo54SDF2srno6zs5Elmmi28/ybW51Gq3YeCeKLViuKXTGSeZathiuhJ6l
-	6aidkAf4odyDsTjVmAZX7DoRZ2k31hAmB0xlGXI1Hflq6qW93SomhKqHB5f999u5nbFNims=
-X-Received: by 2002:a05:693c:20d0:20b0:36a:112d:fae3 with SMTP id 5a478bee46e88-36a42435927mr13964731eec.40.1793589533040;
-        Sun, 01 Nov 2026 19:18:53 -0800 (PST)
-Received: from localhost ([2a00:79e0:2ebe:8:d75c:a9d8:6c00:c5c6])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a42a6eabbsm33411882eec.24.2026.11.01.19.18.52
+        d=1e100.net; s=20260707; t=1793589552; x=1794194352;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pq7i3VhC2u37X3a2faYflIcKZg9HRolwFH3fa/oNdq8=;
+        b=u6dShlUPVRv9DhKaJoP9ik9G76HIwwLv0q8FQHdGEU8oTEpX2Gge/SxXWTFXdB5YER
+         YZJyiFQ3n/Aml83vQ3hpwxFysEINXRgPBaH1r3UhGxtM3luxi98f3k3J/lZRgDLZOtpr
+         NaV6+pvsORD79eYhz25enj2lJKfXQx1WhPe+wWF5pG0y81wqHyJ7N65Wdm8u7xFIenZS
+         kwMXrw2AcSO6wZYrf/N3B+RTfRmy3SVPC6Hi63vqaB7ANOpuzEwhDNv+3HBMqabNDsd3
+         i5vmkU4eZXIhsY2CVG6CDYkG2ra6s4s35qC/dH3pJxiadWzJtPauBHYNc5OLBm3E4nFO
+         H9vg==
+X-Forwarded-Encrypted: i=1; AKwUvBwYSBp5RplWiW+wJedSk1RHE46c004Yr0OXTACPiQKNpUD2/QoZYNK0h0z8kFhbL9uaI1uGNO6bJzXooww=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/YWzjRqd+bY3A3ajkkzzhSKfFZIWuQ2EcdGTraDWMCeWde6TSa
+	iesNuLgP1zX8bqyDz/sliiQYJk21lmHEmApRzeRIfCP3FrJoAHAv5ITm
+X-Gm-Gg: AYBFou1xPLotENf1E186vu3/SO5HnLNEOnoSmZ+Q8eWFx7RN1IAGuASR3tvzfdegVia
+	WMZGEjvy9ORfWLm2bS8onWUe14j/2qxiANdlXs+hYJPbaH/GIruYCSCZNYZ95mfB4wKkqxyGj87
+	XySGuJOXYFqwrvi9DLoflU0+Re3EcoY9s7XGyX+BkdX2gwhxHLIPQdhbN+j0Ft1RvOf6/0gb2/Z
+	cv89FX3pA0AxQc6RTJHg2/ucFrIYYWppekaFgmUzT6p95pV4XbzuH3o9uQTR1rrPvHq1zT5HA1X
+	D932id0OcQVKeJvJoSGHtNiLphoD/4OpcsIUKewzSTioGrcT/rYpaMzGesH/Df8V3zg+pNkfhyD
+	9B3ZdSdMFvhYH79M2YpOOm/Yf2QKIDDym/EADZ8Wtl9WwkGObuLHPY3eWRpKlJBTnzPVnQ//mR5
+	2mRsjiOVXlLeOuUwpH4Kf5AgWvf8UrMbeAY5MN+omphiWH8VpB+QmTj/OgkCudq5aRQguyRCVcf
+	dYTJTIQQc7heDV2LxsuseZr01kfK6YQLdlB76ckJerSufildbArA402WtZWeSawfsAf81nnJj67
+	f90kX+abTeWrmvnCB8N6uqjW0ehCQda7nDjo+IV4m2MTP1NJOvXtLc6rBB1yBPrx+8euhhd8U3Z
+	mEJ4vmEXTgfDjdndke90zO+uq5GGp7j0SjE8SNaM6doZrEorlrzxm+P8xoQPI5zuxvsLq7fCnMc
+	f377G6L9oBMLn2ZOvcDRp30F0=
+X-Received: by 2002:a17:90a:dfc5:b0:3ac:ad90:7090 with SMTP id 98e67ed59e1d1-3ae897dd47amr7489423a91.67.1793589552079;
+        Sun, 01 Nov 2026 19:19:12 -0800 (PST)
+Received: from ryzen.lan ([2601:644:8000:37f::e34])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae85cb1bfdsm7752417a91.0.2026.11.01.19.19.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 19:18:52 -0800 (PST)
-Date: Sun, 01 Nov 2026 19:18:51 -0800
-Message-ID: <4590302cb7f26ea6173018f5d7083977@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: David Heidelberg <david@ixit.cz>
-Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Henrik Rydberg <rydberg@bitmath.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Petr Hodina <petr.hodina@protonmail.com>,
-	linux-input@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	phone-devel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v8 0/5] Input: support for STM FTS5
-In-Reply-To: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
-References: <20260925-stmfts5-v8-0-0fcf49e2c85f@ixit.cz>
+        Sun, 01 Nov 2026 19:19:11 -0800 (PST)
+From: Rosen Penev <rosenp@gmail.com>
+To: platform-driver-x86@vger.kernel.org
+Cc: Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] platform/x86: dell-lis3lv02d: Add Precision M4800
+Date: Sun,  1 Nov 2026 19:19:10 -0800
+Message-ID: <20261102031910.82286-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -117,47 +97,36 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 
-Hi David,
+The Dell Precision M4800 has an accelerometer on the i801 SMBus which
+is not described by ACPI, so the driver currently skips it:
 
-On Fri, Sep 25, 2026 at 11:22:18PM +0200, David Heidelberg wrote:
-> Used on various phones. Minimal viable driver.
->
-> Includes device-tree enabling touchscreen on Pixel 3.
-> Also, tested on Xiaomi Mi 8 (device-tree is not yet inside the mainline).
+  dell_lis3lv02d: accelerometer is present on SMBus but its address is unknown, skipping registration
 
-I applied patches 1 through 4 (leaving patch 5/5 for the Qualcomm SoC
-tree) with a few small adjustments folded in:
+Reading the WHO_AM_I register at address 0x29 returns 0x33 (LIS3DC),
+the same address as the sibling Precision M6800. With this entry the
+sensor is detected and reports sane values:
 
- - In patch 1/5, added a missing trailing newline to the reset timeout
-   error message and fixed a typo in the comment in stmfts_power_on().
- - In patch 3/5, wrapped "const: st,stmfts5" under "contains:" in the
-   allOf condition so the check keeps working if a fallback compatible
-   is added later.
- - In patch 4/5:
-   - moved ABS_MT_TOOL_TYPE setup from stmfts_setup_input() to
-     stmfts5_setup_input() since FTS4 does not report tool types;
-   - dropped the undocumented "stylus-enabled" property check so stylus
-     contacts unconditionally report MT_TOOL_PEN;
-   - checked X and Y resolutions independently before applying the
-     10 units/mm fallback;
-   - added a check for !sdata->ops in stmfts_probe();
-   - fixed the GPIO name in the "mode-switch" error message and a couple
-     of minor comment/log formatting nits.
+  lis3lv02d: 8 bits 3DC sensor found
 
-I will also send out a few separate follow-up patches shortly: one
-teaching touchscreen_parse_properties() to parse touchscreen-x-mm and
-touchscreen-y-mm directly so drivers do not have to open-code resolution
-handling, plus a few fixes in stmfts (not aborting FIFO parsing early on
-non-touch events, validating the 4-bit slot ID against
-STMFTS_MAX_FINGERS, and switching coordinate reporting to
-touchscreen_report_pos() so axis inversion and swapping properties are
-honored).
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ drivers/platform/x86/dell/dell-lis3lv02d.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thanks.
-
+diff --git a/drivers/platform/x86/dell/dell-lis3lv02d.c b/drivers/platform/x86/dell/dell-lis3lv02d.c
+index fe52bcd896f7..ee61b08324ad 100644
+--- a/drivers/platform/x86/dell/dell-lis3lv02d.c
++++ b/drivers/platform/x86/dell/dell-lis3lv02d.c
+@@ -52,6 +52,7 @@ static const struct dmi_system_id lis3lv02d_devices[] __initconst = {
+ 	DELL_LIS3LV02D_DMI_ENTRY("Latitude E6530",     0x29),
+ 	DELL_LIS3LV02D_DMI_ENTRY("Precision 3540",     0x29),
+ 	DELL_LIS3LV02D_DMI_ENTRY("Precision 3551",     0x29),
++	DELL_LIS3LV02D_DMI_ENTRY("Precision M4800",    0x29),
+ 	DELL_LIS3LV02D_DMI_ENTRY("Precision M6800",    0x29),
+ 	DELL_LIS3LV02D_DMI_ENTRY("Vostro V131",        0x1d),
+ 	DELL_LIS3LV02D_DMI_ENTRY("Vostro 5568",        0x29),
 -- 
-Dmitry
+2.56.0
+
