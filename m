@@ -1,49 +1,64 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793658021;
-	b=nvSVO6IH+Upy2YgwZ1axz7MI0PpQnCFgy72pfdgj+3w13jg86rwQhY38t79z1hKXF31e
-	 9tZEDGec5TTEtkMrt50cAn9KR0hX7iq0lONvmi7/g3WYeU4x700JQws+0J6yJbFetyXF1
-	 dEhZu8FwwyBJhQqUjXbI7xqFGGpzy7HPbtOUgJWZGZAopM8uZ1wXML+HAnMewOsicUGGq
-	 iowtdAzfghNX/7dBcL4coago/+HBXISTRAwNcF4N6Ftz5RUpxRZrPYBMObfMaBRh0T0L6
-	 mhoLwQWH6ZbRE4FgM/Z1moZ9CsSd7w1UEhmaR5ZgMuho4EIZWGDL93uqWbZpbKRFkNA==
+	t=1793658061;
+	b=KQhzNInyHb/m5am2GMdZY5Jxg1ZzG2niOfoDPk85tJTX70kNIjhD5Ln5gxTf250YHFlD
+	 zpF/s+iicb2vT5FrwEkrqxRKeDMF7ssUrdzKvlbhiCiSjOpcvT3Nc/SH9zPu79MH2rx3d
+	 j1VEj6m24hyzca2bPAe0Ho5auwUgWFxahT7wH6UmGpWHffF/LjaDUC5ts2iTBwevQW7br
+	 qMuK0GOqWRGylymVES2fSuZQMKFwcWqR/P17+f+xMiDsd4fG+6vpgaJZjOL9QXAGZuvTk
+	 hcRuxcdKWYnT/rY/xOhd745u+VwUm/rB+M/8B/r/GLA7IsV4ytVHfDEqB53WWmx6m1Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793658021;
-	h=Received:DKIM-Signature:Received:Content-Type:MIME-Version:
-	 Content-Transfer-Encoding:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc;
-	bh=lfQC5oONn1O12zujNbswi2n52JTnkv8/ImyjnFp/67M=;
-	b=rv8QgNO2itKDm/6Sy0mBqDPRqmDcmxH5OwOXAtkfVQDzDIXygyK3rMYju2vp6AcNYwEZ
-	 1S96aYe9667GjbbefqwFOmtvnp+053E+VGx6nAh2lsCVHSvJV0ThvF0R+WhMGwN2qFvQU
-	 cMW0Y7wcxdoP2iBsS2aygdqtKY4ChcYahcRnonKOIlg305wZCis2Q5Nlgaq5SIpMuCiuH
-	 ktWHvzxR3FDkv8qKIM59ZYNu1k4aJrjoCCDlvgvcHJJW+qrnk7x7FkjkRSMoTYrizA/kt
-	 iFOjh1rAXIEzDeaHHkKKAuuLi9wgFlo1jqZOR9EC99wvIAiMLQy9z3IrBt8GKz7CBWQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793658061;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+Hw9sq9VaFK71g+8WnPVyOU4RYJq80Ol7r4/gNdfThU=;
+	b=qtnnhLXvPwkscrQqTozpyC01e3yheFyp0sn8la0YDqxb2nHnY+7D7IBhOGXWbEqUxqPY
+	 n3VSN/MK2ZQxoV2p6lNsbyf++dml8/E1uxlQz8a4nZrv30/jNhtSMRyQPoE5D7XQvMbI9
+	 S56YByqOEdD8Xni4/ySU8KSCbFi9dLUOhI9J3U5mD4E/INsKj0K7pbXXUhLpVqDkApKpu
+	 wSN6Wzef8kirbknCZgVarjnyyKarkToSLGYsdK72fQtExy7RZELiSY2bkq9tvUJQrDbci
+	 luCBK/8BAILJ4AsRLK0qYWESMbund2TLuBxqISc28SiKPLxtqmPGFgagRUS1MnGHUtw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8N5lI5M;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEdNqHBi;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F97606A336;
-	Mon,  2 Nov 2026 22:20:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17A10606A324;
+	Mon,  2 Nov 2026 22:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I8N5lI5M
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C52B1F00A1D;
-	Mon,  2 Nov 2026 22:20:21 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XEdNqHBi
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8D3F1F00A16;
+	Mon,  2 Nov 2026 22:20:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793658021;
-	bh=lfQC5oONn1O12zujNbswi2n52JTnkv8/ImyjnFp/67M=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=I8N5lI5M3M6VvHMGXvMRJGWp5e4+Zx0bl5I4lkshfU54o/j6HSDNDaNbq6Tx8WZr2
-	 VslkIqdn84ju6AfQ8ElryZJoUznP/ALsmPx5XnaHjJ+wsLcQONuuUBXjWN2sYw0A2Q
-	 4w2iTqTwyLKsevd8SBtNiQZDkVbOY5mx/w1WZ8+AZwt5dC6e8lMvbhJxDqbEFhAmQ0
-	 xVp1XamzGYQa7TNbenSCzc1+h191ETO3QWP65ExccLnFbyRKiWsbyY2UmD9PfpV3/X
-	 OgSqkfvE2Eini37VJ80R30cxHiz13n3pOcLk4w3m3MHMUpODqxwLW9u2FyScfutrTE
-	 VPBINxNOo+Gzw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 02FF2380821F;
-	Mon,  2 Nov 2026 22:20:21 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1793658060;
+	bh=+Hw9sq9VaFK71g+8WnPVyOU4RYJq80Ol7r4/gNdfThU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=XEdNqHBiKdOsOWdik/MVP587AiHnPUcW1lKgfFWhoWVgpKG2WIMS4yLFJvaOMP/+c
+	 d3fcSW17hfMtxIDqP4cdipsiCVuA6r2Ybz06He6i3+976/1OiWuU4MxUY8drEi5gWU
+	 bgpkQP/F9octYIYVEExDqRIrgLrGMK/LgmYDP59/hxgLB426ArkdtXJilvJ+6QO3kk
+	 OnpFNmGAyz7bC5ihp/0JvF9Tb1javi5SD5P0VsJ9CBKPQ3lPWlOE5Oq6SObJ9eLaua
+	 MG75Kb9sfere/9iLMWKHABad0I2YGpmvYP27xFI964KIyc8FJAjms6lwe+xN54PJ8F
+	 WWTAAh03whOZA==
+Date: Mon, 2 Nov 2026 22:20:56 +0000
+From: Jonathan Cameron <jic23@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Vidhu Sarwal <vidhu.linux@gmail.com>, Krzysztof Kozlowski
+ <krzk@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, Shuah Khan
+ <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v2 0/3] iio: proximity: Add Benewake TF-Luna LiDAR
+ driver
+Message-ID: <20261102222056.30f23d75@jic23-hlaptop>
+In-Reply-To: <21b771dc-e9cd-46b9-a456-0950ae1270a3@oss.qualcomm.com>
+References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+	<20261102-massive-busy-woodlouse-8d0bbb@quoll>
+	<CAFqz8LJZQ+tw6wmLS-1FXvt6OxBESPEyz2-uK4D7B8X8epoKhg@mail.gmail.com>
+	<21b771dc-e9cd-46b9-a456-0950ae1270a3@oss.qualcomm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,43 +68,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: MGMT: Send Connection Subrate on LE
- connection
- and update
-From: patchwork-bot+bluetooth@kernel.org
-Message-Id: 
- <179365801954.694758.1964574440994296679.git-patchwork-notify@kernel.org>
-Date: Mon, 02 Nov 2026 22:20:19 +0000
-References: <20261102170008.62788-1-kevin@simpleble.org>
-In-Reply-To: <20261102170008.62788-1-kevin@simpleble.org>
-To: Kevin Dewald <kevin@simpleble.org>
-Cc: linux-bluetooth@vger.kernel.org, marcel@holtmann.org,
- luiz.dentz@gmail.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello:
+On Mon, 2 Nov 2026 13:23:56 +0100
+Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> wrote:
 
-This patch was applied to bluetooth/bluetooth-next.git (master)
-by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
-
-On Mon,  2 Nov 2026 09:00:08 -0800 you wrote:
-> Userspace is not told the parameters of LE connections: the Connection
-> Subrate event is only sent for LE Connection Rate Change, which needs
-> the Shorter Connection Interval feature, and nothing is sent when a
-> connection is established or updated with LE Connection Update
-> Complete. Applications that need the connection interval, e.g. to
-> estimate throughput or latency, have to read it from HCI traffic
-> instead.
+> On 02/11/2026 12:48, Vidhu Sarwal wrote:
+> > On Mon, Nov 02, 2026 at 11:47:56AM +0100, Krzysztof Kozlowski wrote:  
+> >> What changed exactly? b4 diff fails, the patchset cannot be applied on
+> >> any known upstream revision I tried.  
+> > 
+> > I am really sorry for that, I didn't realise it was based on Jonathan's
+> > iio.git (testing branch) instead of linux-next. Patch 3 conflicts in the  
 > 
-> [...]
+> That is fine in general, I'll wait for next linux-next.
+Might be a little longer. I've pushed out now. Was just waiting for
+anything nasty from the bots on after rebasing on rc1 before pushing
+out.
 
-Here is the summary with links:
-  - [v2] Bluetooth: MGMT: Send Connection Subrate on LE connection and update
-    https://git.kernel.org/bluetooth/bluetooth-next/c/0c0c3d785643
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+J
+> 
+> Best regards,
+> Krzysztof
 
