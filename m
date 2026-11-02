@@ -1,55 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635581;
-	b=FxfJzMF779MN7pNfXI2Rvi4/T5U1/sqkpO6eEvujnJjeJw9Wss/hNZ4gaKvlHV9kJIG5
-	 EivuZoBDIr4X3+50xqJAskW+U1HoAmwXJVJivXJz/7L+/wOUVrHCRC/kNr0aJj9m/umVB
-	 gFz4+NxL/4p7BPobYJVEVUIN85oFI8hiMMCVOlCMJSC8csV6efXZYsPbSQWAJZX+fxnzB
-	 ywGz1wih3bZgRpkVsH5s2Nh1f92ESVIn7jJvcHWk2nHvppgl/AeMH6Z6LrDAWAELR8m3A
-	 gHCUrR2FltnXKJsmN1fnOQ04jwhzXvC8jJXq/xgZiPPiRQfavtF65QgviRnhsHKp3ng==
+	t=1793635674;
+	b=S3gqeTtMnr7lMF3h4sTsQo3FjjxauI+uUz47F8engcHijd6rT5TGfu72f65C/mPIW+S3
+	 alhLDG3s6kyj5Wx4nDPjI8ki/DJ9zEf1u7IKXrnGSQxylRAzro6K53j0vFpLZl+ASuiVc
+	 UtKQvoDBeEivya1cUaISnW7SNuKNDPqH2qcXHkL+yYjRAPKzus7IvyumtSyhJXvxH5msn
+	 GxmmoH/IYcEsjnQDpbjaVjQxO3E2q4MMY4jZDOao+KOByO/Xptk9fmkjNAro4MwFWESHt
+	 zXc5j68cV/0WdW3w8hPrM8LbxS8RnNTW/qG4F6QwfDWKJWIeZ5AS11SLrVMG9UNy0dg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635581;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=QqnvH/MqNkXeK1gW5SdVC8+SGDj/xZd6UpzikU80LiY=;
-	b=ihhu/+vSADOSJV/rJHvlqEuyT4OpMcOCtsNCorwjzJsn7R2c1+s57ffsRczpIU0vAtw3
-	 Q/+DTrg0keXNKd1DTeu/FAStEeu5FVeo3KKxM32gVuoGdVXBcjwbOlvWsPjF8cvTrKSJT
-	 ViEonR3RZ7XLsDOhHhGcU0TCRFpxUAwahugMkhgsiyCRXCEmXOQdBGHvsVVUBRlzjBSdC
-	 SQAfPt5MT24w464IPLdzfMnSAbf00C6hK5CjVmuKk5sQEk6U7DvkLrT0GNpQPVT55JHsG
-	 2wntmuzX4SjU1QgdvaqPXrSF9u/ryPkSd59nI8D4EiwAWxW9+XW3KrYLs5j7uyswfUQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635674;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=iKqppwJgaOXP6N2jFbbLAd1EvvxPKuXzSzDJiISCkR8=;
+	b=ytUV4gfJzWC9ui8BI8APIrXQd+s87cL4lGr9Q/vgDkiDXGsH/ErcBnt+t2dk+MwSXobH
+	 BRQmUNnfRJ2NyrqNeBXs0fldRkPoW4gt7ktek6h1dIGpXsWTgvhTNC4MgCn//8sLND23L
+	 XMqzcNrFNH0g1nYfxLQc6tw48bP9XOMy9fBeWkXQ1eb1U6xsl4xP/buk7BhvIbagjjCL9
+	 QITGE6scpww63nAV3lyoxrZeh8BfkNYCUzyuGxv1KCAaZvcPu2xD0rSjkfn1S24bPUVEB
+	 os/APma686C9cg1KC25WweZTx9cM0JOngjq/xkA0E0VNjnyPr0UBJQuNj37SjwPKlXg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHsqar4O;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=none header.from=baylibre.com;
+	spf=pass smtp.mailfrom=baylibre.com;
+	dkim=pass header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jYiOTlAo;
+	arc=none smtp.remote-ip=209.85.128.44
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CDF16070D93
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:06:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5771860703B1
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:07:53 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5771860703B1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EHsqar4O
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42DDA1F00A16
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:06:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793635581;
-	bh=QqnvH/MqNkXeK1gW5SdVC8+SGDj/xZd6UpzikU80LiY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=EHsqar4OZin40FmNLuZlxJhrteSXmgAmiT5AmxaJJpwBfhxl014dApjq2op+v4IqK
-	 e6K9fpH5YdJDvb0mj+g27DQ50JrjctrZ6cZYwO3aX/Ze1gXHOjaqOhm+YecevvmDiK
-	 fjiMzIN/2wdNuRbsnUqR7MrSJJqAYKSZ1205B4tsqMEKlzne8aP+O4cmTYa22W/jOy
-	 CiWMwZKE/kLxP8ByB6E5irvNm6iaRYZredKlxi9sJjxnEwU0IeSzv0Tzk9q/oNesDk
-	 oSejId4sI60dw8Lvw47t6VtNdDVsPQfarF6xWF7c7j5Ej5bHS9xOmQfUQRscg1Fa66
-	 dFx6ZrzdRUEiQ==
-Received: by mail-qk1-f171.google.com with SMTP id af79cd13be357-93f2f2edb19so318899785a.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:06:21 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvBzZV+gvepJB0RQfP+7dx+4PUKFRTnPn2U1j2LplXIDNNDKulI1I1t1lIr38FDssYxUp4tt2xtQv6whKaCE=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLhThoRnlF7U2hCCQzK+azM3d7hAOfRmOuFARssdzEbKJ2RE85H
-	KLS/rxiqizZ9Fg98Bn6rQqRji86cyvgmop6WuKW1PJeXDqI1iUjl/3UVvGHHoha0CKXTdF77IEW
-	JYBPOcdxGuTK01FTaJIxbDe7dxum58cE=
-X-Received: by 2002:a05:620a:2603:b0:939:fde0:a71b with SMTP id
- af79cd13be357-9442135c728mr1776147885a.0.1793635580647; Mon, 02 Nov 2026
- 08:06:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=jYiOTlAo
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a5b2be99a8so20884475e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:07:53 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1793635672; x=1794240472; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=iKqppwJgaOXP6N2jFbbLAd1EvvxPKuXzSzDJiISCkR8=;
+        b=jYiOTlAoF2hnVEtjF8MBgfhR/gINhACtWDOCFdYcqPJcy9m7fmqPuGoBrVxReUexXn
+         nET1cThlc/1exOuNNUoNo3RRE+Sy7gjF5uIluYFFmAWd3W90c0R4mqKa+SSaiZKetJiG
+         W3Z6yg9Llgz/trkUfr71dSyXWgeBX6sDVLp9eDGjH8Z8DiClA7gOH78xiv6WfSzyaUaI
+         zDDd3RTfma7Ha5STlqLu8KHTdQY5rTsTV1L3YwcJsoBjn8LDi0Bp/hCE917Q4QJmuhOQ
+         PbjmlEZ+a9avnqHt55odxSv27y5KPOzJfyMAlCufuVgJEwpnR1bS4YuzBVQFx/Y8IBi3
+         4Sfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793635672; x=1794240472;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iKqppwJgaOXP6N2jFbbLAd1EvvxPKuXzSzDJiISCkR8=;
+        b=EqAXuUCiZFUapMiJD4i47BHHlWDFIVh0YZQmYrsbnDY069ne51v8AmhqRnNCvnz2ka
+         sORH+hH82wjb/Er4EzGpNhZEwR7yrx0HTMibXNad5XaZCdNai9nQyi8+VSK8H0n2S12K
+         u/rI+Vu1pI/h8M7P5kRLOqJeEMSzhYgVOQUYdf6T0pgwx97hABe/WtdVYpFlJw0SkKk3
+         QEveRH0iCoI7u6Q78DFeeQQZRY/Kh4pdQPPxYmVDqf21C3C6LQ+/zL3C14Pxx8RQjzDw
+         iYN2NXTEQRZLpPdf28o4r9FT9j48TdxEZDRoDBLsnjSGyUnZFVy0CGa0ReITZVH4uqQI
+         jZmg==
+X-Forwarded-Encrypted: i=1; AKwUvBxfzQzs6Olp1nfC+/wyL85p4a4qmRGoyw2Ohbs8eT39P7RVphMKCa4q3lTwOH72HeTyvFsQZ2K5/0GEg9Y=@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJXMa9VgkETy4nB4IJYQGnIfW1zQYqTOBOlEe+JNIFCFantcGN
+	Swdc8M1n4nFm19yayHyDAhxix1mftivsbfKMZSEijmRr2B7iY0XQvVq2Zhm/HfZEaVo=
+X-Gm-Gg: AYBFou3mpByizzgm/BI2OxcvCmWF2NqPFcf770ohjKZnIdJwKftoeqiyOFg/96l/Wpm
+	a94WoaheOMrK8dyk4Md3Ad8lH8Zab7xrIF5TBdFtpYTNyN2exhLHsheZr4geuH0IGXOOYPaka4f
+	YFfEo3QU2Yxal314Lt+NLCmO/Lhp6q36lfqnq3nRPC6GNDwxd3L3FVspPva6NjpDDW/cO2V5Xv9
+	JykqMh1kZDN+i4sHrg3cKp9Id1cJot8LPCgSxE4lAq3XGh6I1w2yXG6PBlCZVB7JgJ/zVpW3VMY
+	GSYm0eW6c9xusDR70//jG2Xu78iBwMII025HTPXDkC009EVP5A0E1Gvk8pmypnuN3VUm2gmD1LB
+	LLbNsINNq3X1Ho7+Mm9L7whpgmy7ynfqOqT4EjqaA8ZQ30WKN7jCKHO//TSV4+I2m9kykLtwo3m
+	a67MzssFGrc2Y6Bsjvr1ZFhousl9Z1v7Iv459lFWZ+ID9DO8n0yQgktW4+JVSXZS7QXfxjmNFfm
+	FiznKdohKNBc29aKZTX7iuJgoHcmjwaSloo2f5IEmv53OPelUs1u0Ktg4UW1EKVS2+cfC3/lDRO
+	p3bcGG3vNAnYQYbyK8WncGs9IxMLuY6sKF8/rF2tH+vHIsD63+xjmk0Dbaux/AghE4rdMtzNnw=
+	=
+X-Received: by 2002:a05:600c:350b:b0:4a3:2f35:38aa with SMTP id 5b1f17b1804b1-4ac1932bac0mr210839835e9.29.1793635671784;
+        Mon, 02 Nov 2026 08:07:51 -0800 (PST)
+Received: from jarvis.. (82-230-44-19.subs.proxad.net. [82.230.44.19])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4abf6e63e0esm360429605e9.12.2026.11.02.08.07.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 08:07:51 -0800 (PST)
+From: amergnat@baylibre.com
+To: rtx4060@gmail.com
+Cc: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	angelogioacchino.delregno@collabora.com,
+	matthias.bgg@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH 1/2] regulator: mt6363: Use 8-bit regmap values
+Date: Mon,  2 Nov 2026 16:07:50 +0000
+Message-ID: <20261102160750.230679-1-amergnat@baylibre.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261101164405.1743177-2-rtx4060@gmail.com>
+References: <20261101164405.1743177-2-rtx4060@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,92 +104,18 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <CAHCio2jc9++n2Qoa0-sNkObZsWOybSwK1X2aBjFirchjRTBZsQ@mail.gmail.com>
- <CAHCio2hpL+Y0iYdGXs5zKA-81+w_9pHs+tZPe2uaYKs8yOCz_w@mail.gmail.com>
- <CAO9r8zMBcU_s3Dpc99jse=n7Njhy8Ly-daf6--YXVD+Cw_ed1w@mail.gmail.com>
- <CAO9r8zOmH6yzcNbUOF3FoNsac8rtx47rp5wByOFfGgaBPaLxug@mail.gmail.com>
- <CAHCio2hTSuTf4HcJ=+wb=_EQvi2as9QMwfRMG5tUkdCmex=yJg@mail.gmail.com>
- <auNvmlmXeWPh_HKT@google.com> <CAHCio2gdqdyGcGHN+dN9hzoj_0-XSKYFS4ruFrLU+DMG-4XooQ@mail.gmail.com>
-In-Reply-To: <CAHCio2gdqdyGcGHN+dN9hzoj_0-XSKYFS4ruFrLU+DMG-4XooQ@mail.gmail.com>
-From: Yosry Ahmed <yosry@kernel.org>
-Date: Mon, 2 Nov 2026 08:06:07 -0800
-X-Gmail-Original-Message-ID: <CAO9r8zO=_BEefcwX6vzP7own7EmhLwrRCD=hFOB+Lejm2B=BNA@mail.gmail.com>
-X-Gm-Features: AclHuK8caYq9pYxNRvdAhsGalfBjqfpcIU76PPvS7EupwNesk8FaG1ZmJi_UgO8
-Message-ID: <CAO9r8zO=_BEefcwX6vzP7own7EmhLwrRCD=hFOB+Lejm2B=BNA@mail.gmail.com>
-Subject: Re: Some options abort RFC: KVM: SVM: Rework ASID management
-To: Jackie Yu <ufo19890607@gmail.com>
-Cc: Sean Christopherson <seanjc@google.com>, jmattson@google.com, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, mlevitsk@redhat.com, pbonzini@redhat.com, 
-	thomas.lendacky@amd.com, vkuznets@redhat.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Nov 2, 2026 at 3:20=E2=80=AFAM Jackie Yu <ufo19890607@gmail.com> wr=
-ote:
->
-> Hi Sean, Yosry, and KVM folks,
->
-> Sean, thank you for the reminder. Sorry about the earlier formatting.
-> We will use plain text for future mailing-list replies.
->
-> Yosry, thanks for clarifying. We understand that by "missing
-> emulation" you meant the INVLPGB handling needed with distinct
-> per-vCPU ASIDs, not a bug in an existing emulation path in our tree.
->
-> We agree that intercepting each guest INVLPGB and issuing a separate
-> invalidation for every ASID in a large VM may undermine the benefit
-> we are seeking. Using per-VM ASIDs consistently, rather than
-> switching ASID allocation models based on nested usage, sounds like
-> a promising direction. Our production guests do not run nested VMs,
-> so direct execution before nested use would cover our use case.
->
-> Your suggestion to change the INVLPGB interception policy when
-> nested virtualization is first used is helpful. If EFER.SVME can be
-> set before a guest runs a nested VM, the first VMRUN seems like a
-> more precise trigger. Would KVM catch that VMRUN before entering L2
-> and enable the necessary intercepts across the VM before any vCPU
-> can execute an INVLPGB requiring nested handling?
+On Mon, Nov 02, 2026 at 01:44:03AM +0900, GIBEOM LEE (이기범) wrote:
+> The registers of the MT6363 are 8 bits wide, but the regmap has 16-bit
+> values.
 
-Yeah we can do this. For example, we can have a static branch in the
-VMRUN emulation path that flips between a synchronized path that
-enables the INVLPGB intercept, and the normal path. The static branch
-might be an overkill.
+I had the same fix ready before this series and have now posted it,
+together with a VEMC voltage fix:
+https://lore.kernel.org/all/20261102-rgp-67-mt6363-regulator-fixes-v1-1-420789a3113e@baylibre.com/
 
-> Could those
-> intercepts then remain enabled for the VM's lifetime, rather than
-> switching back when the guest leaves nested mode?
-
-Probably? I think we can only switch back when all vCPUs clear
-EFER.SVME. I doubt it's worth optimizing.
-
-> We realize that
-> interception would still require correct nested instruction handling.
->
-> For context, our experimental KVM4 configuration used a VM-shared
-> ASID and separate, out-of-tree guest INVLPGB passthrough. The
-> madvise() latency measurements were:
->
->   Workers             INVLPGB off      INVLPGB on
->   64 mean              21.624 ms        12.505 ms
->   64 P99               32.760 ms        21.518 ms
->   128 mean             29.553 ms        20.459 ms
->   128 P99              39.628 ms        28.160 ms
->
-> These were single sequential A/B runs with 64 allowed CPUs; the
-> 128-worker run was oversubscribed. The results measure madvise()
-> syscall latency, not IPI counts, and do not quantify any additional
-> flushes from vCPU switches on a physical CPU under per-VM ASIDs.
->
-> We can share the benchmark source and run further comparisons to
-> help evaluate that trade-off. Would the maintainers consider
-> consistent per-VM ASIDs, with direct guest INVLPGB execution before
-> nested use and interception once nested use begins, a direction
-> worth pursuing?
-
-As I mentioned, I (not the maintainer) have no problem with per-VM
-ASIDs. We probably want to make sure we don't regress workloads due to
-the extra TLB flushes when multiple vCPUs run on the same pCPU tho.
-
-Other than that, I don't want to rework my series to go back to per-VM
-ASIDs. So if Sean and Paolo are okay with per-VM ASIDs, I think this
-should be done as a follow up work on top. Just my 2c.
+The only difference in behavior is the BUCK_TOP key, which mine stores
+as __le16: with 8-bit values, regmap_bulk_write() sends the u16 key byte
+by byte in memory order, so a big-endian kernel writes its high byte to
+the first key register.
