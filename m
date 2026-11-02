@@ -1,44 +1,57 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793608540;
-	b=cIm8FnuQsuxwpQY9zgf6YdC4+6puFYeEcmhjeDDdyEa1RdHdxtMhtzew9HQpXiKE4rFV
-	 yqwioYWzpONbVyqjUYLqUlGDVRj08ua/vNovUceXRC+e0XC7wZyU9pgp7/tITRGdbagJI
-	 LKIpeqyMeuur1AU90Y/j71gbv8C6tUcLMsRVRjmxfqBAlukplwnpw8YCFuKETz/wFCQVi
-	 U910Wcg/oi/M+/nag/dfa/SW4Wj3/0eMJA2fj8tCKOUijbZEt8DRqdJb46ch1d5qZ7Pvw
-	 awF9VO3rOzOf9KQ37tlWEfrfh+Br2pUDuu3CoGOUUT+UJTix27CU4+HFmc7ZTmUT9Qw==
+	t=1793608577;
+	b=ONVJX3KLAAgPzvCuWg/OQ0trckdE68GLT8GHB977JKjSPFKxxsaKYilCLtINI0cbFG/w
+	 s8UpbvEEDmFjrpBbXIYZ3N/QQOVUMQZxKgr/6yifKipFWh/bPoqs9TjHWDQSsgJ7tGXfQ
+	 aMImQUPtTGddYtPgDE+Y5Sqa3qxrYgaMlBeck1wzYyV7abw2PtwyPuzbkZRdEyvUq/Yog
+	 6RZk6DBhyhJ/zNgQL0I0tPDRvL6zKmFIn2mzutsBjyycTtSnyg1SfsbsWko99NQ/MkH5M
+	 0Kx9ITnanthDCh8HJYk1bffxL7TCEovwyf2nVajdjdiYBhZumgO4XZVU0fdarMmU1Eg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793608540;
-	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:
-	 Subject:Cc:From:To:X-Mailer:References:In-Reply-To;
-	bh=1rIB1vRoYUg/eat5sycNG20a1NBZxW/VI6E4kjo2aTM=;
-	b=3i6rCOaT7bvUUY48h+ulJ4dDwOENz91DH5yBHPAhkOT/Eg2U8Wx8BO8blOBSZomXzKkb
-	 MFvxgVs1n+bx+pYtAkxlL8zX7DUvbwHGK1wXvMP78HR7rFvTrnVFTDdwpaDwHUf5aLz9J
-	 XoKE/qQ9D1oJ/TwPoPKGEUi8RN3OxpxdfFwPaTfsz8vIs4sZk7UuFAug6GjCIL9rllV/+
-	 F6NcLsOL5SJnDty1zZ0n772Y69HcqmHXrpusV5jbEC/Ye9VRPDFEU0mRPJuzPZcMumCIC
-	 f84Odq2SeVROW5i+8VMzGD0HW3GkctdSjhrTctweIGqpNoP88nc8t9LVnDUWJE2k0mA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793608577;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=71To1F+Ha52gfiOXVzuzWJ0D7FrFND/yLtAE+8lZwmk=;
+	b=211Enf5Q36IIgGfGygIrrss4++jimbob33MMu4lCuZOAvTXPI6l9UEOf4SgFYr/mwBaq
+	 lRc9QZKiofLkI1lsFYeTEB6lS9W/reWXyoJ5Da1PNqd4+Ly4kyrtU1o5acg0Qz5cOYLuM
+	 YqgK6MMtBBhW91bluklQj+OPYRZHYZ5HZxW/z0WkSwO5JYrcICjuAX7J1auLDz9DcTBwX
+	 aXFu0YhN3C9+E99/NZVtayhvDnfS7S0yt3BT39kQkxmisUnkjY0AR5UO9UDkzjMojY88a
+	 TfqKE8+HX0wBuEEDlil6/EdRTBtX6d3WvqLZV1hSger9X3VcXRY9jrakTNuycGkuReA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4Ncde+y;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hN2KP4pN;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with UTF8SMTPS id BDCA2606A326;
-	Mon,  2 Nov 2026 08:35:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E914B606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 08:36:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=g4Ncde+y
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D1C221F000C1;
-	Mon,  2 Nov 2026 08:35:38 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hN2KP4pN
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 698601F00919;
+	Mon,  2 Nov 2026 08:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793608539;
-	bh=1rIB1vRoYUg/eat5sycNG20a1NBZxW/VI6E4kjo2aTM=;
-	h=Date:Subject:Cc:From:To:References:In-Reply-To;
-	b=g4Ncde+yEUn3Uqc/DM1NJrcWBNtJqH6PnT1tBqCNDfWuk7RkFToVd8GnNs7NhV00L
-	 dzFiuW1giTQ5Nod9ajgRdFnA7cbNMM8VSlJ5kIz79HwJXN0pIPPMHFHX+0rRBatl/m
-	 9Puk7QV6hRJlSSVN5hWPu6Zt6BA62eHn8BleccUDCvD0H4MHfavVex35E8QJHtv5Ni
-	 cwjokAdaMRAlfuxjwF1+JOtq1IulwjeZjglqvrMe00hTe2UD9wioU0jteqR5mhx+qw
-	 257e1hXa85D4zg9aHNwAWVdB3eYXZgE0uRn2It2wFqp+uZhvnsxsrYa7S/JK4L6Uh2
-	 pCiArhBVsenpw==
+	s=k20260515; t=1793608576;
+	bh=71To1F+Ha52gfiOXVzuzWJ0D7FrFND/yLtAE+8lZwmk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hN2KP4pNFL2p90V8j3d/hLfQeX2QZzb9dkQfAat0qfzSTf5GYlqtJ1PzjKS3P2zkJ
+	 RrjjMqw+iYfqFbInhZ3OrlHp5yEbrrPc+3VPUCVPVwd4Y77RXJWajAGWelPr76iq/X
+	 j1acplbF3c8IQ5DGD30RFStFv7VTdoX+KHqeGgwbXJYgXaEen+icaidGQPc/upEpxg
+	 QzHtvAqKv5xIeq01p4QdTNiIBlicUcI9sypwrt2z3DX8n04rS9oYy77b8b1NTVwBW+
+	 H3n7kH9vKsu9goozvQPdw88H+cmY5p22CzQdSDTZ+7JEX2eFYcQr2pCjOPcyuiyy/J
+	 iaAlGW95UJnlA==
+Date: Mon, 2 Nov 2026 10:36:09 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Greg Thelen <gthelen@google.com>
+Cc: Pasha Tatashin <pasha.tatashin@soleen.com>,
+	Pratyush Yadav <pratyush@kernel.org>,
+	Alexander Graf <graf@amazon.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Evangelos Petrongonas <epetron@amazon.de>,
+	kexec@lists.infradead.org, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] kho: check fdt_phys in is_kho_boot()
+Message-ID: <auhLedAuD32WNcXW@kernel.org>
+References: <20261023054518.3258350-1-gthelen@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,62 +60,65 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=b81a3de448a6ea9d1d628ba9d1bdeef55f94c872718d1fd8c33a13ec9aad;
- micalg=pgp-sha384; protocol="application/pgp-signature"
-Date: Mon, 02 Nov 2026 09:35:35 +0100
-Message-Id: <DMKL5UA6LF1L.JHZVY1JO1AE2@kernel.org>
-Subject: Re: [PATCH v13 02/13] gpiolib: regmap: add
- GPIO_REGMAP_QUIRK_SET_AFTER_DIR
-Cc: "Linus Walleij" <linusw@kernel.org>, "Andy Shevchenko"
- <andriy.shevchenko@linux.intel.com>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski@oss.qualcomm.com>, "Conor Dooley"
- <conor+dt@kernel.org>, "Mika Westerberg" <westeri@kernel.org>,
- <linux-acpi@vger.kernel.org>, <devicetree@vger.kernel.org>, "Long Zhao"
- <zl020895@163.com>, <linux-kernel@vger.kernel.org>
-From: "Michael Walle" <mwalle@kernel.org>
-To: <longzhao@ambarella.com>, "Bartosz Golaszewski" <brgl@kernel.org>,
- <linux-gpio@vger.kernel.org>
-X-Mailer: aerc 0.20.0
-References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
- <20261102-cv75-gpio-v13-2-4f93114ea204@ambarella.com>
-In-Reply-To: <20261102-cv75-gpio-v13-2-4f93114ea204@ambarella.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261023054518.3258350-1-gthelen@google.com>
 
---b81a3de448a6ea9d1d628ba9d1bdeef55f94c872718d1fd8c33a13ec9aad
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+Hi,
 
-On Mon Nov 2, 2026 at 7:45 AM CET, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
->
-> Some controllers ignore output writes while a line is still an input.
-> Add a behaviour flag so the output value is written after the direction
-> change. This is a legacy quirk. New hardware must not use it.
->
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Michael Walle <mwalle@kernel.org>
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+On Thu, Oct 22, 2026 at 10:45:18PM -0700, Greg Thelen wrote:
+> During arm64 setup_arch(), efi_init() -> reserve_regions() calls
+> is_kho_boot() before arm64_memblock_init() initializes memstart_addr.
+> At this point memstart_addr still holds its initial sentinel value (-1).
+> 
+> When booting via kexec with KHO enabled, kho_populate() sets
+> kho_in.fdt_phys from the /chosen FDT node. Calling is_kho_boot() ->
+> kho_get_fdt() invokes phys_to_virt(kho_in.fdt_phys), which evaluates
+> PHYS_OFFSET and triggers VM_BUG_ON(memstart_addr & 1) on arm64 kernels
+> built with CONFIG_DEBUG_VM=y:
 
+Can't see the forest for the trees ;-)
 
-Nitpick, if you'll send a new version: I've just noticed the
-subject. It should be "gpio: regmap:" not gpiolib.
+Can you please translate the gist of the issue from LLMish to English?
+ 
+>   kernel BUG at ./arch/arm64/include/asm/memory.h:377!
+>   Internal error: Oops - BUG: 00000000f2000800 [#1] SMP
+>   Call trace:
+>    is_kho_boot+0x2c/0x38 (P)
+>    efi_init+0x94/0xf8
+>    setup_arch+0xf0/0x240
+>    start_kernel+0x84/0x490
+>    __primary_switched+0x88/0x98
+> 
+> Check kho_in.fdt_phys directly in is_kho_boot() instead of calling
+> kho_get_fdt() so that early boot callers do not invoke phys_to_virt()
+> before the linear map offset is initialized.
+> 
+> Fixes: d6d511639185 ("kexec: introduce is_kho_boot()")
+> Assisted-by: Gemini:gemini-3.8-flash
+> Signed-off-by: Greg Thelen <gthelen@google.com>
+> ---
+>  kernel/liveupdate/kexec_handover.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/kernel/liveupdate/kexec_handover.c b/kernel/liveupdate/kexec_handover.c
+> index 7c4d86daf86d..d81baa38497f 100644
+> --- a/kernel/liveupdate/kexec_handover.c
+> +++ b/kernel/liveupdate/kexec_handover.c
+> @@ -1630,7 +1630,7 @@ EXPORT_SYMBOL_GPL(kho_restore_free);
+>   */
+>  bool is_kho_boot(void)
+>  {
+> -	return !!kho_get_fdt();
+> +	return !!kho_in.fdt_phys;
+>  }
+>  EXPORT_SYMBOL_GPL(is_kho_boot);
+>  
+> -- 
+> 2.56.0.257.gf7497c7d27-goog
+> 
 
--michael
-
---b81a3de448a6ea9d1d628ba9d1bdeef55f94c872718d1fd8c33a13ec9aad
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCauhLWBIcbXdhbGxlQGtl
-cm5lbC5vcmcACgkQEic87j4CH/hnUQF+MpLNFPuyxRBC6LHqgNWM5/qXE+DdSn3Q
-a45RjxU8gIC4JIWdU2Jqs/9Uu6hKFU9BAYCglCj6EnRCcagFtOvXexH591eaGd9w
-BX+skRSjoJoLXk+ZLWnvf2wzxPlsHqYV0Ik=
-=Ynsr
------END PGP SIGNATURE-----
-
---b81a3de448a6ea9d1d628ba9d1bdeef55f94c872718d1fd8c33a13ec9aad--
+-- 
+Sincerely yours,
+Mike.
