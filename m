@@ -1,62 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=67.231.153.30
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793648631;
-	b=Ix+VkO7MuEt7XKyykhfJcWDHzHoQ34GZV7OCmXYztEl9C/ybsx52ik/nFCSYSaaoxsEh
-	 4QiHsSZtD6xqsJNiUKmNAcXODn8rz0D6o16sgHCo83mj0cg6N0OxQi+OehJb7aflO4OgB
-	 bPya6ZM9MQNfGuQjySUW5RhEegxiPqvrlCOQmt7OK5q/DgY0BXeSGsRgBmMf8qCQbnn2x
-	 ZZlmjDYeeExXG/1eaUZwanw0Ey7xYppWNCIBKs2qf8uSn7HbkeWAuHkTJLP98oGdsG0H5
-	 b6y/xrc4oPpcRMV60uoj4OUQW0u4o1dQ1G7esME01d2kNCVK8ud61LoIHz+/UmJiiKQ==
+	t=1793648646;
+	b=YrraTWZG5ua25kd5p6ZwACxUB7whPXLky1ccIe5OafCZe+mkFwWzCMS2+8n8TXs4FVPr
+	 bx+RdEWdqVVcOkZ4hOjme1BUMz6SU9i5ZiQX5xEB28u/VQQ6LsqSdTiAxT1RaBVKMmLwy
+	 UdDSaDaxCXTASp2rUuPxSzjTIAd7Kb8ZLwbi9Z/NzAU4MsVikzynQp6FqExJ0LS6rXewl
+	 YARQR8obZYkKgzgCP2/WOZzojbrej2Frz1Gz0HDxfUrKvJ27gfSY7Rs0xewc4hOt7xEWq
+	 yvvR7mHJi4GiTw6DxtaARpvqzVPzC9NRzYFfIscfMK8bq8sDaUoDQYKiNHKOSHhl1wQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793648631;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=bNXMc6Fqp3PDxjL/dRqblzNk3YcAk9DQxRLdcWrTbog=;
-	b=ab8g4Gwzac5EQSgR55HPHMWQ+kHY7g5PC/Q8K5/I6/6T7YPrnUAPbl7ZtcBIiQUb35Jo
-	 v4CYjJaoDJ6Jj3TciHZh/XFPY3gaVbaJqfpxytQhwTUbbTVX7+6oPdej0hSSV73/78Gve
-	 HqmKRotrqM+DCVX1xTmW1tzPwnBejbThvAp4te3lGzI1I4WW5Z40bbbwqYRaWRXENcJkz
-	 IBPTScMJWwLo4TDjLJ5SkHv6Z6jDyUxcN0oXmBGb3u2dwxIIUFWilpTWW+ZGGeP2msgb5
-	 7/lbAArh15rkIc7sboDLENCqC5zs7hKC7Hq3FKMCPa+MxbCfH7O23vIkulHqoKFOU+w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793648646;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Date:From:To:
+	 CC:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Originating-IP:X-Proofpoint-GUID:
+	 X-Proofpoint-Spam-Info:X-Authority-Analysis:X-Proofpoint-ORIG-GUID:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version;
+	bh=Xs/bknxSjUD992DcwA52sYwD2HmK67B3GQnMd3KGXmA=;
+	b=306C/nc87W1Gv9iMjt66t+nM6PjnZw4eRcRwW+jiz5tVQ/Sis2xEmuOn9tnTcTMYnv6k
+	 rKlNH0PHvQxMafJH/030/TBdcN1HoIqeUKyp6d/g/e5SSYGd8hqstSTCEUA4aWtzqF8ND
+	 vT1138QX2hqS7TEzBxnSGs32HvbgvxlkBBs2vhaV9fvYPMHcdFWhaxfJxe2ebMU4xH4JI
+	 1WH5GWyGY8Pxsm0WG4GnNyIcC27s7OzGEE2AQW+y3Q2BTsnRNVCW2Pexft9MXg42ZfV9y
+	 BIXyRy06xaCxVKFH/g+CpHgmuTnoLkA6PBSAaTnC0rTBT3q2Ttab0riyyqp+upoG3eA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNu0g4i1;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=meta.com;
+	spf=pass smtp.mailfrom=meta.com;
+	dkim=pass header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Xz6MZ6Q5;
+	arc=none smtp.remote-ip=67.231.153.30
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com [67.231.153.30])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A89606A327;
-	Mon,  2 Nov 2026 19:43:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8917A606A329;
+	Mon,  2 Nov 2026 19:44:05 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8917A606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=meta.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=meta.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hNu0g4i1
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC8F1F00A16;
-	Mon,  2 Nov 2026 19:43:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793648630;
-	bh=bNXMc6Fqp3PDxjL/dRqblzNk3YcAk9DQxRLdcWrTbog=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hNu0g4i14OLJCP3bifErYOhzW0NxuOhO1LFKwxBqnlctLn49ps/UMYD5U3l1eXnzv
-	 Y5bRkfu+5B9i4wyBWeYYq7mU32DQlxlRc3UHOhrAgPnGukF6f73X894GUXOCU6EC+2
-	 LgXy8g6Ho6elBM2HtqPHCeIWVISQYXn7tFdTlD0JlkPzpGdV4c+UiMgPHYlaoKpTXw
-	 3TjIFE7Uj97v6Oybknj3DK0vLed6wrMRcDeALXsvOkme2DKlJa7qvoHGhCeeUPvFtr
-	 /hhIAqqcq+tO2Z+1oxJvGx5ivVcIqWA257941QkxehNOqhVQL78CtbAvaLRCm/tRpw
-	 19CCFP1aR+Xyg==
-Date: Mon, 2 Nov 2026 19:43:45 +0000
-From: Conor Dooley <conor@kernel.org>
-To: gaohan@iscas.ac.cn
-Cc: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>, Yao Zi <me@ziyao.cc>,
-	Jiaxun Yang <jiaxun.yang@flygoat.com>,
-	Han Gao <rabenda.cn@gmail.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: Re: [PATCH 1/2] dt-bindings: timer: add the FU740 CLINT
-Message-ID: <20261102-battery-patience-0c6d810c33be@spud>
-References: <20261101-b4-sifive-fu740-clint-v1-0-b4821199a733@iscas.ac.cn>
- <20261101-b4-sifive-fu740-clint-v1-1-b4821199a733@iscas.ac.cn>
+	dkim=pass (2048-bit key, unprotected) header.d=meta.com header.i=@meta.com header.a=rsa-sha256 header.s=pps82601-s2048-2026-q3 header.b=Xz6MZ6Q5
+Received: from pps.filterd (m0109331.ppops.net [127.0.0.1])
+	by mx0a-00082601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2IhL6b3944200;
+	Mon, 2 Nov 2026 11:43:38 -0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=meta.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pps82601-s2048-2026-q3; bh=Xs/bknxSjUD
+	992DcwA52sYwD2HmK67B3GQnMd3KGXmA=; b=Xz6MZ6Q55LH2h5+cH8Uv9SYwyhG
+	fqA0wCgtCeQ2MLDJE5lEOYNeF2tBmMxf/Ozjov+u3E3gde/WflZJDwBao7xj7sS8
+	x+YiE+yvgTc53YY5b89vpl2L1l5FAQsyGao1lBjvZhO8LmPpCMJBYfR3WLhJRaz2
+	Ju7xsfJ+U1/q/2/dM4jxfqRL6Ri1wUnlzo7YVwGCzoLAfU43sEFrXSNt0sPjpgP5
+	gLVtCwSquAWEu6Ibk9k1YodRwN+FMA10HHh0dhV5VT1HmU1Ongvi3dFQqWf18xtd
+	P9ElzdgxTJCRynqy7J0zQLiia8LoN7NTX3cEsjNE3ribWcsz5OF/7y+21Dg==
+Received: from mail.thefacebook.com ([163.114.134.16])
+	by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 4hne57ca7n-2
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT);
+	Mon, 02 Nov 2026 11:43:37 -0800 (PST)
+Received: from localhost (2620:10d:c085:208::7cb7) by mail.thefacebook.com
+ (2620:10d:c08b:78::2ac9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.56; Mon, 2 Nov
+ 2026 19:43:36 +0000
+Date: Mon, 2 Nov 2026 11:43:35 -0800
+From: Bobby Eshleman <bobbyeshleman@meta.com>
+To: Michal Luczaj <mhal@rbox.co>
+CC: Stefano Garzarella <sgarzare@redhat.com>,
+        "David S. Miller"
+	<davem@davemloft.net>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Stefan Hajnoczi
+	<stefanha@redhat.com>,
+        "Michael S. Tsirkin" <mst@redhat.com>,
+        Jason Wang
+	<jasowangio@gmail.com>,
+        Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+        Eugenio
+ =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+        Shuah Khan
+	<shuah@kernel.org>, Randy Dunlap <rdunlap@infradead.org>,
+        Donald Hunter
+	<donald.hunter@gmail.com>,
+        Eric Dumazet <edumazet@kernel.org>, <virtualization@lists.linux.dev>,
+        <netdev@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <linux-doc@vger.kernel.org>, <kvm@vger.kernel.org>,
+        <linux-kselftest@vger.kernel.org>, <sargun@sargun.me>,
+        <jlinbox@meta.com>
+Subject: Re: [PATCH net-next v4 4/7] vsock: add a netlink command to assign
+ the g2h device to a netns
+Message-ID: <aujn5/nm9f9YX6bM@devvm29614.prn0.facebook.com>
+References: <20261020-vsock-guest-ns-v4-0-047527cfccfc@meta.com>
+ <20261020-vsock-guest-ns-v4-4-047527cfccfc@meta.com>
+ <atjZZP2ebhXKzMxL@sgarzare-redhat>
+ <atld3+5LKmGxJ8+s@devvm29614.prn0.facebook.com>
+ <atnjOZjKUBagRVWq@sgarzare-redhat>
+ <d946003a-8bec-4e8b-89a3-05eeb96780cc@rbox.co>
+ <auT+YIawHSMPHbJI@devvm29614.prn0.facebook.com>
+ <5a411a67-f550-459d-be9b-5e8e51d3018c@rbox.co>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -66,27 +103,166 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RC9Cs/46Lsy1/De1"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <20261101-b4-sifive-fu740-clint-v1-1-b4821199a733@iscas.ac.cn>
+In-Reply-To: <5a411a67-f550-459d-be9b-5e8e51d3018c@rbox.co>
+X-Proofpoint-GUID: QR2S-efKBO6QdYqmIxgc6lAyUaLaTRaV
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA3OCBTYWx0ZWRfX/+ZJayM1LQ+r
+ 9CV/sgjbk1pFruMf2Sg0Afqz45bxdOm/q1kCI1B+bg8HW4Cjn7g4Lr79nb2RdSW2Xmzq4dF0XOW
+ GqQjtLSbwrhVrlFabcgVpqZqM5ZWyic=
+X-Authority-Analysis: v=2.4 cv=SJ/Xx+vH c=1 sm=1 tr=0 ts=6ae8e7e9 cx=c_pps
+ a=CB4LiSf2rd0gKozIdrpkBw==:117 a=CB4LiSf2rd0gKozIdrpkBw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=7x6HtfJdh03M6CCDgxCd:22 a=wpfVPzegXHpEFt3DAXn9:22 a=VwQbUJbxAAAA:8
+ a=BjZWFOVnn3HtxxQ2TYoA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-ORIG-GUID: QR2S-efKBO6QdYqmIxgc6lAyUaLaTRaV
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA3OCBTYWx0ZWRfX2ea4iepLya8e
+ u/RHH1/wfHIKJZ8+Jf7wOY4wj8XR9xzoUNBYjnpFjO47yzsaKfjU/XN8j7g82pGNcHLIAuDVzMJ
+ KMGfZDToKxladXb1lbLFhLwt5iGVw3LJBtrZsMaVjskGsjdSEfVKQXCCYwA5zkPm482GMtvPwN3
+ jyJIuvtvK2eZdI8VGkblCf8zlVF/GyFNxFgJDRGQUE4YhkD6gz6U8H7oeeXXITLS0LjBEBIQkVd
+ hciJv6mh5dbOOr8WbBAG68O9jPfYLSopCyL97moXfPwULj4fUglw2KjlroxFs7mDRTA3fUU1qXY
+ XulWKBv1MwarGtHmsJHqll9CuwDtloBZZGQW/RsUBi0kqUJ/29Ugn3cBOSVu/19P+N8EkFP2I+3
+ RQ+4KR1LzEbgliAqZ8kR4kJ2WqGwZjinnsOjv8iLgk7AxJ9WUGp/AjfY+5pp07gMXMNbiYKu5YO
+ VcLFK14qbwpeW4bMkfw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_05,2026-11-02_03,2025-10-01_01
 
---RC9Cs/46Lsy1/De1
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On Mon, Nov 02, 2026 at 02:21:27AM +0100, Michal Luczaj wrote:
+> On 10/30/26 21:30, Bobby Eshleman wrote:
+> >>>> Yeah its all kind of a pain. The problem is that we need to hold
+> >>>> sock_lock to set sk_state and sk_err, but can't acquire it under the
+> >>>> table lock. Instead, we grab the socket ref sock_hold under the table
+> >>>> lock to guarantee it stays alive between releasing the table lock and
+> >>>> grabbing the socket lock.
+> >>>>
+> >>>> I was really tempted to not do this lock_sock dance though. The race
+> >>>> condition I'm avoiding here is that if this reset races with an RST
+> >>>> receive, then the socket could end up with TCP_CLOSING + sk_err
+> >>>> ECONNRESET... but I'm not sure this actually propagates up into a real
+> >>>> problem for any potential user.
+> >>
+> >> Right, vsock_connect() is fragile. Two things to be cautious about:
+> >> 1. Don't let it reset the already connected socket. Because that would
+> >> allow user to "re-connect()" and make mess in connected_table.
+> >> 2. Don't let it re-assign transport of an already connected socket. Because
+> >> that breaks the contract in few places.
+> >>
+> >> State 1 is not an issue: vsock_g2h_reset_unreachable() calls
+> >> __vsock_remove_connected().
+> >>
+> >> State 2 may be problematic: if vsock_g2h_reset_unreachable() sets TCP_CLOSE
+> >> when connect() is scheduled out, then after the wake-up sock may get reset
+> >> to SS_UNCONNECTED. Then user re-connect()s and hits the transport
+> >> re-assignment logic. I'm worried that, as we re-assign, someone may be
+> >> holding a reference to such "connected" (even if not in connected_table
+> >> anymore) vsock.
+> > 
+> > I see path you're looking at... after vsock_connect() gets scheduled
+> > back in we set TCP_CLOSE/SS_UNCONNECTED if sock_error returns non-zero.
+> > Could you elaborate on your last concern there about someone holding a
+> > reference? I'm not sure I fully understood.
+> 
+> Ah, sorry, let me explain. This case reminded me of the vsock's TCP_CLOSING
+> bug[1]: reporter mentioned vsk->trans getting freed when skb was still in
+> flight. I did not reproduce the exact scenario, but it did sound plausible
+> and I thought it applies here: virtio_transport_destruct() frees vsk->trans
+> the moment vsock_loopback_work() invokes virtio_transport_consume_skb_sent().
+> 
+> Now, to get there let's start with vsock_connect() setting SS_UNCONNECTED
+> (on a connected) socket after vsock_g2h_reset_unreachable(). Then user is
+> able to re-assign the transport, which involves
+> virtio_transport_destruct(). But since we're dealing with a connected
+> socket, (before the reset) some send() might have triggered
+> vsock_loopback_work(). Does this make sense to you?
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+Ah you're right. I think that your approach of making vsock_connect()
+more robust is probably the right way to go...
 
---RC9Cs/46Lsy1/De1
-Content-Type: application/pgp-signature; name=signature.asc
+I think this is the new race...
 
------BEGIN PGP SIGNATURE-----
+1) vsock_connect(cid=VMADDR_CID_HOST)
+   -> enqueue pkt
+   -> sleep
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujn8QAKCRB4tDGHoIJi
-0hLLAP9M24vz8ap4cClkIgkJN4frJuXgVA8Fg5ec95KS4e33/wEApywaPJCZO3Q+
-UjQJhFVsS1X96YEbVNVFD1l9MsCfIAA=
-=712p
------END PGP SIGNATURE-----
+2) rx worker receives OP_RESPONSE
+   ->  sets TCP_ESTABLISHED/SS_CONNECTED
 
---RC9Cs/46Lsy1/De1--
+   (vsock_connect() still asleep)
+
+2) sendmsg()
+   -> sees SS_CONNECTED
+   -> enqueues skb
+
+3) netns reset sets TCP_CLOSE and sk_err=ECONNRESET
+
+4) vsock_connect()
+   -> scheduled back in
+   -> sees sk_err != 0
+   -> sets SS_UNCONNECTED
+
+5) vsock_connect(CID=VMADDR_CID_LOCAL) call #2
+   -> sees SS_UNCONNECTED
+   -> frees old vsk->trans
+
+6) sendmsg's skb tx completes
+   -> tx worker dereferences vsk->trans for the UAF
+
+If connect() checks for SS_CONNECTING before setting SS_UNCONNECTED,
+then in step 4 sock->state stays as SS_CONNECTING and the second
+connect() call will hit -EISCONN instead of freeing vsk->trans.
+
+Seems to work for a racing vsock_shutdown() too, where sock->state would
+become SS_DISCONNECTING, and the second connect() would hit -EINVAL
+instead of freeing the vsk->trans.
+
+I guess the rule would be that vsock_connect() sets SS_CONNECTING before
+sleeping and only changes it to SS_UNCONNECTED after waking if and only
+if it is still SS_CONNECTING.
+
+WDYT?
+
+> 
+> Another thing is this feature of vsock_assign_transport(): in some
+> re-assign failure paths you may end up with vsk->transport = NULL. In the
+> past this caused issues with sockmap: see WARN_ON_ONCE in
+> vsock_bpf_recvmsg(). Problem here is that normally vsock gets removed from
+> sockmap on close(), but in our (reset+reassign) case close() is never invoked.
+> 
+> [1]: https://lore.kernel.org/netdev/anzT1fREOSyHT99k@v4bel/
+> 
+> >> So I don't know, maybe it's vsock_connect() that should be fixed/hardened
+> >> instead?
+> >>
+> >> Or at least disallow transport *re*-assignment? Does the "re-" part have a
+> >> use case?
+> >>
+> >> Hope it's not too off-topic.
+> >>
+> >>>> It also avoided some racing with the tx path, but now that send_pkt()
+> >>>> also checks reachability I think that path is safe.
+> >>>>
+> >>>> What do you think about doing the below hunk (TCP_CLOSE, ECONNRESET,
+> >>>> sk_error_report) with no lock_sock?
+> >>>
+> >>> Looking at the code, it seems that in all the places where we close all 
+> >>> connections (virtio_vsock_reset_sock, vhost_vsock_reset_orphans) we do 
+> >>> with no lock_sock but with vsock_table_lock.
+> >>>
+> >>> So, makes sense to me.
+> >>
+> >> virtio_vsock_reset_sock() and vhost_vsock_reset_orphans() are my pet
+> >> peeves: state switcheroo without taking lock_sock(). Which, again, races
+> >> vsock_connect().
+> > 
+> > True, I don't love that either, but I feel the impact is at least
+> > constrained by the fact that it only happens when the module or device
+> > is already going away.
+> 
+> Doesn't it happen on suspend as well? Is so, with a poorly timed connect()
+> things can go south on resume.
+
+Ah that's true.
+
+Thanks,
+Bobby
