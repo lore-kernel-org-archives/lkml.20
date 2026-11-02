@@ -1,64 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.167.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793578452;
-	b=rMAPdkks9ONzoHzsT/6jhUbowRH3vOMvWRpd5fYumefj3IEDrIhe4f0pVkKtADXelHdl
-	 eOY7DZ1quXuu//6jlwqA1j4IWE0KESophCppPei+wpoZ+eei3eTOsR6QleKpsGnBoSAwq
-	 VLDx8qPk0pqqth9AsLymAR3Gab8ojnb3Durm3BmwzHxCEXWg6gW5XlqMPiyG/F5nY2ceZ
-	 W1Vw5kaJ/mBCZ88NlHA5oRH/aWeSd5g7NdnS2fP8AiARQvv49XZtOo0RzxG68KA297Xyv
-	 3HDUu1O831MECvQiMKsrGPXoeRrAPCudlVTmKOy78tcQ6PmhR2jw/DQ7M9KCdI+ORPg==
+	t=1793579222;
+	b=q812fQYbV/xDte/VdpUqJWmQDb4if6qKfp2mYuZxPu2f7xzpKFRv97oKGzrJiV24d7GH
+	 Qsa6+y4NIveDG/eqkIeB9hVU0o0Q/JFlD5kviuSaxnAN6iLC51l3ZqsSYYwyxFrrewES8
+	 zM4Rm++HQSCmFYx4wnnc2870I9pcd5NjiN0S3VdyoO7agbQF563tc9r5nX5+sQN3IHyRO
+	 xpvKx1P1DqpORMT3m9Di8pBrghle3kT5PgmKSKQYAR6ngY6RwOSxWk06yHTO/t0tTTgjc
+	 BNnoiW4QpXbz+rxWh6JZ/aP7tWPUJdHwN5nQxReFOGKSOSc6WbJN1hRT0bDPeSogkwA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793578452;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=txeTBM5DNYw87/QZmQaWisxC446w2wy1hoG7oJJBzos=;
-	b=Axv3VXNJd3Jcoh67tks4xpNE83KgFiUgFSimCS75v+kyqJPedpv0iN2wU21ypvHtZETY
-	 9P1ZkG07AR8rPa/xY1SFz4bm029Kq/1iqoT1mscPreNo6k7jI1rGgtuOTcOY6Dx2pm/8n
-	 QWwywPvvWeO4gAr5ISK8vBDchGRvd/yxmjsAMaeDnfSKxdCoRfsr8UjDGkJQVl/adAKQH
-	 J180WduO/GwhA18veV9e3zobEsbYupropvWxdY43ejaZM8dxXh9Pwwr7LZw528N9oqVxh
-	 0A+VF/gzkAPQi95YUvkRbd/Ld/XyKxaV17+USfKwxaqbOjsFMMyUEBmgWelitJGHFXA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793579222;
+	h=DMARC-Filter:Received:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:MIME-Version:X-Received:Date:In-Reply-To:
+	 X-Google-Appengine-App-Id:X-Google-Appengine-App-Id-Alias:Message-ID:
+	 Subject:From:To:Content-Type;
+	bh=f/m1FnPhiZFAB54M83Ro2OYMqIc5CunLUhnYvOj2PqI=;
+	b=mpVppOYlb1WLf240igT4oq8U7ZzzUZGG/+/FP3uVS+u4o02jf9Zf9s2l+Zqfk9VZrTMM
+	 EG8Jz0xpnpyqrT1Xe5C0vuubO4Oj8rfMdLPvH7kyagJUuWiGhA6JDQoOCj9jXqU7lmUFa
+	 Mzm0rg8UeQimKvFmsZ2kjHVhilgrVrNu2XuBQunAX31SY3ffVsrVVr/LZ0MSa5q5qaW2X
+	 iFIov9EV8eqt/PvNGkTDKO8zrSQ0HT0kCgamJTwBc8YjVdRqng9YUffGxRPivrgJaF7F1
+	 TRYVJXSQHw4IGvAEJODWCWnHdoMNdob8bdiJWHbUxarh5VTOT5ormU1LYkKmZrA15JA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX68vSiL;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=fail header.from=syzkaller.appspotmail.com;
+	spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com;
+	arc=none smtp.remote-ip=209.85.167.200
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDA5606A324;
-	Mon,  2 Nov 2026 00:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LX68vSiL
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ABCDF1F000C1;
-	Mon,  2 Nov 2026 00:14:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793578451;
-	bh=txeTBM5DNYw87/QZmQaWisxC446w2wy1hoG7oJJBzos=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LX68vSiLQI5taqCAPofyzh068CAZcRz/6kB78FNnDwla6ujrgxkTcU34cXGeoLMt2
-	 jX2of1Q/3Ek+iAapCy+27jCbWOBs+/D/HQbcjDP+s0ov6wjXmcHIa+ntj87nkO2NKb
-	 PVVTxBEf2PIRujJiNZjUpKbqDFOhUcC3fsYQdO1QLrQSZWawdEGMbJWf5B0XCsPDSn
-	 WCLuyTYDTtAaczj3PoR+1z+Ii0Iuv+E1IRtSDct4XCtyAqCabzbuKkOh2OVNgTgIGU
-	 /L+XBuPvoIm/SOqiiYxXyR7ZfYHo4BvXhsGSopsxe2NM4bOQIvPMuhDLHT0MImZa0h
-	 3+dkvZ5KCtBTQ==
-Date: Mon, 2 Nov 2026 00:14:05 +0000
-From: Jonathan Cameron <jic23@kernel.org>
-To: Stephan Costa Barros <stephanbrrs8@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Mike Looijmans <mike.looijmans@topic.nl>, Andy
- Shevchenko <andriy.shevchenko@intel.com>, Uwe =?UTF-8?B?S2xlaW5lLUvDtm5p?=
- =?UTF-8?B?Zw==?= <u.kleine-koenig@baylibre.com>, Krzysztof Kozlowski
- <krzk@kernel.org>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 6/6] iio: adc: ti-ads1298: add ADS1299 support
-Message-ID: <20261102001405.5798b110@jic23-hlaptop>
-In-Reply-To: <20261028022652.31121-1-stephanbrrs8@gmail.com>
-References: <20261024231335.280955-1-stephanbrrs8@gmail.com>
-	<20261024231335.280955-7-stephanbrrs8@gmail.com>
-	<20261025233429.23b02702@jic23-hlaptop>
-	<20261028022652.31121-1-stephanbrrs8@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADAE606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 00:27:02 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8ADAE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab260600easo5207643b6e.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 16:27:02 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793579221; x=1794184021;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=f/m1FnPhiZFAB54M83Ro2OYMqIc5CunLUhnYvOj2PqI=;
+        b=JiomvjOA9q3xP7KSqqTFk6iChhPBqTTuRLawjZoXoHxElPlp19C2TKRFwwrIhc3W3T
+         kZsGcCLM9U0fR1QA0dUo+KxsQ2CYuv/vwggmZquXQfxhmXbaa5o2B/QDF/3S64iAB50k
+         YTWs72SjZgMpA5jZG1bgbhmeobsNM3czOJ9azk8jN7pYco3I7FVUC8UcY3PVRZPKLlhV
+         vks+z2cK7EDoxbNnkLgp3yohNTg7sEEOV0OPjLctic+8dxO3zpc3QbkSwROjb7/7cwhx
+         WAKfbN3IqLYFNz6OGsJnDPYeZNV2zQPZ2HlMAtunN4+As4nRkyFGn/IYWSoQNNGyuKuI
+         iJpQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3C7jNf2BNvQPqxKl37GygrQooC4b7pQe0YgYLoXMn+Yt7mDz1ze5khzXnmfY7EH0UNkA70cYE+s8BTRI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIi4scTRFffMq6agCsmrl9DHBfzpTNCyyhg4FEy+iZrYJ3Epp1G
+	puwx6mMYaldtS/gk6emzlpYlGpT+Blh0D5Qr+lUPHpbJv+mlN0RnEeP/3UZ57I0WSiRjCTKnvzA
+	WvnfuP1aa1TvD/6mvVJMtcAOMDNGZo2bC614jmyL790GSK9OmgR3aMfaWGkM=
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -68,67 +58,35 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:6f92:b0:4b8:4703:db91 with SMTP id
+ 5614622812f47-563ef9cd728mr5525776b6e.26.1793579221640; Sun, 01 Nov 2026
+ 16:27:01 -0800 (PST)
+Date: Sun, 01 Nov 2026 16:27:01 -0800
+In-Reply-To: <20261101203949.184-1-drifabdelmalekmohamedsaid@gmail.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6ae7d8d5.67782f90.13afb0.00b3.GAE@google.com>
+Subject: Re: [syzbot] [media?] [usb?] kernel BUG in v4l2_device_put
+From: syzbot <syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com>
+To: drifabdelmalekmohamedsaid@gmail.com, linux-kernel@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 27 Oct 2026 23:26:52 -0300
-Stephan Costa Barros <stephanbrrs8@gmail.com> wrote:
+Hello,
 
-> On Sun, 25 Oct 2026 23:34:29 +0000, Jonathan Cameron wrote:
-> > A few things in here feel like they should be in precursor
-> > patches because the implication is they apply just as much
-> > to improving support for the ads1298 as they do for the
-> > new device.  
-> 
-> Agreed. DVDD and PWDN become ADS129x patches, binding and driver, before
-> the ADS1299 ones.
-> 
-> > > +	if (FIELD_GET(ADS1299_MASK_ID_DEVICE, id) != ADS1299_ID_DEVICE ||
-> > > +	    nu_ch > 2)
-> > > +		return dev_err_probe(dev, -ENODEV, "Unknown ID: 0x%x\n", id);  
-> > How do backwards compatible parts with fallback compatible of ads1299 work?
-> >
-> > Generally we don't reject on simply an who am I value mismatch.
-> > Note the existing driver may need relaxing on that point - we used
-> > to do this before DT maitainers pointed out what it broke!  
-> 
-> Today that works only within a family: the channel count comes from the
-> ID, so ti,ads1299 serves the -4 and -6, and ti,ads1298 the ADS1294/6
-> and the R parts. A part with a new ID is refused, as the existing driver
-> does too.
-> 
-> For v3 I'd do, in a precursor patch for the existing driver: the
-> compatible's chip info is what the driver trusts. If the ID is a known
-> part of that family, it still gives the channel count and the name; if
-> not (another family, or a reserved channel code), the driver warns and
-> goes on with the compatible's chip info. The channel count from the ID
-> has to stay, since ti,ads1298 has been the only compatible and existing
-> boards with an ADS1294 or ADS1296 depend on it.
-> 
-> Does that match what you have in mind?
+syzbot has tested the proposed patch and the reproducer did not trigger any issue:
 
-Yes. That sounds like the best way to handle this mix of
-discoverable and not.
+Reported-by: syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
+Tested-by: syzbot+809dfc586f33fc44b6ac@syzkaller.appspotmail.com
 
-> 
-> > > +	/* The ADS1299 comes out of reset with its inputs shorted */  
-> >
-> > What is the case for the ADS1298 - is this just harmless or does
-> > that have similar behavior?  
-> 
-> Harmless. On the ADS129x CHnSET resets to 00h, normal electrode input,
-> so the write changes nothing. On the ADS1299 it resets to 61h, input
-> shorted, and without the write each channel reads its own shorted input.
-> I'll make it ADS1299 only, through chip info, unless you prefer it
-> unconditional.
-> 
-> > > +	for (i = 0; i < indio_dev->num_channels; i++) {  
-> >
-> > 	for (unsigned int i = 0;...  
-> 
-> Will do.
-> 
-> Thanks,
-> Stephan
-> 
+Tested on:
 
+commit:         7649ba73 Add linux-next specific files for 20261030
+git tree:       linux-next
+console output: https://syzkaller.appspot.com/x/log.txt?x=13384f95580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=32200e8f6f745e79
+dashboard link: https://syzkaller.appspot.com/bug?extid=809dfc586f33fc44b6ac
+compiler:       Debian clang version 22.1.8 (1~deb13u4), Debian LLD 22.1.8
+patch:          https://syzkaller.appspot.com/x/patch.diff?x=1603b5e1580000
+
+Note: testing is done by a robot and is best-effort only.
