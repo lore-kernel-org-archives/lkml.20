@@ -1,108 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621942;
-	b=twAyoT8RSSc4pcIaLSoPi3HZlOa1rSKf0cL99SnktfHYzkfD4ZcrqGR2gw4Xq55Iy9fq
-	 gA6cqu9mWxCzk+6ZSsw7T5jb1F3SHljuafSJz8GGe7QofRTLJRCDTgvlC/TgAZh5j6tW9
-	 cIzhZWI9YFYmp//G1XKXSF3Wk+2XHA1YG6D7wRUMStcaXiR3E2Vw7u6MrJcyWz3IBP2XX
-	 Vt8lsuoMjWkDWL33gNWe3+N81IUB6mT13f1j7DC0NAzHtQ5bhSfYkm8i7fehUdnQ1Vsc6
-	 WRd3k97hbuC+eY/IcAuS0OLY3bB2SEbCyxG4/S76uLP9QQPN4auKuw38iMxaHRBruAw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621942;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:Received:Message-ID:Date:MIME-Version:User-Agent:Subject:
-	 To:Cc:References:Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
-	b=3pA0Jw05gVoqVJCx2rixP6/1eWmPrDma9imV7gR1HEXRdT6WngwBeu7LEUfCwsu+TNbY
-	 N78gLX+n8MnhowpLv0ohQV4BPElqHnO+cHKSsqoTrmFDBUeJJBeDla6qFuSiIkTykRANC
-	 hoifNMW6RTXoXeBCIC0ndY2Wd/e/AGyU6to5aXWaewuKqR688rH/FFwayNhKvKzsBosQX
-	 pWU+5ToQVcjupBw05VxLDDXafytLvLHu4fhX/bwPeKVHr/LEMFtLAvep1NECpeKGYBzmO
-	 s9ZpV9T4X2eBfea7w5ZiTcwsYU5+GI5Q4csF5L+yBXc2tn9SvApgh4eEmO4D+GdJ8Jw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cPeNrzlg;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=muxRvgEI;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.36
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793621955;
+	b=t58QkIQgHNGKD4tf3dMy5XBXft73qwiEjrdHV11IAWXPPLY9bQ/0452W++ebeZuZpniq
+	 YnH1IPX78GX5oRpYBdjSrfXIviCk2YeTrWy+0NrhlPhK78mHL+buNkgy4Xuh8PH5LzXrg
+	 9IGMOmpo6UefFG5Df2zOjSE6r6yWm4smFeiDamw+PeODjBsUL9syTnJrTPNXYsU3t2URN
+	 I+QFrjSuWrKw3mK74pDAoTE+/kbWO9TAYMNnF0cYh0mse3EG1bveVSx/JyHn7GDtGR0cI
+	 cNWTtQVS8v4Nt1u34dq0XawGnh6gj35AciN0LCXBd3RcF7QVtB4v20okVYlJ6FAjUxw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621955;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=9w5x/9fWJ+xck7Z6wUyNqrCOl1Snh0CNogBREiCOhB4=;
+	b=oTU3Lpk6vtPCv0On6L5cgXtQVqiZlr3OcMEDpg40TfSqqxUjYMGCpQZI4MtLbGA2y+qa
+	 sVF3xkg6hEDOm++bWzBn7xqB0cYey2GlCtBgK8z13rPzUsgNbfNUx1L41Q66aSvlxHVIx
+	 kokhqrd7usLnBURPdgLJuooeYxJjKTUOWQZjteVFhhGHrRVk32Z5ssstj+ao136taDmYK
+	 4lzjDAWPyj/aKWbDFmZbjFtO/1cDJO3UPNFhhpH7XE4Azum5NWxTcL53DxiosVcMISAhf
+	 BPuGdSWdLUQfdF2h2CFmh0OGLVYtBvtrqHlN7i34E03F7UHAjXwcpQGk/nIa/QyPRrw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DNlMVaNs;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.107.208.36
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011036.outbound.protection.outlook.com [40.107.208.36])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8118606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:19:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C8118606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A3D0606A324;
+	Mon,  2 Nov 2026 12:19:14 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9A3D0606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=cPeNrzlg;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=muxRvgEI
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793621941;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
-	b=cPeNrzlgq1Q/J4RgFF+eUwG4G7kN9OVYgOqOSQWHYiAxyMzLSBcSxzB83zQfBB6Zg2voQY
-	gBKf+lb9xAmqbJ88tK/f3cNWc78mBNs3MGA88TeWQL7oTG7aaZHvXlvx3LaPNqYpAm1oLN
-	qJe1eNMahlD526b6bh/HJ/lsBm19tps=
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com
- [209.85.208.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-275-CDJP8BlwNhaM4Ybrk7wWqg-1; Mon, 02 Nov 2026 07:18:59 -0500
-X-MC-Unique: CDJP8BlwNhaM4Ybrk7wWqg-1
-X-Mimecast-MFC-AGG-ID: CDJP8BlwNhaM4Ybrk7wWqg_1793621939
-Received: by mail-ed1-f70.google.com with SMTP id 4fb4d7f45d1cf-6b1d818b501so1040958a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:18:59 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793621938; x=1794226738; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
-        b=muxRvgEI1s8h2zXXULZwzI/3XpicjK0kmbxlDECs7rKlTB1yV417AeqCjWgbpgMPHo
-         HaZDvQbbIp8Z9pm++PmPre6CDAOjXSvgLL2PTbyanJsw2PSpd2/Tez5W6NLvLMBHsBuv
-         NTRIpvhZHtiAaGj4AfwZubouJ8NmlF/fcU2U9VP6C9ZNxoO9BUo3RuY7LBL877l0+sW3
-         erVGbHIbFa0qo6s9N4vntGzH5HUU8un+SikGAnSUunIV+aR6G0QHZnLcCTY0DhwG9Y4+
-         GIxr/OqeijdBgYRIPusUguFRwANmziqyeJYXNPhzIHn5dhsFd+/ihq7X22q95wzwc8kW
-         g8fQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793621938; x=1794226738;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ezbpBo/Df5RXTILcrA43k0R/PKSOtGb0Z1SJrrOr0RY=;
-        b=aXhQz7eDN9hAM5CtmJJCHl7aFM0Y8vcilGzsNBSGNmfmtY9m2SN7C+TEwN4tN2pHsm
-         MX4J1iq4tfIdrEKxBc2YrCSH0SRCVX0pfe09t4hbgUyZkNo3eMUaThGL+0F4NUW0Lkrp
-         P2Fa8nMkmq4/fyNeSQ7JySXNCeTpZa3P6vB67oYa2p6ivF9eiS9d5fCU0PWWAzQwa5Ls
-         bVwBv2NhXdYDam1i+JkZxASeGdKCiEqew8gEDjt4SXNbqrHwWz9LKLsWF1TBkI7zfI8N
-         HR/m9beNo1OvxZw9QVvq/7/rGVIxtTZHs9ZP6tx4CapsRSKyMyTk/0RweN1BS2+bHx8O
-         yOJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwbUbKAgOFXMaB7ZBOk/jzp7lRP0m/eMPC7YxJClMaiUxH8claA9JQ8PdvdMsk2uTwdFHpLTHhn43FsqUs=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8XPP1diQCUqgTaYpK/2Z4U3b3VurrVcEosVL3KLNKzC5bcWsfh
-	1unzK3HqSdtc+2jAxAMIZjsyV1SXvii1FqtzH4XRI2yxgWo0UcSR5ThAi7VCFzSNezu1rPgJnMj
-	ROu8W7Lh5UFV0/qyaWI1SYqVnS7LHvzqHPkZ3Lys1mzffmg4ZjcN1q+i1cuhGFjsD+Q==
-X-Gm-Gg: AYBFou0iw9M+xALy3IdyfX2z1O+zXBrrI4vQ29SpeeD3kiHmynqZZOmitZjCtErBl7Q
-	uOGf6aiBaYDCdRXEtwOKGIevwT7LGHXVJ4WWm5DjduyI8J8lbnzZHc1qHLaiEXj4OHt9UdIdE5i
-	82yXLf0TFM/TT5bXF9txMPe5C6I+t195cG7Awrqapd248lb+zO7tPDT+RsQ7vxQaKBLUjDeDOTP
-	zuW/V/XZHVbOFYaedGQ9leHdqyEnkUPOSX12k6wzwcvGXzsEKS8ONnbHARxPg9ykNvZYkLqw6gt
-	cMjCjx7uhMx3sgbeq3afQUjunjGhujFZUGOGyFHFzCzNDCow1Sp0CV0agXZ2VP0+mgEHcRszXec
-	nrxmAuU1kLQAJyCmHnmREFaZ2G2iQIXin3kRSquEr7e01bfc1E56vC4OQfQZoW3bY2Ceu2scRQ9
-	fC7i5FLLtevfEuKHgoMPc0ujq+QpfEgAi1mp+NbWg+VqM=
-X-Received: by 2002:aa7:d518:0:b0:6ac:7868:b690 with SMTP id 4fb4d7f45d1cf-6b4d438916amr5355712a12.8.1793621938404;
-        Mon, 02 Nov 2026 04:18:58 -0800 (PST)
-X-Received: by 2002:aa7:d518:0:b0:6ac:7868:b690 with SMTP id 4fb4d7f45d1cf-6b4d438916amr5355695a12.8.1793621937879;
-        Mon, 02 Nov 2026 04:18:57 -0800 (PST)
-Received: from [192.168.88.29] (ip231-128-192-82.pool-bba.aruba.it. [82.192.128.231])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b4ec9fb9a3sm3166256a12.14.2026.11.02.04.18.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 04:18:57 -0800 (PST)
-Message-ID: <836982e0-b733-44d4-ae2b-20276589f867@redhat.com>
-Date: Mon, 2 Nov 2026 13:18:55 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=DNlMVaNs
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iVtosMOiSyDV3d8+lDfoGE5hAd2Ij2TqT4siwJXNYKxBQY8RaEgLi/hACy0s+1Tncnpl6WCzwmQCpx+a8EJyDPilXC+ZxjsYxji7SBP0MJ4h40jujiqaRSLZ2RTyO/DWMZ5nEbgyLyinK45KWk8Yy2zEzQ3Kak0SQ65I7836gaQ1G2bE1RWQHoYumJgt86kQgLFtcKp3CaOZP7rS+SEcmyhbnyavqaLN2YVM062/tUMwZKqLIpDORK1PXJIZTpnAp4OT55QYuEyKkzsouxyQASXZ2hBFmz0m9tSXhHeTYi+WtG+kcJkQMYwUg99pI8wIGUphqaGUf+470eWlGb7joQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9w5x/9fWJ+xck7Z6wUyNqrCOl1Snh0CNogBREiCOhB4=;
+ b=OsOd6SPshRzrYG3q4YygB6AVWQr4sBKfLqdUKc+2Vl0ciRBiIB44M8MmIwB0hD+b3vOfLQGwECOTNjaO5GyDfWt9U5s8ldxpPRARnt4qiryz//qdzeYW6LZMgUrspd4B3vHZQWvbt2MNRUBs23s2tVDgB5B4ODupWbLJY+BF9PnJqXGG14ny3oezVVzaZfkNEn4U17TeDOriA+MgM2ryefwI36RE/43GFQRBIv7qLDx40MGD7EU9083ApeMDq7qR6o/aADK3nzxJmWqgxPIc6Fezf6akM/4o58ctxRC72Iu8/jQCQBxiRYdQBkG6FgMRYmuHthJrwFPCsfZtnbjjIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9w5x/9fWJ+xck7Z6wUyNqrCOl1Snh0CNogBREiCOhB4=;
+ b=DNlMVaNsTRUkVI3q1Yx1j8yW6+UTxsbsCCCoasGCk7Uy9HpOVOsgo8036fgoNM9wXyehbu2QieR/zPY5JvJkqZqaJYvE+xYJstejVumr6dyeKqnmK95Mbo6hiHQmO2vfKfu6jb+h8ES/+cIBy8pzljs9dBt+aCJe36eCgm/AbsA=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com (2603:10b6:930:20::17)
+ by DSVPR12MB999261.namprd12.prod.outlook.com (2603:10b6:8:41b::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 12:19:12 +0000
+Received: from CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2]) by CY5PR12MB6252.namprd12.prod.outlook.com
+ ([fe80::ab00:d77:6014:64a2%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 12:19:12 +0000
+Message-ID: <bb6ac913-6c60-4673-8c67-705f0938df6c@amd.com>
+Date: Mon, 2 Nov 2026 17:48:03 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 16/21] soundwire: amd: Initialise and cancel IRQ work
+ around manager lifetime
+To: Lee Jones <lee@kernel.org>, Mario Limonciello <mario.limonciello@amd.com>
+Cc: stable@vger.kernel.org, Vinod Koul <vkoul@kernel.org>,
+ Bard Liao <yung-chuan.liao@linux.intel.com>,
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
+ Mastan Katragadda <Mastan.Katragadda@amd.com>, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Syed Saba Kareem <syed.sabakareem@amd.com>,
+ "Prasad, Prasad" <venkataprasad.potturu@amd.com>,
+ "Dommati, Sunil-kumar" <Sunil-kumar.Dommati@amd.com>,
+ "N, Poojitha" <Poojitha.N@amd.com>
+References: <20261030104840.3361217-1-lee@kernel.org>
+ <20261030104840.3361217-17-lee@kernel.org>
+ <43cae78b-8a9f-4528-982c-85c0049b1414@amd.com>
+ <3f883f3f-221d-4355-a39f-8321f2ebce49@amd.com>
+ <20261102093145.GB13023@google.com>
+Content-Language: en-US
+From: "Mukunda,Vijendar" <vijendar.mukunda@amd.com>
+In-Reply-To: <20261102093145.GB13023@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PNYPR01CA0050.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:c01:25b::14) To CY5PR12MB6252.namprd12.prod.outlook.com
+ (2603:10b6:930:20::17)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,88 +107,151 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v4 2/3] sfc: ptp: serialize host and MC
- synchronization transactions
-To: netdev-bot+sashiko@kernel.org, alex.austin@amd.com
-Cc: ecree.xilinx@gmail.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, richardcochran@gmail.com,
- alucerop@amd.com, pieter.jansen-van-vuuren@amd.com, netdev@vger.kernel.org,
- linux-net-drivers@amd.com, linux-kernel@vger.kernel.org
-References: <20261026123023.3566549-3-alex.austin@amd.com>
- <179336481081.3134.5405870739856758840@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <179336481081.3134.5405870739856758840@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR12MB6252:EE_|DSVPR12MB999261:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d4293eb-8e0a-4969-bf39-08df38db80a3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|1800799024|366016|261021123027099003|4143699003|11063799006|56012099006|261009223027099003|261028144727099003|261021121427099003|261022105027099003|261026140227099003|261026121527099003|261022075727099003|10067099003|22082099003|18002099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	VFXV/WtiiSUumUjauWLEvyqU/nr5tWFxSDQULGsuLcoFHQ2uzuhtcMxk+a2sI0tjLWBEBikPIkXiUJQGW+Yp5P7cWOfaaYd4ym1ZaOjEf/A0jL+T/6kb0LqHYCez8ZDLpy8BPi+ugM724wiYgi8FjjKWuU3+eIfSC6ZrBQVEwd7+yFpgMKVur80HDv0DJxtPPNMsUsBImsA/CE6KKJEnf2R2BidRumCM7Eozh3UR8+SyBfnjXlHM5t9vFAYWs9Y4ukN2uIXc0DFJyKSJA547ieN/aHhi3+TPmm7d1PuV4YKYBUuuPWnOjAMNtakKZivRryiBMlMuxHgB1h93xLkLjYqI/yeMUf4weYuS8LsVrZGt/UKsdf1UOB1bmIDrSAVEHceA5LCZgi5sacleruNFMDp1A0gRVKwh2AIF6D47tbn/nHvT4gp/TlHhhU9ehS7IyDZgsDNS2dJDJjAH69U/FDoeGmnfxgd+2VzBOTq+y9o6eBoiadBFjKJpbKJZHo3mh5nClqPv/oUcoti+4s5eJ/mmDU7IFo5pFV2vXnVt7KSKim4crom7Jv2VSAA8Bcflg4+PxYKRN5mfVtI6OVkqPUV74aOop4vLnHW7U9NZSgg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY5PR12MB6252.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(1800799024)(366016)(261021123027099003)(4143699003)(11063799006)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261022105027099003)(261026140227099003)(261026121527099003)(261022075727099003)(10067099003)(22082099003)(18002099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TThIV1luZG1DdXQ2bGJEeGZZRFBGYzdFVEdoTXFFTHNVNTh4dXZPOHozeERB?=
+ =?utf-8?B?SjE3R3l3MWZnY3lCYzhHWGpBYUtaVU1rLzBUeHh3RHFmSTVPU0g2Z0pUVEIv?=
+ =?utf-8?B?ci9ZVGpwTFh1TkFlRWIxdGdnZmt2RkR1UjdlcU5BVTA5dUd6Q25iTWEzakhl?=
+ =?utf-8?B?NE5ITlpDdTBqbURzUjRDQVNTWDhubytrWU9lb3RBcHNTUEgwWjlJZEp2dWVS?=
+ =?utf-8?B?aXZycnFNOEJOSDJha1U2TDZ5c3drSm9GK0RVRXZackxUQW42MnFDZUFuUzBY?=
+ =?utf-8?B?aDIxNGxRRHdPSVMzdjU3ZUFReG9yVkg3NllMSmtKYVFLc2NMNU44RS9DV21S?=
+ =?utf-8?B?bHVMNllzUE1HaUljMG51L0hWRDVGeFVrMEJSYWVXSG9nM2krVmhRU2psRkly?=
+ =?utf-8?B?NHNmWTRobEFORnFqZ2tFbTBBSjBDUDJLWHV4b1RIWFVablBUU1V1czFjUElJ?=
+ =?utf-8?B?U0Q4Tm9aZ0lnUWVtQmVJZ2VLd01hOVI4QzVndnVNY1Iva0NmelpWZkV1Z1hK?=
+ =?utf-8?B?N2RyWWxlWm5BNXVsODJMRlBxRG0xdEs0bUlhN3FtR2VNZ292UXJLTVlsQVRn?=
+ =?utf-8?B?TTRJcHU5QS9HT1BUOHFlZk1aSG5mYkdtckFpS215dTZLbTBiWDV6Szk4bFpD?=
+ =?utf-8?B?aHJCSWFnMXJkVzFWWmJyZG4wYkJYVUtrd2M1RWlOanJNSnZabGJBL1FCaGdJ?=
+ =?utf-8?B?MlJmUDNxaEZQNjU4RWVNcnVpVTd2VlJxcVFEWmlSUS9KdWVFWkF4UVVWbVE1?=
+ =?utf-8?B?VXpHUDFLZDdhZmRuTnpWSStDS01lNnFXVWQvVGlzajFVWW53V1p4eFpqK3ZX?=
+ =?utf-8?B?YlIydTUvK3RTL1BEbGc4TTU2L0IwTWxxRDZNdkZ4T213NTRZK09qTHkvMDJq?=
+ =?utf-8?B?dktxMVJmTzRKVlZ4K1NLd2xxV05oSlpOaVFQdHQzOEpaU09QWEN6MmtUVlNR?=
+ =?utf-8?B?L1N1UHd1RjJIelFlZThuSzI4ZFhuZnIxd1dUNk10cUxaS0prZTFQWENjd25M?=
+ =?utf-8?B?YjBBdmNKbndLY05ZejIxbDBFT2F2bm1KNXJnbjgwdCs4cGo0c0pPL3NyZWZo?=
+ =?utf-8?B?NDNmZ1lwOVprMytKekJXeTNEQWEzOUR4Nm1qSjEwK25EYXhGUmovNVZFcnZM?=
+ =?utf-8?B?b1hab0EvTW1rZXpyRjlBeElWMkUvZWR2OWdyYVBwbUJzU242TzN5S0Q3RFV2?=
+ =?utf-8?B?aGNxUFdDQ2RoSUZQMnFIMUJWcXhIOXc3MmJEWkV6Qis3bFdwcXpGaHdTV0pp?=
+ =?utf-8?B?MGR2dkZBZm9jU1l1Q3BmOVFlUDFCSWRxVkZkMkg1NGRwZmE5bG4zc1RjVU40?=
+ =?utf-8?B?NXFVSklvOTdTZmxCdk9jSXlRQ0hTdG1kOXhaKzRZU2pYTGo2VEpuZU42czBt?=
+ =?utf-8?B?YjBUS1JwVDFRS01LZkxRQk5oUEdQUUZZOWswQzdWemFnZ05mRGc3Vm5xbXBv?=
+ =?utf-8?B?Q3FBTERIOXNZS1RpWEhWL29zSEZSRUo5M2NQL2o5d2RXelVTeU1CK2ZEdzNH?=
+ =?utf-8?B?VHArMHZ6NGhLTDVRb3k3azBIalJkNml3SmNNdXhFVERaZnZGTjdEdTJaR3dG?=
+ =?utf-8?B?OUFxY0NweEc0RVR1QVpoVDNXaW5YdWl2VVM5SzI0c2tOdDFiUHhsYWxlejdH?=
+ =?utf-8?B?WHR4dHFQRGt0NzMrOFZyNTA0N2xnenJGaWdmUWs0b1JWMTJMOUdaQkx1Y3hU?=
+ =?utf-8?B?Rkd1VDFrc3NuU2loNEl3Qkt1ZTVlVDU3OTUzZ1ZJbVhsYnlIaDRSTG5aV0Rw?=
+ =?utf-8?B?L1Y2K29ZdjZVdUp4aFVyZXF1YUtnRGFaU2FiWTdETS9IK0NYdVlORER4eTUz?=
+ =?utf-8?B?aGxNZTc3VjZvSGpvV21UUHZFenRSbEJpei9IYTJvT1E2ZnR1U2lqZTVHczBV?=
+ =?utf-8?B?bjBOK1FrN0dJNjY4QWlRd1Qxc3Z6dERQbTBka2RVYmJ1Rzd5QSthNVdicENC?=
+ =?utf-8?B?L3JrT1dPdU91QkIzTERlbUNacUVvK2EwYy9ydXlvK29kYngxVlBVNmNVeDBG?=
+ =?utf-8?B?NTJiRGtCRFBsMFcvNm9iOHpIWjlhT2wvM1dTVXBLenA2RGRudlluMFVURHo5?=
+ =?utf-8?B?bUYwVER6em9hVmgrczFPV2xqUzZmenpwR2lLdjhYNWhodDNPUVRGbGFxVjlG?=
+ =?utf-8?B?ZWhrbUszZzNlQTN1b04rbCttM1BSVXNBalJKQWt0c0l1MGxxOE5ubXZMQmpz?=
+ =?utf-8?B?clNyQ3dmVFIyVmNISGlKV1FwK0R0VVU5RVMwZHp5ak9BVTcyWUtTMjRESDRC?=
+ =?utf-8?B?QXhFd08xdE5LWVR6M0NzQlJ4T25xSVBxbjRXR3ZQbEM1VHc4OGtVVWxjQ1BG?=
+ =?utf-8?B?TktqdDlQWnFjOUgxTU5BUHZyeHRFUGNOOGNCUmdvYkxRR0hQZU0wQT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d4293eb-8e0a-4969-bf39-08df38db80a3
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR12MB6252.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 12:19:12.0720
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: nxl6mCt0K+mxRDboSlfIE3Wy2w9tSqfHp6pjyOlbQwK0ulImRUTS2RakqI7gMxMihqPNiURv/eRBV/Ce+hOrNg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DSVPR12MB999261
 
-On 10/30/26 13:53, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in case
-> you want to address the nit picks below when you respin.
-> 
-> Low priority / nit picks for your consideration:
-> 
-> - [Low] The new kernel-doc for `@phc_lock` in struct efx_ptp_data
->    (drivers/net/ethernet/sfc/ptp.c:275-276) says the lock "Serializes PHC…
-> 
-> Pre-existing issues:
-> - [High] This problem wasn't introduced by this patch, but
->    `_efx_phc_adjtime()` in drivers/net/ethernet/sfc/ptp.c (line 2144)…
-> - [Medium] Baseline decision: not a defect of this patch (pre-existing,
->    Medium, in a driver the patch does not touch).
-> - [Low] Baseline decision: false positive, fixed later in the series.
 
-Note you can usually ignore pre-existing issues. Exceptions are
-e.g. when the solution for the pre-existing issue will require
-a significant rework of the patch at hand or impact is drammatic.
 
-BTW I agree comments WRT problems still existing on siena are
-unrelated and should be addressed separately.
+On 11/2/26 15:01, Lee Jones wrote:
+> [Some people who received this message don't often get email from lee@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+>
+> On Fri, 30 Oct 2026, Mario Limonciello wrote:
+>> On 10/30/26 07:13, Mukunda,Vijendar wrote:
+>>> On 10/30/26 16:16, Lee Jones wrote:
+>>>> [You don't often get email from lee@kernel.org. Learn why this is
+>>>> important at https://aka.ms/LearnAboutSenderIdentification ]
+>>>>
+>>>> amd_sdw_manager_probe() publishes amd_manager via dev_set_drvdata()
+>>>> before initialising amd_sdw_irq_thread and amd_sdw_work, allowing an
+>>>> early interrupt to schedule uninitialised work.  During removal,
+>>>> amd_sdw_manager_remove() only cancels amd_sdw_work without first
+>>>> cancelling amd_sdw_irq_thread, allowing deferred IRQ work to re-queue
+>>>> amd_sdw_work or dereference amd_manager after it is freed.
+>>>>
+>>>> Initialise both work items before calling dev_set_drvdata() in
+>>>> amd_sdw_manager_probe(), and cancel amd_sdw_irq_thread before
+>>>> amd_sdw_work in amd_sdw_manager_remove().
+>>>>
+>>>> Fixes: 65f93e4096a0 ("soundwire: amd: add SoundWire manager
+>>>> interrupt handling")
+>>>> Closes: https://sashiko.dev/#/bug/linux-9890e8dc-4b7d-44d3-
+>>>> bfb0-171dc421e28c
+>>>> Cc: stable@vger.kernel.org
+>>>> Signed-off-by: Lee Jones <lee@kernel.org>
+>>>> ---
+>>>>    drivers/soundwire/amd_manager.c | 3 ++-
+>>>>    1 file changed, 2 insertions(+), 1 deletion(-)
+>>>>
+>>>> diff --git a/drivers/soundwire/amd_manager.c b/drivers/soundwire/
+>>>> amd_manager.c
+>>>> index 98b09d81f3b8..2e1038ea0f36 100644
+>>>> --- a/drivers/soundwire/amd_manager.c
+>>>> +++ b/drivers/soundwire/amd_manager.c
+>>>> @@ -1185,9 +1185,9 @@ static int amd_sdw_manager_probe(struct
+>>>> platform_device *pdev)
+>>>>                   sdw_bus_master_delete(&amd_manager->bus);
+>>>>                   return ret;
+>>>>           }
+>>>> -       dev_set_drvdata(dev, amd_manager);
+>>>>           INIT_WORK(&amd_manager->amd_sdw_irq_thread, amd_sdw_irq_thread);
+>>>>           INIT_WORK(&amd_manager->amd_sdw_work,
+>>>> amd_sdw_update_slave_status_work);
+>>>> +       dev_set_drvdata(dev, amd_manager);
+>>> The probe-side ordering issue is valid — an interrupt arriving after
+>>> dev_set_drvdata() but before INIT_WORK() could schedule work on an
+>>> uninitialised work_struct.
+>>>
+>>> The remove-side fix is already posted as part of our v3 patch series:
+>>>
+>>> https://lore.kernel.org/alsa-devel/20261013085111.2009061-6-
+>>> Vijendar.Mukunda@amd.com/T/#m60177687bb84758efdd6f5f09eba8ad32f0e4631
+>>>
+>>> The probe-side fix will be included in our upcoming v4 patch series,
+>>> which contains major driver restructuring and customer-critical bug
+>>> fixes. Merging this patch independently would conflict with v4 and
+>>> complicate the review process.
+>>>
+>>> Could you please drop this patch? Both issues will be covered by our
+>>> v3/v4 series.
+>>>
+>> Lee,
+>>
+>> I think as a general statement since there is still these big pending
+>> changes already in flight, could you either wait a few weeks until they
+>> merge or rebase your series on the in-flight version to see what still
+>> actually makes sense?
+> I will leave the AMD driver alone.
+>
+> Please be kind enough to add my Reported-by for any issued that you fix
+> as a result of these reports.
+Sure, thanks for reporting these issues.
 
-> sfc: ptp: serialize host and MC synchronization transactions
-> 
-> This adds a phc_lock mutex to struct efx_ptp_data. The mutex is held
-> across the whole efx_ptp_synchronize() transaction and around the PHC
-> adjfine/adjtime/settime operations, so the PPS worker and the hwtstamp
-> enable path no longer clobber each other's handshake flag and timesets.
-> It also bails out of efx_ptp_synchronize() when efx_mcdi_rpc_start()
-> fails.
-> 
->> diff --git a/drivers/net/ethernet/sfc/ptp.c b/drivers/net/ethernet/sfc/ptp.c
->> index 957ca08092e7f..e26269fae38d6 100644
->> --- a/drivers/net/ethernet/sfc/ptp.c
->> +++ b/drivers/net/ethernet/sfc/ptp.c
-> 
-> [ ... ]
-> 
->> @@ -271,6 +272,8 @@ struct efx_ptp_rxfilter {
->>    * frequency adjustment into a fixed point fractional nanosecond format.
->>    * @current_adjfreq: Current ppb adjustment.
->>    * @phc_clock: Pointer to registered phc device (if primary function)
->> + * @phc_lock: Serializes PHC commands and synchronization, and protects
->> + *	      @current_adjfreq
-> 
-> [Severity: Low]
-> Does this comment claim more coverage than the code gives? Two of the
-> callbacks in the PHC ops table don't take phc_lock. efx_phc_gettime()
-> (.gettime64) sends MC_CMD_PTP_OP_READ_NIC_TIME, and efx_phc_enable()
-> (.enable) flips nic_ts_enabled. A standalone clock_gettime() on the PHC
-> therefore runs without phc_lock.
-> 
-> Making the comment true by adding the lock to efx_phc_gettime() would
-> self-deadlock, because efx_phc_settime() now calls it with phc_lock
-> already held:
-> 
-> 	mutex_lock(&ptp_data->phc_lock);
-> 	rc = efx_phc_gettime(ptp, &time_now);
-> 
-> Nothing breaks today, since the MCDI interface lock already serializes
-> the RPCs. Could the comment instead list what phc_lock actually covers
-> (synchronize, adjfine, adjtime and settime)?
-You forgot to comment on this one. My reading is that this is just a
-slightly misleading comment.
-
-/P
+I'll make sure to include your Reported-by: tag for any fixes resulting
+from these reports.
+>
+> Thanks.
+>
+> --
+> Lee Jones
 
