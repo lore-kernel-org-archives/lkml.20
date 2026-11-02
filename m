@@ -1,71 +1,72 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641300;
-	b=3hjgoTsbsKbJw/QKBVPVEvCtztgjtIN5Che2nMa1bF84b0vRUobDK8eIaRpTVi5Yn4tA
-	 cVzbcUmvmpsaZkxaNFeKBOd8MtIxpFPHNsuGGi61F4JL84I4q+DAASoCHWA6eBXQqJqzb
-	 EMS1vZt3uDNcXI+xLB3cB+svzgR5i8EF6agTat+i0uDd09A2m9RUYTMgrvX3i9lOxLJC0
-	 /ZGGEUD6HjfEdPeVbC06ZSrKH0A/7j9avKBj5+9+bBTMDPpWsfyPcz3rtvkyATizVaLoM
-	 Duj5JiFM5Xrhh9KLd6zdDaOcTR3FLmpvjWWNX0OHsFctaNXFT6GvTspRnF9M5x4C98A==
+	t=1793641305;
+	b=zeD24+vlVpIBSAkFufC1HvVHc1BD8cw0M5E2YfvvelGCBAVv/I4s2hHW4LKuZf9o9anw
+	 zM8atJ0fZsEZT/RNB5egRuljAurNN/V4NrgXBgLR1JNwP1a61Pf7w6EBjrefeqAL+IdMg
+	 sfrHfRscTL6KtKoVtZ89TIrbKH/xWknA25/6GNp6EpQwetvqtAy3U/49ji4Q0XINRO+cT
+	 a7WuSByxGXPQhJYsvXhrBMfKfxS+jBPXbUlVCMbBgXG1nELhSKdZTW0pgXeo8zmC8hnJf
+	 wtFKLiXmiugdSsgLzLvBtsFVzpMoh36zA8k4gO7K3EAolqwEl0IId6RR4K33rm1JjwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641300;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641305;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Subject:Date:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=gtzJs2vnWx+b0n8mkZJ4H40lASvEtkz2eef5LU+gV0Q=;
-	b=p7yW7IKtrTk5RVlY3CPSDq9hM8k5UKicinYSL+YDIdcgpw3y+wgr0gani46kfcPAK538
-	 TaB5zRSfA5inQyVda+0It5DrEImNUR9ONS+UQwsudL3vyBd0HjCd6gak+IQCWuQyEVruH
-	 Z6xiKc2kfT2aKXsk5Di8zU/KnR4Dl1FhRt7n5+SBf/mK8NZT8ZbMptM0KoIv8zrMSatre
-	 FwvN7+7EJQPZz2ckEewDojgi4BfD7XUs3HQb1aglJdPf7urQFQ7UuPJOmhu8AiSP1rYqV
-	 yjUr78xeNTGRlojnzM1BQ9o5Qocc5MUsYE7rcJvH8uChUBTcEAoQvuuliOS0KYdUtuw==
+	bh=FOYEkGmoQHAdW6dClUNHWKW771i/hP3Ezfm16raQjns=;
+	b=wdBBMiT4kx+w73pOFgJZHzaK3bfqQLDIFy3YLKAAZ1S44/NAUGyAeCGlB7sFtpQN+nSC
+	 uKnt+BzBbZQ6b+fYPULZAJAjGtfL6ZVcdP2v7gZmo7Z1He+wsHphlp2fi+Rfmv3gQcVRr
+	 FRiuVWtVhpSiXt/qm+sf4PCTjrl7qk18Nx4ILe0tn0KMGc5/lwmwm+GKoySY8rZ3QSc6D
+	 EPPlpCRidu+OMZxs8WbBKWmRYDhPkoOsHFA8wZV3fOIxuEsUWxIp0ZD/usPK+hDnrIEcP
+	 BjIrivHHJnQp9GYllrDDO5VMk0kvBF9ckRvUo4ykXgEnMo4/uOE4eoq1QtNEe1fGbjQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=can17PFL;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XL6xXgc9;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F2626070CB8
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F2626070CB8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE55660752BA
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE55660752BA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=can17PFL
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XL6xXgc9
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641298;
+	s=mimecast20190719; t=1793641304;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=gtzJs2vnWx+b0n8mkZJ4H40lASvEtkz2eef5LU+gV0Q=;
-	b=can17PFLWbv4PJrFX5ddCbJ6w+C14ksixL1ynYlCoz14uEiuN7t7cAJZnQtJfXABmeRZr6
-	1nVOWSrb0SLjteaKTCoZQSJHSp4tfz74BVd+vNH+2rjO6GpV3dczi6lGkgCB1Ii6Gbe2QW
-	fiBOIbSWlJE1YyFAq5tdCyQ/orwFEvI=
+	bh=FOYEkGmoQHAdW6dClUNHWKW771i/hP3Ezfm16raQjns=;
+	b=XL6xXgc9vEKiaTBy8EvE64vz1K7cmJa1kQBEeWH1jCQpsHpue0QFIQUiOD03D1hgqCrNGX
+	osUbKMInn8LvTUUbePvk9ujdC8DYjw0AzJIYhmcgHXyCWoBqxOJ5wuGhel5OgDRuYqY/UY
+	gLtmpnhpIQv/IyEzww7SDaEOuEqd9U8=
 Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-142-HdAt9Z21OjanBJRfDnNpCg-1; Mon,
- 02 Nov 2026 12:41:35 -0500
-X-MC-Unique: HdAt9Z21OjanBJRfDnNpCg-1
-X-Mimecast-MFC-AGG-ID: HdAt9Z21OjanBJRfDnNpCg_1793641294
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-425-Mhbcu1qvMcek65bVj2ef7w-1; Mon,
+ 02 Nov 2026 12:41:41 -0500
+X-MC-Unique: Mhbcu1qvMcek65bVj2ef7w-1
+X-Mimecast-MFC-AGG-ID: Mhbcu1qvMcek65bVj2ef7w_1793641300
+Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 99B2D1800674;
-	Mon,  2 Nov 2026 17:41:34 +0000 (UTC)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E97741801239;
+	Mon,  2 Nov 2026 17:41:39 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3BD4530000E3;
-	Mon,  2 Nov 2026 17:41:34 +0000 (UTC)
+	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6271E18005AD;
+	Mon,  2 Nov 2026 17:41:39 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
-Subject: [PATCH 06/45] KVM: selftests: Test address translation for Hyper-V direct L2 hypercalls
-Date: Mon,  2 Nov 2026 12:40:50 -0500
-Message-ID: <20261102174130.8779-7-pbonzini@redhat.com>
+Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
+Subject: [PATCH 14/45] KVM: x86/mmu: Init memslot hugepage information for non-private_mem VMs too
+Date: Mon,  2 Nov 2026 12:40:58 -0500
+Message-ID: <20261102174130.8779-15-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -79,128 +80,70 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Test that the TLB flush hypercalls, when executed by L2, translate their
-input addresses through the guest's EPT or NPT.
+From: Nicolas Saenz Julienne <nsaenz@amazon.com>
 
+The list of supported memory attributes is about to grow, and they will
+be available on any VM type (as opposed to only ones targeted at
+confidential computing). As such, update the check in
+kvm_mmu_init_memslot_memory_attributes() to initialize huge page
+information if any kind of memory attributes is available for the VM.
+
+Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://patch.msgid.link/20260918135030.171564-5-pbonzini@redhat.com
+Link: https://patch.msgid.link/20260918135030.171564-11-pbonzini@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- tools/testing/selftests/kvm/x86/hyperv_evmcs.c    | 12 +++++++++++-
- tools/testing/selftests/kvm/x86/hyperv_svm_test.c | 13 ++++++++++++-
- 2 files changed, 23 insertions(+), 2 deletions(-)
+ arch/x86/kvm/mmu/mmu.c   | 3 ++-
+ include/linux/kvm_host.h | 6 ++++++
+ virt/kvm/kvm_main.c      | 2 +-
+ 3 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-index c81f2dd4f2a1..2e1150c4bbbf 100644
---- a/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-+++ b/tools/testing/selftests/kvm/x86/hyperv_evmcs.c
-@@ -18,6 +18,8 @@
- #include "hyperv.h"
- #include "vmx.h"
- 
-+#define L2_HCALL_INPUT_GPA	0x100000000ull
-+
- static int ud_count;
- 
- static void guest_ud_handler(struct ex_regs *regs)
-@@ -64,6 +66,8 @@ void l2_guest_code(void)
- 	rdmsr_from_l2(MSR_GS_BASE); /* intercepted */
- 
- 	/* L2 TLB flush tests */
-+	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE,
-+			 L2_HCALL_INPUT_GPA, 0);
- 	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE | HV_HYPERCALL_FAST_BIT, 0x0,
- 			 HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES | HV_FLUSH_ALL_PROCESSORS);
- 	rdmsr_from_l2(MSR_FS_BASE);
-@@ -239,7 +243,7 @@ static struct kvm_vcpu *save_restore_vm(struct kvm_vm *vm,
- int main(int argc, char *argv[])
+diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
+index 5be24b67f212..3755393de4ca 100644
+--- a/arch/x86/kvm/mmu/mmu.c
++++ b/arch/x86/kvm/mmu/mmu.c
+@@ -8361,7 +8361,8 @@ void kvm_mmu_init_memslot_memory_attributes(struct kvm *kvm,
  {
- 	gva_t vmx_pages_gva = 0, hv_pages_gva = 0;
--	gva_t hcall_page;
-+	gva_t hcall_input_page, hcall_page;
+ 	int level;
  
- 	struct kvm_vcpu *vcpu;
- 	struct kvm_vm *vm;
-@@ -250,17 +254,23 @@ int main(int argc, char *argv[])
- 	TEST_REQUIRE(kvm_has_cap(KVM_CAP_NESTED_STATE));
- 	TEST_REQUIRE(kvm_has_cap(KVM_CAP_HYPERV_ENLIGHTENED_VMCS));
- 	TEST_REQUIRE(kvm_hv_cpu_has(HV_X64_NESTED_DIRECT_FLUSH));
-+	TEST_REQUIRE(kvm_cpu_has_ept());
+-	if (!kvm_arch_has_private_mem(kvm))
++	if (!kvm_arch_has_private_mem(kvm) &&
++	    !kvm_supported_vm_mem_attributes(kvm))
+ 		return;
  
- 	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	vm_enable_ept(vm);
+ 	for (level = PG_LEVEL_2M; level <= KVM_MAX_HUGEPAGE_LEVEL; level++) {
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index 5e386c3d2495..3d0293ebc864 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2589,6 +2589,12 @@ bool kvm_arch_pre_set_vm_memory_attributes(struct kvm *kvm,
+ 					   struct kvm_gfn_range *range);
+ bool kvm_arch_post_set_vm_memory_attributes(struct kvm *kvm,
+ 					    struct kvm_gfn_range *range);
++u64 kvm_supported_vm_mem_attributes(struct kvm *kvm);
++#else
++static inline u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
++{
++	return 0;
++}
+ #endif  /* CONFIG_KVM_VM_MEMORY_ATTRIBUTES */
  
- 	hcall_page = vm_alloc_pages(vm, 1);
- 	memset(addr_gva2hva(vm, hcall_page), 0x0,  getpagesize());
-+	hcall_input_page = vm_alloc_page(vm);
-+	memset(addr_gva2hva(vm, hcall_input_page), 0, getpagesize());
+ #ifdef CONFIG_KVM_PRIVATE_MEMATTR_VM
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index cf4cb586f140..2fd595a901bd 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2474,7 +2474,7 @@ static u64 kvm_supports_private_mem(struct kvm *kvm)
+ #endif
  
- 	vcpu_set_hv_cpuid(vcpu);
- 	vcpu_enable_evmcs(vcpu);
- 
- 	vcpu_alloc_vmx(vm, &vmx_pages_gva);
- 	vcpu_alloc_hyperv_test_pages(vm, &hv_pages_gva);
-+	tdp_identity_map_default_memslots(vm);
-+	tdp_map(vm, L2_HCALL_INPUT_GPA, addr_gva2gpa(vm, hcall_input_page), PAGE_SIZE);
- 	vcpu_args_set(vcpu, 3, vmx_pages_gva, hv_pages_gva, addr_gva2gpa(vm, hcall_page));
- 	vcpu_set_msr(vcpu, HV_X64_MSR_VP_INDEX, vcpu->id);
- 
-diff --git a/tools/testing/selftests/kvm/x86/hyperv_svm_test.c b/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
-index 3a3dc31072e8..1c95b86ce2a5 100644
---- a/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
-+++ b/tools/testing/selftests/kvm/x86/hyperv_svm_test.c
-@@ -18,6 +18,8 @@
- #include "svm_util.h"
- #include "hyperv.h"
- 
-+#define L2_HCALL_INPUT_GPA	0x100000000ull
-+
- /* Exit to L1 from L2 with RDMSR instruction */
- static inline void rdmsr_from_l2(u32 msr)
+ #ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
+-static u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
++u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
  {
-@@ -45,6 +47,8 @@ void l2_guest_code(void)
- 	GUEST_SYNC(5);
- 
- 	/* L2 TLB flush tests */
-+	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE,
-+			 L2_HCALL_INPUT_GPA, 0);
- 	hyperv_hypercall(HVCALL_FLUSH_VIRTUAL_ADDRESS_SPACE |
- 			 HV_HYPERCALL_FAST_BIT, 0x0,
- 			 HV_FLUSH_ALL_VIRTUAL_ADDRESS_SPACES |
-@@ -146,7 +150,7 @@ static void __attribute__((__flatten__)) guest_code(struct svm_test_data *svm,
- int main(int argc, char *argv[])
- {
- 	gva_t nested_gva = 0, hv_pages_gva = 0;
--	gva_t hcall_page;
-+	gva_t hcall_input_page, hcall_page;
- 	struct kvm_vcpu *vcpu;
- 	struct kvm_vm *vm;
- 	struct ucall uc;
-@@ -154,15 +158,22 @@ int main(int argc, char *argv[])
- 
- 	TEST_REQUIRE(kvm_cpu_has(X86_FEATURE_SVM));
- 	TEST_REQUIRE(kvm_hv_cpu_has(HV_X64_NESTED_DIRECT_FLUSH));
-+	TEST_REQUIRE(kvm_cpu_has_npt());
- 
- 	/* Create VM */
- 	vm = vm_create_with_one_vcpu(&vcpu, guest_code);
-+	vm_enable_npt(vm);
- 	vcpu_set_hv_cpuid(vcpu);
- 	vcpu_alloc_svm(vm, &nested_gva);
- 	vcpu_alloc_hyperv_test_pages(vm, &hv_pages_gva);
- 
- 	hcall_page = vm_alloc_pages(vm, 1);
- 	memset(addr_gva2hva(vm, hcall_page), 0x0,  getpagesize());
-+	hcall_input_page = vm_alloc_page(vm);
-+	memset(addr_gva2hva(vm, hcall_input_page), 0, getpagesize());
-+
-+	tdp_identity_map_default_memslots(vm);
-+	tdp_map(vm, L2_HCALL_INPUT_GPA, addr_gva2gpa(vm, hcall_input_page), PAGE_SIZE);
- 
- 	vcpu_args_set(vcpu, 3, nested_gva, hv_pages_gva, addr_gva2gpa(vm, hcall_page));
- 	vcpu_set_msr(vcpu, HV_X64_MSR_VP_INDEX, vcpu->id);
+ 	if (gmem_in_place_conversion || !kvm_supports_private_mem(kvm))
+ 		return 0;
 -- 
 2.52.0
 
