@@ -1,57 +1,78 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602031;
-	b=ygZcwTXaf78cs75AfCRsvIFt6lU7yaXYTq4/+aAeJdrKqz610VPrrozyB2AbF0S6N8R4
-	 BkSf7yiLMaTkBfxdvq8Wm/C9KL3fA2ZiG0WplRZb1C6bLKYxvazs6/MTTS+YxfkXOZQG4
-	 kJQC5PpEG4IC/uD+yTcbTnZcBuCRJk/PgWx0xRHkcwJnl/1kLeE6b7Po0hk0TLWgHFWdq
-	 jjiVH4yp2QCN5cy734MsEjwXJdnsWzdio9QeyHIFrYyKoTGNv0Rsen8cXefV9iFt5PHQH
-	 0Aq5jGAqDDHDiCUX6S1DbrtX+mzpH6e495lxAHmT5DFAYuGuGKhgtMfXmRY0D+cdQNg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602031;
-	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=nkhheCwH9L+tBFyhGay7Do8wQju4PMsW+7y8pV5il6M=;
-	b=5LtEy+30os5Cfn/MVIshvSfxS5KyERgE0YB354ZA208ZCnnaCPWdeFoecwHFqzWF8oeT
-	 9DWPS0V2pR5qStWYDaIO5pFiXfjUWEBLr2AathBmVmO0VTdsUF/v2ynq6sr6iAa2owja+
-	 yNwXR9/91LUe7i1VKGO3ftoV5K0ZrWnAk8qt6Uz5DGhmBHR5j5Y8RxPBH9bJkSCXTN9FN
-	 J98F+Uf2BYPZl7S4R5U5STQO9VJfJyiDWf3a8fjQ1sW+mX+nE3GqXHU6UyAYYvPt0GrNP
-	 ztrPGpigsVPvFrv7J/ub3vzE1e7qWyc1kK9vsjn6QVyvxz4HQAvtBcbABRkK0Mxs2Qw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXJY8ES7;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793602020;
+	b=068jKpDeEExt32AA+K3xk0Ts5iR/+hJwNdV3u6JCUM9lyVGLT8qOn/L3WfajuW5u2KLA
+	 hd+lIHhiaj/nsASGJaabNpCcXc5t4rZko4A8xVR5SVNRcoYrgL0puR3aFV4j5TUtMjHRv
+	 Ery94Xx8Ait1O2oKtaQUfv6FeSPVNwsZflCGybVPSWfIPmFjAwQZ5QW0PqDw23shAXhlY
+	 Epw583DuHeKvfizLGNUSoWnGAQnZT8vD7c2U1IS9WN0LBhyxso0GzFbK+ztFKWDFvLlYi
+	 I/VBTL86uEiKlIKKTtw1+cBkcygj2TQoVjiGMGgDsuaETr2ty9DwN45fG+LD+SnBYHg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602020;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QW3CzfPEuKpaLa114oR22qLFgs3zc0UThhwaKSc7g18=;
+	b=aFryN6LAE47UPvQ5qwQfgHFNhcL0svs8g1AnSHkJzFf6zv0nE0bBSO7st1GnGqHR5qCy
+	 rQiHgodQJ8VljqGkD/G2WvstVBFhhFCtP3OcA2bcMpci0Slad7Rv/6Qfp7CU8BGHgXGVK
+	 jhK5HJBh7sZKWAUxG8QUflJpe4Yz0Bh5S5Vjg5AePvmYv14BqqT4vjfJe3WpPTne1hhCn
+	 3vBwtLynG0DStfjG+azOsb42kTvjmf1JESTIzuVfLZhBkkqVufbMI6dfvxcFkb3zJ7lbc
+	 ZOlEjsUpNdITr6dMp6qDTD0+t1pwYsM305gzMz0lyT8IjVr9dAsez/j17yKjJWj+ZVw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5OfPole;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C0E4606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:47:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D861160A2618;
+	Mon,  2 Nov 2026 06:46:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXJY8ES7
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1AC21F01804;
-	Mon,  2 Nov 2026 06:47:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=m5OfPole
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793602019;
+	b=GaOQ1gN+FcGQqiuQBvfixYbQr9as1oNFs391TcZSMIaUYuWwVWCqBsn5lCyDsv4FFRpo
+	 YOn/asrdP/4tvHr2yqcvLx3V8a+ckb2jQ5zyXy7s9v0wENRHE0YiNpicQBEleb7mLFCLI
+	 e4aTQGkvshP1a6bkPcca0FZHystM22MyAgaUPqrL5TxTEvmb2PoCveG3dc5Y6QKWV+Axs
+	 PsK2lfDFWKF85DQTsxbWi+BncjsTMEMiIvBX326GSEcceL7i+qoz9uOkgkOvTsUA+US42
+	 jz4ayJKDnysIfwMCeYihEDThQkjA8Eh1o6WooGn6XTnCPJTa5za5Lkdn6sCjl4h26Dg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793602019;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=QW3CzfPEuKpaLa114oR22qLFgs3zc0UThhwaKSc7g18=;
+	b=TMI9MLM5qoKjty/ygV6QkOE7X94Bf4yScDGP5SLX8055zQLcW4zE3Bq2BlNyi4kagAQb
+	 jq/ILW47V81SNUgYY5DguS0G7rkc3oW67RE0tncpLDZ+znm3tnARG0t+05WNJSVRenC34
+	 jRJyqVMDLzoARzO2Umawpf29JO1ovPZfQIJZ/HGGdSTiSKLyyBGQfA2nRSqMs90m/654Q
+	 Z+5X8jwXCZE5TCZ9lQK5TFTxi3MATLWAPdwk2fikOpziYYXZJVJUtniijaVkNCpnIvcGF
+	 LwQIO7eo2bQ+cM/zy51c5KXL+rFzEhpXJMqNU50K9Me+QVkfZo86b5/o5Q4lT9FvTbw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id E2F071F00A21;
+	Mon,  2 Nov 2026 06:46:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793602030;
-	bh=nkhheCwH9L+tBFyhGay7Do8wQju4PMsW+7y8pV5il6M=;
-	h=From:To:Cc:Subject:Date;
-	b=MXJY8ES7gUSMSqhE1AbpYrMtXVwsh4cC3DFQNxc+Efi72XLezAXCqXCXFnlQJp9IG
-	 IlqBs4ZoDzrAIABwevuNn8Az+TPQg8zUNUnRsHxtfu+jHPgDkHqO1mD/ws2CZLtwXP
-	 exlpI0MTBErXVAiR/4Q/is1AgJ6JDjpPA4AAbkTen8vo57oMy1BaepUe9yceQKsRwa
-	 oZxmn/Gd85MFkWnEXJ4i54kpv+7Z6tBiVE+90Nk+zW4iCMEmY7XLaFIlvNwxKi4H+y
-	 4m9IV6BZ/maJMuaETyYndNoxuzCvnxQynl91UBW98CQL6/TXjYcbwzp0QAikwwJkRp
-	 GzgzkDKIiDd3A==
-From: "Jiri Slaby (SUSE)" <jirislaby@kernel.org>
-To: torvalds@linux-foundation.org
-Cc: linux-kernel@vger.kernel.org,
-	"Jiri Slaby (SUSE)" <jirislaby@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	bcm-kernel-feedback-list@broadcom.com,
-	linux-arm-kernel@lists.infradead.org,
-	Scott Branden <scott.branden@broadcom.com>,
-	Ray Jui <ray.jui@broadcom.com>
-Subject: [PATCH v3] MAINTAINERS: fix bouncing {sbranden,rjui}@broadcom.com
-Date: Mon,  2 Nov 2026 07:47:06 +0100
-Message-ID: <510bf9b037c522ccfba270926c95170291115ef3.1793602003.git.jirislaby@kernel.org>
-X-Mailer: git-send-email 2.56.0
+	s=k20260515; t=1793602019;
+	bh=QW3CzfPEuKpaLa114oR22qLFgs3zc0UThhwaKSc7g18=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=m5OfPolebYIrj3F75JSQY9zZBXtAiAodcBz2yn2tAXJ9mYAuW50yczSTS6eR5pkDc
+	 0qfxbZTqOFhr+WXvkU8rQzhZmx7JZPJvp/eR4hf57ZfFFpfw/4dqcEv6P20mDcR3XT
+	 g9G9Ex+JgdMYqgUI9QgPCT7Cms3TuzvgV7z682j2ZvSsDo3FIAY43po0HPX5d8EoyJ
+	 mJoGGuPlAR1EPdp6JBMbDZyP/lM1HJR7gc0Utos6laid4Oe7VyZcmWhu4SUc0BP2Ie
+	 Qim3UskAsm/4laKP0LSHaeRxStZQ8o3U+gXw+4HWJMwltudTaJkSzEkHEOjdry+5qc
+	 pHFX2Ac+3TIMw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D2E60463C3;
+	Mon,  2 Nov 2026 06:46:55 +0000 (UTC)
+From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
+Date: Mon, 02 Nov 2026 14:46:00 +0800
+Subject: [PATCH v13 07/13] gpio: pl061: keep the parent device in a local
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,67 +82,118 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-cv75-gpio-v13-7-4f93114ea204@ambarella.com>
+References: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+In-Reply-To: <20261102-cv75-gpio-v13-0-4f93114ea204@ambarella.com>
+To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Mika Westerberg <westeri@kernel.org>, 
+ linux-acpi@vger.kernel.org, devicetree@vger.kernel.org, 
+ Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793602013; l=3279;
+ i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
+ bh=3w3mdV9O1WfvTa1UQD42+BMAnP/3kNlEj5RJh0P3/78=;
+ b=FtyH9TzklLUUi5PO0ibyYZOJku87CgTW0+bYoDM+3wYXlSry7t3eyOwFA7FdtaD7eccF7cXku
+ hwOflrOz02TBrRlRSe0QgaAiSowCAwTCRNp8tOw4dCfKgbAReDUxoT4
+X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
+ pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
+X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
+ auth_id=903
+X-Original-From: Long Zhao <longzhao@ambarella.com>
+Reply-To: longzhao@ambarella.com
+Content-Transfer-Encoding: 7bit
 
-Both emails are bouncing like:
-  Final-Recipient: rfc822; rjui@broadcom.com
-  Action: failed
-  Status: 5.1.3
-  Diagnostic-Code: smtp; The email account that you tried to reach does
-    not exist. Please try double-checking the recipient's email address
-    for typos or unnecessary spaces.
+From: Long Zhao <longzhao@ambarella.com>
 
-According to Florian, it should be first.lastname@broadcom.com.
+IRQ logging uses gc->parent. Keep that device in a local so the
+gpio-regmap switch can change where it comes from without rewriting
+every log line.
 
-Signed-off-by: Jiri Slaby (SUSE) <jirislaby@kernel.org>
-Acked-by: Florian Fainelli <florian.fainelli@broadcom.com>
-Link: https://lore.kernel.org/all/688738af-100b-48af-bee1-4bcbe4422f94@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: Scott Branden <scott.branden@broadcom.com>
-Cc: Ray Jui <ray.jui@broadcom.com>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
-[v3] just resend, noone picked it up yet
-[v2] fix emails instead of their removal
----
- MAINTAINERS | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/gpio/gpio-pl061.c | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 04f465490612..88e010e78eb4 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -5318,8 +5318,8 @@ F:	drivers/iommu/generic_pt/fmt/*bcm2712*
+diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
+index a232b63fbc0b..27ed759486ca 100644
+--- a/drivers/gpio/gpio-pl061.c
++++ b/drivers/gpio/gpio-pl061.c
+@@ -156,6 +156,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(d);
+ 	struct pl061 *pl061 = gpiochip_get_data(gc);
++	struct device *parent = gc->parent;
+ 	int offset = irqd_to_hwirq(d);
+ 	unsigned int bit = BIT(offset);
+ 	unsigned int gpioiev = 0;
+@@ -166,7 +167,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		return -EINVAL;
  
- BROADCOM BCM281XX/BCM11XXX/BCM216XX ARM ARCHITECTURE
- M:	Florian Fainelli <florian.fainelli@broadcom.com>
--M:	Ray Jui <rjui@broadcom.com>
--M:	Scott Branden <sbranden@broadcom.com>
-+M:	Ray Jui <ray.jui@broadcom.com>
-+M:	Scott Branden <scott.branden@broadcom.com>
- R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
- S:	Maintained
- T:	git https://github.com/broadcom/mach-bcm
-@@ -5616,8 +5616,8 @@ F:	drivers/net/mdio/mdio-bcm-unimac.c
- F:	include/linux/platform_data/mdio-bcm-unimac.h
+ 	if ((trigger & IRQ_TYPE_LEVEL_MASK) && (trigger & IRQ_TYPE_EDGE_BOTH)) {
+-		dev_err(gc->parent,
++		dev_err(parent,
+ 			"trying to configure line %d for both level and edge "
+ 			"detection, choose one!\n",
+ 			offset);
+@@ -192,7 +193,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		else
+ 			gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_level_irq);
+-		dev_dbg(gc->parent, "line %d: IRQ on %s level\n",
++		dev_dbg(parent, "line %d: IRQ on %s level\n",
+ 			offset,
+ 			polarity ? "HIGH" : "LOW");
+ 	} else if ((trigger & IRQ_TYPE_EDGE_BOTH) == IRQ_TYPE_EDGE_BOTH) {
+@@ -201,7 +202,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		/* Select both edges, setting this makes GPIOEV be ignored */
+ 		gpioibe |= bit;
+ 		irq_set_handler_locked(d, handle_edge_irq);
+-		dev_dbg(gc->parent, "line %d: IRQ on both edges\n", offset);
++		dev_dbg(parent, "line %d: IRQ on both edges\n", offset);
+ 	} else if ((trigger & IRQ_TYPE_EDGE_RISING) ||
+ 		   (trigger & IRQ_TYPE_EDGE_FALLING)) {
+ 		bool rising = trigger & IRQ_TYPE_EDGE_RISING;
+@@ -216,7 +217,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		else
+ 			gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_edge_irq);
+-		dev_dbg(gc->parent, "line %d: IRQ on %s edge\n",
++		dev_dbg(parent, "line %d: IRQ on %s edge\n",
+ 			offset,
+ 			rising ? "RISING" : "FALLING");
+ 	} else {
+@@ -225,8 +226,7 @@ static int pl061_irq_type(struct irq_data *d, unsigned trigger)
+ 		gpioibe &= ~bit;
+ 		gpioiev &= ~bit;
+ 		irq_set_handler_locked(d, handle_bad_irq);
+-		dev_warn(gc->parent, "no trigger selected for line %d\n",
+-			 offset);
++		dev_warn(parent, "no trigger selected for line %d\n", offset);
+ 	}
  
- BROADCOM IPROC ARM ARCHITECTURE
--M:	Ray Jui <rjui@broadcom.com>
--M:	Scott Branden <sbranden@broadcom.com>
-+M:	Ray Jui <ray.jui@broadcom.com>
-+M:	Scott Branden <scott.branden@broadcom.com>
- R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- S:	Maintained
-@@ -5654,7 +5654,7 @@ F:	drivers/net/ethernet/broadcom/bgmac*
- F:	drivers/net/ethernet/broadcom/unimac.h
+ 	regmap_write(pl061->regmap, GPIOIS, gpiois);
+@@ -307,8 +307,9 @@ static int pl061_irq_set_wake(struct irq_data *d, unsigned int state)
+ static void pl061_irq_print_chip(struct irq_data *data, struct seq_file *p)
+ {
+ 	struct gpio_chip *gc = irq_data_get_irq_chip_data(data);
++	struct device *parent = gc->parent;
  
- BROADCOM KONA GPIO DRIVER
--M:	Ray Jui <rjui@broadcom.com>
-+M:	Ray Jui <ray.jui@broadcom.com>
- R:	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
- S:	Supported
- F:	Documentation/devicetree/bindings/gpio/brcm,kona-gpio.yaml
+-	seq_puts(p, dev_name(gc->parent));
++	seq_puts(p, dev_name(parent));
+ }
+ 
+ static const struct irq_chip pl061_irq_chip = {
+
 -- 
-2.56.0
+2.34.1
+
 
