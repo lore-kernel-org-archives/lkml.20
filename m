@@ -1,93 +1,106 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793654164;
-	b=gLfdO+I24R1cC9eTQiWs0wJm8Pt4plUnhQOTJGAAHXPcV9M0sz5vS4dTXl50vMy7GGjs
-	 x/wxoFWd0rSCwip1MYjomZgoykKNw0dBSHu6VYr4DOlpor0pRb8bGaE8Uz5CSbyW3srUi
-	 /aFOvtwKcfpmMRWoGOb8QPJMoCs4iGyhqSUUt5D2Z5GBHP6p+m4eNY22fiE0xIqEIWt3q
-	 2rFZ3FqoLIiDtIThJDVA4obcPqOJAbSELRxy3Y/7X0SjdGQC//uXAImJn1ZlSyLAum0zD
-	 1IFhH6VyzfmWrq4iUmWfYdCh6vjAykojevI13NIikKZzxvkweBQ2Z/xZcPD3quMqbMw==
+	t=1793654202;
+	b=OfBuxcKKbVKMSfJc3YUOUP4dU0HA7t6/tmczHDBK7DaRWGUC6RVvN6mGWkOmDOzeFsSt
+	 /6opLq6oK7YGNzh5SqYLZsc3UpetFkGfLTnlUY044iJW1kFPVwt96DS/HDM9LDX1LFPBB
+	 9W8e7YCX9wP40CM9CwutacsULYAM00F/qHd4QWBjuMadCHPoRle6xT0qgwQo3u+sqQ9Vb
+	 aZ3mqI7xlHDhlSbVd4VVh+I4RtEIynRiTJ9a2F6u/KdrA9OUqzwuvlEeAy7wJgHlpdVIE
+	 FOovilAkPNd3PPD7H9BdjPFa+PBWzbMvjvdMNHSobOolN7+EhEiEOFQYp2P/3ROqEyw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793654164;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=VaQ4mY5L5yPvzObTP46rUUyQYF+3IVm7RJ9iuidlpa4=;
-	b=4h6nft1w2mnv1O+tjp/+L42C6YeTJaSBpw42ZZKciYdYcD1dNdS2Ad5zy3eHM/3pRrnX
-	 sDokzlNwSA4x+ApU97msGYdX0jqRFj6AvJKWnVCwAJfcKGSFaESU0GwkpPiKJeK8JAymE
-	 w0OduBUU1TPrG50alkyHLWFaXzFzvnX/k6rSCwp7FBz2B9AvKMB4ByY/EhQrc2CGPGemU
-	 wzDvKENdUU0DojbQfvfa9j++1Rs5khkzuE7PkXGk9hfzSLacgCtGPT5LDi995/C9nG0jl
-	 yEB6KStn+KI+VyCYUivPYjwDAneSlidYtFtGRDzN0OPQG/hiDRPf81Zkrr9e7KB2FjA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793654202;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:
+	 Subject:Date:Message-Id:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key;
+	bh=7/zHAAnHn2wJw4FI2Tztua6NqJ8mn1b/uKM41eMSu7E=;
+	b=DxpcPQfr+9mjrXXvJHUoczyh15GEPZ+iUKfO9RUWuJiE0JgGXq1AiqISAahrzgjIit0x
+	 k8kvSaHuFKctl8adVa0KACRS6vEdGOzL0wfFR2sNYfpMoFtlW6jK0WShIwb2C5FdGJeGy
+	 Hs1XIj6AbR3fN2wwGcktwPmXklU7HV7NS8ns0jsIP/BzY5u9qUSE+bDU87QoevJHf9P56
+	 8O7h5u600JA6OUfHnVY+TGQeuoBL/SSG2KaCPzkBNdpKRENlPja1lAai+786kRN0ZUXD4
+	 1o4D7jA2Rc/f9kC0C6q29Llr/BVVlzJ6Xfan98lmFitbHsjiucbF8HB5hL+h/fS1RiQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=chromium.org;
-	spf=pass smtp.mailfrom=chromium.org;
-	dkim=pass header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Tv+7ae6q;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g3sPtLyT;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=k7LDOrPw;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC8C606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:16:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6EC8C606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB48606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:16:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EEB48606A32F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Tv+7ae6q
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2761c69fbso5577883c88.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:16:03 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=g3sPtLyT;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=k7LDOrPw
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793654201;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=7/zHAAnHn2wJw4FI2Tztua6NqJ8mn1b/uKM41eMSu7E=;
+	b=g3sPtLyTjmdqF16s2Q8DVXdzCHPuNM5sW5JyYjyAE8FwH2LSUTRz1th4K0IG9DUzRRE3xS
+	9mZ4DtSo8Bpysw9Nt5qjzeYDNrv78f3PtPuRa1jizLQTo4NZ7CzbrHW75l2FPl+7KBbO5i
+	osSZLDZne5F/SV33SG6KVe33Pe1ekKc=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-131-k8IaBPiwMvGvWK1qwecAaQ-1; Mon, 02 Nov 2026 16:16:37 -0500
+X-MC-Unique: k8IaBPiwMvGvWK1qwecAaQ-1
+X-Mimecast-MFC-AGG-ID: k8IaBPiwMvGvWK1qwecAaQ_1793654196
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48b06096cf2so67262f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:16:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1793654162; x=1794258962; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VaQ4mY5L5yPvzObTP46rUUyQYF+3IVm7RJ9iuidlpa4=;
-        b=Tv+7ae6qFwJUrAkkvyIFZ26J2lYxiAmmLc0CaTjSOjF+KSqWztMzk+NOQACrq81a4r
-         gQjTBn8Yh08fg6/UgxnavjLITlrMd3FL6soeyH6B+afiYoJ5H4audZFQGOj9/ziptdvd
-         VF8A8Nr4HeodvQdeSWNH6bjDaon/cspwZlubw=
+        d=redhat.com; s=google; t=1793654196; x=1794258996; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=7/zHAAnHn2wJw4FI2Tztua6NqJ8mn1b/uKM41eMSu7E=;
+        b=k7LDOrPwt8qOLOj81CHmdylBjkQYJhkbdNV0DIIcBcXihpi40t9KlffGc3PE7FnPj2
+         yqHfH8nO0kYQv1xx+ItPaIkt4HHyCJ+U+LIpxBJ/AFihfFhyRvGo/fboq361XDTcyw3q
+         TgaykDub3VZI/CPqvDwmLxKyb1Y+3UvyyuGNhCaENdk0gQ+qsqSLh+aY4hzjJ4VPPm7o
+         4NJC13IrpxMrLNzkIk+7XutG/GI5OHoLKTWj69TP08a5EsvaZiKmuMoIi1MiJfhskuDS
+         9tPpIKVLwuVUDxjq5GVTAUqz89BpA9shaslIitY93efW/iESjum7XaGTdompHBvqiy9Z
+         qW2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793654162; x=1794258962;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VaQ4mY5L5yPvzObTP46rUUyQYF+3IVm7RJ9iuidlpa4=;
-        b=FU2h3mnzfkLJgjFUJp6StIxfJWJV5MeppZ3i/uWNRAsNldEJmNhGIN0Cvla0EDJHeF
-         0TW0BBTa7kvypQGLK8OmSQdDy6rJeUJZqUCLbrZGMy8qEKaV77gk3ZZvdVPpd3rUDxWn
-         +8dTJGIC7WCfEinA6yNOEWBFU27Dp+Q15/9RdHPhuUgU3r6Q35/NH+xErej25LjqgeJn
-         rCsKQPDYSxGRCdjTEsruJbZP6qFDJsEys0ofn5zmcC8iwGYa1HK64NOAXK9+c3+1/z0+
-         p+G1SRdMj1AAoUV8H9yzaw4FHPvko8Cgrv2Ksdi3yyfYHjX468Wez5mHLc/BgF/njg9P
-         /fxA==
-X-Forwarded-Encrypted: i=1; AKwUvBwrq5EblX+BLY3/3tNiOCq3rcAKnlx0QcXRnLqsTx3vGwfRcJXd+7rwYKjuIN4CbkV21QyblA+zPcgqz8w=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLriZMmLwvYtuT25j9hQtybUK4y9mP3HNFNSUMxjtn72D3WelWt
-	USduGIczJw3VNY2QFaPy/TgobPI5sMh4VtegL9he5FR9eavqtYqHO8NjkTBfz2Yw9A==
-X-Gm-Gg: AYBFou1GoQeHwqGeN8C/u56XGSSJobQ8CJ6bgUNm0pbTuKIvHE2xO6kZwMxgiZTYRW/
-	gKRfGFMWhqbxBezqcPNMfl7Hn3268g52VMXs+hB+gJY9D6uBMReDz1A/z2lFKwFhn4ZE27OQFm/
-	qfOtbQgQXzpLhlFA4vUA3RvisdQlGArI/LlawASn4o80bKe+rSWhHz8V3ba6bWXah4htfF9n7e+
-	v6o9DQCfqDUNUPk8DSfPRcY26NKm748RWS4WRg5KXQF1PeJHdud5mqw7MGgcx5cQB4+Goxofr0Z
-	YK8OynD6RV85nUXJdR7ZkfwCJYBxWhegfhWYNlc37i7hJdyPwxZhTfkd74/yexTWBO5yyEgh4dK
-	6VNrl+wRyDKanIsEFBuvwPrp1TbAW3G3iIhTaSz1VAA4owIvZLUpTK1CE+O8+PIwRbcJWRPhJGw
-	Me0KlJVyh7sx04DQ+ac7kARxLEt7wOXUcwNUWCcbWA6Wzl9eIyft0nsmAz2qizYLTZpx1wvUFmh
-	6y1mJOKx0q2wSKzKpwXLehvPtH++y07axDeKIjZcJzZbPKog8bf6ZxS0bLj/h16yPWBB7p+sxpy
-	drNCXIy3k9sCzCxPA4QDlj8wDx8cK0364dCD1a3S4TlpWs7Sot8NXD9BxB+5monIMTw=
-X-Received: by 2002:a05:7022:eb55:10b0:168:3243:c90c with SMTP id a92af1059eb24-1ac59dd356cmr17871485c88.15.1793654162136;
-        Mon, 02 Nov 2026 13:16:02 -0800 (PST)
-Received: from localhost ([2a00:79e0:2e7c:8:c57d:c93d:3543:aab5])
-        by smtp.gmail.com with UTF8SMTPSA id a92af1059eb24-1ac1854d925sm63953172c88.7.2026.11.02.13.16.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 13:16:01 -0800 (PST)
-Date: Mon, 2 Nov 2026 13:15:59 -0800
-From: Brian Norris <briannorris@chromium.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	linux-pm@vger.kernel.org, Andy Shevchenko <andy@kernel.org>,
-	David Lechner <dlechner@baylibre.com>, linux-kernel@vger.kernel.org,
-	Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-Subject: Re: [PATCH v3] iio: gyro: bmg160: Discard
- pm_runtime_put_autosuspend() return values
-Message-ID: <auj9j3sbYa4sVoil@google.com>
-References: <20261102014830.679216-1-jic23@kernel.org>
+        d=1e100.net; s=20260707; t=1793654196; x=1794258996;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=7/zHAAnHn2wJw4FI2Tztua6NqJ8mn1b/uKM41eMSu7E=;
+        b=qbwWBX/8On0UTX56qsYeyndDFtz5LRdU5vHGFQRzqV2kT6f1NvBiM1jj52vb8jFDvH
+         vhvlcePUEd1QkOiOT/Ueu/9W/RNMi5xobZi+kC0v+xjzVzFeP1NpVRfKTjJUIlvbiNYy
+         3J9xuGs7LJpJXzwgAXbGnCqKavevH9hg2+SedoPJzO4p4uvlV4ubD6HO95X/5KZsBJfS
+         eeeb2Opr7MTK9z0d532BbMNumY4j1JsRd4uhrWQgZBQbLTLcoI6TFWIXHbtdgpxzxXeP
+         iOEFKBDfeKJUocTVbVmwnFxoXt4zfd2AMUfpeBx5q9e33f/f0Vc1Jtdvq5QkBlnbRgEf
+         F4Uw==
+X-Gm-Message-State: AFq9FYKDPqw4mufd+/NRVJZZ8scCJGG7drt1Y8yJt/O5b0ujxD48fWvf
+	M62dsX/QDvfc+oB5yivQiv069kdPZAolxRdq5j7HX4g/ZDbgz2yfE2BOLDUgQ86IZC9Th4No9U3
+	zwIZcRd0yIu2VLZb4ocyOijaGdtzgYXAPycxkTWge33TLNA7muK+76+8YGHd/XLk8eg==
+X-Gm-Gg: AYBFou1DDoQ5Csd/DySt0wyZaSAn1C19KvuZ/K3/iJumjo+h9Cvc7zpxjAc6k7G6iRR
+	kX5DnZK67Jqk+QzS335kCa0PpXvYUWY8mrw33HtKQOq/EdHK6JwoT5BIPrt7e8IWEiVtFFb9Ihh
+	dAk8yxbzd0zVqMjUmhDP0YoMbRg4W2l2gjMC3Cfk28PyhEV3aJdUn2YdkSV7FJatAHehmTe89nI
+	2FEr70mm66rEEEGVmGtP1cZ6OckpGQlIvN4OL009jSZPVTZUZIMYyINkZ7q9WvHiv06xcnOQQwk
+	ONrjnazdDJMIGeA2HJUtgskfOlv4Lrt/pWErqAp/tkRYxzfMKQ8jDGy39ZNJ9X1sryb6zubWbKe
+	brNKrQX9yEm3QV0+qISiEKkpxHhcyPRjv32LmAFfEXOEukiN9rLM30M6oMnCm+slsh46A7ZTTq8
+	vYPRZm60K4g05w3w==
+X-Received: by 2002:a05:600c:1c06:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ac12194311mr313422575e9.0.1793654196404;
+        Mon, 02 Nov 2026 13:16:36 -0800 (PST)
+X-Received: by 2002:a05:600c:1c06:b0:4a1:e015:6441 with SMTP id 5b1f17b1804b1-4ac12194311mr313422205e9.0.1793654196031;
+        Mon, 02 Nov 2026 13:16:36 -0800 (PST)
+Received: from localhost (119.red-83-42-172.dynamicip.rima-tde.net. [83.42.172.119])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4ac09cc3e9asm127877535e9.3.2026.11.02.13.16.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:16:35 -0800 (PST)
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Subject: [PATCH v2 0/3] Fix NXP STM clockevent bugs causing lockups
+Date: Mon, 02 Nov 2026 22:16:19 +0100
+Message-Id: <20261102-nxp-stm-fixes-v2-0-8ca2706f30ef@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,142 +110,162 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102014830.679216-1-jic23@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12MQQ6DIBBFr2Jm3WkAkSZd9R7GxVTHwkI0QIiN4
+ e6lJt10+f7PewdEDo4j3JsDAmcX3eorqEsDoyX/YnRTZVBCGSlUi37fMKYFZ7dzRHoKadpO3tj
+ MUJ0t8HlUpR8qWxfTGt5nPsvv+iuZv1KWKFAJMpo0k+70I/BkKV3HdYGhlPIBl1SLL6sAAAA=
+X-Change-ID: 20261023-nxp-stm-fixes-ab0163517e6f
+To: Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
+ Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>
+Cc: linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ linux-arm-kernel@lists.infradead.org, linux-rt-devel@lists.linux.dev, 
+ Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, 
+ NXP S32 Linux Team <s32@nxp.com>, stable@vger.kernel.org, 
+ Enric Balletbo i Serra <eballetb@redhat.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793654192; l=5554;
+ i=eballetb@redhat.com; s=20261026; h=from:subject:message-id;
+ bh=gmcicsJfJh9puN//IBtAaBXqtgplRQNDdjIGjm20/xM=;
+ b=+zeEZ/wMfETqYMhmzlR8m77smYNadIVe/c0BrSz54CSNpTYpH5yuWLg8cDgpUjMa2NAct50iB
+ rOtIB+qBtXvA2bDG46ewrK3CJtu8L6RCxYCRJyCPgoABxZoitsh8tgG
+X-Developer-Key: i=eballetb@redhat.com; a=ed25519;
+ pk=5zh6xuAxTiQwglL2NXQFqWuyRPmCE8T5KPXLbNXhnKI=
 
-Hi Jonathan,
+This series fixes three bugs in the NXP STM clocksource driver that can
+cause soft lockups and missed timer events, particularly visible on
+PREEMPT_RT kernels running on S32G platforms.
 
-On Mon, Nov 02, 2026 at 01:48:30AM +0000, Jonathan Cameron wrote:
-> From: Brian Norris <briannorris@chromium.org>
-> 
-> This driver propagates the return value of pm_runtime_put_autosuspend(),
-> which is not particularly useful.
-> 
-> Returning an error code from pm_runtime_put_autosuspend() merely means
-> that it has not queued up a timer or work item to check whether or not
-> the device can be suspended and there are many perfectly valid
-> situations in which that can happen, like after writing "on" to the
-> device's runtime PM "control" attribute in sysfs for one example.
-> 
-> For this reason, modify this driver to simply discard the
-> pm_runtime_put_autosuspend() return value, and inline
-> bmg160_set_power_state() now that it behaves the same with and without
-> CONFIG_PM and is otherwise trivial.
-> 
-> Now the return value of the cleanup is ignored, also switch various
-> paths to use PM_RUNTIEM_ACQUIRE_AUTOSUSPEND() in conjunction
-> with guard(mutex)() futher simplifying the code.
-> 
-> While at it, I notice that bmg160_write_event_config() and
-> bmg160_data_rdy_trigger_set_state() mismanage the runtime PM reference
-> count intentionally, relying on racy autosuspend behavior for
-> correctness. I refactor this to manage refcounts properly instead.
-> I use guard() for the mutex, to make this less error prone.
-> 
-> Additionally, bmg160_write_raw() had one error path where a
-> pm_runtime_resume_and_get() failure would also drop a runtime PM
-> refcount (pm_runtime_put_autosuspend()), which potentially leads to
-> underflow. I fix that.
-> 
-> This will facilitate a planned change of the
-> pm_runtime_put_autosuspend() return type to void in the future, similar
-> to commit 3afd8df02433 ("PM: runtime: Change pm_runtime_put() return
-> type to void").
-> 
-> Signed-off-by: Brian Norris <briannorris@chromium.org>
-> Signed-off-by: Jonathan Cameron <jonathan.cameron@oss.qualcomm.com>
-> ---
-> I'm continuing to nibble away at Brian's series applying some of the
-> additional changes Andy asked for (that Brian quite reasonably stated
-> were beyond what he was going to take on!)  Just this one today.
-> 
-> v3: Make use of ACQUIRE magic in various paths as enabled
-> by dropping the return value.
-> 
-> With this posted, I'll mark it changes requested in patchwork.
-> 
-> https://patchwork.kernel.org/project/linux-iio/patch/20261021165858.v2.10.I5918e916cbe48281c13e5734733a3281e7be8841@changeid/
-> 
-> ---
->  drivers/iio/gyro/bmg160_core.c | 237 +++++++++++++--------------------
->  1 file changed, 94 insertions(+), 143 deletions(-)
-> 
-> diff --git a/drivers/iio/gyro/bmg160_core.c b/drivers/iio/gyro/bmg160_core.c
-> index b007f46d3fd6..a48e01ecc367 100644
-> --- a/drivers/iio/gyro/bmg160_core.c
-> +++ b/drivers/iio/gyro/bmg160_core.c
+The NXP STM generates an interrupt only on exact match between the
+counter and comparator registers. If the counter passes the programmed
+value, the match is missed and the hardware must count through all 2^32
+ticks (~32.2s at 133 MHz) before firing, causing soft lockups.
 
+Patch 1 fixes max_delta: on 64-bit platforms, ULONG_MAX exceeds the
+hardware's 32-bit compare register width, making it possible to program
+an unreachable compare value.
 
-> @@ -759,42 +700,37 @@ static int bmg160_write_event_config(struct iio_dev *indio_dev,
->  				     bool state)
->  {
->  	struct bmg160_data *data = iio_priv(indio_dev);
-> +	struct device *dev = regmap_get_device(data->regmap);
->  	int ret;
->  
->  	if (state && data->ev_enable_state)
->  		return 0;
->  
-> -	mutex_lock(&data->mutex);
-> +	guard(mutex)(&data->mutex);
->  
->  	if (!state && data->motion_trigger_on) {
->  		data->ev_enable_state = 0;
-> -		mutex_unlock(&data->mutex);
->  		return 0;
->  	}
-> -	/*
-> -	 * We will expect the enable and disable to do operation
-> -	 * in reverse order. This will happen here anyway as our
-> -	 * resume operation uses sync mode runtime pm calls, the
-> -	 * suspend operation will be delayed by autosuspend delay
-> -	 * So the disable operation will still happen in reverse of
-> -	 * enable operation. When runtime pm is disabled the mode
-> -	 * is always on so sequence doesn't matter
-> -	 */
-> -	ret = bmg160_set_power_state(data, state);
-> -	if (ret < 0) {
-> -		mutex_unlock(&data->mutex);
-> -		return ret;
-> -	}
-> +	if (state) {
-> +		ret = pm_runtime_resume_and_get(dev);
-> +		if (ret < 0) {
-> +			dev_err(dev, "failed to resume: %d\n", ret);
-> +			return ret;
-> +		}
->  
-> -	ret =  bmg160_setup_any_motion_interrupt(data, state);
-> -	if (ret < 0) {
-> -		bmg160_set_power_state(data, false);
-> -		mutex_unlock(&data->mutex);
-> -		return ret;
-> -	}
-> +		ret = bmg160_setup_any_motion_interrupt(data, true);
-> +		if (ret < 0) {
-> +			pm_runtime_put_autosuspend(dev);
-> +			return ret;
-> +		}
-> +	} else {
-> +		ret = bmg160_setup_any_motion_interrupt(data, false);
-> +		if (ret < 0)
-> +			return ret;
->  
-> -	data->ev_enable_state = state;
+Patch 2 fixes the overshoot detection in set_next_event: the existing
+check only detected counter wraps, not the normal case where the counter
+advances past the programmed value during the read-modify-write window.
+Replace it with a signed comparison following the pattern used by
+timer-imx-gpt.
 
-This is an unexpected (to me) delta vs v2: you've stopped setting
-data->ev_enable_state here. I think that's a regression.
+Patch 3 increases min_delta from 2us to 20us: under bus contention on
+PREEMPT_RT, 2us is not enough margin and the counter frequently
+overshoots the programmed value, triggering repeated -ETIME retries.
 
-This is also one reason I think it's unwise to make so many changes
-together here. One person's "churn" (to apply several patches to similar
-code) is another person's "hard to review / easy to make mistakes".
+The lockup can be reproduced on an unpatched S32G board with:
 
-Brian
+  # ./trigger_lockup &
+  # stress-ng --matrix 0 --memthrash 0 & dmesg -w | grep -i "soft lockup"
 
-> -	mutex_unlock(&data->mutex);
-> +		pm_runtime_put_autosuspend(dev);
-> +	}
->  
->  	return 0;
->  }
+Where trigger_lockup.c is:
+
+  #define _GNU_SOURCE
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <time.h>
+  #include <pthread.h>
+  #include <sched.h>
+  #include <unistd.h>
+
+  void *timer_hammer(void *arg) {
+      long cpu = (long)arg;
+      cpu_set_t cpuset;
+      CPU_ZERO(&cpuset);
+      CPU_SET(cpu, &cpuset);
+      pthread_setaffinity_np(pthread_self(), sizeof(cpu_set_t), &cpuset);
+
+      /* Request 1 ns to force the kernel to clamp to min_delta (2 us) */
+      struct timespec req = { .tv_sec = 0, .tv_nsec = 1 };
+
+      while (1) {
+          clock_nanosleep(CLOCK_MONOTONIC, 0, &req, NULL);
+      }
+      return NULL;
+  }
+
+  int main(void) {
+      long ncpus = sysconf(_SC_NPROCESSORS_ONLN);
+      pthread_t threads[ncpus];
+
+      printf("[+] Hammering hrtimers with minimal deltas across %ld cores...\n", ncpus);
+      printf("[+] Check dmesg for: 'BUG: soft lockup - CPU#... stuck for 32s!'\n");
+
+      for (long i = 0; i < ncpus; i++) {
+          pthread_create(&threads[i], NULL, timer_hammer, (void *)i);
+      }
+
+      for (long i = 0; i < ncpus; i++) {
+          pthread_join(threads[i], NULL);
+      }
+      return 0;
+  }
+
+The soft lockup trace looks like:
+
+  watchdog: BUG: soft lockup - CPU#1 stuck for 32s! [swapper/1:0]
+  Modules linked in: nft_ct nft_fib_inet nft_fib_ipv4 nft_fib_ipv6 nft_fib
+   nft_masq nft_chain_nat nf_nat nf_conntrack nf_defrag_ipv6 nf_defrag_ipv4
+   nf_tables veth bridge stp llc rfkill binfmt_misc nls_ascii nls_cp437 vfat
+   fat ina2xx rtc_pcf85063 regmap_spi micrel phy_package aquantia crc_itu_t
+   ci_hdrc_imx dwmac_s32 crct10dif_ce ci_hdrc ghash_ce stmmac_platform
+   sha2_ce sha256_arm64 sha1_ce udc_core stmmac ulpi phy_generic pcs_xpcs
+   usbmisc_imx phylink ptp pps_core i2c_imx fsl_edma virt_dma flexcan
+   can_dev s32g_wdt watchdog sch_fq_codel drm fuse drm_panel_orientation_quirks
+   nfnetlink dmi_sysfs ipv6
+  CPU: 1 UID: 0 PID: 0 Comm: swapper/1 Tainted: G               X   ------  ---  6.12.0-274.el10iv.aarch64 #1 PREEMPT_RT
+  Tainted: [X]=AUX
+  Hardware name: Unknown Unknown Product/Unknown Product, BIOS 2022.04-15.el10_4 04/01/2022
+  pstate: 60000005 (nZCv daif -PAN -UAO -TCO -DIT -SSBS BTYPE=--)
+  pc : default_idle_call+0x3c/0x170
+  lr : default_idle_call+0x30/0x170
+  sp : ffff80008011bdd0
+  x29: ffff80008011bdd0 x28: 0000000000000000 x27: 0000000000000000
+  x26: 0000000000000000 x25: 0000000000000000 x24: 0000000000000000
+  x23: 00000000000000c0 x22: ffff0008803ac840 x21: ffff0008803ac840
+  x20: 0000000000000000 x19: 0000000000000000 x18: 0000000000000000
+  x17: 0000000000000000 x16: 0000000000000000 x15: 0000000000000000
+  x14: 003369266b813144 x13: 0000000000000000 x12: 00000000000002eb
+  x11: 00000000000000c0 x10: 00000000000010a0 x9 : ffff800080350ff4
+  x8 : ffff0008803ad940 x7 : 0000000000000000 x6 : 0000000000000000
+  x5 : 0000000000000004 x4 : 0000000000c1c684 x3 : 0000000000000001
+  x2 : ffff0008803ac840 x1 : ffff800081712628 x0 : 0000000000000001
+  Call trace:
+   default_idle_call+0x3c/0x170 (P)
+   cpuidle_idle_call+0x1a8/0x248
+   do_idle+0xa4/0x118
+   cpu_startup_entry+0x3c/0x50
+   secondary_start_kernel+0x124/0x168
+   __secondary_switched+0xc0/0xc8
+  hrtimer: interrupt took 7246 ns
+
+Signed-off-by: Enric Balletbo i Serra <eballetb@redhat.com>
+---
+Changes in v2:
+- Update the code comment in nxp_stm_clockevent_starting_cpu() and the
+  commit message: clarify that 20us prevents repeated -ETIME retry
+  latency, removing the misleading reference to 32s wraparounds.
+- Link to v1: https://lore.kernel.org/r/20261026-nxp-stm-fixes-v1-0-20a64a4ea454@redhat.com
+
+---
+Enric Balletbo i Serra (3):
+      clocksource/drivers/nxp-stm: Fix max_delta overflow on 64-bit platforms
+      clocksource/drivers/nxp-stm: Fix missed comparator match in set_next_event
+      clocksource/drivers/nxp-stm: Increase min_delta to 20us for PREEMPT_RT
+
+ drivers/clocksource/timer-nxp-stm.c | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261023-nxp-stm-fixes-ab0163517e6f
+
+Best regards,
+-- 
+Enric Balletbo i Serra <eballetb@redhat.com>
+
