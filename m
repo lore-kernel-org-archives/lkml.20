@@ -1,84 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.174
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605879;
-	b=veZ4yNjS7XHsJ7dGegHlWC36yVSkcB9D98Pw2ZDocV54KimeZaBTFY8fabwIm+/f1t2B
-	 npQjVeBnIcvTnsZJFwENxgRdm9mFUpf0Cp+cfMMgmLDs8PPp2X68HTd6bkeoPoUZOWrQv
-	 7i/K+XJ365m+cqZJkdQTuorWyiXZyT0IET9tK80fH6lABn9Rat7yFaN3VILAbaqrSB01l
-	 lSU+kYFoJcTVqAAjF1ipZgj5HWucO1P/b7h3XYEOcJl7cX9v9z1fdquvBh89wcLwV767t
-	 T1MDEZMtV/PacITx2+riq5baONLk2sMxtwIlUB90OOwYT2V74M0yUpSyUYd7A6Qdg/A==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605879;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Cc:Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=qFmWwE/MyJZ42ZQHTeVUHFZv3R+Of1XsGPpIbsWFJaI=;
-	b=sym21uB0NpfCqf3ODyUC6jf4uo3Of+mDVLqcrSGovShZu294S1jGXlDKbO/RP/PvlyhM
-	 68G0d3RvCb0GNfIpgfzCik8T57i3QMpOyCBtkJuMNoS0awkibSaCgKsvlWG11JlqxIwJf
-	 I4jwR2e98zxcvyxDoQ7vrjIzLO4vG1hV8Gm4B6huk1c+rdL59kKNJF+FexBohKTUKDbu9
-	 La2+rSzs3WNfdFQ29O9bqnqv3famJ/mGQJc0Zd5+QObZui+BKr6UGlalDebz5FmrnJ8eb
-	 mE2ob+HW67ZwXrrfdAkTpJoxJPrBr015C+7NNvPhFvjHrFNrEX5s4RwR5NOANsgaSXA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=etsalapatis.com;
-	spf=pass smtp.mailfrom=etsalapatis.com;
-	dkim=pass header.d=etsalapatis.com header.i=@etsalapatis.com header.a=rsa-sha256 header.s=google header.b=MSRrhXCb;
-	arc=none smtp.remote-ip=209.85.210.174
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.57
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793605906;
+	b=Ip2GEli9ajn36ku0grPABFJVCmepYanSQVTpoZiFHvHgzJkKfRixk0ug1ebxlTTXiyqd
+	 OUaKtb2brdBcapE+EKmPRInwwmSkTie/QSUvNLYSFa8npAmozDsx2ETvkmH6i73fMu2w/
+	 990Jd+/C3Gk9eLHi/iyCpHgVP8EyIzkEYgDz6nvJ8IW1qhfN97wzg23Zgz8qdyc8RIMp6
+	 fUNhCUrsBWl+V5pc2Er+dCMvzLYcNKb4iWFnVwnX5DX+FkbTS614PBaS0hzk4up3Lz2bX
+	 wTtKtbnV4nfyyWFbyJkHou8bOrHu739b6XBMcv7pl+sgVBFgiZVDlpyAq1XdLxFimXA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605906;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:Content-Type:Content-Disposition:
+	 In-Reply-To:X-ClientProxiedBy:MIME-Version:
+	 X-MS-Exchange-MessageSentRepresentingType:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SharedMailbox-RoutingAgent-Processed:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=DJ/aJ8Nr/qlFcxbpvwkWXqHe8owBNaySlKUfRW+2NG4=;
+	b=nvQuhXBQVqDTqjF8PQgVb7AI6Xx43Fzx+31ojCm5l4OdFgL/y8Ob1IoArieJ3eBXkcNJ
+	 k15qrYoxQO3AEICEnLjKVXB2hr3zldivvMFu3cwjVrFt7zpAOdG3OLY3QbUl2fuCAjM0+
+	 CzaAyhiTaJ9oor6HcMguVs+ntdHLAxLn/cqLqJxrF92jKZBBCuyB2dd8ya8+lYWMes8yW
+	 kVFHIM+YKokbmICCOhlQ8IuMaj7hW/t03OC6EiIAzlLmo1WXN6eymrYbZTXdRPWBquEYT
+	 mtxcA13jZHgIe9VPW6LENgdSQ6F3li7LXZHRkcJoujIWSHbqeTbcoDerB2QqXrx1p3A==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=oss.nxp.com;
+	spf=pass smtp.mailfrom=oss.nxp.com;
+	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KV5cDH2t;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.83.57
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013057.outbound.protection.outlook.com [52.101.83.57])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFEE606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:51:17 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2EFEE606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=etsalapatis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=etsalapatis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C63D606A32E;
+	Mon,  2 Nov 2026 07:51:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3C63D606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=etsalapatis.com header.i=@etsalapatis.com header.a=rsa-sha256 header.s=google header.b=MSRrhXCb
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-8a06b27bf9bso835183b3a.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:51:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=etsalapatis.com; s=google; t=1793605877; x=1794210677; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=qFmWwE/MyJZ42ZQHTeVUHFZv3R+Of1XsGPpIbsWFJaI=;
-        b=MSRrhXCblmmK3m7i40Azvryyx/ncgyk1l0Z9OyvkL0wOUxRkhJvZnOiaJCEryuTub4
-         PqaHL3Fy8zbcAl6+6ka9G45bqWPShSBijC1vWtrx4/a9NeOLINs7iHhoEZ1gWJ2hxAv+
-         LJJUfyx/5xcZze/HPHq8oVhHyEws0ej9Fx9izJ4hmSDidMOaUSbzxctdk0PNS9eqxzDK
-         K9G6SxxKRV/qtdKf6dv5Jx8DrDFkbJAjzjERdzmMzXUA1rn+FVgRosrS5Rbe6k55WaOS
-         iwk0ffBS/JDKTshteG6uA9E6wjrSoHe7CQQ28Fhk1DYlC7/ul50P//1L72VWMe8wunmg
-         TZGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793605877; x=1794210677;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qFmWwE/MyJZ42ZQHTeVUHFZv3R+Of1XsGPpIbsWFJaI=;
-        b=ReBcWwOCqo8mbtvFsPw0lm7jbQem9v/bKS79LFaEghBZw5CExdGCo82qIH5ax5jzA7
-         cQeN7Gx6igCZlsLRFq2gRNhJtDh7x6rEEUYrpVvH8c9EukU31eNcO3xvAsQEUaeTNLp5
-         q+dsqtuMSRNFF6Usl97oxhzyzGFUtL45C4FoqQVLLctCXNIAGA6XUPceEEgBKKOX8Lly
-         XNUAG+t2bs5kQ3Wf8gyPNRFl3dLCyvB873We14gxBtzJyByX1UYZtBAtlEZUhR5WsG47
-         7voXLj24vXLk2M6H0Ovts37PPxCyQIeWtZLg0/g4n0ya1dg69pMZev7Bis/r9dcZYwAZ
-         RdmA==
-X-Forwarded-Encrypted: i=1; AKwUvBy84UvxeBFDRI8zyz4lM/YrdBOgwF6VFz+RtNHbpGPTThbuhKr2VBSOWm1n4H0YvaxwsXFOFnQeRRNiCPA=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLJlDI7yU350L4TqDDLpPYPAM3iEHtBzptFM0uV92dfPRPoOKns
-	8fdanwvm7RRVMogyrTzWPbEPy8Hl3z5W+zCxWIchyyWzIq2KUjf7CZoMghgcX+Jx+Is=
-X-Gm-Gg: AYBFou32shk3f2SMTxecnH3KCyray5fABylalqSYiWNKf45i8AwT2BCHTnKc2fc/LEM
-	CJbnIF4blOyTK3VOHxgshq1U2ui0XHCFImEEZqeoyZ8mfEDsyIom+dYlBVdTa4nMX2K8Mgl1HYo
-	Fk2gAB+8B1+VyMAwnOvW2uggJeoz+7nXdPqEuK6qWkxFtkS8vlCo2EtAYxewudVcypHlg0LgGvL
-	3m6Q49xiJbPqJRCZ1aWCtNI/69Zgrg4LZEL8VN9zMGXDt8qIIzO6my+MuQ7o2wko78Z7cfdrrT2
-	F41SNFfFa+FLSh4S9CviLBfkdnXsZ2rns6eGz++rYLs5HfhKc/m0NyChBdss96O7rfzurqZ87oI
-	qHjbuzNLSzfa6WTgfhxPi4xU2gVQMm0hX6Us0BpKgnwuDcR0NRRSPcdCkYPtO9kK69EuI8R4sSU
-	Su2qk4rpbLsPkMjc8q6HwEdge+rES+cseqWG3ufD66/95XvK63ULpVi85psnr+yN/1Gtv1GpDut
-	KKd8EMbKEou5z3yoALHiSXYkMbs1UmdHpDHf0E6WMw7ynSfcYWBfnsBzh3SiTKI6s7xogKretbN
-	uR7MvdoQPMtw7EOlwvQMSXSJk8CfdCmjDajb/U71CuV1t4yHM+B2bcwe6Q==
-X-Received: by 2002:a05:6a00:4f8c:b0:874:705d:f63e with SMTP id d2e1a72fcca58-8a9bf0472a8mr7293625b3a.32.1793605877437;
-        Sun, 01 Nov 2026 23:51:17 -0800 (PST)
-Received: from localhost (107-190-31-93.cpe.teksavvy.com. [107.190.31.93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8aad9d047d2sm1658546b3a.25.2026.11.01.23.51.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 23:51:17 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=KV5cDH2t
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YVCrpUoox5F4RRi60ZbFPUEEzb57KLMz2+AE6ktI3/xzW7faQDxJN3OIGsMCYZ9BuMzSgiBakGQWLGr+SxwQEjAk96NrsHAwqqedT4udm6vxyzhNUoW+B1b03//mY/GdzjAd0BoaHgojFtVp/V5QTYtSzU4IB2RBbrVnJdld0XT4hWTYQ+GJORoy7HNB/M0M0SEu0/u2fOVPkX84zHKqMd6tS6WFQ5tp2a3ftZvj43X86bO3BFr8q9/Z4aTaH2umeCtv5qf98KwQG6zEMJm1oi+IdSSLPg83JQJskle/IN2XQiqkyjPcYii9UMLhiGF7fDWPG0jbX7Ngo1OEtKepvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DJ/aJ8Nr/qlFcxbpvwkWXqHe8owBNaySlKUfRW+2NG4=;
+ b=BkIiau3VG3sUDWo7iqVD/9f/agBcpMvK2pzXErjGAtsaO0o4AY5mYPMv2rzgUO+oZLf06YuUhQ6QKQO7868CjIK2Gq6giuNbAvR7rBi6/6WNeCgC9ICFp5oj1BapGu5P00lpFbc8BsG6JoI6QRzsBHo62W1fys4tu2QFC1CUclgAYCjZJO4zNkpyE6GtnHmzPXWUIvdu2XyhQRZEiYqMOkIvbmB2t4UtxeNRDMEWnjZ84NVkY7aXK9O6mgEROFnivormogLxCDm2sPqzkI+do0rX76dVrjWVpLhtLu4lpe+DoZBuICuxkJ8PNG7QPUa6cQp56gsmuaNFjMjDWxNaTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DJ/aJ8Nr/qlFcxbpvwkWXqHe8owBNaySlKUfRW+2NG4=;
+ b=KV5cDH2tOhk75ZHRHkd2EjOMelo1o3RqmTvot0tXzmjO7gPm7gUMrV0kxNb5alXcpgVNgSRa0N8p9pRoajKi2406a6afwpZTz187O3Rld2eL7bCZMUo7lkIik2kfQGWhMk57avFn9fz4RT/WEVFiJcRJZWE/97ZO2s25Kpv2vf+nr6YdVwmUNptNRljDtlx1W/H028InY9LrRTVdt5X7WqXBzv+WA11CwoBRQusbmNOueHkRBawq9fb2NWqJF1o0uWfrfW7jBJh1xo/ZVvwBoQF/SDlbVSstMJqkuc1OD0jO/dymKubCqwfXi/3oRbfKmcTTuFCum9FwUKZzoM3BdA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19) by PA1PR04MB10939.eurprd04.prod.outlook.com
+ (2603:10a6:102:489::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 07:51:38 +0000
+Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
+ ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 07:51:38 +0000
+Date: Mon, 2 Nov 2026 09:51:32 +0200
+From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+To: Liu Ying <victor.liu@nxp.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Shawn Guo <shawnguo@kernel.org>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Dmitry Baryshkov <lumag@kernel.org>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Marek Vasut <marek.vasut@mailbox.org>, 
+	Alexander Stein <alexander.stein@ew.tq-group.com>, Frank Li <Frank.Li@nxp.com>
+Subject: Re: [PATCH v8 06/15] drm/imx: dc-crtc: Disable at boot
+Message-ID: <auhAyqHZSFD0MsUQ@vm>
+References: <20261030-imx8-dc-prefetch-v8-0-c4f81afd4533@nxp.com>
+ <20261030-imx8-dc-prefetch-v8-6-c4f81afd4533@nxp.com>
+ <auR3zOdTi93AhWSS@vm>
+ <aufxSha2jzQJxjWu@raspi>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aufxSha2jzQJxjWu@raspi>
+X-ClientProxiedBy: AS4PR09CA0021.eurprd09.prod.outlook.com
+ (2603:10a6:20b:5d4::19) To GV2PR04MB12318.eurprd04.prod.outlook.com
+ (2603:10a6:150:32b::19)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,182 +108,205 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 02 Nov 2026 07:51:16 +0000
-Message-Id: <DMKK7WGBASS7.2VBQTIIX6YEGS@etsalapatis.com>
-Cc: "Martin KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>,
- "Yonghong Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>,
- "Ihor Solodrai" <ihor.solodrai@linux.dev>, <david.dai@linux.dev>, "Gavin
- Guo" <gavinguo@igalia.com>, <bpf@vger.kernel.org>,
- <sched-ext@lists.linux.dev>, <linux-kselftest@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <kernel-dev@igalia.com>
-Subject: Re: [PATCH bpf-next 1/3] selftests/bpf: libarena: Order equal
- rbtree keys FIFO
-From: "Emil Tsalapatis" <emil@etsalapatis.com>
-To: "Changwoo Min" <changwoo@igalia.com>, "Alexei Starovoitov"
- <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "Andrii
- Nakryiko" <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>,
- "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Shuah Khan"
- <shuah@kernel.org>, "Emil Tsalapatis" <emil@etsalapatis.com>
-X-Mailer: aerc 0.21.0
-References: <20261028060046.549097-1-changwoo@igalia.com>
- <20261028060046.549097-2-changwoo@igalia.com>
-In-Reply-To: <20261028060046.549097-2-changwoo@igalia.com>
+MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|PA1PR04MB10939:EE_
+X-MS-Office365-Filtering-Correlation-Id: e8ba704c-54c5-455d-b4ec-08df38b61fc5
+X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|366016|376014|7416014|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261009223027099003|261026121527099003|261026140227099003|261028144727099003|11063799006|4143699003|10067099003|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	pxSlzbyAKAL1sZ+5bdpqE9V2/38HdSJkGuwcsQCIU9Pe6t27JKNKMW/kgt5UDXnmD6QkhQZkOIiTeq00L6vGJ6YSAt+7Qc/bPWtvAyY7D4uXdAnOTAopCdilz7Hfsg5Yk9nq93P/GQ1iO8z0OWQmDB0UXCvfnJS9aBdW5AiHNpW64zqwvNC7Mre0w6VGOycb0GRRi9BoTEuE8cI5QbXXkoj5EVK6wFDuu0uto6w6iLq7tbuRq9OmvHRG8g0RnQyWOQD+gNm4KN9NcpOg0jCO1aPjxsK7wymSGoOHIds+2Ev5zSVssZ2XIYJiCTNG1tiHSYJwOmE9uCB+wOnSk0Uf7eag4klYO/on/bejh/Dcly/R06WjH+vkMU+ijs1khM5mRSrCdYS5LBeqCmZl1VsoejQUylTEUdLOH/olBg0ds4FEQvw5bJeNxvZl1aG47A/fFcwFFJ9YGkeNfPQHzwAbkCV4Sh4nBH09wEJvBWw9roh8bVciWi7ONU4/YdHZ62l+kuNTr2mb3RyQ8ZO4AA1bsBwniPVhC2Ka85QisJlBJDSqIWMLzoftOrA3hfikpn3RFvjXr872Qz9ibs6Id3GW2g92JzukX5mclaPVRPX6Uro60brFSHpanyoY1N0Pz9dT07+sLjVVGQWTq9WrgLP5Q/p3bVhvRLnSKAem7uryvUU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12318.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(366016)(376014)(7416014)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261009223027099003)(261026121527099003)(261026140227099003)(261028144727099003)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?AIggiwMfQMYW7CQdlOyBO4lkGwdIz75ioke4/HGaGZqCJQhGOqMGDPsGkP9G?=
+ =?us-ascii?Q?5riT+qibi1M88Bx3Sz3tCrIIKddpC/X1pe2baHByO8nNX0w0x+uU8DtEeGlV?=
+ =?us-ascii?Q?FkBYeEPOGR5/uTHCj7juFWIKPZNhhjUFkOYjnAeNZFTSx1R4/FzYCUWeisos?=
+ =?us-ascii?Q?+oeifkyiOulNXJb7b1cmNAKlLd77q3BRAw2u7C8GqvlhfGk6vrHrd/o0SCmQ?=
+ =?us-ascii?Q?X3j/LyC/j0PJIRPkUjW9C0Ccc63KpWXlYSSF2cgqm6dCFX0BeHcrJoQcavHc?=
+ =?us-ascii?Q?dPr1Ibjxnu/mx6vLqJGMFQ5ODdisZB9ranMvRvSSxPLHciAYTB8UPWqIeZwJ?=
+ =?us-ascii?Q?GF4CQhuE6Di7i+MVEXwRvrPVdiC/+b+/LsET8V508aJs1GniGj/1uW2Gm2Yq?=
+ =?us-ascii?Q?tP7TL5cgnXJ4fybIx3MT2G3Z2inNynD2LDy50bHfstjzX0C7oAiMNOkSyoY9?=
+ =?us-ascii?Q?e3lpfYFZM75CN26WSiZvzBjroyBpsJtZOzOCoHlW9A6I56UlPGsI6T4rngXS?=
+ =?us-ascii?Q?3KBPVZd6XU9YUUIpvXFmsIPefSq6+dZhhVgYB0F6bgSyPWLsNrD4F9gMG+JB?=
+ =?us-ascii?Q?yzaEcBWEljsIhudlnK/U4cOYFuqmhScqOWf9FCQ16W7Fl/kdyfKfNOGz5C/R?=
+ =?us-ascii?Q?n71uGGGAwRtEIEqJyD2Ueyv37aci2G+V/p7/pmD/Xhr2oebWJ2oCmmoVGdl1?=
+ =?us-ascii?Q?PgnYBOESK+MJxcjzhjn9ukDWfS2qCBf6MPK6/ZmUDFgu11S5D0Gr16kXgZMR?=
+ =?us-ascii?Q?7xOSEgp1ATBRsABAkkW7CP8zfXwf/ffZd258mYmjEXrBBLg2/5W+6/jaNcMr?=
+ =?us-ascii?Q?EvS6q1kO7LryCecuoONaAsE9bhfIuTUFz84j0rf9vmOENQBzPRKnovhimaZF?=
+ =?us-ascii?Q?628PwmiqtPboBSgjCaK99NOSud0ab9eWpjA4zrYMADDI1mhTQswZH99Rv8tL?=
+ =?us-ascii?Q?LSR3ICXlTvnye/N+FFWeLXWqGRibIocqnbF/LFqOK3qUmJnCrRxfaEkEjvnJ?=
+ =?us-ascii?Q?gzZUF1ZKGJU5MpOXv3P89hMZoLtU2jej/RX0In2unhnQp90QkfD7KPv3v2ul?=
+ =?us-ascii?Q?tjwVbVcV8tOeFjs8Lwveiz0K0kiungPU4K+VkDLwtc88k3oU+7BAcHLItbfj?=
+ =?us-ascii?Q?Sq9hxmYpxLeWi3tLsfDJ02btLETSel3kdDGu5tHkuEPGK/NJ0i+CDVJPySGF?=
+ =?us-ascii?Q?ETGXHM9Pz+ViLM4wz20nlWmAp23T0lzjCnrHJTkF8JfflD8cKpN3bSW4NpYS?=
+ =?us-ascii?Q?JxchJbRqmhS04nYb09+bx6zZmEMUjddoIMYxkofPi3PgqdyXqHqsbzqVzLYK?=
+ =?us-ascii?Q?/u5SR+4bqxayB63JrAOEIwIY/x9Zmjx0XiZr6aMdHIJ/pMD2kDtX2HCAnSVN?=
+ =?us-ascii?Q?R1lTzz2rbPbMptQ9T72GKThqD/ufDBVEs5GMnyUzbjZ+doDjgtwYTyT463ZF?=
+ =?us-ascii?Q?R8BSBfyXiThdvC5OsSqrmbVZr8bX6iXpB2m2zSmONQGIprgwY9RjcGamx8MV?=
+ =?us-ascii?Q?HPiKWrXXWFubLUPXavkpkaNL7rMo82Z3CeUVKxQEO0OnTLxetswjQAORMbS/?=
+ =?us-ascii?Q?swCZO7XRvWNQDPHkJ9QMDU5+E2l+SdJFKb2Pe/kFB4a9lDOHb41EQDTLpIWP?=
+ =?us-ascii?Q?Ewwq/StrAMAxbtjvI9LjCAIb7rYFO2YofRkA3+1tSVO9lloy94JXJYLXbK+o?=
+ =?us-ascii?Q?CMdVFBdxCzCYzxcioJkCxXFcuD5dFu4FCWYbcfS3Ejqa16RosNzmg6AotKin?=
+ =?us-ascii?Q?nqR/eF80a5z5ZTrO6xz4jQ4ngsBssts=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e8ba704c-54c5-455d-b4ec-08df38b61fc5
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 07:51:38.0994
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EYtq+Du3gKy+C+YIMNZkdGNlhuzlAqBC1/iJCtGZlM9no3A1njN+SGXSirLsfVuIqK43vFzPycGm8B/at8cd0A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10939
 
-On Wed Oct 28, 2026 at 6:00 AM UTC, Changwoo Min wrote:
-> An RB_DUPLICATE tree links a new key to the left of an equal one, so
-> rb_least() and rb_pop() return the newest of several equal keys. A
-> queue of tasks keyed by vtime should instead serve equal keys in
-> arrival order, as sched_ext's vtime-ordered DSQs do.
->
-> Send equal keys right on insert, as the kernel's rb_add() does. A new
-> node then lands after every node with an equal key. Rotations and
-> removals preserve the in-order sequence, so equal keys stay in
-> insertion order without a tie-break field.
->
-> Add a selftest that interleaves equal keys while the tree grows and
-> checks the pop order.
->
-> Signed-off-by: Changwoo Min <changwoo@igalia.com>
+On Mon, Nov 02, 2026 at 10:11:22AM +0800, Liu Ying wrote:
+> On Fri, Oct 30, 2026 at 03:05:14PM +0200, Laurentiu Palcu wrote:
+> > On Fri, Oct 30, 2026 at 05:54:30PM +0800, Liu Ying wrote:
+> > > CRTC(s) could still be running after the DRM device is unplugged by
+> > > calling drm_dev_unplug(), because the CRTC disablement logic is
+> > > protected and bypassed by the drm_dev_enter()/drm_dev_exit() pair.
+> > > Hence, Pixel Engine's AXI clock use count(managed by Pixel Engine
+> > > driver's runtime PM) and pixel clock use count could be inbalanced
+> > > after removing and re-installing the driver module.  To fix this,
+> > > add a helper dc_crtc_disable_at_boot() and call it to properly
+> > > disable all CRTCs before advertising DRM device to user-space by
+> > > calling drm_dev_register().
+> > > 
+> > > Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
+> > > Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> > > Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> > > ---
+> > > v8:
+> > > - Call dc_drv_set_crtc_disable() in dc_crtc_disable_at_boot() after CRTC
+> > >   is disabled.  (Sashiko AI bot)
+> > > - Make dc_crtc_disable_at_boot() return an integer instead of void.
+> > >   (Laurentiu)
+> > > - Postpone Pixel Engine AXI clock disablement at boot to the time point
+> > >   where CRTC1(with index == 1) is being disabled at boot.
+> > > 
+> > > v7:
+> > > - Check CRTC status to ensure that clocks were enabled by a previous boot
+> > >   before disabling them in dc_crtc_disable_at_boot().  (Sashiko AI bot)
+> > > - Modify debug message in dc_crtc_disable_at_boot().
+> > > 
+> > > v6:
+> > > - Rebase onto the latest drm-misc-next and resolve conflicts.
+> > > 
+> > > v3:
+> > > - Collect Frank's R-b tag.
+> > > ---
+> > >  drivers/gpu/drm/imx/dc/dc-crtc.c | 72 ++++++++++++++++++++++++++++++++++------
+> > >  drivers/gpu/drm/imx/dc/dc-drv.c  | 11 ++++++
+> > >  drivers/gpu/drm/imx/dc/dc-drv.h  |  3 ++
+> > >  3 files changed, 76 insertions(+), 10 deletions(-)
+> > > 
+> > > diff --git a/drivers/gpu/drm/imx/dc/dc-crtc.c b/drivers/gpu/drm/imx/dc/dc-crtc.c
+> > > index 0d64186a9901..5bc952d6883e 100644
+> > > --- a/drivers/gpu/drm/imx/dc/dc-crtc.c
+> > > +++ b/drivers/gpu/drm/imx/dc/dc-crtc.c
+> > > @@ -227,6 +227,7 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> > >  	struct drm_crtc_state *new_crtc_state =
+> > >  				drm_atomic_get_new_crtc_state(state, crtc);
+> > >  	struct drm_display_mode *adj = &new_crtc_state->adjusted_mode;
+> > > +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+> > >  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> > >  	enum dc_link_id cf_link;
+> > >  	int idx, ret;
+> > > @@ -287,29 +288,37 @@ dc_crtc_atomic_enable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> > >  
+> > >  	DC_CRTC_CHECK_FRAMEGEN_FIFO(dc_crtc->fg);
+> > >  
+> > > +	dc_drv_set_crtc_enable(dc_drm, drm_crtc_index(crtc));
+> > > +
+> > >  	drm_dev_exit(idx);
+> > >  
+> > >  out:
+> > >  	dc_crtc_queue_state_event(new_crtc_state);
+> > >  }
+> > >  
+> > > -static void
+> > > -dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> > > +static inline void __dc_crtc_disable_fg(struct drm_crtc *crtc)
+> > >  {
+> > > -	struct drm_crtc_state *new_crtc_state =
+> > > -				drm_atomic_get_new_crtc_state(state, crtc);
+> > > -	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+> > >  	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> > > -	int idx;
+> > > -
+> > > -	if (!drm_dev_enter(crtc->dev, &idx))
+> > > -		goto out;
+> > >  
+> > >  	enable_irq(dc_crtc->irq_dec_seqcomplete);
+> > >  	dc_fg_disable(dc_crtc->fg);
+> > >  	DC_CRTC_WAIT_FOR_COMPLETION_TIMEOUT(dec_seqcomplete_done);
+> > >  	disable_irq(dc_crtc->irq_dec_seqcomplete);
+> > > +}
+> > >  
+> > > +static void
+> > > +dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> > > +{
+> > > +	struct drm_crtc_state *new_crtc_state =
+> > > +				drm_atomic_get_new_crtc_state(state, crtc);
+> > > +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+> > > +	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> > > +	int idx;
+> > > +
+> > > +	if (!drm_dev_enter(crtc->dev, &idx))
+> > > +		goto out;
+> > > +
+> > > +	__dc_crtc_disable_fg(crtc);
+> > >  	dc_fg_disable_clock(dc_crtc->fg);
+> > >  
+> > >  	/* request pixel engine power-off as plane is off too */
+> > > @@ -318,8 +327,9 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> > >  	/* request display engine power-off when CRTC is disabled */
+> > >  	pm_runtime_put(dc_crtc->de->dev);
+> > >  
+> > > -	drm_dev_exit(idx);
+> > > +	dc_drv_set_crtc_disable(dc_drm, drm_crtc_index(crtc));
+> > >  
+> > > +	drm_dev_exit(idx);
+> > >  out:
+> > >  	drm_crtc_vblank_off(crtc);
+> > >  
+> > > @@ -331,6 +341,48 @@ dc_crtc_atomic_disable(struct drm_crtc *crtc, struct drm_atomic_commit *state)
+> > >  	spin_unlock_irq(&crtc->dev->event_lock);
+> > >  }
+> > >  
+> > > +int dc_crtc_disable_at_boot(struct drm_crtc *crtc)
+> > > +{
+> > > +	struct dc_drm_device *dc_drm = to_dc_drm_device(crtc->dev);
+> > > +	struct dc_crtc *dc_crtc = to_dc_crtc(crtc);
+> > > +	int ret;
+> > > +
+> > > +	ret = pm_runtime_resume_and_get(dc_crtc->de->dev);
+> > > +	if (ret < 0) {
+> > > +		dc_crtc_err(crtc, "failed to get DC display engine RPM: %d\n",
+> > > +			    ret);
+> > > +		goto out1;
+> > > +	}
+> > > +
+> > > +	if (!dc_fg_wait_for_frame_index_moving(dc_crtc->fg)) {
+> > > +		dc_crtc_dbg(crtc, "FrameGen frame index isn't moving\n");
+> > 
+> > Shouldn't you set 'ret' to something here? Otherwise you'd return the previous
+> > ret value, which would be 0.
+> 
+> We take FrameGen frame index not moving as a normal case, which means
+> the CRTC was not enabled before this boot, so returning 0 is fine.
 
-Hi Changwoo,
+Ok
 
-  Patch looks fine to me, one nit below.
+Reviewed-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
 
-> ---
->  .../bpf/libarena/include/libarena/rbtree.h    |  6 +--
->  .../bpf/libarena/selftests/test_rbtree.bpf.c  | 37 +++++++++++++++++++
->  .../selftests/bpf/libarena/src/rbtree.bpf.c   | 16 +++++---
->  3 files changed, 51 insertions(+), 8 deletions(-)
->
-> diff --git a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree=
-.h b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-> index 486428911d96..00e63b12d82e 100644
-> --- a/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-> +++ b/tools/testing/selftests/bpf/libarena/include/libarena/rbtree.h
-> @@ -45,9 +45,9 @@ enum rbtree_alloc {
->   * the existing node.
->   *
->   * RB_DUPLICATE: Allow nodes with identical keys in the rbtree.
-> - * Finding/popping/removing a key acts on any of the nodes
-> - * with the appropriate key - there is no ordering by time
-> - * of insertion.
-> + * Nodes with identical keys are kept in insertion order, so
-> + * rb_least() and rb_pop() return the oldest of them. Finding
-> + * or removing by key acts on any of them.
->   */
->  enum rbtree_insert_mode {
->  	RB_DEFAULT,
-> diff --git a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.b=
-pf.c b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-> index 856c484a009a..1e2a0fac1e4f 100644
-> --- a/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-> +++ b/tools/testing/selftests/bpf/libarena/selftests/test_rbtree.bpf.c
-> @@ -248,6 +248,43 @@ __weak int test_rbtree_duplicate(void)
->  	return rb_destroy(rbtree);
->  }
-> =20
-> +#define FIFO_NR_NODES	64
-> +#define FIFO_NR_KEYS	4
-> +
-> +SEC("syscall")
-> +__weak int test_rbtree_duplicate_fifo(void)
-> +{
-> +	const u64 per_key =3D FIFO_NR_NODES / FIFO_NR_KEYS;
-> +	struct rbtree __arena *rbtree;
-> +	u64 key, value;
-> +	int ret, i;
-> +
-> +	rbtree =3D rb_create(RB_ALLOC, RB_DUPLICATE);
-> +	if (!rbtree)
-> +		return 1;
-> +
-> +	for (i =3D 0; i < FIFO_NR_NODES && can_loop; i++) {
-> +		ret =3D rb_insert(rbtree, i % FIFO_NR_KEYS, i);
-> +		if (ret)
-> +			return 2;
-> +	}
-> +
-> +	for (i =3D 0; i < FIFO_NR_NODES && can_loop; i++) {
-> +		ret =3D rb_pop(rbtree, &key, &value);
-> +		if (ret)
-> +			return 3;
-> +
-> +		/* All of key 0 in insertion order, then all of key 1, ... */
-> +		if (key !=3D i / per_key)
-> +			return 4;
-> +
-> +		if (value !=3D key + FIFO_NR_KEYS * (i % per_key))
-> +			return 5;
-> +	}
-> +
-> +	return rb_destroy(rbtree);
-> +}
-> +
->  static inline int
->  clean_up_noalloc_tree(struct rbtree __arena *rbtree)
->  {
-> diff --git a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c b/tool=
-s/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-> index 7f0f6dc3e17d..e6c9430f734b 100644
-> --- a/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-> +++ b/tools/testing/selftests/bpf/libarena/src/rbtree.bpf.c
-> @@ -161,8 +161,14 @@ struct rbnode __arena *rbnode_find(struct rbnode __a=
-rena *subtree, u64 key)
->  	return node;
->  }
-> =20
-> +/*
-> + * Find the node to link @key under. Smaller keys go left and everything=
- else
-> + * right, so a new key lands after every node with an equal key and equa=
-l keys
-> + * stay in insertion order. Rotations and removals preserve the in-order
-> + * sequence, so they keep that order too.
-> + */
-
-I think this description is more harm than good let's remove it. Can we als=
-o keep the
-old name? The new one sounds like we're inserting a parent.
-
->  static
-> -struct rbnode __arena *rbnode_least_upper_bound(struct rbnode __arena *s=
-ubtree, uint64_t key)
-> +struct rbnode __arena *rbnode_insert_parent(struct rbnode __arena *subtr=
-ee, uint64_t key)
->  {
->  	struct rbnode __arena *node =3D subtree;
->  	int dir;
-> @@ -171,7 +177,7 @@ struct rbnode __arena *rbnode_least_upper_bound(struc=
-t rbnode __arena *subtree,
->  		return NULL;
-> =20
->  	while (can_loop) {
-> -		dir =3D (key <=3D node->key) ? 0 : 1;
-> +		dir =3D (key < node->key) ? 0 : 1;
-> =20
->  		if (!node->child[dir])
->  			break;
-> @@ -255,7 +261,7 @@ int rb_node_insert(struct rbtree __arena *rbtree,
->  	if (rbtree->insert !=3D RB_DUPLICATE)
->  		parent =3D rbnode_find(parent, key);
->  	else
-> -		parent =3D rbnode_least_upper_bound(parent, key);
-> +		parent =3D rbnode_insert_parent(parent, key);
-> =20
->  	if (key =3D=3D parent->key && rbtree->insert !=3D RB_DUPLICATE) {
->  		if (rbtree->insert =3D=3D RB_UPDATE) {
-> @@ -278,8 +284,8 @@ int rb_node_insert(struct rbtree __arena *rbtree,
->  	}
-> =20
->  	node->parent =3D parent;
-> -	/* Also works if key =3D=3D parent->key. */
-> -	if (key <=3D parent->key)
-> +	/* An equal key goes right, after the existing ones. */
-> +	if (key < parent->key)
->  		parent->left =3D node;
->  	else
->  		parent->right =3D node;
-
+-- 
+Thanks,
+Laurentiu
