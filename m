@@ -1,107 +1,102 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.135
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793654738;
-	b=sTTxRDODI4QkfIHEGpAs5RpRA8thYyUY98BLplPWBYIfjf/GPfadIsigSZuzuGYufo2M
-	 svu6MKKkTF3xMZvu9FaiXN9TzRJCE1kVU/wFk1OsUgDx7a3LrGfMTnIdGBZQDAUyq3sRP
-	 aNh1IhmKG4pUScj026Q966CPGECSnRrzJfWMdyUIF2GAnRNSHkrkbiPb1X6jkorcg6aTJ
-	 Ya6DiDs1qJmOtBST/AxWVmQZ8bWWQZTe1gXFlX7y0AR08jyYxaDzHo3mp0hAKU8PjmhfP
-	 PasJ0Rf9PwfSty/9E8XWpdQWuxoK4F5shxclpfrYGGgKF+K04s7JdQQ9rVG3FVzWwWg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793654738;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793654739;
+	b=032FfHmVb5wIx3MYIEnPNgYvtVVMRwejuH/V9q2seNBJVe6GI+ZAFhm++tn4DdWNGlkq
+	 2K0ZgodRMN9ptWHKUBO8o72q2aeZoZbl/97nKteOMEHrNIjEKW5yUvmIfpBCTN9rS385B
+	 L8i6nOyVxoTB+v5Ph86rKrs3Jjbzz2D+42iTIY8G1Ix0CHFYLERilKfZ6DHl7ulN5K7wi
+	 vWJDs7ozLNN3gE4BHNbCzSZK2AlFwIvx0cJzfPplZ+nLBDfATlgE1+vm7RRIRfE8p302A
+	 iAYBGwyE6o1YieEPjlKp7WUQOr/2gQ6v8bINYC58dNCZ1RPtyrYRaWum0nN6MdHMWfA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793654739;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=f2iHlmQM8BVjrAqEqrTQxQY1XsehcxpHrx5clmyJcPs=;
-	b=g3Xp0vwNrOnJoVTPj3s9dnrcI0xjZkTzL34ncjozVLuUZa0loKA1U6Jc/F9q+Z5VTAoL
-	 dYEqa/F0Ff6/uRizO4yTJ7Bc1MeCJvGadZ0VTgS4z4h5WurDn4ctj3LtHa9NOu7uuPKfU
-	 LPIuia7epxaBFgX75H9F38GZnCDJKysbT9CAvjKzBnmdIRHT7WVB3LiZy3AbaYK8gd8w4
-	 nxG1TfTjEpnupSm6inhk5gAoRly7KjhflGg7lpP1xEVHwOACAn1P0fnIqX8MUJZVNbK9g
-	 vLNzZtMfHveR7xzC5FtjK5h1MEaW6xIRyexGhSwmbt3PK12pcrOnRcFGmE+oQ1jMbfw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=G8mPrYpeVU+WShay0F9jEDsk5WNbHfAAQrL3XTdtRds=;
+	b=olxWt8SyAAvaweJ1mjzjYEROyBBL7juDvEVxn2g8c4G5inETb1RWxRJYQeqMjriXx9nD
+	 Lfc0jgHWFs8KsFqCDjv5RnAxLhDavQJ2YgDK/+vjByni7+UYdQxnAV+KimzAJnhUvTYHq
+	 l7QJY8rLy+j6Oy2I4If/bFQeqHqAhCMZdiYbtDnhn2rWKTHdqV/pxuF06iqbY7zPnHGkY
+	 C3egxS8e5CTItCg4ecl1bD5q1brrZbVyX0fLUN7UjZt8APPxydHNhvJNd/jCx72x4nelo
+	 aPXk2iGffz+YDwCOJjVxcNBe/PbHHFLljYFOflZM2pE/BhbX3d8s5FRcVnwlwPpRGCg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="qbqvB/Gj";
-	arc=none smtp.remote-ip=74.125.229.135
-Received: from mail-dl2-f7.google.com (mail-dl2-f7.google.com [74.125.229.135])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hrKjcsxe;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.171
+Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E465606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32096606A330
 	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:25:38 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8E465606A327
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 32096606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=qbqvB/Gj
-Received: by mail-dl2-f7.google.com with SMTP id a92af1059eb24-1b2352df6b9so17954c88.0
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hrKjcsxe
+Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-3550dd02c9cso297504eec.0
         for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:25:38 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793654738; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Cj27EkMgdGzxjcU2Dx662W+UodnHjCsUiTvZPdcN3slJRHwzY+6i7LiXn//V76o0fl
+         dRauFlVnmg3lOwIoISQWFFV2Ep9/GdsYyj++e2gKrPRTstGLqW5l76XV2pj3GMY7R9W8
+         R7mQdxFSo2ieM0AI65LL4Axo/4uwSY8mwgWQ8nxygZWRLGmGpx/S6irxsRVVBNs50evH
+         YVBwJ/8lmhnb/O14pb2xxyM0EZoNIgi3RSNY0teBGpRndbEtmgMZf5O5awR2h/0asr93
+         SGYfJpiD1Qe4GQAswvvGZG+ATco5oj8enKSiyJbIXzmNpScoKdqmzZYRM6WsDoRK+CQf
+         9ZVQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=G8mPrYpeVU+WShay0F9jEDsk5WNbHfAAQrL3XTdtRds=;
+        fh=PTBhQvDpQLtnTeKcv+4EEACJ2wQZZb/NDHkuS0R1eaQ=;
+        b=Xo9UbvgRDg7S/Zd1HIgjMKhiju1W5WB8+xCOKs7ELkte7D0KAXoUm8LQMc2GmfjWPC
+         qfTyThqQxCzPP200eODH9uGWIzTi2EctocYTShHQswHCQKItbR/vo9TMY7rh78ZIGQ6y
+         DrRLdF5NZ0S0PTn0dxtekqMXbyW4cAHGBAXLxNtWwcYkbmwayH55VrMiXwe+w9Z/LBI9
+         YI0BAnYjEfMO+JsfwN9RMBs7UoniqZn4fCdVc6sQuBcplDxt2+XgBnY/3DMKkL/yo/Et
+         e+q3gPqTQ0/xedpD0Iq2NrNl85tuwJs053CkQIM10zX1MDyvKtmawm1gI8uBqc+HDbCh
+         0Rkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20260707; t=1793654738; x=1794259538; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=f2iHlmQM8BVjrAqEqrTQxQY1XsehcxpHrx5clmyJcPs=;
-        b=qbqvB/GjO3e7E1PaLP8+FLSHhuN3anEe3yzjwAOp9wNdlD7DFdJjo9b4fcJooPoSsf
-         yuv5+uKOlAd1+wACJOj71CMJTFkB2O6ZFbHunBhL1P+1I/6bXATlwkSUFy6ScHozekuI
-         F1nmhY6ve7z4VzQYevHyJyOFz7bwDuHCIEzzsxm25he9grCYuGCDx7w/WUmA2G3C7Jgi
-         Oqt+3k9LU/+SN99KAgtNz+csds+tUA7Z2l9BRypViX5muWRBr3fjj4WtVE0IWdOq9CF5
-         5duG/WnTtld87Xa2XvtNHz1vNhFCeMBhgTk+iTeh0Gx63v+4ElghLnfxdm13+cWPDJR5
-         rtVA==
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G8mPrYpeVU+WShay0F9jEDsk5WNbHfAAQrL3XTdtRds=;
+        b=hrKjcsxemS+R7t6+BuGkaaNRQAWd9Vbo6AUynjlhrP7M0Q59P6cuafnV6pNnxgFAGb
+         KB02FBvER+TpA8PD8mjUF7eeoDxUswaCTWa9ij8bXEB72p4RWBNgNvg6rg3zhZy0Vx5Y
+         NJDCYA7/soH/rr4G/01TLLkAsxX1ukCI6ZePr0Jo1wNBXWCMKfGOVsOhBqZ9pChaqF37
+         wlRVwFP6+PsZH4brKF+ul9RXA6rThMgXO2L1LsfmaJhTEql47gogIQnZid1JQ847hSLu
+         4aSmGkmYWJfGzY/3w5xVZQxROOLTYJqrO2uX5eAafjMB5Vs+olIHC52xToxgmuC8fWRc
+         YqvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1793654738; x=1794259538;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f2iHlmQM8BVjrAqEqrTQxQY1XsehcxpHrx5clmyJcPs=;
-        b=RHZQ6S4+2WDZjjR2qOmMQdtFEW+ErcvMbdtJiy1POs88NpC3Dh97moJkCvX6UlmbxG
-         9kvcOrOV579lv56VC8jBxuVJCTBvj+lKCo/Mvgsm/LcGTqCnceUNMvT3O2NCf4BHdtgw
-         NUvLcgDTnVc7EVg0Xvon5BotV35kcfDaDKnXVPY/6qkKnlyE4XofI3Fh3vDeyXAaTHHo
-         GbJTKZN8bVJxS9VBW2UP1dqERth50LaH/rV9HOvok1YucESc+3X50Ix2nC39voWBuPH2
-         VXz2uPZwfWYjDjaGjfK/tInTt3ggrYS9/iLWOYngIRLri2Hk+DTYnkU7kRhBD+Dgpd7v
-         kTrA==
-X-Forwarded-Encrypted: i=1; AKwUvBxouiR7sagIac2Zz2j1lxhXK1psAc0fUjkGJmkNP21/+CpG5JiYsU8VbBWOZCZ01ttAXJ8ny4N2TZ1pi4U=@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/6Q49mcfOeYz8jcpV1icCMwbS1QNAgSrEBpGt+MB76wmdji2S
-	UX4/nebkB3UMor/UAIuCQnkPdp8KEzJ5vOIckjOnYBDun0yoMzYPFK0n
-X-Gm-Gg: AYBFou1KlCJ7fbzO4jwVUGTf5bHuNxQ4AxnV2aJV1Duv4GeqfHrzvOwo3D4/OQmkxYc
-	rTJRVlsuApVUoD61tBRAIt4gyCJAoP/dfU/vjwrJFABUXEXgcXEbTHvte8C+EN6vJzvqmq41HJU
-	oi7IeBHnIBZd0pIzcAA5N1ux7RM1qVU+v04qe1kMH+sg4leJswMYtArKk7xTMcWey6JhflMJq7w
-	+9hwD8ZT470kLziBAtvc1WDAJ2Pa9soYL40LGgj63unXu52Cg3nllgN1My0GKleWQ4qNRDY76f6
-	8O54dA58zU3Lh96yLQdQLQyaYDXZx56ehD6E4u3i3/ehVXa8Fo/FkRHjxCJg5VqCIIPe4xP51ub
-	WXfmkxmLQAm67ozYQDTfVFylM9rYN3oGngdE5WytmgY/GXJlEVgD6nrzC8JWQlpqgPQkYEvM4n3
-	cGBKuMRbWH38EZoV65q3A9gnxhpfSmqjCHGd94Tjs31415waz1x/w/ZKDSml970rOLyzMV3uwRk
-	BVkerldh/eL59KCfxk5ZOGbwM/V439GGRRpQ79mCrBmN/L7YYZWfAdUEmoA8dXPJcWhCzN1AHTw
-	hbfKgPheyQvPSYW5eozecbmaiFM=
-X-Received: by 2002:a05:7022:b053:10b0:184:19ee:1fdd with SMTP id a92af1059eb24-1ac56302618mr17357629c88.5.1793654737507;
-        Mon, 02 Nov 2026 13:25:37 -0800 (PST)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a428fa380sm37195851eec.12.2026.11.02.13.25.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 13:25:37 -0800 (PST)
-From: Coia Prant <coiaprant@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Jiawen Wu <jiawenwu@trustnetic.com>,
-	Mengyuan Lou <mengyuanlou@net-swift.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Aleksandr Loktionov <aleksandr.loktionov@intel.com>,
-	Fabio Baltieri <fabio.baltieri@gmail.com>,
-	netdev@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH net v3 1/2] net: phy: move DECLARE_PHY_INTERFACE_MASK_ZERO to core
-Date: Tue,  3 Nov 2026 05:25:06 +0800
-Message-ID: <20261102212506.3348537-3-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102212506.3348537-1-coiaprant@gmail.com>
-References: <20261102212506.3348537-1-coiaprant@gmail.com>
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G8mPrYpeVU+WShay0F9jEDsk5WNbHfAAQrL3XTdtRds=;
+        b=NhVhNQNj++P1N+yVSm7+GuhPeMHh5Zt7VePfdAE4FhHT5xOmCgl/QuWIx2b2dXpX1C
+         aOVC0seW4WBkN/ESrfBiRjXUAmENgx5D/Yy0jdOlAWh5xvf9YCC389BGEWvZoyFDnQO8
+         6MYoU5Z9d0OOkAm7CuXA89FF1v+yaxqGlNlMmY1OpF6Gm8ea8kISDUc9ru8lfM/bDsx3
+         +7z3SGqqmPKpjWhPkQmrYbS7L4IGO0thOadh8hqeM1CzOXxtyrAVgvidYHGVrCw9unn1
+         2X/uWDbOHSUCdcLcrLLioyjB5OstzLu6K7PyzuoX8Ut+wQhryIqShn4JB0GrOVtWx+zn
+         cxNw==
+X-Forwarded-Encrypted: i=1; AKwUvBwHaD+w72ZkiVK63vDKkna6Xd/1p+JcxYEJt+xSCtUsHb+4t9AgmqAdHaLTPTB/rbWD8IkIi3KzwlNnUgA=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9ANVCIZSiI2jtgbOpDEqxXwB/ROalEsxt3GxAVnKvGu27HE4U9
+	vEARLQIACs2PFjvX6m4HCXp1ajK3uVaWn3D2gy/78eOWUtqGCC23lv3l6lVHqonj7ojM4ddsiEh
+	GhBmeLVGt45yYjw7mdclD2TLE31LlasU=
+X-Gm-Gg: AYBFou1Gr2z4THHnExsJneoCwYqwL0wgnbwVOcUbe0nBk7bY5YzfaIr7dLpFWJA/uwW
+	4bu1vA0XC82WFirKP1I+gN75/qsMLwCmReDJGkfALpJyhTsK39e3KLYbpewtM1NY+mq9S8rYcdz
+	8EXoLTiioFLlmKZqEe0lnAHj5d8TA990VqjMDFAkE0jgmIAJa/ZZn7kOWgL0rGG4EH38OnunNJt
+	T/pPWxAiJzVlgq5LwYQAWNcfbOlffx7HQP0yUoP0Du/e0xslhVQL2ZlnSx1popIlR8dvY8riqor
+	qP2KpmnexIbELnPAs2bYEXlFQLHWo7fTGSSh5oxk3iI9uI85zyC+p/PdI18rD2NHfVB2oIcysQn
+	2Oj8/U0rRev7KAvrVT1gejOBEyaOMtLY1XM+TUNGUg0OL62TRCT75GylsGQYsy0leO0HCi1Zu7e
+	T6IqJ4TZVaeAfGAvLMP5KyE9cDE2+oazou+aW9y908lOaWuBKEYxBciv4hyVGLSZHFm4U3xC9mF
+	BAk185/qemB7mG5UygCiY42zaMfafAHrJtC
+X-Received: by 2002:a05:7300:ae18:b0:36a:13fd:b5c with SMTP id
+ 5a478bee46e88-36a4235ceddmr22873570eec.2.1793654738038; Mon, 02 Nov 2026
+ 13:25:38 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,51 +106,89 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261029-rust_kunit_v6_send-v2-0-5ce551efc48e@gmail.com>
+ <20261029-rust_kunit_v6_send-v2-1-5ce551efc48e@gmail.com> <DMKTARY7GF4B.27HUM6XMDTQNV@gmail.com>
+ <CANiq72n3YfMpWndR06B0s1Mj_PjAR8MJ+0nP4XXPkaFh3zX7pA@mail.gmail.com> <DML0UIHJNE2R.3JDG4HTEN6U0S@gmail.com>
+In-Reply-To: <DML0UIHJNE2R.3JDG4HTEN6U0S@gmail.com>
+From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
+Date: Mon, 2 Nov 2026 22:25:25 +0100
+X-Gm-Features: AclHuK9dhZ8ASIbeBndwVm6xD67vsmWuidG-t9qUn_gDwZivwLzke0us5vCUJEk
+Message-ID: <CANiq72nVDshaUDKzLKsa-4kB13XvrB1-f-WaVkBecf-B45m=ag@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] rust: kunit: add #[should_panic] support
+To: =?UTF-8?Q?Nicol=C3=A1s_Antinori?= <nico.antinori.7@gmail.com>, 
+	David Gow <david@davidgow.net>
+Cc: Alice Ryhl <aliceryhl@google.com>, Benno Lossin <lossin@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, Brendan Higgins <brendan.higgins@linux.dev>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Danilo Krummrich <dakr@kernel.org>, 
+	Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>, =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Burak Emir <burak.emir@gmail.com>, Rae Moar <raemoar63@gmail.com>, 
+	Tamir Duberstein <tamird@kernel.org>, Trevor Gross <tmgross@umich.edu>, Yury Norov <yury.norov@gmail.com>, 
+	kunit-dev@googlegroups.com, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org, rust-for-linux@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The txgbe driver currently defines DECLARE_PHY_INTERFACE_MASK_ZERO()
-locally, but incorrectly uses PHY_INTERFACE_MODE_MAX as the array
-length instead of BITS_TO_LONGS().
+On Mon, Nov 2, 2026 at 9:53=E2=80=AFPM Nicol=C3=A1s Antinori
+<nico.antinori.7@gmail.com> wrote:
+>
+> I first thought of disabling `#[should_panic]` tests by directly
+> checking the conditions in the macro code. I ended up creating a new
+> config because I thought it would be cleaner codewise, if a new
+> constraint arises in the future, we just have to add it to the
+> `depends on` clause instead of modifying the macro code.
 
-Move the macro to include/linux/phy.h and use
-DECLARE_PHY_INTERFACE_MASK() to properly size the bitmap, while still
-zeroing the stack variable.
+It depends on what we want: if it is meant to be configurable, then it
+should be a visible Kconfig symbol; if not, then it should remain an
+implementation detail (which could perhaps be a non-visible Kconfig
+symbol).
 
-Fixes: 47f848aac4e7 ("net: txgbe: initialize PHY interface to 0")
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- drivers/net/ethernet/wangxun/txgbe/txgbe_type.h | 3 ---
- include/linux/phy.h                             | 3 +++
- 2 files changed, 3 insertions(+), 3 deletions(-)
+> Yes! they are pretty similar, for `KUNIT_FAULT_TEST`:
 
-diff --git a/drivers/net/ethernet/wangxun/txgbe/txgbe_type.h b/drivers/net/ethernet/wangxun/txgbe/txgbe_type.h
-index 757d1ce8d3ad..8071464c7b90 100644
---- a/drivers/net/ethernet/wangxun/txgbe/txgbe_type.h
-+++ b/drivers/net/ethernet/wangxun/txgbe/txgbe_type.h
-@@ -315,9 +315,6 @@ void txgbe_up(struct wx *wx);
- int txgbe_setup_tc(struct net_device *dev, u8 tc);
- void txgbe_do_reset(struct net_device *netdev, bool reinit);
- 
--#define DECLARE_PHY_INTERFACE_MASK_ZERO(name) \
--	unsigned long name[PHY_INTERFACE_MODE_MAX] = { 0, }
--
- #define TXGBE_LINK_SPEED_UNKNOWN        0
- #define TXGBE_LINK_SPEED_10GB_FULL      4
- #define TXGBE_LINK_SPEED_25GB_FULL      0x10
-diff --git a/include/linux/phy.h b/include/linux/phy.h
-index 21afc2082b17..43aba23109fa 100644
---- a/include/linux/phy.h
-+++ b/include/linux/phy.h
-@@ -159,6 +159,9 @@ typedef enum {
- #define DECLARE_PHY_INTERFACE_MASK(name) \
- 	DECLARE_BITMAP(name, PHY_INTERFACE_MODE_MAX)
- 
-+#define DECLARE_PHY_INTERFACE_MASK_ZERO(name) \
-+	DECLARE_PHY_INTERFACE_MASK(name) = { 0, }
-+
- static inline void phy_interface_zero(unsigned long *intf)
- {
- 	bitmap_zero(intf, PHY_INTERFACE_MODE_MAX);
--- 
-2.47.3
+Yeah, in that case, I think a new visible Kconfig symbol may be
+justifiable -- please see below.
 
+> The only one that is different in `RUST_KUNIT_TESTS` is:
+>
+> #[test]
+> #[should_panic]
+> fn rust_test_assert_false_success_with_should_panic() {
+>     assert!(false)
+> }
+
+I guess it is reasonable to expect this test to pass, since `assert!`
+doesn't return and actually panics in normal Rust.
+
+Having said that, I would expect our `should_panic` tests to be
+generally about non-`assert*!` panics.
+
+> On top of the reasons I gave above, I tried to follow the same as
+> `CONFIG_RUST_BUG_KUNIT_TEST` or `CONFIG_KUNIT_FAULT_TEST` are doing, but
+> in this case in particular, the config is not for enabling a test suite
+> but for enabling a feature that can affect multiple suites (in this
+> patch series the ones behind `CONFIG_RUST_KUNIT_TESTS` and
+> `CONFIG_RUST_BITMAP_KUNIT_TESTS`).
+
+Yeah, it is a "mode" -- that is why originally I thought we would try
+to just do the right thing automatically, i.e. enable them when
+possible, but then when I saw the description of
+`CONFIG_KUNIT_FAULT_TEST`:
+
+    Enables fault handling tests for the KUnit framework. These tests may
+    trigger a kernel BUG(), and the associated stack trace, even when they
+    pass. If this conflicts with your test infrastrcture (or is confusing
+    or annoying), they can be disabled by setting this to N.
+
+and I thought it may be fair to have the Kconfig symbol, i.e. it could
+also be annoying to see the traces or similar, and thus it may be that
+someone needs to disable this.
+
+Having said that, if nobody has asked, we could keep it simple for now
+as well -- that may be fine too.
+
+David: what do you think? Is it something that was discussed back then
+for that one in C?
+
+Cheers,
+Miguel
