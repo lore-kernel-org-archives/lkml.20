@@ -1,60 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793645248;
-	b=WXhW7kVKknyuLIJsubcsUpQSRL5TCSyER2WauDdx/DXrYKDhhBLwA4mKkjggCtRFIvPV
-	 /28aRAFRe5kFjisjVjdRUtgpBH64hndkz29JVK2Wx2BjeF8xyR1LJR4hA90y9TQgaE/Rh
-	 mcS8vf5WRvfnNVU4wmsA+o/rYxYhOFdoSG+bqv5YEFGfV05wW/Bi09auAvNUSnlZ4MEXI
-	 kFvPCMfILxf4jFQi1VRWYkPgVbFfBihgcSGzzJ5pTTgAgMDqxhAVBMJ2dvsxLgcuMsLY3
-	 2Awy6sQHz9fTxuJGv13LOGA47tqAzGIU6YwDacHblVty5vPTPgojpKJFhPWWPlp/1KA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793645248;
-	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
-	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=Uyvo3wdoYbKrilRkjYo7fLfmG/t2dpw+6Ib0pAGLtl0=;
-	b=UgtQUpW5YoTcjoalKEQdliXil81XxIq4JZ/qKJnbWxU0D1gS9S6uGSFjM9NDoXnZGHrH
-	 moRvdCNSIgU1vdvtPAuG7vaRmGess2yekQJ4HBaL/2it72gL2XwRITLwhod3aVvzQ4FkV
-	 REnZjdIrzxKXFuLvCn2Hq2806vWh0eoxsC0dW99wPyG4Jlm93qOHz+OrMfP0RZUJWvV6/
-	 QR8Ob9X4gq88J1Gu6/UHepLWJru+21o6BUDQwUx+8AiJaRI5iqSr7U7qhAok4NGJ+efb5
-	 ve5CHa8q/PszQgX87dm4bYQooa067BeaGpeXIcHF85w6ySf5eGY0MSHWHO4Cwfwc5Rg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=none header.from=iav.lv;
-	spf=pass smtp.mailfrom=iav.lv;
-	dkim=pass header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=DVmujmTq;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.169.15
-Received: from sender-op-o15.zoho.eu (sender-op-o15.zoho.eu [136.143.169.15])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=216.40.44.15
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793645273;
+	b=z+QK8IFN++/7DeZdQSk5JIxkrheO7HLPfoCxIb45hrQ+MvScKYngU23QIAXa6etuvEVC
+	 VG5KImDYTBFcZPhsTJou8LueAjdhZVbZr3so92MgbpBcxm312i8hxs37MyLyMN51QawzZ
+	 XGQPBhpSAtsVbdvGDGkkkgLzQcqj27RdncV2dJ4OLrtAO98lMCBdx+fi7Oy1Z5f+vCR56
+	 p90UPZ0cSFT3DpmoOMvHjed3uaot0HkiUrTDAl0PvWhXAVABuK55iiirE7TkIzNpXrt1M
+	 QiWnHDT8XiIY7cvMr09Q2LQJkRZ0sT8JZgWCgWA47Tj5kQG4iTGpwlKfa+MPM/tRoxQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793645273;
+	h=DMARC-Filter:Received:Received:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-Rspamd-Queue-Id:X-Stat-Signature:
+	 X-Spam-Status:X-Rspamd-Server:X-Session-Marker:X-Session-ID:
+	 DKIM-Signature:X-HE-Tag:X-HE-Meta;
+	bh=J93FtSMsAeP4Uw5SEY+87eyrVwvSQ29MiS0gXAjdpKQ=;
+	b=UsQbbY4aDhOim3S8Wpbmx3DRlM23G1j87WXAFA4yvJiEyS3qo7+3qMdrFQg48+MpEu6m
+	 7ONQ/YKR52uZVlW2tUVClohQWCyaOPsC0IKQXY09Zem8sfv8dKzNbhTvtWs2P+RCjLdTY
+	 3mJZRGTfDZcAm48q1F8nZl12iP7L/mCEo+/3BbInBoTrs0F//8W5VhP411/A1Aa3rzQSN
+	 DAkL5xV+ccs2tMAa6+oPjMm2DPSj05TX1b6Xhn5Iiwm4+dJ+7+w5dlyMGY/3fWTaUA2X+
+	 c0mRVy/wHL407yp+0siQiVejKa18WKGPPQw3Fv09t2RX54r1VwsXmIhl8nbOFczQNug==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=goodmis.org;
+	spf=pass smtp.mailfrom=goodmis.org;
+	dkim=pass header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=NNnB1r3O;
+	arc=none smtp.remote-ip=216.40.44.15
+Received: from relay.hostedemail.com (smtprelay0015.hostedemail.com [216.40.44.15])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72FDE606A324;
-	Mon,  2 Nov 2026 18:47:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72FDE606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DBCF606A326;
+	Mon,  2 Nov 2026 18:47:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 7DBCF606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=goodmis.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=goodmis.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=iav.lv header.i=@iav.lv header.a=rsa-sha256 header.s=zoho header.b=DVmujmTq
-ARC-Seal: i=1; a=rsa-sha256; t=1793645236; cv=none; 
-	d=zohomail.eu; s=zohoarc; 
-	b=Zkn2GuBrl05SyPgpJBDKZgk2GtIWxCiZNk54ydBsUqumJ/akv3BHDV1vQ0nuRh0HP4zN9J6sfELuCGZ6FcmOcVp/5G6PdnEAMOsJDULAhLgB5yq397qU1JVAXgrmScG5Z/A8AdjKbrj5XqL5yUyRkSxX6HtpmcHN637mW1YnGZM=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
-	t=1793645236; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Uyvo3wdoYbKrilRkjYo7fLfmG/t2dpw+6Ib0pAGLtl0=; 
-	b=fXeaVN79ALoS36Gmb67ewHANqZPhP1BSR1ry0hlfZzgIERB/b855PMCsp8Kt55HaUn03Jn2Es7jSv+226GhLejurKuTgl+OPOZcvvR13aK9uBbQliOe3FoMCaFWimApc78AAGDmvtNKXsKu5Ya0T0OinlJ8H9v8fDehmu61Y9Vo=
-ARC-Authentication-Results: i=1; mx.zohomail.eu;
-	dkim=pass  header.i=iav.lv;
-	spf=pass  smtp.mailfrom=iav@iav.lv;
-	dmarc=pass header.from=<iav@iav.lv>
-DKIM-Signature: a=rsa-sha256; b=DVmujmTq3XotD+cLHTmQ6U+O3RtqOLC5zb+saPbwpbGEYq3nKOsltiyKyQvyyVDXQ1vaTL3iCj66D41fo7NAqD5uIBu/ypK5lsSvwVB3c9N5CR42fcbalMTiyXOo4YrLKagyGe85db8KXWbNW+jDEArzqDrxj23qxenAcyXk2+w=; c=relaxed/relaxed; s=zoho; d=iav.lv; v=1; bh=Uyvo3wdoYbKrilRkjYo7fLfmG/t2dpw+6Ib0pAGLtl0=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zoho.eu with SMTPS id 1793645235494685.0284448194957;
-	Mon, 2 Nov 2026 19:47:15 +0100 (CET)
-From: Igor Velkov <iav@iav.lv>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-Subject: Re: [PATCH v2] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan tachometer
-Date: Mon, 02 Nov 2026 20:20:03 +0200
-Message-ID: <20261102-ping-fan-1@iav.lv>
-In-Reply-To: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
-References: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
+	dkim=pass (1024-bit key, unprotected) header.d=goodmis.org header.i=@goodmis.org header.a=rsa-sha256 header.s=dkim1 header.b=NNnB1r3O
+Received: from omf11.hostedemail.com (lb01a-stub [10.200.18.249])
+	by unirelay09.hostedemail.com (Postfix) with ESMTP id A7A3E801EE;
+	Mon,  2 Nov 2026 18:47:50 +0000 (UTC)
+Received: from [HIDDEN] (Authenticated sender: rostedt@goodmis.org) by omf11.hostedemail.com (Postfix) with ESMTPA id BA9A220029;
+	Mon,  2 Nov 2026 18:47:48 +0000 (UTC)
+Date: Mon, 2 Nov 2026 13:47:47 -0500
+From: Steven Rostedt <rostedt@goodmis.org>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Masami Hiramatsu <mhiramat@kernel.org>, Mark Rutland
+ <mark.rutland@arm.com>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ linux-kernel@vger.kernel.org, linux-trace-kernel@vger.kernel.org, Xiang Mei
+ <xmei5@asu.edu>
+Subject: Re: [PATCH v3] ftrace: Complete subops teardown on shutdown failure
+Message-ID: <20261102134747.033bf744@gandalf.local.home>
+In-Reply-To: <CANgPUi1ev7Zb13Z4o=YdHY_JFf=7xXNHNVbR3KBDQ_p1rzUmZQ@mail.gmail.com>
+References: <20261031175213.704021-1-bestswngs@gmail.com>
+	<20261102111707.484df6f5@gandalf.local.home>
+	<CANgPUi1ev7Zb13Z4o=YdHY_JFf=7xXNHNVbR3KBDQ_p1rzUmZQ@mail.gmail.com>
+X-Mailer: Claws Mail 3.20.0git84 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,10 +63,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-Rspamd-Queue-Id: BA9A220029
+X-Stat-Signature: o134oqzux5pswg7bpcz66a8ksgz4grjh
+X-Rspamd-Server: rspamout08
+X-Session-Marker: 726F737465647440676F6F646D69732E6F7267
+X-Session-ID: U2FsdGVkX19PfSENScwIdQ6BsNKsu0D5QfzY8CMtQ2c=
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=goodmis.org; h=date:from:to:cc:subject:message-id:in-reply-to:references:mime-version:content-type:content-transfer-encoding; s=dkim1; bh=J93FtSMsAeP4Uw5SEY+87eyrVwvSQ29MiS0gXAjdpKQ=; b=NNnB1r3O+xmT83ClZIMVvrBeYePa6hWSLyVJ5T5VDGp8joRObP9YL3hHtJCGKCEXKgjpFfwIoDp+nZ+ndHiiLZ806TH0UF/+5QXYPBCZxSWtPCZmMdj1H92NWTaXVoS0eAa7LOSy29JkMKgup0rPNPoCpu+t93rAQzB1fzN4hfE=
+X-HE-Tag: 1793645268-923158
+X-HE-Meta: U2FsdGVkX198oJszNnjyYHs8EWAaqf00/djBxL6QeWaXi4N7qWtyKA6GNYw4/JZ2uAQWmFR4YSf0zLmjjzp+boxH4NuFjzg8WKw2/0E6TX+qui8I+bA8MrfXxY7Sd0PLMKPV1/4oafvUljoL7gg2iVZA6vZ0C49/nsE5qbdpBmgcsjb27k9L/jms8HurUyXqgMZNy/kY8IamLom5dRKDYy9gujZuM6R6dWpOKF7L1e4m9ADcFPi8K2NizkpNdr3YY0GzxkX+4AUyX/yFK4QmMW+qrMuhovMeFWCRdsDWvVTz1kJm4vf5n1slB7agzOFNGcgNwIl+wdkd2ExMzLVefJn0pUEZVSla
 
-Hi Neil,
+On Mon, 2 Nov 2026 10:31:54 -0800
+Weiming Shi <bestswngs@gmail.com> wrote:
 
-Gentle ping: this has your Reviewed-by from Oct 7, but I don't see
-it in for-next. Could you pick it up for v7.5?
+> Hi Steven,
+> 
+> Please disregard the v3 patch, as it was sent by mistake.
+> 
+> I am still working on a new patch. There are some issues that I am
+> currently investigating, and I will send an updated version once they
+> are resolved.
+> 
+> I apologize again for the confusion and for any inconvenience this may
+> have caused.
+
+Ah, no problem. I did see your reply but then saw this email again and
+thought it was different. My mistake.
+
+-- Steve
