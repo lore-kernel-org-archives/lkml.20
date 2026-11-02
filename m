@@ -1,71 +1,57 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=44.202.169.35
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793588486;
-	b=46TUUD7F20yhMW2evvMBfg0EIjfwX00Nk09RGomCqlHE/bRT6U8ea0OsYY1NyAx2yYT5
-	 GBQ/8nWLY0FnwDJ7QCR+VzBn3rWDWf9C+uERXCds8K3qD+9+mb+c5lW6MgL09kp4yIzg5
-	 N9D1zqh3aFRxeHGzE82+iwgjilQJBusdvG6j01/smMKRz1r9lmiwzPIeWtwXMpnHxvw9v
-	 U54ofLdW/YkYQhtRnUurWPzzRMG6SnU/0gDQUb5fd0FLDLtwxFmoHn9fSPEm/3N3ChGr8
-	 51+wp0ykGTOPGsnp69NHgfjLMM0Xejo4eL7BAAyk4jQ8Uce9z7tG8eflNBoPjBp2OrQ==
+	t=1793588654;
+	b=W6a9u3i2fT/9vLy2EDdoTAbBF5JSqjOhm7ZxZINl16G99iAIoxPE1zo9F7KlP6itgDJm
+	 mmD1eokF8DW2xdAMldq3fEyugedp8TCzsb54fqqZjD22sKxNWglcdRbQ34ENUTncfngBY
+	 rrJ/CxE1rDIQTYY9CP/HcjNDepXjOBTrXYfmIic99mxTb2FVj6RDvMSscaLfPlUtSiFxW
+	 ZBybOZpLmF2J/NtnT5IIAz4U8MRatOfrYA6nBC/vFq3QXA5qIccI/cmU+MLvSAVnMkzh0
+	 4i+eCZ+d/EaTVoABEfck9bkgtYTQvaQRlu4NETJB7uRArjCFzyFZxDYeJmXYJ2pzoAg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793588486;
-	h=DMARC-Filter:Received:Received:X-Authority-Analysis:DKIM-Signature:
-	 Received:Message-ID:Date:MIME-Version:User-Agent:Subject:To:Cc:
-	 References:Content-Language:From:Autocrypt:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-AntiAbuse:X-AntiAbuse:X-AntiAbuse:
-	 X-AntiAbuse:X-AntiAbuse:X-BWhitelist:X-Source-IP:X-Source-L:X-Exim-ID:
-	 X-Source:X-Source-Args:X-Source-Dir:X-Source-Sender:X-Source-Auth:
-	 X-Email-Count:X-Org:X-Source-Cap:X-Local-Domain:X-CMAE-Envelope;
-	bh=gsYt0KO2Tsokexe+cHQkTt+ck60Vmk3eg7WjLCeRLwA=;
-	b=yQXEl/q2bTryrd0g0IMuPL3VUbAqq7a2LKbFTRelmU7X/32nfRmbnDZeUfZeGPBiZygL
-	 TULwWNPF4kJyBlbBzBINLoCW4TjBFGq6JU8aurGMW1k3Zzz3FT+88ZwoktF0hqAbztEk5
-	 qv+AapSgzy/pOUEaBG5N/uVtkGAwwVmCzHu1doWEgORl9GNp4ac+n5Usgui0+UvM6annG
-	 qw8d21wjNpQcM1JLozvP6DYBECE+zwLXqjKqH0F0+wkt/6q123tm4ZyX9OaYIqTt6qHz4
-	 /ZLmsIqzVIZ90Z3c9SCrEPr77K8BJ5wjnt/4gwXuzxkN0wboj+Jsp2La9Jdwzhmlv3g==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793588654;
+	h=DMARC-Filter:DKIM-Signature:Received:From:To:Cc:Subject:Date:
+	 Message-ID:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:X-CM-TRANSID:X-Coremail-Antispam:
+	 X-CM-SenderInfo;
+	bh=+BDDKc4Fo82TfQu52UTaHwsZp5Jsbne7r5tspFIBGbc=;
+	b=14xNLNpgSKgOQcW/mvSFjE+2HgxSlKvWPWPkEK9tnIj14qBzR+SITQzdFSOMHkuWazz3
+	 YnwuNfWnbg23lnCAzLg4gMWJdjGe0pF3evW1xKG8M914iUPCT42nbZvUfwYkksruRRmYY
+	 US6VjdOWLBosSN+BXdecBiEk072CbOdFPS+56pQgaoXtk/Q3GS3I+vQOArzxr4dVx/qW4
+	 14QXajLnHtJHAQIcy4udC00pdQHa3Ef+ErI1vrBOLCVwPXjPfXyFfPOmKwmJBiJj2MOCO
+	 /HciQJCdYxY8BtGsgQZqrjixA9H7EESv/NOKOj3OXRrdlbFpEzqP/c5I8Olv3IVfWdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=roeck-us.net;
-	spf=fail smtp.mailfrom=roeck-us.net;
-	dkim=pass header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=G2PTRjcc;
-	arc=none smtp.remote-ip=44.202.169.35
-Received: from omta036.useast.a.cloudfilter.net (omta036.useast.a.cloudfilter.net [44.202.169.35])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=163.com;
+	spf=pass smtp.mailfrom=163.com;
+	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bOzWfDHK;
+	arc=none smtp.remote-ip=117.135.210.5
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D626606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:01:25 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 9D626606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=roeck-us.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA19C606A324;
+	Mon,  2 Nov 2026 03:04:10 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DA19C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=roeck-us.net header.i=@roeck-us.net header.a=rsa-sha256 header.s=default header.b=G2PTRjcc
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id NY89xUJ9ELvgbNiIRxdk18; Mon, 02 Nov 2026 03:01:19 +0000
-Received: from 162-215-252-36.unifiedlayer.com ([208.91.199.152])
-	by cmsmtp with ESMTPS
-	id NiIRxF4iUvtkxNiIRxrZ8z; Mon, 02 Nov 2026 03:01:19 +0000
-X-Authority-Analysis: v=2.4 cv=BbzY0qt2 c=1 sm=1 tr=0 ts=6ae7fcff
- a=QNED+QcLUkoL9qulTODnwA==:117 a=2cfIYNtKkjgZNaOwnGXpGw==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=M0FbrtG7MMAA:10
- a=bo8hvNXLBmDVmQZENdMA:9 a=QEXdDO2ut3YA:10 a=KPbNTLLc3YvdawN95zVk:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=roeck-us.net; s=default; h=Content-Transfer-Encoding:Content-Type:
-	In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:
-	List-Unsubscribe:List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:
-	List-Archive; bh=gsYt0KO2Tsokexe+cHQkTt+ck60Vmk3eg7WjLCeRLwA=; b=G2PTRjcczx7B
-	CGEKS17TfcEfEe1xPTaH0yvxs8wtCxW+8jRCUy5kFsMxFZRiQVjP8nkqdbs+pEPUzReQg1XZsaawT
-	NlJaU4BnFHFMvkHrm3kxz3YUVvMZPSh4xeK5AVrnyIYcni8hp+qZM/Nap7tsqCyJ5pOEiN+sz3ewR
-	4PQqOk3GQfB0IUqLzwA/0WjRLiQobp2K5hvilk4pRzv1ztnbrEY4gU/bi9icOEES3WMhtBwHdDz7O
-	6lPf11tLzmenJDNvTB4zK2NMjGBS5hP8Sj/60aBetaSPnyHEomMV3/LhwUg8x8HNJiFzUQ10iuUXY
-	k64w7ubH5mi9xSLILSryUA==;
-Received: from 108-223-40-66.lightspeed.sntcca.sbcglobal.net ([108.223.40.66]:37572)
-	by bh-25.webhostbox.net with esmtpsa  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <linux@roeck-us.net>)
-	id 1xNiIP-000000010MF-16Jp;
-	Mon, 02 Nov 2026 08:31:17 +0530
-Message-ID: <71e3083f-c845-4953-80b7-38682a4cd84a@roeck-us.net>
-Date: Sun, 1 Nov 2026 19:01:13 -0800
+	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=bOzWfDHK
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version:
+	Content-Type; bh=+BDDKc4Fo82TfQu52UTaHwsZp5Jsbne7r5tspFIBGbc=;
+	b=bOzWfDHK0kLICbRKKRSqeeZKf6mlr7ZACHL4/Zc+q2I0L5MAEsZpg69xlVnydn
+	ZaaoiOFyWayujne7hVAceKy1rVm48aIkmJ93ZLFaYp1SSUuBlZRsqUSM+47NfJuk
+	AvhI9JvdKrzXWJFIvNdcjFsaWeGMWAuLwE7AzgBszhrrI=
+Received: from pan-u.. (unknown [])
+	by gzga-smtp-mtada-g0-4 (Coremail) with SMTP id _____wD3__Gf_edqwFRmEw--.60931S2;
+	Mon, 02 Nov 2026 11:04:00 +0800 (CST)
+From: RenPanpan <rppxj178543@163.com>
+To: tiwai@suse.de
+Cc: alsa-devel@alsa-project.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [DISCUSSION] ALSA: usb-audio: Card naming for composite devices
+Date: Mon,  2 Nov 2026 11:02:51 +0800
+Message-ID: <20261102030359.17222-1-rppxj178543@163.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,105 +61,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/23] Subject: [PATCH net-next 00/23] net/hpe: add HPE
- Slingshot NIC drivers
-To: Doug Ledford <doug.ledford@hpe.com>, Andrew Lunn <andrew@lunn.ch>,
- Jakub Kicinski <kuba@kernel.org>
-Cc: Slingshot Open Source Team <slingshot-os-team@groups.ext.hpe.com>,
- Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
- Richard Cochran <richardcochran@gmail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- linux-kbuild@vger.kernel.org, Sandeep Bhoot <sandeep.bhoot@hpe.com>,
- Iraimani P <iraimani.pavadai@hpe.com>,
- Mamila Santosh <santosh-kumar.mamila@hpe.com>
-References: <20261030-cxi-netdev-submission-v1-0-8c2c391cc283@hpe.com>
- <20261030151121.1f232b50@kernel.org>
- <7d4583c2-e8dc-4ffb-bc45-e2121f824b14@lunn.ch>
- <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <bde936b5-1b3f-4987-a3e5-36ec5c4710e6@hpe.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - bh-25.webhostbox.net
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - roeck-us.net
-X-BWhitelist: no
-X-Source-IP: 108.223.40.66
-X-Source-L: No
-X-Exim-ID: 1xNiIP-000000010MF-16Jp
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: 108-223-40-66.lightspeed.sntcca.sbcglobal.net [108.223.40.66]:37572
-X-Source-Auth: guenter@roeck-us.net
-X-Email-Count: 6
-X-Org: HG=direseller_whb_net_legacy;ORG=directi;
-X-Source-Cap: cm9lY2s7YWN0aXZzdG07YmgtMjUud2ViaG9zdGJveC5uZXQ=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfCbICJdX0d2Ui6cRPQqZXIdR9/wdEy//0Mi4yL3F+uq6Of0VnKn+zTy/ribmhLeCR45msD0ZaDQpsNombCToOSDwcPRrrz3Xo7JiL0FZGy+K1kY9VBnc
- IY7PuTHXt0+8O2iBervBupQNgmv2rOyltZSyAM4bhyh34Qaj6cpJyxqjqaY6qR/VYVPTNHOi1r2TlMW4wStuCMguWMCfZQOHpNpyibtXQ8A99YwGGGHfygPE
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3__Gf_edqwFRmEw--.60931S2
+X-Coremail-Antispam: 1Uf129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+	VFW2AGmfu7bjvjm3AaLaJ3UbIYCTnIWIevJa73UjIFyTuYvjxU8xhpUUUUU
+X-CM-SenderInfo: huss5yirxykkqt6rljoofrz/xtbC6QA8O2rn-aDp4QAA32
 
-On 11/1/26 17:02, Doug Ledford wrote:
-...
-> We ran sashiko, but I think our prompts might have been the RDMA
-> communities prompts (two different people on the team ran it and we
-> merged reports, but I wasn't either one so I don't want to make any
-> claims about things I don't know for sure).
-> 
+Hi Takashi,
 
-I briefly looked into Sashiko's public responses to this patch series.
-It did report lots of issues. Am I missing something ?
+Thank you for taking the patch.
 
-Guenter
+The quirk entry fixes the ALSA card name — cat /proc/asound/cards now
+shows "MAXHUB Speaker" instead of the generic "Touch Device". That
+resolves the issue for this device.
+
+I will hold off on the general iTerminal approach for composite devices
+for now, and revisit it if more devices with the same issue are found.
+
+Thanks again for your time.
+
+Best regards,
+RenPanpan
 
