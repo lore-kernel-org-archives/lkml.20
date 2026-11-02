@@ -1,59 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643383;
-	b=gfNUEbOzauvwWzU5I8sCEqXcTR7BmcvxV2q+q1EjHjJa3OXv4WUjjUv0lywjFcPHWgya
-	 dEhCaTYEeUqdGrylu/w2CXG+vgDOSd0Sta07k+m6QPi4729Zv+PM+xvHA4p+vI4GWOfcw
-	 88W0x00RpSxC2ob6ncIJUm8swVCd6xNv/IWf5k+GR7PjdATDVXeZDfCnsTyfUxA7xewPF
-	 J+wyMwRiOFKN5CxBZRWnzuHIVLN0LOwJfGmsV04FuigxFBrpeJx9N9f3sl5mWJv+rn+Kt
-	 nRro2exnoXlrJVrx/i6tRfMoJ2BtPScUDCYzraq/XUY1XWEacupagL/A0KFddmWUJTw==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643383;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
-	 In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
-	 X-Debian-User;
-	bh=N9NuhjaQA7Vgqi9vuUF5hnhnomZtdYB10OuLNrlq1Uk=;
-	b=mPOllSFfnOqrw6pK5TAUUni7KHiiDtVHPaGJcGANi3HvOyTQVwedrefH3eFTb8OamwHq
-	 wgoc/uDzM527U9xtPRnUyOcY1EgAohQH++ZrwkoVjV0oOkDT3DPv1xbb5qBJ3rXf4LPuo
-	 j42+RjcC7zXRo9jxUA/ZbnIDqZ8zTFuQ700xWYEjhBZJl5d5MM2Yy7h5qTH+zJNxWfrKu
-	 PBbyLR1VuTrdjc9U8jtIDVYlmrrtAUrmgrtxSK9ER1WHGBbXFposBZPPmYd08sxtHqWVZ
-	 ry3hogL8NUX//tMzxCg+/VljT6huf9VWvebgHVc4m7s9fuZRX2fe0F65v79ITk1gFGA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=debian.org;
-	spf=pass smtp.mailfrom=debian.org;
-	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=GlNQxF9v;
-	arc=none smtp.remote-ip=82.195.75.108
-Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793643390;
+	b=GHdr/1yLzibpcM5ESfJd4JIkPn7BU65t83P1NHepUa8fwZ15OuBhdoKi/nS9oXQ4LwlC
+	 9lXcpqlp9QEZnXC+CAuICJr1BRci4lK3f6iJ0tHKBZj8GSq42W64bQbfehgtsg/ymIJ+j
+	 vz28Jc8jDLQ+xwydxj/Vl86awnXQgcM1v1PJNKLmfuydy53pYp8aiXSKDuL9GaFey77J4
+	 VZcc1yLcxXSX0jt9VrHTrsNe7L2L1WUYGeT8C78AJSav5wov2i0muvmfx9gPEjjxPC2xU
+	 PYb5LJ3sSQZPunUO8WsM6fBUmowamI6NrH6CtQYWTaGMQE5eFssq536kteTX7hF14pw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643390;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
+	b=boHY6F8J+d6axl/gqjH/tKjj6ZnBwQJZwS1X9k7l1DF3EuftKWz6fb4ixgQUum2U5Lq8
+	 FgtGzc7R0UJ//k60oUXi3xUUv5d6Dro4YsGbkpsSlQDJfNiLt+HPK1q8EjRq/izkEPXhR
+	 4p+hCS5qURGkUTSVuECSFFV1KcZUztPRAkpfTcuebxTU54+I0ugn9sz76zcI8MsVgUa2j
+	 zQreHWnmq6v7ZPo0r4W6JH1N+aMZVxd6MvAE82Byc5nm888tGiwZ1mXBcSTrJ9hj52ByZ
+	 V0iAO2FWvIzunInozTrKMDq/b0pnt74zaddzKSH6lXTBFfXWh+ctuNrLyd0DmVaahng==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="MV/9PO20";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.217.42
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6E7D606A32F;
-	Mon,  2 Nov 2026 18:16:22 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E6E7D606A32F
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CE88606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:16:30 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4CE88606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=GlNQxF9v
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
-	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:In-Reply-To:References:
-	Message-Id:Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:
-	From:Reply-To:Content-ID:Content-Description;
-	bh=N9NuhjaQA7Vgqi9vuUF5hnhnomZtdYB10OuLNrlq1Uk=; b=GlNQxF9vnGO72iy0e/u3Z4fqcP
-	vbrtx+IQNP47Q7ekSD4Q+4YwCwpgf0zxAUt84kH+4Bp/LgSxW2ms9XXIRmFxW5tRe/nKYVozbm9MQ
-	i4f0mM3MzDEoARJrsSGMpcTWMK/WN+8ZUuyuLw65izKLZ+l7NC4xf6PJF46N68GsJ+ucIE6r8Zv1v
-	773B5Rju0OEzoqvkXFv5HNGTjWeLV3iueI7xfpkqNt18AOaPaHYEJBK87tO8eQtcqbXwbqvqt1xo8
-	62pwNF8TdvnWULCECQlQo4681Wg7RXiuHxdUYDJSj+BCH2alXd8GjGUtqkVh1hCnDnzelsCG1t/rC
-	Ar0rmJwg==;
-Received: from authenticated-user
-	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
-	(Exim 4.96)
-	(envelope-from <leitao@debian.org>)
-	id 1xNwZw-006L5B-2B;
-	Mon, 02 Nov 2026 18:16:20 +0000
-From: Breno Leitao <leitao@debian.org>
-Date: Mon, 02 Nov 2026 10:14:55 -0800
-Subject: [PATCH 2/2] crash: Flush unsafe consoles before
- machine_crash_shutdown()
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MV/9PO20
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-7cc365db987so2297199137.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:16:30 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793643389; cv=none;
+        d=google.com; s=arc-20260327;
+        b=PenHDcwIvwmf9sj3txi1AUaNX6RzQFe3layuVM1zuBAIiClMrPRMrJxK1no4x4dPyv
+         gaWAOGruKO5u9ELsXdf5HstavjspITfTJ/GKooSFE/k8xcaq1SUSPmg2bx+kBSnYcuRp
+         h9rrSX9SkOtC5PSUWwPQP9O4dpNUfvsvm5+e0sVFsstwYqX6a6yKEGWMS3VesSLQ+atK
+         BNt2I6vu/ECvTMB/VFZXVC9tfL3H+T68LYx0DXCOwp9BGIXVly8IkzIYxpKBnlKDWvwJ
+         Qaz7Hhwo2JYJn3/wT31eFHqXE/C1v3C7TDw1fkAJR8aWufdsKg2d1hu+ToWes/qM32ME
+         ZbVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
+        fh=zizNbIDFkPmpL2uPv2nCbM30DgG8e3yEqe7WPcisPRI=;
+        b=OWwAs5ezC6Ju3a0GytbjIff/Sxr1Yw8OSV3NEz3jKbvReWCPV3vwGctgRPXfkVVLBx
+         oWaXh+ixsZp+EWYBQzIuBJNFAyyZlj9TVqnbddJj+TY3Ip9iX31RokxUMBq+NcPZy4me
+         YYi2nGVhGYlasTFTZauyaFKH3kWRwyg7Yn4rIz0m1YvXKjMuy8928UBvNeP84tVP+y69
+         NYML07UGSMdl2QCy9g/yBWilvQKwk7vd+eHeUYUXDmFVdZ7p//Mt+XTKHWqyvCQHp1A1
+         82ci24UHsjwxWmXQRZcGuj8a91/ObADNnoLAJfKBzQXHNJGnM4ivaXGVsDxge02/M9uI
+         YFBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793643389; x=1794248189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
+        b=MV/9PO20iTv/IbWrD4hFexyIGZZNqdsY5fggwZvmD41h+5Pw2hmnxnCC0ByLAJgOmN
+         L9B2aZFYygwucrR/n9M3yuI10kX6ktGciuq2wBBy96XtooJwnNVogS5PPFM7fafTIUo6
+         V1pwseLy6CyoWnePc+ZsGOA3J/8VsK4n8UzYGxR3S82/QjgxvOdU/RZW6LC5egXqNqjA
+         Lh8F4ut8zlhnnVhU1oTCGiHwjfNoacEt1mZsZ7EsLXWcN10JSgFW34xjytg8gNVlidw+
+         Y4ZkJku7Ka6TZ/LFzB9Ex96ukzXyZaBViOU+gScstg9XcfyoZxFqIasEbJbuaZItVBt/
+         sIrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793643389; x=1794248189;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T9ICWzy7eh1ZDcwlW7hKp1lrYbcuv/hAuIABl4o9hxM=;
+        b=fZlEL3Fb0cjEZP63bonNsTNzQ1ODkdfjLCeL7VHVDxEXNiNSeaNAykBcR1ADzSWlup
+         4BUoPLCBLVHrFQAbA2gFUkI6ROpYrAkwIjQV4ZFlguFBhT4WMbG39qDrnlz5kgZxl6dR
+         G6xEOhuIAkLKbkWKSR3OcxNJWzjUlNefK311lN41oG11IVV2ghGecNo59DHqmWSSNu75
+         JqbPTXHbnAhqV6k2aSB/aTeXez0k1Pvqkjs+b72rkVmblRryxJkyAil0aUIICp7nSJbr
+         WiUZKVoDLT5c1HiCjYhCHcY4ZDGrhZiybsvtaESSLiYUKWGjCVYz5DlhrZ6XnAVW5YUc
+         ECvw==
+X-Forwarded-Encrypted: i=1; AKwUvBwbG8KMOcGS0FbJZ8IulNOfNqd9TRueKI1EkqCeJmD/BarlRhEBjFBy1N8wguoCewBvIA/K8c6zKvLWdsE=@vger.kernel.org
+X-Gm-Message-State: APuU4Z9AkL9G2YWxVxjASXeb6rI2iPOQ14uoDC/4rKNkl6NuQcj9y6ik
+	YB/O6ZmNKqDFTp1s0QEMKkmKKri+mGxajmMelNfqKSvh9pAAPw7KLQwXFrDtPnkZ6mVzwskJEdE
+	7Q9Ow2GcGsZWcM+5lkWwO/chn1bncFhk=
+X-Gm-Gg: AYBFou0uCbknSo2wUbIfraHruQE7lnrK3Qpiz/eZ7CfHKqTju/Yfb55k5X7yXxUt8T9
+	+aqTtGZL1qq0dSMTwfvBXHuX4I3W4SRaSmt5rPA4/uAoI7qGbJj5vc5aYBSOh56oeAP/6JkggyF
+	UmSVSiITwa2hmtthnxdC2PWgd1DwBL64l4nxo7viFsraMCnMqdThhsn0NBXVyMT3xapmejR03nG
+	2UMkxikbqlYMn2AeS5TRmzpvyhuhrxZS0YMUq4380eWINPgUxzXt7clc1IOWsutotsm9aKaLNS6
+	E8aXzsSao7zmu0lmzX1OnPm7o1hBDyqMFx12rhVh1myf4subWW/Ws064H3U82UUs3HpTi678THR
+	nOaZd2Xq5CYkbNYpJf/mMehv8lk+/FyYsXfU0icxASqBZvsdcl6DOV7XY+0c2lplLROPsBoEi2C
+	Bsgf97+NfL
+X-Received: by 2002:a05:6102:e0c:b0:7cc:2bb7:1335 with SMTP id
+ ada2fe7eead31-7d07276121fmr4390550137.33.1793643389113; Mon, 02 Nov 2026
+ 10:16:29 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,124 +105,108 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-panic_unsafe_flush-v1-2-12d1e22fd6d8@debian.org>
-References: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
-In-Reply-To: <20261102-panic_unsafe_flush-v1-0-12d1e22fd6d8@debian.org>
-To: Petr Mladek <pmladek@suse.com>, John Ogness <john.ogness@linutronix.de>, 
- Kiryl Shutsemau <kas@kernel.org>
-Cc: linux-kernel@vger.kernel.org, printk@lists.linux.dev, 
- gustavold@gmail.com, samuelcrossley@gmail.com, ryan.roberts@arm.com, 
- brads@mainlining.org, x86@kernel.org, Breno Leitao <leitao@debian.org>, 
- kernel-team@meta.com, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-ce4c1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3383; i=leitao@debian.org;
- h=from:subject:message-id; bh=PEgly2nrOBmRoGLBh6KuvNEk+JIGyOZAWyTxUecxtSw=;
- b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6NNmYufl7gexU6p5spkNYWtTqVKfxp+Yp8u8m
- 2Oguq+XeEaJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaujTZgAKCRA1o5Of/Hh3
- bSYeD/9QPzjWlYPyyVDAjK34PGG/Dwh/KXs5/3uOZJ32mclG0SviP0VyFxG5yZ+s4AZhS5Tpds4
- qhwD5sDfpNZ8cEtvaVlRhDUlcJe06WaEuL+kCvpRgsLt2H72Xa7ifvNtgK+4wMNrAE0kXvrJnO6
- d5YLL2aN8e+cvJuMZSQyuxmxa7WHP0pVbRglbt3KSXzML+nurXly5ZG5bPfu7EEKDVvJEdEs0me
- p6+8ots+kays3Fbzc6GuvhdraFvHMHA5nEl9SRyJKkhjNJ3K1/GEb10wSshSxCTOvMmjgZqeyA0
- /FIrscVfgbpOxcIHZJpDZi8/SASaRdnu7AiEvWO1nQtqZB+44VdLhAfkFBfwo5rbWkUUd4Z4UYl
- GWdbaodkBRt9mAhlEdSD4uVJjCh4iVFuV7uKx3M4i5ructCUXKG5q695aUX7co75IAKQIbjbNVD
- OkoJS7RysibKLyrJYhkVOkXBzprmjMUGNsgF5m1rJTm1Egd2dy1xT7AfXsM21Id7C3Vv+ihbgL6
- nAFjAH+cosoeNuI6AAmWgLBR5x/7+a2LKjTez/oe5bsECGGq3LszR2hoxxZ7wgQT4ajs6SfsXM6
- KVXfR38ir5r+wCrwbdfK6cU72KkgdEnXDXIgP5qCwYIYheSRqehUykS2whzA1/wgInksyOukkFN
- Me/Pbo2M3MWfujg==
-X-Developer-Key: i=leitao@debian.org; a=openpgp;
- fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
-X-Debian-User: leitao
+References: <aui3TJqadHUv-4RW@tiehlicka> <20261102163014.237806-1-joshua.hahnjy@gmail.com>
+ <aujCcqKKyio7oZ0x@tiehlicka> <CAN+CAwOwRJUDXHj0RMr4p2+sdA1V9bX-OgOH1PpER+u_cB2fAg@mail.gmail.com>
+ <aujSP_sfbasQaKu7@tiehlicka>
+In-Reply-To: <aujSP_sfbasQaKu7@tiehlicka>
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+Date: Mon, 2 Nov 2026 13:16:16 -0500
+X-Gm-Features: AclHuK9EkEv8FL6xfP3eWXeFQa1t-cPp0lrx5vZ8E-g9cOqfGbbE6u5P1MgVKZ0
+Message-ID: <CAN+CAwNVuxqHxbaEuu2n8BmUtXhuVeX5v-v5Gu7eegyV0sT+=g@mail.gmail.com>
+Subject: Re: [PATCH v7 0/5] mm/page_counter: move stock from mem_cgroup to page_counter
+To: Michal Hocko <mhocko@suse.com>
+Cc: Shakeel Butt <shakeel.butt@linux.dev>, Johannes Weiner <hannes@cmpxchg.org>, 
+	Roman Gushchin <roman.gushchin@linux.dev>, Muchun Song <muchun.song@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, David Hildenbrand <david@kernel.org>, 
+	Lorenzo Stoakes <ljs@kernel.org>, "Liam R . Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Maarten Lankhorst <dev@lankhorst.se>, Maxime Ripard <mripard@kernel.org>, 
+	Natalie Vock <nat@pixelcluster.dev>, Tejun Heo <tj@kernel.org>, Michal Koutny <mkoutny@suse.com>, 
+	Oscar Salvador <osalvador@suse.de>, cgroups@vger.kernel.org, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On x86, an oops that goes to kdump never reaches netconsole. oops_end()
-calls crash_kexec() after the oops is printed, before this CPU becomes
-the panic CPU, so printk() skips the unsafe consoles for the whole
-report. Unless something fails, nothing else is printed on the panic CPU
-before machine_kexec().
+On Mon, Nov 2, 2026 at 1:11=E2=80=AFPM Michal Hocko <mhocko@suse.com> wrote=
+:
+>
+> On Mon 02-11-26 12:40:33, Joshua Hahn wrote:
+> > > > > > Personally I am a big fan of how try_charge_memcg looks after t=
+his
+> > > > > > series, what do you think?
+> > > > > >
+> > > > > > > Quite honestly I am still not convinced this move
+> > > > > > > is the right thing but I would like to fully understand the m=
+echanics
+> > > > > > > first. Having discrepancies among different counters just sou=
+nds like a
+> > > > > > > potential source of future problems.
+> > > > > >
+> > > > > > I hope that I can present a good argument for why this is not a=
+s
+> > > > > > concern as it may seem initially.
+> > > > > >
+> > > > > > My first point is that the memory usage counters were always fu=
+zzy, as
+> > > > > > specified in the memcg v1 documentation too:
+> > > > > >
+> > > > > > usage_in_bytes ... doesn't show 'exact' value of memory (and sw=
+ap)
+> > > > > > usage, it's a fuzz value for efficient access.
+> > > > > >
+> > > > > > Secondly, the raw value of the usage is actually always accurat=
+e. It is
+> > > > > > just the stock portion that overcharge the memory at times, mak=
+ing it
+> > > > > > seem like there is a discrepancy. Flushing the memcg stock imme=
+diately
+> > > > > > bring the counters to their real values (like what happens righ=
+t now).
+> > > > > >
+> > > > > > Finally, this is a change that is only limited to cgroup v1 use=
+rs.
+> > > > >
+> > > > > Right but is there any actual point in adding caching for memsw c=
+harges
+> > > > > now? If you have a way to opt-in to caching then you can simply d=
+isabled
+> > > > > that for memsw counter altogether. Fewer problems to deal with, e=
+xplain
+> > > > > etc...
+> > > >
+> > > > I think the problem actually still exists, unfortunately. In fact I
+> > > > think the issue becomes bigger if you remove stocking for memsw.
+> > >
+> > > Yes, you are right. We do actually cache memsw through the charging p=
+ath
+> > > which charges both mem and memsw with the batch.
+> >
+> > Thanks, Michal! So it seems like we are in alignment on everything
+> > except the cgroup v1 implications for fuzziness. FWIW I think nothing
+> > really changes from the userspace POV. memsw and memory usage has
+> > always been fuzzy due to stocking, so all this series does is to
+> > change "why" and "when" the stocking becomes fuzzy.
+>
+> Right. The discrepancy was not so obvious but I agree that this change
+> doesn't fundamentally change the picture.
 
-Add nbcon_atomic_unsafe_only_flush(), which flushes only the
-CON_NBCON_ATOMIC_UNSAFE consoles and allows unsafe takeovers on them.
-Call it in __crash_kexec() before machine_crash_shutdown() tears down
-what they may need, such as the shared memory of a TDX guest. As with
-the legacy console, the other CPUs are still running at that point,
-unless crash_kexec_post_notifiers is set.
+Thanks!
 
-When kdump comes from panic(), printk() has already flushed the unsafe
-consoles and the call finds nothing pending.
+> > What do you think about this? The other alternative would be to remove
+> > stocking for cgroup v1 users completely. But I am not sure that is a
+> > good solution either. For the record, I tried making the stock tied
+> > together so that they refill together, but that was a nightmare in
+> > terms of added complexity.
+>
+> Nah, that seems overreaching without much added value. While we do not
+> support new features in v1 we shouldn't cripple performance for those
+> users unless there is no other way around.
 
-Fixes: 187de7c212e5 ("printk: nbcon: Allow unsafe write_atomic() for panic")
-Suggested-by: John Ogness <john.ogness@linutronix.de>
-Suggested-by: Petr Mladek <pmladek@suse.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Breno Leitao <leitao@debian.org>
----
- include/linux/printk.h |  5 +++++
- kernel/crash_core.c    |  1 +
- kernel/printk/nbcon.c  | 14 ++++++++++++++
- 3 files changed, 20 insertions(+)
+Sounds good with me, and I also agree here. OK! I think it seems like
+we are in alignment with everything. Let me spin up a new cover letter
+being more explicit about everything we've covered here and send it
+out soon. This was really helpful for me, thank you for your time
+Michal : -)
 
-diff --git a/include/linux/printk.h b/include/linux/printk.h
-index f594c1266bfd41..95da3904c0d30e 100644
---- a/include/linux/printk.h
-+++ b/include/linux/printk.h
-@@ -208,6 +208,7 @@ void printk_legacy_allow_panic_sync(void);
- extern bool nbcon_device_try_acquire(struct console *con);
- extern void nbcon_device_release(struct console *con);
- void nbcon_atomic_flush_unsafe(void);
-+void nbcon_atomic_unsafe_only_flush(void);
- bool pr_flush(int timeout_ms, bool reset_on_progress);
- #else
- static inline __printf(1, 0)
-@@ -322,6 +323,10 @@ static inline void nbcon_atomic_flush_unsafe(void)
- {
- }
- 
-+static inline void nbcon_atomic_unsafe_only_flush(void)
-+{
-+}
-+
- static inline bool pr_flush(int timeout_ms, bool reset_on_progress)
- {
- 	return true;
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index d0bd2d0cf8990b..6580eaa86685a9 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -140,6 +140,7 @@ void __noclone __crash_kexec(struct pt_regs *regs)
- 
- 			crash_setup_regs(&fixed_regs, regs);
- 			crash_save_vmcoreinfo();
-+			nbcon_atomic_unsafe_only_flush();
- 			machine_crash_shutdown(&fixed_regs);
- 			crash_cma_clear_pending_dma();
- 			machine_kexec(kexec_crash_image);
-diff --git a/kernel/printk/nbcon.c b/kernel/printk/nbcon.c
-index 19fa9f79cac3cb..c22175a33ce17e 100644
---- a/kernel/printk/nbcon.c
-+++ b/kernel/printk/nbcon.c
-@@ -1717,6 +1717,20 @@ void nbcon_atomic_flush_unsafe(void)
- 	panic_nbcon_allow_unsafe_takeover = false;
- }
- 
-+/**
-+ * nbcon_atomic_unsafe_only_flush - Flush only the CON_NBCON_ATOMIC_UNSAFE
-+ *	consoles, allowing unsafe hostile takeovers
-+ *
-+ * Like nbcon_atomic_flush_unsafe(), but consoles with a safe write_atomic()
-+ * are left alone. Only effective on the panic CPU.
-+ */
-+void nbcon_atomic_unsafe_only_flush(void)
-+{
-+	panic_nbcon_allow_unsafe_takeover = true;
-+	__nbcon_atomic_flush_pending(prb_next_reserve_seq(prb), true);
-+	panic_nbcon_allow_unsafe_takeover = false;
-+}
-+
- /**
-  * nbcon_cpu_emergency_enter - Enter an emergency section where printk()
-  *				messages for that CPU are flushed directly
-
--- 
-2.53.0-Meta
-
+Have a great day!!
+Joshua
