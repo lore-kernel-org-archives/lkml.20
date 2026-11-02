@@ -1,92 +1,49 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793631211;
-	b=CMsEQjgPmymvfCeylJivy4hWS0ijl2kAjLF3b5iLVtDo2k3MXZ8Q5ZgVHA6f94ZE85v+
-	 rob0PW1I2A3sjcQaPtoRyRIBLmT7K8PQRe/G35TfepwLZIuh40qkHxxkBM8C37Zayke5A
-	 AQ67ElrfV834exIbnwu+HkPdatr5/DqEZ/ytzm/LKxMzrodTmi2XrXWa4mKLzom1WZdlM
-	 /GrwV1NhzgNyGvNvlu927nFaJv7nOW6yMQj3FBDth51k79fzCoQ+DY/Ewr50wTEWBmmm5
-	 9t6/vwGDJDZwxkhea1fxNZYtm8ugpu7xBj5SykJTJdsEzs2tPLF183Pf80j8RTeTI9g==
+	t=1793631222;
+	b=xT6SZ6lgFmJ1u+0VwgETUZrjIJFikLFLEnGZGnFbmdr5rlVsAhaD9+b78NcGyO1j/Gq+
+	 0/k7nvNgBbRUsD6OAKfB/BGvB6b3ETmfY42b0uNGoBjfgBO1OhRq0ntBWnzpCx6IpULiH
+	 Pk8e1RuMCSxtRUwcjOILynyIi/CwKUN4buBgP9ZmUeEKpcFKMVeFtwb0oVKgjs6ID2TXs
+	 JYBFQtyVNpan496uy65h8oLA6gUx1yAi7RiskIz1D2Slt/y7IyDtQNcp4N5HMUSuWDeWC
+	 5tQpUEvQHUzgkmYauoKnXrlWKVZSI6ym5wfX9C863/4oTsGVRyuXgN4Vum63Gbhtg/g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793631211;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=+jf6C5QZHCYFZk+bTrNhuIvnn0Dge3f+1lrrKUvhbkk=;
-	b=JkulKBpzmQogvHa+kj+TQMc8gFtNUVGDLNioUBcd9ZwWVeAlGvxtOqozl/QlkAlHtUGZ
-	 axcmPyRIdQik6IKdVC2Da0pcf6mvWkHudBTHfNhb3KtuoFoTzuBzckIDtJyRZjkQ2O2Ss
-	 DcaTwUXILhKMDrVKEhOsdcm6NCsQo8Oi5hvLMrP8xt7Q0bvmAeXN4TzX0WYaE56Taf11u
-	 UTlci3Qg1mpdVgJ0BZQOdts/VA/D+agSElwxWTNTIOnPcW3rq+RDtyNLGI/oEl8C36PP/
-	 5JRooRh+vUiZUCTqppcJOBWVM7Pja/1qz1W3IN1RMd08e6JxDT9h+jhU4f6VthLxkmg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793631222;
+	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
+	 X-Mailer;
+	bh=1qgL1NkV0P+SHvidYZZZVaI2a05IzcudOOYTRjrcE88=;
+	b=ogr8LAw980MkhjodTfJtuD6/Kd41QePKNnlMA6tQ7hFYg9nJ+C+IbmldmsAC+T1byOiR
+	 IF+J0/o3xXYmotm8ym25J32R7uzxRer8peDmkk973F/14q/6IURg+Er1q3NwHjLir8V7C
+	 kOBClAwzFf59SSPRHrlHr61+C99cKhBNTYQ+nMbFgvAX3GEtANQmYqzD6NyTsMVFuzkwo
+	 d3Oy7LnPuXbCLlHZO+4Y4GbpJZtrzfbeBYsSCbFNg4P/5WvRkRP0BnoGQOng4h4y8vS1w
+	 0u1WOkKuzodN3ird4gkoKSM2URWRgXgh3IT4jFq+fIT6hArjdW+NltrjFWjuxpgAWyQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqp2vNeO;
-	arc=none smtp.remote-ip=209.85.221.50
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3KPtGIP;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E21F6079AA8
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:53:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3E21F6079AA8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2460606D821;
+	Mon,  2 Nov 2026 14:53:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cqp2vNeO
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48c4be28b82so3265753f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 06:53:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793631210; x=1794236010; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+jf6C5QZHCYFZk+bTrNhuIvnn0Dge3f+1lrrKUvhbkk=;
-        b=cqp2vNeO537wqvJFSqiY6Sn3SUAqWFM/R2ybe3lru3UPCQHvtQnd0kPTRlJ6GWxPgJ
-         X+SgAWMfNMCnFW4HZcMBk/DvOfLTWA36NMZ2FeSlEAdb7WvC4uQLRBd/P2JvVlArVsfK
-         TK2F8V4GASuZAeBQ3aH6wne61of77lQ4jFwy9u9nkq2pKWco2Jw8A9o0Z+D6Nsjthgf6
-         RPsIAqnaCjLgvar76RvBI2ZhHAb+tqUkcTPR6N5BvnB7xIIfHT3q440/ruSwN0SFKC9G
-         JIOHrnqHm8x2lRJr6kGgldDj9K+MIdk27HpMUUsix3Z1rIhNFeC6FGpy5Cl+0OHBJiQP
-         Nodg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793631210; x=1794236010;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+jf6C5QZHCYFZk+bTrNhuIvnn0Dge3f+1lrrKUvhbkk=;
-        b=BBXjdT4yIVJ7o09by/FnEC8bI8LspVKn4l/x+6zGcdyswomLhZ+QgGHYQozLlflhZY
-         p/oxuw3dQ1rXy72ClvgurEzplINP5eRRjt3vl7vGbHGiGEMBwqQP5XtfX1S+HKmR81an
-         oDrM4UUVj8JCmxQLAa3Q2y2npCgh3UTAup7Ekwkiexw02OclvTLEYKd6gTt3G7sclKWp
-         jFBTHGB+q9yuJL20qYUPxjRClWEZRMvCAjBhWYjj6lRKlaX0Y2RZF+CUjGxLnb1Y2WsT
-         /ecKyKAMb/y0IiXWJMTbKwmyZb+jxDR3RtWjpRt0oDhY6r5ZAO3PCe3pE8k7bDVq1zAT
-         a1MA==
-X-Forwarded-Encrypted: i=1; AKwUvByUk2sp2KodXtkTU6w/S4PYjmPa8dQkKVer/E9HYh7Eio3P80LrvaQTTQUFPj0FCP/M/OtElIVNgOfRaWc=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIGtd8WSkjUPCyCwgR2lVcFo3+mq8fTyhEScSrRGYeOyt8dAI3q
-	ogB4q7ikMtigi4HABRoz07xPOv7USYL3Gz3hY5mwrka2t7EWLSZbRpWo
-X-Gm-Gg: AYBFou2k8Zl1e7tJmUD4WslNzZvNapm3i9fuHdCyPnnPhUHJDvyn4vJMrAZk7mY5VRV
-	qI0jK1s8e7tk2+kR+dcMhoSfvB/VLk4d7kW6wvvJeoVnf9Sr8wNtLTmCXFcqIwj7TMVgEA+Rs3j
-	KRmashkYzGLa+EBoj6WAvZ+mXUzy48JQiQp1diIcSHbQDCFIvA1QLAmj+bcKEz7PcjJT5+q8Q9P
-	a+DMEnIRv35oc4r5M55PnYrunV9lI3sm1cxWH6IR4NWoQk50m6xXiFh9Kc5QW9T64ZdQzcG4G06
-	v8T69g2BtHDVdYMnml80/2xu9RhuhlBhlJ1sA00oOS6LIST/1iZBVjK0AjssCAAPz4qZyhWNGBN
-	dhVejJdN8lmFU/MXU5pN68Ge+i/97GuEPh9rx9IR7cqO6IZK/jGn+0qiGHI+w0nqgJZxtMBJ7vM
-	aWZuyjvXFaS60mMG1R91i7jR00L67e2AV2qcMigOLJmMV5l7jvHLuR79xcKS15/6nxI4F2CI13u
-	fAqMgR+IcPQcVQHDqQ0Wm3ikm8YvDssRC6L5o7DKYxmHD+WdYuA2hXFlaq8tTKT9TBiURvtuUdn
-	YpbzLLq5I3qJos3HWY4HpzllQ5U6ZCWaDjOsBMrEdo2s
-X-Received: by 2002:a05:600c:3b18:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4ac1932b542mr244898535e9.35.1793631209531;
-        Mon, 02 Nov 2026 06:53:29 -0800 (PST)
-Received: from localhost.localdomain ([2800:810:84a:dc6d:d32b:1515:b2a9:c74e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896ecsm366474025e9.9.2026.11.02.06.53.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 06:53:29 -0800 (PST)
-From: =?UTF-8?q?Iv=C3=A1n=20Ezequiel=20Rodriguez?= <ivanrwcm25@gmail.com>
-To: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	ntfs3@lists.linux.dev
-Cc: Jiasheng Jiang <jiashengjiangcool@gmail.com>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] fs/ntfs3: use put_indx_node() in indx_find_sort()
-Date: Mon,  2 Nov 2026 11:53:22 -0300
-Message-ID: <20261102145322.169626-1-ivanrwcm25@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=B3KPtGIP
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 625C81F00A16;
+	Mon,  2 Nov 2026 14:53:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793631221;
+	bh=1qgL1NkV0P+SHvidYZZZVaI2a05IzcudOOYTRjrcE88=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=B3KPtGIP7tGmYNWXeX+H1i7tzVg1QuBKxBa4wYZl9yFfxSPwV/nb6la4JTArPoEWx
+	 ykM6GuLSG4T3qFKBXJYZCkJGC3vo8ibb5AaiCteOj34CmMoEHIQ9jN+136jYWHeTth
+	 F1T67wbusbZFJFAB68aEdSrwP7ELsjghDN+oafO9DTOUCxgQLH239365ae129l0kUM
+	 nRwyjSkChWEnrjfxrrWb5DyXYYNqiMK3X+fZLo7P3uKVMTCCcTjvGOV03/bfp2Z8WD
+	 FOtEMf9oTbUWnSFUeeH5hrLQ9dj/aKDWVT6F7HwyJbdDISBaRlBZGt5VGMwbWH7Jme
+	 DcXRqIaFfxaXw==
+From: Christian Brauner <brauner@kernel.org>
+Date: Mon, 02 Nov 2026 15:48:52 +0100
+Subject: [PATCH RFC 12/16] proc: copy in writes to the network namespace
+ entries before pinning
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -96,60 +53,133 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261102-work-procfs-core-v1-12-75df35e4f8b8@kernel.org>
+References: <20261102-work-procfs-core-v1-0-75df35e4f8b8@kernel.org>
+In-Reply-To: <20261102-work-procfs-core-v1-0-75df35e4f8b8@kernel.org>
+To: linux-fsdevel@vger.kernel.org
+Cc: Linus Torvalds <torvalds@linux-foundation.org>, 
+ Jann Horn <jannh@google.com>, Josef Bacik <josef@toxicpanda.com>, 
+ Chris Mason <mason@kernel.org>, Jeff Layton <jlayton@kernel.org>, 
+ NeilBrown <neil@brown.name>, Eric Dumazet <edumazet@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, Al Viro <viro@zeniv.linux.org.uk>, 
+ Jonathan Corbet <corbet@lwn.net>, Christoph Hellwig <hch@lst.de>, 
+ Greg Kroah-Hartman <gregkh@suse.de>, 
+ Joel Granados <joel.granados@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Jan Kara <jack@suse.cz>, Jan Kara <jack@suse.com>, 
+ linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+ linux-um@lists.infradead.org, linux-wireless@vger.kernel.org, 
+ linuxppc-dev@lists.ozlabs.org, netdev@vger.kernel.org, 
+ ntfs3@lists.linux.dev, platform-driver-x86@vger.kernel.org, 
+ coreteam@netfilter.org, kexec@lists.infradead.org, 
+ linux-pci@vger.kernel.org, linux-sound@vger.kernel.org, 
+ netfilter-devel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ ibm-acpi-devel@lists.sourceforge.net, jfs-discussion@lists.sourceforge.net, 
+ linux-alpha@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-cifs@vger.kernel.org, linux-fbdev@vger.kernel.org, 
+ linux-hwmon@vger.kernel.org, linux-mm@kvack.org, linux-sh@vger.kernel.org, 
+ linux-usb@vger.kernel.org, samba-technical@lists.samba.org, 
+ sparclinux@vger.kernel.org, linux-m68k@lists.linux-m68k.org, 
+ linux-doc@vger.kernel.org, linux-serial@vger.kernel.org, 
+ linux-atm-general@lists.sourceforge.net, Takashi Iwai <tiwai@suse.de>, 
+ linux-input@vger.kernel.org, linux-raid@vger.kernel.org, 
+ linux-ext4@vger.kernel.org, linux-modules@vger.kernel.org, 
+ linux-debuggers@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, 
+ Chuck Lever <cel@kernel.org>
+X-Mailer: b4 0.17-dev
 
-indx_find_sort() frees struct indx_node without nb_put(): bare kfree()
-on two error paths, and kfree(index)+kfree(node) on pop. Buffer heads
-taken by indx_read() therefore leak. Use put_indx_node(), as
-indx_find_raw() already does.
+proc_simple_write() already hands ->write() a kernel copy of what was
+written but makes that copy with the entry pinned. Let procfs make it
+before it pins the entry instead. That covers everything created with
+proc_create_net_data_write() and proc_create_net_single_write(), the
+afs files and the rxrpc stats.
 
-194491be54e1 freed n->index on pop only; bh refs and the error paths
-were left. Jiasheng Jiang sent the complete put_indx_node() change
-earlier (v2) but it was not merged.
+So a write to a proc_create_net_single() file without ->write() can
+fail with -EINVAL or -EFAULT now before proc_simple_write() gets to
+refuse it with -EACCES.
 
-QEMU: 300 distinct system.ntfs_security inserts; unpatched pop path
-holds nbufs=1 across teardown, patched does not.
-
-Link: https://lore.kernel.org/all/20260118185736.41529-1-jiashengjiangcool@gmail.com/
-Fixes: 82cae269cfa9 ("fs/ntfs3: Add initialization of super block")
-Signed-off-by: Iván Ezequiel Rodriguez <ivanrwcm25@gmail.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- fs/ntfs3/index.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ fs/proc/generic.c  | 15 ++++-----------
+ fs/proc/internal.h |  2 +-
+ fs/proc/proc_net.c |  4 ++--
+ 3 files changed, 7 insertions(+), 14 deletions(-)
 
-diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
-index c06b36760448..00dc87818dfb 100644
---- a/fs/ntfs3/index.c
-+++ b/fs/ntfs3/index.c
-@@ -1297,7 +1297,7 @@ int indx_find_sort(struct ntfs_index *indx, struct ntfs_inode *ni,
- 		    sizeof(struct NTFS_DE) + sizeof(u64)) {
- 			if (n) {
- 				fnd_pop(fnd);
--				kfree(n);
-+				put_indx_node(n);
- 			}
- 			return -EINVAL;
- 		}
-@@ -1310,7 +1310,7 @@ int indx_find_sort(struct ntfs_index *indx, struct ntfs_inode *ni,
- 		/* Try next level. */
- 		e = hdr_first_de(&n->index->ihdr);
- 		if (!e) {
--			kfree(n);
-+			put_indx_node(n);
- 			return -EINVAL;
- 		}
+diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+index 7dc7df101286..83d273778a60 100644
+--- a/fs/proc/generic.c
++++ b/fs/proc/generic.c
+@@ -904,26 +904,19 @@ void proc_remove(struct proc_dir_entry *de)
+ EXPORT_SYMBOL(proc_remove);
  
-@@ -1330,8 +1330,7 @@ int indx_find_sort(struct ntfs_index *indx, struct ntfs_inode *ni,
- 		/* Pop one level. */
- 		if (n) {
- 			fnd_pop(fnd);
--			kfree(n->index);
--			kfree(n);
-+			put_indx_node(n);
- 		}
+ /*
+- * Pull a user buffer into memory and pass it to the file's write handler if
+- * one is supplied.  The ->write() method is permitted to modify the
+- * kernel-side buffer.
++ * Pass what was written to the file's write handler if one is supplied. The
++ * ->write() method is permitted to modify the buffer.
+  */
+-ssize_t proc_simple_write(struct file *f, const char __user *ubuf, size_t size,
+-			  loff_t *_pos)
++ssize_t proc_simple_write(struct file *f, char *buf, size_t size, loff_t *_pos)
+ {
+ 	struct proc_dir_entry *pde = PDE(file_inode(f));
+-	char *buf;
+ 	int ret;
  
- 		level = fnd->level;
+ 	if (!pde->write)
+ 		return -EACCES;
+-	if (size == 0 || size > PAGE_SIZE - 1)
++	if (size == 0)
+ 		return -EINVAL;
+-	buf = memdup_user_nul(ubuf, size);
+-	if (IS_ERR(buf))
+-		return PTR_ERR(buf);
+ 	ret = pde->write(f, buf, size);
+-	kfree(buf);
+ 	return ret == 0 ? size : ret;
+ }
+ 
+diff --git a/fs/proc/internal.h b/fs/proc/internal.h
+index 80b346a3299d..ed22c6dfb0bf 100644
+--- a/fs/proc/internal.h
++++ b/fs/proc/internal.h
+@@ -317,7 +317,7 @@ static inline bool is_empty_pde(const struct proc_dir_entry *pde)
+ {
+ 	return S_ISDIR(pde->mode) && !pde->proc_iops;
+ }
+-extern ssize_t proc_simple_write(struct file *, const char __user *, size_t, loff_t *);
++extern ssize_t proc_simple_write(struct file *, char *, size_t, loff_t *);
+ 
+ /*
+  * inode.c
+diff --git a/fs/proc/proc_net.c b/fs/proc/proc_net.c
+index fa485581d05e..cdeb2e025d2e 100644
+--- a/fs/proc/proc_net.c
++++ b/fs/proc/proc_net.c
+@@ -77,7 +77,7 @@ static int seq_release_net(struct inode *ino, struct file *f)
+ 
+ static const struct proc_ops proc_net_seq_ops = {
+ 	.proc_open	= seq_open_net,
+-	.proc_write	= proc_simple_write,
++	.proc_write_buf	= proc_simple_write,
+ 	.proc_release	= seq_release_net,
+ };
+ 
+@@ -186,7 +186,7 @@ static int single_release_net(struct inode *ino, struct file *f)
+ 
+ static const struct proc_ops proc_net_single_ops = {
+ 	.proc_open	= single_open_net,
+-	.proc_write	= proc_simple_write,
++	.proc_write_buf	= proc_simple_write,
+ 	.proc_release	= single_release_net,
+ };
+ 
+
 -- 
-2.43.0
+2.53.0
 
