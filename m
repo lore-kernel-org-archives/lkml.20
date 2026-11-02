@@ -1,72 +1,72 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
 	t=1793641533;
-	b=ol3aFWLUr7y/9NxPAd3W4dtODYE70uRR74PfqHxqPld6f9afTd4Kq5EYSrmuegpFN7Uy
-	 sXqtSkSPOqsOUhVsOfqGin8HrU08EdNHwrPgMDb5tgEpNCvM7XRSS70HTeQxI7kZpexJo
-	 8mxssftCl60g0fIepa3WLumAeWzf+zgDXw8GBP57CXNcNTTOISE4HYZujEAx+L5YAz5P+
-	 3FnwBbFFWc0A3nJBqvrxmHEXHi5vaXHT9GZChxGlwHYs742Ns90Su8AzpTuQPspbQmeTW
-	 IM2DHHxYKH6fmxREPZVvh5U+MqfLR6RR967mC1ctE9Iz9VImm5BmXXB4PzeJNovRDnw==
+	b=QDNQy50fEDYDnfhxQzAUUCkIxZwKzc/IXdZ3NNTwoVpXFifabVi/HPs78hmzw52j477l
+	 IwQ+gxcn1d+o1QAhHBFQXlpNMK0R2VksDCB6pu3v/ln0EHGAn5u/LxxxSZNVib0Zpts7i
+	 dskkuqY92VrO4D7kNhdCjFTl3yAK57fuaMyTDdmwmkKWRQ16PqoZ+YKqBCtJA5yqJnxUm
+	 MuIanA2Jpv7ZETjzH30xKq84+lR/dF12UjXlFCH6rjJm2nXbmlv+EEaUIS2WiMs84fLys
+	 YeOBQLCAoxelJJrDNwG8yeR6cK+TXhSYnnNoobk7O4WLpnuOgZOLwG6VPi3QaZAg9eA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
 	a=rsa-sha256; c=relaxed/relaxed; t=1793641533;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
 	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=hivwqgp4LiwM4/VjEYMpC9tUrV6b8nagwQwd5M6FXY0=;
-	b=z40JKZq3cs3qIxt0jmP4swNXrB2hPYg6O42+0ZeMOsiOnK7je+kGQM/OzgXJQFSscfkP
-	 WiXHKFpHyfoWPoOASQyltZUvl80MjQuZr4BxlnM0lz6onhgfmAyDpyFZB2F0awXKCGNWf
-	 A+Or+BjFYgU2XceIGIZmL6kZ5ioVTzUEnJvrr53BNSw0vJn5FXrXLMuFw99lSqv/RzdeV
-	 MM4xyOeeF8NN43bUqfkSgEqTgMhMUB/m8EC4il1GgPvw1USWz1hfwk5G/X4qE0ng6RMZg
-	 MbSS0vIgnJoZcbX+Yx8GPJnmQFbkMcu9/BzGKUYWyIxTB7kbpGE3kcO2m1nqEQrfyIg==
+	bh=B579Los3X6jd4fFI7dhDpIjk2BN3Xl2eix631IvbZT0=;
+	b=1z7N6Q71FaDMTcA1TFg8mWPJn4qhWEwOd7PSoWRqu0XQyA9plE3dW3ZaRklDGu3zmNi2
+	 Nx2qqXBeVlssAQ8amRlmeGlQQzGOoQqZpncaivsRxV9WhMrPW5/hJQnmsRaYx2HorNUGm
+	 Kb/v1lnexNM3RwGLD0bc+fwEI0M1UVKIYipYu/2KfJtGXhsA16BHFppyaYNo1lFqFqrMU
+	 POsluCB9xiVQ2BWncPAEZ8rVlxDmYHpCPBTW3ePhzAjEz7QQdlSGZzLc+BckgJtS1aOb8
+	 OwB7U94IBBebNXPAlwOc3KlRIxxZlURfj+iIS0YbhqndrZOzYWSa7QchrrLylVNJH2g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gnt6CG3P;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZfekHMoQ;
 	arc=none smtp.remote-ip=170.10.133.124
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79D2D607C58C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:32 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 79D2D607C58C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF87160A5BC6
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:45:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org EF87160A5BC6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=gnt6CG3P
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=ZfekHMoQ
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641531;
+	s=mimecast20190719; t=1793641527;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=hivwqgp4LiwM4/VjEYMpC9tUrV6b8nagwQwd5M6FXY0=;
-	b=gnt6CG3PY6+FXCPk0Ccv5TA8OY94HoKblijwQTwszWnfsP8EDHOcsuhvwHRY4Uucdj+pvX
-	RZASDR6EfffictrBzQiuhRdnB3JQxIdf2ZLu1SCI6KPaLTkzJDRni5ti7qCOaKXfp1DgkQ
-	2MWQX5E38YffT2TM8od1uUVVFlD2a0s=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+	bh=B579Los3X6jd4fFI7dhDpIjk2BN3Xl2eix631IvbZT0=;
+	b=ZfekHMoQhIXMJlnDNi5EhHSBkADXbM0OclUoBpnqFbh5xkBM1tIdWIgcrio4EZ/dyuT623
+	7Dh8rYy0AiLRzkpztYyxMJSpaqkZHD5Wbh6oAAf1Do8iLyD5O+Y6Mwid7HWpPvsxP0EOf1
+	JQBQwOuVhrnPYbsp7ok5bFOXlqbCEb8=
+Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-592-mc2VB7-cNeavdXdt5hy-bA-1; Mon,
- 02 Nov 2026 12:45:27 -0500
-X-MC-Unique: mc2VB7-cNeavdXdt5hy-bA-1
-X-Mimecast-MFC-AGG-ID: mc2VB7-cNeavdXdt5hy-bA_1793641526
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-502-_QnT7bVoNpqqWDsRqX21pw-1; Mon,
+ 02 Nov 2026 12:45:23 -0500
+X-MC-Unique: _QnT7bVoNpqqWDsRqX21pw-1
+X-Mimecast-MFC-AGG-ID: _QnT7bVoNpqqWDsRqX21pw_1793641522
 Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 47E40195606A;
-	Mon,  2 Nov 2026 17:45:26 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 7FC7A195604C;
+	Mon,  2 Nov 2026 17:45:22 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id C8D5F26C;
-	Mon,  2 Nov 2026 17:45:25 +0000 (UTC)
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 0D2EF433;
+	Mon,  2 Nov 2026 17:45:21 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
 Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: [PATCH 36/45] KVM: x86: Propagate memory faults through load_pdptrs()
-Date: Mon,  2 Nov 2026 12:45:03 -0500
-Message-ID: <20261102174512.8903-20-pbonzini@redhat.com>
+Subject: [PATCH 30/45] KVM: x86/emulate: Propagate memory faults to userspace
+Date: Mon,  2 Nov 2026 12:44:57 -0500
+Message-ID: <20261102174512.8903-14-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,199 +82,444 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-load_pdptrs() returns a 0/1 value, and therefore its callers do not
-distinguish memory attribute errors (including from nested GPA
-translation) from other failures.  Change them to propagate
-negative errno.
+Full handling of memory faults is not really possible with KVM's
+architecture, short of adding something like a journal to complex
+operations like task switches or SMM enter/leave.  However, KVM
+also should at least try to propagate faults to userspace, as an
+emulation failure if it is not possible to return them as -EFAULT.
+
+Introduce new return values for both the emulator ops
+(X86EMUL_MEMORY_FAULT) and emulate.c (EMULATION_MEMORY_FAULT), and
+plumb them through the entire call chain.  Terminate them with
+-EFAULT as a best effort.
 
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/regs.c       | 43 ++++++++++++++++++++++++++++-----------
- arch/x86/kvm/svm/nested.c | 10 +++++----
- arch/x86/kvm/svm/svm.c    |  4 ++--
- arch/x86/kvm/vmx/nested.c |  6 ++++--
- 4 files changed, 43 insertions(+), 20 deletions(-)
+ arch/x86/kvm/emulate.c     | 24 ++++++++++++++--
+ arch/x86/kvm/kvm_emulate.h |  3 ++
+ arch/x86/kvm/svm/svm.c     |  6 +++-
+ arch/x86/kvm/vmx/sgx.c     |  4 ++-
+ arch/x86/kvm/vmx/vmx.c     | 22 +++++++++------
+ arch/x86/kvm/x86.c         | 56 ++++++++++++++++++++++++++------------
+ include/linux/kvm_host.h   |  3 ++
+ virt/kvm/kvm_main.c        | 24 ++++++++++++++++
+ 8 files changed, 111 insertions(+), 31 deletions(-)
 
-diff --git a/arch/x86/kvm/regs.c b/arch/x86/kvm/regs.c
-index 3969b769f1c1..b7c25b16ffca 100644
---- a/arch/x86/kvm/regs.c
-+++ b/arch/x86/kvm/regs.c
-@@ -176,7 +176,12 @@ int load_pdptrs(struct kvm_vcpu *vcpu, unsigned long cr3)
- 	/* Note the offset, PDPTRs are 32 byte aligned when using PAE paging. */
- 	ret = kvm_vcpu_read_guest_page(vcpu, gpa_to_gfn(real_gpa), pdpte,
- 				       cr3 & GENMASK(11, 5), sizeof(pdpte));
--	if (ret < 0)
-+	if (ret == -EFAULT) {
-+		kvm_prepare_memory_fault_exit(vcpu, real_gpa & PAGE_MASK, PAGE_SIZE,
-+					      false, false, false);
-+		return ret;
-+	}
-+	if (ret)
- 		return 0;
- 
- 	for (i = 0; i < ARRAY_SIZE(pdpte); ++i) {
-@@ -264,6 +269,7 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_post_set_cr0);
- int kvm_set_cr0(struct kvm_vcpu *vcpu, unsigned long cr0)
- {
- 	unsigned long old_cr0 = kvm_read_cr0(vcpu);
-+	int r;
- 
- 	if (!kvm_is_valid_cr0(vcpu, cr0))
- 		return 1;
-@@ -286,9 +292,11 @@ int kvm_set_cr0(struct kvm_vcpu *vcpu, unsigned long cr0)
- 	}
+diff --git a/arch/x86/kvm/emulate.c b/arch/x86/kvm/emulate.c
+index 8464816349b5..93596cf6aa3d 100644
+--- a/arch/x86/kvm/emulate.c
++++ b/arch/x86/kvm/emulate.c
+@@ -2555,11 +2555,15 @@ static int emulator_io_port_access_allowed(struct x86_emulate_ctxt *ctxt,
+ 	base |= ((u64)base3) << 32;
  #endif
- 	if (!(vcpu->arch.efer & EFER_LME) && (cr0 & X86_CR0_PG) &&
--	    is_pae(vcpu) && ((cr0 ^ old_cr0) & X86_CR0_PDPTR_BITS) &&
--	    !load_pdptrs(vcpu, kvm_read_cr3(vcpu)))
--		return 1;
-+	    is_pae(vcpu) && ((cr0 ^ old_cr0) & X86_CR0_PDPTR_BITS)) {
-+		r = load_pdptrs(vcpu, kvm_read_cr3(vcpu));
-+		if (r <= 0)
-+			return r ?: 1;
-+	}
+ 	r = ops->read_std(ctxt, base + 102, &io_bitmap_ptr, 2, NULL, true);
++	if (r == X86EMUL_MEMORY_FAULT)
++		return r;
+ 	if (r != X86EMUL_CONTINUE)
+ 		return -EACCES;
+ 	if (io_bitmap_ptr + port/8 > desc_limit_scaled(&tr_seg))
+ 		return -EACCES;
+ 	r = ops->read_std(ctxt, base + io_bitmap_ptr + port/8, &perm, 2, NULL, true);
++	if (r == X86EMUL_MEMORY_FAULT)
++		return r;
+ 	if (r != X86EMUL_CONTINUE)
+ 		return -EACCES;
+ 	if ((perm >> bit_idx) & mask)
+@@ -2758,7 +2762,10 @@ static int load_state_from_tss32(struct x86_emulate_ctxt *ctxt,
+ 	int ret;
+ 	u8 cpl;
  
- 	if (!(cr0 & X86_CR0_PG) &&
- 	    (is_64_bit_mode(vcpu) || kvm_is_cr4_bit_set(vcpu, X86_CR4_PCIDE)))
-@@ -315,6 +323,7 @@ int kvm_set_cr3(struct kvm_vcpu *vcpu, unsigned long cr3)
- {
- 	bool skip_tlb_flush = false;
- 	unsigned long pcid = 0;
-+	int r;
- #ifdef CONFIG_X86_64
- 	if (kvm_is_cr4_bit_set(vcpu, X86_CR4_PCIDE)) {
- 		skip_tlb_flush = cr3 & X86_CR3_PCID_NOFLUSH;
-@@ -335,8 +344,11 @@ int kvm_set_cr3(struct kvm_vcpu *vcpu, unsigned long cr3)
- 	if (!kvm_vcpu_is_legal_cr3(vcpu, cr3))
- 		return 1;
- 
--	if (is_pae_paging(vcpu) && !load_pdptrs(vcpu, cr3))
--		return 1;
-+	if (is_pae_paging(vcpu)) {
-+		r = load_pdptrs(vcpu, cr3);
-+		if (r <= 0)
-+			return r ?: 1;
-+	}
- 
- 	if (cr3 != kvm_read_cr3(vcpu))
- 		kvm_mmu_new_pgd(vcpu, cr3);
-@@ -411,6 +423,7 @@ EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_post_set_cr4);
- int kvm_set_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
- {
- 	unsigned long old_cr4 = kvm_read_cr4(vcpu);
-+	int r;
- 
- 	if (!kvm_is_valid_cr4(vcpu, cr4))
- 		return 1;
-@@ -420,10 +433,12 @@ int kvm_set_cr4(struct kvm_vcpu *vcpu, unsigned long cr4)
- 			return 1;
- 		if ((cr4 ^ old_cr4) & X86_CR4_LA57)
- 			return 1;
--	} else if (is_paging(vcpu) && (cr4 & X86_CR4_PAE)
--		   && ((cr4 ^ old_cr4) & X86_CR4_PDPTR_BITS)
--		   && !load_pdptrs(vcpu, kvm_read_cr3(vcpu)))
--		return 1;
-+	} else if (is_paging(vcpu) && (cr4 & X86_CR4_PAE) &&
-+		   ((cr4 ^ old_cr4) & X86_CR4_PDPTR_BITS)) {
-+		r = load_pdptrs(vcpu, kvm_read_cr3(vcpu));
-+		if (r <= 0)
-+			return r ?: 1;
-+	}
- 
- 	if ((cr4 & X86_CR4_PCIDE) && !(old_cr4 & X86_CR4_PCIDE)) {
- 		/* PCID can not be enabled when cr3[11:0]!=000H or EFER.LMA=0 */
-@@ -579,7 +594,7 @@ static bool kvm_is_valid_sregs(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs)
- static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 			      int *mmu_reset_needed, bool update_pdptrs)
- {
--	int idx;
-+	int idx, r;
- 	struct desc_ptr dt;
- 
- 	if (!kvm_is_valid_sregs(vcpu, sregs))
-@@ -616,7 +631,11 @@ static int __set_sregs_common(struct kvm_vcpu *vcpu, struct kvm_sregs *sregs,
- 	if (update_pdptrs) {
- 		idx = srcu_read_lock(&vcpu->kvm->srcu);
- 		if (is_pae_paging(vcpu)) {
--			load_pdptrs(vcpu, kvm_read_cr3(vcpu));
-+			r = load_pdptrs(vcpu, kvm_read_cr3(vcpu));
-+			if (r < 0) {
-+				srcu_read_unlock(&vcpu->kvm->srcu, idx);
-+				return r;
-+			}
- 			*mmu_reset_needed = 1;
- 		}
- 		srcu_read_unlock(&vcpu->kvm->srcu, idx);
-diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
-index 73f1f40aad47..a512e0e8dd93 100644
---- a/arch/x86/kvm/svm/nested.c
-+++ b/arch/x86/kvm/svm/nested.c
-@@ -720,7 +720,7 @@ static int nested_svm_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
- 	if (reload_pdptrs && is_pae_paging(vcpu)) {
- 		if (nested_npt)
- 			kvm_register_mark_for_reload(vcpu, VCPU_REG_PDPTR);
--		else if (CC(!load_pdptrs(vcpu, cr3)))
-+		else if (CC(load_pdptrs(vcpu, cr3) <= 0))
- 			return -EINVAL;
+-	if (ctxt->ops->set_cr(ctxt, 3, tss->cr3))
++	ret = ctxt->ops->set_cr(ctxt, 3, tss->cr3);
++	if (ret == X86EMUL_MEMORY_FAULT)
++		return ret;
++	if (ret)
+ 		return emulate_gp(ctxt, 0);
+ 	ctxt->_eip = tss->eip;
+ 	ctxt->eflags = tss->eflags | 2;
+@@ -2993,6 +3000,8 @@ int emulator_task_switch(struct x86_emulate_ctxt *ctxt,
+ 		ctxt->eip = ctxt->_eip;
+ 		writeback_registers(ctxt);
  	}
++	if (rc == X86EMUL_MEMORY_FAULT)
++		return EMULATION_MEMORY_FAULT;
  
-@@ -2132,11 +2132,13 @@ static bool svm_get_nested_state_pages(struct kvm_vcpu *vcpu)
- 		 * nGPA translation. For !nNPT, reload eagerly unless userspace
- 		 * already supplied authoritative PDPTRs via KVM_SET_SREGS2.
- 		 */
--		if (nested_npt_enabled(to_svm(vcpu)))
-+		if (nested_npt_enabled(to_svm(vcpu))) {
- 			kvm_register_mark_for_reload(vcpu, VCPU_REG_PDPTR);
--		else if (!vcpu->arch.pdptrs_from_userspace &&
--			 CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
-+		} else if (!vcpu->arch.pdptrs_from_userspace &&
-+			 CC(load_pdptrs(vcpu, vcpu->arch.cr3) <= 0)) {
-+			kvm_prepare_emulation_failure_exit(vcpu);
- 			return false;
-+		}
- 	}
+ 	return (rc == X86EMUL_UNHANDLEABLE) ? EMULATION_FAILED : EMULATION_OK;
+ }
+@@ -3260,7 +3269,10 @@ static int em_cr_write(struct x86_emulate_ctxt *ctxt)
+ 	int cr_num = ctxt->modrm_reg;
+ 	int r;
  
- 	if (!nested_svm_merge_msrpm(vcpu))
+-	if (ctxt->ops->set_cr(ctxt, cr_num, ctxt->src.val))
++	r = ctxt->ops->set_cr(ctxt, cr_num, ctxt->src.val);
++	if (r == X86EMUL_MEMORY_FAULT)
++		return r;
++	if (r)
+ 		return emulate_gp(ctxt, 0);
+ 
+ 	/* Disable writeback. */
+@@ -3939,6 +3951,8 @@ static int check_perm_in(struct x86_emulate_ctxt *ctxt)
+ 
+ 	ctxt->dst.bytes = min(ctxt->dst.bytes, 4u);
+ 	r = emulator_io_permitted(ctxt, ctxt->src.val, ctxt->dst.bytes);
++	if (r == X86EMUL_MEMORY_FAULT)
++		return r;
+ 	if (r)
+ 		return emulate_gp(ctxt, 0);
+ 
+@@ -3951,6 +3965,8 @@ static int check_perm_out(struct x86_emulate_ctxt *ctxt)
+ 
+ 	ctxt->src.bytes = min(ctxt->src.bytes, 4u);
+ 	r = emulator_io_permitted(ctxt, ctxt->dst.val, ctxt->src.bytes);
++	if (r == X86EMUL_MEMORY_FAULT)
++		return r;
+ 	if (r)
+ 		return emulate_gp(ctxt, 0);
+ 
+@@ -5219,6 +5235,8 @@ int x86_decode_insn(struct x86_emulate_ctxt *ctxt, void *insn, int insn_len, int
+ done:
+ 	if (rc == X86EMUL_PROPAGATE_FAULT)
+ 		ctxt->have_exception = true;
++	if (rc == X86EMUL_MEMORY_FAULT)
++		return EMULATION_MEMORY_FAULT;
+ 	return (rc != X86EMUL_CONTINUE) ? EMULATION_FAILED : EMULATION_OK;
+ }
+ 
+@@ -5579,6 +5597,8 @@ int x86_emulate_insn(struct x86_emulate_ctxt *ctxt, bool check_intercepts)
+ 		ctxt->eip = (u32)ctxt->_eip;
+ 
+ done:
++	if (rc == X86EMUL_MEMORY_FAULT)
++		return EMULATION_MEMORY_FAULT;
+ 	if (rc == X86EMUL_PROPAGATE_FAULT) {
+ 		if (KVM_EMULATOR_BUG_ON(ctxt->exception.vector > 0x1f, ctxt))
+ 			return EMULATION_FAILED;
+diff --git a/arch/x86/kvm/kvm_emulate.h b/arch/x86/kvm/kvm_emulate.h
+index 10886bea82c9..488738794bb6 100644
+--- a/arch/x86/kvm/kvm_emulate.h
++++ b/arch/x86/kvm/kvm_emulate.h
+@@ -97,6 +97,8 @@ struct x86_instruction_info {
+ #define X86EMUL_INTERCEPTED     6 /* Intercepted by nested VMCB/VMCS */
+ /* Emulation during event vectoring is unhandleable. */
+ #define X86EMUL_UNHANDLEABLE_VECTORING	7
++/* Terminate emulation and return a memory fault to userspace. */
++#define X86EMUL_MEMORY_FAULT	8
+ 
+ /* x86-specific emulation flags */
+ #define X86EMUL_F_WRITE			BIT(0)
+@@ -532,6 +534,7 @@ bool x86_page_table_writing_insn(struct x86_emulate_ctxt *ctxt);
+ #define EMULATION_OK 0
+ #define EMULATION_RESTART 1
+ #define EMULATION_INTERCEPTED 2
++#define EMULATION_MEMORY_FAULT 3
+ void init_decode_cache(struct x86_emulate_ctxt *ctxt);
+ int x86_emulate_insn(struct x86_emulate_ctxt *ctxt, bool check_intercepts);
+ int emulator_task_switch(struct x86_emulate_ctxt *ctxt,
 diff --git a/arch/x86/kvm/svm/svm.c b/arch/x86/kvm/svm/svm.c
-index 2601f8359137..a8b3d57aabef 100644
+index 487897ef11dd..205d8783aa13 100644
 --- a/arch/x86/kvm/svm/svm.c
 +++ b/arch/x86/kvm/svm/svm.c
-@@ -1587,8 +1587,8 @@ static void svm_cache_reg(struct kvm_vcpu *vcpu, enum kvm_reg reg)
- 		 * When !npt_enabled, vcpu->pdptrs[] is already available since
- 		 * it is always updated per SDM when moving to CRs.
- 		 */
--		if (npt_enabled)
--			load_pdptrs(vcpu, kvm_read_cr3(vcpu));
-+		if (npt_enabled && load_pdptrs(vcpu, kvm_read_cr3(vcpu)) < 0)
-+			kvm_vm_dead(vcpu->kvm);
- 		break;
- 	default:
- 		KVM_BUG_ON(1, vcpu->kvm);
-diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
-index f6994a95523a..8c110f3d9cc3 100644
---- a/arch/x86/kvm/vmx/nested.c
-+++ b/arch/x86/kvm/vmx/nested.c
-@@ -1240,7 +1240,7 @@ static int nested_vmx_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
- 	 * must not be dereferenced.
+@@ -2363,13 +2363,17 @@ static int gp_interception(struct kvm_vcpu *vcpu)
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 	u32 error_code = svm->vmcb->control.exit_info_1;
+ 	u64 svm_exit_code;
++	int r;
+ 
+ 	/* Both #GP cases have zero error_code */
+ 	if (error_code)
+ 		goto reinject;
+ 
+ 	/* Decode the instruction for usage later */
+-	if (x86_decode_emulated_instruction(vcpu, 0, NULL, 0) != EMULATION_OK)
++	r = x86_decode_emulated_instruction(vcpu, 0, NULL, 0);
++	if (r == EMULATION_MEMORY_FAULT)
++		return -EFAULT;
++	if (r != EMULATION_OK)
+ 		goto reinject;
+ 
+ 	/* FIXME: Handle SVM instructions through the emulator */
+diff --git a/arch/x86/kvm/vmx/sgx.c b/arch/x86/kvm/vmx/sgx.c
+index 771c75a58343..162548b97c00 100644
+--- a/arch/x86/kvm/vmx/sgx.c
++++ b/arch/x86/kvm/vmx/sgx.c
+@@ -236,7 +236,9 @@ static int handle_encls_ecreate(struct kvm_vcpu *vcpu)
  	 */
- 	if (reload_pdptrs && !nested_ept && is_pae_paging(vcpu) &&
--	    CC(!load_pdptrs(vcpu, cr3))) {
-+	    CC(load_pdptrs(vcpu, cr3) <= 0)) {
- 		*entry_failure_code = ENTRY_FAIL_PDPTE;
- 		return -EINVAL;
+ 	r = kvm_read_guest_virt(vcpu, pageinfo_gva, &pageinfo,
+ 				sizeof(pageinfo), &ex);
+-	if (r == X86EMUL_PROPAGATE_FAULT) {
++	if (r == X86EMUL_MEMORY_FAULT) {
++		return -EFAULT;
++	} else if (r == X86EMUL_PROPAGATE_FAULT) {
+ 		kvm_inject_emulated_page_fault(vcpu, &ex);
+ 		return 1;
+ 	} else if (r != X86EMUL_CONTINUE) {
+diff --git a/arch/x86/kvm/vmx/vmx.c b/arch/x86/kvm/vmx/vmx.c
+index fe43718b751b..80dfb3c6268b 100644
+--- a/arch/x86/kvm/vmx/vmx.c
++++ b/arch/x86/kvm/vmx/vmx.c
+@@ -5342,19 +5342,21 @@ static bool rmode_exception(struct kvm_vcpu *vcpu, int vec)
+ static int handle_rmode_exception(struct kvm_vcpu *vcpu,
+ 				  int vec, u32 err_code)
+ {
++	int r;
++
+ 	/*
+ 	 * Instruction with address size override prefix opcode 0x67
+ 	 * Cause the #SS fault with 0 error code in VM86 mode.
+ 	 */
+ 	if (((vec == GP_VECTOR) || (vec == SS_VECTOR)) && err_code == 0) {
+-		if (kvm_emulate_instruction(vcpu, 0)) {
+-			if (vcpu->arch.halt_request) {
+-				vcpu->arch.halt_request = 0;
+-				return kvm_emulate_halt_noskip(vcpu);
+-			}
+-			return 1;
++		r = kvm_emulate_instruction(vcpu, 0);
++		if (r <= 0)
++			return r;
++		if (vcpu->arch.halt_request) {
++			vcpu->arch.halt_request = 0;
++			return kvm_emulate_halt_noskip(vcpu);
+ 		}
+-		return 0;
++		return 1;
  	}
-@@ -3454,8 +3454,10 @@ static bool nested_get_vmcs12_pages(struct kvm_vcpu *vcpu)
- 		 * the guest CR3 might be restored prior to setting the nested
- 		 * state which can lead to a load of wrong PDPTRs.
+ 
+ 	/*
+@@ -6080,6 +6082,7 @@ static int handle_invalid_guest_state(struct kvm_vcpu *vcpu)
+ 	struct vcpu_vmx *vmx = to_vmx(vcpu);
+ 	bool intr_window_requested;
+ 	unsigned count = 130;
++	int r;
+ 
+ 	intr_window_requested = exec_controls_get(vmx) &
+ 				CPU_BASED_INTR_WINDOW_EXITING;
+@@ -6098,8 +6101,9 @@ static int handle_invalid_guest_state(struct kvm_vcpu *vcpu)
  		 */
--		if (CC(!load_pdptrs(vcpu, vcpu->arch.cr3)))
-+		if (CC(load_pdptrs(vcpu, vcpu->arch.cr3) <= 0)) {
-+			kvm_prepare_emulation_failure_exit(vcpu);
- 			return false;
+ 		smp_rmb();
+ 
+-		if (!kvm_emulate_instruction(vcpu, 0))
+-			return 0;
++		r = kvm_emulate_instruction(vcpu, 0);
++		if (r <= 0)
++			return r;
+ 
+ 		if (vmx_unhandleable_emulation_required(vcpu)) {
+ 			kvm_prepare_emulation_failure_exit(vcpu);
+diff --git a/arch/x86/kvm/x86.c b/arch/x86/kvm/x86.c
+index caff8534267d..5f7f87ff4d17 100644
+--- a/arch/x86/kvm/x86.c
++++ b/arch/x86/kvm/x86.c
+@@ -4865,7 +4865,6 @@ static int kvm_read_guest_virt_helper(gva_t addr, void *val, unsigned int bytes,
+ {
+ 	struct kvm_pagewalk *gva_walk = &vcpu->arch.gva_walk;
+ 	void *data = val;
+-	int r = X86EMUL_CONTINUE;
+ 
+ 	while (bytes) {
+ 		gpa_t gpa = gva_walk->gva_to_gpa(vcpu, gva_walk, addr, access, exception);
+@@ -4878,16 +4877,16 @@ static int kvm_read_guest_virt_helper(gva_t addr, void *val, unsigned int bytes,
+ 		ret = kvm_vcpu_read_guest_page(vcpu, gpa >> PAGE_SHIFT, data,
+ 					       offset, toread);
+ 		if (ret < 0) {
+-			r = X86EMUL_IO_NEEDED;
+-			goto out;
++			if (kvm_prepare_memory_fault_exit_for_range(vcpu, gpa, toread, false))
++				return X86EMUL_MEMORY_FAULT;
++			return X86EMUL_IO_NEEDED;
+ 		}
+ 
+ 		bytes -= toread;
+ 		data += toread;
+ 		addr += toread;
+ 	}
+-out:
+-	return r;
++	return X86EMUL_CONTINUE;
+ }
+ 
+ /* used for instruction fetching */
+@@ -4912,8 +4911,16 @@ static int kvm_fetch_guest_virt(struct x86_emulate_ctxt *ctxt,
+ 		bytes = (unsigned)PAGE_SIZE - offset;
+ 	ret = kvm_vcpu_fetch_guest_page(vcpu, gpa >> PAGE_SHIFT, val,
+ 					offset, bytes);
+-	if (unlikely(ret < 0))
++	if (unlikely(ret < 0)) {
++		unsigned long attrs = kvm_get_vm_memory_attributes(vcpu->kvm, gpa_to_gfn(gpa));
++
++		if (!kvm_mem_attributes_may_exec(attrs)) {
++			kvm_prepare_memory_fault_exit(vcpu, gpa & PAGE_MASK, PAGE_SIZE,
++						      false, true, false);
++			return X86EMUL_MEMORY_FAULT;
 +		}
+ 		return X86EMUL_IO_NEEDED;
++	}
+ 
+ 	return X86EMUL_CONTINUE;
+ }
+@@ -4957,7 +4964,6 @@ static int kvm_write_guest_virt_helper(gva_t addr, void *val, unsigned int bytes
+ {
+ 	struct kvm_pagewalk *gva_walk = &vcpu->arch.gva_walk;
+ 	void *data = val;
+-	int r = X86EMUL_CONTINUE;
+ 
+ 	while (bytes) {
+ 		gpa_t gpa = gva_walk->gva_to_gpa(vcpu, gva_walk, addr, access, exception);
+@@ -4969,16 +4975,16 @@ static int kvm_write_guest_virt_helper(gva_t addr, void *val, unsigned int bytes
+ 			return X86EMUL_PROPAGATE_FAULT;
+ 		ret = kvm_vcpu_write_guest(vcpu, gpa, data, towrite);
+ 		if (ret < 0) {
+-			r = X86EMUL_IO_NEEDED;
+-			goto out;
++			if (kvm_prepare_memory_fault_exit_for_range(vcpu, gpa, towrite, true))
++				return X86EMUL_MEMORY_FAULT;
++			return X86EMUL_IO_NEEDED;
+ 		}
+ 
+ 		bytes -= towrite;
+ 		data += towrite;
+ 		addr += towrite;
+ 	}
+-out:
+-	return r;
++	return X86EMUL_CONTINUE;
+ }
+ 
+ static int emulator_write_std(struct x86_emulate_ctxt *ctxt, gva_t addr, void *val,
+@@ -5098,7 +5104,7 @@ struct read_write_emulator_ops {
+ static int emulator_read_guest(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 			       void *val, int bytes)
+ {
+-	return !kvm_vcpu_read_guest(vcpu, gpa, val, bytes);
++	return kvm_vcpu_read_guest(vcpu, gpa, val, bytes);
+ }
+ 
+ static int emulator_write_guest(struct kvm_vcpu *vcpu, gpa_t gpa,
+@@ -5107,10 +5113,10 @@ static int emulator_write_guest(struct kvm_vcpu *vcpu, gpa_t gpa,
+ 	int ret;
+ 
+ 	ret = kvm_vcpu_write_guest(vcpu, gpa, val, bytes);
+-	if (ret < 0)
+-		return 0;
++	if (ret)
++		return ret;
+ 	kvm_page_track_write(vcpu, gpa, val, bytes);
+-	return 1;
++	return 0;
+ }
+ 
+ static int emulator_read_write_onepage(unsigned long addr, void *val,
+@@ -5139,6 +5145,8 @@ static int emulator_read_write_onepage(unsigned long addr, void *val,
+ 		ret = vcpu_is_mmio_gpa(vcpu, addr, gpa, write);
+ 	} else {
+ 		ret = vcpu_mmio_gva_to_gpa(vcpu, addr, &gpa, exception, write);
++		if (ret == -EFAULT)
++			return X86EMUL_MEMORY_FAULT;
+ 		if (ret < 0)
+ 			return X86EMUL_PROPAGATE_FAULT;
+ 	}
+@@ -5151,8 +5159,14 @@ static int emulator_read_write_onepage(unsigned long addr, void *val,
+ 	 * i.e. if accessing host user memory failed, but this has been KVM's
+ 	 * historical ABI for decades.
+ 	 */
+-	if (!ret && ops->read_write_guest(vcpu, gpa, val, bytes))
+-		return X86EMUL_CONTINUE;
++	if (!ret) {
++		ret = ops->read_write_guest(vcpu, gpa, val, bytes);
++		if (!ret)
++			return X86EMUL_CONTINUE;
++	}
++
++	if (kvm_prepare_memory_fault_exit_for_range(vcpu, gpa, bytes, write))
++		return X86EMUL_MEMORY_FAULT;
+ 
+ 	/*
+ 	 * Attempt to handle emulated MMIO within the kernel, e.g. for accesses
+@@ -5602,6 +5616,8 @@ static int emulator_set_cr(struct x86_emulate_ctxt *ctxt, int cr, ulong val)
+ 		res = -1;
  	}
  
++	if (res == -EFAULT)
++		return X86EMUL_MEMORY_FAULT;
+ 	return res;
+ }
  
+@@ -6416,6 +6432,8 @@ int x86_emulate_instruction(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+ 
+ 		r = x86_decode_emulated_instruction(vcpu, emulation_type,
+ 						    insn, insn_len);
++		if (r == EMULATION_MEMORY_FAULT)
++			return -EFAULT;
+ 		if (r != EMULATION_OK)  {
+ 			if ((emulation_type & EMULTYPE_TRAP_UD) ||
+ 			    (emulation_type & EMULTYPE_TRAP_UD_FORCED)) {
+@@ -6528,7 +6546,7 @@ int x86_emulate_instruction(struct kvm_vcpu *vcpu, gpa_t cr2_or_gpa,
+ 	if (r == EMULATION_INTERCEPTED)
+ 		return 1;
+ 
+-	if (r == EMULATION_FAILED) {
++	if (r == EMULATION_MEMORY_FAULT || r == EMULATION_FAILED) {
+ 		if (kvm_unprotect_and_retry_on_failure(vcpu, cr2_or_gpa,
+ 						       emulation_type))
+ 			return 1;
+@@ -9210,6 +9228,8 @@ int kvm_task_switch(struct kvm_vcpu *vcpu, u16 tss_selector, int idt_index,
+ 
+ 	ret = emulator_task_switch(ctxt, tss_selector, idt_index, reason,
+ 				   has_error_code, error_code);
++	if (ret == EMULATION_MEMORY_FAULT)
++		goto unhandled_task_switch;
+ 
+ 	/*
+ 	 * Report an error userspace if MMIO is needed, as KVM doesn't support
+diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
+index de540af1fa24..4128cdb71869 100644
+--- a/include/linux/kvm_host.h
++++ b/include/linux/kvm_host.h
+@@ -2641,6 +2641,9 @@ static inline u64 kvm_mem_attributes_generation(struct kvm *kvm)
+ 	 */
+ 	return smp_load_acquire(&kvm->mem_attrs.generation);
+ }
++
++bool kvm_prepare_memory_fault_exit_for_range(struct kvm_vcpu *vcpu, gpa_t gpa,
++					     size_t size, bool write);
+ #else
+ static inline bool kvm_range_has_any_vm_memory_attributes(struct kvm *kvm,
+ 			gfn_t start, gfn_t end, unsigned long mask)
+diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
+index 8283b2415adc..326bb8e144b7 100644
+--- a/virt/kvm/kvm_main.c
++++ b/virt/kvm/kvm_main.c
+@@ -2485,6 +2485,30 @@ static u64 kvm_supports_memory_protection_attr(struct kvm *kvm)
+ #endif
+ 
+ #ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
++bool kvm_prepare_memory_fault_exit_for_range(struct kvm_vcpu *vcpu, gpa_t gpa,
++					     size_t size, bool write)
++{
++	gfn_t gfn, last;
++
++	last = gpa_to_gfn(gpa + size - 1);
++	for (gfn = gpa_to_gfn(gpa); gfn <= last; gfn++) {
++		if (!kvm_mem_attributes_may_read_gfn(vcpu->kvm, gfn)) {
++			kvm_prepare_memory_fault_exit(vcpu, gfn_to_gpa(gfn), PAGE_SIZE,
++						      write, false, false);
++			return true;
++		}
++
++		if (write && !kvm_mem_attributes_may_write_gfn(vcpu->kvm, gfn)) {
++			kvm_prepare_memory_fault_exit(vcpu, gfn_to_gpa(gfn), PAGE_SIZE,
++						      true, false, false);
++			return true;
++		}
++	}
++
++	return false;
++}
++EXPORT_SYMBOL_FOR_KVM_INTERNAL(kvm_prepare_memory_fault_exit_for_range);
++
+ u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
+ {
+ 	u64 supported_attrs = 0;
 -- 
 2.52.0
 
