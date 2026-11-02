@@ -1,100 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.44
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793592772;
-	b=zsltYxDG3W4C3sr92SgJDyXa8BSY3WBQOlhSaE+Rpar0MM4DUcqWOATyE8ecS9NB/sQB
-	 aLOJb7oqB4+leQbZvwIQewMS2Ef53zyImujymUs2einAj1BNEIiQEZepqtUjIIlUB+X6j
-	 V78cqY8kJe/MBukDYqTWQ2TeRpW7mYB9yNugSEXTlZtaTUICF7JesB8RptchV5Qv3KeXR
-	 kn5bRK/d4GvmK/Qq9palomtBRKS081YUfMFJyJK0y1kJv0ZMaBkgdZXr/So6mr4B/TTTX
-	 /XHtdLDzq8dNzD5AeHXojIvHuyJ3Bbtz0Npj5cQQf/Bs6Gv7xCNOoDl8vXHv+6s8sSQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793592772;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-Id:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=HXExBpm+HM1+xWx5ZxB/Ym/VbcYfOrarlbhjIM0wW7c=;
-	b=oHh/yvLDPUXZcEme/ezU3ZdIfFlC8NHiljFMErKjP7xEKkJxnRKgnXvLcBSP8KCaGTFc
-	 bMoyeRBe4XrNf1vD4AGUs3Jv0+vDTe41TFkBCPabBYH62NRBXok6MUFbbJoQHT7vLsCRT
-	 6Z5l/EO3TKnB8UMZN8fh8wuOqj0UnZlT5NTAkTcYkvQwyUDk79T9TDE4hAa+sXdf98TK5
-	 0LxQhkeh/J3LGioc8nvQ/zGHvr79g9pw6o+lfhthy5QeM3Ir0aPQ2omPgxxWHE3JKcY3b
-	 hF+txYPZau4vAqPw7OCvjlinCITHVdzqWUYu4xwIGDnz3XVQ4sJmx3bN3hQwkwCDcNw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aa7mrpCG;
-	arc=none smtp.remote-ip=209.85.128.44
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793592920;
+	b=UNw5EbttF4p0QlhpP3ASkI7BCfGnyb32oRxkIaNlLNeb2vUPk3sOgGzd6E18N+VTrtAZ
+	 Wp83MHiy6YtV1Bpy65sLYwW661DeoHWVDs0pT9t/yeGsjEaRZQPiAdt0aww6m2fD+cSGX
+	 cKPJyvX7nlUAHyNyoRDUclzmUk5he6YQuD62X0OrZoevM4nbxMj4qTjchXohkIE8KvUuh
+	 wb1YRpDNkD2WafnsK7uT2b1g/z+/hMacMeIQB/M77AbmTzo8H0ijZfTYSNQWL7v2Ubu3L
+	 n2TqmyQUfoSLFMs+yRp602YZkGiljLwc/D6KmTMFH9AOrzA0LLcyxv1SDkW2KwaqNIQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592920;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hyHLxgFFM5UwytLaR9tbayyj8T/pSPedO9J/t+f+U88=;
+	b=pdOjDfep56vW//6ON6CqQWoqpbFCpGU1UcsKGUQDHDKwLZntblsYk0cq7RAFS9OaNa7T
+	 CP/+BOfoSsl7mTbFe/Rw4rt1QfgEumFgxDLz24I7EvSxXtFP1ScNCnvxo3Q4FFjlG2Ack
+	 JOcT3G7ROpLo97PhV1W8ddEAau8dgMaCjpw+Oixo7aXPpqs/J6ko5BFxles4e5mZ4Ilmn
+	 OhQchGYPjqlwrDijV1IxyoU/pylLwxjr/bXsr4Pn9T0FVjb7mR2KagnZ8H72OnfZd4e0n
+	 EGOP5jZ1uxW9bHyugtXNuXnMz8nmxYg6ntjSIoMDw29wYkSuJxfMBaj7ngJdNhxSaKw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Yhlt/D/W";
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5490606A324;
+	Mon,  2 Nov 2026 04:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Yhlt/D/W
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793592919;
+	b=Y8k6jv/+4mQ1PQvzcVC//cfIeU66Wtx5l+GdD1j/JfPEVRia8CO3DMbJrAyzeHKpSOSk
+	 8ORiv9bG5BpmzxgnFsz1thTJJJB0jw03xjf6PjHQpNY9q2wmvuNVa1f83GgQiD7k/XLam
+	 uQATTx4pBH0OR96GO7YzKjGPIShlQAlSgbOhm7BlrNWxKqALViXSq6b8MZsdZ+TSMRFqc
+	 XoAmsY9cOz5w50xTcP/ZK0RVfq2QGLxpGwXKY8hE4/kk03RhWtzpxsHJ+DmonD1O8Q4V+
+	 A/J6mklf1UdmCBCgM2XQBM93r49NIgpDip565DbpdlS/mFp/Zhj3fTlqxGVIniYizcQ==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793592919;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=hyHLxgFFM5UwytLaR9tbayyj8T/pSPedO9J/t+f+U88=;
+	b=aLnbsyHuPsoR9Yb9c19i4EQb/uK+NYOYUVaJhcKClciKc8tSXSmYfbLwNMhXPIlnOItg
+	 IyWC7+rH/XEUwOB2lZP9OsPeskNRhttj1K/W2igTaCXIqjrH7Ne45kzDDvcvfiBvOFQbt
+	 olnkfq/j2Q8+zTSuxj/Q9+/PGe+UoKrzDo79M+GMPodoU+SR7hRYbe0nwh5GpcLX/ObAa
+	 JzsWrgIKDeQG5vWlAuYbXc28vxU1hANaPiRk5Y1rYGMgVD52LpuLYU3fAKRZtTAWgj+p4
+	 YU/25alctjjLDG4Z66eZp4hadKB5LodZElmR3dd/oXGUH6nUh0tJta4CNp9Gxsu1YAw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFD15606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:12:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AFD15606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aa7mrpCG
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a59100fa83so21240105e9.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:12:51 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793592770; x=1794197570; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=HXExBpm+HM1+xWx5ZxB/Ym/VbcYfOrarlbhjIM0wW7c=;
-        b=aa7mrpCGldWnEQLXDuzCewoZYuwZbP/krSOo6/JETJMUb+lwaO6GFj6n6mDYXVSTKE
-         M++mXUITlllR3iygNFBADPy1vOAgyhcpdV/iJKRDvrefYPPkpB/dbjg3oeaBAcN3E+Sq
-         9H85TSzdQTeiizFZY8yZMZUvuGz0WxOFiGHSDyMrJ9ucDb7v3jah4z6TGk9cGt6fN2hV
-         uCviq57AdJNRAAuZTmdQYLnCF8V0m3y7NOKR9lgA451H269NMBoM7PUnHvnr8+nJkUtt
-         RJ60m7CaVxdQUhFUL13Rg5bYLOJ5WdInnGA/hQNZXKdwB7b2jdA+syu56LCNF9mwqD52
-         QIKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793592770; x=1794197570;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HXExBpm+HM1+xWx5ZxB/Ym/VbcYfOrarlbhjIM0wW7c=;
-        b=eZxdF0MFYnTfoTr7tIawKOgMuLbnu2eEVp5BjONLxverUu8jFQHU9S4Fyo6QMWlL34
-         Z3VMdnPYzLezXoW1uxwLs3IzS8htrvc1E6VUA7turNlvObuYUwAVh4ktlDwHfRQULuQw
-         iG7uQ2auueEytXwSLF9qtffz4e43Qqo8/CqecS1b5mlzsOmxCKQB8mx0XvvCqOgzWLjy
-         A1LQhlcq/GC94zD7hGqoHd3Q0X33TQCytFE0BcMyQR6PUGTUc5AviL4EkXcRlgo/U1Qf
-         zqfEzErO6xmQzPcGIu5fVb6FsBll3C4qVpBF33JNVs3gBL2tOUYsqq+doS24YDFt0G2/
-         Vm2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzFog2jstQUkSHW+lHCUbFLpkvUj/YXNuyZsiOapJN17F5fjb9sYOxkFdb/x3BC3spjIWQVM9j2hIaRSzw=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLQoI5lYsSZ6W+Ps3Gs4J9UVxN4HJ8qCFpkRxaAp3q7SGQLQtB1
-	cr/X9pWuoD5zbfuogWfInYU+CA0rhP/ylWRUzvvm98xaw+KLjs4LTF9k
-X-Gm-Gg: AYBFou2YpRtJfd6onXKiwDIz5OFNHWRYPGn496Pk3AEVNZuiobJYCrSkq7bAAxx0yDy
-	UJMO3CkFa/QVxkOA0EIM8euQcAE4kC6LE9LRqUawQAcN/HeEt1KSR1l2pj/IkoAvuwShcaN1Vo3
-	OwXQVxT94e8o4+hS7jCLUs+jp2XIeGjaM6OHiMJ9e6sDpnd0EpupyB/cEpTekgZhC5p9uT+z5FZ
-	nQziL0t9QElxm+jlmGMntTCnbjRsgFxpTTyN/R4NDJcCnDnhc6IB5b52l//fm9qCnc08882MjHL
-	nryCOuKGFwz2cDviLSm5XglttmMQwnFJB18figxOMHa+BgwCH+IjNtVUScXws0fVWwaYNUYRHqo
-	w2nAAM1/mQQMrG3GeP7NOCY9bB8Jl4yIZGsRnBL5YIdUSy40AgcRnVl6iRJEnmUw8+dABieZVE6
-	O5Y14lkf4cA74CBeV6qvaukkGiUdeO3bNmAnS5LBQpanNDCJBwidhgGpz3prF6Ui9kTJbu9JIhM
-	3yGl4k8SYrH0QuvQJCc7ryoe6Q7gKHath5WbnW8t4aG0JHJfzN1FQSmHNjECViHBllWCbr0KzIU
-	BAd+J2RidhzkJoerWqAYU8C8zK9Xv8UJG7OV8qNdz/zu9XMGNDirCApNKGQWLIr6dg0c4bQo+Oj
-	51YPmNpB9uzW/b1MnnuIm0n9dualJEEzVQ1OxTcv3NwlOrhuKWegbMuoFOSqq3TLR3il5KdaLWZ
-	6CuhpD8My+99hY1bIFcZgE9Qv7YpkhY48=
-X-Received: by 2002:a05:600c:a00b:b0:4a7:b304:253e with SMTP id 5b1f17b1804b1-4ac1765d8abmr210442005e9.22.1793592769795;
-        Sun, 01 Nov 2026 20:12:49 -0800 (PST)
-Received: from localhost.localdomain (dynamic-2a02-3100-a9d0-ff01-e89e-fc6e-08de-7401.310.pool.telefonica.de. [2a02:3100:a9d0:ff01:e89e:fc6e:8de:7401])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abebe33e79sm179710785e9.2.2026.11.01.20.12.47
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sun, 01 Nov 2026 20:12:49 -0800 (PST)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Andreas Schwab <schwab@suse.de>,
-	"Maciej W. Rozycki" <macro@orcam.me.uk>,
-	Nam Cao <namcao@linutronix.de>,
-	Zishun Yi <vulab@iscas.ac.cn>,
-	linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] riscv: traps: Fix si_addr in misaligned access SIGBUS
-Date: Mon,  2 Nov 2026 05:12:37 +0100
-Message-Id: <20261102041237.80873-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+	by smtp.kernel.org (Postfix) with ESMTPS id 81B251F000C1;
+	Mon,  2 Nov 2026 04:15:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793592919;
+	bh=hyHLxgFFM5UwytLaR9tbayyj8T/pSPedO9J/t+f+U88=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=Yhlt/D/WZ24GTNwNxw2aNZWkwLBGXDWSU8JICyOoTwoyj0Q/wvTxdll4vYO66vjcu
+	 8ZDrcPNUYI8wen02tc6rje3Lt79ogBcGFCXJazQEJLH1d53iAa5bnLsMKCgXX7r/Et
+	 scOFw3CxuSum61JKtyW7BfRMMlGgyNm/A0LzhiWrR/cVE+NUflM9uax6Df2SR0LlIs
+	 5zGW7dmUL3OTz8z0Ftn+CkMvru4s4/jugTgMiVQMt6O8EGotZ6xgyScxy+qLdLAN0E
+	 pu/ohvBj9C1/udzL6Q03SwAGMoLwRudEDPQlsIkuX7SbydCE/z8nRyimNfUQvSk2Vh
+	 kJvZAEnydSzTQ==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id D1AAE46357;
+	Mon,  2 Nov 2026 04:15:17 +0000 (UTC)
+From: Jonathan Bastari Thamrin via B4 Relay <devnull+thamrinjonathan.gmail.com@kernel.org>
+Date: Mon, 02 Nov 2026 11:15:15 +0700
+Subject: [PATCH bpf-next] selftests/bpf: Use memfd_create instead of
+ mkstemp in d_path
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,54 +83,95 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-d-path-memfd-v1-1-692a5664b36d@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBtIg6yuEi3KGWsWmWhEEN49a
+ fkW/7+QOAonGKsXIt+S5PQFqq7A7ovfGIWKQTe6U6rRSBiWa8eDD0c49Ko3w2qpJQMlCZGdPP9
+ ugjU49PxcMOf8AVqhSIFoAAAA
+X-Change-ID: 20261102-d-path-memfd-981879bcd3d7
+To: Alexei Starovoitov <ast@kernel.org>, 
+ Daniel Borkmann <daniel@iogearbox.net>, Andrii Nakryiko <andrii@kernel.org>, 
+ Eduard Zingerman <eddyz87@gmail.com>, 
+ Kumar Kartikeya Dwivedi <memxor@gmail.com>, 
+ Martin KaFai Lau <martin.lau@linux.dev>, Song Liu <song@kernel.org>, 
+ Yonghong Song <yonghong.song@linux.dev>, Jiri Olsa <jolsa@kernel.org>, 
+ Emil Tsalapatis <emil@etsalapatis.com>, 
+ Ihor Solodrai <ihor.solodrai@linux.dev>, Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org, linux-kselftest@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Shuran Liu <electronlsr@gmail.com>, 
+ Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793592917; l=1984;
+ i=thamrinjonathan@gmail.com; s=20261005; h=from:subject:message-id;
+ bh=TeJTaf4tRSKGbLwDa/44eFD6DQOyzppP99cx6sinrxM=;
+ b=tCepcmKWaKlDygccQxSfS6IBJUclXSj5Eujzq3IucunRtsSHY72EraktC+4Qp4ocgMRskLro9
+ 8AvEPe3dLaVBfmEhdMInkWogaim0kdC4rK8pIDSb/DnFGXGV2xZrNI/
+X-Developer-Key: i=thamrinjonathan@gmail.com; a=ed25519;
+ pk=QU907bIMYty/tEI/iJF2SrD1lqOf/+2B1MI1zwJ5cBw=
+X-Endpoint-Received: by B4 Relay for thamrinjonathan@gmail.com/20261005
+ with auth_id=1114
+X-Original-From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+Reply-To: thamrinjonathan@gmail.com
+Content-Transfer-Encoding: 7bit
 
-do_trap_misaligned() sends SIGBUS with BUS_ADRALN when the kernel does
-not complete a misaligned access from user space, for example with
-PR_UNALIGN_SIGBUS. It passes regs->epc as the fault address, so si_addr
-holds the program counter, or 0 after a fault during emulation, instead
-of the address of the access. POSIX defines si_addr for SIGBUS as the
-address of the faulting memory reference.
+From: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
 
-Pass regs->badaddr instead.
+check_mem_access currently creates a temp file in /dev/shm, which
+isn't mounted under vmtest.sh in local runs. This causes mkstemp
+to fail with ENOENT. The fix is similar to
+commit 47687a29b2c3 ("selftests/bpf: Use memfd_create instead of
+shm_open in cgroup_iter_memcg") where memfd_create gives a
+shmem-backed file with no mount needed while still reaching
+vfs_fallocate.
 
-Fixes: 76d2a0493a17 ("RISC-V: Init and Halt Code")
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
 ---
-Assisted by an LLM.
+ tools/testing/selftests/bpf/prog_tests/d_path.c | 7 +++----
+ 1 file changed, 3 insertions(+), 4 deletions(-)
 
-Tested on QEMU's virt machine (d73149283205, -cpu rv64,zicclsm=false) with
-OpenSBI v1.8.1. The kernels are abf8c33470f7, built with clang 22 from
-defconfig plus NONPORTABLE and RISCV_SBI_FWFT_DELEGATE_MISALIGNED. Not
-tested on real hardware.
-
-The test takes SIGBUS for lw and sw crossing into an unmapped page, lw with
-PR_UNALIGN_SIGBUS, and amoswap.w. With this patch, si_addr is the misaligned
-address in all four. Before it, si_addr is 0 for the first two and the PC
-for the others.
-
-The first two still report PC 0 in the ucontext. That separate bug is fixed
-by Zishun Yi's pending patch:
-https://lore.kernel.org/r/20260511124101.3202094-1-vulab@iscas.ac.cn/
-
- arch/riscv/kernel/traps.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/arch/riscv/kernel/traps.c b/arch/riscv/kernel/traps.c
-index f8292adda0..0af1cdb352 100644
---- a/arch/riscv/kernel/traps.c
-+++ b/arch/riscv/kernel/traps.c
-@@ -225,7 +225,7 @@ static void do_trap_misaligned(struct pt_regs *regs, enum misaligned_access_type
- 	}
+diff --git a/tools/testing/selftests/bpf/prog_tests/d_path.c b/tools/testing/selftests/bpf/prog_tests/d_path.c
+index 1a2a2f1abf03..0f0150d73262 100644
+--- a/tools/testing/selftests/bpf/prog_tests/d_path.c
++++ b/tools/testing/selftests/bpf/prog_tests/d_path.c
+@@ -4,6 +4,7 @@
+ #include <sys/stat.h>
+ #include <linux/sched.h>
+ #include <sys/syscall.h>
++#include <sys/mman.h>
  
- 	if (misaligned_handler[type].handler(regs))
--		do_trap_error(regs, SIGBUS, BUS_ADRALN, regs->epc,
-+		do_trap_error(regs, SIGBUS, BUS_ADRALN, regs->badaddr,
- 			      misaligned_handler[type].type_str);
+ #define MAX_PATH_LEN		128
+ #define MAX_FILES		7
+@@ -220,7 +221,6 @@ static void test_d_path_check_types(void)
+ static void test_d_path_mem_access(void)
+ {
+ 	int localfd = -1;
+-	char path_template[] = "/dev/shm/d_path_loadgen.XXXXXX";
+ 	struct test_d_path__bss *bss;
+ 	struct test_d_path *skel;
  
- 	if (user_mode(regs)) {
+@@ -230,13 +230,12 @@ static void test_d_path_mem_access(void)
+ 
+ 	bss = skel->bss;
+ 
+-	localfd = mkstemp(path_template);
+-	if (CHECK(localfd < 0, "trigger", "mkstemp failed\n"))
++	localfd = memfd_create("d_path_loadgen", 0);
++	if (CHECK(localfd < 0, "trigger", "memfd_create failed\n"))
+ 		goto cleanup;
+ 
+ 	if (CHECK(fallocate(localfd, 0, 0, 1024) < 0, "trigger", "fallocate failed\n"))
+ 		goto cleanup;
+-	remove(path_template);
+ 
+ 	if (CHECK(!bss->path_match_fallocate, "check",
+ 		  "failed to read fallocate path"))
 
-base-commit: abf8c33470f78e2226ee3dcdc69004660020ab47
+---
+base-commit: a30c772627b2ef4bc715332b1b04938a914556cd
+change-id: 20261102-d-path-memfd-981879bcd3d7
+
+Best regards,
 -- 
-2.39.5 (Apple Git-154)
+Jonathan Bastari Thamrin <thamrinjonathan@gmail.com>
+
 
