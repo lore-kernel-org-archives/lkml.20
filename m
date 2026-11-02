@@ -1,48 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=82.195.75.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793638188;
-	b=Wjh3gFXHPsgIdUNfUHU6Z+kF6wBbBJsjQ1yyGv+owLDUzM+B00bK4t9QV9Qg6z0Lzdgw
-	 oGFLkQCQofYRWqKY1TeUp8eRGwZ/XKbM0U8uHnyBQtOh4jbgjwsnzJOp7bP3A8U3ap8RE
-	 wKOOMBj5YqiOcTve0nojKmpfbV+Unuicld2h9rjgs3EGZ8g9TPC7e6wRJxKPdi53/idAB
-	 1qN1Y8yKGv3wNL1n3rO/R+x72z5ZWA8V+TzQm0NwJxednoOjO2EzvqIWFlCX79hkpfyue
-	 AQZNGc94VoBg+FvIZWIOcDXKOigukNKAzpiPHjVFMRCkonTCqzsCazdmK+KxKhJuaIA==
+	t=1793638191;
+	b=cuwNJRwmzEdQV0MRvUu6nMnaRg6jS2LCPD4LwFgDan8pEqyLDVFLXtzyj8RMpt+b0gna
+	 4y0+Mf6iNrciNHXzytuJQ8KlZqkKNgSWZLMIopjR/f73NorI5e2nFioal/jAyq9hef9++
+	 OcA8UzsfLV8wTjNlmqwYx8k13LEEKpRPLm+6Agpv4FiNX8zZsQeMx4ZLsZe8aMCqph9YL
+	 z4NdiXtdw+9g7H70iue2LWAK2B773ZMKTzDRvviKSbvdtP0vxuf0mbMPiuN5CmdIPKuro
+	 Lg5HSW8wm+FiZs9q0h90IgeTu4zyOZsagPmVRU2FeFQzGl8zLDvPth35vmMQJPS5HNg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793638188;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer;
-	bh=so0lGgQRgYqwEUOe7kSUad+RxOSJt9V6H5hwEO4IVXk=;
-	b=Q9KEL0JF4LM8AvG5SZhkB+7iYYchbv8rTh0iGcCLPselnJ6b9NB1xHrtCYAasA0wm4TS
-	 h5UyG0QVd1v7+BPtgIFY9yGVx1Iw3W/Fub6fGeh7zQ4s3yIEk+QEti42ejYK/2lj9YNK0
-	 VEsobgi7Qm/WOH/eV92u9cTUOS5PA51xYLXPA3y5lQjjpq4r5i2vFcmd8cDeVRB+7wubY
-	 eP+J81UhxMutM0BnDJEJ/c/+QA/p/7x79CLSKjPEeEhgWHVGaznrFBp9/uyFo+5d+07U4
-	 BIyAxaQnO+ncGfMsGuM4G/Nul8tV0+t3ulQb1kxPJsI6AJhTABaJMl7wU1So/lsaNfA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793638191;
+	h=DMARC-Filter:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:Message-Id:X-B4-Tracking:
+	 X-Change-ID:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:
+	 X-Debian-User;
+	bh=qPCoOsumpjMP2E0szWRq10e3ThrnMjRyH/pPWSsshCw=;
+	b=0I5PcxxJboC6oKC2FFHNogz2ogRx7Iwi2+JvK+wgRKYEZqBsWuBSC4Zc3Dr2oSgTfHIO
+	 0gSd72zBQLywzAl32RSRM2fVI2h3F7+c4Mab6gnqoYc+lVtTrMN/Mx8hE4viEHIIK0Yul
+	 DcPIed5MbS1fd/NHpwInh1ul3CLZJKZCmkJo5fTGOtNF4Er3Pln8dQ8BwZFuKqYz3bcZh
+	 cgrYT2WA56L2kjhjo6QGjmb2wtdmQfHUH1YIQE8Rk4XXkesicclfmHWe3NDqMeACe/QTm
+	 nP6Iq//Va/OpCfk9T7K5dKMckYSXUazcjEs60A3jUy1Ame/BecUtIpXSlRdzgXoxSGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="FuPVt3/E";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=debian.org;
+	spf=pass smtp.mailfrom=debian.org;
+	dkim=pass header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=EBGl9Pnt;
+	arc=none smtp.remote-ip=82.195.75.108
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E4976076729
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF706076F95
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:49:50 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8FF706076F95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=debian.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=debian.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FuPVt3/E
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591FE1F01833;
-	Mon,  2 Nov 2026 16:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793638188;
-	bh=so0lGgQRgYqwEUOe7kSUad+RxOSJt9V6H5hwEO4IVXk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=FuPVt3/Eb8wxZ8ltORT7bfVHmBxOsVmLUIfUTLjr16H7LO4VzDOhXSHvgGS+OJwoP
-	 o3txnWTtWcaF0xiampm36M47ckf6QJQVDF0nLcSJMYRIJ06sT2OuWnKOMeJZYS6Ct2
-	 bAeNkt92WYL9w1EAhtIW/bjLsC91jkut8zhMQ90bn+6ZRzQM2uAGXpehaRBwGoOQav
-	 dDhes+DgFJ0nOuTZGg8b1cLI3A0xuEvd8PyP69GY9fnXNE/qNIs79gA45P9WiR/sHA
-	 YaOYl19FdPtDzwIPzQTXfVcfg8bArGyT6V3I9xGKQEB4SO4n/MF3BxyC9uiD6kFWTa
-	 ZinH2mLR1B5/w==
-From: "Mario Limonciello (AMD)" <superm1@kernel.org>
-Date: Mon, 02 Nov 2026 10:49:26 -0600
-Subject: [PATCH v10 10/15] drm/nouveau: add connector luminance support
+	dkim=pass (2048-bit key, unprotected) header.d=debian.org header.i=@debian.org header.a=rsa-sha256 header.s=smtpauto.stravinsky header.b=EBGl9Pnt
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=debian.org;
+	s=smtpauto.stravinsky; h=X-Debian-User:Cc:To:Message-Id:
+	Content-Transfer-Encoding:Content-Type:MIME-Version:Subject:Date:From:
+	Reply-To:Content-ID:Content-Description:In-Reply-To:References;
+	bh=qPCoOsumpjMP2E0szWRq10e3ThrnMjRyH/pPWSsshCw=; b=EBGl9PntM8bwekRqcrleQsdxMp
+	FryCGh7HFBfulUD8lNcqWmi9HEChFjvP8R7OK8wOf4Z9TalTh+lO7W39sMangNQjxFEnowQuQgkLd
+	IR4u5bLZiE666HkzDWgX8Sk0yhRxcsDLPS6idTkd357rw9JOtsv5QW7v7feddx1NFbbXwBPAXRPmk
+	VxaGiSSFAJvmhS9vHOwDW+JnPu+ySZYJJJi/UgIf8ibrK5TQqt5QJBQwBTxlnUwtHFnHXoiHqyvei
+	unxLQanCgKDVUhKUpksrIt9qFGyVKUzXLhZHktlwI0SGZSGlYAOEi0hSHy5iyM1yvc0oSTvAVsTqu
+	KPDIG8/Q==;
+Received: from authenticated-user
+	by stravinsky.debian.org with esmtpsa (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+	(Exim 4.96)
+	(envelope-from <leitao@debian.org>)
+	id 1xNvE6-006IJW-0I;
+	Mon, 02 Nov 2026 16:49:42 +0000
+From: Breno Leitao <leitao@debian.org>
+Date: Mon, 02 Nov 2026 08:49:37 -0800
+Subject: [PATCH] x86/sev: Fix kmemleak false positive for the RMP segment
+ descriptors
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -54,319 +65,107 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-superm1-backlight-property-v10-10-b2a6f24131f5@kernel.org>
-References: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
-In-Reply-To: <20261102-superm1-backlight-property-v10-0-b2a6f24131f5@kernel.org>
-To: Maxime Ripard <mripard@kernel.org>, 
- Alex Deucher <alexander.deucher@amd.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>, 
- Leo Li <sunpeng.li@amd.com>, Rodrigo Siqueira <siqueira@igalia.com>
-Cc: Mario Limonciello <superm1@kernel.org>, 
- Xaver Hugl <xaver.hugl@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org, 
- intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, 
- Mario Limonciello <mario.limonciello@amd.com>
-X-Mailer: b4 0.16.0
+Message-Id: <20261102-sev-rmp-kmemleak-v1-1-e6fb2eb96e79@debian.org>
+X-B4-Tracking: v=1; b=H4sIACC/6GoC/yXMQQrCMBBG4auUWTuQjBioVxEXMf7qWFNLphah9
+ O7Gdvkt3pvJUBRGx2amgklN332F3zWUHrG/g/VaTeIkeO+EDROXPHCXkV+IHbvDvg1tTOIlUM2
+ Ggpt+1+XpvNk+lyfS+P/QsvwAjpBVHnQAAAA=
+X-Change-ID: 20261102-sev-rmp-kmemleak-053969ac2126
+To: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, 
+ Borislav Petkov <bp@alien8.de>, Dave Hansen <dave.hansen@linux.intel.com>, 
+ x86@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, 
+ Tom Lendacky <thomas.lendacky@amd.com>, 
+ Neeraj Upadhyay <Neeraj.Upadhyay@amd.com>, 
+ Nikunj A Dadhania <nikunj@amd.com>
+Cc: linux-kernel@vger.kernel.org, catalin.marinas@arm.com, 
+ kernel-team@meta.com, Breno Leitao <leitao@debian.org>
+X-Mailer: b4 0.15-dev-47773
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2364; i=leitao@debian.org;
+ h=from:subject:message-id; bh=W+1vV5Ug65oqAApkeEnK2Q/D96RlyFgRbi3NR5UKTss=;
+ b=owEBbQKS/ZANAwAIATWjk5/8eHdtAcsmYgBq6L8hxvVrrlAv9bBuLthw4Z6UtjBveV0ddOQGh
+ 5qd+wLUvFOJAjMEAAEIAB0WIQSshTmm6PRnAspKQ5s1o5Of/Hh3bQUCaui/IQAKCRA1o5Of/Hh3
+ bSRGEACDXRxcFmjQZhVlvCw/xVGj8YR4g4vLp23L9STr2YQgWOlFcvECHEYOYIV9Z/Wk1GRwHvS
+ txE78MFiYy0gQ7slz4ty99TYDS4Dh6fSZu1lqEgyXWSSiWaoNWadJzJpD/9AeOzckSA5ZKBGMHn
+ 17+wNf/YsS/tv+6JivD9cDnHf/nQedMS4KKgBbmtVM4xlDfkJtzsVHt2bRwd5CNjscVaUnIoTC3
+ QSY/oZdqGIWrFefCMDLuLPmwvb92svRRMzT8rHLTtJHYoyYBxpIRmWHG04rL6iCH/8wNIF8aYT9
+ SVVOIv9Gl6WTzmQvE5R7/kyQ9mbKsRJBF7Gmw2nJmAeGssjv3QAdiQgoxONR7WUCbcOH3Y9kYIk
+ eNo96auYXqvVrO50S/I4HvzPYZswFvKjXliyUF9z0Y+bUMzff9WLS8b2bQiZdd6kl8t1W4oXc5o
+ +X4P8rNES3XXGtY8QHcr/+xb3saMGTLrnHfHn9OvO1PiuXdulp3IPVP4MWQSMGAky8kO3IOFof9
+ Bm2Zl5NOP/SfVhTsBQlPiWcACfrazBwJjrVmUZjLz443kIEjC9bzryAbCY+GhVl01zdAfjvo9wW
+ yJf5gtw+LYm7qy/78/B6AdzmI2BmGjLBO2OSLoFOFdNkQhg8UShKTk68P9vQQmFkS6oJJWFT8YX
+ EzyWFr9PQ3F/Axw==
+X-Developer-Key: i=leitao@debian.org; a=openpgp;
+ fpr=AC8539A6E8F46702CA4A439B35A3939FFC78776D
+X-Debian-User: leitao
 
-From: Mario Limonciello <mario.limonciello@amd.com>
+kmemleak reports the RMP segment descriptor as leaked on SEV-SNP hosts:
 
-Expose Nouveau panel brightness through the connector LUMINANCE property
-when DRM_LUMINANCE is enabled. Reuse the existing NV40, NV50, and DPCD
-hardware paths while preserving the backlight class interface otherwise.
+  unreferenced object 0xff11000140e23b40 (size 32):
+    comm "swapper/0", pid 1, jiffies 4294680964
+    hex dump (first 32 bytes):
+      00 00 00 40 00 00 a0 ff 00 fc 05 04 00 00 00 00  ...@............
+      00 c0 5f 40 00 00 00 00 00 00 00 00 00 00 00 00  .._@............
+    backtrace (crc abf63fca):
+      __kmalloc_cache_noprof+0x2e2/0x650
+      alloc_rmp_segment_desc+0xdf/0x250
+      setup_contiguous_rmptable+0xb0/0xd0
+      setup_rmptable+0x13/0x60
+      snp_rmptable_init+0x45/0xd0
+      iommu_snp_enable+0x77/0xb0
+      state_next+0x184/0xed0
+      iommu_go_to_state+0x3a/0x90
+      pci_iommu_init+0x32/0x50
 
-Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+The descriptor is still in use: get_raw_rmpentry() reads it on every RMP
+lookup. Its only reference lives in rmp_segment_table[], and
+alloc_rmp_segment_table() takes that table from the page allocator.
+kmemleak does not scan page allocator memory, so it never sees the
+reference, and mark these segments as leaked when they are not.
+
+Register the table with kmemleak, so it is scanned like any other
+object.
+
+kmemleak_alloc() registers a block of memory with kmemleak, so kmemleak
+scans it and counts pointers into it, do it with rmp_segment_table.
+
+Signed-off-by: Breno Leitao <leitao@debian.org>
 ---
- drivers/gpu/drm/nouveau/Kconfig             |   4 +-
- drivers/gpu/drm/nouveau/dispnv50/disp.c     |   2 +-
- drivers/gpu/drm/nouveau/nouveau_backlight.c | 110 ++++++++++++++++++++++------
- drivers/gpu/drm/nouveau/nouveau_connector.c |   2 +
- drivers/gpu/drm/nouveau/nouveau_connector.h |  14 ++++
- 5 files changed, 108 insertions(+), 24 deletions(-)
+ arch/x86/virt/svm/sev.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/nouveau/Kconfig b/drivers/gpu/drm/nouveau/Kconfig
-index 3b5757aed9c84..2dcb7c5344f48 100644
---- a/drivers/gpu/drm/nouveau/Kconfig
-+++ b/drivers/gpu/drm/nouveau/Kconfig
-@@ -17,13 +17,13 @@ config DRM_NOUVEAU
- 	select DRM_SCHED
- 	select I2C
- 	select I2C_ALGOBIT
--	select BACKLIGHT_CLASS_DEVICE if DRM_NOUVEAU_BACKLIGHT
-+	select BACKLIGHT_CLASS_DEVICE if DRM_NOUVEAU_BACKLIGHT && !DRM_LUMINANCE
- 	select X86_PLATFORM_DEVICES if ACPI && X86
- 	select ACPI_WMI if ACPI && X86
- 	select MXM_WMI if ACPI && X86
- 	select POWER_SUPPLY
- 	# Similar to i915, we need to select ACPI_VIDEO and it's dependencies
--	select BACKLIGHT_CLASS_DEVICE if ACPI && X86
-+	select BACKLIGHT_CLASS_DEVICE if ACPI && X86 && !DRM_LUMINANCE
- 	select INPUT if ACPI && X86
- 	select THERMAL if ACPI && X86
- 	select ACPI_VIDEO if ACPI && X86
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93db67..79be7900a0794 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1838,7 +1838,7 @@ nv50_sor_atomic_enable(struct drm_encoder *encoder, struct drm_atomic_commit *st
- 		backlight = nv_connector->backlight;
- 		if (backlight && backlight->uses_dpcd)
- 			drm_edp_backlight_enable(&nv_connector->aux, &backlight->edp_info,
--						 backlight->dev->props.brightness);
-+						 backlight->brightness);
- #endif
+diff --git a/arch/x86/virt/svm/sev.c b/arch/x86/virt/svm/sev.c
+index bd70c4d0b774a3..751ccbdfeba98d 100644
+--- a/arch/x86/virt/svm/sev.c
++++ b/arch/x86/virt/svm/sev.c
+@@ -20,6 +20,7 @@
+ #include <linux/amd-iommu.h>
+ #include <linux/nospec.h>
+ #include <linux/workqueue.h>
++#include <linux/kmemleak.h>
  
- 		break;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_backlight.c b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-index da1ee24a2531d..fefcfa8c2a3a9 100644
---- a/drivers/gpu/drm/nouveau/nouveau_backlight.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_backlight.c
-@@ -73,12 +73,10 @@ nv40_get_intensity(struct backlight_device *bd)
- }
- 
- static int
--nv40_set_intensity(struct backlight_device *bd)
-+nv40_set_intensity_value(struct nouveau_encoder *nv_encoder, int val)
- {
--	struct nouveau_encoder *nv_encoder = bl_get_data(bd);
- 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
- 	struct nvif_object *device = &drm->client.device.object;
--	int val = bd->props.brightness;
- 	int reg = nvif_rd32(device, NV40_PMC_BACKLIGHT);
- 
- 	nvif_wr32(device, NV40_PMC_BACKLIGHT,
-@@ -87,6 +85,12 @@ nv40_set_intensity(struct backlight_device *bd)
- 	return 0;
- }
- 
-+static int
-+nv40_set_intensity(struct backlight_device *bd)
-+{
-+	return nv40_set_intensity_value(bl_get_data(bd), bd->props.brightness);
-+}
-+
- static const struct backlight_ops nv40_bl_ops = {
- 	.options = BL_CORE_SUSPENDRESUME,
- 	.get_brightness = nv40_get_intensity,
-@@ -105,6 +109,8 @@ nv40_backlight_init(struct nouveau_encoder *encoder,
- 		return -ENODEV;
- 
- 	props->max_brightness = 31;
-+	props->brightness = (nvif_rd32(device, NV40_PMC_BACKLIGHT) &
-+			     NV40_PMC_BACKLIGHT_MASK) >> 16;
- 	*ops = &nv40_bl_ops;
- 	return 0;
- }
-@@ -234,12 +240,15 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 		    const struct backlight_ops **ops)
- {
- 	struct nouveau_drm *drm = nouveau_drm(nv_encoder->base.base.dev);
-+	int brightness;
-+
-+	brightness = nvif_outp_bl_get(&nv_encoder->outp);
- 
- 	/*
- 	 * Note when this runs the connectors have not been probed yet,
- 	 * so nv_conn->base.status is not set yet.
- 	 */
--	if (nvif_outp_bl_get(&nv_encoder->outp) < 0 ||
-+	if (brightness < 0 ||
- 	    drm_helper_probe_detect(&nv_conn->base, NULL, false) != connector_status_connected)
- 		return -ENODEV;
- 
-@@ -284,6 +293,7 @@ nv50_backlight_init(struct nouveau_backlight *bl,
- 
- 	*ops = &nv50_bl_ops;
- 	props->max_brightness = 100;
-+	props->brightness = brightness;
- 	return 0;
- }
- 
-@@ -317,10 +327,13 @@ nouveau_backlight_init(struct drm_connector *connector)
- 	bl = kzalloc_obj(*bl);
- 	if (!bl)
- 		return -ENOMEM;
-+	bl->id = -1;
-+	bl->encoder = nv_encoder;
- 
- 	switch (device->info.family) {
- 	case NV_DEVICE_INFO_V0_CURIE:
- 		ret = nv40_backlight_init(nv_encoder, &props, &ops);
-+		bl->uses_nv40 = true;
- 		break;
- 	case NV_DEVICE_INFO_V0_TESLA:
- 	case NV_DEVICE_INFO_V0_FERMI:
-@@ -349,26 +362,39 @@ nouveau_backlight_init(struct drm_connector *connector)
- 		goto fail_alloc;
+ #include <asm/sev.h>
+ #include <asm/processor.h>
+@@ -361,6 +362,7 @@ static void __init free_rmp_segment_table(void)
+ 		kfree(desc);
  	}
  
--	if (!nouveau_get_backlight_name(backlight_name, bl)) {
--		NV_ERROR(drm, "Failed to retrieve a unique name for the backlight interface\n");
--		goto fail_alloc;
--	}
--
- 	props.type = BACKLIGHT_RAW;
--	bl->dev = backlight_device_register(backlight_name, connector->kdev,
--					    nv_encoder, ops, &props);
--	if (IS_ERR(bl->dev)) {
--		if (bl->id >= 0)
--			ida_free(&bl_ida, bl->id);
--		ret = PTR_ERR(bl->dev);
--		goto fail_alloc;
-+	bl->brightness = props.brightness;
-+	bl->max_brightness = props.max_brightness;
-+	if (IS_ENABLED(CONFIG_DRM_LUMINANCE)) {
-+		ret = drm_connector_attach_luminance_property(connector, 0, props.max_brightness,
-+							      props.brightness);
-+		if (ret)
-+			goto fail_alloc;
-+	} else {
-+		if (!nouveau_get_backlight_name(backlight_name, bl)) {
-+			NV_ERROR(drm,
-+				 "Failed to retrieve a unique name for the backlight interface\n");
-+			goto fail_alloc;
-+		}
-+
-+		bl->dev = backlight_device_register(backlight_name, connector->kdev,
-+						    nv_encoder, ops, &props);
-+		if (IS_ERR(bl->dev)) {
-+			if (bl->id >= 0)
-+				ida_free(&bl_ida, bl->id);
-+			ret = PTR_ERR(bl->dev);
-+			goto fail_alloc;
-+		}
- 	}
++	kmemleak_free(rmp_segment_table);
+ 	free_page((unsigned long)rmp_segment_table);
  
- 	nouveau_connector(connector)->backlight = bl;
--	if (!bl->dev->props.brightness)
--		bl->dev->props.brightness =
--			bl->dev->ops->get_brightness(bl->dev);
--	backlight_update_status(bl->dev);
-+	if (bl->dev) {
-+		if (!bl->dev->props.brightness)
-+			bl->dev->props.brightness =
-+				bl->dev->ops->get_brightness(bl->dev);
-+		bl->brightness = bl->dev->props.brightness;
-+		backlight_update_status(bl->dev);
-+	}
+ 	rmp_segment_table = NULL;
+@@ -376,6 +378,7 @@ static bool __init alloc_rmp_segment_table(void)
+ 		return false;
  
- 	return 0;
+ 	rmp_segment_table = page_address(page);
++	kmemleak_alloc(rmp_segment_table, RST_SIZE, 1, GFP_KERNEL);
  
-@@ -396,7 +422,9 @@ nouveau_backlight_fini(struct drm_connector *connector)
- 	if (bl->id >= 0)
- 		ida_free(&bl_ida, bl->id);
- 
--	backlight_device_unregister(bl->dev);
-+	if (!IS_ENABLED(CONFIG_DRM_LUMINANCE))
-+		backlight_device_unregister(bl->dev);
-+
- 	nv_conn->backlight = NULL;
- 	kfree(bl);
+ 	return true;
  }
-@@ -412,3 +440,43 @@ nouveau_backlight_dtor(void)
- {
- 	ida_destroy(&bl_ida);
- }
-+
-+void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
-+	unsigned int luminance = conn_state->luminance;
-+
-+	if (!bl || !bl->max_brightness)
-+		return;
-+
-+	bl->brightness = luminance;
-+	if (bl->uses_dpcd) {
-+		drm_edp_backlight_set_level(&nv_connector->aux, &bl->edp_info,
-+					    luminance);
-+		return;
-+	}
-+
-+	if (bl->uses_nv40)
-+		nv40_set_intensity_value(bl->encoder, luminance);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, luminance);
-+}
-+
-+void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state)
-+{
-+	struct nouveau_connector *nv_connector = nouveau_connector(conn_state->connector);
-+	struct nouveau_backlight *bl = nv_connector->backlight;
-+
-+	if (!bl)
-+		return;
-+
-+	if (bl->uses_dpcd)
-+		drm_edp_backlight_disable(&nv_connector->aux, &bl->edp_info);
-+	else if (bl->uses_nv40)
-+		nv40_set_intensity_value(bl->encoder, 0);
-+	else
-+		nvif_outp_bl_set(&bl->encoder->outp, 0);
-+}
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
-index cc3caf8de64b0..56ee579ea7909 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
-@@ -1225,6 +1225,8 @@ nouveau_connector_helper_funcs = {
- 	.mode_valid = nouveau_connector_mode_valid,
- 	.best_encoder = nouveau_connector_best_encoder,
- 	.atomic_check = nouveau_connector_atomic_check,
-+	.set_luminance = nouveau_backlight_set_luminance,
-+	.disable_luminance = nouveau_backlight_disable_luminance,
- };
- 
- static const struct drm_connector_funcs
-diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.h b/drivers/gpu/drm/nouveau/nouveau_connector.h
-index eb292d2ba4bcd..0cee3e4c1d11c 100644
---- a/drivers/gpu/drm/nouveau/nouveau_connector.h
-+++ b/drivers/gpu/drm/nouveau/nouveau_connector.h
-@@ -50,9 +50,13 @@ struct nouveau_backlight {
- 	struct backlight_device *dev;
- 
- 	struct drm_edp_backlight_info edp_info;
-+	struct nouveau_encoder *encoder;
- 	bool uses_dpcd : 1;
-+	bool uses_nv40 : 1;
- 
- 	int id;
-+	int brightness;
-+	int max_brightness;
- };
- #endif
- 
-@@ -239,6 +243,8 @@ extern int nouveau_backlight_init(struct drm_connector *);
- extern void nouveau_backlight_fini(struct drm_connector *);
- extern void nouveau_backlight_ctor(void);
- extern void nouveau_backlight_dtor(void);
-+void nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state);
-+void nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state);
- #else
- static inline int
- nouveau_backlight_init(struct drm_connector *connector)
-@@ -257,6 +263,14 @@ nouveau_backlight_ctor(void) {
- static inline void
- nouveau_backlight_dtor(void) {
- }
-+
-+static inline void
-+nouveau_backlight_set_luminance(const struct drm_connector_state *conn_state) {
-+}
-+
-+static inline void
-+nouveau_backlight_disable_luminance(const struct drm_connector_state *conn_state) {
-+}
- #endif
- 
- #endif /* __NOUVEAU_CONNECTOR_H__ */
 
--- 
-2.53.0
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-sev-rmp-kmemleak-053969ac2126
+
+Best regards,
+--  
+Breno Leitao <leitao@debian.org>
 
