@@ -1,57 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.54.127.152
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=63.250.43.117
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630284;
-	b=jUegG4AIAmjMvqMIhc1Un2lYGiSU9+HORTeinvC+z6mzElsivAgbf6FA7fwzg0LZUz57
-	 HgN4U/04eSMz7r8bsIbIjMq68V8UDe/xDRoMlbdov5cyR7aM6qVudHuZlm1OeHMV9rWNS
-	 UT9dGhfXAz2pRvVSHJJtHfcOXBYbLRH89BH+x22VZT9lnxqnF8iAYrZA8D4cMm1aJvGaS
-	 eWFaeDYlhbJP0ipvTeYmpJ8JXpluS5lAe80accAfw5mE1Clz3cs9AmDCyn0SU3s99kj0i
-	 XrXftNDl5gJS9dsuuTE/QmpOHGvWpDI/eRjxa6fHXyhxo2kNAVfWgUXyRof61BgiF3Q==
+	t=1793630279;
+	b=vJ1PWujvCarc3go1cdmi2B0uvygtGZ04X0dsd4Dqb64lD0cBzw/PM3m3KkdX1DheyPGn
+	 h5umU07l5rcad+A39MPg7T3dxVDtB2bxiXxxPFRDv1uy9jnpWdaqE97cN2G9pR1gfbnmQ
+	 yROxgCKmLiAIE/gj+0YReNsIlT/W2NRa+fS4nI5bkOvyu90Lp0F0+zuXK8K9Q6o6vhLsf
+	 OOoj6yBw8B2s8FJpn0OXdpFP1ezGFqWI3GPBRsOaq6XerbOEVsUNVKqvzivbvFtu6CRJ1
+	 VNT/WGRi3Lfgh2z3Pf6cLX3AiDTUTePd7m335nF7LjeFf/jt1DajFMOsCOiXbHOzBVQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630284;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630279;
 	h=DMARC-Filter:Received:DKIM-Signature:From:Date:Subject:MIME-Version:
 	 Content-Type:Content-Transfer-Encoding:Message-Id:References:
 	 In-Reply-To:To:Cc:X-Mailer:X-Envelope-From;
-	bh=wBx+MW7ytenVQ5QcD+McGMQds+5D0/R/JflXMW9QXVY=;
-	b=d/8DT5dDbX902TFmcV0+MreVcXrsX1/bv9izgvnv1lduWwImNV+J8DP5iaY1QykJ4QCB
-	 bF5YZ3285HdX2gFvH14OaAuMbcV9qHa8Mv9qREJKIcppCGN32pe02M+lMazk1Hsdivnqh
-	 1Q08fbNe/ausRNucExKei3HTQzTZYxnUrQXNND54Y8B6KOLe56RfT5CohHpjLjTQju6Fo
-	 CySKF6k3/ztoXF0qFJWQoZR8uJQjniXVBNtQaAI2iZkVONDkdSq0tcoGy6wRDEgkmQfGy
-	 6wjKr1mygbs0v64fefH/Vk89dIM+02hBd0IdGEEJrWvyhiQpFOZdV+754ELPZAqCsXg==
+	bh=+nzFqa5/3WRg86G5ILwdY2S3U0IoUHWbs3xPCsgiL64=;
+	b=acTZ3jFOcL87C2FyqVSCorG5RByOTOxlgMzxB+1DwcjefkN+i/o4OXdkWLqTZGoW2qEn
+	 c9EaIspmQhTws773/WorLBfYmvcwPzlaZpaW+RcRhLXruNTxYZ2zavwQZSl30sqbclSWn
+	 hKUCgrRZZcxEAoBd/a+4QXIqAJl4VrOPo1Hsq9oOrEsOOO2w1ROLpbPDVHmnu/Bp18mY1
+	 qidiHoOHZjQZuwYGS/eYpuVacZm26BOSRIfabCMqO49Nm6scx3Sg8cP4gTst6/Y4QXmQD
+	 iiV84bXsppcavTacXUXrR71BmR8WTfASSz/mlvspMRHuTapkaBci7PtNaPlh+ZZ6Zsw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=none header.from=elliotjb.com;
 	spf=pass smtp.mailfrom=elliotjb.com;
-	dkim=pass header.d=elliotjb.com header.i=@elliotjb.com header.a=rsa-sha256 header.s=default header.b=jTDCxYcp;
-	arc=none smtp.remote-ip=198.54.127.152
-Received: from out-2z4y-a152.jellyfish.systems (out-2z4y-a152.jellyfish.systems [198.54.127.152])
+	dkim=pass header.d=elliotjb.com header.i=@elliotjb.com header.a=rsa-sha256 header.s=default header.b=3ljg2NrO;
+	arc=none smtp.remote-ip=63.250.43.117
+Received: from out-2uec-a117.jellyfish.systems (out-2uec-a117.jellyfish.systems [63.250.43.117])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2534E606E039
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:38:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 2534E606E039
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 719626079918
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 14:37:58 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 719626079918
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=elliotjb.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=elliotjb.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=elliotjb.com header.i=@elliotjb.com header.a=rsa-sha256 header.s=default header.b=jTDCxYcp
+	dkim=pass (2048-bit key, unprotected) header.d=elliotjb.com header.i=@elliotjb.com header.a=rsa-sha256 header.s=default header.b=3ljg2NrO
 Received: from mail.privateemail.com (unknown [77.233.63.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mail.privateemail.com (Postfix) with ESMTPSA id 4jJDnf1dkwz8sWQ;
-	Mon, 02 Nov 2026 14:37:42 +0000 (UTC)
+	by mail.privateemail.com (Postfix) with ESMTPSA id 4jJDnj360kz8sWf;
+	Mon, 02 Nov 2026 14:37:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=elliotjb.com;
-	s=default; t=1793630265;
-	bh=wBx+MW7ytenVQ5QcD+McGMQds+5D0/R/JflXMW9QXVY=;
+	s=default; t=1793630268;
+	bh=+nzFqa5/3WRg86G5ILwdY2S3U0IoUHWbs3xPCsgiL64=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=jTDCxYcpoCoLfht1/lMrbebeKE2Uf4oJKrmL/F0A0bwtQvHvxrHrxOMyBhbxG8w5y
-	 CcFH0jrHpECE4E2Y3up7GOw4zHlHj8cyboOpogp39rLTvnRAaR4aVyKsJB5QtUMlqp
-	 bBfC/8YXfQ7o2kU8rpcAvtQMGSDeWuiBf+d44kvd4pIcjj7WsRgcGgf/bTCx0iCaKy
-	 JbmYC58tgorEix7PngBCQdw1sNqTTyuRZYZv3+bSp14QxY6Q5d7aaxJQ8TEZfTkgnS
-	 IW9ELlsHqLm+uVytjISV1j7Y0a9Aj8UykVcTOvAFzgebsqPH83P4e/ihTCCBZK6QJF
-	 fxoJnlTX2vxGg==
+	b=3ljg2NrO1JGfbl6BHqou50FrjNan23UoYuf94XrgqHO/LuobtGZe1j0hA7vcr2TAi
+	 iw3FfHJ9rUe3siysGdQdE1IOxg5RK/TtK4YOtT4nhf8DjB1NMsDxPvbVyNO6wVuCot
+	 gd2ydpjwG0mVcNLuoBzPu9nkSrSNGbWfDGYe3E55pWhxSB5FRgwPyr5HtmFBWfkm2v
+	 1gRXxau+mpVJ8XPrlTD/cN930wEUyD6xXW8BPh+KJiY8lRJNKYqjvyeiQNU5NiIh7L
+	 KOyAV8NgFCJrTYwP/Lf3C5w4D2wD52qPUqdlLZjlnyIZYCInRYXyQmuy445VaqQrpC
+	 R6+WGQyE8i6WA==
 From: Elliot Berman <elliotjb@elliotjb.com>
-Date: Mon, 02 Nov 2026 06:37:03 -0800
-Subject: [PATCH 6.1.y 1/2] ext4: fix NULL folio dereference in mballoc
+Date: Mon, 02 Nov 2026 06:37:04 -0800
+Subject: [PATCH 6.1.y 2/2] bs/ntfs3: fix NULL folio dereference in
+ ntfs_lock_new_page()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -63,7 +64,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-ext4-ntfs3-null-folio-v1-1-4fd91ee23a4a@elliotjb.com>
+Message-Id: <20261102-ext4-ntfs3-null-folio-v1-2-4fd91ee23a4a@elliotjb.com>
 References: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
 In-Reply-To: <20261102-ext4-ntfs3-null-folio-v1-0-4fd91ee23a4a@elliotjb.com>
 To: Theodore Ts'o <tytso@mit.edu>, 
@@ -79,128 +80,33 @@ Cc: stable@vger.kernel.org, regressions@lists.linux.dev,
 X-Mailer: b4 0.15.2
 X-Envelope-From: elliotjb@elliotjb.com
 
-In 6.1, __filemap_get_folio() returns NULL on failure. The backported
-folio conversion of mballoc keeps the original IS_ERR() checks, so they
-are always false here. The fast-path lookup in ext4_mb_load_buddy_gfp()
-has no FGP_CREAT and returns NULL whenever the bitmap or buddy page of
-an initialised group has been evicted from the page cache, e.g. by
-drop_caches or memory pressure. The next block allocation from that
-group then oopses under ext4_mb_regular_allocator().
+In 6.1, __filemap_get_folio() returns NULL on failure.  The backport of
+commit 95b917a14b15 ("ntfs: Do not overwrite uptodate pages") keeps the
+original IS_ERR() check, which is always false here, so a failed folio
+allocation while reading a compressed file dereferences NULL in
+folio_test_uptodate(). Check for NULL and return ERR_PTR(-ENOMEM).
 
-$ echo 3 > /proc/sys/vm/drop_caches, in 0.51 seconds)
-$ dd if=/dev/zero of=/mnt/b0 bs=1M count=4 conv=fsync
-BUG: kernel NULL pointer dereference, address: 0000000000000000
-PGD 5f19067 P4D 0
-Oops: 0000 [#1] PREEMPT SMP NOPTI
-CPU: 0 PID: 908 Comm: dd Not tainted 6.1.191 #1-NixOS
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
-RIP: 0010:ext4_mb_load_buddy_gfp (fs/ext4/mballoc.c:1536 (discriminator 1)) ext4
-Call Trace:
- <TASK>
-ext4_mb_regular_allocator (fs/ext4/mballoc.c:1641 fs/ext4/mballoc.c:2798) ext4
-ext4_mb_new_blocks (fs/ext4/mballoc.c:5793) ext4
- ? ext4_find_extent (fs/ext4/extents.c:925) ext4
-ext4_ext_map_blocks (fs/ext4/extents.c:4369) ext4
-   ...
-
-Check for NULL instead and return -ENOMEM, as failures did before the
-conversion.
-
-Fixes: d34e4fd4e73f ("ext4: convert bd_bitmap_page to bd_bitmap_folio")
-Fixes: 862483175d3d ("ext4: convert bd_buddy_page to bd_buddy_folio")
-Reported-by: Tom Bereknyei <tomberek@gmail.com>
+Fixes: 95b917a14b15 ("ntfs: Do not overwrite uptodate pages")
 Signed-off-by: Elliot Berman <elliotjb@elliotjb.com>
 ---
- fs/ext4/mballoc.c | 28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ fs/ntfs3/frecord.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ext4/mballoc.c b/fs/ext4/mballoc.c
-index e77d56c533c0..d0b276ce9401 100644
---- a/fs/ext4/mballoc.c
-+++ b/fs/ext4/mballoc.c
-@@ -1375,8 +1375,8 @@ static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
- 	poff = block % blocks_per_page;
- 	folio = __filemap_get_folio(inode->i_mapping, pnum,
+diff --git a/fs/ntfs3/frecord.c b/fs/ntfs3/frecord.c
+index a44b7338621e..fa443144f6d1 100644
+--- a/fs/ntfs3/frecord.c
++++ b/fs/ntfs3/frecord.c
+@@ -2172,8 +2172,8 @@ static struct page *ntfs_lock_new_page(struct address_space *mapping,
  			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--	if (IS_ERR(folio))
--		return PTR_ERR(folio);
-+	if (!folio)
-+		return -ENOMEM;
- 	BUG_ON(folio->mapping != inode->i_mapping);
- 	e4b->bd_bitmap_folio = folio;
- 	e4b->bd_bitmap = folio_address(folio) + (poff * sb->s_blocksize);
-@@ -1389,8 +1389,8 @@ static int ext4_mb_get_buddy_page_lock(struct super_block *sb,
- 	/* blocks_per_page == 1, hence we need another page for the buddy */
- 	folio = __filemap_get_folio(inode->i_mapping, block + 1,
- 			FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--	if (IS_ERR(folio))
--		return PTR_ERR(folio);
-+	if (!folio)
-+		return -ENOMEM;
- 	BUG_ON(folio->mapping != inode->i_mapping);
- 	e4b->bd_buddy_folio = folio;
- 	return 0;
-@@ -1533,7 +1533,7 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
+ 	struct page *page;
  
- 	/* Avoid locking the folio in the fast path ... */
- 	folio = __filemap_get_folio(inode->i_mapping, pnum, FGP_ACCESSED, 0);
--	if (IS_ERR(folio) || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
-+	if (!folio || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
- 		/*
- 		 * folio_test_locked is employed to detect ongoing folio
- 		 * migrations, since concurrent migrations can lead to
-@@ -1543,11 +1543,11 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 		 * try to get the folio with lock in both cases to avoid
- 		 * concurrency.
- 		 */
--		if (!IS_ERR(folio))
-+		if (folio)
- 			folio_put(folio);
- 		folio = __filemap_get_folio(inode->i_mapping, pnum,
- 				FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--		if (!IS_ERR(folio)) {
-+		if (folio) {
- 			if (WARN_RATELIMIT(folio->mapping != inode->i_mapping,
- 	"ext4: bitmap's mapping != inode->i_mapping\n")) {
- 				/* should never happen */
-@@ -1567,8 +1567,8 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 			folio_unlock(folio);
- 		}
- 	}
--	if (IS_ERR(folio)) {
--		ret = PTR_ERR(folio);
-+	if (!folio) {
-+		ret = -ENOMEM;
- 		goto err;
- 	}
- 	if (!folio_test_uptodate(folio)) {
-@@ -1585,12 +1585,12 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 	poff = block % blocks_per_page;
+-	if (IS_ERR(folio))
+-		return ERR_CAST(folio);
++	if (!folio)
++		return ERR_PTR(-ENOMEM);
  
- 	folio = __filemap_get_folio(inode->i_mapping, pnum, FGP_ACCESSED, 0);
--	if (IS_ERR(folio) || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
--		if (!IS_ERR(folio))
-+	if (!folio || !folio_test_uptodate(folio) || folio_test_locked(folio)) {
-+		if (folio)
- 			folio_put(folio);
- 		folio = __filemap_get_folio(inode->i_mapping, pnum,
- 				FGP_LOCK | FGP_ACCESSED | FGP_CREAT, gfp);
--		if (!IS_ERR(folio)) {
-+		if (folio) {
- 			if (WARN_RATELIMIT(folio->mapping != inode->i_mapping,
- 	"ext4: buddy bitmap's mapping != inode->i_mapping\n")) {
- 				/* should never happen */
-@@ -1609,8 +1609,8 @@ ext4_mb_load_buddy_gfp(struct super_block *sb, ext4_group_t group,
- 			folio_unlock(folio);
- 		}
- 	}
--	if (IS_ERR(folio)) {
--		ret = PTR_ERR(folio);
-+	if (!folio) {
-+		ret = -ENOMEM;
- 		goto err;
- 	}
- 	if (!folio_test_uptodate(folio)) {
+ 	if (!folio_test_uptodate(folio))
+ 		return folio_file_page(folio, index);
 
 -- 
 2.54.0
