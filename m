@@ -1,56 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793616480;
-	b=XxqNHlIttzUw0D305dAc2SX8ocXt0L6FPCMugP8comiM0HFq0iKD8diZSsej7F4yfVfs
-	 m/kJKZ8Jbz1Nxyh+xiH6aEzrw5U9m1iLiXS9IZNI7eyK6S9vjlFqnZ7jNFSy/NzEYlwNP
-	 7c8MFVm1ur9v0GaMY8QekpMDJs4fS86CesB7iXn63mE4gx1WZjKdqYK50bd+cFQkLpHPE
-	 uzs6b1Qm/PPDjdDctjwBv8ZA4UeNeYdIapEWvtC9auTDs3qlsNxTV1ERcwNsHFvw8ecc8
-	 raEE52cQwMZZAjoMsw9PApW1/sK3TkAGBjY4WXgErVXAJ4wYpF9oRvozTbMEmMHtfFg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793616480;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=LhjOPfinJzTYMIUcY4x4/TLtdZAWqxGUlmkuQXgGtNw=;
-	b=Z7uyRKwUlf2fxwmXf/ryozy9LlVyt+NEesRYYhFgV1z0W54vnogzUAonzMcEArtOrjyN
-	 +nTbThsz+Gl4t4aeDPkraNNN79PmNSitwyCJBBgliecG57Nl5jB5wm9Cj9rjoxq6M4eMz
-	 puFsxFPdGPcoVS21dmVz9bG3oc+Wex/JGKyYI5sWO77FKpUr4FbFbEHGutWYfWPVwmLgT
-	 TvMJv3r/DkVxA5LBufajkQQKQJ4yE/lKsocQ8+Jumae6418iR76xphJraPDDQhuT+oVWE
-	 ARHe+EBiqWP34nNC2YEj+6v4md82T5jjL2GPmsyCYDu8tRJvWcstIjK+nbSffWvUTsQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXn0hMu+;
-	arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793616476;
+	b=4qnlLvlrfqvTAAo5qRQGTme/a+1UBTgqw1BtVScdSlKmnJli94DqS9sAKB9S3giUPwLB
+	 aaYmejPj96D9YNj3pRav5SxQwwLQMzzceE8ludOT+qb5wRWBbptcUgAW8KwY8e3uw/JrU
+	 5Pl4mW5v9IiM9XbygO0oxMQGvC6EwIHJn2Z7t5kZfm/fdNZ6Jm5RUPCWpG/g2QT8/RwMP
+	 aoZ+j+Qwkf+477XxZK+wPAqs2NbzfHOJKOvy1gAmn1V5f0AxML/92n/yX8HQshOfolrqk
+	 EOHGcQbL7o0VlZS0z1jsaUOKR8RY6GDA+2LojWIVobZdcKmTnfvNuT70Xd3SDXVN6TA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793616476;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=T+RZI7e7a503JJKBr5TErd2x3kUYSI+ZxpBEoVMoGJM=;
+	b=Wtxp3Es4yASmGU07EGiH8jPeYO7hSnMI7ygYsn9Z79oxoJB0HD7247F4vuCJMdSQo01J
+	 7fDbaeN8lTJ2mAYn+BAx3wKdE72ID3D+cPFFF1aEwoAyvZmRY9EnTGIjbEcS0Xxj2RQdf
+	 yrzuoqVJiPWNzpIInTSXn500Iyei6fbDp/W5nRTLJ9IQvk8E+i8HH7T3TvRKMhWIUQT3X
+	 NXeJFljacNmcE7JRCTL4GbvQufVD7n9LsX+STHxpBFZ34BZnFpWkw2d8U8PwmVaaPyPWk
+	 8xiyBrums8q7gjyiM/Tqinv+IPWtRNBs2MBFFKWFeQoU+sADPUmEkrMxYGu+fNbQXcQ==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OYzv+WkJ;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1961C606A32F;
-	Mon,  2 Nov 2026 10:48:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6975606A324;
+	Mon,  2 Nov 2026 10:47:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eXn0hMu+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275381F00919;
-	Mon,  2 Nov 2026 10:47:58 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=OYzv+WkJ
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793616475;
+	b=WVqcCGBhTnb6+4fi+rPYGcRTrnak+coOkJ1xiT1KOJzV3WaAwN/T8tY0NpUDKVbm2+D+
+	 72TwDWgAGz0YwnHEzvPWrnclhhzFlMFX20U29e9KclHamqdTgFJ23XUVD3DvrDWSGHa+z
+	 bsfYr/iGkVzMKRs3wFABuwAxZW92suTjKI9Cy82nFuDdF/wysYmiT5Hg8ZRQUZ5lT+Wf2
+	 tIdIXta/HjgXD80fGKT86OP8Bll6MnZSmcWlTRD6izzBWGpv3s2ocoPiYjm4KdZwsNYue
+	 UvT44MlUHVE9Tfq0cHAQ0R2CBO9GDf57iuJa3UiduKNrC2TNnNGRpDXmmLLIFgB8XXw==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793616475;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=T+RZI7e7a503JJKBr5TErd2x3kUYSI+ZxpBEoVMoGJM=;
+	b=VORQTAe3MBh1PuqaJfRMw446M+E7s8kZS4U3qZQZfnpLg8jdbwfGKKfdL6wcBYrDRY8j
+	 AFg+rSkS3852ToaGVBzysiKUgtN441/e/BV+zl26UQli1BYj4y6JWYsAD/pNkTyAadxCQ
+	 5fUHffsL6gscjdtFVLPYkQ7li+SmKuoZiz9NbXxbhirXViVKVvwmMKC1pxtJiMlct9RwO
+	 le9aZbxICwVvfwbQEQ3C3zPkRgMjhQ+Xkvg/8cxFbH8vOV0rgsFjhBSOalKaSaXB0fmY+
+	 ku9FfaBr6IGXwKzxQrdfbjoiMaLdFuNjJU2zRhKzkcf4qttVHsREgF/S4mChVpl94Dw==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPS id 031791F0093A;
+	Mon,  2 Nov 2026 10:47:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793616480;
-	bh=LhjOPfinJzTYMIUcY4x4/TLtdZAWqxGUlmkuQXgGtNw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eXn0hMu+5P/sfxvTvNEoLm2YxOJ+dKdLMcDlGJB0O3i9p+/OZAOY8+o1OzqTZMuSk
-	 1fMDVIZzPNxM/7br7oR+9KB8vL1x56C+7zWEu9Op8kiO5ouwZaHTmSIKNjbLHbg2L2
-	 xSFs04h2dsCAjYFgLnrJPJztFUOGjPPWCsdgsZxWrv+xhLhBOBwy88CVo1RUzxMLwP
-	 g4yyiVs06CzXPdaHKwgGHG23VExu3WOLympLBCi2Au/wqCeJZBz5VHevaJ5OpiQEOZ
-	 C8GH4pDbQ4NGkfqfpyaw84VmfH1BW0VymW+zcPuUh1BYgQFwytX4effGXBisS5XMtl
-	 WtDlJJsgnh1aw==
-Date: Mon, 2 Nov 2026 11:47:56 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vidhu Sarwal <vidhu.linux@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	Shuah Khan <skhan@linuxfoundation.org>, Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] iio: proximity: Add Benewake TF-Luna LiDAR driver
-Message-ID: <20261102-massive-busy-woodlouse-8d0bbb@quoll>
-References: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+	s=k20260515; t=1793616475;
+	bh=T+RZI7e7a503JJKBr5TErd2x3kUYSI+ZxpBEoVMoGJM=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+	b=OYzv+WkJwfrtldpL/Yko5UKJk6OLW+W3iXPGlwipDa0+k3U46hTjh6tVt0L5W9DtA
+	 n32s4TmFFJp9ht6Ya5Rp0ZsIkqovJZtxcT5YJeuUqnMV6KBHt1AvTQ6RM0jP/FTBwS
+	 iA0uv1uiCUxoTZZwWxRgETD/J3NxTs1TA9vjmIQND49ynDDRwFroCjgjedHVwZgWuM
+	 KRUIeJFVGQnJhyXB1AmV0qR+zokSpXrl2vtJm6xU3lhh0JDOqu+o1XX4JCr4W3F6R1
+	 6aW+lRX0Qn5B6AgvvwrkbopWmGbOgsXBTAz/yfef0rddL7ouqA4I2bTp3md49JGo38
+	 SBLegs12OXukw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 72A964649C;
+	Mon,  2 Nov 2026 10:47:54 +0000 (UTC)
+From: Tjerk Kusters via B4 Relay <devnull+tkusters.aweta.nl@kernel.org>
+Date: Mon, 02 Nov 2026 10:58:14 +0100
+Subject: [PATCH net v4 2/2] igb: only strip Rx timestamp header on the
+ first buffer of a frame
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,45 +83,125 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261031-tf-luna-v2-0-ce403579bb8a@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-igb-rx-ts-fix-v4-2-8785124c5d23@aweta.nl>
+References: <20261102-igb-rx-ts-fix-v4-0-8785124c5d23@aweta.nl>
+In-Reply-To: <20261102-igb-rx-ts-fix-v4-0-8785124c5d23@aweta.nl>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>, 
+ Przemek Kitszel <przemyslaw.kitszel@intel.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann <daniel@iogearbox.net>, 
+ Jesper Dangaard Brouer <hawk@kernel.org>, 
+ John Fastabend <john.fastabend@gmail.com>, 
+ Stanislav Fomichev <sdf@fomichev.me>, 
+ Sven Auhagen <sven.auhagen@voleatech.de>, 
+ Richard Cochran <richardcochran@gmail.com>, 
+ Kurt Kanzenbach <kurt@linutronix.de>
+Cc: intel-wired-lan@lists.osuosl.org, netdev@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, 
+ Maciej Fijalkowski <maciej.fijalkowski@intel.com>, Paul Moses <p@1g4.org>, 
+ stable@vger.kernel.org, Piotr Kwapulinski <piotr.kwapulinski@intel.com>, 
+ Aleksandr Loktionov <aleksandr.loktionov@intel.com>, 
+ Alexander Nowlin <alexander.nowlin@intel.com>, 
+ Tjerk Kusters <tkusters@aweta.nl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793616473; l=3972;
+ i=tkusters@aweta.nl; s=20260619; h=from:subject:message-id;
+ bh=0UiloOh6U/B/tS429upH2HnGmu+A3rF/YZDhNcwUk1s=;
+ b=8QWdz2XSCtqtw7EyzLikUTpweynlVp8P122E3NuY6pSby5O4QQwGb2eRS6ULk6G6k4ddNGW/9
+ l/o2v/0bcVzBkRGmHkkvL5sIl5L1P80vvuhk7OZOiXNB9VT1hsY7gbA
+X-Developer-Key: i=tkusters@aweta.nl; a=ed25519;
+ pk=JYRpYQ3+LrphEabgnxcbiOUpwvNP8WDDMcLzz+cwKsk=
+X-Endpoint-Received: by B4 Relay for tkusters@aweta.nl/20260619 with
+ auth_id=831
+X-Original-From: Tjerk Kusters <tkusters@aweta.nl>
+Reply-To: tkusters@aweta.nl
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 31, 2026 at 12:23:27AM +0530, Vidhu Sarwal wrote:
-> This series adds support for the Benewake TF-Luna, a single point ToF
->  LiDAR distance sensor with a range of 0.2 m to 8 m. The
-> sensor uses either UART or I2C, selected by a strap pin at power-up.
-> This series covers the I2C interface only.
-> 
-> Patch 1 adds the vendor prefix, patch 2 adds the binding and patch 3 adds the
-> driver, which reports distance using an IIO_DISTANCE channel.
-> 
-> The driver keeps the sensor in trigger mode and starts a measurement
-> per read. The manual warns that reads in continuous mode can race with
-> the sensor updating its result registers unless they are synchronised
-> to the data ready output, which the driver does not use yet.
-> 
-> Two issues I faced with the hardware that the manual does not mention:
-> - The sensor silently drops a register write that arrives right after
->   another one, so probe reads the mode back after setting it.
-> - The boot time is not documented. I was able to measure 350ms after a
->   reboot before the registers read back correctly, so probe waits
->   500 ms after enabling the supply, keeping some buffer.
-> 
-> Later on I plan to add buffered caputure using data ready interrupt and 
-> runtime PM in a follow up series. 
-> 
-> This was tested on hardware using Raspberry Pi 4 and with firmware v3.6.0
-> built out of tree on the 6.18 RPi kernel both via new_device as well as a 
-> DT Overlay.
-> 
-> ---
-> Changes in v2:
-> - dt-bindings: describe the UART interface as well per Krzysztof
+From: Tjerk Kusters <tkusters@aweta.nl>
 
-What changed exactly? b4 diff fails, the patchset cannot be applied on
-any known upstream revision I tried.
+When Rx hardware timestamping is enabled (e.g. ptp4l, which configures
+HWTSTAMP_FILTER_ALL), the NIC prepends a 16-byte timestamp header to the
+first Rx buffer of every received frame. igb_clean_rx_irq() strips this
+header inside its per-buffer loop:
 
-Best regards,
-Krzysztof
+	if (igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
+		ts_hdr_len = igb_ptp_rx_pktstamp(rx_ring->q_vector,
+						 pktbuf, &timestamp);
+		pkt_offset += ts_hdr_len;
+		size -= ts_hdr_len;
+	}
+
+For a frame that spans more than one Rx buffer (e.g. a jumbo frame), this
+block runs once per buffer. The timestamp header only exists at the start
+of the first buffer, but igb_ptp_rx_pktstamp() is called for every buffer.
+
+On a continuation buffer the data is packet payload, not a timestamp
+header. igb_ptp_rx_pktstamp() already has two guards against acting on a
+non-header buffer: it returns 0 if PTP is disabled, and returns 0 if the
+reserved dwords (the first 8 bytes) are non-zero. Neither is sufficient
+here: PTP is enabled, and a continuation buffer whose payload happens to
+begin with 8 zero bytes passes the reserved-dword check. In that case the
+payload is mistaken for a valid timestamp header and igb_ptp_rx_pktstamp()
+returns IGB_TS_HDR_LEN, so the caller strips 16 bytes of real data from
+that buffer. A frame spanning N buffers whose continuation buffers start
+with zero bytes therefore loses 16 * (N - 1) bytes from its tail.
+
+This is easily triggered by a GigE Vision camera streaming dark frames
+(mostly 0x00 pixel data) over jumbo UDP with PTP active on the receiver:
+the all-zero frames arrive truncated while frames with non-zero content
+are fine. There is no error indication.
+
+No content-based check can reliably tell a continuation buffer that begins
+with zero bytes from a real timestamp header, because both are all zero.
+Fix it structurally instead: only attempt the strip on the first buffer of
+a frame, which is the only buffer that can contain a timestamp header. In
+igb_clean_rx_irq() skb is NULL until the first buffer has been processed,
+so guarding the strip with !skb restricts it to the first buffer
+regardless of payload content.
+
+This relies on the previous patch. Without it, an XDP program that does
+not return XDP_PASS for the first buffer of a multi-buffer frame leaves
+skb NULL for the rest of that frame. With the receive length limited
+while XDP is attached, such frames no longer reach the XDP path.
+
+igc has the same bug and is fixed the same way.
+
+Link: https://lore.kernel.org/all/20261028083344.3047350-2-p@1g4.org/
+Fixes: 5379260852b0 ("igb: Fix XDP with PTP enabled")
+Cc: stable@vger.kernel.org
+Reviewed-by: Piotr Kwapulinski <piotr.kwapulinski@intel.com>
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+Reviewed-by: Kurt Kanzenbach <kurt@linutronix.de>
+Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
+Assisted-by: Claude:claude-opus-5-5
+Signed-off-by: Tjerk Kusters <tkusters@aweta.nl>
+---
+ drivers/net/ethernet/intel/igb/igb_main.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index 5bf489cd7b06..c4eb9f589fbe 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -9072,8 +9072,11 @@ static int igb_clean_rx_irq(struct igb_q_vector *q_vector, const int budget)
+ 		rx_buffer = igb_get_rx_buffer(rx_ring, size, &rx_buf_pgcnt);
+ 		pktbuf = page_address(rx_buffer->page) + rx_buffer->page_offset;
+ 
+-		/* pull rx packet timestamp if available and valid */
+-		if (igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
++		/* pull rx packet timestamp if available and valid; it is only
++		 * present on the first buffer of a frame
++		 */
++		if (!skb &&
++		    igb_test_staterr(rx_desc, E1000_RXDADV_STAT_TSIP)) {
+ 			int ts_hdr_len;
+ 
+ 			ts_hdr_len = igb_ptp_rx_pktstamp(rx_ring->q_vector,
+
+-- 
+2.27.0
+
 
