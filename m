@@ -1,56 +1,82 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.185
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624501;
-	b=Zib/Td/Fqe0lLeyOUMr9bs1yGH79r1cmabV91iOnVxhg3VPSMvZ4asOe/Wg2WSx1y7jO
-	 pAz/rmPyXggLFYiDBnQS+PJGA0dKzooNiuVrOeskSygn+8txC/oak1yljFeAyIjHSZ8ry
-	 Nj2kZnU1We6QS0x/lw2lVmrioMC3s5YsFH+myBbkP6ohWWNp4rsih2fI3L0RkITgCObFW
-	 BiamVqvqYfwWx92BstSBTx+L3kzkBBaQOnLnC2jlqzF0kuYM88UwkJsGZ/i7Aj7Xz5IzH
-	 YGV5pFDGqsu7zRT1zd8zH7AaRcX0kvImlkLVqdL4gKRuB+8UE1OK49TRhXk6/eecOIg==
+	t=1793624518;
+	b=FfIMk/DgESREdv+wPnSnHHw2OudE8WmiAWSs/T22VJeGXggBXaggS6mY3ke0yChTgEXI
+	 cVlOnhzEKedx0wmEpQi4Ti6rie8tzl/cYeciTOqfywrQKyAmcELfQHu7Bmqg6E+wKhztu
+	 k4NYlIdBLSZ5w0Z1Sa1d4XMHckll4MYzxlvSEJyeCgRlu7YOTL0U0wSDw5gQc9qbmhxYp
+	 dq36mnaRMZLaL50J3oKlCvjfnyyLdJtRqbY2poFi0VL1rhEAqKEeksAx0IEvvG0KWLSbj
+	 6oP6VqEdtgkhSzgjGmOQmf+mavPImfSwx0VIeb4ilZ4VHUHn0Jnqn7G0PoNK3oVDL/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624501;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=uNDILjA423ZBNGp2ol7/8zi7jJMR4YhZA191jSFJ2Og=;
-	b=pPpumKfVDAfPktK92zuIzrF1b2QcbwFZDE6QUVws3z8h20W4JrWUaHho6J8uonhgS6sL
-	 x/+B19mDus0sjMEAbTqSMlLM5j9yGMKto4yN3K7Q01Inxn5XkGkoqBRUq0a97Xy0oa9t1
-	 cQ/YEPdoRrnordABoUznXDryAvOVbG+k7x583iZI54OhiaFjuTxfZY2FU8xNsmVCf4JRF
-	 JcJjo//FRTVIWW8ftOZYc37sHYKNhgcUTLFqdI4SQQeY3M5HGJmW+aeOQVptWt2JJkhX9
-	 tBUcLHA6vrwdS83xHrMVStlTKPlLYa1H94yWJPUk243cGXD4zKp+jPE/9Te122OMtQA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624518;
+	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
+	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
+	 X-Mailer:In-Reply-To:References:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=+XGY/v6BR2NT4up8v10Wc/v7759RgeWyYpEIAPxEWSM=;
+	b=lMcbkifIgzMZutpP/YRQiUBxiMSBoGRyYXZbLqBTiBfAJadUWzmFVhelULAWFX3lr6j3
+	 fC0BBKzAmqMw8Xz8VqVucnTt9GfiBVWgMHH19l3GvoBf3f9sMWYPyIxox6JIBBfMdQY+c
+	 pr1a9YzBrR7Ssi9wFUL2abTBP0mqQX/Yf6xFA7bvLNaSOdmEgPGBrHUUxBkC1VvT7z8FF
+	 biHTrXDUXWkYb2UYT2BHREsHqSSTxsNT1HZpKmuOWogIOo5ztcVg9Ml9mdBuM3CTVBxka
+	 nvEOQu+QCzQ18+h/OmEQA7OJC6TvA3KHsG9Ooa9kjyKzkmwMSgEIOScKtWMyhkxsasw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vv9D59kp;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=linux.dev;
+	spf=pass smtp.mailfrom=linux.dev;
+	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pjdur3pL;
+	arc=none smtp.remote-ip=95.215.58.185
+Received: from mta1.migadu.com (out-185.mta1.migadu.com [95.215.58.185])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE541606A327;
-	Mon,  2 Nov 2026 13:01:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6267606A32D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:01:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A6267606A32D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vv9D59kp
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864A61F00A16;
-	Mon,  2 Nov 2026 13:01:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793624500;
-	bh=uNDILjA423ZBNGp2ol7/8zi7jJMR4YhZA191jSFJ2Og=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vv9D59kpaTbTZGLu/kRooSchcb1Jx5/XYBbPtSm/ERYmPFnJqe48UvRhBci5kid+c
-	 pSApOeyIQB+tVGvJsbHUrewxVoikpZkMruGonVYvSWt9b8aEi8jmrVwgCLTHP7Ro+s
-	 q9PdM48cec5FtVprybOe8nVOqc++k77XdrZdlQUOd+Jsow6dQbqkRStMtba/kYblLS
-	 LF+ilJNMnUPwbKO3w2S+v2KdoGBnF0GNQbaXEkIVEkUETn4V+8cHAhaxdW8vPNmSek
-	 UA+RFtTmjAZO8b6AYPUC6m+OFzFFSHvwq4EsRdDPLvwy7SeqH7VzCS/vW/DiRLEsPA
-	 L8TXsoBy0DDXA==
-Date: Mon, 2 Nov 2026 14:01:33 +0100
-From: Bartosz Golaszewski <brgl@kernel.org>
-To: Shawn Guo <shengchao.guo@oss.qualcomm.com>, 
-	Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Dhruvin Rajpura <dhruvin.rajpura@oss.qualcomm.com>, Anandu Krishnan E <anandu.e@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 0/7] arm64: dts: qcom: nord: Add remoteproc and PMIC
- support
-Message-ID: <uq5ttclbqpqprbckugxlkvzxesmzs7yjmlsnpbc2yajdqqzbb5@yra7tx6y6rzo>
-References: <20261014063953.549379-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=Pjdur3pL
+X-Envelope-To: linux-kernel@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dmrpggB/4/cFopVedznZGtlVQgchY7JNs1MqKk3Qx8M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1793624515; v=1; x=1794229315;
+ b=Pjdur3pLSK2K2BqKtYGZl3kLkZfZMv3hJf+usQ6etUaTJxmto96AroKwDkZjalKt9xyLEVnn
+ Ak8fQY3sG+MJgsa3QYBVFKMEo1QfrW2XDrYl6wr+mXrL2WbJ/4F7L9Nh7oYjy3b7Yvs8vK/Rle2
+ C/brQXJoAZneoh6zd3BSv5Qc=
+X-Envelope-To: linux-kernel@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9efc73450d7a3700;
+	Mon, 02 Nov 2026 13:01:55 +0000
+X-Mizu-Trace-ID: 9efc73450d7a3700
+X-Migadu-Flow: FLOW_OUT
+From: Fuad Tabba <fuad.tabba@linux.dev>
+To: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>
+Cc: Will Deacon <will@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Raghavendra Rao Ananta <rananta@google.com>,
+	Sascha Bischoff <Sascha.Bischoff@arm.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Sebastian Ene <sebastianene@google.com>,
+	=?UTF-8?q?Bart=C5=82omiej=20Grzesik?= <bgrzesik@google.com>,
+	Mostafa Saleh <smostafa@google.com>,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Vladimir Murzin <vladimir.murzin@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Zenghui Yu <zenghui.yu@linux.dev>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Radu Rendec <radu@rendec.net>,
+	Fuad Tabba <tabba@google.com>,
+	kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 03/13] irqchip/gic-v3: Disable GICv4 features in protected KVM mode
+Date: Mon,  2 Nov 2026 13:01:23 +0000
+Message-ID: <20261102130133.3684226-4-fuad.tabba@linux.dev>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102130133.3684226-1-fuad.tabba@linux.dev>
+References: <20261102130133.3684226-1-fuad.tabba@linux.dev>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -60,28 +86,111 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261014063953.549379-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 14, 2026 at 02:39:45PM +0800, Shawn Guo wrote:
-> This series adds ADSP and CDSP remoteproc support, the SPMI PMIC arbiter
-> and the PMIC descriptions for the Qualcomm Nord platform, and adds the
-> initial device tree for the Nord Ride Embedded board.
-> 
-> It has a dependency on the commit e484a765f543
-> ("dt-bindings: power: qcom,rpmhpd: Add NMXC power domain index") from
-> Ulf's immutable branch below.
-> 
->   git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/linux-pm.git dt
-> 
+From: Bartłomiej Grzesik <bgrzesik@google.com>
 
-Hi Bjorn!
+Later patches have the protected KVM hypervisor take the ITS from the
+host and check each command the host queues. They don't emulate the
+vLPI commands, as VMAPP's VPT_base, for one, is a host-chosen address
+the ITS and the redistributors write to.
 
-Turns out there's no need to resend it, it still applies on top of
-v7.4-rc1. We'd really appreciated it if you could queue it in linux-next
-soon to make it easier for the rest of the nord changes to be respun for
-this cycle.
+Clear has_vlpis and has_rvpeid at redistributor probe in protected mode,
+so the host never issues a vLPI command, and print that GICv4 is off.
+The host loses GICv4 direct injection for its non-protected guests,
+which is off unless kvm-arm.vgic_v4_enable is set, and can't restore a
+guest saved with GICD_TYPER2.nASSGIcap set.
 
-Thanks,
-Bartosz
+The test is kvm_get_mode(), as the redistributors are probed before the
+cpucaps are final. It lives in irq-gic-common.h as
+gic_is_protected_kvm(), so that the ITS driver can use it too and
+linux/kvm_host.h stays out of the rest of irqchip.
+
+Signed-off-by: Bartłomiej Grzesik <bgrzesik@google.com>
+Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
+---
+ Documentation/admin-guide/kernel-parameters.txt |  8 +++++---
+ drivers/irqchip/irq-gic-common.h                | 13 +++++++++++++
+ drivers/irqchip/irq-gic-v3.c                    |  8 ++++++++
+ 3 files changed, 26 insertions(+), 3 deletions(-)
+
+diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
+index 0b3c140babd94..3e63e44609522 100644
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -3275,8 +3275,9 @@ Kernel parameters
+ 				hardware (with FEAT_NV2).
+ 
+ 			Defaults to VHE/nVHE based on hardware support. Setting
+-			mode to "protected" will disable kexec and hibernation
+-			for the host. To force nVHE on VHE hardware, add
++			mode to "protected" will disable kexec, hibernation and
++			GICv4 direct LPI injection for the host. To force nVHE
++			on VHE hardware, add
+ 			"arm64_sw.hvhe=0 id_aa64mmfr1.vh=0" to the
+ 			command-line.
+ 			"nested" and "protected" are experimental and should be
+@@ -3296,7 +3297,8 @@ Kernel parameters
+ 
+ 	kvm-arm.vgic_v4_enable=
+ 			[KVM,ARM,EARLY] Allow use of GICv4 for direct
+-			injection of LPIs.
++			injection of LPIs. Has no effect when
++			kvm-arm.mode=protected.
+ 
+ 	kvm-arm.wfe_trap_policy=
+ 			[KVM,ARM] Control when to set WFE instruction trap for
+diff --git a/drivers/irqchip/irq-gic-common.h b/drivers/irqchip/irq-gic-common.h
+index 710cab61d9195..87b5c57dec0f1 100644
+--- a/drivers/irqchip/irq-gic-common.h
++++ b/drivers/irqchip/irq-gic-common.h
+@@ -10,6 +10,9 @@
+ #include <linux/irqdomain.h>
+ #include <linux/msi.h>
+ #include <linux/irqchip/arm-gic-common.h>
++#ifdef CONFIG_ARM64
++#include <linux/kvm_host.h>
++#endif
+ 
+ struct gic_quirk {
+ 	const char *desc;
+@@ -29,6 +32,16 @@ void gic_enable_quirks(u32 iidr, const struct gic_quirk *quirks,
+ void gic_enable_of_quirks(const struct device_node *np,
+ 			  const struct gic_quirk *quirks, void *data);
+ 
++#ifdef CONFIG_ARM64
++/* Not is_protected_kvm_enabled(): the GIC probes before the cpucaps are final. */
++static inline bool gic_is_protected_kvm(void)
++{
++	return kvm_get_mode() == KVM_MODE_PROTECTED;
++}
++#else
++static inline bool gic_is_protected_kvm(void) { return false; }
++#endif
++
+ #define RDIST_FLAGS_PROPBASE_NEEDS_FLUSHING    (1 << 0)
+ #define RDIST_FLAGS_RD_TABLES_PREALLOCATED     (1 << 1)
+ #define RDIST_FLAGS_FORCE_NON_SHAREABLE        (1 << 2)
+diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
+index 94873646d46fb..30ed17f26a208 100644
+--- a/drivers/irqchip/irq-gic-v3.c
++++ b/drivers/irqchip/irq-gic-v3.c
+@@ -1123,6 +1123,14 @@ static void gic_update_rdist_properties(void)
+ 	gic_iterate_rdists(__gic_update_rdist_properties);
+ 	if (WARN_ON(gic_data.ppi_nr == UINT_MAX))
+ 		gic_data.ppi_nr = 0;
++
++	/* Protected KVM doesn't emulate the vLPI commands. */
++	if (gic_is_protected_kvm() && gic_data.rdists.has_vlpis) {
++		pr_info("GICv4 features disabled in protected KVM mode\n");
++		gic_data.rdists.has_vlpis = false;
++		gic_data.rdists.has_rvpeid = false;
++	}
++
+ 	pr_info("GICv3 features: %d PPIs%s%s\n",
+ 		gic_data.ppi_nr,
+ 		gic_data.has_rss ? ", RSS" : "",
+-- 
+2.47.3
+
