@@ -1,95 +1,62 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.160.173
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793652460;
-	b=ybSX0JhsGTQeEs6+IWe54lAVtzQdCUhp0Z9qVsecd1jG8HJvziYWFId7OWyp6KsdU7Dj
-	 S5NZnxeMZR3JCHoCeNssl5dNz1L1F4kRAZTKiLaJ5vz4RLOIufEkWu4FE5Daj3xrsDv61
-	 9fgYiUSODhwZpCNOjERlfk4w6Ar84Q+IQp4lh1FnUYMGX+sI9Wj+7c4wr662vI18A+C3n
-	 Jo83DqB1tdeZhO4Dub7Zl2fJMfNbos7H6xhBXdaf+7vk6NoKPfB9t1oMLnDFsLwvuIZ9P
-	 eVZu9sxHI3IAR6j9mwSeKXp5trLrJDYKnjydk/SkfENKGQsgR6Cs/mJT0xgbPowZxaA==
+	t=1793652491;
+	b=t9duYaYXFKbnkGRfnVLigIlXRR3O0ARvorxadMdGPLtl4cx1MH5GkQwZVfy37JQpurOM
+	 bZslCfeCGwylzYYD+Ev4CaGi7rW9EXrbOJ/0skQDqr7jp0JWwYTEFNNQitqgtZumMaYuO
+	 6L29sRBJaP2HYdxxsP+dBGOQ34e+U6Yd5KWVexCVmhy16X/qTzeNbpGnETAOfhydRwPhr
+	 MDDA3e7lJpUDV792BUI/BJSO4pOe0Xoq8DU9HOUDs8V6xKwpCUGrF+7DLwPuv67gvMW2N
+	 2hTbY4AN+x7kmhTQL7ZrgrKjb3aR0zLlUlbF5SKF/osyVkLZlfj6hCy8yc3Z+EdQ6Bw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793652460;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=m8mSi3IAorPrWHZPk3j86qqURTkDETtees0X+vPzQzc=;
-	b=MQ5j4HdkzPNIYejgYGAMiSWilD2LCAE6I+p/gWQa0o/2cNezrjWCVG+thWqGIpDlV7aS
-	 Qly4o2vGF650Wmxw7on1Tfs0j7rS/oRr6UgEjVEo0q81ij6Jkwngj3f57o6HU+kxwLf/T
-	 dzuAPD6nMVeMbmo+aaMg++/AB9wT01kL6kp8KZDCJCumqJ+TaTkxVWehJYbPV12M0NPqC
-	 G5h5cOrGtDmqbfEtD65KOGrGP1uVe7mVLtWTo/rCPBtdfxbSRSO/1ZgTvaFwqyrAtOaR/
-	 /BBgakZX/aUxuTOzduunDSB6MXkCWTrhdt85jqHlK4B3lfL0T31v/imJvj9rliowJuQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793652491;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=6xddysbA9HgFqkLFd1E0uqGDoPhRvcZXwufnklq7AKw=;
+	b=3drzxr8J3j52g7gBvRxTyM4T0PiJ/C+vjkhzaKt0lUDVkkmfKM/Ph8Zmh0TYGR1XfwHl
+	 ufF23KSw+kYdsriuvT9N/JM/CGZFKQFggP+g23ojCT10ggK1iPFjt0Ql0l38wxx66aAsx
+	 mpY6XanjxueISlMcNKnkAF0KhwLcrsTXiM4Kz2MI0xp8prc+WR2ZGHWn/gKlwwQj1J1ZG
+	 7Nff32XG/BC7SKqBt8sx1qypShbJZlVsIqYwlBoZ2X4yAY7zPRtQOoQLh4uzDMc2OoNwt
+	 fxneHbVuNLc9kzv6ruusg3xyiQXeExfqYBWbepnVljYJ7fkyrUCRGNi97Sm13F11BOw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cZnYnqIE;
-	arc=none smtp.remote-ip=209.85.160.173
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com [209.85.160.173])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLi60mjn;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717E6606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:47:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 717E6606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDECE606A326;
+	Mon,  2 Nov 2026 20:48:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=cZnYnqIE
-Received: by mail-qt1-f173.google.com with SMTP id d75a77b69052e-54465f79af8so24758101cf.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:47:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793652459; x=1794257259; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m8mSi3IAorPrWHZPk3j86qqURTkDETtees0X+vPzQzc=;
-        b=cZnYnqIER6ZM+LMqeGSs/kfAZZKn+eV1lvfVK+Z+kxB+6zBHSOQqQ6TyjYNrH8/2/W
-         WmEhYuSok0kKu+i+wa2Eklz8aYBRBb0Z/fjoNipOKV6ENsViGC8CRBxBTp2YFkELGguW
-         GZfqgdh3jMfY99gThNNVp0uj/qEtPvCt6eTvfcN+TtOULBp0WaFmSaqTK96zqIth8JMH
-         mB/z82T7w/i6mpHcDKkA50MyvjzfW0a4OzXcjjOGLJiIrDmaqh0/qL4kOGl2IKlVf2Ob
-         rgemahoauVwDN1txrOcjeu2VJbvtl/Tqt8YdhZKiQ7RrTc7fX+bfYLc0mWtvnY19ZNkk
-         5/+g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793652459; x=1794257259;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m8mSi3IAorPrWHZPk3j86qqURTkDETtees0X+vPzQzc=;
-        b=wYKMQfbBejFF1ogu34Cd0KBQ4KhYd7uhucTxw2Z4VMRqdk1UVqnyoadm5AeQO1Uvnj
-         dewjQRSIO23GZaFuxzPDeNrP6G+U+Q+CuFwTv7MnimTv5m+3II+ZKJg/qPgy2uhH4w91
-         YJNG5GJTjRec5HQtN7Y8Stu5sZUnc/gfRN+aZSGP7hX9WnPZ2EXCgZueXTTB1bnpctmV
-         u8MZ8A1tSnmVCuwFPQfBXoQRG6x9oNNn85tCNn95LoiePszjTwN6RtwyqCnTWkU3wwOJ
-         zIpXbW+KDBh47FPRB8In4iDpT6nzWeqoDzJ9Zf80goBK3WPX+018jYPxyft0IaPJEsoh
-         GXXA==
-X-Forwarded-Encrypted: i=1; AKwUvBz08RzOB2tkut4+JFzkmy2oz2EuCXemhmUJqEzP3+nKAvajkMpON4pdIYgWSmkg9yIb/7pPH6u6dj+SjAI=@vger.kernel.org
-X-Gm-Message-State: APuU4Z8fgSV6BwQvku+Mc8CHl9YthAufLwfZspiHBDTQYkf0hfdE4fXf
-	52VvAMYAF4nUy6RPg2vbsp0HZ7pKUaXz/fpJ7Bxn+eOvYGZls6QRmgps
-X-Gm-Gg: AYBFou2NLFKmn5WcO+5DJe8z7gQ/7MTP57HIxOb0WxyDpRO5MBNAVV3Jq52nyZhbHUb
-	EEV8AbhDKhR9E5IV2PDeFatxGo+5msUMbQVxIdoWN/YWt62QbJ/pqi77oL7mfHz+89UZ93BHc+Z
-	4O97j/8w8HZSrmcpYHhX1il4o/Wo48s4RuHw/fFtt47cSxk1AQksGVG/OQHxzvuJByTkTEyyHqJ
-	WmLoGOI5lRn/+cDQAkpsvVHj6MaLzA33mzPyPlfsrY/cJHfvCxd9wnNMId3UX0Gqed0yJ4r8i1Y
-	PcEbIUBGePbctgQ9J1uZbbYP6c38lp/wXS0+/q8j3kpp+6NchQHonUMLzPi1/Puk+WV33y72yog
-	eCxoVv8UECBxDe9GJ6v4HR42Y4v/yJDbrP3/RhZ4iYnCRdaQiBVuoVwXoqJVjL8rAVjDZVSdQ9P
-	F4qsUCAzGD/f+vkMIorQaZ7K84l9KbrSO334kI8P2ak436u+ZPd92xqs461Qu3JMHep2lI8lrxz
-	SDLy/k2ktFRSWxaJny2moLPBahmUxqmmoaV7uAKeMXbjDC/3ik6YxSf7CsFbdjvqfBY9ZODNkWn
-	BwGHs4Zw7SG6qN86g05By8TbC/rtUVyN7ubSyl2WrT37dn5LHzAE
-X-Received: by 2002:a05:622a:1826:b0:535:a5fb:645f with SMTP id d75a77b69052e-542b86e1d84mr191735211cf.74.1793652459409;
-        Mon, 02 Nov 2026 12:47:39 -0800 (PST)
-Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca7e23b0bsm99669676d6.2.2026.11.02.12.47.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 12:47:38 -0800 (PST)
-From: Yuho Choi <oss.patchbox@gmail.com>
-To: Dragos Tatulea <dtatulea@nvidia.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowangio@gmail.com>,
-	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>
-Cc: Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
-	virtualization@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Yuho Choi <oss.patchbox@gmail.com>
-Subject: [PATCH v2] vdpa/mlx5: Don't free QP buffers if destroying the QP fails
-Date: Mon,  2 Nov 2026 15:47:30 -0500
-Message-ID: <20261102204734.443140-2-oss.patchbox@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLi60mjn
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958691F00A16;
+	Mon,  2 Nov 2026 20:48:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793652490;
+	bh=6xddysbA9HgFqkLFd1E0uqGDoPhRvcZXwufnklq7AKw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mLi60mjnzwIDAfg8Z77TOtGj++a1B0tdHNieMumnaMy8uY0MuCNafh/FBUKUWD7NG
+	 YViiwaIZ9OYLnB6tcLch7QRqd8/hZ+CYBYPRsrwGWBBMc1Y+2d+euZJVaUX0zP81em
+	 z4c2k7h+0o5Ud1Jjet2GpwdfA1vBhGrXTi4bAjUzN55po0epU5o9v9YglfHvHm9nij
+	 iGoEGtA3+ykAukpfpdby3fkNsaGlHzwwgkZgv+mAH8YHgA+//nIA0MrWFByIZS9uTP
+	 8vXvVjatSPgoRCSzjK1E5ZFm8HSQUrrwZlbnF+ljz2l9ac2XZcFPfchJLi3yxpJpAP
+	 EA4FK/JKe9y8A==
+Date: Mon, 2 Nov 2026 20:48:05 +0000
+From: Conor Dooley <conor@kernel.org>
+To: Olivier Louvignes <olivier@mgcrea.io>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>,
+	"H . Nikolaus Schaller" <hns@goldelico.com>,
+	Joshua Crofts <joshua.crofts1@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-mips@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/2] dt-bindings: iio: adc: Add the Ingenic X1600 ADC
+Message-ID: <20261102-salute-cylinder-22c9a8896ca9@spud>
+References: <20261102201155.10948-1-olivier@mgcrea.io>
+ <20261102201155.10948-2-olivier@mgcrea.io>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,53 +66,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6qWinq+OBSPdtkNb"
+Content-Disposition: inline
+In-Reply-To: <20261102201155.10948-2-olivier@mgcrea.io>
 
-qp_destroy() frees the RQ buffer and doorbell record of a driver-owned
-QP even when DESTROY_QP fails. The QP then still exists in firmware and
-can read WQEs and the doorbell record from freed memory.
+--6qWinq+OBSPdtkNb
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Return without freeing them in that case, as cq_destroy() does, and
-include the QP type and the error in the warning.
+On Mon, Nov 02, 2026 at 09:11:54PM +0100, Olivier Louvignes wrote:
+> The X1600's SAR ADC has four auxiliary channels and none of the
+> touchscreen or battery engines of the JZ47xx ADCs in ingenic,adc.yaml,
+> so it gets a binding of its own.
+>=20
+> Signed-off-by: Olivier Louvignes <olivier@mgcrea.io>
+> ---
+>  .../bindings/iio/adc/ingenic,x1600-adc.yaml   | 53 +++++++++++++++++++
+>  MAINTAINERS                                   |  5 ++
+>  2 files changed, 58 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/iio/adc/ingenic,x16=
+00-adc.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.=
+yaml b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> new file mode 100644
+> index 000000000000..f6356ea97980
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> @@ -0,0 +1,53 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/iio/adc/ingenic,x1600-adc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Ingenic X1600 ADC
+> +
+> +maintainers:
+> +  - Olivier Louvignes <olivier@mgcrea.io>
+> +
+> +description:
+> +  The SAR ADC of the Ingenic X1600 SoC, with four auxiliary input channe=
+ls
+> +  measured against a 3.3 V reference.
 
-Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
----
-v2:
-- Shorten the commit message (Dragos).
-- Drop the Fixes and Cc: stable tags (Dragos).
-- Print the QP type and the error in the warning (Dragos).
-- Rebased on v7.4-rc1.
+The wording here makes me wonder if a 3v3 supply is missing here? Or is
+this some internal supply on the soc?
 
-Compile-tested with W=1.
+Otherwise, this looks fine really.
 
- drivers/vdpa/mlx5/net/mlx5_vnet.c | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
+> +
+> +properties:
+> +  compatible:
+> +    const: ingenic,x1600-adc
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  '#io-channel-cells':
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - interrupts
+> +  - '#io-channel-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    adc@10070000 {
+> +        compatible =3D "ingenic,x1600-adc";
+> +        reg =3D <0x10070000 0x30>;
 
-diff --git a/drivers/vdpa/mlx5/net/mlx5_vnet.c b/drivers/vdpa/mlx5/net/mlx5_vnet.c
-index 8563fec2855d..20f4ff67c975 100644
---- a/drivers/vdpa/mlx5/net/mlx5_vnet.c
-+++ b/drivers/vdpa/mlx5/net/mlx5_vnet.c
-@@ -479,12 +479,18 @@ static int qp_create(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_virtqueue *mvq
- static void qp_destroy(struct mlx5_vdpa_net *ndev, struct mlx5_vdpa_qp *vqp)
- {
- 	u32 in[MLX5_ST_SZ_DW(destroy_qp_in)] = {};
-+	int err;
- 
- 	MLX5_SET(destroy_qp_in, in, opcode, MLX5_CMD_OP_DESTROY_QP);
- 	MLX5_SET(destroy_qp_in, in, qpn, vqp->mqp.qpn);
- 	MLX5_SET(destroy_qp_in, in, uid, ndev->mvdev.res.uid);
--	if (mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in))
--		mlx5_vdpa_warn(&ndev->mvdev, "destroy qp 0x%x\n", vqp->mqp.qpn);
-+	err = mlx5_cmd_exec_in(ndev->mvdev.mdev, destroy_qp, in);
-+	if (err) {
-+		/* The QP still owns its buffers */
-+		mlx5_vdpa_warn(&ndev->mvdev, "destroy %s qp 0x%x failed: %d\n",
-+			       vqp->fw ? "fw" : "sw", vqp->mqp.qpn, err);
-+		return;
-+	}
- 	if (!vqp->fw) {
- 		mlx5_db_free(ndev->mvdev.mdev, &vqp->db);
- 		rq_buf_free(ndev, vqp);
--- 
-2.43.0
+That said, the 0x30 looks suspiciously small - but the region is aligned
+neatly so I suppose it's probably not problematic..
 
+Cheers,
+Conor.
+
+> +
+> +        clocks =3D <&cgu 28>;
+> +
+> +        interrupt-parent =3D <&intc>;
+> +        interrupts =3D <11>;
+> +
+> +        #io-channel-cells =3D <1>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index ecc22d1149d1..fd4bb5c6bf16 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -12925,6 +12925,11 @@ F:	include/linux/mfd/ingenic-tcu.h
+>  F:	sound/soc/codecs/jz47*
+>  F:	sound/soc/jz4740/
+> =20
+> +INGENIC X1600 ADC DRIVER
+> +M:	Olivier Louvignes <olivier@mgcrea.io>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/iio/adc/ingenic,x1600-adc.yaml
+> +
+>  INJOINIC IP5xxx POWER BANK IC DRIVER
+>  M:	Samuel Holland <samuel@sholland.org>
+>  S:	Maintained
+> --=20
+> 2.54.0
+>=20
+
+--6qWinq+OBSPdtkNb
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCauj3BQAKCRB4tDGHoIJi
+0m8HAQC5fMDxvkrjUejVaTLi/E/rwAz2L7R0fnR1vob61z4DhwD/bO9L0839+IN3
+BXxrFlk9Kl+2bcLK5VW8G+xNp/LlRQU=
+=7Eap
+-----END PGP SIGNATURE-----
+
+--6qWinq+OBSPdtkNb--
