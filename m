@@ -1,96 +1,55 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.16
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793612167;
-	b=D4/TI1sqRAy9n7G7dBoOiAi8I5Lu3gM1bLJ8f2PEaAPIImb/aEffPSrsJEsX+xTLkQJ3
-	 /GZg+mt7TexQ5jVr21JKjT3N7OqJlJHDzpF3mitMVx3DwfqNlAxKTT4626Fu3I18b9v8Z
-	 OqAad4O3Ye+rdwg5m0elm7b5MMlCA+6AoAS37N+cxHeEDL36Ff4EZ7tfBCVfyh+QRunME
-	 gT0FwVP6qkEluTZwScGug2iggh7pIPZC+O6Nv79gIFWtSQXCM98LLYbinW3sLRSfZUZht
-	 +UEcxsrFgsbl/dmaGhj0MAvguz2bhnrjcVJxGD+U6OFOiNAno017br6MX5xvBEdYb3Q==
+	t=1793612186;
+	b=RDC1jeFZ7Xa++DCi+FAnGIFLkruW5NAAD6dOUcSZbolXSz4C0lPoEVwRmLH/Z1ZhhumT
+	 T/JYnanaFe0HTrr27URUaq15KFoTp0Dau/FSJxLynkkJSw+kp1ZtDZ7EWexviMwy3j08l
+	 9BF+QBPEr+txMDK1TOM7KzbCk7pe5HQJfcB9KhsM9L5x/vRcJijXimZh77yPidrIM6mKL
+	 IMGhjDKP36I11BSz8UntYyNBzxrtX8zv5jKvvdyiDJbHgZiappshjFPKc1yDiXSK5ZVDH
+	 3SiXemnZxdzxU3xgLTmb969OUfcCBtdVX6WtqMUSNiQGHpzG6uhnRZA/jye0wTP7ZPA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793612167;
-	h=DMARC-Filter:Received:DKIM-Signature:Message-ID:Subject:From:
-	 Reply-To:To:Cc:Date:In-Reply-To:References:Content-Type:
-	 Content-Transfer-Encoding:User-Agent:MIME-Version:X-MBO-RS-ID:
-	 X-MBO-RS-META;
-	bh=+/sMZYds1uhOZXW3Ia/g+6VA7auA/l8PP9TjhomiEy4=;
-	b=M4HSH7aUzHtqfWCQZzcQWYE2HRh+9QEDRzKsTOHOorsEWZyg6pQoSa7eahPZT18Zp2lP
-	 ccsjkVDoIKgzNT+hMTmDmPv/AmK0PsVVAhJmx0IOrS7lLpUlYOTouyVgUqpPezgoFzhHg
-	 m+LOV6p/krdFnQDAVZgXguky4VieZyzGWkoK2GcLLqYAkGPC8cDds2g/8/aS248hipOEc
-	 skMlK4rwYc/reWB/rAudPXDeE5wIEVAleQK/mNt9RGd18eeQPnvX2tA29i/6Upo1tj1z4
-	 lk3YZYhMoBwV3ZnEl+Y9/AokXBxWeZLJWflwYM8EeDkngAHol4rlq0axDPDXjqIEWUg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793612186;
+	h=DMARC-Filter:DKIM-Signature:From:Date:Message-Id:Content-Type:
+	 X-Original-From:To:Subject:Mime-Version:Received:
+	 Content-Transfer-Encoding:X-Mailer:X-Lms-Return-Path:Cc;
+	bh=Jpf0sF3BsXWuW2vGarlxt3BK+rqyO+jWFnFGPUZEX7w=;
+	b=t1xopza8NwlAJMnPzNeqPdvJK30POZtO5qEUWddbCyRBxwu2AH0LhpJurt4XPiCbiXz+
+	 ItA/MLvuD6mkL+e7dhq3ODZ1v9IJ8iocOcOfW1G92kNll0aV5ZxoYfyNrRg8iWnDlwZV6
+	 UVaBBK6VMSUJfT3YbC0rTkdi1w6P1yf6A2USxl0jn+n5qLo9xAxNp9IVEADyEz0sYBOKo
+	 TZLx/JKgHJHixftNEZZhvxHtskVB6GEMb0wdm2n/CiAYfvgc4O+SkUYfSE09vM53JO/Ge
+	 5qW0MFkH5EMcablEwoWYZVX1y43Rv3uu1fRtJ5LF2mlc47bOIDs57an0lmMqFUhHadA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=mailbox.org;
-	spf=pass smtp.mailfrom=mailbox.org;
-	dkim=pass header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LdTYYRbv;
-	arc=none smtp.remote-ip=80.241.56.172
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=none header.from=semidrive.com;
+	spf=pass smtp.mailfrom=semidrive.com;
+	dkim=pass header.d=semidrive-com.20200927.dkim.feishu.cn header.i=@semidrive-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=sYwZGFis;
+	arc=none smtp.remote-ip=209.127.231.16
+Received: from va-2-16.ptr.blmpb.com (va-2-16.ptr.blmpb.com [209.127.231.16])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 131CC606A338;
-	Mon,  2 Nov 2026 09:36:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 131CC606A338
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3192606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:36:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E3192606A329
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=semidrive.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=semidrive.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=LdTYYRbv
-Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4jJ65Z1smrzMlFg;
-	Mon, 02 Nov 2026 10:36:02 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1793612162; h=from:from:reply-to:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+/sMZYds1uhOZXW3Ia/g+6VA7auA/l8PP9TjhomiEy4=;
-	b=LdTYYRbve+2a9AsrYz20m520ncMvUqWtNFNrebXBDHnKI8ybVi/PYzzpfE9c2aWuFQazCh
-	Yanfhn1iktpfZnQvu6kAr70M9l9F5WvWdkfMTslOXz1AiDpwxsLPj04BF7RZ5NgJt2Mrio
-	YY5bbjEEPl6bCHSmIjrPAAqY8i0x94+e6LlSve+QrM9iyCGTKdUjw9uOK33jJpYH+ZHH/Q
-	ZXCFvol5foGJGa5kgTewdfkcTM6PPV/7x+yH/OVp/6tN+BAr23IGPKCZD7XpsivZOn9fCH
-	C3bAI15a1dLfcj0+ibFzUcP+JhkDXEA4k6fD+tfyudO2wKsvS/NOOAMT/wbNdg==
-Message-ID: <3a81450158fe5a46d76257c5018eaf5592168f18.camel@mailbox.org>
-Subject: Re: [RFC PATCH v2 0/3] Solve dma_fence's problems by locking
-From: Philipp Stanner <phasta@mailbox.org>
-Reply-To: phasta@kernel.org
-To: Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>, 
-	phasta@kernel.org, Sumit Semwal <sumit.semwal@linaro.org>, Jani Nikula	
- <jani.nikula@linux.intel.com>, Joonas Lahtinen
- <joonas.lahtinen@linux.intel.com>,  Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Tvrtko Ursulin <tursulin@ursulin.net>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Steven Rostedt <rostedt@goodmis.org>,
- Masami Hiramatsu <mhiramat@kernel.org>,  Mathieu Desnoyers
- <mathieu.desnoyers@efficios.com>, Miguel Ojeda <ojeda@kernel.org>, Boqun
- Feng <boqun@kernel.org>,  Gary Guo <gary@garyguo.net>,
- =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,  Benno
- Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, Alice
- Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>, Danilo
- Krummrich <dakr@kernel.org>, Daniel Almeida	
- <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
- <work@onurozkan.dev>, Boris Brezillon	 <boris.brezillon@collabora.com>,
- Alex Deucher <alexdeucher@gmail.com>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, intel-gfx@lists.freedesktop.org, 
-	linux-trace-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org
-Date: Mon, 02 Nov 2026 10:35:57 +0100
-In-Reply-To: <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
-References: <20261020100034.759183-2-phasta@kernel.org>
-	 <3e8bc11d-6f90-47a4-ae63-cf2ff37f1ff6@amd.com>
-	 <ca78cdb7c24a9be9b640db782168cdcc5fe30b60.camel@mailbox.org>
-	 <ed2728bd-1df4-478e-9e6f-a96dfd172b48@amd.com>
-	 <4a7294da65c8744ba6355730e304b5250d0ca351.camel@mailbox.org>
-	 <d13d1a6e-bba2-4275-984b-145e0252eb0f@amd.com>
-	 <320b6e7c75da6f05c015e89df0e2c7d11f20d70a.camel@mailbox.org>
-	 <22d66945-8854-442f-a69d-fe02726eccda@amd.com>
-	 <f9a47d563f896e0789fffa72df5847e2878cbe5e.camel@mailbox.org>
-	 <5d15d668-7191-4e96-922c-82982787b50c@amd.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (2048-bit key, unprotected) header.d=semidrive-com.20200927.dkim.feishu.cn header.i=@semidrive-com.20200927.dkim.feishu.cn header.a=rsa-sha256 header.s=s1 header.b=sYwZGFis
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=s1; d=semidrive-com.20200927.dkim.feishu.cn; t=1793612179;
+  h=from:subject:mime-version:from:date:message-id:subject:to:cc:
+ reply-to:content-type:mime-version:in-reply-to:message-id;
+ bh=Jpf0sF3BsXWuW2vGarlxt3BK+rqyO+jWFnFGPUZEX7w=;
+ b=sYwZGFisUh+qHiYBVjmSf/i0MEGsisH33dSeaRsBRi4nZr0aGf9s7Da9NVPjTZVC8Sd4BO
+ hF4E0m/Y1A1QY33TgRWOuDFzXtGoWC/mXa3xl+w6W9jQ1xmnBaiuDOCG/A0vhDMZh03X60
+ KbvWeLla37lGlktjI3bX9SopDQSWF8idLB1m7QfPZH4721sij5Gd18j2qVbtxgdeBDAbpt
+ hEBgilpXYJhGK8vXCloc2m2nchcGqjXVaY5ULqATepTJ29ETKdgHSaqG0XQXw2ho/9oF1B
+ 5MpzaSDX4uCTwNBp2xrnMtcIeU1nL9vbrjXcjszVYBdxY2YxRoWvYLv7QjsYhA==
+From: "fuzheng.meng" <fuzheng.meng@semidrive.com>
+Date: Mon,  2 Nov 2026 17:36:09 +0800
+Message-Id: <20261102093609.2400381-1-fuzheng.meng@semidrive.com>
+Content-Type: text/plain; charset=UTF-8
+X-Original-From: "fuzheng.meng" <fuzheng.meng@semidrive.com>
+To: <gregkh@linuxfoundation.org>
+Subject: [PATCH] serial: 8250: restore FIFO in serial8250_console_restore()
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -99,221 +58,173 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-X-MBO-RS-ID: 9c9e0b972831da15e15
-X-MBO-RS-META: rpf1r7o51nkurn4xtfgfh9p8yhndq3x9
+Mime-Version: 1.0
+Received: from localhost.localdomain ([163.125.147.214]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 17:36:16 +0800
+Content-Transfer-Encoding: quoted-printable
+X-Mailer: git-send-email 2.43.0
+X-Lms-Return-Path: <lba+26ae85992+645236+vger.kernel.org+fuzheng.meng@semidrive.com>
+Cc: <jirislaby@kernel.org>, <linux-serial@vger.kernel.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	"fuzheng.meng" <fuzheng.meng@semidrive.com>, <stable@vger.kernel.org>
 
-On Wed, 2026-10-28 at 14:38 +0100, Christian K=C3=B6nig wrote:
-> On 10/28/26 10:47, Philipp Stanner wrote:
-> > > > 	commit c8a5d5ea3ba6 ("nouveau: fix client work fence deletion race=
-")
-> > >=20
-> > > This bug is exactly what I'm trying to prevent here.
-> >=20
-> > What is your proposed strategy for preventing it?
->=20
-> nouveau_fence_signal() is consistently used by all signaling path to
-> both signal and cleanup a fence.
+When console_suspend is disabled, the serial console stays enabled
+over a system suspend, and serial8250_suspend_port() writes a canary
+value to the SCR register (if the port has one) to detect whether the
+UART lost power during the sleep cycle.
 
-No, you miss the point. Look at the bug. It exists because nouveau
-thinks it can drop a reference now because the fence is signaled.
+If the hardware did lose power, all registers are reset, and the
+first console write after resume detects the canary mismatch and
+calls serial8250_console_restore(), which reprograms divisor, LCR and
+MCR, but not the FCR.
 
-I grant the point, though, that this is actually a refcounting issue.
-The path that is signaling does not have its own extra reference.
+serial8250_console_write() decides whether to take the FIFO write
+path from the cached up->fcr, which still carries
+UART_FCR_ENABLE_FIFO. With the hardware FIFO left disabled by the
+reset, the transmit holding register holds only one byte, while
+serial8250_console_fifo_write() pushes up to tx_loadsz bytes into the
+port after waiting for THRE only once. The burst overwrites itself
+and the console output right after resume is garbled.
 
-> When we stop calling callbacks with locks held and signaling fences
-> from dma_fence_is_signaled() and dma_fence_enable_signaling() nouveau
-> can call nouveau_fence_signal() consistently from all cleanup paths
-> with the proper handling.
->=20
-> This makes it completely unecessary to have those cleanup hacks as
-> well as the nouveau_fence_release() callback.
->=20
-> Background is that you can then put the fence context directly after
-> the fence is signaled=20
->=20
-> > > This problem only exists because we call the backend operations with
-> > > the lock held!
-> >=20
-> > Nope, this particular bug exists because Nouveau thought that it can
-> > drop its reference when dma_fence_is_signaled() returns true, which is
-> > not the case, because the fence backend has a race condition there.
->=20
-> No it doesn't, the fence backend works exactly like intended.
+Factor the FIFO write path condition out into a new
+serial8250_console_use_fifo() helper and use it from both
+serial8250_console_write() and serial8250_console_restore(). Restore
+the FIFO in serial8250_console_restore() when the FIFO write path is
+going to be used: first write UART_FCR_ENABLE_FIFO, then the cached
+fcr, as dw8250_idle_exit() does after its registers are reset.
 
-You mean the lockless checking of a bit that is set under lock-
-protection works as intended?
+Tested on a DesignWare 8250 based platform with console_suspend=3D0
+over a suspend/resume cycle.
 
->=20
-> I agree that we made tons of mistakes here but that is actually one
-> of the few things which we got right on dma_fences from the very
-> beginning.
-> > A race condition that was allowed for performance reasons.
->=20
-> Well it is at least partially for correctness as well.
->=20
-> It is mandatory for quite a number of use cases that the signaling
-> status becomes visible before the callbacks finish because otherwise
-> you run into race conditions with the callbacks again.
+Fixes: 8f3631f0f6eb ("serial/8250: Use fifo in 8250 console driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: fuzheng.meng <fuzheng.meng@semidrive.com>
+---
+ drivers/tty/serial/8250/8250_port.c | 64 ++++++++++++++++++++---------
+ 1 file changed, 45 insertions(+), 19 deletions(-)
 
-That's not what I mean. There are two things here:
-
-a) signaled-bit is read without lock-protection
-b) signaled-bit is set before callbacks execute
-
-fixing a) makes b) irrelevant.
-
-But that's not even my point in this mail.
-
-
-I'm still interested btw in who is busy-polling on a fence, waiting
-until the signaled-bit gets true (that would be the "performance"
-argument).
-
-If you want to know when a fence changes from unsignaled to signaled,
-use this function:
-
-dma_fence_add_callback()
-
-problem solved.
-
-> > What signaling handler are you referring to?
->=20
-> Take a look at the hack nouveau_fence_is_signaled() does for example.
-> The cleanup part the other signaling call path do is completely
-> missing here because the function can't take the fctx->lock.
-
-Again, ops->signaled() merely has to read an atomic64_t and return a
-bool. Driver locks are not required here.
-
->=20
-> Yes, but if we want to get away from the external lock concept in
-> dma_fence we must allow drivers to take their own fctx->lock inside
-> the enable_signaling callback.
->=20
-> Just take a look at what nouveau_fence_enable_signaling() does, that
-> is only possible because the dma_fence framework has grabbed fctx-
-> >lock before calling this function.
->=20
-> The alternative is forcing drivers to use lockless approaches for
-> their internal handling, and that is much much worse than that a
-> dma_fence signaling status is visible without taking the lock.
-
-[=E2=80=A6]
-
-> Just take nouveau_fence_enable_signaling() as an example, if we don't
-> use fctx->lock as external dma_fence lock then the whole approach
-> used here doesn't work any more.
-
-My entire point is that the driver does not need any driver-lock
-conflicting with the fence-lock-order at all.
-
-I tried to point this out several times, but you keep iterating back to
-"this is what nouveau does".
-
-That nouveau does it does not proof that it's necessary. It just proofs
-that nouveau does it.
-
-> > >=20
-> > My impression was more that central design criteria for dma_fence (like
-> > module unload of the driver who issued your fence, which is designed to
-> > live arbitrarily long) were ignored, there was no clear guidance for
-> > drivers how they should use what callback, and then driver problems
-> > were solved in dma_fence, for instance with this shared lock. So same
-> > story as with drm_sched.
->=20
-> Yes, exactly that.
-
-Good!
-
-So we agree that the dma_fence backend should give clear guidance about
-what a driver must, must not and should do in its backend_ops
-implementations.
-
-Right?
-
-Because so far the conversation sounded to me like "the driver must be
-able to do whatever it wants and therefore needs to be able to grab
-whatever locks".
-
->=20
->=20
-> And that is strong evidence. Nouveau is actually the perfect example
-> of why this approach causes so much trouble for driver
-> implementations.
-
-Calling Nouveau a "perfect example" is like calling Ronald McDonald a
-role model in dietary choices.
-
-Nova is being written right now, for reasons.
-
->=20
-> And such guidance should not exist in the first place.
->=20
-> It is up to the driver if they want to use locks for their internal
-> state protection and the dma_fence framework should absolutely not
-> enforce anything it doesn't need to deal with.
->=20
-> That the dma_fence lock should protect the state of the dma_fence is
-> something I can perfectly agree on, but that does not include the ops
-> call chain because that isn't dma_fence state in the first place.
->=20
-> > The only evidence I have ever seen is the fence-list-lock, and it's
-> > just not clear at all why any callback would need access to that.
->=20
-> Because they need to clean things up after signaling.
->=20
-> > Let's walk it through together, shall we?
-> >=20
-> > ops->release() and ->wait(): deprecated
-> >=20
-> > ops->get_XXX_name() -> never needs driver locks
-> >=20
-> > ops->signaled(): "Driver, here you read an atomic integer, the sequence
-> > number, and tell the fence backend whether this fence shall be regarded
-> > as completed"
-> > No need for any driver lock.
->=20
-> Incorrect, you can only work without driver locks here when you delegate =
-the cleanup.
->=20
-> In other words either to a worker or the ->release callback, both are thi=
-ngs we try to avoid.
->=20
-> Again see nouveau as a perfect example of the problem.
->=20
-> > If this particular driver also signals fences through an interrupt
-> > handler, it can take a list lock, then signal the fence. The ops must
-> > not do that.
-> > Why would a driver need both modes, sw *and* hw signaling? And why then
-> > is it supposedly the case that both paths need to keep a list updated?
->=20
-> Because the signaling through the interrupt is mandatory for correct,
-> the signaling through the is_signaled callback is then on top for
-> performance optimizations.
-
-is_signaled() never conflicts with any lock, see my list above.
-
-I think at this point you and I should really first get in sync
-regarding what the backend_ops are supposed to do, because we seem to
-turn in circles a bit in our discussion.
-
-And the only ops that seems to be controversial and that informs the
-nouveau argument is ops->enable_signaling()
-
-What should enable_signaling() do, in your mind? What should we tell
-the driver to do in there?
-
-And why does nouveau even implement it, when its interrupt handler will
-ultimately signal the fence anyways. Since, as usual, nothing is
-documented, and one enable_signaling function carries literally the
-name "no_signaling", I don't give it the benefit of the doubt and just
-assume that this is broken, bad design.
-
-
-My impression is that ops->enable_signaling() and having an interrupt
-handler signaling fences is mutually exclusive design-wise.
-
-
-P.
->=20
+diff --git a/drivers/tty/serial/8250/8250_port.c b/drivers/tty/serial/8250/=
+8250_port.c
+index 36b2b0a2c05c..ee6b02cff015 100644
+--- a/drivers/tty/serial/8250/8250_port.c
++++ b/drivers/tty/serial/8250/8250_port.c
+@@ -3321,6 +3321,37 @@ static void serial8250_console_wait_putchar(struct u=
+art_port *port, unsigned cha
+ 	serial8250_console_putchar(port, ch);
+ }
+=20
++/*
++ * Console output can go through the TX FIFO in one tx_loadsz chunk only
++ * if the port has a FIFO and the software state expects it enabled. The
++ * same conditions tell console_restore() whether the FIFO has to be
++ * brought back after a system sleep reset.
++ */
++static bool serial8250_console_use_fifo(struct uart_8250_port *up)
++{
++	struct uart_port *port =3D &up->port;
++
++	return (up->capabilities & UART_CAP_FIFO) &&
++		/*
++		 * BCM283x requires to check the fifo
++		 * after each byte.
++		 */
++		!(up->capabilities & UART_CAP_MINI) &&
++		/*
++		 * tx_loadsz contains the transmit fifo size
++		 */
++		up->tx_loadsz > 1 &&
++		(up->fcr & UART_FCR_ENABLE_FIFO) &&
++		port->state &&
++		test_bit(TTY_PORT_INITIALIZED, &port->state->port.iflags) &&
++		/*
++		 * After we put a data in the fifo, the controller will send
++		 * it regardless of the CTS state. Therefore, only use fifo
++		 * if we don't use control flow.
++		 */
++		!uart_console_hwflow_active(port);
++}
++
+ /*
+  *	Restore serial console when h/w power-off detected
+  */
+@@ -3345,6 +3376,19 @@ static void serial8250_console_restore(struct uart_8=
+250_port *up)
+ 	serial8250_set_divisor(port, baud, quot, frac);
+ 	serial_port_out(port, UART_LCR, up->lcr);
+ 	serial8250_out_MCR(up, up->mcr | UART_MCR_DTR | UART_MCR_RTS);
++
++	/*
++	 * System sleep may reset the FCR, leaving the FIFO disabled,
++	 * while the cached up->fcr still tells console_write() to push
++	 * tx_loadsz bytes into the FIFO at once; with the hardware FIFO
++	 * off, the THR holds only one byte and earlier ones are
++	 * overwritten, which garbles the console output after resume.
++	 * Restore the FCR when the FIFO write path is going to be used.
++	 */
++	if (serial8250_console_use_fifo(up)) {
++		serial_port_out(port, UART_FCR, UART_FCR_ENABLE_FIFO);
++		serial_port_out(port, UART_FCR, up->fcr);
++	}
+ }
+=20
+ /*
+@@ -3495,25 +3539,7 @@ void serial8250_console_write(struct uart_8250_port =
+*up,
+ 		mdelay(port->rs485.delay_rts_before_send);
+ 	}
+=20
+-	use_fifo =3D (up->capabilities & UART_CAP_FIFO) &&
+-		/*
+-		 * BCM283x requires to check the fifo
+-		 * after each byte.
+-		 */
+-		!(up->capabilities & UART_CAP_MINI) &&
+-		/*
+-		 * tx_loadsz contains the transmit fifo size
+-		 */
+-		up->tx_loadsz > 1 &&
+-		(up->fcr & UART_FCR_ENABLE_FIFO) &&
+-		port->state &&
+-		test_bit(TTY_PORT_INITIALIZED, &port->state->port.iflags) &&
+-		/*
+-		 * After we put a data in the fifo, the controller will send
+-		 * it regardless of the CTS state. Therefore, only use fifo
+-		 * if we don't use control flow.
+-		 */
+-		!uart_console_hwflow_active(&up->port);
++	use_fifo =3D serial8250_console_use_fifo(up);
+=20
+ 	nbcon_exit_unsafe(wctxt);
+=20
+--=20
+2.43.0
+=E6=B3=A8=E6=84=8F=EF=BC=9A=E6=9C=AC=E7=94=B5=E5=AD=90=E9=82=AE=E4=BB=B6=E5=
+=8F=8A=E5=85=B6=E4=BB=BB=E4=BD=95=E9=99=84=E4=BB=B6=E5=9D=87=E5=BD=92=E5=8C=
+=97=E4=BA=AC=E8=8A=AF=E9=A9=B0=E5=8D=8A=E5=AF=BC=E4=BD=93=E7=A7=91=E6=8A=80=
+=E8=82=A1=E4=BB=BD=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8=E5=8F=8A=E5=85=B6=E5=
+=90=84=E5=88=86=E5=AD=90=E5=85=AC=E5=8F=B8=EF=BC=88"=E8=8A=AF=E9=A9=B0=E7=
+=A7=91=E6=8A=80"=EF=BC=89=E6=89=80=E6=9C=89=E3=80=82=E6=9C=AC=E7=94=B5=E5=
+=AD=90=E9=82=AE=E4=BB=B6=E5=8F=8A=E5=85=B6=E9=99=84=E4=BB=B6=E4=BB=85=E4=BE=
+=9B=E6=8C=87=E5=AE=9A=E7=9A=84=E6=94=B6=E4=BB=B6=E4=BA=BA=E6=88=96=E6=94=B6=
+=E4=BB=B6=E5=AE=9E=E4=BD=93=E4=BD=BF=E7=94=A8=EF=BC=8C=E5=B9=B6=E5=8F=AF=E8=
+=83=BD=E5=8C=85=E5=90=AB=E8=8A=AF=E9=A9=B0=E7=A7=91=E6=8A=80=E7=9A=84=E6=9C=
+=BA=E5=AF=86=E4=BF=A1=E6=81=AF=E3=80=82=E7=A6=81=E6=AD=A2=E4=BB=BB=E4=BD=95=
+=E6=9C=AA=E7=BB=8F=E6=8E=88=E6=9D=83=E7=9A=84=E4=BD=BF=E7=94=A8=E3=80=81=E5=
+=A4=8D=E5=88=B6=E3=80=81=E4=BC=A0=E6=92=AD=E6=88=96=E5=85=B6=E4=BB=96=E5=9B=
+=A0=E4=BE=9D=E8=B5=96=E6=9C=AC=E7=94=B5=E5=AD=90=E9=82=AE=E4=BB=B6=E8=80=8C=
+=E9=87=87=E5=8F=96=E6=88=96=E4=B8=8D=E9=87=87=E5=8F=96=E7=9A=84=E8=A1=8C=E4=
+=B8=BA=E3=80=82=E5=A6=82=E6=9E=9C=E6=82=A8=E4=B8=8D=E6=98=AF=E6=AD=A4=E7=94=
+=B5=E5=AD=90=E9=82=AE=E4=BB=B6=E7=9A=84=E9=A2=84=E6=9C=9F=E6=94=B6=E4=BB=B6=
+=E4=BA=BA=EF=BC=8C=E8=AF=B7=E7=AB=8B=E5=8D=B3=E9=80=9A=E8=BF=87=E5=9B=9E=E5=
+=A4=8D=E9=82=AE=E4=BB=B6=E9=80=9A=E7=9F=A5=E5=8F=91=E4=BB=B6=E4=BA=BA=EF=BC=
+=8C=E5=B9=B6=E4=BB=8E=E6=82=A8=E7=9A=84=E7=B3=BB=E7=BB=9F=E4=B8=AD=E5=88=A0=
+=E9=99=A4=E6=AD=A4=E9=82=AE=E4=BB=B6=E5=8F=8A=E4=BB=BB=E4=BD=95=E9=99=84=E4=
+=BB=B6=E3=80=82=E9=9D=9E=E5=B8=B8=E6=84=9F=E8=B0=A2=E3=80=82
+Attention: This email and any attachment hereto belong to Beijing Semidrive=
+ Technology Corporation and each of its affiliates and subsidiaries ("SemiD=
+rive Group"). This email and its attachments are intended solely for the us=
+e of the individual or entity to which they are addressed and may contain c=
+onfidential information of SemiDrive Group. Any unauthorized use, copying, =
+dissemination or other action taken or omitted in reliance upon this email =
+is strictly prohibited. If you are not the intended recipient, please notif=
+y the sender immediately by reply email and delete this message and any att=
+achments from your system. Thank you.
