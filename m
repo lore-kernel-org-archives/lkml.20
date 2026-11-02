@@ -1,101 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.229.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793662688;
-	b=1AgtXQm+VbjAS7lm7focs2BUeqS2Q59VcdZ3Wcfdz99E0TjxN9NAQwPbcVrj0CA79L/1
-	 KRYBiCehOPiCjZQ/53DxPe4eYT4ZY6TEpbIHg9j6+OdqEbFUs6sWCeuv1Er/FB1RqMEo6
-	 kkXiTE3fCKoXL93uueBilrlnKKzKmU9EUzhT4GN/bOmlAHt3vumlirMqGRtdnGEUObYt1
-	 T1WP8C8av1w46guwQ4JL8pqL4O5UVgZX3YW/NroxL+eJvjR254MrX8SF1ObuIFn3U2O1R
-	 XDYJDkpj/L8pfV7GTk7Hyurttjud8U+cY1bmEecvPPbL7VOLxC3UJ7Aid1L7Mb+U8Pg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793662688;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793662777;
+	b=HtHJHpwiyJUvorQnfX6nOcyVwejOSqFJg6TvqTiDgUpYpgxJO4+sLxu2n2MTyE66Lijw
+	 JBjlDy5NZw9s1X+pbzYaCoUwdDcdSgPAKpq5gRz8cPXUqXU0RN64lfqvASH1Ok+12Qheh
+	 Bw+HvrhIMGWHpY2TN2MeQQap3KWhptqkzkyiP3gOrpw4FvKJcAdigk4sFyseFDxq0HX3j
+	 RZZgosqpYiR5ldJ5HRmnRsBtMgP5iuR81wbW1vNyYD7A5BoLlWkS4u5caQrVaLJVDoGgy
+	 cy7XPGqG1FMewZLuogrMtj+JsrQq1TgMD9vbDUn19Pv7KhC6K7a93QLbjtcvTP35AJw==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793662777;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:Content-Transfer-Encoding:
-	 In-Reply-To;
-	bh=VgQ+KN2VyFhEnUQIyYXKW6M1JeW0WUnB3l+NuZRm2I0=;
-	b=wUdlUYXp+72tO5J8YXWj1ecUAmC2gLuA/hQHmxAMeAu/UwNwTAYATGKakxoY48XPwk3v
-	 dsNoYadIu+wssHKs4dnrzz4YMYqUIqGvcga+16grOSqWIi8nRSyMVyST3pl+EP1OJmRB1
-	 GuRBejM7/lFjsOGeJIYS/ooNzFN7nqYCisctbVLVQ6qyTKCW+qgCjaAODqcmtSN0Lzr77
-	 9DDFpHwsihwOa7FUjvwHGvMSZNLxS1XZoSF4xpNLGOXT2c6aDy4rlbJ2pKDyyOAVqEPp+
-	 TwG7LKOcMLCOhJaehl1Ti9W+xPfP+2SDsHMbqt0hBbuDszcEQVNzoHEk6aI0u4npGnA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DwrWH4g5;
-	arc=none smtp.remote-ip=74.125.229.5
-Received: from mail-dy2-f5.google.com (mail-dy2-f5.google.com [74.125.229.5])
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:MIME-Version:References:
+	 In-Reply-To:From:Date:X-Gm-Features:Message-ID:Subject:To:Cc:
+	 Content-Type:Content-Transfer-Encoding;
+	bh=+q4epD+/kjYFUHxTaUaWiSwNZ7dSox/dJ3V0P9S7xc4=;
+	b=jkgvkX5W4tpumK4AGmlol9t2d0K00KYmhs+OutjA0+pAZOTjxv05yEk8+uCdEN3Xt+sc
+	 OMLNJSbrFBe22VK+JHJw00raEQO+NDuZL5x+pP0U2nQPVfOCbbRih2abv78xhqWZIWkyA
+	 +tPuErJfWIh36hCqqc1GazQVskhYQeCEvna3SRCjgkF5xgaF7iKI/g3rxeeqGuSVCNoes
+	 wa9H21Ivqmtc9nEMm5SaPzl8avmFecqoAiASNE4hvfVcCie6q6ndj8lCHztY0kksJHCZI
+	 TYjbS/WsT2FgIyMkbgSIJRfIB2GsULsrQH+R8XN+tm9mrsktFhYshJXPfvu31/E96Cw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XUVIaN0k;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.47
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A90606A33C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:38:07 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 75A90606A33C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1FC2606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 23:39:36 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B1FC2606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DwrWH4g5
-Received: by mail-dy2-f5.google.com with SMTP id 5a478bee46e88-35dc2af1f2fso1468899eec.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:38:07 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XUVIaN0k
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6b1b12de661so3815a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 15:39:36 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793662775; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dxuklPgG8mTcvqEJUY3d/JUG7UMn2TDZNT02ROGDBXQxpmbf2z4aq77UUKwXbDdI5y
+         6lNxU356E0Jyik/UeyU902w7PxKQ5lKTpniHit0Jgiv13c/0UznxMTfF3AZyTvhQvi7W
+         akx5j7AIsQqoe/K/UJ/BP6+NZvIuiLPzVQHskupxfBpXs65rDufsj6m28Fbb2N6BKWJs
+         xtP7G8vDZYs0ZKb7do3rXFI8WUTxZTt77bfZFDIu4Jjhm13zc4IyGNO1SbNwKza5Anq5
+         XUXmyobgW3KDry+73qq93JmfMGYIWPVLZVuMHoA0vOYlOF5ku6YTnq1pcUgApXsNJM6p
+         ftrw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+q4epD+/kjYFUHxTaUaWiSwNZ7dSox/dJ3V0P9S7xc4=;
+        fh=l6cOhIo/kaOT4a9xBk6NHMz9bLk/xmDiZO2AE3+4Iqw=;
+        b=DTz9Y3YFZC9yp5lpfPtSeTM2esFSTlnPvvUBT3cxGEzIQ5hTjhqo4h9GPXsMUIIE8M
+         jiECXaqWGoW9bAWv7pByE7PO4H3hY4uj2vvLI4H74OXhFxlUoQh7Gp79YqyrkLdLPB+g
+         HkMJHVKSqeismvkSCMh03PuzsYV9KZxCA4lk92By6cS1ALGFBWX6W8QF1UFxR4xdeDIf
+         8iFEmbH7KDyFOC7mDZxAFt0G/YUAzitGF8KUZSOm96EbvpT1oYvE/szM6X/nPqoHRCpd
+         dAMnw88IMXVI/xQwKced55dOJ4nqpjKNu7Ap2aIQuBTJX9xMLESyLBSOg0tgWhTqnPg4
+         +77g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793662687; x=1794267487; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VgQ+KN2VyFhEnUQIyYXKW6M1JeW0WUnB3l+NuZRm2I0=;
-        b=DwrWH4g5a2ySoC+GOC6eDg0PYRp7kGP9JqdiDDKQU+vGcurm0exab5wPwxJ0QyOwWT
-         2Fy1qABOHcYH4XtCS9N93PB3f5mLk9h1CqWwZKRqQOE0783eu+1pjl+5aBSA8aIDUT5y
-         kRsrGrXLGooT2yuPKu1NHWCBJ8t8DbWXvJHSr8qpg7OenSVvzNivb3UVHBsv8XUuzv3d
-         EFEs/jZg5QvPXc78m9V/s4lPqx8NYIz1h4wQ2paI/UL85bH2HHR5x0gwnKVWe5NepVeM
-         npoBHLbHCq2DQ4oqarJVcLy1iMxKK3M4BZkpFG4cdgyiRfVDfKbEiy4SLaa+Z8J1JNQU
-         F6Lw==
+        d=google.com; s=20260707; t=1793662775; x=1794267575; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+q4epD+/kjYFUHxTaUaWiSwNZ7dSox/dJ3V0P9S7xc4=;
+        b=XUVIaN0kG8xdtu5h2ZGfO1duG7NUeb3NlnGwuDdCm7+GDP4sti5i3GtIgh/wGANS3v
+         iLG4FWeU/XVJ6RmDWvjMsWFVP2ETCkzWNm6dvkWqmBfIMStsQjPPeFKt9onzqxRkV+9n
+         SZqobE0JlV574RoDGd+Fk3S5HJchvZj1nbns4BOgjX5kWZ5+GqfI504FWg8QCZ3CduVA
+         txlnmutgVLylcu9Kvuo57PytOMdh+52MKoLswapw8HS3LbMVWaZ+aOYTma39FPnOIL3v
+         aolVSsmSvffPjE/n/j/IztRqZzgXtwiE2epckEY/tLPgbodm7hh+EjAE4BoQUwHS5z0y
+         K9QQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793662687; x=1794267487;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=VgQ+KN2VyFhEnUQIyYXKW6M1JeW0WUnB3l+NuZRm2I0=;
-        b=oBSIIeCekB3MDfq+t4AerhQZA3bH3xOKF41z6js2nkRf19gMZKUF2QWmJE0guTnApH
-         cJNqFrxSEMD8y8uTn2CycvfWa+fJdUQ9yZgls03d+DI4G4AVK1zeMf1Bfq9tQgO9K6tF
-         pEjNoWeJqOngL9sgK5C6yQ0MeYIDKG5JLVg37crZQ8TXmjSn2fSSKVuny3OhZF+KtxAX
-         ghFsasPbP2b2Wwp+LM03ESE7A2G2X4sEAtqfGCmgFeKnHb2DdJ90a5L8WjhytbLvf/Ax
-         VnHiYoOcQBVLUp5y4vc6TibSgTarMkI86joGz2tpKVq9qrXyAfh1Y4WlZq5ztgUjXfR6
-         Rbpw==
-X-Forwarded-Encrypted: i=1; AKwUvBxzRJ+lTAKauCF6IOPrg94fU7xNv/KtQArzhMmgI6KZTLtPGdlvMOxgEQNYq9TrMo1vfaGHlZcAcrKhxes=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/WtK3/c35grBNa7TTZJP1P0FerB540dqyP62dbQIxbHu9mfKnN
-	efYo7PmPr5L6ltjCFDJIEzNHvNLyMDdzzWh6B0yTHR2wN7TRaB0kYiXo
-X-Gm-Gg: AYBFou1Wqs58Bn7nuYEiNMA2Z0fGiNAKeHMpXfthIzvb8gElMw0iWWgUBVrIzZ7rB4O
-	i+ohJYmJBT5E7/Mx3VNjhXZ5Y16bheTyX929R6iYR/ELCYWX6uhObIcfOZACNCDSdXZ2JLnrx1a
-	PCIZZAB5qEqwqjrQoGhmSQZDZY+JoF7zcJM9VB/VuJb+GeNSqhliuaZRJczLSDXlqec5sCm4B6k
-	JCcMXwMCmGgxKXuMjUA1CCxHP62o+e55k8qlmCmKA8escAgF0JEg8h6cmzQ5P/xF/QLJMWwxuZx
-	pKgKLiunNCNEDPIYe34aJC88SQMe4ElgtdU2mnl6nJLEuecEPZ3cyZJZ07m+pndixtu1omkvZfk
-	Lv7D4NPZiOrozrGvSJipcebg9lHcoiSEMJHQDmBV9o3oqEp33xmwlHuYbrD9fm6lXeKgXpw6eIC
-	uKzDw9cXbQW67NZ8YJDWtCf1l2FPG1FmEH1i2apknvD225RJNjMnGd/1weMwdWNhGd86uBkpBi3
-	uwR9kmokTft+cNGEM5GR23KNyFj55CIn4pwYcy7RJbrs6hXxX7OkywIO47nlWWmnHrNuiFxVGEf
-	ow3KZ8Pm/xhYpeW5MzWjiw==
-X-Received: by 2002:a05:7300:c7cb:b0:36a:214f:169e with SMTP id 5a478bee46e88-36a4238426cmr18543511eec.21.1793662686396;
-        Mon, 02 Nov 2026 15:38:06 -0800 (PST)
-Received: from localhost ([2a03:2880:9ff:41::])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-36a4239ca83sm1701518eec.0.2026.11.02.15.38.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 15:38:06 -0800 (PST)
-Date: Mon, 2 Nov 2026 15:27:23 -0800
-From: Stanislav Fomichev <sdf.kernel@gmail.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, edumazet@kernel.org, 
-	horms@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org, rdunlap@infradead.org, 
-	michael.chan@broadcom.com, pavan.chebbi@broadcom.com, sdf@fomichev.me, 
-	bobbyeshleman@meta.com, asml.silence@gmail.com, daniel@iogearbox.net, 
-	razor@blackwall.org, leitao@debian.org, linux-doc@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org
-Subject: Re: [PATCH net-next 4/7] net: devmem: add a per-device netmem TX
- frag size limit
-Message-ID: <aukb2qxV5Y0b3H0N@devvm16445.scu0.facebook.com>
-References: <20261102191438.1059771-1-sdf@fomichev.me>
- <20261102191438.1059771-5-sdf@fomichev.me>
- <CAHS8izP6BmNJLUdKR0DpqieOVXreR7ycKWmVbtbBtP-kHy7HOg@mail.gmail.com>
+        d=1e100.net; s=20260707; t=1793662775; x=1794267575;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+q4epD+/kjYFUHxTaUaWiSwNZ7dSox/dJ3V0P9S7xc4=;
+        b=guZJHIZ9L1HdYTfX/yfddiNK4TUjUd4itH+QzMZCj49JZ4wvV20qvRClYBw012N59T
+         jr71o39H2b2BPVCqQjlS/oAMNxre1t8ljhXSCx3sA0VM3no06Q7kzoMC5I4DFoR4zpsY
+         KGS9xtJ2F5Q6d5ffCXwKIarL++4baAievJ+0RVTdKgC2/4y7+LSxk2O2frgimXUfSvnO
+         s5RY/LR6wE0ZRWrGgE9Q9K6Tyo8n+mdS1QmGgJAIPH62NO83WbMAf5cYh/dPLMBW/T55
+         VzWzpK2/wIjq2T8rcMC++R8Xz2OBd5sG7walJFklIF954xJv8yE5MzSu6vtFgp67GS07
+         h/PQ==
+X-Gm-Message-State: APuU4Z8ijREYhJhCwFBdatsdtRYf2zcLh9VGqXB0Tlj5LLkeYOhBXVna
+	DkEM3iInpZ8utf40DRO8MpY25EEmXwWxFVcFBCazwDeBTnH2H/t7VMLVFqvYf3wSMOpkA+Z2UZc
+	2z8xwoezJ+OVrLigduNzMeq1TikE2PZFYgP6MuVTe
+X-Gm-Gg: AYBFou1h9WFtM38lTpizzHxLavY0GJjK03qcIb1h1mI6uCbF05rzHQn4NYSZ+boVOEL
+	DKSrPhGVpLabL4sQtXFkU0PwXmB8/mA5bxz3DHJBgLm8LpOEW1/G8NALs3VRStiB5GzBEvV8dI/
+	19JohVmovbBpWZdLQzwglEVUam+jo2EH0kP5ZZj76Dci7UsC136Oquj90ZcvK4dY5nfiwhcFSwi
+	YORPzx67J1sfJ+cum01qkMDub+ZmIw4H+ptlScpmtaXwOWCPMebsq9EvYp8GiLoeGzVfZ1szuBj
+	toEwPi40851dkKw/9OEItYZoYEdp/OgNCwtPzXc8pC+0KXilTeg0NSYtHo93a9vWflOyaP/uS8/
+	WzAWHgFU/bvpaa60znIQ9OSwe9ZEBFMu4ZGGc
+X-Received: by 2002:a05:6402:10c9:b0:6aa:128c:36ad with SMTP id
+ 4fb4d7f45d1cf-6b53e764c47mr10361a12.10.1793662774603; Mon, 02 Nov 2026
+ 15:39:34 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,38 +103,96 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAHS8izP6BmNJLUdKR0DpqieOVXreR7ycKWmVbtbBtP-kHy7HOg@mail.gmail.com>
+References: <20261102231428.13523-1-pbonzini@redhat.com> <20261102231428.13523-5-pbonzini@redhat.com>
+In-Reply-To: <20261102231428.13523-5-pbonzini@redhat.com>
+From: Jim Mattson <jmattson@google.com>
+Date: Mon, 2 Nov 2026 15:39:22 -0800
+X-Gm-Features: AclHuK_llZQOnCwx54tZ59oMjrQu1r-_j_89HC5UjrdUh8dhwsQ0SoPYuUVmetM
+Message-ID: <CALMp9eT7cnBf6kSXZLWuMyG9a52QveWjzzLz3Z9E=kPuX_ahVg@mail.gmail.com>
+Subject: Re: [PATCH 4/7] KVM: nVMX: Process each host MSR entry at most once
+ when unwinding failed VM-Entry
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, 
+	Sean Christopherson <seanjc@google.com>, stable@vger.kernel.org, 
+	David Woodhouse <dwmw2@infradead.org>, Stefan Teodorescu <fane@google.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 11/02, Mina Almasry wrote:
-> On Mon, Nov 2, 2026 at 11:14 AM Stanislav Fomichev <sdf.kernel@gmail.com> wrote:
-> >
-> > Devmem TX frags are bounded only by the net_iov size, which is about
-> > to grow up to 2MB, more than some devices can describe in a single TX
-> > descriptor.
-> >
-> > Add netmem_tx_max_frag_size, U32_MAX by default, and cap devmem TX
-> > frags to the limit of the device the binding is attached to.
-> >
-> > Signed-off-by: Stanislav Fomichev <sdf@fomichev.me>
-> 
-> Abstractly LGTM but I'm not sure why this is TX-specific. Didn't we
-> add non-PAGE_SIZE rx net-iovs? This should have been a problem then.
-> Either you know what you're doing (maybe document in the commit
-> message) or we need some more alignment on RX and TX.
-> 
-> TBH I was dissapointed when LLMs started reporting that
-> binding->vdev/dev are treated very differently for RX and TX and I
-> have to write a cleanup that consolidates this:
-> 
-> https://github.com/mina/linux/compare/devmem-teardown-v4...devmem-lease-bind-map-dev
-> 
-> I think maybe my reviews and yours maybe should be more mindful about
-> keeping these memory things consolidated and as much as possible not
-> RX/TX specific.
+On Mon, Nov 2, 2026 at 3:19=E2=80=AFPM Paolo Bonzini <pbonzini@redhat.com> =
+wrote:
+>
+> From: Sean Christopherson <seanjc@google.com>
+>
+> Add a missing "break" in the inner for-loop of the open coded mess that
+> unwinds MSRs back to the pre-VM-Enter state when VMLAUNCH/VMRESUME VM-Fai=
+ls
+> due to a consistency check that is caught by hardware but missed by KVM.
 
-This patch is mostly a bandaid for bnxt which can't express sizes
-longer than 2^16-1 in its tx descriptors. And rx is even more restricted
-I think? Up to 32K HW GRO aggregated?
+That sentence does not accurately describe what the code does.
+
+> I.e. move on to the next MSR in the VM-Entry load list after performing a
+> write using a value found in the VM-Exit load list.  Processing *every*
+> matching entry in the VM-Exit load list makes the processing quadratic,
+> which is problematic if the load lists are full of MSRs that are expensiv=
+e
+> to emulate.  E.g. writing APIC_BASE triggers kvm_recalculate_apic_map() a=
+nd
+> a whole pile of unnecessary work.
+>
+> Functionally, arbitrarily restoring the value of the first matching entry
+> is "fine", because none of this is architecturally correct: the load list=
+s
+> are never supposed to have been used in the first place.  In practice, it=
+'s
+> likely a moot point as no well-behaved VMM will have multiple, diverging
+> entries in the load lists.
+
+This isn't "fine." This is disgusting.
+
+The assumption that the VM-exit MSR-load list will "undo" every
+assignment made by the VM-entry MSR-load list is misguided and wrong.
+
+Xen, for instance, puts SPEC_CTRL on the VM-entry MSR-load list, but
+it does not put it on the VM-exit MSR-load list. Instead, after a
+normal VM-exit, it restores the host value in
+vmx_asm_vmexit_handler():
+
+        /*
+         * Restore Xen's MSR_SPEC_CTRL setting.  The guest's value resides =
+in
+         * the MSR load/save list.  For Legacy IBRS, this flushes/inhibits
+         * indirect predictions and does not flush the RSB.  For eIBRS, thi=
+s
+         * prevents CALLs/JMPs using predictions learnt at a lower predicto=
+r
+         * mode, and it flushes the RSB.  On eIBRS parts that also suffer f=
+rom
+         * PBRSB, the prior RSB stuffing suffices to make the RSB safe.
+         */
+        .macro restore_spec_ctrl
+            mov    $MSR_SPEC_CTRL, %ecx
+            mov    CPUINFO_xen_spec_ctrl(%rsp), %eax
+            xor    %edx, %edx
+            wrmsr
+        .endm
+        ALTERNATIVE "", restore_spec_ctrl, X86_FEATURE_SC_MSR_HVM
+
+After VM-entry failure, Xen executes this code:
+
+.Lvmx_vmentry_fail:
+        sti
+        PUSH_AND_CLEAR_GPRS
+
+        /*
+         * SPEC_CTRL_ENTRY notes
+         *
+         * If we end up here, no guest code has executed.  The MSR lists ha=
+ve
+         * not been processed, so we still have Xen's choice of MSR_SPEC_CT=
+RL
+         * in context, and the RSB is unchanged.
+         */
+
+        call vmx_vmentry_failure
+
+KVM needs to do better.
