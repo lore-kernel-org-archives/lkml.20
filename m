@@ -1,82 +1,96 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.163.158.5
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793606506;
-	b=cwgjypf3AS9Gr0S8SZ0JWoXLlGNxMh3LSNuCLcYh/pDAPu7X8QoZoeGbOlLf1JLcJ9h6
-	 uVV/FK9Nu5ue74ZjHp+NaQisA8LPhzDlu+5+iVVjq6GBtTlT7h8seDn+3uTNwijN0VXdc
-	 ZpBakSCCFCphnQpKlmnCI3RayYGrfI9Bdu92P8pvxbN24JTfVNNWT0VbCEhCM9GsVw4KM
-	 msJpd3r6PmOzhYYfoV9CR8bdaq5dNa1IVj5T/VjM+HVwpDN1GVauaMZq2B26164gFBXVy
-	 Ffp9/s2h74XNzH2rrtfOsS2oK0FLLQkngjPWiSC6fRGROcDQncu1dQTP8wlUCB/Do7g==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793606506;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:Received:
-	 Received:Received:Received:Received:Message-ID:Date:MIME-Version:
-	 User-Agent:Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:X-TM-AS-GCONF:
-	 X-Proofpoint-Reinject:X-Authority-Analysis:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-GUID:
-	 X-Proofpoint-ORIG-GUID:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=HBnD11gMSZpLVfr+vR9u0GimaEXWjeLtUh8hd5opuf4=;
-	b=gYIpRGpYQZl7XsBIYZsLAqLINvQtYgIP6LB8vvIwxyG3SWl8CmTyctvr9e0TAVGKVdnX
-	 iyAied6ouqHdsBeecVymimt9OWxRmUtNIYQbY4YYwfRqzPeOYcbjkOLvvGv1ODcMcoW/q
-	 zfE4FdQMsBPPFOBdKK2y7/f6g+uiTlgQGdfCJdFiD75fg+KhsVP/z+UaOMkRwNo5Cbp6o
-	 X6pZQEHkSE1wnEYn/XBK6cVGcJsK4DbUPi6OxFSmiXBhICzQaO/Nu4Kzaps+/6n3kYZbo
-	 fL/WP/04dU//N0Dfoi0K7GnBG9CgdGF6HoYTkdBMna941ACMDabColtwURtIAvRnfeg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.ibm.com;
-	spf=pass smtp.mailfrom=linux.ibm.com;
-	dkim=pass header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GVi985Fx;
-	arc=none smtp.remote-ip=148.163.158.5
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.35
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793606517;
+	b=Qe+Mc6ifBUpCJ8cXC2Rp9Iq27qDLMIK0SHxYhmIX8vGPD5MY6C4MAbAjkjeWC9jWqaOb
+	 +sJrFctviDH63ktX+tY5u/NR86EukPIpDeCWHfROkFVG3jWoI8dGpNwulbjHvNseRScaB
+	 KR7oGF20KsLbBEPUM26/tKLVTl2ZxMpL+PWeL4octYhWaLqfvNGz70DACRd1YoUI/lp7Y
+	 HAf0AuNYm2MP5mPem4/QCmjB8tlPy9v7NtstKeM4xaYRhr1eyGc0mko/ydZ/Ci+0nNTtw
+	 idnJ+1UZUtF/1l7RFGXUT5uJ4iDsHO5bthfBbPkANz1i3uicFN/d3wTeAXAJ1w08ZTQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793606517;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Message-ID:Date:
+	 User-Agent:From:Subject:To:Cc:References:Content-Language:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=eKZAMK1cH7Ud3tNm64L+M5qqrvzZSRKgcGk+IUYOIUw=;
+	b=a1tT0mYPMQqlhmTybDxFFkxlzPpAxx4/TqBvnzGy1V7CsO8USz/4nnZOAVfSjdBe450u
+	 YK2/GKX1JaKBtF+E3Jv/wqOiQHK4eaX6jhmJYlhbaJA/6T1b674nrD+l+MPJAUZtRl/1G
+	 rjNPlCxsvU0WpEi6mrSvK0zCuQatI4LpQnvojsXaJQRZZY8IBV/fHxuBNNZJHNUMsC8Sn
+	 70zEnVg6+LzJrvEiNcs8Yj9Qi3n0wMmkTKN3tgoYpANy1PAThtZoiwv42nlWzlzp/tpL/
+	 +ZefyiHgiymdxL0reYhhAYmTX8aZUFqSyVb57rgCx4U9slg2fG2XQA8kwfCvUAHriUA==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=amd.com;
+	spf=fail smtp.mailfrom=amd.com;
+	dkim=pass header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Q3z1EAUO;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.201.35
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013035.outbound.protection.outlook.com [40.93.201.35])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B709606A324;
-	Mon,  2 Nov 2026 08:01:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4B709606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0850606A324;
+	Mon,  2 Nov 2026 08:01:56 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E0850606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=ibm.com header.i=@ibm.com header.a=rsa-sha256 header.s=pp1 header.b=GVi985Fx
-Received: from pps.filterd (m0360072.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A24EBHK1895532;
-	Mon, 2 Nov 2026 08:00:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=HBnD11
-	gMSZpLVfr+vR9u0GimaEXWjeLtUh8hd5opuf4=; b=GVi985Fx81FXaLN/zhVL8E
-	67lr+VFKj8a4CAVz80ht3+ABtWxDiKRSwvbaNznYCs7/8z8HpkHJETPyEPn6uAvK
-	LhTxLukt6QE43gF+ut2DZ+nwW91AiZsfbhvGMQJLsDRZeMS2vawEhCVNdSUIk7kT
-	HvqR5M0SGlrJDEppmB/ShTqq5aoUoJl13ns1YfYzdE2PTIYJS2+WG52/nlncaXFu
-	W4ksiidEKuafaB4afFQ38V3omT1u+96wiRcbDEBDNDGiz9AbJkdYh/tGJfy3PvHc
-	UFGqoD2ADRvb1q+7lGo8u01QTMjZcGqZsP4qeNpTNPS+P6KZ19CugbELrjiEIvNg
-	==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4hn7yrqa9w-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 08:00:47 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 6A280NPN394430;
-	Mon, 2 Nov 2026 08:00:46 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4hnwbxvkpk-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 02 Nov 2026 08:00:46 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 6A280ghv49283404
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Mon, 2 Nov 2026 08:00:42 GMT
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 3222420049;
-	Mon,  2 Nov 2026 08:00:42 +0000 (GMT)
-Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 1026520040;
-	Mon,  2 Nov 2026 08:00:41 +0000 (GMT)
-Received: from [9.111.42.133] (unknown [9.111.42.133])
-	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Mon,  2 Nov 2026 08:00:40 +0000 (GMT)
-Message-ID: <62c7faba-3f9a-4ab8-a3b2-dce4f748cff7@linux.ibm.com>
-Date: Mon, 2 Nov 2026 09:00:40 +0100
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=Q3z1EAUO
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b/iFS9Q3e2uO5iXHcRjqpqfnR5YBTzyooUErdgCXtcrv7CmiGkMjvaLGx6URbEJIzX/G7xlArZRj00lclDxQ4yGzPNerJucJAQ60pbnmgZwt93YybqfeAu6nWVFkkyCUTncpPo/ntLQCarvQ2Czx/fwN/43kudPyQKE6NtKua1QJc2meeocqMdYsJmbGUSHGXMo4ZN2jVHeW3ho0ydGaH03FO7eJDWROfKF26w7w0IicgXqGTLqmnBDnegHCpU5PeokzkaR7cQXkyFgId+s2d3kLnQ8qA/1smvqBOjbyyVj3aPk37UyGzaxDQLFKTsu3dluIrb8afSPFyCiG1SsxCQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=eKZAMK1cH7Ud3tNm64L+M5qqrvzZSRKgcGk+IUYOIUw=;
+ b=GpOqCmvHqbvlB2QCaMCIQRK9xFFuGsCaNpkWGrS5CIiCKnvQINPAKDrn9/C4PFxKT/TQsHyJjgKwYiAvUtIjvkc47PZ4KIac364CavFisW9F1ymZba5UfaKtJBh/MYCXB7+AjGQdQpj4nWOCyJHirME6wr32hUJ7nb9k0543B7qnTAlDFizpaFBJHFFHVqg1/7dODa1Toqrz54rQE4rbr7zTkn2/lpfZforI/20o2I4p+lRCyKUCn51Qc7Dei6bVpg1jgOPDLTne1VW7jiCldDVGTHQsVyP7WtM5F40cyBZIcbbFO8Wj1vdUyo6wI4UG8feyhGKlvqQXnFcLdhHXcw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=eKZAMK1cH7Ud3tNm64L+M5qqrvzZSRKgcGk+IUYOIUw=;
+ b=Q3z1EAUOmEl0a8MHi/aANV0PfkKpRuRfM2CwxIs8CaeRrZcgN1zR0F5IohelVJVGb7bIFKRRYinQu27MK3cxg944LdyCOyNbtNJmtg8EoPwtwTc+1iGH2n8t7Y8+t40LEr0zRTK2dskGxzMDVPF3iIDtt63fPOkfuHM1nX5e3nU=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from MN0PR12MB6053.namprd12.prod.outlook.com (2603:10b6:208:3cf::14)
+ by LV1PR12MB484207.namprd12.prod.outlook.com (2603:10b6:408:512::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 08:01:55 +0000
+Received: from MN0PR12MB6053.namprd12.prod.outlook.com
+ ([fe80::7657:d4df:ffcd:2e7]) by MN0PR12MB6053.namprd12.prod.outlook.com
+ ([fe80::7657:d4df:ffcd:2e7%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 08:01:54 +0000
+Message-ID: <6bad7904-80c5-41c5-bd6c-2890f6097d8b@amd.com>
+Date: Mon, 2 Nov 2026 13:31:47 +0530
+User-Agent: Mozilla Thunderbird
+From: "S M, Suhan" <Suhan.SM@amd.com>
+Subject: Re: [PATCH] usb: gadget: udc-xilinx: Fix wild pointer dereference on
+ empty EP0 queue
+To: Li Ximo <lixicaicai@gmail.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Michal Simek <michal.simek@amd.com>
+Cc: linux-usb@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Wang Haoran <haoranwangsec@gmail.com>,
+ "Pandey, Radhey Shyam" <radhey.shyam.pandey@amd.com>
+References: <20261023073131.637062-1-lixicaicai@gmail.com>
+Content-Language: en-US
+In-Reply-To: <20261023073131.637062-1-lixicaicai@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MA0PR01CA0056.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:ac::12) To MN0PR12MB6053.namprd12.prod.outlook.com
+ (2603:10b6:208:3cf::14)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,144 +100,145 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 04/13] cpumask: Introduce cpu_preferred_mask
-To: Shrikanth Hegde <sshegde@linux.ibm.com>, Yury Norov <ynorov@nvidia.com>
-Cc: linux-kernel@vger.kernel.org, mingo@kernel.org, peterz@infradead.org,
-        juri.lelli@redhat.com, vincent.guittot@linaro.org,
-        yury.norov@gmail.com, kprateek.nayak@amd.com, iii@linux.ibm.com,
-        corbet@lwn.net, tglx@kernel.org, gregkh@linuxfoundation.org,
-        pbonzini@redhat.com, seanjc@google.com, vschneid@redhat.com,
-        huschle@linux.ibm.com, rostedt@goodmis.org, dietmar.eggemann@arm.com,
-        maddy@linux.ibm.com, srikar@linux.ibm.com, hdanton@sina.com,
-        chleroy@kernel.org, vineeth@bitbyteword.org, frederic@kernel.org,
-        arighi@nvidia.com, pauld@redhat.com, christian.loehle@arm.com,
-        tj@kernel.org, tommaso.cucinotta@gmail.com, maz@kernel.org,
-        rafael@kernel.org, rdunlap@infradead.org, kernellwp@gmail.com,
-        linux-doc@vger.kernel.org, jgross@suse.com,
-        virtualization@lists.linux.dev, sunlightlinux@gmail.com
-References: <20260928053728.797539-1-sshegde@linux.ibm.com>
- <20260928053728.797539-5-sshegde@linux.ibm.com>
- <4605dad5-aab2-49e3-b919-bf9897181834@linux.ibm.com> <auN0GKVMNvXbNdCN@yury>
- <b83e2d2f-681d-4e19-a680-c076493b3edd@linux.ibm.com>
- <15083d2e-1c9f-4dad-816a-25cc2f3810b0@linux.ibm.com>
-Content-Language: en-US
-From: Mete Durlu <meted@linux.ibm.com>
-In-Reply-To: <15083d2e-1c9f-4dad-816a-25cc2f3810b0@linux.ibm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Authority-Analysis: v=2.4 cv=Mcr5KJ/f c=1 sm=1 tr=0 ts=6ae84330 cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=RzCfie-kr_QcCd8fBx8p:22 a=NEAV23lmAAAA:8
- a=VnNF1IyMAAAA:8 a=cLjWqlLnyS6TRyV_P9wA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzMCBTYWx0ZWRfXxc13DqFV7AON
- iE1R7zP+9t82qywmbI1AiMPzcm3Mnh/0qfdZ13fEwNU21swUrBAiCap0EQTJGXGh+vj04pXCplE
- RTZEmvmLcYk2CyeSsfIk3v0pd89V3I4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzMCBTYWx0ZWRfX6r3qhuOgUIiW
- BrZWH8aCRIEmtFLzolcE3ed8rArIUROlGKFh8344mFHYCNCi6qyLT8S6q9ZikaX0qMo5ikOwfAN
- E8IlrAj4Yu41zIvVIt177dJexvaF6uNMyPYpIEnuDNYXogENgsSVUbumurdUhqnS5jAa0d/m1Nz
- guBAsFHVCUtuik3ARxFFlvgmfgo9+XzaBwrlgPSaw4tEeNwJFUw3HgJYXzWVSHfKjYes0Z7ewWL
- PqFeaJx//byaTWrBg9tl2LTn1W96xF8Opv0MRALUCw9XJL4gF0Bvd1lVq9nB2WhpYFTdnFoLf4c
- qo3lf2MEwkLeCsFJ0w82kXi/WA2DZGjk0cQs5uxiBHxzxi6GE9BhwTBZLBNqijA9u1Mv2CVYmTF
- KoY30WRynrv837PdyfR+hGEiDrAHzPfiBV2bzyzNcDfONG9z1bAMbRemiUTuk9xVlPl7GYIwJvj
- BSM/6ajTWXxUMnGqPiQ==
-X-Proofpoint-GUID: diq5pX26PNT8Bm1BrVRQ0Sx0Cm9WmTwW
-X-Proofpoint-ORIG-GUID: q2xB-e3zYjJaIp0j0NLZWRkX-ciZF6xG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020030
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN0PR12MB6053:EE_|LV1PR12MB484207:EE_
+X-MS-Office365-Filtering-Correlation-Id: cf85bec4-1a68-4fa9-ae64-08df38b78f78
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|6133799003|10067099003|18002099003|22082099003|56012099006|11063799006|261021121427099003|261021135927099003|261026140227099003|261022113327099003|261022105027099003|261026121527099003|261021123027099003|261009223027099003|261028144727099003;
+X-Microsoft-Antispam-Message-Info:
+	1yZKOMu5Ym4nJJf6/7XzsIIy791PxItUwF6HzsI/xN/XBOcP86bM5NQpkLZXXpPp6lH0z+WYqoU2QHasmWWaD9BhJ5x9VpKoBN8cn5cOpNPL3FNZZmHKHvA9vuv2JnllXILn/zvUOStd8g3cz0En8lE7iQNOZh7N1mT8NzUH1fOE9hzBQdRQsuWeY6DMS80iWTMDFf2SEmlElVE1NN8DGR8yglmplD/01S4NuhiRn6dboWOzoBa6u94GYhYveKAwuSTzyQ9egqiL8Xal5Pi5dohHnNkeUOj9K4InPjp81GQ1or8ooTGiRf1L3tEL+HI95FqMk52Wzx10O1W2D13/kj9io4ZomRFLqTMsFRJVzyM6eD1SQN/NA/42RQtn5RhLb81fF1NDtKMpBsZFKLPoX6oJ0nyBnq1iBW18OACOCsEH10dNU9vInQz0M2CK7it0sQCtwgCukgxZ//1HNGEh6kxcSJrDLkbxYOR2b2YKh6WwmhjXRCTdtBgPSNhesRpmbw9VLMnF7/E5az34D7cr8mqVDcLeHNV2jXdS/kJQdtNcVyw4zdDsSHT6Sx+qoTubUgLFmC0lUdQ6L+JnohvXtsJfZTZKpIJWnIi3u/SR9c4InOq4I9SjNF1Q6GcMuoXZZ5bbJIinJdI+8OBa7B6o6919YcckWj7vDSeCyYEkQpM=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MN0PR12MB6053.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(6133799003)(10067099003)(18002099003)(22082099003)(56012099006)(11063799006)(261021121427099003)(261021135927099003)(261026140227099003)(261022113327099003)(261022105027099003)(261026121527099003)(261021123027099003)(261009223027099003)(261028144727099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?bXBxdnJHaWREV0FVOUMzT1VONStZZWRuWFdoZUFRSjB4b0dLY2VsZFNReHBm?=
+ =?utf-8?B?bWlRTFhJVy91ZWtXcS9kZkw5aXdDem1BdHptTVBSdHppZ1pkNEF5L0JndCtu?=
+ =?utf-8?B?S1hQY1FzSCt1eU1DcEl5YWs4RTFpaDJrTmYzU0VTdXgrWUtqY05lRjcwVTRM?=
+ =?utf-8?B?eENzVFAvblJLNEVrUnBoazFRYkNCVml1RVg2aTErQzYxY2FKWVBsdHM2UGhZ?=
+ =?utf-8?B?WnhHMWtMRGRzcVlDUGZXaVEydjR6OU1sVXpHREorbHk5QUNsZVl2blhhRWlC?=
+ =?utf-8?B?cWg4ZWw5ZXhycE1TYVdVSThaa0RFVytybkpWNkZyYktuS1Z0QlVxY1ZHRmli?=
+ =?utf-8?B?c0dON0ZRaXArSVlYb1VOc25BUmJ5RlM3Szk4QzZNS096SVlCQTdLSW1jK1hp?=
+ =?utf-8?B?WFVDRG9qKzVIbFpSeWhXV3JuUm95c3ZVTnN6Y0ZMaG1DR2pSV2NUMVZQV282?=
+ =?utf-8?B?VWJzMzVIZ2VsTDNkM0hDb20zUnplcWJLdDF6ZENJaVFEYVp6U0VSN1RQVWRO?=
+ =?utf-8?B?NE5PY3h6WWNqTFo4dXdFVmVQSHBHZXBYSUhvT241cXovK0s0dEc2Y252ckRq?=
+ =?utf-8?B?WS9MTk1VOG9uZHJVSHRBeitmdENNVFNwTGExWlNUMWt2NjJsaXpKTVRGNWlQ?=
+ =?utf-8?B?NUM0OGEzdEpCN0J0amNyWTkzbnc2OUswSW1Tck5PSGlOMmlsWGNWOHFTV0l4?=
+ =?utf-8?B?aHV4dUlYQXdTYUJUZHVEcnRsbWRIdVdqeHhaUjllT1ZNM1kyOEIvL3g2M3Ni?=
+ =?utf-8?B?eFkrc1k5ekJ0a1QxYWg1SDRxTGRjVHFyb01YK2J1THlSUjBCckVCU0NUQng5?=
+ =?utf-8?B?dVpudzI4M3phNFFmeHB2VWZaZnl5Q3p5ZmxicDdMTE1ZV09qeTQ1cVg3ZDdR?=
+ =?utf-8?B?OXlBMVhXYVpSUldGNW5EdThqbkhhbTNwaDlhU0FPQ0lKQ3pNaVYwLzhOaDBJ?=
+ =?utf-8?B?OUVHUlJWdkI5TElkYTZSTEpBLzl2ZWxKMVNFOVFDbEpOcm1lWjhLZ2tHTUdw?=
+ =?utf-8?B?NUQ1WXFETEt2Y0NrUUFCRWdDVVcvNE45SUdKalF1WUQyRERVOWR1T2dlQUli?=
+ =?utf-8?B?ckh0Z3dFTk9xZ2lWYzNRZFMyR1piRE5hRSsvMEVHejBKUHdvVTYwK2ttaFhO?=
+ =?utf-8?B?N01XSHVrQ0tXMnBPcHhlRzUrMlRUUXlQckowZWdOTW1NV29mNjEvdFI4N3Rm?=
+ =?utf-8?B?YUMxRys3SjZtNnVQWFovcFBtdjdDOWt1SFZmc2xBcWM0WGxsTU1IYTRaR3Q0?=
+ =?utf-8?B?TTczeEZuM3VpY0g5RjdydkRjMUllRmRFSUZuTm0vNFduU2lNcHJJK3BOK0RN?=
+ =?utf-8?B?LytBcUVxdkRMYnhrbGMvQ016S0ZKR3drMTl2OThuZVZsWDYwOFcwNEZHTXo0?=
+ =?utf-8?B?YitSeWtDbkJxam8rRGg0TS9HQWl0WWJOekZBWlBGeGZVZWFtQWN4V1hMWS92?=
+ =?utf-8?B?cXhiNFNIcVZlMHZURUlXMUgwMDB3WjYyVVM2enVtaW9meUlsdmhuY0F6bXR2?=
+ =?utf-8?B?OXlnWlhjRzVOQ0hIWUJaV2tkR0FOUDVYZ1BUanpFbUtJVnFzZzU0bjF0NHhq?=
+ =?utf-8?B?dHFQWmRzczVEdXViekNONGVxN3RHbVBON0tUdldrZUFqaWlnT0xzMGx2VmRk?=
+ =?utf-8?B?aGZuL3hqeFZoQkRNeEdibHRnOFZiU1ZRZmdmeUwwalRFdnJ1eFNpMEp5bU1v?=
+ =?utf-8?B?a2FwWUtIY2d1SkFScVR2Q2xwbUFtN0oxajdVUTk3NStiODdlb2ZlVFBXWjc0?=
+ =?utf-8?B?VnVBY21CNWVLQWtONG50ZmU5VGxXTW96OTk0ZUxvVThkcUx6R0pWYkkzeGg1?=
+ =?utf-8?B?WjFNSmhQTGhVL0V4Yk15K0VYYmxOckttR3QxNUUvc1FJd0lSRnJvNU56b09n?=
+ =?utf-8?B?RWZmeHg1S0Q2anZnMGRXZ2I2MHM4di9NODNXYVlKdUNTd0xTeWdEcFpVeDNm?=
+ =?utf-8?B?N1A1VmtxSm03N3QwYnJxV1B5VVhaTUEwTHZxc25QMHNLM3VkSStsc09wYW94?=
+ =?utf-8?B?Wm5CZHZVT3FUUW5pTzNIYnpOVjFrcjVxSTZvaEhYRmg3SnNTYXNsVHVoRXJW?=
+ =?utf-8?B?eVU5eURnUWFINnRuMWNDbW1saU42bVhmVTNWdmp2SjhnV2I2amE3VjFEaS9R?=
+ =?utf-8?B?bVQ4UysvTmxZYldrbExPMU5QdXN1UVdpTnUwT0NJdkdWS3hSZG9COUliOHpD?=
+ =?utf-8?B?cjhRN2RmZFFRZFdPaDdmOVNFTTJkaGxvWnRDNDVQZEpOMGdtVFVSVFh1Sm5a?=
+ =?utf-8?B?QlBRaUVITU5aVldBWWVHWTlCOVJmUFBGRTRRNTZUa2lTWm1lZG5aTGZQdnBp?=
+ =?utf-8?B?Q1VKa3NRQ2FyVHBtTE82RSs3S3p2THR5ZmpPNkFLTkR4ZXNiNHljUT09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf85bec4-1a68-4fa9-ae64-08df38b78f78
+X-MS-Exchange-CrossTenant-AuthSource: MN0PR12MB6053.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 08:01:54.8623
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Isb/FMgsM+oBOiki/Hzij7JwTSu3PElDUiUZyOwjgkjj8dZKp4bAHLwLvut4Nj8e4ONd/usG+DLcbTqRIVZzlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV1PR12MB484207
 
-On 30/10/2026 15:53, Shrikanth Hegde wrote:
-> Hi Mete, Yury,
+On 10/23/2026 1:01 PM, Li Ximo wrote:
+> From: Wang Haoran <haoranwangsec@gmail.com>
 > 
-> On 10/29/26 10:06 PM, Mete Durlu wrote:
->> On 29/10/2026 17:28, Yury Norov wrote:
->>> On Thu, Oct 29, 2026 at 02:32:08PM +0100, Mete Durlu wrote:
->>>> On 28/09/2026 07:37, Shrikanth Hegde wrote:
->>>>> Provide the preferred CPU infrastructure. Define get/set macros
->>>>> which could be used to get/set CPU state as preferred.
->>>>>
->>>>> CONFIG_PREFERRED_CPU will be selected by the driver which handles
->>>>> steal time values. It is going to set/clear preferred CPU state.
->>>>> This driver will be called steal_governor and it is introduced in
->>>>> subsequent patches. It periodically computes the steal ratio and
->>>>> decides on preferred CPU state.
->>>>>
->>>>> A CPU is set to preferred when it becomes active. Later it may be
->>>>> marked as non-preferred depending on steal ratio by the 
->>>>> steal_governor.
->>>>>
->>>>> Always maintain design construct of preferred is subset of active.
->>>>> i.e. preferred ⊆ active ⊆ online ⊆ present ⊆ possible
->>>>>
->>>>> With CONFIG_PREFERRED_CPU=n, ensure set_cpu_preferred is a nop and get
->>>>> method returns the active state in that case.
->>>>>
->>>>> Signed-off-by: Shrikanth Hegde <sshegde@linux.ibm.com>
->>>>> ---
->>>>>    include/linux/cpumask.h | 24 ++++++++++++++++++++++++
->>>>>    kernel/Kconfig.preempt  |  4 ++++
->>>>>    kernel/cpu.c            |  6 ++++++
->>>>>    kernel/sched/core.c     |  5 +++++
->>>>>    4 files changed, 39 insertions(+)
->>>>
->>>> [..snip..]
->>>>
->>>>>    #define cpu_is_offline(cpu)    unlikely(!cpu_online(cpu))
->>>>> diff --git a/kernel/Kconfig.preempt b/kernel/Kconfig.preempt
->>>>> index 985aea617cfe..edc067a0c422 100644
->>>>> --- a/kernel/Kconfig.preempt
->>>>> +++ b/kernel/Kconfig.preempt
->>>>> @@ -194,3 +194,7 @@ config SCHED_CLASS_EXT
->>>>>          For more information:
->>>>>            Documentation/scheduler/sched-ext.rst
->>>>>            https://github.com/sched-ext/scx
->>>>> +
->>>>> +config PREFERRED_CPU
->>>>> +    bool
->>>>> +    depends on SMP && PARAVIRT
->>>> FWICT, PREFERRED_CPU mechanism can work perfectly fine without PARAVIRT
->>>> selected. It would be annoying to enable it and implement a dummy
->>>> paravirt_steal_clock() just for that.
->>>>
->>>> Shrikanth, would it be possible to drop that dependency?
->>>
->>> Do you have a non-paravirt case in mind?
->>
->> s390 LPARs are exactly that. s390 does not select PARAVIRT by default
->> but enabling PREFERRED_CPU is strongly considered.
+> list_first_entry() does not return NULL when the list is empty; it
+> returns the result of container_of() on the list head, i.e. a non-NULL
+> wild pointer pointing into the enclosing struct xusb_ep rather than to
+> a valid request. This was found by code audit.
 > 
-> s390 may not have PARAVIRT=y, but this use case is still a virtualizated 
-> system no?
+> xudc_ep0_out() and xudc_ep0_in() are reached from the endpoint 0
+> interrupt handler xudc_ctrl_ep_handler() purely based on the hardware
+> FIFO status bits, without checking whether ep0->queue actually holds a
+> request. The queue can be empty at that point: the gadget driver's
+> setup() callback may not queue a request for every control transfer
+> stage, and xudc_done() removes the request once it completes, after
+> which bus timing can raise another FIFO ready/free interrupt. The
+The claim that setup() may not queue a request for every control
+transfer stage does not explain how xudc_ep0_in() or xudc_ep0_out()
+run with an empty list. Those functions are reached from Buff Free /
+Buff Rdy, which complete an EP0 buffer that __xudc_ep0_queue()
+already armed with BUFFREADY.
 
-Yes, it is virtualized.
+If setup() never calls usb_ep_queue(), that write never happens. The
+SIE NAKs host IN/OUT, and this code is not reachable for that stage.
 
-> i.e you are observing steal time. By definition of steal time, it is a 
-> para-
-> virtualized system. Though you may be deriving the steal time not using the
-> paravirt_steal_clock.
+So "bus timing can raise another FIFO ready/free interrupt" is only
+true if software already armed a buffer. Timing of a bare token does
+not create that IRQ.
+> unconditional list_first_entry() then yields a wild pointer, and the
+> subsequent accesses to req->usb_req.actual, req->usb_req.buf and
+> req->usb_req.length read or write unrelated kernel memory, leading to
+> memory corruption or a crash. On real hardware this is triggerable by
+> an external USB host controlling the token timing. Note that the
+> enqueue side __xudc_ep0_queue() already guards the same queue with
+> list_empty(), which shows the queue can legitimately be empty; the
+> dequeue side was simply missing the symmetric check.
 > 
-> Or my understanding here is wrong?
+> Switch both functions to list_first_entry_or_null() and return early
+> when no request is queued, mirroring the existing list_empty() guard
+> on the enqueue side.
 > 
-So you propose s390 to enable CONFIG_PARAVIRT *just because* s390
-fits the "paravirtualized system" definition, even if s390 would not
-utilize any functionality comes with the config option? (even worse
-it comes with deadcode...)
+> Reported-by: Wang Haoran <haoranwangsec@gmail.com>
+> Reported-by: Li Ximo <lixicaicai@gmail.com>
+> Signed-off-by: Wang Haoran <haoranwangsec@gmail.com>
+> ---
+>   drivers/usb/gadget/udc/udc-xilinx.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/usb/gadget/udc/udc-xilinx.c b/drivers/usb/gadget/udc/udc-xilinx.c
+> index bef06fe75..032d9f04f 100644
+> --- a/drivers/usb/gadget/udc/udc-xilinx.c
+> +++ b/drivers/usb/gadget/udc/udc-xilinx.c
+> @@ -1822,7 +1822,9 @@ static void xudc_ep0_out(struct xusb_udc *udc)
+>   	unsigned int bytes_to_rx;
+>   	void *buffer;
+>   
+> -	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
+> +	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
+> +	if (!req)
+> +		return;
+>   
+>   	switch (udc->setupseqrx) {
+>   	case STATUS_PHASE:
+> @@ -1875,7 +1877,10 @@ static void xudc_ep0_in(struct xusb_udc *udc)
+>   	u8 *ep0rambase;
+>   	u8 test_mode = le16_to_cpu(udc->setup.wIndex) >> 8;
+>   
+> -	req = list_first_entry(&ep0->queue, struct xusb_req, queue);
+> +	req = list_first_entry_or_null(&ep0->queue, struct xusb_req, queue);
+> +	if (!req)
+> +		return;
+> +
+>   	bytes_to_tx = req->usb_req.length - req->usb_req.actual;
+>   
+>   	switch (udc->setupseqtx) {
+This check looks nice-to-have, as the non-control endpoint handler
+already performs the same check. Please refactor the commit description
+accordingly and do add the fixes tag .
 
-That sounds a bit wrong to me, I would really like to avoid
-enabling a config option just because it's name suggests that
-it is related to our platform.
-
-Yury already sent the patch series he mentioned. I suppose we should
-keep discussing this there.
-
-Thank you!
--Mete
