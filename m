@@ -1,79 +1,59 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793628772;
-	b=A4f/gop0ST58yz6XLtiJfIiWnOMl5ZXlpfnc9hTjTGlBsPCSccpf4r7PkVp+NL9StR/4
-	 oXbT1SLQdMRwqig1dRivqp7fQeTm/ukFJ+15uZhwLTD8vW4aaNKG2T+R+m+1KQfu9Biso
-	 LrKaNAmtYxcj1rSQ3/DeSNUrf0wTqpMZRblAzAzgVChxvGMazKIw1rD9DUUOxMOP/CIQz
-	 1OclDM6tC0Cpy2gWHeu1/7ugSH9XrrC+E+K1nHJcyM/4BiYq5u2TyVjTyJIxmkSZT23Am
-	 D3X8r4fhyg1d0LBxFkk5ifKA2nZGkITpurngXNC2GNutxjD4rQALdImcOk3YaA/VbJw==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793628772;
-	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
-	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
-	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=D/s/xAEdSfZnDwTpORRC9ZOWyUJ6URsuayyvBKPDTOE=;
-	b=G9ctUu7SEPuaafG36oMwYXDPc45uV/6VJ/rcD7Aw+kHCwedfRMiiYewVCOkWEY48iFpB
-	 bmR/ugAXnoviX2tvsbipGTX9NizGOgD/FYzuuMBF0Rah2LTHOmUiNj+ueDPWhd0GVAA3G
-	 NJZKKzqVeJ3nwYC2j5g1gM7RB6xWOkDH2t3tq6OwSnyE619YgbyB9Tc3Cx705w5fkHieQ
-	 a0h8Md1jJ6u7VjI4gaTl+3Y7N71QvuoSwEF5qBKs5YLj6EDvrOW+CmoTObNQQBql1tNeU
-	 JC1oK31YZN1h2oOkT39O+VC8DWmMjNUfhCrY9YHDxIKpIBogb4HY0PoxJ1H7Tq98mFA==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3JNmNZw;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793628788;
+	b=ayLa59SJ2cYpURG2xBcKxvXRICON4Oj5lQSPC4ngGJMjPHqSPVMPjhuf/6QKdN9ntiEV
+	 YZe3WBXt0EtSkMBULsdFr7EI7bOxBnv0pG2KUnFzmxL3GkIZlQLSJwWkux9Qube0fxohu
+	 t0cRKt1iJnMXjjHVXeyyypwSuwx3M0Svp9VTVAT6zh6DC/uzyRsbtd5uhCHUHl9RrRew9
+	 mwZ6ot6ui3RtTFVcgUN5mEAWw8XiL2vU6TtdGtYj7sxQT6BVTwoEZRcDRf8gttLrVpYU1
+	 4tPBCRdn/M+sqo8n/xiCId+O6DS3BGvztFOEQ9GVApz7aMAqwmJ0q1VmkaBrnBvxTTQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793628788;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=XPRtcZyPX5uyQlsqBbPqlbi2Hh4PJVsJ6P0BXSRYmAk=;
+	b=qWVx2v+Ib7URpM8yLI2hoTil6983pDuHNGY0OK6ZfWpS6lAHgPWJTGDD3AHSTT3WxkZD
+	 3seEePsSJOVQv7uNKrA3jVZPRb/Xvucn8uLsSuYjWZ1mHriXaoSALG+MZ5bz8MycN1zxA
+	 nToUe2dHpnt7AH9qxmQu7WS3AOWzExxilNWxzKV9056ThH14n85XulKCEUhe+SDLmqcuR
+	 8cFfBjsoBAbYDfh/S6TUAYMBiyeN394Vy+d8cH93xvvgzDgwHKyBryI+Jd/kF7jv7JfZ1
+	 HNGjbsgeGPD8EqkPJheo43HFbin+HNQndGiKHdUkrC7J11LWDyeIxy4otJjYbA1kPQg==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRxTfCma;
+	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD334606A324;
-	Mon,  2 Nov 2026 14:12:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737E6606A324;
+	Mon,  2 Nov 2026 14:13:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f3JNmNZw
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793628771;
-	b=eEZAX9Ttz2wwWwo9eHii6lQUxATqUdV24TYpBfMmnMPlg2JwYSozUnOLOm05HdOS9NWb
-	 pxSC9XZ3E4bBjqNS656kYaD2Kb3jLtcMjXKnsvskUmda5WpTyO5UA9FPEyUipj9r00I8z
-	 5SQ7p1o5P07gtm3SWeypM+aWE4hEfkR6THNqRT3BbkKQG6ILMfzRUcW77RW05n/gNwwzQ
-	 VgogA1bNr8m4Iq0oCvUKus2wMSDIPuameJIqyj6wUSTMAsPeOnN5Z3IlNNe116lhQ+Alk
-	 YbCHGhoXn4NVFX+6LrsaAs2nFbnXhXIxNIjTe9Sxz3rfvkte6SLMC6SpX8PSK5ItXsw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793628771;
-	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
-	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
-	 Content-Transfer-Encoding;
-	bh=D/s/xAEdSfZnDwTpORRC9ZOWyUJ6URsuayyvBKPDTOE=;
-	b=tf5s65H9m+wD4lmi0yzmLg+AiJLhjfEJcwkALG3emXaLbgxg/GpjLQgCawSmF6r9BBaD
-	 SmDMlBK2kjWKUub9x0FTBl/vkt8mk+g7R1LHUZenxX/gNJYIN1fnLx6dJ6ygvU/H+Pamn
-	 k3KRgJKrdHVSqrROWoMR7HudZev0iPGpwiF+LnU9wbdtpfr8TJMlJ1t3b91S0AIYdU6lY
-	 FVXDGQ63NMgsHLhxbYg/D9x8JIHDwsZZq+SZB8ECXUPF0qAz6Rmi4V2QNo5eKCiG+uRdc
-	 6/5qrzIbR1AA9YbPXKxTeyIAzGnprpySmeNqgWM6kNbnAsqBu0lZDMSSZPs9slsL+og==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
-	arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id D84BA1F00A16;
-	Mon,  2 Nov 2026 14:12:50 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VRxTfCma
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 415641F00A16;
+	Mon,  2 Nov 2026 14:13:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793628771;
-	bh=D/s/xAEdSfZnDwTpORRC9ZOWyUJ6URsuayyvBKPDTOE=;
-	h=From:Date:Subject:To:Cc:Reply-To;
-	b=f3JNmNZwLkDGwt9N81tnnN+iXXr+Zd/ceba9muRmc/gVSGMF9i2qfuQDTZncTKAVR
-	 IVqv4SHAbxGRERalRrhNgIYA94kgDoqpj8DRMX9hzxks9jdA04jrEAcSEpTf4uLQV6
-	 BSsuOjbaUatyLf4QUADAARPvJWqzHKHbjwyaxD5tGmyoun0NUw01IhyaM70S1iWjkl
-	 TYlmBUXzTv7MpcHKsvHOdzhsCXbQ3JOnz52peSXcp4jSrofDLeepN7QWi9uloYxNkg
-	 NyuKb1w6HojhMaIIERDbCxK1ZdxTjRf+pr7iNrQcrJgjFp9XntcbbeaXmM+ghcs2oS
-	 vATb3iTRFJeyA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 37B3B4653F;
-	Mon,  2 Nov 2026 14:12:50 +0000 (UTC)
-From: Vincent Jardin via B4 Relay <devnull+vjardin.free.fr@kernel.org>
-Date: Mon, 02 Nov 2026 15:12:47 +0100
-Subject: [PATCH v2] arm64: dts: freescale: lx2160a-nbxv3: fix the TCA9539
- and 1588 line names
+	s=k20260515; t=1793628788;
+	bh=XPRtcZyPX5uyQlsqBbPqlbi2Hh4PJVsJ6P0BXSRYmAk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VRxTfCma8suNDbAIew/uqNt2bgj8LgYc15bq9P6bz/YxU+n1N3TEzLZoUbSEpSg13
+	 IHzInqJBrnlrpMl1kZxiMTqGHQu6ltNsXPcGdQ3xqXN7NB2oak6VPWpe9VMHEyKf8C
+	 apXhKvnNNL5EspRWogeyjQXwMm+/nfDupYn7EVytH1qezntwPTyyaLh6GWcK4lqLMe
+	 Z9bTalVJJCwnuoRg8vEfaY6Z4XXUs6bue1se/fw3bNFLiqoT+uoGAX/OZbolSBpY21
+	 byimb68/dgZy+BOFsbKJcdSjrQrv9e8Up8iNKTNSAHkV6FhIMsvbiKy18gLftamcCt
+	 tnm9kXlL55wqg==
+Date: Mon, 2 Nov 2026 15:13:02 +0100
+From: Lorenzo Pieralisi <lpieralisi@kernel.org>
+To: Sascha Bischoff <sascha.bischoff@arm.com>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+	Radu Rendec <radu@rendec.net>,
+	Timothy Hayes <timothy.hayes@arm.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 06/10] irqchip/gic-v5: Honour ACPI ITS noncoherent flag
+Message-ID: <auiabr1U4c9C7FwL@red-moon>
+References: <20261102-host_gicv5_fixes-v1-0-743b61626fc5@arm.com>
+ <20261102-host_gicv5_fixes-v1-6-743b61626fc5@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -83,112 +63,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-for-upstream-nbxv3-dts-line-names-v2-1-58f234e478fb@free.fr>
-X-B4-Tracking: v=1; b=H4sIAF6a6GoC/5WNSw6CMBBAr0K6dgxT8IMr72FYtDCVJtKSGWwwh
- LtbuYHL9xbvrUqIPYm6FatiSl58DBn0oVDdYMKTwPeZlS71GbFEcJHhPcnMZEYIdkkV9LPAywe
- CYEYSaCqLGs3J1nWpcmdicn7ZH4828+BljvzZlwl/9p96QkC4dFeizureNO7umOjoWLXbtn0Bv
- fftTdAAAAA=
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Vincent Jardin <vjardin@free.fr>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793628769; l=2803;
- i=vjardin@free.fr; s=20260525; h=from:subject:message-id;
- bh=hHUsd9bJRSMGNR0btcyRpbeMGj6quxgOVoYnLHWHvS8=;
- b=XVxrGbzLj2cVry+PSQYRRhZG1x8x3UrZVxwbTaBtdBhzXNMFdnb2kVkOfErzEd2FTDTgnz4HE
- yIovGfitqAKBx9UEb24BZjbAVkxYLcdVO+RCqW6EsWheUXFhTFYmLR2
-X-Developer-Key: i=vjardin@free.fr; a=ed25519;
- pk=hppgLeFpGpKOi7LNwGEZ4jOYofJCoGd4Jf1ltAabiLw=
-X-Endpoint-Received: by B4 Relay for vjardin@free.fr/20260525 with
- auth_id=871
-X-Original-From: Vincent Jardin <vjardin@free.fr>
-Reply-To: vjardin@free.fr
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102-host_gicv5_fixes-v1-6-743b61626fc5@arm.com>
 
-From: Vincent Jardin <vjardin@free.fr>
+On Mon, Nov 02, 2026 at 01:32:59PM +0000, Sascha Bischoff wrote:
+> The ACPI ITS probe passes its noncoherent flag to
+> gicv5_its_init_bases(), but the common initializer checks a DT
+> property instead. For an ACPI ITS, this always selects coherent cache
+> settings and skips the cache maintenance required for its tables.
+> 
+> Use the noncoherent argument, which both firmware paths already
+> supply.
+> 
+> Fixes: a97efa5ba5946 ("irqchip/gic-v5: Add ACPI ITS probing")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Sascha Bischoff <sascha.bischoff@arm.com>
+> ---
+>  drivers/irqchip/irq-gic-v5-its.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/irqchip/irq-gic-v5-its.c b/drivers/irqchip/irq-gic-v5-its.c
+> index 866c238f08dfe..c5d057f713134 100644
+> --- a/drivers/irqchip/irq-gic-v5-its.c
+> +++ b/drivers/irqchip/irq-gic-v5-its.c
+> @@ -1135,7 +1135,7 @@ static int __init gicv5_its_init_bases(void __iomem *its_base, struct fwnode_han
+>  			goto out_free_node;
+>  	}
+>  
+> -	if (of_property_read_bool(np, "dma-noncoherent")) {
+> +	if (noncoherent) {
 
-Some gpio-line-names do not properly describe the board.
+Bah. This is a very stupid thinko. Apologies.
 
-The board CPU's RCW sets EC2_PMUX = 2, which gives two GPIO4 pads to
-the 1588 timer, so they are not GPIOs anymore. Name them using
-lx2160 function with the altfn: prefix this file uses for every pad
-muxed to another function:
+Acked-by: Lorenzo Pieralisi <lpieralisi@kernel.org>
 
-- GPIO4[14] (ball M3, EC2_TXD1) is TSEC_1588_CLK_OUT, the CPU's 1588
-  clock output to the DPLL's reference input.
-- GPIO4[23] (ball P1, EC2_RX_DV) is TSEC_1588_TRIG_IN1, the CPU's 1588
-  trigger input, driven by the DPLL's 1PPS.
-
-The board-ID TCA9539 is a read-only 8 bit register:
- - P00..P07
- - a test point
- - P11..P17 are wired to GND
-There is no 16-bit board ID.
-
-Only the names are updated: the 1588 timer is already described by
-the CPU's dtsi then the CPU's RCW muxes those at CPU reset.
-
-Fixes: 565b6713a460 ("arm64: dts: freescale: add Nodebox v3 CPU Module")
-Signed-off-by: Vincent Jardin <vjardin@free.fr>
----
-Changes in v2:
-- Better explain changes (Sashiko).
-- Link to v1: https://lore.kernel.org/r/20261101-for-upstream-nbxv3-dts-line-names-v1-1-7c8eecb2da9f@free.fr
----
- arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi | 20 ++++++++++----------
- 1 file changed, 10 insertions(+), 10 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-index 9c5588a75cdd..34e02102c214 100644
---- a/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-+++ b/arch/arm64/boot/dts/freescale/fsl-lx2160a-nbxv3.dtsi
-@@ -206,9 +206,9 @@ &gpio3 {
- 		"altfn:ec1-rxd1", "altfn:ec1-rxd0",
- 		"altfn:ec1-rx-clk", "altfn:ec1-rx-dv",
- 		"", "",
--		"ptp-refclk-in",
-+		"altfn:tsec1588-clk-out",
- 		"", "", "", "", "", "", "", "",
--		"u1700-zl30733-pps-out",
-+		"altfn:tsec1588-trig-in1",
- 		"",
- 		"ethsw-mdio-en",
- 		"usb1-oc#",	/* USB1_PWRFAULT and USB2_PWRFAULT pads: one wired-OR net */
-@@ -254,14 +254,14 @@ gpio@74 {
- 		#gpio-cells = <2>;
- 		gpio-controller;
- 		gpio-line-names =
--			"boardid-0x0001", "boardid-0x0002",
--			"boardid-0x0004", "boardid-0x0008",
--			"boardid-0x0010", "boardid-0x0020",
--			"boardid-0x0040", "boardid-0x0080",
--			"boardid-0x0100", "boardid-0x0200",
--			"boardid-0x0400", "boardid-0x0800",
--			"boardid-0x1000", "boardid-0x2000",
--			"boardid-0x4000", "boardid-0x8000";
-+			"boardid-0x01", "boardid-0x02",
-+			"boardid-0x04", "boardid-0x08",
-+			"boardid-0x10", "boardid-0x20",
-+			"boardid-0x40", "boardid-0x80",
-+			"test-mode-tp1500",
-+			"gnd-p11", "gnd-p12", "gnd-p13",
-+			"gnd-p14", "gnd-p15", "gnd-p16",
-+			"gnd-p17";
- 	};
- 
- 	u800: gpio@75 {
-
----
-base-commit: cbbddb6b08cc9900a87cccaa9b22bbe06aa4f50a
-change-id: 20261101-for-upstream-nbxv3-dts-line-names-93b121a5b440
-
-Best regards,
--- 
-Vincent Jardin <vjardin@free.fr>
-
-
+>  		/*
+>  		 * A non-coherent ITS implies that some cache levels cannot be
+>  		 * used coherently by the cores and GIC. Our only option is to mark
+> 
+> -- 
+> 2.34.1
+> 
