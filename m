@@ -1,104 +1,100 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.42
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626839;
-	b=agqDa3GmX5HiM0ulFwJc3iZS5l+yz9LXhzlUDs3RrqOKvyxK+AkdfZTsCZ3sb1ORXrne
-	 FO4itpLdLZzLMw0/mpvMnmWbOEaOkda6Psxgdi24qb8VBvcGD3jrxSUMN5L9YpLr13m9b
-	 PEPXEidxhN/oIaHlvHe1frpjNaVPqNx7UxY//sx49xKzH0FtKdtYJonIF2Uu7y02w6rdp
-	 il0YGqaUiNEjMn2OWqO6Zd1OfFHYQ7FJcOJ8gnVNDt3lpCeWkkH+c+Ka2O0RZJKqnKAiT
-	 jBP3ePAsL+RQRtmtzjIAzep5IUGVZYhJiLP1XZeZUQlMdwSc2PDvYi6GUmxhXATvAXQ==
+	t=1793626847;
+	b=d5UaBQmbfd60va3A8s2uOfNOs2KOd6Qm1rE0vTRYFwTxOcT8aTTIlk6eBuBnu2d8Lpu/
+	 LBkmdAQvVU7zDoDXgiIrgmWG1UP9br1k7IiUa2HYiNrTDcEun90JDogE9kXJ/tW0ZWKgn
+	 tc/x01P/rNsc9+aEc+zrGALh+mLT2UUrS0v4z6kIZx6UrmyhCiWDC4BB+18V0O1vlRaFu
+	 TJhpKUFYzKEoNQ5IfTRcrpmz2DMEdAPyAlI7lRgLoQfaE8rhLoDtQ1MPeRCACQ6qdCbvi
+	 cBDJs5vUVTA4lY6h+JPi0z3oz2rXnJ1Zplv2SRxQBjZWxmHJW6G+O0NaTWuhoftQFsQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626839;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626847;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=h+wkXijMt26jWnEtDLY8VzmO1E+BB8IahUIUjU3Iokw=;
-	b=oN1CWF2BoaCTOPT0IgJbGg25OnYczYFknMe5ezomth94upH0gq1pAzRF21aQOb/rluUQ
-	 iRTaAlsY9tbwOwXw7JItWWGjNhFs1wLid/aeBtIwi/Ie0jf3EkHWZXdPdZIlnN9wB1/Io
-	 eIfL7h5rAP1RXjX3AfMwz6RliKvEoM7hHESy0c2jBs0KVPcT4bwraZlizPv4PcyYT2QXg
-	 hdmCA3t5x/CBevDwaFwMn8j04fIH19bSy+aVl/y+zPH0NqNV7K70OtMAIazqQ/m07x+QT
-	 ygMkrXbZVNwAnjneBAXV3k3opcsjvWbFsypssMXgMFa0YDg/h7TpgTKsSx23IvUzxfw==
+	bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
+	b=OEGYddCOJPsuTjxHg+THu7MBSmK1D2PekOXcbcthbWZokvXtIBVsZpeMdWRfRTB+IgjW
+	 LScEo4FFK3jv2DqCnCSbZ2rzmkDNH2+Hc2tY3ZO2UyZbBlUpJ0wvUq1Uhvdk+MdqgB7aI
+	 rdWdMiAP+XZJLTS04Or6yBZlIeb3BBg+5nLF6o/WcoZDhYLC+emjcxbjFncZrt7pxbAYo
+	 zIkwpSA+t3Rd86spNU9XilVTKN6tBv8+WyndyXzI1fCnPbJBb1HAHnAO1FsnylJClFE3S
+	 0wpVdZ1nTMcJlPE7+pfCedxCug9lGEt8mUWeo5u29phNuXChkV5se9j4LYEgVqa0xqA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jfC9zOfN;
-	arc=none smtp.remote-ip=209.85.128.41
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=pGkOIJT8;
+	arc=none smtp.remote-ip=209.85.128.42
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77F1F606A33E
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:40:39 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 77F1F606A33E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED5F60A5BCA
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:40:46 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BED5F60A5BCA
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jfC9zOfN
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a35d5d4a20so34647405e9.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:40:39 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=pGkOIJT8
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1fbd52ab6so22822535e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:40:46 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793626838; x=1794231638; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793626845; x=1794231645; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=h+wkXijMt26jWnEtDLY8VzmO1E+BB8IahUIUjU3Iokw=;
-        b=jfC9zOfN+TtGHvYwFdh25/WeZJVuysLM3fzT3vC4kmGLy1EsAdN6y1fFLrI2BJCAf0
-         huuq9AtTIAp2fbohQJgxHLtoYbUBQ8qC5e8+J5ZVRJAPJKutBxHFK6yUVl2SYUI1HdIr
-         jBpm8GxQvfNaNQ/rq/TnyYFP5MqlV+PDWEXRmRpScb6hH9eP7x8OSzeDSQOcWAUoueau
-         VfWXWbWoles1KzARZdhQENXFN44yL2EtVih9Yw9qilRF2y7odjwC1DzBGOtO7ksZmLuQ
-         ZiwWb6ZbEzCv6xHzGkxMY8iXwoO6JFbyTNSXEZ5cdpRAm/12LRrg8PeYDZs1fcVKADLl
-         o5yQ==
+        bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
+        b=pGkOIJT8aTj7/6uiIaRBS3XwqfzCUiLgyjr+tCG+wwhMd6uN3K/73Apl4KlOG4GhNr
+         gYiqhRrlgYSVaY7APylkHGDuW6gpsEqkcW9llLievmRJBHXfm9PpGGMzdhdv2vGddSYW
+         0ZlNtSb020V1mglQBLioU+kZ/Vd+1pDe/n7QRDKkoKOMIqLeJtP9e/eeK9wy01cGBmO1
+         K7KtIn/1dy+SjWLlvY7vzP/Jd2rjTuxfGEnhgGOxpBc3X74P4KH5rd+abpBDcCxInnTQ
+         xq0hm9e/a+qKjV6NvNW7tDJ4V7hMjYzCF2mOUJf6ONxWc8Z8amvSDtqIJZ2zuKqi0WbV
+         xnxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626838; x=1794231638;
+        d=1e100.net; s=20260707; t=1793626845; x=1794231645;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=h+wkXijMt26jWnEtDLY8VzmO1E+BB8IahUIUjU3Iokw=;
-        b=kRG+TuHz0ibJ7zM9ea1KbdTSo8WnkzSX5hS6BNlswn1BJMQqRrY5YoNmHyfEEdCjCS
-         Oq0lQOIkhSiFLZ2/MwtrwYNH9F8Z9kyHaK+jbJJUY5yzVIEhcCiPPYE2rlp5rvmue+9X
-         Cu6dJ6ettfQbMLzjsdWKC6WZSrzlpbYmHXNnBjYzSvf8yVGNYe+YvT6LqZ42pXlBihsC
-         OcJrO9S1GGaXErFzun/Ui4aPXmVvz/0U6cVvyUKwz3z5SvYZGRTJ1O9hfqn/sMot9Bhu
-         RTygpJ1HFML1lhBu513dWItUCwbSLo3vUb1vcz/QHPiHS18LkkR66CRCsG7LB+MsWZX0
-         YIsA==
-X-Forwarded-Encrypted: i=1; AKwUvBwBnDvKVAeEdOGcize3xlrAwgWIAxIGHGSGULS9zqiotC4Fqih1IUL1Pj68GnZvPzq1QmtrFw6dzF1w9Ek=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJU3vvaBRv7dbQxwzB/OJen/q7hamUvyTyuc6Z1zG6vdGSQTY5/
-	qrlnelungYWXu9pjq75OQMB6MElYaROq8tM8U7jv1SBgiTrTqkAMkquVtDovAX3atGc=
-X-Gm-Gg: AYBFou1SemLxhs+8UQS3u6Bngg+ALoepR52oA70aqw7wm3GIDGItoxfZ6quTkLGhipU
-	DHT0yc20Eom2qVygkVA8iXW5lbQJIJbh9N3X0xqYH7m9P2lIy8+kS80Q8EckqiKnPWLmmie6sjM
-	GT41pVxSdhqfWqfv8EvFaxOaOOw0rcFQwz6CI9crywXn26zu2u+bQDWZzCdtNbaqDopKaOYiqay
-	ktL1auXKoOI76txYoTIs3ZupWve6DlDNNru2lgPEOQy3vypC9MaanfA5qEQJjnV7gMYyivFUAXC
-	HBd4/Vu5hn/LOtKP3MWYnQFH/R5VZqZeb+hVDiNPz2uUVwkI8fhuRO1ztQTkDydGo1xw9JQNcB+
-	SY/+9EtXYxkmEJlXvk5EOvSQLLm1bZ2TcmNWaPmSNW/wW4K2Oqx9V5MElN3hN3b92srljEq1wLX
-	iOZAGaItNSHTY/dAnLyTNFDcd3FhU/AcSmXq0Aj7xz1QPRlODi0yRUD+RQEX2edLJttu0KWqOHi
-	Sh2ENAPKDr8v0sueohnu/tzyAkGRwG0mVeVlWSPyeif7bUlDCbUByhwSItsSn539Yrdc385Bi4v
-	kVLewcr0bKs0Uc3ESI5CWxInHJfFIiERXI+KhX5no1VP8Ed3cg==
-X-Received: by 2002:a05:600c:a48:b0:4b2:2ec5:8a2b with SMTP id 5b1f17b1804b1-4b22ec58f9emr16148545e9.10.1793626837704;
-        Mon, 02 Nov 2026 05:40:37 -0800 (PST)
+        bh=Dl78OSEC2a8P0qNwjbCaKAfKyZ4r0+nLQbHmynuYPGc=;
+        b=ooNn2VKCS/PQczjf6Xix9TCvNBgT9b9mvaL8F0khedj0va9mb4ZSwhNHP10K7URk6/
+         W0wIZUNqiugWKc+x8X1tVlNCLFFxpK5F1GYrgVq7WbbRcjnI9E2Lb0ZrvGJRJa9nD8TZ
+         NcDBu7H1dE6eg+CNOIV2luOjjOfRyLUOWNGyIv+9SY6n97AIhgsSGsQx5JIJdFIgGObf
+         3eEG2InSYY37idFXnGjDbT1cY+dvoiXti/3MjrNvE6ZzJfNPewsb+FjbgsiGjQJCMxM6
+         xtLBbyz9LVOJQ0+Ig89KBow8ekwsrun5qSG78PivNhTCX6EhcYzUe1DPjIFwxAY31LPZ
+         mOrg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBwkI0ZMv0rNusHKyekFA09fVHMXUz59ZdLwgqQ7MWSn3ziaLE4/7JYcjYcJiNJaJcOlmNT8mSWR6G5gY=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJdOy3eGOaQ9N3LISKYsSwpImpeIhewG2/x3OdTaz5EkkVgQHhb
+	HajXMD13WjMQHH5a4EAjRQnL/4BhfBfxhsm9JdohcYqqwlQUEPfxW9reAcknB2FvMP4=
+X-Gm-Gg: AYBFou1TKywndfJ1HLfRqeZs1jUUQnZsrokN6pz/HU6fPSPGBQnqyKxBB65XYEGRQgI
+	FBXc/UWd1jL5JtMD1t3qb5DsEC0QmiWnWCKo+5dssmxozbqreRs3xQMIP+5ppHJAlQwSVOHhU3X
+	8j+Z2AejxWLu86gdrehWKVv5b5K7jF1Cocc9CaoE6YRRqTuRTFJrb9nqqKPWx5ilf3usgF/Ix97
+	n34V0BxZz/My9ZqMpYB+bNo8P0GAu686vkUXRNEobiZgwoSbBwo9rTPXpWXeK8KNWl4VPQ2+k71
+	mtS78+UkPU2o9KbNzCEuUVRqRe7Stqo+SNzSggaQrET27rQnDt1OpPLZ64uUqQYFItmcteLvw+I
+	FXI91EDCsl3GgPdAhwwF6s/LYrrd5VlQb1QPsmaO8WOVYOVsYHrR2D2X1vTC9GPF7gyTea8Aa53
+	nq3ITEaPnnge9o8qMbGxAz+ktyDVqrUdcR/rQjXPODjKQn0+4xjV6/noZZtSitTmn99InnA0dWL
+	IjrZa1uvqL1vtTubDC89+WTf9OIoxPsWUbFtzwpJaNz7ZuSvbctv1NhD0hhQk7B1Ca2IbE6rBzr
+	HoHv+G7mju5IS9YXWgTaFbwpvxH5SQw6w/qiqGSMtk2cx+88ZmCdtRUISspb0Jglg2HzXN4=
+X-Received: by 2002:a05:600c:4f82:b0:4a1:d8fc:8165 with SMTP id 5b1f17b1804b1-4ac1889c857mr215222075e9.20.1793626845007;
+        Mon, 02 Nov 2026 05:40:45 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:40:37 -0800 (PST)
+        Mon, 02 Nov 2026 05:40:44 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>, 
- Felix Boucher <felix.boucher@savoirfairelinux.com>, 
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-In-Reply-To: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
-References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
-Subject: Re: [PATCH 0/4] drm/panel: st7703: add support for DCLTek DT300248
-Message-Id: <179362683669.3310106.16771881319791378859.b4-ty@b4>
-Date: Mon, 02 Nov 2026 14:40:36 +0100
+ Conor Dooley <conor+dt@kernel.org>, Ishu Brar <patches@brar.si>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
+References: <20261026-panel-ams644vk04-v2-0-e88cafb3e577@brar.si>
+Subject: Re: (subset) [PATCH v2 0/2] drm/panel: Add Samsung AMS644VK04
+ panel
+Message-Id: <179362684370.3310106.4332858082729247133.b4-ty@b4>
+Date: Mon, 02 Nov 2026 14:40:43 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -114,27 +110,23 @@ X-Mailer: b4 0.15.2
 
 Hi,
 
-On Wed, 07 Oct 2026 16:18:55 -0400, Marc-Olivier Champagne wrote:
-> This series adds support for the DCLTek DT300248 10.25-inch MIPI DSI
-> panel based on the Sitronix ST7703 controller.
+On Mon, 26 Oct 2026 22:09:31 +0530, Ishu Brar wrote:
+> Add a binding and a driver for the Samsung AMS644VK04, a 6.44 inch
+> 1080x2400 MIPI DSI command mode AMOLED panel with DSC, used in the
+> OnePlus Nord (SM7250).
 > 
-> Patches 1 and 2 are necessary preparation: they make the driver send
-> the init sequence from prepare() with the DSI host guaranteed up,
-> since not all hosts accept commands once the video stream is running.
-> These affect all panels using the driver.
+> The driver describes only the 90 Hz mode for now; the panel also does
+> 60 Hz, which needs a way to pick the mode from the display pipeline that
+> I did not want to invent here.
 > 
 > [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/4] drm/panel: st7703: set prepare_prev_first
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/aa0f8d68fcef246d626a8edd8724e889a71c346e
-[2/4] drm/panel: st7703: move init commands to prepare()
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a8e72d97ce2e779a95e1d521553c9914791ae759
-[3/4] dt-bindings: display: panel: add compatible for DCLTek 300248 10.25in panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/0a16c2a62af399444849dfbf7c00980150371e43
-[4/4] drm/panel: st7703: Add DCLTek 300248 10.25in display
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/8068c2f78f7233a0ab528e429a02fb73864f6423
+[1/2] dt-bindings: display: panel: Add Samsung AMS644VK04
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/362fc4c73d39eff00ff1232275631a5b05474a52
+[2/2] drm/panel: Add Samsung AMS644VK04 panel driver
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/a72e7d5b3d038915e05a1c459b513e40f7e06ec2
 
 -- 
 Neil
