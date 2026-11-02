@@ -1,63 +1,123 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793590337;
-	b=RuXncyw3D31wdJ2uJB8q4eRp0T4UGc17NEfJDkwFFqjvddUwLBwBLdrdpiotAPGugRuK
-	 IyoLSgdVEG/YG0ThYapj3XJxQz7UlBOknOMBOqFuO+GzhdbVmxHKuHIX0OzZQQVG2G8Hk
-	 FjIdYNJ7TE9tB8HYpDWMtgSjEFJizNoTPAdjLdUpVc6rY0AaVrdTqcP6tjsxdxf847BsM
-	 YERkMmRzcmfsbS8J0C7OMXhdRc3BZ1MRjXxluyI9Cn6eBDkIZDnoYpt0a/QNvn+VnkCkA
-	 vuhdwxDjFhOWeproT/aTTFxVMoHFVsdWj7mu91taLWx0cFRRVpFHNYO9PI8+MzenAqA==
+	t=1793590338;
+	b=CAJnnMzGxzSMnI5Xriae0INslJ35G/XIOXGfTiES4V9H3lnrgd6nCMxIo7+HPExKZeer
+	 afl+wzl0KMWotAD/YeOY/vOD+SfbxcJPA23Ukg47hBAw1oqRLfxUArgTqApeXQxca7JMM
+	 TQCmGtAyVTqlC5m61a0yV1d46gJirDI/PBjKZxAH9xfioiPrRCi1BxT11Es86oVS+4qFV
+	 a0QAtyolnZq5aHRZi4GcfHc9yaElLJc2Kd4ZLLNJNkVyoDMs8Nn9jZQZRJuUWI6t/BZr4
+	 0AtWxkbNxjI43vXJ8vcov+a+ZajVzeSmrt2JyYX1eS6hl84i1/yEwxPZs5r5Y593/Bg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793590337;
-	h=DMARC-Filter:DKIM-Signature:X-QQ-mid:X-QQ-Originating-IP:Received:
-	 X-QQ-SSF:X-QQ-GoodBg:X-BIZMAIL-ID:Received:X-Gm-Message-State:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:Subject:To:Cc:
-	 Content-Type:X-QQ-SENDSIZE:Feedback-ID:X-QQ-XMAILINFO:X-QQ-XMRINFO:
-	 X-QQ-RECHKSPAM;
-	bh=m8op6PwWVPH29KHkSl2bqXfs4ZxwQ7xpDqblCTtVsmw=;
-	b=gjCScLMlg8nusqwWRxxxJwEqnGbj0Z2OVJ1MbLWwJyg3aYULzltG7yooQL7bA+jcx4OE
-	 OfWpkPuRJrF1BMlxOy4I98I+C0mJU7gSCdxGZt25SuYSP/vbCHJUtPla3tsMjPVcMnVx/
-	 CC/yc6WKRTJ3rzeojDOChA4sRbVHIUgeRV/iSxwzHqgV0PzaIZuO5tAkx3UtigNidhQsg
-	 LTl7FQkddgY57q1m8CfAq5KICKCO392FIu2fPBoWtrLQGJhh57HaEl8tLZgj/JUk8zDpi
-	 OLc+ShZLf06qe/YCPDaNadS6+lvpO/BTFqjCqOOG9VrjF6818Uh4C7bvy7JW7+fuOdQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793590338;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
+	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
+	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Date:From:
+	 To:Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To:X-Proofpoint-GUID:
+	 X-Proofpoint-ORIG-GUID:X-Authority-Analysis:X-Proofpoint-Spam-Info:
+	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
+	 X-Proofpoint-Spam-Details;
+	bh=V4Vra6fQtcjS2bOHJ4vISu/T87zL26GOtMaue5+rq5I=;
+	b=ERtNlok7Umxd4IIdxSlerFyGomsx90nPS9sCR0OCJJpYVReTFjgNHgMPTs2o2Bt0Q93o
+	 bbRqx1BABBL9btvwsuDSh/TZee7U2tpORqCqOPdxkzVUZZPIrvhZZP9kLJUYoMKe855dJ
+	 9zL6kB6MDONUO39kImR61FSgPL8/ghJ0XF/rnEet3homMFMGYYkpzQEJ6ToRIZ+Kq0gO0
+	 H4VW8/P7EFeKhnnHcmtb3JyvhuWe9QaaQShRot/uizqgxox6AF5tyQ8vnp+Sg/UEhfzcc
+	 rR9jDBkCgwGEl0Uj93Lk8v/v6jslpQhBgjqoS05m8j0rvBXYRkyrt5QQZ/aZGrytM+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=none header.from=linux.spacemit.com;
-	spf=none smtp.mailfrom=linux.spacemit.com;
-	dkim=pass header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b="GHh7PQ/S";
-	arc=none smtp.remote-ip=52.59.177.22
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+	dmarc=pass header.from=oss.qualcomm.com;
+	spf=pass smtp.mailfrom=oss.qualcomm.com;
+	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b="Jtub3uo/";
+	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V1WkYBda;
+	arc=none smtp.remote-ip=205.220.168.131
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 956C1606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:32:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 956C1606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB487606A32E
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:32:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org BB487606A32E
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.a=rsa-sha256 header.s=mxsw2412 header.b=GHh7PQ/S
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
-	s=mxsw2412; t=1793590326;
-	bh=m8op6PwWVPH29KHkSl2bqXfs4ZxwQ7xpDqblCTtVsmw=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To;
-	b=GHh7PQ/SCDFcy6aq9PfBgT8U9i6BfzpKIdKiQ+qaAGzdWbarYYrtMoeZmmO+G1nY/
-	 /PZmsrj1de8wOJ/QYnBKfKbH8y40vOXVyoyxHTQlym620klkXio8+VM2kOffXykTag
-	 PT2xL8npiGru+GXUGrsvKtwKFXUxu9eirDMqGOrs=
-X-QQ-mid: zesmtpgz5t1793590325t9d9fff2c
-X-QQ-Originating-IP: 4PvlygZs1chJ6c6P8ulMEaZlG19StBd9gZ/Pw04mpX8=
-Received: from mail-ot1-f44.google.com ( [209.85.210.44])
-	by bizesmtp.qq.com (ESMTP) with SMTP id 0
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:32:02 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 16093569855118793847
-Received: by mail-ot1-f44.google.com with SMTP id 46e09a7af769-844a8bf7e25so1808549a34.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:32:04 -0800 (PST)
-X-Gm-Message-State: AFq9FYIXulJ5TamvvvvyH0+atPukIdY2fZzABmyAI3/hE0oBqjV+9xWG
-	WxkaEd0xhlw6+kJkkU7McnArzMzbR32onsL6R7JtAfnNSHv95tkxDN+v6Z3vmvA5a9FhyvpZv2W
-	gXGPXbCoq+JegbldhpBbfMr1QS86AnqM=
-X-Received: by 2002:a17:902:cf08:b0:2e8:b5af:22e0 with SMTP id
- d9443c01a7336-2eb36465f1amr76602555ad.41.1793589814309; Sun, 01 Nov 2026
- 19:23:34 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Jtub3uo/;
+	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=V1WkYBda
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A20Jwxv2256299
+	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 03:32:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=V4Vra6fQtcjS2bOHJ4vISu/T
+	87zL26GOtMaue5+rq5I=; b=Jtub3uo/eIAoGU4zHgJ4tpO6pWa9BHZJ3HCrlOg1
+	fp6ewqqjBikhw41zxoPNCazflbBMTq4AH2vnklMiDWwINzfxU4Uorj2luR+LbfFl
+	ppjzUfXNNLtukv4mkqkg5KDPoqktKpsPVAilXnXi2CtdYjBlxoq+wJR4bE5ZvAis
+	0v6jgKmBqE+fM43oZOh5hIBfcr1ihqICwbwHxdTPhZiUr/YNtU9Mp3Nsz0dGML1r
+	uAilxBiM/x3DBuMaIs9o7WFQfc9zvYjIwGe/B3CZn8/pkZNz1WAh7/o0+ajILbGv
+	pdC0KLKfg5EIkFZRvnL61a4mDZBshPskz21YDAh9qUGaug==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn8j2w0de-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 03:32:16 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-36a1e2485fdso7089508eec.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:32:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1793590336; x=1794195136; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=V4Vra6fQtcjS2bOHJ4vISu/T87zL26GOtMaue5+rq5I=;
+        b=V1WkYBdaGilv8yNeBa9rm0X9T9yFa6coXaVXwf1bdOOz5ZMYyYsX5cfQeY+BMVQkHl
+         iQJZKoLMnl5Se2L6/9qynHRI1y1OpvrF0Hcc/yfAuuuqXI1v3oYqKpX2iuS9iKUhdMVh
+         ETSD8q1OUuZmDfzVgqitQp8uujwSWfgirzjxyoWXFME4JhOxlDGQrBjZBMN8iTW6eUE4
+         b+PHgLNJhzK7OW110pllHVMgnNUfW9iYSzunDmAxtCWblG5kzo9O2gaeSUP65DVZd/kE
+         1jZxRRMyBunMSqlwD7Veo7/GpVipNj221llzSQNc3Jm3bAlVkX4on8v+U1hvYbHZCrmR
+         lhpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793590336; x=1794195136;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V4Vra6fQtcjS2bOHJ4vISu/T87zL26GOtMaue5+rq5I=;
+        b=vzRtm38YIDYGltdLSslQlJktFzUwJqxR3Th3Nr8yoj/feqaZRNiWQRqI+lM8moFeEn
+         9IZD6RCMpDorchqkaCLOgkE5IO8UfXYJtq37bdLsyXqGMt6P+OK79vImpTycIAmJ4Mhg
+         /xXrENaQRmkIPERFoFonZC36uHffDP/yNW60LzFEiBKyY2p7H/yACeIPS8IvTcR1ol4V
+         DepBoyOKlSw/m433wqyBuiCS741pIEX3KKxoZMkRlNLuOSvM1YAZko6JvdWF/kEJum4w
+         tvH1wCaJsb6M4VnBA8fxoBjhRwD7Vk/MlpCtmFmyzMCg8a5wJF9I/Re/y9dni5sFdSNw
+         /Cow==
+X-Forwarded-Encrypted: i=1; AKwUvBzVg+DFrXROxYxDCCrOYIexsIg46JOVIntdCx9jCbhH732yeSLUSZG3KnMNNSO2mMn0UVwF6EDIffwwxWQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL9jBDs1G7e1g/MXJkrvBpPvUSgk05NR9MFxMxK+wB1Lggl6Q0f
+	J3Bl5BOMsVyO46v8o7XqqR3PUQuOMdC5VhC9z0w7X6e9BzvJT5gddeCbbzfONmVYSlC07uSUHZ2
+	nEJ8ANDpG+wUEPOzvKHSnOD8O6SDh27WsGpeDbF/+ip2gImEVMomskRGu/v7MHiD9Af3b2nWukN
+	yItQ==
+X-Gm-Gg: AYBFou0i3bhLao52lesNyHOfmiVC+dHOjm1utGvH3+cmH3D9wuvehMP39Bs2oh9x41w
+	wBEStwUJRDoySClHArE3z6yrsNjYDMRYFvE/p1rWDLSFqAoiYEqcq93sdfWYzKnpVBfkeXwmJPO
+	mhKAC+mxGMJMjV/Gd5FRGNUvGkIgjJDtAerm5TwlR3Li5d/GdlzmH/fbAbFUjRNpEXdv4Mo293A
+	SxXtIj0PWW2nbIz8wFzu/bMbcWOMCW67Kq+mvh4pZw++VMXLHpqd5WzgTxnPpA4eff8ylbL6CFM
+	TDWjlFIQx628p42/I2IPonAOfLJNEoaxKSNVJHkzD/tn+4wvahD3WzN81rxdSUZtj0yX4Bc+o+U
+	BaXz4w/b5yKDmJrTJkHFhrW1zY7mcqsqPh56+A6HLaLQQuMiMCe4btcoW6RZRx5uypJZYb96AFc
+	wM3T6Hc7/LPPVmqcxlhlAh
+X-Received: by 2002:a05:7022:1108:b0:199:4f68:7710 with SMTP id a92af1059eb24-1ac55774becmr11915337c88.2.1793590335774;
+        Sun, 01 Nov 2026 19:32:15 -0800 (PST)
+X-Received: by 2002:a05:7022:1108:b0:199:4f68:7710 with SMTP id a92af1059eb24-1ac55774becmr11915309c88.2.1793590335163;
+        Sun, 01 Nov 2026 19:32:15 -0800 (PST)
+Received: from hu-petche-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1aed79b3dfcsm27427782c88.12.2026.11.01.19.32.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 19:32:14 -0800 (PST)
+Date: Sun, 1 Nov 2026 19:32:12 -0800
+From: Peter Chen <peter.chen@oss.qualcomm.com>
+To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+Cc: linux-usb@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Sriram Dash <sriram.dash@oss.qualcomm.com>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v4 5/7] usb: dwc3: qcom: Support broken suspend for
+ SA8255P
+Message-ID: <augEPIcTyepgTxFW@hu-petche-lv.qualcomm.com>
+References: <cover.1793212717.git.faisal.hassan@oss.qualcomm.com>
+ <3a4bdffa9101fa81e4511d84c5a3ddd0b972efe2.1793212717.git.faisal.hassan@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,156 +127,130 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com> <auYxFRtKWbGAlRTL@aurel32.net>
-In-Reply-To: <auYxFRtKWbGAlRTL@aurel32.net>
-From: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-Date: Mon, 2 Nov 2026 11:22:58 +0800
-X-Gmail-Original-Message-ID: <EBCEB49359C4BBC0+CAAfSe-shesRwmdKhZojqbZjJejVEtA47NXBwNmrpAsTsk6m5rA@mail.gmail.com>
-X-Gm-Features: AclHuK9_kWiUHPoaWjYOWVhMFk9nT072XgylDHIVHiujJpZKDNExi2p2MezyEo8
-Message-ID: <CAAfSe-shesRwmdKhZojqbZjJejVEtA47NXBwNmrpAsTsk6m5rA@mail.gmail.com>
-Subject: Re: [PATCH] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
-To: Yixun Lan <dlan@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Aurelien Jarno <aurelien@aurel32.net>
-Cc: linux-kernel@vger.kernel.org, spacemit@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, Chunyan Zhang <zhang.lyra@gmail.com>, 
-	Troy Mitchell <troy.mitchell@linux.spacemit.com>, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:linux.spacemit.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: MNrAFlesFo5KXUCuEIipNrMx/yyu2BBH693YcgNfO2eNvkOQ8dW8H8ny
-	MndtSEGOY7clwzcr02qKd88jp+1oFUU5J3gVz6PJZooFMbqVJjr1Eg1lkcWGkm/lA7EoQ4/
-	Hq2i2aPmjThIJl4ChYK5jI5nAuz+A6nmqzJ12JfRoORi8AxhsL+lfpds8QF2ifjcWwM9C/S
-	eD0kblvZtEhnX8sIPAGHt48Qj6JvF5YpiKbnXPRMVpgNUic6+D+GrBIZVND+FR92mN0CZIO
-	/xN5REHgMrrt0U0W0wJR9TXVl4fNffyKo5okzNg/kbP7KL5iw4QNyYEdGiaabCm3SUPb757
-	DTnHWDB5Ef+gdstT39uE2Im2A+rJRRg4BKiV929pyO1QaY4d6VCZXKmlmbcNZokQwa33YOR
-	YLKQPgY7R2a0pcWXSy5zKBqm/VDxDsCstlpoIfV0/zihk2yBc9fnHfzEyQp32f8HiH+193Z
-	J5liCO3zNgc7UZThxna2GadkWb4MI/VHLYsHse30lzBt0Qmahw3SXUWIxNpWdgfsLFcl7VF
-	Lgb9MxVJYdk94/fAw9wdk35s4A79jnz8YJtVn83+1znk47ZfzKiramGcPhp34xpOXVKXdTG
-	Gn98NLJemYTy++/kRTEKz+hb86TFYHxrfwndeFLLT4eCYKCvh+95gA1Cv+1apHe3FVlnr5j
-	8v5DS/zhzcadgMBUkkK/wLa1WcR/K2IiYHLWzz5m10SiNtErCjBZMZoyp8ABeroyqFV/Dvh
-	kWjFK8MdQ6zSeGPi02tg8qeR3l6Op6qb3kZ/GrPs1Ed/9J+m4WGckfZFkfBFtD8kSpTMj8k
-	qn0SE4pmL16gE7x+c36fIvQIYO6qeo8G/YbWO/P2oNcsw5MjbTO+70r9D5JtKDp81rIxKEa
-	MC3aVYkCCE0C3fTMIdiKyEhMQJN0jrURJovI7ZZDg7bmvSkpGknAMMEggcLUAOSOMYaXyUn
-	8xzVAZTlTANgZG4RpHi1Q/K5f3jP7VY0BNdR6agBv4v5V2G9Uwgsz3c/Hdg0kWCNswZ0bPT
-	dlW4frWIkpjhyhzYEelOzbrsbpOQfy+Z/aUxc6qIZVxIMNR7JdZENdEH43XeefdlD9F2PQg
-	v0iTw3Xlij32WsIBRgLsVgTwPMzhYK/slRDorVidc1zTIManNmWLUIpKrCjESv8pA==
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <3a4bdffa9101fa81e4511d84c5a3ddd0b972efe2.1793212717.git.faisal.hassan@oss.qualcomm.com>
+X-Proofpoint-GUID: GUasoA5hDsLR1IkV7TA4UN6PCg8LAjNq
+X-Proofpoint-ORIG-GUID: GUasoA5hDsLR1IkV7TA4UN6PCg8LAjNq
+X-Authority-Analysis: v=2.4 cv=S5RMU4sP c=1 sm=1 tr=0 ts=6ae80440 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=kj9zAlcOel0A:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=PcBk4QqV-VHVs7bFY3sA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAxMyBTYWx0ZWRfXz0wL1dzp4rs3
+ 8jkJ0kIFfJmlEMuMChL0FSzICJL+4u2ZC8fRGBRinCxCZAjjqENGbe+7HQPPaIw8ad/SwuJma3t
+ 9QK+oVgq5l4buZ4LA8Fw0YxO/aDRmOQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAxMyBTYWx0ZWRfX41niAoUmmub0
+ zWCwUDWJxp+WiRlaXrqnqrDaofQLlwdtc/ePh/vaIltK1Ut3fZjo4+WuGpjigHDx7d/wCsUra40
+ vctBDGB+wc8vjcR9bPpqeALRbm/uWlZGSBUIkziNfDtsJ2Po/2BHiWfyzOh+D7DjrQkIwYgNNTJ
+ VnXHkYwgEbjiz6CutzccxTvNs0qRslwNViqCAr9Y0/RwCEPyO5Ai9QX9CtA4GaLd7wawaGkQ9UM
+ UquWYgZEwEPwhnH03UgCg6loaZPQ+o1EdSmaMIe21N4qeHme1+9DT9po3HH3jaGFPx8i4YMHJXM
+ evmaUHUQtmT/WIrLPJE3/JRlJTCkqCPYspF5x588kfz+IplYUoufnRxpUaE5HUlf+ffp+TAJo5X
+ ZqaRJIy+X8s1g70ON8cXoGyzOEssoJhxdrdDZ1yGes+2esf64ME8kZL5aocMMse2PYe4NCDIrsW
+ eypXrGNx4FuPPSOH2Ew==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-02_01,2026-10-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 impostorscore=0 bulkscore=0 clxscore=1015 lowpriorityscore=0
+ malwarescore=0 phishscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020013
 
-Hi Aurelien,
+On 26-10-29 00:29:35, Faisal Hassan wrote:
+> During APPS Suspend, the clock controller unit disables all clocks
+> to the CPU and subsystems, causing the controller to enter the
+> Power-On Reset (POR) state. This results in the loss of
+> Qscratch programming.
+> 
+> Upon APPS Resume, the USB controller does not have the proper
+> PIPE_UTMI_CLK_SEL or VBUS_VALID. Hence, if only the High-Speed
+> PHY is used for a controller capable of SuperSpeed operations,
+> the controller will assume it should use the USB3 PHY and not
+> the HS PHY as configured before APPS Suspend. This behavior
+> disrupts the normal operation of the USB controller. Similarly,
+> if the controller was operating in device mode prior to
+> APPS suspend, and VBUS_VALID signal is not set after APPS resume,
+> this will cause the PHYs to transition into the suspend state.
+> This behavior disrupts the normal operation of the USB controller.
+> 
+> Address the issues by ensuring that the PIPE_UTMI_CLK_SEL and
+> VBUS_VALID are handled properly after the system resumes from
+> APPS Suspend. This is crucial for maintaining the correct
+> operational state of the USB controller and preventing
+> unintended suspensions of the PHYs.
+> 
+> Also, as the controller is starting from POR state, make
+> sure the controller Reset is performed.
+> 
+> Because the controller is reset on every system resume, the
+> Qscratch restore is done whether or not wakeup was enabled, and
+> dwc3 core is told via needs_full_reinit to fully re-initialize the
+> core on system resume even in host mode with wakeup enabled. Wakeup
+> on this platform comes from the PHY interrupts routed through PDC,
+> not from the controller staying powered. VBUS_VALID is only forced
+> outside host mode, matching what probe does.
+> 
+> The XHCI controller is reset by the same event, so also set the
+> xhci_reset_on_resume dwc3 property. dwc3 passes it on to the xhci-plat
+> device as xhci-reset-on-resume-quirk, which makes xhci-plat set
+> XHCI_RESET_ON_RESUME.
+> 
+> Also make the .prepare callback return 0 on these platforms. A
+> runtime-suspended device in device mode would otherwise be left in
+> place across system sleep (direct_complete), skipping the system
+> resume callback and with it the reset and Qscratch restore.
 
-On Sun, 1 Nov 2026 at 02:19, Aurelien Jarno <aurelien@aurel32.net> wrote:
->
-> Hi,
->
-> On 2026-10-30 17:40, Chunyan Zhang wrote:
-> > Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
-> > of the K3 SoC.
-> >
-> > Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
-> > yet, so the port runs at high-speed (maximum-speed = "high-speed").
-> >
-> > Enable USB3 port A with dr_mode = "peripheral", so it can be used as
-> > a USB device.
-> >
-> > Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-> > ---
-> >  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  9 ++++++
-> >  arch/riscv/boot/dts/spacemit/k3.dtsi         | 30 ++++++++++++++++++++
-> >  2 files changed, 39 insertions(+)
-> >
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > index b084a35aa00e..74d4fdf9e405 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> > @@ -323,6 +323,15 @@ &usb2_phy {
-> >       status = "okay";
-> >  };
-> >
-> > +&usb3a_u2phy {
-> > +     status = "okay";
-> > +};
-> > +
-> > +&usb3a {
-> > +     dr_mode = "peripheral";
-> > +     status = "okay";
-> > +};
-> > +
-> >  &usb3d_u2phy {
-> >       status = "okay";
-> >  };
-> > diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > index c3f2dce0969c..220dfe29bb78 100644
-> > --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> > @@ -630,6 +630,36 @@ gmac2_axi_setup: stmmac-axi-config {
-> >                       };
-> >               };
-> >
-> > +             usb3a: usb@cad00000 {
->
-> Please move this after the eth2 node, so that the node addresses are
-> kept sorted.
->
-> > +                     compatible = "spacemit,k3-dwc3";
-> > +                     reg = <0x0 0xcad00000 0x0 0x10000>;
-> > +                     interrupts = <118 IRQ_TYPE_LEVEL_HIGH>;
-> > +                     interrupt-parent = <&saplic>;
-> > +                     clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-> > +                     clock-names = "usbdrd30";
-> > +                     resets = <&syscon_apmu RESET_APMU_USB3_A_AHB>,
-> > +                              <&syscon_apmu RESET_APMU_USB3_A_VCC>,
-> > +                              <&syscon_apmu RESET_APMU_USB3_A_PHY>;
-> > +                     reset-names = "ahb", "vcc", "phy";
-> > +                     phys = <&usb3a_u2phy>;
-> > +                     phy-names = "usb2-phy";
->
-> Please move the PHYs definition to the board level, matching was it is
-> done for the other USB3 ports, as other boards might have different PHY
-> configuration.
->
-> > +                     phy_type = "utmi";
-> > +                     snps,dis_enblslpm_quirk;
-> > +                     snps,dis_u2_susphy_quirk;
-> > +                     snps,dis-del-phy-power-chg-quirk;
-> > +                     snps,dis-tx-ipgap-linecheck-quirk;
-> > +                     maximum-speed = "high-speed";
->
-> I think the maximum-speed property should also be moved to the board
-> level, as its value depends on the PHYs configuration.
+Faisal, there are several issues in this patch, would you try to split them?
+- XHCI_RESET_ON_RESUME quirk support for dwc3
+- PIPE_UTMI_CLK_SEL restore after system resume, there is a similar submission recently [1]
+- VBUS override restore after system resume
+- The improvement for system resume dues to HW POR or lost of power.
 
-Sure. I will address all the above comments.
+[1]: https://lore.kernel.org/all/20261027-dwc3-utmi-resume-v1-1-ca9f0aa65783@gmail.com/
 
->
-> > +                     status = "disabled";
-> > +             };
->
-> Any reason not to define the snps,parkmode-disable-ss-quirk property? It
-> is defined for the other USB3 ports, as well as for the USB3 A port in
-> the vendor kernel
+> 
+>  struct dwc3_qcom {
+>  	struct device		*dev;
+>  	void __iomem		*qscratch_base;
+> @@ -86,6 +90,13 @@ struct dwc3_qcom {
+>  	struct icc_path		*icc_path_apps;
+>  
+>  	enum usb_role		current_role;
+> +
+> +	bool			broken_suspend;
+> +	bool			ignore_pipe_clk;
+> +};
+> +
+> +static const struct dwc3_qcom_priv_data sa8255p_dwc3_qcom_priv_data = {
+> +	.broken_suspend		= true,
+>  };
 
-The original thought was that this property is SS-specific and thus unnecessary
-without usb3-phy support. However, since it reflects a hardware characteristic
-that applies regardless of the current PHY configuration, adding it makes sense
-for consistency and forward compatibility.
+Why you consider it is "broken", or is it a normal resume recovery due to lost of status
+for controller and PHY? Why other SoCs don't need it?
 
->
-> > +
-> > +             usb3a_u2phy: phy@cad20000 {
-> > +                     compatible = "spacemit,k3-usb2-phy";
-> > +                     reg = <0x0 0xcad20000 0x0 0x200>;
-> > +                     clocks = <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-> > +                     #phy-cells = <0>;
-> > +                     status = "disabled";
-> > +             };
-> > +
-> >               pdma: dma-controller@d4000000 {
-> >                       compatible = "spacemit,k3-pdma";
-> >                       reg = <0x0 0xd4000000 0x0 0x4000>;
->
-> Otherwise looks good.
+>  static int dwc3_qcom_prepare(struct device *dev)
+>  {
+>  	struct dwc3 *dwc = dev_get_drvdata(dev);
+> +	struct dwc3_qcom *qcom = to_dwc3_qcom(dwc);
+> +
+> +	/*
+> +	 * The controller loses power across system suspend, so the system
+> +	 * resume callback must always run to reset and reprogram it. Don't
+> +	 * let the PM core leave a runtime-suspended device as-is.
+> +	 */
+> +	if (qcom->broken_suspend)
+> +		return 0;
 
-Thanks for the review,
-Chunyan
+Why we need this? I see dwc3 core do dwc3_core_init_for_resume at device mode
+during the resume.
+
+>  
+>  	return dwc3_pm_prepare(dwc);
+>  }
+
+-- 
+
+Thanks,
+Peter Chen
