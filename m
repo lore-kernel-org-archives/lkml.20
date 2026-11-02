@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=34.202.193.197
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605674;
-	b=x+CnF3aapf2BBUsz5ZmRUpYMXljhMD2fzcpwArUajrO057S/Q/l4wZTYA0QMflsV8Zqo
-	 tCDh3XP4hY3+OJ2igWcd3EngpdUzgFlCOkwdC4jN49LKha1VC5ji6zU4bFmPDJR2I59TE
-	 FXOqvKoDvYSU0oIfbixzk03Mrf+WR0a2kF1PgSQbCfs4U0l3XbvtDEE44Jz2cGPG+5Ycl
-	 NwNlq1cJPL8MoqJ8y09gf+HfqNqRdPiV7vtmXJ/qseiNDEKs+GcuhxP+9u0LgZwICOGHu
-	 +pLlguc+AbbvWHc5/Ahhak9H7bsIRoGSPyu3yiEp6UNOl+fVmkuHCIuVqC6rfnAPFhQ==
+	t=1793605675;
+	b=C1MEreWcPJB9vEy5zs4g3q2ACpGAZzx90GlFKMCovTs7I2RdPyNAT9GfOlRPj8zcYBiV
+	 /YHzGylZIo493XLiRZZ+etL6DHpG+LqhQl+xgqgdRjWBgqkszIVGs449eD9BCggHhWJGV
+	 LNdmt/jsB98YdZ3SF7DWOOqWCTLwlsxSi7skH2fpPlmGPmFi2ERWVLvjjrLUIDBsm4EHQ
+	 DtOLJokwNQp08TBhB186ylUDJGpDIDkoWnrVtN7W85dCuDd7SzCfT1FcZ1f+n2zsE8HSr
+	 3KuH2wB0hkfJ8KW0VyD5Vjo/hqdyBdttUKfTx5nf6DPYM0jfB9e/C+qHEvkky3TODFg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605674;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605675;
 	h=DMARC-Filter:DKIM-Signature:DKIM-Signature:Feedback-ID:
 	 X-Pm-Original-To:Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:
 	 X-MIME-Autoconverted:Content-Type;
-	bh=Klj60h8HQ29wEudOMHcX3kt40+YhSZgfn82l8HFZq8M=;
-	b=hWy7bWWYyqEoGIox5udMtftD/WMzxQtepXP4gZff2IC3zC2HAT5bDeWsPu+EndpMoLzB
-	 1rN/ZR7OvAqYGgPHGQ/DVnVcYhtXPwFfsu2CoQBHdvvyJTZMXqG/3vWYsFDWSZxa0X7Ec
-	 OKZJPw2DSCapmvNd+maxskmJzH+jnJviQdRuE34D/1/JTipoZTb+y7dQCDQnkwT9mRzbR
-	 Uo4H7QHEuh8dRQIse3dDHh0plyNpJw0nRSv6Htl6+nBug88rxu7v3JABqllBs7kDCSrn6
-	 Y81909Egma65MDHVqGz82Hv2cU6HIWwWZT9mvvUZydRcUwF8CbRnZ1tAD1hPyDVCE4A==
+	bh=FeIx4dzmURooP5wG8/54evVP3vGrvxb91slTM/ZxWFA=;
+	b=zuOJYiAWH5m8SMsndzt94WMZmFT4g80cX10+ViR+mAnt3YlUypA1gSQuJVsCWrmHpeKh
+	 tp21QJ1ut8GbgHkG48oiYzGjFYySLidQu1TOJEkm0m427b6SnMQmD9MJUm3ifyL7sO05Q
+	 Pqn7IwNsBNz9pT9HgexZpHNx3pgOHJ7uDLhVw/LcOxWgydAO53gkD/s7RkTZfxdZYT5Qj
+	 +ONlEiYbf1nw4hzOSQbZxImerP/hPgwCw0UtnamyAR9MUegQcV/gZG+wcV8sDdtsMHtyd
+	 OnjsWmQ5jlEcSNmP2TnSfe04TDn4xoPCpXMWBKPFwRnrdUZKlTIIfW+7TAjUtZczVVQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arkamondal.net;
 	spf=pass smtp.mailfrom=arkamondal.net;
-	dkim=pass header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail2 header.b="haxp/zWc";
-	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b="qYi1/rw6";
+	dkim=pass header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail2 header.b="vNQFqCq/";
+	dkim=pass header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=m9xDYiDs;
 	arc=none smtp.remote-ip=34.202.193.197
 Received: from sendmail.purelymail.com (sendmail.purelymail.com [34.202.193.197])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F356960A260C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F34B760A260B
 	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:47:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F356960A260C
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F34B760A260B
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=arkamondal.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arkamondal.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail2 header.b=haxp/zWc;
-	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=qYi1/rw6
-DKIM-Signature: a=rsa-sha256; b=haxp/zWcKGfYLH+VveVSgQ0hsiXc77MlCCKlMmaOP1HTPi2dtRz6rNJWIK8ZHAOuc1wcyAwySLxs9fJSLSpUJ9sjwN4Vve+ZQhDSfCE6ySORGVFAeveRHm+GyBMZIzEYc3GVIkLX//wJ8yvuNDBseBzX8VXkkFh/ncnTU0trMziQ7w9vzB7/GKeu7Fa5dS4TtDtS3ZIaJf2h4blZ8QmOIUYdhYXVDnOY971p3ikXQn+V1OK+8NDGPkhS/W3FCCu4PiB7DTgnQifqOJOlVsf44cidZoThgHemM4JfwieEJdmGuFMqlkJgpBrgd4MIV/vO2BmMC1oan/PEbdtVYJXhvg==; s=purelymail2; d=arkamondal.net; v=1; bh=yPD7e72BxlzGACPvkfjqczpIsl4woKKtHuunQfa11Zw=; h=Received:From:To:Subject:Date;
-DKIM-Signature: a=rsa-sha256; b=qYi1/rw6TYgFBMhnDKQ0si5sGK29P8I7uebb1IJlT7PmjWjriYTSS8X9hYhULlfErEFca69kEyqEeNIoUd+rLfdCxv9GQfoPIgSqqdnHj9JCGV6s43LndBT/RAdxB+6H6hi8XYZoJrRXj4dJJwIKdQOWBNvRDNozwTlbKMWxr6EiAeth5Ll1wWDjn9H6EN2hKTq0Oqgbsv5oEERLTqH1gL6zsDpRc5fLcQFyo2AiOqTK+qKm6GVIort/PWCtey6CQxGBE0mK7Nn/UE/bVJH+CRaOCelAKDjnI+xsQulQjL6qGd6SAcAB1RSPyV8wWfWm/0s8Jqpb64LRE1xT9F0AEg==; s=purelymail2; d=purelymail.com; v=1; bh=yPD7e72BxlzGACPvkfjqczpIsl4woKKtHuunQfa11Zw=; h=Feedback-ID:Received:From:To:Subject:Date;
+	dkim=pass (2048-bit key, unprotected) header.d=arkamondal.net header.i=@arkamondal.net header.a=rsa-sha256 header.s=purelymail2 header.b=vNQFqCq/;
+	dkim=pass (2048-bit key, unprotected) header.d=purelymail.com header.i=@purelymail.com header.a=rsa-sha256 header.s=purelymail2 header.b=m9xDYiDs
+DKIM-Signature: a=rsa-sha256; b=vNQFqCq/fEslY6fX/cxvQiCwQ3lLbMp9DhfaLSz9b2PvfxWarebnH5/Efx/55gpjfkCS5GumQV2I9malxRQTM85dOCb7FtYYZzUY0wv8juiHttBOE++lYVHYjJyo4AfMRxUW+w+ol+ZUHN1a7odPiktUCcIMqtTMjxxerSExPW5JQwqrHU98KX+aF/VdcugTle8FCyY02pRUrNd7TS8F8B723H9jvF7H3M2Yt9F9LWkTxQ97Fu/5fvPcIvMZ/9f7FcR66/w/7u9IX2kBFSn8alP1p7ktijqX9jgbmtAkPUQH+G6j6FIg2e9qksIyJZGmLsEmKFOV2xa5y9nWkaK3GQ==; s=purelymail2; d=arkamondal.net; v=1; bh=N4w/bqepOp7PYyP7DJC2XK6cVydXAwSld8Bu6X8bkVY=; h=Received:From:To:Subject:Date;
+DKIM-Signature: a=rsa-sha256; b=m9xDYiDs1RUYCSJ4ZfkJTquDJb1KGakUson2WjxKnrdmVjQ9lX7Ba9bo7MZBI9e1h9EWyrGckMcaQbXU4nj9STki7dM1zdpjBAEVtm3fdgzxhYB162WPEe8nLFKnBEXCdADe3Lgvq1cIT/sfQ/YwtA6iVXR+6MCRJQiqLlbSoE1LVnCaDk4tz/Qxi1MgEYimnJjUPJMaquIOqCBV/4YSDH7upfs1xDRfDNod7d/102ETkn5SlOvcmiy+hFxwTTOYM2ocyTy8Iwds/ERXfcaozXs7ZHS0q7OJ71aBCVAUQd1LPWyRJgs474CjBIRixerhIHWhbh7/9R5R16I/YJv4Hg==; s=purelymail2; d=purelymail.com; v=1; bh=N4w/bqepOp7PYyP7DJC2XK6cVydXAwSld8Bu6X8bkVY=; h=Feedback-ID:Received:From:To:Subject:Date;
 Feedback-ID: 1246644:48769:null:purelymail
 X-Pm-Original-To: linux-kernel@vger.kernel.org
 Authentication-Results: purelymail.com; auth=pass
-Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id -370655267;
+Received: by smtp.purelymail.com (Purelymail SMTP) with ESMTPSA id 1618937125;
           (version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384);
-          Mon, 02 Nov 2026 07:47:29 +0000 (UTC)
+          Mon, 02 Nov 2026 07:47:31 +0000 (UTC)
 From: Arka Mondal <arka@arkamondal.net>
 To: Jonathan Cameron <jic23@kernel.org>,
 	Linus Walleij <linusw@kernel.org>
@@ -57,9 +57,9 @@ Cc: David Lechner <dlechner@baylibre.com>,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Arka Mondal <arka@arkamondal.net>
-Subject: [PATCH 4/6] iio: light: max44000: Report the available lists via read_avail()
-Date: Mon,  2 Nov 2026 16:46:58 +0900
-Message-ID: <20261102074700.63075-5-arka@arkamondal.net>
+Subject: [PATCH 5/6] iio: humidity: hdc100x: Report the available lists via read_avail()
+Date: Mon,  2 Nov 2026 16:46:59 +0900
+Message-ID: <20261102074700.63075-6-arka@arkamondal.net>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261102074700.63075-1-arka@arkamondal.net>
 References: <20261102074700.63075-1-arka@arkamondal.net>
@@ -76,146 +76,152 @@ Content-Transfer-Encoding: quoted-printable
 X-MIME-Autoconverted: from 8bit to quoted-printable by Purelymail
 Content-Type: text/plain; charset=UTF-8
 
-The light channel keeps IIO_CHAN_INFO_SCALE and IIO_CHAN_INFO_INT_TIME
-in info_mask_shared_by_type, so userspace sees in_illuminance_scale
-and in_illuminance_integration_time. Two custom attributes list the
-values those accept, but they are named illuminance_scale_available and
-illuminance_integration_time_available, without the in_ prefix the core
-gives the attribute a list belongs to. Both land at the device level,
-paired with nothing, so userspace that asks for either prefixed name
-finds no such file.
+The temperature and humidity channels have IIO_CHAN_INFO_INT_TIME in
+info_mask_separate, so userspace sees in_temp_integration_time and
+in_humidityrelative_integration_time. Two custom attributes list
+the values they accept, named temp_integration_time_available and
+humidityrelative_integration_time_available. Neither carries the in_
+prefix of the attribute it describes, so both sit at the device level,
+and userspace that opens either prefixed name finds no such file. A
+third attribute, out_current_heater_raw_available, already has the right
+name and keeps it.
 
-Report both lists through read_avail() and delete the two attributes
-along with the strings they printed.
+Report all three through read_avail() and delete the attributes and the
+group that held them.
 
-Each list uses the format the write path accepts, which
-max44000_write_raw_get_fmt() gives as IIO_VAL_INT_PLUS_MICRO for
-scale and IIO_VAL_INT_PLUS_NANO for integration time. The scale
-is read back as IIO_VAL_FRACTIONAL_LOG2, the same number written
-another way. max44000_write_raw() still rounds a request against
-the ulux table with find_closest() and against the ns table with
-find_closest_descending(), so both tables stay and the lists are
-separate arrays of value pairs.
+The two time lists hold what hdc100x_set_it_time() accepts. Its loop
+ignores a zero request, so the padding entry in the temperature row of
+hdc100x_int_time cannot be selected, which is why the temperature list
+has two entries and the humidity list three.
 
-No value changes, but the core prints each one to the full precision
-of its format. The scale now reads 0.031250 0.125000 0.500000 4.000000
-where it read 0.03125 0.125 0.5 4, and the integration time reads
-0.100000000 0.025000000 0.006250000 0.001562500 where it read 0.100
-0.025 0.00625 0.0015625.
+No value changes. The heater list still prints 0 1, and the core prints
+the times to the six decimals of IIO_VAL_INT_PLUS_MICRO: temperature
+reads 0.003650 0.006350 where it read 0.00365 0.00635, humidity 0.002500
+0.003850 0.006500 where it read 0.0025 0.00385 0.0065.
 
-Fixes: d5d8f49b6345 ("max44000: Expose ambient sensor scaling")
+Fixes: 4839367d99e3 ("iio: humidity: add HDC100x support")
 Signed-off-by: Arka Mondal <arka@arkamondal.net>
 ---
 
 Notes:
     Compile tested only; no relevant hardware available.
 
- drivers/iio/light/max44000.c | 60 ++++++++++++++++++++++--------------
- 1 file changed, 37 insertions(+), 23 deletions(-)
+ drivers/iio/humidity/hdc100x.c | 61 ++++++++++++++++++++++++----------
+ 1 file changed, 44 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/iio/light/max44000.c b/drivers/iio/light/max44000.c
-index 8c344f1b3fe2..9f9046e127c0 100644
---- a/drivers/iio/light/max44000.c
-+++ b/drivers/iio/light/max44000.c
-@@ -104,11 +104,20 @@ static const int max44000_int_time_avail_ns_array[] =
-=3D {
- =09     6250000,
- =09     1562500,
+diff --git a/drivers/iio/humidity/hdc100x.c b/drivers/iio/humidity/hdc100x.=
+c
+index bc452cc8fbcf..e2780e436655 100644
+--- a/drivers/iio/humidity/hdc100x.c
++++ b/drivers/iio/humidity/hdc100x.c
+@@ -69,26 +69,19 @@ static const struct {
+ =09},
  };
--static const char max44000_int_time_avail_str[] =3D
--=09"0.100 "
--=09"0.025 "
--=09"0.00625 "
--=09"0.0015625";
-+
-+static const int max44000_int_time_avail[] =3D {
-+=090, 100000000,
-+=090, 25000000,
-+=090, 6250000,
-+=090, 1562500,
-+};
-+
-+static const int max44000_scale_avail[] =3D {
-+=090, 31250,
-+=090, 125000,
-+=090, 500000,
-+=094, 0,
-+};
 =20
- /* Available scales (internal to ulux) with pretty manual alignment: */
- static const int max44000_scale_avail_ulux_array[] =3D {
-@@ -117,11 +126,6 @@ static const int max44000_scale_avail_ulux_array[] =3D=
- {
- =09   500000,
- =09  4000000,
+-static IIO_CONST_ATTR(temp_integration_time_available,
+-=09=09"0.00365 0.00635");
+-
+-static IIO_CONST_ATTR(humidityrelative_integration_time_available,
+-=09=09"0.0025 0.00385 0.0065");
+-
+-static IIO_CONST_ATTR(out_current_heater_raw_available,
+-=09=09"0 1");
+-
+-static struct attribute *hdc100x_attributes[] =3D {
+-=09&iio_const_attr_temp_integration_time_available.dev_attr.attr,
+-=09&iio_const_attr_humidityrelative_integration_time_available.dev_attr.at=
+tr,
+-=09&iio_const_attr_out_current_heater_raw_available.dev_attr.attr,
+-=09NULL
++static const int hdc100x_temp_int_time_avail[] =3D {
++=090, 3650,
++=090, 6350,
  };
--static const char max44000_scale_avail_str[] =3D
--=09"0.03125 "
--=09"0.125 "
--=09"0.5 "
--=09 "4";
 =20
- #define MAX44000_SCAN_INDEX_ALS 0
- #define MAX44000_SCAN_INDEX_PRX 1
-@@ -132,6 +136,8 @@ static const struct iio_chan_spec max44000_channels[] =
-=3D {
- =09=09.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),
- =09=09.info_mask_shared_by_type =3D BIT(IIO_CHAN_INFO_SCALE) |
- =09=09=09=09=09    BIT(IIO_CHAN_INFO_INT_TIME),
-+=09=09.info_mask_shared_by_type_available =3D
-+=09=09=09BIT(IIO_CHAN_INFO_SCALE) | BIT(IIO_CHAN_INFO_INT_TIME),
- =09=09.scan_index =3D MAX44000_SCAN_INDEX_ALS,
+-static const struct attribute_group hdc100x_attribute_group =3D {
+-=09.attrs =3D hdc100x_attributes,
++static const int hdc100x_humidity_int_time_avail[] =3D {
++=090, 2500,
++=090, 3850,
++=090, 6500,
+ };
+=20
++static const int hdc100x_heater_avail[] =3D { 0, 1 };
++
+ static const struct iio_chan_spec hdc100x_channels[] =3D {
+ =09{
+ =09=09.type =3D IIO_TEMP,
+@@ -97,6 +90,7 @@ static const struct iio_chan_spec hdc100x_channels[] =3D =
+{
+ =09=09=09BIT(IIO_CHAN_INFO_SCALE) |
+ =09=09=09BIT(IIO_CHAN_INFO_INT_TIME) |
+ =09=09=09BIT(IIO_CHAN_INFO_OFFSET),
++=09=09.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_INT_TIME),
+ =09=09.scan_index =3D 0,
  =09=09.scan_type =3D {
- =09=09=09.sign=09=09=3D 'u',
-@@ -383,24 +389,32 @@ static int max44000_write_raw_get_fmt(struct iio_dev =
-*indio_dev,
- =09=09return IIO_VAL_INT;
+ =09=09=09.sign =3D 's',
+@@ -111,6 +105,7 @@ static const struct iio_chan_spec hdc100x_channels[] =
+=3D {
+ =09=09.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+ =09=09=09BIT(IIO_CHAN_INFO_SCALE) |
+ =09=09=09BIT(IIO_CHAN_INFO_INT_TIME),
++=09=09.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_INT_TIME),
+ =09=09.scan_index =3D 1,
+ =09=09.scan_type =3D {
+ =09=09=09.sign =3D 'u',
+@@ -122,6 +117,7 @@ static const struct iio_chan_spec hdc100x_channels[] =
+=3D {
+ =09{
+ =09=09.type =3D IIO_CURRENT,
+ =09=09.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),
++=09=09.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_RAW),
+ =09=09.extend_name =3D "heater",
+ =09=09.output =3D 1,
+ =09=09.scan_index =3D -1,
+@@ -328,10 +324,41 @@ static irqreturn_t hdc100x_trigger_handler(int irq, v=
+oid *p)
+ =09return IRQ_HANDLED;
  }
 =20
--static IIO_CONST_ATTR(illuminance_integration_time_available, max44000_int=
-_time_avail_str);
--static IIO_CONST_ATTR(illuminance_scale_available, max44000_scale_avail_st=
-r);
--
--static struct attribute *max44000_attributes[] =3D {
--=09&iio_const_attr_illuminance_integration_time_available.dev_attr.attr,
--=09&iio_const_attr_illuminance_scale_available.dev_attr.attr,
--=09NULL
--};
--
--static const struct attribute_group max44000_attribute_group =3D {
--=09.attrs =3D max44000_attributes,
--};
-+static int max44000_read_avail(struct iio_dev *indio_dev,
-+=09=09=09       struct iio_chan_spec const *chan,
-+=09=09=09       const int **vals, int *type, int *length,
-+=09=09=09       long mask)
++static int hdc100x_read_avail(struct iio_dev *indio_dev,
++=09=09=09      struct iio_chan_spec const *chan,
++=09=09=09      const int **vals, int *type, int *length,
++=09=09=09      long mask)
 +{
 +=09switch (mask) {
-+=09case IIO_CHAN_INFO_SCALE:
-+=09=09*vals =3D max44000_scale_avail;
-+=09=09*type =3D IIO_VAL_INT_PLUS_MICRO;
-+=09=09*length =3D ARRAY_SIZE(max44000_scale_avail);
-+=09=09return IIO_AVAIL_LIST;
 +=09case IIO_CHAN_INFO_INT_TIME:
-+=09=09*vals =3D max44000_int_time_avail;
-+=09=09*type =3D IIO_VAL_INT_PLUS_NANO;
-+=09=09*length =3D ARRAY_SIZE(max44000_int_time_avail);
++=09=09switch (chan->type) {
++=09=09case IIO_TEMP:
++=09=09=09*vals =3D hdc100x_temp_int_time_avail;
++=09=09=09*length =3D ARRAY_SIZE(hdc100x_temp_int_time_avail);
++=09=09=09break;
++=09=09case IIO_HUMIDITYRELATIVE:
++=09=09=09*vals =3D hdc100x_humidity_int_time_avail;
++=09=09=09*length =3D ARRAY_SIZE(hdc100x_humidity_int_time_avail);
++=09=09=09break;
++=09=09default:
++=09=09=09return -EINVAL;
++=09=09}
++=09=09*type =3D IIO_VAL_INT_PLUS_MICRO;
++=09=09return IIO_AVAIL_LIST;
++=09case IIO_CHAN_INFO_RAW:
++=09=09*vals =3D hdc100x_heater_avail;
++=09=09*type =3D IIO_VAL_INT;
++=09=09*length =3D ARRAY_SIZE(hdc100x_heater_avail);
 +=09=09return IIO_AVAIL_LIST;
 +=09default:
 +=09=09return -EINVAL;
 +=09}
 +}
-=20
- static const struct iio_info max44000_info =3D {
- =09.read_raw=09=09=3D max44000_read_raw,
- =09.write_raw=09=09=3D max44000_write_raw,
- =09.write_raw_get_fmt=09=3D max44000_write_raw_get_fmt,
--=09.attrs=09=09=09=3D &max44000_attribute_group,
-+=09.read_avail=09=09=3D max44000_read_avail,
++
+ static const struct iio_info hdc100x_info =3D {
+ =09.read_raw =3D hdc100x_read_raw,
+ =09.write_raw =3D hdc100x_write_raw,
+-=09.attrs =3D &hdc100x_attribute_group,
++=09.read_avail =3D hdc100x_read_avail,
  };
 =20
- static bool max44000_readable_reg(struct device *dev, unsigned int reg)
+ static int hdc100x_probe(struct i2c_client *client)
 --=20
 2.56.0
 
