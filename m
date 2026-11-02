@@ -1,76 +1,101 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.69
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793650041;
-	b=L5VmuBKUwfl0P+3fSHc/OMRF/vxsQXRDAik6ReioU/sRsFo0BfR+agHndoXuSJcmtw/g
-	 b/tCBlesSc6VO/y3DQzMxe6w55X+8j3TTfN2zh1+GjlsvMbhtZ/w/f4AsG8oyz5xNp5v4
-	 SBrsmYoCEohh0xco+DHg0ObTKw8/tjfSkakd5T1AtZ5rdjlBStSx0MsSTcWJsCXuM21ID
-	 LpJ5fgm8D8weiQEhwRh7tdLk7pLKi9J+vBLyVzNXPdimeSjjZsyV4lQCzjHLRv6LkaCD0
-	 VCujDl1S/m1pV4iluEgpPy3NuC6GFe9ucrHMyWt3KJEpYA5XfZxFtng8v8+wNHDSoZQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793650041;
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793650074;
+	b=lJKUnijFeslaS7HsP6WNFp76hYvo23aQeN2zlizmntX/si8i5wLDIOI3no9ik9vPkLFm
+	 SHpN/GOQKirZl2qj5rUFiaGzE2+rZ2K9xF4y2NYPVmWrcxi+H0bszF6d9N3xcmNu0QqVt
+	 9cFUXcNlLwG3QmU3HT681XDXLV8AcEp7pYxUyu0li01EKlVsSbKGeAxQLMNMg4Z8djeX1
+	 CWHS+soNkMRb5FYnRiw0qh/nTD2VBtq9IJzhK+7lojJEffxnNbUeqPCYe9AdgKP2kFApK
+	 vQlgCsNHirDZjMJ1lCjLvZgSdP0SZNZzQXf89Ts+Sn6W3IggWKC7Gztx3DAaiFyxZCA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793650074;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
-	 Mime-Version:References:Message-ID:Subject:From:To:Cc:Content-Type:
-	 Content-Transfer-Encoding;
-	bh=nNfm4rH6eQ2Oj47JrfSVJCEhe2McbXnswnFij5qW64Y=;
-	b=MknFcfJeWB8lZWqvHJglzYs9G/yqEP7exgmUSR3+qsYemuvR5Z/8aSOfseDmGWXpm0hc
-	 4ThGK6A/tEySDK8x9YtS+eV8vZ/2qTKDpL4NLYLrZu8OoEkkGoBcjtE5VBxFHmc1bp710
-	 FXNUHDdtydgifrRzs5HzURYzCFid0WqfCjTJQBb3NOzZWzocsSADlivr4Ys7oV/QdtUFK
-	 VHOZdWBElnpImI8zOM0VbbfQcVA8LbmtKVr+UX/7mzE5iw2kmEmLWy52N1i10gE4wLs62
-	 H1pGvgFUdmocZRhWKNHZxWmcZewEuFZzKVgCT/I8hwTzuZzzSe3DchzvsTc8VDdu3ug==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
+	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
+	bh=2y2WavsP8svBBeJai9Uevzqpj1fQ7NNZDo+HgkQhGww=;
+	b=nqwpx0ZWDdIfCFz+gG0N7oga2jMp7cbxQyCaWozxSjqnbvv1v6uaghZQOh2WNQ9ju89/
+	 e5IMfnz9+voD+2d8VDGe+lXD+6Y3yIOkvKDa8Kn8kt+UPrKSYBm2EEo14A6rCxQvKXvxI
+	 h4DH3YqliUod6lP60NamB9NFcbJlvfRwzooGWvqcPuvFGK9Gqv3GSKhi0KAaGPgd5Gz19
+	 SvNKpHW276+vp1fHwMCMW6PPK+Gol6Wwgmqrr09H/Z6vivLEqKcijzUgi5WwerwqTZfhC
+	 vOvqpT8o0lZWHXUdTxxPfLq7aexoQvKjmATk5S0Y495Nt88PKlvS1a3W42pceLZWzaw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ckpGuMv7;
-	arc=none smtp.remote-ip=209.85.216.69
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jk8TrkOl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.208.44
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81111606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:07:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81111606A327
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3AC6606A329
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 20:07:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C3AC6606A329
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=ckpGuMv7
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3ae72da2f57so4512183a91.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:07:20 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=jk8TrkOl
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6ae14cdc63aso1780a12.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 12:07:48 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793650067; cv=none;
+        d=google.com; s=arc-20260327;
+        b=A6ZrNK9sSyyrjIybYUbiyXWvLRUjRf0bvhedKAC2v5VzyahCXOO8imfZlOl9tCO/eR
+         SoLwc574LE23GmjdO3cbyPi9YTar8XnKJk3chsIpkRO6ktpOp/81NzTVMbcL0Amip1ot
+         t3SLYC6kRZDGio/MXDjS3jvyVllgs08WBPP2sFncxmQ5xSPM4yzpbzUI5Q6QLjw7kVHv
+         zBCyQYON0q8fIdD6atOf0dQCy66TFWSZS1MPtWA37BBQt4DU5yZV8bxzcimjTJ7LWcR9
+         +YfFriyRsyIidF6la6/gWeXB+6oImX6vsZkUdsJLhjvME+i82e4FhtKuRxUu4P5XRDwo
+         94+g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2y2WavsP8svBBeJai9Uevzqpj1fQ7NNZDo+HgkQhGww=;
+        fh=9Sl5xBDFXKX0X/n0RvJSQCKT3+XqK20DcvLpG/aD//4=;
+        b=iOOI//mTXSyb5kpRzbvy9j/G7n7zY+3bdebRR4A6WwvVb+I29XG4Stm94dvtLjd8Vg
+         qA8Q4ZjsnPA6TpHMnPtqydSSbfUJRB3P47A7kBcSm+L9wFqoMUMVIxEduMo+Ku+frqem
+         CBgOg3r4TTQWb7LpyiIHe/1kQGPk3gXVXQI8Z3j0LXmx7jlJs6zNS6bHQfdmGPTudglC
+         PJE/qFLpJ7GoUKo6NcnHk/CasoFqxukIUjD4Vp5+Wv73eazntNpz2vyeH/t1dC3Y+wEP
+         rZw40fZ5v7LA77tUGvk5HdrIrL5OwAGRR1gaPzTp6zuNVpSGEonas+Vd10r1FfdtjvXp
+         V/yg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793650040; x=1794254840; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=nNfm4rH6eQ2Oj47JrfSVJCEhe2McbXnswnFij5qW64Y=;
-        b=ckpGuMv7zO3B8SDR4ofmLGE5IZmRvz6MfHgSdQXThAu2Q9bhPx5NM4gY52stRxZTVE
-         z+NHbcRvOPk6UGebzuGiZbI5R4wh8RyisAjrQR+cz1NpeM5T2OSwbpg77iVRzKyBEJTl
-         BMdlxG5YX5oMQTihNRuQJ9jRTRhOst6271mHsjDQd3Pwt7Ih8d7jVCYWoXr8MHfVKnJJ
-         niyf/n/HD+77i2PetyVMF2K0KO2HQ2yHtduKaggxhBsfqVnigRMPSaTnOQSIg1dAl9Kf
-         YROm3diLAFEDadbQZSIEoEbDxhCNW7/OgieUGSBIkYDcmDr5wPtknt0PS+z1FyvUOQUR
-         2gHA==
+        d=google.com; s=20260707; t=1793650067; x=1794254867; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2y2WavsP8svBBeJai9Uevzqpj1fQ7NNZDo+HgkQhGww=;
+        b=jk8TrkOlsW97Uh2N2lxEQCWSr5BDOlLraKDAJDImF5X93emauVjuWCB4kRG5DXJ2mg
+         oXi8tL+XOW49nPtI2u2njp9hmZSDUMa6G/1KMaO9Q5qzNu07fJxBg+FGZwHSPkrB/3+p
+         +n35tr9rPg7bWoPu4eX8xtne358FzfbxYLhTbxaih9uGNnm8EspyFlcWvKfSR929T1wP
+         PdhuKIXNMBvyc8JGPZ0UjLnzK8d/ugvhnqcVfKUScJJXgrIRL8SofUmBK+358GTHLXn6
+         4DOPImXL7BUxCQKWkh8a6VYnY27wG/hPyzEY2mSBDHGTrMVjqQIyvUjbN5Mtc+HYQcjd
+         XJ+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793650040; x=1794254840;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:references:mime-version:in-reply-to:date
+        d=1e100.net; s=20260707; t=1793650067; x=1794254867;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nNfm4rH6eQ2Oj47JrfSVJCEhe2McbXnswnFij5qW64Y=;
-        b=LNiVzV5Zp1t64Kw9K2RFEPqghotDwBexK+GQSdcGNUCIMpSmfS9VoTtutb86w0WnlR
-         sb+0yMsltzQEJWnE5SVoFsjxtC+o0VPiwFoWgLiMOgyQ5+sMVcs7fMaWGHdUpzvWaDJJ
-         K350581jVlUKoFcyDdFqLM+QtJF+ruAtu5QH7C2J1VWvI5UEK85TaUjqjg6jWEbpXVp2
-         o1vMItFN72JsLB0jp7hyiCoDuyo/hH00ttpTVfC1wNUNBHc23zTcnnblQ6fT+zujw6vn
-         pgKiqdsJhYtW0H9AchvZxHmxEnj4lpZBGIj0IGIUNF4Wo/61Yn2JR6FOZ1InqwzOf+Ir
-         KNPw==
-X-Forwarded-Encrypted: i=1; AKwUvByHUAyqnLlqLxu3WDRtMlA9GucqfLnuXgt0arurKAZdxI4sxD/N8Yhk0A0m1lbJcxBKG22QJYBsyqwWrs0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ARDM8pAJPHcnVGG+oWFsynm0akkHaTXDAm/2Wtd9/45rn33rS
-	SoDPAYRXHqTq6s2TE2s/qYR1zZ+aQQ29CiQVsqgrX4tRbfi2E46zbLNBVubSWr5H7bx2CPAGIm0
-	GqlAsFQ==
-X-Received: from pjwo8.prod.google.com ([2002:a17:90a:d248:b0:3ac:16a7:52de])
- (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:1d44:b0:3ac:9d83:885e
- with SMTP id 98e67ed59e1d1-3ae898392a1mr8899415a91.52.1793650039539; Mon, 02
- Nov 2026 12:07:19 -0800 (PST)
-Date: Mon, 2 Nov 2026 12:07:18 -0800
-In-Reply-To: <953b3d774dc281bf13f5025041d4434f560cf776.camel@intel.com>
+        bh=2y2WavsP8svBBeJai9Uevzqpj1fQ7NNZDo+HgkQhGww=;
+        b=VAbJxQxOXHdC09xmmWnSztqminQpUTaIQA16t0VviNIOdgCbDV4NKgUX67Oq47Wr1s
+         qRCTN+OyZGl0U3WFYpu7aAw8+2JpLca/1Ur5E8xmquQKBTsJBaEpujISKGWlWD9rzVoG
+         HdSQmWSZ/AQltG5d1tiDHVOglmdY3E/5YWafnAVbACMC2NVLaSO6Y0v9Vl0grWXqj/KG
+         bpCe4HHoxqncjXQY373zAoFj2qc7Iv+gphmjL6qa3mVRfhAtlWqnvKRyoybMdIYU9iCx
+         8L6leprPpUFW4WgVf5dXHtpyMZ/CogDRzZc9LNheiEE2PBHKkwLlmqvTxhKewk8e9t76
+         Criw==
+X-Forwarded-Encrypted: i=1; AKwUvBxxdUzFw2zU8A0LwcbObxbJ5lU06oNNCEjhWLtNi0k5UdHO1kA90juQMNWEta86zOnHddLOr2myg2u+BHM=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8oPrcTTu1mnx/QPRe11fzh717VPR08O3C5m389cHKHQAkk0STI
+	ecNHQg1E6En88D3MrONl9khMaVE3eqa6eU+sHCfhX/eDIlFUw0ZrOOYg83dMzn/qmAERpiqXGtK
+	MQkuK06b/nd/yQ8LcWiheaeqlgpAvu2w6JKYU58LP
+X-Gm-Gg: AYBFou0V/w2VYl4JtF3z76Czlh0DuLNXF01+ZDXrI4Jkf2b+bCnrv0PU7jpkO7k2ABE
+	n8wuZ4fmQdplzW53sf7i/yRySNmaT3bnAcqljh1UI9r32yPMcaroqvDC8aWUZRymolhqSPDetsd
+	FVnk4H6AT7hyq2DvpeV3s38Xi4XLUZkgRUTeK2F36gZ7hTIx2eAiyoTHaVOfxL23evS97AWKHbF
+	mEItXfH8WueIYyvOLQ4S8kcQ1bkoWIi08fCJo7s4LB1gQ3CnIYx/S7GTkLMj3Gr1Ublivbp+1xY
+	hKSTp1LOU1AzHcBWuweoeI0g5DdeU1K5rbuWxILdn9QwK7hoVpQdrN9KAPIKH+/lAjoQ0zv0Swc
+	wFO4PjVyH3M2Nx5i/WY5Uy4giqzWW8BwQYk+W33f7ANBkd65VIY6pEoNRgyq/8a5HfQRKjf9GXs
+	MUyFXGHRv/Xbkd
+X-Received: by 2002:aa7:d752:0:b0:6b4:629a:6352 with SMTP id
+ 4fb4d7f45d1cf-6b539cf7661mr6374a12.5.1793650066614; Mon, 02 Nov 2026 12:07:46
+ -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,105 +104,64 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-References: <TY3PR01MB113468FBD8E5EFA65C4B4E5EB86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <072dd88c-4ca1-4c8a-98b1-7783bc43c1c5@kernel.org> <TY3PR01MB11346BAE55FF22F66E86A6F8B86602@TY3PR01MB11346.jpnprd01.prod.outlook.com>
- <afdf1864-4721-4177-bc18-2a5821d97559@kernel.org> <20261027205411.GAauEPc4AtLwvrDfFr@fat_crate.local>
- <7b0a2e98-c614-4cdd-8604-3b5b21e8474f@kernel.org> <20261028154743.GCauIZH3pZm24jCX9b@fat_crate.local>
- <20261030023338.GGauQCAuYyXGwIhlqX@fat_crate.local> <20261031030112.GHauVZ-OI2KjdkjrcY@fat_crate.local>
- <953b3d774dc281bf13f5025041d4434f560cf776.camel@intel.com>
-Message-ID: <aujtdn73XnWH5g-i@google.com>
-Subject: Re: [PATCH -v2] MAINTAINERS: Fix Intel TDX kernel file patterns
-From: Sean Christopherson <seanjc@google.com>
-To: Rick P Edgecombe <rick.p.edgecombe@intel.com>
-Cc: "kas@kernel.org" <kas@kernel.org>, "bp@alien8.de" <bp@alien8.de>, 
-	"dave.hansen@linux.intel.com" <dave.hansen@linux.intel.com>, "kvm@vger.kernel.org" <kvm@vger.kernel.org>, 
-	"krzk@kernel.org" <krzk@kernel.org>, "au.dang.jx@renesas.com" <au.dang.jx@renesas.com>, 
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>, "x86@kernel.org" <x86@kernel.org>, 
-	"biju.das.jz@bp.renesas.com" <biju.das.jz@bp.renesas.com>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
-	"biju.das.au@gmail.com" <biju.das.au@gmail.com>, "jirislaby@kernel.org" <jirislaby@kernel.org>, 
-	"linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>, 
-	"linux-coco@lists.linux.dev" <linux-coco@lists.linux.dev>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>
-Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+References: <20261102191438.1059771-1-sdf@fomichev.me>
+In-Reply-To: <20261102191438.1059771-1-sdf@fomichev.me>
+From: Mina Almasry <almasrymina@google.com>
+Date: Mon, 2 Nov 2026 12:07:34 -0800
+X-Gm-Features: AclHuK9gfr07IGAAZ9tA7d9yIuAWy2wfQLlcGX2KzOTTr8xZ9Khn8LIVGKzus2g
+Message-ID: <CAHS8izPAaA5fNGmA6TTAuo7z8T4-+1xmR0yF=OZH6EAcQEF-RA@mail.gmail.com>
+Subject: Re: [PATCH net-next 0/7] net: devmem: size TX net_iovs from the
+ dmabuf layout
+To: Stanislav Fomichev <sdf.kernel@gmail.com>
+Cc: netdev@vger.kernel.org, davem@davemloft.net, edumazet@google.com, 
+	kuba@kernel.org, pabeni@redhat.com, andrew+netdev@lunn.ch, 
+	edumazet@kernel.org, horms@kernel.org, corbet@lwn.net, 
+	skhan@linuxfoundation.org, rdunlap@infradead.org, michael.chan@broadcom.com, 
+	pavan.chebbi@broadcom.com, sdf@fomichev.me, bobbyeshleman@meta.com, 
+	asml.silence@gmail.com, daniel@iogearbox.net, razor@blackwall.org, 
+	leitao@debian.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-kselftest@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026, Rick P Edgecombe wrote:
-> On Fri, 2026-10-30 at 20:01 -0700, Borislav Petkov wrote:
-> > From: "Borislav Petkov (AMD)" <bp@alien8.de>
-> >=20
-> > A K: is a content regex file pattern which matches any text in a patch
-> > so if a commit message contains "tdx" as in
-> >=20
-> > =C2=A0 has_tdxe_auto_clear
-> >=20
-> > for example, see
-> >=20
-> > =C2=A0 https://lore.kernel.org/r/20261026-g2ul_sci-v3-3-b3097163edd5@bp=
-.renesas.com
-> >=20
-> > get_maintainer.pl erroneously adds the x86 gang to the Cc list for what
-> > obviously is a completely unrelated patch.
-> >=20
-> > The same happens when someone uses it to check
-> >=20
-> > =C2=A0 drivers/power/reset/tdx-ec-poweroff.c
-> >=20
-> > patches.
-> >=20
-> > So switch the x86 TDX patterns to files and directories (F:) wildcard
-> > type patterns and group them by path, for less false positives.
-> >=20
-> > Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
-> > Link:
-> > https://lore.kernel.org/r/20261027055750.GBauA9XlPykc1c1Xhv@fat_crate.l=
-ocal
-> > ---
-> > =C2=A0MAINTAINERS | 7 +++++--
-> > =C2=A01 file changed, 5 insertions(+), 2 deletions(-)
-> >=20
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 7a162e9bcab1..015cf66afb96 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -30347,8 +30347,11 @@ L:	linux-coco@lists.linux.dev
-> > =C2=A0L:	kvm@vger.kernel.org
-> > =C2=A0S:	Supported
-> > =C2=A0T:	git git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip.git =
-x86/tdx
-> > -N:	tdx
-> > -K:	\b(tdx)
-> > +F:	arch/x86/**/*tdx*
-> > +F:	Documentation/**/*tdx*
-> > +F:	drivers/virt/coco/tdx*/
-> > +F:	include/uapi/linux/tdx
-> > +F:	tools/testing/selftests/tdx/
->=20
-> This drops arch/x86/kvm/vmx/tdx.c. Not that we are sending any PRs based =
-on this
-> maintainer entry, but I'd like to continue to keep tabs on that code.
->=20
-> Sean do you have any thoughts about how this entry applies to the KVM sid=
-e of
-> TDX? I'm not sure we actually ever had a specific discussion.
+On Mon, Nov 2, 2026 at 11:14=E2=80=AFAM Stanislav Fomichev <sdf.kernel@gmai=
+l.com> wrote:
+>
+> TX bindings use PAGE_SIZE net_iovs, so a frag covers at most a page.
+> A 64KB skb needs 16 frags, and MAX_SKB_FRAGS caps devmem skbs at about
+> 68KB, which makes BIG TCP ineffective for devmem TX.
+>
+> This series picks the TX net_iov size from the dmabuf sg table instead:
+> the largest power of 2, up to 2MB, which aligns every DMA segment. With
+> a 2MB hugepage-backed udmabuf a BIG TCP skb takes a few frags. There's
+> no UAPI change since TX addresses are dmabuf offsets.
+>
+> TCP still bounds skbs by size_goal, so frags get larger, skbs don't.
+> A single frag can now be as large as the skb, which matters for
+> NETMEM_TX drivers with tso_max_size above 64KB:
+> - mlx5: 32-bit length per data segment
+> - gve: splits frags into 16KB descriptors
+> - fbnic: keeps the default 64KB tso_max_size
+> - bnxt: 16-bit BD length, devmem TX frags are capped at 32KB by a new
+>   per-device limit
+>
+> Tested on two mlx5 400Gb/s hosts with kperf (udmabuf, 32KB RX
+> net_iovs, 2MB hugepage-backed TX buffer), series backported to a 7.1
+> kernel on the sender only. 4 flows, MTU 4200, 6 x 60s runs, medians
+> (CPU over the 3 runs where every flow got its own CPUs):
+>
+>                               before    after
+>   frags per skb (sender)       16-17      1-2
+>   throughput (Gb/s)            389.6    389.6
+>   sender sendmsg CPU (sys)     12.0%     6.7%   (-44%)
+>
+> The link is the bottleneck, so the gain is CPU, not throughput.
+>
 
-Honestly, it annoys me.  I often temporarily delete the TDX MAINTAINERS ent=
-ry when
-sending patches that affect arch/x86/kvm/vmx/tdx.c, because many, if not mo=
-st, of
-the KVM changes are purely mechanical and/or KVM-internal that don't have m=
-uch to
-do with TDX as a whole.  Although maybe that's just a reflection of the typ=
-es of
-patches I tend to send.
+I mean, test single flow please so we see the throughput gain. But
+CPU% reduction is good enough reason to merge I guess too.
 
-But I do that purely to try and not pollute x86@ and linux-coco@ with stuff=
- I'm
-99.9% certain they don't care about.  If y'all want to sign up for spam, I =
-won't
-stop you. :-D
-
-> In practice it has been a cross subsystem wrangler role. With TDX connect=
- it
-> will likely grow more tentacles.
+--=20
+Thanks,
+Mina
