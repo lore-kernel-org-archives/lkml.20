@@ -1,71 +1,60 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793630779;
-	b=VnCMu+JuoK/hv5ITbZKjajZInrRuha3M0i+ooQJ4KOgp4M+Hr1Mp/7KTEsnBqlEo2ee3
-	 XVO3fYE8rVq7Y2nw1b+7olgbqiqlWSnI7xI2sze17XikXZqvj6gBvEmVg+eFA+8CHI1H6
-	 sVVmMQGm+P4eNB10lIIVFztFc19cJIbWHT26klnPFzB+EpffNaeEs5Zz2KkeV7n7F2S2c
-	 cx3kmmRVTceVWXXVxne7ZopI9muf6wkF1W9xwL57EjJkB6xh2wNSh7yD8H9okG7+MnX8t
-	 k76REODZO33kMzd61w8ZzBnXZLTskGKMsaoD9grLs/Tsxz91lEcDGNyty6xxrW86g0Q==
+	t=1793630797;
+	b=CMxZrLgMUuxvW03c70A1lpAa3+F0oN1fIda+TT+BjAVmcPVkejiLcHN4GbzIQ5keoHJz
+	 pU4eBBgLfn3qTF8PLo/2HXW0bYiOBHWFvc/RhoDv34qlsz/lrSkhwWiFwgptbzRhc8m3z
+	 AjhKjGe/ugmKq3Zb8+uOtNokluJ8YZh8dmlmnCDPMIzngisDXiirfOdytMF1IZl8k9zK6
+	 jnJigMFi9QEKrgy0RUGUJzT/0Za3RoRBfhXnI0k87aETSDjT+5b73d3CvxY+tov247czc
+	 qaG8IdsK8nebB9qwe5Ai0u3bX/JcWgcEcHpW9OckCl2YHrdXFwybLS+TUt4fFlxRw9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793630779;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:
-	 Content-Transfer-Encoding:In-Reply-To;
-	bh=1ed4ABVb5WuZx7ievrj1cvm+vrmzhLmj5yV4zTMhJQg=;
-	b=H7anFyJhF1AfUIB7kK3FEYrboJ6ZaXDrBoukqHlBIzUg0EacplifF5Az6C++EbWf4uN8
-	 pr84sSiFR8icjzNrWiRQrLpeTVOllK48t0TIdvhBYRy4cEobT5xdGrL+PbTI3JlOci72J
-	 t53m4CNVWKNb1+32aaj120/D2wrRCMzdacxd2kS6vhjLm7Ffl+KtA+VPwlO4daDQEIXf1
-	 18Af+W1s31h6pYn0r3Yq620lKA/QJhFuNai41mBkhNoeLqKh2bEhZXTNRqYX7iioSSlui
-	 c2Nr1sztLxSNhNxUU8fLrJLyMSMUaDU2FDL2aSeWKlLNPd0KOrn2WAW7a/8/o9vAh7A==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793630797;
+	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
+	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
+	bh=nxdFwnzJ2ILCyC6+9MxA+NGU4Ptz9IG819jn1r5qFOg=;
+	b=ibQZU3VD7wzWA3vRewQhjSsMCO/zGeO3i4Dx9N2vbseMouKo2mPBRGzgmZKO1nrBtzzy
+	 Uyv8zLrPFHSAXLt2lwWUR0s6FgM0+OI57HwsifqSc1TPE9IcXF8bM3MVRe3HIqr9vFPDt
+	 pY05T9W+RUgDTFFB65YShMmipT70Rz/Tm/I7fs0+OS+A8Pr89NjjSPI81/iSwkhfYmMqh
+	 4FLEpO/QmmaCF/Ltt8QYMej7Yuxels0sxtt+YDECDU12oxCYUTd3TNADWlNq3GMEapXCt
+	 pd8TxESCi8Aou5Ih2Acwq+4Q2i5RgqyMsxetWXd23uT5fI0Y43f5DcW6cdBQyUU55cg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTIJkYx9;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXj3RDV8;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A283E606A901;
-	Mon,  2 Nov 2026 14:46:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5EB86070D8E;
+	Mon,  2 Nov 2026 14:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kTIJkYx9
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51E231F00A17;
-	Mon,  2 Nov 2026 14:46:19 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MXj3RDV8
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A2F51F00A16;
+	Mon,  2 Nov 2026 14:46:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793630779;
-	bh=1ed4ABVb5WuZx7ievrj1cvm+vrmzhLmj5yV4zTMhJQg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kTIJkYx932KW0rEFWbZ55+lbTtsZKF+4aG6/wsWGYG04/dedotlgN7zujoh8O2jQf
-	 z+v8UjodVuo6CFRkW679nsHC4p/DPLC4jCFE523SoM4wk8cUzXSXbnZVaUMoCJZXuW
-	 H7iYQvsi75Ucn/GauIsg7HpX1mHcJ3IuY+tXkV7YDSJu67E7yGUYsr0Ucvq2KDygtH
-	 1ZYEkQ7mdXkmN3HmICVak/FMRLN+Vy77pVLZFXMKyUiGTLR2X60Yuk+8uWN/N3swsi
-	 c+MBOCgIpfmjr3DeQn+wDTIRHm+vegoCu+ll1N4Ajue1ZEef9SKd6+TFT5wGzqqYYc
-	 +SCxPpRiNg7XA==
-Date: Mon, 2 Nov 2026 08:46:16 -0600
-From: Rob Herring <robh@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-Cc: linux-arm-kernel@lists.infradead.org, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Alan Stern <stern@rowland.harvard.edu>,
-	=?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <rafal@milecki.pl>,
-	Kishon Vijay Abraham I <kishon@kernel.org>,
-	Yendapally Reddy Dhananjaya Reddy <yendapally.reddy@broadcom.com>,
-	"open list:GENERIC PHY FRAMEWORK" <linux-phy@lists.infradead.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>,
-	"open list:USB SUBSYSTEM" <linux-usb@vger.kernel.org>
-Subject: Re: [PATCH 2/9] dt-bindings: phy: bcm-ns-usb3-phy: Describe the NSP
- variant
-Message-ID: <20261102144616.GE1232511-robh@kernel.org>
-References: <20261021172819.668120-1-florian.fainelli@broadcom.com>
- <20261021172819.668120-3-florian.fainelli@broadcom.com>
- <20261030182151.GA1206797-robh@kernel.org>
- <e25714a5-98b3-4a0e-ad9a-a644b5485749@broadcom.com>
+	s=k20260515; t=1793630796;
+	bh=nxdFwnzJ2ILCyC6+9MxA+NGU4Ptz9IG819jn1r5qFOg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MXj3RDV81dKUrDy0quCLVlKxNcw//TUhE3A/qQuHALE5D3lK87wijaCmLzlKvZotw
+	 gwP4tPkl40dLdllRhvDfmwVkKLIcm+mbGXHry37PS0045N5i7TUAXL3XUOS3PKZllY
+	 V4UBulTRfGU9FwjHk8elo62wgWxbWtsxDtRnvEKVOQ1AkeeNGyqYM3V14MRiPUbm7/
+	 vmHfK/LjaAYxvbQV/pbbcQM7AEy+Y2QqyhKdJK9jAzR3RR3Xceh09PFAOR1GaWKOIU
+	 jxeNqSp4ghTFEyR6KgwX3dn+evqDC3eN7iZpIkwxm8mx/flTmwFTHIRa5j42KfLJH0
+	 gbv6tdlElgm8g==
+From: SJ Park <sj@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: SJ Park <sj@kernel.org>,
+	stable@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	linux-mm@kvack.org,
+	Aveline Noir <jm5905938@gmail.com>
+Subject: [PATCH mm-hotfixes-unstable 3/3] selftests/damon/sysfs_memcg_path_leak: define ksft_skip
+Date: Mon,  2 Nov 2026 06:46:26 -0800
+Message-ID: <20261102144627.88843-4-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261102144627.88843-1-sj@kernel.org>
+References: <20261102144627.88843-1-sj@kernel.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -75,56 +64,55 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <e25714a5-98b3-4a0e-ad9a-a644b5485749@broadcom.com>
 
-On Fri, Oct 30, 2026 at 12:14:52PM -0700, Florian Fainelli wrote:
-> On 10/30/26 11:21, Rob Herring wrote:
-> > On Wed, Oct 21, 2026 at 10:28:11AM -0700, Florian Fainelli wrote:
-> > > Northstar Plus uses the Northstar Bx PHY register sequence but also
-> > > requires coordinated USB2 and USB3 core resets and a USB2 IDM interface
-> > > clock enable.
-> > > 
-> > > Add an NSP compatible with a required USB2 DMP phandle. Describe the
-> > > shared PHY relationship with EHCI, OHCI and xHCI so initialization
-> > > finishes before any host starts operating.
-> > > 
-> > > Signed-off-by: Florian Fainelli <florian.fainelli@broadcom.com>
-> > > ---
-> > >   .../bindings/phy/bcm-ns-usb3-phy.yaml         | 23 +++++++++++++++++++
-> > >   1 file changed, 23 insertions(+)
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-> > > index 7fd419db45d0..00d69b86cbff 100644
-> > > --- a/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-> > > +++ b/Documentation/devicetree/bindings/phy/bcm-ns-usb3-phy.yaml
-> > > @@ -14,6 +14,9 @@ description: |
-> > >     Known B1: BCM4707 rev 6
-> > >     Known C0: BCM47094 rev 0
-> > > +  Northstar Plus uses the Bx programming sequence, with coordinated USB2 and
-> > > +  USB3 resets. Its PHY is shared by the EHCI, OHCI and xHCI controllers.
-> > > +
-> > >   maintainers:
-> > >     - Rafał Miłecki <rafal@milecki.pl>
-> > > @@ -22,6 +25,7 @@ properties:
-> > >       enum:
-> > >         - brcm,ns-ax-usb3-phy
-> > >         - brcm,ns-bx-usb3-phy
-> > > +      - brcm,nsp-usb3-phy
-> > >     reg:
-> > >       description: address of MDIO bus device
-> > > @@ -32,6 +36,13 @@ properties:
-> > >       description:
-> > >         Phandle to the DMP (Device Management Plugin) syscon
-> > > +  usb2-dmp-syscon:
-> > 
-> > brcm,usb2-dmp
-> 
-> That would be inconsistent with the usb3-dmp-syscon property that is
-> pre-existing, hence the name chosen here.
+sysfs_memcg_path_leak test uses $ksft_skip without defining it.  As a
+result, the test is marked as passed while it was skipped, like below.
 
-I'm not sure consistency is really better here, but okay.
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    0
 
-Rob
+Users who run the test could therefore wrongly believe the test was run
+and passed while it was skipped.
+
+Define the value at the beginning of the test.  After this patch, the
+exit code reflects the skip.
+
+    $ ./sysfs_memcg_path_leak.sh
+    Run as root
+    $ echo $?
+    4
+
+Fixes: dfa3cf0bc018 ("selftets/damon: add a test for memcg_path leak")
+Cc: <stable@vger.kernel.org> # 6.17.x
+Closes: https://sashiko.dev/#/bug/linux-a0456336-0608-4fec-ac22-0ee61d1d6a91
+Reviewed-by: Aveline Noir <jm5905938@gmail.com>
+Tested-by: Aveline Noir <jm5905938@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+Changes from RFC
+- RFC: https://lore.kernel.org/20261030044643.157105-1-sj@kernel.org
+- Drop RFC tag.
+- Rebase to latest mm-new.
+
+ tools/testing/selftests/damon/sysfs_memcg_path_leak.sh | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
+index 34c37129c49fe..d407dddb879ec 100755
+--- a/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
++++ b/tools/testing/selftests/damon/sysfs_memcg_path_leak.sh
+@@ -1,6 +1,9 @@
+ #!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
+ 
++# Kselftest framework requirement - SKIP code is 4.
++ksft_skip=4
++
+ if [ $EUID -ne 0 ]
+ then
+ 	echo "Run as root"
+-- 
+2.47.3
