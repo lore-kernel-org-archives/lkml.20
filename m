@@ -1,52 +1,52 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793619034;
-	b=Esxminpb5WtGRK5zqoKh6RQDl2nO7uczroJbEuJ/LdedyF6GJPdQlU2r95U9GqOjs3JJ
-	 V4XxbDYwdQ8XwUXoLGoJIb6/TlBhcihGKPNqXhxMyOpsOgWwBaUsqk1QBEZcO45vkkQXG
-	 d+pF5pc8L2F1sjnihJjRj/11OSxcO2cBamm7QFj1ZLsuk37jDdlHeaTXYhiA4NWLprtvT
-	 BOibgaYwQXoPy41u4WcFmrdqWGCv83Lhx0sYmLDZfFomR8ldTPjFp3tQBRmkprOWTvkTk
-	 ToN3YT9e89RUPURvKkXxKQOMZ+WXJCZK3sk3hRU6emFCuZ1Iq8Ot6jRL7q7AEX7frGA==
+	t=1793619030;
+	b=g03qEh3XLKEHalxOgaNfBK6rIZU29hC0wYu/b6ZUWJKQtQGt0/KPm1WW0uW5FyfpaP1t
+	 ncNveiqh2ECmRRdTTKjO7UcOAhtIqzIBYXQdenZnJfRbibktNnSC9FRJIeJDVd+jWJJ6Z
+	 XFd5rUEpM4GnjatkqDmc6UFrSxF0gvI0eWdjlyn8GDoT3cb2avO9lhnAkOudKJrd0Dklr
+	 lCw16y39g6WxN9u4k1pMfDyFLUmKDIW30t7pfQ6HJVpn0CTr+qHTr/aDLYosWYtsK1BM6
+	 Z0i198fnu/jmJnfGzqOB58ioJXNTzBoH+wxd0yR1UjHhUPi4s/nvEDTt3gW77rrDIsw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793619034;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Date:Subject:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:
-	 References:In-Reply-To:To:Cc:X-Mailer:X-Developer-Signature:
-	 X-Developer-Key;
-	bh=Qxe7DUgpOQnByNQP9kafnk+uEbgc4F97wiPdKo+5K+c=;
-	b=nZq4oco8aVDD1ADUvCsPPt8lwX+xHAlpzMQhovW+3jutHAgjkkEPcx1GC3lr7oevNdZ9
-	 In8obsSWQgKYXLjaMM6QQcMjFBMYhxwykSWX788yFCG83uC0+mv9JVcs7Qcs2mQvN2y2c
-	 Kkh/Er5eUHWA59Mu2sys74jaEUQTzEUuVny70gAAEqSkrctd6pX5kEddqL3kkYsG/SFJN
-	 GtfOT3ErlfMb9ySQo3YYGccRCfgp2RspqkKBSvhLzHfZ1GAWIGn+dxjV52aWijmdavERd
-	 Jr7rWjElI6gCe1V8mpZLry5zIRUjnLqPceNDR6b6tf1EZBz2YDcS5LBbUlPx2LfzkUw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793619030;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:Subject:Date:
+	 Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	 X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=InMeFNFjwhLZQCf3I7xrn9FEQa/179dGH7u0e06Suzo=;
+	b=lxycxjWASjWz9CnWODAc0sxhajwJbHPGMJb3DDvAmIc/6oJCirVCUVCE6PgxjwTKhQmY
+	 lPYY+J1tIDbBQbPVMFreZeAM/5Rd1y0dk6nN9ifJiyika0uK+ymn6JruFnvPfZi8fOyAu
+	 F5FWYk4as3NPmp0QnmBex50en/C+l0HCJzY6RKVoob3dMnBNJ7EItaVGnA5B0J19+CVBi
+	 Bz5QYPzuhs/4fnK9qGn2/4sAJqrvPK8oq07J6XdUGuIOhvEAIDUM0TyljkSHkjJP8XMEC
+	 bLWT5uiQwMcbCgKWQJuKvom/pIXXU1UZ5qjtN3EfnEJ+iuL5jI+gUacwypZaRcuNplw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JMvdJhXm;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pHJ9pM3A;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5F84460A2634
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:30:33 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5F84460A2634
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 38877606A32F
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 11:30:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 38877606A32F
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=JMvdJhXm
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=pHJ9pM3A
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id B4A0C2A31;
-	Mon,  2 Nov 2026 03:30:29 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 686671691;
+	Mon,  2 Nov 2026 03:30:25 -0800 (PST)
 Received: from e129823.arm.com (e129823.arm.com [10.2.213.3])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E97F23F632;
-	Mon,  2 Nov 2026 03:30:30 -0800 (PST)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 97F1C3F632;
+	Mon,  2 Nov 2026 03:30:26 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793619032; bh=B3jeugSVzqHP+LRhjNSV9HdZUg9MhTRTmnnXzBcFB1w=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=JMvdJhXme+roww8mpdzFuGI3npOZ5JM3kp7svnIhLxDcBzFTATE9GbvXR/BX4kJwZ
-	 spF9xWrKd5lxyn4+L1T2pHzwZc0ZQZZ2vP02nQQN/frIIq4EvIndCmt3etzs0BjXQ0
-	 7ACgTd6hOgFfBKc6F1s/RtOpJwVGQWBu97Ii/aTA=
+	t=1793619028; bh=D3Vf1PsT2DwtrXV9xY5TZ0/AQoE6JjmwaFHA7vLMNzo=;
+	h=From:Subject:Date:To:Cc:From;
+	b=pHJ9pM3APBFr6bQUnqzxTZjWVOKOX1gu79gJ5/9Fuwjzbx5Q0LTupSjjfEpgwHJBs
+	 t6FbePj4JW5hCwqFUIo3vOnbzudfXnxDoK8SLLEg+VK3+GRBz9fyzhsRQYDAUe6uKX
+	 zRD7KyRedgu793bFJB3IdfxdrmPsCBNfAQ5Dm89s=
 From: Yeoreum Yun <yeoreum.yun@arm.com>
-Date: Mon, 02 Nov 2026 11:30:17 +0000
-Subject: [PATCH v2 2/4] mm: internal: fix inconsistent in
- folio_pte_batch_flags() for shadow stack
+Subject: [PATCH v2 0/4] mm: gup: batch PTE-mapped large folios in
+ gup_fast_pte_range()
+Date: Mon, 02 Nov 2026 11:30:15 +0000
+Message-Id: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,9 +58,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-refactor_gup_fast-v2-2-bc1ac018c834@arm.com>
-References: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
-In-Reply-To: <20261102-refactor_gup_fast-v2-0-bc1ac018c834@arm.com>
+X-B4-Tracking: v=1; b=H4sIAEd06GoC/32Pyw6CMBBFf4V0bU0fmQKu/A9DSClT6IJHWiQaw
+ r9bMHGjuLyTe87NLCSgdxjIJVmIx9kFN/QxiFNCTKv7BqmrYyaCCcUZB+rRajMNvmzuY2l1mGg
+ FgNJCLmsjSOTGWHGP3XkrYm5diP3nPjHz7frPNnPKqESOFiBVmbJX7buzGbpN/eYEO+KMzVPBc
+ 10raX5w/IhjDLSW8Q3g8M3Jwz3F0iplErIo/3DFuq4vBujeUFgBAAA=
 To: linux-mm@kvack.org, linux-kernel@vger.kernel.org
 Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>, 
  Peter Xu <peterx@redhat.com>, Lorenzo Stoakes <ljs@kernel.org>, 
@@ -70,74 +71,104 @@ Cc: Jason Gunthorpe <jgg@ziepe.ca>, John Hubbard <jhubbard@nvidia.com>,
  David Hildenbrand <david@kernel.org>, Rik van Riel <riel@surriel.com>, 
  Yuan-Hao Hsu <aa9736195201@gmail.com>, Yeoreum Yun <yeoreum.yun@arm.com>
 X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2140; i=yeoreum.yun@arm.com;
- h=from:subject:message-id; bh=B3jeugSVzqHP+LRhjNSV9HdZUg9MhTRTmnnXzBcFB1w=;
- b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq6HRRquffmGz1YcLeYyKukCvc2f1kN7MzYOiBv
- rN6edzeH3WJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCauh0UQAKCRBt1cPRWsUx
- M2VyC/0WDZhM1JkdBWq6zaE7b2OixLBmhhMrkqfWnK2tRpT+gnTHd7okQkDPs5HI9CN8v/Vdksd
- R/jDYg4qGEnhJhwqGqdbaVtEafl8++JcxmvJE3Q8W9c5/XG+NPayAabuwdAeKab2aerLiMgmPVI
- PNx2NcCnExicCxZBB+Sg0eg5N9zcxZckcJ3OPmsjVw9ylCCuQ4VmJUDfRInGtKq2Ib2znRlnFg1
- ao8pDOX0n7ebYRFIYkwt8HeHJuQO4oX3DQ9OasbXTTBPjKdHMavfQpWPFGeT+4DTdlgqK/6dzah
- 88J6UwdFosw/qmhN3uhq6TXy9Ke8395uRX60aGRyeUVlCWbb/0y2UWp8j0aTjsBc/aAEimJr2tA
- 9G7kGk/jSG2RMcWlpO9Zv8eHeP+rM8xXIaHWzxjIo4/Znj7uhdvG9Qr8aWoM/b4VQv2dkfMdX3F
- xgSoQXp+0HK0ZVmcfKygIzOqt+fm9zxDIrwFM718Zaz3ZNp68rypKYzIErjBd2LQ8Cek8=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3915; i=yeoreum.yun@arm.com;
+ h=from:subject:message-id; bh=D3Vf1PsT2DwtrXV9xY5TZ0/AQoE6JjmwaFHA7vLMNzo=;
+ b=owEB7QES/pANAwAKAW3Vw9FaxTEzAcsmYgBq6HRQWD+A5zA3eTJ38mRGoA6BKnrD69H999el1
+ MHyVxSeVZuJAbMEAAEKAB0WIQQtg+CS3QUzuFh1pJ1t1cPRWsUxMwUCauh0UAAKCRBt1cPRWsUx
+ M80gDADYr9b8OAg2TMoX4hf6iIaHO7YXrgUNwirzE5g4a4TFYCYVnwwY9CnO2sv5IqfIvNCSISD
+ 9dnjL29vcgNLXEy1A66vCIqOZsNY/XTeoMGOsXtDO38L2/774YPCZjfA2GnR5AeksySSTL7uI8p
+ BsMmkRe3Jrujlu59Nzwvp/Rj5Y+MpFjkKqj0mweas9j2Qv5OrfcWP8W+rckZQPs7S5uyODsR5Hy
+ VUb4U1ZhA8q1F8KC9uNOEMBaDh0WQbBUTxZqvRihm0L6SyKNki8rpxqEiQOLbALBxLd/tsBPx/u
+ 9ZzJJVk10GAAYp2rjhB8Jk15mZN8HebJ772pobuRAXJ4J3Vh2DFOreRAO2Y/XbUuV28H3ySvgUO
+ mMzWHjTvtcM9OvFULpBaCnhGNkaUxZeHyDVJ9+rr1AhM7UeENNtkAioVWWEZ67HbRlYgZZyXOvj
+ sTYvaJjOqazluzb/wft5tIVA6m4WcAy1Sza8E56E2HO3zP9H639TtwHni3FpDQFzO18Sg=
 X-Developer-Key: i=yeoreum.yun@arm.com; a=openpgp;
  fpr=2D83E092DD0533B85875A49D6DD5C3D15AC53133
 
-In x86, shadow stack PTE is marked with PAGE_RW=0 and PAGE_DIRTY=1.
-If the shadow stack pte entry is consequence with the read-only pte
-like PAGE_RW=0 and PAGE_DIRTY=0, folio_pte_batch_flags()
-with FPB_RESPECT_WRITE without FPB_RESPECT_DIRTY considers both are
-the same.
+GUP-fast grabs a PTE-mapped large folio one page at a time.  Every PTE
+costs a try_grab_folio_fast() (a refcount cmpxchg, plus the pincount
+atomic, a full barrier and a node stat update for FOLL_PIN), a
+gup_fast_folio_allowed() and a folio_set_referenced(), so a 64 kB mTHP
+pays sixteen of each and a PTE-mapped 2 MB THP pays 512.
 
-To address this, save the first pte's writable and compare subsequence
-pte's writablity with pte_write() when FPB_RESPECT_WRITE is set
-without FPB_RESPECT_DIRTY.
+The users are the hot ones: iov_iter_extract_user_pages() pins every
+O_DIRECT buffer through pin_user_pages_fast(), io_uring registers its
+buffers through it, and so does RDMA memory registration.
+With mTHP those buffers are PTE-mapped large folios.
 
-Signed-off-by: Yeoreum Yun <yeoreum.yun@arm.com>
+After the head page has been grabbed and verified, extend the run to the
+following PTEs that map the next pages of the same folio with the
+same protection bits, take the remaining references for the
+run with try_grab_folio(), and fill pages[] from the run.
+The PTEs of the run are read while the reference on the folio is held,
+so the folio can neither be collapsed, freed nor split underneath the scan.
+
+A read-only run of an anonymous folio stops at the first page that
+gup_must_unshare() rejects, so the per-page exclusivity guarantee for FOLL_PIN
+is kept.
+
+folio_pte_batch_flags() does the scan.  It reads the entries with
+ptep_get(), which is not safe without the page table lock on
+CONFIG_GUP_GET_PXX_LOW_HIGH (x86 PAE, mips32, sh) or with arm64 contpte,
+and GUP-fast reads every PTE with ptep_get_lockless() for that reason.
+Add FPB_LOCKLESS to make the helper do the same; it is inlined per call
+site, so the other callers do not change.
+
+The order-0 path keeps its instruction sequence.  The folio flags are
+tested before folio_set_referenced() on purpose: a load of the flags
+right after that locked instruction cost about 25% on order-0 pages in
+the gup_test benchmark below, and reading them first brings that path
+back to the baseline.
+
+gup_test ioctl over a 256 MB anonymous region, FOLL_WRITE, 65536 pages
+per call, median of 15 runs, two baseline boots / one patched boot, on
+an x86-64 VM:
+
+                       get_user_pages_fast()   pin_user_pages_fast()
+                       before       after      before       after
+  4 kB pages           849/789 us   783 us     1174/1138 us 1094 us
+  64 kB mTHP           812/811 us   126 us     1215/1113 us  188 us
+  1 MB mTHP            799/774 us    59 us     1185/1077 us   64 us
+  2 MB THP, PTE-mapped 803/786 us    57 us     1159/1120 us   58 us
+  2 MB THP, PMD-mapped  42/40 us     40 us       46/41 us     42 us
+
+fio O_DIRECT randread of a null_blk device (CPU bound) with the I/O
+buffer in 64 kB mTHP, median of 15 five-second runs:
+
+  bs=1M psync                 126.2/125.6 GB/s  ->  220.6 GB/s
+  bs=1M io_uring, iodepth 16   71.2/71.6 GB/s   ->  112.1 GB/s
+  bs=64k io_uring, iodepth 16  50.2/50.7 GB/s   ->   60.1 GB/s
+
+IORING_REGISTER_BUFFERS of 1 GB, median of 15:
+
+64 kB mTHP           6179/5998 us  ->  1599 us
+  1 MB mTHP            5790/5801 us  ->   893 us
+  4 kB pages           7173/6741 us  ->  6763 us
+
 ---
- mm/internal.h | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+Changes in v2:
+- fix exceptional case for shstk on x86.
+- remove redendant check for pmd change in each pte barch.
+- Link to v1: https://lore.kernel.org/all/20260917083747.786-1-aa9736195201@gmail.com/
 
-diff --git a/mm/internal.h b/mm/internal.h
-index 35016b1afc8bf..b4d0df4c35adf 100644
---- a/mm/internal.h
-+++ b/mm/internal.h
-@@ -418,7 +418,7 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
- 		struct vm_area_struct *vma, pte_t *ptep, pte_t *ptentp,
- 		unsigned int max_nr, fpb_t flags)
- {
--	bool any_writable = false, any_young = false, any_dirty = false;
-+	bool any_writable = false, any_young = false, any_dirty = false, writable;
- 	pte_t expected_pte, pte = *ptentp;
- 	unsigned int nr, cur_nr;
- 
-@@ -438,6 +438,7 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
- 
- 	nr = pte_batch_hint(ptep, pte);
- 	expected_pte = __pte_batch_clear_ignored(pte_advance_pfn(pte, nr), flags);
-+	writable = !!pte_write(pte);
- 	ptep = ptep + nr;
- 
- 	while (nr < max_nr) {
-@@ -446,6 +447,16 @@ static inline unsigned int folio_pte_batch_flags(struct folio *folio,
- 		if (!pte_same(__pte_batch_clear_ignored(pte, flags), expected_pte))
- 			break;
- 
-+		/*
-+		 * x86 shadow-stack PTEs encode writability as RW=0, DIRTY=1.
-+		 * Without FPB_RESPECT_DIRTY, __pte_batch_clear_ignored()
-+		 * considers shadow-stack PTE as the same with subsequent
-+		 * ordinary read-only PTEs. Therefore, check whether pte writable.
-+		 */
-+		if (unlikely((flags & (FPB_RESPECT_WRITE | FPB_RESPECT_DIRTY)) == FPB_RESPECT_WRITE &&
-+			     writable != !!pte_write(pte)))
-+			break;
-+
- 		if (flags & FPB_MERGE_WRITE)
- 			any_writable |= pte_write(pte);
- 		if (flags & FPB_MERGE_YOUNG_DIRTY) {
+---
+Yeoreum Yun (3):
+      mm: gup: introduce gup_unshared_pages()
+      mm: internal: fix inconsistent in folio_pte_batch_flags() for shadow stack
+      mm: gup: batch PTE-mapped large folios in gup_fast_pte_range()
 
+Yuan-Hao Hsu (1):
+      mm: internal: introduce FPB_LOCKLESS for folio_pte_batch_flags()
+
+ mm/gup.c      | 113 ++++++++++++++++++++++++++++++++++++++++++++++------------
+ mm/internal.h |  70 ++++++++++++++----------------------
+ 2 files changed, 117 insertions(+), 66 deletions(-)
+---
+base-commit: 34f88a114888c9dba49e45f2b0c2a3e83c4c871c
+change-id: 20261015-refactor_gup_fast-b55e3f593dc2
+
+Best regards,
 -- 
-2.43.0
+Sincerely,
+Yeoreum Yun
 
