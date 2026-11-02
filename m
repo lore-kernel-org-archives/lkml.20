@@ -1,72 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641296;
-	b=dPDdP8gGZ6VXOPL2CFzSRPDxrTe8BMdnPB952QUZ7WK/ubSGSYl0YRX4dQJ4otTJugsR
-	 0v2yX+Fk8PLpDuf/xQSi8zM/9Tbn+iJrDB2svvPtzE1GD2OQzkXsVjR0sKO3WBnL7I7lt
-	 hJ5JvZOxFcRKL7BQ6qelq7Jum2eyLsw5hHQoLAI+NHFrD7rlgxc0gWWeIASoozs3kKJjh
-	 Je22XOdRDlINiizfLQiBWauGVj/P8WpcberfnaYeTb5DjfNuvhkWdrbVkXax/CG3P3ms+
-	 ciw8J0XwwU5VjaR43d/C+a0KPCJsDzibjRgC03qygXdM+P0AU6RlK7/pf3OLMs088Sw==
+	t=1793641297;
+	b=Bn7upYRUGMbutxhnDx586R5ra6PfATa8YsbOhI4WZkKNF4Q1wu/SZjmErl8XvohOjqfD
+	 Aazwzhzj1hL83Lur5DkYrUSa75Io8vL5nROtYOFuDmxfKuElnDWMSXAcfa7rZ6XWbF6RH
+	 gIqcgPwo4Ia977yQ0XBxR2KkmHzETasdaYNSil0pTgZsAjzwZ+Xg4h8/GZ0f5o7Tm/LsE
+	 Mg/qd8mPC3FqWBXk3yt0RpKiqccSNcPgHTodam4BAOKFqTerEO/NPee1zqn4svapy5AAZ
+	 D6k0VviWRhD1ZgqREz7vt5vKPY72LVrjupgOBOAlo6AfrX76a3dqefblfQBd3zC0fcw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641296;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641297;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=8QRJSjFRhFjsEIrLMUF/Qbq9FSRASB71Ae5rA38ygI4=;
-	b=Z/u3nXmeZqweOdtm54i1iUrh71Vu/JouEaUzg/SEcf6cpyjUH1oHdVdM89jTNpnm2AD1
-	 jJcmPUfDW/BaQLmGYsIAncnL/TGrEpLpXd1Xrb6ail/34GvkSP++GSa4JP2wUSVeV2D4g
-	 VA9K+nidu8a0AwF1tnrutbJmuBB9ylCx/tlVC5hgA3p+7L3U2e/OMk+/Y3fpgXGUUpeLd
-	 5FZxN+o2SEtZlPiOcHB6ozt/G1LrJQGZb7ByPgK/4O7Z/nEj1HJsPrw5CsSeEYXo2V5KB
-	 TeNEXApcDTEYh+uSsmcSLPPBwGioatiJ/jTXwr0EkhAvx+BbztYuNOiGxLYXfGYgpgg==
+	bh=72RIaK6aXLHgfma0uiOrirWKKCJa/+350CoGr5VmFLw=;
+	b=PjJ/Z8bOrYdsgLU9cWSbnokH72SrUjF7Il6zwNmeCiI2SDqI+HOM+NubhRzTsFdgzUf6
+	 qZXEpBAqGvnFgqT+Mvmtc1wpuIWqSuSYdgLDCmOJXi1y3/AaZmRtCXsJIw6FlOzcT5SJ+
+	 e8hSh/LBIWd7syf2g/33dSYiDsJgXvy1zwhmkMNe2x3zMccuL410tRgWFocn1vzC7ou+T
+	 JbhMVbXM/cZyr0Xks3wpmeIU2cNxHHzS2O5faeSLeuVtt1sPfLgfbJLQgcqA09epeNWV0
+	 /sWYzfVCrI5waW8oJpjcK1blvk2HbksJmNzB90gSI3hiDIiu/kB0zSt01YQ5RFDoYdA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=X3+KGoyl;
-	arc=none smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P9IYylFR;
+	arc=none smtp.remote-ip=170.10.129.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E71606BA55
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 94E71606BA55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33B4E6070C87
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:37 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 33B4E6070C87
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=X3+KGoyl
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=P9IYylFR
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641294;
+	s=mimecast20190719; t=1793641296;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=8QRJSjFRhFjsEIrLMUF/Qbq9FSRASB71Ae5rA38ygI4=;
-	b=X3+KGoylTvrqcdMH73ayI35ms2xHGVu8uB+rLDg+tC4GrTDzP4VMyHhH9ZwYYy7AVwFMNg
-	5lE01Byap1LnxKe/JbtuctFqvWEKKA17cPyJ1YPnWUBq+tQYB+O5PmMjZfsD3gxaINEdRG
-	gWINGO8w5R+0c+zEQzElbifbaVZH+zU=
+	bh=72RIaK6aXLHgfma0uiOrirWKKCJa/+350CoGr5VmFLw=;
+	b=P9IYylFRRniy1+6UGaNU3K6fcp5b61iW5oee8QipFlEaWNIUMzeOyIic/sLQnc4PVwLcPf
+	0zQ29LDHsF3tTYSMnR6hdSVxgiaiRMr1Leo9x9RONbmXDnJCkCu7dabzCVz9Zv/uclpH7k
+	2zdwZ9+Oc8nxZp3nFRbv5tEN6SU7iNk=
 Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-30-84tavbVfN-2gsjiu0x5Y8w-1; Mon,
- 02 Nov 2026 12:41:33 -0500
-X-MC-Unique: 84tavbVfN-2gsjiu0x5Y8w-1
-X-Mimecast-MFC-AGG-ID: 84tavbVfN-2gsjiu0x5Y8w_1793641292
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-65-0J1UfUYlPYG_6y8CqGFdAQ-1; Mon,
+ 02 Nov 2026 12:41:35 -0500
+X-MC-Unique: 0J1UfUYlPYG_6y8CqGFdAQ-1
+X-Mimecast-MFC-AGG-ID: 0J1UfUYlPYG_6y8CqGFdAQ_1793641294
 Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 700C219560AB;
-	Mon,  2 Nov 2026 17:41:32 +0000 (UTC)
+	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 160FA1956070;
+	Mon,  2 Nov 2026 17:41:34 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E8DF030000E3;
-	Mon,  2 Nov 2026 17:41:31 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id AB2DA30001A2;
+	Mon,  2 Nov 2026 17:41:33 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH 02/45] KVM: x86/hyperv: do not overwrite hc->ingpa for SIGNAL_EVENT hypercall
-Date: Mon,  2 Nov 2026 12:40:46 -0500
-Message-ID: <20261102174130.8779-3-pbonzini@redhat.com>
+Subject: [PATCH 05/45] KVM: loongarch: do full validity check on the gfn-to-hva cache
+Date: Mon,  2 Nov 2026 12:40:49 -0500
+Message-ID: <20261102174130.8779-6-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -82,73 +81,39 @@ Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-When a guest makes a HVCALL_SIGNAL_EVENT hypercall that is not fast
-(i.e. has arguments in memory), kvm_hvcall_signal_event() reads the
-connection ID and overwrites hc->ingpa.
+If the HVA or the memslots are invalid, reinitialize the cache.
 
-If the connection ID that is valid in userspace but not registered in the
-kernel conn_to_evt, KVM exits to userspace; however, hc->param still
-signals that the hypercall was not fast, and userspace will then treat
-the connection ID as an address.
-
-Cc: stable@vger.kernel.org
-Fixes: bd38b32053eb ("KVM: hyper-v: Collect hypercall params into struct")
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://patch.msgid.link/20260918135030.171564-2-pbonzini@redhat.com
+Link: https://patch.msgid.link/20260918135030.171564-20-pbonzini@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/hyperv.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ arch/loongarch/kvm/vcpu.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 5d2e3617c952..798baa9eaafb 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2437,19 +2437,22 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
- {
- 	struct kvm_hv *hv = to_kvm_hv(vcpu->kvm);
- 	struct eventfd_ctx *eventfd;
-+	u64 conn_id;
+diff --git a/arch/loongarch/kvm/vcpu.c b/arch/loongarch/kvm/vcpu.c
+index 4026b9bf9f2d..059a6d605de7 100644
+--- a/arch/loongarch/kvm/vcpu.c
++++ b/arch/loongarch/kvm/vcpu.c
+@@ -165,7 +165,8 @@ static void kvm_update_stolen_time(struct kvm_vcpu *vcpu)
  
- 	if (unlikely(!hc->fast)) {
- 		int ret;
- 		gpa_t gpa = hc->ingpa;
- 
--		if ((gpa & (__alignof__(hc->ingpa) - 1)) ||
--		    offset_in_page(gpa) + sizeof(hc->ingpa) > PAGE_SIZE)
-+		if ((gpa & (__alignof__(conn_id) - 1)) ||
-+		    offset_in_page(gpa) + sizeof(conn_id) > PAGE_SIZE)
- 			return HV_STATUS_INVALID_ALIGNMENT;
- 
- 		ret = kvm_vcpu_read_guest(vcpu, gpa,
--					  &hc->ingpa, sizeof(hc->ingpa));
-+					  &conn_id, sizeof(conn_id));
- 		if (ret < 0)
- 			return HV_STATUS_INVALID_ALIGNMENT;
-+	} else {
-+		conn_id = hc->ingpa;
- 	}
- 
- 	/*
-@@ -2457,15 +2460,15 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
- 	 * have no use for it, and in all known usecases it is zero, so just
- 	 * report lookup failure if it isn't.
- 	 */
--	if (hc->ingpa & 0xffff00000000ULL)
-+	if (conn_id & 0xffff00000000ULL)
- 		return HV_STATUS_INVALID_PORT_ID;
- 	/* remaining bits are reserved-zero */
--	if (hc->ingpa & ~KVM_HYPERV_CONN_ID_MASK)
-+	if (conn_id & ~KVM_HYPERV_CONN_ID_MASK)
- 		return HV_STATUS_INVALID_HYPERCALL_INPUT;
- 
- 	/* the eventfd is protected by vcpu->kvm->srcu, but conn_to_evt isn't */
- 	rcu_read_lock();
--	eventfd = idr_find(&hv->conn_to_evt, hc->ingpa);
-+	eventfd = idr_find(&hv->conn_to_evt, conn_id);
- 	rcu_read_unlock();
- 	if (!eventfd)
- 		return HV_STATUS_INVALID_PORT_ID;
+ 	gpa &= KVM_STEAL_PHYS_MASK;
+ 	slots = kvm_memslots(vcpu->kvm);
+-	if (slots->generation != ghc->generation || gpa != ghc->gpa) {
++	if (unlikely(slots->generation != ghc->generation || gpa != ghc->gpa ||
++		     kvm_is_error_hva(ghc->hva) || !ghc->memslot)) {
+ 		if (kvm_gfn_to_hva_cache_init(vcpu->kvm, ghc, gpa, sizeof(*st))) {
+ 			ghc->gpa = INVALID_GPA;
+ 			return;
+@@ -1820,7 +1821,8 @@ static void kvm_vcpu_set_pv_preempted(struct kvm_vcpu *vcpu)
+ 	gpa &= KVM_STEAL_PHYS_MASK;
+ 	ghc = &vcpu->arch.st.cache;
+ 	slots = kvm_memslots(vcpu->kvm);
+-	if (slots->generation != ghc->generation || gpa != ghc->gpa) {
++	if (unlikely(slots->generation != ghc->generation || gpa != ghc->gpa ||
++		     kvm_is_error_hva(ghc->hva) || !ghc->memslot)) {
+ 		if (kvm_gfn_to_hva_cache_init(vcpu->kvm, ghc, gpa, sizeof(*st))) {
+ 			ghc->gpa = INVALID_GPA;
+ 			return;
 -- 
 2.52.0
 
