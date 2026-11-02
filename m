@@ -1,58 +1,54 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793632089;
-	b=d0FSwJkrgGe8hxKDAcSItB2eHmtDrMkM+ibSf8lTVRJzOJRQMaMARj5KGv4XYTMeCYkh
-	 ZWsSdZbAOH75f6yyZMrIbdOgaq6ZYYRilIyU/Bx9TzNCAfAWDol9O0an0irJ91W54XbM2
-	 /u+0nC8TNCQuyWLlr84bn3tb8JFpg63uFDNuUstEt96UoTor4PqV5eWmcQRHlkEjTge2W
-	 FCr3Lyr8R7M3iK9PBkXvtyC/oUlVZTJj4fSPB2WnhAzUSEmbw4tJWQkXHHQ/6Pra7OIz/
-	 xaxmnlr/2DoKLs1Usqt+mMLdaoFasRXPRM1N6e4cNepk9mFEjXzwp2NN0Tvc5hIGnBg==
+	t=1793632087;
+	b=3DBZkIoXa08LvkjVnEWzWZUjH8qN07Cd9aKS+GhzYxSqVhbfLB+YuJRi8QqGS03Bmd3X
+	 aNNX3bBlwO64gOKaA5CRoj6ZIRy9y8pIrIj3BcOgm1PQhcthXmtdkIWdDCXiu8Gmxzd8o
+	 8IjGlPJyvvdEfCdm5XJl6DBRooylpkjr8kddloueIofU3ELCx2zDm+WpgPBMfFFEZpC33
+	 mO7y431tnWKflrX4AJoe63BpxSPrDKHYTYN0jd/Dw5hoIK7SIv//QDCtj/UGBu+lffPif
+	 wQvycdEOKcarpK4HQDYCWEk8CVbq7lMD+J7h+hAAVBteTOvDtOQ7xh1wQRrAmJcQhtg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793632089;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793632087;
 	h=Received:DKIM-Signature:From:To:Cc:Subject:Date:Message-ID:X-Mailer:
 	 In-Reply-To:References:MIME-Version:Content-Transfer-Encoding;
-	bh=EOIOo2WRViZfcB5LyNG3dNe7ZyXvt9pNDQFYal3R+A8=;
-	b=lZCcaJ078KSGqEp4ETxgsMgWPctV0Mo2BI9kPvMoqF83ZsK85CPNV4049/9Bf8Ntd7+u
-	 69iEPz6tNuVcMlNjXqXKAbDU2qwhrrgQJdfKpt9UyzuvU3dPk6E8m5o0PmuTC9TL4n8H0
-	 mH3dnw0vdjUBo08dPDUR6sZ6FHL2XdgfN2AUGF9gK8nOWXzWpESd6y5QpXibKlTPWeMT1
-	 RkXWubky2IzYjyXafiD71DkMO+vsRaWINXu1Y0ctPMYwNpkk4xRJabyXSpl3dUpKJbR7d
-	 PGXKaAMSNLanhZVvGkhxxh2bAriZkOaRqMJDFyKxosM4uJD6+9dXHXzWG6tHKvduq2g==
+	bh=XuK4d1M7JKzxtXkmylZMVK8sWXtnLYK8j0M8Pc5ofm8=;
+	b=GSXrm62KFo/IW+AwdYLm+rJm+pQS97zNXqRU0ilRDdfnEyyblaR4qJHVdSLmkGt80zQ5
+	 5YY0DNGFPi1cSrVyNoaMA/EjzK8Y2aT2Fiyh3af2uAb/WKQxslWi/Crm8v3jgD/fRkd0T
+	 cxEH1lr2qsdN15V6FxSnPFoYIxbBygEtFD743u3c4/SJZ8zS5ZUEjoZOaxv9DTb7nAgg6
+	 yMkR0CrLzRcObWkdeH3cX0Vs+ryPjeEVifQsPu9CBSwIp616L89nVoiPaHnvIaQkgeoZw
+	 2M8GPPNpzXzyRSpoe8Wt1IA2R7A5+RQGQofR6OpZFTTURKFIqXp/KuLyZmQ/RM34OZg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZ3jzzXe;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d56wof6w;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3BE60A1DB5;
-	Mon,  2 Nov 2026 15:08:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B19860A0FFB;
+	Mon,  2 Nov 2026 15:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hZ3jzzXe
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B10721F00A20;
-	Mon,  2 Nov 2026 15:08:08 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=d56wof6w
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95C9C1F00A20;
+	Mon,  2 Nov 2026 15:08:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793632089;
-	bh=EOIOo2WRViZfcB5LyNG3dNe7ZyXvt9pNDQFYal3R+A8=;
+	s=k20260515; t=1793632086;
+	bh=XuK4d1M7JKzxtXkmylZMVK8sWXtnLYK8j0M8Pc5ofm8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hZ3jzzXe4gx8n7MBZeCRakfm9HOlLvf9jFjlwFESg5Jm4sD/MhZAQt8kb5DlUnOK5
-	 DNbU47GQk7H9ZMFiNYeXo9J/oYvXNRctFi6Rpt8O14AS5hvsgGF+mRRfcWT1TumK9q
-	 cHUdHZfgyt1jRhTXCc6xTE0ZebWXnQsYzVTUfNWdcbuPKU3CoDrowWsFP4yG5Jj2iZ
-	 Vy6SgRoqAo1Hhj+CQXjfKfluEIBUOedbelAexoQjrqaDyCs8eBBdMDrsSN/49zhbd9
-	 wTo/4o+CT6VNTeqiaDES5LNSgGaJQKD2BmpAt6ItswXDb1fp5oHS1Ui3exVch7ZPlX
-	 OqkAAEfW8FnSw==
+	b=d56wof6wqHSC2Jccrt0KXPAZZ0jJKKYM00WPVl2hPJUHl9eN14VIGfdC2IRKS6nbu
+	 BtPpN4eIrjpqoH8ndJeCNB7CGsPFZ+X9Ph52EOIO5t+CedTH7GujSQdpoMHBEpcmlV
+	 cSUp6jDpQ1UdTG2a+UMjrEAQbnTTqYu4eH8muFuWrg4XnaSDr2uUHl5PFm/yaPkBLu
+	 YXYqRSrd+GVvivAm3bswv5XNQEARb5XJ7RSXHnv5zIzIYy8k1vL7yOWAbMt85ENR6G
+	 9b4Bf36Rs8J6bikuYA7OuvvLN6us5qAvOI0s3S2DkN66zuyOiykckfS1JNUa9gDyO6
+	 6K976YpcikCFA==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Randy Dunlap <rdunlap@infradead.org>,
+Cc: Aveline Noir <jm5905938@gmail.com>,
 	SJ Park <sj@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
 	damon@lists.linux.dev,
-	linux-doc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH 9/9] Docs/admin-guide/mm/damon/reclaim: document how to disable watermarks
-Date: Mon,  2 Nov 2026 07:07:56 -0800
-Message-ID: <20261102150757.93058-10-sj@kernel.org>
+Subject: [PATCH 4/9] mm/damon/stat: avoid 32-bit overflow in idle percentiles
+Date: Mon,  2 Nov 2026 07:07:51 -0800
+Message-ID: <20261102150757.93058-5-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20261102150757.93058-1-sj@kernel.org>
 References: <20261102150757.93058-1-sj@kernel.org>
@@ -67,41 +63,55 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jinjie Ruan <ruanjinjie@huawei.com>
+From: Aveline Noir <jm5905938@gmail.com>
 
-DAMON_RECLAIM runs its scheme only while the free memory rate is
-between `wmarks_low` and `wmarks_mid`.
+On 32-bit, accounted_bytes * 100 can wrap before division by total_sz.
+Some entries in memory_idle_ms_percentiles then keep their old values
+instead of being updated.
 
-But some users want to reclaim cold pages even while the system has
-plenty of free memory, and it is not obvious that the existing
-watermarks parameters can already do that. So Document the setup.
+For example, a 256 MiB i386 QEMU guest reported p0=19200 ms, but p50 and
+p100 were both zero.  The issue was also shared with another mail [1].
 
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+Cast accounted_bytes to u64 before multiplying and use div64_ul() for
+the division. Compute the percentage once per region.
+
+Link: https://lore.kernel.org/r/CANOyQmHad1vamnZT12M5yPrJ69==Pt1U0+MGw6u0MuNtr-DRCw@mail.gmail.com [1]
+Link: https://lore.kernel.org/179207592479.3.11595453180868898703@gmail.com
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Signed-off-by: Aveline Noir <jm5905938@gmail.com>
 Reviewed-by: SJ Park <sj@kernel.org>
 Signed-off-by: SJ Park <sj@kernel.org>
 ---
 Changes from v1
-- v1: https://lore.kernel.org/20261028023628.795637-1-ruanjinjie@huawei.com
+- v1: https://lore.kernel.org/179207592479.3.11595453180868898703@gmail.com
 - Collect R-b: from SJ.
 - Rebase to latest mm-new.
 
- Documentation/admin-guide/mm/damon/reclaim.rst | 4 ++++
- 1 file changed, 4 insertions(+)
+ mm/damon/stat.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/mm/damon/reclaim.rst b/Documentation/admin-guide/mm/damon/reclaim.rst
-index ec7e3e32b4ac6..14f9b82b38ed9 100644
---- a/Documentation/admin-guide/mm/damon/reclaim.rst
-+++ b/Documentation/admin-guide/mm/damon/reclaim.rst
-@@ -193,6 +193,10 @@ DAMON_RECLAIM becomes inactive, so it does nothing but periodically checks the
- watermarks.  In the case, the system falls back to the LRU-list based page
- granularity reclamation logic.
+diff --git a/mm/damon/stat.c b/mm/damon/stat.c
+index b05b68f73e10d..eccd372810d04 100644
+--- a/mm/damon/stat.c
++++ b/mm/damon/stat.c
+@@ -114,7 +114,7 @@ static void damon_stat_set_idletime_percentiles(struct damon_ctx *c)
+ {
+ 	struct damon_region **sorted_regions, *region;
+ 	int nr_regions;
+-	unsigned long total_sz, accounted_bytes = 0;
++	unsigned long total_sz, accounted_bytes = 0, percentile;
+ 	int err, i, next_percentile = 0;
  
-+To keep DAMON_RECLAIM always active regardless of the free memory rate, set
-+``wmarks_high``, ``wmarks_mid`` and ``wmarks_low`` to ``1000``, ``1000`` and
-+``0``, respectively.
-+
- sample_interval
- ---------------
- 
+ 	err = damon_stat_sort_regions(c, &sorted_regions, &nr_regions,
+@@ -124,7 +124,8 @@ static void damon_stat_set_idletime_percentiles(struct damon_ctx *c)
+ 	for (i = 0; i < nr_regions; i++) {
+ 		region = sorted_regions[i];
+ 		accounted_bytes += region->ar.end - region->ar.start;
+-		while (next_percentile <= accounted_bytes * 100 / total_sz)
++		percentile = div64_ul((u64)accounted_bytes * 100, total_sz);
++		while (next_percentile <= percentile)
+ 			memory_idle_ms_percentiles[next_percentile++] =
+ 				damon_stat_idletime(region) *
+ 				(long)c->attrs.aggr_interval / USEC_PER_MSEC;
 -- 
 2.47.3
