@@ -1,119 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793610322;
-	b=5e68qIPuV7R866Yg6J2F85jMO6JIlozfnjBzGzskpS6S3bmL2CmMhkp7BhpuxTzOrjWR
-	 p6C97qZoj/sqAMbZU5tvaod4egRz/wtNzmGqrmWJ6UyVusGcS0AWvFOJ5RPuQhequbDdM
-	 sdau1oDXCPNvir/0eEGiEMb8GB8nvXTfmUxBebevwAA7zSPP8x71F0o4LDB3PyVm5gnNl
-	 d0me5GO5/JqOGueDeIanHOBQgQGzl2Is5X3cAVxzKHS3FflqF4aT2aO4y0PdxSXpieNEQ
-	 hXIspwgDc7pCfMFDJRQIdZZCcAG/vThkijecdsUrgEw7MQ2ad4HJJjed8h0b6yM/6SA==
+	t=1793610376;
+	b=G13hraZ6kmI1mhg6g5sl80rffVjcEzWf7LE+iIRJv4Vp1nB6YhXAEqGAbqHtjabILkXg
+	 bxcdjnrUDwh6axw66XgoXZYMya6uJfx+4q+6yOpYKAgrcDraQ7thy0mtQEwBRoj/YSeCO
+	 rW5Mw75QqAb92q6enM6ND42ml7btGGZDDPNhOsMCt0y7T1oGAbddfHc6Ay4EhyKLRJMdb
+	 jtDt744M6cNXJ79nI28zJE2yFMDdcTOhAZJLbG0Nd6I+DEcKiAHhUBr0qwqVyxzH2rVn9
+	 L4wNBFrN1Xx2ovC5yWGQ9eykhlVoe2pNLeyN1B3c3fVj+D0Cxg8I3VhukBmFOR7GSTQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610322;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Type:Content-Transfer-Encoding:X-Proofpoint-ORIG-GUID:
-	 X-Authority-Analysis:X-Proofpoint-GUID:X-Proofpoint-Spam-Info:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=Uj7glmkl1aT4wyjfINGa2j7rG0D5MjkaV6HqnjPJI0I=;
-	b=bZIwWDbSQdnhfAGIfLrmHk/1qdwwFsU93ZfWurH9FuHdiPeZfV2hiCkhjjpY81XfTMqr
-	 NoCoPJbJohGL1IgPM+6sVfMghAUtj2o+1Xikjpk2l1ehgmvbOH3MDP2FJlbdiIdAKqOqV
-	 sNJE4wa2QLGpwcTuRtJ1PGs3CZJX/GYPAyyv3Oec+lMTGIjYWYQmDigB8LZSJJIlS8w7Z
-	 dmfVnYk9spGIC01pN2Cm0cDaZzPOQwQwHtXz8LM0XP4frQ7lT01+RQtCiDY++3sWi158h
-	 kon3cB6b22V9mFUgtGSOTg4RKoafixgfD93GmD2PwzAVkrq0xqO/RB4U9c3ggC9PzSA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610376;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=77Xvm1RZi1fMUkErP5AZnNQjl3KUFV3T8alLBOD3IkA=;
+	b=l+fnSlqKdn2T2yv9G/oAtfTCPHO12ToI+uRE7i6OWobPiPiAlGjV/oqtM8sRWPLcmeb9
+	 dFrvsfJC1vqKHOXKyRyh5CBe08ziciB6+jQwy5Z31YYiATYjwrOnXFb+t3f0my7rK9Tak
+	 JhZD8mEFXkYx43lgxXgZ6kx85PN9Qwpn0xdYPkC99Bst1ZRs6ljdJ5ynUSemtylSI8aAM
+	 0FqshbZdaVlZiGH419xx4qNDLWJUNfXQgaZuh7WFQjVcCtjg4Ns1JSFdRxh0HipK+lDhW
+	 wQKnQTJuq76M24J3IkNESKZHq/HM1u1DozN45E0GyXGClxYF9x/0Qm5Jh0QDXasJ+1w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dvQbCNf+;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b="KD/l2EVW";
-	arc=none smtp.remote-ip=205.220.180.131
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	dmarc=pass header.from=infradead.org;
+	spf=pass smtp.mailfrom=infradead.org;
+	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=SuhR9+vn;
+	arc=none smtp.remote-ip=90.155.50.34
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC1FE606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:05:21 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org AC1FE606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C05606A324;
+	Mon,  2 Nov 2026 09:06:15 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65C05606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=dvQbCNf+;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=KD/l2EVW
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A23vIST3324667
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 09:05:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Uj7glmkl1aT4wyjfINGa2j7rG0D5MjkaV6HqnjPJI0I=; b=dvQbCNf+TII7Rvcl
-	QH3SWWJasayQGrXTuqTRLM+NOPKFLQV4DsqhOE3QRHqAKe3O9Tj+Nwp7pxoua1E9
-	J3SNw+Qv+f8aRKXCWhFM/mmczh3xmM1OgYBHn0GSSwU2lFh9iaAjTRS1h/tW0uSG
-	kz35QOGqEujVeJyZp3SJON2YYGWMt7kmfZrpZpkqvJ1eXAv8Jbuiai3n+zAXaeeT
-	l1jsxq/oQRoYYTW5eOUT00VL8TbtF4h2NIvhSI9++mWpnrg/6rFaPaH6hXR+f2ft
-	ZdBGpzPLodyKeTkMN4eU285Bg1dgeIlsSFKhb3X6GPTdaxOC8b/r8/2GXDpFDJEp
-	xb+XzA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hn7b6p7s4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:05:20 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7c15deb3794so548386137.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 01:05:20 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793610320; x=1794215120; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Uj7glmkl1aT4wyjfINGa2j7rG0D5MjkaV6HqnjPJI0I=;
-        b=KD/l2EVWoMHDFJRHM21MvNTAcSndpgapwlOdD6OnSG+L98+7oh1T71weHqFJqQlExf
-         SYeDCZfvHT0ungxLBcHLw82CuARSMw1o97ARCeefB4EFW8shzmykrB5DJeKsjfCSfTfk
-         JFbCJQpcsYX2b9DqvshVLSLG2o6mGv3Dys9TRVV7qmgw2j7nxeBRtJsVQtxoOCxcQRAX
-         yXQbQcN+4uoFf0nffedsTRi6RvLsXsPQY7gfRVN9ZvpUlr8MKiPXXThvHlODHxCSFX3u
-         EUl3Gh5KfH2AF7SFdLhxEDsOiG4rAZOxPsfo3gRATdsKqK58toLI+DaIrzDddtuM0aKy
-         mWJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793610320; x=1794215120;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Uj7glmkl1aT4wyjfINGa2j7rG0D5MjkaV6HqnjPJI0I=;
-        b=e1REhK9AKRAGect8dVmAC+iIiPXEYs2SnpzhMJ+gV0iBjLlxRpE07D6B0Ejol1Ryqg
-         WM15gSQ8zhoYk1xASBgmByBYmgBycI5bMwVsGcVirCksHLK6fN+OetlPxGb//KKWrRT/
-         V1C4IeaA3tCboYXxioImIUT/fvbV6WRueddwG+XfFudblGuUk3pUOcU69c9+w8YCoyUn
-         pVp64DZ6k9+BP4t2ycCkVY/cz0l0hapo0SQg9Pf9PfFqVLiG4LIPUA2wKKc9Pbq3Idw5
-         snWf3q2p0B7P5icG55570xSvXviU5zpabFdPNP8E0BZjjLwGKTgjO5FSY+qbXPzooTWw
-         b0YQ==
-X-Forwarded-Encrypted: i=1; AKwUvByMKSqTQpOxCwJMJkZuWPCABodEcr2+d9dv7gqZAabEHPaZcw5EhkZF1ZK+hI1EpVFGTmF2GKxKZ1jwHhM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/ubgoZAsYqK/3Ol9rgE0Z1tjmpQlwuwuopDv8uSwdq1JQSFfWj
-	ia5RaNrln+l2LjAKOR/EIBm792C7Jn6/OHrZWkOhwfP907PERonH/9W5TViR+sINDsjAqy81I2+
-	8DX3Q137YP9unoyErp8qvAmur2NrQwNFdJdomBNwejBoUWjfrJHwW4RSj2813q50schs=
-X-Gm-Gg: AYBFou2cN5UMkTzDoqGlOejOlS8M5ICpNSzcqQUoYlQYKa1Yi8Oy8VW4LqNODqnFc1/
-	PLKoMAQoAlw2/uVGxFRAeoRTWy8uUIWo20jY92hdwhg68cD4fy2ZbtgrwEP6HIMA9qMl+sFXlOc
-	bREoArkwBlAcVSnN5Xu3SnX/bwfBcENv3T99K2pr1DB3W3xWjclOGm8ohK07RTtC5cHo10Oh166
-	QBlm+2c2QcwMUael7fWApaN59e0wMXFbzRjNjAG2VrXjI+1ITygdQBvep7UcCQ+LwsZmqLqCd5l
-	22t8CZAPKyS2fJmuzFqzvQTGfZlTrjtDicYdZb4EGdkwSTnNaZwiRRCfYEYHyCcYak4TaxWH8hk
-	TNZ/shg7C81iKVMrzpzVeaiHXSpSmm/c+zbn3iJeBISVW032Evxe4z8ht1FX2yKDIcT9Obc4uZQ
-	2Z
-X-Received: by 2002:a05:6102:290c:b0:7cc:2152:4f72 with SMTP id ada2fe7eead31-7d072238fc7mr3405059137.1.1793610319969;
-        Mon, 02 Nov 2026 01:05:19 -0800 (PST)
-X-Received: by 2002:a05:6102:290c:b0:7cc:2152:4f72 with SMTP id ada2fe7eead31-7d072238fc7mr3405052137.1.1793610319510;
-        Mon, 02 Nov 2026 01:05:19 -0800 (PST)
-Received: from brgl-qcom.home ([2a01:cb1d:dc:7e00:8916:7b9b:97a2:6c96])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b78f95sm17342081f8f.28.2026.11.02.01.05.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 01:05:18 -0800 (PST)
-From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-To: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
-        =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] gpio: virtuser: constify struct configfs_attribute
-Date: Mon,  2 Nov 2026 10:05:12 +0100
-Message-ID: <179361030997.39187.14281865642912768341.b4-ty@oss.qualcomm.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261021-gpio-virtuser-const-configfs-attrs-v1-1-bca474c9cd12@oss.qualcomm.com>
-References: <20261021-gpio-virtuser-const-configfs-attrs-v1-1-bca474c9cd12@oss.qualcomm.com>
+	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=SuhR9+vn
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=77Xvm1RZi1fMUkErP5AZnNQjl3KUFV3T8alLBOD3IkA=; b=SuhR9+vnaTOUcvs25RDk/YBx7U
+	DD+eBRPNPIrYJxMnypkeuCgCUYcC3KH8Pve/4VJOBP7UEilytwKIBC6Nujr/VxuGLPF3U/HGB2SG5
+	GMcYRXk5ztdK6oiyVtaCYe2O9FUa/T7fSvhyuezjnUgdEAuV9Yrzp/G80DG1vLf4/UNhEUmndwfcd
+	/gc/facHFTAvWiOM6HwTYv5YG7x+xpML4zM0IZczXrLu6kp4DZuoBaur/8DHmdo5p65xLI5+LuDFk
+	aR4a4e+TTXtR/T95Wy9RSDvPEWlYX414XnRoVKvp05FP06O95dJpovAtM2uIQx31xv1JH0H+HYgxt
+	oM9NpRbQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
+	id 1xNnzR-00000001eC4-0uDX;
+	Mon, 02 Nov 2026 09:06:05 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id C3DA4300312; Mon, 02 Nov 2026 10:06:04 +0100 (CET)
+Date: Mon, 2 Nov 2026 10:06:04 +0100
+From: Peter Zijlstra <peterz@infradead.org>
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Andi Kleen <ak@linux.intel.com>, linux-perf-users@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	driver-core@lists.linux.dev
+Subject: Re: [PATCH 1/6] irq_work: Re-raise pending irq_work after system
+ resume
+Message-ID: <20261102090604.GR1779021@noisy.programming.kicks-ass.net>
+References: <20261102074039.26983-1-adrian.hunter@intel.com>
+ <20261102074039.26983-2-adrian.hunter@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -123,49 +89,40 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: WWqoYPUph25mG_TzEQ__CCIe6MPleSiP
-X-Authority-Analysis: v=2.4 cv=QuvLTlyd c=1 sm=1 tr=0 ts=6ae85250 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=vBPT46HQKAXVtv7808kA:9 a=QEXdDO2ut3YA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-GUID: WWqoYPUph25mG_TzEQ__CCIe6MPleSiP
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDAzNiBTYWx0ZWRfX7lVWkQ8t1Hnb
- TdEKSh9LYGjlofyeD0zGZ5IsipDqmCydwf/PVmWSpmAJexkB+SL/Aoj4mhYVwxx7uDkLHmWb61k
- 3ohEcA9Ggmt5951GExO2Q1pr1SMWNds=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDAzNiBTYWx0ZWRfX2KCuPS/T8FGl
- UKkFlQ5X8MRK1ug+zMj/wX3kDyu0JSlrpODMW51pqtrKBX9QKpZLFtPxnbGHPnwGZao/47FhSZx
- SWCsWTxImHtD1qDHA7m30M8345PKFkt+udnmeCo26bn626ZS4pLiAqfoHTVQFe4c8u8mVvywSca
- hZlouj5lgMHH1mUIsXGXfpKgt32RTlPqDSY9CApOE+csc3AeNLuTStVaTkRdZ616YlZVrITn487
- UTVNFOjbAMye8sp3l8Jv5WGY0i4mxRfMPqVGgfFWRASVH9YHIwR9DKwiHAqI3Dm9eXGuNP/UXOr
- Qm9ivfEGwQq43zsYFaWSsep5oMLlAzzVIBEgzDr0dJ5WMP7FgN9RpQ2uKXsoKOqYfUuRuUdJDp7
- Xi5plD6Iu+yMYNpyLMqAxwmj8HNAjg9oNqAcwB3pnfAv5vVI8T+hcuNsfJ3nb2vHiXBGGvxfHqZ
- jak35l0lsLwxlMEbfcA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_02,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 lowpriorityscore=0 adultscore=0 clxscore=1015
- impostorscore=0 priorityscore=1501 malwarescore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020036
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102074039.26983-2-adrian.hunter@intel.com>
 
-
-On Wed, 21 Oct 2026 14:24:29 +0200, Bartosz Golaszewski wrote:
-> In preparation for the constification of configfs attributes, make the
-> existing instances of struct configfs_attribute in gpio-virtuser const
-> and use the new st_attrs_const field of struct config_item_type.
+On Mon, Nov 02, 2026 at 09:40:34AM +0200, Adrian Hunter wrote:
+> irq_work_queue() raises the irq_work self-interrupt only when adding
+> work to an empty raised_list.  Once raised_list is non-empty, further
+> queueing assumes the interrupt is already pending and will eventually
+> process the list.
 > 
+> That assumption can fail across system suspend.  irq_work queued after
+> arch_suspend_disable_irqs() and before the interrupt controller is
+> suspended, for example from NMI context, may leave its self-interrupt
+> pending in hardware.  If that pending interrupt state is lost during
+> suspend, hibernation restore, or kexec jump, raised_list remains
+> non-empty after resume but nothing will process it.
 > 
+> Subsequent irq_work added to raised_list will not raise another
+> interrupt because the list is already non-empty.  Architectures that use
+> an irq_work interrupt and do not process raised_list from the tick can
+> therefore leave irq_work pending indefinitely.  A caller waiting in
+> irq_work_sync() may then spin forever, for example when closing a perf
+> event whose pending irq_work never executes.
+> 
+> For suspend, hibernation, and kexec jump, only the CPU that remains
+> online is affected.  The other CPUs are taken offline beforehand, and
+> smpcfd_dying_cpu() runs irq_work_run() on each CPU before it is removed,
+> so checking the local raised_list is sufficient.
 
-Applied, thanks!
+I thought here was a suspend2idle option where all the CPUs remain
+online?
 
-[1/1] gpio: virtuser: constify struct configfs_attribute
-      https://git.kernel.org/brgl/c/6c0703e5b8214e3625ec2058236db4a27d4426f3
+Anyway, I'm torn; I would much rather make this trigger a WARN and have
+suspend pause/resume perf in a more controlled manner. Also, ISTR there
+being hooks in kexec, but I can't seem to find them :/
 
-Best regards,
--- 
-Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+
