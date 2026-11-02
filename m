@@ -1,49 +1,49 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627982;
-	b=ISxwdsuRgMpOGln0Mkq1Y7pJLz399DIQdlPMYgJG6KwCRhWoOkbC++69fo5287MPO4NO
-	 ik1AXMeK7/cCMeH49zvR+3HF7V8R/vavq3DCYthSVNdyH/ImCHk0D9f1UFSQuDgkmsQnw
-	 vrs3ir+Pxed2y+Purlep8uO93Z/bZBQVqO3WYU4BLe/q3GQt0uSt7spYMcvtk5fVqaMKr
-	 MhRfDbs6x8eEvmzkdzc9tFcvhUu1fGCC7Klt/V3wqpJDlbIHxb+Tjrjc9+Bus+Sxl85dQ
-	 wiOjsJeCQf/UHWIGXclyNR9dOQfqTcH9yZfuilBeTPNrMuEua2movdeoLLIsVbaEE+g==
+	t=1793627977;
+	b=xc1FRKhcL1zPOefFzgb98j12W+sEWaiGlzHGwZBtQZn4vDC7emvtDdpWvXNiEjMEgML5
+	 7gROVovFYx3HJT0sJH8yZslIGtNZzi1MEXbdXD+u2dJ/8GEITOWM+zmuESE7Bm3zO4NBq
+	 yg/ztJ3svo92iskukdPXH0Hhp3D9f2jaffwnyxrTGpwssluz6WFKL4qfr9IvcPM5NMl4q
+	 jqAa8aOInZhdtLs8lz86wxLfVorcxhJSTvQWOG8neW+gcc7yIuJJtTv6yBEUgQen3FwWE
+	 3W9X7zweE6qK1DlvxPCL7ewX7pspTHpOTcwSf4n/Yc9EGUzD2wN/qVS0Q87ZOHUdptw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627982;
-	h=Received:DKIM-Signature:From:Date:Subject:MIME-Version:Content-Type:
-	 Content-Transfer-Encoding:Message-Id:References:In-Reply-To:To:Cc:
-	 X-Mailer:X-Developer-Signature:X-Developer-Key;
-	bh=s2SEqKfMwj/eJrBfK5943BFoWBT1hjDKhKlE5YtTfLU=;
-	b=dR2bQRks9MOShN1B5e4dEXL+sVrB8XvbQvVsl4uaTKlD/XMxcFyoCwcwjdYfuOwP8uio
-	 VrKdmKDxOuVJYwT7OQZFqim4aqQCuhY4CxGwgX2hOXLTz8Dvs8bMP0YUxq7vZW3GwiRMN
-	 0Q+L7BcmF76cN25on9/H8K7i1gAJlbFEiMKkLVlld+clpIBmsPfWzQcsHUHKfDt0G34np
-	 Jz3U0myF7psf8ZKP32T9ufcAMolP0au7f3rcDn7RjL1Ev9pxGB0CFgFftv1oC5/84DHTy
-	 9JFWrQWEY4uzClMQJcoWwZZdPzke1yxs4ew9M5ZhoM0dtBsZeP5Xss1/tzGKi1jnsWw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627977;
+	h=Received:DKIM-Signature:From:Subject:Date:Message-Id:MIME-Version:
+	 Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+	 Cc:X-Mailer:X-Developer-Signature:X-Developer-Key;
+	bh=5D+sICZvhFnCjFfCw1VmJULsIsceti0DLUKwMTNcXyw=;
+	b=tpXH1vlNP4ZYCldGxI9OWoa2UXWuPPgybIWNGk1fUzrMV+boUufa5EM1Ik7+4iKL8lmh
+	 muNaBfGr4U7YbgWQL2YYQb7WU68M+cFoveWlnMB8FauuOb179qChRj2h3bRGOE01xo7qt
+	 0XpMWjFq5XZJbxN6UGcmzu/BsHu61fKHqW5sSbrucwgZs5ecdeY81mE5F/257g8jelHrP
+	 7ytyyrxgCxipETTXUgYNoID/ybpjnROETjUtcX3iAs0k2mF19rICRfRoobgGhpDK6Su4G
+	 1L3UN55eIzbFK4rHPUAOShbjCnIdgiBLfHhyJ45vDuyUPqgPlR52Ca8LS5aIEHxzSlQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1bDDCTB;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="Dzj/uu64";
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00F260A5BE8;
-	Mon,  2 Nov 2026 13:59:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F7460A3819;
+	Mon,  2 Nov 2026 13:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=H1bDDCTB
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4794E1F00A18;
-	Mon,  2 Nov 2026 13:59:40 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Dzj/uu64
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EC3D1F00A16;
+	Mon,  2 Nov 2026 13:59:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793627981;
-	bh=s2SEqKfMwj/eJrBfK5943BFoWBT1hjDKhKlE5YtTfLU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=H1bDDCTBSaagvEKieiyLl0ycCd0zotTLAIm1n4Y3o4yQYdPeIkZqHXN5ob9mX1RgM
-	 rs+JgfVxiAR/9ew+t+ztTDzPBg9Y4jLY7x4sw94Ez8CHaFH1WmAJSrT2pQD7beACEJ
-	 eqNlj6XdyRro3JShpdL/yQyTsopo8NGob4vJui6WSoFVmRnWZjywHVftuPb/L+fWIB
-	 KAHrmIsef7zZDnROu1D8v7Ez0Z2VVKoeDgQVWJuF/m0x39/OFh8EoMg1ZmshxQZ5Pn
-	 knFNPR69aMf05SY9fAY3uEo3MU+QmM8a2FI7Qyj7PFyqwQwnE9hNBN4FbwmD7i7ZVa
-	 rnuHV5LCJBsNg==
+	s=k20260515; t=1793627975;
+	bh=5D+sICZvhFnCjFfCw1VmJULsIsceti0DLUKwMTNcXyw=;
+	h=From:Subject:Date:To:Cc;
+	b=Dzj/uu64jL9b7TkhbTE0JiUIe3j29Gnwt/BWDvw/QF2MyCEEzkuNM1XLWdekkm2da
+	 mzPke2g5/TPgLpqEIjxKxN3CiIAsOIQKDwUxLCRUktWFw+y6vzkYHD5+290FTtrJfv
+	 pl5GYQSVgeBHe/NmMPgXdw0HjBr7+n21qld0k6apbSCq2Vlq9S6HtIeiK1VP449vku
+	 YdLOJGxu7aWTATuP6UIj87ZJ2V4fx2xpUX7MdmLPs8IZjzlYyBdUs+M1l/J7QHX9lB
+	 zwCXdFqHlNGTbrReO8KPcTatEIOwiCADxHQSQi4wgC0OMWDWmtuaO81aibnyXnGsLa
+	 VCU3df1R9knig==
 From: Konrad Dybcio <konradybcio@kernel.org>
-Date: Mon, 02 Nov 2026 14:59:34 +0100
-Subject: [PATCH 3/3] phy: qcom: qmp-combo: Use V6 offsets for PCS-AON
- clamps
+Subject: [PATCH 0/3] Fix up AON clamps on qmp-combo-phy
+Date: Mon, 02 Nov 2026 14:59:31 +0100
+Message-Id: <20261102-topic-qmp_aon_clamp-v1-0-141c2cb6cdf6@oss.qualcomm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -55,9 +55,10 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-topic-qmp_aon_clamp-v1-3-141c2cb6cdf6@oss.qualcomm.com>
-References: <20261102-topic-qmp_aon_clamp-v1-0-141c2cb6cdf6@oss.qualcomm.com>
-In-Reply-To: <20261102-topic-qmp_aon_clamp-v1-0-141c2cb6cdf6@oss.qualcomm.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqDMBBA0avIrBvIBA3Yq5QiMY46pSZpoiKId
+ zfV5Vv8v0OiyJTgWewQaeXE3mXgowA7GjeQ4C4blFQaUSox+8BW/KbQGO8a+zVTEKhJ15XsSpQ
+ achki9bxd19f7dlraD9n5v4LjOAHNbkqfdwAAAA==
+X-Change-ID: 20261102-topic-qmp_aon_clamp-16e6950d4106
 To: Vinod Koul <vkoul@kernel.org>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Manivannan Sadhasivam <mani@kernel.org>
@@ -65,69 +66,36 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
  linux-kernel@vger.kernel.org, 
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793627973; l=2026;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793627973; l=936;
  i=konrad.dybcio@oss.qualcomm.com; s=20230215; h=from:subject:message-id;
- bh=mDJHSwdTtjjsej/30s7NiBPFSWOzYIFb8f7eLcF6NWo=;
- b=dm/CydIW7rCy9Md1dOuy/b6Nqbly8kGBr1qFcAfYfZW5JFFK+jk3tFM6hf4oLvxO9GkRu459i
- s06GkcGpwe8CkUUqX+TP1iFofYYo9GOA5Y0jFaTYYrLuYyPV9MbGIo8
+ bh=ef1OmLeK2CMWnQe+G8q55VFeGP3F1KeLA44wMqE/CMs=;
+ b=e7VQOZt/RzSULLFP0ACSRjmBbDU2FKMI2UU8p3rBagRUqn/EKrMjznTfjGGqb/NloR3uMmvlL
+ m22ikmlFmfCDho3uI6DUZFIOD2tAV1ttbXN1fhJt0Gu6QDPpz59hZaH
 X-Developer-Key: i=konrad.dybcio@oss.qualcomm.com; a=ed25519;
  pk=iclgkYvtl2w05SSXO5EjjSYlhFKsJ+5OSZBjOkQuEms=
 
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Various platforms have apparently not had the AON clamp writes end up
+at the desired registers. This fixes that up, based on the robot's
+findings.
 
-These V6 combo PHYs were configured with the V3 resource-offset table,
-which omits their PCS-AON window. Autonomous-mode suspend therefore
-cannot reach the HPG-required clamp register.
-
-Select the existing V6 offsets for SAR2130P, SM8475, SM8550, and
-SM8650.
+Depends on (reviewed and ready to be picked up):
+https://lore.kernel.org/linux-arm-msm/20261023123512.1912-1-26rote@gmail.com/
 
 Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Konrad Dybcio (3):
+      phy: qcom: qmp-combo: Separate PCS misc clamp mapping
+      phy: qcom: qmp-combo: Make v4/v5 targets use the right clamp
+      phy: qcom: qmp-combo: Use V6 offsets for PCS-AON clamps
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-index 84b9d6f3969c..f9ab503c81ac 100644
---- a/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-combo.c
-@@ -2793,7 +2793,7 @@ static const struct qmp_combo_offsets qmp_combo_usb43dp_offsets_v8 = {
- };
- 
- static const struct qmp_phy_cfg sar2130p_usb3dpphy_cfg = {
--	.offsets		= &qmp_combo_offsets_v3,
-+	.offsets		= &qmp_combo_offsets_v6,
- 
- 	.serdes_tbl		= sar2130p_usb3_serdes_tbl,
- 	.serdes_tbl_num		= ARRAY_SIZE(sar2130p_usb3_serdes_tbl),
-@@ -3224,7 +3224,7 @@ static const struct qmp_phy_cfg sm8350_usb3dpphy_cfg = {
- };
- 
- static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg = {
--	.offsets		= &qmp_combo_offsets_v3,
-+	.offsets		= &qmp_combo_offsets_v6,
- 
- 	.serdes_tbl		= sar2130p_usb3_serdes_tbl,
- 	.serdes_tbl_num		= ARRAY_SIZE(sar2130p_usb3_serdes_tbl),
-@@ -3269,7 +3269,7 @@ static const struct qmp_phy_cfg sm8475_usb3dpphy_cfg = {
- };
- 
- static const struct qmp_phy_cfg sm8550_usb3dpphy_cfg = {
--	.offsets		= &qmp_combo_offsets_v3,
-+	.offsets		= &qmp_combo_offsets_v6,
- 
- 	.serdes_tbl		= sm8550_usb3_serdes_tbl,
- 	.serdes_tbl_num		= ARRAY_SIZE(sm8550_usb3_serdes_tbl),
-@@ -3314,7 +3314,7 @@ static const struct qmp_phy_cfg sm8550_usb3dpphy_cfg = {
- };
- 
- static const struct qmp_phy_cfg sm8650_usb3dpphy_cfg = {
--	.offsets		= &qmp_combo_offsets_v3,
-+	.offsets		= &qmp_combo_offsets_v6,
- 
- 	.serdes_tbl		= sm8550_usb3_serdes_tbl,
- 	.serdes_tbl_num		= ARRAY_SIZE(sm8550_usb3_serdes_tbl),
+ drivers/phy/qualcomm/phy-qcom-qmp-combo.c  | 30 +++++++++++++++++++-----------
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-v5.h |  1 +
+ 2 files changed, 20 insertions(+), 11 deletions(-)
+---
+base-commit: 63ad76011c4162b0e0e516e5eb76acc554683cae
+change-id: 20261102-topic-qmp_aon_clamp-16e6950d4106
 
--- 
-2.56.0
+Best regards,
+--  
+Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
