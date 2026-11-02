@@ -1,45 +1,45 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793647426;
-	b=gfKB/qeQzBHv0Q6ZtoT4bmh6LpPYMrYyEEJWBFYOYKfTUhmSU8Pv5F3V5g3c/ZtrodY5
-	 qJpfocSG7JedGxsikYTBcWQrA8VFvQT6mxirZbtUUcbWSgzxDLyrqlppY+lXebBXZcf7s
-	 91+HwLiWhsOaI10BJT7H8tM7u5Xu3L5kWh0gLy6Vp0ZunWyXaxizd++y90ZhbPsVUmKQd
-	 +BYe39kQUGSgqWi8GXDCwzQaKUBGtDS7/8PCb9EcdU6Iime53Pf+z1TPLn8gZ9z3uyVWN
-	 TcWZ3J+aKMACgNmY9Yxr6kMfQvrDLnk0mVdu1iFO/VyTLYsIfaVrqA7g1pJj1YNfSDg==
+	t=1793647459;
+	b=HeaO38Jyp8jatKBgSlGf574x8EQVBwERdPruC50DBWCd6EzguIcxRv/Bx6t9K6ebe/eD
+	 rRjA2sG8AESkJMWPFHL1TZNclIWeNgctHrOoTXCU1V46dP9JWI6aeqyE5Ywjk95RFdJQl
+	 /zFSehZ98e8AmPtR69jZgCeZkDiwp/cLK3Sf5HPhxwhAkL0633t7CVnrJgT2M6bzD4sI4
+	 tm5GinOcw3CSfC3DIlY4EcMvip8iDV9McUeXhy+t6bSXjRPa6sCY6Xx/STMBKFhfUZmcw
+	 8KqVivqKYGkswrd1EKEH/rMtC4mAsRj4z7N37AqV7lYPxIMmTOv5vB9P3bbfpjOKUng==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793647426;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793647459;
 	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
 	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=EwvMk+FvxyHkKynm6O8LyVDYXYAT5668MebC2DyFOqc=;
-	b=vI3jxNY06+jyv/ER6l/7yyCkG0p09HwtojpvJDrWIBzKqYGlIxw1/GiV5yus70GDMDSy
-	 vKnZjoJfOmmcMLzGOO/5Mx9DsGGUvYVxZp8cZjD6c1Vh3ceIN/1tYr4KfRxOFosmtP7wP
-	 nqgzdQtKr8NNhmrblp1yWtlZlxGS9/hzJcP+BY8X5qLgAxDIl1DW+fVLPCd82DS4WLJB7
-	 IjAPVpZFvrdm5yiRhmQDVynuPiKDImQe/HTUKE/S+FvdLnQk/denBzCldqpWtN9yV3pgI
-	 jXG394y/eiU2jQ63QKmncYRBATgZXFX1aVDJEz7qPzNMOCxW8SStAGi3qhwxeLEOKHQ==
+	bh=BqhAHZ1CAtWu/7yJzc2Z1CotAWcWleo0RVIl/xA44qo=;
+	b=d5cyBIB2Cf9F9mL4UV0IVVXGclAETgNLa1EPB+LtRb18+O/1ClNd1uukEQzwnPzij1m5
+	 5aLBTQSXfCTbCEDH05Gw4yBsDPwn5StIlIkWPCIQ9ZTbC81gY1B89t90ADAeH05JlAqFN
+	 viJOZRwoYu3YAWAgycFVy+z4RnFPSifm1cVwC4/UgqUaW+pZjQALFU101Gpm/MhcKy6+A
+	 dFwq1ySZTu3VQsQsVu+uibQO/TIcpKAJlP/tLfH3ZrmgxTWz/0qmDfbGRK9uYKNyusjrw
+	 2N2KhGNFwOVIxiq/2MQk5x0NuGPAxPyGc5ZWtXR9p7ef3OLJSdzH5KhFzu1lIEVOm5g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vk8EScHH;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=butBOikZ;
 	arc=none smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6D60606A324;
-	Mon,  2 Nov 2026 19:23:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B625606A324;
+	Mon,  2 Nov 2026 19:24:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vk8EScHH
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0D2E1F00A16;
-	Mon,  2 Nov 2026 19:23:42 +0000 (UTC)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=butBOikZ
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5E21F00A16;
+	Mon,  2 Nov 2026 19:24:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793647425;
-	bh=EwvMk+FvxyHkKynm6O8LyVDYXYAT5668MebC2DyFOqc=;
+	s=k20260515; t=1793647458;
+	bh=BqhAHZ1CAtWu/7yJzc2Z1CotAWcWleo0RVIl/xA44qo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Vk8EScHH4BY0tv2o/GU5Nl90Wz0Al+tOJrBKf0Swgc5pqAkaU46RRlHsUL/GYHqYM
-	 kGWsCIQzCgxX11emEjYGu+09Yb/kKLE7Yi9qR4OoigCIyvtJyGHxfwkaHKD/JNdY6T
-	 Sl0LM4U6oDdhQ6RcjHFgMWOSwzYdNmFJXRs91RM/5R2bMAEbjd9TgoRMVF7BfBCs4y
-	 jFDwoFYSS1+VR4pDZ8Q8AxF5IazJzKNMoqbj2UQZuVpJpjYpUzv6cWMr0H5D3T9JN2
-	 xH6h2L2hh2khoEhVdKpxJve4UsM91o3xUdvHXLwHeBsfMWj3X4rChstUbT+lo5KsxR
-	 i6DtVbZES/WSQ==
-Date: Mon, 2 Nov 2026 19:23:40 +0000
+	b=butBOikZsSTt6L+OgmLjcLlwoy1icu8Z0meF6li9wTbJCgd7o9KG3YERIQmLWn/os
+	 6/PphErsbvCfBXuC+G1xamDNqRymIcKvXGavKrF5O2q56iRKksae6nfjJhM5LRAS2z
+	 KnvNnjzXg30V+heQDPRauiomUylktC/jxRffmoDAQIhaAjd04yIhZaZxVSzwrsQG/Q
+	 H+2XNm1pxJfdtWqdftFbIRd4gjC8NgTt90/hdzP3uCgPFk5rcukhp4OIsnsX4PTeAw
+	 Ic7wB//aUsUzXUvoQNOpZvCxM/KCThD+dAi8xeOl/YtVgj6dHTGE43+mCw7vcBsk8t
+	 1bRfioQZK+poQ==
+Date: Mon, 2 Nov 2026 19:24:14 +0000
 From: Conor Dooley <conor@kernel.org>
 To: marouene.boubakri@oss.nxp.com
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -51,10 +51,10 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Samuel Holland <samuel.holland@sifive.com>,
 	Radu Rendec <radu@rendec.net>, devicetree@vger.kernel.org,
 	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/8] dt-bindings: riscv: add OpenHW Group CVA6 APU boards
-Message-ID: <20261102-breeze-upstate-4d9b96db18aa@spud>
+Subject: Re: [PATCH 6/8] riscv: add ARCH_OPENHWGROUP Kconfig option
+Message-ID: <20261102-rice-large-30bcaaf9de67@spud>
 References: <20261102141727.640769-1-marouene.boubakri@oss.nxp.com>
- <20261102141727.640769-6-marouene.boubakri@oss.nxp.com>
+ <20261102141727.640769-7-marouene.boubakri@oss.nxp.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -65,93 +65,64 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="EzvXeiIbN3v5MlHk"
+	protocol="application/pgp-signature"; boundary="SVuCYZvGx7jAhdE2"
 Content-Disposition: inline
-In-Reply-To: <20261102141727.640769-6-marouene.boubakri@oss.nxp.com>
+In-Reply-To: <20261102141727.640769-7-marouene.boubakri@oss.nxp.com>
 
---EzvXeiIbN3v5MlHk
+--SVuCYZvGx7jAhdE2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Nov 02, 2026 at 03:17:24PM +0100, marouene.boubakri@oss.nxp.com wro=
+On Mon, Nov 02, 2026 at 03:17:25PM +0100, marouene.boubakri@oss.nxp.com wro=
 te:
 > From: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 >=20
-> The CVA6 APU is the FPGA SoC built around the OpenHW Group CVA6 core in
-> the CVA6 repository (corev_apu/fpga). Add the board compatible strings
-> for its Digilent Genesys 2 builds with the 32-bit (cv32a6) and the
-> 64-bit (cv64a6) configurations of the core.
+> Add the SoC selection entry for OpenHW Group platforms, which is used
+> to build the device trees of the CVA6 APU FPGA platform.
 >=20
 > Signed-off-by: Marouene Boubakri <marouene.boubakri@oss.nxp.com>
 > ---
->  .../bindings/riscv/openhwgroup.yaml           | 30 +++++++++++++++++++
->  1 file changed, 30 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/riscv/openhwgroup.y=
-aml
+>  arch/riscv/Kconfig.socs | 9 +++++++++
+>  1 file changed, 9 insertions(+)
 >=20
-> diff --git a/Documentation/devicetree/bindings/riscv/openhwgroup.yaml b/D=
-ocumentation/devicetree/bindings/riscv/openhwgroup.yaml
-> new file mode 100644
-> index 0000000000..3bca66cad5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/riscv/openhwgroup.yaml
-> @@ -0,0 +1,30 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/riscv/openhwgroup.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OpenHW Group SoC-based boards
-> +
-> +maintainers:
-> +  - Marouene Boubakri <marouene.boubakri@oss.nxp.com>
-> +
-> +description:
-> +  OpenHW Group SoC-based boards. The CVA6 APU is the FPGA SoC built arou=
-nd
-> +  the CVA6 core in the CVA6 repository (corev_apu/fpga).
-> +
-> +properties:
-> +  $nodename:
-> +    const: '/'
-> +  compatible:
-> +    oneOf:
-> +      - description: CVA6 APU on the Digilent Genesys 2 board
-> +        items:
-> +          - enum:
-> +              - openhwgroup,cv32a6-genesys2
-> +              - openhwgroup,cv64a6-genesys2
-> +          - const: openhwgroup,cva6-apu
+> diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
+> index cecbce0c49..289448e489 100644
+> --- a/arch/riscv/Kconfig.socs
+> +++ b/arch/riscv/Kconfig.socs
+> @@ -26,6 +26,15 @@ config ARCH_MICROCHIP
+>  	help
+>  	  This enables support for Microchip SoC platforms.
+> =20
+> +config ARCH_OPENHWGROUP
+> +	bool "OpenHW Group SoCs"
+> +	help
+> +	  This enables support for OpenHW Group SoC platform hardware.
 
-On riscv, the rule for platforms implemented on FPGAs is that they must
-be strictly versioned and match with some clear and obvious release from
-the vendor. In your case, this should be easy, because you have github
-releases of the platform to match with.
+> +	  Current support is for the CVA6 APU, the FPGA platform built
+> +	  around the CVA6 application class core, with the 32-bit (cv32a6)
+> +	  and 64-bit (cv64a6) configurations of the core on the Digilent
+> +	  Genesys 2 board.
 
-pw-bot: changes-requested
-
-Thanks,
-Conor.
+Delete all this, it'll just bitrot over time.
 
 > +
-> +additionalProperties: true
-> +
-> +...
+>  config ARCH_RENESAS
+>  	bool "Renesas RISC-V SoCs"
+>  	help
 > --=20
 > 2.43.0
 >=20
 
---EzvXeiIbN3v5MlHk
+--SVuCYZvGx7jAhdE2
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujjPAAKCRB4tDGHoIJi
-0nVwAP9AoxwPfhIeSgR5WU7RTWmZxKvataQAbsLxoHx97QlQ7AEAi8hMNBrVghJU
-PZNzs81fYIhAJ8KZSqZQWSuC51Bk2gs=
-=67u3
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujjXgAKCRB4tDGHoIJi
+0jALAP0WW8TLwZ7TIANzBaugcK0mbOjCrVpgWybIjtJQ951x5wEAktICrb4s4gPY
+pj1QuLqMdR3V8VoBM2VBfuXOfRWqjwU=
+=dT3B
 -----END PGP SIGNATURE-----
 
---EzvXeiIbN3v5MlHk--
+--SVuCYZvGx7jAhdE2--
