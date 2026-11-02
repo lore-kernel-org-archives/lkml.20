@@ -1,55 +1,103 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793635909;
-	b=uT5yBa4hLAI3aaztG1sxR96aww3ey0rHnca+CrrGkJw60MI2nwACw1oXUvsLx0G29wKp
-	 p6oixX2iOb9UF0CEjtqFL0IheIEursoMNTz7QXfw6kPLK/+zNlTETlxmdX0641PNIS/8z
-	 b+Afs1CObmllKK1ymRukGL/9uiYSZ5o+HxWNDx3x3nNl5a406Ym4Fo3c9qmpZtHqhxzbL
-	 xLKBA+37RW6Md4Tn24aZ9/JhRGTw1OqJM5CUMewhmRuFy+QRLsCU7nyj96CuKSCzgpItf
-	 B33o1dbZRdvOaZIz1XOB8AdU4HI2Ru7WF4F+JgXbfza9b7Ce0QPoOEJN3TOf4EatmZg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793635909;
-	h=Received:DKIM-Signature:Received:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Received:MIME-Version:References:In-Reply-To:
-	 From:Date:X-Gmail-Original-Message-ID:X-Gm-Features:Message-ID:
-	 Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=I5d5ZKtruZEt0ywZjiSxf1z4dOQhLcvrD29UBSr0ThM=;
-	b=ZdW70wA4e9zJq+0cw+NcVfy4C8/kKURGsQcUEqm3XdG5QM6WakQ9mZ70Ys4rrykuSEex
-	 4bIgYFP7r2k3adJfpxR0BtgQV3YOq5PuTGi5qtHAowqKojM3mRpLKOwn/hpB81dbtEQbd
-	 bm8xECjBUZZK7qzy996XBDXffmqHfwhGt/Gf1hZHrtvAPveb6S1MMvCsGwU3SCD6TvQU2
-	 hR5vN3rC0g+gKcGjKYYEHuZGnCF/oYOILqvZ+YeKashgdqd6zRK5+lCB3DHVlmPaWyQ52
-	 qDkNrRYaCXb+El3zvMXreBetsinBOZtrYWQ3wUosXEhjrp5hHFgN6YWrXQbzcEUFlSw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b="KFriW5n/";
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.222.82.41
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793635932;
+	b=erv2sr2ACAYJvxrxjv4VU5WTIGPsl0r4quWusdUGD3ktCg5p4q4TD9RgIptzs33+3+2o
+	 6Ttw//NDNV/h8EjQ2DSAkUrjQrwCexVJbZzOinNT6rlROXdtcZTk2Uc2Y0zr16d7v6fL/
+	 18D0+yaFdb8veg80RRUJrSjHr5cJKHyCelJD1zkOLTPFRKE12jAZCvc8X/BgZ+EgfdRI9
+	 J34tm/tLTUi144wpDWqBcqYTLsBfccCB3UN91QI59I4qVWaiNIjAiZnrIS2rt/uzjQWPE
+	 9iV1SK8ZTjEbHDUaRVtAUyPMnQe69ez3Tiyc9rr+BP5FWJTRKF8ucL2Mh1rgefNX52A==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793635932;
+	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 Content-Transfer-Encoding:Content-Type:X-ClientProxiedBy:MIME-Version:
+	 X-MS-PublicTrafficType:X-MS-TrafficTypeDiagnostic:
+	 X-MS-Office365-Filtering-Correlation-Id:X-MS-Exchange-SenderADCheck:
+	 X-MS-Exchange-AntiSpam-Relay:X-Microsoft-Antispam:
+	 X-Microsoft-Antispam-Message-Info:X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-Exchange-RoutingPolicyChecked:
+	 X-OriginatorOrg:X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
+	 X-MS-Exchange-CrossTenant-UserPrincipalName:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-BESS-ID:
+	 X-BESS-VER:X-BESS-Apparent-Source-IP:X-BESS-Parts:
+	 X-BESS-Outbound-Spam-Score:X-BESS-Outbound-Spam-Report:
+	 X-BESS-Outbound-Spam-Status:X-BESS-BRTS-Status;
+	bh=VtG46m/z52xKmXpebB+kwiqbFvfv8uxemmSbCqfRRXg=;
+	b=uP8+tZUxrFFtqyFJoc1pCDXaRqIE0Mz7lwvLQnvhrwAFZvmwZsmbzhib1Qr6dLpSX3T/
+	 fxIq05+Cj0xRV47EMX/UJ2X7VDtRDBInfWU1JASKWPCdJnYiQmSk7TdCAaX8DtKoR3lAr
+	 bYrvzA4h78Yjs+Oe2rLlSPOGNTeXnfLoV5GEGccnjQXQkiiaxKXgYXyBOaHa1VVI37s33
+	 Fgf2OaOEvwJvD4IZELWa7SfFSzhEZFq7RCtQB4cQvgtn6XEbcw78oy/XYtF+TqPsoudei
+	 9+YHJeC8RtoIAJEbxIjCDuJ/kbHtdo4bAHnMlCTH1u6R87CpmDt8qT3MeWGjn2LFcgw==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=opengear.com;
+	spf=pass smtp.mailfrom=digi.com;
+	dkim=pass header.d=opengear.com header.i=@opengear.com header.a=rsa-sha256 header.s=selector1 header.b=u1EVKgxl;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=209.222.82.41
+Received: from outbound-ip173a.ess.barracuda.com (outbound-ip173a.ess.barracuda.com [209.222.82.41])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DD766081CFC
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:11:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29946088B2F;
+	Mon,  2 Nov 2026 16:12:04 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B29946088B2F
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opengear.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KFriW5n/
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA2A41F00A22
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:11:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793635908;
-	bh=I5d5ZKtruZEt0ywZjiSxf1z4dOQhLcvrD29UBSr0ThM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KFriW5n/0Y/rHZwPyB+VOn2d70RCIG/unjNHQz0AsJivZLwt916K/h4TBtiHDDaPm
-	 4F0EhHWx2t79dKtCLZAqxdxVBNhJymL21FzLneoJHstyBXNiQFmhtPfA2Oc7RoalWX
-	 qmbcoN0pX5QkZC7DQaBEh+6cSiAXElyi+GM3BBBW4214NXw36EMet5vElFmASMd8cX
-	 TX3spusi+aPWrvl1qiaFUzvzgrXt7dU009ACljjoRoWvXcVgC7+O8gnVeypMc8Q/gY
-	 kiZ1g6X14eNNLzjIfsHqO4O5hvmdgi9fviJy6T2xerwbPgZFe3cxE6cOFjKS4m3x5O
-	 UsVSGZ7kdNEDw==
-Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-7cc53938a8fso1889401137.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:11:48 -0800 (PST)
-X-Forwarded-Encrypted: i=1; AKwUvByF25X5P4aeZVEkIQggL+q+sREYVIV+Tr6rJ4CuV0tScDcXclRIbm4J9k4ShRcR89M3PI0ssci2J5GJ9l0=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+UGHxNgJTvpLhyf12sh/vfVRlaxTW80XInoF6C+o0VYfH0hXbF
-	tAme++9+U6+6kLXxsnrozW5LIfu59QGNUbJHApntdtkKVBu5TFT8a6oUPU/pSGt7zwtrVuoHi6G
-	h+w/AkrfhAbNiHS3JwtwjVRGM9EPbcLo=
-X-Received: by 2002:a05:6102:3e85:b0:7cc:306:d3ab with SMTP id
- ada2fe7eead31-7d07277bbc5mr4589315137.5.1793635907979; Mon, 02 Nov 2026
- 08:11:47 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=opengear.com header.i=@opengear.com header.a=rsa-sha256 header.s=selector1 header.b=u1EVKgxl
+Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11022141.outbound.protection.outlook.com [40.93.195.141]) by mx-outbound44-116.us-east-2c.ess.aws.cudaops.com (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO); Mon, 02 Nov 2026 16:11:02 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nVpAmCoudx0Xhg/MjKbMD7701Ii/9aMIgeewneizIjsbmLVh9htNIwwFTC2DSwC0Umqw24gvdue0OPiFrr5sfYphMcZUOkXxIhZypcqPjn4Ss/T3aKn7qN6aMGjiMZ0Jb4cGNi/5h1oEMSrwV6tvoVB5LPZU2ReDoo2YWQ1WXnxEVGUS81CMBnuLzWOm2irlaYry+48xLDfAgprdyceY4QBkLh6qjUc0GrKElNh9JuMuTWzZeVju0Xo1nxzzyQBje8B+l0KuNYcqITjLmeoTXRENYOPZyy+HsS5v/u/8c4xYIe9aCqJBap8m5Fvo9Bakbw5Ax8RZNFNKqMLJtk/8Dw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VtG46m/z52xKmXpebB+kwiqbFvfv8uxemmSbCqfRRXg=;
+ b=L83YK9/8unJmG/v57wlfr8R7Q2F4PIIBoTNvBkYefXHJW2YQi/iME9kbBj1HqEYtnn34DxDiyg780o5lB+OVrdTH8wbmRBoayPQf6sE0nh9B44VMbAEEXVRYzC3KDyD4kRT/LIwXZKr1BN1vrKZ2UPY/rSpFmDq0XIjzq+A5/GMtuTwuHgTGSlT8tMUn1BkvC8+1VwzaPWlrn8rm7ZW0X0xZRMU7jo55p4OkLH+qGuqGgxO3+pDVKfs6yXh5nxraWmXjqBMmQOwJgGPzooF/pXvZjyn84bho8wEvVNcQVdOZw+c7EiCvQesH8+IHOuGixycu0sIHzdRNQjAXm/fsYw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=digi.com; dmarc=pass action=none header.from=opengear.com;
+ dkim=pass header.d=opengear.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=opengear.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VtG46m/z52xKmXpebB+kwiqbFvfv8uxemmSbCqfRRXg=;
+ b=u1EVKgxlvL3NSbn/P213BrJU9j2AMhSsChVsfKsVuKsiWvjQ0qb1sZpYMsZOaA9OShNPeNAhzFOSk56meblH4ISewWxhX1z43ZtgjDhw9SRE4gPs6qiEAEhjEbr6qewMRfxzGMaSpuYt2LN66jCZAbc30kBPbLyW9L4n8gRTo3UOKyzdRBbnOUZzn7Yo5uOUVKKdjNKlbFqc+6GkRjxvdQTUalugvg5614yL3UUCPKAU2xQIq4ydfNIFFFGzsoerdQ5YLAr1kUHnja4SHYut40xcL+JkZ257WN3iygpcJ2eTL7s1WsdA8HOFvRYIM3p5NqwCYiu7ueqiWyre9k/LsA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=opengear.com;
+Received: from DS4PPF6C5A39D55.namprd10.prod.outlook.com
+ (2603:10b6:f:fc00::d26) by BN0PR10MB4885.namprd10.prod.outlook.com
+ (2603:10b6:408:126::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 16:10:37 +0000
+Received: from DS4PPF6C5A39D55.namprd10.prod.outlook.com
+ ([fe80::975d:9714:9193:440a]) by DS4PPF6C5A39D55.namprd10.prod.outlook.com
+ ([fe80::975d:9714:9193:440a%4]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
+ 16:10:37 +0000
+From: Peter Hunt <peter.hunt@opengear.com>
+To: netdev@vger.kernel.org
+Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Sergey Ryazanov <ryazanov.s.a@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Johannes Berg <johannes@sipsolutions.net>,
+	Daniele Palmas <dnlplm@gmail.com>,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net v2] net: wwan: mhi_wwan_ctrl: send a DTR drop before it can be coalesced
+Date: Mon,  2 Nov 2026 09:10:34 -0700
+Message-ID: <20261102161034.1530788-1-peter.hunt@opengear.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <179340002701.3131.15535297427661129303@kernel.org>
+References: <20261027171055.1796482-1-peter.hunt@opengear.com> <179340002701.3131.15535297427661129303@kernel.org>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: CH0P223CA0028.NAMP223.PROD.OUTLOOK.COM
+ (2603:10b6:610:116::25) To DS4PPF6C5A39D55.namprd10.prod.outlook.com
+ (2603:10b6:f:fc00::d26)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -59,217 +107,94 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261030-b4-btrfs-data-integrity-v1-0-f4d4196731e6@toxicpanda.com>
- <20261030-b4-btrfs-data-integrity-v1-3-f4d4196731e6@toxicpanda.com>
-In-Reply-To: <20261030-b4-btrfs-data-integrity-v1-3-f4d4196731e6@toxicpanda.com>
-From: Filipe Manana <fdmanana@kernel.org>
-Date: Mon, 2 Nov 2026 16:11:11 +0000
-X-Gmail-Original-Message-ID: <CAL3q7H5cn+ObFp5qV4To71bd41730=WOyM_bEyyynwXxawadKQ@mail.gmail.com>
-X-Gm-Features: AclHuK9xstgTUtJd74nP3ErwhDZfmrHJjx3xFiD3uLWyWarWLc6vq0PYsqYnAUM
-Message-ID: <CAL3q7H5cn+ObFp5qV4To71bd41730=WOyM_bEyyynwXxawadKQ@mail.gmail.com>
-Subject: Re: [PATCH 3/5] btrfs: make fsync wait after pre-submission errors
-To: Josef Bacik <josef@toxicpanda.com>
-Cc: David Sterba <dsterba@suse.com>, Chris Mason <mason@kernel.org>, 
-	Naohiro Aota <naohiro.aota@wdc.com>, Johannes Thumshirn <johannes.thumshirn@wdc.com>, 
-	Qu Wenruo <wqu@suse.com>, Boris Burkov <boris@bur.io>, linux-btrfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS4PPF6C5A39D55:EE_|BN0PR10MB4885:EE_
+X-MS-Office365-Filtering-Correlation-Id: 38c5ad3b-15a8-457b-4927-08df38fbd4c9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|7416014|376014|1800799024|366016|261102123227099003|56012099006|261021121427099003|4143699003|11063799006|261028144727099003|261009223027099003|261022105027099003|261026140227099003|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	txgnGfi3xHYMek5XUwfl8jP/++itQf06sY/nyA04+p/zCZ2YtIwnje1V0aYx5M3y4ZIVwLtz4ZcirZmpnQqSXfI12YURgC47Vdr6S0MYcEbeNZbTQ4Ye99fisKa3b4VQpBOGMkUKbplfx+90juDuOMcLNUkr12PKCfs0NN/hhS/SWUtOUsYOYNkhpQ+JRBZWdpA/DebAawOtpXm7VO7mKmVBglMOxNCHX1icxP4LsBzACjeD1pFhtY2/KvhzTVAjE3ocWHBLb8Lz59e4O5KWq1MCnAxbKlRvtFezkEdiZiUbkUJLwruqt2F1RJ6+ssgnIpBQ1LN0lFOAhGX2mWmfKssyzSNmKNSdPzYWy93CzmP6ZYG9x4FSSJpealUD0pPpxE7swpm0RG43LHTsfmWe6cZzLIkyRmdufEUvB6X92PdktnvhytXkatSoiet8Kb20tAC86XwgoPQ0fwVtMnnp54TOLUxQVbwUHG2cFLmtTaY7qpnSrF8zrwfUIpJsi85S3IgkAYN1rMQDo32TYPGm2gpn3PQaEG1ZeNFl17ZM6FX2Lhwd7SduHKOOPgm1jDv9odz62AeVPEWN01ZyX9OOUnH86kK7MAkcR/9koQR9V40AEuhVgdPzpNzplht6nmFxQFn+or9mbgmq3V1kUX0inND5wvSQ3dYwQHzKpySxmF0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS4PPF6C5A39D55.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(376014)(1800799024)(366016)(261102123227099003)(56012099006)(261021121427099003)(4143699003)(11063799006)(261028144727099003)(261009223027099003)(261022105027099003)(261026140227099003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?dmaN9PXpkfC7/8a+NmEATletKxlf5NheFt/rgk+TVuZ1Q1O4Hsdl1u2hLInk?=
+ =?us-ascii?Q?/Fx6HQRBVw0NSoOox8L82RAVEcK02SfRGfDeJBsLhqycYK+YiRRkYw+OY/Qf?=
+ =?us-ascii?Q?ZrjN2wzjccdsmcd+spLrF3biWy/XQngr35qX8Ax41qUeE8b0OzfMSs8E3OD3?=
+ =?us-ascii?Q?a4OHNQiXSD4JPsvSUH73owZAbgtFfxD/pmmOpFVN+pOUh49StP5LTmfwpUN1?=
+ =?us-ascii?Q?jEBHhD/Oy68s0Rt2WgnuBPWsHt4ClphXxB0jCfPC4c7BLBCba3VvDhBhGqdz?=
+ =?us-ascii?Q?prhvxPKFyxw0V0Uew51Fqmrfeyr4c597oe8bd5z4mPo3SASfp7waysT4wX2B?=
+ =?us-ascii?Q?7bjWEKKdpwpPomD1toICCA56J3ZYcMzCS0RWqIB5f0zUeWak0lp734VWW9hX?=
+ =?us-ascii?Q?9cCpLd+eNQqTUgki6gEzryktnL0cnx1uP6lRd+rC4ujtvwp6iGcYRW7Osr8a?=
+ =?us-ascii?Q?QkITvAdiFop8u3/vnLjoEYHmab6NnJPsB0oXUfvNgGHDIl7/S+ZfmvvrJOv2?=
+ =?us-ascii?Q?8c0cC4EB849qTiOv77P7M/QgPzjL0nTUpDGudQ5OZZZipmH2e8fcqOFunrmE?=
+ =?us-ascii?Q?3QiApcY6PFxPCaasBnFO79lZW/AYbqxZfvyQGjZ0iNjlYJZpE2eS/7FxDO77?=
+ =?us-ascii?Q?ycXSQpgot57KvSs0DHk2arBRn27o2LPXW6HqSm3HPvvFajKHfgIJ9O9q36JW?=
+ =?us-ascii?Q?lx66Lb1B458AKs2UJsNaEU6RZYX5AiIFW4eVIZsBUlx+3RRDlSe9WvhKt7In?=
+ =?us-ascii?Q?R3myM8shbNmlg9Vd4PQQlROUXjGh5Hc3YAT/V50aqrfqDw89pjo7uVZJ70BT?=
+ =?us-ascii?Q?OYP20ZF/ZOiFWA09M87YeDg6zIlp/Le2ak9/vcOhbq3HPB2F8e09VctY/rn2?=
+ =?us-ascii?Q?3CdzVa594SAFijWfPUOfuE96ULGiyoLyuUNfk75Wf6TWG/TxeFBBWMgEHgH1?=
+ =?us-ascii?Q?PM3zRimoJsPPGB0gT/5Tc/LchSckcgnJA+vY9sj5JnCB5Z1nvq7KjQsraTf7?=
+ =?us-ascii?Q?3NI1yTX3Pm7m9vT9Z6CbZQXT5IT2gudhr6ur+r5vL4IQQqo/Vu3S+s1tNnX9?=
+ =?us-ascii?Q?2yYMwhcP1q6n6yPuasadoCCOoDMejUzy8cVqLkp2iecqtR+9bHMnhXFWSZc4?=
+ =?us-ascii?Q?GZnbKuT0Z+XnayVAlg/CAu+uAgPCJw3bWkk5xAMmR8Q8eaDb3yyw2pktYJiq?=
+ =?us-ascii?Q?dN3o6AkmzOy1J+CETYeitD3Oq9+9LUm3DEpumzM3h1FspXDAcVD8cbLmHXU9?=
+ =?us-ascii?Q?aG1ixwShNd6dY/Qls7Et+6PphOipBCybM14wBpnHIgp8x1PcZ9sr7CW71x9k?=
+ =?us-ascii?Q?llIBoQV4iYXuEMHYxBgM49is1MIeekXYJDgK51vnEOCgqJHFzZUyVJIdrM+L?=
+ =?us-ascii?Q?tfNBiWnmPAGgF9NsyjTc/H5fyRAEffyqZsfIbHbs95jX3Dy2whgvbpDGMJXJ?=
+ =?us-ascii?Q?pyhpLtZwLPaXiEWoJ6TVOZgEFJrTGNZXIWDIpfbIdPL+tW7INZxfM7HoFixy?=
+ =?us-ascii?Q?gePsejC5b0QNQqNFpr1u5qcjjDO1uFPsVEoCtRY5mPaseVkkkYW/NAjjA7iU?=
+ =?us-ascii?Q?5m9ycqjv8zdCPqqex0gkMUI3EscGTJndzs3VAyIgcyqaTl0MaMM4xkwxbGOS?=
+ =?us-ascii?Q?svGNyxi5B1P4kztoTxTp5mNAJOT/1/NBPZSdPojHeEJCj2wBWq5GMY3e9isT?=
+ =?us-ascii?Q?jLAMO79QZYSm3OrrEeyjZ6b87+dX36CEiuBBPJLdAS/WLRDW?=
+X-Exchange-RoutingPolicyChecked:
+	FUeVknPa+bS1kLy8vuoQyI9iuv+40RtTDT7vFYsL8yrDR1417ey8iBo4pofAPqNw1Zn+5oUOt0gDdhhfbV2ph8Ab2u8nsE+xh3DcA9x6k5SknjgWs9sGGH9T0Gpu7eUgzvaAu/r9DO3H2Ga+SfdNDPiDPVQUp2VKSfOtrn+zxGORaL7hA2+nHYIPql4iuN2VSrUs9CmIjMGzLMPdf1jNfnrs2pSNr17WLKbmY+iXfdgP3ZsFHv1BBb8H6z8y9ia2/hk8HmSYejtQJtO4RghKbQuK/9ETf/IYjJPydBhwiaHsk4I0A6z6OHJsvLReKylXDyjQ1ISjPr4oJeiL88Bm8g==
+X-OriginatorOrg: opengear.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 38c5ad3b-15a8-457b-4927-08df38fbd4c9
+X-MS-Exchange-CrossTenant-AuthSource: DS4PPF6C5A39D55.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 16:10:37.0814
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: abb4cdb7-1b7e-483e-a143-7ebfd1184b9e
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: gwTy+WoB3gARFrlgf+F6F4/JdeeCwkT8VbFEbfdiEW6m94PZVP4xO0NqjBmaePHx
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BN0PR10MB4885
+X-BESS-ID: 1793635852-111380-7719-12-1
+X-BESS-VER: 2019.1_20260924.1519
+X-BESS-Apparent-Source-IP: 40.93.195.141
+X-BESS-Parts: H4sIAAAAAAACA4uuVkqtKFGyUioBkjpK+cVKVoaGlgZAVgZQMM3CLCnNIC3NPM
+	k0zSjN0DLVwMzc0MQgxSjRzNLUwCJJqTYWAEsRjPZBAAAA
+X-BESS-Outbound-Spam-Score: 0.00
+X-BESS-Outbound-Spam-Report: Code version 3.2, rules version 3.2.2.277295 [from 
+	cloudscan15-107.us-east-2a.ess.aws.cudaops.com]
+	Rule breakdown below
+	 pts rule name              description
+	---- ---------------------- --------------------------------
+	0.00 BSF_BESS_OUTBOUND      META: BESS Outbound 
+X-BESS-Outbound-Spam-Status: SCORE=0.00 using account:ESS112744 scores of KILL_LEVEL=7.0 tests=BSF_BESS_OUTBOUND
+X-BESS-BRTS-Status:1
 
-On Fri, Oct 30, 2026 at 2:39=E2=80=AFPM Josef Bacik <josef@toxicpanda.com> =
-wrote:
->
-> Commit f13e01b89daf ("btrfs: ensure fast fsync waits for ordered extents
-> after a write failure") made btrfs_finish_ordered_extent() set
-> BTRFS_INODE_COW_WRITE_ERROR in the inode when a COW write fails. The flag
-> makes the next fast fsync wait for the completion of the ordered extents,
-> which is where the extent maps that point to unwritten extents are
-> dropped. Otherwise the fsync logs file extent items for them, which is a
-> corruption if the log is replayed.
->
-> As the comment there says, this is also needed for errors that happen
-> before a bio is submitted. But for buffered writes those don't go through
-> btrfs_finish_ordered_extent(). When running delalloc fails for a folio
-> that already got ordered extents, or a block can't be submitted,
-> writepage_delalloc(), submit_write_sector(), extent_write_locked_range()
-> and btrfs_cleanup_ordered_extents() call btrfs_mark_ordered_io_finished()=
-,
-> which marks the ordered extent with BTRFS_ORDERED_IOERR and queues its
-> completion without setting the flag:
->
->   writeback (or a first fsync)             fsync
->
->   writepage_delalloc()
->     cow_file_range() for range A
->       creates extent map and ordered
->       extent
->     cow_file_range() for range B fails
->     btrfs_mark_ordered_io_finished(A)
->       queues the completion
->                                            no dirty folios, no writeback
->                                            flag is not set, does not wait
->                                            btrfs_log_changed_extents()
->                                              logs the extent map of A
->                                            btrfs_sync_log()
->   btrfs_finish_one_ordered()
->     drops the extent map
->     frees the reserved extent
->
-> If the error was already reported, for example to a previous fsync that
-> triggered the writeback, this fsync even returns success. After a power
-> failure, replaying the log replaces data that was durable before with the
-> unwritten extent, for which there are no checksums:
->
->   BTRFS warning: csum hole found for disk bytenr range [14434304, 1443840=
-0)
->   BTRFS warning: csum failed root 5 ino 267 off 0 csum 0x8941f998 expecte=
-d
->   csum 0x00000000 mirror 1
->
-> Both functions share can_finish_ordered_extent(), so set the flag there.
+Thanks for the review. This has since been applied to net, so for the
+record:
 
-The idea seems good to me, but as Qu pointed out, sashiko has a valid point=
-.
-The writeback bit is cleared before we set the _COW_WRITE_ERROR flag,
-so a concurrent fsync may not see the flag since it does not have to
-wait for writeback,
-but that also happens before this patch.
+[Medium] Drop lost when the transport refuses it: right, a drop that
+hits a full UL ring (or a failed allocation) and is followed by a raise
+within the 10ms retry still reaches the modem as just the raise. The
+commit message calls this out, but the new comment overstates it.
+Tracking an unsent drop until it is queued is roughly what v1 did, and
+Loic found that too heavy for this case, so the flush stays best effort.
 
-Thanks.
+On the flush in stop(), a retry left armed after a failed attempt can
+fire after mhi_unprepare_from_transfer(). That isn't new, v10 had no
+flush in stop() at all, so the work could already run after the channel
+stopped. The message goes out on the IP_CTRL channel, which is still
+running, the AT channel only appears as dest_id. If the port is
+reopened before the retry fires, the retry sends the latest state, i.e.
+the raise from the reopen, so the modem ends up in the right state.
 
-
->
-> Fixes: f13e01b89daf ("btrfs: ensure fast fsync waits for ordered extents =
-after a write failure")
-> CC: stable@vger.kernel.org # 6.10+
-> Assisted-by: LLM
-> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
-> ---
->  fs/btrfs/ordered-data.c | 62 ++++++++++++++++++++++++-------------------=
-------
->  1 file changed, 31 insertions(+), 31 deletions(-)
->
-> diff --git a/fs/btrfs/ordered-data.c b/fs/btrfs/ordered-data.c
-> index df74c75d6c29..6543e99055f2 100644
-> --- a/fs/btrfs/ordered-data.c
-> +++ b/fs/btrfs/ordered-data.c
-> @@ -401,6 +401,37 @@ static bool can_finish_ordered_extent(struct btrfs_o=
-rdered_extent *ordered,
->         if (!uptodate)
->                 btrfs_mark_ordered_extent_error(ordered);
->
-> +       /*
-> +        * If this is a COW write it means we created new extent maps for=
- the
-> +        * range and they point to unwritten locations if we got an error=
- either
-> +        * before submitting a bio or during IO.
-> +        *
-> +        * We have marked the ordered extent with BTRFS_ORDERED_IOERR, an=
-d we
-> +        * are queuing its completion once all its IO is done. During com=
-pletion,
-> +        * at btrfs_finish_one_ordered(), we will drop the extent maps fo=
-r the
-> +        * unwritten extents.
-> +        *
-> +        * However because completion runs in a work queue we can end up =
-having
-> +        * a fast fsync running before that. In the case of direct IO, on=
-ce we
-> +        * unlock the inode the fsync might start, and we queue the compl=
-etion
-> +        * before unlocking the inode. In the case of buffered IO when wr=
-iteback
-> +        * finishes (end_bbio_data_write()) we queue the completion, so i=
-f the
-> +        * writeback was triggered by a fast fsync, the fsync might start
-> +        * logging before ordered extent completion runs in the work queu=
-e.
-> +        *
-> +        * The fast fsync will log file extent items based on the extent =
-maps it
-> +        * finds, so if by the time it collects extent maps the ordered e=
-xtent
-> +        * completion didn't happen yet, it will log file extent items th=
-at
-> +        * point to unwritten extents, resulting in a corruption if a cra=
-sh
-> +        * happens and the log tree is replayed. Note that a fast fsync d=
-oes not
-> +        * wait for completion of ordered extents in order to reduce late=
-ncy.
-> +        *
-> +        * Set a flag in the inode so that the next fast fsync will wait =
-for
-> +        * ordered extents to complete before starting to log.
-> +        */
-> +       if (!uptodate && !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags))
-> +               set_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flag=
-s);
-> +
->         if (ordered->bytes_left)
->                 return false;
->
-> @@ -436,37 +467,6 @@ void btrfs_finish_ordered_extent(struct btrfs_ordere=
-d_extent *ordered,
->                                         uptodate);
->         spin_unlock(&inode->ordered_tree_lock);
->
-> -       /*
-> -        * If this is a COW write it means we created new extent maps for=
- the
-> -        * range and they point to unwritten locations if we got an error=
- either
-> -        * before submitting a bio or during IO.
-> -        *
-> -        * We have marked the ordered extent with BTRFS_ORDERED_IOERR, an=
-d we
-> -        * are queuing its completion below. During completion, at
-> -        * btrfs_finish_one_ordered(), we will drop the extent maps for t=
-he
-> -        * unwritten extents.
-> -        *
-> -        * However because completion runs in a work queue we can end up =
-having
-> -        * a fast fsync running before that. In the case of direct IO, on=
-ce we
-> -        * unlock the inode the fsync might start, and we queue the compl=
-etion
-> -        * before unlocking the inode. In the case of buffered IO when wr=
-iteback
-> -        * finishes (end_bbio_data_write()) we queue the completion, so i=
-f the
-> -        * writeback was triggered by a fast fsync, the fsync might start
-> -        * logging before ordered extent completion runs in the work queu=
-e.
-> -        *
-> -        * The fast fsync will log file extent items based on the extent =
-maps it
-> -        * finds, so if by the time it collects extent maps the ordered e=
-xtent
-> -        * completion didn't happen yet, it will log file extent items th=
-at
-> -        * point to unwritten extents, resulting in a corruption if a cra=
-sh
-> -        * happens and the log tree is replayed. Note that a fast fsync d=
-oes not
-> -        * wait for completion of ordered extents in order to reduce late=
-ncy.
-> -        *
-> -        * Set a flag in the inode so that the next fast fsync will wait =
-for
-> -        * ordered extents to complete before starting to log.
-> -        */
-> -       if (!uptodate && !test_bit(BTRFS_ORDERED_NOCOW, &ordered->flags))
-> -               set_bit(BTRFS_INODE_COW_WRITE_ERROR, &inode->runtime_flag=
-s);
-> -
->         if (ret)
->                 btrfs_queue_ordered_fn(ordered);
->  }
->
-> --
-> 2.55.0
->
->
+[Low] Stale comments: agreed. I'll send a comment-only patch for
+net-next that says the drop flush is best effort, mentions it in the
+dtr_mdmbits comment and drops "one attempt" from the remove() comment.
