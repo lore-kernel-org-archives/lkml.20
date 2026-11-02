@@ -1,87 +1,88 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793621745;
-	b=Yb40sw9lnV8+46JC3aZY09ffVgZ0JFEm2cLI1/OnAZJpGOBCvLQ3s/HM8XN2QzXRmYW3
-	 WcTHzfPIpR5mGsHL2FicMMfSe6YQaiSaoTcNuaVm2/xXRDnGZRorjRLeFcZlg1kKKPfNf
-	 OyEOxO5iyZ3Jk2EpzXJ7GpXdE/6b5yXEA5nxeBCHkPHJjKuDYeQMQjMSqnFUvWbNfY621
-	 JhoJJBpm7cCIAdwV0KVOMnUX/WNxftkwf5KXFDSMl7NwYV0Xi+y7XBBDazIrX5dsZ/szh
-	 qQ6NWtl07tSKAVv2au1EVpaYsQVpwxFaGQrDNRAeweoang+O6bCJyI5m++FbdN31cNg==
+	t=1793621755;
+	b=lS99nfuNsXI+fkptsv5E1IfOq6Hrt0ebDeztH28UEFgQA59pG99P2xELPCrWXIpKIAbH
+	 E+zjfDzywaJbebje22aXW4cnoonJG9hkCGnrpcXJLDiGv+yF0qtSWvwQPL1AHTQ6SeCEa
+	 InhfsJtcl2pJokOFDQdiSFs3N6+IlyH182Od86MhThtNtsI/VKotP/Wq4DmFhGDpZJvgm
+	 DtjlrSNkH1vJ60I3T78xDvZr7Tuz2jsS2EHbrIR5YSQYY7dQMpRxQFu8FbWWxpKowX+G2
+	 TbsMZCHcQFLWzFwqc2FiMc1Ix0mMpAWntdPFY8qSG9G3hs/LSCbaikBt8B6lXd46ypw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793621745;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793621755;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer;
-	bh=Bh4U2E91rsCqLr+0sIHaCoOn6O50hMaPJ9gqvidFbD0=;
-	b=5je0LsF/EYrxWHoT0YLBqJw/EHvsrd3Q96FRTRdVvc6XmW5b+NeStBczibbj0rCnXK8c
-	 hXm1z9mbbpm/xei17BLQs2wzES/AE+/z8Sm+nG85U0BpxpqHN56xeoS9Qx6AOcoZ2qTma
-	 AaZp3yfw4NF6sv57Ui/RKju/xoeyKEZzsmoMaepTzlLIi25/O6nd31xibKDJEgB2wjO8W
-	 1XlPpWAr10PR/Xa0rYstCdoOrMRZmaN6xJN52XUEEiZTnO0ynOai+AtxlBo9S4GxXeAuR
-	 eza4f0VTuh3JWaS5JdnqbrFvyKT1DZ//5aLPEn2fZptG6DiuRM3x2SgFtNnXO6bTjzQ==
+	bh=BWyhBgnl5ljVt2Vm8I0njJJDAjJXWTVLrBozwNDgUng=;
+	b=EFtdIojGdJaXsTrbz9QgSb59zp1i+FCeIebJE+l04HYuKj1nX/LKBMR0laKHJaXOKQ9W
+	 tO/9gBs/oeq4DhQwAvS8aSEvXCdFTl3pXAXS6QQgsxl/o2q37B2A/u+GBpZKohmn5tj/t
+	 R5+tVZFM4o7Y3cJ9KqERO2+4o5S/jNSaP5nq6Ot4aG1YfdtzApT+ioatQWDUGqDEKDm0r
+	 7yc6nPyMjQbM5BsSewTnlI2h6yj6k/gj1hKf6sPa0UXclVYiHm9xe/Dat2RKMyj70ujoN
+	 VVQQG5fuLDt2d/vwu5sp9uQPkOyYTlH9NclNMyI/mfTrDi5ye65ST5gzQoNUEsNgouA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=aqwZ2akk;
-	arc=none smtp.remote-ip=209.85.221.47
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jYZuwm4i;
+	arc=none smtp.remote-ip=209.85.128.43
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26434606A33D
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:15:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 26434606A33D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3315D60A3828
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 12:15:55 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3315D60A3828
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=aqwZ2akk
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4d870d54so1701981f8f.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:15:44 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=jYZuwm4i
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so24748715e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 04:15:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793621743; x=1794226543; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793621754; x=1794226554; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Bh4U2E91rsCqLr+0sIHaCoOn6O50hMaPJ9gqvidFbD0=;
-        b=aqwZ2akkPQhQeixCVlzcQM2YG7Jv1gccwfo2vmMP903VPzwpVbetjX2tQDjmvheEY4
-         28kcotK1k3rVSsN+cIev7PHUfWM2gqKlcWZrwMUuzsWNGUwxxLGxLPUj5yZLdINA2oXk
-         8NRXOkPhPQyiJwBxKEMbH+8MuJKD/ZyRXLi3BK/Kz1Ee/Xi8i4+RHwojS1tAXZFnVU3V
-         Nmp57UN5qtLRXKDRa6yUtNlRI8/ruM9tJIv8b87PvoBZOshK1Bqwg8WfWJkilSLn2NyR
-         VdRDENxCSqPhsXYnDOwfECKmn1bg739upo10f8zZa+Ho4pkztl1UyYi3RTaNa6r2fMF1
-         C62g==
+        bh=BWyhBgnl5ljVt2Vm8I0njJJDAjJXWTVLrBozwNDgUng=;
+        b=jYZuwm4iKSkQfz8VriuCw5G+4HqM5DpQwNMCAhfmyMQBm+b9/ypIreMw1vR1AwMyjY
+         njYOGwK91dVT1jVmUM2chqMZy8mC6qnwipKHRsCRFg9kc4qNsAo52O5d8Ld2/ArA41tj
+         8MZiiaa4OSsIHDefjEt3MGzdBtSdafTuU6Uhxvrt12CM1sHS3f2BjinZXuYn0ZZuez4f
+         2r9lIvkFc8HQ+a8JdaWJsIU2NVZOyf8hdpj+ctz1J5ObmH/LF6hWUndZeR7XvS7gKbYP
+         K/2XA7u5r71NjplD8x8jjZZW6GOVIo4WzSqUT0U7nPeGmumvMeFnZDxmK2t817ImzKKV
+         UFWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793621743; x=1794226543;
+        d=1e100.net; s=20260707; t=1793621754; x=1794226554;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Bh4U2E91rsCqLr+0sIHaCoOn6O50hMaPJ9gqvidFbD0=;
-        b=LVBgO4/IaUlLC4/o7AIQUkTS1yAgP55W4yFTm2THLdaxKAWbGCppaa22C2cRvhDtQj
-         YudMD3MvcqsjMVUQBMSfmEDGVuUvEOJA/u00e1OaH+09okVHJb0llfXXsY14PT3r0rSY
-         QUm6RVm4B9SeO+dBZY3n/Sud325GPFPfhNpHSIcrbAhB8YwL0DabnfcbegIQnfW0tR3w
-         e67sI2Lp5RJQwpUBQTGkYKsldn47xW8uiFp7ScYhU8IHBUiwqAJi+41blFSKsmGRF0Sz
-         tehi9U0aD7ihe5uuGSJtDGUhwFgFuEm5jjy19X7o4+NCd5j+09zJqKiCaIuoYIyH2I4/
-         UCnw==
-X-Forwarded-Encrypted: i=1; AKwUvBxZh/btGZLr8+u+I1B68XIEcdmdUAp2CarwfdRD3ErD5i7YPaR6gcUcG3CPqjKVmCv5HJQb2Q7BF8hMddU=@vger.kernel.org
-X-Gm-Message-State: AFq9FYIYOfikxaE52KjuGHRSt2aBBBGqwd3vsJXjbPDMben3Vi2f/DDI
-	YbpRSZ/NBwbPCpvmYkjgXXkGUaGDJzx978umYVzyfEUY9xLkHCebfCMUOIrHzDFTHlY=
-X-Gm-Gg: AYBFou2izqnDmXeJ3jMxFKidIxF3RRfyTpoGwPQEjUqNh1xFIHy7mtQ0FpXHw5i2/u6
-	pgWj9NQB1F3aqIECs9w3CLys9ZAyTTN7i8UegRLshRxCMSI0kpcPc5R1hJiwElvboakdPayP2pU
-	p65gseZ1F48dG/L2Q2RQsBWYAaYQQJUDMPIxOlG2uWARHlFA4lm8yNWSTdebTsBO80v7M2HpgvO
-	4pNZQl4CKC6Pp7F14X6m6j+sZw1KDyytgWakKHHrsiHqVh5ZXQOAeh0mKaBhe22Df0EruCVPUAG
-	my3OcSTBCvjmIpcfxu9+95U1YrTAcJJSMvITDE1W5AntaJp5IA1vCbbLayD2xqk9IEB9Glgouye
-	p+ql4/wnwotdE4j/IYATcfMqqkAnhGrFTADmjENnGBiV7C8GtfbE1JWxweE337jJGE3hi5rQWyB
-	nByUr1Z4MwSI2/gE4i0icevWYuEF5SrWFGiQpZNKbdv3c14dNWXsDQf6Sf3R840gLfz6DZw4Hq6
-	Wbe+lVq9E8/4rr4tXU3LLfl1Nq9LX/oni2bRHb5jFnehp1UAl3DqgbOh3fX3oTMc/wNWcC1PMif
-	q33XmTic37xjT0fsw6G/FNwGvshS9Y8p
-X-Received: by 2002:a05:600c:3b2a:b0:4a2:cbe:bec2 with SMTP id 5b1f17b1804b1-4ac18a8882cmr227973035e9.32.1793621743497;
-        Mon, 02 Nov 2026 04:15:43 -0800 (PST)
+        bh=BWyhBgnl5ljVt2Vm8I0njJJDAjJXWTVLrBozwNDgUng=;
+        b=INmbBLs04iypTnQmi9NJlTgCt+6EhGEt0HSliycp3tbvNhbTRqKC7uSDFFQvUORAPf
+         eQ9vPfLEi+gq++claiCvCm+I6L7V9HWS3LTq/bxgrMmA/WWaCAb5FDiYqsxYqgiGXHiT
+         XGKvdbrKghleVlOVAMNNaFyXx1wgpN7FN7UKnAVnOSnu5K7nYwOQNaZHZOI5giqEVqIX
+         bD1KUELoiS+CYjpi9tysizr6kx4ompRFF5g9DgEFByBqm3kYzkdiHmzsBN6Z3EMTlHV3
+         0NPQy8bCUEZ72P8r9bOxta8dtXUtpJeiwwIc1fFauTopEY5+7OGZl8NJI+oM3A2XhuZY
+         ftEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzPf1cjQmNSrj9gL5Eq2KRYGDI4kWP8RjGmN0LeO7Wa0CO0jPpjY5LY8likGlTqJd286Az9uycdbXXU9jE=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFExOGfqGtKOq46yLlIAZfof9TTKqY0+GScECk6Qygq5p5pqSY
+	ryLpLAEXeh9s+fpwusm6i7240AqvZbq+0f0Mk7qdQJq5q5XNeQFMWt7Sh/Ks4MLrh9A=
+X-Gm-Gg: AYBFou2OkU1mIsxmZ1lkkZuARB2Wcj6dAk2YoHk2czdWcF3orTlngvwoesXARk0Cyx3
+	G4nu6j+sW3Hg6o60+NC3rzn9n2jUZ5k/NyvJh3eyVXVMgZyhZBLqnBAMdjjFfrVnWGnjQADoiNw
+	3vUFuYAe3ca2xEnEN9w7Sg9jeLAKKyNP3ofLAUhkG19UKq4ejZD5ln7Aj+6wv4KwJZaaf3ZKxMr
+	RMTHPh6Fm83QNCj993ZNaECbr/E1p5jILeYiEflHsxmdZ4Zu1zQwZvGCQqvK1ECBJYa6KJcSCHr
+	1KTbUYj0ZJVPkbQI/Hc1pUxm7hRLfU15P0bfoeP63lpIM4WRTm+jRosIuMszuhwOYix1tiAUE6t
+	Op6MTmc9CbRdaLELI7L43wMsUz0lPLBSgUv9HGxSfqhU58N5pcfq6XApFmqfw2qGmr8Rlpqs3Sh
+	58WLX7rEc9TDaHyeowr3YlhfZ0UoOg1hD7sqX/OMzGwrNt7itgXmwMQaNzdxcjfNkHV+z0ZVZWH
+	Fvb4wobvakGF9Jbm8Mekvf3H/vRbX+cGPHCkJ/Tr3Sz7THFc9Oe9ji8olmf55Mn7H8hcfLGLGmt
+	FvPwY33NX9pOix45PC6C4fUM89kCDwe2
+X-Received: by 2002:a05:600c:a103:b0:4ae:63e9:36a9 with SMTP id 5b1f17b1804b1-4ae63e93a86mr93551315e9.14.1793621753669;
+        Mon, 02 Nov 2026 04:15:53 -0800 (PST)
 Received: from pop-os.local ([37.18.141.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm434974855e9.3.2026.11.02.04.15.42
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf5b27e46sm434974855e9.3.2026.11.02.04.15.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 04:15:43 -0800 (PST)
+        Mon, 02 Nov 2026 04:15:53 -0800 (PST)
 From: James Clark <james.clark@linaro.org>
-Date: Mon, 02 Nov 2026 12:15:15 +0000
-Subject: [PATCH v3 01/18] perf cs-etm: Fix nVHE per-thread decoding
+Date: Mon, 02 Nov 2026 12:15:22 +0000
+Subject: [PATCH v3 08/18] perf cs-etm: Use instruction length in
+ disassembly script
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,7 +94,7 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-james-cs-unformatted-per-thread-fix-v3-1-dbcb0c281b9b@linaro.org>
+Message-Id: <20261102-james-cs-unformatted-per-thread-fix-v3-8-dbcb0c281b9b@linaro.org>
 References: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
 In-Reply-To: <20261102-james-cs-unformatted-per-thread-fix-v3-0-dbcb0c281b9b@linaro.org>
 To: Leo Yan <leo.yan@linux.dev>, Adrian Hunter <adrian.hunter@intel.com>
@@ -113,48 +114,42 @@ Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
  James Clark <james.clark@linaro.org>, John Garry <john.garry@linux.dev>
 X-Mailer: b4 0.15.2
 
-pid_fmt is unset in per-thread mode because we don't need PIDs, so we
-can't use it as a hint to determine which EL the host is running at.
-That results in falling though to the next part where EL1 is treated as
-guest, which is wrong for nVHE.
+The disassembly script adds four bytes to each branch sample's IP to
+include the final instruction in the range. For an exception sample
+whose IP identifies a faulting or interrupted instruction, this
+incorrectly includes an instruction that did not execute.
 
-Fix it by only returning a guest machine when run from perf kvm where a
-guest image would be provided, which matches existing behavior in other
-parts of Perf. The exception is when pid_fmt shows that the host is
-running at EL2 (VHE). Then EL1 is always a guest, so keep using the guest
-machine rather than decoding guest trace with the host kernel maps.
+Use the decoder-supplied insn_len to calculate the exclusive end
+address. This preserves zero-length exception entries, includes executed
+syscall instructions and also uses the decoded size for Thumb
+instructions.
 
-Reviewed-by: Leo Yan <leo.yan@arm.com>
 Signed-off-by: James Clark <james.clark@linaro.org>
 ---
- tools/perf/util/cs-etm.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+ tools/perf/python/arm-cs-trace-disasm.py | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/tools/perf/util/cs-etm.c b/tools/perf/util/cs-etm.c
-index c8a6a6e4c7d3..509ec014b276 100644
---- a/tools/perf/util/cs-etm.c
-+++ b/tools/perf/util/cs-etm.c
-@@ -1102,6 +1102,20 @@ static struct machine *cs_etm__get_machine(struct cs_etm_queue *etmq,
- 	if (pid_fmt == CS_ETM_PIDFMT_CTXTID)
- 		return &etmq->etm->session->machines.host;
+diff --git a/tools/perf/python/arm-cs-trace-disasm.py b/tools/perf/python/arm-cs-trace-disasm.py
+index 5a7daf927bea..7cf0af5d2780 100755
+--- a/tools/perf/python/arm-cs-trace-disasm.py
++++ b/tools/perf/python/arm-cs-trace-disasm.py
+@@ -315,11 +315,12 @@ class TraceDisasm:
+         #     [ sample_prev::addr .. sample_next::ip ]
+         #
+         # sample_prev::addr is stored into cpu_data and read back as
+-        # 'start_addr' when the new packet arrives, and sample_next::ip + 4 is
+-        # used for 'stop_addr' so objdump includes the branch instruction at
+-        # sample_next::ip.
++        # 'start_addr' when the new packet arrives. Add sample_next::insn_len
++        # to sample_next::ip so objdump includes the last executed instruction.
++        # The decoder supplies a zero length for an unexecuted instruction at
++        # an exception entry, excluding it from the range.
+         start_addr = self.cpu_data[str(cpu) + 'addr']
+-        stop_addr  = ip + 4
++        stop_addr = ip + sample.insn_len
  
-+	/*
-+	 * If guest processing hasn't been enabled, also assume everything is
-+	 * the host, unless the host is known to be running at EL2 (VHE).
-+	 *
-+	 * This matches Perf's guest handling in machines__find_for_cpumode()
-+	 * etc where guest machines are only created and used when perf_guest is
-+	 * set. This also guards against accidentally using guest machines when
-+	 * pid_fmt can't be used as a hint (per-thread mode). With VHE, EL1 is
-+	 * always a guest so keep using the guest machine to avoid decoding guest
-+	 * trace with the host kernel maps.
-+	 */
-+	if (!perf_guest && pid_fmt != CS_ETM_PIDFMT_CTXTID2)
-+		return &etmq->etm->session->machines.host;
-+
- 	/*
- 	 * Not perfect, but otherwise assume anything in EL1 is the default
- 	 * guest, and everything else is the host. Distinguishing between guest
+         # Record for previous sample packet
+         self.cpu_data[str(cpu) + 'addr'] = addr
 
 -- 
 2.43.0
