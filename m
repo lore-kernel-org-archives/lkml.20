@@ -1,73 +1,128 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793644707;
-	b=gutANjHecAl6h25PJFmrwmmXU/PcR2Jfq1JLP99HFSALTwpSr8hGmk6yYXezgoylETBN
-	 UA9AjxLKUPPYVQQPi+EB/9HEEhFhAs5hReXu32VptWRqKmk/o+WD/6jFPuJculurGraYb
-	 c/za3rcZf90W+kaKMQ2k+/Wsiside1Egjw2mb51/HrfAHt4Oga6cl+I0sENBR8JqJMy/c
-	 ukv8IerO0GwzdnOERLlafCNX8JDMmKi0ED/ZKkW3Ynj0OLgS91ip3wP4jyAyMdH/LSIBt
-	 ozWiqlqBtc2vBDTPGIOb30N2989hqdNYwgzZun0FF9BfeX5wkkX+bHqQwm2rK1c0X/g==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793644707;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 In-Reply-To:References:Content-Type:Content-Transfer-Encoding:Date:
-	 MIME-Version:User-Agent:X-ZohoMailClient;
-	bh=YyTNUB58XiYL7Eyza4cKaimcacs/nSWRNsZcdsp4tZc=;
-	b=sqtT4WkW3FzWH1po+jwCXPyKhlLSvFsUQg3jx8IRyX5tfgKObRpNmtqU1WgvxAJEvKlu
-	 JToPEW6q+jtN9uDXG50YM2r2DY4xPVyF135tnqVu41j49o/Uf0FTBGKpA+AAIqdn4s/fa
-	 JeDGeIrvh/A8babjYYjSZJhIRMJO8jarRJMFW/A9PpaVjyGxfDKixUCWqcXb7EQxyNqJ7
-	 P5gtyv1ydGK2i97APStvwp0pKrMY4GB7LCXPR/xylZb0n+8nAaQxjYEL1Kd96WG5aHBpi
-	 D/sBcZlr9wIl4qgQ8MCj7ODmb80bQYBSP/3ulnFjMzQLttS5HjY/WXc5dcT4aYadxzg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=rong.moe;
-	spf=pass smtp.mailfrom=rong.moe;
-	dkim=pass header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=QVObcauK;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=136.143.188.112
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=202.12.124.156
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793644773;
+	b=fJ3huUaboi4S80eFkWXLjRrOolt9bRHIw+zPwnwQJf0Y9ae+dWyybB067JVOKbg6d1sC
+	 1o8WW6eWVE9Ur4bFc7xzS197uIXo8+awuaJxQfq9AnS1sYo8Ymk8T9PuWIlEhdMZcx2l7
+	 WqkzSzEfBLtPa2yDDKlMbyTtIpKIjFOTnyYdN+3B0gc01iRsZ5moKGOsGX/YtmP/Oovmh
+	 RLQW1TPjBnjIEskR2K8o3Cm4882UHlH8IeTr+7ZnR8Az5lOtrjpjDuMcY46AIMTkCCdwn
+	 GyB/cSG7C5TXDHpPHqhwksrxT8JUzmwct4g3ALpQp/hZAxwVxKtVTE22ajSRnRQ/tRA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793644773;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:DKIM-Signature:
+	 X-DKIM2-Info:DKIM2-Signature:X-DKIM2-Info:Message-Instance:
+	 X-ME-Sender:X-ME-Received:X-ME-Proxy-Cause:X-ME-Proxy:Feedback-ID:
+	 Received:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 X-Mailer:MIME-Version:Content-Type:Content-Transfer-Encoding;
+	bh=PeaNE7dalZwV45zaReGeYmf1fDt50itIMVJ+XKn3L28=;
+	b=Kq8HQx6LwxC/WUEFE2+EfWt6YfaT6l9/m8n6G7k7jxRYu+uTLcu3YTTQB1TsY94zQa4G
+	 nd+8BBL2gWdEYZ9s5Ik04mCLDmH3IacDJWzyPd11rGNBixL2alMBVqKwWdrnwjp9bCP7A
+	 uUAVfy+ZOmfBZsxHlf8VDRToNqpy3dl+1D+po9AHZ7vAn6X6kt8lNTBQc9h/4IEPQLRpm
+	 5zyPjRoaNPcKsEd8+/TYcJEypJdKkyyYhBhpOFzmOa+EgIwC5bPTW8qr9+0w9ONM59Nob
+	 nAadgyWSS74oeHsaMCWIpths7XDHpxOweQddFyl5zRcQHvbADNIMHCjQTjgA9C9IoUA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=shazbot.org;
+	spf=pass smtp.mailfrom=shazbot.org;
+	dkim=pass header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=OHabTl7l;
+	dkim=pass header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qoDzDGIY;
+	arc=none smtp.remote-ip=202.12.124.156
+Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8DD3606A324;
-	Mon,  2 Nov 2026 18:38:26 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D8DD3606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E37606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:39:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 29E37606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=rong.moe header.i=@rong.moe header.a=rsa-sha256 header.s=zmail2048 header.b=QVObcauK
-ARC-Seal: i=1; a=rsa-sha256; t=1793644680; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=QnAeZl9QXDSq3NhHXMPLHueWiZfBajp3MPMXIO3ZShfo+kZFlDnMucKuivI4r6qdimYn6g1sAzfOZg15s37trJft5AAV9WSVEVGuyV7Ef7qa+qINHSt8WNV3zGXxAgf7D3baaW5UyCDiuNdnwVdWOKj37D6e45Ij2GFwqg/ddB4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1793644680; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=YyTNUB58XiYL7Eyza4cKaimcacs/nSWRNsZcdsp4tZc=; 
-	b=WpDl1NZO81TZLIS529+SUxmm89RDnewdC/nh7TWQgMp5FkSQ2Yqcs9NuSJhyMgDcACcGN4Ie3LwV2+f2IZfKCpvJknAhfpoMTCk9aHYdrBX2ZTfvXSntmXKyXLGlPaZplJzUzCL4li/UkhxDyjHhpaVgJWxK4g50z9YyVpI6l/Y=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=rong.moe;
-	spf=pass  smtp.mailfrom=i@rong.moe;
-	dmarc=pass header.from=<i@rong.moe>
-DKIM-Signature: a=rsa-sha256; b=QVObcauKl5RTwQV0RjFjg1gbAGFLDFnNtsbGZyN+V8wcNLyFiZw0wRhvuPb/sdGeKBQIi4jEWRhFyeZxbcE+Jqax7ZQzyXNbNvBEdAz3Q7AqENI87csdinfItvMBLobvJLCD4Yc9/np8kCATtadI6XDWnw49MBgC2Iun6GfALefacYAC8xAShk7jwNkUKKXSWPN5uOyrpTzqeKrP0XfejAuILw3A9QqOhIrjlM29uKnc+u6HRmFbeAy3aWux8+lXQzl8WdUNeAmhCfaQqtk1UU8ZK9EfqXB11Xi4BBSRf6HRiDo4/PcyJAD7mcVqgH5yue8hjlractpPOBAyKAJqLQ==; c=relaxed/relaxed; s=zmail2048; d=rong.moe; v=1; bh=YyTNUB58XiYL7Eyza4cKaimcacs/nSWRNsZcdsp4tZc=; h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1793644677372100.39152180631663;
-	Mon, 2 Nov 2026 10:37:57 -0800 (PST)
-Message-ID: <e52830d6eb20e826a64910ef242348e790bf1815.camel@rong.moe>
-Subject: Re: [RFC PATCH v2 2/2] platform/x86: thinkpad_acpi: Add support
- for auto keyboard backlight
-From: Rong Zhang <i@rong.moe>
-To: Qiling Zhu <kmatzkaczor244@gmail.com>, Mark Pearson	
- <mpearson-lenovo@squebb.ca>, "Derek J. Clark" <derekjohn.clark@gmail.com>, 
- Hans de Goede <hansg@kernel.org>, Ilpo =?ISO-8859-1?Q?J=E4rvinen?=
- <ilpo.jarvinen@linux.intel.com>,  Henrique de Moraes Holschuh	
- <hmh@hmh.eng.br>
-Cc: Griffin Kroah-Hartman <griffin@kroah.com>, 
-	ibm-acpi-devel@lists.sourceforge.net, Lee Jones <lee@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-leds@vger.kernel.org, Pavel Machek	
- <pavel@kernel.org>, platform-driver-x86@vger.kernel.org,
- vishnuocv@gmail.com, 	vsankar@lenovo.com
-In-Reply-To: <20261102151211.40701-3-kmatzkaczor244@gmail.com>
-References: <20261101100123.28749-1-kmatzkaczor244@gmail.com>
-	 <20261102151211.40701-1-kmatzkaczor244@gmail.com>
-	 <20261102151211.40701-3-kmatzkaczor244@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 03 Nov 2026 02:32:51 +0800
+	dkim=pass (2048-bit key, unprotected) header.d=shazbot.org header.i=@shazbot.org header.a=rsa-sha256 header.s=fm2 header.b=OHabTl7l;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm2 header.b=qoDzDGIY
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 7D8147A00E6
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:39:31 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Mon, 02 Nov 2026 13:39:31 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1793644770;
+	 x=1793731170; bh=PeaNE7dalZwV45zaReGeYmf1fDt50itIMVJ+XKn3L28=; b=
+	OHabTl7l+viCbt0xnKbWjHRYOp9fqLBvx01Ncz7r0plvc+DQ6XbooW1G14AzTGtj
+	3+FD6jIqolqFwJD6m1xAK6O1ncVZjCtSOgyvyvgZeMVz25OLtdnEMZjdFvyxpsPL
+	EIKjwe1oukO9BCs3ozOxAjWK4xbUN6sEnckOWigxgh5RA/53l70kLPurAFZPuVL7
+	lCkgGIU4zijvKYUQCmNfyrnIGe7Zqjt1HGZRMsL6n0lYe+frjP5shHrAm6Y3GetV
+	t/59MqwQJlghYjwmcT0qddwVy40bq2yY4tx+6Dsozh1C6xjk3umGXPHfgaV2L8ZD
+	y1CSgaygG0STLQCQKkh3IQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1793644770; x=
+	1793731170; bh=PeaNE7dalZwV45zaReGeYmf1fDt50itIMVJ+XKn3L28=; b=q
+	oDzDGIY8iT/DzXfWJ01ViDQqoe/9TlstXBRx2KOisUcIbG7x5dRWNDrugMweHfIs
+	oz6PK8yLnEAa8e2GgxBR1Gmmsv+qZKD1FQKv3h8Wu7yFvjqprYhAd2s1T43+8ALr
+	/wIholWrnkjKgKVtSW7BOIjXPbWMOZKSZohWImrQDrwhbYNFfRvLeaaGIhxOwebZ
+	z9M+VByPVzzVgpOAyP35DZ7Z2rcrtAJ146JEhtIlJFh4nz26N3PhXlXUYbs0tBY+
+	hi9XZgIb8cFxoWvoLZwf9fmBGuZH7iQXOYymDsoef/ooDKMrn08n14swVNR5NV+f
+	rPN3o4hnkaWXanNAIfQAQ==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=sign d=shazbot.org a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1793644770; d=shazbot.org;
+	mf=PGFsZXhAc2hhemJvdC5vcmc+;
+	rt=PGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5lbC5vcmc+;
+	s=fm2:rsa-sha256:ykRcF3YBWAgmDz0LS3LIXXaZT8+jIrDKGIQplllBM/eUXUN
+	em2Tlg0xEzXOKu4n2TzrqgrcjXACQVR7P7gWUGFdfvVsH6qYW6g1vNYooWRLjwdC
+	M81CIOlUe/CNYM9XnwjhFCJoDwCebydSMJVXAooI3fxMITfHBCEoBBqYRsJOhTDo
+	b/J4ldv7D5AOrhu9DcrNYSOBEJM2XSPtwlt3SvgfmthZAiotOOGwWFAvn/ZQciky
+	YRaPc4jG3mP8MdrMFWL/sFTZOtqLq7ZU2zVvf997VnoFwEhPERmj1g1vc4jDkVDW
+	HYb4Jm1j1x5bsnRwZ0mTU6bB9hNCNY5euVpIAtQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-08;
+	repo=github.com/dkim2wg/interop; date=2026-10-28; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:Fp2eSHsfZ1U36xYwtr7TUfbdq1XH0H8D0Sny0UeoCPA=:x7kQmzhCXKWd5h3q6Q0WiLpfxi+SiRly4NhaLANohPw=;
+X-ME-Sender: <xms:4tjoatFx3m_WF4kZHh_fNtu6TfPtp7WtjI1vi6R5ZytBGwSwSeqdpw>
+    <xme:4tjoaviS3LxaEeprsq-CcUaF_EutNSM0TkM7yHIDcRoa2bZR14WtxQ2agzLTgrhmf
+    2FH5bDtE-Ny3f9GWgI6aZp3_USt0_3H1F3OJXR_x7_3ujIBJsWXCJKz>
+X-ME-Received: <xmr:4tjoajrcTBpTxBpGl4xbYV5xzxjbNnSnQtjWUD6sPObGFDnkWdzw0wIaFuDqig>
+X-ME-Proxy-Cause: dmFkZTGJBkKxJZJvDgvB9LxD8g6UoLB0N8oShSmK73J69dm5gDlx+vLtLfqQOEaAYkL8aH
+    6+6Aq8uMp4Cu4dkR7iPVYfuOMMAUtnqsoN/78CaROPLdOUxJQFAqbk/y54ZSo7H5Wo1ngN
+    TX4H4na2S3nfdVrVyFW44vzULM3GH8bNEC+BpRLVEGToyCRkuVnkCHO5RxKCxd2YDjodBv
+    IgEr60QqAnX/Ufv/ebmmgUdN8leSNNXBCXEotS2o4VRO/JxjltRwUEtaFqV8gueG9R/nrB
+    Pf1AkYvtZywbiwEZXwJdwO5NkkAngzZC67zRSJ9nnk/bRg+zFSbKXvlA0E9InSTmcbyeAd
+    0ur2YYA4s5C9khY7Rb7cGia7H3365CtUkRTf2eDfEAmUqKnA1sYcdVAe4E/9xM5ALmyGJ0
+    hzbubFZpN7xxaGoLAGcrWJY/CrYbAqe7ORrvAIVwDS9OuzFinuv1qwZ5fodcXd6NRx6n4E
+    pGOPCqCXoUhbv6rpyJEldx+GM0ioe5nHWvZNZa3dD64hkJlYeGldRsYuPSbz4eHNgtkvpY
+    7rb5czCyt9TdjzJWDx6EvLu7jYfRkIhNjWR9WwYQA2O46jvQBa5EoNbjT5Bj/t1i4H1+U0
+    57weZuvKSrza6xNGisFErBiFggM/4Zf2u8T8uUyzNt+VALEB4CG5mIRgNGWA
+X-ME-Proxy: <xmx:4tjoavTn1qcWVULxj1spTrnUjFcY9RY1qXPeaJKlCVhqqkLgV9qB7A>
+    <xmx:4tjoakTgl16KHnMGc_D4x11opFdHIvbcsf743V8KO9Q1pnsJNnSY8A>
+    <xmx:4tjoatU76TbOr8DdfBhneaTActkH6PQr8SNYVSkR8lJYRiDngJEJog>
+    <xmx:4tjoah10ZpkHu1gU19ucHFEPXip5yBD2McgkpSIHSf9JO70Q7Ip4dA>
+    <xmx:4tjoagZlSQ2D6iIMOobjOPoR3rC2ay3ZNnB5TPKn-Abr_9zDiznn9EJZ>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 2 Nov 2026 13:39:29 -0500 (EST)
+Date: Mon, 2 Nov 2026 11:39:26 -0700
+From: Alex Williamson <alex@shazbot.org>
+To: Alexander Gordeev <agordeev@linux.ibm.com>
+Cc: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kvm@vger.kernel.org, hca@linux.ibm.com,
+ gor@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
+ schnelle@linux.ibm.com, mjrosato@linux.ibm.com, alifm@linux.ibm.com,
+ farman@linux.ibm.com, gbayer@linux.ibm.com, pasic@linux.ibm.com,
+ frankja@linux.ibm.com, imbrenda@linux.ibm.com, alex@shazbot.org
+Subject: Re: [PATCH v11 5/5] vfio-pci/zdev: Add VFIO FMB device features
+Message-ID: <20261102113926.19518a8e@shazbot.org>
+In-Reply-To: <689e23a6-dcbf-4fee-bdcf-13d333db2e85-agordeev@linux.ibm.com>
+References: <20261028154352.15108-1-oelghoul@linux.ibm.com>
+	<20261028154352.15108-6-oelghoul@linux.ibm.com>
+	<20261030161146.5af10847@shazbot.org>
+	<689e23a6-dcbf-4fee-bdcf-13d333db2e85-agordeev@linux.ibm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -77,361 +132,29 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Evolution 3.62.1-2 
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Qiling,
+On Mon, 2 Nov 2026 11:12:57 +0100
+Alexander Gordeev <agordeev@linux.ibm.com> wrote:
 
-On Mon, 2026-11-02 at 23:10 +0800, Qiling Zhu wrote:
-> Recent ThinkPads with an ambient light sensor (ALS) support an auto mode
-> for the keyboard backlight: the EC controls the backlight according to
-> ambient light. The mode is EC keyboard backlight level 3, above the two
-> fixed levels exposed so far, and is currently reachable only through the
-> Fn+Space shortcut, which is handled directly by the firmware.
->=20
-> Wire the auto mode up as a private hardware control trigger, named
-> "tpacpi-kbd-auto", on top of the LED hw control trigger framework:
->=20
->   - selecting the trigger writes level 3 (activate); the offloaded state
->     is derived from the current EC level
->   - when Fn+Space cycles into or out of auto mode, the driver notifies
->     the LED core about the hardware-initiated hardware control
->     transition, so the trigger state (shown bracketed in the trigger
->     sysfs attribute) follows along
->   - if the EC is already in auto mode at driver initialization, the
->     trigger is set as the default one
->=20
-> The auto mode is not a brightness level: max_brightness stays 2 and the
-> LED core is always told a brightness of 0 while in auto mode. The proc
-> interface keeps reporting the raw EC level, including 3, and keeps
-> rejecting writes of 3 with -EINVAL; writing a regular level through it
-> while in auto mode drops the trigger, like writing a brightness through
-> sysfs does. In auto mode suspend and resume are left to the EC and the
-> firmware; on resume the restored EC level is observed and reconciled.
->=20
-> LEDS_TRIGGERS is selected to keep the trigger functional in
-> stripped-down configurations.
->=20
-> Deliberately unchanged: module unload still resets the backlight to off;
-> retaining auto mode across unload is left for future work.
->=20
-> Note that Documentation/admin-guide/laptops/thinkpad-acpi.rst has no
-> kbdlight section at all, so there is no in-tree documentation to update;
-> userspace-facing semantics of hardware control triggers are documented
-> in Documentation/leds/leds-class.rst.
->=20
-> Signed-off-by: Qiling Zhu <kmatzkaczor244@gmail.com>
-> ---
->  drivers/platform/x86/lenovo/Kconfig         |   1 +
->  drivers/platform/x86/lenovo/thinkpad_acpi.c | 152 ++++++++++++++++++--
->  2 files changed, 141 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/lenovo/Kconfig b/drivers/platform/x86/l=
-enovo/Kconfig
-> index 516594993..77d159a3a 100644
-> --- a/drivers/platform/x86/lenovo/Kconfig
-> +++ b/drivers/platform/x86/lenovo/Kconfig
-> @@ -83,6 +83,7 @@ config THINKPAD_ACPI
->  =09select NVRAM
->  =09select NEW_LEDS
->  =09select LEDS_CLASS
-> +=09select LEDS_TRIGGERS
->  =09select INPUT_SPARSEKMAP
->  =09help
->  =09  This is a driver for the IBM and Lenovo ThinkPad laptops. It adds
-> diff --git a/drivers/platform/x86/lenovo/thinkpad_acpi.c b/drivers/platfo=
-rm/x86/lenovo/thinkpad_acpi.c
-> index 3260eaa62..7b46ad6f9 100644
-> --- a/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> +++ b/drivers/platform/x86/lenovo/thinkpad_acpi.c
-> @@ -5102,6 +5102,14 @@ static struct ibm_struct video_driver_data =3D {
->   * Keyboard backlight subdriver
->   */
-> =20
-> +/* EC level that selects ALS-controlled auto mode for the keyboard backl=
-ight */
-> +#define TPACPI_KBD_LIGHT_AUTO_LEVEL=093
-> +
-> +/*
-> + * Cached EC level, including TPACPI_KBD_LIGHT_AUTO_LEVEL. All state
-> + * tracking compares EC levels; the auto mode is translated to a
-> + * brightness value only when reporting to the LED core.
-> + */
->  static enum led_brightness kbdlight_brightness;
->  static DEFINE_MUTEX(kbdlight_mutex);
-> =20
-> @@ -5180,6 +5188,15 @@ static bool kbdlight_is_supported(void)
->  =09return status & BIT(9);
->  }
-> =20
-> +/* The auto mode is not a brightness level; report it as off to the LED =
-core. */
-> +static enum led_brightness kbdlight_level_to_brightness(int level)
-> +{
-> +=09if (level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
-> +=09=09return 0;
-> +
-> +=09return level;
-> +}
-> +
->  static int kbdlight_sysfs_set(struct led_classdev *led_cdev,
->  =09=09=09enum led_brightness brightness)
->  {
-> @@ -5194,16 +5211,54 @@ static enum led_brightness kbdlight_sysfs_get(str=
-uct led_classdev *led_cdev)
->  =09if (level < 0)
->  =09=09return 0;
-> =20
-> -=09return level;
-> +=09return kbdlight_level_to_brightness(level);
-> +}
-> +
-> +static struct led_hw_trigger_type kbdlight_auto_trigger_type;
-> +
-> +static int kbdlight_auto_trigger_activate(struct led_classdev *led_cdev)
-> +{
-> +=09/*
-> +=09 * The EC may already be in auto mode (cycled there on Fn+Space, or
-> +=09 * active since before the driver loaded), in which case there is
-> +=09 * nothing to program.
-> +=09 */
-> +=09if (kbdlight_get_level() =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
-> +=09=09return 0;
+> On Fri, Oct 30, 2026 at 04:11:46PM -0600, Alex Williamson wrote:
+> > >  drivers/vfio/pci/vfio_pci_core.c |  4 ++
+> > >  drivers/vfio/pci/vfio_pci_priv.h | 18 +++++++++
+> > >  drivers/vfio/pci/vfio_pci_zdev.c | 64 ++++++++++++++++++++++++++++++++
+> > >  include/uapi/linux/vfio.h        | 30 +++++++++++++++
+> > >  4 files changed, 116 insertions(+)  
+> > 
+> > I think the only thing we never closed on from the vfio side is the
+> > merge plan.  If this goes in via s390 I'd want a topic branch against
+> > rc1 since there are a couple series floating around contesting for the
+> > same feature numbers.  Thanks,  
+> 
+> Hi Alex,
+> 
+> Yes, I can create the branch once all patches are reviewed.
 
-I don't think the device needs this, as kbdlight_set_level() should be
-idempotent.
+Great, thanks.  I'll try not to step on these feature numbers in the
+meantime.
 
-> +
-> +=09if (kbdlight_set_level(TPACPI_KBD_LIGHT_AUTO_LEVEL))
-> +=09=09return -EIO;
-> +
-> +=09/*
-> +=09 * Check that the EC actually accepted the auto mode; on error the
-> +=09 * trigger core reverts the LED to the "none" trigger.
-> +=09 */
-> +=09if (kbdlight_get_level() !=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
-> +=09=09return -EIO;
-
-Nah. Please wait until Vishnu and Mark answer about the approach to
-determine the support for auto mode.
-
-> +
-> +=09return 0;
->  }
-> =20
-> +static bool kbdlight_auto_trigger_hw_offloaded(struct led_classdev *led_=
-cdev)
-> +{
-> +=09return kbdlight_get_level() =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
-> +}
-> +
-> +static struct led_trigger kbdlight_auto_trigger =3D {
-> +=09.name=09=09=3D "tpacpi-kbd-auto",
-> +=09.trigger_type=09=3D &kbdlight_auto_trigger_type,
-> +=09.activate=09=3D kbdlight_auto_trigger_activate,
-> +=09.hw_offloaded=09=3D kbdlight_auto_trigger_hw_offloaded,
-> +};
-> +
->  static struct tpacpi_led_classdev tpacpi_led_kbdlight =3D {
->  =09.led_classdev =3D {
->  =09=09.name=09=09=3D "tpacpi::kbd_backlight",
->  =09=09.max_brightness=09=3D 2,
-> -=09=09.flags=09=09=3D LED_BRIGHT_HW_CHANGED,
-> +=09=09.flags=09=09=3D LED_BRIGHT_HW_CHANGED | LED_TRIG_HW_CHANGED,
->  =09=09.brightness_set_blocking =3D &kbdlight_sysfs_set,
->  =09=09.brightness_get=09=3D &kbdlight_sysfs_get,
-> +=09=09.trigger_type=09=3D &kbdlight_auto_trigger_type,
->  =09}
->  };
-> =20
-> @@ -5221,9 +5276,30 @@ static int __init kbdlight_init(struct ibm_init_st=
-ruct *iibm)
->  =09=09return -ENODEV;
->  =09}
-> =20
-> -=09kbdlight_brightness =3D kbdlight_sysfs_get(NULL);
-> +=09kbdlight_brightness =3D kbdlight_get_level();
-> +=09if (kbdlight_brightness < 0)
-> +=09=09kbdlight_brightness =3D 0;
->  =09tp_features.kbdlight =3D 1;
-> =20
-> +=09/*
-> +=09 * Register the auto-mode trigger before the LED classdev: if the
-> +=09 * EC is already in auto mode, the trigger can then be set as the
-> +=09 * default one and gets activated during LED classdev registration.
-> +=09 */
-> +=09rc =3D devm_led_trigger_register(&tpacpi_pdev->dev,
-> +=09=09=09=09       &kbdlight_auto_trigger);
-> +=09if (rc) {
-> +=09=09tp_features.kbdlight =3D 0;
-> +=09=09return rc;
-> +=09}
-> +
-> +=09tpacpi_led_kbdlight.led_classdev.hw_control_trigger =3D
-> +=09=09kbdlight_auto_trigger.name;
-> +
-> +=09if (kbdlight_brightness =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
-> +=09=09tpacpi_led_kbdlight.led_classdev.default_trigger =3D
-> +=09=09=09kbdlight_auto_trigger.name;
-> +
->  =09rc =3D led_classdev_register(&tpacpi_pdev->dev,
->  =09=09=09=09   &tpacpi_led_kbdlight.led_classdev);
->  =09if (rc < 0) {
-> @@ -5246,9 +5322,22 @@ static int kbdlight_set_level_and_update(int level=
-)
->  =09int ret;
->  =09struct led_classdev *led_cdev;
-> =20
-> -=09ret =3D kbdlight_set_level(level);
->  =09led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
-> =20
-> +=09/*
-> +=09 * Leaving auto mode through the proc interface has to drop the
-> +=09 * trigger, like writing a brightness through sysfs does. Route the
-> +=09 * new level through the LED core as well, so that it is applied
-> +=09 * after the LED_OFF queued by dropping the trigger.
-> +=09 */
-> +=09if (led_trigger_is_hw_controlled(led_cdev)) {
-
-You don't need this, and it causes a TOCTOU issue between
-is_hw_controlled() and remove_hw_control().
-
-> +=09=09led_trigger_remove_hw_control(led_cdev);
-> +=09=09led_set_brightness(led_cdev, level);
-
-???
-
-Can't you simply refactor and call kbdlight_notify_change() here?
-
-In detail:
-
-- PATCH 1: split kbdlight_notify_change() into a function that accepts a
-hw brightness level and a wrapper that queries the hardware
-- PATCH 2: call the former in kbdlight_set_level_and_update(), like what
-commit 07f48f668fac ("platform/x86: ideapad-laptop: add FnLock LED class
-device") did
-- PATCH 3: add support for auto mode
-
-With those changes, kbdlight_set_level_and_update() should automatically
-removes the triggers without the need of poking the LED core harshly.
-
-Besides, IMO the attribute should really be deprecated with a warning
-stating that writing to the attribute may desynchronize the LED core, so
-that we can reduce the maintenance burden instead of infinitely working
-around all sorts of such issues [1]. I am not an expert at this driver,
-so I will defer it to other maintainers.
-
-> +=09=09return 0;
-> +=09}
-> +
-> +=09ret =3D kbdlight_set_level(level);
-> +
->  =09if (ret =3D=3D 0 && !(led_cdev->flags & LED_SUSPENDED))
->  =09=09led_cdev->brightness =3D level;
-
-[1]: for example, here is a pre-existing race condition.
-
-> =20
-> @@ -5293,6 +5382,8 @@ static int kbdlight_write(char *buf)
->  =09return kbdlight_set_level_and_update(level);
->  }
-> =20
-> +static void kbdlight_notify_change(void);
-> +
->  static void kbdlight_suspend(void)
->  {
->  =09struct led_classdev *led_cdev;
-> @@ -5301,38 +5392,75 @@ static void kbdlight_suspend(void)
->  =09=09return;
-> =20
->  =09led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
-> +
-> +=09/*
-> +=09 * In auto mode the EC drives the backlight and the firmware turns
-> +=09 * it off for suspend and restores it on resume by itself; keep the
-> +=09 * LED core out of it entirely.
-> +=09 */
-> +=09if (kbdlight_get_level() =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL)
-> +=09=09return;
-> +
-
-As I've said, getting rid of led_classdev_{suspend,resume}() completely
-when the device supports auto mode will make our life much easier.
-
->  =09led_update_brightness(led_cdev);
->  =09led_classdev_suspend(led_cdev);
->  }
-> =20
->  static void kbdlight_resume(void)
->  {
-> +=09struct led_classdev *led_cdev;
-> +
->  =09if (!tp_features.kbdlight)
->  =09=09return;
-> =20
-> -=09led_classdev_resume(&tpacpi_led_kbdlight.led_classdev);
-> +=09led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
-> +
-> +=09/* Only balance a suspend that actually suspended the LED. */
-> +=09if (led_cdev->flags & LED_SUSPENDED) {
-> +=09=09led_classdev_resume(led_cdev);
-> +=09=09return;
-> +=09}
-> +
-> +=09/*
-> +=09 * Auto mode was left running over suspend; observe what the
-> +=09 * firmware actually restored.
-> +=09 */
-> +=09kbdlight_notify_change();
-
-If you'd like to do so, it should be in a separated patch, too.
-
-Thanks,
-Rong
-
->  }
-> =20
->  /*
-> - * The EC cycles the keyboard backlight level itself on Fn+Space; check
-> - * the current level and update the LED core state.
-> + * The EC cycles the keyboard backlight level (and auto mode) itself on
-> + * Fn+Space; check the current level and update the LED core state.
->   */
->  static void kbdlight_notify_change(void)
->  {
->  =09struct led_classdev *led_cdev =3D &tpacpi_led_kbdlight.led_classdev;
->  =09enum led_brightness brightness;
-> +=09bool was_auto, is_auto;
-> +=09int level;
-> =20
->  =09guard(mutex)(&kbdlight_mutex);
-> =20
->  =09/*
-> -=09 * Check the brightness actually changed, setting the brightness
-> -=09 * through kbdlight_set_level() also triggers this event.
-> +=09 * Check the level actually changed, setting the brightness through
-> +=09 * kbdlight_set_level() also triggers this event.
->  =09 */
-> -=09brightness =3D kbdlight_sysfs_get(NULL);
-> -=09if (kbdlight_brightness =3D=3D brightness)
-> +=09level =3D kbdlight_get_level();
-> +=09if (kbdlight_brightness =3D=3D level)
->  =09=09return;
-> =20
-> -=09kbdlight_brightness =3D brightness;
-> +=09/*
-> +=09 * Notifying the trigger core is safe while holding
-> +=09 * kbdlight_mutex: the transition is only queued, and the worker
-> +=09 * re-reads the EC level (via hw_offloaded) after this critical
-> +=09 * section has been left.
-> +=09 */
-> +=09is_auto =3D level =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
-> +=09was_auto =3D kbdlight_brightness =3D=3D TPACPI_KBD_LIGHT_AUTO_LEVEL;
-> +=09if (is_auto !=3D was_auto)
-> +=09=09led_trigger_notify_hw_control_changed(led_cdev, is_auto);
-> +
-> +=09brightness =3D kbdlight_level_to_brightness(level);
-> +=09kbdlight_brightness =3D level;
->  =09led_classdev_notify_brightness_hw_changed(led_cdev, brightness);
->  }
-> =20
+Acked-by: Alex Williamson <alex@shazbot.org>
