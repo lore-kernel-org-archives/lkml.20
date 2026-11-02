@@ -1,83 +1,83 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.172
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.175
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793586576;
-	b=f30ttHpxclfgd0Dl6+vRn5zskqrZ55dpMNvyuukwkMTMTZQI85c/t9AK6xI0j7a3gkmn
-	 vCb+tHPkEEkdGAovGvfplP2uaFjmbmbT5AMp5oZTeZzEZrcDZJZJNwCMTr6Q7qeoH2C7M
-	 Hlo76d/Tc0ZmYEIpo3NozkK5E0E+zuIFRZ2KG/+pL8mmLiZfcTzjtMjo6F9RviCfzHtkb
-	 qHQ8ZguEWqPkcn+NJbj574B3/lj3qIw3T/F2qmqFYWqxci0R6bk8RBCMjYX/bUUiMnzS+
-	 X+no0wj/jOUpm5NXXztz/ezDa7zQDZa3Z+t3xhSXQmd741ijGxPWeFJWQ1quNv3xiPg==
+	t=1793586569;
+	b=JFVlIJGPX5JXdn8vqXWJJwhTVDnxUrHKjbmK5Vrh4b1F7xFbqGKrU8fpsuyCNjn0cfUA
+	 JNDQn7hpYxTQql5z95vhDCUTP8Kz6lDNMZuL34dUhv8jCPPrhn8ijfJ203MTGi1jrl1wg
+	 8jfaeQn1YRdEOS9SmQZvEx+wChCmsK4rZX2faeuIZBySKsnNCfE7/hkNZC6GmGODuaf1D
+	 82EIR6aEBnnfG5gM07gI5+6ImDYsFdZf0W9rtAxMl3ueFmMzAveP/RrUfCgxfqVgRo4ny
+	 AOq5LMrqNK4tbxfK3X0w+r8ZygY6uaCjmbEwxg8R7oBwYVIe/7EgZoVu3XXu35RuyHA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793586576;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793586569;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
 	 MIME-Version:Content-Transfer-Encoding;
-	bh=ZMEpOVsFrqARpvMUvrisLIeuBsTKQUpHcnf8SDZYr04=;
-	b=EYSeebQnfCzH/2CQjdPv70ZtqmYW20/KvPVXDuKTzqroq0oSfh5waWRJMFNzsQmJWZNw
-	 qp2qUY6XAF7Uhv+1Qeh6AuuGY10wWPDpMx8o9Y+Pgvg7qGXMjjZn1PI3bl5TzIUTu84zb
-	 OVnkmSmZHSD8f2qnxuJg4zl7T0drL8VgDL5iFEzJmhBMBD8PAzFY7WAFaAFNkSMEmA0wi
-	 ORATbs3FRn2+y/ArSL20+vDZuRJd53gzMeCCYMvzc3i+RefAYlH3i54Hz7euSfQwebudK
-	 AuKS4xrOPWVTpn6k0XCPoi5Cn0we+YTT+G5odvvMJ8GBTOxBmfwT3J6G24gG8dLJQVA==
+	bh=CNj2Qek4c4lAN/UKdLhSW4xMEvjSJqkN+NgM/ZlaTKY=;
+	b=yl3/05unHcuDOIfNdSf7xZY+CmNDAEM2rGU4KB5uMXX9QTr4fnyxyL9lAxGgN+FuKARh
+	 g1+r/nN+LwUPG/0+aDPbynZV86bxQvkS02iB/qg6EhRP8w1avGT1jDRGasnojykOiJydK
+	 m9UDdCBx5qEoYupoNq0F/rPnUhBsOWX95ZEKB3swu0UL1MtT0r9bEk/IEE5f+fM9pMUyv
+	 9kS+yudKfIXg9R+VHas966JueuZ+bT/l3BNXId8N7aTxKLMfxT9TYUroqop11JV6xlOo+
+	 jH4+aAFa+Ai+HwGVdanxlWLXdmvvk5aZZXaChirNXA0rH8LGKos1JkLtuk/iNJWkaXQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=gmail.com;
 	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W3NssMvJ;
-	arc=none smtp.remote-ip=209.85.210.172
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y+nWQWh4;
+	arc=none smtp.remote-ip=209.85.210.175
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE223606A33B
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:29:35 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE223606A33B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81209606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 02:29:29 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 81209606A327
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=W3NssMvJ
-Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8a064fac8cbso1639954b3a.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:29:35 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=y+nWQWh4
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-8a070755c8cso958030b3a.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 18:29:29 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793586575; x=1794191375; darn=vger.kernel.org;
+        d=gmail.com; s=20260707; t=1793586569; x=1794191369; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZMEpOVsFrqARpvMUvrisLIeuBsTKQUpHcnf8SDZYr04=;
-        b=W3NssMvJLHgCvUg4HTHuTW8eZXgZHmOMe7ukKu8BChEm3Ckr0jFjqnzwLbsM6pPczY
-         1lUp4OnfXPMm8G8ImzigMSgE5MazRcISXE6CDiRO25wIzVGWUguM+Uz9vu0eGpi3+SAL
-         OEmAcJkngrhsKUSZ0YylAiSM8HbWKBe4Dbxv8upb9SfLMwStQan780AS9o4NA/x8wcpV
-         4EEH7pK/9Kz8WpOX50xFu/CQ/bl9k2vny/NMQ/otJvF+6dltrNlMDddThyPF7iINnETP
-         loVTbzjoWL73pH76W0QOQO68CvCjWZqopxtsS9m6VUlkC/WOKEtIMYXPQFTu+i74sFIj
-         /DfQ==
+        bh=CNj2Qek4c4lAN/UKdLhSW4xMEvjSJqkN+NgM/ZlaTKY=;
+        b=y+nWQWh4Ag+E4v1W1P0P5c2dvZYL37Y7egYC9FloiPZuyG19Kz7u3mxFdwAmq4khDM
+         eF8HKV4T6CGa0NetbdoCY2WvrsjNRCOTHU0J7+lqXK4q69ZxwT9kKOWeuM5c+XdaRqKR
+         FKoxwp4MIeoeqkeMWoUb7S7lFCCzMrFrSVxuPBrpZDm4YSHPzcWOtP/Iy4AInR2dWFFa
+         zPM79/6lbeaH2JRpzexWp+J64EJBQdkbYP62JPr7/pCF84NkBd7dYnJJtUaCfK7qlBbK
+         x+/iramOiP8KN9l7JWTZqrvqyB8zj/jM6UFkTN/ia+uVbV8Ft3T7gTs+0Q5d3Wh2jPic
+         QX7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793586575; x=1794191375;
+        d=1e100.net; s=20260707; t=1793586569; x=1794191369;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZMEpOVsFrqARpvMUvrisLIeuBsTKQUpHcnf8SDZYr04=;
-        b=dL99T9s6SUT1lEWTGiJlaClJJUyh/nf3EK+Yu0uguBmkjmk9TwPV/e97WZel0+Vr9T
-         11mWbAQ7lJ4Bh9NqzXvg0x+InhDKMg6Uwed+WSWyf8OjFHc59y8tfBe9nJMHdUMkgNtA
-         83jNiQ8tOhymvsCNi3kVHuMj55RblagAn8eAmeVfCovvAV/DBP+c9YMQvWu/4GWnrchu
-         My9uW6LIDHuxIylQfSpsE4eJP0MVbNNeakPT0q5prsevP47nN3lWH7ZajefXSeLurxTs
-         icC7U3/0V8TiHmAbH8FJrOtG53H+JVV1Q02qvjR2fewNhOAE6PU/+TY6hlxz0JaaD5jl
-         VVlw==
-X-Forwarded-Encrypted: i=1; AKwUvByq9kPwpqiUlu/fad70R9wamIkiBcwisa8lJxPAi8t/zLwm9pyB8vuFj6UQrG4ywKKvB1l9scoUEnZ4yog=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJc97dzZgpbP/0YvVD2VN4nd2fIqh7mcCF5t4SvJc3mgwVsRZsT
-	qpi88h2fC6UYgKzgQ/cKHWEgrvTsVjUnRpvA23CMjBAWVv4qRFb93maY
-X-Gm-Gg: AYBFou1FqJlLqwDe1o8pMj6hfmde48CnTdiMtp0wPRitw0qen3X6LynyuVr2vCMecFQ
-	betLXPsYaFV4OFu2/oDqb9Ukq7/VMoxidWjB7JXFHzsUnB+E9+0STejhoa2D6QJX7EC4zee523y
-	0C8rkf75ySKks/j70mZ4lLrqdHgMTq2oEwFnlUVHr0fvymELSuuHToKkafQ3jLCSqJwZwmmPyk1
-	9+OQmebu9dZulqKw48g5pu/24xwemPnS+hKoUqkCwA9dhwqhMsceiBf/l6A6IEd2jHR+l0P9fv4
-	UlO7RpbZQV6w/NfR5ZVWZeWp6hk03fq0hVu8gdF8tPKOHY3N7SJ3371lI5g9u3zcM2+FqHo9beo
-	xKxRa5BRPIA49JAnVlbGaaLrCZIdxnSgPf1foLb+7le3Yh7Tbl4LaT4hVFaZsYSUoGA5iH3OKO1
-	l93xqgaeYYx5YVjpe23q+Bnfl3NASwvDbnvNX8FkFz9eYC9GIFwHRlpwmdz3uh4k5/VOClAjc/a
-	ypUjAD3XmS41MI1K+Me1SLImXfjbX4M7Wh2IYVSMa2qJADS9uO58xRXiAZv5F2GhF4v73Fkjep9
-	ViakL4fWn/TO+fIcYC3AuIT2f00/PPiXRArzqknwkxtGPFI=
-X-Received: by 2002:a05:6a21:7741:b0:3de:48e4:c37d with SMTP id adf61e73a8af0-3e9289765e2mr6558635637.26.1793586575163;
-        Sun, 01 Nov 2026 18:29:35 -0800 (PST)
+        bh=CNj2Qek4c4lAN/UKdLhSW4xMEvjSJqkN+NgM/ZlaTKY=;
+        b=nqL8aHugkMaMaMLYPcJjbfZPdQy6RdGGD0L+dza6jRc+AAbvy4l6Hijkw3dT6R8ZEG
+         rXLPDGJNyGssLfkD2gQ+LLNeZxvfKeDAXlaaldmHyFqLsoQemVkJXOqd40t9hgX7WEM+
+         T2pmMj8xehAWiDbsZ94qmUJoB5womawpRRXnvPAO+jYzsImSbn+X8wXyjeu6ls5O0wpB
+         sFIhDBzRqNMzf7EBSZr98JnJhdiakJCd/EPaC//sQidxhlLsgfTVudW1Z/XK3tdTJKQq
+         DF9ODP/T+nmvtchUOpOEXmaP98SCu6T4lRz7lfAva+W6VMKcHgRYzyC09GhWukCsHGYk
+         KqjA==
+X-Forwarded-Encrypted: i=1; AKwUvByxKlPZ0dCVwFXBKULqxjUss7MpFgu8h1RA0lrOpfCRCeT044eVX0V22wE3J4XP0rv7/CpWs1neiQi+L5E=@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7FOvFSKPhVbJUa0AR4Oc8ooC5oRnWnC3fTgJbjyo5PLV1eodP
+	LycQT0CeEY6oci3nS7cIbA/0Fyui3Q/TpuM4DOCNisiptRdGLOaKUBe0
+X-Gm-Gg: AYBFou3ScXlblxY3cJlgJdqRQb6Yf74frteJ9xJMb8DXOFaNAWd4ZfpEkqB0MUAV7Ak
+	t2GBO4xWUeNHJFTQD7HBuZsZ7wvrvJAS2pbTM0GXeD/MKzMxD0s/d+OHQMoLaBE2+AW+Eu1X8xs
+	VPthbODcRQNmsnTVg+ItfOQ/+8AuECTCPmYzNEMPye3uo++zSyTEtqf8zJCl82P/RFqu71m0/wH
+	/0KLNJ8wNJOkQcltg8UJhx1fE/HjqlVhKD1pLhAllSC0JripUYFNhpj5JoBWMllI5AG1eZFnQT5
+	mM0B94PJsLqO/ZkO5ukNpn0ZyIDhZ+37lkxF4oNjVy7FxcspX65c3s7C3iQTzrIEmkJZFaS+4T+
+	4K+0d1+H/v4eTjYv940DYfYfZWfJ594t2YKxF9LajwufEkHtjugdDjH7Wxo19ojxWTODxdlvryC
+	0l/4Iy41SENXBg+0nr3oJBLZmsQfIUzCvYo4SqUmUPXq0yuou/R4wn6EpX6xQjvC6yLbQBQfCMC
+	M7E/kxPclkvXIUbwOSQSGfqEkMIz7zWFj6uf4WQ3/qMfkiQckil28qASUwMtErB7Kocusfn4+Vm
+	oEWrCJy3eVTeJJxVmeBzmEZrIsgSspjPNe+i2JcegoVKyPTT
+X-Received: by 2002:a05:6a21:6f0d:b0:3e8:b7fd:628f with SMTP id adf61e73a8af0-3e928c8d3d8mr7174182637.22.1793586568889;
+        Sun, 01 Nov 2026 18:29:28 -0800 (PST)
 Received: from ubuntu24.vpn.host.chaitin.net ([124.77.157.93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb09814cb9sm2441382a12.24.2026.11.01.18.29.32
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cdb09814cb9sm2441382a12.24.2026.11.01.18.29.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 18:29:34 -0800 (PST)
+        Sun, 01 Nov 2026 18:29:28 -0800 (PST)
 From: BeaCox <0xbeac@gmail.com>
 To: Jaehoon Chung <jh80.chung@samsung.com>,
 	Shawn Lin <shawn.lin@rock-chips.com>,
@@ -85,13 +85,12 @@ To: Jaehoon Chung <jh80.chung@samsung.com>,
 Cc: linux-mmc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	BeaCox <0xbeac@gmail.com>
-Subject: [RFC PATCH v2 2/2] mmc: dw_mmc: cancel the watchdog timer on remove
-Date: Mon,  2 Nov 2026 10:29:24 +0800
-Message-ID: <20261102022924.51343-3-0xbeac@gmail.com>
+Subject: [RFC PATCH v2 0/2] mmc: dw_mmc: fix teardown races on remove
+Date: Mon,  2 Nov 2026 10:29:22 +0800
+Message-ID: <20261102022924.51343-1-0xbeac@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261102022924.51343-1-0xbeac@gmail.com>
+In-Reply-To: <20261101063719.88570-1-0xbeac@gmail.com>
 References: <20261101063719.88570-1-0xbeac@gmail.com>
- <20261102022924.51343-1-0xbeac@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -103,33 +102,34 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The central watchdog added for command and data timeout handling is
-armed while a request is in flight and is only stopped when the
-completion is delivered.  If the host is removed with a request still
-in flight, the timer can expire after the controller has been disabled
-and its callback reads the controller registers and the host state.
+This splits the dw_mci_remove() teardown fix in two, because the two
+objects have different lifetimes.
 
-Cancel the timer after bh_work has been disabled, so that a work item
-that is still running cannot rearm it after the cancellation.
+1/2 drains bh_work.  The race predates the BH workqueue conversion: the
+tasklet that it replaced was never killed in dw_mci_remove() either,
+going back to the original driver, and commit 921c87ba3893 ("mmc:
+Convert from tasklet to BH workqueue") only replaced tasklet_schedule()
+with queue_work().  The patch therefore applies to 6.11 and later,
+where the bh_work form exists.
 
-Fixes: ce0043b9a302 ("mmc: dw_mmc: add central watchdog and convert CTO onto it")
-Signed-off-by: BeaCox <0xbeac@gmail.com>
----
- drivers/mmc/host/dw_mmc.c | 1 +
- 1 file changed, 1 insertion(+)
+2/2 cancels the central watchdog timer, which is new in 7.4
+(ce0043b9a302), after the work has been disabled so that a work item
+that is still running cannot rearm it.
 
-diff --git a/drivers/mmc/host/dw_mmc.c b/drivers/mmc/host/dw_mmc.c
-index 5b47643..dc3beab 100644
---- a/drivers/mmc/host/dw_mmc.c
-+++ b/drivers/mmc/host/dw_mmc.c
-@@ -3410,6 +3410,7 @@ void dw_mci_remove(struct dw_mci *host)
- 	/* Stop the work before the timer that it can rearm. */
- 	disable_work_sync(&host->bh_work);
- 	dw_mci_stop_fault_timer(host);
-+	hrtimer_cancel(&host->wd_timer);
- 
- 	/* disable clock to CIU */
- 	mci_writel(host, CLKENA, 0);
+v1 incorrectly used 921c87ba3893 as the Fixes tag; thanks to Shawn Lin
+for pointing out that it did not introduce the race.  The code is
+otherwise unchanged.
+
+Testing is still limited to W=1 object builds and a userspace lifecycle
+model; no hardware was available.
+
+BeaCox (2):
+  mmc: dw_mmc: drain bh_work on host removal
+  mmc: dw_mmc: cancel the watchdog timer on remove
+
+ drivers/mmc/host/dw_mmc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
 -- 
 2.43.0
 
