@@ -1,49 +1,71 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=217.140.110.172
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613726;
-	b=Zy8/OPXdkdLzd3sZoXX0RXJj6mCBwNbhdgdJvpTq+WfFPXgdXnT7Z/tPIN4zdVpoHBg2
-	 2+tsmw0FNpl1XqTg0/nnZsRUbBYg2Y4GdbQi0Z4HoRMMLSskTwwQ6WYolet4ZvPQez18v
-	 ArCpY25jt4W6g78yNwIqlTI5TNYxYL4pQWtvFXtE0YU+9oIwgvy0d08TbxV5LpNaCZjzw
-	 vBNBApjIHH8t2+/iC4NjYUqC87aqy2E3gAFnW8dvoiGIpRBJ+rdzVDhnWlqDEvVfebfrE
-	 /12XbEpTHnRifR1DSaleAy+Uz1XSAfht/HFvH2S6kn6IYCfJEMnLP+Bs+ePtICoi9+g==
+	t=1793613766;
+	b=ubAvncM4Pwgopu50/nHnt2anE9LIk4zEsfhahpwqpeE4cWIhy/ZT1i4UsIihDEhfHi6m
+	 sE/NEwXuOsBDKue8g/MV7cnvlf9r2W22dOStzOivPkLZ0vgJ8RPrdSc0gCYW/6NUK4H03
+	 5kwkGB8WnEN9T2+4w3ph/nsO2JgbnkKJjeTbyDdGv9vwnXGWBiIGOvKLqU6eCs7k/Vkcj
+	 BQAtsyizUPluRNwR4j2Tr+JhX15U80tpFLwuWdp3O5LcsV/+06QYg1nilc+T7s8f2v/s1
+	 RucKjLEkXwskY7z+QpdB9xCVw/yFwwN9DGy6lmxbJpeRnRqgO7vDE6ee40dymXrHy5Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613726;
-	h=DMARC-Filter:Received:Received:DKIM-Signature:Message-ID:Date:
-	 MIME-Version:User-Agent:Subject:To:Cc:References:Content-Language:
-	 From:In-Reply-To:Content-Type:Content-Transfer-Encoding;
-	bh=vbPfZPJoYQ0C6lfKs2aymef5rN56sPJo97x0rrbpNk8=;
-	b=I3dGVSlMTcYA2ZZEilElA4GiVf5C08B174TqactAb/o/6aDesrDV/o8epBnl2xH0RUpC
-	 RPTjVdKyU+mfMHi5t6ry+8XfRJCr2Z2rYzGdVlMfP2icNfl4kqkRhtCrA0UEgmbQTOh3/
-	 EFytP3UmN7IGjTS11uTT4a4KGoP7GxZn+BEBKS/Jq7uAHB4NgAKAtO6XzZjoqhvI/BSr6
-	 TLxY8pLeex+8el1r4GU2wpGlhdJvS/kTf98B4k17yKxhOcP7CiqfudV3fEzlp4D2j0oMf
-	 d4+9gCmh1I2iqK6BS37p+tGDSRc3vBAQdrh65pBvHdHLl972TF0dRd9TRjrCBH2VWxg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613766;
+	h=DMARC-Filter:Received:Received:DKIM-Signature:From:To:Cc:Subject:
+	 Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=i4Em7Py7g4q0VGn8W2HCRonK/evyicnat7HWkjVfGeQ=;
+	b=HO121zH8djzmMONJRH02GvI5MroEZY0h/WVUZ55vTStDBxk2RWdk7w2qZLcDvHWJI3XN
+	 MWkuDG9vTaKoAxP7I6Yl7aN+Q0S6unUr68yXaf3Kqt0P+Trmz4FOhG39QqwWjetv5ymI9
+	 0AI+JoeuGBF5pfGQO1Ngu68nheysnvpPF1jqtMffcjS7afS7s87gBnrGwS36IFJ6OEJ77
+	 hiL8bV4CQ9Tf1QjpEjbuqVPZusYvhrvYhXwd6WGenZ+OZUA1cQttfIvfBbiKEsm19A2GZ
+	 8i/GNmJiFy00nhpWp9ZucgSamQ4NqiyD5EHgzBeD67Yab2iSCR4Lr2pXgjlAd7vxxEw==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=arm.com;
 	spf=pass smtp.mailfrom=arm.com;
-	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=D5oX3oCH;
+	dkim=pass header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AFH7tUh1;
 	arc=none smtp.remote-ip=217.140.110.172
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 49E84606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:02:05 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 49E84606A324
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id F14DC606A330;
+	Mon,  2 Nov 2026 10:02:45 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org F14DC606A330
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=D5oX3oCH
+	dkim=pass (1024-bit key, unprotected) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=AFH7tUh1
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 715BE1595;
-	Mon,  2 Nov 2026 02:02:01 -0800 (PST)
-Received: from [10.2.212.8] (e134344.arm.com [10.2.212.8])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8A6DF3F59E;
-	Mon,  2 Nov 2026 02:02:03 -0800 (PST)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 6FBFB1595;
+	Mon,  2 Nov 2026 02:02:42 -0800 (PST)
+Received: from a081061.arm.com (unknown [10.163.156.187])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 32D743F59E;
+	Mon,  2 Nov 2026 02:02:37 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1793613724; bh=h4Xk0lr5kbJWzEIn6ychy0sjf+fV8fkwo6IeleqRgRI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=D5oX3oCHYZNYcvuBTbRPgfj9gLUa+29ws6N1QKtVCAc7adecVHnhTCZj3NKZ5znHR
-	 uVbF0lzrh4YlNaIFNY1oo2uCyie2TMjAlUfJq2hYHwuB99qTvSvL91Fhhng/pid0LB
-	 yJfa2P7cJ0h2fA8n2D47PRHRde39GxYuqrhzqaaU=
-Message-ID: <c54e9853-b503-4aac-87cd-71c68ef4f7b3@arm.com>
-Date: Mon, 2 Nov 2026 10:02:02 +0000
+	t=1793613765; bh=4thU010nDUqthwP71EjUPPcaPA4vWd28xw0e1Se/q+w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=AFH7tUh17/igJI+PU3NpCguj2gqLFnslktS0xnrfE8IGjqLMMK7IercLlwfXxs9pR
+	 Ce25TkwLPR7wn7Sje93s/IXgJH8o1Er83jVJ4xZGbGSqjljynF8nXEZzTSlNDpI7PS
+	 r/NDt4VY5A8VqdlUAYrftBfXbfBX+nwwfw5ytzlg=
+From: Sarthak Sharma <sarthak.sharma@arm.com>
+To: Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@suse.com>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Shuah Khan <shuah@kernel.org>,
+	John Hubbard <jhubbard@nvidia.com>,
+	Kalesh Singh <kaleshsingh@google.com>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Park Tae-sun <ts930@dgu.ac.kr>,
+	linux-mm@kvack.org,
+	linux-kselftest@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Sarthak Sharma <sarthak.sharma@arm.com>
+Subject: [PATCH RESEND v2 02/12] selftests/mm: mremap_test: drop munmap() checks from cleanup paths
+Date: Mon,  2 Nov 2026 15:32:01 +0530
+Message-ID: <20261102100211.141831-3-sarthak.sharma@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261102100211.141831-1-sarthak.sharma@arm.com>
+References: <20261102100211.141831-1-sarthak.sharma@arm.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -53,53 +75,103 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm_mpam: Warn when firmware leaves PARTIDs disabled
-To: Ping Li <leeonion.muyu@gmail.com>, james.morse@arm.com
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- reinette.chatre@intel.com, fenghuay@nvidia.com
-References: <8950f9bc-8ca9-476c-a7d6-2b434908b80c@arm.com>
- <20261101025550.1633447-1-leeonion.muyu@gmail.com>
-Content-Language: en-US
-From: Ben Horgan <ben.horgan@arm.com>
-In-Reply-To: <20261101025550.1633447-1-leeonion.muyu@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Ping,
+mremap_test checks the return value of munmap() on some cleanup
+paths and prints an error when it fails. These failures do not
+affect the test result and there is nothing useful we can do
+about them during cleanup.
 
-On 01/11/2026 02:55, Ping Li wrote:
-> Hi Ben,
-> 
-> Thanks for sharing the direction. I asked our hardware team why they
-> implemented HAS_ENDIS: the motivation is power. Enabling PARTIDs that
-> are never used does not affect performance, but costs leakage in the
-> registers and combinational logic behind them - with e.g. 32 PARTIDs
-> implemented and only a handful ever used, the unused portion is pure
-> waste. Their expectation was that software would enable only the
-> PARTIDs it needs at initialization time.
+Stop checking munmap() return value on cleanup paths.
 
-Thanks for this information. It may also be useful for getting data associated out of the cache
-quickly once the associated PARTID is unused.
+Suggested-by: David Hildenbrand (Arm) <david@kernel.org>
+Signed-off-by: Sarthak Sharma <sarthak.sharma@arm.com>
+---
+ tools/testing/selftests/mm/mremap_test.c | 35 +++++++++---------------
+ 1 file changed, 13 insertions(+), 22 deletions(-)
 
-> 
-> For a general-purpose driver that cannot predict how many PARTIDs
-> userspace will actually use, that is not something we can do. So what
-> I plan to do is either enable all the PARTIDs from the driver, or ask
-
-Enabling all the PARTIDs in the driver is a good first step to support hardware with ENDIS. However,
-going forward I think we could actually make use of the feature by enabling PARTIDs when a control
-group is created in resctrl and disabling them when a control group is deleted.
-
-Thanks,
-
-Ben
-
-> the hardware team to drop the HAS_ENDIS feature.
-> 
-> I am happy to drop this warning patch in favour of your driver-side
-> enabling patch.
-> 
-> Thanks,
-> Ping
+diff --git a/tools/testing/selftests/mm/mremap_test.c b/tools/testing/selftests/mm/mremap_test.c
+index 15d8f7458251..ea1348a9532e 100644
+--- a/tools/testing/selftests/mm/mremap_test.c
++++ b/tools/testing/selftests/mm/mremap_test.c
+@@ -364,8 +364,7 @@ static void mremap_move_within_range(unsigned int pattern_seed, char *rand_addr)
+ 	}
+ 
+ out:
+-	if (munmap(ptr, size) == -1)
+-		perror("munmap");
++	munmap(ptr, size);
+ 
+ 	if (success)
+ 		ksft_test_result_pass("%s\n", test_name);
+@@ -510,10 +509,8 @@ static void mremap_move_multiple_vmas(unsigned int pattern_seed,
+ 	}
+ 
+ out_unmap:
+-	if (munmap(tgt_ptr, 2 * size))
+-		perror("munmap tgt");
+-	if (munmap(ptr, size))
+-		perror("munmap src");
++	munmap(tgt_ptr, 2 * size);
++	munmap(ptr, size);
+ 
+ out:
+ 	if (success)
+@@ -590,10 +587,8 @@ static void mremap_shrink_multiple_vmas(unsigned long page_size,
+ 	}
+ 
+ out_unmap:
+-	if (munmap(tgt_ptr, size))
+-		perror("munmap tgt");
+-	if (munmap(ptr, size))
+-		perror("munmap src");
++	munmap(tgt_ptr, size);
++	munmap(ptr, size);
+ out:
+ 	if (success)
+ 		ksft_test_result_pass("%s%s\n", test_name,
+@@ -713,10 +708,8 @@ static void mremap_move_multiple_vmas_split(unsigned int pattern_seed,
+ 	}
+ 
+ out_unmap:
+-	if (munmap(tgt_ptr, size))
+-		perror("munmap tgt");
+-	if (munmap(ptr, size))
+-		perror("munmap src");
++	munmap(tgt_ptr, size);
++	munmap(ptr, size);
+ out:
+ 	if (success)
+ 		ksft_test_result_pass("%s%s\n", test_name,
+@@ -948,10 +941,8 @@ static void mremap_move_multi_invalid_vmas(FILE *maps_fp,
+ 	}
+ 
+ out_unmap:
+-	if (munmap(tgt_ptr, size))
+-		perror("munmap tgt");
+-	if (munmap(ptr, size))
+-		perror("munmap src");
++	munmap(tgt_ptr, size);
++	munmap(ptr, size);
+ out_close_uffd:
+ 	close(uffd);
+ out:
+@@ -1146,11 +1137,11 @@ static void mremap_move_1mb_from_start(unsigned int pattern_seed,
+ 	}
+ 
+ out:
+-	if (src && munmap(src, c.region_size) == -1)
+-		perror("munmap src");
++	if (src)
++		munmap(src, c.region_size);
+ 
+-	if (dest && munmap(dest, c.region_size) == -1)
+-		perror("munmap dest");
++	if (dest)
++		munmap(dest, c.region_size);
+ 
+ 	if (success)
+ 		ksft_test_result_pass("%s\n", test_name);
+-- 
+2.53.0
 
