@@ -1,84 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=211.75.126.72
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793598838;
-	b=2UkyY8Nqk1R0fzxo+4IY+EZ6807MN0BSy33oQ8i+skhUixGxxjEF2vZQPpQxcp3yurrr
-	 5voKZvz8is54lYuBjuSDgE+iYuRo1ukuDJFRQpezCtznU/oHFO0PPt247aN5BN/LKKXvP
-	 rjtEybHfvNuDa/sJDBe8M3fTp9lt+ZIjPAHNBBF7DKKtuEWOm5igyA/Ep7maIT397IbyL
-	 6lLEgFHN6sPwMtz8yGGBDBV0q2JSVbCNxWl2Qq2ukzxZrRGyJwZIGCnR6kbd87kGlMEoK
-	 RpIEnFuse1msTI/EwJgpggwWhV90IXPJ8fUBwQxXQl2VyewuV40MxH3jiqm1D9zKZbQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793598838;
-	h=DMARC-Filter:X-SpamFilter-By:DKIM-Signature:Received:Received:
-	 Received:Received:From:To:CC:Subject:Thread-Topic:Thread-Index:Date:
-	 Message-ID:References:In-Reply-To:Accept-Language:Content-Language:
-	 x-originating-ip:Content-Type:Content-Transfer-Encoding:MIME-Version;
-	bh=vD1/O6M6L5azUbJVyggZAvHHWLWY9/eStPMRvgaaR+g=;
-	b=iMcoUpPjOskIhQ2vPHUxL/jmGF7C3NSsfGTftgJU+NuyXWwq69qjp0Gi9AJrX2j6E4Ek
-	 W/k8fe0wMb4N6x4P3HCdnwFYbQIdCYZrvTSlE7l9BIz7HmxPcVmcPwcEUS4755tWUvSh3
-	 e5+277vDC2MxDsy6erpT1JDUj9AyE2ocBgcykNduZkH6Vm3OEUT8iFalqFVNQiMRvHInT
-	 M3nBw13hM1natGhnIKbUp7UVMLetwGB3Mdc02H5g2opJRn4Z3MVIQWZCAiZY5HJNafmCy
-	 jNeUUe84Z67ZDheYjX0tDxCz6jw+4MiCsi6jxzocVDHl1+vHgcC2yC34sUbDbm57mqw==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=realtek.com;
-	spf=pass smtp.mailfrom=realtek.com;
-	dkim=pass header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=BipYfxhG;
-	arc=none smtp.remote-ip=211.75.126.72
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.65
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793598897;
+	b=Zvi6KpFj+RTV5Oxc6oFQApcsklAbrcOIzXehRzc72lXFKzA1pfezTIJHIIQNRuqZ6lZE
+	 d8PHk7n60bOS8NPVGTQePJ+qFQxym8VAVJ246B5t7W5g7L+p6axi0yAPceBsQnC1HpBZS
+	 Ncn3hygCQSBMneDUZHdizkck0NlWCOJWVPoAjhVk9dWcz8+g1p4SIYW1EDEh3JzcZaLHC
+	 drAUk395sck3lIY+s3p1F1lnCHbCp2tCtUrY3nQDwGz9sE46SMeO/8/CNLlfEB63ObA9o
+	 1zWxWX3U3bllbn/kLRus1vec+LDPMFtpsAdIofeJPBXyzge7Hxc94NHxIR1pGUew7mg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793598897;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:
+	 X-MS-Exchange-Authentication-Results:Received-SPF:Received:Received:
+	 Received:Received:Date:From:To:CC:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-NV-OnPremToCloud:X-EOPAttributedMessage:X-MS-PublicTrafficType:
+	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
+	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
+	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
+	 X-Forefront-Antispam-Report:
+	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
+	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
+	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
+	 X-MS-Exchange-CrossTenant-Network-Message-Id:
+	 X-MS-Exchange-CrossTenant-Id:
+	 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp:
+	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
+	 X-MS-Exchange-CrossTenant-FromEntityHeader:
+	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
+	bh=+xwQEzEZ5RS/Yd5PgGkuEikWFaIJUhhl9bLklZznxQ0=;
+	b=ivYOHk0Rn1IJITYpOM8ViHiM/kLXfUpzDbZMtlPu06xoNm2BkPQS0NVlK4Gm0QSJZioT
+	 RPrqC8JHBJufJa4BLgV9eNLOZ2ojX5xiCix3WTqWJudxVEq+XFFcM4eyy34LWDcPjhpMN
+	 ioRCBPrEcok9dd+H4y2P9oR339Z1Lf3F7B9m4xLU6LZ5aE/PF+7XUNQUL7BFpCVfSfjPr
+	 A9zW5BYqdUv3mehYHzcAQnEXEaDqmMNjY9JKtQjdLCYDMjhmDSOX9J4OayiBOx621k25i
+	 6BZOLOePbvRRa6MXto/2lY0g9rOz6qeNvM3Z0gadpUDG5OWfK2xxhbXSi4anEpSGW6Q==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=nvidia.com;
+	spf=fail smtp.mailfrom=nvidia.com;
+	dkim=pass header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DkFp6A1u;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=40.93.198.65
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010065.outbound.protection.outlook.com [40.93.198.65])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3850F606A324;
-	Mon,  2 Nov 2026 05:53:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 3850F606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695AB606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 05:54:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 695AB606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=realtek.com header.i=@realtek.com header.a=rsa-sha256 header.s=dkim header.b=BipYfxhG
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 6A25roRG31914931, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1793598830; bh=vD1/O6M6L5azUbJVyggZAvHHWLWY9/eStPMRvgaaR+g=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=BipYfxhGOT496gsPXTB1LN/SUzfe6al3gNnImHT/becvPAZJh89sn6aVV3BYdGZEX
-	 z14BDLiVXQW/p1TXEe1CW54P2UKJDQqgKy8JlDyFLx4YSq1KG/z+rtlCLyiPB84tcs
-	 a+dmJU1cR0TGQVtjP/51SVdkeKf59CISeFm3FlxPrC6HZjXsMJ0D5P84T265zi4+9T
-	 hbUbdUFtN+xcST6C+nCj4PfrWAqoH0flgPCbuFM83+OFu0xbqFkJKmOkuu2rLy0NQK
-	 v7IQIisOXKaHgvqfSVJteDatxI/e1Wl7HRtNUaA+/ZhHwZnnjs1/WbvsDmOw8UgyRO
-	 NfzTr05rvfOsw==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 6A25roRG31914931
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 2 Nov 2026 13:53:50 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 13:53:50 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS05.realtek.com.tw (10.21.1.55) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 13:53:50 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::eeeb:c765:ca73:5eef%10]) with mapi id
- 15.02.2562.056; Mon, 2 Nov 2026 13:53:50 +0800
-From: Ping-Ke Shih <pkshih@realtek.com>
-To: Kalpesh Solanki <skalpesh942@gmail.com>, "kvalo@kernel.org"
-	<kvalo@kernel.org>
-CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH 2/2] wifi: rtw88: ps: Trigger firmware recovery when
- failing to leave LPS state
-Thread-Topic: [PATCH 2/2] wifi: rtw88: ps: Trigger firmware recovery when
- failing to leave LPS state
-Thread-Index: AQHdaeZfIO21Xr9w40u1hjvcgWoU0bcaR5gg
-Date: Mon, 2 Nov 2026 05:53:49 +0000
-Message-ID: <f917e8cda1b94d46b3ee66efbd092861@realtek.com>
-References: <20261101094905.1299638-1-skalpesh942@gmail.com>
- <20261101094905.1299638-2-skalpesh942@gmail.com>
-In-Reply-To: <20261101094905.1299638-2-skalpesh942@gmail.com>
-Accept-Language: en-US, zh-TW
-Content-Language: zh-TW
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=DkFp6A1u
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wv/ITnPhG+qV+hUz0KCacigCdi3NMeJfky6o4eB9KWVdPA+uSlLdd/1NVkpAnSdK8ZDulOFPfxYF+lyvsM3tWfhJlqcYRNKKlzvkcC4fVFX/aLzxNbCBwpZdSdB3W9ioo9itRv7Fl2ax4lrNHwCSZCe4YKSDT39215KYSuRc3txwMZgvyGrklJziVhsriGNMwKEdf3uMxHJGwLKdmIxQSisNJfz9bUhv5Q4cajDccECyELsonLe9VxX2TGN9+jXxdUHI2MhSqzJ2qhNmq0MOPkFrQ8t4zaHqQwQhcireDxLoHWsrZ+NjK1BME1cHqjyZPDw569XUMwPZ7hTwWXTZ9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=+xwQEzEZ5RS/Yd5PgGkuEikWFaIJUhhl9bLklZznxQ0=;
+ b=FxADOQnn+1TbNVriWgRfpQkRyhXXOaWz6ZkAbdVJNDij6y5vPWA5zftD/rZRaVsGGBfWDealsYgh/X8yK5jxxtyC7Vq8zAKfGSC1awkzVxat7alk4nBL60fa8W8I15557zzMNO8KNcuK2dmAiRsmy2qBQFXVas/ZNeXWQw5mLb//3vpb4SvGyQC2hhBAbNv+lI4up1F2+mCT57NPSEdDNTBBhDRyOaqoKzE93EY66mEBSbc3vxXFRvnxsbRug8rRby//N//wuaBzJu3yr0hGzWBVlsE/B1EH9IyR2lJRCqVpX6FsbNaFT1jyRKze1vAesdwfnfjlX/x2kmwWIVtPgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.161) smtp.rcpttodomain=intel.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=+xwQEzEZ5RS/Yd5PgGkuEikWFaIJUhhl9bLklZznxQ0=;
+ b=DkFp6A1u5JPMKqS6fKSfVe8eNt9JYbNy8SPbYrJ0Rl+qs9dw8jbPgoaNE3OGNyfM5fT9m80v3g0brU3XF/I033VGN5FwoiLVhAMXawRGHZX+AR+d91SZ8HKWYdjG/EVQpxA/O9cxWw4Al5NWWT1emK0bZIo4nwNwDyiVOo1rpujCEkFph0MBb0w+7uNKiNAJCWNC5fAYbZ4vCLomCkgvsLV0X5LVxg0iuFfwhXg3Y1SN/npRj0RrYreapHw3OjjRT53+GQEy5UmuuJm9hME3BD5jJmfwEKvkyvbumzmPH9rSKxJu2bKnByxJyVixcDjfe4B+PWwWgYeNCuuUtQAEWw==
+Received: from BN0PR04CA0041.namprd04.prod.outlook.com (2603:10b6:408:e8::16)
+ by CH2PR12MB4310.namprd12.prod.outlook.com (2603:10b6:610:a9::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
+ 2026 05:54:53 +0000
+Received: from BN2PEPF0000A88E.namprd04.prod.outlook.com
+ (2603:10b6:408:e8:cafe::11) by BN0PR04CA0041.outlook.office365.com
+ (2603:10b6:408:e8::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.569.12 via Frontend Transport; Mon, 2
+ Nov 2026 05:54:52 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.161) smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.161) by
+ BN2PEPF0000A88E.mail.protection.outlook.com (10.167.248.180) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.592.5 via Frontend Transport; Mon, 2 Nov 2026 05:54:52 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sun, 1 Nov
+ 2026 21:54:35 -0800
+Received: from rnnvmail205.nvidia.com (10.129.68.10) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Sun, 1 Nov
+ 2026 21:54:35 -0800
+Received: from nvidia.com (10.127.8.9) by mail.nvidia.com (10.129.68.10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56 via Frontend
+ Transport; Sun, 1 Nov 2026 21:54:34 -0800
+Date: Sun, 1 Nov 2026 21:54:32 -0800
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Yi Liu <yi.l.liu@intel.com>
+CC: Baolu Lu <baolu.lu@linux.intel.com>, <joro@8bytes.org>, Jason Gunthorpe
+	<jgg@nvidia.com>, Will Deacon <will@kernel.org>, Robin Murphy
+	<robin.murphy@arm.com>, Kevin Tian <kevin.tian@intel.com>, "Jean-Philippe
+ Brucker" <jpb@kernel.org>, <iommu@lists.linux.dev>,
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v1 3/4] iommu: Unpublish the old attach handle before the
+ group replace callback
+Message-ID: <auglmP/oFZNhnja/@nvidia.com>
+References: <cover.1790718296.git.nicolinc@nvidia.com>
+ <73ebe081ed668c214628fffc546b9744b662afb6.1790718296.git.nicolinc@nvidia.com>
+ <5751040a-e180-4d29-851d-3ccab96878a3@linux.intel.com>
+ <5512edd1-3c52-4e8a-a38f-3a5f1457cdaf@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -88,60 +120,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <5512edd1-3c52-4e8a-a38f-3a5f1457cdaf@intel.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF0000A88E:EE_|CH2PR12MB4310:EE_
+X-MS-Office365-Filtering-Correlation-Id: 60da8636-6273-45a2-e340-08df38a5d085
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|36860700016|82310400026|4143699003|11063799006|5023799004|56012099006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261021130227099003|261021135927099003|261026121527099003|261026140227099003|261026130827099003|261022115727099003|261022113327099003|261022075727099003|261022105027099003|10067099003|22082099003|18002099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	j5r+sj+5zgIYYZhktG6zE63NgklDFwKVenh05M/CmC7/sDEL1yBL5yxN3ZyA7h7HDrt452mQA+pITke0mILC0WY1PIPcE5dz0mi406SvDjhA87pektrU3qlZ5PsFpAP6EYXzxJRBm7XbfyQqVWAtsYf9XyRKxOyKwDlzaFtlCUbk2TedmZ7rLju0mP0taVXl+ZKdR4b5aK13lHikFag4sUQv0y4giuzOWZ2bN/NyQpDz9Y5s6+TyEpxo0EhyhaJUvIj2aMHz9LbY5RKRKkGA3qHt2UAjvgkXpnDyKCsi2IDe/lu+wBSF3ar9WJtZ17yy9uF6+5DDwpIFUxmYyGIR+BSJoEyZIeYm1Ag/bbejqXQ5LAVaQp5+LpZrJBEkwCw43Jhe0k3xpBktx7YlFTI72H/4FukmMDLyVqune1qY+Qsx7/kvgS69g5iNwvBSWZ2PMuTeURxlUYURK1OCXOdaLD4tHa3AvU0IthAHz1fCrTIg2xLqYgNufZ43zImcLeyYL+tsceJoWmYiSYUFTNWJ0/AvrxkVbRQwqbOkZKFCj49u1NetmH2CWXVqnvTz7GBpQUa/E4ZIvSpOgKCfpCwtxKOFeJBARWqPbU02/8gIm9ktGKuX+oUwx7BZ7XuPt+3MnUQwZfW01a3wxyhRcVFXgfyS86QYFUomfpRMnHc+EpDpohN82DZfLDPCWDcDWxZFwrdo8yKd4ugH3IIVPqI5SA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(36860700016)(82310400026)(4143699003)(11063799006)(5023799004)(56012099006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261021130227099003)(261021135927099003)(261026121527099003)(261026140227099003)(261026130827099003)(261022115727099003)(261022113327099003)(261022075727099003)(261022105027099003)(10067099003)(22082099003)(18002099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	Ohth/46KQAy3FpwxUp8/ZG0G9UEHHut1FXY65k91fVv2XNXUfmmU2+tDY2E6mD8BUHYJKk6HZD6HT4sHMcbpVwH6PjAhB0kLtzNZPeNyYksVAzWt/SS5swIgzWAuXSMGq4rk9pPmyHcAzXSwCcF8CkONcDatkF4Sr6mUxTaoPxZVvD4z6I0sud87BuZkBaVflsohCmGY4xkpHaFc+HXGDpsprHkUNe30Gm//E81E92QFe9/QdvP1MyZbev4v4SCiMeMRCMWu/7wrbO9RCdni05B25i/f0NOURCc26nGX141F+cb76r7Woo/PlDTZqmcTSBqPhL3ZIBbPTVT8GH6C+yDF3laut18/qncE9voRWHBVJ/E1r28rAgK51m03Ttwignr6vgCC5DOOS9dEMzusgaDx65YZ2hhCBHimzxQAorqvEy97O7K+78INWUCZyucL
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 05:54:52.7455
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 60da8636-6273-45a2-e340-08df38a5d085
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF0000A88E.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4310
 
-Kalpesh Solanki <skalpesh942@gmail.com> wrote:
-> When rtw_fw_leave_lps_check() fails, the firmware has locked up or
-> failed to exit its low power state. Currently, the driver only logs
-> 'firmware failed to leave lps state' and clears REG_TCR, leaving the
-> hardware in an unresponsive state where subsequent H2C commands fail
-> and TX traffic hangs indefinitely.
+On Mon, Nov 02, 2026 at 11:30:02AM +0800, Yi Liu wrote:
+> On 11/1/26 13:53, Baolu Lu wrote:
+> > This doesn't fix the same-domain replace issue, which can still result
+> > in a use-after-free bug. I agree that this needs a separate lifetime
+> > mechanism as stated in the cover letter. But is it possible to prevent
+> > the same-domain replace case from going through this interface?
+> 
+> fwiw, iommufd already guards this at the device-replace layer
+> (iommufd_device_do_replace() short-circuits when hwpt == old_hwpt) [1],
+> so IOMMUFD callers can't currently trigger this. But that's a caller-side
+> convention, not something
+> iommu_replace_group_handle()/iommu_replace_device_pasid() enforce themselves
+> - so it's still
+> reachable if a future/other caller doesn't do the same check. Worth
+> deciding whether to push the guard down into the core API, or document
+> it as a caller contract.
 
-After patch 1/2, does it still happen?
+I can add a fifth patch. Please see if it looks good to you.
 
-Is it helpful if you enlarge timeout time of __rtw_fw_leave_lps_check_c2h()
-or __rtw_fw_leave_lps_check_reg()?
+Subject: [PATCH] iommu: Reject a same-domain replace in the attach handle APIs
 
-or retry 3 times to leave PS with below three steps?
+Both iommu_replace_group_handle() and iommu_replace_device_pasid() skip the
+driver callback when the new domain is the one currently attached. In that
+case, nothing flushes the pending faults that may still be holding the old
+handle. Then, the caller frees the old handle once the replace returns, so
+such a fault would hit a use-after-free.
 
-	rtw_fw_leave_lps_check_prepare(rtwdev);
-	rtw_fw_set_pwr_mode(rtwdev);
-	rtw_fw_leave_lps_check(rtwdev);
+No caller does this today, since iommufd_device_do_replace() returns early
+when the new hwpt is the old one. However, it is only a caller convention,
+which neither API enforces.
 
->=20
-> Call rtw_fw_recovery() when rtw_fw_leave_lps_check() fails so the driver
-> can automatically reset the hardware and re-sync without requiring manual
-> user intervention.
+Reject a same-domain replace in both APIs with a WARN_ON, and document it
+in their kernel-docs.
 
-Is this a real case? I'd just want to confirm this is real case it can help=
-.
+Suggested-by: Lu Baolu <baolu.lu@linux.intel.com>
+Signed-off-by: Nicolin Chen <nicolinc@nvidia.com>
+---
+ drivers/iommu/iommu.c | 34 +++++++++++++++++++++++++++-------
+ 1 file changed, 27 insertions(+), 7 deletions(-)
 
->=20
-> Signed-off-by: Kalpesh Solanki <skalpesh942@gmail.com>
-> ---
->  drivers/net/wireless/realtek/rtw88/ps.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/net/wireless/realtek/rtw88/ps.c b/drivers/net/wirele=
-ss/realtek/rtw88/ps.c
-> index c6360cf..db1e9e7 100644
-> --- a/drivers/net/wireless/realtek/rtw88/ps.c
-> +++ b/drivers/net/wireless/realtek/rtw88/ps.c
-> @@ -166,6 +166,7 @@ static void rtw_fw_leave_lps_check(struct rtw_dev *rt=
-wdev)
->                 rtw_write32_clr(rtwdev, REG_TCR, BIT_PWRMGT_HWDATA_EN);
->                 rtw_warn_once(rtwdev, "firmware failed to leave lps state=
-\n");
->                 rtw_fw_dump_dbg_info(rtwdev);
-> +               rtw_fw_recovery(rtwdev);
+diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
+index 3fea48d3538ad..a9bc4ca5dbb4e 100644
+--- a/drivers/iommu/iommu.c
++++ b/drivers/iommu/iommu.c
+@@ -3716,6 +3716,10 @@ EXPORT_SYMBOL_GPL(iommu_attach_device_pasid);
+  * Caller should always provide a new handle to avoid race with the paths
+  * that have lockless reference to handle if it intends to pass a valid handle.
+  *
++ * The @domain must not be the domain currently attached to the @pasid. Such a
++ * same-domain replace would skip the driver callback flushing pending faults.
++ * Then, those faults could use the old handle after the caller frees it.
++ *
+  * Return 0 on success, or an error.
+  */
+ int iommu_replace_device_pasid(struct iommu_domain *domain,
+@@ -3785,15 +3789,17 @@ int iommu_replace_device_pasid(struct iommu_domain *domain,
+ 	}
+ 
+ 	curr_domain = pasid_array_entry_to_domain(curr);
+-	ret = 0;
+-
+-	if (curr_domain != domain) {
+-		ret = __iommu_set_group_pasid(domain, group,
+-					      pasid, curr_domain);
+-		if (ret)
+-			entry = curr; /* restore the old handle */
++	/* Same as iommu_replace_group_handle(), reject a same-domain replace */
++	if (WARN_ON(curr_domain == domain)) {
++		entry = curr; /* restore the old handle */
++		ret = -EINVAL;
++		goto out_store;
+ 	}
+ 
++	ret = __iommu_set_group_pasid(domain, group, pasid, curr_domain);
++	if (ret)
++		entry = curr; /* restore the old handle */
++
+ out_store:
+ 	/*
+ 	 * The xa_store() above reserved the memory, and the group->mutex
+@@ -3985,6 +3991,10 @@ EXPORT_SYMBOL_NS_GPL(iommu_detach_group_handle, "IOMMUFD_INTERNAL");
+  *
+  * Caller should always provide a new handle to avoid race with the paths
+  * that have lockless reference to handle.
++ *
++ * The @new_domain must not be the domain currently attached to the group. Such
++ * a same-domain replace would skip the driver callback flushing pending faults.
++ * Then, those faults could use the old handle after the caller frees it.
+  */
+ int iommu_replace_group_handle(struct iommu_group *group,
+ 			       struct iommu_domain *new_domain,
+@@ -3997,6 +4007,16 @@ int iommu_replace_group_handle(struct iommu_group *group,
+ 		return -EINVAL;
+ 
+ 	mutex_lock(&group->mutex);
++	/*
++	 * A same-domain replace would skip the driver callback flushing pending
++	 * faults. Then, those faults could use the old handle after the caller
++	 * frees it.
++	 */
++	if (WARN_ON(group->domain == new_domain)) {
++		ret = -EINVAL;
++		goto err_unlock;
++	}
++
+ 	entry = iommu_make_pasid_array_entry(new_domain, handle);
+ 	/*
+ 	 * iommu_attach_handle_get() runs without the group mutex, so unpublish
+-- 
 
-failed to apply, because rebase to rtw-next.
-
-https://github.com/pkshih/rtw.git
-
->         }
->  }
->=20
-> --
-> 2.53.0
->=20
-
+Thanks
+Nicolin
