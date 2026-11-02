@@ -1,62 +1,63 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=199.89.1.14
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655319;
-	b=uSQXEXX2kIROtZpX+NpCGUaS4RX271olHByWrR/kWl0AUDersmV5Dw5/Ur8U149nLLKb
-	 FAZ7nnk/tOO7LdvFkpdMpSQ9Umi9asOEO+e5VZwWJPIA4rG2zmJEDmjyJ/liT1w1P8Vxa
-	 RIG215SKkE8008HtPj6Z/EDB+21g2PQGQxdV/HJC64UpzgAdU9QN42x7au4HGXfXjVeYW
-	 kzINavG9uTkd13JzH4UVg3/PvFAJuHPX5UznZdTE0KBXz1J28NxUe4YHCU75vObUU2G3v
-	 JKyykq9Yv11X30QGZyqQ7Qt83MlEMoPttDTXb1Vd2YHnoqSQghzY/VKe0hsgacIH5gQ==
+	t=1793655324;
+	b=s0zeyi1oT0tSUDcvmkv6VCmKhLEWCLdMAFxPAfCgG7ZaktsUN6Oyoqq3o2luetI5taYO
+	 6Jvde1SjTSVUXlk0T64yB/cWB7+H3BxGHh9C96d3fiZaZTFCpKPk0wuOFBtv+Df5sI/xf
+	 LI5Nt1SwQV+ys7rgCKsM5lcTKiGtHRZY68hzx+776adcoag/hPg1f5mv7gXxfKQH10w1p
+	 5wZ3c/ZVNTEsvKydgT3SmSwl1fdMdXFzVAwsS9iDDtiB6MSzWiR1PKJ8sdaw1rwmhjQFY
+	 GcYYG/EE64cs1r1fLTPYBsHgQKmFgQ03SsbJfg4kTMISKq5TGJLCnMyIVb/AKaLGQlA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655319;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655324;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Virus-Scanned:Received:
-	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=rHrg5+anmjIQaSALAgMuEp0GjQCiZytjpkAAaiaAZmE=;
-	b=f+kBvmk/Zqj/94UlRZe7t3obZHR9uJM1C4oV7Y1vKSUoGqwJ5er74+qIZ855Vyqax+V0
-	 8AMjT16bR7gASguEmBvobmNu784ijgKNTg2b9CcNNkXdRatMVo3H0lyxTj4ZMNb1pujVq
-	 54GROOe4rIaae7Sz8wVBaEfe89O9FaYGxtme0LuEV7mpgzWJUF47JKpdqpiBqhesUpIbW
-	 iWNlHzagc+7QeBi0PZlqr73JBQOhF21b9LPlijAS6+tGtnAKT5R104oToKlKxnGQ1CYLs
-	 XbnecAND9KO17YZ/hBOyEv5Lb4TQzX5Qh56d2CIwJFYF08wOgbiHKDkJk4hZ0+zxhRA==
+	 Received:From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding;
+	bh=5QwQx03h+wjrVvTZTSdn9Uhg/gvtzJw9vZpNUdm3/2s=;
+	b=bNzxH5FwdzMgOY+fvMpj+qYI3ZHn2j1+GCnaptzvqO3ej7evq2jq6TpbulsT44bpOMQI
+	 PwBw0Yjm/jXSKf/00u+tGzU59V+UqhUF6s3cmZO9EdZzgvOwJ5C38KS2QycOTMKZpLuya
+	 L5cyAnmwDuHTQSyQNgIvQyjtmsNopg+6nLZKS9Iyi7naA/YQ3DLFlVliXZm1oBc/pvxJO
+	 im+GUBoPmw9wUILrLmupsywkUlzE4gj2764e5eVeXJp3S1ehJIRuE69vN16Occ8Og0jgw
+	 Ebxwzxlg4qtTfpsolIy/FyZVaVSxpDpmogGb+5lQWqR1pFzLUaVMrv83kMtsWRL4ocA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=acm.org;
 	spf=pass smtp.mailfrom=acm.org;
-	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=le49I1pv;
+	dkim=pass header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=zK0nfpaE;
 	arc=none smtp.remote-ip=199.89.1.14
 Received: from 011.lax.mailroute.net (011.lax.mailroute.net [199.89.1.14])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0954A606A32F
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:35:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 0954A606A32F
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50909606D81D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:35:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 50909606D81D
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=le49I1pv
+	dkim=pass (2048-bit key, unprotected) header.d=acm.org header.i=@acm.org header.a=rsa-sha256 header.s=mr01 header.b=zK0nfpaE
 Received: from localhost (localhost [127.0.0.1])
-	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3N2gMlz1XLktr;
-	Mon,  2 Nov 2026 21:35:12 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTP id 4jJQ3c0Zxbz1XLksb;
+	Mon,  2 Nov 2026 21:35:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
-	content-transfer-encoding:mime-version:x-mailer:message-id:date
-	:date:subject:subject:from:from:received:received; s=mr01; t=
-	1793655308; x=1796247309; bh=rHrg5+anmjIQaSALAgMuEp0GjQCiZytjpkA
-	AaiaAZmE=; b=le49I1pvJZ9f/M2rUkTzki/Gk3MrgUD9t4fKQob9r6nFg5q7c5Z
-	3fBR+5GdjcEaK3nl4ekqlZJnv7P/Vzlc+FE/c/qLYzu+Oyd8bfseBxig6ObawLoe
-	B8gj50igmF13x4yiLMaWhzxiFZyVoh4VtU2wMHP8LgbHlb4siyt12nFDEjl6M/nU
-	63450N+vz0U1LkFtXATSmLE8agJ9T33ZcnzkWkFJBf1IvKcq91jX8YmtsTCg5ULd
-	TVm1DeHY+RbcuonlOLOyeIPRYCFugEosIzq72LKeiY9u+12iDI3ZkatvAlAJoRaX
-	mlEqsMtmWE4JVzyTJFZpIDAzXLD5/0ysfGw==
+	content-transfer-encoding:mime-version:references:in-reply-to
+	:x-mailer:message-id:date:date:subject:subject:from:from
+	:received:received; s=mr01; t=1793655321; x=1796247322; bh=5QwQx
+	03h+wjrVvTZTSdn9Uhg/gvtzJw9vZpNUdm3/2s=; b=zK0nfpaEj84RO3KvSC4US
+	6jurkN0iiIPdVW5ob8ffkpASsYgjFqJmevpVCJOriPS+xODmRAjOBkNhpOSwaM+s
+	6a0BQQGE02gN6EM5vXcMWk/W1oCpZoWBEwErJ/qavtK8lCdGz06GfT44vnBoUT6j
+	BSp20BMMFFYVhymUvJ3MR9Y/X8+DSnLwjRlpQP1AAtikI3Ec2Yc8l75bqSga+zjo
+	jdwdI+gJKrIBXKeNV04JIgU3c/onOrXh/J6Jk4h8210eF1GI0BaYp+DtsQRUxZCH
+	UEq515BZEEcr6EORg20ykZk3iTLeCHJwpYSi0Y0XsR0FMAEsNhpbi0kQ+RtLmlw9
+	Q==
 X-Virus-Scanned: by MailRoute
 Received: from 011.lax.mailroute.net ([127.0.0.1])
  by localhost (011.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
- id AykSOwPuxe9a; Mon,  2 Nov 2026 21:35:08 +0000 (UTC)
+ id Tdl9OVzV7Xfx; Mon,  2 Nov 2026 21:35:21 +0000 (UTC)
 Received: from bvanassche.c.googlers.com.com (57.237.82.34.bc.googleusercontent.com [34.82.237.57])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: bvanassche@acm.org)
-	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3H5Mmgz1XLkt9;
-	Mon,  2 Nov 2026 21:35:07 +0000 (UTC)
+	by 011.lax.mailroute.net (Postfix) with ESMTPSA id 4jJQ3V6919z1XLkrq;
+	Mon,  2 Nov 2026 21:35:18 +0000 (UTC)
 From: Bart Van Assche <bvanassche@acm.org>
 To: Peter Zijlstra <peterz@infradead.org>
 Cc: Ingo Molnar <mingo@redhat.com>,
@@ -66,11 +67,16 @@ Cc: Ingo Molnar <mingo@redhat.com>,
 	linux-kernel@vger.kernel.org,
 	Marco Elver <elver@google.com>,
 	"Paul E . McKenney" <paulmck@kernel.org>,
-	Bart Van Assche <bvanassche@acm.org>
-Subject: [PATCH 00/14] Stop lockdep_assert_held*() from assuming lock ownership
-Date: Mon,  2 Nov 2026 13:34:30 -0800
-Message-ID: <cover.1793654853.git.bvanassche@acm.org>
+	Bart Van Assche <bvanassche@acm.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>
+Subject: [PATCH 03/14] tracing: Disable branch profiling for COMPILE_TEST builds
+Date: Mon,  2 Nov 2026 13:34:33 -0800
+Message-ID: <10b4ee6816847c61b4de8ba13c6b784577df9aba.1793654853.git.bvanassche@acm.org>
 X-Mailer: git-send-email 2.56.0.385.gac671c819a-goog
+In-Reply-To: <cover.1793654853.git.bvanassche@acm.org>
+References: <cover.1793654853.git.bvanassche@acm.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -82,91 +88,36 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 
-Hi Peter and Marco,
+WARN_CONTEXT_ANALYSIS depends on !TRACE_BRANCH_PROFILING because branch
+profiling instruments every if-condition and obscures control flow from
+Clang's thread-safety analyzer. Make PROFILE_ANNOTATED_BRANCHES and
+PROFILE_ALL_BRANCHES depend on !COMPILE_TEST so that allmodconfig and
+allyesconfig builds do not enable TRACE_BRANCH_PROFILING and instead
+enable WARN_CONTEXT_ANALYSIS_ALL.
 
-Since commit 7c451541743c ("lockdep: Annotate lockdep assertions for
-context analysis"), lockdep_assert_held*() and lockdep_assert_in_rcu_*()
-not only verify at runtime that a lock is held but also instruct Clang
-context analysis to assume that the lock is held. This has the following
-disadvantages:
-- These assertions silence context analysis warnings in functions that
-  lack a __must_hold*() annotation. Hence, the compiler neither reports
-  the missing function annotation nor checks at compile time whether
-  callers hold the lock.
-- lockdep_assert_held() makes context analysis assume exclusive lock
-  ownership, even if a reader-writer lock is held in shared mode.
-- lockdep_assert_held*() can only be used with lock types that are
-  defined with context_lock_struct().
+Signed-off-by: Bart Van Assche <bvanassche@acm.org>
+---
+ kernel/trace/Kconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This patch series removes the context assumptions from the lockdep and
-RCU assertion macros and introduces separate macros for code that needs
-to inform context analysis that a lock is held:
-- lockdep_assume_ctx_held() and lockdep_assume_shared_ctx_held().
-- lockdep_assume_in_rcu_read_lock(), lockdep_assume_in_rcu_read_lock_bh()=
-,
-  lockdep_assume_in_rcu_read_lock_sched() and
-  lockdep_assume_in_rcu_reader().
-Unlike the __assume_*() macros, which only inform context analysis, the
-new lockdep_assume_*() macros also verify the assumption at runtime.
-
-This patch series is organized as follows:
-- Patches 1-4 fix issues in the existing context analysis support:
-  __bitlock() operator precedence, false positives for __free() helpers,
-  enabling WARN_CONTEXT_ANALYSIS_ALL for allmodconfig and allyesconfig
-  builds, and a too strict SRCU reader requirement in
-  srcu_dereference_check().
-- Patches 5-7 add __must_hold*() annotations to functions that currently
-  rely on lockdep_assert_held() for context analysis.
-- Patch 8 introduces lockdep_assume_ctx_held() and
-  lockdep_assume_shared_ctx_held().
-- Patches 9-11 convert code that accesses locks through pointer aliases
-  or that uses __assume_ctx_lock() to lockdep_assume_ctx_held().
-- Patch 12 removes the context assumptions from lockdep_assert_held*().
-- Patches 13-14 do the same for the RCU assertions and introduce the
-  lockdep_assume_in_rcu_*() macros.
-
-Please consider this patch series for the next merge window.
-
-Thanks,
-
-Bart.
-
-Bart Van Assche (14):
-  bit_spinlock: Fix the __bitlock() definition
-  cleanup: Disable context analysis for __free() helpers
-  tracing: Disable branch profiling for COMPILE_TEST builds
-  srcu: Remove check from srcu_dereference_check()
-  futex: Annotate __attach_to_pi_owner() and fixup_pi_*owner()
-  locking/rwsem: Annotate rwsem internal functions with __must_hold()
-  nvme-fabrics: Annotate nvmf_lookup_transport() with
-    __must_hold_shared()
-  lockdep: Introduce lockdep_assume_ctx_held()
-  kfence: Use lockdep_assume_ctx_held() in kfence_report_error()
-  Bluetooth: Add lock context annotations for connection aliases
-  futex: Verify exit_mutex ownership in futex_exit_recursive()
-  lockdep: Stop lockdep_assert_held*() from assuming lock ownership
-  compiler-context-analysis: Split the RCU assertion tests
-  rcu: Introduce lockdep_assume_in_rcu_*()
-
- Documentation/dev-tools/context-analysis.rst | 20 +++--
- drivers/nvme/host/fabrics.c                  |  1 +
- include/linux/bit_spinlock.h                 |  2 +-
- include/linux/cleanup.h                      |  6 +-
- include/linux/lockdep.h                      | 77 ++++++++++++++++--
- include/linux/rcupdate.h                     | 82 +++++++++++++++++---
- include/linux/srcu.h                         | 20 +++--
- kernel/futex/core.c                          |  2 +-
- kernel/futex/futex.h                         |  3 +-
- kernel/futex/pi.c                            |  3 +
- kernel/locking/rtmutex.c                     |  7 +-
- kernel/locking/rwsem.c                       |  3 +
- kernel/trace/Kconfig                         |  3 +-
- lib/test_context-analysis.c                  | 38 +++++++--
- mm/kfence/report.c                           |  2 +-
- net/bluetooth/6lowpan.c                      |  2 +-
- net/bluetooth/iso.c                          |  8 +-
- net/bluetooth/l2cap_core.c                   | 48 ++++++------
- net/bluetooth/mgmt.c                         |  2 +-
- net/bluetooth/smp.c                          |  2 +-
- 20 files changed, 256 insertions(+), 75 deletions(-)
-
+diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
+index 35d043b19332..afbf17099a68 100644
+--- a/kernel/trace/Kconfig
++++ b/kernel/trace/Kconfig
+@@ -687,6 +687,7 @@ config BRANCH_PROFILE_NONE
+=20
+ config PROFILE_ANNOTATED_BRANCHES
+ 	bool "Trace likely/unlikely profiler"
++	depends on !COMPILE_TEST
+ 	select TRACE_BRANCH_PROFILING
+ 	help
+ 	  This tracer profiles all likely and unlikely macros
+@@ -698,7 +699,7 @@ config PROFILE_ANNOTATED_BRANCHES
+ 	  on if you need to profile the system's use of these macros.
+=20
+ config PROFILE_ALL_BRANCHES
+-	bool "Profile all if conditionals" if !FORTIFY_SOURCE
++	bool "Profile all if conditionals" if !FORTIFY_SOURCE && !COMPILE_TEST
+ 	select TRACE_BRANCH_PROFILING
+ 	help
+ 	  This tracer profiles all branch conditions. Every if ()
