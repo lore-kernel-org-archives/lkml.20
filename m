@@ -1,111 +1,52 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793615299;
-	b=Go2WQ5Mu7SyITEKW/BxOYYHW7VfglRjhwh7hpQbXuxCwgSnjKug+B3uNcLeTA+/0T5g/
-	 oIjmL46HrHfus7TQ/FvzEj7PPepkIij4X8zUDz8RnM/Nr4jMF+mKdj5wHxmCl3sOTeFx5
-	 AdPqgpm79u3XGho/b6AaiICWzGlaqDE38U2cWToOQA1UjyoFZ/+Wmj+xsfCIC/UcNdZ1k
-	 HBiLWQCGMvnYQDXLQlSeAVfcIqAugNQclSWGapDIKcUoqdFC9YTaSJWqH1eIIM0eiCN5p
-	 NJ+ZZFdZLcgEVOnt1N2/a/YvntXQaVBGucCM2UI5IjVmExHC1eI/L5fi/LcBqRnBV8g==
+	t=1793615324;
+	b=AleDLbTu4B8k8vRSJW6S+sPzqSDj/S0uwOTmflkvmsqvmskFPVs+ZXptDvXv1R5pDdNh
+	 93CuI/HDRnyZO5/I7zBJNGuc0raLVPkvkFem8AnNz6wpntOvLdcEg1WCnPlrHoRjN0QwD
+	 iGYhFHwFlYzN3nZfhHtlAfY2WKlledqaY5v9wIHCYACMl07+51eiObRZ367cD0fW+3TmL
+	 0/3efkUk45pw/hRDIIbKYJtI396mZ43bXDNVImMeBX6oWLtfD6LzorTaSfn+ewlwEFYKW
+	 hAK4SDspxCAkhlpity9ZRExzs+HR8IhWlBT5qVQXQPSs+Oz9KZ6XQccexerfLk0FEvA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793615299;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:Message-ID:
-	 Date:MIME-Version:User-Agent:Subject:To:Cc:References:
-	 Content-Language:From:In-Reply-To:Content-Type:
-	 Content-Transfer-Encoding:X-Authority-Analysis:X-Proofpoint-GUID:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:
-	 X-Proofpoint-Spam-Details-Enc:X-Proofpoint-Virus-Version:
-	 X-Proofpoint-Spam-Details;
-	bh=aeUXDPblcIqwhdqPiV3Uo8oWImfFiygj0BnOsQpFNb8=;
-	b=l1rTmNkMUzfAPNS0xAZRTpsa9pfbI1aJTRESkzch4Eji6lzMO8ZR5roR33UGpb2confc
-	 kJjzkTjTL9UCN73zIEGaGwyBGs4OPKnaOitfzwLCLBaRSXZ8z8a+NQwA3w4P6VBbN7PpR
-	 vHec485D988PD187xWMx/My2z2TJDyzhcNHl+tLgpXJrcnFfFXCtnJDuoSEa+J7nJb7u9
-	 Tb4nksHhQGd7F0Wo1DqsEBRktMjj9TNG58QxXMiCHcCRisR62+6KPGieMLs/FKEilwmxP
-	 Xxb4sjqjb2aumu/jSTxsd1VVLqhNYcL58ZZmRqV3hIYH5U4V3AqtWNuWx4IEFA4ufKQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793615324;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
+	bh=MV3whwGIKTeRrSMRHOmLjnv4u4c67+JiOel1WB4NBgY=;
+	b=gCgfIf+DxR4Edgye5vu8NORaTm806+Gk2gcGP1jidTBiT4myhDQoU/m9iOZTA6acqXEg
+	 WxDZL/FBm2PtswEw+5OmG5iwe3bwISW+WiXeDku/jeBmjFYN0gqJXd/eojLm2P1aIZCwg
+	 xvA5mdCoBhzKN9a6fW6I4XtVftfgchAN6Skz52Xm2HnwlNJMJHLs5iRrQ2yqUmPe4nikE
+	 1opwqFrKAXXiR65ktccQWwj6fIeRi7BBuDps2s8T9UdZhbwMVIboGq7TK6orXy6t1g4Y2
+	 InF1CWqFKdI/gUpqYmbUh4R8Fgntv91301KG2eauwwGdcXxE+kIqhKgMwilo4S4/v6w==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZIo1zEkC;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HaCor6Gl;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XtMqBxaK;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A03B606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:28:18 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A03B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696C9606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:28:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZIo1zEkC;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HaCor6Gl
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A29A3ju260571
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 10:28:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aeUXDPblcIqwhdqPiV3Uo8oWImfFiygj0BnOsQpFNb8=; b=ZIo1zEkCsDGNlgIY
-	e1lMX32ec6bSl3Zd6XKcPwGwHS36fI4Zu1NsHdlte7sH6f3BXJ850YLwepje7NZX
-	5aNU+NsPEwaZbsbCwrpsruzzi42oQjQsZ/5Ya4f2K4jAxcpegrLkvT3oRSfPHLrP
-	/mIp5A1TaLlTLdK1Ozdu1c5txx6oPRBRHq4EsAJu4uqwDPVXrTysAYqyZ//TTi8H
-	m1pY4ZuZL42a1ZNlGRgxgK1fAV5Sijo2WkrOJaMdyhzRJFeILd6Hd51g1AJilPyZ
-	UpYahcbEu/S4/JVUZ9q6E1ic/mafticeoYNDj6u79isqzEmiKDHyQTNk6RNBofPk
-	llbKtA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hpqmvrar3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:28:18 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93edac5877bso15185585a.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:28:18 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793615297; x=1794220097; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aeUXDPblcIqwhdqPiV3Uo8oWImfFiygj0BnOsQpFNb8=;
-        b=HaCor6GlqwnzxiG4UND7bgA2SoIAEUPJrMq8Xu362lgm8J/MlIReeooHn3AHTCcwyX
-         UC2/nyUEfPsHIcjVmNAW559WnFCdN799L41m2oHnZb3P06/lG14OgVDqXr5lEvVaCA7V
-         v+xE9opW3md8czQugfRLD6QfT/R1YnuxL80LGgfQV15vXgmm/8raSQkIvMQFkRUnNg2V
-         gXXoU1F8ZSPd0Xt8fys3GB2ZtilvAuguFxZY0cJECb8ceVhxdmqA1u4pOC8oR0S8Lw6M
-         WH41lL9mf/N54qn4uGmxJRR9jwtLRhXvI1cwaSeR9YCj1AaYPhZ19UFrdddM+BKp6bP5
-         Nq6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793615297; x=1794220097;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aeUXDPblcIqwhdqPiV3Uo8oWImfFiygj0BnOsQpFNb8=;
-        b=WNrwyFGnss2kjRzuyTM7wI23js7mKYtK5g8BY0twmz/JZry0nJw3KgMJLkjlg7VMZm
-         g+cRiYdhq11HLk2OAhgPXXqxn3x6F7ywklS/FT+ygOgY/d2WRKe2zBqlOEElA52jAM6V
-         D2fhS/cvRCx2WW5GcQgeSL6aJpds0ooIx2RJnkgQ9xuv6us5v1k0wieLHifnexJLPSHP
-         lPKvqh9D3mmWypARTHEhhLhouNQTm+HRuWurr6S5Onjg4gXftVQBx0x5WF86vhmWbrcq
-         cY2vI44uAs+OeAESjZHA/MumgRi70TDCI6/wwFgPTOW/pHHtcRfbqZMhgtov7Xmo2JRH
-         f9pg==
-X-Forwarded-Encrypted: i=1; AKwUvBwq0/+C+uNA8bDsYudvqTKBouedj0LpWG1IrugoNs74Xksdy1/k+Rb8W9JqJYeddktkq1lyZm/S9b4CX6A=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/gpatPNW5az8oNozD6aPcEEiTTjHprHavINLS2WqOrnjXn1LV
-	ev2/SJe682Vh5yyioHSJm95UP3UoWpXKJ7ac/DKYxCsJrayxUsYw9MM6tIBuIwDjGEE7LCXpKtd
-	LbYltjv4t0kqIzcvAFKpq5veYlwW49Y2GrbUsKxXfuC+32pOUhUOq5fvhMFcIFbFeVOQ=
-X-Gm-Gg: AYBFou1gon8vnKr+pe4TMFlmxR1UNtigKxCjwxli6G5RvFs4U/AUY3SJph/+MTwgT3l
-	uWbi8ytyx8wINe9zbuSjzWrA5vx+3VA0MlljHOOTJnTMoNytjQJcayMUxw6XicM6JHrB72OnK3d
-	pt9DgCJRXjHqcYstYw9wR3oR8Q5jcqQv9aj7yQS+Alxu/tW3C9xsL0viqEkYvKDssfQ42Ljk6Wf
-	H4UxBv7ToLfi94AMjXIsglxzub6HUStxSg5hZANKWvxDsSE+hAdXhPhGvCh2ZZ+EeviXiQkFQp2
-	6Byw7es3vmHca+bmTorVI0/qE9+vGQpFtLEx5cmKSrS2ehQ7P6ZF6TTUptyPMEg5TkzVCyByDb8
-	77CKxS1WLvwPOwYThvYqqKduHjbQk7O9SQ65XY4ESHs4qDria8aUIlIRYY7w6GoZbNKRWooI=
-X-Received: by 2002:a05:620a:a29b:10b0:93f:1a1a:2974 with SMTP id af79cd13be357-9442173715dmr1545380685a.6.1793615297366;
-        Mon, 02 Nov 2026 02:28:17 -0800 (PST)
-X-Received: by 2002:a05:620a:a29b:10b0:93f:1a1a:2974 with SMTP id af79cd13be357-9442173715dmr1545378385a.6.1793615296942;
-        Mon, 02 Nov 2026 02:28:16 -0800 (PST)
-Received: from [192.168.226.248] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c4cabe10055sm368851566b.43.2026.11.02.02.28.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 02 Nov 2026 02:28:16 -0800 (PST)
-Message-ID: <8f91b302-8cbe-4bf6-9558-041ac10f4696@oss.qualcomm.com>
-Date: Mon, 2 Nov 2026 11:28:13 +0100
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XtMqBxaK
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCC331F000C1;
+	Mon,  2 Nov 2026 10:28:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793615324;
+	bh=MV3whwGIKTeRrSMRHOmLjnv4u4c67+JiOel1WB4NBgY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XtMqBxaKvIGewdTAtI45J83eXsxlR44gTA+x2sUpOKIKu4K2xXdFOyCBaRQ8aYp1o
+	 Y7a4Hlv/59tacoH0ha8mF9wEj7120mxa9jVC0sRAERxQOuTRnFNVyUs+cW+BD4SGyA
+	 2kyKTYFxlefV0J1tsXZZ+pqMqr8uVDvW9ImndSFKr8sQM5hIWIkCv/7H1MHoiWgFun
+	 AGNxrB0X12nPiib1TpC5Xyf/QOR2P+2qKwNMimEPl9zaOoA2UPpvY10FcrpOeFqnSW
+	 tM1ERLSr0H+HS4ex3YtOs2Q/EmAuxUPWOJMvW4sVayyHaVHIAzFvQQsk2TmS8Z/Omn
+	 qggZQQ6//qcKw==
+Date: Mon, 2 Nov 2026 10:28:40 +0000
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: syzbot <syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-mm@kvack.org, 
+	syzkaller-bugs@googlegroups.com, "Liam R. Howlett" <liam@infradead.org>
+Subject: Re: [syzbot] [mm?] general protection fault in validate_mm (2)
+Message-ID: <auhlig-zjc4jQQuZ@gremlin>
+References: <6ae78418.6552420f.2a0efc.005c.GAE@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,59 +56,144 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] soc: qcom: smp2p: Fix use-after-free of irq domain on
- removal
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Andy Gross <agross@codeaurora.org>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        Chris Lew <chris.lew@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Cc: Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20261101202404.156522-4-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261101202404.156522-4-krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=TMDQ2Fla c=1 sm=1 tr=0 ts=6ae865c2 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=iPxsRg-7CK3qk8vLE2gA:9 a=QEXdDO2ut3YA:10 a=ZXulRonScM0A:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-GUID: A9xhBTYiTxHkH8iDqrVdGLRszJrJmHIM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfXyjMoi4D9E01/
- 43st5CHf9LzxQxS+Husws+UiiKgPt2weYBxqciXY5BbMi8nS4F0qUI4+Mqb1dhfKwtL4e/mlj/5
- UlNzINRbnnzoQIHzQuXYncEN0zJHp9I=
-X-Proofpoint-ORIG-GUID: A9xhBTYiTxHkH8iDqrVdGLRszJrJmHIM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA0MSBTYWx0ZWRfX1pUyulzHpy4v
- 9V53g644FKQTyv7reyBNA13sGno+P7YgF2k9T980rCC3pfRpUtBQJ90paicqBCqPQuR2POdKaKx
- mkJVC+4vJ7ugZULD5WkqcLmGNpZrWwvE/3YhYIzKYXzj4Uck8b9aE28c8egguiZ5Dxy9xAs19yH
- 0ynQUS6NZwZ3tM01tNoGVxTO67IbCM92At4wePILECmwR8nxlmZTTGrgibfT3IkbPFs+nPtuDFz
- 6gpW9d53/YmjYH2W9T3FFAWBQe9hgPcg4ZHTFkqqDjqxeLCW2DYC5+oU/NSMXACEBH4N1t61PF1
- Kev+Ep4+s1qvqJJv5AQN/JMLV9q0dyYeRFx2dp+CNi68jjcWJDdjA+krRj7WW2YigXTMh1sn3JS
- PzIvFXyCdm5KyRsf0SxuIqTxMTGxqekLl/WnUnbiGm8zB683dMDOBiR2f1XCiiojP6lsR/usQvP
- gOoXFkJU2a7m+teMR5A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-10-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 bulkscore=0 priorityscore=1501 adultscore=0
- phishscore=0 malwarescore=0 suspectscore=0 clxscore=1015 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020041
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6ae78418.6552420f.2a0efc.005c.GAE@google.com>
 
-On 11/1/26 9:24 PM, Krzysztof Kozlowski wrote:
-> The SMP2P interrupt is requested with devm_request_threaded_irq(), so it
-> is freed only after qcom_smp2p_remove() returns or, in the probe error
-> path, after probe returns.   Both paths, however, explicitly remove the
-> inbound irq domains, unregister outbound SMEM states and free the
-> mailbox channel before that.
++cc Liam
 
-Sashiko flags an issue with this one
+On Sun, Nov 01, 2026 at 10:25:28AM -0800, syzbot wrote:
+> Hello,
+>
+> syzbot found the following issue on:
+>
+> HEAD commit:    36aad21d50d1 Merge tag 'ksmbd-for-7.4-rc1-part2' of git://..
+> git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+> console output: https://syzkaller.appspot.com/x/log.txt?x=12b81cb1580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=bd712e5dbce1d1a0
+> dashboard link: https://syzkaller.appspot.com/bug?extid=10e72ea5747737bcd2ad
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> userspace arch: i386
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=12a58f95580000
+>
+> AI-generated root cause summary:
+> In validate_mm() (mm/vma.c), struct anon_vma *anon_vma = vma->anon_vma caches
+> the anon_vma pointer at the beginning of the VMA iteration loop. In
+> vms_complete_munmap_vmas(), mm->mmap_lock is downgraded to a read lock before
+> validate_mm() is called, allowing a concurrent page fault on another thread to
+> populate vma->anon_vma via __anon_vma_prepare(). When this race occurs,
+> vma_has_anon_rmap(vma) evaluates to true by re-reading vma->anon_vma, but
+> anon_vma_lock_read(anon_vma) is invoked with the stale NULL local variable,
+> resulting in an unhandled NULL-pointer dereference and kernel crash.
+>
+> full analysis:  https://syzkaller.appspot.com/x/ai_root_cause?x=10e72ea5747737bcd2ad
+>
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com
 
-Konrad
+This is fixed at [0].
 
+Why was no maintainer cc'd here? This is asking to be missed.
+
+[0]:https://lore.kernel.org/linux-mm/20261102-fix-validate_mm-v1-1-5c309614ef15@kernel.org/
+
+>
+> Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+> KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+> CPU: 0 UID: 0 PID: 6142 Comm: syz-executor263 Not tainted syzkaller #0 PREEMPT(full)
+> Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+> RIP: 0010:anon_vma_lock_read mm/internal.h:315 [inline]
+> RIP: 0010:validate_mm+0x3d4/0x780 mm/vma.c:707
+> Code: d2 e0 98 ff 48 89 df e8 5a 10 f1 ff c6 05 db a8 dd 0f 01 90 0f 0b 90 e9 04 fd ff ff e8 b5 e0 98 ff 48 8b 44 24 08 48 c1 e8 03 <80> 3c 28 00 0f 85 25 03 00 00 48 8b 44 24 08 4c 8d 63 30 48 8b 00
+> RSP: 0018:ffffc900040d7870 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: ffff88806b186000 RCX: 0000000000000000
+> RDX: ffff888000794b00 RSI: ffffffff8274c56b RDI: 0000000000000005
+> RBP: dffffc0000000000 R08: 0000000000000000 R09: 0000000000000001
+> R10: ffff88806b186083 R11: 0000000000000001 R12: ffff88806b186010
+> R13: ffff88806b186040 R14: 0000000000000001 R15: 000000000000003d
+> FS:  0000000000000000(0000) GS:ffff888095281000(0063) knlGS:000000005727b3c0
+> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+> CR2: 00000000f7f72000 CR3: 000000004e463000 CR4: 0000000000352ef0
+> Call Trace:
+>  <TASK>
+>  vms_complete_munmap_vmas+0x83b/0xdf0 mm/vma.c:1437
+>  do_vmi_align_munmap+0x44f/0x5f0 mm/vma.c:1677
+>  do_vmi_munmap+0x1f8/0x410 mm/vma.c:1725
+>  __vm_munmap+0x196/0x3c0 mm/vma.c:3562
+>  __do_sys_munmap mm/mmap.c:1094 [inline]
+>  __se_sys_munmap mm/mmap.c:1091 [inline]
+>  __ia32_sys_munmap+0x57/0x80 mm/mmap.c:1091
+>  do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+>  __do_fast_syscall_32+0x14b/0x8c0 arch/x86/entry/syscall_32.c:282
+>  do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:307
+>  entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+> RIP: 0023:0xf7eaafbc
+> Code: d2 74 05 c1 e8 0c 89 02 8b 5d fc 31 c0 c9 c3 90 90 90 90 90 90 90 90 90 90 90 90 90 90 90 0f 1f 00 51 52 55 89 e5 0f 34 cd 80 <5d> 5a 59 c3 90 2e 8d b4 26 00 00 00 00 8d b4 26 00 00 00 00 58 b8
+> RSP: 002b:00000000ff8ab10c EFLAGS: 00000296 ORIG_RAX: 000000000000005b
+> RAX: ffffffffffffffda RBX: 0000000020088000 RCX: 0000000000001000
+> RDX: 00000000f7f70ff4 RSI: 00000000000000fb RDI: 0000000000000040
+> RBP: 00000000ff8ab168 R08: 0000000000000000 R09: 0000000000000000
+> R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+> R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+>  </TASK>
+> Modules linked in:
+> ---[ end trace 0000000000000000 ]---
+> RIP: 0010:anon_vma_lock_read mm/internal.h:315 [inline]
+> RIP: 0010:validate_mm+0x3d4/0x780 mm/vma.c:707
+> Code: d2 e0 98 ff 48 89 df e8 5a 10 f1 ff c6 05 db a8 dd 0f 01 90 0f 0b 90 e9 04 fd ff ff e8 b5 e0 98 ff 48 8b 44 24 08 48 c1 e8 03 <80> 3c 28 00 0f 85 25 03 00 00 48 8b 44 24 08 4c 8d 63 30 48 8b 00
+> RSP: 0018:ffffc900040d7870 EFLAGS: 00010246
+> RAX: 0000000000000000 RBX: ffff88806b186000 RCX: 0000000000000000
+> RDX: ffff888000794b00 RSI: ffffffff8274c56b RDI: 0000000000000005
+> RBP: dffffc0000000000 R08: 0000000000000000 R09: 0000000000000001
+> R10: ffff88806b186083 R11: 0000000000000001 R12: ffff88806b186010
+> R13: ffff88806b186040 R14: 0000000000000001 R15: 000000000000003d
+> FS:  0000000000000000(0000) GS:ffff888095281000(0063) knlGS:000000005727b3c0
+> CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+> CR2: 00000000f7f72000 CR3: 000000004e463000 CR4: 0000000000352ef0
+> ----------------
+> Code disassembly (best guess), 4 bytes skipped:
+>    0:	48 89 df             	mov    %rbx,%rdi
+>    3:	e8 5a 10 f1 ff       	call   0xfff11062
+>    8:	c6 05 db a8 dd 0f 01 	movb   $0x1,0xfdda8db(%rip)        # 0xfdda8ea
+>    f:	90                   	nop
+>   10:	0f 0b                	ud2
+>   12:	90                   	nop
+>   13:	e9 04 fd ff ff       	jmp    0xfffffd1c
+>   18:	e8 b5 e0 98 ff       	call   0xff98e0d2
+>   1d:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+>   22:	48 c1 e8 03          	shr    $0x3,%rax
+> * 26:	80 3c 28 00          	cmpb   $0x0,(%rax,%rbp,1) <-- trapping instruction
+>   2a:	0f 85 25 03 00 00    	jne    0x355
+>   30:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+>   35:	4c 8d 63 30          	lea    0x30(%rbx),%r12
+>   39:	48 8b 00             	mov    (%rax),%rax
+>
+>
+> ---
+> This report is generated by a bot. It may contain errors.
+> See https://goo.gl/tpsmEJ for more information about syzbot.
+> syzbot engineers can be reached at syzkaller@googlegroups.com.
+>
+> syzbot will keep track of this issue. See:
+> https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+>
+> If the report is already addressed, let syzbot know by replying with:
+> #syz fix: exact-commit-title
+>
+> If you want syzbot to run the reproducer, reply with:
+> #syz test: git://repo/address.git branch-or-commit-hash
+> If you attach or paste a git patch, syzbot will apply it before testing.
+>
+> If you want to overwrite report's subsystems, reply with:
+> #syz set subsystems: new-subsystem
+> (See the list of subsystem names on the web dashboard)
+>
+> If the report is a duplicate of another one, reply with:
+> #syz dup: exact-subject-of-another-report
+>
+> If you want to undo deduplication, reply with:
+> #syz undup
+>
+
+--
+Cheers, Lorenzo
