@@ -1,100 +1,84 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.169
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793614912;
-	b=UFne+KxCog44mYLa1Cau0XA1hlMVSl97cWBqzTFfWi7C+JarQTTCSt7ojZ3f4wWHmJBM
-	 ztvp8RFtIlYWGUa91rgwq9xDPRIp54AmiWcWVDKXAaDoWWsUIwrMsuwRlhgHtUhiXpmmc
-	 wrbt/sAjA0pc93Gt8qHFE5+BLJe4djESllakVFdFdB91cZK7OzOkoerX2CY37lBNBDhN3
-	 cyHHepxi0BcRE0YhGQMdu2jx+geHd7kqE6oEV3GvWx62ENqy662FoOo5SrosXvEsneJ10
-	 aKoS4NJPZMkMd7YAY+NxHUOp8QsVXRqaxxI1XgTNxru2WJ/yyNr87A5rqmkOwABqjhQ==
+	t=1793614929;
+	b=KF8qcnZKx51sqxdB2kO13krbyMgpsQspbTYhjQzAMk4iN1ByL7PGkb28VfMvhbWW9CT1
+	 lxv9se1SKnjyoc8pmQnBYuQNMg5t8YAPq5smBiZ3ouxGojHH9tPL+rkEFritfUHU//81t
+	 pfRuxA2lpheDWWothwkHeFMVJImzCFG3YupQltiwCCcFaGN4ZIFhtGn1pLtVsFORjJzGw
+	 Zq0LoWAT4CMBfDUqrxVVdru8h0/ps3iHChOJMwGhVu4rMKMJNwIIk956BaBkXpPoW5HE/
+	 GRMypl+pe19vOsReLx/Zu3bJ1IFB028Sk3pRnUJYO+pLprHK01krN4jQhNXBOQ7nr2w==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793614912;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=GhU8Q/cJJy3w4lZ9hTju38RhWn1kSAjmp6gv5uLdV8s=;
-	b=hOvSmJ26vJQlkzZXI/d+dpWAdmVtSBuMoKlZtlChkBnPFT4txyEvFo5rv6YUZNhlLtgW
-	 k3KLJRk3PpiMv+w4+kS+WKHvW05BoeLjrkZt+FoLM2/Go79lFvm7Beo5N7g+2WOPBkaw1
-	 H5osQ3XW2/E1SbkZggulsJ4svRWK5lF6wtKKPk0zy0ZxMxFSUpS9XrX8/MVPje2BYMqWa
-	 m3BTKK5DE1LzMENtaaALnYo8DMK0yaPeAO5pqsaLnqjol8QzXLEwekAxFbA9GWapmUBBH
-	 KTGOflGDcnLnl+8JMII+nCEMDucjFVIUoRqhKypudMq+zCcFjIAdR7PoygN+kPzW7JA==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793614929;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 In-Reply-To:References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5o6UruOZi6/zwSOG7+kN/pu78Fz18zbslujdUGXifOY=;
+	b=y1hkOziTnBYr+uWRlJDVV2VOB0f+npFFcPIeUBiN8teqDaXeltqe6U1da/rwMDHqu/LR
+	 yvA1yu56Opfv66Ocroj4s1kxQHnL0ysXExBMuI5gAgzmTCuXR8UNGE10ZwyBaiIyNGcOV
+	 MO0O7OuhAhUU9fNytx8SW+ZcgWgEo+QxWTntj1JZmsFZLHN+5p5f/GaqDwhIVTzYMoWof
+	 lsMld2PWLDYrLOHQ7mq2SoL1gRseER5aXoqG8S6qg9+GMj8d1E2ZKAe68c+4F3AYMQ8lR
+	 d4H7sNJDg4u+mE/BctWa8CPWFlEB8+5W9kkQusuIpbrHntRFoCtdJv+7v6DbWTjWCWg==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g5tahd3S;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=209.85.167.169
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwrQRzgc;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 102B5606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 10:21:51 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 102B5606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26878606A324;
+	Mon,  2 Nov 2026 10:22:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g5tahd3S
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4af173320f9so2508394b6e.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 02:21:51 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793614911; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HaigwVWsZRAPhmxbOPwnPzyAXLv7JkoFxbI21mM39qxrxEoj6Upg8XquaXsmyecJko
-         hPXhlBQqYzgqBfRvqMPL+jmVgrF6OiRrRSVH+5YBZ9R0tsqrCgzY2JiE4bHuT7qsK9Eh
-         XuYkqTc8IYWh/9ajD9csWiVeyi1JIZncaRPMS0kHm7aO2yJoT9Eg6ZPUl0aXAJYnDfcu
-         7USPpflmOmAjXEVMxJ40jpH1gJgTBPGO1VMULD7I+gc0GlAaFyVNMOdsbqxY+/tx98k7
-         Vi6zD31dCSUd3+l1YaVDvNk2+lKN9sGuFOa07fjLFaLrPiIkGV106fbpNTEVpBT9eE54
-         ieGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=GhU8Q/cJJy3w4lZ9hTju38RhWn1kSAjmp6gv5uLdV8s=;
-        fh=UVVbBLJs03i2ziRL1qWIfjLvzYGYrdIc+HCn/ePvu+8=;
-        b=nMrM6kMKFqY7FdwQ4QUa25Mjpds1K81X+8jhwEEGRjTMND+H0rS3F8rCI5+kiReX6F
-         3AUsyYBkPfVwLOTaD/xBSCl28Q5MLiFn8HXu5LLnbiI2zCRGYqmzjnNmnaUqunWSZ0qP
-         amM+dC8Uem6qH9BW7+sIzbIMLm5Clvn0Vr/cj4f9yoQFPnVrHp7POXMzvmhBEmYGt6T/
-         Jo0NnpXNWmpKB31lKoIQACmB4HNs7yTpOrHtDTW4H4qHKPLz+JVG8We4tOIn3yrsOhiz
-         oFFB3Ydh1E9v6fbdvRgO3aHdPQJVoYnHs5jO8s0uLfReWeRjM8/NGFY4u4WXouVneR3J
-         vvbw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793614911; x=1794219711; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GhU8Q/cJJy3w4lZ9hTju38RhWn1kSAjmp6gv5uLdV8s=;
-        b=g5tahd3SaKufBJ9hYRm4rEHjocfqSdsJCaWCYRGdcbhLM1GQuP6CIO70pzFRIZ8NyN
-         IAONu6afkjQeR6S011BPEA5bga+ooXeyCBu7jOK54b0k9ehP/VXiPBevGI13n0NHPpE7
-         AWBi54PjjVsU6jAS/xzbO8ANcerNTLEx11hIIhh6ktN6wlKVXvAJ/Ye3zmqkHtiwv01U
-         BDx0QF3AEZUuvAnSrguzJJWXuUstoIGiCyN9i4eVggan40sz+PWjLxgGYTURMsywIZIU
-         iIj2oCr2aMejGpgP2rVnlNa7yltDYijV1RNNdAy0yIWkd3RdmeCrHDxwqsR1TJYplrGh
-         8sXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793614911; x=1794219711;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GhU8Q/cJJy3w4lZ9hTju38RhWn1kSAjmp6gv5uLdV8s=;
-        b=cW99F7bv2z7Fx4iI207jcoB11qjkn2cU246KniBIzV/QvdKWiZitLpWT1wp+PNBomG
-         sZ3nxkzfSj2mOZMAN4yc44OCV22FLAvrCotlZIzXhmpOiWSq4QR2AFtSrqTUPyMQBUN8
-         pdUz0umvHWszoS+IgZ7fh8JuCbG/rQDK2LP0WvpYA3NPvXO6Kf50aUyOsbEaGJdFkRHT
-         lxLGtUE5S1Qu86ALlR4GPw4WCGrmKfXOtiklhkKzKK+yL8me6pf8Ma9rzD4SjPcuXc3E
-         bpXYzd0Vl7OOZVdbNg6P456qA/igivpEQa6ca+rgcNrqP1cqPdIpsIezodjpZ+mMpzG9
-         +40w==
-X-Forwarded-Encrypted: i=1; AKwUvBxiGaX0jqTIguhUCjPBFYBB+OJ2rq0sZD/Juq9Jsv5hp5jFXJ2omeqf5Od8msyRPKXVFoqiMGiu1XyOIT0=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJNyXypyyyJ5faqYZ0roSRb45p+3rFEAEqdFhuQBVWwGpeXxESz
-	Y1y9y8BYuPlvFBkqgR9pJkbmdBGLQLELxhWoNXPUnoUplm9MEoJ4qFX7WEbm6NUdWoZCPSRN323
-	Xbe5Lld7v8JlC/FwHJzvtT99EZNCtqA8=
-X-Gm-Gg: AYBFou3L79wyVvHdUxMzR/1z9lUxsKTfk41W3Ff31V9VFUv04dhK+7aj1EnfTIYV9qU
-	8lw6gxUBvZnWe+JorcSR2qa9abITPHfbpFSiCQqVKZ0856RSSWJl9i9jM3FLg85WQQNo/0Au+oA
-	1+LRh/ftTyL/Hgk+947zj7vKmTmo9Ee6FiI7Oum9/uUH8lzEKQBeF8ECO2MyiCzAmmjuqBYkAm3
-	hfVlGiiP4n/1frTnTNZcFHb7h0jOrNfsdZQa+o60BJiumAj6JaeOXRsPgDZFQOq2S4h+dcLvQSH
-	/WKw01yM4Ze/rPEJeNENRk5SIwSVPHPxztIX0gN/uAsnq5ODYJB9YNHxPVEM6dy583s681ikyaC
-	rGzbdBw/WcsHl+98bzaCd/d+o1f4FoE8qYxuj/jJQknK37TRKe97iwRtLFBTULp89mV3xGSr7
-X-Received: by 2002:a05:6808:1997:b0:4d5:295c:a82c with SMTP id
- 5614622812f47-5640df07875mr7051521b6e.57.1793614910826; Mon, 02 Nov 2026
- 02:21:50 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VwrQRzgc
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=90.182.112.124
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793614928;
+	b=wOBmZY43CPVAQygICy7oTYhHzf2IQLFSdjE1FSQh81gA0xTCD5Fk7G4XuHWWmsKk2kKH
+	 XQ1sLEQPLn+AOQVnU+ROWApdvislROmLge0Z2FToZ4DdXIlb0lJyCi5tkMJgHilK61OeA
+	 qqQakpy/epth8sBy6pcbYJXq3N5XO5Tn7Q6i2LqbAdiQFrLSobd4AR2FD3WoQlMusJY2o
+	 6m0UUBwxNJBXioA2ONbLkgF6ffBPvlG3ecFedg+NdABXOtYwQSYpkXxmF50x5nDN5h96+
+	 lCTq28QGgOWVsiUPYeP2GaisAepqimGZKh/HcbNmZHR5SDW3aKbwBfvhJfEkVFMhF7Q==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793614928;
+	h=DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:In-Reply-To:
+	 References:X-Mailer:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=5o6UruOZi6/zwSOG7+kN/pu78Fz18zbslujdUGXifOY=;
+	b=i6JQWJq+9EnCooPjZj1KJKSenfFVs+P94E6yrIFyF5thrLyxMbw50+XiIZ2b2ygTxPYA
+	 8EsYs8hjRqNrI6OZN7DZIZQ1SNBsIpeEAuT6DoTxgKXC8vu9IpTsZQcpGMXuz18P/bzyM
+	 6YrfX3fSjZV1vv5/2vEMdClZbkQ+Bs9N3vi8YiKWi5gtW3/uUqLcSsDJ3dNCYF5Q66CJb
+	 xRNe10CIU17GUQ0eSck/dhS14IEJQIl1J0u0itLQeu7Wb8Ue8pmDBjJxe+7h6cf6weHlX
+	 rbqJsZ8K4rwE2UfRiKB/bWDV88DThh7jzYs3Ce175ahvhNGIKwm9CeYA8e/UCxbQ7ag==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=90.182.112.124
+Received: from localhost (90-182-112-124.rcp.o2.cz [90.182.112.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by smtp.kernel.org (Postfix) with ESMTPSA id 6473C1F000C1;
+	Mon,  2 Nov 2026 10:22:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793614928;
+	bh=5o6UruOZi6/zwSOG7+kN/pu78Fz18zbslujdUGXifOY=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VwrQRzgc2/EicJNoh/OdDlV6W6TxajFnjHE9d1c9n/nm82sHYaTyZLDUs5LR1KyXo
+	 totytH+jZ5qIf/vnnzDUId5cFiwF9PF5h7KNs4Z8lSbz6gNunNPQZpwbEIsizGpwAu
+	 EgN990jEg5wLQErUZqBPn9BD385oy4/tv53wrnlCFR+WSsxdYVGxL1Rlc4IQ9Ja0r1
+	 iXN3FUDO27qGhLAJVSynH/AYq8EHbLw0AYEI+wvKXU7TVzdBg1FlNj/Ue9OsPft0Bm
+	 S94MrND8OFDjcyDv0dqh5P+gevGO7uQeam/qud6+sCsa762x/0v4pvgSt8ZzwmXCA8
+	 wowXEBvewqmwA==
+Date: Mon, 2 Nov 2026 11:21:59 +0100
+From: Joshua Crofts <crofts@kernel.org>
+To: Jaakko Koivisto <jmatko@utu.fi>
+Cc: Andreas Klinger <ak@it-klinger.de>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ <linux-iio@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 4/5] iio: chemical: sgp40: Implement
+ execute_self_test-command
+Message-ID: <20261102112159.00006ca4@kernel.org>
+In-Reply-To: <20261102091258.247402-5-jmatko@utu.fi>
+References: <20261102091258.247402-1-jmatko@utu.fi>
+	<20261102091258.247402-5-jmatko@utu.fi>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -104,43 +88,32 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261102101334.3525485-1-mmyangfl@gmail.com> <179361478774.3286.6135052914469846414@kernel.org>
-In-Reply-To: <179361478774.3286.6135052914469846414@kernel.org>
-From: David Yang <mmyangfl@gmail.com>
-Date: Mon, 2 Nov 2026 18:21:13 +0800
-X-Gm-Features: AclHuK9EuNRiZdYeao8ildznh5zwU0e3Sd13NbnRuHgwGqK6ee6U4mqlc5fMaGo
-Message-ID: <CAAXyoMOTcNS7p9rxH7cLTDJ3Ar_Z44zQTJ3Wp+FGiEBT2ZhhMg@mail.gmail.com>
-Subject: Re: [PATCH net] net: dsa: motorcomm: Do not publish partial MIB sample
-To: netdev-bot+sinfo@kernel.org
-Cc: netdev@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
-	Vladimir Oltean <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 2, 2026 at 6:19=E2=80=AFPM <netdev-bot+sinfo@kernel.org> wrote:
->
-> Hi!
->
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
->
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
->
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
->
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
->
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+On Mon, 2 Nov 2026 11:12:57 +0200
+Jaakko Koivisto <jmatko@utu.fi> wrote:
 
-Reported by sashiko
+...
+
+>  static const struct iio_chan_spec sgp40_channels[] = {
+>  	{
+>  		.type = IIO_CONCENTRATION,
+> @@ -209,6 +222,47 @@ static int sgp40_get_serial_number(struct sgp40_data *data, u64 *serial_number)
+>  	return 0;
+>  }
+>  
+> +static int sgp40_execute_self_test(struct sgp40_data *data)
+> +{
+> +	int ret;
+> +	struct i2c_client *client = data->client;
+> +	struct sgp40_tg_measure run_test = { .command = {0x28, 0x0E} };
+> +	struct sgp40_self_test_result res;
+
+Reverse xmas tree.
+
+Otherwise LGTM.
+
+-- 
+Kind regards,
+Joshua Crofts
