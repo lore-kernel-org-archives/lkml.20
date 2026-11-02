@@ -1,74 +1,74 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.214.200
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793633834;
-	b=durONNf5X7EsbGiS5gl9sOqhgjDDjAgWKOtL2djwzzb9igiYF4nsb1ZLiRrA48Pef/ib
-	 rCodbUROvhKJWVZHEuueRW0KMyqXHCrP0xveefRiqmzep62DAcxs+ZlUjHaX5xI4wmqcf
-	 UPNu4IvX+n2BR0FZAQzPpOSLNQ2l4w09iHND9D+7O43+zQo71gujVlGYnl1Gp5B9qz1C5
-	 KflUWNfwUyet8DHgT/4WdZ/Xkm4PBOLk1fvp+1ixyXljX9HvTuWAIyFawj2eszQ5P9RLh
-	 S79m2YdcCqpnRs6saCK+XCNe13j/GrKHmKtJRimuDlmxIoYnNKCqsEm61y9PGq/GjaA==
+	t=1793633830;
+	b=TV1VT4YPgkqJD/MhaI3Wmz3IOOBQnbm6UnC8mQJK7h6onKo8AysJMw3wPNtEr52wjw+E
+	 HSCGO9mfGkXNj4ZqoGpJyy5XXGJyOQuoyEUX6bJSpiR+rzOs/Qg9eUpIuPp3P6EVclsBO
+	 JxxV5Iji6/X27QzPInrnjt1NJsfIp+85NXYKHFcKq0+fCozpqqr1wn+5OoxUkmF84jVyJ
+	 /+Lz1V2U5Z8/P1SQRXelokhPlJ4N2PVPnuxrPrHOt6pi6dhCE60Q8C4HpL2w7kKJNMgf+
+	 IGiLygPVlz0BMvBbrigGBlRdlpiWS5svNw4VcsSiew8AUMZlJaeP/PnJ/ldumhLa8jA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793633834;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793633830;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
 	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
 	 Content-Type;
-	bh=Vbe7YkQSNXb/9uNAV7c/nc8RXxVT9Eq1KsmaqI9CwRI=;
-	b=1n4+IrK4ihHfJ0ng4PvLqx0X3KzOALpTGO/PDJWndntuvuwM0oIiIMjNzD4NPaaSlF7x
-	 +0WaA9SPOctFfQujb1yraPG2aG04zC2CEzwCyk94F8kChoZ1pTjo2AK3fZZlwuzPX36oL
-	 ZENNcTBraWcY2zRuLrrezkFMRrxGM0eVyQwHx4ToQTJBIkcz4oFu9yfDQozXyaz2Id8NO
-	 iK1Kjx7Jf+ZJQYGVLITKmEYiYblsO4/oTBPCVZn5HuO77+daCIw68Iz2FjQiH91lC/FW2
-	 SZ4k2Ebb+BRDrawNV5LxEWj5GXhNGUZ2b5wxlvusarMbP5X17v4QWFXr9FiKVfMBy9g==
+	bh=uG7rE7VtaZNVuMuLVIq/vVqSMDnx3FJ/eSjGr3CevQ8=;
+	b=aMhJmIYesX2vVufaFDK9hIdX5WdyytW6NtO1y58aSH5ojJe76NV7b6NAfJDmpsFxlX7p
+	 BmrThgb4arFbYO4+mn9soARRI8tk95WeluReTDihxiGEiIRGFsO/eupHvduXpWmOn9QRa
+	 YDZdfb7zlTC0o8OcelQS7kgaIrsJoxjqUEV0/gHe9/G7VkMUJpm/NAB8S4gXMvABgnZUU
+	 Xkgh8ptW041fhw8Xx7aLh9mpdkb7UnQZ7M3J4MEFFqvYDDGv61NN5GknjMNiefq6KM3mX
+	 m2xcroB6vz1pwFVcGBeDP7ui8iiQSXGTXguzApMGSZ88f1IOo0y+/QqrDAoTsdzuOdQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=google.com;
 	spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k0paF0+c;
-	arc=none smtp.remote-ip=209.85.214.199
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MTy0uESg;
+	arc=none smtp.remote-ip=209.85.214.200
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8491560E6E72
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:14 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8491560E6E72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6205960E500A
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:37:09 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6205960E500A
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--vipinsh.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=k0paF0+c
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2eb1f470a57so20749995ad.2
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:14 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=MTy0uESg
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2e93f67358eso35402075ad.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:37:09 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793633834; x=1794238634; darn=vger.kernel.org;
+        d=google.com; s=20260707; t=1793633829; x=1794238629; darn=vger.kernel.org;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Vbe7YkQSNXb/9uNAV7c/nc8RXxVT9Eq1KsmaqI9CwRI=;
-        b=k0paF0+cl+3NAGxfv2D2u6PAY7A3D8a18oP0uo5sPXaPtHYej2ZlcbpfmYBoqpvQ6Z
-         7vDCFiGZNWFtaup5nJyv+/piQjj5owz4xEnarcnvMVM0i85KYumxwHwEuJWIGDBHH2Q8
-         2vAMoBAoZLhxeKU14m8aHP4yqxI5YOAhskt7j9AzhpOkK43GLGdn3gRfWu4L0VIVRZ5D
-         XUaftghRLi2QstlCQULJKpMN0NU24MDNcRLB6MQZwPp8fNwrCpdjG1XoI/Bxv4hOxEkY
-         K0fKAXgyI+L695ITCy26rLR8QewAykRHDpFJrzq7W+v29al1Xx8PGx7+1reSJg0un0si
-         EoCA==
+        bh=uG7rE7VtaZNVuMuLVIq/vVqSMDnx3FJ/eSjGr3CevQ8=;
+        b=MTy0uESgncAZlH0iQMNHpU8jn/jckpkeRnSFlvH0xJzADMfZeqG2eqDZjLvSoeuQEo
+         9aDvj0zLbYP55mxDEfLXUPmurTYimTNHHAA+HAiAtohQvne6lmaJV1hIKdIhEUKp2v5o
+         +FXoYxwqn+R8bnwHePVYqaUT+xMEmEfBTJ8Or6T+AovH2c0EKY4kaGdVClhC4FQQL9It
+         2LQy4c98Ge39Fa/9YMLUzbEQsW6gkCxJP/D7HdYaz0PI467Od/mHZECDLdyRDUYtMQGl
+         S82hmym/DxYo5znL5qBXXIhpIeJmE0Qgzgu8+SMkgEJeKvp6Cr0TuY3X9imoJfgZyEi1
+         SvlQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793633834; x=1794238634;
+        d=1e100.net; s=20260707; t=1793633829; x=1794238629;
         h=content-type:cc:to:from:subject:message-id:references:mime-version
          :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Vbe7YkQSNXb/9uNAV7c/nc8RXxVT9Eq1KsmaqI9CwRI=;
-        b=wcfo8MlCrYHpoBGlROdM37nrUaEie4FWmCBZ6uE7Vmf8VfR/14DQa+qVzxbxRAVQts
-         QDvOQLeguQjeBe5eKAAYxMmDPyjzmHgGtoYySu0gUBx95UclzQfm7m8Wf9LTHNB/34Ml
-         x5Reon+YhCcxxJ5SevGVrRwxWsl1EOIuAuwyr0OgJALVfY5CwGuW7gdjfOrgH1md8Fc4
-         6HyFtJW1sa+eh19qFqeOSqUkTOfHuX5ZLhRxl2sAQDeivZuAN2CjHNVZoATN6+kPw6XI
-         P9NVghS1s/PGPI4q6BFXaQz1Qc2TmVvqB7usDv3BBE5CKYxh+vbFSObkd3lmUhHwli0s
-         WAlQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz0LrOiIER0H/9TbhcoSwfT5aOh+bvslp+Vg49eOFFUYXOTkCzweRtqwBltyvArI7lZGY/DjuZUW65z5DM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z/9mxmoj/9MHxDIe9k03yAIqWJ0NU392Wnsvkk5c5mSftq1DieS
-	088C9UrKI7Lc9vnUuUAMwm7XowY/nvKUDLjmhkHAUp6aGeV0Sfb5+G7X7f99yKBFn98f0jY+P9Z
-	AtB+eDPM3HA==
-X-Received: from plkg13.prod.google.com ([2002:a17:903:19cd:b0:2e8:1f84:7c18])
- (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:da8c:b0:2e9:4bf3:37a1
- with SMTP id d9443c01a7336-2eb36506822mr91361225ad.63.1793633833691; Mon, 02
- Nov 2026 07:37:13 -0800 (PST)
-Date: Mon,  2 Nov 2026 07:36:42 -0800
+        bh=uG7rE7VtaZNVuMuLVIq/vVqSMDnx3FJ/eSjGr3CevQ8=;
+        b=P/1/+MGorsUeDto4hJZEZLzZHfiN1IHeLwigHoI0yiOT71n9uw0HWzYP6HLiCMgVFo
+         dcbwutvBIOtYBbGpzpDGZihCUr5Ol8vM0Mr7yQ8mBCGto3YPf7yFtBqhvvgZqAj0aXFl
+         ryRgs3Qb+s+Wndc8LP0MgVLXEReaddlK4PQ4X15fvNTA85BlfyQ5XViRiGYjbsXu65jm
+         U4qzRTEC2zQtHRHdiv+JiEFXw6OfuqWnXE3Gvm1qH6CmucSrKm05aiuDe9PNokbVwIQ9
+         Na/Z/K1Wl7tNBlm499aKdQSlMMBGVU1pM4SwGUduRrHMqw1lkvG/KmOsb4DGyNJ1OPkY
+         6tPg==
+X-Forwarded-Encrypted: i=1; AKwUvBwA2KlZrx93K8Wykruj1zzjJM5rP84ZcBRDchfwL1z8qB1atyDMoSJx4ZJLFoqfh8x8MK7/kdWEbSt9gas=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8rt9zeFmocbBz+N76JVEcDdNWD8gwB9g/4jH+2y4BVFdUre4dA
+	Q+D/y2yiPNK71nRhjY1lj74Mkxl8DU6UHyFxdKPPC1ggN1y0Q+wPAoLZeqMklJ9atKTp93RW/Qz
+	lt58wGqFV6g==
+X-Received: from plct12.prod.google.com ([2002:a17:902:d28c:b0:2e5:712c:5c7])
+ (user=vipinsh job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:ea02:b0:2e9:2a1a:8b69
+ with SMTP id d9443c01a7336-2eb364f1986mr88587545ad.55.1793633828399; Mon, 02
+ Nov 2026 07:37:08 -0800 (PST)
+Date: Mon,  2 Nov 2026 07:36:37 -0800
 In-Reply-To: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
@@ -81,9 +81,8 @@ Precedence: list
 Mime-Version: 1.0
 References: <20261102153656.1431701-1-vipinsh@google.com>
 X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
-Message-ID: <20261102153656.1431701-14-vipinsh@google.com>
-Subject: [PATCH v6 13/27] vfio/pci: Protect incoming preserved devices until
- they finish Live Update
+Message-ID: <20261102153656.1431701-9-vipinsh@google.com>
+Subject: [PATCH v6 08/27] vfio: Introduce vfio_find_device() helper
 From: Vipin Sharma <vipinsh@google.com>
 To: kexec@lists.infradead.org, linux-kernel@vger.kernel.org, 
 	linux-doc@vger.kernel.org, kvm@vger.kernel.org, linux-mm@kvack.org, 
@@ -103,266 +102,138 @@ Cc: ajayachandra@nvidia.com, alex@shazbot.org, amastro@fb.com,
 	yanjun.zhu@linux.dev, yi.l.liu@intel.com
 Content-Type: text/plain; charset="UTF-8"
 
-Protect incoming preserved devices that were kept running across kexec
-from being disturbed before userspace either claims them or finishes the
-Live Update session:
+Introduce vfio_find_device() to discover a registered vfio_device from
+vfio_device_class matching user-provided criteria.
 
- * Runtime PM idle D3: In vfio_pci_init_dev(), when
-   pci_liveupdate_is_incoming(pdev) is true, latch
-   vdev->disable_idle_d3 = true and vdev->liveupdate_kept_running = true.
-   Without this, vfio_pci_core_register_device() drops the runtime PM
-   reference and allows the PCI runtime PM core to transition an idle
-   incoming device into D3hot, stopping bus mastering and potentially
-   triggering an internal reset on NoSoftRst- devices.
+To ensure safe lifecycle handling, vfio_find_device() acquires a
+registration reference (device->refcount) via
+vfio_device_try_get_registration() rather than relying solely on
+device.kref taken in class_find_device(). Holding only kref allows
+vendor modules to unload while external callers hold device pointers,
+leading to a kernel panic on release. Callers must release the device
+via vfio_device_put_registration().
 
- * Non-noiommu boot fallback: In vfio_pci_core_register_device(), after
-   vfio_register_group_dev() determines whether the device is in noiommu
-   mode, if an incoming kept-running device is not in noiommu mode in
-   this kernel, log a pci_warn(), clear PCI_COMMAND_MASTER immediately to
-   stop untranslated DMA, and record liveupdate_stopped_early so
-   finish() resets it without printing a duplicate warning.
+Additionally, move refcount_set() prior to vfio_device_add() in
+__vfio_register_dev() so device->refcount is initialized before the
+device is published to class lookups, avoiding registration data races.
 
- * Bus/slot reset guards: Refuse vfio_pci_dev_set_needs_reset() and
-   vfio_pci_dev_set_hot_reset() (-EBUSY) while any device in the dev_set
-   has liveupdate_kept_running set, preventing another device in the same
-   dev_set from resetting an unclaimed kept-running device. When an
-   unclaimed device finishes Live Update and no device in its dev_set is
-   open, invoke vfio_pci_dev_set_try_reset() after clearing
-   liveupdate_kept_running so devices without function-level reset still
-   receive a bus/slot reset.
-
- * Unbind before finish: In vfio_pci_core_unregister_device(), if a
-   still-unclaimed incoming device is unbound from vfio-pci before the
-   session finishes (or if a concurrent finish() deferred its function
-   reset via liveupdate_reset_pending), clear bus mastering, reset the
-   function and restore config state via
-   vfio_pci_core_liveupdate_reset_locked() under the device lock already
-   held by remove(), and call pci_liveupdate_finish().
+On vfio_device_add() failure, the error path drops the initial
+registration reference and waits for completion to drain any reference
+taken by a concurrent lookup before returning the error to the driver.
 
 Signed-off-by: Vipin Sharma <vipinsh@google.com>
 ---
- drivers/vfio/pci/vfio_pci.c            |  1 +
- drivers/vfio/pci/vfio_pci_core.c       | 19 +++++++-
- drivers/vfio/pci/vfio_pci_liveupdate.c | 16 +++++--
- drivers/vfio/pci/vfio_pci_priv.h       | 62 ++++++++++++++++++++++++--
- include/linux/vfio_pci_core.h          |  3 +-
- 5 files changed, 91 insertions(+), 10 deletions(-)
+ drivers/vfio/vfio_main.c | 64 +++++++++++++++++++++++++++++++++++++---
+ include/linux/vfio.h     |  2 ++
+ 2 files changed, 62 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/vfio/pci/vfio_pci.c b/drivers/vfio/pci/vfio_pci.c
-index 9d48b250a5e8..d01b5cc9d4d2 100644
---- a/drivers/vfio/pci/vfio_pci.c
-+++ b/drivers/vfio/pci/vfio_pci.c
-@@ -139,6 +139,7 @@ static int vfio_pci_init_dev(struct vfio_device *core_vdev)
- 	 */
- 	vdev->nointxmask = nointxmask;
- 	vdev->disable_idle_d3 = disable_idle_d3;
-+	vfio_pci_liveupdate_init_dev(vdev);
- #ifdef CONFIG_VFIO_PCI_VGA
- 	vdev->disable_vga = disable_vga;
- #endif
-diff --git a/drivers/vfio/pci/vfio_pci_core.c b/drivers/vfio/pci/vfio_pci_core.c
-index 60ada3bbb6ff..828d620cf836 100644
---- a/drivers/vfio/pci/vfio_pci_core.c
-+++ b/drivers/vfio/pci/vfio_pci_core.c
-@@ -768,6 +768,15 @@ bool vfio_pci_core_liveupdate_reset(struct vfio_pci_core_device *vdev,
- 	vdev->reset_works = reset_works;
- 	vfio_pci_core_try_reset(vdev);
+diff --git a/drivers/vfio/vfio_main.c b/drivers/vfio/vfio_main.c
+index 291460102cd1..00b3bc0c5339 100644
+--- a/drivers/vfio/vfio_main.c
++++ b/drivers/vfio/vfio_main.c
+@@ -13,6 +13,7 @@
+ #include <linux/cdev.h>
+ #include <linux/compat.h>
+ #include <linux/device.h>
++#include <linux/device/class.h>
+ #include <linux/fs.h>
+ #include <linux/idr.h>
+ #include <linux/iommu.h>
+@@ -383,17 +384,20 @@ static int __vfio_register_dev(struct vfio_device *device,
+ 		goto err_out;
+ 	}
  
-+	/*
-+	 * Like vfio_pci_core_disable(), try a bus or slot reset for the devices
-+	 * in the set that still need one, e.g. this device if it has no usable
-+	 * function reset, or others whose reset was deferred while this device
-+	 * was kept running. This device is not open, so none in the set may be.
-+	 */
-+	if (!vfio_device_set_open_count(vdev->vdev.dev_set))
-+		vfio_pci_dev_set_try_reset(vdev->vdev.dev_set);
-+
- 	return !vdev->needs_reset;
- }
- EXPORT_SYMBOL_GPL(vfio_pci_core_liveupdate_reset);
-@@ -2399,6 +2408,8 @@ int vfio_pci_core_register_device(struct vfio_pci_core_device *vdev)
- 	if (ret)
- 		goto out_power;
+-	ret = vfio_device_add(device);
+-	if (ret)
+-		goto err_out;
+-
+ 	/* Refcounting can't start until the driver calls register */
+ 	refcount_set(&device->refcount, 1);
  
-+	vfio_pci_liveupdate_check_noiommu(vdev);
++	ret = vfio_device_add(device);
++	if (ret)
++		goto err_add;
 +
- 	vfio_pci_core_debugfs_init(vdev);
+ 	vfio_device_group_register(device);
+ 	vfio_device_debugfs_init(device);
  
  	return 0;
-@@ -2642,7 +2653,8 @@ static int vfio_pci_dev_set_hot_reset(struct vfio_device_set *dev_set,
- 	list_for_each_entry(vdev, &dev_set->device_list, vdev.dev_set_list) {
- 		bool owned;
- 
--		if (vfio_pci_dev_is_frozen(vdev)) {
-+		if (vfio_pci_dev_is_frozen(vdev) ||
-+		    vfio_pci_dev_is_kept_running(vdev)) {
- 			ret = -EBUSY;
- 			break;
- 		}
-@@ -2744,8 +2756,11 @@ static bool vfio_pci_dev_set_needs_reset(struct vfio_device_set *dev_set)
- 	if (vfio_device_set_open_count(dev_set) > 1)
- 		return false;
- 
--	list_for_each_entry(cur, &dev_set->device_list, vdev.dev_set_list)
-+	list_for_each_entry(cur, &dev_set->device_list, vdev.dev_set_list) {
-+		if (vfio_pci_dev_is_kept_running(cur))
-+			return false;
- 		needs_reset |= cur->needs_reset;
-+	}
- 	return needs_reset;
++err_add:
++	vfio_device_put_registration(device);
++	wait_for_completion(&device->comp);
+ err_out:
+ 	vfio_device_remove_group(device);
+ 	return ret;
+@@ -1845,6 +1849,58 @@ int vfio_dma_rw(struct vfio_device *device, dma_addr_t iova, void *data,
  }
+ EXPORT_SYMBOL(vfio_dma_rw);
  
-diff --git a/drivers/vfio/pci/vfio_pci_liveupdate.c b/drivers/vfio/pci/vfio_pci_liveupdate.c
-index 64810010f983..ad757acac400 100644
---- a/drivers/vfio/pci/vfio_pci_liveupdate.c
-+++ b/drivers/vfio/pci/vfio_pci_liveupdate.c
-@@ -457,7 +457,7 @@ vfio_pci_liveupdate_attach_incoming(struct vfio_pci_core_device *vdev,
- {
- 	guard(mutex)(&vdev->vdev.dev_set->lock);
- 
--	if (vdev->liveupdate_incoming || vdev->liveupdate_claimed ||
-+	if (vdev->liveupdate_incoming || !vdev->liveupdate_kept_running ||
- 	    !pci_liveupdate_is_incoming(vdev->pdev))
- 		return -EBUSY;
- 
-@@ -558,8 +558,7 @@ static void vfio_pci_liveupdate_finish_vdev(struct vfio_pci_core_device *vdev,
- 	bool was_reset;
- 
- 	scoped_guard(mutex, &vdev->vdev.dev_set->lock) {
--		if (!vdev->liveupdate_claimed &&
--		    pci_liveupdate_is_incoming(pdev)) {
-+		if (vdev->liveupdate_kept_running) {
- 			if (vdev->liveupdate_incoming) {
- 				saved_state = vdev->liveupdate_incoming->saved_state;
- 				vdev->liveupdate_incoming->saved_state = NULL;
-@@ -572,6 +571,17 @@ static void vfio_pci_liveupdate_finish_vdev(struct vfio_pci_core_device *vdev,
- 					saved_state = NULL;
- 			}
- 
-+			/*
-+			 * The device is stopped below, so stop shielding it from
-+			 * the dev_set resets, including the fallback done by
-+			 * vfio_pci_core_liveupdate_reset().
-+			 */
-+			vdev->liveupdate_kept_running = false;
++struct vfio_device_match_data {
++	const void *data;
++	device_match_t match;
++};
 +
-+			/* A device stopped early was logged when it was stopped. */
-+			if (vdev->liveupdate_stopped_early)
-+				reason = NULL;
-+
- 			/*
- 			 * An unbind of the device waits for the reference held
- 			 * by finish() with the device lock held, so the reset
-diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
-index d8670dc51bb4..39ea26402312 100644
---- a/drivers/vfio/pci/vfio_pci_priv.h
-+++ b/drivers/vfio/pci/vfio_pci_priv.h
-@@ -169,6 +169,40 @@ static inline bool vfio_pci_dev_is_frozen(struct vfio_pci_core_device *vdev)
- 	return smp_load_acquire(&vdev->liveupdate_frozen);
- }
- 
-+static inline bool vfio_pci_dev_is_kept_running(struct vfio_pci_core_device *vdev)
++static int vfio_device_match_fn(struct device *dev, const void *data)
 +{
-+	return vdev->liveupdate_kept_running;
++	struct vfio_device *vdev = container_of(dev, struct vfio_device, device);
++	const struct vfio_device_match_data *mdata = data;
++
++	if (mdata->match(dev, mdata->data)) {
++		if (vfio_device_try_get_registration(vdev))
++			return 1;
++	}
++	return 0;
 +}
 +
-+static inline void vfio_pci_liveupdate_init_dev(struct vfio_pci_core_device *vdev)
-+{
-+	struct pci_dev *pdev = to_pci_dev(vdev->vdev.dev);
-+
-+	if (pci_liveupdate_is_incoming(pdev)) {
-+		vdev->disable_idle_d3 = true;
-+		vdev->liveupdate_kept_running = true;
-+	}
-+}
-+
-+/*
-+ * Called by probe once the device is registered, with the device lock held.
-+ * retrieve() and finish() look the device up with that lock held, see
-+ * vfio_pci_liveupdate_find_probed(), so they see the result of this check.
++/**
++ * vfio_find_device - Find a registered VFIO device matching search criteria
++ * @data: Context data passed to the @match function
++ * @match: Device match callback function
++ *
++ * Finds a registered VFIO device in the vfio_device_class matching the search
++ * criteria specified by @match.
++ *
++ * On success, this function acquires a registration reference on the matched
++ * device via vfio_device_try_get_registration(). This pins the device and
++ * prevents its vendor driver module from unloading or unbinding while the
++ * reference is held.
++ *
++ * Return: Pointer to the matching vfio_device on success, or NULL if no
++ * matching device is found. The caller MUST release the acquired registration
++ * reference using vfio_device_put_registration() when finished with the device.
 + */
-+static inline void
-+vfio_pci_liveupdate_check_noiommu(struct vfio_pci_core_device *vdev)
++struct vfio_device *vfio_find_device(const void *data, device_match_t match)
 +{
-+	guard(mutex)(&vdev->vdev.dev_set->lock);
++	struct vfio_device_match_data mdata = { .data = data, .match = match };
++	struct device *device;
 +
-+	if (vdev->liveupdate_kept_running &&
-+	    !vfio_device_is_noiommu(&vdev->vdev)) {
-+		pci_warn(vdev->pdev,
-+			 "Stopping device kept running across Live Update: not in noiommu mode\n");
-+		pci_clear_master(vdev->pdev);
-+		vdev->liveupdate_stopped_early = true;
-+	}
++	device = class_find_device(&vfio_device_class, NULL, &mdata, vfio_device_match_fn);
++	if (!device)
++		return NULL;
++
++	/*
++	 * Drop standard kref reference. Caller holds reference from
++	 * vfio_device_try_get_registration().
++	 */
++	put_device(device);
++	return container_of(device, struct vfio_device, device);
 +}
++EXPORT_SYMBOL_GPL(vfio_find_device);
 +
- static inline void
- vfio_pci_liveupdate_free_incoming(struct vfio_pci_core_device *vdev)
- {
-@@ -196,7 +230,7 @@ vfio_pci_liveupdate_claim_incoming(struct vfio_pci_core_device *vdev)
- 		return;
- 
- 	vfio_pci_liveupdate_free_incoming(vdev);
--	vdev->liveupdate_claimed = true;
-+	vdev->liveupdate_kept_running = false;
+ /*
+  * Module/class support
+  */
+diff --git a/include/linux/vfio.h b/include/linux/vfio.h
+index 3cfbf1d73479..1c1e41de49b3 100644
+--- a/include/linux/vfio.h
++++ b/include/linux/vfio.h
+@@ -441,4 +441,6 @@ static inline bool vfio_file_is_bound_cdev(struct file *file)
  }
+ #endif /* IS_ENABLED(CONFIG_VFIO_DEVICE_CDEV) */
  
- static inline void
-@@ -206,11 +240,17 @@ vfio_pci_liveupdate_unregister_dev(struct vfio_pci_core_device *vdev)
- 
- 	scoped_guard(mutex, &vdev->vdev.dev_set->lock) {
- 		/*
--		 * Complete a reset that finish() could not do, see
--		 * vfio_pci_liveupdate_finish_vdev().
-+		 * Reset a device unbound before finish(), or whose reset
-+		 * finish() could not do, see vfio_pci_liveupdate_finish_vdev().
- 		 */
--		if (vdev->liveupdate_reset_pending) {
-+		if (vdev->liveupdate_kept_running ||
-+		    vdev->liveupdate_reset_pending) {
-+			if (vdev->liveupdate_kept_running &&
-+			    !vdev->liveupdate_stopped_early)
-+				pci_warn(pdev,
-+					 "Resetting device not taken over after Live Update (vfio-pci unbound)\n");
- 			vfio_pci_core_liveupdate_reset_locked(vdev);
-+			vdev->liveupdate_kept_running = false;
- 			vdev->liveupdate_reset_pending = false;
- 		}
- 		vfio_pci_liveupdate_free_incoming(vdev);
-@@ -234,6 +274,20 @@ static inline bool vfio_pci_dev_is_frozen(struct vfio_pci_core_device *vdev)
- 	return false;
- }
- 
-+static inline bool vfio_pci_dev_is_kept_running(struct vfio_pci_core_device *vdev)
-+{
-+	return false;
-+}
++struct vfio_device *vfio_find_device(const void *data, device_match_t match);
 +
-+static inline void vfio_pci_liveupdate_init_dev(struct vfio_pci_core_device *vdev)
-+{
-+}
-+
-+static inline void
-+vfio_pci_liveupdate_check_noiommu(struct vfio_pci_core_device *vdev)
-+{
-+}
-+
- static inline void
- vfio_pci_liveupdate_free_incoming(struct vfio_pci_core_device *vdev)
- {
-diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
-index f5c279d0df1e..9bdbc8099bda 100644
---- a/include/linux/vfio_pci_core.h
-+++ b/include/linux/vfio_pci_core.h
-@@ -152,7 +152,8 @@ struct vfio_pci_core_device {
- #ifdef CONFIG_VFIO_PCI_LIVEUPDATE
- 	bool			liveupdate_frozen;
- 	bool			liveupdate_intx_disabled;
--	bool			liveupdate_claimed;
-+	bool			liveupdate_kept_running;
-+	bool			liveupdate_stopped_early;
- 	bool			liveupdate_reset_pending;
- 	struct vfio_pci_liveupdate_incoming *liveupdate_incoming;
- #endif
+ #endif /* VFIO_H */
 -- 
 2.56.0.317.g454f8302e1-goog
 
