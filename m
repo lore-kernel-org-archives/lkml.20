@@ -1,63 +1,121 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793643706;
-	b=I1cRPLB/CNhgNVAf1iV9qgOfFXtSNlEArw0LD2Mn1lTB4S6YbqE3BerPDzAX3PFdJGPq
-	 kZNUTdbeAU7lpyd3AJZR9p9NQtfe6Dg213GaNexOyo+Q/qsyIl337Aop9NAdxmHFEesxb
-	 F1mA6jx6OX0GjfGHxDo/1OJLO/UepxHQBxDRHdRCl94+90/omkX5P9+/JR8fY7zASskAu
-	 KS3EnURomkI23qXO0+rvlSSkOQheiHcvkFPk+2z+z78QjPB8QEYhvFKNBQK7009IB/SmN
-	 mxlnOIJFpYvtSFXlOywN2jo+xwCNrd6cHqJIeLAaY5YJeYC7FaB0gbZfrvfxUYSe7bQ==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643706;
-	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
-	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To;
-	bh=gK9GJJKs/V4qySrVA2fuFkfXf1inzwWdahmhiWz/WSQ=;
-	b=OhixkM7sVniaoa1gVcruXyNWo2YsY5GC0FoNoTYI2Sr2JoqkGQxkVZPpOjQUxGWPdCxd
-	 kKPVYHdIhv+Ou8/ZbX4ZljcmaVn/GZFRoHg5ajW2wx6w5a9YgtabzvnUlqHA1CnuIgXrF
-	 DmxyRKWBEPyiAV2+F6m4QGbat+OWVLz12+6Tgod8EIFgn1Tdz1aY/CnzSdIvWbefkkl9P
-	 Jb08ChYE/ZHH+RZjXOje9cpGCKSGrXl7fUM8p+i4ioARbQ8PEpaltODVH2HjUaqcnAIa0
-	 yagI+CumUUxz+9Je3VFB+Wq/PCUOhtdCq3VSua3FfA9INy5v94fe2OKQK+/5gqEq+CQ==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJRgl5Uq;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793643710;
+	b=otGQb4ZRWUm9P8OWUDuMSHjnHbKrIaWCAY7vPIZZEewGYLKjyrNyGrrKHfejNxVMNKGn
+	 dm3f9hDJPmuXdpzOJeVk8SCVAiNDx02abmyFLyt33tZRXgN7MkLK/SlICuzVJVSQLhygK
+	 ZaTCvdTiOiz7aTlOy6pCVAVvZnmObERmasAd+zewK6N5DAWnnWeiOh+AvLXFxFoHwXFZ+
+	 r935dy+pCkk64Iv9NU1n5VAzl/wKFhzpQWZ2LU33ZblUO3Wzn1UV2TxSwC9ffpNWJ/LSN
+	 y+DIbqvEFCbpqV0lpdFz6gpmKMk1Gu6/GDUGvy6LbF7CbBwkWYtFKlsl+4bq5CX3zyA==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643710;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
+	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+	 Content-Transfer-Encoding;
+	bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
+	b=iZCctnJfHXJldTeZyV1SBRKuSxKS9YCA7j9BFsM8a0Q9iuV6vQxVdqYwY198IaSNrG0C
+	 sVILROuPJrQuO7g+H3VoBT+D7HFCCoiZdE7Z4TQoHeTnWiV8UEmq1NTWbrMVpt61pavkM
+	 8wyrIREw4+cPbRL9oPGEZPtAGlh0tSDJFSvgbj2oR8WK67RPzsdWaLHvTgKakfkBX/Tj3
+	 H1smLUfAKC5FA4AQ6TBOr2y7tiPUAfotN2/LxzhXzGxnzX5G8Luf8A87CotI+oX+gw5+c
+	 xSMa8D/ol/tADOQZh39RexW6JPghcprPQr1N7+oanDQKN5GNu01bephMkIXL11S9ECg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RLvyEPiI;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AdvNFd+Q;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005A6606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:21:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BE5606A331
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:21:49 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72BE5606A331
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XJRgl5Uq
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F7351F00A1A;
-	Mon,  2 Nov 2026 18:21:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793643705;
-	bh=gK9GJJKs/V4qySrVA2fuFkfXf1inzwWdahmhiWz/WSQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XJRgl5UqE3HvLu1NZODc4vBFRK4He0SctDo4orhuYZ0M0xMh/WuCPnG5rKdBZsOHQ
-	 jpQOjvEB8GlWiHe3t6/Sis9N4D2jlYa3L3f/9L5bvYIwocYHUV7ua0HNMZtQ1yPLLk
-	 STwbINqAioLEgckp9upns+IVv4mERXz88vacVUXk6YLP/J1NTLHDU6pVuuYR4sn20l
-	 aGlZsuFlxOv6mtvTSBdsBIvJiHBChkOhYIg5RuFqDEgWAjfR201UtVNXW+xvU7RWPb
-	 qEYTDPJ70JJ20Rj2F+kQZx1mFgRzVujq3tkbfWNZ4WXEKfJWv4waikM1FtXG9Z1gxX
-	 qSoTgizad5VrQ==
-Date: Mon, 2 Nov 2026 18:21:40 +0000
-From: Conor Dooley <conor@kernel.org>
-To: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Will Deacon <will@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Mark Rutland <mark.rutland@arm.com>, Gary Guo <gary@garyguo.net>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>, cfu@wavecomp.com,
-	torvalds@linux-foundation.org, olof@lixom.net,
-	aleksa.paunovic@htecgroup.com, arikalo@gmail.com,
-	Boqun Feng <boqun@kernel.org>, linux-riscv@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] riscv: accept the atomic extensions this kernel
- was built with
-Message-ID: <20261102-shredder-pauper-67ef6eaae556@spud>
-References: <20261026-lrsc-only-v3-0-ec29c8190fb1@mobileye.com>
- <20261026-lrsc-only-v3-2-ec29c8190fb1@mobileye.com>
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RLvyEPiI;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AdvNFd+Q
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793643708;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
+	b=RLvyEPiIC6XxUI62HLhY5vn8MF5RdNTuLVHcZVkETa91e8J6/3hVROK6CqioUpLQ+blE3v
+	TTaYVdhdghbP2OfYBmVye0zyuvgEyhjL/mns08jWFvfFEPWtAD+Wuhftu9pdGva/ilM90O
+	4pW+mtlXznd8dH91Z1eNwJqUcI8K6LM=
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-112-XqcthrctNte0ZzYZU6hRRQ-1; Mon, 02 Nov 2026 13:21:46 -0500
+X-MC-Unique: XqcthrctNte0ZzYZU6hRRQ-1
+X-Mimecast-MFC-AGG-ID: XqcthrctNte0ZzYZU6hRRQ_1793643706
+Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48df5b058ddso2218858f8f.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:21:46 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1793643705; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OSLWVmMdxcLOhVbOtDk1lrBDT0Clz2bFmDC4LAfC9DM/OUZV4O6SpSV1hP2dqgt/6H
+         FVxwrI8PZpSmRK2D394FF4auK6pbAntRoS8+Jv+5/0KKldzHtMZ3f3GfXf8oJh5qivFe
+         twVJbIsmtQ9Xjsdc//xc89t41WRSGdSuzHe9g990R2WwFyhf8FO4GO1HzEKQ0/VOLUKF
+         OrnG0Zgi3Q/PGW5nYySNefiDkvsGWDvUWTarseHNrqzCg8ced/Vke7rsThKth99ahv0A
+         mgE8WvKBkNGHAMGKXfiTUNf55624ZReMqhFY0Do3qpAXj+SEbBBGbgVOEMfKRfBGwQpb
+         Mcvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
+        fh=3I9eS2Vb3cjbocxoPyLBgwf7aNGUlhr7HnHu/HG2u5c=;
+        b=hKUKD9Qg1kNEKeCvJgupTxBaqoUJn9sD8QQygRWwlFcI2oLJh5tp0RdPEiMVbkZbur
+         88QL8XstnvHElQXBUYT1ch9gxUvj1pDHGCNUvltTgXihiKAQ3BSGOR7o9iEoi7USRJYC
+         2FDvO4QhQxH+M3wBTCubJXDZtqZEhhUywbue594pmgBu25z9um+XlFw8eHKr8F0LKquM
+         2HIIkxHBWGvL6dE1Hgro5NzNy3NpODZdofVEglEmhzsTtOkrTZc2OZBJYL3bmlS26rku
+         C2KNso2MRHozo+pUPCOUMzdfNH+4qcQ1hLSmrygIj+xufr9Qdd7j0NhH9lKWCS0q9eXc
+         HqaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1793643705; x=1794248505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
+        b=AdvNFd+Qp5s56ThcrRXPY51RUzsx7WTKHs1dZxlWqOvdJskt8ls5VuDJpN8MxxW4ms
+         yu9nb3NceMKlmZBWv/2nyUcPw5ROysQ3zZOEy7G2Y1qZjnIRE/Lr5lu8JtU4eAoOUQst
+         g2nGOUi3YDwAsNbrU/QkxB3hVdDkEoe0IC1D+0Q67intbztlbduUjiy4TMA4bdXd5gHI
+         eQZluXMjZgD/2X/relRb0cqd6yz286g+9998yxW7SG0iO8BbRiQ+xcH8Iy+etqLQubEj
+         UTAwchB+pnGlVOaq/d6o3nT1fHKjFImkwBxnkPADSnYjSvRnBNyOul7xcDlNOdEwlLJd
+         lz/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793643705; x=1794248505;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
+        b=uhDP8LlWZ3ghz7EERytuUzboxBAqanwUnYvKUZvFXnGa68QmoKH4TPaeb6h9Or85Rx
+         c7RyzAPE0CaZJ5rYgm4h3zEamAZdEIojQkg15j8YGnKWGsI07+oC5gNkWmn0MBIgOiZV
+         eYI9cqX3+BlkthBlnZS1ZtjNsiyo9EEnLNojhYvBCAzwja4rHchFedR9KWg56UK4WiFw
+         UANhkPjekMTUixQRELNl3n4EfVxMjh/74mySs4s5q4wZfTITuCVoTiYmN2b47xQdLLwL
+         BfqKaJOkuhY3GG1IiRds4oW8L7KSjonMYfn2L3np6kj7kv/tZngu9O5DHXM2xP7gYdrH
+         2DGA==
+X-Forwarded-Encrypted: i=1; AKwUvBxfGHid2Yjz1U1V8Uka5Aa8cSQikZMSdcwW6y1OVhGFD1tzuZHR7dcQEF4OtTGIex2OI4wSqa6PEKKrpBY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+JrQU66BRKLzwUqbZZd938V/GkWTuBDqWzGqfU1EcoqKFhA0qD
+	gUi21EKVnoEfi57LFabS1YV5mtWztS3Tte/nvwahkShevibEyqU8vS/bBIBv/42BgNeB00RHSk+
+	V9B1K2B0zmUZ3pkgDodkXW9aefo0ZwdOf733ykeMnOxgdS88vJVT/58s766Z9bP205mqDQxtb8b
+	66bDxeWn+W5rhCyo8t+BY4Ju7cuWo0tOHSij0ubO5F
+X-Gm-Gg: AYBFou0B9646I/MbPsoj1ewUiQzP2829GDHzOCScMtSCGFR9B4tyt1o8hbi+huyIKYT
+	jGAokdHZndc0UCTk6WXizoF9n8iJfKpbM+1aWArYz03F2v9Dr8f4UPZUq/TJNUijXxQtW6O5VRl
+	sLgPz3lGEY0DP91F4RyOKW4unvW6WPRntm+Lm8+5B0wJDPuqLisQJormXf6lIWIQFTCkDcTyHhc
+	hLnI9tWn1J2HIqFfkN9NzoSRsb2zSdKzmYXie3jsFkyiOcK8iA81++8qu0W
+X-Received: by 2002:a5d:64c4:0:b0:48c:6fa4:fc89 with SMTP id ffacd0b85a97d-48e6e3072d7mr26355763f8f.12.1793643705692;
+        Mon, 02 Nov 2026 10:21:45 -0800 (PST)
+X-Received: by 2002:a5d:64c4:0:b0:48c:6fa4:fc89 with SMTP id
+ ffacd0b85a97d-48e6e3072d7mr26355729f8f.12.1793643705320; Mon, 02 Nov 2026
+ 10:21:45 -0800 (PST)
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -67,94 +125,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="lEBywBTz0XLx9/RM"
-Content-Disposition: inline
-In-Reply-To: <20261026-lrsc-only-v3-2-ec29c8190fb1@mobileye.com>
-
---lEBywBTz0XLx9/RM
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261016235221.33726-2-amirmohammad.eftekhar@cispa.de>
+ <atpGGKVAL3bAnmnk@google.com> <atqdBFgoztW0nhoC@google.com>
+In-Reply-To: <atqdBFgoztW0nhoC@google.com>
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 2 Nov 2026 19:21:33 +0100
+X-Gm-Features: AclHuK-M5UTgxV4aiMUN9HCDx78On7qRFnJSTS_KiHaFMNraEqE7Xlhs5LdbZek
+Message-ID: <CABgObfb0=KB-TvSWJaerc6ZABB8-tjyxBdFwwnLNDjhPsv_27Q@mail.gmail.com>
+Subject: Re: [PATCH] KVM: nSVM: Reset the virtual VMLOAD/VMSAVE bit in vmcb02
+ on every nested VMRUN
+To: Yosry Ahmed <yosry@kernel.org>
+Cc: Sean Christopherson <seanjc@google.com>, 
+	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, kvm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 26, 2026 at 11:20:03AM +0200, Vladimir Kondratiev wrote:
-> riscv_early_of_processor_hartid() rejects a hart unless its
-> riscv,isa-extensions property contains "a". That rejects a Zalrsc-only
-> hart even when the kernel was built to use only LR/SC.
->=20
-> Require "a" or "zaamo" when the kernel emits AMO, and "a" or "zalrsc"
-> when it emits LR/SC. A normal build defines both toolchain macros and
-> still requires the full A extension. The legacy "riscv,isa" fallback
-> keeps its rv{32,64}ima check.
->=20
-> Signed-off-by: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com
+On Fri, Oct 23, 2026 at 1:45=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
+e:
+> Actually, looking at nested_vmsave_vmload_test.c, I make sure that the
+> intercepts are honored (in L1) *even* if VLS is enabled. I also *think*
+> that in that test, KVM will end up setting both the intercepts and VLS:
+> 1. nested_vmcb_needs_vls_intercept() will return false because the guest
+>    supports VLS, has NPT, and enables VLS.
+> 2. KVM still copies the intercepts from vmcb12 anyway, including VMSAVE
+>    and VMLOAD, see nested_vmcb02_recalc_intercepts(). KVM (correctly)
+>    doesn't clear VMSAVE/VMLOAD intercepts if VLS is enabled by L1 (but
+>    it does the opposite).
 >
+> So this test case passing should be confirming my allegation that
+> intercepts take precedence over VLS.
 
-IMO, this should not be a separate patch.
+Yes, absolutely. The APM is very unclear but I am pretty sure I tested
+it on bare metal too.
 
-> ---
->  arch/riscv/kernel/cpu.c | 28 ++++++++++++++++++++++++----
->  1 file changed, 24 insertions(+), 4 deletions(-)
->=20
-> diff --git a/arch/riscv/kernel/cpu.c b/arch/riscv/kernel/cpu.c
-> index 3dbc8cc557dd..5d1e39d16e59 100644
-> --- a/arch/riscv/kernel/cpu.c
-> +++ b/arch/riscv/kernel/cpu.c
-> @@ -82,12 +82,32 @@ int __init riscv_early_of_processor_hartid(struct dev=
-ice_node *node, unsigned lo
->  		return -ENODEV;
-> =20
->  	if (of_property_match_string(node, "riscv,isa-extensions", "i") < 0 ||
-> -	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0 ||
-> -	    of_property_match_string(node, "riscv,isa-extensions", "a") < 0) {
-> -		pr_warn("CPU with hartid=3D%lu does not support ima", *hart);
-> +	    of_property_match_string(node, "riscv,isa-extensions", "m") < 0) {
-> +		pr_warn("CPU with hartid=3D%lu does not support im", *hart);
->  		return -ENODEV;
->  	}
-> -
-> +#if !defined(__riscv_atomic) && !defined(__riscv_zaamo) && !defined(__ri=
-scv_zalrsc)
-> +#error "Need AMO or LR/SC atomics"
-> +#endif
-> +	/*
-> +	 * Require each atomic form this kernel emits. The single-letter
-> +	 * "a" extension satisfies either check. A Zalrsc-only build defines
-> +	 * __riscv_zalrsc and checks that extension only.
-> +	 */
-> +#if defined(__riscv_atomic) || defined(__riscv_zaamo)
-> +	if (of_property_match_string(node, "riscv,isa-extensions", "a") < 0 &&
-> +	    of_property_match_string(node, "riscv,isa-extensions", "zaamo") < 0=
-) {
-> +		pr_warn("CPU with hartid=3D%lu does not support AMO atomics", *hart);
-> +		return -ENODEV;
-> +	}
-> +#endif
-> +#if defined(__riscv_atomic) || defined(__riscv_zalrsc)
-> +	if (of_property_match_string(node, "riscv,isa-extensions", "a") < 0 &&
-> +	    of_property_match_string(node, "riscv,isa-extensions", "zalrsc") < =
-0) {
-> +		pr_warn("CPU with hartid=3D%lu does not support LR/SC atomics", *hart);
-> +		return -ENODEV;
-> +	}
-> +#endif
->  	return 0;
-> =20
->  old_interface:
->=20
-> --=20
-> 2.43.0
->=20
+The only clue is that the "attempted execution of a VMLOAD or VMSAVE
+in the guest will result in a #VMEXIT with a VMSAVE/VMLOAD exit code",
+meaning that VMSAVE/VMLOAD vmexits can still happen and - like other
+intercepts, for example IRET - the hypervisor can turn them on and off
+at will.
 
---lEBywBTz0XLx9/RM
-Content-Type: application/pgp-signature; name=signature.asc
+Paolo
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaujUtAAKCRB4tDGHoIJi
-0oR3AQDuE8SstPeiNUwkeTI7ha4bQZGhdcmd7Wg4I5JTJ+qTowEA40aLV19NLCOy
-MfKY2cbEpiLTtgUjq04Jv0U6VQb6bg4=
-=Urv+
------END PGP SIGNATURE-----
-
---lEBywBTz0XLx9/RM--
