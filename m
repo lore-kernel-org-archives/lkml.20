@@ -1,109 +1,54 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.127.231.40
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793605469;
-	b=FXkl0ME0JKkbKQpWiZYqpCCVmElh6z8o19YVnNGcTx+551uyhoCHuUpik5krJo8CTg+8
-	 kJe66pne8zTqjMBNgXZHa4WF3iTCu0VlAlHfLKiiGOqSISD+oq1fSg1LksAiTvy99M74n
-	 5MgcOvBlgtJQyI6MPRggKUm6Gor6Di1OsO/iqLJAWGtIjeziqXYXQJxbJI+uL6pj078ZX
-	 GtNjjn7Q2j3XYo/N31Xg4tNurYV2CkyjsgxuW45+TgVwKvMQgVORangMcrjd5mSh0yr4W
-	 vzH7alCDXAlNpWRw97Yh8U8kTzTmv+sUmC3jbOsQzMeUjQre5u0pCYZkRwc9sIVPW2g==
+	t=1793605473;
+	b=wMrLU2JFbiHTPc3XZ4f7noKdNYTUSzogSiL3q6E14cDmQ4YYGo6iR5xIEHl0el6u/emX
+	 123goDxPT/MjKO3RnAa0GqDbnVF76xsnJ7C8nsWKiBVAi50p7m08Z8tl1oOlBnDqjrXaz
+	 8ZqUyHaBhCFvebDUQYbuARWSTiAExbVU0XU4viQG8CpYVYQqPc8NjWKFVLGaE3s0m9Xec
+	 5x2p0rWlo7WUFyubXTyvvqkbTxP8JY9tg601+TCkFLwAvFpshZ0YB9MLbwluNv9Ez0h2W
+	 CNnmTVaPiuy9EpXmLRmsm+c7zDhk+ScIUit28ULEt+zg34076SMmjrMsvhe76GjG50w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793605469;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=tbEqoEmiOLpfQLZXaMwfuY090SS6ZvbC9oI0iDoMLRc=;
-	b=ssRaKYN0RS05/bf3Mw2YYvEsJZ8zcEi1Kf8zENVZ3xRv2W7rZtJE5keAEcCETWW2ELGH
-	 85HVtk1G5k2uUf2FmKJTovgIlH0QLLl7HFWjip86VCR0pkbI7Bquf3wcIG7yPBt+18Hrc
-	 dUbjxUYvhAzIi/GT73Bs2i6l8VgizBDUJa8YLAXpGykGvHBXKcUCyKgmtT25QQrQ0o0nv
-	 7udLooOJoy24ae4HMSD3uqR9IJtAhJjg/c+l4yaSAajget0im1ryfDrw3NLneUrxpJx8f
-	 /kcKRwSPUQubnAgB/SdUP2J6HXHE8EhWriabXScHSNLhK5XFQOyNVg5cVEsu+xyt0Og==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793605473;
+	h=DMARC-Filter:DKIM-Signature:Subject:X-Original-From:X-Mailer:
+	 Content-Type:Date:Message-Id:Mime-Version:To:Cc:
+	 Content-Transfer-Encoding:From:Received:X-Lms-Return-Path;
+	bh=Be7kBnZ2pN0tqA9jaxkboOxPRK3z4kRNDuaOawCuGhc=;
+	b=wKH7/xYi9TYsk3rLJxiOqyXROx+V3sY9mNLP12PcxlzSvjrsczo/ei7E7HTeYJHcN6sp
+	 CUvgyjGEcvndGA14aAfAuEBoGZ6UpCRL4n2P5kW0dkgu8Rjbq3A6XkvW7nKU/29z/JuGW
+	 00TdCl6+oqpb/4lVrqw9SjuNL3PPqBwGVHaXzU+1wGdA0zjTN7bY/Z/6NsNRQj4r+CIWi
+	 zvLS327PS/DBG0Dnda1HG1EDFA9mSX32V2wlc8TGpVo8SPTF9a91zpTvB9cZPSg3kiF2+
+	 FlSDLK7tpxHsisL1Jz9GSPmX3zLQeEnvP5mPMaAY3rQCs0Mcg/qB3YZQ7xa+JtWuj+Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="g55Rr/XF";
-	arc=none smtp.remote-ip=209.85.221.48
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	dmarc=pass header.from=insta360.com;
+	spf=pass smtp.mailfrom=insta360.com;
+	dkim=pass header.d=insta360.com header.i=@insta360.com header.a=rsa-sha256 header.s=feishu2606151854 header.b=K2xs9Spj;
+	arc=none smtp.remote-ip=209.127.231.40
+Received: from va-2-40.ptr.blmpb.com (va-2-40.ptr.blmpb.com [209.127.231.40])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD9660A260C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:44:29 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6FD9660A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04D560A260D
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:44:31 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D04D560A260D
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=insta360.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=insta360.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=g55Rr/XF
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48c45111bebso1068586f8f.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:44:29 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793605468; x=1794210268; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tbEqoEmiOLpfQLZXaMwfuY090SS6ZvbC9oI0iDoMLRc=;
-        b=g55Rr/XF1d28kJml+NF7JZU9snuT/I/3wcn0NtnKDeNWwtw7hTBHwrsCYjseESZ0QE
-         YM4ixaPDJgSNxQsI4tDs2fx39Q8FPog73TciZ4rZca30FgtmhbQKuj0ZkMtOR6mYbAhd
-         4DRGhYUwE6DXaZn0eeNHegtQfxPLErwLsX/K3k1ipwu7azBa9wes+CbI1I4u8w0d+pmP
-         I/wV0EtTUkoe1F/5zqpjwSGDFq2RrDxzoEIOE/reeMNzQj6Q3ZBJKwn4Z/SG+WdA+Rso
-         8FfbCZb2G8nMirGo0AyX1tL4VFZd0jcomNDfKzxlNbC6buF7B3j4b0fSrRtmAn1paL4P
-         +6SQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793605468; x=1794210268;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tbEqoEmiOLpfQLZXaMwfuY090SS6ZvbC9oI0iDoMLRc=;
-        b=iAYrhMtrkGnBPGNK8SYPWE7EOyHkceZGFaq8xgiotS9VaKESVXopYD7fFfXsbN74NP
-         eRU8MzVTe49MKRAzx3cKK3JxQ9EwlD9lzTN05eBRAOEcJf5fDLBszquceyzw005no8Ei
-         V5/071S+ZO1fBuTjz84e2HRcyeRExlCp3xAQuy1UcTrnifEPebgb3TWtfoezLPE8PM1y
-         YKupJkcI4fRc4T5655JHC/2CFrVXKoP6+xMBKHR1Ox3dHxkHnjuLSsvuVhWH2vGl9KNv
-         xn8gMw/yMCcJ1UoUqJyOS8R4ONeRXvrjskSsS+g8It3imfgcCo1A/it9KopmY56teOzx
-         HSNA==
-X-Forwarded-Encrypted: i=1; AKwUvBybDRWBl5NkKRXkZEY+eNc7zbSl0HiwWCU3wx7qs8kkT4vEnWujgaIUfXil3aod9xAyWmwSDyFv3zQqp/s=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+Gsu+cfi6BxRXWzLSuUdsaVTKOd8YKYiu68RMPtmTAPnFFXduv
-	Ck4QoDTIrvzE/3kVM7sGVXTLsMQKyb9t6VtGefj+/jwNq8YSwLJZnXTo
-X-Gm-Gg: AYBFou30lDISj41ZUIsv3VGcNvXBACg/IrjS1xDxCez7b85OWBKrbR97Ke9EFdHu1Th
-	9ih4F5BxbPDp2KznynUEHVZSPC5ABP0/SkyDKIyGFVBfzCXqh55w5LRWRB5yGS9yl6eivDgnn5j
-	6K/l48lHP+1uHwE/Aol0v2doaHvhtnc+LRmUpTgFbA/6CR8M8tv90qc7KXk03rcpQkAkAmye7p2
-	JkG9ZNIUoR1ThHmh6SNaY+mT8tWVwE8stHTnq2cFvfnGrRwe43NFx0FMh8AC+FoWAwrWPMAwKpo
-	360jlA/+Zj8Y5NqTYOTzid7POKngpFLtP+IIBG9fhbOoKqKLWEGTOZzRJWsCIsfP9sPPgddmiVd
-	WlOV5ErEjxvv999TEh3gK+A+mAgrozhXdUpAwyGRVuNoB+y126GhM+5WeJ/DmrVpD/RdaNQlqZR
-	0aid+4tY/AcQtwdRslGhKxAD1h0QjhL6hYVKMC3eP8Pbqx0Y6e7RFTBA+CSmbah0nu8mtqB/HPj
-	Q2yfCqsXLym+j8Ral/izOEedmBAPrKQIpEB40nViL5xTc9DnzVPWNebwVEd3qG9FQd/eGFJSesX
-	BLU9MrGb1SRULLCC/DV4NefMsFBVUe2+sCk=
-X-Received: by 2002:a05:6000:144f:b0:48d:de0f:b79 with SMTP id ffacd0b85a97d-48e6e264067mr23884219f8f.0.1793605467644;
-        Sun, 01 Nov 2026 23:44:27 -0800 (PST)
-Received: from nobara ([83.231.69.9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b81c74sm18050374f8f.36.2026.11.01.23.44.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 23:44:27 -0800 (PST)
-From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-To: Andrew Morton <akpm@linux-foundation.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	David Hildenbrand <david@kernel.org>,
-	Shuah Khan <shuah@kernel.org>
-Cc: Vlastimil Babka <vbabka@kernel.org>,
-	Jann Horn <jannh@google.com>,
-	Pedro Falcato <pfalcato@suse.de>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	ts930@dgu.ac.kr,
-	alx@kernel.org,
-	linux-api@vger.kernel.org,
-	linux-man@vger.kernel.org,
-	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Subject: [PATCH RESEND 3/3] selftests/mm: test mlock() and munlock() range normalisation
-Date: Mon,  2 Nov 2026 08:44:01 +0100
-Message-ID: <20261102074412.189554-4-azpijr@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261102074412.189554-1-azpijr@gmail.com>
-References: <20261102074412.189554-1-azpijr@gmail.com>
+	dkim=pass (2048-bit key, unprotected) header.d=insta360.com header.i=@insta360.com header.a=rsa-sha256 header.s=feishu2606151854 header.b=K2xs9Spj
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2606151854; d=insta360.com; t=1793605467; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=Be7kBnZ2pN0tqA9jaxkboOxPRK3z4kRNDuaOawCuGhc=;
+ b=K2xs9SpjHAbdEeUy0innDOLhtFpj02SdiiQmhlNBBadRidw8E59HY5eEOPaFqQLFa5pbBH
+ 8YCTi3Q2a5tnGey0dDEZDsrtKij8hSeF9LIetpXtUkSpXeiRMpcxJYXHOgGS+v+ASTeeeH
+ XauavRHQZgOQu7s/nBROxM9HQ5JFknXIPylFQtrlB1ht02sFKJo1ALliYqRyfhd3hcZv/Y
+ HtM2Gg58tyZ3RycbPCgdd8z2Y1CJHWiW2eGiuBY0Sv0jQV2C2ggMAhFnLUXo7/uCjyW6ft
+ vK9n0NctloBLkArrhzx9TNyjvuiBDr5Za/kphgPJt9aLayuV1gIyRPFU6jFNSg==
+Subject: [PATCH] mm/vma: fix NULL anon_vma deref in validate_mm() under mmap read lock
+X-Original-From: Songsen Yang <yangsongsen@insta360.com>
+X-Mailer: git-send-email 2.53.0.windows.2
+Content-Type: text/plain; charset=UTF-8
+Date: Mon,  2 Nov 2026 15:44:13 +0800
+Message-Id: <20261102074414.10902-1-yangsongsen@insta360.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -112,256 +57,97 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+To: "Andrew Morton" <akpm@linux-foundation.org>, 
+	"Lorenzo Stoakes" <ljs@kernel.org>
+Cc: "Liam R . Howlett" <liam@infradead.org>, 
+	"Vlastimil Babka" <vbabka@kernel.org>, "Jann Horn" <jannh@google.com>, 
+	"Pedro Falcato" <pfalcato@suse.de>, <linux-mm@kvack.org>, 
+	<linux-kernel@vger.kernel.org>, 
+	<syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com>
+Content-Transfer-Encoding: 7bit
+From: "Songsen Yang" <yangsongsen@insta360.com>
+Received: from DT-9806 ([58.251.139.251]) by smtp.feishu.cn with ESMTPS; Mon, 02 Nov 2026 15:44:23 +0800
+X-Lms-Return-Path: <lba+26ae83f59+6673a7+vger.kernel.org+yangsongsen@insta360.com>
 
-Add mlock2-tests cases for a zero length at aligned and unaligned
-addresses, for a length that wraps when rounded to pages, and for an
-overflowing start + len, checking the return value and VmLck.  The
-overflow cases expect -EINVAL with and without CAP_IPC_LOCK, so running
-the test unprivileged also covers the errno that used to depend on it.
+Since commit 38564710f443 ("mm: implement and use vma_has_anon_rmap(),
+silence KCSAN"), validate_mm() decides whether to walk a VMA's anon_vma
+chain with vma_has_anon_rmap(), which re-reads vma->anon_vma, but still
+locks the anon_vma pointer it cached at the top of the loop iteration.
 
-The wrapping cases assume the test is built for the kernel's word size: a
-32-bit binary on a 64-bit kernel cannot pass a range that wraps.
+vms_complete_munmap_vmas() calls validate_mm() after downgrading the
+mmap lock to a read lock. A page fault on another thread can then
+install vma->anon_vma via __anon_vma_prepare() between the two reads.
+The check sees a non-NULL anon_vma while the cached value is still
+NULL, and anon_vma_lock_read() dereferences it:
 
-Suggested-by: David Hildenbrand <david@kernel.org>
-Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  RIP: 0010:validate_mm+0x143/0x2a0
+  Call Trace:
+   vms_complete_munmap_vmas+0x201/0x2d0
+   do_vmi_align_munmap+0x285/0x2d0
+   do_vmi_munmap+0xcb/0x190
+   __vm_munmap+0xab/0x190
+   __x64_sys_munmap+0x16/0x20
+
+Read vma->anon_vma once and use that value for both the check and the
+lock, as the code did before. Under the mmap read lock vma->anon_vma
+can only go from NULL to non-NULL, so a non-NULL value read here stays
+valid until validate_mm() is done with it. Keep the data_race()
+annotation that vma_has_anon_rmap() provided, since a concurrent
+install is expected.
+
+Only CONFIG_DEBUG_VM_RB kernels are affected.
+
+Testing: on top of mm-hotfixes-unstable at commit 989bf98b512c
+("iov_iter: validate extracted segment for bvec alignment"), x86_64
+under QEMU TCG with -smp 2 and CONFIG_DEBUG_VM_RB=y. The race window
+is too narrow to hit with the syzbot reproducer under TCG in the time
+available, so a debug-only mdelay(1) was added before the check to
+widen it: without this patch the reproducer crashes with the splat
+above in its first round; with this patch and the same mdelay(1) it
+completes all rounds without any splat. The mdelay(1) is not part of
+this patch. mm selftests were not run.
+
+This issue was analysed, and the fix, changelog and tests were
+prepared, with the help of an AI coding assistant (Claude); the
+submitter has reviewed the change.
+
+Fixes: 38564710f443 ("mm: implement and use vma_has_anon_rmap(), silence KCSAN")
+Reported-by: syzbot+10e72ea5747737bcd2ad@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/6ae78418.6552420f.2a0efc.005c.GAE@google.com/
+Signed-off-by: Songsen Yang <yangsongsen@insta360.com>
 ---
- tools/testing/selftests/mm/mlock2-tests.c | 191 +++++++++++++++++++++-
- 1 file changed, 190 insertions(+), 1 deletion(-)
+ mm/vma.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/tools/testing/selftests/mm/mlock2-tests.c b/tools/testing/selftests/mm/mlock2-tests.c
-index 144b550813a6..3dca349c4738 100644
---- a/tools/testing/selftests/mm/mlock2-tests.c
-+++ b/tools/testing/selftests/mm/mlock2-tests.c
-@@ -2,6 +2,7 @@
- #define _GNU_SOURCE
- #include <sys/mman.h>
- #include <linux/mman.h>
-+#include <limits.h>
- #include <stdint.h>
- #include <unistd.h>
- #include <string.h>
-@@ -91,6 +92,7 @@ static bool is_vmflag_set(unsigned long addr, const char *vmflag)
- #define SIZE "Size:"
- #define RSS  "Rss:"
- #define LOCKED "lo"
-+#define VMLCK "VmLck:"
+diff --git a/mm/vma.c b/mm/vma.c
+index 4672d4205..b674c69f7 100644
+--- a/mm/vma.c
++++ b/mm/vma.c
+@@ -679,7 +679,7 @@ void validate_mm(struct mm_struct *mm)
+ 	mt_validate(&mm->mm_mt);
+ 	for_each_vma(vmi, vma) {
+ #ifdef CONFIG_DEBUG_VM_RB
+-		struct anon_vma *anon_vma = vma->anon_vma;
++		struct anon_vma *anon_vma;
+ 		struct anon_vma_chain *avc;
+ #endif
+ 		unsigned long vmi_start, vmi_end;
+@@ -703,7 +703,13 @@ void validate_mm(struct mm_struct *mm)
+ 		}
  
- static unsigned long get_value_for_name(unsigned long addr, const char *name)
- {
-@@ -177,6 +179,27 @@ static int unlock_lock_check(char *map, bool mlock_supported)
- 	return 1;
- }
- 
-+static unsigned long get_vmlck(void)
-+{
-+	unsigned long vmlck;
-+	char line[1024];
-+	FILE *file;
-+
-+	file = fopen("/proc/self/status", "r");
-+	if (!file)
-+		ksft_exit_fail_msg("fopen: %s\n", strerror(errno));
-+
-+	while (fgets(line, sizeof(line), file)) {
-+		if (sscanf(line, VMLCK "\t%lu kB", &vmlck) == 1) {
-+			fclose(file);
-+			return vmlck << 10;
-+		}
-+	}
-+
-+	fclose(file);
-+	ksft_exit_fail_msg("cannot parse VmLck in /proc/self/status\n");
-+}
-+
- static void test_mlock_lock(void)
- {
- 	char *map;
-@@ -204,6 +227,167 @@ static void test_mlock_lock(void)
- 	munmap(map, 2 * page_size);
- }
- 
-+static void test_mlock_zero_length(void)
-+{
-+	unsigned long page_size = getpagesize();
-+	unsigned long vmlck_before, vmlck_after;
-+	char *map;
-+
-+	map = mmap(NULL, 2 * page_size, PROT_READ | PROT_WRITE,
-+		   MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-+	if (map == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap error: %s\n", strerror(errno));
-+
-+	vmlck_before = get_vmlck();
-+	ksft_test_result(!mlock(map, 0),
-+			 "%s: zero length mlock() at an aligned address\n", __func__);
-+	vmlck_after = get_vmlck();
-+	ksft_test_result(vmlck_before == vmlck_after,
-+			 "%s: zero length mlock() at an aligned address locked nothing\n",
-+			 __func__);
-+
-+	vmlck_before = get_vmlck();
-+	ksft_test_result(!mlock(map + 5, 0),
-+			 "%s: zero length mlock() at an unaligned address\n", __func__);
-+	vmlck_after = get_vmlck();
-+	ksft_test_result(vmlck_before == vmlck_after,
-+			 "%s: zero length mlock() at an unaligned address locked nothing\n",
-+			 __func__);
-+
-+	munmap(map, 2 * page_size);
-+}
-+
-+static void test_munlock_zero_length(void)
-+{
-+	unsigned long page_size = getpagesize();
-+	unsigned long vmlck_before, vmlck_after;
-+	char *map;
-+
-+	map = mmap(NULL, 2 * page_size, PROT_READ | PROT_WRITE,
-+		   MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-+	if (map == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap error: %s\n", strerror(errno));
-+
-+	if (mlock(map, 2 * page_size)) {
-+		munmap(map, 2 * page_size);
-+		ksft_exit_fail_msg("mlock(): %s\n", strerror(errno));
-+	}
-+
-+	vmlck_before = get_vmlck();
-+	ksft_test_result(vmlck_before > 0,
-+			 "%s: the range to release is accounted as locked\n",
-+			 __func__);
-+	ksft_test_result(!munlock(map + 5, 0),
-+			 "%s: zero length munlock() at an unaligned address\n", __func__);
-+	vmlck_after = get_vmlck();
-+	ksft_test_result(vmlck_before == vmlck_after,
-+			 "%s: zero length munlock() at an unaligned address released nothing\n",
-+			 __func__);
-+
-+	munmap(map, 2 * page_size);
-+}
-+
-+static void test_mlock_length_wrap(void)
-+{
-+	unsigned long page_size = getpagesize();
-+	unsigned long vmlck_before, vmlck_after;
-+	char *map;
-+	int ret;
-+
-+	map = mmap(NULL, 2 * page_size, PROT_READ | PROT_WRITE,
-+		   MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-+	if (map == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap error: %s\n", strerror(errno));
-+
-+	vmlck_before = get_vmlck();
-+	errno = 0;
-+	ret = mlock(map, ULONG_MAX);
-+	ksft_test_result(ret == -1 && errno == EINVAL,
-+			 "%s: mlock() with a wrapping length is rejected\n",
-+			 __func__);
-+
-+	vmlck_after = get_vmlck();
-+	ksft_test_result(vmlck_before == vmlck_after,
-+			 "%s: mlock() with a wrapping length locked nothing\n",
-+			 __func__);
-+
-+	vmlck_before = get_vmlck();
-+	errno = 0;
-+	ret = mlock(map + 5, ULONG_MAX);
-+	ksft_test_result(ret == -1 && errno == EINVAL,
-+			 "%s: unaligned mlock() with a wrapping length is rejected\n",
-+			 __func__);
-+
-+	vmlck_after = get_vmlck();
-+	ksft_test_result(vmlck_before == vmlck_after,
-+			 "%s: unaligned mlock() with a wrapping length locked nothing\n",
-+			 __func__);
-+
-+	munmap(map, 2 * page_size);
-+}
-+
-+static void test_mlock_addr_overflow(void)
-+{
-+	unsigned long page_size = getpagesize();
-+	unsigned long vmlck_before, vmlck_after;
-+	size_t len;
-+	char *map;
-+	int ret;
-+
-+	map = mmap(NULL, 2 * page_size, PROT_READ | PROT_WRITE,
-+		   MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-+	if (map == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap error: %s\n", strerror(errno));
-+
-+	/* addr + len wraps to 0 */
-+	len = (size_t)(0UL - (unsigned long)map);
-+
-+	/* -EINVAL with or without CAP_IPC_LOCK */
-+	vmlck_before = get_vmlck();
-+	errno = 0;
-+	ret = mlock(map, len);
-+	ksft_test_result(ret == -1 && errno == EINVAL,
-+			 "%s: mlock() with an overflowing addr + len is rejected\n",
-+			 __func__);
-+
-+	vmlck_after = get_vmlck();
-+	ksft_test_result(vmlck_before == vmlck_after,
-+			 "%s: mlock() with an overflowing addr + len locked nothing\n",
-+			 __func__);
-+
-+	munmap(map, 2 * page_size);
-+}
-+
-+static void test_munlock_range_overflow(void)
-+{
-+	unsigned long page_size = getpagesize();
-+	size_t len;
-+	char *map;
-+
-+	map = mmap(NULL, 2 * page_size, PROT_READ | PROT_WRITE,
-+		   MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-+	if (map == MAP_FAILED)
-+		ksft_exit_fail_msg("mmap error: %s\n", strerror(errno));
-+
-+	errno = 0;
-+	ksft_test_result(munlock(map, ULONG_MAX) == -1 && errno == EINVAL,
-+			 "%s: munlock() with a wrapping length is rejected\n",
-+			 __func__);
-+
-+	errno = 0;
-+	ksft_test_result(munlock(map + 5, ULONG_MAX) == -1 && errno == EINVAL,
-+			 "%s: unaligned munlock() with a wrapping length is rejected\n",
-+			 __func__);
-+
-+	len = (size_t)(0UL - (unsigned long)map);
-+	errno = 0;
-+	ksft_test_result(munlock(map, len) == -1 && errno == EINVAL,
-+			 "%s: munlock() with an overflowing addr + len is rejected\n",
-+			 __func__);
-+
-+	munmap(map, 2 * page_size);
-+}
-+
- static int onfault_check(char *map)
- {
- 	*map = 'a';
-@@ -506,9 +690,14 @@ int main(int argc, char **argv)
- 
- 	munmap(map, size);
- 
--	ksft_set_plan(15);
-+	ksft_set_plan(31);
- 
- 	test_mlock_lock();
-+	test_mlock_zero_length();
-+	test_munlock_zero_length();
-+	test_mlock_length_wrap();
-+	test_mlock_addr_overflow();
-+	test_munlock_range_overflow();
- 	test_mlock_onfault();
- 	test_munlockall0();
- 	test_munlockall1();
+ #ifdef CONFIG_DEBUG_VM_RB
+-		if (vma_has_anon_rmap(vma)) {
++		/*
++		 * Callers may hold only the mmap read lock, in which case a
++		 * concurrent fault can install vma->anon_vma at any time. Read
++		 * it once, so that the check and the lock use the same value.
++		 */
++		anon_vma = data_race(vma->anon_vma);
++		if (anon_vma) {
+ 			anon_vma_lock_read(anon_vma);
+ 			list_for_each_entry(avc, &vma->anon_vma_chain, same_vma)
+ 				anon_rmap_tree_verify(avc);
 -- 
-2.56.0
-
+2.50.1
