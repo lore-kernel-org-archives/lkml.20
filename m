@@ -1,91 +1,89 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=65.109.113.108
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793602914;
-	b=vDt/KbwAOAQVyd3fFP6aI1+g8EwVehH4CIgtlcbNjT5RRE6br639a6DqTwtUWDjkw/my
-	 tOExUTHnOa1kdvNa4cWkwqWgLUbcZrxFaB4BmZJ0vsb7OAbVV55uHWqfVgD9gW9K427h0
-	 OlVlz9/QtiZvjxyB7sInb0zFtIE6NIGlrdKMnD7trxiyqLahLV6OEIVTJN8j97Dye/ZK6
-	 i2ZMzs0P1eOfwnHmCoZ5H8hfHa7jIFf7GV7Iu5MeYMRz0quyyqUo0U6fs59YhUt1Fdhin
-	 rl/5ui0q4B32tDXsOapgkg/y8NSo1Ms1QesC+vCj85hoppH/fkhqxNQ4OKpj8KiTbCQ==
+	t=1793602918;
+	b=GXSeDBAwuZLCKzBAfOKtJEpbXMKgsSg5FCUIGr/8f6g0xuheEw9RMR0FzFLxtLUP5gy7
+	 9La0f0KI+uQua+PCS58wSCjnfAUuivEdCUAa7XWWC5Ur0+tG982/OiUdtcsZcQHD3sf9a
+	 bsSr6DhNTat8w8UbX56c/6XYn+wAJMKMETvYeCvC6Urpu+LnSmnuJn7MUgApnKT+DQzCg
+	 Wv8AW5iZFerUsQ965SlSHHbA69i+mfYOasIAqkV3YC5v5+r5sP32bGVqtbl1E2hXo14ib
+	 iTKtKqp8h1/ElkTDwIdTbzZkNsw010038beB+u+2in12mNYFA/h77HeIsqeCRP4g7Iw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793602914;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=TFrwAf3wYXNxoR0JQCwLQKVfKkU5+LXdIBOmYaVR4HE=;
-	b=ZHgHbOo7FFPwV1iEXA6M2Ts6YwZ5Vftjo8asFf0KzqaHZyM8MZavT6XZnDKZ6ZElfd0P
-	 VyoHcdktvlxW4CVrbsn8E9ZcAIIdS92O6tmVZP5lOrrHXz+wVsm+yU4hkTsLDuRyZGAmd
-	 Pnj8VrD8RVmR+6joWV5m098DyGPDpWMTBR+woXzZvFhIIUiBYE2vDrPK7ToixVhn1Xkcs
-	 vo1Vd98Dvs4/MaZnbB+VBJwTWgQLa3KdzEd4TlyMkTRxnqo40Z0XbScpUBnLkNcLxuoBJ
-	 VUliwrHD0wcjCC8GlwxXEdhMcd1a6Kvv5bmE7p8HCshjbJ/obKot9l4WTANrxcjnFFw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793602918;
+	h=DMARC-Filter:Received:X-Virus-Scanned:Received:DKIM-Signature:
+	 Received:Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=iAPIOenTPqHP2Ny+OdMrV89UeIqmPs8LpJjh/tMjUZM=;
+	b=so4Ap1Y+7tCEbKXMPyAzAO3j489H2feb3dS5TU+9/rVL5mrPx3EKLVypRh2zKPELahSd
+	 4OAPwEXAlM+FlPXrMmFAJwVF9GIpnDlA5UF1MRz+KRluhmpQ0I9LTGpN1x4Keo1MaW24J
+	 +44Hb6c+NN2GZzXTHa35QH9wNfwZZwChS0NqQk4XzgStFncwvIbKh9mMg6qtBR6e9QNK3
+	 QFY/10bD0rcKohU+TswP2yUN4txVYM+rDJhzyHyucmq7BK5+bcH/gYeUPuNAv7reNJMf3
+	 8AuPP2yVjtpE/SArYZWHHwetHrrUNavDtyEVLpNkgY8K4SsjNiEH/15kdX+GbaACYaQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bC86Q7o5;
-	arc=none smtp.remote-ip=209.85.208.52
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=alien8.de;
+	spf=pass smtp.mailfrom=alien8.de;
+	dkim=pass header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Wexv6Zcp;
+	arc=none smtp.remote-ip=65.109.113.108
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A9B606A324
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 07:01:54 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 34A9B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C058C606A324;
+	Mon,  2 Nov 2026 07:01:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C058C606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=bC86Q7o5
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6b488586facso3338830a12.2
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 23:01:53 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793602912; x=1794207712; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TFrwAf3wYXNxoR0JQCwLQKVfKkU5+LXdIBOmYaVR4HE=;
-        b=bC86Q7o5SJjrFjl8XuDTaDkDOxt9pHLZYSwPjfWXOWFp9L6MTaxZgUyjfkfK7wiRxs
-         ssjHgqGpjyYjKaksgKP73NeDWTXb0cSWY9kfvEnhoMRc5LITndmaCgND6EudybXoaCAp
-         VI/qx12hWpiQ3+Eb6bCRWy5bswqh9zLldI50XQGCpm/cz0O5NWq6vYksf/OjdEJBEXCY
-         NdNncdhBrc3iOOlfS8pXZ/34bO1h7SLcy9uHObOOFImhcqZIzLxIannjvjzjV28pw9xS
-         SXM7BBzDjIz19zAWi02tyLR5Ilfo2+WOEcEHIK3LYf66a2/OJsydF9hrBhKL+4PFdnVl
-         iGgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793602912; x=1794207712;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TFrwAf3wYXNxoR0JQCwLQKVfKkU5+LXdIBOmYaVR4HE=;
-        b=BpmbiB/THGog5MchqgKJy28m2lizM/Yt3858L8d9BsYXHiLlfmBdIIGE+7prWDAvNa
-         R7Ff1XgkEEGMYtV34pxT4QyUGqBxVL5oYO60WvOfZYKaSMfxnVaCympZ4hIhl92xj+tz
-         i1L9zRQ4gs0J+mOXB/TMAY1edaUYWHpBKu/kZRBs3SOrmuHpoY9vCtHi0k6SQOpMMjyn
-         h+a5ulM/ibK3PnU0Vdx7KDp1xy/T01gEPBW7eqlBxdT8Pm/hCsejuceTAy9z3BMxhf26
-         w28ju6iNZMcdUFTRGwiQsnJzsIjjS1IGJSpPT99xD8y2RivZPOFUfLRWEHxp9F2H0GAW
-         XBXw==
-X-Forwarded-Encrypted: i=1; AKwUvByZd1qN+E8igNhu3LaHzDBS2TaknHGxupuc8xL9BXErihgxj49IHytS3vgzCuerIh8o7zkBkn6gv+xzOIE=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9ww9OmlQi8uRomGZGUQkf+Cy3D6Wx6z8wF7ryGap/xM3veYcvD
-	RuTh9TGqLeL5mTVD6DOt77KaonMiUKMVcWLTrvSywlsomncHm+FjJcxW
-X-Gm-Gg: AYBFou3MaKWNYqWJ1yB6wUvdH2nDRyZgqMxjgTTOEMRZbchc/FGCgMHwLJ0kYgT7G3V
-	wsvLxXK+hTSuqWpQJY8jmvddnBs4HsdJb0bdQIb3s0fVPlbQgqlJr0aIGakxQ+ZSQvi+Y776Acr
-	TXB8L3e05tVR5A0x2CeUSkyWe8pgF4z2bGrMQXdTiOXfjceCqFuc/h93Lk7m1ZVShXzYsJ7Ol5+
-	bGsVE1eEiWJxqvqUeLj8glfTnFe05kzlEmwc7GsJ1oj4lhXiDu4yyb7ih1o+9tdRQDAOvPsH2l2
-	ehKBWTLDNjchOAG3UeVbzSvM+tzgtEw13qmO9YDka0Jv61SzbJwzDTLhX4OCBpTXjB4jzu277JP
-	8FhNQJ64grPQNCUuChQoFBbiDRrnUe2IjAswb2/tDRJrIYbIatvJEsrc3p289LdWyofkpU5JTJ8
-	tmaIIEAOP/XmxQUAREpyVro/VYb85cQCmRXId1Lg7WcKVLFxf+9T/T5hh8jSpdM+HNXpY0bHgFE
-	HWl/dmdVy6xZ5YHHpvrGbS0x9UTK5Rfu/uAHuusrOEm9EMtksheEAFu3J7NQYwXc8UEYF4dqlXg
-	pOVpZuKa6Tu8YM0XdHz8CrUQRudo0JkMeSg=
-X-Received: by 2002:a05:6402:c4ca:20b0:6b4:1cf5:2202 with SMTP id 4fb4d7f45d1cf-6b4d438a5bfmr4526477a12.12.1793602912404;
-        Sun, 01 Nov 2026 23:01:52 -0800 (PST)
-Received: from LAPTOP-AVI.lan ([2a06:c701:4773:6f00:f970:5a5f:bc55:da4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b8c0b6sm17580579f8f.41.2026.11.01.23.01.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 23:01:52 -0800 (PST)
-From: Avi Weiss <thnkslprpt@gmail.com>
-To: Anna-Maria Behnsen <anna-maria@linutronix.de>
-Cc: Frederic Weisbecker <frederic@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] timers/itimer: Preserve nonzero remaining time for active timers
-Date: Mon,  2 Nov 2026 09:01:49 +0200
-Message-ID: <20261102070148.1064849-2-thnkslprpt@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (4096-bit key, unprotected) header.d=alien8.de header.i=@alien8.de header.a=rsa-sha256 header.s=alien8 header.b=Wexv6Zcp
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 154E440E0184;
+	Mon,  2 Nov 2026 07:01:55 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id li8LNwrtJSLE; Mon,  2 Nov 2026 07:01:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1793602911; bh=iAPIOenTPqHP2Ny+OdMrV89UeIqmPs8LpJjh/tMjUZM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Wexv6ZcpPCkMgapkX25daR0HLzS4JjMaTW7WeUJHBqiV5ICvEI8g91SgoYrvua2Sr
+	 9pKYMHI6uZbaPI6iSjsx44gYHdBX77tMrVZ5W4Lr6wz5+SNzb8JJV5OkIQRcRGaxxC
+	 kqd0sDcKb9BiuQU6VYoZSS6WIzfSUOcShQQ1fHyHFHOAJy2LQW9tCZgvulrToHB3NI
+	 7npGOXZmhRr3OI/wmcoio5yRmX0ViNEscoexkVTt8NaPGuBP828U7D2yErHMOGl6eq
+	 0tDZHYxnEW0eaJ566Uc/LyNdLStyuJQBNbRC01TYnwSMFGbfAEDAxQhVHij2gK17I3
+	 c4xjc5KRsKejIgu+PD5gO0gr/8GlAJXWhCxdQfiFm03VkMvN3wQPybt+RrBrIemkfT
+	 /YtHah0kT9yJioZNPcUWFLpLkmwNuOcOgzZI6c5JUfeFOQR8s+gdvR2OXWoNX8vkKK
+	 RKHllfVnj2ohmITfTcH6TXylFhZyxkIaOqovstHy/x9oW/KukP5MWA3GNctvZOEfh+
+	 +R+PsTWZ5UWwy/rF1KyNzdkumT4zbDQA+gZsYGck5Gb9yOW6mq+e/QT4FDDANKZHGB
+	 GdeNrKVAOw4HGLPuVEUY357UvkcL8nvmRF8fEJ+BWPcpnwluX+kLnQc22jzt1o87az
+	 5Lbe4taVzs+H/RmTT7ecBYpw=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::42])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 6358240E016C;
+	Mon,  2 Nov 2026 07:01:17 +0000 (UTC)
+Date: Sun, 1 Nov 2026 23:01:13 -0800
+From: Borislav Petkov <bp@alien8.de>
+To: K Prateek Nayak <kprateek.nayak@amd.com>
+Cc: Ashish Kalra <Ashish.Kalra@amd.com>, tglx@kernel.org, mingo@redhat.com,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	seanjc@google.com, peterz@infradead.org, thomas.lendacky@amd.com,
+	herbert@gondor.apana.org.au, davem@davemloft.net, ardb@kernel.org,
+	pbonzini@redhat.com, aik@amd.com, Michael.Roth@amd.com,
+	Tycho.Andersen@amd.com, Nathan.Fontenot@amd.com,
+	ackerleytng@google.com, jackyli@google.com, pgonda@google.com,
+	rientjes@google.com, jacobhxu@google.com, xin@zytor.com,
+	pawan.kumar.gupta@linux.intel.com, babu.moger@amd.com,
+	dyoung@redhat.com, nikunj@amd.com, darwi@linutronix.de,
+	linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+	kvm@vger.kernel.org, linux-coco@lists.linux.dev
+Subject: Re: [PATCH v4 1/2] x86/sev: Clear RMPOPT when segmented RMP is
+ disabled by firmware
+Message-ID: <20261102070113.GEaug1OQN7oEYDk9aD@fat_crate.local>
+References: <cover.1793216372.git.ashish.kalra@amd.com>
+ <56da047d63b22f03a7e709fc172a5543da894d67.1793216372.git.ashish.kalra@amd.com>
+ <20261102052841.GBaugfibOXxGorZKgq@fat_crate.local>
+ <69ed0d93-f96d-4baa-a587-fade5a0a3262@amd.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -95,38 +93,26 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <69ed0d93-f96d-4baa-a587-fade5a0a3262@amd.com>
 
-itimer_get_remtime() preserves positive remainders below one
-microsecond, but struct timeval only stores whole microseconds.
-So, for example, the conversion to tv_usec truncates a 500 ns
-remainder to zero, causing getitimer(ITIMER_REAL) to report an
-active timer as disarmed.
+On Mon, Nov 02, 2026 at 11:42:05AM +0530, K Prateek Nayak wrote:
+> On 11/2/2026 10:58 AM, Borislav Petkov wrote:
+> > Segmented RMP support is advertised via X86_FEATURE_SEGMENTED_RMP, and the
+> > firmware enables it via MSR_AMD64_RMP_CFG[SEG_RMP_ENABLED]. The latter can be
+> > cleared in platform BIOS by the user, in which case the system runs in
+> > contiguous RMP setting.
+> 
+> nit. In the latter case, SNP is disabled entirely in bsp_determine_snp and
+> the system won't continue with contiguous RMP.
 
-Clamp active remainders below one microsecond to one microsecond
-so they remain nonzero after conversion.
+Ah, true, good catch.
 
-Fixes: 2ff678b8da64 ("[PATCH] hrtimer: switch itimers to hrtimer")
-Signed-off-by: Avi Weiss <thnkslprpt@gmail.com>
----
- kernel/time/itimer.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thx.
 
-diff --git a/kernel/time/itimer.c b/kernel/time/itimer.c
-index 03a32dffc56c..a472a4f8babb 100644
---- a/kernel/time/itimer.c
-+++ b/kernel/time/itimer.c
-@@ -36,7 +36,7 @@ static struct timespec64 itimer_get_remtime(struct hrtimer *timer)
- 	 * then we return 0 - which is correct.
- 	 */
- 	if (hrtimer_active(timer)) {
--		if (rem <= 0)
-+		if (rem < NSEC_PER_USEC)
- 			rem = NSEC_PER_USEC;
- 	} else
- 		rem = 0;
-
-base-commit: d135ab453a7400a34930bdda1ef4bdc8acfac80e
 -- 
-2.43.0
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
