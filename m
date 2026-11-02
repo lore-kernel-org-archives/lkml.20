@@ -1,107 +1,97 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.34
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793655894;
-	b=u7Tw4lKNJh5jukK9cSEq69pKQFJUHdRPGw992M1ncHZDwA+g+U3S+oN6j/NIEynNCjIe
-	 kmwbfiGLm0xKPLYb6smF6OI3MyOqhaT4Y0muTzvkvVW7nQs1DZA7XmDoAkRRFKYeoxJ/X
-	 BciVoB9vEQTpOLqh608h1Cfxor+UbxPdR5AxdyKWQX4L6nMUK5nDaCf0VUa9CX+h10SF+
-	 o7A61i4Ri0jpQrvNXm0T9kEN+34t39VX2szIC5glKa3+JMYQMGw8J0EWJLHkHAvcjmmpP
-	 eFLJdN/b7APlwORMh/ZpPXkGLATapOAa/kqDLZE4W3ZeLk9NNDFWaB4CWkTwuHd6r9Q==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655894;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:Content-Type:Content-Disposition:
-	 In-Reply-To:X-ClientProxiedBy:MIME-Version:X-MS-PublicTrafficType:
-	 X-MS-TrafficTypeDiagnostic:X-MS-Office365-Filtering-Correlation-Id:
-	 X-MS-Exchange-SenderADCheck:X-MS-Exchange-AntiSpam-Relay:
-	 X-Microsoft-Antispam:X-Microsoft-Antispam-Message-Info:
-	 X-Forefront-Antispam-Report:
-	 X-MS-Exchange-AntiSpam-MessageData-ChunkCount:
-	 X-MS-Exchange-AntiSpam-MessageData-0:X-OriginatorOrg:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-AuthSource:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-OriginalArrivalTime:
-	 X-MS-Exchange-CrossTenant-FromEntityHeader:
-	 X-MS-Exchange-CrossTenant-Id:X-MS-Exchange-CrossTenant-MailboxType:
-	 X-MS-Exchange-CrossTenant-UserPrincipalName:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped;
-	bh=KowglsUGucuwN0s6uI9Bre+GD+nznBIhIiDQmxMQP1Q=;
-	b=vv3YxwOVlVUOS+RXuhN2WlRa7oufJX4125C5bDQlZgyjFtJZreaHbWgfSL90ELBwU+6D
-	 6aeQRxZ9hk3heXKiMtnCq0yQd/8aWEwz8VzZkAHvHQn8c6s8QgYoHrBFJ8UCLKtcnuQc3
-	 WSm7pyzwZJO2a9q12aSOeCigPD9Xe4lTMnXWL+yqOf+TLZuTYYjh9M5v6TY6haX151CFu
-	 kotP7x1L5BrhcuToeNtT+AaDYZZPrtTjRcWHj7zBNV7cfOtpNii0Oxa2EmBmFP8+5mmzl
-	 ZaFYsQa1R1HeHDdV8WG3Ifvb34mUts3VT3zVU3hOhzIYGBf8CSiK5ZpkmdoIrYnpoug==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.nxp.com;
-	spf=pass smtp.mailfrom=oss.nxp.com;
-	dkim=pass header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aVMO5DF6;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=52.101.66.34
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012034.outbound.protection.outlook.com [52.101.66.34])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (secp384r1) server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793655924;
+	b=kc0Xim19WVFJZjXNOmm/K3jbCxecmWQCWsJtkP7w/HO+IPJJEHHJINb7+TWkGvJnUzoG
+	 k1MJfVF9+VwKQHDJiKpncaTWjM/SE5BupkJEv7s2ySCOywejDlAl5vj5n5BOvMdF+KKqj
+	 paO3Ne9mat7TbaRAEoJXFEmLR+0U1nTQUFiWPfFGwXBtsT+XuVy22Br5pA03ZEsV6AxbZ
+	 VhVNcwTFEM7rmNXMBd7lCuqHoFJag52T9sYhoP645yB6eKHpwM3W2g9pTYkIyVUQpDgPN
+	 AvIn6xowI8N7rCw1p6gszOI5CZf1YOhkScpkpjw2taU/tRQwpeJd1EmZ66r0Iz4ikkA==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655924;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To;
+	bh=q5JdWOppAER7/sVf+/wRTQ5JltDoWihbM3Khp4hBQTg=;
+	b=DciQRi+Z5zZ0t/8D13Bw5SurITHS1MErHaQN3gyeYt1Y0IV9+GVrct+kS3X+bHn4imUg
+	 57Zycsf0uYOzDoCHL3UDToA3kuz6iiO1Dsl8BlYZK8EEyzEhezxRARxRqRPcCwTdaE8t5
+	 yvg45lzGwpFXdRtPCf+U9Rht161Flo3l2kaIt9edf2LlUMQQ7CeRGcQcLwHKQn1SI+3Bc
+	 VIJjHiS2/seG4VdLSsvmpqyuOOYMKzwKSZ7gQ9oXjnVooRunkGmBjuN8fYbWiH/J/s3RQ
+	 NN4tmrdbvR/DaZhZ/p0Ug6T+83ONMShzkzyn6fUYXU5YxO3iECjvHzZW5Z/o5oi6hBA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=de9Kt5CT;
+	arc=none smtp.remote-ip=209.85.215.181
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85E43606A327;
-	Mon,  2 Nov 2026 21:44:53 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 85E43606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9E4606A332
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:45:24 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9E4606A332
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=aVMO5DF6
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AmBUwJFeeZIpbE2nR06fxCjcT0lT7j+aUycy6Wct+p46avG7cofk/bYLFl/RCbp/iRBuKoU5M3ANNrZiLEdnunv2xt+nGO9v7zqoAjKYbqVuiKlhzDbcIdN+tTidxLVzVNGf3eUNg7/g8Sfoly/XalR2jmLeYynu89ssa+PhsIBVhCdjwN9o/72HLeoOR2nKOMiLA5OHW3o7xcobM3LhvqbeVDEw4MMazMSiq5LxDGsuag3T1eZtLcJQTtgg/FGz4qGKsAx6WYXsBO4aBVT3bC6h8UsMMvnjS0mJhzGcEqM2/yj4HK3SuiSjAnWAFOSx5aIkDS4JiTlYbHCJrhqSyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KowglsUGucuwN0s6uI9Bre+GD+nznBIhIiDQmxMQP1Q=;
- b=JNC1mawal2DGNoVihCd7nEeY9khtS+OqKsW6D1pSvplkBV5i/9kOnQ9MwoS5JjmlPpv7P9VuVb1XJeiHsqhQQmxAoXKhg2jIf8U0578kvQAm/TERiciX0PkyG6GjZWVmrB4HN61Tn2UTzvp7+dDFMP8WAo7YdHE3AdqzqGtXaYlqRTSGFahzz/oAt1DnFeQLZ5CXXYcSRnsHIE480x1lS+W40sKhVnHOn4b3qKPcXRqygHWt+aFzZHTMnX+ovv++b7dpMCegg/LfXUSmoyB/9UHq4Hjm8u+UyRbJKoGHTGYsh+m3cTToL+GW10qPZc8mXlM92B/6h2moBuk7AQvQeg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KowglsUGucuwN0s6uI9Bre+GD+nznBIhIiDQmxMQP1Q=;
- b=aVMO5DF6VYbYhudMUfSPL6AuXN5VTOyPE2BX499mGGVYr/LPuEGcfmTurO7/TK3+BtYrvelYJYcSnMITsltqjVzbSIvmW+RPU2CIE1yercrO3cYaWJqqKUWvh55xxlPAiF8iZTlg9pu4qmWYV+oPR6cRY+Er7qCyHAUjwp7ogY+k22XdLxWoC7p1+9FhxJfjfgCK41bZ9cJJ4rn3Axt9w846njjZe/ly8aR4e2Om6oVjLtgrIJkkAxmAciWmhIalaHlVAUFkKy3Uf3dqf/hiujf+Hv51oZPBoxYVsQWsrYmA2GNvUNNrNWL/p1KPOUukh0HzBuhckWl5QgbAFRgHPQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
- by AM9PR04MB8555.eurprd04.prod.outlook.com (2603:10a6:20b:436::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 21:44:49 +0000
-Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
- ([fe80::c715:c32:8bb1:b70b%6]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 21:44:49 +0000
-Date: Mon, 2 Nov 2026 16:44:38 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Junyi Zhao <junyi.zhao@amlogic.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, imx@lists.linux.dev,
-	linux-hardening@vger.kernel.org, xianwei.zhao@amlogic.com,
-	Kelvin.Zhang@amlogic.com
-Subject: Re: [PATCH v2 2/2] dt-bindings: i3c: silvaco,i3c-master: Add Amlogic
- A9 support
-Message-ID: <aukERgniLcU7BHeo@lizhi-Precision-Tower-5810>
-References: <20261102-a9_i3c-v2-0-0c474bfccffa@amlogic.com>
- <20261102-a9_i3c-v2-2-0c474bfccffa@amlogic.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102-a9_i3c-v2-2-0c474bfccffa@amlogic.com>
-X-ClientProxiedBy: PH8PR15CA0005.namprd15.prod.outlook.com
- (2603:10b6:510:2d2::12) To MI3PR04MB12438.eurprd04.prod.outlook.com
- (2603:10a6:290:76::14)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=de9Kt5CT
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc7d154ec4fso1525311a12.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:45:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20260707; t=1793655923; x=1794260723; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=q5JdWOppAER7/sVf+/wRTQ5JltDoWihbM3Khp4hBQTg=;
+        b=de9Kt5CTxtyWM3N06gzLlqXfbp5WOfVOsPd00ZIGyw+wLuZ53xAn15Kk9DrPwuPHHs
+         fqE8vlRJK1sQeilEUi25dESfhuamVK9XQzSx4kR6tLrBwKa045VhrLvjuJgPoT46RAe5
+         oec9+BvmtL3okDCIy7/mIZG3G89p6/+5+fxEoBv0F/NtEqD3gwDjjDIakfu3ZwEurTNW
+         TBw9rBECj30cN2V+b0GpDdTaitNKwdkubnG0T61VGsweH5YHf9lDCUkS3N86PXJNysJT
+         fC9I0paRdU/SU79hCANwvz+CwQMjRF0lYJcexmHs//wji5d4xerIXda6STzf7i5OTCh+
+         VL0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793655923; x=1794260723;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=q5JdWOppAER7/sVf+/wRTQ5JltDoWihbM3Khp4hBQTg=;
+        b=uZCUNRIlyhne0WNkwLxcoJnSTpsbm0IdF54xyX9C6GHEf2Yd4uT3ivIS3FIjR1TQ/Z
+         phOUzgXyy92P7iXTR0HvIUtC8DWnUSRlnoAUfo2u9bJWpYJS/ip0Q7h5Wsd9zcgQNePy
+         G5/01uu6ti9x+ur6H7FWRUu+SF4RIzp+/hO4L041F2y/tj7gOeZKTvHjxIq+fXvIeMMl
+         ePGeICm/AfPXhvwN8a2VPz9K38284DAFOido3FJZntPdsy2PFjooPGO6WQOf53hWLhzu
+         zJwdavR6OSd8ocEAzYFu5zpmlmJ0NUASLmxYwf5S/HU0mKyziGj+ZkNa80attlaXsap4
+         Y1GQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwJI9T0mBQJua/Q0GG7FpC/8OQM/01jFQSWLFvbj1WWegHqWX65Cdd/Q3wV/p8EA41pRx6AFzvMa94rF2U=@vger.kernel.org
+X-Gm-Message-State: APuU4Z81PZ0iLfuHlQBy0Fho0Xl3sfna8SxwsgckWJRmsBGRbU8bAekr
+	SqWgCi1baE2GhuzpA4kyQKFOYQ8dHtqgzWcxaAHV/cmJCs1XL/wSaSUD3misF50cyA==
+X-Gm-Gg: AYBFou1mFWInDiqha63Km6RWqBRV4TSM3m1R1H7qCg6qEnzIDNOCJLOklbTX2ULRr6U
+	eBMCZR4DtRx1TTQJhMPXblW5EjCXgeAHqyNrvXywwUC/fboB13KnLsg06N+q18AZVsQsZ8jHcb4
+	m4RFc7tnJjOoBjB8qg5U3BjAvjsgRmsdtk/7tQOk95VlNo2/tiWk59/ls8i/pAczXz6fGXk3Dt/
+	5BuhUgMo/MYoyulZylaaZWPIx/loumEKkfXBg9eTPUefE6yNfdQt90Ah50leSho2NAnwEyUGvAr
+	hE0Om+MJ4iCBsMSMSRpS4iMarE2eCfRhvr3MIDg9fT0td6PZwYDb/2dHRrmTLOLzWHzAQVHECao
+	FcViXdVK2aeqr6qIxs+CmcWwRGOvpTW9vAuS0PMG4jgM5XkxnIutVubrN/7R7jBZHi78DOblABh
+	W2QjzGg6pvWrL7I96WjSD6zyIiAD39goBrAhwK8QuWblPN8oEwhOgqOIiTpodOPXfErz/+YLoe8
+	ZIb2kox4n7ydng5NafCH39fJG0+qsdoLvLL0SSUI+FYsmAXYZUYuQb7T8V2Z1l0a7P3bvgY3N9X
+	9REW6g+WQyCoPSkuvxKln6DQUrywVLZJfeQuKOdKL/+zLmdRTOvNKwYprq7T+4B8
+X-Received: by 2002:a17:90b:570c:b0:3ac:8897:7ba9 with SMTP id 98e67ed59e1d1-3ae8985d52dmr10189518a91.56.1793655923061;
+        Mon, 02 Nov 2026 13:45:23 -0800 (PST)
+Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c29e619sm1046130a91.0.2026.11.02.13.45.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 13:45:22 -0800 (PST)
+Date: Mon, 2 Nov 2026 21:45:18 +0000
+From: David Matlack <dmatlack@google.com>
+To: Mina Almasry <almasrymina@google.com>
+Cc: Peter Xu <peterx@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
+	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
+	Jason Gunthorpe <jgg@ziepe.ca>, Matt Evans <matt@ozlabs.org>
+Subject: Re: [PATCH v2 2/2] vfio: selftests: Test BAR write faults after
+ clear_refs
+Message-ID: <aukEbs9W2rnjb1jQ@google.com>
+References: <20261101062049.998160-1-almasrymina@google.com>
+ <20261101062049.998160-3-almasrymina@google.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -111,146 +101,158 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AM9PR04MB8555:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb48794b-c1d2-423f-16b8-08df392a8528
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|19092799006|7416014|376014|22082099003|18002099003|261102123227099003|56012099006|4143699003|11063799006|261009223027099003|261028144727099003|261021121427099003|261021123027099003|261026140227099003|261022105027099003|261026121527099003|10067099003|6133799003;
-X-Microsoft-Antispam-Message-Info:
-	Ggkj3DlZn+Pfpr5rZu2dxdkZjUMWV1JrL640BOAU4yibrMDG1GvUZDDSPQ/16viDb9jWWn6dgjEQlBUad4cunHe13k148uIcfHinD/BMzfGS0CwwdzFanz2MQXpvr12XY/rrfb7PedlBEXOiCtP1o54w1v9sHyq4f9EaXqkVzq7o7JndgD0bKZzBirYF+uWCBwHxA9Yy9IHqOOt0TgoUaFmO7bmRuH2MQ5JliaVaeqVuVWTJNY4iQs4GoQsHw7RHuNrD3UHK9GwcMLuVOcKRHoRpdR/rgsDg+oh74/PJqweK/edfCFHkTnx/ATRMVGix7b5Yf3XC6kY5jWP5OMlYX06Pu2a/m+f/AOEOaU9iUb/Uu7N3Dbd0WmwTMVMIGebPxFQXeZxg+V4qULkLINxet1eopR8Kn8JooRWKYuZdguEjDCl9HqX8MuR01A5CS2mRMNGGA4P1tXEfsWsq/W/xW8TC8hdb2wzxcCimhGWMAYjf7gnQo0l4QWkrW/ZpUCX7gn9iOg0upeOvQWNldsAMY/PfsiEIoAAWfW2B+22o2xVxKL/a6BeYKZPkr9gcLNS9NM0z9pW+UzsA72CHlOdB35ZfMp5KwrDsLtmAFVhHzXnwRhtSx70r9s+3H+5qWUAhxtlzQOBaww6bUOJsUGuwbm8fu4RN8DgI/cZVZySdGAs=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MI3PR04MB12438.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(19092799006)(7416014)(376014)(22082099003)(18002099003)(261102123227099003)(56012099006)(4143699003)(11063799006)(261009223027099003)(261028144727099003)(261021121427099003)(261021123027099003)(261026140227099003)(261022105027099003)(261026121527099003)(10067099003)(6133799003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?87q7JOvqJy14yzndaKTf5vtk50r5SzER1F88r0CdmliDAfrg+Hnh9ELX4s+W?=
- =?us-ascii?Q?rFH+j+U7KA2kJALEH/FvdcLaAOcBi1E8pU+Hfwp6A+DJWu7RS382sJF4UWRm?=
- =?us-ascii?Q?P3XbvHU5nOo8MjF/I8B8o7VR0B12rkAhe5ZXgmwTCuWsn6sq1WuzImVfRjmm?=
- =?us-ascii?Q?nH+h93tTVwCTGDh7AePuIsIjhi1RxaFlaPQp/B0cmWpdZ82GNYKxPHT2UznB?=
- =?us-ascii?Q?p9ed0T4JUh2FmGJ0KzuVJXIRFjNO3PvFULL6LfNEFuW/93R6hulKhNKShLw1?=
- =?us-ascii?Q?mbqxXe5YuTAgzqb2D//h2MjUek968pXXh1/BPaWS5rqqJPz8YhdeEtUWl6Rl?=
- =?us-ascii?Q?+nbxBUaBmT++wZurACqqf9h/Zf7IEygfvLtwuzZbmFBOMIxeof3ix2phKab5?=
- =?us-ascii?Q?wrFfS7dGzd1VNP1md0GABOPWcoEGJTQz4C7YZNr7IIp+DWQTr6J1bXc4Oxvr?=
- =?us-ascii?Q?Tl+qE++fuipmNyh1JPMfH4kxobRAYqTS5TPizaQFL2OWiQYSeogoHso5SICh?=
- =?us-ascii?Q?ox+zpJB3bQYC6vwm5a8HbssdbiFhLYkBPZfjxn0lOGU11onHG+TspsTvJ1CX?=
- =?us-ascii?Q?Te8McuCzegyFhV6fYItbSjc+lKq6ZQHa0pO25ThzVwWHN6UxTDaF1bFhu+W1?=
- =?us-ascii?Q?VzLDLBevHDrp9HiZQmFgSvPW0YPwbRhQmOVThyxSQJZaE9OcYkKZCZq8lRaz?=
- =?us-ascii?Q?jBTa84rrkIwao+uyXyt5R38Z0Uv4Mb88bIBxCrKxPAhIFbrJ308U1RC0z94s?=
- =?us-ascii?Q?X8/8CR5wtQ2tJk05knb5VTIfq7R4AMVtwBy1fmhkTzSoF9LMm4RS3KGAbtRS?=
- =?us-ascii?Q?fLhGCM7GfQUM30GsEf13Ey+qJsdb/tg7NUiGaCWvkgNZVtT49A8kBYIUtl1F?=
- =?us-ascii?Q?0dOOBKvBlhbyzjTd2Do32jLS3Dt73SsahtLGI0hhBW5KshW4p832dv+uQsxQ?=
- =?us-ascii?Q?mRg36HMWefUNkX1Wq/XiYy0vKBJCR2oGf63oidIC0bT8+SMW4CrBZd7nJHZN?=
- =?us-ascii?Q?jCFAJ6j1GUSh0D8enoCOfQnaPyjdb2q8QMJvbiP9oZnBECUqCqG+1PARUp0e?=
- =?us-ascii?Q?hPnA/BzY1ellcdEakdHUymD32iYUn6AZagmhtcFTYKPxmXBxDhJa3BTnDYvd?=
- =?us-ascii?Q?G1Xvdlb577srntWEVu62GMUHZnpXJrzogwlj2T4iIrRKT3vyY8px3ZrURlgt?=
- =?us-ascii?Q?qzZJDPQEYXksv6W5jHxPeI7NDJpjx6Lt95bcZlqEBy+Pn5tSnbMqx8F6A+hd?=
- =?us-ascii?Q?Xjf/K99Buq9q1IS2t27hl6LI79jOdyCoFncw6bYc531NXcRZu7WzeUqP5MQp?=
- =?us-ascii?Q?Q7w9EedU/HtJy0v47vvURI5DvM7RxQJhjLiYsDKknxhFvLE2KxwNgYMbxxWj?=
- =?us-ascii?Q?aX+3AR8xdkOZeMJPiy40BiMBPJfYnItFdh9vd/hglxn8r7Z7q/6wNoKH8R+Q?=
- =?us-ascii?Q?9N5wXrAcBAVccOymFGmkm0KJpO1kFt/YM2B23YLizGU8i26s88vblS8cb2f5?=
- =?us-ascii?Q?iT7yKzpjFIJ0Mo6Y62suv+4qmyRFz7gylhupA8hMeEo5/Bxc/CQyxPNd5u1Z?=
- =?us-ascii?Q?Y9R5b1jzsV921IE+vwNIYBlhgkhszPJdFsmHSzDkNEGNRERHcT6Hy3XCNJmK?=
- =?us-ascii?Q?xEFCYlb4sWdHoq7f0+uB2k76vsb3x28e53c2im4Cf7nv2ktfk6D5DnOsesjN?=
- =?us-ascii?Q?ty/aNr5gtlx4KQ5lOE4jckQwl4wyPTkwykh+nhuQxuI4kZ9uvjqZ90mmetIL?=
- =?us-ascii?Q?n41mdBh5XC4XcpabXTBIhjBP+SUmnUnQdcIuGgcuJ4+5tcAqASSZ?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb48794b-c1d2-423f-16b8-08df392a8528
-X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Nov 2026 21:44:49.5904
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qVDdpLbEmnIJ1kQOcflogArgHb1gI9rpme+YPLDgAKJ4bjXkVFvqNpHVBldAt5PihjNQF++yOb/4Z35tGIHEWAs8dkOPyB3ACpXLAlJEok9XFD4f0OLPixDct47HfOiY
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8555
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261101062049.998160-3-almasrymina@google.com>
 
-On Mon, Nov 02, 2026 at 07:05:40PM +0800, Junyi Zhao wrote:
-> Amlogic A9 SoCs integrate the Silvaco I3C IP with two controller
-> instances:
->
->   - amlogic,a9-i3c for the EE domain, which takes two clocks,
->     "pclk" and "fast_clk" like the NXP variants;
->
->   - amlogic,a9-ao-i3c for the Always-On (AO) domain, which exposes
->     only "pclk": its bus clock is generated by an internal divider
->     located in the controller's own register space.
->
-> Allow both compatibles with the "silvaco,i3c-master-v1" fallback and
-> enforce the per-variant clock counts.
->
-> Signed-off-by: Junyi Zhao <junyi.zhao@amlogic.com>
-> ---
->  .../bindings/i3c/silvaco,i3c-master.yaml           | 24 ++++++++++++++++++++--
->  1 file changed, 22 insertions(+), 2 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yaml b/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yaml
-> index 853092f75..de1fdec65 100644
-> --- a/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yaml
-> +++ b/Documentation/devicetree/bindings/i3c/silvaco,i3c-master.yaml
-> @@ -19,6 +19,8 @@ properties:
->            - enum:
->                - nxp,imx94-i3c
->                - nxp,imx95-i3c
-> +              - amlogic,a9-i3c
-> +              - amlogic,a9-ao-i3c
->            - const: silvaco,i3c-master-v1
->
->    reg:
-> @@ -28,14 +30,14 @@ properties:
->      maxItems: 1
->
->    clocks:
-> -    minItems: 2
-> +    minItems: 1
->      items:
->        - description: system clock
->        - description: bus clock
->        - description: other (slower) events clock
->
->    clock-names:
-> -    minItems: 2
-> +    minItems: 1
->      items:
->        - const: pclk
->        - const: fast_clk
-> @@ -72,12 +74,30 @@ allOf:
->              enum:
->                - nxp,imx94-i3c
->                - nxp,imx95-i3c
-> +              - amlogic,a9-i3c
->      then:
->        properties:
->          clocks:
-> +          minItems: 2
->            maxItems: 2
->          clock-names:
-> +          minItems: 2
->            maxItems: 2
+On 2026-11-01 06:20 AM, Mina Almasry wrote:
 
-Nit: if respin, add empty line here.
+> +TEST_F(vfio_pci_device_test, bar_write_fault_after_clear_refs)
+> +{
+> +	const u32 rw_mmap_flags = VFIO_REGION_INFO_FLAG_MMAP |
+> +				  VFIO_REGION_INFO_FLAG_READ |
+> +				  VFIO_REGION_INFO_FLAG_WRITE;
+> +	struct vfio_pci_bar *bar;
+> +	bool tested = false;
+> +	int ret, i;
+> +	u32 val;
+> +
+> +	ret = clear_soft_dirty_refs();
+> +	if (ret == -ENOENT || ret == -EINVAL)
+> +		SKIP(return, "soft-dirty clear_refs unsupported (%d)\n", ret);
+> +	ASSERT_EQ(0, ret);
+> +
+> +	vfio_pci_cmd_set(self->device, PCI_COMMAND_MEMORY);
+> +
+> +	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
+> +		void *vaddr;
+> +
+> +		bar = &self->device->bars[i];
+> +		if ((bar->info.flags & rw_mmap_flags) != rw_mmap_flags)
+> +			continue;
+> +
+> +		ASSERT_NE(NULL, bar->vaddr);
+> +
+> +		/*
+> +		 * clear_soft_dirty_refs() stripped write permissions from
+> +		 * vma->vm_page_prot on the unpopulated BAR mapping created by
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: amlogic,a9-ao-i3c
-> +    then:
-> +      properties:
-> +        clocks:
-> +          maxItems: 1
-> +          description:
-> +            The "ao" variant is the controller instance in the Always-On (AO)
-> +            domain, which has no separate bus clock and derives the
-> +            bus clock from an internal divider.
-> +        clock-names:
-> +          maxItems: 1
->
->  unevaluatedProperties: false
->
->
-> --
-> 2.42.0
->
+Sashiko's finding here is right. The BAR mappings may be populated
+already at this point. You can reliably zap the BAR mappings by clearing
+PCI_COMMAND_MEMORY. e.g.
+
+  static void zap_bar_mappings(struct vfio_pci_device *device)
+  {
+          vfio_pci_cmd_clear(device, PCI_COMMAND_MEMORY);
+          vfio_pci_cmd_set(device, PCI_COMMAND_MEMORY);
+  }
+
+Then you can also use this instead of mmap()+madvise() below.
+
+> +		 * vfio_pci_device_init(). Fault it read-only first, then write
+> +		 * to exercise in-place write-upgrade (wp_huge_pmd/wp_huge_pud).
+> +		 */
+> +		val = READ_ONCE(*(u32 *)bar->vaddr);
+> +		WRITE_ONCE(*(u32 *)bar->vaddr, val);
+
+Writing to offset 0 of every read/write BAR isn't necessarily safe. It
+could be a doorbell, a write-1-to-clear status register, the MSI-X
+table, etc.
+
+There's no way to trigger the write fault without actually writing to
+the BAR (e.g. MADV_POPULATE_WRITE fails on VM_PFNMAP VMAs), so the test
+needs to know where it's safe to write.
+
+To solve this, I propose adding a helper to the VFIO selftests library
+that finds a BAR (or range within a BAR) that behaves like memory, i.e.
+every location can be read and written with arbitrary values without
+side effects. Something like:
+
+  bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
+                             struct vfio_pci_mem_bar *mem_bar);
+
+Detection would be based on a table of known devices, and tests SKIP()
+when no such BAR is found. Your test would then ask for a mem BAR of at
+least PMD_SIZE and run both cases on it.
+
+This came up recently with Matt's DMABUF mmap() test as well [1], so I
+think it belongs in the library rather than in vfio_pci_device_test.c.
+It shouldn't be much more work than a test-local helper (but please add
+it in a separate commit).
+
+My suggestion would be for QEMU's pci-testdev (1b36:0005) to be the
+first device in the table, since anyone can run it in a VM without any
+special hardware. With membar-backed=on, pci-testdev's BAR2 is a 64-bit
+prefetchable BAR backed by plain RAM, so it's safe to read and write
+anywhere in it. membar-backed requires QEMU 10.1 or newer. For example:
+
+  qemu-system-x86_64 \
+    -machine q35,accel=kvm,kernel-irqchip=split \
+    -device intel-iommu,intremap=on \
+    -device pci-testdev,membar=1G,membar-backed=on \
+    ...
+
+Then boot the guest and run the test against the device:
+
+  $ BDF=$(lspci -D -d 1b36:0005 | awk '{print $1}')
+  $ ./scripts/setup.sh $BDF
+  $ ./vfio_pci_device_test $BDF
+
+membar=1G is large enough to exercise both PMD and PUD mappings, since
+vfio_pci_bar_map() aligns the mapping to min(size, 1G). If 1G of host
+RAM for the BAR is too much, membar=2M still covers the PMD case.
+
+If you want to also add the device you reproduced on to the table, that
+works for me too. More devices can be added later as needed.
+
+This could also be added to the vfio_pci_driver framework, but I'm not
+sure that is a good idea. Devices that have large memory-like BARs
+aren't necessarily the same devices that can implement memcpy and send
+MSIs.
+
+Would you be open to adding vfio_pci_find_mem_bar() as part of this
+series?
+
+[1] https://lore.kernel.org/kvm/CALzav=cGtmkBBpfUA8nP7AQ3azB_Hn7_8jJL=J+E+h61CpOFrw@mail.gmail.com/
+
+> +
+> +		/*
+> +		 * Replace the VMA with a fresh unpopulated mapping at the same
+> +		 * hugepage-aligned address, clear soft-dirty again, and fault
+> +		 * with an immediate store to exercise initial write insertion
+> +		 * (vmf_insert_pfn_pmd/pud with write=true).
+> +		 */
+> +		vaddr = mmap(bar->vaddr, bar->info.size, PROT_READ | PROT_WRITE,
+> +			     MAP_SHARED | MAP_FIXED, self->device->fd,
+> +			     bar->info.offset);
+> +		ASSERT_EQ(bar->vaddr, vaddr);
+> +		madvise(bar->vaddr, bar->info.size, MADV_HUGEPAGE);
+> +
+> +		ASSERT_EQ(0, clear_soft_dirty_refs());
+> +
+> +		WRITE_ONCE(*(u32 *)bar->vaddr, val);
+> +		(void)READ_ONCE(*(u32 *)bar->vaddr);
+> +
+> +		tested = true;
+
+Should only BARs >= PMD_SIZE be considered tested?
+
+> +	}
+> +
+> +	vfio_pci_cmd_clear(self->device, PCI_COMMAND_MEMORY);
+
+This should restore PCI_COMMAND_MEMORY to whatever it was at the start
+of the test. Or just leave PCI_COMMAND_MEMORY enabled (that would also
+be harmless).
+
+> +
+> +	if (!tested)
+> +		SKIP(return, "No mappable read/write BAR on %s\n", device_bdf);
+> +}
+> +
+>  FIXTURE(vfio_pci_irq_test) {
+>  	struct iommu *iommu;
+>  	struct vfio_pci_device *device;
+> -- 
+> 2.56.0.385.gac671c819a-goog
+> 
