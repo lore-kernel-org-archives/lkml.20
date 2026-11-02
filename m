@@ -1,82 +1,85 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.170
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=198.175.65.13
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624507;
-	b=rxRj0FPvcm/QaYT7yIEx2knvwWNOPhM7x92I11Zi9e4BVqz6ZQ0Vldb7skzS/o7b2fbh
-	 l2Flkum4qjhDWDAhMgWJUtXhNDIV0ojO+uew/qUPRv89ljx7g4m6Qdr7gOuO/ImM7JLoD
-	 14NqYIgXV8RIE0oE93Z/sftP7mcxHTu3Xq6NEMVSP6tEpIrQMYK18fFYP5R5zDlRRU4XD
-	 ukTTB7WAZzyuomLYctEDpPWOSt+yhiN2ApdGiGgXwbUK1mhKdDnnVQkhSazBr1oEQd8Fs
-	 wrU2TOx4VZ1NNEVJ+iBiWissbXmNHOqO8hYDuuTAxEoTFldf1KzEoCe0DrrLOJU9j+A==
+	t=1793624522;
+	b=hjmyXU1JPEKtHSWaxYIr8boCVXSTY0pKIplZT2tUqnfoRTS+rwNmAZXk3Jyv25Dcvul8
+	 9Cz79zTJfPkAicdAB8TdSXBvLN55Pc7EcwzclGVZ51wCrnauv+U7yrvo37CtjvHit/2w/
+	 MT05fUhr8waKhvTanTitNXVPOtr8WPLma21gA0yKOGSDdEzd70NlWddYbZ6ERWuOR6dZ3
+	 bXgwKlOIuzAq/t2xcmxJlh6a9Ues5FSB+1InKKSWsZUnSjS1KFmKge6clH9y+tdbYoFKn
+	 U2CF3pYZbuhTj22vUpWH09lS0jZoTVOKY7wl1zCewIa6h9whIBWHrnII8w/9eoAdh/Q==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624507;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:From:To:Cc:Subject:Date:Message-ID:
-	 X-Mailer:In-Reply-To:References:MIME-Version:
-	 Content-Transfer-Encoding;
-	bh=1O2oFv+ZK/pYAWPwm8rrF9G+J2Ax3U/VnIbvtvMMFys=;
-	b=tJ2Wqfy2gpAhCPi2UCwUpzMzV8+t89h+zjvxk7G3gGhyk7m/Runw6jiXUNWTgG7IJZAP
-	 zJTwA/xgeRlHfKwMC6HH+CKkcV/EFlBiGGRhvkesyxVu1CP0NAG7FzoulK14LWTv6NEey
-	 Zz3MazJKYo8Y0/kOmTco+ipBYzZKwGBCusimNTT+fP0K5C7jRvbVv4DWbVIWFI1GdBSgh
-	 pUG3hdCdiknc33fu0LDBAQ5ecrgumocbgW3TUPgkD5wENiqBnKLE6Zds7pRYsU2otl9hi
-	 9bgfkS8i8+wqTaQ0jcYkFur/z4bJtmJDyLU+wK4KbU05FNnwiZzMPqVXC4koTAMc90Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624522;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Date:From:To:
+	 Cc:Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:Content-Transfer-Encoding:In-Reply-To;
+	bh=leq0DqS95SZbhvs0zPGL1F/cnThHuoW+KqjrbgyEk+8=;
+	b=UYrINW30ghMuptnYOOR/oOb2W+yVAF8dRCxH/u1t2Sc49JYA6i2zY4KxhjXOBQigdrg1
+	 0Z7JmsUt/TaUYGcqFUzvfOOkD5MVXjLVUdhoT/1gDatwlBhjuYzdpaKbRMOdFP2Ltb9Fv
+	 rxtUSpDELtW9Uqs9Iuw4HbOQERUynZWfIT49hKa7f9Wg5Wljeg+/LMOeHmqaXj6Ja0chd
+	 chRny0TozqZyswk181p4HkiO8/6bgVi7Qcax4oPOl6RtImuorvNwxQsJRTTub8EPJkm5I
+	 stU1Az2pl54jBBaO2GQe8BF3LctHmNI4x/6ZdIQhqS1b9iakefnFAioKRfzAm29wZoA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dGUV5oke;
-	arc=none smtp.remote-ip=95.215.58.170
-Received: from mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=inxstQ9z;
+	arc=none smtp.remote-ip=198.175.65.13
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36572606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:01:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 36572606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5038B60A2607;
+	Mon,  2 Nov 2026 13:02:01 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 5038B60A2607
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=dGUV5oke
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=ivYalubDN93bEKTb9+BptVFT0cZ/wcR7OB8hL+64CIY=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793624504; v=1; x=1794229304;
- b=dGUV5okeZjO0Fu0p1T1vR4cYVRePT+BQDFaZHhpb/pbf2o5d6mEI/hYxZ7Uq0jxRNwbM3gef
- pkU9puzvU3eUx5HXGqjoepVVUqMqHepiPGs46tDOmkz69ajkqH6b3lhZaQWvQxgMPGwOxMz2iyO
- QD4bWPgRhfn6c2Nf86F+RFIk=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 88645c0bdba3211b;
-	Mon, 02 Nov 2026 13:01:44 +0000
-X-Mizu-Trace-ID: 88645c0bdba3211b
-X-Migadu-Flow: FLOW_OUT
-From: Fuad Tabba <fuad.tabba@linux.dev>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Will Deacon <will@kernel.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Raghavendra Rao Ananta <rananta@google.com>,
-	Sascha Bischoff <Sascha.Bischoff@arm.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Sebastian Ene <sebastianene@google.com>,
-	=?UTF-8?q?Bart=C5=82omiej=20Grzesik?= <bgrzesik@google.com>,
-	Mostafa Saleh <smostafa@google.com>,
-	Vincent Donnefort <vdonnefort@google.com>,
-	Vladimir Murzin <vladimir.murzin@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Zenghui Yu <zenghui.yu@linux.dev>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Radu Rendec <radu@rendec.net>,
-	Fuad Tabba <tabba@google.com>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 01/13] KVM: arm64: Donate MMIO to the hypervisor
-Date: Mon,  2 Nov 2026 13:01:21 +0000
-Message-ID: <20261102130133.3684226-2-fuad.tabba@linux.dev>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261102130133.3684226-1-fuad.tabba@linux.dev>
-References: <20261102130133.3684226-1-fuad.tabba@linux.dev>
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=inxstQ9z
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793624521; x=1825160521;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=drxTo++OZkH7kBDSpfcynKa97bsiB9evM2el8QcMEC0=;
+  b=inxstQ9zkCPbKo0XIQD8fAz6Nf5J1OBtT0ABo9NTTra6B6CVOD5iLbQm
+   vJOemDAhe/7+V5yZxwnhlpV+x5i/+ZVF47CQMlZFvb/A4YwFiXStGoUgd
+   CpdTxqSJzjC0fXWikU3oMAjfd9tEan5cAihFQFTTO3gYKZ6UcIsRtkJUx
+   vNLhJIP7HXeWWlJwOsxCY8ywSGEWhH9TkTNnYcHVFef0+y5PdGMVWqNeW
+   GCyajC5aTI4N0ivHYc04ZO8L6/Gub0JLkLKGyFAIohnoZ9B3R4wxIM2J+
+   t3Vl8SP/CVaNmGR2AFra+jTiSzAfHGu3B/30ncqh7gl23fn6sjwpt4/HV
+   g==;
+X-CSE-ConnectionGUID: CAD3kndnRr2sQRePeaitig==
+X-CSE-MsgGUID: /VdsOSavT2CRh9rJp7+Uqw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11953"; a="2191421"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2191421"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 05:01:49 -0800
+X-CSE-ConnectionGUID: 7v3+O6SmRse+47iagkBWOA==
+X-CSE-MsgGUID: FVk/xTTMQl2oCXXGju5lfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6449554"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa001.fm.intel.com with ESMTP; 02 Nov 2026 05:01:46 -0800
+Received: by black.igk.intel.com (Postfix, from userid 1001)
+	id 236A699; Mon, 02 Nov 2026 14:01:45 +0100 (CET)
+Date: Mon, 2 Nov 2026 14:01:45 +0100
+From: Mika Westerberg <mika.westerberg@linux.intel.com>
+To: diego.sure@gmail.com
+Cc: Imre Deak <imre.deak@intel.com>, dri-devel@lists.freedesktop.org,
+	Uma Shankar <uma.shankar@intel.com>,
+	Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Mika Westerberg <westeri@kernel.org>,
+	intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC] drm/dp_tunnel: Allow BWA when the DP IN adapter does
+ not advertise it
+Message-ID: <20261102130145.GU158991@black.igk.intel.com>
+References: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -86,177 +89,27 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261031-dp-tunnel-bwa-flag-v1-1-f94ed3179349@gmail.com>
 
-From: Mostafa Saleh <smostafa@google.com>
+Hi,
 
-Add __pkvm_host_donate_hyp_mmio() so IOMMU drivers in the hypervisor can
-take ownership of the IOMMU MMIO. The range is mapped in the hypervisor
-private range and annotated as owned by the hypervisor in the host
-stage-2, so host accesses fault and further donations of the same range
-are refused. MMIO has no struct hyp_page, so the annotation is the only
-state, and a dedicated function is simpler than teaching the memory
-donation path about MMIO. Donation is only allowed before the host is
-de-privileged, which is when the hypervisor IOMMU drivers initialise.
+On Sat, Oct 31, 2026 at 01:18:18AM +0100, Diego Noguês via B4 Relay wrote:
+> From: Diego Noguês <diego.sure@gmail.com>
+> 
+> On an Alder Lake host (i7-1265U) with a Thunderbolt 4 dock (Dell WD22TB4,
+> Goshen Ridge) driving two 4K@60 monitors through two DP tunnels, the
+> monitor whose tunnel is created second is limited to 4K@30. Which monitor
+> is affected depends only on the order in which they are powered on.
+> 
+> The thunderbolt driver enables the BW allocation mode (BWA) on both DP IN
+> adapters: it sets the CM BWA support (DP_USB4_DRIVER_BW_CAPABILITY), a
+> group ID and the estimated BW. The DP IN adapter, however, never sets
+> DP_IN_BW_ALLOCATION_MODE_SUPPORT in DP_TUNNELING_CAPABILITIES (0xe000d
+> reads 0x01), so tunnel_regs_are_valid() rejects the tunnel with:
 
-Make kvm_pgtable_stage2_unmap() leave invalid counted PTEs (annotations)
-in place. host_stage2_unmap_dev_all() unmaps all non-memory ranges to
-recycle page-table pages under memory pressure, and would otherwise drop
-the annotation and let the host fault the MMIO back in. No caller depends
-on the old behaviour: host_stage2_unmap_dev_all() only covers non-memory
-ranges, where no annotation existed until now, and the guest unmap paths
-check that the PTE is valid first. Returning an error for counted PTEs
-instead is not an option, as a non-zero visitor return stops the walk,
-which would abort recycling at the first hypervisor-owned MMIO page and
-inject an abort into the host for an unrelated address.
-
-Link: https://lore.kernel.org/r/20261015200903.2735565-2-smostafa@google.com
-Signed-off-by: Mostafa Saleh <smostafa@google.com>
-[Fuad: pass kvm_pgtable_get_leaf() the walk flags ee26443f3dd70 added;
- drop __pkvm_hyp_donate_host_mmio(), which this series doesn't call]
-Signed-off-by: Fuad Tabba <fuad.tabba@linux.dev>
----
-
-Notes:
-    Changes since v2: the version from Mostafa's SMMUv3 v9, which maps
-    the MMIO in the hypervisor's private range rather than at
-    __hyp_va().
-
- arch/arm64/include/asm/kvm_pgtable.h          |  2 +
- arch/arm64/kvm/hyp/include/nvhe/mem_protect.h |  5 ++
- arch/arm64/kvm/hyp/nvhe/mem_protect.c         | 62 ++++++++++++++++++-
- arch/arm64/kvm/hyp/pgtable.c                  |  8 +--
- 4 files changed, 70 insertions(+), 7 deletions(-)
-
-diff --git a/arch/arm64/include/asm/kvm_pgtable.h b/arch/arm64/include/asm/kvm_pgtable.h
-index 1c9c57cd6ae40..1a3f6e851c94f 100644
---- a/arch/arm64/include/asm/kvm_pgtable.h
-+++ b/arch/arm64/include/asm/kvm_pgtable.h
-@@ -721,6 +721,8 @@ int kvm_pgtable_stage2_annotate(struct kvm_pgtable *pgt, u64 addr, u64 size,
-  * freed. Unmapping a cacheable page will ensure that it is clean to the PoC if
-  * FWB is not supported by the CPU.
-  *
-+ * Invalid counted PTEs (annotations) are left in place.
-+ *
-  * Return: 0 on success, negative error code on failure.
-  */
- int kvm_pgtable_stage2_unmap(struct kvm_pgtable *pgt, u64 addr, u64 size);
-diff --git a/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h b/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h
-index ec85a95471207..16e5864ab7f08 100644
---- a/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h
-+++ b/arch/arm64/kvm/hyp/include/nvhe/mem_protect.h
-@@ -36,6 +36,11 @@ int __pkvm_guest_share_host(struct pkvm_hyp_vcpu *vcpu, u64 gfn);
- int __pkvm_guest_unshare_host(struct pkvm_hyp_vcpu *vcpu, u64 gfn);
- int __pkvm_host_unshare_hyp(u64 pfn);
- int __pkvm_host_donate_hyp(u64 pfn, u64 nr_pages);
-+/*
-+ * Donate MMIO range to the hypervisor, it will be mapped in the hypervisor's
-+ * private range and unmapped from the host stage-2.
-+ */
-+int __pkvm_host_donate_hyp_mmio(u64 pfn, u64 nr_pages, unsigned long *haddr);
- int __pkvm_hyp_donate_host(u64 pfn, u64 nr_pages);
- int __pkvm_host_share_ffa(u64 pfn, u64 nr_pages);
- int __pkvm_host_unshare_ffa(u64 pfn, u64 nr_pages);
-diff --git a/arch/arm64/kvm/hyp/nvhe/mem_protect.c b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-index d4c332a918035..a6dacaca77610 100644
---- a/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-+++ b/arch/arm64/kvm/hyp/nvhe/mem_protect.c
-@@ -385,7 +385,11 @@ static int host_stage2_unmap_dev_all(void)
- 	u64 addr = 0;
- 	int i, ret;
- 
--	/* Unmap all non-memory regions to recycle the pages */
-+	/*
-+	 * Unmap all non-memory regions to recycle the pages.
-+	 * That relies on kvm_pgtable_stage2_unmap() not clearing
-+	 * counted PTEs which include hypervisor MMIO.
-+	 */
- 	for (i = 0; i < hyp_memblock_nr; i++, addr = reg->base + reg->size) {
- 		reg = &hyp_memory[i];
- 		ret = kvm_pgtable_stage2_unmap(pgt, addr, reg->base - addr);
-@@ -1146,6 +1150,62 @@ int __pkvm_host_donate_hyp(u64 pfn, u64 nr_pages)
- 	return ret;
- }
- 
-+int __pkvm_host_donate_hyp_mmio(u64 pfn, u64 nr_pages, unsigned long *haddr)
-+{
-+	u64 phys = hyp_pfn_to_phys(pfn);
-+	u64 size = PAGE_SIZE * nr_pages;
-+	unsigned long addr;
-+	kvm_pte_t pte;
-+	u64 offset;
-+	int ret;
-+
-+	/* Only before de-privilege. */
-+	if (static_branch_unlikely(&kvm_protected_mode_initialized))
-+		return -EPERM;
-+
-+	if (!pfn_range_is_valid(pfn, nr_pages))
-+		return -EINVAL;
-+
-+	host_lock_component();
-+	for (offset = 0; offset < size; offset += PAGE_SIZE) {
-+		if (addr_is_memory(phys + offset)) {
-+			ret = -EINVAL;
-+			goto unlock;
-+		}
-+		ret = kvm_pgtable_get_leaf(&host_mmu.pgt, phys + offset, &pte, NULL, 0);
-+		if (ret)
-+			goto unlock;
-+		if (pte && !kvm_pte_valid(pte)) {
-+			ret = -EPERM;
-+			goto unlock;
-+		}
-+	}
-+
-+	ret = __pkvm_create_private_mapping(phys, size, PAGE_HYP_DEVICE, &addr);
-+	if (ret)
-+		goto unlock;
-+
-+	/*
-+	 * Mark the range as owned by the hypervisor in the host stage-2.
-+	 * The annotation makes host accesses fault, and is retained by
-+	 * host_stage2_unmap_dev_all()
-+	 */
-+	ret = host_stage2_try(kvm_pgtable_stage2_annotate, &host_mmu.pgt,
-+			      phys, size, &host_s2_pool,
-+			      KVM_HOST_INVALID_PTE_TYPE_DONATION,
-+			      FIELD_PREP(KVM_HOST_DONATION_PTE_OWNER_MASK, PKVM_ID_HYP));
-+	if (ret) {
-+		hyp_lock_component();
-+		WARN_ON(kvm_pgtable_hyp_unmap(&pkvm_pgtable, addr, size) != size);
-+		hyp_unlock_component();
-+	} else {
-+		*haddr = addr;
-+	}
-+unlock:
-+	host_unlock_component();
-+	return ret;
-+}
-+
- int __pkvm_hyp_donate_host(u64 pfn, u64 nr_pages)
- {
- 	u64 phys = hyp_pfn_to_phys(pfn);
-diff --git a/arch/arm64/kvm/hyp/pgtable.c b/arch/arm64/kvm/hyp/pgtable.c
-index 9c83837b184d3..041bd0d522f2c 100644
---- a/arch/arm64/kvm/hyp/pgtable.c
-+++ b/arch/arm64/kvm/hyp/pgtable.c
-@@ -1163,13 +1163,9 @@ static int stage2_unmap_walker(const struct kvm_pgtable_visit_ctx *ctx,
- 	kvm_pte_t *childp = NULL;
- 	bool need_flush = false;
- 
--	if (!kvm_pte_valid(ctx->old)) {
--		if (stage2_pte_is_counted(ctx->old)) {
--			kvm_clear_pte(ctx->ptep);
--			mm_ops->put_page(ctx->ptep);
--		}
-+	/* Invalid PTEs are left in place, including annotations. */
-+	if (!kvm_pte_valid(ctx->old))
- 		return 0;
--	}
- 
- 	if (kvm_pte_table(ctx->old, ctx->level)) {
- 		childp = kvm_pte_follow(ctx->old, mm_ops);
--- 
-2.47.3
-
+Alder Lake firmware really does not support this and by forcing it to be
+enabled you may end up in untested code paths and interesting behavior :)
+BWA was only officially supported starting from Meteor Lake.
