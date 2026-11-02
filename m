@@ -1,44 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.225.133
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793600830;
-	b=l8DfXNVzCH+7hmsju+U4yBjo8vD7QKB2E0OzmddsG7+QdGqFDQD0D76p4x89AoUSffQ9
-	 Jb0kgTkfJn9jdPUM363q5Ja71jDJi+OIU1il8/lKLw9quDacx18BUGNpAa7+tP5WtmNzZ
-	 nC45iUzAkfE6XbvYAbxShnXR77rMBDZP6dOBUl5vGH4yuFbKe1ZI2aKuH0ctuDSynK1LW
-	 PapijDip4mJllvTgerp8goWkC7Fw5m2zjCxwKooc+cSN3n1N/gDk7K6Xrw23ZN/rfcvQn
-	 HJ7JSK6uXAG6Gp9OSs48eYC/9BGADijFiaotfoyD89mbfI+/8eRxBQO5VxVYFo7RlMw==
+	t=1793600989;
+	b=WbY+vuIdybwkQIGqRq6+dbgJN8aovrxO6hq5wX7W+oixa6j8crGaK8QsrqVBD9oDHM7e
+	 dymvCIdp0EDiV0cQWEG2j6r7Df6GLwXxinDbHP5oYq3Sq97JZzY7s6C0Ar7I4lsQl3mKe
+	 M3JEChT4oJC2FZy3gHtvYBmkxHp4PIC9DcwF+983KkQwdIN9Zq/h+GGbgnrr1vOuFcn1h
+	 q+9tqYMcVm22jkXiSR5wT1kn+vS57V4/kFTRPN2zZ5XYCAIt+1V0wfAWa5Dju1BCl8LJN
+	 0nopVgnBcM/Mb8q/Z271Uied7BqrtfsDyg4fw4s/VtpVYer0j+LHlhtSVjq6Gi3NmTg==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793600830;
-	h=Received:DKIM-Signature:Mime-Version:Content-Type:Date:Message-Id:Cc:
-	 Subject:From:To:X-Mailer:References:In-Reply-To;
-	bh=2wkyyxCXcw31vN0kWDvVp8R9jdhVQobQ/AyYbLR2pHk=;
-	b=Uk+0zFK9LAue21ddL1QzE9OgM54Zg/Q7btAilUvjsemC2tompUq3a9w3hSZlOpBRXLVi
-	 agcnVkw2OLaQ08OwTfPThdnVD1Xa63bbvrAAJCISljc0+6FbBgj7VcZwQ/t3+4oHNWkH/
-	 Am23i3FkepqYQ+evz7xSpYkR7Yu+HWTUUZ6b+U2cWd+ble1b91swDYno/NSvcTiPlvwKL
-	 3IFkaxmOTHf4bovwJD9bTCadV3SdJkNUVRLs1XgVMYVN7qpILaQ6v1QsLrT2pCob6jscZ
-	 6OCGTuMZj670lUPIifCs3W3WGFZQVucGxE93EL90mmNOB7OJNoKqMduxOQELvJCsnVQ==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793600989;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=f+38X7/93OJZ0w0/yOS0NSZnjJd7UdYjHJOWwQOd+XQ=;
+	b=BATRXkEcKFSD8zXTRzS0F4KlvQwSPFT1VAJ/H4R+sPVpRkS/m89+LEXjGFYgtVntc8h/
+	 MTvfQD/o4icLjD0NHlXhR8+oHwlZeqJTCs1BOhC5ywVUfpGiLEP0b90v14w3p5etFOQ2f
+	 KDRfZ4pOlXj2q6udzJJp5hpk/uCLhZlacJ06NpGiGcPDfPuoVM42+IfZT4ksHh40AahkE
+	 y3kS1QZHoxCzBJpLwES9y6URy6ecqs1SLYJMZxe8DIthzK/cash5XUCMuN6nZHbJ2WQ1a
+	 vEp57SrRK5H+qCjIW9/M/Cbm3mY27870fy2VWyFoJXrxwklLOp1Umf9XOd59+mH4tvQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUfj+mSF;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="O+o6V/9G";
+	arc=none smtp.remote-ip=74.125.225.133
+Received: from mail-wm2-f5.google.com (mail-wm2-f5.google.com [74.125.225.133])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DECBD606A324;
-	Mon,  2 Nov 2026 06:27:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5122606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:29:48 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E5122606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JUfj+mSF
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 208CC1F000C1;
-	Mon,  2 Nov 2026 06:27:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793600829;
-	bh=2wkyyxCXcw31vN0kWDvVp8R9jdhVQobQ/AyYbLR2pHk=;
-	h=Date:Cc:Subject:From:To:References:In-Reply-To;
-	b=JUfj+mSFyWi89QZqMgxFHU1jsY8ia6jOnc5kmdWeX8UNEKiO37kG2oTLCBfuGQd1M
-	 93Apw1F76fupZmBgsGArRgUPPVERy7Yy4oL9lBRGzfwphsgwGL4cgMfY/Pc/BdSa7m
-	 zUEfVi9OUCWt3K6HWMtHPwyH3gd0sPRAT2foWrB7bbtorRxYYmzLrzcvehTUYOFoIT
-	 PS8/BSUBG50L86RyP9gRha77l9LsL7aWX0ve/+WlU8teBQYlng+IT/SN8FxuCSMJbX
-	 eN46VDHuGQ4r5y6o7vVp2BYOn1MorDvWQ5usgde4aRWVhiB7et6Rs3U4zKPv6Mxjwv
-	 9731/zMoa5DcA==
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=O+o6V/9G
+Received: by mail-wm2-f5.google.com with SMTP id 5b1f17b1804b1-4a35e178418so14574655e9.0
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:29:48 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793600987; x=1794205787; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f+38X7/93OJZ0w0/yOS0NSZnjJd7UdYjHJOWwQOd+XQ=;
+        b=O+o6V/9G9qcrrD5uEeY2MT+wwGYpdxNfuZr21zm4ab+1ZltYZ2gkMCBCsbjvyjVlEb
+         AIUueBf5hhZ9jwJb+5cWZleACmSXRGXXW2txSSX0P+3Ne45UMVO/Y5kZNTcc7lns/Hai
+         X27+LuWKvzxAas7iZ/Jz4ErRg11mD3Dx6AWxzB1KG5tRUaFe1bFfPb8zVUfcfp1KoMA9
+         izPXC7IBjzrl/egWOPtKNF9XlEoToCa8s1TfmEMhrcwUmiHSsHIHfBO+FS5WOCgUVkJE
+         +uDT8m2BPBg0rvyn1roa4hIW7apuYIzQQq9N7qMsl9y5w06XzdE+uYtMJddsopVt1/UF
+         5Xfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793600987; x=1794205787;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f+38X7/93OJZ0w0/yOS0NSZnjJd7UdYjHJOWwQOd+XQ=;
+        b=Hsd+FH3zJ9TaGxBgBmnrRDt2x6ZG05zL2SjyXS29CtgyUfIsi9ilI46wLD7ziEvqos
+         nAWadRppz2B14Jy/uUBZre8qafrzdx++QnjAIbY1BSDPOSiv2iwP6AgJ0cH99r0DFsEs
+         g9e01pXV4/Ghj+u3qa8ajsoFU1qxzUO/Dt+0prqpEBF8XdClPD/cx368qhEpL07Tf/5P
+         vhboMcOPU4MeEnL8HX0OtOpx+vBLoyZ2Sv1li7JVZDUcd2eJmPB/nClfBcvPQAkp9QV2
+         xKxTn1d8SHZ6kViYxSJo3ji2zyQZshGvbWMjKSpmIbvbN4nVez/JBjQ9ISv2sPvxAxUw
+         2vNA==
+X-Forwarded-Encrypted: i=1; AKwUvBwli1a1UUnhS8biX1JEySGTRydWYPSPcasxBWYf2+KgkUgMcbihiE8HjGnxDX1I756yRE3wkDqioYHE91Q=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaBw9EE+ScErQvPkBW8QOVtr7ao77DsjwYEYKJ0J1qYbm6rWfk
+	eTJvdU64FbipFMniIry40Tt5jHnF2+HW8W86LpsemvoMReLG2wg5wAza
+X-Gm-Gg: AYBFou3GdPWIZLTcz/SSVWFZ9k2yw51kXrAPsF7uwSBAQYYEDhxhcL0f9s5a08NNUGn
+	yoJ9/y5+oPJ469lUKky/V5u8uEkJPVRyHDvCDJMcV6RNTP4vGflnxAqbP3eeGqaGN+AhOrtnRMh
+	gmWwh5Tx9hVy2NC9XItMDfB+2luZAqr+VoulQjLM3fz20U1QVSL+CKn7X+HRmjYALgtvHi2AEzN
+	gXo7/9qwpz5+qj/oZ1bJoCVV6WYCD3Y88fWpYXl7+1OK/j+GURIjqKf+rjcX+6TwjU3TVDChhD/
+	MHjE0AYIcrNDS4X8vRrhYU3q5OGtr1zFYnOOFGqnyfA4qa6XuvGrPiQ3jw9ZKHN6kd76mu5V9V9
+	hAoNszmZDtG4IujSj7PhgnlM0y85+avBRxC8e9RmvvPemoXWoDLcofKHTD5Tgnkabm5mcxfWimT
+	yOoKVTpwM+ro6EG9GPTfXQMhTI8n2TeNzRjWgW8e6HgSCyxmkhvdF6LMEH03gXs0hUhb+1Rhw4C
+	+HQhg4lS+AcNxUN3gHmCReLHojeouy+HUnJhuQcvoTj645mh8EcYEvQEGuJybJv1afu0DZe3vOA
+	suih9Jy9EV6F0OAxmzlntb30IJeQVSHZJ9rX7QHVvxBk6g==
+X-Received: by 2002:a05:600c:354a:b0:4a3:5a55:f454 with SMTP id 5b1f17b1804b1-4ac17e10ac3mr219059815e9.19.1793600987081;
+        Sun, 01 Nov 2026 22:29:47 -0800 (PST)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abf751c2d2sm273759905e9.15.2026.11.01.22.29.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 22:29:46 -0800 (PST)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	linux-crypto@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Joachim Vandersmissen <git@jvdsn.com>
+Subject: [PATCH 5.10 v2] crypto: ecdh - explicitly zeroize private_key
+Date: Mon,  2 Nov 2026 09:29:08 +0300
+Message-ID: <20261102062913.6603-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -47,129 +98,49 @@ List-Subscribe: <mailto:linux-kernel+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
-Mime-Version: 1.0
-Content-Type: multipart/signed;
- boundary=90a2fe1c88bb8110eb48ee7ba039607e9e01d3d22524d3001346e8bf68cd;
- micalg=pgp-sha512; protocol="application/pgp-signature"
-Date: Mon, 02 Nov 2026 14:27:04 +0800
-Message-Id: <DMKIFFUY4T1C.TTDVVD0FOSF1@kernel.org>
-Cc: <linux-kernel@vger.kernel.org>, <spacemit@lists.linux.dev>,
- <linux-riscv@lists.infradead.org>, "Chunyan Zhang" <zhang.lyra@gmail.com>,
- "Troy Mitchell" <troy.mitchell@linux.spacemit.com>,
- <devicetree@vger.kernel.org>, "linux-riscv"
- <linux-riscv-bounces@lists.infradead.org>, "Troy Mitchell"
- <troy.mitchell@linux.dev>
-Subject: Re: [PATCH] riscv: dts: spacemit: k3: add USB3 port A (DRD) nodes
-From: "Troy Mitchell" <troy@kernel.org>
-To: "Chunyan Zhang" <chunyan.zhang@linux.spacemit.com>, "Yixun Lan"
- <dlan@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Paul Walmsley"
- <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou"
- <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>, "Aurelien
- Jarno" <aurelien@aurel32.net>
-X-Mailer: aerc 0.21.0-reader-ipc4
-References: <20261030094024.3226356-1-chunyan.zhang@linux.spacemit.com>
- <auYxFRtKWbGAlRTL@aurel32.net>
- <CAAfSe-shesRwmdKhZojqbZjJejVEtA47NXBwNmrpAsTsk6m5rA@mail.gmail.com>
-In-Reply-To: <CAAfSe-shesRwmdKhZojqbZjJejVEtA47NXBwNmrpAsTsk6m5rA@mail.gmail.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
---90a2fe1c88bb8110eb48ee7ba039607e9e01d3d22524d3001346e8bf68cd
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
+From: Joachim Vandersmissen <git@jvdsn.com>
 
-Hi Chunyan,
+commit 73e5984e540a76a2ee1868b91590c922da8c24c9 upstream.
 
-On Fri Oct 30, 2026 at 5:40 PM +0800, Chunyan Zhang wrote:
-> Describe the DWC3 controller and its USB 2.0 PHY for USB3 port A
-> of the K3 SoC.
->
-> Only the U2 lane is described: Port A's SuperSpeed PHY has no driver
-> yet, so the port runs at high-speed (maximum-speed =3D "high-speed").
->
-> Enable USB3 port A with dr_mode =3D "peripheral", so it can be used as
-> a USB device.
+private_key is overwritten with the key parameter passed in by the
+caller (if present), or alternatively a newly generated private key.
+However, it is possible that the caller provides a key (or the newly
+generated key) which is shorter than the previous key. In that
+scenario, some key material from the previous key would not be
+overwritten. The easiest solution is to explicitly zeroize the entire
+private_key array first.
 
-Port A is a Type-C port behind a FUSB301, so please note in the commit
-message that it's device-only until the CC controller is described.
+Note that this patch slightly changes the behavior of this function:
+previously, if the ecc_gen_privkey failed, the old private_key would
+remain. Now, the private_key is always zeroized. This behavior is
+consistent with the case where params.key is set and ecc_is_key_valid
+fails.
 
-Was this tested with a C-to-C cable? That depends on the FUSB301's
-power-on CC mode, since nothing configures it yet.
+Signed-off-by: Joachim Vandersmissen <git@jvdsn.com>
+Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2024-42098
 
->
-> Signed-off-by: Chunyan Zhang <chunyan.zhang@linux.spacemit.com>
-> ---
->  arch/riscv/boot/dts/spacemit/k3-pico-itx.dts |  9 ++++++
->  arch/riscv/boot/dts/spacemit/k3.dtsi         | 30 ++++++++++++++++++++
->  2 files changed, 39 insertions(+)
->
-> diff --git a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts b/arch/riscv/bo=
-ot/dts/spacemit/k3-pico-itx.dts
-> index b084a35aa00e..74d4fdf9e405 100644
+ crypto/ecdh.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Please rebase onto spacemit for-next, which already has Aurelien's
-USB3 phy rework.
+diff --git a/crypto/ecdh.c b/crypto/ecdh.c
+index b6f493e82812..c37e8d35387d 100644
+--- a/crypto/ecdh.c
++++ b/crypto/ecdh.c
+@@ -33,6 +33,8 @@ static int ecdh_set_secret(struct crypto_kpp *tfm, const void *buf,
+ 	    params.key_size > sizeof(u64) * ctx->ndigits)
+ 		return -EINVAL;
+ 
++	memset(ctx->private_key, 0, sizeof(ctx->private_key));
++
+ 	if (!params.key || !params.key_size)
+ 		return ecc_gen_privkey(ctx->curve_id, ctx->ndigits,
+ 				       ctx->private_key);
+-- 
+2.53.0
 
-> --- a/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> +++ b/arch/riscv/boot/dts/spacemit/k3-pico-itx.dts
-> @@ -323,6 +323,15 @@ &usb2_phy {
->  	status =3D "okay";
->  };
-> =20
-> +&usb3a_u2phy {
-> +	status =3D "okay";
-> +};
-> +
-> +&usb3a {
-> +	dr_mode =3D "peripheral";
-> +	status =3D "okay";
-> +};
-
-After the rebase these should go before &usb3b.
-
-> +
->  &usb3d_u2phy {
->  	status =3D "okay";
->  };
-> diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/s=
-pacemit/k3.dtsi
-> index c3f2dce0969c..220dfe29bb78 100644
-> --- a/arch/riscv/boot/dts/spacemit/k3.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
-> @@ -630,6 +630,36 @@ gmac2_axi_setup: stmmac-axi-config {
->  			};
->  		};
-> =20
-> +		usb3a: usb@cad00000 {
-> +			compatible =3D "spacemit,k3-dwc3";
-> +			reg =3D <0x0 0xcad00000 0x0 0x10000>;
-> +			interrupts =3D <118 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-parent =3D <&saplic>;
-> +			clocks =3D <&syscon_apmu CLK_APMU_USB3_PORTA_BUS>;
-> +			clock-names =3D "usbdrd30";
-> +			resets =3D <&syscon_apmu RESET_APMU_USB3_A_AHB>,
-> +				 <&syscon_apmu RESET_APMU_USB3_A_VCC>,
-> +				 <&syscon_apmu RESET_APMU_USB3_A_PHY>;
-> +			reset-names =3D "ahb", "vcc", "phy";
-> +			phys =3D <&usb3a_u2phy>;
-> +			phy-names =3D "usb2-phy";
-> +			phy_type =3D "utmi";
-> +			snps,dis_enblslpm_quirk;
-> +			snps,dis_u2_susphy_quirk;
-
-snps,dis_u3_susphy_quirk is missing too, like usb3b/c/d.
-
---=20
-Troy Mitchell
-
---90a2fe1c88bb8110eb48ee7ba039607e9e01d3d22524d3001346e8bf68cd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSL4Ay2cExaPXAQcU2YCe+A+TM0LwUCaugtOAAKCRCYCe+A+TM0
-L6tmAQD6H+sVHQCkV2Ocd85M+lpBTtSKrtx5qkrvmHZhgR1TpwD/UzoIixtIl4bI
-99V9oZLJbvyGtVPtxaLmVdgI7NldqA4=
-=eBlM
------END PGP SIGNATURE-----
-
---90a2fe1c88bb8110eb48ee7ba039607e9e01d3d22524d3001346e8bf68cd--
