@@ -1,101 +1,98 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.216.45
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.219.49
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793590029;
-	b=mhXesVA74+7swdxtuj542l22HF1VBs+gS9ifIeR+QjRq+3Pbbzt4SNg7m6xC4VZdJPfU
-	 z9hPaP3wOkEswoV8jgwRj6Z2gCvgOwhSrxoxKikloA4MnIkHNVUmLtxwgCs8neLtDf0Xd
-	 kgVI5xHx54FUJqhbH96gOndHkWmkcBQuUQ3XuCSgPgnkKDbxP6ckCQplYV25QnMnWxgWX
-	 4PACneOfIPlQSMncsss0JG7cWJGPVZA1xGNTBxURfOBfbFqprSF2brKiIDjjjzkiHkY8o
-	 bF+TACj2SKJUsVR9K1fEvmmj6//+VWHVFUeXICcCs4pCl8elXyOYaMcUdWv68yy9v7w==
+	t=1793590072;
+	b=FV89VtYdJuvzsO+9cxHOEf3WqEo0BF6m/z+oGv8EX+w91Cyajq8XSvuN2xKjs3NiHAWs
+	 U6/tXARrIYa13px+v8O+0Abhxm+uIqGNBqTQHJpvT2U2cIJAd5lYcZA3jLrNbmVJTDZS0
+	 cNVHgug5oia549Pz5jR2Erhy6EFU44ac0sNgU5wlTZzERSjjqhXeWAxX6Xpa2auusK848
+	 mTjSWQ+Rj064YwVva3XYbcaD07q2t0SYKi1JQSO8pUHPUToLB5DhwcNK24O6WyXh9+NG7
+	 XCY5W+p0r9O8RFceASGWJFCGqGyOgGFzFOjf8yd/yKbQgomJlTHx+8KOCVJ7RDN+M9A==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793590029;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793590072;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=VRYuw1luqS/ww3kCs9ZujMYb2eCvCkQYnqlhruelWuM=;
-	b=doOtBfOP7NlcJTaXg+3Taze/8yF8MbeNPJglP7Qf/OIQ7+c51LZnkQ506Rbb7WDk7Bzf
-	 fVsWNbfg8ZNKrUbE4rcRD+gDd1XXidWzRLrylsW1FmyrI7jf4gt8/4uHd44EZJxY8IvAT
-	 coJv7sLcZlUDx2Y6pbjqDlFAavNFgtZU7BwaRIY9pyIGg09ICNIBAYBfXKWYdDwkYfMlu
-	 URG+3WfVsOByHDEFIeqtUrZOT/PD4IQcNrizZeHyZayA5BJx7Z/p4meRGUE6/0O2fYZ8B
-	 H6vNk6D9iiC3aUWQo165teQj5wGPNQe90lab/zSovjDFcPuMzRaXugVzBAQHnp2Onlg==
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=8Llr+o6Ts4ECL1b5wY6waQNbg14/hj40EOsrJUW7ozE=;
+	b=NNW+TFgk3NrCzmnqrSTFxXmvo3Befy3pab4NHsHAbbV/QCCsgRUY83NJL3vrl8erSRvC
+	 x+rJfI55Tx1DGqKLKCCY4VlYIrxX94gOLzyu2BvQ5mX7wfKdZ+8L7IXQhMN5uTZGEr7u+
+	 896vgdZjIwk6itQvcuK9mpZHbzCTYe+MYGrq2duczJCzWnBS1/pyiJByqladYWAOYhnMI
+	 rX04+IvaZJGjVA9bZvs1F7V/gxEMxa2GJ+UxJG8uMinLraDfVS4fEGgsuPYFbMMpsyzH4
+	 hWWNeGbeuISRaG0bCXbyC+EkUgp7x3oIwO5gReV34fLopU163vbmU3UhigS97iC6/Yg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=bytedance.com;
-	spf=pass smtp.mailfrom=bytedance.com;
-	dkim=pass header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hVBqUD8I;
-	arc=none smtp.remote-ip=209.85.216.45
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="hp/763Rg";
+	arc=none smtp.remote-ip=209.85.219.49
+Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 093B8606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:27:08 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 093B8606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1A8606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 03:27:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8F1A8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=bytedance.com header.i=@bytedance.com header.a=rsa-sha256 header.s=google header.b=hVBqUD8I
-Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-3acd21ba21aso1783623a91.1
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:27:08 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hp/763Rg
+Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-91c60e30054so28925416d6.1
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 19:27:51 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=bytedance.com; s=google; t=1793590028; x=1794194828; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VRYuw1luqS/ww3kCs9ZujMYb2eCvCkQYnqlhruelWuM=;
-        b=hVBqUD8IDdLqiISl5y+oO9VLqEehmtJXz4VOGJIhK9/2cN0mWt6UFvUSCkiBV/BDbO
-         9mAiGgW2C2HuqWDNtzhPXKvKTb7X2frWiEeCYs/GV1wGCIJyno682rWDSxM/z5Ybk6Hj
-         03sl81tvBg7/3/dldwfq8g7GApoiTZUyFt05e1VClKAXrfc1+vgMX1hmHkR+/n1oLjm7
-         ELatb1z8a5cwUrpGcfquRvu5+HvHJVaGsBuC6Re1B8aJkXR3yZWg0j+Rf473dHeecIwt
-         Xlg/8FwgbVLrFuwhk5wJG+wZoqMkTjoKfHblDelKf8CcqRKLXxgbCkBG84+i2Ht/nyyE
-         w9sA==
+        d=gmail.com; s=20260707; t=1793590070; x=1794194870; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8Llr+o6Ts4ECL1b5wY6waQNbg14/hj40EOsrJUW7ozE=;
+        b=hp/763RgOF/wT8bcAevxBP9ug5KDLc0g3ts+YAgLMuoUBcWcc5nAXIQo4U4Vb7mGC2
+         Ln752RcJgv7sD5UQo/lGCcJL3jjuwwf+KFd6KUHcVQ/Y8si0Ka81q6poUuW7yntj1ha4
+         1AfQWopqakSkNwQLyqlz2ErNU5uJXPkv3Lhfd4B0wTZBojcylZAdOF+mzHrCtjDnKo3m
+         2az3eDoEPMi1fbMFANKLZUk95uEpY9Qai/7YY27guSFumOv6PZGITCWsPRLsvBTkxDRP
+         uYbup6LNU2kQHJDEyuaCsaQ2/gB15wkXVdqGwyuUSjqAQMEdHReq7WKg6fE8NzIbG4z4
+         Dd+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793590028; x=1794194828;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VRYuw1luqS/ww3kCs9ZujMYb2eCvCkQYnqlhruelWuM=;
-        b=lnFq/eUJ6EvtT6zngbV7/XlSqfoyqHfAktLrne1zSKFOS0yaSt8nNUBChXNdNga5t5
-         Dl4E7xPWwQ7pw0SPOgxetd6lYM+H0j2KcATMXyMleYoHAHvYuHsXFdjybj7fmoBCzv0w
-         RVcXtOEKae5cxxwCR/ky31xTmXBjnFtNk7vMP3RJouBRucgwQz6BX1y4xu4RapInM5F3
-         yDv6RRNaIBWdDI8sEDd0Udvdot9ILYbVfwYWrhbi4RTkeF1axY1uqrBYHbi9r7lbPj8P
-         EcNVTsL1LHkS9Nox/vEKJf37vEpwqRcBYWRPnmusRRcJTZDX9Zg44eMJ++2/QhkvygNG
-         j2Cg==
-X-Forwarded-Encrypted: i=1; AKwUvBx01kr917lhNFZBIIFsUCicUl/RGMM1vHPyoAbi8euVie+/tT22Ars+ZPJHRzfdYHbkrvE1kxqoWs/AiOM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9LXriYqk01pLE1nCGpRx7yIGoHdG9o+tC16qMt7tSYRWrbmobM
-	noIlpsYxhlJvFprSHMCwKLWMpYBvSMtnrusT5AOdjSuAv5forNeoprYOvN3VYofyDt0=
-X-Gm-Gg: AYBFou0ET4Puh4qZOhvzO7lIhWI3kGC3+vMw1JQyLR6uWbvI23zW6Tw3AYzbhbulTx5
-	SigItMxDNz9wemASwhLqrufI2aoAwKEPm901118Dxsxe9nGWTcyGZzgixLC9mEwAgHoScBG3AEM
-	hHCZJLrVn3SR5lKyMT2ylpH6ykP9CRcOGY36ZlxgTPBwNneTZZqGLLZf8nQ5zqBbRAzpfNLCGsr
-	FRUWnSDJu4X+iO1neZNFBUSPAdABnNuelXK/H1AMCZRvOpt9jOKMzznnDs58Qm0XlEvVdGFWOOv
-	EtanHKaDNKcKS/37TyyMja98DCSQ2V2O9MlaU2ciWCt2jA7qHcJvjltbRjosZLea/mznxUte0+p
-	ECXrOm4b/ESitXygDofyz1WWwGALVvYMRDkqceACcDdOIDl+3Fd59+PShdybofwoM0/l/byTzVY
-	WANp8yt1aJ2/d9SD6/X4RD1T4ovwxKVwISP14upjdjztFtopK3iAstuwHGgiv8xJHIbxW55iwSH
-	bEdQX7UlKHyOQPhtysRaZ3hrK9hJdyUZ+M1hU135YlPLxX8lyKVFd4kbUeX2iXEFrOp0cDmGHMJ
-	htix3gmEdRT2WQCbHDU5pKclS7xi6YBIY6ex8kuAPOQI/+qOsnfLLzHnz+mtgoMsCVS4nik=
-X-Received: by 2002:a17:90b:562d:b0:3ac:8527:3fcd with SMTP id 98e67ed59e1d1-3ae898385a1mr7245105a91.39.1793590028314;
-        Sun, 01 Nov 2026 19:27:08 -0800 (PST)
-Received: from n232-176-004.byted.org ([36.110.163.99])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ae845984absm12303317a91.10.2026.11.01.19.27.04
+        d=1e100.net; s=20260707; t=1793590070; x=1794194870;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8Llr+o6Ts4ECL1b5wY6waQNbg14/hj40EOsrJUW7ozE=;
+        b=2g6P/FCFfIl+Mxp/YnXVxsfsmT6UdEA00D0eqQ/UHjG+Z8UXi4R6aalTJifqMQYVgC
+         eQHxPvh/IK4pSaqpY5kXEZvCaCz97RvuR0BINAz0Hg8iCsQlJjCzMaM3GeuNXdar7oJH
+         nO4nBpu+sYPxOdHaCJxv/cKyaEA67RQGQtecOi80clp+1H8OcB2Q85x0tLUsFTJ20zhT
+         dhS/hMXt9ZkwEMgIFcfW7babMTsxXPQdTCtHNIWvpOl7aXbO9XojNyNhbFcyZ9YG5zSV
+         71/3u0IGP0qKMbnWQwl7CBi5Gcd+/0NCkr2RR5mA6qEPIWN/deOZSf8w8YwHw4kKXE1L
+         K2Rg==
+X-Forwarded-Encrypted: i=1; AKwUvBwyqrjHBuTpqLYkSrtSh58tw5V5Fi2yyRXDQ9vx24vDrlS3B5bzMHqH5pIG3iuQshs+v3/Xbs29gfnkSJY=@vger.kernel.org
+X-Gm-Message-State: APuU4Z8v7eGt6cMsxY5X9yqhVj3P+dkLkmRetGDagvTQjEeKpN7Nn6DQ
+	Ik2HD0eLNizQfLAqqoarrICqOwt/ubkdrwTjKqEh7f2b4e0Ss4eyLKuS
+X-Gm-Gg: AYBFou1gHm5SFuMop+K+FfPbiKrH1aWaaHccdKX/iE8y2gnNMZmop3B4kWmvDsxzkn+
+	v1uGJqVpq9NSb+6H/X4RuqWFgGewN0tmVQkduRzyNJxv8DWIslI2uv2xnPuCv3GN7Zg1LKKPaoH
+	rdav2v7Ate11LOR5QWzXGJNa+24unDqhWLdj2GeFEjv7KhgWsGsmfN7H2Aylb3R4q/bFxocRcb1
+	YY3U4omFyaVFWrE89ErijKIWVdLQOhK7zpZSI/BgOPBAGnksNDjzi+eiKTkYTBC7Xwr79HZ2oBh
+	1JUYSuKeCsvOc0v788oI/7jbUnc3zfRUo49eg41NvrF+n/7GrSmgVjOlWGiuNfu72ZB8n9vp1l5
+	Ax9F90d++WK2rz56xv2aBuE/+oWRq+qBj1lFfvxOMOuX1pcFBR9NZ7tIgXRFK4JuWDatYoi0gIN
+	j0DHTdwdgU4Cl7enw5xmlbZSQVhEyahi06jkX/0QydLgq+aBmlBP84J6F2+zNsK3MIHHlQ3061F
+	nzPcHsGbKaiIZznfks2+hnvcBA/t85z34d96RHmtwHlYtDuWI+1vJtbrnAwVtAmkByhII9QXetk
+	SiMaO02A3x2H5vP6XpvT3UIeEPn1J7H09hVunyKoyfATz1Q0LZsc
+X-Received: by 2002:a05:6214:4518:b0:914:45c3:7920 with SMTP id 6a1803df08f44-91ca4b1cb1amr156083956d6.31.1793590070385;
+        Sun, 01 Nov 2026 19:27:50 -0800 (PST)
+Received: from i4-gl-tmk5904.ad.psu.edu ([130.203.156.186])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91ca804eee2sm80737396d6.27.2026.11.01.19.27.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 01 Nov 2026 19:27:07 -0800 (PST)
-From: Muchun Song <songmuchun@bytedance.com>
-To: Oscar Salvador <osalvador@suse.de>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Mike Rapoport <rppt@kernel.org>
-Cc: Qi Zheng <qi.zheng@linux.dev>,
-	Lance Yang <lance.yang@linux.dev>,
-	James Houghton <jthoughton@google.com>,
-	David Hildenbrand <david@kernel.org>,
-	Muchun Song <muchun.song@linux.dev>,
-	linux-mm@kvack.org,
+        Sun, 01 Nov 2026 19:27:49 -0800 (PST)
+From: Yuho Choi <oss.patchbox@gmail.com>
+To: Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	intel-wired-lan@lists.osuosl.org,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Muchun Song <songmuchun@bytedance.com>
-Subject: [PATCH v2 12/12] mm: hugetlb_vmemmap: make vmemmap PTE conversion folio-oriented
-Date: Mon,  2 Nov 2026 11:25:25 +0800
-Message-ID: <20261102032525.3597743-13-songmuchun@bytedance.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20261102032525.3597743-1-songmuchun@bytedance.com>
-References: <20261102032525.3597743-1-songmuchun@bytedance.com>
+	Yuho Choi <oss.patchbox@gmail.com>
+Subject: [PATCH iwl-net v2] iavf: reset the VF instead of freeing rings when queue disable fails
+Date: Sun,  1 Nov 2026 22:27:43 -0500
+Message-ID: <20261102032744.304907-2-oss.patchbox@gmail.com>
+X-Mailer: git-send-email 2.43.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -107,101 +104,101 @@ Precedence: list
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Converting a folio's vmemmap mappings from PMDs to PTEs is a per-folio
-operation, but the current interface exposes a raw address range and
-hardcodes deferred TLB flushing.  This splits the common mechanism
-across layers and couples it to the HugeTLB batching policy.
+iavf_close() leaves the Tx/Rx rings in place because the hardware can
+still DMA into them, and iavf_virtchnl_completion() frees them once the
+PF has answered VIRTCHNL_OP_DISABLE_QUEUES. It does so whatever the PF
+answered: for a non-zero v_retval the error is only logged and the
+DISABLE_QUEUES case runs anyway.
 
-Make the folio the unit of PTE conversion and let callers select the TLB
-flush policy through the folio-oriented interface.  This keeps
-HugeTLB-specific eligibility and batching outside the common operation.
+The PF can fail the request while queues are still running. ice and
+i40e give up before the Rx queues when a Tx queue cannot be stopped,
+and ice also fails when an Rx queue does not stop in time. The rings
+and Rx buffers are then freed while the queues still point at them, and
+received packets and descriptor write-backs land in freed memory.
 
-No functional change intended.
+Keep the rings when the PF reports an error and request a VF reset
+instead. The reset makes the PF stop all queues of the VF, and
+iavf_reset_step() frees the rings once it has completed. Until then
+iavf_close() may warn that the resources are not yet released, and
+iavf_open() returns -EBUSY.
 
-Signed-off-by: Muchun Song <songmuchun@bytedance.com>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Qi Zheng <qi.zheng@linux.dev>
+During removal no reset is scheduled, and iavf_remove() would wait for
+the state to leave __IAVF_DOWN_PENDING forever. As it resets the VF
+itself before it frees the rings, complete the transition to
+__IAVF_DOWN in that case. If the reset never completes,
+iavf_disable_vf() now frees the kept rings as it does for a running VF,
+instead of leaving them with page pools that point to the q_vectors it
+frees.
+
+Fixes: e284fc88dfb6 ("i40evf: delay releasing rings")
+Signed-off-by: Yuho Choi <oss.patchbox@gmail.com>
 ---
 v2:
-- Collect Reviewed-by from Lance Yang and Qi Zheng
----
- mm/hugetlb_vmemmap.c | 40 +++++++++++++++++++---------------------
- 1 file changed, 19 insertions(+), 21 deletions(-)
+- Let iavf_remove() go on when the failure arrives during removal, where
+  no reset can be scheduled (sashiko).
+- Free the kept rings in iavf_disable_vf() when the reset never
+  completes (sashiko).
+- Rebased on v7.4-rc1.
 
-diff --git a/mm/hugetlb_vmemmap.c b/mm/hugetlb_vmemmap.c
-index 370e604c8056..c04f53f708d2 100644
---- a/mm/hugetlb_vmemmap.c
-+++ b/mm/hugetlb_vmemmap.c
-@@ -300,20 +300,26 @@ static inline int vmemmap_restore_range(unsigned long start, unsigned long end,
- }
+v1: https://lore.kernel.org/r/20261022192753.69765-2-oss.patchbox@gmail.com
+
+This was found by code inspection as part of ongoing, not yet
+published research. It has not been reproduced, as that needs a PF
+that fails VIRTCHNL_OP_DISABLE_QUEUES.
+Compile-tested only (x86_64 defconfig with IAVF, I40E and ICE, W=1).
+
+ drivers/net/ethernet/intel/iavf/iavf_main.c    |  7 +++++--
+ .../net/ethernet/intel/iavf/iavf_virtchnl.c    | 18 ++++++++++++++++--
+ 2 files changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/intel/iavf/iavf_main.c b/drivers/net/ethernet/intel/iavf/iavf_main.c
+index 2f8a80a11336..70ee5ae14a64 100644
+--- a/drivers/net/ethernet/intel/iavf/iavf_main.c
++++ b/drivers/net/ethernet/intel/iavf/iavf_main.c
+@@ -3064,9 +3064,12 @@ static void iavf_disable_vf(struct iavf_adapter *adapter)
+ 		iavf_napi_disable_all(adapter);
+ 		iavf_irq_disable(adapter);
+ 		iavf_free_traffic_irqs(adapter);
+-		iavf_free_all_tx_resources(adapter);
+-		iavf_free_all_rx_resources(adapter);
+ 	}
++	/* Also release rings that iavf_close() left in place because the
++	 * PF failed to disable the queues.
++	 */
++	iavf_free_all_tx_resources(adapter);
++	iavf_free_all_rx_resources(adapter);
  
- /**
-- * vmemmap_remap_split - split the vmemmap virtual address range [@start, @end)
-- *                      backing PMDs of the directmap into PTEs
-- * @start:     start address of the vmemmap virtual address range that we want
-- *             to remap.
-- * @end:       end address of the vmemmap virtual address range that we want to
-- *             remap.
-+ * vmemmap_pteify_folio - convert the vmemmap backing of a folio to PTE mappings
-+ * @folio:	folio whose vmemmap range should be converted to PTE mappings.
-+ * @flags:	vmemmap remap control flags passed to vmemmap_remap_walk.
-+ *
-+ * Convert mappings covering @folio's vmemmap into PTE mappings. If TLB flushing
-+ * is skipped, the caller must flush TLBs after all pteify operations are complete
-+ * before remapping the folio's vmemmap pages.
-+ *
-  * Return: %0 on success, negative error code otherwise.
-  */
--static int vmemmap_remap_split(unsigned long start, unsigned long end)
-+static int vmemmap_pteify_folio(const struct folio *folio, unsigned long flags)
- {
- 	struct vmemmap_remap_walk walk = {
--		.remap_pte	= NULL,
--		.flags		= VMEMMAP_DEFER_TLB_FLUSH,
-+		.flags		= flags,
- 	};
-+	unsigned long start = (unsigned long)folio_page(folio, 0);
-+	unsigned long end = start + folio_vmemmap_size(folio);
-+
-+	if (!vmemmap_optimizable_order(folio_order(folio)))
-+		return -EOPNOTSUPP;
+ 	spin_lock_bh(&adapter->mac_vlan_list_lock);
  
- 	return vmemmap_remap_range(start, end, &walk);
- }
-@@ -532,21 +538,13 @@ void hugetlb_vmemmap_optimize_folio(const struct hstate *h, struct folio *folio)
- 	free_vmemmap_page_list(&vmemmap_pages);
- }
- 
--static int hugetlb_vmemmap_split_folio(const struct hstate *h, struct folio *folio)
-+static int hugetlb_vmemmap_pteify_folio(const struct hstate *h, struct folio *folio,
-+					unsigned long flags)
- {
--	unsigned long vmemmap_start, vmemmap_end;
--
- 	if (!vmemmap_should_optimize_folio(h, folio))
- 		return 0;
- 
--	vmemmap_start	= (unsigned long)&folio->page;
--	vmemmap_end	= vmemmap_start + hugetlb_vmemmap_size(h);
--
--	/*
--	 * Split PMDs on the vmemmap virtual address range [@vmemmap_start,
--	 * @vmemmap_end]
--	 */
--	return vmemmap_remap_split(vmemmap_start, vmemmap_end);
-+	return vmemmap_pteify_folio(folio, flags);
- }
- 
- void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_list)
-@@ -571,7 +569,7 @@ void hugetlb_vmemmap_optimize_folios(struct hstate *h, struct list_head *folio_l
- 
- 		nr_to_optimize++;
- 
--		ret = hugetlb_vmemmap_split_folio(h, folio);
-+		ret = hugetlb_vmemmap_pteify_folio(h, folio, flags);
- 
- 		/*
- 		 * Splitting the PMD requires allocating a page, thus let's fail
+diff --git a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
+index e6b7e8f82c7c..28818319a6df 100644
+--- a/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
++++ b/drivers/net/ethernet/intel/iavf/iavf_virtchnl.c
+@@ -2718,8 +2718,22 @@ void iavf_virtchnl_completion(struct iavf_adapter *adapter,
+ 		adapter->flags &= ~IAVF_FLAG_QUEUES_DISABLED;
+ 		break;
+ 	case VIRTCHNL_OP_DISABLE_QUEUES:
+-		iavf_free_all_tx_resources(adapter);
+-		iavf_free_all_rx_resources(adapter);
++		/* If the PF could not stop the queues, the hardware may still
++		 * access the rings and Rx buffers. Keep them and request a VF
++		 * reset; the reset path releases them after the PF has reset
++		 * the VF. During removal no reset is scheduled, but
++		 * iavf_remove() resets the VF itself before it releases the
++		 * rings, so let it stop waiting for the queues to go down.
++		 */
++		if (v_retval) {
++			iavf_schedule_reset(adapter, IAVF_FLAG_RESET_NEEDED);
++			if (!test_bit(__IAVF_IN_REMOVE_TASK,
++				      &adapter->crit_section))
++				break;
++		} else {
++			iavf_free_all_tx_resources(adapter);
++			iavf_free_all_rx_resources(adapter);
++		}
+ 		if (adapter->state == __IAVF_DOWN_PENDING) {
+ 			iavf_change_state(adapter, __IAVF_DOWN);
+ 			wake_up(&adapter->down_waitqueue);
 -- 
-2.54.0
+2.43.0
 
