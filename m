@@ -1,93 +1,58 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793639792;
-	b=0UI4IbgyRqdlDl+Wo51fXKoaV6L+ljA5p50BZTjpQlFs0embS8C0Uuev51qNLpsL+QbL
-	 HcjZ+Fc+kE+Dlh6kDVt/L6rQwlyY/kp8PhEIERXTrUgEnApo79HXHLQjdOMC0aEcoTKcR
-	 9ePrWp1wCj9GulEeHXJzP/KVt03R9XKIMyH3ZinVqkV9VUQWd8b+ySWTFL3BSr9162+6p
-	 vfVvJdPKNbeYfKM/O2pWNpEDISCooMpj0Ar91NdLB9GPybs4/pmmoYGiiCwH2VKQmj1yp
-	 E7IMZxGSfVx1maANo7avZ5+08cMlzuYXNU69STuyR5CcAdDIKMvCED3sI87XsYHnT6w==
+	t=1793639827;
+	b=KmsTh2CsObk3yzD5ucqfNyVBRtDHSxwEI0saUIKoAxo55Skal6b0Lc17nGHJvSM1LXDd
+	 wS0vjLF7oH0dBb8yloFpPFQ8blg31ECZPOz3wr565O9iRMHIIEbnXRyW8fAFymiMEbYZe
+	 iIvBM4gDz6rqa8H2jyDT07bW7VUAE/kkPnVVFAohUfFoDT9E2CYff4v6b9qi2nlVdTRvP
+	 RFhiJ7q/sUD/cj89Y9seaLkqVQl3iDjkedwjSguQLbR2FvNv75lari7hm+0s6p7UGtjAi
+	 zNG3joLvwaLD/svAtv94yAL/dStpF3uE8Ku3VEWUvZReSlw5dEudVKkcVws+HmEgi1w==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793639792;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding;
-	bh=NR3/tN1V90TozjFG9Rx5B1HVtu90LsgGKeCShgOT7Qg=;
-	b=xJqLUsH5iOcOVJ8YBuwE4hFd2UM7p7UB/aXUrDAfCX6Ir7ZtuD0sSUD/Wf03tbSI0DKg
-	 t3r8fjYablfX6Z3R5HqKB8wCrcnNL7B3Buzqlwak+VNblDXEkdZ3DEp0ry0NdD82xK4kT
-	 H8iwEu3qnMHa2syFbC2pRPDPi4IUKAMRw/BNd8jnHdZI33S400U5RAv9CfFu27kvsaYHi
-	 8Ve2RwIAZtXmUNOkYvCMa9wcLKFJV/FyiTxB5/9bsBcbW0nBGatpFH2vCfKRhuJETxqgf
-	 6mTi6gj/cTKv/Rc0Bcde31nlxwL7rsLcRCkBMNHaNjWBJXKhuxy5Z/IVYaK+M2XISbw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793639827;
+	h=Received:DKIM-Signature:Date:From:To:Cc:Subject:Message-ID:
+	 References:MIME-Version:Content-Type:Content-Disposition:In-Reply-To:
+	 X-Cookie;
+	bh=dhcI8iXfoBfJ1dGo4txMhr/t00XMqwmFL5pRs3OUOTw=;
+	b=wJGo0151knbXYj0Lu9ifCfJ+2LivTTJnPkWYf+znI2tYQlmP414zBugL1wypRCAEhO+4
+	 iNc4R1RrpVyP4vhNXa41PNCls9pv6PxCuJr/iRUX5/oI5/BG8o7sEAxvxCz4j7vm1tt+U
+	 1pJFR4EY3jifotOtXFYxNd6A+I0CbyOhIMZxMI2pe+FHVuaavNuCqS1mme4A/R6TAGCR+
+	 EYHWuffmfqqWUJExpNjjFQ6GrZW1N6K2W/dI18ijfXrsBBxNCK8n/NF6HJx3lbvvlFm5u
+	 Cxb7zBilFONJqJOs0fnLkQHwJ9yuXwRN28W+v0JJyPv196BBaeryMQhMj4tWnhtPuGg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdpuALcm;
-	arc=none smtp.remote-ip=209.85.128.43
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNCMYF+Q;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 185F06072C4C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:16:31 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 185F06072C4C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64EC0606A926
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:17:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wdpuALcm
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a20bdaf39cso37711505e9.1
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 09:16:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793639790; x=1794244590; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NR3/tN1V90TozjFG9Rx5B1HVtu90LsgGKeCShgOT7Qg=;
-        b=wdpuALcmBVDPr79qb46Vd29xoJDhHjCEwAZE3BkIgFhvWgsFpy598eghyLExpQ2jXt
-         k/cKJKBdRGgqFmfdmE6L7T/hye5nnNqww9JYYqwJ3JLmgGNom7Cz7lBcrN1D2J5xkdsO
-         oKTyeNuQDr4eLRiLxkebDctGcmdu+9+SOVx1hB8wavex34EuJF0ndU0qICyOMWi0EptM
-         IrzhDXC+khoYLw2bECiE3Kdz5JstZtq3L24bNUwS1Mi4yeoPTZ2rXE0tcdV/J7ZVpJbD
-         v/lvG1GAx4CZ5vfNGAy7n6fXwfTC6kdvuk7xCOGqJWaWlyGVu3hPFDA0vMD6JREv63TG
-         sgrA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793639790; x=1794244590;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NR3/tN1V90TozjFG9Rx5B1HVtu90LsgGKeCShgOT7Qg=;
-        b=FLyGnKG8OQbhbFsOy1Z6ypfMDyN5h8+g8D2AGsgMnIkKQmYtA0+KnrCcAezGrg7gOI
-         8ToMfl225FL1KevrTFC5l0pM/RR0lUtHjU90MZIXczFyri1hijcpENGPZIRSwlc/cXYf
-         dTBtMxoYD5wcRvZ0+/KRzVZ66uco6eWYS5ibbjmPlr0dzQfQJ6PF5oCGI3OGQ1YC0Gj7
-         29QzE2qTpokCKk1ig14y9dMJfoD/CMcD35PudU+J+0dbRSHhoL9NIZZiJoYIViIP6sOr
-         1FlgE6cfyo2YEehDvf+25/TnOWjlOgDk8Iuta5PRy64OZdrjrUJ/0Rz3KNPmycVnOUzX
-         5U2A==
-X-Forwarded-Encrypted: i=1; AKwUvBym++gsBNDiE0u/4+aIekS4/iEhy8Hqa73Q49/s1R0SU2trgBt4rcqQ5rBzcTcMq9qoW1EJV4/bY8bH5hk=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLI3zYeDuimLjXYcb9a5/GKHv45lwdT507ZR59AHTGOWhXCPG1R
-	dkA/F+5EkbsZQdWDfWfE5lCAioaeGe3IsPjSULOBEOo/c8XtSprh/O5k
-X-Gm-Gg: AYBFou2KegiTThc+ISnNqVihKlSJhORD54wA3UAFNMWrCKMagE3LJPV1b2AmT7ZpopD
-	19mozIZUQcFESqpdxpPXnxJemaD08/LmjjsWFFuGadkrp3q2et8tiI0Msf/BdPp0v3F/siD0iQ5
-	IwGs48pJVxcE0FIxktnWRUijXTp3aN5ocpj0jVs+BBthqAESQFozcZrbcwq9OgUCPaHNH9qtvGN
-	K6BR/DjbKHLhAGBybRuOM07bHEwEj5HOPD+vH5tgTPEFEoTgTIVF4F0zNQV+uXprF16Ect/RPLn
-	umanEjkVDuC12qXI3MbuJhT9T23oGFu4wIepm2+dnmLIoYJ34+iJ2SZh8gpX/6gyEgxVkx2x6bu
-	P+DmE9dibrHhAXafzL5zRpC5I7MmZX8U5ozfdIrJDdJrWuJHKWNu9UUSZiXOmPsoYt8aQID6wyQ
-	Mm69klJUR7sKiqe1QIvKgtqnfTos9vaiFFpuj6Ug0Pb0yp+zmfdAHuMQPPNWdN4/w0BPIJbz2YJ
-	SGSxj9WUOoRgjA8dcIbfQB06edx4SdMsjOFKqO+5JODxICNtYFQVuu1WxfUx3Ds8uoGcoRbPHXM
-	k6lWkm6k46EjSgAl2EPtzKt6L0GdIDF+YYezIne775pKnCa6TAaEgtvgSxAIQZg=
-X-Received: by 2002:a05:600c:638f:b0:4a2:1050:aff with SMTP id 5b1f17b1804b1-4ac17d16a26mr248796895e9.6.1793639790352;
-        Mon, 02 Nov 2026 09:16:30 -0800 (PST)
-Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm23598760f8f.6.2026.11.02.09.16.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 09:16:29 -0800 (PST)
-From: Pablo Mazzini <pmazzini@gmail.com>
-To: linux-wireless@vger.kernel.org
-Cc: Pablo Mazzini <pmazzini@gmail.com>,
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XNCMYF+Q
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFD831F00A16;
+	Mon,  2 Nov 2026 17:17:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793639827;
+	bh=dhcI8iXfoBfJ1dGo4txMhr/t00XMqwmFL5pRs3OUOTw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XNCMYF+QTnLC1C3ozGNL7UkhdATIcQkh7LAYv8aXDSDSoAsqTBNqp1Bb96Tx9UfVi
+	 CqgWpvgplDgN8NXIm0903Ha0fmPruOmDTVeBE922HEQ6DvrRrNc+TX8VAR2dGwihZS
+	 Hy+uoM0gHz/akb4cS8uHJ/NVdEoRxk99dHFBYYejnpB0YyjW4m6aORqQBt820CQQi8
+	 laYoUo1bQhVYZ2XAWc39mTs12fbJNTk//AvIxjr6CNXvl6eBO4RICSyR8ZVDksMFye
+	 vm+JPIZezmCxaGjb5xPOpkcGZVJma7pWsPlnUFHM4BtJo/x0gBjZQRCdFsCHl3Wios
+	 j7d5H/NqeMrxA==
+Date: Mon, 2 Nov 2026 17:17:03 +0000
+From: Mark Brown <broonie@kernel.org>
+To: Pablo Mazzini <pmazzini@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>,
+	Alistair Francis <alistair@alistair23.me>,
+	Andreas Kemnade <andreas@kemnade.info>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH wireless-next 3/4] wifi: cw1200: handle the XR819 channel switch and join
-Date: Mon,  2 Nov 2026 17:16:02 +0000
-Message-ID: <20261102171603.368298-4-pmazzini@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102171603.368298-1-pmazzini@gmail.com>
-References: <20261102171603.368298-1-pmazzini@gmail.com>
+Subject: Re: [PATCH v2 3/7] regulator: sy7636a: wait for power good on enable
+Message-ID: <c0dbf6cf-b556-45fc-8935-71cec6fd50b0@sirena.org.uk>
+References: <20261101223125.302001-1-pmazzini@gmail.com>
+ <20261101223125.302001-4-pmazzini@gmail.com>
+ <179362625591.1990291.13023153378073511078.b4-review@b4>
+ <CAAxh=jsmE=vzn_6e9JiVbFcjsH7+-0kf8x=4J7Krufzb5E=9HA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -97,94 +62,38 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="om8lPdpIwABg6Otq"
+Content-Disposition: inline
+In-Reply-To: <CAAxh=jsmE=vzn_6e9JiVbFcjsH7+-0kf8x=4J7Krufzb5E=9HA@mail.gmail.com>
+X-Cookie: Used with permission.
 
-The XR819, detected as CW1x60, asserts on SWITCH_CHANNEL while idle
-and only joins synchronously, confirming after up to 5 s. Keep the
-channel for scan and join, as the vendor driver does, drop the
-asynchronous join flags, and allow 7 s for the join.
 
-Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
----
- drivers/net/wireless/st/cw1200/fwio.c | 2 ++
- drivers/net/wireless/st/cw1200/fwio.h | 2 ++
- drivers/net/wireless/st/cw1200/sta.c  | 8 +++++---
- drivers/net/wireless/st/cw1200/wsm.c  | 3 ++-
- 4 files changed, 11 insertions(+), 4 deletions(-)
+--om8lPdpIwABg6Otq
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-diff --git a/drivers/net/wireless/st/cw1200/fwio.c b/drivers/net/wireless/st/cw1200/fwio.c
-index 6601aec1f231..1a68ef6ed2fa 100644
---- a/drivers/net/wireless/st/cw1200/fwio.c
-+++ b/drivers/net/wireless/st/cw1200/fwio.c
-@@ -69,6 +69,8 @@ static const struct cw1200_chip cw1200_chips[] = {
- 		.revision = CW1X60_HW_REV,
- 		.firmware = FIRMWARE_CW1X60,
- 		.sdd = SDD_FILE_CW1X60,
-+		.sync_join = true,
-+		.no_switch_channel = true,
- 	},
- };
- 
-diff --git a/drivers/net/wireless/st/cw1200/fwio.h b/drivers/net/wireless/st/cw1200/fwio.h
-index e97cbcd54e57..9925d4bcedda 100644
---- a/drivers/net/wireless/st/cw1200/fwio.h
-+++ b/drivers/net/wireless/st/cw1200/fwio.h
-@@ -30,6 +30,8 @@ struct cw1200_chip {
- 	int revision;
- 	const char *firmware;
- 	const char *sdd;
-+	bool sync_join;		/* no asynchronous join */
-+	bool no_switch_channel;	/* scan and join pass the channel */
- };
- 
- int cw1200_load_firmware(struct cw1200_common *priv);
-diff --git a/drivers/net/wireless/st/cw1200/sta.c b/drivers/net/wireless/st/cw1200/sta.c
-index f3f31aa52499..eeb2bf56edff 100644
---- a/drivers/net/wireless/st/cw1200/sta.c
-+++ b/drivers/net/wireless/st/cw1200/sta.c
-@@ -349,8 +349,10 @@ int cw1200_config(struct ieee80211_hw *dev, int radio_idx, u32 changed)
- 		pr_debug("[STA] Freq %d (wsm ch: %d).\n",
- 			 ch->center_freq, ch->hw_value);
- 
--		/* __cw1200_flush() implicitly locks tx, if successful */
--		if (!__cw1200_flush(priv, false)) {
-+		if (priv->chip->no_switch_channel) {
-+			priv->channel = ch;
-+		} else if (!__cw1200_flush(priv, false)) {
-+			/* __cw1200_flush() implicitly locks tx, if successful */
- 			if (!wsm_switch_channel(priv, &channel)) {
- 				ret = wait_event_timeout(priv->channel_switch_done,
- 							 !priv->channel_switch_in_progress,
-@@ -1304,7 +1306,7 @@ static void cw1200_do_join(struct cw1200_common *priv)
- 	}
- 
- 	/* Enable asynchronous join calls */
--	if (!priv->vif->cfg.ibss_joined) {
-+	if (!priv->vif->cfg.ibss_joined && !priv->chip->sync_join) {
- 		join.flags |= WSM_JOIN_FLAGS_FORCE;
- 		join.flags |= WSM_JOIN_FLAGS_FORCE_WITH_COMPLETE_IND;
- 	}
-diff --git a/drivers/net/wireless/st/cw1200/wsm.c b/drivers/net/wireless/st/cw1200/wsm.c
-index d6529e5b73b2..6b0b333620ee 100644
---- a/drivers/net/wireless/st/cw1200/wsm.c
-+++ b/drivers/net/wireless/st/cw1200/wsm.c
-@@ -20,6 +20,7 @@
- #include "debug.h"
- 
- #define WSM_CMD_TIMEOUT		(2 * HZ) /* With respect to interrupt loss */
-+#define WSM_CMD_JOIN_TIMEOUT	(7 * HZ) /* A synchronous join takes up to 5 s */
- #define WSM_CMD_START_TIMEOUT	(7 * HZ)
- #define WSM_CMD_RESET_TIMEOUT	(3 * HZ) /* 2 sec. timeout was observed.   */
- #define WSM_CMD_MAX_TIMEOUT	(3 * HZ)
-@@ -445,7 +446,7 @@ int wsm_join(struct cw1200_common *priv, struct wsm_join *arg)
- 
- 	priv->tx_burst_idx = -1;
- 	ret = wsm_cmd_send(priv, buf, &resp,
--			   WSM_JOIN_REQ_ID, WSM_CMD_TIMEOUT);
-+			   WSM_JOIN_REQ_ID, WSM_CMD_JOIN_TIMEOUT);
- 	/* TODO:  Update state based on resp.min|max_power_level */
- 
- 	priv->join_complete_status = resp.status;
--- 
-2.52.0
+On Mon, Nov 02, 2026 at 05:08:40PM +0000, Pablo Mazzini wrote:
+> Right, I will skip the wait when power good is already high.
 
+Please don't top post, reply in line with needed context.  This allows
+readers to readily follow the flow of conversation and understand what
+you are talking about and also helps ensure that everything in the
+discussion is being addressed.
+
+--om8lPdpIwABg6Otq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmroxY4ACgkQJNaLcl1U
+h9ArCQf/VMuphXEtXefJsQVtXp7zQAtwZ9SJmwVDMCD69o6wARyfgPb+WlFuDziD
+iwEakl5qcIuWO4U0h5U8XV8qwEBIKD3SewMhumUnyXRKlXL048yTpGlAvm+mlLcD
+5x4DzgrQaejbKKPsyevXUVyo8brhta/XJeuGG4lDVKaw0Z5pgITdi2dbymEyMAWi
+EodDpffW1Rt4T8zLxPN68n9Ch92FA9zy1hXdaNnMR8rfnNtQmqvaeZH8cElYnJqS
+95T6C4hSzQmI26vsIQcBRyGL54ovBZRSkp8U0CX2+MVrPXCjs7tZQNogsy2xxmkx
+6wywGEMCSeFeqsc5BFBdasoOIZC96A==
+=7Z8m
+-----END PGP SIGNATURE-----
+
+--om8lPdpIwABg6Otq--
