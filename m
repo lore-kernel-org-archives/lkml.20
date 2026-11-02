@@ -1,105 +1,105 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626841;
-	b=u/C8LvIEFH7K/7b27OvhO5kbuZi0Hj5oQbnj1mFV36MeNOi2OLhqp+IqR06K9HMWjhai
-	 S8tvKFi/Frjp6WV98XwyIvnv2mKD5OkJpHSTbbmAemUnM3YBUilSJk33hQvKN0wAaky3r
-	 Xdv3zQHHOSzztGuFJfmto7NjRKdxIeKpMYQsAKOZRXWJHUFJ3OWSLnNG9qMvk5n0WvME6
-	 MerSSCkiFSIwKzeb1GE1ZcYL6Lq9Y4xNhpcT6Riv3rXVVmPWB71j0DdWq93J4dDDnsF0t
-	 vguTSekIHIDXj5DGXwykaoLeF1bsLMfrsid7MV8QqC/hFNfrV3rFRR8gq84V00gLKIQ==
+	t=1793626842;
+	b=1ZW0ijGaMWyxhJ96fZZ78yY7Pse07itzE9tfAc/xO6Qi6y7ohOfzVtLM5hxsTdOhXLHH
+	 mZvcIGKlSxDRcOIQp53ikSfqmFMFu/EjxemYZ6n4E9J26lFO3Obui78cjhLflSyoftFws
+	 b+0iekfJwgGqZrqNGwvvv3xyHcV7A8zJ6PO+kPbdz0Map55dkbQYsny/sWs29F1Zqycrx
+	 HqsqCl662h3wqXJxxN9HukwtHXBCAavWUkCuhs+xmA9QmUGyBExcYuzC1fbZ3uHy9CGh8
+	 c5I2RVWKbbrhK2xDEF1WUPwXLpHuZYz4iRbX5baxXC+KFPuQCMdo926rhx08WGDytvQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626841;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626842;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
 	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
 	 From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
 	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-Mailer;
-	bh=OwvQ1K/T5ntTIih2Uajc562qVZy7T1bItsBHgcFYO5c=;
-	b=UEfC3/XUFyiHAUy0yERMPVKO9wco9Pq7sJIF6Ccm+cqNnkItQ2fjHFySnx7l9j5S6o8i
-	 K4QPguQFxpYfypTDZJ8uKZrs9q1lkvHMr7V2j/jXJ3e3C1A8RlIoexZl1RCrtqPNuGTSX
-	 DGJnTbVvvGQrTCw8aNYHotGoLV4J1VLcEpwbx7u1WsggbL282xwWartw9Sw/I5zZmKttd
-	 8ZmrAFUeWh/gSyTHHWYr1bnnC8eyYafTlpc2C2FI6foWB3ptDz5eDr+p1KgrOWG9InJNX
-	 ZF1JGyOzPQd3pgoEWa8sENN2BNfdMhh4wH0WZfEbA3xb0XGxbG8Z+Wu++OKajLSU47w==
+	bh=8K5TXnmWR8LIG5Tp7mnH1kUMA0OkWMON+TeHwvlViVY=;
+	b=XYk8AYsHu6zzEZSp2a6UuhdldWqnQqTid98tjmtfn5JfILSz8vLbMX0oEYHC+/fPNkqO
+	 A+BecoUWfTgn4ZiCt9OMPoN1RNCfhiGtZaspz+V0y/2xz4Z4pF+YZyD21cCsMdDHpW+kD
+	 NIc8+ZUtmGDocfg0HlcnTRbuYXg0iKaqa+qYt7Qjjm76aUebIwUJZBjIvDaMvYrP4hLJx
+	 ia+TbWJWM5wmczpluMDRWAPRUg41O47XRfghojHOjzNrh7GxDJabJ2GMCA9//0yAwCDhv
+	 QsPErMH9iyPPbNjkUrC0C7jBUQ1N1tmlnXpULC0FeHdhboX9FL6J4msJpu0BEDz2Mww==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=linaro.org;
 	spf=pass smtp.mailfrom=linaro.org;
-	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eKDDCBxr;
-	arc=none smtp.remote-ip=209.85.128.47
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	dkim=pass header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=I2qGGkHV;
+	arc=none smtp.remote-ip=209.85.128.54
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D4E460A2624
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:40:40 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 8D4E460A2624
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A79D460A2621
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:40:41 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org A79D460A2621
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=eKDDCBxr
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a35db1f202so32286075e9.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:40:40 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=I2qGGkHV
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a2069b9710so25672105e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:40:41 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1793626839; x=1794231639; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1793626840; x=1794231640; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OwvQ1K/T5ntTIih2Uajc562qVZy7T1bItsBHgcFYO5c=;
-        b=eKDDCBxr1jifs3GGoiY3wlWPbfIy6T3C39vvqLApgT8wdkVycBRSvTs2Au1rJTAGOA
-         zlQjjRHUw/Cm5dvI23hf/BrF6Ls2q4vaGIi5d4/pL7Nb94L6s30Z6Tb8td+AnMtjJLmq
-         9+dHHWPjFfryCAQSssvR2Oqa9Yeh2xiuptA1eheOo7bCWPo0O41DPJrXV6WooeUMORRV
-         4CJAuxJOCvlDhmWkPCSr9ANhNjpq4Mw6EQ/FQweoKqMSuDpOXmJrIs23TE/hmIcM/FY0
-         Y3S5b5AxF0CI64+HLKQ+PlAf7O5rlbje6WafaHonEOPB7Q/ulotWI1jaKBMjQ0xDsCT1
-         oEYQ==
+        bh=8K5TXnmWR8LIG5Tp7mnH1kUMA0OkWMON+TeHwvlViVY=;
+        b=I2qGGkHVM4HOQZrV0J9GsfZjA1PIAXAjcif1FjfLQhtZnQs4/DCNQ/EY9a5LgSrzgJ
+         Z0DSLQsudURUez4E0NvnsFmBHuSDyc6X+eaTj7IxYPC2h69jy0iO7Gh20XAewo/iBLzm
+         GxMNurdLGea3F1McaXdinIeDuCpkfqgRAri9wGBroMPjU3nzOFceCtR97AZhPgCZk1wu
+         gwPuXoDMC+ifI9WHgnrBvHvxVfb+YyOwjKyDqjBasw3ovSkk7JW4b8hrNOIF13b0OJAz
+         eA2v3FUVws+AirBAw+ekXENF4yDmNP3UcD1PyTwMSIJPIqUhCWpA60w/4OPEa7jT8XrM
+         rptw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626839; x=1794231639;
+        d=1e100.net; s=20260707; t=1793626840; x=1794231640;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OwvQ1K/T5ntTIih2Uajc562qVZy7T1bItsBHgcFYO5c=;
-        b=v1qa+qVlZq1BONjmTkDbnknbBIoDwH/+umBRibQAFcC/U9i3qzy+UNFF8GHPO/WR0q
-         WL2LSh+ZY26uSZOvbDi95jOTjrEMhH20rBKO/MM2FYn0hLP6iM0W4NHRsOZua5Rtg8G2
-         8jDcbSUGSOhVY5VUROYqIUTtk0TytuvL7FhLHDCLLodV5Mg52h+TKixc5fef7CF3/SgW
-         DWfUkqFv2QtlriJgKhV3fLQciAr3GSnZwNINBnueXiSfKgJ8L5x7UrNK9IyMjCRIIT5I
-         TqTzKrcQG4zZ7Xqj2x21iC6I08JWVET9jA6CHe3am3nVk2G+baSTrMTriHiuk5VRyrDb
-         9XRg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxmz0lbtLOed5O1rww/2tJ4Dw2aiMNHMzMtcgm7teNdZh3HAnP7blxxwe2g3v9rOjN3kdYzmDQUin+GLQ=@vger.kernel.org
-X-Gm-Message-State: AFq9FYLc9XFc42vNzbxWTBE+SlGd1XRkLdRJD7TknqjIbTJ/uXQNM20j
-	aCltFbvtne0H8jcLixR5V8wVnCLS31C9/tzeUOJV8x/gOzXb/7sCMj/0eRoWryXNFEQ=
-X-Gm-Gg: AYBFou329NIM7QfwPYSCHUCRlrwSO0L7ECrUuBEiG8+SR/dEsHvcgChCXXsewh+OPda
-	GXdiwkfGUK1NiDjpvl4KoKYpi6FiwMwr2hqXqyrft3Likth4XKTeE549RCdwToADBGea6CyF5BY
-	jZeO1Oh0DS6yK4jV+ogISr91eWcsk8few4WIEMVT3ucGgEghoDR9L8xET3cl2w0TaBb96Bur+Kh
-	k+qWXorPL+KVArB3qU1HZn2ATOQgqJQ2gAS6+bp09xnVGx4FoCQe7sBpExj3diwbMOGjcvYfWgY
-	UTL6jpyXEvdwHq/9Hepn9p4SYeGwEKwDbDneOromXWYQXFQTufsxPU4wof4RnHSKi0x0VZZ2/lN
-	k4PZQepOAkIECfXSgD6jj1b8TEL9P0oZ6qXZFWY55sM7e0BDQkr+gke8SrH+KLVE9gaZFiFLOfh
-	6z1HL8moOqy9+tfhA5zfnhbC0mL3uir15WCeoDVvsDC4QmpCRjed+pcxYJbBaBTPwGYjJ8NAjrF
-	ET3bm1PHWyJ3Ir2+LGD7/b5VqcwDc6PwvHt13UHa3lXVYBuAcIWbeQNLIrqIMy30Jv0bkafxuPA
-	/ezfmAEwqbUg6G11gxDdFr+Sgmv3QQNfdCWfZjfC9R2Z5q2pag==
-X-Received: by 2002:a05:600c:8b06:b0:4a2:d:5ccc with SMTP id 5b1f17b1804b1-4ac17b2bc63mr237869415e9.10.1793626838793;
-        Mon, 02 Nov 2026 05:40:38 -0800 (PST)
+        bh=8K5TXnmWR8LIG5Tp7mnH1kUMA0OkWMON+TeHwvlViVY=;
+        b=uL72jxUorq3OQpVLDjdhZ1enWvL1jnk+1Im37j83kGWoedLAZuTJIT8b4KX/woHDuA
+         va1mZ2G5kPrvmVrjcegbaqWvoPe/+yNAGF+UE5GVlT4fNsiERqxiKmWGk6hiQOQStzfL
+         NwWC77Ui3o0z84K3uuPag2kGyzv++8BrCbJ7+sNPc7ofuVKGDY16mCdmiKXNBOpJncIR
+         vPDBieCIhRmrj8sF/xhWKwF6xJV/ek8hp7Ewuh5UDw3bMlzqqWNAQiS2xcJq8KdGeBNV
+         wf0dhCgdglp5IQTrfSfp6fj25A67juJigJs5KFxU5jsPnm5+EWBvrxI/X1zlm4qT21q9
+         stSg==
+X-Forwarded-Encrypted: i=1; AKwUvBxMf3JsCkfHvGfU5c0yvnWR9g2A3f/IST0jPPiztWhZu/r9XV7qJtzVZ8DdZfRNSmY1XE0QtQ9BetXc7YQ=@vger.kernel.org
+X-Gm-Message-State: AFq9FYIb65OLVGHRauY51fk87wwDsTKgRvo6dEbR0XICgF/M67IVbKno
+	2fPXx9S3a4GDsDkxoi/cy7QRvONTdge5dubyfPcsznCC80pIhTwQqNi//QGRd3643iA=
+X-Gm-Gg: AYBFou2ABFMPkF1NUi5+K7bfsf1jthXuq4RE9nAHj4CDv5brLnExs738nziMk6LeGlf
+	r2/X7qr6mMEHwSgFqMqm4Ub3JqH5cXprh8//yA1PwcEs0gT7QodJYpV/vuyTx29wQjK847wXbSX
+	ywELKW0amdbVE251C7hD/ikDay12rlrUW/LaUfovIRZtL2sF4Ta+rq0qUKYT+ZZ/78sJrsqAMl2
+	0htiwKFYKpaBHGJcf3RG/9VO5Sn/fKT8iNR+2yA6Vh/CQip2Us/MdyOPbipNR1DJZCa1H9jBzLu
+	hvwomkqQMnLE4xMoQQfJkryMasnMtu8dL+OJCfQHYyhiftIk7t7r/SWFLmKiJFcGHeuB+Ki8IAO
+	tBcNmiS4Byu1K79J9dIaiqYrhe1h/dxuXupS8zQGnUi/iL+ApV4Ez1E+AUwtZs6DZHXimpQs0fW
+	Z0zgy6aXONyZp4Z44N61lhmVgvT8x0xjVGgHtEy67g50tKZMlu3OzIqlK64HDnLAVAaUVTHBo7h
+	kQ1jFk0yEO6TbPIC0lTgroy7Gn7FK9Uc9gAfzGLdNhsVY0NHW7yu3LrYbXRdz81pc/9W7Vme1l1
+	HTtCvR2Bfsi1UD3fEgDaXsaBDDjxk7Y5J2nE0/oPU4vd77Wo5w==
+X-Received: by 2002:a05:600c:3b2a:b0:4a1:fae5:f2e2 with SMTP id 5b1f17b1804b1-4ac14fbdd04mr230324575e9.4.1793626839961;
+        Mon, 02 Nov 2026 05:40:39 -0800 (PST)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.37
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4abea533a1esm189194605e9.1.2026.11.02.05.40.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:40:38 -0800 (PST)
+        Mon, 02 Nov 2026 05:40:39 -0800 (PST)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Primoz Fiser <primoz.fiser@norik.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, upstream@lists.phytec.de
-In-Reply-To: <20261008053850.2941955-1-primoz.fiser@norik.com>
-References: <20261008053850.2941955-1-primoz.fiser@norik.com>
-Subject: Re: (subset) [PATCH 1/2] dt-bindings: display: panel-simple: Allow
- "data-mapping" for "auo,g104sn02"
-Message-Id: <179362683780.3310106.8889373164273856192.b4-ty@b4>
-Date: Mon, 02 Nov 2026 14:40:37 +0100
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>
+Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
+References: <20261009-fp6-panel-v4-0-7c3819664778@fairphone.com>
+Subject: Re: (subset) [PATCH v4 0/4] Add Novatek NT37705 panel driver for
+ Fairphone (Gen. 6)
+Message-Id: <179362683894.3310106.5892756542563969007.b4-ty@b4>
+Date: Mon, 02 Nov 2026 14:40:38 +0100
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -115,22 +115,16 @@ X-Mailer: b4 0.15.2
 
 Hi,
 
-On Thu, 08 Oct 2026 07:38:49 +0200, Primoz Fiser wrote:
-> As per the AUO G104SN02 datasheet, section 6.4.1 "SEL68", this panel's
-> SEL68 pin selects between 6 bits (SEL68 low/NC) and 8 bits (SEL68 high)
-> per color over LVDS, i.e. an 18-bit or a 24-bit input format.
-> 
-> Currently, the auo_g104sn02 panel_desc only allows for the 24-bit
-> configuration by default. Boards wired for the 18-bit configuration need
-> the override introduced by commit 1cd3ea3e4b12 ("drm/panel-simple: allow
-> LVDS format override")) to describe that instead.
-> 
-> [...]
+On Fri, 09 Oct 2026 13:24:59 +0200, Luca Weiss wrote:
+> Add bindings and a panel driver for the NT37705, and then enable display
+> on the Fairphone (Gen. 6).
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: display: panel-simple: Allow "data-mapping" for "auo,g104sn02"
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/47459027812c73d4826f5f78bc8291cb59a5de3e
+[1/4] dt-bindings: display: panel: Add Novatek NT37705
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/8ddbace1197498d7e32d36db66641b7e1dff868e
+[2/4] drm/panel: Add driver for Novatek NT37705 panel
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/9ffe0df0262b573c276cc17089d15a08b9b4306d
 
 -- 
 Neil
