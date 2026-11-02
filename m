@@ -1,83 +1,75 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.210.198
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793592148;
-	b=FpKg7D3RInU2/EUte+R1X2/LsJg3MubOpBTMbQfQXQDwd9tVFtTQ4f8UFwXjiJAu+ANi
-	 2sAkERC3KZ663aXROdX6S80S6b/0l4f1xTtIJYlNqNIXSchfyRmxMyEfXj2MvVvkOVV0u
-	 6egewV77VtyX2FahKroWv01x/12AnxaNnm/LfzJvTsBbdHcsd2weCLd4F9OVPtNTuFLsM
-	 WIzA6YsX1dH1LLRMRg1ueFe5nGBJalrn99EUpxpumAu6+/FJNPMHKBMa/kqstRMETjcV4
-	 3WKYhfIuU4AqKzirwXE7aAsiVMuvvZLpl92J1Pu6NpHH9eFOk7AsOgEnwGb+Dz3cXXg==
+	t=1793592233;
+	b=Re5U3+5756gcmwQ/abIo+rxuF1Y4j81J4KHhNMSsdHQ5ABuyJ6hrWmF0oJgfBS+H7zux
+	 itHkshJwWpgxWXvwPWlyHUFn/wcO4MHBW++9lzwC8R52lYrWNZyawS8E8J0HfanFt1+Iq
+	 xx+sshsu6Ovy5q4dPbj8TiBbQf3py79bFTtExItVQ6++NhrFHVGNkhNtpSrwB4oFgaiTl
+	 i3yUqBzyKXCdeTCFgFmF35CrRjVG1IFSMnDprGwfypnSdOjuZfeuB7hnz2Ks7ZaAmtQot
+	 Ed94ajfUaSX5p5N13Wt9HTLmpmSoFBGv5+Q5QLBZbwHNbzNj++L5jMCDVsT0ywncCSw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793592148;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793592233;
 	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Message-Id:
-	 Subject:From:To:X-Mailer;
-	bh=VEQbEYEzye2gq9QTDKglfYWEJhST56QqzXTvReg3G5s=;
-	b=tIrc+jisAnxcOqlVKF7LBWs2F7RCB8681stn1Esald/568BJaTL8MS/0S4ygjlw2Hf2F
-	 gmfz9mFMXN+G3Zi6d+Mt5faC2+fjpe/OqCTfdkWQeF7GO1vwdr/lOKK2oZbF8b9WvSgWu
-	 xGZEQqzgH9I3JHBJ4CM9or7NqIgZZv5p9iGE66CKV1B2b2OaY+d/4CIzOuq/8byZDBQsF
-	 kLdkIFMzAHst8tk7Jukq4wYCfzHiwo5IrM+yWwZvoFWe9petyU8g+LLZpMb+tETgkI03g
-	 XzYoshX2qy3pruOf8WotEmklxWfiHyrOePenwZQV5jbzOHVzjhQ4DeC6h+G0cqBSHZA==
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Received:Date:In-Reply-To:
+	 Mime-Version:References:X-Mailer:Message-ID:Subject:From:To:Cc:
+	 Content-Type;
+	bh=qsWlwY+vxPmPFxRUYpkVys4GdRvLGTlYzdsiVqsoQl8=;
+	b=Hi0J7Px+Nqxf18wPwyYz5qLfDXPrCXq/YQX6+UysrOyMut+uDZOXc0h6Nzf/xbnST6xb
+	 u+kJdqMiiY9ezoarFL/DotB54urceiSTL2g3floOZ3veXy1RnExHKpgK1+n/mN5mGyd+l
+	 +qHrh4HLPiQ/u1GHf6V2DPardkPCe7D5bEu+OcEHybquMkjCzO0nbds+laTlmd5v6+rXE
+	 Na4xUvTPZ9gmr1SenJ1JeU7z8j8hWgytcsdFA07pkDLDqLxTtGMfugYtoh+i1+lhALI9W
+	 H+St97kXjvxi3yO40ozIut0RASViIwWuK7KO+hrIo+siylzpQFwZ9pKOUEiB1O5+U4A==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x2KR+E9y;
-	arc=none smtp.remote-ip=74.125.82.50
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
+	dmarc=pass header.from=google.com;
+	spf=pass smtp.mailfrom=flex--chungkai.bounces.google.com;
+	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d3gtpeug;
+	arc=none smtp.remote-ip=209.85.210.198
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 114B9606A326
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:02:27 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 114B9606A326
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041E5606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 04:03:52 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 041E5606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--chungkai.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x2KR+E9y
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1a2761c69fbso3663260c88.0
-        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:02:27 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=d3gtpeug
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8aa185840bdso1472451b3a.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 20:03:52 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793592147; x=1794196947; darn=vger.kernel.org;
-        h=to:from:subject:message-id:date:content-type
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VEQbEYEzye2gq9QTDKglfYWEJhST56QqzXTvReg3G5s=;
-        b=x2KR+E9ymrT8/DhZn0vRSbu3cGRc3OBIp10/AmiUxClqNYVDiw6EPoY1jF/qWmB6fb
-         TEtlkHfpG2bZKMijoM7hrEn3CPGYtA+WThUffU42mF0vJa0MGIODrkTsYfTUiA8QS4jn
-         MtzmEOmzLQcSxM3DGuHODUTcsDFFslWBCPchdgPr6L0eiWqQ/b7bvswcb3cqZ7MLJN7w
-         eCr0AH+JqBNELaMnDwRJkDCqN9EhHJthOBRL1Pkvgg1MlwFH1nllcHeSUJaBRHUN8k6s
-         pwPvecsXk9ka1aTOvwsYypMCwmJWVc3NiclpbUmO6rIqG6G+RkqnNhapciLVX5L9Zl7z
-         L2Tw==
+        d=google.com; s=20260707; t=1793592232; x=1794197032; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qsWlwY+vxPmPFxRUYpkVys4GdRvLGTlYzdsiVqsoQl8=;
+        b=d3gtpeug6FV4i5D1jzTp7hFlhrCBwd0+Tb9izX8A8ynvMeubaXVUNucYTsmknPsyxf
+         jrCQnoJoKm1IR2PNT1SMkl1P+94fcQ3GUaJsX12aFL/+ThbsLJ5AgbBCep2CKVkPWU3/
+         BOmEIyw1ewRwvtB6dNaTjiYk/1uIYR/Veu/3GOLRGqnV6GUtr9WY1vp/FPP5EP2z2heR
+         Ky2j88n4pfWvh0Nr1XSaHY3zst9RkHSFIyyiTxKUtTE76J2ONhKx2GXHFd4G4oBchQEP
+         MLzf2x4K7COKfE1z0Z240F7b/3P7LjtWxnKnMMLDJ+yu+hr1MUXjhPonefcAWQeZ+Lso
+         P17g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793592147; x=1794196947;
-        h=to:from:subject:message-id:date:content-type
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VEQbEYEzye2gq9QTDKglfYWEJhST56QqzXTvReg3G5s=;
-        b=ertM2+NdXxJd2x0C/ZD33+rtYIPr1w2FKiDkzHM9Sg/pHl1+21O3y4JS7KtH92kcKt
-         hRVojESlsEo1m0MvINH3mVNhNEWyQlbfzUVMrU6saFxAL/F/0QfN1vlhvaD6xELtapwg
-         L3GOnYYR56+H8I87uNfViWx99IbHUz+hBGkbocPlOiRlTq2dAQZNDZLXKAmT6wsSOSST
-         28ZrO3SvV93WppJ1g93k5XkuqAkQXNDdHkvsueeMfC/8yJ5SbyENwdQQS6i34DsLofX6
-         BxYSIKC11Z9Reg++FG0m22uPHHmRDGjhgb/p+/la09VMReznXd2W9bGwXWOs6Up6cdi7
-         texw==
-X-Forwarded-Encrypted: i=1; AKwUvByhgRpZvmbkabvKA8Uk7gwvc8Swe9Ha48LyB41agtPKYX6WxLTD6qv/Tf9HUG5oNs2vKUIHuZH7MzqdrE8=@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqM63klnkp6r4OH+MGy43z+ZgDTe1au/XGqqS5io1hv6BSRLD8
-	dKIdZlTHzKutmnkFD73R3yYhIEEuxjYKmfGvKqTPo4Xgky9dopV+K5fVcig9Gb6I
-X-Gm-Gg: AYBFou1LWYMd5Bx4HhsiQddl76v4kPrQwg4wvfjYk+AxB8OlTgnxIyQQnOOl+DW+D0D
-	xiEjleARK9KmI7UQ16HnMDxjxWMCjT8mpMAajuzp9AoWbK96L1mA//UWSUzIWBEm2gYyU5dJhNg
-	zqYD6+/SNJYEPl2N6EMA8VXMuafGcnhthE67uSzbCebUGR7YivDOJvwpf5UkOPx0IlDE5h1CA58
-	20j+BHOxIh2t5e4AQDykF+TPCmLeebIPonbsHrwZQpOGu0y1sZtFQTCQ+zDS4E7yNOoSlC6iitX
-	Nu+3ks5SERvyiqV5KODGWlCHqoQRD4oY0DfWBv9dnePOV2o7crUPdvAj04DQjb3+oHD2OMI1TDv
-	YpbNIO1h7qVvCba1cKmilu0Inu+vZNDRtdnZaKfJDxkbeyMQwLXOQfyWFIEFkzyuS9IoDk2bkzG
-	qajYvSBApmAB0PY/0HJ+n/60Wwlznx510bcEELkD2Y5Iu69T2gkEp0VmXAccGFsfdamdcrAs/Ni
-	tLd+uOSfLGs5dRSlF2mRWexZQH3DDGhOSTJXZi7KZc8Os3aqRGy6qjT800VA0jEAzKCRwHTOqdP
-	NBVfST3Q7zvtRRZRQP5ZOC+wAptzaBlhbgAbtFLy/iQkU/o43re5w04r7V2FYw5Mfg==
-X-Received: by 2002:a05:7022:170c:b0:145:287:ce91 with SMTP id a92af1059eb24-1ac59dd30ebmr14311461c88.14.1793592146946;
-        Sun, 01 Nov 2026 20:02:26 -0800 (PST)
-Received: from localhost (c-73-158-21-37.hsd1.ca.comcast.net. [73.158.21.37])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac192c27cdsm50627159c88.10.2026.11.01.20.02.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 01 Nov 2026 20:02:26 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793592232; x=1794197032;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qsWlwY+vxPmPFxRUYpkVys4GdRvLGTlYzdsiVqsoQl8=;
+        b=E5DTwnFFC68cVijiOFXKkZyfV5+bIyLsCC6noLQr1LtkdSUKtAfBH1D/MQxlnKV9h5
+         f1zOUyvL6hkXz8POC/N+oFzOJXPOX7Ca4apro0Zpgsu5ZOrHnaa8hufSyIh/kdljJd3n
+         cW0Vjiz+HxitNN8cLVBS9RlCNJY7oqfl0zSP4tV2rae5e2LTOHCIpze78s86VCR2vV4p
+         RU1cc/xrBaKkMOHfeeaEzzUBVxGdO2CCO9/BZ7U1d/vEUpfHQ7Dh8FjccFYLWqXxSGrJ
+         Y2JEE+GNGxht8V+VjGD+WQ+/zdV8HOfPKCE2dZHjwq+wcopd264zEVXIXUWlcprjBFnc
+         /k4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwYUHLWMV7jZJwufmsCHFcSObCk6CpKqtxGJ7nbckVfnLLvAUKBeHHINcujClq1N7XLkj+0DkzvnsSAqlo=@vger.kernel.org
+X-Gm-Message-State: APuU4Z/uMqUx40a5vKeKozQVuCFGHQZWiO0OC6pPAIUWkkDiTeI8ySPU
+	TNiACSnlwounTaKSSMBHPLOhGm01id0Baqt9FtkGAtXVl9WWrVoSJgoUZHhQ6PSXra3A1ofJbSx
+	9iGyiffCupWhkMA==
+X-Received: from pfh28.prod.google.com ([2002:a05:6a00:12dc:b0:89e:ccf8:b3b4])
+ (user=chungkai job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6a00:1814:b0:8a0:7024:6360 with SMTP id d2e1a72fcca58-8a9be589bcemr8234543b3a.19.1793592231862;
+ Sun, 01 Nov 2026 20:03:51 -0800 (PST)
+Date: Mon,  2 Nov 2026 04:03:48 +0000
+In-Reply-To: <CAJZ5v0hLYKeuSHpxxRkbK07DuqOat7AuUp4nwz-1V6bgfgzWAA@mail.gmail.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -87,25 +79,68 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 01 Nov 2026 20:02:25 -0800
-Message-Id: <DMKFCOLAMK3K.2N6KVW6P0RKDY@gmail.com>
-Subject: [Question] Report at syzbot (ad6c1104e51702ef591b) - Intended
- Behaviour or Bug?
-From: "Saad Varshani" <varshanisaad@gmail.com>
-To: <kernelnewbies@kernelnewbies.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.22.0
+References: <20261027090638.900747-1-chungkai@google.com> <CAJZ5v0hLYKeuSHpxxRkbK07DuqOat7AuUp4nwz-1V6bgfgzWAA@mail.gmail.com>
+X-Mailer: git-send-email 2.56.0.317.g454f8302e1-goog
+Message-ID: <20261102040348.4154728-1-chungkai@google.com>
+Subject: Re: [PATCH] PM: runtime: Allocate pm_wq with WQ_HIGHPRI
+From: "Chung-Kai (Michael) Mei" <chungkai@google.com>
+To: "Rafael J. Wysocki" <rafael@kernel.org>
+Cc: Ulf Hansson <ulfh@kernel.org>, Tejun Heo <tj@kernel.org>, 
+	Lai Jiangshan <jiangshanlai@gmail.com>, Pavel Machek <pavel@kernel.org>, Len Brown <lenb@kernel.org>, 
+	linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org, chungkai@google.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+On Tue, Oct 27, 2026 at 11:59 AM Rafael J. Wysocki wrote:
+> Interesting.
+>
+> I suppose that there is a measurable performance benefit from this
+> change, so it would be good to say what it is (say, an increased frame
+> rate or similar).
 
-I was investigating bug report ad6c1104e51702ef591b on syzbot, and came
-to the conclusion that it is intended behaviour. The repro.c file was
-calling ioctl with the cmd as FBIOPUT_VSCREENINFO with an invalid yres
-(8) so the kernel was returning -EINVAL, from the function
-fbcon_modechange_possible. I am wondering is this intended behaviour,
-due to something happening on the user's end, or should it be something
-be implemented as a fallback?
+Below is A/B data from two arm64 Android phones (6.12-based kernels)
+comparing unbound pm_wq at nice 0 vs. WQ_HIGHPRI (nice -20), with this
+patch as the only difference.
 
-Thanks,
-Saad Varshani
+The workload is an automated UI test that repeatedly swipes open and
+collapses the notification shade on a 120 Hz display, driving frequent
+GPU and display runtime PM suspend/resume transitions alongside active
+frame composition:
+
+  Platform A: 8 CPUs, 245 vs. 245 runs (220,524 vs. 217,954 work items)
+  ---------------------------------------------------------------------
+  pm_runtime_work CPU wait mean    151.0 -> 107.5 us        (-28.8%)
+  pm_runtime_work CPU wait P99     1,867 -> 1,102 us        (-41.0%)
+  pm_runtime_work CPU wait max     15.08 -> 5.77 ms         (-61.7%)
+  pm_runtime_work wait >= 2 ms/run  7.51 -> 0.94            (-87.5%)
+  pm_runtime_work wait >= 5 ms/run 0.457 -> 0.008           (-98.2%)
+  UI rpm_resume() waker wait P90   662.7 -> 156.7 us        (-76.4%)
+  UI rpm_resume() D-state P90      717.4 -> 213.7 us        (-70.2%)
+  FrameTimeline app missed/run     0.204 -> 0.171           (-16.0%)
+  FrameTimeline SF missed/run      1.086 -> 1.074           (-1.1%)
+
+  Platform B: 7 CPUs, 196 vs. 245 runs (85,957 vs. 104,452 work items)
+  ---------------------------------------------------------------------
+  pm_runtime_work CPU wait mean    134.5 -> 100.9 us        (-25.0%)
+  pm_runtime_work CPU wait P99     1,809 -> 1,122 us        (-38.0%)
+  pm_runtime_work CPU wait max     15.77 -> 3.71 ms         (-76.5%)
+  pm_runtime_work wait >= 2 ms/run  3.40 -> 0.53            (-84.5%)
+  pm_runtime_work wait >= 5 ms/run 0.189 -> 0.000          (-100.0%)
+  UI rpm_resume() waker wait P90   207.5 -> 23.3 us         (-88.8%)
+  UI rpm_resume() D-state P90      217.1 -> 73.3 us         (-66.2%)
+  FrameTimeline SF missed/run      0.551 -> 0.531           (-3.7%)
+
+> Essentially, we're talking about redistributing CPU time between
+> tasks, so some tasks will get more latency as a result of this change,
+> which means that it is not an obviously right thing to do.
+
+Agreed, this is a scheduling trade-off: pm_wq runs arbitrary driver
+callbacks and genpd work whose cost is driver- and platform-dependent,
+so the impact on other tasks cannot be assumed negligible across all
+systems.
+
+If changing the global default is undesirable, would exposing pm_wq
+with WQ_SYSFS (so platforms that need it can tune
+/sys/devices/virtual/workqueue/pm/nice) be a cleaner alternative?
+
+Best regards,
+Chungkai
