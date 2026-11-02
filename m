@@ -1,60 +1,81 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=37.230.196.243
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793613148;
-	b=saNbDYlwYsftzmcI3IdxfkLIC9ZlnS1nF9PvXoLPGr/GO+t5XSUAI7C5iWaGSbx0qITS
-	 /ChO5XHfBvkEluXikq0/kA8A7HMr1C8wkADP8bUdnc24rVD9BlznYFMHXLAQFZCBOvhca
-	 3dNC/4/HoB3PNEmUVX2dvXXdYlLYpdEfuDXWkO3Iu/s4GgeYROw9QtZfWx4p9Yb08TTzO
-	 G3jdZJ6X/PqI5x7ZWFidBcEYL9yYD7dzwXy93TzMpkjjGrECfJFgzTsVOy/Ftu4XGj0k9
-	 aK52axYMKg0l67+ILYcXrlA2HPXd/CfdeEQPQsGZntHTUQTBX74CBhkynGA4iA5n9yg==
+	t=1793613170;
+	b=Zfze3TWPmP50jlUrGWbstGhDUyst4MXD6e+dwuiSQH6bG/U/bBeoZQ+fT32z8jqTWzkh
+	 fYSCw6Jqx4UFyGT/jcuTvy0My8tKI1MucVLCBdxXwTsn6yJxQ/npr7FXo7LLy9HZuMq0Q
+	 XzoZDMqR/iEJb8o3psF2OuU58B/Q8PPbX34ToD0r5thoMlc4+E1rjqpMvikhaniVse2Oh
+	 mW5zHPe4NjQvMPfcSwkTmr8qqHl3/jATTBnHCr0TF8W510V3Nit/N/kE2SJsZ5jYBsWoy
+	 vu/lJPN/ZNeu20XRfypefC3j2Ygeg+bl5hlm1cDyX76T1VxUmCIDaSRy8TmddJHsdtw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793613148;
-	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
-	 In-Reply-To:References:X-sashiko-severity:Content-Type:
-	 Content-Transfer-Encoding:MIME-Version;
-	bh=rZQZ9LD31fveDUvnNj2TrbO5PJhxMz1G61FB7GoabGg=;
-	b=zB1R/+4RWaA/BAkN/q9IDsq9fq3jpkrerJ/NkW6Yv7fJg6Uujbs4pbgDzabGqySAljLH
-	 5M32ABl1OmLWC6oP/8oABHrlNbFMpgcaeIi6/cSWf80yJQ9+kkRSS+jDEWLeeynJjtj8z
-	 iO7lk0AzCkL88ajhnNMn5cBqsFwNJNCgMkM4GgQkWYqRks6Wd0VWua0dZ/RO78HGgZewU
-	 sXVzu5tDU5p6IPKwKnRiOtGeMfN8ez+nUC7258h++UMqW8ZmKaYlrvquJmcDV9YTxfzox
-	 7ILRhIPYjvZtqK1TvyD3+jiNMbcZhObIVAPYdROZgdTmyw4Dg/nzsaIHFhp5ocgwqtw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793613170;
+	h=DMARC-Filter:DKIM-Signature:Received:Received:Received:From:To:Cc:
+	 Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding:X-KSMG-AntiPhishing:X-KSMG-AntiSpam-Auth:
+	 X-KSMG-AntiSpam-Envelope-From:X-KSMG-AntiSpam-Info:
+	 X-KSMG-AntiSpam-Interceptor-Info:X-KSMG-AntiSpam-Lua-Profiles:
+	 X-KSMG-AntiSpam-Method:X-KSMG-AntiSpam-Rate:X-KSMG-AntiSpam-Status:
+	 X-KSMG-AntiSpam-Version:X-KSMG-AntiVirus:X-KSMG-AntiVirus-Status:
+	 X-KSMG-LinksScanning:X-KSMG-Message-Action:X-KSMG-Rule-ID;
+	bh=FkYS1w9u0+LaOyzLJRCPz6vwu0WtFSRe65AtlLC83O0=;
+	b=u5sjqemOm1vjOrHPxZSXiqMNlum1TyHCv1Pb+73zUi00qVjpqU89fEQE0xVJQMWjBMfL
+	 MK4FzS2+KTzkXrRweE55chcN2KIa4FJF8PLTq1oK4Gj7p2KZ1JW1Tu3y7QO5N23G4yyBc
+	 8RtOWqxdWZmtf/LbNhq2tbYWlrQnttJG6MdWYc87eJnSZAVNnJpG5W6A4ta65MIrft5TC
+	 z7O/w4UJcpDnqyD72hF0Xx4utwUueF78KSHOQFFfKknVCle1t0PDahPXBYKnNLB4soR0k
+	 9zMET4K14H7ufYIHwjIL0p14wfOQlb8rC5Cksqu44CrydxfDpV0Lt+hAaGZc/olD0VQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtTdY4e+;
-	arc=none smtp.remote-ip=100.103.45.18
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	dmarc=pass header.from=astralinux.ru;
+	spf=pass smtp.mailfrom=astralinux.ru;
+	dkim=pass header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UYznJyHn;
+	arc=none smtp.remote-ip=37.230.196.243
+Received: from mail-gw01.astralinux.ru (mail-gw01.astralinux.ru [37.230.196.243])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40A4F606A336;
-	Mon,  2 Nov 2026 09:52:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92607606A324;
+	Mon,  2 Nov 2026 09:52:47 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 92607606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=astralinux.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=astralinux.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EtTdY4e+
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4FC991F000C1;
-	Mon,  2 Nov 2026 09:52:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793613147;
-	bh=rZQZ9LD31fveDUvnNj2TrbO5PJhxMz1G61FB7GoabGg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=EtTdY4e+ymjbKQD5SPt0J1THvc5M1fEsC7Bbyi06gWTWFkRHSSlDa+oKSiYau/6kn
-	 wWt3hXKgFeaaR3uU7HzfkJ1D/yqZWxg4Ld5M6YjOCnTTnp8R6nikvuZAzeG7BNDcLg
-	 zytDvA5sJ8klM8Wb82edshgglXaScig0Nq6V6/wg5po8LtaUS8rGPiB5FN+3ldaGg3
-	 8uMi8niOy24D2Yvpye4HBCs6y5uIt9xc1B0oV3b+kxNAv9tN9ttLPgI5ayAuwOfFgO
-	 h0cDoDJxDq1q7pLHGprMAtnQHgVVMktgKAsxIl05pB703z42mix7RFhMfoKOZpHwVX
-	 Dq2dRf8781ZYQ==
-Subject:
- Re: [PATCH net v4] net/packet: account user-triggered allocations to memcg
-From: netdev-bot+sashiko@kernel.org
-To: ahmadag1001@gmail.com
-Cc: willemdebruijn.kernel@gmail.com, kuba@kernel.org, davem@davemloft.net,
- edumazet@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable+noautosel@kernel.org
-Date: Mon, 02 Nov 2026 09:52:26 +0000
-Message-ID: <179361314688.3131.15505744143383263524@kernel.org>
-In-Reply-To: <20261101094847.664612-1-ahmadag1001@gmail.com>
-References: <20261101094847.664612-1-ahmadag1001@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key, unprotected) header.d=astralinux.ru header.i=@astralinux.ru header.a=rsa-sha256 header.s=mail header.b=UYznJyHn
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=astralinux.ru;
+	s=mail; t=1793613158;
+	bh=Nob264xXleauE6t2oflw9XoRF0JlXcR5+ar1pZlg5BE=;
+	h=From:To:Cc:Subject:Date:From;
+	b=UYznJyHn/zFvt2KtUaAUPEQC1+ySyA9x6wTP3UYa+PSY/Xm/k+s9lkD6Ha5r7stv5
+	 f2MpK8SAx3JZouGY6TEeABhUA2+LGjnbwMGljpOkB8W0SoXseAYYmywswJXbOcYE1F
+	 da03Kk98PpSLkpd1cBk3EQ6os5KJEci3BPbiEINcvVRkBWrO/Ys2Jzmr7RUfIoMols
+	 lUTCUc4/AjdwW6zNUYZoG6dJL/46TZe2IZd1vZFgN2rNXvq677wlqjeL2Ir2xQNYzu
+	 0Ud+KeGf9vVwi6SSTbx2w6CHHakVW6Xv5Z0NO6HxnVrc3CHPpGUkzpj9RW9aTAg1tn
+	 YtF7Rx/GXnSTA==
+Received: from gca-sc-a-srv-ksmg01.astralinux.ru (localhost [127.0.0.1])
+	by mail-gw01.astralinux.ru (Postfix) with ESMTP id 0BBB4250C8;
+	Mon,  2 Nov 2026 12:52:38 +0300 (MSK)
+Received: from new-mail.astralinux.ru (unknown [10.205.207.8])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail-gw01.astralinux.ru (Postfix) with ESMTPS;
+	Mon,  2 Nov 2026 12:52:32 +0300 (MSK)
+Received: from DESKTOP-D46TNHI (unknown [10.198.31.164])
+	by new-mail.astralinux.ru (Postfix) with ESMTPA id 4jJ6Sb3Xfyz2s2s;
+	Mon, 02 Nov 2026 12:52:31 +0300 (MSK)
+From: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>,
+	Sasha Levin <sashal@kernel.org>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Richard Weinberger <richard@nod.at>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	linux-mtd@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org
+Subject: [PATCH 5.10] mtd: core: call _get_device() with the master MTD
+Date: Mon,  2 Nov 2026 12:52:12 +0300
+Message-ID: <20261102095213.104-1-mdmitrichenko@astralinux.ru>
+X-Mailer: git-send-email 2.54.0.windows.1
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -64,97 +85,61 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-KSMG-AntiPhishing: NotDetected
+X-KSMG-AntiSpam-Auth: dkim=none
+X-KSMG-AntiSpam-Envelope-From: mdmitrichenko@astralinux.ru
+X-KSMG-AntiSpam-Info: LuaCore: 133 0.3.133 d508d579b02cdb6df47808421a9b9e12fc9fb75b, {diag_burst_silent}, {date_rfc_vio_soft_silent}, {Tracking_from_domain_doesnt_match_to}, astralinux.ru:7.1.1;new-mail.astralinux.ru:7.1.1;127.0.0.199:7.1.2;d41d8cd98f00b204e9800998ecf8427e.com:7.1.1, FromAlignment: s
+X-KSMG-AntiSpam-Interceptor-Info: scan successful
+X-KSMG-AntiSpam-Lua-Profiles: 207172 [Nov 02 2026]
+X-KSMG-AntiSpam-Method: none
+X-KSMG-AntiSpam-Rate: 0
+X-KSMG-AntiSpam-Status: not_detected
+X-KSMG-AntiSpam-Version: 6.1.1.27
+X-KSMG-AntiVirus: Kaspersky Secure Mail Gateway, version 2.1.0.7854, bases: 2026/11/02 08:04:00 #28779785
+X-KSMG-AntiVirus-Status: NotDetected, skipped
+X-KSMG-LinksScanning: NotDetected
+X-KSMG-Message-Action: skipped
+X-KSMG-Rule-ID: 1
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+commit 12b31d1acd20b3185bb5f0748db0cf6874c8e9d1 upstream.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+__get_mtd_device() calls the master's _get_device() callback with mtd,
+which may be a partition. __put_mtd_device() passes the master.
 
-- [Medium] The patch only partly closes the PACKET_ADD_MEMBERSHIP memcg
-  bypass.
+This breaks gluebi partitions because gluebi_get_device() uses
+container_of() and therefore requires the master MTD. Pass the master
+to _get_device(), matching _put_device().
 
---
+Fixes: 46b5889cc2c5 ("mtd: implement proper partition handling")
+Assisted-by: Codex:gpt-5.6-sol
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
+[ mdmitrichenko: Keep the existing try_module_get()/module_put() error
+  path. 5.10 predates commit 79c4a5625021 ("mtd: call external _get and
+  _put in right order"). ]
+Signed-off-by: Mikhail Dmitrichenko <mdmitrichenko@astralinux.ru>
+---
+Backport fix for CVE-2026-98833
 
-net/packet: account user-triggered allocations to memcg
+ drivers/mtd/mtdcore.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This commit changes several AF_PACKET allocations whose size or count is
-chosen by user space to use GFP_KERNEL_ACCOUNT, so they are charged to the
-caller's memory cgroup. It covers the ring blocks and block array, the
-rx_owner_map, the fanout group, and the packet_mclist entries created by
-PACKET_ADD_MEMBERSHIP.
-
-> diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-> index cf6429f094772..ec6ab96c4f87c 100644
-> --- a/net/packet/af_packet.c
-> +++ b/net/packet/af_packet.c
-
-[ ... ]
-
-> @@ -3773,7 +3774,7 @@ static int packet_mc_add(struct sock *sk, struct packet_mreq_max *mreq)
->  		goto done;
->  
->  	err = -ENOBUFS;
-> -	i = kmalloc_obj(*i);
-> +	i = kmalloc_obj(*i, GFP_KERNEL_ACCOUNT);
->  	if (i == NULL)
->  		goto done;
->  
-
-[Severity: Medium]
-Does this fully close the PACKET_ADD_MEMBERSHIP bypass described in the
-commit message?
-
-For PACKET_MR_MULTICAST and PACKET_MR_UNICAST, packet_mc_add() then calls
-packet_dev_mc(), which adds the address to the device list:
-
-packet_mc_add()
-  packet_dev_mc()
-    dev_mc_add() / dev_uc_add()
-      __hw_addr_add_ex()
-        __hw_addr_create()
-
-Each distinct address gets a struct netdev_hw_addr, and that allocation
-is not charged:
-
-net/core/dev_addr_lists.c:__hw_addr_create() {
-    ...
-	ha = kmalloc(alloc_size, GFP_ATOMIC);
-    ...
-}
-
-A struct netdev_hw_addr is about 104 bytes (kmalloc-128). That is larger
-than the packet_mclist that is now charged (about 72 bytes,
-kmalloc-cg-96). Neither packet_mc_add() nor dev_addr_lists.c limits how
-many entries can be added.
-
-On devices with ndo_set_rx_mode_async, netif_addr_lists_snapshot() ->
-__hw_addr_list_snapshot() also makes two more GFP_ATOMIC copies of each
-uc/mc entry. These copies stay in dev->rx_mode_addr_cache, which is only
-flushed in free_netdev().
-
-So a CAP_NET_RAW user in a user namespace can add many distinct
-MR_MULTICAST or MR_UNICAST addresses on lo. Each one still pins more
-uncharged memory than gets charged.
-
-Would it make sense to also add __GFP_ACCOUNT to the allocation in
-__hw_addr_add_ex(), which runs in process context?
-
-The commit message says:
-
-    100 sockets with 2000 PACKET_MR_PROMISC entries each
-    on lo (45220 KB used, 124 KB charged) behave the same. With this change
-    all three are stopped by the cgroup's OOM killer.
-
-PACKET_MR_PROMISC only calls dev_set_promiscuity() and never reaches
-__hw_addr_create(), so the reproducer does not exercise this path.
-Should the commit message be narrowed, or should the device address
-entries be covered as well?
-
+diff --git a/drivers/mtd/mtdcore.c b/drivers/mtd/mtdcore.c
+index b2d88ff90e93..d960d4ed2e5b 100644
+--- a/drivers/mtd/mtdcore.c
++++ b/drivers/mtd/mtdcore.c
+@@ -990,7 +990,7 @@ int __get_mtd_device(struct mtd_info *mtd)
+ 		return -ENODEV;
+ 
+ 	if (master->_get_device) {
+-		err = master->_get_device(mtd);
++		err = master->_get_device(master);
+ 
+ 		if (err) {
+ 			module_put(master->owner);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261101094847.664612-1-ahmadag1001%40gmail.com
+2.43.0
+
