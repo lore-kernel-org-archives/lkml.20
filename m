@@ -1,79 +1,78 @@
 Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793655533;
-	b=t892UjzWOyqzbPxGXx7YejofWdjTltPHl71pBdOh4U+O/Do7HCpoqrgnfvFyO99QYQX4
-	 7TmYWTAwhVWjMqq2xYp9nUi5RGxEk1pFYThHrKRu1v0kIKQEeB/T5bkauZGEKgCpmdsny
-	 T0NTO+I6kCFLv82A0sM6iI+LqeCGInQTsIAQ3QZeh7DArac9lPNpgP3rXk1LYuRUSp8w+
-	 pZ6oSLIKLXdNsfqYhUxRkFmx6CET05XVj47KuOp3SLMCyW9+lWNVaiX1dNmQ9kHwob26o
-	 TME1eA3HXOoudii6aS3sCe8fnq+ah2DEM2GrgF99gx95BT7IlKcFJho24p4z7ri8sgA==
+	t=1793655536;
+	b=O1GF1QNqOd7yY1qsE1ZGPhOQptGnnnX/+ZsST5i8zQ+4E6zMg+5dd6zWNJek3MIBiMV8
+	 5T/B7iyN6Hl2kBZRdHBZPv9Gy0/QIxp9OwKz9LaedJRILZ5yxNxoYjgOuINskzMNozaqq
+	 bpMyfiTNoTm/PEcM1zGv/lVO/lYi6JudqT3exF+LEvpJiJQuu8vL9Bo5/862gPBmC5gLv
+	 fHsyyAlW5B6RzMn9yKfCFGW+QBHDO+hPZu5N/quXLd8q7gjWyCVS4tCUmqV6ARFcINOHO
+	 PIEK5tcmRoKTgCB6CNnZtXk8ulTjBcqjX0kserMdkYSIEVHyqF3L9RhPuI/Gx7/43eA==
 ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655533;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655536;
 	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
 	 Content-Type:Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DbkrQequ7AF6sVYRJT9J5w5lL5iEEJOND8Z1gQX388Y=;
-	b=fbeAJcMwGlrxb8pZ4C44i1R0ScuyUQ65KcUxPnhXkYOxbx/m/sgdTihYBdn7tVVuXWqo
-	 6pQJLMoRye+qHAs57Ie+mDtDQpNe7twtq9iEQ+jHIi/68YNBoZxwKuKHS+tOZ7OyHRUbz
-	 77+CVs2SvT7YIArifE3peiB2s8WdN0byrcX6qECyvAv7IODlYgdGKrVyUQa0bRCY8fTxN
-	 OF7pbKUymdV0cfpIM95QG4sA/w74/aQyYB9eSEUz5OELdT4QSw7Yr51QkzvfRPqgHdIU9
-	 87QbNQHiZEFQ4bSuayGjah55vl2xygyMK9fKu6HC7A8IBBVjQ2C9VYcnnEEgSw8B83g==
+	bh=e4LyrNgZt64xR3KrcZFWHOFdeaakWHHtPMgNKePQe1E=;
+	b=DEYfjh197zZrZDqBGckP67ahXqCVEgJxUkBUO5QrIg7imBaot2C9ke2UmUtpp0fGehHq
+	 9Bu5rfswjwk+RQTI+9do1RI8DQNEtvipOTLHMQs71OOXpDlfAyFYZGre35f+fiYpC+oxC
+	 GVxMJJoGtbV8rTRAZO9DgF8x0ifjw3nE0wymq3JT5jE65HB6Slmirvk6r5ev8JeQ2jfQK
+	 sc9l0YXJ+jIGW1Gw7iLeW5fnk++b4LDH4/0j2vX3RdYQ0CAjK+gBhnjPcjzRBBkqWkwp3
+	 tGaYOFex2lpFDM3lziPe3U/f8fB75PP/YDI46fj2pIfEEFL6CiyvybrZ1WJu5OCkkNA==
 ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxH5zRls;
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7UFUbIm;
 	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 366E9606A329;
-	Mon,  2 Nov 2026 21:38:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A260A606D80E;
+	Mon,  2 Nov 2026 21:38:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WxH5zRls
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I7UFUbIm
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
-	t=1793655533;
-	b=u8N7qHWkzvIPlafznhWSQ6WpL70QUQoZ7d4OM6XqRFHxwCciShbUabhkBuExMZy99BXV
-	 4Iybik3YJqHR266r5hDIAiV6IgYnQci1/wqOWi71vcsPpFCuqQg6/21n9QYehA8LBNt4g
-	 qrRc5UqQt8FrcMzAUha1bX8krGXI73/xkUMx54dNtknke2ASVlTWCzqN40fgRbnnCB8lx
-	 +5FfNbRX9AavSGG6MJ9OE8SIkzPvOoZg9NT7LlhhV+vgrI0d81IZ50OGAytJORWgmH6wI
-	 gaNyoAP/jn5OuI2xbqalWNQ6eEEEYSMpCgT6wt0SMZ95GCAzDxvDVDiTHv5RaYyBg7A==
+	t=1793655535;
+	b=zh3UOJO2if1wVb88LsLF4EMY6Xe5gvJ+4WjVHjEfQeLwSPwZC5fh7vbv86Y9YntJWOG/
+	 Q0kPTNo8w8chEMjIZe6kcVNlGZiv9RMySw5Z7u1BtUTdJtAbSRd0FQykTUNstKG1jVqLW
+	 h02wFxmTi0m0KPqyrECWFLx52A23DXuOkhW5eyYwinTFpCrifHvGTxOkMMKrO+uMur41S
+	 gdBnC0eCvgr8kg2tkFjlePHKpIou9AoWcfyVNXI1YZc8BubCg2iZ9IVBYcf3TLH87P3Wd
+	 MXdBEK2XH/dRYwSM+ytXN4WP84sa4uqzxJ357VTN0cpCvmIp+CMWZHCbuBUm5cleC9A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
-	c=relaxed/relaxed; t=1793655533;
+	c=relaxed/relaxed; t=1793655535;
 	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
 	 Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
 	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
 	 X-Original-From:Reply-To:Content-Transfer-Encoding;
-	bh=DbkrQequ7AF6sVYRJT9J5w5lL5iEEJOND8Z1gQX388Y=;
-	b=zRyhmIGNtgu5F0ZzkxUuFItiT9kgjLXhVXiOgw8QcdHfogeTBkOb5SuB4S4TeaIuqgYx
-	 9u0pPjcmypRzmsV1jETESb3KIwp5BwOD7STqraBJrJ7QMTgBKUoNHVyO+h17CRg50MN6I
-	 R9Pnq9EifQEIWo5yD+sUirJUq6er4XNllVKsS+be74rBFM6+UVMww2qjuZ+lrLnqn2d8J
-	 9QcGeB4n0NTjSC8C4CFL3qzOY6XzSyX70GmWQLFaTViJos8Eg7d3X4+rS8dBpbQHAmWgU
-	 m8Tr7xzxVrzQFn1BrBHyIdwjwi/iIcAB0OSUVDR06SQapBW5jXaYILSQv710bA9vl/A==
+	bh=e4LyrNgZt64xR3KrcZFWHOFdeaakWHHtPMgNKePQe1E=;
+	b=obJDZ/oplT4MVSHlAqmVuJ+C04MRL09E5SMks6umyU9PCptYCB+OMdxHuo93t/1jFChn
+	 TSBlqwjn5elhdjkrNJZlGn7nx6qYyeTEHqMrz3yMU22RUD7Ffe6dMPJvontJwYCST0X+B
+	 k3yx/3XShKEVB8BM5X4F2VOgooPaO0M0/MGYLlVPTRj7UiSO4PqwnqaHbW4bmWdynFkqg
+	 urGAFOpMWQ/CgZZDxOZWeOp53UVNfg5bODpuuhrhHcv0P/Y+PGyka+SqNqyOGCifbiqKB
+	 UbK8CV1PX7LQLK0ikXIhj2k0bVcQdr8HLPtYyjCkQ6ncigoW0ZEwUlu33AA6CV8LMUA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
 	arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.kernel.org (Postfix) with ESMTPS id 103001F00A1B;
-	Mon,  2 Nov 2026 21:38:52 +0000 (UTC)
+	by smtp.kernel.org (Postfix) with ESMTPS id 7AAA21F00A1C;
+	Mon,  2 Nov 2026 21:38:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1793655533;
-	bh=DbkrQequ7AF6sVYRJT9J5w5lL5iEEJOND8Z1gQX388Y=;
+	s=k20260515; t=1793655535;
+	bh=e4LyrNgZt64xR3KrcZFWHOFdeaakWHHtPMgNKePQe1E=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
-	b=WxH5zRlss8MhN+Tt+FD6xxRM8HIydrMjBqgHyJrh1KCCqJ8JbLTPmAmE1mrysNyn1
-	 R38rIcUvcajy+9pT9Nx4gW7JbacDxLtT16fMytoB8Xn91PKJnmpuoZ+e/yIFxiRwsP
-	 a/tiI8D72xVMdF4Pf0XeY84hUK0X53/EZbgc8WwBB2hCYkRA0FVz5FWrZSEt/V+hz3
-	 FoRHB/AoS3Ukcbd27Xv1qiK2VlN9JpisDZB/w4F2p1XJONelsVPj11ngUKgIFdE4Go
-	 ctGeixBBW8QViPunQbiFaGl7EIu4f/lZlWdE+Oa3SzdoTY+H39ACi+d/3JIr7Eec1q
-	 RMj3eEjWFYCSw==
+	b=I7UFUbImijaXjJQ3ckfJMwfAYdrZHRV0+yrqrrkwmkAmBUPmdVjfX6Q+1XSlLnZaw
+	 jP9cnWKZBXRUFRVrzzqs1p8vikRewR0bCyZ9Fc0H3hCVdf+oZm96ZA3Y2pyzk190Ut
+	 H+p7YvIAPRqRfaloqMHvFTkwKdBUkkDXFR/oh1rj4a0MOFd/BJMc+McCyaSrvbA2hM
+	 GQD8LmZT4KNjuEys9xeDwBMAA3R0ZzlZYRkNUGuqeKLLCPJ6+EVMsY8kiQQrliirIp
+	 k+Gos7lVxaivuV4Ilz7ly/UGIONTNSop5QBM+Q5Ohe1oGWgj+Yz54ydRBXkoEjtvI2
+	 sCk0r8Zf2KKZA==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
-	by lkml.kernel.org (Postfix) with ESMTP id 91FA34669E;
+	by lkml.kernel.org (Postfix) with ESMTP id BA22E466AA;
 	Mon,  2 Nov 2026 21:38:51 +0000 (UTC)
 From: Dave Marquardt via B4 Relay <devnull+davemarq.linux.ibm.com@kernel.org>
-Date: Mon, 02 Nov 2026 15:38:44 -0600
-Subject: [PATCH v17 04/13] scsi: ibmvfc: fix stale rc and IRQ mapping leak
- in ibmvfc_register_channel()
+Date: Mon, 02 Nov 2026 15:38:47 -0600
+Subject: [PATCH v17 07/13] scsi: ibmvfc: add NOOP command support
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -84,7 +83,7 @@ List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261102-ibmvfc-fpin-support-v17-4-9ee5f195ac91@linux.ibm.com>
+Message-Id: <20261102-ibmvfc-fpin-support-v17-7-9ee5f195ac91@linux.ibm.com>
 References: <20261102-ibmvfc-fpin-support-v17-0-9ee5f195ac91@linux.ibm.com>
 In-Reply-To: <20261102-ibmvfc-fpin-support-v17-0-9ee5f195ac91@linux.ibm.com>
 To: Madhavan Srinivasan <maddy@linux.ibm.com>, 
@@ -96,11 +95,11 @@ To: Madhavan Srinivasan <maddy@linux.ibm.com>,
 Cc: linux-scsi@vger.kernel.org, linuxppc-dev@lists.ozlabs.org, 
  linux-kernel@vger.kernel.org, Dave Marquardt <davemarq@linux.ibm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1793655530; l=1891;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793655530; l=4964;
  i=davemarq@linux.ibm.com; s=20260216; h=from:subject:message-id;
- bh=/Cbr+Mc/ALiDF3jQHtDNe+BbKVW2N2r2WvK/BWAfFYc=;
- b=XwY7/1eguYo5JKHNNWg7a6c1Q5CgtTU5+GDV+HE6ZUWRZra+N2RiKETFPlVul6PbONETVH5YT
- gx85y6UAXXyBty2QQNmPFBfyXHhzp0IDdaxZ8/T0ghzuFStXBhTTBft
+ bh=12s3yvKM2ln2h1W8cSWuwGEtumFWqMqdS2nMeA7r9ZE=;
+ b=SAVDlVpCt54Fanbx8u5OWqP48AoerwWjdsN6AOFsXoSr1VoZymq5t2RHLWJY0bE6SJrOIW0yg
+ p/UOZXzO5JWCHJktJ77RgGzdLjs1qR6ABGHMAHaKzAaPj85mNKhYo7v
 X-Developer-Key: i=davemarq@linux.ibm.com; a=ed25519;
  pk=vy0/nfobrje6EqZxuyw6a3ZstytG8WK2vf5Y3xtGrEg=
 X-Endpoint-Received: by B4 Relay for davemarq@linux.ibm.com/20260216 with
@@ -111,57 +110,125 @@ Content-Transfer-Encoding: 7bit
 
 From: Dave Marquardt <davemarq@linux.ibm.com>
 
-The default: case of the protocol switch in ibmvfc_register_channel()
-jumps to irq_failed without setting rc, leaving a stale value from
-h_reg_sub_crq() (0 or H_CLOSED) that the caller sees as success even
-though the sub-CRQ was just freed. The mapping created by
-irq_create_mapping() is also never disposed, leaving scrq->irq non-zero.
+Add support for handling IBMVFC_NOOP format CRQ messages from the
+VIOS partner.
 
-Set rc = -EINVAL in the default: case. Introduce an irq_mapping_failed:
-label that calls irq_dispose_mapping() and clears scrq->irq before
-falling through to irq_failed, and jump to it from both the default:
-case and the request_irq() failure path, eliminating the duplicate
-inline dispose/clear in the latter.
+Advertise the client's ability to handle NOOP commands by setting the
+IBMVFC_CAN_USE_NOOP_CMD capability in ibmvfc_set_login_info().
+
+Handle and ignore IBMVFC_NOOP format messages in both ibmvfc_handle_crq()
+and ibmvfc_handle_scrq(). In both handlers, log a rate-limited error if a
+NOOP is received while in the IBMVFC_ACTIVE state without the partner
+having advertised IBMVFC_SUPPORT_NOOP_CMD.
+
+In ibmvfc_handle_scrq(), also fix a typo ("Got and invalid" -> "Got an
+invalid"), add a missing return on invalid message types, and guard
+against null event pointers before processing CRQ responses.
+
+Change ibmvfc_handle_scrq() to take a struct ibmvfc_queue *scrq
+parameter instead of struct ibmvfc_host *vhost, deriving vhost from
+scrq->vhost internally. Use &scrq->evt_pool for event validation instead
+of &evt->queue->evt_pool, avoiding a potential wild pointer dereference
+if crq->ioba contains a non-zero garbage token before ibmvfc_valid_event()
+has a chance to validate it.
 
 Signed-off-by: Dave Marquardt <davemarq@linux.ibm.com>
+Acked-by: Tyrel Datwyler <tyreld@linux.ibm.com>
 ---
- drivers/scsi/ibmvscsi/ibmvfc-core.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/scsi/ibmvscsi/ibmvfc-core.c | 36 ++++++++++++++++++++++++++++++------
+ 1 file changed, 30 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/scsi/ibmvscsi/ibmvfc-core.c b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-index 65829c3d2eea..77c685f6f959 100644
+index a87beaeca13c..b9b571db4464 100644
 --- a/drivers/scsi/ibmvscsi/ibmvfc-core.c
 +++ b/drivers/scsi/ibmvscsi/ibmvfc-core.c
-@@ -6429,16 +6429,15 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
+@@ -1580,7 +1580,9 @@ static void ibmvfc_set_login_info(struct ibmvfc_host *vhost)
+ 		login_info->flags |= cpu_to_be16(IBMVFC_CLIENT_MIGRATED);
+ 
+ 	login_info->max_cmds = cpu_to_be32(max_cmds);
+-	login_info->capabilities = cpu_to_be64(IBMVFC_CAN_MIGRATE | IBMVFC_CAN_SEND_VF_WWPN);
++	login_info->capabilities =
++		cpu_to_be64(IBMVFC_CAN_MIGRATE | IBMVFC_CAN_SEND_VF_WWPN |
++			    IBMVFC_CAN_USE_NOOP_CMD);
+ 
+ 	if (vhost->mq_enabled || vhost->using_channels) {
+ 		login_info->capabilities |= cpu_to_be64(IBMVFC_CAN_USE_CHANNELS);
+@@ -3729,6 +3731,14 @@ static void ibmvfc_handle_crq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost,
+ 	if (crq->format == IBMVFC_ASYNC_EVENT)
+ 		return;
+ 
++	if (crq->format == IBMVFC_NOOP) {
++		if (vhost->state == IBMVFC_ACTIVE &&
++		    !ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_NOOP_CMD))
++			dev_err_ratelimited(vhost->dev,
++					    "Received unexpected NOOP command from partner\n");
++		return;
++	}
++
+ 	/* The only kind of payload CRQs we should get are responses to
+ 	 * things we send. Make sure this response is to something we
+ 	 * actually sent
+@@ -4248,9 +4258,10 @@ static int ibmvfc_toggle_scrq_irq(struct ibmvfc_queue *scrq, int enable)
+ 	return rc;
+ }
+ 
+-static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost,
++static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_queue *scrq,
+ 			       struct list_head *evt_doneq)
+ {
++	struct ibmvfc_host *vhost = scrq->vhost;
+ 	struct ibmvfc_event *evt = (struct ibmvfc_event *)be64_to_cpu(crq->ioba);
+ 
+ 	switch (crq->valid) {
+@@ -4259,7 +4270,20 @@ static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost
+ 	case IBMVFC_CRQ_XPORT_EVENT:
+ 		return;
  	default:
- 		dev_err(dev, "Unknown channel protocol (%d)\n",
- 			channels->protocol);
--		goto irq_failed;
-+		rc = -EINVAL;
-+		goto irq_mapping_failed;
+-		dev_err(vhost->dev, "Got and invalid message type 0x%02x\n", crq->valid);
++		dev_err(vhost->dev, "Got an invalid message type 0x%02x\n", crq->valid);
++		return;
++	}
++
++	if (crq->format == IBMVFC_NOOP) {
++		if (vhost->state == IBMVFC_ACTIVE &&
++		    !ibmvfc_check_caps(vhost, IBMVFC_SUPPORT_NOOP_CMD))
++			dev_err_ratelimited(vhost->dev,
++					    "Received unexpected NOOP command from partner\n");
++		return;
++	}
++
++	if (unlikely(!evt)) {
++		dev_err(vhost->dev, "Received null event\n");
+ 		return;
  	}
  
- 	rc = request_irq(scrq->irq, scrq->handler, 0, scrq->name, scrq);
- 
- 	if (rc) {
- 		dev_err(dev, "Couldn't register sub-crq[%d] irq\n", index);
--		irq_dispose_mapping(scrq->irq);
--		scrq->irq = 0;
--		goto irq_failed;
-+		goto irq_mapping_failed;
- 	}
- 
- 	scrq->hwq_id = index;
-@@ -6446,6 +6445,9 @@ static int ibmvfc_register_channel(struct ibmvfc_host *vhost,
- 	LEAVE;
- 	return 0;
- 
-+irq_mapping_failed:
-+	irq_dispose_mapping(scrq->irq);
-+	scrq->irq = 0;
- irq_failed:
- 	do {
- 		hcall_rc = plpar_hcall_norets(H_FREE_SUB_CRQ, vdev->unit_address, scrq->cookie);
+@@ -4267,7 +4291,7 @@ static void ibmvfc_handle_scrq(struct ibmvfc_crq *crq, struct ibmvfc_host *vhost
+ 	 * things we send. Make sure this response is to something we
+ 	 * actually sent
+ 	 */
+-	if (unlikely(!ibmvfc_valid_event(&evt->queue->evt_pool, evt))) {
++	if (unlikely(!ibmvfc_valid_event(&scrq->evt_pool, evt))) {
+ 		dev_err(vhost->dev, "Returned correlation_token 0x%08llx is invalid!\n",
+ 			crq->ioba);
+ 		return;
+@@ -4310,7 +4334,7 @@ static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
+ 	spin_lock_irqsave(scrq->q_lock, flags);
+ 	while (!done) {
+ 		while ((crq = ibmvfc_next_scrq(scrq)) != NULL) {
+-			ibmvfc_handle_scrq(crq, scrq->vhost, &evt_doneq);
++			ibmvfc_handle_scrq(crq, scrq, &evt_doneq);
+ 			crq->valid = 0;
+ 			wmb();
+ 		}
+@@ -4318,7 +4342,7 @@ static void ibmvfc_drain_sub_crq(struct ibmvfc_queue *scrq)
+ 		ibmvfc_toggle_scrq_irq(scrq, 1);
+ 		if ((crq = ibmvfc_next_scrq(scrq)) != NULL) {
+ 			ibmvfc_toggle_scrq_irq(scrq, 0);
+-			ibmvfc_handle_scrq(crq, scrq->vhost, &evt_doneq);
++			ibmvfc_handle_scrq(crq, scrq, &evt_doneq);
+ 			crq->valid = 0;
+ 			wmb();
+ 		} else
 
 -- 
 2.56.0
