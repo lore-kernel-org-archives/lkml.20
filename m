@@ -1,89 +1,122 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624960;
-	b=vhy6zCPK6/TfUTCffd0iV8ULuo0d/eykPt1nuMSDU32c6NJsDpY8FezgvLVY+wngo4Ia
-	 QV5Ew0S1qCkrVXjqniFwk5dhz0Rd0K2pHAtZMq91o1tFqJL26vNo1ie40fCv7h+GoOxnJ
-	 ag4b0QqMOAUmkaTvaFWIxlCKEfK1lGUjMp8MbXaLLkB7wv/o+DVJRvaRE23HwtRCueTr+
-	 IocypdRkEXVHEICe56EfXrFPcdolfrkyssvCLnEr/EjGArxBPWQ/1Te4rs3cVEaW6Rv0r
-	 9qoRhJgRHHmAYaWZZ2N6s62x8M3dMPtdUVCktFWT2StSXabodsB0A+q4gIt/bnY+7lg==
+	t=1793624968;
+	b=CtEc3TrhC4haFzN3jvHdbPjy+u6GU8Q5RkI4WzeXcx2c6u7/GWlg+psnv6vB0pvFO8mu
+	 8lHT+Zhax+1JT+7LssioXBV/K8WYw/8qASos8u8KsQtUNuBtFT0d4deQiEdVoyiEvXgDd
+	 7Rw/3+53FTPYlZ1HuCrLRTQ1Bi8q73UY8WKBlm1F7fN18gU5D2bPklOdoFMSxtWFUQnZm
+	 PqSGZmkxDGgYBPTrEB2YhEw+uoacWYomyCSpLwsllrTEQVhafBLnIaTF8hxpnuys10+gz
+	 cvIZVifhtSlKoUIfWexYeDYyqeLRDZKGkwCRp02Og4ybmS+uaRJq+SoYfv/+iLmPR5g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624960;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 From:Date:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
-	 X-Developer-Signature:X-Developer-Key;
-	bh=yRxvXKtdENZrT5ZRlgClS+vF6Rur1KNJc6XxfZ08fMo=;
-	b=0PaMBpz7DX5z4wC308q931jMZx/Gbd+JfePv6ryHGAckiOc7lE+mGBvWIlF6jMxWEKMq
-	 BrrbCpf2rBHp8kQYUi9sVQcF+rwbUbtI/Usmengz10RvC8p4bXEPNi/wIeQ8RdJ/TYrtX
-	 OCAUCt0a2iefoSI/vz7Ir4cF32KQ+sR4L6gKSghf7uvyqAkL8kubCNHkLw7w1mSp3XDdI
-	 6ccijlR2sQTY3qYAZmN5ASA1+h78hA/ZqGAHTR8udo4nK18taxq6b7kcYhdfNtdxX2S3O
-	 2kzjLLB/dtx9/civEH59XtFz4Uj1EVgPDepWwlpcdzmTBA01qCH+lmmG2xmQVEFRCEg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624968;
+	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
+	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
+	 X-Received:Received:Date:From:To:Cc:Subject:Message-ID:References:
+	 MIME-Version:Content-Type:Content-Disposition:
+	 Content-Transfer-Encoding:In-Reply-To;
+	bh=lPg1Z+kih2x3BmRrSyzS6hP0pvAD1UHy/E1nPZhrbok=;
+	b=oTziWyB/rnUhRkI9MUuvfFgVrQpfhxqCsgQuJSTUVY7Vy2RBz3TR3bbDLMPTpzSdH7eA
+	 g6yVk84lCXoeewSYSolDHL/qQ2TAuTCmiuKZCG+sWHPiXSxkbOArFhjsS82CS91iMIAp4
+	 b2JDPnLKhsb0RF/5XcscTo0jXcHEOrmKaJt7f07eVEOxUcwo3jEsWDFfvnWQ7VgAV5fRB
+	 33cZuLlnlEyPdbGF65Yd/3nRpuvagRlSuqnKj8SILdptTTGyUae+HTTBDAXEkb1IglhzT
+	 bN+osAsowO6UQSbzmg5YGmwKNJOItnggN0eLeGRf8rFovR5uWW04Nr3rX3K2Zv8HlQA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=flipper.net;
-	spf=pass smtp.mailfrom=flipper.net;
-	dkim=pass header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=6+FWIuNV;
-	arc=none smtp.remote-ip=209.85.128.54
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	dmarc=pass header.from=redhat.com;
+	spf=pass smtp.mailfrom=redhat.com;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Tssq+V3m;
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cL3RR7GZ;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 748D7606A327
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:09:20 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 748D7606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71357606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:09:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 71357606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=flipper.net header.i=@flipper.net header.a=rsa-sha256 header.s=google header.b=6+FWIuNV
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a218c463d1so19886045e9.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:09:20 -0800 (PST)
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Tssq+V3m;
+	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=cL3RR7GZ
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1793624966;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=lPg1Z+kih2x3BmRrSyzS6hP0pvAD1UHy/E1nPZhrbok=;
+	b=Tssq+V3m/XH7wBrcP53CxDc3d20bC0g/HtQno7TOudzYWqVwBkPdwRnSmWWNDLy2+VyyOK
+	rInqteqXllWsYCLA6eR+LdsbfAALwdFUUDoe909X8Cl1U5NzPh2GOyzkRMUiYurhRau6cb
+	MEWPHFMYCjNL6ohzmzo0PrObzYL6vYo=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-682-AB8999R-NUCGUcj3dBYG8Q-1; Mon, 02 Nov 2026 08:09:23 -0500
+X-MC-Unique: AB8999R-NUCGUcj3dBYG8Q-1
+X-Mimecast-MFC-AGG-ID: AB8999R-NUCGUcj3dBYG8Q_1793624962
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49febef74e3so27416815e9.0
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:09:22 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1793624959; x=1794229759; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yRxvXKtdENZrT5ZRlgClS+vF6Rur1KNJc6XxfZ08fMo=;
-        b=6+FWIuNVyTFdJ7aJhGYkpX32QTveys6sOEcbU3g3eynEfqCg2g+TqSL9M+/rGJJth/
-         81V+rjaKSxzeHRrRsBfONAj4Ua9ItATefk3SYUhyQvrpbw6f0KlFYmNBLclG7ON8AYrX
-         RlLqdp3dejqrE76MEFyFeNGbXTG4UhE1Vs/Orl6VLraYEGPe/m/0MnCc/6Vfdcl8UN7t
-         ghufsy36VMlXpTWMHvBz2ggj9aXwQSLHUo2WQdEZysWcYf0wuXaBO46zFjQBWkG2Llyf
-         UkS6bhGDT7oS9dMMX7QvoLARQnIY6c9/wItWWis25KxymsdFZseSYiDg7NFTOtuW+p/z
-         hqSA==
+        d=redhat.com; s=google; t=1793624962; x=1794229762; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lPg1Z+kih2x3BmRrSyzS6hP0pvAD1UHy/E1nPZhrbok=;
+        b=cL3RR7GZBRF6RxRO5aA8KKOgpPdRhYdFFBnb4dctlIcD+KreV6GFg3g03oX3+FRBD6
+         ksSc1cAgMnSVc969CRkchN72goHDtzU3x5azAcE/g61/9FjN6jIzkImyi6aWzFxb+Zpn
+         FnKE1H0uqoyMb3eH2a/b6P5FzSCrti17GbL4Wa3E+VjKO9tcKW5zlxrw5CUWyRwdk5g8
+         ozYLh7OQ5tijJ7kLpxJ6demb5AU1VLByziEzOGiknX4rz/TpdTbF2jOuzXNmNsCiPRYq
+         /bY7NIIAIdCpALH6YVf126irtz8uRkWEnxUoQlAgLaCGGIgcWC+wrTRnMzWc2CV7mgVU
+         zg3g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793624959; x=1794229759;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=yRxvXKtdENZrT5ZRlgClS+vF6Rur1KNJc6XxfZ08fMo=;
-        b=cDESffAQaaIdTu/95bEzm9uQWqXo6F+qpL0tLUFmeb5F4cNXq/5pq9+U0XyYX+T/7F
-         4Yz6UCWhLMMILbnmNgA81PT3WqMfizMmyQy7e5AhtILObF1XFXR8HVkk4ztI8MU4ba1I
-         rO0KrqmsMj4P7iOGZkZ9ZFMnH0kCtgEKbqpnl2SLc14/urigyl6rJ+1FtYJNz+NutB10
-         RUDWLAMkCyUNxmGKGiTGlAfkUttbAZJS3RcsPZlshfkXn7U+T8+R7Mf+kmUuDl1PuGKB
-         55jsG4pACtE7RQSpW7BEHL9bXM7ykpor7HbyN11aU1FroBKtPqYNsuysMZabBaiTxBSv
-         8haA==
-X-Forwarded-Encrypted: i=1; AKwUvBxPfzRJ6e9NpTgCXfRyCfgudw1A5zGUI96eINaOblpCHRv9bFrFYK71WJWlX7dkGy5UgrvwKAEQcuDaSyM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJW2D0ALe1Jnd7nRdyiE3S/LAtTfTq2Km1Z7ptjBPIIIzDU+nwA
-	/EM2AeIZhQ12aqHGREgcQGHrfF5jII1kuZxzlUcNxi7kNZQjzV+wgGynSzKg5QboqFI=
-X-Gm-Gg: AYBFou3qFqYkmQkWHXX0ZxG7Y/LLEeGFB3GKaELXq74r1ImySKQipLonrtD/I7xYKjr
-	T90YiFFmVlnG+jher7rXEqyd+o8lx3/02IFrh8biCxpB5AzXmTz5viPjUss1GYXKeVM+QZolIuU
-	FkIDGcNpB6awwW7njAH0VVYnCFhKqnoOQ9Rbk7JlamU4/khfxdmg0UWHVgTX3Z3TDKydSbbcdui
-	uW/nHYASeCtOcUEaxgzoZSkyseEXc/LImNZDwEXadYatgVP9HO1BonTKAghFzH8nSgMDJ5AI9J0
-	m9e0glvfVgHkvltjDCT60JUTfFhzj3OECP0AYiZUKP/7gGQn5PIsOlKExGqIH6vsJZqycZfn0Zi
-	dzGusMwDf+3yaJnlQr9lRG3XowtBnhKGuGUJBselWNTGBqhf8AE6kkgp/A9X3INCFcFkLNihrUM
-	OOv+/CnpRM9Se342WPYWyWGy09gJocsVX2+1zWFztD5EDglkq8qt3hhJnAn4pdJ0TVIZ2rQtXL/
-	Z6KjkfqcLgK+vUTYFdU/qF/a51HoZU/5iTPXHUAoI0J7wmq8uCYmlyy/BN8zGUUsh0OeHJMI7ge
-	vLKuCckj3Z8D9n3LsRKHU/nP/amDkbbi0nA42Dwtu6FFx1b48DH7obdOi7dfhZAuS9Au6JWA0KQ
-	uyhOXNrr/Ddc=
-X-Received: by 2002:a05:600c:3554:b0:4a1:e7ce:107b with SMTP id 5b1f17b1804b1-4ac150b20eamr240844575e9.2.1793624958759;
-        Mon, 02 Nov 2026 05:09:18 -0800 (PST)
-Received: from alchark-surface.localdomain (bba-86-98-194-229.alshamil.net.ae. [86.98.194.229])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71b7246fsm20324069f8f.19.2026.11.02.05.09.16
+        d=1e100.net; s=20260707; t=1793624962; x=1794229762;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lPg1Z+kih2x3BmRrSyzS6hP0pvAD1UHy/E1nPZhrbok=;
+        b=2e7CXJCAKyI72UEoSZbgQMIx3Ry7kQ0+Qspumx8IFyRzyiuY1MvHUzgkElqDNtEX+B
+         DIXIPjYLoM6gHCjE5Xfrc9Ch6iZkYCgtfWBq8nCqrJYZqH3xRIvag+a0y0OQ2p6C0ovx
+         bZ2s4I0VY6il2KMAgVz8NmgDFwo+g8jbbJZ6X5S+xhS5g3xHZR56gVHFA3c4v5czBMO0
+         baa9vAF0VpVN0Qb2AMO8Yi/hkHyJBL9oiDHI4Cj6g4KWDn7X5KjQlTwPV3eF83ftTUlX
+         ebxgk3DNtYWLGkVpPqctkTyGiT3jDWH/9cMCd0zFkIAbmdZVr6LdcRfhapFiJ6BJ0w84
+         xRwA==
+X-Forwarded-Encrypted: i=1; AKwUvBwrtNTzT4KOvJei+vPIV4jcwke3E7m5tEXCTzx851XwMipMLhx+2GykP1YYbC0g/dUxgrsnvz40r64H2N8=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7FAQRF++Kub3B2/zZZh8nqihl2Smldo+d2mULnK9CO3ue/OMj
+	cI6S+HtWG3eNxgE7R8mPt3LN02DrZHXlSa9QYN7S+I672gYOO8zDWafaiZOQLfY01QvLEuMWcok
+	2WaRS4HYVj9sNcFGvneEWNIouLpcTrVg8BaE8ltyXRXB336pffH18ftzh/DdoNbshKQ==
+X-Gm-Gg: AYBFou05ENY1DlXcr9u6aRPHvJ4AQceqm39ZpC91Avb1eIKftItA7nzip5eT8w36DnB
+	r+lDX9B+aytKw2xSOA/YbXTbz9tdoxP9bjf8KqPqy9FlCz8jddk9c8Rpu5ct8yiLkct0pI58IC+
+	bbdP6yp4aly0uranAXXrulKAA27m8yxLk9Un3BoMbo4mVJyofGmSmjJqpbT4kudaIijeKhZuV6V
+	gnikdjZhSP0+ruxidjJjUIhPKjsgaO5P4FB4Y0A/8ZOXwfmIfygaKD5XfqSNqn7pjJqRGrr8On2
+	5Cvubxdmv0mZkrrI+ELz2Yf3UJNXid6wxGTGxiKjxU0kbD2b0Y0cHYsug0mjf95HwIqZFts1YZg
+	5PbPgoQvfvS0i67xVa9yND65tritxkFw8qBoULCTnFQ==
+X-Received: by 2002:a05:600d:1a:b0:4a1:d49e:9ce with SMTP id 5b1f17b1804b1-4aa86e16223mr303262785e9.2.1793624961747;
+        Mon, 02 Nov 2026 05:09:21 -0800 (PST)
+X-Received: by 2002:a05:600d:1a:b0:4a1:d49e:9ce with SMTP id 5b1f17b1804b1-4aa86e16223mr303261555e9.2.1793624961001;
+        Mon, 02 Nov 2026 05:09:21 -0800 (PST)
+Received: from redhat.com ([2a0d:6fc0:1501:b100:9ea2:fd21:b361:8dab])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71bae25dsm18089160f8f.59.2026.11.02.05.09.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:09:17 -0800 (PST)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Mon, 02 Nov 2026 17:09:05 +0400
-Subject: [PATCH] usb: typec: fusb302: Drop unacknowledged
- Get_Source_Cap_Extended
+        Mon, 02 Nov 2026 05:09:20 -0800 (PST)
+Date: Mon, 2 Nov 2026 08:09:17 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: =?utf-8?Q?Bart=C5=82omiej?= Dmitruk <bartlomiej.dmitruk@isec.pl>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Eugenio =?iso-8859-1?Q?P=E9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, kvm@vger.kernel.org,
+	virtualization@lists.linux.dev, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] vsock: keep SOCK_SEQPACKET message boundaries on
+ interrupted send
+Message-ID: <20261102080902-mutt-send-email-mst@kernel.org>
+References: <20260919122916.28226-1-bartlomiej.dmitruk@isec.pl>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -93,84 +126,167 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261102-fusb302-getsourcecap-v1-1-26b5bfea4b2b@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMOwqAMBBF0a3I1AbyARG3IhZmHHUsVDJGhODej
- Vo9TvFuAqHAJNAUCQKdLLytGaYsAOd+nUjxkA1W28oYbdUYxbu8Ex2yxYCE/a60QVcPiN46Dfm
- 6Bxr5+rJt91uiXwiPtwX3/QA1eD0deAAAAA==
-X-Change-ID: 20261102-fusb302-getsourcecap-01c38dccb230
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2628; i=alchark@flipper.net;
- h=from:subject:message-id; bh=VuG0QHFfqb3prMOvkI+Bm8+aE20g3JwMuISbVYq90Ug=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWS96C7PfFRwo35R7FuDrevihIvmfpicv2LWk3tcp9hWy
- 61rY1H265jIwiDGxWAppsgy99sS26lGfLN2eXh8hZnDygQyRFqkgQEIWBj4chPzSo10jPRMtQ31
- DI10jHWMGLg4BWCqWWYx/JWeHfn2TFvhlUtt2UI2zydGxey307vCEXlwedPG+e1P7RkZfrN4t/b
- vVlGYezb25teqgsksmeq6JxQEVwqp8jUtzt0zlx0A
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260919122916.28226-1-bartlomiej.dmitruk@isec.pl>
 
-The chip mistakes Get_Source_Cap_Extended for a GoodCRC, as it apparently
-decodes only the low four bits of the message type. As a result, it sends
-no GoodCRC for it, but still queues it in the RX FIFO. The partner never
-sees the message as delivered due to no GoodCRC, so it retries and then
-sends a Soft_Reset. When FUSB302 receives the Soft_Reset, it finally
-raises its interrupt, at which point TCPM sees Get_Source_Cap_Extended in
-the RX FIFO instead of the Soft_Reset it just received, and answers it
-Not_Supported, which is not a valid reply to Soft_Reset, so the partner
-escalates to a hard reset instead of getting a chance to gracefully handle
-a lost Get_Source_Cap_Extended.
+On Sat, Sep 19, 2026 at 02:29:15PM +0200, Bartłomiej Dmitruk wrote:
+> A credit-limited SOCK_SEQPACKET send transmits fragments as credit becomes
+> available, and the VIRTIO_VSOCK_SEQ_EOM flag is set only on the fragment
+> where msg_data_left() reaches 0. If vsock_connectible_sendmsg() exits via
+> out_err after a partial send -- notably the non-terminal -EINTR path
+> (signal_pending while blocked for credit), but also sk_err / peer
+> RCV_SHUTDOWN -- the already-transmitted fragments carry no EOM. The receiver
+> only advances msg_count / sets msg_ready on an EOM skb, so the orphaned
+> fragments are silently merged into the next message, violating SOCK_SEQPACKET
+> atomicity.
+> 
+> Wait until the whole remaining SEQPACKET message fits before enqueuing, so a
+> message is committed atomically (with its EOM) or not started; an error while
+> waiting then leaves nothing on the wire. SOCK_STREAM behaviour is unchanged
+> (min_space == 1 reproduces the old "wait while space == 0").
+> 
+> To avoid blocking forever on a message that can never fit -- a peer can
+> advertise a small buf_alloc, or the message can simply exceed the transmit
+> buffer -- reject such a message up front with -EMSGSIZE (the same error the
+> transport already returns for an oversized message) instead of waiting. This
+> needs the transport's maximum message size, added as a new optional
+> seqpacket_max_size() transport op implemented by the virtio/loopback
+> transports.
+> 
+> Signed-off-by: Bartłomiej Dmitruk <bartlomiej.dmitruk@isec.pl>
+> Assisted-by: Claude (Anthropic)
 
-Discard Get_Source_Cap_Extended, which FUSB302 can never properly receive
-due to its inability to automatically GoodCRC it, and answering it from
-the host within the protocol specified 250us window without so much as an
-interrupt cannot be made to work.
+Do you want to address the bot review?
 
-This way the TCPM view of the PD exchange at least matches what the
-partner saw on the wire. This lets the TCPM complete a PD negotiation over
-the FUSB302 with e.g. an Apple Studio Display, which otherwise always ends
-in hard resets.
 
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
----
- drivers/usb/typec/tcpm/fusb302.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/usb/typec/tcpm/fusb302.c b/drivers/usb/typec/tcpm/fusb302.c
-index 3319f6a2b0c9..96dc48250d6a 100644
---- a/drivers/usb/typec/tcpm/fusb302.c
-+++ b/drivers/usb/typec/tcpm/fusb302.c
-@@ -1463,6 +1463,19 @@ static int fusb302_pd_read_message(struct fusb302_chip *chip,
- 	fusb302_log(chip, "PD message header: %x", msg->header);
- 	fusb302_log(chip, "PD message len: %d", len);
- 
-+	/*
-+	 * The chip only decodes the low four bits of the message type, so it
-+	 * mistakes Get_Source_Cap_Extended (17) for a GoodCRC (1): it neither
-+	 * acknowledges it nor raises GCRCSENT, yet still queues it in the RX
-+	 * FIFO. Without a GoodCRC the partner never considers it delivered and
-+	 * will retry and then soft reset, so it must not be answered.
-+	 */
-+	if ((!len) &&
-+	    (pd_header_type_le(msg->header) == PD_CTRL_GET_SOURCE_CAP_EXT)) {
-+		fusb302_log(chip, "dropping unacknowledged PD message");
-+		return ret;
-+	}
-+
- 	/*
- 	 * Check if we've read off a GoodCRC message. If so then indicate to
- 	 * TCPM that the previous transmission has completed. Otherwise we pass
-
----
-base-commit: 7649ba73f9e7e1e04d0b46213e39c79ae09dd55c
-change-id: 20261102-fusb302-getsourcecap-01c38dccb230
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
+> ---
+> Changes in v2:
+>  - Fix an indefinite wait the v1 approach introduced for oversized
+>    SOCK_SEQPACKET messages (reported by the Sashiko AI review on v1): the
+>    atomic-wait could never be satisfied when len > the transport's max
+>    message size (e.g. a peer advertising a small peer_buf_alloc), so the
+>    sender blocked instead of returning -EMSGSIZE. v2 checks this up front via
+>    the new seqpacket_max_size() op and returns -EMSGSIZE without waiting.
+>  - v1: https://lore.kernel.org/netdev/20260917220101.55744-1-bartlomiej.dmitruk@isec.pl/
+> 
+> Testing (vsock_loopback, unprivileged):
+>  - Interrupted partial send (-EINTR) no longer leaks orphan bytes into the
+>    next message (recv() returns only the next message).
+>  - Oversized message and small-peer_buf_alloc cases return -EMSGSIZE promptly
+>    instead of blocking.
+>  - Normal SEQPACKET send/recv unaffected.
+> 
+> diff --git a/include/linux/virtio_vsock.h b/include/linux/virtio_vsock.h
+> index f91704731..e96790c03 100644
+> --- a/include/linux/virtio_vsock.h
+> +++ b/include/linux/virtio_vsock.h
+> @@ -219,6 +219,7 @@ virtio_transport_seqpacket_dequeue(struct vsock_sock *vsk,
+>  s64 virtio_transport_stream_has_data(struct vsock_sock *vsk);
+>  s64 virtio_transport_stream_has_space(struct vsock_sock *vsk);
+>  u32 virtio_transport_seqpacket_has_data(struct vsock_sock *vsk);
+> +u32 virtio_transport_seqpacket_max_size(struct vsock_sock *vsk);
+>  
+>  ssize_t virtio_transport_unsent_bytes(struct vsock_sock *vsk);
+>  
+> diff --git a/include/net/af_vsock.h b/include/net/af_vsock.h
+> index 5549298c1..d94c613ef 100644
+> --- a/include/net/af_vsock.h
+> +++ b/include/net/af_vsock.h
+> @@ -143,6 +143,7 @@ struct vsock_transport {
+>  				 size_t len);
+>  	bool (*seqpacket_allow)(struct vsock_sock *vsk, u32 remote_cid);
+>  	u32 (*seqpacket_has_data)(struct vsock_sock *vsk);
+> +	u32 (*seqpacket_max_size)(struct vsock_sock *vsk);
+>  
+>  	/* Notification. */
+>  	int (*notify_poll_in)(struct vsock_sock *, size_t, bool *);
+> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+> index f840498b5..ac64cb957 100644
+> --- a/net/vmw_vsock/af_vsock.c
+> +++ b/net/vmw_vsock/af_vsock.c
+> @@ -2250,9 +2250,32 @@ static int vsock_connectible_sendmsg(struct socket *sock, struct msghdr *msg,
+>  
+>  	while (total_written < len) {
+>  		ssize_t written;
+> +		s64 min_space;
+> +
+> +		if (sk->sk_type == SOCK_SEQPACKET) {
+> +			/* A SEQPACKET message must be delivered atomically, so
+> +			 * wait until the whole remaining message fits before
+> +			 * enqueuing.  Otherwise a credit-limited partial send that
+> +			 * later errors out (e.g. -EINTR) leaves EOM-less fragments
+> +			 * that the peer merges into the next message.
+> +			 *
+> +			 * Reject a message that can never fit up front so the wait
+> +			 * below cannot block forever (a peer may advertise a small
+> +			 * buf_alloc); this mirrors the -EMSGSIZE the transport
+> +			 * returns for an oversized message.
+> +			 */
+> +			if (transport->seqpacket_max_size &&
+> +			    len > transport->seqpacket_max_size(vsk)) {
+> +				err = -EMSGSIZE;
+> +				goto out_err;
+> +			}
+> +			min_space = len - total_written;
+> +		} else {
+> +			min_space = 1;
+> +		}
+>  
+>  		add_wait_queue(sk_sleep(sk), &wait);
+> -		while (vsock_stream_has_space(vsk) == 0 &&
+> +		while (vsock_stream_has_space(vsk) < min_space &&
+>  		       sk->sk_err == 0 &&
+>  		       !(sk->sk_shutdown & SEND_SHUTDOWN) &&
+>  		       !(vsk->peer_shutdown & RCV_SHUTDOWN)) {
+> diff --git a/net/vmw_vsock/virtio_transport.c b/net/vmw_vsock/virtio_transport.c
+> index 4f9aa9c4c..b7d587a20 100644
+> --- a/net/vmw_vsock/virtio_transport.c
+> +++ b/net/vmw_vsock/virtio_transport.c
+> @@ -585,6 +585,7 @@ static struct virtio_transport virtio_transport = {
+>  		.seqpacket_enqueue        = virtio_transport_seqpacket_enqueue,
+>  		.seqpacket_allow          = virtio_transport_seqpacket_allow,
+>  		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
+> +		.seqpacket_max_size       = virtio_transport_seqpacket_max_size,
+>  
+>  		.msgzerocopy_allow        = virtio_transport_msgzerocopy_allow,
+>  
+> diff --git a/net/vmw_vsock/virtio_transport_common.c b/net/vmw_vsock/virtio_transport_common.c
+> index f225f53ed..e10e7b958 100644
+> --- a/net/vmw_vsock/virtio_transport_common.c
+> +++ b/net/vmw_vsock/virtio_transport_common.c
+> @@ -994,6 +994,19 @@ virtio_transport_seqpacket_enqueue(struct vsock_sock *vsk,
+>  }
+>  EXPORT_SYMBOL_GPL(virtio_transport_seqpacket_enqueue);
+>  
+> +u32 virtio_transport_seqpacket_max_size(struct vsock_sock *vsk)
+> +{
+> +	struct virtio_vsock_sock *vvs = vsk->trans;
+> +	u32 max_size;
+> +
+> +	spin_lock_bh(&vvs->tx_lock);
+> +	max_size = virtio_transport_tx_buf_size(vvs);
+> +	spin_unlock_bh(&vvs->tx_lock);
+> +
+> +	return max_size;
+> +}
+> +EXPORT_SYMBOL_GPL(virtio_transport_seqpacket_max_size);
+> +
+>  int
+>  virtio_transport_dgram_dequeue(struct vsock_sock *vsk,
+>  			       struct msghdr *msg,
+> diff --git a/net/vmw_vsock/vsock_loopback.c b/net/vmw_vsock/vsock_loopback.c
+> index 8068d1b6e..b9a0cc861 100644
+> --- a/net/vmw_vsock/vsock_loopback.c
+> +++ b/net/vmw_vsock/vsock_loopback.c
+> @@ -90,6 +90,7 @@ static struct virtio_transport loopback_transport = {
+>  		.seqpacket_enqueue        = virtio_transport_seqpacket_enqueue,
+>  		.seqpacket_allow          = vsock_loopback_seqpacket_allow,
+>  		.seqpacket_has_data       = virtio_transport_seqpacket_has_data,
+> +		.seqpacket_max_size       = virtio_transport_seqpacket_max_size,
+>  
+>  		.msgzerocopy_allow        = vsock_loopback_msgzerocopy_allow,
+>  
 
