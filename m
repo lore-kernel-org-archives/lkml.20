@@ -1,88 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793646199;
-	b=xoOBq9vDcfkmjViWWSe3bqBS1DxmRz642ruHBuu4GVUWQBOqWQqVp1lM3tsSWUTIRBBh
-	 FQgC8eMOgoynPmJf2BFo4fZ7KaxuO2x3YTXJ8HMdk9YDl7QNVDClxHGeXDmH8E4vSrAs0
-	 8+mCIXaUdhrTLxq8x7ISXiDx06a/5fq8+MY/NdArG/GlvwJtC1IvLbkteQsEhf5XMBkeB
-	 Ced8O5MJ2fgd5Di6e6H6pCC8Iik2NwkoGli9/7RY+oMyqAK0qj3AwkiYKIk+77TlrxuSc
-	 pVGQUEEnSOJzG8k5ccGGlHeRYA2ec6weQIgmXnBDV+vheJEVPAv1npSkM8ObSN5m9BQ==
+	t=1793646261;
+	b=y8xggWHNgBS+KTCtwJKBaoPKMxb0dXMcROXc5u4/fw+/E7h77Dsg803MvcE++BrCf+Nr
+	 2Y+qqs0Sy8m1a3NyytdWWw5uujuZpfOxFuWhVe1cUkhKzFzv3B0v/xROyPhI+8DqLuAp5
+	 3LLpSKtkoskTIcqlXDKOxHAwmKCmJGZJyr3tZGeu2KsCpjN4hreILPX7BhxfzLoxj2/7D
+	 aVBwKyeFp4KvCQr1pgT9+ZxWiFAroJCre7SbiOstycggIYozdWeOV/3h4YST8wsDCy9rE
+	 eLffU28v73dN6ZNLsiUUevv90Jl3cvfmHh+7/fzkPDjqzfRA6sXfjJn0G7OXXX1h/QA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793646199;
-	h=DMARC-Filter:DKIM-Signature:Received:Message-ID:Subject:From:To:Cc:
-	 Date:In-Reply-To:References:Autocrypt:Organization:Content-Type:
-	 User-Agent:MIME-Version;
-	bh=CX4y91oCS4X6RsvbXPen90jyyXJyF7CCD61h0ekNQwc=;
-	b=ACuV/aBkkmngYIaI9z/TtOKiw8UEpekiR76SY/UMGuSiKeQiQ4hXw6VG+z9ZCCl38a5G
-	 Vvs2xP5jk5ZFVKFf/DGKNPqvSJYHriygq9ONOMERMss8kszSaSbtVWffU3oDXatLATgk9
-	 JWlJ5RRS+AzsN7YDi0wZpQqaND/SD5V1knUaphPD/r6+r+7TQCopc0rxlVtBm1Z4u3jmy
-	 rW9s6c3Wt+jWVXuMHlwJpOFDyVOq/uH6ShN4Znw6HZHnC9U3RAgiYcSVYJGfPj2rWrMPq
-	 LcBPQyC0iBzxJ5dq9fQMGSw2Uf/SR/t9tjma1UUykDyZcMS/Sga9UGL8HAgmqobOw5w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793646261;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=M+QwIPWbbdAjBaKNUwmjBRmTqatLvbp8j/bjo+78+cQ=;
+	b=l0mh/BBFgQcy0QU5s1P7j/iVfHspT0gBC54EVHEfNbDL7x7tuejwyOL87GF2EDPcB6iu
+	 /kjSiI78CLKmdcEzzNpsYkA+7Z1vFdEFYn0UVHjta2UY4H445N/BEclnddtyi8MdQq1Ap
+	 84pMLDNCPHzPcUf/z0H+zddCCAH+EAMRFjH9W3FJpNvitNgjFVMic8784F1OqN3ohroik
+	 ldKcdd5JWB189hw3yz3D0Ul6+MbX4qCcOSPeG1b9Zcdde9xfjRimBZevDQgORUOH9oitH
+	 RR3J11HhdDmH7uNmRDi6WHXCX76Fhnz6gfHzpzBRbv7IIae2HAyftSVCG9qey2eBrpg==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=collabora.com;
-	spf=pass smtp.mailfrom=collabora.com;
-	dkim=pass header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VyGtwxG0;
-	arc=none smtp.remote-ip=148.251.105.195
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DwF3Ax3c;
+	arc=none smtp.remote-ip=209.85.128.47
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53CC9606A327;
-	Mon,  2 Nov 2026 19:03:19 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 53CC9606A327
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593AE606A324
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 19:04:21 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 593AE606A324
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=VyGtwxG0
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1793646197;
-	bh=IWtvRXFF6VmkuKKK6g4FsEq+PzfJvMm8gmMONaMJar8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=VyGtwxG0sSBNmwsEpkBWQ30njRSws7Fj7ubr5g5gfpduPk2j2lBW4Bg1cX0AFyZdu
-	 TNGDBaob+zAaq9lgfzLk+3IOUJBvn2iLZMOtbeVlwArfIgjArp7xmLBu5pOZhus/fP
-	 fGqA/TcPjSbQimcydcTPfQI7ORbqbGL6djGYAW5GR4dXRI19y7eZppStJ9qsVWQ35o
-	 8V6ARHAsmVx1PjyFwvvRdJIqO0OYY6O0XJm3hly0LyX3O7/fK0AAaLza7Sa3m8GpXt
-	 bCuCixnyJSKWHRdLh38y28KXTVp80L2y7232Al6srBgpcBmiQwvizpPI7xUvjejrep
-	 kVO3dTsIPIyhw==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A0E0817E07F6;
-	Mon, 02 Nov 2026 20:03:15 +0100 (CET)
-Message-ID: <feee5706d6a1e66dc50c21614fdf0469342befc2.camel@collabora.com>
-Subject: Re: [PATCH 06/10] staging: media: cedrus: mpeg2: fix the references
- of field pictures
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Jernej Skrabec <jernej.skrabec@gmail.com>, Mauro Carvalho Chehab
-	 <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski
- <paulk@sys-base.io>,  Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Chen-Yu Tsai <wens@kernel.org>, Samuel Holland <samuel@sholland.org>, 
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DwF3Ax3c
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a5177d78c7so34341335e9.2
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 11:04:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793646260; x=1794251060; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=M+QwIPWbbdAjBaKNUwmjBRmTqatLvbp8j/bjo+78+cQ=;
+        b=DwF3Ax3cXHIpP2vUuVn13JpsnNcBLJ8Le9rotXxtnsFh8M7nnLoOL5L30kkwv0YRyA
+         QYjdwxX0YhO514qFqoFacNj3ENZ/yV3mpbSrakDBANGo4Q8slHJ3BYG09eMwqCcfrMPp
+         q4BYyPneuWGovUUIPdJYpbxxl3/mKQhaDGlnIU9DK4NE6+ferRpWGQXSuCKlin7bpjYK
+         4OZ9Xz6TkkBBIZoxmP6ylRDDF3NQB347IqhaiAnPPRFm20ip2DCtEYfbWnrLj7McJ2/O
+         TrO5BRjofUc6fTc6buHf5P9wgVDuZAazSmmyW8/633Larn9FnIk00cgfa9DJTO/WRU42
+         Z+BA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793646260; x=1794251060;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M+QwIPWbbdAjBaKNUwmjBRmTqatLvbp8j/bjo+78+cQ=;
+        b=a0bcJXGiP4e7tJb5yWsETJeYNytmm0VGndvR1BqTwC0iYHrJG5yjTVFDo0chLHOW97
+         shUb8BCgKe2XVfg1aYbNNJptTOwTQl0ZQ6SfFMb769PXLiT1aHrOFZ65TYJIkHobjBRG
+         gEoWCWdltM8qpDv5XPTtwzR7tsmfzVN3S745WSwz4YCoOrF3nU6k059LuNJf4vJFC1XJ
+         AxWFbraUZq+z1NCsoET2r29XAXYw6BNlXywI7VXcgu/2ijKk0m0ae+IPAZUEeDDKP6ht
+         HftCOdSEo/OZ7CuSFmc3HMZ8nFMmU3aJ29kvqxEyd6yK2SbkR9x3cI2Xj80DaTnZzZPo
+         4GhA==
+X-Forwarded-Encrypted: i=1; AKwUvBw9tA2ARKh5ocdcdwEJ5GywSn/U0JTSnAlW3kvd7lO3c+Gs7XXH2UixmzSSAr9uOQYQ2WhF9gCqpn8T/Zk=@vger.kernel.org
+X-Gm-Message-State: AFq9FYJnZsEYF5ASR59PmT9h1p867yaEIQJo4GZWQZx1vmNG7Pmwv49i
+	Bw7UscNgeQxQKd+wCqJ2C96e5C3f4VGUKo3dBIcej7RFAjf/g1i3Dns=
+X-Gm-Gg: AYBFou3+0LfopszrcfYZAVBuf2qkOoI8O4/46qVsN972Ye7hI3Sm3S+r+1ZXJD68dpv
+	sM8yeYcsIrmP0HlSwawb+yqnwOyxciosi1mRBtw4UODiaekTcuUOhV/t6Gd5DfnP+xNQNggmy5b
+	mzb0HRxqtrTSPavGs+QGtiS84LNjTTK/HudmHTwXAvSU7F4Scu3BNBQKlEgawoyFK+IVCwpPKY3
+	12c235FACMRn9XGsy8xxV+MYiFU9kOoFDGtetAXi2/SZkZdRP++cq+ky003ElqyfjY/VtnvPUW3
+	h5H+m3m3ntb/xi5HzCYoXQJ2SZVLGCKXaeLHCGt13QHK9a11gwJvStzqOc4Olc7ZnecnQWHHgZ2
+	ZVZMkaPPigAm28g4ST5oQ7WayBwcYfzRx8K9mnEWZDnRCwRfVsMx/acVtyuqndoPXnoYLF4GMZg
+	DzmjWXiScElw5SW3IxObGLiBy4gJnWfi/eeFCFN7ptFzyq+zsPb0TmXnLcPITwFdwTNkwBYiCND
+	k50XK2t7Ge4jU/Cxy4CHenZW2wkkjNVNXT8xqQejjWO6hRlA1KeJEjMFGfNUF8WIy3rXNpVK9RY
+	Ol2ki/x1vuqsr+5Y8JlGGi3zkXt2t0836YXmT5E9NumbO88kjM507EJw0m97McLSDX8NtvpYfjl
+	7ruUMvc2FqatiUZQqFsQNsKvBaripOwzu1eLoSGGRMeaZEEqyf9ITs+mGr+7/2VcwhmXAFBsb6l
+	2tx9xVuEJBmWYFfWBTVvOHItKXJQ5HUJmyPZ3q4Y7xDFFHHXYM2jbJDQJMSH9P
+X-Received: by 2002:a05:600c:3b18:b0:4a1:c5eb:b445 with SMTP id 5b1f17b1804b1-4ac1932b542mr260406925e9.35.1793646259405;
+        Mon, 02 Nov 2026 11:04:19 -0800 (PST)
+Received: from cachyos-x8664 ([2a02:2f0f:9208:cf00:b848:3801:1bc:d8d1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4b2a5372d8bsm8277235e9.0.2026.11.02.11.04.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 11:04:18 -0800 (PST)
+From: Razvan Dinculescu <razvandinculescu@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Mon, 02 Nov 2026 14:03:14 -0500
-In-Reply-To: <20261102170303.1973892-7-jernej.skrabec@gmail.com>
-References: <20261102170303.1973892-1-jernej.skrabec@gmail.com>
-	 <20261102170303.1973892-7-jernej.skrabec@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-YZXbPAR+wWFJqah0WQvL"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+Subject: [PATCH v2] ALSA: hda/hdmi: Don't share an assigned converter on NVIDIA codecs
+Date: Mon,  2 Nov 2026 21:04:17 +0200
+Message-ID: <20261102190417.2661176-1-razvandinculescu@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -92,100 +97,164 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+All pins of the NVIDIA HDMI/DP codecs share one connection list, so a
+converter can be selected by several pins at once. Unlike the Intel
+codecs (intel_not_share_assigned_cvt()), the NVIDIA ones never move an
+idle pin off the converter that another pin streams on, and the display
+that should play stays silent.
 
---=-YZXbPAR+wWFJqah0WQvL
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Seen on an RTX 5090 (codec 0x10de00aa) with a DP monitor on pin 0x04
+and an HDMI TV on pin 0x05. PipeWire probes every PCM at start-up: the
+monitor's PCM got converter 0x08 and kept it selected after closing,
+then the TV's PCM got 0x08 as well when it was opened. With both pins
+on 0x08 the TV played nothing, although its PCM was running and its
+ELD was valid. Opening the monitor's PCM while the TV's was running
+moved the monitor to 0x09 and the TV played at once. Restarting
+PipeWire put both pins back on 0x08.
 
-Hi,
+Implement pin_cvt_fixup for the generic NVIDIA model as Intel does:
+restore the pin's own converter selection, which
+snd_hda_hdmi_generic_pcm_prepare() relies on after the hardware drops
+it, then move every other connected pin that selects the assigned
+converter to an unassigned one. Look the converter up in each pin's
+own connection list instead of assuming the same order on every pin.
 
-Le lundi 02 novembre 2026 =C3=A0 18:02 +0100, Jernej Skrabec a =C3=A9crit=
-=C2=A0:
-> The second field of an I or P frame can be predicted from the first
-> field of the same frame, which the hardware takes from the backward
-> reference. The driver programs the backward reference passed by
-> userspace instead, which doesn't point to the frame being decoded, so
-> the second field is predicted from the wrong picture.
->=20
-> Use the current frame as the backward reference of I and P pictures,
-> like the vendor library does. Also fall back to the current frame
-> instead of address 0 when a reference buffer is missing, so the
-> hardware never reads from an invalid address.
->=20
-> Fixes: 50e761516f2b ("media: platform: Add Cedrus VPU decoder driver")
-> Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Tested on that system with the TV's PCM on 0x08 and the monitor's on
+0x09, both pins then forced onto 0x08 with hda-verb: a prepare on the
+TV's PCM moved the monitor off 0x08, and a prepare on the monitor's
+PCM put it back on 0x09.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Razvan Dinculescu <razvandinculescu@gmail.com>
+---
+v2:
+- Restore the pin's own converter selection before moving the other
+  pins, as i915_pin_cvt_fixup() does; without it a pin moved to another
+  converter while its own PCM was open stayed there at its next prepare
+  (reported by the Sashiko review of v1). The PipeWire restart test of
+  v1 was not repeated; the code that moves the other pins is unchanged.
 
-> ---
->  .../staging/media/sunxi/cedrus/cedrus_mpeg2.c | 29 ++++++++++++++-----
->  1 file changed, 22 insertions(+), 7 deletions(-)
->=20
-> diff --git a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c b/drivers/=
-staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> index 4c8accee5389..0a2f8e77fb29 100644
-> --- a/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> +++ b/drivers/staging/media/sunxi/cedrus/cedrus_mpeg2.c
-> @@ -56,6 +56,7 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ctx, s=
-truct cedrus_run *run)
->  	dma_addr_t src_buf_addr, dst_luma_addr, dst_chroma_addr;
->  	struct cedrus_dev *dev =3D ctx->dev;
->  	struct vb2_queue *vq;
-> +	struct vb2_buffer *fwd, *bwd;
->  	const u8 *matrix;
->  	unsigned int i;
->  	bool field, tff;
-> @@ -147,15 +148,29 @@ static int cedrus_mpeg2_setup(struct cedrus_ctx *ct=
-x, struct cedrus_run *run)
-> =20
->  	cedrus_write(dev, VE_DEC_MPEG_PICBOUNDSIZE, reg);
-> =20
-> -	/* Forward and backward prediction reference buffers. */
-> +	/*
-> +	 * Forward and backward prediction reference buffers. As the vendor
-> +	 * library does, I and P pictures use the current frame as backward
-> +	 * reference: the second field of a frame predicts from the first one.
-> +	 * Missing references also fall back to the current frame.
-> +	 */
->  	vq =3D v4l2_m2m_get_vq(ctx->fh.m2m_ctx, V4L2_BUF_TYPE_VIDEO_CAPTURE);
-> =20
-> -	cedrus_write_ref_buf_addr(ctx, vq, pic->forward_ref_ts,
-> -				  VE_DEC_MPEG_FWD_REF_LUMA_ADDR,
-> -				  VE_DEC_MPEG_FWD_REF_CHROMA_ADDR);
-> -	cedrus_write_ref_buf_addr(ctx, vq, pic->backward_ref_ts,
-> -				  VE_DEC_MPEG_BWD_REF_LUMA_ADDR,
-> -				  VE_DEC_MPEG_BWD_REF_CHROMA_ADDR);
-> +	fwd =3D vb2_find_buffer(vq, pic->forward_ref_ts) ?: &run->dst->vb2_buf;
-> +	if (pic->picture_coding_type =3D=3D V4L2_MPEG2_PIC_CODING_TYPE_B)
-> +		bwd =3D vb2_find_buffer(vq, pic->backward_ref_ts) ?:
-> +		      &run->dst->vb2_buf;
-> +	else
-> +		bwd =3D &run->dst->vb2_buf;
-> +
-> +	cedrus_write(dev, VE_DEC_MPEG_FWD_REF_LUMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, fwd, 0));
-> +	cedrus_write(dev, VE_DEC_MPEG_FWD_REF_CHROMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, fwd, 1));
-> +	cedrus_write(dev, VE_DEC_MPEG_BWD_REF_LUMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, bwd, 0));
-> +	cedrus_write(dev, VE_DEC_MPEG_BWD_REF_CHROMA_ADDR,
-> +		     cedrus_dst_buf_addr(ctx, bwd, 1));
-> =20
->  	/* Destination luma and chroma buffers. */
-> =20
+v1: https://lore.kernel.org/linux-sound/20261102182213.2154560-1-razvandinculescu@gmail.com/
 
---=-YZXbPAR+wWFJqah0WQvL
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
+ sound/hda/codecs/hdmi/nvhdmi.c | 97 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 97 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/sound/hda/codecs/hdmi/nvhdmi.c b/sound/hda/codecs/hdmi/nvhdmi.c
+index 94671ad24b5e..e61ad1624dfb 100644
+--- a/sound/hda/codecs/hdmi/nvhdmi.c
++++ b/sound/hda/codecs/hdmi/nvhdmi.c
+@@ -66,6 +66,102 @@ static const struct drm_audio_component_audio_ops nvhdmi_audio_ops = {
+ 	.master_unbind = snd_hda_hdmi_acomp_master_unbind,
+ };
+ 
++/*
++ * All pins of these codecs share one connection list, as on Intel.  An idle
++ * pin left selecting the converter that another pin streams on takes that
++ * stream: the display that plays stays silent and the audio goes to the
++ * other display instead.  Seen on GB202 (0x10de00aa) with an HDMI TV and a
++ * DP monitor: whenever the monitor's PCM was opened first (PipeWire probes
++ * every PCM at start-up), its pin kept the converter the TV got next.
++ *
++ * Move every other connected pin off the converter just assigned, to a
++ * converter nobody uses.
++ */
++static void nvhdmi_not_share_assigned_cvt(struct hda_codec *codec,
++					  hda_nid_t pin_nid, int dev_id,
++					  hda_nid_t cvt_nid)
++{
++	struct hdmi_spec *spec = codec->spec;
++	struct hdmi_spec_per_pin *per_pin;
++	struct hdmi_spec_per_cvt *per_cvt;
++	int pin_idx, cvt_idx, mux_idx, curr, dev_id_saved;
++
++	if (!cvt_nid)
++		return;
++
++	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
++		per_pin = get_pin(spec, pin_idx);
++		/* no display on this pin */
++		if (!per_pin->pcm)
++			continue;
++		if (per_pin->pin_nid == pin_nid && per_pin->dev_id == dev_id)
++			continue;
++		if (per_pin->dev_id >=
++		    snd_hda_get_num_devices(codec, per_pin->pin_nid) + 1)
++			continue;
++
++		dev_id_saved = snd_hda_get_dev_select(codec, per_pin->pin_nid);
++		snd_hda_set_dev_select(codec, per_pin->pin_nid, per_pin->dev_id);
++		curr = snd_hda_codec_read(codec, per_pin->pin_nid, 0,
++					  AC_VERB_GET_CONNECT_SEL, 0);
++		if (curr < 0 || curr >= per_pin->num_mux_nids ||
++		    per_pin->mux_nids[curr] != cvt_nid)
++			goto restore;
++
++		for (cvt_idx = 0; cvt_idx < spec->num_cvts; cvt_idx++) {
++			per_cvt = get_cvt(spec, cvt_idx);
++			if (per_cvt->assigned || per_cvt->cvt_nid == cvt_nid)
++				continue;
++			for (mux_idx = 0; mux_idx < per_pin->num_mux_nids; mux_idx++)
++				if (per_pin->mux_nids[mux_idx] == per_cvt->cvt_nid)
++					break;
++			if (mux_idx == per_pin->num_mux_nids)
++				continue;
++			codec_dbg(codec,
++				  "hdmi: move pin 0x%x off cvt 0x%x to cvt 0x%x\n",
++				  per_pin->pin_nid, cvt_nid, per_cvt->cvt_nid);
++			snd_hda_codec_write_cache(codec, per_pin->pin_nid, 0,
++						  AC_VERB_SET_CONNECT_SEL,
++						  mux_idx);
++			break;
++		}
++restore:
++		snd_hda_set_dev_select(codec, per_pin->pin_nid, dev_id_saved);
++	}
++}
++
++/*
++ * The hardware can drop a pin's converter selection, e.g. on a display
++ * reset.  snd_hda_hdmi_generic_pcm_prepare() relies on pin_cvt_fixup() to
++ * restore it, as i915_pin_cvt_fixup() does on Intel.
++ */
++static void nvhdmi_verify_pin_cvt_connect(struct hda_codec *codec,
++					  struct hdmi_spec_per_pin *per_pin)
++{
++	int curr;
++
++	curr = snd_hda_codec_read(codec, per_pin->pin_nid, 0,
++				  AC_VERB_GET_CONNECT_SEL, 0);
++	if (curr != per_pin->mux_idx)
++		snd_hda_codec_write_cache(codec, per_pin->pin_nid, 0,
++					  AC_VERB_SET_CONNECT_SEL,
++					  per_pin->mux_idx);
++}
++
++static void nvhdmi_pin_cvt_fixup(struct hda_codec *codec,
++				 struct hdmi_spec_per_pin *per_pin,
++				 hda_nid_t cvt_nid)
++{
++	if (per_pin) {
++		snd_hda_set_dev_select(codec, per_pin->pin_nid, per_pin->dev_id);
++		nvhdmi_verify_pin_cvt_connect(codec, per_pin);
++		nvhdmi_not_share_assigned_cvt(codec, per_pin->pin_nid,
++					      per_pin->dev_id, per_pin->cvt_nid);
++	} else {
++		nvhdmi_not_share_assigned_cvt(codec, 0, 0, cvt_nid);
++	}
++}
++
+ static int probe_generic(struct hda_codec *codec)
+ {
+ 	struct hdmi_spec *spec;
+@@ -77,6 +173,7 @@ static int probe_generic(struct hda_codec *codec)
+ 	codec->dp_mst = true;
+ 
+ 	spec = codec->spec;
++	spec->ops.pin_cvt_fixup = nvhdmi_pin_cvt_fixup;
+ 
+ 	err = snd_hda_hdmi_parse_codec(codec);
+ 	if (err < 0) {
+-- 
+2.56.0
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaujecgAKCRDZQZRRKWBy
-9BK+AQCDH54gcF4YDMxujVSz7o9opPm5JnaiHGLjqlcvafVZ2QD9HTyF0xiado/u
-5TvCWrlgd1mFralXkVMfG9vP8ymhNAQ=
-=ftEY
------END PGP SIGNATURE-----
-
---=-YZXbPAR+wWFJqah0WQvL--
