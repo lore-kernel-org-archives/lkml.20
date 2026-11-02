@@ -1,57 +1,116 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.7
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.221.47
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793601780;
-	b=aT4Gm758oaKd4ZyjJzkIyuFWB0H7FnxpFfV05JTr3XFOPcdxKWQWdZgfhZ7/6/avNqzz
-	 fuvX/yJrsWV6uL0ZqveAgjPfLWTc49SG4zYPnGOpvkA3qj8RlvYwWCML2WIHYpQL71EXY
-	 1uwZ7iR4f8E2Y5fqLzr4IDAaddRQKWgpysFqyNILIq/aIXcVYRZ2ZJIrn/DICtjdHHPJl
-	 mA6OYPyHExPQxzZfD4kYXkgJwQiNUPwcxkzTNQZmefbaAqKifLNw8WzjycbauZn4TINAE
-	 g02tUbx5Q2JwLm1s6M728L2zGT08abhnTkGeXrSEw1w29e98DHl4Dgs4W+g8dBjzK5g==
+	t=1793601808;
+	b=XrZLU4GJ3DFB/Pv4VUbzcT9wyicMOm1h/XSzr7llp7dGexi+5xf1QFG+KEabCSw3cYi8
+	 PViJhJRuPyeC75qboNL13jHJATJ82akP+p55zKzh2+iPFJBH0jr7lZwVHQvDMrg6SOxzX
+	 N4lh+EoVAVK4k5duF3QKRRKdDKi0otC+KptR83HxoD28yYEMT+9FdLgnf9vVLHkUPnB0B
+	 SV25aLPVqB9Mm5XOI6GKCKzx9jG2F2ty2dkwSWvy+PxZkceukzsGg1d66buIjNvsab1bC
+	 FnV/uNwGw4giOqQKaqLzstxyS0hhKqBEr08QViSXfeP7Wo9YT4S6QNuirAlSI4+PtwQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793601780;
-	h=DMARC-Filter:DKIM-Signature:Date:From:To:Cc:Subject:X-Priority:
-	 X-Mailer:X-NTES-SC:Content-Transfer-Encoding:Content-Type:
-	 MIME-Version:Message-ID:X-Coremail-Locale:X-CM-TRANSID:
-	 X-CM-SenderInfo:X-Coremail-Antispam;
-	bh=kWZoFVAL8CDALinsDEDFexHPLbiz0T0JfrbwWbplEnM=;
-	b=SQPVWh5AAKB5pgPxFVSXJo19RuXrR7LE6Sez2qDiYTsaQhfgKBIHYnEfCl8o4Hk8SM56
-	 taeycS6k0YAG0YqZSJCcSKYvr/MpaEnHO5lK9FTp/7XQqMe5XgG3W42FffaNqSkdzVgcj
-	 8vMiC6DlgnqQh5GxhviqnitvUzxvbHLe0cjGtl2jl8wKYXPavenpNrTmh9yibol8zaUOO
-	 VqZcGUir+e8pY//wYGnggy0T7ltP6sdT0bmGccsivpp/g7eHKZkyuxpvl4i6aNEx0JQdi
-	 KkCisHk4YBmTV9p6M02Kj1ii35EEud++zUX/g2+h5XNmh5vBha6+96HspHAnoZmx6tg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793601808;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=cch0bi9+NbFtuaXErBFOK272My4N6BW/oY3L9VqLD5s=;
+	b=TnqlG/YH6BCNVXDxW8a6X6m3tOTSUq6xDvfMTQIBKZh4tkBrfJCU1z9AXajko9HFxA88
+	 xaBXpgQw545JDuy16gDD8/lWAt/VKPyDoj+rltHU7qwA5jbng3ARURoqdun88TNsJ5XyO
+	 yNWjMJMra7ul4i8zPEuUU66xtMGyEgxT/D8RiUNNx9AKCIJi9k1oCvBSbuA5mYDXgaRVs
+	 H/1RwsFgAr7qwcLIkm72v8WrfrAfTn9iJ0Gkc40K8RjibBBJ+Bpg7H5c2vSYGzMkRReKp
+	 /PiQbrh9jNDPBlhi/VKt1NIqFZLGJqOdzORa16xfpN/3uicM1HYMfUd9bczOnfufARQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=126.com;
-	spf=pass smtp.mailfrom=126.com;
-	dkim=pass header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=Pyu4MBZu;
-	arc=none smtp.remote-ip=117.135.210.7
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.7])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fd2IgLOb;
+	arc=none smtp.remote-ip=209.85.221.47
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E545B606A324;
-	Mon,  2 Nov 2026 06:42:56 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org E545B606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC08606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 06:43:27 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org DEC08606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=126.com header.i=@126.com header.a=rsa-sha256 header.s=s110527 header.b=Pyu4MBZu
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=kWZoFVAL8CDALinsDEDFexHPLbiz0T0JfrbwWbplEnM=; b=P
-	yu4MBZuZilzTMEmyy9k+wjS5vwUUlyFBHaep/RQdfwZ09ZsEG25LJ66na194GPmg
-	K07VZw1WVOPWXUbY7neiD41EMYC7fTQ6O2IjRnc/Qgu0oWHYN2vPa12GN90WRQNo
-	lgz7CpHvb7j90drTRI8VJxTyVQjh3CV0wHvJCAPg8E=
-Date: Mon, 2 Nov 2026 14:42:31 +0800 (CST)
-From: "Jing Lv" <lvjing_421@126.com>
-To: Helgaas <bhelgaas@google.com>, Gunthorpe <logang@deltatee.com>
-Cc: linux-pci <linux-pci@vger.kernel.org>,
-	linux-kernel <linux-kernel@vger.kernel.org>
-Subject: [PATCH] PCI/P2PDMA: Add HYGON to pci_p2pdma_whitelist
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
-X-NTES-SC: AL_Qu2SAfqbvk8u5yaYbOkfmUwVj+k3XsqxuP8i24VXP5p6jAnj4Dw8b2RTOEXczNyWGy+QnRm5Vxhh19RTdLhgYLkgTk2JhXMcdXJLdD+kWBEA8g==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fd2IgLOb
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48e46e449e8so1589255f8f.3
+        for <linux-kernel@vger.kernel.org>; Sun, 01 Nov 2026 22:43:27 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793601806; x=1794206606; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cch0bi9+NbFtuaXErBFOK272My4N6BW/oY3L9VqLD5s=;
+        b=Fd2IgLObu+O8EIDuwqEXSbT+Lmt6lkFZ1vGgxdrQyksTyVsALvAxVk34TZsr8GH3zz
+         PPGYvfq9SYbmsff5dWp45lus2GhoaISJMbYsdnZha8HNfZaY34MB7FP0S9OMebo1SWRX
+         DoZF3bkpBFxfSpvqhRT/elcXplgxaCDqUPOLsR5JfJ+kwObifDHqlgAW3lFxdoR+JXMG
+         7iv8IfRgEQZAI6nuskgCXTsP0D6+pudlZ15AW8IZRduFDjfUP3farFxaB5Dj48LMEr6C
+         OpMyu699mFDJR+dwZcmew/L6JtiMvIfDKLHz6EzHcMUAcYMf9OZc5gDZovNxBxaXPG7p
+         z0+g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793601806; x=1794206606;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cch0bi9+NbFtuaXErBFOK272My4N6BW/oY3L9VqLD5s=;
+        b=kh0FPS4xfZmhL8taS15pLT8mn4dMrY137PLWwXGvji8e6uKnMbYxQcmX8rDvvsCnXu
+         QTSgqx7zCDYCKPOIQ12i5OT1LmcALtCQKr3uP953ViLYk+KEfSS61YfJ/YJqVdjjyIqj
+         C4i+FwAVF1QpEU7vFofIQFzCpDIuVhVwqkw85TPZtD3vJ1rztXFxtFl8O8x/xy7oUx5U
+         BVDbnMbOGY+VvVK5+i+2Ur2H7Pwpm8wgjr1MGsf1KknjXWxOdkvAJ3l/Gw2bBglHHjm2
+         q9lsoUFkq2D0PmLgS/+nTifRQHeIR6rVza6hBJE7s8pfYZ8Q7BBQUDGQu0txl1wwQSgn
+         2dZg==
+X-Forwarded-Encrypted: i=1; AKwUvBwbCrwJV8m+Ez3HUPs4ojpW7LnTnMumBQci7Qdi2TTGcC4zoSXLAI6/m0M6p2NFX6tqAedLxAbX6vetL9o=@vger.kernel.org
+X-Gm-Message-State: APuU4Z+Fu8d0hBkZ1PDQMOk6wIKH6SBpK0PtNpn07nPvPJqx5gT4eSJ1
+	95AwXiUvAd48htnyoBllC/4oOG3X2aTtWO9zcDjv4Bud+CeMHku0Fj/U
+X-Gm-Gg: AYBFou0KRgi2RyTYYqT84o9+cQOdb6NIPPSeWnMqS+5v9Owak5WfiFjLTJOuu0ogdnB
+	asgbWiIyFZ0XpHh8QzuJ4LT7cGD7+tSyG7ZmV/Qn9NdAs7AOwK3oh+gvkIHFALW/ZRwkgSnq9tJ
+	C7tg+9dkPynigOobTGcblON3f3o0zdVubpVp457+hF8ukRdbJ/OMy/pLFw9UVah2UxwZ0P0Vvgu
+	41o6FDiR1UOstSarpGIpzkwjqKCuvvlkgOhsJwg7mXMuTvuUFAkMiLlP9QaAIhq5IbavjlOxMlS
+	j2kb3wGxndhYPB+sJTaYmPcU1MJZwr2gBxddJpi+CXckMnEry4/ppNsesPVgBnwpatnc0wFfUTO
+	sECFYr+WHjEsLUV7gkckluxuAehmqU0s2zKa0Sf1J35GzfCgfZBRKsSivADvRlOBeLF1BZl5map
+	uKgWA0E8b1NyBmA8vCGuCgBphsCKkV4EqSfhY2E1b5JzSH4nel+DKg+5Ir3FppLW8ogfhqU7atZ
+	LrZ8I9xxnA8C0qz1M3PKfU8yMo/bHpnKvMLDG1gJ7Yn/IErFJ80nm2IKGEobVHQRws4o1RlpZMU
+	mjUwgxSm7Lkm3a5JemaXJHmBPlLW1SHbpg29mFmQT0yCNWnmECp65EfuivzrWUDoWPMxS0QwxTW
+	5sCIEE3dfQS98CHzJs7jDISsommBBNQISwbcf7oiK2R+q4ZhgmM0MYuomkre0AH565lC7
+X-Received: by 2002:a05:6000:26ce:b0:48a:f454:3d4 with SMTP id ffacd0b85a97d-48e6e52a7e3mr19310220f8f.53.1793601805912;
+        Sun, 01 Nov 2026 22:43:25 -0800 (PST)
+Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba4ac6sm19305747f8f.52.2026.11.01.22.43.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 01 Nov 2026 22:43:25 -0800 (PST)
+From: Orgad Shaneh <orgads@gmail.com>
+To: Haiyang Zhang <haiyangz@microsoft.com>,
+	Wei Liu <wei.liu@kernel.org>,
+	Dexuan Cui <decui@microsoft.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: netdev@vger.kernel.org,
+	linux-hyperv@vger.kernel.org,
+	linux-rdma@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Wei Hu <weh@microsoft.com>,
+	Konstantin Taranov <kotaranov@microsoft.com>,
+	Simon Horman <horms@kernel.org>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Jesper Dangaard Brouer <hawk@kernel.org>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Stanislav Fomichev <sdf@fomichev.me>,
+	Long Li <longli@microsoft.com>,
+	Dipayaan Roy <dipayanroy@linux.microsoft.com>,
+	Hamza Mahfooz <hamzamahfooz@linux.microsoft.com>,
+	Aditya Garg <gargaditya@linux.microsoft.com>,
+	Erni Sri Satya Vennela <ernis@linux.microsoft.com>,
+	Muhammad Falak R Wani <falakreyaz@gmail.com>,
+	Jesse Brandeburg <jbrandeb@kernel.org>
+Subject: [PATCH net] net: mana: fix XDP_REDIRECT of pre-allocated RX buffers
+Date: Mon,  2 Nov 2026 06:43:24 +0000
+Message-ID: <20261102064324.806414-1-orgads@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -61,30 +120,149 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Message-ID: <3ead5562.4f02.1a19afeca3e.Coremail.lvjing_421@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cSkvCgDHn8HXMOhq4E9aAA--.13638W
-X-CM-SenderInfo: poymx0tjbujia6rslhhfrp/xtbBqBcWo2roMNdIvAAA3b
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CgpEZWFyIEJqb3JuIGFuZCBMb2dhbiwKCgpJIGFtIHdvcmtpbmcgb24gSHlnb24gQzg2LTRHIChP
-UE46IDc0OTApIHBsYXRmb3JtIHdpdGggVWJ1bnR1IDI0LjA0LjQgTFRTIChHTlUvTGludXggNi44
-LjAtNTMtZ2VuZXJpYykuIEl0IGhhcHBlbnMgY3Jvc3MtYnJpZGdlIHAycGRtYSBiZXR3ZWVuIEdQ
-VSBhbmQgU1NEIGlzIG5vdCBzdXBwb3J0ZWQuIFdpdGgge1BDSV9WRU5ET1JfSURfSFlHT04sIDB4
-MTQ4MCwgMH0gYWRkZWQgaW4gc3RydWN0IHBjaV9wMnBkbWFfd2hpdGVsaXN0LCB0aGVyZSBpcyBu
-byBwcm9ibGVtLiBJIG5vdGljZSB0aGVyZSBhcmUgc2ltaWxhciBjb2RlIGNoYW5nZXMgcmVjZW50
-bHksIGUuZy4sICJbUEFUQ0hdIFBDSS9QMlBETUE6IEFkZCBaaGFveGluIGhvc3QgYnJpZGdlcyB0
-byB3aGl0ZWxpc3QiIGFuZCAiW1BBVENIXSBQQ0kvUDJQRE1BOiBBZGQgQWxpYmFiYSBULUhFQUQg
-WWl0aWFuIDcxMCB0byB3aGl0ZWxpc3QiLiBJdCB3b3VsZCBiZSBhcHByZWNpYXRlZCBpZiB0aGUg
-Zml4IGNvdWxkIGJlIG1lcmdlZCB0byB0aGUgbGludXggcmVwbyAtLSBwbGVhc2UgaW52b2x2ZSBI
-eWdvbiBpbiB0aGUgY29tbXVuaXR5IGlmIGFwcHJvcHJpYXRlLgoKCgpXaXRoIHJlZ2FyZHMsCkpp
-bmcKCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQpkaWZmIC0tZ2l0IGEvZHJpdmVycy9wY2kvcDJw
-ZG1hLmMgYi9kcml2ZXJzL3BjaS9wMnBkbWEuYwppbmRleCAwYzM2MTU2MWI4NTUuLmU2NmZiN2U3
-MWJkYiAxMDA2NDQKLS0tIGEvZHJpdmVycy9wY2kvcDJwZG1hLmMKKysrIGIvZHJpdmVycy9wY2kv
-cDJwZG1hLmMKQEAgLTQ0Miw2ICs0NDIsOCBAQCBzdGF0aWMgY29uc3Qgc3RydWN0IHBjaV9wMnBk
-bWFfd2hpdGVsaXN0X2VudHJ5IHsKwqAgwqAgwqAgwqAge1BDSV9WRU5ET1JfSURfSU5URUwsICAg
-MHgyMDMzLCAwfSwKwqAgwqAgwqAgwqAge1BDSV9WRU5ET1JfSURfSU5URUwsICAgMHgyMDIwLCAw
-fSwKwqAgwqAgwqAgwqAge1BDSV9WRU5ET1JfSURfSU5URUwsICAgMHgwOWEyLCAwfSwKKyAgICAg
-ICAvKiBIeWdvbiBDODYtNEcgKE9QTjogNzQ5MCkgKi8KKyAgICAgICB7UENJX1ZFTkRPUl9JRF9I
-WUdPTiwgICAweDE0ODAsIDB9LArCoCDCoCDCoCDCoCB7fQrCoH07Cg==
+mana_pre_alloc_rxbufs() fills the RX rings with plain pages from
+dev_alloc_pages() (from_pool == false), but the rxq is registered with
+MEM_TYPE_PAGE_POOL and mana_run_xdp() builds every xdp_buff with that
+rxq info. mana_rx_skb() frees a !from_pool buffer correctly on
+XDP_PASS, XDP_TX and XDP_DROP, but a redirected buffer is freed through
+its memory model: __xdp_return() hands the plain page to
+page_pool_put_full_netmem(). This triggers the WARN in
+include/net/page_pool/helpers.h, breaks the page refcount, RX refills
+fail and the queue stops receiving.
+
+The pre-allocated buffers fill the whole ring of every rxq created by
+an MTU change, by ethtool -L / -G and, since
+commit 730ff06d3f5c ("net: mana: Use page pool fragments for RX buffers
+instead of full pages to improve memory efficiency."), by every XDP
+attach and detach. So on current kernels the first ring of redirected
+packets after attaching an XDP program always hits this.
+
+Reproduced on 7.2.11, and on 6.12.113 after ethtool -L, on an Azure
+MANA VF: an XDP program that redirects UDP to an XSKMAP with an AF_XDP
+socket in copy mode gives WARNINGs at __xdp_return+0x249 (stack
+__xsk_map_redirect, xdp_do_redirect, mana_run_xdp, mana_poll), then
+the queue stops.
+
+Give each rxq a second xdp_rxq_info registered with
+MEM_TYPE_PAGE_SHARED, the model these buffers had before the page pool
+was added, and use it for buffers that are not from the pool. Those
+buffers are already DMA-unmapped by mana_refill_rx_oob() before XDP
+runs, and page_frag_free() frees them whatever their order. Allocating
+the pre-allocated buffers from the page pool instead would need the
+pools to exist before the rxqs and to outlive them, a much larger
+change.
+
+Found, fixed and tested with an AI coding assistant (Claude Code).
+
+Fixes: b1d13f7a3b53 ("net: mana: Add page pool for RX buffers")
+Signed-off-by: Orgad Shaneh <orgads@gmail.com>
+---
+Tested on an Azure D2s_v6 MANA VF, net at cb284914e749 with and
+without this patch (same config), XDP program redirecting UDP to an
+AF_XDP socket in copy mode on queue 0, 25k pps offered right after
+attach:
+- without: 41 WARNINGs at __xdp_return+0x252, 0 packets relayed,
+  hc_rx_discards_no_wqe 301470.
+- with: no WARNING, 25k of 25k pps relayed, 0 loss; also over three
+  more attach/detach cycles, two ethtool -L combined 1/2 cycles and an
+  MTU 4000/1500 change before attach. MemAvailable unchanged.
+W=1 build of the mana directories: no new warnings.
+
+ drivers/net/ethernet/microsoft/mana/mana_bpf.c |  9 +++++++--
+ drivers/net/ethernet/microsoft/mana/mana_en.c  | 11 ++++++++++-
+ include/net/mana/mana.h                        |  5 ++++-
+ 3 files changed, 21 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_bpf.c b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+index 7c55f8724441..494267b3069a 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_bpf.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_bpf.c
+@@ -78,7 +78,8 @@ int mana_xdp_xmit(struct net_device *ndev, int n, struct xdp_frame **frames,
+ }
+ 
+ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
+-		 struct xdp_buff *xdp, void *buf_va, uint pkt_len)
++		 struct xdp_buff *xdp, void *buf_va, bool from_pool,
++		 uint pkt_len)
+ {
+ 	struct mana_stats_rx *rx_stats;
+ 	struct bpf_prog *prog;
+@@ -90,7 +91,11 @@ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
+ 	if (!prog)
+ 		goto out;
+ 
+-	xdp_init_buff(xdp, PAGE_SIZE, &rxq->xdp_rxq);
++	/* A redirected buffer is freed by its memory model, so a buffer not
++	 * from the page pool must not claim MEM_TYPE_PAGE_POOL.
++	 */
++	xdp_init_buff(xdp, PAGE_SIZE,
++		      from_pool ? &rxq->xdp_rxq : &rxq->xdp_rxq_shared);
+ 	xdp_prepare_buff(xdp, buf_va, rxq->headroom, pkt_len, true);
+ 
+ 	act = bpf_prog_run_xdp(prog, xdp);
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 6b7c027e497e..7547aeb3235d 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -2157,7 +2157,7 @@ static void mana_rx_skb(void *buf_va, bool from_pool,
+ 		return;
+ 	}
+ 
+-	act = mana_run_xdp(ndev, rxq, &xdp, buf_va, pkt_len);
++	act = mana_run_xdp(ndev, rxq, &xdp, buf_va, from_pool, pkt_len);
+ 
+ 	if (act == XDP_REDIRECT && !rxq->xdp_rc)
+ 		return;
+@@ -2947,6 +2947,9 @@ static void mana_destroy_rxq(struct mana_port_context *apc,
+ 	if (xdp_rxq_info_is_reg(&rxq->xdp_rxq))
+ 		xdp_rxq_info_unreg(&rxq->xdp_rxq);
+ 
++	if (xdp_rxq_info_is_reg(&rxq->xdp_rxq_shared))
++		xdp_rxq_info_unreg(&rxq->xdp_rxq_shared);
++
+ 	if (rxq->rxobj != INVALID_MANA_HANDLE)
+ 		mana_destroy_wq_obj(apc, GDMA_RQ, rxq->rxobj);
+ 
+@@ -3225,6 +3228,12 @@ static struct mana_rxq *mana_create_rxq(struct mana_port_context *apc,
+ 	WARN_ON(xdp_rxq_info_reg_mem_model(&rxq->xdp_rxq, MEM_TYPE_PAGE_POOL,
+ 					   rxq->page_pool));
+ 
++	/* The pre-allocated buffers (mana_pre_alloc_rxbufs) are plain pages */
++	WARN_ON(xdp_rxq_info_reg(&rxq->xdp_rxq_shared, ndev, rxq_idx,
++				 cq->napi.napi_id));
++	WARN_ON(xdp_rxq_info_reg_mem_model(&rxq->xdp_rxq_shared,
++					   MEM_TYPE_PAGE_SHARED, NULL));
++
+ 	/* Initialize the DIM work before enabling NAPI, so that a poll
+ 	 * cannot reach net_dim() with an uninitialized cq->dim.work.
+ 	 */
+diff --git a/include/net/mana/mana.h b/include/net/mana/mana.h
+index 71d726b1f784..11ceb5946ee0 100644
+--- a/include/net/mana/mana.h
++++ b/include/net/mana/mana.h
+@@ -420,6 +420,8 @@ struct mana_rxq {
+ 
+ 	struct bpf_prog __rcu *bpf_prog;
+ 	struct xdp_rxq_info xdp_rxq;
++	/* For buffers not from the page pool (from_pool == false) */
++	struct xdp_rxq_info xdp_rxq_shared;
+ 	void *xdp_save_va; /* for reusing */
+ 	bool xdp_flush;
+ 	int xdp_rc; /* XDP redirect return code */
+@@ -695,7 +697,8 @@ void mana_xdp_tx(struct sk_buff *skb, struct net_device *ndev);
+ int mana_xdp_xmit(struct net_device *ndev, int n, struct xdp_frame **frames,
+ 		  u32 flags);
+ u32 mana_run_xdp(struct net_device *ndev, struct mana_rxq *rxq,
+-		 struct xdp_buff *xdp, void *buf_va, uint pkt_len);
++		 struct xdp_buff *xdp, void *buf_va, bool from_pool,
++		 uint pkt_len);
+ struct bpf_prog *mana_xdp_get(struct mana_port_context *apc);
+ void mana_chn_setxdp(struct mana_port_context *apc, struct bpf_prog *prog);
+ int mana_bpf(struct net_device *ndev, struct netdev_bpf *bpf);
+
+base-commit: cb284914e749388eef402938bdb3115fe1f6d337
+-- 
+2.52.0
+
