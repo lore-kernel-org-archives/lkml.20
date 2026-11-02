@@ -1,121 +1,93 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793643710;
-	b=otGQb4ZRWUm9P8OWUDuMSHjnHbKrIaWCAY7vPIZZEewGYLKjyrNyGrrKHfejNxVMNKGn
-	 dm3f9hDJPmuXdpzOJeVk8SCVAiNDx02abmyFLyt33tZRXgN7MkLK/SlICuzVJVSQLhygK
-	 ZaTCvdTiOiz7aTlOy6pCVAVvZnmObERmasAd+zewK6N5DAWnnWeiOh+AvLXFxFoHwXFZ+
-	 r935dy+pCkk64Iv9NU1n5VAzl/wKFhzpQWZ2LU33ZblUO3Wzn1UV2TxSwC9ffpNWJ/LSN
-	 y+DIbqvEFCbpqV0lpdFz6gpmKMk1Gu6/GDUGvy6LbF7CbBwkWYtFKlsl+4bq5CX3zyA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793643710;
-	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 X-Received:MIME-Version:References:In-Reply-To:From:Date:
-	 X-Gm-Features:Message-ID:Subject:To:Cc:Content-Type:
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.50
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793643737;
+	b=GY6oUK7W6fwTQLY01IWXfce3zKgaIALPQldV8eQ3f9Eh0aRasLBCBXhkm0xFvwJg3rgC
+	 P8ZHTWm4/kIDrUPLlximZ+EqNPf1DqW1v97pGb/dj5N2s+JqpH6QyvLonGXARTWc5LhfG
+	 Z/2YTYM+ENt6APRc/+67fhnUj6rztL0jAdjRjXXqii2ZnkBNoiuya2cXFH/MaCv8YbryU
+	 6pSbJYpsxLcDyZ9LRdO5okNcEL2m/OKgC1cGbRdmzfj9VTuehOY5871GwQJ58/BUTpu6X
+	 KJbe0kAztmKrqCd8z1ursyivZIXqUhbAwLLUbEnnhyzvey9Pb3yLDzXtslFf1kAXN7Q==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793643737;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
 	 Content-Transfer-Encoding;
-	bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
-	b=iZCctnJfHXJldTeZyV1SBRKuSxKS9YCA7j9BFsM8a0Q9iuV6vQxVdqYwY198IaSNrG0C
-	 sVILROuPJrQuO7g+H3VoBT+D7HFCCoiZdE7Z4TQoHeTnWiV8UEmq1NTWbrMVpt61pavkM
-	 8wyrIREw4+cPbRL9oPGEZPtAGlh0tSDJFSvgbj2oR8WK67RPzsdWaLHvTgKakfkBX/Tj3
-	 H1smLUfAKC5FA4AQ6TBOr2y7tiPUAfotN2/LxzhXzGxnzX5G8Luf8A87CotI+oX+gw5+c
-	 xSMa8D/ol/tADOQZh39RexW6JPghcprPQr1N7+oanDQKN5GNu01bephMkIXL11S9ECg==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=redhat.com;
-	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RLvyEPiI;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AdvNFd+Q;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=170.10.133.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	bh=tyG+KrBGnuPWnNF/+fOUZY6fmOkYDusAbsJroxJ3bGI=;
+	b=REvpNejLEIe5P7I1f7b4BTrxUKZy4CNMK7MKHSCEtwTUjejiwQ4NORqKEjzmT6VT/Fpw
+	 ZVfKFSaw6pmAl6OlTpRJLATG4ADgU0GgA5as1SpiJfrvg6wf2BLnYmOVFGQ8LLa/8wuk1
+	 V0zBMwwoOgpiTsGo08I8EHVbJBapey524Eu7N7pgCsWusGG2L3h7fBxzOlTvi2hPJWI0y
+	 1Neg9xFb8/07Q6zMgn5+dSoAai2smN7hwDJpXPTjcpif/CnktvoozP3HxS4AuaUXr/tqg
+	 Qhtq520SUyH02eIRyYZaBHznGI2spXbpxuzSuDNnaLN/9PkufWw7DJ2s4YN7XuyQHog==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqkAYYvH;
+	arc=none smtp.remote-ip=209.85.128.50
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72BE5606A331
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:21:49 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 72BE5606A331
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944A8606A326
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 18:22:16 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 944A8606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=RLvyEPiI;
-	dkim=pass (2048-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=google header.b=AdvNFd+Q
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793643708;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
-	b=RLvyEPiIC6XxUI62HLhY5vn8MF5RdNTuLVHcZVkETa91e8J6/3hVROK6CqioUpLQ+blE3v
-	TTaYVdhdghbP2OfYBmVye0zyuvgEyhjL/mns08jWFvfFEPWtAD+Wuhftu9pdGva/ilM90O
-	4pW+mtlXznd8dH91Z1eNwJqUcI8K6LM=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-112-XqcthrctNte0ZzYZU6hRRQ-1; Mon, 02 Nov 2026 13:21:46 -0500
-X-MC-Unique: XqcthrctNte0ZzYZU6hRRQ-1
-X-Mimecast-MFC-AGG-ID: XqcthrctNte0ZzYZU6hRRQ_1793643706
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-48df5b058ddso2218858f8f.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:21:46 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793643705; cv=none;
-        d=google.com; s=arc-20260327;
-        b=OSLWVmMdxcLOhVbOtDk1lrBDT0Clz2bFmDC4LAfC9DM/OUZV4O6SpSV1hP2dqgt/6H
-         FVxwrI8PZpSmRK2D394FF4auK6pbAntRoS8+Jv+5/0KKldzHtMZ3f3GfXf8oJh5qivFe
-         twVJbIsmtQ9Xjsdc//xc89t41WRSGdSuzHe9g990R2WwFyhf8FO4GO1HzEKQ0/VOLUKF
-         OrnG0Zgi3Q/PGW5nYySNefiDkvsGWDvUWTarseHNrqzCg8ced/Vke7rsThKth99ahv0A
-         mgE8WvKBkNGHAMGKXfiTUNf55624ZReMqhFY0Do3qpAXj+SEbBBGbgVOEMfKRfBGwQpb
-         Mcvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
-        fh=3I9eS2Vb3cjbocxoPyLBgwf7aNGUlhr7HnHu/HG2u5c=;
-        b=hKUKD9Qg1kNEKeCvJgupTxBaqoUJn9sD8QQygRWwlFcI2oLJh5tp0RdPEiMVbkZbur
-         88QL8XstnvHElQXBUYT1ch9gxUvj1pDHGCNUvltTgXihiKAQ3BSGOR7o9iEoi7USRJYC
-         2FDvO4QhQxH+M3wBTCubJXDZtqZEhhUywbue594pmgBu25z9um+XlFw8eHKr8F0LKquM
-         2HIIkxHBWGvL6dE1Hgro5NzNy3NpODZdofVEglEmhzsTtOkrTZc2OZBJYL3bmlS26rku
-         C2KNso2MRHozo+pUPCOUMzdfNH+4qcQ1hLSmrygIj+xufr9Qdd7j0NhH9lKWCS0q9eXc
-         HqaQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=hqkAYYvH
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a20a37703bso26424765e9.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 10:22:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1793643705; x=1794248505; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
-        b=AdvNFd+Qp5s56ThcrRXPY51RUzsx7WTKHs1dZxlWqOvdJskt8ls5VuDJpN8MxxW4ms
-         yu9nb3NceMKlmZBWv/2nyUcPw5ROysQ3zZOEy7G2Y1qZjnIRE/Lr5lu8JtU4eAoOUQst
-         g2nGOUi3YDwAsNbrU/QkxB3hVdDkEoe0IC1D+0Q67intbztlbduUjiy4TMA4bdXd5gHI
-         eQZluXMjZgD/2X/relRb0cqd6yz286g+9998yxW7SG0iO8BbRiQ+xcH8Iy+etqLQubEj
-         UTAwchB+pnGlVOaq/d6o3nT1fHKjFImkwBxnkPADSnYjSvRnBNyOul7xcDlNOdEwlLJd
-         lz/A==
+        d=gmail.com; s=20260707; t=1793643735; x=1794248535; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tyG+KrBGnuPWnNF/+fOUZY6fmOkYDusAbsJroxJ3bGI=;
+        b=hqkAYYvHWlrHi8VJJivANXVITPxtd/zXbc1eoojhPOiDbEV5mijfP4A1IW04AWHKM2
+         RqCEWLjn8ZT3SZqVVU1PR9lpd/BPMrHL/1aqz04RFdlLaJf3HCOOE3qY1hL0WZGte+3W
+         9wx+8v1zoSHpblnkweFr78mCvjEGC8zs5LUIJzJjWSajvL3ptxxXbzXHgkc6v9dtd0pz
+         X9SvrTfqfBzGFM+KcTXqiIfnnjzycx231WEqm3DLMOfiJxLdhnykQGhNAuOGBT81i6vz
+         QL8A3W7kaRFFOhvSCtOsHsvs40pEhO2d/zaT55cZVwyb+wfFiXOP1nGYzFmUEH3VOSHg
+         kkPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793643705; x=1794248505;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6odvKjJX5uaeX8gp4PjtCpDvxv131iO0vErthI5phGU=;
-        b=uhDP8LlWZ3ghz7EERytuUzboxBAqanwUnYvKUZvFXnGa68QmoKH4TPaeb6h9Or85Rx
-         c7RyzAPE0CaZJ5rYgm4h3zEamAZdEIojQkg15j8YGnKWGsI07+oC5gNkWmn0MBIgOiZV
-         eYI9cqX3+BlkthBlnZS1ZtjNsiyo9EEnLNojhYvBCAzwja4rHchFedR9KWg56UK4WiFw
-         UANhkPjekMTUixQRELNl3n4EfVxMjh/74mySs4s5q4wZfTITuCVoTiYmN2b47xQdLLwL
-         BfqKaJOkuhY3GG1IiRds4oW8L7KSjonMYfn2L3np6kj7kv/tZngu9O5DHXM2xP7gYdrH
-         2DGA==
-X-Forwarded-Encrypted: i=1; AKwUvBxfGHid2Yjz1U1V8Uka5Aa8cSQikZMSdcwW6y1OVhGFD1tzuZHR7dcQEF4OtTGIex2OI4wSqa6PEKKrpBY=@vger.kernel.org
-X-Gm-Message-State: APuU4Z+JrQU66BRKLzwUqbZZd938V/GkWTuBDqWzGqfU1EcoqKFhA0qD
-	gUi21EKVnoEfi57LFabS1YV5mtWztS3Tte/nvwahkShevibEyqU8vS/bBIBv/42BgNeB00RHSk+
-	V9B1K2B0zmUZ3pkgDodkXW9aefo0ZwdOf733ykeMnOxgdS88vJVT/58s766Z9bP205mqDQxtb8b
-	66bDxeWn+W5rhCyo8t+BY4Ju7cuWo0tOHSij0ubO5F
-X-Gm-Gg: AYBFou0B9646I/MbPsoj1ewUiQzP2829GDHzOCScMtSCGFR9B4tyt1o8hbi+huyIKYT
-	jGAokdHZndc0UCTk6WXizoF9n8iJfKpbM+1aWArYz03F2v9Dr8f4UPZUq/TJNUijXxQtW6O5VRl
-	sLgPz3lGEY0DP91F4RyOKW4unvW6WPRntm+Lm8+5B0wJDPuqLisQJormXf6lIWIQFTCkDcTyHhc
-	hLnI9tWn1J2HIqFfkN9NzoSRsb2zSdKzmYXie3jsFkyiOcK8iA81++8qu0W
-X-Received: by 2002:a5d:64c4:0:b0:48c:6fa4:fc89 with SMTP id ffacd0b85a97d-48e6e3072d7mr26355763f8f.12.1793643705692;
-        Mon, 02 Nov 2026 10:21:45 -0800 (PST)
-X-Received: by 2002:a5d:64c4:0:b0:48c:6fa4:fc89 with SMTP id
- ffacd0b85a97d-48e6e3072d7mr26355729f8f.12.1793643705320; Mon, 02 Nov 2026
- 10:21:45 -0800 (PST)
+        d=1e100.net; s=20260707; t=1793643735; x=1794248535;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=tyG+KrBGnuPWnNF/+fOUZY6fmOkYDusAbsJroxJ3bGI=;
+        b=IM1bn0Dh97wkIrAXlP4NTZSfcxMNC/SlkCs9szQILdKgA4oRT9swxJVXEiTPirtx2w
+         2jb1VOp5xr8XURi3AcRsqfNMRvQ1UGWDZad4K4KAie8BiaZs/izLmUg54KoTj8E7a76b
+         ZD4HPnlaS68AelKcl5vvDHjX+0ooRgNpNdaOHWKbC8NHAXgDCAsQifAmhKd6ABb877xl
+         gDozjDIjMIECIRt8JoJujUbv00+KBNS81C2BS+HraW0Cims3HZMqKxIDgwy5J/34GnEy
+         mE5jJfjOInhZhiLjnnlmQP0PiZTMYqlVsNJ06KWwn/dh+c14VuhlD1v2KyaOdJiDEguO
+         raCg==
+X-Forwarded-Encrypted: i=1; AKwUvBw9CC9RmB7+IuIep/IN48fNg0dTCQSFEJn/Gukl5Mi4HBFeVDmz1oKMdACzFbu/Am2cZoqugk0VnR3Bc/4=@vger.kernel.org
+X-Gm-Message-State: AFq9FYKy9OVo/5BjH8Myh05hFCKCfafjyI9hjrlOQtJG8KfMiPOUqaa/
+	niN04bPuCzOkjBq6762Pjq9RFf5S3j763M+xB8H+maMrXuXW24sVbSo=
+X-Gm-Gg: AYBFou0JkgU5tAPTf1ZpS0i7iYX4KHghgk7rh4jRpfnn5hwRvA31EPRG5/R6J/5wMQt
+	52BfuTLEoZ8A4Hik/f73gj/Tme1bTnAJ6AjeAg8KrQN4ZzyqvqHnJPnfujS6/V6iwQITkzBhoy7
+	2n0HC08jT1j+X4W3f7KsZ1hi9suyUDXF8fTzHbSoQMeu8Iq4JUPZcuPlvlkKBhaNPN61tpaz5+G
+	sF7xVtEilyqlQ6tKW2OZuMsbqUNB2BQ8r18nzMxxoioyFlSONiXVNalFum3vAMlFIiHB3veyLY/
+	Dl3cj8RQW9KHgdy0A5dJJKtiX7XCyFmeR+lZ+cvvSonyj2qqVLMUEVOt6AZ8lNw6SwjlpAGjBAy
+	PRBuwtuNPceX04SyRo8hW2OlsLzOewIUun8NzvCucK0J5zUwNilqweo3E8MQ1i8dGGDn7tSkCtv
+	URzPuHHpBH2i/n6PPJdNQetsQp9I8x7lkuIKsiASIFslHijf7JKNvmx+B84Z6v3M/aOejMpTDQ/
+	EYYFpD+za3NMAao2pIfw6lcT3Vt9nwDfm/RyrsMjvZ6zkdedPXxZalk69Kx8TH5Qu45ppYv2TTP
+	p6Vu39wACEWIr5HMKbt/jq6sVZvENbPf8HzEU/pPis0Biq9HuNHi48PUu3yvZRM/W6AvnZfj8So
+	jKR82UHsmMoO+3aZJLEPR2jz8v5MLIcvQIRWaVwK377BsGJLl6yGCwjEZFmKvFO3ssjaRfH9NF5
+	0L4TJRzr3mAf13w0Wflnfy4nbLoAyUCQNe7uRRcvvIVP0sD13Npvc/YE1HypZO
+X-Received: by 2002:a05:600d:a:b0:4ac:aae6:6400 with SMTP id 5b1f17b1804b1-4acaae665a6mr184831455e9.13.1793643734734;
+        Mon, 02 Nov 2026 10:22:14 -0800 (PST)
+Received: from cachyos-x8664 ([2a02:2f0f:9208:cf00:b848:3801:1bc:d8d1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71a4d3e9sm23878903f8f.6.2026.11.02.10.22.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 10:22:14 -0800 (PST)
+From: Razvan Dinculescu <razvandinculescu@gmail.com>
+To: Takashi Iwai <tiwai@suse.com>,
+	Jaroslav Kysela <perex@perex.cz>
+Cc: linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] ALSA: hda/hdmi: Don't share an assigned converter on NVIDIA codecs
+Date: Mon,  2 Nov 2026 20:22:13 +0200
+Message-ID: <20261102182213.2154560-1-razvandinculescu@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -125,45 +97,132 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261016235221.33726-2-amirmohammad.eftekhar@cispa.de>
- <atpGGKVAL3bAnmnk@google.com> <atqdBFgoztW0nhoC@google.com>
-In-Reply-To: <atqdBFgoztW0nhoC@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Mon, 2 Nov 2026 19:21:33 +0100
-X-Gm-Features: AclHuK-M5UTgxV4aiMUN9HCDx78On7qRFnJSTS_KiHaFMNraEqE7Xlhs5LdbZek
-Message-ID: <CABgObfb0=KB-TvSWJaerc6ZABB8-tjyxBdFwwnLNDjhPsv_27Q@mail.gmail.com>
-Subject: Re: [PATCH] KVM: nSVM: Reset the virtual VMLOAD/VMSAVE bit in vmcb02
- on every nested VMRUN
-To: Yosry Ahmed <yosry@kernel.org>
-Cc: Sean Christopherson <seanjc@google.com>, 
-	Amirmohammad Eftekhar <amirmohammad.eftekhar@cispa.de>, kvm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Jim Mattson <jmattson@google.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 23, 2026 at 1:45=E2=80=AFAM Yosry Ahmed <yosry@kernel.org> wrot=
-e:
-> Actually, looking at nested_vmsave_vmload_test.c, I make sure that the
-> intercepts are honored (in L1) *even* if VLS is enabled. I also *think*
-> that in that test, KVM will end up setting both the intercepts and VLS:
-> 1. nested_vmcb_needs_vls_intercept() will return false because the guest
->    supports VLS, has NPT, and enables VLS.
-> 2. KVM still copies the intercepts from vmcb12 anyway, including VMSAVE
->    and VMLOAD, see nested_vmcb02_recalc_intercepts(). KVM (correctly)
->    doesn't clear VMSAVE/VMLOAD intercepts if VLS is enabled by L1 (but
->    it does the opposite).
->
-> So this test case passing should be confirming my allegation that
-> intercepts take precedence over VLS.
+All pins of the NVIDIA HDMI/DP codecs share one connection list, so a
+converter can be selected by several pins at once. Unlike the Intel
+codecs (intel_not_share_assigned_cvt()), the NVIDIA ones never move an
+idle pin off the converter that another pin streams on, and the display
+that should play stays silent.
 
-Yes, absolutely. The APM is very unclear but I am pretty sure I tested
-it on bare metal too.
+Seen on an RTX 5090 (codec 0x10de00aa) with a DP monitor on pin 0x04
+and an HDMI TV on pin 0x05. PipeWire probes every PCM at start-up: the
+monitor's PCM got converter 0x08 and kept it selected after closing,
+then the TV's PCM got 0x08 as well when it was opened. With both pins
+on 0x08 the TV played nothing, although its PCM was running and its
+ELD was valid. Opening the monitor's PCM while the TV's was running
+moved the monitor to 0x09 and the TV played at once. Restarting
+PipeWire put both pins back on 0x08.
 
-The only clue is that the "attempted execution of a VMLOAD or VMSAVE
-in the guest will result in a #VMEXIT with a VMSAVE/VMLOAD exit code",
-meaning that VMSAVE/VMLOAD vmexits can still happen and - like other
-intercepts, for example IRET - the hypervisor can turn them on and off
-at will.
+Implement pin_cvt_fixup for the generic NVIDIA model as Intel does:
+when a converter is assigned to a pin, move every other connected pin
+that selects it to an unassigned converter. Look the converter up in
+each pin's own connection list instead of assuming the same order on
+every pin.
 
-Paolo
+With this change, three PipeWire restarts in a row left the monitor on
+0x09 and the TV on 0x08, and the monitor pin forced back onto 0x08 with
+hda-verb was moved off it at the next prepare.
+
+Signed-off-by: Razvan Dinculescu <razvandinculescu@gmail.com>
+---
+ sound/hda/codecs/hdmi/nvhdmi.c | 76 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+
+diff --git a/sound/hda/codecs/hdmi/nvhdmi.c b/sound/hda/codecs/hdmi/nvhdmi.c
+index 94671ad..95ae773 100644
+--- a/sound/hda/codecs/hdmi/nvhdmi.c
++++ b/sound/hda/codecs/hdmi/nvhdmi.c
+@@ -66,6 +66,81 @@ static const struct drm_audio_component_audio_ops nvhdmi_audio_ops = {
+ 	.master_unbind = snd_hda_hdmi_acomp_master_unbind,
+ };
+ 
++/*
++ * All pins of these codecs share one connection list, as on Intel.  An idle
++ * pin left selecting the converter that another pin streams on takes that
++ * stream: the display that plays stays silent and the audio goes to the
++ * other display instead.  Seen on GB202 (0x10de00aa) with an HDMI TV and a
++ * DP monitor: whenever the monitor's PCM was opened first (PipeWire probes
++ * every PCM at start-up), its pin kept the converter the TV got next.
++ *
++ * Move every other connected pin off the converter just assigned, to a
++ * converter nobody uses.
++ */
++static void nvhdmi_not_share_assigned_cvt(struct hda_codec *codec,
++					  hda_nid_t pin_nid, int dev_id,
++					  hda_nid_t cvt_nid)
++{
++	struct hdmi_spec *spec = codec->spec;
++	struct hdmi_spec_per_pin *per_pin;
++	struct hdmi_spec_per_cvt *per_cvt;
++	int pin_idx, cvt_idx, mux_idx, curr, dev_id_saved;
++
++	if (!cvt_nid)
++		return;
++
++	for (pin_idx = 0; pin_idx < spec->num_pins; pin_idx++) {
++		per_pin = get_pin(spec, pin_idx);
++		/* no display on this pin */
++		if (!per_pin->pcm)
++			continue;
++		if (per_pin->pin_nid == pin_nid && per_pin->dev_id == dev_id)
++			continue;
++		if (per_pin->dev_id >=
++		    snd_hda_get_num_devices(codec, per_pin->pin_nid) + 1)
++			continue;
++
++		dev_id_saved = snd_hda_get_dev_select(codec, per_pin->pin_nid);
++		snd_hda_set_dev_select(codec, per_pin->pin_nid, per_pin->dev_id);
++		curr = snd_hda_codec_read(codec, per_pin->pin_nid, 0,
++					  AC_VERB_GET_CONNECT_SEL, 0);
++		if (curr < 0 || curr >= per_pin->num_mux_nids ||
++		    per_pin->mux_nids[curr] != cvt_nid)
++			goto restore;
++
++		for (cvt_idx = 0; cvt_idx < spec->num_cvts; cvt_idx++) {
++			per_cvt = get_cvt(spec, cvt_idx);
++			if (per_cvt->assigned || per_cvt->cvt_nid == cvt_nid)
++				continue;
++			for (mux_idx = 0; mux_idx < per_pin->num_mux_nids; mux_idx++)
++				if (per_pin->mux_nids[mux_idx] == per_cvt->cvt_nid)
++					break;
++			if (mux_idx == per_pin->num_mux_nids)
++				continue;
++			codec_dbg(codec,
++				  "hdmi: move pin 0x%x off cvt 0x%x to cvt 0x%x\n",
++				  per_pin->pin_nid, cvt_nid, per_cvt->cvt_nid);
++			snd_hda_codec_write_cache(codec, per_pin->pin_nid, 0,
++						  AC_VERB_SET_CONNECT_SEL,
++						  mux_idx);
++			break;
++		}
++restore:
++		snd_hda_set_dev_select(codec, per_pin->pin_nid, dev_id_saved);
++	}
++}
++
++static void nvhdmi_pin_cvt_fixup(struct hda_codec *codec,
++				 struct hdmi_spec_per_pin *per_pin,
++				 hda_nid_t cvt_nid)
++{
++	if (per_pin)
++		nvhdmi_not_share_assigned_cvt(codec, per_pin->pin_nid,
++					      per_pin->dev_id, per_pin->cvt_nid);
++	else
++		nvhdmi_not_share_assigned_cvt(codec, 0, 0, cvt_nid);
++}
++
+ static int probe_generic(struct hda_codec *codec)
+ {
+ 	struct hdmi_spec *spec;
+@@ -77,6 +152,7 @@ static int probe_generic(struct hda_codec *codec)
+ 	codec->dp_mst = true;
+ 
+ 	spec = codec->spec;
++	spec->ops.pin_cvt_fixup = nvhdmi_pin_cvt_fixup;
+ 
+ 	err = snd_hda_hdmi_parse_codec(codec);
+ 	if (err < 0) {
+-- 
+2.56.0
 
