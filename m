@@ -1,52 +1,99 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=74.125.82.48
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793634076;
-	b=DpmAqBquJTwbGSrtSIluZNJq4z6+bmGhbq9dfpGpgRBbIaIMUYRAeone1BawbkCxkKKK
-	 DLo5JDTCSg9+oxuix6B6vjFQkmQ2cPWn4wdjdfsJtphPlvv6Qf3gpci84W7Nwkv61o6EY
-	 fD8cSJR/3MusinahT6eLRkL7JKOv5v9HQhJL+JLNpNskZQC/vMc8CkmIndUT4yX7gCrNr
-	 YHh6CbU4iPw3ro6/98trYx22dk2hgSKBQEaTkTGBJlT1A0d+pC6QWrFH3Qm/LNwgiDLlJ
-	 nnVSlD53hNf4WOkX+qdGMIGrfDAezH3agGCXFhm8G/vZ35saKcNXPND+LIgyCqDaazg==
+	t=1793634077;
+	b=SxwA4234Tcim0i1Lhs8EsWRl4NpC//fpfhMit/sSzs7ZjCf69C0XjtvR9oXs8rQfJnyu
+	 m/iYjIBXRsd/VnIu5Ox2MfXJyL5FlEkYgrm2L5u4d4PBQ74blg80jCZpaCJpGAgqJKz/K
+	 FtvssYaDYvsGi6lirn3nJcpeSGnKN99VKN13ScB2H0vgbpITAjOBnQ0nKnXfkOlDssvVa
+	 drYVpK1HkCyw+e1V1qHfcJ4nUE0EJ5hdwbeGb0fwrwm9S2/grmtA0JA/FVPJnrRUaCSPu
+	 dV0jI9eZdIPCRTYTOKvoMLUBc33+HJawsvRbFATDI2mHJSLKg11RRdXNNpm90OtkgxA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793634076;
-	h=DMARC-Filter:DKIM-Signature:Received:From:Subject:Date:Message-Id:
-	 MIME-Version:Content-Type:Content-Transfer-Encoding:X-B4-Tracking:
-	 X-Change-ID:To:Cc:X-Mailer:X-CM-TRANSID:X-Coremail-Antispam:
-	 X-CM-SenderInfo;
-	bh=9HNEAr4lT8p39eVaiLtUhAY8ZzSREjueyplNX7G/Cwc=;
-	b=xbSW4DovpLbtJRrv9S/3HvyikYSF2datheEzpismngdrrPl3S31XxkGmlibBNoehrp25
-	 XhP9C7F93cqbHQF2BIwbBHcaKcbh1a3pUNr2jAevMqfEvTS7Xwusa5jHZvscxiRYAxw0O
-	 luX9M2nY11ThL4Fszibp1AMs0npS/MogPvVIYQztue4am9PY1zzzsE/GIzh2vppE4eUzY
-	 TmLwhWyW3xS19DYprVGW7wuePjwgw1BdGjyz4S38mQpEEMA2Yxr8hTIzV/njLCDEX9lD8
-	 Z7fu0hQ3Ro7wpZYWe0M1kqN7yXXzx8sMkwsR8BZAycRHphnaBM1plXdFmn5nTkYeomg==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793634077;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:
+	 MIME-Version:Content-Transfer-Encoding;
+	bh=7UB52tVNDDfF5HUvEfmsYcxjZsy5hBD2OO6zm5qdm2A=;
+	b=hSBAUPGPzZkojv9auAwyLeh48GV+ra8iQJ7cnxcalsuP1carATNK2a/6u6V20Cm1x0y/
+	 TdKESTcyn8VCbwIg+VFGz0hyLQxc0dV7u5EQflAZgA4KfB7JNtIIeCJElRec+UedIqWR2
+	 PCmP3wcEGqKSuCAKuDI2vvtP+gkud83SJbDMDNk9TOuiAWelodHavqCQuhOoW+qF0Y2yw
+	 PN5Vw1kx2DT/XDHa0wtLmcKlwFk6qtpRl9vPEgRxzVacWoTIIdXhuilRfXjXxddcRW5hR
+	 /kpT3rPJoKNN0+bljjyyE3yRWDYTyWhEMC8Zl+/CYrJrmL4w5TlC93QDUk7+Bl3CF1Q==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=163.com;
-	spf=pass smtp.mailfrom=163.com;
-	dkim=pass header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=m2pKbDXg;
-	arc=none smtp.remote-ip=117.135.210.5
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wszTJhyb;
+	arc=none smtp.remote-ip=74.125.82.48
+Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06550607365B;
-	Mon,  2 Nov 2026 15:41:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 06550607365B
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E39607366B
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 15:41:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 58E39607366B
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=163.com header.i=@163.com header.a=rsa-sha256 header.s=s110527 header.b=m2pKbDXg
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version:
-	Content-Type:To; bh=9HNEAr4lT8p39eVaiLtUhAY8ZzSREjueyplNX7G/Cwc=;
-	b=m2pKbDXgx9CFzvhcTiLxFuIi8TnE/+xm9S7JmVZUh5LrjU88bFuifpTMQVX229
-	0xKLx4m/5VTTy4jBig51luVhQHgxYfUWRwxGlcOjLMKtTyt7ttLi7hMeJqOoz6Rx
-	/Y/Cm6eRqJSKD+hAUdgW1Sq9/9+Cn3g9X0aKf9LPhFhYs=
-Received: from 4F-GAME.localdomain (unknown [])
-	by gzsmtp1 (Coremail) with SMTP id PCgvCgCn74XvruhqEea+DA--.56588S2;
-	Mon, 02 Nov 2026 23:40:32 +0800 (CST)
-From: Bob Hui <bg9oxa@163.com>
-Subject: [PATCH v12 0/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-Date: Mon, 02 Nov 2026 23:40:12 +0800
-Message-Id: <20261102-quarkpi-ca2-v12-0-d749d9bb2bf9@163.com>
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wszTJhyb
+Received: by mail-dl1-f48.google.com with SMTP id a92af1059eb24-1ae18eb9ad0so2937836c88.1
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 07:41:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793634076; x=1794238876; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7UB52tVNDDfF5HUvEfmsYcxjZsy5hBD2OO6zm5qdm2A=;
+        b=wszTJhybx7K2hGSa67IFsU4dwnaBhboW5uoFNLHduVtyv6n+OZmw7RhhhrFphmmH6Q
+         5zbSEoks6dUmnTZSn4Swhrby7gin7+lyl4Q1jFmUTIL59Onz7Z6aUmTXgmTpj6jif36x
+         Lk2XiPgJVT12sal/76UkARbD4rxexRXn8mXsamfcw9+HfaZxpZhGWL0q0aJStmEXyDPQ
+         PYbCOlgG1d4ohRHbJr6cvQR7l82KzKZFFzzsT1szW5bNWh+fVjhlN0/mB8jar2lsSSl5
+         vLG9MhvDj1GojVwArH/lWw6QFbATkcKX2DAAKL4ouDErv1PuotXTZ7pORnqgWYd1/Ka9
+         qJSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793634076; x=1794238876;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7UB52tVNDDfF5HUvEfmsYcxjZsy5hBD2OO6zm5qdm2A=;
+        b=sRfzJot+NDKNhvN/ExtPppbhiZqxq1n3XVI4o6BoWACEtVYLot4rqHBvOx6Tnqb7WM
+         sy+/lksS4UGRZFh6D5tz2KfV9VbYaVKfCgDmnGqernTgddkuFMcgKl2BhZ/k551A5+iV
+         dQNmLP78JeV5ZbuCxzgBIUmQ6g1d+K/CMJR9GFYnySccgyh8I5iwXLFuzD00TV3NunrM
+         yuktYWbi2+SPeSA6Wi0jv2/8OD2I2oxHiVqXYcLNpyOyJxB3sVgp/JkvfJ3pTq55uxQU
+         Cg9U6IQ/VZXYAWDMU+oJhVEVZJAoqvSCXyfDNohsaOd/B8PUfVJ495T13V1fi+DJRYEE
+         ouSA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbnFnDPXRKjo6BDubMZ/yotY0x1N16sLkL77DKwq3x8UN1oYYl0DFLHYFE9b6yobqTimkTVedhdtybtkI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYL+CDg9l6FQ+TX9dUuJgPLTkRNmjUipRUkQv8BYY9Ck1nVx1qCW
+	m9ti6i//Jd5U3LfWC/drlF29IsPQ155MUtC4vioYRYgP/LsXLHfIEG49
+X-Gm-Gg: AYBFou3zAo2LHAl6V8r/eKqn7Y93nJOCl3RwMUOKf45/K8D6NONPENWdbkuZ14y0EyB
+	1vwLt9xkeAWZ/X/mGMQxPT7hefU4IGQbC3YKs7uOx2OlCdH2z4eVXPVeHDIEjQLL2YZw3bhESxA
+	N7hVyfiwFMR06ZHB3IZVK9qpswIaCeIAGqZ03Ke+QZ8uyq9xEYvv4SwOYr7W++k+m2y7ormrRqY
+	KVKMhDxWyZzymj2cFvJvvzxPnn45op0nxACD/RyWtRdlOrdRtXqEGl6QLKpojxE7WirJxNf/Duu
+	cMbElpBg9fR5RN44Cjp1OpIDv6HL9K3R6dkb0tA2PW/EpmWMrmLY5fIcZiTemMT7qFa4IwKqAMG
+	Uz/470pdQpfefSASn8Poun30OfqhfwNhbaTn86/2RA7wyk4kVlJ8QI8ZKj9iHvj1CmuiIMGrjjn
+	p/1MpG48uxmwKN+iR/1F++YdbX/LB9/gywmz66KjZ8J5iwyAUN1poUl0NXoQCgQNeF+ocfSZUBG
+	Ni+Hv59BAIhJaNyzzq2vxBo60cLD0PStP3pS5N2mNNL9xTwVtRUHDUCwRobwfqUAzetoFKZaB60
+	LIUr0vPHzsgFofoTceBH+VUXz7BQ2wwwp1YRmm24LSXkxWE48oo=
+X-Received: by 2002:a05:701b:2816:b0:144:e246:a0b2 with SMTP id a92af1059eb24-1ac6088a458mr15229325c88.44.1793634076329;
+        Mon, 02 Nov 2026 07:41:16 -0800 (PST)
+Received: from localhost.localdomain ([103.178.205.93])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1ac1854d925sm60443825c88.7.2026.11.02.07.41.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 07:41:15 -0800 (PST)
+From: Sreeraj S Kurup <sreekuttan2156239@gmail.com>
+To: tiwai@suse.de
+Cc: cezary.rojewski@intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	rosenp@gmail.com,
+	sreekuttan2156239@gmail.com,
+	tim.bird@sony.com,
+	tiwai@suse.com
+Subject: Re: [PATCH] ALSA: pcm: Fix source frame count calculation
+Date: Mon,  2 Nov 2026 15:40:43 +0000
+Message-ID: <20261102154043.2712-1-sreekuttan2156239@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <87pkwn8ebe.wl-tiwai@suse.de>
+References: <87pkwn8ebe.wl-tiwai@suse.de>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -56,120 +103,11 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIANyu6GoC/33NS04DMQyA4atUWRNkO69JV9wDschraEB0yqQdg
- aq5O0kRatMFUja2/P05s5LmnArbbs5sTksuedrXAelhw8LO7V8Tz7EuGAFpBJD88+Tm90PmwRE
- njOSUDQqCYFUc5jTmr0vu+eV3Lif/lsKxJdrFLpfjNH9f/ltMu/srm668mPaAu0EGHVXUadRPq
- MVjmD5YSy/DP3io0g8CLfkUwfhe2htJ2EvbpFEA2hP5oHqJcEtFTxGqtdFbkGhlAnFn8WorvrN
- YbfIkNRjtBhqvdl3XH+nQPhCmAQAA
-X-Change-ID: 20261004-quarkpi-ca2-21d2a59c50c3
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
- Bob Hui <bg9oxa@163.com>
-X-Mailer: b4 0.15.2
-X-CM-TRANSID:PCgvCgCn74XvruhqEea+DA--.56588S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCrWkAFW3uF1UZFW3CF48Zwb_yoWruFWfpF
-	ZxuFs8Grs7tryI9Fs2gw1xuFySvw4ktFWSqFn5J345Za1YvF18Zr1Syw4FvF98CrZYya4U
-	Cr15WFy8GF9rZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRiYFJUUUUU=
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3hG8KmrorvH9pQAA3c
+Content-Transfer-Encoding: 8bit
 
-This series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S based
-single board computer. The binding patch documents the board, the DTS
-patch describes the hardware.
+Hi,
 
-The DTS was rebuilt from scratch against the vendor 5.10 BSP device tree
-and then translated to current mainline bindings, so that every node and
-property has a vendor-side or schematic origin instead of being carried
-over from the earlier revisions.
-
-Changes in v12, addressing the Sashiko bot's suggestions on v11:
-- Sort the PMIC regulator nodes in natural order, so that dcdc-reg1 comes
-  before dcdc-reg10.
-- Sort the phandle references in natural order, so that pwm7 comes before
-  pwm14.
-- Put simple-audio-card,codec before simple-audio-card,cpu.
-- Add the blank lines between sibling nodes that were missing.
-- Link to v11: https://patch.msgid.link/20261102-quarkpi-ca2-v11-0-eb246076a82f@163.com
-
-Changes in v11:
-- Trim the commit message down to the board description and the list of
-  supported peripherals.
-- Drop the Assisted-by tag.
-- Note on the Reviewed-by line which nodes were reviewed.
-- Sort the properties in aliases alphabetically.
-- Sort the nodes without unit addresses alphabetically, everywhere.
-- Drop the deprecated regulator-suspend-microvolt properties.
-- Sort the phandle references alphabetically.
-- Keep a single root node and merge the extra root nodes and the &{/}
-  block into it.
-- Link to v10: https://patch.msgid.link/20261023-quarkpi-ca2-v10-0-9db904194e03@163.com
-
-Changes in v10:
-- Add the Acked-by tag from Conor Dooley, which I missed.
-- Add the missing domain-supply for the GPU and NPU power domains.  Without
-  it the power domain driver falls back to a dummy regulator for both.
-- Enable the three NPU IOMMUs the enabled NPU cores reference.  Without them
-  opening /dev/accel/accel0 fails with -ENODEV.
-- Link to v9: https://patch.msgid.link/20261021-quarkpi-ca2-v9-0-b75006b22bc5@163.com
-
-Testing: boots from microSD with this series on a v7.3 kernel, and the
-on-board hardware (microSD, eMMC, HDMI, USB-C DP altmode, USB 3.0 and
-USB 2.0, PCIe Wi-Fi, Bluetooth, GbE, ES8388 playback, PWM fan) works;
-"make CHECK_DTBS=y" is clean.  The NPU works on this revision (all three
-cores detected, IOMMUs attached, /dev/accel/accel0 opens, MNIST classifier
-95.00% correct on 200 images), and so do the H.264, HEVC, VP8 and AV1
-decode paths.
-
-Note: there is no fiq_debugger node, so the debug console is ttyS2 and
-console=ttyS2,1500000 has to be added to the bootargs manually.  Capture
-from the headset microphone does not work with the in-tree es8328 driver;
-that is fixed by a separate ASoC patch series (sound/soc/codecs/es8328.c)
-and does not affect playback.
-
-Changes in v9:
-- SD card: drop enable-active-high again, the power switch of the card
-  slot (vcc_3v3_sd_s0) is active low.  The v8 conclusion that it was missing
-  came from a test run with the wrong DTB loaded; with the property present the
-  regulator core drives the enable pin high and the card's rail stays off.
-- Audio: the I2S0 MCLK pinmux moved from the I2S controller node to the codec node.
-Link to v8: https://lore.kernel.org/all/20261007-quarkpi-ca2-v8-0-b83192bed07b@163.com/
-
-Changes in v8:
-- SD card: add the missing enable-active-high to the SD card power switch
-  (vcc_3v3_sd_s0).  Without it of_gpio_quirk_polarity() forces
-  OF_GPIO_ACTIVE_LOW onto the GPIO descriptor, so enabling the regulator
-  switched the rail off instead of on and the card lost its power.
-  Reported by the sashiko review; verified on hardware, the board now
-  boots from an SD card:
-  https://lore.kernel.org/all/sashiko-outbox-162297@kernel.org/
-- SPI0: describe the two chip selects as GPIOs (cs-gpios) instead of
-  muxing the dedicated SPI0_CS0_M3 / SPI0_CS1_M3 pins, so that both chip
-  select lines stay usable from the 40-pin header.  Verified on hardware:
-  both lines are claimed by the SPI core.
-- Link to v7:
-  https://lore.kernel.org/all/20261007-quarkpi-ca2-v7-v7-0-a84c6d5d6ef6@163.com/
-
-Please review.
-
----
-Bob Hui (2):
-      dt-bindings: arm: rockchip: Add ALIENTEK QuarkPi-CA2
-      arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-
- .../devicetree/bindings/arm/rockchip.yaml          |    5 +
- arch/arm64/boot/dts/rockchip/Makefile              |    1 +
- .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts      | 1209 ++++++++++++++++++++
- 3 files changed, 1215 insertions(+)
----
-base-commit: c03c1a14507dfaf8b856c2608f9ac216021fc222
-change-id: 20261004-quarkpi-ca2-21d2a59c50c3
+Thanks for reviewing and applying the patch, and for adding the extra explanation.
 
 Best regards,
---  
-Bob Hui <bg9oxa@163.com>
-
+Sreeraj
