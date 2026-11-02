@@ -1,201 +1,61 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.11
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793654344;
-	b=wQl7gHO0gomHwQZBMbN7nZxoU09u9QmUZ3RJQxU/V3gZUFAGuQQSlh2SuiwEpsYSIK4O
-	 7YiJ0mh7DtMp2kdIrisN6w8IB+8/mQYkYGL7v9Cpuu/emCqhUVQsk0Mnki4ywWudfrLfb
-	 Moz0F8icsrSu/voudJ95oSAmMwRmCeCC/YKg0X/3tijLB5ZbMmkpZWAKVtg9nv92bmNuw
-	 VaIwqkpN1mW7fXO1jh1dEHKbup1ihga0zr5AS0mdK8TE7UYLcEH2IrJR6G4TDCXwYcswp
-	 7KOy/l4v5eu+JDMfPMNOAcIs/NyWgwx3+m2nqpuWHyX12JHgYWbtgYdC7bmkI/82UyA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793654344;
-	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
-	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
-	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Received:Received:
-	 Received:Received:Received:From:To:CC:Subject:Thread-Topic:
-	 Thread-Index:Date:Message-ID:References:In-Reply-To:Accept-Language:
-	 Content-Language:X-MS-Has-Attach:X-MS-TNEF-Correlator:user-agent:
-	 x-ms-publictraffictype:x-ms-traffictypediagnostic:
-	 x-ms-office365-filtering-correlation-id:x-ms-exchange-senderadcheck:
-	 x-ms-exchange-antispam-relay:x-microsoft-antispam:
-	 x-microsoft-antispam-message-info:x-forefront-antispam-report:
-	 x-ms-exchange-antispam-messagedata-chunkcount:
-	 x-ms-exchange-antispam-messagedata-0:Content-Type:Content-ID:
-	 Content-Transfer-Encoding:MIME-Version:
-	 X-Exchange-RoutingPolicyChecked:X-MS-Exchange-CrossTenant-AuthAs:
-	 X-MS-Exchange-CrossTenant-AuthSource:
-	 X-MS-Exchange-CrossTenant-Network-Message-Id:
-	 X-MS-Exchange-CrossTenant-originalarrivaltime:
-	 X-MS-Exchange-CrossTenant-fromentityheader:
-	 X-MS-Exchange-CrossTenant-id:X-MS-Exchange-CrossTenant-mailboxtype:
-	 X-MS-Exchange-CrossTenant-userprincipalname:
-	 X-MS-Exchange-Transport-CrossTenantHeadersStamped:X-OriginatorOrg;
-	bh=Iy+GNXO8S0EJBH23OON25bElzI4Db0VJmY8fUkvmKqE=;
-	b=cs0dQe5f4Ii0NJCBQEKUyUmEOA/pc8uXU7q/Sd1LOI5gwzoUN/szs04KpjnGM82QqHyE
-	 znJGUgf4hrypl2qISxuEEVk3koVfOskPbtJP0KDujUt0i7/kDg8q9id0Zfc9eda117bZ4
-	 iNm8NWWhv8XgYsf7SRz3oh7nktcUD0c2i4Zw3+fVIixTjzYvRwlytLwPmvgN6XTjk5S72
-	 OcFXblSDA0Q8DN86jF8+RV2632FtwdmUN9Eqa2Uy6r5g6f+ffFuaLY5Gf1yUi4fdZg75R
-	 eQoLErKiIpE5YHg/KiwzuOUL5951p+xY/CKPpJbcA4osckS1BMJsC0WJWh3cx3QbRQQ==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=intel.com;
-	spf=pass smtp.mailfrom=intel.com;
-	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dJBMYDo4;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=198.175.65.11
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
-	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=100.103.45.18
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793654513;
+	b=nAmKbL3SBVeSNV2HPC8oCQSk8sgBtNTToe24U5qWOXpEidG5ZwCCM9Jc45N5iSmac5S7
+	 YDXX6V5AtA0aLTgCUMPu0vlwFgZF7daZubyUOi6ECPmYgjHvZaTREriLoxRerCM6az7hb
+	 pmkrn7og9XTtXXzm3UibTD8FmOssZWYTUXnI10/+Wod4PzhHlB/LrLci0yLSMNZ6Ludf6
+	 kpvc8OGWllhxT4tud9JsvTsdU3ejKJoWXfytWGYflImeX20jVclLB930Hz69gimu+b/62
+	 IG7qYFfIsiqgblLaaeXT8dIMtwSmp3ASXJv594KRAWRbOZaPSN0Fnyb5paxWDZKylng==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793654513;
+	h=Received:DKIM-Signature:Subject:From:To:Cc:Date:Message-ID:
+	 In-Reply-To:References:X-sashiko-severity:Content-Type:
+	 Content-Transfer-Encoding:MIME-Version;
+	bh=VAbq9svnWCK4DRMfT8aPGrr8RGfp3IRq1MIe8Xy239E=;
+	b=XwhDRYrKc64clWFcHmbqjxVih/9Pklj0ZkAg54bjats23z5aMXu/8t+FP8ulz5R14SbD
+	 rKIrlzqPx7JRHtncDJ75sbxYww+hlsjMi0cODBrDerJ02DxjSCm65BhkVOctlf+tS8k8Z
+	 WkZf+7JBTyymFlVuaD8wry2OZtL+cDA2gc3vMkEXo8A/RaIQUVYx1MEoyqW8lKD5oQpbi
+	 dKFDoSSXH5040DXe2jhN80tm8Xeb4cF/595W4DUfsRI6Pk6VFyI4V5M+XixPCnm5S0lKe
+	 Z5I1Uf5C5jRhb2WdYGyfeSwmGzmvz4E1Ercb21xPKTLc+24rLE2CAzyNpZH1HxBgr5g==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rax1RgUY;
+	arc=none smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6449606A32C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:19:03 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org D6449606A32C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0192C606A324;
+	Mon,  2 Nov 2026 21:21:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=dJBMYDo4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1793654344; x=1825190344;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-id:content-transfer-encoding:
-   mime-version;
-  bh=Iy+GNXO8S0EJBH23OON25bElzI4Db0VJmY8fUkvmKqE=;
-  b=dJBMYDo4AXQ5hnca0eutVG1w1ltlUAB4jl9hV0kDFbHuXaoSMN9PUbwe
-   kpFCGvFPtzbNv3CW62J9Q/7Su5M2ctnubQypm4J8+CHliPO34XUxGoa/y
-   I/61xroaVApYMqSEzZO9SqHMw6lDac82O3iQyQr+w9y4PnWgZ6Km2Vtx7
-   NAQ5NSxqPfgPr+zBgL9j0RVshB+zSBjs6a1Tyjc1LJ3vjBiTcUrKqIi2B
-   a9yobCd4n0PBA1CGe1+Ig+Ly9w0DBxSTP0yXKOSUfoQpQIK1NrvX8Y6HW
-   Hq6prBpEkSXdhHRZokqzyXLQoGO0nhFtyoRuN7LWHP1LaJc7fQbI7Vw5q
-   w==;
-X-CSE-ConnectionGUID: 65btwh4NTleN/GKWlqibLw==
-X-CSE-MsgGUID: 5krJWQvrQOShnjjJp3XTUg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2242508"
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="2242508"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 13:19:04 -0800
-X-CSE-ConnectionGUID: sm364FZcSdelmIWZ5pin9A==
-X-CSE-MsgGUID: y21U60TiT36xEfpVA+KH7g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
-   d="scan'208";a="8062216"
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa013.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 13:19:03 -0800
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 13:19:02 -0800
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56 via Frontend Transport; Mon, 2 Nov 2026 13:19:02 -0800
-Received: from PH8PR06CU001.outbound.protection.outlook.com (40.107.209.60) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.56; Mon, 2 Nov 2026 13:19:02 -0800
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=maBELF/1wbDaw9TE1aswhlpUrS1Qdn9a6yAIA75J+2zWwfQijOY1TsUJl4qxuVDO6gysU2pAirxUhnQN0xQ3L+qx962nEz9T0uU/PtSLlVVsPprIKVf3iyzz3sUP2eLr/ytLTXZl9+W+uLDuTyuccN4vmjMwg1WxYVgdWvhFS5I561XKt9NNP3oD2nSSwAg1fvtzlR12S/0NDBuypAnyXFsygXzZnp0SGk2VDfXdR3Xt/1/i0MWMeDEsZy1S+dDkjB2fXHHCP/mcR5Gmoj2X/j/rL1Ch2JdXhMJ8xsMKlH1AHGsYngSKBpCqK8peXZRXebupidx2FpxAE/3vyTRaXA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Iy+GNXO8S0EJBH23OON25bElzI4Db0VJmY8fUkvmKqE=;
- b=hAeLoiO4ne7mfiA+USlMcqi/YJy68kVtQ6kDxmPN0HYZ0LSsqVSOAr0NOAlbUBshj8hi58yJV1VEWXNYJ+IpC/I4g9WIhg7Z82ZyF+KTdDQ648ZWCv4hs/GTl9L2N8ff6OUgtlJxGItDGATV7yj2TLgeFbV/RFZzMTPX2gcmpbQX4DVI5YGsfYck4LMtG3bGuUv7CyLwVAvw2b8JoJXsxebVPolt8tx3OlG7tb5tSN2LVyFBGPxWA/PcBlfTBaavkit8uxoKubFtnGg62Lc12GmUid9fmR0EX5yIvOSg+vTGAL7RuJBhVwY/fH2fAKdbDYdT74NWwx1FLMGhhhmLXg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- (2603:10b6:208:549::23) by SAWPR11MB9548.namprd11.prod.outlook.com
- (2603:10b6:806:4e2::18) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.569.12; Mon, 2 Nov
- 2026 21:19:00 +0000
-Received: from IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57]) by IA3PR11MB634048.namprd11.prod.outlook.com
- ([fe80::760f:f0a4:7417:6e57%5]) with mapi id 15.21.0569.011; Mon, 2 Nov 2026
- 21:19:00 +0000
-From: "Edgecombe, Rick P" <rick.p.edgecombe@intel.com>
-To: "Li, Xiaoyao" <xiaoyao.li@intel.com>, "linux-coco@lists.linux.dev"
-	<linux-coco@lists.linux.dev>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "Duan, Zhenzhong" <zhenzhong.duan@intel.com>,
-	"x86@kernel.org" <x86@kernel.org>
-CC: "Hansen, Dave" <dave.hansen@intel.com>, "dave.hansen@linux.intel.com"
-	<dave.hansen@linux.intel.com>, "kas@kernel.org" <kas@kernel.org>,
-	"mingo@redhat.com" <mingo@redhat.com>, "seanjc@google.com"
-	<seanjc@google.com>, "pbonzini@redhat.com" <pbonzini@redhat.com>, "Peng, Chao
- P" <chao.p.peng@intel.com>, "Verma, Vishal L" <vishal.l.verma@intel.com>,
-	"jgg@nvidia.com" <jgg@nvidia.com>, "aneesh.kumar@kernel.org"
-	<aneesh.kumar@kernel.org>, "Tian, Kevin" <kevin.tian@intel.com>,
-	"hpa@zytor.com" <hpa@zytor.com>, "tglx@kernel.org" <tglx@kernel.org>,
-	"nicolinc@nvidia.com" <nicolinc@nvidia.com>, "bp@alien8.de" <bp@alien8.de>,
-	"Gao, Chao" <chao.gao@intel.com>, "aik@amd.com" <aik@amd.com>,
-	"yilun.xu@linux.intel.com" <yilun.xu@linux.intel.com>
-Subject: Re: [RFC PATCH 09/15] virt: tdx-guest: Capture the TDI report during
- device lock
-Thread-Topic: [RFC PATCH 09/15] virt: tdx-guest: Capture the TDI report during
- device lock
-Thread-Index: AQHdS9rNF++PSNGXuUGGFGwkpIea87cPd0SAgAMIjoCACQgFgA==
-Date: Mon, 2 Nov 2026 21:19:00 +0000
-Message-ID: <b4fa1858eb35367d0ad5388823017a340d81fda8.camel@intel.com>
-References: <20260924041032.1096569-1-zhenzhong.duan@intel.com>
-	 <20260924041032.1096569-10-zhenzhong.duan@intel.com>
-	 <edafb4a0-ba6d-4fc1-a61a-801888e31a9e@intel.com>
-	 <IA3PR11MB9136663EE7AADEA4768D23E9926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
-In-Reply-To: <IA3PR11MB9136663EE7AADEA4768D23E9926F2@IA3PR11MB9136.namprd11.prod.outlook.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-user-agent: Evolution 3.52.3-0ubuntu1.1 
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB634048:EE_|SAWPR11MB9548:EE_
-x-ms-office365-filtering-correlation-id: 8be2bb41-0d7f-4df4-c677-08df3926e9a8
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|7416014|1800799024|376014|261021121427099003|261022075727099003|38070700021|261026121527099003|11063799006|4143699003|56012099006|22082099003|18002099003|261102123227099003|10067099003;
-x-microsoft-antispam-message-info: 2C4Pc/VI/321Wl+0TtJIytCg/GT6prx0zjUshQy8Y2ujbQTr9HWQ9cmfn41INkNQWglm2uYmmfJkxLXyhRxdkILqsNmXj5MK+/t7B/6vuKmskysOQM/tsmpXQmnulwmEC1rtwPlEKuSKdcQxBU7GRkKBB+YN+7ZomCl2PmdLCsPQ+8n45o454knMfE/vBCMYfXz5b3RQz9+lDcSOTh161iGxo3PT3QeNkS5Kij6sv4DIsfTWveeb6xeiSTk18ZPLXoinpAaeR42fQCQBCT2cpyOW2JNpUzI88CRvi4v9T8Y4ITxYFfZ867diq8pyAp9hU1yRbBrpIBs5lsSfvFatA71sE4bwCOLOVqaBZpnpBSop77FdSX71cQOb0MdIKgr+shPaIm2bD3qm3Nhr7lxHmwI/Eu9VpC3S2/scitNulv/fOlv6xSYxjI7aFRglGpeg6TRu3q0J2/ap9Yzi+EWYbYxNPKAORjHI3WShUojnDtKTFYAn32USNTlSU6SVIcXhVC+8jedESsv5wSQxRADS+e/biBWPtrK/OTVRUQNod3jXBUzoNmdLQR1hNyVXuqoTQIIn81Uk3lNqG9NEbLPCRppu2NCXoMLzpX7IDZdecX6CSIEUpIJRabSe6rf4bgRAugV9zAeNveDs9Tph1CJDMTfHc+hCil9q0TbpsMwF4DJ/hHxMoCA5IPv07QQXJAaK
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB634048.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(1800799024)(376014)(261021121427099003)(261022075727099003)(38070700021)(261026121527099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003)(261102123227099003)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eDJkRmNxUFcrWjBlVWRHRlRHWlZ4ekVReS8rRGQ5cm1wQVRzckxucmdiRytt?=
- =?utf-8?B?RTJiU1lFZmNRQ2UvTE83Y0h2cExlY3J1cnBocHVGazdSN29aTjNRaVdyaUly?=
- =?utf-8?B?N01kY01rZWxrdzVVMHRxR2haUmRiRUpudHExbHh2Y0xDOWF1aktTcmU4UTZS?=
- =?utf-8?B?M1JaTGFjcjFYUnV4RWdqU1BYSDJBSndGbjZEMUxncFZKQXlyV25IYkoyZFh1?=
- =?utf-8?B?ZVVLcnJQWXlUVHltNmVOR2NVdjl4Z3ZuY1A4N3NVblM4Y3FWSXV5TjhHNDk5?=
- =?utf-8?B?dXZNL1Z5dXdXU2RZN25zN2Y1aUhhQXlVL1g4b1FWcjdFZjNEaGtLNVV6VEJC?=
- =?utf-8?B?Tlp3bktRYVlRSEJDejlPcFJISGJncjVxbzZtU2NocTVNbFVkalg3a3IvZ3Av?=
- =?utf-8?B?d0RnSjdPYmdhbHNBaGlLUzl1ZnZkaHJoMGRuRTRkdGVwcGsyU2EwTGdFeXo5?=
- =?utf-8?B?Mk43S2VKRVE3cnNUcHNNelY5bE1ON0JJczFaSWhzUXpkZTB2S0U2L3pQWUNL?=
- =?utf-8?B?cnNIWExiWFIwaFNxVVZ2aGk0TU9zY0tsUHVTZTRCY2ZSdTZkV0JlMUQ4N2pI?=
- =?utf-8?B?b25IcHZiQjJUVGszcXBTa0dZNmFCb3FLQkl3Z2hpT3BSV2paMDA0K1k2U3Js?=
- =?utf-8?B?MWZWK0dNQnlSbEd3dDZtdk5vRXN5ZWFBL3Z4NUZqeVByZEFSMzdyUWgyWjZy?=
- =?utf-8?B?dk10dWNRMEtHOHNwMTE5WkY1SWxJdWJURDM2NnZNQlhxbFFBc1I1VndQTThw?=
- =?utf-8?B?Q2piQVRmbXVqZlVMZkhjSythV2h0V2tHUjVjYTVwc3IvMXRhRzFOOHFxR09Z?=
- =?utf-8?B?ZXhoNEZaZVhNZ1VLVmlYcWFGMUNNdmtkVHBMQWJWbmovcnZDZ0JSNmxyazJ6?=
- =?utf-8?B?SEVvYkFpMDJ1WWl3SFdvKzBsTVpMRkRvMDhxTGxtMjhHWUM4eTVBc3RpMjNB?=
- =?utf-8?B?NFVnVEh0VEp4ODVOOUtKMUhXcDNKeGdPSWRjU3hscVoxZHRUN3gzM2NUbGIz?=
- =?utf-8?B?STROckVOU1RUd0N4V2ZSUzFnZmJjNnZYSXVRZmlzcXBUcE92R09GcHU4VHpO?=
- =?utf-8?B?TDdvYmJKbEJ1Zm9PakFRY0x4eEpuOGNGVWIxM3crczIxZk9FbEtuTDhEblNh?=
- =?utf-8?B?bWlrVmxhL1Nnbk9mV1RrTGRNY2k1a0E1b2Y1b0NJSTd3ai94NjJBYlN2N2xw?=
- =?utf-8?B?dVZ3VERTMmd6OExHL3ptVkVLTWF0RFNzd1Z0SU1iZFNxb3AwbENIdVVBQ0xp?=
- =?utf-8?B?T256L0FnT01KejY1OUw0MitkamNHMUFubnBhTGtNTnF4aDNCbEhjb0lFTlp5?=
- =?utf-8?B?WnpCRXUrek1HRXBaeER2eEhISFFvTjNmS0hHUzUyeG9Bd0tKWDE0ZnBTQ3pE?=
- =?utf-8?B?NjNjV05qZEpXR0hLRWZ0TEg1UW9SSDNsWWp3cCtid3lKN0xRUG9NMW00aXZR?=
- =?utf-8?B?a0Q1QXFSVUVSbWtSMW5FN21sMVJnVkRCTnVwNGR2enovM0ZXdDY2UDhZK2Z4?=
- =?utf-8?B?dVc4LzYvWjNqN2tLZlZzQ3Q2ditPQklYdThWVzRDUXE5L0swTVp3N1IybEtO?=
- =?utf-8?B?cWVWcjMxT0JiOEdIUEFzV2kyV0ZGUkFwYUlVajkvU0dtb042YWNyeW9LbmdP?=
- =?utf-8?B?SUpFdGplbFYvZ0wybWdhQThRYlRQcHhqekt0NXUxU1Y1UnJXVkpFSVpPYU1P?=
- =?utf-8?B?R0JjWDl3WXVOa2xnZDk2Rkg0a0NsKzUwUWZvNjFwd0FzWkw0Ui9Odk10SWcz?=
- =?utf-8?B?ZjM3MFNzb1RNVFNsQW5DdTdoclZnczB2Nm15R0VqV2FRV3l4dG9mQ1ppcmda?=
- =?utf-8?B?K3BDK1BIc1llOGExUkkwOER2ZU5IeDh3bjUyS2dBV3NDSlBFZDZ0R0hGREN5?=
- =?utf-8?B?ZnN6R1ZJbnRUN2JmeHhFMzl4ZHdiUmxLZmd5VjFYVW5rTjZRUitFMDNVYW15?=
- =?utf-8?B?VndvVFFLMmY3MWY2R3pWV1IyOGx1M3Q5M0EvMDBlQ3FVSGVtQ3NEUU0vOXFV?=
- =?utf-8?B?S1Q1UDBhSFdjVWVHZE9mcEJHRkxFVHMrK3piWDlnM1plM3RpOXJhTVpqdUYw?=
- =?utf-8?B?ZUp3UGQrU1RsWTl4Qm1qb0d5MlFmNE9mZS9UaTB3OW0rM1NjdGpoLzJuM1NH?=
- =?utf-8?B?TGY1dzZhSTczOVYrRGN6NGJBdEs5M0tvSkNkeGRQSnJMbDhVMlF5RFBqMGx6?=
- =?utf-8?B?OFJKODhBdUxCZFVrS0FQTXc5YlRVdnhVM3JjbmdFZmx4UnIzeXdZRUJtc05R?=
- =?utf-8?B?NkVjOUNsWndMYnJsT1paQ1lnQmIvVzhBL2w0S2VybnF1YTViRUFVTzBOYVJT?=
- =?utf-8?B?OEhkQktkWU02NkI2Q21wdi9zb2JIS1hyOFhxdGMzeTFBK2J0TitqTFRzWmsy?=
- =?utf-8?Q?RNr7QZAKUq6pUyq0=3D?=
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Rax1RgUY
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1880A1F00A16;
+	Mon,  2 Nov 2026 21:21:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793654512;
+	bh=VAbq9svnWCK4DRMfT8aPGrr8RGfp3IRq1MIe8Xy239E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Rax1RgUY/sAIsHi4bGWzMELIxVYybxlMasUo8bTGvboPgooJfKoNPRNA1oieNQYFp
+	 A7kjAjtdQlmf8tHvwqOO5k0uSfBJRiPkEgXwCS1Ds76BlBpPG0aES6avlOcnwG3jG9
+	 UEj5UQ3IuFiqd0ei4OtJAbuL+UozV+zzQkYtKbvSyH95fvabzr3IhHabq636p2KUmU
+	 BKHOhTpfjVp7lZbH0ypr4x4DGFcs1Sjz5ljyB+POGKDcbR3qAqIw6kkCrKp0ePzcuc
+	 yczD852b9+sdLatBsmaon0VoXey3rFzmgKKFRFNrDhD/IP55O5oO6gjL+enOq389hm
+	 zIWwquv6tDbwg==
+Subject:
+ Re: [PATCH net v7] net: stop defer_count outliving the deferred-free list
+From: netdev-bot+sashiko@kernel.org
+To: jkain@nuro.ai
+Cc: edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com,
+ davem@davemloft.net, netdev@vger.kernel.org, horms@kernel.org,
+ kuniyu@google.com, sdf.kernel@gmail.com, kerneljasonxing@gmail.com,
+ willemb@google.com, almasrymina@google.com, mkarsten@uwaterloo.ca,
+ jiayuan.chen@linux.dev, linux-kernel@vger.kernel.org
+Date: Mon, 02 Nov 2026 21:21:51 +0000
+Message-ID: <179365451164.3131.3767942488983292@kernel.org>
+In-Reply-To: <20261029211101.2089535-1-jkain@nuro.ai>
+References: <20261029211101.2089535-1-jkain@nuro.ai>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
-Content-ID: <22B32367485F1F47A4132362045FBA56@namprd11.prod.outlook.com>
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -205,40 +65,201 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: bXJmoQqahsv/pg8w8fin9t+DJp+8VY8eg5ZSryyD99G/0JwpaLM/ydsHBarj1jNpU52Ck/L1ZZbYalzTZtsaLzW0zx0LztcbAuW8iFy13ivPxI2XopfC9XlNRnOo32VKAoSJtHlVH7YxZ0rB6rj30hTGlS42/aHy6zHjLq6LPK0zyHVE5NarBnOO/ywGSYcE8CAleBxB/6mE4+Yx+QD7Mu1ypuEAURC6D8wuTFcLdrhaZJQSsOQaLJ8HWzRgTI3tEYHRS2eCWf8lMSt3l7C40deoqh6x3/SE8zO7DXIS9+rGihKL3WM8lUskmqmws4eNL+v6qf6tY3XDIVB6HERWjA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB634048.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8be2bb41-0d7f-4df4-c677-08df3926e9a8
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Nov 2026 21:19:00.1013
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6tjIVM+W/O9oOp11B5tm/b6RsjSSoJKSTYyCjGiemKZhGjkFBVNz3+9DV2/orDLMsPrWNrjq5OJsK4XA0NDg7Sw1vnnaPhcqNTAPpxH2ZpM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SAWPR11MB9548
-X-OriginatorOrg: intel.com
 
-T24gV2VkLCAyMDI2LTEwLTI4IGF0IDAzOjIzICswMDAwLCBEdWFuLCBaaGVuemhvbmcgd3JvdGU6
-DQo+ID4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gPiBGcm9tOiBMaSwgWGlhb3lhbyA8
-eGlhb3lhby5saUBpbnRlbC5jb20+DQo+ID4gU3ViamVjdDogUmU6IFtSRkMgUEFUQ0ggMDkvMTVd
-IHZpcnQ6IHRkeC1ndWVzdDogQ2FwdHVyZSB0aGUgVERJIHJlcG9ydA0KPiA+IGR1cmluZyBkZXZp
-Y2UgbG9jaw0KPiA+IA0KPiA+IE9uIDkvMjQvMjAyNiAxMjoxMCBQTSwgWmhlbnpob25nIER1YW4g
-d3JvdGU6DQo+ID4gPiBSZXRyaWV2ZSB0aGUgVHJ1c3RlZCBEZXZpY2UgSW50ZXJmYWNlIHJlcG9y
-dCB0aHJvdWdoDQo+ID4gPiBURENNX09QX0dFVF9URElfUkVQT1JUIGFmdGVyIGJpbmRpbmcgdGhl
-IGRldmljZS4NCj4gPiA+IA0KPiA+ID4gU3RvcmUgdGhlIHJlcG9ydCBpbiB0aGUgUENJIFRTTSBk
-ZXZpY2UgZXZpZGVuY2Ugb2JqZWN0IGFuZCBmcmVlIGl0DQo+ID4gPiBkdXJpbmcgZGV2aWNlIHVu
-bG9jay4NCj4gPiANCj4gPiBJdCBkb2Vzbid0IHRhbGsgYWJvdXQgd2h5IHRoZSByZXBvcnQgaXMg
-bmVlZGVkLCBhbmQgd2h5IGl0IG5lZWRzIHRvIGJlDQo+ID4gc3RvcmVkIGluDQo+ID4gdGhlIGV2
-aWRlbmNlIG9iamVjdC4NCj4gDQo+IFRoZSByZXBvcnQgaXMgdXNlZCBpbiBuZXh0IHBhdGNoLg0K
-PiANCj4gV2l0aCBiZWxvdyBwYXRjaCwgSSB0aGluayB3ZSBkb24ndCBuZWVkIHRvIHN0b3JlIHJl
-cG9ydCBpdCBldmlkZW5jZSBvYmplY3QNCj4gaW4gbmV4dCB2ZXJzaW9uLg0KPiANCj4gaHR0cHM6
-Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjYxMDA1MDcwMjUyLjg0ODEwLTItYW5raXRhQG52aWRp
-YS5jb20vDQoNCllvdSBkb24ndCB3YW50IHRoZSByZXZpZXdlciB0byBoYXZlIHRvIHBpZWNlIHRv
-Z2V0aGVyIGEgcHV6emxlIGJ5IGhvbGRpbmcgYQ0KYnVuY2ggb2YgdW5yZXNvbHZlZCB0aGluZ3Mg
-aW4gdGhlaXIgaGVhZCBhcyB0aGV5IHJlYWQgdGhlIHdob2xlIHRoaW5nLiBTZWVtcw0KbGlrZSBh
-IHZhbGlkIGNvbW1lbnQgdG8gbWUuIEJ1dCB0aGUgc29sdXRpb24gaXMgbm90IGFsd2F5cyBqdXN0
-IHRvIGFkZCBtb3JlDQp0aGluZ3MgdG8gdGhlIGxvZy4NCg0KQnV0IEkgdGhpbmsgd2UgYXJlIHN0
-aWxsIGdvaW5nIHRvIGJyZWFrIHRoaXMgc2VyaWVzIGFwYXJ0IGludG8gc3Vic2VjdGlvbnMgZm9y
-DQpnZXR0aW5nIHg4NiBhY2tzLiBDb25zaWRlciB3aGF0IGNvdWxkIGNvdmVyZWQgaW4gYSBzdWJz
-ZWN0aW9uIGNvdmVybGV0dGVyIHRvbywNCmZvciBkZXNpZ25pbmcgc29tZXRoaW5nIHdpdGggb3Zl
-cmFsbCByZXZpZXdhYmlsaXR5Lg0K
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider.
+
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0 (1)
+
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] __skb_defer_free_flush() (net/core/dev.c) now holds the whole
+  drained batch's reservation on sdn->defer_count until every detached…
+
+Pre-existing issues:
+- [Medium] A runtime change to net.core.skb_defer_max can leave a
+  per-(cpu, node) defer queue at or above the new limit with no purge…
+- [Low] Documentation/admin-guide/sysctl/net.rst (lines 362-368)
+  describes skb_defer_max as the "Max size (in skbs) of the per-cpu list…
+
+--
+
+net: stop defer_count outliving the deferred-free list
+
+This commit changes the deferred skb free accounting. A rejected free now
+undoes its own defer_count increment, and __skb_defer_free_flush()
+subtracts the number of drained skbs instead of resetting the counter to
+zero. It also allows admission up to defer_max and adds a remote kick when
+the reserved count reaches defer_max.
+
+> diff --git a/net/core/dev.c b/net/core/dev.c
+> index 3ac700d37e596..f5ed0ecf534ac 100644
+> --- a/net/core/dev.c
+> +++ b/net/core/dev.c
+> @@ -7073,16 +7073,22 @@ static void __skb_defer_free_flush(struct skb_defer_node *sdn, int budget)
+>  {
+>  	struct llist_node *free_list;
+>  	struct sk_buff *skb, *next;
+> +	long n = 0;
+>  
+>  	if (llist_empty(&sdn->defer_list))
+>  		return;
+> -	atomic_long_set(&sdn->defer_count, 0);
+>  	free_list = llist_del_all(&sdn->defer_list);
+>  
+>  	llist_for_each_entry_safe(skb, next, free_list, ll_node) {
+>  		prefetch(next);
+>  		napi_consume_skb(skb, budget);
+> +		n++;
+>  	}
+> +	/* Subtract exactly what was drained. Never store an absolute value:
+> +	 * mixing one with the relative updates in skb_attempt_defer_free()
+> +	 * lets the counter go negative, and it is read as unsigned there.
+> +	 */
+> +	atomic_long_sub(n, &sdn->defer_count);
+
+[Severity: Medium]
+
+With the subtraction moved after the napi_consume_skb() loop, does
+deferral stay disabled for the whole drain?
+
+The list is empty after llist_del_all(), but sdn->defer_count still
+counts every detached skb until atomic_long_sub() runs. Suppose a full
+queue (defer_max skbs, default 128) is flushed through
+net_rx_action()->skb_defer_free_flush()->__skb_defer_free_flush(). The
+counter then stays at about defer_max for the entire free loop.
+
+A producer that calls skb_attempt_defer_free() for the same (alloc cpu,
+node) pair during that window would hit:
+
+	defer_count = atomic_long_inc_return(&sdn->defer_count);
+
+	if (defer_count > defer_max) {
+		atomic_long_dec(&sdn->defer_count);
+		goto nodefer;
+	}
+
+It would then fall back to kfree_skb_napi_cache(), which is the
+cross-CPU free that deferral is meant to avoid.
+
+The earlier versions both released the budget before freeing. The
+spinlock version did atomic_set(&sd->defer_count, 0) under defer_lock
+before the free loop. Commit 844c9db7f7f5 did atomic_long_set() before
+llist_del_all().
+
+The detached skbs are no longer on the list. Could n be computed first
+and subtracted before the free loop? A counting pass over free_list would
+do it, and would also warm the cache lines that napi_consume_skb()
+touches. Neither the commit message nor the new comment mentions this
+change to the admission window.
+
+>  }
+>  
+>  void skb_defer_node_flush(struct skb_defer_node *sdn)
+> diff --git a/net/core/skbuff.c b/net/core/skbuff.c
+> index 48f6764117243..68192e477ff1f 100644
+> --- a/net/core/skbuff.c
+> +++ b/net/core/skbuff.c
+> @@ -7499,8 +7499,14 @@ nodefer:	kfree_skb_napi_cache(skb);
+>  	defer_max = READ_ONCE(net_hotdata.sysctl_skb_defer_max);
+>  	defer_count = atomic_long_inc_return(&sdn->defer_count);
+>  
+> -	if (defer_count >= defer_max)
+> +	if (defer_count > defer_max) {
+> +		/* Undo the reservation. An llist_add() does not release one --
+> +		 * the skb stays charged until a flush subtracts the batch that
+> +		 * contains it -- so a rejected free must undo its own.
+> +		 */
+> +		atomic_long_dec(&sdn->defer_count);
+>  		goto nodefer;
+> +	}
+
+[Severity: Low]
+
+This isn't a bug introduced by this patch, but
+Documentation/admin-guide/sysctl/net.rst still describes skb_defer_max
+as:
+
+    Max size (in skbs) of the per-cpu list of skbs being freed
+    by the cpu which allocated them.
+
+The limit is actually applied separately to each (allocating cpu,
+freeing node) list:
+
+	sdn = per_cpu_ptr(net_hotdata.skb_defer_nodes, cpu) + cpu_to_node(my_cpu);
+
+net_dev_init() allocates nr_node_ids of these lists per CPU. One
+allocating CPU can therefore have up to defer_max * nr_node_ids skbs
+pending.
+
+The documentation also doesn't say that writing 0 disables deferral
+entirely, which proc_do_skb_defer_max() does through
+skb_defer_disable_key.
+
+The switch from >= to > makes the per-list bound match "Max size". The
+per-node scope and the meaning of 0 still differ from the text. Should
+net.rst be updated to describe them?
+
+>  
+>  	llist_add(&skb->ll_node, &sdn->defer_list);
+>  
+> @@ -7509,8 +7515,13 @@ nodefer:	kfree_skb_napi_cache(skb);
+>  		return;
+>  	}
+>  
+> -	/* Send an IPI every time queue reaches half capacity. */
+> -	kick = (defer_count - 1) == (defer_max >> 1);
+> +	/* Half capacity, plus the skb that fills the queue. Equality alone can
+> +	 * be consumed early -- if the producer holding the kick value publishes
+> +	 * first, its purge drains only that skb and the reservations published
+> +	 * after it match nothing -- which would leave a full queue with nothing
+> +	 * pending.
+> +	 */
+> +	kick = (defer_count - 1) == (defer_max >> 1) || defer_count == defer_max;
+
+[Severity: Medium]
+
+This is a pre-existing issue, but can a runtime change to
+net.core.skb_defer_max still leave a per-(cpu, node) queue at or above
+the new limit with no purge pending?
+
+Both kick conditions are equality tests against the defer_max that was
+read earlier with READ_ONCE(). The rejection branch above returns
+without kicking.
+
+proc_do_skb_defer_max() only toggles skb_defer_disable_key when the value
+changes to or from 0. It doesn't drain or kick the existing lists:
+
+	if (nval != oval) {
+		if (nval)
+			static_branch_enable(&skb_defer_disable_key);
+		else
+			static_branch_disable(&skb_defer_disable_key);
+	}
+
+Take a limit of 128 with 31 skbs queued, which is below the
+half-capacity kick, so nothing is pending. If the limit is lowered to 16,
+every later producer gets 32 > 16, undoes its reservation and returns.
+The count never passes through 9 or 16, so neither kick fires.
+
+In another case, a producer reads 128, the limit is lowered to 32, and
+that producer then reserves 32. Both of its checks (31 == 64 and
+32 == 128) fail. Later producers get 33 > 32 and are rejected.
+
+In both cases deferral for that pair stays off. The queued skbs stay
+pinned until the allocating CPU runs net_rx_action() or
+napi_threaded_poll_loop() for some unrelated reason. On a CPU that only
+allocates TX skbs, that may never happen.
+
+The new full-capacity kick only guarantees a pending purge for a full
+queue while the limit stays constant. Should the rejection path also
+kick, or should the sysctl handler flush the existing lists?
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261029211101.2089535-1-jkain%40nuro.ai
