@@ -1,75 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.92.199
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793624175;
-	b=HeNE5MCwEz9pvIrN9QGvlar1jM82ogDZSQvZXwyviseJPYh8Oaj1l1m6nqXC0U+zWoJA
-	 Cd1q9NtDByUj/1x/doLMWogjfz6RXSm11inxfosG+85dTKPxFH1O9E4LLw6Wf8kOyIX+U
-	 HbAf+Qw68zXwzO6p5YR01yVskEBqW11XJHgsKM4JdTutL9avunWRR1YWTkt2rRdfDwjIQ
-	 S1XnYx0m5VS0xTg1dVzrb++95KUbmBEE9OF8Tc/UgGUOCJ1A1knmx+VF7MpPJHNFxVdM6
-	 EkBxECtQbzHU9ylYvLR64UMtdYkiHici6lDt3XMlKPP5W0UwaNRsj3sltGsMNXiOVCg==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793624175;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=7feqypzkFTwtbPgjElm3kiRnEaQuqXiolkniaWY6h6I=;
-	b=sKvXDHDuea9/TFF3TbIb6whAKTYaNunbXnnLmj1eoJqYU4srJnhpvukrgaKl5o+duJVS
-	 f7ql1rhQbgDjLlZWpJewPFxYPbcIBj9llz/SWS5X7X01DANFkC34HAUrDdXjqMTGRHhaf
-	 JAm7t9ArPQTYht6KIQEKprtl3dn4l/gZkVKfVfdWvTVdvSUZKDdcyYcWIqPtG81bT/C/j
-	 S63oNxGUXrEP10vW4zEiIUJWxg05u7L01M2h6mLuTfcHz8ekd4BTzSHCI4sb0DSyXLROX
-	 K12Wd7gI1w8MHLHpE/mJ4HT1U8CymrvmiG26r2kN/Jdwo2WGF5TOMIaFQI+tvNNEmtg==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LA0PZhnd;
-	arc=none smtp.remote-ip=90.155.92.199
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793624187;
+	b=dzCe6BNZbhWZEO8rPHmeuvvZ9l8YBhzUUrj4gydP/73NA+7qWZEc2EFj6/xoByPn5IQM
+	 LeggE47LkTcKu5RL0EP3BbGxixwZuEVPFv++z7oK6foU7NdWnG/PbTNRDiabbDgYc58q9
+	 +EVsFfuqGa/se6SLjX1URnsN2kxA+hSnIUtfzAZmVqQ2RHBwUbQcNashNh94Y6QFb6Qov
+	 Uf39GpUQ7bu2JzYb240bLpU2nO7NOt5gHfzNeBsokBmjqx13AUu1cAxBfUrMQFZY8Rt9E
+	 3qc/rKEqzjLeyTabgq1Uyv8nnKp1e9tKjZQhJ3XF0Y0WBMwh7n1acgymRv9m5YTFuUQ==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793624187;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=wY2lxSBOT5vrFfsC6nW4WFwo3U7fyupwQAGbfep51T8=;
+	b=B8j6rBsZ5jK5Og5qzF4uINoctoknKEjDfhZzztTekt9UwC430cnjtpXswkw1EKoEP59B
+	 v2s+SOSX/eyV9fYEGiSVgjjV3NVTNtIm1osWi2xaKjZGcuAMxPexD90bR2pUYUGB1Cv/O
+	 PstzY/yPGfqQCeeBZHM0K/g1n5d5h2ukdA9bSLZ7i1PO/FjfuJb8EWfDonTkQb/kjZTTE
+	 omo/6qLzNMFRsqa67oSLdouEzDAK9w8/SdZaITo6bDgMz+kMK2lTjqnaEXHuTPdN52JDp
+	 unYg6RulZlX29VDSY5T0iVez5B6R6pvNjWf8JYRzxWSNNlaqFa5KbockZyf6ilc72/w==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEkMkzSW;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B5606A32C;
+	Mon,  2 Nov 2026 12:56:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DEkMkzSW
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793624186;
+	b=CQHqpHoV8sJsVZyjuTBbEdRxzkBTZIhJYcakFbaS4xSke5CSIzA3opxCDuxwRho9B0U/
+	 RhTFIDLdgczEej4Wd96tzJGMS4F627xdOfZ6Zm2gS8dLiIbK5TnFZBoVrb1oIe/iZafbV
+	 tIT3UmImS0floZ+vTKThAjIYFizTzqak3vuQM6cXzMAYNxV5Ge1Iune9aL+O5ev6ijJ0B
+	 UC6K5azNfz2B4B4o0IC7/bsh9xt71rgBrfeRA3xibEjKOMg1IcGMndBf0JlcgL2HUc0lr
+	 8wb4/JbtUefWWyHpMm07R9mdDfQAztmIKWiIwY9YWXeZzO0u9JkqDxehVlid+HTccNA==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793624186;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:To:Cc:X-Mailer:X-Developer-Signature:
+	 X-Developer-Key:X-Endpoint-Received:X-Original-From:Reply-To:
+	 Content-Transfer-Encoding;
+	bh=wY2lxSBOT5vrFfsC6nW4WFwo3U7fyupwQAGbfep51T8=;
+	b=DXx/o/2dZ68+ui7fcmlI4cRwltQYMiV7UADxiJu/5iIH9mXTG4c96PR7kWcqwxVV9Z+J
+	 XZRUeOvou/ugBNsh30GJzVE4tq6F78jFDfLdDi7gBEHnagfHpkJCkmhVXW7e15a6fwIcn
+	 r2vqMGHteZRHjn5xCnUbqS5XAf3ba1whoqbM6JTfNAjqR+0mdkhrBdpuKvpUTnToGqHCG
+	 w1bkabICZv/rKulf+3D1U28Yvh11fz4vVg9j/X2y3TipyCoMoCulhvzVmqg7//oXEDWm8
+	 0qZuLSWZcz+99aZdXyrG22/AgpRizKtcT/hILC06JHn5TZ+bwvhGJj0N+UqxwnrIGVQ==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A76606A324;
-	Mon,  2 Nov 2026 12:56:13 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 63A76606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=desiato.20200630 header.b=LA0PZhnd
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=7feqypzkFTwtbPgjElm3kiRnEaQuqXiolkniaWY6h6I=; b=LA0PZhnd9MuswtIu5dz1vi85Ch
-	L4dU4YPzzP5WZmNsKcKb6XHsbtDgxxvyx7PbKknKrQ/6P5L0MPkjEEz/0+4jpvOAGzCn0jqlsA53y
-	yaItw88PQIt4P+ZYBvy4ociph6v26quANqeqRybaZ4z5/IalgA3VS9pQOBCbG1J8YIQeWMjE68fOh
-	73fIaujDBmP9yiHlUtuDDVlPONzwTtepTwpTFN02e0ggL2uzkVG6FjIt0HzVBzV+/tqDoK61UdH4q
-	DdDRiGnKndmafr0YeYVL3ciK2xlbw0sCUpAkkpC5aVKjfhJqEOgl3lrKnZK/tdLKnMuypteiEhd3c
-	6nRsfOpA==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNrZg-00000002Wga-3uwY;
-	Mon, 02 Nov 2026 12:55:51 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 2C2BC300322; Mon, 02 Nov 2026 13:55:43 +0100 (CET)
-Date: Mon, 2 Nov 2026 13:55:43 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Sandipan Das <sandipan.das@amd.com>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H . Peter Anvin" <hpa@zytor.com>,
-	Ravi Bangoria <ravi.bangoria@amd.com>,
-	Ananth Narayan <ananth.narayan@amd.com>
-Subject: Re: [PATCH] perf/x86/amd/uncore: Avoid context migration from
- non-owners
-Message-ID: <20261102125543.GH1813469@noisy.programming.kicks-ass.net>
-References: <273135a6d33a40f442fb18e140a90689fae7cd32.1793614726.git.sandipan.das@amd.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id BA2311F00A16;
+	Mon,  2 Nov 2026 12:56:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793624186;
+	bh=wY2lxSBOT5vrFfsC6nW4WFwo3U7fyupwQAGbfep51T8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=DEkMkzSW52v5w57J3ryR8frfFUlO/titOAmyt+f3DJMs8BWJdqFL1VGzuntrSF1wA
+	 IsM4efMUFLGs9yTrJe48jZpzDAGavhbhbC5x98jKtMGVJStcyc23SPlC9tdZSnVIah
+	 8DdWmDudUMQk2VleCaHabjiwx7sOa97+Exn2wtA6nOD/+lIpB4wwvknNpiRqT0YkxG
+	 Pemxp9oyq40bd4vJiHyhvLlvjDw5Pk+NsqvoG6k0Ym4w9cix8OrAUCwQSWkDzoXipp
+	 m2e4kMr/niuDnFDGGpXZdpCPDh1eVhuEtn5WzvaflrUKlHkdjhj0/HxWLjuj5iEsi8
+	 d0bR8Wz1KiiHw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 1C91C464E1;
+	Mon,  2 Nov 2026 12:56:25 +0000 (UTC)
+From: Joas Antonio dos Santos via B4 Relay <devnull+joasantonio108.gmail.com@kernel.org>
+Date: Mon, 02 Nov 2026 12:56:25 +0000
+Subject: [PATCH] fuse: ignore FUSE_ATTR_DAX unless a dax backing is
+ possible
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -79,74 +83,110 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <273135a6d33a40f442fb18e140a90689fae7cd32.1793614726.git.sandipan.das@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-fuse-attr-dax-v1-1-36f7b859b034@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAHiI6GoC/x3MTQqAIBBA4avErBvwD4OuEi1Ex5qNhVYE4t2Tl
+ t/ivQqFMlOBeaiQ6eHCR+qQ4wB+d2kj5NANSigrpVAY70LoritjcC96qe0UrNcmGujNmSny+/+
+ WtbUPrInlzF8AAAA=
+To: Miklos Szeredi <miklos@szeredi.hu>
+Cc: Miklos Szeredi <mszeredi@redhat.com>, fuse-devel@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, 
+ Joas Antonio dos Santos <joasantonio108@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793624184; l=3369;
+ i=joasantonio108@gmail.com; s=20261031; h=from:subject:message-id;
+ bh=m4kc2zrIGru9miJ8HcufOYYEsonQia+fldC1h5teqrA=;
+ b=FUjn2InbGAOhJkic3l8cIBqSwFOfOIPtATzqgu8Nf6MdMv9gjJW02YiPtIvwEBnXee7S0p3l3
+ Sei5/UYz88zCfquXH7GRgA++ev+vPoczULuaOIg/0P2hPf7AAmJ0Jo9
+X-Developer-Key: i=joasantonio108@gmail.com; a=ed25519;
+ pk=ZxAznJT/FcPPdzLrDDFJQm4LLjjHVGBBqDSG3TXS23w=
+X-Endpoint-Received: by B4 Relay for joasantonio108@gmail.com/20261031 with
+ auth_id=1371
+X-Original-From: Joas Antonio dos Santos <joasantonio108@gmail.com>
+Reply-To: joasantonio108@gmail.com
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 02, 2026 at 03:52:07PM +0530, Sandipan Das wrote:
-> Each uncore context is owned by a single CPU that hosts all events for
-> the corresponding uncore domain and is advertised through the sysfs
-> cpumask attribute. When a CPU goes offline, the context is migrated to
-> an online sibling if the departing CPU is the owner.
-> 
-> Before commit d6389d3ccc13 ("perf/x86/amd/uncore: Refactor uncore
-> management"), uncore_down_prepare() checked whether the CPU going
-> offline owned the context. The check was lost when the function was
-> replaced by amd_uncore_ctx_move(). Hence, when a CPU that is not the
-> owner goes offline, ownership is always handed over to the first online
-> sibling in the uncore domain irrespective of whether another sibling
-> already owns it. This goes unnoticed as long as the owner is the
-> lowest-numbered online CPU in the domain, since the first online
-> sibling is then the owner itself. Once ownership has moved, that no
-> longer holds.
-> 
-> For example, consider an L3 domain spanning CPUs 8-15,136-143 and owned
-> by CPU 8.
-> 
->   $ cat /sys/bus/event_source/devices/amd_l3/cpumask
->   0,8,16,24,32,40,48,56,64,72,80,88,96,104,112,120
-> 
->   $ echo 0 | sudo tee /sys/devices/system/cpu/cpu8/online
->   $ cat /sys/bus/event_source/devices/amd_l3/cpumask
->   0,9,16,24,32,40,48,56,64,72,80,88,96,104,112,120
-> 
->   $ echo 1 | sudo tee /sys/devices/system/cpu/cpu8/online
->   $ cat /sys/bus/event_source/devices/amd_l3/cpumask
->   0,9,16,24,32,40,48,56,64,72,80,88,96,104,112,120
-> 
->   $ echo 0 | sudo tee /sys/devices/system/cpu/cpu10/online
->   $ cat /sys/bus/event_source/devices/amd_l3/cpumask
->   0,8-9,16,24,32,40,48,56,64,72,80,88,96,104,112,120
-> 
-> Offlining CPU 8 correctly moves ownership to CPU 9 and onlining it
-> again leaves CPU 9 as the owner. However, offlining CPU 10 then makes
-> CPU 8 the owner while existing events remain on CPU 9. Both CPUs are
-> now advertised for the same domain, so tools that open an event on
-> every CPU in the cpumask count the domain twice, and the context gets
-> modified from two CPUs without any synchronization.
-> 
-> Restore the ownership check that was lost during the refactor.
-> 
-> Fixes: d6389d3ccc13 ("perf/x86/amd/uncore: Refactor uncore management")
-> Signed-off-by: Sandipan Das <sandipan.das@amd.com>
-> ---
->  arch/x86/events/amd/uncore.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/x86/events/amd/uncore.c b/arch/x86/events/amd/uncore.c
-> index 7aa5a5b652a2..c307323f6390 100644
-> --- a/arch/x86/events/amd/uncore.c
-> +++ b/arch/x86/events/amd/uncore.c
-> @@ -595,7 +595,7 @@ static void amd_uncore_ctx_move(struct amd_uncore *uncore, unsigned int cpu)
->  	for (i = 0; i < uncore->num_pmus; i++) {
->  		pmu = &uncore->pmus[i];
->  		curr = *per_cpu_ptr(pmu->ctx, cpu);
-> -		if (!curr)
-> +		if (!curr || curr->cpu != cpu)
->  			continue;
->  
->  		/* Migrate to a shared sibling if possible */
+From: Joas Antonio dos Santos <joasantonio108@gmail.com>
 
-Now, I see the Intel stuff cancels the hrtimer here; but AFAICT the AMD
-bits tie the hrtimer to the ctx, and when the ctx goes empty -- due to
-__perf_pmu_remove() it will get stopped there, right?
+fuse_init_inode() trusts FUSE_ATTR_DAX from any server: it sets S_DAX and
+switches the mapping to fuse_dax_aops, which has no ->read_folio and no
+->readahead.  The open path only refuses such an inode without
+FOPEN_PASSTHROUGH through an IS_DAX() check in fuse_file_io_open().
+
+With CONFIG_FS_DAX=n, S_DAX is 0, so IS_DAX() is always false and that
+check compiles away.  The file is opened for normal cached I/O on a
+mapping without ->read_folio, and the first read() calls a NULL
+function pointer from read_pages():
+
+  Unable to handle kernel NULL pointer dereference at virtual address 0000000000000000
+  pc : 0x0
+  lr : read_pages+0x5b4/0x830
+   page_cache_ra_order
+   page_cache_sync_ra
+   filemap_get_pages
+   filemap_read
+   generic_file_read_iter
+   fuse_file_read_iter
+
+Any server can do this, including an unprivileged one mounted through
+fusermount3 or in a user namespace: answer LOOKUP of a regular file with
+FUSE_ATTR_DAX set and a normal OPEN.  mmap() of the file reaches the same
+NULL ->read_folio through filemap_fault().
+
+As the commit adding it says, FUSE_ATTR_DAX is only meant to be used
+with FUSE_PASSTHROUGH_V2 and a dax device backing, which needs FS_DAX.
+Only honour it in that case.
+
+Fixes: 2fbe4586cff3 ("fuse: add support for opening dax device as backing")
+Signed-off-by: Joas Antonio dos Santos <joasantonio108@gmail.com>
+---
+Found by reviewing the v7.4-rc1 fs/fuse changes with an LLM-based
+assistant, following up on the Sashiko review of the dax backing series
+that pointed out the missing ->read_folio; the IS_DAX() check added for
+it does not cover CONFIG_FS_DAX=n.
+
+Tested on arm64 QEMU, v7.4-rc1 with CONFIG_FS_DAX=n and KASAN, with a
+FUSE server running as uid 65534 in a user namespace that replies
+INIT with no flags, LOOKUP with FUSE_ATTR_DAX and a plain OPEN:
+before, read() oopses as above; after, the read returns the file data
+and unmount is clean.  The FUSE_ATTR_DAX=0 control is unchanged.
+
+This also keeps an unprivileged server from getting S_DAX on
+CONFIG_FS_DAX=y kernels without FUSE_PASSTHROUGH_V2, which is where
+"fuse: refuse FUSE_NOTIFY_STORE for DAX inodes" (sent 2026-10-31)
+applies; that patch is still useful for servers that do negotiate
+FUSE_PASSTHROUGH_V2.
+---
+ fs/fuse/inode.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
+index 1341b681d0ed..7195e4d0852c 100644
+--- a/fs/fuse/inode.c
++++ b/fs/fuse/inode.c
+@@ -418,7 +418,14 @@ static void fuse_init_inode(struct inode *inode, struct fuse_attr *attr,
+ 		fuse_init_common(inode);
+ 		fuse_init_file_inode(inode, attr->flags);
+ 
+-		if ((attr->flags & FUSE_ATTR_DAX) && !fuse_inode_vdax(inode)) {
++		/*
++		 * FUSE_ATTR_DAX is only meaningful for a dax device backing,
++		 * which needs FS_DAX and FUSE_PASSTHROUGH_V2.  Without FS_DAX
++		 * S_DAX is 0 and the inode would be left with fuse_dax_aops
++		 * on the page cache I/O paths.
++		 */
++		if (IS_ENABLED(CONFIG_FS_DAX) && fc->backing_id_64 &&
++		    (attr->flags & FUSE_ATTR_DAX) && !fuse_inode_vdax(inode)) {
+ 			inode->i_flags |= S_DAX;
+ 			inode->i_data.a_ops = &fuse_dax_aops;
+ 		}
+
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261102-fuse-attr-dax-c1367d6c34f4
+
+Best regards,
+-- 
+Joas Antonio dos Santos <joasantonio108@gmail.com>
+
+
