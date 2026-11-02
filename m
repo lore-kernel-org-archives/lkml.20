@@ -1,97 +1,79 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.215.181
-ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793655924;
-	b=kc0Xim19WVFJZjXNOmm/K3jbCxecmWQCWsJtkP7w/HO+IPJJEHHJINb7+TWkGvJnUzoG
-	 k1MJfVF9+VwKQHDJiKpncaTWjM/SE5BupkJEv7s2ySCOywejDlAl5vj5n5BOvMdF+KKqj
-	 paO3Ne9mat7TbaRAEoJXFEmLR+0U1nTQUFiWPfFGwXBtsT+XuVy22Br5pA03ZEsV6AxbZ
-	 VhVNcwTFEM7rmNXMBd7lCuqHoFJag52T9sYhoP645yB6eKHpwM3W2g9pTYkIyVUQpDgPN
-	 AvIn6xowI8N7rCw1p6gszOI5CZf1YOhkScpkpjw2taU/tRQwpeJd1EmZ66r0Iz4ikkA==
-ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793655924;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
-	 Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To;
-	bh=q5JdWOppAER7/sVf+/wRTQ5JltDoWihbM3Khp4hBQTg=;
-	b=DciQRi+Z5zZ0t/8D13Bw5SurITHS1MErHaQN3gyeYt1Y0IV9+GVrct+kS3X+bHn4imUg
-	 57Zycsf0uYOzDoCHL3UDToA3kuz6iiO1Dsl8BlYZK8EEyzEhezxRARxRqRPcCwTdaE8t5
-	 yvg45lzGwpFXdRtPCf+U9Rht161Flo3l2kaIt9edf2LlUMQQ7CeRGcQcLwHKQn1SI+3Bc
-	 VIJjHiS2/seG4VdLSsvmpqyuOOYMKzwKSZ7gQ9oXjnVooRunkGmBjuN8fYbWiH/J/s3RQ
-	 NN4tmrdbvR/DaZhZ/p0Ug6T+83ONMShzkzyn6fUYXU5YxO3iECjvHzZW5Z/o5oi6hBA==
-ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=google.com;
-	spf=pass smtp.mailfrom=google.com;
-	dkim=pass header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=de9Kt5CT;
-	arc=none smtp.remote-ip=209.85.215.181
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
+	t=1793655936;
+	b=BWje/BnY4hLBamxNZnKQJ8gj2qf/HSuAv4jTsECWkZ8OGCZs4vT2ucdtnNva2wHWMNkT
+	 +JOVfgT00/UKK4sTyjYFut/A6KFJvJ8S1E+Dq4sYdF+swy9S1wrlCNB0+1x/M2zVaw3qH
+	 1w/Haea/PbDACLJ0C5aUGBz+/O2/mhmcMtKfcAwPhOY63cx2/duK2a8RF2iR8B5p+L1LW
+	 aMh8vxZs+OkibbBfbDYTwPnGOHxS6X5HtDnHX5CBNpRV2+P9MOJNp61LRvVaf+KOk7vrt
+	 U+5n7LL2d9RU3Pki6mBubpMPL8wzfRN0rvdVIOv/d1liimYr9isKt50fO5uk6usKyPg==
+ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793655936;
+	h=Received:DKIM-Signature:Received:From:Date:Subject:MIME-Version:
+	 Content-Type:Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
+	b=YGTIXj8x4JFRiTjMYJwrewetYewrBEpWnaoXdkwmXpC2y3tAGMx5l+fGAj7XKkYF8tYP
+	 gvOK5YBGzSUPaOcl+F1TBsWWefzteiuPFFzNECgjt16eXbJ9Wnz8PIt1uHToevVPNpa27
+	 Qt7JkhW+PQ1ZezYi+97E3qHNquNPa0EV/4RSBodt9aq5YochuZYFYPMWy7z6LQMy31yXs
+	 cH5RQconHY5OY0urVk34fkUHuzP9MOx5s0JMQHJgCB6J/ZVNZCjNw+72iUOzpJ9BIX8K5
+	 viu+H7gwZ6CVtXoc6Sv+Abku6umNk2oqJhoTgZW+WR5DmN4oHGZg78Z9Z/N77Wmb+Hg==
+ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
+	dkim=pass header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+uMB1pT;
+	arc=pass header.oldest-pass=0 smtp.remote-ip=100.103.45.18
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature ECDSA (prime256v1))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5272E606A339;
+	Mon,  2 Nov 2026 21:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+uMB1pT
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+	t=1793655936;
+	b=bbCQ5a6gnfQyeO73FMDZUMDQTkbzW8rf531Z8lKV/ysvEyAgENT9An6GBsA0a+7V1TSt
+	 R4ZdkWEVpERG2eMlSzu4sLPuycrv+ASgSEuVL4Qicng78pXlC8woHSvG7lFLu0cDpyQQe
+	 G6plbmhZXbnY4NS+R04JQ/Iq6+e1PQZj/5c8lhqXN28cOiCmey70qByK+E7pEQg5aQyq+
+	 FI4LRAI5spGbTGzcjI67/iimkLOIXHphiCGrBRCcQH5EttFmG2/2XXV+YyEpEj5ovZQtE
+	 30khjH7gPo6FmxNvsvJRCt0fKXliRNmVjhFduyWJrA460aCvrdvO3/N9xgNMfzH8v8A==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+	c=relaxed/relaxed; t=1793655936;
+	h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+	 Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
+	 X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+	 X-Original-From:Reply-To:Content-Transfer-Encoding;
+	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
+	b=UHQxyVM+2POHLrZKBsrDv8oQszvxLSFzlLlJbPiLwmLKWU3debmgrEQiI++5RVNMdzU1
+	 2d8PcOVTPPohk0n9oYAfkCQmVABSGGutH9fDuPzr3RjdumYxXYL9xzpPI1t7nm730ck4y
+	 FKHD+CI3vGpYI5h8X1uVJzKg0U1qS4x9onf7D0dPkUGeQK7/SGYNI+UL8kWMHmdYGekS2
+	 tyUNsbBC0DJUOwwfK99XTik5liH8zlHhctG/aw5n1gbto/zigTQ4jQI+KjmJ34kGEfEZ7
+	 3VgV8UtlSR0fZHp1UwvOSa8EjfL/Du17OCAPSosWAcuDliTzFCKRF7NKvqo+M73pudA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+	arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9E4606A332
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 21:45:24 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 4E9E4606A332
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=de9Kt5CT
-Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc7d154ec4fso1525311a12.0
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:45:24 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20260707; t=1793655923; x=1794260723; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q5JdWOppAER7/sVf+/wRTQ5JltDoWihbM3Khp4hBQTg=;
-        b=de9Kt5CTxtyWM3N06gzLlqXfbp5WOfVOsPd00ZIGyw+wLuZ53xAn15Kk9DrPwuPHHs
-         fqE8vlRJK1sQeilEUi25dESfhuamVK9XQzSx4kR6tLrBwKa045VhrLvjuJgPoT46RAe5
-         oec9+BvmtL3okDCIy7/mIZG3G89p6/+5+fxEoBv0F/NtEqD3gwDjjDIakfu3ZwEurTNW
-         TBw9rBECj30cN2V+b0GpDdTaitNKwdkubnG0T61VGsweH5YHf9lDCUkS3N86PXJNysJT
-         fC9I0paRdU/SU79hCANwvz+CwQMjRF0lYJcexmHs//wji5d4xerIXda6STzf7i5OTCh+
-         VL0w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793655923; x=1794260723;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q5JdWOppAER7/sVf+/wRTQ5JltDoWihbM3Khp4hBQTg=;
-        b=uZCUNRIlyhne0WNkwLxcoJnSTpsbm0IdF54xyX9C6GHEf2Yd4uT3ivIS3FIjR1TQ/Z
-         phOUzgXyy92P7iXTR0HvIUtC8DWnUSRlnoAUfo2u9bJWpYJS/ip0Q7h5Wsd9zcgQNePy
-         G5/01uu6ti9x+ur6H7FWRUu+SF4RIzp+/hO4L041F2y/tj7gOeZKTvHjxIq+fXvIeMMl
-         ePGeICm/AfPXhvwN8a2VPz9K38284DAFOido3FJZntPdsy2PFjooPGO6WQOf53hWLhzu
-         zJwdavR6OSd8ocEAzYFu5zpmlmJ0NUASLmxYwf5S/HU0mKyziGj+ZkNa80attlaXsap4
-         Y1GQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwJI9T0mBQJua/Q0GG7FpC/8OQM/01jFQSWLFvbj1WWegHqWX65Cdd/Q3wV/p8EA41pRx6AFzvMa94rF2U=@vger.kernel.org
-X-Gm-Message-State: APuU4Z81PZ0iLfuHlQBy0Fho0Xl3sfna8SxwsgckWJRmsBGRbU8bAekr
-	SqWgCi1baE2GhuzpA4kyQKFOYQ8dHtqgzWcxaAHV/cmJCs1XL/wSaSUD3misF50cyA==
-X-Gm-Gg: AYBFou1mFWInDiqha63Km6RWqBRV4TSM3m1R1H7qCg6qEnzIDNOCJLOklbTX2ULRr6U
-	eBMCZR4DtRx1TTQJhMPXblW5EjCXgeAHqyNrvXywwUC/fboB13KnLsg06N+q18AZVsQsZ8jHcb4
-	m4RFc7tnJjOoBjB8qg5U3BjAvjsgRmsdtk/7tQOk95VlNo2/tiWk59/ls8i/pAczXz6fGXk3Dt/
-	5BuhUgMo/MYoyulZylaaZWPIx/loumEKkfXBg9eTPUefE6yNfdQt90Ah50leSho2NAnwEyUGvAr
-	hE0Om+MJ4iCBsMSMSRpS4iMarE2eCfRhvr3MIDg9fT0td6PZwYDb/2dHRrmTLOLzWHzAQVHECao
-	FcViXdVK2aeqr6qIxs+CmcWwRGOvpTW9vAuS0PMG4jgM5XkxnIutVubrN/7R7jBZHi78DOblABh
-	W2QjzGg6pvWrL7I96WjSD6zyIiAD39goBrAhwK8QuWblPN8oEwhOgqOIiTpodOPXfErz/+YLoe8
-	ZIb2kox4n7ydng5NafCH39fJG0+qsdoLvLL0SSUI+FYsmAXYZUYuQb7T8V2Z1l0a7P3bvgY3N9X
-	9REW6g+WQyCoPSkuvxKln6DQUrywVLZJfeQuKOdKL/+zLmdRTOvNKwYprq7T+4B8
-X-Received: by 2002:a17:90b:570c:b0:3ac:8897:7ba9 with SMTP id 98e67ed59e1d1-3ae8985d52dmr10189518a91.56.1793655923061;
-        Mon, 02 Nov 2026 13:45:23 -0800 (PST)
-Received: from google.com (33.79.127.34.bc.googleusercontent.com. [34.127.79.33])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3b07c29e619sm1046130a91.0.2026.11.02.13.45.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 13:45:22 -0800 (PST)
-Date: Mon, 2 Nov 2026 21:45:18 +0000
-From: David Matlack <dmatlack@google.com>
-To: Mina Almasry <almasrymina@google.com>
-Cc: Peter Xu <peterx@redhat.com>, Andrew Morton <akpm@linux-foundation.org>,
-	Alex Williamson <alex@shazbot.org>, kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Shuah Khan <shuah@kernel.org>, Kevin Tian <kevin.tian@intel.com>,
-	Jason Gunthorpe <jgg@ziepe.ca>, Matt Evans <matt@ozlabs.org>
-Subject: Re: [PATCH v2 2/2] vfio: selftests: Test BAR write faults after
- clear_refs
-Message-ID: <aukEbs9W2rnjb1jQ@google.com>
-References: <20261101062049.998160-1-almasrymina@google.com>
- <20261101062049.998160-3-almasrymina@google.com>
+	by smtp.kernel.org (Postfix) with ESMTPS id 917621F00A16;
+	Mon,  2 Nov 2026 21:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1793655936;
+	bh=8K4sDSR+XNlMacpmwjsCqcNr5RLWZIek+N8Cx6CDDD8=;
+	h=From:Date:Subject:To:Cc:Reply-To;
+	b=U+uMB1pT1uG7Ud/qU+KfHr7+xEIFskl2Ihk5yp0HLeiSC+8UkNgHSuGNhfQjmMLVp
+	 kALa/QR62zs85WRLfnD1pBhPxhoxA8e3RxcmUFX70MT1Eip82pqNzUaPIJBbCsCr3e
+	 N8eRxEiZ/gckYP26yrLNsqG/aoNE1jIJfIUbdTQfOA0sJ0IqOJFvNzUVeANNhgqWaj
+	 T5+SFazwmA6k2x2HD9M61qarDrFsEowt9jMVnbTTg/SQLMwxIdSc/qjr56shzD//NO
+	 D1qV/zwZMCOA5a+z05S44X6RBKy7d++I5VmG7k5g8uFKoKhxG9Dn/2w5lDdQgOAAfU
+	 Nz7UApaKpDWhA==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+	by lkml.kernel.org (Postfix) with ESMTP id 2081C4668F;
+	Mon,  2 Nov 2026 21:45:35 +0000 (UTC)
+From: Mani Tofigh via B4 Relay <devnull+mt4022.columbia.edu@kernel.org>
+Date: Mon, 02 Nov 2026 16:45:35 -0500
+Subject: [PATCH] clocksource: Use the clocksource under test for the skew
+ check timeout
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -101,158 +83,155 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261101062049.998160-3-almasrymina@google.com>
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261102-clocksource-skew-timeout-v1-1-4ff412918591@columbia.edu>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBG4auUWTvQRKroVcRFO/7RsdpIJlGh9
+ O5GXX6L92YyJIXRvpkp4ammcapwq4bk0k9nsJ6qybd+41zrWW5RRoslCdhGvDjrHbFkDr7foQv
+ DOmw7qvkjIej7tz4c/7YyXCH5+6Nl+QBA6AVcfAAAAA==
+X-Change-ID: 20261102-clocksource-skew-timeout-f2a9e5fb3f75
+To: Thomas Gleixner <tglx@kernel.org>, John Stultz <jstultz@google.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Miroslav Lichvar <mlichvar@redhat.com>, 
+ Srikanth Aithal <Srikanth.Aithal@amd.com>, Borislav Petkov <bp@alien8.de>, 
+ K Prateek Nayak <kprateek.nayak@amd.com>, linux-kernel@vger.kernel.org, 
+ tz2294@columbia.edu, stable@vger.kernel.org, 
+ Mani Tofigh <mt4022@columbia.edu>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1793655935; l=5072;
+ i=mt4022@columbia.edu; s=20261026; h=from:subject:message-id;
+ bh=BwOAXMTSmN3S5CdQQNe0kwBbbM0riuH0AkP9PTw3cow=;
+ b=X4hBPBJpPywiDSpkFxm5qV4E84jNKzIKZezeqM1NLCPq+buPyTkeybhiCSVmSBIjVpkq3+QEZ
+ H63xSgmVSFxASydIlKIHue6PbkZC5vf8sKSYhCeW6fgGeRE1a2zBOt+
+X-Developer-Key: i=mt4022@columbia.edu; a=ed25519;
+ pk=gljCMQDuxyKPmd5y37CRpEJGSPXDV1MyAnHBhCgXl0I=
+X-Endpoint-Received: by B4 Relay for mt4022@columbia.edu/20261026 with
+ auth_id=1322
+X-Original-From: Mani Tofigh <mt4022@columbia.edu>
+Reply-To: mt4022@columbia.edu
+Content-Transfer-Encoding: 7bit
 
-On 2026-11-01 06:20 AM, Mina Almasry wrote:
+From: Mani Tofigh <mt4022@columbia.edu>
 
-> +TEST_F(vfio_pci_device_test, bar_write_fault_after_clear_refs)
-> +{
-> +	const u32 rw_mmap_flags = VFIO_REGION_INFO_FLAG_MMAP |
-> +				  VFIO_REGION_INFO_FLAG_READ |
-> +				  VFIO_REGION_INFO_FLAG_WRITE;
-> +	struct vfio_pci_bar *bar;
-> +	bool tested = false;
-> +	int ret, i;
-> +	u32 val;
-> +
-> +	ret = clear_soft_dirty_refs();
-> +	if (ret == -ENOENT || ret == -EINVAL)
-> +		SKIP(return, "soft-dirty clear_refs unsupported (%d)\n", ret);
-> +	ASSERT_EQ(0, ret);
-> +
-> +	vfio_pci_cmd_set(self->device, PCI_COMMAND_MEMORY);
-> +
-> +	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> +		void *vaddr;
-> +
-> +		bar = &self->device->bars[i];
-> +		if ((bar->info.flags & rw_mmap_flags) != rw_mmap_flags)
-> +			continue;
-> +
-> +		ASSERT_NE(NULL, bar->vaddr);
-> +
-> +		/*
-> +		 * clear_soft_dirty_refs() stripped write permissions from
-> +		 * vma->vm_page_prot on the unpopulated BAR mapping created by
+watchdog_check_skew() waits for the remote CPU with interrupts disabled
+and gives up after a timeout measured with ktime_get_raw_fast_ns().
+While the clocksource is still jiffies during boot (or with
+clocksource=jiffies) that timeout can't expire, because only the boot
+CPU's tick advances jiffies and that's the CPU spinning with interrupts
+disabled.
 
-Sashiko's finding here is right. The BAR mappings may be populated
-already at this point. You can reliably zap the BAR mappings by clearing
-PCI_COMMAND_MEMORY. e.g.
+The boot then hangs when the remote CPU can't answer, eg in the
+stop_machine() of the switch away from jiffies:
 
-  static void zap_bar_mappings(struct vfio_pci_device *device)
-  {
-          vfio_pci_cmd_clear(device, PCI_COMMAND_MEMORY);
-          vfio_pci_cmd_set(device, PCI_COMMAND_MEMORY);
-  }
+  CPU0                                  CPU1
+  multi_cpu_stop()                      multi_cpu_stop()
+                                          local_irq_disable()
+                                          /* waits for CPU0 */
+    <timer interrupt>
+      clocksource_watchdog()
+        /* sends CSD to CPU1 */
+        watchdog_check_skew()
+          /* waits for CPU1 forever */
 
-Then you can also use this instead of mmap()+madvise() below.
+Nothing gets printed.  With the hard lockup detector on in a KVM guest:
 
-> +		 * vfio_pci_device_init(). Fault it read-only first, then write
-> +		 * to exercise in-place write-upgrade (wp_huge_pmd/wp_huge_pud).
-> +		 */
-> +		val = READ_ONCE(*(u32 *)bar->vaddr);
-> +		WRITE_ONCE(*(u32 *)bar->vaddr, val);
+  [    1.554193] watchdog: CPU0: Watchdog detected hard LOCKUP on cpu 0
+  [    1.554193] CPU: 0 UID: 0 PID: 18 Comm: migration/0 Not tainted 7.3.0-17087-gd865f2677c44 #1 PREEMPT
+  [    1.554193] Stopper: multi_cpu_stop+0x0/0x310 <- __stop_cpus.constprop.0+0xdd/0x150
+  [    1.554193] RIP: 0010:watchdog_check_skew+0x12d/0x5a0
+  [    1.554193] Call Trace:
+  [    1.554193]  <IRQ>
+  [    1.554193]  clocksource_watchdog+0x761/0xc90
+  [    1.554193]  call_timer_fn+0x154/0x470
+  [    1.554193]  __run_timer_base.part.0+0x5d0/0x910
+  [    1.554193]  run_timer_softirq+0xc2/0x280
+  [    1.554193]  handle_softirqs+0x1f9/0x840
+  [    1.554193]  __irq_exit_rcu+0x157/0x210
+  [    1.554193]  irq_exit_rcu+0x9/0x20
+  [    1.554193]  sysvec_apic_timer_interrupt+0x6b/0x80
+  [    1.554193]  </IRQ>
+  [    1.554193]  <TASK>
+  [    1.554193]  asm_sysvec_apic_timer_interrupt+0x1a/0x20
+  [    1.554193] RIP: 0010:multi_cpu_stop+0xf7/0x310
+  ...
+  [    1.554193]  cpu_stopper_thread+0x1fa/0x3f0
+  [    1.554193]  smpboot_thread_fn+0x2fb/0x8a0
+  [    1.554193]  kthread+0x300/0x3e0
+  [    1.554193]  ret_from_fork+0x4f0/0x6f0
+  [    1.554193]  ret_from_fork_asm+0x1a/0x30
+  [    1.554193]  </TASK>
 
-Writing to offset 0 of every read/write BAR isn't necessarily safe. It
-could be a doorbell, a write-1-to-clear status register, the MSI-X
-table, etc.
+Measure the timeout with the clocksource under test instead, which
+keeps counting with interrupts disabled.  With the fix, the watchdog
+gives up after the timeout and the boot goes on.  A 2-vCPU guest on one
+host core hung in 4 of 150 boots without it, and it didn't hang at all
+in 400 tests with the fix applied.
 
-There's no way to trigger the write fault without actually writing to
-the BAR (e.g. MADV_POPULATE_WRITE fails on VM_PFNMAP VMAs), so the test
-needs to know where it's safe to write.
+This bug was identified and confirmed with the help of a deterministic
+hypervisor currently under development.  The C reproducer below however
+hits it within about 80s on a kernel booted with clocksource=jiffies.
 
-To solve this, I propose adding a helper to the VFIO selftests library
-that finds a BAR (or range within a BAR) that behaves like memory, i.e.
-every location can be read and written with arbitrary values without
-side effects. Something like:
+Fixes: 763aacf86f1b ("clocksource: Rewrite watchdog code completely")
+Cc: stable@vger.kernel.org
+Signed-off-by: Mani Tofigh <mt4022@columbia.edu>
+---
+Srikanth reported silent early boot hangs of large KVM guests that he
+bisected to the same commit [1].  I think it's the same bug but it was
+never confirmed.  Srikanth, would you mind giving this a try on your
+setup?
 
-  bool vfio_pci_find_mem_bar(struct vfio_pci_device *device, u64 min_size,
-                             struct vfio_pci_mem_bar *mem_bar);
+[1] https://lore.kernel.org/all/e4a41d43-4d60-4132-aa2d-70e038a3e9dd@amd.com/
 
-Detection would be based on a table of known devices, and tests SKIP()
-when no such BAR is found. Your test would then ask for a mem BAR of at
-least PMD_SIZE and run both cases on it.
+Reproducer: https://github.com/manitofigh/files/blob/main/linux-repros/wdboot.c
+---
+ kernel/time/clocksource.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-This came up recently with Matt's DMABUF mmap() test as well [1], so I
-think it belongs in the library rather than in vfio_pci_device_test.c.
-It shouldn't be much more work than a test-local helper (but please add
-it in a separate commit).
+diff --git a/kernel/time/clocksource.c b/kernel/time/clocksource.c
+index 58c0ca11cdc5..fdce67f7c3d1 100644
+--- a/kernel/time/clocksource.c
++++ b/kernel/time/clocksource.c
+@@ -305,11 +305,16 @@ static bool watchdog_wait_seq(struct watchdog_cpu_data *wd, u64 start, int seq)
+ 		if (READ_ONCE(wd->result) != WD_SUCCESS)
+ 			return false;
+ 
+-		/* Prevent endless loops if the other CPU does not react. */
++		/*
++		 * Prevent endless loops if the other CPU does not react.  The
++		 * timeout uses the clocksource under test because the timekeeping
++		 * clocksource can be jiffies, which doesn't advance while this CPU
++		 * waits with interrupts disabled.
++		 */
+ 		if (cnt == 5000) {
+-			u64 nsecs = ktime_get_raw_fast_ns();
++			struct clocksource *cs = wd->cs;
+ 
+-			if (nsecs - start >=wd->timeout_ns) {
++			if (cycles_to_nsec_safe(cs, start, cs->read(cs)) >= wd->timeout_ns) {
+ 				watchdog_set_result(wd, WD_CPU_TIMEOUT);
+ 				return false;
+ 			}
+@@ -322,12 +327,13 @@ static bool watchdog_wait_seq(struct watchdog_cpu_data *wd, u64 start, int seq)
+ 
+ static void watchdog_check_skew(struct watchdog_cpu_data *wd, int index)
+ {
+-	u64 prev, now, delta, start = ktime_get_raw_fast_ns();
++	u64 prev, now, delta, start;
+ 	int local = index, remote = (index + 1) & 0x1;
+ 	struct clocksource *cs = wd->cs;
+ 
+ 	/* Set the local timestamp so that the first iteration works correctly */
+-	wd->cpu_ts[local] = cs->read(cs);
++	start = cs->read(cs);
++	wd->cpu_ts[local] = start;
+ 
+ 	/* Signal arrival */
+ 	atomic_inc(&wd->seq);
 
-My suggestion would be for QEMU's pci-testdev (1b36:0005) to be the
-first device in the table, since anyone can run it in a VM without any
-special hardware. With membar-backed=on, pci-testdev's BAR2 is a 64-bit
-prefetchable BAR backed by plain RAM, so it's safe to read and write
-anywhere in it. membar-backed requires QEMU 10.1 or newer. For example:
+---
+base-commit: f322d7f7ae56bce728ba03a387e35380bc4ad939
+change-id: 20261102-clocksource-skew-timeout-f2a9e5fb3f75
 
-  qemu-system-x86_64 \
-    -machine q35,accel=kvm,kernel-irqchip=split \
-    -device intel-iommu,intremap=on \
-    -device pci-testdev,membar=1G,membar-backed=on \
-    ...
+Best regards,
+--  
+Mani Tofigh <mt4022@columbia.edu>
 
-Then boot the guest and run the test against the device:
 
-  $ BDF=$(lspci -D -d 1b36:0005 | awk '{print $1}')
-  $ ./scripts/setup.sh $BDF
-  $ ./vfio_pci_device_test $BDF
-
-membar=1G is large enough to exercise both PMD and PUD mappings, since
-vfio_pci_bar_map() aligns the mapping to min(size, 1G). If 1G of host
-RAM for the BAR is too much, membar=2M still covers the PMD case.
-
-If you want to also add the device you reproduced on to the table, that
-works for me too. More devices can be added later as needed.
-
-This could also be added to the vfio_pci_driver framework, but I'm not
-sure that is a good idea. Devices that have large memory-like BARs
-aren't necessarily the same devices that can implement memcpy and send
-MSIs.
-
-Would you be open to adding vfio_pci_find_mem_bar() as part of this
-series?
-
-[1] https://lore.kernel.org/kvm/CALzav=cGtmkBBpfUA8nP7AQ3azB_Hn7_8jJL=J+E+h61CpOFrw@mail.gmail.com/
-
-> +
-> +		/*
-> +		 * Replace the VMA with a fresh unpopulated mapping at the same
-> +		 * hugepage-aligned address, clear soft-dirty again, and fault
-> +		 * with an immediate store to exercise initial write insertion
-> +		 * (vmf_insert_pfn_pmd/pud with write=true).
-> +		 */
-> +		vaddr = mmap(bar->vaddr, bar->info.size, PROT_READ | PROT_WRITE,
-> +			     MAP_SHARED | MAP_FIXED, self->device->fd,
-> +			     bar->info.offset);
-> +		ASSERT_EQ(bar->vaddr, vaddr);
-> +		madvise(bar->vaddr, bar->info.size, MADV_HUGEPAGE);
-> +
-> +		ASSERT_EQ(0, clear_soft_dirty_refs());
-> +
-> +		WRITE_ONCE(*(u32 *)bar->vaddr, val);
-> +		(void)READ_ONCE(*(u32 *)bar->vaddr);
-> +
-> +		tested = true;
-
-Should only BARs >= PMD_SIZE be considered tested?
-
-> +	}
-> +
-> +	vfio_pci_cmd_clear(self->device, PCI_COMMAND_MEMORY);
-
-This should restore PCI_COMMAND_MEMORY to whatever it was at the start
-of the test. Or just leave PCI_COMMAND_MEMORY enabled (that would also
-be harmless).
-
-> +
-> +	if (!tested)
-> +		SKIP(return, "No mappable read/write BAR on %s\n", device_bdf);
-> +}
-> +
->  FIXTURE(vfio_pci_irq_test) {
->  	struct iommu *iommu;
->  	struct vfio_pci_device *device;
-> -- 
-> 2.56.0.385.gac671c819a-goog
-> 
