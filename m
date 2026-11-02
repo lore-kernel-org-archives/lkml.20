@@ -1,54 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=95.215.58.29
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=209.85.128.41
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793627168;
-	b=2SbkTwp4JYJYZ+vXmV/+mB/50837UFA5ku13urMnL4w4tagROdgbhhUj4kpE9E74BQ7A
-	 cvNDMDdYIIWqHETHVcARDKRgEevACdA1yKW0PCo3iRAYVRdf8bODf7z5A0l9GVty+jo5Z
-	 3elZs5+26TD0V4Q1AqE/O520Ol8H/Dac1OGsTF7mF7GiYGVXc2Ws9pLagsoJfiSpSUciZ
-	 uL2R7BYHauPAWvA8FFF229TDcWPh7cK3tS5tXb+lV8Rx9yCERpVQr0Ti+CoN4Mr8puNKr
-	 oQQKzqoI4bvn/890oQsSu1zNjGK3t8ASEEkQSWMTb78yVrq16flOULf5twP2QyLQsiQ==
+	t=1793627218;
+	b=XpRRCRU1HgQ1szCoC44vdvpAMGReQFUje4dJHzkrpmMqI8qGDq+PVLvAG6RcaCG7w7s4
+	 Pa/tK+JBznF4575BBuD23z4i5EyUxCEOJJpbrh8Ww9geuEvd58MJs7GZRkM1fpkmk5dsP
+	 nn7kwuK8xhYCYl+Ok8abxvzYLlVxYgNnsDAljU0JXHZ58a/nnkUwmoc9CBenbVCp+whOI
+	 I89C1111jfXe51bAmp/nZ3y0Ebm8/8iwLmz36my9G/eVJvyqW7jnMwkzVIOk4c4RcMn7H
+	 lL0h3o1C4sm7ve9ZetZMjifFIGmfMQdp5ucL7FpITgm0RHNJWQrpF1NIxMPdAHx5kGQ==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793627168;
-	h=DMARC-Filter:X-Envelope-To:DKIM-Signature:X-Envelope-To:Received:
-	 X-Mizu-Trace-ID:X-Migadu-Flow:Message-ID:Date:MIME-Version:User-Agent:
-	 Subject:To:Cc:References:Content-Language:From:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding;
-	bh=9WypQqVR2KCy8VcoQOLBuAqGcm9UfPOmgeDV5017wQg=;
-	b=n8qAyw4QhrCQO83b8RIS1x9jLRZJ/KMTY90zhIxNlTFoN5qSjn+Axlt+UpsR6Yv/3jJy
-	 CWAdepz9iNyocEmzhAyFLrjJ3IOOSjbzevtnWj5u3v3vGhnZkUsZFZ9JG5vT6+WYXSOpW
-	 bYefmSf1lu4ZtghlvS6ivQX00LDqrLkKI7o5xzHkTdkw6tucdCl+ViK/6BCctV9BUGc+k
-	 MUULTmPBMoDwkUIX8p8PZzl3M5CqkvZhc7+cwRvegO26uI/pWai5xvI66QapjjSbAjmhq
-	 G4HNo87x7p8b2PUiIYgkONntAeJYmp8QpNpIoRWAxSZGXcKfpUOAvviVVv8NAeieuDw==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793627218;
+	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
+	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:Received:
+	 From:To:Cc:Subject:Date:Message-ID:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
+	b=JVYuUDIBNmPoqtyhucAGBbusftGXFoKSg71tsRpKOPYmYcKga/Pe/+iiQcos01Lcm1j+
+	 Zp4qgmiYIppy1UuYR72fsoNis9YKiXfh4VTht/spjMAyQntnKCFan8UgVEpePrhYaUMhD
+	 irviEdyMrB/b0SZVDdMpnKAyK9BAnsZHR45ur8F2dZaCFdZzV+VzOSFyI3/tlGCpKcLNJ
+	 EnflsrTcPeB1Fhrpp7F8Xq2jbyPqqRHAd2w6hNCnkVI40aOVmZ0uGN0n7QJiAPCzTicbt
+	 P92VMShwUfeegXxfQzaG6lc1AaT7zyN3azKkCXrM3u+9YsnH4SBSniyXdqmUFZmezrQ==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=linux.dev;
-	spf=pass smtp.mailfrom=linux.dev;
-	dkim=pass header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CMRQToJ5;
-	arc=none smtp.remote-ip=95.215.58.29
-Received: from mta1.migadu.com (out-29.mta1.migadu.com [95.215.58.29])
+	dmarc=pass header.from=gmail.com;
+	spf=pass smtp.mailfrom=gmail.com;
+	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b="Q6+Shkn/";
+	arc=none smtp.remote-ip=209.85.128.41
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A03860A260C
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:46:01 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 1A03860A260C
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B35AF606A327
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:46:57 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B35AF606A327
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=CMRQToJ5
-X-Envelope-To: linux-kernel@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=P2sBHzm3R20huYIeMHg9Un4m8wkGCVohUQK9dUiQf5I=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1793627160; v=1; x=1794231960;
- b=CMRQToJ5WWbgHhT8cPeq5BmyZ8iDRsBUqePX96fI5o/NtHv1/L1wtt6HqS6cWujDqCJUnLs0
- AkFysImjO6w5WIEjDnhoALkhiRIWkk0kYIk88OBuCF5PbMX6deq60rCe6MFo+KKpfAuwV6A2wsw
- 1ni+WUkuq8eDBMFdAfC5a16A=
-X-Envelope-To: linux-kernel@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 4279429b9f88ac8f;
-	Mon, 02 Nov 2026 13:46:00 +0000
-X-Mizu-Trace-ID: 4279429b9f88ac8f
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <4148e258-b406-4964-82b3-11ea624f974e@linux.dev>
-Date: Mon, 2 Nov 2026 13:45:59 +0000
+	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Q6+Shkn/
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a20bde60a0so23277055e9.3
+        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:46:57 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20260707; t=1793627216; x=1794232016; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
+        b=Q6+Shkn/ObJr5jdATQDsyRSPLAb9MySAWl+yJX46CQKajHmZsK/iR0yiIQwuUi8y1J
+         9v1QZf3SPv/OiXznYwMqUybwM8VSNfZy96EEl4hAqrzMSwGDlyCLi5unRHhqOymdpMSA
+         yC/CjmhNV24dDnOUp7jrBKE1wsR/P6KqoEbo0STcFrMMOM38FZB4kn89Smwww6mXWspa
+         8rgzTWjmTWIzabmKmTTBqu3Jig0z76xSvrexbGAZaNosC9cP/MchuajEj9hYb343yGgH
+         KSkDgXj2Kb+7dk7qRtR1cUsRy/KLhwlPWtnZG7bHPMSCGjdwZcTgrgHtUiA1m/CgFOBC
+         3QmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1793627216; x=1794232016;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dubg1gFlwLFjUntHBfFzK7AT4OWC46obGwplwmSB/ss=;
+        b=iOLDAx4QuBlf1avqPww/SbmLE2zPreeXOkGzDFtfl+mYy8r01nzM70pueleVmpf5kQ
+         gwjpyLDZtsZ/gppJvMBSPcs07wD3xLv0kSx98F9SDt3cMVfcrAmcjy2Fu7Lulmojpxhg
+         wpL9zvP4cHKaAC9JOC5DJo3+kKnh3rj14l7FtUckBB0c/nJt1CBdP6v/w45w086Uuq4J
+         eDgnvlOSDrALmMHtUftvSOeT/6WNG4YnhraT4jMGXCPfEDDAHDk4OZ0XHiCFVynaG6YA
+         BwJzFr7I5edCl6Bd4rTg2+PN5bse542wh43CzDkeFfpiyDiYU/fF4ghvIE/vlURzuPZ4
+         /Iug==
+X-Forwarded-Encrypted: i=1; AKwUvByqXr+jl9P9+dQG6NAR7mne/Rjx04H1n0TvgaDgLVODgiQa/L9z/pZ71B+u9mbaMyPrKCxUrT+LmJLF2vI=@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5QqmMUs6EviNfO21vu1bmRiPJC7XJ7Oy+ypyN6UkSWKnLkH8h
+	qQCiTbvpfqYyZP7mCbvwre3CJq2qq8sEv0Cyvnw9YlxoBxSRgT78hGo=
+X-Gm-Gg: AYBFou33+SDAtRCiHkxYfErxbCd+Gk6dYUerYJv4xGGv3gnC9AF9uiTV3ENYKb8I3Ta
+	LFFyNGQgWhIoZ5bWiyr7MPL6Enau4TetQR2OjCDoAIf9cho2R4TClgI69zQ6VPrZ2Bf6cMBh01a
+	REnKcPE1cRmKnCOpEmW9jqXeLuASwjVAOoNgpt0FE7HTiQZxcz4bOc7tnZnJxqTx/3oIBq36TQK
+	Gc1jqXeouK1ajYFHC8wb6udOqmPsNrglYldChlKFAEtGkJXvI2AIMvHyvnCmiDJYKzTUub44WZu
+	PAD46FSvgHpFejdZ3wAB5DNnHDaj4WYpigbIqj1Wp30u8gbFWjiqYOAGGtmjwiqi9TQAPBqCmo6
+	7kb7M2gT89mryOf+7BequQLFnqeR8wYbJI6B0NbNb1/rrUSvuyn/dDTeoDl763vmVX5h5PcwEeZ
+	kxOy9NZgtnYoApE3NMVHjrMJ1BTFdgk7hY/tkO+FUhyUDuzbjqm+8+2aMKTHEWPXd4GkjTUMj7V
+	GJlCitKjKSGg7nvX02pLUZi9oBgqyNw/TQVv8YePEqlxu1lU7cMVqntkKkUfFsvdSOoS2JDoQ==
+X-Received: by 2002:a05:600c:1f94:b0:4a8:f2ad:a9e5 with SMTP id 5b1f17b1804b1-4ac1548f591mr233240795e9.3.1793627216106;
+        Mon, 02 Nov 2026 05:46:56 -0800 (PST)
+Received: from debian.. ([2001:41d0:303:db6b::])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4aa81a896fesm388643405e9.10.2026.11.02.05.46.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 02 Nov 2026 05:46:55 -0800 (PST)
+From: Tristan Madani <tristmd@gmail.com>
+To: jlee@suse.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com
+Cc: marex@denx.de,
+	mjg@redhat.com,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Tristan Madani <tristan@talencesecurity.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86: acer-wmi: validate ACPI object type in acer_gsensor_event()
+Date: Mon,  2 Nov 2026 13:46:54 +0000
+Message-ID: <20261102134654.638644-1-tristmd@gmail.com>
+X-Mailer: git-send-email 2.47.3
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -58,198 +99,45 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 11/14] drm/tidss: oldi: Add power domain support
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>,
- Swamil Jain <s-jain1@ti.com>, Devarsh Thakkar <devarsht@ti.com>,
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-References: <20261029-beagley-ai-display-v4-0-dc7f2b532478@ideasonboard.com>
- <20261029-beagley-ai-display-v4-11-dc7f2b532478@ideasonboard.com>
-Content-Language: en-US
-From: Aradhya Bhatia <aradhya.bhatia@linux.dev>
-In-Reply-To: <20261029-beagley-ai-display-v4-11-dc7f2b532478@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi Tomi,
+From: Tristan Madani <tristan@talencesecurity.com>
 
-On 29/10/26 10:18, Tomi Valkeinen wrote:
-> The OLDI TXes on AM62P and J722S have power domains of their own,
-> described in the DT, unlike the earlier SoCs. The OLDI TX nodes are not
-> real devices, so the driver core does not attach these power domains,
-> and nothing in the core turns them on.
-> 
-> Add support to attach the PDs with dev_pm_domain_attach_by_node(), and
-> manage the power state of the returned virtual devices with runtime PM
-> functions.
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
->  drivers/gpu/drm/tidss/tidss_oldi.c | 88 ++++++++++++++++++++++++++++++++++++++
->  1 file changed, 88 insertions(+)
-> 
-> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/tidss_oldi.c
-> index 5552c1c51074..df2326db3302 100644
-> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
-> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
-> @@ -10,6 +10,8 @@
->  #include <linux/of_graph.h>
->  #include <linux/mfd/syscon.h>
->  #include <linux/media-bus-format.h>
-> +#include <linux/pm_domain.h>
-> +#include <linux/pm_runtime.h>
->  #include <linux/regmap.h>
->  
->  #include <drm/drm_atomic_helper.h>
-> @@ -35,6 +37,12 @@ struct tidss_oldi {
->  
->  	struct clk *serial;
->  	struct regmap *io_ctrl;
-> +
-> +	/*
-> +	 * The power domains of this OLDI TX and, in dual-link mode, of its
-> +	 * companion. NULL for an OLDI TX without a power domain of its own.
-> +	 */
-> +	struct device *pd_devs[2];
->  };
->  
->  struct oldi_bus_format {
-> @@ -238,6 +246,22 @@ static int tidss_oldi_atomic_check(struct drm_bridge *bridge,
->  	return 0;
->  }
->  
-> +static void tidss_oldi_power_get(struct tidss_oldi *oldi)
-> +{
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
-> +		if (oldi->pd_devs[i])
-> +			WARN_ON(pm_runtime_get_sync(oldi->pd_devs[i]) < 0);
-> +	}
-> +}
-> +
-> +static void tidss_oldi_power_put(struct tidss_oldi *oldi)
-> +{
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(oldi->pd_devs); i++) {
-> +		if (oldi->pd_devs[i])
-> +			pm_runtime_put(oldi->pd_devs[i]);
-> +	}
-> +}
-> +
->  static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
->  					 struct drm_atomic_commit *state)
->  {
-> @@ -251,6 +275,8 @@ static void tidss_oldi_atomic_pre_enable(struct drm_bridge *bridge,
->  	if (oldi->link_type == OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)
->  		return;
->  
-> +	tidss_oldi_power_get(oldi);
-> +
->  	connector = drm_atomic_get_new_connector_for_encoder(state,
->  							     bridge->encoder);
->  	if (WARN_ON(!connector))
-> @@ -296,6 +322,8 @@ static void tidss_oldi_atomic_post_disable(struct drm_bridge *bridge,
->  
->  	/* Clear OLDI Config */
->  	tidss_disable_oldi(oldi->tidss, oldi->parent_vp);
-> +
-> +	tidss_oldi_power_put(oldi);
->  }
->  
->  #define MAX_INPUT_SEL_FORMATS	1
-> @@ -468,6 +496,60 @@ static int get_parent_dss_vp(struct device_node *oldi_tx, u32 *parent_vp)
->  	return -ENODEV;
->  }
->  
-> +static void tidss_oldi_detach_pd(void *data)
-> +{
-> +	struct device *pd_dev = data;
-> +
-> +	dev_pm_domain_detach(pd_dev, true);
-> +}
-> +
-> +static struct device *tidss_oldi_create_pd_dev(struct tidss_device *tidss,
-> +					       struct device_node *oldi_tx)
-> +{
-> +	struct device *dev;
-> +	int ret;
-> +
-> +	dev = dev_pm_domain_attach_by_node(tidss->dev, oldi_tx, 0);
-> +	if (IS_ERR_OR_NULL(dev))
-> +		return dev;
-> +
-> +	ret = devm_add_action_or_reset(tidss->dev, tidss_oldi_detach_pd, dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return dev;
-> +}
-> +
-> +static int tidss_oldi_create_pd_devs(struct tidss_device *tidss,
-> +				     struct tidss_oldi *oldi,
-> +				     struct device_node *oldi_tx)
-> +{
-> +	struct device_node *companion;
-> +	struct device *pd_dev;
-> +
-> +	pd_dev = tidss_oldi_create_pd_dev(tidss, oldi_tx);
-> +	if (IS_ERR(pd_dev))
-> +		return PTR_ERR(pd_dev);
-> +
-> +	oldi->pd_devs[0] = pd_dev;
-> +
-> +	if (oldi->companion_instance < 0)
-> +		return 0;
-> +
-> +	companion = of_parse_phandle(oldi_tx, "ti,companion-oldi", 0);
-> +	if (!companion)
-> +		return -EINVAL;
-> +
-> +	pd_dev = tidss_oldi_create_pd_dev(tidss, companion);
-> +	of_node_put(companion);
-> +	if (IS_ERR(pd_dev))
-> +		return PTR_ERR(pd_dev);
-> +
-> +	oldi->pd_devs[1] = pd_dev;
-> +
-> +	return 0;
-> +}
-> +
->  void tidss_oldi_deinit(struct tidss_device *tidss)
->  {
->  	for (int i = 0; i < tidss->num_oldis; i++) {
-> @@ -610,6 +692,12 @@ static int tidss_oldi_init_one(struct tidss_device *tidss,
->  		}
->  	}
->  
-> +	ret = tidss_oldi_create_pd_devs(tidss, oldi, oldi_tx);
-> +	if (ret)
-> +		return dev_err_probe(tidss->dev, ret,
-> +				     "OLDI%u: Failed to set up the power domains.\n",
-> +				     oldi_instance);
-> +
+acer_gsensor_event() accesses the ACPI evaluation result as a package
+without first verifying the object type.  If the firmware returns a
+non-package type, the code reads package.count and package.elements
+from the wrong union member, which can cause a NULL pointer
+dereference or read from an invalid address.
 
-I agree with the what this patch is trying to do, but the
-tidss_oldi_create_pd_devs() should be within the if() block above.
+Add a type check for ACPI_TYPE_PACKAGE before accessing the package
+fields, and validate that each element is ACPI_TYPE_INTEGER before
+reading integer.value.
 
-It seems like you are giving the pd_dev of the secondary OLDI TX to the
-primary, but this path would be executed for secondary OLDI TX in clone
-mode as well, whenever it gets supported.
-Which is not ideal, because the primary OLDI TX in clone mode would
-already be taking care of the secondary's pd_dev.
+Fixes: 1eb3fe1d3b6b ("ACER: Add support for accelerometer sensor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+---
+ drivers/platform/x86/acer-wmi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-The conditional block above with,
-`if (link_type != OLDI_MODE_SECONDARY_CLONE_SINGLE_LINK)`, is exactly
-for things that _can_ be setup per OLDI Tx, but shouldn't, like the
-clock and the IO control.
-
+diff --git a/drivers/platform/x86/acer-wmi.c b/drivers/platform/x86/acer-wmi.c
+index 61ae622c93d94..72b44f02a992f 100644
+--- a/drivers/platform/x86/acer-wmi.c
++++ b/drivers/platform/x86/acer-wmi.c
+@@ -2043,7 +2043,12 @@ static int acer_gsensor_event(void)
+ 	if (ACPI_FAILURE(status))
+ 		return -1;
+ 
+-	if (out_obj->package.count != 4)
++	if (out_obj->type != ACPI_TYPE_PACKAGE || out_obj->package.count != 4)
++		return -1;
++
++	if (out_obj->package.elements[0].type != ACPI_TYPE_INTEGER ||
++	    out_obj->package.elements[1].type != ACPI_TYPE_INTEGER ||
++	    out_obj->package.elements[2].type != ACPI_TYPE_INTEGER)
+ 		return -1;
+ 
+ 	input_report_abs(acer_wmi_accel_dev, ABS_X,
 -- 
-Regards
-Aradhya
+2.47.3
 
