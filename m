@@ -1,72 +1,71 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=170.10.133.124
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793641305;
-	b=zeD24+vlVpIBSAkFufC1HvVHc1BD8cw0M5E2YfvvelGCBAVv/I4s2hHW4LKuZf9o9anw
-	 zM8atJ0fZsEZT/RNB5egRuljAurNN/V4NrgXBgLR1JNwP1a61Pf7w6EBjrefeqAL+IdMg
-	 sfrHfRscTL6KtKoVtZ89TIrbKH/xWknA25/6GNp6EpQwetvqtAy3U/49ji4Q0XINRO+cT
-	 a7WuSByxGXPQhJYsvXhrBMfKfxS+jBPXbUlVCMbBgXG1nELhSKdZTW0pgXeo8zmC8hnJf
-	 wtFKLiXmiugdSsgLzLvBtsFVzpMoh36zA8k4gO7K3EAolqwEl0IId6RR4K33rm1JjwQ==
+	t=1793641296;
+	b=Umo+INnSlg9xJeVllmHk0cwvDtmAnKIDfzl7pxVeEa1M9wTzfe3v+5QLFXHQCiIK54Z9
+	 vaE8BrJmRt1aff/Id1fyTp4X8XWA2g1iGuKgXxIgeWzuhGgNXoslHGpm/fj3jld13lHQM
+	 JX38E4PF0kIDpKzdk71KbbFvs0X2wJisPP2lRi0eLcZX6dXW0GpCarBWseQh33ks3Hx+I
+	 WHkf0lFpxwJIC5WgVClpaothpY+U1wZciFfntffTc0kJZSQhgOlivvJIqYgExn3MCIsmf
+	 G3QYb9iWmnCTsK2VRVtJri+0a5l90YN0QhfHJK+hvsX9zJxhsNx/a6akuUTJl0ao+9g==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793641305;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793641296;
 	h=DMARC-Filter:DKIM-Signature:Received:X-MC-Unique:
-	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Cc:Subject:Date:
+	 X-Mimecast-MFC-AGG-ID:Received:Received:From:To:Subject:Date:
 	 Message-ID:In-Reply-To:References:MIME-Version:Content-Type:
 	 Content-Transfer-Encoding:X-Scanned-By;
-	bh=FOYEkGmoQHAdW6dClUNHWKW771i/hP3Ezfm16raQjns=;
-	b=wdBBMiT4kx+w73pOFgJZHzaK3bfqQLDIFy3YLKAAZ1S44/NAUGyAeCGlB7sFtpQN+nSC
-	 uKnt+BzBbZQ6b+fYPULZAJAjGtfL6ZVcdP2v7gZmo7Z1He+wsHphlp2fi+Rfmv3gQcVRr
-	 FRiuVWtVhpSiXt/qm+sf4PCTjrl7qk18Nx4ILe0tn0KMGc5/lwmwm+GKoySY8rZ3QSc6D
-	 EPPlpCRidu+OMZxs8WbBKWmRYDhPkoOsHFA8wZV3fOIxuEsUWxIp0ZD/usPK+hDnrIEcP
-	 BjIrivHHJnQp9GYllrDDO5VMk0kvBF9ckRvUo4ykXgEnMo4/uOE4eoq1QtNEe1fGbjQ==
+	bh=3R8j+/Fwjb1Rqr262GkW/KC7QfaJNPUx+Sg20voYf/0=;
+	b=Rfgh5ey1NhomlLxbBqHKz+aq9pRzfG1br3ISIvJqMtg8CZCsTDk8Wi4baZg84kOhN/c9
+	 z+/ZxMaIICWIQn9bUeJbF1ruCGUenEQiHPp0IXy6JjdElPgiG6stlWoIVSKza+p95N8Ac
+	 GYPeKHmw7af4k2U4ygG8SnE+UV+DEeN+mZMln9xINYh7OM/8N6T0jye1xO8owbOhLTkdL
+	 qLTyTPa079I++GkIMJWfi7iXhoSediK3N+pa1M3U58ufHwu6Kzf0T39xu7E+nEkEix+LU
+	 1QDz/J+rmjJXFA63eFfMvRgmWGd2dwM3V8QH9t2WPlmCnZqVtuz8DW05dptecY5km6g==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
 	dmarc=pass header.from=redhat.com;
 	spf=pass smtp.mailfrom=redhat.com;
-	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XL6xXgc9;
-	arc=none smtp.remote-ip=170.10.129.124
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	dkim=pass header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UHG8PK+6;
+	arc=none smtp.remote-ip=170.10.133.124
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE55660752BA
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:44 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CE55660752BA
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE61606BA48
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 17:41:35 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 6AE61606BA48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=XL6xXgc9
+	dkim=pass (1024-bit key, unprotected) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=UHG8PK+6
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1793641304;
+	s=mimecast20190719; t=1793641294;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=FOYEkGmoQHAdW6dClUNHWKW771i/hP3Ezfm16raQjns=;
-	b=XL6xXgc9vEKiaTBy8EvE64vz1K7cmJa1kQBEeWH1jCQpsHpue0QFIQUiOD03D1hgqCrNGX
-	osUbKMInn8LvTUUbePvk9ujdC8DYjw0AzJIYhmcgHXyCWoBqxOJ5wuGhel5OgDRuYqY/UY
-	gLtmpnhpIQv/IyEzww7SDaEOuEqd9U8=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+	bh=3R8j+/Fwjb1Rqr262GkW/KC7QfaJNPUx+Sg20voYf/0=;
+	b=UHG8PK+6n2VSQZxmE0lemP57hQAGS+4pjGaxc+TnBBkKtkObfU8Fmicd9nT5HmWT8SsM06
+	1rDfSp6nPh7QFUA6rnx56WVygx7J3h9kt7HA8baRs18+1sGbPZcV5w+oAog3GGdf9IhNNv
+	2tEXNSJ7TdnFYtCpvd0vZKoF/aG+Dcc=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
  (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-425-Mhbcu1qvMcek65bVj2ef7w-1; Mon,
- 02 Nov 2026 12:41:41 -0500
-X-MC-Unique: Mhbcu1qvMcek65bVj2ef7w-1
-X-Mimecast-MFC-AGG-ID: Mhbcu1qvMcek65bVj2ef7w_1793641300
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-74-eYYdhgxXOWigscH3ubHrAQ-1; Mon,
+ 02 Nov 2026 12:41:32 -0500
+X-MC-Unique: eYYdhgxXOWigscH3ubHrAQ-1
+X-Mimecast-MFC-AGG-ID: eYYdhgxXOWigscH3ubHrAQ_1793641291
+Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id E97741801239;
-	Mon,  2 Nov 2026 17:41:39 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C185A1800BC5;
+	Mon,  2 Nov 2026 17:41:31 +0000 (UTC)
 Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6271E18005AD;
-	Mon,  2 Nov 2026 17:41:39 +0000 (UTC)
+	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5E06C30000E3;
+	Mon,  2 Nov 2026 17:41:31 +0000 (UTC)
 From: Paolo Bonzini <pbonzini@redhat.com>
 To: linux-kernel@vger.kernel.org,
 	kvm@vger.kernel.org
-Cc: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Subject: [PATCH 14/45] KVM: x86/mmu: Init memslot hugepage information for non-private_mem VMs too
-Date: Mon,  2 Nov 2026 12:40:58 -0500
-Message-ID: <20261102174130.8779-15-pbonzini@redhat.com>
+Subject: [PATCH 01/45] KVM: nVMX/nSVM: check unconditionally whether CR3 is valid
+Date: Mon,  2 Nov 2026 12:40:45 -0500
+Message-ID: <20261102174130.8779-2-pbonzini@redhat.com>
 In-Reply-To: <20261102174130.8779-1-pbonzini@redhat.com>
 References: <20261102174130.8779-1-pbonzini@redhat.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
@@ -80,70 +79,82 @@ Precedence: list
 MIME-Version: 1.0
 Content-Type: text/plain
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
 
-From: Nicolas Saenz Julienne <nsaenz@amazon.com>
+nested_vmcb_check_save() checks CR3 legality only if long mode is active,
+but it really needs to be checked in all cases - the check uses must be
+zero bits of the host, and indeed nested_svm_load_cr3() later will
+reject illegal CR3 in every mode.  Move the check earlier, and thus out
+of nested_svm_load_cr3().
 
-The list of supported memory attributes is about to grow, and they will
-be available on any VM type (as opposed to only ones targeted at
-confidential computing). As such, update the check in
-kvm_mmu_init_memslot_memory_attributes() to initialize huge page
-information if any kind of memory attributes is available for the VM.
+Likewise for nested_vmx_load_cr3() and nested_vmx_check_guest_state().
 
-Signed-off-by: Nicolas Saenz Julienne <nsaenz@amazon.com>
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
-Link: https://patch.msgid.link/20260918135030.171564-11-pbonzini@redhat.com
 Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 ---
- arch/x86/kvm/mmu/mmu.c   | 3 ++-
- include/linux/kvm_host.h | 6 ++++++
- virt/kvm/kvm_main.c      | 2 +-
- 3 files changed, 9 insertions(+), 2 deletions(-)
+ arch/x86/kvm/svm/nested.c | 9 +++------
+ arch/x86/kvm/vmx/nested.c | 8 ++------
+ 2 files changed, 5 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index 5be24b67f212..3755393de4ca 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -8361,7 +8361,8 @@ void kvm_mmu_init_memslot_memory_attributes(struct kvm *kvm,
+diff --git a/arch/x86/kvm/svm/nested.c b/arch/x86/kvm/svm/nested.c
+index af0ef678433d..fedddcd1cc96 100644
+--- a/arch/x86/kvm/svm/nested.c
++++ b/arch/x86/kvm/svm/nested.c
+@@ -443,7 +443,8 @@ static bool nested_vmcb_check_save(struct kvm_vcpu *vcpu,
+ 		return false;
+ 
+ 	if (CC((save->cr0 & X86_CR0_CD) == 0 && (save->cr0 & X86_CR0_NW)) ||
+-	    CC(save->cr0 & ~0xffffffffULL))
++	    CC(save->cr0 & ~0xffffffffULL) ||
++	    CC(!kvm_vcpu_is_legal_cr3(vcpu, save->cr3)))
+ 		return false;
+ 
+ 	if (CC(!kvm_dr6_valid(save->dr6)) || CC(!kvm_dr7_valid(save->dr7)))
+@@ -456,8 +457,7 @@ static bool nested_vmcb_check_save(struct kvm_vcpu *vcpu,
+ 	 */
+ 	if ((save->efer & EFER_LME) && (save->cr0 & X86_CR0_PG)) {
+ 		if (CC(!(save->cr4 & X86_CR4_PAE)) ||
+-		    CC(!(save->cr0 & X86_CR0_PE)) ||
+-		    CC(!kvm_vcpu_is_legal_cr3(vcpu, save->cr3)))
++		    CC(!(save->cr0 & X86_CR0_PE)))
+ 			return false;
+ 
+ 		if (CC((save->cs.attrib & SVM_SELECTOR_L_MASK) &&
+@@ -717,9 +717,6 @@ static void nested_svm_transition_tlb_flush(struct kvm_vcpu *vcpu)
+ static int nested_svm_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
+ 			       bool nested_npt, bool reload_pdptrs)
  {
- 	int level;
- 
--	if (!kvm_arch_has_private_mem(kvm))
-+	if (!kvm_arch_has_private_mem(kvm) &&
-+	    !kvm_supported_vm_mem_attributes(kvm))
- 		return;
- 
- 	for (level = PG_LEVEL_2M; level <= KVM_MAX_HUGEPAGE_LEVEL; level++) {
-diff --git a/include/linux/kvm_host.h b/include/linux/kvm_host.h
-index 5e386c3d2495..3d0293ebc864 100644
---- a/include/linux/kvm_host.h
-+++ b/include/linux/kvm_host.h
-@@ -2589,6 +2589,12 @@ bool kvm_arch_pre_set_vm_memory_attributes(struct kvm *kvm,
- 					   struct kvm_gfn_range *range);
- bool kvm_arch_post_set_vm_memory_attributes(struct kvm *kvm,
- 					    struct kvm_gfn_range *range);
-+u64 kvm_supported_vm_mem_attributes(struct kvm *kvm);
-+#else
-+static inline u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
-+{
-+	return 0;
-+}
- #endif  /* CONFIG_KVM_VM_MEMORY_ATTRIBUTES */
- 
- #ifdef CONFIG_KVM_PRIVATE_MEMATTR_VM
-diff --git a/virt/kvm/kvm_main.c b/virt/kvm/kvm_main.c
-index cf4cb586f140..2fd595a901bd 100644
---- a/virt/kvm/kvm_main.c
-+++ b/virt/kvm/kvm_main.c
-@@ -2474,7 +2474,7 @@ static u64 kvm_supports_private_mem(struct kvm *kvm)
- #endif
- 
- #ifdef CONFIG_KVM_VM_MEMORY_ATTRIBUTES
--static u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
-+u64 kvm_supported_vm_mem_attributes(struct kvm *kvm)
+-	if (CC(!kvm_vcpu_is_legal_cr3(vcpu, cr3)))
+-		return -EINVAL;
+-
+ 	if (reload_pdptrs && is_pae_paging(vcpu)) {
+ 		if (nested_npt)
+ 			kvm_register_mark_for_reload(vcpu, VCPU_REG_PDPTR);
+diff --git a/arch/x86/kvm/vmx/nested.c b/arch/x86/kvm/vmx/nested.c
+index 9b0bfa2f854c..b133e53fde39 100644
+--- a/arch/x86/kvm/vmx/nested.c
++++ b/arch/x86/kvm/vmx/nested.c
+@@ -1235,11 +1235,6 @@ static int nested_vmx_load_cr3(struct kvm_vcpu *vcpu, unsigned long cr3,
+ 			       bool nested_ept, bool reload_pdptrs,
+ 			       enum vm_entry_failure_code *entry_failure_code)
  {
- 	if (gmem_in_place_conversion || !kvm_supports_private_mem(kvm))
- 		return 0;
+-	if (CC(!kvm_vcpu_is_legal_cr3(vcpu, cr3))) {
+-		*entry_failure_code = ENTRY_FAIL_DEFAULT;
+-		return -EINVAL;
+-	}
+-
+ 	/*
+ 	 * If PAE paging and EPT are both on, CR3 is not used by the CPU and
+ 	 * must not be dereferenced.
+@@ -3323,7 +3318,8 @@ static int nested_vmx_check_guest_state(struct kvm_vcpu *vcpu,
+ 	*entry_failure_code = ENTRY_FAIL_DEFAULT;
+ 
+ 	if (CC(!nested_guest_cr0_valid(vcpu, vmcs12->guest_cr0)) ||
+-	    CC(!nested_guest_cr4_valid(vcpu, vmcs12->guest_cr4)))
++	    CC(!nested_guest_cr4_valid(vcpu, vmcs12->guest_cr4)) ||
++	    CC(!kvm_vcpu_is_legal_cr3(vcpu, vmcs12->guest_cr3)))
+ 		return -EINVAL;
+ 
+ 	if (CC(vmcs12->guest_cr4 & X86_CR4_CET && !(vmcs12->guest_cr0 & X86_CR0_WP)))
 -- 
 2.52.0
 
