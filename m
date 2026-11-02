@@ -1,101 +1,95 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.54
-ARC-Seal: i=2; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=pass;
-	t=1793636099;
-	b=P4wZzwOuTNehDduQQHStNUscv4OVPQJLdpIU7xGRPpLSQXdeo0KHTWIZRUkhJQFRNCR6
-	 a4rbKclRu7c9N+CDJVk0Pz4aRzigsMCWajMn1RDVVUTfSec/+edlY4QfLAGdx0Qm/E+9w
-	 JiIvBfXT4tunYF4+rPaPKTvcaBDM1twbwhXPEsDocC/Axtwq/hS6AX25xcMXvmUim+23N
-	 VGNVQdn1yz7torFw5QrA2z3/o/aJmbWIwPaG4CJl2TVET+pbKY+uo7TlIzTUzVRKDfXWp
-	 /SYhev6kjhOmWlqa5aYYz/5uDGSAaur33UtROp+NOvPuaq5cUvkVf4287Yn6ipF/DmA==
-ARC-Message-Signature: i=2; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793636099;
-	h=DMARC-Filter:Received:DKIM-Signature:X-Google-DKIM-Signature:
-	 X-Forwarded-Encrypted:X-Gm-Message-State:X-Gm-Gg:X-Received:
-	 MIME-Version:References:In-Reply-To:From:Date:X-Gm-Features:
-	 Message-ID:Subject:To:Cc:Content-Type:Content-Transfer-Encoding;
-	bh=RpuEFdOA57qiMSteSsYhsgM5FdR44dmDyqhBvmhwCMU=;
-	b=M3Ft5SFiKvyYXufrbrMYC0Yt9mtEJmcpHAQMdxKn6EHlzL4SUoMPUwRZAhn9/3W0+pVr
-	 JgM8G6Lpc5jh+KkLyCztRCaAUyr2PwKjE5IKknhNapvG2Fi0AZfGz8BAetd+63pbhoOOH
-	 59lmQrJfSbYGHM3rWW8zp2tIoLclgbgPsfn6of7uu7T4y8WwcCKQR+MF5lHf+DQpxiFvY
-	 wUVXwgjpKJiaG8ihwxBhUhqqv8umcHfcly9RvlaioOcsZpw6ZNiWPQRXMDQP6SpBJeLA9
-	 AmPfQBAzaC7TdLaV6hZQVdQodnOafgv5K4E/KDbjvsoVuUt6p1eelxqJWkeE59d0N3w==
-ARC-Authentication-Results: i=2; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=gmail.com;
-	spf=pass smtp.mailfrom=gmail.com;
-	dkim=pass header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RgT70eXS;
-	arc=pass header.oldest-pass=0 smtp.remote-ip=74.125.82.54
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=192.198.163.11
+ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
+	t=1793636153;
+	b=WY3BNv6l+pNbAETal7U73cejsnJYzNRZ0PaPdQMW1vV2f4nM5NgNaNfBaMbC6m+oSku4
+	 iLblctr4Jlz0fuK+gK7weZI1kelAq1rYeCkm3InibriM9RBy5PCqFi0N9F/kGBtOvvyZ7
+	 r0xx8fM/fGYKXPR9vhwPogaX7wpmYH0LAucv5RvzSid6/KHBNdEPEBm/chZkrzOQts7Fx
+	 tr/xVmjjl5N6v0ZgWoC3FeG1sBixODJ5hT/rw2oEJWIdh5RNRqTRMt91G/jGceft6l/D4
+	 THg2pHzzHHooZUMOzSL2/MpreCyK1t4hJCFPf3qW3HIWcx51ze7TEHeXWEPDJvX1+AQ==
+ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
+	a=rsa-sha256; c=relaxed/relaxed; t=1793636153;
+	h=DMARC-Filter:DKIM-Signature:X-CSE-ConnectionGUID:X-CSE-MsgGUID:
+	 X-IronPort-AV:X-IronPort-AV:Received:X-CSE-ConnectionGUID:
+	 X-CSE-MsgGUID:X-ExtLoop1:X-IronPort-AV:Received:Date:From:To:Cc:
+	 Subject:Message-ID:References:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To;
+	bh=XmzZN/QhjlzcSaertRL7UUmB+mzbbmbqLS9Rd6E3UxI=;
+	b=x3vKBnpkW5TniPFie2P4qg4fd28Le9cRBoY0vvnm2QnXh0Iirt7As3skmZ97Trhz7u3w
+	 H6wGj83wabyO2GMxpiYPniT5P2PJgs5dlytQbDASH5Hn2XowNov6sm2u2laBoWtdcNGod
+	 5GBGXre5eElhBLUlKDiWCyW/HIfV+KTXHVE+JO8cawH4VYOIcz27x3dZkvyUhEujHUgmG
+	 OlgZLsjrgsStTPI+DxN/uOfu/i04+LP5/XUlJes3XXDfGHzXSzU5Nb4VcZgU7G2B548XZ
+	 rGdvKgiU60VlwOpE6Id9GvnTUyfFiykX/TDYCWEPa8ickEYccxOpewtTYbGSwmMYHDA==
+ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
+	dmarc=pass header.from=linux.intel.com;
+	spf=pass smtp.mailfrom=linux.intel.com;
+	dkim=pass header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hVhDKak5;
+	arc=none smtp.remote-ip=192.198.163.11
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-ECDSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939596082616
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 16:14:59 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 939596082616
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B833E60716C8;
+	Mon,  2 Nov 2026 16:15:51 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org B833E60716C8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=RgT70eXS
-Received: by mail-dl1-f54.google.com with SMTP id a92af1059eb24-1430eec0070so108793c88.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 08:14:59 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1793636098; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Azq8rGUnmj4ReMhF8iR0ftEJ2zyJGJkJ2Z5fa/yCwW66uZh5oxgaAuP5yWBak0SfkY
-         QqXyyz5ccWVKjZmp1KhAWcVwNWZgm0JXpxITJriOUDZxFkWfQqOQ69e32mlpPuPK7ryp
-         ld9gvDu9cLPHg/D5uFazecW90G3DeP8regHWKff589JYc30uSaXceoHrShueX02zPsg1
-         Lp+R2+bRbUUGx2VKL3R35bsZ1hqkoEfQe6TTkIbRgQSP4Op+3mrSlNLUUTviVLyFeFrN
-         raOIumORdcF+mX5RYij+dt3CNXt05BBUNNBsp13ow013sS13hEQwIPCXNigsYeMYjEq2
-         7VrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RpuEFdOA57qiMSteSsYhsgM5FdR44dmDyqhBvmhwCMU=;
-        fh=WTZB89gz7w4CvcK5Ntuypym0DuHGrq0h1Hi+kzezFck=;
-        b=Vc3BpzWqtfKXrfL1z5pml5JE57KRbgP7k5VckQkdoVXgh8pn2RW7DODmekEArz11Lr
-         o4lTYSWiO60lZH1dt0j5qWV0C9YuzUoknYFisk6eNQC9HdUvEkkLHec9bm0wUxmA0njM
-         VUOUs7jPQfGiMbRU4gmQcpsqpN8IIUZLw1JwOSqgmgkP4sG7a+EUDnPS60rK7kadD4G1
-         KGrxXh1mXglmEQ4l5BHxYlVGFQsDYEounXUvkb+XxmTvXxu/SwxQsbMR2Z53r5r4t9Sa
-         36UMVNC7JoOjYWDM2WGS0Z2jKqiMZ9nxMACxbuQe1kwG+/YVEINzQ2hxvCqTWpLv1YUY
-         PJWQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20260707; t=1793636098; x=1794240898; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RpuEFdOA57qiMSteSsYhsgM5FdR44dmDyqhBvmhwCMU=;
-        b=RgT70eXS75/abuwsKiT6GAvHxyg7xJIPSP2RQecvAnSSllGPPMl7V1fXBsxotceoGt
-         Xk7sCfkTSnr5BNdA4K8x92jmX5GHECO1mkPSuZah1agN7gjapPHv5LFnIyTuB9waY3Oe
-         YKaAXBRuQITiWpFRGHsLrfCgxPUZwbTZIwL1WX/pv94RN4SvrcdXPmrpZP8vtWIcW32R
-         9+ByglVveUgJgBUDUZP4/SkNF8UqHIyfvi05nK6ZjdFSVINJ6s63OmW8BN9WbGxKVNya
-         CF50Wp64PCy9QPFijE0YCNs562tgDFL9LrI3aqGv52kqsj3D+xQJ35+I1fYU9vb0VbUs
-         KJgA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793636098; x=1794240898;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RpuEFdOA57qiMSteSsYhsgM5FdR44dmDyqhBvmhwCMU=;
-        b=ZPKA6ysE6Z55lttZLFVvxl6U8UwhxtqRW+GFRarp4QOmLdlHA8Zka2DhSDiEbiWsw9
-         0Zb0bjPxw9hpwgkpGXD/q2Ud9Cjn0vCRaZzICQWZupoOTJPvtnMEwhmmhE2biiLFuiM5
-         c5sCQI9vNxGsPbV0fQvSqCA4ahyaW8lGAqihzD0SsUY3ZTkRDYJ6OsKsqmEFB7R3pUDh
-         xtIJc9KNPFtofwpvxSmjiR3Zr6BIB4rOOb8g6isp+z2v1YJB8psKzyAH++qL/Ie4xPif
-         OqquoCdoF2DQMZ+tPvxNbQ5XGZxLA+pLmxGEhUoPZHUD9L2ALCP/7ak7FsYUup4TI89d
-         Z9uA==
-X-Forwarded-Encrypted: i=1; AKwUvByQd2iDqOXPF6/msh8MY7uACmr2wdTNO1NLRBaK0aMslA923aLb3WHPvDPBxjzKNAn65OQtNjiG//nBirM=@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/tP5PBSjavkOS46ryjT8QgISp8KLK+/f2q5U8fTXJesRMHkSP
-	hbl4ZatOP2GiOtd4OZupSDed/kaDuvqIW5xenjwT3Ms4wdIF/YXs1uYi6SrqRQ7DckgMSUdV6+4
-	l3R0Ya89JAVybO0uMFGHIOh/UL0TUtmk=
-X-Gm-Gg: AYBFou0oNc25+Vy52uCmjKMLzGbrfuHPi+mvaK/qwinFjBxhSvDlxXJonOkf76tEeos
-	AZuulsxJrXBf7kqZaOwzgRSFt09QwCFIVOSPKSB2q74z+ID4wLbbFinZM1Xp+BuBJVsKlX6nNfc
-	tW2Pig2oYufxS3LUfktEkQ3C5Rd5yEgvhBi+ur+CHvpIDJ6b9v78wK+qUskHn1SaeSxiuPBpzJA
-	W1snLr3aJQcSd6zrqQkGZQqP72wVNJ+E4vUBj0PPEijY8KKvIZ9KbmUXxVl/r8Kxg5WFeL1dcQc
-	pdagqri3qUM7ouO6/oio9WDUTxEI2OKxk8YFmKv7ZMf5ml3Mvz9F85UkNUlnfFZ1shU39xvgGW8
-	AKf6n4UtY19JMlukgQ72LdR/YogWaJj9pf9K3J1BrnFLYn3EuDeoDB1Ajgfdo4bG+Sg8Ye3ljjt
-	8UMEGRSb2cbrD98aM8t4rU/G8kPnYfE2aQ1mzVsDQ+8I8p
-X-Received: by 2002:a05:7022:b053:20b0:144:fd17:3b21 with SMTP id
- a92af1059eb24-1ac500d67e6mr26290103c88.0.1793636098164; Mon, 02 Nov 2026
- 08:14:58 -0800 (PST)
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=hVhDKak5
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1793636152; x=1825172152;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gkPgrxM1TwjKtf3tbno2m9G3lnciTVHEcOozD+OD7mQ=;
+  b=hVhDKak5YlDQQUnBM/dzo6QAE3n7DtMIWbI0KJn4nTVViMPsb85f/N8W
+   KJuMbHMqjgGoL8IUPRzmNPcI/XYfxBNJoT0FaYpOYWE539Isk1G4Svg+8
+   fRhcXLCLFrciIO1dXIyvmbM07S+ahse6BamcA/XEUEUl7OPc5gfEXJrDZ
+   hcEDN57xCu2SVsTJ02s/EHt2FFwOVKxS31PghBUGdB97MQm38CcaBZ4hy
+   WjUOpqwXY7681f08ar1ObaJHi1ZI+dhZoufwr3UGWbRquZ6VHT4b/r6TD
+   E2vhjMtNr6yTO1/hzhA3MHlC0tNDBM2/w13e3P8OHuYXAVwlt8Be9gHmn
+   Q==;
+X-CSE-ConnectionGUID: kUt0Yj0YRUy4aeOmWpwKAA==
+X-CSE-MsgGUID: k2Vequ3PRYWUAe3Hla9liQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11954"; a="2245170"
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="2245170"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 08:15:45 -0800
+X-CSE-ConnectionGUID: vS5QyT21QpqixrBKTRYX7g==
+X-CSE-MsgGUID: tru8nSpATcafRTdDojd5mQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,191,1787036400"; 
+   d="scan'208";a="6175887"
+Received: from tassilo.jf.intel.com (HELO tassilo) ([10.54.38.190])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Nov 2026 08:15:44 -0800
+Date: Mon, 2 Nov 2026 08:15:43 -0800
+From: Andi Kleen <ak@linux.intel.com>
+To: Adrian Hunter <adrian.hunter@intel.com>
+Cc: Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+	Arnaldo Carvalho de Melo <acme@kernel.org>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
+	James Clark <james.clark@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
+	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Jiayuan Chen <jiayuan.chen@linux.dev>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org, driver-core@lists.linux.dev
+Subject: Re: [PATCH 3/6] perf/x86/intel/pt: Stop tracing at syscore shutdown
+Message-ID: <aui3L0ppW-cBBo1W@tassilo>
+References: <20261102074039.26983-1-adrian.hunter@intel.com>
+ <20261102074039.26983-4-adrian.hunter@intel.com>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -105,70 +99,34 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-References: <20261029170831.915318-1-tristmd@gmail.com>
-In-Reply-To: <20261029170831.915318-1-tristmd@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 2 Nov 2026 11:14:46 -0500
-X-Gm-Features: AclHuK_JcRVN6W2vlVWf4f1-FWgd_LnG4QSNqF29fy2tI4WLRUhM7uUGnOkvvqI
-Message-ID: <CADnq5_P9fh0dDU7-vBiBPEY8iNJ2eVZS1kojvObngsYQzb459Q@mail.gmail.com>
-Subject: Re: [PATCH] drm/radeon: validate ATRM return buffer type and length
-To: Tristan Madani <tristmd@gmail.com>
-Cc: Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org, Tristan Madani <tristan@talencesecurity.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261102074039.26983-4-adrian.hunter@intel.com>
 
-Reviewed and applied.  Thanks!
-
-On Fri, Oct 30, 2026 at 5:13=E2=80=AFAM Tristan Madani <tristmd@gmail.com> =
-wrote:
->
-> From: Tristan Madani <tristan@talencesecurity.com>
->
-> radeon_atrm_call() copies the ACPI ATRM method return data without
-> checking that the returned object is actually a buffer or that its
-> length fits within the caller-provided size.  If the ATRM method
-> returns a non-buffer object type or an oversized buffer, the memcpy
-> writes past the destination bounds.
->
-> Add a NULL pointer check and ACPI_TYPE_BUFFER type validation before
-> accessing the buffer fields, and clamp the copy length to the
-> requested size.  This matches the validation already present in the
-> amdgpu counterpart amdgpu_atrm_call().
->
-> Fixes: c61e2775873f ("drm/radeon: split ATRM support out from the ATPX ha=
-ndler (v3)")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-> ---
->  drivers/gpu/drm/radeon/radeon_bios.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/radeon/radeon_bios.c b/drivers/gpu/drm/radeo=
-n/radeon_bios.c
-> index 1da6bf1c17ff3..579ba1c1f23a4 100644
-> --- a/drivers/gpu/drm/radeon/radeon_bios.c
-> +++ b/drivers/gpu/drm/radeon/radeon_bios.c
-> @@ -183,8 +183,13 @@ static int radeon_atrm_call(acpi_handle atrm_handle,=
- uint8_t *bios,
->         }
->
->         obj =3D (union acpi_object *)buffer.pointer;
-> -       memcpy(bios+offset, obj->buffer.pointer, obj->buffer.length);
-> -       len =3D obj->buffer.length;
-> +       if (!obj || obj->type !=3D ACPI_TYPE_BUFFER) {
-> +               kfree(buffer.pointer);
-> +               return -EINVAL;
-> +       }
 > +
-> +       len =3D min_t(size_t, obj->buffer.length, len);
-> +       memcpy(bios + offset, obj->buffer.pointer, len);
->         kfree(buffer.pointer);
->         return len;
->  }
-> --
-> 2.47.3
->
+> +/*
+> + * Tracing must not continue into a kexec'ed kernel, which may reuse the
+> + * trace buffer memory, so stop tracing on all CPUs and prevent it from
+> + * being started again. Events are left in place, but record nothing more.
+> + */
+> +static void pt_syscore_shutdown(void *data)
+> +{
+> +	WRITE_ONCE(pt_shutdown, true);
+> +	on_each_cpu(pt_shutdown_cpu, NULL, 1);
+
+I don't think adding more and more broadcast NMIs to the panic path 
+is a good idea. It's always a very big hammer and a risky operation
+that risks breaking the actual dump. panic reallhy needs to be
+simple and reliable, and this is the total opposite.
+
+KVM already does one at least (which I never liked either). At a
+minimum please find a way to consolidate those into a single
+one (as in have a notifier chain that is called on the target CPU).
+
+But better would be to not do this and find some other way.
+
+How about just passing the PT region as reserved and maybe free
+it later after the target kernel had a chance to reinitialize all CPUs?
+
+
+-Andi
