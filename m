@@ -1,120 +1,65 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=115.124.30.131
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793626546;
-	b=t8LANUGyGumwzpQBfy0nCg9GI9IYxnmSCWtX46YTNOBleplMTBt5LMyDZQbdCOONFn9+
-	 WURF9mL2bwFpnWOBlcyZOsbsmFRKZQqf2rWdzVRJXP/FXEePbzgK0ENiUzI53laDFPE1H
-	 9dWaBREAbExuSTIpjWClBAgHZNg0UWcOZ9LZe+vorz+c3LZB3BEneCYj8OYJsEBA2p2dS
-	 fwF2RhhyCnXlFqukFeSFn19NLX6ZXHhCgkBbAXMT+9fNE54NGKbW1oatCsYCg905CIxvH
-	 8X5DCI/CFeA873C7P6nmsd8gr3EA19Alkj4Ex4TGCu4FS7DDRr1RTYrYVytWrfgYJCA==
+	t=1793626666;
+	b=g3LdkYlX+Kg9O4Hf2Kq+FbPH+iALCRy3dcMh6mQ+d6eIONeA0QXWEcom+DABPNYZfvu5
+	 famiISXZgs7vhOc7Aop2kDvzvf560wsygFhVtGbEYQBSww6msr4+1BwCjSxswNd6iOa0s
+	 g+IHcoCUznkM99bzWSd11A+xXEnZX/XDT9wzTLjU3OW4LhTUvfYXoql4teJAYpHnvuP5K
+	 i8USBda5QXr9J1ssxahHpCTkQCw00wkWOAOEXTTn5RkJZMEwNJ85kyXwwoKZA/DAEW2dw
+	 +7dmEb0inTq2EtSM6eTHk1XDUO02ZDUHlhgmK65GsICLwsaVvmQLhxv7LPPy0fN9+AA==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793626546;
-	h=DMARC-Filter:Received:DKIM-Signature:Received:Received:
-	 DKIM-Signature:X-Google-DKIM-Signature:X-Forwarded-Encrypted:
-	 X-Gm-Message-State:X-Gm-Gg:X-Received:X-Received:Received:From:To:Cc:
-	 Subject:Date:Message-ID:X-Mailer:In-Reply-To:References:MIME-Version:
-	 X-Developer-Signature:X-Developer-Key:Content-Transfer-Encoding:
-	 X-Authority-Analysis:X-Proofpoint-Spam-Details-Enc:
-	 X-Proofpoint-Spam-Info:X-Proofpoint-ORIG-GUID:X-Proofpoint-GUID:
-	 X-Proofpoint-Virus-Version:X-Proofpoint-Spam-Details;
-	bh=+kKcL/SGl6027ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=;
-	b=Y42b+BBD+cIufVGe7v3iYd/y1ivHZ9OScbnuivfxsDrSiTFMaK2c01EmwdMjEfNKv96E
-	 JYIQBK9O4v+eFdS8keeLA4xRh6c49Jb1Q3Q8MhkxPLzMz3dtrwaYsnRRpn6g6LiO2GNn3
-	 GA1DqIvhf+fHnkzjXCYrGOa8JR56ufKrmdgBApf4z1KOISrPaQ9HObdK8nuSiRMHSjJf+
-	 OrK9Dl6TJfQYwbHI03ceb/hWpZppESiTxpuFds2TsVUuMCNmRynd5K7KT70zsPzJAlyfQ
-	 XB6qG416r89hHGGof84lRCfOrGUaV/U7R7w//Eyn9j2HlpB1UXv5tlWKewYJeFNCP1Q==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793626666;
+	h=DMARC-Filter:DKIM-Signature:X-Alimail-AntiSpam:Received:From:To:Cc:
+	 Subject:Date:Message-Id:X-Mailer:MIME-Version:
+	 Content-Transfer-Encoding;
+	bh=H9bvKZVBxfOysBsVNqIEXqXBCIU+hhH5jtMfTN1q6Ek=;
+	b=cHd1+Y0azjn4ZZlUNdhnq5BbBGhekMx+mTggmPF0zRecG4QpPu6yldrl2zqjQ5NYHH77
+	 DvM99LLpImeNU1U3sBtCbJwg3lQUk08+tBhkKWPgwRV+Qiq2zdVq6G+9AOfWL6rCGtmhi
+	 ep7t41vqTcV2An5HqhkNcindx4tmC+jcnEblb/MKIulqj5w3xcgABdcbcJjcwY9skCfF/
+	 Id0ttfIJvWR4rPvV2b66cPdBi9jvaHlIYc6jv4R6KFFvB97RvoQxwYgQNFiictX3yNCOu
+	 qkh5TU7655iVKZAMkv9DjMmiOvKrxL6UuyNS8Xs85N47AVOH8gd+T9kl4VnN7so/HUA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=oss.qualcomm.com;
-	spf=pass smtp.mailfrom=oss.qualcomm.com;
-	dkim=pass header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CKZbqlVI;
-	dkim=pass header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ci+Xq3lh;
-	arc=none smtp.remote-ip=205.220.168.131
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	dmarc=pass header.from=linux.alibaba.com;
+	spf=pass smtp.mailfrom=linux.alibaba.com;
+	dkim=pass header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Ff3wfV0H;
+	arc=none smtp.remote-ip=115.124.30.131
+Received: from out30-131.freemail.mail.aliyun.com (out30-131.freemail.mail.aliyun.com [115.124.30.131])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACC2760A3802
-	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 13:35:45 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org ACC2760A3802
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C119E606A326;
+	Mon,  2 Nov 2026 13:37:44 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org C119E606A326
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=CKZbqlVI;
-	dkim=pass (2048-bit key, unprotected) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ci+Xq3lh
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6A2DAKqo3944293
-	for <linux-kernel@vger.kernel.org>; Mon, 2 Nov 2026 13:35:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=+kKcL/SGl60
-	27ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=; b=CKZbqlVI/olP+C1SjAtSUQfNqiO
-	KUN7qkpys2KZwBQCTNutJ5gX40nBjRaOMIj56MQ7N5ebazW5h5X63CzZXsfJTYmx
-	c/GcMBCkfyMEdvihL3qGMIs+0T3sBZE6sNnNxxKwV+LilZW6LzaXymEEfnDyPQfm
-	2uXmBvmWFivOQjngkXVNI2JFNFCFCganp5LUiS4iRd4HP/rRWqxNaUQQtB7+CGBS
-	6Yy/pxwT4vl/yGzsE6TtJb/hKZTQB4z5PHwAGI88Ic4orclvspnL02AC6miP7xoZ
-	GNWLmplJUmX0ZnT9oXGsaCqWFj9bnFhqkkrx/3/xYW4/TjLEh3m2oeVLhIA==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4hppfe9arv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 13:35:44 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7d06f3784e2so740573137.3
-        for <linux-kernel@vger.kernel.org>; Mon, 02 Nov 2026 05:35:44 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1793626544; x=1794231344; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=+kKcL/SGl6027ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=;
-        b=Ci+Xq3lhwc7NlTqvrfwHtuyn9RBkIoYgfPWVYDupaIpKXAvLLXU1zYH5TormzXoKpY
-         1GPThkoAxE2/gZX5P/g/m5I9fibghRokX4By88OxGCCTVmfStMp2meMQINqjMkOlk463
-         yTEs81DQ+gwEbOI+5ITRoawyHYaPG77hQrTSbw6zpcm/vhmdflZtEjte5mXXBiNsvKmG
-         YAtR8si4r3LZyqZp4iLcTdAgQr8Dj4wRVLylOW5MmGLEBCHeQzVBhKzyZHueUONFNfsM
-         UDJjbqamFqPJjrmEDoaDh6s9OmtEW4fY2cBUwZkkKKJcTZIvykKzF+zbwLiRbcvrSaFY
-         jt/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1793626544; x=1794231344;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+kKcL/SGl6027ugBKquTsFw9GFJFnoeEKE5RlG/yYGU=;
-        b=H1ZDNmfWl3Or8CelG1MFxd3tY49uxljk+r/+bnIg5m4BujE5wB6gtTGo2KS9xJDBmw
-         i7Msbp10wfll2rl4ciBzw81DTqOjQ63H9J5BPkCqrZVYSEtB735hvkKW4Okv/wGsYZoq
-         L1ssAKX5+DgIygCmvizGtlrSEHqhWx9i9FkLPY4jLPHXrw4IyQLGg+2bLszD+wo0ncXe
-         QLQQNxAEy4jlFowRlVtmKFgca+X2oIrl0DyYc3e8+CQCL/9GTsQrfN1xGsDY1AwIXk4o
-         49YF6Jg6TItNHH4WD/66whiUa5IGIqev5a1372tPBATrffkkUE3iOLhjmImeXlCzDAH/
-         uBLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwxCE1RT9s0HtFlgF4fStaZCBqRFSQeRfMXG7lKhfJATrhUr7ctv4+cC1jlEj91qZ1KP4SWlVFxkzz3OmM=@vger.kernel.org
-X-Gm-Message-State: APuU4Z9o8F7roQyzYLo6XS4AWz/y/8g55/zWreM9AwetUW9lno2Z50ts
-	pZaGDnwNOZ5lnjuVsj4P5qHfJyFLYnSoel/kIvr+1vSAEoxEcIgzzFe4ndJPISxHSxzR6C+fU84
-	BqLCxBQgldQ5gfLDl8diVqSTFhk/MD+PJAtNofk3sLFxeuwZFtlw5Mh7KhzmviWiizm0=
-X-Gm-Gg: AYBFou0rFYLGH63symC4kYJCYR/O/oeIuSdyOyYj6RNflXqs6NLHFKRwfXT7tF5faF1
-	u+4qElI8JwKlJDQybmPgFKTFVbFNXKn2xUsRLLB4hZb7OFbifnCvkJyAYCmEoqncmidM79wJcN9
-	oQLnuc0x/uad+aeTfT/Jf5GxT98HQeQUPd8kI1VRA/PyMR51DZoXXZnk3L0dZcGOc3hYTn1vZrW
-	D92tE+r5MXMKPhCt/JicCg+tVOAmAyMePDvsx6tJOu1+NLEUeoeZqRkMjKh/fnow85QIe6uKh9d
-	k2WvkEk5fDhyXC26fHvONOZBuIj3jxQ7GtpjvGmACHt5loz9icv/W5WN4KJ3MKI92T6UsvsVr+Q
-	0xxE0454KQYzVoRZzNXEGFgwUrH7OJKeQXWbyOlrWFvWAKtpSmqIkw014r3oKDw==
-X-Received: by 2002:a05:6102:1481:b0:7a6:85d6:8ae0 with SMTP id ada2fe7eead31-7d0727aa79fmr3912524137.1.1793626543795;
-        Mon, 02 Nov 2026 05:35:43 -0800 (PST)
-X-Received: by 2002:a05:6102:1481:b0:7a6:85d6:8ae0 with SMTP id ada2fe7eead31-7d0727aa79fmr3912503137.1.1793626543282;
-        Mon, 02 Nov 2026 05:35:43 -0800 (PST)
-Received: from quoll ([178.197.218.7])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48e71ba53d7sm25735864f8f.53.2026.11.02.05.35.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 02 Nov 2026 05:35:42 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Andy Gross <agross@codeaurora.org>,
-        Chris Lew <chris.lew@oss.qualcomm.com>,
-        Deepak Kumar Singh <deepak.singh@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: [PATCH v2 3/3] soc: qcom: smp2p: Fix possible out-of-bounds read with too many inbound entries
-Date: Mon,  2 Nov 2026 14:35:34 +0100
-Message-ID: <20261102133531.173434-6-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261102133531.173434-4-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261102133531.173434-4-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (1024-bit key, unprotected) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.a=rsa-sha256 header.s=default header.b=Ff3wfV0H
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1793626661; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=H9bvKZVBxfOysBsVNqIEXqXBCIU+hhH5jtMfTN1q6Ek=;
+	b=Ff3wfV0HO+wh1xmK7CMrbWSqMifHozw7mlsh05OFelb2nYa1YmZHIs3UL621JSLDs6UpldRWsb+BNxEBHjAuO4w7DR6gD84kqGKE1zmF/+dfbAMS1CrFGspH1/gB+hZRRhDbiVWO0/GYML5fd3WtPf/SJR5Ky+mzEALvqgEjfg0=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R601e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=yunye.zhao@linux.alibaba.com;NM=1;PH=DS;RN=13;SR=0;TI=SMTPD_---0XE-5Cf7_1793626660;
+Received: from j66c13357.sqa.eu95.tbsite.net(mailfrom:yunye.zhao@linux.alibaba.com fp:SMTPD_---0XE-5Cf7_1793626660 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Mon, 02 Nov 2026 21:37:41 +0800
+From: Yunye Zhao <yunye.zhao@linux.alibaba.com>
+To: "Michael S. Tsirkin" <mst@redhat.com>,
+	Jason Wang <jasowangio@gmail.com>,
+	Jens Axboe <axboe@kernel.dk>
+Cc: Stefan Hajnoczi <stefanha@redhat.com>,
+	Paolo Bonzini <pbonzini@redhat.com>,
+	=?UTF-8?q?Eugenio=20P=C3=A9rez?= <eperezma@redhat.com>,
+	Xuan Zhuo <xuanzhuo@linux.alibaba.com>,
+	Max Gurtovoy <mgurtovoy@nvidia.com>,
+	virtualization@lists.linux.dev,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Joseph Qi <joseph.qi@linux.alibaba.com>,
+	Ferry Meng <mengferry@linux.alibaba.com>
+Subject: [PATCH] virtio_blk: freeze the virtqueue layout at probe time
+Date: Mon,  2 Nov 2026 21:37:40 +0800
+Message-Id: <20261102133740.88919-1-yunye.zhao@linux.alibaba.com>
+X-Mailer: git-send-email 2.19.1.6.gb485710b
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -124,131 +69,146 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2967; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=JGHmjvxqVCLnaNTJ8V4rzYMgx7betONf24ha/0ULrEE=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBq6JGldf0YXSarv2R6DJiy/HuZHOsc5U8l26bgo
- 2yQL6A8D7SJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCauiRpQAKCRDBN2bmhouD
- 1xVXD/914HmoaJ/b2T1r6wpQ2AL8E8eMIWGwbQDZmsQzjN7xMnCDnoCGMsBaXEJePekDHosYrk3
- M2yh0pmq6/g+nfP4r2sqThrWOZf37AxvBpVp/98DxcQdGh4cPoCeRRxZxcr/N1QfTz4ezZDHSeg
- 44Ivn2EmmYAtdugLEqmYAlVattEB8nfnmHDSK2ArVs02BsRxHGBQsZDXgPDUVIi1BPPVHiQqgtK
- pvnWCWfWbXUc4pigk5jONtD28B2q1EJ1LUcE1GD9EKurwgOirE1FTLfthVBXcwZY785bbdyfjKD
- ukxK5OKhwkoeMaEcwVqXjDFVN7tqCz/sJVfPlO78O9UPjSDG72lxLRh6Cj3D54OTp8vZxHxucnF
- Jogzg2yzvOM5vt2tOmlzaUx/6LJ+3eWAkfA7tZNG6svizCHVDMoibvUtUOrLBUXG+inhMDmaJVo
- 8rksl5qiyCxlKUFkhr9gw9IQ+pBPuFk86WAWUywNBSxwWu/TFIrmD5wjONQ2Am5HuQOmT2akqbf
- QX9PrG3/8hANg82gYdanrGnORp3/NraWlGxjE2dYvr+lUMLGTsjhVdTXRQIV55YayD8gIJkbMXT
- XgVozkj0T+19a4pSMLSS53Ra0nJ7LybBNXwOOXjnsG8NwiRdxsJS6iDEgnZhi9oV3JVTkIDlH2k C8WKN9egLmPWRTA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=SeZi5fRu c=1 sm=1 tr=0 ts=6ae891b0 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=uyPgTw0bjBTS2cVxpiNm5w==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Xix-rBOErL6eV1CkEnYA:9
- a=-aSRE8QhW-JAV6biHavz:22 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX6aNpfkB4bBmx
- ddxa8ZjmfNAznXh4QpsPBK4pu5DZixtW6P6OTJ7wZ15WQo/uK3U/GY1x1n34Orsi8MVRFM4ormQ
- vDAgxOyDFHr4SMbsAsDyl77dJQWlMVMS9XD+OAYcjIy3p1m7+xXS0wDhODdCOSLJacD9J1EepjF
- GaBSNHiPlOsnMLxkwaTqstRM0adrA589OoqLURAi9sVMQi+kPtfJpj1FH5/M91G0+fP4taYIaXx
- Etv0tikdiFON7HmYStATkQ8YeA+UYaQX7L0mbk+VdbAPt/zvZZ/tLhlCz/DAngAUPiSAkOs86n6
- 2EpefAvQMSc1Ym7sKtnaMMwr3XZ11E4DEsKpgIIfszDRevPvEVrYzPkiHyZ/ussYPsfa4HN0en2
- rcJXf8d52xubddpk5mbj0TEwLUoGJnrIo7/PuWJTJ1ewm+QrH0/nFWmqv0J/IXsvTqQTsS1wy/U
- yaoPmVhi55ObcJFtGQg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTAyMDA1NCBTYWx0ZWRfX32gQDJqmfpBX
- D5xi/eWZOATOYXGU7n2eGj3wV1BPWB/U98rz9rKXdBs61oC7+8i4DoemjhjCJnMqlK/nhfS7ZDM
- TDZ8no2QRMBCAqbLnxrM+a9eN8ZF/Ks=
-X-Proofpoint-ORIG-GUID: BGbxn1Comf9IPnOqbZ-nQaLsr6wLqI2y
-X-Proofpoint-GUID: BGbxn1Comf9IPnOqbZ-nQaLsr6wLqI2y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-02_03,2026-11-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
- suspectscore=0 priorityscore=1501 clxscore=1015 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610300000 definitions=main-2611020054
 
-The inbound SMEM item is populated by the remote processor, so its
-contents, including number of entries, should be validated by the
-kernel.  Number of inbound entries is directly used when iterating over
-inbound data structure, so if it is higher than actual count of elements
-in the data, kernel would read memory out-of-bounds.
+init_vq() reads the writable num_request_queues and poll_queues module
+parameters both at probe and when recreating virtqueues after suspend
+or reset. However, virtio-blk does not update the blk-mq hardware queue
+count or queue maps on restore.
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/bug/linux-b79427c9-5d22-4b48-8ee7-1d7808101e52
-Fixes: 8a9a7b9d14c2 ("soc: qcom: smp2p: Add irqchip state support")
-Fixes: 50e99641413e ("soc: qcom: smp2p: Qualcomm Shared Memory Point to Point")
-Cc: stable@vger.kernel.org
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Increasing poll_queues can therefore remove the completion callback
+from a virtqueue still used for interrupt-driven I/O, leaving requests
+uncompleted. Reducing the effective request queue count through
+num_request_queues can instead leave existing hardware contexts
+indexing beyond the reallocated vblk->vqs array.
 
+Determine the virtqueue count and the split between interrupt-driven
+and polling queues once at probe, and reuse this layout when
+recreating the virtqueues. Changes to these module parameters then
+affect only subsequently probed devices.
+
+Fixes: 0989c41bed96 ("virtio-blk: add num_request_queues module parameter")
+Signed-off-by: Yunye Zhao <yunye.zhao@linux.alibaba.com>
 ---
+The functional fix was previously tested with QEMU 8.2.2 on
+7be4bc52fd9e (v7.3-2415), covering:
 
-Changes in v2:
-1. None
----
- drivers/soc/qcom/smp2p.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
+- PCI FLR after changing poll_queues from 0 to 1 or num_request_queues
+  from 0 to 1 on a device with four request queues.
+- Normal and polled I/O across FLR with poll_queues=1 at probe,
+  including a subsequent change of poll_queues to 0.
+- Device suspend/resume with pm_test=devices and state=freeze (not a
+  full s2idle cycle), plus full S3 and S4 suspend/resume cycles.
 
-diff --git a/drivers/soc/qcom/smp2p.c b/drivers/soc/qcom/smp2p.c
-index 49fb738d02a9..9af5004620ff 100644
---- a/drivers/soc/qcom/smp2p.c
-+++ b/drivers/soc/qcom/smp2p.c
-@@ -252,6 +252,21 @@ static int qcom_smp2p_in_version(struct qcom_smp2p *smp2p)
- 	return in->version;
+ drivers/block/virtio_blk.c | 71 +++++++++++++++++++++++++++-----------------
+ 1 file changed, 43 insertions(+), 28 deletions(-)
+
+diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+index c8bfbf8435ac..0df89f381047 100644
+--- a/drivers/block/virtio_blk.c
++++ b/drivers/block/virtio_blk.c
+@@ -958,42 +958,54 @@ static void virtblk_config_changed(struct virtio_device *vdev)
+ 	queue_work(virtblk_wq, &vblk->config_work);
  }
  
-+static unsigned int qcom_smp2p_in_valid_entries(struct qcom_smp2p *smp2p)
++/* Keep the queue layout unchanged for the lifetime of the tag set. */
++static int virtblk_init_queue_layout(struct virtio_blk *vblk)
 +{
-+	unsigned int valid_entries = smp2p->in->valid_entries;
++	struct virtio_device *vdev = vblk->vdev;
++	unsigned short num_vqs;
++	unsigned short num_poll_vqs;
++	int err;
 +
-+	/* Remote side controls the value, so do not trust it */
-+	if (valid_entries > SMP2P_MAX_ENTRY) {
-+		dev_err_ratelimited(smp2p->dev,
-+				    "too many inbound entries: %u\n",
-+				    valid_entries);
-+		return SMP2P_MAX_ENTRY;
++	err = virtio_cread_feature(vdev, VIRTIO_BLK_F_MQ,
++				   struct virtio_blk_config, num_queues,
++				   &num_vqs);
++	if (err)
++		num_vqs = 1;
++
++	if (!err && !num_vqs) {
++		dev_err(&vdev->dev, "MQ advertised but zero queues reported\n");
++		return -EINVAL;
 +	}
 +
-+	return valid_entries;
++	num_vqs = blk_mq_num_possible_queues(
++			min_not_zero(num_request_queues, num_vqs));
++
++	num_poll_vqs = min_t(unsigned int, poll_queues, num_vqs - 1);
++
++	vblk->num_vqs = num_vqs;
++	vblk->io_queues[HCTX_TYPE_DEFAULT] = num_vqs - num_poll_vqs;
++	vblk->io_queues[HCTX_TYPE_READ] = 0;
++	vblk->io_queues[HCTX_TYPE_POLL] = num_poll_vqs;
++
++	dev_info(&vdev->dev, "%d/%d/%d default/read/poll queues\n",
++				vblk->io_queues[HCTX_TYPE_DEFAULT],
++				vblk->io_queues[HCTX_TYPE_READ],
++				vblk->io_queues[HCTX_TYPE_POLL]);
++
++	return 0;
 +}
 +
- static void qcom_smp2p_start_in(struct qcom_smp2p *smp2p)
+ static int init_vq(struct virtio_blk *vblk)
  {
- 	unsigned int smem_id = smp2p->smem_items[SMP2P_INBOUND];
-@@ -259,6 +274,7 @@ static void qcom_smp2p_start_in(struct qcom_smp2p *smp2p)
- 	char buf[SMP2P_MAX_ENTRY_NAME];
- 	struct smp2p_smem_item *in;
- 	struct smp2p_entry *entry;
-+	unsigned int valid_entries;
- 	size_t size;
- 	int i;
+ 	int err;
+ 	unsigned short i;
+ 	struct virtqueue_info *vqs_info;
+ 	struct virtqueue **vqs;
+-	unsigned short num_vqs;
+-	unsigned short num_poll_vqs;
++	unsigned short num_vqs = vblk->num_vqs;
++	unsigned short num_poll_vqs = vblk->io_queues[HCTX_TYPE_POLL];
+ 	struct virtio_device *vdev = vblk->vdev;
+ 	struct irq_affinity desc = { 0, };
  
-@@ -272,7 +288,8 @@ static void qcom_smp2p_start_in(struct qcom_smp2p *smp2p)
- 	if (in->version == 0)
- 		return;
+-	err = virtio_cread_feature(vdev, VIRTIO_BLK_F_MQ,
+-				   struct virtio_blk_config, num_queues,
+-				   &num_vqs);
+-	if (err)
+-		num_vqs = 1;
+-
+-	if (!err && !num_vqs) {
+-		dev_err(&vdev->dev, "MQ advertised but zero queues reported\n");
+-		return -EINVAL;
+-	}
+-
+-	num_vqs = blk_mq_num_possible_queues(
+-			min_not_zero(num_request_queues, num_vqs));
+-
+-	num_poll_vqs = min_t(unsigned int, poll_queues, num_vqs - 1);
+-
+-	vblk->io_queues[HCTX_TYPE_DEFAULT] = num_vqs - num_poll_vqs;
+-	vblk->io_queues[HCTX_TYPE_READ] = 0;
+-	vblk->io_queues[HCTX_TYPE_POLL] = num_poll_vqs;
+-
+-	dev_info(&vdev->dev, "%d/%d/%d default/read/poll queues\n",
+-				vblk->io_queues[HCTX_TYPE_DEFAULT],
+-				vblk->io_queues[HCTX_TYPE_READ],
+-				vblk->io_queues[HCTX_TYPE_POLL]);
+-
+ 	vblk->vqs = kmalloc_objs(*vblk->vqs, num_vqs);
+ 	if (!vblk->vqs)
+ 		return -ENOMEM;
+@@ -1025,7 +1037,6 @@ static int init_vq(struct virtio_blk *vblk)
+ 		spin_lock_init(&vblk->vqs[i].lock);
+ 		vblk->vqs[i].vq = vqs[i];
+ 	}
+-	vblk->num_vqs = num_vqs;
  
--	for (i = smp2p->valid_entries; i < in->valid_entries; i++) {
-+	valid_entries = qcom_smp2p_in_valid_entries(smp2p);
-+	for (i = smp2p->valid_entries; i < valid_entries; i++) {
- 		list_for_each_entry(entry, &smp2p->inbound, node) {
- 			memcpy(buf, in->entries[i].name, sizeof(buf));
- 			if (!strcmp(buf, entry->name)) {
-@@ -292,13 +309,15 @@ static void qcom_smp2p_notify_in(struct qcom_smp2p *smp2p)
- 	int irq_pin;
- 	u32 status;
- 	char buf[SMP2P_MAX_ENTRY_NAME];
-+	unsigned int valid_entries;
- 	u32 val;
- 	int i;
+ out:
+ 	kfree(vqs);
+@@ -1470,6 +1481,10 @@ static int virtblk_probe(struct virtio_device *vdev)
  
- 	in = smp2p->in;
+ 	INIT_WORK(&vblk->config_work, virtblk_config_changed_work);
  
- 	/* Match newly created entries */
--	for (i = smp2p->valid_entries; i < in->valid_entries; i++) {
-+	valid_entries = qcom_smp2p_in_valid_entries(smp2p);
-+	for (i = smp2p->valid_entries; i < valid_entries; i++) {
- 		list_for_each_entry(entry, &smp2p->inbound, node) {
- 			memcpy(buf, in->entries[i].name, sizeof(buf));
- 			if (!strcmp(buf, entry->name)) {
--- 
-2.53.0
++	err = virtblk_init_queue_layout(vblk);
++	if (err)
++		goto out_free_vblk;
++
+ 	err = init_vq(vblk);
+ 	if (err)
+ 		goto out_free_vblk;
 
+base-commit: 7be4bc52fd9e0e55dc9a2e0232b89427d2c4b614
+-- 
+2.19.1.6.gb485710b
