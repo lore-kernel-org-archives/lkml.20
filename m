@@ -1,85 +1,91 @@
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.remote-ip=185.246.84.56
 ARC-Seal: i=1; d=subspace.kernel.org; s=arc20261015; a=rsa-sha256; cv=none;
-	t=1793610376;
-	b=G13hraZ6kmI1mhg6g5sl80rffVjcEzWf7LE+iIRJv4Vp1nB6YhXAEqGAbqHtjabILkXg
-	 bxcdjnrUDwh6axw66XgoXZYMya6uJfx+4q+6yOpYKAgrcDraQ7thy0mtQEwBRoj/YSeCO
-	 rW5Mw75QqAb92q6enM6ND42ml7btGGZDDPNhOsMCt0y7T1oGAbddfHc6Ay4EhyKLRJMdb
-	 jtDt744M6cNXJ79nI28zJE2yFMDdcTOhAZJLbG0Nd6I+DEcKiAHhUBr0qwqVyxzH2rVn9
-	 L4wNBFrN1Xx2ovC5yWGQ9eykhlVoe2pNLeyN1B3c3fVj+D0Cxg8I3VhukBmFOR7GSTQ==
+	t=1793610379;
+	b=njqARbGKjcKHqv7S0SLcTqdcEDsZVezIA0gAmIYo0ObpjWi4DdOhBivrRp/XE1Dhxl1L
+	 3LfbRWcoIafS9qfRshHKF+YLldkdlKyeJZbLmu5vOO8tHi4jMqaI52XHKk9HK/Z76cb1f
+	 4S9H+hsLbgRoCfHHas/tAJua/CTihH5LvMwKyIVKbaT5ZU7kLqg9/v0YB3p7kj6+9d3Lw
+	 fMNdvnSuvbEsgivxfnrJH5h8AiBPshQUTDXnUmxKHY7HQdX5iBpty1Ck58oxy1r9dWpBU
+	 Mx67QWBN+Tn7QZKcMYqLFTR/TcFxg8x6gjBn/4UZGbwi2jvccbDm0eWDsiPNyT4BWdw==
 ARC-Message-Signature: i=1; d=subspace.kernel.org; s=arc20261015;
-	a=rsa-sha256; c=relaxed/relaxed; t=1793610376;
-	h=DMARC-Filter:DKIM-Signature:Received:Received:Date:From:To:Cc:
-	 Subject:Message-ID:References:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To;
-	bh=77Xvm1RZi1fMUkErP5AZnNQjl3KUFV3T8alLBOD3IkA=;
-	b=l+fnSlqKdn2T2yv9G/oAtfTCPHO12ToI+uRE7i6OWobPiPiAlGjV/oqtM8sRWPLcmeb9
-	 dFrvsfJC1vqKHOXKyRyh5CBe08ziciB6+jQwy5Z31YYiATYjwrOnXFb+t3f0my7rK9Tak
-	 JhZD8mEFXkYx43lgxXgZ6kx85PN9Qwpn0xdYPkC99Bst1ZRs6ljdJ5ynUSemtylSI8aAM
-	 0FqshbZdaVlZiGH419xx4qNDLWJUNfXQgaZuh7WFQjVcCtjg4Ns1JSFdRxh0HipK+lDhW
-	 wQKnQTJuq76M24J3IkNESKZHq/HM1u1DozN45E0GyXGClxYF9x/0Qm5Jh0QDXasJ+1w==
+	a=rsa-sha256; c=relaxed/relaxed; t=1793610379;
+	h=DMARC-Filter:Received:Received:Received:DKIM-Signature:From:To:Cc:
+	 Subject:Date:Message-ID:In-Reply-To:References:MIME-Version:
+	 User-Agent:Content-Transfer-Encoding:X-Last-TLS-Session-Version;
+	bh=t7e45QyRXwdTcxtvzKczysOOf5DXVWjfhXKIFEcpEQI=;
+	b=IZL/H68ZEGl/XaSduIzKIAStI3Ol0UvgsxrzoJa4Z3XsjZs+RkKewc6SLbqQ7YkT9b1h
+	 XzWiEG0/i7ehxxQw5CR7Ok6ItGOFiZqF/E2t9WzXpgjEDj6B8PVMGznVONQWAeJhpJ3Kb
+	 7HfVPgdOaIwPijlbBtxBBRo3WwG6mHGLAYvcOrKO5Ybx+6vlOk1S8xpy6eqhmlJxCV6vJ
+	 NN+4xdYUJYmQb6EDCZxjOchwjBC68npxA9+nE9oxg3+YJR58Zk/udM1lQebQCvdpp/X0T
+	 tcAjGxtUgIlFoxYHeMhw/8xIOL/zgQqwEcHoeB3cV18E8GgkpKU7JSNDnixkxJDn8uA==
 ARC-Authentication-Results: i=1; smtp.subspace.kernel.org; 
-	dmarc=pass header.from=infradead.org;
-	spf=pass smtp.mailfrom=infradead.org;
-	dkim=pass header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=SuhR9+vn;
-	arc=none smtp.remote-ip=90.155.50.34
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
+	dmarc=pass header.from=bootlin.com;
+	spf=pass smtp.mailfrom=bootlin.com;
+	dkim=pass header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kp8vrrQQ;
+	arc=none smtp.remote-ip=185.246.84.56
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65C05606A324;
-	Mon,  2 Nov 2026 09:06:15 +0000 (UTC)
-DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org 65C05606A324
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF450606A333
+	for <linux-kernel@vger.kernel.org>; Mon,  2 Nov 2026 09:06:17 +0000 (UTC)
+DMARC-Filter: OpenDMARC Filter v1.4.2 smtp.subspace.kernel.org CF450606A333
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=casper.20170209 header.b=SuhR9+vn
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=77Xvm1RZi1fMUkErP5AZnNQjl3KUFV3T8alLBOD3IkA=; b=SuhR9+vnaTOUcvs25RDk/YBx7U
-	DD+eBRPNPIrYJxMnypkeuCgCUYcC3KH8Pve/4VJOBP7UEilytwKIBC6Nujr/VxuGLPF3U/HGB2SG5
-	GMcYRXk5ztdK6oiyVtaCYe2O9FUa/T7fSvhyuezjnUgdEAuV9Yrzp/G80DG1vLf4/UNhEUmndwfcd
-	/gc/facHFTAvWiOM6HwTYv5YG7x+xpML4zM0IZczXrLu6kp4DZuoBaur/8DHmdo5p65xLI5+LuDFk
-	aR4a4e+TTXtR/T95Wy9RSDvPEWlYX414XnRoVKvp05FP06O95dJpovAtM2uIQx31xv1JH0H+HYgxt
-	oM9NpRbQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
-	id 1xNnzR-00000001eC4-0uDX;
-	Mon, 02 Nov 2026 09:06:05 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id C3DA4300312; Mon, 02 Nov 2026 10:06:04 +0100 (CET)
-Date: Mon, 2 Nov 2026 10:06:04 +0100
-From: Peter Zijlstra <peterz@infradead.org>
-To: Adrian Hunter <adrian.hunter@intel.com>
-Cc: Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>,
-	James Clark <james.clark@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>, Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Jiayuan Chen <jiayuan.chen@linux.dev>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
-	"Vineeth Pillai (Google)" <vineeth@bitbyteword.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Andi Kleen <ak@linux.intel.com>, linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-	driver-core@lists.linux.dev
-Subject: Re: [PATCH 1/6] irq_work: Re-raise pending irq_work after system
- resume
-Message-ID: <20261102090604.GR1779021@noisy.programming.kicks-ass.net>
-References: <20261102074039.26983-1-adrian.hunter@intel.com>
- <20261102074039.26983-2-adrian.hunter@intel.com>
+	dkim=pass (2048-bit key, unprotected) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=kp8vrrQQ
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id F3B711A136B;
+	Mon,  2 Nov 2026 09:06:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BB1A760750;
+	Mon,  2 Nov 2026 09:06:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8D7091032909D;
+	Mon,  2 Nov 2026 10:06:06 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1793610374; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=t7e45QyRXwdTcxtvzKczysOOf5DXVWjfhXKIFEcpEQI=;
+	b=kp8vrrQQt69+/P3hzqU4pEodu/3iWqr7oBsiktrIhhNdCKTk8tZPuX23WasfiVSmzHcZK+
+	VD9Kzjw5TRNM/VWK46fsKc932tOiShJEv8Oh+QXRJMBNq9odaO8A0OaOvsBuAifIuGLMWt
+	+qMTvQ5tvwYicyNQ0KynMqIUhXW4JgVp/cHOCLTXovCADSFPBloXg+B6EhNgMrIRbaoUA/
+	RuC60LXZe/SSSRRKyynuTmEOOwxmn9DtYZlRhBxvJCr7JWvT0hfMOkwVk6NI5aRAF+YTc0
+	81sqbodMtFNiIz/EPk8boLLGhE2Qs9k7XF6huNtDrxED+YBJsIshI5kr7vnIfQ==
+From: Romain Gantois <romain.gantois@bootlin.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-usb@vger.kernel.org,
+	Alan Stern <stern@rowland.harvard.edu>,
+	linux-kernel@vger.kernel.org,
+	Josef Bacik <josef@toxicpanda.com>,
+	stable <stable@kernel.org>,
+	Griffin Kroah-Hartman <griffin@kroah.com>,
+	Oliver Neukum <oneukum@suse.com>,
+	Johan Hovold <johan@kernel.org>,
+	Valentina Manea <valentina.manea.m@gmail.com>,
+	Shuah Khan <shuah@kernel.org>,
+	Hongren Zheng <i@zenithal.me>,
+	Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Neill Kapron <nkapron@google.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Justin Chen <justin.chen@broadcom.com>,
+	Al Cooper <alcooperx@gmail.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Xu Yang <xu.yang_2@nxp.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Elad Nachman <enachman@marvell.com>,
+	Badhri Jagan Sridharan <badhri@google.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	Benson Leung <bleung@chromium.org>,
+	Romain Gantois <romain.gantois@bootlin.com>,
+	Rui Miguel Silva <rui.silva@linaro.org>,
+	Minas Harutyunyan <hminas@synopsys.com>
+Subject: Re: [PATCH 00/19] USB: a bunch of llm-found fixes
+Date: Mon,  2 Nov 2026 10:06:06 +0100
+Message-ID: <20261102090606.13146-1-romain.gantois@bootlin.com>
+In-Reply-To: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
+References: <20261027-llm-usb-v1-0-b9751ddb9c7c@linuxfoundation.org>
 X-Mailing-List: linux-kernel@vger.kernel.org
 List-Id: <linux-kernel.vger.kernel.org>
 List-Post: <mailto:linux-kernel@vger.kernel.org>
@@ -89,40 +95,67 @@ List-Unsubscribe: <mailto:linux-kernel+unsubscribe@vger.kernel.org>
 List-Owner: <mailto:linux-kernel+owner@vger.kernel.org>
 Precedence: list
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261102074039.26983-2-adrian.hunter@intel.com>
+User-Agent: koshi/0.3.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Nov 02, 2026 at 09:40:34AM +0200, Adrian Hunter wrote:
-> irq_work_queue() raises the irq_work self-interrupt only when adding
-> work to an empty raised_list.  Once raised_list is non-empty, further
-> queueing assumes the interrupt is already pending and will eventually
-> process the list.
+On Tuesday, 27 October 2026 15:57:55 CET Greg Kroah-Hartman wrote:
+> From: Josef Bacik <josef@toxicpanda.com>
 > 
-> That assumption can fail across system suspend.  irq_work queued after
-> arch_suspend_disable_irqs() and before the interrupt controller is
-> suspended, for example from NMI context, may leave its self-interrupt
-> pending in hardware.  If that pending interrupt state is lost during
-> suspend, hibernation restore, or kexec jump, raised_list remains
-> non-empty after resume but nothing will process it.
+> typec_set_mode() passes a state without an alternate mode, and the USB
+> and accessory modes (TYPEC_MODE_USB2 ... TYPEC_MODE_DEBUG) start at
+> TYPEC_STATE_MODAL like the states of the alternate modes. TCPM and UCSI
+> set TYPEC_MODE_AUDIO or TYPEC_MODE_DEBUG when such an accessory is
+> attached. tusb1046_mux_set() then reads state->alt->svid: plugging in an
+> analog audio adapter is a NULL pointer dereference.
 > 
-> Subsequent irq_work added to raised_list will not raise another
-> interrupt because the list is already non-empty.  Architectures that use
-> an irq_work interrupt and do not process raised_list from the tick can
-> therefore leave irq_work pending indefinitely.  A caller waiting in
-> irq_work_sync() may then spin forever, for example when closing a perf
-> event whose pending irq_work never executes.
+> The numbers must not reach the switch either: TYPEC_MODE_AUDIO has the
+> value of TYPEC_DP_STATE_D. Without an alternate mode connect the
+> SuperSpeed lanes for TYPEC_MODE_USB3 and disconnect them for the rest.
 > 
-> For suspend, hibernation, and kexec jump, only the CPU that remains
-> online is affected.  The other CPUs are taken offline beforehand, and
-> smpcfd_dying_cpu() runs irq_work_run() on each CPU before it is removed,
-> so checking the local raised_list is sufficient.
+> Fixes: 7c561b8c3e83 ("usb: typec: mux: Add support for the TUSB1046
+> crosspoint switch") Cc: stable <stable@kernel.org>
+> Cc: Romain Gantois <romain.gantois@bootlin.com>
+> Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+> Signed-off-by: Josef Bacik <josef@toxicpanda.com>
+> Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+> ---
+>  drivers/usb/typec/mux/tusb1046.c | 14 ++++++++++----
+>  1 file changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/usb/typec/mux/tusb1046.c
+> b/drivers/usb/typec/mux/tusb1046.c index 34ef81f75693..a463ba5f53be 100644
+> --- a/drivers/usb/typec/mux/tusb1046.c
+> +++ b/drivers/usb/typec/mux/tusb1046.c
+> @@ -43,11 +43,17 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  	struct tusb1046_priv *priv = typec_mux_get_drvdata(mux);
+>  	struct i2c_client *client = priv->client;
+>  	struct device *dev = &client->dev;
+> +	unsigned long req = state->mode;
+>  	int mode, val, ret = 0;
+> 
+> -	if (state->mode >= TYPEC_STATE_MODAL &&
+> -	    state->alt->svid != USB_TYPEC_DP_SID)
+> -		return -EINVAL;
+> +	if (req >= TYPEC_STATE_MODAL) {
+> +		/* USB and accessory modes: not the DP pin assignments */
+> +		if (!state->alt)
+> +			req = req == TYPEC_MODE_USB3 ? TYPEC_STATE_USB :
+> +						       TYPEC_STATE_SAFE;
+> +		else if (state->alt->svid != USB_TYPEC_DP_SID)
+> +			return -EINVAL;
+> +	}
+> 
+>  	dev_dbg(dev, "mux mode requested: %lu\n", state->mode);
+> 
+> @@ -60,7 +66,7 @@ static int tusb1046_mux_set(struct typec_mux_dev *mux,
+>  		goto out_unlock;
+>  	}
+> 
+> -	switch (state->mode) {
+> +	switch (req) {
+>  	case TYPEC_STATE_USB:
+>  		mode = TUSB1046_CTLSEL_USB3;
+>  		break;
 
-I thought here was a suspend2idle option where all the CPUs remain
-online?
-
-Anyway, I'm torn; I would much rather make this trigger a WARN and have
-suspend pause/resume perf in a more controlled manner. Also, ISTR there
-being hooks in kexec, but I can't seem to find them :/
-
-
+Reviewed-by: Romain Gantois <romain.gantois@bootlin.com>
